@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02FD6CD37BE
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 16:42:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7118CD484D
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 16:42:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6111D10E83B;
-	Mon, 11 May 2026 16:42:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43AC010E841;
+	Mon, 11 May 2026 16:42:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dz3U+bZ1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YLtxj0QJ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10C2D10E839;
- Mon, 11 May 2026 16:42:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6611310E839;
+ Mon, 11 May 2026 16:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778517753; x=1810053753;
+ t=1778517755; x=1810053755;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=6ksRLpzzHFhcBUdb1J/Onti9wVBXzTHcjpbpfzrGgLA=;
- b=dz3U+bZ1ayXVf0Khs01IA1WwaZC/EctjCwguHOMMELOPU1DkM1+BOuRN
- CpYoP9FSY8YyGEZpFEeZUs1MpdIrvLbHDSHi5Y8BfW6J0SKyL9uzjcLGK
- t8Lh6fVXlSIJ5GITga+hktPeraCLpRyJhHiJpQ7yossVP9GqhURywi7MA
- WOWxvS6OiMpaTX888a6S6NhOcxL1zU1d9YVQ/V6TAdKPnEvXDdn3GBWlv
- 2nHXDSuHgMch/FMq2O3X9LSZ30S0HS9hoyhydusjEyBBLKUApHZAiNBgt
- 3xQUsUBjrE1listko7YH9VAF/tRBJ8SoYCVQpVFnGpCvLdindSBUy2An5 Q==;
-X-CSE-ConnectionGUID: ab5t7AyRQNGMxck1f1DTFw==
-X-CSE-MsgGUID: LWi+mR+MSxetaPKkld9Zmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79593720"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79593720"
+ bh=FYeurmInRw3zArAHv2sY0mOncHdNQObt10MeTSp1ra4=;
+ b=YLtxj0QJlQD811HlxkivuDI3+KsKcn/k9bioSY2poTQ50EfEOMSSb02J
+ jYOJlOHQA9QtEMikGwQeX0Fx6mQLh1CntZQYVsvuW5DasKOyVozDu1U+S
+ 5JsSu9xJYVKRne8BRmD0+jgat4ebXANvpCScHdBa+KuwIqHlNsgc4LSe4
+ 8rHKZJyJEUO7zCTx8L5iUkWOyfgMihNdM4rcpgz+wk24NbwAdiK2cG+Rj
+ O/ScEIwY0vJ2PWTF8//Ydd8nZsfBNbbW/O9VrHaR5gSeo9vgxEGgL2GK+
+ HGjjw+IbiePE9jimdjHMzR39R+eKEqookajfONmIAwt/C2U5WDqc47byq g==;
+X-CSE-ConnectionGUID: h1tLZzBQQjuoqyRKzFnxrg==
+X-CSE-MsgGUID: aBZXYpI6S1+SxlkieMruvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79593721"
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79593721"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 09:42:33 -0700
-X-CSE-ConnectionGUID: BIXJ5x4SRr2ftSwEGTFLZA==
-X-CSE-MsgGUID: U7FjIQtnR0eGQXHWobQFiQ==
+ 11 May 2026 09:42:34 -0700
+X-CSE-ConnectionGUID: 30yaUBSdRV2McIwk43JBqw==
+X-CSE-MsgGUID: 2Qkz4l+YSpOdUklMtEwVKA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="231111070"
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="231111083"
 Received: from slindbla-desk.ger.corp.intel.com (HELO fdugast-desk.home)
  ([10.245.245.34])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 09:42:31 -0700
+ 11 May 2026 09:42:33 -0700
 From: Francois Dugast <francois.dugast@intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, matthew.auld@intel.com,
  Francois Dugast <francois.dugast@intel.com>
-Subject: [PATCH v2 2/3] gpu/buddy: Track per-order free blocks with a
+Subject: [PATCH v2 3/3] gpu/buddy: Track per-order used blocks with a
  scoreboard
-Date: Mon, 11 May 2026 18:41:05 +0200
-Message-ID: <20260511164217.150237-3-francois.dugast@intel.com>
+Date: Mon, 11 May 2026 18:41:06 +0200
+Message-ID: <20260511164217.150237-4-francois.dugast@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260511164217.150237-1-francois.dugast@intel.com>
 References: <20260511164217.150237-1-francois.dugast@intel.com>
@@ -70,216 +70,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reporting per-order free block counts in drm_buddy_print() currently
-requires walking all rbtrees, which is O(n) over the total number of
-free blocks and holds the allocator lock for the duration. This becomes
-expensive on large VRAM heaps with many small free fragments.
+Extend the scoreboard approach from the previous commit to used blocks,
+so drm_buddy_print() can report per-order allocation pressure in O(1).
 
-Maintain a free_scoreboard[] array indexed by order instead, so that
-the count for any order is always available in O(1). The scoreboard is
-kept accurate by hooking into the four places where a block's free state
-changes: mark_free(), mark_allocated(), mark_split(), and the sites in
-__gpu_buddy_free(), __force_merge(), and the four err_undo paths that
-call rbtree_remove() directly on free blocks without going through
-mark_*().
+Unlike free blocks, an allocated block can leave the allocated state
+through mark_free() (normal free and gpu_buddy_block_trim()) or be
+consumed directly by gpu_block_free() during coalescing. Both sites are
+guarded by gpu_buddy_block_is_allocated() and paired with the increment
+in mark_allocated().
 
-The print functions are simplified as a result: the rbtree traversal
-is replaced by a direct array lookup.
-
-v2: Update after fix for use-after-free in split_block() call sites
+v2:
+- Update after fix for use-after-free in split_block() call sites
+- Change goto label to out_free_used_scoreboard for clarity
+- Make drm_buddy_print() and gpu_buddy_print() symmetric for used and
+  free
 
 Signed-off-by: Francois Dugast <francois.dugast@intel.com>
 Assisted-by: GitHub Copilot:claude-sonnet-4.6
 ---
- drivers/gpu/buddy.c         | 39 +++++++++++++++++++++++--------------
- drivers/gpu/drm/drm_buddy.c | 16 ++-------------
- include/linux/gpu_buddy.h   |  7 +++++++
- 3 files changed, 33 insertions(+), 29 deletions(-)
+ drivers/gpu/buddy.c         | 39 +++++++++++++++++++++++++++----------
+ drivers/gpu/drm/drm_buddy.c | 18 +++++++++++------
+ include/linux/gpu_buddy.h   |  8 ++++++++
+ 3 files changed, 49 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index dac2027bb64a..01247e3201fb 100644
+index 01247e3201fb..daff39f50c40 100644
 --- a/drivers/gpu/buddy.c
 +++ b/drivers/gpu/buddy.c
-@@ -193,6 +193,8 @@ static void mark_allocated(struct gpu_buddy *mm,
- 	block->header &= ~GPU_BUDDY_HEADER_STATE;
+@@ -194,6 +194,7 @@ static void mark_allocated(struct gpu_buddy *mm,
  	block->header |= GPU_BUDDY_ALLOCATED;
  
-+	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
-+
+ 	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
++	mm->used_scoreboard[gpu_buddy_block_order(block)]++;
+ 
  	rbtree_remove(mm, block);
  }
+@@ -203,6 +204,9 @@ static void mark_free(struct gpu_buddy *mm,
+ {
+ 	enum gpu_buddy_free_tree tree;
  
-@@ -204,6 +206,8 @@ static void mark_free(struct gpu_buddy *mm,
++	if (gpu_buddy_block_is_allocated(block))
++		mm->used_scoreboard[gpu_buddy_block_order(block)]--;
++
  	block->header &= ~GPU_BUDDY_HEADER_STATE;
  	block->header |= GPU_BUDDY_FREE;
  
-+	mm->free_scoreboard[gpu_buddy_block_order(block)]++;
-+
- 	tree = get_block_tree(block);
- 	rbtree_insert(mm, block, tree);
- }
-@@ -214,6 +218,8 @@ static void mark_split(struct gpu_buddy *mm,
- 	block->header &= ~GPU_BUDDY_HEADER_STATE;
- 	block->header |= GPU_BUDDY_SPLIT;
- 
-+	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
-+
- 	rbtree_remove(mm, block);
- }
- 
-@@ -271,6 +277,7 @@ static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
- 		}
- 
- 		rbtree_remove(mm, buddy);
-+		mm->free_scoreboard[gpu_buddy_block_order(buddy)]--;
+@@ -281,6 +285,9 @@ static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
  		if (force_merge && gpu_buddy_block_is_clear(buddy))
  			mm->clear_avail -= gpu_buddy_block_size(mm, buddy);
  
-@@ -335,6 +342,7 @@ static int __force_merge(struct gpu_buddy *mm,
- 					iter = rb_prev(iter);
++		if (gpu_buddy_block_is_allocated(block))
++			mm->used_scoreboard[gpu_buddy_block_order(block)]--;
++
+ 		gpu_block_free(mm, block);
+ 		gpu_block_free(mm, buddy);
  
- 				rbtree_remove(mm, block);
-+				mm->free_scoreboard[gpu_buddy_block_order(block)]--;
- 				if (gpu_buddy_block_is_clear(block))
- 					mm->clear_avail -= gpu_buddy_block_size(mm, block);
+@@ -398,11 +405,17 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+ 	if (!mm->free_scoreboard)
+ 		return -ENOMEM;
  
-@@ -384,11 +392,17 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
- 
- 	BUG_ON(mm->max_order > GPU_BUDDY_MAX_ORDER);
- 
-+	mm->free_scoreboard = kcalloc(mm->max_order + 1,
-+				      sizeof(*mm->free_scoreboard),
++	mm->used_scoreboard = kcalloc(mm->max_order + 1,
++				      sizeof(*mm->used_scoreboard),
 +				      GFP_KERNEL);
-+	if (!mm->free_scoreboard)
-+		return -ENOMEM;
++	if (!mm->used_scoreboard)
++		goto out_free_free_scoreboard;
 +
  	mm->free_trees = kmalloc_array(GPU_BUDDY_MAX_FREE_TREES,
  				       sizeof(*mm->free_trees),
  				       GFP_KERNEL);
  	if (!mm->free_trees)
--		return -ENOMEM;
-+		goto out_free_scoreboard;
+-		goto out_free_scoreboard;
++		goto out_free_used_scoreboard;
  
  	for_each_free_tree(i) {
  		mm->free_trees[i] = kmalloc_array(mm->max_order + 1,
-@@ -450,6 +464,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+@@ -464,7 +477,9 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
  	while (i--)
  		kfree(mm->free_trees[i]);
  	kfree(mm->free_trees);
-+out_free_scoreboard:
-+	kfree(mm->free_scoreboard);
+-out_free_scoreboard:
++out_free_used_scoreboard:
++	kfree(mm->used_scoreboard);
++out_free_free_scoreboard:
+ 	kfree(mm->free_scoreboard);
  	return -ENOMEM;
  }
- EXPORT_SYMBOL(gpu_buddy_init);
-@@ -488,6 +504,7 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
- 		kfree(mm->free_trees[i]);
+@@ -505,6 +520,7 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
  	kfree(mm->free_trees);
  	kfree(mm->roots);
-+	kfree(mm->free_scoreboard);
+ 	kfree(mm->free_scoreboard);
++	kfree(mm->used_scoreboard);
  }
  EXPORT_SYMBOL(gpu_buddy_fini);
  
-@@ -739,6 +756,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
- 	    (gpu_buddy_block_is_free(block) &&
- 	     gpu_buddy_block_is_free(buddy))) {
- 		rbtree_remove(mm, block);
-+		mm->free_scoreboard[gpu_buddy_block_order(block)]--;
- 		__gpu_buddy_free(mm, block, false);
- 	}
- 	return ERR_PTR(err);
-@@ -851,6 +869,7 @@ alloc_from_freetree(struct gpu_buddy *mm,
- err_undo:
- 	if (tmp != order) {
- 		rbtree_remove(mm, block);
-+		mm->free_scoreboard[gpu_buddy_block_order(block)]--;
- 		__gpu_buddy_free(mm, block, false);
- 	}
- 	return ERR_PTR(err);
-@@ -974,6 +993,7 @@ gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
- 	    (gpu_buddy_block_is_free(block) &&
- 	     gpu_buddy_block_is_free(buddy))) {
- 		rbtree_remove(mm, block);
-+		mm->free_scoreboard[gpu_buddy_block_order(block)]--;
- 		__gpu_buddy_free(mm, block, false);
- 	}
- 	return ERR_PTR(err);
-@@ -1062,6 +1082,7 @@ static int __alloc_range(struct gpu_buddy *mm,
- 	    (gpu_buddy_block_is_free(block) &&
- 	     gpu_buddy_block_is_free(buddy))) {
- 		rbtree_remove(mm, block);
-+		mm->free_scoreboard[gpu_buddy_block_order(block)]--;
- 		__gpu_buddy_free(mm, block, false);
- 	}
- 
-@@ -1498,21 +1519,9 @@ void gpu_buddy_print(struct gpu_buddy *mm)
+@@ -1519,15 +1535,18 @@ void gpu_buddy_print(struct gpu_buddy *mm)
  		mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
  
  	for (order = mm->max_order; order >= 0; order--) {
--		struct gpu_buddy_block *block, *tmp;
--		struct rb_root *root;
--		u64 count = 0, free;
--		unsigned int tree;
+-		u64 count = mm->free_scoreboard[order];
+-		u64 free = count * (mm->chunk_size << order);
 -
--		for_each_free_tree(tree) {
--			root = &mm->free_trees[tree][order];
--
--			rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
--				BUG_ON(!gpu_buddy_block_is_free(block));
--				count++;
--			}
--		}
-+		u64 count = mm->free_scoreboard[order];
-+		u64 free = count * (mm->chunk_size << order);
- 
--		free = count * (mm->chunk_size << order);
- 		if (free < SZ_1M)
- 			pr_info("order-%2d free: %8llu KiB, blocks: %llu\n",
- 				order, free >> 10, count);
+-		if (free < SZ_1M)
+-			pr_info("order-%2d free: %8llu KiB, blocks: %llu\n",
+-				order, free >> 10, count);
++		u64 free_count = mm->free_scoreboard[order];
++		u64 used_count = mm->used_scoreboard[order];
++		u64 block_size = mm->chunk_size << order;
++		u64 free = free_count * block_size;
++		u64 used = used_count * block_size;
++
++		if (block_size < SZ_1M)
++			pr_info("order-%2d free: %8llu KiB, used: %8llu KiB, free_blocks: %llu, used_blocks: %llu\n",
++				order, free >> 10, used >> 10, free_count, used_count);
+ 		else
+-			pr_info("order-%2d free: %8llu MiB, blocks: %llu\n",
+-				order, free >> 20, count);
++			pr_info("order-%2d free: %8llu MiB, used: %8llu MiB, free_blocks: %llu, used_blocks: %llu\n",
++				order, free >> 20, used >> 20, free_count, used_count);
+ 	}
+ }
+ EXPORT_SYMBOL(gpu_buddy_print);
 diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index faa025498de4..eef995e08a37 100644
+index eef995e08a37..1536e59c6fe7 100644
 --- a/drivers/gpu/drm/drm_buddy.c
 +++ b/drivers/gpu/drm/drm_buddy.c
-@@ -47,23 +47,11 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
+@@ -47,17 +47,23 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
  		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
  
  	for (order = mm->max_order; order >= 0; order--) {
--		struct gpu_buddy_block *block, *tmp;
--		struct rb_root *root;
--		u64 count = 0, free;
--		unsigned int tree;
--
--		for_each_free_tree(tree) {
--			root = &mm->free_trees[tree][order];
--
--			rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
--				BUG_ON(!gpu_buddy_block_is_free(block));
--				count++;
--			}
--		}
-+		u64 count = mm->free_scoreboard[order];
-+		u64 free = count * (mm->chunk_size << order);
+-		u64 count = mm->free_scoreboard[order];
+-		u64 free = count * (mm->chunk_size << order);
++		u64 free_count = mm->free_scoreboard[order];
++		u64 used_count = mm->used_scoreboard[order];
++		u64 block_size = mm->chunk_size << order;
++		u64 free = free_count * block_size;
++		u64 used = used_count * block_size;
  
  		drm_printf(p, "order-%2d ", order);
  
--		free = count * (mm->chunk_size << order);
- 		if (free < SZ_1M)
- 			drm_printf(p, "free: %8llu KiB", free >> 10);
+-		if (free < SZ_1M)
+-			drm_printf(p, "free: %8llu KiB", free >> 10);
++		if (block_size < SZ_1M)
++			drm_printf(p, "free: %8llu KiB, used: %8llu KiB",
++				   free >> 10, used >> 10);
  		else
+-			drm_printf(p, "free: %8llu MiB", free >> 20);
++			drm_printf(p, "free: %8llu MiB, used: %8llu MiB",
++				   free >> 20, used >> 20);
+ 
+-		drm_printf(p, ", blocks: %llu\n", count);
++		drm_printf(p, ", free_blocks: %llu, used_blocks: %llu\n",
++			   free_count, used_count);
+ 	}
+ }
+ EXPORT_SYMBOL(drm_buddy_print);
 diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-index 71941a039648..a28f7d7637ca 100644
+index a28f7d7637ca..e037714563d8 100644
 --- a/include/linux/gpu_buddy.h
 +++ b/include/linux/gpu_buddy.h
-@@ -173,6 +173,13 @@ struct gpu_buddy {
- 	 * that fits in the remaining space.
+@@ -180,6 +180,14 @@ struct gpu_buddy {
+ 	 * called on a free block.
  	 */
- 	struct gpu_buddy_block **roots;
+ 	u64 *free_scoreboard;
 +	/*
-+	 * Per-order free block scoreboard: free_scoreboard[order] holds the
-+	 * number of blocks of that order currently in the free state.
-+	 * Incremented in mark_free(), decremented wherever rbtree_remove() is
-+	 * called on a free block.
++	 * Per-order used block scoreboard: used_scoreboard[order] holds the
++	 * number of blocks of that order currently in the allocated state.
++	 * Incremented in mark_allocated(), decremented in mark_free() (guarded
++	 * by gpu_buddy_block_is_allocated()) and in __gpu_buddy_free() when an
++	 * allocated block is consumed directly during buddy coalescing.
 +	 */
-+	u64 *free_scoreboard;
++	u64 *used_scoreboard;
  /* public: */
  	unsigned int n_roots;
  	unsigned int max_order;
