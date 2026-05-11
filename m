@@ -4,164 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D95D9CD37BE
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8791CCD37BE
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:22:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3862110E84C;
-	Mon, 11 May 2026 17:21:57 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iqUdWFtX";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA0510E837;
- Mon, 11 May 2026 17:21:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778520116; x=1810056116;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=lS8ARNr6b7HifY6MP0cmDPzokOmlMUIiuY4pkPuy3Xg=;
- b=iqUdWFtXDzWZw/FPv0ovGeCWtjB2clCZ/gkrQRtrrI1yYDv1iECGO44Y
- 7bx/V1YhuE2cAaIJhZqq8qZXyGtIkCzysMK4AaGVQ66Pum2fWxoAZb66i
- TalNvClndLgzuQGucM76IyKqXVs3+bh2liQepKEAy1lXRRrRfbnXCQnx7
- nUWHrFfgYmKKV6PpncIzPRT54ylkXLxSQSacpfd6GbTt5+Ipk08fnAtON
- yj3k2hhwPHDXcQbkQbs+v3AbkYK21W4ljECzKVtdzf+OA6FXwfaTFtjGK
- /aghFrImLofSyizFFgaB1bGuES4b6kywNGqvQ1FTa3GD0OSrCdmBRozVA w==;
-X-CSE-ConnectionGUID: 9e8RfzGLTbWzixAwJiegSQ==
-X-CSE-MsgGUID: IVMhHWQeTvmeg+mhFmPgdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79440758"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79440758"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:21:55 -0700
-X-CSE-ConnectionGUID: Zuhc8LknTvijttS2AVmQDg==
-X-CSE-MsgGUID: KIVM76MJRteUO8MRH2CsLw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="237608642"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:21:56 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 11 May 2026 10:21:55 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 11 May 2026 10:21:55 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.3) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 11 May 2026 10:21:55 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mkjflx6uB0WKVfub7UyMW5/hldKFCB59qs00kG0AZZN2JMIsKjpM9dVBbs2tgEd5YyDgkQNjk2ium+0AErJmXLa3k5MbsaQdTvhooKmDnDwZnrjHjdtiucZemNTQO51LE6cOLcKORAPCq05qCQKJJnpM2H2MrZP9FtTI03rfiL4T0R0wnGEF9ZAwTog7tOWnl3OOYkEkOPqxN39iNBX8nAKVIagn2XkbK+TbJH17lUngW4xv9R5NKmwXhMWCroOEAMXN6RssBEatK0v6eY4iN4wIUA3px7y2u3FDjpVE5jYCQyHOmjtaq/Cpn+7Lh6KQ0If32ENdMmL71SRvtAC/4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bnKEdnChpuDyNTF76AeDpz2g2ZXRP+GLNKJRgCf2qoE=;
- b=HrsUQexdMiOUEQX6TGm00/WEH0n7nBQi7HoGt9HiSinhY6PWamESztGRmfoVgITcDWBDlQzc/vJw8vx1E1uCRgapPB5sX/Ubs0isv54ZFtZIpikdF3+UF+SHc31JO/8+Ah6OSzKvfCIL5PvuGge4ZcO4FI1EIjC/00xsfRVOfXMll0MW3TI8+P/6KRaiv17MyPYLx1rWutuvJOmrJB/o2/iSsjFJ0NrYIwGM80iOh07m6kop36ygAOZPA93Zihsnbg02EcHpW7ogfKug9e8mnvPCbwhR18sFYJD8PgNJXJczNXse81JziE8fVD2cUdPBPF3b3ecTXaVAyvFaQwAAKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- IA1PR11MB6171.namprd11.prod.outlook.com (2603:10b6:208:3e9::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
- 2026 17:21:51 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%6]) with mapi id 15.20.9891.021; Mon, 11 May 2026
- 17:21:51 +0000
-Message-ID: <5e90b9aa-9432-43b5-ae40-1fce383bb043@intel.com>
-Date: Mon, 11 May 2026 22:51:38 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 09/11] drm/xe/ras: Set error threshold support
-To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
-CC: <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <kuba@kernel.org>,
- <lijo.lazar@amd.com>, <Hawking.Zhang@amd.com>, <davem@davemloft.net>,
- <pabeni@redhat.com>, <edumazet@google.com>, <maarten@lankhorst.se>,
- <zachary.mckevitt@oss.qualcomm.com>, <rodrigo.vivi@intel.com>,
- <michal.wajdeczko@intel.com>, <matthew.d.roper@intel.com>,
- <umesh.nerlige.ramappa@intel.com>, <mallesh.koujalagi@intel.com>,
- <soham.purkait@intel.com>, <anoop.c.vijay@intel.com>,
- <aravind.iddamsetty@linux.intel.com>
-References: <20260417211730.837345-1-raag.jadav@intel.com>
- <20260417211730.837345-10-raag.jadav@intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <20260417211730.837345-10-raag.jadav@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0082.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d8::12) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E963A10E1DF;
+	Mon, 11 May 2026 17:22:55 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F55210E1DF
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 17:22:53 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
+ by APP-03 (Coremail) with SMTP id rQCowAA3G+JhEAJq99uzEA--.13588S2;
+ Tue, 12 May 2026 01:22:42 +0800 (CST)
+Message-ID: <3ee00ebc4ff5bcf2a8754466f8d9d04b24f81858.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm/loongson: clean up KMS polling on probe failure
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Myeonghun Pak <mhun512@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: Sui Jingfeng <suijingfeng@loongson.cn>, Jianmin Lv
+ <lvjianmin@loongson.cn>,  Qianhai Wu <wuqianhai@loongson.cn>, Huacai Chen
+ <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,  Xi Ruoyao
+ <xry111@xry111.site>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie	 <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 	linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Date: Tue, 12 May 2026 01:22:41 +0800
+In-Reply-To: <20260511170152.16957-1-mhun512@gmail.com>
+References: <20260511170152.16957-1-mhun512@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|IA1PR11MB6171:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4defbe8b-ea39-4b4d-d981-08deaf81ca20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|18002099003|22082099003|56012099003|3023799003|11063799003;
-X-Microsoft-Antispam-Message-Info: VT/xw4XYcaYlsxhjO8WUkzo4A1+liGkdbPOuJ6ByMjKnCvrKSY8YQmasON+Og52qd9ZQUy+wa/XlfcQaK09UimosybKJ15rZ919BKz1g9s3z00Z9SdxWB6kHI5kmbPv1vk+OmuPaq3ff/MJxewDhkKzekvdJSr/E+oszSDwohAKHgi0gbCkZZB7UjLz8029djNemIEPkN4cGTgdUwl4WHE0jyxb/5IDRbtXII7+fNnfdTPaBuCWOWnC0pYiolieZa99w7ohhATfZOGHVejgYMxTn4RZclx5WP24nmax0JuInogMZHq2I8lTsfIpLD4JMzC0Dp54FfRwixupdNOfScjcCiJRrG9qkz+DwBMtdvOoMkGvyPy+P5lOzB9Z4dSTMevXSEdpVArX99lVjh5KwzHH2I3oqvi5pkkGdUjVr+wbIbrJgexxIbWI0LeTSiBK5horRTlj5GcBsY2bTWMIKuUGlIWiecpU3yisI5nP73izSd1mAjF1S+mC4BeQj1NTNjgI8IpHqG+DLKbfLQW6tAn3+H3QceTx0WfTuh9jOFwiwfoxFdVmWB0MMlV+hbiM3KCla3/YTs9woyrK2iEHjcbJfQ9o47c/e5WBRHxfxJJfMaS89tZ5lQpbOgcaTIcB82S06/Ibjt9scCZYWFqu529GyceiI8++b1JY4A1j+N5FK1Wx/iRgf9GeDAjm8uaxVrHMR9XHqDOhn5pFztOU12w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003)(3023799003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3dkcUhQcEZqWm1FMkRqSVBLdWExQkJubVk1RE1qR0lBZklRcUR3dXY5alQz?=
- =?utf-8?B?dk9zY0ZoMXJ4VmdqdXNQTENUNE9VQWNkNksrdlduYWFVbG9aT25GcnVsRVg4?=
- =?utf-8?B?MW5FZmxQMkNtZjROaExCWFo4RHNpUnFOZUg2VUt5WHJxN29LMzlhMEtVN0Vn?=
- =?utf-8?B?QyttbFRSOFROTE5nR3AwVk9icUpRamdKTHZPZ0tDSm9XSVdGZGovaXNKZ3o4?=
- =?utf-8?B?WVJxdC81K3FjVFUzbFBRenZxekl5ZVRVZXYwTGtIUFhJV09EVDR0WVdmRnc1?=
- =?utf-8?B?Uk9tOGZnRkNxZlRtOEdNUk80MEVaaUphQkoyWnJwWm9WUlh4RUs4YXJhVGlD?=
- =?utf-8?B?M0dra0ViejZBdGZaTjJIcURnckp1Qk1vbW5nbVBYTGg1V0VDQ3J4Zmt5bXda?=
- =?utf-8?B?R3pXYVFsYWdVNUNodjFFUXh4TWtjZTdtTnZFbGtOUTB4SnZ3cnF3Uy9rM2hP?=
- =?utf-8?B?aXpKSG1qd1EyOThoSzV6a1E0cXdlKzdrV2hOU1JDOEJVTXVsell4Wm45ZFkr?=
- =?utf-8?B?aytGakdaNXpZQmRrYWl5R0g3YUlib1hwT1laTTZWbHg1am85Q041Yld5R1ZO?=
- =?utf-8?B?QkRDYVJVTUI0YXNUaFVLQVIwem1PTmxuVnU0SGFtemd0UTA4N0dYQTB4czlY?=
- =?utf-8?B?R2RESmh0VkVtTFBsaHYrM2xWOWYxMG9OWGQzeitwWUo2MlVHd3ZIT1RQZzVZ?=
- =?utf-8?B?NVhyczZvdnNMeFZyVHRIV1YyRmU4ak5HRlg0enlTODVRWkhmVDZQR0NnSEVH?=
- =?utf-8?B?c1JIclVWeExBbFZVSmlrYTE1WnJSM1RVc0cwT1U0cFNENHlXaENXakpLUndK?=
- =?utf-8?B?KytrUDNRK0FGdEFDUXYvaWxOampDOVd3clVzTis3L2dieldBWFRQc2kvQWF3?=
- =?utf-8?B?STNnNktIeHNzSC9zczBCM002MmlIWTFwK28xT09waFM2Uy9LS21KLzgzVkFp?=
- =?utf-8?B?OFRsQU9zNG5EeXBvSkFiaFJtMjNrNXNFNGpCSk1KRlhrZy8vSUpJZEUxYmxT?=
- =?utf-8?B?ak8wMSswcHVBS2lteU1LK1QwV3NwK0l2WHAwam05ZU8ybGpMWTdTcDR1RVRj?=
- =?utf-8?B?aWo0Ym1PLy9aZFlSYzhvRE9pUzQyT3JkOFYvRFpEaWtobitoUU1zeUxOaU1x?=
- =?utf-8?B?K0NLVmtSWkU4MTZ5amlMenN4UGU5S3F4RWc3M0o4RGlWd2w5U3hWL0R1b1Ni?=
- =?utf-8?B?ZndkMWRkaHYxQWZOTzZ3SDBaZDVRV1drcUg0VFNCdEU3ZklvcXJTa0h1NytE?=
- =?utf-8?B?QktJT3NjUkhHV2RTOUJ2c2UzWStHUWNXNUZJaVdIQ05zYjJjeVhVWjJzZmgz?=
- =?utf-8?B?YS83WUd1R2Y4c2NGamw1bWVmZ0hxaUFWSm9Zc1dGdFhmK29TQlFMcEdzd0hX?=
- =?utf-8?B?dHQ1QjhZUW52em5YWXdsdC9ZN3RkUmYzVUpDSVRDNldjVnM3YmNKdkIrNlNi?=
- =?utf-8?B?T3c0b0RJVjkxTGlycXM4UFV5MkU5VmpybWhLSDdXMGU3YWdJN28wYS9lSXdK?=
- =?utf-8?B?UXNEQVAzUTFsdnZSK1ZyR042Wk10M1dQT1N4eS9rbFcwcWY4OXJEdldhc0ZH?=
- =?utf-8?B?Ky9uMVdQZ3N5N0dmUGZZRllDL0Y2L2hkY1JhcDhkWUhnY3JoTm5lb3BLSVVs?=
- =?utf-8?B?OFlmOVozUGduZUlSeHJvRWpLcWdJTlROY3ZJRFo1anlXeUxNN0dBemtkNEN2?=
- =?utf-8?B?ODdkbUdqdjFxL2ZXTE41QlN0WnIxRTMwNmFVMzNVMzFOUTdFSzBkV2xSZkg2?=
- =?utf-8?B?ZVpqTHFlUXhpU0hPa25hQWdNM1EvWGYvUDMzenN4bGJjMWdsbTYrYjFMdXRN?=
- =?utf-8?B?Y0EzN3VzWkdCOXBMWnAwREltTFpXK3JTMjFHRjVVVTkvcjltcmJBdU1PdlVR?=
- =?utf-8?B?dWMwaTVITjVIbkljT0s0OU9LdU1Mb3hySW9MS3FkeGsza21wR21yalBLMjJ4?=
- =?utf-8?B?TUFqMnpNcitkUXJNLytNaDBsOEljdjRweGFVZitreDRBRnVwQ2hKWUhFaDVR?=
- =?utf-8?B?UW04cEFpNm9FVk9uVWVsLzNsc05OcHBVcVlNbitOd0NPeC9HUHQwL3NLTzF2?=
- =?utf-8?B?Rllsd0VHWFZuRGpZbmowQlUxUXh0TFdYYndmc3I4S0FwdVZUQWFIT2tQVnNX?=
- =?utf-8?B?ZitEak9jY1ZDWE1BN1k0K2VERUN6bEZpcjJ4QjZUQXVZQWpMVGd1N05qbzJO?=
- =?utf-8?B?MVA2cDdVaXpQUVJObm1PZmR3RGFDSHQyOUxDMitKYjFWR00ySGdGOWNDVXZr?=
- =?utf-8?B?cmFMQWViRzFTYnVFQVdtalZxam0wUmhabEVMdmU5cUNGSjcwNFpzNXRKb1Q3?=
- =?utf-8?B?M0pCN1Y1WVE5WHNMckpwUEFPYlUrcWkyY0dHV0dVL3pmSVVFVmUrZz09?=
-X-Exchange-RoutingPolicyChecked: EiRT1bXTNgcuCwcz0PCBy6HG+pYdM2ZKJiNanRDuJv6obn2fDbzQ0aXqqZUs32yCLKgYLTDmZu0vITcMPXAhWlF6SkIlTvnmc63TlXQMftyKc0CjfqYTTHJITyLGe/W6HAAgG03S7AXtwoe7cixMhPNlnZddVJ8B27dGEz/RBKnAWXzdEkhq3sSee3Wxgf2HbKLFu1nQJIumNaHrR6o3g9gznCheqzl2tWl1jWi+IApIRz+vhKzj8sMDBXzDyJqDrroZijJ3XFDmJIH6pZIcx2coC0DxzH73pJq/WMN2X7JjFmOCg8Te3FXGTj5hY7CZIBKi/Jsv70cbqC/ClFdLzA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4defbe8b-ea39-4b4d-d981-08deaf81ca20
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 17:21:51.1959 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mdyyP+NPp0jgfvpfJoc1qiInfvK6iQt2itNavu1vKGg2R94ZwyG0fvz6RV5Wy9cZNNaqwYFOnJL0pVPH6lcwLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6171
-X-OriginatorOrg: intel.com
+X-CM-TRANSID: rQCowAA3G+JhEAJq99uzEA--.13588S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCF48WFWkXF1xKrWUWrWktFb_yoW5Xw18pF
+ s3Ga4Ykry0qrs7KryDXFyDZa4aqrWxta4S9rs7J340gr1qyrWvqFy0vF12qw15JFZYkF1a
+ q3WvqrWru347C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+ UI43ZEXa7IU56yI5UUUUU==
+X-Originating-IP: [112.94.100.82]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,154 +68,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+=E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 02:01 +0900=EF=BC=8CMyeonghun Pak=E5=
+=86=99=E9=81=93=EF=BC=9A
+> lsdc_pci_probe() initializes KMS polling before setting up vblank
+> support,
+> requesting the IRQ and registering the DRM device. If any of those
+> later
+> steps fails, probe returns without finalizing polling. The remove
+> path has
+> the same lifetime gap when tearing down a successfully registered
+> device.
+>=20
+> Route those probe failures through a poll cleanup label. Also
+> finalize
+> polling from remove before unregistering the DRM device.
 
-On 4/18/2026 2:46 AM, Raag Jadav wrote:
-> System controller allows programming per error threshold value, which
-> it uses to raise error events to the driver. Set it using mailbox
-> command so that it can be programmed by the user.
->
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+Interesting, but it looks like a `drmm_kms_helper_poll_init` function
+exists (while rarely used).
+
+Maybe it's better to switch to this? Or maybe there's some reason not
+to use this?
+
+Thanks,
+Icenowy
+
+>=20
+> This issue was identified during our ongoing static-analysis research
+> while
+> reviewing kernel code.
+>=20
+> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+> controller")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 > ---
->   drivers/gpu/drm/xe/xe_ras.c                   | 42 +++++++++++++++++++
->   drivers/gpu/drm/xe/xe_ras.h                   |  1 +
->   drivers/gpu/drm/xe/xe_ras_types.h             | 28 +++++++++++++
->   drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |  2 +
->   4 files changed, 73 insertions(+)
->
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index 3e93f838aa4a..26e063166c5f 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-> @@ -163,3 +163,45 @@ int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32
->   	       comp_to_str(counter.common.component), sev_to_str(counter.common.severity));
->   	return 0;
->   }
+> =C2=A0drivers/gpu/drm/loongson/lsdc_drv.c | 11 ++++++++---
+> =C2=A01 file changed, 8 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c
+> b/drivers/gpu/drm/loongson/lsdc_drv.c
+> index abf5bf68ee..3db1f8690a 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_drv.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_drv.c
+> @@ -297,7 +297,7 @@ static int lsdc_pci_probe(struct pci_dev *pdev,
+> const struct pci_device_id *ent)
+> =C2=A0	if (loongson_vblank) {
+> =C2=A0		ret =3D drm_vblank_init(ddev, descp->num_of_crtc);
+> =C2=A0		if (ret)
+> -			return ret;
+> +			goto err_poll_fini;
+> =C2=A0
+> =C2=A0		ret =3D devm_request_irq(&pdev->dev, pdev->irq,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 descp->funcs->irq_handler,
+> @@ -305,7 +305,7 @@ static int lsdc_pci_probe(struct pci_dev *pdev,
+> const struct pci_device_id *ent)
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_name(&pdev->dev), ddev=
+);
+> =C2=A0		if (ret) {
+> =C2=A0			drm_err(ddev, "Failed to register interrupt:
+> %d\n", ret);
+> -			return ret;
+> +			goto err_poll_fini;
+> =C2=A0		}
+> =C2=A0
+> =C2=A0		drm_info(ddev, "registered irq: %u\n", pdev->irq);
+> @@ -313,17 +313,22 @@ static int lsdc_pci_probe(struct pci_dev *pdev,
+> const struct pci_device_id *ent)
+> =C2=A0
+> =C2=A0	ret =3D drm_dev_register(ddev, 0);
+> =C2=A0	if (ret)
+> -		return ret;
+> +		goto err_poll_fini;
+> =C2=A0
+> =C2=A0	drm_client_setup(ddev, NULL);
+> =C2=A0
+> =C2=A0	return 0;
 > +
-> +int xe_ras_set_threshold(struct xe_device *xe, u32 severity, u32 component, u32 threshold)
-> +{
-> +	struct xe_ras_set_threshold_response response = {};
-> +	struct xe_ras_set_threshold_request request = {};
-> +	struct xe_sysctrl_mailbox_command command = {};
-> +	struct xe_ras_error_class counter = {};
-> +	size_t len;
-> +	int ret;
-> +
-> +	counter.common.severity = drm_to_xe_ras_severities[severity];
-> +	counter.common.component = drm_to_xe_ras_components[component];
-> +	request.counter = counter;
-> +	request.threshold = threshold;
+> +err_poll_fini:
+> +	drm_kms_helper_poll_fini(ddev);
+> +	return ret;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void lsdc_pci_remove(struct pci_dev *pdev)
+> =C2=A0{
+> =C2=A0	struct drm_device *ddev =3D pci_get_drvdata(pdev);
+> =C2=A0
+> +	drm_kms_helper_poll_fini(ddev);
+> =C2=A0	drm_dev_unregister(ddev);
+> =C2=A0	drm_atomic_helper_shutdown(ddev);
+> =C2=A0}
 
-We might need a max check here to avoid unnecessary values from user.
-
-> +
-> +	ras_command_prepare(&command, &request, sizeof(request), &response,
-> +			    sizeof(response), XE_SYSCTRL_CMD_SET_THRESHOLD);
-
-Nit: command, request, response seems to be a better format
-
-> +
-> +	guard(xe_pm_runtime)(xe);
-> +	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
-> +	if (ret) {
-> +		xe_err(xe, "sysctrl: failed to set threshold %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (len != sizeof(response)) {
-> +		xe_err(xe, "sysctrl: unexpected set threshold response length %zu (expected %zu)\n",
-> +		       len, sizeof(response));
-> +		return -EIO;
-> +	}
-> +
-> +	if (response.status) {
-> +		xe_err(xe, "sysctrl: set threshold operation failed %#x\n", response.status);
-
-Status should be converted to visible error codes. check [PATCH v5 3/6] 
-drm/xe/xe_ras: Add helper to clear error counter - Riana Tauro
-
-<https://lore.kernel.org/intel-xe/20260504065614.3832331-11-riana.tauro@intel.com/> 
-
-> +		return -EIO;
-> +	}
-> +
-> +	counter = response.counter;
-> +
-> +	xe_dbg(xe, "[RAS]: Set threshold %u for %s %s\n", response.threshold,
-> +	       comp_to_str(counter.common.component), sev_to_str(counter.common.severity));
-Again not required. Value should be visible to user
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/xe/xe_ras.h b/drivers/gpu/drm/xe/xe_ras.h
-> index 982bbe61461e..d1f71b1de723 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.h
-> +++ b/drivers/gpu/drm/xe/xe_ras.h
-> @@ -14,5 +14,6 @@ struct xe_sysctrl_event_response;
->   void xe_ras_counter_threshold_crossed(struct xe_device *xe,
->   				      struct xe_sysctrl_event_response *response);
->   int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32 *threshold);
-> +int xe_ras_set_threshold(struct xe_device *xe, u32 severity, u32 component, u32 threshold);
->   
->   #endif
-> diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ras_types.h
-> index d5da93d65cf5..d7e4a02a661d 100644
-> --- a/drivers/gpu/drm/xe/xe_ras_types.h
-> +++ b/drivers/gpu/drm/xe/xe_ras_types.h
-> @@ -92,4 +92,32 @@ struct xe_ras_get_threshold_response {
->   	u32 reserved[4];
->   } __packed;
->   
-> +/**
-> + * struct xe_ras_set_threshold_request - Request structure for set threshold
-> + */
-> +struct xe_ras_set_threshold_request {
-> +	/** @counter: Counter to set threshold for */
-> +	struct xe_ras_error_class counter;
-> +	/** @threshold: Threshold value to set */
-> +	u32 threshold;
-> +	/** @reserved: Reserved for future use */
-> +	u32 reserved;
-> +} __packed;
-> +
-> +/**
-> + * struct xe_ras_set_threshold_response - Response structure for set threshold
-> + */
-> +struct xe_ras_set_threshold_response {
-> +	/** @counter: Counter id */
-
-Nit: ID
-
-> +	struct xe_ras_error_class counter;
-> +	/** @threshold_old: Old threshold value */
-
-Nit: prev
-
-Thanks
-Riana
-
-> +	u32 threshold_old;
-> +	/** @threshold: New threshold value */
-> +	u32 threshold;
-> +	/** @status: Set threshold operation status */
-> +	u32 status;
-> +	/** @reserved: Reserved for future use */
-> +	u32 reserved[2];
-> +} __packed;
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> index a1b71218deca..b865768e903b 100644
-> --- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> +++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> @@ -23,10 +23,12 @@ enum xe_sysctrl_group {
->    * enum xe_sysctrl_gfsp_cmd - Commands supported by GFSP group
->    *
->    * @XE_SYSCTRL_CMD_GET_THRESHOLD: Retrieve error threshold
-> + * @XE_SYSCTRL_CMD_SET_THRESHOLD: Set error threshold
->    * @XE_SYSCTRL_CMD_GET_PENDING_EVENT: Retrieve pending event
->    */
->   enum xe_sysctrl_gfsp_cmd {
->   	XE_SYSCTRL_CMD_GET_THRESHOLD		= 0x05,
-> +	XE_SYSCTRL_CMD_SET_THRESHOLD		= 0x06,
->   	XE_SYSCTRL_CMD_GET_PENDING_EVENT	= 0x07,
->   };
->   
