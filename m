@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02D8ACD37BE
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 14:22:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2725DCD37AC
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 14:25:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 647F910E77F;
-	Mon, 11 May 2026 14:22:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86C6110E792;
+	Mon, 11 May 2026 14:25:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="jYt5c1Y4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X1rrK4TY";
 	dkim-atps=neutral
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A72710E77F
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 14:22:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
- bh=KVCLU3vdW/7zvUDHcovwk9olD8eQjBXMJn0q1qhgY2U=; b=jYt5c1Y4E7En0bz7KkGQICbgCk
- 3+BiI46pcLBaiR00iP49kL5wkq+sVU2rr//fciVIINMugqmujdJLD6sOEu4ldidfjYjE1IKzr3LjK
- ROYJlWUoUk5fK/SJ+rU8obb0F7nt6+sJy3lm71scvVHxGvvShBIIuq1q1Y3k6ALrB6viTkto51GIz
- dorDMAOEwXWgRsJQTCr0sQDaYxcfPjKgazuZX4Pyolkv11mnlt/GxVBngDyxhsvVEiUiXTQJqnULS
- qDzIAd7ic1UvQ3gVqu3digasv9Br9btRJnrghtGuHzacp3Pm/PaVRER3r0CUAC87jo9/ROk9zOuQh
- vYqWfomg==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
- by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
- id 1wMRWS-000HO0-2O; Mon, 11 May 2026 16:22:16 +0200
-Received: from localhost ([127.0.0.1])
- by sslproxy02.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
- id 1wMRWS-000DMv-0o; Mon, 11 May 2026 16:22:16 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] drm/bridge: fsl-ldb: Add dev_err_probe for some error
- paths
-Date: Mon, 11 May 2026 16:22:15 +0200
-Message-ID: <2832185.mvXUDI8C0e@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260327070122.3551058-1-alexander.stein@ew.tq-group.com>
-References: <20260327070122.3551058-1-alexander.stein@ew.tq-group.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10A5310E792
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 14:25:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778509553; x=1810045553;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QaRL90yyKRYJf2/QGkjbRLAMcFvanLvA5zXjYzi0ksk=;
+ b=X1rrK4TYOXpevjCCMOm/Vizv1HVkr7vbJCnzgjNzpwCumytnTTkpNlFv
+ WgE1+3FRc0ZMhcZlXVixg5hG63nz85Cdtu0DtAbRnIRwdjmlXc+GsVI4b
+ 9TduXeVzGh3AjPP6wID+0NGOB1P9Wn2z+P6kW7vsznqRlQwI1FP0sagne
+ Z9oEKUrbNyb5G6AQpl34+3pFCwnMFwSkSZo2F4IPXglqdA/l1aKMWglWK
+ jChxTXbWMdMNWnacjbD7bJsxfwiRa90SYw9XRMf5vSZ6l7oFnAAmfFJq1
+ 9PKIcJyrvIxX2nWTmf0/jr2j+S+NhdQMXvc6lblSeEtTNSD3tXMSfPPlU Q==;
+X-CSE-ConnectionGUID: QOHVdMz0QiW0fGPln/aSvQ==
+X-CSE-MsgGUID: ehf8dm93R/G2O00ztnv/DA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="96961226"
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="96961226"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2026 07:25:53 -0700
+X-CSE-ConnectionGUID: g+NyUk49SsiDTBzzCo+GYA==
+X-CSE-MsgGUID: 7XtGAQvRT7ah+wP4EQ9HUQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="234807071"
+Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2026 07:25:50 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: saurabhg.gupta@intel.com, alex.zuo@intel.com, jonathan.cavitt@intel.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/gem: Remove unneeded ret check in change handle ioctl
+Date: Mon, 11 May 2026 22:25:40 +0800
+Message-ID: <20260511142540.2989187-1-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/27997/Mon May 11 08:24:57 2026)
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,63 +67,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Remove the "if (ret < 0)" branch after idr_replace in
+drm_gem_change_handle_ioctl.  It is unused, as in the only place we
+modify the return value between there and the previous return value
+check, we also immediately jump to out_unlock, bypassing the check
+entirely.
 
-Am Freitag, 27. M=E4rz 2026, 08:01:21 CEST schrieb Alexander Stein:
-> There are code paths which can return -EPROBE_DEFER during probe. Add
-> missing error message for deferred probes.
->=20
-> Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+Issue caught by static analysis.
 
-Any feedback?
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+---
+ drivers/gpu/drm/drm_gem.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-Thanks and best regards
-Alexander
-
-> ---
->  drivers/gpu/drm/bridge/fsl-ldb.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/fsl-ldb.c b/drivers/gpu/drm/bridge/fs=
-l-ldb.c
-> index 7b71cde173e0c..cd4b9f6e1ced4 100644
-> --- a/drivers/gpu/drm/bridge/fsl-ldb.c
-> +++ b/drivers/gpu/drm/bridge/fsl-ldb.c
-> @@ -315,11 +315,13 @@ static int fsl_ldb_probe(struct platform_device *pd=
-ev)
-> =20
->  	fsl_ldb->clk =3D devm_clk_get(dev, "ldb");
->  	if (IS_ERR(fsl_ldb->clk))
-> -		return PTR_ERR(fsl_ldb->clk);
-> +		return dev_err_probe(dev, PTR_ERR(fsl_ldb->clk),
-> +				     "Could not get ldb clock\n");
-> =20
->  	fsl_ldb->regmap =3D syscon_node_to_regmap(dev->of_node->parent);
->  	if (IS_ERR(fsl_ldb->regmap))
-> -		return PTR_ERR(fsl_ldb->regmap);
-> +		return dev_err_probe(dev, PTR_ERR(fsl_ldb->regmap),
-> +				     "Could not get syscon regmap\n");
-> =20
->  	/* Locate the remote ports and the panel node */
->  	remote1 =3D of_graph_get_remote_node(dev->of_node, 1, 0);
-> @@ -342,7 +344,8 @@ static int fsl_ldb_probe(struct platform_device *pdev)
->  	panel =3D of_drm_find_panel(panel_node);
->  	of_node_put(panel_node);
->  	if (IS_ERR(panel))
-> -		return PTR_ERR(panel);
-> +		return dev_err_probe(dev, PTR_ERR(panel),
-> +				     "Could not get panel\n");
-> =20
->  	if (of_property_present(dev->of_node, "nxp,enable-termination-resistor"=
-))
->  		fsl_ldb->use_termination_resistor =3D true;
->=20
-
-
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
-
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index abc8e41d6652..110bc5a58862 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1067,9 +1067,6 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+ 
+ 	spin_unlock(&file_priv->table_lock);
+ 
+-	if (ret < 0)
+-		goto out_unlock;
+-
+ 	if (obj->dma_buf) {
+ 		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
+ 					       handle);
+-- 
+2.53.0
 
