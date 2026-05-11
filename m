@@ -4,78 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31829CD37B5
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 07:46:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22A58CD37B5
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 07:56:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70BFE10E4F5;
-	Mon, 11 May 2026 07:46:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B25E10E13F;
+	Mon, 11 May 2026 07:56:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KncHPMb9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bwwDwwZk";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MhyWYty3";
 	dkim-atps=neutral
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A2C510E4EC
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 07:46:00 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5a8c6fc5fd3so826193e87.0
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 00:46:00 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A3FA10E13F
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 07:56:42 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64B4GXDx017877
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 07:56:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Edmbg0v8IiJzMS7+pZj6+O12JMZo1DqojeVoLzn6d+0=; b=bwwDwwZkN19D+dg7
+ Qik8/CgVd7cIyqU0UOPCzEc/Eu29+h/67A/pWrjZNsY8tayPTDjBCAUO7KEo7a/k
+ D5LeIwhJk88/xoNslggq/5W09RT/ugioF4GNw32Jj4ZVDRbB6FZ5w/ZzqVMIZg0d
+ hB/Q6kGrgbozOdQbqz1BzwGP5i98MoiVqQQRGMuF0UtAQJMM9REHLjJehnbMwXOt
+ +ElcxCGGfJwGOWrBsqw4xYUdnh62Gq9uCV8W+JMLlNyHA4h9sjpgYaDstq2K+yA2
+ DPVLWI6ufoTiyYte7XssBqedVBxKJxoLvAxH1TRl7BqJ4dBTUKFXL4iZqR5bAUIZ
+ qL4qvA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e37xfrpms-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 07:56:41 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-514ae0edeb6so31797641cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 00:56:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778485559; x=1779090359; darn=lists.freedesktop.org;
+ d=oss.qualcomm.com; s=google; t=1778486201; x=1779091001;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4/vo+yztL0AmH8P24goXzbtezovr3DoQGmWB3EtlnhE=;
- b=KncHPMb9d8tCYxQqj65cMbjOGY4Me7TOaWPRX81ElMDOjh1e7Lxlj0sTioogC/CLry
- e+wCO/yfoYQOrkcDFYpQ1PX5dSlNhMYRlZUt4MmMBWXlo2KQwCAYtFcNLwGpTBqH/mhI
- 95T1BpM+ZB0/t1Y5IF5vFrj4/WiAdw7Fv2tJm6Qm1QDfeU1MphC9VNJb8lwfimQKNxbP
- bc5Mce3AOuAYarmiO4atZ0YOb/60TtlHUkxio2LyoM12qn2kewytWXWH7tKVQGAf2qlH
- pdwk6uckv6CCFkm0EyZewhEvwCh9sMmKvt/UMVSBW6P4cEBm7DS+dfWTukgN3PGEpiIg
- rRhg==
+ bh=Edmbg0v8IiJzMS7+pZj6+O12JMZo1DqojeVoLzn6d+0=;
+ b=MhyWYty3JZXcFtYTGQndLAknsyDZJWdhARczb+xj5bA7Pe4jqpXrosi2ku+7obCLiM
+ clqJVyF3wzdKRZDcDJSHsxVZZCdVMCkp05v58gjaIQin9YAK5XR2nR5L+748HYN4fZiH
+ QOsWNdC/ZjTCBk9vbC0yPlL2lXHhn+LQX9UGPJs2MkhdgGZQxXeb4HndwkI0wcCMh13d
+ gyh3CGmGL8jVZdj4uWvEwgX9cM/vuWeo7+4zLFoWFfypBWsqjOAEd3uFpZxHH8F3N6/J
+ soZ755TruxIqemHO8QXfIKZX4SWHReClnpVSch0nRFTS4ZvrxXK3CtcX4SaXDlTTNkuW
+ rkow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778485559; x=1779090359;
+ d=1e100.net; s=20251104; t=1778486201; x=1779091001;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=4/vo+yztL0AmH8P24goXzbtezovr3DoQGmWB3EtlnhE=;
- b=eTyp2uW5KJusohL5bn9Kft2PqWChsnwApNzgUgeacTev3Sq968HTTq22eg9R5CdiIL
- 7INRgs00R0Cf5P5Kxqw24j22s5ZBgAPmN44CB7PdsoBrJA3wz+ldlLs4vFuNG8gy2xm7
- Ea52XEouczIKU5w98jzE5leXPZV2Ow0qAlOo5X+GkVTKnpjd6LLSq3uHXvW7Ed4BHJzi
- lXXo2LXo2Me7awa0gfA3jOgm0VBBP1oAOVXqqkPR9KF2PnMtZjjqvmtva374JJTg0Lfw
- yCZE2bmCIfXhalvCAm1LVB7BU3S5PaKSg3mYBVNyqH2u7m0JBKlTUMoG62zvfBLQOsnQ
- u7/Q==
-X-Gm-Message-State: AOJu0YyK5/8wP766+j/t1Yq4+FnY8XfzwF4ojyhnU/ay27A3wgvMo846
- zOh6SIfyrCrp670yKFuHsxZdqck17zZnCnFyEOE3iE803YSbCBz2IPgq
-X-Gm-Gg: Acq92OGTqDN/lOR4GzSVuFrYs75uHQwTOZpzLwx+Kv34XvPOg6ZC5iJ2ireuU2MhgDm
- R0/A+vPb1Tt+JlmhPzEiUzRjxI7hskOl9gy8rQvf0Ngu/QpyfFPyA57vgaSfFlESDZPr6jE8w1M
- 3r/FjFUnG/+r6bYvOQImR/0SKl/oRwIEbTqby3x06G4TtdQAcWCJdkWgXOITCTOkzvwYygnXZIh
- 7huy22GRNghbDedsFCmier2m061VvTEn6qaFOSlANJZSicfc7UFWfRusTf8yK4V13Womzmmr2iR
- P8zDKE1RxKOeXhDLnhapO9/EBhguirzItV3o5aojU1k+kbGhRNM7/RXSrNoKgqrB47msegP+GL4
- lIswPKHsj1+o280Dc7O4KLm4q7ZWjWvlrbfJIygT/uhMwueOTDttXrDdH9rLELBpjS3DLk6oebK
- zb29SW7k5Vcaf6
-X-Received: by 2002:a05:6512:114f:b0:5a8:6cd7:3203 with SMTP id
- 2adb3069b0e04-5a899b90511mr5387467e87.3.1778485558513; 
- Mon, 11 May 2026 00:45:58 -0700 (PDT)
-Received: from xeon ([188.163.112.56]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a8a952705asm2404394e87.32.2026.05.11.00.45.57
+ bh=Edmbg0v8IiJzMS7+pZj6+O12JMZo1DqojeVoLzn6d+0=;
+ b=AoXpLRBj0AWPb3NDkINCVybCbPG6F4Kakce/zxmy3/jz1fCbK95joAzVzLTXrE7Oti
+ kgiDcSPLGr+m79gM8QQEsnZjtZn3K7jQhlHHq98+x0D1HD6rAI0sQ52yZ6W5n1Bz7n8h
+ 9JCn2PWjndOuzeGjyXtrFOcVSAC880/LCN1z1hapX4C4Dta68uXd9DOBx+9ciqqjiMXL
+ jih2FP+frrjBNt9lEg6ktNGbjuthBhwWsppzv0Wmvw6zKgf889qPKKL0lh8h1jYpTqkZ
+ uSjz95jzOirVhuCSBYBaUo9GgL34nsHcVvNhDNlTRTIOOoe6svWAUOgxPDRQwvBj4GAO
+ CTgg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8BUfpO0xzRoz7C06gsw0nxLXZYL2bzO7gajhQdDCNzJaDfEsB/bTLhG6e+G42WYQpp9KUZR20qRpU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxVxedqPlF6g3t97z+dUiKituVI1jrskXjdMEWGdDMmWS/nJhs/
+ wvf2OPYJalryy5dXA+f5TnBN7fxqQFuX28OckJJMZDSkZzHSQGx1l77eSftSsFHPBmB99kDfK4/
+ XUc6iFpUa+UnlRCnuMNdl7stlQOucChBaYlkgr0vIop+w4aQXuLdthlSezRquth62Ba52VJk=
+X-Gm-Gg: Acq92OE17me1K0UIVLivB8JvI/RBBYlj0H2ZHsUoNqauNhW+6DlqawaGsHiK+CMlS5T
+ EAmI7iEY31b8NjGh4bptsQGgsP+MAssGHgkmEeIHKA5xX97txRPI7LggG3zg0b8qFcLNgQUCNGr
+ h5Zs+mk2ywwK3An8wToiQ9ldjBbxwraIheypoovVDEGxxt9Qw4f1omHFux7COUJ0TVXRUNfBBDQ
+ QhLr/bTCFpkfzg7t6PSBkQErMWsL/RL+TNvfiW5Je3jqOVpV4gDqWnjFc+YrwGhIH19j0FL84Kj
+ Of1uZ+pqSl4oXn8huI2J6DqFPVHhUhYsEkD9c4bAp2QeYJEC6+zRXwWx8IBBfWj/S7WJ9PS+q2s
+ lktYwWIU5LTo9pm8kFtJ4Q4WP67Nuq6u7MF90NkJSsRF6lGRKMw==
+X-Received: by 2002:ac8:7d03:0:b0:50d:7632:ddb2 with SMTP id
+ d75a77b69052e-51475b70afamr199095591cf.12.1778486200783; 
+ Mon, 11 May 2026 00:56:40 -0700 (PDT)
+X-Received: by 2002:ac8:7d03:0:b0:50d:7632:ddb2 with SMTP id
+ d75a77b69052e-51475b70afamr199095251cf.12.1778486200306; 
+ Mon, 11 May 2026 00:56:40 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:63bd:c2f9:cedb:aa32])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4548ec6c221sm24431737f8f.13.2026.05.11.00.56.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 00:45:58 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
- Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>,
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2 RESEND] drm/tegra: dsi: re-add clear enable register if
- DSI was powered by bootloader
-Date: Mon, 11 May 2026 10:45:37 +0300
-Message-ID: <20260511074538.24563-3-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260511074538.24563-1-clamor95@gmail.com>
-References: <20260511074538.24563-1-clamor95@gmail.com>
+ Mon, 11 May 2026 00:56:39 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
+ Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>,
+ Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Riccardo Mereu <r.mereu@arduino.cc>
+Subject: Re: [PATCH v5 0/2] drm/panel: support Waveshare DSI TOUCH kits
+Date: Mon, 11 May 2026 09:56:37 +0200
+Message-ID: <177848619477.10327.8599254658370877009.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260507-waveshare-dsi-touch-v5-0-d2ac7ccc22d4@oss.qualcomm.com>
+References: <20260507-waveshare-dsi-touch-v5-0-d2ac7ccc22d4@oss.qualcomm.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=TqXWQjXh c=1 sm=1 tr=0 ts=6a018bb9 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=bE_KkYOeAPwlOS0bxDcA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: j0SEG8BojxZg_iHoWIGxpsNBb1b43mrq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTExMDA4NSBTYWx0ZWRfX3tvombhX+eH9
+ iadkTTcCfw5BJrk/AmLpfakODc1Fx7E/KWYwGLl92gtmGSBJ0NdGw6asTIpJlCTtlx0Swrp0S1f
+ XoVFVRAVZa2RKuYy9biEkNptLlrW+9asIMDWQu4VM2Wiypl99HsSt40p7Ubr0XSHr8viMxxTZna
+ ePfotb5EUhevaEAeqTVAhkxz0xsIlqWShRW/BAVWSiyLE1KGsph/HIy578AJREokdS5Xwr2cJFk
+ NF+uOZaAZP4IVAsIYAAf1zMbQdpc6rzt8Bx9JQOOaGLHi2knbw5orXgof26VoSs91BtpiTuJSES
+ tMLxfoyCawMXxOvZaSOzBKqmKdddbwpBgs0auEmAXIJGNVzfBLDjBcOvrq8LmqUn+PNTY7Efl8T
+ riMPyazIip09KOoysODMAzypC86pALMAWJYzTfddLji9pCNDMV+JPK9vsiXpxSruZoC/0lGoW2s
+ 3yu+D96c3yw9+KQ8tXA==
+X-Proofpoint-ORIG-GUID: j0SEG8BojxZg_iHoWIGxpsNBb1b43mrq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_02,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
+ clxscore=1011 impostorscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605110085
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,55 +155,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Original commit b22fd0b9639e ("drm/tegra: dsi: Clear enable register if
-powered by bootloader") was added to address the issue of DSI being in an
-unknown state after the bootloader, ensuring correct panel configuration.
-This worked fairly well under the assumption that the bootloader had set
-up DSI; however, in cases where it did not, the device would hang because
-a DSI read was called before the DSI hardware was ready.
 
-Removing this workaround results in the issue described in the original
-fix: the panel initialization sequence fails and the panel gets stuck in
-an undefined state. This is especially noticeable with command mode panels
+On Thu, 07 May 2026 12:01:31 +0300, Dmitry Baryshkov wrote:
+> The Waveshare DSI TOUCH family of DSI panel kits feature different DSI
+> video-mode panels, bundled with the separate controlling circuit,
+> produing necessary voltages from the 3.3V and 5V supplies. Extend panel
+> drivers to support those Waveshare panels and also add GPIO driver for
+> the onboard control circuitry.
+> 
+> 
+> [...]
 
-In order to properly address this issue, the original workaround is
-restored and placed after the DSI hardware is prepared for R/W operations.
-This fixes behavior for both cases: where DSI is set by the bootloader and
-where DSI is untouched.
+Applied, thanks!
 
-I have tested this change on Tegra20 (Motorola Atrix 4G),
-Tegra114 (NVIDIA Tegra Note 7 and ASUS Transformer Pad TF701T), and
-Tegra124 (Xiaomi Mi Pad) with U-Boot, using both bootloader-initialized
-DSI and untouched DSI.
+[1/2] dt-bindings: gpio: describe Waveshare GPIO controller
+      https://git.kernel.org/brgl/c/8cd19f5560218bf263b8ffc622ceb4bc329b3bf5
+[2/2] gpio: add GPIO controller found on Waveshare DSI TOUCH panels
+      https://git.kernel.org/brgl/c/79f44c8acfe66ff8cbed5626e2535245cfcf43cf
 
-Fixes: b22fd0b9639e ("drm/tegra: dsi: Clear enable register if powered by bootloader")
-Fixes: 660b299bed2a ("Revert "drm/tegra: dsi: Clear enable register if powered by bootloader"")
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- drivers/gpu/drm/tegra/dsi.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
-index fbab10bc5c41..e7fdd8c7ac12 100644
---- a/drivers/gpu/drm/tegra/dsi.c
-+++ b/drivers/gpu/drm/tegra/dsi.c
-@@ -936,6 +936,15 @@ static void tegra_dsi_encoder_enable(struct drm_encoder *encoder)
- 		return;
- 	}
- 
-+	/* If the bootloader enabled DSI it needs to be disabled
-+	 * in order for the panel initialization commands to be
-+	 * properly sent.
-+	 */
-+	value = tegra_dsi_readl(dsi, DSI_POWER_CONTROL);
-+
-+	if (value & DSI_POWER_CONTROL_ENABLE)
-+		tegra_dsi_disable(dsi);
-+
- 	state = tegra_dsi_get_state(dsi);
- 
- 	tegra_dsi_set_timeout(dsi, state->bclk, state->vrefresh);
+Best regards,
 -- 
-2.51.0
-
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
