@@ -4,102 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E29F6CD37BE
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 20:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302C7CD37BE
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 20:58:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCEF10E8CF;
-	Mon, 11 May 2026 20:10:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55FFC10E1F1;
+	Mon, 11 May 2026 20:58:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="PwYyRk+0";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="PAAEvCIe";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="V1u1rJGz";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c4abtUUK";
 	dkim-atps=neutral
-Received: from fout-b7-smtp.messagingengine.com
- (fout-b7-smtp.messagingengine.com [202.12.124.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86F2310E25E
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 20:10:02 +0000 (UTC)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfout.stl.internal (Postfix) with ESMTP id CAD7C1D000F5;
- Mon, 11 May 2026 16:10:00 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Mon, 11 May 2026 16:10:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1778530200;
- x=1778616600; bh=w/jJechNkW7E0LVurksiul+ndqwmLEWiu+OGwNv1unw=; b=
- PwYyRk+0iVOdVXuz/8VHbIiLHEoKNhjSddEyaXI4WLxNed4oJB+5Hd6boIDLmO/X
- /ycckExDBc6GCMDrMGJeYACRebp/v3WoNnPNeQ5YCUHH6lShumpHk/31H/VbuO+W
- P+tiJDfPWC7vRhvDF3o6CdrHXJ070qqFnVGGub7+/4N/ylteHzNSEyguRiLuT5C7
- 6xH8iee41Z1whvGDzQMnPoMPL+lBQbuuhFBjEnJ1iDGEerCARugWByAkPHE50KFZ
- yGQBgoJlr+2+LZUAo40GUHNB+vTO182BLawsAfKorM0uE6dL8hVwyJd6F7A6jMZ3
- 3Y+D0PRD2GzL/JrNxHZ6fA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1778530200; x=
- 1778616600; bh=w/jJechNkW7E0LVurksiul+ndqwmLEWiu+OGwNv1unw=; b=P
- AAEvCIe5WxftUxxaUKTnozoCRpp35QY7xXcr9srqzj2fGvDq3qzi14hsAmIyuPK1
- OB+HAzH49lwtmxPRVw0eirS8y2facxpbs8ZxjndVz4bDlikMLOrxERUxO03Q9YMq
- ZzrhKiGZuVqu7YMAFWykSQWwEqHdBUvGhZ+PsKRMDsQGH3yb5jQU53+BdA/TFo4B
- gt10A6T4pRem/APPpn0c3AUN3Ln6XFI1q8esHyXy1JeajIarBpHPa9xBFqZk1pwd
- MbCXCGNqd48pdPubwcMH5rLlxj14kksudMP1JHs8ODcSWrQ89ZkfSbBT6fp0q726
- qianrAnEfxsHjPzWeU+YA==
-X-ME-Sender: <xms:mDcCanwZoBgY94pR6CgGx1aXMsUsiHtVgpAYsgsjUY0a_uGZ4HtnkA>
- <xme:mDcCator06ysxCDdBhVrXNTBxhoyxhyZoO9b2GFGS4wZWwKaIsc8Wqt4rHWFDwOQm
- JBc4Bv_-irhL3bMl7h2ZcrzFCEYdoU_3mpqToMXfyNF2JpvrSiIeqU>
-X-ME-Received: <xmr:mDcCatVAs0PIpPycMEDa0aLxKAAYaat1b7iYqOm0xFH4xtZQgPIYVu-zc50>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduudelkeehucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
- gurhepfffhvfevuffkjghfofggtgfgsehtjeertdertddvnecuhfhrohhmpeetlhgvgicu
- hghilhhlihgrmhhsohhnuceorghlvgigsehshhgriigsohhtrdhorhhgqeenucggtffrrg
- htthgvrhhnpeekheejieetffefueeiteejtdejffdvleelvdeuvdffvdefteeghfevkeeu
- vdefvdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivg
- eptdenucfrrghrrghmpehmrghilhhfrhhomheprghlvgigsehshhgriigsohhtrdhorhhg
- pdhnsggprhgtphhtthhopedvtddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepmh
- grthhtvghvsehmvghtrgdrtghomhdprhgtphhtthhopehlvghonheskhgvrhhnvghlrdho
- rhhgpdhrtghpthhtohepjhhgghesnhhvihguihgrrdgtohhmpdhrtghpthhtoheprghmrg
- hsthhrohesfhgsrdgtohhmpdhrtghpthhtoheptghhrhhishhtihgrnhdrkhhovghnihhg
- segrmhgurdgtohhmpdhrtghpthhtohepmhhnghihrggurghmsegrmhgriihonhdruggvpd
- hrtghpthhtohepughmrghtlhgrtghksehgohhoghhlvgdrtghomhdprhgtphhtthhopegs
- jhhorhhnsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehsuhhmihhtrdhsvghmfigrlh
- eslhhinhgrrhhordhorhhg
-X-ME-Proxy: <xmx:mDcCakqPSRoKzyPGGXProFqYhH4qYKpgflb8Spsx6bK2Yvak4Gd4uQ>
- <xmx:mDcCahGgEJbSVtbnpYLanu5mqQCGZRveGu3g79YLyppoXoJCZIjPIw>
- <xmx:mDcCamshnuz0U_drzHUfOKcWk73kxV1nW7PxZm4wDep0feme0jrxgA>
- <xmx:mDcCakRquOgmfyzbwC0uVpaxobRtcOQaDFkpxWtGwg4yfJK0yK_Dww>
- <xmx:mDcCam7wLKey_JuLtJOlx4ChD12laJy6R95rvUhqAlL9MfIcaz87pHbT>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 11 May 2026 16:09:58 -0400 (EDT)
-Date: Mon, 11 May 2026 14:09:57 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Matt Evans <mattev@meta.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Mahmoud Adam <mngyadam@amazon.de>, David
- Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian
- <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Pranjal
- Shrivastava <praan@google.com>, Alistair Popple <apopple@nvidia.com>, Vivek
- Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org, alex@shazbot.org
-Subject: Re: [PATCH 9/9] vfio/pci: Add mmap() attributes to DMABUF feature
-Message-ID: <20260511140957.25eb5d9d@shazbot.org>
-In-Reply-To: <25a4fc45-1b4d-426b-954a-60bf21e9040f@meta.com>
-References: <20260416131815.2729131-1-mattev@meta.com>
- <20260416131815.2729131-10-mattev@meta.com>
- <20260424183153.GJ3444440@nvidia.com>
- <20260426105215.GA440345@unreal>
- <20260427083644.4ee174cd@shazbot.org>
- <25a4fc45-1b4d-426b-954a-60bf21e9040f@meta.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFEBC10E20D
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 20:58:44 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64BK6TnR2202230
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 20:58:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 9/p9ARwLXTJwRe2U4yqJFSD8BOX1Dr2lRgTY9kR08Xw=; b=V1u1rJGzXkpOMKlD
+ cOfPNOc3SI+WgeiL6w8LZEK88483Jj6Y436ZC2KgVgtRP5eSCGuYYYa4hCRNot++
+ a7Dn38LfNGYNHcm6ceOch8+oALHmCil0JIcW/FYUrnFtdobxMhLbI9eB4N/u0Z+t
+ BRMKglshERHgMZXlJrBsCSd4wzu92v1T2CwGpOpVPpsUi1tPNBhrpj1E+14NG8wt
+ enlitUK9Ni8A0Lj7HdLxEkBlchsv6LUV0w07uWySIACTJfLreQABjhN9EuBIeoZj
+ Q56/sIFi7RkgDDM5iVecXvgc8NKWT5BC4bn3I0YbMNPur7eGv9K5tRn5CBC96V+U
+ 4qwa0Q==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3nuyg79p-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 20:58:44 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-83cecc22d5fso2077569b3a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 13:58:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778533123; x=1779137923;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9/p9ARwLXTJwRe2U4yqJFSD8BOX1Dr2lRgTY9kR08Xw=;
+ b=c4abtUUKNTu057vOxwSEvRiMMMnzX2ZmnunoB/DWJ61RSr7zSArZZH52wixq25/w13
+ 2Y6Y3sBqaGhxkCg5xVaj+Eog+VILgiClPSPmGjwULyY1eOFttt5qbPBX+AyY2hnJ/kZm
+ QlNTdt89Eb8K+sV7evNT57v4aeeggMbOtTbw4IT8azckHU97Acj5XMyjYJh3YAJuEHdb
+ sXLaJ8s/Q7WkZysw5Ls4nDLuUKO3T1QBdL2Ou7JbhPX0e0eeNmuh49dPMtilVevGryi2
+ /SyekAzCQcpH50UHUp9uwCr6UT8ioqqwvk0J36YWT3yDPIFYwRei0xANW24rVNFA7B3h
+ hLiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778533123; x=1779137923;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9/p9ARwLXTJwRe2U4yqJFSD8BOX1Dr2lRgTY9kR08Xw=;
+ b=UMK9rA57sLk5pF6EQIpzoJiZDAv0vp4FTACvqIB5QhZC4haEd8BPbr51WxtTIZf5No
+ P0z4y3UbM0oU/OwjTuLuMcmzN7cgwov3IVdDK7xsNbOr9wKvbPEEbMCVsEEE6+JgYnWq
+ NGxQFjpQhkh6M2ggRrEZ/clvLDEIgz5TPKinv0jSlTE7LwrsIm3If8Fujs8dinuvHDOy
+ gfKR2AX7QxRtIA6sVszkc9hXd6h/IDWAELhzX/xoodMILE7iWsM99xsrq637DpZ6gN9W
+ dCRuxcFBY2wJHAUTFlpqL0vk1KYe7VAgPDCr3qFGDJHgcVmRldk6U3wDFr4EARZ7ema2
+ 7RVA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9ZpdPlGCDFtH7qyTwBMZJz+AChCoGZ7RgWfX8UYp/T1fgPnkgnZ9OKJrQtO/dbp45QsyoAwf6YDUg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy0fyyC2qBwcunEKQHUt/oHBHLSrdjNDlIf7JyU4afNX4ZG2GzE
+ g/LawI9gvg2PUqx6uJfcY2hS+ohC7NGeVJrv9n0gjj7TI8XdE47Qgk9j2UxBWX3xSz8dI2Nc8sR
+ Ld+v4Z5c/zGIxBTkeYLFyUQ9wvjV3wv4k3LChPkIDkb5pVJfxj3AQKCAGwvQX2Bo68CYSwTt/cS
+ HRoFw=
+X-Gm-Gg: Acq92OGUGHoXPix2WTvikLPXsshoghCnPtEcw1iRcAZzQapmmQ83HCFmXlRdpMPSJPd
+ /39MCbs8ZwsjuoUg3dZ1cugM5NIhQPWoUpqYH7JGKx3htABcwdLGMTZLBYnZ+Re0tHrwvkBVShb
+ MJHxoM8xiDFPyuFjDGY8zWngm9wD2XA3QOry+NWK1FxDHCGF2LgBBGpJABfjvOfo7fp0xEI/N56
+ F3spzyikpHQHksaxHEt5gyXCg8TjqpHMnKyHh6QDf1s7yuHmcCHCCuiGN3IDYn17xBg7HpTc4tB
+ yf6Lt3nGkRecdW0RZrFSrCwWN+tsusMXgiDYZnO9hY/6OP0kphnzfyeNSn2CVg5T2y0niaGrFgG
+ L+KmivMOX8DQkh+GtAmepWRej1AlxH3dhfBMiYPvE/10G
+X-Received: by 2002:a05:6a00:428a:b0:83d:b11f:7979 with SMTP id
+ d2e1a72fcca58-83eebbf4d69mr76931b3a.29.1778533123251; 
+ Mon, 11 May 2026 13:58:43 -0700 (PDT)
+X-Received: by 2002:a05:6a00:428a:b0:83d:b11f:7979 with SMTP id
+ d2e1a72fcca58-83eebbf4d69mr76903b3a.29.1778533122756; 
+ Mon, 11 May 2026 13:58:42 -0700 (PDT)
+Received: from [192.168.1.3] ([106.222.228.93])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8396563f049sm24664326b3a.7.2026.05.11.13.58.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 May 2026 13:58:42 -0700 (PDT)
+Message-ID: <b0a99bbf-d916-4990-8ef9-2db428192e94@oss.qualcomm.com>
+Date: Tue, 12 May 2026 02:28:34 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] drm/msm/a8xx: Fix RSCC offset
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20260512-glymur-gpu-dt-v3-0-84232dc21c03@oss.qualcomm.com>
+ <20260512-glymur-gpu-dt-v3-1-84232dc21c03@oss.qualcomm.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260512-glymur-gpu-dt-v3-1-84232dc21c03@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTExMDIyMiBTYWx0ZWRfX4u98EZ/3hmvU
+ jxKJHMUvz/wv3RFEC+qmp+k1/Oz7fHmE1m3E6p9vL6uXT/RYPkNqOzW3CvIJtaCETjJdLOvtmgS
+ DIvWMMC74AUbfTUhxdyEik0f30xTg6VANHcPhuPLTByGIalKlVfBtz1urdo7yRY15AMYNnG3Jlh
+ 6K3L6CrhisFzyS+oaIC0Cr9KiIBPsYIwbE76Gn0Cy/63DHnZ42tlKah+WxBrqZk8aSLDZE7cJRj
+ JFLtJJ/xjcIloK2NKE/fg/9SK+tt9pkjYDeq1QMivdEDrNJe5m2qIES06N4DDNZZb/lc48tnBbd
+ D6CLuMLqw0jAvrTUh/4rsu+5wXeg93E5G9+T/4K9l/mlzG4o855PGDsRH4hfoFUst8KCDwiW3Cs
+ dkXjn7aramoISDIJUSR1qp685pzMja7zOe0fcy7oexx4kCSBGzYK2SLX40OMFY2R5ta/YOP3V67
+ M4FEtnEHhMPNtvLG8wg==
+X-Proofpoint-GUID: TVW3B740UvYL2djaTc5AUtEuPKkrfS3T
+X-Proofpoint-ORIG-GUID: TVW3B740UvYL2djaTc5AUtEuPKkrfS3T
+X-Authority-Analysis: v=2.4 cv=Y5XIdBeN c=1 sm=1 tr=0 ts=6a024304 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=1UGwFfo7D6NxPCeOlddrGg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=-ol3qSTvAihUzIL2rFMA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ adultscore=0 phishscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605110222
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,86 +154,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 11 May 2026 16:30:39 +0100
-Matt Evans <mattev@meta.com> wrote:
-
-> Hi Alex, Leon,
+On 5/12/2026 1:36 AM, Akhil P Oommen wrote:
+> In A8xx, the RSCC block is part of GPU's register space. Update the
+> virtual base address of rscc to point to the correct address.
 > 
-> On 27/04/2026 15:36, Alex Williamson wrote:
-> > 
-> > On Sun, 26 Apr 2026 13:52:15 +0300
-> > Leon Romanovsky <leon@kernel.org> wrote:
-> >   
-> >> On Fri, Apr 24, 2026 at 03:31:53PM -0300, Jason Gunthorpe wrote:  
-> >>> On Thu, Apr 16, 2026 at 06:17:52AM -0700, Matt Evans wrote:  
-> >>>> A new field is reserved in vfio_device_feature_dma_buf.flags to
-> >>>> request CPU-facing memory type attributes for mmap()s of the buffer.
-> >>>> Add a flag VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC, which results in WC
-> >>>> PTEs for the DMABUF's BAR region.
-> >>>>
-> >>>> Signed-off-by: Matt Evans <mattev@meta.com>
-> >>>> ---
-> >>>>   drivers/vfio/pci/vfio_pci_dmabuf.c | 15 +++++++++++++--
-> >>>>   drivers/vfio/pci/vfio_pci_priv.h   |  1 +
-> >>>>   include/uapi/linux/vfio.h          | 12 +++++++++---
-> >>>>   3 files changed, 23 insertions(+), 5 deletions(-)  
-> >>>
-> >>> Nice and simple
-> >>>
-> >>> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> >>>      
-> >>>> @@ -1549,8 +1551,12 @@ struct vfio_region_dma_range {
-> >>>>   struct vfio_device_feature_dma_buf {
-> >>>>   	__u32	region_index;
-> >>>>   	__u32	open_flags;
-> >>>> -	__u32   flags;
-> >>>> -	__u32   nr_ranges;
-> >>>> +	__u32	flags;
-> >>>> +	/* Flags sub-field reserved for attribute enum */
-> >>>> +#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_MASK		(0xfU << 28)
-> >>>> +#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_UC		(0 << 28)
-> >>>> +#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC		(1 << 28)
-> >>>> +	__u32	nr_ranges;  
-> >>
-> >> Alex,
-> >>
-> >> The TPH proposal extends the flags field in a similar way, but I suggested
-> >> a different approach to conserve bits. At the moment, we spend three bits
-> >> on a single feature, which feels wasteful.
-> >>
-> >> What do you think?
-> >> https://lore.kernel.org/all/20260409120415.GF86584@unreal/  
-> > 
-> > I already proposed a very different interface for TPH that decouples
-> > the dma-buf creation from setting the TPH values:
-> > 
-> > https://lore.kernel.org/all/20260423132016.4a25e074@shazbot.org/
-> > 
-> > This is overall less intrusive than the TPH change proposed, but it
-> > could still make sense to align this as an operation on the dma-buf,
-> > that can be probed as a separate feature.  Thanks,  
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+
+Missed the Fixes tag:
+
+Fixes: 50e8a557d8d3 ("drm/msm/a8xx: Add support for A8x GMU")
+
+-Akhil
+
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 > 
-> I'll add a VFIO_DEVICE_FEATURE_DMA_BUF_ATTRS in a v2 instead to get in 
-> line with the TPH work, no worries.
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 1b44b9e21ad8..cab4c46c6cf2 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -2357,7 +2357,12 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>  			goto err_mmio;
+>  		}
+>  	} else if (adreno_is_a8xx(adreno_gpu)) {
+> -		gmu->rscc = gmu->mmio + 0x19000;
+> +		/*
+> +		 * On a8xx , RSCC lives at GPU base + 0x50000, which falls
+> +		 * inside the GPU's kgsl_3d0_reg_memory range rather than the
+> +		 * GMU's.
+> +		 */
+> +		gmu->rscc = gpu->mmio + 0x50000;
+>  	} else {
+>  		gmu->rscc = gmu->mmio + 0x23000;
+>  	}
 > 
-> For the benefit of future hackers, how would you describe the criteria 
-> for adding flags to this existing field?  What hypothetical feature 
-> characteristics would be appropriate?  (Maybe it's that these attrs & 
-> TPH add scalar fields in several bits rather than a simple boolean.) 
-> Two of us have independently added something that's turned out to be 
-> inapproriate so some guidance would be good.
 
-I think the question of how we actually expand an arbitrary grab bag of
-"ATTRS" is the central question in whether we should implement the
-interface.  If we follow the direction I suggested for TPH, maybe this
-is just a VFIO_DEVICE_FEATURE_DMA_BUF_WC, where it supports only PROBE
-and SET, with SET taking only the dma-buf fd to implement the one-way
-promotion from UC -> WC.
-
-If we support a generic SET ATTRS feature, we really need to map out how
-flag bits are indicated as supported and how a user untangles failures
-from trying to set various attributes.  If we end up with a feature
-indicating each ATTR is available, we might as well have just
-implemented a feature for each attribute.  Thanks,
-
-Alex
