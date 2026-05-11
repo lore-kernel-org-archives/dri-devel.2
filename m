@@ -4,75 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D70CD4851
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36A3CCD4F24
 	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BE5F10ED13;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FD7610ED11;
 	Wed, 13 May 2026 07:54:09 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PXFv/Kyc";
-	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B006810E0F6
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 07:51:50 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-82fbf5d4dc2so2810519b3a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 00:51:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778485910; x=1779090710; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=8qQ0ZL0QLxICeDqID+huefvNgUTc9prsoWIoKknFrC8=;
- b=PXFv/Kyc7p+F+0feBeN5L5yopQ1hJZsnpL7L/oDNiH27yX09yFyZ+3j9boixwSkNUg
- XTXLNiRQKvvc1VSBNb7zErUTyhhLlze1fzno8y93OhSK6PL3npRU7XIM5PL5+2Amida7
- D+LeAgcF+fwmnf+iASWjRxg8C8h27JoEGCl6ppx/pUg21YdI56hOiBGw7eyxzdevSPmi
- soG+oBQ/aoNM8q+sYCmwjsALLA94mGLBBcHeM73lLuDcv/TtH5eEkJEt6ywpg3DQMF0L
- 9qlx3R4c7fxp9I7Wl62nkyYdkhSTxcrpUkwTSV99ozxQ1bhRv/1mUmQ5GIUaH2ScrO34
- Wbog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778485910; x=1779090710;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8qQ0ZL0QLxICeDqID+huefvNgUTc9prsoWIoKknFrC8=;
- b=eRvR/3M75SjitSBi5w0VsJOsPax5fXJ4npgQQIlF7znMtI5iajaGKUGYdMBckbvJnu
- +6BrxtIUsco7cC0TBNFN28tNqvY3GdqIOBS5cjauEE9motxozPWxQqOLlGAKYGRG4JnR
- GWq5VZwU44MhgqZ+2LACYlSDg0ZIab/kWE/BFMJv84O3J1TFPdRu/IQJmQi94XmD1f8W
- 99WHLke8NDk6zbVSevPGCjxzDgtRQvrEf7cWrCRNiozj3RgoKWuW53+WtTVWSHGkA2aO
- Ivm3j6bewwIDBs6BYOnNqGhizklDp/URVu8G1UFYTmLfcVejNjeg36j2ruVNhuzoBYRB
- eEyQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/monuAjOocDHqjLI3tj40sVMfHlBZ9ozzKEw1gHtulNE1KHk9E/qFCVOW+s+bg+RD/mN0gH+qKT64=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzuR1X5SizIu1aKMblM7SGqwM/YDhmX4tFk3rG74cbmkyVXd3Sa
- kYfVLcVnmvel5vshuOvWkbVkEpWeI6aQVBQr816QRWEGkQRst0+Axe1R
-X-Gm-Gg: Acq92OGWcTngMLED5dap7yIltqkyv+uRC4+aobA417Xmlc7eWaJNMFikRas577LslO8
- puiORBbin3ooj3iG+Bz4ey9YAcI+BWMRNHVW7izLFLyQNzvXRbkMohHbnQ5kGJyo/FEXZpXMAUK
- h4C1A6mb42Jhd9ZfG/cDhdj2gwXxFkON8wcW0Y4wZaivoMzB9LggtZvvPz3+SdekhmxrF/o+7Ua
- P/5+LZSG+8jJI+jy0nb6nWbS+k8GLjHmcFVNCHffPTenUTvTNOq3xUgg6182mbcuzd4PKyFpfZG
- 9nkoo+mZyGMxXOesvxeIvI6HNjWLCHnp02p4066viPsPG+PJV3xTU54S/oM4RdZ+e/yjYb0jLTJ
- 8ElyWi+8j0CBdpZdplmQs8nfaSelEt4rh9qQIzL971Iy92zsLBXl/Op+TQ/qhrUaKTo72kqGHBi
- oObZGIWBugkS+uxyQAB3CnS3SvQRLl6MwKKCPDJaAlFJU4PxxYBer8OkoRa3dJ2obVy77ZOG1SR
- 6QOs6j7pM8z
-X-Received: by 2002:a05:6a00:3016:b0:82f:a89e:e16f with SMTP id
- d2e1a72fcca58-83a5c2be01cmr21310489b3a.14.1778485909975; 
- Mon, 11 May 2026 00:51:49 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83965d36a12sm17694642b3a.27.2026.05.11.00.51.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 00:51:49 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH 0/2] drm/verisilicon: add Nuvoton MA35D1 DCUltra Lite support
-Date: Mon, 11 May 2026 15:51:40 +0800
-Message-ID: <20260511075142.54752-1-a0987203069@gmail.com>
+X-Greylist: delayed 310 seconds by postgrey-1.36 at gabe;
+ Mon, 11 May 2026 01:37:43 UTC
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A71010E1CC
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 01:37:42 +0000 (UTC)
+X-UUID: 3ee7ca8c4cd911f1aa26b74ffac11d73-20260511
+X-CTIC-Tags: HR_CC_CHARSET, HR_CC_CHARSET_NUM, HR_CC_COUNT, HR_CC_DOMAIN_COUNT,
+ HR_CC_NAME
+ HR_CC_NO_NAME, HR_CHARSET, HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS
+ HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG
+ HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN
+ HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_TRUSTED
+ SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
+ SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:0dadb1d9-fc00-46eb-9c24-6964d252f479, IP:10,
+ URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:5
+X-CID-INFO: VERSION:1.3.12, REQID:0dadb1d9-fc00-46eb-9c24-6964d252f479, IP:10,
+ UR
+ L:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:5
+X-CID-META: VersionHash:e7bac3a, CLOUDID:2a158005b00c5f2b5b8174380fdfa6ca,
+ BulkI
+ D:260511093220H3SA01AH,BulkQuantity:0,Recheck:0,SF:17|19|38|66|78|102|127|
+ 898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:
+ nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,AR
+ C:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 3ee7ca8c4cd911f1aa26b74ffac11d73-20260511
+X-User: zhangguopeng@kylinos.cn
+Received: from yan.. [(223.70.159.239)] by mailgw.kylinos.cn
+ (envelope-from <zhangguopeng@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1407271403; Mon, 11 May 2026 09:32:17 +0800
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+To: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
+ Natalie Vock <natalie.vock@gmx.de>, Tejun Heo <tj@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH] cgroup/dmem: return -ENOMEM on failed pool preallocation
+Date: Mon, 11 May 2026 09:31:50 +0800
+Message-ID: <20260511013150.7235-1-zhangguopeng@kylinos.cn>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -92,75 +76,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for the Verisilicon DCUltra Lite display
-controller as integrated in the Nuvoton MA35D1 SoC.
+get_cg_pool_unlocked() handles allocation failures under dmemcg_lock by
+dropping the lock, preallocating a pool with GFP_KERNEL, and retrying the
+locked lookup and creation path.
 
-The Verisilicon DC driver and its DT binding were originally written by
-Icenowy Zheng <zhengxingda@iscas.ac.cn> for the TH1520 SoC, which
-carries a DC8000 IP block.  The present series builds on that foundation
-with gratitude to Icenowy for the original work.
+If the fallback allocation fails too, pool remains NULL. Since the loop
+condition is while (!pool), the function can keep retrying instead of
+propagating the allocation failure to the caller.
 
-The DCUltra Lite is a previous generation of the DC8000 series.  While
-the two IPs share a broadly similar register layout, a number of
-differences prevent the existing driver from working on the MA35D1
-without modification:
+Set pool to ERR_PTR(-ENOMEM) when the fallback allocation fails so the
+loop exits through the existing common return path. The callers already
+handle ERR_PTR() from get_cg_pool_unlocked(), so this restores the
+expected error path.
 
-  - No chip identity registers: the DCUltra Lite does not expose
-    model/revision/customer_id hardware registers, so variant detection
-    must come from platform data rather than register reads.
+Fixes: b168ed458dde ("kernel/cgroup: Add "dmem" memory accounting cgroup")
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+---
+ kernel/cgroup/dmem.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-  - No CONFIG_EX commit path: the DC8000 staging registers
-    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
-    PANEL_CONFIG_EX) are absent; the DCUltra Lite uses enable and reset
-    bits in FB_CONFIG (bit 0 / bit 4) for direct framebuffer updates.
-
-  - No PANEL_START register: panel output begins when
-    PANEL_CONFIG.RUNNING is set; the DC8000 multi-display sync start
-    register at 0x1CCC does not exist.
-
-  - Different IRQ registers: IRQ_STA at 0x147C / IRQ_EN at 0x1480,
-    versus the DC8000's IRQ_ACK at 0x0010 / IRQ_EN at 0x0014.
-
-  - Simpler clock/reset topology: two clocks ("core" bus gate and "pix0"
-    pixel divider), no driver-managed resets.  The DC8000 requires
-    core/axi/ahb clocks and three reset lines.
-
-  - Single display output: no per-output indexing is needed.
-
-  - Smaller register space: max_register 0x2000 vs. DC8000's 0x2544.
-
-Patch 1 extends the verisilicon,dc DT binding to accommodate variants
-with flexible clock/reset counts and adds a new sub-schema for
-nuvoton,ma35d1-dcu.
-
-Patch 2 introduces the vs_dc_info platform data structure, selects the
-correct code paths based on the detected IP family, extends Kconfig for
-ARCH_MA35, and wires up the "nuvoton,ma35d1-dcu" OF compatible string.
-
-Both patches have been tested on Nuvoton MA35D1 hardware and are
-functioning correctly.
-
-Joey Lu (2):
-  dt-bindings: display: verisilicon,dc: generalize for DCUltra Lite
-    variant
-  drm/verisilicon: add support for Nuvoton MA35D1 DCUltra Lite display
-    controller
-
- .../bindings/display/nuvoton,ma35d1-dcu.yaml  |  94 +++++++++++++
- .../bindings/display/verisilicon,dc.yaml      |  64 +++++----
- drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
- drivers/gpu/drm/verisilicon/vs_bridge.c       |  28 ++--
- drivers/gpu/drm/verisilicon/vs_crtc.c         |  13 +-
- drivers/gpu/drm/verisilicon/vs_dc.c           | 129 ++++++++++++------
- drivers/gpu/drm/verisilicon/vs_dc.h           |   1 +
- drivers/gpu/drm/verisilicon/vs_drm.c          |  16 ++-
- drivers/gpu/drm/verisilicon/vs_hwdb.c         |   2 +-
- drivers/gpu/drm/verisilicon/vs_hwdb.h         |  25 ++++
- .../gpu/drm/verisilicon/vs_primary_plane.c    |  43 +++---
- .../drm/verisilicon/vs_primary_plane_regs.h   |   2 +
- 12 files changed, 318 insertions(+), 101 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
-
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index 1ab1fb47f271..4753a67d0f0f 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -602,6 +602,7 @@ get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
+ 				pool = NULL;
+ 				continue;
+ 			}
++			pool = ERR_PTR(-ENOMEM);
+ 		}
+ 	}
+ 
 -- 
 2.43.0
 
