@@ -4,50 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA35ECD37B2
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 15:55:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24D71CD37BE
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 16:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29AAC10E7DA;
-	Mon, 11 May 2026 15:55:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E87210E540;
+	Mon, 11 May 2026 16:17:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="MnVJAB6h";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nnHlNz2W";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VXASPqng";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 456EE10E7DA
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 15:55:28 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 56C0716F3;
- Mon, 11 May 2026 08:55:22 -0700 (PDT)
-Received: from [10.1.39.22] (e122027.cambridge.arm.com [10.1.39.22])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 451BE3F836;
- Mon, 11 May 2026 08:55:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1778514927; bh=ycfLgVot91V7AUxILWruB/m9mWiOh7IIA5p5bd9BUCA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=MnVJAB6hMWeMqDA1g/HbCn9JQVich8u5t7Vce6B8lD6STgD09uARMeQqknUl6SW3o
- XeDDldmsU2R7M1f24PXYwh387iFRj03T6J/2nrm2BXYq3E5SXL4QgAedB25me88TIF
- rvIK57zk4vBFJyWOSgqz3L4j0XozKYTp/qq2Ncgo=
-Message-ID: <274d5844-f5ea-42f1-94e5-b4bc7f9dbaa1@arm.com>
-Date: Mon, 11 May 2026 16:55:22 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D39A510E804
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 16:17:02 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64BCNNpR774903
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 16:17:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=OzS0X7IM7l/lLVRxpSgo9g9Bn7AO8/fqwA1ioGWBXaA=; b=nn
+ HlNz2WuTsHi/QIKhVv+AiJz76fhTf2cpw1j++qxOQN5lfrQoJCuLB2d1DRmwsm0f
+ iLJoe07uzUQhM2D/72d61GlMT5V/tZ7Se5fDT2JX40C4xqY+FE71N3A8TvIrCFrO
+ XjhdTeGviKH4J4UMgfeFkUC7MNORQIkla8hMl1SdOvL9i4+l5HX2lL82ZvLkFKKm
+ j6hIg1cqhadiuQa+EFgUZ9SgQ1PZ33fqUq6yA5sVJ3/gGICM/ucQV5eH+P9WxJeU
+ f8r3GTgGOQwix82NuxlntY06qDSvtnLaITWOHDyoog1bceZcSd4u+gD/w0xGcOVw
+ /NfU84/OzUMVIirhGbIw==
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
+ [209.85.161.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3a32j7rq-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 16:17:02 +0000 (GMT)
+Received: by mail-oo1-f72.google.com with SMTP id
+ 006d021491bc7-6961e8fa90bso8178589eaf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 09:17:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778516221; cv=none;
+ d=google.com; s=arc-20240605;
+ b=fFnEB8/wbP1Tu2YjzKyKpAvtdYNN+/4g9Clx5ltF4/foXS1xlPULkN+WYrwaC7qaAF
+ dFTQTJE/VvjrEMKDgNmLH1m2q9ZorAwdRrVUjtVeG8lKbGe3gd5UBe4I/0NzUuhnQPHq
+ qimfObNKK+d8EETe57RyzT1atdHqIVpzjOEy23JE5zneclKVCdLBMk5LuEzFs0x0Wkkq
+ 30RReUCtTOcxm5J+0mV1gDZ5AKD0D6PIIOjiNw7hP4poC7cKeGslPmuy22gZNId959wV
+ IhbMyLyPH2VgogaV2f9EWvyKzk6WeQVSzlNzAEpeaEZMHSlkYnEmGqxMyDFmWhgUPcW1
+ cbew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=OzS0X7IM7l/lLVRxpSgo9g9Bn7AO8/fqwA1ioGWBXaA=;
+ fh=1168xPvGi39hHFWGNgynU98tkvAxCPTMMCzOB5JtMCw=;
+ b=DzY8lQc9zEkpQvKvuCSaF0HdE73qt8KOLgLaXBzEqo2LVAJwArdEQuUAKGEiIWgBeg
+ ERUAAIHcC2XN4mwDwWfCz9WBmgM6j8eH5NaOZibFSF4c/7kMvsIeRTVFvJuI+cQPNe58
+ fgTI8F58ZkgEOHT9A2Y0MVVHyI1fXYSfvY2gkmcKcnM5zQOxM8yDa1rhd9OSVx4jEzsk
+ hIfoyXpJ2sasnAW8Evdhio3r1G+eEcNiTCQqgn9Fnbfqws730fcT9Xxx2boG0Br457VK
+ GuAsPO7tYAVpoKZXS2vrCjs9Cn8o1Y0MgeP4rmTHrBOo3MTK5+tuTyefat7tueUHYCRF
+ FqYw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778516221; x=1779121021;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=OzS0X7IM7l/lLVRxpSgo9g9Bn7AO8/fqwA1ioGWBXaA=;
+ b=VXASPqngYHwT8AwexpbCDj77zkoECpGxXvBKfCS5bOCHmpEUx0by3jImaK2QcuXo8V
+ FQ4O2oGaTKlqlGCMDk0612q9vplqeQlqOUXpvXdMwdkM1HD4lWbjJ1QsWvPL7XpiNSYY
+ oa7SOxtZgyGAmvACNSMWPC5YszFys+tmwSknS9xgW/cKb/rNnPOEF5zPkB9kdpyNyWam
+ a8eqVqDR8fib1g8nz6MOwVpTEz2ixEvylySP//Z4lCAHNFpW3dVHfEcRs//QgKgZb0OS
+ Vn86rDqzYlGA1aCisaxTBkUyOM+5NI/m2SU1TNwp2zRY/dPZvR+9cnac4YhSTCgSHleW
+ WaeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778516221; x=1779121021;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OzS0X7IM7l/lLVRxpSgo9g9Bn7AO8/fqwA1ioGWBXaA=;
+ b=NVzSvgclJXSxQ4sO1QH+9dW/hdY8luEfa8PSZ5gvs2ivtKPQDikTMs3i0P7LYGCRHS
+ Mc8zmIZukLdmLq9QToocWsl6jtRMBxEuPI4E/e9Hx3dGxKUE5OczAwFMQ59XAJHqLBsr
+ b+U7hCWFWRoP4xHWeUcf5SJrgvvRX7PlvcdDkJ26jG+gc73gyF//n/gS4MnTzIm/5yOm
+ WEaI3UHcB6QfwagQtIuATwDxVHX78stSi0YpttHdHEK9lvFLGggiJvPYEQD8ofBuytUa
+ ZRi6XhwsGVWjGbSwcXpCevSIn/UL86bS/inEkpbvILc5baDGU7xWjpahD0c4MCKuXb7E
+ aL0w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/9KA4dykDHzue0f3LjIVPkSJ667PWwycC+s50F57ql0IGFhHvTTH8DwR0adhF5Ls68iav8haclSv4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRLcIK4lNMPeizPRIHvpOVW34eg2Yh3cIyi4v3Pi6gjnZNxks1
+ AjPdLDmsOBKtt+T5AKzwgKSoZqn2ZrPP1qDPF94iiETyI21dyKWIxlxmEo85ILnGsqX6yDvY6MJ
+ I7xxoI3Dhh6c/B6fezcG5xiwit0Ta3ZwUkQVzUv8lz+SClq6dy6pEvIPE0eEJHtGMfpW3AGzvHf
+ kOPR67EPbsGIQpSlU1a9yxkdLfUjF5c9l2SaNM128QG66iqQ==
+X-Gm-Gg: Acq92OEFvF7KHX/DSczeejrJQ44gMw5OdN127BiZvHQUP2Grpv103zp+oi5SAOGoZRa
+ R5wG/0O1wqGGAC2kaovO7f+/HK80gloE8huAK+c6oKrk/fPYyIcEjIKY7PZoBPiBJLnXJR51zC4
+ 4NYQw+lGYtBihf03H5S/C+YVbWgZQtNKw7l9RIBGV8FwJhm8VejyPZqdJFkdY3mRDNcZF/3x0Ir
+ Ivc4j1S/mwo2JvjrscZZDMpsMm3EBkPtqRPEA==
+X-Received: by 2002:a05:6820:180d:b0:696:64ab:cd9d with SMTP id
+ 006d021491bc7-69998c8fedbmr14053679eaf.12.1778516221384; 
+ Mon, 11 May 2026 09:17:01 -0700 (PDT)
+X-Received: by 2002:a05:6820:180d:b0:696:64ab:cd9d with SMTP id
+ 006d021491bc7-69998c8fedbmr14053617eaf.12.1778516220881; Mon, 11 May 2026
+ 09:17:00 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panthor: Wrap register accessor helpers for type
- safety
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: kernel@collabora.com, Liviu Dudau <liviu.dudau@arm.com>,
+References: <20260508-panthor-shrinker-fixes-v2-0-39cdb7d577c9@collabora.com>
+ <20260508-panthor-shrinker-fixes-v2-4-39cdb7d577c9@collabora.com>
+ <CACSVV00NdUKe6-05U3g0q5X3tw4zmqO_s2gk-KZxQVykpydvAA@mail.gmail.com>
+ <20260511174429.35afcdee@fedora>
+In-Reply-To: <20260511174429.35afcdee@fedora>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Mon, 11 May 2026 09:16:49 -0700
+X-Gm-Features: AVHnY4I40hrkxySZSpEMeonWzoJt3rA3BByl76Aatz-t8sb8-MR6pz1lZCD7E1Q
+Message-ID: <CACSVV02HQ-ci8mHg4os7e-yaf51hdHyQ6cFa9tGOpc9=keL28Q@mail.gmail.com>
+Subject: Re: [PATCH v2 4/4] drm/gem: Make the GEM LRU lock part of drm_device
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260508-panthor-gpu-read-type-v1-1-733a9d8b3a11@collabora.com>
- <20260511135641.790f797d@fedora> <O_1AymfMSq2IN-FA9jyHHw@collabora.com>
- <20260511171207.69723480@fedora>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260511171207.69723480@fedora>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: ya4OF2hrQ3Qjt1iAFo5XFn6UXkAc-hz7
+X-Proofpoint-GUID: ya4OF2hrQ3Qjt1iAFo5XFn6UXkAc-hz7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTExMDE3NSBTYWx0ZWRfX/r3cWXoAd9b0
+ KSrqF3ULVp3Wn89f06oZTmAPydvIRKfAnUxfP7/IAx/PWkh/JKA69hwrEWCQI1RmEJ5D7h1R8cN
+ Q5gaGwpOm/RH757514oJp819ADUsyteECVD0ZYWMTqKKi4MUplummFSl4+8choSKflf3nuFnwSm
+ 2ZdJxxwcnmSw5Kc6LeUzxhQGLLle9X/vbIEBGaTKa8+vDYijozUV2dkG/BdTuF9L0xEAduvR8rw
+ p1fytRTLiuSPvSF+CCaUPFoFjVkimu4FshUFLo6FwFUSwdPkACryXX7p7brGeUPKApMzNP3Yqnd
+ kp1ybGTSrjpst8EoHx8J3Ph/3upXsIcudLNzD8PLw+XNNc4wqLaksgRvypNyGVGXdtVr9w1tQJZ
+ o1U6zrGiJi9BEI5pptQvqEqCth4V5ooEymc2sKRTRNYsAZJ2QE5z0F5d/3GsEhnU+U6ZsChIe4a
+ jHL/46CjkHCaAXP865w==
+X-Authority-Analysis: v=2.4 cv=SLVykuvH c=1 sm=1 tr=0 ts=6a0200fe cx=c_pps
+ a=wURt19dY5n+H4uQbQt9s7g==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8
+ a=X8FTkJh-O0bHBhosSCoA:9 a=QEXdDO2ut3YA:10 a=-UhsvdU3ccFDOXFxFb4l:22
+ a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_04,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501 malwarescore=0
+ phishscore=0 adultscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605110175
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,153 +164,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 11/05/2026 16:12, Boris Brezillon wrote:
-> On Mon, 11 May 2026 15:53:31 +0200
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> 
->>>   
->>>>  {
->>>>  	return readl_relaxed(iomem + reg);
->>>>  }
->>>>  
->>>> -static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
->>>> +/*
->>>> + * The function signature of gpu_read/gpu_write/gpu_read_relaxed/... used to
->>>> + * take a &struct panthor_device* as the first parameter. During the split of
->>>> + * iomem ranges into individual sub-components, this was changed to take a
->>>> + * void __iomem* instead. These wrappers exists Tto avoid situations wherein
->>>> + * pre-refactor patches are applied in error, as they'd compile fine. That's
->>>> + * because the old calling convention's first parameter implicitly casts to a
->>>> + * void pointer.
->>>> + */
->>>> +
->>>> +#define gpu_write(iomem, reg, data) ({					\
->>>> +	static_assert(!__same_type((iomem), struct panthor_device *));	\  
->>>
->>> Hm, this only covers ptdev being passed as an iomem pointer. I know it's
->>> the only case we had so far, but if we're going to add type enforcement,
->>> I think I'd prefer if we were covered for more than just ptdev.
->>>
->>> One way of doing that would be to wrap the `void __iomem *iomem` in an
->>> explicit type like:
->>>
->>> struct panthor_reg_bank {
->>> 	void __iomem *iomem;
->>> };
->>>
->>> which then gets passed to gpu_{read,write} helpers (see the diff below).  
->>
->> Hm, okay, the diff below is smaller than I feared. Though it doesn't get
->> us type checking for someone, say, trying to read GPU_STATUS with the
->> iomem of panthor_fw.
-> 
-> Yep, that's annoying, though solving that would require connecting reg
-> definitions (in panthor_xxx_regs.h) to a specific reg_bank, which is
-> only doable if we provide per-component accessors like:
-> 
-> #define mmu_reg(_mmu, _name) ((_mmu)->iomem + MMU_ ##)
-> 
-> #define mmu_read(_mmu, _name) gpu_read_iomem(mmu_reg(_mmu, _name))
-> #define mmu_write(_mmu, _name, _val) \
-> 	gpu_write_iomem(mmu_reg(_mmu, _name),_ val)
-> 
->> But neither does my proposal below.
->>
->>>
->>> The other way would be to pass the component, and have the macro
->>> do the <component>->iomem deref, but there's a few places where reg banks
->>> are accessed outside of the components that own them (panthor_hw.c).  
->>
->> Yeah, I prototyped going down something along that route by having
->> the register accessors be generics that are implemented by each
->> component, and it's a bit messy. Either you expose the struct
->> definitions of individual components so that this header has visibility
->> into them (not great), or you add boilerplate "do this accessor
->> operation for this component" helpers for every component, which is both
->> verbose and possibly causes the inlining to no longer work, though I have
->> yet to verify that.
->>
->> If we do want to go down this route (though I'm not sure, since your
->> reg bank solution seems to get us the same guarantees but without bringing
->> generics into this), then the following may be an okay idea:
->>
->> I think having just the iomem deref genericised may be a good middle
->> ground. If instead of making it a deref, we make it return the pointer
->> to the member into the component that it can then deref, then the
->> component-specific part can be pure (since offset of the iomem member
->> is constant so for a particular pointer to a component, the pointer to
->> the iomem member only depends on the passed-in pointer to component.)
->>
->> This should make sure that when the compiler gets
->>
->> panthor_gpu_write(ptdev->gpu, foo, bar);
->> val = panthor_gpu_read(ptdev->gpu, baz);
->>
->> it can optimise the expanded
->>
->> iomem = *panthor_get_iomem_ptr(ptdev->gpu);
->> panthor_actual_write(iomem, foo, bar);
->> iomem = *panthor_get_iomem_ptr(ptdev->gpu);
->> val = panthor_actual_read(iomem, baz);
->>
->> to the simplified
->>
->> iomem = *panthor_get_iomem_ptr(ptdev->gpu);
->> panthor_actual_write(iomem, foo, bar);
->> val = panthor_actual_read(iomem, baz);
->>
->> because panthor_get_iomem_ptr will be known to return the same value
->> when called with the same input param.
-> 
-> Right, as long as the compiler sees the definition of
-> panthor_get_<component>_iomem_ptr() (which should be the case any time a
-> read/write happens inside the panthor_<component>.c compilation unit),
-> it hopefully inlines the whole thing and you get the iomem pointer from
-> a direct deref rather than a function call. LTO might even give us link
-> time optim for the bits in panthor_hw.c where the compiler can't see
-> through struct panthor_{gpu,pwr}.
-> 
-> This being said, there's still no guarantee that one would mix regs and
-> banks randomly, like
-> 
-> 	gpu_read(ptdev->mmu, GPU_ID);
-> 
->>
->> Anway, I think it's probably best if I abandon this and you just send
->> your patch to the list with a real base. I only have one comment on it,
->> which I've included inline.
-> 
-> Let's wait for Liviu's and Steve's feedback before taking any action,
-> cause that's still quite a lot of changes, and it's not clear it will
-> help much once we've got all the pending patchset rebased on misc-next
-> (that's a mistake you do once at rebase time, once you've got bitten,
-> you tend to be more careful ;-)).
+On Mon, May 11, 2026 at 8:44=E2=80=AFAM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
+>
+> On Mon, 11 May 2026 06:18:44 -0700
+> Rob Clark <rob.clark@oss.qualcomm.com> wrote:
+>
+> > On Fri, May 8, 2026 at 3:41=E2=80=AFAM Boris Brezillon
+> > <boris.brezillon@collabora.com> wrote:
+> > >
+> > > Recently, a few races have been discovered in the GEM LRU logic, all
+> > > of them caused by the fact the LRU lock is accessed through
+> > > gem->lru->lock, and that lock itself also protects changes to
+> > > gem->lru, leading to situations where gem->lru needs to first be
+> > > accessed without the lock held, to then get the lru to access the loc=
+k
+> > > through and finally take the lock and do the expected operation.
+> > >
+> > > Currently, the two drivers making use of this API declare device-wide
+> > > locks, and there's no clue that we will ever have a driver that wants
+> > > different pools of LRUs protected by different locks under the same
+> > > drm_device. So we're better off moving this lock to drm_device and
+> > > always locking it through obj->dev->gem_lru_mutex, or directly throug=
+h
+> > > dev->gem_lru_mutex.
+> > >
+> > > If anyone ever needs more fine-grained locking, this can be revisited
+> > > to pass some drm_gem_lru_pool object represent the pool of LRUs under
+> > > a specific lock, but for now, the per-device lock seems to be enough.
+> > >
+> > > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> >
+> > Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
+>
+> If every one is happy with patch 4, I'm tempted to drop patch 1 and 3,
+> since they are irrelevant if the locking is fixed the way it is in this
+> patch. Question is, do we care about patch 2 being backported to stable
+> kernels then?
 
-This is always the problem with changing this sort of thing - I was
-somewhat wary of the whole split things by component series. But I think
-there's some hardware changes in the pipeline that effectively require
-something like that. And perhaps going forward the code will be slightly
-easier to reason about.
+Or backport patch 4?  It's a bit bigger, but mostly mechanical.. with
+only issue being backporting across addition of panthor shrinker, I
+guess?
 
-Boris' patch is certainly the neater - the static_assert is rather a
-point fix and doesn't solve the underlying problem. I'm beginning to
-wonder if we should have gone with a mmu_write/job_write/gpu_write()
-split at the function level. Which would have the benefit of not having
-to deal with iomem pointers.
-
-Ultimately as a C programmer I tend to feel it's a case of "once bitten,
-twice shy" and you learn to be careful around things like this. Rust
-programmers tend to have the opposite viewpoint and want the compiler to
-detect anything incorrect, but given it's a C driver I'm not sure there
-is a fully robust way of making this "safe".
-
-TLDR; I'd be happy to merge (a fixed version of) Boris' patch (after
-some sanity testing). I'm not convinced it's worth trying too hard to
-introduce lots of type safety as C really doesn't give us the tools.
-
-Thanks,
-Steve
-
+BR,
+-R
