@@ -4,59 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFF33CD4840
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:51:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3276ECD4840
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 18:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2764D10E84A;
-	Mon, 11 May 2026 17:51:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7554510E548;
+	Mon, 11 May 2026 18:56:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uaQBsmfc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gobb3YXZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C6DA10E84A
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 17:51:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57EAD10E548
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 18:56:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AB6CB6001A;
- Mon, 11 May 2026 17:51:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2E2C2BCB0;
- Mon, 11 May 2026 17:51:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BF1B3444A7
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 18:55:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2ADCC2BCFA
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 18:55:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778521873;
- bh=9Yp/CVYMqyPHBsVwAYn1sN99dUm//BD19OnBzFRd58k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uaQBsmfcDLzI0oyLMmScwlkSABsNwECIqpR0/h+xKOpexzgzViP8Og/wmqTD4O1eF
- o7gjnRHu4CqassvmmeodKtlh3NbW4GDg8HjzPph7s4ZyElHEpfdeEKBIMRR550nSU+
- 6IQNVmepFF0Cj19pqwB85nSgqqLBZfjop0NwAW8oEedE4O7mcdUnSjFXQtijvqFqO6
- 09u6sQ/bFDGkIwo0v0C+Fm0ixRP9QjtN/Crkynr3upIr8pySL+lfbwNPcOaTRMW31g
- dTOJo/LYuCWyLbQASOoAfbmZAN5UpOnWve8uBiN0EqY1P4htfvnY4BJaNcfp2e8l7D
- lgE6+FEb0QoXw==
-Date: Mon, 11 May 2026 20:51:03 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Matt Evans <mattev@meta.com>
-Cc: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org
-Subject: Re: [PATCH 9/9] vfio/pci: Add mmap() attributes to DMABUF feature
-Message-ID: <20260511175103.GK15586@unreal>
-References: <20260416131815.2729131-1-mattev@meta.com>
- <20260416131815.2729131-10-mattev@meta.com>
- <20260424183153.GJ3444440@nvidia.com>
- <20260426105215.GA440345@unreal>
- <20260427083644.4ee174cd@shazbot.org>
- <25a4fc45-1b4d-426b-954a-60bf21e9040f@meta.com>
+ s=k20201202; t=1778525759;
+ bh=zIB79Xk6boPPhMmzQH/JqpB68ofRCBiWIY7ln6Jka+I=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=Gobb3YXZLJpXM3q5cjIlLdWXME24nY9aFDK3qUmbBykez4ssdqzDTJ6T5xnhPV3V3
+ 4/N3/jHgZG6iOc5QFyBqGdIDxO0CdB2Aw/9d9g/Lwrud91QNyzqAgUJjE0db6rt9Sy
+ p+H+VyCn/0arhVonbSSejiW5U2A1+lkKe+cjI6+FKfT1NtLJpnS3UbMZFh33pM0kQ/
+ efh6I3GzJu4KdZybnst+n6nqxcoO7LRkA6eCoDfeBL0w3BcnUZHQ8UP/IzQX10WHCZ
+ aAIVUpL+qehiClt68obiYrxfHFvxZsjYH8Go158Pgz6nIzZWAxjTQsaPTRbCTEPRxS
+ d5EI2pJxkcn3g==
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5a86c1fe573so5103689e87.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 11:55:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9OTEXL/44/Aci42ckqxplSgd5KwMVtDqGY2Ojkawb6wCimUWURjVnd7370rDqLYTAIQiH9ErJQ51o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YysDeXlh8zHWXdOPVzl2tunpj8dKhC6lrLowI4D4r5YyKHW5WY+
+ E31nkoCBY2d+Cj60nhHrlA6OrF/arOGmp48I36/5iae8gufjchch+maqn4/Zzs18UsZua7WGqML
+ rlflRJHTzuIutm566HzCToNfcfFmjyck=
+X-Received: by 2002:a05:6512:3ba4:b0:5a8:63e0:cd92 with SMTP id
+ 2adb3069b0e04-5a8b709be01mr3083162e87.33.1778525758018; Mon, 11 May 2026
+ 11:55:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <25a4fc45-1b4d-426b-954a-60bf21e9040f@meta.com>
+References: <20260511165942.2774868-1-robh@kernel.org>
+In-Reply-To: <20260511165942.2774868-1-robh@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 11 May 2026 20:55:46 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkmoN3iY=d5TgkLswgEt4Dgx_j3BAJPX-ASL+VnF_EzHw@mail.gmail.com>
+X-Gm-Features: AVHnY4LWa20oUaE1F0JxYrIcNTXFA3pQESxY2XotgaPrY2W88xHdQsN2xv93t9I
+Message-ID: <CAD++jLkmoN3iY=d5TgkLswgEt4Dgx_j3BAJPX-ASL+VnF_EzHw@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Consolidate "sram" property definition
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Liu Ying <victor.liu@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul <vkoul@kernel.org>, 
+ Nas Chung <nas.chung@chipsnmedia.com>,
+ Jackson Lee <jackson.lee@chipsnmedia.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Mirela Rabulea <mirela.rabulea@nxp.com>, 
+ Detlev Casanova <detlev.casanova@collabora.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Heiko Stuebner <heiko@sntech.de>, 
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Alain Volmat <alain.volmat@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ MD Danish Anwar <danishanwar@ti.com>, Roger Quadros <rogerq@kernel.org>, 
+ Parvathi Pudi <parvathi@couthit.com>, Mohan Reddy Putluru <pmohan@couthit.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Michal Simek <michal.simek@amd.com>, 
+ Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lorenzo Bianconi <lorenzo@kernel.org>, Felix Fietkau <nbd@nbd.name>,
+ "Andrew F. Davis" <afd@ti.com>, 
+ Hussain Khaja <basharath@couthit.com>, Suman Anna <s-anna@ti.com>, 
+ Ben Levinsky <ben.levinsky@amd.com>, Tanmay Shah <tanmay.shah@amd.com>, 
+ Erwan Leray <erwan.leray@foss.st.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
+ Roger Quadros <rogerq@ti.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, dmaengine@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org, 
+ linux-remoteproc@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-spi@vger.kernel.org, linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,82 +120,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 11, 2026 at 04:30:39PM +0100, Matt Evans wrote:
-> Hi Alex, Leon,
-> 
-> On 27/04/2026 15:36, Alex Williamson wrote:
-> > 
-> > On Sun, 26 Apr 2026 13:52:15 +0300
-> > Leon Romanovsky <leon@kernel.org> wrote:
-> > 
-> > > On Fri, Apr 24, 2026 at 03:31:53PM -0300, Jason Gunthorpe wrote:
-> > > > On Thu, Apr 16, 2026 at 06:17:52AM -0700, Matt Evans wrote:
-> > > > > A new field is reserved in vfio_device_feature_dma_buf.flags to
-> > > > > request CPU-facing memory type attributes for mmap()s of the buffer.
-> > > > > Add a flag VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC, which results in WC
-> > > > > PTEs for the DMABUF's BAR region.
-> > > > > 
-> > > > > Signed-off-by: Matt Evans <mattev@meta.com>
-> > > > > ---
-> > > > >   drivers/vfio/pci/vfio_pci_dmabuf.c | 15 +++++++++++++--
-> > > > >   drivers/vfio/pci/vfio_pci_priv.h   |  1 +
-> > > > >   include/uapi/linux/vfio.h          | 12 +++++++++---
-> > > > >   3 files changed, 23 insertions(+), 5 deletions(-)
-> > > > 
-> > > > Nice and simple
-> > > > 
-> > > > Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> > > > > @@ -1549,8 +1551,12 @@ struct vfio_region_dma_range {
-> > > > >   struct vfio_device_feature_dma_buf {
-> > > > >   	__u32	region_index;
-> > > > >   	__u32	open_flags;
-> > > > > -	__u32   flags;
-> > > > > -	__u32   nr_ranges;
-> > > > > +	__u32	flags;
-> > > > > +	/* Flags sub-field reserved for attribute enum */
-> > > > > +#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_MASK		(0xfU << 28)
-> > > > > +#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_UC		(0 << 28)
-> > > > > +#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC		(1 << 28)
-> > > > > +	__u32	nr_ranges;
-> > > 
-> > > Alex,
-> > > 
-> > > The TPH proposal extends the flags field in a similar way, but I suggested
-> > > a different approach to conserve bits. At the moment, we spend three bits
-> > > on a single feature, which feels wasteful.
-> > > 
-> > > What do you think?
-> > > https://lore.kernel.org/all/20260409120415.GF86584@unreal/
-> > 
-> > I already proposed a very different interface for TPH that decouples
-> > the dma-buf creation from setting the TPH values:
-> > 
-> > https://lore.kernel.org/all/20260423132016.4a25e074@shazbot.org/
-> > 
-> > This is overall less intrusive than the TPH change proposed, but it
-> > could still make sense to align this as an operation on the dma-buf,
-> > that can be probed as a separate feature.  Thanks,
-> 
-> I'll add a VFIO_DEVICE_FEATURE_DMA_BUF_ATTRS in a v2 instead to get in line
-> with the TPH work, no worries.
-> 
-> For the benefit of future hackers, how would you describe the criteria for
-> adding flags to this existing field?  
+On Mon, May 11, 2026 at 6:59=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org>=
+ wrote:
 
-One bit per-feature.
+> The "sram" property has become a de facto standard property, so create a
+> common schema for it and drop all the duplicated definitions.
+>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
-> What hypothetical feature characteristics would be appropriate?  (Maybe it's that these attrs & TPH
-> add scalar fields in several bits rather than a simple boolean.) Two of us
-> have independently added something that's turned out to be inapproriate so
-> some guidance would be good.
+I like it.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Both of you intertwined the signaling bit with the actual data, and that is
-what led me to prefer a different approach.
-
-Thanks
-
-> 
-> Thanks!
-> 
-> 
-> Matt
+Yours,
+Linus Walleij
