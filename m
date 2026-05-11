@@ -4,81 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 129C2CD37BE
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:10:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D95D9CD37BE
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:21:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 487C610E554;
-	Mon, 11 May 2026 17:10:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3862110E84C;
+	Mon, 11 May 2026 17:21:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y+pAnksa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iqUdWFtX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BC9010E1D7;
- Mon, 11 May 2026 17:10:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA0510E837;
+ Mon, 11 May 2026 17:21:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778519449; x=1810055449;
- h=message-id:date:from:subject:to:cc:references:
+ t=1778520116; x=1810056116;
+ h=message-id:date:subject:to:cc:references:from:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=mbxd35ubebCYQNk8a0Zg+T2EE4DY3U73bcU4p3Zd2p8=;
- b=Y+pAnksa+iBHm4UI8MQcjgAyiwSh/gDqKHPIDuEqAVGD5bPV9+IphU2w
- FW85bvH64ITxASVQZCxcCJk9f6uVoTTlZ450bDGOqnOqYemLBd8FjXwUM
- gpcvfmNA7jYJAC0JSnE+BR0zCa3sVZcFh+lOUDtXQjOA+NebEYsgGE8/u
- YQzJ/iVhem4nxpKqbE8vp6SOlKYecNFDbwCuGQ5cq1gUWeem7twnTRZ8H
- wdNgXS7n1yl7q/gt+iycXIHWtvZlwbZKS+ur9CKCq1PDU/aHvz23EBqtN
- 9Pr3PuJba3mIcZV8JQQg1asP+YxlOp42uGn1yYYRBqpzrlHZH9eaLaiiN Q==;
-X-CSE-ConnectionGUID: rTiHe35oRUuB23l5mLddbQ==
-X-CSE-MsgGUID: xeE1rm7bTCWWkPRNe3y72A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79311837"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79311837"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:10:49 -0700
-X-CSE-ConnectionGUID: sNWr+XhJQ1Wa5Rqtle08bw==
-X-CSE-MsgGUID: 0+r4iHveQBCRxw1zCq1wdw==
+ bh=lS8ARNr6b7HifY6MP0cmDPzokOmlMUIiuY4pkPuy3Xg=;
+ b=iqUdWFtXDzWZw/FPv0ovGeCWtjB2clCZ/gkrQRtrrI1yYDv1iECGO44Y
+ 7bx/V1YhuE2cAaIJhZqq8qZXyGtIkCzysMK4AaGVQ66Pum2fWxoAZb66i
+ TalNvClndLgzuQGucM76IyKqXVs3+bh2liQepKEAy1lXRRrRfbnXCQnx7
+ nUWHrFfgYmKKV6PpncIzPRT54ylkXLxSQSacpfd6GbTt5+Ipk08fnAtON
+ yj3k2hhwPHDXcQbkQbs+v3AbkYK21W4ljECzKVtdzf+OA6FXwfaTFtjGK
+ /aghFrImLofSyizFFgaB1bGuES4b6kywNGqvQ1FTa3GD0OSrCdmBRozVA w==;
+X-CSE-ConnectionGUID: 9e8RfzGLTbWzixAwJiegSQ==
+X-CSE-MsgGUID: IVMhHWQeTvmeg+mhFmPgdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79440758"
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79440758"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2026 10:21:55 -0700
+X-CSE-ConnectionGUID: Zuhc8LknTvijttS2AVmQDg==
+X-CSE-MsgGUID: KIVM76MJRteUO8MRH2CsLw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="234847463"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:10:48 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="237608642"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2026 10:21:56 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 11 May 2026 10:10:48 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ 15.2.2562.37; Mon, 11 May 2026 10:21:55 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 11 May 2026 10:10:48 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.63) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ 15.2.2562.37 via Frontend Transport; Mon, 11 May 2026 10:21:55 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.3) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 11 May 2026 10:10:47 -0700
+ 15.2.2562.37; Mon, 11 May 2026 10:21:55 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fFWocPmtQwhRFA6kPfLaHrEvB+z5G4j0foJi8dn46nKhEvb4gQ05wKGVdV17YCiZQmszD6YA9DS22V94e5/+2hUuZecJJSWJHvE5XD7v2rAyT4/WCKC1jamm3I7eUzgQIAzQIgu1wl0V5DY3rvBYZGzP8k4SkPbE3V0OC+uX3ZikPP27PnNPYBymFvgoi5sGlRbHSyN7DFFVXLjZcQHu6EgaHo4Xsvt3ffxCKTPdm5zO4DNm94Yr+K3foXd6D4EPe1KtIwvcZ3W7QhZUX3YI27oyTKxIMbsahA1NXRDDMMunIL38lDzUQcCPh/MuJFcSWGt/9Y2k2nRYNh2IY8zvGw==
+ b=Mkjflx6uB0WKVfub7UyMW5/hldKFCB59qs00kG0AZZN2JMIsKjpM9dVBbs2tgEd5YyDgkQNjk2ium+0AErJmXLa3k5MbsaQdTvhooKmDnDwZnrjHjdtiucZemNTQO51LE6cOLcKORAPCq05qCQKJJnpM2H2MrZP9FtTI03rfiL4T0R0wnGEF9ZAwTog7tOWnl3OOYkEkOPqxN39iNBX8nAKVIagn2XkbK+TbJH17lUngW4xv9R5NKmwXhMWCroOEAMXN6RssBEatK0v6eY4iN4wIUA3px7y2u3FDjpVE5jYCQyHOmjtaq/Cpn+7Lh6KQ0If32ENdMmL71SRvtAC/4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XLGZFiEzmxzev2LB9AVTnszBkNkgfHVyEwAIXiQQMoI=;
- b=oPOaRN72LglU+oH75m+36Dx+8LwS8Y8Q8V7zKqXXqZWyJkbrJLCZuthhb1rdAiBpGorlpAoUAGEO7Lz7QPgKJ47rL58NC8UTzOHAcUhBszdTTZUtQ/jeGQSnA/XqXWYpCdfyqUr0SX5h5L4CecigXvsCV2xGJxeNzS5Q/VKs1V+j3LKBYTq2onmx9b6Otop7zzI3Loo0hvA6NZg7J82AohQ4vZJKPmdg0BDYaQVC3JjHOFVPPvcFl6iM9YMGmRkB12DNbO6Z2x2alaQDU/pLLLIkvlBJGUB6dHsv9e/cuteI0lE7lAusIBJ18eBYTKkm9tULUof5sUXUpcJygSrq/Q==
+ bh=bnKEdnChpuDyNTF76AeDpz2g2ZXRP+GLNKJRgCf2qoE=;
+ b=HrsUQexdMiOUEQX6TGm00/WEH0n7nBQi7HoGt9HiSinhY6PWamESztGRmfoVgITcDWBDlQzc/vJw8vx1E1uCRgapPB5sX/Ubs0isv54ZFtZIpikdF3+UF+SHc31JO/8+Ah6OSzKvfCIL5PvuGge4ZcO4FI1EIjC/00xsfRVOfXMll0MW3TI8+P/6KRaiv17MyPYLx1rWutuvJOmrJB/o2/iSsjFJ0NrYIwGM80iOh07m6kop36ygAOZPA93Zihsnbg02EcHpW7ogfKug9e8mnvPCbwhR18sFYJD8PgNJXJczNXse81JziE8fVD2cUdPBPF3b3ecTXaVAyvFaQwAAKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- CH8PR11MB9458.namprd11.prod.outlook.com (2603:10b6:610:2bc::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.23; Mon, 11 May 2026 17:10:43 +0000
+ IA1PR11MB6171.namprd11.prod.outlook.com (2603:10b6:208:3e9::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
+ 2026 17:21:51 +0000
 Received: from DS0PR11MB7958.namprd11.prod.outlook.com
  ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
  ([fe80::8cb2:cffc:b684:9a99%6]) with mapi id 15.20.9891.021; Mon, 11 May 2026
- 17:10:43 +0000
-Message-ID: <81b9b5f6-6107-467a-879c-c2906e8d1f58@intel.com>
-Date: Mon, 11 May 2026 22:40:29 +0530
+ 17:21:51 +0000
+Message-ID: <5e90b9aa-9432-43b5-ae40-1fce383bb043@intel.com>
+Date: Mon, 11 May 2026 22:51:38 +0530
 User-Agent: Mozilla Thunderbird
-From: "Tauro, Riana" <riana.tauro@intel.com>
-Subject: Re: [PATCH v1 08/11] drm/xe/ras: Get error threshold support
+Subject: Re: [PATCH v1 09/11] drm/xe/ras: Set error threshold support
 To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
 CC: <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <kuba@kernel.org>,
@@ -90,77 +89,78 @@ CC: <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <kuba@kernel.org>,
  <soham.purkait@intel.com>, <anoop.c.vijay@intel.com>,
  <aravind.iddamsetty@linux.intel.com>
 References: <20260417211730.837345-1-raag.jadav@intel.com>
- <20260417211730.837345-9-raag.jadav@intel.com>
+ <20260417211730.837345-10-raag.jadav@intel.com>
 Content-Language: en-US
-In-Reply-To: <20260417211730.837345-9-raag.jadav@intel.com>
+From: "Tauro, Riana" <riana.tauro@intel.com>
+In-Reply-To: <20260417211730.837345-10-raag.jadav@intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0011.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:176::8) To DS0PR11MB7958.namprd11.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0082.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d8::12) To DS0PR11MB7958.namprd11.prod.outlook.com
  (2603:10b6:8:f9::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|CH8PR11MB9458:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5c7161b-dd59-4c4f-3a3e-08deaf803b9f
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|IA1PR11MB6171:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4defbe8b-ea39-4b4d-d981-08deaf81ca20
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|3023799003|56012099003|18002099003|22082099003|11063799003;
-X-Microsoft-Antispam-Message-Info: 0NQtehxLKDUIkiqBv7J69DUix1cfntF1yI9r/+gpH78ynDZpdPhm6MtMRxq/cYuCGlEivF3HxFobmso6ojY6RagQ+00Q/dJKdRRdz6hot5SU8kbnU4tfDHxre2lkMSrX4y/youvVFYKa3ZuZBNu2Rz3w3l4CBvsNmZLYPo5YNJ31JlmHmM2hGgwl2tiZ1eUhurb4jverbZrCsGIu3/nYCp6IHIiAChsKqmZkkDg0XsDAV6PzV7QsuuoaNicHpkiaFPz3fs/SAkp64PPxn76AcuwQvMzojJsXPzfrntNDEuhFTjollJVOK/6teDie8swl0G2EJM6/NFlnRuc2SaXeNd4CcSl7/OkQZ1pqgK9NKUWRFUGiZ3eYLt9I2grFs9VdwVn8qNW5gaYm7kPBkBKB/LY1HyF6BTXqJ7CHUF+YfamgbRJ2GouZQWuctw0Vq3IE2NLhCoRsBVKStwciRgP3iR2Cuz69iquJ/0IgasWTcaigxf0nOrbHCwuTK/ykG+CFNPPCZ9hnY3vsYz+q3t0jXtd8Af7j3xcz/B3/ItgmtoFzBuv3ZyN/VDRr7pzlzU9LnTEZmBYNZeNKlKs9xOBQ/XrFDoldJpkHLrbI/kjl1A8/q/gMPxiUVP406wKt2audj0zagY4Cw91bjup0hdegfBAvR+Nu4dzDIaHSM2LlUx46Z/gmfwfwWh1ePjCPsKaq
+ ARA:13230040|7416014|376014|366016|1800799024|18002099003|22082099003|56012099003|3023799003|11063799003;
+X-Microsoft-Antispam-Message-Info: VT/xw4XYcaYlsxhjO8WUkzo4A1+liGkdbPOuJ6ByMjKnCvrKSY8YQmasON+Og52qd9ZQUy+wa/XlfcQaK09UimosybKJ15rZ919BKz1g9s3z00Z9SdxWB6kHI5kmbPv1vk+OmuPaq3ff/MJxewDhkKzekvdJSr/E+oszSDwohAKHgi0gbCkZZB7UjLz8029djNemIEPkN4cGTgdUwl4WHE0jyxb/5IDRbtXII7+fNnfdTPaBuCWOWnC0pYiolieZa99w7ohhATfZOGHVejgYMxTn4RZclx5WP24nmax0JuInogMZHq2I8lTsfIpLD4JMzC0Dp54FfRwixupdNOfScjcCiJRrG9qkz+DwBMtdvOoMkGvyPy+P5lOzB9Z4dSTMevXSEdpVArX99lVjh5KwzHH2I3oqvi5pkkGdUjVr+wbIbrJgexxIbWI0LeTSiBK5horRTlj5GcBsY2bTWMIKuUGlIWiecpU3yisI5nP73izSd1mAjF1S+mC4BeQj1NTNjgI8IpHqG+DLKbfLQW6tAn3+H3QceTx0WfTuh9jOFwiwfoxFdVmWB0MMlV+hbiM3KCla3/YTs9woyrK2iEHjcbJfQ9o47c/e5WBRHxfxJJfMaS89tZ5lQpbOgcaTIcB82S06/Ibjt9scCZYWFqu529GyceiI8++b1JY4A1j+N5FK1Wx/iRgf9GeDAjm8uaxVrHMR9XHqDOhn5pFztOU12w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(3023799003)(56012099003)(18002099003)(22082099003)(11063799003);
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003)(3023799003)(11063799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFNBQkQyL3M1TUFZVzlvRWZKS3ZETC9YN3VrcEZPUUdWeDlDajJYWXpMMWFk?=
- =?utf-8?B?V3U0amIrN28wczZyWEhSallRU1BoNzBQdGs3UXU0QXZja0k1WXBBbnV5RWNN?=
- =?utf-8?B?bHdXMDNpbURKTEdhWXNYRkU1VUZlY0NKOXdSbDBnbmxaSktndG1NcDhTRmlY?=
- =?utf-8?B?bDFFQXdOYXRNWHU4Yk9ZaEd3WURtdUJjY29vdEN1b0crWEpXMDFlSjN4NFZm?=
- =?utf-8?B?SkxCT1F0WmY0TEVyOVJlRlNZWGkwMC9DQi83RVkrdjdyc0hmTVpLRVhPUFlQ?=
- =?utf-8?B?V2tjalM1ZFN5MHB0OGpldm1nWWs2a0dqcUUra1JRM2tKVm12Zlg0NUs2NFhj?=
- =?utf-8?B?Mm13bjJqV1A5NW5QYkZqVXFlbmdtYTRLNkFhNkpRM296cVQrR3dCOVI1d3gv?=
- =?utf-8?B?RXNmTFBYZDNPYXMvNUpYdjdsSHB0NXorSWFkdENCRUdUUEVXK2FJSGkrbFNh?=
- =?utf-8?B?NUR2N09sRlpXKzQrNSsyU0RsZktqdFFZaDNvRlRnVnBpYld1T1NOR1VUZzFa?=
- =?utf-8?B?bnZLZkpWcXRwdlZhcWVhUmNNUFpFamJ2dzY4RitNRGxGTy93dmhvUUlMZERa?=
- =?utf-8?B?dW92RkcrVG1mdVdrSGUzOHhETkJDdEdLWlo2V0NSaWJPUE9SNW9Mdit1WVNY?=
- =?utf-8?B?bkEra293dm5maG1iWGJBaTRvdm1mY2owbkJ5Z0RIMDI5QnljdFRISTFYdnVO?=
- =?utf-8?B?WDFPQVczay9FNWtiUkxNYVpoWlplbC9JUktnMFdRMkhDRzluOUdzemMybFZP?=
- =?utf-8?B?a3Q5d2hReHVJK201NExoQkYrd0lzQnBHcGVPdTIya0Y2dHhzdllNTGpDV1Nj?=
- =?utf-8?B?TklZYXozcjdnWWo5em5HMm4vcFJkTDNqZ1VaYVpXc2QxRGUxamwvZUZkUjlG?=
- =?utf-8?B?U1I5eVlKQVJyNEVORnhwSjZwS0I5ZFJyRGtYVzJSeFRjYjZVcFM3V0l2RGdv?=
- =?utf-8?B?UUJHd0pEVjEvVWNyaWpNT3I5SEdweExsR1VxR1R1TEZtdEoreDRaTmFta0N5?=
- =?utf-8?B?Z3FCU2Z6eTRjUVNNbzdnRzJxZTVTZ3cxaUR2TG1heXFYS2JRRWc3czc5Rm51?=
- =?utf-8?B?QzZYbW5uOTZIeTh2R3VmMHdFWmFuOU9CZTcyNlJKN3krczR0cnFKcFZEMlo1?=
- =?utf-8?B?MGcyZ1ZyQXJPV0hXSVBmLy9NanVZMWpuM1pvRnN0OFpML05XQmlJOUZHYk5l?=
- =?utf-8?B?NSs0SzBkbEJxSzFjMmVGMndiWEo2WTNqNGcvc1Y1eWo1bWxmWTRmcVJhM3pN?=
- =?utf-8?B?Vk1CNEZCVWdqMUlBV1lKL0VuLys5cHdLTkQ3L201a1g2WG5pNXJFRGhCVGJI?=
- =?utf-8?B?SXA3dXNVMk1kQ0l0WC9XN2hJa2NQa0ZSSm1KbDFlVEIwOXpVWXFWMXVaUnhR?=
- =?utf-8?B?UjBzQkxsZGI1MzRvZWsvaHZQdzZLNThhOU44Rkdsb3ZoNlc4QVk1ejdUbXNk?=
- =?utf-8?B?OEh6NlA4NkNzclVZRklvelBONkptcDBBRzdpRFYrdklsK3c5WGxOelN0dWVH?=
- =?utf-8?B?WGxmT254MXR4NDdjelRLbWNiRWgrSjFkVHcwek1TekVCMFJuY0N5bmdtMkVH?=
- =?utf-8?B?WU9zQy9RQWR1MGplWDNnY0FtZ3dvSmxxam8waGZ3d2twdzgzQ0FLYTN1TGVl?=
- =?utf-8?B?YzJhWDFpVzY1V3U0NzBxWUxta2tTOFZ5MUIwa0phdGVhZE1ETC9Nb3d6eEtn?=
- =?utf-8?B?cklpWmhNc3MxL3Zsa0VsNUh0enNreFZyN3IyemhjeER1U3hoMGRDN1IxSzc5?=
- =?utf-8?B?QVlQMzgxT3Vxazd0bTcwNFRoWEI1c3hvWjhEQ2dUNTV5WkROT0xjOVdGbTdO?=
- =?utf-8?B?cUJPUGQreG4yTFdEczBxQ2wrMndwek85cS9hc3k5WTlGSjhuZVpEZDNhVEd2?=
- =?utf-8?B?akMzRUwxeFRjMVNtVEYrRU5xbWdZdVBYb1dheWdWQjAyM3ltMzVadjR1UXg3?=
- =?utf-8?B?UmZiY2h1c2o2WHhpMGZyVXgzS0hYTTZnMy9acmV5S0FrN3IxTzk0YTJjY0tq?=
- =?utf-8?B?eGRBQ1lQaWNFK0dDR1U1RGNOTmFsNnZ2a3ZWTktZblFGK3owWUx6Y0V2Z2tT?=
- =?utf-8?B?YytIazh5UVpaMWF2M3A0byt4Q2lpTkNZZHMrV1BHRFpoUU1uNnNmNFFwTURP?=
- =?utf-8?B?VzBZOEI1WjlqS0dXUEpDbm80M2ZOcjVjeFJuNkRsZ1ZIaVpMYzJYN2VLdm41?=
- =?utf-8?B?ME9kbUc2SEx4Z0RxSlV4VkJ1YXZRTnZySCtPZnd1RTJtMDRKQVhwYmlxZjc1?=
- =?utf-8?B?d0ZDazNwOHQ2bDlsYUY1aXhqTDhiOHFxd3JkZzA1ejJuR2FjV0JqQkpCdzh1?=
- =?utf-8?B?cVp1ZDBsL3pTNVA5b1ZHNk9QZFBOaVhudlVXMzZHOU9FZEdUQW93dz09?=
-X-Exchange-RoutingPolicyChecked: amwYY74hl/UYoSvuL18NOtlDbuVkJP9UxFpDAE8g6tIBe8DB6U3PSXO8xex/6GnrqWcfLWSLag16MNcOVEDqUB+DbeBU6I5AQ/qBfLqD/XqHLPKNPmZ3XUf6YrlX5ukr5+bABk+Dq9q3F4EuR01w7XUAzo+BBztXk3niEdKr3ttGsUHyJET57uAz7/5TlyDXQB4LSWqw5Jp7WqHT2UezTaZTxHjRItFC22uYpmGlVlOvdNsfmvjC+RUAGhMh4np80d2q1v1vPoO/e5ebG5RJOsQfawShVlDoZ7JfaEnxkWSgEV7dNGgn/pwrkIqspo3v3cuBhZb9XyIsfjkAQZvl8Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5c7161b-dd59-4c4f-3a3e-08deaf803b9f
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3dkcUhQcEZqWm1FMkRqSVBLdWExQkJubVk1RE1qR0lBZklRcUR3dXY5alQz?=
+ =?utf-8?B?dk9zY0ZoMXJ4VmdqdXNQTENUNE9VQWNkNksrdlduYWFVbG9aT25GcnVsRVg4?=
+ =?utf-8?B?MW5FZmxQMkNtZjROaExCWFo4RHNpUnFOZUg2VUt5WHJxN29LMzlhMEtVN0Vn?=
+ =?utf-8?B?QyttbFRSOFROTE5nR3AwVk9icUpRamdKTHZPZ0tDSm9XSVdGZGovaXNKZ3o4?=
+ =?utf-8?B?WVJxdC81K3FjVFUzbFBRenZxekl5ZVRVZXYwTGtIUFhJV09EVDR0WVdmRnc1?=
+ =?utf-8?B?Uk9tOGZnRkNxZlRtOEdNUk80MEVaaUphQkoyWnJwWm9WUlh4RUs4YXJhVGlD?=
+ =?utf-8?B?M0dra0ViejZBdGZaTjJIcURnckp1Qk1vbW5nbVBYTGg1V0VDQ3J4Zmt5bXda?=
+ =?utf-8?B?R3pXYVFsYWdVNUNodjFFUXh4TWtjZTdtTnZFbGtOUTB4SnZ3cnF3Uy9rM2hP?=
+ =?utf-8?B?aXpKSG1qd1EyOThoSzV6a1E0cXdlKzdrV2hOU1JDOEJVTXVsell4Wm45ZFkr?=
+ =?utf-8?B?aytGakdaNXpZQmRrYWl5R0g3YUlib1hwT1laTTZWbHg1am85Q041Yld5R1ZO?=
+ =?utf-8?B?QkRDYVJVTUI0YXNUaFVLQVIwem1PTmxuVnU0SGFtemd0UTA4N0dYQTB4czlY?=
+ =?utf-8?B?R2RESmh0VkVtTFBsaHYrM2xWOWYxMG9OWGQzeitwWUo2MlVHd3ZIT1RQZzVZ?=
+ =?utf-8?B?NVhyczZvdnNMeFZyVHRIV1YyRmU4ak5HRlg0enlTODVRWkhmVDZQR0NnSEVH?=
+ =?utf-8?B?c1JIclVWeExBbFZVSmlrYTE1WnJSM1RVc0cwT1U0cFNENHlXaENXakpLUndK?=
+ =?utf-8?B?KytrUDNRK0FGdEFDUXYvaWxOampDOVd3clVzTis3L2dieldBWFRQc2kvQWF3?=
+ =?utf-8?B?STNnNktIeHNzSC9zczBCM002MmlIWTFwK28xT09waFM2Uy9LS21KLzgzVkFp?=
+ =?utf-8?B?OFRsQU9zNG5EeXBvSkFiaFJtMjNrNXNFNGpCSk1KRlhrZy8vSUpJZEUxYmxT?=
+ =?utf-8?B?ak8wMSswcHVBS2lteU1LK1QwV3NwK0l2WHAwam05ZU8ybGpMWTdTcDR1RVRj?=
+ =?utf-8?B?aWo0Ym1PLy9aZFlSYzhvRE9pUzQyT3JkOFYvRFpEaWtobitoUU1zeUxOaU1x?=
+ =?utf-8?B?K0NLVmtSWkU4MTZ5amlMenN4UGU5S3F4RWc3M0o4RGlWd2w5U3hWL0R1b1Ni?=
+ =?utf-8?B?ZndkMWRkaHYxQWZOTzZ3SDBaZDVRV1drcUg0VFNCdEU3ZklvcXJTa0h1NytE?=
+ =?utf-8?B?QktJT3NjUkhHV2RTOUJ2c2UzWStHUWNXNUZJaVdIQ05zYjJjeVhVWjJzZmgz?=
+ =?utf-8?B?YS83WUd1R2Y4c2NGamw1bWVmZ0hxaUFWSm9Zc1dGdFhmK29TQlFMcEdzd0hX?=
+ =?utf-8?B?dHQ1QjhZUW52em5YWXdsdC9ZN3RkUmYzVUpDSVRDNldjVnM3YmNKdkIrNlNi?=
+ =?utf-8?B?T3c0b0RJVjkxTGlycXM4UFV5MkU5VmpybWhLSDdXMGU3YWdJN28wYS9lSXdK?=
+ =?utf-8?B?UXNEQVAzUTFsdnZSK1ZyR042Wk10M1dQT1N4eS9rbFcwcWY4OXJEdldhc0ZH?=
+ =?utf-8?B?Ky9uMVdQZ3N5N0dmUGZZRllDL0Y2L2hkY1JhcDhkWUhnY3JoTm5lb3BLSVVs?=
+ =?utf-8?B?OFlmOVozUGduZUlSeHJvRWpLcWdJTlROY3ZJRFo1anlXeUxNN0dBemtkNEN2?=
+ =?utf-8?B?ODdkbUdqdjFxL2ZXTE41QlN0WnIxRTMwNmFVMzNVMzFOUTdFSzBkV2xSZkg2?=
+ =?utf-8?B?ZVpqTHFlUXhpU0hPa25hQWdNM1EvWGYvUDMzenN4bGJjMWdsbTYrYjFMdXRN?=
+ =?utf-8?B?Y0EzN3VzWkdCOXBMWnAwREltTFpXK3JTMjFHRjVVVTkvcjltcmJBdU1PdlVR?=
+ =?utf-8?B?dWMwaTVITjVIbkljT0s0OU9LdU1Mb3hySW9MS3FkeGsza21wR21yalBLMjJ4?=
+ =?utf-8?B?TUFqMnpNcitkUXJNLytNaDBsOEljdjRweGFVZitreDRBRnVwQ2hKWUhFaDVR?=
+ =?utf-8?B?UW04cEFpNm9FVk9uVWVsLzNsc05OcHBVcVlNbitOd0NPeC9HUHQwL3NLTzF2?=
+ =?utf-8?B?Rllsd0VHWFZuRGpZbmowQlUxUXh0TFdYYndmc3I4S0FwdVZUQWFIT2tQVnNX?=
+ =?utf-8?B?ZitEak9jY1ZDWE1BN1k0K2VERUN6bEZpcjJ4QjZUQXVZQWpMVGd1N05qbzJO?=
+ =?utf-8?B?MVA2cDdVaXpQUVJObm1PZmR3RGFDSHQyOUxDMitKYjFWR00ySGdGOWNDVXZr?=
+ =?utf-8?B?cmFMQWViRzFTYnVFQVdtalZxam0wUmhabEVMdmU5cUNGSjcwNFpzNXRKb1Q3?=
+ =?utf-8?B?M0pCN1Y1WVE5WHNMckpwUEFPYlUrcWkyY0dHV0dVL3pmSVVFVmUrZz09?=
+X-Exchange-RoutingPolicyChecked: EiRT1bXTNgcuCwcz0PCBy6HG+pYdM2ZKJiNanRDuJv6obn2fDbzQ0aXqqZUs32yCLKgYLTDmZu0vITcMPXAhWlF6SkIlTvnmc63TlXQMftyKc0CjfqYTTHJITyLGe/W6HAAgG03S7AXtwoe7cixMhPNlnZddVJ8B27dGEz/RBKnAWXzdEkhq3sSee3Wxgf2HbKLFu1nQJIumNaHrR6o3g9gznCheqzl2tWl1jWi+IApIRz+vhKzj8sMDBXzDyJqDrroZijJ3XFDmJIH6pZIcx2coC0DxzH73pJq/WMN2X7JjFmOCg8Te3FXGTj5hY7CZIBKi/Jsv70cbqC/ClFdLzA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4defbe8b-ea39-4b4d-d981-08deaf81ca20
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 17:10:42.5816 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 17:21:51.1959 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A1lKvi0T28HO0j4lIN2E2+3wO7kZMKUuYMBlSy4OI2a/+DmGXJCjdwk7NE6fRcTsfMY/2Vgt0FfwnxUQRvcs/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR11MB9458
+X-MS-Exchange-CrossTenant-UserPrincipalName: mdyyP+NPp0jgfvpfJoc1qiInfvK6iQt2itNavu1vKGg2R94ZwyG0fvz6RV5Wy9cZNNaqwYFOnJL0pVPH6lcwLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6171
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -180,85 +180,30 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 4/18/2026 2:46 AM, Raag Jadav wrote:
 > System controller allows programming per error threshold value, which
-> it uses to raise error events to the driver. Get it using mailbox
-> command so that it can be exposed to the user.
+> it uses to raise error events to the driver. Set it using mailbox
+> command so that it can be programmed by the user.
 >
-> Signed-off-by: Raag Jadav<raag.jadav@intel.com>
+> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
 > ---
->   drivers/gpu/drm/xe/xe_ras.c                   | 73 +++++++++++++++++++
->   drivers/gpu/drm/xe/xe_ras.h                   |  3 +
->   drivers/gpu/drm/xe/xe_ras_types.h             | 22 ++++++
+>   drivers/gpu/drm/xe/xe_ras.c                   | 42 +++++++++++++++++++
+>   drivers/gpu/drm/xe/xe_ras.h                   |  1 +
+>   drivers/gpu/drm/xe/xe_ras_types.h             | 28 +++++++++++++
 >   drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |  2 +
->   4 files changed, 100 insertions(+)
+>   4 files changed, 73 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index 08e91348c459..3e93f838aa4a 100644
+> index 3e93f838aa4a..26e063166c5f 100644
 > --- a/drivers/gpu/drm/xe/xe_ras.c
 > +++ b/drivers/gpu/drm/xe/xe_ras.c
-> @@ -3,11 +3,14 @@
->    * Copyright © 2026 Intel Corporation
->    */
->   
-> +#include "xe_pm.h"
->   #include "xe_printk.h"
->   #include "xe_ras.h"
->   #include "xe_ras_types.h"
->   #include "xe_sysctrl.h"
->   #include "xe_sysctrl_event_types.h"
-> +#include "xe_sysctrl_mailbox.h"
-> +#include "xe_sysctrl_mailbox_types.h"
->   
->   /* Severity of detected errors  */
->   enum xe_ras_severity {
-> @@ -49,6 +52,23 @@ static const char *const xe_ras_components[] = {
->   };
->   static_assert(ARRAY_SIZE(xe_ras_components) == XE_RAS_COMP_MAX);
->   
-> +/* uAPI mapping */
-> +static const int drm_to_xe_ras_components[] = {
-> +	[DRM_XE_RAS_ERR_COMP_CORE_COMPUTE]	= XE_RAS_COMP_CORE_COMPUTE,
-> +	[DRM_XE_RAS_ERR_COMP_SOC_INTERNAL]	= XE_RAS_COMP_SOC_INTERNAL,
-> +	[DRM_XE_RAS_ERR_COMP_DEVICE_MEMORY]	= XE_RAS_COMP_DEVICE_MEMORY,
-> +	[DRM_XE_RAS_ERR_COMP_PCIE]		= XE_RAS_COMP_PCIE,
-> +	[DRM_XE_RAS_ERR_COMP_FABRIC]		= XE_RAS_COMP_FABRIC
-> +};
-> +static_assert(ARRAY_SIZE(drm_to_xe_ras_components) == DRM_XE_RAS_ERR_COMP_MAX);
-> +
-> +/* uAPI mapping */
-> +static const int drm_to_xe_ras_severities[] = {
-> +	[DRM_XE_RAS_ERR_SEV_CORRECTABLE]	= XE_RAS_SEV_CORRECTABLE,
-> +	[DRM_XE_RAS_ERR_SEV_UNCORRECTABLE]	= XE_RAS_SEV_UNCORRECTABLE
-> +};
-> +static_assert(ARRAY_SIZE(drm_to_xe_ras_severities) == DRM_XE_RAS_ERR_SEV_MAX);
-> +
->   static inline const char *sev_to_str(u8 sev)
->   {
->   	if (sev >= XE_RAS_SEV_MAX)
-> @@ -90,3 +110,56 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
->   			comp_to_str(component), sev_to_str(severity));
->   	}
+> @@ -163,3 +163,45 @@ int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32
+>   	       comp_to_str(counter.common.component), sev_to_str(counter.common.severity));
+>   	return 0;
 >   }
 > +
-> +static void ras_command_prepare(struct xe_sysctrl_mailbox_command *command,
-> +				void *request, size_t request_len, void *response,
-> +				size_t response_len, u8 hdr_cmd)
+> +int xe_ras_set_threshold(struct xe_device *xe, u32 severity, u32 component, u32 threshold)
 > +{
-> +	struct xe_sysctrl_app_msg_hdr header = {};
-> +
-> +	header.data = REG_FIELD_PREP(APP_HDR_GROUP_ID_MASK, XE_SYSCTRL_GROUP_GFSP) |
-> +		      REG_FIELD_PREP(APP_HDR_COMMAND_MASK, hdr_cmd);
-> +
-> +	command->header = header;
-> +	command->data_in = request;
-> +	command->data_in_len = request_len;
-> +	command->data_out = response;
-> +	command->data_out_len = response_len;
-> +}
-> +
-> +int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32 *threshold)
-> +{
-> +	struct xe_ras_get_threshold_response response = {};
-> +	struct xe_ras_get_threshold_request request = {};
+> +	struct xe_ras_set_threshold_response response = {};
+> +	struct xe_ras_set_threshold_request request = {};
 > +	struct xe_sysctrl_mailbox_command command = {};
 > +	struct xe_ras_error_class counter = {};
 > +	size_t len;
@@ -266,110 +211,120 @@ On 4/18/2026 2:46 AM, Raag Jadav wrote:
 > +
 > +	counter.common.severity = drm_to_xe_ras_severities[severity];
 > +	counter.common.component = drm_to_xe_ras_components[component];
-
-I see this is only for correctable errors. We do not have correctable 
-memory errors
-Do we want to return -EOPNOTSUPP for memory errors?
-
 > +	request.counter = counter;
+> +	request.threshold = threshold;
+
+We might need a max check here to avoid unnecessary values from user.
+
 > +
 > +	ras_command_prepare(&command, &request, sizeof(request), &response,
-> +			    sizeof(response), XE_SYSCTRL_CMD_GET_THRESHOLD);
+> +			    sizeof(response), XE_SYSCTRL_CMD_SET_THRESHOLD);
+
+Nit: command, request, response seems to be a better format
+
 > +
 > +	guard(xe_pm_runtime)(xe);
 > +	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
 > +	if (ret) {
-> +		xe_err(xe, "sysctrl: failed to get threshold %d\n", ret);
+> +		xe_err(xe, "sysctrl: failed to set threshold %d\n", ret);
 > +		return ret;
 > +	}
 > +
 > +	if (len != sizeof(response)) {
-> +		xe_err(xe, "sysctrl: unexpected get threshold response length %zu (expected %zu)\n",
+> +		xe_err(xe, "sysctrl: unexpected set threshold response length %zu (expected %zu)\n",
 > +		       len, sizeof(response));
 > +		return -EIO;
 > +	}
 > +
-> +	counter = response.counter;
+> +	if (response.status) {
+> +		xe_err(xe, "sysctrl: set threshold operation failed %#x\n", response.status);
 
-Do we expect this to change?
+Status should be converted to visible error codes. check [PATCH v5 3/6] 
+drm/xe/xe_ras: Add helper to clear error counter - Riana Tauro
 
-> +	*threshold = response.threshold;
+<https://lore.kernel.org/intel-xe/20260504065614.3832331-11-riana.tauro@intel.com/> 
+
+> +		return -EIO;
+> +	}
 > +
-> +	xe_dbg(xe, "[RAS]: Get threshold %u for %s %s\n", response.threshold,
+> +	counter = response.counter;
+> +
+> +	xe_dbg(xe, "[RAS]: Set threshold %u for %s %s\n", response.threshold,
 > +	       comp_to_str(counter.common.component), sev_to_str(counter.common.severity));
-
-Do we need this. it should be visible to the user via netlink
-
+Again not required. Value should be visible to user
 > +	return 0;
 > +}
 > diff --git a/drivers/gpu/drm/xe/xe_ras.h b/drivers/gpu/drm/xe/xe_ras.h
-> index ea90593b62dc..982bbe61461e 100644
+> index 982bbe61461e..d1f71b1de723 100644
 > --- a/drivers/gpu/drm/xe/xe_ras.h
 > +++ b/drivers/gpu/drm/xe/xe_ras.h
-> @@ -6,10 +6,13 @@
->   #ifndef _XE_RAS_H_
->   #define _XE_RAS_H_
->   
-> +#include <linux/types.h>
-> +
->   struct xe_device;
->   struct xe_sysctrl_event_response;
->   
+> @@ -14,5 +14,6 @@ struct xe_sysctrl_event_response;
 >   void xe_ras_counter_threshold_crossed(struct xe_device *xe,
 >   				      struct xe_sysctrl_event_response *response);
-> +int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32 *threshold);
+>   int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32 *threshold);
+> +int xe_ras_set_threshold(struct xe_device *xe, u32 severity, u32 component, u32 threshold);
 >   
 >   #endif
 > diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ras_types.h
-> index 4e63c67f806a..d5da93d65cf5 100644
+> index d5da93d65cf5..d7e4a02a661d 100644
 > --- a/drivers/gpu/drm/xe/xe_ras_types.h
 > +++ b/drivers/gpu/drm/xe/xe_ras_types.h
-> @@ -70,4 +70,26 @@ struct xe_ras_threshold_crossed {
->   	struct xe_ras_error_class counters[XE_RAS_NUM_COUNTERS];
+> @@ -92,4 +92,32 @@ struct xe_ras_get_threshold_response {
+>   	u32 reserved[4];
 >   } __packed;
 >   
 > +/**
-> + * struct xe_ras_get_threshold_request - Request structure for get threshold
+> + * struct xe_ras_set_threshold_request - Request structure for set threshold
 > + */
-> +struct xe_ras_get_threshold_request {
-> +	/** @counter: Counter to get threshold for */
+> +struct xe_ras_set_threshold_request {
+> +	/** @counter: Counter to set threshold for */
 > +	struct xe_ras_error_class counter;
+> +	/** @threshold: Threshold value to set */
+> +	u32 threshold;
 > +	/** @reserved: Reserved for future use */
 > +	u32 reserved;
 > +} __packed;
 > +
 > +/**
-> + * struct xe_ras_get_threshold_response - Response structure for get threshold
+> + * struct xe_ras_set_threshold_response - Response structure for set threshold
 > + */
-> +struct xe_ras_get_threshold_response {
+> +struct xe_ras_set_threshold_response {
 > +	/** @counter: Counter id */
 
 Nit: ID
 
+> +	struct xe_ras_error_class counter;
+> +	/** @threshold_old: Old threshold value */
+
+Nit: prev
+
 Thanks
 Riana
 
-> +	struct xe_ras_error_class counter;
-> +	/** @threshold: Threshold value */
+> +	u32 threshold_old;
+> +	/** @threshold: New threshold value */
 > +	u32 threshold;
+> +	/** @status: Set threshold operation status */
+> +	u32 status;
 > +	/** @reserved: Reserved for future use */
-> +	u32 reserved[4];
+> +	u32 reserved[2];
 > +} __packed;
 > +
 >   #endif
 > diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> index 84d7c647e743..a1b71218deca 100644
+> index a1b71218deca..b865768e903b 100644
 > --- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
 > +++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> @@ -22,9 +22,11 @@ enum xe_sysctrl_group {
->   /**
+> @@ -23,10 +23,12 @@ enum xe_sysctrl_group {
 >    * enum xe_sysctrl_gfsp_cmd - Commands supported by GFSP group
 >    *
-> + * @XE_SYSCTRL_CMD_GET_THRESHOLD: Retrieve error threshold
+>    * @XE_SYSCTRL_CMD_GET_THRESHOLD: Retrieve error threshold
+> + * @XE_SYSCTRL_CMD_SET_THRESHOLD: Set error threshold
 >    * @XE_SYSCTRL_CMD_GET_PENDING_EVENT: Retrieve pending event
 >    */
 >   enum xe_sysctrl_gfsp_cmd {
-> +	XE_SYSCTRL_CMD_GET_THRESHOLD		= 0x05,
+>   	XE_SYSCTRL_CMD_GET_THRESHOLD		= 0x05,
+> +	XE_SYSCTRL_CMD_SET_THRESHOLD		= 0x06,
 >   	XE_SYSCTRL_CMD_GET_PENDING_EVENT	= 0x07,
 >   };
 >   
