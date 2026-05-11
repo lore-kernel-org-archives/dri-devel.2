@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A3D5CD37B2
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 15:44:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40661CD37BE
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 15:44:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7590C10E1C9;
-	Mon, 11 May 2026 15:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C52A10E7D2;
+	Mon, 11 May 2026 15:44:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=hugovil.com header.i=@hugovil.com header.b="k/nqdyIA";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TrS8d6pH";
 	dkim-atps=neutral
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F41010E1C9
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 15:44:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
- ; s=default;
- h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
- To:From:Date:subject:date:message-id:reply-to;
- bh=S08ARNK4JyjFSmUJ+5xcB6ex0c/0uNFUV+SgRIJsO5s=; b=k/nqdyIA4uz/7q7lLSmEW3s1Lh
- mpcsX4NwWiCr/zGvf1NN8TyRDt9KBqs/gYg/5h0m9Jshi34R5p19KCtp6w2+dv8f1pxclfwKjm4zR
- iIZIFJDLiPQ8cni40gI+YrmvclJtLmWcE1+6gh46GICm359dhW4KeN80P8nsR81p1cuk=;
-Received: from modemcable061.19-161-184.mc.videotron.ca ([184.161.19.61]
- helo=debian-lenovo) by mail.hugovil.com with esmtpa (Exim 4.98.2)
- (envelope-from <hugo@hugovil.com>) id 1wMSng-000000004IO-1xyo;
- Mon, 11 May 2026 11:44:08 -0400
-Date: Mon, 11 May 2026 11:44:06 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Hugo Villeneuve <hugo@hugovil.com>
-Cc: krzk@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, Frank.Li@nxp.com, s.hauer@pengutronix.de,
- kernel@pengutronix.de, festevam@gmail.com, shawnguo@kernel.org,
- laurent.pinchart+renesas@ideasonboard.com, antonin.godard@bootlin.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Hugo Villeneuve
- <hvilleneuve@dimonoff.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 14/15] dt-bindings: display/lvds-codec: add
- ti,sn65lvds93
-Message-Id: <20260511114406.24673c770d112b2ca4aba2eb@hugovil.com>
-In-Reply-To: <20260305180651.1827087-15-hugo@hugovil.com>
-References: <20260305180651.1827087-1-hugo@hugovil.com>
- <20260305180651.1827087-15-hugo@hugovil.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46DF210E1D4;
+ Mon, 11 May 2026 15:44:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1778514275;
+ bh=BClQxIrtlJf+uCt+8eJy+vplQxwI6Of0OhdL/r5XqzU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=TrS8d6pHgxpSLEgsPlarE4gNM42EVGOv7vtZLRXVrIada9O3gxDC1tkqeoBXPtazN
+ ZGRAksNZzqICJIH8tGS7QuvXIVnOQ6vSjgU3Z4EKTO7tUlTXVNZ6aagzoe7PplZbS7
+ v+HrXnoMTAIFZBmuL7hyGzsBE87sZ6ANY0tDJ/W3nsx5wDYNC/VZXw16nj1qtjQ8Sk
+ rQ7HWmr1Q5TIq+21pRNyRCNMgD6mCPMBqZcdB58B8CH+TuXeWoqfKfAHSl9HmFemvG
+ BkmKxynFDbCdEnV+27KrAeeKlWQsN4eBzhj+pfrCcVM71u93La85AKnLoj1jWiisfZ
+ V68JclhfmeR9A==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3216717E0615;
+ Mon, 11 May 2026 17:44:35 +0200 (CEST)
+Date: Mon, 11 May 2026 17:44:29 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Clark <rob.clark@oss.qualcomm.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>, Chia-I Wu
+ <olvaffe@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean
+ Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] drm/gem: Make the GEM LRU lock part of drm_device
+Message-ID: <20260511174429.35afcdee@fedora>
+In-Reply-To: <CACSVV00NdUKe6-05U3g0q5X3tw4zmqO_s2gk-KZxQVykpydvAA@mail.gmail.com>
+References: <20260508-panthor-shrinker-fixes-v2-0-39cdb7d577c9@collabora.com>
+ <20260508-panthor-shrinker-fixes-v2-4-39cdb7d577c9@collabora.com>
+ <CACSVV00NdUKe6-05U3g0q5X3tw4zmqO_s2gk-KZxQVykpydvAA@mail.gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,47 +72,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Mon, 11 May 2026 06:18:44 -0700
+Rob Clark <rob.clark@oss.qualcomm.com> wrote:
 
-On Thu,  5 Mar 2026 13:06:29 -0500
-Hugo Villeneuve <hugo@hugovil.com> wrote:
+> On Fri, May 8, 2026 at 3:41=E2=80=AFAM Boris Brezillon
+> <boris.brezillon@collabora.com> wrote:
+> >
+> > Recently, a few races have been discovered in the GEM LRU logic, all
+> > of them caused by the fact the LRU lock is accessed through
+> > gem->lru->lock, and that lock itself also protects changes to
+> > gem->lru, leading to situations where gem->lru needs to first be
+> > accessed without the lock held, to then get the lru to access the lock
+> > through and finally take the lock and do the expected operation.
+> >
+> > Currently, the two drivers making use of this API declare device-wide
+> > locks, and there's no clue that we will ever have a driver that wants
+> > different pools of LRUs protected by different locks under the same
+> > drm_device. So we're better off moving this lock to drm_device and
+> > always locking it through obj->dev->gem_lru_mutex, or directly through
+> > dev->gem_lru_mutex.
+> >
+> > If anyone ever needs more fine-grained locking, this can be revisited
+> > to pass some drm_gem_lru_pool object represent the pool of LRUs under
+> > a specific lock, but for now, the per-device lock seems to be enough.
+> >
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com> =20
+>=20
+> Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
 
-> From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-> 
-> Add compatible string for TI SN65LVDS93. Similar to
-> SN65LVDS83 but with an industrial temperature range.
-> 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-
-Now that this series landed in linux-next/master, except for this
-patch, we now have an error since it is required:
-
-https://lore.kernel.org/oe-kbuild-all/202605071909.lXKPelNA-lkp@intel.com/
-
-Hugo.
-
-
-> ---
->  Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> index 4f52e35d02537..f2cb74b86cc05 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> @@ -37,6 +37,7 @@ properties:
->                - ti,ds90c185   # For the TI DS90C185 FPD-Link Serializer
->                - ti,ds90c187   # For the TI DS90C187 FPD-Link Serializer
->                - ti,sn75lvds83 # For the TI SN75LVDS83 FlatLink transmitter
-> +              - ti,sn75lvds93 # For the TI SN75LVDS93 FlatLink transmitter
->            - const: lvds-encoder # Generic LVDS encoder compatible fallback
->        - items:
->            - enum:
-> -- 
-> 2.47.3
-> 
-> 
-
-
-Hugo Villeneuve <hugo@hugovil.com>
+If every one is happy with patch 4, I'm tempted to drop patch 1 and 3,
+since they are irrelevant if the locking is fixed the way it is in this
+patch. Question is, do we care about patch 2 being backported to stable
+kernels then?
