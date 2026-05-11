@@ -4,93 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 463B1CD37BE
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 12:48:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35A4BCD37BE
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 13:01:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A704410E705;
-	Mon, 11 May 2026 12:48:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94ED110E72C;
+	Mon, 11 May 2026 13:00:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Rr9XcSgA";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="R2C6XVCV";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W/74uj3g";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7681610E705
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 12:48:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778503710;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JjDZUYmpDlHK2sR+IRwfTQR+l1l8e3DSAuVEYL5/TPk=;
- b=Rr9XcSgAl4UdTb+2fKAuBEVvBlkPuBQGUpexKw1NO2HtTdMCexFROcG9tJLZLUQQ3A65zQ
- W0+LgliCA1sachptyb6aHfQW+76iwk95HpMFf+usyL3F501pAL2iBJbh149J40OBpep0WF
- /IRybY15kN/HeIiX4ruZk+vsSmCU2AY=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-154-G99uA1w-OGurp7Q42zBekA-1; Mon, 11 May 2026 08:48:29 -0400
-X-MC-Unique: G99uA1w-OGurp7Q42zBekA-1
-X-Mimecast-MFC-AGG-ID: G99uA1w-OGurp7Q42zBekA_1778503708
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-48e6af7a9cdso18605195e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 05:48:28 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D5D510E72C
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 13:00:58 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64B7ALGc452800
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 13:00:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=TpHroqNFYrbHc+Hyc8A7RZr1LE9fkn+T3bp
+ iGnJTfpQ=; b=R2C6XVCVvTqmEEametLLwmbGpiJulaV1Y+BOWVVqDjhIFFg8aRC
+ xmB/XliURraDnSSLGnUaAgX88jgeiWFfgELdoa9ip4I+g8t14vtxamEBtxH8sxtL
+ 1UhCht5Gs5aMdRp9akAE8u9MIl9VZ85Kvo+b4iEwDL344+eS2Q6ehb0fOLICSJfY
+ p/h2hQIFZlPwTCW4d/gXUZPq/JvAsiJEIC79vnapG9Xn/qScpFyXpQAkIrkPRan+
+ rYGWZE8TNrX8eBGeV9wBUGbIT3hb+JgIJx8eld/IFG7sA9pNHXekE1kj1mi+Fphi
+ CNWpm3xbDS05NoJqQB/A+iNSyYyho3S+Wfw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3ag6h6es-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 13:00:56 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2b9fe2d6793so79057885ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 06:00:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778504455; x=1779109255;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TpHroqNFYrbHc+Hyc8A7RZr1LE9fkn+T3bpiGnJTfpQ=;
+ b=W/74uj3ga62sdZo1CYhsghNqOJl9PCf2SQsl7k/8Nr+dYp+6xDp1ih6OrXRmNDH+zr
+ miOLb14NZxCxhO4fpoFy+WiVsbQqiH+glN3RQx2iPLApCm8oDTQ6rnykPFBxcc/+f1z0
+ Q/02pHedBzg1QKxhkj+X/if4IADoD3YYc/UBFooKS46vtQkwRGV6cHGL0QeR5np6e4uT
+ lnwsDvxgG3DpeuD/cSuuwMcU4iQfjU8ahrI8ix9RPn3LmdFXnupl66LpZ20zMLyy4WmI
+ bFxupH4hf5bMGEbjxCiy6Bugvql048tRR1JaVlXuqjsFzLNPYp+mnwGD+lxGy9/H71zJ
+ Z/Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778503708; x=1779108508;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=JjDZUYmpDlHK2sR+IRwfTQR+l1l8e3DSAuVEYL5/TPk=;
- b=X2lutMX/eqi8GaPOB7fQrj0h6a1DKOEN2Kt3ke49wMOsIWbLyrgJkLIk/rj88oBrRa
- ORgvXMCfhhiPMofJIpoze9bCnqd/d3JWwuEn13qlP/DV96CwW8ry0y1qGKzDRuEirE32
- oCsl85g2b3wM5MYPSQ9f6tbsM1AAq1666Y+X3KbwuL1fnUsjwsSXZbPNUwAa7Eelo15S
- eOSH1CJyc1Sl6bxTkI8nLaqH99F54QMB+gXnN0A3DPADtRpEIi6PUFwxmkuGZN/w8Fsv
- ik0UVd/JwLoEoknLrmn/NJ2rWzdIvPqbfeBI55Qz+ed845mPd9pACTai8RLlK9x9ugJf
- 3FPQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/0OXGnUqXitUT10BfwudHEDmBJsR4xNDXX0BQ7oW/ltXoD3p493e4X2bts3tllrLsl+5vMkJlRg3g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwhWqyS1so/yL5z8mBqDUNDIWDz3ZkJ7xxBF+gSfUhbdZ3/Jn/k
- EAAxVZnZbrZKePVaQoi6I2DYT7crNl7g2Ys6apLJmKeCgd+Q3oDxsZ6UkgWM/DIpF3DG4TbXvSf
- CKtZedr7ikFxb54Pl3qRFUwwHJNr1qMaCS4u06oP1igyCHb3tLpExcsum7WVLhHXw9ncfuQ==
-X-Gm-Gg: Acq92OH7eLymEanbEqryHzHbhdMgpmde3pFPBLdFDBLa2DKLDnBegMps1eboMcq2ycp
- Re4NnDb5WP3QZaDG4ikPrqH9BVMspZ5vZX+iVDtcmgw3k6BF8lEKFeJOO6Cx3eCdcDUTv+VNmWT
- vIQFWZwP03fn1rE822Siighclgl5BoDladXrXNXhS23gS1ZvX3LypRToNg41OMVXmTXyTPpRtUQ
- gito7Hh+YYQ9RrBO95gZmhkgGXng4DQYoa0d4KUZhhwa2A5pKv3oFLFY39S3mJGUtSFH1zfrUtH
- CAAUDxpSL6Lx5uE2VljrRA2umAkTcYlCDvnF/chR5Rwu8mKMp4/rodyJTIUj4FWBmbKXkcDvTGf
- ks9pVVwXJ8Zg3u1O2RK70ZfWPO3SwMDP8m6OXyFXVt4f9gjmUe+3A
-X-Received: by 2002:a05:600c:15d3:b0:488:c80c:c236 with SMTP id
- 5b1f17b1804b1-48e51e0977fmr221128665e9.5.1778503707565; 
- Mon, 11 May 2026 05:48:27 -0700 (PDT)
-X-Received: by 2002:a05:600c:15d3:b0:488:c80c:c236 with SMTP id
- 5b1f17b1804b1-48e51e0977fmr221128315e9.5.1778503706900; 
- Mon, 11 May 2026 05:48:26 -0700 (PDT)
-Received: from localhost ([195.166.127.210]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e6fffba5fsm176619115e9.2.2026.05.11.05.48.25
+ d=1e100.net; s=20251104; t=1778504455; x=1779109255;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TpHroqNFYrbHc+Hyc8A7RZr1LE9fkn+T3bpiGnJTfpQ=;
+ b=bT/CC0cyE5EfpeRqo5WiIgYWEN3VRAxEdabVSLn9IpgDFu2/F4KLBkXZI1DquCf+sK
+ RgQqrBGCGKseyXhRrSK4BDpFkvFlSEyjIgjHVOsWiAwKsPHn8aZytADqfTN+LZo1OaMP
+ SeUPKXubvqj1vV22Y9/e6in9TBdY3tXdezLGAgSCYsHKBYTzeuam9W1TFaJK9PfGpVGs
+ ZGUOwLHL0tecYruUQoLpaZHVLy2DxTbxD8yDvQq+mXXZylmC35REV+NZdNO9BH7ALahu
+ mbks+d7+GRlkAnA5RliPkP02RRLubaEM+u+GGv7luj1ocA4VvnotOyzlWI/uhcziIKez
+ HSSQ==
+X-Gm-Message-State: AOJu0YxOavAQ+nj2HXivW06RLEaaQLM2yHWxfCW3OzZMPjYCmE8SC5hS
+ EVy1vvqEqWk7J3m01KzxPuadLcSjICyCb9ukTQFaAMLDTZwPA1+ghuk0lk7sfkXd/aIhjRH1PgD
+ DbLmRpy2GmkZMKI7wL1YoEcXvZ40hishpCV0W3O2IF0HAWb7QweYAaal82OevRBaXBvW0+vGbuq
+ CaLe8=
+X-Gm-Gg: Acq92OEXQqv8w89nxLQfBc/4i/1NlDz/p7wdGR6tNqHp0vyCeiEyRNZasyAhNZ1Bh2V
+ dQWEou9mvGEpYZV/zoUiDc0SrTqN5fVNMq2umX8z4N3VZSCNSsBzyz1fkxahGtl77lWOdnziYYC
+ ujHDUFzLfZRtX1r1ZEhfymb5j4ozX2ko1MdaDH9NhoBhws8GPycf14LpNjCnsYc1VOKd/6hr9R0
+ NMWMAYHuidtzn5KR29ki4xbtcPqp0Au2GzU5kZhbX2wszIeDCqXV8iMwb39ltMK9h7LVYG60DAZ
+ XQ4GV6bl+5cyvVkPV83tPGz+oS7vIjwsTrI5wEsbpcM0lulkgu8pl/uI3rK55EXedCPrApkjW3n
+ c2AnqsGb1vlf2rhrBMBA2ZScq6KlCdQjK
+X-Received: by 2002:a17:902:7042:b0:2bc:e299:4c9c with SMTP id
+ d9443c01a7336-2bce299504cmr15972015ad.3.1778504455159; 
+ Mon, 11 May 2026 06:00:55 -0700 (PDT)
+X-Received: by 2002:a17:902:7042:b0:2bc:e299:4c9c with SMTP id
+ d9443c01a7336-2bce299504cmr15971115ad.3.1778504454330; 
+ Mon, 11 May 2026 06:00:54 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2baf1e9723esm112028105ad.67.2026.05.11.06.00.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 05:48:26 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- David Airlie <airlied@gmail.com>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Phong LE <ple@baylibre.com>, Robert Foss
- <rfoss@kernel.org>, Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann
- <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 3/3] drm/bridge: it66121: Select HDMI or DVI mode based
- on sink type
-In-Reply-To: <20260511-spiritual-unique-uakari-5ffce7@houat>
-References: <20260510191459.90769-1-javierm@redhat.com>
- <20260510191459.90769-4-javierm@redhat.com>
- <20260511-spiritual-unique-uakari-5ffce7@houat>
-Date: Mon, 11 May 2026 14:48:24 +0200
-Message-ID: <877bpayuw7.fsf@ocarina.mail-host-address-is-not-set>
+ Mon, 11 May 2026 06:00:53 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bill Wendling <morbo@google.com>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Justin Stitt <justinstitt@google.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-kernel@vger.kernel.org (open list),
+ llvm@lists.linux.dev (open list:CLANG/LLVM BUILD
+ SUPPORT:Keyword:\b(?i:clang|llvm)\b), 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v5 00/16] drm/msm: Add PERFCNTR_CONFIG ioctl
+Date: Mon, 11 May 2026 05:59:13 -0700
+Message-ID: <20260511130017.96867-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0oqyGXqI1evJ6jsvfLWuPiyc2Vv0_Unw02KHzHLpv-A_1778503708
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=fOsJG5ae c=1 sm=1 tr=0 ts=6a01d308 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=j6mXroKpKqDHY7BEWhIA:9 a=uG9DUKGECoFWVXl0Dc02:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTExMDE0NCBTYWx0ZWRfX/xIdQJJEMh8L
+ devoIp+UYVwS5bCCZGpP+8nmI5MZmx/UaxyA0JSFXLFh+5BUV9flDSxDG7q1G+c2Iosj9D8zK9V
+ C6uxajof3Xi9+VkPPOk5jzv3bKxDpUfvvao4LV7r+BIcWw+m7WwP0mL7PEJ7LkUKenLNBpRZtqv
+ RqSTzXWUeZoLrVf+nQD5F0DSk3YKbqHQss2fPW6OsmzsueyWoHLDAcoZIib0NIfGGW/qRpan+Su
+ EqUX5spVz4+GsAJGCELrsK4MLV3+QcDvfnPptmGPgWhUaRjfiPH6y4RXx9xZLKz7hhsYsWXzuy8
+ TLqIMa27HOUO3btdAm1BqhEWkOGMRSjRSUyM/Cmw5yFo79j9MR/v1abaRiDntFebyGCd/VX68wu
+ Ewa85bwiUC21wEykKQxqHXo+VBpT2kUOaztHTjWN2ryK23iSk9qRfWWGvcfgvtEUjxiz/4HnGRN
+ 909RXj+CR6JI2QGD/WA==
+X-Proofpoint-GUID: BalGTk24eMjJn-Wd1LpMd_mNkbJMUCC-
+X-Proofpoint-ORIG-GUID: BalGTk24eMjJn-Wd1LpMd_mNkbJMUCC-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_03,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 bulkscore=0 suspectscore=0
+ malwarescore=0 lowpriorityscore=0 phishscore=0 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605110144
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,201 +147,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Maxime Ripard <mripard@kernel.org> writes:
+Add a new PERFCNTR_CONFIG ioctl, serving two functions:
 
-Hello Maxime!
+1. Global counter collection (restricted to perfmon_capable()) using the
+   MSM_PERFCNTR_STREAM flag.  Global counter sampling is, global, across
+   contexts.  Only a single global counter stream is allowed at a time.
+2. Reserve counters for local counter collection.  Local counter
+   collection is local to a cmdstream (GEM_SUBMIT), and as such is
+   allowed in all processes without additional privileges.
 
-> Hi,
->
-> On Sun, May 10, 2026 at 09:14:49PM +0200, Javier Martinez Canillas wrote:
->> Currently, the driver assumes that the connector sink type is always HDMI
->> and configures the IT66121 bridge appropriately. But configuring in this
->> mode and enabling the transmission of AVI infoframe packets can cause DVI
->> monitors to fail parsing the video signal.
->> 
->> To prevent this, store the connector display information sink type in the
->> bridge atomic state and use it to decide whether the bridge should be set
->> in HDMI or DVI mode, and if the AVI infoframes packets should be sent.
->> 
->> Assisted-by: Cursor:claude-4.6-opus
->> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
->> ---
->> 
->>  drivers/gpu/drm/bridge/ite-it66121.c | 68 ++++++++++++++++++----------
->>  1 file changed, 44 insertions(+), 24 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
->> index a203c94a27e5..99088277d170 100644
->> --- a/drivers/gpu/drm/bridge/ite-it66121.c
->> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
->> @@ -322,6 +322,7 @@ static inline struct it66121_ctx *bridge_to_it66121_ctx(struct drm_bridge *bridg
->>  
->>  struct it66121_bridge_state {
->>  	struct drm_bridge_state base;
->> +	bool sink_is_hdmi;
->>  };
->>  
->>  static inline struct it66121_bridge_state *
->> @@ -790,6 +791,14 @@ static int it66121_bridge_check(struct drm_bridge *bridge,
->>  				struct drm_connector_state *conn_state)
->>  {
->>  	struct it66121_ctx *ctx = bridge_to_it66121_ctx(bridge);
->> +	struct it66121_bridge_state *state =
->> +		to_it66121_bridge_state(bridge_state);
->> +
->> +	/* Default to HDMI to preserve legacy behavior. */
->> +	state->sink_is_hdmi = true;
->> +
->> +	if (conn_state && conn_state->connector)
->> +		state->sink_is_hdmi = conn_state->connector->display_info.is_hdmi;
->
-> It's really not clear to me why you need to have that in the bridge
-> state. What's wrong with using drm_display_info.is_hdmi directly?
->
+The kernel enforces that counters assigned for global counter collection
+do not conflict with counters reserved for local counter collection, and
+visa versa.  Since local counter collection is scoped to a single cmd-
+stream, multiple UMD processes can overlap in their reserved counters.
+But cannot conflict with global counter usage.
 
-I wrongly thought that couldn't get that info from it66121_bridge_mode_set()
-so I thought about making it a property of the bridge atomic state.
+In the case of local counter collection, the UMD is still responsible
+for programming the corresponding SELect registers, and sampling the
+counter values, from it's cmdstream.  But by performing the reservation
+step, the UMD protects itself from the kernel trying to use the same
+SEL/counter regs for global counter collection.
 
-But I see now that the connector is already stored in struct it66121_ctx *ctx
-so the fix indeed becomes even more trivial.
+For global counter collection, the kernel programs SEL regs, and sets up
+a timer for counter sampling.  Userspace reads out the sampled values
+from the returned perfcntr stream fd.  Releasing the global perfcntr
+stream is simply a matter of close()ing the fd.
 
-> If you really want to rework the driver though, switch to HDMI state
-> helpers would fix all of it :)
->
+The final two patches wire up the needed support for global counter
+stream collection while IFPC is active, and drops disabling of IFPC.
 
-Sure, I will do. But I think that is still worth to land a minimal fix and
-then do the switch to the HDMI state helpers as a follow up. So what do you
-think of the following patch?
+The mesa side of this is at:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/41158
 
-(Note that I dropped the Assisted-by tag this time since v2 has been manually
-written by me, with no assistance from an LLM).
+igt test at:
+https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/perfcntrs
 
-From 02d4e9d306c22375445f062cb4476395aa68df5f Mon Sep 17 00:00:00 2001
-From: Javier Martinez Canillas <javierm@redhat.com>
-Date: Mon, 11 May 2026 14:43:17 +0200
-Subject: [PATCH v2] drm/bridge: it66121: Select HDMI or DVI mode based on sink
- type
+wiki page about the design:
+https://gitlab.freedesktop.org/drm/msm/-/wikis/adreno:-perfcounter-UABI
 
-Currently, the driver assumes that the connector sink type is always HDMI,
-so it configures the bridge in this mode and enables the transmission of
-AVI infoframe packets.
+Changes in v5:
+- Drop unnecessary runpm in ioctl path
+- Link to v4: https://lore.kernel.org/all/20260506171127.133572-1-robin.clark@oss.qualcomm.com
 
-But this can cause problems on DVI monitors that can fail to interpret the
-video signal and lead to not having display output.
+Changes in v4:
+- Fix null ptr deref on older gens without perfcntr support [Claude]
+- Add upper limit to userspace controlled FIFO size [Claude]
+- Fix nr_regs calculation [Claude]
+- Link to v3: https://lore.kernel.org/all/20260504190751.61052-1-robin.clark@oss.qualcomm.com/
 
-Check the connector display information sink type to decide whether DVI or
-HDMI mode should be set and if the AVI infoframes packets should be sent.
-
-Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
----
+Changes in v3:
+- Fix loop counter issue spotted by Claude review
+- Add MSM_PERFCNTR_UPDATE flag to ask kernel to return the actual # of
+  available counters in case of -E2BIG
+- Proper barriers for modifying pwrup_Link
+- Link to v2: https://lore.kernel.org/all/20260424151140.104093-1-robin.clark@oss.qualcomm.com
 
 Changes in v2:
-- Don't store the sink type in a per-commit bridge state (Maxime).
+- Rework makefile magic based on Dmitry's suggestion, and add a2xx/a5xx
+  perfcntr tables (although only a6xx+ is supported at this point)
+- Fix compile error for compilers that are picky about a struct that
+  only contains a flex array
+- Drop a6xx_idle() under gpu->lock in a6xx_perfcntr_configure(), replace
+  with perfcntr_fence that sel_worker can check
+- Add a7xx+ pwrup_reglist support for restoring SELect regs on exit from
+  IFPC.  (a6xx doesn't support IFPC, and the pwrup_reglist works a bit
+  differently)
+- Stop disabling IFPC when global counter stream is active.
+- Link to v1: https://lore.kernel.org/all/20260420222621.417276-1-robin.clark@oss.qualcomm.com/
 
- drivers/gpu/drm/bridge/ite-it66121.c | 67 +++++++++++++++++-----------
- 1 file changed, 41 insertions(+), 26 deletions(-)
+Rob Clark (16):
+  drm/msm: Remove obsolete perf infrastructure
+  drm/msm: Allow CAP_PERFMON for setting SYSPROF
+  drm/msm/adreno: Sync registers from mesa
+  drm/msm/registers: Sync gen_header.py from mesa
+  drm/msm/registers: Add perfcntr json
+  drm/msm: Add a6xx+ perfcntr tables
+  drm/msm: Add sysprof accessors
+  drm/msm/a6xx: Add yield & flush helper
+  drm/msm: Add per-context perfcntr state
+  drm/msm: Add basic perfcntr infrastructure
+  drm/msm/a6xx+: Add support to configure perfcntrs
+  drm/msm/a8xx: Add perfcntr flush sequence
+  drm/msm: Add PERFCNTR_CONFIG ioctl
+  drm/msm/a6xx: Increase pwrup_reglist size
+  drm/msm/a6xx: Append SEL regs to dyn pwrup reglist
+  drm/msm/a6xx: Allow IFPC with perfcntr stream
 
-diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-index 19a027d75b61..a9c5bab665af 100644
---- a/drivers/gpu/drm/bridge/ite-it66121.c
-+++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -182,6 +182,7 @@
- 
- #define IT66121_HDMI_MODE_REG			0xC0
- #define IT66121_HDMI_MODE_HDMI			BIT(0)
-+#define IT66121_HDMI_MODE_DVI			0
- 
- #define IT66121_SYS_STATUS_REG			0x0E
- #define IT66121_SYS_STATUS_ACTIVE_IRQ		BIT(7)
-@@ -766,41 +767,55 @@ void it66121_bridge_mode_set(struct drm_bridge *bridge,
- {
- 	u8 buf[HDMI_INFOFRAME_SIZE(AVI)];
- 	struct it66121_ctx *ctx = container_of(bridge, struct it66121_ctx, bridge);
-+	struct drm_connector *connector = ctx->connector;
- 	int ret;
- 
- 	mutex_lock(&ctx->lock);
- 
--	ret = drm_hdmi_avi_infoframe_from_display_mode(&ctx->hdmi_avi_infoframe, ctx->connector,
--						       adjusted_mode);
--	if (ret) {
--		DRM_ERROR("Failed to setup AVI infoframe: %d\n", ret);
--		goto unlock;
--	}
-+	if (!connector || connector->display_info.is_hdmi) {
-+		ret = drm_hdmi_avi_infoframe_from_display_mode(&ctx->hdmi_avi_infoframe,
-+							       connector,
-+							       adjusted_mode);
-+		if (ret) {
-+			DRM_ERROR("Failed to setup AVI infoframe: %d\n", ret);
-+			goto unlock;
-+		}
- 
--	ret = hdmi_avi_infoframe_pack(&ctx->hdmi_avi_infoframe, buf, sizeof(buf));
--	if (ret < 0) {
--		DRM_ERROR("Failed to pack infoframe: %d\n", ret);
--		goto unlock;
--	}
-+		ret = hdmi_avi_infoframe_pack(&ctx->hdmi_avi_infoframe, buf, sizeof(buf));
-+		if (ret < 0) {
-+			DRM_ERROR("Failed to pack infoframe: %d\n", ret);
-+			goto unlock;
-+		}
- 
--	/* Write new AVI infoframe packet */
--	ret = regmap_bulk_write(ctx->regmap, IT66121_AVIINFO_DB1_REG,
--				&buf[HDMI_INFOFRAME_HEADER_SIZE],
--				HDMI_AVI_INFOFRAME_SIZE);
--	if (ret)
--		goto unlock;
-+		/* Write new AVI infoframe packet */
-+		ret = regmap_bulk_write(ctx->regmap, IT66121_AVIINFO_DB1_REG,
-+					&buf[HDMI_INFOFRAME_HEADER_SIZE],
-+					HDMI_AVI_INFOFRAME_SIZE);
-+		if (ret)
-+			goto unlock;
- 
--	if (regmap_write(ctx->regmap, IT66121_AVIINFO_CSUM_REG, buf[3]))
--		goto unlock;
-+		if (regmap_write(ctx->regmap, IT66121_AVIINFO_CSUM_REG, buf[3]))
-+			goto unlock;
- 
--	/* Enable AVI infoframe */
--	if (regmap_write(ctx->regmap, IT66121_AVI_INFO_PKT_REG,
--			 IT66121_AVI_INFO_PKT_ON | IT66121_AVI_INFO_PKT_RPT))
--		goto unlock;
-+		/* Enable AVI infoframe */
-+		if (regmap_write(ctx->regmap, IT66121_AVI_INFO_PKT_REG,
-+				 IT66121_AVI_INFO_PKT_ON | IT66121_AVI_INFO_PKT_RPT))
-+			goto unlock;
- 
--	/* Set TX mode to HDMI */
--	if (regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG, IT66121_HDMI_MODE_HDMI))
--		goto unlock;
-+		/* Set TX mode to HDMI */
-+		if (regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG,
-+				 IT66121_HDMI_MODE_HDMI))
-+			goto unlock;
-+	} else {
-+		/* Disable AVI infoframe */
-+		if (regmap_write(ctx->regmap, IT66121_AVI_INFO_PKT_REG, 0))
-+			goto unlock;
-+
-+		/* Set TX mode to DVI */
-+		if (regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG,
-+				 IT66121_HDMI_MODE_DVI))
-+			goto unlock;
-+	}
- 
- 	if ((ctx->id == ID_IT66121 || ctx->id == ID_IT66122) &&
- 	    regmap_write_bits(ctx->regmap, IT66121_CLK_BANK_REG,
+ drivers/gpu/drm/msm/Makefile                  |   27 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c         |    7 -
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c         |   16 -
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c         |    3 -
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   16 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   10 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  217 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   15 +-
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c     |    2 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c         |   33 +-
+ drivers/gpu/drm/msm/adreno/a8xx_preempt.c     |    2 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c    |    8 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |    7 +-
+ drivers/gpu/drm/msm/msm_debugfs.c             |    6 -
+ drivers/gpu/drm/msm/msm_drv.c                 |    2 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   13 +-
+ drivers/gpu/drm/msm/msm_gpu.c                 |  119 +-
+ drivers/gpu/drm/msm/msm_gpu.h                 |  104 +-
+ drivers/gpu/drm/msm/msm_perf.c                |  235 --
+ drivers/gpu/drm/msm/msm_perfcntr.c            |  648 +++++
+ drivers/gpu/drm/msm/msm_perfcntr.h            |  155 ++
+ drivers/gpu/drm/msm/msm_ringbuffer.h          |    2 +
+ drivers/gpu/drm/msm/msm_submitqueue.c         |    3 +-
+ .../msm/registers/adreno/a2xx_perfcntrs.json  |  109 +
+ drivers/gpu/drm/msm/registers/adreno/a3xx.xml |    8 +-
+ drivers/gpu/drm/msm/registers/adreno/a5xx.xml |  141 +-
+ .../msm/registers/adreno/a5xx_perfcntrs.json  |  128 +
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 1300 ++++++-----
+ .../msm/registers/adreno/a6xx_descriptors.xml |   71 +-
+ .../drm/msm/registers/adreno/a6xx_enums.xml   |    3 +
+ .../msm/registers/adreno/a6xx_perfcntrs.json  |  105 +
+ .../msm/registers/adreno/a7xx_perfcntrs.json  |  228 ++
+ .../msm/registers/adreno/a8xx_descriptors.xml |   96 +-
+ .../msm/registers/adreno/a8xx_perfcntrs.json  |  240 ++
+ .../msm/registers/adreno/a8xx_perfcntrs.xml   | 1929 +++++++++++++++
+ .../msm/registers/adreno/adreno_common.xml    |   42 +
+ .../drm/msm/registers/adreno/adreno_pm4.xml   |   50 +-
+ drivers/gpu/drm/msm/registers/gen_header.py   | 2079 +++++++++--------
+ include/uapi/drm/msm_drm.h                    |   48 +
+ 39 files changed, 6015 insertions(+), 2212 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/msm_perf.c
+ create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.c
+ create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.h
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.xml
+
 -- 
 2.54.0
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
 
