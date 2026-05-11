@@ -4,91 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FFF2CD37AC
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 15:13:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93BB4CD37B2
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 15:38:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3ECE10E7BC;
-	Mon, 11 May 2026 15:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0156010E1C7;
+	Mon, 11 May 2026 15:38:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="GRWptX7Q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BoIhIUOn";
 	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73DA610E7BC
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 15:13:46 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-67fd8befac7so2162679a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 08:13:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1778512424; x=1779117224;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=l9pYvX3asH6XTX0dQ1uMh3EDUuzB4crPP1Ft5gtsnFY=;
- b=GRWptX7Qn+YMlNqpJAcmskt2JIWizVibEFwtaOLLTR/D1WzLkkVY0ScC6yvb4OUDZV
- EjuNUjf4J5HMRZfB+16/7f3h6cRYKTrropwgydIDV64HfP16w/CQhFCvntWxwtPLsIlB
- qxaZhV9Rc49ucILxCqQR42CAAkVxssdTBoaLk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778512424; x=1779117224;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=l9pYvX3asH6XTX0dQ1uMh3EDUuzB4crPP1Ft5gtsnFY=;
- b=Lyr0Ka/xq2WR9LP3JlhBW022P8XVhoKj270LBBSU8oRec3qsQE4r55hcAiIW2AtMRU
- OJx0vWyuqa0Trt/GJ4SMUU0T5CPrtaxmKeGekxSwrFwrRjvx/RZws2CaperxB0OsPduG
- 4E5fwxjtkN07K8XBobjEOFc34cHvUBWfoR/fBszY6MqOHwOhhoOCeopZEK7Z4gh/W7Xd
- UXeQO5pP/CffjQusnUwqWZBTgQWVSb9QtvhEKYWOhzQo4kzHUH0UJDf7pnUwXkDYEhh0
- mYG9rS9zupUmlz5Ayc2RM40EJWp2XlR/3sZKBjLSNXK9LNfFFGPC4moDOsFFH3F9SDho
- B5tg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+jOHEZRNkFHbGigrPcJgy8Jvw4QZd6KFDDaC+hTQTbsMNBgfG7CeIyYvQl3Drt09yzjn2UXtipXKs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzC0oGj5CQLVnK6P32sRXyb6ZBYrIa+xheyewZo0SGfffVwRIeI
- 6DGea1aO1VuNXgeLG5cup4TtpMFhwrdJzRpTMUQsMTB0iUbE9BeMl3xmoh+3cB8T0aTAdJcuebm
- CgVaHZA==
-X-Gm-Gg: Acq92OGdff88pbzdO6mtuzxoftjTLCtEFA/QowyH7UAsK62urrfZsBfwyH3dFsWBk4I
- JqIxQHS8Libuf7aOCJsUJCNpHwFBD7GQE6q61mM1xWKX9YBXDf+wf9aJZcuMUyLAZqYpcxW2H3f
- fi7ZHIhQSe/I5k/m+yL4cHEaQin9fDNnMDB4pmyE1C33SBlGfRuvC2quQcDeaA7YfK++zP15zje
- an9sRg8TJgJ/k8My1KfJxg7QoZK1Q2ZzeW533V+w5T4AnK5GmVr2LKfndS6IPy4Z22Vmjvv+aiU
- +40SfPO4BQ6HnfouyKg5g1UTkE9PODTWbMzRzpAetkJ0lzEth/jekHdNrZPEyKkoZGVsa2yDmVp
- lf3plJl5QWYQmTIoVtAsI3jCVh7kLB6WovS9wZe4FZf86wLW3FTc3URhNgGtQCM0C4n/7oxvaNO
- MKEDZ/nFXOB5NoPHx3YV5SPE1FLvgp4OtvMh/r661GQQLalqW8nCXG1bxL2y/DNA==
-X-Received: by 2002:a05:6402:889:b0:67c:64f5:27ab with SMTP id
- 4fb4d7f45d1cf-67d63d9b72dmr8722465a12.11.1778512423341; 
- Mon, 11 May 2026 08:13:43 -0700 (PDT)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com.
- [209.85.221.47]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-67ef0dfd34fsm3882535a12.14.2026.05.11.08.13.41
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 May 2026 08:13:41 -0700 (PDT)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-44985f4ab0fso2557866f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 08:13:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/3Gspu5jfj48n4KdOyFOHFicB2d8g2M/he9toluQ8U1o6IVrMexY0sKgj0RldlyJ4+69c1k7+Hv2I=@lists.freedesktop.org
-X-Received: by 2002:a05:6000:4312:b0:451:2157:6291 with SMTP id
- ffacd0b85a97d-4515dc80b1dmr39799947f8f.41.1778512420550; Mon, 11 May 2026
- 08:13:40 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A42610E1C7
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 15:38:30 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4F9D16001A;
+ Mon, 11 May 2026 15:38:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0950C2BCB0;
+ Mon, 11 May 2026 15:38:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778513909;
+ bh=9ia61t/3shFk1R60vyvSaUERpQ90L5BXzWA6QW+wDtc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=BoIhIUOnaIlW+MnzxR/uMWc16ngYvlR47JXvEOIojWCgv+yOsqkEnUBrTlv31Vp2d
+ rDDG/1ax8xJqaWFPjyqfokqcrAJc+29kCVr50Ed8F/sxflOhNNnarm8nfpJV4l0x1T
+ Y+vEnQY+hLuco2xJ/nODUHCa5BOsPzYm83l+pttcySsAH86raeKFCGk0zFW05pxJnY
+ YEcznmxGerOMikP0VFpfqjNhmkp9gYUDF5zrK/Iwbj79Igo4lMGAsMzb+V51E5XyNZ
+ o0EWjDiCjAQTPqvx1XovFVTJb+pv8T2Onz0fSn50edXo62GI3cV85B8fY+5gOGZ1YY
+ gY5SGialON/xw==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
+ aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
+ leon@kernel.org, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu, driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] rust: auxiliary: replace drvdata() with
+ registration data
+Date: Mon, 11 May 2026 17:36:17 +0200
+Message-ID: <20260511153616.3241557-2-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260505152400.3905096-1-dakr@kernel.org>
+References: <20260505152400.3905096-1-dakr@kernel.org>
+X-Patch-Reply: applied
 MIME-Version: 1.0
-References: <cover.1778498477.git.harrison.vanderbyl@gmail.com>
- <44d976999b592fb4993bd95238e56cc4d9e228f7.1778498477.git.harrison.vanderbyl@gmail.com>
-In-Reply-To: <44d976999b592fb4993bd95238e56cc4d9e228f7.1778498477.git.harrison.vanderbyl@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 11 May 2026 08:13:28 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VJ_-OhOAnACsmQ3RzQgQ_0ip4HZU6Fv8hUN77sveQT4Q@mail.gmail.com>
-X-Gm-Features: AVHnY4KsV6EE8Of350PAcbRuc32IkH8Mw1KggIyzHzpCciYVn1nsxyj9zV3Q38U
-Message-ID: <CAD=FV=VJ_-OhOAnACsmQ3RzQgQ_0ip4HZU6Fv8hUN77sveQT4Q@mail.gmail.com>
-Subject: Re: [PATCH v1 6/8] drm/panel-edp: Add panel for Surface Pro 12in
-To: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,23 +65,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Mon, May 11, 2026 at 7:42=E2=80=AFAM Harrison Vanderbyl
-<harrison.vanderbyl@gmail.com> wrote:
->
-> Add an entry for the BOE NE120DRM-N28 panel,
-> used in the Microsoft Surface Pro 12-inch.
->
-> The values chosen were tested to be working fine
-> for wake from sleep and hibernation.
->
-> Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
-
-Please follow the convention for recent similar patches and include
-the EDID in the commit message.
-
--Doug
+On Tue,  5 May 2026 17:23:06 +0200, Danilo Krummrich wrote:=0D
+> [PATCH v2 0/3] rust: auxiliary: replace drvdata() with registration data=
+=0D
+=0D
+Applied, thanks!=0D
+=0D
+  Branch: topic/dd-lifetimes=0D
+  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-=
+core.git=0D
+=0D
+[1/3] rust: alloc: add Box::zeroed()=0D
+      commit: abb21500e7e5=0D
+[2/3] rust: auxiliary: add registration data to auxiliary devices=0D
+      commit: fd3b87ff0232=0D
+[3/3] rust: driver core: remove drvdata() and driver_type=0D
+      commit: 95ade775c4ab=0D
+=0D
+The patches are in the topic/dd-lifetimes topic branch and will be merged i=
+nto=0D
+the corresponding target branch soon.=0D
