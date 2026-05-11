@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 407F6CD37BE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF036CD484E
 	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 23:56:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B3D910E92C;
-	Mon, 11 May 2026 23:56:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F39C10E92E;
+	Mon, 11 May 2026 23:56:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Mgi4p/WZ";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IRbNAg5A";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B8B110E91E
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 23:56:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F27C810E92B
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 23:56:47 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id EDA1E517;
- Tue, 12 May 2026 01:56:36 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 83119243E;
+ Tue, 12 May 2026 01:56:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778543797;
- bh=WaI1CaivcO3SBvuzDR8Tm5rPyhH7QKHE2rsCMfNJz3Y=;
+ s=mail; t=1778543799;
+ bh=eAGyuj56FKDZ7ti7OpQGSfgeYSr9imYtPcv2kvcd1Cw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Mgi4p/WZyPmGHd0YNfh9VUTXVfuWSZ3AdR1J/ggW+HFooYMTpX5hMLNLy2FZBcFkk
- bepjqaG9OPoXxcnz9AdKBEpAU2O8h+i2mlN4HbkytazWE03YajMwpum4tC/RaUWyhf
- OxB7e/wosnHbGYqpvGLOcM/mCmBnjLeAXDcXqw7k=
+ b=IRbNAg5AGDXfOSWJVDaOliKsoZ02gJc8wIXL/Bm+vJp9gEgSgsf15lQZ7ZhPjrDuL
+ jL2qAjzouzm1NJaFquZBVk8fzLURAQjx3Bk06yuZ1ZyJgmD4qr4VxgF/GUjqsxFUSY
+ ERrzLeGd7BDPqYObk2KmSwc/rEHM8RvPbX7kkjG8=
 From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 To: linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org
@@ -35,9 +35,9 @@ Cc: linux-renesas-soc@vger.kernel.org,
  Kieran Bingham <kieran.bingham@ideasonboard.com>,
  Biju Das <biju.das.jz@bp.renesas.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH 04/11] drm: renesas: rz-du: Switch to new VSP API
-Date: Tue, 12 May 2026 02:56:28 +0300
-Message-ID: <20260511235637.3468558-5-laurent.pinchart+renesas@ideasonboard.com>
+Subject: [PATCH 06/11] media: renesas: vsp1: Use mutex scoped guards
+Date: Tue, 12 May 2026 02:56:30 +0300
+Message-ID: <20260511235637.3468558-7-laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
 References: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
@@ -58,37 +58,355 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The vsp1_du_setup_lif() function is deprecated. Use the new
-vsp1_du_enable() and vsp1_du_disable() functions instead.
+Replace remaining manual mutex locking and unlocking with scoped
+guards. This simplifies error paths and reduces the amount of code.
 
 Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 ---
-Biju, I would like to merge this for v7.2 through the media tree instead
-of the DRM tree. Would that be OK with you, or do you expect conflicting
-changes to the rz-du driver for v7.2 ?
----
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../media/platform/renesas/vsp1/vsp1_brx.c    |   7 +-
+ .../media/platform/renesas/vsp1/vsp1_drm.c    | 117 ++++++++----------
+ .../media/platform/renesas/vsp1/vsp1_entity.c |   8 +-
+ .../media/platform/renesas/vsp1/vsp1_hgo.c    |  10 +-
+ .../media/platform/renesas/vsp1/vsp1_hgt.c    |  16 +--
+ .../media/platform/renesas/vsp1/vsp1_video.c  |  60 ++++-----
+ 6 files changed, 102 insertions(+), 116 deletions(-)
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-index bd486377f037..d5a1d36db2c1 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-@@ -55,12 +55,12 @@ void rzg2l_du_vsp_enable(struct rzg2l_du_crtc *crtc)
- 		.callback_data = crtc,
- 	};
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_brx.c b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
+index bd2672341386..325be30836d7 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_brx.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
+@@ -190,9 +190,10 @@ static int brx_get_selection(struct v4l2_subdev *subdev,
+ 		if (!state)
+ 			return -EINVAL;
  
--	vsp1_du_setup_lif(crtc->vsp->vsp, crtc->vsp_pipe, &cfg);
-+	vsp1_du_enable(crtc->vsp->vsp, crtc->vsp_pipe, &cfg);
- }
+-		mutex_lock(&brx->entity.lock);
+-		sel->r = *v4l2_subdev_state_get_compose(state, sel->pad);
+-		mutex_unlock(&brx->entity.lock);
++		scoped_guard(mutex, &brx->entity.lock) {
++			sel->r = *v4l2_subdev_state_get_compose(state, sel->pad);
++		}
++
+ 		return 0;
  
- void rzg2l_du_vsp_disable(struct rzg2l_du_crtc *crtc)
- {
--	vsp1_du_setup_lif(crtc->vsp->vsp, crtc->vsp_pipe, NULL);
-+	vsp1_du_disable(crtc->vsp->vsp, crtc->vsp_pipe);
- }
+ 	default:
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drm.c b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
+index 1439cf7bfb59..2b64d9b5a81c 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_drm.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
+@@ -675,43 +675,37 @@ int vsp1_du_enable(struct device *dev, unsigned int pipe_index,
+ 		__func__, pipe_index, cfg->width, cfg->height,
+ 		pipe->interlaced ? "i" : "");
  
- void rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc)
+-	mutex_lock(&vsp1->drm->lock);
++	scoped_guard(mutex, &vsp1->drm->lock) {
++		/* Setup formats through the pipeline. */
++		ret = vsp1_du_pipeline_setup_inputs(vsp1, pipe);
++		if (ret < 0)
++			return ret;
+ 
+-	/* Setup formats through the pipeline. */
+-	ret = vsp1_du_pipeline_setup_inputs(vsp1, pipe);
+-	if (ret < 0)
+-		goto unlock;
++		ret = vsp1_du_pipeline_setup_output(vsp1, pipe);
++		if (ret < 0)
++			return ret;
+ 
+-	ret = vsp1_du_pipeline_setup_output(vsp1, pipe);
+-	if (ret < 0)
+-		goto unlock;
++		vsp1_pipeline_dump(pipe, "DU enable");
+ 
+-	vsp1_pipeline_dump(pipe, "DU enable");
++		/* Enable the VSP1. */
++		ret = vsp1_device_get(vsp1);
++		if (ret < 0)
++			return ret;
+ 
+-	/* Enable the VSP1. */
+-	ret = vsp1_device_get(vsp1);
+-	if (ret < 0)
+-		goto unlock;
++		/*
++		 * Register a callback to allow us to notify the DRM driver of frame
++		 * completion events.
++		 */
++		drm_pipe->du_complete = cfg->callback;
++		drm_pipe->du_private = cfg->callback_data;
+ 
+-	/*
+-	 * Register a callback to allow us to notify the DRM driver of frame
+-	 * completion events.
+-	 */
+-	drm_pipe->du_complete = cfg->callback;
+-	drm_pipe->du_private = cfg->callback_data;
++		/* Disable the display interrupts. */
++		vsp1_write(vsp1, VI6_DISP_IRQ_STA(pipe_index), 0);
++		vsp1_write(vsp1, VI6_DISP_IRQ_ENB(pipe_index), 0);
+ 
+-	/* Disable the display interrupts. */
+-	vsp1_write(vsp1, VI6_DISP_IRQ_STA(pipe_index), 0);
+-	vsp1_write(vsp1, VI6_DISP_IRQ_ENB(pipe_index), 0);
+-
+-	/* Configure all entities in the pipeline. */
+-	vsp1_du_pipeline_configure(pipe);
+-
+-unlock:
+-	mutex_unlock(&vsp1->drm->lock);
+-
+-	if (ret < 0)
+-		return ret;
++		/* Configure all entities in the pipeline. */
++		vsp1_du_pipeline_configure(pipe);
++	}
+ 
+ 	/* Start the pipeline. */
+ 	spin_lock_irqsave(&pipe->irqlock, flags);
+@@ -739,7 +733,6 @@ int vsp1_du_disable(struct device *dev, unsigned int pipe_index)
+ 	struct vsp1_device *vsp1 = dev_get_drvdata(dev);
+ 	struct vsp1_drm_pipeline *drm_pipe;
+ 	struct vsp1_pipeline *pipe;
+-	struct vsp1_brx *brx;
+ 	unsigned int i;
+ 	int ret;
+ 
+@@ -749,45 +742,43 @@ int vsp1_du_disable(struct device *dev, unsigned int pipe_index)
+ 	drm_pipe = &vsp1->drm->pipe[pipe_index];
+ 	pipe = &drm_pipe->pipe;
+ 
+-	mutex_lock(&vsp1->drm->lock);
++	scoped_guard(mutex, &vsp1->drm->lock) {
++		struct vsp1_brx *brx = to_brx(&pipe->brx->subdev);
+ 
+-	brx = to_brx(&pipe->brx->subdev);
++		ret = vsp1_pipeline_stop(pipe);
++		if (ret == -ETIMEDOUT)
++			dev_err(vsp1->dev, "DRM pipeline stop timeout\n");
+ 
+-	ret = vsp1_pipeline_stop(pipe);
+-	if (ret == -ETIMEDOUT)
+-		dev_err(vsp1->dev, "DRM pipeline stop timeout\n");
++		for (i = 0; i < ARRAY_SIZE(pipe->inputs); ++i) {
++			struct vsp1_rwpf *rpf = pipe->inputs[i];
+ 
+-	for (i = 0; i < ARRAY_SIZE(pipe->inputs); ++i) {
+-		struct vsp1_rwpf *rpf = pipe->inputs[i];
++			if (!rpf)
++				continue;
+ 
+-		if (!rpf)
+-			continue;
++			/*
++			 * Remove the RPF from the pipe and the list of BRx
++			 * inputs.
++			 */
++			WARN_ON(!rpf->entity.pipe);
++			rpf->entity.pipe = NULL;
++			list_del(&rpf->entity.list_pipe);
++			pipe->inputs[i] = NULL;
+ 
+-		/*
+-		 * Remove the RPF from the pipe and the list of BRx
+-		 * inputs.
+-		 */
+-		WARN_ON(!rpf->entity.pipe);
+-		rpf->entity.pipe = NULL;
+-		list_del(&rpf->entity.list_pipe);
+-		pipe->inputs[i] = NULL;
++			brx->inputs[rpf->brx_input].rpf = NULL;
++		}
+ 
+-		brx->inputs[rpf->brx_input].rpf = NULL;
++		drm_pipe->du_complete = NULL;
++		pipe->num_inputs = 0;
++
++		dev_dbg(vsp1->dev, "%s: pipe %u: releasing %s\n",
++			__func__, pipe->lif->index,
++			BRX_NAME(pipe->brx));
++
++		list_del(&pipe->brx->list_pipe);
++		pipe->brx->pipe = NULL;
++		pipe->brx = NULL;
+ 	}
+ 
+-	drm_pipe->du_complete = NULL;
+-	pipe->num_inputs = 0;
+-
+-	dev_dbg(vsp1->dev, "%s: pipe %u: releasing %s\n",
+-		__func__, pipe->lif->index,
+-		BRX_NAME(pipe->brx));
+-
+-	list_del(&pipe->brx->list_pipe);
+-	pipe->brx->pipe = NULL;
+-	pipe->brx = NULL;
+-
+-	mutex_unlock(&vsp1->drm->lock);
+-
+ 	vsp1_dlm_reset(pipe->output->dlm);
+ 	vsp1_device_put(vsp1);
+ 
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_entity.c b/drivers/media/platform/renesas/vsp1/vsp1_entity.c
+index 3820ba53b45f..2ae2a573f0de 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_entity.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_entity.c
+@@ -216,10 +216,10 @@ int vsp1_subdev_enum_mbus_code(struct v4l2_subdev *subdev,
+ 		if (!state)
+ 			return -EINVAL;
+ 
+-		mutex_lock(&entity->lock);
+-		format = v4l2_subdev_state_get_format(state, 0);
+-		code->code = format->code;
+-		mutex_unlock(&entity->lock);
++		scoped_guard(mutex, &entity->lock) {
++			format = v4l2_subdev_state_get_format(state, 0);
++			code->code = format->code;
++		}
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_hgo.c b/drivers/media/platform/renesas/vsp1/vsp1_hgo.c
+index 2c8ce7175a4e..0ef512e3a94b 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_hgo.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_hgo.c
+@@ -153,11 +153,11 @@ static void hgo_configure_stream(struct vsp1_entity *entity,
+ 		       (crop->width << VI6_HGO_SIZE_HSIZE_SHIFT) |
+ 		       (crop->height << VI6_HGO_SIZE_VSIZE_SHIFT));
+ 
+-	mutex_lock(hgo->ctrls.handler.lock);
+-	hgo->max_rgb = hgo->ctrls.max_rgb->cur.val;
+-	if (hgo->ctrls.num_bins)
+-		hgo->num_bins = hgo_num_bins[hgo->ctrls.num_bins->cur.val];
+-	mutex_unlock(hgo->ctrls.handler.lock);
++	scoped_guard(mutex, hgo->ctrls.handler.lock) {
++		hgo->max_rgb = hgo->ctrls.max_rgb->cur.val;
++		if (hgo->ctrls.num_bins)
++			hgo->num_bins = hgo_num_bins[hgo->ctrls.num_bins->cur.val];
++	}
+ 
+ 	hratio = crop->width * 2 / compose->width / 3;
+ 	vratio = crop->height * 2 / compose->height / 3;
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_hgt.c b/drivers/media/platform/renesas/vsp1/vsp1_hgt.c
+index 858f330d44fa..78b5a9201c70 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_hgt.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_hgt.c
+@@ -152,15 +152,15 @@ static void hgt_configure_stream(struct vsp1_entity *entity,
+ 		       (crop->width << VI6_HGT_SIZE_HSIZE_SHIFT) |
+ 		       (crop->height << VI6_HGT_SIZE_VSIZE_SHIFT));
+ 
+-	mutex_lock(hgt->ctrls.lock);
+-	for (i = 0; i < HGT_NUM_HUE_AREAS; ++i) {
+-		lower = hgt->hue_areas[i*2 + 0];
+-		upper = hgt->hue_areas[i*2 + 1];
+-		vsp1_hgt_write(hgt, dlb, VI6_HGT_HUE_AREA(i),
+-			       (lower << VI6_HGT_HUE_AREA_LOWER_SHIFT) |
+-			       (upper << VI6_HGT_HUE_AREA_UPPER_SHIFT));
++	scoped_guard(mutex, hgt->ctrls.lock) {
++		for (i = 0; i < HGT_NUM_HUE_AREAS; ++i) {
++			lower = hgt->hue_areas[i*2 + 0];
++			upper = hgt->hue_areas[i*2 + 1];
++			vsp1_hgt_write(hgt, dlb, VI6_HGT_HUE_AREA(i),
++				       (lower << VI6_HGT_HUE_AREA_LOWER_SHIFT) |
++				       (upper << VI6_HGT_HUE_AREA_UPPER_SHIFT));
++		}
+ 	}
+-	mutex_unlock(hgt->ctrls.lock);
+ 
+ 	hratio = crop->width * 2 / compose->width / 3;
+ 	vratio = crop->height * 2 / compose->height / 3;
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_video.c b/drivers/media/platform/renesas/vsp1/vsp1_video.c
+index 4cf2cc370416..138d4e08eee9 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_video.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_video.c
+@@ -810,22 +810,21 @@ static int vsp1_video_start_streaming(struct vb2_queue *vq, unsigned int count)
+ 	unsigned long flags;
+ 	int ret;
+ 
+-	mutex_lock(&pipe->lock);
+-	if (pipe->stream_count == pipe->num_inputs) {
+-		ret = vsp1_video_setup_pipeline(pipe);
+-		if (ret < 0) {
+-			vsp1_video_release_buffers(video);
+-			vsp1_video_cleanup_pipeline(pipe);
+-			mutex_unlock(&pipe->lock);
+-			return ret;
++	scoped_guard(mutex, &pipe->lock) {
++		if (pipe->stream_count == pipe->num_inputs) {
++			ret = vsp1_video_setup_pipeline(pipe);
++			if (ret < 0) {
++				vsp1_video_release_buffers(video);
++				vsp1_video_cleanup_pipeline(pipe);
++				return ret;
++			}
++
++			start_pipeline = true;
+ 		}
+ 
+-		start_pipeline = true;
++		pipe->stream_count++;
+ 	}
+ 
+-	pipe->stream_count++;
+-	mutex_unlock(&pipe->lock);
+-
+ 	/*
+ 	 * vsp1_pipeline_ready() is not sufficient to establish that all streams
+ 	 * are prepared and the pipeline is configured, as multiple streams
+@@ -859,16 +858,17 @@ static void vsp1_video_stop_streaming(struct vb2_queue *vq)
+ 	pipe->buffers_ready &= ~(1 << video->pipe_index);
+ 	spin_unlock_irqrestore(&video->irqlock, flags);
+ 
+-	mutex_lock(&pipe->lock);
+-	if (--pipe->stream_count == pipe->num_inputs) {
+-		/* Stop the pipeline. */
+-		ret = vsp1_pipeline_stop(pipe);
+-		if (ret == -ETIMEDOUT)
+-			dev_err(video->vsp1->dev, "pipeline stop timeout\n");
++	scoped_guard(mutex, &pipe->lock) {
++		if (--pipe->stream_count == pipe->num_inputs) {
++			/* Stop the pipeline. */
++			ret = vsp1_pipeline_stop(pipe);
++			if (ret == -ETIMEDOUT)
++				dev_err(video->vsp1->dev,
++					"pipeline stop timeout\n");
+ 
+-		vsp1_video_cleanup_pipeline(pipe);
++			vsp1_video_cleanup_pipeline(pipe);
++		}
+ 	}
+-	mutex_unlock(&pipe->lock);
+ 
+ 	video_device_pipeline_stop(&video->video);
+ 	vsp1_video_release_buffers(video);
+@@ -995,22 +995,16 @@ vsp1_video_streamon(struct file *file, void *fh, enum v4l2_buf_type type)
+ 	 * touching an entity in the pipeline can be activated or deactivated
+ 	 * once streaming is started.
+ 	 */
+-	mutex_lock(&mdev->graph_mutex);
++	scoped_guard(mutex, &mdev->graph_mutex) {
++		pipe = vsp1_video_pipeline_get(video);
++		if (IS_ERR(pipe))
++			return PTR_ERR(pipe);
+ 
+-	pipe = vsp1_video_pipeline_get(video);
+-	if (IS_ERR(pipe)) {
+-		mutex_unlock(&mdev->graph_mutex);
+-		return PTR_ERR(pipe);
++		ret = __video_device_pipeline_start(&video->video, &pipe->pipe);
++		if (ret < 0)
++			goto err_pipe;
+ 	}
+ 
+-	ret = __video_device_pipeline_start(&video->video, &pipe->pipe);
+-	if (ret < 0) {
+-		mutex_unlock(&mdev->graph_mutex);
+-		goto err_pipe;
+-	}
+-
+-	mutex_unlock(&mdev->graph_mutex);
+-
+ 	/*
+ 	 * Verify that the configured format matches the output of the connected
+ 	 * subdev.
 -- 
 Regards,
 
