@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 499E8CD4840
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3040CD4840
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A49C210E861;
-	Mon, 11 May 2026 17:31:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25A2210E220;
+	Mon, 11 May 2026 17:31:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hLwNod4F";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TjeQZaay";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 310E710E85A;
- Mon, 11 May 2026 17:30:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C88DD10E862;
+ Mon, 11 May 2026 17:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778520660; x=1810056660;
+ t=1778520663; x=1810056663;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=D4EknCkaHCNIg8p5sLeL9NZg/F8aPtj1hSM+njyxWqg=;
- b=hLwNod4FKwqjFe0HmQ/s49t2W/zK237aIQN2mC89ZUm2oXQ/S22WaPXq
- jWih0ymPdEA+id2OSuruNNkc6mSycqMjQRD8OIDvhN9SZekv1S7mXeRb/
- NHQGplwdNQLiqRHb4wbnBkLn8Kz2tql2MZF9Io83aq7E11LwYT6jn8zjp
- vs4o+jH6Kb90HoB2z2kxvPRNq0Z0DITAN7Rje5ToNbaQ/Js4hlO9Sfdxj
- dU/KJOWESFTY2oija5rB07q2Uh8RRdrZdW8mkPKkDAmo3ZoyIJcFsATeP
- RCI0PlZvWycAd1e0iwffw3+XAzD/WVguDxnjFY/mEC/soZXj6wvhIEdZL w==;
-X-CSE-ConnectionGUID: 1QCLsK6ERiW5KHn7XuQSjg==
-X-CSE-MsgGUID: SQAWeBCBTYORs+2sHTiV8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79314217"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79314217"
+ bh=+LnmobJh1DnauE2NercKhjcRavXPbcfXqJhkutDMYck=;
+ b=TjeQZaayKth76rRy+4Xo/9ZAVU0LniylPYDWpum34pUMD6jQpJITNuo9
+ 4WoGWxgZQNSRtWjL58CMbRtTMZpKLy4RV4AIT7gCxUKYDW6uiH0HkDPK3
+ 0+PnKDU0RjSOqFGGwJdAArirYpWZytT8WGTJZ9lQdB5Es0YzglucgvCI/
+ 3ZhwUrgouFd5wDAKAXKKvnlfH8bn9Fc0lpRDpwMX9v/KIlnVK23F2Knhn
+ HEQjpWGythmkFZz2ak8AM7ipHIbHPVI9VpHdpCsy3ayybbg83vgxBLV5y
+ bVs/68pp0h5zPFjtsAyugPhLofwuGXOy6OP7Ef2FckGliJh3flt3rVEg/ Q==;
+X-CSE-ConnectionGUID: MjsTQtI+QnCBtOdo7BUWRg==
+X-CSE-MsgGUID: g3jTV/a0Rr2YoB0LUm5yaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79314251"
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79314251"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:30:58 -0700
-X-CSE-ConnectionGUID: mZBnCvj3TlG9ul2tPZ5/0g==
-X-CSE-MsgGUID: sUW8LuzDQ7KgesZFC0Eyxw==
+ 11 May 2026 10:31:03 -0700
+X-CSE-ConnectionGUID: DvbSBq9sQdWWe7FxUzkH4A==
+X-CSE-MsgGUID: G/tszHa2SrybPgfcN93OIA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="261000443"
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="261000497"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora)
  ([10.245.244.248])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:30:53 -0700
+ 11 May 2026 10:30:58 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -59,9 +59,10 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/5] drm/xe: Wire up dmem cgroup reclaim for VRAM manager
-Date: Mon, 11 May 2026 19:30:07 +0200
-Message-ID: <20260511173008.36526-5-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v3 5/5] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
+ manager
+Date: Mon, 11 May 2026 19:30:08 +0200
+Message-ID: <20260511173008.36526-6-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260511173008.36526-1-thomas.hellstrom@linux.intel.com>
 References: <20260511173008.36526-1-thomas.hellstrom@linux.intel.com>
@@ -87,49 +88,60 @@ Register the VRAM manager with the dmem cgroup reclaim infrastructure
 so that lowering dmem.max below current VRAM usage triggers TTM
 eviction rather than failing with -EBUSY.
 
+Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against NULL,
+as the TTM reclaim path passes a NULL place in cgroup drain mode.
+
+v3:
+- Rebased on fix for uninitialized list and buddy allocator on the
+  drmm_cgroup_register_region() error path.
+
 Assisted-by: GitHub_Copilot:claude-sonnet-4.6
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/xe/xe_ttm_vram_mgr.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 9 ++++++---
+ 2 files changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-index 5fd0d5506a7e..1bdcb3fee901 100644
---- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-+++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-@@ -303,13 +303,6 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 0dc68fb9d88e..334a177ae8d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1485,7 +1485,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
+ 				DMA_RESV_USAGE_BOOKKEEP, f) {
+ 		if (amdkfd_fence_check_mm(f, current->mm) &&
+-		    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
++		    !(place && (place->flags & TTM_PL_FLAG_CONTIGUOUS)))
+ 			return false;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index ac3f71d77140..a1f1ae264a40 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -916,6 +916,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
  	struct ttm_resource_manager *man = &mgr->manager;
++	struct dmem_cgroup_region *cg;
  	int err;
  
--	if (mem_type != XE_PL_STOLEN) {
--		const char *name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
--		man->cg = drmm_cgroup_register_region(&xe->drm, name, size);
--		if (IS_ERR(man->cg))
--			return PTR_ERR(man->cg);
--	}
--
- 	man->func = &xe_ttm_vram_mgr_func;
- 	mgr->mem_type = mem_type;
- 	mutex_init(&mgr->lock);
-@@ -318,6 +311,18 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
- 	mgr->visible_avail = io_size;
- 
- 	ttm_resource_manager_init(man, &xe->ttm, size);
-+
-+	if (mem_type != XE_PL_STOLEN) {
-+		const char *name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
-+		struct dmem_cgroup_region *cg =
-+			drmm_cgroup_register_region(&xe->drm, name, size);
-+
-+		if (IS_ERR(cg))
-+			return PTR_ERR(cg);
-+
-+		ttm_resource_manager_set_dmem_region(man, cg);
-+	}
-+
- 	err = gpu_buddy_init(&mgr->mm, man->size, default_page_size);
+ 	ttm_resource_manager_init(man, &adev->mman.bdev,
+@@ -932,9 +933,11 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
  	if (err)
  		return err;
+ 
+-	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
+-	if (IS_ERR(man->cg))
+-		return PTR_ERR(man->cg);
++	cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
++					 adev->gmc.real_vram_size);
++	if (IS_ERR(cg))
++		return PTR_ERR(cg);
++	ttm_resource_manager_set_dmem_region(man, cg);
+ 
+ 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+ 	ttm_resource_manager_set_used(man, true);
 -- 
 2.54.0
 
