@@ -4,56 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F908CD37AC
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 14:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB3DFCD37AC
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 14:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0BC810E78C;
-	Mon, 11 May 2026 14:34:19 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UOssy0za";
-	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50ACF10E78C
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 14:34:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778510057;
- bh=+EtlGDMNHag4LPtxK77nadoZyLknYFRarBU9wYVDM3k=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=UOssy0zaKsUMqNst00nQotyB/EAJpDX6Bg2Gf3poDJDZCiQsBxZNtB1IplatHf3sV
- KceO+u2zh27hArp69y47euOYCxvhhDWfMDkYN8u3a8iMoXW1N7UalRLeZ2Dg3GKpoB
- LKv4/8VO14oNMh0gXhFTK4MovZlJzMJOMarQvmeAPuVm2Dn+WlB4b+37txLVG+bzJA
- w4zKpGWLP6ME2TFA7HTpJZK2wmbtWJwW+M9eyFOv81W68biriH0qihY25nZkfRI9mD
- WY194+LGg8vq+iXBh+sP+RfkcBHo91rm33wVAJwY8YShc7dTjihJv1A5UETK2h2AnW
- Fzw2vd/UjZpjw==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9415917E0698;
- Mon, 11 May 2026 16:34:16 +0200 (CEST)
-Date: Mon, 11 May 2026 16:34:13 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: kernel@collabora.com, Steven Price <steven.price@arm.com>, Liviu Dudau
- <liviu.dudau@arm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Wrap register accessor helpers for type
- safety
-Message-ID: <20260511163413.73f77e6b@fedora>
-In-Reply-To: <O_1AymfMSq2IN-FA9jyHHw@collabora.com>
-References: <20260508-panthor-gpu-read-type-v1-1-733a9d8b3a11@collabora.com>
- <20260511135641.790f797d@fedora>
- <O_1AymfMSq2IN-FA9jyHHw@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 124C210E7B5;
+	Mon, 11 May 2026 14:43:46 +0000 (UTC)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com
+ [209.85.221.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC6C10E7B5
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 14:43:45 +0000 (UTC)
+Received: by mail-vk1-f169.google.com with SMTP id
+ 71dfb90a1353d-57513ac61f0so1278149e0c.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 07:43:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778510624; x=1779115424;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=st99TRUJvP9iusm7HufBndg1A/dlmXWO+RvQR75PMEA=;
+ b=tHr6IPY9+LfJa2IQluYWwQW1K5mdsaB0/8a/VYbDGzvgd3qWtNIz+41+GfQKV5haD6
+ RAl/Lxs9+kX51+ISchjZooeYj9AATpEpYYYqvfR3GiTch7PsNNGAluFKPGjsQVH0WlGY
+ BPWDix9czAQgmJY2GPh2OIhIeaDe7soJWJi0jE+QlIFXlzxeoEAFkV1pck2bsrCkS1lQ
+ 2hvQH3XgngbO3tPSkFhIhnOsFsNhIjZwqK+kQgcnllHXGAWcOsqAVWbRvMG/QWasgNHs
+ ximYIDIRB+YUPoJSzRG+KfarY20wpau+X7MxRR72ybyPNG58GocPjlt3k0ohJknl66Lj
+ qkJA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8TawvgBL/vAIi3cT1XoI+qYFh5MuSBKTSwnY7bq+/WUhC5fPWWLWAOyxrO+5QMnoNB3H2M6DMgjaU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvJIbvXJL1n3IJmifNVME477O+P0oOT2KK2rw9WnUmnMFfQnS2
+ ij5DFl+pmhDsFZsnmsSqd1EzcIt/FaMZWfkS+Vm+G6PV2mw1vYORiv0+Ivy1mpIj
+X-Gm-Gg: Acq92OH7MgvJ88ch3IcsOKOr8wyZG60HCmQ4szBX7GCsStrpQ3WgTZyn+b9nm4pRwNh
+ FXpVjY8UJzzNJ7RroVx5h5rhSp5EamAEPe5GxBi0bNgnmMthgXVlXowu6S8uC4dNgnSThyiY06q
+ buIZgRmk3SlFK+j9w+EYjCKfoBjLN14bLjMaRtDgXxAw8SKXIxrLeQYOFUTmoK9Lu9cWvEL8fBD
+ 7Zgw59zGRXJ1m9GL/uH2OA/Z+a4ZyYwyT/ToU3u+HDDdtP2JnfDP04sDJtP1DnU6o+Kp8wmfxsd
+ xvEkJDGckNg4uPUVzWHlWqM7oidv0tGQ1d1uGfa62im5BeJcEzBMD5ZoPCwdfm12eawcIlJSxCc
+ jF8NPSQmUb4UGMAB99lqTETaY2dkB4aIq90NAZomDaga2lMOvJ7gDVOb9gDVEYJVVXTu7gcI0aG
+ QpLg4P7iH22Yk2yYtmPQd6/2D3xZeXFDOloIkRxht22A+gsOH1dob2LGoOABzj
+X-Received: by 2002:a05:6122:d28:b0:56f:1c32:bd07 with SMTP id
+ 71dfb90a1353d-57599081e26mr4089717e0c.2.1778510623893; 
+ Mon, 11 May 2026 07:43:43 -0700 (PDT)
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com.
+ [209.85.222.53]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-575869f2d08sm6644044e0c.0.2026.05.11.07.43.41
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 May 2026 07:43:41 -0700 (PDT)
+Received: by mail-ua1-f53.google.com with SMTP id
+ a1e0cc1a2514c-956995b5bb6so1222654241.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 07:43:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9Tgq4Mq5/6bTvukCinR1TxzpIWzHNSP/b3RhGbYkIKW0r0LKeZ7n5mzlha3W1aIkmx7bXItE8fpcU=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:8553:20b0:632:3bd:65ad with SMTP id
+ ada2fe7eead31-63203bd6cdamr2502747137.3.1778510621097; Mon, 11 May 2026
+ 07:43:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <caf5e011a5b3fbdbab8c50d064bc8342212d5cc1.1778505897.git.geert+renesas@glider.be>
+ <f46eff18-4a5c-4c25-a0b7-71cdbd444014@imgtec.com>
+In-Reply-To: <f46eff18-4a5c-4c25-a0b7-71cdbd444014@imgtec.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 11 May 2026 16:43:29 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdW_YbjCfhe=Uf+fPjCiwf6272aNHaOjd8B1HUrkeLJrvA@mail.gmail.com>
+X-Gm-Features: AVHnY4K1p3Sxqu1LsvDjBrECNKZ4-7U0HiQ3AWU71iqzjSPovIWm8-sLEWk57G4
+Message-ID: <CAMuHMdW_YbjCfhe=Uf+fPjCiwf6272aNHaOjd8B1HUrkeLJrvA@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/imagination: Warn or error on unsupported
+ hardware"
+To: Matt Coster <Matt.Coster@imgtec.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+ Adam Ford <aford173@gmail.com>, Frank Binns <Frank.Binns@imgtec.com>, 
+ Alessio Belle <Alessio.Belle@imgtec.com>,
+ Brajesh Gupta <Brajesh.Gupta@imgtec.com>, 
+ Alexandru Dadu <Alexandru.Dadu@imgtec.com>,
+ Luigi Santivetti <Luigi.Santivetti@imgtec.com>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,274 +98,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 11 May 2026 15:53:31 +0200
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+Hi Matt,
 
-> On Monday, 11 May 2026 13:56:41 Central European Summer Time Boris Brezillon wrote:
-> > Hi Nicolas,
-> > 
-> > On Fri, 08 May 2026 20:00:54 +0200
-> > Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> >   
-> > > In Commit a8f5738779a9 ("drm/panthor: Pass an iomem pointer to GPU
-> > > register access helpers"), the gpu register access helpers were changed
-> > > from taking a pointer to a struct panthor_device in their first
-> > > argument, to taking a void pointer.
-> > > 
-> > > This can cause problems, as patches based on panthor before this change
-> > > will still compile fine after it. struct panthor_device * implicitly
-> > > casts to a void pointer, resulting in completely wrong semantics.
-> > > 
-> > > Prevent this problem by wrapping the affected functions with macros that
-> > > specifically check for and reject the struct panthor_device * type as
-> > > the first argument.
-> > > 
-> > > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > > ---
-> > >  drivers/gpu/drm/panthor/panthor_device.h | 68 +++++++++++++++++++++++++-------
-> > >  1 file changed, 53 insertions(+), 15 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> > > index 4e4607bca7cc..91e9f499bf69 100644
-> > > --- a/drivers/gpu/drm/panthor/panthor_device.h
-> > > +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> > > @@ -630,49 +630,87 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
-> > >  
-> > >  extern struct workqueue_struct *panthor_cleanup_wq;
-> > >  
-> > > -static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> > > +static inline void _gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> > >  {
-> > >  	writel(data, iomem + reg);
-> > >  }
-> > >  
-> > > -static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-> > > +static inline u32 _gpu_read(void __iomem *iomem, u32 reg)
-> > >  {
-> > >  	return readl(iomem + reg);
-> > >  }
-> > >  
-> > > -static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-> > > +static inline u32 _gpu_read_relaxed(void __iomem *iomem, u32 reg)  
-> > 
-> > First off, I'm not a huge fan of these _ prefixes to convey the "internal,
-> > don't use directly" information. If we're going to have macros around these
-> > helpers (meaning these helpers won't be used directly), I'd rather have a
-> > fully descriptive name like gpu_{write,read}_iomem[_relaxed]() and a comment
-> > stating that they should never be used.  
-> 
-> Agreed.
-> 
-> >   
-> > >  {
-> > >  	return readl_relaxed(iomem + reg);
-> > >  }
-> > >  
-> > > -static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-> > > +/*
-> > > + * The function signature of gpu_read/gpu_write/gpu_read_relaxed/... used to
-> > > + * take a &struct panthor_device* as the first parameter. During the split of
-> > > + * iomem ranges into individual sub-components, this was changed to take a
-> > > + * void __iomem* instead. These wrappers exists Tto avoid situations wherein
-> > > + * pre-refactor patches are applied in error, as they'd compile fine. That's
-> > > + * because the old calling convention's first parameter implicitly casts to a
-> > > + * void pointer.
-> > > + */
-> > > +
-> > > +#define gpu_write(iomem, reg, data) ({					\
-> > > +	static_assert(!__same_type((iomem), struct panthor_device *));	\  
-> > 
-> > Hm, this only covers ptdev being passed as an iomem pointer. I know it's
-> > the only case we had so far, but if we're going to add type enforcement,
-> > I think I'd prefer if we were covered for more than just ptdev.
-> > 
-> > One way of doing that would be to wrap the `void __iomem *iomem` in an
-> > explicit type like:
-> > 
-> > struct panthor_reg_bank {
-> > 	void __iomem *iomem;
-> > };
-> > 
-> > which then gets passed to gpu_{read,write} helpers (see the diff below).  
-> 
-> Hm, okay, the diff below is smaller than I feared. Though it doesn't get
-> us type checking for someone, say, trying to read GPU_STATUS with the
-> iomem of panthor_fw. But neither does my proposal below.
-> 
-> > 
-> > The other way would be to pass the component, and have the macro
-> > do the <component>->iomem deref, but there's a few places where reg banks
-> > are accessed outside of the components that own them (panthor_hw.c).  
-> 
-> Yeah, I prototyped going down something along that route by having
-> the register accessors be generics that are implemented by each
-> component, and it's a bit messy. Either you expose the struct
-> definitions of individual components so that this header has visibility
-> into them (not great), or you add boilerplate "do this accessor
-> operation for this component" helpers for every component, which is both
-> verbose and possibly causes the inlining to no longer work, though I have
-> yet to verify that.
-> 
-> If we do want to go down this route (though I'm not sure, since your
-> reg bank solution seems to get us the same guarantees but without bringing
-> generics into this), then the following may be an okay idea:
-> 
-> I think having just the iomem deref genericised may be a good middle
-> ground. If instead of making it a deref, we make it return the pointer
-> to the member into the component that it can then deref, then the
-> component-specific part can be pure (since offset of the iomem member
-> is constant so for a particular pointer to a component, the pointer to
-> the iomem member only depends on the passed-in pointer to component.)
-> 
-> This should make sure that when the compiler gets
-> 
-> panthor_gpu_write(ptdev->gpu, foo, bar);
-> val = panthor_gpu_read(ptdev->gpu, baz);
-> 
-> it can optimise the expanded
-> 
-> iomem = *panthor_get_iomem_ptr(ptdev->gpu);
-> panthor_actual_write(iomem, foo, bar);
-> iomem = *panthor_get_iomem_ptr(ptdev->gpu);
-> val = panthor_actual_read(iomem, baz);
-> 
-> to the simplified
-> 
-> iomem = *panthor_get_iomem_ptr(ptdev->gpu);
-> panthor_actual_write(iomem, foo, bar);
-> val = panthor_actual_read(iomem, baz);
-> 
-> because panthor_get_iomem_ptr will be known to return the same value
-> when called with the same input param.
-> 
-> Anway, I think it's probably best if I abandon this and you just send
-> your patch to the list with a real base. I only have one comment on it,
-> which I've included inline.
-> 
-> > 
-> > Regards,
-> > 
-> > Boris
-> >   
-> > --->8---  
-> > [... snip ...]
-> > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> > index 9d4500850561..d4cc105afe24 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> > @@ -55,8 +55,8 @@ struct panthor_as_slot {
-> >   * struct panthor_mmu - MMU related data
-> >   */
-> >  struct panthor_mmu {
-> > -       /** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
-> > -       void __iomem *iomem;
-> > +       /** @regs: CPU mapping of MMU_AS_CONTROL iomem region */
-> > +       struct panthor_reg_bank regs;
-> >  
-> >         /** @irq: The MMU irq. */
-> >         struct panthor_irq irq;
-> > @@ -527,7 +527,7 @@ static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
-> >         /* Wait for the MMU status to indicate there is no active command, in
-> >          * case one is pending.
-> >          */
-> > -       ret = gpu_read_relaxed_poll_timeout_atomic(mmu->iomem, AS_STATUS(as_nr), val,
-> > +       ret = gpu_read_relaxed_poll_timeout_atomic(mmu->regs, AS_STATUS(as_nr), val,
-> >                                                    !(val & AS_STATUS_AS_ACTIVE), 10, 100000);
-> >  
-> >         if (ret) {
-> > @@ -545,7 +545,7 @@ static int as_send_cmd_and_wait(struct panthor_device *ptdev, u32 as_nr, u32 cmd
-> >         /* write AS_COMMAND when MMU is ready to accept another command */
-> >         status = wait_ready(ptdev, as_nr);
-> >         if (!status) {
-> > -               gpu_write(ptdev->mmu->iomem, AS_COMMAND(as_nr), cmd);
-> > +               gpu_write(ptdev->mmu->regs, AS_COMMAND(as_nr), cmd);
-> >                 status = wait_ready(ptdev, as_nr);
-> >         }
-> >  
-> > @@ -598,9 +598,9 @@ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
-> >         panthor_mmu_irq_enable_events(&ptdev->mmu->irq,
-> >                                       panthor_mmu_as_fault_mask(ptdev, as_nr));
-> >  
-> > -       gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
-> > -       gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
-> > -       gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), transcfg);
-> > +       gpu_write64(mmu->regs, AS_TRANSTAB(as_nr), transtab);
-> > +       gpu_write64(mmu->regs, AS_MEMATTR(as_nr), memattr);
-> > +       gpu_write64(mmu->regs, AS_TRANSCFG(as_nr), transcfg);
-> >  
-> >         return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-> >  }
-> > @@ -636,9 +636,9 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
-> >         if (recycle_slot)
-> >                 return 0;
-> >  
-> > -       gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), 0);
-> > -       gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
-> > -       gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
-> > +       gpu_write64(mmu->regs, AS_TRANSTAB(as_nr), 0);
-> > +       gpu_write64(mmu->regs, AS_MEMATTR(as_nr), 0);
-> > +       gpu_write64(mmu->regs, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
-> >  
-> >         return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-> >  }
-> > @@ -791,7 +791,7 @@ int panthor_vm_active(struct panthor_vm *vm)
-> >          */
-> >         fault_mask = panthor_mmu_as_fault_mask(ptdev, as);
-> >         if (ptdev->mmu->as.faulty_mask & fault_mask) {
-> > -               gpu_write(ptdev->mmu->irq.iomem, INT_CLEAR, fault_mask);
-> > +               gpu_write(ptdev->mmu->irq.regs, INT_CLEAR, fault_mask);
-> >                 ptdev->mmu->as.faulty_mask &= ~fault_mask;
-> >         }
-> >  
-> > @@ -1738,7 +1738,7 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
-> >         mutex_lock(&ptdev->mmu->as.slots_lock);
-> >         if (vm->as.id >= 0 && size) {
-> >                 /* Lock the region that needs to be updated */
-> > -               gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id),
-> > +               gpu_write64(ptdev->mmu->regs, AS_LOCKADDR(vm->as.id),
-> >                             pack_region_range(ptdev, &start, &size));
-> >  
-> >                 /* If the lock succeeded, update the locked_region info. */
-> > @@ -1800,8 +1800,8 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
-> >                 u32 access_type;
-> >                 u32 source_id;
-> >  
-> > -               fault_status = gpu_read(mmu->iomem, AS_FAULTSTATUS(as));
-> > -               addr = gpu_read64(mmu->iomem, AS_FAULTADDRESS(as));
-> > +               fault_status = gpu_read(mmu->regs, AS_FAULTSTATUS(as));
-> > +               addr = gpu_read64(mmu->regs, AS_FAULTADDRESS(as));
-> >  
-> >                 /* decode the fault status */
-> >                 exception_type = fault_status & 0xFF;
-> > @@ -1832,7 +1832,7 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
-> >                  * Note that COMPLETED irqs are never cleared, but this is fine
-> >                  * because they are always masked.
-> >                  */
-> > -               gpu_write(mmu->irq.iomem, INT_CLEAR, mask);
-> > +               gpu_write(mmu->irq.regs, INT_CLEAR, mask);
-> >  
-> >                 if (ptdev->mmu->as.slots[as].vm)
-> >                         ptdev->mmu->as.slots[as].vm->unhandled_fault = true;
-> > @@ -3255,7 +3255,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
-> >         if (ret)
-> >                 return ret;
-> >  
-> > -       mmu->iomem = ptdev->iomem + MMU_AS_BASE;
-> > +       mmu->regs.iomem = ptdev->iomem + MMU_AS_BASE;
-> >         ptdev->mmu = mmu;
-> >  
-> >         irq = platform_get_irq_byname(to_platform_device(ptdev->base.dev), "mmu");
-> > @@ -3264,7 +3264,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
-> >  
-> >         ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
-> >                                       panthor_mmu_fault_mask(ptdev, ~0),
-> > -                                     ptdev->iomem + MMU_INT_BASE);
-> > +                                     mmu->regs.iomem + MMU_INT_BASE);  
-> 
-> This is wrong. Before, we used an effective whole-device offset of 0x2000.
-> Now it's 0x4400.
+On Mon, 11 May 2026 at 16:06, Matt Coster <Matt.Coster@imgtec.com> wrote:
+> On 11/05/2026 14:28, Geert Uytterhoeven wrote:
+> > Revert commit 1c21f240fbc1e47b94e68abfa2da2c01ed29a74d, as it stopped
+> > the driver from working on various Renesas R-Car SoCs.
+> >
+> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > ---
+> > DT binding documentation updates were reviewed by the drm/imagination
+> > maintainers[1][2][3], DTS additions were reviewed and/or acked by the
+> > drm/imagination maintainers[4][5][6], and firmware is available[7].
+> > Note that the GPU nodes were not enabled in board DTS files before, as
+> > not having suitable firmware installed under /lib/firmware could trigger
+> > a crash, not directly related to drm/imagination driver support.  This
+> > was fixed only recently in v7.1-rc3[8], so board enablement[9] is now
+> > unblocked.
+>
+> We will freely acknowledge that the sequencing was not ideal here. This
+> patch should probably have been sent before we started accepting DTS
+> changes for those Renesas platforms. However, the purpose of this patch
+> still stands.
+>
+> We're not saying we never want to list all these platforms as
+> "supported", but we don't want to mislead anyone into thinking the GPU
+> on these platforms will function in any meaningful way just because they
+> now have DTS nodes. We were originally convinved to allow these DTS
+> nodes to be added since it would facilitate active development on these
+> platforms, but this does not mean that we as a team have the bandwidth
+> to do that work ourselves at this time.
+>
+> Our main concern is around the UAPI: we don't know for sure that support
+> for these platforms (which are significantly older than anything we
+> currently support) can be correctly implemented without UAPI changes. To
+> that end, we don't want to back ourselves into a corner where the UAPI
+> cannot be updated at a later date.
 
-Uh, right. I hate the fact sometimes xxx_INT_BASE is some offset into
-the the xxx_BASE regbank (GPU_INT_BASE), and other times
-({MMU,JOB}_INT_BASE), it's an absolute offset from the start of the
-whole IO region.
+Automotive life cycles are long...
+
+> There's a similar mechanism in place in userspace: the user must set an
+> environment variable (PVR_I_WANT_A_BROKEN_VULKAN_DRIVER) to use
+> platforms for which we don't promise API conformance, but just like in
+> the kernel, this is not a compile time option and any user and/or
+> developer can enable it if they know what they're doing.
+>
+> As for "it stopped the driver from working", no it didn't. The driver
+> never really worked on those platforms, at least not in any useful way,
+> and certainly not sufficiently for any non-developer user to benefit in
+> any way from it. The only change is that the user must now acknowledge
+> that this is the case to clarify that they shouldn't expect much (if
+> anything) to work. Just to be explicit, "firmware boots" is a loooooong
+> way from "ooh pretty triangles".
+
+AFAIK, it's working better than just "pretty triangles", e.g. glxgears.
+And people are working on support for more SoCs (both newer and older),
+for which patches (both Linux kernel and MESA) have been posted...
+
+https://gitlab.freedesktop.org/imagination/linux-firmware/-/work_items/13
+
+> Would you prefer a different approach to providing this information to
+> users, perhaps a purely docs-based solution? I'm not convinced that
+> would be as effective at preserving our ability to mutate the UAPI for
+> these as-yet-unsupported platforms.
+
+One can wonder if it's the kernel's job to block the use of this
+hardware by default?
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
