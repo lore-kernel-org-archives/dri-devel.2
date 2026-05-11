@@ -4,62 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 957F4CD3427
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 03:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A16CACD3427
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 04:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEDCB10E45E;
-	Mon, 11 May 2026 03:28:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 621E410E473;
+	Mon, 11 May 2026 04:26:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="aREZujNK";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="v1HxVhUg";
 	dkim-atps=neutral
-Received: from out28-124.mail.aliyun.com (out28-124.mail.aliyun.com
- [115.124.28.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A75410E45E
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 03:28:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1778470104; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
- bh=jfwMaxxdS67rnZ7uDXLCCcnFkL/ISIM8RleOqH0kHq8=;
- b=aREZujNKjIZlXRTVYYYA2CkIJiCf7rc8SVPo0SNR/mUIuzPR2jAKuciBd/z7fQDVowFedz3kzR1XZv2GDZcrTKH8zOUY59elbxXS/T3m/m903GWyJY5KRfXc3qCznjUg0U9WCA3EAGfmi3ToWOfJQ/xZYb3wilrdtNYdANE7nTrRFRLVO4m6Bjh1Qe1boaTUcD+FIPT/cfyUwe1F6ZYxuxtQgnNekoPRBK8svzbEseJksFkvDeur/C6S1eC0Qm3rREim2Xvrep/DtxuqUMyH+/YID/cWBptuNNPpmkhoZkDQgTjEj8SgvPxQ97tp6IIgGaIAEbES+3NicHqDxqvAmQ==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.5200654|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_regular_dialog|0.0540498-0.00904401-0.936906;
- FP=13402756081238397904|4|1|8|0|-1|-1|-1;
- HT=maildocker-contentspam033068016216; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=1; RT=1; SR=0; TI=SMTPD_---.hUFenIT_1778470100; 
-Received: from mail-ot1-f50.google.com(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hUFenIT_1778470100 cluster:ay29) by smtp.aliyun-inc.com;
- Mon, 11 May 2026 11:28:21 +0800
-Received: by mail-ot1-f50.google.com with SMTP id
- 46e09a7af769-7dbd801138eso2154796a34.1
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 20:28:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ8iVtX89hz/CKYhXF/oFABlWLXGwbsw144VylDvD9WeEJqt7EQzENCoHlMJGCIil7oc9hwTKT1HJs8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyq9ZD57n3DeA8C5wcry0nrdT4miVuKchdzAlQ4TQfbHBqEqJb2
- xXGkhknZ7x8+YhNt/cwqI5EcyvSpyYsgxYOolsOQB//FkFD2w5lpI/RGOch1F9ofO8qhx5LRQxV
- aNn/emzYhiRDuEq7aI+MD2QnVZPAm8JI=
-X-Received: by 2002:a05:6820:55d4:10b0:696:aedf:bd53 with SMTP id
- 006d021491bc7-699ab5711c2mr5737051eaf.9.1778470099831; Sun, 10 May 2026
- 20:28:19 -0700 (PDT)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011000.outbound.protection.outlook.com [52.101.52.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1C6110E473
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 04:26:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QDl5nbaR53xsfSn1EEWPjIe8PWPIBAZZwVHrv85hoDqPAokeiIopX3pTWHoq3Y0aoorzTXnEznXWlswQtBZQx22WFg/ovaIYIJXlz32ah+/EugsB4nJMHfjDhHSKNGDOznEyiz8Hq0JgZM2vq/KZyKi8SKgghVUwOF75Wn3KrK8ikyZ105g6DA6XQWLUuUrQHflBu5Ko5LIwx8Jm/C4IWgSEQVygET1j5g4ExoiyuPCukrWRoehIB+Lpv6rhfX7rL9TFpQPrSu5ZkyRmXdnt/A+vbdOYOtL8mO2aKA06neG4e0DlHU3zWyFPiWSxT5rj0SCgCDLMmCkVGg4NUNtMCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2/bhi27CMfz7tzxQ9WQnpa6Cab3DmzlyaO8DLWQcdCk=;
+ b=Vrbjcq1tYUVV4Ntttpd2dWJy1ermQNOkDKODVdVUGyybSXdn03TaTAy0ZaYcI/lZh0chfkEIDP0F/z7xNa55EraRhKJHHtfFn1u0/0z8Fkeedq8QWncZzXiS0JFV5o9OQ8lt59k2EcWq6UGCWH68H6nTpsgd0O3VbD2+YT7hIyPHULuQlRBmuRwoO5ay6tjVcv7gpWjG35FpOPxTBoDiraewMJUzRgRMGdegBVX9z8RtSTpgEkUPx5LcfPx4L5/KquRvcGh1R0vWSHPiZ9Txh+gHNANo6nL77Irajq36Nat5NurzWeYMbJRN6ixRTB00BCtB+m33yhV3ALOzIPpRQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2/bhi27CMfz7tzxQ9WQnpa6Cab3DmzlyaO8DLWQcdCk=;
+ b=v1HxVhUgisd6puTNrsOJdDMHVwqRmJLrR4XRJWUBaSYej2R5K+OLC2aD0ZafdG4oKdmwOvGVzPS9hGIAJevbH6pcLkIWt8N6OMISEPxhM9RhRYlyk5yIAXGf2BGXtSU+A/fLEryt8A36YdaACcvDWHc0+0obdVHs63pszN8CYKs=
+Received: from BL1PR13CA0006.namprd13.prod.outlook.com (2603:10b6:208:256::11)
+ by DM3PPF8B2A18C0F.namprd10.prod.outlook.com (2603:10b6:f:fc00::c34)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
+ 2026 04:26:49 +0000
+Received: from BN1PEPF00004687.namprd05.prod.outlook.com
+ (2603:10b6:208:256:cafe::8b) by BL1PR13CA0006.outlook.office365.com
+ (2603:10b6:208:256::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.14 via Frontend Transport; Mon, 11
+ May 2026 04:26:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BN1PEPF00004687.mail.protection.outlook.com (10.167.243.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 04:26:48 +0000
+Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Sun, 10 May
+ 2026 23:26:48 -0500
+Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Sun, 10 May
+ 2026 23:26:47 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE208.ent.ti.com
+ (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Sun, 10 May 2026 23:26:47 -0500
+Received: from [10.249.34.215] ([10.249.34.215])
+ by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64B4QlJA2905173;
+ Sun, 10 May 2026 23:26:47 -0500
+Message-ID: <e1e88498-8734-41b9-b565-a7477d3385c0@ti.com>
+Date: Sun, 10 May 2026 23:26:47 -0500
 MIME-Version: 1.0
-References: <20260508142500.4922-1-syyang@lontium.com>
-In-Reply-To: <20260508142500.4922-1-syyang@lontium.com>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Mon, 11 May 2026 11:28:06 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
-X-Gm-Features: AVHnY4JrxkEnUWzQqJ698dfc7GDXi_1fOf_0kLN4nLtInSVNnYN34VzELwKRFYY
-Message-ID: <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
-Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
- xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/bridge: ite-it66121: Convert to DRM HDMI Audio
+ Helper
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: "ple@baylibre.com" <ple@baylibre.com>, "neil.armstrong@linaro.org"
+ <neil.armstrong@linaro.org>, "andrzej.hajda@intel.com"
+ <andrzej.hajda@intel.com>, "rfoss@kernel.org" <rfoss@kernel.org>,
+ "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
+ "jonas@kwiboo.se" <jonas@kwiboo.se>, "jernej.skrabec@gmail.com"
+ <jernej.skrabec@gmail.com>, "Thakkar, Devarsh" <devarsht@ti.com>, "Jain,
+ Swamil" <s-jain1@ti.com>, "SAHU, JEEVAN KUMAR" <j-sahu@ti.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260318154636.3230454-1-sen@ti.com>
+ <kbv3s76q3i4aal7jp5cbjlgned34lztxo3irqxf65mw5pwm2jy@kc362d22y5pu>
+Content-Language: en-US
+From: "Wang, Sen" <sen@ti.com>
+In-Reply-To: <kbv3s76q3i4aal7jp5cbjlgned34lztxo3irqxf65mw5pwm2jy@kc362d22y5pu>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004687:EE_|DM3PPF8B2A18C0F:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d116cc0-bf72-44ba-da4e-08deaf1584ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|36860700016|82310400026|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: zqTMwUIwvkiBB8bASLa8W00pgBEHROfDo+WCP4bYYvFqlV+/B/HQhRxuzKI4p1UP4uaSItdWLnGaPPPnkpxA6tmfRKcE0awchXO8I72tse+4sjtGdCsVvzhQqn98OvD6eRtW3vMdBY1O54rDUgebZDeWqsKPD3mx1/O5efcDcAb0G27lkrhnzrVtlI3USZJ9VqlteZkRfvIUDtjzqr5u+s7t7A/PO2A4xeDIIYuoWmtv972sAVjO+E4e5YJQThwC+nk3j5czt1c4qtWVDJSfXZW9mjMYCDBThUUCuBvptKrzOtfxRgx1EzOR9AG+UBfzrbIxfSsd6fn62SNufTPfoJL0+/1h5J+kq3UyHUt+wQSVEYvNym9i25qbiUG5Nt/Nhyah57NTA9ZVIQudWOhzjLVB1bHeE7MfS08SH/RIErabKGaPqYFgtMcs84PQXeqYpy9eOoUTpxsiFkJfTE5Uvc+LhruopNJiSbVz1EjYLaekqG1pC5IvSUUZW3/aE+ExtNpYgd5oJKTwjcndgwQDdDTsWRy5b+thwfXNzznuyLCuQy/hPAHHkiZtvG4TPYe6e0cCp3vm2wo3bZDSQ4pdj+aGHpn192rVSS8K9GoPutMnhKe2lcRBNpQWKJhGJ247I4dPNd4nmiu/6ZT/e1zfOXzP9IAaXncdAHlCKaENjfe03ydmiZU9fw4KuHkNI+nzX57I+T+J4xWlQwo6payzaF5L8FWui3m2BghFvBAoUEg=
+X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(82310400026)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: eJTo2m80tmOr75MW8ebDZTO3L/NtpoIeBwiBSIa2IVfXwN+E7b7QfQt1wultOxD3JUfNNBsZyijM4pgscU/jW2uI/64oVB8JQ0s1oOMj0f7iRyY79WpGw3/q5irW37ceJSSdZ51fZOc1KGgAROmVOuO3/lD30lQmK1A6hK66UWwUXvDVkECI/gOyZQ5mMv532q3BNbBWQN4HkvB8M1gLIQ6Xwp1fh1nqcYJraM1Pk4cwdybvL8pV984JcOCGWI7eXY/QlkY3Xge0VdDykNuLJFeLxGUfTaI2BD758XeyfYKWc5Y2dfeWiAg/YjWbbls6MAYQOUsbpx3kDfQRpZguCzDzMqOARDw7kSrMJ9+w7LcHrnNAeVzLnVC0db0JTEG1aCP7d5PfrecLryOVKHMUDgwuwwpH+yOol16U0sIX4Fx3dWxX4lRLO5L0pZHFB7Ba
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 04:26:48.7072 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d116cc0-bf72-44ba-da4e-08deaf1584ac
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
+ Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004687.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF8B2A18C0F
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,61 +131,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-<syyang@lontium.com> =E4=BA=8E2026=E5=B9=B45=E6=9C=888=E6=97=A5=E5=91=A8=E4=
-=BA=94 22:25=E5=86=99=E9=81=93=EF=BC=9A
->
-> From: Sunyun Yang <syyang@lontium.com>
->
-> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> mipi dsi and output hdmi, differences in hardware features:
-> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
->
-> Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> ---
->  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9=
-611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.=
-yaml
-> index 429a06057ae8..e0821a63d9d7 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yam=
-l
-> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yam=
-l
-> @@ -4,19 +4,23 @@
->  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->
-> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
->
->  maintainers:
->    - Vinod Koul <vkoul@kernel.org>
->
->  description: |
-> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
-> +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX and LT96=
-11UXD
-> +  are bridge devices which convert DSI to HDMI
->
->  properties:
->    compatible:
->      enum:
->        - lontium,lt9611
-> +      - lontium,lt9611c
-> +      - lontium,lt9611ex
->        - lontium,lt9611uxc
-> +      - lontium,lt9611uxd
->
->    reg:
->      maxItems: 1
-> --
+On 5/8/2026 6:58 AM, Dmitry Baryshkov wrote:
+> On Wed, Mar 18, 2026 at 10:46:36AM -0500, Sen Wang wrote:
+>> Convert the IT66121 HDMI bridge driver from manually registering an
+>> hdmi-codec platform device to using the DRM HDMI Audio Helper framework
+>> via DRM_BRIDGE_OP_HDMI_AUDIO instead.
+>>
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> 
+> Also, if you have HW documentation for the bridge, would you consider
+> implementing infoframes support? As another followup, would you consider
+> switching the driver to drm_hdmi_acr_get_n_cts()?
+> 
 
-Gentle ping.
-Thanks.
+Hi Dmitry, thanks for the review and suggestions!
 
-> 2.34.1
->
+I need to double-check if I have the VSI spec, but I can certainly give 
+it a try, looks like both AVI and n_cts can receive some refactoring 
+help like you mentioned. I'll send out separate patch(s) if it pans out.
+
+Best,
+Sen Wang
