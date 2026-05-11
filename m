@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 075FECD4855
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DF2BCD37BE
 	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 23:56:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DF3B10E92F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABEB610E934;
 	Mon, 11 May 2026 23:56:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="n2JVUZkB";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KpV1LJQX";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A82F210E92B
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 23:56:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B73D10E92F
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 23:56:50 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3DC79C59;
- Tue, 12 May 2026 01:56:38 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 36F05103F;
+ Tue, 12 May 2026 01:56:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778543798;
- bh=EGbHYqxwzfwOq5C4USirZJosUYx3zW2hru1cT9OQMuY=;
+ s=mail; t=1778543802;
+ bh=fdGEU2xJ030H8+wu+YvJhR5yZlhmdZSpUjGXDBQyNTw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=n2JVUZkBW37Dt+OZEw4MKQDmVILiRK7VFEspQsM73pxmormiuiFQ+OYHwdg2JGcz+
- Azl+oagkPVWw6/oLcIZmjQhxEukGuXpysQOUuaOWlCZcjTvwYVzYmqA7uks59dsvs5
- TcS28ptxn9gIVwH9x6RxmeNjLGP5UGMMQNyLPQUg=
+ b=KpV1LJQXf8P75+s3r6a3ohHoCynf5if4EG6XBDO5WOJCMe6H51NGPqRuCF5sJZGy7
+ bCwxuojCsoaIBopyfsXZuqq8oUxPLlYuZOnowVVLAWZgxkTwNXayethnofJCHXZO2g
+ iZsmVa9O3glrhVoLxnVHPQBSFgihhNzSD7o3oqQ4=
 From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 To: linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org
@@ -35,14 +35,13 @@ Cc: linux-renesas-soc@vger.kernel.org,
  Kieran Bingham <kieran.bingham@ideasonboard.com>,
  Biju Das <biju.das.jz@bp.renesas.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH 05/11] media: renesas: vsp1: Use mutex guards
-Date: Tue, 12 May 2026 02:56:29 +0300
-Message-ID: <20260511235637.3468558-6-laurent.pinchart+renesas@ideasonboard.com>
+Subject: [PATCH 08/11] media: renesas: vsp1: Use spinlock scoped guards
+Date: Tue, 12 May 2026 02:56:32 +0300
+Message-ID: <20260511235637.3468558-9-laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
 References: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,668 +58,330 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace manual mutex locking and unlocking with guards. This simplifies
-error paths and reduces the amount of code. Limit the changes to
-locations where the guard covers until the end of the function to ease
-review. Scoped guards will be introduced separately.
+Replace remaining manual spinlock locking and unlocking with scoped
+guards. This simplifies error paths and reduces the amount of code.
 
 Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 ---
- .../media/platform/renesas/vsp1/vsp1_brx.c    | 26 ++++-------
+ .../media/platform/renesas/vsp1/vsp1_clu.c    | 15 +++--
+ drivers/media/platform/renesas/vsp1/vsp1_dl.c | 14 ++---
  .../media/platform/renesas/vsp1/vsp1_drm.c    |  7 +--
- .../media/platform/renesas/vsp1/vsp1_entity.c | 19 +++-----
- .../media/platform/renesas/vsp1/vsp1_histo.c  | 35 +++++----------
- .../media/platform/renesas/vsp1/vsp1_hsit.c   | 15 +++----
- .../media/platform/renesas/vsp1/vsp1_rwpf.c   | 44 ++++++-------------
- .../media/platform/renesas/vsp1/vsp1_sru.c    | 13 ++----
- .../media/platform/renesas/vsp1/vsp1_uds.c    | 13 ++----
- .../media/platform/renesas/vsp1/vsp1_uif.c    | 29 ++++--------
- .../media/platform/renesas/vsp1/vsp1_video.c  | 20 ++++-----
- .../media/platform/renesas/vsp1/vsp1_wpf.c    | 17 +++----
- 11 files changed, 77 insertions(+), 161 deletions(-)
+ .../media/platform/renesas/vsp1/vsp1_lut.c    | 15 +++--
+ .../media/platform/renesas/vsp1/vsp1_pipe.c   | 15 +++--
+ .../media/platform/renesas/vsp1/vsp1_video.c  | 59 ++++++++-----------
+ .../media/platform/renesas/vsp1/vsp1_wpf.c    |  9 ++-
+ 7 files changed, 59 insertions(+), 75 deletions(-)
 
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_brx.c b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
-index 9d93cb8b8e82..bd2672341386 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_brx.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
-@@ -130,15 +130,12 @@ static int brx_set_format(struct v4l2_subdev *subdev,
- 	struct vsp1_brx *brx = to_brx(subdev);
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
--	int ret = 0;
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_clu.c b/drivers/media/platform/renesas/vsp1/vsp1_clu.c
+index 04c466c4da81..a6e4bcab5101 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_clu.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_clu.c
+@@ -53,9 +53,9 @@ static int clu_set_table(struct vsp1_clu *clu, struct v4l2_ctrl *ctrl)
+ 	for (i = 0; i < CLU_SIZE; ++i)
+ 		vsp1_dl_body_write(dlb, VI6_CLU_DATA, ctrl->p_new.p_u32[i]);
  
--	mutex_lock(&brx->entity.lock);
-+	guard(mutex)(&brx->entity.lock);
+-	spin_lock_irq(&clu->lock);
+-	swap(clu->clu, dlb);
+-	spin_unlock_irq(&clu->lock);
++	scoped_guard(spinlock_irq, &clu->lock) {
++		swap(clu->clu, dlb);
++	}
  
- 	state = vsp1_entity_get_state(&brx->entity, sd_state, fmt->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
+ 	vsp1_dl_body_put(dlb);
+ 	return 0;
+@@ -162,7 +162,6 @@ static void clu_configure_frame(struct vsp1_entity *entity,
+ {
+ 	struct vsp1_clu *clu = to_clu(&entity->subdev);
+ 	struct vsp1_dl_body *clu_dlb;
+-	unsigned long flags;
+ 	u32 ctrl = VI6_CLU_CTRL_AAI | VI6_CLU_CTRL_MVS | VI6_CLU_CTRL_EN;
  
- 	brx_try_format(brx, state, fmt->pad, &fmt->format);
+ 	/* 2D mode can only be used with the YCbCr pixel encoding. */
+@@ -173,10 +172,10 @@ static void clu_configure_frame(struct vsp1_entity *entity,
  
-@@ -166,9 +163,7 @@ static int brx_set_format(struct v4l2_subdev *subdev,
- 		}
- 	}
+ 	vsp1_clu_write(clu, dlb, VI6_CLU_CTRL, ctrl);
  
--done:
--	mutex_unlock(&brx->entity.lock);
--	return ret;
-+	return 0;
- }
+-	spin_lock_irqsave(&clu->lock, flags);
+-	clu_dlb = clu->clu;
+-	clu->clu = NULL;
+-	spin_unlock_irqrestore(&clu->lock, flags);
++	scoped_guard(spinlock_irqsave, &clu->lock) {
++		clu_dlb = clu->clu;
++		clu->clu = NULL;
++	}
  
- static int brx_get_selection(struct v4l2_subdev *subdev,
-@@ -213,7 +208,6 @@ static int brx_set_selection(struct v4l2_subdev *subdev,
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
- 	struct v4l2_rect *compose;
--	int ret = 0;
+ 	if (clu_dlb) {
+ 		vsp1_dl_list_add_body(dl, clu_dlb);
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_dl.c b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
+index 4a19ff1437b0..3dc74fed91dc 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_dl.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
+@@ -1064,17 +1064,15 @@ void vsp1_dlm_setup(struct vsp1_device *vsp1)
  
- 	if (sel->pad == brx->entity.source_pad)
- 		return -EINVAL;
-@@ -221,13 +215,11 @@ static int brx_set_selection(struct v4l2_subdev *subdev,
- 	if (sel->target != V4L2_SEL_TGT_COMPOSE)
- 		return -EINVAL;
+ void vsp1_dlm_reset(struct vsp1_dl_manager *dlm)
+ {
+-	unsigned long flags;
+ 	size_t list_count;
  
--	mutex_lock(&brx->entity.lock);
-+	guard(mutex)(&brx->entity.lock);
+-	spin_lock_irqsave(&dlm->lock, flags);
++	scoped_guard(spinlock_irqsave, &dlm->lock) {
++		__vsp1_dl_list_put(dlm->active);
++		__vsp1_dl_list_put(dlm->queued);
++		__vsp1_dl_list_put(dlm->pending);
  
- 	state = vsp1_entity_get_state(&brx->entity, sd_state, sel->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
+-	__vsp1_dl_list_put(dlm->active);
+-	__vsp1_dl_list_put(dlm->queued);
+-	__vsp1_dl_list_put(dlm->pending);
+-
+-	list_count = list_count_nodes(&dlm->free);
+-	spin_unlock_irqrestore(&dlm->lock, flags);
++		list_count = list_count_nodes(&dlm->free);
++	}
  
- 	/*
- 	 * The compose rectangle top left corner must be inside the output
-@@ -248,9 +240,7 @@ static int brx_set_selection(struct v4l2_subdev *subdev,
- 	compose = v4l2_subdev_state_get_compose(state, sel->pad);
- 	*compose = sel->r;
+ 	WARN_ON_ONCE(list_count != dlm->list_count);
  
--done:
--	mutex_unlock(&brx->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- static const struct v4l2_subdev_pad_ops brx_pad_ops = {
 diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drm.c b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-index 1f431874064d..1439cf7bfb59 100644
+index 2b64d9b5a81c..f6fbd3475329 100644
 --- a/drivers/media/platform/renesas/vsp1/vsp1_drm.c
 +++ b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-@@ -920,7 +920,7 @@ void vsp1_du_atomic_flush(struct device *dev, unsigned int pipe_index,
+@@ -655,7 +655,6 @@ int vsp1_du_enable(struct device *dev, unsigned int pipe_index,
+ 	struct vsp1_device *vsp1 = dev_get_drvdata(dev);
+ 	struct vsp1_drm_pipeline *drm_pipe;
+ 	struct vsp1_pipeline *pipe;
+-	unsigned long flags;
+ 	int ret;
  
- 	drm_pipe->crc = cfg->crc;
+ 	if (pipe_index >= vsp1->info->lif_count)
+@@ -708,9 +707,9 @@ int vsp1_du_enable(struct device *dev, unsigned int pipe_index,
+ 	}
  
--	mutex_lock(&vsp1->drm->lock);
-+	guard(mutex)(&vsp1->drm->lock);
+ 	/* Start the pipeline. */
+-	spin_lock_irqsave(&pipe->irqlock, flags);
+-	vsp1_pipeline_run(pipe);
+-	spin_unlock_irqrestore(&pipe->irqlock, flags);
++	scoped_guard(spinlock_irqsave, &pipe->irqlock) {
++		vsp1_pipeline_run(pipe);
++	}
  
- 	if (cfg->writeback.pixelformat) {
- 		const struct vsp1_du_writeback_config *wb_cfg = &cfg->writeback;
-@@ -929,7 +929,7 @@ void vsp1_du_atomic_flush(struct device *dev, unsigned int pipe_index,
- 						       wb_cfg->pixelformat,
- 						       wb_cfg->pitch);
- 		if (WARN_ON(ret < 0))
--			goto done;
-+			return;
+ 	dev_dbg(vsp1->dev, "%s: pipeline enabled\n", __func__);
  
- 		pipe->output->mem.addr[0] = wb_cfg->mem[0];
- 		pipe->output->mem.addr[1] = wb_cfg->mem[1];
-@@ -942,9 +942,6 @@ void vsp1_du_atomic_flush(struct device *dev, unsigned int pipe_index,
- 	vsp1_pipeline_dump(pipe, "atomic update");
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_lut.c b/drivers/media/platform/renesas/vsp1/vsp1_lut.c
+index 94bdedcc5c92..a22c31e17cb7 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_lut.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_lut.c
+@@ -50,9 +50,9 @@ static int lut_set_table(struct vsp1_lut *lut, struct v4l2_ctrl *ctrl)
+ 		vsp1_dl_body_write(dlb, VI6_LUT_TABLE + 4 * i,
+ 				       ctrl->p_new.p_u32[i]);
  
- 	vsp1_du_pipeline_configure(pipe);
--
--done:
--	mutex_unlock(&vsp1->drm->lock);
- }
- EXPORT_SYMBOL_GPL(vsp1_du_atomic_flush);
+-	spin_lock_irq(&lut->lock);
+-	swap(lut->lut, dlb);
+-	spin_unlock_irq(&lut->lock);
++	scoped_guard(spinlock_irq, &lut->lock) {
++		swap(lut->lut, dlb);
++	}
  
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_entity.c b/drivers/media/platform/renesas/vsp1/vsp1_entity.c
-index 839b75b62ceb..3820ba53b45f 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_entity.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_entity.c
-@@ -172,9 +172,9 @@ int vsp1_subdev_get_pad_format(struct v4l2_subdev *subdev,
- 	if (!state)
- 		return -EINVAL;
- 
--	mutex_lock(&entity->lock);
-+	guard(mutex)(&entity->lock);
-+
- 	fmt->format = *v4l2_subdev_state_get_format(state, fmt->pad);
--	mutex_unlock(&entity->lock);
- 
+ 	vsp1_dl_body_put(dlb);
  	return 0;
- }
-@@ -308,22 +308,19 @@ int vsp1_subdev_set_pad_format(struct v4l2_subdev *subdev,
- 	struct v4l2_mbus_framefmt *format;
- 	struct v4l2_rect *selection;
- 	unsigned int i;
--	int ret = 0;
- 
--	mutex_lock(&entity->lock);
-+	guard(mutex)(&entity->lock);
- 
- 	state = vsp1_entity_get_state(entity, sd_state, fmt->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	format = v4l2_subdev_state_get_format(state, fmt->pad);
- 
- 	if (fmt->pad == entity->source_pad) {
- 		/* The output format can't be modified. */
- 		fmt->format = *format;
--		goto done;
-+		return 0;
- 	}
- 
- 	/*
-@@ -369,9 +366,7 @@ int vsp1_subdev_set_pad_format(struct v4l2_subdev *subdev,
- 	selection->width = format->width;
- 	selection->height = format->height;
- 
--done:
--	mutex_unlock(&entity->lock);
--	return ret;
-+	return 0;
- }
- 
- static int vsp1_entity_init_state(struct v4l2_subdev *subdev,
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_histo.c b/drivers/media/platform/renesas/vsp1/vsp1_histo.c
-index 3f87a2c9df0e..72f6ef2fdc4f 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_histo.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_histo.c
-@@ -196,18 +196,15 @@ static int histo_get_selection(struct v4l2_subdev *subdev,
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
- 	struct v4l2_rect *crop;
--	int ret = 0;
- 
- 	if (sel->pad != HISTO_PAD_SINK)
- 		return -EINVAL;
- 
--	mutex_lock(&histo->entity.lock);
-+	guard(mutex)(&histo->entity.lock);
- 
- 	state = vsp1_entity_get_state(&histo->entity, sd_state, sel->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	switch (sel->target) {
- 	case V4L2_SEL_TGT_COMPOSE_BOUNDS:
-@@ -237,13 +234,10 @@ static int histo_get_selection(struct v4l2_subdev *subdev,
- 		break;
- 
- 	default:
--		ret = -EINVAL;
--		break;
-+		return -EINVAL;
- 	}
- 
--done:
--	mutex_unlock(&histo->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- static int histo_set_crop(struct v4l2_subdev *subdev,
-@@ -321,29 +315,22 @@ static int histo_set_selection(struct v4l2_subdev *subdev,
+@@ -132,12 +132,11 @@ static void lut_configure_frame(struct vsp1_entity *entity,
  {
- 	struct vsp1_histogram *histo = subdev_to_histo(subdev);
- 	struct v4l2_subdev_state *state;
--	int ret;
+ 	struct vsp1_lut *lut = to_lut(&entity->subdev);
+ 	struct vsp1_dl_body *lut_dlb;
+-	unsigned long flags;
  
- 	if (sel->pad != HISTO_PAD_SINK)
- 		return -EINVAL;
+-	spin_lock_irqsave(&lut->lock, flags);
+-	lut_dlb = lut->lut;
+-	lut->lut = NULL;
+-	spin_unlock_irqrestore(&lut->lock, flags);
++	scoped_guard(spinlock_irqsave, &lut->lock) {
++		lut_dlb = lut->lut;
++		lut->lut = NULL;
++	}
  
--	mutex_lock(&histo->entity.lock);
-+	guard(mutex)(&histo->entity.lock);
+ 	if (lut_dlb) {
+ 		vsp1_dl_list_add_body(dl, lut_dlb);
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_pipe.c b/drivers/media/platform/renesas/vsp1/vsp1_pipe.c
+index 924e87f91903..f9c7c75a7ad0 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_pipe.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_pipe.c
+@@ -496,7 +496,6 @@ int vsp1_pipeline_stop(struct vsp1_pipeline *pipe)
+ {
+ 	struct vsp1_device *vsp1 = pipe->output->entity.vsp1;
+ 	struct vsp1_entity *entity;
+-	unsigned long flags;
+ 	int ret;
  
- 	state = vsp1_entity_get_state(&histo->entity, sd_state, sel->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
+ 	if (pipe->lif) {
+@@ -510,16 +509,16 @@ int vsp1_pipeline_stop(struct vsp1_pipeline *pipe)
  
- 	if (sel->target == V4L2_SEL_TGT_CROP)
--		ret = histo_set_crop(subdev, state, sel);
-+		return histo_set_crop(subdev, state, sel);
- 	else if (sel->target == V4L2_SEL_TGT_COMPOSE)
--		ret = histo_set_compose(subdev, state, sel);
-+		return histo_set_compose(subdev, state, sel);
- 	else
--		ret = -EINVAL;
--
--done:
--	mutex_unlock(&histo->entity.lock);
--	return ret;
-+		return -EINVAL;
- }
+ 		ret = vsp1_reset_wpf(vsp1, pipe->output->entity.index);
+ 		if (ret == 0) {
+-			spin_lock_irqsave(&pipe->irqlock, flags);
+-			pipe->state = VSP1_PIPELINE_STOPPED;
+-			spin_unlock_irqrestore(&pipe->irqlock, flags);
++			scoped_guard(spinlock_irqsave, &pipe->irqlock) {
++				pipe->state = VSP1_PIPELINE_STOPPED;
++			}
+ 		}
+ 	} else {
+ 		/* Otherwise just request a stop and wait. */
+-		spin_lock_irqsave(&pipe->irqlock, flags);
+-		if (pipe->state == VSP1_PIPELINE_RUNNING)
+-			pipe->state = VSP1_PIPELINE_STOPPING;
+-		spin_unlock_irqrestore(&pipe->irqlock, flags);
++		scoped_guard(spinlock_irqsave, &pipe->irqlock) {
++			if (pipe->state == VSP1_PIPELINE_RUNNING)
++				pipe->state = VSP1_PIPELINE_STOPPING;
++		}
  
- static int histo_set_format(struct v4l2_subdev *subdev,
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_hsit.c b/drivers/media/platform/renesas/vsp1/vsp1_hsit.c
-index 830e124beb7b..df069c228243 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_hsit.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_hsit.c
-@@ -115,15 +115,12 @@ static int hsit_set_format(struct v4l2_subdev *subdev,
- 	struct vsp1_hsit *hsit = to_hsit(subdev);
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
--	int ret = 0;
- 
--	mutex_lock(&hsit->entity.lock);
-+	guard(mutex)(&hsit->entity.lock);
- 
- 	state = vsp1_entity_get_state(&hsit->entity, sd_state, fmt->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	format = v4l2_subdev_state_get_format(state, fmt->pad);
- 
-@@ -133,7 +130,7 @@ static int hsit_set_format(struct v4l2_subdev *subdev,
- 		 * modified.
- 		 */
- 		fmt->format = *format;
--		goto done;
-+		return 0;
- 	}
- 
- 	format->code = hsit->inverse ? MEDIA_BUS_FMT_AHSV8888_1X32
-@@ -161,9 +158,7 @@ static int hsit_set_format(struct v4l2_subdev *subdev,
- 
- 	vsp1_entity_adjust_color_space(format);
- 
--done:
--	mutex_unlock(&hsit->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- static const struct v4l2_subdev_pad_ops hsit_pad_ops = {
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_rwpf.c b/drivers/media/platform/renesas/vsp1/vsp1_rwpf.c
-index c72518b29f84..ced01870acd6 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_rwpf.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_rwpf.c
-@@ -116,15 +116,12 @@ static int vsp1_rwpf_set_format(struct v4l2_subdev *subdev,
- 	struct vsp1_rwpf *rwpf = to_rwpf(subdev);
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
--	int ret = 0;
- 
--	mutex_lock(&rwpf->entity.lock);
-+	guard(mutex)(&rwpf->entity.lock);
- 
- 	state = vsp1_entity_get_state(&rwpf->entity, sd_state, fmt->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	/* Default to YUV if the requested format is not supported. */
- 	if (fmt->format.code != MEDIA_BUS_FMT_ARGB8888_1X32 &&
-@@ -174,7 +171,7 @@ static int vsp1_rwpf_set_format(struct v4l2_subdev *subdev,
- 		fmt->format = *format;
- 		fmt->format.flags = flags;
- 
--		goto done;
-+		return 0;
- 	}
- 
- 	format->code = fmt->format.code;
-@@ -213,9 +210,7 @@ static int vsp1_rwpf_set_format(struct v4l2_subdev *subdev,
- 		format->height = fmt->format.width;
- 	}
- 
--done:
--	mutex_unlock(&rwpf->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- static int vsp1_rwpf_get_selection(struct v4l2_subdev *subdev,
-@@ -225,7 +220,6 @@ static int vsp1_rwpf_get_selection(struct v4l2_subdev *subdev,
- 	struct vsp1_rwpf *rwpf = to_rwpf(subdev);
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
--	int ret = 0;
- 
- 	/*
- 	 * Cropping is only supported on the RPF and is implemented on the sink
-@@ -234,13 +228,11 @@ static int vsp1_rwpf_get_selection(struct v4l2_subdev *subdev,
- 	if (rwpf->entity.type == VSP1_ENTITY_WPF || sel->pad != RWPF_PAD_SINK)
- 		return -EINVAL;
- 
--	mutex_lock(&rwpf->entity.lock);
-+	guard(mutex)(&rwpf->entity.lock);
- 
- 	state = vsp1_entity_get_state(&rwpf->entity, sd_state, sel->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	switch (sel->target) {
- 	case V4L2_SEL_TGT_CROP:
-@@ -256,13 +248,10 @@ static int vsp1_rwpf_get_selection(struct v4l2_subdev *subdev,
- 		break;
- 
- 	default:
--		ret = -EINVAL;
--		break;
-+		return -EINVAL;
- 	}
- 
--done:
--	mutex_unlock(&rwpf->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- static int vsp1_rwpf_set_selection(struct v4l2_subdev *subdev,
-@@ -275,7 +264,6 @@ static int vsp1_rwpf_set_selection(struct v4l2_subdev *subdev,
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
- 	struct v4l2_rect *crop;
--	int ret = 0;
- 
- 	/*
- 	 * Cropping is only supported on the RPF and is implemented on the sink
-@@ -287,13 +275,11 @@ static int vsp1_rwpf_set_selection(struct v4l2_subdev *subdev,
- 	if (sel->target != V4L2_SEL_TGT_CROP)
- 		return -EINVAL;
- 
--	mutex_lock(&rwpf->entity.lock);
-+	guard(mutex)(&rwpf->entity.lock);
- 
- 	state = vsp1_entity_get_state(&rwpf->entity, sd_state, sel->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	/* Make sure the crop rectangle is entirely contained in the image. */
- 	format = v4l2_subdev_state_get_format(state, RWPF_PAD_SINK);
-@@ -342,9 +328,7 @@ static int vsp1_rwpf_set_selection(struct v4l2_subdev *subdev,
- 	format->width = crop->width;
- 	format->height = crop->height;
- 
--done:
--	mutex_unlock(&rwpf->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- static const struct v4l2_subdev_pad_ops vsp1_rwpf_pad_ops = {
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_sru.c b/drivers/media/platform/renesas/vsp1/vsp1_sru.c
-index 94149da0c900..3fd9fde5c724 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_sru.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_sru.c
-@@ -216,15 +216,12 @@ static int sru_set_format(struct v4l2_subdev *subdev,
- 	struct vsp1_sru *sru = to_sru(subdev);
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
--	int ret = 0;
- 
--	mutex_lock(&sru->entity.lock);
-+	guard(mutex)(&sru->entity.lock);
- 
- 	state = vsp1_entity_get_state(&sru->entity, sd_state, fmt->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	sru_try_format(sru, state, fmt->pad, &fmt->format);
- 
-@@ -239,9 +236,7 @@ static int sru_set_format(struct v4l2_subdev *subdev,
- 		sru_try_format(sru, state, SRU_PAD_SOURCE, format);
- 	}
- 
--done:
--	mutex_unlock(&sru->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- static const struct v4l2_subdev_pad_ops sru_pad_ops = {
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_uds.c b/drivers/media/platform/renesas/vsp1/vsp1_uds.c
-index dd4722315c56..9f7bb112929e 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_uds.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_uds.c
-@@ -199,15 +199,12 @@ static int uds_set_format(struct v4l2_subdev *subdev,
- 	struct vsp1_uds *uds = to_uds(subdev);
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
--	int ret = 0;
- 
--	mutex_lock(&uds->entity.lock);
-+	guard(mutex)(&uds->entity.lock);
- 
- 	state = vsp1_entity_get_state(&uds->entity, sd_state, fmt->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	uds_try_format(uds, state, fmt->pad, &fmt->format);
- 
-@@ -222,9 +219,7 @@ static int uds_set_format(struct v4l2_subdev *subdev,
- 		uds_try_format(uds, state, UDS_PAD_SOURCE, format);
- 	}
- 
--done:
--	mutex_unlock(&uds->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- /* -----------------------------------------------------------------------------
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_uif.c b/drivers/media/platform/renesas/vsp1/vsp1_uif.c
-index 3aefe5c9d421..52dbfe58a70d 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_uif.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_uif.c
-@@ -60,18 +60,15 @@ static int uif_get_selection(struct v4l2_subdev *subdev,
- 	struct vsp1_uif *uif = to_uif(subdev);
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
--	int ret = 0;
- 
- 	if (sel->pad != UIF_PAD_SINK)
- 		return -EINVAL;
- 
--	mutex_lock(&uif->entity.lock);
-+	guard(mutex)(&uif->entity.lock);
- 
- 	state = vsp1_entity_get_state(&uif->entity, sd_state, sel->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	switch (sel->target) {
- 	case V4L2_SEL_TGT_CROP_BOUNDS:
-@@ -88,13 +85,10 @@ static int uif_get_selection(struct v4l2_subdev *subdev,
- 		break;
- 
- 	default:
--		ret = -EINVAL;
--		break;
-+		return -EINVAL;
- 	}
- 
--done:
--	mutex_unlock(&uif->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- static int uif_set_selection(struct v4l2_subdev *subdev,
-@@ -105,19 +99,16 @@ static int uif_set_selection(struct v4l2_subdev *subdev,
- 	struct v4l2_subdev_state *state;
- 	struct v4l2_mbus_framefmt *format;
- 	struct v4l2_rect *selection;
--	int ret = 0;
- 
- 	if (sel->pad != UIF_PAD_SINK ||
- 	    sel->target != V4L2_SEL_TGT_CROP)
- 		return -EINVAL;
- 
--	mutex_lock(&uif->entity.lock);
-+	guard(mutex)(&uif->entity.lock);
- 
- 	state = vsp1_entity_get_state(&uif->entity, sd_state, sel->which);
--	if (!state) {
--		ret = -EINVAL;
--		goto done;
--	}
-+	if (!state)
-+		return -EINVAL;
- 
- 	/* The crop rectangle must be inside the input frame. */
- 	format = v4l2_subdev_state_get_format(state, UIF_PAD_SINK);
-@@ -133,9 +124,7 @@ static int uif_set_selection(struct v4l2_subdev *subdev,
- 	selection = v4l2_subdev_state_get_crop(state, sel->pad);
- 	*selection = sel->r;
- 
--done:
--	mutex_unlock(&uif->entity.lock);
--	return ret;
-+	return 0;
- }
- 
- /* -----------------------------------------------------------------------------
+ 		ret = wait_event_timeout(pipe->wq, vsp1_pipeline_stopped(pipe),
+ 					 msecs_to_jiffies(500));
 diff --git a/drivers/media/platform/renesas/vsp1/vsp1_video.c b/drivers/media/platform/renesas/vsp1/vsp1_video.c
-index a8db94bdb670..4cf2cc370416 100644
+index 1e5d9e42cea0..b0eae54273a0 100644
 --- a/drivers/media/platform/renesas/vsp1/vsp1_video.c
 +++ b/drivers/media/platform/renesas/vsp1/vsp1_video.c
-@@ -590,9 +590,9 @@ static void vsp1_video_pipeline_put(struct vsp1_pipeline *pipe)
- {
- 	struct media_device *mdev = &pipe->output->entity.vsp1->media_dev;
+@@ -209,26 +209,21 @@ vsp1_video_complete_buffer(struct vsp1_video *video)
+ 	struct vsp1_pipeline *pipe = video->rwpf->entity.pipe;
+ 	struct vsp1_vb2_buffer *next = NULL;
+ 	struct vsp1_vb2_buffer *done;
+-	unsigned long flags;
+ 	unsigned int i;
  
--	mutex_lock(&mdev->graph_mutex);
-+	guard(mutex)(&mdev->graph_mutex);
-+
- 	kref_put(&pipe->kref, vsp1_video_pipeline_release);
--	mutex_unlock(&mdev->graph_mutex);
- }
+-	spin_lock_irqsave(&video->irqlock, flags);
++	scoped_guard(spinlock_irqsave, &video->irqlock) {
++		if (list_empty(&video->irqqueue))
++			return NULL;
  
- /* -----------------------------------------------------------------------------
-@@ -933,9 +933,9 @@ vsp1_video_get_format(struct file *file, void *fh, struct v4l2_format *format)
- 	if (format->type != video->queue.type)
- 		return -EINVAL;
- 
--	mutex_lock(&video->lock);
-+	guard(mutex)(&video->lock);
-+
- 	format->fmt.pix_mp = video->rwpf->format;
--	mutex_unlock(&video->lock);
- 
- 	return 0;
- }
-@@ -967,19 +967,15 @@ vsp1_video_set_format(struct file *file, void *fh, struct v4l2_format *format)
- 	if (ret < 0)
- 		return ret;
- 
--	mutex_lock(&video->lock);
-+	guard(mutex)(&video->lock);
- 
--	if (vb2_is_busy(&video->queue)) {
--		ret = -EBUSY;
--		goto done;
+-	if (list_empty(&video->irqqueue)) {
+-		spin_unlock_irqrestore(&video->irqlock, flags);
+-		return NULL;
 -	}
-+	if (vb2_is_busy(&video->queue))
-+		return -EBUSY;
+-
+-	done = list_first_entry(&video->irqqueue,
+-				struct vsp1_vb2_buffer, queue);
+-
+-	list_del(&done->queue);
+-
+-	if (!list_empty(&video->irqqueue))
+-		next = list_first_entry(&video->irqqueue,
++		done = list_first_entry(&video->irqqueue,
+ 					struct vsp1_vb2_buffer, queue);
  
- 	video->rwpf->format = format->fmt.pix_mp;
- 	video->rwpf->fmtinfo = info;
+-	spin_unlock_irqrestore(&video->irqlock, flags);
++		list_del(&done->queue);
++
++		if (!list_empty(&video->irqqueue))
++			next = list_first_entry(&video->irqqueue,
++						struct vsp1_vb2_buffer, queue);
++	}
  
--done:
--	mutex_unlock(&video->lock);
--	return ret;
-+	return 0;
- }
+ 	done->buf.sequence = pipe->sequence;
+ 	done->buf.vb2_buf.timestamp = ktime_get_ns();
+@@ -656,13 +651,12 @@ static void vsp1_video_buffer_queue(struct vb2_buffer *vb)
+ 	struct vsp1_video *video = vb2_get_drv_priv(vb->vb2_queue);
+ 	struct vsp1_pipeline *pipe = video->rwpf->entity.pipe;
+ 	struct vsp1_vb2_buffer *buf = to_vsp1_vb2_buffer(vbuf);
+-	unsigned long flags;
+ 	bool empty;
  
- static int
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
-index cd6c5592221b..e7ed3c8e9e90 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
-@@ -47,7 +47,6 @@ static int vsp1_wpf_set_rotation(struct vsp1_rwpf *wpf, unsigned int rotation)
- 	struct v4l2_mbus_framefmt *sink_format;
- 	struct v4l2_mbus_framefmt *source_format;
- 	bool rotate;
--	int ret = 0;
+-	spin_lock_irqsave(&video->irqlock, flags);
+-	empty = list_empty(&video->irqqueue);
+-	list_add_tail(&buf->queue, &video->irqqueue);
+-	spin_unlock_irqrestore(&video->irqlock, flags);
++	scoped_guard(spinlock_irqsave, &video->irqlock) {
++		empty = list_empty(&video->irqqueue);
++		list_add_tail(&buf->queue, &video->irqqueue);
++	}
+ 
+ 	if (!empty)
+ 		return;
+@@ -843,16 +837,15 @@ static void vsp1_video_stop_streaming(struct vb2_queue *vq)
+ {
+ 	struct vsp1_video *video = vb2_get_drv_priv(vq);
+ 	struct vsp1_pipeline *pipe = video->rwpf->entity.pipe;
+-	unsigned long flags;
+ 	int ret;
  
  	/*
- 	 * Only consider the 0°/180° from/to 90°/270° modifications, the rest
-@@ -58,19 +57,17 @@ static int vsp1_wpf_set_rotation(struct vsp1_rwpf *wpf, unsigned int rotation)
- 		return 0;
+ 	 * Clear the buffers ready flag to make sure the device won't be started
+ 	 * by a QBUF on the video node on the other side of the pipeline.
+ 	 */
+-	spin_lock_irqsave(&video->irqlock, flags);
+-	pipe->buffers_ready &= ~(1 << video->pipe_index);
+-	spin_unlock_irqrestore(&video->irqlock, flags);
++	scoped_guard(spinlock_irqsave, &video->irqlock) {
++		pipe->buffers_ready &= ~(1 << video->pipe_index);
++	}
  
- 	/* Changing rotation isn't allowed when buffers are allocated. */
--	mutex_lock(&video->lock);
-+	guard(mutex)(&video->lock);
+ 	scoped_guard(mutex, &pipe->lock) {
+ 		if (--pipe->stream_count == pipe->num_inputs) {
+@@ -1118,7 +1111,6 @@ static const struct media_entity_operations vsp1_video_media_ops = {
  
--	if (vb2_is_busy(&video->queue)) {
--		ret = -EBUSY;
--		goto done;
--	}
-+	if (vb2_is_busy(&video->queue))
-+		return -EBUSY;
+ void vsp1_video_suspend(struct vsp1_device *vsp1)
+ {
+-	unsigned long flags;
+ 	unsigned int i;
+ 	int ret;
  
- 	sink_format = v4l2_subdev_state_get_format(wpf->entity.state,
- 						   RWPF_PAD_SINK);
- 	source_format = v4l2_subdev_state_get_format(wpf->entity.state,
- 						     RWPF_PAD_SOURCE);
+@@ -1138,10 +1130,10 @@ void vsp1_video_suspend(struct vsp1_device *vsp1)
+ 		if (pipe == NULL)
+ 			continue;
  
--	mutex_lock(&wpf->entity.lock);
-+	guard(mutex)(&wpf->entity.lock);
+-		spin_lock_irqsave(&pipe->irqlock, flags);
+-		if (pipe->state == VSP1_PIPELINE_RUNNING)
+-			pipe->state = VSP1_PIPELINE_STOPPING;
+-		spin_unlock_irqrestore(&pipe->irqlock, flags);
++		scoped_guard(spinlock_irqsave, &pipe->irqlock) {
++			if (pipe->state == VSP1_PIPELINE_RUNNING)
++				pipe->state = VSP1_PIPELINE_STOPPING;
++		}
+ 	}
  
- 	if (rotate) {
- 		source_format->width = sink_format->height;
-@@ -82,11 +79,7 @@ static int vsp1_wpf_set_rotation(struct vsp1_rwpf *wpf, unsigned int rotation)
+ 	for (i = 0; i < vsp1->info->wpf_count; ++i) {
+@@ -1165,7 +1157,6 @@ void vsp1_video_suspend(struct vsp1_device *vsp1)
  
- 	wpf->flip.rotate = rotate;
+ void vsp1_video_resume(struct vsp1_device *vsp1)
+ {
+-	unsigned long flags;
+ 	unsigned int i;
  
--	mutex_unlock(&wpf->entity.lock);
--
--done:
--	mutex_unlock(&video->lock);
--	return ret;
-+	return 0;
+ 	/* Resume all running pipelines. */
+@@ -1186,10 +1177,10 @@ void vsp1_video_resume(struct vsp1_device *vsp1)
+ 		 */
+ 		pipe->configured = false;
+ 
+-		spin_lock_irqsave(&pipe->irqlock, flags);
+-		if (vsp1_pipeline_ready(pipe))
+-			vsp1_video_pipeline_run(pipe);
+-		spin_unlock_irqrestore(&pipe->irqlock, flags);
++		scoped_guard(spinlock_irqsave, &pipe->irqlock) {
++			if (vsp1_pipeline_ready(pipe))
++				vsp1_video_pipeline_run(pipe);
++		}
+ 	}
  }
  
- static int vsp1_wpf_s_ctrl(struct v4l2_ctrl *ctrl)
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
+index 327c7457126f..0ec707d2913f 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
+@@ -366,13 +366,12 @@ static void wpf_configure_frame(struct vsp1_entity *entity,
+ 	const unsigned int mask = BIT(WPF_CTRL_VFLIP)
+ 				| BIT(WPF_CTRL_HFLIP);
+ 	struct vsp1_rwpf *wpf = to_rwpf(&entity->subdev);
+-	unsigned long flags;
+ 	u32 outfmt;
+ 
+-	spin_lock_irqsave(&wpf->flip.lock, flags);
+-	wpf->flip.active = (wpf->flip.active & ~mask)
+-			 | (wpf->flip.pending & mask);
+-	spin_unlock_irqrestore(&wpf->flip.lock, flags);
++	scoped_guard(spinlock_irqsave, &wpf->flip.lock) {
++		wpf->flip.active = (wpf->flip.active & ~mask)
++				 | (wpf->flip.pending & mask);
++	}
+ 
+ 	outfmt = (wpf->alpha << VI6_WPF_OUTFMT_PDV_SHIFT) | wpf->outfmt;
+ 
 -- 
 Regards,
 
