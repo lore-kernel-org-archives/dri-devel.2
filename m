@@ -4,164 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19197CD37BE
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:30:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15727CD4840
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C80210E56B;
-	Mon, 11 May 2026 17:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77C1210E819;
+	Mon, 11 May 2026 17:30:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HlGzTfhA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GpjpJikG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62C3110E220;
- Mon, 11 May 2026 17:30:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8070210E220;
+ Mon, 11 May 2026 17:30:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778520622; x=1810056622;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=WdNPEVWsyGMZ4eXaIjKd9xZNyz/ylkiOsqOt5BDzAvc=;
- b=HlGzTfhAv23Hpm9CXCr52c2FtUM7XBk/stTQSzayoXJ39jd86fOfO9cf
- dsZODLsP0W/l+u4CQsS14tv0B2SPDCgLaUJlK5dcVVyLSoRZpXIKBmi+R
- P3vvdRjz76IWG1ElALb7nIprLww0WcsM0nH2yeQTUURU3R79KrI8vjA67
- xD3iZVcCsYn/d5gqoZ2lWFN8CcZNL2PBBUJYWUAYBtGSvbA9teCmjKGCd
- 2HfZgcClS8EXypaMfguYErHku/gZRK5xWW2gCQ+Xd8OoIFC4kGFDYSpdO
- wH07cFOQyxQYVq0YSV5NqiYXQAj7Ujc7RtEauPoLpQu6uMzsmPbrTHM0y g==;
-X-CSE-ConnectionGUID: MZwCafXSTCS+ZRk7sXgFbw==
-X-CSE-MsgGUID: i1cl1f3+Rl2On0uJ97Oy1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="83030991"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="83030991"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:30:21 -0700
-X-CSE-ConnectionGUID: vkNBkiuTQ22s3qVCmQRwJg==
-X-CSE-MsgGUID: EUcjo/hPTFCuAJ+MVoXbJw==
+ t=1778520653; x=1810056653;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QwAUyWjs2Ijf+FDLhUVD/L6ZmCDjeyicV4iWxLk6j7w=;
+ b=GpjpJikGTY4eK4I1fDNgl22jamRX8qt3lWto72Mb0V9sxRSFNdAHcf2a
+ GagKdxYBGSeyAcAZqL+KZXr8R9oy+a1HBd8nx95qIQeFKiYtknb3sQjdV
+ grrGf1AMqHRXWtFlvzHVbp8Md4xA6Kz/IOdGBy6nM4oFCl4vp7zjNgqDt
+ SX3D+rZYOyjOueM8+72+NBn8Z2GUKE5PwxszXob5niTGCsjSO6Nkmv2+M
+ PmjQeHlvmZtBVpvTS/0mWiM+z+z0MDH2Fb67EO8IpE0elgDXCPRqm3UK7
+ Uh6SMSkMTz22tdfXf9MOIovTSGtDdwpuWsS0Z5Olzybv8YQ4FJ7ylWeVR g==;
+X-CSE-ConnectionGUID: tqE+QrMrRcyDdajwhPKuwA==
+X-CSE-MsgGUID: WwAcfcFQQ+Cdf5byIqaEqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79314098"
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79314098"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2026 10:30:40 -0700
+X-CSE-ConnectionGUID: 5rs/O7s1RCiuzwYiPThWVw==
+X-CSE-MsgGUID: lp2pCNh7SwOCLVWmxpoCWA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="275645587"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:30:21 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 11 May 2026 10:30:20 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 11 May 2026 10:30:20 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.28) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 11 May 2026 10:30:20 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HC+X3pFRf3aen4J8kBeyC2qoBafYN/bXg6BAUQQuqpcm3zfuD6cwqONJT49yirlHaQA+v/rivazc8h79wv+HS6upBgEJF8Zr+csELhm6bX0V+ciwF8lozTz4QpOxdoOjsoPtKJGB9qHSq/d7wDRzM4jLLCh9NgmjrBhGTupHa2BCFJCQuCzDZ+QTvbAvDy1tbSEEQz4Cb5qswvXl2kpfFKWDQbz2KKFos7SdUF3YYDZePDG2ULBjJY+basIENEg5zjetT7N0g7dIFdTlMHGsSHccyb/S9iVf8g7f8HLvULVcRIvVbXoMFG6ZvqGSCtoA0gKwMgzd4ROmu22PHl/6wQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jj41DSGjIYUBGCejHYNXjPQrR23wz1js0nlLHdIZBpk=;
- b=gEZYL1J38US7cURYW/kqylhZFJMLIx3O4ifwKmSuU0nad2I8JCs70Zmyg0glvBIp4PXRZ0YmWwIyWOmo01PkX/TQLEz43j8TduO3zGmWdJzQnbz5vvivIlgkIzjHkwBtvaXUh9O+6sHZnyYNytpx39ksMbYN0IRhEdQs2EXYdIevr3yTsncWpf5txN67gon+C2Adn2eiKXrb0Qv5ICRbyYEppWhWPRlxkWuYopJCzAHVbMv1/Vbo9Nwtkj7Hz44cN5h0Uq3VSKzQ9MhZsnnZ63c/qHSHXkD80axSFaW4dOkcP27H1RFoTOifNeNzuteFm7Tm3YldgcasCt6ui3X+xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- DSVPR11MB9718.namprd11.prod.outlook.com (2603:10b6:8:34d::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.18; Mon, 11 May 2026 17:30:18 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%6]) with mapi id 15.20.9891.021; Mon, 11 May 2026
- 17:30:18 +0000
-Message-ID: <2547bb13-636e-49aa-9e77-e57914dd4936@intel.com>
-Date: Mon, 11 May 2026 23:00:04 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 10/11] drm/xe/drm_ras: Wire up error threshold callbacks
-To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
-CC: <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <kuba@kernel.org>,
- <lijo.lazar@amd.com>, <Hawking.Zhang@amd.com>, <davem@davemloft.net>,
- <pabeni@redhat.com>, <edumazet@google.com>, <maarten@lankhorst.se>,
- <zachary.mckevitt@oss.qualcomm.com>, <rodrigo.vivi@intel.com>,
- <michal.wajdeczko@intel.com>, <matthew.d.roper@intel.com>,
- <umesh.nerlige.ramappa@intel.com>, <mallesh.koujalagi@intel.com>,
- <soham.purkait@intel.com>, <anoop.c.vijay@intel.com>,
- <aravind.iddamsetty@linux.intel.com>
-References: <20260417211730.837345-1-raag.jadav@intel.com>
- <20260417211730.837345-11-raag.jadav@intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <20260417211730.837345-11-raag.jadav@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0081.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d8::13) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="261000287"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.248])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2026 10:30:35 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/5] Add reclaim to the dmem cgroup controller
+Date: Mon, 11 May 2026 19:30:03 +0200
+Message-ID: <20260511173008.36526-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|DSVPR11MB9718:EE_
-X-MS-Office365-Filtering-Correlation-Id: aabf27e7-a1b8-42f5-219f-08deaf82f865
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|18002099003|22082099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: 5P4/i/2R+3PpiSaLlrK3rKJ8Wb/goOoDo5iMg+7vZuh4QYB0hQ8xiLarmaaUpRozU7tNifwkGaYXHE2SMHaL+EQj8oz+9PQqpLnEbfnvxQvsiKGa/DgujI2oNDoU7KWUTdf6cCSyG7euO8N9+lRaw0vPOodetLWNTPMjWyh5fFNepkw/NCl6tnrgOFmVuCcz7ElTwgiO1Jk+xMDNrM7TBeG9wTMoiBR/87vVoRxspIJqcKzLI/k2P1nGcFYT3O4Oc8jL5A/5Ewi/XMyyqCsbHCBWtjQDF8tNpolBULoT2EKWhjVbPSoSRez1q+JRrP3qLQ54R1F4toqFwdyDxS3ZvG8qI9ZsDi0L6GKdxi/OxE8w23um096RNQT9TFb0GsNTeFDfF9PRl89RAEH3lpPCc8eo+E7/Qou6zsihmGxDk/slsT8CwY0+JyIYY0wyekHbWzA1rlIxBQuV6BpwaTuyD7fcckjROTLC9SiLuozLlSxDgiR0q/fRYqKQu+jhCk7s1bAa+x+S444b23N66FbG+tXQnZu4jyxhR7i1PPe2h0VQvAXmQHOrWJkuMaaJ5c/MtTmndYqfGVBqdhvKsFat0XmpJNzfHnQlyyb1Pn6tIVzZz5jKLY28qqAl+DodWzl+L8slZELxxlrzUoFpNKM3Va1BeWMAKKBK66hvO6qHqRPlVXZxbfSdLad1xpTqxsNH
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(18002099003)(22082099003)(56012099003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0JqMUpZVHpKbDhRbmxnVlVPQW53aFcvdkFKN0FXQlBKdFJnOWJTallUbXRh?=
- =?utf-8?B?ZTUrSm90QmFvVVljdTR1V3F6Q1JaeXBhbk9yRkhQUjRyY1h5d1AyeEtmVkRJ?=
- =?utf-8?B?L2s5UHRqZjNzVUF0NGQvSURYaWdxb3prMVFJbzRDOEFLTlNBUlNNL05KN3Rp?=
- =?utf-8?B?UUQxRnIwVUpQWE9ITXNJWUdBVUJQZHdvK29aNHM1aXk4QlBMMUJoVU1kcjZt?=
- =?utf-8?B?VHViU0c0SzByMDAzc0VLK3BJcmtVdHNkb2VVM1JZU2twZ2RpTVZycmd3Sm9a?=
- =?utf-8?B?RWgxMkRLWkFaM0orZHg5eXpWYUMrdGxzUkxiUm4xc1BaU1JKZitFc0lFZXI4?=
- =?utf-8?B?ZDJzMXJQR21xOUVYdStEdlhzT0dLM0RicW1uK1djb3pZNDNJUVpsNDVmcXg0?=
- =?utf-8?B?SGIxZlBveEl4WTRYZE1pMktkL1l3TGNzMTBzd2F5UUJEZnlOT0cwdldIWGNn?=
- =?utf-8?B?V1NORkNDZ2FhTE9jRm9ZTnFoTVM3c0UwRXlCQnRpVjMxamU0dU5nbjZTTGs1?=
- =?utf-8?B?ZVF0U0hjY01NVTVBRjd3VlU2ODdoL3Y2RVFwb25GN2N4T1B2TEJrRzM4ellZ?=
- =?utf-8?B?S3dWK0FVUHVMTGt2bmJyS1Ewb3hyMjlkUUl5TWdSR3RPUmxOWFJIMHV3Qnlu?=
- =?utf-8?B?TkFMU2FDYVdDdmdrTVlQdmZ3eHVyUGsrV2g0T05xcXU4L094djBLR2I0cmxm?=
- =?utf-8?B?L3JmaE5uek9Xd05VUGVrZGx5QllxazJhc0dnQUdSa0lQemNNSzNmbXBYTHdT?=
- =?utf-8?B?aFJTaFZQd3NydlZVRTdWUHdKVENucW5EcHJwQUp3Y0RUWWZTSHdNVDdlYWVa?=
- =?utf-8?B?RHVzVmkwTGpjYkNRSFhoWVMzczhVdDVRMWJZQW51VjFJQlNjSHVNb0lHVldG?=
- =?utf-8?B?YjVlMUplSk1IN0F4U2hOVVJkN1RWdVJTcndZZVZ5eGk4R0tnZy90VW9LaUta?=
- =?utf-8?B?TVcvd2t4ZEI3UU1TTUxxSWllR1p4a3VnU1NMTHpyWUpjWXg1MmF3blVJZFVM?=
- =?utf-8?B?dlh3YWZNRTNNZklRSzBQUG5nbnZLSnF5U0pMdC80bFFFUnljc3lDcXF2M2lI?=
- =?utf-8?B?YWsxYUxoTkltTXNRUUFvdXR5SFI1QWlQcnd3U3JvTGZKVnhXOG9iQUE3YmE5?=
- =?utf-8?B?aWczOXJKU0JaeXhHdnJLaHdhcUN0R1hxeU5tRzRCeWNaK2szM0wzN3JrenBL?=
- =?utf-8?B?VE5tUytQaFVqWmIxbTdmNFpWbW13YWdnU1hIaklqU2d0WUtoNkpSSFJqZGE3?=
- =?utf-8?B?RkpCRDF5VEdiS2xRSXdwZWhOMG1mdTRZZjdoWi9RMEF2TjZuNU5XS2U2cnp1?=
- =?utf-8?B?VXhobExmRyswa2VUS2FBQkVGYTgzR0NpRCtTSVBxZmI1c2VIYlRtODdsdGUy?=
- =?utf-8?B?MGJKYVk0TjJ6WTVQQVNGM3hoOGdDdjQ2ZzhkN1h5NHBmVUpRdEIrdmwzdlZB?=
- =?utf-8?B?S0xCTmZiY2NNNXNvYU44T1pjNEd0a2NSYzUydG1wNjQ1dFg3V25mQUp0Vno0?=
- =?utf-8?B?c2k3WTlBWWVqWmdWSGcvS0g1c0pPMDdqQko3TU5QeFJ5Q1FxRnRyTjd6Q05i?=
- =?utf-8?B?MnBxNE5qUVJLQWsrRlYyQUVOUHYyVzlhY1NJUU54Zys5c2tBOHRtVG1YQXRR?=
- =?utf-8?B?VW4wYjZRWWo5RjJaK1I2ckkxZjZOcFFONFVDb3dld2cvSVNUSWd3NVFXTTR3?=
- =?utf-8?B?UVdiY0YwY3pQTFdYRWpRZDZsUUxXeUYrbW1lSEFtVXMxRTNZZU5lRG9WUDBC?=
- =?utf-8?B?UGxzaUtXcFlyeUNwcVZZejNFRkZ6clpNYWVpdDV1WmdoZFRrMENyNkdRU2Y1?=
- =?utf-8?B?dmtmZXZjRllPTFR6SzlYaTRwYnRwelhQZ0Zhek5pVnYrUlpRQmluaWpIVDRS?=
- =?utf-8?B?WndxU1VQWGRvM2VrZUtNRkhLL09CekRYeHNmaWl2NDByKzdhSHlFbzdmZVNC?=
- =?utf-8?B?ZHRLM0hXbEJmZm9vTzJkOVNTQkYwbC9YMnNIb0tDUDZGdXFNeER1bEFDWC9p?=
- =?utf-8?B?cGNRTFNMelVoYVJ6NFJacG1QdThVZjRSUzN0WlM4eElsZHdaTnpSTC9kOXFS?=
- =?utf-8?B?UjN1NDhiWXU3bU9QMnB0RVU5NzZ5MkxpeVIwS1RBL2dZTU1WNEtQNnF6OWFj?=
- =?utf-8?B?cTZpS3JiZHh6QzliYzhYU0xiVEhhOEVTeWNuTkNEYlpUeko5eWFoQVlEVzZW?=
- =?utf-8?B?WG01RzF0YlRibHFoOTFZbjBuQ1VuV2I1WENySmVLQXhXeUMxMWt4cTRIMVFD?=
- =?utf-8?B?K21tNlpBR3FLaEdvVU9nVmZEN1ppekZoc0h6S095MXh5Wmg0bVNFWU1NY1RH?=
- =?utf-8?B?eldpeFZsN3V3eVV4YXQza3JvSGdmd3FVNEZqUEM0enJyUnBDUVhndz09?=
-X-Exchange-RoutingPolicyChecked: OLtWNIol7xt4xY+P9K7u2+NzQh4zlaV8OsBvCBDqmuEhhXeL4e/qsy7qEn4GBuM4xoD9ud1AM/mLoeZ3bZstJWYSlnLkSD0Ag/sM3rgn90f7DiThx1M4DiCHXeOE6zl7oxpfq09cAPEL3rSKltsN3qhr036LRlmamfjsZ89XQ8Hjo9GOunuNhaYWUlGNmF5yNYG2c/B8A2rRkRguNbfIywk1nsKffCvCMiRxVT1a3IIEZFnK+vyqC9etKiAZA3xgtzAleuHaWW44o6zgTQdYLSl4FaF36fX41X7X3PMttpGfkalxdnTExdNR92ZfpjrRQPSst9RKytBSl5VMX0h9vg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: aabf27e7-a1b8-42f5-219f-08deaf82f865
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 17:30:18.3054 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /qUQWC9o2rUipk9OasmXqmAAPpf0ncWQZmAm6tz9iorfBhdukSOOQZFyA8yzg5XGrE1OTEMDyMtRDvOE7oOxnQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR11MB9718
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,84 +81,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+When writing a "max" limit lower than the current usage, the
+existing code silently failed. This series aims to improve
+on that by returning -EBUSY on failure and also attempt
+to synchronously reclaim device memory to push the usage
+under the new max limit to avoid the error.
 
-On 4/18/2026 2:46 AM, Raag Jadav wrote:
-> Now that we have get/set error threshold support in xe driver, wire them
-> up to drm_ras so that the user can make use of both functionalities.
+Patch 1 fixes a pre-existing amdgpu_vram_mgr_init() error path
+Patch 2 implements and documents a reclaim callback interface
+      for the dmem controller.
+Patch 3 implements a TTM reclaim callback.
+Patch 4-5 hooks up the reclaim callback to the dmem cgroups-
+      aware drivers xe and amdgpu.
 
-so that userspace can make use of the functionality.
+v2:
+- Remove the error propagation that was in a previous series (Maarten)
+- A number of updates in patch 1. See its commit message for
+  details (Maarten)
 
-With that change
+v3:
+- Add patch 1 fixing a pre-existing amdgpu_vram_mgr_init() error path
+  bug where drmm_cgroup_register_region() was called before
+  INIT_LIST_HEAD() and gpu_buddy_init(), causing a kernel panic on
+  failure. (Sashiko-bot)
+- Use an rwsem to protect reclaim callback registration and region
+  unregister against concurrent reclaim invocations. (Sashiko-bot)
+- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+  in man->cg unconditionally. (Sashiko-bot)
+- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+  ttm_resource_manager_set_dmem_region().
 
-Reviewed-by: Riana Tauro <riana.tauro@intel.com>
+User-space tests are at
+https://patchwork.freedesktop.org/series/163935/
 
->
-> $ sudo ynl --family drm_ras --do get-error-threshold --json \
->    '{"node-id":0, "error-id":2}'
-> {'error-id': 2, 'error-name': 'soc-internal', 'error-threshold': 0}
->
-> $ sudo ynl --family drm_ras --do set-error-threshold --json \
->    '{"node-id":0, "error-id":2, "error-threshold":8}'
-> None
->
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-> ---
->   drivers/gpu/drm/xe/xe_drm_ras.c | 29 +++++++++++++++++++++++++++--
->   1 file changed, 27 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
-> index e07dc23a155e..824dabd5c29e 100644
-> --- a/drivers/gpu/drm/xe/xe_drm_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_drm_ras.c
-> @@ -11,6 +11,7 @@
->   
->   #include "xe_device_types.h"
->   #include "xe_drm_ras.h"
-> +#include "xe_ras.h"
->   
->   static const char * const error_components[] = DRM_XE_RAS_ERROR_COMPONENT_NAMES;
->   static const char * const error_severity[] = DRM_XE_RAS_ERROR_SEVERITY_NAMES;
-> @@ -47,6 +48,27 @@ static int query_correctable_error_counter(struct drm_ras_node *ep, u32 error_id
->   	return hw_query_error_counter(info, error_id, name, val);
->   }
->   
-> +static int query_correctable_error_threshold(struct drm_ras_node *ep, u32 error_id,
-> +					     const char **name, u32 *val)
-> +{
-> +	struct xe_device *xe = ep->priv;
-> +
-> +	if (!xe->info.has_sysctrl)
-> +		return -EOPNOTSUPP;
-> +
-> +	return xe_ras_get_threshold(xe, DRM_XE_RAS_ERR_SEV_CORRECTABLE, error_id, val);
-> +}
-> +
-> +static int set_correctable_error_threshold(struct drm_ras_node *ep, u32 error_id, u32 val)
-> +{
-> +	struct xe_device *xe = ep->priv;
-> +
-> +	if (!xe->info.has_sysctrl)
-> +		return -EOPNOTSUPP;
-> +
-> +	return xe_ras_set_threshold(xe, DRM_XE_RAS_ERR_SEV_CORRECTABLE, error_id, val);
-> +}
-> +
->   static struct xe_drm_ras_counter *allocate_and_copy_counters(struct xe_device *xe)
->   {
->   	struct xe_drm_ras_counter *counter;
-> @@ -92,10 +114,13 @@ static int assign_node_params(struct xe_device *xe, struct drm_ras_node *node,
->   	if (IS_ERR(ras->info[severity]))
->   		return PTR_ERR(ras->info[severity]);
->   
-> -	if (severity == DRM_XE_RAS_ERR_SEV_CORRECTABLE)
-> +	if (severity == DRM_XE_RAS_ERR_SEV_CORRECTABLE) {
->   		node->query_error_counter = query_correctable_error_counter;
-> -	else
-> +		node->query_error_threshold = query_correctable_error_threshold;
-> +		node->set_error_threshold = set_correctable_error_threshold;
-> +	} else {
->   		node->query_error_counter = query_uncorrectable_error_counter;
-> +	}
->   
->   	return 0;
->   }
+Test-with: 20260428065411.4222-1-thomas.hellstrom@linux.intel.com
+
+Thomas Hellström (5):
+  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+  cgroup/dmem: Add reclaim callback for lowering max below current usage
+  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
+    controller
+  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  10 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                 |  95 ++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c            |   3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c           |  37 +++++++
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  19 ++--
+ include/drm/ttm/ttm_bo.h                     |  10 ++
+ include/drm/ttm/ttm_resource.h               |   4 +
+ include/linux/cgroup_dmem.h                  |  24 +++++
+ kernel/cgroup/dmem.c                         | 106 +++++++++++++++++--
+ 10 files changed, 286 insertions(+), 24 deletions(-)
+
+-- 
+2.54.0
+
