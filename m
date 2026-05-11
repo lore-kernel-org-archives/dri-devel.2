@@ -4,71 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3040CD4840
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:31:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFF33CD4840
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 17:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25A2210E220;
-	Mon, 11 May 2026 17:31:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2764D10E84A;
+	Mon, 11 May 2026 17:51:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TjeQZaay";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uaQBsmfc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C88DD10E862;
- Mon, 11 May 2026 17:31:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778520663; x=1810056663;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=+LnmobJh1DnauE2NercKhjcRavXPbcfXqJhkutDMYck=;
- b=TjeQZaayKth76rRy+4Xo/9ZAVU0LniylPYDWpum34pUMD6jQpJITNuo9
- 4WoGWxgZQNSRtWjL58CMbRtTMZpKLy4RV4AIT7gCxUKYDW6uiH0HkDPK3
- 0+PnKDU0RjSOqFGGwJdAArirYpWZytT8WGTJZ9lQdB5Es0YzglucgvCI/
- 3ZhwUrgouFd5wDAKAXKKvnlfH8bn9Fc0lpRDpwMX9v/KIlnVK23F2Knhn
- HEQjpWGythmkFZz2ak8AM7ipHIbHPVI9VpHdpCsy3ayybbg83vgxBLV5y
- bVs/68pp0h5zPFjtsAyugPhLofwuGXOy6OP7Ef2FckGliJh3flt3rVEg/ Q==;
-X-CSE-ConnectionGUID: MjsTQtI+QnCBtOdo7BUWRg==
-X-CSE-MsgGUID: g3jTV/a0Rr2YoB0LUm5yaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79314251"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79314251"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:31:03 -0700
-X-CSE-ConnectionGUID: DvbSBq9sQdWWe7FxUzkH4A==
-X-CSE-MsgGUID: G/tszHa2SrybPgfcN93OIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="261000497"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora)
- ([10.245.244.248])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:30:58 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/5] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
- manager
-Date: Mon, 11 May 2026 19:30:08 +0200
-Message-ID: <20260511173008.36526-6-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260511173008.36526-1-thomas.hellstrom@linux.intel.com>
-References: <20260511173008.36526-1-thomas.hellstrom@linux.intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C6DA10E84A
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 17:51:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id AB6CB6001A;
+ Mon, 11 May 2026 17:51:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2E2C2BCB0;
+ Mon, 11 May 2026 17:51:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778521873;
+ bh=9Yp/CVYMqyPHBsVwAYn1sN99dUm//BD19OnBzFRd58k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uaQBsmfcDLzI0oyLMmScwlkSABsNwECIqpR0/h+xKOpexzgzViP8Og/wmqTD4O1eF
+ o7gjnRHu4CqassvmmeodKtlh3NbW4GDg8HjzPph7s4ZyElHEpfdeEKBIMRR550nSU+
+ 6IQNVmepFF0Cj19pqwB85nSgqqLBZfjop0NwAW8oEedE4O7mcdUnSjFXQtijvqFqO6
+ 09u6sQ/bFDGkIwo0v0C+Fm0ixRP9QjtN/Crkynr3upIr8pySL+lfbwNPcOaTRMW31g
+ dTOJo/LYuCWyLbQASOoAfbmZAN5UpOnWve8uBiN0EqY1P4htfvnY4BJaNcfp2e8l7D
+ lgE6+FEb0QoXw==
+Date: Mon, 11 May 2026 20:51:03 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Matt Evans <mattev@meta.com>
+Cc: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org
+Subject: Re: [PATCH 9/9] vfio/pci: Add mmap() attributes to DMABUF feature
+Message-ID: <20260511175103.GK15586@unreal>
+References: <20260416131815.2729131-1-mattev@meta.com>
+ <20260416131815.2729131-10-mattev@meta.com>
+ <20260424183153.GJ3444440@nvidia.com>
+ <20260426105215.GA440345@unreal>
+ <20260427083644.4ee174cd@shazbot.org>
+ <25a4fc45-1b4d-426b-954a-60bf21e9040f@meta.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <25a4fc45-1b4d-426b-954a-60bf21e9040f@meta.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,64 +72,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Register the VRAM manager with the dmem cgroup reclaim infrastructure
-so that lowering dmem.max below current VRAM usage triggers TTM
-eviction rather than failing with -EBUSY.
+On Mon, May 11, 2026 at 04:30:39PM +0100, Matt Evans wrote:
+> Hi Alex, Leon,
+> 
+> On 27/04/2026 15:36, Alex Williamson wrote:
+> > 
+> > On Sun, 26 Apr 2026 13:52:15 +0300
+> > Leon Romanovsky <leon@kernel.org> wrote:
+> > 
+> > > On Fri, Apr 24, 2026 at 03:31:53PM -0300, Jason Gunthorpe wrote:
+> > > > On Thu, Apr 16, 2026 at 06:17:52AM -0700, Matt Evans wrote:
+> > > > > A new field is reserved in vfio_device_feature_dma_buf.flags to
+> > > > > request CPU-facing memory type attributes for mmap()s of the buffer.
+> > > > > Add a flag VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC, which results in WC
+> > > > > PTEs for the DMABUF's BAR region.
+> > > > > 
+> > > > > Signed-off-by: Matt Evans <mattev@meta.com>
+> > > > > ---
+> > > > >   drivers/vfio/pci/vfio_pci_dmabuf.c | 15 +++++++++++++--
+> > > > >   drivers/vfio/pci/vfio_pci_priv.h   |  1 +
+> > > > >   include/uapi/linux/vfio.h          | 12 +++++++++---
+> > > > >   3 files changed, 23 insertions(+), 5 deletions(-)
+> > > > 
+> > > > Nice and simple
+> > > > 
+> > > > Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> > > > > @@ -1549,8 +1551,12 @@ struct vfio_region_dma_range {
+> > > > >   struct vfio_device_feature_dma_buf {
+> > > > >   	__u32	region_index;
+> > > > >   	__u32	open_flags;
+> > > > > -	__u32   flags;
+> > > > > -	__u32   nr_ranges;
+> > > > > +	__u32	flags;
+> > > > > +	/* Flags sub-field reserved for attribute enum */
+> > > > > +#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_MASK		(0xfU << 28)
+> > > > > +#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_UC		(0 << 28)
+> > > > > +#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC		(1 << 28)
+> > > > > +	__u32	nr_ranges;
+> > > 
+> > > Alex,
+> > > 
+> > > The TPH proposal extends the flags field in a similar way, but I suggested
+> > > a different approach to conserve bits. At the moment, we spend three bits
+> > > on a single feature, which feels wasteful.
+> > > 
+> > > What do you think?
+> > > https://lore.kernel.org/all/20260409120415.GF86584@unreal/
+> > 
+> > I already proposed a very different interface for TPH that decouples
+> > the dma-buf creation from setting the TPH values:
+> > 
+> > https://lore.kernel.org/all/20260423132016.4a25e074@shazbot.org/
+> > 
+> > This is overall less intrusive than the TPH change proposed, but it
+> > could still make sense to align this as an operation on the dma-buf,
+> > that can be probed as a separate feature.  Thanks,
+> 
+> I'll add a VFIO_DEVICE_FEATURE_DMA_BUF_ATTRS in a v2 instead to get in line
+> with the TPH work, no worries.
+> 
+> For the benefit of future hackers, how would you describe the criteria for
+> adding flags to this existing field?  
 
-Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against NULL,
-as the TTM reclaim path passes a NULL place in cgroup drain mode.
+One bit per-feature.
 
-v3:
-- Rebased on fix for uninitialized list and buddy allocator on the
-  drmm_cgroup_register_region() error path.
+> What hypothetical feature characteristics would be appropriate?  (Maybe it's that these attrs & TPH
+> add scalar fields in several bits rather than a simple boolean.) Two of us
+> have independently added something that's turned out to be inapproriate so
+> some guidance would be good.
 
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 9 ++++++---
- 2 files changed, 7 insertions(+), 4 deletions(-)
+Both of you intertwined the signaling bit with the actual data, and that is
+what led me to prefer a different approach.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0dc68fb9d88e..334a177ae8d3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1485,7 +1485,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
- 				DMA_RESV_USAGE_BOOKKEEP, f) {
- 		if (amdkfd_fence_check_mm(f, current->mm) &&
--		    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
-+		    !(place && (place->flags & TTM_PL_FLAG_CONTIGUOUS)))
- 			return false;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index ac3f71d77140..a1f1ae264a40 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -916,6 +916,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
- 	struct ttm_resource_manager *man = &mgr->manager;
-+	struct dmem_cgroup_region *cg;
- 	int err;
- 
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
-@@ -932,9 +933,11 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	if (err)
- 		return err;
- 
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
-+	cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
-+					 adev->gmc.real_vram_size);
-+	if (IS_ERR(cg))
-+		return PTR_ERR(cg);
-+	ttm_resource_manager_set_dmem_region(man, cg);
- 
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
--- 
-2.54.0
+Thanks
 
+> 
+> Thanks!
+> 
+> 
+> Matt
