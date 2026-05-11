@@ -4,99 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C20DDCD4F35
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:53:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D70CD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C07F10ED12;
-	Wed, 13 May 2026 07:53:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BE5F10ED13;
+	Wed, 13 May 2026 07:54:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NLEr7WiN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PXFv/Kyc";
 	dkim-atps=neutral
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEA7510E285
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 01:55:49 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-7bde9d73678so66996137b3.0
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 18:55:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778637349; cv=none;
- d=google.com; s=arc-20240605;
- b=MclQ0bIPmGKnOV3LDsanTr1iRCptg+vwNOKXgPkbnC2Dk2+qjP1RjnL9cC6sD00vtd
- xDA3eA6IHjZi4CrcyXRAq+rUCZfXuNW6F+rq1PqMANHti2hR1KN3z96SEItb7ebDuFZi
- lrDLvn9aImtejcaL9BR8WI3xmcwa3RseAhwsQp/bFAQH5uS58UOGDrRHS5henkq4urpG
- bIC8QOLH4xZMBCXLAzFU8vgnhAxX+aePhCyMCiqepoKY7Dt3p1rdAgfuox7OB4TRux0P
- 6es3RnbPLjUwy3ajE7t4LaJD/xuSGxCwI4lSXKmluzKMEP20hLT04tTXFLg+/7uM6omA
- Z5xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=5xRhLCcP3JBRN1MwY6Q9q9IhNYwNr7l9QAT6ZuSm7sQ=;
- fh=jztHchaODzDkWELMH3+KjbqjP1HmhzGonid4v2P4QJw=;
- b=haOrxUhX9kujX1E4gd2a9UvawONIduEv0o+BJfm83e7VOFHiSpFauviKO65VEOa/eX
- E2kFqxPWUoNFKsrjOZ6NkUzvqbWo5Iby2YiyxhOp+xdAiLHC4y13Go3f+ALWVrEI/X+/
- nQZMCUrnAJcwCmqMWjxTmLXhiNigH7uD55tQ4+Og+EHQEFkQK9XzN8ZulHWe2LJ8x86Q
- aFWbdO0mB49d4+6yE0yBjfC82Mx41j2cwlkrX+XP67luclqj+hEi4BpdqnDXnCR3PRar
- wDbNgTMQMc2w3EG60WzqYpYdwnt3mE4WHbavmfkjuOAYv9h+7A5ni3nDOSa+Hga2ykyu
- DzlQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B006810E0F6
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 07:51:50 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-82fbf5d4dc2so2810519b3a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 00:51:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778637349; x=1779242149; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5xRhLCcP3JBRN1MwY6Q9q9IhNYwNr7l9QAT6ZuSm7sQ=;
- b=NLEr7WiNRd0B9T5f4imq21l654Sl02gKMw62aXyLCLKEokajupb+4tM5RyB1nsb12i
- tw5lVyaWpcDk2VWDrYWAplgF4y3xCJomIpLF4766+qrLJ4LZFx4YYUGdIJVzeWd1lQX0
- 1yc1PkTNY465lupV8bpNjkDloL3vMeDncI42Yf012rZD0AlTTb9qz+kOndTiSPGcg2eW
- 5Wqgi072jsE1RjZYRwhJDpYK9dGL5xt3J+1OuQkCuDvVfy2xlATZFEXMag99+v9tyE1k
- 2e1/8ent1I1fxVt/cR/1cX18y1t76VmXF6KUQrMGwwtlfvSlLn121mVeysmXVCGL87Bc
- NAyw==
+ d=gmail.com; s=20251104; t=1778485910; x=1779090710; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=8qQ0ZL0QLxICeDqID+huefvNgUTc9prsoWIoKknFrC8=;
+ b=PXFv/Kyc7p+F+0feBeN5L5yopQ1hJZsnpL7L/oDNiH27yX09yFyZ+3j9boixwSkNUg
+ XTXLNiRQKvvc1VSBNb7zErUTyhhLlze1fzno8y93OhSK6PL3npRU7XIM5PL5+2Amida7
+ D+LeAgcF+fwmnf+iASWjRxg8C8h27JoEGCl6ppx/pUg21YdI56hOiBGw7eyxzdevSPmi
+ soG+oBQ/aoNM8q+sYCmwjsALLA94mGLBBcHeM73lLuDcv/TtH5eEkJEt6ywpg3DQMF0L
+ 9qlx3R4c7fxp9I7Wl62nkyYdkhSTxcrpUkwTSV99ozxQ1bhRv/1mUmQ5GIUaH2ScrO34
+ Wbog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778637349; x=1779242149;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5xRhLCcP3JBRN1MwY6Q9q9IhNYwNr7l9QAT6ZuSm7sQ=;
- b=qBeWDJO9DKQ1sMsnVHZqvFiyPiAzs2Qkyx2SqgT/BgLdWuC4VOMiuQF5PG7OFJWa9N
- mkCDyA78aHgJUe1WmdqSoBSHHVv2ek2O1beV7D3OWMH0WYS+4nDy/mutGvHkKU1WX3+5
- rMBQ8DxnC+sUxRpMEf/eICOzHjJ7S6yiywKLyf4Q7onI4TMq7zmscXSEUIPcr6Nk+Zrp
- qhh9LHC2JT6PQNfyyxTQcbSJkxstSOU8KXRXunw5vdCeiv9GRfzz0VB0ea+SmAQHZZnR
- 5PgV55FdBtPOPtlm2tucBKJMr3KSDLonPNS+Vl4EzPcjgBKUxawgJo/vrQXkuIYvuGLS
- 4Pgg==
+ d=1e100.net; s=20251104; t=1778485910; x=1779090710;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8qQ0ZL0QLxICeDqID+huefvNgUTc9prsoWIoKknFrC8=;
+ b=eRvR/3M75SjitSBi5w0VsJOsPax5fXJ4npgQQIlF7znMtI5iajaGKUGYdMBckbvJnu
+ +6BrxtIUsco7cC0TBNFN28tNqvY3GdqIOBS5cjauEE9motxozPWxQqOLlGAKYGRG4JnR
+ GWq5VZwU44MhgqZ+2LACYlSDg0ZIab/kWE/BFMJv84O3J1TFPdRu/IQJmQi94XmD1f8W
+ 99WHLke8NDk6zbVSevPGCjxzDgtRQvrEf7cWrCRNiozj3RgoKWuW53+WtTVWSHGkA2aO
+ Ivm3j6bewwIDBs6BYOnNqGhizklDp/URVu8G1UFYTmLfcVejNjeg36j2ruVNhuzoBYRB
+ eEyQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/TNupI2vAOvlI3rWaQkL9xvLYAGplkk+39Q/i9GWG3i+0fiy/0Z9bZhlJFIVwluS8g+8D11pUItVA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxmei/B7x5IssnQr7wqHqJdOp3JF18Yep2Lgu3pizQNyS/ENNmc
- g1Wy/HWg6LDMQ1iZEYxPBMH8d6OjIptdK5v4/oOjikBfj8Ezoxb4GOrSV9mHJZ646vUq8nlTZ8Y
- zphgFxe4+zRTEvbVW3CLwTGCSWWa/hEc=
-X-Gm-Gg: Acq92OF4bT4newH4vTKi2gP5/WxsoRHhbDx+azuoEx6LwkTHlkisO2+0bpJnvWeI6rR
- Jjfk898AEtpITmIbvQ/8LkkeX3y/YDg6q98xM6jP8yPHbuxavaw+nkopHOfvhuE6+d6YHU37nQb
- 24TxIA/GFLDotEeuthU3lsacftgEyrDYyWMm0EAe0NXw2RHFv97WHeVUnYWRYNsF2BX38+QWQkl
- zVGUiFqwsm8MZtK3XjGli+aQFdxsTUp9n4CAfrQFjdifbijZvaXNCOsq0fhgl3BRRxXV98YtIg+
- Cd+1JDlDNJ1ckN0Ul1ZH66pFaVR1FRJKidqkOI4pY50z6KZ3Tj1RR7lcfPWlJzD//Ce0hf2G
-X-Received: by 2002:a05:690c:e28d:20b0:7ba:ded4:df69 with SMTP id
- 00721157ae682-7c6985e165dmr12151727b3.1.1778637348672; Tue, 12 May 2026
- 18:55:48 -0700 (PDT)
+ AFNElJ/monuAjOocDHqjLI3tj40sVMfHlBZ9ozzKEw1gHtulNE1KHk9E/qFCVOW+s+bg+RD/mN0gH+qKT64=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuR1X5SizIu1aKMblM7SGqwM/YDhmX4tFk3rG74cbmkyVXd3Sa
+ kYfVLcVnmvel5vshuOvWkbVkEpWeI6aQVBQr816QRWEGkQRst0+Axe1R
+X-Gm-Gg: Acq92OGWcTngMLED5dap7yIltqkyv+uRC4+aobA417Xmlc7eWaJNMFikRas577LslO8
+ puiORBbin3ooj3iG+Bz4ey9YAcI+BWMRNHVW7izLFLyQNzvXRbkMohHbnQ5kGJyo/FEXZpXMAUK
+ h4C1A6mb42Jhd9ZfG/cDhdj2gwXxFkON8wcW0Y4wZaivoMzB9LggtZvvPz3+SdekhmxrF/o+7Ua
+ P/5+LZSG+8jJI+jy0nb6nWbS+k8GLjHmcFVNCHffPTenUTvTNOq3xUgg6182mbcuzd4PKyFpfZG
+ 9nkoo+mZyGMxXOesvxeIvI6HNjWLCHnp02p4066viPsPG+PJV3xTU54S/oM4RdZ+e/yjYb0jLTJ
+ 8ElyWi+8j0CBdpZdplmQs8nfaSelEt4rh9qQIzL971Iy92zsLBXl/Op+TQ/qhrUaKTo72kqGHBi
+ oObZGIWBugkS+uxyQAB3CnS3SvQRLl6MwKKCPDJaAlFJU4PxxYBer8OkoRa3dJ2obVy77ZOG1SR
+ 6QOs6j7pM8z
+X-Received: by 2002:a05:6a00:3016:b0:82f:a89e:e16f with SMTP id
+ d2e1a72fcca58-83a5c2be01cmr21310489b3a.14.1778485909975; 
+ Mon, 11 May 2026 00:51:49 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-83965d36a12sm17694642b3a.27.2026.05.11.00.51.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 May 2026 00:51:49 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH 0/2] drm/verisilicon: add Nuvoton MA35D1 DCUltra Lite support
+Date: Mon, 11 May 2026 15:51:40 +0800
+Message-ID: <20260511075142.54752-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260512020718.108044-1-kartikey406@gmail.com>
- <d1bc8d7d-3a4f-4ede-8266-81cc66bf11b5@collabora.com>
-In-Reply-To: <d1bc8d7d-3a4f-4ede-8266-81cc66bf11b5@collabora.com>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Wed, 13 May 2026 07:25:36 +0530
-X-Gm-Features: AVHnY4LCDlccPve3ZLzzDvN9woFw3uS561jxG504DrY4p0Whnei59B3Wu16XydA
-Message-ID: <CADhLXY7N0eLpA30eV4Rb=F4vzCf9XYtDjMpxBSJtGeMWNi6Cwg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/virtio: move cursor resv lock acquisition to
- prepare_fb
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: airlied@redhat.com, kraxel@redhat.com, gurchetansingh@chromium.org, 
- olvaffe@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, simona@ffwll.ch, sumit.semwal@linaro.org, 
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 13 May 2026 07:53:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,43 +92,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 12:04=E2=80=AFPM Dmitry Osipenko
-<dmitry.osipenko@collabora.com> wrote:
->
-> I'm getting lockup with this patch applied and now see that
-> virtio_gpu_resource_flush() also locks BO.
->
-> Easiest option might be to add uninterruptible variant of
-> virtio_gpu_array_lock_resv(). Could you please try it for v3?
->
-> --
-> Best regards,
-> Dmitry
+This series adds support for the Verisilicon DCUltra Lite display
+controller as integrated in the Nuvoton MA35D1 SoC.
 
-Hi Dmitry,
+The Verisilicon DC driver and its DT binding were originally written by
+Icenowy Zheng <zhengxingda@iscas.ac.cn> for the TH1520 SoC, which
+carries a DC8000 IP block.  The present series builds on that foundation
+with gratitude to Icenowy for the original work.
 
-Thanks for testing and catching the lockup. Before I send v3, want
-to confirm the approach:
+The DCUltra Lite is a previous generation of the DC8000 series.  While
+the two IPs share a broadly similar register layout, a number of
+differences prevent the existing driver from working on the MA35D1
+without modification:
 
-  1. Revert v2's prepare_fb / cleanup_fb / plane_state changes;
-     keep the lock acquisition inside cursor_plane_update like
-     the original code.
+  - No chip identity registers: the DCUltra Lite does not expose
+    model/revision/customer_id hardware registers, so variant detection
+    must come from platform data rather than register reads.
 
-  2. Add virtio_gpu_array_lock_resv_uninterruptible() in
-     virtgpu_gem.c, mirroring the existing helper but using
-     dma_resv_lock() instead of dma_resv_lock_interruptible() on
-     the nents=3D=3D1 path. Declare it in virtgpu_drv.h.
+  - No CONFIG_EX commit path: the DC8000 staging registers
+    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
+    PANEL_CONFIG_EX) are absent; the DCUltra Lite uses enable and reset
+    bits in FB_CONFIG (bit 0 / bit 4) for direct framebuffer updates.
 
-  3. In cursor_plane_update, call the new helper and check its
-     return. The signal path is closed; -ENOMEM from
-     dma_resv_reserve_fences() remains and is handled by freeing
-     objs and skipping the cursor update for that frame.
+  - No PANEL_START register: panel output begins when
+    PANEL_CONFIG.RUNNING is set; the DC8000 multi-display sync start
+    register at 0x1CCC does not exist.
 
-A skipped cursor frame on ENOMEM is the remaining failure mode in
-.atomic_update; this avoids the lockup with virtio_gpu_resource_flush()
-that v2's broader lock scope caused.
+  - Different IRQ registers: IRQ_STA at 0x147C / IRQ_EN at 0x1480,
+    versus the DC8000's IRQ_ACK at 0x0010 / IRQ_EN at 0x0014.
 
-Does that match what you had in mind?
+  - Simpler clock/reset topology: two clocks ("core" bus gate and "pix0"
+    pixel divider), no driver-managed resets.  The DC8000 requires
+    core/axi/ahb clocks and three reset lines.
 
-Thanks,
-Deepanshu
+  - Single display output: no per-output indexing is needed.
+
+  - Smaller register space: max_register 0x2000 vs. DC8000's 0x2544.
+
+Patch 1 extends the verisilicon,dc DT binding to accommodate variants
+with flexible clock/reset counts and adds a new sub-schema for
+nuvoton,ma35d1-dcu.
+
+Patch 2 introduces the vs_dc_info platform data structure, selects the
+correct code paths based on the detected IP family, extends Kconfig for
+ARCH_MA35, and wires up the "nuvoton,ma35d1-dcu" OF compatible string.
+
+Both patches have been tested on Nuvoton MA35D1 hardware and are
+functioning correctly.
+
+Joey Lu (2):
+  dt-bindings: display: verisilicon,dc: generalize for DCUltra Lite
+    variant
+  drm/verisilicon: add support for Nuvoton MA35D1 DCUltra Lite display
+    controller
+
+ .../bindings/display/nuvoton,ma35d1-dcu.yaml  |  94 +++++++++++++
+ .../bindings/display/verisilicon,dc.yaml      |  64 +++++----
+ drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
+ drivers/gpu/drm/verisilicon/vs_bridge.c       |  28 ++--
+ drivers/gpu/drm/verisilicon/vs_crtc.c         |  13 +-
+ drivers/gpu/drm/verisilicon/vs_dc.c           | 129 ++++++++++++------
+ drivers/gpu/drm/verisilicon/vs_dc.h           |   1 +
+ drivers/gpu/drm/verisilicon/vs_drm.c          |  16 ++-
+ drivers/gpu/drm/verisilicon/vs_hwdb.c         |   2 +-
+ drivers/gpu/drm/verisilicon/vs_hwdb.h         |  25 ++++
+ .../gpu/drm/verisilicon/vs_primary_plane.c    |  43 +++---
+ .../drm/verisilicon/vs_primary_plane_regs.h   |   2 +
+ 12 files changed, 318 insertions(+), 101 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
+
+-- 
+2.43.0
+
