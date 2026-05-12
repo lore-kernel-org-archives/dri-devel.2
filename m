@@ -4,79 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C1AFCD484E
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 06:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97195CD484E
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 06:39:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEBB810E587;
-	Tue, 12 May 2026 06:37:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07CA510E277;
+	Tue, 12 May 2026 06:39:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nB722uvo";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="0OcG3OpI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hJgiNDoU";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0OcG3OpI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hJgiNDoU";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 013CD10E976
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 06:37:03 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-836ed29d1e5so2206421b3a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 23:37:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778567823; x=1779172623; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=M/Io3R6L2sxqqwxZ2xN7qSJG+cD+zBc4qCZ/FGPLMyU=;
- b=nB722uvort/+3xutJG5Emyd3xreveLcWpN6nzJaWVDwlgGCAI+pJv97UOXgzwXHdEg
- NXuEfbkKgFWUjscQb576MupbdwBnqKB9yTLcgcloR2QPXpe2G+8fY3s8Fxuq+4r+aUj0
- 2DqLXNhsxbDrPbaz1noVhT8HgxsEhELbB7VlhECeUSjgLdIRVl4uG+R2ZePy7ECxp7Da
- r2nu2RwDDDeFX6jQcyuNgb/wF3eES0oOw52BF76hIHEVhAj7IKumTcxn+CUf19MhL2Ks
- uT/bnnPsvMKBNV4dJ4iUdj0wITFXRPKKyeE15dNd9e0QQBzoSHr5SGnk8LrrM0PQstcu
- k01w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778567823; x=1779172623;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=M/Io3R6L2sxqqwxZ2xN7qSJG+cD+zBc4qCZ/FGPLMyU=;
- b=VjHQCLRC8RkxdS3uATuQEAM0d7KWOZCL7dw+5UfxU/WLRXjpt7IsJkBDiuEgkmwdaq
- 2Uc5RDVUTQL0+//b7A1QGqbISYvCDgetk7OHaxYxxSMnBexhFSDhoVIKusipIU1rV/Cn
- gNfqZV1OuPP5WRsWeDwphsIenCHqC+UQe++iE9G2CtJSU9n3WgQUuNfatP5AdSql0afI
- Z4gvOuMFrJ28cBHNzUQ6z0cQ2DDV7JL/TasxS/Ss9IcWWNvOc2fTu7CZMxSevjwBp4u2
- gkCSSTK5YkQXMs7UoASgUrK8AiilFF54f84x87u1MSMwp3TIbt/x3LuM9ZQ5YC8zIgJN
- ZPRg==
-X-Gm-Message-State: AOJu0YxsN751rcP1PquiB89EU6qTnpx6KH2Sj4aipBQn6AkAz0Hcodo+
- 7hYCBNST7XFFp7MVT2ecetPSqSUY4CNrmTKktl5qdNkHeH8K5FNMmsjlUg9/bCs=
-X-Gm-Gg: Acq92OE3soux86h6oDj6kUdeJ97PWkFEJr5tWiqhWv/NTF89Jw5KbzOOJzF9mYA/vLz
- O4RSZ/itx1d86C//V2MyuXBW/1wqUqkfSWG2Hokz95HChdjKuWwB+uDyAcnoktg24W9evwrhaIt
- wbEZO1+Hhm9+9Ku8WZivtFedXNNcRmS+0gluSBe2/CUMGrrjwR/Zz8mypXEdNioIrB7K7xCCbiE
- Kxja606qcmJ4IEO3nTUyh3OtCVAUYtXckPaTN2VHZFXVg0QE9OjrsrcHZy7fJskAHHJWE8W+NVP
- woV1XYEqjKfT4FrTsLcGboI6KL9W7l3Xpcopj/U8xAl6IM2hOtDx1VxmbvPE6FsXqWQpfqsN6P2
- 3wpYz6Qh90+OW1eAeHq6zu6Has9fV+Zk6DxPTnoBL1Cv9pZn9n2c3o8vew6+xMCGycggjqV5lS+
- fQ+ODJ/4UHkbhHQBiX1YVozra4JH6RArH+iNPted9JB2FcpuIPTFFr9s1hlP4SQaH1GvlBsng/s
- A==
-X-Received: by 2002:a05:6a00:429a:b0:838:c01a:7a50 with SMTP id
- d2e1a72fcca58-83eebc24f3bmr1610402b3a.30.1778567822961; 
- Mon, 11 May 2026 23:37:02 -0700 (PDT)
-Received: from localhost.localdomain ([211.198.234.66])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83967dbf7d2sm29996163b3a.49.2026.05.11.23.36.59
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 11 May 2026 23:37:02 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Myeonghun Pak <mhun512@gmail.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Sui Jingfeng <suijingfeng@loongson.cn>, Jianmin Lv <lvjianmin@loongson.cn>,
- Qianhai Wu <wuqianhai@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
- Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v2] drm/loongson: use managed KMS polling
-Date: Tue, 12 May 2026 15:36:51 +0900
-Message-ID: <20260512063657.53100-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC31610E277
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 06:39:27 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 732A26BDC4;
+ Tue, 12 May 2026 06:39:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778567966; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=QtLd4tTLfd4CmmeCwSPHlKJiEBEpvDzglFXtnr2vM3A=;
+ b=0OcG3OpIcxy9DDVyaDRvJapRi/MvFH3B2odzou2uIYWl35heysHZkmlSKZY8LA1m/RDJsI
+ ZkoewSLRzy6TEeKo6WlbstMeSmsX5mO1mLuUcnAI40RU3zC7qRZFboLGgSv4SqueyqVlqH
+ nb5vmSBvM/lt7gFHJcvrTxY713XR8Rw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778567966;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=QtLd4tTLfd4CmmeCwSPHlKJiEBEpvDzglFXtnr2vM3A=;
+ b=hJgiNDoUV8gZLRSb8lN6jw0lv/ygZ8fzi5/Mx0EJYa8f0sIWdkSPumesk0x7oKYolct6+5
+ cgtukdBSbbgdKYDA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0OcG3OpI;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=hJgiNDoU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778567966; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=QtLd4tTLfd4CmmeCwSPHlKJiEBEpvDzglFXtnr2vM3A=;
+ b=0OcG3OpIcxy9DDVyaDRvJapRi/MvFH3B2odzou2uIYWl35heysHZkmlSKZY8LA1m/RDJsI
+ ZkoewSLRzy6TEeKo6WlbstMeSmsX5mO1mLuUcnAI40RU3zC7qRZFboLGgSv4SqueyqVlqH
+ nb5vmSBvM/lt7gFHJcvrTxY713XR8Rw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778567966;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=QtLd4tTLfd4CmmeCwSPHlKJiEBEpvDzglFXtnr2vM3A=;
+ b=hJgiNDoUV8gZLRSb8lN6jw0lv/ygZ8fzi5/Mx0EJYa8f0sIWdkSPumesk0x7oKYolct6+5
+ cgtukdBSbbgdKYDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 341BC593A9;
+ Tue, 12 May 2026 06:39:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id cGNaCh7LAmoDDwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 12 May 2026 06:39:26 +0000
+Message-ID: <af49bbcf-58d3-4fe4-a742-ba4da4493cbd@suse.de>
+Date: Tue, 12 May 2026 08:39:25 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/gud: Add RCade Display Adapter VID/PID pair
+To: Sophie D <patches@scd31.com>, dri-devel@lists.freedesktop.org
+Cc: rubenru09@aol.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org
+References: <20260509122037.4189266-1-patches@scd31.com>
+ <13469286-2252-4da2-96eb-979cc121f8b9@suse.de> <871pfidu8n.fsf@scd31.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <871pfidu8n.fsf@scd31.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_DN_SOME(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ URIBL_BLOCKED(0.00)[suse.com:url,suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[aol.com,gmail.com];
+ RCVD_TLS_ALL(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[aol.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[8]; MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:dkim, suse.com:url,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 732A26BDC4
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,43 +150,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-lsdc_pci_probe() initializes KMS polling before setting up vblank support,
-requesting the IRQ and registering the DRM device. If any of those later
-steps fails, probe returns without finalizing polling. The driver also
-never finalizes polling on regular removal.
+Hi
 
-Use drmm_kms_helper_poll_init() so polling is tied to the DRM device
-lifetime and automatically finalized on probe failure and device removal.
+Am 11.05.26 um 14:08 schrieb Sophie D:
+> Hello,
+>
+>> That's pretty cool. Are these devices somewhere available for
+>> purchase?
+> They are not. I used to sell other hardware devices a few years ago but
+> found it took just a little too much time. Since they're open source,
+> maybe someone else will sell them eventually.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+Ok. Patch is now merged.
 
-Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Changes in v2:
-- Switch to drmm_kms_helper_poll_init() as suggested by Icenowy Zheng
-  and Thomas Zimmermann instead of adding manual cleanup paths.
+Best regards
+Thomas
 
- drivers/gpu/drm/loongson/lsdc_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> Thanks,
+> Sophie
 
-diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
-index abf5bf68ee..4b97750897 100644
---- a/drivers/gpu/drm/loongson/lsdc_drv.c
-+++ b/drivers/gpu/drm/loongson/lsdc_drv.c
-@@ -292,7 +292,7 @@ static int lsdc_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	vga_client_register(pdev, lsdc_vga_set_decode);
- 
--	drm_kms_helper_poll_init(ddev);
-+	drmm_kms_helper_poll_init(ddev);
- 
- 	if (loongson_vblank) {
- 		ret = drm_vblank_init(ddev, descp->num_of_crtc);
 -- 
-2.47.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
