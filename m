@@ -4,76 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63A42CD4F35
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 12:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 034C8CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 13:06:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F9FF10E09F;
-	Tue, 12 May 2026 12:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 680F210E222;
+	Tue, 12 May 2026 13:06:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="f7l6zDQT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A3G7WWRW";
 	dkim-atps=neutral
-Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com
- [209.85.221.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B3D510E09F
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:58:23 +0000 (UTC)
-Received: by mail-wr1-f73.google.com with SMTP id
- ffacd0b85a97d-441243ba35fso4444453f8f.0
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 05:58:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1778590702; x=1779195502;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=vDWMnr041UI5ryil+k7XvoK/2F/EkGtTQwaeX0kDxi0=;
- b=f7l6zDQTvSl4f/H52E3LtWotDkkn93MrF2GlTj0NyWqVi2yRW5L3rMVfvatTeAZyDN
- UpcTedIZBBwssrA2YorVfafno95KIB91XiHYDEl/zE2paPEnR4o3swc0Pc1/l4az/Vx0
- xOYPoEk2HMfyZJq2fWjJX+xCTq0AUcBEiU0vZEDdPE1mGlVWyG+3bapG4ijL+sRyogRs
- /+DNKnCe80wbfBfmsSyYDZ1H6vNPcvherrwVq+Yt7kI74MPVNJ7v7ohzDBLQSKzFpGzZ
- loqWhSqFeGtKw2YMsULsNS8yAQ/vwFL3NELDzZSe1HZlOLE2oIbeJ5+nwgsR8po13v0u
- sd/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778590702; x=1779195502;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=vDWMnr041UI5ryil+k7XvoK/2F/EkGtTQwaeX0kDxi0=;
- b=gREdg4GO2gG+sLEZQEpFIDfSZWypq19fco6fXe9zuWfVfpvfOQUHuzlmOmCLKIx6Lj
- cflJ3Q8JM9I/evdkxMs8XYFFmKBBHJh8PQc6/Mz9k4svniTdbLCHia99V4+PMsc+ah5u
- v6anJDCNhm9hwMFjjJ4TBM1tw4PjCDk0qVpQUUYPyQDuv25AHswHKrm8NjqcY3h73JN0
- ypVIruO2Mwk7z1SPWV0PaY3EOllhEEPod8Po4D3S22GTa1itC/On88FsGPopeLfuuxyK
- miaCRlgoc6fULdPEI6M3buDzU5io2ic0qQXpCVNpwzAP0kkxcxhX6W3yJf0zAbWADWPN
- eC/g==
-X-Gm-Message-State: AOJu0YxeQNsoZbw1wRhutiU4dfzk5UNXOJJSvvXZMeyU02n9J5D+Melq
- 4T0cRz3g+Fo1iQTrizpu7CWXv3xK+Bh/VL+5VeIAQNnJXfCnSJKnI8yUin9lmkdZcAgg6z6IlmQ
- 7SaJGxQEkakQCjA==
-X-Received: from wmby19.prod.google.com ([2002:a05:600c:c053:b0:485:3aa2:da59])
- (user=jackmanb job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8010:b0:48a:5339:ef0e with SMTP id
- 5b1f17b1804b1-48e70687eabmr216165565e9.3.1778590701567; 
- Tue, 12 May 2026 05:58:21 -0700 (PDT)
-Date: Tue, 12 May 2026 12:58:20 +0000
-In-Reply-To: <20260326-gfp64-v2-0-d916021cecdf@google.com>
-Mime-Version: 1.0
-References: <20260326-gfp64-v2-0-d916021cecdf@google.com>
-X-Mailer: aerc 0.21.0
-Message-ID: <DIGPS83BGEGA.5I7VLH8TV7XE@google.com>
-Subject: Re: [PATCH v2 0/4] treewide: fixup gfp_t printks
-From: Brendan Jackman <jackmanb@google.com>
-To: Brendan Jackman <jackmanb@google.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACAF710EA90;
+ Tue, 12 May 2026 13:06:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DC5FA6012A;
+ Tue, 12 May 2026 13:06:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 129ECC2BCF6;
+ Tue, 12 May 2026 13:06:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778591174;
+ bh=mxkddz9BDuQCHvOCbUUJ90eg8pjGZVnjyCNE9GmxaFA=;
+ h=From:Subject:Date:To:Cc:From;
+ b=A3G7WWRWS4rMEE3kgvcztzYc4Vp0UwFUvGZuWuuBEL2U90x/52C786k9rldo6PuIm
+ OeO9JsWgkXiP5kf1qb88sPJfzb/Zinr+6PMcGTJL04eIGFI7OHWciyqfxLk+wvZ1Vs
+ YqA8s/Gq5r/4d8cdTyoUobaYwPRGhryzG6V/zcahueM6Q54YCNbpJWpT1eftT65Uxe
+ gZX91C5wEygAJTd5eMI0ERK3YQM0R/6RAPkF9GRHYJCYHuET91NpsAFTWLEunJ1DRV
+ 8kyRi6eNuodqdRW4pUXJRNsse931/+cRWYHlRsrzvCIEhgOFdhbEBmIeit8gfdq3Yg
+ ZWv8uSKTtfEpQ==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v4 00/20] drm/atomic: Rework initial state allocation
+Date: Tue, 12 May 2026 15:05:58 +0200
+Message-Id: <20260512-drm-mode-config-init-v4-0-591dfdcc1bf9@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OTW7DIBAF4KtYrEvFn22SVe9RdRFgcEapIQVqp
+ Yp89xKySKoqWb4ZvW/mTDIkhEy23ZkkWDBjDDWol47Y/S5MQNHVTAQTA5OcUZdmOkcH1MbgcaI
+ YsFAO3PfCjKp3jNTqMYHHU2PfP645wdd31ct1SMwuX4h5xrLtApwKbRd6psmlsMdcYvppby28N
+ Z5/sHBaNzDKzWg1cOvfDpACfL7GNDVxEXeKeKSIqthBes6lgnGw/xR5U5RQDxRZFW0G7TbOMKf
+ NH2Vd119lfOmOdgEAAA==
+X-Change-ID: 20260310-drm-mode-config-init-1e1f52b745d0
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Stanislaw Gruszka <stf_xl@wp.pl>, 
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
- Dmitry Vyukov <dvyukov@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Allison Henderson <allison.henderson@oracle.com>,
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, 
- <linux-wireless@vger.kernel.org>, <kasan-dev@googlegroups.com>, 
- <linux-mm@kvack.org>, <netdev@vger.kernel.org>, <linux-rdma@vger.kernel.org>, 
- <rds-devel@oss.oracle.com>
-Content-Type: text/plain; charset="UTF-8"
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>, 
+ Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5534; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=mxkddz9BDuQCHvOCbUUJ90eg8pjGZVnjyCNE9GmxaFA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnMqjvXLZf6dyeu1XHP/u9HBWbVRZtfjGu+6rvorGIN9
+ 4HbT29odkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJ2K5nrI/Or+nKbkyvvMLX
+ 5DWlY4Ga9c7kmUs3fi0wTKyd5hP1OPy+l+qnPF6n/nv7bkv2xngcYazh3FwsuI8v/dxi/i0r3Za
+ eF99arPP1j7ZmWlFQ05cvS9Wmh2bFSSh08T1iZq+buetWmTcA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,37 +95,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Mar 26, 2026 at 12:31 PM UTC, Brendan Jackman wrote:
-> This patchset used to be about switching gfp_t to unsigned long. That is
-> probably not gonna happen any more but while writing it I found these
-> cleanups that seem worthwhile regardless.
->
-> Signed-off-by: Brendan Jackman <jackmanb@google.com>
-> ---
-> Changes in v2:
-> - Drop gfp_t changes
-> - Add correct CCs
-> - Add minor fixups to preexisting code spotted by AI review
-> - Link to v1: https://lore.kernel.org/r/20260319-gfp64-v1-0-2c73b8d42b7f@google.com
->
-> ---
-> Brendan Jackman (4):
->       drm/managed: Use special gfp_t format specifier
->       iwlegacy: 3945-mac: Fixup allocation failure log
->       mm/kfence: Use special gfp_t format specifier
->       net/rds: Use special gfp_t format specifier
->
->  drivers/gpu/drm/drm_managed.c                  | 4 ++--
->  drivers/net/wireless/intel/iwlegacy/3945-mac.c | 4 ++--
->  mm/kfence/kfence_test.c                        | 2 +-
->  net/rds/tcp_recv.c                             | 2 +-
->  4 files changed, 6 insertions(+), 6 deletions(-)
-> ---
-> base-commit: c369299895a591d96745d6492d4888259b004a9e
-> change-id: 20260319-gfp64-7a970a80ba4e
->
-> Best regards,
+Hi,
 
-Hi all,
+This series started from my work on the hardware state readout[1], and
+more specifically a discussion with Thomas[2].
 
-Any chance someone can take these?
+This series expands the work that has been merged recently to make
+drm_private_obj and drm_private_state allocation a bit more consistent
+and ended up creating a new atomic_create_state callback to allocate a
+new state with no side effect.
+
+The first patches document the existing behaviour and fix a few
+cleanups and typos.
+
+Then, __drm_*_state_reset() helpers are renamed to
+__drm_*_state_init() to clarify that they initialize rather than
+reset state, and we add the new atomic_create_state callback to
+every other DRM object (planes, CRTCs, connectors, colorops).
+
+Next, we leverage those new callbacks to create a new helper,
+drm_mode_config_create_initial_state(), to create the initial state
+for all the objects of a driver, and update the driver skeleton to
+recommend it.
+
+Finally, we convert the tidss driver and the bridge_connector to the
+new pattern.
+
+This was tested on a TI SK-AM62, with the tidss driver.
+
+Let me know what you think,
+Maxime
+
+1: https://lore.kernel.org/dri-devel/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org/
+2: https://lore.kernel.org/dri-devel/5920ffe5-b6b1-484b-b320-332b9eb9db82@suse.de/
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v4:
+- Rebased on current drm-misc-next
+- Update drm_atomic_state to drm_atomic_commit
+- Various doc impromvements
+- Don't call drm_crtc_vblank_reset in create_state
+- Prevent mem leak if states already have a state when
+  drm_mode_config_reset or _create_initial_state are called
+- Link to v3: https://lore.kernel.org/r/20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org
+
+Changes in v3:
+- Reintroduce state documentation that was dropped by accident
+- Change name to drm_mode_config_create_initial_state()
+- Don't call drm_mode_config_create_initial_state() in drm_dev_register
+  anymore
+- Drop __drm_atomic_helper_*_create_state
+- Improve documentation and commit messages where necessary
+- Collected tags
+- Link to v2: https://lore.kernel.org/r/20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org
+
+Changes in v2:
+- Change the _state_reset function names to _state_init
+- Change the colorop too
+- Various doc improvements
+- Link to v1: https://lore.kernel.org/r/20260310-drm-mode-config-init-v1-0-de7397c8e1cf@kernel.org
+
+---
+Maxime Ripard (20):
+      drm/atomic: Document atomic commit lifetime
+      drm/colorop: Fix typos in the doc
+      drm/atomic: Drop drm_private_obj.state assignment from create_state
+      drm/atomic: Expand atomic_create_state expectations for drm_private_obj
+      drm/mode-config: Document drm_private_obj exclusion from drm_mode_config_reset()
+      drm/colorop: Rename __drm_colorop_state_reset()
+      drm/colorop: Create drm_atomic_helper_colorop_create_state()
+      drm/atomic-state-helper: Fix __drm_atomic_helper_plane_reset() doc typo
+      drm/atomic-state-helper: Rename __drm_atomic_helper_plane_state_reset()
+      drm/plane: Add new atomic_create_state callback
+      drm/atomic-state-helper: Rename __drm_atomic_helper_crtc_state_reset()
+      drm/crtc: Add new atomic_create_state callback
+      drm/atomic-state-helper: Rename __drm_atomic_helper_connector_state_reset()
+      drm/hdmi: Rename __drm_atomic_helper_connector_hdmi_reset()
+      drm/connector: Add new atomic_create_state callback
+      drm/mode-config: Create drm_mode_config_create_initial_state()
+      drm/drv: Switch skeleton to drm_mode_config_create_initial_state()
+      drm/tidss: Switch to drm_mode_config_create_initial_state()
+      drm/tidss: Convert to atomic_create_state
+      drm/bridge_connector: Convert to atomic_create_state
+
+ Documentation/gpu/drm-kms.rst                      |   6 +
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  17 +-
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  15 +-
+ drivers/gpu/drm/drm_atomic.c                       |  66 ++++++++
+ drivers/gpu/drm/drm_atomic_state_helper.c          | 114 ++++++++++---
+ drivers/gpu/drm/drm_colorop.c                      |  41 ++++-
+ drivers/gpu/drm/drm_drv.c                          |   4 +-
+ drivers/gpu/drm/drm_mode_config.c                  | 187 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_crtc.c          |   2 +-
+ drivers/gpu/drm/i915/display/intel_plane.c         |   2 +-
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |   2 +-
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c |   2 +-
+ drivers/gpu/drm/tidss/tidss_crtc.c                 |  17 +-
+ drivers/gpu/drm/tidss/tidss_drv.c                  |   6 +-
+ drivers/gpu/drm/tidss/tidss_plane.c                |   2 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     |   2 +-
+ include/drm/display/drm_hdmi_state_helper.h        |   4 +-
+ include/drm/drm_atomic.h                           |   5 +-
+ include/drm/drm_atomic_state_helper.h              |  12 +-
+ include/drm/drm_colorop.h                          |   2 +
+ include/drm/drm_connector.h                        |  16 ++
+ include/drm/drm_crtc.h                             |  16 ++
+ include/drm/drm_mode_config.h                      |   1 +
+ include/drm/drm_plane.h                            |  16 ++
+ 24 files changed, 489 insertions(+), 68 deletions(-)
+---
+base-commit: b462608de92a7cac450781f9d8d4c7cf3ccf82db
+change-id: 20260310-drm-mode-config-init-1e1f52b745d0
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
