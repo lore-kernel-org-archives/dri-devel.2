@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68CAACD343F
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 19:20:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 248EDCD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 19:20:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEA8010EBF3;
-	Tue, 12 May 2026 19:20:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8983210EC05;
+	Tue, 12 May 2026 19:20:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aCff3BL8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Kkc10hM7";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC5D310EBF3;
- Tue, 12 May 2026 19:20:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCEC010EC00;
+ Tue, 12 May 2026 19:20:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778613617; x=1810149617;
+ t=1778613625; x=1810149625;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kLBNPJqx0htp6wX12ApLrdpbWgnCcUGjRkSNKQux65I=;
- b=aCff3BL89BIYmuca4RaXi7BF068x0ns2ywZpU8J7l6d2MQk50o75amRM
- Z4sTrERUB12Fj4JCbJA9gMDhdKbjmFbTo8+glT1GxvKgB7YiRLClG+BAF
- E6GIFSotRWnw+acww3TgFVlx3UZCtrgHMlBX00Uu8ezrLNPfas+fpjood
- 7qBmeqoUZvkbGBYlHvMH71+maOtlMPR8q3ByQJiqx8CdjlXhBboUaGuel
- A0n80Xc6bXeb3jqmsTkSNVx0lgi25BWO2h8vHOa4nGa/oQFadTTl12IFi
- rmLM+lhbcB+x/mRRNF5+HLp/aXC/dDq042MfL+PqVzu5PWFmq8Yi3Ub/C w==;
-X-CSE-ConnectionGUID: knkycEGlRSaippuLu4QJeg==
-X-CSE-MsgGUID: ZxougRifTdOyRQ7JN61Kog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83406435"
-X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="83406435"
+ bh=dKt54H2rIkdQPk6NmrBQ/14MGjE76a2zw1lBgYqTIcE=;
+ b=Kkc10hM7fybzUa7dieEa4VwDZftfgqvoFuFhK5QmhKf9POkmXcNohnVG
+ jV1DPlf0NsWFNy1j8GUUGLSL1NLOzDEhKOMpUkZ8EBoQgV9kBUpQ9SQiC
+ EZzzH0NgRJA6L4PFwx1wfxuTZJ1Q6cuyiBDBJJx11M/1ROq3qYlzbJlAG
+ SLIuD3MsKsLfymm9STcHCtDkdOWCwCFPb0uAWA7O3Y3ikeUUXVMcDqCmn
+ Aeh0EE1fKJXoM1a4Ua4j7P8N9CYy13rXBEnaWlCSA33NqNV5egHXazh19
+ 5AufQSXk+3mc2bw2/xKu9Ab9ORLsPUE+bsMX7zJUt90Ahu+2+6XW60O6D w==;
+X-CSE-ConnectionGUID: nDHqRjvhSwKBE4Ut+1GtJw==
+X-CSE-MsgGUID: +sA4Nlf4S+mZ/4xkz7wz7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83406456"
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="83406456"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 12:20:16 -0700
-X-CSE-ConnectionGUID: hyZIh3iDRB2+6mY9oYwbZg==
-X-CSE-MsgGUID: XNtkGRmtQHqrE4IiCMUNtQ==
+ 12 May 2026 12:20:24 -0700
+X-CSE-ConnectionGUID: dgOw/JsfQzy8Fu71anPbdw==
+X-CSE-MsgGUID: 1JYQfoXRQ7+ZKEYAdr3hzQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="237781526"
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="237781553"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by orviesa008.jf.intel.com with ESMTP; 12 May 2026 12:20:11 -0700
+ by orviesa008.jf.intel.com with ESMTP; 12 May 2026 12:20:17 -0700
 From: Raag Jadav <raag.jadav@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  netdev@vger.kernel.org
@@ -51,9 +51,9 @@ Cc: simona.vetter@ffwll.ch, airlied@gmail.com, kuba@kernel.org,
  matthew.d.roper@intel.com, umesh.nerlige.ramappa@intel.com,
  mallesh.koujalagi@intel.com, anoop.c.vijay@intel.com,
  aravind.iddamsetty@linux.intel.com, Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v2 5/9] drm/xe/ras: Get error threshold support
-Date: Wed, 13 May 2026 00:46:06 +0530
-Message-ID: <20260512191610.1817578-6-raag.jadav@intel.com>
+Subject: [PATCH v2 6/9] drm/xe/ras: Set error threshold support
+Date: Wed, 13 May 2026 00:46:07 +0530
+Message-ID: <20260512191610.1817578-7-raag.jadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260512191610.1817578-1-raag.jadav@intel.com>
 References: <20260512191610.1817578-1-raag.jadav@intel.com>
@@ -75,71 +75,75 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 System controller allows programming per error threshold value, which
-it uses to raise error events to the driver. Get it using mailbox
-command so that it can be exposed to the user.
+it uses to raise error events to the driver. Set it using mailbox
+command so that it can be programmed by the user.
 
 Signed-off-by: Raag Jadav <raag.jadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_ras.c                   | 58 +++++++++++++++++++
- drivers/gpu/drm/xe/xe_ras.h                   |  3 +
- drivers/gpu/drm/xe/xe_ras_types.h             | 22 +++++++
- drivers/gpu/drm/xe/xe_sysctrl_mailbox.c       | 29 ++++++++++
- drivers/gpu/drm/xe/xe_sysctrl_mailbox.h       |  3 +
+v2: Add RAS operation status codes (Riana)
+---
+ drivers/gpu/drm/xe/xe_ras.c                   | 72 +++++++++++++++++++
+ drivers/gpu/drm/xe/xe_ras.h                   |  1 +
+ drivers/gpu/drm/xe/xe_ras_types.h             | 28 ++++++++
  drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |  2 +
- 6 files changed, 117 insertions(+)
+ 4 files changed, 103 insertions(+)
 
 diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-index 4cb16b419b0c..434dea8bbdb1 100644
+index 434dea8bbdb1..4548e5cb08b9 100644
 --- a/drivers/gpu/drm/xe/xe_ras.c
 +++ b/drivers/gpu/drm/xe/xe_ras.c
-@@ -4,11 +4,14 @@
-  */
- 
- #include "xe_device.h"
-+#include "xe_pm.h"
- #include "xe_printk.h"
- #include "xe_ras.h"
- #include "xe_ras_types.h"
- #include "xe_sysctrl.h"
- #include "xe_sysctrl_event_types.h"
-+#include "xe_sysctrl_mailbox.h"
-+#include "xe_sysctrl_mailbox_types.h"
- 
- /* Severity of detected errors  */
- enum xe_ras_severity {
-@@ -50,6 +53,23 @@ static const char *const xe_ras_components[] = {
+@@ -34,6 +34,17 @@ enum xe_ras_component {
+ 	XE_RAS_COMP_MAX
  };
- static_assert(ARRAY_SIZE(xe_ras_components) == XE_RAS_COMP_MAX);
  
-+/* uAPI mapping */
-+static const int drm_to_xe_ras_components[] = {
-+	[DRM_XE_RAS_ERR_COMP_CORE_COMPUTE]	= XE_RAS_COMP_CORE_COMPUTE,
-+	[DRM_XE_RAS_ERR_COMP_SOC_INTERNAL]	= XE_RAS_COMP_SOC_INTERNAL,
-+	[DRM_XE_RAS_ERR_COMP_DEVICE_MEMORY]	= XE_RAS_COMP_DEVICE_MEMORY,
-+	[DRM_XE_RAS_ERR_COMP_PCIE]		= XE_RAS_COMP_PCIE,
-+	[DRM_XE_RAS_ERR_COMP_FABRIC]		= XE_RAS_COMP_FABRIC,
++/* RAS operation status codes */
++enum xe_ras_status {
++	XE_RAS_STATUS_SUCCESS = 0,
++	XE_RAS_STATUS_INVALID_PARAM,
++	XE_RAS_STATUS_NOT_SUPPORTED,
++	XE_RAS_STATUS_TIMEOUT,
++	XE_RAS_STATUS_HARDWARE_FAILURE,
++	XE_RAS_STATUS_INSUFFICIENT_RESOURCES,
++	XE_RAS_STATUS_MAX
 +};
-+static_assert(ARRAY_SIZE(drm_to_xe_ras_components) == DRM_XE_RAS_ERR_COMP_MAX);
 +
-+/* uAPI mapping */
-+static const int drm_to_xe_ras_severities[] = {
-+	[DRM_XE_RAS_ERR_SEV_CORRECTABLE]	= XE_RAS_SEV_CORRECTABLE,
-+	[DRM_XE_RAS_ERR_SEV_UNCORRECTABLE]	= XE_RAS_SEV_UNCORRECTABLE,
+ static const char *const xe_ras_severities[] = {
+ 	[XE_RAS_SEV_NOT_SUPPORTED]		= "Not Supported",
+ 	[XE_RAS_SEV_CORRECTABLE]		= "Correctable Error",
+@@ -70,6 +81,24 @@ static const int drm_to_xe_ras_severities[] = {
+ };
+ static_assert(ARRAY_SIZE(drm_to_xe_ras_severities) == DRM_XE_RAS_ERR_SEV_MAX);
+ 
++static int ras_status_to_errno(u32 status)
++{
++	switch (status) {
++	case XE_RAS_STATUS_INVALID_PARAM:
++		return -EINVAL;
++	case XE_RAS_STATUS_NOT_SUPPORTED:
++		return -EOPNOTSUPP;
++	case XE_RAS_STATUS_TIMEOUT:
++		return -ETIMEDOUT;
++	case XE_RAS_STATUS_HARDWARE_FAILURE:
++		return -EIO;
++	case XE_RAS_STATUS_INSUFFICIENT_RESOURCES:
++		return -ENOSPC;
++	default:
++		return -EPROTO;
++	}
 +};
-+static_assert(ARRAY_SIZE(drm_to_xe_ras_severities) == DRM_XE_RAS_ERR_SEV_MAX);
 +
  static inline const char *sev_to_str(u8 severity)
  {
  	if (severity >= XE_RAS_SEV_MAX)
-@@ -91,3 +111,41 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
- 			comp_to_str(component), sev_to_str(severity));
- 	}
+@@ -149,3 +178,46 @@ int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32
+ 	       comp_to_str(counter.common.component), sev_to_str(counter.common.severity));
+ 	return 0;
  }
 +
-+int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32 *threshold)
++int xe_ras_set_threshold(struct xe_device *xe, u32 severity, u32 component, u32 threshold)
 +{
-+	struct xe_ras_get_threshold_response response = {};
-+	struct xe_ras_get_threshold_request request = {};
++	struct xe_ras_set_threshold_response response = {};
++	struct xe_ras_set_threshold_request request = {};
 +	struct xe_sysctrl_mailbox_command command = {};
 +	struct xe_ras_error_class counter = {};
 +	size_t len;
@@ -148,147 +152,98 @@ index 4cb16b419b0c..434dea8bbdb1 100644
 +	counter.common.severity = drm_to_xe_ras_severities[severity];
 +	counter.common.component = drm_to_xe_ras_components[component];
 +	request.counter = counter;
++	request.threshold = threshold;
 +
 +	xe_sysctrl_populate_command(&command, &request, &response, sizeof(request),
 +				    sizeof(response), XE_SYSCTRL_GROUP_GFSP,
-+				    XE_SYSCTRL_CMD_GET_THRESHOLD);
++				    XE_SYSCTRL_CMD_SET_THRESHOLD);
 +
 +	guard(xe_pm_runtime)(xe);
 +	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
 +	if (ret) {
-+		xe_err(xe, "sysctrl: failed to get threshold %d\n", ret);
++		xe_err(xe, "sysctrl: failed to set threshold %d\n", ret);
 +		return ret;
 +	}
 +
 +	if (len != sizeof(response)) {
-+		xe_err(xe, "sysctrl: unexpected get threshold response length %zu (expected %zu)\n",
++		xe_err(xe, "sysctrl: unexpected set threshold response length %zu (expected %zu)\n",
 +		       len, sizeof(response));
 +		return -EIO;
 +	}
 +
-+	counter = response.counter;
-+	*threshold = response.threshold;
++	if (response.status) {
++		xe_err(xe, "sysctrl: set threshold operation failed %#x\n", response.status);
++		return ras_status_to_errno(response.status);
++	}
 +
-+	xe_dbg(xe, "[RAS]: get threshold %u for %s %s\n", response.threshold,
++	counter = response.counter;
++
++	xe_dbg(xe, "[RAS]: set threshold %u for %s %s\n", response.threshold,
 +	       comp_to_str(counter.common.component), sev_to_str(counter.common.severity));
 +	return 0;
 +}
 diff --git a/drivers/gpu/drm/xe/xe_ras.h b/drivers/gpu/drm/xe/xe_ras.h
-index ea90593b62dc..982bbe61461e 100644
+index 982bbe61461e..d1f71b1de723 100644
 --- a/drivers/gpu/drm/xe/xe_ras.h
 +++ b/drivers/gpu/drm/xe/xe_ras.h
-@@ -6,10 +6,13 @@
- #ifndef _XE_RAS_H_
- #define _XE_RAS_H_
- 
-+#include <linux/types.h>
-+
- struct xe_device;
- struct xe_sysctrl_event_response;
- 
+@@ -14,5 +14,6 @@ struct xe_sysctrl_event_response;
  void xe_ras_counter_threshold_crossed(struct xe_device *xe,
  				      struct xe_sysctrl_event_response *response);
-+int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32 *threshold);
+ int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32 *threshold);
++int xe_ras_set_threshold(struct xe_device *xe, u32 severity, u32 component, u32 threshold);
  
  #endif
 diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ras_types.h
-index 4e63c67f806a..c29e9a3d43ce 100644
+index c29e9a3d43ce..6047fd891022 100644
 --- a/drivers/gpu/drm/xe/xe_ras_types.h
 +++ b/drivers/gpu/drm/xe/xe_ras_types.h
-@@ -70,4 +70,26 @@ struct xe_ras_threshold_crossed {
- 	struct xe_ras_error_class counters[XE_RAS_NUM_COUNTERS];
+@@ -92,4 +92,32 @@ struct xe_ras_get_threshold_response {
+ 	u32 reserved[4];
  } __packed;
  
 +/**
-+ * struct xe_ras_get_threshold_request - Request structure for get threshold
++ * struct xe_ras_set_threshold_request - Request structure for set threshold
 + */
-+struct xe_ras_get_threshold_request {
-+	/** @counter: Counter to get threshold for */
++struct xe_ras_set_threshold_request {
++	/** @counter: Counter to set threshold for */
 +	struct xe_ras_error_class counter;
++	/** @threshold: Threshold value to set */
++	u32 threshold;
 +	/** @reserved: Reserved for future use */
 +	u32 reserved;
 +} __packed;
 +
 +/**
-+ * struct xe_ras_get_threshold_response - Response structure for get threshold
++ * struct xe_ras_set_threshold_response - Response structure for set threshold
 + */
-+struct xe_ras_get_threshold_response {
++struct xe_ras_set_threshold_response {
 +	/** @counter: Counter ID */
 +	struct xe_ras_error_class counter;
-+	/** @threshold: Threshold value */
++	/** @threshold_prev: Previous threshold value */
++	u32 threshold_prev;
++	/** @threshold: Updated threshold value */
 +	u32 threshold;
++	/** @status: Set threshold operation status */
++	u32 status;
 +	/** @reserved: Reserved for future use */
-+	u32 reserved[4];
++	u32 reserved[2];
 +} __packed;
 +
  #endif
-diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c b/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
-index 3caa9f15875f..dc4cadd50ee8 100644
---- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
-+++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
-@@ -307,6 +307,35 @@ void xe_sysctrl_mailbox_init(struct xe_sysctrl *sc)
- 	sc->phase_bit = (ctrl_reg & SYSCTRL_FRAME_PHASE) ? 1 : 0;
- }
- 
-+/**
-+ * xe_sysctrl_populate_command() - Populate System Controller command structure
-+ * @command: System Controller command structure
-+ * @request: Pointer to request structure
-+ * @response: Pointer to response structure
-+ * @request_len: Length of request structure
-+ * @response_len: Length of response structure
-+ * @group_id: Group ID to be used with command
-+ * @cmd_id: Command ID to be used with command
-+ *
-+ * Helper for mailbox users to populate command structure fields to be later
-+ * sent to xe_sysctrl_send_command().
-+ */
-+void xe_sysctrl_populate_command(struct xe_sysctrl_mailbox_command *command, void *request,
-+				 void *response, size_t request_len, size_t response_len,
-+				 u8 group_id, u8 cmd_id)
-+{
-+	struct xe_sysctrl_app_msg_hdr header = {};
-+
-+	header.data = FIELD_PREP(APP_HDR_GROUP_ID_MASK, group_id) |
-+		      FIELD_PREP(APP_HDR_COMMAND_MASK, cmd_id);
-+
-+	command->header = header;
-+	command->data_in = request;
-+	command->data_in_len = request_len;
-+	command->data_out = response;
-+	command->data_out_len = response_len;
-+}
-+
- /**
-  * xe_sysctrl_send_command() - Send mailbox command to System Controller
-  * @sc: System Controller instance
-diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox.h b/drivers/gpu/drm/xe/xe_sysctrl_mailbox.h
-index f67e9234de48..5a4a0fed304f 100644
---- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox.h
-+++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox.h
-@@ -24,6 +24,9 @@ struct xe_sysctrl_mailbox_command;
- 	FIELD_GET(APP_HDR_VERSION_MASK, (hdr)->data)
- 
- void xe_sysctrl_mailbox_init(struct xe_sysctrl *sc);
-+void xe_sysctrl_populate_command(struct xe_sysctrl_mailbox_command *command, void *request,
-+				 void *response, size_t request_len, size_t response_len,
-+				 u8 group_id, u8 cmd_id);
- int xe_sysctrl_send_command(struct xe_sysctrl *sc,
- 			    struct xe_sysctrl_mailbox_command *cmd,
- 			    size_t *rdata_len);
 diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-index 84d7c647e743..a1b71218deca 100644
+index a1b71218deca..b865768e903b 100644
 --- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
 +++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-@@ -22,9 +22,11 @@ enum xe_sysctrl_group {
- /**
+@@ -23,10 +23,12 @@ enum xe_sysctrl_group {
   * enum xe_sysctrl_gfsp_cmd - Commands supported by GFSP group
   *
-+ * @XE_SYSCTRL_CMD_GET_THRESHOLD: Retrieve error threshold
+  * @XE_SYSCTRL_CMD_GET_THRESHOLD: Retrieve error threshold
++ * @XE_SYSCTRL_CMD_SET_THRESHOLD: Set error threshold
   * @XE_SYSCTRL_CMD_GET_PENDING_EVENT: Retrieve pending event
   */
  enum xe_sysctrl_gfsp_cmd {
-+	XE_SYSCTRL_CMD_GET_THRESHOLD		= 0x05,
+ 	XE_SYSCTRL_CMD_GET_THRESHOLD		= 0x05,
++	XE_SYSCTRL_CMD_SET_THRESHOLD		= 0x06,
  	XE_SYSCTRL_CMD_GET_PENDING_EVENT	= 0x07,
  };
  
