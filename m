@@ -4,134 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A5EACD4F24
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 16:14:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ABC2CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 16:20:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 607B310EB86;
-	Tue, 12 May 2026 16:14:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4A3E10E25D;
+	Tue, 12 May 2026 16:20:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GTuxMx0d";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b2xMoh7s";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="I5krqQYC";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A957B10EB84
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 16:14:55 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64CBxKkj129119
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 16:14:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- dearZrYdES8kldFVf7isD4SpduWQxApzD6N2MFZnRNE=; b=GTuxMx0dzEzVi0oi
- 355AdHSL1hNFcMHDkJ9/94Dt+X6CoZ8K0GBaioGeYh00BXK0GZ0LVzsK7qzbbn6d
- jHEIT+ImCe2/kVS5UYAJ35/OVcoJIjqQtxnMHV/7Nx+B5upJXGAEwRpyo4eKd1pY
- uMAJtU/9tv9H6ZAlNTn+Jv0JqU9jzyraw31Nv9BL74RLL5zu+pCQBi4cpiOVYx0Q
- /FWVCoX0jou9+RBNVbwgOimibZDgrG5kWCgSISvkza8uZgsck4XmKtcII6TZCv+M
- sTe/KhPLfhyzxCm6bSYIAHmtpOU+Mk+wHYwMu5AuJDvNjc/XXBT5NlOBFFGHoRoK
- bxS2pA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e43tn10a2-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 16:14:54 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-2f3ec2e8d07so10059482eec.1
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 09:14:54 -0700 (PDT)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2771510E25D
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 16:20:16 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-67da63ae541so10098889a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 09:20:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778602494; x=1779207294;
+ d=chromium.org; s=google; t=1778602811; x=1779207611;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=dearZrYdES8kldFVf7isD4SpduWQxApzD6N2MFZnRNE=;
- b=b2xMoh7sdfbCxZK2M7lvsUrOHjbC1TphYrPxbBgpRKIJZXMF251QCoguw6r88VMKjk
- 47TefckHCwWeD2mOxuz0yxYmlwR4it+S71UUu43Cgei1SiCMufRu0W/7loZR51JtX2Vc
- XsdVL2AC18K0yr4Kc/V4DUu21YHT3wR1kI6FAfq5zXCORBJNRCRDq5+uwNhz6PcbGJrh
- eSP1q0eY8GzyOMUuRMvllMisg38ndrlVMKwZhQaWJOZs2+pIl879jPNyqP3dJPq8TWTC
- eQFXPPxjMz4cHeI1vIhrxyLVN1OxCJuXHqmp3gNGj87k1auaOMsYRmXDViWN6+hrmOdh
- MeZQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IeyK+aHCsO8ZbrN+kA60XGbqitOYckkdGu1NcLbLw2g=;
+ b=I5krqQYChIiT0OiEQZKSvcVxD/3UuxQ1x3rjyxazN8ithS5t6/r93vKPsM5dzRNMqB
+ QqvIGowhH3HD4er3zYKMnylQDLJ4fCqeTrm1llIVFYYxmJD3dkSurVdHkAOiQSh+0cH8
+ +DN3HXl6bFsxTwD4EV42SicPmWGsN0jSY8Ewk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778602494; x=1779207294;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dearZrYdES8kldFVf7isD4SpduWQxApzD6N2MFZnRNE=;
- b=hxQMy4x0FrSC07bz0lnUFByt/7OCrd2YOIWulCd+vJl8cFsNC6ePTVFZ8MAfjrxxo9
- lYf3yOuxprw9u0mFLiuejPj+79/n7B2p3ONbfjLTsojCdMtw4P0+ADqy7aeQOS2KoZDt
- 5DTxTbrhb84aQvYDoRc0hqjijgMv2Uh29C4grwdPBcTVxkUXTjCJPqnYNz0zRuLHgwBU
- vzGT8s9AmHRmEdM+Wro0JdbbMMZlW3tv62JRPXa9Lbppr70ha8e/sne6ysmhAiFGRPgi
- MFqguLIlj7Hdl9i5QQyaUejM61YfJ9xh9W6CDl92YXQLDS/hAcF2Zgpf35aYTNg1U2Oj
- YqAA==
+ d=1e100.net; s=20251104; t=1778602811; x=1779207611;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=IeyK+aHCsO8ZbrN+kA60XGbqitOYckkdGu1NcLbLw2g=;
+ b=qYwYBSPRUJmH9FaGqiRhStETES+meCQlmjhZJLa+fou/WgQkWRAu9O4yzmGGgL2Ia+
+ skPm07Fl1+PPiY3gxQn5pzYjHOTn2XBc2mFHWpJrXTIwGg6CiR1RJ1fjAXw6E8eP9tsG
+ 7gK3tyQBykTyjQBuZUGU0yIYAs9aFIVFFcw3AWS54W6GR1+XSIVK7CMRGT8kVSOdLvsJ
+ InKPued2/7KKfmyA85f3QN9xs1+LNope/+PnljxrsJMut8V/Geo27TPQf8SgxMk5Axh2
+ 1IbgJQOwtaeWnyY986rMvuiFxZMW05aZ0i6+ReS0m43jnM5RCa2QrKEWEgDMjV3TXG96
+ P0wA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+42t/Kzxv1pOhc0TCqWSxVql+ZKAC1EXLbrbiXkiBBuLd+Ln4BylyKMJ0ybj5k3Rj9kgtObpC1i08=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAwH5cYbKVY8v51jDDTMMQSgDKWT9AgPYLGt1VmSb5MvkhMist
- JoqxP/eoCKRnXMDMWUapqDZkMRrx9hswdKEX3Tw4VYW549t3z7Q06MgGwE2eN9h6sQQZlGxU+ii
- B/BD5Z+hw64EjsxW3e+OeykMb9kXCLEXnu3zOqPTOEHSyAnPGj0+4S+Zp9shJCAfpYb2jPEk=
-X-Gm-Gg: Acq92OEI4+LbFD5+B5jAF1uZ0rDp9Ep8mRMZ/VxL2fJHDq9kb3dUrlONikyeoVDlYNU
- GMxwbhE8zNRvHk6GCXCiZBv/eHuQJMwJ7mAl9l+zBHW926f896vC94NiW59ysWpZfcKwts1g8HM
- dZKZTP1QbbpvGoD5I6rSBFrV0Tdm0/MQSdRouVzBKU3R+ocTi/xi/3iQ8rM7eck2KEM5DPCeLK0
- eYXBVe7fZXsI60Sr5dLaUG2K/3SmfnF6SWJAOY33FbnrLd5U7NkUu+5PtgZhpXoQ5GiObpP30fO
- RMr4V5olHYj0FRbWfi9FjE6D88YC6Z0iZxWdvifKq1H58xCnDfLm49vSf2HYRgHzFwd2jBVKJzE
- MNuRylC094j7Ep6+NuZYGuRyWIKnCtzhiZW42KOpIrA0DFK4fKFBZro7aAV8pQZjeeBO9fx8R2F
- o=
-X-Received: by 2002:a05:7300:478e:b0:2dd:405f:89b3 with SMTP id
- 5a478bee46e88-2f858348089mr11196206eec.0.1778602494246; 
- Tue, 12 May 2026 09:14:54 -0700 (PDT)
-X-Received: by 2002:a05:7300:478e:b0:2dd:405f:89b3 with SMTP id
- 5a478bee46e88-2f858348089mr11196174eec.0.1778602493662; 
- Tue, 12 May 2026 09:14:53 -0700 (PDT)
-Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2f8859eafcdsm23156644eec.6.2026.05.12.09.14.52
+ AFNElJ9wjz/YXyPI0dEXhARbXl8mKspK+9TRRpeCOVG2KrykQNRNGUrVOIM/IkeEYxfPGoVf7LlD3BTSjQY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwQ2p9escIwltc/wvtZNcX3inDgmr8aoiph9fykvVcVvmpnEHvw
+ P7hyk4EAiu6iiiVckonf0QSS4yrb8dyoKYzUS+Hth2NJKxikBcL6CLj7jvozu7I4f2SYFiLjD8M
+ xzOBdxw==
+X-Gm-Gg: Acq92OFC3TnBB12gOpRkD9+iO3+r1/8mCf5oFQjapr+MZwbqvJAb0I9gnQqW1569YBE
+ AaBbDWl3c8UmWWDySzGOnddKKF2hd8sSMnfETp0ZRyg4NBo62BQ9ELHf6l4mmtePV3xi90eLNLg
+ VNqwESOb0sm0docCPDdKvEjp9fQ4MSnByGy5QXJfl2ZOFSxNmdrD79TJZNdlx85fH84jnWiMTWI
+ G5h3A8gJU7PKVSSuIWA76ODo5ltVjsBMjaT99e90QZbPMguy19XFu9PfSa+N+xWVKbgi6C8PKLH
+ XXgt5zFSZEWV92TElm3gti5W2bhNw/ieE7l4VkCljoSTVUB/bsqDnGT0H4B4B2/ZMjc+w2DkX/f
+ Kb/k/ebiT32Jxszivcl5mg6OUkgy4BlJXEWokrItpyEIh2VeThSS0BF/vobs7CDXfX1CFqd/dJ4
+ 6xKFLDIIUbwPatfLVWzV8+mcXPOV3EVD2BHFP9Kyyr9gnsejFamDpVLeWACPneuQ==
+X-Received: by 2002:a05:6402:5025:b0:679:65da:33f2 with SMTP id
+ 4fb4d7f45d1cf-67f716df32emr7692716a12.21.1778602811128; 
+ Tue, 12 May 2026 09:20:11 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com.
+ [209.85.128.47]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-67ef0b3b904sm5079765a12.1.2026.05.12.09.20.09
+ for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 09:14:53 -0700 (PDT)
-Message-ID: <f37a917a-6bbe-4321-be11-2aa59c15f85c@oss.qualcomm.com>
-Date: Tue, 12 May 2026 10:14:52 -0600
+ Tue, 12 May 2026 09:20:10 -0700 (PDT)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-488a9033b2cso52778765e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 09:20:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8m8a2brPNkFrXlsiX8XURNBlGNw00diITzp2pGD3QLPDXz5yIdNoLKXIPHH+PsCwBjJ40FAmA891c=@lists.freedesktop.org
+X-Received: by 2002:a05:600c:6299:b0:489:1f97:6b1d with SMTP id
+ 5b1f17b1804b1-48e706edd0dmr242481795e9.28.1778602808331; Tue, 12 May 2026
+ 09:20:08 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2] accel/qaic: kcalloc + kzalloc to kzalloc
-To: Rosen Penev <rosenp@gmail.com>, linux-arm-msm@vger.kernel.org
-Cc: Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- "open list:QUALCOMM CLOUD AI (QAIC) DRIVER"
- <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- open "list:KERNEL" HARDENING "(not" covered by other
- "areas):Keyword:b__counted_by(_le|_be)?b" <linux-hardening@vger.kernel.org>
-References: <20260401220643.12802-1-rosenp@gmail.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260401220643.12802-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: V8lhgNpbQARqlI2XNeoDlB82k1x5j21v
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDE2OCBTYWx0ZWRfX8STHO4VleIn4
- IuyvPz289nCDw2Z0Bo2d1gdlEqKzO58s0MuDKKIcHoVFVId01Du55lv89SWoHS0Eglm4Bxf71vA
- IBCUKVcF52VIO1mMy/AVrdHYW0M2xIk2nl4YG4pvXRwxTOxwYQ1k4xwyHcRYxjGFhzwnyWdEr0H
- ck9VUNQBKp/nXXw7flwTut6/JAYhRplAk6cFyueL55b79SAiaPdo22qyKNgMkF/K7FSY7UMN6V4
- 9NWB1XKO8uMm6WgkJNl2PvprA90eU3drUNk79mdKM62PPgSUX8batAaLXEDfRdwqi+a/HLT3ZMH
- P0eZ0x6wTh/ado325tmftJkSzRjBXmEl0UBlTTm4VdcOgqTrHSLtsZEjO8Mi7mcofeGthCFeY8K
- sFBBnZEQDEgdQuHm2UiK22UUVsieDWsOzt9jmSusbM2a9qgudlh8/4adqVkG8E4taw1xwtlNZtY
- j2ujMoc6w3bIl/kJWKg==
-X-Proofpoint-GUID: V8lhgNpbQARqlI2XNeoDlB82k1x5j21v
-X-Authority-Analysis: v=2.4 cv=Ebn4hvmC c=1 sm=1 tr=0 ts=6a0351ff cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=1lcS69py3Ix-9TsBHUMA:9 a=QEXdDO2ut3YA:10
- a=zgiPjhLxNE0A:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- adultscore=0 clxscore=1015 impostorscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605120168
+References: <20260512045454.1505733-1-wenst@chromium.org>
+In-Reply-To: <20260512045454.1505733-1-wenst@chromium.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 12 May 2026 09:19:55 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=W0g3ETLPLa_vZZTjrCv-o=TSKxfGtX-yWcnTjccVNtJw@mail.gmail.com>
+X-Gm-Features: AVHnY4Iq6L4YijqMWVnEP2WiCSNNa7CCgHyGtdG7-uDM7ZZymTpWwAQ2vi5pT48
+Message-ID: <CAD=FV=W0g3ETLPLa_vZZTjrCv-o=TSKxfGtX-yWcnTjccVNtJw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/panel-edp: Add AUO B133HAN06.6 and BOE
+ NV133FHM-N4F V8.0
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,14 +105,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/1/2026 4:06 PM, Rosen Penev wrote:
-> Consolidate the two-element allocation into a single allocation using a
-> flexible array member. This reduces memory fragmentation and simplifies
-> the error path by eliminating the need to check for allocation failure
-> between the two allocations.
-> 
-> Add __counted_by for runtime bounds checking.
-> 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Hi,
 
-Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+On Mon, May 11, 2026 at 9:55=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> w=
+rote:
+>
+> These two panels are found in MT8195 Dojo, a.k.a. the HP Chromebook
+> x360 13b-ca0xxx laptop.
+>
+> Only the BOE entry was tested on an actual device. The AUO entry is
+> solely based on the provided datasheet.
+>
+> raw EDIDs:
+>
+> AUO B133HAN06.6 (from the datasheet)
+>
+> 00 ff ff ff ff ff ff 00 06 af 8f cb 00 00 00 00
+> 2f 1d 01 04 95 1d 11 78 03 93 05 92 58 59 90 29
+> 1d 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 14 37 80 b8 70 38 24 40 10 10
+> 3e 00 25 a5 10 00 00 18 b8 24 80 b8 70 38 24 40
+> 10 10 3e 00 25 a5 10 00 00 18 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+> 00 10 48 ff 0f 3c 7d 14 0e 1d 7d 20 20 20 00 77
+>
+> BOE NV133FHM-N4F V8.0 (from an actual panel)
+>
+> 00 ff ff ff ff ff ff 00 09 e5 25 0a 00 00 00 00
+> 2c 1f 01 04 95 1d 11 78 03 28 65 97 59 54 8e 27
+> 1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 a4 39 80 c8 70 38 50 40 30 20
+> 36 00 26 a5 10 00 00 1a 6d 26 80 c8 70 38 50 40
+> 30 20 36 00 26 a5 10 00 00 1a 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+> 00 0d 40 ff 0a 3c 7d 0f 0f 1f 7d 00 00 00 00 d2
+>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> Changes since v1:
+> - Added raw EDIDs to commit message
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 2 ++
+>  1 file changed, 2 insertions(+)
+
+I'd previously seen the AUO 0xcb8f panel as one missing and the EDID I
+gathered matches your datasheet.
+
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+Pushed to drm-misc-next:
+
+[1/1] drm/panel-edp: Add AUO B133HAN06.6 and BOE NV133FHM-N4F V8.0
+      commit: 5dd1ff95c623b8118ccaae3242119b8552f7b98f
