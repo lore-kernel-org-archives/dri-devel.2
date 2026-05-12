@@ -4,89 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55C8BCD484E
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 00:25:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB712CD37BE
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 00:25:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF26810E965;
-	Tue, 12 May 2026 00:25:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47C2910E235;
+	Tue, 12 May 2026 00:25:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="dKdps1uj";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="LxQA4wJw";
 	dkim-atps=neutral
-Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com
- [209.85.215.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFA9010E94B
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 00:25:50 +0000 (UTC)
-Received: by mail-pg1-f228.google.com with SMTP id
- 41be03b00d2f7-c827313dac0so1057622a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 17:25:50 -0700 (PDT)
+Received: from mail-vk1-f227.google.com (mail-vk1-f227.google.com
+ [209.85.221.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81E2210E945
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 00:25:54 +0000 (UTC)
+Received: by mail-vk1-f227.google.com with SMTP id
+ 71dfb90a1353d-56a86f0a23bso4643547e0c.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 17:25:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778545550; x=1779150350;
+ d=1e100.net; s=20251104; t=1778545553; x=1779150353;
  h=content-transfer-encoding:mime-version:reply-to:references
  :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=p2f0m29ah/3GQImTlyMzKAPe2jtbcJpGEwIz9wqA0Q4=;
- b=gSpJN8FOVybY1QC3OJiZ4jF6HI8F3pkFccdgKqRLDw/Wd3PKQT/YtORhLXFiVQN3Hd
- pXAlb0Q4a+bdJR0u7p2A6h2bqBw5kdt7OtD8UoXTRJXOyQU3e6CmplNxE4lFeHNN/enB
- nOyII2U4s6C/LiUkgBVLaL7Z+zt1lnSZKidrLNq3dFbgTJ/06r6NZ0jwXbu4Z/TyTFpr
- v48gkLBr+ijiqfgDksnFc0lJQ4mQcej6K7zZ7aIY6nwfo0XpK9JU8orJfpmCNxtSBC0I
- NRKxNrNUQj1A7yn1uiBotcnQCx24xomFOUnjJfmGsKcFWk7rWBy+12WDtZszMtSmEYMe
- E3sw==
-X-Gm-Message-State: AOJu0YyUCNYju0WjmlUjP7LbkZN6WanSDg30GplT32ylzXc4NrQC5WqW
- bIwEU+9taEWA27M8PgcozQmFVJuQM930QIiwHVCbV+fg49LuX68o+2LIrGRWfRrsTN2hrDJmD53
- 0kAB7bV9SrImHxRU9LFWpw5H/1AtlOkmZqQ1F+ah2T6Jin6+2nd6KdEZ6A9OkaMyE/WJxJWmxTD
- JoDYGmovmF7vDT5OJ5nBgg7MZSG+smw7kYzuRHbgOEdD0DakjYKJprqT9yo6klOzRDWoLkTq+4f
- wZ5fqMWqaZL32HOzuDsaGpauu8b
-X-Gm-Gg: Acq92OHlPHXN8yGgEbPcpFi2eyBTf93xw3fUDA5E4rEAqsIaOrcRlxwEPwM74n8SQwY
- pHMIwbB56nC909Lu5PM7uu/EwdQEjRXXLlKUEDV07sK1kySMUoyM0kcQYu2DZukQrkX7BaHKeZS
- z/Ol3EqrzloOXLYYMtLneP5Z4TOReuOAjAB/afA/NMB4VWkk/+AKC7Ng+1dUpVBDZo47akLk5XM
- ldVI5ocv6o3Jql8ERWQSKvMG370mNh9z+cuy7NNrzxag/aNqXjmOrvP1beQudibKtqavmgthrZn
- laG2Qv0e3pHmTaqx0WCo8iOHncIbudXp7O4BiWqd/uLF+Si8EPE1No/EpAIxgQaFTJNRTO3TLdr
- jQlbVt1P+/He/vByV4ewb9x3ragGgP7f7bM4w7bpTJtxE6IbhpOZMdT3A+MrgH7mZw7GrBBCMdq
- 2zX7fxg9XAgSQwH+tB80xFfMAMgGNCvJ7f+K+2FI+TT7YwVTs6EUpgVjF6nXRBbg==
-X-Received: by 2002:a05:6a20:2449:b0:398:8ea8:5f9f with SMTP id
- adf61e73a8af0-3acd42a9bd6mr1438588637.16.1778545550117; 
- Mon, 11 May 2026 17:25:50 -0700 (PDT)
+ bh=kD7ZCY4JtS0gidVSnjtGaKkviofgekUENhTlmTNE3vs=;
+ b=ci7WGP39bke6A8+6UqkNYHANSyd87tCuFRFr6H7scFHKn4cJuieZa8rxaG6m9LOr/B
+ oKyfExU0gmJymZqez1h0Mx9+jaCTF0enPEq91oN76b3VW5aMBbtlH9iWkIsCfzFFt2Gi
+ vu6ZB/Hq91Z5KO4O4K/L6YMb/D9zm60YaPZUgqxktHY7Xle9sT51oP0Uc4bh/p98IdnE
+ iThV61sPd306bYpWol5M+k1yiTVkAd3KSxjaqQtAFeuZeeIuufEH0sD0548kbV8MGr+P
+ O03Dreh3mugGWQe+o/eA3IrSnthCBo0Bp0c5+KhVQNLfoZ+ouG3KFfMI6lSlw4iBOM0r
+ 7xoQ==
+X-Gm-Message-State: AOJu0YyYxh7Y673hlz2BQ7ANhhhVn6BKsIehNO9q16hjROopKbfcCxZJ
+ 1vICgJp74koVpay9T21Syjm2arjr3TU+tiQ1cz+HBewvZGDuHFuBuDmqPa41610kqwJD/R/99ND
+ BNg2fg+bqlrK70WopARjc7wUlXrNwDLRwrXEyX8wsqwZcVGoQJEhcCrG3Kq2T9FTtxPoTjECOPy
+ 8kkF56a4ukOk1RvqNPMJM9edLZbn8ng3c3hcxTKGE7h8JNiYRHKgZ+AmrFYus43pp8kjY9WzYjq
+ IQ3yXI8kY3XuvWOqVcQoaXwhu4g
+X-Gm-Gg: Acq92OGAPQxksH/JqmDaTjGC+OlSiJORJIla6ql8NVlQDJjyfSxBo1iVGnRdVqcPk9g
+ feBrC3LFmoN3ULT0tDA0cZSh5rxkRTMq0TTMcqNw9Mn2hTGg8jEwP7/8HQAO6uygun7DBysYyZ6
+ zQ1/Sai9P51UIH4fRLnETSI/ktURhk4k5QBEa/5Oc8kx3v+SGUJ9Q4o51oBG5EFf4iDTSBLXPcW
+ 01yaErZEssnsULutldo+Qc9coH/yUlWKsasy14t+bg8EBGZQxhSkevCRuDLGVnPA10ah4iZ1kgt
+ lwi6PGOaRyQOd7LMz0eFfRUbhgQfYNBkJw8Fu8wgNRnngWL+z2kI/HKlIHgtJWx2BodsH05abc2
+ bBeCDsFzkrW2xQkkxWPegrm0uBfFwALVGo3bjUqILDKNUF9Sy3Oqq4W8DiNxvScWKRLh2Fp5TNv
+ 0rYLRcwfZTf8XtLotaKkfun8IQvm2SsgKobDWYOqAoK8Z8mXqZAkvXYpPVIvdhVw==
+X-Received: by 2002:a05:6102:2912:b0:62f:2ecd:3c9a with SMTP id
+ ada2fe7eead31-6361478c5afmr424811137.2.1778545552980; 
+ Mon, 11 May 2026 17:25:52 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
  (address-144-49-247-21.dlp.protect.broadcom.com. [144.49.247.21])
  by smtp-relay.gmail.com with ESMTPS id
- 41be03b00d2f7-c826769a1e1sm625201a12.5.2026.05.11.17.25.49
+ ada2fe7eead31-63140139b0dsm933008137.17.2026.05.11.17.25.52
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 11 May 2026 17:25:50 -0700 (PDT)
+ Mon, 11 May 2026 17:25:52 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-2f1383b7439so4319527eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 17:25:49 -0700 (PDT)
+Received: by mail-dl1-f72.google.com with SMTP id
+ a92af1059eb24-12dece274b1so7218029c88.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 17:25:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1778545548; x=1779150348;
+ d=broadcom.com; s=google; t=1778545552; x=1779150352;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:reply-to:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to;
- bh=p2f0m29ah/3GQImTlyMzKAPe2jtbcJpGEwIz9wqA0Q4=;
- b=dKdps1ujAcJoLguVJcHhXAHw8CDndAFAYXAZK3ykCHTY5WrnInXPExAQZiEUMnP88F
- IfNpyt7tZ6CqCNuqC0PDdOKkyW2GYD3w8NaszykfeRklIG7zt7BggtG3hH1dXjfKOlZn
- MyCG2A+xJX6pqJuDCniSceVqFz6wMpA2An8IA=
-X-Received: by 2002:a05:7022:660d:b0:12c:91ef:6e63 with SMTP id
- a92af1059eb24-1333af97fd9mr1068206c88.7.1778545548145; 
- Mon, 11 May 2026 17:25:48 -0700 (PDT)
-X-Received: by 2002:a05:7022:660d:b0:12c:91ef:6e63 with SMTP id
- a92af1059eb24-1333af97fd9mr1068189c88.7.1778545547449; 
- Mon, 11 May 2026 17:25:47 -0700 (PDT)
+ bh=kD7ZCY4JtS0gidVSnjtGaKkviofgekUENhTlmTNE3vs=;
+ b=LxQA4wJwSShTWZ6hfh/54aQpzIwWQxAYMU2AypY42w9dLWkWQiRhrCE+YLEv528HMu
+ 0g2L+Px2JSz1QWFjqPu+lusuEnjGbXw49YhA0ywSWFunH8gpDuuHueYw79b8JXXK8h76
+ de2mn8aTzv8rFKclI4Z/V0zsKhf5YVEYMYmNg=
+X-Received: by 2002:a05:7022:fa6:b0:128:d5bd:3572 with SMTP id
+ a92af1059eb24-133451a2bf5mr533696c88.31.1778545551771; 
+ Mon, 11 May 2026 17:25:51 -0700 (PDT)
+X-Received: by 2002:a05:7022:fa6:b0:128:d5bd:3572 with SMTP id
+ a92af1059eb24-133451a2bf5mr533675c88.31.1778545551032; 
+ Mon, 11 May 2026 17:25:51 -0700 (PDT)
 Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
  ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1327821fd00sm20395488c88.8.2026.05.11.17.25.46
+ a92af1059eb24-1327821fd00sm20395488c88.8.2026.05.11.17.25.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 17:25:47 -0700 (PDT)
+ Mon, 11 May 2026 17:25:50 -0700 (PDT)
 From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
  zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Subject: [PATCH v2 2/5] drm/vmwgfx: Check vrefresh in drm_mode_setcrtc.
-Date: Mon, 11 May 2026 17:27:49 -0700
-Message-ID: <20260512002752.2826685-3-maaz.mombasawala@broadcom.com>
+Subject: [PATCH v2 3/5] drm/vmwgfx: Reserve ttm object before resv usage
+Date: Mon, 11 May 2026 17:27:50 -0700
+Message-ID: <20260512002752.2826685-4-maaz.mombasawala@broadcom.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260512002752.2826685-1-maaz.mombasawala@broadcom.com>
 References: <20260512002752.2826685-1-maaz.mombasawala@broadcom.com>
@@ -109,109 +109,59 @@ Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the mode_valid() callback in drm_mode_config_funcs to check for valid
-mode during drm_mode_setcrtc.
-Both the mode_valid() callbacks also check if the vrefresh value is
-correct.
-This fixes igt test kms_invalid_mode@overflow-vrefresh.
+We hit dma_resv_assert_held warnings in several places, reserve the ttm
+base object when it's being used to avoid them.
 
 Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c  | 28 ++++++++++++++++++++++++++++
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  9 +++++++++
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 12 +++---------
- 3 files changed, 40 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c   |  2 ++
+ drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 12 ++++++++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 55730e29d3ae..121a4f006804 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -1062,8 +1062,36 @@ vmw_kms_atomic_check_modeset(struct drm_device *dev,
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+index 9c7a73c0b0dc..6817e0b8ce99 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+@@ -55,7 +55,9 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
+ 			/* Reserve and switch the backing mob. */
+ 			mutex_lock(&res->dev_priv->cmdbuf_mutex);
+ 			(void)vmw_resource_reserve(res, false, true);
++			ttm_bo_reserve(bo, false, false, NULL);
+ 			vmw_resource_mob_detach(res);
++			ttm_bo_unreserve(bo);
+ 			if (res->dirty)
+ 				res->func->dirty_free(res);
+ 			if (res->coherent)
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
+index 5abd7f5ad2db..21cdfc6a1641 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
+@@ -131,6 +131,7 @@ crc_generate_worker(struct work_struct *work)
+ 	spin_unlock_irq(&du->vkms.crc_state_lock);
  
-+static enum drm_mode_status
-+vmw_kms_config_mode_valid(struct drm_device *dev,
-+			  const struct drm_display_mode *mode)
-+{
-+	enum drm_mode_status ret;
-+	struct vmw_private *dev_priv = vmw_priv(dev);
-+	u64 assumed_cpp = dev_priv->assume_16bpp ? 2 : 4;
-+	/* Align width and height to account for GPU tile over-alignment */
-+	u64 required_mem = ALIGN(mode->hdisplay, GPU_TILE_SIZE) *
-+			   ALIGN(mode->vdisplay, GPU_TILE_SIZE) *
-+			   assumed_cpp;
-+	required_mem = ALIGN(required_mem, PAGE_SIZE);
-+
-+	ret = drm_mode_validate_size(mode, dev_priv->texture_max_width,
-+				     dev_priv->texture_max_height);
-+	if (ret != MODE_OK)
-+		return ret;
-+
-+	if (required_mem > dev_priv->max_primary_mem)
-+		return MODE_MEM;
-+
-+	if (!drm_mode_vrefresh(mode))
-+		return MODE_BAD;
-+
-+	return MODE_OK;
-+}
-+
- static const struct drm_mode_config_funcs vmw_kms_funcs = {
- 	.fb_create = vmw_kms_fb_create,
-+	.mode_valid = vmw_kms_config_mode_valid,
- 	.atomic_check = vmw_kms_atomic_check_modeset,
- 	.atomic_commit = drm_atomic_helper_commit,
- };
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-index 445471fe9be6..ea12f6c77f2d 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-@@ -16,6 +16,15 @@
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_probe_helper.h>
+ 	if (surf) {
++		int ret;
+ 		if (vmw_surface_sync(vmw, surf)) {
+ 			drm_warn(
+ 				crtc->dev,
+@@ -138,7 +139,18 @@ crc_generate_worker(struct work_struct *work)
+ 			return;
+ 		}
  
-+/*
-+ * Some renderers such as llvmpipe will align the width and height of their
-+ * buffers to match their tile size. We need to keep this in mind when exposing
-+ * modes to userspace so that this possible over-allocation will not exceed
-+ * graphics memory. 64x64 pixels seems to be a reasonable upper bound for the
-+ * tile size of current renderers.
-+ */
-+#define GPU_TILE_SIZE 64
++		ret = ttm_bo_reserve(&surf->res.guest_memory_bo->tbo, false, false, NULL);
++		if (ret != 0) {
++			drm_warn(&vmw->drm, "%s: failed reserve\n", __func__);
++			goto done;
++		}
 +
- /**
-  * struct vmw_du_update_plane - Closure structure for vmw_du_helper_plane_update
-  * @plane: Plane which is being updated.
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-index dcbacee97f61..17dc20b2ec64 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-@@ -45,15 +45,6 @@
- #define vmw_connector_to_stdu(x) \
- 	container_of(x, struct vmw_screen_target_display_unit, base.connector)
- 
--/*
-- * Some renderers such as llvmpipe will align the width and height of their
-- * buffers to match their tile size. We need to keep this in mind when exposing
-- * modes to userspace so that this possible over-allocation will not exceed
-- * graphics memory. 64x64 pixels seems to be a reasonable upper bound for the
-- * tile size of current renderers.
-- */
--#define GPU_TILE_SIZE 64
--
- enum stdu_content_type {
- 	SAME_AS_DISPLAY = 0,
- 	SEPARATE_SURFACE,
-@@ -870,6 +861,9 @@ vmw_stdu_connector_mode_valid(struct drm_connector *connector,
- 	if (required_mem > dev_priv->max_mob_size)
- 		return MODE_MEM;
- 
-+	if (!drm_mode_vrefresh(mode))
-+		return MODE_BAD;
+ 		compute_crc(crtc, surf, &crc32);
 +
- 	return MODE_OK;
- }
++		ttm_bo_unreserve(&surf->res.guest_memory_bo->tbo);
++
++done:
++
+ 		vmw_surface_unreference(&surf);
+ 	}
  
 -- 
 2.54.0
