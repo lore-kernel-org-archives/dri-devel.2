@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8113ACD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 06:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F284DCD4855
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 06:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F27910E594;
-	Tue, 12 May 2026 06:47:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 341F410E977;
+	Tue, 12 May 2026 06:47:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="Q+4BVluQ";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="RA64xLNj";
 	dkim-atps=neutral
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
  [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC6810E594
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 06:47:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1140E10E977
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 06:47:47 +0000 (UTC)
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
  by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64C4K2Iw1827070; Tue, 12 May 2026 07:47:34 +0100
+ 64C4BwAZ1813823; Tue, 12 May 2026 07:47:37 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=5
- 1+05SUxwzoDgVZRI2vOoNdspHnUsqEwaRprdVhw03Q=; b=Q+4BVluQXwq0ZPlj9
- CfGSqsc9AAf5hJc1asQnMVca2xXqk+WU1KDZqYDv0Cs3sUS0Zl6D/uu3v9LxsCxM
- Q8KmcfR/BLNpvFDaX+N90I8xsnMOFWfqHGw12espYaYwr9/U3QG/9fTLcCoXsuwm
- qBGGeNanhWaU7JW+6enBigB31iF7ax2Gj626qBV3noDlYLpzVnZInyKnuP8er2mt
- ZauRrAUSuu/L1SiYAcPYspuOn4yI4zMk6sftd4odzQUoHLcbh2t8degBnU/AGcRD
- R8LhJ3T6dB7YJE+Ww1fh1TNEhFZSU7L6YjTY5g2YDCK60QjVhBUZv9bR6HQ2iZ8z
- IPQZQ==
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=W
+ uk+LzyPueCiKjFyG6u1k80LKDaf7h16Y4+dMk2Yndo=; b=RA64xLNjWLypogYkD
+ pE71am5x9pJl+E6f9UNhbb6REGYEex/gKEb/bjxK5EUjEo/TFN/4NHhuWhBr7Edz
+ YGHkgbjE8s4PtPmVzgI4chCrzCYhmWSeaUqvVYAuXvkVGLQoZhzvI1fkfpzKXbj6
+ hyT16Vi2CrAgREPF2wU8PmWwhpHVR/1FNa5NtMv6v1hbOmVUW8wknNqYb/fGP1Q/
+ SdcZ72H9kMZ9bdKAngc6jbgzP1V5s7x8dFJMGaXUKaowe+YDdZcG8t5qRWvzvUBk
+ ByaMBEmU8ddsKK8LTMTYzTZIlZJuFmUWLR8Hn0+5qUPSkqylaE2PFHEEdKRofanR
+ okWXQ==
 Received: from hhmail01.hh.imgtec.org
  (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4e1w0t2c69-1
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4e1w0t2c6a-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 May 2026 07:47:34 +0100 (BST)
+ Tue, 12 May 2026 07:47:37 +0100 (BST)
 Received: from [127.0.1.1] (172.25.128.214) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 12 May
- 2026 07:47:30 +0100
+ 2026 07:47:33 +0100
 From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Tue, 12 May 2026 12:17:04 +0530
-Subject: [PATCH 2/4] drm/imagination: Don't timeout job if its fence has
- been signaled
+Date: Tue, 12 May 2026 12:17:05 +0530
+Subject: [PATCH 3/4] drm/imagination: Rename FW booted to FW initialised
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260512-b4-context_reset-v1-2-439bee96ed83@imgtec.com>
+Message-ID: <20260512-b4-context_reset-v1-3-439bee96ed83@imgtec.com>
 References: <20260512-b4-context_reset-v1-0-439bee96ed83@imgtec.com>
 In-Reply-To: <20260512-b4-context_reset-v1-0-439bee96ed83@imgtec.com>
 To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
@@ -57,30 +56,30 @@ To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
 CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
  "Brajesh Gupta" <brajesh.gupta@imgtec.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778568444; l=1281;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778568444; l=4988;
  i=brajesh.gupta@imgtec.com; s=20260417; h=from:subject:message-id;
- bh=BSvnZUohnv0M/jZMltzU3heWRhHpz22DN5qqQIqyBB8=;
- b=m3UxzXF82CzkIkYwBaUY0tRE2bfSfhEDTXeGKXOZVqY3FL+91LpNocX0LZaDHDltjUPQ9dSJz
- 57V3VtJf5JKBUzksBfJNx3C1JM0alhI+HR6ZdJ9gd0Y/5Y7VxnMq3qr
+ bh=gBj1E/CKiORk+xl+ASYBMQ5sWMfE7HvshMxqF7YdwVk=;
+ b=qeKtEzvE5ScWCuxzY8p03ggmyXOmRyuAilmdKCSxpsdJC3ZXvCql6pcAIuyDn+/ysIIZ2p5Fk
+ ZoaDgjc3+xsCaaOUVOPyfIL6+af5l8quDBrgxv3D2CS4cK5IxQ4BU8x
 X-Developer-Key: i=brajesh.gupta@imgtec.com; a=ed25519;
  pk=vDcrSP6vOpWKs914T986xUbB/vY0/cU7mRRb16MRkcg=
 X-Originating-IP: [172.25.128.214]
-X-Authority-Analysis: v=2.4 cv=b/6CJNGx c=1 sm=1 tr=0 ts=6a02cd06 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=b/6CJNGx c=1 sm=1 tr=0 ts=6a02cd09 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=aRQ8HefCnzIA:10 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=HWs97GUntxIEKGcJwaQA:9 a=QEXdDO2ut3YA:10
+ a=r_1tXGB3AAAA:8 a=xXLj2AOFsAhGXIg0LM0A:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDA2NCBTYWx0ZWRfX1XORd0i82bLH
- F0D9Ip4MShKNXLTSz9oMkfLdFQ6Kz4E8JMSxWOaGMLI34QqzvEBdZgU0KrM8Mb73xxfP48Swg7D
- TQLk+iJ1pSwfJKBUKsZTqqMm/bCVq27uBI0swu+L77F9jmIyv6aPkE4yd2fAc3isB3PpXKhZwt1
- 1SCrDV4+csFkP8rePXlGFfCO+K+ZNpeQyxSqfdyZhUfssLD7lmkr6pAr4nQscO3d11W/nMke96x
- ii0Dg+HcHbWjjisKJCLlqqZ1DWf8A5sDt+KZPpK5byuUYQHHVwvRjcXb56VlzsMNHDo3TfziOTv
- HmRO63qlnx9qLPcxalNzXih+7I6MzWVI6GHNOG+IRVfBU/Pk14Cx5gSAearWbzlNBjAiwpSBRur
- BhqdsQcJ/2AkS/e1OXNDDeqWrRT2d5CzKGItNd87Ls2DBcPsqmKbAGoxNAV9TDC11s3TJeFDOur
- AsGhTIFX/FsaLEFIJ3g==
-X-Proofpoint-GUID: 4nkvIIL9NGiV16qAS7NpYBfefRByyDdy
-X-Proofpoint-ORIG-GUID: 4nkvIIL9NGiV16qAS7NpYBfefRByyDdy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDA2NCBTYWx0ZWRfX/3NPxuGjl3md
+ wet+dK3322u4pntkrLlzIpt/8BPr8lkyovMulsEqOqnKmj0Q79aBj34kBTCS5E1OIHax/vLgpel
+ dyMAS6ERNnKrPaui2zun64FA4oPs3GS9+S28tJONUBr2+IG3Lh6KaNQkNOi5H2mI+yx2HI8f/0z
+ d0CHcxJA+Oh+5NTKsvZv2R9RVf0/yFEs4xGoLJPNxjEftE2KNbH5TsVbiMlUFdj2qQAjC0yuCJ9
+ hucp7UpN91F8JK+0DRV/0gxfrlGIUJ5tPqApO8AXyKb2asDpIVvsfcAdLU3DjB3DdOj26aR2cRU
+ TPZ/Adw0lARkZ14j8dFovM9S2p8LtJeEq3FN/eg3ICGKj8TrKxmt+zD3MlhoSDO7XaFB7XvxJtA
+ ZPm676geiVSoDnXJwfFYkv8tiGFZcBpqrnvdAEW9wtqEnRE8Irz/zRKa9hIb6mtnpqNFH4uru3P
+ SUEBB4cuZpVCzz9iUkA==
+X-Proofpoint-GUID: 2_XFnxKXLJmmvII2a9_giq_qtJS-8fJ2
+X-Proofpoint-ORIG-GUID: 2_XFnxKXLJmmvII2a9_giq_qtJS-8fJ2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,39 +95,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Check for job's fence in timedout handler and report NO HANG if its
-is signaled
+Update name to FW initialised from booted to better represent FW state.
 
 Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_queue.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/imagination/pvr_device.c |  2 +-
+ drivers/gpu/drm/imagination/pvr_fw.c     |  4 ++--
+ drivers/gpu/drm/imagination/pvr_fw.h     |  7 +++++--
+ drivers/gpu/drm/imagination/pvr_mmu.c    |  4 ++--
+ drivers/gpu/drm/imagination/pvr_power.c  | 14 +++++++-------
+ 5 files changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index d10a13173f0f..073478919b22 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -851,7 +851,8 @@ static void pvr_queue_start(struct pvr_queue *queue)
-  * the scheduler, and re-assign parent fences in the middle.
-  *
-  * Return:
-- *  * DRM_GPU_SCHED_STAT_RESET.
-+ *  * Fence signaled : DRM_GPU_SCHED_STAT_NO_HANG
-+ *  * otherwise      : DRM_GPU_SCHED_STAT_RESET
-  */
- static enum drm_gpu_sched_stat
- pvr_queue_timedout_job(struct drm_sched_job *s_job)
-@@ -862,6 +863,10 @@ pvr_queue_timedout_job(struct drm_sched_job *s_job)
- 	struct pvr_job *job;
- 	u32 job_count = 0;
+diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
+index dbb6f5a8ded1..49696101b547 100644
+--- a/drivers/gpu/drm/imagination/pvr_device.c
++++ b/drivers/gpu/drm/imagination/pvr_device.c
+@@ -213,7 +213,7 @@ static irqreturn_t pvr_device_irq_thread_handler(int irq, void *data)
+ 	while (pvr_fw_irq_pending(pvr_dev)) {
+ 		pvr_fw_irq_clear(pvr_dev);
  
-+	/* If fence is already signaled then return no hang */
-+	if (dma_fence_is_signaled(s_job->s_fence->parent))
-+		return DRM_GPU_SCHED_STAT_NO_HANG;
-+
- 	dev_err(sched->dev, "Job timeout\n");
+-		if (pvr_dev->fw_dev.booted) {
++		if (pvr_dev->fw_dev.initialised) {
+ 			pvr_fwccb_process(pvr_dev);
+ 			pvr_kccb_wake_up_waiters(pvr_dev);
+ 			pvr_device_process_active_queues(pvr_dev);
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index 288516dc2560..b8ad3f1d222c 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1004,7 +1004,7 @@ pvr_fw_init(struct pvr_device *pvr_dev)
+ 		goto err_fw_stop;
+ 	}
  
- 	/* Before we stop the scheduler, make sure the queue is out of any list, so
+-	fw_dev->booted = true;
++	fw_dev->initialised = true;
+ 
+ 	return 0;
+ 
+@@ -1044,7 +1044,7 @@ pvr_fw_fini(struct pvr_device *pvr_dev)
+ {
+ 	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
+ 
+-	fw_dev->booted = false;
++	fw_dev->initialised = false;
+ 
+ 	pvr_fw_destroy_structures(pvr_dev);
+ 	pvr_fw_object_unmap_and_destroy(pvr_dev->kccb.rtn_obj);
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
+index 1404dd492d7c..3390c84e4fd3 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.h
++++ b/drivers/gpu/drm/imagination/pvr_fw.h
+@@ -295,8 +295,11 @@ struct pvr_fw_device {
+ 	/** @mem: Structure containing objects representing firmware memory allocations. */
+ 	struct pvr_fw_mem mem;
+ 
+-	/** @booted: %true if the firmware has been booted, %false otherwise. */
+-	bool booted;
++	/**
++	 * @initialised: %true if the firmware has been successfully initialised,
++	 *               %false otherwise.
++	 */
++	bool initialised;
+ 
+ 	/**
+ 	 * @processor_type: FW processor type for this device. Must be one of
+diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imagination/pvr_mmu.c
+index 2e4da5b2c499..e9fefcc4e234 100644
+--- a/drivers/gpu/drm/imagination/pvr_mmu.c
++++ b/drivers/gpu/drm/imagination/pvr_mmu.c
+@@ -133,8 +133,8 @@ int pvr_mmu_flush_exec(struct pvr_device *pvr_dev, bool wait)
+ 	if (!drm_dev_enter(from_pvr_device(pvr_dev), &idx))
+ 		return -EIO;
+ 
+-	/* Can't flush MMU if the firmware hasn't booted yet. */
+-	if (!pvr_dev->fw_dev.booted)
++	/* Can't flush MMU if the firmware hasn't been initialised yet. */
++	if (!pvr_dev->fw_dev.initialised)
+ 		goto err_drm_dev_exit;
+ 
+ 	cmd_mmu_cache_data->cache_flags =
+diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
+index 88fcce433d12..a73a6815306b 100644
+--- a/drivers/gpu/drm/imagination/pvr_power.c
++++ b/drivers/gpu/drm/imagination/pvr_power.c
+@@ -216,7 +216,7 @@ pvr_watchdog_worker(struct work_struct *work)
+ 	if (pm_runtime_get_if_in_use(from_pvr_device(pvr_dev)->dev) <= 0)
+ 		goto out_requeue;
+ 
+-	if (!pvr_dev->fw_dev.booted)
++	if (!pvr_dev->fw_dev.initialised)
+ 		goto out_pm_runtime_put;
+ 
+ 	stalled = pvr_watchdog_kccb_stalled(pvr_dev);
+@@ -378,8 +378,8 @@ pvr_power_device_suspend(struct device *dev)
+ 	if (!drm_dev_enter(drm_dev, &idx))
+ 		return -EIO;
+ 
+-	if (pvr_dev->fw_dev.booted) {
+-		err = pvr_power_fw_disable(pvr_dev, false, true);
++	if (pvr_dev->fw_dev.initialised) {
++		err = pvr_power_fw_disable(pvr_dev, false);
+ 		if (err)
+ 			goto err_drm_dev_exit;
+ 	}
+@@ -408,8 +408,8 @@ pvr_power_device_resume(struct device *dev)
+ 	if (err)
+ 		goto err_drm_dev_exit;
+ 
+-	if (pvr_dev->fw_dev.booted) {
+-		err = pvr_power_fw_enable(pvr_dev, true);
++	if (pvr_dev->fw_dev.initialised) {
++		err = pvr_power_fw_enable(pvr_dev);
+ 		if (err)
+ 			goto err_power_off;
+ 	}
+@@ -548,7 +548,7 @@ pvr_power_reset(struct pvr_device *pvr_dev, bool hard_reset)
+ 		err = pvr_power_fw_disable(pvr_dev, hard_reset, false);
+ 		if (!err) {
+ 			if (hard_reset) {
+-				pvr_dev->fw_dev.booted = false;
++				pvr_dev->fw_dev.initialised = false;
+ 				WARN_ON(pvr_power_device_suspend(from_pvr_device(pvr_dev)->dev));
+ 
+ 				err = pvr_fw_hard_reset(pvr_dev);
+@@ -556,7 +556,7 @@ pvr_power_reset(struct pvr_device *pvr_dev, bool hard_reset)
+ 					goto err_device_lost;
+ 
+ 				err = pvr_power_device_resume(from_pvr_device(pvr_dev)->dev);
+-				pvr_dev->fw_dev.booted = true;
++				pvr_dev->fw_dev.initialised = true;
+ 				if (err)
+ 					goto err_device_lost;
+ 			} else {
 
 -- 
 2.43.0
