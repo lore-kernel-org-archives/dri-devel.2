@@ -4,74 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 589E9CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 09:30:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5972ECD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 09:30:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A648710E1DD;
-	Tue, 12 May 2026 09:30:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA4AE10E28A;
+	Tue, 12 May 2026 09:30:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MB6+UjAI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="he0vYbcj";
 	dkim-atps=neutral
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CD0C10E1DD
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 09:30:32 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-b8f97c626aaso48074666b.2
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 02:30:32 -0700 (PDT)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2F1710E28A
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 09:30:39 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-bd0209f25c1so286543566b.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 02:30:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778578231; x=1779183031; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778578238; x=1779183038; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=VGZAkcM+ym8AsbVGOAJ6+xeqYSrWcyKvdgdcKQ4eIYE=;
- b=MB6+UjAIKXPEat6QH1m0/soCmQNsl/bxBaY7LH41+nee3fC1cPoK9DJEouta08wKwk
- xicv5nwj0PYcaW4PjxqUiX6knRJAEsS3H+71VKlRI5goj9cww/fuLmy4LgXNwTabuIPF
- b6vZx3UDS6mZE0KOCJRIqhMp/8vzRNNRdEqbtQnpaqKD35h6nqe68OQX4cCa3gAsn/aL
- 6302hj9oo/EAS8ZNcVP8ZC6itmVcixuDyrSJN0u55z03vFsI0nWb33k+v4otduRyFOuH
- S3Q4+UFDvQWsW9QN5P/EoUoTJIxiq3Z6O+ET0d/a9ayCa1Oaf8Ckx2w7WFQ1G/QEHrX+
- K7yA==
+ bh=1i6gK0r7rGWa5W/9WTpQ/H0vww/+AQmB17cNctDGbjU=;
+ b=he0vYbcj1hS+a97cnq6aG616guLOIP3ITzlbtCUeND6ZZH1BdMoDWOIO9c6tVDS45A
+ n59EGEV32j1ezWGJ53oTULoTed4xL2HrwKGTKdr/ZLhgz0j1+U3upypNxDOY9SDnaN3I
+ pa9Kr08pAR0K48W1wAOmuCnz3ub9MYxmZ2KY2OuEWDFEHnNpvKM/iZrrxviGNcL4nAkr
+ VEjz18Icwr5t/ysKeUAYsEdVsaTZ/FIPnB3ezFGUUiZ4KAE0rWJEVjwmCgrjN6Et1ETT
+ HAfEdYLQ6+dO47cmqnvf220606Uc1PHoRQSenIe9N+Lpy9P1bTEYA5AwDRpQfFSzG/Ym
+ EfxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778578231; x=1779183031;
+ d=1e100.net; s=20251104; t=1778578238; x=1779183038;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=VGZAkcM+ym8AsbVGOAJ6+xeqYSrWcyKvdgdcKQ4eIYE=;
- b=VVmdSKk/sypaVg7mL3egpACdWijHSRGyAdpGgnGu7Llhq0mYq9pIiosQDdyyMnsa+N
- e1EP7epUYbMxNd/mL6inIuM5KdUqVQcQJxljgU7OPfOVqbg2N5ummU8e4QyNrVs8o70X
- SJnxL2H2ti1tDbLGKgdSfgmH7vl7Kek45HVOgijd+tIgiMY35ibwbDEsUqsRovcKjItH
- 8+fzjDpkb1Fpf3KQNXrhmtrF+n8HnZROZ8Nc1DW9RPB0/LKdg9ptBMFJMcSKeWABMllo
- WNDyJKkajlXb24G6G3mb3ac1W/stGE3R9hCJJnv1wEVUICZY+FjMqVyoCaiEz943s40X
- Ymjg==
+ bh=1i6gK0r7rGWa5W/9WTpQ/H0vww/+AQmB17cNctDGbjU=;
+ b=YUuKuMvwlSTspLFQCYS5wHO3lKnjrkBlAGwtuALlaQ95XZER4D7MpJULxKxif33rET
+ OG7WbvH6wMMlu6BaUeun0XIVefP256MunwtXMSSly/lJu2Pt8EX4fqHWkLnytP2xvisL
+ WYgt9W6a65+B4n6j/pUlaj2PoIGByNrCOUjU+v3S1oemwFbuWp7+bJcArIxMSxhWj1go
+ h7v+aoNW2Ad9ZfCiJJGwXCDzNdIeL00IAkK1hblRXSFThmeiyvTWfvuLkbJPVhzJc+IF
+ xUaE/girlW74deL2wmOMc38XlNQb1Vd5vdqHpGMM7n2pkSskygzlD2pid1VUv4RjAnvG
+ E4jw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9HpDEmeqDOdr9hMSTbOugcS/Xeumdem8jpoZ02gZPaXqYvh66Df/yDXGFq8XqE9uqA+rUm33ZnEU8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxcxzdT/fxQsG5+aEMHv3knjomWhbFPVRMkzLMCrST/CjdgTpmu
- FqP2KoqV32EWu1ninOBmzrCWLm5Pkn2xpYNYvrhnBeAQ2k/KujT+cb5Q
-X-Gm-Gg: Acq92OGigWctAsnuzOyNNSH2HPZcdC6i7HRxqhGa029lhY+G4uvEjvsKPn+SY6VpXRt
- WIWx0vQSLgJU7eV+J+KALqpthHTBZOrdTA5Yfj9Rtua1Jma7WZw9nxl7m3FxrwBuEsVc5ql7/Dr
- fAXi7eI5FB0++4aJ8Vu77M2ttrsVy/RtjVVBb+9s89NGr9rtham+4aDbrNEKTsTlyxKwwT6cDEc
- jf1D8eexRz10kKXc67kES0N9oVA998acGJ8UrsIf1bjqpjIawPaiM+m45g+jc/Ef4KCqPhKt3Wz
- C2S6CfuBDdvEqDo91VrEnBANURiJxYONosSDYEpn6rgxWHovXLW8hjrwr87XSnx1GhK1munNPQZ
- MEjSXguYNkcn5iq1GyAYl/2+RjlhQagFel9wnTKWtjixeFv2sjAI4W24JtnSvTauly/QVEcP/xd
- /BcUwvB1dSslE0rAOzF4GJoBWEIJPkyU26/Fgu4mZ4nXXKaf7e8dvyBJtDA932hDwYXZFzxDuRv
- 46631MbNXEoJOG97bcy1Jrq10yc18tbLuxu+BqHykG+tiS17Q==
-X-Received: by 2002:a17:906:99c3:b0:bc4:f3ef:e43c with SMTP id
- a640c23a62f3a-bcaad52246cmr973369766b.45.1778578230560; 
- Tue, 12 May 2026 02:30:30 -0700 (PDT)
+ AFNElJ8ovCU7HoJu64WroE29djiGzVLIT1YpdNZAb/eKBwWmYhC0ELdgOW3WATtEE6TIXRkyI1cOmP7GX3E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzwZQlbIxyKT4DBYhTeta/dLlH1c5W4zpAbmRSq2njF2PYezxW7
+ WfWXGACwSukLDgC92vZCR+F6ZX3su36t30HBs00rGUK4JP72DxmmeUtd
+X-Gm-Gg: Acq92OHeFmqJFYDfcWYjPlH6KBQleNtU6JQ2DoLeQ6ZRyblEga/5i26/SALgCqtO3Sq
+ Ul0uWgyTwwK9ckkclL5te3EPb+DyKWC8TCCC8w3evdGUKIQ6eAiiqS2fRzywr0BxrV0ZP6psf/T
+ RSokgWrkZkxtkjy+krqa32t+qZrH2mv3CGp9jaSxOJen95fVUtR8TF1GVQTotRa373HdMJQhI+J
+ TMiFAYPRAQx2qrl49aVqskB1YKNmWXrKm+ehyReGz1ynKTkg77aZmnYjFGKgo/JK1GfpkaETwuI
+ 4j+acHfwVqpnGhmuIXPaghDUrl6+aFXs4nspKqQTJvTU2YyZFNZAS/CDDSWKBW7FZ+YyFO76Hyf
+ KHbCkIZ4p//OiRU7Md0JONW6cR4v8KHjRQUi74MyyXOwf8OTDz6bseCKQGFRPYt76b25unTpZdX
+ lKHWsnrct8hoHTKUcatEqOlVdVdEq1xo5SW38Lp+0UiZq2FbnpRKYR6WCL+m559BIu9k5PBnfnQ
+ x7nlEvvbunUM8lJc0VOJsevdnclEdi+62Ng53LoXHxcdO8Xpw==
+X-Received: by 2002:a17:907:97d0:b0:bc2:1dab:3ea0 with SMTP id
+ a640c23a62f3a-bd28de036d4mr114881866b.8.1778578237873; 
+ Tue, 12 May 2026 02:30:37 -0700 (PDT)
 Received: from ?IPV6:2620:10d:c096:325::372? ([2620:10d:c092:600::1:8c90])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bcfb7b17d1fsm303492866b.41.2026.05.12.02.30.29
+ a640c23a62f3a-bcfb7b17d1fsm303492866b.41.2026.05.12.02.30.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 02:30:30 -0700 (PDT)
-Message-ID: <a4748a29-8aa1-44c1-a1e4-b82f4f191d4a@gmail.com>
-Date: Tue, 12 May 2026 10:30:27 +0100
+ Tue, 12 May 2026 02:30:37 -0700 (PDT)
+Message-ID: <24cc68b2-c432-4623-92eb-b56b76850c35@gmail.com>
+Date: Tue, 12 May 2026 10:30:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 00/10] Add dmabuf read/write via io_uring
-To: Christoph Hellwig <hch@lst.de>
+To: Ming Lei <tom.leiming@gmail.com>
 Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Sagi Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
  Christian Brauner <brauner@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  Sumit Semwal <sumit.semwal@linaro.org>,
@@ -85,10 +86,11 @@ Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
  William Power <william.power@intel.com>, Phil Cayton
  <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
 References: <cover.1777475843.git.asml.silence@gmail.com>
- <20260512070045.GA32030@lst.de>
+ <afi7c-VUJWOLlC1m@fedora> <6873d617-c904-45f3-bad9-e1ae39cfecd2@gmail.com>
+ <afxgc4hizusnAA26@fedora>
 Content-Language: en-US
 From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260512070045.GA32030@lst.de>
+In-Reply-To: <afxgc4hizusnAA26@fedora>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,19 +108,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/12/26 08:00, Christoph Hellwig wrote:
-> What tree is this against?  I can't apply it against the usual
-> candidates, even accounting for the time lag in getting to it.
+On 5/7/26 10:50, Ming Lei wrote:
+...
+>>> BTW, inspired by this approach, I adds similar feature to ublk via UBLK_IO_F_SHMEM_ZC
+>>> which can maintain long-term vfio dma mapping over registered user-place aligned buffer.
+>>
+>> Interesting, just too a glance, and it looks like what David Wei
+>> was thinking to add to fuse, but IIUC he gave up exactly because the
+>> client will need to cooperate and that could be troublesome.
+> 
+> Here the cooperation is minimized, maybe one shmem/hugetlb path, or memfd,
+> and it is one optimization and opt-in, and fallback to normal path
+> if application doesn't cooperate.
 
-It should've been a Jens' for-next
+My point is that with widely enough adopted interface the user will be
+able to opportunistically use it without knowledge about the file, i.e.
+not knowing whether it's ublk or something else. But as you mentioned
+below, it'd be cooperative interface in either case.
+>> Should we try to push everything under the same interface instead of
+>> keeping a ublk specific one? Again to the point that it requires
+> 
+> If generic interface can be figured out, it shouldn't be a big deal for
+> ublk to switch to it, and the usage is simple actually.
 
-> Can you provide a git tree?
+Sure, you'd just need to maintain both as there is a mismatch between
+interfaces.
 
-git: https://github.com/isilence/linux.git rw-dmabuf-v4
-url: https://github.com/isilence/linux/tree/rw-dmabuf-v4
-
-It's a wip branch, for now it's just v3 + 2 fixes.
-
+> So far, ublk supports both FS and nvme block device.
+> 
+> And cooperation can't be avoided for this usage no matter if generic or
+> driver specific implementation is taken, for both fuse & ublk.
 -- 
 Pavel Begunkov
 
