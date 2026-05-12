@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C76ECD4F24
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 14:44:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B6ECD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 14:45:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FF1910EB29;
-	Tue, 12 May 2026 14:44:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C67E10EB3D;
+	Tue, 12 May 2026 14:45:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NOI3/1Jf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g6VORTnV";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 024E310EAE6;
- Tue, 12 May 2026 14:44:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778597075; x=1810133075;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=+2mlVVyC8rNfQKGiNjq8NYbKcjmNDprm2GMVkzAJa3E=;
- b=NOI3/1JfIsCVeNY6n6tAAr8cHaVcPHLHnwDP3nU+hog3qf7mRmrT8SX0
- NBpZeNcyHvIOdXfB2jooBKXdx2RVAWcwtVBU8kky027B6DzkzrNhwoJsR
- bZg8/g5pq/MKoA35gplh5DDDZDwOQ5IwroK0FTUEBcZx2Bl3SfxsinNcQ
- /nhTH4VMm5kylRqPgVtynJmSbBt6wbW4s1dxBQ0ENIBAJPOzWtr3Dl8Dm
- kyEpMf2VfwAan6kkURgOLMXRz+klqElFXYFuPWjUsUVeKSZiWTAgzjFoW
- +hNMnSIhI66iX/9MLV5+sCo17PjqxfBus4kBG1VTfKyHaDsjW3DioQQUj g==;
-X-CSE-ConnectionGUID: vtPHGkYxTqKh/FS4zWdSng==
-X-CSE-MsgGUID: 77OfnvEnRnSZ6Avntp61qg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="79491147"
-X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="79491147"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 07:44:35 -0700
-X-CSE-ConnectionGUID: f+vJYqrCSW2Xpqci1/0FiA==
-X-CSE-MsgGUID: cUk01pY5RcK7VJ4iUtoQGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="242784455"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 07:44:30 -0700
-Date: Tue, 12 May 2026 16:44:26 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: "Tauro, Riana" <riana.tauro@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, simona.vetter@ffwll.ch, airlied@gmail.com,
- kuba@kernel.org, lijo.lazar@amd.com, Hawking.Zhang@amd.com,
- davem@davemloft.net, pabeni@redhat.com, edumazet@google.com,
- maarten@lankhorst.se, zachary.mckevitt@oss.qualcomm.com,
- rodrigo.vivi@intel.com, michal.wajdeczko@intel.com,
- matthew.d.roper@intel.com, umesh.nerlige.ramappa@intel.com,
- mallesh.koujalagi@intel.com, soham.purkait@intel.com,
- anoop.c.vijay@intel.com, aravind.iddamsetty@linux.intel.com
-Subject: Re: [PATCH v1 09/11] drm/xe/ras: Set error threshold support
-Message-ID: <agM8ynv2w-iqsp-O@black.igk.intel.com>
-References: <20260417211730.837345-1-raag.jadav@intel.com>
- <20260417211730.837345-10-raag.jadav@intel.com>
- <5e90b9aa-9432-43b5-ae40-1fce383bb043@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14D4310EB35
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 14:45:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C3CFF43D28
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 14:45:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA4D3C2BD01
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 14:45:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778597131;
+ bh=bmsER1YMs1gTkuW0uC3C0cqMRvz8G154HC4Em56qNGI=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=g6VORTnVqhl5m3rCTNfKS3DCc1oZXhJcR8wMKqUTRTtA6xdvP2zRNnCkdJkbC4yJ/
+ ns2GLvRAzP+1A+S+JyEVLHw+yPNzmgISjJurI6z9Z2/yYff1oi0cLxkgk1E+F2JZY/
+ ZtexpG4Jc3OiMKg+wIpe8+lFRKvcokjc6Poa2HLPnzR7xDxpLxt807AXTj25PsfQWj
+ zcvwSIiVBCoRao6AXS2/b939jcTEArD5Y+tPSv2oag74mW+zK5+/wVB0OllEhXdYUd
+ xt++IlRRgJmvGVSeABDqyWC91BKPKHdNWV4QrjPi8ajH0y4k8R/dbS+8uDw7If6B/y
+ Xmmp2GTX/M3dg==
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-b9382e59c0eso893848366b.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 07:45:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8+wwzCwQArrk5duVUI/x/4JzpIPfocC2o/9yvDynIMpbbA6d1tCNjSQme+LaAbJvKxAvXNIjouh40=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxbdcHOCR//qIz44otH2Q6uNPA5dDRsYbQ4tLeWF7hLAZpjQ7KC
+ XZmuWRxgwuansXhpXyR5zMK5oznQzrfJ2uvnvyyE9hkFgJ7XoyAMgIoTwtQn7QFD3tEP2OW1VEy
+ M3305LJ38r2lFaahsTVeliLeXmHULsw==
+X-Received: by 2002:a17:907:960f:b0:bc1:36dd:c6cb with SMTP id
+ a640c23a62f3a-bd28f090142mr220413366b.20.1778597130173; Tue, 12 May 2026
+ 07:45:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5e90b9aa-9432-43b5-ae40-1fce383bb043@intel.com>
+References: <20260306163658.2741860-2-robh@kernel.org>
+ <f4b64049-e7f4-4d96-84f2-e8dac2cf5322@igalia.com>
+In-Reply-To: <f4b64049-e7f4-4d96-84f2-e8dac2cf5322@igalia.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 12 May 2026 09:45:18 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLyZ0mtj-i6sOS9rccdc73QGcJt44Tx9jfR8f=eGX--dg@mail.gmail.com>
+X-Gm-Features: AVHnY4KwfkGSXiHGcLCxO2Rmh74JFZ_heUlga50LQiqSzhP9b7tpTqZ7rodLb_c
+Message-ID: <CAL_JsqLyZ0mtj-i6sOS9rccdc73QGcJt44Tx9jfR8f=eGX--dg@mail.gmail.com>
+Subject: Re: [PATCH] accel: ethosu: Add performance counter support
+To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Anders Roxell <anders.roxell@linaro.org>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,158 +77,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 11, 2026 at 10:51:38PM +0530, Tauro, Riana wrote:
-> On 4/18/2026 2:46 AM, Raag Jadav wrote:
-> > System controller allows programming per error threshold value, which
-> > it uses to raise error events to the driver. Set it using mailbox
-> > command so that it can be programmed by the user.
-> > 
-> > Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+On Tue, May 5, 2026 at 1:46=E2=80=AFPM Ma=C3=ADra Canal <mcanal@igalia.com>=
+ wrote:
+>
+> Hi Rob,
+
+Thanks for the review Ma=C3=ADra!
+
+> On 06/03/26 13:36, Rob Herring (Arm) wrote:
+> > The Arm Ethos-U NPUs have a PMU with performance counters. The PMU h/w
+> > supports up to 4 (U65) or 8 (U85) counters which can be programmed for
+> > different events. There is also a dedicated cycle counter.
+> >
+> > The ABI and implementation are copied from the V3D driver. The main
+>
+> I'm planning to send a series fixing some perfmon locking issues in the
+> V3D driver later this week. But, to give you a brief summary of the main
+> issues:
+>
+> 1. The active perfmon is not protected against races (run_job() vs.
+> IOCTLs).
+>
+> 2. ethosu_switch_perfmon() only starts/stops the perfmon in run_job().
+> This means that if nothing is further queued up, a perfmon will never
+> actually be stopped.
+
+For ethosu, other than idle and cycle counts, nothing else counts when
+a job is done. Idle is just the time from enabling the counter to
+start a job and then from the job stopping to reading the counters.
+IOW, the idle count while a job is running is 0 and
+idle+active=3Dcycles.
+
+
+> More comments inline:
+>
+> > difference in the ABI is there is no query API for the the event list.
+> > The events differ between the U65 and U85, so the events lists are
+> > maintained in userspace along with other differences between the U65 an=
+d
+> > U85.
+> >
+> > The cycle counter is always enabled when the PMU is enabled. When the
+> > user requests N events, reading the counters will return the N events
+> > plus the cycle counter.
+> >
+> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > > ---
-> >   drivers/gpu/drm/xe/xe_ras.c                   | 42 +++++++++++++++++++
-> >   drivers/gpu/drm/xe/xe_ras.h                   |  1 +
-> >   drivers/gpu/drm/xe/xe_ras_types.h             | 28 +++++++++++++
-> >   drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |  2 +
-> >   4 files changed, 73 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> > index 3e93f838aa4a..26e063166c5f 100644
-> > --- a/drivers/gpu/drm/xe/xe_ras.c
-> > +++ b/drivers/gpu/drm/xe/xe_ras.c
-> > @@ -163,3 +163,45 @@ int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32
-> >   	       comp_to_str(counter.common.component), sev_to_str(counter.common.severity));
-> >   	return 0;
-> >   }
+> > MR for mesa with initial support is here:
+> > https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40269
+> >
+> >   drivers/accel/ethosu/Makefile         |   2 +-
+> >   drivers/accel/ethosu/ethosu_device.h  |  21 ++
+> >   drivers/accel/ethosu/ethosu_drv.c     |  17 +-
+> >   drivers/accel/ethosu/ethosu_drv.h     |  62 ++++++
+> >   drivers/accel/ethosu/ethosu_job.c     |  35 +++-
+> >   drivers/accel/ethosu/ethosu_job.h     |   2 +
+> >   drivers/accel/ethosu/ethosu_perfmon.c | 282 +++++++++++++++++++++++++=
++
+> >   include/uapi/drm/ethosu_accel.h       |  59 +++++-
+> >   8 files changed, 469 insertions(+), 11 deletions(-)
+> >   create mode 100644 drivers/accel/ethosu/ethosu_perfmon.c
+> >
+>
+> [...]
+>
+> > diff --git a/drivers/accel/ethosu/ethosu_drv.h b/drivers/accel/ethosu/e=
+thosu_drv.h
+> > index 9e21dfe94184..57eee79e4b83 100644
+> > --- a/drivers/accel/ethosu/ethosu_drv.h
+> > +++ b/drivers/accel/ethosu/ethosu_drv.h
+> > @@ -3,13 +3,75 @@
+> >   #ifndef __ETHOSU_DRV_H__
+> >   #define __ETHOSU_DRV_H__
+> >
+> > +#include <linux/idr.h>
+> > +#include <linux/mutex.h>
+> >   #include <drm/gpu_scheduler.h>
+> >
+> >   struct ethosu_device;
+> > +struct drm_device;
+> > +struct drm_file;
+> >
+> >   struct ethosu_file_priv {
+> >       struct ethosu_device *edev;
+> >       struct drm_sched_entity sched_entity;
 > > +
-> > +int xe_ras_set_threshold(struct xe_device *xe, u32 severity, u32 component, u32 threshold)
-> > +{
-> > +	struct xe_ras_set_threshold_response response = {};
-> > +	struct xe_ras_set_threshold_request request = {};
-> > +	struct xe_sysctrl_mailbox_command command = {};
-> > +	struct xe_ras_error_class counter = {};
-> > +	size_t len;
-> > +	int ret;
+> > +     struct {
+> > +             struct idr idr;
+>
+> You may want to consider moving to XArray as we did in V3D [1].
+
+Okay. I'll have to study that some. I still don't have my head around XArra=
+y...
+
+>
+> [1]
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/?id=3D0a5b0d095bcdb219348ed8ae1c97ee99fc4913b8
+>
+> > +             struct mutex lock;
+> > +     } perfmon;
+> > +};
 > > +
-> > +	counter.common.severity = drm_to_xe_ras_severities[severity];
-> > +	counter.common.component = drm_to_xe_ras_components[component];
-> > +	request.counter = counter;
-> > +	request.threshold = threshold;
-> 
-> We might need a max check here to avoid unnecessary values from user.
-
-We may want to avoid hardcoding it in driver since it can potentially be
-different per product.
-
-> > +	ras_command_prepare(&command, &request, sizeof(request), &response,
-> > +			    sizeof(response), XE_SYSCTRL_CMD_SET_THRESHOLD);
-> 
-> Nit: command, request, response seems to be a better format
-
-Sure, I'll likely create a separate sysctrl helper.
-
-> > +	guard(xe_pm_runtime)(xe);
-> > +	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
-> > +	if (ret) {
-> > +		xe_err(xe, "sysctrl: failed to set threshold %d\n", ret);
-> > +		return ret;
-> > +	}
-> > +
-> > +	if (len != sizeof(response)) {
-> > +		xe_err(xe, "sysctrl: unexpected set threshold response length %zu (expected %zu)\n",
-> > +		       len, sizeof(response));
-> > +		return -EIO;
-> > +	}
-> > +
-> > +	if (response.status) {
-> > +		xe_err(xe, "sysctrl: set threshold operation failed %#x\n", response.status);
-> 
-> Status should be converted to visible error codes. check [PATCH v5 3/6]
-> drm/xe/xe_ras: Add helper to clear error counter - Riana Tauro
-> 
-> <https://lore.kernel.org/intel-xe/20260504065614.3832331-11-riana.tauro@intel.com/>
-
-Coming right up.
-
-Raag
-
-> > +		return -EIO;
-> > +	}
-> > +
-> > +	counter = response.counter;
-> > +
-> > +	xe_dbg(xe, "[RAS]: Set threshold %u for %s %s\n", response.threshold,
-> > +	       comp_to_str(counter.common.component), sev_to_str(counter.common.severity));
-> Again not required. Value should be visible to user
-> > +	return 0;
-> > +}
-> > diff --git a/drivers/gpu/drm/xe/xe_ras.h b/drivers/gpu/drm/xe/xe_ras.h
-> > index 982bbe61461e..d1f71b1de723 100644
-> > --- a/drivers/gpu/drm/xe/xe_ras.h
-> > +++ b/drivers/gpu/drm/xe/xe_ras.h
-> > @@ -14,5 +14,6 @@ struct xe_sysctrl_event_response;
-> >   void xe_ras_counter_threshold_crossed(struct xe_device *xe,
-> >   				      struct xe_sysctrl_event_response *response);
-> >   int xe_ras_get_threshold(struct xe_device *xe, u32 severity, u32 component, u32 *threshold);
-> > +int xe_ras_set_threshold(struct xe_device *xe, u32 severity, u32 component, u32 threshold);
-> >   #endif
-> > diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ras_types.h
-> > index d5da93d65cf5..d7e4a02a661d 100644
-> > --- a/drivers/gpu/drm/xe/xe_ras_types.h
-> > +++ b/drivers/gpu/drm/xe/xe_ras_types.h
-> > @@ -92,4 +92,32 @@ struct xe_ras_get_threshold_response {
-> >   	u32 reserved[4];
-> >   } __packed;
-> > +/**
-> > + * struct xe_ras_set_threshold_request - Request structure for set threshold
+> > +/* Performance monitor object. The perform lifetime is controlled by u=
+serspace
+> > + * using perfmon related ioctls. A perfmon can be attached to a submit=
+_cl
+> > + * request, and when this is the case, HW perf counters will be activa=
+ted just
+> > + * before the submit_cl is submitted to the GPU and disabled when the =
+job is
+> > + * done. This way, only events related to a specific job will be count=
+ed.
 > > + */
-> > +struct xe_ras_set_threshold_request {
-> > +	/** @counter: Counter to set threshold for */
-> > +	struct xe_ras_error_class counter;
-> > +	/** @threshold: Threshold value to set */
-> > +	u32 threshold;
-> > +	/** @reserved: Reserved for future use */
-> > +	u32 reserved;
-> > +} __packed;
+> > +struct ethosu_perfmon {
+> > +     /* Tracks the number of users of the perfmon, when this counter r=
+eaches
+> > +      * zero the perfmon is destroyed.
+> > +      */
+> > +     refcount_t refcnt;
 > > +
-> > +/**
-> > + * struct xe_ras_set_threshold_response - Response structure for set threshold
-> > + */
-> > +struct xe_ras_set_threshold_response {
-> > +	/** @counter: Counter id */
-> 
-> Nit: ID
-> 
-> > +	struct xe_ras_error_class counter;
-> > +	/** @threshold_old: Old threshold value */
-> 
-> Nit: prev
-> 
-> Thanks
-> Riana
-> 
-> > +	u32 threshold_old;
-> > +	/** @threshold: New threshold value */
-> > +	u32 threshold;
-> > +	/** @status: Set threshold operation status */
-> > +	u32 status;
-> > +	/** @reserved: Reserved for future use */
-> > +	u32 reserved[2];
-> > +} __packed;
-> > +
-> >   #endif
-> > diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> > index a1b71218deca..b865768e903b 100644
-> > --- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> > +++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> > @@ -23,10 +23,12 @@ enum xe_sysctrl_group {
-> >    * enum xe_sysctrl_gfsp_cmd - Commands supported by GFSP group
-> >    *
-> >    * @XE_SYSCTRL_CMD_GET_THRESHOLD: Retrieve error threshold
-> > + * @XE_SYSCTRL_CMD_SET_THRESHOLD: Set error threshold
-> >    * @XE_SYSCTRL_CMD_GET_PENDING_EVENT: Retrieve pending event
-> >    */
-> >   enum xe_sysctrl_gfsp_cmd {
-> >   	XE_SYSCTRL_CMD_GET_THRESHOLD		= 0x05,
-> > +	XE_SYSCTRL_CMD_SET_THRESHOLD		= 0x06,
-> >   	XE_SYSCTRL_CMD_GET_PENDING_EVENT	= 0x07,
-> >   };
+> > +     /* Protects perfmon stop, as it can be invoked from multiple plac=
+es. */
+> > +     struct mutex lock;
+>
+> I'm not familiar with the Ethos hardware, but *if* it has only a single
+> performance monitor active in HW at any given moment (like v3d), this
+> lock doesn't enforce this restriction.
+>
+> This lock only serializes start/stop of *one* perfmon object against
+> itself, but the invariant (at least on v3d) that needs protection is
+> device-wide: there is exactly one active perfmon at any moment in HW.
+
+You mean V3D has 1 perfmon shared among its 3? h/w queues? We only
+have 1 queue. We only touch the perfmon when we touch the h/w to
+run/end a job, so the same serialization for the job accesses should
+cover the PMU accesses.
+
+Rob
