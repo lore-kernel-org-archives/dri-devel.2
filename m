@@ -4,90 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48E48CD4F21
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 21:55:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB43CCD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 22:05:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5A3610E5C2;
-	Tue, 12 May 2026 21:55:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43D9D10E2C2;
+	Tue, 12 May 2026 22:05:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aZqR47C7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qjqFrmeh";
 	dkim-atps=neutral
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2B2B10E5C2
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 21:55:43 +0000 (UTC)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-7bd810cdc5dso65212657b3.1
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 14:55:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778622942; cv=none;
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
+ [74.125.224.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BD0610E2CC
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 22:05:55 +0000 (UTC)
+Received: by mail-yx1-f50.google.com with SMTP id
+ 956f58d0204a3-65c7492a2ceso5632366d50.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 15:05:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778623555; cv=none;
  d=google.com; s=arc-20240605;
- b=REyiTF7fANFZPHZKP7hGZ++KVOPV2ZpIzRY1G386ywiFwv6/JB4APCNr1yK9clrWqJ
- xDJOTbMquFBxZAUwsKS4mt/6Q8qHSAl7CQ9Ls3/bPYSLp6OiytisqUPnudQEM2ODZiAs
- kpHAKN9NJW+HIwn0mYbvvzKyem/km3rqKucGjzXDj5tCYROuLbY8kBn1TdWp0ErSubNA
- U/LEnrmMkjkoE5zn0c+V+MygbkYs/wfFRveF2iSXtL5mW1YO9Vge4mBqpMEw+qs7XfLV
- W9wHV/xAFCdCSWvFkpP4nhK82w+MFZrwKzp5Utp+rSulaYvCeR6GyaxBunOs53LdIkhT
- /+0Q==
+ b=bLSWpF8ZIGfmqcK/SaXZDd+9fhM7fjFDTVelgm+objuS3r8H1iHDEgg09TPMkCYuT3
+ Q3HdfC2Mog/KPl7j6jDK83n9zusqvqKGajHaB8O8BIgzylFZhXUsZzOfFW2Qf/QD8vpJ
+ BcXR6suqHB6KPCkTsMpbld9PqV/iDHuSmC/DIZDQAH+LeaJq6KaKnt8nFHMNK8Cs+xZp
+ nehR+WfZK0Y1SJ95/8IKx00h9H35SntgNSW09oJ8w5HIZcEDF94V7uX7YPL8JmcFkxSt
+ y8MRLUrUrRaIY9BHWacA65RDKmgNWv4qkdpJs812rWZe2l8LuBenEu8CoS3E3gbEGdbP
+ 7YCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=6siaRiJCxGUQ4V8uEWAgm41HK+hOsAS6pXUOkS7dfQk=;
- fh=Om8Pkm5C8FLCFfJp/kPrP12kkc0M9DTDl4CeT+dzMwY=;
- b=KmkSrYh2ZkeoYIgko4qfxQxSMwk7JH8JEIVsTgLQfDtX/hPTUw+75/vqhss4IGQ7Z+
- bBgsbskQeFrc8TKU5goNNU46LXUWiZEAEpcqzbtjClKY9cg/cJYUOPIm1sWbageJYepH
- 1VkSFHaxpQF2CaryYZ23PheTYd6+jsad/x1LZB3ro/gsqQ9+t/ITtjvSMXWRcV1hR6NL
- zKClqxWi0vB10w3/TU4dy0mpn8TvyFfXgKvV+UiOGVoLVFPYssvgNXODBrOZ8Z+T8+dh
- mnDfftJG840CsbWupOjm1Mn42QpbHylf0KpIzCvbian889/mGmis378uIg4TJP1zI44F
- X+Hw==; darn=lists.freedesktop.org
+ bh=LYumDMVjxXYwqfISVgMJHCWZJqlEq6GvOPj4+VEZ0mQ=;
+ fh=mJLVWVWov6eROdjgQtL1Xw90r4LaNq+4ymHjlWejI4E=;
+ b=H5jjRu5npPD9sOe+7uD38KxyCvgcQhrkRspH65+ZPyOD2MKctivrBcXkhGWJUVuU14
+ s/fj3CqhUxQILvd2ySjQSS1h+z+kc5+Ao9gajGx0KX3asC940Vqs+iM7hcrAugFkSShE
+ Lod3h4P/ANPkDhfPk2Mp94lTlERfo8xdR8Zcf4aq1yLm56/kah9IvPIx2Bu63Ma+6i4j
+ g8/0SJ6xzfvBR8CMCefmkmV5RmdeS4hn+FtVRUvc7cfJJEXqyRlt/y0dMnOZWSHNw155
+ cKUZZ0WnG7XwH3SOolfgJXNdIEXp2+vl/yhMifMbJfDTlSaAWxLQIJTnAJkfMfPe8Rrg
+ DbKg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778622942; x=1779227742; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778623555; x=1779228355; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6siaRiJCxGUQ4V8uEWAgm41HK+hOsAS6pXUOkS7dfQk=;
- b=aZqR47C7DHt3ECTgdc29taMTiwXjLq45GVAboPrLxb34FREzhiCfSF7r5MAGS+g+VL
- aCG0Qb43kA8kuDGE+byKmye0Ub4VsloMtL4Zws+YJd36fPhcSPH+huoUx/PTkFB4J5o8
- xU9MiNuLogYNTyYUO/wGuhUMEMk9+nnRGnQpSLA3cclciz/oQtpZdRJ1TRTGJQXssqxp
- GfVVaCa4fR1fvNyzAAZOX02oB5eKDlDFmCLIiZPVrSMHWoE80tQmnSHF4U23iWYHnwqQ
- 3inp1pm5H95y91h1Nty1LhFCFCOci+xhU/0TD893DeUVIkP9SwVZPWU5tQkEy5IzluXh
- TBcw==
+ bh=LYumDMVjxXYwqfISVgMJHCWZJqlEq6GvOPj4+VEZ0mQ=;
+ b=qjqFrmehHdFDbiZovaud5v/MsV6I0N360OfEL/Vb6SVsxpNr6DvSwFLKdYZbBJRFhU
+ Ur3VYmlkFKcfhDVR8sr82aBfUGCP+Scn09JsNTVuchTfirRlcbVMQNtmhB/cpin9APuV
+ n2zBTpSopjnYtd+P8zSUsL48WuLkEqtSlHXpfCxjXEJCXaEYjM9TrtcFYC52xmKXclCe
+ uk9cmpKQvRJhX9KD1xaaUpHmn1xr90CiE5tAXLfphfa0pmzmiWedhbtVhd+NIiEDGAc/
+ /41xOHsNc+BVuGI9XpjPk3N9/MVgotTx29ZAq4GbzQrlXd2pHO0uFvjTPh7gL5LvskJr
+ 2u+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778622942; x=1779227742;
+ d=1e100.net; s=20251104; t=1778623555; x=1779228355;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=6siaRiJCxGUQ4V8uEWAgm41HK+hOsAS6pXUOkS7dfQk=;
- b=JbnMRRh3PdUSJvRNiimtAA70HU6nnNGURO/3+QuWy8jvszsN32nD5DPO1MnVZmpGg2
- DnebOFMZSnQUpEsXOyaWyTyuowMbDujIj/XBScnS/mzJMG6h/gnleEprQj5oDRlfElBk
- LZX/bb2L/a7EhGfAMSevCYuK9midd1stS7ELAsIq1wg+ewVO1wmSKYQIZCkYOhRWTQNV
- s1+tyNoKjX1UxE2fpkyBpssW7GSYpuD6cLV5S/w66EjLzUqGJaDY+cwb336P62MJEXQa
- n/yNGMop1bw/ahfIeqVM9L+gS0sJpfjFYtETUP6qozls4nWA8calhaqIPlm+qh99NJrs
- VIEQ==
+ bh=LYumDMVjxXYwqfISVgMJHCWZJqlEq6GvOPj4+VEZ0mQ=;
+ b=c/DV5RlNr64M1mE3J4l77QZQHSBkG+77PK9j8rf9YZmTVtTt684RYW/Y2rb8HOSBTW
+ gi4jkOMfuk3QGV8Ka7ZxThG0uBDK0bwga6owAgCyP1RvcVtmBiURLAOE7KNdjMOGaHB0
+ AzC5DYaLZeSf/2Sj32CtorFHAngS/cs+t1wIDeOHlK6qnLLFW3Z9C3dfWJDIGX9jhmbr
+ Sm4M6Jz2C42lG+hlEDLZ6/1mv3d6gjT2jiJ0debjSFCPeyfo3dH2BhxIyz/v4s8cXNQB
+ ObJA6L79XZcb5IYpOonb5a2j8/DYvq2QQyixBASyK6s0BydQ8GYaVXSiI8p2wvmd7NG6
+ kAFA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8e5vqOP+msM81FRnMYr/6bWqFPricnFv9frM64o90QPICb11zsfeV/rEtTjKvap+WCUXsu/iQYq0s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxK/O/VBpRm2IwpBXg64saTM8rpgcUIe7pyC0Js/efF2RQ49luM
- nrUVZSyFOBOnMuea7ojzvcR6I2jRnE4ZC/pq+kTTMdvtgZwSoJZVjeleQ1jD8S9fkgr8kXV7YiO
- 6oQv4vjOEJeOpGx+a7CoEA3479837Ing=
-X-Gm-Gg: Acq92OGlwNmyQkHLqAYYU/jAiGDGfgMvKmh3GJ/IwiGrOjthYM20xtJ1KCdaV84UexX
- HMExsCZAdQ56Av3orsQuSZ/4M7pVDcFUYnI/WJBFcJaVgoyl5CedaVHEHlXBA5JMScSBHCJVxOM
- PjM3kDX7DqKh9EDiQ7K5dRsWdqJsMLgqWZ+EEcYKXATZ8Q6DzAa2bXbOjbwsyPwPY9HFVRLg3ei
- YSrCQY/umyC8YMbBvjCEJhAVOF6yqynDh0nldNV8rFfmuMiJlzTsMImzYLuTTZnHoAKGv4fxjRO
- 2vPhv06+Bs1oHbvDJry3L5XSIq0GjcafHIcBaTJj5Uv97/IV8kcs2832NrZIGibwHnGRegyNaA=
+ AFNElJ/1Nqt7pjkwsOnS+rYo0+IA3+9asrfftxHJM85TMPKgrt6idMa3n38HIiJnY90K4unkcM+mSHNL4f8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxI0ROO0WRCgyBdzsPwAgQ22wXPVb0VZjmotrgETvy874peS0WV
+ m59SgYX0NWIQfWX+5k4+qqQy6rZkvyqLCH564ZKsLjnpFFBk/3F4RLLzuZXcBaO1I9dXZjBUzc6
+ gL2G8SDH/YgqCr3Y8wCOTFPcZooo/8us=
+X-Gm-Gg: Acq92OH2b/lQXjq/LVC+2OMGlAdGtpClnvalLZMf+4AvT47VM92fjaw98vy4sByAlLI
+ Uv2NlZdBFEltARiAcZB8D2c78U2L3ZSxQy9bGvjCTfb0AjxdFilanMq2wAsnyHgdE6kbYUYWHsk
+ sMCjiYUqrNj2xUOGUa1JBrPW+czb7xI6/kGgA2cpB9GtczB0sYPIYT0Ls7H+/ipWUHMdRjIRFff
+ H/aHs/yYk7oUb7z44vRsaaqzhNIKmf4h75+WmMAoq6JPHTx+Ulqu7bbyTx5DORjAIpexXeRvyhZ
+ p+Wc1b60Db/QsnDdFyvfDebB/QX/wgKKNFHjEHEj/P23EKH7R308sFTNb7C4IguQrCnx1V8uSg=
  =
-X-Received: by 2002:a05:690c:c50d:b0:7bd:7afc:ec46 with SMTP id
- 00721157ae682-7c6ac9a6b5emr7162057b3.45.1778622942568; Tue, 12 May 2026
- 14:55:42 -0700 (PDT)
+X-Received: by 2002:a05:690c:e1db:10b0:7be:fedd:726b with SMTP id
+ 00721157ae682-7c6dc6b1e2dmr368977b3.42.1778623554868; Tue, 12 May 2026
+ 15:05:54 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-8-95c614a739cb@collabora.com>
-In-Reply-To: <20260512-panthor-signal-from-irq-v2-8-95c614a739cb@collabora.com>
+ <20260512-panthor-signal-from-irq-v2-9-95c614a739cb@collabora.com>
+In-Reply-To: <20260512-panthor-signal-from-irq-v2-9-95c614a739cb@collabora.com>
 From: Chia-I Wu <olvaffe@gmail.com>
-Date: Tue, 12 May 2026 14:55:30 -0700
-X-Gm-Features: AVHnY4Kem1DJATb6sP9GPBt05_J9zFrJz1SPpcPkgjtdyoJnKiuKs_XPPcYyRX0
-Message-ID: <CAPaKu7Sx85JpFFJ_4w3mZ6_OPkCHDqp68Uo+RbeYx=5v03vdww@mail.gmail.com>
-Subject: Re: [PATCH v2 08/11] drm/panthor: Automatically enable interrupts in
- panthor_fw_wait_acks()
+Date: Tue, 12 May 2026 15:05:44 -0700
+X-Gm-Features: AVHnY4ICNMPe0lrhbOSzL4gNX3rcLc6fndQ0OnE2Drip2-k6Mm3WL0MXjHs3XF0
+Message-ID: <CAPaKu7SHcS=KaeLvSrxcopgL_aKQm2vVeRmGHGWW+E2YgGOM0Q@mail.gmail.com>
+Subject: Re: [PATCH v2 09/11] drm/panthor: Process FW events in IRQ context
 To: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -115,272 +114,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Tue, May 12, 2026 at 4:54=E2=80=AFAM Boris Brezillon
 <boris.brezillon@collabora.com> wrote:
 >
-> Rather than assuming an interrupt is always expected for request
-> acks, temporarily enable the relevant interrupts when the polling-wait
-> failed. This should hopefully reduce the number of interrupts the CPU
-> has to process.
->
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-WIth minor comments below, Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c    | 34 +++++++++++++++++++--------=
-------
->  drivers/gpu/drm/panthor/panthor_sched.c |  5 +++--
->  2 files changed, 23 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
-or/panthor_fw.c
-> index 8239a6951569..f5e0ceca4130 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1039,16 +1039,10 @@ static void panthor_fw_init_global_iface(struct p=
-anthor_device *ptdev)
->         glb_iface->input->progress_timer =3D PROGRESS_TIMEOUT_CYCLES >> P=
-ROGRESS_TIMEOUT_SCALE_SHIFT;
->         glb_iface->input->idle_timer =3D panthor_fw_conv_timeout(ptdev, I=
-DLE_HYSTERESIS_US);
->
-> -       /* Enable interrupts we care about. */
-> -       glb_iface->input->ack_irq_mask =3D GLB_CFG_ALLOC_EN |
-> -                                        GLB_PING |
-> -                                        GLB_CFG_PROGRESS_TIMER |
-> -                                        GLB_CFG_POWEROFF_TIMER |
-> -                                        GLB_IDLE_EN |
-> -                                        GLB_IDLE;
-> -
-> -       if (panthor_fw_has_glb_state(ptdev))
-> -               glb_iface->input->ack_irq_mask |=3D GLB_STATE_MASK;
-> +       /* Enable interrupts for asynchronous events that are not
-> +        * triggered by request acks.
-> +        */
-> +       glb_iface->input->ack_irq_mask =3D GLB_IDLE;
-We should static_assert or & with GLB_EVT_MASK. Same for CSG and CS.
-
->
->         panthor_fw_update_reqs(glb_iface, req, GLB_IDLE_EN | GLB_COUNTER_=
-EN,
->                                GLB_IDLE_EN | GLB_COUNTER_EN);
-> @@ -1318,8 +1312,8 @@ void panthor_fw_unplug(struct panthor_device *ptdev=
-)
->   * Return: 0 on success, -ETIMEDOUT otherwise.
->   */
->  static int panthor_fw_wait_acks(const u32 *req_ptr, const u32 *ack_ptr,
-> -                               wait_queue_head_t *wq,
-> -                               u32 req_mask, u32 *acked,
-> +                               u32 *ack_irq_mask_ptr, spinlock_t *lock,
-> +                               wait_queue_head_t *wq, u32 req_mask, u32 =
-*acked,
->                                 u32 timeout_ms)
->  {
->         u32 ack, req =3D READ_ONCE(*req_ptr) & req_mask;
-> @@ -1334,8 +1328,16 @@ static int panthor_fw_wait_acks(const u32 *req_ptr=
-, const u32 *ack_ptr,
->         if (!ret)
->                 return 0;
->
-> -       if (wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) =3D=
-=3D req,
-> -                              msecs_to_jiffies(timeout_ms)))
-> +       scoped_guard(spinlock_irqsave, lock)
-> +               *ack_irq_mask_ptr |=3D req_mask;
-> +
-> +       ret =3D wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) =
-=3D=3D req,
-> +                                msecs_to_jiffies(timeout_ms));
-> +
-> +       scoped_guard(spinlock_irqsave, lock)
-> +               *ack_irq_mask_ptr &=3D ~req_mask;
-We should add a comment saying that this is safe because
-{GLB,CSG,CS}_REQ_MASK and {GLB,CSG,CS}_EVT_MASK are disjoint, and thus
-req_mask and ack_irq_mask are disjoint.
-> +
-> +       if (ret)
->                 return 0;
->
->         /* Check one last time, in case we were not woken up for some rea=
-son. */
-> @@ -1369,6 +1371,8 @@ int panthor_fw_glb_wait_acks(struct panthor_device =
-*ptdev,
->
->         return panthor_fw_wait_acks(&glb_iface->input->req,
->                                     &glb_iface->output->ack,
-> +                                   &glb_iface->input->ack_irq_mask,
-> +                                   &glb_iface->lock,
->                                     &ptdev->fw->req_waitqueue,
->                                     req_mask, acked, timeout_ms);
->  }
-> @@ -1395,6 +1399,8 @@ int panthor_fw_csg_wait_acks(struct panthor_device =
-*ptdev, u32 csg_slot,
->
->         ret =3D panthor_fw_wait_acks(&csg_iface->input->req,
->                                    &csg_iface->output->ack,
-> +                                  &csg_iface->input->ack_irq_mask,
-> +                                  &csg_iface->lock,
->                                    &ptdev->fw->req_waitqueue,
->                                    req_mask, acked, timeout_ms);
->
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
-nthor/panthor_sched.c
-> index 6c5ba747ae45..a9124bcc7de6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1110,7 +1110,7 @@ cs_slot_prog_locked(struct panthor_device *ptdev, u=
-32 csg_id, u32 cs_id)
->         cs_iface->input->ringbuf_output =3D queue->iface.output_fw_va;
->         cs_iface->input->config =3D CS_CONFIG_PRIORITY(queue->priority) |
->                                   CS_CONFIG_DOORBELL(queue->doorbell_id);
-> -       cs_iface->input->ack_irq_mask =3D ~0;
-> +       cs_iface->input->ack_irq_mask =3D CS_FATAL | CS_FAULT | CS_TILER_=
-OOM;
->         panthor_fw_update_reqs(cs_iface, req,
->                                CS_IDLE_SYNC_WAIT |
->                                CS_IDLE_EMPTY |
-> @@ -1378,7 +1378,8 @@ csg_slot_prog_locked(struct panthor_device *ptdev, =
-u32 csg_id, u32 priority)
->                 csg_iface->input->protm_suspend_buf =3D 0;
->         }
->
-> -       csg_iface->input->ack_irq_mask =3D ~0;
-> +       csg_iface->input->ack_irq_mask =3D CSG_SYNC_UPDATE | CSG_IDLE |
-> +                                        CSG_PROGRESS_TIMER_EVENT;
->         panthor_fw_toggle_reqs(csg_iface, doorbell_req, doorbell_ack, que=
-ue_mask);
->         return 0;
->  }
->
-> --
-> 2.54.0
->
-
-On Tue, May 12, 2026 at 4:54=E2=80=AFAM Boris Brezillon
-<boris.brezillon@collabora.com> wrote:
->
-> Rather than assuming an interrupt is always expected for request
-> acks, temporarily enable the relevant interrupts when the polling-wait
-> failed. This should hopefully reduce the number of interrupts the CPU
-> has to process.
+> Now that everything is set to allow processing FW events in IRQ context,
+> go for it. This should reduce the dma_fence signaling latency.
 >
 > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_fw.c    | 34 +++++++++++++++++++--------=
-------
->  drivers/gpu/drm/panthor/panthor_sched.c |  5 +++--
->  2 files changed, 23 insertions(+), 16 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_fw.c | 27 +++++++++++++++++++++++----
+>  1 file changed, 23 insertions(+), 4 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
 or/panthor_fw.c
-> index 8239a6951569..f5e0ceca4130 100644
+> index f5e0ceca4130..8cfebf180de7 100644
 > --- a/drivers/gpu/drm/panthor/panthor_fw.c
 > +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1039,16 +1039,10 @@ static void panthor_fw_init_global_iface(struct p=
-anthor_device *ptdev)
->         glb_iface->input->progress_timer =3D PROGRESS_TIMEOUT_CYCLES >> P=
-ROGRESS_TIMEOUT_SCALE_SHIFT;
->         glb_iface->input->idle_timer =3D panthor_fw_conv_timeout(ptdev, I=
-DLE_HYSTERESIS_US);
->
-> -       /* Enable interrupts we care about. */
-> -       glb_iface->input->ack_irq_mask =3D GLB_CFG_ALLOC_EN |
-> -                                        GLB_PING |
-> -                                        GLB_CFG_PROGRESS_TIMER |
-> -                                        GLB_CFG_POWEROFF_TIMER |
-> -                                        GLB_IDLE_EN |
-> -                                        GLB_IDLE;
-> -
-> -       if (panthor_fw_has_glb_state(ptdev))
-> -               glb_iface->input->ack_irq_mask |=3D GLB_STATE_MASK;
-> +       /* Enable interrupts for asynchronous events that are not
-> +        * triggered by request acks.
-> +        */
-> +       glb_iface->input->ack_irq_mask =3D GLB_IDLE;
->
->         panthor_fw_update_reqs(glb_iface, req, GLB_IDLE_EN | GLB_COUNTER_=
-EN,
->                                GLB_IDLE_EN | GLB_COUNTER_EN);
-> @@ -1318,8 +1312,8 @@ void panthor_fw_unplug(struct panthor_device *ptdev=
-)
->   * Return: 0 on success, -ETIMEDOUT otherwise.
->   */
->  static int panthor_fw_wait_acks(const u32 *req_ptr, const u32 *ack_ptr,
-> -                               wait_queue_head_t *wq,
-> -                               u32 req_mask, u32 *acked,
-> +                               u32 *ack_irq_mask_ptr, spinlock_t *lock,
-> +                               wait_queue_head_t *wq, u32 req_mask, u32 =
-*acked,
->                                 u32 timeout_ms)
->  {
->         u32 ack, req =3D READ_ONCE(*req_ptr) & req_mask;
-> @@ -1334,8 +1328,16 @@ static int panthor_fw_wait_acks(const u32 *req_ptr=
-, const u32 *ack_ptr,
->         if (!ret)
->                 return 0;
->
-> -       if (wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) =3D=
-=3D req,
-> -                              msecs_to_jiffies(timeout_ms)))
-> +       scoped_guard(spinlock_irqsave, lock)
-> +               *ack_irq_mask_ptr |=3D req_mask;
-> +
-> +       ret =3D wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) =
-=3D=3D req,
-> +                                msecs_to_jiffies(timeout_ms));
-> +
-> +       scoped_guard(spinlock_irqsave, lock)
-> +               *ack_irq_mask_ptr &=3D ~req_mask;
-> +
-> +       if (ret)
->                 return 0;
->
->         /* Check one last time, in case we were not woken up for some rea=
-son. */
-> @@ -1369,6 +1371,8 @@ int panthor_fw_glb_wait_acks(struct panthor_device =
-*ptdev,
->
->         return panthor_fw_wait_acks(&glb_iface->input->req,
->                                     &glb_iface->output->ack,
-> +                                   &glb_iface->input->ack_irq_mask,
-> +                                   &glb_iface->lock,
->                                     &ptdev->fw->req_waitqueue,
->                                     req_mask, acked, timeout_ms);
->  }
-> @@ -1395,6 +1399,8 @@ int panthor_fw_csg_wait_acks(struct panthor_device =
-*ptdev, u32 csg_slot,
->
->         ret =3D panthor_fw_wait_acks(&csg_iface->input->req,
->                                    &csg_iface->output->ack,
-> +                                  &csg_iface->input->ack_irq_mask,
-> +                                  &csg_iface->lock,
->                                    &ptdev->fw->req_waitqueue,
->                                    req_mask, acked, timeout_ms);
->
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
-nthor/panthor_sched.c
-> index 6c5ba747ae45..a9124bcc7de6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1110,7 +1110,7 @@ cs_slot_prog_locked(struct panthor_device *ptdev, u=
-32 csg_id, u32 cs_id)
->         cs_iface->input->ringbuf_output =3D queue->iface.output_fw_va;
->         cs_iface->input->config =3D CS_CONFIG_PRIORITY(queue->priority) |
->                                   CS_CONFIG_DOORBELL(queue->doorbell_id);
-> -       cs_iface->input->ack_irq_mask =3D ~0;
-> +       cs_iface->input->ack_irq_mask =3D CS_FATAL | CS_FAULT | CS_TILER_=
-OOM;
->         panthor_fw_update_reqs(cs_iface, req,
->                                CS_IDLE_SYNC_WAIT |
->                                CS_IDLE_EMPTY |
-> @@ -1378,7 +1378,8 @@ csg_slot_prog_locked(struct panthor_device *ptdev, =
-u32 csg_id, u32 priority)
->                 csg_iface->input->protm_suspend_buf =3D 0;
+> @@ -1087,9 +1087,29 @@ static void panthor_job_irq_handler(struct panthor=
+_irq *pirq, u32 status)
 >         }
->
-> -       csg_iface->input->ack_irq_mask =3D ~0;
-> +       csg_iface->input->ack_irq_mask =3D CSG_SYNC_UPDATE | CSG_IDLE |
-> +                                        CSG_PROGRESS_TIMER_EVENT;
->         panthor_fw_toggle_reqs(csg_iface, doorbell_req, doorbell_ack, que=
-ue_mask);
->         return 0;
 >  }
+>
+> -static irqreturn_t panthor_job_irq_threaded_handler(int irq, void *data)
+> +static irqreturn_t panthor_job_irq_raw_handler(int irq, void *data)
+>  {
+> -       return panthor_irq_default_threaded_handler(data, panthor_job_irq=
+_handler);
+> +       struct panthor_irq *pirq =3D data;
+> +
+> +       if (!gpu_read(pirq->iomem, INT_STAT))
+> +               return IRQ_NONE;
+> +
+> +       scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
+> +               if (pirq->state !=3D PANTHOR_IRQ_STATE_ACTIVE)
+> +                       return IRQ_NONE;
+> +
+> +               pirq->state =3D PANTHOR_IRQ_STATE_PROCESSING;
+> +       }
+> +
+> +       /* We can use INT_STAT here, because we didn't mask the IRQs. */
+> +       panthor_job_irq_handler(pirq, gpu_read(pirq->iomem, INT_STAT));
+We should loop here until INT_STAT is cleared.
+> +
+> +       scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
+> +               if (pirq->state =3D=3D PANTHOR_IRQ_STATE_PROCESSING)
+> +                       pirq->state =3D PANTHOR_IRQ_STATE_ACTIVE;
+> +       }
+> +
+> +       return IRQ_HANDLED;
+>  }
+>
+>  static int panthor_fw_start(struct panthor_device *ptdev)
+> @@ -1489,8 +1509,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
+>
+>         ret =3D panthor_irq_request(ptdev, &fw->irq, irq, 0,
+>                                   ptdev->iomem + JOB_INT_BASE, "job",
+> -                                 panthor_irq_default_raw_handler,
+> -                                 panthor_job_irq_threaded_handler);
+> +                                 panthor_job_irq_raw_handler, NULL);
+>         if (ret) {
+>                 drm_err(&ptdev->base, "failed to request job irq");
+>                 return ret;
 >
 > --
 > 2.54.0
