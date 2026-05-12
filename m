@@ -4,34 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D3ABCD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 13:37:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 177AECD4F24
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 13:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88ADF10E22B;
-	Tue, 12 May 2026 13:37:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7606610EABC;
+	Tue, 12 May 2026 13:47:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Hm5hOOjU";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="IO7S8mOa";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 08C5F10E22B
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 13:37:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3049A10EA92
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 13:47:50 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 077DD1691
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 06:37:37 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B57B1655
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 06:47:44 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 1C5C13F85F
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 06:37:42 -0700 (PDT)
+ 8D35D3F85F
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 06:47:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1778593062; bh=Gvl4cEd1ZiXBIpJHrKLmqu+T8vzwYIr7JhCY27iDUns=;
+ t=1778593669; bh=AHvaIjAEownr1UuDMvzjOHmJ1x9P7IhUK8cJvIHHPdU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Hm5hOOjUhFFoerjJ1gw71+sBHg+rmXr/BUFth4ipmfmLl3zt8ladf1CHx5nY9m6GK
- HL8oh/GGpwiRBNnf4DHNz/3sTbYOLD7hPIsCBcyD44uAgKzeSsY7fUBHcmHLbIUJE/
- Auom8oc6NXpHTeEHNfE30ulK6j9R3gvIn3RZqKos=
-Date: Tue, 12 May 2026 14:37:21 +0100
+ b=IO7S8mOaex4OHdGBps5MvJuXcYBVgmpF0/N/4R42uuocCLoAc7aGRpWo83/leXe4H
+ pctsPAFV4gzmlAkluGJu6gon9sBSq5dv9LydQOymMwfxgYWQGmJU+PFOKjAAO+kQmf
+ iNCvrmhN9Id5kaAyfAfYYaz2RI7qYIBRxBVuMOL8=
+Date: Tue, 12 May 2026 14:47:27 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Marcin =?utf-8?Q?=C5=9Alusarz?= <marcin.slusarz@arm.com>,
+ Ketil Johnsen <ketil.johnsen@arm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
@@ -41,7 +43,6 @@ Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
  "T.J. Mercier" <tjmercier@google.com>,
  Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  Alice Ryhl <aliceryhl@google.com>,
@@ -50,16 +51,20 @@ Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 3/8] drm/panthor: De-duplicate FW memory section sync
-Message-ID: <agMtEXOqPGEwKuwt@e142607>
+ linux-mediatek@lists.infradead.org,
+ Florent Tomasin <florent.tomasin@arm.com>, nd@arm.com
+Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
+ allocation in panthor
+Message-ID: <agMvb_jeRsO7tSS-@e142607>
 References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
- <20260505140516.1372388-4-ketil.johnsen@arm.com>
+ <20260505140516.1372388-5-ketil.johnsen@arm.com>
+ <20260505181523.49a3d85c@fedora> <afxVIuVVPisBQ9p_@e129842.arm.com>
+ <20260507135356.5428d50d@fedora>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260505140516.1372388-4-ketil.johnsen@arm.com>
+In-Reply-To: <20260507135356.5428d50d@fedora>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,92 +80,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 05, 2026 at 04:05:09PM +0200, Ketil Johnsen wrote:
-> Handle the sync to device of FW memory sections inside
-> panthor_fw_init_section_mem() so that the callers do not have to.
+On Thu, May 07, 2026 at 01:53:56PM +0200, Boris Brezillon wrote:
+> On Thu, 7 May 2026 11:02:26 +0200
+> Marcin Ślusarz <marcin.slusarz@arm.com> wrote:
 > 
-> This small improvement is also critical for protected FW sections,
-> so we avoid issuing memory transactions to protected memory from
-> CPU running in normal mode.
+> > On Tue, May 05, 2026 at 06:15:23PM +0200, Boris Brezillon wrote:
+> > > > @@ -277,9 +286,21 @@ int panthor_device_init(struct panthor_device *ptdev)
+> > > >  			return ret;
+> > > >  	}
+> > > >  
+> > > > +	/* If a protected heap name is specified but not found, defer the probe until created */
+> > > > +	if (protected_heap_name && strlen(protected_heap_name)) {  
+> > > 
+> > > Do we really need this strlen() > 0? Won't dma_heap_find() fail is the
+> > > name is "" already?  
+> > 
+> > If dma_heap_find() will fail, then the whole probe with fail too.
+> > This check prevents that.
 > 
-> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> Yeah, that's also a questionable design choice. I mean, we can
+> currently probe and boot the FW even though we never setup the
+> protected FW sections, so why should we defer the probe here? Can't we
+> just retry the next time a group with the protected bit is created and
+> fail if we can find a protected heap?
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+The problem we have with the current firmware is that it does a number of setup steps at "boot"
+time only. One of the steps is preparing its internal structures for when it enters protected
+mode and it stores them in the buffer passed in at firmware loading. We cannot later run the
+process when we have a group with protected mode set.
+
+So unfortunately adding support for protected mode where the heap name is provided means we
+have to try our best to set it up at boot time, or otherwise disable protected mode support.
 
 Best regards,
 Liviu
 
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 22 ++++++----------------
->  1 file changed, 6 insertions(+), 16 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index be0da5b1f3abf..0d07a133dc3af 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -446,6 +446,7 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
->  					struct panthor_fw_section *section)
->  {
->  	bool was_mapped = !!section->mem->kmap;
-> +	struct sg_table *sgt;
->  	int ret;
->  
->  	if (!section->data.size &&
-> @@ -464,6 +465,11 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
->  
->  	if (!was_mapped)
->  		panthor_kernel_bo_vunmap(section->mem);
-> +
-> +	/* An sgt should have been requested when the kernel BO was GPU-mapped. */
-> +	sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
-> +	if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
-> +		dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
->  }
->  
->  /**
-> @@ -626,7 +632,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
->  	section_size = hdr.va.end - hdr.va.start;
->  	if (section_size) {
->  		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
-> -		struct panthor_gem_object *bo;
->  		u32 vm_map_flags = 0;
->  		u64 va = hdr.va.start;
->  
-> @@ -663,14 +668,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
->  		}
->  
->  		panthor_fw_init_section_mem(ptdev, section);
-> -
-> -		bo = to_panthor_bo(section->mem->obj);
-> -
-> -		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
-> -		if (drm_WARN_ON_ONCE(&ptdev->base, !bo->dmap.sgt))
-> -			return -EINVAL;
-> -
-> -		dma_sync_sgtable_for_device(ptdev->base.dev, bo->dmap.sgt, DMA_TO_DEVICE);
->  	}
->  
->  	if (hdr.va.start == CSF_MCU_SHARED_REGION_START)
-> @@ -724,17 +721,10 @@ panthor_reload_fw_sections(struct panthor_device *ptdev, bool full_reload)
->  	struct panthor_fw_section *section;
->  
->  	list_for_each_entry(section, &ptdev->fw->sections, node) {
-> -		struct sg_table *sgt;
-> -
->  		if (!full_reload && !(section->flags & CSF_FW_BINARY_IFACE_ENTRY_WR))
->  			continue;
->  
->  		panthor_fw_init_section_mem(ptdev, section);
-> -
-> -		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
-> -		sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
-> -		if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
-> -			dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
->  	}
->  }
->  
-> -- 
-> 2.43.0
+> > I'm not sure why it's needed at all, but if
+> > it is really needed, then s/strlen(protected_heap_name)/protected_heap_name[0]/
+> > would simplify this.
+> 
+> It's not so much about how you do the test, and more about the case
+> you're trying to protect against. I guess here you assume that
+> panthor.protected_heap_name="" means "I don't have a protected heap for
+> you". If it's deemed acceptable, this should most certainly be
+> described somewhere.
+> 
+> > 
+> > > > +		ptdev->protm.heap = dma_heap_find(protected_heap_name);
+> > > > +		if (!ptdev->protm.heap) {
+> > > > +			drm_warn(&ptdev->base,
+> > > > +				 "Protected heap \'%s\' not (yet) available - deferring probe",
+> > > > +				 protected_heap_name);
+> > > > +			ret = -EPROBE_DEFER;
+> > > > +			goto err_rpm_put;  
+> > > 
+> > > If you move the heap retrieval before the rpm enablement, you can get
+> > > rid of this goto err_rpm_put.
+> > >   
+> > > > +		}
+> > > > +	}
+> > > > +
+> > > >  	ret = panthor_hw_init(ptdev);
+> > > >  	if (ret)
+> > > > -		goto err_rpm_put;
+> > > > +		goto err_dma_heap_put;
+> > > >  
+> > > >  	ret = panthor_pwr_init(ptdev);
+> > > >  	if (ret)  
 > 
 
 -- 
