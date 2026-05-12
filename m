@@ -4,96 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701BBCD4F24
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 13:22:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B62B7CD4F24
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 13:29:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D038C10E174;
-	Tue, 12 May 2026 13:22:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FF2A10EAA7;
+	Tue, 12 May 2026 13:29:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="SHpp2QIl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ea6pgNYu";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C09210E174
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 13:22:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778592170;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8VxWGAY0yP7bAHYF8LAQ+cdD8qqoBU5/oRKqAKEcDgM=;
- b=SHpp2QIlgx5+BZSnQnB3PAKSgz8ZM5sodCoE9pkLgiyq4BN2MUUYg6JgkRMFGVeRg/CQA7
- z7KIXdgUv2dNZ57p1VWkCAWPQ7rKxrzt///MYa5MMz+gk4jxrfet0s8NVW0ehz6Q+NQqTU
- sb4gIclao/t2LEfvQOXVSuhaTIgdNrc=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-388-OUXknXZjOYyp2j5JDFOp5Q-1; Tue, 12 May 2026 09:22:49 -0400
-X-MC-Unique: OUXknXZjOYyp2j5JDFOp5Q-1
-X-Mimecast-MFC-AGG-ID: OUXknXZjOYyp2j5JDFOp5Q_1778592168
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-44b2b38648eso4388544f8f.3
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 06:22:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778592168; x=1779196968;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=8VxWGAY0yP7bAHYF8LAQ+cdD8qqoBU5/oRKqAKEcDgM=;
- b=hWiDQreQaUHd4Gown41F7Fg0LIqqdaV3GpxMS0sMOzKN0s5LotbkbRk1kdJ2ejqNu6
- 3LT74DwoX4EMJkS4wSuMWs6jvtfdbtJ+25gWdAQfxB3OF9PlACSOTgNji5nN0uywlJxn
- usZJlp6MXrSjkWeRwrN9Sbhdh4+VyoicLHM3uOgP3uaoJoBvYGxSpmGBQHUyHjr5Aj96
- aadyF9u2Q1TF7BV34y7Dlj8WZKJavnTKfmQHWY+OkJYSn5u0zRHuI6bDRDWT4zO9HV4U
- CK1SvPqSIKVNfUna+SGYPWPanWZJnLvRbx/oONzMiA5te9PsR47DBJdR362QE8iK9Ckj
- 1z9g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8gmoCNa1ydVedOR5FIcabm3oQD5Ic/s6MRJG6AK54bJKUHLA+nPeckNeQzwxsogrdrD6HVYI0o72c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxbtmittGz98eB8X9j9trgaMeucKgdjRqtgPlBLTxWxzfeXTgjE
- xBxBKOtHws8bK0F3ucR6ICYc8CGgmoHy3KtvtTXdhYYnYr6SPb8F1JTiJl+EvPZhkqW1v4UUXI2
- x/Ygr2fCnDCpmrAjWzVnglYqdNdfD0ACwVT5CQRuGGkgUGIIyzUVXM3c5kX/t3ot9GeinQQ==
-X-Gm-Gg: Acq92OHLfeApbWA7UKQk2dlxaqlQC//mMNnCdx86+LtF4kH59Jn+0B8ulBJQOFJ+vhB
- NDGp5erG/p5E7Ac/CMenj8KiNe0dUTfcq1yZhjkD6hckT8CFGGRmkKWNXTWpbkVatYC+d973yX6
- ww+uwHNVaqcmAeGr7ACyPmEQ1I9ZuMqmt+dMJdYtaO3iMMnqMtY7XlIaY4LpHGCT3zvfk7ZDDvr
- OId33iNqAhwA9n5fjeRPzGy8D/d7nQ6LvFS5vuQHV1CwpLUFJk3QbYqvPA/aU5k4ybPLDwIrJOD
- 6XElMz+HZmS7s44PjSRfg7sNLgyZ3NOJoEJELMUvoRbL6sXgSx7IlOWHWebFwShEVYVriqlCKbe
- LvMlgfRVXMFaVRbA1PiDgql0mQmI5fpp18RLS9VJ7Q9UcBlw=
-X-Received: by 2002:a05:6000:1869:b0:43d:1c21:ead5 with SMTP id
- ffacd0b85a97d-456a369055dmr21153518f8f.22.1778592168042; 
- Tue, 12 May 2026 06:22:48 -0700 (PDT)
-X-Received: by 2002:a05:6000:1869:b0:43d:1c21:ead5 with SMTP id
- ffacd0b85a97d-456a369055dmr21153462f8f.22.1778592167556; 
- Tue, 12 May 2026 06:22:47 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45491304387sm31943745f8f.21.2026.05.12.06.22.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 May 2026 06:22:44 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Phong LE <ple@baylibre.com>,
- Robert Foss <rfoss@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 2/2] drm/bridge: ite-it66121: Select HDMI or DVI mode based
- on sink type
-Date: Tue, 12 May 2026 15:22:16 +0200
-Message-ID: <20260512132232.333654-3-javierm@redhat.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260512132232.333654-1-javierm@redhat.com>
-References: <20260512132232.333654-1-javierm@redhat.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF10210EAA7;
+ Tue, 12 May 2026 13:29:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778592568; x=1810128568;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Aa7rxsAs/sYFwfgXB3mJJNsnj4/qBnaD6Y7+0T/crN0=;
+ b=ea6pgNYu115SlRY6TbSB08CggRBvaTCJtgwTPMyj5ejWUobBEZARxE0h
+ m2TGgDDYjp8OGrBGT4vk5OMCmkggkqKtOjGELYC5kC2zxuz91jUl/8B09
+ UMifbN9hL4tLoQpG8Lez7LZOibGNeyrWs4nJ4AtqEA0xSN/8lRsJZzyvb
+ Mnq2kF8h7fCZatqi3DnKmDeH1RHSaxzFJoPBKGTjlVcbV5q8iKjHvVnb9
+ jreiJpGaBFrWsHtHM3ZIICMA629pem8wG05DpThtLuLN3Q5MYoKE5QVVZ
+ lxM/AJUCki6Y3ycO2C47nxo8CCqnmqVjJ6M/jARbx3ESXWNcFr03huyT8 Q==;
+X-CSE-ConnectionGUID: g9vtMUYYQ9mBC+simu9FYg==
+X-CSE-MsgGUID: WtJIfY91TJ6Sg0BKDlrq/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="102164645"
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="102164645"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 06:29:27 -0700
+X-CSE-ConnectionGUID: 7kKFv5NTS86pPpiz/ke8Iw==
+X-CSE-MsgGUID: 9sHYz3+QQHOXQoDuvVTnwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="237855854"
+Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
+ by orviesa009.jf.intel.com with ESMTP; 12 May 2026 06:29:23 -0700
+From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com
+Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona.vetter@ffwll.ch, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
+ Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Subject: [PATCH v5 0/5] Introduce cold reset recovery method
+Date: Tue, 12 May 2026 18:56:15 +0530
+Message-ID: <20260512132614.1793083-7-mallesh.koujalagi@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: x_uy7uvGrUy3zzyKbT84r5LWb3OI-CvQaPOcJMlTaDw_1778592168
-X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,69 +71,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The driver assumes that the sink type is always HDMI and unconditionally
-configures the bridge in this mode and enables the transmission of AVI
-infoframe packets.
+This series builds on top of Introduce Xe Uncorrectable Error Handling[1]
+and adds support for handling errors that require a complete
+device power cycle (cold reset) to recover.
 
-But this cause issues with DVI monitors, that can fail to interpret the
-video signal and lead to not having any display output.
+Certain error conditions leave the device in a persistent hardware
+error state that cannot be cleared through existing recovery mechanisms
+such as driver reload or PCIe reset. In these cases, functionality can
+only be restored by performing a cold reset.
 
-Check the connector display information sink type to decide whether DVI or
-HDMI mode should be set and if the AVI infoframes packets should be sent.
+To support this, the series introduces a new DRM wedging recovery
+method, DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)). When a device is wedged
+with this method, the DRM core notifies userspace via a uevent that a cold
+reset is required. This allows userspace to take appropriate action to
+power-cycle the device.
 
-Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
----
+Example uevent received:
+  SUBSYSTEM=drm
+  WEDGED=cold-reset
+  DEVPATH=/devices/.../drm/card0
 
-Changes in v3:
-- Move the HDMI/DVI mode set to the .atomic_enable handler (Maxime Ripard).
+Detailed description in commit message.
 
-Changes in v2:
-- Don't store the sink type in a per-commit bridge state (Maxime Ripard).
+[1] https://patchwork.freedesktop.org/series/160482/
+This patch series introduces a call to punit_error_handler() from
+within handle_soc_internal_errors() when PUNIT errors detected.
 
- drivers/gpu/drm/bridge/ite-it66121.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+v2:
+- Add use case: Handling errors from power management unit,
+  which requires a complete power cycle to
+  recover. (Christian)
+- Add several instead of number to avoid update. (Jani)
 
-diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-index 648ca50712df..94fd513481b5 100644
---- a/drivers/gpu/drm/bridge/ite-it66121.c
-+++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -182,6 +182,7 @@
- 
- #define IT66121_HDMI_MODE_REG			0xC0
- #define IT66121_HDMI_MODE_HDMI			BIT(0)
-+#define IT66121_HDMI_MODE_DVI			0
- 
- #define IT66121_SYS_STATUS_REG			0x0E
- #define IT66121_SYS_STATUS_ACTIVE_IRQ		BIT(7)
-@@ -671,15 +672,23 @@ static int it66121_set_mute(struct it66121_ctx *ctx, bool mute)
- 
- static void it66121_set_tx_mode(struct it66121_ctx *ctx)
- {
-+	unsigned int avi_pkt = 0;
-+	unsigned int mode = IT66121_HDMI_MODE_DVI;
-+	struct drm_connector *connector = ctx->connector;
-+
-+	if (connector->display_info.is_hdmi) {
-+		mode = IT66121_HDMI_MODE_HDMI;
-+		avi_pkt = IT66121_AVI_INFO_PKT_ON | IT66121_AVI_INFO_PKT_RPT;
-+	}
-+
- 	mutex_lock(&ctx->lock);
- 
--	/* Enable AVI infoframe */
--	if (regmap_write(ctx->regmap, IT66121_AVI_INFO_PKT_REG,
--			 IT66121_AVI_INFO_PKT_ON | IT66121_AVI_INFO_PKT_RPT))
-+	/* Enable or disable AVI infoframe */
-+	if (regmap_write(ctx->regmap, IT66121_AVI_INFO_PKT_REG, avi_pkt))
- 		goto unlock;
- 
--	/* Set TX mode to HDMI */
--	regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG, IT66121_HDMI_MODE_HDMI);
-+	/* Set TX mode to DVI or HDMI */
-+	regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG, mode);
- 
- unlock:
- 	mutex_unlock(&ctx->lock);
+v3:
+- Update any scenario that requires cold-reset. (Riana)
+- Update document with generic scenario. (Riana)
+- Consistent with terminology. (Raag)
+- Remove already covered information.
+- Use PUNIT instead of PMU. (Riana)
+- Use consistent wordingi.
+- Remove log. (Raag)
+
+v4:
+- Rename cold reset to power cyclce. (Raag)
+- Update doc. (Raag/Riana)
+- Change commit message. (Raag)
+- Make function static. (Raag)
+
+v5:
+- Make it consistent with consumer expectations. (Raag)
+- Update commit message.
+- Remove unbind.
+- Simplify cold-reset script.
+- Remove kdoc for static function.
+- Remove xe_ prefix for static function.
+
+Cc: André Almeida <andrealmeid@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+
+Mallesh Koujalagi (4):
+  drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+  drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+  drm/xe: Handle PUNIT errors by requesting cold-reset recovery
+  drm/xe: Suppress Surprise Link Down on non-hotplug device
+
+Riana Tauro (1):
+  Introduce Xe Uncorrectable Error Handling
+
+ Documentation/gpu/drm-uapi.rst                |  64 +-
+ drivers/gpu/drm/drm_drv.c                     |   2 +
+ drivers/gpu/drm/xe/Makefile                   |   1 +
+ drivers/gpu/drm/xe/xe_device.c                |  19 +-
+ drivers/gpu/drm/xe/xe_device.h                |  15 +
+ drivers/gpu/drm/xe/xe_device_types.h          |   6 +
+ drivers/gpu/drm/xe/xe_gt.c                    |  14 +-
+ drivers/gpu/drm/xe/xe_guc_submit.c            |   9 +-
+ drivers/gpu/drm/xe/xe_pci.c                   |  10 +
+ drivers/gpu/drm/xe/xe_pci_error.c             | 138 +++++
+ drivers/gpu/drm/xe/xe_ras.c                   | 552 ++++++++++++++++++
+ drivers/gpu/drm/xe/xe_ras.h                   |   5 +-
+ drivers/gpu/drm/xe/xe_ras_types.h             | 215 +++++++
+ drivers/gpu/drm/xe/xe_survivability_mode.c    |  13 +-
+ drivers/gpu/drm/xe/xe_sysctrl_event.c         |   2 +-
+ drivers/gpu/drm/xe/xe_sysctrl_event_types.h   |   2 +-
+ drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |  11 +
+ include/drm/drm_device.h                      |   1 +
+ 18 files changed, 1058 insertions(+), 21 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_pci_error.c
+
 -- 
-2.54.0
+2.34.1
 
