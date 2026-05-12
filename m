@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BFDACD4F26
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 07:29:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2461DCD4855
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 07:31:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 950BB10E984;
-	Tue, 12 May 2026 07:29:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86D3110E1B5;
+	Tue, 12 May 2026 07:31:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dRBRcXRl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pk8xUQxW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dRBRcXRl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pk8xUQxW";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="FOnO2F2b";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yK83A5Jw";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FOnO2F2b";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yK83A5Jw";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00CBD10E312
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 07:29:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC84710E1B5
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 07:31:15 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 78ED16BF65;
- Tue, 12 May 2026 07:29:32 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7ECD661F52;
+ Tue, 12 May 2026 07:31:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778570972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1778571074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=A5+OvHhAddu947SeepguoYlkifQbnyK/yfFGM0g/EA0=;
- b=dRBRcXRlOQIsTOQfIB0Ith4JNIjjL/HOnoO/GeYePelL9hdtLjNX53LA8iG6j9Nrehw4p9
- DLcDdbjG2LMgmtUHuaOz+UwsX1ND05Hy3YB0zswmj2MfPumDMQdDD93pWTrY8nbVJrMmn7
- a3vo+Ktol4Ls31peiP3qS8d4qnnO8Z4=
+ bh=Iirvc59L7aI8RoFaXdEGeBMR8NhXaJpkhZdqLUFzNwg=;
+ b=FOnO2F2b1vZ5Slg1jQlWAu515Aa0hP6pMZUZey0GPPxhYti7FZtPOCiGR32+VK2X3qTPqd
+ 82hAhPbI7SE8vmyr5i4wDbUoz5EU5HbsIYLMShbHh8SwdkmeGBAT8tAsSBCy2/Eg+EouCL
+ Ng36uS9wx+D9MMlZ/eMwkk1MclYrZts=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778570972;
+ s=susede2_ed25519; t=1778571074;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=A5+OvHhAddu947SeepguoYlkifQbnyK/yfFGM0g/EA0=;
- b=pk8xUQxWouOfBapPNsYBWB7FCdaGVhUT40W8e7nYjkzn7gY7rj2cusItEXEQcVI2F3Cqnd
- 43SiI39dfqQKhbDA==
+ bh=Iirvc59L7aI8RoFaXdEGeBMR8NhXaJpkhZdqLUFzNwg=;
+ b=yK83A5Jw3eznq3i2eHWXuuWuPhBDDDXjHBV1YpN6rF2ywMXRJlp0cpnxdSL6hrLibILHDo
+ Y4/YzOZROPyQcDAw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778570972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1778571074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=A5+OvHhAddu947SeepguoYlkifQbnyK/yfFGM0g/EA0=;
- b=dRBRcXRlOQIsTOQfIB0Ith4JNIjjL/HOnoO/GeYePelL9hdtLjNX53LA8iG6j9Nrehw4p9
- DLcDdbjG2LMgmtUHuaOz+UwsX1ND05Hy3YB0zswmj2MfPumDMQdDD93pWTrY8nbVJrMmn7
- a3vo+Ktol4Ls31peiP3qS8d4qnnO8Z4=
+ bh=Iirvc59L7aI8RoFaXdEGeBMR8NhXaJpkhZdqLUFzNwg=;
+ b=FOnO2F2b1vZ5Slg1jQlWAu515Aa0hP6pMZUZey0GPPxhYti7FZtPOCiGR32+VK2X3qTPqd
+ 82hAhPbI7SE8vmyr5i4wDbUoz5EU5HbsIYLMShbHh8SwdkmeGBAT8tAsSBCy2/Eg+EouCL
+ Ng36uS9wx+D9MMlZ/eMwkk1MclYrZts=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778570972;
+ s=susede2_ed25519; t=1778571074;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=A5+OvHhAddu947SeepguoYlkifQbnyK/yfFGM0g/EA0=;
- b=pk8xUQxWouOfBapPNsYBWB7FCdaGVhUT40W8e7nYjkzn7gY7rj2cusItEXEQcVI2F3Cqnd
- 43SiI39dfqQKhbDA==
+ bh=Iirvc59L7aI8RoFaXdEGeBMR8NhXaJpkhZdqLUFzNwg=;
+ b=yK83A5Jw3eznq3i2eHWXuuWuPhBDDDXjHBV1YpN6rF2ywMXRJlp0cpnxdSL6hrLibILHDo
+ Y4/YzOZROPyQcDAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 09A4A593A9;
- Tue, 12 May 2026 07:29:32 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A4E78593A9;
+ Tue, 12 May 2026 07:31:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id s+IcAdzWAmpjQAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 12 May 2026 07:29:32 +0000
-Message-ID: <ac105cc6-8628-4f7c-8ac8-e3b8df4d206a@suse.de>
-Date: Tue, 12 May 2026 09:29:31 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id LhzSJkDXAmqdQgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 12 May 2026 07:31:12 +0000
+Message-ID: <308b5681-01ff-4bec-a449-522060a7d7fc@suse.de>
+Date: Tue, 12 May 2026 09:31:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v6 1/4] drm/hisilicon/hibmc: add
- updating link cap in DP detect()
+Subject: Re: [PATCH for drm-misc-fixes v6 2/4] drm/hisilicon/hibmc: fix no
+ showing when no connectors connected
 To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
  tiantao6@hisilicon.com, xinliang.liu@linaro.org,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
@@ -85,7 +85,7 @@ Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
  helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260509032302.2057227-1-shiyongbang@huawei.com>
- <20260509032302.2057227-2-shiyongbang@huawei.com>
+ <20260509032302.2057227-3-shiyongbang@huawei.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -112,14 +112,14 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260509032302.2057227-2-shiyongbang@huawei.com>
+In-Reply-To: <20260509032302.2057227-3-shiyongbang@huawei.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[17];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[17];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
  FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
  RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
@@ -127,8 +127,9 @@ X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, suse.com:url,
- imap1.dmz-prg2.suse.org:helo, huawei.com:email]
+ URIBL_BLOCKED(0.00)[hisilicon.com:email,imap1.dmz-prg2.suse.org:helo,suse.com:url,huawei.com:email,suse.de:mid,suse.de:email,checkpatch.pl:url];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, checkpatch.pl:url,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url, huawei.com:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,70 +147,262 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 09.05.26 um 05:22 schrieb Yongbang Shi:
+Am 09.05.26 um 05:23 schrieb Yongbang Shi:
 > From: Lin He <helin52@huawei.com>
 >
-> In the past, the link cap is updated in link training at encoder enable
-> stage, but the hibmc_dp_mode_valid() is called before it, which will use
-> DP link's rate and lanes. So add the hibmc_dp_update_caps() in
-> hibmc_dp_update_caps() to avoid some potential risks.
+> Our chip support KVM over IP feature, so hibmc driver need to support
+> displaying without any connectors plugged in. If no connectors are
+> connected, the vdac connector status should be set to 'connected' to
+> ensure proper KVM display functionality. Additionally, for
+> previous-generation products that may lack hardware link support and
+> thus cannot detect the monitor, the same approach should be applied
+> to ensure VGA display functionality.
 >
-> Fixes: 607805abfb74 ("drm/hisilicon/hibmc: add dp mode valid check")
+> * Add phys_state in the struct of dp and vdac to check physical outputs.
+>
+> * The 'epoch_counter' of the vdac connector is incremented when the
+> physical status changes.
+>
+> For get_modes: using BMC modes for connector if no display is attached to
+> phys VGA cable, otherwise use EDID modes by drm_connector_helper_get_modes,
+> because KVM doesn't provide EDID reads.
+>
+> The polling mechanism for the KMS helper is enabled.
+>
+> Fixes: 4c962bc929f1 ("drm/hisilicon/hibmc: Add vga connector detect functions")
+> Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Closes: https://lore.kernel.org/all/0eb5c509-2724-4c57-87ad-74e4270d5a5a@suse.de/
 > Signed-off-by: Lin He <helin52@huawei.com>
 > Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+This patch fixes the problem with my test device. I now get the default 
+VGA resolutions, which seems like the correct solution to me.
+
+Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
 
 > ---
 > ChangeLog:
+> v5 -> v6:
+>    - Rename 'phys_state' to 'phys_status'
+>    - Replace `drm_kms_helper_poll_init` with `drmm_kms_helper_poll_init`
+>      and adjust the timing of the call.
+>    - Split "return vdac->phys_state = state;" into separate statements.
+>    - Change `get_modes` to return 0 when no modes are available, allowing DRM to
+>      install a default resolution.
+>    - Change the initial phys_status of vdac from
+>      'connector_status_connected' to 'connector_status_disconnected'
+> v4 -> v5:
+>    - The 'epoch_counter' of the vdac connector is incremented when the physical
+>      status changes.
+>    - The polling mechanism for the KMS helper is enabled.
 > v1 -> v2:
->    - fix the checkpatch.pl warning "Unknown commit ID 'e6c7c59da494'".
+>    - fix the checkpatch.pl warning "line length of 83/85 exceeds 80 columns".
 >    - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
 >      be given in public.
 >    - add 'drm-misc-fixes' in subject prefix.
 > ---
->   drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h   | 1 +
->   drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c   | 2 +-
->   drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c | 2 ++
->   3 files changed, 4 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 33 ++++++++----
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  3 ++
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  1 +
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 53 +++++++++++++------
+>   5 files changed, 64 insertions(+), 27 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
-> index f9ee7ebfec55..f53dac256ee0 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
-> @@ -69,5 +69,6 @@ int hibmc_dp_link_training(struct hibmc_dp_dev *dp);
->   int hibmc_dp_serdes_init(struct hibmc_dp_dev *dp);
->   int hibmc_dp_serdes_rate_switch(u8 rate, struct hibmc_dp_dev *dp);
->   int hibmc_dp_serdes_set_tx_cfg(struct hibmc_dp_dev *dp, u8 train_set[HIBMC_DP_LANE_NUM_MAX]);
-> +void hibmc_dp_update_caps(struct hibmc_dp_dev *dp);
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+> index 31316fe1ea8d..0f3662d8737e 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+> @@ -55,6 +55,7 @@ struct hibmc_dp {
+>   	struct drm_dp_aux aux;
+>   	struct hibmc_dp_cbar_cfg cfg;
+>   	u32 irq_status;
+> +	int phys_status;
+>   };
 >   
->   #endif
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
-> index 0726cb5b736e..8c53f16db516 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
-> @@ -325,7 +325,7 @@ static int hibmc_dp_link_downgrade_training_eq(struct hibmc_dp_dev *dp)
->   	return hibmc_dp_link_reduce_rate(dp);
->   }
->   
-> -static void hibmc_dp_update_caps(struct hibmc_dp_dev *dp)
-> +void hibmc_dp_update_caps(struct hibmc_dp_dev *dp)
->   {
->   	dp->link.cap.link_rate = dp->dpcd[DP_MAX_LINK_RATE];
->   	if (dp->link.cap.link_rate > DP_LINK_BW_8_1 || !dp->link.cap.link_rate)
+>   int hibmc_dp_hw_init(struct hibmc_dp *dp);
 > diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> index 616821e3c933..35dff7bfbf76 100644
+> index 35dff7bfbf76..596c5bfe32d8 100644
 > --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
 > +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> @@ -41,6 +41,8 @@ static bool hibmc_dp_get_dpcd(struct hibmc_dp_dev *dp_dev)
->   	if (ret)
->   		return false;
+> @@ -61,27 +61,38 @@ static int hibmc_dp_detect(struct drm_connector *connector,
+>   {
+>   	struct hibmc_dp *dp = to_hibmc_dp(connector);
+>   	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+> -	int ret;
+> +	int ret = connector_status_disconnected;
 >   
-> +	hibmc_dp_update_caps(dp_dev);
+>   	if (dp->irq_status) {
+> -		if (dp_dev->hpd_status != HIBMC_HPD_IN)
+> -			return connector_status_disconnected;
+> +		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
+> +			ret = connector_status_disconnected;
+> +			goto exit;
+> +		}
+>   	}
+>   
+> -	if (!hibmc_dp_get_dpcd(dp_dev))
+> -		return connector_status_disconnected;
+> +	if (!hibmc_dp_get_dpcd(dp_dev)) {
+> +		ret = connector_status_disconnected;
+> +		goto exit;
+> +	}
+>   
+> -	if (!dp_dev->is_branch)
+> -		return connector_status_connected;
+> +	if (!dp_dev->is_branch) {
+> +		ret = connector_status_connected;
+> +		goto exit;
+> +	}
+>   
+>   	if (drm_dp_read_sink_count_cap(connector, dp_dev->dpcd, &dp_dev->desc) &&
+>   	    dp_dev->downstream_ports[0] & DP_DS_PORT_HPD) {
+>   		ret = drm_dp_read_sink_count(dp_dev->aux);
+> -		if (ret > 0)
+> -			return connector_status_connected;
+> +		if (ret > 0) {
+> +			ret = connector_status_connected;
+> +			goto exit;
+> +		}
+>   	}
+>   
+> -	return connector_status_disconnected;
+> +exit:
+> +	dp->phys_status = ret;
 > +
->   	dp_dev->is_branch = drm_dp_is_branch(dp_dev->dpcd);
+> +	return ret;
+>   }
 >   
->   	ret = drm_dp_read_desc(dp_dev->aux, &dp_dev->desc, dp_dev->is_branch);
+>   static int hibmc_dp_mode_valid(struct drm_connector *connector,
+> @@ -243,5 +254,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+>   
+>   	connector->polled = DRM_CONNECTOR_POLL_HPD;
+>   
+> +	dp->phys_status = connector_status_disconnected;
+> +
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> index a0ecf82b576f..e3b40c6a6250 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> @@ -25,6 +25,7 @@
+>   #include <drm/drm_managed.h>
+>   #include <drm/drm_module.h>
+>   #include <drm/drm_vblank.h>
+> +#include <drm/drm_probe_helper.h>
+>   
+>   #include "hibmc_drm_drv.h"
+>   #include "hibmc_drm_regs.h"
+> @@ -385,6 +386,8 @@ static int hibmc_load(struct drm_device *dev)
+>   	/* reset all the states of crtc/plane/encoder/connector */
+>   	drm_mode_config_reset(dev);
+>   
+> +	drmm_kms_helper_poll_init(dev);
+> +
+>   	return 0;
+>   
+>   err:
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+> index 4e212af6143d..dce8572bf63e 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+> @@ -31,6 +31,7 @@ struct hibmc_vdac {
+>   	struct drm_connector connector;
+>   	struct i2c_adapter adapter;
+>   	struct i2c_algo_bit_data bit_data;
+> +	int phys_status;
+>   };
+>   
+>   struct hibmc_drm_private {
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+> index 841e81f47b68..2fcfa3246fd1 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+> @@ -24,28 +24,21 @@
+>   
+>   static int hibmc_connector_get_modes(struct drm_connector *connector)
+>   {
+> +	struct drm_mode_config *mode_config = &connector->dev->mode_config;
+>   	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
+> -	const struct drm_edid *drm_edid;
+>   	int count;
+>   
+> -	drm_edid = drm_edid_read_ddc(connector, &vdac->adapter);
+> -
+> -	drm_edid_connector_update(connector, drm_edid);
+> -
+> -	if (drm_edid) {
+> -		count = drm_edid_connector_add_modes(connector);
+> +	if (vdac->phys_status == connector_status_connected) {
+> +		count = drm_connector_helper_get_modes(connector);
+> +	} else {
+> +		drm_edid_connector_update(connector, NULL);
+> +		count = drm_add_modes_noedid(connector,
+> +					     mode_config->max_width,
+> +					     mode_config->max_height);
+>   		if (count)
+> -			goto out;
+> +			drm_set_preferred_mode(connector, 1024, 768);
+>   	}
+>   
+> -	count = drm_add_modes_noedid(connector,
+> -				     connector->dev->mode_config.max_width,
+> -				     connector->dev->mode_config.max_height);
+> -	drm_set_preferred_mode(connector, 1024, 768);
+> -
+> -out:
+> -	drm_edid_free(drm_edid);
+> -
+>   	return count;
+>   }
+>   
+> @@ -57,10 +50,34 @@ static void hibmc_connector_destroy(struct drm_connector *connector)
+>   	drm_connector_cleanup(connector);
+>   }
+>   
+> +static int hibmc_vdac_detect(struct drm_connector *connector,
+> +			     struct drm_modeset_acquire_ctx *ctx,
+> +			     bool force)
+> +{
+> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
+> +	int status = drm_connector_helper_detect_from_ddc(connector, ctx,
+> +							 force);
+> +	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
+> +
+> +	if (priv->dp.phys_status == connector_status_connected) {
+> +		vdac->phys_status = status;
+> +		return status;
+> +	}
+> +
+> +	if (status != vdac->phys_status)
+> +		++connector->epoch_counter;
+> +	vdac->phys_status = status;
+> +
+> +	/* When both the DP and VDAC physical status are disconnected,
+> +	 * the "connected" status is returned to support KVM display.
+> +	 */
+> +	return connector_status_connected;
+> +}
+> +
+>   static const struct drm_connector_helper_funcs
+>   	hibmc_connector_helper_funcs = {
+>   	.get_modes = hibmc_connector_get_modes,
+> -	.detect_ctx = drm_connector_helper_detect_from_ddc,
+> +	.detect_ctx = hibmc_vdac_detect,
+>   };
+>   
+>   static const struct drm_connector_funcs hibmc_connector_funcs = {
+> @@ -130,6 +147,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+>   
+>   	connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
+>   
+> +	vdac->phys_status = connector_status_disconnected;
+> +
+>   	return 0;
+>   
+>   err:
 
 -- 
 --
