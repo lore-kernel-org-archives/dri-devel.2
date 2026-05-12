@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DECEDCD4F24
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 21:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C531CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 21:52:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47CB310EC47;
-	Tue, 12 May 2026 21:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E2C410EC48;
+	Tue, 12 May 2026 21:52:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="RYMod+Du";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aAB8UQUC";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44DB010E2CC;
- Tue, 12 May 2026 21:52:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 291D010EC43;
+ Tue, 12 May 2026 21:52:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,17 +22,17 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=b6FQv102YJG/DBXe/q1JNY/9jILCUbPys9RlwkPpTO0=; b=RYMod+DuLdl5Lo2QKtFqhbR/7v
- 2iN/LEU0PnfQrUb/BIR3ZQAfOjlcmRGFDqnpmV/V9RyPdshypkanK3v3Ljojgva1KxRc5B+Z6kOg8
- A60HyFVTEVVuB0k2IXoc0e2L3PaN+kI4+XKGVjQ/D+px7uVqGg91Z+z7kqwXDjPMHwOvs3z7mUzan
- L3HHzd60o0yqjZjfYCCl8HQ26gsD7gvVoEsmQ578lI/zmPVJJMyYtJWeptelSFA0nkkwVwUG4d4Ny
- AFNb8vrGW0tbMEWvtUGH4r5j0+jo3BYURx4KG8TWKpuOOioYk3xnIWLSBxi+7TR5vWSBu1pI3B6ef
- jTt3f/YQ==;
+ bh=JHPZXGV6WgCNJ/fIPS2bp7NNXMeSFNOJi8f9ZKXQCeQ=; b=aAB8UQUC2Q1A2pQ0W7pI904RM3
+ D6c6m/c8qqon8A0aDxWFV3bbgwSu9gpC8RPCXo8y2vpvouEMcADMaBsn/gV+SQqEgU5F1lKGB/4Tg
+ fwGmt8GbPNP+jWifpH8QldrtLIQsDUb3Y1xd+OFuO4ikrsaPtj50ft1Lqw7vZdBI/UjfiUvTfXiG+
+ AKbO4zgicW+26KUQ/kKZsU5OiWsfso2PpomXZj4vZjggjvMAzmsk4mU5TfDdftrUp5bPOhtq3U2lW
+ mt7Df26HObRJI2bvfy2kXIuDJu0ksZYbJ7xD5JWTCmh0mNZBloiAy1FAFxTbsWuZS798HthmV+Cc+
+ f0NP35BA==;
 Received: from 179-242-241-236.3g.claro.net.br ([179.242.241.236]
  helo=quatroqueijos.cascardo.eti.br)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wMv1x-009frh-94; Tue, 12 May 2026 23:52:45 +0200
+ id 1wMv22-009frh-JN; Tue, 12 May 2026 23:52:50 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 To: igt-dev@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -43,9 +43,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH i-g-t 6/8] dmem: add test for current/max
-Date: Tue, 12 May 2026 18:51:53 -0300
-Message-ID: <20260512215156.4083082-7-cascardo@igalia.com>
+Subject: [PATCH i-g-t 7/8] dmem: only check for dmem availability once
+Date: Tue, 12 May 2026 18:51:54 -0300
+Message-ID: <20260512215156.4083082-8-cascardo@igalia.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260512215156.4083082-1-cascardo@igalia.com>
 References: <20260512215156.4083082-1-cascardo@igalia.com>
@@ -66,173 +66,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a test that checks for current usage after VRAM allocation and release.
-Set max to different values and track that current usage is not above max,
-given some slack.
+While running multiple tests, we only need to check dmem is available at
+the beginning.
 
 Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- tests/drv_dmem_cgroups.c | 136 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 133 insertions(+), 3 deletions(-)
+ tests/drv_dmem_cgroups.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
 diff --git a/tests/drv_dmem_cgroups.c b/tests/drv_dmem_cgroups.c
-index 0e26b7e2bb9a..43331117854c 100644
+index 43331117854c..0791bb62d3a2 100644
 --- a/tests/drv_dmem_cgroups.c
 +++ b/tests/drv_dmem_cgroups.c
-@@ -223,12 +223,142 @@ static void test_write_eviction(int fd, unsigned int flags, const struct igt_dme
- 	igt_cgroup_free(cg);
- }
+@@ -133,10 +133,6 @@ static void test_write_eviction(int fd, unsigned int flags, const struct igt_dme
+ 	uint64_t current, capacity, cg_max, limit, after;
+ 	int set_err, err;
  
-+static int allocate_vram(const struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo, size_t len)
-+{
-+	int n_bo, err = 0;
-+	for (n_bo = 0; n_bo < max_bo; n_bo++) {
-+		err = drv->allocate_vram(ctx, n_bo, len);
-+		if (err)
-+			break;
-+	}
-+	return err ?: n_bo;
-+}
-+
-+static void test_current(int fd, unsigned int flags, const struct igt_dmem_driver *drv)
-+{
-+	struct igt_cgroup *cg;
-+	char *cg_region;
-+	void *ctx;
-+	uint64_t current, capacity, cg_max;
-+	int n_bo = 0, max_bo;
-+	int err;
-+
-+	cg_region = drv->get_region_name(fd);
-+	igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
-+
-+	/* Check dmem cgroup controller is available before doing anything else */
-+	igt_require_f(igt_cgroup_dmem_available(),
-+		      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
-+
-+	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-+	igt_require_f(capacity >= 4 * BO_SIZE,
-+		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-+		      capacity / SZ_1M);
-+
-+	/*
-+	 * Use up to 4 GiB, or the full capacity if the device has less.
-+	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-+	 * exhausted before the cgroup limit is hit.
-+	 */
-+	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-+	cg_max = ALIGN_DOWN(cg_max, EVICT_STEP);
-+
-+	if (flags & TEST_INTERRUPTIBLE)
-+		install_sigcont_counter();
-+
-+	/* Create cgroup and move into it */
-+	cg = igt_cgroup_new("igt_cgroups_test");
-+	igt_cgroup_move_current(cg);
-+
-+	max_bo = cg_max / BO_SIZE;
-+
-+	err = drv->init(&ctx, fd, max_bo);
-+	igt_assert_f(!err, "Failed to initialize driver");
-+
-+	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current < cg_max + USAGE_SLACK && current > cg_max - USAGE_SLACK,
-+		     "current usage (%"PRIu64" MiB) is not within margin of allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	drv->free_vram(ctx, n_bo, BO_SIZE);
-+	sleep(1);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current < USAGE_SLACK,
-+		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
-+		     current / SZ_1M, USAGE_SLACK / SZ_1M);
-+
-+	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE);
-+
-+	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current < 2 * BO_SIZE + USAGE_SLACK && current > 2 * BO_SIZE - USAGE_SLACK,
-+		     "current usage (%"PRIu64" MiB) is not within margin of allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	drv->free_vram(ctx, n_bo, BO_SIZE);
-+	sleep(1);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current < USAGE_SLACK,
-+		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
-+		     current / SZ_1M, USAGE_SLACK / SZ_1M);
-+
-+	igt_cgroup_dmem_set_max(cg, cg_region, 0);
-+
-+	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo != -ENOMEM, "VRAM allocation succeeded despite max set to 0\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current < USAGE_SLACK,
-+		     "current usage (%"PRIu64" MiB) is not within margin\n",
-+		     current / SZ_1M);
-+
-+	if (n_bo > 0)
-+		drv->free_vram(ctx, n_bo, BO_SIZE);
-+	sleep(1);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current < USAGE_SLACK,
-+		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
-+		     current / SZ_1M, USAGE_SLACK / SZ_1M);
-+
-+	drv->deinit(ctx);
-+	free(cg_region);
-+	igt_cgroup_free(cg);
-+}
-+
- static const struct {
- 	const char *name;
-+	void (*test_fn)(int fd, unsigned int flags, const struct igt_dmem_driver *drv);
- 	unsigned int flags;
- } subtests[] = {
--	{ "write_eviction",		0 },
--	{ "write_eviction_interruptible",	TEST_INTERRUPTIBLE },
-+	{ "current", test_current, 0 },
-+	{ "write_eviction", test_write_eviction, 0 },
-+	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
- 	{ }
- };
+-	/* Check dmem cgroup controller is available before doing anything else */
+-	igt_require_f(igt_cgroup_dmem_available(),
+-		      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
+-
+ 	cg_region = drv->get_region_name(fd);
+ 	igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
  
-@@ -259,7 +389,7 @@ int igt_main()
+@@ -246,10 +242,6 @@ static void test_current(int fd, unsigned int flags, const struct igt_dmem_drive
+ 	cg_region = drv->get_region_name(fd);
+ 	igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
  
- 			for (int i = 0; subtests[i].name; i++)
- 				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
--					test_write_eviction(fd, subtests[i].flags, drivers[d].driver);
-+					subtests[i].test_fn(fd, subtests[i].flags, drivers[d].driver);
+-	/* Check dmem cgroup controller is available before doing anything else */
+-	igt_require_f(igt_cgroup_dmem_available(),
+-		      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
+-
+ 	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+ 	igt_require_f(capacity >= 4 * BO_SIZE,
+ 		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
+@@ -375,6 +367,10 @@ int igt_main()
+ {
+ 	igt_fixture() {
+ 		igt_require_f(getuid() == 0, "Test requires root\n");
++		/* Check dmem cgroup controller is available before doing anything else */
++		igt_require_f(igt_cgroup_dmem_available(),
++			      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
++
+ 	}
  
- 			igt_fixture() {
- 				if (fd >= 0)
+ 	for (int d = 0; drivers[d].driver; d++) {
 -- 
 2.47.3
 
