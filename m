@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05A03CD343F
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 17:25:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BE63CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 17:34:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6522510E597;
-	Tue, 12 May 2026 17:25:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33ED110E59A;
+	Tue, 12 May 2026 17:34:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RxB8FMGN";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="V6f7iYVW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 464A310E2A0
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 17:25:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80A3C10E59A
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 17:34:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B704A60121;
- Tue, 12 May 2026 17:25:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CE76C2BCB0;
- Tue, 12 May 2026 17:25:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2732542CC0;
+ Tue, 12 May 2026 17:34:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD0F1C2BCB0;
+ Tue, 12 May 2026 17:34:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1778606741;
- bh=sXVNrEfTlR9WTMyApYi87MgjrOBOVRh7+wbOYLRzT1I=;
+ s=korg; t=1778607249;
+ bh=W//4MS8Li8gLiIeIhp8q0uy2NbFVSbQF5W3TQM4DJtU=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=RxB8FMGNbHhqjWpcGjp4HAiHDaigPotLZKKwVXhKR7DVuJ+N4IbWqfo6Eg4sbBh4q
- nHIBbgQuanm3rFhT9UU2I8QQPPX3jkBQ4fzBVRSZi2T1p/44qeQDh1pI1+dZ4ZngFI
- iHAIyWwZbvHAatijFnhpaT3U9H2KOx4d/XY8tbaw=
+ b=V6f7iYVWNEygADO9BC3LPJGB916QW/CgU6adDZIE7i99+nYAKCJKaZ4n0kOeK0TfQ
+ 8zKRbWncac4VPsZj7/3D0/yhmZFfoYjR4HUKlJRtD8wJaVxYboHpBSjqMM6/uGHsPd
+ 6ThbQVg/Hpu3XjOEXaK43aTpIWGODLbehJWmbqfg=
 Subject: Patch "fbdev: defio: Disconnect deferred I/O from the lifetime of
- struct fb_info" has been added to the 6.18-stable tree
+ struct fb_info" has been added to the 6.12-stable tree
 To: deller@gmx.de, dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
  sashal@kernel.org, tzimmermann@suse.de
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 12 May 2026 19:25:20 +0200
-In-Reply-To: <20260504141938.2378270-1-sashal@kernel.org>
-Message-ID: <2026051220-smuggler-nineteen-ec5a@gregkh>
+Date: Tue, 12 May 2026 19:33:42 +0200
+In-Reply-To: <20260505001453.124124-1-sashal@kernel.org>
+Message-ID: <2026051242-crave-engross-e154@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -61,24 +61,24 @@ This is a note to let you know that I've just added the patch titled
 
     fbdev: defio: Disconnect deferred I/O from the lifetime of struct fb_info
 
-to the 6.18-stable tree which can be found at:
+to the 6.12-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      fbdev-defio-disconnect-deferred-i-o-from-the-lifetime-of-struct-fb_info.patch
-and it can be found in the queue-6.18 subdirectory.
+and it can be found in the queue-6.12 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From stable+bounces-243632-greg=kroah.com@vger.kernel.org Mon May  4 16:34:29 2026
+From stable+bounces-243937-greg=kroah.com@vger.kernel.org Tue May  5 02:15:33 2026
 From: Sasha Levin <sashal@kernel.org>
-Date: Mon,  4 May 2026 10:19:38 -0400
+Date: Mon,  4 May 2026 20:14:53 -0400
 Subject: fbdev: defio: Disconnect deferred I/O from the lifetime of struct fb_info
 To: stable@vger.kernel.org
 Cc: Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
-Message-ID: <20260504141938.2378270-1-sashal@kernel.org>
+Message-ID: <20260505001453.124124-1-sashal@kernel.org>
 
 From: Thomas Zimmermann <tzimmermann@suse.de>
 
@@ -103,17 +103,17 @@ Cc: linux-fbdev@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org
 Cc: stable@vger.kernel.org # v2.6.22+
 Signed-off-by: Helge Deller <deller@gmx.de>
-[ replaced kzalloc_obj(*fbdefio_state) with kzalloc(sizeof(*fbdefio_state), GFP_KERNEL) ]
+[ replaced `kzalloc_obj()` with `kzalloc(sizeof(*fbdefio_state), GFP_KERNEL)` ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/video/fbdev/core/fb_defio.c |  178 ++++++++++++++++++++++++++++--------
+ drivers/video/fbdev/core/fb_defio.c |  179 ++++++++++++++++++++++++++++--------
  include/linux/fb.h                  |    4 
- 2 files changed, 145 insertions(+), 37 deletions(-)
+ 2 files changed, 145 insertions(+), 38 deletions(-)
 
 --- a/drivers/video/fbdev/core/fb_defio.c
 +++ b/drivers/video/fbdev/core/fb_defio.c
-@@ -24,6 +24,75 @@
+@@ -23,6 +23,75 @@
  #include <linux/rmap.h>
  #include <linux/pagemap.h>
  
@@ -189,7 +189,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  static struct page *fb_deferred_io_get_page(struct fb_info *info, unsigned long offs)
  {
  	struct fb_deferred_io *fbdefio = info->fbdefio;
-@@ -121,25 +190,46 @@ static void fb_deferred_io_pageref_put(s
+@@ -128,17 +197,31 @@ static void fb_deferred_io_pageref_put(s
  /* this is to find and return the vmalloc-ed fb pages */
  static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
  {
@@ -224,10 +224,11 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 +		goto err_mutex_unlock;
 +	}
  
- 	if (!vmf->vma->vm_file)
- 		fb_err(info, "no mapping available\n");
- 
- 	BUG_ON(!info->fbdefio->mapping);
+ 	if (vmf->vma->vm_file)
+ 		page->mapping = vmf->vma->vm_file->f_mapping;
+@@ -148,8 +231,15 @@ static vm_fault_t fb_deferred_io_fault(s
+ 	BUG_ON(!page->mapping);
+ 	page->index = vmf->pgoff; /* for folio_mkclean() */
  
 +	mutex_unlock(&fbdefio_state->lock);
 +
@@ -241,7 +242,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  }
  
  int fb_deferred_io_fsync(struct file *file, loff_t start, loff_t end, int datasync)
-@@ -166,15 +256,24 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
+@@ -176,15 +266,24 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
   * Adds a page to the dirty list. Call this from struct
   * vm_operations_struct.page_mkwrite.
   */
@@ -270,7 +271,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  
  	pageref = fb_deferred_io_pageref_get(info, offset, page);
  	if (WARN_ON_ONCE(!pageref)) {
-@@ -192,50 +291,38 @@ static vm_fault_t fb_deferred_io_track_p
+@@ -202,50 +301,38 @@ static vm_fault_t fb_deferred_io_track_p
  	 */
  	lock_page(pageref->page);
  
@@ -330,7 +331,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	.fault		= fb_deferred_io_fault,
  	.page_mkwrite	= fb_deferred_io_mkwrite,
  };
-@@ -252,7 +339,10 @@ int fb_deferred_io_mmap(struct fb_info *
+@@ -262,7 +349,10 @@ int fb_deferred_io_mmap(struct fb_info *
  	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
  	if (!(info->flags & FBINFO_VIRTFB))
  		vm_flags_set(vma, VM_IO);
@@ -342,19 +343,19 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	return 0;
  }
  EXPORT_SYMBOL_GPL(fb_deferred_io_mmap);
-@@ -263,9 +353,10 @@ static void fb_deferred_io_work(struct w
+@@ -273,9 +363,10 @@ static void fb_deferred_io_work(struct w
  	struct fb_info *info = container_of(work, struct fb_info, deferred_work.work);
  	struct fb_deferred_io_pageref *pageref, *next;
  	struct fb_deferred_io *fbdefio = info->fbdefio;
 +	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
  
- 	/* here we wrprotect the page's mappings, then do all deferred IO. */
+ 	/* here we mkclean the pages, then do all deferred IO */
 -	mutex_lock(&fbdefio->lock);
 +	mutex_lock(&fbdefio_state->lock);
- #ifdef CONFIG_MMU
  	list_for_each_entry(pageref, &fbdefio->pagereflist, list) {
- 		struct page *page = pageref->page;
-@@ -283,12 +374,13 @@ static void fb_deferred_io_work(struct w
+ 		struct folio *folio = page_folio(pageref->page);
+ 
+@@ -291,12 +382,13 @@ static void fb_deferred_io_work(struct w
  	list_for_each_entry_safe(pageref, next, &fbdefio->pagereflist, list)
  		fb_deferred_io_pageref_put(pageref, info);
  
@@ -369,7 +370,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	struct fb_deferred_io_pageref *pagerefs;
  	unsigned long npagerefs;
  	int ret;
-@@ -298,7 +390,11 @@ int fb_deferred_io_init(struct fb_info *
+@@ -306,7 +398,11 @@ int fb_deferred_io_init(struct fb_info *
  	if (WARN_ON(!info->fix.smem_len))
  		return -EINVAL;
  
@@ -382,7 +383,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	INIT_DELAYED_WORK(&info->deferred_work, fb_deferred_io_work);
  	INIT_LIST_HEAD(&fbdefio->pagereflist);
  	if (fbdefio->delay == 0) /* set a default of 1 s */
-@@ -315,10 +411,12 @@ int fb_deferred_io_init(struct fb_info *
+@@ -323,10 +419,12 @@ int fb_deferred_io_init(struct fb_info *
  	info->npagerefs = npagerefs;
  	info->pagerefs = pagerefs;
  
@@ -396,10 +397,11 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	return ret;
  }
  EXPORT_SYMBOL_GPL(fb_deferred_io_init);
-@@ -352,11 +450,19 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release
+@@ -364,11 +462,18 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release
+ 
  void fb_deferred_io_cleanup(struct fb_info *info)
  {
- 	struct fb_deferred_io *fbdefio = info->fbdefio;
+-	struct fb_deferred_io *fbdefio = info->fbdefio;
 +	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
  
  	fb_deferred_io_lastclose(info);
@@ -414,18 +416,16 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 +
  	kvfree(info->pagerefs);
 -	mutex_destroy(&fbdefio->lock);
- 	fbdefio->mapping = NULL;
  }
  EXPORT_SYMBOL_GPL(fb_deferred_io_cleanup);
 --- a/include/linux/fb.h
 +++ b/include/linux/fb.h
-@@ -217,13 +217,14 @@ struct fb_deferred_io {
+@@ -222,12 +222,13 @@ struct fb_deferred_io {
  	unsigned long delay;
  	bool sort_pagereflist; /* sort pagelist by offset */
  	int open_count; /* number of opened files; protected by fb_info lock */
 -	struct mutex lock; /* mutex that protects the pageref list */
  	struct list_head pagereflist; /* list of pagerefs for touched pages */
- 	struct address_space *mapping; /* page cache object for fb device */
  	/* callback */
  	struct page *(*get_page)(struct fb_info *info, unsigned long offset);
  	void (*deferred_io)(struct fb_info *info, struct list_head *pagelist);
@@ -435,7 +435,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  #endif
  
  /*
-@@ -490,6 +491,7 @@ struct fb_info {
+@@ -485,6 +486,7 @@ struct fb_info {
  	unsigned long npagerefs;
  	struct fb_deferred_io_pageref *pagerefs;
  	struct fb_deferred_io *fbdefio;
@@ -447,28 +447,40 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from sashal@kernel.org are
 
-queue-6.18/mmc-core-optimize-time-for-secure-erase-trim-for-some-kingston-emmcs.patch
-queue-6.18/dma-mapping-add-__dma_from_device_group_begin-end.patch
-queue-6.18/mptcp-sync-the-msk-sndbuf-at-accept-time.patch
-queue-6.18/mmc-core-add-quirk-for-incorrect-manufacturing-date.patch
-queue-6.18/smb-client-smbdirect-fix-mr-registration-for-coalesc.patch
-queue-6.18/kvm-x86-fix-shadow-paging-use-after-free-due-to-unex.patch
-queue-6.18/hfsplus-fix-uninit-value-by-validating-catalog-record-size.patch
-queue-6.18/crypto-qat-fix-indentation-of-macros-in-qat_hal.c.patch
-queue-6.18/crypto-caam-guard-hmac-key-hex-dumps-in-hash_digest_key.patch
-queue-6.18/hfsplus-fix-held-lock-freed-on-hfsplus_fill_super.patch
-queue-6.18/octeon_ep_vf-add-null-check-for-napi_build_skb.patch
-queue-6.18/printk-add-print_hex_dump_devel.patch
-queue-6.18/mm-swap-speed-up-hibernation-allocation-and-writeout.patch
-queue-6.18/net-af_key-zero-aligned-sockaddr-tail-in-pf_key-expo.patch
-queue-6.18/firmware-exynos-acpm-drop-fake-const-on-handle-pointer.patch
-queue-6.18/crypto-qat-fix-firmware-loading-failure-for-gen6-devices.patch
-queue-6.18/flow_dissector-do-not-dissect-pppoe-pfc-frames.patch
-queue-6.18/fbdev-defio-disconnect-deferred-i-o-from-the-lifetime-of-struct-fb_info.patch
-queue-6.18/erofs-tidy-up-z_erofs_lz4_handle_overlap.patch
-queue-6.18/mmc-core-adjust-mdt-beyond-2025.patch
-queue-6.18/erofs-fix-unsigned-underflow-in-z_erofs_lz4_handle_overlap.patch
-queue-6.18/net-stmmac-prevent-null-deref-when-rx-memory-exhausted.patch
-queue-6.18/ceph-fix-num_ops-off-by-one-when-crypto-allocation-f.patch
-queue-6.18/net-stmmac-rename-stmmac_get_entry-stmmac_next_entry.patch
-queue-6.18/hwmon-powerz-avoid-cacheline-sharing-for-dma-buffer.patch
+queue-6.12/rxrpc-also-unshare-data-response-packets-when-paged-.patch
+queue-6.12/mm-convert-mm_lock_seq-to-a-proper-seqcount.patch
+queue-6.12/fs-prepare-for-adding-lsm-blob-to-backing_file.patch
+queue-6.12/dma-mapping-drop-unneeded-includes-from-dma-mapping.h.patch
+queue-6.12/mmc-core-optimize-time-for-secure-erase-trim-for-some-kingston-emmcs.patch
+queue-6.12/x86-shadow-stacks-proper-error-handling-for-mmap-loc.patch
+queue-6.12/net-txgbe-fix-rtnl-assertion-warning-when-remove-mod.patch
+queue-6.12/erofs-move-in-out-pages-into-struct-z_erofs_decompress_req.patch
+queue-6.12/dma-mapping-add-__dma_from_device_group_begin-end.patch
+queue-6.12/rxrpc-fix-conn-level-packet-handling-to-unshare-resp.patch
+queue-6.12/iommu-amd-use-atomic64_inc_return-in-iommu.c.patch
+queue-6.12/crypto-nx-migrate-to-scomp-api.patch
+queue-6.12/alsa-aloop-fix-peer-runtime-uaf-during-format-change-stop.patch
+queue-6.12/udf-fix-partition-descriptor-append-bookkeeping.patch
+queue-6.12/bluetooth-l2cap-fix-deadlock-in-l2cap_conn_del.patch
+queue-6.12/kvm-x86-fix-shadow-paging-use-after-free-due-to-unex.patch
+queue-6.12/hfsplus-fix-uninit-value-by-validating-catalog-record-size.patch
+queue-6.12/crypto-nx-fix-bounce-buffer-leaks-in-nx842_crypto_-alloc-free-_ctx.patch
+queue-6.12/gtp-disable-bh-before-calling-udp_tunnel_xmit_skb.patch
+queue-6.12/net-stmmac-avoid-shadowing-global-buf_sz.patch
+queue-6.12/crypto-caam-guard-hmac-key-hex-dumps-in-hash_digest_key.patch
+queue-6.12/hfsplus-fix-held-lock-freed-on-hfsplus_fill_super.patch
+queue-6.12/octeon_ep_vf-add-null-check-for-napi_build_skb.patch
+queue-6.12/printk-add-print_hex_dump_devel.patch
+queue-6.12/net-af_key-zero-aligned-sockaddr-tail-in-pf_key-expo.patch
+queue-6.12/tracepoint-balance-regfunc-on-func_add-failure-in-tracepoint_add_func.patch
+queue-6.12/flow_dissector-do-not-dissect-pppoe-pfc-frames.patch
+queue-6.12/fbdev-defio-disconnect-deferred-i-o-from-the-lifetime-of-struct-fb_info.patch
+queue-6.12/erofs-tidy-up-z_erofs_lz4_handle_overlap.patch
+queue-6.12/iommu-amd-serialize-sequence-allocation-under-concur.patch
+queue-6.12/x86-shstk-prevent-deadlock-during-shstk-sigreturn.patch
+queue-6.12/erofs-fix-unsigned-underflow-in-z_erofs_lz4_handle_overlap.patch
+queue-6.12/net-stmmac-prevent-null-deref-when-rx-memory-exhausted.patch
+queue-6.12/net-stmmac-rename-stmmac_get_entry-stmmac_next_entry.patch
+queue-6.12/mtd-spinand-winbond-declare-the-qe-bit-on-w25nxxjw.patch
+queue-6.12/hwmon-powerz-avoid-cacheline-sharing-for-dma-buffer.patch
+queue-6.12/wifi-mt76-mt7925-fix-incorrect-tlv-length-in-clc-command.patch
