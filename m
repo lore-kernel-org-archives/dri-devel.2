@@ -4,129 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DFF3CD4846
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 01:59:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C7DBCD4846
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 02:23:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 959E810E23C;
-	Tue, 12 May 2026 01:59:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95F0610E231;
+	Tue, 12 May 2026 02:23:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SsP/yEev";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="Cf5RorbF";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012062.outbound.protection.outlook.com [40.107.209.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D34E10E23C
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 01:59:21 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013039.outbound.protection.outlook.com
+ [40.107.162.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E39F610E231
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 02:23:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jh9AWAGLBtumjAIe4VKtAwrQgSOyLaV5I9sQcvKn66G9W+kwF4UsrClQGh0UE/j7g8xpAdj9Z9Fpjp2wulemGPmSAMF9KZ1Hc2UGAk4YXrCGXFOksLKa4as7sJpgvpGBIPMFnPcjh5A8n4E8NO9kH8k18P7Fy6VPt42IZvLCL/+MXX0fmsgi5W86vwANE3NHenccHwHBaJ237ihKY1DDMspGIUG+k+jnCe5QDCBNgClSfjUGqDGVyoRdhN9NQPdSOxwLzkXT771p6ZgfFvzRim3dTkhmmkV1MpIMC1wbM6pe4fnLXsR81lAEBqs74gLFQW3VgZQY4bCe2S7aCisIYA==
+ b=XdHBMX3RrhbgcZgbl7NXR+D8L1QEKBcL5BRodeTJDisVzUQGgt4HZdkh8hZE5heXGMH5TG6IItmwRk/Ttlk6IfaJvBlZiGyESLzulkUNiIkwNS8xFDEc8L2UeIW61qTsuoZAzT7W6xj7GCnpKCFWu1TFZtLTGFhExZnt4o0J8R9FSFZNmlPbdBkn0ekTAe2i2I54+rvTr45R//y7Lq3S8dXWS5+uO3Wzka9VUqoy8PewImDoreobVlzFYjx+9bWraYPPVIS8ha41L76GVXQeCyQQrnIMYEtiiPnmFtS4ciHPe/y/GyRb61CNPCoLVkGxOk5x0ctoh9nv7q1B6yM1/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BuQ51hW27QhU6Q8WNjw3167+jbbevYN8cpmdBIp43VA=;
- b=nrOoyRFhskw/4d0gVbS5PZB7d+e5hWYixKi1gcqX8sByEUbCcAucCtPIkmvelvxhYa76EbrEXJbI1ODCvizJs/xRYCJhhEtjqeNDOPjIViztHxFzrdz2p69/feRNGI+ajkLQGZAYA8XDs78He9jo+6XG6UG/k+lx5B6ar5OUlRBQQIYXdKLrsC8YUVC8S2ZpYrpcE8je66MN7HjDq1iK9i2W9elPctezldguW3zcv90cpihalJNXByIr/1JS2YClcvNNw4r6E+m0NNDZRYEVJsdOjn4aB2XEhZ7l9fbluFtn9obwbV+YFukoWxsFIKTxj3DjwTIS0fo9u9kZIVxOwA==
+ bh=EW86ct5F352Em66veZJK9pXx2mHmypqLnNco3cEf8Dc=;
+ b=IKh3+QHgltZcMsKvGe4zjxh3zDzePX1PUQweXjdSrBD+vSbw+BKNzZXsQhpRUdGmC0Qm4AnVe/nlqrozgNktLcrwC45645qvNff26DsmyAM1imZjho4ViGcWdzymHxJ95LxeXN7PgxrF3hpQqifxBjJ+fumGhMt2W8EVoZ3c8QDy0gARAEML9SK6FemsLB768nbICTy4MP+H3ImlPaJAvbi1zeb1H3jPvSKc4goP6OXDQs4ZkegzmWdqwQZtulxT2j7P1HMRRQVPd6hOfyz/l9uEL9ij6T7ttqB00HK11Bu7wMRI5MRd8x1cVd0zybMIFLUpG1x1AySEP8lVghVVvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BuQ51hW27QhU6Q8WNjw3167+jbbevYN8cpmdBIp43VA=;
- b=SsP/yEevyXt4V+TeFXp+WFC58cri8fSxn6kPtxQQhIz6SfEPxXJ+qZOa7EJIXG7FySFBQWk693934pbXrb2s4KIyA/zu4BgIVGj8MIMN7CUkPYbabStYkRf7A4/Wcv3p39cWgVmAOHmeNx57dSFdV0nf0Tor0htNTPIjcXk+tp8=
+ bh=EW86ct5F352Em66veZJK9pXx2mHmypqLnNco3cEf8Dc=;
+ b=Cf5RorbFYmVW+4VgfGpkwZTdP2OP29p5wj/1nFfYk+jjX/WMgUKn5I2B4lMhAMJ+YuCV1VyoIkX1Ift9l8ruy78sL6FLvFHuFbFu0XYHiptu4SCcwZ4PvLqh1/9T2ypclxit13kZgUMC9MzCXkEIbkX7BpnyuNS8e2VUmIvL0qKtLKCCwJ5JNCW+L41JdBV5R+wlBeSP+u7hAKhBKs82zYYLzaH2eZsko9JcxtZgr+NzrGjzmBAZ1VqtdwOjdiNIiNaH3VlQ2QJ6kV1WrhMnSdIKnXUAddUmFmdiXanxwro8xSzB+xICjj7/qQp7AkPpJyyyLbLqclpJgnl1ow8y6A==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by PH0PR12MB8126.namprd12.prod.outlook.com (2603:10b6:510:299::20)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
+ by PAXPR04MB8095.eurprd04.prod.outlook.com (2603:10a6:102:1c6::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
- 2026 01:59:16 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9891.021; Tue, 12 May 2026
- 01:59:16 +0000
-Message-ID: <5d7067de-97b7-4232-9cf6-e4b978696482@amd.com>
-Date: Mon, 11 May 2026 20:59:14 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 0/3] Add splash DRM client
-Content-Language: en-US
-To: Francesco Valla <francesco@valla.it>,
+ 2026 02:23:04 +0000
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.20.9891.021; Tue, 12 May 2026
+ 02:23:04 +0000
+Date: Tue, 12 May 2026 10:24:28 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Jocelyn Falempe <jfalempe@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: Sam Ravnborg <sam@ravnborg.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-embedded@vger.kernel.org
-References: <20260510-drm_client_splash-v3-0-a9aee9f0b2fc@valla.it>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260510-drm_client_splash-v3-0-a9aee9f0b2fc@valla.it>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA9PR03CA0016.namprd03.prod.outlook.com
- (2603:10b6:806:20::21) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v7] drm/bridge: imx8qxp-pxl2dpi: avoid ERR_PTR with
+ device_node cleanup
+Message-ID: <agKPXPKGOklTSFJQ@raspi>
+References: <20260507100604.667731-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260507100604.667731-1-lgs201920130244@gmail.com>
+X-ClientProxiedBy: SG2PR02CA0134.apcprd02.prod.outlook.com
+ (2603:1096:4:188::14) To AS1PR04MB9287.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dd::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|PH0PR12MB8126:EE_
-X-MS-Office365-Filtering-Correlation-Id: bad2f571-95bb-4a87-4eab-08deafca12c0
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|PAXPR04MB8095:EE_
+X-MS-Office365-Filtering-Correlation-Id: e83f31b4-194e-47dc-e886-08deafcd656c
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|921020|56012099003|11063799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: vPQQp6+d35fMS3TYcM/U15LJWDHSuSd86yWROlU/ueHKh5LTntdYbcTpKVqxb1WCyJqd90o/+blkXaaRGcAxdbzCWAR6XrzNecXg9s5JZ8tfC4WfQ0Wt1aq0ZQ2yDQ493PMLwcgyM4qJ1nLRoCPxFeaPKF7k/QrZC/KOvxqNXEnApOZ8H2GPIAcJbzkuzWnwaSCE0BNcC3dOrOciOYEaWfkCq2XI2reXpdwzcuiZjbrk1Uo4smsJG/UKFW2g7m/b2i1vaNl6cKJTo0g506aMraSSGp1QQQe6H2ph6g92sVQEktuzDA1LTBTdo3Ib/zb8+hOHN0W1lAEn9u9jErO4NgCBx+zMdIr+SBTLlPc/HtxEtYdLdyS78ySKNvCrC9JKFmhZrR+3rKn1nnLw+4uYWZ9Mia2WEQ6GO8FdX4KJnGrzP4mbd5Vgfn9xraGybRzxO4qtcrCEYRhFPpB/NS/HUDtF1fvupu82lHbgj37xUeQzoIo1stSFDm/DOVqHMn7PQuBIDJMzc31Guv9pvzx+RS/U9jwI/3FrTX2xlGwozw+DU90ojLxUcgtZ11W0N6Oovt6QzhAiAzPiF6c97hQ5Z1b+/GcgC4RdCx9FGIx7AHczIo6la6zUhNGtojdQjDfrVYvfevjCrkrIODwRd7/ee+RfWF/faHiszkrQ0QteB2TLEcj+MM9RIw+azJnMjIk/IHtlLUIgx2kVbzZz8T7tIXL3lkxnM40GkTDO/8+goAn5jVbCqc59DwfmLYtHml6b
+ ARA:13230040|19092799006|7416014|376014|1800799024|366016|3023799003|11063799003|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: eG2zaN5/5TSKuLYe3pAupphf13qyGnCd/9heKJjK2P4utEBLEUOqNNA1dK10mr06SByJ54NmNbsZm4x48RxUiGFjLYtsIZjnewta/aJuEKey50/yFp/YOOePgn/t99y9UL+oytg0s5P3hXUvhIrWVdczNrp+xGVyvvQ7paU3Xf/eWqwaTO0LsvEFGxmIErfVX5ERNXYZIkdkxukRE8+BUHAZelEm9ley3YuXcg3UkX6mHwYSDrPJXNxvw/J1hErascVf0UBTtuFA7iE5gqkrsEBE+/IxmKrT/39Rr0rglP1/98qN2l952FaOxNza+Ykj7FWQCiMDyArfSXO6Xjjm3Edt3vOv/3FZSwDVmc4UhuJHMIvCwb9SL9SEMmWsI0mjECkH+Zk1I14mQoyew0fCzIxmv/iCWxpNPpsJcmqGGt/227e9adVhRvGwZSZOv7qNEg+eToQyicwqOJvmjZk0GE1GKVQNYrMUnZRzJzkz/Nqma6EHMJu/T91rDaWY2bdBbAx2Xf3akfOFgnn+a6Jjj83ITXziC/cjanme6fLvKA/mnJ90VW3eBTLVFnlPd5MeyXDzy1fUw8+hdR+BlgYEXbKISZgFr3xziOupWbM5ed8Ek/3yTNGOchioTP8QaY+bbR7z8whmrLgDshQQHJNlfmnYDS61LhKsM7CJCaqb9y17KvFoKFkwmBPw+juOvqym
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(921020)(56012099003)(11063799003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(366016)(3023799003)(11063799003)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NTlLSHVKTjRzbkJiMkhjd3V5RDhoSS9rcitlQWo2WWh5ZmdMTnphMmFXaXQy?=
- =?utf-8?B?dVlBSzI2T3BqVUo4eEFYRHNvbW5KZWRFYW40eUpZT2ZWZUExLzB1WEdwVFBI?=
- =?utf-8?B?bW9rVjkwSTF4NU1laFA0VDNaa1hLQ3JnZm94VXViYUZOM0U1Q0tCamtGUXFy?=
- =?utf-8?B?OEpWZk02QmJRZy9oMlVSNWM4U3NvTkFuaHRtYitxcklwOEV0WmFzYkJHRjNt?=
- =?utf-8?B?TUZkdHI5cjYxMnhwOEVwcEZiQXZHMDhxZldPV0R0RnNEV1BvRjJKdWo4ZVFH?=
- =?utf-8?B?VlBtR2RoTlJEblNNMFZrWjVmUVdPVXpRaDBlTVg2R0c4UWFaWmV4MDBEMVBI?=
- =?utf-8?B?c3NnTTN6dnczd3psYkNRRGJhSllvWDFET0hsc2NUdFErWE8yemU3RG9LRll2?=
- =?utf-8?B?YlRkcGo5MFFjWXRsWnBUT1RCSnlzV3N0M2VicWp2RTV1WGxVam9hMWFhaGlE?=
- =?utf-8?B?M0Z1Z1U3ZU5LWlJxamFUb0x2MnAwbjI5VGpIaTFkdWJ2R25ZZ3RwNDgrQ1di?=
- =?utf-8?B?VlhQNC84c09KWEwxS1pXa2x3cStPdjBuYmpVVFB0UUUrMGIzWDc1c3lPZCtM?=
- =?utf-8?B?YTFRdWt6WGZhMGZqTUhOU1dwY3ZKeXNCV3ZQZmNaSVlMcDhpaHBxNnhCNC82?=
- =?utf-8?B?M2x6cStOdVhMRDZubWMwOGRNSU81QnBzVGsvK0ZYZFNTeWdpdis5YnFIeEVE?=
- =?utf-8?B?YUdRNVdNUkZ5Q1ZOZnFRZ3VRMUdXa1lIWlEyYWxvQVBVRWhmQzl0bVpxSHFw?=
- =?utf-8?B?M283REl6bGcyRGk4UlBMYW9PQVRjM1ZaQStmSlpHZEthTzVtRklVNVRLcEh2?=
- =?utf-8?B?Lzh0ZkkvQ2YvR040dG0xSjN0VHV2YjhoZTFON2dJZmE3dFFLdEtQQWFKWXJo?=
- =?utf-8?B?WFhpajJISW5PbDdBQVBEbG9iVkNBOUhtd3p5Tmg4dnpRK1N3cGhoUDFmanNC?=
- =?utf-8?B?UnpKemhkMDFjWkdMQnVPNUxrMkQvRjYyNFhKbFROcHQ2SXJyN1kwMXQxcWtJ?=
- =?utf-8?B?emtBb2YyWURZanUrc0RvSmgvNS93a2hjTWljQVQ2WThOQzBaQ28wQTY4TVJu?=
- =?utf-8?B?Q2I1dm9yMklJcXB1U2JFMlpzNENYRE5LMHdhK0RMZ3p4ekFOQytjMmtQVS96?=
- =?utf-8?B?UWttK0JBTjVBbXMyU0htOWVRTUhlOGU2bTF0THdvbDhDRGVDc1lZbHZLUzhu?=
- =?utf-8?B?bFNHbXArZ1IzNlJHaEZSaFA4VmJqYjdHN1VvekpUMFdkMDBNbFdzQkFXZ05u?=
- =?utf-8?B?Sm9XNHRSZE9BWFZReG1oWnlqZXNqaUVVSmFQT25HWDJVdDZZSWFESW1QWDkz?=
- =?utf-8?B?MmRWUmFDMnhoM2Y4Tmc5dlpsVVBvNHZha3FiZ3A5UXZiNnV0SWRtMmJXUmpp?=
- =?utf-8?B?UjFWUE52cHk1amd5TmVJOG9rVGhHTFMvL3VvdDlQRkQ0ejFsVnI1QXMwUGV3?=
- =?utf-8?B?a2QzOWVKU0hrTFc5NFVHNW51ZngzZk1WUWlXRzhib2JQRlMxbkZscGNhWHJN?=
- =?utf-8?B?Z1hxbVcwLzZGQzB0QnBvZklZdTVKL1dYanJSS3J5RS91VndGTDlET3kvazdV?=
- =?utf-8?B?TXVnQlE2eEQ0clZGUUs5Y2NBTFhXWlhqUE9OdGFlcXhxZ05PQW9DZDhOdnhq?=
- =?utf-8?B?RXJCY3R4emtRbW1JVkhMeUw2MDN5cDA5TmsxYTBqOThCeTMxL0VuOENZamI0?=
- =?utf-8?B?cFlJamM5ZExNUGNac3o3WFpHWm5nQVloZk5yaVZ5K1JOemVPdS9zaURLd3dy?=
- =?utf-8?B?ZE1KWVNFT3ViZUtja0Y2L3dtdEhKRk5IMDFGVTYxZFozRTJieWRyVjh2K3ds?=
- =?utf-8?B?L3R1OHBWNHpva0ZHa250WjhVWnhHVkRKcG9GZ3U5Znhzb1hhSHNSN3V6U0Q2?=
- =?utf-8?B?VlpmODZzbCtUZUM3emNzU002c0dNbFdFd1R3NkVQQmFlOXFjOFlxVlpPTi9q?=
- =?utf-8?B?TW5qYjY3akVEN2x5VnI4OVNuZlczdC9Md1BoeWo1VVlKV1FTVGRwTGxOZzQr?=
- =?utf-8?B?cHhOazc1WjVZWEtUa1RRYzgxb092RGdoV2Q1c3JVVzVabzF6NjZGMkF5bVJI?=
- =?utf-8?B?M1o0d2UwTURjQVNzeUdrMTZxU2ZtZE4raEJwZzh0NjRxRGp6R3N3TG1hcmRF?=
- =?utf-8?B?MnphMUc4cU1hLzhJSXczQVVwT0VLdXJMVENJNTBMZjNPWUFVYzRiczZZVUlK?=
- =?utf-8?B?R0RydTZtQllXNFRvdTdlWTJEb0tveGpHNVNiUmVQTlkvVjREZDAveUtNZ09m?=
- =?utf-8?B?emNLWGxUMXh2b1Myb1lJQVY2d2RnbE9nZGtrYnFxSzErdVJFVUxCUG1NSWVM?=
- =?utf-8?B?ckttbXF4TENVRml4Sm1HVEJBYTFUSHhQbFMxK0hwaHFrTitRS0JHdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bad2f571-95bb-4a87-4eab-08deafca12c0
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VfmO+GO5GrwVsR5vqL9DlTASBhE/FZKfUc0J8stV3FmsGl83w81tPucHSDqa?=
+ =?us-ascii?Q?H4IRmMxCsHFqFKz8LOyB5WJONdcMhbKNEW8hJ3Y8PydE4FhzTqqOFwtI+KtV?=
+ =?us-ascii?Q?9NEC1bhpzzRzLepHFx+QTiLKYMxOFd4gRxtLP7Mm5O5MECd2AKeDcYlWCmQF?=
+ =?us-ascii?Q?jrYCHG35Nfi285lzhRsrCwQlJ6veKpRbm3RZHlFQYHvMMdlYshtwBnHxIiTO?=
+ =?us-ascii?Q?VipLenQb+A5nW83nUwNxmFHnXTcoDY2+w2z+Zo+pqqrMIlkEbOkMYZD3X9o2?=
+ =?us-ascii?Q?cS/UCR4dMDU+AXCV6JDsg1iFYvbOksN5yvxHdDG1Ccm8NMAqLOqLacvB0aaj?=
+ =?us-ascii?Q?dULSobgg6o9btNWOLtO2OMV/LHdEz1s6mzhWU/ZOIFhka9jYd9IeaBWpqxYM?=
+ =?us-ascii?Q?OacbQ7r3XU9o0MMcEomX2y9yMHUvAlCsl3tQLXsM6jRESuZPWeg63Q9ur3Fu?=
+ =?us-ascii?Q?jSvFzOIcmWPhkfbbnba1EEAhzaT2J5SrNG9/y58caGW35j+GSoTM6lU7iEOG?=
+ =?us-ascii?Q?nwiz+nqthydS48vCxReSIT2aSfn+E/8aNaMC3X+mq4ShtT9dy0cYaWImQB4W?=
+ =?us-ascii?Q?1OZKRgmRL97KdWFL4u+6g72oED6S7F1yE7rN+7zCjSVHwiT1lHlVrs0ZzEI7?=
+ =?us-ascii?Q?qjJEk8Iia+8W76cUiFECOYFUOZn0keBE9UBI8QHXIAQM0UdlTBXiXOqt9fj+?=
+ =?us-ascii?Q?uW3FAAqO+PIyq8w4i4trFDOYssR0zE5QAze17sXiBNMx5SGpvYycDQ1jYW8x?=
+ =?us-ascii?Q?g+g3S96piARWTPV7FIe47V9jc21EP1e8gaO2OxVyQEO4oqn/hhDlLLPiUots?=
+ =?us-ascii?Q?lwvCGGXXBcTcj0u6sQVWsiw7k1pbPEdZxKuZxGts9W3Z7KnNjgkOp5kWpD7b?=
+ =?us-ascii?Q?kyFs5gPHSHsEro654ECX7FxNI2vzWRE4O7QimawGPp8sD0N7uN6NKZNspOdF?=
+ =?us-ascii?Q?scSjQulqx3IJXVpMfubWQcY7UZaXnosRJXivloHx79Irxkv2EFWNjR3tGzER?=
+ =?us-ascii?Q?ke5VShYKjt75UYWOad+Zp3NY0FsZ4l74Sj93JyvL6RbyxFBqwD3eJVWCMRTp?=
+ =?us-ascii?Q?54t1w4h1qtjQRocZMaZas+7QKNmqTDje+xvGJg7Q2g1alogwhgMVS/VsDIzC?=
+ =?us-ascii?Q?I4UPo7GmM5+qUIs25v5thsFQ/Ldq1wegh1jgcZ9nB9ic9VuTDi+QaFW2Cvna?=
+ =?us-ascii?Q?HbguEbxFEutGmfZBcaKeASJvAEslFyT8+Tn1WBFuhgB1qSbSyA47qU/RSyke?=
+ =?us-ascii?Q?1/stDueTpwBbp9XSmvdV8GR0KEnF9cY1dBK0dHAn8JyQVrddLGB8txii2afN?=
+ =?us-ascii?Q?c/PhAiS2ISUfGvVgsHv8jxVR4s/yfKjh/07a2M0MlRuFXw+TAtvtBC1jZ7Lv?=
+ =?us-ascii?Q?4Fe1TrpjcdyM1xgwbsFeD/dMG/qZ1JamvaKxtWXffAIrNfJFYAu+ErUPWROq?=
+ =?us-ascii?Q?BD1c3XVvNazq2y+cYJFFD2AcMo0WxFLGnvFfDA1N9OqwKyZgMu4IL6+M9kbT?=
+ =?us-ascii?Q?Y+0aVj65PacLo9S0RWdaPv1go8usXfxcI02eIOYeIngc3ODN/uujE5dZILjq?=
+ =?us-ascii?Q?jppR9WV4RUvQ033itXF2nM1iExZANx7fxJhW7ZuQg6ZwGkwlgYXL8MnRTY/Q?=
+ =?us-ascii?Q?jAaczqX/AltrXkjF8C/L1l22fox6XSR9xgSAr1/QDLgNOXeony8W4dVglGZM?=
+ =?us-ascii?Q?ZV5p8uqp6A+x3NWmVAXhBA98UD9CZBLHHXUiO5z6VL0jK6iN6q1uMEwho6rm?=
+ =?us-ascii?Q?ZNfWM+gg4w=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e83f31b4-194e-47dc-e886-08deafcd656c
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 01:59:16.7910 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 02:23:04.1574 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VxiSPTfMYMYbm+NNlAEA+CiK6bcF5YkCCLJ99kUisSfApEvhPLzfox8kRS4w2t43yeiTaz8dKZmAsmPiXxODBg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8126
+X-MS-Exchange-CrossTenant-UserPrincipalName: BIzAm26C5R4xim7boYUrdPE2GSgTjylzbG/uYLvryNkiMwm25pxt1YI3fxzJUkQs0wQZECwZE3NBEHQ7n4ojLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8095
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,161 +140,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 5/10/26 16:29, Francesco Valla wrote:
-> Hello,
+On Thu, May 07, 2026 at 06:06:03PM +0800, Guangshuo Li wrote:
+> imx8qxp_pxl2dpi_get_available_ep_from_port() returns ERR_PTR()
+> on errors. imx8qxp_pxl2dpi_find_next_bridge() stores its return
+> value in a __free(device_node) variable before checking IS_ERR().
+> When the function returns on the error path, the cleanup action calls
+> of_node_put() on the ERR_PTR() value.
 > 
-> this is the third (and hopefully last) RFC version for the DRM-based
-> splash screen.
+> Do not let a device_node cleanup variable hold error pointers. Change
+> imx8qxp_pxl2dpi_get_available_ep_from_port() to return an int and pass
+> the endpoint node through an output argument. Initialize the output
+> argument to NULL so callers hold either NULL on error paths or a valid
+> device_node pointer on successful path.
 > 
-> Motivation behind the work can be found in v1 [0]; in a nutshell, the
-> splash DRM client can draw a splashscreen using:
-> 
->    - the BMP image supplied by the EFI BGRT;
->    - a BMP image loaded as firmware (either built-in or loaded from the
->      filesystem);
->    - a colored background.
-> 
-> This revision greatly simplifies the image seletion logic; now the EFI
-> BGRT is always used as first source if enabled, with a fallback to BMP
-> image loaded as firmware and then to a plain color.
-> 
-> Sanity checks on the EFI BGRT image have been borrowed from the efifb
-> driver. More complete splash providers (e.g.: Plymouth) have an
-> extensive management of platform-specific quirks, but I don't think it
-> would be reasonable to introduce such complexity here.
-> 
-> Additional notes:
->    - Rotation is still not managed (and probably won't?).
->    - Support for tiled screens is untested.
->    - Plain color and BMP sources were tested on QEMU, Beagleplay and
->      i.MX93 FRDM.
->    - EFI BGRT support was tested using QEMU+OVMF.
-> 
-> Thank you in advance for any feedback.
-
-Unfortunately I found that I couldn't compile with my normal Kconfig.
-
-ERROR: modpost: "bgrt_tab" [drivers/gpu/drm/clients/drm_client_lib.ko] 
-undefined!
-ERROR: modpost: "bgrt_image_size" 
-[drivers/gpu/drm/clients/drm_client_lib.ko] undefined!
-make[2]: *** [scripts/Makefile.modpost:147: Module.symvers] Error 1
-make[1]: *** [/home/supermario/src/linux/Makefile:2091: modpost] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-
-❮ grep ^CONFIG_DRM .config
-CONFIG_DRM=y
-CONFIG_DRM_KMS_HELPER=m
-CONFIG_DRM_DRAW=y
-CONFIG_DRM_CLIENT=y
-CONFIG_DRM_CLIENT_LIB=m
-CONFIG_DRM_CLIENT_SELECTION=m
-CONFIG_DRM_CLIENT_SETUP=y
-CONFIG_DRM_FBDEV_EMULATION=y
-CONFIG_DRM_FBDEV_OVERALLOC=100
-CONFIG_DRM_CLIENT_SPLASH=y
-CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR=0x000000
-CONFIG_DRM_CLIENT_SPLASH_SRC_BGRT=y
-CONFIG_DRM_CLIENT_SPLASH_BMP_SUPPORT=y
-CONFIG_DRM_CLIENT_DEFAULT_SPLASH=y
-CONFIG_DRM_CLIENT_DEFAULT="splash"
-CONFIG_DRM_LOAD_EDID_FIRMWARE=y
-CONFIG_DRM_DISPLAY_HELPER=m
-CONFIG_DRM_DISPLAY_DP_AUX_CHARDEV=y
-CONFIG_DRM_DISPLAY_DP_HELPER=y
-CONFIG_DRM_DISPLAY_DSC_HELPER=y
-CONFIG_DRM_DISPLAY_HDCP_HELPER=y
-CONFIG_DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER=y
-CONFIG_DRM_DISPLAY_HDMI_HELPER=y
-CONFIG_DRM_TTM=m
-CONFIG_DRM_EXEC=m
-CONFIG_DRM_BUDDY=m
-CONFIG_DRM_TTM_HELPER=m
-CONFIG_DRM_GEM_SHMEM_HELPER=m
-CONFIG_DRM_SUBALLOC_HELPER=m
-CONFIG_DRM_SCHED=m
-CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS=m
-CONFIG_DRM_PRIVACY_SCREEN=y
-CONFIG_DRM_AMDGPU=m
-CONFIG_DRM_AMDGPU_CIK=y
-CONFIG_DRM_AMDGPU_USERPTR=y
-CONFIG_DRM_AMD_ISP=y
-CONFIG_DRM_AMD_ACP=y
-CONFIG_DRM_AMD_DC=y
-CONFIG_DRM_AMD_DC_FP=y
-CONFIG_DRM_AMD_SECURE_DISPLAY=y
-CONFIG_DRM_BRIDGE=y
-CONFIG_DRM_PANEL_BRIDGE=y
-CONFIG_DRM_PANEL=y
-CONFIG_DRM_SYSFB_HELPER=m
-CONFIG_DRM_SIMPLEDRM=m
-CONFIG_DRM_PANEL_ORIENTATION_QUIRKS=y
-CONFIG_DRM_ACCEL=y
-CONFIG_DRM_ACCEL_AMDXDNA=m
-CONFIG_DRM_ACCEL_HABANALABS=m
-CONFIG_DRM_ACCEL_IVPU=m
-CONFIG_DRM_ACCEL_QAIC=m
-❮ grep BGRT .config
-CONFIG_ACPI_BGRT=y
-CONFIG_DRM_CLIENT_SPLASH_SRC_BGRT=y
-
-> 
-> Best regards,
-> Francesco
-> 
-> [0] https://lore.kernel.org/all/20251027-drm_client_splash-v1-0-00698933b34a@valla.it
-> 
-> Signed-off-by: Francesco Valla <francesco@valla.it>
+> Fixes: ceea3f7806a10 ("drm/bridge: imx8qxp-pxl2dpi: simplify put of device_node pointers")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Liu Ying <victor.liu@nxp.com>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
-> Changes in v3:
->    - Simplified the image selection and management logic, with direct
->      fallback from EFI BGRT to MP as firmware
->    - Used new drm_draw_can_convert_from_xrgb8888() API
->    - Added proper get_unaligned_ calls for EFI BGRT access
->    - Fixed Kconfig dependencies
->    - Link to v2: https://lore.kernel.org/r/20260106-drm_client_splash-v2-0-6e86a7434b59@valla.it
+> v7:
+>   - Rephrase the commit message sentence about output argument
+>     initialization as suggested by Liu Ying.
+>   - Drop the unnecessary sentence about keeping explicit of_node_put()
+>     usage.
+>   - Add Liu Ying's Reviewed-by tag.
+>   - No code changes.
 > 
-> Changes in v2:
->    - Moved from raw dump to BMP format for static image source
->    - Removed support for configurable message
->    - Removed support for progress bar
->    - Added EFI BGRT as image source
-> Link to v1: https://lore.kernel.org/r/20251027-drm_client_splash-v1-0-00698933b34a@valla.it
+> v6:
+>   - Change imx8qxp_pxl2dpi_get_available_ep_from_port() to return int
+>     and pass the endpoint through an output argument.
+>   - Keep using __free(device_node) in imx8qxp_pxl2dpi_find_next_bridge().
+>   - Keep ep initialized to NULL in imx8qxp_pxl2dpi_find_next_bridge()
+>     to satisfy the __free pointer initialization requirement.
+>   - Do not add cleanup action usage in
+>     imx8qxp_pxl2dpi_get_available_ep_from_port() or
+>     imx8qxp_pxl2dpi_set_pixel_link_sel().
 > 
-> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Thomas Zimmermann <tzimmermann@suse.de>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> To: Francesco Valla <francesco@valla.it>
-> To: Jonathan Corbet <corbet@lwn.net>
-> To: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: linux-kernel@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-doc@vger.kernel.org
+> v5:
+>   - Make the fix minimal for stable by avoiding __free(device_node)
+>     for the endpoint node in imx8qxp_pxl2dpi_find_next_bridge().
+>   - Keep imx8qxp_pxl2dpi_get_available_ep_from_port() unchanged.
+>   - Do not change imx8qxp_pxl2dpi_set_pixel_link_sel().
+>   - Drop Frank's Reviewed-by tag due to the implementation change.
 > 
-> ---
-> Francesco Valla (3):
->        drm: client: add splash client
->        MAINTAINERS: add entry for DRM splash client
->        drm: docs: remove bootsplash from TODO
+> v4:
+>   - Drop the sentence mentioning the custom static analysis tool.
+>   - Add Frank's Reviewed-by tag.
+>   - No functional code changes.
 > 
->   Documentation/gpu/todo.rst                    |  17 -
->   MAINTAINERS                                   |   7 +
->   drivers/gpu/drm/clients/Kconfig               |  63 +-
->   drivers/gpu/drm/clients/Makefile              |   1 +
->   drivers/gpu/drm/clients/drm_client_internal.h |   9 +
->   drivers/gpu/drm/clients/drm_client_setup.c    |   8 +
->   drivers/gpu/drm/clients/drm_splash.c          | 932 ++++++++++++++++++++++++++
->   7 files changed, 1019 insertions(+), 18 deletions(-)
-> ---
-> base-commit: afaa0a477099cb7256e26fe11289c753a225ac97
-> change-id: 20251026-drm_client_splash-e10d7d663e7f
+> v3:
+>   - Do not change DEFINE_FREE(device_node, ...).
+>   - Fix the driver pattern by making
+>     imx8qxp_pxl2dpi_get_available_ep_from_port() return an int and
+>     pass the endpoint via an output argument.
+>   - Update both callers so __free(device_node) never holds ERR_PTR().
 > 
-> Best regards,
-> --
-> Francesco Valla <francesco@valla.it>
+> v2:
+>   - Fix DEFINE_FREE(device_node, ...) directly.
 > 
+>  drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c | 40 +++++++++++---------
+>  1 file changed, 23 insertions(+), 17 deletions(-)
 
+Applied to misc/kernel.git (drm-misc-fixes), thanks!
+
+-- 
+Regards,
+Liu Ying
