@@ -4,149 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDD2CCD4855
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 07:05:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BFDACD4F26
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 07:29:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 266A610E98E;
-	Tue, 12 May 2026 07:05:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 950BB10E984;
+	Tue, 12 May 2026 07:29:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XHXn0K2w";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dRBRcXRl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pk8xUQxW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dRBRcXRl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pk8xUQxW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85FE510E984;
- Tue, 12 May 2026 07:05:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778569510; x=1810105510;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=gFxOUTdHi1ON73eyqP8Zw6VdThM/NXOLTzVBCu6I1aQ=;
- b=XHXn0K2wkYr4o8McAVB/9Bo2yFBYT/nqVnia7C1bA67okgXcV2vxTp3L
- tWqv7qHb4sYZ7ERnZpETreqcmsPZpMYsCESU6otNwZxsSVfJPAbeDa6QK
- tn4mKeeqrrAYLEp8pWu0xSxE0+msQUiAAIEG/WrQhCniK2ggc//gA0VRI
- 0qtQoJOZI9ElvvX5QDC3VkYlR9OZQ6JkBbnEP48VkBCGG7A0X1fnHfibl
- S+Ctp3myTsuidH56usn3wQW/pnoqtIM4dnaZMYJYVCkfSt97XbfIXptmx
- 2r2/mQbm2sQPexsjlggSKb+jK6ZghsKh8BFcAxER6rGY8wrRTKC9Xa2GV A==;
-X-CSE-ConnectionGUID: vfyx9xKVQkO9+fl2BoPf2A==
-X-CSE-MsgGUID: LciBiiYOQyGHs4EzH6y1bA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79501140"
-X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="79501140"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 00:05:09 -0700
-X-CSE-ConnectionGUID: uWEtV6ywTwuRKcT1BtLYJA==
-X-CSE-MsgGUID: kmJqgkzdQPqgrmD/qeGKsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="241676599"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 00:05:09 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 12 May 2026 00:05:08 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 12 May 2026 00:05:08 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.34) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 12 May 2026 00:05:08 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K6JmRbthUQzvm3zxYBPmSguKA2jFGNknriD7DI69H6ycw2D45LFTsNg5OzSuZ3QjD2KMZNy+JmsxkTecaGQi2CMCnnjuqaS+GYHnLhWpoEugdwlsiiFP+y5Bfd9Wx49ZSLTjJAS7lBQ2MhRKQoiWv3PpAltcHsSjdEZbM/aVtUAuwmgPqxmYbCKjcon3zrnHRIClQh8orL/6B7cRT+IHmPBdEA6pfGxfE+BOzWzU5OJMuKJgJMpheYhqc521I6Kh50rI8/1R8V9PmHKz4S54fwQkRdoyUQdDyXucX1umd/U+Hdb4Yc7Q6l1B11a8qG5q32QWOl74bNKNiamHFK2acw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eE+NR11Pogozf7pIScHpKFz14mQVeVxN+hhLoVak4Y8=;
- b=hjI8Ooe/HIcl947nGKu+39dPM3AnIXWiYH0YulN8x1250cngYdHnEyzBkZKAdiA2AZJSyevenltkk7ZSwYz5OdmFOzUeVklNmCfJbiESKaRYGviVhtWQPXvNujc8BN0Z4fADWiiP996Gt7el7lIHI7okwvOdIOnBj2oOAcEV7e9c5Hb1FccCDg2yvU2sEbcA2w1ySLN10vzJFL4R2qQlmECK9zazklswZt/XOoAorwAotfJ5yEnbTnaUS4nxpp1WAhc2ckPGrwj/QKqZEf1xo1GiJ6uHJm1A2CgQQp6VA6t9ZldD5rUbxwkUAEBXw31q8XLyC27nj83mPSqttetAoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CY8PR11MB7828.namprd11.prod.outlook.com (2603:10b6:930:78::8)
- by PH8PR11MB6999.namprd11.prod.outlook.com (2603:10b6:510:221::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
- 2026 07:05:01 +0000
-Received: from CY8PR11MB7828.namprd11.prod.outlook.com
- ([fe80::1171:db4d:d6ad:3277]) by CY8PR11MB7828.namprd11.prod.outlook.com
- ([fe80::1171:db4d:d6ad:3277%7]) with mapi id 15.20.9891.021; Tue, 12 May 2026
- 07:05:00 +0000
-Date: Tue, 12 May 2026 09:04:54 +0200
-From: Francois Dugast <francois.dugast@intel.com>
-To: Matthew Auld <matthew.auld@intel.com>
-CC: <dri-devel@lists.freedesktop.org>, "Paneer Selvam, Arunpravin"
- <Arunpravin.PaneerSelvam@amd.com>, <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] gpu/buddy: Track per-order used blocks with a
- scoreboard
-Message-ID: <agLRDPOjJD_-u00y@fdugast-desk>
-References: <20260504135343.1797869-1-francois.dugast@intel.com>
- <20260504135343.1797869-3-francois.dugast@intel.com>
- <fe332774-5678-4b9e-8453-49355de1f773@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <fe332774-5678-4b9e-8453-49355de1f773@intel.com>
-Organization: Intel Corporation
-X-ClientProxiedBy: DUZPR01CA0342.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b8::26) To CY8PR11MB7828.namprd11.prod.outlook.com
- (2603:10b6:930:78::8)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00CBD10E312
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 07:29:33 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 78ED16BF65;
+ Tue, 12 May 2026 07:29:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778570972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=A5+OvHhAddu947SeepguoYlkifQbnyK/yfFGM0g/EA0=;
+ b=dRBRcXRlOQIsTOQfIB0Ith4JNIjjL/HOnoO/GeYePelL9hdtLjNX53LA8iG6j9Nrehw4p9
+ DLcDdbjG2LMgmtUHuaOz+UwsX1ND05Hy3YB0zswmj2MfPumDMQdDD93pWTrY8nbVJrMmn7
+ a3vo+Ktol4Ls31peiP3qS8d4qnnO8Z4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778570972;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=A5+OvHhAddu947SeepguoYlkifQbnyK/yfFGM0g/EA0=;
+ b=pk8xUQxWouOfBapPNsYBWB7FCdaGVhUT40W8e7nYjkzn7gY7rj2cusItEXEQcVI2F3Cqnd
+ 43SiI39dfqQKhbDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778570972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=A5+OvHhAddu947SeepguoYlkifQbnyK/yfFGM0g/EA0=;
+ b=dRBRcXRlOQIsTOQfIB0Ith4JNIjjL/HOnoO/GeYePelL9hdtLjNX53LA8iG6j9Nrehw4p9
+ DLcDdbjG2LMgmtUHuaOz+UwsX1ND05Hy3YB0zswmj2MfPumDMQdDD93pWTrY8nbVJrMmn7
+ a3vo+Ktol4Ls31peiP3qS8d4qnnO8Z4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778570972;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=A5+OvHhAddu947SeepguoYlkifQbnyK/yfFGM0g/EA0=;
+ b=pk8xUQxWouOfBapPNsYBWB7FCdaGVhUT40W8e7nYjkzn7gY7rj2cusItEXEQcVI2F3Cqnd
+ 43SiI39dfqQKhbDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 09A4A593A9;
+ Tue, 12 May 2026 07:29:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id s+IcAdzWAmpjQAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 12 May 2026 07:29:32 +0000
+Message-ID: <ac105cc6-8628-4f7c-8ac8-e3b8df4d206a@suse.de>
+Date: Tue, 12 May 2026 09:29:31 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR11MB7828:EE_|PH8PR11MB6999:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90c6ebff-31e1-4db8-a6a5-08deaff4c8ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|11063799003|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: dOjaCpZzudb0W5l3dRH97jKGJPIthIQ/Oa513KwgFCGAc+p8PZ/7GJe96Vh3hyl8pyugMKYpdrvIWuqxldG4KeKstKUJAhiyc7duPPc4g/j35zaNKMurcMlP19IC/Bdn4AIpRBXZcS85FK4raSmI8J06zUzGuvbjHkYNbaagXLRn5H9khM+iROTxsjBNL5wh9jrJDx5FHICVY4DIbTqfEMLOk5brWSn0YuS+Dh95WNh3bXglcfpGUEet9N70IJUIc0NwHmpDlWQxkmiUL65HqmL/6J1KU8eNZhHUlm1v0f34Ci6AJ8wDl7QhawtXZDWmyoEGDCCnay3c+Onz/29FJZTOa6xAlIldN2OkDQ7Mt38shpG/ChVUUqOLwjdCcVyFIcNe0SeyCpRWt5uvzgS/+Jdwh0w3oSFNU/OpjjM+s5yEiMpYT02Z2qSyUgsuTvSoVE37jGE1nvE+0Ox3l9NFpZ82zxHu/VcWX1x8EP3+VQHgrAI5egVwnqHJpTYd6m0bn1sk4sy5MhxXto9N5MSe0HuXn9ZWlQkq0xkMqRYuIGCRzm8qBwQj0iJzYh7E+QpEZyK5jvbb00hYmEErEcSNLVrfepdsym0JzkGtsP6N8b/h8lGIDM1eUnD323wvPd9o+hOqkTyh0VVWh4XtBvuXqg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR11MB7828.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(11063799003)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wkBrJ5eQklU1fMowNMhThMi2yvI7KyxBYnr0GpTpa77y4a6A4zcAC+OGw1kY?=
- =?us-ascii?Q?kP2wmhnhDnAmmPwNvV0tbcMLdtNtuoRJhebara6IMVLC6lhDGQS0p42eSuLK?=
- =?us-ascii?Q?i134lBQT7gUnvjsE5km01w/SgWa2/Rjp6xI88lGPoUP8H1M/chIVEQ8Mpz3y?=
- =?us-ascii?Q?skpwOCisheSk9VSLqX0KsZDNdfqvHxTlhnsIMKiZEz2CmdIUAi8DVE7wp4SL?=
- =?us-ascii?Q?uao4/XR+0ZLURviiFYObqu52E/ZC3IZcBAlrytyCJTtbWKcE69DA0Nd8yVVd?=
- =?us-ascii?Q?9aPJURoUfCP21aqX7fnZ+ruHsrcLMZem1wFw2xXYbDDjxXLJt7Tq3QNKE548?=
- =?us-ascii?Q?+pHcZbWJNQZz/GMUdz5iknzvRsYq8I3vzZBpYp5E/SxX02k5mkjkUs1tiYdq?=
- =?us-ascii?Q?YYY9RUMactK0gWJ8PfZL/ayAUTnrhZNiS3+i3D0XonfZ3utzuiFa4nabcphT?=
- =?us-ascii?Q?9X7wRuOw3+tDwsn2Xg85NuaIwGNUv6BPy8LUOa7b0kc44rMSaggxOqI67LPA?=
- =?us-ascii?Q?dlUho+BH6sghOgf90/Q7IPVEZKUDYn8M0A0KuanONpqBQO16z97/uk+FpDVK?=
- =?us-ascii?Q?yIBOqxmVps2BOXvOQVlsiytjfgBXRQTCYhU+aJAoJZCmcMgDZ4H/pnp1fdUO?=
- =?us-ascii?Q?nHs2UxCx4m7TL1T1IF+3/z9VXaXWbqSjAoyXj8uf5IYuZjQYnLpStjYvww8C?=
- =?us-ascii?Q?hO4X+gLRNBh+k1+0eTu88wTNBVHUKJtUEdBTGMu+4a3zOUMBmdapTT+jc171?=
- =?us-ascii?Q?R/VSp/ydjLuoy6EDU73kRGOMst3JPXxr9HLKMu9fkQxLFj9s46oYEEgYpDW7?=
- =?us-ascii?Q?W5O5txrTxVuo/4YZCuTS8PUz4oLgZ6mySLHQMgvj26vYRtO4D/aKEoXRf0Rx?=
- =?us-ascii?Q?miND7fwQZhM7JvBFGmUE79rKc/27bZhVWWlefkRld0b30Vw2ktS34GdfGj2A?=
- =?us-ascii?Q?kRpAtrR/8fIdIIsOR+De33lKxF6Tt0Y0gKbi6pk2QJdBvHhR/66MKwmby/5X?=
- =?us-ascii?Q?srG/hzuTX5bvR/xL2kxawbKVD4eBIvl9uc1GOT0LG6InAdFRhootodgYKFg/?=
- =?us-ascii?Q?/bD95j4q3VfOzB4e5Zmjl9C8KOcUT6EkYss+rk5zJvGSe1lVvEnrgpsbzBQv?=
- =?us-ascii?Q?RMzRHFUzGWDtbr3nU5u1Ff9hy7ctlLz5zuKKskvJ/VFX66k0iin97/CKwa6g?=
- =?us-ascii?Q?m92K7/VxvdGptujeL+yya5z/WyFHzUsa3LSClaBeTR3IG3U48yiyc2rcg6TO?=
- =?us-ascii?Q?9Z9uTdhKj+efUk4irKnrEPky26ZTwcRb+dWE1FJhlozuu5qFNrSSu0YadSCi?=
- =?us-ascii?Q?CAk+ImQn/jlY5KSy0IecyNtB90ksYwB80ZyFy12KbVSK6j+ASABXsuFA+kqt?=
- =?us-ascii?Q?7qXnbETJUOWT3szt0RYKNpmyyngW5Cpp6ns2QBinpq+WzuFm87KdWz8OAHc9?=
- =?us-ascii?Q?N/1mASAPli8v5HrE2hbap9WgsKj6cYPFNoXCSpsaFrDKJ5e/gxAyhPmFofi8?=
- =?us-ascii?Q?3tJhXk2GIndMe9GZn6KwjDFrhA2ztJj1Dxx7rKn5TuixlFQ2D26RtTTy2vKI?=
- =?us-ascii?Q?uhPaTTmamaU6wVnb9jSGAY6AErEfYj14AY9wUkxmNkLhOcuVW7Xsv/GWvPx4?=
- =?us-ascii?Q?Eeadamd+xpsGT0ziQ5R/X4FybbxeYe8iVZxUp5+hLfAbZYogbwEngs35aAXR?=
- =?us-ascii?Q?jDiM6gNHFmTvDwlvj51eUwlcYTLd43FRrTc1+IRyZDJoXJ7OlVj7nlOYdqGY?=
- =?us-ascii?Q?1NUuAriLhsHeCxaV0vVpzspI0cz7kl4=3D?=
-X-Exchange-RoutingPolicyChecked: OAuCnWh85ZDvwcLM6yG4WZROLL6aI02oGcfhxcHx7fwod3SBgCZup+PhArol0CUJ6NgooijoLUDBNBuDeVU9pvg2Bs3tkeTBs9zGd8BsdlyqfQ6616n57W14iPQW9i9uVn84RXTitEAUq0HWH7d2lr2axHytO0w9TUO/w2pYQd6gKwWQNhC47h58wYHalMU94eKeV9h5Zn39DWjr4yUlU9YOoPUiqF1oOJjiWlYOmZCvS4v/gRtUzJvvPvxYNxyTP5+lFbD+K+vPIrPK1Hwpv4oMPGIScSoVvwlvlpFU/iLu/y8zMbxO6TshLySao3rlIXj001rHDmR6FdOsZAtA4g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90c6ebff-31e1-4db8-a6a5-08deaff4c8ad
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7828.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 07:05:00.8584 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NvjudOPfYpvMcKvMuSWh9G/a0DLv2llqBbs01scqxJ7GlzAfXlWl+TnxY6SNW6OEOjUAg2KGt3t+6LAtp6An/8SAhWyoBEbiNgrUDNDm8pk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6999
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v6 1/4] drm/hisilicon/hibmc: add
+ updating link cap in DP detect()
+To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
+ tiantao6@hisilicon.com, xinliang.liu@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ daniel@ffwll.ch, kong.kongxinwei@hisilicon.com
+Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
+ helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260509032302.2057227-1-shiyongbang@huawei.com>
+ <20260509032302.2057227-2-shiyongbang@huawei.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260509032302.2057227-2-shiyongbang@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[17];
+ FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo, huawei.com:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,151 +144,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 08, 2026 at 03:13:04PM +0100, Matthew Auld wrote:
-> On 04/05/2026 14:52, Francois Dugast wrote:
-> > Extend the scoreboard approach from the previous commit to used blocks,
-> > so drm_buddy_print() can report per-order allocation pressure in O(1).
-> > 
-> > Unlike free blocks, an allocated block can leave the allocated state
-> > through mark_free() (normal free and gpu_buddy_block_trim()) or be
-> > consumed directly by gpu_block_free() during coalescing. Both sites are
-> > guarded by gpu_buddy_block_is_allocated() and paired with the increment
-> > in mark_allocated().
-> > 
-> > Signed-off-by: Francois Dugast <francois.dugast@intel.com>
-> > Assisted-by: GitHub Copilot:claude-sonnet-4.6
-> 
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> 
-> Note that Sashiko found an existing issue here: https://sashiko.dev/#/patchset/20260504135343.1797869-1-francois.dugast%40intel.com
-> 
-> I guess would be good to fix that first, in this series?
 
-Yes indeed! Please see v2.
 
-Francois
+Am 09.05.26 um 05:22 schrieb Yongbang Shi:
+> From: Lin He <helin52@huawei.com>
+>
+> In the past, the link cap is updated in link training at encoder enable
+> stage, but the hibmc_dp_mode_valid() is called before it, which will use
+> DP link's rate and lanes. So add the hibmc_dp_update_caps() in
+> hibmc_dp_update_caps() to avoid some potential risks.
+>
+> Fixes: 607805abfb74 ("drm/hisilicon/hibmc: add dp mode valid check")
+> Signed-off-by: Lin He <helin52@huawei.com>
+> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
 
-> 
-> > ---
-> >   drivers/gpu/buddy.c         | 29 +++++++++++++++++++++++------
-> >   drivers/gpu/drm/drm_buddy.c |  8 +++++---
-> >   include/linux/gpu_buddy.h   |  8 ++++++++
-> >   3 files changed, 36 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> > index d831165e87ea..ebef03613b3f 100644
-> > --- a/drivers/gpu/buddy.c
-> > +++ b/drivers/gpu/buddy.c
-> > @@ -194,6 +194,7 @@ static void mark_allocated(struct gpu_buddy *mm,
-> >   	block->header |= GPU_BUDDY_ALLOCATED;
-> >   	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
-> > +	mm->used_scoreboard[gpu_buddy_block_order(block)]++;
-> >   	rbtree_remove(mm, block);
-> >   }
-> > @@ -203,6 +204,9 @@ static void mark_free(struct gpu_buddy *mm,
-> >   {
-> >   	enum gpu_buddy_free_tree tree;
-> > +	if (gpu_buddy_block_is_allocated(block))
-> > +		mm->used_scoreboard[gpu_buddy_block_order(block)]--;
-> > +
-> >   	block->header &= ~GPU_BUDDY_HEADER_STATE;
-> >   	block->header |= GPU_BUDDY_FREE;
-> > @@ -281,6 +285,9 @@ static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
-> >   		if (force_merge && gpu_buddy_block_is_clear(buddy))
-> >   			mm->clear_avail -= gpu_buddy_block_size(mm, buddy);
-> > +		if (gpu_buddy_block_is_allocated(block))
-> > +			mm->used_scoreboard[gpu_buddy_block_order(block)]--;
-> > +
-> >   		gpu_block_free(mm, block);
-> >   		gpu_block_free(mm, buddy);
-> > @@ -398,6 +405,12 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
-> >   	if (!mm->free_scoreboard)
-> >   		return -ENOMEM;
-> > +	mm->used_scoreboard = kcalloc(mm->max_order + 1,
-> > +				      sizeof(*mm->used_scoreboard),
-> > +				      GFP_KERNEL);
-> > +	if (!mm->used_scoreboard)
-> > +		goto out_free_free_scoreboard;
-> > +
-> >   	mm->free_trees = kmalloc_array(GPU_BUDDY_MAX_FREE_TREES,
-> >   				       sizeof(*mm->free_trees),
-> >   				       GFP_KERNEL);
-> > @@ -462,6 +475,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
-> >   		kfree(mm->free_trees[i]);
-> >   	kfree(mm->free_trees);
-> >   out_free_scoreboard:
-> > +	kfree(mm->used_scoreboard);
-> > +out_free_free_scoreboard:
-> >   	kfree(mm->free_scoreboard);
-> >   	return -ENOMEM;
-> >   }
-> > @@ -502,6 +517,7 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
-> >   	kfree(mm->free_trees);
-> >   	kfree(mm->roots);
-> >   	kfree(mm->free_scoreboard);
-> > +	kfree(mm->used_scoreboard);
-> >   }
-> >   EXPORT_SYMBOL(gpu_buddy_fini);
-> > @@ -1496,15 +1512,16 @@ void gpu_buddy_print(struct gpu_buddy *mm)
-> >   		mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
-> >   	for (order = mm->max_order; order >= 0; order--) {
-> > -		u64 count = mm->free_scoreboard[order];
-> > -		u64 free = count * (mm->chunk_size << order);
-> > +		u64 free_count = mm->free_scoreboard[order];
-> > +		u64 used_count = mm->used_scoreboard[order];
-> > +		u64 free = free_count * (mm->chunk_size << order);
-> >   		if (free < SZ_1M)
-> > -			pr_info("order-%2d free: %8llu KiB, blocks: %llu\n",
-> > -				order, free >> 10, count);
-> > +			pr_info("order-%2d free: %8llu KiB, free_blocks: %llu, used_blocks: %llu\n",
-> > +				order, free >> 10, free_count, used_count);
-> >   		else
-> > -			pr_info("order-%2d free: %8llu MiB, blocks: %llu\n",
-> > -				order, free >> 20, count);
-> > +			pr_info("order-%2d free: %8llu MiB, free_blocks: %llu, used_blocks: %llu\n",
-> > +				order, free >> 20, free_count, used_count);
-> >   	}
-> >   }
-> >   EXPORT_SYMBOL(gpu_buddy_print);
-> > diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> > index 7839b54d3da7..3a1cb06923c6 100644
-> > --- a/drivers/gpu/drm/drm_buddy.c
-> > +++ b/drivers/gpu/drm/drm_buddy.c
-> > @@ -46,8 +46,9 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
-> >   		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
-> >   	for (order = mm->max_order; order >= 0; order--) {
-> > -		u64 count = mm->free_scoreboard[order];
-> > -		u64 free = count * (mm->chunk_size << order);
-> > +		u64 free_count = mm->free_scoreboard[order];
-> > +		u64 used_count = mm->used_scoreboard[order];
-> > +		u64 free = free_count * (mm->chunk_size << order);
-> >   		drm_printf(p, "order-%2d ", order);
-> > @@ -56,7 +57,8 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
-> >   		else
-> >   			drm_printf(p, "free: %8llu MiB", free >> 20);
-> > -		drm_printf(p, ", blocks: %llu\n", count);
-> > +		drm_printf(p, ", free_blocks: %llu, used_blocks: %llu\n",
-> > +			   free_count, used_count);
-> >   	}
-> >   }
-> >   EXPORT_SYMBOL(drm_buddy_print);
-> > diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-> > index 250841ca4bcf..b1cad7833dc1 100644
-> > --- a/include/linux/gpu_buddy.h
-> > +++ b/include/linux/gpu_buddy.h
-> > @@ -179,6 +179,14 @@ struct gpu_buddy {
-> >   	 * mark_split() when a block leaves the free state.
-> >   	 */
-> >   	u64 *free_scoreboard;
-> > +	/*
-> > +	 * Per-order used block scoreboard: used_scoreboard[order] holds the
-> > +	 * number of blocks of that order currently in the allocated state.
-> > +	 * Incremented in mark_allocated(), decremented in
-> > +	 * gpu_buddy_free_block() which is the sole entry point for freeing
-> > +	 * allocated blocks.
-> > +	 */
-> > +	u64 *used_scoreboard;
-> >   /* public: */
-> >   	unsigned int n_roots;
-> >   	unsigned int max_order;
-> 
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+> ChangeLog:
+> v1 -> v2:
+>    - fix the checkpatch.pl warning "Unknown commit ID 'e6c7c59da494'".
+>    - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
+>      be given in public.
+>    - add 'drm-misc-fixes' in subject prefix.
+> ---
+>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h   | 1 +
+>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c   | 2 +-
+>   drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c | 2 ++
+>   3 files changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+> index f9ee7ebfec55..f53dac256ee0 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+> @@ -69,5 +69,6 @@ int hibmc_dp_link_training(struct hibmc_dp_dev *dp);
+>   int hibmc_dp_serdes_init(struct hibmc_dp_dev *dp);
+>   int hibmc_dp_serdes_rate_switch(u8 rate, struct hibmc_dp_dev *dp);
+>   int hibmc_dp_serdes_set_tx_cfg(struct hibmc_dp_dev *dp, u8 train_set[HIBMC_DP_LANE_NUM_MAX]);
+> +void hibmc_dp_update_caps(struct hibmc_dp_dev *dp);
+>   
+>   #endif
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
+> index 0726cb5b736e..8c53f16db516 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
+> @@ -325,7 +325,7 @@ static int hibmc_dp_link_downgrade_training_eq(struct hibmc_dp_dev *dp)
+>   	return hibmc_dp_link_reduce_rate(dp);
+>   }
+>   
+> -static void hibmc_dp_update_caps(struct hibmc_dp_dev *dp)
+> +void hibmc_dp_update_caps(struct hibmc_dp_dev *dp)
+>   {
+>   	dp->link.cap.link_rate = dp->dpcd[DP_MAX_LINK_RATE];
+>   	if (dp->link.cap.link_rate > DP_LINK_BW_8_1 || !dp->link.cap.link_rate)
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> index 616821e3c933..35dff7bfbf76 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> @@ -41,6 +41,8 @@ static bool hibmc_dp_get_dpcd(struct hibmc_dp_dev *dp_dev)
+>   	if (ret)
+>   		return false;
+>   
+> +	hibmc_dp_update_caps(dp_dev);
+> +
+>   	dp_dev->is_branch = drm_dp_is_branch(dp_dev->dpcd);
+>   
+>   	ret = drm_dp_read_desc(dp_dev->aux, &dp_dev->desc, dp_dev->is_branch);
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
