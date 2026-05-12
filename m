@@ -4,62 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8ACCCD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 12:12:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D81CD4F24
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 12:45:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AB9A10E042;
-	Tue, 12 May 2026 12:12:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64D6E10E0E5;
+	Tue, 12 May 2026 12:45:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="l5HQoC3d";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eSRfdyib";
 	dkim-atps=neutral
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com
- [113.46.200.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D584410E042
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:12:24 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=RUY8JwnijBo4MYkY0cWpwDESs0uauL0DBCZ0hq4URZs=;
- b=l5HQoC3d2Ha9FbqH86HL6zm0Y5vfmKIS7z8wk58wpOKwd3yeQTpehcWEnw1Md1FznTYYhNDZQ
- UvcFmI/ODwtXBDXqHezz1k+IEVCnlt6b/6qSK/KApLTBsPKKncjt4f9ik+liu9RhvPl600UoAbt
- RSe58yoVEeGH5sb71l3lcMo=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
- by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4gFFdT00zFzRhSr;
- Tue, 12 May 2026 20:04:44 +0800 (CST)
-Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
- by mail.maildlp.com (Postfix) with ESMTPS id 39E464056A;
- Tue, 12 May 2026 20:12:21 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 12 May 2026 20:12:21 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 12 May 2026 20:12:20 +0800
-Message-ID: <d017d6e8-1035-4088-a543-6fc00f2c29c3@huawei.com>
-Date: Tue, 12 May 2026 20:12:19 +0800
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DCCB10E058;
+ Tue, 12 May 2026 12:45:02 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C137C44039;
+ Tue, 12 May 2026 12:45:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570BDC2BCF5;
+ Tue, 12 May 2026 12:44:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778589901;
+ bh=+Qd2oNkAu9nMaSnTOhJAuwCNAPyt8qx11rpclyzT4Hc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=eSRfdyibJ/kA19bgGeFXkt7Hp+PjO1U7/9EhsV4yXk0mAxQ2e67O5wPw6v50Irmid
+ OXa7ZtKcqrzTbd7EUSK+QcIL9drUsmdlGmSsJKMzq4Lt/rPAcYCB3snlpHYBE2v3bs
+ OeCV04HrmrGp8zO6y7VGaN3UN2SG+DjNfgQduj6YdcAfr4O1lMOzmMS1/EtBTOsyV1
+ gkNsOf8ElxPJ565dpMOIar6tB6ScJPJ0+kkKgoPPimzi20UYtU3HMivheDEJ/6aL8x
+ oOrjX3nlWdSl79DnbgoeSEtC5kRHoEjvmSAMA3dVUZ5WE3yirOJqUkfThLn7yrIEWq
+ z95o+Ikba0KuQ==
+Message-ID: <163cd3d1-dc25-4335-b527-99e0acc421d4@kernel.org>
+Date: Tue, 12 May 2026 14:44:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v6 0/4] Fix some bugs in the hibmc
- driver
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- <dmitry.baryshkov@oss.qualcomm.com>, <tiantao6@hisilicon.com>,
- <xinliang.liu@linaro.org>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <kong.kongxinwei@hisilicon.com>
-CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
- <fengsheng5@huawei.com>, <helin52@h-partners.com>, <shenjian15@huawei.com>,
- <shaojijie@huawei.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <shiyongbang@huawei.com>
-References: <20260509032302.2057227-1-shiyongbang@huawei.com>
- <d45b7e90-9e13-4c04-8f4c-37898aabc2c0@suse.de>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <d45b7e90-9e13-4c04-8f4c-37898aabc2c0@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+Subject: Re: [PATCH v10 2/5] mm: Add helper to convert HMM pfn to migrate pfn
+To: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>, linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+References: <20260505184421.2324798-1-mpenttil@redhat.com>
+ <20260505184421.2324798-3-mpenttil@redhat.com>
+ <4a9c4170-c6b7-424c-969c-19240f07e46b@kernel.org>
+ <7e3abb7c-c57d-419a-969a-fcd150ccca99@redhat.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <7e3abb7c-c57d-419a-969a-fcd150ccca99@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,71 +114,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Hi,
+
+>>
+>>> +
+>>> +		migrate->src[i] |= (pfn & HMM_PFN_WRITE) ? MIGRATE_PFN_WRITE : 0;
+>>> +		migrate->src[i] |= (pfn & HMM_PFN_COMPOUND) ? MIGRATE_PFN_COMPOUND : 0;
+>>> +		migrate->dst[i] = 0;
+>>> +	}
+>>> +
+>>> +	if (migrate->cpages)
+>>> +		migrate_vma_unmap(migrate);
+>> Can you remind me why we do this here, in the setup() phase? The function doc
+>> does not really describe that.
 > 
-> I've gone through the series and reviewed the patches. Let me know when they are ready to get merged.
->
-
-Thanks for the review. The series is ready for merging now.
-
-Thanks,
-Yongbang.
-
-
-> Best regards
-> Thomas
-> 
-> 
-> Am 09.05.26 um 05:22 schrieb Yongbang Shi:
->> From: Lin He <helin52@huawei.com>
->>
->> There are some bugfix for hibmc-drm driver.
->>
->> ---
->> ChangeLog:
->> v5 -> v6:
->>    - Rename 'phys_state' to 'phys_status'
->>    - Replace `drm_kms_helper_poll_init` with `drmm_kms_helper_poll_init`
->>      and adjust the timing of the call.
->>    - Split "return vdac->phys_state = state;" into separate statements.
->>    - Change `get_mode` to return 0 when no modes are available, allowing DRM to
->>      install a default resolution.
->>    - Change the initial phys_status of vdac from
->>      'connector_status_connected' to 'connector_status_disconnected'
->>    - Removed invalid bit configurations from `hibmc_display_ctrl`.
->>    - Modify the return values of `hibmc_get_best_clock_idx` and
->>      `hibmc_crtc_mode_valid`
->> v4 -> v5:
->>    - The 'epoch_counter' of the vdac connector is incremented when the
->>     physical status changes.
->>    - The polling mechanism for the KMS helper is enabled.
->> v3 -> v4:
->>    - fix incorrect cover-letter subject prefix in v3.
->> v2 -> v3:
->>    - remove unused macro CLOCK_TOLERANCE.
->> v1 -> v2:
->>    - fix the checkpatch.pl warning "Unknown commit ID 'e6c7c59da494'".
->>    - fix the checkpatch.pl warning "line length of 83/85 exceeds 80 columns".
->>    - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
->>      be given in public.
->>    - add 'drm-misc-fixes' in subject prefix.
->> ---
->>
->> Lin He (4):
->>    drm/hisilicon/hibmc: add updating link cap in DP detect()
->>    drm/hisilicon/hibmc: fix no showing when no connectors connected
->>    drm/hisilicon/hibmc: move display contrl config to hibmc_probe()
->>    drm/hisilicon/hibmc: use clock to look up the PLL value
->>
->>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  1 +
->>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
->>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c  |  2 +-
->>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 80 +++++++++++--------
->>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 35 +++++---
->>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 14 ++++
->>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  1 +
->>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 75 +++++++++--------
->>   8 files changed, 124 insertions(+), 85 deletions(-)
->>
+> It is to be in par what migrate_vma_setup() does today after the "collect" phase.
 > 
 
+Ah, okay. How the whole machinery works is still a bit of a mystery for me :)
+
+-- 
+Cheers,
+
+David
