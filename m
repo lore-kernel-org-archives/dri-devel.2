@@ -4,97 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B89FACD4F24
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 18:42:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3CF9CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 18:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1808410E2B9;
-	Tue, 12 May 2026 18:42:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E14010E090;
+	Tue, 12 May 2026 18:53:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V2DqR256";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="jHfz/JM5";
 	dkim-atps=neutral
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
- [209.85.128.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ACB510E2BD
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 18:42:07 +0000 (UTC)
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-7bd5c773ef3so61027957b3.1
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 11:42:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778611326; cv=none;
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70E2510E090
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 18:53:26 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-488940ccfa6so2725e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 11:53:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778612005; cv=none;
  d=google.com; s=arc-20240605;
- b=JHfNVAVviBFKxgRvPyZnj/kguCjE6y6FtnF9w/Ra5xXXj7iDaXCFnKV9mW49gV/fe3
- R8W70U1IDtu3bG1ZuukU8pQMRyg8npOrTBia6kGPpHnmgvcn5K/hUytgXLlth/3RW4ed
- 3cMIOaummCIdcqqXkbM0+TCQlRQ2h/+A+3/xZZzt2tvkwO1IUqMht0ZsbMJiZ5lFEuEP
- Q8TdBYw+/jwdygawuBDynfEUY/N7YknWpia5v+0uFc6GuhblKJGkeKxZeLwXkWTL941C
- XWBo7GHQVszI2YxtiCHWV1rDAqqxCtFdYI3RYlveo9xmPMgqKhWlky6j6+QWtBBXClUR
- 57mg==
+ b=gdsg3Q6JjvqqcWA6SPbJQ3Q4wX7aEPdQS+hzi7EPBdKWJitzoLRS3RlLwzQ+m2poUg
+ BlSrpvgXR/R5fv77pFqvQny9Y32eq649eCGbFQ/cGNWyRj4OcrXBbjO6bnZhUKIhFFnN
+ YOlMCI5qbnK4S7gyTdQZ8xPrn9Jiq/RYv6gZOqyp2tFRisFHe5uid6qooV7D9d9V2tx/
+ 4AiQHxV4fC/k9VDyVAKxzAU91kAv+kA1US/duIR1BYXLqMAC898Q3JrtntnINBAqrYih
+ lYIw5w/nRDbyYh3uoTn5fzjVABsRIP+FrH+f9nRkfxOZdfOJqEBnHoCndkpBdGq2Hx+T
+ N9XA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=hVI0uMyryQeB+8oifVzIiPBD+D3+AyQDX5OQytqj6no=;
- fh=1NAUvi7lh0OfgxphuQWNuqiygs/nb5HjXk9jLXuoR8U=;
- b=aJBVoWj77Xv9mpx/WvGXssSXwyVY5iCkbyTYymaRdM+5os6KS+L6kJzNjy8PcPdFuB
- tpjByc3bP6eICadJv13suFaEDYLj2iqcXzCqp3DUoMnydZBdTZtLdpu//3GWo719GcIW
- 183XEDgxda5OyvBFs5is3cSzera/NA+PWM8TCAGBygKuFhtAbCIq0FgyOkH31GP+pnvl
- iHgD9FEN/gSODhQ/a3uStZXmTOBy23f4417vHeeq3N0ic2HURLFsJS38K4V8E/HPQwrp
- d2K57Mzwlb/TYdrA4Q8ffvtSdwl2LzplxXH3P5LIGJ87HN0+kh6LMRzoUtKW5UqmrvbA
- aX2w==; darn=lists.freedesktop.org
+ bh=TrEiWuJQdbxBBI+NqMaHT087xAKAEKai4Pv5jifgOpI=;
+ fh=CkJRqeKZjw0HMiU9VAf4Wa4/91OsOMr46PyeQ1iWcng=;
+ b=XIr46PXx6fA8qpFGmK3xsosJUFKB26lo7RbRR6073B2Ji147/XFfTDRB84NFzfxjvh
+ vrt23hAQFqzpJxHGlkoORj8VcrJZdD/7QtKuvdoX38Z3JGVrM6DHcL9Vq0iEE3szfCw1
+ QxT6y3frqoFaZOzTUvWvBaDbVzLcDPDSj9LQNMja0yp8BPJwxsWzJ7wVf8lc+HDRq2Le
+ 1lk9iZjeA9L4DLDmY6dSAqt2BGFv7cPSbzf/B7mZO53dVdoGGn2m1whfVXzOjPPBzfv0
+ NkPdFOb/69uF4FSOLWTMrifjY+dUoNum917mLmi1PS0JM7l9TxqVDo57kkj7cggvavTK
+ iQoA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778611326; x=1779216126; darn=lists.freedesktop.org;
+ d=google.com; s=20251104; t=1778612005; x=1779216805;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hVI0uMyryQeB+8oifVzIiPBD+D3+AyQDX5OQytqj6no=;
- b=V2DqR256BZHJwavgP27Ig19PX1BctSyFiC4vXf/0spblJ8fydZqIRpC85clFFncGBK
- pIetMBXlmpn5XE6R7ymNZZOfyEdEgahISk6RJyV4lbTgrB613vx/VVxTDkNBWOVQZoDX
- cDdaukt7ccSH0/whkgjK3uX4V5Pz9D41SOavJuYpJqO/c4CJOG970WVCOwlZa8Ir6aV0
- f9Bxw0U03l1NCvkc6Xdcmi5S652PM/e/xS0fSoyjBs7ak7kIUk7TsQ6pLHPLs9JDT7W3
- 4mFbYvD+ZZKzEt1cTxObIVGathi5kjzGW54DPd9bAKrU8ByNBUs02FNzF7NO5oxVFFJQ
- hwRA==
+ bh=TrEiWuJQdbxBBI+NqMaHT087xAKAEKai4Pv5jifgOpI=;
+ b=jHfz/JM5Hb4FB9tq6HYQRV0OtFqCiL+oClkE1G/OzoYGHg/WqNksWb+D18ZwlGphF+
+ MqNPI+oXK8UurpUr8u98iW8UBKENCSJy/9CYIM04SqcmViy/e+ybTt36dS3pshvYWvy0
+ bXeaN+KQlJIu8GmNbm18dgCVS0VdXnD8FfM1w8hEMF6I06nMZ2i2nkyIKbM+OWQIwqgN
+ +eFgELoJuOVS640va2tPxGt7A6SFnGjkOHq3V7HIEHkNufCr5ulucyQ8BoJY7/tyEMh9
+ QSIgMX6x4HVp0kBuOf6H9J2PEKrt4h8a6kU3XIQJ6wja4vE3ZdbEqrIjL3HkuJITETil
+ d4uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778611326; x=1779216126;
+ d=1e100.net; s=20251104; t=1778612005; x=1779216805;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=hVI0uMyryQeB+8oifVzIiPBD+D3+AyQDX5OQytqj6no=;
- b=eFhIwMZ3hHC8o7rJaz+16330MtxtTIuuhYyWJfnbzGQTqtV3IZRJdaamj4BPkb7Abz
- Fl/euhu07X/fyx7/JidQp2S6IakT3QaazMAh0igf5Q6pQF+7wIIkj0nyty1K0FVjJFGL
- v4lEML9XtTthWd0gImwulrI5WJkf93MEhuehADx968CE2+hjd0qbjJ+2hnf/gS55jEZ6
- mswyMK2U8m/OpfXC+qhNJn8wkk2FyL+qexYDHVlZl6i1pX8T6kMxbXz8Zj2vMEYtYrgs
- haikXqqusF1HgzNHRXUwke07uHO7IgAfdjk2AbvhOxg9Vm5l+ch8O0cUBy2mVHcG7STB
- tO0g==
+ bh=TrEiWuJQdbxBBI+NqMaHT087xAKAEKai4Pv5jifgOpI=;
+ b=tAMXWAIchOmzficIX899LDjBGUCS1HAq20V2wZPHcPGGkgRd33+vHd9nAmbg265CWB
+ nldjb9GXVjGr82fmtTmOrQJiCOxc1tK9PBJpM1rLZtba2TUfB9eqNGwB+eiyN7FzQ8BS
+ myjqte9vrk2Nli706Tc9ecpfe8FxhklhNxmxa3GhAbXOr4iup4Nf+lmtqdSruTJsQCDX
+ Hh5Qkignzra7hEPqa6vz3NELAvZ1VI+VvN8Ozo/v7ICt7dBHOVm0VHwffRrH7mgyS1ty
+ iFuHZ489qL3zJE8XvlhBcae3JUqzpyCv8Cuiznhlat3uAKuelLL3aYsVUItiwaHM4nEE
+ FROQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9eijSpF3xjK0GnA17s59Lg5ABR/lHDzZj5HjSTNB3xy5tu+7Cz39xchCwV7xMNviuPU/DZASyutbE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYOgiQPxJt/7EOX1S6ar6uKpOLhf2z87arAL1RsB8IXbmM/fbP
- s9C7hJ9NvAHebi/bWmiqn1WH2qZRn6Yw3QD26PqapjmAIfmuPkG12fMhXfDzQez6+kZZamWONn3
- LR9uSVhgpk7SlbrrDqqDmdAGWjOLsBfk=
-X-Gm-Gg: Acq92OFMjgNMGfAtp0Vtk4wDX9dni0ru2dDVfpcYnc6S0pUCmq4rcjHxEGe3jye+mGS
- QuE8TbTUeDN1KY4OZyNIDfECF5yd8k65q0oHh/Qur2BclkNt9XVkLxGmnUdbUNl//L1E04g+sJo
- SXp8qDKKDnh5HnwtcOsrP1MZwIzclJ2bckI9+31HLt203I7NIK8SkiLJYFOOcWvBs0NxcO8+7qG
- HBJFjFdlWIn74TiJ7jInmoAVkuiffyjMXG9PXtoDvpv3oPrVGmlvXfsC57ym00OKE8ftQSLXDM6
- S+srNQQLI60o4HbSRd+G6ZMxM1fV1u6C6DYTpm7PT7CVciCC53v8Rvecx0TbDCDDi7D9J1B7EQ=
- =
-X-Received: by 2002:a05:690c:e1c5:10b0:79a:dae4:5832 with SMTP id
- 00721157ae682-7c6aaee61c6mr261117b3.22.1778611326393; Tue, 12 May 2026
- 11:42:06 -0700 (PDT)
+ AFNElJ8Tdi71OYMbpPMRLyrDnjF18yQ3xWHjXX4GeFMnBvVBPcRQGIo4d7RaikJ2lFxlLEkRE9HZ9yrkF18=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy4yEoLyRiTybcvzXaL6FVWu5poBTm5h4irbMC2OcIvUlwO3/xV
+ O69KjAUAmJDkHBguMwypZW7wNTL2aOAdqEp9ywiO6rGgCr0Zrwbi48t8iUn+tz0RUuEEvvwhwAk
+ R2rQZ7C7le0PKCfTc+MZ1e8rVNE30t/6uyQ6K7Yr+
+X-Gm-Gg: Acq92OF+uI1vhVt6hbsx4K7vRlStvoo4SLNyCXzYCQM0CAs323+tsLQzx6Uf7HHHdZL
+ 5ag81+/JpMErbgw6DOovh5ld/+5npZYp0qcJ0Va7GWSWk3kwN7tspfEbQG8vIiM+YFxbnQyajFo
+ FGQqkWbJ2AcjkAPiBx2J3idPaiBAfDes3Zd9dJHrG/EgbHc/u9sKne5Djcxm6UTQ9dlts7o63mP
+ yyEOLY99yBcKAPNo6Yn+ctvBI4ycqiJ2nTukMMc9YhgUd/Z0ew9+Q16rppID4m0PNE28Gcfvi18
+ ioLqLYDPwbTJMNIsGdxatN8n/LjTtw1TS1rO6HcFgcnkokfYeO6b/C4A3jZIOyd+phwAsqteLVD
+ /BnPL
+X-Received: by 2002:a05:600c:37ce:b0:45f:2940:d194 with SMTP id
+ 5b1f17b1804b1-48fc912731amr162315e9.2.1778612004394; Tue, 12 May 2026
+ 11:53:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-2-95c614a739cb@collabora.com>
-In-Reply-To: <20260512-panthor-signal-from-irq-v2-2-95c614a739cb@collabora.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Tue, 12 May 2026 11:41:51 -0700
-X-Gm-Features: AVHnY4LnvV2EE1LRM9I8eHDy3ytgLIdPqP5tsyl2YYdALFnjPSTuqpaCvETNp3o
-Message-ID: <CAPaKu7SVEqURGurR5xX+jd3Bd93VGu6M-8=PX+xyNozkfVBF0w@mail.gmail.com>
-Subject: Re: [PATCH v2 02/11] drm/panthor: Move the register accessors before
- the IRQ helpers
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com>
+ <20260512-v2_20230123_tjmercier_google_com-v1-2-6326701c3691@redhat.com>
+ <8ef38815-6ae9-4359-86d4-042554357639@amd.com>
+In-Reply-To: <8ef38815-6ae9-4359-86d4-042554357639@amd.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 12 May 2026 11:53:12 -0700
+X-Gm-Features: AVHnY4JXtRqPsXET8uL03o5gs-ClmvUux85Yh-qyEMDfOBbZC2p2MhMEibIFp7A
+Message-ID: <CABdmKX2uwZ12kYJYPJGfWxuMBOJS=64b1GRj72tfB5D=NKM22w@mail.gmail.com>
+Subject: Re: [PATCH RFC 2/5] dma-heap: charge dma-buf memory via explicit memcg
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, Christian Brauner <brauner@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Ondrej Mosnacek <omosnace@redhat.com>, Shuah Khan <shuah@kernel.org>,
+ cgroups@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, 
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, mripard@kernel.org, echanude@redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -112,221 +128,351 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 5:14=E2=80=AFAM Boris Brezillon
-<boris.brezillon@collabora.com> wrote:
+On Tue, May 12, 2026 at 3:14=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> We're about to add an IRQ inline helper using gpu_read(). Move things
-> around to avoid forward declarations.
+> On 5/12/26 11:10, Albert Esteve wrote:
+> > On embedded platforms a central process often allocates dma-buf
+> > memory on behalf of client applications. Without a way to
+> > attribute the charge to the requesting client's cgroup, the
+> > cost lands on the allocator, making per-cgroup memory limits
+> > ineffective for the actual consumers.
+> >
+> > Add charge_pid_fd to struct dma_heap_allocation_data. When set to
+> > a valid pidfd, DMA_HEAP_IOCTL_ALLOC resolves the target task's
+> > memcg and charges the buffer there via mem_cgroup_charge_dmabuf()
+> > inside dma_heap_buffer_alloc(). Without charge_pid_fd, and with
+> > the mem_accounting module parameter enabled, the buffer is charged
+> > to the allocator's own cgroup.
+> >
+> > Additionally, commit 3c227be90659 ("dma-buf: system_heap: account for
+> > system heap allocation in memcg") adds __GFP_ACCOUNT to system-heap
+> > page allocations. Keeping __GFP_ACCOUNT would charge the same pages
+> > twice (once to kmem, once to MEMCG_DMABUF), thus remove it and route
+> > all accounting through a single MEMCG_DMABUF path.
+> >
+> > Usage examples:
+> >
+> >   1. Central allocator charging to a client at allocation time.
+> >      The allocator knows the client's PID (e.g., from binder's
+> >      sender_pid) and uses pidfd to attribute the charge:
+> >
+> >        pid_t client_pid =3D txn->sender_pid;
+> >        int pidfd =3D pidfd_open(client_pid, 0);
+> >
+> >        struct dma_heap_allocation_data alloc =3D {
+> >            .len             =3D buffer_size,
+> >            .fd_flags        =3D O_RDWR | O_CLOEXEC,
+> >            .charge_pid_fd   =3D pidfd,
+> >        };
+> >        ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc);
+> >        close(pidfd);
+> >        /* alloc.fd is now charged to client's cgroup */
+> >
+> >   2. Default allocation (no pidfd, mem_accounting=3D1).
+> >      When charge_pid_fd is not set and the mem_accounting module
+> >      parameter is enabled, the buffer is charged to the allocator's
+> >      own cgroup:
+> >
+> >        struct dma_heap_allocation_data alloc =3D {
+> >            .len      =3D buffer_size,
+> >            .fd_flags =3D O_RDWR | O_CLOEXEC,
+> >        };
+> >        ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc);
+> >        /* charged to current process's cgroup */
+> >
+> > Current limitations:
+> >
+> >  - Single-owner model: a dma-buf carries one memcg charge regardless of
+> >    how many processes share it. Means only the first owner (and exporte=
+r)
+> >    of the shared buffer bears the charge.
+> >  - Only memcg accounting supported. While this makes sense for system
+> >    heap buffers, other heaps (e.g., CMA heaps) will require selectively
+> >    charging also for the dmem controller.
 >
-> No functional changes.
->
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
+> Well that doesn't looks soo bad, it at least seems to tackle the problem =
+at hand for Android and some of other embedded use cases.
 
-This can be dropped if patch 3 uses non-inline functions.
+Yeah I think this might work. I know of 3 cases, and it trivially
+solves the first two. The third requires some work on our end to
+extend our userspace interfaces to include the pidfd but it seems
+doable. I'm checking with our graphics folks.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_device.h | 142 +++++++++++++++----------=
-------
->  1 file changed, 71 insertions(+), 71 deletions(-)
+1) Direct allocation from user (e.g. app -> allocation ioctl on
+/dev/dma_heap/foo)
+No changes required to userspace. mem_accounting=3D1 charges the app.
+
+2) Single hop remote allocation (e.g. app -> AHardwareBuffer_allocate
+-> gralloc)
+gralloc has the caller's pid as described in the commit message. Open
+a pidfd and pass it in the dma_heap_allocation_data.
+
+3) Double hop remote allocation (e.g. app -> dequeueBuffer ->
+SurfaceFlinger -> gralloc)
+In this case gralloc knows SurfaceFlinger's pid, but not the app's. So
+we need to add the app's pidfd to the SurfaceFlinger -> gralloc
+interface, or transfer the memcg charge from SurfaceFlinger to the app
+after the allocation.
+It'd be nice to avoid the charge transfer option entirely, but if we
+need it that doesn't seem so bad in this case because it's a bulk
+charge for the entire dmabuf rather than per-page. So the exporter
+doesn't need to get involved (we wouldn't need a new dma_buf_op) and
+we wouldn't have to worry about looping and locking for each page.
+
+> I'm just not sure if this is future prove and will work for all use cases=
+, e.g. cloud gaming, native context for automotive etc...
 >
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/p=
-anthor/panthor_device.h
-> index 3f91ba73829d..768fc1992368 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -495,6 +495,77 @@ panthor_exception_is_fault(u32 exception_code)
->  const char *panthor_exception_name(struct panthor_device *ptdev,
->                                    u32 exception_code);
+> Essentially the problem boils down to two limitations:
+> 1) a piece of memory can only be charged to one cgroup, the framework doe=
+sn't has a concept of charging shared memory to multiple groups
+
+Yup, memcg already has this problem with pagecache and shmem.
+
+> 2) when memory references in the form of file descriptors are passed betw=
+een applications we have no way of changing the accounting to a different c=
+group
 >
-> +static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> +{
-> +       writel(data, iomem + reg);
-> +}
-> +
-> +static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-> +{
-> +       return readl(iomem + reg);
-> +}
-> +
-> +static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-> +{
-> +       return readl_relaxed(iomem + reg);
-> +}
-> +
-> +static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-> +{
-> +       gpu_write(iomem, reg, lower_32_bits(data));
-> +       gpu_write(iomem, reg + 4, upper_32_bits(data));
-> +}
-> +
-> +static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
-> +{
-> +       return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << =
-32));
-> +}
-> +
-> +static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
-> +{
-> +       return (gpu_read_relaxed(iomem, reg) |
-> +               ((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
-> +}
-> +
-> +static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
-> +{
-> +       u32 lo, hi1, hi2;
-> +       do {
-> +               hi1 =3D gpu_read(iomem, reg + 4);
-> +               lo =3D gpu_read(iomem, reg);
-> +               hi2 =3D gpu_read(iomem, reg + 4);
-> +       } while (hi1 !=3D hi2);
-> +       return lo | ((u64)hi2 << 32);
-> +}
-> +
-> +#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_u=
-s)     \
-> +       read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, fals=
-e,     \
-> +                         iomem, reg)
-> +
-> +#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,   =
-       \
-> +                                    timeout_us)                         =
-       \
-> +       read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_u=
-s,     \
-> +                                false, iomem, reg)
-> +
-> +#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout=
-_us)   \
-> +       read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, fa=
-lse,   \
-> +                         iomem, reg)
-> +
-> +#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us, =
-               \
-> +                                      timeout_us)                       =
-       \
-> +       read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout=
-_us,   \
-> +                                false, iomem, reg)
-> +
-> +#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, dela=
-y_us,  \
-> +                                            timeout_us)                 =
-       \
-> +       read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,  =
-       \
-> +                                timeout_us, false, iomem, reg)
-> +
-> +#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,=
-       \
-> +                                       timeout_us)                      =
-       \
-> +       read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeou=
-t_us,  \
-> +                         false, iomem, reg)
-> +
->  #define INT_RAWSTAT 0x0
->  #define INT_CLEAR   0x4
->  #define INT_MASK    0x8
-> @@ -629,75 +700,4 @@ static inline void panthor_ ## __name ## _irq_disabl=
-e_events(struct panthor_irq
+> The passing of the memory reference already has a well defined uAPI and i=
+f we could solve those two limitations we not only solve the problem withou=
+t introducing new uAPI (with potential new security risks) but also solve i=
+t for all other use cases which uses file descriptors as well as. E.g. memf=
+d, accel and GPU drivers etc...
 >
->  extern struct workqueue_struct *panthor_cleanup_wq;
+> On the other hand it is really nice to finally see this tackled for at le=
+ast DMA-buf heaps.
+
+I have a question about this part. Albert I guess you are interested
+only in accounting dmabuf-heap allocations, or do you expect to add
+__GFP_ACCOUNT or mem_cgroup_charge_dmabuf calls to other
+non-dmabuf-heap exporters?
+
+> On the GPU side I have seen just another try of a driver doing some kind =
+of special driver specific accounting to solve this just a few weeks ago. A=
+nd to be honest such single driver island approach have the tendency to bre=
+ak more often that they are working correctly.
 >
-> -static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> -{
-> -       writel(data, iomem + reg);
-> -}
-> -
-> -static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-> -{
-> -       return readl(iomem + reg);
-> -}
-> -
-> -static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-> -{
-> -       return readl_relaxed(iomem + reg);
-> -}
-> -
-> -static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-> -{
-> -       gpu_write(iomem, reg, lower_32_bits(data));
-> -       gpu_write(iomem, reg + 4, upper_32_bits(data));
-> -}
-> -
-> -static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
-> -{
-> -       return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << =
-32));
-> -}
-> -
-> -static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
-> -{
-> -       return (gpu_read_relaxed(iomem, reg) |
-> -               ((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
-> -}
-> -
-> -static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
-> -{
-> -       u32 lo, hi1, hi2;
-> -       do {
-> -               hi1 =3D gpu_read(iomem, reg + 4);
-> -               lo =3D gpu_read(iomem, reg);
-> -               hi2 =3D gpu_read(iomem, reg + 4);
-> -       } while (hi1 !=3D hi2);
-> -       return lo | ((u64)hi2 << 32);
-> -}
-> -
-> -#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_u=
-s)     \
-> -       read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, fals=
-e,     \
-> -                         iomem, reg)
-> -
-> -#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,   =
-       \
-> -                                    timeout_us)                         =
-       \
-> -       read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_u=
-s,     \
-> -                                false, iomem, reg)
-> -
-> -#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout=
-_us)   \
-> -       read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, fa=
-lse,   \
-> -                         iomem, reg)
-> -
-> -#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us, =
-               \
-> -                                      timeout_us)                       =
-       \
-> -       read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout=
-_us,   \
-> -                                false, iomem, reg)
-> -
-> -#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, dela=
-y_us,  \
-> -                                            timeout_us)                 =
-       \
-> -       read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,  =
-       \
-> -                                timeout_us, false, iomem, reg)
-> -
-> -#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,=
-       \
-> -                                       timeout_us)                      =
-       \
-> -       read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeou=
-t_us,  \
-> -                         false, iomem, reg)
-> -
->  #endif
+> Regards,
+> Christian.
 >
-> --
-> 2.54.0
+> >
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  Documentation/admin-guide/cgroup-v2.rst |  5 ++--
+> >  drivers/dma-buf/dma-buf.c               | 16 ++++---------
+> >  drivers/dma-buf/dma-heap.c              | 42 +++++++++++++++++++++++++=
++++++---
+> >  drivers/dma-buf/heaps/system_heap.c     |  2 --
+> >  include/uapi/linux/dma-heap.h           |  6 +++++
+> >  5 files changed, 53 insertions(+), 18 deletions(-)
+> >
+> > diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/ad=
+min-guide/cgroup-v2.rst
+> > index 8bdbc2e866430..824d269531eb1 100644
+> > --- a/Documentation/admin-guide/cgroup-v2.rst
+> > +++ b/Documentation/admin-guide/cgroup-v2.rst
+> > @@ -1636,8 +1636,9 @@ The following nested keys are defined.
+> >               structures.
+> >
+> >         dmabuf (npn)
+> > -             Amount of memory used for exported DMA buffers allocated =
+by the cgroup.
+> > -             Stays with the allocating cgroup regardless of how the bu=
+ffer is shared.
+> > +             Amount of memory used for exported DMA buffers allocated =
+by or on
+> > +             behalf of the cgroup. Stays with the allocating cgroup re=
+gardless
+> > +             of how the buffer is shared.
+> >
+> >         workingset_refault_anon
+> >               Number of refaults of previously evicted anonymous pages.
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index ce02377f48908..23fb758b78297 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -181,8 +181,11 @@ static void dma_buf_release(struct dentry *dentry)
+> >        */
+> >       BUG_ON(dmabuf->cb_in.active || dmabuf->cb_out.active);
+> >
+> > -     mem_cgroup_uncharge_dmabuf(dmabuf->memcg, PAGE_ALIGN(dmabuf->size=
+) / PAGE_SIZE);
+> > -     mem_cgroup_put(dmabuf->memcg);
+> > +     if (dmabuf->memcg) {
+> > +             mem_cgroup_uncharge_dmabuf(dmabuf->memcg,
+> > +                                       PAGE_ALIGN(dmabuf->size) / PAGE=
+_SIZE);
+> > +             mem_cgroup_put(dmabuf->memcg);
+> > +     }
+> >
+> >       dmabuf->ops->release(dmabuf);
+> >
+> > @@ -764,13 +767,6 @@ struct dma_buf *dma_buf_export(const struct dma_bu=
+f_export_info *exp_info)
+> >               dmabuf->resv =3D resv;
+> >       }
+> >
+> > -     dmabuf->memcg =3D get_mem_cgroup_from_mm(current->mm);
+> > -     if (!mem_cgroup_charge_dmabuf(dmabuf->memcg, PAGE_ALIGN(dmabuf->s=
+ize) / PAGE_SIZE,
+> > -                                   GFP_KERNEL)) {
+> > -             ret =3D -ENOMEM;
+> > -             goto err_memcg;
+> > -     }
+> > -
+> >       file->private_data =3D dmabuf;
+> >       file->f_path.dentry->d_fsdata =3D dmabuf;
+> >       dmabuf->file =3D file;
+> > @@ -781,8 +777,6 @@ struct dma_buf *dma_buf_export(const struct dma_buf=
+_export_info *exp_info)
+> >
+> >       return dmabuf;
+> >
+> > -err_memcg:
+> > -     mem_cgroup_put(dmabuf->memcg);
+> >  err_file:
+> >       fput(file);
+> >  err_module:
+> > diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+> > index ac5f8685a6494..ff6e259afcdc0 100644
+> > --- a/drivers/dma-buf/dma-heap.c
+> > +++ b/drivers/dma-buf/dma-heap.c
+> > @@ -7,13 +7,17 @@
+> >   */
+> >
+> >  #include <linux/cdev.h>
+> > +#include <linux/cgroup.h>
+> >  #include <linux/device.h>
+> >  #include <linux/dma-buf.h>
+> >  #include <linux/dma-heap.h>
+> > +#include <linux/memcontrol.h>
+> > +#include <linux/sched/mm.h>
+> >  #include <linux/err.h>
+> >  #include <linux/export.h>
+> >  #include <linux/list.h>
+> >  #include <linux/nospec.h>
+> > +#include <linux/pidfd.h>
+> >  #include <linux/syscalls.h>
+> >  #include <linux/uaccess.h>
+> >  #include <linux/xarray.h>
+> > @@ -55,10 +59,12 @@ MODULE_PARM_DESC(mem_accounting,
+> >                "Enable cgroup-based memory accounting for dma-buf heap =
+allocations (default=3Dfalse).");
+> >
+> >  static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+> > -                              u32 fd_flags,
+> > -                              u64 heap_flags)
+> > +                              u32 fd_flags, u64 heap_flags,
+> > +                              struct mem_cgroup *charge_to)
+> >  {
+> >       struct dma_buf *dmabuf;
+> > +     unsigned int nr_pages;
+> > +     struct mem_cgroup *memcg =3D charge_to;
+> >       int fd;
+> >
+> >       /*
+> > @@ -73,6 +79,22 @@ static int dma_heap_buffer_alloc(struct dma_heap *he=
+ap, size_t len,
+> >       if (IS_ERR(dmabuf))
+> >               return PTR_ERR(dmabuf);
+> >
+> > +     nr_pages =3D len / PAGE_SIZE;
+> > +
+> > +     if (memcg)
+> > +             css_get(&memcg->css);
+> > +     else if (mem_accounting)
+> > +             memcg =3D get_mem_cgroup_from_mm(current->mm);
+> > +
+> > +     if (memcg) {
+> > +             if (!mem_cgroup_charge_dmabuf(memcg, nr_pages, GFP_KERNEL=
+)) {
+> > +                     mem_cgroup_put(memcg);
+> > +                     dma_buf_put(dmabuf);
+> > +                     return -ENOMEM;
+> > +             }
+> > +             dmabuf->memcg =3D memcg;
+> > +     }
+> > +
+> >       fd =3D dma_buf_fd(dmabuf, fd_flags);
+> >       if (fd < 0) {
+> >               dma_buf_put(dmabuf);
+> > @@ -102,6 +124,9 @@ static long dma_heap_ioctl_allocate(struct file *fi=
+le, void *data)
+> >  {
+> >       struct dma_heap_allocation_data *heap_allocation =3D data;
+> >       struct dma_heap *heap =3D file->private_data;
+> > +     struct mem_cgroup *memcg =3D NULL;
+> > +     struct task_struct *task;
+> > +     unsigned int pidfd_flags;
+> >       int fd;
+> >
+> >       if (heap_allocation->fd)
+> > @@ -113,9 +138,20 @@ static long dma_heap_ioctl_allocate(struct file *f=
+ile, void *data)
+> >       if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+> >               return -EINVAL;
+> >
+> > +     if (heap_allocation->charge_pid_fd) {
+> > +             task =3D pidfd_get_task(heap_allocation->charge_pid_fd, &=
+pidfd_flags);
+> > +             if (IS_ERR(task))
+> > +                     return PTR_ERR(task);
+> > +
+> > +             memcg =3D get_mem_cgroup_from_mm(task->mm);
+> > +             put_task_struct(task);
+> > +     }
+> > +
+> >       fd =3D dma_heap_buffer_alloc(heap, heap_allocation->len,
+> >                                  heap_allocation->fd_flags,
+> > -                                heap_allocation->heap_flags);
+> > +                                heap_allocation->heap_flags,
+> > +                                memcg);
+> > +     mem_cgroup_put(memcg);
+> >       if (fd < 0)
+> >               return fd;
+> >
+> > diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heap=
+s/system_heap.c
+> > index 03c2b87cb1112..95d7688167b93 100644
+> > --- a/drivers/dma-buf/heaps/system_heap.c
+> > +++ b/drivers/dma-buf/heaps/system_heap.c
+> > @@ -385,8 +385,6 @@ static struct page *alloc_largest_available(unsigne=
+d long size,
+> >               if (max_order < orders[i])
+> >                       continue;
+> >               flags =3D order_flags[i];
+> > -             if (mem_accounting)
+> > -                     flags |=3D __GFP_ACCOUNT;
+> >               page =3D alloc_pages(flags, orders[i]);
+> >               if (!page)
+> >                       continue;
+> > diff --git a/include/uapi/linux/dma-heap.h b/include/uapi/linux/dma-hea=
+p.h
+> > index a4cf716a49fa6..e02b0f8cbc6a1 100644
+> > --- a/include/uapi/linux/dma-heap.h
+> > +++ b/include/uapi/linux/dma-heap.h
+> > @@ -29,6 +29,10 @@
+> >   *                   handle to the allocated dma-buf
+> >   * @fd_flags:                file descriptor flags used when allocatin=
+g
+> >   * @heap_flags:              flags passed to heap
+> > + * @charge_pid_fd:   optional pidfd of the process whose cgroup should=
+ be
+> > + *                   charged for this allocation; 0 means charge the c=
+alling
+> > + *                   process's cgroup
+> > + * @__padding:               reserved, must be zero
+> >   *
+> >   * Provided by userspace as an argument to the ioctl
+> >   */
+> > @@ -37,6 +41,8 @@ struct dma_heap_allocation_data {
+> >       __u32 fd;
+> >       __u32 fd_flags;
+> >       __u64 heap_flags;
+> > +     __u32 charge_pid_fd;
+> > +     __u32 __padding;
+> >  };
+> >
+> >  #define DMA_HEAP_IOC_MAGIC           'H'
+> >
 >
