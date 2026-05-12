@@ -4,113 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCBF7CD4F24
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 17:42:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F6D1CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 17:49:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 269E610EB8A;
-	Tue, 12 May 2026 17:42:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9785C88D18;
+	Tue, 12 May 2026 17:49:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="p17YBXDZ";
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=valla.it header.i=@valla.it header.b="jVOub3B6";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aC03QF1i";
 	dkim-atps=neutral
-Received: from delivery.antispam.mailspamprotection.com
- (delivery.antispam.mailspamprotection.com [185.56.87.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0D7810EB8A
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 17:42:21 +0000 (UTC)
-ARC-Seal: i=1; cv=none; a=rsa-sha256;
- d=outgoing.instance-europe-west4-hl1x.prod.antispam.mailspamprotection.com;
- s=arckey; t=1778607741; 
- b=Me/Ww5tLSx+J+ojEyx54eT4zRsaSyHaje/381e/6594zhXnEohxn4CU7itzyByuNFsdT6kSjsb
- XBCOeuoqbG+yMPc+eN+GZQ9u9gmccsAPZ5sCDa7c1KE1Q7nmK037NhbcCDYNjuao3FgDvyOpJW
- UoMHc8uzl5FjO4DlkwrhTTx8E9A8neW4kpVFeXkUVFmHOJVyZYK/8vhR4LlWyrGyXP0DuWEW/v
- pcpqJXFv2SouJEqrKvA3ODdG1OxivweTJxIl6fl+GJ31sz2hqYnpzjonJrw16H1vhfsyhf34pA
- aOMSfflAc9R7BgwV8zZyVz4/KwoGaBkkeja1RSf0UUl5RA==;
-ARC-Authentication-Results: i=1;
- outgoing.instance-europe-west4-hl1x.prod.antispam.mailspamprotection.com;
- smtp.remote-ip=35.214.173.214; 
- iprev=pass (214.173.214.35.bc.googleusercontent.com)
- smtp.remote-ip=35.214.173.214; 
- auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
- dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
- arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed;
- d=outgoing.instance-europe-west4-hl1x.prod.antispam.mailspamprotection.com;
- s=arckey; t=1778607741; 
- bh=N0ory80vSiLGWEVAEYOHsz+lROIdnBjmis4jD8LYDF4=;
- h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- Message-ID:Subject:Cc:To:From:Date:DKIM-Signature:DKIM-Signature;
- b=bmXQQ3YsNpmIo9HROc6LN9QO5ONlT9b/W7dsyKv+bLj2UZUIdJ1asVDEzQ2vifw/nUKSCBCEpS
- axWyW8DKgIjhHqD1ELOplB74CNXPrrMul+UjDBLHgIdVc0wro/bZDBvytbYeD1/beoqcaKfJNV
- bPKQkahzJH4QCi6P2VimpVS0r5Id2PKUXfgkdadPEGN5um6LzT9ooAJG8/fnV/NwurihINlSzV
- GE++WoBKzQ5ism54s8Qk6w/wCwryrV/aRObHiccRK/GeCK+8/5iSYI105lhFAmr5wz3BWRCZdZ
- IgEF2vSlABLcSSdpN3X5yl1RytsNASOvTBjzRsDIhvje7A==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
- :Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Subject:Cc:To
- :From:Date:Reply-To:List-Unsubscribe;
- bh=JuCcCssjBouozGGrCwGDqPLUK44aLy9/bRIDy8dNaOs=; b=p17YBXDZO0b9oQtLV0iI53wz5n
- kP1v5Mm4/jatnm7qnF7HbU/jil33UZP/CD9HqioeRnyZvO5glztPaBuvV2cykgUhhpMBkLccqe5AG
- GJSwQRUiX96ZH6OBqSn/cTymJ0Y363OmepXik0jo1PORT9gXmDH26xNA4k5WYjDhUx1Q=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214]
- helo=esm19.siteground.biz)
- by instance-europe-west4-hl1x.prod.antispam.mailspamprotection.com with
- esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384 (Exim 4.99.2)
- (envelope-from <francesco@valla.it>) id 1wMr7Z-0000000Gg93-48U7
- for dri-devel@lists.freedesktop.org; Tue, 12 May 2026 17:42:19 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
- s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
- list-subscribe:list-post:list-owner:list-archive;
- bh=JuCcCssjBouozGGrCwGDqPLUK44aLy9/bRIDy8dNaOs=; b=jVOub3B6/4CiZzAcBrBdp7OVvy
- SbmfAfA29fkZAQs6Sv3xpCcmtmsMy9HwGPFCL4oLbZ2KCy/tSqTdYNpImwR2dcTzoFJgvkeTxNuyP
- SevNHPyK3PhXIyyU27TiMeg/O06+WEqbn/t54xScZR8sztkG9ZB2eyKBzGbXwiMFZu+U=;
-Received: from [95.232.18.244] (port=60175 helo=bywater)
- by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.99.2) (envelope-from <francesco@valla.it>)
- id 1wMr6z-000000008cX-0aN7; Tue, 12 May 2026 17:41:41 +0000
-Date: Tue, 12 May 2026 19:41:39 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Corbet <corbet@lwn.net>, Jocelyn Falempe <jfalempe@redhat.com>, 
- Javier Martinez Canillas <javierm@redhat.com>,
- Shuah Khan <skhan@linuxfoundation.org>, 
- Sam Ravnborg <sam@ravnborg.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org
-Subject: Re: [PATCH RFC v3 0/3] Add splash DRM client
-Message-ID: <agNlONKkeOjnJoIr@bywater>
-References: <20260510-drm_client_splash-v3-0-a9aee9f0b2fc@valla.it>
- <5d7067de-97b7-4232-9cf6-e4b978696482@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9172510EBA7
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 17:49:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 65FB24049A;
+ Tue, 12 May 2026 17:49:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA7DC2BCB0;
+ Tue, 12 May 2026 17:49:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1778608165;
+ bh=/VaqD2NcPVmlTIba4tR6oSQlc15W+HOFadGsnqKAR7M=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=aC03QF1iOdGYAk+zv0OuOmIHtsSgdlCOLycvyotbtAD2O0/fY9IBEOKEbW5ElNiXs
+ fHE2MqSThi5hfoorALs/b0VLrkKsARLKpSEexM67eKVvwb0eeG8G7LxKeN0OyT20i1
+ ZDTtTdyZje2OxL7Uj9DLbk2NryEbSDKJviBvWysQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 179/206] fbdev: defio: Disconnect deferred I/O from the
+ lifetime of struct fb_info
+Date: Tue, 12 May 2026 19:40:31 +0200
+Message-ID: <20260512173936.650816671@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260512173932.810559588@linuxfoundation.org>
+References: <20260512173932.810559588@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5d7067de-97b7-4232-9cf6-e4b978696482@amd.com>
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: d02b7c37717f15562a5e0f8f1529e2e2
-X-AntiAbuse: ID - d02b7c37717f15562a5e0f8f1529e2e2
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1wMr7Z-0000000Gg93-48U7-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-hl1x.prod.antispam.mailspamprotection.com; 
- iprev=pass (214.173.214.35.bc.googleusercontent.com)
- smtp.remote-ip=35.214.173.214; 
- auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
- dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
- arc=none
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,138 +60,372 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Mario,
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Thank you for taking a stab at this.
+------------------
 
-On Mon, May 11, 2026 at 08:59:14PM -0500, Mario Limonciello wrote:
-> 
-> 
-> On 5/10/26 16:29, Francesco Valla wrote:
-> > Hello,
-> > 
-> > this is the third (and hopefully last) RFC version for the DRM-based
-> > splash screen.
-> > 
-> > Motivation behind the work can be found in v1 [0]; in a nutshell, the
-> > splash DRM client can draw a splashscreen using:
-> > 
-> >    - the BMP image supplied by the EFI BGRT;
-> >    - a BMP image loaded as firmware (either built-in or loaded from the
-> >      filesystem);
-> >    - a colored background.
-> > 
-> > This revision greatly simplifies the image seletion logic; now the EFI
-> > BGRT is always used as first source if enabled, with a fallback to BMP
-> > image loaded as firmware and then to a plain color.
-> > 
-> > Sanity checks on the EFI BGRT image have been borrowed from the efifb
-> > driver. More complete splash providers (e.g.: Plymouth) have an
-> > extensive management of platform-specific quirks, but I don't think it
-> > would be reasonable to introduce such complexity here.
-> > 
-> > Additional notes:
-> >    - Rotation is still not managed (and probably won't?).
-> >    - Support for tiled screens is untested.
-> >    - Plain color and BMP sources were tested on QEMU, Beagleplay and
-> >      i.MX93 FRDM.
-> >    - EFI BGRT support was tested using QEMU+OVMF.
-> > 
-> > Thank you in advance for any feedback.
-> 
-> Unfortunately I found that I couldn't compile with my normal Kconfig.
-> 
-> ERROR: modpost: "bgrt_tab" [drivers/gpu/drm/clients/drm_client_lib.ko]
-> undefined!
-> ERROR: modpost: "bgrt_image_size"
-> [drivers/gpu/drm/clients/drm_client_lib.ko] undefined!
-> make[2]: *** [scripts/Makefile.modpost:147: Module.symvers] Error 1
-> make[1]: *** [/home/supermario/src/linux/Makefile:2091: modpost] Error 2
-> make: *** [Makefile:248: __sub-make] Error 2
-> 
-> ❮ grep ^CONFIG_DRM .config
-> CONFIG_DRM=y
-> CONFIG_DRM_KMS_HELPER=m
-> CONFIG_DRM_DRAW=y
-> CONFIG_DRM_CLIENT=y
-> CONFIG_DRM_CLIENT_LIB=m
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-Here lies the source of the issue, since I forgot to export the BGRT
-table symbols. In my test setup I had the clients built-in and didn't
-catch this. A simple patch (which will be included in v4) is attached.
+[ Upstream commit 9ded47ad003f09a94b6a710b5c47f4aa5ceb7429 ]
 
-> CONFIG_DRM_CLIENT_SELECTION=m
-> CONFIG_DRM_CLIENT_SETUP=y
-> CONFIG_DRM_FBDEV_EMULATION=y
-> CONFIG_DRM_FBDEV_OVERALLOC=100
-> CONFIG_DRM_CLIENT_SPLASH=y
-> CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR=0x000000
-> CONFIG_DRM_CLIENT_SPLASH_SRC_BGRT=y
-> CONFIG_DRM_CLIENT_SPLASH_BMP_SUPPORT=y
-> CONFIG_DRM_CLIENT_DEFAULT_SPLASH=y
-> CONFIG_DRM_CLIENT_DEFAULT="splash"
-> CONFIG_DRM_LOAD_EDID_FIRMWARE=y
-> CONFIG_DRM_DISPLAY_HELPER=m
-> CONFIG_DRM_DISPLAY_DP_AUX_CHARDEV=y
-> CONFIG_DRM_DISPLAY_DP_HELPER=y
-> CONFIG_DRM_DISPLAY_DSC_HELPER=y
-> CONFIG_DRM_DISPLAY_HDCP_HELPER=y
-> CONFIG_DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER=y
-> CONFIG_DRM_DISPLAY_HDMI_HELPER=y
-> CONFIG_DRM_TTM=m
-> CONFIG_DRM_EXEC=m
-> CONFIG_DRM_BUDDY=m
-> CONFIG_DRM_TTM_HELPER=m
-> CONFIG_DRM_GEM_SHMEM_HELPER=m
-> CONFIG_DRM_SUBALLOC_HELPER=m
-> CONFIG_DRM_SCHED=m
-> CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS=m
-> CONFIG_DRM_PRIVACY_SCREEN=y
-> CONFIG_DRM_AMDGPU=m
-> CONFIG_DRM_AMDGPU_CIK=y
-> CONFIG_DRM_AMDGPU_USERPTR=y
-> CONFIG_DRM_AMD_ISP=y
-> CONFIG_DRM_AMD_ACP=y
-> CONFIG_DRM_AMD_DC=y
-> CONFIG_DRM_AMD_DC_FP=y
-> CONFIG_DRM_AMD_SECURE_DISPLAY=y
-> CONFIG_DRM_BRIDGE=y
-> CONFIG_DRM_PANEL_BRIDGE=y
-> CONFIG_DRM_PANEL=y
-> CONFIG_DRM_SYSFB_HELPER=m
-> CONFIG_DRM_SIMPLEDRM=m
-> CONFIG_DRM_PANEL_ORIENTATION_QUIRKS=y
-> CONFIG_DRM_ACCEL=y
-> CONFIG_DRM_ACCEL_AMDXDNA=m
-> CONFIG_DRM_ACCEL_HABANALABS=m
-> CONFIG_DRM_ACCEL_IVPU=m
-> CONFIG_DRM_ACCEL_QAIC=m
-> ❮ grep BGRT .config
-> CONFIG_ACPI_BGRT=y
-> CONFIG_DRM_CLIENT_SPLASH_SRC_BGRT=y
->
+Hold state of deferred I/O in struct fb_deferred_io_state. Allocate an
+instance as part of initializing deferred I/O and remove it only after
+the final mapping has been closed. If the fb_info and the contained
+deferred I/O meanwhile goes away, clear struct fb_deferred_io_state.info
+to invalidate the mapping. Any access will then result in a SIGBUS
+signal.
 
-Regards,
-Francesco
+Fixes a long-standing problem, where a device hot-unplug happens while
+user space still has an active mapping of the graphics memory. The hot-
+unplug frees the instance of struct fb_info. Accessing the memory will
+operate on undefined state.
 
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 60b59beafba8 ("fbdev: mm: Deferred IO support")
+Cc: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org # v2.6.22+
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ replaced `kzalloc_obj()` with `kzalloc(sizeof(*fbdefio_state), GFP_KERNEL)` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/firmware/efi/efi-bgrt.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/video/fbdev/core/fb_defio.c |  179 ++++++++++++++++++++++++++++--------
+ include/linux/fb.h                  |    4 
+ 2 files changed, 145 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/firmware/efi/efi-bgrt.c b/drivers/firmware/efi/efi-bgrt.c
-index 1da451582812..4ca06ed5d6f5 100644
---- a/drivers/firmware/efi/efi-bgrt.c
-+++ b/drivers/firmware/efi/efi-bgrt.c
-@@ -17,7 +17,10 @@
- #include <linux/efi-bgrt.h>
+--- a/drivers/video/fbdev/core/fb_defio.c
++++ b/drivers/video/fbdev/core/fb_defio.c
+@@ -23,6 +23,75 @@
+ #include <linux/rmap.h>
+ #include <linux/pagemap.h>
  
- struct acpi_table_bgrt bgrt_tab;
-+EXPORT_SYMBOL(bgrt_tab);
++/*
++ * struct fb_deferred_io_state
++ */
 +
- size_t bgrt_image_size;
-+EXPORT_SYMBOL(bgrt_image_size);
++struct fb_deferred_io_state {
++	struct kref ref;
++
++	struct mutex lock; /* mutex that protects the pageref list */
++	/* fields protected by lock */
++	struct fb_info *info;
++};
++
++static struct fb_deferred_io_state *fb_deferred_io_state_alloc(void)
++{
++	struct fb_deferred_io_state *fbdefio_state;
++
++	fbdefio_state = kzalloc(sizeof(*fbdefio_state), GFP_KERNEL);
++	if (!fbdefio_state)
++		return NULL;
++
++	kref_init(&fbdefio_state->ref);
++	mutex_init(&fbdefio_state->lock);
++
++	return fbdefio_state;
++}
++
++static void fb_deferred_io_state_release(struct fb_deferred_io_state *fbdefio_state)
++{
++	mutex_destroy(&fbdefio_state->lock);
++
++	kfree(fbdefio_state);
++}
++
++static void fb_deferred_io_state_get(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_get(&fbdefio_state->ref);
++}
++
++static void __fb_deferred_io_state_release(struct kref *ref)
++{
++	struct fb_deferred_io_state *fbdefio_state =
++		container_of(ref, struct fb_deferred_io_state, ref);
++
++	fb_deferred_io_state_release(fbdefio_state);
++}
++
++static void fb_deferred_io_state_put(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_put(&fbdefio_state->ref, __fb_deferred_io_state_release);
++}
++
++/*
++ * struct vm_operations_struct
++ */
++
++static void fb_deferred_io_vm_open(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_get(fbdefio_state);
++}
++
++static void fb_deferred_io_vm_close(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_put(fbdefio_state);
++}
++
+ static struct page *fb_deferred_io_get_page(struct fb_info *info, unsigned long offs)
+ {
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
+@@ -128,17 +197,31 @@ static void fb_deferred_io_pageref_put(s
+ /* this is to find and return the vmalloc-ed fb pages */
+ static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
+ {
++	struct fb_info *info;
+ 	unsigned long offset;
+ 	struct page *page;
+-	struct fb_info *info = vmf->vma->vm_private_data;
++	vm_fault_t ret;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
++
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
  
- struct bmp_header {
-        u16 id;
---
+ 	offset = vmf->pgoff << PAGE_SHIFT;
+-	if (offset >= info->fix.smem_len)
+-		return VM_FAULT_SIGBUS;
++	if (offset >= info->fix.smem_len) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	page = fb_deferred_io_get_page(info, offset);
+-	if (!page)
+-		return VM_FAULT_SIGBUS;
++	if (!page) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	if (vmf->vma->vm_file)
+ 		page->mapping = vmf->vma->vm_file->f_mapping;
+@@ -148,8 +231,15 @@ static vm_fault_t fb_deferred_io_fault(s
+ 	BUG_ON(!page->mapping);
+ 	page->index = vmf->pgoff; /* for folio_mkclean() */
+ 
++	mutex_unlock(&fbdefio_state->lock);
++
+ 	vmf->page = page;
++
+ 	return 0;
++
++err_mutex_unlock:
++	mutex_unlock(&fbdefio_state->lock);
++	return ret;
+ }
+ 
+ int fb_deferred_io_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+@@ -176,15 +266,24 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
+  * Adds a page to the dirty list. Call this from struct
+  * vm_operations_struct.page_mkwrite.
+  */
+-static vm_fault_t fb_deferred_io_track_page(struct fb_info *info, unsigned long offset,
+-					    struct page *page)
++static vm_fault_t fb_deferred_io_track_page(struct fb_deferred_io_state *fbdefio_state,
++					    unsigned long offset, struct page *page)
+ {
+-	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_info *info;
++	struct fb_deferred_io *fbdefio;
+ 	struct fb_deferred_io_pageref *pageref;
+ 	vm_fault_t ret;
+ 
+ 	/* protect against the workqueue changing the page list */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
++
++	fbdefio = info->fbdefio;
+ 
+ 	pageref = fb_deferred_io_pageref_get(info, offset, page);
+ 	if (WARN_ON_ONCE(!pageref)) {
+@@ -202,50 +301,38 @@ static vm_fault_t fb_deferred_io_track_p
+ 	 */
+ 	lock_page(pageref->page);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 
+ 	/* come back after delay to process the deferred IO */
+ 	schedule_delayed_work(&info->deferred_work, fbdefio->delay);
+ 	return VM_FAULT_LOCKED;
+ 
+ err_mutex_unlock:
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 	return ret;
+ }
+ 
+-/*
+- * fb_deferred_io_page_mkwrite - Mark a page as written for deferred I/O
+- * @fb_info: The fbdev info structure
+- * @vmf: The VM fault
+- *
+- * This is a callback we get when userspace first tries to
+- * write to the page. We schedule a workqueue. That workqueue
+- * will eventually mkclean the touched pages and execute the
+- * deferred framebuffer IO. Then if userspace touches a page
+- * again, we repeat the same scheme.
+- *
+- * Returns:
+- * VM_FAULT_LOCKED on success, or a VM_FAULT error otherwise.
+- */
+-static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_info *info, struct vm_fault *vmf)
++static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_deferred_io_state *fbdefio_state,
++					      struct vm_fault *vmf)
+ {
+ 	unsigned long offset = vmf->pgoff << PAGE_SHIFT;
+ 	struct page *page = vmf->page;
+ 
+ 	file_update_time(vmf->vma->vm_file);
+ 
+-	return fb_deferred_io_track_page(info, offset, page);
++	return fb_deferred_io_track_page(fbdefio_state, offset, page);
+ }
+ 
+-/* vm_ops->page_mkwrite handler */
+ static vm_fault_t fb_deferred_io_mkwrite(struct vm_fault *vmf)
+ {
+-	struct fb_info *info = vmf->vma->vm_private_data;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
+ 
+-	return fb_deferred_io_page_mkwrite(info, vmf);
++	return fb_deferred_io_page_mkwrite(fbdefio_state, vmf);
+ }
+ 
+ static const struct vm_operations_struct fb_deferred_io_vm_ops = {
++	.open		= fb_deferred_io_vm_open,
++	.close		= fb_deferred_io_vm_close,
+ 	.fault		= fb_deferred_io_fault,
+ 	.page_mkwrite	= fb_deferred_io_mkwrite,
+ };
+@@ -262,7 +349,10 @@ int fb_deferred_io_mmap(struct fb_info *
+ 	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+ 	if (!(info->flags & FBINFO_VIRTFB))
+ 		vm_flags_set(vma, VM_IO);
+-	vma->vm_private_data = info;
++	vma->vm_private_data = info->fbdefio_state;
++
++	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_mmap);
+@@ -273,9 +363,10 @@ static void fb_deferred_io_work(struct w
+ 	struct fb_info *info = container_of(work, struct fb_info, deferred_work.work);
+ 	struct fb_deferred_io_pageref *pageref, *next;
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	/* here we mkclean the pages, then do all deferred IO */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
+ 	list_for_each_entry(pageref, &fbdefio->pagereflist, list) {
+ 		struct folio *folio = page_folio(pageref->page);
+ 
+@@ -291,12 +382,13 @@ static void fb_deferred_io_work(struct w
+ 	list_for_each_entry_safe(pageref, next, &fbdefio->pagereflist, list)
+ 		fb_deferred_io_pageref_put(pageref, info);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ }
+ 
+ int fb_deferred_io_init(struct fb_info *info)
+ {
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	unsigned long npagerefs;
+ 	int ret;
+@@ -306,7 +398,11 @@ int fb_deferred_io_init(struct fb_info *
+ 	if (WARN_ON(!info->fix.smem_len))
+ 		return -EINVAL;
+ 
+-	mutex_init(&fbdefio->lock);
++	fbdefio_state = fb_deferred_io_state_alloc();
++	if (!fbdefio_state)
++		return -ENOMEM;
++	fbdefio_state->info = info;
++
+ 	INIT_DELAYED_WORK(&info->deferred_work, fb_deferred_io_work);
+ 	INIT_LIST_HEAD(&fbdefio->pagereflist);
+ 	if (fbdefio->delay == 0) /* set a default of 1 s */
+@@ -323,10 +419,12 @@ int fb_deferred_io_init(struct fb_info *
+ 	info->npagerefs = npagerefs;
+ 	info->pagerefs = pagerefs;
+ 
++	info->fbdefio_state = fbdefio_state;
++
+ 	return 0;
+ 
+ err:
+-	mutex_destroy(&fbdefio->lock);
++	fb_deferred_io_state_release(fbdefio_state);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_init);
+@@ -364,11 +462,18 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release
+ 
+ void fb_deferred_io_cleanup(struct fb_info *info)
+ {
+-	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	fb_deferred_io_lastclose(info);
+ 
++	info->fbdefio_state = NULL;
++
++	mutex_lock(&fbdefio_state->lock);
++	fbdefio_state->info = NULL;
++	mutex_unlock(&fbdefio_state->lock);
++
++	fb_deferred_io_state_put(fbdefio_state);
++
+ 	kvfree(info->pagerefs);
+-	mutex_destroy(&fbdefio->lock);
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_cleanup);
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -222,12 +222,13 @@ struct fb_deferred_io {
+ 	unsigned long delay;
+ 	bool sort_pagereflist; /* sort pagelist by offset */
+ 	int open_count; /* number of opened files; protected by fb_info lock */
+-	struct mutex lock; /* mutex that protects the pageref list */
+ 	struct list_head pagereflist; /* list of pagerefs for touched pages */
+ 	/* callback */
+ 	struct page *(*get_page)(struct fb_info *info, unsigned long offset);
+ 	void (*deferred_io)(struct fb_info *info, struct list_head *pagelist);
+ };
++
++struct fb_deferred_io_state;
+ #endif
+ 
+ /*
+@@ -485,6 +486,7 @@ struct fb_info {
+ 	unsigned long npagerefs;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	struct fb_deferred_io *fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ #endif
+ 
+ 	const struct fb_ops *fbops;
+
 
