@@ -4,120 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC43CD4F24
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:53:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78EE4CD4F35
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:53:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 421D810ED0B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5753F10ED0D;
 	Wed, 13 May 2026 07:53:31 +0000 (UTC)
-X-Greylist: delayed 368 seconds by postgrey-1.36 at gabe;
- Tue, 12 May 2026 16:52:38 UTC
-Received: from de-smtp-delivery-119.mimecast.com
- (de-smtp-delivery-119.mimecast.com [194.104.111.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0664B10E589
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 16:52:37 +0000 (UTC)
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11023141.outbound.protection.outlook.com
- [52.101.83.141]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- de-mta-110-oV3G1j-LMF-dHkCm5h90dw-2; Tue, 12 May 2026 18:46:27 +0200
-X-MC-Unique: oV3G1j-LMF-dHkCm5h90dw-2
-X-Mimecast-MFC-AGG-ID: oV3G1j-LMF-dHkCm5h90dw_1778604385
-Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
- (2603:10a6:102:227::10) by DB9PR01MB7308.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:21b::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
- 2026 16:46:24 +0000
-Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
- ([fe80::5adb:b6ca:f689:1ac6]) by PAXPR01MB8486.eurprd01.prod.exchangelabs.com
- ([fe80::5adb:b6ca:f689:1ac6%3]) with mapi id 15.20.9913.009; Tue, 12 May 2026
- 16:46:23 +0000
-From: Boerge Struempfel <bstruempfel@data-modul.com>
-To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-CC: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Boerge Struempfel <bstruempfel@data-modul.com>
-Subject: [PATCH 1/2] dt-bindings: display/bridge: lt9211: Add
- drive-strength-microamp property
-Date: Tue, 12 May 2026 18:46:08 +0200
-Message-ID: <20260512164609.3390700-2-bstruempfel@data-modul.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260512164609.3390700-1-bstruempfel@data-modul.com>
-References: <20260512164609.3390700-1-bstruempfel@data-modul.com>
-X-ClientProxiedBy: FR4P281CA0444.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::6) To PAXPR01MB8486.eurprd01.prod.exchangelabs.com
- (2603:10a6:102:227::10)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F54D89C93
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 07:04:26 +0000 (UTC)
+X-UUID: cc2a59b24dd011f1aa26b74ffac11d73-20260512
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:4093d6e2-f795-43de-ac0d-53413b855a41, IP:10,
+ URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:5
+X-CID-INFO: VERSION:1.3.12, REQID:4093d6e2-f795-43de-ac0d-53413b855a41, IP:10,
+ UR
+ L:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:5
+X-CID-META: VersionHash:e7bac3a, CLOUDID:8ff57456ce2fda429fa9dd9b04934a9c,
+ BulkI
+ D:260511094702GAMOY1KX,BulkQuantity:2,Recheck:0,SF:17|19|64|66|78|80|81|82
+ |83|102|127|841|898,TC:nil,Content:0|15|52,EDM:-3,IP:-2,URL:0,File:nil,RT:
+ nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0
+ ,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_FSD,TF_CID_SPAM_SNR,TF_CID_SPAM_FAS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: cc2a59b24dd011f1aa26b74ffac11d73-20260512
+X-User: zhangguopeng@kylinos.cn
+Received: from [192.168.109.140] [(223.70.159.239)] by mailgw.kylinos.cn
+ (envelope-from <zhangguopeng@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+ with ESMTP id 577036597; Tue, 12 May 2026 15:04:19 +0800
+Message-ID: <3939a0e6-cf82-432a-b983-2a49496a7acb@kylinos.cn>
+Date: Tue, 12 May 2026 15:04:16 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR01MB8486:EE_|DB9PR01MB7308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f604391-3b64-4e27-f040-08deb046004f
-X-LD-Processed: d72fb47f-f4be-4915-91c7-ebd53299157b,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|10070799003|366016|921020|3023799003|22082099003|18002099003|56012099003
-X-Microsoft-Antispam-Message-Info: +TrCGMWmXGcegAD0nk/6nTmBCi04qhIaIIkoatXsvIwCYogaBoyu4amCEuaM3uObwzmvixJlfZ61UgjRDkLkmlIfBlopZyDW7Q7Mavzblhihm00U8fWK7ucetEHIFUvfNpXgEA6Rw5qb8pDKF1d78Cel4hJsaN4xl1tWQUTM5WDGtV1fDaKWVcRUpA92U7qd2X6/h9ITS9Xu3hxg1phn4ymEPSu0v9VTqTH0AaDpHfoh5mNRBmr0rOQnmk4+xjYnEAHvfjEaY+OFaYMD3PVGUXHMM9My153IWa/Jbtll9Tb7enL9Xi+KwQLiweJ52zRGK8E7lWlPAlToggDfm/QWOenFbO7UhPcwZqD8VuiFPIVG4CdnhaZoLZIYA6o6/LAgRNrKN/ZxNxwHYPFG17VYcBvw8pnLZuVH0V2YlVRxC+z4KktOp4Ni5XDWOWUvz6fctTgCNNfMbOHZMTBUUid6yQx6Qc8xuaLOXdnDDJU9U7oGzdY6eIdTDWhxulRPpKx1MzvMrOilED5ArN6ZC0VFKVTQgAsSPacO6rYfOPUKG0WqoCn6Z9uRZKs5DKaBZ+EKdMmi574HFhp+HwiNXDDZ2eRzGHiuwwVDWDC7mUc312gcr0F8w0SB61yTW+5Mpqi9TL7Sm3DpGG5mMnje9Rgq5AfhJM+rgIpp4IfRkYQXlKRUc0rQwY8252l5Pnf33Q+ujlPIe+2iEjJZD9BHfc07WUu++aFDfif4ZJw5KYJWKUI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR01MB8486.eurprd01.prod.exchangelabs.com; PTR:;
- CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(10070799003)(366016)(921020)(3023799003)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1102
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?DlAm42SuDS222A13HoId42uEXxVK4kzrq9kIt/8hK81vSL6dsFhtoTsxhpqj?=
- =?us-ascii?Q?pPrfxhITX4E91+HkUyqodZuwvNAfx3dqQt75BPJcKe0ZaeQLxEo8o1ZGM41y?=
- =?us-ascii?Q?hfS3Deb63gxohLqGoeZd6JnT2xytNKrIbacTeEsn6e2h84ohVaKPIITtQOW+?=
- =?us-ascii?Q?26909yFu+QeZ/8ReqdUy4au2eI4eSbgeUxYxrGfS2t+mIT/pk8sww8CMrstF?=
- =?us-ascii?Q?FAVz66fFJgVrtHNOKYnQPE5hCpOapRyYSrFV08YiICBDe9TA9T1r1ZxWk3lZ?=
- =?us-ascii?Q?HtMltJlLNmm6KwrEITvw6IPBf0OJJslibVfssrcpoyfWa8PZ2Xof5xFvceTH?=
- =?us-ascii?Q?kZA/pVWeDsoq0B1PsdB8YwzzZoSBYjatjdWbAken6kU7maZ4QSz5UzTupbI3?=
- =?us-ascii?Q?62QxYQtc3OlZm1KTyqYFiWuWFYuNbBfVnBfHKDpEN1kQIXBmMtUTaiJaQSQC?=
- =?us-ascii?Q?XELSuQiu4yKImFSCzjDeVocD1T1JnA7y1Q1JkdBU/dW48H7Rgw+Zqb6CPxRp?=
- =?us-ascii?Q?jZlQqv6jdEuOK8u3GNJe1UnhDS+djw7q+S79ZOaw0WhsZ736m/9wETUfFze+?=
- =?us-ascii?Q?YREAph0HSyDHnevnFpjC12/OIA9vd8imWOM4fGKn6w7iQFK/XM1asO3NtFd6?=
- =?us-ascii?Q?nCqZsM87XkCW5k5uxNI249b1yKGs6dqaUwiJUKjYv4Y8Ct55m92Iap0HUwCw?=
- =?us-ascii?Q?pjMbYOI/nI++rPiFfhU7sb5e/McmJhTIYeycQhMuOAm4PWxZdE3W+S4LB63/?=
- =?us-ascii?Q?WK0ARdi/qlwE27jnXdFVgptSLUg/YqzB+T3s9d8BtKMn9WeYj5aCPJquRHeH?=
- =?us-ascii?Q?aXkQN6yLzvojfwVED6+U5DexLmFh0Llvc8kuBtjq459eIqBlq/NLSnhLp3F+?=
- =?us-ascii?Q?8J57eOqCagWc6gNJ/c02vaZJP/YRj47mjAj/kXAqQAJJbq2aguX2Bn7IjTmq?=
- =?us-ascii?Q?0+brDIuEY4pcwwLAbbWyGGTHFhwwlcEIoioOctYRElDtCgohEQfIBKL7s9Iq?=
- =?us-ascii?Q?ZtoQaJUGlQAwniThTtSFeb/zZJ9YOpHYZfcSz14KomXsyaCqW3bP4cMpEVj7?=
- =?us-ascii?Q?M0Ixs8NMLgciOS5lLxUEeIHD5TmdZbiEuPHub4cVzU2A3ZsoEC2HuARABV8I?=
- =?us-ascii?Q?23QeIm1tzcBXNgOOsb2a7Nrjr9U+v7gjX4u94mZMu1X3fmtIAsmL67RsG8LC?=
- =?us-ascii?Q?82qamv0unPXUzPLp9kY0poEP5vPdiKQFayiBIb8f9mtO+FQG1A2aCbbLc6Sd?=
- =?us-ascii?Q?+yVaZRnokU29S69PCK9jdN48CxmHsSZwdmvK6xYEzeAp5A4w0yeQwIt/Zojx?=
- =?us-ascii?Q?K4bg8gs231OIws7Y1U+6OfvsAzZhMKBM6JD6LYmw5Wnxvi4heK7fLSyLPyLV?=
- =?us-ascii?Q?caGJ5a/XZI3sOez7DfvzR5385qUwgSs+/oZWWNPTPj8k3fD6KgOqv+5f0Pty?=
- =?us-ascii?Q?AgeLwOu78lz095qmDA0GMw4XgdjfhqcRwkkHwZmF1hP8WzwgzV9DwHS3J9W7?=
- =?us-ascii?Q?JTR4qJjuc5KRXWWOb5LeTOkLjxwvCe+ruv2NDfwGqFPPRz2A4r7G+8ohelPA?=
- =?us-ascii?Q?1Vrw+socBR9VAuLfTuuJrxMqRsYWVgbMNJwmXrJ+Hzu/rkhpYQ2xeNz6gopm?=
- =?us-ascii?Q?ewsjKKJfVS1HPHuLY9VdZ5eracCc4HN6GjQ4vVfHzULBtHXVtsxpWJP/tCN8?=
- =?us-ascii?Q?TOhzdcvR8Fa1rT36Jjs55/FKf7dD8Z4h5/6lom5AByRfutlLpOPbhHXlB6aG?=
- =?us-ascii?Q?yTCDuS0QIgB/DrDPjHyp6Par73IpFG2ebA5Em7jFt88YN0fr65dT4jFKtIsM?=
-X-MS-Exchange-AntiSpam-MessageData-1: 4r9HIS+jaSvk2ScuC+4eqg8RkamHRDwAsUQ=
-X-Exchange-RoutingPolicyChecked: giFB01hqNHVcMoztDp/Dbc9ha/h0krgVdt5hT89Fgdxbnyl6fDckcmXalJi0wazu6fMowZgAsBsPwYBS7ZjOJfJbc4sxvp+8v/z9QwwrMSffDKi3KvJBbOs3jF4Sy/CxOjV090VGWyXha7t9NPYjiAxozaaGC0HXxiT2l9CZ4kpEA/KIjCHWQJN5GhE3R0oKKiiLzT2NJpQ0VnZiZ/leKBR+mYZf7yvmf2M3y+l5jix8RV8mhmkTAwhvoBXBwvlTsDu7VUxq16WVc9db4qqytCI0naeKNxxuUzCXWemxqynrJgDJf5Yj8ZPwa7qHLZ1ddPGfuS93IEnrKmxYH8yH/Q==
-X-OriginatorOrg: data-modul.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f604391-3b64-4e27-f040-08deb046004f
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR01MB8486.eurprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 16:46:23.4430 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d72fb47f-f4be-4915-91c7-ebd53299157b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uKNOiEw6UdE5l5GGyG5saqGrTzWjN6tX9yoFtE+eAQ+ZsHFF7/ExiSktsG99EAQrUkKFxy+XSOoQI/qHme6ifrWjo0EQGV+Sh+zgf+Hblak=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR01MB7308
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Rk0do6c3sK6BrKaSnI9LgAmK7RuggHKO5qsIvUsAMCk_1778604385
-X-Mimecast-Originator: data-modul.com
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=WINDOWS-1252
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/dmem: return -ENOMEM on failed pool preallocation
+To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Natalie Vock <natalie.vock@gmx.de>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260511013150.7235-1-zhangguopeng@kylinos.cn>
+ <1778555389652035.138.seg@mailgw.kylinos.cn>
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+In-Reply-To: <1778555389652035.138.seg@mailgw.kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 13 May 2026 07:53:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,36 +69,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the 'drive-strength-microamp' property to allow board DTs to
-configure the LT9211 LVDS TX output driver current. Sixteen discrete
-levels are supported, ranging from 12 uA to 36 uA. Defaults to 25 uA.
 
-Signed-off-by: Boerge Struempfel <bstruempfel@data-modul.com>
----
- .../devicetree/bindings/display/bridge/lontium,lt9211.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt921=
-1.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.ya=
-ml
-index 9a6e9b25d14a..381b69c761b8 100644
---- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
-@@ -31,6 +31,13 @@ properties:
-   vccio-supply:
-     description: Regulator for 1.8V IO power.
-=20
-+  drive-strength-microamp:
-+    description:
-+      LVDS TX output driver current. Sixteen discrete levels are supported=
-,
-+      corresponding to the following nominal values in microamps.
-+    enum: [12, 14, 16, 17, 19, 20, 22, 23, 25, 27, 28, 30, 31, 33, 34, 36]
-+    default: 25
-+
-   ports:
-     $ref: /schemas/graph.yaml#/properties/ports
-=20
---=20
-2.54.0
+在 2026/5/11 21:03, Michal Koutný 写道:
+> On Mon, May 11, 2026 at 09:31:50AM +0800, Guopeng Zhang <zhangguopeng@kylinos.cn> wrote:
+>> get_cg_pool_unlocked() handles allocation failures under dmemcg_lock by
+>> dropping the lock, preallocating a pool with GFP_KERNEL, and retrying the
+>> locked lookup and creation path.
+>>
+>> If the fallback allocation fails too, pool remains NULL. Since the loop
+>> condition is while (!pool), the function can keep retrying instead of
+>> propagating the allocation failure to the caller.
+> 
+> This implies that it's OK when the function keeps retrying with
+> allocpool != NULL (and repeated WARN_ON()s)?
+Hi Michal,
+
+Thanks for taking a look.
+
+No, that was not what I meant to imply. The commit message was not precise
+enough there.
+
+The intended normal retry is only for the case where the GFP_NOWAIT
+allocation under dmemcg_lock fails. In that case, get_cg_pool_unlocked()
+drops the lock, preallocates one pool with GFP_KERNEL, and the next locked
+retry consumes that preallocated pool and clears allocpool.
+
+So allocpool != NULL together with another -ENOMEM return is not expected to
+be a normal retry path. The WARN_ON(allocpool) branch looks defensive, and I
+agree that repeatedly continuing from there would not be useful if it ever
+fired.
+
+>> Set pool to ERR_PTR(-ENOMEM) when the fallback allocation fails so the
+>> loop exits through the existing common return path. The callers already
+>> handle ERR_PTR() from get_cg_pool_unlocked(), so this restores the
+>> expected error path.
+> 
+> If the callers can handle it, maybe there's no need to retry at all.
+> Perhpas dmem fellows can step in here.My understanding is that the retry still has a purpose independent of the
+callers' ability to handle ERR_PTR().
+
+The first allocation attempt happens in alloc_pool_single() while
+dmemcg_lock is held, so it uses GFP_NOWAIT. If that fails,
+get_cg_pool_unlocked() drops the lock and preallocates one pool with the
+default GFP_KERNEL context. The next locked retry then consumes that
+preallocated pool instead of trying another GFP_NOWAIT allocation for that
+pool.
+
+So callers can handle the final ERR_PTR() result, but the fallback
+preallocation gives the allocation a chance to succeed in a less
+constrained context before reporting -ENOMEM. That said, whether this
+retry policy is desirable is a dmem design question, so input from dmem
+folks would be helpful.
+
+>>
+>> Fixes: b168ed458dde ("kernel/cgroup: Add "dmem" memory accounting cgroup")
+>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>> ---
+>>  kernel/cgroup/dmem.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+>> index 1ab1fb47f271..4753a67d0f0f 100644
+>> --- a/kernel/cgroup/dmem.c
+>> +++ b/kernel/cgroup/dmem.c
+>> @@ -602,6 +602,7 @@ get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
+>>  				pool = NULL;
+> 
+> This 2nd pool zeroing seems pointless.
+Agreed. 
+
+Since Tejun has already applied the fix, I will wait for the discussion
+before sending any follow-up. If we keep the current retry scheme, a small
+cleanup can make this path clearer.
+
+Thanks,
+Guopeng
 
