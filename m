@@ -4,99 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B037ACD4F21
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 18:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60948CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 18:59:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C54210E2B3;
-	Tue, 12 May 2026 18:58:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4BBD10E588;
+	Tue, 12 May 2026 18:59:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ko0r50mp";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="lSoPnRRW";
 	dkim-atps=neutral
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C31310E29A
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 18:58:43 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-7bd810cdc5dso63566067b3.1
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 11:58:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778612322; cv=none;
- d=google.com; s=arc-20240605;
- b=J1Bn1pi57A1t5TTjIIpL+gFwbExpgqCtjhTSPgxVPskBnQ8sw3uGuKwQXTZ8zS5ewZ
- mOvMDHRqGu7wF6WcUPO2A8R82ElmTN86F95E0q5WTQAzTKmuHJBNb/egql6PIMA0PNLT
- 7MGI6XuNRCkT3uS3RAKj0fltMX/uGLVhagapwHVNJ+neG+l3Up+zuQRoPzdA/H8aWnKa
- /RNHhNPyv9fiHmgwSHEl7orbQi3Hl/uFYvzKd2K67AwLDG2M82zAfP2FLYmOz/nf3ZdR
- OEI40vJ7gWVEMl14HVRG22jNOB1j49q5rzS3irwJJI0xWi8HUDkFJ7ysaWXzZZjsgm/3
- MZWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bvkpfDt3ycSxNKD63h/TBcWKIpRqAn/xnUhYP3WzGzY=;
- fh=f8QW49/I0AyZY3dqfYfEcb7FJB/W3xK9pq7egGjL3Ng=;
- b=Cu4L5QyLPkvj1Jmf6tJuPvnE7s0hlWtd8yb+oWRmSFRGdfhryvp3a2A2hu4VGpfcec
- WWTUkkA8WGx4StVgRaUoF6bKLqgWjVYPqP8mPLIsk6HuvPIT47gksSeVK6WK/JXEswJO
- Xnnom4cc77aiPuopvM53w8Mn69Q9qlaNKTDZY6/pgUQhrBg39zrAq0UvJYUF9UxEOqte
- +zccryKlDNUgfSRuZjQ2qXd5UZ0iMUfrBN3BtiHLuOG4dDyxp7mC6I8fO9vh9U5HgoF5
- TvR1Dfn+ae8A39Nn+01Hj8DG9MK0g6VdhFVAZaCRd7/pyj1M9iapJ+v6x/M8AWnn+c1q
- i/NQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778612322; x=1779217122; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bvkpfDt3ycSxNKD63h/TBcWKIpRqAn/xnUhYP3WzGzY=;
- b=Ko0r50mpVzKaWVF3P9aBkx09rCxvv6u6DuZ1MHQCcOo13i4dN7gXM2NEKWznBtFHwd
- CVhW57aBv6i29y/FU9JoH4DVrG0qOvH7neRlxRxt5e6FoK2Vqo1S1XNJNZcztYfIVS2R
- lcJm7xG5uQv5H9aUW745Da7QaRfu+w8eXO8NrUkM2i+C8S4S7E3jvyESbpRu6hSBTZON
- 5kCvN3naepZE2YwLbbWVEz3alEGlzWlVDvTmzCvt72BRgfbOuEqbfw/7uDapV2fu5zEj
- Zj3gFZBqz2YhpH/A3e1pcpFZ0wzhGY1CnMVcXLl6FD2s+S5Cnwc60HzyREm70mXKazCG
- IHJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778612322; x=1779217122;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bvkpfDt3ycSxNKD63h/TBcWKIpRqAn/xnUhYP3WzGzY=;
- b=ElM2z/oEa52ChPplG85dwToTIvR/UN2Kex5IOdB3i5BjT6A2lt11+IxQQ16H6Wd4EY
- tS0waQxmBhc5sNpZU7f+aV76YBNcODjTN+HcVXC1IE0MiUsJO3hSfL9a+76ARJCmcFBH
- PlVdFuE3XtqsKLRC3qSTzun7ds6HtV1tM7rZmAELol7qPPxmS2YvMxKIUvK6YaAK0uw/
- 5RmWui04E5FIVX/yVabpT1Lbb/vZ28agVgWL2xx0FkG1fHWpJR6nvSr0lKLgigWZy+ig
- i0iranRl/nyusXPZDLLrpFLHvWWQlmZCiC/al1kfRvgZOW82l9n0pImc37UIuHDXVCjR
- YiQA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ86BR0qYNnbQHHmEZQcd39apc20DkrtAmUkqBceImszXirccSEAMlfPyVYyZGn6/25E27oZCzRiW0I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRooxBdmqYPKxxQNHyA2UfAX3TdU3h6CnrzWTmg/gYQP5Xb/py
- JTTDIMHSsONF3SJLZYy44aNgIDFtuPFYUTdAVMYRNrprBZep7cAQByFZxonyRhIwHZmR+D/e3Nb
- 8nPorx+C3zE0KmdQnpLD182+wi0ZhJkU=
-X-Gm-Gg: Acq92OGxQ18sHL6DT5kGX7kWmbf0xbs9W9OJSLPEWfTYAalBz45vrZGlqMlkCA9BjgO
- YE8Gfcj9ntKurO7Bhrv2EQKVKdQbgVQd/7HOAfkKYNUsri/1YzKMfOfClM6It9z+KIChLNALCJE
- xDv/J1gi5W5Azkqiq5YIkp/WUhbJ0GgxLDScIpcH0TJ7BJ0++pe6Dcd/xSOJXd+ce/1pX4YoKJM
- DRe2GEB8dK9v6TOsWUphcCqIYGuL+r9tAE8W2fT7mGRD89tD4iNqCKxmOZrndedh1BpJm2Cyoal
- WyBaOHItvFv+URPtC6t3iicPUFy9dfVretg8N1o95lJ1Kjf8WKCXn+igDL9C66zcwRNQrXLeIQ=
- =
-X-Received: by 2002:a05:690c:f06:b0:7b8:338d:7d80 with SMTP id
- 00721157ae682-7c6ab7e2438mr647687b3.31.1778612321745; Tue, 12 May 2026
- 11:58:41 -0700 (PDT)
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A38A10E588
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 18:59:45 +0000 (UTC)
+Received: from pps.filterd (m0528005.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64CGFlKm2370196
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 11:59:45 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=4Re1NucPCqEAWwDSkFb+LzzLwT9eUiR/ltTaBQwBdWc=; b=lSoPnRRW3k8X
+ p/Qsih9b+tK2icsLZ7XPqpte8VWvochIL3Hl6b+6b0eOtfs42ed5vhA7nDOcXR2c
+ i1jmG7cDtHk02R8BNANp4Y/gwyerfJ8h5LpX4oUxn8Ipxd/Xg7F9mVe2kvIEm3zs
+ EPQ2iR13lzIM0cXvkWMwH+Cqmw19Y2ofRVGMUyVNGxD/5H+YWr7fdKzaG21i8Z+b
+ 1yW0kdVTwzpfgFlsvog/tFRv/NIVkwvmG48YKol1rIYeEz+3kyMpw14ZksPjKKt5
+ PFrBxcqoJnS58/yQjAp+tZBP2lD59cDWUwskN3JY4ezdBv53wcxxO96U17g6Y1ig
+ FBvtfZwBNA==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4e3nvnatt8-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 11:59:44 -0700 (PDT)
+Received: from twshared32810.17.frc2.facebook.com (2620:10d:c0a8:1c::1b) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.37; Tue, 12 May 2026 18:59:43 +0000
+Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
+ id 0EBD62923917E; Tue, 12 May 2026 11:47:57 -0700 (PDT)
+From: Zhiping Zhang <zhipingz@meta.com>
+To: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
+ Romanovsky <leon@kernel.org>
+CC: Bjorn Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
+ <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
+ <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
+Subject: [PATCH v3 1/2] vfio: add dma-buf get_tph callback and DMA_BUF_TPH
+ feature
+Date: Tue, 12 May 2026 11:47:48 -0700
+Message-ID: <20260512184755.4137227-2-zhipingz@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260512184755.4137227-1-zhipingz@meta.com>
+References: <20260512184755.4137227-1-zhipingz@meta.com>
 MIME-Version: 1.0
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-3-95c614a739cb@collabora.com>
-In-Reply-To: <20260512-panthor-signal-from-irq-v2-3-95c614a739cb@collabora.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Tue, 12 May 2026 11:58:30 -0700
-X-Gm-Features: AVHnY4IJMSrCgiKXetwrfOTUfJ8EkWi1QMJcnu3yDn_5K3dKp6onq-WrmwKSR50
-Message-ID: <CAPaKu7Q1KDzWgCT-5Eo1vbHtq_qHAKvtNt7isvZA57dqFPfqUg@mail.gmail.com>
-Subject: Re: [PATCH v2 03/11] drm/panthor: Replace the panthor_irq macro
- machinery by inline helpers
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-GUID: 5HmruBWJTBLxPNzMDmt9vcXE3sZyyzOv
+X-Proofpoint-ORIG-GUID: 5HmruBWJTBLxPNzMDmt9vcXE3sZyyzOv
+X-Authority-Analysis: v=2.4 cv=b/eCJNGx c=1 sm=1 tr=0 ts=6a0378a0 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=jCddH8ec0KUNCymVuxII:22 a=VabnemYjAAAA:8 a=o3qAWRaeB0woPFogT2YA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDE5NiBTYWx0ZWRfX5rw18luubv0W
+ OmX4/r5O7eKty3PzVG5Uvp5HKJOw5CphxUVdjikkmLx7iEDYOyH2SZxfMn5nJLeXt2fZLc7xk8c
+ Amou+i/jTEn0HON3D8HpWkNB+YGv3saJZD3xIQjM4/Z1AWVUojF7T6a0FS3w1VTDpgiv6vbduw9
+ cN1P1CMcwsYQcDNlDYTN98vRW18foxievhCuSMAy8JpoIOU7VElWP73zZrmxOgacFCbcX6cXnKA
+ ZqBgUyiW9IR7R7hrffo3Rx2BcVoGY5w2XpILwyQiZ7RihyMS1dsDBTM1X3ae04H8WOsoOgjbr2E
+ O+tsrjVrLJqQDUydktBruiZ4PwCJO+orLlZJuP2WbxhScrbuI/uQxwhhNyE0ac8Ol5yybYyHFDw
+ y2JN0hceC7uB/wHNe0nf3OwMhqWFW9XDSt3PZ0FYLs2lOUON1z0Aiz/JAzACcU680tY+6FFWcSQ
+ WsxmUsQKDsevmcqeBag==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,819 +92,328 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 4:54=E2=80=AFAM Boris Brezillon
-<boris.brezillon@collabora.com> wrote:
->
-> Now that panthor_irq contains the iomem region, there's no real need
-> for the macro-based panthor_irq helper generation logic. We can just
-> provide inline helpers that do the same and let the compiler optimize
-> indirect function calls. The only extra annoyance is the fact we have
-> to open-code the panthor_xxx_irq_threaded_handler() implementation, but
-> those are single-line functions, so it's acceptable.
-We might want to __always_inline panthor_irq_default_threaded_handler.
-For the rest, do we want to un-inline them?
+Add a dma-buf callback that returns raw TPH metadata from the exporter
+so peer devices can reuse the steering tag and processing hint
+associated with a VFIO-exported buffer. Add a new
+VFIO_DEVICE_FEATURE_DMA_BUF_TPH ioctl that takes the fd from
+VFIO_DEVICE_FEATURE_DMA_BUF along with the TPH values, validates the fd
+is a vfio-exported dma-buf belonging to this device, and stores the TPH
+metadata under memory_lock. The existing VFIO_DEVICE_FEATURE_DMA_BUF
+uAPI is unchanged.
 
->
-> While at it, we changed the prototype of the IRQ handlers to take
-> a panthor_irq instead of panthor_device, since that's the thing
-> that's passed around when it comes to panthor_irq, and the
-> panthor_device can be directly extracted from there.
->
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.h | 245 +++++++++++++++----------=
-------
->  drivers/gpu/drm/panthor/panthor_fw.c     |  22 ++-
->  drivers/gpu/drm/panthor/panthor_gpu.c    |  26 ++--
->  drivers/gpu/drm/panthor/panthor_mmu.c    |  37 ++---
->  drivers/gpu/drm/panthor/panthor_pwr.c    |  20 ++-
->  5 files changed, 183 insertions(+), 167 deletions(-)
->
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/p=
-anthor/panthor_device.h
-> index 768fc1992368..393fcda73d88 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -571,131 +571,126 @@ static inline u64 gpu_read64_counter(void __iomem=
- *iomem, u32 reg)
->  #define INT_MASK    0x8
->  #define INT_STAT    0xc
->
-> -/**
-> - * PANTHOR_IRQ_HANDLER() - Define interrupt handlers and the interrupt
-> - * registration function.
-> - *
-> - * The boiler-plate to gracefully deal with shared interrupts is
-> - * auto-generated. All you have to do is call PANTHOR_IRQ_HANDLER()
-> - * just after the actual handler. The handler prototype is:
-> - *
-> - * void (*handler)(struct panthor_device *, u32 status);
-> - */
-> -#define PANTHOR_IRQ_HANDLER(__name, __handler)                          =
-                       \
-> -static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void =
-*data)                 \
-> -{                                                                       =
-                       \
-> -       struct panthor_irq *pirq =3D data;                               =
-                         \
-> -                                                                        =
-                       \
-> -       if (!gpu_read(pirq->iomem, INT_STAT))                            =
-                       \
-> -               return IRQ_NONE;                                         =
-                       \
-> -                                                                        =
-                       \
-> -       guard(spinlock_irqsave)(&pirq->mask_lock);                       =
-                       \
-> -       if (pirq->state !=3D PANTHOR_IRQ_STATE_ACTIVE)                   =
-                         \
-> -               return IRQ_NONE;                                         =
-                       \
-> -                                                                        =
-                       \
-> -       pirq->state =3D PANTHOR_IRQ_STATE_PROCESSING;                    =
-                         \
-> -       gpu_write(pirq->iomem, INT_MASK, 0);                             =
-                       \
-> -       return IRQ_WAKE_THREAD;                                          =
-                       \
-> -}                                                                       =
-                       \
-> -                                                                        =
-                       \
-> -static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, =
-void *data)            \
-> -{                                                                       =
-                       \
-> -       struct panthor_irq *pirq =3D data;                               =
-                         \
-> -       struct panthor_device *ptdev =3D pirq->ptdev;                    =
-                         \
-> -       irqreturn_t ret =3D IRQ_NONE;                                    =
-                         \
-> -                                                                        =
-                       \
-> -       while (true) {                                                   =
-                       \
-> -               /* It's safe to access pirq->mask without the lock held h=
-ere. If a new          \
-> -                * event gets added to the mask and the corresponding IRQ=
- is pending,           \
-> -                * we'll process it right away instead of adding an extra=
- raw -> threaded       \
-> -                * round trip. If an event is removed and the status bit =
-is set, it will        \
-> -                * be ignored, just like it would have been if the mask h=
-ad been adjusted       \
-> -                * right before the HW event kicks in. TLDR; it's all exp=
-ected races we're      \
-> -                * covered for.                                          =
-                       \
-> -                */                                                      =
-                       \
-> -               u32 status =3D gpu_read(pirq->iomem, INT_RAWSTAT) & pirq-=
->mask;                   \
-> -                                                                        =
-                       \
-> -               if (!status)                                             =
-                       \
-> -                       break;                                           =
-                       \
-> -                                                                        =
-                       \
-> -               __handler(ptdev, status);                                =
-                       \
-> -               ret =3D IRQ_HANDLED;                                     =
-                         \
-> -       }                                                                =
-                       \
-> -                                                                        =
-                       \
-> -       scoped_guard(spinlock_irqsave, &pirq->mask_lock) {               =
-                       \
-> -               if (pirq->state =3D=3D PANTHOR_IRQ_STATE_PROCESSING) {   =
-                           \
-> -                       pirq->state =3D PANTHOR_IRQ_STATE_ACTIVE;        =
-                         \
-> -                       gpu_write(pirq->iomem, INT_MASK, pirq->mask);    =
-                       \
-> -               }                                                        =
-                       \
-> -       }                                                                =
-                       \
-> -                                                                        =
-                       \
-> -       return ret;                                                      =
-                       \
-> -}                                                                       =
-                       \
-> -                                                                        =
-                       \
-> -static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq=
- *pirq)                        \
-> -{                                                                       =
-                       \
-> -       scoped_guard(spinlock_irqsave, &pirq->mask_lock) {               =
-                       \
-> -               pirq->state =3D PANTHOR_IRQ_STATE_SUSPENDING;            =
-                         \
-> -               gpu_write(pirq->iomem, INT_MASK, 0);                     =
-                       \
-> -       }                                                                =
-                       \
-> -       synchronize_irq(pirq->irq);                                      =
-                       \
-> -       scoped_guard(spinlock_irqsave, &pirq->mask_lock)                 =
-                       \
-> -               pirq->state =3D PANTHOR_IRQ_STATE_SUSPENDED;             =
-                         \
-> -}                                                                       =
-                       \
-> -                                                                        =
-                       \
-> -static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq =
-*pirq)                 \
-> -{                                                                       =
-                       \
-> -       guard(spinlock_irqsave)(&pirq->mask_lock);                       =
-                       \
-> -                                                                        =
-                       \
-> -       pirq->state =3D PANTHOR_IRQ_STATE_ACTIVE;                        =
-                         \
-> -       gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);                   =
-                       \
-> -       gpu_write(pirq->iomem, INT_MASK, pirq->mask);                    =
-                       \
-> -}                                                                       =
-                       \
-> -                                                                        =
-                       \
-> -static int panthor_request_ ## __name ## _irq(struct panthor_device *ptd=
-ev,                    \
-> -                                             struct panthor_irq *pirq,  =
-                       \
-> -                                             int irq, u32 mask, void __i=
-omem *iomem)           \
-> -{                                                                       =
-                       \
-> -       pirq->ptdev =3D ptdev;                                           =
-                         \
-> -       pirq->irq =3D irq;                                               =
-                         \
-> -       pirq->mask =3D mask;                                             =
-                         \
-> -       pirq->iomem =3D iomem;                                           =
-                         \
-> -       spin_lock_init(&pirq->mask_lock);                                =
-                       \
-> -       panthor_ ## __name ## _irq_resume(pirq);                         =
-                       \
-> -                                                                        =
-                       \
-> -       return devm_request_threaded_irq(ptdev->base.dev, irq,           =
-                       \
-> -                                        panthor_ ## __name ## _irq_raw_h=
-andler,                \
-> -                                        panthor_ ## __name ## _irq_threa=
-ded_handler,           \
-> -                                        IRQF_SHARED, KBUILD_MODNAME "-" =
-# __name,              \
-> -                                        pirq);                          =
-                       \
-> -}                                                                       =
-                       \
-> -                                                                        =
-                       \
-> -static inline void panthor_ ## __name ## _irq_enable_events(struct panth=
-or_irq *pirq, u32 mask)        \
-> -{                                                                       =
-                       \
-> -       guard(spinlock_irqsave)(&pirq->mask_lock);                       =
-                       \
-> -       pirq->mask |=3D mask;                                            =
-                         \
-> -                                                                        =
-                       \
-> -       /* The only situation where we need to write the new mask is if t=
-he IRQ is active.      \
-> -        * If it's being processed, the mask will be restored for us in _=
-irq_threaded_handler() \
-> -        * on the PROCESSING -> ACTIVE transition.                       =
-                       \
-> -        * If the IRQ is suspended/suspending, the mask is restored at re=
-sume time.             \
-> -        */                                                              =
-                       \
-> -       if (pirq->state =3D=3D PANTHOR_IRQ_STATE_ACTIVE)                 =
-                           \
-> -               gpu_write(pirq->iomem, INT_MASK, pirq->mask);            =
-                       \
-> -}                                                                       =
-                       \
-> -                                                                        =
-                       \
-> -static inline void panthor_ ## __name ## _irq_disable_events(struct pant=
-hor_irq *pirq, u32 mask)\
-> -{                                                                       =
-                       \
-> -       guard(spinlock_irqsave)(&pirq->mask_lock);                       =
-                       \
-> -       pirq->mask &=3D ~mask;                                           =
-                         \
-> -                                                                        =
-                       \
-> -       /* The only situation where we need to write the new mask is if t=
-he IRQ is active.      \
-> -        * If it's being processed, the mask will be restored for us in _=
-irq_threaded_handler() \
-> -        * on the PROCESSING -> ACTIVE transition.                       =
-                       \
-> -        * If the IRQ is suspended/suspending, the mask is restored at re=
-sume time.             \
-> -        */                                                              =
-                       \
-> -       if (pirq->state =3D=3D PANTHOR_IRQ_STATE_ACTIVE)                 =
-                           \
-> -               gpu_write(pirq->iomem, INT_MASK, pirq->mask);            =
-                       \
-> +static inline irqreturn_t panthor_irq_default_raw_handler(int irq, void =
-*data)
-> +{
-> +       struct panthor_irq *pirq =3D data;
-> +
-> +       if (!gpu_read(pirq->iomem, INT_STAT))
-> +               return IRQ_NONE;
-> +
-> +       guard(spinlock_irqsave)(&pirq->mask_lock);
-> +       if (pirq->state !=3D PANTHOR_IRQ_STATE_ACTIVE)
-> +               return IRQ_NONE;
-> +
-> +       pirq->state =3D PANTHOR_IRQ_STATE_PROCESSING;
-> +       gpu_write(pirq->iomem, INT_MASK, 0);
-> +       return IRQ_WAKE_THREAD;
-> +}
-> +
-> +static inline irqreturn_t
-> +panthor_irq_default_threaded_handler(void *data,
-> +                                    void (*slow_handler)(struct panthor_=
-irq *, u32))
-> +{
-> +       struct panthor_irq *pirq =3D data;
-> +       irqreturn_t ret =3D IRQ_NONE;
-> +
-> +       while (true) {
-> +               /* It's safe to access pirq->mask without the lock held h=
-ere. If a new
-> +                * event gets added to the mask and the corresponding IRQ=
- is pending,
-> +                * we'll process it right away instead of adding an extra=
- raw -> threaded
-> +                * round trip. If an event is removed and the status bit =
-is set, it will
-> +                * be ignored, just like it would have been if the mask h=
-ad been adjusted
-> +                * right before the HW event kicks in. TLDR; it's all exp=
-ected races we're
-> +                * covered for.
-> +                */
-> +               u32 status =3D gpu_read(pirq->iomem, INT_RAWSTAT) & pirq-=
->mask;
-> +
-> +               if (!status)
-> +                       break;
-> +
-> +               slow_handler(pirq, status);
-> +               ret =3D IRQ_HANDLED;
-> +       }
-> +
-> +       scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
-> +               if (pirq->state =3D=3D PANTHOR_IRQ_STATE_PROCESSING) {
-> +                       pirq->state =3D PANTHOR_IRQ_STATE_ACTIVE;
-> +                       gpu_write(pirq->iomem, INT_MASK, pirq->mask);
-> +               }
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +static inline void panthor_irq_suspend(struct panthor_irq *pirq)
-> +{
-> +       scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
-> +               pirq->state =3D PANTHOR_IRQ_STATE_SUSPENDING;
-> +               gpu_write(pirq->iomem, INT_MASK, 0);
-> +       }
-> +       synchronize_irq(pirq->irq);
-> +       scoped_guard(spinlock_irqsave, &pirq->mask_lock)
-> +               pirq->state =3D PANTHOR_IRQ_STATE_SUSPENDED;
-> +}
-> +
-> +static inline void panthor_irq_resume(struct panthor_irq *pirq)
-> +{
-> +       guard(spinlock_irqsave)(&pirq->mask_lock);
-> +       pirq->state =3D PANTHOR_IRQ_STATE_ACTIVE;
-> +       gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);
-> +       gpu_write(pirq->iomem, INT_MASK, pirq->mask);
-> +}
-> +
-> +static inline void panthor_irq_enable_events(struct panthor_irq *pirq, u=
-32 mask)
-> +{
-> +       guard(spinlock_irqsave)(&pirq->mask_lock);
-> +       pirq->mask |=3D mask;
-> +
-> +       /* The only situation where we need to write the new mask is if t=
-he IRQ is active.
-> +        * If it's being processed, the mask will be restored for us in _=
-irq_threaded_handler()
-> +        * on the PROCESSING -> ACTIVE transition.
-> +        * If the IRQ is suspended/suspending, the mask is restored at re=
-sume time.
-> +        */
-> +       if (pirq->state =3D=3D PANTHOR_IRQ_STATE_ACTIVE)
-> +               gpu_write(pirq->iomem, INT_MASK, pirq->mask);
-> +}
-> +
-> +static inline void panthor_irq_disable_events(struct panthor_irq *pirq, =
-u32 mask)
-> +{
-> +       guard(spinlock_irqsave)(&pirq->mask_lock);
-> +       pirq->mask &=3D ~mask;
-> +
-> +       /* The only situation where we need to write the new mask is if t=
-he IRQ is active.
-> +        * If it's being processed, the mask will be restored for us in _=
-irq_threaded_handler()
-> +        * on the PROCESSING -> ACTIVE transition.
-> +        * If the IRQ is suspended/suspending, the mask is restored at re=
-sume time.
-> +        */
-> +       if (pirq->state =3D=3D PANTHOR_IRQ_STATE_ACTIVE)
-> +               gpu_write(pirq->iomem, INT_MASK, pirq->mask);
-> +}
-> +
-> +static inline int
-> +panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pi=
-rq,
-> +                   int irq, u32 mask, void __iomem *iomem, const char *n=
-ame,
-> +                   irqreturn_t (*threaded_handler)(int, void *data))
-> +{
-> +       const char *full_name;
-> +
-> +       pirq->ptdev =3D ptdev;
-> +       pirq->irq =3D irq;
-> +       pirq->mask =3D mask;
-> +       pirq->iomem =3D iomem;
-> +       spin_lock_init(&pirq->mask_lock);
-> +
-> +       full_name =3D devm_kasprintf(ptdev->base.dev, GFP_KERNEL, KBUILD_=
-MODNAME "-%s", name);
-> +       if (!full_name)
-> +               return -ENOMEM;
-> +
-> +       panthor_irq_resume(pirq);
-> +       return devm_request_threaded_irq(ptdev->base.dev, irq,
-> +                                        panthor_irq_default_raw_handler,
-> +                                        threaded_handler,
-> +                                        IRQF_SHARED, full_name, pirq);
->  }
->
->  extern struct workqueue_struct *panthor_cleanup_wq;
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
-or/panthor_fw.c
-> index 986151681b24..eaf599b0a887 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1064,8 +1064,9 @@ static void panthor_fw_init_global_iface(struct pan=
-thor_device *ptdev)
->                          msecs_to_jiffies(PING_INTERVAL_MS));
->  }
->
-> -static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 st=
-atus)
-> +static void panthor_job_irq_handler(struct panthor_irq *pirq, u32 status=
-)
->  {
-> +       struct panthor_device *ptdev =3D pirq->ptdev;
->         u32 duration;
->         u64 start =3D 0;
->
-> @@ -1091,7 +1092,11 @@ static void panthor_job_irq_handler(struct panthor=
-_device *ptdev, u32 status)
->                 trace_gpu_job_irq(ptdev->base.dev, status, duration);
->         }
->  }
-> -PANTHOR_IRQ_HANDLER(job, panthor_job_irq_handler);
-> +
-> +static irqreturn_t panthor_job_irq_threaded_handler(int irq, void *data)
-> +{
-> +       return panthor_irq_default_threaded_handler(data, panthor_job_irq=
-_handler);
-> +}
->
->  static int panthor_fw_start(struct panthor_device *ptdev)
->  {
-> @@ -1099,8 +1104,8 @@ static int panthor_fw_start(struct panthor_device *=
-ptdev)
->         bool timedout =3D false;
->
->         ptdev->fw->booted =3D false;
-> -       panthor_job_irq_enable_events(&ptdev->fw->irq, ~0);
-> -       panthor_job_irq_resume(&ptdev->fw->irq);
-> +       panthor_irq_enable_events(&ptdev->fw->irq, ~0);
-> +       panthor_irq_resume(&ptdev->fw->irq);
->         gpu_write(fw->iomem, MCU_CONTROL, MCU_CONTROL_AUTO);
->
->         if (!wait_event_timeout(ptdev->fw->req_waitqueue,
-> @@ -1210,7 +1215,7 @@ void panthor_fw_pre_reset(struct panthor_device *pt=
-dev, bool on_hang)
->                         ptdev->reset.fast =3D true;
->         }
->
-> -       panthor_job_irq_suspend(&ptdev->fw->irq);
-> +       panthor_irq_suspend(&ptdev->fw->irq);
->         panthor_fw_stop(ptdev);
->  }
->
-> @@ -1280,7 +1285,7 @@ void panthor_fw_unplug(struct panthor_device *ptdev=
-)
->         if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))=
- {
->                 /* Make sure the IRQ handler cannot be called after that =
-point. */
->                 if (ptdev->fw->irq.irq)
-> -                       panthor_job_irq_suspend(&ptdev->fw->irq);
-> +                       panthor_irq_suspend(&ptdev->fw->irq);
->
->                 panthor_fw_stop(ptdev);
->         }
-> @@ -1476,8 +1481,9 @@ int panthor_fw_init(struct panthor_device *ptdev)
->         if (irq <=3D 0)
->                 return -ENODEV;
->
-> -       ret =3D panthor_request_job_irq(ptdev, &fw->irq, irq, 0,
-> -                                     ptdev->iomem + JOB_INT_BASE);
-> +       ret =3D panthor_irq_request(ptdev, &fw->irq, irq, 0,
-> +                                 ptdev->iomem + JOB_INT_BASE, "job",
-> +                                 panthor_job_irq_threaded_handler);
->         if (ret) {
->                 drm_err(&ptdev->base, "failed to request job irq");
->                 return ret;
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/pant=
-hor/panthor_gpu.c
-> index e52c5675981f..ce208e384762 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -86,8 +86,9 @@ static void panthor_gpu_l2_config_set(struct panthor_de=
-vice *ptdev)
->         gpu_write(gpu->iomem, GPU_L2_CONFIG, l2_config);
->  }
->
-> -static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 st=
-atus)
-> +static void panthor_gpu_irq_handler(struct panthor_irq *pirq, u32 status=
-)
->  {
-> +       struct panthor_device *ptdev =3D pirq->ptdev;
->         struct panthor_gpu *gpu =3D ptdev->gpu;
->
->         gpu_write(gpu->irq.iomem, INT_CLEAR, status);
-> @@ -116,7 +117,11 @@ static void panthor_gpu_irq_handler(struct panthor_d=
-evice *ptdev, u32 status)
->         }
->         spin_unlock(&ptdev->gpu->reqs_lock);
->  }
-> -PANTHOR_IRQ_HANDLER(gpu, panthor_gpu_irq_handler);
-> +
-> +static irqreturn_t panthor_gpu_irq_threaded_handler(int irq, void *data)
-> +{
-> +       return panthor_irq_default_threaded_handler(data, panthor_gpu_irq=
-_handler);
-> +}
->
->  /**
->   * panthor_gpu_unplug() - Called when the GPU is unplugged.
-> @@ -128,7 +133,7 @@ void panthor_gpu_unplug(struct panthor_device *ptdev)
->
->         /* Make sure the IRQ handler is not running after that point. */
->         if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
-> -               panthor_gpu_irq_suspend(&ptdev->gpu->irq);
-> +               panthor_irq_suspend(&ptdev->gpu->irq);
->
->         /* Wake-up all waiters. */
->         spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> @@ -169,9 +174,10 @@ int panthor_gpu_init(struct panthor_device *ptdev)
->         if (irq < 0)
->                 return irq;
->
-> -       ret =3D panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
-> -                                     GPU_INTERRUPTS_MASK,
-> -                                     ptdev->iomem + GPU_INT_BASE);
-> +       ret =3D panthor_irq_request(ptdev, &ptdev->gpu->irq, irq,
-> +                                 GPU_INTERRUPTS_MASK,
-> +                                 ptdev->iomem + GPU_INT_BASE, "gpu",
-> +                                 panthor_gpu_irq_threaded_handler);
->         if (ret)
->                 return ret;
->
-> @@ -182,7 +188,7 @@ int panthor_gpu_power_changed_on(struct panthor_devic=
-e *ptdev)
->  {
->         guard(pm_runtime_active)(ptdev->base.dev);
->
-> -       panthor_gpu_irq_enable_events(&ptdev->gpu->irq, GPU_POWER_INTERRU=
-PTS_MASK);
-> +       panthor_irq_enable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_=
-MASK);
->
->         return 0;
->  }
-> @@ -191,7 +197,7 @@ void panthor_gpu_power_changed_off(struct panthor_dev=
-ice *ptdev)
->  {
->         guard(pm_runtime_active)(ptdev->base.dev);
->
-> -       panthor_gpu_irq_disable_events(&ptdev->gpu->irq, GPU_POWER_INTERR=
-UPTS_MASK);
-> +       panthor_irq_disable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS=
-_MASK);
->  }
->
->  /**
-> @@ -424,7 +430,7 @@ void panthor_gpu_suspend(struct panthor_device *ptdev=
-)
->         else
->                 panthor_hw_l2_power_off(ptdev);
->
-> -       panthor_gpu_irq_suspend(&ptdev->gpu->irq);
-> +       panthor_irq_suspend(&ptdev->gpu->irq);
->  }
->
->  /**
-> @@ -436,7 +442,7 @@ void panthor_gpu_suspend(struct panthor_device *ptdev=
-)
->   */
->  void panthor_gpu_resume(struct panthor_device *ptdev)
->  {
-> -       panthor_gpu_irq_resume(&ptdev->gpu->irq);
-> +       panthor_irq_resume(&ptdev->gpu->irq);
->         panthor_hw_l2_power_on(ptdev);
->  }
->
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
-hor/panthor_mmu.c
-> index 452d0b6d4668..375022fb3fd8 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -586,17 +586,13 @@ static u32 panthor_mmu_as_fault_mask(struct panthor=
-_device *ptdev, u32 as)
->         return BIT(as);
->  }
->
-> -/* Forward declaration to call helpers within as_enable/disable */
-> -static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 st=
-atus);
-> -PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
-> -
->  static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr=
+8-bit ST and 16-bit Extended ST are distinct namespaces in the PCIe TPH
+ST table (firmware reports them as separate fields with separate
+validity bits in the ACPI _DSM ST table), so the uAPI carries both
+values along with a flags field that indicates which value(s) are
+valid for this device. The exporter selects the value that matches the
+importer's requested width and returns -EOPNOTSUPP if that width is
+not present, instead of substituting a value across namespaces.
+
+Publish the TPH fields under memory_lock and gate readers on a
+release/acquire on the flags field; this lets get_tph() run lockless
+and avoids inverting the memory_lock -> dma_resv_lock ordering set up
+by vfio_pci_dma_buf_move(). Convert the @revoked bitfield to a plain bool
+so concurrent updates of @revoked (under dma_resv_lock) and the new TPH
+fields (under memory_lock) cannot race on a shared bitfield byte.
+
+Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+
+---
+ drivers/vfio/pci/vfio_pci_core.c   |   3 +
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 113 ++++++++++++++++++++++++++++-
+ drivers/vfio/pci/vfio_pci_priv.h   |  11 +++
+ include/linux/dma-buf.h            |  21 ++++++
+ include/uapi/linux/vfio.h          |  35 +++++++++
+ 5 files changed, 182 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci=
+_core.c
+index 3f8d093aacf8..94aa6dd95701 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1534,6 +1534,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device =
+*device, u32 flags,
+ 		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
+ 	case VFIO_DEVICE_FEATURE_DMA_BUF:
+ 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
++	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
++		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
++							 argsz);
+ 	default:
+ 		return -ENOTTY;
+ 	}
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
+ci_dmabuf.c
+index f87fd32e4a01..28247602e359 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -19,7 +19,23 @@ struct vfio_pci_dma_buf {
+ 	u32 nr_ranges;
+ 	struct kref kref;
+ 	struct completion comp;
+-	u8 revoked : 1;
++	/*
++	 * TPH metadata published by VFIO_DEVICE_FEATURE_DMA_BUF_TPH and
++	 * consumed by the @get_tph dma-buf callback.
++	 *
++	 * @tph_flags is the publish/consume gate: writers populate
++	 * @steering_tag, @steering_tag_ext and @ph first, then store
++	 * @tph_flags with smp_store_release(); readers do
++	 * smp_load_acquire(&tph_flags) before accessing the value fields.
++	 * @tph_flags =3D=3D 0 means "TPH not set". Writers serialize via
++	 * vdev->memory_lock; readers are lockless to avoid AB-BA against
++	 * the dma_resv_lock held by importers.
++	 */
++	u32 tph_flags;
++	u16 steering_tag;
++	u16 steering_tag_ext;
++	u8 ph;
++	bool revoked;
+ };
+=20
+ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+@@ -69,6 +85,35 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attach=
+ment,
+ 	return ret;
+ }
+=20
++static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steerin=
+g_tag,
++				    u8 *ph, u8 st_width)
++{
++	struct vfio_pci_dma_buf *priv =3D dmabuf->priv;
++	u32 flags;
++
++	flags =3D smp_load_acquire(&priv->tph_flags);
++	if (!flags)
++		return -EOPNOTSUPP;
++
++	switch (st_width) {
++	case 8:
++		if (!(flags & VFIO_DMA_BUF_TPH_ST))
++			return -EOPNOTSUPP;
++		*steering_tag =3D priv->steering_tag;
++		break;
++	case 16:
++		if (!(flags & VFIO_DMA_BUF_TPH_ST_EXT))
++			return -EOPNOTSUPP;
++		*steering_tag =3D priv->steering_tag_ext;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	*ph =3D priv->ph;
++	return 0;
++}
++
+ static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment=
 ,
->                                  u64 transtab, u64 transcfg, u64 memattr)
->  {
->         struct panthor_mmu *mmu =3D ptdev->mmu;
->
-> -       panthor_mmu_irq_enable_events(&ptdev->mmu->irq,
-> -                                     panthor_mmu_as_fault_mask(ptdev, as=
-_nr));
-> +       panthor_irq_enable_events(&ptdev->mmu->irq,
-> +                                 panthor_mmu_as_fault_mask(ptdev, as_nr)=
-);
->
->         gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
->         gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
-> @@ -614,8 +610,8 @@ static int panthor_mmu_as_disable(struct panthor_devi=
-ce *ptdev, u32 as_nr,
->
->         lockdep_assert_held(&ptdev->mmu->as.slots_lock);
->
-> -       panthor_mmu_irq_disable_events(&ptdev->mmu->irq,
-> -                                      panthor_mmu_as_fault_mask(ptdev, a=
-s_nr));
-> +       panthor_irq_disable_events(&ptdev->mmu->irq,
-> +                                  panthor_mmu_as_fault_mask(ptdev, as_nr=
-));
->
->         /* Flush+invalidate RW caches, invalidate RO ones. */
->         ret =3D panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
-> @@ -1785,8 +1781,9 @@ static void panthor_vm_unlock_region(struct panthor=
-_vm *vm)
->         mutex_unlock(&ptdev->mmu->as.slots_lock);
->  }
->
-> -static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 st=
-atus)
-> +static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status=
-)
->  {
-> +       struct panthor_device *ptdev =3D pirq->ptdev;
->         struct panthor_mmu *mmu =3D ptdev->mmu;
->         bool has_unhandled_faults =3D false;
->
-> @@ -1849,6 +1846,11 @@ static void panthor_mmu_irq_handler(struct panthor=
-_device *ptdev, u32 status)
->                 panthor_sched_report_mmu_fault(ptdev);
->  }
->
-> +static irqreturn_t panthor_mmu_irq_threaded_handler(int irq, void *data)
-> +{
-> +       return panthor_irq_default_threaded_handler(data, panthor_mmu_irq=
-_handler);
-> +}
-> +
->  /**
->   * panthor_mmu_suspend() - Suspend the MMU logic
->   * @ptdev: Device.
-> @@ -1873,7 +1875,7 @@ void panthor_mmu_suspend(struct panthor_device *ptd=
-ev)
->         }
->         mutex_unlock(&ptdev->mmu->as.slots_lock);
->
-> -       panthor_mmu_irq_suspend(&ptdev->mmu->irq);
-> +       panthor_irq_suspend(&ptdev->mmu->irq);
->  }
->
->  /**
-> @@ -1892,7 +1894,7 @@ void panthor_mmu_resume(struct panthor_device *ptde=
-v)
->         ptdev->mmu->as.faulty_mask =3D 0;
->         mutex_unlock(&ptdev->mmu->as.slots_lock);
->
-> -       panthor_mmu_irq_resume(&ptdev->mmu->irq);
-> +       panthor_irq_resume(&ptdev->mmu->irq);
->  }
->
->  /**
-> @@ -1909,7 +1911,7 @@ void panthor_mmu_pre_reset(struct panthor_device *p=
-tdev)
->  {
->         struct panthor_vm *vm;
->
-> -       panthor_mmu_irq_suspend(&ptdev->mmu->irq);
-> +       panthor_irq_suspend(&ptdev->mmu->irq);
->
->         mutex_lock(&ptdev->mmu->vm.lock);
->         ptdev->mmu->vm.reset_in_progress =3D true;
-> @@ -1946,7 +1948,7 @@ void panthor_mmu_post_reset(struct panthor_device *=
-ptdev)
->
->         mutex_unlock(&ptdev->mmu->as.slots_lock);
->
-> -       panthor_mmu_irq_resume(&ptdev->mmu->irq);
-> +       panthor_irq_resume(&ptdev->mmu->irq);
->
->         /* Restart the VM_BIND queues. */
->         mutex_lock(&ptdev->mmu->vm.lock);
-> @@ -3207,7 +3209,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device =
-*ptdev,
->  void panthor_mmu_unplug(struct panthor_device *ptdev)
->  {
->         if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
-> -               panthor_mmu_irq_suspend(&ptdev->mmu->irq);
-> +               panthor_irq_suspend(&ptdev->mmu->irq);
->
->         mutex_lock(&ptdev->mmu->as.slots_lock);
->         for (u32 i =3D 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
-> @@ -3261,9 +3263,10 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->         if (irq <=3D 0)
->                 return -ENODEV;
->
-> -       ret =3D panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
-> -                                     panthor_mmu_fault_mask(ptdev, ~0),
-> -                                     ptdev->iomem + MMU_INT_BASE);
-> +       ret =3D panthor_irq_request(ptdev, &mmu->irq, irq,
-> +                                 panthor_mmu_fault_mask(ptdev, ~0),
-> +                                 ptdev->iomem + MMU_INT_BASE, "mmu",
-> +                                 panthor_mmu_irq_threaded_handler);
->         if (ret)
->                 return ret;
->
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/pant=
-hor/panthor_pwr.c
-> index 7c7f424a1436..80cf78007896 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> @@ -56,8 +56,9 @@ struct panthor_pwr {
->         wait_queue_head_t reqs_acked;
->  };
->
-> -static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 st=
-atus)
-> +static void panthor_pwr_irq_handler(struct panthor_irq *pirq, u32 status=
-)
->  {
-> +       struct panthor_device *ptdev =3D pirq->ptdev;
->         struct panthor_pwr *pwr =3D ptdev->pwr;
->
->         spin_lock(&ptdev->pwr->reqs_lock);
-> @@ -75,7 +76,11 @@ static void panthor_pwr_irq_handler(struct panthor_dev=
-ice *ptdev, u32 status)
->         }
->         spin_unlock(&ptdev->pwr->reqs_lock);
->  }
-> -PANTHOR_IRQ_HANDLER(pwr, panthor_pwr_irq_handler);
-> +
-> +static irqreturn_t panthor_pwr_irq_threaded_handler(int irq, void *data)
-> +{
-> +       return panthor_irq_default_threaded_handler(data, panthor_pwr_irq=
-_handler);
-> +}
->
->  static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 =
-command, u64 args)
->  {
-> @@ -453,7 +458,7 @@ void panthor_pwr_unplug(struct panthor_device *ptdev)
->                 return;
->
->         /* Make sure the IRQ handler is not running after that point. */
-> -       panthor_pwr_irq_suspend(&ptdev->pwr->irq);
-> +       panthor_irq_suspend(&ptdev->pwr->irq);
->
->         /* Wake-up all waiters. */
->         spin_lock_irqsave(&ptdev->pwr->reqs_lock, flags);
-> @@ -483,9 +488,10 @@ int panthor_pwr_init(struct panthor_device *ptdev)
->         if (irq < 0)
->                 return irq;
->
-> -       err =3D panthor_request_pwr_irq(
-> +       err =3D panthor_irq_request(
->                 ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
-> -               pwr->iomem + PWR_INT_BASE);
-> +               pwr->iomem + PWR_INT_BASE, "pwr",
-> +               panthor_pwr_irq_threaded_handler);
->         if (err)
->                 return err;
->
-> @@ -564,7 +570,7 @@ void panthor_pwr_suspend(struct panthor_device *ptdev=
-)
->         if (!ptdev->pwr)
->                 return;
->
-> -       panthor_pwr_irq_suspend(&ptdev->pwr->irq);
-> +       panthor_irq_suspend(&ptdev->pwr->irq);
->  }
->
->  void panthor_pwr_resume(struct panthor_device *ptdev)
-> @@ -572,5 +578,5 @@ void panthor_pwr_resume(struct panthor_device *ptdev)
->         if (!ptdev->pwr)
->                 return;
->
-> -       panthor_pwr_irq_resume(&ptdev->pwr->irq);
-> +       panthor_irq_resume(&ptdev->pwr->irq);
->  }
->
-> --
-> 2.54.0
->
+ 				   struct sg_table *sgt,
+ 				   enum dma_data_direction dir)
+@@ -101,6 +146,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf *=
+dmabuf)
+=20
+ static const struct dma_buf_ops vfio_pci_dmabuf_ops =3D {
+ 	.attach =3D vfio_pci_dma_buf_attach,
++	.get_tph =3D vfio_pci_dma_buf_get_tph,
+ 	.map_dma_buf =3D vfio_pci_dma_buf_map,
+ 	.unmap_dma_buf =3D vfio_pci_dma_buf_unmap,
+ 	.release =3D vfio_pci_dma_buf_release,
+@@ -331,6 +377,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_co=
+re_device *vdev, u32 flags,
+ 	return ret;
+ }
+=20
++int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
++				      u32 flags,
++				      struct vfio_device_feature_dma_buf_tph __user *arg,
++				      size_t argsz)
++{
++	struct vfio_device_feature_dma_buf_tph set_tph;
++	struct vfio_pci_dma_buf *priv;
++	struct dma_buf *dmabuf;
++	int ret;
++
++	ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
++				 sizeof(set_tph));
++	if (ret !=3D 1)
++		return ret;
++
++	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
++		return -EFAULT;
++
++	if (set_tph.reserved[0] || set_tph.reserved[1] || set_tph.reserved[2])
++		return -EINVAL;
++
++	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
++		return -EINVAL;
++
++	if (!set_tph.flags)
++		return -EINVAL;
++
++	/* PCIe TLP Processing Hint is a 2-bit field. */
++	if (set_tph.ph & ~0x3)
++		return -EINVAL;
++
++	dmabuf =3D dma_buf_get(set_tph.dmabuf_fd);
++	if (IS_ERR(dmabuf))
++		return PTR_ERR(dmabuf);
++
++	if (dmabuf->ops !=3D &vfio_pci_dmabuf_ops) {
++		ret =3D -EINVAL;
++		goto out_put;
++	}
++
++	priv =3D dmabuf->priv;
++	down_write(&vdev->memory_lock);
++	if (priv->vdev !=3D vdev) {
++		ret =3D -EINVAL;
++		goto out_unlock;
++	}
++
++	priv->steering_tag =3D set_tph.steering_tag;
++	priv->steering_tag_ext =3D set_tph.steering_tag_ext;
++	priv->ph =3D set_tph.ph;
++	/*
++	 * Publish the TPH values before the gate flag, so that lockless
++	 * readers in vfio_pci_dma_buf_get_tph() see fully-initialized
++	 * fields once they observe a non-zero tph_flags.
++	 */
++	smp_store_release(&priv->tph_flags, set_tph.flags);
++	ret =3D 0;
++
++out_unlock:
++	up_write(&vdev->memory_lock);
++out_put:
++	dma_buf_put(dmabuf);
++	return ret;
++}
++
+ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revok=
+ed)
+ {
+ 	struct vfio_pci_dma_buf *priv;
+diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci=
+_priv.h
+index fca9d0dfac90..200dd061ea5d 100644
+--- a/drivers/vfio/pci/vfio_pci_priv.h
++++ b/drivers/vfio/pci/vfio_pci_priv.h
+@@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *p=
+dev)
+ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32=
+ flags,
+ 				  struct vfio_device_feature_dma_buf __user *arg,
+ 				  size_t argsz);
++int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
++				      u32 flags,
++				      struct vfio_device_feature_dma_buf_tph __user *arg,
++				      size_t argsz);
+ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
+ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revok=
+ed);
+ #else
+@@ -128,6 +132,13 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_d=
+evice *vdev, u32 flags,
+ {
+ 	return -ENOTTY;
+ }
++static inline int
++vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32=
+ flags,
++				  struct vfio_device_feature_dma_buf_tph __user *arg,
++				  size_t argsz)
++{
++	return -ENOTTY;
++}
+ static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device =
+*vdev)
+ {
+ }
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index d1203da56fc5..d6a1b44052fc 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -113,6 +113,27 @@ struct dma_buf_ops {
+ 	 */
+ 	void (*unpin)(struct dma_buf_attachment *attach);
+=20
++	/**
++	 * @get_tph:
++	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
++	 * @steering_tag: Returns the raw TPH steering tag for @st_width
++	 * @ph: Returns the TPH processing hint (2-bit value)
++	 * @st_width: Consumer's supported steering tag width in bits (8 or 16)
++	 *
++	 * Return the TPH (TLP Processing Hints) metadata associated with this
++	 * DMA buffer for the requested steering-tag width. 8-bit ST and 16-bit
++	 * Extended ST are distinct namespaces in the PCIe TPH ST table, so the
++	 * exporter must select the value that matches @st_width and must not
++	 * substitute one for the other.
++	 *
++	 * Return 0 on success, -EOPNOTSUPP if no metadata is available for the
++	 * requested width, or -EINVAL if @st_width is not 8 or 16.
++	 *
++	 * This callback is optional.
++	 */
++	int (*get_tph)(struct dma_buf *dmabuf, u16 *steering_tag, u8 *ph,
++		       u8 st_width);
++
+ 	/**
+ 	 * @map_dma_buf:
+ 	 *
+diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+index 5de618a3a5ee..53b2bbd9fc1e 100644
+--- a/include/uapi/linux/vfio.h
++++ b/include/uapi/linux/vfio.h
+@@ -1534,6 +1534,41 @@ struct vfio_device_feature_dma_buf {
+  */
+ #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
+=20
++/**
++ * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) met=
+adata
++ * with a vfio-exported dma-buf. The dma-buf must have been created by
++ * VFIO_DEVICE_FEATURE_DMA_BUF on this device.
++ *
++ * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA_=
+BUF.
++ *
++ * 8-bit ST (steering_tag) and 16-bit Extended ST (steering_tag_ext) are
++ * distinct namespaces in the PCIe TPH ST table; userspace should popula=
+te
++ * the value(s) it has from the firmware ST table for this device and se=
+t
++ * the matching VFIO_DMA_BUF_TPH_ST / VFIO_DMA_BUF_TPH_ST_EXT bit in @fl=
+ags.
++ * An importer requests a specific width and receives the matching value=
+;
++ * if the requested width is not present, the importer is told TPH is
++ * unavailable for this dma-buf.
++ *
++ * ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
++ *
++ * The user must set TPH on the dma-buf before the importer consumes it.
++ *
++ * Return: 0 on success, -errno on failure.
++ */
++#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
++
++#define VFIO_DMA_BUF_TPH_ST		(1 << 0)  /* steering_tag valid */
++#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)  /* steering_tag_ext valid */
++
++struct vfio_device_feature_dma_buf_tph {
++	__s32	dmabuf_fd;
++	__u32	flags;
++	__u16	steering_tag;
++	__u16	steering_tag_ext;
++	__u8	ph;
++	__u8	reserved[3];
++};
++
+ /* -------- API for Type1 VFIO IOMMU -------- */
+=20
+ /**
+--=20
+2.52.0
+
