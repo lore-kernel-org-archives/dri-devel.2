@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D749CD4F24
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 21:52:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A5F2CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 21:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABA810E2CD;
-	Tue, 12 May 2026 21:52:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7E1C10EC3C;
+	Tue, 12 May 2026 21:52:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="RieNWjIM";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="goOvs5EB";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8AD10E2CC;
- Tue, 12 May 2026 21:52:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1417710E5A3;
+ Tue, 12 May 2026 21:52:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=j+KAtvjE0Cz+K2olegG2ecRni3stqWYM/JxxVSGFf1g=; b=RieNWjIMVgSHJlmZ05afrK+vW0
- pYFFilkaXI/BFQac3F9fcQwhPBuz9Dp9Bjs8v4DoQqew4LpC87GXOBnDo5eF1A5/LTZyQdKdXhDWq
- 2OB9Dm6tvLeltmuhqE9m6YK7rZx95xylM0rOfMiD9FfglDHYeoFw++Yw5Z2CdXpzywlF0aBRxgCnK
- Bt5TWk2hKY5jO+uBU2/2MPjgISUkYWKn2v0jB92kOhm3FJR6+PGtVPIZpI2ww1TSvqpVlqCtiuWY9
- qUl5bfKufKTqon9fsXsMbwl5SbAAk8OXKrlmAlJRmHJb8DT/G+qt4TN/yzhEh3hYKX0l50a4BlSJk
- ewjeyzHg==;
+ bh=rgD9rs6hlwoREPQEqdFi5L79EY0qCTv5cMmu057b6C0=; b=goOvs5EB1G88+Q2AUL7E9wxHOq
+ vQxdlpD8/EAILIwJOsucLAn6Y4VfDNNGb+3rXnVb6xU8/gOAvZHgnqdZCLKPiiOSZAomh6JPXrfne
+ G/S09Y3tjOolubAbQbwLmDbT396jzIKS9cX07sibE6pl0FGVx1UfdZa4vUMqs/GgVYmNRXldNpySM
+ ejk1NFfkP+svy+C4px9H/IU/SYJ44juKU4HGsziHIIiA3DY9SADdlYLFTNt/Js0FWx4R+xCZbEfYz
+ hsyruPLnE7XnbgAEaD8PB6sJ2kZqgzJ4QoH6HDoVz9I82I8jVKNOe7m1gR7FFC/ukxUCCR0T3ldL6
+ CBCuCmMA==;
 Received: from 179-242-241-236.3g.claro.net.br ([179.242.241.236]
  helo=quatroqueijos.cascardo.eti.br)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wMv1S-009frh-0M; Tue, 12 May 2026 23:52:13 +0200
+ id 1wMv1W-009frh-Ik; Tue, 12 May 2026 23:52:18 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 To: igt-dev@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -43,12 +43,13 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH i-g-t 0/8] dmem: add amdgpu support and one more test
-Date: Tue, 12 May 2026 18:51:47 -0300
-Message-ID: <20260512215156.4083082-1-cascardo@igalia.com>
+Subject: [PATCH i-g-t 1/8] Introduce dmem driver and implement Xe support
+Date: Tue, 12 May 2026 18:51:48 -0300
+Message-ID: <20260512215156.4083082-2-cascardo@igalia.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260512215156.4083082-1-cascardo@igalia.com>
+References: <20260512215156.4083082-1-cascardo@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,45 +66,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This work builds on top of Thomas Hellström's patches at [1].
+In order to be reuse the same dmem tests with multiple drivers, we need to
+abstract a few operations. That includes getting the region name, and
+allocating and releasing VRAM. As there is some initialization also when
+multiple allocations are done, also provide init and deinit functions.
 
-Besides the case of eviction when setting dmem.max, which still needs
-support from [2], there are other cases for testing dmem behavior and
-potential regressions. Thomas' patches lay over the groundwork for this,
-while this patchset addes one basic test of checking current usage and that
-drivers respect max setting when no eviction is taking place yet.
+The Xe implementation is based on the equivalente operations from
+xe_cgroups.c.
 
-This patchset also introduces a driver layer such that the same tests can
-work with different drivers. amdgpu support is here added too.
-
-[1] https://patchwork.freedesktop.org/series/163935/
-
-Thadeu Lima de Souza Cascardo (8):
-  Introduce dmem driver and implement Xe support
-  Adjust xe_cgroups test to use igt_dmem_driver
-  Make xe_cgroup test a generic test
-  amdgpu: add amdgpu_cgroup_region_name
-  igt_dmem_driver: add amdgpu support
-  dmem: add test for current/max
-  dmem: only check for dmem availability once
-  dmem: get region once per driver
-
- lib/amdgpu/amd_dmem.c    |  94 ++++++++++
- lib/amdgpu/amd_memory.c  |  25 +++
- lib/amdgpu/amd_memory.h  |   2 +
- lib/igt_dmem_driver.h    |  25 +++
- lib/meson.build          |   2 +
- lib/xe/xe_dmem.c         | 145 +++++++++++++++
- tests/drv_dmem_cgroups.c | 390 +++++++++++++++++++++++++++++++++++++++
- tests/intel/xe_cgroups.c | 296 -----------------------------
- tests/meson.build        |   2 +-
- 9 files changed, 684 insertions(+), 297 deletions(-)
- create mode 100644 lib/amdgpu/amd_dmem.c
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+---
+ lib/igt_dmem_driver.h |  24 +++++++
+ lib/meson.build       |   1 +
+ lib/xe/xe_dmem.c      | 145 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 170 insertions(+)
  create mode 100644 lib/igt_dmem_driver.h
  create mode 100644 lib/xe/xe_dmem.c
- create mode 100644 tests/drv_dmem_cgroups.c
- delete mode 100644 tests/intel/xe_cgroups.c
 
+diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+new file mode 100644
+index 000000000000..869356fbf2c2
+--- /dev/null
++++ b/lib/igt_dmem_driver.h
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#ifndef __IGT_DMEM_DRIVER_H__
++#define __IGT_DMEM_DRIVER_H__
++
++#include <stdlib.h>
++
++struct igt_dmem_driver {
++	const char *name;
++	char * (*get_region_name)(int fd);
++	int (*init)(void **ctx, int fd, int max_bo);
++	void (*deinit)(void *ctx);
++	int (*allocate_vram)(void *ctx, int n_bo, size_t len);
++	void (*free_vram)(void *ctx, int n_bo, size_t len);
++};
++
++extern const struct igt_dmem_driver xe_dmem_driver;
++
++#endif
+diff --git a/lib/meson.build b/lib/meson.build
+index fb4679ffdfc1..269f3b9f0af8 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -122,6 +122,7 @@ lib_sources = [
+ 	'igt_msm.c',
+ 	'igt_dsc.c',
+ 	'igt_hook.c',
++	'xe/xe_dmem.c',
+ 	'xe/xe_gt.c',
+ 	'xe/xe_ioctl.c',
+ 	'xe/xe_legacy.c',
+diff --git a/lib/xe/xe_dmem.c b/lib/xe/xe_dmem.c
+new file mode 100644
+index 000000000000..977b4c5f168f
+--- /dev/null
++++ b/lib/xe/xe_dmem.c
+@@ -0,0 +1,145 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#include "igt_dmem_driver.h"
++
++#include <errno.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++#include "xe_drm.h"
++#include "xe/xe_ioctl.h"
++#include "xe/xe_query.h"
++
++static char * xe_dmem_get_region_name(int fd)
++{
++	uint64_t vram_region = 0;
++	uint64_t region;
++	char *cg_region;
++
++	/* Find first VRAM region */
++	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
++		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
++			vram_region = region;
++			break;
++		}
++	}
++	if (!vram_region)
++		return NULL;
++
++	cg_region = xe_cgroup_region_name(fd, vram_region);
++
++	return cg_region;
++}
++
++struct xe_dmem_ctx {
++	int fd;
++	uint32_t vm;
++	uint32_t *handles;
++	uint64_t addr;
++	uint64_t vram_region;
++};
++
++#define BIND_BASE		0x100000000ULL	/* 4 GiB VA base */
++
++static int xe_dmem_init(void **ctx, int fd, int max_bo)
++{
++	struct xe_dmem_ctx *xe_ctx;
++	uint64_t region;
++
++	xe_ctx = malloc(sizeof(*xe_ctx));
++	if (!xe_ctx)
++		return -ENOMEM;
++
++	xe_ctx->handles = calloc(max_bo, sizeof(xe_ctx->handles[0]));
++	if (!xe_ctx->handles)
++		goto out;
++
++	xe_ctx->vram_region = 0;
++	/* Find first VRAM region */
++	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
++		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
++			xe_ctx->vram_region = region;
++			break;
++		}
++	}
++	if (!xe_ctx->vram_region)
++		goto out;
++
++	xe_ctx->addr = BIND_BASE;
++	xe_ctx->fd = fd;
++
++	xe_ctx->vm = xe_vm_create(fd, DRM_XE_VM_CREATE_FLAG_LR_MODE, 0);
++
++	*ctx = xe_ctx;
++
++	return 0;
++
++out:
++	if (xe_ctx->handles)
++		free(xe_ctx->handles);
++	free(xe_ctx);
++
++	return -ENOMEM;
++}
++
++static void xe_dmem_deinit(void *ctx)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++
++	xe_vm_destroy(xe_ctx->fd, xe_ctx->vm);
++	free(xe_ctx->handles);
++	free(xe_ctx);
++}
++
++static int xe_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++	uint32_t handle;
++	int err;
++
++	err = __xe_bo_create(xe_ctx->fd, 0, len, xe_ctx->vram_region,
++			     DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING,
++			     NULL, &handle);
++	if (err)
++		goto out;
++
++	xe_ctx->handles[n_bo] = handle;
++
++	err = __xe_vm_bind_lr_sync(xe_ctx->fd, xe_ctx->vm, handle, 0,
++				   xe_ctx->addr, len, 0);
++	if (err)
++		goto out;
++
++	xe_ctx->addr += len;
++
++out:
++	return err;
++}
++
++static void xe_dmem_free_vram(void *ctx, int n_bo, size_t len)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++	uint64_t addr = BIND_BASE;
++	int i;
++	for (i = 0; i < n_bo; i++) {
++		if (xe_ctx->handles[i]) {
++			xe_vm_unbind_lr_sync(xe_ctx->fd, xe_ctx->vm, 0, addr, len);
++			gem_close(xe_ctx->fd, xe_ctx->handles[i]);
++		}
++		addr += len;
++	}
++}
++
++const struct igt_dmem_driver xe_dmem_driver = {
++	.name = "xe",
++	.get_region_name = xe_dmem_get_region_name,
++	.init = xe_dmem_init,
++	.deinit = xe_dmem_deinit,
++	.allocate_vram = xe_dmem_allocate_vram,
++	.free_vram = xe_dmem_free_vram,
++};
 -- 
 2.47.3
 
