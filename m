@@ -4,55 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 305F5CD4855
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 10:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73C16CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 10:02:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8395610E57B;
-	Tue, 12 May 2026 10:02:02 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="iBax/+l4";
-	dkim-atps=neutral
-Received: from mail-m49240.qiye.163.com (mail-m49240.qiye.163.com
- [45.254.49.240])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7619D10EA15
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC49410EA15;
+	Tue, 12 May 2026 10:02:05 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 400E810EA15
  for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 10:02:00 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3e183030b;
- Tue, 12 May 2026 17:56:53 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v4 03/10] arm64: dts: rockchip: Add missing hclk for RK3588
- eDP0
-Date: Tue, 12 May 2026 17:56:37 +0800
-Message-Id: <20260512095644.1946084-4-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260512095644.1946084-1-damon.ding@rock-chips.com>
-References: <20260512095644.1946084-1-damon.ding@rock-chips.com>
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
+ by APP-03 (Coremail) with SMTP id rQCowAB3XOOS+gJqcF_HEA--.15121S2;
+ Tue, 12 May 2026 18:01:55 +0800 (CST)
+Message-ID: <4bf6efbb222ebc4d770ad613d17c6185e7cb2fda.camel@iscas.ac.cn>
+Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
+ DCUltra Lite display controller
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 12 May 2026 18:01:54 +0800
+In-Reply-To: <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
+References: <20260511075142.54752-1-a0987203069@gmail.com>
+ <20260511075142.54752-3-a0987203069@gmail.com>
+ <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
+ <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
+ <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
+ <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e1b9e343e03a3kunm05d2ddd6129042
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQ0lCVkMeGh8fTE9PGExIGlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=iBax/+l4WrImGSqfh11n8BE+RwDMgyoQgNdJy3SdXA1lQDb064EKTVdYYrDMdtbGfM1g85P/zA1mXmSlAloN/21ht4IOxzH7UJ29JQLXGuqXKC7p7did2udcW5CInZxVD0D29AXXdTvLVFqO/1xPYt4pOvC1WU5EKAqDsm4NRKM=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=cQJ/4r16q/9Bq/DzJvmBXTuihGNdr3jzwWB+vDNpPpo=;
- h=date:mime-version:subject:message-id:from;
+X-CM-TRANSID: rQCowAB3XOOS+gJqcF_HEA--.15121S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw1fWry8CF4fWryxAF4xWFg_yoWrCF4xpF
+ WkKFWI9Fs3JryS9rsFk3WDKFyjyws7Kw4fWrn5WrnYgrnFkrn7WF4xtr17WF4v9F1kCr1I
+ qF48GrWxur98ArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjxUqiFxDUUUU
+X-Originating-IP: [112.94.100.82]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,39 +71,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the required HCLK_VO1 bus clock to RK3588 eDP0 node with
-corresponding clock-name "hclk". This clock is necessary for the
-eDP controller to access video output GRF and work properly.
+=E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 17:06 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
 
-Previously the clock was enabled implicitly via GRF phandle
-reference. Add it explicitly now to align with updated binding.
+=3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > > diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > index 7a93049368db..225af322de32 100644
+> > > > > --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > @@ -164,13 +164,16 @@ static void
+> > > > > vs_bridge_enable_common(struct
+> > > > > vs_crtc *crtc,
+> > > > > =C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_CLK_EN);
+> > > > > =C2=A0=C2=A0=C2=A0	regmap_set_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_CONFIG(output),
+> > > > > =C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_RUNNING);
+> > > > > -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+> > > > > -		=09
+> > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+> > > > > -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
+> > > > > -
+> > > > > 			VSDC_DISP_PANEL_START_RUNNING(output));
+> > > > > =C2=A0=C2=A0=20
+> > > > > -	regmap_set_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc-
+> > > > > > id),
+> > > > > -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+> > > > > +	if (dc->info->has_config_ex) {
+> > > > > +		regmap_clear_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_START,
+> > > > > +			=09
+> > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+> > > > > +		regmap_set_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_START,
+> > > > > +				VSDC_DISP_PANEL_START_RUNNIN
+> > > > > G(ou
+> > > > > tput
+> > > > > ));
+> > > > > +
+> > > > > +		regmap_set_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
+> > > > > +				VSDC_DISP_PANEL_CONFIG_EX_CO
+> > > > > MMIT
+> > > > > );
+> > > > Should the commit operation happen on DC8000/DCUltraLite too?
+> > > > (By
+> > > > writing to DcregFrameBufferConfig0.VALID).
+> > > >=20
+> > > > Many registers written has "Note: This field is double
+> > > > buffered" in
+> > > > the
+> > > > DCUltraLite documentation.
+> > > >=20
+> > > > I suggest create a static function for commit -- write to the
+> > > > corresponding commit bit on DC8200, and write to
+> > > > DcregFrameBufferConfig0.VALID on DC8000/DCUltraLite.
+> > > [a] There is no commit operation for DCUltra Lite.
+> > > I'll not add a `VSDC_FB_CONFIG_VALID` macro. VALID (BIT(3)) is a
+> > > hardware-managed double-buffer status bit: hardware writes
+> > > 1=3DPENDING
+> > > when a new register set is ready and clears to 0=3DWORKING after
+> > > the
+> > > VBLANK copy. Software must never write it, and there is no
+> > > polling
+> > > use
+> > It seems to be writable and controls whether register buffering is
+> > enabled, see [1].
+> >=20
+> > The description of this bit in MA35D1 TRM says "This ensures a
+> > frame
+> > will always start with a valid working set if this register is
+> > programmed last, which reduces the need for SW to wait for the
+> > start of
+> > a VBLANK signal in order to ensure all states are loaded before the
+> > next VBLANK", which indicates some kind of "committing write",
+> > although
+> > the code at [1] seems to indicate that double buffering is only
+> > enabled
+> > when bit is cleared.
+> >=20
+> > Anyway this bit should be programmable, and "Software must never
+> > write
+> > it" contradicts with the MA35D1 TRM.
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > [1]
+> > https://github.com/rockos-riscv/rockos-kernel/blob/rockos-v6.6.y/driver=
+s/gpu/drm/eswin/es_dc_hw.c#L993
+> Thank you for the correction. I'll add
+> `#define VSDC_FB_CONFIG_VALID BIT(3)` to vs_primary_plane_regs.h and
+> write it in `vs_primary_plane_commit()` for non-config_ex variants.
+> > > case in the driver that requires a named constant. For non-
+> > > config_ex
+> > > variants, `vs_primary_plane_commit()` performs no commit
+> > > operation =E2=80=94
+> > > `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
+> > > `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET` (BIT(4)) is
+> > > set/cleared in the bridge enable/disable paths.
 
-Fixes: dc79d3d5e7c7 ("arm64: dts: rockchip: Add eDP0 node for RK3588")
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Well according to the driver code for DC8000 from Eswin, and the bit
+named "VALID", maybe it should be cleared before programming the
+registers, and set after programming registers, to make the process of
+programming registers atomic from the perspective of the display
+controller.
 
----
+Anyway this should require testing on real hardware to verify.
 
-Changes in v4:
-- Modify the commit msg.
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+By the way, I see multiple peripheral drivers for MA35D1 get applied in
+the torvalds tree, but the device tree is still only a skeleton; when
+will the device tree be updated?
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 4fb8888c281c..24a5ccbac08c 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1712,8 +1712,8 @@ hdmi0_out: port@1 {
- 	edp0: edp@fdec0000 {
- 		compatible = "rockchip,rk3588-edp";
- 		reg = <0x0 0xfdec0000 0x0 0x1000>;
--		clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>;
--		clock-names = "dp", "pclk";
-+		clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO1>;
-+		clock-names = "dp", "pclk", "hclk";
- 		interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH 0>;
- 		phys = <&hdptxphy0>;
- 		phy-names = "dp";
--- 
-2.34.1
+Thanks,
+Icenowy
+
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >=20
 
