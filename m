@@ -4,75 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 753D5CD4F24
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8625ECD37B6
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72AD989A94;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9A789B30;
 	Wed, 13 May 2026 07:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ObaZCJqK";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="TanoH8Rr";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B967F892D2
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 18:54:35 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-488af96f6b2so41433845e9.0
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 11:54:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778439274; x=1779044074; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=QuqzRHtsg71BZnzhF/X7DvgsYZCUBca3nqqVT5JC5t8=;
- b=ObaZCJqKSv1DOSw6VSceMqkFMj0howek5r78s0247gS4rre+RTtRRfF0yLSZcoijT4
- 78cPqCUeEjddxnTGcUXIdYnQ2sT6kd7uhqAT70Y1cAD5TETkQT1DFVUg+2NoSCp5HJDj
- haaKj4UCGOhfmg+6luRP0fWsok97YhpLsp+peZ238mwwdAgkRMmBrZYF2OvfcFPI5H8j
- rmNcY1HGkxz0ykX7brTVOp3o+3YhpCeGwU/nSPoCuYj9OwRSvtkFSXvGFx/Saipcj4ly
- fRgyY09b9mOqyNo0UC1TlCzlnvtp3qAR988Kw9AOf59CaSKcBTN8oO3a4RjC3VlasK5r
- XMrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778439274; x=1779044074;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QuqzRHtsg71BZnzhF/X7DvgsYZCUBca3nqqVT5JC5t8=;
- b=c8Z4fhLjzW6scNEcnqnzF/1GssuYQUhBFUdlzKS0tVmOLSr80npAstF5OTwtsvFgax
- kWPZYFr6iEdb7r4ASKujzpgiMkr+y90pydye2970qMivbADNonRfGdqbi2Vlu+bz3pxc
- hSJ7cVvCJuwfiKnhl5LtoQHrCEXUrxVLJe5K8k+YOw/9Moj8ZRC/cdeklv3V1F5IEKDq
- k7F9+qIJMpG1BsN9maJWKMk73v+oyPg7/RrordABqNwkb7VXKh+9PxmxK6f9TwD1mxbI
- bZASOyWeVW6wYcsahV4uwRjvPAShOe/2F4gRVR3KHo/IhjkXRIK4OSc6yMRs2MkrpqpD
- KM3Q==
-X-Gm-Message-State: AOJu0YwZ9VPCEf0HyMfjLXJu852J+JrdeSWoD71gMLusRLHL894A6gdL
- XAon9NPdAB26gQWixRh5uWAxk6ZhAhmqPs2D0LXAJE1XkAl1DDEa+J9v
-X-Gm-Gg: Acq92OHA3X9mhvqYDaNDD94NyT6MPLoer1Dqrq6PAsebFr5dgcnZqkbRW3A0qAzlxgX
- IEmS1VN36HXCoOXvm0R7sVARSbrCd7uCf5Fzy/bwlze9WzuXcnp/wtKE0jETAlhZAsMaM1oIk6K
- SPSOnEemlwgQq/Tue+97mxrdBo6XFC6kzYtT9T/WoFz5G1IJ2gDsowjDPxI7FNGzp9fDMG23YJ/
- mKlahS6ecSVH0tVXh6Pt17OrczHazYRnuAFWKDK1UEWzm/6UpZI93L4d6RXbyn3KBdsBph7NcUV
- AoYCio2t/E7ufbofUKy2oGCmWXNaj5CeelMIPYs4WkrZUeoLAMwnRl//OuUUnCY2qDEshgF5Hb2
- tOMQyhxZqwHhpLkjBHA9ZaP7vzgal9VJe+3jIMWfhfUkz8Zrr0XXRCynEhhXA/oNZw2gVz0Pt55
- S5CARjh4tmEZne42WWbO+5LiaaoSu4uM5Bq9WXBZc=
-X-Received: by 2002:a05:600c:3507:b0:489:1b0c:8b43 with SMTP id
- 5b1f17b1804b1-48e706ad0e5mr110987725e9.1.1778439273999; 
- Sun, 10 May 2026 11:54:33 -0700 (PDT)
-Received: from skylab.fritz.box ([2a06:4944:10fb:f400:3dc3:7b05:ba52:3241])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e6d8efc35sm83061965e9.2.2026.05.10.11.54.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 10 May 2026 11:54:33 -0700 (PDT)
-From: Gilles Risch <gilles.risch@gmail.com>
-To: alexander.deucher@amd.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Gilles Risch <gilles.risch@gmail.com>
-Subject: [PATCH] The Apple iMac11,
- 1 (late 2009) has an integrated ATI Mobility Radeon HD 4850. This
- machine suffers from a similar problem as the iMac10,
- 1 (late 2009) and the iMac11,
- 2 (mid 2010). This small patch fixes the issue on this machine.
-Date: Sun, 10 May 2026 20:54:26 +0200
-Message-ID: <20260510185426.4264-1-gilles.risch@gmail.com>
-X-Mailer: git-send-email 2.47.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6716710E568;
+ Tue, 12 May 2026 07:34:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cq
+ b7f6qTbZ1JS45iQgifhY0a9cuj5tIaD912vws6kYs=; b=TanoH8RrPvWMFWPxni
+ aD06mdl9cWJfrmqNe9fhoYo/F7GcuuTZ3q+1eCijS7yV2EoCCkey+7JPwtzoZEtb
+ spSBu6kAFbeHOKM7dTY5rmR7R+B/FaD//M0HQs9UH3YuQb5y/c1FAbQDiysBDV5L
+ 7VNPSsZngbsNlqHCmB6/W5afE=
+Received: from neo-TianYi510Pro-15ICK.. (unknown [])
+ by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id
+ _____wDHj9n_1wJqBw1gAw--.30116S2; 
+ Tue, 12 May 2026 15:34:23 +0800 (CST)
+From: liuqiangneo@163.com
+To: kraxel@redhat.com,
+	airlied@redhat.com
+Cc: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Qiang Liu <liuqiang@kylinos.cn>
+Subject: [RESEND PATCH v3] drm/qxl: Convert qxl release idr to xarray
+Date: Tue, 12 May 2026 15:34:19 +0800
+Message-ID: <20260512073420.146826-1-liuqiangneo@163.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wDHj9n_1wJqBw1gAw--.30116S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Gr1Dtw1fJFy5Cw18XrWfuFg_yoWxCF1xpF
+ W8JFW5Ar4UJr4qgFnrAanrXF1Sv3W5Kay5GFW7ta43Zw15try5Jr15JF4qqrZ0yFZ5Aa17
+ Xa1UKryUCF1UWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jna93UUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC-B9QsWoC1-8YqQAA3z
 X-Mailman-Approved-At: Wed, 13 May 2026 07:53:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,70 +61,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fixes freedesktop issue 164
-Link: https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/issues/164
----
- drivers/gpu/drm/radeon/atombios_crtc.c     | 4 ++--
- drivers/gpu/drm/radeon/atombios_encoders.c | 9 +++++----
- drivers/gpu/drm/radeon/radeon.h            | 1 +
- 3 files changed, 8 insertions(+), 6 deletions(-)
+From: Qiang Liu <liuqiang@kylinos.cn>
 
-diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
-index 2fc0334e0..3c6d33273 100644
---- a/drivers/gpu/drm/radeon/atombios_crtc.c
-+++ b/drivers/gpu/drm/radeon/atombios_crtc.c
-@@ -580,7 +580,7 @@ static u32 atombios_adjust_pll(struct drm_crtc *crtc,
- 			radeon_crtc->pll_flags |= (/*RADEON_PLL_USE_FRAC_FB_DIV |*/
- 				RADEON_PLL_PREFER_CLOSEST_LOWER);
+Replace the release_idr + release_idr_lock to an XArray.
+IDR internally uses xarray so we can use it directly which simplifies our
+code by removing the IDR wrapper.
+
+Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
+---
+RESEND v3:
+- Address Sashiko's review.
+- DRM atomic_update does not run in a no-sleep atomic context;
+  the "atomic" means DRM state update semantics, not CPU atomicity,
+  so GFP_KERNEL is safe to use here.
+- In current qxl_kms.c, it appears to be avoided by XA_FLAGS_ALLOC1.
+- Request maintainers'further review. Thanks
+
+v3:
+- Change the type of 'handle' to u32.
+  'xa_limit_31b' restricts the range of 'handle',
+  so an implicit cast to 'int' is safe.
+- Keep xa_lock in xa_lock due to concurrent access.
+
+v2:
+- Use xa_limit_31b instead of xa_limit_32b to keep IDs within INT_MAX.
+- Use GFP_KERNEL instead of GFP_NOWAIT because the context is sleepable.
+- Cast to u32 to avoid sign extension when atomic counter wraps above INT_MAX.
+---
+ drivers/gpu/drm/qxl/qxl_drv.h     |  6 ++--
+ drivers/gpu/drm/qxl/qxl_kms.c     |  4 +--
+ drivers/gpu/drm/qxl/qxl_release.c | 49 ++++++++++++++-----------------
+ 3 files changed, 27 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.h b/drivers/gpu/drm/qxl/qxl_drv.h
+index cc02b5f10ad9..cf9decf39022 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.h
++++ b/drivers/gpu/drm/qxl/qxl_drv.h
+@@ -35,6 +35,7 @@
+ #include <linux/firmware.h>
+ #include <linux/platform_device.h>
+ #include <linux/workqueue.h>
++#include <linux/xarray.h>
  
--		if (ASIC_IS_DCE32(rdev) && mode->clock > 200000)	/* range limits??? */
-+		if (ASIC_IS_DCE31(rdev) && mode->clock > 200000)	/* range limits??? */
- 			radeon_crtc->pll_flags |= RADEON_PLL_PREFER_HIGH_FB_DIV;
- 		else
- 			radeon_crtc->pll_flags |= RADEON_PLL_PREFER_LOW_REF_DIV;
-@@ -594,7 +594,7 @@ static u32 atombios_adjust_pll(struct drm_crtc *crtc,
- 		if (((rdev->family == CHIP_RS780) || (rdev->family == CHIP_RS880))
- 		    && !radeon_crtc->ss_enabled)
- 			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
--		if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
-+		if (ASIC_IS_DCE31(rdev) && mode->clock > 165000)
- 			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
- 	} else {
- 		radeon_crtc->pll_flags |= RADEON_PLL_LEGACY;
-diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
-index 5cfd8fcfa..4e984973c 100644
---- a/drivers/gpu/drm/radeon/atombios_encoders.c
-+++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-@@ -2123,12 +2123,13 @@ int radeon_atom_pick_dig_encoder(struct drm_encoder *encoder, int fe_idx)
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_encoder.h>
+@@ -208,11 +209,10 @@ struct qxl_device {
+ 	struct qxl_memslot surfaces_slot;
+ 
+ 	spinlock_t	release_lock;
+-	struct idr	release_idr;
+-	uint32_t	release_seqno;
++	struct xarray	release_xa;
++	atomic_t	release_seqno;
+ 	atomic_t	release_count;
+ 	wait_queue_head_t release_event;
+-	spinlock_t release_idr_lock;
+ 	struct mutex	async_io_mutex;
+ 	unsigned int last_sent_io_cmd;
+ 
+diff --git a/drivers/gpu/drm/qxl/qxl_kms.c b/drivers/gpu/drm/qxl/qxl_kms.c
+index 461b7ab9ad5c..0cebaf88f407 100644
+--- a/drivers/gpu/drm/qxl/qxl_kms.c
++++ b/drivers/gpu/drm/qxl/qxl_kms.c
+@@ -227,8 +227,8 @@ int qxl_device_init(struct qxl_device *qdev,
+ 		goto cursor_ring_free;
  	}
  
- 	/*
--	 * On DCE32 any encoder can drive any block so usually just use crtc id,
--	 * but Apple thinks different at least on iMac10,1 and iMac11,2, so there use linkb,
--	 * otherwise the internal eDP panel will stay dark.
-+	 * On DCE31 and DCE32 any encoder can drive any block so usually just use crtc id,
-+	 * but Apple thinks different at least on iMac10,1, iMac11,1 and iMac11,2,
-+	 * so there use linkb, otherwise the internal eDP panel will stay dark.
- 	 */
--	if (ASIC_IS_DCE32(rdev)) {
-+	if (ASIC_IS_DCE31(rdev)) {
- 		if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
-+		    dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
- 		    dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
- 			enc_idx = (dig->linkb) ? 1 : 0;
- 		else
-diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
-index 527b9d19d..6b7c0abe4 100644
---- a/drivers/gpu/drm/radeon/radeon.h
-+++ b/drivers/gpu/drm/radeon/radeon.h
-@@ -2625,6 +2625,7 @@ void r100_pll_errata_after_index(struct radeon_device *rdev);
- 			    (rdev->family == CHIP_RS740)  ||	\
- 			    (rdev->family >= CHIP_R600))
- #define ASIC_IS_DCE3(rdev) ((rdev->family >= CHIP_RV620))
-+#define ASIC_IS_DCE31(rdev) ((rdev->family >= CHIP_RV770))
- #define ASIC_IS_DCE32(rdev) ((rdev->family >= CHIP_RV730))
- #define ASIC_IS_DCE4(rdev) ((rdev->family >= CHIP_CEDAR))
- #define ASIC_IS_DCE41(rdev) ((rdev->family >= CHIP_PALM) && \
+-	idr_init_base(&qdev->release_idr, 1);
+-	spin_lock_init(&qdev->release_idr_lock);
++	xa_init_flags(&qdev->release_xa, XA_FLAGS_ALLOC1);
++	atomic_set(&qdev->release_seqno, 0);
+ 	spin_lock_init(&qdev->release_lock);
+ 
+ 	idr_init_base(&qdev->surf_id_idr, 1);
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 06979d0e8a9f..afed1096cf7b 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -88,8 +88,9 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+ 		  struct qxl_release **ret)
+ {
+ 	struct qxl_release *release;
+-	int handle;
++	u32 handle;
+ 	size_t size = sizeof(*release);
++	int r;
+ 
+ 	release = kmalloc(size, GFP_KERNEL);
+ 	if (!release) {
+@@ -102,19 +103,15 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+ 	release->surface_release_id = 0;
+ 	INIT_LIST_HEAD(&release->bos);
+ 
+-	idr_preload(GFP_KERNEL);
+-	spin_lock(&qdev->release_idr_lock);
+-	handle = idr_alloc(&qdev->release_idr, release, 1, 0, GFP_NOWAIT);
+-	release->base.seqno = ++qdev->release_seqno;
+-	spin_unlock(&qdev->release_idr_lock);
+-	idr_preload_end();
+-	if (handle < 0) {
++	r = xa_alloc(&qdev->release_xa, &handle, release, xa_limit_31b, GFP_KERNEL);
++	release->base.seqno = (u32)atomic_inc_return(&qdev->release_seqno);
++	if (r < 0) {
+ 		kfree(release);
+ 		*ret = NULL;
+-		return handle;
++		return r;
+ 	}
+ 	*ret = release;
+-	DRM_DEBUG_DRIVER("allocated release %d\n", handle);
++	DRM_DEBUG_DRIVER("allocated release %u\n", handle);
+ 	release->id = handle;
+ 	return handle;
+ }
+@@ -143,9 +140,7 @@ qxl_release_free(struct qxl_device *qdev,
+ 	if (release->surface_release_id)
+ 		qxl_surface_id_dealloc(qdev, release->surface_release_id);
+ 
+-	spin_lock(&qdev->release_idr_lock);
+-	idr_remove(&qdev->release_idr, release->id);
+-	spin_unlock(&qdev->release_idr_lock);
++	xa_erase(&qdev->release_xa, release->id);
+ 
+ 	if (dma_fence_was_initialized(&release->base)) {
+ 		WARN_ON(list_empty(&release->bos));
+@@ -261,14 +256,14 @@ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
+ 				       struct qxl_release **release)
+ {
+ 	if (surface_cmd_type == QXL_SURFACE_CMD_DESTROY && create_rel) {
+-		int idr_ret;
++		int xa_ret;
+ 		struct qxl_bo *bo;
+ 		union qxl_release_info *info;
+ 
+ 		/* stash the release after the create command */
+-		idr_ret = qxl_release_alloc(qdev, QXL_RELEASE_SURFACE_CMD, release);
+-		if (idr_ret < 0)
+-			return idr_ret;
++		xa_ret = qxl_release_alloc(qdev, QXL_RELEASE_SURFACE_CMD, release);
++		if (xa_ret < 0)
++			return xa_ret;
+ 		bo = create_rel->release_bo;
+ 
+ 		(*release)->release_bo = bo;
+@@ -277,7 +272,7 @@ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
+ 		qxl_release_list_add(*release, bo);
+ 
+ 		info = qxl_release_map(qdev, *release);
+-		info->id = idr_ret;
++		info->id = xa_ret;
+ 		qxl_release_unmap(qdev, *release, info);
+ 		return 0;
+ 	}
+@@ -291,7 +286,7 @@ int qxl_alloc_release_reserved(struct qxl_device *qdev, unsigned long size,
+ 				       struct qxl_bo **rbo)
+ {
+ 	struct qxl_bo *bo, *free_bo = NULL;
+-	int idr_ret;
++	int xa_ret;
+ 	int ret = 0;
+ 	union qxl_release_info *info;
+ 	int cur_idx;
+@@ -312,11 +307,11 @@ int qxl_alloc_release_reserved(struct qxl_device *qdev, unsigned long size,
+ 		return -EINVAL;
+ 	}
+ 
+-	idr_ret = qxl_release_alloc(qdev, type, release);
+-	if (idr_ret < 0) {
++	xa_ret = qxl_release_alloc(qdev, type, release);
++	if (xa_ret < 0) {
+ 		if (rbo)
+ 			*rbo = NULL;
+-		return idr_ret;
++		return xa_ret;
+ 	}
+ 	atomic_inc(&qdev->release_count);
+ 
+@@ -362,7 +357,7 @@ int qxl_alloc_release_reserved(struct qxl_device *qdev, unsigned long size,
+ 	}
+ 
+ 	info = qxl_release_map(qdev, *release);
+-	info->id = idr_ret;
++	info->id = xa_ret;
+ 	qxl_release_unmap(qdev, *release, info);
+ 
+ 	return ret;
+@@ -373,11 +368,11 @@ struct qxl_release *qxl_release_from_id_locked(struct qxl_device *qdev,
+ {
+ 	struct qxl_release *release;
+ 
+-	spin_lock(&qdev->release_idr_lock);
+-	release = idr_find(&qdev->release_idr, id);
+-	spin_unlock(&qdev->release_idr_lock);
++	xa_lock(&qdev->release_xa);
++	release = xa_load(&qdev->release_xa, id);
++	xa_unlock(&qdev->release_xa);
+ 	if (!release) {
+-		DRM_ERROR("failed to find id in release_idr\n");
++		DRM_ERROR("failed to find id in release_xa\n");
+ 		return NULL;
+ 	}
+ 
 -- 
-2.47.3
+2.43.0
 
