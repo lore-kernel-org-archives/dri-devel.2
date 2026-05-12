@@ -4,99 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65AE9CD4F21
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 21:16:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E98B4CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 21:50:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF6710EC2A;
-	Tue, 12 May 2026 21:16:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB9B10E2C8;
+	Tue, 12 May 2026 21:50:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qZOqqvHQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QIEZg6vF";
 	dkim-atps=neutral
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD7AF10EC2A
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 21:16:37 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-7c52e49d978so16294227b3.2
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 14:16:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778620597; cv=none;
- d=google.com; s=arc-20240605;
- b=E7o0RtKu4CjdQQD6oS3987UwIafEiY/ucqfSHlRllnyquCuhnHojNGCeTbgXsqwX8w
- vE6VFZSkTZcSylyviK3RIKH4g+ZrkyW0FvK7HTLM0g7AWY8ctyOwDR9ZgMDjRPk/KnM6
- HyfaYIoIIrKipjPg/JLmyGLMW5SJEaNoDwba+iTSoTfUGkKobV7hZ2D1WqHTFJL4if51
- Pr5/CJUVa34TGedZ9zrEt4IVGtUb8giONx4yQxljayW1NvE96osNesMk2VEUQejTREsx
- CTPqc5ogGM06yEXjpF1qWrErDi3GrcL90tAsKoirWIi//qDAmC2YLipHi0duVjsUQ4xn
- obnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=TxBqnUuDuiqzlZTnvnagUm76nX17lf+L3SSU4UVWQZ8=;
- fh=Kn068brm5hzpKTkkvCkCEa66SB0lE3wKUKwci7jOJnk=;
- b=NaB2v6sKUqdlec1CjpSlAx8oz7wMfmRvbziBHDBQCbRlS1g+56jQ0TQlSO/fuOsNW/
- +ZsNE5ZDX3eI5SkNiSFQd2V4hu4uolkx10I3lLO6/iAv4207TBNw2Kd2frR44Gq68ALL
- PIUUkjRaOK6RjvzxqGc0bdmydTQHF3QDvO6KJOc0Qp9eERk7YWEfB6HTBeDmlQ/bNJ61
- DrZTJmcvjx2vePZT6jLa7fbJt6j6A8FlYd4IisfpYAI+pOw+/EIqcyyRovRoiKCw4KOt
- 3Mt4rJ0QG9DrbOrI2wDHhfpqx6rdU/b4aNs0EhQlT5fzMHYwOcd+VUBj1JhQkguCHbmq
- TeAg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778620597; x=1779225397; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TxBqnUuDuiqzlZTnvnagUm76nX17lf+L3SSU4UVWQZ8=;
- b=qZOqqvHQPDNPY6STb+xSqEGPKRoxQHPOfeUJ3rVplsGsG4whxQ2hutK2kVY5+wzrsl
- orXPyJrpEWk9m59p6M8uzGKdZqxCCqzVjj2blEPKxLJpJhaFuEoJr3O8zD+Bt2GW+mYI
- UGPSJ5eRZp/Ng11cU0XhFz8+FqYDo0umKtCj9OseIM9t3Gx49w3U9hyYEAgeaV8t7Vyr
- jLOtQz5F3OJkz2OBp+dynEx14WDjdtsDAtMHJP2EKLGZ9f/jW7WyW81aR3gME6Z63LJb
- D8qVxi7fwzMjd/mG9ikkZXbdlObYNo2LgEVc3KtE1mihRw7q8yW53afOnPYjbZQRgPzF
- nfvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778620597; x=1779225397;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=TxBqnUuDuiqzlZTnvnagUm76nX17lf+L3SSU4UVWQZ8=;
- b=ZD2/6F/Fm+LOAv/lmxgT+mqGt+hq+qbisquF79dow1LxRVFZm1hLtWt3xRQZ4/FXLZ
- kn9DPSUvsulS0WlTJ8+PyrMcmoYLuDTp4PdWCEAvjIvLBcEVtUSelV8gvGHA05PbAcdz
- y0aY2RHlQEEQhWHIqw+zegpdW5Wy9wGw2hmVE05MqxewfVDQCCJQIHTGhlieH158y267
- eXALqaIKrBW7AR9i6HOJ6/si/nWNkc3FrfY49HlJ3jz3ox/Qc2/KBp1vQ5DRPVMFc5yG
- QcxI4v9D6XOECULv79BVEKlvzCWsCrE1//MrytuGmP+Cj9xtXRHodF0QapULI01gFSJw
- H0FQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ85yC9t1zrq/FuK8ebFfiJRx6z5ItyRaGpPR4Ip7GhiEOpBQJgLQhstfl0ex3OE5oEk3h9xo54HwHw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxdb+nT1qVBWqNJ3pajZ7E+Bdgmth7CFV6CQM4m3LcNkT5XzciX
- CjLrjplIMTrfylNyP1oZYuhW+LrItvc0VnQwN+T7mNOPlsWzK33YhvfRwtx/VCCXmsjEVxX5ADS
- N0Hz04VxUEOV7rwTxzxgUQeI8B+Czn0M=
-X-Gm-Gg: Acq92OEZr2auSdP4odu94zWaUxqKVmH5DtZnGlyyxGMG9cSFH7My7BwW86Ad9Ihp3dK
- 1BoGTckX3uOldKCAATGxWjH3nnZfodNOPUU2t1PCftF2Oiby0fQ3vG7bEdcKxCvsQVogZxPj4fX
- B6XoiyDJkWCkJoD8bqHqHe/j9VtrULHSEvX80Zno0E/Gj8bSxtS9Mcs41AW3kpIPIDoY/HCKtRo
- 8gvYc8oexSor1viNfi4ONNti3d2SXA5qdBoOLYk9ZNV9YLWP/hhVKrsmlY/ltqYosehyzRQ4n+i
- i6mJqqxTgwqmMFNbs93p5ztY0YVOPQ+3/Px6gkkZTDcT7YAInOdQxwIrnEuVI4DW23+r80cSOA=
- =
-X-Received: by 2002:a05:690c:e147:10b0:7bd:98c7:abcd with SMTP id
- 00721157ae682-7c6ac1bc428mr5189337b3.38.1778620596656; Tue, 12 May 2026
- 14:16:36 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB4C510E2C8
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 21:50:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778622610; x=1810158610;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=7TCUYNaAC8cK2hOC7Q7WOO0KP2o92/Q696cJKWNFRlc=;
+ b=QIEZg6vFXVyAbOmqKoLxPrtgaSLBxoSvs00uMP3WDx8HMnlq9KHyAVHb
+ LEGMeqUovTVlT3XrDBO0HWL9EBbFUHwEVyo5fHGFNEqNEw6YtumBUnyIx
+ vdthbvLI3EbR076bL0jByZnSmqgWb71VRmAs0tf1wl1SDaxwLjmzG3ARV
+ KOVWRDMLfhftH3b45LaFNSjp23dsYor7iajppS5o2Xu1iIN4SCmpn4jOt
+ fjTtIz4czkYWDjNZQAHN8HKC06Jllu1JGJsze8QtB/KjMnWqgBGMxqP00
+ HfeJyTz3eQRV3M70+hhE0MsKCiujXKUbGdRebqePww9YDwyT9mgxAkcl8 A==;
+X-CSE-ConnectionGUID: XB1kOzx5T3y8a+dVxg9CTQ==
+X-CSE-MsgGUID: SMjQ1YpvSemzDfY3ZfgJ2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="67068886"
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="67068886"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 14:50:09 -0700
+X-CSE-ConnectionGUID: VPrZie23RMGzMDiK/XRSuQ==
+X-CSE-MsgGUID: BKF1IlxvQzKfXBptR1wqIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="239700291"
+Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
+ by fmviesa004.fm.intel.com with ESMTP; 12 May 2026 14:50:07 -0700
+Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wMuzM-000000002s3-3tIf;
+ Tue, 12 May 2026 21:50:04 +0000
+Date: Wed, 13 May 2026 05:49:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, linux@armlinux.org.uk,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/armada: fix device_node reference leak in
+ armada_lcd_bind()
+Message-ID: <202605130528.fPiFL3HJ-lkp@intel.com>
+References: <20260509091821.963513-1-vulab@iscas.ac.cn>
 MIME-Version: 1.0
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-7-95c614a739cb@collabora.com>
-In-Reply-To: <20260512-panthor-signal-from-irq-v2-7-95c614a739cb@collabora.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Tue, 12 May 2026 14:16:24 -0700
-X-Gm-Features: AVHnY4JBz063WkzD-TLx4rzv2Rixdj6IpEzOnpViST53zCUHvS1ITLN3GvSH21g
-Message-ID: <CAPaKu7S0Ci4jgLtg5wcVfJsdagoD4UzTMicfJD8otBpv6P270g@mail.gmail.com>
-Subject: Re: [PATCH v2 07/11] drm/panthor: Automate CSG IRQ processing at
- group unbind time
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260509091821.963513-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,259 +73,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 4:54=E2=80=AFAM Boris Brezillon
-<boris.brezillon@collabora.com> wrote:
->
-> Make the sched_process_csg_irq_locked() call part of
-> group_unbind_locked() so we don't have to manually call it in
-> tick_ctx_apply()/panthor_sched_suspend().
->
-> This implies moving group_[un]bind_locked() around to avoid a
-> forward declaration.
->
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 176 +++++++++++++++-----------=
-------
->  1 file changed, 82 insertions(+), 94 deletions(-)
->
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
-nthor/panthor_sched.c
-> index fbf76b59b7ef..6c5ba747ae45 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -982,86 +982,6 @@ group_get(struct panthor_group *group)
->         return group;
->  }
->
-> -/**
-> - * group_bind_locked() - Bind a group to a group slot
-> - * @group: Group.
-> - * @csg_id: Slot.
-> - *
-> - * Return: 0 on success, a negative error code otherwise.
-> - */
-> -static int
-> -group_bind_locked(struct panthor_group *group, u32 csg_id)
-> -{
-> -       struct panthor_device *ptdev =3D group->ptdev;
-> -       int ret;
-> -
-> -       lockdep_assert_held(&ptdev->scheduler->lock);
-> -
-> -       if (drm_WARN_ON(&ptdev->base, group->csg_id !=3D -1 || csg_id >=
-=3D MAX_CSGS ||
-> -                       ptdev->scheduler->csg_slots[csg_id].group))
-> -               return -EINVAL;
-> -
-> -       ret =3D panthor_vm_active(group->vm);
-> -       if (ret)
-> -               return ret;
-> -
-> -       group_get(group);
-> -
-> -       /* Dummy doorbell allocation: doorbell is assigned to the group a=
-nd
-> -        * all queues use the same doorbell.
-> -        *
-> -        * TODO: Implement LRU-based doorbell assignment, so the most oft=
-en
-> -        * updated queues get their own doorbell, thus avoiding useless c=
-hecks
-> -        * on queues belonging to the same group that are rarely updated.
-> -        */
-> -       for (u32 i =3D 0; i < group->queue_count; i++)
-> -               group->queues[i]->doorbell_id =3D csg_id + 1;
-> -
-> -       scoped_guard(spinlock_irqsave, &ptdev->scheduler->events_lock) {
-> -               ptdev->scheduler->csg_slots[csg_id].group =3D group;
-> -               group->csg_id =3D csg_id;
-> -       }
-> -
-> -       return 0;
-> -}
-> -
-> -/**
-> - * group_unbind_locked() - Unbind a group from a slot.
-> - * @group: Group to unbind.
-> - *
-> - * Return: 0 on success, a negative error code otherwise.
-> - */
-> -static int
-> -group_unbind_locked(struct panthor_group *group)
-> -{
-> -       struct panthor_device *ptdev =3D group->ptdev;
-> -
-> -       lockdep_assert_held(&ptdev->scheduler->lock);
-> -
-> -       if (drm_WARN_ON(&ptdev->base, group->csg_id < 0 || group->csg_id =
->=3D MAX_CSGS))
-> -               return -EINVAL;
-> -
-> -       if (drm_WARN_ON(&ptdev->base, group->state =3D=3D PANTHOR_CS_GROU=
-P_ACTIVE))
-> -               return -EINVAL;
-> -
-> -       scoped_guard(spinlock_irqsave, &ptdev->scheduler->events_lock) {
-> -               ptdev->scheduler->csg_slots[group->csg_id].group =3D NULL=
-;
-> -               group->csg_id =3D -1;
-> -       }
-> -
-> -       panthor_vm_idle(group->vm);
-> -
-> -       /* Tiler OOM events will be re-issued next time the group is sche=
-duled. */
-> -       atomic_set(&group->tiler_oom, 0);
-> -       cancel_work(&group->tiler_oom_work);
-> -
-> -       for (u32 i =3D 0; i < group->queue_count; i++)
-> -               group->queues[i]->doorbell_id =3D -1;
-> -
-> -       group_put(group);
-> -       return 0;
-> -}
-> -
->  static bool
->  group_is_idle(struct panthor_group *group)
->  {
-> @@ -1968,6 +1888,88 @@ void panthor_sched_report_fw_events(struct panthor=
-_device *ptdev, u32 events)
->         }
->  }
->
-> +/**
-> + * group_bind_locked() - Bind a group to a group slot
-> + * @group: Group.
-> + * @csg_id: Slot.
-> + *
-> + * Return: 0 on success, a negative error code otherwise.
-> + */
-> +static int
-> +group_bind_locked(struct panthor_group *group, u32 csg_id)
-> +{
-> +       struct panthor_device *ptdev =3D group->ptdev;
-> +       int ret;
-> +
-> +       lockdep_assert_held(&ptdev->scheduler->lock);
-> +
-> +       if (drm_WARN_ON(&ptdev->base, group->csg_id !=3D -1 || csg_id >=
-=3D MAX_CSGS ||
-> +                       ptdev->scheduler->csg_slots[csg_id].group))
-> +               return -EINVAL;
-> +
-> +       ret =3D panthor_vm_active(group->vm);
-> +       if (ret)
-> +               return ret;
-> +
-> +       group_get(group);
-> +
-> +       /* Dummy doorbell allocation: doorbell is assigned to the group a=
-nd
-> +        * all queues use the same doorbell.
-> +        *
-> +        * TODO: Implement LRU-based doorbell assignment, so the most oft=
-en
-> +        * updated queues get their own doorbell, thus avoiding useless c=
-hecks
-> +        * on queues belonging to the same group that are rarely updated.
-> +        */
-> +       for (u32 i =3D 0; i < group->queue_count; i++)
-> +               group->queues[i]->doorbell_id =3D csg_id + 1;
-> +
-> +       scoped_guard(spinlock_irqsave, &ptdev->scheduler->events_lock) {
-> +               ptdev->scheduler->csg_slots[csg_id].group =3D group;
-> +               group->csg_id =3D csg_id;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +/**
-> + * group_unbind_locked() - Unbind a group from a slot.
-> + * @group: Group to unbind.
-> + *
-> + * Return: 0 on success, a negative error code otherwise.
-> + */
-> +static int
-> +group_unbind_locked(struct panthor_group *group)
-> +{
-> +       struct panthor_device *ptdev =3D group->ptdev;
-> +
-> +       lockdep_assert_held(&ptdev->scheduler->lock);
-> +
-> +       if (drm_WARN_ON(&ptdev->base, group->csg_id < 0 || group->csg_id =
->=3D MAX_CSGS))
-> +               return -EINVAL;
-> +
-> +       if (drm_WARN_ON(&ptdev->base, group->state =3D=3D PANTHOR_CS_GROU=
-P_ACTIVE))
-> +               return -EINVAL;
-> +
-> +       scoped_guard(spinlock_irqsave, &ptdev->scheduler->events_lock) {
-> +               /* Process all pending IRQs before returning the slot. */
-> +               sched_process_csg_irq_locked(ptdev, group->csg_id);
-> +               ptdev->scheduler->csg_slots[group->csg_id].group =3D NULL=
-;
-> +               group->csg_id =3D -1;
-> +       }
-> +
-> +       panthor_vm_idle(group->vm);
-> +
-> +       /* Tiler OOM events will be re-issued next time the group is sche=
-duled. */
-> +       atomic_set(&group->tiler_oom, 0);
-> +       cancel_work(&group->tiler_oom_work);
-> +
-> +       for (u32 i =3D 0; i < group->queue_count; i++)
-> +               group->queues[i]->doorbell_id =3D -1;
-> +
-> +       group_put(group);
-> +       return 0;
-> +}
-> +
->  static const char *fence_get_driver_name(struct dma_fence *fence)
->  {
->         return "panthor";
-> @@ -2396,15 +2398,6 @@ tick_ctx_apply(struct panthor_scheduler *sched, st=
-ruct panthor_sched_tick_ctx *c
->         /* Unbind evicted groups. */
->         for (prio =3D PANTHOR_CSG_PRIORITY_COUNT - 1; prio >=3D 0; prio--=
-) {
->                 list_for_each_entry(group, &ctx->old_groups[prio], run_no=
-de) {
-> -                       /* This group is gone. Process interrupts to clea=
-r
-> -                        * any pending interrupts before we start the new
-> -                        * group.
-> -                        */
-> -                       if (group->csg_id >=3D 0) {
-> -                               guard(spinlock_irqsave)(&sched->events_lo=
-ck);
-> -                               sched_process_csg_irq_locked(ptdev, group=
-->csg_id);
-> -                       }
-> -
->                         group_unbind_locked(group);
->                 }
->         }
-> @@ -2988,11 +2981,6 @@ void panthor_sched_suspend(struct panthor_device *=
-ptdev)
->
->                 group_get(group);
->
-> -               if (group->csg_id >=3D 0) {
-> -                       guard(spinlock_irqsave)(&sched->events_lock);
-> -                       sched_process_csg_irq_locked(ptdev, group->csg_id=
-);
-> -               }
-> -
->                 group_unbind_locked(group);
->
->                 drm_WARN_ON(&group->ptdev->base, !list_empty(&group->run_=
-node));
->
-> --
-> 2.54.0
->
+Hi Wentao,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on daeinki-drm-exynos/exynos-drm-next]
+[also build test WARNING on drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master rmk-arm/drm-armada-devel v7.1-rc3 next-20260508]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-armada-fix-device_node-reference-leak-in-armada_lcd_bind/20260512-194755
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
+patch link:    https://lore.kernel.org/r/20260509091821.963513-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] drm/armada: fix device_node reference leak in armada_lcd_bind()
+config: arm-randconfig-002-20260513 (https://download.01.org/0day-ci/archive/20260513/202605130528.fPiFL3HJ-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 14.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260513/202605130528.fPiFL3HJ-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605130528.fPiFL3HJ-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/gpu/drm/armada/armada_crtc.c: In function 'armada_lcd_bind':
+   drivers/gpu/drm/armada/armada_crtc.c:1039:9: error: 'ret' undeclared (first use in this function); did you mean 'res'?
+    1039 |         ret = armada_drm_crtc_create(drm, dev, res, irq, variant, port);
+         |         ^~~
+         |         res
+   drivers/gpu/drm/armada/armada_crtc.c:1039:9: note: each undeclared identifier is reported only once for each function it appears in
+>> drivers/gpu/drm/armada/armada_crtc.c:1043:1: warning: control reaches end of non-void function [-Wreturn-type]
+    1043 | }
+         | ^
+
+
+vim +1043 drivers/gpu/drm/armada/armada_crtc.c
+
+d8c96083cf5e4a Russell King 2014-04-22  1007  
+d8c96083cf5e4a Russell King 2014-04-22  1008  static int
+d8c96083cf5e4a Russell King 2014-04-22  1009  armada_lcd_bind(struct device *dev, struct device *master, void *data)
+d8c96083cf5e4a Russell King 2014-04-22  1010  {
+d8c96083cf5e4a Russell King 2014-04-22  1011  	struct platform_device *pdev = to_platform_device(dev);
+d8c96083cf5e4a Russell King 2014-04-22  1012  	struct drm_device *drm = data;
+d8c96083cf5e4a Russell King 2014-04-22  1013  	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+d8c96083cf5e4a Russell King 2014-04-22  1014  	int irq = platform_get_irq(pdev, 0);
+d8c96083cf5e4a Russell King 2014-04-22  1015  	const struct armada_variant *variant;
+9611cb93fa65dd Russell King 2014-06-15  1016  	struct device_node *port = NULL;
+e1704914867872 Rob Herring  2023-10-20  1017  	struct device_node *np, *parent = dev->of_node;
+d8c96083cf5e4a Russell King 2014-04-22  1018  
+d8c96083cf5e4a Russell King 2014-04-22  1019  	if (irq < 0)
+d8c96083cf5e4a Russell King 2014-04-22  1020  		return irq;
+d8c96083cf5e4a Russell King 2014-04-22  1021  
+d8c96083cf5e4a Russell King 2014-04-22  1022  
+e1704914867872 Rob Herring  2023-10-20  1023  	variant = device_get_match_data(dev);
+e1704914867872 Rob Herring  2023-10-20  1024  	if (!variant)
+d8c96083cf5e4a Russell King 2014-04-22  1025  		return -ENXIO;
+d8c96083cf5e4a Russell King 2014-04-22  1026  
+e1704914867872 Rob Herring  2023-10-20  1027  	if (parent) {
+9611cb93fa65dd Russell King 2014-06-15  1028  		np = of_get_child_by_name(parent, "ports");
+9611cb93fa65dd Russell King 2014-06-15  1029  		if (np)
+9611cb93fa65dd Russell King 2014-06-15  1030  			parent = np;
+9611cb93fa65dd Russell King 2014-06-15  1031  		port = of_get_child_by_name(parent, "port");
+9611cb93fa65dd Russell King 2014-06-15  1032  		of_node_put(np);
+9611cb93fa65dd Russell King 2014-06-15  1033  		if (!port) {
+4bf99144d2b407 Rob Herring  2017-07-18  1034  			dev_err(dev, "no port node found in %pOF\n", parent);
+9611cb93fa65dd Russell King 2014-06-15  1035  			return -ENXIO;
+9611cb93fa65dd Russell King 2014-06-15  1036  		}
+d8c96083cf5e4a Russell King 2014-04-22  1037  	}
+d8c96083cf5e4a Russell King 2014-04-22  1038  
+2627b8898b0e61 Wentao Liang 2026-05-09  1039  	ret = armada_drm_crtc_create(drm, dev, res, irq, variant, port);
+2627b8898b0e61 Wentao Liang 2026-05-09  1040  	if (ret)
+2627b8898b0e61 Wentao Liang 2026-05-09  1041  		of_node_put(port);
+2627b8898b0e61 Wentao Liang 2026-05-09  1042  	return ret;
+d8c96083cf5e4a Russell King 2014-04-22 @1043  }
+d8c96083cf5e4a Russell King 2014-04-22  1044  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
