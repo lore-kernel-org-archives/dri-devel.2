@@ -4,95 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5972ECD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 09:30:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74B69CD4F37
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 09:55:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA4AE10E28A;
-	Tue, 12 May 2026 09:30:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21D6910E1B3;
+	Tue, 12 May 2026 09:55:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="he0vYbcj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DxnuZ0dT";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2F1710E28A
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 09:30:39 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-bd0209f25c1so286543566b.2
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 02:30:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778578238; x=1779183038; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=1i6gK0r7rGWa5W/9WTpQ/H0vww/+AQmB17cNctDGbjU=;
- b=he0vYbcj1hS+a97cnq6aG616guLOIP3ITzlbtCUeND6ZZH1BdMoDWOIO9c6tVDS45A
- n59EGEV32j1ezWGJ53oTULoTed4xL2HrwKGTKdr/ZLhgz0j1+U3upypNxDOY9SDnaN3I
- pa9Kr08pAR0K48W1wAOmuCnz3ub9MYxmZ2KY2OuEWDFEHnNpvKM/iZrrxviGNcL4nAkr
- VEjz18Icwr5t/ysKeUAYsEdVsaTZ/FIPnB3ezFGUUiZ4KAE0rWJEVjwmCgrjN6Et1ETT
- HAfEdYLQ6+dO47cmqnvf220606Uc1PHoRQSenIe9N+Lpy9P1bTEYA5AwDRpQfFSzG/Ym
- EfxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778578238; x=1779183038;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1i6gK0r7rGWa5W/9WTpQ/H0vww/+AQmB17cNctDGbjU=;
- b=YUuKuMvwlSTspLFQCYS5wHO3lKnjrkBlAGwtuALlaQ95XZER4D7MpJULxKxif33rET
- OG7WbvH6wMMlu6BaUeun0XIVefP256MunwtXMSSly/lJu2Pt8EX4fqHWkLnytP2xvisL
- WYgt9W6a65+B4n6j/pUlaj2PoIGByNrCOUjU+v3S1oemwFbuWp7+bJcArIxMSxhWj1go
- h7v+aoNW2Ad9ZfCiJJGwXCDzNdIeL00IAkK1hblRXSFThmeiyvTWfvuLkbJPVhzJc+IF
- xUaE/girlW74deL2wmOMc38XlNQb1Vd5vdqHpGMM7n2pkSskygzlD2pid1VUv4RjAnvG
- E4jw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8ovCU7HoJu64WroE29djiGzVLIT1YpdNZAb/eKBwWmYhC0ELdgOW3WATtEE6TIXRkyI1cOmP7GX3E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwZQlbIxyKT4DBYhTeta/dLlH1c5W4zpAbmRSq2njF2PYezxW7
- WfWXGACwSukLDgC92vZCR+F6ZX3su36t30HBs00rGUK4JP72DxmmeUtd
-X-Gm-Gg: Acq92OHeFmqJFYDfcWYjPlH6KBQleNtU6JQ2DoLeQ6ZRyblEga/5i26/SALgCqtO3Sq
- Ul0uWgyTwwK9ckkclL5te3EPb+DyKWC8TCCC8w3evdGUKIQ6eAiiqS2fRzywr0BxrV0ZP6psf/T
- RSokgWrkZkxtkjy+krqa32t+qZrH2mv3CGp9jaSxOJen95fVUtR8TF1GVQTotRa373HdMJQhI+J
- TMiFAYPRAQx2qrl49aVqskB1YKNmWXrKm+ehyReGz1ynKTkg77aZmnYjFGKgo/JK1GfpkaETwuI
- 4j+acHfwVqpnGhmuIXPaghDUrl6+aFXs4nspKqQTJvTU2YyZFNZAS/CDDSWKBW7FZ+YyFO76Hyf
- KHbCkIZ4p//OiRU7Md0JONW6cR4v8KHjRQUi74MyyXOwf8OTDz6bseCKQGFRPYt76b25unTpZdX
- lKHWsnrct8hoHTKUcatEqOlVdVdEq1xo5SW38Lp+0UiZq2FbnpRKYR6WCL+m559BIu9k5PBnfnQ
- x7nlEvvbunUM8lJc0VOJsevdnclEdi+62Ng53LoXHxcdO8Xpw==
-X-Received: by 2002:a17:907:97d0:b0:bc2:1dab:3ea0 with SMTP id
- a640c23a62f3a-bd28de036d4mr114881866b.8.1778578237873; 
- Tue, 12 May 2026 02:30:37 -0700 (PDT)
-Received: from ?IPV6:2620:10d:c096:325::372? ([2620:10d:c092:600::1:8c90])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bcfb7b17d1fsm303492866b.41.2026.05.12.02.30.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 02:30:37 -0700 (PDT)
-Message-ID: <24cc68b2-c432-4623-92eb-b56b76850c35@gmail.com>
-Date: Tue, 12 May 2026 10:30:34 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C32010E171;
+ Tue, 12 May 2026 09:55:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id AB8EE40DE0;
+ Tue, 12 May 2026 09:55:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0C1C2BCB0;
+ Tue, 12 May 2026 09:55:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778579733;
+ bh=sKtOdshfCoX9MSFc77fz6L3nrgnwT/LACWvUhL5OfVg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DxnuZ0dTMIPrtYkkFNyjpxIU2k1GNR56TB3NXSivcCStVQW683e2Xw7JJczyUi3ta
+ 0MSLaDxb/f5MTm9aKw6LGkBNmmnTOz4uFtrljJyJ5KzusZdrgeDAumATwqAwpSKP/C
+ zk56xho1rCi3cE9YgLBMeZbEYyh48l1MDIHZg91ilibgHasAj1SNo/CG98mUN+NANp
+ kYljsLqCtoetCiGLGlxcrGLPqWEZu8TR4crtz8nDBvdk7piw6acWzgNYk1Hr0Xjg37
+ yYBXRSSWg6Sl/Yrt685291veeK7bzUZGNLPJVMvhsGfsvpqabZ9dMxpC4G0mujHmYS
+ 9Qw2o2ZGnFXhA==
+Date: Tue, 12 May 2026 11:55:30 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Simon Ser <contact@emersion.fr>, 
+ Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Alex Hung <alex.hung@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v3 10/20] drm/plane: Add new atomic_create_state callback
+Message-ID: <20260512-versed-cougar-of-sunshine-dcf86c@houat>
+References: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
+ <20260424-drm-mode-config-init-v3-10-8b68d9db0d8b@kernel.org>
+ <20260504165229.GM1344263@killaraus.ideasonboard.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/10] Add dmabuf read/write via io_uring
-To: Ming Lei <tom.leiming@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <afi7c-VUJWOLlC1m@fedora> <6873d617-c904-45f3-bad9-e1ae39cfecd2@gmail.com>
- <afxgc4hizusnAA26@fedora>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <afxgc4hizusnAA26@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="22373ydgvhi5g6fp"
+Content-Disposition: inline
+In-Reply-To: <20260504165229.GM1344263@killaraus.ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,36 +83,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/7/26 10:50, Ming Lei wrote:
-...
->>> BTW, inspired by this approach, I adds similar feature to ublk via UBLK_IO_F_SHMEM_ZC
->>> which can maintain long-term vfio dma mapping over registered user-place aligned buffer.
->>
->> Interesting, just too a glance, and it looks like what David Wei
->> was thinking to add to fuse, but IIUC he gave up exactly because the
->> client will need to cooperate and that could be troublesome.
-> 
-> Here the cooperation is minimized, maybe one shmem/hugetlb path, or memfd,
-> and it is one optimization and opt-in, and fallback to normal path
-> if application doesn't cooperate.
 
-My point is that with widely enough adopted interface the user will be
-able to opportunistically use it without knowledge about the file, i.e.
-not knowing whether it's ublk or something else. But as you mentioned
-below, it'd be cooperative interface in either case.
->> Should we try to push everything under the same interface instead of
->> keeping a ublk specific one? Again to the point that it requires
-> 
-> If generic interface can be figured out, it shouldn't be a big deal for
-> ublk to switch to it, and the usage is simple actually.
+--22373ydgvhi5g6fp
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 10/20] drm/plane: Add new atomic_create_state callback
+MIME-Version: 1.0
 
-Sure, you'd just need to maintain both as there is a mismatch between
-interfaces.
+Hi,
 
-> So far, ublk supports both FS and nvme block device.
-> 
-> And cooperation can't be avoided for this usage no matter if generic or
-> driver specific implementation is taken, for both fuse & ublk.
--- 
-Pavel Begunkov
+On Mon, May 04, 2026 at 07:52:29PM +0300, Laurent Pinchart wrote:
+> On Fri, Apr 24, 2026 at 12:18:50PM +0200, Maxime Ripard wrote:
+> > Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
+> > to drm_private_obj") introduced a new pattern for allocating drm object
+> > states.
+> >=20
+> > Instead of relying on the reset() callback, it created a new
+> > atomic_create_state hook. This is helpful because reset is a bit
+> > overloaded: it's used to create the initial software state, reset it,
+> > but also reset the hardware.
+> >=20
+> > It can also be used either at probe time, to create the initial state
+> > and possibly reset the hardware to an expected default, but also during
+> > suspend/resume.
+> >=20
+> > Both these cases come with different expectations too: during the
+> > initialization, we want to initialize all states, but during
+> > suspend/resume, drm_private_states for example are expected to be kept
+> > around.
+> >=20
+> > reset() also isn't fallible, which makes it harder to handle
+> > initialization errors properly. This is only really relevant for some
+> > drivers though, since all the helpers for reset only create a new
+> > state, and don't touch the hardware at all.
+> >=20
+> > It was thus decided to create a new hook that would allocate and
+> > initialize a pristine state without any side effect:
+> > atomic_create_state to untangle a bit some of it, and to separate the
+> > initialization with the actual reset one might need during a
+> > suspend/resume.
+> >=20
+> > Continue the transition to the new pattern with planes.
+> >=20
+> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > ---
+> >  drivers/gpu/drm/drm_atomic_state_helper.c | 25 +++++++++++++++++++++++=
+++
+> >  drivers/gpu/drm/drm_mode_config.c         | 21 ++++++++++++++++++++-
+> >  include/drm/drm_atomic_state_helper.h     |  2 ++
+> >  include/drm/drm_plane.h                   | 16 ++++++++++++++++
+> >  4 files changed, 63 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/dr=
+m/drm_atomic_state_helper.c
+> > index 285efbf29520..50fe4eec41a8 100644
+> > --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> > +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> > @@ -338,10 +338,35 @@ void drm_atomic_helper_plane_reset(struct drm_pla=
+ne *plane)
+> >  	if (plane->state)
+> >  		__drm_atomic_helper_plane_reset(plane, plane->state);
+> >  }
+> >  EXPORT_SYMBOL(drm_atomic_helper_plane_reset);
+> > =20
+> > +/**
+> > + * drm_atomic_helper_plane_create_state - default &drm_plane_funcs.ato=
+mic_create_state hook for planes
+>=20
+> drm_atomic_helper_colorop_create_state() states "Allocates and
+> initializes colorop atomic state", while here you document it as
+> "default hook for planes". Consistency would be good.
 
+I don't think it's inconsistent?
+
+colorops don't have a create_state callback, so the only function to
+create it is defined as "Allocates and initializes colorop atomic
+state". For planes, the hook is documented as "Allocates a pristine,
+initialized, state for the plane object and returns it.", and here we
+have the default implementation for that hook, which is documented as
+such.
+
+It all seems consistent to me?
+
+Maxime
+
+--22373ydgvhi5g6fp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCagL5DgAKCRAnX84Zoj2+
+dkRdAYD0DMSjBZG7KznVzXsEfKNp2FbSJf1ulgAd4J6iTdzQ1dB+YlrxnLFoX8sG
+PCH3lKkBgN5APIC+q4CMgKtqaEulFN6SaM58HNWcqL5byNjMi/zSBGs3FJRVyiME
+cyx+95kJPA==
+=j3nb
+-----END PGP SIGNATURE-----
+
+--22373ydgvhi5g6fp--
