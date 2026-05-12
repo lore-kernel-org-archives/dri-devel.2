@@ -4,49 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 103C2CD343F
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 19:56:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 071B2CD4F21
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 20:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6680510EC09;
-	Tue, 12 May 2026 19:56:35 +0000 (UTC)
-Received: from mail-ot1-f77.google.com (mail-ot1-f77.google.com
- [209.85.210.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E49E10EC13
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 19:56:34 +0000 (UTC)
-Received: by mail-ot1-f77.google.com with SMTP id
- 46e09a7af769-7dccbd50e3fso13219366a34.2
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:56:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778615794; x=1779220594;
- h=to:from:subject:message-id:date:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9MV+Cq9aE5IyHX3nuiOoVBxs9Adg3uGO5ZqfquEzdyM=;
- b=CuC+qTb/F80d+vw+wxYBV5pHhxnZAcve2tNAQ5pI9ezL0DGWCmP5d375kGtvRhZD4b
- Vf4S4zjOMFG3v8RBu+XfqhGTDzsbMbWXIzB3sGVB2wnuoq+L5BwZCgV9df3De7bRrTKQ
- I8IkeJ1/4YrEvtcynGwTYPLrgClKGc21xewB9QweCsAAM4wI5gB79irzhStc/sKgdz2m
- LQAwV4FsAv1/BpiFr6wBssfCyyxDS6AYUO9hOGqxrdjUaSlV7Kf6GHwciayNmbnCHnZr
- FO9JO2oqoQ7yhISiBxMeMwp9b1SD39Glw7pamszZ02lFqLBxmhfB15s41qjOoDzBFxUI
- OVgg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9QWgBxHhwy8r7ugk0WrxvADvtKG/hHelBhuc+LBDON0VULHvSzXiemLeplbVylJuGHGlr6gosokCw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjvcxYlZ/PkO+t5FFTw25z5FDhWmNMsAgnw+IRcqY84YCca03/
- qHJvqnFSGBXTq/XhP47pNhIHPYmwxlUTdGzoBohW+dBoxiRXvMPneqDd3bzj/3I+5CSBWD5LV2F
- GlhVwV0cdIiQ5in/p50Zh0/J9eAMvQtSz5UVLvPXThzSMPXW+Vf3ej1pHhVc=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50DB410E29D;
+	Tue, 12 May 2026 20:03:58 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KIjIl6aj";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4C0610E29D;
+ Tue, 12 May 2026 20:03:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 45E4F43C71;
+ Tue, 12 May 2026 20:03:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8DC1C2BCC7;
+ Tue, 12 May 2026 20:03:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778616237;
+ bh=9/k+ifoFJCSYgHDLHTPvrEH83i7caXwmllATzwMZCGk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=KIjIl6ajl6Il1Ptse3PkNF9XpGJXTQrmQvDPgaQe9vG3W42EMOoLKhK6wKqMofeNd
+ NOtKGXFooWolpacmD0F1RL0hXEilE0Ng0pO12E0bWYVfJgOpntpuU5v259SUySMC5M
+ EDR+a1L8zzS4BdwxxKr6iKNLCnTepOUjoBh196ahEI0L6439NtCNgYTjFR0DSaR7Lx
+ ospQ/0xxuZCJVW3NgMNryKT65N+VoMvT6/SdMiOMQuij30uUKJTaSuuRbT4nh3P++j
+ 8b6kd8mYGKBKWY1TlS/3FZ0z3/6J+87OLQ3Mo+YWA9yrhJrMAiQjNDS93BVwHGcgt7
+ veU/NhWWzrRCw==
+Message-ID: <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
+Date: Tue, 12 May 2026 22:03:47 +0200
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:81c8:b0:67e:eb4:238f with SMTP id
- 006d021491bc7-69b78d016d2mr170190eaf.18.1778615793784; Tue, 12 May 2026
- 12:56:33 -0700 (PDT)
-Date: Tue, 12 May 2026 12:56:33 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a0385f1.a00a0220.3890a0.0002.GAE@google.com>
-Subject: [syzbot] [dri?] WARNING in drm_prime_destroy_file_private (3)
-From: syzbot <syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com>
-To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
- tzimmermann@suse.de
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Brendan Jackman <jackmanb@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
+ <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
+ <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
+ <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,92 +120,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+On 5/12/26 13:31, Thomas Hellström wrote:
+> Hi David,
+> 
+> Thanks for having a look.
+> 
+> On Tue, 2026-05-12 at 13:07 +0200, David Hildenbrand (Arm) wrote:
+>>
+>>>  
+>>> +/**
+>>> + * undo_compound_page() - Reverse the effect of
+>>> prep_compound_page().
+>>> + * @page: The head page of a compound page to demote.
+>>> + *
+>>> + * Returns the pages to non-compound state as if
+>>> prep_compound_page()
+>>> + * had never been called.  split_page() must NOT have been called
+>>> on
+>>> + * the compound page; tail refcounts must be 0.  The caller must
+>>> ensure
+>>> + * no other users hold references to the compound page.
+>>> + */
+>>> +void undo_compound_page(struct page *page)
+>>> +{
+>>> +	unsigned int i, nr = 1U << compound_order(page);
+>>> +
+>>> +	page[1].flags.f &= ~PAGE_FLAGS_SECOND;
+>>> +	for (i = 1; i < nr; i++) {
+>>> +		page[i].mapping = NULL;
+>>> +		clear_compound_head(&page[i]);
+>>> +	}
+>>> +	ClearPageHead(page);
+>>> +}
+>>> +
+>>>  static inline void set_buddy_order(struct page *page, unsigned int
+>>> order)
+>>>  {
+>>>  	set_page_private(page, order);
+>>> diff --git a/mm/shmem.c b/mm/shmem.c
+>>> index 3b5dc21b323c..45e80a74f77c 100644
+>>> --- a/mm/shmem.c
+>>> +++ b/mm/shmem.c
+>>> @@ -937,6 +937,111 @@ int shmem_add_to_page_cache(struct folio
+>>> *folio,
+>>>  	return 0;
+>>>  }
+>>>  
+>>> +/**
+>>> + * shmem_insert_folio() - Insert an isolated folio into a shmem
+>>> file.
+>>> + * @file: The shmem file created with shmem_file_setup().
+>>> + * @folio: The folio to insert. Must be isolated (not on LRU),
+>>> unlocked,
+>>> + *         have exactly one reference (the caller's), have no
+>>> page-table
+>>> + *         mappings, and have folio->mapping == NULL.
+>>> + * @order: The allocation order of @folio.  If @order > 0 and
+>>> @folio is
+>>> + *         not already a large (compound) folio, it will be
+>>> promoted to a
+>>> + *         compound folio of this order inside this function. 
+>>> This requires
+>>> + *         the standard post-alloc state: head refcount == 1, tail
+>>> + *         refcounts == 0 (i.e. split_page() must NOT have been
+>>> called).
+>>> + *         On failure the promotion is reversed and the folio is
+>>> returned
+>>> + *         to its original non-compound state.
+>>> + * @index: Page-cache index at which to insert. Must be aligned to
+>>> + *         (1 << @order) and within the file's size.
+>>> + * @writeback: If true, attempt immediate writeback to swap after
+>>> insertion.
+>>> + *             Best-effort; failure is silently ignored.
+>>> + * @folio_gfp: The GFP flags to use for memory-cgroup charging.
+>>> + *
+>>> + * The folio is inserted zero-copy into the shmem page cache and
+>>> placed on
+>>> + * the anon LRU, where it participates in normal kernel reclaim
+>>> (written to
+>>> + * swap under memory pressure).  Any previous content at @index is
+>>> discarded.
+>>> + * On success the caller should release their reference with
+>>> folio_put() and
+>>> + * track the (@file, @index) pair for later recovery via
+>>> shmem_read_folio()
+>>> + * and release via shmem_truncate_range().
+>>> + *
+>>> + * Return: 0 on success.  On failure the folio is returned to its
+>>> original
+>>> + * state and the caller retains ownership.
+>>> + */
+>>> +int shmem_insert_folio(struct file *file, struct folio *folio,
+>>> unsigned int order,
+>>> +		       pgoff_t index, bool writeback, gfp_t
+>>> folio_gfp)
+>>> +{
+>>> +	struct address_space *mapping = file->f_mapping;
+>>> +	struct inode *inode = mapping->host;
+>>> +	bool promoted;
+>>> +	long nr_pages;
+>>> +	int ret;
+>>> +
+>>> +	promoted = order > 0 && !folio_test_large(folio);
+>>> +	if (promoted)
+>>> +		prep_compound_page(&folio->page, order);
+>>> +	nr_pages = folio_nr_pages(folio);
+>>> +
+>>> +	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+>>> +	VM_BUG_ON_FOLIO(folio_mapped(folio), folio);
+>>> +	VM_BUG_ON_FOLIO(folio_test_swapcache(folio), folio);
+>>> +	VM_BUG_ON_FOLIO(folio->mapping, folio);
+>>> +	VM_BUG_ON(index != round_down(index, nr_pages));
+>>
+>> No new VM_BUG_ON_FOLIO etc.
+> 
+> OK, can eliminate those. Is VM_WARN_ON_FOLIO() preferred,
+> or any other type of assert?
 
-syzbot found the following issue on:
+VM_WARN_ON_FOLIO() is usually what you want, or VM_WARN_ON_ONCE().
 
-HEAD commit:    81d6f7807536 Merge tag 'v7.1-rc3-smb3-client-fixes' of git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=159b10c8580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=59da38148f3a3d24
-dashboard link: https://syzkaller.appspot.com/bug?extid=d7c9eed171647e421013
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12332a73980000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=161a3dba580000
+> 
+>>
+>> But in general, pushing in random allocated pages into shmem,
+>> converting them to
+>> folios is not something I particularly enjoy seeing.
+>>
+> 
+> OK, let me understand the concern. The pages are allocated as multi-
+> page folios using alloc_pages(gfp, order), but typically not promoted
+> to compound pages, until inserted here. Is it that promotion that is of
+> concern or inserting pages of unknown origin into shmem? Anything we
+> can do to alleviate that concern?
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/61f8711360b2/disk-81d6f780.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ddb7a0f311fa/vmlinux-81d6f780.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/4c64e3d1de5c/bzImage-81d6f780.xz
+It's all rather questionable.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
+A couple of points:
 
-------------[ cut here ]------------
-!RB_EMPTY_ROOT(&prime_fpriv->dmabufs)
-WARNING: drivers/gpu/drm/drm_prime.c:224 at drm_prime_destroy_file_private+0x48/0x60 drivers/gpu/drm/drm_prime.c:224, CPU#0: syz.0.17/5833
-Modules linked in:
-CPU: 0 UID: 0 PID: 5833 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 04/18/2026
-RIP: 0010:drm_prime_destroy_file_private+0x48/0x60 drivers/gpu/drm/drm_prime.c:224
-Code: 48 89 fa 48 c1 ea 03 80 3c 02 00 75 2b 48 8b 83 88 00 00 00 48 85 c0 75 0b e8 84 dd 65 fc 5b e9 7e d5 ea 05 e8 79 dd 65 fc 90 <0f> 0b 90 e8 70 dd 65 fc 5b c3 cc cc cc cc e8 85 95 d3 fc eb ce 0f
-RSP: 0018:ffffc90003487ca0 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffff88807e729328 RCX: ffffffff8b8bb2bd
-RDX: ffff888030b68000 RSI: ffffffff85a2b5a7 RDI: ffff88807e7293b0
-RBP: ffff88807e729000 R08: 0000000000000001 R09: fffff52000690f74
-R10: ffffc90003487ba7 R11: ffffffff82761cc4 R12: ffff8880276dc000
-R13: ffff88807e729260 R14: 0000000000000000 R15: ffff88807e729288
-FS:  000055555c7ad500(0000) GS:ffff888124373000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fe5c5586400 CR3: 0000000072cb9000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- drm_file_free.part.0+0x7e6/0xcc0 drivers/gpu/drm/drm_file.c:269
- drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
- drm_close_helper.isra.0+0x186/0x200 drivers/gpu/drm/drm_file.c:290
- drm_release+0x1ab/0x360 drivers/gpu/drm/drm_file.c:438
- __fput+0x3ff/0xb50 fs/file_table.c:510
- task_work_run+0x150/0x240 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:67 [inline]
- exit_to_user_mode_loop+0x100/0x4a0 kernel/entry/common.c:98
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:238 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
- do_syscall_64+0x706/0xf80 arch/x86/entry/syscall_64.c:100
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fe5c559cdd9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffd7c1af318 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
-RAX: 0000000000000000 RBX: 00007ffd7c1af400 RCX: 00007fe5c559cdd9
-RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
-RBP: 00000000000117cd R08: 0000000000000001 R09: 0000000000000000
-R10: 0000001b33020000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fe5c5815fac R14: 00007fe5c5815fa8 R15: 00007fe5c5815fa0
- </TASK>
+a) The pages are allocated to be unmovable, but adding them to shmem effectively
+   turns them movable. Now you interfere with the page allocator logic of
+   placing movable and unmovable pages a reasonable way into
+   pageblocks that group allocations of similar types.
+
+b) A driver is not supposed to decide which folio size will be allocated for
+   shmem. I am not even sure if there is a fencing on
+   CONFIG_TRANSPARENT_HUGEPAGE somewhere when ending up with large folios. order
+   > PMD_ORDER is currently essentially unsupported, and I suspect your code
+   would  even allow for that (looking at ttm_pool_alloc_find_order).
+
+   We also have some problems with the pagecache not actually supporting all
+   MAX_PAGE_ORDER orders (see MAX_PAGECACHE_ORDER).
+
+   You are bypassing shmem logic to decide on that completely.
+
+   While these things might not actually cause harm for you today (although I
+   suspect some of them might in shmem swapout code), we don't want drivers to
+   make our life harder by doing completely unexpected things.
+
+c) You pass folio + order, which is just the red flag that you are doing
+   something extremely dodgy.
+
+   You just cast something that is not a folio, and was not allocated to be a
+   folio to a folio through page_folio(page). That will stop working completely
+   in the future once we decouple struct page from struct folio.
+
+   If it's not a folio with a proper set order, you should be passing page +
+   order.
+
+d) We are once more open-coding creation of a folio, by hand-crafting it
+   ourselves.
+
+   We have folio_alloc() and friends for a reason. Where we, for example, do a
+   page_rmappable_folio().
+
+   I am pretty sure that you are missing a call to page_rmappable_folio(),
+   resulting in the large folios not getting folio_set_large_rmappable() set.
+
+e) undo_compound_page(). No words.
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+*maybe* it would be a little less bad if you would just allocate a compound page
+in your driver and use page_rmappable_folio() in there.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+That wouldn't change a) or b), though.
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+> 
+> Given the problem statement in the cover-letter, would there be a
+> better direction to take here? We could, for example, bypass shmem and
+> insert the folios directly into the swap-cache, (although there is an
+> issue with the swap-cache when the number of swap_entries are close to
+> being depleted).
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Good question.
+We'd have to keep swapoff and all of that working. For example, in
+try_to_unuse(), we special-case shmem_unuse() to handle non-anonymous pages.
 
-If you want to undo deduplication, reply with:
-#syz undup
+But then, the whole swapcache operates on folios ... so I am not sure if there
+is a lot to be won by re-implementing what shmem already does?
+
+-- 
+Cheers,
+
+David
