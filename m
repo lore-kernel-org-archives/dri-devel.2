@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F6D1CD343F
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 17:49:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA588CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 18:01:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9785C88D18;
-	Tue, 12 May 2026 17:49:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1492810EBBF;
+	Tue, 12 May 2026 18:01:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aC03QF1i";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WwO3m3bO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9172510EBA7
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 17:49:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D79310EBA7
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 18:01:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 65FB24049A;
- Tue, 12 May 2026 17:49:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA7DC2BCB0;
- Tue, 12 May 2026 17:49:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8158A60103;
+ Tue, 12 May 2026 18:01:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC678C2BCB0;
+ Tue, 12 May 2026 18:01:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1778608165;
- bh=/VaqD2NcPVmlTIba4tR6oSQlc15W+HOFadGsnqKAR7M=;
+ s=korg; t=1778608884;
+ bh=AdAp6jBzAfpm9E3kyLLovs3kOMMilT45qH4IrmSCOnk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aC03QF1iOdGYAk+zv0OuOmIHtsSgdlCOLycvyotbtAD2O0/fY9IBEOKEbW5ElNiXs
- fHE2MqSThi5hfoorALs/b0VLrkKsARLKpSEexM67eKVvwb0eeG8G7LxKeN0OyT20i1
- ZDTtTdyZje2OxL7Uj9DLbk2NryEbSDKJviBvWysQ=
+ b=WwO3m3bO05Mv2k0CgyxRn0EHRcgb9c4JoWpsw7iYBGTuWUDdyNXlQ5w0YmSUJF3UL
+ ENK8QMAw2FF6KJchGgfaSHKJaizwvjaE5G+df7hvDfHTdWl9/J7Rs3dBNJifv9ZF/Z
+ TyhtrrQY/iHbIxWiNGauixXusn7GFDF9P6Ls2ytE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>,
  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 179/206] fbdev: defio: Disconnect deferred I/O from the
+Subject: [PATCH 6.18 250/270] fbdev: defio: Disconnect deferred I/O from the
  lifetime of struct fb_info
-Date: Tue, 12 May 2026 19:40:31 +0200
-Message-ID: <20260512173936.650816671@linuxfoundation.org>
+Date: Tue, 12 May 2026 19:40:51 +0200
+Message-ID: <20260512173943.703462693@linuxfoundation.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260512173932.810559588@linuxfoundation.org>
-References: <20260512173932.810559588@linuxfoundation.org>
+In-Reply-To: <20260512173938.452574370@linuxfoundation.org>
+References: <20260512173938.452574370@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -60,7 +60,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -87,17 +87,17 @@ Cc: linux-fbdev@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org
 Cc: stable@vger.kernel.org # v2.6.22+
 Signed-off-by: Helge Deller <deller@gmx.de>
-[ replaced `kzalloc_obj()` with `kzalloc(sizeof(*fbdefio_state), GFP_KERNEL)` ]
+[ replaced kzalloc_obj(*fbdefio_state) with kzalloc(sizeof(*fbdefio_state), GFP_KERNEL) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/video/fbdev/core/fb_defio.c |  179 ++++++++++++++++++++++++++++--------
+ drivers/video/fbdev/core/fb_defio.c |  178 ++++++++++++++++++++++++++++--------
  include/linux/fb.h                  |    4 
- 2 files changed, 145 insertions(+), 38 deletions(-)
+ 2 files changed, 145 insertions(+), 37 deletions(-)
 
 --- a/drivers/video/fbdev/core/fb_defio.c
 +++ b/drivers/video/fbdev/core/fb_defio.c
-@@ -23,6 +23,75 @@
+@@ -24,6 +24,75 @@
  #include <linux/rmap.h>
  #include <linux/pagemap.h>
  
@@ -173,7 +173,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  static struct page *fb_deferred_io_get_page(struct fb_info *info, unsigned long offs)
  {
  	struct fb_deferred_io *fbdefio = info->fbdefio;
-@@ -128,17 +197,31 @@ static void fb_deferred_io_pageref_put(s
+@@ -121,25 +190,46 @@ static void fb_deferred_io_pageref_put(s
  /* this is to find and return the vmalloc-ed fb pages */
  static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
  {
@@ -208,11 +208,10 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 +		goto err_mutex_unlock;
 +	}
  
- 	if (vmf->vma->vm_file)
- 		page->mapping = vmf->vma->vm_file->f_mapping;
-@@ -148,8 +231,15 @@ static vm_fault_t fb_deferred_io_fault(s
- 	BUG_ON(!page->mapping);
- 	page->index = vmf->pgoff; /* for folio_mkclean() */
+ 	if (!vmf->vma->vm_file)
+ 		fb_err(info, "no mapping available\n");
+ 
+ 	BUG_ON(!info->fbdefio->mapping);
  
 +	mutex_unlock(&fbdefio_state->lock);
 +
@@ -226,7 +225,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  }
  
  int fb_deferred_io_fsync(struct file *file, loff_t start, loff_t end, int datasync)
-@@ -176,15 +266,24 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
+@@ -166,15 +256,24 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
   * Adds a page to the dirty list. Call this from struct
   * vm_operations_struct.page_mkwrite.
   */
@@ -255,7 +254,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  
  	pageref = fb_deferred_io_pageref_get(info, offset, page);
  	if (WARN_ON_ONCE(!pageref)) {
-@@ -202,50 +301,38 @@ static vm_fault_t fb_deferred_io_track_p
+@@ -192,50 +291,38 @@ static vm_fault_t fb_deferred_io_track_p
  	 */
  	lock_page(pageref->page);
  
@@ -315,7 +314,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	.fault		= fb_deferred_io_fault,
  	.page_mkwrite	= fb_deferred_io_mkwrite,
  };
-@@ -262,7 +349,10 @@ int fb_deferred_io_mmap(struct fb_info *
+@@ -252,7 +339,10 @@ int fb_deferred_io_mmap(struct fb_info *
  	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
  	if (!(info->flags & FBINFO_VIRTFB))
  		vm_flags_set(vma, VM_IO);
@@ -327,19 +326,19 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	return 0;
  }
  EXPORT_SYMBOL_GPL(fb_deferred_io_mmap);
-@@ -273,9 +363,10 @@ static void fb_deferred_io_work(struct w
+@@ -263,9 +353,10 @@ static void fb_deferred_io_work(struct w
  	struct fb_info *info = container_of(work, struct fb_info, deferred_work.work);
  	struct fb_deferred_io_pageref *pageref, *next;
  	struct fb_deferred_io *fbdefio = info->fbdefio;
 +	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
  
- 	/* here we mkclean the pages, then do all deferred IO */
+ 	/* here we wrprotect the page's mappings, then do all deferred IO. */
 -	mutex_lock(&fbdefio->lock);
 +	mutex_lock(&fbdefio_state->lock);
+ #ifdef CONFIG_MMU
  	list_for_each_entry(pageref, &fbdefio->pagereflist, list) {
- 		struct folio *folio = page_folio(pageref->page);
- 
-@@ -291,12 +382,13 @@ static void fb_deferred_io_work(struct w
+ 		struct page *page = pageref->page;
+@@ -283,12 +374,13 @@ static void fb_deferred_io_work(struct w
  	list_for_each_entry_safe(pageref, next, &fbdefio->pagereflist, list)
  		fb_deferred_io_pageref_put(pageref, info);
  
@@ -354,7 +353,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	struct fb_deferred_io_pageref *pagerefs;
  	unsigned long npagerefs;
  	int ret;
-@@ -306,7 +398,11 @@ int fb_deferred_io_init(struct fb_info *
+@@ -298,7 +390,11 @@ int fb_deferred_io_init(struct fb_info *
  	if (WARN_ON(!info->fix.smem_len))
  		return -EINVAL;
  
@@ -367,7 +366,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	INIT_DELAYED_WORK(&info->deferred_work, fb_deferred_io_work);
  	INIT_LIST_HEAD(&fbdefio->pagereflist);
  	if (fbdefio->delay == 0) /* set a default of 1 s */
-@@ -323,10 +419,12 @@ int fb_deferred_io_init(struct fb_info *
+@@ -315,10 +411,12 @@ int fb_deferred_io_init(struct fb_info *
  	info->npagerefs = npagerefs;
  	info->pagerefs = pagerefs;
  
@@ -381,11 +380,10 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	return ret;
  }
  EXPORT_SYMBOL_GPL(fb_deferred_io_init);
-@@ -364,11 +462,18 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release
- 
+@@ -352,11 +450,19 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release
  void fb_deferred_io_cleanup(struct fb_info *info)
  {
--	struct fb_deferred_io *fbdefio = info->fbdefio;
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
 +	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
  
  	fb_deferred_io_lastclose(info);
@@ -400,16 +398,18 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 +
  	kvfree(info->pagerefs);
 -	mutex_destroy(&fbdefio->lock);
+ 	fbdefio->mapping = NULL;
  }
  EXPORT_SYMBOL_GPL(fb_deferred_io_cleanup);
 --- a/include/linux/fb.h
 +++ b/include/linux/fb.h
-@@ -222,12 +222,13 @@ struct fb_deferred_io {
+@@ -217,13 +217,14 @@ struct fb_deferred_io {
  	unsigned long delay;
  	bool sort_pagereflist; /* sort pagelist by offset */
  	int open_count; /* number of opened files; protected by fb_info lock */
 -	struct mutex lock; /* mutex that protects the pageref list */
  	struct list_head pagereflist; /* list of pagerefs for touched pages */
+ 	struct address_space *mapping; /* page cache object for fb device */
  	/* callback */
  	struct page *(*get_page)(struct fb_info *info, unsigned long offset);
  	void (*deferred_io)(struct fb_info *info, struct list_head *pagelist);
@@ -419,7 +419,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  #endif
  
  /*
-@@ -485,6 +486,7 @@ struct fb_info {
+@@ -490,6 +491,7 @@ struct fb_info {
  	unsigned long npagerefs;
  	struct fb_deferred_io_pageref *pagerefs;
  	struct fb_deferred_io *fbdefio;
