@@ -4,49 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D6DFCD4F26
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 08:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3BEACD4F26
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 08:24:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7FD110E9B2;
-	Tue, 12 May 2026 08:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D49B10E9A0;
+	Tue, 12 May 2026 08:24:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DDiwNGwe";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BRxAa6HR";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 943AA10E9A8
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 08:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=+0PEtEuzG6oV5e85QFWV72fcI9rgE3EI/752M9oIxUA=; b=DDiwNGwe9QWg4sWXNr6yFA5jZg
- iaiKuHDPcuvMlJpxogezIEqXMcMAg7leCYFGcLPlvaZjYtPsfGHHwlTX8HwZSKkpCP9RRr3r9Vdzp
- bRuE3HRhPmWoJm0bDD/4W32bNL9TVea+wDZU6R2MKnXhib4Jp20rICSCFS80f7coDh0DyUJUBVQbS
- NBa6AB3Zjf3DRFu0w/atNWiF+bCTRe5RZSkNFZUybVdWbT8s1ThCC7r+IfS4R83EhgvcEqcru6UUM
- kh8neZ4Hov0rgFCU0zLYfajrURCsTUZSkD18LODFqWxcZNmdNsrewayFOj8Ma8ofH17NF7xWO9Nwr
- shvQSvng==;
-Received: from static-197-2-86-188.ipcom.comunitel.net ([188.86.2.197]
- helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wMiM7-009MuM-1N; Tue, 12 May 2026 10:20:42 +0200
-Message-ID: <7afa2b5b743d76f6f9ddf4bf58997e2ac178a0ba.camel@igalia.com>
-Subject: Re: [PATCH 1/2] drm/v3d: Refactor perfmon locking
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Date: Tue, 12 May 2026 10:20:31 +0200
-In-Reply-To: <20260508-v3d-perfmon-lifetime-v1-1-f5b5642c085f@igalia.com>
-References: <20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com>
- <20260508-v3d-perfmon-lifetime-v1-1-f5b5642c085f@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06EF910E689;
+ Tue, 12 May 2026 08:24:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778574271; x=1810110271;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=xc0h2c0hTybRTSZ+FW2dCypjXJeU1NQ2RPW7zVtWjvI=;
+ b=BRxAa6HRAjBtkzbaiNs7/EWIvQKFnlmjJEKnZQHq54/tU0vn+GcjuG1c
+ pj1bXn7sMOIEuY6A8AyoX5lHHtT5VzN5II/SZiYA4iNEvTyKJoOFDFFLZ
+ OJHa8FV4g+Rd93g83ONqnLceHg8DOxHBwc5+LYhSle6wcSy0+wj1/ahFC
+ Hp6s+xbE/hYvVE97c/fg0ayEeeyjPSL9x6f9iTIIgj9exKhL6LAiyp91Z
+ 9k5tR2/W4R7mngwKk/bwtpSxkf3Ip7SmG7hiS6g3wwPFoZgVamYhrGadM
+ h9UQfETnhlQSZI28tLH/3Hd+6fZDC16XlPrEr82eD9XDIjH+kr6H6Koik g==;
+X-CSE-ConnectionGUID: hWD5Hf9iQdaJOASdGB+lzg==
+X-CSE-MsgGUID: +8wE3hXzS2+K+/7DwCzpzQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79194951"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="79194951"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 01:24:31 -0700
+X-CSE-ConnectionGUID: qJawPWxjTCKRJOtEr5rDnw==
+X-CSE-MsgGUID: wG9sh6JfR2urEwoB3UyDsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="237945499"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO fedora) ([10.245.245.172])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 01:24:24 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/5] Add reclaim to the dmem cgroup controller
+Date: Tue, 12 May 2026 10:24:01 +0200
+Message-ID: <20260512082406.44470-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,76 +80,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-El vie, 08-05-2026 a las 10:41 -0300, Ma=C3=ADra Canal escribi=C3=B3:
->=20
-(...)
-> +void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon
-> *perfmon)
-> +{
-> +	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
-> +
-> +	perfmon =3D v3d->global_perfmon ?: perfmon;
-> +
+When writing a "max" limit lower than the current usage, the
+existing code silently failed. This series aims to improve
+on that by returning -EBUSY on failure and also attempt
+to synchronously reclaim device memory to push the usage
+under the new max limit to avoid the error.
 
+Patch 1 fixes a pre-existing amdgpu_vram_mgr_init() error path
+Patch 2 implements and documents a reclaim callback interface
+      for the dmem controller.
+Patch 3 implements a TTM reclaim callback.
+Patch 4-5 hooks up the reclaim callback to the dmem cgroups-
+      aware drivers xe and amdgpu.
 
-What's the rationale for having this function do this? The caller
-explicitly passes a perfmon to be started, but this here can ignore
-that and instead act on the global perform under the hood.
+v2:
+- Remove the error propagation that was in a previous series (Maarten)
+- A number of updates in patch 1. See its commit message for
+  details (Maarten)
 
-I think it would be better if this decision is made expicitly before
-calling the function and have the function always act on the perfmon
-requested instead.
+v3:
+- Add patch 1 fixing a pre-existing amdgpu_vram_mgr_init() error path
+  bug where drmm_cgroup_register_region() was called before
+  INIT_LIST_HEAD() and gpu_buddy_init(), causing a kernel panic on
+  failure. (Sashiko-bot)
+- Use an rwsem to protect reclaim callback registration and region
+  unregister against concurrent reclaim invocations. (Sashiko-bot)
+- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+  in man->cg unconditionally. (Sashiko-bot)
+- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+  ttm_resource_manager_set_dmem_region().
 
+v4:
+- Rebased on drm-tip; dropped the XE_PL_STOLEN guard in the xe patch
+  as stolen memory uses a separate TTM manager.
 
-> +	if (!perfmon)
-> +		return;
-> +
-> +	if (perfmon =3D=3D v3d->perfmon_state.active)
-> +		return;
-> +
-> +	if (!pm_runtime_get_if_active(v3d->drm.dev))
-> +		return;
-> +
-> +	v3d_perfmon_hw_start(v3d, perfmon);
-> +	v3d->perfmon_state.active =3D perfmon;
-> +
-> +	v3d_pm_runtime_put(v3d);
-> +}
-> +
->=20
-(...)
-> =C2=A0
-> =C2=A0struct v3d_perfmon *v3d_perfmon_find(struct v3d_file_priv *v3d_priv=
-,
-> int id)
-> @@ -316,11 +354,15 @@ static void v3d_perfmon_delete(struct
-> v3d_file_priv *v3d_priv,
-> =C2=A0	struct v3d_dev *v3d =3D v3d_priv->v3d;
-> =C2=A0
-> =C2=A0	/* If the active perfmon is being destroyed, stop it first
-> */
-> -	if (perfmon =3D=3D v3d->active_perfmon)
-> -		v3d_perfmon_stop(v3d, perfmon, false);
-> +	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
-> +		/* If the global perfmon is being destroyed, set it
-> to NULL */
-> +		if (v3d->global_perfmon =3D=3D perfmon) {
-> +			v3d->global_perfmon =3D NULL;
-> +			v3d_perfmon_put(perfmon);
-> +		}
-> =C2=A0
-> -	/* If the global perfmon is being destroyed, set it to NULL
-> */
-> -	cmpxchg(&v3d->global_perfmon, perfmon, NULL);
-> +		v3d_perfmon_stop_locked(v3d, perfmon, false);
+User-space tests are at
+https://patchwork.freedesktop.org/series/163935/
 
-I think it would be better to stop the perfmon first and check if it is
-global second, even if we are certain the put above is never going to
-delete the last reference in that scenario.
+Test-with: 20260428065411.4222-1-thomas.hellstrom@linux.intel.com
 
-Also, maybe we would want to document here with a comment that we
-increase the refcnt when we set a global perfmon, which is why in that
-case we put it twice when it is destroyed.
+Thomas Hellström (5):
+  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+  cgroup/dmem: Add reclaim callback for lowering max below current usage
+  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
+    controller
+  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
 
-Iago
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  10 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                 |  95 ++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c            |   3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c           |  37 +++++++
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  14 ++-
+ include/drm/ttm/ttm_bo.h                     |  10 ++
+ include/drm/ttm/ttm_resource.h               |   4 +
+ include/linux/cgroup_dmem.h                  |  24 +++++
+ kernel/cgroup/dmem.c                         | 106 +++++++++++++++++--
+ 10 files changed, 283 insertions(+), 22 deletions(-)
+
+-- 
+2.54.0
 
