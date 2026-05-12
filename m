@@ -4,99 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE37ECD4F21
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 19:29:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 103C2CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 19:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5862F10EC0B;
-	Tue, 12 May 2026 19:29:23 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="re5CdU8s";
-	dkim-atps=neutral
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1514C10EC0B
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 19:29:22 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-7c307937816so25558897b3.0
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:29:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778614161; cv=none;
- d=google.com; s=arc-20240605;
- b=Fo5PohDv3hP0Tr6kLCsLGSEthsw0rFm67scE2peerkZCcW97VPhc5hg0mYye3rA0hb
- iCsl5is27y3AW8kUUh4RUPvpi2ZFc/oDZeoH4b95w8xtZym493tjQ3rvy7TgH+puZysM
- BY9B4FieCgLJQIVu3j57CipEKMqIrBs52f9XICgZH6nTWqXCQ47/lzjeosZh1TEnuz4s
- BW1Ug/zrOMw4tPrLg4IlS/VYKO8/SZbmWtpJeO5eB6vHapCwqLG2BSrudusEKzswrCqw
- JmGkptE8LJ2sv7kNKE3xyBG3+eKQR9M8+laEwtV9QqnFufEHdkBbA8QdEvQMX2jiBZt5
- wtIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=y5V4NY9ZfIn3k+L0lU/q3EoovALvOkQaJ8OcuP6pZO8=;
- fh=cFxtc/R4kO8khNHXEN4PdhTzFIr9HDs4wYJJXejY5+Y=;
- b=gkVBsPVPFn368lMbAwKQfBq/EGN+f24j67m2lShL4pdz2L5+yfGwaeVezs3ZAg3w6Q
- w/BhJ0BDIh5HYoPr/1zXZDHympnutr+/OEQunxPJqlXzPEETUaSEbwUw9ofr8v8cQFYi
- KK6Y+mrpiSlkXtHFu1/MOsJXZYAqKswDAnvxCk8NPA1MMVB8moVBRWU6VXupsI14Qa5A
- cJPdICPK66SrA7Bdq0Xsv0PzgWQYyrmPICV1JrXadic7Iv+7cFscK3sGoRg8PysXOYXY
- yp5m6oIMohWdETbZkm9t3OdhotD9U+cj38Mnp7uBFUus/vDqbiNvXbw6wJgUE7h5ePW7
- J4VQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778614161; x=1779218961; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=y5V4NY9ZfIn3k+L0lU/q3EoovALvOkQaJ8OcuP6pZO8=;
- b=re5CdU8saTmjZQK1HIZPZz9VHFj2qYQL5NtrkjoLYYrnxS9yI8vTbPV3yWoc24bjqv
- Wga0cK99ZAYYTCotlyN0h8upUsA7yItJF9HzEWOxfVLv1CugTblPGxCiytPnbN3PZzy5
- js1waGxTH7/Wy/4ecsCx5MPEXwwDi0i5sAWY+Pl1ghxNXqkFAzwCF+M4wbQigKExSEwC
- 7BjlTDoLY2U8oosEzEbm5efBm676pZ8hsIW+SrtpZtZdCL1dofk0EWEwcAWpGAaH4hJc
- IAUvrjQ9R1lyYit9kLn0Bez7f4UvNIRjrNLG+lN15U7vnKf5fVV8tFYUB+GNrDyPcylz
- 7RPA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6680510EC09;
+	Tue, 12 May 2026 19:56:35 +0000 (UTC)
+Received: from mail-ot1-f77.google.com (mail-ot1-f77.google.com
+ [209.85.210.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E49E10EC13
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 19:56:34 +0000 (UTC)
+Received: by mail-ot1-f77.google.com with SMTP id
+ 46e09a7af769-7dccbd50e3fso13219366a34.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:56:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778614161; x=1779218961;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=y5V4NY9ZfIn3k+L0lU/q3EoovALvOkQaJ8OcuP6pZO8=;
- b=QGPdPMc1zgSf10SMDf9x1UG/yWYCl4XT7f6ydkEXbqBQJ7QGd0dwwifgBlk7p/a/20
- chT/23uL3tT2kUpg0ZRyrkdbiGRJduBwOM+DzwYBO+7AqUOESGHgBLnleL8vqvI4Q76v
- VX9DuDaEibREpZqC2h4oqU8/9lN8o0NKq/oIZ6rDyybGbfcL4ZPdF743halRTKdIZXQo
- RqQLh1wcUtDcsOtCStoRFiqcxo7Dcnv7MqM7WC3PHVgrU+swW99saJDqgEfBIc7iCTXs
- PHiYnAomrTTpELah/Vx5gf61DmANe1Q/s7CSH/Z0j8rzxbCf/3eYr7rZ3ovuxytrl1yG
- sipQ==
+ d=1e100.net; s=20251104; t=1778615794; x=1779220594;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9MV+Cq9aE5IyHX3nuiOoVBxs9Adg3uGO5ZqfquEzdyM=;
+ b=CuC+qTb/F80d+vw+wxYBV5pHhxnZAcve2tNAQ5pI9ezL0DGWCmP5d375kGtvRhZD4b
+ Vf4S4zjOMFG3v8RBu+XfqhGTDzsbMbWXIzB3sGVB2wnuoq+L5BwZCgV9df3De7bRrTKQ
+ I8IkeJ1/4YrEvtcynGwTYPLrgClKGc21xewB9QweCsAAM4wI5gB79irzhStc/sKgdz2m
+ LQAwV4FsAv1/BpiFr6wBssfCyyxDS6AYUO9hOGqxrdjUaSlV7Kf6GHwciayNmbnCHnZr
+ FO9JO2oqoQ7yhISiBxMeMwp9b1SD39Glw7pamszZ02lFqLBxmhfB15s41qjOoDzBFxUI
+ OVgg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+jaC6lFNVqJ6o0hQFVdom5XOoO02ilRHs4cmCI85Hm6oBspeZTcUE5uFARffugDIyd0QYlYWaUH+o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1WJRGFxoH6crHcVk7xKZ9LBCk3BkBtpbldUU+GunTI+Ei2bi0
- muDu07zIZIq+aMqdxy1wl9IUVqpIGOmuXqmj74A3r739UMoe/OBvQ/syBFCkWr3QuLQqCRZeeXu
- B4GPOR8zyQamuIxQXIivYpbaFoFLqEpc=
-X-Gm-Gg: Acq92OFcJNpq9IG8b2/rK6IZBwAgjytM8CYhf7bwMPj/b3LsSpMfAnhVDk64TVjKsO0
- 8DEfbCIi9uhABnTNTn4Qw69jLWsJ2SWNmPUlj8M6SkWTT7x7YJKulSzV3veVfy4Nh0Vt9sp6ft7
- M7gYMm7kkyRzEBjvcnQQVwqIWC+jY+caqoGFp0sTm9P05cfuA5FfNmjjkVe0LuRGSueJEARFfAX
- wLRW27An0pE+kWrurxQcS7mdhg3fQsTCchu2+xELr8UErX9nTp/Zj4DJdi/iVKqRzePYpCFoga2
- s8ureHeOF364u9msI0PjY38RpFp0T3T8bJOAHxAT3RSeVON7A6uJZzUfwwqhzpUu2luRcjUBNQ=
- =
-X-Received: by 2002:a05:690c:e1c6:20b0:7ba:ded4:df58 with SMTP id
- 00721157ae682-7c6af0e9211mr1421377b3.49.1778614160912; Tue, 12 May 2026
- 12:29:20 -0700 (PDT)
+ AFNElJ9QWgBxHhwy8r7ugk0WrxvADvtKG/hHelBhuc+LBDON0VULHvSzXiemLeplbVylJuGHGlr6gosokCw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwjvcxYlZ/PkO+t5FFTw25z5FDhWmNMsAgnw+IRcqY84YCca03/
+ qHJvqnFSGBXTq/XhP47pNhIHPYmwxlUTdGzoBohW+dBoxiRXvMPneqDd3bzj/3I+5CSBWD5LV2F
+ GlhVwV0cdIiQ5in/p50Zh0/J9eAMvQtSz5UVLvPXThzSMPXW+Vf3ej1pHhVc=
 MIME-Version: 1.0
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-5-95c614a739cb@collabora.com>
-In-Reply-To: <20260512-panthor-signal-from-irq-v2-5-95c614a739cb@collabora.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Tue, 12 May 2026 12:29:10 -0700
-X-Gm-Features: AVHnY4LZGt2tTHvS8w_-mzH3Xwl1p-HxDkmqLvgqqCkQCREgtsIxFFFiHnraLjA
-Message-ID: <CAPaKu7TknZnxZJ_c3TVeZxOsA+TVVQv=uCNkC0DMokY1Nh+agA@mail.gmail.com>
-Subject: Re: [PATCH v2 05/11] drm/panthor: Make panthor_fw_{update,
- toggle}_reqs() callable from IRQ context
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6820:81c8:b0:67e:eb4:238f with SMTP id
+ 006d021491bc7-69b78d016d2mr170190eaf.18.1778615793784; Tue, 12 May 2026
+ 12:56:33 -0700 (PDT)
+Date: Tue, 12 May 2026 12:56:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a0385f1.a00a0220.3890a0.0002.GAE@google.com>
+Subject: [syzbot] [dri?] WARNING in drm_prime_destroy_file_private (3)
+From: syzbot <syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com>
+To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
+ tzimmermann@suse.de
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,69 +62,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 4:54=E2=80=AFAM Boris Brezillon
-<boris.brezillon@collabora.com> wrote:
->
-> If we want some FW events to be processed in the interrupt path, we need
-> the helpers manipulating req regs to be IRQ-safe, which implies using
-> spin_lock_irqsave instead of spinlock. While at it, use guards instead
-> of plain spin_lock/unlock calls.
->
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.h | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panth=
-or/panthor_fw.h
-> index a99a9b6f4825..e56b7fe15bb3 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.h
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.h
-> @@ -432,12 +432,11 @@ struct panthor_fw_global_iface {
->  #define panthor_fw_toggle_reqs(__iface, __in_reg, __out_reg, __mask) \
->         do { \
->                 u32 __cur_val, __new_val, __out_val; \
-> -               spin_lock(&(__iface)->lock); \
-> +               guard(spinlock_irqsave)(&(__iface)->lock); \
->                 __cur_val =3D READ_ONCE((__iface)->input->__in_reg); \
->                 __out_val =3D READ_ONCE((__iface)->output->__out_reg); \
->                 __new_val =3D ((__out_val ^ (__mask)) & (__mask)) | (__cu=
-r_val & ~(__mask)); \
->                 WRITE_ONCE((__iface)->input->__in_reg, __new_val); \
-> -               spin_unlock(&(__iface)->lock); \
->         } while (0)
->
->  /**
-> @@ -458,21 +457,19 @@ struct panthor_fw_global_iface {
->  #define panthor_fw_update_reqs(__iface, __in_reg, __val, __mask) \
->         do { \
->                 u32 __cur_val, __new_val; \
-> -               spin_lock(&(__iface)->lock); \
-> +               guard(spinlock_irqsave)(&(__iface)->lock); \
->                 __cur_val =3D READ_ONCE((__iface)->input->__in_reg); \
->                 __new_val =3D (__cur_val & ~(__mask)) | ((__val) & (__mas=
-k)); \
->                 WRITE_ONCE((__iface)->input->__in_reg, __new_val); \
-> -               spin_unlock(&(__iface)->lock); \
->         } while (0)
->
->  #define panthor_fw_update_reqs64(__iface, __in_reg, __val, __mask) \
->         do { \
->                 u64 __cur_val, __new_val; \
-> -               spin_lock(&(__iface)->lock); \
-> +               guard(spinlock_irqsave)(&(__iface)->lock); \
->                 __cur_val =3D READ_ONCE((__iface)->input->__in_reg); \
->                 __new_val =3D (__cur_val & ~(__mask)) | ((__val) & (__mas=
-k)); \
->                 WRITE_ONCE((__iface)->input->__in_reg, __new_val); \
-> -               spin_unlock(&(__iface)->lock); \
->         } while (0)
->
->  struct panthor_fw_global_iface *
->
-> --
-> 2.54.0
->
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    81d6f7807536 Merge tag 'v7.1-rc3-smb3-client-fixes' of git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=159b10c8580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=59da38148f3a3d24
+dashboard link: https://syzkaller.appspot.com/bug?extid=d7c9eed171647e421013
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12332a73980000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=161a3dba580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/61f8711360b2/disk-81d6f780.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/ddb7a0f311fa/vmlinux-81d6f780.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/4c64e3d1de5c/bzImage-81d6f780.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+!RB_EMPTY_ROOT(&prime_fpriv->dmabufs)
+WARNING: drivers/gpu/drm/drm_prime.c:224 at drm_prime_destroy_file_private+0x48/0x60 drivers/gpu/drm/drm_prime.c:224, CPU#0: syz.0.17/5833
+Modules linked in:
+CPU: 0 UID: 0 PID: 5833 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 04/18/2026
+RIP: 0010:drm_prime_destroy_file_private+0x48/0x60 drivers/gpu/drm/drm_prime.c:224
+Code: 48 89 fa 48 c1 ea 03 80 3c 02 00 75 2b 48 8b 83 88 00 00 00 48 85 c0 75 0b e8 84 dd 65 fc 5b e9 7e d5 ea 05 e8 79 dd 65 fc 90 <0f> 0b 90 e8 70 dd 65 fc 5b c3 cc cc cc cc e8 85 95 d3 fc eb ce 0f
+RSP: 0018:ffffc90003487ca0 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: ffff88807e729328 RCX: ffffffff8b8bb2bd
+RDX: ffff888030b68000 RSI: ffffffff85a2b5a7 RDI: ffff88807e7293b0
+RBP: ffff88807e729000 R08: 0000000000000001 R09: fffff52000690f74
+R10: ffffc90003487ba7 R11: ffffffff82761cc4 R12: ffff8880276dc000
+R13: ffff88807e729260 R14: 0000000000000000 R15: ffff88807e729288
+FS:  000055555c7ad500(0000) GS:ffff888124373000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fe5c5586400 CR3: 0000000072cb9000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ drm_file_free.part.0+0x7e6/0xcc0 drivers/gpu/drm/drm_file.c:269
+ drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
+ drm_close_helper.isra.0+0x186/0x200 drivers/gpu/drm/drm_file.c:290
+ drm_release+0x1ab/0x360 drivers/gpu/drm/drm_file.c:438
+ __fput+0x3ff/0xb50 fs/file_table.c:510
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:67 [inline]
+ exit_to_user_mode_loop+0x100/0x4a0 kernel/entry/common.c:98
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:238 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
+ do_syscall_64+0x706/0xf80 arch/x86/entry/syscall_64.c:100
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe5c559cdd9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd7c1af318 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007ffd7c1af400 RCX: 00007fe5c559cdd9
+RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
+RBP: 00000000000117cd R08: 0000000000000001 R09: 0000000000000000
+R10: 0000001b33020000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fe5c5815fac R14: 00007fe5c5815fa8 R15: 00007fe5c5815fa0
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
