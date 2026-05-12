@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DCF1CD4855
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 08:24:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F5B2CD4855
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 08:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BE8610E9AF;
-	Tue, 12 May 2026 08:24:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA5810E9B6;
+	Tue, 12 May 2026 08:24:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cEx7cEpL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IlB73qd9";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4521D10E9A4;
- Tue, 12 May 2026 08:24:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A248610E9B0;
+ Tue, 12 May 2026 08:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778574289; x=1810110289;
+ t=1778574291; x=1810110291;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=AnH/mVVa2xK7leWlYyfjVYavN2/phG52biw4GAsQXZQ=;
- b=cEx7cEpLza/cuDZHh7W5CyaDiqkqUADF27cNizgcZUt4Lu884B8nHa4R
- Dp874HOuO3Wt6uLSOgqZ1aijW1TI1Rjlp1kvNHYrUosqusQy3SSZjTgt0
- zbTXyNZq2FHLJufYqX09o6zN4QR1dMlxSWRXE291h/djpEtM6Cxhq3WP3
- neL1i4/UmuxU7I0lNDpYkDJ5C5yZoUFP0CaxZpaZDPH5PowN1P+tVPNfF
- 2dCOSimYcuBzLwluE3bNE9G3MdwMYU4Gu4vkapPRrtVjVUbYKLxBuROzx
- jUjhVJD4j6DaR4/KTcEy/+aRhtMdwVrDv94Z0LCuneAuU6AZ43Gade3to Q==;
-X-CSE-ConnectionGUID: tfJ3qIZuRq6vzhL4gQInug==
-X-CSE-MsgGUID: M+8S2DGwTr6L2vP+UjNeoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79195004"
-X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="79195004"
+ bh=rRkFVDEx7+TIMIhMYlgfRqDOq2I5SeQuAHZA3qCpS4U=;
+ b=IlB73qd9g1HWFGXb2pX8Mn4KxoIX7mtPTF2/ZU3PNVHxQNzZ+N7QVqNs
+ iBCnf0U4I1ezCg54m58k7yWCyqp6OJ2pdpaURsG94CeK1IGvOs/3pg/aN
+ 6LWak3J0BRUo3AlxtRolGlHu6RbupIM686NGiSNTRh8yq4Fo/ftYkJzKl
+ 6W1Mr7x6sOoVnKfWlEX/VVbtR58mS+TB8ZRmZIjS4lv/mQgUuZTufCbc2
+ c/AiIXFV0r7sDZJ5NOSs9+I+28Mt/osHQ7SK0/ksdSi2c8OII/n7Vw3ee
+ bI5GMvxl2L04MUr5NQ0GiIeliekoG8YAkIx/bw2yW423RFkeIMrWyGTpS w==;
+X-CSE-ConnectionGUID: Vqe6SFVaTZiW0M0b9i+nZg==
+X-CSE-MsgGUID: 83GYQnKFTN+KqY7tUUKD8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79195020"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="79195020"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 01:24:45 -0700
-X-CSE-ConnectionGUID: 5OdkQmJPTNugDJ1AaBcTPA==
-X-CSE-MsgGUID: 299F1ARsQGS15SepHGyrVQ==
+ 12 May 2026 01:24:50 -0700
+X-CSE-ConnectionGUID: wwW+Ot1KQPi6ZOf+u8UChA==
+X-CSE-MsgGUID: kFZdSU6cThWdHPksO/O1zA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="237945566"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="237945590"
 Received: from vpanait-mobl.ger.corp.intel.com (HELO fedora) ([10.245.245.172])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 01:24:39 -0700
+ 12 May 2026 01:24:44 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -58,10 +58,9 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 3/5] drm/ttm: Hook up a cgroup-aware reclaim callback for
- the dmem controller
-Date: Tue, 12 May 2026 10:24:04 +0200
-Message-ID: <20260512082406.44470-4-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v4 4/5] drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+Date: Tue, 12 May 2026 10:24:05 +0200
+Message-ID: <20260512082406.44470-5-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260512082406.44470-1-thomas.hellstrom@linux.intel.com>
 References: <20260512082406.44470-1-thomas.hellstrom@linux.intel.com>
@@ -83,275 +82,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add ttm_bo_evict_cgroup() to evict buffer objects charged to a specific
-dmem cgroup pool from a resource manager's LRU until a byte target is
-met.  Add ttm_resource_manager_set_dmem_region() to register the TTM
-eviction path as the reclaim callback for a dmem cgroup region.
+Register the VRAM manager with the dmem cgroup reclaim infrastructure
+so that lowering dmem.max below current VRAM usage triggers TTM
+eviction rather than failing with -EBUSY.
 
-The eviction context is interruptible; signals abort the operation and
-propagate back through the write() syscall.
-
-Introduce a new mode for the bo LRU walker so that sleeping locks
-can be taken. This can be used when the caller doesn't hold any
-previous dma_resv locks, and where it intends to hold at most
-one lock at a time.
-
-Like the rest of the TTM eviction this should sooner than later
-be converted to full WW transactions.
-
-v3:
-- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
-  in man->cg unconditionally. (Sashiko-bot)
-- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
-  ttm_resource_manager_set_dmem_region().
+v4:
+- Rebased on drm-tip; dropped the XE_PL_STOLEN guard as stolen memory
+  uses a separate TTM manager and never calls __xe_ttm_vram_mgr_init().
 
 Assisted-by: GitHub_Copilot:claude-sonnet-4.6
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c       | 95 +++++++++++++++++++++++++++++-
- drivers/gpu/drm/ttm/ttm_bo_util.c  |  3 +-
- drivers/gpu/drm/ttm/ttm_resource.c | 37 ++++++++++++
- include/drm/ttm/ttm_bo.h           | 10 ++++
- include/drm/ttm/ttm_resource.h     |  4 ++
- 5 files changed, 145 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 293401705542..3d0872f2f14d 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -515,12 +515,20 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+index b518f7dec680..d8d596d8575b 100644
+--- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
++++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+@@ -299,14 +299,10 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
+ 			   u64 default_page_size)
  {
- 	struct ttm_bo_evict_walk *evict_walk =
- 		container_of(walk, typeof(*evict_walk), walk);
-+	/* Capture size before eviction in case res is cleared. */
-+	s64 bo_size = bo->base.size;
- 	s64 lret;
+ 	struct ttm_resource_manager *man = &mgr->manager;
++	struct dmem_cgroup_region *cg;
+ 	const char *name;
+ 	int err;
  
- 	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
- 					      evict_walk->try_low, &evict_walk->hit_low))
- 		return 0;
+-	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
+-	man->cg = drmm_cgroup_register_region(&xe->drm, name, size);
+-	if (IS_ERR(man->cg))
+-		return PTR_ERR(man->cg);
+-
+ 	man->func = &xe_ttm_vram_mgr_func;
+ 	mgr->mem_type = mem_type;
+ 	err = drmm_mutex_init(&xe->drm, &mgr->lock);
+@@ -317,6 +313,14 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
+ 	mgr->visible_avail = io_size;
  
-+	/*
-+	 * evict_walk->place is NULL in cgroup drain mode.  Drivers'
-+	 * eviction_valuable() callbacks must handle a NULL place, treating it
-+	 * as "any placement": the TTM base implementation already does so via
-+	 * ttm_resource_intersects().
-+	 */
- 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
- 		return 0;
- 
-@@ -536,11 +544,15 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
- 		goto out;
- 
- 	evict_walk->evicted++;
--	if (evict_walk->res)
-+	if (evict_walk->res) {
- 		lret = ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
- 					  evict_walk->res, NULL);
--	if (lret == 0)
--		return 1;
-+		if (lret == 0)
-+			return 1;
-+	} else {
-+		/* Cgroup drain: return bytes freed for byte-denominated progress. */
-+		return bo_size;
-+	}
- out:
- 	/* Errors that should terminate the walk. */
- 	if (lret == -ENOSPC)
-@@ -614,6 +626,83 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
- 	return 0;
- }
- 
-+/**
-+ * ttm_bo_evict_cgroup() - Evict buffer objects charged to a specific cgroup.
-+ * @bdev: The TTM device.
-+ * @man: The resource manager whose LRU to walk.
-+ * @limit_pool: The cgroup pool state whose members should be evicted.
-+ * @target_bytes: Number of bytes to free.
-+ * @ctx: The TTM operation context.
-+ *
-+ * Walk the LRU of @man and evict buffer objects that are charged to the
-+ * cgroup identified by @limit_pool, until at least @target_bytes have been
-+ * freed.  Mirrors the two-pass (trylock -> sleeping-lock, low-watermark)
-+ * strategy used by ttm_bo_evict_alloc().
-+ *
-+ * Return: >= @target_bytes on full success, 0..target_bytes-1 if partial,
-+ *         negative error code on fatal error.
-+ */
-+s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
-+			struct ttm_resource_manager *man,
-+			struct dmem_cgroup_pool_state *limit_pool,
-+			s64 target_bytes,
-+			struct ttm_operation_ctx *ctx)
-+{
-+	struct ttm_bo_evict_walk evict_walk = {
-+		.walk = {
-+			.ops = &ttm_evict_walk_ops,
-+			.arg = { .ctx = ctx },
-+		},
-+		.limit_pool = limit_pool,
-+		/* place, evictor, res left NULL: selects cgroup drain mode */
-+	};
-+	s64 lret, pass;
+ 	ttm_resource_manager_init(man, &xe->ttm, size);
 +
-+	evict_walk.walk.arg.trylock_only = true;
-+	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, target_bytes);
-+	if (lret < 0 || lret >= target_bytes)
-+		return lret;
++	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
++	cg = drmm_cgroup_register_region(&xe->drm, name, size);
++	if (IS_ERR(cg))
++		return PTR_ERR(cg);
 +
-+	/* Second pass: also evict BOs at the low watermark. */
-+	if (evict_walk.hit_low) {
-+		evict_walk.try_low = true;
-+		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
-+					      target_bytes - lret);
-+		if (pass < 0)
-+			return pass;
-+		lret += pass;
-+		if (lret >= target_bytes)
-+			return lret;
-+	}
++	ttm_resource_manager_set_dmem_region(man, cg);
 +
-+	/* Full sleeping-lock pass for remaining target. */
-+	evict_walk.try_low = evict_walk.hit_low = false;
-+	evict_walk.walk.arg.trylock_only = false;
-+
-+retry:
-+	evict_walk.walk.arg.sleeping_lock = true;
-+	do {
-+		evict_walk.evicted = 0;
-+		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
-+					      target_bytes - lret);
-+		if (pass < 0) {
-+			lret = pass;
-+			goto out;
-+		}
-+		lret += pass;
-+	} while (lret < target_bytes && evict_walk.evicted);
-+
-+	/* One more attempt if we hit the low limit during sleeping-lock pass. */
-+	if (lret < target_bytes && evict_walk.hit_low && !evict_walk.try_low) {
-+		evict_walk.try_low = true;
-+		goto retry;
-+	}
-+
-+out:
-+	return lret;
-+}
-+EXPORT_SYMBOL(ttm_bo_evict_cgroup);
-+
- /**
-  * ttm_bo_pin - Pin the buffer object.
-  * @bo: The buffer object to pin
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index f83b7d5ec6c6..81c6a674c462 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -999,7 +999,8 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
- 		bo = res->bo;
- 		if (ttm_lru_walk_trylock(curs, bo))
- 			bo_locked = true;
--		else if (!arg->ticket || arg->ctx->no_wait_gpu || arg->trylock_only)
-+		else if ((!arg->ticket && !arg->sleeping_lock) || arg->ctx->no_wait_gpu ||
-+			 arg->trylock_only)
- 			continue;
- 
- 		if (!ttm_bo_get_unless_zero(bo)) {
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 0e5f1582f13d..6d24f3320892 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -950,3 +950,40 @@ void ttm_resource_manager_create_debugfs(struct ttm_resource_manager *man,
- #endif
- }
- EXPORT_SYMBOL(ttm_resource_manager_create_debugfs);
-+
-+static int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
-+					     u64 target_bytes, void *priv)
-+{
-+	struct ttm_resource_manager *man = priv;
-+	struct ttm_operation_ctx ctx = { .interruptible = true };
-+	s64 freed;
-+
-+	freed = ttm_bo_evict_cgroup(man->bdev, man, pool, target_bytes, &ctx);
-+	if (freed < 0)
-+		return freed;
-+
-+	return freed >= (s64)target_bytes ? 0 : -ENOSPC;
-+}
-+
-+/**
-+ * ttm_resource_manager_set_dmem_region() - Associate a dmem cgroup region with a
-+ *                                        resource manager and register a reclaim
-+ *                                        callback.
-+ * @man: The resource manager.
-+ * @region: The dmem cgroup region to associate, may be NULL or IS_ERR().
-+ *
-+ * Sets @man->cg and registers ttm_resource_manager_dmem_reclaim() so that
-+ * writing to dmem.max below current usage triggers TTM eviction rather than
-+ * returning -EBUSY to userspace.
-+ */
-+void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
-+					  struct dmem_cgroup_region *region)
-+{
-+	if (!IS_ERR_OR_NULL(region)) {
-+		man->cg = region;
-+		dmem_cgroup_region_set_reclaim(region,
-+					       ttm_resource_manager_dmem_reclaim,
-+					       man);
-+	}
-+}
-+EXPORT_SYMBOL(ttm_resource_manager_set_dmem_region);
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 8310bc3d55f9..32791c4db2a9 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -226,6 +226,11 @@ struct ttm_lru_walk_arg {
- 	struct ww_acquire_ctx *ticket;
- 	/** @trylock_only: Only use trylock for locking. */
- 	bool trylock_only;
-+	/**
-+	 * @sleeping_lock: Use sleeping locks even with %NULL @ticket.
-+	 * @trylock_only has precedence over this field.
-+	 */
-+	bool sleeping_lock;
- };
- 
- /**
-@@ -431,6 +436,11 @@ void ttm_bo_unpin(struct ttm_buffer_object *bo);
- int ttm_bo_evict_first(struct ttm_device *bdev,
- 		       struct ttm_resource_manager *man,
- 		       struct ttm_operation_ctx *ctx);
-+s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
-+			struct ttm_resource_manager *man,
-+			struct dmem_cgroup_pool_state *limit_pool,
-+			s64 target_bytes,
-+			struct ttm_operation_ctx *ctx);
- int ttm_bo_access(struct ttm_buffer_object *bo, unsigned long offset,
- 		  void *buf, int len, int write);
- vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index a5d386583fb6..1ba3ae39763c 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -39,6 +39,7 @@
- 
- struct dentry;
- struct dmem_cgroup_device;
-+struct dmem_cgroup_region;
- struct drm_printer;
- struct ttm_device;
- struct ttm_resource_manager;
-@@ -477,6 +478,9 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
- 			       struct ttm_device *bdev,
- 			       uint64_t size);
- 
-+void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
-+					  struct dmem_cgroup_region *region);
-+
- int ttm_resource_manager_evict_all(struct ttm_device *bdev,
- 				   struct ttm_resource_manager *man);
- 
+ 	err = gpu_buddy_init(&mgr->mm, man->size, default_page_size);
+ 	if (err)
+ 		return err;
 -- 
 2.54.0
 
