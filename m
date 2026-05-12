@@ -4,70 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74B69CD4F37
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 09:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD067CD4855
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 09:57:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21D6910E1B3;
-	Tue, 12 May 2026 09:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2224A10E152;
+	Tue, 12 May 2026 09:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DxnuZ0dT";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Rahfz+fN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C32010E171;
- Tue, 12 May 2026 09:55:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AB8EE40DE0;
- Tue, 12 May 2026 09:55:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0C1C2BCB0;
- Tue, 12 May 2026 09:55:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778579733;
- bh=sKtOdshfCoX9MSFc77fz6L3nrgnwT/LACWvUhL5OfVg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DxnuZ0dTMIPrtYkkFNyjpxIU2k1GNR56TB3NXSivcCStVQW683e2Xw7JJczyUi3ta
- 0MSLaDxb/f5MTm9aKw6LGkBNmmnTOz4uFtrljJyJ5KzusZdrgeDAumATwqAwpSKP/C
- zk56xho1rCi3cE9YgLBMeZbEYyh48l1MDIHZg91ilibgHasAj1SNo/CG98mUN+NANp
- kYljsLqCtoetCiGLGlxcrGLPqWEZu8TR4crtz8nDBvdk7piw6acWzgNYk1Hr0Xjg37
- yYBXRSSWg6Sl/Yrt685291veeK7bzUZGNLPJVMvhsGfsvpqabZ9dMxpC4G0mujHmYS
- 9Qw2o2ZGnFXhA==
-Date: Tue, 12 May 2026 11:55:30 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Simon Ser <contact@emersion.fr>, 
- Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Alex Hung <alex.hung@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v3 10/20] drm/plane: Add new atomic_create_state callback
-Message-ID: <20260512-versed-cougar-of-sunshine-dcf86c@houat>
-References: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
- <20260424-drm-mode-config-init-v3-10-8b68d9db0d8b@kernel.org>
- <20260504165229.GM1344263@killaraus.ideasonboard.com>
+Received: from mail-m49244.qiye.163.com (mail-m49244.qiye.163.com
+ [45.254.49.244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7083010E152
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 09:57:01 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3e1830318;
+ Tue, 12 May 2026 17:56:57 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v4 05/10] drm/rockchip: analogix_dp: Enable hclk for RK3588
+Date: Tue, 12 May 2026 17:56:39 +0800
+Message-Id: <20260512095644.1946084-6-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260512095644.1946084-1-damon.ding@rock-chips.com>
+References: <20260512095644.1946084-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="22373ydgvhi5g6fp"
-Content-Disposition: inline
-In-Reply-To: <20260504165229.GM1344263@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e1b9e44b503a3kunm05d2ddd6129055
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGEJMVk4fS0NKGRhNS01CT1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=Rahfz+fNmeM9zAzV0k9qUdKa9GZbWBFfxRc2rFhA5KFi9lJ4R4EI+eTS+pAsvzV9994oDDuA4IeTXpIHBKr4NHMgSCHu//onJnPth6/tQbJZqebzFkzmyl0YKedqzQSRVznPZmWUAuf+wcLAm53kWJxVh8ocoyIX1TDp1lH7uaI=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=iRGQfU4eadMI5PBD8HiTf+veqx3D693YM3/Jh7hnB60=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,101 +67,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Acquire and enable the HCLK_VO1 bus clock explicitly for RK3588
+eDP controller to guarantee register and datapath access.
 
---22373ydgvhi5g6fp
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 10/20] drm/plane: Add new atomic_create_state callback
-MIME-Version: 1.0
+The clock was previously enabled implicitly via rockchip,vo-grf
+phandle reference, which relies on side effect and is fragile.
 
-Hi,
+Fetch optional "hclk" clock in driver to align with updated device
+tree binding and keep consistent with hardware clock dependency.
 
-On Mon, May 04, 2026 at 07:52:29PM +0300, Laurent Pinchart wrote:
-> On Fri, Apr 24, 2026 at 12:18:50PM +0200, Maxime Ripard wrote:
-> > Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
-> > to drm_private_obj") introduced a new pattern for allocating drm object
-> > states.
-> >=20
-> > Instead of relying on the reset() callback, it created a new
-> > atomic_create_state hook. This is helpful because reset is a bit
-> > overloaded: it's used to create the initial software state, reset it,
-> > but also reset the hardware.
-> >=20
-> > It can also be used either at probe time, to create the initial state
-> > and possibly reset the hardware to an expected default, but also during
-> > suspend/resume.
-> >=20
-> > Both these cases come with different expectations too: during the
-> > initialization, we want to initialize all states, but during
-> > suspend/resume, drm_private_states for example are expected to be kept
-> > around.
-> >=20
-> > reset() also isn't fallible, which makes it harder to handle
-> > initialization errors properly. This is only really relevant for some
-> > drivers though, since all the helpers for reset only create a new
-> > state, and don't touch the hardware at all.
-> >=20
-> > It was thus decided to create a new hook that would allocate and
-> > initialize a pristine state without any side effect:
-> > atomic_create_state to untangle a bit some of it, and to separate the
-> > initialization with the actual reset one might need during a
-> > suspend/resume.
-> >=20
-> > Continue the transition to the new pattern with planes.
-> >=20
-> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> > ---
-> >  drivers/gpu/drm/drm_atomic_state_helper.c | 25 +++++++++++++++++++++++=
-++
-> >  drivers/gpu/drm/drm_mode_config.c         | 21 ++++++++++++++++++++-
-> >  include/drm/drm_atomic_state_helper.h     |  2 ++
-> >  include/drm/drm_plane.h                   | 16 ++++++++++++++++
-> >  4 files changed, 63 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/dr=
-m/drm_atomic_state_helper.c
-> > index 285efbf29520..50fe4eec41a8 100644
-> > --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> > +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> > @@ -338,10 +338,35 @@ void drm_atomic_helper_plane_reset(struct drm_pla=
-ne *plane)
-> >  	if (plane->state)
-> >  		__drm_atomic_helper_plane_reset(plane, plane->state);
-> >  }
-> >  EXPORT_SYMBOL(drm_atomic_helper_plane_reset);
-> > =20
-> > +/**
-> > + * drm_atomic_helper_plane_create_state - default &drm_plane_funcs.ato=
-mic_create_state hook for planes
->=20
-> drm_atomic_helper_colorop_create_state() states "Allocates and
-> initializes colorop atomic state", while here you document it as
-> "default hook for planes". Consistency would be good.
+Fixes: 729f8eefdcad ("drm/rockchip: analogix_dp: Add support for RK3588")
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-I don't think it's inconsistent?
+---
 
-colorops don't have a create_state callback, so the only function to
-create it is defined as "Allocates and initializes colorop atomic
-state". For planes, the hook is documented as "Allocates a pristine,
-initialized, state for the plane object and returns it.", and here we
-have the default implementation for that hook, which is documented as
-such.
+Changes in v4:
+- Modify the commit msg.
+---
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-It all seems consistent to me?
+diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+index 41ff44eaf44d..a864bcf8200e 100644
+--- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+@@ -311,6 +311,7 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
+ {
+ 	struct device *dev = dp->dev;
+ 	struct device_node *np = dev->of_node;
++	struct clk *clk;
+ 
+ 	dp->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
+ 	if (IS_ERR(dp->grf))
+@@ -327,6 +328,11 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
+ 		return dev_err_probe(dev, PTR_ERR(dp->pclk),
+ 				     "failed to get pclk property\n");
+ 
++	clk = devm_clk_get_optional_enabled(dev, "hclk");
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk),
++				     "failed to get hclk property\n");
++
+ 	dp->rst = devm_reset_control_get(dev, "dp");
+ 	if (IS_ERR(dp->rst))
+ 		return dev_err_probe(dev, PTR_ERR(dp->rst),
+-- 
+2.34.1
 
-Maxime
-
---22373ydgvhi5g6fp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCagL5DgAKCRAnX84Zoj2+
-dkRdAYD0DMSjBZG7KznVzXsEfKNp2FbSJf1ulgAd4J6iTdzQ1dB+YlrxnLFoX8sG
-PCH3lKkBgN5APIC+q4CMgKtqaEulFN6SaM58HNWcqL5byNjMi/zSBGs3FJRVyiME
-cyx+95kJPA==
-=j3nb
------END PGP SIGNATURE-----
-
---22373ydgvhi5g6fp--
