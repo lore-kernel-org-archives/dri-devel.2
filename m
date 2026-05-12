@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04ECCCD4F35
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2058CD4F21
 	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 11:37:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6E610EA59;
-	Tue, 12 May 2026 11:37:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 607AD10EA55;
+	Tue, 12 May 2026 11:37:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ZxDQujB8";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LmqGYnrO";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5122410EA4C
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 11:37:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A8F010EA4C
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 11:37:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778585866;
- bh=dHuWFS5/g8ox2pYgpbIy7G3Kzv2PT1qgIe4gnJBGnpE=;
+ s=mail; t=1778585867;
+ bh=ykUgxo1kVcXSmPq13GWg/bbbz+Lg65xpoeO48LwbdwY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ZxDQujB8a4pva15XyTx9UIbDb3Pu0xT4ToXfG+RHEBzUy4vQ5M4MGncibDDDDIamO
- fqCFwDN+K6E9vLj+N4N4GlJFDZbk2hVssKOoXAkIBt7SWt3XvU1VewIri6Z+R/Nndz
- ZGazVyeQ+5UZmooT+mI4ilJqZHVkxiuLr//239rtI+bq8c+W+h7O3IIcYkqxUHn0If
- NcaWmib+Nmq8bW/IF5m1k0bTWe2VjgSGtCMI2aaKqMwj8LlQc4GAw3gurcUhvUDoFX
- aCxhc8dyUuZ5AzKV9EcOWJiHeDxxDBZTVcCflj9GZIt6plhsmIBHKVn6g83Jgz/l+N
- CWGtB7sBCwETA==
+ b=LmqGYnrO9ZrcvMPxyt6O8tKN+TL9o8y1m6cnPlo/t1ZZDuS1mrGS38gu3cO1jTQY/
+ 18vNE7GPIW+UP8LhBl7yf5pfaE2hOA3sKytAlmIjVTEkeD5pFLG/11n4wUAP0HWNBZ
+ B1onTTUVAs6t1ad33IhgpQphjcjEZPtiGsMPDTe6FRnGhILbMyraMbYyz2lA1A4X6t
+ l2FDV0B0W3EAp1x2vagTrvlt5V1XSNUCNQACDDoAl85+1dpn+/uJgafNE021D6pcr6
+ SnDlIKBg/zfY1xkcXMNRDQQJOmJSTkYiF+iLFn3mr7F1IB3VAchvbhgD7w/j/XZXlX
+ CdWJmaTsHAA3g==
 Received: from [192.168.1.38] (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id AAC4517E38CC;
- Tue, 12 May 2026 13:37:45 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BC48817E38D1;
+ Tue, 12 May 2026 13:37:46 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 12 May 2026 13:37:38 +0200
-Subject: [PATCH v2 08/11] drm/panthor: Automatically enable interrupts in
- panthor_fw_wait_acks()
+Date: Tue, 12 May 2026 13:37:40 +0200
+Subject: [PATCH v2 10/11] drm/panthor: Use the irqsave variant of spin_lock
+ in panthor_gpu_irq_handler()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260512-panthor-signal-from-irq-v2-8-95c614a739cb@collabora.com>
+Message-Id: <20260512-panthor-signal-from-irq-v2-10-95c614a739cb@collabora.com>
 References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
 In-Reply-To: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -49,11 +49,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778585861; l=4411;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778585861; l=1477;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=dHuWFS5/g8ox2pYgpbIy7G3Kzv2PT1qgIe4gnJBGnpE=;
- b=dnIyeWFMHRoBWgnXRkwF+oRElzE4It6sqLxnYi1H2JmNq1QCXUobv1UUWuNDyfnyLnJeL2EcU
- n/2JPDqP3EVAEgfA3tJZq4A+d9aPcniHApDgfqpSILg52J2dS9ccJgV
+ bh=ykUgxo1kVcXSmPq13GWg/bbbz+Lg65xpoeO48LwbdwY=;
+ b=Z7IC50GcDmkSA+6GtADkgYz1pW7Yc/LrUVVgAdrSldlJVbbBYOYZnMev6RG62bKoY0H/Scn3Q
+ d2dMwqjS7//D78zQhOIv/BNf3LVoRQpwLfaTWjwd0dMzGuM0HAO6bzI
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,113 +71,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rather than assuming an interrupt is always expected for request
-acks, temporarily enable the relevant interrupts when the polling-wait
-failed. This should hopefully reduce the number of interrupts the CPU
-has to process.
+This is not a bug per-se, because this lock is never taken in an
+interrupt context, but it's not consistent with the other users of this
+lock. We're also planning on transitioning GPU event processing to
+a hard handler. Again, this alone wouldn't justify using the IRQ-safe
+variant, because then this _lock/unlock sequence would be in the
+hard-IRQ path, where IRQs are already disabled, but let's do it anyway,
+to keep things consistent.
+
+While at it, transition to a guard() instead of a plain lock/unlock
+sequence.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_fw.c    | 34 +++++++++++++++++++--------------
- drivers/gpu/drm/panthor/panthor_sched.c |  5 +++--
- 2 files changed, 23 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/panthor/panthor_gpu.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 8239a6951569..f5e0ceca4130 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -1039,16 +1039,10 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
- 	glb_iface->input->progress_timer = PROGRESS_TIMEOUT_CYCLES >> PROGRESS_TIMEOUT_SCALE_SHIFT;
- 	glb_iface->input->idle_timer = panthor_fw_conv_timeout(ptdev, IDLE_HYSTERESIS_US);
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index d0be758ea3e1..b9c51f8a051d 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -110,12 +110,11 @@ static void panthor_gpu_irq_handler(struct panthor_irq *pirq, u32 status)
+ 	if (status & GPU_IRQ_PROTM_FAULT)
+ 		drm_warn(&ptdev->base, "GPU Fault in protected mode\n");
  
--	/* Enable interrupts we care about. */
--	glb_iface->input->ack_irq_mask = GLB_CFG_ALLOC_EN |
--					 GLB_PING |
--					 GLB_CFG_PROGRESS_TIMER |
--					 GLB_CFG_POWEROFF_TIMER |
--					 GLB_IDLE_EN |
--					 GLB_IDLE;
--
--	if (panthor_fw_has_glb_state(ptdev))
--		glb_iface->input->ack_irq_mask |= GLB_STATE_MASK;
-+	/* Enable interrupts for asynchronous events that are not
-+	 * triggered by request acks.
-+	 */
-+	glb_iface->input->ack_irq_mask = GLB_IDLE;
- 
- 	panthor_fw_update_reqs(glb_iface, req, GLB_IDLE_EN | GLB_COUNTER_EN,
- 			       GLB_IDLE_EN | GLB_COUNTER_EN);
-@@ -1318,8 +1312,8 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
-  * Return: 0 on success, -ETIMEDOUT otherwise.
-  */
- static int panthor_fw_wait_acks(const u32 *req_ptr, const u32 *ack_ptr,
--				wait_queue_head_t *wq,
--				u32 req_mask, u32 *acked,
-+				u32 *ack_irq_mask_ptr, spinlock_t *lock,
-+				wait_queue_head_t *wq, u32 req_mask, u32 *acked,
- 				u32 timeout_ms)
- {
- 	u32 ack, req = READ_ONCE(*req_ptr) & req_mask;
-@@ -1334,8 +1328,16 @@ static int panthor_fw_wait_acks(const u32 *req_ptr, const u32 *ack_ptr,
- 	if (!ret)
- 		return 0;
- 
--	if (wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) == req,
--			       msecs_to_jiffies(timeout_ms)))
-+	scoped_guard(spinlock_irqsave, lock)
-+		*ack_irq_mask_ptr |= req_mask;
-+
-+	ret = wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) == req,
-+				 msecs_to_jiffies(timeout_ms));
-+
-+	scoped_guard(spinlock_irqsave, lock)
-+		*ack_irq_mask_ptr &= ~req_mask;
-+
-+	if (ret)
- 		return 0;
- 
- 	/* Check one last time, in case we were not woken up for some reason. */
-@@ -1369,6 +1371,8 @@ int panthor_fw_glb_wait_acks(struct panthor_device *ptdev,
- 
- 	return panthor_fw_wait_acks(&glb_iface->input->req,
- 				    &glb_iface->output->ack,
-+				    &glb_iface->input->ack_irq_mask,
-+				    &glb_iface->lock,
- 				    &ptdev->fw->req_waitqueue,
- 				    req_mask, acked, timeout_ms);
- }
-@@ -1395,6 +1399,8 @@ int panthor_fw_csg_wait_acks(struct panthor_device *ptdev, u32 csg_slot,
- 
- 	ret = panthor_fw_wait_acks(&csg_iface->input->req,
- 				   &csg_iface->output->ack,
-+				   &csg_iface->input->ack_irq_mask,
-+				   &csg_iface->lock,
- 				   &ptdev->fw->req_waitqueue,
- 				   req_mask, acked, timeout_ms);
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 6c5ba747ae45..a9124bcc7de6 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -1110,7 +1110,7 @@ cs_slot_prog_locked(struct panthor_device *ptdev, u32 csg_id, u32 cs_id)
- 	cs_iface->input->ringbuf_output = queue->iface.output_fw_va;
- 	cs_iface->input->config = CS_CONFIG_PRIORITY(queue->priority) |
- 				  CS_CONFIG_DOORBELL(queue->doorbell_id);
--	cs_iface->input->ack_irq_mask = ~0;
-+	cs_iface->input->ack_irq_mask = CS_FATAL | CS_FAULT | CS_TILER_OOM;
- 	panthor_fw_update_reqs(cs_iface, req,
- 			       CS_IDLE_SYNC_WAIT |
- 			       CS_IDLE_EMPTY |
-@@ -1378,7 +1378,8 @@ csg_slot_prog_locked(struct panthor_device *ptdev, u32 csg_id, u32 priority)
- 		csg_iface->input->protm_suspend_buf = 0;
+-	spin_lock(&ptdev->gpu->reqs_lock);
++	guard(spinlock_irqsave)(&ptdev->gpu->reqs_lock);
+ 	if (status & ptdev->gpu->pending_reqs) {
+ 		ptdev->gpu->pending_reqs &= ~status;
+ 		wake_up_all(&ptdev->gpu->reqs_acked);
  	}
- 
--	csg_iface->input->ack_irq_mask = ~0;
-+	csg_iface->input->ack_irq_mask = CSG_SYNC_UPDATE | CSG_IDLE |
-+					 CSG_PROGRESS_TIMER_EVENT;
- 	panthor_fw_toggle_reqs(csg_iface, doorbell_req, doorbell_ack, queue_mask);
- 	return 0;
+-	spin_unlock(&ptdev->gpu->reqs_lock);
  }
+ 
+ static irqreturn_t panthor_gpu_irq_threaded_handler(int irq, void *data)
 
 -- 
 2.54.0
