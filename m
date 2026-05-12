@@ -4,101 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D81CD4F24
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 12:45:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDC4CD4F24
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 12:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D6E10E0E5;
-	Tue, 12 May 2026 12:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57A9010E00C;
+	Tue, 12 May 2026 12:58:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eSRfdyib";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="foP1jezq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DCCB10E058;
- Tue, 12 May 2026 12:45:02 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C137C44039;
- Tue, 12 May 2026 12:45:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570BDC2BCF5;
- Tue, 12 May 2026 12:44:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778589901;
- bh=+Qd2oNkAu9nMaSnTOhJAuwCNAPyt8qx11rpclyzT4Hc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=eSRfdyibJ/kA19bgGeFXkt7Hp+PjO1U7/9EhsV4yXk0mAxQ2e67O5wPw6v50Irmid
- OXa7ZtKcqrzTbd7EUSK+QcIL9drUsmdlGmSsJKMzq4Lt/rPAcYCB3snlpHYBE2v3bs
- OeCV04HrmrGp8zO6y7VGaN3UN2SG+DjNfgQduj6YdcAfr4O1lMOzmMS1/EtBTOsyV1
- gkNsOf8ElxPJ565dpMOIar6tB6ScJPJ0+kkKgoPPimzi20UYtU3HMivheDEJ/6aL8x
- oOrjX3nlWdSl79DnbgoeSEtC5kRHoEjvmSAMA3dVUZ5WE3yirOJqUkfThLn7yrIEWq
- z95o+Ikba0KuQ==
-Message-ID: <163cd3d1-dc25-4335-b527-99e0acc421d4@kernel.org>
-Date: Tue, 12 May 2026 14:44:57 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BADD10E00C
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:58:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778590703; x=1810126703;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Ojg0JUe3U4CWuJEPJ1Lo3YpdT0whJZa0k6jTL8QeH6s=;
+ b=foP1jezqp6NYspEQLMzuA2ZOplwHHYoJnSa0SfS85CdJczq+zvR+QVYM
+ 1Y0ItD4dyc80Ok1d925vdYmJR+xpK0d7/HzooSiZ4yP7Af5Kcqfn7gE46
+ wU6NuflT7074lg/22WzKhjmOHJLDveChCijTEAWvSUbXMmPQQ6FVTSjnr
+ t4J4vHM5jKbR/53dQDliFxUD6jISbsekJOUJ8NGCvRwa9zHdJNmrNyxkT
+ vcdpNaLCWtwhCv2RcXPkJR5VEzxfc/FJUy1bTPnDm4ds8krhPCWtRXGcJ
+ cWpZhNvUjdvg8Q0yq/FIe6c6RA3kYenQpAGmpS/nL4NkEa+FYcHHORLDr Q==;
+X-CSE-ConnectionGUID: 6RbGCJfkTKupWQMgLgeSag==
+X-CSE-MsgGUID: e6QCKuteQJagOPiNQBZHYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="104952448"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="104952448"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 05:58:23 -0700
+X-CSE-ConnectionGUID: yu939hEYQuGR+qLIW1iszA==
+X-CSE-MsgGUID: TlkaL+KjTzahI3hkEcCwGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="241761415"
+Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
+ by orviesa003.jf.intel.com with ESMTP; 12 May 2026 05:58:20 -0700
+Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wMmgi-000000002AR-3xsm;
+ Tue, 12 May 2026 12:58:16 +0000
+Date: Tue, 12 May 2026 20:57:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, David Lechner <david@lechnology.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v1 1/1] drm/st7735r: simplify with
+ spi_get_device_match_data()
+Message-ID: <202605122048.M7XSteng-lkp@intel.com>
+References: <20260508080004.1143774-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 2/5] mm: Add helper to convert HMM pfn to migrate pfn
-To: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>, linux-mm@kvack.org
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-References: <20260505184421.2324798-1-mpenttil@redhat.com>
- <20260505184421.2324798-3-mpenttil@redhat.com>
- <4a9c4170-c6b7-424c-969c-19240f07e46b@kernel.org>
- <7e3abb7c-c57d-419a-969a-fcd150ccca99@redhat.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <7e3abb7c-c57d-419a-969a-fcd150ccca99@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260508080004.1143774-1-andriy.shevchenko@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,25 +76,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Andy,
 
->>
->>> +
->>> +		migrate->src[i] |= (pfn & HMM_PFN_WRITE) ? MIGRATE_PFN_WRITE : 0;
->>> +		migrate->src[i] |= (pfn & HMM_PFN_COMPOUND) ? MIGRATE_PFN_COMPOUND : 0;
->>> +		migrate->dst[i] = 0;
->>> +	}
->>> +
->>> +	if (migrate->cpages)
->>> +		migrate_vma_unmap(migrate);
->> Can you remind me why we do this here, in the setup() phase? The function doc
->> does not really describe that.
-> 
-> It is to be in par what migrate_vma_setup() does today after the "collect" phase.
-> 
+kernel test robot noticed the following build errors:
 
-Ah, okay. How the whole machinery works is still a bit of a mystery for me :)
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.1-rc3 next-20260508]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/drm-st7735r-simplify-with-spi_get_device_match_data/20260512-161814
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260508080004.1143774-1-andriy.shevchenko%40linux.intel.com
+patch subject: [PATCH v1 1/1] drm/st7735r: simplify with spi_get_device_match_data()
+config: nios2-randconfig-002-20260512 (https://download.01.org/0day-ci/archive/20260512/202605122048.M7XSteng-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 10.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260512/202605122048.M7XSteng-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605122048.M7XSteng-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/sitronix/st7735r.c: In function 'st7735r_probe':
+>> drivers/gpu/drm/sitronix/st7735r.c:255:34: error: passing argument 1 of 'spi_get_device_match_data' from incompatible pointer type [-Werror=incompatible-pointer-types]
+     255 |  cfg = spi_get_device_match_data(&spi->dev);
+         |                                  ^~~~~~~~~
+         |                                  |
+         |                                  struct device *
+   In file included from drivers/gpu/drm/sitronix/st7735r.c:16:
+   include/linux/spi/spi.h:1757:52: note: expected 'const struct spi_device *' but argument is of type 'struct device *'
+    1757 | spi_get_device_match_data(const struct spi_device *sdev);
+         |                           ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
+   cc1: some warnings being treated as errors
+
+
+vim +/spi_get_device_match_data +255 drivers/gpu/drm/sitronix/st7735r.c
+
+   234	
+   235	static int st7735r_probe(struct spi_device *spi)
+   236	{
+   237		struct device *dev = &spi->dev;
+   238		const struct st7735r_cfg *cfg;
+   239		struct mipi_dbi_dev *dbidev;
+   240		struct st7735r_device *st7735r;
+   241		struct drm_device *drm;
+   242		struct mipi_dbi *dbi;
+   243		struct gpio_desc *dc;
+   244		struct drm_plane *plane;
+   245		struct drm_crtc *crtc;
+   246		struct drm_encoder *encoder;
+   247		struct drm_connector *connector;
+   248		u32 rotation = 0;
+   249		int ret;
+   250	
+   251		st7735r = devm_drm_dev_alloc(dev, &st7735r_driver, struct st7735r_device, dbidev.drm);
+   252		if (IS_ERR(st7735r))
+   253			return PTR_ERR(st7735r);
+   254	
+ > 255		cfg = spi_get_device_match_data(&spi->dev);
+   256		st7735r->cfg = cfg;
+   257	
+   258		dbidev = &st7735r->dbidev;
+   259		dbi = &dbidev->dbi;
+   260		drm = &dbidev->drm;
+   261	
+   262		dbi->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+   263		if (IS_ERR(dbi->reset))
+   264			return dev_err_probe(dev, PTR_ERR(dbi->reset), "Failed to get GPIO 'reset'\n");
+   265	
+   266		dc = devm_gpiod_get(dev, "dc", GPIOD_OUT_LOW);
+   267		if (IS_ERR(dc))
+   268			return dev_err_probe(dev, PTR_ERR(dc), "Failed to get GPIO 'dc'\n");
+   269	
+   270		dbidev->backlight = devm_of_find_backlight(dev);
+   271		if (IS_ERR(dbidev->backlight))
+   272			return PTR_ERR(dbidev->backlight);
+   273	
+   274		device_property_read_u32(dev, "rotation", &rotation);
+   275	
+   276		ret = mipi_dbi_spi_init(spi, dbi, dc);
+   277		if (ret)
+   278			return ret;
+   279	
+   280		if (cfg->write_only)
+   281			dbi->read_commands = NULL;
+   282	
+   283		dbidev->left_offset = cfg->left_offset;
+   284		dbidev->top_offset = cfg->top_offset;
+   285	
+   286		ret = drm_mipi_dbi_dev_init(dbidev, &cfg->mode, st7735r_plane_formats[0], rotation, 0);
+   287		if (ret)
+   288			return ret;
+   289	
+   290		ret = drmm_mode_config_init(drm);
+   291		if (ret)
+   292			return ret;
+   293	
+   294		drm->mode_config.min_width = dbidev->mode.hdisplay;
+   295		drm->mode_config.max_width = dbidev->mode.hdisplay;
+   296		drm->mode_config.min_height = dbidev->mode.vdisplay;
+   297		drm->mode_config.max_height = dbidev->mode.vdisplay;
+   298		drm->mode_config.funcs = &st7735r_mode_config_funcs;
+   299		drm->mode_config.preferred_depth = 16;
+   300		drm->mode_config.helper_private = &st7735r_mode_config_helper_funcs;
+   301	
+   302		plane = &st7735r->plane;
+   303		ret = drm_universal_plane_init(drm, plane, 0, &st7735r_plane_funcs,
+   304					       st7735r_plane_formats, ARRAY_SIZE(st7735r_plane_formats),
+   305					       st7735r_plane_format_modifiers,
+   306					       DRM_PLANE_TYPE_PRIMARY, NULL);
+   307		if (ret)
+   308			return ret;
+   309		drm_plane_helper_add(plane, &st7735r_plane_helper_funcs);
+   310		drm_plane_enable_fb_damage_clips(plane);
+   311	
+   312		crtc = &st7735r->crtc;
+   313		ret = drm_crtc_init_with_planes(drm, crtc, plane, NULL, &st7735r_crtc_funcs, NULL);
+   314		if (ret)
+   315			return ret;
+   316		drm_crtc_helper_add(crtc, &st7735r_crtc_helper_funcs);
+   317	
+   318		encoder = &st7735r->encoder;
+   319		ret = drm_encoder_init(drm, encoder, &st7735r_encoder_funcs, DRM_MODE_ENCODER_NONE, NULL);
+   320		if (ret)
+   321			return ret;
+   322		encoder->possible_crtcs = drm_crtc_mask(crtc);
+   323	
+   324		connector = &st7735r->connector;
+   325		ret = drm_connector_init(drm, connector, &st7735r_connector_funcs,
+   326					 DRM_MODE_CONNECTOR_SPI);
+   327		if (ret)
+   328			return ret;
+   329		drm_connector_helper_add(connector, &st7735r_connector_helper_funcs);
+   330	
+   331		ret = drm_connector_attach_encoder(connector, encoder);
+   332		if (ret)
+   333			return ret;
+   334	
+   335		drm_mode_config_reset(drm);
+   336	
+   337		ret = drm_dev_register(drm, 0);
+   338		if (ret)
+   339			return ret;
+   340	
+   341		spi_set_drvdata(spi, drm);
+   342	
+   343		drm_client_setup(drm, NULL);
+   344	
+   345		return 0;
+   346	}
+   347	
 
 -- 
-Cheers,
-
-David
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
