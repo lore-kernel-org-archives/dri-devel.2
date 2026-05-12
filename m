@@ -4,68 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF2B7CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 14:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D4BCD4F24
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 14:19:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 404FC10E215;
-	Tue, 12 May 2026 14:11:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2B910EB43;
+	Tue, 12 May 2026 14:19:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HfiHYnEs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UWQn5fVo";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0AE610E215
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 14:11:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778595078;
- bh=ffnSOLr6GBRvN/RNrGZcqdQPL9WDigCoPM7fdgwRrkM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=HfiHYnEsvlaGP8rXHMzyPOvqqCmbexRYDSqS7YdPq/NwKBFXqNQZucTJlKvSPvs6N
- bQEhjDnFB5iHZ4TngCrePrDeNE6o6Bvgpxllw0d75usAc1NR6HvluYWni2NJopiDRI
- 86qPMBksnJSMJEmIc3ojTu/JVZgi9qGmlmiXngJlggUUebkB/TGJRfiBJwLD84rFDV
- OnhnS4h4nXnGTF6iC75b1H6EoiUE3RyNWTM4C+t0TL2mN2b3Niq51V/iGCXGpEwWjk
- 52R8MJIdUqkeCRYwCPvihSkxBzJYZqA/D5pKKdhsATj+Rl5B7QS6Pp/8xc0d4UHxn6
- V/S1XclaHmC1g==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 50EAF17E040C;
- Tue, 12 May 2026 16:11:17 +0200 (CEST)
-Date: Tue, 12 May 2026 16:11:11 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Marcin =?UTF-8?B?xZpsdXNhcno=?= <marcin.slusarz@arm.com>, Ketil Johnsen
- <ketil.johnsen@arm.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
- <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, "T.J. Mercier"
- <tjmercier@google.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Steven Price <steven.price@arm.com>, Daniel
- Almeida <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Florent Tomasin <florent.tomasin@arm.com>, nd@arm.com
-Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
- allocation in panthor
-Message-ID: <20260512161111.0cb7000e@fedora>
-In-Reply-To: <agMvb_jeRsO7tSS-@e142607>
-References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
- <20260505140516.1372388-5-ketil.johnsen@arm.com>
- <20260505181523.49a3d85c@fedora> <afxVIuVVPisBQ9p_@e129842.arm.com>
- <20260507135356.5428d50d@fedora> <agMvb_jeRsO7tSS-@e142607>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 562CA10EB1E
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 14:19:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1F23940132;
+ Tue, 12 May 2026 14:19:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A58AC2BCFD;
+ Tue, 12 May 2026 14:19:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778595569;
+ bh=PNZ/3cndYwK5qYRqVndM22pticPFw2T6YxzS/qmSwlY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=UWQn5fVoxLB/KAH4EURrhpqBaLzBb5p8rV6dSUVS9VPOwdklqeVM9M7jVOo70vURZ
+ Gc3iF7tqhIHwZ112zXGqvbhvu2H9TXMCpWcdZG7P/i2icIFaCUyO4xtWpKeFokBoNI
+ n7OKlJ8EXUC6TZw6mZH7NDeK3vW6FWEvqmRmJTnux7Tux6bKkgwss0u1fyFQZ6Ps9s
+ 5HUity/IMzbvd5Og20saJ5uICn2otZgE4I7BtbWrOm8A2NoJkfr5BiNhv5LgjnrgoR
+ 2VLQtfebQXDldsEorU4QtYQgrDOoBbesmelRs4LLsxoB88f1efPKX3WawZLuRaGlnA
+ 1hEJofu32VB0w==
+Date: Tue, 12 May 2026 19:49:21 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Kishore Batta <kishore.batta@oss.qualcomm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
+Subject: Re: [PATCH v5 7/7] bus: mhi: Expose DDR training data via controller
+ sysfs
+Message-ID: <x732txb6wf2giiv22xw66sqrnkjluaua5kbsmjugv4rbvpjqrw@ro2wbv2olzbd>
+References: <20260416-sahara_protocol_new_v2-v5-0-6aebf005e4ba@oss.qualcomm.com>
+ <20260416-sahara_protocol_new_v2-v5-7-6aebf005e4ba@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260416-sahara_protocol_new_v2-v5-7-6aebf005e4ba@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,47 +64,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 12 May 2026 14:47:27 +0100
-Liviu Dudau <liviu.dudau@arm.com> wrote:
+On Thu, Apr 16, 2026 at 07:39:48PM +0530, Kishore Batta wrote:
+> DDR training data captured during Sahara command mode needs to be
+> accessible to userspace so it can be persisted and reused on subsequent
+> boots. Currently, the training data is stored internally in the driver
+> but has no external visibility once the Sahara channel is torn down.
+> 
+> Expose the captured DDR training data via a read-only binary sysfs
+> attribute on the MHI controller device:
+> 
+> /sys/bus/mhi/devices/<mhi_cntrl>/ddr_training_data
+> 
+> The sysfs read callback serves data directly from controller scoped storage
+> and protects access with the controller training data lock. The attribute
+> lifetime is tied to the controller device via devres, allowing the data to
+> remain readable after Sahara channel teardown and ensuring automatic
+> cleanup when controller device is removed.
+> 
+> Userspace flow:
+> 1. For each controller device, userspace reads the ddr_training_data sysfs
+>    attribute.
+> 2. If the read returns non-zero data, userspace persists it using a
+>    serial specific filename (for example, mdmddr_0x<serial_no>.mbn).
+> 3. On subsequent boots, the Sahara driver attempts to load this serial
+>    specific DDR training image before falling back to the default
+>    training image, restoring DDR calibration data and avoiding retraining.
+> 
+> Add ABI documentation for the DDR training data sysfs attribute exposed by
+> Sahara MHI driver.
+> 
+> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
+> ---
+>  .../ABI/testing/sysfs-bus-mhi-ddr_training_data    | 19 ++++++
+>  drivers/bus/mhi/host/clients/sahara/sahara.c       | 69 ++++++++++++++++++++++
+>  2 files changed, 88 insertions(+)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data b/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..810b487b5a5fdba133d81255f9879844e3938a10
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data
+> @@ -0,0 +1,19 @@
+> +What:                   /sys/bus/mhi/devices/<mhi-cntrl>/ddr_training_data
+> +
+> +Date:                   March 2026
+> +
+> +Contact:                Kishore Batta <kishore.batta@oss.qualcomm.com>
+> +
+> +Description:            Contains the DDR training data for the Qualcomm device
+> +                        connected. MHI driver populates different controller
+> +                        nodes for each device. The DDR training data is exposed
+> +                        to userspace to read and save the training data file to
+> +                        the filesystem. In the subsequent boot up of the device,
+> +                        the training data is restored from host to device
+> +                        optimizing the boot up time of the device.
+> +
+> +Usage:                  Example for reading DDR training data:
+> +                        cat /sys/bus/mhi/devices/mhi0/ddr_training_data
+> +
+> +Permissions:            The file permissions are set to 0444 allowing read
+> +                        access.
+> diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
+> index 07bc743aa061dd2fa85638067d494562152474e3..fef5dc1d8884133397d204f23361584fd1d9b075 100644
+> --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
+> +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
+> @@ -273,6 +273,73 @@ static struct sahara_cntrl_training_data *sahara_cntrl_training_get(struct devic
+>  	return ct;
+>  }
+>  
+> +static ssize_t ddr_training_data_read(struct file *filp, struct kobject *kobj,
+> +				      const struct bin_attribute *attr, char *buf,
+> +				      loff_t offset, size_t count)
+> +{
+> +	struct device *dev = kobj_to_dev(kobj);
+> +	struct sahara_cntrl_training_data *ct;
+> +	size_t available;
+> +
+> +	ct = sahara_cntrl_training_get(dev);
+> +	if (!ct)
+> +		return -ENODEV;
+> +
+> +	mutex_lock(&ct->lock);
+> +
+> +	/* No data yet or offset past end */
+> +	if (!ct->data || offset >= ct->size) {
+> +		mutex_unlock(&ct->lock);
+> +		return 0;
+> +	}
+> +
+> +	available = ct->size - offset;
+> +	count = min(count, available);
+> +	memcpy(buf, (u8 *)ct->data + offset, count);
+> +
+> +	mutex_unlock(&ct->lock);
+> +
+> +	return count;
+> +}
+> +
+> +static const struct bin_attribute ddr_training_data_attr = {
+> +	.attr = {
+> +		.name = "ddr_training_data",
+> +		.mode = 0444,
+> +	},
+> +	.read = ddr_training_data_read,
+> +};
 
-> On Thu, May 07, 2026 at 01:53:56PM +0200, Boris Brezillon wrote:
-> > On Thu, 7 May 2026 11:02:26 +0200
-> > Marcin =C5=9Alusarz <marcin.slusarz@arm.com> wrote:
-> >  =20
-> > > On Tue, May 05, 2026 at 06:15:23PM +0200, Boris Brezillon wrote: =20
-> > > > > @@ -277,9 +286,21 @@ int panthor_device_init(struct panthor_devic=
-e *ptdev)
-> > > > >  			return ret;
-> > > > >  	}
-> > > > > =20
-> > > > > +	/* If a protected heap name is specified but not found, defer t=
-he probe until created */
-> > > > > +	if (protected_heap_name && strlen(protected_heap_name)) {   =20
-> > > >=20
-> > > > Do we really need this strlen() > 0? Won't dma_heap_find() fail is =
-the
-> > > > name is "" already?   =20
-> > >=20
-> > > If dma_heap_find() will fail, then the whole probe with fail too.
-> > > This check prevents that. =20
-> >=20
-> > Yeah, that's also a questionable design choice. I mean, we can
-> > currently probe and boot the FW even though we never setup the
-> > protected FW sections, so why should we defer the probe here? Can't we
-> > just retry the next time a group with the protected bit is created and
-> > fail if we can find a protected heap? =20
->=20
-> The problem we have with the current firmware is that it does a number of=
- setup steps at "boot"
-> time only. One of the steps is preparing its internal structures for when=
- it enters protected
-> mode and it stores them in the buffer passed in at firmware loading. We c=
-annot later run the
-> process when we have a group with protected mode set.
+You can simplify the attribute creation with BIN_ATTR_RO().
 
-No, but we can force a full/slow reset and have that thing
-re-initialized, can't we? I mean, that's basically what we do when a
-fast reset fails: we re-initialize all the sections and reset again, at
-which point the FW should start from a fresh state, and be able to
-properly initialize the protected-related stuff if protected sections
-are populated. Am I missing something?
+> +
+> +static void sahara_sysfs_devres_release(struct device *dev, void *res)
+> +{
+> +	device_remove_bin_file(dev, &ddr_training_data_attr);
+> +}
+> +
+> +static void sahara_sysfs_create(struct mhi_device *mhi_dev)
+> +{
+> +	struct device *dev = &mhi_dev->mhi_cntrl->mhi_dev->dev;
+> +	void *cookie;
+> +	int ret;
+> +
+> +	if (devres_find(dev, sahara_sysfs_devres_release, NULL, NULL))
+> +		return;
+
+So you are expecting this helper to be called mutiple times without teardown?
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
