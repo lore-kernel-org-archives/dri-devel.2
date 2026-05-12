@@ -4,155 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBD38CD4F35
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 12:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A038CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 12:08:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 161D810EA5F;
-	Tue, 12 May 2026 12:00:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D94FE10EA7E;
+	Tue, 12 May 2026 12:08:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TcdXeMA2";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y3QWFjIh";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fOgjKmYQ";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2399610EA61
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:00:06 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64CB5HZY1184120
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:00:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 34bMm2QC5D3vRxjYjMA8BCTGNq2X+nM48LZ6CVNLD7Q=; b=TcdXeMA24SddLE3F
- SfH1/E+iui1tlbkeFLLtpgiUiLCtbId1GDQjdU2rJ3xECSnZkOkOXIhFkbNF5drM
- /SiB6NoYCIUE4Nv49Clxx4GLYv1fcpHhQUgjfRLhl5g+hbKskItfjdTnTS11jYZu
- OzcPRe3m4hu2A6Y08pUPeYow5P/1unahYPu7nCf1umJ/rZKdAvUJphkZq5/gPl7q
- +CMvNiX5zMQz/UJ5Tsxzta28ke9FGUy9MwUagt3H3d3ezwg44M2qFXL1ugL7TpTM
- pKZBVNINGhXHJlntJORNa3qkFfb8Y2MqUidsuOAJERTSPFYP5ZyzRjC2AdavdTis
- v7XbTg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3nuyb55y-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:00:05 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-5156c85538cso2277711cf.3
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 05:00:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778587205; x=1779192005;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=34bMm2QC5D3vRxjYjMA8BCTGNq2X+nM48LZ6CVNLD7Q=;
- b=Y3QWFjIh1WwLGBkHFH/2QpY8jNeGYPvhZUMgQNu21YI9sAXu04ajLRIoaYhZmw+ocX
- k/6YaXXOJJz1cHZMeFOyQkx2hlYWaJHSUu2NF9OfRFNlq3D1v5ftj933cbo19SPEGD+s
- VCUxNx2gLIQdPEjt3w6NrVLU7uN/8UwOuE9SWlKN7MPMCoxdxh4MqysygmGanqe8i5tU
- SxL40B88JLZfm66LCrKIIponJGEAlf7EbLO1ga7jzr6Zbyjyavj6a2ynV1lXn/bG/zjC
- lVTpOO68tjC1pVOwyRJWimFcV6SmAnGqxx7/1wSv1l2/VikqT/89+wl345fcMfghg2SA
- Fv6w==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD9510EA7D
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:08:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778587705;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dXH5HtvUwwvubt7XZZtwSLlnbyrqCuGNkjWnyw6B3Tw=;
+ b=fOgjKmYQzyaKUCAJ2UfHXSZJyQ54ALvWtsIL0ExDvOhToBSrFQZO5wM9OmJrCGxH9X7s0U
+ 0rHg7shJqhzyUE1XB/e4i/z8UNeQWVMAXgHUH8LS4AAfnqq5Yb/cIXYmkX+1ClpBbhVEkv
+ Ol3PBl2+znQ4kOAFsp9UQp62BshlmJo=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-378-zWSkWvANOoSX40LyxIe5nA-1; Tue, 12 May 2026 08:08:24 -0400
+X-MC-Unique: zWSkWvANOoSX40LyxIe5nA-1
+X-Mimecast-MFC-AGG-ID: zWSkWvANOoSX40LyxIe5nA_1778587702
+Received: by mail-lf1-f71.google.com with SMTP id
+ 2adb3069b0e04-5a8a57bad37so2201623e87.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 05:08:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778587205; x=1779192005;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=34bMm2QC5D3vRxjYjMA8BCTGNq2X+nM48LZ6CVNLD7Q=;
- b=WCZAnz2FWJhUm4DzBYNfGHyISyz2ZGmZoZ7KU57dLUXbllWn9uQdtP/oWBUVL1XMl6
- 7g/169byQVXYExOwTPIvrYAIAOQwqGDCupMI4q5j+W/V0oHNFKvC+XaSjZYwFrWC9vIg
- FJVJH4r0Dgh/qiVqazvHiKxIIzuavJxqO3xyejG3865fwkR3aL1RcLHxRq7XjkKP/a3M
- 7dJSF064CXW8zcrMr6fnFcOkBU7EFwFt82eN9C0puMJXH7tDqZf7uhzpjx5UtTYtS/bn
- GIlylUVWP0TmZKr2dgG/sliqHVR+y85/D+ytN1p7rWobHpLZxDX8IBYlOolbXCe00/0v
- zRGw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/dnWUHVvtLpbNXPHneQybcxenwSqGoflEtSx35iCjY/Em+mL30E8Z2ncY0bTAjlVlw2V5IMUqXpNQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzIgO1I3AVQfWig3zds7QAWr9dPzHhSV2vmCZAvxnB2zTWT7ttX
- hnrBNXFDSgfYb3NIOzEHRByQfBwQUQF4gRS6HiQJ9xzMz6rOb629I2Q6fLOZAZ1FHxI+QRjDPXg
- 3nQzC6SYqkTKNIjSG92XrdxGo0F1+apBCDLcwBumLDg2yZKQN6WaR9NbSd+uttRn1FFZ/jAY=
-X-Gm-Gg: Acq92OEqXZyVWglvEK1YYbkpBBvzJlGoLNl9YpxZZoRTzlFgo4GPX1rm6LD6nfQGI79
- JFCxQIsEDpPkKIqmrbVzR6O93scZFjkFVEz+o2nzviCCk4685Rug56jygvGBXO9l9GFLievqinU
- ZHoLLhnGUCDVAEPzsmxDSL4liQ+Rvhn6NIEq4KfFB/cOPa0u/zGn0cFrvhuub1n/voW2Xs/hib3
- ALVUlsSNpBX9cD8HUfkKWhERQMLgxPLoE9AXhTyUYpunhz/taAt145uMKrmh3Y3FZke7HnVCavo
- 96a/qyno214UOILURnpUu9R/RWPS9Syut6wq8l+Pj0t/XJRXHIsmUm8HEat1KhUGeoWK062nmNI
- WtsdbUF/0q11MRq6S3fcoFw6dzf3H1NcEbWeXDlcQhApYDLoivrQ=
-X-Received: by 2002:ac8:57d3:0:b0:50d:912c:c2cb with SMTP id
- d75a77b69052e-514d22159aemr34005451cf.42.1778587204396; 
- Tue, 12 May 2026 05:00:04 -0700 (PDT)
-X-Received: by 2002:ac8:57d3:0:b0:50d:912c:c2cb with SMTP id
- d75a77b69052e-514d22159aemr34004721cf.42.1778587203664; 
- Tue, 12 May 2026 05:00:03 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:74a7:1c82:3f14:b431])
+ d=1e100.net; s=20251104; t=1778587702; x=1779192502;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=dXH5HtvUwwvubt7XZZtwSLlnbyrqCuGNkjWnyw6B3Tw=;
+ b=XcezvAFVFqF/ktgCSksHBriMYGeM6BcerR3s7Nu9eFxlAwH/GCvbexLRGh+1pzJFc9
+ /MbWxAVxlYEzezeQzCdDbiwmYi51fORmkODIq8hMDz4R7iUsobV/XM9jq2At29ytXqdg
+ lr6IJOGk4UTzGF3S2hL3M6MKOJ0ATUV93iUXtVdYWkEUFFdQv04ozHkHayhRnhXr4t+V
+ QuYckHQe1yZdoXceHmPXJhexs5msYoO1YHLIcvErHkkB3NojEmsztC0B9bYb5kPfy+lx
+ uguinUwS3mbsjwgRK64bYFm0QjdocrZZwBYZ2pu1cNrW02GLtCWNst814cp/gkYRz+xy
+ 3BJA==
+X-Gm-Message-State: AOJu0YyUayq1Nzovgct7P7JjP3f04LDfIWzVGMcb+nZmv+y+gNW/5g5J
+ yz3z83bMOejLmkVWcFxtYnxkGQFXZEqfNQMc6z7zrI2gpvCAIaCpruMUPuxxQn7ZWg+fFGSxoW3
+ aHwEsdzgbESvgD34T8FP40qad3LZ10leBDjnxge8cmGRNU5Z+tjQLF9lBotm+tS0OFg+z
+X-Gm-Gg: Acq92OF5cNsCDld3fmx4NWVwzsBFL3N9FYHO7e4cJLsjoHdExS/lrm4puqsei9p2y0b
+ q3BOZb9SlrF/l5J1ebhvPXLlhfckCkFhQm8w7WmJ0/bO3Rbz4m/kCWtfz6DRfpoGut4GEs2vCwb
+ /s58JMi08XmuK6pb9WsWCjSywRQ46rMnpV1GGbFqinqhrOYFLnpch+r3L8XKkvWH7+4BxKNDyIL
+ l2qVKPxqIQv9yj5zcumvnhfa9cy1JYidYfWSUTd1z8MZJ17aUI/grDOp8SYiLJMrlSbV5EtAmj0
+ n4ftLWCeqA/LcniWdqSv6Okg5tFJAdJJcbOXICRhWXKSC11P4N8NtQZe0JNLbmFV9b/vBIDmacG
+ V1tUEcc5sfP1VDRaiU0vwx91KeOu3N35UniTSofaJ9wGVeww=
+X-Received: by 2002:a05:6512:1281:b0:5a8:cdd8:1eb0 with SMTP id
+ 2adb3069b0e04-5a8cdd81ed5mr2576299e87.1.1778587702199; 
+ Tue, 12 May 2026 05:08:22 -0700 (PDT)
+X-Received: by 2002:a05:6512:1281:b0:5a8:cdd8:1eb0 with SMTP id
+ 2adb3069b0e04-5a8cdd81ed5mr2576269e87.1.1778587701675; 
+ Tue, 12 May 2026 05:08:21 -0700 (PDT)
+Received: from [192.168.1.86] (85-23-51-1.bb.dnainternet.fi. [85.23.51.1])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e9067811dsm73933355e9.9.2026.05.12.05.00.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 May 2026 05:00:02 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Tue, 12 May 2026 13:59:28 +0200
-Subject: [PATCH v5 6/7] kunit: provide kunit_software_node_register()
+ 2adb3069b0e04-5a8a95661aasm3290978e87.68.2026.05.12.05.08.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 May 2026 05:08:21 -0700 (PDT)
+Message-ID: <7e3abb7c-c57d-419a-969a-fcd150ccca99@redhat.com>
+Date: Tue, 12 May 2026 15:08:20 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260512-swnode-remove-on-dev-unreg-v5-6-0035eff63812@oss.qualcomm.com>
-References: <20260512-swnode-remove-on-dev-unreg-v5-0-0035eff63812@oss.qualcomm.com>
-In-Reply-To: <20260512-swnode-remove-on-dev-unreg-v5-0-0035eff63812@oss.qualcomm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Andy Shevchenko <andy@kernel.org>,
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 2/5] mm: Add helper to convert HMM pfn to migrate pfn
+To: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
  Matthew Brost <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: brgl@kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- platform-driver-x86@vger.kernel.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3107;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=DeQzfE7uEw87FoNwrajQBxkZ/sMoxBLsCBYIPXjNSsI=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqAxYz9AUQJYLx8Gjc9Aw9y61bGXtDlL8RtTsEq
- ZrS1S1vhtuJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCagMWMwAKCRAFnS7L/zaE
- wxhHD/90KCisG8rjredY8t0hKDZvnfuJKDb5Ib1/NvR2zJgo5hYH+7sRtl3DPo+ZdBdf09AufUQ
- Y6B+WgCIiaMT77J009hTBYLY7I74tS5YrnoSmpsLeXoVTr1PqwE5OUrzYsCKQUJX56izRh6ayEn
- CcX7Olv7f140cVo6FBRP2rLpld5eTf6pSYVRXl1OMlrFt+2QUqjIYFXIi4b6pm8Jn8+pINaSrdS
- IcNeRyKb+yf0pXxNYMqWpn/HYdMMTjV0NoTu2Dz/+LNF1BKbyJgPtsQyl7JRD3RFCPMIJ7oaA1T
- UR0FISiBtF/x4Hkcxz1Mx764PbpImB6T7j3C2KK3jMpCxuKmTqZ6I9BVCebYtIpn0yY62WouzT+
- JPpGErbBgfUWIHUqdif653NyT4C4pQ837yvUsdz05uK0vhzvztBadDV9+xwe7rSUkinK5dG5WEO
- Af+gpi+zob8FyLwUgCtjs0wpHbvP/lxOBhVWAo9tULjQTHZD03dl1D344A8oHqS9yIyFOMyxOkU
- fGHnEjIfRuOM4DPXpdYUIyyFwtcfMhw0eyy0HAHfmkLACZtShOD9lj77RzE/m8u0MRgflgt+msw
- KdaBL2/2Wil0qqPX+fUjCB1+IyQtt14dw3dEVRjsVtr8CCwqwqIW0DjKz+s1R1VF8TRn96Y0EYH
- NKZMo+uDfbAxm7A==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-ORIG-GUID: F-D7fX1B3H9Grr0r605rnqzy5pibcl7w
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDEyNCBTYWx0ZWRfX6+tpdJYERWBQ
- HNnlJx5FzjVCXF57UcsXNXV7zG5CQSWeKvEDXIG6Df+RUF4gSOtFwRloZGambrfjxclXZPlPAmI
- bA3qHIpxjuhe5d7BR9Fs2qG2QgAPHY1J0/Hri2A9Bd+iHefYQFoWtmIScjXaeQCRWDgal5rfygc
- vnHmlNkkp3qn4Bag7vtirgjdcMJI9NTKoeIsmhlK6B4z3RV7bSfDXj52wXU/oxzdz19JFJ4p4Ub
- Ac5SxrU6V6gpHivqPUv03Y3JJar3l0z1htemv8h9sY/KYhXV1+Q8VJogvL/lXozeLiO2Q+RX0YL
- 44/Lzm2Aqvb6jXNq0rHcd21G7IwE4ByBJ3F3eS6qz1VRb+0NBopAgoqVT74u+0WxcjxfS4x85TG
- z4kyOeLrAQGb1SMgM5gJZ0F2O+GSEsxeiLSvpU1M1Sfd+JAZIQuCXig0cPpy5zOcZh5Y//HC+pk
- PzzBh90VB63qxAXDaAg==
-X-Authority-Analysis: v=2.4 cv=UZ5hjqSN c=1 sm=1 tr=0 ts=6a031645 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=0NWOcHYCwBz2ZqcsIPkA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: F-D7fX1B3H9Grr0r605rnqzy5pibcl7w
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 phishscore=0 adultscore=0 clxscore=1015
- lowpriorityscore=0 suspectscore=0 bulkscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605120124
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+References: <20260505184421.2324798-1-mpenttil@redhat.com>
+ <20260505184421.2324798-3-mpenttil@redhat.com>
+ <4a9c4170-c6b7-424c-969c-19240f07e46b@kernel.org>
+From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+In-Reply-To: <4a9c4170-c6b7-424c-969c-19240f07e46b@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: st3RRW2sDB7LZSOEh3tAn_VmUF6FGyUThyvsNLiK4e4_1778587702
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,113 +110,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement a helper for registering kunit test-managed software nodes.
+On 5/12/26 14:43, David Hildenbrand (Arm) wrote:
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- include/kunit/fwnode.h | 19 ++++++++++++++++++
- lib/kunit/Makefile     |  3 ++-
- lib/kunit/fwnode.c     | 52 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 73 insertions(+), 1 deletion(-)
+>> +
+>> +/**
+>> + * migrate_hmm_range_setup() - prepare to migrate a range of memory
+>> + * @range: contains pointer to struct migrate_vma to be set up.
+>> + *
+>> + * When collecting has been done with hmm_range_fault(), this
+>> + * should be called next, and completes range->migrate by
+>> + * populating migrate->src[] and migrate->dst[]
+>> + * using range->hmm_pfns[].
+>> + * Also, migrate->cpages and migrate->npages get initialized.
+>> + * After migrate_hmm_range_setup(), range->migrate is good
+>> + * for the rest of the migrate_vma_* flow.
+>> + */
+>> +void migrate_hmm_range_setup(struct hmm_range *range)
+>> +{
+>> +	struct migrate_vma *migrate = range->migrate;
+>> +
+>> +	if (!migrate)
+>> +		return;
+>> +
+>> +	migrate->npages = (migrate->end - migrate->start) >> PAGE_SHIFT;
+>> +	migrate->cpages = 0;
+>> +
+>> +	for (unsigned long i = 0; i < migrate->npages; i++) {
+>> +		unsigned long pfn = range->hmm_pfns[i];
+>> +
+>> +		/*
+>> +		 * We are only interested in entries to be
+>> +		 * migrated.
+>> +		 */
+>> +		if (!(pfn & HMM_PFN_MIGRATE)) {
+>> +			migrate->src[i] = 0;
+>> +			migrate->dst[i] = 0;
+>> +			continue;
+>> +		}
+>> +
+>> +		migrate->cpages++;
+>> +
+>> +		/* HMM_PFN_MIGRATE without HMM_PFN_VALID denotes the special zero page */
+>> +		if (pfn & (HMM_PFN_VALID))
+> No need for ()
 
-diff --git a/include/kunit/fwnode.h b/include/kunit/fwnode.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..e1554ace64b8a5899aff9f4b4247e5157826a49b
---- /dev/null
-+++ b/include/kunit/fwnode.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * KUnit resource management helpers firmware nodes.
-+ *
-+ * Copyright (C) Qualcomm Technologies, Inc. and/or its subsidiaries
-+ */
-+
-+#ifndef _KUNIT_FWNODE_H
-+#define _KUNIT_FWNODE_H
-+
-+struct kunit;
-+struct fwnode_handle;
-+struct software_node;
-+
-+struct fwnode_handle *
-+kunit_software_node_register(struct kunit *test,
-+			     const struct software_node *node);
-+
-+#endif /* _KUNIT_FWNODE_H */
-diff --git a/lib/kunit/Makefile b/lib/kunit/Makefile
-index 656f1fa35abcc635e67d5b4cb1bc586b48415ac5..7549a701791b5b7eaa8e0637b6818cdfd0b655a8 100644
---- a/lib/kunit/Makefile
-+++ b/lib/kunit/Makefile
-@@ -10,7 +10,8 @@ kunit-objs +=				test.o \
- 					executor.o \
- 					attributes.o \
- 					device.o \
--					platform.o
-+					platform.o \
-+					fwnode.o
- 
- ifeq ($(CONFIG_KUNIT_DEBUGFS),y)
- kunit-objs +=				debugfs.o
-diff --git a/lib/kunit/fwnode.c b/lib/kunit/fwnode.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..bc8bf06762dd71a741a3419c1ca04028d6ad3ec8
---- /dev/null
-+++ b/lib/kunit/fwnode.c
-@@ -0,0 +1,52 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) Qualcomm Technologies, Inc. and/or its subsidiaries
-+ */
-+
-+#include <kunit/fwnode.h>
-+#include <kunit/test.h>
-+
-+#include <linux/fwnode.h>
-+#include <linux/property.h>
-+
-+static void kunit_software_node_unregister(void *data)
-+{
-+	const struct software_node *swnode = data;
-+
-+	software_node_unregister(swnode);
-+}
-+
-+/**
-+ * kunit_software_node_register() - Register a KUnit-managed software node
-+ * @test: test context
-+ * @swnode: Software node to register
-+ *
-+ * Register a test-managed software node and return its firmware node handle.
-+ * The software node is unregistered after the test case completes.
-+ *
-+ * Return: Firmware node handle of the registered software node or IS_ERR()
-+ * on failure.
-+ */
-+struct fwnode_handle *
-+kunit_software_node_register(struct kunit *test,
-+			     const struct software_node *swnode)
-+{
-+	struct fwnode_handle *fwnode;
-+	int ret;
-+
-+	ret = software_node_register(swnode);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	fwnode = software_node_fwnode(swnode);
-+	if (WARN_ON(!fwnode))
-+		return ERR_PTR(-ENOENT);
-+
-+	ret = kunit_add_action_or_reset(test, kunit_software_node_unregister,
-+					(void *)swnode);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return fwnode;
-+}
-+EXPORT_SYMBOL_GPL(kunit_software_node_register);
+ack
 
--- 
-2.47.3
+>
+>> +			migrate->src[i] = migrate_pfn(page_to_pfn(hmm_pfn_to_page(pfn)))
+> Is there no easier way to avoid going through a page?
+>
+> I guess you really just want "migrate_pfn(pfn & ~HMM_PFN_FLAGS)".
+>
+> Maybe add a hmm_pfn_to_pfn() helper that does the "pfn & ~HMM_PFN_FLAGS" ?
+
+Basically yes. I noticed this was helpful for instance with the "separate address space for device_private"
+patchset not to depend on the coding.
+
+>
+>> +				| MIGRATE_PFN_MIGRATE;
+> We (MM folks) usually put the | onto the previous line to then properly indent
+> the second line
+
+Okay I will change.
+
+>
+> migrate->src[i] = migrate_pfn(page_to_pfn(hmm_pfn_to_page(pfn))) |
+> 		  MIGRATE_PFN_MIGRATE;
+>
+>> +		else
+>> +			migrate->src[i] = MIGRATE_PFN_MIGRATE;
+> It might be cleaner to just set migrate->src[i] = 0; here and to unconditionally
+>
+> 	migrate->src[i] |= MIGRATE_PFN_MIGRATE;
+>
+> So you don't have the MIGRATE_PFN_MIGRATE on two paths.
+
+Good point.
+
+>
+>> +
+>> +		migrate->src[i] |= (pfn & HMM_PFN_WRITE) ? MIGRATE_PFN_WRITE : 0;
+>> +		migrate->src[i] |= (pfn & HMM_PFN_COMPOUND) ? MIGRATE_PFN_COMPOUND : 0;
+>> +		migrate->dst[i] = 0;
+>> +	}
+>> +
+>> +	if (migrate->cpages)
+>> +		migrate_vma_unmap(migrate);
+> Can you remind me why we do this here, in the setup() phase? The function doc
+> does not really describe that.
+
+It is to be in par what migrate_vma_setup() does today after the "collect" phase.
+
+Thanks,
+Mika
+
+>
 
