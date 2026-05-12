@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C313CD4855
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 08:59:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15B21CD4F35
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 08:59:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C71BA10E9CA;
-	Tue, 12 May 2026 08:59:38 +0000 (UTC)
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
- [209.85.161.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 594D210E9D4
+	by gabe.freedesktop.org (Postfix) with ESMTP id 517F610E9D5;
+	Tue, 12 May 2026 08:59:39 +0000 (UTC)
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 338DE10E9D4
  for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 08:59:38 +0000 (UTC)
-Received: by mail-oo1-f69.google.com with SMTP id
- 006d021491bc7-698229e6b62so9105893eaf.3
+Received: by mail-ot1-f70.google.com with SMTP id
+ 46e09a7af769-7dbe0e914adso8209503a34.2
  for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 01:59:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20251104; t=1778576377; x=1779181177;
  h=cc:to:from:subject:message-id:in-reply-to:date:mime-version
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=Qry07HiLRpI4moE29vwWP3imXR+DsmNoqtYT3jSQb00=;
- b=jAorvpFvRqM1O1KKQ+6BXmXjt4kFyk7hfPGKDVgxtr4PSG7YTMIsefOVj5y78+wq2B
- XnPCnqxXS1Q4ULJGF0n38CPrTcIXBBML2XG7Fh+i8Yvw3ERhoJpeEaX8o6HDWgcT2cJP
- at3Fr4te4XfXBG/vxV+hU9zI/K0+TDSbQpDIde0OLuQ2CgX6QCaRlRLcaCOFCqoBco8j
- 8+s3gQkSBKAmdQRqxMIeOTU4WwlGAX258/rUwViUi/gPEovCPO48uvU5sgBipVAhtDhf
- 0OgeAvLFcGIRKypSOdKA4+oMIdkQCyfL+7JkApUyC7p+i79hA7cDveoeQ+q4RxcI7k41
- Tbiw==
+ b=MJB+uXaTiSSWAhKONy/s6W1kyxIcxW7Ejzq1ebdK/zWF6qqnCkAzGRcLIfGKHYqQND
+ 5yvsYTGIC2d04JLfQgs3d+QCYi+HjpDQPYS5xeE0/LIk7C647NvfVlfpAcYNa0CyC+6L
+ WPzz0fky0Q4RYwqwIVyA048NeXQqleQwOitD4YGWFycWgLHndaW/qog4EbBLDd3q/7Wz
+ GyZkao91v7rY88aSPJLL2RhP5uhXfZgbW0adSppa72UA2eNF6Lrz2hBY70tA3bKYfKuC
+ Zp6DtqIJdMk6BdNqJ4n+JQhoSQgc1J83jQtDYDFLXt3YSenTLDtLU/JqjYGnoh7Vi3Ot
+ voqw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8Hp4BijDnUxFbw64cnsy2K9O5q/H0ij+2bfJ+QjMIzhQ6kjvGCve9dbWoOmuKbC4/WjRg83n4dPxc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyyR9hSTNpC5ny3TPJNGaXluUvEotPFdYACWziTHUaqMIiPQLSj
- SN0sC+InEXW0GSfMX/JSjvmogVekxPISaXV0vT4gP8B7wgXlyzexnuSnag87AgYldWQ3LZo9f62
- 4au2Rz9/rKExFtUKU1FXoWx3yh0ZLwkx5AnqexG6gW5C53N4hRbRZwz5Eue4=
+ AFNElJ/4rKE8+iRUPUhLvhZf/Bha2yIB1STdF45Tw2IICCMmY3iJbvBp4ALu6qI9JAV5cIq0THlZRvBGIJE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzZJ0X1l/hBZ8dlPb1NGwkzPvZ8isxCf2nwAWfHVWjYxwGwspJf
+ RmH42I08yC+Cirm/jiaT5bEa9YvDir7pKao2IkLCEZ6VcHF9BSkbgxWTrT/OEFbSSpDM0fbIF1E
+ 8uHBXDaooFf+ParMA69U75hpLc47DYaeIV/CPDuoFjkV2bRdqNMH3cG0rDXM=
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:190e:b0:67e:36e9:79ac with SMTP id
- 006d021491bc7-69998cc3719mr14591303eaf.27.1778576377620; Tue, 12 May 2026
+X-Received: by 2002:a05:6820:220d:b0:686:d107:2856 with SMTP id
+ 006d021491bc7-69998d5251dmr16156255eaf.51.1778576377421; Tue, 12 May 2026
  01:59:37 -0700 (PDT)
 Date: Tue, 12 May 2026 01:59:37 -0700
 In-Reply-To: <20260512-virtio-gpu_wait_event-v1-1-207eb4c1a69a@redhat.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a02ebf9.170a0220.7f9b3.000b.GAE@google.com>
+Message-ID: <6a02ebf9.050a0220.14e4b1.0008.GAE@google.com>
 Subject: Re: [PATCH] drm/virtio: add timeout to virtqueue wait to avoid hung
  task
 From: syzbot <syzbot@syzkaller.appspotmail.com>
