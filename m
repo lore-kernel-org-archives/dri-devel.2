@@ -4,85 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9688ACD37B6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E36DCD4851
 	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69D1010ED1E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E41710ED2A;
 	Wed, 13 May 2026 07:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZkjNfCcn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rYlYnkxM";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF75810E9CD
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 09:10:27 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-83ec36a13e9so1084198b3a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 02:10:27 -0700 (PDT)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2B9810E231
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 02:07:32 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-8353c9f24d2so2595942b3a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 19:07:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778577027; x=1779181827; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Z33mAnUolaaopuhgkgsSsR1XqxZfuAXYGKr6UlpMNF4=;
- b=ZkjNfCcnug8Jy+Dl0cCjzmN61WTGh8IqEyfre57OjLRGu72z+awRKpE3sxf4iUyiIU
- yjanqaZZUdgBLS+gf5mlNNXeUMUZXmDM1l8ecCpjeRHE58A1SW56BhnELeRQNdGWdBny
- wD57Uo016JpsxHnPRNRzPfP2baKgWym6DolnuDWY92pD3Vp0AkqxaTWk81iUB7Xxn1sv
- qvUdWBtr5pKw9yAe0HNYAFR4D5WW/rYHRzsiJ9pXSORwAKAtrvjbdIhlflkRLVrxfqGT
- EhwNV+5QJlVYvZCFMTBgdA7UiDc3x45Qs6fDz+mnUZmYMwBEtveMAyIN0GmjfhJFxczH
- ImSQ==
+ d=gmail.com; s=20251104; t=1778551652; x=1779156452; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/QiKU/+m/deMkZnUgiMPX7icRFO8sAPHl3F/zxCh9ig=;
+ b=rYlYnkxMz/9j5Pwx94OmbIk/m3cnrVB1jp31xd6xE7vXu8yCgTZNgBisbRKmsAuwBd
+ Wayzapr9Kp/NO/YK4ND7LjyofpWl1A9woN+mVdVg9tdp6uSsVfQQgI9sLM/NGtmzeojl
+ KC6uhAM1sdxC+DXH/zJuuaE/ZajhyRLo1aClDNO+WIgiNl9tJSJu0J8/t+5485CmbqOE
+ /DMuupLG7fYakALxo83KFHrk0f5mB2rl808w3bxW4WU9twc4+xdjYQjY/fKV39m1mHsH
+ WJtPM2nWSFHHMKfh0TPMnPkSaGdxF0Z68qNTrnCN1hOCn+oFBuJVnNhF4ls8nf6CJPQ1
+ y6wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778577027; x=1779181827;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Z33mAnUolaaopuhgkgsSsR1XqxZfuAXYGKr6UlpMNF4=;
- b=LEkakSAEeSrrXY/ERD2EQBY0w5Vr2bp1p6xYZD48gNEo2rDufbXik1IwAPk1PYt5SQ
- 5diMjzgH8yzwtk0Ljr9OGG2cgkRWapeGGLLq071GsEj45bQ+GdKAiB8Dg6QZ2G8MbFXP
- A64QWxd3ZKiy1YZU56Tb5/eBf2Koqvbxf6SsJE5mXoLhCl6RIQt30u+MMTYeDTE6fHbU
- w2QdKSbRthmWJZ0pAr2VFWSm71hYlctYRmbiAU6bc1k9DnVPcDv2VsBjGn/VaXiCUNQL
- gRpaBGzV8ipC35Dz3fFZVp41PVdg1wCXHtKnYjIVviW940h4rKi4xAtJCuXvKn3he0/W
- fmSw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/nHNXyxZXLca5pMS8V2d/yCLCtkylhVphZy4SQcQn1WENm3LvDUTz63IwyY1U/6vO3GQPBYA/KVjM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxvAox8gd36YbUMf6uJ3gqI+M5I386NWLV3bCBeLMzyaAEgY9Uh
- IOr1jJbxOFB3910+6IrAKBqKn57SIpz2nSkTJ1crSEbf1LOE3Fn/yfsryyWikQ==
-X-Gm-Gg: Acq92OFFRWaTdYji4Uj44itYNq2EbkT0ha9YGPUURaMiG7gUuCFdeSUqM1B9yWoASl8
- JGjAmLD0jUkqdtEBJEIG0fpuAyRv4pLUzL992YzYk3fWbNdZCzSkkrZV45O3hl/649FZCBpVadW
- Oh+xJ4Zvw8wzAv92ly79AdzJQ/+DGpQhykNd3/DUHJ5VtbNcjbdJ6BowkL46KuXTc20admZtrEm
- MrTjfon8KBlC0usIN/iBApxFnBI08G8HKazj27lZ4KTy/NUFm43EH1QKFFLPZIsoH0b1Ow5Ep9S
- gkSxwL/arlgFliqlCgIyjLAGGEohuirZN8LpDV6cB1hcwJcWWBgwb1AUD+kvqPFRmVt9JiWp2K5
- zLGOLg98MAyObzCtun9b4GPV4Le53E+C80Mzd3so2fHOBtQvuRxCT6mKed2UyskX4YTHVgJnKhD
- wxBzM4k4W/45NPElHxie6pr7BYpzTZuYYt+vFQzal2LdRcAIuPR62Gl9/Kf3516lw8mJ8ooHHmu
- JsObCtJcLk0DWY=
-X-Received: by 2002:a05:6a00:9a8:b0:835:5557:31fa with SMTP id
- d2e1a72fcca58-83eebe7fd90mr2418145b3a.46.1778577027383; 
- Tue, 12 May 2026 02:10:27 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83965946543sm28990915b3a.16.2026.05.12.02.10.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 02:10:26 -0700 (PDT)
-Message-ID: <07ca65f6-33da-40b1-afcd-0b0ceabd49f9@gmail.com>
-Date: Tue, 12 May 2026 17:10:22 +0800
+ d=1e100.net; s=20251104; t=1778551652; x=1779156452;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/QiKU/+m/deMkZnUgiMPX7icRFO8sAPHl3F/zxCh9ig=;
+ b=OlvlS0D/K5bTTs9cjjQLu9Q3GF/lOmxU7LbKneeQSSDNK+BPJew9Jc05bcPl/46MVp
+ 120iVmdFNtAM2Nk7Uo/cL9g32LZMBk8v5dWER/X9KDW+VwLx9oSYTw/Lq4Ay2ycSFN0C
+ 6XMVFBRH7IDzH/kwglsgxLsSyxlGcKYrHh0Gn7Z+czTUBGPCvYdlecS50aEO5QTzgk7Y
+ 2DEd4t0k0MH1EDc7333gafEG2zUjSwGEPKUHCns74rsa2iGWMehIPtQ6wLLzSTk7qwPa
+ AjNdy8HjS5NpGHSSoLQOXIvQKUdc5feBFlDJ9aOUSnGZUfDUU7w3SCzLxgY3QcjmPJND
+ TSqQ==
+X-Gm-Message-State: AOJu0YzzfcajpvgochXKeQi8jDT2a8LErNIR3HDFGEKEK5ORwiW22reA
+ SlaUjTXCDhs8dmjR8MwCPYR5zuq55x+N3xd1Sbzg3c2a4WzbzfTPAFFp
+X-Gm-Gg: Acq92OH7gP9Hi+ZLJUjo9vGvXlHgmBRbucglcobrmaFJDkJDwhjNLAxCJVhs24Cl4cD
+ YelUeBlhpFzrXjX50i0olHcKfKF1dw6zNUHm7p3NMKO7vsW9gr7SuOrzRsFU0SbSLI1xQtO+sUe
+ GAzF4TTueyR7wHfYAS/BOvXx2/FYNQAl8WRuaugipSH3giqF0ti0B/O/6J65FZl4UihMjz0BlFW
+ Fe1P+T/iiDF7QCPdtgAudtFdHTU8xUT3jiCG15wqiM2jhkGw7GZI1UsoqKI8YxXQ3ou7BjTeCDJ
+ Y8POTmJKUlvlKo7xKnqwRsovwUDsRNzT30JvZ+GOT2EA+rLuDpSAxELG5d+YK+yLWXAzozaF/qu
+ 3X8/Hc8Vq2sr08DquUSt0ZGnptizYZfT9V6XBk94e2aO/kQB9Uwuuq0g9KUSWdM0vmD0vokNObN
+ V6KJ9liTiiqsTiGb8NdZkcXhDWZB/1EUNi7f2pyZyAs0XueBzaCTDhz/y3XWCiZVOI/JmjukFiD
+ dLJdZs=
+X-Received: by 2002:a05:6a00:ad8a:b0:82a:17b8:1474 with SMTP id
+ d2e1a72fcca58-83eeb9f0e34mr977275b3a.1.1778551652212; 
+ Mon, 11 May 2026 19:07:32 -0700 (PDT)
+Received: from deepanshu-kernel-hacker..
+ ([2405:201:682f:383f:b0ab:8219:937d:e207])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-83967dbf7d2sm28966425b3a.49.2026.05.11.19.07.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 May 2026 19:07:31 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: airlied@redhat.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
+ gurchetansingh@chromium.org, olvaffe@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, Deepanshu Kartikey <kartikey406@gmail.com>,
+ syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/virtio: move cursor resv lock acquisition to prepare_fb
+Date: Tue, 12 May 2026 07:37:18 +0530
+Message-ID: <20260512020718.108044-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
- DCUltra Lite display controller
-To: Thomas Zimmermann <tzimmermann@suse.de>, zhengxingda@iscas.ac.cn,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260511075142.54752-1-a0987203069@gmail.com>
- <20260511075142.54752-3-a0987203069@gmail.com>
- <5157ab4d-3195-49f3-a3e9-aef6d58e869e@suse.de>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <5157ab4d-3195-49f3-a3e9-aef6d58e869e@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 13 May 2026 07:53:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -100,88 +93,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+virtio_gpu_cursor_plane_update() allocates a virtio_gpu_object_array,
+locks its dma_resv, and queues a fenced transfer to the host. The
+lock acquisition can fail in two ways:
 
-On 5/12/2026 4:24 PM, Thomas Zimmermann wrote:
-> Hi,
->
-> instead of this if-else branchery, I strongly recommend to add a new 
-> file with a new mode-setting pipeline for the new chipset. You can 
-> share existing helpers where possible, and implement variants where 
-> chips differ.  It's a bit more code, but will be a lot easier to 
-> maintain in the future.
->
-> See ast and mgag200 for example. Both drivers support various 
-> revisions of their chipset, where each rev has its oddities.
->
-> Best regards
-> Thomas
+  - dma_resv_lock_interruptible() returns -EINTR when a signal is
+    delivered while waiting for the reservation lock.
+  - dma_resv_reserve_fences() returns -ENOMEM if it fails to allocate
+    a fence slot; in this case lock_resv unlocks before returning.
 
-Thank you for the detailed suggestion.
+The return value was ignored, so the cursor path could proceed with
+the resv lock not held. The queue path then walks the object array
+and calls dma_resv_add_fence(), which requires the lock; with lockdep
+enabled this trips dma_resv_assert_held():
 
-I see your point and will refactor by adding a new file with a 
-mode-setting pipeline for the chipset, reusing helpers where possible 
-and handling variants as needed.
+  WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
+  Call Trace:
+   virtio_gpu_array_add_fence
+   virtio_gpu_queue_ctrl_sgs
+   virtio_gpu_queue_fenced_ctrl_buffer
+   virtio_gpu_cursor_plane_update
+   drm_atomic_helper_commit_planes
+   drm_atomic_helper_commit_tail
+   commit_tail
+   drm_atomic_helper_commit
+   drm_atomic_commit
+   drm_atomic_helper_update_plane
+   __setplane_atomic
+   drm_mode_cursor_universal
+   drm_mode_cursor_common
+   drm_mode_cursor_ioctl
+   drm_ioctl
+   __x64_sys_ioctl
 
->
-> Am 11.05.26 um 09:51 schrieb Joey Lu:
->> The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltra Lite display
->> controller, which is a previous generation of the DC8000 series. While
->> the general register layout is similar to the DC8000, there are several
->> key differences that require per-variant handling in the driver.
->>
->> Add a vs_dc_info platform data structure (in vs_hwdb.h) to describe
->> per-IP-variant capabilities, and use it throughout the driver to select
->> the correct code paths at runtime.
->>
->> Key differences between DC8000 and DCUltra Lite handled:
->>
->> 1. No chip identity registers (0x0020-0x0030): DCUltra Lite uses static
->>     platform data instead of reading model/revision/customer_id from HW.
->>
->> 2. No CONFIG_EX commit mechanism: DC8000 uses registers at 0x1CC0
->>     (FB_CONFIG_EX), 0x24D8 (FB_TOP_LEFT), 0x24E0 (FB_BOTTOM_RIGHT),
->>     0x2510 (FB_BLEND_CONFIG), 0x2518 (PANEL_CONFIG_EX). DCUltra Lite
->>     omits all of these and instead uses enable/reset bits in FB_CONFIG
->>     (bit 0 = enable, bit 4 = reset) for direct framebuffer updates.
->>
->> 3. No PANEL_START register (0x1CCC): DCUltra Lite panel output starts
->>     when PANEL_CONFIG.RUNNING is set; no separate multi-display sync
->>     start register is needed.
->>
->> 4. Different IRQ registers: DCUltra Lite uses 0x147C (IRQ_STA) /
->>     0x1480 (IRQ_EN); DC8000 uses 0x0010 (IRQ_ACK) / 0x0014 (IRQ_EN).
->>
->> 5. Different clock/reset topology: DCUltra Lite requires only "core"
->>     (bus gate) and "pix0" (pixel divider) clocks with no reset lines
->>     managed by the driver. DC8000 needs core/axi/ahb clocks and three
->>     resets.
->>
->> 6. Single output only: DCUltra Lite has one display output; per-output
->>     index logic is still in place but display_count is fixed at 1.
->>
->> 7. Reduced register space: max_register is 0x2000 vs DC8000's 0x2544.
->>
->> Add the "nuvoton,ma35d1-dcu" compatible string to the OF match table,
->> extend Kconfig to allow building on ARCH_MA35 platforms, and expose
->> vs_formats_no_yuv444 as the default format table for DCUltra Lite
->> (YUV444 blending is a DC8000-only feature).
->>
->> All changes have been tested on Nuvoton MA35D1 hardware and are
->> functioning correctly.
->>
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> ---
->>   drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
->>   drivers/gpu/drm/verisilicon/vs_bridge.c       |  28 ++--
->>   drivers/gpu/drm/verisilicon/vs_crtc.c         |  13 +-
->>   drivers/gpu/drm/verisilicon/vs_dc.c           | 129 ++++++++++++------
->>   drivers/gpu/drm/verisilicon/vs_dc.h           |   1 +
->>   drivers/gpu/drm/verisilicon/vs_drm.c          |  16 ++-
->>   drivers/gpu/drm/verisilicon/vs_hwdb.c         |   2 +-
->>   drivers/gpu/drm/verisilicon/vs_hwdb.h         |  25 ++++
->>   .../gpu/drm/verisilicon/vs_primary_plane.c    |  43 +++---
->>   .../drm/verisilicon/vs_primary_plane_regs.h   |   2 +
->>   10 files changed, 187 insertions(+), 74 deletions(-)
->>
->>
->
+Beyond the WARN, mutating the dma_resv fence list without the lock
+races with concurrent readers/writers and can corrupt the list.
+
+The DRM atomic helpers do not allow .atomic_update to fail: by the
+time it runs, the commit has been signed off to userspace and there
+is no clean rollback path. Move the fallible work -- objs allocation,
+dma_resv locking, and fence slot reservation -- into
+virtio_gpu_plane_prepare_fb, which is the designated callback for
+resource acquisition and may return errors that the framework
+handles by rolling back the commit. Stash the prepared object array
+on virtio_gpu_plane_state so the update step can consume it.
+
+Make virtio_gpu_plane_cleanup_fb release the objs if the commit was
+rolled back before update ran (i.e., objs not consumed). The queue
+path already unlocks the resv after attaching the fence (vq.c:411)
+and frees the array via put_free_delayed after host completion
+(vq.c:271), so the update step only needs to clear vgplane_st->objs
+to transfer ownership.
+
+Simplify virtio_gpu_cursor_plane_update to a no-fail queue submission
+that hands the prepared, locked objs to the queue path.
+
+The bug was reported by syzbot, triggered via fault injection
+(fail_nth) on the DRM_IOCTL_MODE_CURSOR path, which forces the
+-ENOMEM branch in dma_resv_reserve_fences().
+
+Reported-by: syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=72bd3dd3a5d5f39a0271
+Fixes: 5cfd31c5b3a3 ("drm/virtio: fix virtio_gpu_cursor_plane_update().")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260510053025.100224-1-kartikey406@gmail.com/T/ [v1]
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+v2: Move resv lock acquisition from .atomic_update (which must not
+    fail) to .prepare_fb (which may), per maintainer review of v1.
+    The previous approach of silently skipping the cursor update on
+    lock failure violated the atomic-commit contract with userspace.
+---
+ drivers/gpu/drm/virtio/virtgpu_drv.h   |  1 +
+ drivers/gpu/drm/virtio/virtgpu_plane.c | 38 ++++++++++++++++++++------
+ 2 files changed, 30 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index f17660a71a3e..e51f959dce46 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -198,6 +198,7 @@ struct virtio_gpu_framebuffer {
+ struct virtio_gpu_plane_state {
+ 	struct drm_plane_state base;
+ 	struct virtio_gpu_fence *fence;
++	struct virtio_gpu_object_array *objs;
+ };
+ #define to_virtio_gpu_plane_state(x) \
+ 	container_of(x, struct virtio_gpu_plane_state, base)
+diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+index a126d1b25f46..b0511ace89e6 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_plane.c
++++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+@@ -381,6 +381,23 @@ static int virtio_gpu_plane_prepare_fb(struct drm_plane *plane,
+ 			goto err_fence;
+ 	}
+ 
++	if (plane->type == DRM_PLANE_TYPE_CURSOR && bo->dumb) {
++		struct virtio_gpu_object_array *objs;
++
++		objs = virtio_gpu_array_alloc(1);
++		if (!objs) {
++			ret = -ENOMEM;
++			goto err_fence;
++		}
++		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
++		ret = virtio_gpu_array_lock_resv(objs);
++		if (ret) {
++			virtio_gpu_array_put_free(objs);
++			goto err_fence;
++		}
++		vgplane_st->objs = objs;
++	}
++
+ 	return 0;
+ 
+ err_fence:
+@@ -417,6 +434,12 @@ static void virtio_gpu_plane_cleanup_fb(struct drm_plane *plane,
+ 		vgplane_st->fence = NULL;
+ 	}
+ 
++	if (vgplane_st->objs) {
++		virtio_gpu_array_unlock_resv(vgplane_st->objs);
++		virtio_gpu_array_put_free(vgplane_st->objs);
++		vgplane_st->objs = NULL;
++	}
++
+ 	obj = state->fb->obj[0];
+ 	if (drm_gem_is_imported(obj))
+ 		virtio_gpu_cleanup_imported_obj(obj);
+@@ -452,21 +475,18 @@ static void virtio_gpu_cursor_plane_update(struct drm_plane *plane,
+ 	}
+ 
+ 	if (bo && bo->dumb && (plane->state->fb != old_state->fb)) {
+-		/* new cursor -- update & wait */
+-		struct virtio_gpu_object_array *objs;
+-
+-		objs = virtio_gpu_array_alloc(1);
+-		if (!objs)
+-			return;
+-		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+-		virtio_gpu_array_lock_resv(objs);
++		/* objs and fence were prepared in virtio_gpu_plane_prepare_fb;
++		 * the resv is already locked. The queue path takes ownership
++		 * of objs and unlocks the resv after attaching the fence.
++		 */
+ 		virtio_gpu_cmd_transfer_to_host_2d
+ 			(vgdev, 0,
+ 			 plane->state->crtc_w,
+ 			 plane->state->crtc_h,
+-			 0, 0, objs, vgplane_st->fence);
++			 0, 0, vgplane_st->objs, vgplane_st->fence);
+ 		virtio_gpu_notify(vgdev);
+ 		dma_fence_wait(&vgplane_st->fence->f, true);
++		vgplane_st->objs = NULL;
+ 	}
+ 
+ 	if (plane->state->fb != old_state->fb) {
+-- 
+2.43.0
+
