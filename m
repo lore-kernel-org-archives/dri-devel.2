@@ -4,55 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8CF8CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 14:08:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF2B7CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 14:11:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AAEC10EB47;
-	Tue, 12 May 2026 14:08:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 404FC10E215;
+	Tue, 12 May 2026 14:11:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hGv1O5q9";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HfiHYnEs";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5CA810EB47
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 14:07:58 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 165F262C31;
- Tue, 12 May 2026 14:07:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C96EC2BCB0;
- Tue, 12 May 2026 14:07:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778594877;
- bh=ELzYWlf3ogvW9ekvc4b/vLR9nXd5lkT4OMwyqQTDmNs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hGv1O5q9P5aGMG+ojRjlrkFJAeYPsOY5482KTZr/JzWUegvYseNAPoK6+uf8G2cQX
- IyjKO4xn6urudMO27XbjANjCmqruX4Utt+Lv3qoRwBLrfIrmzBCtAz/BhNToNKhIuA
- iFC6CMv1mEXVOpqQgA+eMJ6o9xjfwma4pc89fmD1HGeIPHS7WrbnR9N3a0PtlXG/ID
- zFsxJzOnrq7iS2mUjR0JcJHBn4Ws55QjwExw0Av55majBRGmTFL16gfuWRcChZ9pj5
- jeiG6cjpHyU/LC1OplDVpNagB+AUlHO6l5xg6CL6JjeEvIjH59RxjLn9H1hnIvbkfe
- aaKfYsRD7NlXw==
-Date: Tue, 12 May 2026 16:07:55 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Javier Martinez Canillas <javierm@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
- David Airlie <airlied@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Phong LE <ple@baylibre.com>,
- Robert Foss <rfoss@kernel.org>, 
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 1/2] drm/bridge: ite-it66121: Set TX mode in the
- .atomic_enable callback
-Message-ID: <20260512-romantic-qualified-hound-b5f9b9@houat>
-References: <20260512132232.333654-1-javierm@redhat.com>
- <20260512132232.333654-2-javierm@redhat.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0AE610E215
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 14:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1778595078;
+ bh=ffnSOLr6GBRvN/RNrGZcqdQPL9WDigCoPM7fdgwRrkM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=HfiHYnEsvlaGP8rXHMzyPOvqqCmbexRYDSqS7YdPq/NwKBFXqNQZucTJlKvSPvs6N
+ bQEhjDnFB5iHZ4TngCrePrDeNE6o6Bvgpxllw0d75usAc1NR6HvluYWni2NJopiDRI
+ 86qPMBksnJSMJEmIc3ojTu/JVZgi9qGmlmiXngJlggUUebkB/TGJRfiBJwLD84rFDV
+ OnhnS4h4nXnGTF6iC75b1H6EoiUE3RyNWTM4C+t0TL2mN2b3Niq51V/iGCXGpEwWjk
+ 52R8MJIdUqkeCRYwCPvihSkxBzJYZqA/D5pKKdhsATj+Rl5B7QS6Pp/8xc0d4UHxn6
+ V/S1XclaHmC1g==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 50EAF17E040C;
+ Tue, 12 May 2026 16:11:17 +0200 (CEST)
+Date: Tue, 12 May 2026 16:11:11 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Marcin =?UTF-8?B?xZpsdXNhcno=?= <marcin.slusarz@arm.com>, Ketil Johnsen
+ <ketil.johnsen@arm.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
+ <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, "T.J. Mercier"
+ <tjmercier@google.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Steven Price <steven.price@arm.com>, Daniel
+ Almeida <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Florent Tomasin <florent.tomasin@arm.com>, nd@arm.com
+Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
+ allocation in panthor
+Message-ID: <20260512161111.0cb7000e@fedora>
+In-Reply-To: <agMvb_jeRsO7tSS-@e142607>
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+ <20260505140516.1372388-5-ketil.johnsen@arm.com>
+ <20260505181523.49a3d85c@fedora> <afxVIuVVPisBQ9p_@e129842.arm.com>
+ <20260507135356.5428d50d@fedora> <agMvb_jeRsO7tSS-@e142607>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="no6aw5nvmnjbwfvy"
-Content-Disposition: inline
-In-Reply-To: <20260512132232.333654-2-javierm@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,94 +81,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, 12 May 2026 14:47:27 +0100
+Liviu Dudau <liviu.dudau@arm.com> wrote:
 
---no6aw5nvmnjbwfvy
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 1/2] drm/bridge: ite-it66121: Set TX mode in the
- .atomic_enable callback
-MIME-Version: 1.0
-
-Hi,
-
-On Tue, May 12, 2026 at 03:22:15PM +0200, Javier Martinez Canillas wrote:
-> The HDMI transmission mode set and AVI infoframes enable are done in the
-> .mode_set callback, but it is more correct to do this in .atomic_enable.
+> On Thu, May 07, 2026 at 01:53:56PM +0200, Boris Brezillon wrote:
+> > On Thu, 7 May 2026 11:02:26 +0200
+> > Marcin =C5=9Alusarz <marcin.slusarz@arm.com> wrote:
+> >  =20
+> > > On Tue, May 05, 2026 at 06:15:23PM +0200, Boris Brezillon wrote: =20
+> > > > > @@ -277,9 +286,21 @@ int panthor_device_init(struct panthor_devic=
+e *ptdev)
+> > > > >  			return ret;
+> > > > >  	}
+> > > > > =20
+> > > > > +	/* If a protected heap name is specified but not found, defer t=
+he probe until created */
+> > > > > +	if (protected_heap_name && strlen(protected_heap_name)) {   =20
+> > > >=20
+> > > > Do we really need this strlen() > 0? Won't dma_heap_find() fail is =
+the
+> > > > name is "" already?   =20
+> > >=20
+> > > If dma_heap_find() will fail, then the whole probe with fail too.
+> > > This check prevents that. =20
+> >=20
+> > Yeah, that's also a questionable design choice. I mean, we can
+> > currently probe and boot the FW even though we never setup the
+> > protected FW sections, so why should we defer the probe here? Can't we
+> > just retry the next time a group with the protected bit is created and
+> > fail if we can find a protected heap? =20
 >=20
-> Because the information about the sink type is in the struct drm_connector
-> display_info.is_hdmi and this might not be available when the .mode_set
-> callback is executed.
->=20
-> Currently the driver is not checking display info to determine whether the
-> mode has to be set to HDMI or DVI, but this is a bug that will be fixed by
-> a follow-up change.
->=20
-> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
-> ---
->=20
-> (no changes since v1)
->=20
->  drivers/gpu/drm/bridge/ite-it66121.c | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridg=
-e/ite-it66121.c
-> index 19a027d75b61..648ca50712df 100644
-> --- a/drivers/gpu/drm/bridge/ite-it66121.c
-> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
-> @@ -669,6 +669,22 @@ static int it66121_set_mute(struct it66121_ctx *ctx,=
- bool mute)
->  			    IT66121_PKT_GEN_CTRL_ON | IT66121_PKT_GEN_CTRL_RPT);
->  }
-> =20
-> +static void it66121_set_tx_mode(struct it66121_ctx *ctx)
-> +{
-> +	mutex_lock(&ctx->lock);
-> +
-> +	/* Enable AVI infoframe */
-> +	if (regmap_write(ctx->regmap, IT66121_AVI_INFO_PKT_REG,
-> +			 IT66121_AVI_INFO_PKT_ON | IT66121_AVI_INFO_PKT_RPT))
-> +		goto unlock;
-> +
-> +	/* Set TX mode to HDMI */
-> +	regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG, IT66121_HDMI_MODE_HDMI=
-);
-> +
-> +unlock:
-> +	mutex_unlock(&ctx->lock);
-> +}
-> +
->  #define MAX_OUTPUT_SEL_FORMATS	1
-> =20
->  static u32 *it66121_bridge_atomic_get_output_bus_fmts(struct drm_bridge =
-*bridge,
-> @@ -729,6 +745,8 @@ static void it66121_bridge_enable(struct drm_bridge *=
-bridge,
->  	ctx->connector =3D drm_atomic_get_new_connector_for_encoder(state, brid=
-ge->encoder);
-> =20
->  	it66121_set_mute(ctx, false);
-> +
-> +	it66121_set_tx_mode(ctx);
->  }
+> The problem we have with the current firmware is that it does a number of=
+ setup steps at "boot"
+> time only. One of the steps is preparing its internal structures for when=
+ it enters protected
+> mode and it stores them in the buffer passed in at firmware loading. We c=
+annot later run the
+> process when we have a group with protected mode set.
 
-Having some part of it in mode_set and some part in enable is still kind
-of weird. The best there would be to put everything in enable (and
-pre_enable), and drop mode_set entirely.
-
-Maxime
-
---no6aw5nvmnjbwfvy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCagM0NgAKCRAnX84Zoj2+
-dtUsAYCmIT+wZrNugTckkzFCh8hX4xYnHTVnORwar0EMA0WKrIF170QrK5SNJcCI
-ErSjLe0BfRhk5ALCWApAU7OGcgj/qwV0lMKjQ/vDSRGr/tv3JNEiAdDLkM9zDGkE
-F+qVxLyzfQ==
-=BPCi
------END PGP SIGNATURE-----
-
---no6aw5nvmnjbwfvy--
+No, but we can force a full/slow reset and have that thing
+re-initialized, can't we? I mean, that's basically what we do when a
+fast reset fails: we re-initialize all the sections and reset again, at
+which point the FW should start from a fresh state, and be able to
+properly initialize the protected-related stuff if protected sections
+are populated. Am I missing something?
