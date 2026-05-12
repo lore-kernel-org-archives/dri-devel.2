@@ -4,103 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FB33CD37B6
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:53:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E83D5CD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:53:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C734410ECF6;
-	Wed, 13 May 2026 07:53:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3064810ECFF;
+	Wed, 13 May 2026 07:53:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="kWB32BFY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kXAjj0t6";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EF3610E7B8
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 14:54:28 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id 23D02240103
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 16:54:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1778511266; bh=TpIGitQPS+l65xYL29D0NyyGS06BiAlFP4avKJ2ywDI=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=kWB32BFYEZB5xfowoDcFJ4+p6qFeUCM8ebf9+DchWTBMq9DTQNAZWEnfk7a8mIb5R
- iCQJzcv/24M6C8ZcJhXwd/sDjBbdqnqucWJQ0Gbo/sUom2o4yLC+m8ZAPL7+/zkQKM
- Ca60rMnHwtNr8upgrb6+BmTBb5UnOGuwQEnZ3bCbdSxI0KB+mHxpXnlx6sQnm1Buxq
- VwApVz7zePq/y59H24i6Ixf2jwPYtgaOi0JItSUQvZPoN9agSnZWlQbrqubDOrYdh7
- TuzYJuqZZKeELlck6F3Qii8lGN+S3T89XEQPDMyL7REEnQ+1VLFvYJ7hI91jj5yUAU
- eTqRyUaMyS5Xw==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4gDjRf30nYz9rxF;
- Mon, 11 May 2026 16:54:22 +0200 (CEST)
-Message-ID: <da85ceb81f51079d4a8248a1ffde6a27d2ef24ad.camel@posteo.de>
-Subject: Re: [PATCH v7 0/4] rust: add basic serial device bus abstractions
-From: Markus Probst <markus.probst@posteo.de>
-To: Rob Herring <robh@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby	
- <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo	
- <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Kari
- Argillander	 <kari.argillander@gmail.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>,  Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng
- <boqun@kernel.org>, David Airlie <airlied@gmail.com>,  Simona Vetter
- <simona@ffwll.ch>, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	rust-for-linux@vger.kernel.org,
- linux-pm@vger.kernel.org, 	driver-core@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Date: Mon, 11 May 2026 14:54:25 +0000
-In-Reply-To: <20260430195858.GA1650658-robh@kernel.org>
-References: <20260429-rust_serdev-v7-0-0d89c791b5c8@posteo.de>
- <20260430195858.GA1650658-robh@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
- qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
- m76Ww+/pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt
- 9k5JARhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbm
- fAjaoT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwT
- jRQxBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1
- J+FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN
- 6OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
- 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJCX
- CeMe4BO4iaxUQARAQABtCdNYXJrdXMgUHJvYnN0IDxtYXJrdXMucHJvYnN0QHBvc3Rlby5kZT6JAl
- QEEwEIAD4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQSCdBjE9KxY53IwxHM0dh/4561
- D0gUCaIZ9HQIZAQAKCRA0dh/4561D0pKmD/92zsCfbD+SrvBpNWtbit7J9wFBNr9qSFFm2n/65qen
- NNWKDrCzDsjRbALMHSO8nigMWzjofbVjj8Nf7SDcdapRjrMCnidS0DuW3pZBo6W0sZqV/fLx+AzgQ
- 7PAr6jtBbUoKW/GCGHLLtb6Hv+zjL17KGVO0DdQeoHEXMa48mJh8rS7VlUzVtpbxsWbb1wRZJTD88
- ALDOLTWGqMbCTFDKFfGcqBLdUT13vx706Q29wrDiogmQhLGYKc6fQzpHhCLNhHTl8ZVLuKVY3wTT+
- f9TzW1BDzFTAe3ZXsKhrzF+ud7vr6ff9p1Zl+Nujz94EDYHi/5Yrtp//+N/ZjDGDmqZOEA86/Gybu
- 6XE/v4S85ls0cAe37WTqsMCJjVRMP52r7Y1AuOONJDe3sIsDge++XFhwfGPbZwBnwd4gEVcdrKhnO
- ntuP9TvBMFWeTvtLqlWJUt7n8f/ELCcGoO5acai1iZ59GC81GLl2izObOLNjyv3G6hia/w50Mw9MU
- dAdZQ2MxM6k+x4L5XeysdcR/2AydVLtu2LGFOrKyEe0M9XmlE6OvziWXvVVwomvTN3LaNUmaINhr7
- pHTFwDiZCSWKnwnvD2+jA1trKq1xKUQY1uGW9XgSj98pKyixHWoeEpydr+alSTB43c3m0351/9rYT
- TTi4KSk73wtapPKtaoIR3rOFHLQXbWFya3VzLnByb2JzdEBwb3N0ZW8uZGWJAlEEEwEIADsWIQSCd
- BjE9KxY53IwxHM0dh/4561D0gUCaIO9eAIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCR
- A0dh/4561D0oHZEACEmk5Ng9+OXoVxJJ+c9slBI2lYxyBO84qkWjoJ/0GpwoHk1IpyL+i+kF1Bb7y
- Hx9Tiz8ENYX7xIPTZzS8hXs1ksuo76FQUyD6onA/69xZIrYZ0NSA5HUo62qzzMSZL7od5e12R6OPR
- lR0PIuc4ecOGCEq3BLRPfZSYrL54tiase8HubXsvb6EBQ8jPI8ZUlr96ZqFEwrQZF/3ihyV6LILLk
- geExgwlTzo5Wv3piOXPTITBuzuFhBJqEnT25q2j8OumGQ+ri8oVeAzx24g1kc11pwpR0sowfa5MvZ
- WrrBcaIL7uJfR/ig7FyGnTQ1nS3btf3p0v8A3fc4eUu/K2No3l2huJp3+LHhCmpmeykOhSB63Mj3s
- 3Q87LD0HE0HBkTEMwp+sD97ZRpO67H5shzJRanUaDTb/mREfzpJmRT1uuec0X2zItL7a6itgMJvYI
- KG29aJLX3fTzzVzFGPgzVZYEdhu4y53p0qEGrrC1JtKR6DRPE1hb/OdWOkjmJ75+PPLD9U5IuRd6y
- sHJWsEBR1F0wkMPkEofWsvMYJzWXx/rvTWO8N4D6HigTgBXAXNgbc3IHpHlkvKoBJptv6DRVRtIrz
- 0G0cfBY0Sm7he4N2IYDWWdGnPBZ3rlLSdj5EiBU2YWgIgtLrb8ZNJ3ZlhYluGnBJDGRqy2jC9s1jY
- 66sLA9rQZMHhJTzMyIDwweGlvMzJAcG9zdGVvLmV1PokCbQQTAQgAVxYhBIJ0GMT0rFjncjDEczR2
- H/jnrUPSBQJpa71VGxSAAAAAAAQADm1hbnUyLDIuNSsxLjExLDIsMgIbAwULCQgHAgIiAgYVCgkIC
- wIEFgIDAQIeBwIXgAAKCRA0dh/4561D0gKJD/9uOQKYlsDoQX65Gd0LiMT0C+5vXgr3VI0PHDOwcv
- 51fJ3A1vNyPZRFPGrz8+mDEXUQOF/INfnz5Tu1QHwf+iYcWcTGAN/FHgVR6ET6VBNU2hJaKhu+Ggo
- kjYyJTOvyX+3yNRUfSny0GjTjIPuPTErjqmHF+BtjXslpgwqnNMznf3lRIuUjRORupos6p3k1DndE
- 5vzUTmXSvMyXyOD2KhBl/kL76k0bHYyAQytZPag12pltrtFbA/r2phDGN2si8PooDT99bSTJjaM45
- MTAAHbHKJfvgfK41bNFD5mMtpWpL195XRtS0Nrxdg3PaYBxN5gtTG0RyZfpYRlkdEhm+jj/8RxuSG
- i/qdhRdbiI7K2IELWeQVHSNDi9JabR/UzlR4NSnhfAjRIVlRM+eFbUl8XwxwVrAkojF5IraH2qRvg
- VCmuFsHUW07FUlrDrzpjXsD73cKppoFGDCdDR0BHJepXbFLS9+AqkT+guRJlnCTg2p+TQtnbwPgKp
- Vj98JixovCl99zRYTsL2bRNU5+q8iET65VMJ1ydyNanvLd5vI/NqDkXhlXLsGmdaDTtu4R21PkToX
- dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-hDVNd50c7cn2pQHHfTMl"
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2043110E9D8
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 09:06:50 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-366087480d8so4794352a91.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 02:06:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778576810; x=1779181610; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=1x3QKNa6wEmvoxZX8OKMfbWBrcN6crkcagrWuMBo3Xc=;
+ b=kXAjj0t6iAu0X2OT0jEzwI+Evps779Cg8VeFSxXRHgTpibSrkGynKXcCE3Hh+BB0IV
+ xkVmmPkQiD8HJD/haoIvm+gIQHJ7LQNe0MKe7XP7t+Ay2/3BqxbwEQv8u9NwKW9jvOAb
+ bH9s3sg+M+aVny/9S/di6zH6pnPJ0BH76QB24pdZg6EFjExlG3mwLsMohDjnSrNB92wB
+ YTXv0rNfutPTBZgKXgvdMMgvaRR/FashrtpIrLQfldqmpLkfzjoc2KmSBM7Z/KU1gu+N
+ lSx2scLR2Iv0e6qyhDymNtYQaVav2l88XJm64jneOrK/wWEYbnoNvcX+BiNbaediqtbw
+ u6uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778576810; x=1779181610;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1x3QKNa6wEmvoxZX8OKMfbWBrcN6crkcagrWuMBo3Xc=;
+ b=rjLbLAKueHETyUfvneOrxrOZDM8NAKW0p0leupDcjHj9yKtLPElcnczvs9kGHL0b52
+ CKOURbaW/rTylqeGzfiFPAuB09wTKD+JIgdUPqLz62/ToXm4EPWHSEkSEyICjGtWe36a
+ OhKuamiDG7ESr+bYtSJeQqgFOQICz/mlZecqawlLHr10kUHACK2Blp9r6L9qmePCpTdW
+ gAZs5142btiTVaKgTKa3/IcHeojTccZ4QGDyCtzedM+Vv8cFuqANMQSwGwO4MUCemB74
+ sMO1oFogp2PH8FKbKQcltBVd7yoU2OAC0faV6RZTVwvCGZyMICTBRopVLbuUmc8qFTr0
+ ntmA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ85CkLWksDzSHxrtau0fzMNJGeeXLNZmiZb13HS285qQ+a+Ylczl56yZtnKBtnEsi8EscSNJrp/OGg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxFScPBahf4Ju2EXd8DqXTNRdPKExDcXBp7yQpGiLqEJuPb0iwo
+ AM0Y+lXnhA4oktxN5k2SHQLhnZt3En+fUvzVw4ErqfMBOE0sQcKBfoqQ
+X-Gm-Gg: Acq92OE1ELqNhTQlQYf2nUImiLwOHoL67SycYz+O4mOt6DIo4cKMavVhGratcsXzprf
+ P820CPvcyHjOj0tnfuChC6LwLxQPkZ7oiqBTvdPezJ3LFHl6NASB2j2m4AEOJN9KkBVyYIJFw5E
+ F2DWLhuM0IU1szG+Jp+vcT7drvxNEgLaj+7maE9TOCRt+zGge7qSQg4E3wTvWzq7SHD2L97hVti
+ iZCKKr+lgjryKw2JTeuqAyjhGASdMPLNdFd+nyeTtq2KmoD7/qJT9YSF0kBxTHi8V+W01q8WIjV
+ yMnXJYZb0UU59ZGpEWzGd/CytGjwjwS43IR/EaT/sfdpcQ1QfGp2pbWFBU6ZlaJ0fDLO8K9vcny
+ cVLTKgcFrIkX28DqkscpMC4uj2gC0FB4Qa8iN55LQIF2RAwfRkTzpzNe2x+Z0IjiNO2dD/zTHt5
+ zWcgUOT1l0BZPt+R6hH0aHLw8EmqWrjToSQ1aVj1F6Ev7glA5LjTM1HOuWtHIFWAAnetvoeofcM
+ 8mK
+X-Received: by 2002:a17:90b:3806:b0:367:bf59:6f99 with SMTP id
+ 98e67ed59e1d1-368b26f7b09mr2441610a91.26.1778576809623; 
+ Tue, 12 May 2026 02:06:49 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-367d625cee7sm10341825a91.2.2026.05.12.02.06.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 May 2026 02:06:49 -0700 (PDT)
+Message-ID: <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
+Date: Tue, 12 May 2026 17:06:43 +0800
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
+ DCUltra Lite display controller
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260511075142.54752-1-a0987203069@gmail.com>
+ <20260511075142.54752-3-a0987203069@gmail.com>
+ <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
+ <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
+ <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 13 May 2026 07:53:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,71 +104,212 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---=-hDVNd50c7cn2pQHHfTMl
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2026-04-30 at 14:58 -0500, Rob Herring wrote:
-> On Wed, Apr 29, 2026 at 08:21:30PM +0200, Markus Probst wrote:
-> > This patch series adds the serdev device bus rust abstraction into the
-> > kernel.
-> >=20
-> > This abstraction will be used by a driver,
-> > which targets the MCU devices in Synology devices.
-> >=20
-> > Kari Argillander also messaged me, stating that he wants to write a
-> > watchdog driver with this abstraction (needing initial device data).
-> >=20
-> > @Rob: Are you willing to maintain these rust abstractions yourself,
-> > as you are the expert on this subsystem, otherwise I would take care of
-> > it with a "SERIAL DEVICE BUS [RUST]" section in the MAINTAINERS file. I=
-n
-> > the second case, I assume you are going to pick those patches as-is int=
-o
-> > your tree, after they have been reviewed?
->=20
-> Well I can ignore the Rust part as much as I ignore the C serdev part...=
-=20
-> Honestly, I need to find someone else to maintain all of it as I don't=
-=20
-> really have the bandwidth. I don't think we should split it though.
-I could maintain both C and Rust.
-
-However my knowledge regarding the tty subsystem is very limited, so I
-would need to heavily rely on kernel documentation.
-
-Thanks
-- Markus Probst
-
->=20
-> And I don't have a tree for serdev. Greg picks up the serdev patches. If=
-=20
-> the Rust folks are fine with them, then I am.
-
-
->=20
-> Rob
-
---=-hDVNd50c7cn2pQHHfTMl
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmoB7X0bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPST9IP/0MZdTYVvpOx0BsQaHF/
-+frOQadjjWHu49gobdboY7cKhmmHlYUzlKDGDFSvsqHXbq5LUjYgierU42jMZ0wC
-lMMApEvlGrMJstar62HcHgaA586CD2zxRMTrGfFu+1y93GlSYHU7KS9CuIy6BvK4
-pmP3Q4LP2PGbG7TCd2hso5MIl351mMBkMKuaPICFxyfviQvVeYE5TVK7AL792VvV
-FLnCv87PRvDZ/GRfZKyvx+E1KG7Yfu1XGoob1/1h6ifw7wNQ+bIjvx3+vtKNOjrF
-pt/JYgijkOuJBsQDWnz5wI0Qv96YTBHgEt87BvnQjxthuur0b2oPQgeZ6fen4w3X
-Z9DAIyNEpklHULovuoR0DOkJ5qRyrwGx7VjOBtPlq/yGTkQPPlZ2u8Q9zf6UicCM
-Y5DXZQL4F/n6i6HmZmm9tcC3sW++HBkgDaETFz/XfWX+Yrk6aze4ChGklIZO96WW
-a5UQiG0ytULXxAUzWAI4lcVArdZeJx7h1Iu4U5e1sgCezo5HBsC5gyk20L5hq1z1
-K2pEJEiS7YREaFvjMP9K65CQT74f3nzfwFiCfn/1IuzMd/Pu8QOPaJjBFJahjjwJ
-ljerP8O6cJkTFNw0fySmiaCPk9wSQBpOnG/gDiHfAHKbfpNwrRFHjwBe3767/dl/
-p7Vjc23uIYaww2yo6lXSOos/
-=AJzm
------END PGP SIGNATURE-----
-
---=-hDVNd50c7cn2pQHHfTMl--
+On 5/12/2026 4:11 PM, Icenowy Zheng wrote:
+> 在 2026-05-12二的 15:45 +0800，Joey Lu写道：
+>> On 5/11/2026 5:47 PM, Icenowy Zheng wrote:
+>>> 在 2026-05-11一的 15:51 +0800，Joey Lu写道：
+>>>> The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltra Lite
+>>>> display
+>>>> controller, which is a previous generation of the DC8000 series.
+>>>> While
+>>>> the general register layout is similar to the DC8000, there are
+>>>> several
+>>>> key differences that require per-variant handling in the driver.
+>>>>
+>>>> Add a vs_dc_info platform data structure (in vs_hwdb.h) to
+>>>> describe
+>>>> per-IP-variant capabilities, and use it throughout the driver to
+>>>> select
+>>>> the correct code paths at runtime.
+>>>>
+>>>> Key differences between DC8000 and DCUltra Lite handled:
+>>> What the driver supports now is DC8200, DC8000 have the following
+>>> point
+>>> 1~4 the same with DCUltraLite (different to DC8200).
+>> Understood. I'll rename all `vs_dc8000_*` identifiers to
+>> `vs_dc8200_*` in v2. The commit message will also be corrected to say
+>> that points 1~4 are differences from DC8200, not DC8000.
+>>>> 1. No chip identity registers (0x0020-0x0030): DCUltra Lite uses
+>>>> static
+>>>>      platform data instead of reading model/revision/customer_id
+>>>> from
+>>>> HW.
+>>> My test shows that revision and customer_id is correctly present,
+>>> only
+>>> model is 0 -- I think this can be also considered as a valid model
+>>> value because the IP name has also no model number.
+>>>
+>>> The revision number is 0x5560 and customer id is 0x305 .
+>> Thank you for testing. I'll drop the `has_chip_id` flag
+>> entirely. In v2, `vs_fill_chip_identity()` will be called for all
+>> variants. A new entry will be added to `vs_chip_identities[]` in
+>> vs_hwdb.c with model=0x0, revision=0x5560, customer_id=0x305,
+>> display_count=1, and `vs_formats_no_yuv444`.
+>> e.g. verisilicon-dc 40260000.display: Found DC0 rev 5560 customer 305
+>>>> 2. No CONFIG_EX commit mechanism: DC8000 uses registers at 0x1CC0
+>>>>      (FB_CONFIG_EX), 0x24D8 (FB_TOP_LEFT), 0x24E0
+>>>> (FB_BOTTOM_RIGHT),
+>>>>      0x2510 (FB_BLEND_CONFIG), 0x2518 (PANEL_CONFIG_EX). DCUltra
+>>>> Lite
+>>>>      omits all of these and instead uses enable/reset bits in
+>>>> FB_CONFIG
+>>>>      (bit 0 = enable, bit 4 = reset) for direct framebuffer
+>>>> updates.
+>>>>
+>>>> 3. No PANEL_START register (0x1CCC): DCUltra Lite panel output
+>>>> starts
+>>>>      when PANEL_CONFIG.RUNNING is set; no separate multi-display
+>>>> sync
+>>>>      start register is needed.
+>>>>
+>>>> 4. Different IRQ registers: DCUltra Lite uses 0x147C (IRQ_STA) /
+>>>>      0x1480 (IRQ_EN); DC8000 uses 0x0010 (IRQ_ACK) / 0x0014
+>>>> (IRQ_EN).
+>>>>
+>>>> 5. Different clock/reset topology: DCUltra Lite requires only
+>>>> "core"
+>>>>      (bus gate) and "pix0" (pixel divider) clocks with no reset
+>>>> lines
+>>>>      managed by the driver. DC8000 needs core/axi/ahb clocks and
+>>>> three
+>>>>      resets.
+>>> It's possible that your SoC integration combines core clock gate
+>>> with
+>>> bus clock gate instead of bus clock gate not existing.
+>> Agreed. In v2 I'll remove the family-gated clock handling and
+>> instead use `devm_clk_get_optional_enabled()` for the axi and ahb
+>> clocks, so they are simply skipped if not present in DT. Resets are
+>> already optional. This keeps the probe path uniform and handles any
+>> SoC-specific clock combinations naturally.
+> Maybe this could be splitted as another patch, to make single commits
+> smaller.
+Got it.
+>>>> 6. Single output only: DCUltra Lite has one display output; per-
+>>>> output
+>>>>      index logic is still in place but display_count is fixed at
+>>>> 1.
+>>>>
+>>>> 7. Reduced register space: max_register is 0x2000 vs DC8000's
+>>>> 0x2544.
+>>>>
+>>>> Add the "nuvoton,ma35d1-dcu" compatible string to the OF match
+>>>> table,
+>>>> extend Kconfig to allow building on ARCH_MA35 platforms, and
+>>>> expose
+>>>> vs_formats_no_yuv444 as the default format table for DCUltra Lite
+>>>> (YUV444 blending is a DC8000-only feature).
+>>>>
+>>>> All changes have been tested on Nuvoton MA35D1 hardware and are
+>>>> functioning correctly.
+>>>>
+>>>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>>>> ---
+>>>>    drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
+>>>>    drivers/gpu/drm/verisilicon/vs_bridge.c       |  28 ++--
+>>>>    drivers/gpu/drm/verisilicon/vs_crtc.c         |  13 +-
+>>>>    drivers/gpu/drm/verisilicon/vs_dc.c           | 129
+>>>> ++++++++++++----
+>>>> --
+>>>>    drivers/gpu/drm/verisilicon/vs_dc.h           |   1 +
+>>>>    drivers/gpu/drm/verisilicon/vs_drm.c          |  16 ++-
+>>>>    drivers/gpu/drm/verisilicon/vs_hwdb.c         |   2 +-
+>>>>    drivers/gpu/drm/verisilicon/vs_hwdb.h         |  25 ++++
+>>>>    .../gpu/drm/verisilicon/vs_primary_plane.c    |  43 +++---
+>>>>    .../drm/verisilicon/vs_primary_plane_regs.h   |   2 +
+>>>>    10 files changed, 187 insertions(+), 74 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/verisilicon/Kconfig
+>>>> b/drivers/gpu/drm/verisilicon/Kconfig
+>>>> index 7cce86ec8603..295d246eb4b4 100644
+>>>> --- a/drivers/gpu/drm/verisilicon/Kconfig
+>>>> +++ b/drivers/gpu/drm/verisilicon/Kconfig
+>>>> @@ -2,7 +2,7 @@
+>>>>    config DRM_VERISILICON_DC
+>>>>    	tristate "DRM Support for Verisilicon DC-series display
+>>>> controllers"
+>>>>    	depends on DRM && COMMON_CLK
+>>>> -	depends on RISCV || COMPILE_TEST
+>>>> +	depends on RISCV || ARCH_MA35 || COMPILE_TEST
+>>>>    	select DRM_BRIDGE_CONNECTOR
+>>>>    	select DRM_CLIENT_SELECTION
+>>>>    	select DRM_DISPLAY_HELPER
+>>>> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+>>>> b/drivers/gpu/drm/verisilicon/vs_bridge.c
+>>>> index 7a93049368db..225af322de32 100644
+>>>> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+>>>> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+>>>> @@ -164,13 +164,16 @@ static void vs_bridge_enable_common(struct
+>>>> vs_crtc *crtc,
+>>>>    			VSDC_DISP_PANEL_CONFIG_CLK_EN);
+>>>>    	regmap_set_bits(dc->regs,
+>>>> VSDC_DISP_PANEL_CONFIG(output),
+>>>>    			VSDC_DISP_PANEL_CONFIG_RUNNING);
+>>>> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+>>>> -			
+>>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+>>>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
+>>>> -			VSDC_DISP_PANEL_START_RUNNING(output));
+>>>>    
+>>>> -	regmap_set_bits(dc->regs,
+>>>> VSDC_DISP_PANEL_CONFIG_EX(crtc-
+>>>>> id),
+>>>> -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+>>>> +	if (dc->info->has_config_ex) {
+>>>> +		regmap_clear_bits(dc->regs,
+>>>> VSDC_DISP_PANEL_START,
+>>>> +				
+>>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+>>>> +		regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
+>>>> +				VSDC_DISP_PANEL_START_RUNNING(ou
+>>>> tput
+>>>> ));
+>>>> +
+>>>> +		regmap_set_bits(dc->regs,
+>>>> VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
+>>>> +				VSDC_DISP_PANEL_CONFIG_EX_COMMIT
+>>>> );
+>>> Should the commit operation happen on DC8000/DCUltraLite too? (By
+>>> writing to DcregFrameBufferConfig0.VALID).
+>>>
+>>> Many registers written has "Note: This field is double buffered" in
+>>> the
+>>> DCUltraLite documentation.
+>>>
+>>> I suggest create a static function for commit -- write to the
+>>> corresponding commit bit on DC8200, and write to
+>>> DcregFrameBufferConfig0.VALID on DC8000/DCUltraLite.
+>> [a] There is no commit operation for DCUltra Lite.
+>> I'll not add a `VSDC_FB_CONFIG_VALID` macro. VALID (BIT(3)) is a
+>> hardware-managed double-buffer status bit: hardware writes 1=PENDING
+>> when a new register set is ready and clears to 0=WORKING after the
+>> VBLANK copy. Software must never write it, and there is no polling
+>> use
+> It seems to be writable and controls whether register buffering is
+> enabled, see [1].
+>
+> The description of this bit in MA35D1 TRM says "This ensures a frame
+> will always start with a valid working set if this register is
+> programmed last, which reduces the need for SW to wait for the start of
+> a VBLANK signal in order to ensure all states are loaded before the
+> next VBLANK", which indicates some kind of "committing write", although
+> the code at [1] seems to indicate that double buffering is only enabled
+> when bit is cleared.
+>
+> Anyway this bit should be programmable, and "Software must never write
+> it" contradicts with the MA35D1 TRM.
+>
+> Thanks,
+> Icenowy
+>
+> [1]
+> https://github.com/rockos-riscv/rockos-kernel/blob/rockos-v6.6.y/drivers/gpu/drm/eswin/es_dc_hw.c#L993
+Thank you for the correction. I'll add
+`#define VSDC_FB_CONFIG_VALID BIT(3)` to vs_primary_plane_regs.h and
+write it in `vs_primary_plane_commit()` for non-config_ex variants.
+>> case in the driver that requires a named constant. For non-config_ex
+>> variants, `vs_primary_plane_commit()` performs no commit operation —
+>> `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
+>> `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET` (BIT(4)) is
+>> set/cleared in the bridge enable/disable paths.
+> ========= 8< ==========
+>
