@@ -4,79 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F216ECD37BE
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 04:55:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC18CCD484E
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 05:29:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3027110E056;
-	Tue, 12 May 2026 04:55:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF3310E0A9;
+	Tue, 12 May 2026 05:29:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="ONSNA6z3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TN0FQL0J";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B476F10E056
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 04:55:02 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-835b78c3797so2117892b3a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 21:55:02 -0700 (PDT)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0542810E0A9
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 05:29:48 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5a40b2bc96dso4684588e87.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 22:29:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778563787; cv=none;
+ d=google.com; s=arc-20240605;
+ b=MCN3oU80tDsvCW3sOnCqjnKzlefBtT/jhmiVV0vxFJkGDquZVSbqKZi1QA/HXP40gF
+ QwBzwkfRxl9b6hegtpDw9HNvu5ftWsNqUSeizH3uphH41E2Q7bT+MP10oX5ihkq+ZHFE
+ oewmd6+xzHJr52DQtzmkwP2HDyJoIgbjKsa92kvkNNOJ/3gMzzb8JBYs6KXrtYJ5FKDt
+ 3ege50XJ/VfKm8ORasVSMlIXB9VOiLSg6i5HDsy4Afh4JIAH/PXIXrfnNnpZ4wjqM1v2
+ yEk99etfmzRIdM/TZBrcIHFzPqqoU6e4wN5j/uIKS/6LhGqfvmXPymRVok0OI8Z1DLyr
+ unVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=dfl2eq4XdvwzzwMISw+3fb93nWUCpKg9Ggc5uZLfkQ8=;
+ fh=CWD7ccu9nVmXT8oJTkVeFFSgCRnjE/pksoRp80iBejQ=;
+ b=UpJLkHIyHBgY4WH197usqvxl6N49cvO9GoJhF2U6A7+Z76BDBmGhr9hQ7udzIR4u1h
+ nd0EqG791WpWjsyiot9pv35bKc+q6jBOGVg+oOtHYwGM18dLzG21ZfeiV8MbwqeuCG3v
+ 3ssXMe+ACH9+L1q4OzHGnkXGgJECm0PkRuRTE8lTGNswd2/36sDyhr8Zmeuz7xD85SJ7
+ rzxxUZmvCuUjkeIWahiD0U/ZPBi90vvvXZA/lUxburs48VqSOCoQiF66p1d9RPP8XFkv
+ lmz8szjpYIQckQuw89VQfHytVpWW13MDvvofQFQaOnqa1FFCL//aE6luBSVcHUrrTYRK
+ ZpaQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1778561702; x=1779166502;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pfw4DWQXulimGRtFLor58SM/f/ew7ugcdJ/+FaukvJs=;
- b=ONSNA6z3YRVWLW6jHblVp8Lry9Y5XlW/H1FkTZCLqSG8gg5OLq5XmBUylcyiYZpa6H
- eyEDcsCGK0Uybd+KwRoZs+4DECa1Gw1yy/4DO0v+Delhu+0LdQZYiQcf0mBD2kqw6Rnq
- nUdI9ZmAiY2xkb8AXxipF6WNA+t007zRJEoNQ=
+ d=gmail.com; s=20251104; t=1778563787; x=1779168587; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=dfl2eq4XdvwzzwMISw+3fb93nWUCpKg9Ggc5uZLfkQ8=;
+ b=TN0FQL0JUtOETai81+0Fti7dg9wKaF/5+VlgBm+TDVkw1VLNqRF2JxTmC5iObJcCZP
+ j1C69UC72l34aE1TpCdFh4VP7O6yf9i83TMkZYVtwrB6jYLEgbQ6mfIaz6Sk4Wvy0kaK
+ ajOYMCHxW5SmyQfegUJLAVKhk74XjnLRo9Xvkqs77xUj3wsLfisEf2SR4IElPVbyZQnv
+ 3+m6yFBodvJjQHMjXmMg6eQjy6P1uSRCcYH1beR2xpHSbmRIcYFCJKZ6T9c4TPp4M1O1
+ HjYLulx7hn0E7BQ7rBUD1VbtH3sCXwQoDs19HwqEOgaWPjW7cB1fwN8EiVFoe8DU3cMi
+ HV+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778561702; x=1779166502;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pfw4DWQXulimGRtFLor58SM/f/ew7ugcdJ/+FaukvJs=;
- b=q7MgTCdNCGr3EyVbGHHtld3vj9uwTGWY1Virj1rFKCzI0sH+XtrxmOUSECoC+WLS+8
- g+VhoV1VVO9S49PJ2hJh+6X8i/n9rGCTx/n++bY3/o4QWC0u8WbpO2pV4n1OFnPtH8d+
- AzevAmVP+PyFMiAdpJwkEDKah+558YfvXdATrt//9Ka6Myp/KQ9q8xiwMnCdkNeMIVRV
- uZy3ZrpjMDXeWcKS8ontAOm0hOTyBcFrzGYJroonY25gJdKZwkwI7VuFtfitojxTnMA7
- bmiOjTeNhAwyFmQ8rd9vuoxRc065bSqMs983A7l6NkBtnKIP/ImLqiXgF3nKqjys4vYP
- UjaQ==
+ d=1e100.net; s=20251104; t=1778563787; x=1779168587;
+ h=to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dfl2eq4XdvwzzwMISw+3fb93nWUCpKg9Ggc5uZLfkQ8=;
+ b=E6PeR/SqjOC+rB9Sh62BWqRzvKwp96MCHig6CIl7MqFZ2sihkvHB59AVhEbGKrlvnz
+ 6dGAS46Ub+zQzdmT6nos9rgm6IyHxK9U43Hhy6dVhJHprBAs62nd2HAjwWyEI3HhfnZT
+ LTh5PC+qlwNGS+xk5cje11fIehMNjg8+4nCbtmFH7LQVO0HUibT8nxbiGbCessX0+fT+
+ 2QlSeUHdCEDQNOvyj0zosH//H3O+TVsnuOqsa+6U5RWrn8xibRneYpOc3aCksDQA+Ex5
+ SXMY20hkaZ9z3O5V9pvNbo+UkoPGEPc0QCGo/ttE2A5d+ZoBkKr1KJqfYKOtJVcssLu1
+ 0+NQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9pfLVZ7LYOSeMQJ6Tus1mpo3DqkQVgmOYZfVo+bBs+jp3SUfyIBPk9eO0NHXwdbsl44GueYiW7/+s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+NUMRMzlqmOdmMjXX3rR3rCi9DmHpdwccgDo/MbFr1MDymiZK
- +I7amAu2hkDW+ZCZWQBYfG+2SNbblRTD6+3qvrAbFzlvsS0UZvXLJNRbpBPw9VsDCQ==
-X-Gm-Gg: Acq92OHO5xSZSna9lk8ufWbZPsrgaYWlEgtZDQWFmWXgBdMkwVbxXRfTQhfpMypqiwZ
- O2mVjPtutIZQWjVcPCRCk5GVoXtBmP8HPoYOnMZ7qyzwLABNY3BD9x2Bbg90UYeh9ei0JmUnI7m
- /AeVX/VvcjiD4ZNmwl8B8sUCVHKVEHEo/m3Eo4AYV6IC2Z09z6R+UB2Q/BxOuOlMvDZ47G1RDBE
- R2wRFsNOiPsJ+sDQFmzm/KESESPLBIw0qqp7WdRRgevNOevdIpOQs/74OeaGnEPnYcKT8ZE6Ioo
- WIzxWilAcFAIXHL1mtSagRUaVLE1zJ8pMs76zWZ4D35QcnE+8dLivnLyvejxNc66d0tNSSUsZGi
- LrLcoqfuNMD2wFzup6BJlZBJsaHNvgvIUVYwE5SLTyyYs30ALUiHscDK9oWLI5ZoyjZCktMJitg
- nN5t87n3VvAbhrls5Fe1JaFyhmDxAaaYivv3bhKjVjXDTR1D6M/K9ca7YlhS0Z0weBAcojUrc/n
- F22pWUV
-X-Received: by 2002:a05:6a00:3406:b0:837:b5b6:1b97 with SMTP id
- d2e1a72fcca58-83cf564e0a6mr17646583b3a.12.1778561702215; 
- Mon, 11 May 2026 21:55:02 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com
- ([2a00:79e0:201d:8:6606:2bd2:159a:55e3])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8396563f03bsm22608983b3a.9.2026.05.11.21.54.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 21:55:01 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/panel-edp: Add AUO B133HAN06.6 and BOE NV133FHM-N4F
- V8.0
-Date: Tue, 12 May 2026 12:54:53 +0800
-Message-ID: <20260512045454.1505733-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.54.0.563.g4f69b47b94-goog
+ AFNElJ96xjfLXsQGWYhQPgrOArONp5vlFOOESw/AUIJ74m+SxV3vVyHKtyqNwnpHBtKA/CBycJvEUiRb9UE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEMU7PbPsslz1TcOJdCxVDQdHN9P2EWSAQ+JfDH/pvkD5nAGNo
+ 1ey4N32lcG8aOJx41JqLUrGRxbcVpsMpH5Npd7hvRzvTCUI4OmsvbP4NnEpwd2dC6gDJv0mDR7w
+ ORZXrXA4DL3w9unGd1kPE2EvR5k+/sM4=
+X-Gm-Gg: Acq92OGz6LBrKsP6ORnPwG0vfwUXXgXYcAwqevQ9lX/9TPrD+sfDAxOiQZFaG05spZq
+ 2r3erC18MuxXbawYpvQutsvj09aDz7o5F4fzotZo5iSKN7jafQpE7IgBViePZHHctgTS+cqiZNi
+ FpoFxEVCkhAFAf8DuZd6OlAPZJM4IOrbnDqNu40B0qvCwRZDocyimgkmxmI/+WAZS/9SR++nTX1
+ MlA3jfmlsyqMtQwCsNTXeOsmkI+7CuqQNQ3k9PHBeoHMbKgeDjBGEvFHhEkp6OBlgKyUuOMSXR6
+ HNPpOzL6LIzXaF2RjuKbjDzBkthigw60Ybnkqhtu1PIYbyQi+iI1sOjuntwIQiIBg/DG
+X-Received: by 2002:a05:6512:2252:b0:5a4:52d:4abc with SMTP id
+ 2adb3069b0e04-5a8a949f19amr5519345e87.8.1778563786826; Mon, 11 May 2026
+ 22:29:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Tue, 12 May 2026 00:29:35 -0500
+X-Gm-Features: AVHnY4Kwsv7b2fXRf5ywwfias53-xE1lZIqqHODDodSMGEK2NJ1hWGs7ABH5zC0
+Message-ID: <CALHNRZ9mmf_4OagcooO-s+SU1KrggT5_ZwM--ambxZKXN-oQDg@mail.gmail.com>
+Subject: [BUG] drm/tegra: DMA buffers are not always freed
+To: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,64 +97,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-These two panels are found in MT8195 Dojo, a.k.a. the HP Chromebook
-x360 13b-ca0xxx laptop.
+There is an issue with tegra-drm where some buffers get created, then
+freed, but the dma buffer never gets freed. Causing display controller
+memory allocations to start failing after the leaks fill up cma.
 
-Only the BOE entry was tested on an actual device. The AUO entry is
-solely based on the provided datasheet.
+I created an issue on the freedesktop issue tracker [0] with a patch
+with some debug logs I added, then a log from Android that contains
+these logs. CMA is set to 512MB, and when allocations start to fail,
+the unfreed allocations add up to just shy of 500MB, where it's
+reasonable to expect that 8MB contiguous is no longer available. The
+log was generated on a Jetson TX2 NX, but I have seen this leak on
+other archs as well, this also does not appear to be limited to soc's
+with nvdisplay.
 
-raw EDIDs:
+This does not appear to be a userspace issue. The graphics allocator
+works as expected for other soc vendors. And as the logs show, the
+delete dumb buffer ioctl is called, but is not always followed by the
+dma buffer getting freed. I have also observed this issue with a
+gralloc that uses the tegra gem create and such, this is not unique to
+dumb buffers, that's just the last log I had when deciding to post the
+issue to lkml.
 
-AUO B133HAN06.6 (from the datasheet)
+What I primarily intend to ask here is how to further debug this
+issue. I'm not finding any direct path between the delete dumb ioctl
+handling and gem release or tegra bo free. Can someone point me to the
+pieces in the middle I'm missing, where the logic is to decide is a
+buffer should be freed?
 
-00 ff ff ff ff ff ff 00 06 af 8f cb 00 00 00 00
-2f 1d 01 04 95 1d 11 78 03 93 05 92 58 59 90 29
-1d 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 14 37 80 b8 70 38 24 40 10 10
-3e 00 25 a5 10 00 00 18 b8 24 80 b8 70 38 24 40
-10 10 3e 00 25 a5 10 00 00 18 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 10 48 ff 0f 3c 7d 14 0e 1d 7d 20 20 20 00 77
+Aaron
 
-BOE NV133FHM-N4F V8.0 (from an actual panel)
-
-00 ff ff ff ff ff ff 00 09 e5 25 0a 00 00 00 00
-2c 1f 01 04 95 1d 11 78 03 28 65 97 59 54 8e 27
-1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 a4 39 80 c8 70 38 50 40 30 20
-36 00 26 a5 10 00 00 1a 6d 26 80 c8 70 38 50 40
-30 20 36 00 26 a5 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0d 40 ff 0a 3c 7d 0f 0f 1f 7d 00 00 00 00 d2
-
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Changes since v1:
-- Added raw EDIDs to commit message
----
- drivers/gpu/drm/panel/panel-edp.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index f3cdaea89b29..98301aec2f4a 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -1955,6 +1955,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xb7a9, &delay_200_500_e50, "B140HAK03.3"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xc4b4, &delay_200_500_e50, "B116XAT04.1"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xc9a8, &delay_200_500_e50, "B140QAN08.H"),
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0xcb8f, &delay_200_500_e50, "B133HAN06.6"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xcdba, &delay_200_500_e50, "B140UAX01.2"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xd497, &delay_200_500_e50, "B120XAN01.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xf390, &delay_200_500_e50, "B140XTN07.7"),
-@@ -2003,6 +2004,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x09ae, &delay_200_500_e200, "NT140FHM-N45"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x09dd, &delay_200_500_e50, "NT116WHM-N21"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a1b, &delay_200_500_e50, "NV133WUM-N63"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a25, &delay_200_500_e50_po2e200, "NV133FHM-N4F V8.0"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a36, &delay_200_500_e200, "Unknown"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a3e, &delay_200_500_e80_d50, "NV116WHM-N49"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a5d, &delay_200_500_e50, "NV116WHM-N45"),
--- 
-2.54.0.563.g4f69b47b94-goog
-
+[0] https://gitlab.freedesktop.org/drm/tegra/-/work_items/9
