@@ -4,70 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37D77CD4F21
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 10:16:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D25D2CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 10:32:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77B0F10EA19;
-	Tue, 12 May 2026 10:16:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2286610E58E;
+	Tue, 12 May 2026 10:32:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iyynMxhK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N/KzhUOF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D56510E25C;
- Tue, 12 May 2026 10:16:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AC4EA43CDA;
- Tue, 12 May 2026 10:16:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB70C2BCB0;
- Tue, 12 May 2026 10:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778581016;
- bh=w6hATkZRGSRSJowaFjN45EX2kl/oM+c7ccdVW67Eh3s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iyynMxhKI/8Jg0jAf3zt9NS9aZuPuBUsWGBl6pjep56D0BX7ArOWIvumJnsk4Hxuq
- mnnaRaFvBV5mkvEsDlbtbvUSCRvLWYdvCMf4sNeM7vNilIbeePN5AkWfwxvjAQev7g
- /0A4u2buvc8ZFh87pXWIBdFrJFLxqXQwPpvDqOdq1iuaVD2hhWsouG5CMcWCdCXTZv
- ifyJNn5+17bVPbWwPFuyMigi7nZbU+5QYcAqZqfLOaUQjlplaxZPW1O+AKlvC2/zNq
- 0oO5sua9onBYaQGmy1JTt0SnaAYmCKIZGFkBl54L+OfZD1RfSStH8Oms9Ts4XPZzEe
- eFQvD4RfZWaYw==
-Date: Tue, 12 May 2026 12:16:53 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Simon Ser <contact@emersion.fr>, 
- Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Alex Hung <alex.hung@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v3 12/20] drm/crtc: Add new atomic_create_state callback
-Message-ID: <20260512-unbiased-apricot-jaguar-a63eba@houat>
-References: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
- <20260424-drm-mode-config-init-v3-12-8b68d9db0d8b@kernel.org>
- <20260504172858.GO1344263@killaraus.ideasonboard.com>
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF8C10EA05
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 10:32:20 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-8368a5d79d3so372573b3a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 03:32:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778581940; x=1779186740; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=OhehjUWhhndTO+aLTrKXJGjjblaTc3IzZAO9VvBbULE=;
+ b=N/KzhUOFPUAOMG3YogdiP8wgdva2ztAQryuG0lDlpKjChcUeRXtHIs6+5/1fAMSpQK
+ 5oam1f6wtLTn9aOGUCgFYitjORfWywaYsktPAOv/J5WjQi4cL2sZsjcxXO9UFowtJVt3
+ l3zOtDGsOKrFftqR8aFAsxUpIvCJndnjO7bUMR/F22ntkbkKuVS+H/9C5X6qYc/h1FWz
+ DOdnSvZR2HUGFUkaT4W7u3A1jeHix9HjWaILZhG0wDTQ2dra+SgjLxZRxiOEVlN5b5eI
+ 4jKkc6bk256WJYraEL6FtYFoVUOm7ZmRkjMhOskxz+ICzWzsNewb/MX6OSpejgBrUYoo
+ Rmww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778581940; x=1779186740;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OhehjUWhhndTO+aLTrKXJGjjblaTc3IzZAO9VvBbULE=;
+ b=BXJMOfwlRKuWIkI1Di4qOkxDRxM40Zxoe6XzolbxijnQWXp/CZf15KVF3YHF8ePjog
+ 7z0z8MS4EvUnKGPnAuQ/dq5SOZCgV8cGsONFanGYhw1IGvSLV7iBPp5fgjySHQKmYiEn
+ Y9qSE49VHkxgpd4txOavCbBygEhINZnqd2SqnJu5suhI9p1QbEc1sKhav2lKoJflUcrY
+ vvGbmzQkCKjZE9rxaMitn47nCJOud1z8XMU5ZzdgMiMN1NEpZN1uHnwLv0Qtsqq4EiMP
+ pnrx+7D+WkPFWeaG4ojVWwcGOiRGezKPgQe/v36jNb+hpnofyYhNcA7swtQSOgsm4wKj
+ 8BXw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9F2+l1F2qY4UfDJ2jcPBDLaJlZ3Rc7kUuyXGbSW9KP4bHSXODSlzVTMGV2oZKgDqYGLJkuVCceeos=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzOef9UhD1/6W53xvNAutWK+iNRc4zmQo3a6HY9Uw4rWto1Xh8G
+ zQy/6anzRFgPZm+mJfoU0MXRboRojIZAlGeHhwMyTy3+LRJnKlfswqYe
+X-Gm-Gg: Acq92OE5HywM2g6b1wXYtdBTWArNrqmM4gDyYOSyVaVIvuDQZlyh+kXbW4+LSz7Fg98
+ S2L0qNoK352wHtjaqojuc+RPqkptCDfAin7HTLY0LQ1biJVaWwva1z81Oht38rrvkY5DWsMkIvn
+ 6yA62i309CdlRZbWEgRvqz4SGvud0RE1/L/o5802hmZRD52yZJDEuZ8z1x7QVoCEQzQjJAvVn0L
+ 22H9ySMcRyXhK8Gwnmo4mitU6IcXCHwaD7szTJvEG+Y8bZtsBY65FPPOwgGM1HvEgVMxdXswazz
+ 7wcW6c3k2YTbQ1vz9i9dD2gPm5Jdu8SM8r13VFUhy8cMY5xvqtMdYwGnYfwm7qTOuhzKxnvm/pl
+ 6t8NHSivit52/p3SzApQcvIuBv0r+bLOixqjCOqaZAy+YAFUUB3n9u34zf0SaEyBCgMGR9cCDmV
+ 3SlQG9m7yOiD4OiwYSt2AhIqNw6sT40LUPWkm+Sa4amfPflv4Aaz0=
+X-Received: by 2002:a05:6a00:4088:b0:835:36f2:7332 with SMTP id
+ d2e1a72fcca58-83a5aaf7775mr15856894b3a.2.1778581939943; 
+ Tue, 12 May 2026 03:32:19 -0700 (PDT)
+Received: from fedora.izzigo.tv (45.62.127.193.16clouds.com. [45.62.127.193])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-839679c8462sm23025473b3a.38.2026.05.12.03.32.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 May 2026 03:32:19 -0700 (PDT)
+From: Frank Zhang <rmxpzlb@gmail.com>
+To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: detlev.casanova@collabora.com, cristian.ciocaltea@collabora.com,
+ daniels@collabora.com, dmitry.baryshkov@oss.qualcomm.com, heiko@sntech.de,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v4] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when
+ PHY is down
+Date: Tue, 12 May 2026 18:31:53 +0800
+Message-ID: <20260512103153.8861-1-rmxpzlb@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="xucbq2efeno5xzls"
-Content-Disposition: inline
-In-Reply-To: <20260504172858.GO1344263@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,124 +92,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The following panic was observed during system reboot:
 
---xucbq2efeno5xzls
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 12/20] drm/crtc: Add new atomic_create_state callback
-MIME-Version: 1.0
+Kernel panic - not syncing: Asynchronous SError Interrupt
+CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
+Call trace:
+ ...
+ regmap_update_bits_base+0x70/0xa8
+ dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
+ drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
+ ...
+ dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
+ drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
+ drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
+ hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
+ ...
+ snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
+ snd_pcm_release+0x4c/0xc0 [snd_pcm]
+ ...
 
-Hi,
+The root cause is pipewire tries to close the HDMI audio device after
+atomic_disable(), which sets tmds_char_rate to 0 and disables the PHY.
 
-On Mon, May 04, 2026 at 08:28:58PM +0300, Laurent Pinchart wrote:
-> On Fri, Apr 24, 2026 at 12:18:52PM +0200, Maxime Ripard wrote:
-> > Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
-> > to drm_private_obj") introduced a new pattern for allocating drm object
-> > states.
-> >=20
-> > Instead of relying on the reset() callback, it created a new
-> > atomic_create_state hook. This is helpful because reset is a bit
-> > overloaded: it's used to create the initial software state, reset it,
-> > but also reset the hardware.
-> >=20
-> > It can also be used either at probe time, to create the initial state
-> > and possibly reset the hardware to an expected default, but also during
-> > suspend/resume.
-> >=20
-> > Both these cases come with different expectations too: during the
-> > initialization, we want to initialize all states, but during
-> > suspend/resume, drm_private_states for example are expected to be kept
-> > around.
-> >=20
-> > reset() also isn't fallible, which makes it harder to handle
-> > initialization errors properly. This is only really relevant for some
-> > drivers though, since all the helpers for reset only create a new
-> > state, and don't touch the hardware at all.
-> >=20
-> > It was thus decided to create a new hook that would allocate and
-> > initialize a pristine state without any side effect:
-> > atomic_create_state to untangle a bit some of it, and to separate the
-> > initialization with the actual reset one might need during a
-> > suspend/resume.
-> >=20
-> > Continue the transition to the new pattern with CRTCs.
-> >=20
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> > ---
-> >  drivers/gpu/drm/drm_atomic_state_helper.c | 47 +++++++++++++++++++++++=
-++++++++
-> >  drivers/gpu/drm/drm_mode_config.c         | 21 +++++++++++++-
-> >  include/drm/drm_atomic_state_helper.h     |  4 +++
-> >  include/drm/drm_crtc.h                    | 16 +++++++++++
-> >  4 files changed, 87 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/dr=
-m/drm_atomic_state_helper.c
-> > index 9cd8550cabb7..b7da134c8c50 100644
-> > --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> > +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> > @@ -103,10 +103,32 @@ __drm_atomic_helper_crtc_reset(struct drm_crtc *c=
-rtc,
-> > =20
-> >  	crtc->state =3D crtc_state;
-> >  }
-> >  EXPORT_SYMBOL(__drm_atomic_helper_crtc_reset);
-> > =20
-> > +/**
-> > + * __drm_atomic_helper_crtc_create_state - initializes crtc state
->=20
-> "Initialize a CRTC state"
+In this case, dw_hdmi_qp_audio_disable() will call
+dw_hdmi_qp_bridge_clear_audio_infoframe(), accessing register without
+checking tmds_char_rate.
 
-Good catch, thanks.
+Add a tmds_char_rate guard in dw_hdmi_qp_bridge_clear_audio_infoframe().
+Decouple write_audio_infoframe from clear_audio_infoframe to avoid the
+redundant check in the write path.
+Add PKTSCHED_AMD_TX_EN to the clear mask to keep the enable/disable
+balance.
 
-> The name of the function is misleading ("*_create_*" while you state it
-> performs initialization).
->
-> > + * @crtc: crtc object
-> > + * @state: new state to initialize
-> > + *
-> > + * Initializes the newly allocated @state, usually required when
-> > + * initializing the drivers.
-> > + *
-> > + * @state is assumed to be zeroed.
-> > + *
-> > + * This is useful for drivers that subclass @drm_crtc_state.
-> > + */
-> > +void __drm_atomic_helper_crtc_create_state(struct drm_crtc *crtc,
-> > +					   struct drm_crtc_state *state)
-> > +{
-> > +	__drm_atomic_helper_crtc_state_init(state, crtc);
-> > +
-> > +	if (drm_dev_has_vblank(crtc->dev))
-> > +		drm_crtc_vblank_reset(crtc);
->=20
-> This is confusing to me (at least before reading the rest of the
-> series), and itn't mentioned in the function documentation or in the
-> commit message.
->
-> Furthermore, __drm_atomic_helper_crtc_create_state() is later used in
-> tidss_crtc_create_state(), which is the
-> drm_crtc_funcs.atomic_create_state() implementation of the tidss driver.
-> The atomic_create_state documentation states that "This callback must
-> have no side effect", and drm_crtc_vblank_reset() has side effects.
+Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
 
-That's a good point. I've dropped that function entirely and moved the
-drm_crtc_vblank_reset() call in drm_mode_config_crtc_create_state().
+---
+Changes in v2:
+- Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
+  the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
+- Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
 
-Maxime
+Changes in v3:
+- Add a tmds_char_rate guard in clear_audio_infoframe path.
+- Decouple write_audio_infoframe from clear_audio_infoframe.
+- Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
+- Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@gmail.com/
 
---xucbq2efeno5xzls
-Content-Type: application/pgp-signature; name="signature.asc"
+Changes in v4:
+- Update panic stack on 7.0.5
+- Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@gmail.com/
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index d649a1cf07f5..1c18f8650fcd 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -886,11 +886,11 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
+ {
+ 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+ 
+-	dw_hdmi_qp_mod(hdmi, 0,
+-		       PKTSCHED_ACR_TX_EN |
+-		       PKTSCHED_AUDS_TX_EN |
+-		       PKTSCHED_AUDI_TX_EN,
+-		       PKTSCHED_PKT_EN);
++	if (hdmi->tmds_char_rate)
++		dw_hdmi_qp_mod(hdmi, 0,
++			       PKTSCHED_ACR_TX_EN | PKTSCHED_AMD_TX_EN |
++			       PKTSCHED_AUDS_TX_EN | PKTSCHED_AUDI_TX_EN,
++			       PKTSCHED_PKT_EN);
+ 
+ 	return 0;
+ }
+@@ -989,7 +989,10 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
+ {
+ 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+ 
+-	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
++	dw_hdmi_qp_mod(hdmi, 0,
++		       PKTSCHED_ACR_TX_EN | PKTSCHED_AMD_TX_EN |
++		       PKTSCHED_AUDS_TX_EN | PKTSCHED_AUDI_TX_EN,
++		       PKTSCHED_PKT_EN);
+ 
+ 	/*
+ 	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
+-- 
+2.54.0
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCagL+FQAKCRAnX84Zoj2+
-dnNzAX0fzjsGevsyIM+1eS7aSdqPXqaWO2e4vKxwlm1t0+VWLC1LChDXcVfr74JX
-gfLRKAABgLDj6dDvAIYO++YmRFrG/pDTCiRABTfTFmqA3MNWXLLdVzFuX/WVI0ll
-s+ZfkvI9qg==
-=NbJq
------END PGP SIGNATURE-----
-
---xucbq2efeno5xzls--
