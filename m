@@ -4,103 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89105CD343F
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 17:14:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05A03CD343F
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 17:25:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED81910EB81;
-	Tue, 12 May 2026 17:14:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6522510E597;
+	Tue, 12 May 2026 17:25:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dtUCrYUu";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RxB8FMGN";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2F2D10EB81
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 17:14:03 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-7b4ee3a88e1so59487777b3.1
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 10:14:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778606042; cv=none;
- d=google.com; s=arc-20240605;
- b=OdL+usBEhAFnzzaEwLWMmwTKM1v0p33MRUNr7t4ABNMzToPEq2nuk7XMWxS5ee1gaV
- +SevZzOngObOQiezzBsA38+WzwHPBFR7X677ZbnZ5XeQtZuk3N2Gjri3bL70g6j9s+sd
- Ren7aJFMEUwv+C2deH0te0EDL0+lPJnhBd1iBdgc8gJ9BGe38PDxYNBARY9VjSAbR9T+
- DxLXx5pJQDzqrtPqZE0hNEAZiTHWrIc+oiZ3OEmIlm4IHDwjnh/Eo7c1CZJs04920JHx
- mfmVdNEe9aDJw19mWj8s4Ol4NQl7CESCGLCVVraD5uDRgsk6+2f9n3/amzRJgDKVikjk
- Tntg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=28UW7f0GMLLqTkPxuZZAUCWH5yTWokTtTfctb6VdQiY=;
- fh=ak3lkKmS4LGyQi1FHhrL3AbpY4np3v6/A4iuiZKM26M=;
- b=TJgVzey/yOVHG5KGb7Qfo7m6A/Z9Pf15cKwvuwUBSyUIf00ONnZmQiNTU3ZniOi8ip
- YHwY8Itt2/3ruECUmVdCKGpLDKBY1yrezABhQPvAr4m3+Ji0tzY/3R/qnV3TQyI3qA9V
- lsY3sVht4uobZhcAIvEblbnWiotNvtmsr17XAMIMA+Gyc1NPviI2XFjKmZQQ0yE2gof5
- t/uF2u+SBP3QYoRw2LNY3FR40KJvKDXpnv/a/6UIjoZrqMgKo2W4L7NC6nCpOWUK8jrf
- +iAlM4WWCEBxtopd/dbhj2LN3aj+4HxZ+ZxYM6g/RgQ7+2Rqch/RlXye4CAraI/sjsLu
- foEw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778606042; x=1779210842; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=28UW7f0GMLLqTkPxuZZAUCWH5yTWokTtTfctb6VdQiY=;
- b=dtUCrYUu/Xi6A6Lc8+w8FMjYskIgN0Nvvo5f9oen8v06cXHhD/TjDvN7cPmb4ur8Wv
- 9ScgbP1qNBnSEpLgcmYP7gHy31/fHWpSwNfGaZt7+iuJ8Tuqa8LtL5ZedGclOhgn1ADB
- yowhphhgIS1tC9t8bieRWvpOcmWlquUz2tBHSvNwWuGAzmdZ5XTymwLzL8Puh35JUp/l
- xEZ26qcETV+CLz5v/GQ9Ut0ezwaavkbVSu2B7b0qI7MrNtDhlE3iuzroo/lJhBP3DjDt
- PKQjxTbV6LmOZzPSRgAL55vQVenlXXRxwSwOGElSTdPnAxAmCNHiuAilSsdI+gitPIdq
- zOJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778606042; x=1779210842;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=28UW7f0GMLLqTkPxuZZAUCWH5yTWokTtTfctb6VdQiY=;
- b=mkU1i80euzuqyN8x42QiBOdOgJMIHNvqWLPEmrO8uYegYl0JRb87j8ZC213zpdjh3D
- xtLTc76KKnjVG3eoWrTEvJ8DZlqN4+IictTHNBalGPpSuZH8cb4jNbc1eflYu2tv/fEf
- zmxKJ9B+jMo484JhfK/IToAzma8nScIOSNAZoiMLSzSlnx0lx9dwsdFj7goIHhdwF+lq
- viD99UXdMIB1osNY2EB7Jn53mCqrd8IyeaIFj0PTSIS7l0cPhh60UoWz0IfOgrKFcX86
- qoFsO4BujNBEkw/VOR8gAuo+XgV79QBHD0m9vN9wlWuyG3M3GwuggC1wkV3CN7vnYSxp
- +Ymg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8EpV3C5MGF3HgmYAOQvz5Z3q0T3/ZU2j1RZO4KOHp50iMxDl3nlEXO44C/MxTWbXAGGdzQi2Pgr20=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYf9ZmgxgZ0SL/Q3ZwmMtGOvA0PdqXyxcRZCWB3CVNTgkgSb9/
- I7qgcLC+14AAlYiIXbWigoZdbzVfrtm/uf3yB48h+kcLDyigGPFkpY9/wR2UW7zG9h+YX98R+1u
- gyrrvg5LbpNEB9EXywhb3QN2neJgeEnk=
-X-Gm-Gg: Acq92OFRf49CpYRi1M3Ge4vhYLhFjs6VS8FldalB28i6Bk3hFxfnh9RHzzmc2fftG0D
- Hcnc6Jh1lbIfuyAIc/wJkJi5VcIy2MlR+pNRujgqhqjXWgYA878AoFUJzrgDrbavw4Tyu19n+wg
- kQ3rDBiVcNKi66NEWtP6w3rzThF2XR7TZ0aFTeuoLzrfOUpn0kdGloQFUD/iOIPcmruYG9vHelC
- t9S5XK/hn6OH31RRdqlrmFZIuxzq8sKYTLGxolCRK6ubFyubxEnXDl2sbC6rx0kFF42z7dCUjVL
- w2zNHUiN1fHPokpD0qtMxYtdSENQJG47klqGCIja3k/+3Rlto9XeMFKFCiKDPHvJPLECe7db5A6
- FrJ723bB/
-X-Received: by 2002:a05:690c:660f:b0:7b4:dc3a:79c5 with SMTP id
- 00721157ae682-7bdf5dfc0a3mr324827037b3.12.1778606042355; Tue, 12 May 2026
- 10:14:02 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 464A310E2A0
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 17:25:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B704A60121;
+ Tue, 12 May 2026 17:25:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CE76C2BCB0;
+ Tue, 12 May 2026 17:25:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1778606741;
+ bh=sXVNrEfTlR9WTMyApYi87MgjrOBOVRh7+wbOYLRzT1I=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=RxB8FMGNbHhqjWpcGjp4HAiHDaigPotLZKKwVXhKR7DVuJ+N4IbWqfo6Eg4sbBh4q
+ nHIBbgQuanm3rFhT9UU2I8QQPPX3jkBQ4fzBVRSZi2T1p/44qeQDh1pI1+dZ4ZngFI
+ iHAIyWwZbvHAatijFnhpaT3U9H2KOx4d/XY8tbaw=
+Subject: Patch "fbdev: defio: Disconnect deferred I/O from the lifetime of
+ struct fb_info" has been added to the 6.18-stable tree
+To: deller@gmx.de, dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ sashal@kernel.org, tzimmermann@suse.de
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 12 May 2026 19:25:20 +0200
+In-Reply-To: <20260504141938.2378270-1-sashal@kernel.org>
+Message-ID: <2026051220-smuggler-nineteen-ec5a@gregkh>
 MIME-Version: 1.0
-References: <20260512-panthor-shrinker-fixes-v3-1-3bf066259471@collabora.com>
-In-Reply-To: <20260512-panthor-shrinker-fixes-v3-1-3bf066259471@collabora.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Tue, 12 May 2026 10:13:50 -0700
-X-Gm-Features: AVHnY4LxXib3-E5o-ncoC-Ve5BSVtKohuRDWBqpVUAwhcwEEkz6QV630vr-0Dm4
-Message-ID: <CAPaKu7Q7RuwgGg3EvO3SLKr8__VmmKrhhUMTV=WBKjSB8c_qTA@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/gem: Make the GEM LRU lock part of drm_device
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Akash Goel <akash.goel@arm.com>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Rob Clark <rob.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,606 +56,419 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 11, 2026 at 11:59=E2=80=AFPM Boris Brezillon
-<boris.brezillon@collabora.com> wrote:
->
-> Recently, a few races have been discovered in the GEM LRU logic, all
-> of them caused by the fact the LRU lock is accessed through
-> gem->lru->lock, and that very same lock also protects changes to
-> gem->lru, leading to situations where gem->lru needs to first be
-> accessed without the lock held, to then get the lru to access the lock
-> through and finally take the lock and do the expected operation.
->
-> Currently, the only driver making use of this API (MSM) declares a
-> device-wide lock, and the user we're about to add (panthor) will
-> do the same. There's no evidence that we will ever have a driver
-> that wants different pools of LRUs protected by different locks under
-> the same drm_device. So we're better off moving this lock to drm_device
-> and always locking it through obj->dev->gem_lru_mutex, or directly
-> through dev->gem_lru_mutex.
->
-> If anyone ever needs more fine-grained locking, this can be revisited
-> to pass some drm_gem_lru_pool object representing the pool of LRUs
-> under a specific lock, but for now, the per-device lock seems to be
-> enough.
->
-> Fixes: e7c2af13f811 ("drm/gem: Add LRU/shrinker helper")
-> Reported-by: Chia-I Wu <olvaffe@gmail.com>
-> Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
-> Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-I cannot quite reproduce with or without the fix, but this is
 
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
+This is a note to let you know that I've just added the patch titled
 
-> ---
-> As reported by Chia-I [1], a race exists between drm_gem_lru_remove()
-> and drm_gem_lru_scan(), causing a UAF on a stack-allocated object.
->
-> This new version only keeps the last patch of the series that
-> addresses the problem more generically by moving the LRU lock to the
-> drm_device object.
->
-> [1]https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
-> ---
-> Changes in v3:
-> - Only keep patch 4 and flag it for backport
-> - Rebase on drm-misc-fixes
-> - Link to v2: https://lore.kernel.org/r/20260508-panthor-shrinker-fixes-v=
-2-0-39cdb7d577c9@collabora.com
->
-> Changes in v2:
-> - Collect R-b
-> - Drop a useless obj->lru !=3D NULL check in drm_gem_lru_scan()
-> - Fix another race introduced in patch 2
-> - Document why the lru !=3D NULL check done without the lru lock held
->   in drm_gem_lru_remove() is safe
-> - Add a patch to sanitize the GEM LRU locking: lock is now part of
->   drm_device, meaning we don't have this chicken/egg problem where
->   the lock that needs to acquired is under gem->lru->lock, and
->   gem->lru is also supposed to be accessed with the lru->lock held
-> - Fix typos in commit messages and comments
-> - Link to v1: https://lore.kernel.org/r/20260506-panthor-shrinker-fixes-v=
-1-0-e7721526de96@collabora.com
-> ---
->  drivers/gpu/drm/drm_drv.c              |  2 ++
->  drivers/gpu/drm/drm_gem.c              | 34 +++++++++++++++-------------=
-------
->  drivers/gpu/drm/msm/msm_drv.c          | 11 +++++------
->  drivers/gpu/drm/msm/msm_drv.h          |  7 -------
->  drivers/gpu/drm/msm/msm_gem.c          | 32 ++++++++++++++++------------=
-----
->  drivers/gpu/drm/msm/msm_gem_shrinker.c |  4 ++--
->  drivers/gpu/drm/msm/msm_gem_submit.c   |  6 +++---
->  drivers/gpu/drm/msm/msm_gem_vma.c      | 12 ++++++------
->  drivers/gpu/drm/msm/msm_ringbuffer.c   |  6 +++---
->  include/drm/drm_device.h               |  7 +++++++
->  include/drm/drm_gem.h                  | 20 +++++++++-----------
->  11 files changed, 68 insertions(+), 73 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 985c283cf59f..675675480da4 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -697,6 +697,7 @@ static void drm_dev_init_release(struct drm_device *d=
-ev, void *res)
->         mutex_destroy(&dev->master_mutex);
->         mutex_destroy(&dev->clientlist_mutex);
->         mutex_destroy(&dev->filelist_mutex);
-> +       mutex_destroy(&dev->gem_lru_mutex);
->  }
->
->  static int drm_dev_init(struct drm_device *dev,
-> @@ -738,6 +739,7 @@ static int drm_dev_init(struct drm_device *dev,
->         INIT_LIST_HEAD(&dev->vblank_event_list);
->
->         spin_lock_init(&dev->event_lock);
-> +       mutex_init(&dev->gem_lru_mutex);
->         mutex_init(&dev->filelist_mutex);
->         mutex_init(&dev->clientlist_mutex);
->         mutex_init(&dev->master_mutex);
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index d6424267260b..2b1ac2b02b14 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1544,9 +1544,8 @@ EXPORT_SYMBOL(drm_gem_unlock_reservations);
->   * @lock: The lock protecting the LRU
->   */
->  void
-> -drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock)
-> +drm_gem_lru_init(struct drm_gem_lru *lru)
->  {
-> -       lru->lock =3D lock;
->         lru->count =3D 0;
->         INIT_LIST_HEAD(&lru->list);
->  }
-> @@ -1571,14 +1570,10 @@ drm_gem_lru_remove_locked(struct drm_gem_object *=
-obj)
->  void
->  drm_gem_lru_remove(struct drm_gem_object *obj)
->  {
-> -       struct drm_gem_lru *lru =3D obj->lru;
-> -
-> -       if (!lru)
-> -               return;
-> -
-> -       mutex_lock(lru->lock);
-> -       drm_gem_lru_remove_locked(obj);
-> -       mutex_unlock(lru->lock);
-> +       mutex_lock(&obj->dev->gem_lru_mutex);
-This becomes a cost that all drivers pay. I guess it is not too big an issu=
-e.
+    fbdev: defio: Disconnect deferred I/O from the lifetime of struct fb_info
 
-> +       if (obj->lru)
-> +               drm_gem_lru_remove_locked(obj);
-> +       mutex_unlock(&obj->dev->gem_lru_mutex);
->  }
->  EXPORT_SYMBOL(drm_gem_lru_remove);
->
-> @@ -1593,7 +1588,7 @@ EXPORT_SYMBOL(drm_gem_lru_remove);
->  void
->  drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_gem_obj=
-ect *obj)
->  {
-> -       lockdep_assert_held_once(lru->lock);
-> +       lockdep_assert_held_once(&obj->dev->gem_lru_mutex);
->
->         if (obj->lru)
->                 drm_gem_lru_remove_locked(obj);
-> @@ -1617,9 +1612,9 @@ EXPORT_SYMBOL(drm_gem_lru_move_tail_locked);
->  void
->  drm_gem_lru_move_tail(struct drm_gem_lru *lru, struct drm_gem_object *ob=
-j)
->  {
-> -       mutex_lock(lru->lock);
-> +       mutex_lock(&obj->dev->gem_lru_mutex);
->         drm_gem_lru_move_tail_locked(lru, obj);
-> -       mutex_unlock(lru->lock);
-> +       mutex_unlock(&obj->dev->gem_lru_mutex);
->  }
->  EXPORT_SYMBOL(drm_gem_lru_move_tail);
->
-> @@ -1640,7 +1635,8 @@ EXPORT_SYMBOL(drm_gem_lru_move_tail);
->   * @ticket: Optional ww_acquire_ctx context to use for locking
->   */
->  unsigned long
-> -drm_gem_lru_scan(struct drm_gem_lru *lru,
-> +drm_gem_lru_scan(struct drm_device *dev,
-> +                struct drm_gem_lru *lru,
->                  unsigned int nr_to_scan,
->                  unsigned long *remaining,
->                  bool (*shrink)(struct drm_gem_object *obj, struct ww_acq=
-uire_ctx *ticket),
-> @@ -1650,9 +1646,9 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->         struct drm_gem_object *obj;
->         unsigned freed =3D 0;
->
-> -       drm_gem_lru_init(&still_in_lru, lru->lock);
-> +       drm_gem_lru_init(&still_in_lru);
->
-> -       mutex_lock(lru->lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->
->         while (freed < nr_to_scan) {
->                 obj =3D list_first_entry_or_null(&lru->list, typeof(*obj)=
-, lru_node);
-> @@ -1675,7 +1671,7 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->                  * rest of the loop body, to reduce contention with other
->                  * code paths that need the LRU lock
->                  */
-> -               mutex_unlock(lru->lock);
-> +               mutex_unlock(&dev->gem_lru_mutex);
->
->                 if (ticket)
->                         ww_acquire_init(ticket, &reservation_ww_class);
-> @@ -1709,7 +1705,7 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->
->  tail:
->                 drm_gem_object_put(obj);
-> -               mutex_lock(lru->lock);
-> +               mutex_lock(&dev->gem_lru_mutex);
->         }
->
->         /*
-> @@ -1721,7 +1717,7 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->         list_splice_tail(&still_in_lru.list, &lru->list);
->         lru->count +=3D still_in_lru.count;
->
-> -       mutex_unlock(lru->lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->
->         return freed;
->  }
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.=
-c
-> index 195f40e331e5..cc2bcd14b1c2 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -128,11 +128,10 @@ static int msm_drm_init(struct device *dev, const s=
-truct drm_driver *drv,
->         /*
->          * Initialize the LRUs:
->          */
-> -       mutex_init(&priv->lru.lock);
-> -       drm_gem_lru_init(&priv->lru.unbacked, &priv->lru.lock);
-> -       drm_gem_lru_init(&priv->lru.pinned,   &priv->lru.lock);
-> -       drm_gem_lru_init(&priv->lru.willneed, &priv->lru.lock);
-> -       drm_gem_lru_init(&priv->lru.dontneed, &priv->lru.lock);
-> +       drm_gem_lru_init(&priv->lru.unbacked);
-> +       drm_gem_lru_init(&priv->lru.pinned);
-> +       drm_gem_lru_init(&priv->lru.willneed);
-> +       drm_gem_lru_init(&priv->lru.dontneed);
->
->         /* Initialize stall-on-fault */
->         spin_lock_init(&priv->fault_stall_lock);
-> @@ -140,7 +139,7 @@ static int msm_drm_init(struct device *dev, const str=
-uct drm_driver *drv,
->
->         /* Teach lockdep about lock ordering wrt. shrinker: */
->         fs_reclaim_acquire(GFP_KERNEL);
-> -       might_lock(&priv->lru.lock);
-> +       might_lock(&ddev->gem_lru_mutex);
->         fs_reclaim_release(GFP_KERNEL);
->
->         if (priv->kms_init) {
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.=
-h
-> index 6d847d593f1a..617b3c4b42c0 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -150,13 +150,6 @@ struct msm_drm_private {
->                  * DONTNEED state (ie. can be purged)
->                  */
->                 struct drm_gem_lru dontneed;
-> -
-> -               /**
-> -                * lock:
-> -                *
-> -                * Protects manipulation of all of the LRUs.
-> -                */
-> -               struct mutex lock;
->         } lru;
->
->         struct notifier_block vmap_notifier;
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.=
-c
-> index 2cb3ab04f125..070f5fc4bc17 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -177,11 +177,11 @@ static void update_lru_locked(struct drm_gem_object=
- *obj)
->
->  static void update_lru(struct drm_gem_object *obj)
->  {
-> -       struct msm_drm_private *priv =3D obj->dev->dev_private;
-> +       struct drm_device *dev =3D obj->dev;
->
-> -       mutex_lock(&priv->lru.lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->         update_lru_locked(obj);
-> -       mutex_unlock(&priv->lru.lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->  }
->
->  static struct page **get_pages(struct drm_gem_object *obj)
-> @@ -292,11 +292,11 @@ void msm_gem_pin_obj_locked(struct drm_gem_object *=
-obj)
->
->  static void pin_obj_locked(struct drm_gem_object *obj)
->  {
-> -       struct msm_drm_private *priv =3D obj->dev->dev_private;
-> +       struct drm_device *dev =3D obj->dev;
->
-> -       mutex_lock(&priv->lru.lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->         msm_gem_pin_obj_locked(obj);
-> -       mutex_unlock(&priv->lru.lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->  }
->
->  struct page **msm_gem_pin_pages_locked(struct drm_gem_object *obj)
-> @@ -487,16 +487,16 @@ int msm_gem_pin_vma_locked(struct drm_gem_object *o=
-bj, struct drm_gpuva *vma)
->
->  void msm_gem_unpin_locked(struct drm_gem_object *obj)
->  {
-> -       struct msm_drm_private *priv =3D obj->dev->dev_private;
-> +       struct drm_device *dev =3D obj->dev;
->         struct msm_gem_object *msm_obj =3D to_msm_bo(obj);
->
->         msm_gem_assert_locked(obj);
->
-> -       mutex_lock(&priv->lru.lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->         msm_obj->pin_count--;
->         GEM_WARN_ON(msm_obj->pin_count < 0);
->         update_lru_locked(obj);
-> -       mutex_unlock(&priv->lru.lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->  }
->
->  /* Special unpin path for use in fence-signaling path, avoiding the need
-> @@ -507,10 +507,10 @@ void msm_gem_unpin_locked(struct drm_gem_object *ob=
-j)
->   */
->  void msm_gem_unpin_active(struct drm_gem_object *obj)
->  {
-> -       struct msm_drm_private *priv =3D obj->dev->dev_private;
-> +       struct drm_device *dev =3D obj->dev;
->         struct msm_gem_object *msm_obj =3D to_msm_bo(obj);
->
-> -       GEM_WARN_ON(!mutex_is_locked(&priv->lru.lock));
-> +       GEM_WARN_ON(!mutex_is_locked(&dev->gem_lru_mutex));
->
->         msm_obj->pin_count--;
->         GEM_WARN_ON(msm_obj->pin_count < 0);
-> @@ -797,12 +797,12 @@ void msm_gem_put_vaddr(struct drm_gem_object *obj)
->   */
->  int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv)
->  {
-> -       struct msm_drm_private *priv =3D obj->dev->dev_private;
-> +       struct drm_device *dev =3D obj->dev;
->         struct msm_gem_object *msm_obj =3D to_msm_bo(obj);
->
->         msm_gem_lock(obj);
->
-> -       mutex_lock(&priv->lru.lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->
->         if (msm_obj->madv !=3D __MSM_MADV_PURGED)
->                 msm_obj->madv =3D madv;
-> @@ -814,7 +814,7 @@ int msm_gem_madvise(struct drm_gem_object *obj, unsig=
-ned madv)
->          */
->         update_lru_locked(obj);
->
-> -       mutex_unlock(&priv->lru.lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->
->         msm_gem_unlock(obj);
->
-> @@ -839,10 +839,10 @@ void msm_gem_purge(struct drm_gem_object *obj)
->
->         put_pages(obj);
->
-> -       mutex_lock(&priv->lru.lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->         /* A one-way transition: */
->         msm_obj->madv =3D __MSM_MADV_PURGED;
-> -       mutex_unlock(&priv->lru.lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->
->         drm_gem_free_mmap_offset(obj);
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm=
-/msm_gem_shrinker.c
-> index 31fa51a44f86..c07af9602fee 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> @@ -186,7 +186,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, stru=
-ct shrink_control *sc)
->                 if (!stages[i].cond)
->                         continue;
->                 stages[i].freed =3D
-> -                       drm_gem_lru_scan(stages[i].lru, nr,
-> +                       drm_gem_lru_scan(priv->dev, stages[i].lru, nr,
->                                          &stages[i].remaining,
->                                          stages[i].shrink,
->                                          &ticket);
-> @@ -255,7 +255,7 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsi=
-gned long event, void *ptr)
->         unsigned long remaining =3D 0;
->
->         for (idx =3D 0; lrus[idx] && unmapped < vmap_shrink_limit; idx++)=
+to the 6.18-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     fbdev-defio-disconnect-deferred-i-o-from-the-lifetime-of-struct-fb_info.patch
+and it can be found in the queue-6.18 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From stable+bounces-243632-greg=kroah.com@vger.kernel.org Mon May  4 16:34:29 2026
+From: Sasha Levin <sashal@kernel.org>
+Date: Mon,  4 May 2026 10:19:38 -0400
+Subject: fbdev: defio: Disconnect deferred I/O from the lifetime of struct fb_info
+To: stable@vger.kernel.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
+Message-ID: <20260504141938.2378270-1-sashal@kernel.org>
+
+From: Thomas Zimmermann <tzimmermann@suse.de>
+
+[ Upstream commit 9ded47ad003f09a94b6a710b5c47f4aa5ceb7429 ]
+
+Hold state of deferred I/O in struct fb_deferred_io_state. Allocate an
+instance as part of initializing deferred I/O and remove it only after
+the final mapping has been closed. If the fb_info and the contained
+deferred I/O meanwhile goes away, clear struct fb_deferred_io_state.info
+to invalidate the mapping. Any access will then result in a SIGBUS
+signal.
+
+Fixes a long-standing problem, where a device hot-unplug happens while
+user space still has an active mapping of the graphics memory. The hot-
+unplug frees the instance of struct fb_info. Accessing the memory will
+operate on undefined state.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 60b59beafba8 ("fbdev: mm: Deferred IO support")
+Cc: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org # v2.6.22+
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ replaced kzalloc_obj(*fbdefio_state) with kzalloc(sizeof(*fbdefio_state), GFP_KERNEL) ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/video/fbdev/core/fb_defio.c |  178 ++++++++++++++++++++++++++++--------
+ include/linux/fb.h                  |    4 
+ 2 files changed, 145 insertions(+), 37 deletions(-)
+
+--- a/drivers/video/fbdev/core/fb_defio.c
++++ b/drivers/video/fbdev/core/fb_defio.c
+@@ -24,6 +24,75 @@
+ #include <linux/rmap.h>
+ #include <linux/pagemap.h>
+ 
++/*
++ * struct fb_deferred_io_state
++ */
++
++struct fb_deferred_io_state {
++	struct kref ref;
++
++	struct mutex lock; /* mutex that protects the pageref list */
++	/* fields protected by lock */
++	struct fb_info *info;
++};
++
++static struct fb_deferred_io_state *fb_deferred_io_state_alloc(void)
++{
++	struct fb_deferred_io_state *fbdefio_state;
++
++	fbdefio_state = kzalloc(sizeof(*fbdefio_state), GFP_KERNEL);
++	if (!fbdefio_state)
++		return NULL;
++
++	kref_init(&fbdefio_state->ref);
++	mutex_init(&fbdefio_state->lock);
++
++	return fbdefio_state;
++}
++
++static void fb_deferred_io_state_release(struct fb_deferred_io_state *fbdefio_state)
++{
++	mutex_destroy(&fbdefio_state->lock);
++
++	kfree(fbdefio_state);
++}
++
++static void fb_deferred_io_state_get(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_get(&fbdefio_state->ref);
++}
++
++static void __fb_deferred_io_state_release(struct kref *ref)
++{
++	struct fb_deferred_io_state *fbdefio_state =
++		container_of(ref, struct fb_deferred_io_state, ref);
++
++	fb_deferred_io_state_release(fbdefio_state);
++}
++
++static void fb_deferred_io_state_put(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_put(&fbdefio_state->ref, __fb_deferred_io_state_release);
++}
++
++/*
++ * struct vm_operations_struct
++ */
++
++static void fb_deferred_io_vm_open(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_get(fbdefio_state);
++}
++
++static void fb_deferred_io_vm_close(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_put(fbdefio_state);
++}
++
+ static struct page *fb_deferred_io_get_page(struct fb_info *info, unsigned long offs)
  {
-> -               unmapped +=3D drm_gem_lru_scan(lrus[idx],
-> +               unmapped +=3D drm_gem_lru_scan(priv->dev, lrus[idx],
->                                              vmap_shrink_limit - unmapped=
-,
->                                              &remaining,
->                                              vmap_shrink,
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/m=
-sm_gem_submit.c
-> index 26ea8a28be47..3c6bc90c3d48 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -352,7 +352,7 @@ static int submit_fence_sync(struct msm_gem_submit *s=
-ubmit)
->
->  static int submit_pin_objects(struct msm_gem_submit *submit)
->  {
-> -       struct msm_drm_private *priv =3D submit->dev->dev_private;
-> +       struct drm_device *dev =3D submit->dev;
->         int i, ret =3D 0;
->
->         for (i =3D 0; i < submit->nr_bos; i++) {
-> @@ -381,11 +381,11 @@ static int submit_pin_objects(struct msm_gem_submit=
- *submit)
->          * get_pages() which could trigger reclaim.. and if we held the L=
-RU lock
->          * could trigger deadlock with the shrinker).
->          */
-> -       mutex_lock(&priv->lru.lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->         for (i =3D 0; i < submit->nr_bos; i++) {
->                 msm_gem_pin_obj_locked(submit->bos[i].obj);
->         }
-> -       mutex_unlock(&priv->lru.lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->
->         submit->bos_pinned =3D true;
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_=
-gem_vma.c
-> index 1a952b171ed7..c4cfe036066b 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-> @@ -702,7 +702,7 @@ static struct dma_fence *
->  msm_vma_job_run(struct drm_sched_job *_job)
->  {
->         struct msm_vm_bind_job *job =3D to_msm_vm_bind_job(_job);
-> -       struct msm_drm_private *priv =3D job->vm->drm->dev_private;
-> +       struct drm_device *dev =3D job->vm->drm;
->         struct msm_gem_vm *vm =3D to_msm_vm(job->vm);
->         struct drm_gem_object *obj;
->         int ret =3D vm->unusable ? -EINVAL : 0;
-> @@ -745,13 +745,13 @@ msm_vma_job_run(struct drm_sched_job *_job)
->         if (ret)
->                 msm_gem_vm_unusable(job->vm);
->
-> -       mutex_lock(&priv->lru.lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->
->         job_foreach_bo (obj, job) {
->                 msm_gem_unpin_active(obj);
->         }
->
-> -       mutex_unlock(&priv->lru.lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->
->         /* VM_BIND ops are synchronous, so no fence to wait on: */
->         return NULL;
-> @@ -1305,7 +1305,7 @@ vm_bind_job_pin_objects(struct msm_vm_bind_job *job=
-)
->                         return PTR_ERR(pages);
->         }
->
-> -       struct msm_drm_private *priv =3D job->vm->drm->dev_private;
-> +       struct drm_device *dev =3D job->vm->drm;
->
->         /*
->          * A second loop while holding the LRU lock (a) avoids acquiring/=
-dropping
-> @@ -1314,10 +1314,10 @@ vm_bind_job_pin_objects(struct msm_vm_bind_job *j=
-ob)
->          * get_pages() which could trigger reclaim.. and if we held the L=
-RU lock
->          * could trigger deadlock with the shrinker).
->          */
-> -       mutex_lock(&priv->lru.lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->         job_foreach_bo (obj, job)
->                 msm_gem_pin_obj_locked(obj);
-> -       mutex_unlock(&priv->lru.lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->
->         job->bos_pinned =3D true;
->
-> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/m=
-sm_ringbuffer.c
-> index 30ddb5351e98..2d6b930b766e 100644
-> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> @@ -16,13 +16,13 @@ static struct dma_fence *msm_job_run(struct drm_sched=
-_job *job)
->         struct msm_gem_submit *submit =3D to_msm_submit(job);
->         struct msm_fence_context *fctx =3D submit->ring->fctx;
->         struct msm_gpu *gpu =3D submit->gpu;
-> -       struct msm_drm_private *priv =3D gpu->dev->dev_private;
-> +       struct drm_device *dev =3D gpu->dev;
->         unsigned nr_cmds =3D submit->nr_cmds;
->         int i;
->
->         msm_fence_init(submit->hw_fence, fctx);
->
-> -       mutex_lock(&priv->lru.lock);
-> +       mutex_lock(&dev->gem_lru_mutex);
->
->         for (i =3D 0; i < submit->nr_bos; i++) {
->                 struct drm_gem_object *obj =3D submit->bos[i].obj;
-> @@ -32,7 +32,7 @@ static struct dma_fence *msm_job_run(struct drm_sched_j=
-ob *job)
->
->         submit->bos_pinned =3D false;
->
-> -       mutex_unlock(&priv->lru.lock);
-> +       mutex_unlock(&dev->gem_lru_mutex);
->
->         /* TODO move submit path over to using a per-ring lock.. */
->         mutex_lock(&gpu->lock);
-> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-> index bc78fb77cc27..768a8dae83c5 100644
-> --- a/include/drm/drm_device.h
-> +++ b/include/drm/drm_device.h
-> @@ -375,6 +375,13 @@ struct drm_device {
->          * Root directory for debugfs files.
->          */
->         struct dentry *debugfs_root;
-> +
-> +       /**
-> +        * @gem_lru_mutex:
-> +        *
-> +        * Lock protecting movement of GEM objects between LRUs.
-> +        */
-> +       struct mutex gem_lru_mutex;
->  };
->
->  void drm_dev_set_dma_dev(struct drm_device *dev, struct device *dma_dev)=
-;
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 86f5846154f7..8a704f6a65c1 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -245,17 +245,11 @@ struct drm_gem_object_funcs {
->   * for lockless &shrinker.count_objects, and provides
->   * &drm_gem_lru_scan for driver's &shrinker.scan_objects
->   * implementation.
-> + *
-> + * Any access to this kind of object must be done with
-> + * drm_device::gem_lru_mutex held.
->   */
->  struct drm_gem_lru {
-> -       /**
-> -        * @lock:
-> -        *
-> -        * Lock protecting movement of GEM objects between LRUs.  All
-> -        * LRUs that the object can move between should be protected
-> -        * by the same lock.
-> -        */
-> -       struct mutex *lock;
-> -
->         /**
->          * @count:
->          *
-> @@ -453,6 +447,9 @@ struct drm_gem_object {
->          * @lru:
->          *
->          * The current LRU list that the GEM object is on.
-> +        *
-> +        * Access to this field must be done with drm_device::gem_lru_mut=
-ex
-> +        * held.
->          */
->         struct drm_gem_lru *lru;
->  };
-> @@ -610,12 +607,13 @@ void drm_gem_unlock_reservations(struct drm_gem_obj=
-ect **objs, int count,
->  int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *de=
-v,
->                             u32 handle, u64 *offset);
->
-> -void drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock);
-> +void drm_gem_lru_init(struct drm_gem_lru *lru);
->  void drm_gem_lru_remove(struct drm_gem_object *obj);
->  void drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_ge=
-m_object *obj);
->  void drm_gem_lru_move_tail(struct drm_gem_lru *lru, struct drm_gem_objec=
-t *obj);
->  unsigned long
-> -drm_gem_lru_scan(struct drm_gem_lru *lru,
-> +drm_gem_lru_scan(struct drm_device *dev,
-> +                struct drm_gem_lru *lru,
->                  unsigned int nr_to_scan,
->                  unsigned long *remaining,
->                  bool (*shrink)(struct drm_gem_object *obj, struct ww_acq=
-uire_ctx *ticket),
->
-> ---
-> base-commit: b2ed01e7ad3de80333e9b962a44024b094bc0b2b
-> change-id: 20260506-panthor-shrinker-fixes-58c1f45cfc41
->
-> Best regards,
-> --
-> Boris Brezillon <boris.brezillon@collabora.com>
->
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
+@@ -121,25 +190,46 @@ static void fb_deferred_io_pageref_put(s
+ /* this is to find and return the vmalloc-ed fb pages */
+ static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
+ {
++	struct fb_info *info;
+ 	unsigned long offset;
+ 	struct page *page;
+-	struct fb_info *info = vmf->vma->vm_private_data;
++	vm_fault_t ret;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
++
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
+ 
+ 	offset = vmf->pgoff << PAGE_SHIFT;
+-	if (offset >= info->fix.smem_len)
+-		return VM_FAULT_SIGBUS;
++	if (offset >= info->fix.smem_len) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	page = fb_deferred_io_get_page(info, offset);
+-	if (!page)
+-		return VM_FAULT_SIGBUS;
++	if (!page) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	if (!vmf->vma->vm_file)
+ 		fb_err(info, "no mapping available\n");
+ 
+ 	BUG_ON(!info->fbdefio->mapping);
+ 
++	mutex_unlock(&fbdefio_state->lock);
++
+ 	vmf->page = page;
++
+ 	return 0;
++
++err_mutex_unlock:
++	mutex_unlock(&fbdefio_state->lock);
++	return ret;
+ }
+ 
+ int fb_deferred_io_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+@@ -166,15 +256,24 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
+  * Adds a page to the dirty list. Call this from struct
+  * vm_operations_struct.page_mkwrite.
+  */
+-static vm_fault_t fb_deferred_io_track_page(struct fb_info *info, unsigned long offset,
+-					    struct page *page)
++static vm_fault_t fb_deferred_io_track_page(struct fb_deferred_io_state *fbdefio_state,
++					    unsigned long offset, struct page *page)
+ {
+-	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_info *info;
++	struct fb_deferred_io *fbdefio;
+ 	struct fb_deferred_io_pageref *pageref;
+ 	vm_fault_t ret;
+ 
+ 	/* protect against the workqueue changing the page list */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
++
++	fbdefio = info->fbdefio;
+ 
+ 	pageref = fb_deferred_io_pageref_get(info, offset, page);
+ 	if (WARN_ON_ONCE(!pageref)) {
+@@ -192,50 +291,38 @@ static vm_fault_t fb_deferred_io_track_p
+ 	 */
+ 	lock_page(pageref->page);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 
+ 	/* come back after delay to process the deferred IO */
+ 	schedule_delayed_work(&info->deferred_work, fbdefio->delay);
+ 	return VM_FAULT_LOCKED;
+ 
+ err_mutex_unlock:
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 	return ret;
+ }
+ 
+-/*
+- * fb_deferred_io_page_mkwrite - Mark a page as written for deferred I/O
+- * @fb_info: The fbdev info structure
+- * @vmf: The VM fault
+- *
+- * This is a callback we get when userspace first tries to
+- * write to the page. We schedule a workqueue. That workqueue
+- * will eventually mkclean the touched pages and execute the
+- * deferred framebuffer IO. Then if userspace touches a page
+- * again, we repeat the same scheme.
+- *
+- * Returns:
+- * VM_FAULT_LOCKED on success, or a VM_FAULT error otherwise.
+- */
+-static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_info *info, struct vm_fault *vmf)
++static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_deferred_io_state *fbdefio_state,
++					      struct vm_fault *vmf)
+ {
+ 	unsigned long offset = vmf->pgoff << PAGE_SHIFT;
+ 	struct page *page = vmf->page;
+ 
+ 	file_update_time(vmf->vma->vm_file);
+ 
+-	return fb_deferred_io_track_page(info, offset, page);
++	return fb_deferred_io_track_page(fbdefio_state, offset, page);
+ }
+ 
+-/* vm_ops->page_mkwrite handler */
+ static vm_fault_t fb_deferred_io_mkwrite(struct vm_fault *vmf)
+ {
+-	struct fb_info *info = vmf->vma->vm_private_data;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
+ 
+-	return fb_deferred_io_page_mkwrite(info, vmf);
++	return fb_deferred_io_page_mkwrite(fbdefio_state, vmf);
+ }
+ 
+ static const struct vm_operations_struct fb_deferred_io_vm_ops = {
++	.open		= fb_deferred_io_vm_open,
++	.close		= fb_deferred_io_vm_close,
+ 	.fault		= fb_deferred_io_fault,
+ 	.page_mkwrite	= fb_deferred_io_mkwrite,
+ };
+@@ -252,7 +339,10 @@ int fb_deferred_io_mmap(struct fb_info *
+ 	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+ 	if (!(info->flags & FBINFO_VIRTFB))
+ 		vm_flags_set(vma, VM_IO);
+-	vma->vm_private_data = info;
++	vma->vm_private_data = info->fbdefio_state;
++
++	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_mmap);
+@@ -263,9 +353,10 @@ static void fb_deferred_io_work(struct w
+ 	struct fb_info *info = container_of(work, struct fb_info, deferred_work.work);
+ 	struct fb_deferred_io_pageref *pageref, *next;
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	/* here we wrprotect the page's mappings, then do all deferred IO. */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
+ #ifdef CONFIG_MMU
+ 	list_for_each_entry(pageref, &fbdefio->pagereflist, list) {
+ 		struct page *page = pageref->page;
+@@ -283,12 +374,13 @@ static void fb_deferred_io_work(struct w
+ 	list_for_each_entry_safe(pageref, next, &fbdefio->pagereflist, list)
+ 		fb_deferred_io_pageref_put(pageref, info);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ }
+ 
+ int fb_deferred_io_init(struct fb_info *info)
+ {
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	unsigned long npagerefs;
+ 	int ret;
+@@ -298,7 +390,11 @@ int fb_deferred_io_init(struct fb_info *
+ 	if (WARN_ON(!info->fix.smem_len))
+ 		return -EINVAL;
+ 
+-	mutex_init(&fbdefio->lock);
++	fbdefio_state = fb_deferred_io_state_alloc();
++	if (!fbdefio_state)
++		return -ENOMEM;
++	fbdefio_state->info = info;
++
+ 	INIT_DELAYED_WORK(&info->deferred_work, fb_deferred_io_work);
+ 	INIT_LIST_HEAD(&fbdefio->pagereflist);
+ 	if (fbdefio->delay == 0) /* set a default of 1 s */
+@@ -315,10 +411,12 @@ int fb_deferred_io_init(struct fb_info *
+ 	info->npagerefs = npagerefs;
+ 	info->pagerefs = pagerefs;
+ 
++	info->fbdefio_state = fbdefio_state;
++
+ 	return 0;
+ 
+ err:
+-	mutex_destroy(&fbdefio->lock);
++	fb_deferred_io_state_release(fbdefio_state);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_init);
+@@ -352,11 +450,19 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release
+ void fb_deferred_io_cleanup(struct fb_info *info)
+ {
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	fb_deferred_io_lastclose(info);
+ 
++	info->fbdefio_state = NULL;
++
++	mutex_lock(&fbdefio_state->lock);
++	fbdefio_state->info = NULL;
++	mutex_unlock(&fbdefio_state->lock);
++
++	fb_deferred_io_state_put(fbdefio_state);
++
+ 	kvfree(info->pagerefs);
+-	mutex_destroy(&fbdefio->lock);
+ 	fbdefio->mapping = NULL;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_cleanup);
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -217,13 +217,14 @@ struct fb_deferred_io {
+ 	unsigned long delay;
+ 	bool sort_pagereflist; /* sort pagelist by offset */
+ 	int open_count; /* number of opened files; protected by fb_info lock */
+-	struct mutex lock; /* mutex that protects the pageref list */
+ 	struct list_head pagereflist; /* list of pagerefs for touched pages */
+ 	struct address_space *mapping; /* page cache object for fb device */
+ 	/* callback */
+ 	struct page *(*get_page)(struct fb_info *info, unsigned long offset);
+ 	void (*deferred_io)(struct fb_info *info, struct list_head *pagelist);
+ };
++
++struct fb_deferred_io_state;
+ #endif
+ 
+ /*
+@@ -490,6 +491,7 @@ struct fb_info {
+ 	unsigned long npagerefs;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	struct fb_deferred_io *fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ #endif
+ 
+ 	const struct fb_ops *fbops;
+
+
+Patches currently in stable-queue which might be from sashal@kernel.org are
+
+queue-6.18/mmc-core-optimize-time-for-secure-erase-trim-for-some-kingston-emmcs.patch
+queue-6.18/dma-mapping-add-__dma_from_device_group_begin-end.patch
+queue-6.18/mptcp-sync-the-msk-sndbuf-at-accept-time.patch
+queue-6.18/mmc-core-add-quirk-for-incorrect-manufacturing-date.patch
+queue-6.18/smb-client-smbdirect-fix-mr-registration-for-coalesc.patch
+queue-6.18/kvm-x86-fix-shadow-paging-use-after-free-due-to-unex.patch
+queue-6.18/hfsplus-fix-uninit-value-by-validating-catalog-record-size.patch
+queue-6.18/crypto-qat-fix-indentation-of-macros-in-qat_hal.c.patch
+queue-6.18/crypto-caam-guard-hmac-key-hex-dumps-in-hash_digest_key.patch
+queue-6.18/hfsplus-fix-held-lock-freed-on-hfsplus_fill_super.patch
+queue-6.18/octeon_ep_vf-add-null-check-for-napi_build_skb.patch
+queue-6.18/printk-add-print_hex_dump_devel.patch
+queue-6.18/mm-swap-speed-up-hibernation-allocation-and-writeout.patch
+queue-6.18/net-af_key-zero-aligned-sockaddr-tail-in-pf_key-expo.patch
+queue-6.18/firmware-exynos-acpm-drop-fake-const-on-handle-pointer.patch
+queue-6.18/crypto-qat-fix-firmware-loading-failure-for-gen6-devices.patch
+queue-6.18/flow_dissector-do-not-dissect-pppoe-pfc-frames.patch
+queue-6.18/fbdev-defio-disconnect-deferred-i-o-from-the-lifetime-of-struct-fb_info.patch
+queue-6.18/erofs-tidy-up-z_erofs_lz4_handle_overlap.patch
+queue-6.18/mmc-core-adjust-mdt-beyond-2025.patch
+queue-6.18/erofs-fix-unsigned-underflow-in-z_erofs_lz4_handle_overlap.patch
+queue-6.18/net-stmmac-prevent-null-deref-when-rx-memory-exhausted.patch
+queue-6.18/ceph-fix-num_ops-off-by-one-when-crypto-allocation-f.patch
+queue-6.18/net-stmmac-rename-stmmac_get_entry-stmmac_next_entry.patch
+queue-6.18/hwmon-powerz-avoid-cacheline-sharing-for-dma-buffer.patch
