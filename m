@@ -4,97 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A038CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 12:08:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8ACCCD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 12:12:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D94FE10EA7E;
-	Tue, 12 May 2026 12:08:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AB9A10E042;
+	Tue, 12 May 2026 12:12:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fOgjKmYQ";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="l5HQoC3d";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD9510EA7D
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:08:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778587705;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dXH5HtvUwwvubt7XZZtwSLlnbyrqCuGNkjWnyw6B3Tw=;
- b=fOgjKmYQzyaKUCAJ2UfHXSZJyQ54ALvWtsIL0ExDvOhToBSrFQZO5wM9OmJrCGxH9X7s0U
- 0rHg7shJqhzyUE1XB/e4i/z8UNeQWVMAXgHUH8LS4AAfnqq5Yb/cIXYmkX+1ClpBbhVEkv
- Ol3PBl2+znQ4kOAFsp9UQp62BshlmJo=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-378-zWSkWvANOoSX40LyxIe5nA-1; Tue, 12 May 2026 08:08:24 -0400
-X-MC-Unique: zWSkWvANOoSX40LyxIe5nA-1
-X-Mimecast-MFC-AGG-ID: zWSkWvANOoSX40LyxIe5nA_1778587702
-Received: by mail-lf1-f71.google.com with SMTP id
- 2adb3069b0e04-5a8a57bad37so2201623e87.2
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 05:08:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778587702; x=1779192502;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dXH5HtvUwwvubt7XZZtwSLlnbyrqCuGNkjWnyw6B3Tw=;
- b=XcezvAFVFqF/ktgCSksHBriMYGeM6BcerR3s7Nu9eFxlAwH/GCvbexLRGh+1pzJFc9
- /MbWxAVxlYEzezeQzCdDbiwmYi51fORmkODIq8hMDz4R7iUsobV/XM9jq2At29ytXqdg
- lr6IJOGk4UTzGF3S2hL3M6MKOJ0ATUV93iUXtVdYWkEUFFdQv04ozHkHayhRnhXr4t+V
- QuYckHQe1yZdoXceHmPXJhexs5msYoO1YHLIcvErHkkB3NojEmsztC0B9bYb5kPfy+lx
- uguinUwS3mbsjwgRK64bYFm0QjdocrZZwBYZ2pu1cNrW02GLtCWNst814cp/gkYRz+xy
- 3BJA==
-X-Gm-Message-State: AOJu0YyUayq1Nzovgct7P7JjP3f04LDfIWzVGMcb+nZmv+y+gNW/5g5J
- yz3z83bMOejLmkVWcFxtYnxkGQFXZEqfNQMc6z7zrI2gpvCAIaCpruMUPuxxQn7ZWg+fFGSxoW3
- aHwEsdzgbESvgD34T8FP40qad3LZ10leBDjnxge8cmGRNU5Z+tjQLF9lBotm+tS0OFg+z
-X-Gm-Gg: Acq92OF5cNsCDld3fmx4NWVwzsBFL3N9FYHO7e4cJLsjoHdExS/lrm4puqsei9p2y0b
- q3BOZb9SlrF/l5J1ebhvPXLlhfckCkFhQm8w7WmJ0/bO3Rbz4m/kCWtfz6DRfpoGut4GEs2vCwb
- /s58JMi08XmuK6pb9WsWCjSywRQ46rMnpV1GGbFqinqhrOYFLnpch+r3L8XKkvWH7+4BxKNDyIL
- l2qVKPxqIQv9yj5zcumvnhfa9cy1JYidYfWSUTd1z8MZJ17aUI/grDOp8SYiLJMrlSbV5EtAmj0
- n4ftLWCeqA/LcniWdqSv6Okg5tFJAdJJcbOXICRhWXKSC11P4N8NtQZe0JNLbmFV9b/vBIDmacG
- V1tUEcc5sfP1VDRaiU0vwx91KeOu3N35UniTSofaJ9wGVeww=
-X-Received: by 2002:a05:6512:1281:b0:5a8:cdd8:1eb0 with SMTP id
- 2adb3069b0e04-5a8cdd81ed5mr2576299e87.1.1778587702199; 
- Tue, 12 May 2026 05:08:22 -0700 (PDT)
-X-Received: by 2002:a05:6512:1281:b0:5a8:cdd8:1eb0 with SMTP id
- 2adb3069b0e04-5a8cdd81ed5mr2576269e87.1.1778587701675; 
- Tue, 12 May 2026 05:08:21 -0700 (PDT)
-Received: from [192.168.1.86] (85-23-51-1.bb.dnainternet.fi. [85.23.51.1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a8a95661aasm3290978e87.68.2026.05.12.05.08.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 05:08:21 -0700 (PDT)
-Message-ID: <7e3abb7c-c57d-419a-969a-fcd150ccca99@redhat.com>
-Date: Tue, 12 May 2026 15:08:20 +0300
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com
+ [113.46.200.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D584410E042
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 12:12:24 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=RUY8JwnijBo4MYkY0cWpwDESs0uauL0DBCZ0hq4URZs=;
+ b=l5HQoC3d2Ha9FbqH86HL6zm0Y5vfmKIS7z8wk58wpOKwd3yeQTpehcWEnw1Md1FznTYYhNDZQ
+ UvcFmI/ODwtXBDXqHezz1k+IEVCnlt6b/6qSK/KApLTBsPKKncjt4f9ik+liu9RhvPl600UoAbt
+ RSe58yoVEeGH5sb71l3lcMo=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+ by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4gFFdT00zFzRhSr;
+ Tue, 12 May 2026 20:04:44 +0800 (CST)
+Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id 39E464056A;
+ Tue, 12 May 2026 20:12:21 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 12 May 2026 20:12:21 +0800
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 12 May 2026 20:12:20 +0800
+Message-ID: <d017d6e8-1035-4088-a543-6fc00f2c29c3@huawei.com>
+Date: Tue, 12 May 2026 20:12:19 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 2/5] mm: Add helper to convert HMM pfn to migrate pfn
-To: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-References: <20260505184421.2324798-1-mpenttil@redhat.com>
- <20260505184421.2324798-3-mpenttil@redhat.com>
- <4a9c4170-c6b7-424c-969c-19240f07e46b@kernel.org>
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <4a9c4170-c6b7-424c-969c-19240f07e46b@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: st3RRW2sDB7LZSOEh3tAn_VmUF6FGyUThyvsNLiK4e4_1778587702
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH for drm-misc-fixes v6 0/4] Fix some bugs in the hibmc
+ driver
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ <dmitry.baryshkov@oss.qualcomm.com>, <tiantao6@hisilicon.com>,
+ <xinliang.liu@linaro.org>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <kong.kongxinwei@hisilicon.com>
+CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
+ <fengsheng5@huawei.com>, <helin52@h-partners.com>, <shenjian15@huawei.com>,
+ <shaojijie@huawei.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <shiyongbang@huawei.com>
+References: <20260509032302.2057227-1-shiyongbang@huawei.com>
+ <d45b7e90-9e13-4c04-8f4c-37898aabc2c0@suse.de>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <d45b7e90-9e13-4c04-8f4c-37898aabc2c0@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.159.167.44]
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,100 +75,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/12/26 14:43, David Hildenbrand (Arm) wrote:
-
->> +
->> +/**
->> + * migrate_hmm_range_setup() - prepare to migrate a range of memory
->> + * @range: contains pointer to struct migrate_vma to be set up.
->> + *
->> + * When collecting has been done with hmm_range_fault(), this
->> + * should be called next, and completes range->migrate by
->> + * populating migrate->src[] and migrate->dst[]
->> + * using range->hmm_pfns[].
->> + * Also, migrate->cpages and migrate->npages get initialized.
->> + * After migrate_hmm_range_setup(), range->migrate is good
->> + * for the rest of the migrate_vma_* flow.
->> + */
->> +void migrate_hmm_range_setup(struct hmm_range *range)
->> +{
->> +	struct migrate_vma *migrate = range->migrate;
->> +
->> +	if (!migrate)
->> +		return;
->> +
->> +	migrate->npages = (migrate->end - migrate->start) >> PAGE_SHIFT;
->> +	migrate->cpages = 0;
->> +
->> +	for (unsigned long i = 0; i < migrate->npages; i++) {
->> +		unsigned long pfn = range->hmm_pfns[i];
->> +
->> +		/*
->> +		 * We are only interested in entries to be
->> +		 * migrated.
->> +		 */
->> +		if (!(pfn & HMM_PFN_MIGRATE)) {
->> +			migrate->src[i] = 0;
->> +			migrate->dst[i] = 0;
->> +			continue;
->> +		}
->> +
->> +		migrate->cpages++;
->> +
->> +		/* HMM_PFN_MIGRATE without HMM_PFN_VALID denotes the special zero page */
->> +		if (pfn & (HMM_PFN_VALID))
-> No need for ()
-
-ack
-
+> Hi,
+> 
+> I've gone through the series and reviewed the patches. Let me know when they are ready to get merged.
 >
->> +			migrate->src[i] = migrate_pfn(page_to_pfn(hmm_pfn_to_page(pfn)))
-> Is there no easier way to avoid going through a page?
->
-> I guess you really just want "migrate_pfn(pfn & ~HMM_PFN_FLAGS)".
->
-> Maybe add a hmm_pfn_to_pfn() helper that does the "pfn & ~HMM_PFN_FLAGS" ?
 
-Basically yes. I noticed this was helpful for instance with the "separate address space for device_private"
-patchset not to depend on the coding.
-
->
->> +				| MIGRATE_PFN_MIGRATE;
-> We (MM folks) usually put the | onto the previous line to then properly indent
-> the second line
-
-Okay I will change.
-
->
-> migrate->src[i] = migrate_pfn(page_to_pfn(hmm_pfn_to_page(pfn))) |
-> 		  MIGRATE_PFN_MIGRATE;
->
->> +		else
->> +			migrate->src[i] = MIGRATE_PFN_MIGRATE;
-> It might be cleaner to just set migrate->src[i] = 0; here and to unconditionally
->
-> 	migrate->src[i] |= MIGRATE_PFN_MIGRATE;
->
-> So you don't have the MIGRATE_PFN_MIGRATE on two paths.
-
-Good point.
-
->
->> +
->> +		migrate->src[i] |= (pfn & HMM_PFN_WRITE) ? MIGRATE_PFN_WRITE : 0;
->> +		migrate->src[i] |= (pfn & HMM_PFN_COMPOUND) ? MIGRATE_PFN_COMPOUND : 0;
->> +		migrate->dst[i] = 0;
->> +	}
->> +
->> +	if (migrate->cpages)
->> +		migrate_vma_unmap(migrate);
-> Can you remind me why we do this here, in the setup() phase? The function doc
-> does not really describe that.
-
-It is to be in par what migrate_vma_setup() does today after the "collect" phase.
+Thanks for the review. The series is ready for merging now.
 
 Thanks,
-Mika
+Yongbang.
 
->
+
+> Best regards
+> Thomas
+> 
+> 
+> Am 09.05.26 um 05:22 schrieb Yongbang Shi:
+>> From: Lin He <helin52@huawei.com>
+>>
+>> There are some bugfix for hibmc-drm driver.
+>>
+>> ---
+>> ChangeLog:
+>> v5 -> v6:
+>>    - Rename 'phys_state' to 'phys_status'
+>>    - Replace `drm_kms_helper_poll_init` with `drmm_kms_helper_poll_init`
+>>      and adjust the timing of the call.
+>>    - Split "return vdac->phys_state = state;" into separate statements.
+>>    - Change `get_mode` to return 0 when no modes are available, allowing DRM to
+>>      install a default resolution.
+>>    - Change the initial phys_status of vdac from
+>>      'connector_status_connected' to 'connector_status_disconnected'
+>>    - Removed invalid bit configurations from `hibmc_display_ctrl`.
+>>    - Modify the return values of `hibmc_get_best_clock_idx` and
+>>      `hibmc_crtc_mode_valid`
+>> v4 -> v5:
+>>    - The 'epoch_counter' of the vdac connector is incremented when the
+>>     physical status changes.
+>>    - The polling mechanism for the KMS helper is enabled.
+>> v3 -> v4:
+>>    - fix incorrect cover-letter subject prefix in v3.
+>> v2 -> v3:
+>>    - remove unused macro CLOCK_TOLERANCE.
+>> v1 -> v2:
+>>    - fix the checkpatch.pl warning "Unknown commit ID 'e6c7c59da494'".
+>>    - fix the checkpatch.pl warning "line length of 83/85 exceeds 80 columns".
+>>    - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
+>>      be given in public.
+>>    - add 'drm-misc-fixes' in subject prefix.
+>> ---
+>>
+>> Lin He (4):
+>>    drm/hisilicon/hibmc: add updating link cap in DP detect()
+>>    drm/hisilicon/hibmc: fix no showing when no connectors connected
+>>    drm/hisilicon/hibmc: move display contrl config to hibmc_probe()
+>>    drm/hisilicon/hibmc: use clock to look up the PLL value
+>>
+>>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  1 +
+>>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
+>>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c  |  2 +-
+>>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 80 +++++++++++--------
+>>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 35 +++++---
+>>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 14 ++++
+>>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  1 +
+>>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 75 +++++++++--------
+>>   8 files changed, 124 insertions(+), 85 deletions(-)
+>>
+> 
 
