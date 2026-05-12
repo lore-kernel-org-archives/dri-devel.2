@@ -4,79 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2461DCD4855
-	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 07:31:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 809ADCD4F26
+	for <dri-devel@archiver.kernel.org>; Tue, 12 May 2026 07:31:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86D3110E1B5;
-	Tue, 12 May 2026 07:31:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF99010E312;
+	Tue, 12 May 2026 07:31:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="FOnO2F2b";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yK83A5Jw";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FOnO2F2b";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yK83A5Jw";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="zWDedDBS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dDp8ocva";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QxDp0PJE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lTfvt1sd";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC84710E1B5
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 07:31:15 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D1FA10E312
+ for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 07:31:46 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7ECD661F52;
- Tue, 12 May 2026 07:31:14 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F02D0759FA;
+ Tue, 12 May 2026 07:31:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778571074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1778571105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Iirvc59L7aI8RoFaXdEGeBMR8NhXaJpkhZdqLUFzNwg=;
- b=FOnO2F2b1vZ5Slg1jQlWAu515Aa0hP6pMZUZey0GPPxhYti7FZtPOCiGR32+VK2X3qTPqd
- 82hAhPbI7SE8vmyr5i4wDbUoz5EU5HbsIYLMShbHh8SwdkmeGBAT8tAsSBCy2/Eg+EouCL
- Ng36uS9wx+D9MMlZ/eMwkk1MclYrZts=
+ bh=ce4OcUzOXJT3nBU5HQ64ksOlweiBEJ9ppCAU6PBAJGk=;
+ b=zWDedDBSvsZOOaojkPr24Eh5Uhm0R645rVihFgIl7ygeyxdAPsooaeE2Lzv77vNhK4ZvTc
+ F+5FNITj/lobxu3+E0xRdrRx9UQ/gwRRvDp2bVPYZhgvRxnxhCvOEqzW/t22G/i+kFmK+2
+ OvS9V0+gtnctalbXPop8O0boNeJ/kyQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778571074;
+ s=susede2_ed25519; t=1778571105;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Iirvc59L7aI8RoFaXdEGeBMR8NhXaJpkhZdqLUFzNwg=;
- b=yK83A5Jw3eznq3i2eHWXuuWuPhBDDDXjHBV1YpN6rF2ywMXRJlp0cpnxdSL6hrLibILHDo
- Y4/YzOZROPyQcDAw==
-Authentication-Results: smtp-out1.suse.de;
-	none
+ bh=ce4OcUzOXJT3nBU5HQ64ksOlweiBEJ9ppCAU6PBAJGk=;
+ b=dDp8ocvav3RJ/7+bSJEEIpbgF95k/1UoXwjlqi1rK4PM2U9GKpz5CBaj1d19LJoadG4bpf
+ PdVwHV1nF8TYByBQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QxDp0PJE;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=lTfvt1sd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778571074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1778571104; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Iirvc59L7aI8RoFaXdEGeBMR8NhXaJpkhZdqLUFzNwg=;
- b=FOnO2F2b1vZ5Slg1jQlWAu515Aa0hP6pMZUZey0GPPxhYti7FZtPOCiGR32+VK2X3qTPqd
- 82hAhPbI7SE8vmyr5i4wDbUoz5EU5HbsIYLMShbHh8SwdkmeGBAT8tAsSBCy2/Eg+EouCL
- Ng36uS9wx+D9MMlZ/eMwkk1MclYrZts=
+ bh=ce4OcUzOXJT3nBU5HQ64ksOlweiBEJ9ppCAU6PBAJGk=;
+ b=QxDp0PJEu8T2AYZMs/ltBhak/GIKRVW/Ft8PH7xVOS0+3fNrV+VLRp/DWnquG4GrUZMvaT
+ o7wA0VLciRWhuIK3HSow5h20xRmv4VHH+oWTV0qXJ3yqr11o/YYTuMRHGZALGqbMdQ3qR4
+ pGAIagBjfocHyc+lgTX2S6ra0FukRjA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778571074;
+ s=susede2_ed25519; t=1778571104;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Iirvc59L7aI8RoFaXdEGeBMR8NhXaJpkhZdqLUFzNwg=;
- b=yK83A5Jw3eznq3i2eHWXuuWuPhBDDDXjHBV1YpN6rF2ywMXRJlp0cpnxdSL6hrLibILHDo
- Y4/YzOZROPyQcDAw==
+ bh=ce4OcUzOXJT3nBU5HQ64ksOlweiBEJ9ppCAU6PBAJGk=;
+ b=lTfvt1sdBGmdhJO/5UD2bIh/az4C9LvLkB/+7EVDqBbC83Yjpz/4BlvZTFB2rzJw4Y55V1
+ R2AvtBISVwN4PDDw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A4E78593A9;
- Tue, 12 May 2026 07:31:12 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 85304593A9;
+ Tue, 12 May 2026 07:31:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id LhzSJkDXAmqdQgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 12 May 2026 07:31:12 +0000
-Message-ID: <308b5681-01ff-4bec-a449-522060a7d7fc@suse.de>
-Date: Tue, 12 May 2026 09:31:12 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 3ZEWH1/XAmpSQwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 12 May 2026 07:31:43 +0000
+Message-ID: <78671945-b831-4ac6-860e-0fcd919b916d@suse.de>
+Date: Tue, 12 May 2026 09:31:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v6 2/4] drm/hisilicon/hibmc: fix no
- showing when no connectors connected
+Subject: Re: [PATCH for drm-misc-fixes v6 4/4] drm/hisilicon/hibmc: use clock
+ to look up the PLL value
 To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
  tiantao6@hisilicon.com, xinliang.liu@linaro.org,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
@@ -85,7 +87,7 @@ Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
  helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260509032302.2057227-1-shiyongbang@huawei.com>
- <20260509032302.2057227-3-shiyongbang@huawei.com>
+ <20260509032302.2057227-5-shiyongbang@huawei.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -112,24 +114,29 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260509032302.2057227-3-shiyongbang@huawei.com>
+In-Reply-To: <20260509032302.2057227-5-shiyongbang@huawei.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[17];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MX_GOOD(-0.01)[];
  FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[17];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- URIBL_BLOCKED(0.00)[hisilicon.com:email,imap1.dmz-prg2.suse.org:helo,suse.com:url,huawei.com:email,suse.de:mid,suse.de:email,checkpatch.pl:url];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, checkpatch.pl:url,
- imap1.dmz-prg2.suse.org:helo, suse.com:url, huawei.com:email]
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim,suse.de:mid,hisilicon.com:email,suse.com:url,huawei.com:email];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: F02D0759FA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,259 +157,160 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Am 09.05.26 um 05:23 schrieb Yongbang Shi:
 > From: Lin He <helin52@huawei.com>
 >
-> Our chip support KVM over IP feature, so hibmc driver need to support
-> displaying without any connectors plugged in. If no connectors are
-> connected, the vdac connector status should be set to 'connected' to
-> ensure proper KVM display functionality. Additionally, for
-> previous-generation products that may lack hardware link support and
-> thus cannot detect the monitor, the same approach should be applied
-> to ensure VGA display functionality.
+> In the past, we use width and height to look up our PLL value.
+> But actually the actual clock check is also necessnary. There are
+> some resolutions that width and height same, but its clock different.
+> Add the clock check when using pll_table to determine the PLL value.
 >
-> * Add phys_state in the struct of dp and vdac to check physical outputs.
->
-> * The 'epoch_counter' of the vdac connector is incremented when the
-> physical status changes.
->
-> For get_modes: using BMC modes for connector if no display is attached to
-> phys VGA cable, otherwise use EDID modes by drm_connector_helper_get_modes,
-> because KVM doesn't provide EDID reads.
->
-> The polling mechanism for the KMS helper is enabled.
->
-> Fixes: 4c962bc929f1 ("drm/hisilicon/hibmc: Add vga connector detect functions")
-> Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Closes: https://lore.kernel.org/all/0eb5c509-2724-4c57-87ad-74e4270d5a5a@suse.de/
+> Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
 > Signed-off-by: Lin He <helin52@huawei.com>
 > Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-This patch fixes the problem with my test device. I now get the default 
-VGA resolutions, which seems like the correct solution to me.
-
-Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
-
 > ---
 > ChangeLog:
 > v5 -> v6:
->    - Rename 'phys_state' to 'phys_status'
->    - Replace `drm_kms_helper_poll_init` with `drmm_kms_helper_poll_init`
->      and adjust the timing of the call.
->    - Split "return vdac->phys_state = state;" into separate statements.
->    - Change `get_modes` to return 0 when no modes are available, allowing DRM to
->      install a default resolution.
->    - Change the initial phys_status of vdac from
->      'connector_status_connected' to 'connector_status_disconnected'
-> v4 -> v5:
->    - The 'epoch_counter' of the vdac connector is incremented when the physical
->      status changes.
->    - The polling mechanism for the KMS helper is enabled.
+>    - Modify the return values of `hibmc_get_best_clock_idx` and
+>      `hibmc_crtc_mode_valid`
+> v2 -> v3:
+>    - remove unused macro CLOCK_TOLERANCE.
 > v1 -> v2:
->    - fix the checkpatch.pl warning "line length of 83/85 exceeds 80 columns".
 >    - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
 >      be given in public.
 >    - add 'drm-misc-fixes' in subject prefix.
 > ---
->   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 33 ++++++++----
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  3 ++
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  1 +
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 53 +++++++++++++------
->   5 files changed, 64 insertions(+), 27 deletions(-)
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 80 +++++++++++--------
+>   1 file changed, 45 insertions(+), 35 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-> index 31316fe1ea8d..0f3662d8737e 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-> @@ -55,6 +55,7 @@ struct hibmc_dp {
->   	struct drm_dp_aux aux;
->   	struct hibmc_dp_cbar_cfg cfg;
->   	u32 irq_status;
-> +	int phys_status;
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> index fd3f05ba62df..583670c7b60e 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> @@ -34,26 +34,43 @@ struct hibmc_display_panel_pll {
+>   struct hibmc_dislay_pll_config {
+>   	u64 hdisplay;
+>   	u64 vdisplay;
+> +	int clock;
+>   	u32 pll1_config_value;
+>   	u32 pll2_config_value;
 >   };
 >   
->   int hibmc_dp_hw_init(struct hibmc_dp *dp);
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> index 35dff7bfbf76..596c5bfe32d8 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> @@ -61,27 +61,38 @@ static int hibmc_dp_detect(struct drm_connector *connector,
->   {
->   	struct hibmc_dp *dp = to_hibmc_dp(connector);
->   	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
-> -	int ret;
-> +	int ret = connector_status_disconnected;
->   
->   	if (dp->irq_status) {
-> -		if (dp_dev->hpd_status != HIBMC_HPD_IN)
-> -			return connector_status_disconnected;
-> +		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
-> +			ret = connector_status_disconnected;
-> +			goto exit;
-> +		}
->   	}
->   
-> -	if (!hibmc_dp_get_dpcd(dp_dev))
-> -		return connector_status_disconnected;
-> +	if (!hibmc_dp_get_dpcd(dp_dev)) {
-> +		ret = connector_status_disconnected;
-> +		goto exit;
-> +	}
->   
-> -	if (!dp_dev->is_branch)
-> -		return connector_status_connected;
-> +	if (!dp_dev->is_branch) {
-> +		ret = connector_status_connected;
-> +		goto exit;
-> +	}
->   
->   	if (drm_dp_read_sink_count_cap(connector, dp_dev->dpcd, &dp_dev->desc) &&
->   	    dp_dev->downstream_ports[0] & DP_DS_PORT_HPD) {
->   		ret = drm_dp_read_sink_count(dp_dev->aux);
-> -		if (ret > 0)
-> -			return connector_status_connected;
-> +		if (ret > 0) {
-> +			ret = connector_status_connected;
-> +			goto exit;
-> +		}
->   	}
->   
-> -	return connector_status_disconnected;
-> +exit:
-> +	dp->phys_status = ret;
-> +
-> +	return ret;
->   }
->   
->   static int hibmc_dp_mode_valid(struct drm_connector *connector,
-> @@ -243,5 +254,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
->   
->   	connector->polled = DRM_CONNECTOR_POLL_HPD;
->   
-> +	dp->phys_status = connector_status_disconnected;
-> +
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> index a0ecf82b576f..e3b40c6a6250 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> @@ -25,6 +25,7 @@
->   #include <drm/drm_managed.h>
->   #include <drm/drm_module.h>
->   #include <drm/drm_vblank.h>
-> +#include <drm/drm_probe_helper.h>
->   
->   #include "hibmc_drm_drv.h"
->   #include "hibmc_drm_regs.h"
-> @@ -385,6 +386,8 @@ static int hibmc_load(struct drm_device *dev)
->   	/* reset all the states of crtc/plane/encoder/connector */
->   	drm_mode_config_reset(dev);
->   
-> +	drmm_kms_helper_poll_init(dev);
-> +
->   	return 0;
->   
->   err:
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> index 4e212af6143d..dce8572bf63e 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> @@ -31,6 +31,7 @@ struct hibmc_vdac {
->   	struct drm_connector connector;
->   	struct i2c_adapter adapter;
->   	struct i2c_algo_bit_data bit_data;
-> +	int phys_status;
+>   static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
+> -	{640, 480, CRT_PLL1_HS_25MHZ, CRT_PLL2_HS_25MHZ},
+> -	{800, 600, CRT_PLL1_HS_40MHZ, CRT_PLL2_HS_40MHZ},
+> -	{1024, 768, CRT_PLL1_HS_65MHZ, CRT_PLL2_HS_65MHZ},
+> -	{1152, 864, CRT_PLL1_HS_80MHZ_1152, CRT_PLL2_HS_80MHZ},
+> -	{1280, 768, CRT_PLL1_HS_80MHZ, CRT_PLL2_HS_80MHZ},
+> -	{1280, 720, CRT_PLL1_HS_74MHZ, CRT_PLL2_HS_74MHZ},
+> -	{1280, 960, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> -	{1280, 1024, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> -	{1440, 900, CRT_PLL1_HS_106MHZ, CRT_PLL2_HS_106MHZ},
+> -	{1600, 900, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> -	{1600, 1200, CRT_PLL1_HS_162MHZ, CRT_PLL2_HS_162MHZ},
+> -	{1920, 1080, CRT_PLL1_HS_148MHZ, CRT_PLL2_HS_148MHZ},
+> -	{1920, 1200, CRT_PLL1_HS_193MHZ, CRT_PLL2_HS_193MHZ},
+> +	{640, 480, 25000, CRT_PLL1_HS_25MHZ, CRT_PLL2_HS_25MHZ},
+> +	{800, 600, 40000, CRT_PLL1_HS_40MHZ, CRT_PLL2_HS_40MHZ},
+> +	{1024, 768, 65000, CRT_PLL1_HS_65MHZ, CRT_PLL2_HS_65MHZ},
+> +	{1152, 864, 78750, CRT_PLL1_HS_80MHZ_1152, CRT_PLL2_HS_80MHZ},
+> +	{1280, 768, 80000, CRT_PLL1_HS_80MHZ, CRT_PLL2_HS_80MHZ},
+> +	{1280, 720, 74375, CRT_PLL1_HS_74MHZ, CRT_PLL2_HS_74MHZ},
+> +	{1280, 960, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> +	{1280, 1024, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> +	{1440, 900, 105952, CRT_PLL1_HS_106MHZ, CRT_PLL2_HS_106MHZ},
+> +	{1600, 900, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> +	{1600, 1200, 162500, CRT_PLL1_HS_162MHZ, CRT_PLL2_HS_162MHZ},
+> +	{1920, 1080, 148750, CRT_PLL1_HS_148MHZ, CRT_PLL2_HS_148MHZ},
+> +	{1920, 1200, 193750, CRT_PLL1_HS_193MHZ, CRT_PLL2_HS_193MHZ},
 >   };
 >   
->   struct hibmc_drm_private {
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-> index 841e81f47b68..2fcfa3246fd1 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-> @@ -24,28 +24,21 @@
->   
->   static int hibmc_connector_get_modes(struct drm_connector *connector)
->   {
-> +	struct drm_mode_config *mode_config = &connector->dev->mode_config;
->   	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
-> -	const struct drm_edid *drm_edid;
->   	int count;
->   
-> -	drm_edid = drm_edid_read_ddc(connector, &vdac->adapter);
-> -
-> -	drm_edid_connector_update(connector, drm_edid);
-> -
-> -	if (drm_edid) {
-> -		count = drm_edid_connector_add_modes(connector);
-> +	if (vdac->phys_status == connector_status_connected) {
-> +		count = drm_connector_helper_get_modes(connector);
-> +	} else {
-> +		drm_edid_connector_update(connector, NULL);
-> +		count = drm_add_modes_noedid(connector,
-> +					     mode_config->max_width,
-> +					     mode_config->max_height);
->   		if (count)
-> -			goto out;
-> +			drm_set_preferred_mode(connector, 1024, 768);
->   	}
->   
-> -	count = drm_add_modes_noedid(connector,
-> -				     connector->dev->mode_config.max_width,
-> -				     connector->dev->mode_config.max_height);
-> -	drm_set_preferred_mode(connector, 1024, 768);
-> -
-> -out:
-> -	drm_edid_free(drm_edid);
-> -
->   	return count;
->   }
->   
-> @@ -57,10 +50,34 @@ static void hibmc_connector_destroy(struct drm_connector *connector)
->   	drm_connector_cleanup(connector);
->   }
->   
-> +static int hibmc_vdac_detect(struct drm_connector *connector,
-> +			     struct drm_modeset_acquire_ctx *ctx,
-> +			     bool force)
+> +static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
 > +{
-> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
-> +	int status = drm_connector_helper_detect_from_ddc(connector, ctx,
-> +							 force);
-> +	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
+> +	int i, diff;
 > +
-> +	if (priv->dp.phys_status == connector_status_connected) {
-> +		vdac->phys_status = status;
-> +		return status;
+> +	for (i = 0; i < ARRAY_SIZE(hibmc_pll_table); i++) {
+> +		if (hibmc_pll_table[i].hdisplay == mode->hdisplay &&
+> +		    hibmc_pll_table[i].vdisplay == mode->vdisplay) {
+> +			diff = abs(mode->clock - hibmc_pll_table[i].clock);
+> +			if (diff < mode->clock / 100) /* tolerance 1/100 */
+> +				return i;
+> +		}
 > +	}
 > +
-> +	if (status != vdac->phys_status)
-> +		++connector->epoch_counter;
-> +	vdac->phys_status = status;
-> +
-> +	/* When both the DP and VDAC physical status are disconnected,
-> +	 * the "connected" status is returned to support KVM display.
-> +	 */
-> +	return connector_status_connected;
+> +	return -MODE_CLOCK_RANGE;
 > +}
 > +
->   static const struct drm_connector_helper_funcs
->   	hibmc_connector_helper_funcs = {
->   	.get_modes = hibmc_connector_get_modes,
-> -	.detect_ctx = drm_connector_helper_detect_from_ddc,
-> +	.detect_ctx = hibmc_vdac_detect,
->   };
+>   static int hibmc_plane_atomic_check(struct drm_plane *plane,
+>   				    struct drm_atomic_state *state)
+>   {
+> @@ -213,19 +230,15 @@ static enum drm_mode_status
+>   hibmc_crtc_mode_valid(struct drm_crtc *crtc,
+>   		      const struct drm_display_mode *mode)
+>   {
+> -	size_t i = 0;
+>   	int vrefresh = drm_mode_vrefresh(mode);
 >   
->   static const struct drm_connector_funcs hibmc_connector_funcs = {
-> @@ -130,6 +147,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+>   	if (vrefresh < 59 || vrefresh > 61)
+>   		return MODE_NOCLOCK;
 >   
->   	connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
+> -	for (i = 0; i < ARRAY_SIZE(hibmc_pll_table); i++) {
+> -		if (hibmc_pll_table[i].hdisplay == mode->hdisplay &&
+> -		    hibmc_pll_table[i].vdisplay == mode->vdisplay)
+> -			return MODE_OK;
+> -	}
+> +	if (hibmc_get_best_clock_idx(mode) >= 0)
+> +		return MODE_OK;
 >   
-> +	vdac->phys_status = connector_status_disconnected;
+> -	return MODE_BAD;
+> +	return MODE_CLOCK_RANGE;
+>   }
+>   
+>   static u32 format_pll_reg(void)
+> @@ -280,23 +293,20 @@ static void set_vclock_hisilicon(struct drm_device *dev, u64 pll)
+>   	writel(val, priv->mmio + CRT_PLL1_HS);
+>   }
+>   
+> -static void get_pll_config(u64 x, u64 y, u32 *pll1, u32 *pll2)
+> +static void get_pll_config(struct drm_display_mode *mode, u32 *pll1, u32 *pll2)
+>   {
+> -	size_t i;
+> -	size_t count = ARRAY_SIZE(hibmc_pll_table);
+> -
+> -	for (i = 0; i < count; i++) {
+> -		if (hibmc_pll_table[i].hdisplay == x &&
+> -		    hibmc_pll_table[i].vdisplay == y) {
+> -			*pll1 = hibmc_pll_table[i].pll1_config_value;
+> -			*pll2 = hibmc_pll_table[i].pll2_config_value;
+> -			return;
+> -		}
+> +	int idx;
 > +
->   	return 0;
+> +	idx = hibmc_get_best_clock_idx(mode);
+> +	if (idx < 0) {
+> +		/* if found none, we use default value */
+> +		*pll1 = CRT_PLL1_HS_25MHZ;
+> +		*pll2 = CRT_PLL2_HS_25MHZ;
+> +		return;
+>   	}
 >   
->   err:
+> -	/* if found none, we use default value */
+> -	*pll1 = CRT_PLL1_HS_25MHZ;
+> -	*pll2 = CRT_PLL2_HS_25MHZ;
+> +	*pll1 = hibmc_pll_table[idx].pll1_config_value;
+> +	*pll2 = hibmc_pll_table[idx].pll2_config_value;
+>   }
+>   
+>   /*
+> @@ -318,7 +328,7 @@ static u32 display_ctrl_adjust(struct drm_device *dev,
+>   	x = mode->hdisplay;
+>   	y = mode->vdisplay;
+>   
+> -	get_pll_config(x, y, &pll1, &pll2);
+> +	get_pll_config(mode, &pll1, &pll2);
+>   	writel(pll2, priv->mmio + CRT_PLL2_HS);
+>   	set_vclock_hisilicon(dev, pll1);
+>   
 
 -- 
 --
