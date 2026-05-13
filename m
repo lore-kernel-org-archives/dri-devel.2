@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A5ECD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3233CCD37B6
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:49:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09C1310ECDB;
-	Wed, 13 May 2026 07:49:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6905810ECEB;
+	Wed, 13 May 2026 07:49:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="dNkYyUwX";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="FXosgda8";
 	dkim-atps=neutral
-Received: from mail-m1973180.qiye.163.com (mail-m1973180.qiye.163.com
- [220.197.31.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E21A610ECDB
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:49:28 +0000 (UTC)
+Received: from mail-m3290.qiye.163.com (mail-m3290.qiye.163.com
+ [220.197.32.90])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FFC310ECE9
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:49:34 +0000 (UTC)
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94c98;
- Wed, 13 May 2026 15:44:22 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94cc5;
+ Wed, 13 May 2026 15:44:28 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
@@ -33,22 +33,25 @@ Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v5 00/10] Add eDP support for RK3576
-Date: Wed, 13 May 2026 15:44:04 +0800
-Message-Id: <20260513074414.2053435-1-damon.ding@rock-chips.com>
+Subject: [PATCH v5 04/10] arm64: dts: rockchip: Add missing hclk for RK3588
+ eDP1
+Date: Wed, 13 May 2026 15:44:08 +0800
+Message-Id: <20260513074414.2053435-5-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260513074414.2053435-1-damon.ding@rock-chips.com>
+References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e204b3da403a3kunm7763bb98560a1
+X-HM-Tid: 0a9e204b56b503a3kunm7763bb98560d6
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGBpKVh5JTk5DT09KQkkdGlYVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTEpDVkhPSx9PS01JTUNDTlYVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
  pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=dNkYyUwXEoaJkB6Esg/rfEy1XFa997uQo/FaSclbG8NqFXsbwLcaoP1sh04WGQ1dOOU/O2pkE7u0OHYGwQbQewlYbzlFZMc6gEvU8RzNBT/9/CWmH7LyCbEECWEyDkjgfEOVzL86ePiUBYiCnBkcUIFGERphMQDvpkfTdV8yl3E=;
+ b=FXosgda8+C3cbbmTNz/Hdvrf+Dt/EkAZ6S0iRggXXciPRe3GC2xA+ykrNBm4aFzAgZ1iFerHqPZeDHdoijrnHsM8dS/SIrzRqxFKb2RN7U1KPGDNWVdO0u/aB0gSuTOvKx71USLOBO9CxpTCPKrPbN+2mGslDjQQOBwi612hQ6s=;
  c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=zZRzmE9bO1Lve4SvlcgKSPs2cIdtLfPvjMyK8bxeYfk=;
+ bh=FSnd82QhzgsTc9VLihugRZhMWxwKpTg7Bj65m7IRRDM=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,57 +68,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Patch 1-5 are to add missing clock "hclk" for RK3588 eDP nodes.
-Patch 6-7 are to add the RK3576 eDP node.
-Patch 8~10 are to support the RK3576 Analogix DP controller.
+Add the required HCLK_VO1 bus clock to RK3588 eDP1 node with
+corresponding clock-name "hclk". This clock is necessary for
+the eDP controller to access video output GRF and work properly.
 
-This series is followed by the [0] series.
+Previously the clock was enabled implicitly via GRF phandle
+reference. Add it explicitly now to align with updated binding.
 
-[0] https://lore.kernel.org/all/20260409065301.446670-1-damon.ding@rock-chips.com/
-
-Damon Ding (10):
-  dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock
-    for RK3588
-  dt-bindings: display: rockchip: analogix-dp: Add per-clock
-    descriptions
-  arm64: dts: rockchip: Add missing hclk for RK3588 eDP0
-  arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
-  drm/rockchip: analogix_dp: Enable hclk for RK3588
-  dt-bindings: display: rockchip: analogix-dp: Add support for RK3576
-  arm64: dts: rockchip: Add eDP node for RK3576
-  drm/bridge: analogix_dp: Rename and simplify is_rockchip()
-  drm/bridge: analogix_dp: Add support for RK3576
-  drm/rockchip: analogix_dp: Add support for RK3576
-
- .../rockchip/rockchip,analogix-dp.yaml        | 44 ++++++++++++++++---
- arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 28 ++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi |  4 +-
- .../arm64/boot/dts/rockchip/rk3588-extra.dtsi |  4 +-
- .../drm/bridge/analogix/analogix_dp_core.c    |  3 +-
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 18 ++++----
- .../gpu/drm/rockchip/analogix_dp-rockchip.c   | 15 +++++++
- include/drm/bridge/analogix_dp.h              | 13 +++++-
- 8 files changed, 108 insertions(+), 21 deletions(-)
+Fixes: a481bb0b1ad9 ("arm64: dts: rockchip: Add eDP1 dt node for rk3588")
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
-Changes in v2:
-- Split out separate patches to add the "hclk" clock reference.
-- Split out separate patches to enable the "hclk" clock.
-- Add Reviewed-by tag.
-
-Changes in v3:
-- Add a patch to expand descriptions for clocks of the eDP node.
-- Add Reviewed-by tag.
-
 Changes in v4:
-- Modify commit msg.
+- Modify the commit msg.
+---
+ arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Changes in v5:
-- Enforce the correct third clock name on a per-compatible basis.
-- Modify the commit msg simultaneously.
-- Add Acked-by tag.
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+index a2640014ee04..b251bb129cdb 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+@@ -285,8 +285,8 @@ hdmi1_out: port@1 {
+ 	edp1: edp@fded0000 {
+ 		compatible = "rockchip,rk3588-edp";
+ 		reg = <0x0 0xfded0000 0x0 0x1000>;
+-		clocks = <&cru CLK_EDP1_24M>, <&cru PCLK_EDP1>;
+-		clock-names = "dp", "pclk";
++		clocks = <&cru CLK_EDP1_24M>, <&cru PCLK_EDP1>, <&cru HCLK_VO1>;
++		clock-names = "dp", "pclk", "hclk";
+ 		interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH 0>;
+ 		phys = <&hdptxphy1>;
+ 		phy-names = "dp";
 -- 
 2.34.1
 
