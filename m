@@ -4,55 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E8A4CD37B6
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 08:29:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A09FCD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 08:31:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D920810E0A1;
-	Wed, 13 May 2026 08:29:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AD9910ED40;
+	Wed, 13 May 2026 08:31:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bT1ziAC7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V4gt8IOd";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F3F010E4CB
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 08:29:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778660986;
- bh=J4GmWp8+bAqKCfXO4jRo/eL+JP5ct0uQ3Mnev8kKU8U=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bT1ziAC7o6p/Muk7CK5w23D0DWe9FYQ5TgmYQ5YrpXqUh353M5SF5cm8FYyBGJgsX
- hL93h8Vk9gXbp+LnJubBWIuca0Puz94Rlzg7a7UFCLreOsvaru8bFIvtuYhYP6inwh
- I5ft2lESwNhe+5FOEUnKzXHzF8wOdEDhYJM0KSEd3zgJqhmJ4r3mxgqrUtzI4mKLpV
- 2tjjidEYSiteuINteFpCtnsNrwbkkJv7RKEAsOSwtXixb371PlS5ejjt0ayegXh2U4
- aKRpA3947bTPsWIQx320v2kjLB97qZhp1LWwKO0eZlVYsQt+hYJikCqDFgINvx0zdE
- CvMT3gpAeagCw==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7482017E1318;
- Wed, 13 May 2026 10:29:46 +0200 (CEST)
-Date: Wed, 13 May 2026 10:29:41 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Chia-I Wu <olvaffe@gmail.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 06/11] drm/panthor: Prepare the scheduler logic for
- FW events in IRQ context
-Message-ID: <20260513102941.7321cbc3@fedora>
-In-Reply-To: <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-6-95c614a739cb@collabora.com>
- <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E89110E4CB;
+ Wed, 13 May 2026 08:31:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778661117; x=1810197117;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=w3N7ovtfdrXvSPC3SyFkABxeYzl70HsVKnN1MgRa4Is=;
+ b=V4gt8IOdzu+MvGxDzgxW1aC0W7e6NS1gYHIiZucdMKuSZQezbAfP9twR
+ mzIhYnPVEtgR/shufdXRIccwu2cvYNCqb98UCxEpn7XhGkx33HKi0LxdN
+ v2XNMWvnjfnUCIV2YGJxysuhQMlJQoMRRjzk3bUFaujkAPqKks5JcrQQm
+ rQb71MGEXi5sR5cIQ+sajoHzY2ED4Tycdg5d3c+UsJ4MVGRjICv0a2Sdj
+ K7zCOzav10LYg1XoSgRQpBWDy3fxdOS4JVL4MkyyYGQxRJ5cYF61ajmNf
+ CLnU7y+yCds45T7UDn7U48xo0bSMKwRuzMZ68AcVpgIU19978hrDHBfM4 g==;
+X-CSE-ConnectionGUID: nsd8djcbSCSyXGu3zZGmqQ==
+X-CSE-MsgGUID: 593v/eH6RCqnYVxMAYZ2aQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="79477230"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="79477230"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 01:31:56 -0700
+X-CSE-ConnectionGUID: wn1YwuwwQrqVza82LHbydQ==
+X-CSE-MsgGUID: noPPLi1GSd63I02KpUCjFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="261764851"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.49])
+ ([10.245.244.49])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 01:31:50 -0700
+Message-ID: <68705cec43ab43088327b21c9d9318036fb2a255.camel@linux.intel.com>
+Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David
+ Hildenbrand (Arm)" <david@kernel.org>, intel-xe@lists.freedesktop.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes
+ <ljs@kernel.org>,  "Liam R. Howlett"	 <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko	 <mhocko@suse.com>, Hugh Dickins
+ <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Brendan
+ Jackman <jackmanb@google.com>,  Johannes Weiner <hannes@cmpxchg.org>, Zi
+ Yan <ziy@nvidia.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
+ <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org
+Date: Wed, 13 May 2026 10:31:47 +0200
+In-Reply-To: <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
+References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
+ <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
+ <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
+ <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
+ <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
+ <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,158 +88,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 12 May 2026 14:04:43 -0700
-Chia-I Wu <olvaffe@gmail.com> wrote:
+Hi, David & Christian,
 
-> On Tue, May 12, 2026 at 5:14=E2=80=AFAM Boris Brezillon
-> <boris.brezillon@collabora.com> wrote:
-> >
-> > Add a specific spinlock for events processing, and force processing
-> > of events in the panthor_sched_report_fw_events() path rather than
-> > deferring it to a work item. We also fast-track fence signalling by
-> > making the job completion logic IRQ-safe.
-> >
-> > Note that it requires changing a couple spin_lock() into
-> > spin_lock_irqsave() when those are taken inside a events_lock section.
-> >
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_sched.c | 332 +++++++++++++++---------=
---------
-> >  1 file changed, 155 insertions(+), 177 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/=
-panthor/panthor_sched.c
-> > index 5b34032deff8..fbf76b59b7ef 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> > @@ -177,18 +177,6 @@ struct panthor_scheduler {
-> >          */
-> >         struct work_struct sync_upd_work;
-> >
-> > -       /**
-> > -        * @fw_events_work: Work used to process FW events outside the =
-interrupt path.
-> > -        *
-> > -        * Even if the interrupt is threaded, we need any event process=
-ing
-> > -        * that require taking the panthor_scheduler::lock to be proces=
-sed
-> > -        * outside the interrupt path so we don't block the tick logic =
-when
-> > -        * it calls panthor_fw_{csg,wait}_wait_acks(). Since most of the
-> > -        * event processing requires taking this lock, we just delegate=
- all
-> > -        * FW event processing to the scheduler workqueue.
-> > -        */
-> > -       struct work_struct fw_events_work;
-> > -
-> >         /**
-> >          * @fw_events: Bitmask encoding pending FW events.
-> >          */ =20
-> If we process all fw events in the irq context, we can remove
-> fw_events as well. More on this below.
+Thanks for the feedback. I'll respin this to see if I can come up with
+something that is more acceptable given the comments.
 
-Oops, forgot to remove this field, indeed.
+A couple of questions and comments below.
 
-> > @@ -254,6 +242,15 @@ struct panthor_scheduler {
-> >                 struct list_head waiting;
-> >         } groups;
-> >
-> > +       /**
-> > +        * @events_lock: Lock taken when processing events.
-> > +        *
-> > +        * This also needs to be taken when csg_slots are updated, to m=
-ake sure
-> > +        * the event processing logic doesn't touch groups that have le=
-ft the CSG
-> > +        * slot.
-> > +        */
-> > +       spinlock_t events_lock;
-> > +
-> >         /**
-> >          * @csg_slots: FW command stream group slots. =20
-> It looks like read access can use either lock (process context) or
-> events_lock (irq context), while write access must use events_lock
-> (process context). Can we put that into the comment, or if makes
-> sense, enforce that with accessor functions?
+On Wed, 2026-05-13 at 09:47 +0200, Christian K=C3=B6nig wrote:
+> Hi David & Thomas,
+>=20
+> On 5/12/26 22:03, David Hildenbrand (Arm) wrote:
+> > On 5/12/26 13:31, Thomas Hellstr=C3=B6m wrote:
+> ...
+> > > > > +int shmem_insert_folio(struct file *file, struct folio
+> > > > > *folio,
+> > > > > unsigned int order,
+> > > > > +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pgoff_t index, bool write=
+back, gfp_t
+> > > > > folio_gfp)
+> > > > > +{
+> > > > > +	struct address_space *mapping =3D file->f_mapping;
+> > > > > +	struct inode *inode =3D mapping->host;
+> > > > > +	bool promoted;
+> > > > > +	long nr_pages;
+> > > > > +	int ret;
+> > > > > +
+> > > > > +	promoted =3D order > 0 && !folio_test_large(folio);
+> > > > > +	if (promoted)
+> > > > > +		prep_compound_page(&folio->page, order);
+> > > > > +	nr_pages =3D folio_nr_pages(folio);
+> > > > > +
+> > > > > +	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+> > > > > +	VM_BUG_ON_FOLIO(folio_mapped(folio), folio);
+> > > > > +	VM_BUG_ON_FOLIO(folio_test_swapcache(folio), folio);
+> > > > > +	VM_BUG_ON_FOLIO(folio->mapping, folio);
+> > > > > +	VM_BUG_ON(index !=3D round_down(index, nr_pages));
+> > > >=20
+> > > > No new VM_BUG_ON_FOLIO etc.
+> > >=20
+> > > OK, can eliminate those. Is VM_WARN_ON_FOLIO() preferred,
+> > > or any other type of assert?
+> >=20
+> > VM_WARN_ON_FOLIO() is usually what you want, or VM_WARN_ON_ONCE().
+> >=20
+> > >=20
+> > > >=20
+> > > > But in general, pushing in random allocated pages into shmem,
+> > > > converting them to
+> > > > folios is not something I particularly enjoy seeing.
+> > > >=20
+> > >=20
+> > > OK, let me understand the concern. The pages are allocated as
+> > > multi-
+> > > page folios using alloc_pages(gfp, order), but typically not
+> > > promoted
+> > > to compound pages, until inserted here. Is it that promotion that
+> > > is of
+> > > concern or inserting pages of unknown origin into shmem? Anything
+> > > we
+> > > can do to alleviate that concern?
+> >=20
+> > It's all rather questionable.
+> >=20
+> > A couple of points:
+> >=20
+> > a) The pages are allocated to be unmovable, but adding them to
+> > shmem effectively
+> > =C2=A0=C2=A0 turns them movable. Now you interfere with the page alloca=
+tor
+> > logic of
+> > =C2=A0=C2=A0 placing movable and unmovable pages a reasonable way into
+> > =C2=A0=C2=A0 pageblocks that group allocations of similar types.
+> >=20
+> > b) A driver is not supposed to decide which folio size will be
+> > allocated for
+> > =C2=A0=C2=A0 shmem.
+>=20
+> Exactly that is one of the major reasons why we aren't using a shmem
+> as backing store for TTM buffers in the first place.
+>=20
+> While HW today can usually work with everything down to 4k it needs
+> higher order pages for optimal performance.
+>=20
+> So for example for AMD GPUs you need 2M pages or otherwise the
+> performance goes down by ~30% in quite a number of use cases.
+>=20
+> Everything between 4k and 2M and above 2M is still preferred because
+> it results in better L0/L1 reach, but if you can't get 2M the L2
+> reach goes down so rapidly that people start to complain immediately.
+>=20
+> And that stuff is very specific for each vendor and HW generation.
+> Some have the sweet spot at 64k, some at 256k, most at 2M.
+>=20
+> > =C2=A0=C2=A0 I am not even sure if there is a fencing on
+> > =C2=A0=C2=A0 CONFIG_TRANSPARENT_HUGEPAGE somewhere when ending up with =
+large
+> > folios. order
+> > =C2=A0=C2=A0 > PMD_ORDER is currently essentially unsupported, and I su=
+spect
+> > your code
+> > =C2=A0=C2=A0 would=C2=A0 even allow for that (looking at
+> > ttm_pool_alloc_find_order).
+> >=20
+> > =C2=A0=C2=A0 We also have some problems with the pagecache not actually
+> > supporting all
+> > =C2=A0=C2=A0 MAX_PAGE_ORDER orders (see MAX_PAGECACHE_ORDER).
+> >=20
+> > =C2=A0=C2=A0 You are bypassing shmem logic to decide on that completely=
+.
+> >=20
+> > =C2=A0=C2=A0 While these things might not actually cause harm for you t=
+oday
+> > (although I
+> > =C2=A0=C2=A0 suspect some of them might in shmem swapout code), we don'=
+t want
+> > drivers to
+> > =C2=A0=C2=A0 make our life harder by doing completely unexpected things=
+.
+>=20
+> Yeah but that is the requirement the HW has.
+>=20
+> I mean we can keep torturing the buddy allocator to give us 2M pages,
+> but essentially we want to get away from those specialized solutions
+> and has more of the functionality necessary to driver the HW in the
+> common Linux memory management code because that prevents vendors
+> from re-implementing that stuff in their specific driver over and
+> over again.
 
-You're right. I'll mention that updates to csg_slots[] must be done
-with both the ::lock and ::events_lock held, while reads can be done
-with any of them held.
+For the code at hand, if we insert an order 10 folio shmem will split
+it at writeout time but spit out a warning (if enabled) at the same
+time. For this particular use-case, I think it might make sense for the
+drivers that use direct insertion to cap the page-allocator orders to
+THP size (2M).
 
 >=20
+> Regards,
+> Christian.
 >=20
-> >          */
-> > @@ -676,9 +673,6 @@ struct panthor_group {
-> >          */
-> >         struct panthor_kernel_bo *protm_suspend_buf;
-> >
-> > -       /** @sync_upd_work: Work used to check/signal job fences. */
-> > -       struct work_struct sync_upd_work;
-> > - =20
-> Can we make this a preparatory commit, where group_sync_upd_work is
-> replaced by group_check_job_completion?
+> > c) You pass folio + order, which is just the red flag that you are
+> > doing
+> > =C2=A0=C2=A0 something extremely dodgy.
+> >=20
+> > =C2=A0=C2=A0 You just cast something that is not a folio, and was not
+> > allocated to be a
+> > =C2=A0=C2=A0 folio to a folio through page_folio(page). That will stop
+> > working completely
+> > =C2=A0=C2=A0 in the future once we decouple struct page from struct fol=
+io.
+> >=20
+> > =C2=A0=C2=A0 If it's not a folio with a proper set order, you should be
+> > passing page +
+> > =C2=A0=C2=A0 order.
+> >=20
+> > d) We are once more open-coding creation of a folio, by hand-
+> > crafting it
+> > =C2=A0=C2=A0 ourselves.
+> >=20
+> > =C2=A0=C2=A0 We have folio_alloc() and friends for a reason. Where we, =
+for
+> > example, do a
+> > =C2=A0=C2=A0 page_rmappable_folio().
+> >=20
+> > =C2=A0=C2=A0 I am pretty sure that you are missing a call to
+> > page_rmappable_folio(),
+> > =C2=A0=C2=A0 resulting in the large folios not getting
+> > folio_set_large_rmappable() set.
+> >=20
+> > e) undo_compound_page(). No words.
+> >=20
+> >=20
+> >=20
+> > *maybe* it would be a little less bad if you would just allocate a
+> > compound page
+> > in your driver and use page_rmappable_folio() in there.
 
-I'll try to split that up.
+OK, yes it sounds like a prereq for this is that the driver actually
+allocates compound pages. It might be that the TTM comment about *not*
+doing that is stale, but need to check.
 
->=20
-> Multiple things happen in this commit. I try to identify things that
-> can be separate commits. If this does not make sense, feel free to
-> ignore.
->=20
-> >         /** @tiler_oom_work: Work used to process tiler OOM events happ=
-ening on this group. */
-> >         struct work_struct tiler_oom_work;
-> >
+Would it be acceptable to export a function from core mm to split an
+isolated folio?
 
-[...]
+> >=20
+> > That wouldn't change a) or b), though.
+> >=20
+> >=20
+> > >=20
+> > > Given the problem statement in the cover-letter, would there be a
+> > > better direction to take here? We could, for example, bypass
+> > > shmem and
+> > > insert the folios directly into the swap-cache, (although there
+> > > is an
+> > > issue with the swap-cache when the number of swap_entries are
+> > > close to
+> > > being depleted).
+> >=20
+> > Good question.
+> > We'd have to keep swapoff and all of that working. For example, in
+> > try_to_unuse(), we special-case shmem_unuse() to handle non-
+> > anonymous pages.
+> >=20
+> > But then, the whole swapcache operates on folios ... so I am not
+> > sure if there
+> > is a lot to be won by re-implementing what shmem already does?
+> >=20
 
-> >  /**
-> >   * panthor_sched_report_fw_events() - Report FW events to the schedule=
-r.
-> >   * @ptdev: Device.
-> > @@ -1902,8 +1953,19 @@ void panthor_sched_report_fw_events(struct panth=
-or_device *ptdev, u32 events) =20
-> This can be renamed to panthor_sched_handle_fw_events.
+Still that would alleviate a) and b), right? At least as long as we
+keep folio sizes within the swap cache limits?
 
-It's not quite handling events though. For most of them, it's really
-just deferring the processing to work items, SYNC_UPDATE is the
-exception.
+Thanks,
+Thomas
 
->=20
-> >         if (!ptdev->scheduler)
-> >                 return;
-> >
-> > -       atomic_or(events, &ptdev->scheduler->fw_events);
-> > -       sched_queue_work(ptdev->scheduler, fw_events);
-> > +       guard(spinlock_irqsave)(&ptdev->scheduler->events_lock);
-> > +
-> > +       if (events & JOB_INT_GLOBAL_IF) {
-> > +               sched_process_global_irq_locked(ptdev);
-> > +               events &=3D ~JOB_INT_GLOBAL_IF;
-> > +       }
-> > +
-> > +       while (events) {
-> > +               u32 csg_id =3D ffs(events) - 1;
-> > +
-> > +               sched_process_csg_irq_locked(ptdev, csg_id);
-> > +               events &=3D ~BIT(csg_id);
-> > +       } =20
-> This handles all fw events in the irq context. Are there concerns that
-> it may take too long? I might be wrong, but it seems possible to
-> handle only CSG_SYNC_UPDATE and defer the rest as before.
-
-I started with just the SYNC_UPDATE processing done in the hard-irq
-context, but after auditing the other stuff done in the handler, I
-realized it's basically just deferring all actual processing to work
-items. Yes, there's the overhead of demuxing the events from the
-ack/req regs, but part of this is already done to get to SYNC_UPDATE
-anyway, so at this point we're probably better off demuxing everything
-and scheduling works for all kind of events.
-
-I also compared the perfs between the two approaches (though I didn't
-do as much testing as I did with the new version, so I might have
-missed something), and it didn't seem to matter at all, because the
-interrupts we receive the most are SYNC_UPDATE and IDLE events, and
-those are at the same level.
