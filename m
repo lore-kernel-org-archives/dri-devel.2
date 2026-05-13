@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B3A1CD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:11:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFD06CD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:11:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1E5A10EE6C;
-	Wed, 13 May 2026 13:11:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D53B810EE6E;
+	Wed, 13 May 2026 13:11:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="VFYmAyl7";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vQOnuSbN";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A2A10EE66
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:10:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC5E10EE66
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:10:54 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 78535298B;
- Wed, 13 May 2026 15:10:43 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 75B2C27F4;
+ Wed, 13 May 2026 15:10:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778677844;
- bh=XvsqVsDW6S2WDPtP071eSFQrkacimLhumBGM03sDkEA=;
+ s=mail; t=1778677845;
+ bh=jmXoyPEbgAisYIV+cnPtuGms7tbG8ueIAFTxegPxg2A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=VFYmAyl7Xpsq0hMN/m+VidHSnK/I6HQmPiZX47x5sB9hoYd2ngG1qANs5usOrz58F
- BWltZWR+q2/c/UqYNMnt7F1anoafFfmZkEh/XYzkNaPrldEbfu/DHIsM2IQfLiYd1s
- FiHpVTiBA0nSswRfvPKlGv16ggJmKB+QDo3c1yig=
+ b=vQOnuSbNRunWItBFOzoJKihJ6AIUAXgJ+Z82Mkl0vJ4iAJrZpE0iUhtGp/gZmdfeM
+ q/B5jyM+oLeb+FsZwBHgdsnoK90u7zTcGIsh4tTerrMVkQT9jMDOp+FSPJ1ts20410
+ iUnufsmAVawxVDVVivzNCsINUXPvPyWXr1bZbzpY=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Wed, 13 May 2026 16:10:21 +0300
-Subject: [PATCH v3 12/13] drm/bridge: tc358762: Set DE_POL and DCLK_POL
- properly
+Date: Wed, 13 May 2026 16:10:22 +0300
+Subject: [PATCH v3 13/13] drm/panel-simple: Fix powertip,ph800480t013-idf02
+ timings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-tc358762-fixes-v3-12-6698b55008b9@ideasonboard.com>
+Message-Id: <20260513-tc358762-fixes-v3-13-6698b55008b9@ideasonboard.com>
 References: <20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com>
 In-Reply-To: <20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,21 +48,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2009;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2430;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=XvsqVsDW6S2WDPtP071eSFQrkacimLhumBGM03sDkEA=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHhOQoknu92qEo0aPYelFm0JTttRResRS3HCK
- /08iOmebeGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR4TgAKCRD6PaqMvJYe
- 9T6qEACVNETPGw1buaLaTcORCWh4BtYLfyFVJ6A6af8GL+F9TQ5YP0FlWZjDnKRsKQJSkpj+pMj
- GXJU1PEqPA0QpWCyYsMYCTEiLdyWugOvh9EFWuYaf3jp1oMfaXaTE5GrXXUIpNt6MgSGPqTRMkN
- lfeoZ/4st2GzPSD3EXGqtdmhboV8z4QcIRBTZS2W7EoJyKmNvGCx/TOyuIsAr6X2FW0bpmQROjl
- ZTMZzDafn6/HDYlY3sy+3vYSiivfPymlyi2gcDAxluLgRTaWXIHdhK72AzWBzz2EnXj6JAnTQKy
- DgTKCT9WrvxkCxIdVaM9nncumxNVDxr0oCUITqD7edrLzoMiAIhdwCAHPeT+VYETXPkUFw7a5C8
- iAvaOz1vs4CTHU8cTFknUggFJJCxqXy08C9L9KwyCH5UX1Fyo9jYZXW5HEstzUYyGCqOz9O25BX
- HudNmEEDrzAU+n0GgmRCkTfXJuXwfACqNq9HOxb/s6j6pBbQDAhFvO8URC9ZGeGZJZXo7X86/DJ
- CjUn4OpfIc18dYGkl+/GbTHUGdg1KpMJ+n4AsdUA/LalAZOiPr6fUBxpdn9Jp0VYf4ri9kVjjtp
- EJQd9hmeCaiYXvns1aOmiipy+vCSsiMoZtwJ8HTBxS/SE1TNuVu/t48HjWd9F3uCV9MbFtNF2GP
- 38b4qh69QTBm02g==
+ bh=jmXoyPEbgAisYIV+cnPtuGms7tbG8ueIAFTxegPxg2A=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHhPV38EE/za2MWb8qjFsk7stg7X46kMA737+
+ d9l5FACeZ2JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR4TwAKCRD6PaqMvJYe
+ 9aVaD/9qjZV+sN7i12c5ha1S1EXKl/EAz1ASYiDjOw8rdYGgxkuqpJJtf0t1b+zWZCb0vGpA9sa
+ H9Bw224J/WiTIqDriFtFoCztIImxp7+eNUqIhUCZja3bke3z5xgM5YwwT8rWLGORIJMfw6xMu7k
+ foKVzXAeiYvBNid9Uyr26dz8cEpwRCxD7kqdGYqSRez8EUJkSShN9hzRguepHTE89f5dewO05mH
+ 2NyMB32wA8klKXz6ultlH6ogxnAHUpQNhBRTJyKgkTRWJqz2sWeIR0isoQxOWuDJUadSFE9hzm+
+ oDDIRCVeM5vT/AkrwfMxX7k35gkBKDVK/zozddsYcOZjhInQUSgyBNDBbJYK3Zq6hAnbLn0kKep
+ 1KEm8utmedWElJGp1egZ3bEyrHTOnMSVLK7u4CKLCs/cuhk2YgJvF+vFQU0+lqc1aQizAudcDuW
+ V9sTS16rq3lS9zSI6OIsOaiCeLpSYOhVoXJat3Nce5oTKCBKTEBKPnl0aDVYz5+s/z3+45ZR7P0
+ sJO1gTFpDTs22TPuGo+sGImN7xoUEJR9H1meleHGjx2vo3WRxhfKDMFyuk/S5uBLYgBxM5C6G+j
+ wzcWWjeUGATjVbfhQzCumzh6muxPxW0ix/ERLJpqiy7A6S+MaeQe2r//uVFn9z86rN3+KcY45i5
+ E/gxMzjpH4XybEg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,56 +80,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The driver hardcodes LCDCTRL_DCLK_POL and ~DE_POL, ignoring what the
-panel actuall wants. Fix this by looking at the
-bridge_state->output_bus_cfg.flags, and set the polarities correctly.
+The powertip,ph800480t013-idf02 panel was added to panel-simple, and
+with the tc358762 driver, enabled the use of RaspberryPi 7" DSI display.
+
+I have been testing the RaspberryPi 7" DSI display module with TI's
+BeagleY-AI, and I can't get a good image with the current panel timings.
+
+It's been quite difficult to figure out exactly what are the issues.
+Possibly RPi DSI TX and TI DSI TX have their own quirks which affect
+this also. However, now that the tc358762 driver has been fixed wrt. the
+signal timings it sends, this patch makes the panel work fine on
+BeagleY-AI.
+
+Fix the timings according to the datasheet:
+
+- hsw + hbp must equal to 46. This was correct in the timings, but the
+  hsw was very tight, and at least Cadence DSI has trouble with such
+  short hsync. Increase hsw to the middle of the hsw range from the
+  datasheet, and decrease hbp accordingly.
+- vsw + vbp must equal to 23. This was 24, resulting in slight shift in
+  the image.
+- The upstream timings seemed to aim for 50 fps, but this is a normal 60
+  fps panel, so adjust the timings to get 60 fps. As there's no strict
+  rule what numbers to pick here, I used the "typical" values from panel
+  datasheet for pclk, hfp and vfp. However, vfp of 23 instead of the
+  datasheet's 22 give us a closer match to 60 fps, so I used that.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panel/panel-simple.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 47ae706de4cb..92e7e2ade942 100644
---- a/drivers/gpu/drm/bridge/tc358762.c
-+++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -187,12 +187,15 @@ static void tc358762_enable(struct drm_bridge *bridge,
- {
- 	struct tc358762 *ctx = bridge_to_tc358762(bridge);
- 	struct drm_connector_state *conn_state;
-+	struct drm_bridge_state *bridge_state;
- 	struct drm_crtc_state *crtc_state;
- 	struct drm_connector *connector;
- 	struct drm_display_mode *mode;
- 	u32 lcdctrl;
- 	int ret;
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index 91ab280869ba..16aeafd2b02e 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -4041,15 +4041,15 @@ static const struct panel_desc powertip_ph128800t006_zhc01 = {
+ };
  
-+	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
-+
- 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
- 	conn_state = drm_atomic_get_new_connector_state(state, connector);
- 	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-@@ -244,7 +247,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 	if (ctx->use_vtg)
- 		lcdctrl |= LCDCTRL_VTGEN;
+ static const struct drm_display_mode powertip_ph800480t013_idf02_mode = {
+-	.clock = 24750,
++	.clock = 33333,
+ 	.hdisplay = 800,
+-	.hsync_start = 800 + 54,
+-	.hsync_end = 800 + 54 + 2,
+-	.htotal = 800 + 54 + 2 + 44,
++	.hsync_start = 800 + 210,
++	.hsync_end = 800 + 210 + 20,
++	.htotal = 800 + 210 + 20 + 26,
+ 	.vdisplay = 480,
+-	.vsync_start = 480 + 49,
+-	.vsync_end = 480 + 49 + 2,
+-	.vtotal = 480 + 49 + 2 + 22,
++	.vsync_start = 480 + 23,
++	.vsync_end = 480 + 23 + 2,
++	.vtotal = 480 + 23 + 2 + 21,
+ 	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
+ };
  
--	lcdctrl |= LCDCTRL_DCLK_POL;
-+	/* Note: DCLK_POL affects pixdata, de and syncs */
-+	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE)
-+		lcdctrl |= LCDCTRL_DCLK_POL;
- 
- 	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
- 		lcdctrl |= LCDCTRL_HSYNC_POL;
-@@ -252,6 +257,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
- 		lcdctrl |= LCDCTRL_VSYNC_POL;
- 
-+	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
-+		lcdctrl |= LCDCTRL_DE_POL;
-+
- 	tc358762_write(ctx, LCDCTRL, lcdctrl);
- 
- 	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
 
 -- 
 2.43.0
