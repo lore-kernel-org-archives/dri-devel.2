@@ -4,77 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BD65CD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 06:12:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCC56CD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 06:31:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA15810ECA2;
-	Wed, 13 May 2026 06:12:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 076D410E0EB;
+	Wed, 13 May 2026 06:31:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FEiIp6Qc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uqdZ45UX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF3110ECA2
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 06:12:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778652765; x=1810188765;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8/g0tgr/8x4vCKR3FY6O1wuKpyVe59KewQCyaI/CkQQ=;
- b=FEiIp6QcG8Mv8pahO24twFx7EZUxbuqrNagp49RZmrxkGEX/NXA+EYn/
- hLpsWgr3uAoaLev27s+ABGwoUIxh+Gf9s6IcbjYaHLsgzzHWeALwi+sPH
- 732zFZzdlS5Zt2MhjnssP4+5lzyT5J1bYyi+JUbjPXCjJh4QTToCa0Elr
- Yz5kYE0nyH3XMad1e2z38qHVJo6MJ1i6TKFa7oDnziIiToPRTsmhK3Eq1
- s54sKECCeM9hrqj003WfZHQzFWtdpOXDevIqFxFxbk+iA5er04XDQo2+G
- ktL77T1YTZ8wK2SfBC5mCMspp2tdz+1IYv+c3DalhiZ1h6X7KbeS2LQzT Q==;
-X-CSE-ConnectionGUID: ZSdgjMo+RJ2LY5eZEPQS1A==
-X-CSE-MsgGUID: 4LHzWhCcTKiE41hINzTY9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="90955028"
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="90955028"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 23:12:44 -0700
-X-CSE-ConnectionGUID: 2i93/dl6TbWCCX0UwefHBA==
-X-CSE-MsgGUID: phmejI5KRIS5n9pT4+TNMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="233713261"
-Received: from igk-lkp-server01.igk.intel.com (HELO bdf09bfdbd5f)
- ([10.211.93.152])
- by fmviesa010.fm.intel.com with ESMTP; 12 May 2026 23:12:38 -0700
-Received: from kbuild by bdf09bfdbd5f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wN2pg-000000008UF-2M6L;
- Wed, 13 May 2026 06:12:36 +0000
-Date: Wed, 13 May 2026 08:12:05 +0200
-From: kernel test robot <lkp@intel.com>
-To: Albert Esteve <aesteve@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
- Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: oe-kbuild-all@lists.linux.dev,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- dri-devel@lists.freedesktop.org, workflows@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org,
- peterz@infradead.org, Guenter Roeck <linux@roeck-us.net>,
- Linux Kernel Functional Testing <lkft@linaro.org>,
- Dan Carpenter <error27@gmail.com>,
- Alessandro Carminati <acarmina@redhat.com>
-Subject: Re: [PATCH v8 4/4] kunit: Add documentation for warning backtrace
- suppression API
-Message-ID: <202605130826.e6Lyyytr-lkp@intel.com>
-References: <20260504-kunit_add_support-v8-4-3e5957cdd235@redhat.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2851810E0EB
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 06:31:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 937C643C81;
+ Wed, 13 May 2026 06:31:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F359C2BCB7;
+ Wed, 13 May 2026 06:31:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778653906;
+ bh=dVOFz/bl1fNPd0bokrJcl/tAwN7bpIUq/3LFpzWp43Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uqdZ45UXAX1WAlZgKRMy0HztMJ7Bdo6H23kfG1Whj8GIFyR5UFFzqD0wF96AALbn2
+ vzWEVoeaF5HNiu6zoy8+UpVk2pCgEy8Ilm+Om3XBiPq17bi/3Q+f86U6dB+XZUwz0Q
+ sY/IiNQDMMnW5KQKuJQtzdFi86MrtfXTn1ZaOyFYof+QG5XRPsU9ojAbP0cedXUj2Z
+ Biqu1EVdKMgwKlN0GDy37F0FxemOLyCn9HXCFY05bF257zs09G9nQnekx+/mY6+18A
+ v6QBVgJqZ1whX1koob6aDDsbx1mFUDt4NrPxgBHO8EYgE+x3xOEwXAXFqSY/AdLCOg
+ ZCqRoM7ND7KMA==
+Date: Wed, 13 May 2026 09:31:41 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Zhiping Zhang <zhipingz@meta.com>
+Cc: fengchengwen <fengchengwen@huawei.com>,
+ Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Bjorn Helgaas <helgaas@kernel.org>, linux-rdma@vger.kernel.org,
+ linux-pci@vger.kernel.org, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Keith Busch <kbusch@kernel.org>,
+ Yochai Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+ kvm@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] vfio: add dma-buf get_tph callback and
+ DMA_BUF_TPH feature
+Message-ID: <20260513063141.GC15586@unreal>
+References: <20260430200704.352228-1-zhipingz@meta.com>
+ <20260430200704.352228-2-zhipingz@meta.com>
+ <09995589-b81d-4cb7-a313-15a943d8b28d@huawei.com>
+ <CAH3zFs2x2QebpqDC0qwQg_GP2FVs-qqNxPupck40cEHNrBMEsA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260504-kunit_add_support-v8-4-3e5957cdd235@redhat.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAH3zFs2x2QebpqDC0qwQg_GP2FVs-qqNxPupck40cEHNrBMEsA@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,48 +67,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alessandro,
+On Wed, May 06, 2026 at 11:23:19AM -0700, Zhiping Zhang wrote:
+> On Tue, May 5, 2026 at 11:58 PM fengchengwen <fengchengwen@huawei.com> wrote:
+> >
+> > >
+> > On 5/1/2026 4:06 AM, Zhiping Zhang wrote:
+> > > Add a dma-buf callback that returns raw TPH metadata from the exporter
+> > > so peer devices can reuse the steering tag and processing hint
+> > > associated with a VFIO-exported buffer.
+> > >
+> > > Add a new VFIO_DEVICE_FEATURE_DMA_BUF_TPH ioctl that takes the fd from
+> > > VFIO_DEVICE_FEATURE_DMA_BUF along with a steering tag and processing
+> > > hint, validates the fd is a vfio-exported dma-buf belonging to this
+> > > device, and stores the TPH values under memory_lock. This keeps the
+> > > existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI completely unchanged.
+> > >
+> > > The user sequences setting TPH on the dma-buf before the importer
+> > > consumes it.
+> > >
+> > > Add an st_width parameter to get_tph() so the exporter can reject
+> > > steering tags that exceed the consumer's supported width (8 vs 16 bit).
+> > > When no TPH metadata was supplied, get_tph() returns -EOPNOTSUPP.
+> > >
+> > > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> > >
+> > > diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> > > --- a/drivers/vfio/pci/vfio_pci_core.c
+> > > +++ b/drivers/vfio/pci/vfio_pci_core.c
+> > > @@ -1534,6 +1534,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
+> > >               return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
+> > >       case VFIO_DEVICE_FEATURE_DMA_BUF:
+> > >               return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
+> > > +     case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
+> > > +             return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
+> > > +                                                      argsz);
+> > >       default:
+> > >               return -ENOTTY;
+> > >       }
+> > > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > > @@ -19,6 +19,9 @@ struct vfio_pci_dma_buf {
+> > >       u32 nr_ranges;
+> > >       struct kref kref;
+> > >       struct completion comp;
+> > > +     u16 steering_tag;
+> > > +     u8 ph;
+> > > +     u8 tph_present : 1;
+> > >       u8 revoked : 1;
+> > >  };
+> > >
+> > > @@ -69,6 +72,22 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
+> > >       return ret;
+> > >  }
+> > >
+> > > +static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steering_tag,
+> > > +                                 u8 *ph, u8 st_width)
+> > > +{
+> > > +     struct vfio_pci_dma_buf *priv = dmabuf->priv;
+> > > +
+> > > +     if (!priv->tph_present)
+> > > +             return -EOPNOTSUPP;
+> > > +
+> > > +     if (st_width < 16 && priv->steering_tag > ((1U << st_width) - 1))
+> > > +             return -EINVAL;
+> >
+> > The checker will failed in following cases:
+> > 1. If the exporter passed 8bit st, and importer support 16bit st, then it will pass
+> >    the checker.
+> > 2. The exporter enabled 16bit st and its st is < 256 (note: the pcie protocol doesn't
+> >    restrict 16bit-st must >=256), and importer only support 8bit st, then it will also
+> >    pass the checker
+> >
+> > Suggest userspace passing both st(8bit) and extend-st(16bit), and importer chose the
+> > right one.
+> >
+> 
+>  Agreed — 8-bit ST and 16-bit Extended ST are distinct namespaces
+> (firmware returns
+> them as separate fields with separate validity bits), so a numeric
+> range check is insufficient.
+> For v3 I'll change the uAPI to carry both, gated by a flags field:
+> 
+>   #define VFIO_DMA_BUF_TPH_ST (1 << 0)  /* steering_tag valid */
+>   #define VFIO_DMA_BUF_TPH_ST_EXT (1 << 1)  /* steering_tag_ext valid
+> */
+>   struct vfio_device_feature_dma_buf_tph {
+>       __s32 dmabuf_fd;
+>       __u32 flags;
+>       __u16 steering_tag;       /* 8-bit ST */
+>       __u16 steering_tag_ext;   /* 16-bit Extended ST */
 
-kernel test robot noticed the following build errors:
+I wonder whether `steering_tag` and `steering_tag_ext` can coexist  
+and hold different values at the same time.
 
-[auto build test ERROR on 80234b5ab240f52fa45d201e899e207b9265ef91]
+BTW, please send your patches with diffstat.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Albert-Esteve/bug-kunit-Core-support-for-suppressing-warning-backtraces/20260513-043807
-base:   80234b5ab240f52fa45d201e899e207b9265ef91
-patch link:    https://lore.kernel.org/r/20260504-kunit_add_support-v8-4-3e5957cdd235%40redhat.com
-patch subject: [PATCH v8 4/4] kunit: Add documentation for warning backtrace suppression API
-config: x86_64-rhel-9.4-ltp (https://download.01.org/0day-ci/archive/20260513/202605130826.e6Lyyytr-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260513/202605130826.e6Lyyytr-lkp@intel.com/reproduce)
+Thanks
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202605130826.e6Lyyytr-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from drivers/gpu/drm/drm_buddy.c:6:
->> include/kunit/test-bug.h:90:15: error: unknown type name 'bool'
-      90 | static inline bool kunit_is_suppressed_warning(bool count) { return false; }
-         |               ^~~~
-   include/kunit/test-bug.h:13:1: note: 'bool' is defined in header '<stdbool.h>'; this is probably fixable by adding '#include <stdbool.h>'
-      12 | #include <linux/stddef.h> /* for NULL */
-     +++ |+#include <stdbool.h>
-      13 | 
-   include/kunit/test-bug.h:90:48: error: unknown type name 'bool'
-      90 | static inline bool kunit_is_suppressed_warning(bool count) { return false; }
-         |                                                ^~~~
-   include/kunit/test-bug.h:90:48: note: 'bool' is defined in header '<stdbool.h>'; this is probably fixable by adding '#include <stdbool.h>'
-
-
-vim +/bool +90 include/kunit/test-bug.h
-
-    88	
-    89	static inline struct kunit *kunit_get_current_test(void) { return NULL; }
-  > 90	static inline bool kunit_is_suppressed_warning(bool count) { return false; }
-    91	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>       __u8  ph;
+>       __u8  reserved[3];
+>   };
+> 
+> get_tph() then picks the field matching the importer's st_width and
+> returns -EOPNOTSUPP
+> if that one isn't valid.
+> 
+> Thanks,
+> Zhiping
