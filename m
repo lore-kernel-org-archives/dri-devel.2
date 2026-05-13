@@ -4,90 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F87CD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:29:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5F93CD4F21
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:43:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E33B510EE72;
-	Wed, 13 May 2026 13:29:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68E2C10E31A;
+	Wed, 13 May 2026 13:43:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B5nAHTde";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GKTdyeLJ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xouo/WlF";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACAB510EE72
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:29:13 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-488b3f8fa2bso73856875e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 06:29:13 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06F3110E31A
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:43:47 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64DASJsW2321285
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:43:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=93ck9j7UNs5qr5E3FjJPwBNZ
+ /eteNwvkCjcQtHOmT5Q=; b=GKTdyeLJMGh723ckJK6vMuBtBcPoCN8ZP+cz7YIB
+ KhgAR6DLAen9msftylz0koy81NDcgaM+9t1TUWDFANfMlHogAvottqN1dNBiTwX1
+ HiGe0tv2KkvTKWdoD8iEOpTI2ydjybUpNUZ5+RzLe1Zgaat0javeNzqm0lrN6jqm
+ D86Kzw94NNirnYqxNYl3vNhG+z1KmmoH/JOudZF2/n93VyPg8Il9flr9t9uNzxzF
+ 7Vszsez/Y/iocYGv0fYzZrhosxSKXeabojatqrMw6XEx8w52/OD4xXuYS1Sk6qY+
+ r28oZPY4Vwm9xXaGrZlpuSlStvlhBZ26VbDT6q10XzYwNw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4hgua6fw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:43:46 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-5163ade1583so6024781cf.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 06:43:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778678952; x=1779283752; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+cq+23+E96HQoAhwgeeSJr3+OJ8IJX5BGImZhad/wV8=;
- b=B5nAHTdeUAbI8ogLmrOIavJLwK7cjxOsLJ3tNQcqsmHZUWat5T19BdnpJc4jW2P/8G
- l9pNQNXkkRaYNP2YtWVnpfxEhh3p1g5/9PUqfWe/XQqoSuluJYTrQIbfEvmsQDByxVzX
- 3y49gzOslmzX5i8+O7JFyLY8glKviDvKc+FI1xK2uzYdR+r8Ihrq2lfmQy3ltJM6RNti
- 9w/Zqcw7VXrjHA4iUxDtPWaqdWSjicE04HIUeO7cTS9fZvVoDfn6NGYXGmHSTDTXRoAI
- ABV7QNeNzXv5JlCwgAqLaXCIOAaIjtt0f+4IY7ibGsuLlL2p7Fl2ZG6fGejfMUd3TX9D
- wfPw==
+ d=oss.qualcomm.com; s=google; t=1778679825; x=1779284625;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=93ck9j7UNs5qr5E3FjJPwBNZ/eteNwvkCjcQtHOmT5Q=;
+ b=Xouo/WlFilOZWdBneZ65zkDrmeotJqPgqbEf4yhq2DHgqGDI/BZbw8/zpOSDS24hiR
+ DMbzBHHPd16mNpAgKOVvynSt6cdB+LfqP1C43EzoqW9wWjlhfI/4u0Q1rHvDZFXkuElb
+ rELfsjlG2BNEIoR2akr0/vxGCn+Wc2QXlTmkSsWsSQ5IOXPGVkiOX0zUOiyuJcqZqh+3
+ ieANFhDXz/1XZVekV3n4n85+YXu9Xke+WejWYYr+1hB7P8zSUIZZtLzUkeDeW046DAQD
+ d96yzrTjqwVpJPbQwkEk1gA2Bo3Pa6LIdpObkjLixpq1Hspa0rQtEf+A8nO1gCKixTOF
+ 5Xtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778678952; x=1779283752;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=+cq+23+E96HQoAhwgeeSJr3+OJ8IJX5BGImZhad/wV8=;
- b=JYg96CPzbyfTGDoWRxsZ1J7LH56jeTwO1Oe3yGORiwDrXmhJK/uiMS35VOF2sOypNl
- eWCzkbL+65nLDhb8gSnjjDb4E0wRUSX2uyEDJdn7tXYStxUFzxpDp10NA0YbOJlNUtUZ
- kEkmRhjXSA805WPn9le+eDyKIyiNiflm9sBcGx28vWqkp6kO1Xxh+BVRXqhcFWJYxbnH
- v6fiZMhutt4eeqXrvOP1iDtDl3Zhgs8ikW+CMTCY286RJ6zl1hut3PLjBEX6+8e4Hopq
- LyUGQaxkUyorjTeUl4W276N7ZC9bDNzYK83+pU70nZdQTksXm/o2aaaT1ZjjuGCnGeVF
- RP1Q==
+ d=1e100.net; s=20251104; t=1778679825; x=1779284625;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=93ck9j7UNs5qr5E3FjJPwBNZ/eteNwvkCjcQtHOmT5Q=;
+ b=hZdNcAdOmh82OBNiZQSVSojUke1Y1F0RxGkcW4NtnU7K9VeKAb6yBAFfcb/GeZ9fSQ
+ R1ymazojrDQlYY1+5k9lauyhiK8RPNIIk/v+U96NVRH07yoau6XoKEovnCMNojEwp+H3
+ eJjhN1LPoJzS05t1Yr41GnZ0rpIejXYhBKN9YsRTvxqriiKHVL1DHm/09Uj4N9EnPJqK
+ PXx87MfII4wOx8qtvBywgSdcwOxn33iNHM7iSpP/W5SZTDwHOyEtPO5LjtQcmi7FLpYI
+ fzKbiHmZjRE8bsXhXGZ/aFNOcBskXn9NhB93x35QDUwFrRGYX4dWpYPOLfSN9v25WXHJ
+ weZw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+lF7ljBY4xL/Q0wCbDPPWIJkxHxPljeVcjovEfOj8nSaecEyxEDNlvLaWkSifI8IXc7HdzqwFCO5g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxcMr8uXokHor/xYsN3u2/rlIRJpcDfxHEYUFjvRFz0v2+8aHiq
- AandWDLQfDP29zPMmPtdfxwNkVVtI+6MCpb6oqNPGoF1BGDNWTY4K67J
-X-Gm-Gg: Acq92OFipXkrJIkCZ8zqibSdFlFsr0ijFnlXzhbngXx79eUWYihbIMPFakb+06oRnlp
- dANdJpuStXwN4X6gTs9BMtwdWjADnMSAyua3OzqIOyJsmJSLmFUrgTs9Erw6GNh1EMGNq/PcUCM
- QvvGS+jY2nHsfd6gpAfWAMcyZvszMy2FWmVgdZdF2LjXRD10PosnxLF2WDUw69PuuZsdKOG+YEe
- HpO1QlyHd3H8hNQ+kWe/s9+cVy8rx6iyvF3Glf63vuzx99RVxuqfvLfH/pBSpPXGTBAUHYpYYZN
- siWlRFOiduM5ALWciQB0qgywCrnk9ig8auu84kelBC9lhjwwg1aOjapovXNCBnr9KY+LtHmo/lM
- lIWzbZlK8l40oL36dDhtKVmRRI+xVHnZkdqDQ968Aaxy0I+0Md2gQCL+s5Pn3QIaKN6Mm4ch2QZ
- a562i0jjuq4CRbKhTaywpjcPLf1SeW+roL2UupHmL7GXT34WX/8vIzMnSaaOX1
-X-Received: by 2002:a5d:591c:0:b0:446:708e:1e8d with SMTP id
- ffacd0b85a97d-45ac4504a13mr9930360f8f.30.1778678951817; 
- Wed, 13 May 2026 06:29:11 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ AFNElJ93YIS1q/jrLrD1O6fkcqwvHDNacx4g2YAepnWqoU+6t9VplwFp8TnX016LecSI5zUl0N2J6M3ppws=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzvtIUvUbUeKqik/AZdlxPx2OkEhP6xLw+DmofSrwpF3FSQlhM
+ T3JrpoA4f1pRY5CVPWjqd1FJSw7POHWhZzgt9vacUfzSAtfHGHGMoOP+3oATqpI7ipm2lLoWB7B
+ ArYtkJYpsHrYIYABe0wy/ZoBRx6P9gbT3ZhBx4iAThd35OjyrTYDLlROiEdkBc+lwVYMNrFw=
+X-Gm-Gg: Acq92OGDhfu0trQmganrjfHG+9aXT+5foCof739JB8+OzgKFkka0ThN4HOyyZlcjQfM
+ T3XR0RD/mlILKHgpuzheAZtAowcAVVEEynx78h33FR1XoI2JVqGvRSoQEjxaMiInuBC32UKlEbI
+ GMgEO5K+O3/+r0meWD20fBadWF0PuenMkCMTrJFuTu50GfLpCaXMpmeplBZlj4rRQHcD97z20bw
+ PsdoOMWN3qCOZgzx8WCZhk/3Lyw8F+3Mrq/woooVjHtmJfW+1JdG/d99CWjLCeto5R3zDt32wTx
+ yM6Fb5XrgVMpGk0Mhw3cFRjmzCWAxP8zXdhM778xraV1FNvY1gUKM+aTkJ5KP9FdjhZkRfhoYJS
+ iR2kVooBRQ2AlNTtPFuRbo/6n8YJI2oeMeaP9TDlw2cdDVMHPFzZ43MyndiqzKPPQpPnMoVVGY/
+ BUOpIbRMkuLGre2CJCyhmdpEMq7NFheGJM1L4=
+X-Received: by 2002:a05:622a:2618:b0:50f:b3d2:6edd with SMTP id
+ d75a77b69052e-5162ff42a2amr35469611cf.43.1778679825222; 
+ Wed, 13 May 2026 06:43:45 -0700 (PDT)
+X-Received: by 2002:a05:622a:2618:b0:50f:b3d2:6edd with SMTP id
+ d75a77b69052e-5162ff42a2amr35469001cf.43.1778679824731; 
+ Wed, 13 May 2026 06:43:44 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4549120ec0asm40068578f8f.17.2026.05.13.06.29.11
+ 38308e7fff4ca-393f61078cesm44278211fa.28.2026.05.13.06.43.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 06:29:11 -0700 (PDT)
-Date: Wed, 13 May 2026 14:29:09 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Pavel Begunkov <asml.silence@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph
- Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Andrew
- Morton <akpm@linux-foundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, Nitesh
- Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Anuj
- Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [PATCH v3 02/10] iov_iter: add iterator type for dmabuf maps
-Message-ID: <20260513142909.03ae6c2b@pumpkin>
-In-Reply-To: <20260513110557.705bdeed@pumpkin>
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <20a233d2f35274817aa643cc0fe113707eb47e72.1777475843.git.asml.silence@gmail.com>
- <20260513110557.705bdeed@pumpkin>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ Wed, 13 May 2026 06:43:43 -0700 (PDT)
+Date: Wed, 13 May 2026 16:43:41 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Alexander Koskovich <akoskovich@pm.me>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 8/9] drm/msm/dpu: Add Milos support
+Message-ID: <2xj4p5f64gh56nqzrpskgmlgap42j4hy2yffegextu7kqscfxc@cxido7bjjrrc>
+References: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
+ <20260501-milos-mdss-v3-8-58bfc58c0e13@fairphone.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260501-milos-mdss-v3-8-58bfc58c0e13@fairphone.com>
+X-Authority-Analysis: v=2.4 cv=X4di7mTe c=1 sm=1 tr=0 ts=6a048012 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=6H0WHjuAAAAA:8
+ a=EUspDBNiAAAA:8 a=v0oG3mRxo3Z05cs3-vkA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-GUID: Dcctvsd_4DLMoOGjFCJfyK5Te3_vgacj
+X-Proofpoint-ORIG-GUID: Dcctvsd_4DLMoOGjFCJfyK5Te3_vgacj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE0MSBTYWx0ZWRfX8iLfdb/WgDzE
+ P5YFn6ec5OQAXE8QIuuF+y3yvp5nsYM690lLDHZYUBTWzR/YP5kCIOgU2NYedpZBkwt3Eid1uww
+ BtDAx6I6k+NGsOPeeTZrFH4NakJAoeqfoKkvu2sSlIDIMBmA3vzz5Q1Ej5WhCnRBRuI9aGXblMW
+ CjlNtZKY5LwzDQVsnLDgzQxjPUjFEyQgrA6MITmrO1Pp4LO9jd6KvPU5137d88LdQJQaP/nztEF
+ SOLdMMQCjcdkGiKvUQSI/HysalKgL/Rv3ZqqTKFziFCiuPdjcHlxpW6Ngijy9SpCNL8RMEwby0r
+ WLGvFczgWfSsMnT2f3LaiwoLYlJ2mH88njO4N9A4RtIFFfbOkSqn/XTij9r1hnml1nzkBv+guFs
+ ZfqrpFJK2TeUeL43Hu8LvnGpT2irNo1rFwMFkJGcPq/3r1uvhvroFs9lM4dV/IWLNjJNh8N8w/q
+ LcC4+QRMD+8PIpWnPXw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-13_01,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ phishscore=0 malwarescore=0 suspectscore=0 spamscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
+ definitions=main-2605130141
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,44 +159,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 13 May 2026 11:05:57 +0100
-David Laight <david.laight.linux@gmail.com> wrote:
-
-...
-> > @@ -575,7 +575,8 @@ void iov_iter_advance(struct iov_iter *i, size_t size)
-> >  {
-> >  	if (unlikely(i->count < size))
-> >  		size = i->count;
-> > -	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i))) {
-> > +	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i)) ||
-> > +	    unlikely(iov_iter_is_dmabuf_map(i))) {  
+On Fri, May 01, 2026 at 09:14:50AM +0200, Luca Weiss wrote:
+> Add definitions for the display hardware used on the Qualcomm Milos
+> platform.
 > 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h | 279 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  29 +++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>  4 files changed, 310 insertions(+)
 > 
-> Doesn't the extra check add more code to all the non-ubuf cases?
-> This could be fixed by either making iter_type a bitmask (with one bit set)
-> or writing an iter_is_one_of(i, ITER_xxx, ITER_yyy) define that uses
-> '(1 << i->iter_type) & ((1 << ITER_xxx) | ...)'
 
-This seems to DTRT:
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-#define _ITER_IS_ONE_OF(iter, t1, t2, t3, t4, t5, t6, t7, t8, ...) \
-    ((1u << (iter)->iter_type) & ((1u << ITER_##t1) | (1u << ITER_##t2) | \
-        (1u << ITER_##t3) | (1u << ITER_##t4) | (1u << ITER_##t5) | \
-        (1u << ITER_##t6) | (1u << ITER_##t7) | (1u << ITER_##t8)))
-#define ITER_IS_ONE_OF(iter, t, ...) \
-    _ITER_IS_ONE_OF(iter, t, ## __VA_ARGS__, t, t, t, t, t, t, t)
 
-int foo(void *);
-int f(struct iov_iter *i)
-{
-    return ITER_IS_ONE_OF(i, UBUF, KVEC) ? foo(i) : 0;
-}
-
-See https://godbolt.org/z/sMz93zah1
-
-Pasting ITER_ on the front ensures the values are constants of the right type.
-OTOH it makes it harder to search for uses of each type.
-You could paste _ITER_ on the front, elsewhere define _ITER_ITER_UVEC
-to be ITER_UVEC (etc), and require the caller use the full name.
-
--- David
+-- 
+With best wishes
+Dmitry
