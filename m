@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC158CD37B6
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:44:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2DF7CD4F35
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:44:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD1410ECE3;
-	Wed, 13 May 2026 07:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDB4B10ECF0;
+	Wed, 13 May 2026 07:44:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="j3apgm5b";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Dl/zY1aK";
 	dkim-atps=neutral
-Received: from mail-m12764.qiye.163.com (mail-m12764.qiye.163.com
- [115.236.127.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53FEF88A27
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:44:31 +0000 (UTC)
+Received: from mail-m8242.xmail.ntesmail.com (mail-m8242.xmail.ntesmail.com
+ [156.224.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4D1210ECE8
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:44:37 +0000 (UTC)
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94cb9;
- Wed, 13 May 2026 15:44:27 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94cf9;
+ Wed, 13 May 2026 15:44:33 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
@@ -33,25 +33,24 @@ Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v5 03/10] arm64: dts: rockchip: Add missing hclk for RK3588
- eDP0
-Date: Wed, 13 May 2026 15:44:07 +0800
-Message-Id: <20260513074414.2053435-4-damon.ding@rock-chips.com>
+Subject: [PATCH v5 07/10] arm64: dts: rockchip: Add eDP node for RK3576
+Date: Wed, 13 May 2026 15:44:11 +0800
+Message-Id: <20260513074414.2053435-8-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260513074414.2053435-1-damon.ding@rock-chips.com>
 References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e204b509903a3kunm7763bb98560c7
+X-HM-Tid: 0a9e204b69b103a3kunm7763bb9856114
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTk9CVksYSB5MHkpMGhoeGFYVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHU9NVkNDTUMYT01LTk5LT1YVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
  pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=j3apgm5bk9Y4qhoRfNkSn2HW4xcqPyDuX6/Zg6mw7WBpAlSuhNKUf6nQHe4gugq/rsQkfO8f/Lg1QPhwRy1eaPWzDCHtd78KOCILYMPck3OP+CAhNSGKEaXKmQeeTNRKoW9C7yxrabvkebpc+h/ERKlIzKC1RkfVXxWyYofkcX8=;
+ b=Dl/zY1aKppMiLwMd2qDYD2qMJCvfDlfsTtf+rs1+ux2EP7hX0o8ZoyckU5xBlAK/B/1F1zEbYdeBxkqSfM1oOAztPSsNHDtZ0r8TJwz+r2iRH+rjA0PB57KNbXaOME+WV9yYM6RL1PM401pMMnwNGTSUXYF/6CUt9KNLkE6Blso=;
  c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=cQJ/4r16q/9Bq/DzJvmBXTuihGNdr3jzwWB+vDNpPpo=;
+ bh=K1DLY9Im8emQ1pvFmDCS9X34Zpvqnm1ezAB2dEZJU7I=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,39 +67,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the required HCLK_VO1 bus clock to RK3588 eDP0 node with
-corresponding clock-name "hclk". This clock is necessary for the
-eDP controller to access video output GRF and work properly.
+Add full device tree definition for the integrated eDP controller
+on RK3576, following the existing RK3588 hardware layout.
 
-Previously the clock was enabled implicitly via GRF phandle
-reference. Add it explicitly now to align with updated binding.
+Configure required register range, clocks, interrupt, phy, power
+domain, reset and grf properties to fully describe the controller.
 
-Fixes: dc79d3d5e7c7 ("arm64: dts: rockchip: Add eDP0 node for RK3588")
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
 ---
+
+Changes in v2:
+- Add Reviewed-by tag.
 
 Changes in v4:
 - Modify the commit msg.
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 28 ++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 4fb8888c281c..24a5ccbac08c 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1712,8 +1712,8 @@ hdmi0_out: port@1 {
- 	edp0: edp@fdec0000 {
- 		compatible = "rockchip,rk3588-edp";
- 		reg = <0x0 0xfdec0000 0x0 0x1000>;
--		clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>;
--		clock-names = "dp", "pclk";
-+		clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO1>;
-+		clock-names = "dp", "pclk", "hclk";
- 		interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH 0>;
- 		phys = <&hdptxphy0>;
- 		phy-names = "dp";
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index 28175d8200d5..733449cb88b1 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -1496,6 +1496,34 @@ hdmi_out: port@1 {
+ 			};
+ 		};
+ 
++		edp: edp@27dc0000 {
++			compatible = "rockchip,rk3576-edp";
++			reg = <0x0 0x27dc0000 0x0 0x1000>;
++			clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO0_ROOT>;
++			clock-names = "dp", "pclk", "hclk";
++			interrupts = <GIC_SPI 365 IRQ_TYPE_LEVEL_HIGH>;
++			phys = <&hdptxphy>;
++			phy-names = "dp";
++			power-domains = <&power RK3576_PD_VO0>;
++			resets = <&cru SRST_EDP0_24M>, <&cru SRST_P_EDP0>;
++			reset-names = "dp", "apb";
++			rockchip,grf = <&vo0_grf>;
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				edp_in: port@0 {
++					reg = <0>;
++				};
++
++				edp_out: port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
+ 		dp: dp@27e40000 {
+ 			compatible = "rockchip,rk3576-dp";
+ 			reg = <0x0 0x27e40000 0x0 0x30000>;
 -- 
 2.34.1
 
