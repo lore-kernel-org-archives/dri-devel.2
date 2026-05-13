@@ -4,103 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B61CCD37AC
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 18:17:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 139C4CD4F21
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 18:19:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 213AC10EFB2;
-	Wed, 13 May 2026 18:17:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7195A10E33A;
+	Wed, 13 May 2026 18:19:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FithDT0F";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iMqN3oXu";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Npdvb8oW";
 	dkim-atps=neutral
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
- [74.125.224.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5729110EFB2
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 18:17:39 +0000 (UTC)
-Received: by mail-yx1-f43.google.com with SMTP id
- 956f58d0204a3-65c2cd216c9so7103836d50.3
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:17:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778696258; cv=none;
- d=google.com; s=arc-20240605;
- b=d9nb2j2AugRXQxvoscDcwyTGCeNbCrq/fWCNdVEvj9E1Vnf1c/OCuoXRRhXdfsSgr4
- xalBUhMML8yZN4q56ZqBUxp1QgaUnPYT0aDPsjQLq4E4slq6/vwsJdVhVbk9mRwUdspr
- dvNvAEpdRmsQnqM4XzFGma3FWBq+bvZgfc1upDTU/08jexaiiWsovL3D0abetKl5FtNk
- j3dEEvwIYIPwTAmRwTBaq7WgP67K5JSH47HK27hGnweQsEQpld80olPS/7zsYGvWDmih
- DubHdryeqSPgoAqyT7PsNK5N4qrKnEeK8DibeII88U3S8it3RuRzqv5yWWNkKFY1Z9Za
- 5pqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=58WED0uhkGdHD0SVe/mpYCc0dDtXD9vRE+FZdd9uGR0=;
- fh=ATBsfJYRT4Q2zrKLrvPnoV+UlojtpUSdf+jZZ3ygPNc=;
- b=aGVyEn+mGXAztce3CoaRIQQrBPwIGvaWvwEmEpPpKEID4HJxDLtGPSDLf5VbTwBMuT
- c7IRx22Kro7jSUjXP3UucdffbN4d3+xf5ZOx7LL7yb4Qy5bYWxfm0UHBw1wZRpmwA9XJ
- ANIcHHu6Tzugw7PLpVpVyBhHtLLozFv+XkR6m2dnl6aOxr93FrnX6Q5WPu8PdXdOe9r8
- cNpFccXT9Bj9nCCoG6NkmkGkmLxpnfoKT306mxMY8Bg/0WHvGZb/Xrga8jjf9Ic5Pff1
- 4S7/KYaSgGmSDdbHsniCfEKfgX5C9FU1kJorSCfXJZKBQTjBvtoUDM9Gc4kNDwFe9bdl
- zowQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A3D810E33A
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 18:19:57 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64DGAvHW2524359
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 18:19:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=86WeCNAejDxittTf8pYHzI
+ Nsa57NdHN4MSF3esmZSyQ=; b=iMqN3oXuWE+5ARgO/ivHL2Lr7d6ctJpGHOocoy
+ kZgNlA+HYvQIUXPWwuk81Za2wzwZ98Mn7cvgAFg1wvV9nWQd4DG1sWc8GcrSS/qC
+ aqDXpwGG7KETBHy79hf0+XpgEfgG8066NoSeURjwpaeYwDHvFoozhYtVqH7QAtov
+ 3RWFAvlInxV3he7gabP7BVI3AfA/71/9wQNrVlmtdwX+BUXEzTaVdfKjQjPq5J8p
+ tDxtxl5qIOW9ThGxAhkxfk5/LLv8r7Um+jCvpwv1Me3UApow8Xqt1mZH207Egl1M
+ YHahdBkDcjhKJMBUqGDaHsQdaxmpvV7LdPy8fo+wHkfVv/Ag==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4vkjgh3a-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 18:19:56 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id
+ ada2fe7eead31-631a49033bbso2464457137.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:19:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778696258; x=1779301058; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=58WED0uhkGdHD0SVe/mpYCc0dDtXD9vRE+FZdd9uGR0=;
- b=FithDT0Fq5Decp0TV3dEZJ+eVNYx05lPCr5UrH5lQBFQYvfhvc+UcLDInvkGc0uliA
- /UhGGEExpMAM6HiNDPG6pu8qRonwxOMRda/apDC6v7I2ZLqAd8xCtXGcCXrq960B95w9
- BlmR+46bTEr7nTMJ8ipXrzgisvzMz2mQI3CklNCqaq+8n4XVxkIJapDl9nkExqNv48OW
- +09Yo3AEcPDIJGvKd2m65sHxaDKCzhfu0CnhJChV6rQpEH+jo1zudq4V8cbkO7du3yLi
- Jr2BFCftBvpdc2LFXE8KBIaIJp8UXuh/rpusH/+uFQ0HsG4eJpsLndOvOdQaQ0nsH2Tx
- c09w==
+ d=oss.qualcomm.com; s=google; t=1778696395; x=1779301195;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=86WeCNAejDxittTf8pYHzINsa57NdHN4MSF3esmZSyQ=;
+ b=Npdvb8oWck9we2SbothRhA2SKtS4KgZM4jT9ksu4ihUG60qfo6lLVZpuCTMBBbBuwB
+ MMvGKOnNVmIt/pcBgetoeyga9/2CYVY9dA96m5+kq2zRuwVGs5FxfbzJoZMArEA/63Jv
+ dODJx+mIYz4AhG8fLJnUPv3ufBMsdD1SAHkIiu5nSGXw8rEcLdcH+fiqHFbgKm40UUz/
+ HeLE97yGLRdpsQqEI3qdpTQ8JdN+b2ANlGhH1M/iefxucGVirO2bcwfW+8BKUlMYby6F
+ DyBGytKOoCHz/IEEMFbDtay75mQz9CE82obgVg5Ll9Ink3mfKyIrhDCyKOGRuUqHwoXo
+ 1T0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778696258; x=1779301058;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=58WED0uhkGdHD0SVe/mpYCc0dDtXD9vRE+FZdd9uGR0=;
- b=WgYgQAi5CET0T2x7COKr0mUTfk0GZcDYvOUvoVmzttahn5Lbzyl9AJu6HCKTkViyFJ
- EkDuSdRBe/wpRaCQByCIwzF6ZuoBn+pwR//AmAzNhKPYY2Yv5c4go9HgOX3BdDbz47NU
- beImsStBIQ/kR5ZIs9ZOBImvsokFtY686yjYSk/T1OEcmZtN6tdULJWt09A+iRwRmmeN
- wKbB5Aqap/EJn685d4sj+aGLFztFESb4pMyxYp6IEkEjn2jSV9thPe/iUMNjLGqHxX+w
- 62jA31Z+shs2O4FIJSKKZ9OqXhmcWqfyQtF78+dBllP6PYt+UBPcyli4LjesKV077OzV
- OnMA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9xrQ0tDtDG/dXtfuQFaax1gAvc9+NdkLWKvOWjWQclJtJDCYApL3qIl9+V3iKFCPdnlNU+86SdL+k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzWJbWWZ15DJGj2Yb+/wyFCo0J9ZvC2xlsw9RbFJrlBvlget6io
- iY4jbe3Pm/D2vynvm1WIWXNNUBwWLxxg5GEYATTtz0Maj70LzaGqpIQpFhdVtkG94MAEnsuzq04
- TrOeXde8BbhRF1q7zK0lVb/PozQ6zjuk=
-X-Gm-Gg: Acq92OF78FzkchZ15DS3brEEfPgERikiZVNrOs44Re74PmKgVZKLNve7ljx1tN1IV7Z
- YgLxet+CjZ2Fet/GXJUPrDJuHpJ4K98Dlz/MiomWbVHBWJMw2VgyUM+ON4qWDtzdg1jwJYOpFU6
- bBHp5n6Z8H5NARjTDY+nLuqcf0VmIZuqGJ2d6bMQ92C5u5fnrOZ8xqCMFHNwQadB9xgz9Wty6Am
- 83BH0F8n43psDTaEREsyRrOyRawQUz62aywQZzeXQFe1YSiuAUxb+1OSzSmspvevBPR7EFz/1QC
- 9MO60Rbws2r5t8UZUP6xxRVviVXrPQfnA96n1Uya3dhDYPIgJHm6mLHH8jvIRHUjw+6EmKvemU8
- FmQcki8eU
-X-Received: by 2002:a05:690c:ec9:b0:79b:73dc:d30b with SMTP id
- 00721157ae682-7c6ab5e7f27mr47168427b3.8.1778696258267; Wed, 13 May 2026
- 11:17:38 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1778696395; x=1779301195;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=86WeCNAejDxittTf8pYHzINsa57NdHN4MSF3esmZSyQ=;
+ b=NY8xaF+rOzrEm3iS6oFMY9JgzMTKLDDsD39M2HEOUdBfNWma3e0MIE/YqggKfSTmKw
+ zgnULyrkf7LPMb4x5USXyjY2CTObA/Maaj6fAOsh5kI0NkTBbc0Bg2o420XESq6mu6Rn
+ /YwhAX98EXBpevhepcLqCK9hqeT9DjxWXYDqSuQLFvYta6n6Qy4xAYGirQPbT3wHNKLb
+ bWr/+wzvwKSFREq2spiVRljtqzQ0U+N8VvdAh9rhvFBWnT42XO36UCsQzmP1D+QElYM9
+ 1Jn8ZqC9CwcUqBR+awm4GogsEal0bfeh+c6Xe4oEGgWuu9sf70C8AVxAyvs9RR7327tx
+ HJ8A==
+X-Gm-Message-State: AOJu0YwpMbaO8sWydhpO0F2UzfbXj+RGBivbaNF5mKmwZMgYQyATWm5d
+ T/gtTsnAMRwmZKKRSa1z8JtPs+Y4B+SZfN85CPg9Dukeb/PyPdTtsD+xHeNfN2nVfRY7ieUEGfM
+ PBNq/l48MpymtEvzBnkG75alTIOQz7/BgPiqiBo9bRNYe+CSQZggXQUsTXUF9qTyIPvfgLR4=
+X-Gm-Gg: Acq92OHE4hBWiNfj445InSBLN4uUU8oPL9sgcrX5O/wrj2lBwMg+1r7sqkK+zn4uAO2
+ Wimf2G1VvAP86anBVuf9HvLHg2/DxDg1d6OYYzMPGfudKxjX17m0LvtW5LhzIcDohQZR86YSl5t
+ 7e5EUKDjKSp7yhdGcCirjXhtSGrC55AUT6tbXg+2MV4mDdBvVTNkW2T2bc2+8Zzt9y2jeVf57Dy
+ Y6nAtRIZsmyZd1FnFt0nafBG8u2tEilBVnF+BespxHPs8pGMbeq19BsYa2B+qBGoCT8T4C0Lnyv
+ wROSPfnWCXuX8xN+5xTKWLo3wyI8on9uHX9ab8JvR6RAiPiwVRcgCqbwiuS2K/BbX9X4KfrjWq8
+ ueDINqGhj5AVDMSHH3I99pb1orNhMBy5Svsu/SBIZ6uQtVRwKRkbysJODg0+rQwyLr5c5iGc/bu
+ JZqAm9Mbnb6zykV0Yj4EbqbHeij1OxDYEScgg=
+X-Received: by 2002:a05:6102:5a95:b0:634:16ce:aa3b with SMTP id
+ ada2fe7eead31-637742471fcmr2526473137.15.1778696395439; 
+ Wed, 13 May 2026 11:19:55 -0700 (PDT)
+X-Received: by 2002:a05:6102:5a95:b0:634:16ce:aa3b with SMTP id
+ ada2fe7eead31-637742471fcmr2526452137.15.1778696395052; 
+ Wed, 13 May 2026 11:19:55 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a8c6f78bd7sm2685271e87.74.2026.05.13.11.19.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 May 2026 11:19:53 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] drm/bridge: display-connector: detect DP state if
+ cable is plugged on boot
+Date: Wed, 13 May 2026 21:19:50 +0300
+Message-Id: <20260513-dp-connector-hpd-v2-0-42f757bfcbf9@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-4-95c614a739cb@collabora.com>
- <CAPaKu7R56gakVRPrzXAu94Kk-AL+Ac=uFrikTyXsj8QtWKM29w@mail.gmail.com>
- <20260513100901.7b497929@fedora>
- <CAPaKu7TN4+PRYZWMRWFuEP6a9NL6sP_x1_zZrAbkVXsht-yQnw@mail.gmail.com>
- <20260513193011.4c7d30fc@fedora>
-In-Reply-To: <20260513193011.4c7d30fc@fedora>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Wed, 13 May 2026 11:17:26 -0700
-X-Gm-Features: AVHnY4ID2SS3qy5X2PgxDw2j_jo89uasHkOOqSnCyRLgpaR9zlwLs2FVokF5NnE
-Message-ID: <CAPaKu7ShbEAGC5xx6XgJzVkuBF--RT-g0vgQ9kL5vvw5Q2kUhQ@mail.gmail.com>
-Subject: Re: [PATCH v2 04/11] drm/panthor: Extend the IRQ logic to allow
- fast/hard IRQ handlers
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMfABGoC/32NTQ7CIBCFr9LM2mkAG6quvIfpog5TIbGAoETT9
+ O5iD+DmJd/L+1kgc3Kc4dQskLi47IKvoHYNkB39jdGZyqCE0mIvOzQRKXjP9AwJbTQ4CX1kra+
+ kxwlqLSae3HubvAyVrcs1+tkeivy5f8aKRIH9QYuuIzYk+3PIuX28xjuFeW6rwLCu6xeEr9kPt
+ wAAAA==
+X-Change-ID: 20260314-dp-connector-hpd-f069e66bc6af
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1288;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=T6gl1G8mNBxC6GUjnrGXd/VItsLOY+FnUvQS8uwd8EM=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqBMDJrMh0MomyKdTl1ouygmX851e5TsaMUl0Kr
+ c5898jLimOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCagTAyQAKCRCLPIo+Aiko
+ 1c6oB/9szTn3Z5mMkOtET/qFbcjx71B9IW1iLm1TSBMXlMAbTeFxk2Sn6b56Py+RD1nFQqwP+Dx
+ 2dggpi4B7GLVgZSku/rTOE5Av/WNWxP8+edZNGlIIvPzB2VP7fdyNelezF/X+qluaY4ce33oebM
+ jg6dJmojTvP5WDPypN1KGL5rjZi3AYfeSsIXNxFRQ0DFux5tizn/agbJ1muWJPSBH6pktyXzGxn
+ udy7ryhg/WzlL7lHfXNvv3KqX5AGaTg03U1rUH6w+/JnmiFd2QGxr59WZmB4ZmNuVQZ9MvIWQwo
+ Pk54nWdx9ce4UHUC4zIv2OsOWdOZCjQlA6hht6woIn6bnJab
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: _1CVrj8EGIlJo8kP-kX1kljzMdFMQm5e
+X-Proofpoint-ORIG-GUID: _1CVrj8EGIlJo8kP-kX1kljzMdFMQm5e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE4MiBTYWx0ZWRfX4FozHjX2DUkN
+ zQtPK5DBlbVQZogCzqrw+r2CXW1BwZFbfsk5JX+bzdeP9TYS5iLJxWPtIQz20JCadqkrrS2yefb
+ ukdTEUxnHQPJZh0jIFtTUdwAfluR9YEL5+UNfgkZtdj/GNSnKrb9q3lfC3efplsjiVFtTYvAvAg
+ WxVV2BroKsW+RJKFkr1a4TAcspSWOG0QvM31EaKmpkQP/aoXi7UTw43sMyqnYNUIhMHoleDdtVV
+ I5s1VTbGo5D5nGcI+AZJ0fMbKFXHqlZbIxsmY7LgUq5leRpdeKK5o6rgRCmgY8di7e3ZsI8usWr
+ Bo0dFapSHcysON9ZQ+ysqozyfe1DdGTFHaHHFlCHqntpwtgYyIOBVgBkC5MVlxt3cY8x85IiWYV
+ adSiSU37FHiCpZ8FpPgbnfaCsvarug6ZCbBf4cqJAeK6PxPTrCtaXICvznEV0e3irON3nY41/H3
+ /SE/0RjbzUEQom+o2bA==
+X-Authority-Analysis: v=2.4 cv=PbDPQChd c=1 sm=1 tr=0 ts=6a04c0cc cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=QdDM1--rjLhOk84JmKIA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-13_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 phishscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
+ definitions=main-2605130182
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,112 +165,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 13, 2026 at 10:30=E2=80=AFAM Boris Brezillon
-<boris.brezillon@collabora.com> wrote:
->
-> On Wed, 13 May 2026 10:06:14 -0700
-> Chia-I Wu <olvaffe@gmail.com> wrote:
->
-> > On Wed, May 13, 2026 at 1:09=E2=80=AFAM Boris Brezillon
-> > <boris.brezillon@collabora.com> wrote:
-> > >
-> > > On Tue, 12 May 2026 12:11:08 -0700
-> > > Chia-I Wu <olvaffe@gmail.com> wrote:
-> > >
-> > > > On Tue, May 12, 2026 at 4:54=E2=80=AFAM Boris Brezillon
-> > > > <boris.brezillon@collabora.com> wrote:
-> > > > >
-> > > > > All drivers except panthor signal their fences from their interru=
-pt
-> > > > > handler to minimize latency. We could do the same from the thread=
-ed
-> > > > > handler, but the latency is still quite high in that case, so let=
-'s
-> > > > > allow components to choose the context they want their IRQ handle=
-r
-> > > > > to run in by exposing support for custom hard handlers.
-> > > > >
-> > > > > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> > > > > Reviewed-by: Steven Price <steven.price@arm.com>
-> > > > > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/panthor/panthor_device.h | 11 ++++++++---
-> > > > >  drivers/gpu/drm/panthor/panthor_fw.c     |  1 +
-> > > > >  drivers/gpu/drm/panthor/panthor_gpu.c    |  1 +
-> > > > >  drivers/gpu/drm/panthor/panthor_mmu.c    |  1 +
-> > > > >  drivers/gpu/drm/panthor/panthor_pwr.c    |  1 +
-> > > > >  5 files changed, 12 insertions(+), 3 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/g=
-pu/drm/panthor/panthor_device.h
-> > > > > index 393fcda73d88..1aaf06df875b 100644
-> > > > > --- a/drivers/gpu/drm/panthor/panthor_device.h
-> > > > > +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> > > > > @@ -672,6 +672,7 @@ static inline void panthor_irq_disable_events=
-(struct panthor_irq *pirq, u32 mask
-> > > > >  static inline int
-> > > > >  panthor_irq_request(struct panthor_device *ptdev, struct panthor=
-_irq *pirq,
-> > > > >                     int irq, u32 mask, void __iomem *iomem, const=
- char *name,
-> > > > > +                   irqreturn_t (*raw_handler)(int, void *data),
-> > > > >                     irqreturn_t (*threaded_handler)(int, void *da=
-ta))
-> > > > >  {
-> > > > >         const char *full_name;
-> > > > > @@ -687,9 +688,13 @@ panthor_irq_request(struct panthor_device *p=
-tdev, struct panthor_irq *pirq,
-> > > > >                 return -ENOMEM;
-> > > > >
-> > > > >         panthor_irq_resume(pirq);
-> > > > > -       return devm_request_threaded_irq(ptdev->base.dev, irq,
-> > > > > -                                        panthor_irq_default_raw_=
-handler,
-> > > > > -                                        threaded_handler,
-> > > > > +
-> > > > > +       if (!threaded_handler) {
-> > > > > +               return devm_request_irq(ptdev->base.dev, irq, raw=
-_handler,
-> > > > > +                                       IRQF_SHARED, full_name, p=
-irq);
-> > > > > +       }
-> > > > devm_request_irq expands to devm_request_threaded_irq plus
-> > > > IRQF_COND_ONESHOT. This appears redundant.
-> > >
-> > > I considered going for devm_request_threaded_irq(COND_ONESHOT), but I
-> > > thought it was easier to reason about with a regular devm_request_irq=
-()
-> > > and an extra conditional since request_irq() is what people tend
-> > > to use when they just have a hard handler (see [1], there's just one
-> > > driver using it, and it's not even needed, because it's calling
-> > > devm_request_irq() which adds this flag already)
-> > It is unclear to me why the current version wants IRQF_COND_ONESHOT in
-> > one case but not in another. Can't we call devm_request_threaded_irq
-> > without IRQF_COND_ONESHOT for both cases?
->
-> Hm, I thought this had to do with the automatic hard -> threaded
-> downgrade happening when RT is enabled, but I fail to see why it
-> matters, since all irqaction end up with IRQF_ONESHOT in that case
-> anyway. Honestly, I'm tempted to stay on the safe side, and have
-> devm_request_irq() called when we just have a hard handler, because I'm
-> sure there's a reason for this COND_ONESHOT flag.
-Sounds good. Feel free to add Reviewed-by: Chia-I Wu <olvaffe@gmail.com>.
+Unlike the USB-C AltMode handling and unlike the DP controller handling
+the HPD on its own, if the display-connector is being used to handle the
+HPD pin, DP controller might not be able to get either the HPD
+notification nor detect the cable state if the cable is plugged in
+before the system has booted.
 
-FWIW, I think this commit explains the motivation
+Make the display-connector send the HPD notifications during system
+startup for DisplayPort connectors.
 
-  commit c37927a203fa283950f6045602b9f71328ad786c
-  Author: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Date:   Thu Jul 11 12:20:04 2024 +0200
+It's typically not a problem for other types of display connectors since
+there is no special procedure to detect if the monitor is actually
+plugged in or not.
 
-      genirq: Set IRQF_COND_ONESHOT in request_irq()
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Changes in v2:
+- Expanded commit message, explaining difference from HDMI (Laurent)
+- Link to v1: https://lore.kernel.org/r/20260314-dp-connector-hpd-v1-0-786044cedc17@oss.qualcomm.com
 
-      The callers of request_irq() don't care about IRQF_ONESHOT because th=
-ey
-      don't provide threaded handlers, but if they happen to share the IRQ =
-with
-      the ACPI SCI, which has a threaded handler and sets IRQF_ONESHOT,
-      request_irq() will fail for them due to a flags mismatch.
+---
+Dmitry Baryshkov (2):
+      drm/bridge: display-connector: don't autoenable HPD IRQ
+      drm/bridge: display-connector: trigger initial HPD event for DP
 
-For panthor, my takeaway is we either care about flag mismatch (then
-we should set IRQF_COND_ONESHOT for the threaded case) or we don't
-(then we don't need to use devm_request_irq).
+ drivers/gpu/drm/bridge/display-connector.c | 36 ++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260314-dp-connector-hpd-f069e66bc6af
+
+Best regards,
+--  
+With best wishes
+Dmitry
+
