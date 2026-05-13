@@ -4,51 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CEFACD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 05:44:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D264CD37B6
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 06:12:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F095C10E0DF;
-	Wed, 13 May 2026 05:44:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A75C910E5B9;
+	Wed, 13 May 2026 06:12:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Xq6EiZel";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ek3yxEEQ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 699C510E0DF
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 05:44:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=x2lKY4wJSpV+yjTVpftwnbYTUZiIdkRcxob60Au7oEk=; b=Xq6EiZel8nbeFoef1OgrBkSShK
- smpYpPdjR0GICkYTt7ejafjX2vURrIJzwpTJ8WU2HhUuW29NDCZzRyul3RpQiEKLzYm8UVtiaReV+
- CKAWWPggmoxmAKxmk677umKw42dwiMwY0BIoyurFjubJwge99iMCm4y2GMmErKFJlAFPMzeEQ7sX7
- lKK1mTYTIrtTdNl2sVX/shrLWN7pHz37w8JOtbkQ1Dpp49Yw3Gq863tX8J2jTlddCV738q9d1C7g3
- XYu3s3HtroMJctVY65bRn0WvPnc67BbXr0xYcNEBkQMw3scX/6ojRXneCaXhhOV4TIKyF4NmUw2Pz
- rAXoQagg==;
-Received: from static-197-2-86-188.ipcom.comunitel.net ([188.86.2.197]
- helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wN2O6-009oLs-8s; Wed, 13 May 2026 07:44:06 +0200
-Message-ID: <f485f5b5fb06053fd383fd31b99f95d2e6fe25c5.camel@igalia.com>
-Subject: Re: [PATCH 1/2] drm/v3d: Refactor perfmon locking
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Date: Wed, 13 May 2026 07:43:55 +0200
-In-Reply-To: <93a2cb1e-3907-4aae-833e-15d0cbbbf255@igalia.com>
-References: <20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com>
- <20260508-v3d-perfmon-lifetime-v1-1-f5b5642c085f@igalia.com>
- <7afa2b5b743d76f6f9ddf4bf58997e2ac178a0ba.camel@igalia.com>
- <93a2cb1e-3907-4aae-833e-15d0cbbbf255@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D9EE10E5B9;
+ Wed, 13 May 2026 06:12:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778652761; x=1810188761;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=OPkMkAq3Vt4D5HP6HHu2QZmLTQ2yNtGT2h/4iX1OVCk=;
+ b=ek3yxEEQnK3We9hdYqHJA8+r4CRF7uxGMvGwoXUKudXqBK4zi9XbqR0H
+ bAHa0gBXBuJDjvJ5Q6EzDUlYgr1p4+ULkhiLnmyn5usPGGdgtUVv/iyky
+ YwuTFChuGo2pNzJbzcotfMgTjzYZ7FTW7u+JtcIugluJAH0uQGQ2utUkQ
+ Z+IHRX7Y5CkLrspqU+iNG9crHO6wEt5MB4rHaGuQoCUW7xaeq/zRNHJAn
+ L6tbg6J3J/ZKmdiMWxlQhsqyoy+kMK0HpaOPEekH3zGp8hlPNzVHRyFsC
+ 4SuJsOVhOFuN0G96OPidxbU9fhNTJBIGvc0JSqa/SzCbo5qepIgVeP1yH Q==;
+X-CSE-ConnectionGUID: GSlKrztqSlaVwasoNhw/Uw==
+X-CSE-MsgGUID: cg935qKlRvSgfM6f9iyXBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="82140627"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="82140627"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 23:12:41 -0700
+X-CSE-ConnectionGUID: pqJwWXPsStqD1mkHu0/tWg==
+X-CSE-MsgGUID: /9iG0Hx1S6yY/5vviuDzhA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="231599572"
+Received: from igk-lkp-server01.igk.intel.com (HELO bdf09bfdbd5f)
+ ([10.211.93.152])
+ by fmviesa009.fm.intel.com with ESMTP; 12 May 2026 23:12:38 -0700
+Received: from kbuild by bdf09bfdbd5f with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wN2pg-000000008UD-29dc;
+ Wed, 13 May 2026 06:12:36 +0000
+Date: Wed, 13 May 2026 08:12:04 +0200
+From: kernel test robot <lkp@intel.com>
+To: Andre Jun Hirata <andrejhirata@usp.br>, kenneth.feng@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ gabriel.dimant@usp.br, guilhermesangabriel@usp.br,
+ Andre Jun Hirata <andrejhirata@usp.br>
+Subject: Re: [PATCH v5] drm/amd/pm: Use guard(mutex) instead of manual
+ lock+unlock
+Message-ID: <202605130808.IJrao3wX-lkp@intel.com>
+References: <20260508230312.6108-1-andrejhirata@usp.br>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260508230312.6108-1-andrejhirata@usp.br>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,133 +76,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-El mar, 12-05-2026 a las 07:55 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> Hi Iago,
->=20
-> On 12/05/26 05:20, Iago Toral wrote:
-> > El vie, 08-05-2026 a las 10:41 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> > >=20
-> > (...)
-> > > +void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon
-> > > *perfmon)
-> > > +{
-> > > +	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
-> > > +
-> > > +	perfmon =3D v3d->global_perfmon ?: perfmon;
-> > > +
-> >=20
-> >=20
-> > What's the rationale for having this function do this? The caller
-> > explicitly passes a perfmon to be started, but this here can ignore
-> > that and instead act on the global perform under the hood.
->=20
-> v3d_perfmon_start() is called in 3 different places: the run_job()
-> callback for BIN, RENDER, and CSD jobs. If the global perfmon is
-> enabled
-> at submission time, we can assure that the job perfmon is NULL.
-> However,
-> if a global perfmon is set in between the submit ioctl and the job
-> actual execution, we give preference to the global perfmon and new
-> submissions will be rejected with per-job perfmons while the global
-> perfmon is set.
+Hi Andre,
 
-So if we choose the global perfmon here, does that mean the current job
-will fail early and won't be submitted?
+kernel test robot noticed the following build errors:
 
-Also, what would happen if we choose the job's perfmon over the global
-perfmon instead? I understand the implication would be that the global
-perfmon would have to wait for the next job without a perfmon to be
-started but things would otherwise work correctly?
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on next-20260508]
+[cannot apply to linus/master v6.16-rc1]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> >=20
-> > I think it would be better if this decision is made expicitly
-> > before
-> > calling the function and have the function always act on the
-> > perfmon
-> > requested instead.
-> >=20
->=20
-> I believe this would lead to code duplication as this function is
-> called
-> in multiple places. Also, this would mean that we would need to
-> transfer
-> the global perfmon logic to all run_job() callbacks. Also note that
-> we
-> can only access the v3d->global_perfmon with the spinlock locked, so
-> we
-> would need to open-code the locking in all run_job() callbacks.
->=20
+url:    https://github.com/intel-lab-lkp/linux/commits/Andre-Jun-Hirata/drm-amd-pm-Use-guard-mutex-instead-of-manual-lock-unlock/20260513-040937
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260508230312.6108-1-andrejhirata%40usp.br
+patch subject: [PATCH v5] drm/amd/pm: Use guard(mutex) instead of manual lock+unlock
+config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20260513/202605130808.IJrao3wX-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+rustc: rustc 1.88.0 (6b00bc388 2025-06-23)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260513/202605130808.IJrao3wX-lkp@intel.com/reproduce)
 
-Right, we definitely want to avoid that.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605130808.IJrao3wX-lkp@intel.com/
 
-Iago
+All errors (new ones prefixed by >>):
 
-> >=20
-> > > +	if (!perfmon)
-> > > +		return;
-> > > +
-> > > +	if (perfmon =3D=3D v3d->perfmon_state.active)
-> > > +		return;
-> > > +
-> > > +	if (!pm_runtime_get_if_active(v3d->drm.dev))
-> > > +		return;
-> > > +
-> > > +	v3d_perfmon_hw_start(v3d, perfmon);
-> > > +	v3d->perfmon_state.active =3D perfmon;
-> > > +
-> > > +	v3d_pm_runtime_put(v3d);
-> > > +}
-> > > +
-> > >=20
-> > (...)
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0struct v3d_perfmon *v3d_perfmon_find(struct v3d_file_priv
-> > > *v3d_priv,
-> > > int id)
-> > > @@ -316,11 +354,15 @@ static void v3d_perfmon_delete(struct
-> > > v3d_file_priv *v3d_priv,
-> > > =C2=A0=C2=A0	struct v3d_dev *v3d =3D v3d_priv->v3d;
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	/* If the active perfmon is being destroyed, stop it
-> > > first
-> > > */
-> > > -	if (perfmon =3D=3D v3d->active_perfmon)
-> > > -		v3d_perfmon_stop(v3d, perfmon, false);
-> > > +	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock)
-> > > {
-> > > +		/* If the global perfmon is being destroyed, set
-> > > it
-> > > to NULL */
-> > > +		if (v3d->global_perfmon =3D=3D perfmon) {
-> > > +			v3d->global_perfmon =3D NULL;
-> > > +			v3d_perfmon_put(perfmon);
-> > > +		}
-> > > =C2=A0=20
-> > > -	/* If the global perfmon is being destroyed, set it to
-> > > NULL
-> > > */
-> > > -	cmpxchg(&v3d->global_perfmon, perfmon, NULL);
-> > > +		v3d_perfmon_stop_locked(v3d, perfmon, false);
-> >=20
-> > I think it would be better to stop the perfmon first and check if
-> > it is
-> > global second, even if we are certain the put above is never going
-> > to
-> > delete the last reference in that scenario.
-> >=20
-> > Also, maybe we would want to document here with a comment that we
-> > increase the refcnt when we set a global perfmon, which is why in
-> > that
-> > case we put it twice when it is destroyed.
->=20
-> Ack. I'll address it in v2. Thanks for your review!
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
-> >=20
-> > Iago
-> >=20
->=20
->=20
+>> drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm.c:247:40: error: expected ';' after return statement
+     247 |         return smu_mode1_reset_is_support(smu)
+         |                                               ^
+         |                                               ;
+   drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm.c:833:24: warning: unused variable 'vstate' [-Wunused-variable]
+     833 |         struct amd_vce_state *vstate = NULL;
+         |                               ^~~~~~
+   1 warning and 1 error generated.
 
+
+vim +247 drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm.c
+
+   238	
+   239	bool amdgpu_dpm_is_mode1_reset_supported(struct amdgpu_device *adev)
+   240	{
+   241		struct smu_context *smu = adev->powerplay.pp_handle;
+   242	
+   243		if (!is_support_sw_smu(adev))
+   244			return false;
+   245	
+   246		guard(mutex)(&adev->pm.mutex);
+ > 247		return smu_mode1_reset_is_support(smu)
+   248	}
+   249	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
