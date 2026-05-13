@@ -4,134 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57E81CD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:28:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F87CD4F21
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:29:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C7C10E5AE;
-	Wed, 13 May 2026 13:28:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E33B510EE72;
+	Wed, 13 May 2026 13:29:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ST+bNA2j";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jZKBCnAo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B5nAHTde";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 103AC10E5AE
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:28:26 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64DAST4x2338913
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:28:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=AFxNdVHWMzpghmBXs03WQEOs
- xxoCzZKFXvjRC5q0MAw=; b=ST+bNA2jVi/xhlG0SedFvO+P9Dtw7ut1XfAvGvdD
- r96ild2g809cZchhKiwfolSiEp0TfztWcnD5HRdCLPnhiBGh0wWibjpnt7kfrf2L
- NC+5VoesacJJR02Ll6Syr3BNXYNgvgo19URCyE+l/DR8IfQNrW/S5Xrr42HQGkXw
- ot0dFLWwrG0NGnxaO9xExuBQb6DYQ0y+NPQiqsTUeHxJek/0Y0bjTH+gCTft6uEC
- 6BbfSjnBuUHQvuG0NRyMDegwc0SJkCdN3hlzqGXYyf8ZaVIIc8Al1a6pHx8QV2uw
- 9iFO2k2a2nqYtxs5efGG7Inx6f0RjdeKhTm8ZhVVziyasA==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e49vxbm5c-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:28:26 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id
- a1e0cc1a2514c-9569b029e1cso4350173241.1
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 06:28:26 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACAB510EE72
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:29:13 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-488b3f8fa2bso73856875e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 06:29:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778678905; x=1779283705;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=AFxNdVHWMzpghmBXs03WQEOsxxoCzZKFXvjRC5q0MAw=;
- b=jZKBCnAo3IhAJTajLnqbBRKIVoxOI3YHs6JvgsRtfVMLPEt7Wytyr7s7ihFPRNUYI2
- HT83JbgARN8xeZAX8uiHo8q7mXOreN2E6mSBlyUUHJBzd9oX/KezDJbYk4aKWsHG/DEh
- azl7XoA75+sHsEDHk2E/zMhDxnHEZIozOJd+mSxeEUrl6ZJfgcfHANqDRcY2jl5qcicx
- QPncNMcmLAoYKjgVLPK60EzjWYMcBxbLpt0rheAmzYoDYJ6/kZjGA73hfZWRVQ7Z+3EA
- hU+Ckg9KOvAyH4mztUSckMiwmDHOyC22q1XepaeiUW71YjbYc5vF0nQkfRsNC5LZwmht
- 85eA==
+ d=gmail.com; s=20251104; t=1778678952; x=1779283752; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+cq+23+E96HQoAhwgeeSJr3+OJ8IJX5BGImZhad/wV8=;
+ b=B5nAHTdeUAbI8ogLmrOIavJLwK7cjxOsLJ3tNQcqsmHZUWat5T19BdnpJc4jW2P/8G
+ l9pNQNXkkRaYNP2YtWVnpfxEhh3p1g5/9PUqfWe/XQqoSuluJYTrQIbfEvmsQDByxVzX
+ 3y49gzOslmzX5i8+O7JFyLY8glKviDvKc+FI1xK2uzYdR+r8Ihrq2lfmQy3ltJM6RNti
+ 9w/Zqcw7VXrjHA4iUxDtPWaqdWSjicE04HIUeO7cTS9fZvVoDfn6NGYXGmHSTDTXRoAI
+ ABV7QNeNzXv5JlCwgAqLaXCIOAaIjtt0f+4IY7ibGsuLlL2p7Fl2ZG6fGejfMUd3TX9D
+ wfPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778678905; x=1779283705;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=AFxNdVHWMzpghmBXs03WQEOsxxoCzZKFXvjRC5q0MAw=;
- b=VVVarvBog2lfIJNWRzPOjcrGIehRL6vl2L4AtmzLP/X+dHYsumLI1la188DvQWW0X1
- dGIbN6KhWiHKN+LF2StLT7VdSTvH7ith52nCauB13VRS5Ff6RGrQXiAgEI8lKWkHMQQ0
- Oei+w9IMEg/yTAX7d0z01xC+o4lhwuD6Sm+RHHgEH7anBXddt1irFk3TXdB1+Y7E9GRM
- QvXYY8Q3+s1CVSi2wBt8lzR9i5Z+zqURhRnVOsM9h8NUQV49mJ88IS+h8ui7SfxUFPbB
- se/+0C8HOZn5Jx1GwKvAqjdrkJx+EUu8y8eN0FP6os8l5vpxzlX0ajSLT8hBTfs08SFJ
- Q5vA==
+ d=1e100.net; s=20251104; t=1778678952; x=1779283752;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+cq+23+E96HQoAhwgeeSJr3+OJ8IJX5BGImZhad/wV8=;
+ b=JYg96CPzbyfTGDoWRxsZ1J7LH56jeTwO1Oe3yGORiwDrXmhJK/uiMS35VOF2sOypNl
+ eWCzkbL+65nLDhb8gSnjjDb4E0wRUSX2uyEDJdn7tXYStxUFzxpDp10NA0YbOJlNUtUZ
+ kEkmRhjXSA805WPn9le+eDyKIyiNiflm9sBcGx28vWqkp6kO1Xxh+BVRXqhcFWJYxbnH
+ v6fiZMhutt4eeqXrvOP1iDtDl3Zhgs8ikW+CMTCY286RJ6zl1hut3PLjBEX6+8e4Hopq
+ LyUGQaxkUyorjTeUl4W276N7ZC9bDNzYK83+pU70nZdQTksXm/o2aaaT1ZjjuGCnGeVF
+ RP1Q==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8iWJAgIJT3IukMsnxfBf1gBfPjlmz8ZVfx5I75v1L6MrQiDwbD/T6hlQHaZPkc42hvrvdz7ukk8ZI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YztOUY4bJ+uLIlIK7J7QoX5Tp+REHDOqjXm+jYGT2OOdDkDRlU6
- h81/EN8UkCbeUzTjqF9TMI9lRDwfh6NQAfggILO6f6Nygb9BT21JBiVY1znppMbMBSK2chJM0PQ
- 6Tua9BAVhR+Ii3+CZ+8MkRf6wkV3YKjNSVtdjTe0ZT4gbVHrUXyYEb544mdZsFlSHrJ+r8uo=
-X-Gm-Gg: Acq92OFGKTRkMeG3jIAtxLorgq2+xyx5oWZYOKuQbr66VS3eeDfFVGNfMMYy5ECIH9M
- L4mVDGU8UvQJaYLFBu16onTleQlXJyKvO1py8aqKOGJ/ozRvsFeqnFJYvDVI+wEP8wY5bUgw0QP
- QfWPJ8Szel3hkHESNqwHA6kIvglVrMTnPmDiJcJbee61y1tHfVEtMv5hNfUuuDt/fve5vMhND1E
- CIcZgJztM4Sg1H5GSslrXxCMulcchOQINOt3P3GA1aFuaca+cn/v7jsa40FA/YLIkDz4tithskE
- cUNl7FJ/E0lyMZuzSyrzzDCiFjhwD9Hg2pZUdpPeoiXvh6f8WJu+HUJye5SHySyrLYYAJDViyzN
- iL0X7j5K6h3ttKOPkPDg+xQE+wuCAzBz5bgwVnYemQ5ScYOTif2sn8ER193lX1t6s6VRnk6fRqQ
- vnOBTYAw3HOr2vnBdZbgKIniUnTiKCsvovZ9I=
-X-Received: by 2002:a05:6102:5a95:b0:634:16ce:aa3b with SMTP id
- ada2fe7eead31-637742471fcmr1355824137.15.1778678905460; 
- Wed, 13 May 2026 06:28:25 -0700 (PDT)
-X-Received: by 2002:a05:6102:5a95:b0:634:16ce:aa3b with SMTP id
- ada2fe7eead31-637742471fcmr1355799137.15.1778678904955; 
- Wed, 13 May 2026 06:28:24 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AFNElJ+lF7ljBY4xL/Q0wCbDPPWIJkxHxPljeVcjovEfOj8nSaecEyxEDNlvLaWkSifI8IXc7HdzqwFCO5g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcMr8uXokHor/xYsN3u2/rlIRJpcDfxHEYUFjvRFz0v2+8aHiq
+ AandWDLQfDP29zPMmPtdfxwNkVVtI+6MCpb6oqNPGoF1BGDNWTY4K67J
+X-Gm-Gg: Acq92OFipXkrJIkCZ8zqibSdFlFsr0ijFnlXzhbngXx79eUWYihbIMPFakb+06oRnlp
+ dANdJpuStXwN4X6gTs9BMtwdWjADnMSAyua3OzqIOyJsmJSLmFUrgTs9Erw6GNh1EMGNq/PcUCM
+ QvvGS+jY2nHsfd6gpAfWAMcyZvszMy2FWmVgdZdF2LjXRD10PosnxLF2WDUw69PuuZsdKOG+YEe
+ HpO1QlyHd3H8hNQ+kWe/s9+cVy8rx6iyvF3Glf63vuzx99RVxuqfvLfH/pBSpPXGTBAUHYpYYZN
+ siWlRFOiduM5ALWciQB0qgywCrnk9ig8auu84kelBC9lhjwwg1aOjapovXNCBnr9KY+LtHmo/lM
+ lIWzbZlK8l40oL36dDhtKVmRRI+xVHnZkdqDQ968Aaxy0I+0Md2gQCL+s5Pn3QIaKN6Mm4ch2QZ
+ a562i0jjuq4CRbKhTaywpjcPLf1SeW+roL2UupHmL7GXT34WX/8vIzMnSaaOX1
+X-Received: by 2002:a5d:591c:0:b0:446:708e:1e8d with SMTP id
+ ffacd0b85a97d-45ac4504a13mr9930360f8f.30.1778678951817; 
+ Wed, 13 May 2026 06:29:11 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a8a95661e0sm4037162e87.67.2026.05.13.06.28.23
+ ffacd0b85a97d-4549120ec0asm40068578f8f.17.2026.05.13.06.29.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 06:28:23 -0700 (PDT)
-Date: Wed, 13 May 2026 16:28:22 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dp: Skip push_idle in atomic_disable if display
- is not powered on
-Message-ID: <mnpara7zwt6ahqkb44mxjtengjodutek35dzax72xuf5i4puzd@tvxhgefvpdqk>
-References: <20260511-edp_suspend-v1-1-128555968d7c@oss.qualcomm.com>
+ Wed, 13 May 2026 06:29:11 -0700 (PDT)
+Date: Wed, 13 May 2026 14:29:09 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph
+ Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Andrew
+ Morton <akpm@linux-foundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, Nitesh
+ Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Anuj
+ Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v3 02/10] iov_iter: add iterator type for dmabuf maps
+Message-ID: <20260513142909.03ae6c2b@pumpkin>
+In-Reply-To: <20260513110557.705bdeed@pumpkin>
+References: <cover.1777475843.git.asml.silence@gmail.com>
+ <20a233d2f35274817aa643cc0fe113707eb47e72.1777475843.git.asml.silence@gmail.com>
+ <20260513110557.705bdeed@pumpkin>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260511-edp_suspend-v1-1-128555968d7c@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: leycreqf5kywSraP8CE3IHadzdkKAhq4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDEzOCBTYWx0ZWRfX8HTgabVEei65
- NIftOMIsuwYylSBfHD9kdUwy/f250cZwsJfJF5jYDBVh18kTaZNR7vA2Pws12wg+orC5PYfLFmb
- k5S15vqjbX7cyrBtS7xXVdRJ2iIXSfU2xpn8+LiqyxlVq/E9AIKDRk7qvTBs9Mzc1UWeJUhFnBf
- XbNhM4ZGoK1qT0j/1mwRUBcmj9aXgsWaALy/tHcR/GmQQuPSDoOAF2i5aPo6cBT/xbO6EIFHz29
- m3+/mm07ND7HIcje0B2MJIoavMlfdkLzoU0BWksyK0J562ouyhAl11IhMHHHsCCFMphoRZQMw1n
- 58odPbn2j1h3wHXRZpNBEt8xN2lR6n0dkZ2alOb8qY5sCeS8UKHzzrLwt17iWSMS7UZ2GEtVggp
- 3XEwQK1k0ThBkbDHisSxvnEplXZJnWUcUdajtpiwLkTI9AXS6nm16s8KBMDwufZUXOU/pwz0w+N
- mZ5aB6uII/X+SyVH0Aw==
-X-Proofpoint-GUID: leycreqf5kywSraP8CE3IHadzdkKAhq4
-X-Authority-Analysis: v=2.4 cv=A8Fc+aWG c=1 sm=1 tr=0 ts=6a047c7a cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=E4-49owyH1uc_qQ72ZoA:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-13_01,2026-05-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 impostorscore=0 bulkscore=0 phishscore=0
- clxscore=1015 priorityscore=1501 spamscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130138
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,60 +103,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 11, 2026 at 04:36:03PM +0800, Yongxing Mou wrote:
-> On eDP interfaces with no panel connected, panel-simple-dp-aux fails to
-> read DPCD over AUX during probe, leaving hpd_state at ST_DISCONNECTED.
-> msm_dp_bridge_atomic_enable() exits early as a result, so
+On Wed, 13 May 2026 11:05:57 +0100
+David Laight <david.laight.linux@gmail.com> wrote:
 
-Why is atomic_enable() called for disconnected bridge?
+...
+> > @@ -575,7 +575,8 @@ void iov_iter_advance(struct iov_iter *i, size_t size)
+> >  {
+> >  	if (unlikely(i->count < size))
+> >  		size = i->count;
+> > -	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i))) {
+> > +	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i)) ||
+> > +	    unlikely(iov_iter_is_dmabuf_map(i))) {  
+> 
+> 
+> Doesn't the extra check add more code to all the non-ubuf cases?
+> This could be fixed by either making iter_type a bitmask (with one bit set)
+> or writing an iter_is_one_of(i, ITER_xxx, ITER_yyy) define that uses
+> '(1 << i->iter_type) & ((1 << ITER_xxx) | ...)'
 
-> msm_dp_display_enable() is never called and power_on remains false with
-> link clocks never enabled.
-> 
-> During system suspend, drm_atomic_helper_suspend() still invokes
-> atomic_disable() for all registered bridges. The resulting write to
-> REG_DP_STATE_CTRL against an unpowered controller triggers a NoC slave
-> error, causing a fatal crash.
-> 
-> Guard push_idle with a power_on check to skip the register access when the
-> display was never enabled.
-> 
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+This seems to DTRT:
 
-Fixes?
+#define _ITER_IS_ONE_OF(iter, t1, t2, t3, t4, t5, t6, t7, t8, ...) \
+    ((1u << (iter)->iter_type) & ((1u << ITER_##t1) | (1u << ITER_##t2) | \
+        (1u << ITER_##t3) | (1u << ITER_##t4) | (1u << ITER_##t5) | \
+        (1u << ITER_##t6) | (1u << ITER_##t7) | (1u << ITER_##t8)))
+#define ITER_IS_ONE_OF(iter, t, ...) \
+    _ITER_IS_ONE_OF(iter, t, ## __VA_ARGS__, t, t, t, t, t, t, t)
 
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 1b3cbf4016ef..51b60eb9c2df 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1660,6 +1660,13 @@ void msm_dp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
->  
->  	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
->  
-> +	/*
-> +	 * push_idle accesses link registers which require link clocks to be on.
-> +	 * Skip if the display was never powered on (e.g. eDP with no panel).
-> +	 */
-> +	if (!dp->power_on)
-> +		return;
-> +
->  	msm_dp_ctrl_push_idle(msm_dp_display->ctrl);
->  }
->  
-> 
-> ---
-> base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
-> change-id: 20260511-edp_suspend-0e45d0110633
-> 
-> Best regards,
-> -- 
-> Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> 
+int foo(void *);
+int f(struct iov_iter *i)
+{
+    return ITER_IS_ONE_OF(i, UBUF, KVEC) ? foo(i) : 0;
+}
 
--- 
-With best wishes
-Dmitry
+See https://godbolt.org/z/sMz93zah1
+
+Pasting ITER_ on the front ensures the values are constants of the right type.
+OTOH it makes it harder to search for uses of each type.
+You could paste _ITER_ on the front, elsewhere define _ITER_ITER_UVEC
+to be ITER_UVEC (etc), and require the caller use the full name.
+
+-- David
