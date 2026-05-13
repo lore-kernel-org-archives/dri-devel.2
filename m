@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA5CCD343F
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 01:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34DC0CD343F
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 02:53:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D675010E2D0;
-	Wed, 13 May 2026 01:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A6F610E2DA;
+	Wed, 13 May 2026 02:53:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="imxPtnhJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SQ96snBU";
 	dkim-atps=neutral
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com
- [113.46.200.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B48510E2D0
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 01:49:28 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=1QPd0/wQRL2rpFFHXggBsfXQ3q5bbcdXUBEQwFMmobY=;
- b=imxPtnhJl4i9km34mrSU/FVG1amcCI38T36mo7t9LLstpZydxhK7KB1glydHi/bBXzTxSAAue
- 3/hqS6kWUqZmevDluMwfuIwdaAJ9hxBbKMwjwREu3LjCo414BQRw5ANwONpfB5FdMHRJt14nnNP
- gb/22009IDDfzp/PuEt2YL0=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
- by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4gFbm96x0BzmV9L;
- Wed, 13 May 2026 09:41:45 +0800 (CST)
-Received: from kwepemk500009.china.huawei.com (unknown [7.202.194.94])
- by mail.maildlp.com (Postfix) with ESMTPS id 0BE44402AB;
- Wed, 13 May 2026 09:49:24 +0800 (CST)
-Received: from [10.67.121.161] (10.67.121.161) by
- kwepemk500009.china.huawei.com (7.202.194.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Wed, 13 May 2026 09:49:23 +0800
-Message-ID: <d5b26695-f1fd-4cb6-8e19-201f689eceaf@huawei.com>
-Date: Wed, 13 May 2026 09:49:22 +0800
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7840810E2DA
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 02:53:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778640820; x=1810176820;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=gktVRTQwx0kuPYssen49JKdkggZ0ZSpaMiBgWqEuarg=;
+ b=SQ96snBUrXD4Qm7BG2LZW2Vl0qma1OO+TLRoMpJOLYrZM7KWWfeV8w9h
+ xvxNn8RP54z9SbZB+1lRSS1xena8MnVcWKskIC8+v5dolyb9gWQ6R3uN+
+ 7eHZEAxeGy3zLDtOnufyIwXKOTQzK4sq8I+F33XiinQVBxN2VQ6nWIOi3
+ ZJm3i7uRCDp3bF2CNx3jHjK627HVwC74zv/cWyUohKNGebqh1p3g6Qr+D
+ lOuJolMk8CARSmhS9atzd6muHgfTiWPtmtdwF98fMK++025TrzSLByWiR
+ OeC9lYBdgaMDGCm5LoGMaZs8WJk9NKgxDyoQ6xwx71RCFLY/ZWq1rZU2C w==;
+X-CSE-ConnectionGUID: XZBw45njQwWNOCcmLdCvQQ==
+X-CSE-MsgGUID: UM3Nq0klR5innyu/PexURA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="79738485"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="79738485"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 19:53:39 -0700
+X-CSE-ConnectionGUID: ZtxaRZz2TcOFTzfqBh/Dpg==
+X-CSE-MsgGUID: YNhP+ZQbRe2VbetB28kmwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="235282242"
+Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
+ by fmviesa008.fm.intel.com with ESMTP; 12 May 2026 19:53:36 -0700
+Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wMzj3-000000003G7-07sR;
+ Wed, 13 May 2026 02:53:33 +0000
+Date: Wed, 13 May 2026 10:52:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, linux@armlinux.org.uk,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/armada: fix device_node reference leak in
+ armada_lcd_bind()
+Message-ID: <202605131053.Tvq0phKC-lkp@intel.com>
+References: <20260509091821.963513-1-vulab@iscas.ac.cn>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] RDMA/mlx5: get tph for p2p access when registering
- dma-buf mr
-To: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
-CC: Bjorn Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
- <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
- <yishaih@nvidia.com>
-References: <20260512184755.4137227-1-zhipingz@meta.com>
- <20260512184755.4137227-3-zhipingz@meta.com>
-Content-Language: en-US
-From: fengchengwen <fengchengwen@huawei.com>
-In-Reply-To: <20260512184755.4137227-3-zhipingz@meta.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.67.121.161]
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk500009.china.huawei.com (7.202.194.94)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260509091821.963513-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,53 +73,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/13/2026 2:47 AM, Zhiping Zhang wrote:
-> Query dma-buf TPH metadata when registering a dma-buf MR for peer to
-> peer access and translate the raw steering tag into an mlx5 steering
-> tag index. Factor mlx5_st_alloc_index() so callers that already have a
-> raw steering tag can allocate the corresponding mlx5 index directly.
-> Keep the DMAH path as the first priority and only fall back to dma-buf
-> metadata when no DMAH is supplied.
-> 
-> Add pcie_tph_get_st_width() so the mlx5 IB driver can query the
-> device's negotiated ST width without poking pci_dev::tph_req_type
-> directly (that field is gated by CONFIG_PCIE_TPH and would otherwise
-> break !CONFIG_PCIE_TPH builds). Pass the width to the dma-buf
-> get_tph() callback so the exporter can return the value that matches
-> the consumer's capability.
+Hi Wentao,
 
-1\ Recommend the PCI/TPH modification be committed separately.
-2\ How about rename it to pcie_tph_enabled_req_type() ? so we could
-   use already defined macro:
-#define   PCI_TPH_REQ_DISABLE		0x0 /* No TPH requests allowed */
-#define   PCI_TPH_REQ_TPH_ONLY		0x1 /* TPH only requests allowed */
-#define   PCI_TPH_REQ_EXT_TPH		0x3 /* Extended TPH requests allowed */
+kernel test robot noticed the following build errors:
 
-> 
-> Pass the dma_buf pointer that the umem already resolved into
-> get_tph_mr_dmabuf() instead of re-resolving the user-supplied fd.
-> Re-resolving opens a TOCTOU where a concurrent dup2() can substitute a
-> different dma_buf between umem creation and TPH lookup.
-> 
-> Track the per-MR ownership of the allocated mlx5 ST index on
-> mlx5_ib_mr (dmabuf_st_index / dmabuf_st_owned) and release it once the
-> firmware mkey no longer references it. Both the cached path
-> (mlx5r_umr_revoke_mr_with_lock + ib_frmr_pool_push) and the
-> destroy_mkey path call mlx5_ib_mr_put_dmabuf_st() so the ST index does
-> not leak when the MR is reused from the FRMR pool.
-> 
-> Initialize ret in mlx5_st_create() so the cached steering-tag path
-> returns success cleanly under clang builds.
-> 
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> ---
->  drivers/infiniband/hw/mlx5/mlx5_ib.h          |  6 ++
->  drivers/infiniband/hw/mlx5/mr.c               | 72 ++++++++++++++++++-
->  .../net/ethernet/mellanox/mlx5/core/lib/st.c  | 27 ++++---
->  drivers/pci/tph.c                             | 20 ++++++
->  include/linux/mlx5/driver.h                   |  7 ++
->  include/linux/pci-tph.h                       |  2 +
->  6 files changed, 124 insertions(+), 10 deletions(-)
-> 
+[auto build test ERROR on daeinki-drm-exynos/exynos-drm-next]
+[also build test ERROR on drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master rmk-arm/drm-armada-devel v7.1-rc3 next-20260508]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-...
+url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-armada-fix-device_node-reference-leak-in-armada_lcd_bind/20260512-194755
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
+patch link:    https://lore.kernel.org/r/20260509091821.963513-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] drm/armada: fix device_node reference leak in armada_lcd_bind()
+config: arm-randconfig-003-20260512 (https://download.01.org/0day-ci/archive/20260513/202605131053.Tvq0phKC-lkp@intel.com/config)
+compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 5bac06718f502014fade905512f1d26d578a18f3)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260513/202605131053.Tvq0phKC-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605131053.Tvq0phKC-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/armada/armada_crtc.c:1039:2: error: use of undeclared identifier 'ret'; did you mean 'res'?
+    1039 |         ret = armada_drm_crtc_create(drm, dev, res, irq, variant, port);
+         |         ^~~
+         |         res
+   drivers/gpu/drm/armada/armada_crtc.c:1013:19: note: 'res' declared here
+    1013 |         struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+         |                          ^
+>> drivers/gpu/drm/armada/armada_crtc.c:1039:6: error: incompatible integer to pointer conversion assigning to 'struct resource *' from 'int' [-Wint-conversion]
+    1039 |         ret = armada_drm_crtc_create(drm, dev, res, irq, variant, port);
+         |             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/armada/armada_crtc.c:1040:6: error: use of undeclared identifier 'ret'; did you mean 'res'?
+    1040 |         if (ret)
+         |             ^~~
+         |             res
+   drivers/gpu/drm/armada/armada_crtc.c:1013:19: note: 'res' declared here
+    1013 |         struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+         |                          ^
+   drivers/gpu/drm/armada/armada_crtc.c:1042:9: error: use of undeclared identifier 'ret'; did you mean 'res'?
+    1042 |         return ret;
+         |                ^~~
+         |                res
+   drivers/gpu/drm/armada/armada_crtc.c:1013:19: note: 'res' declared here
+    1013 |         struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+         |                          ^
+>> drivers/gpu/drm/armada/armada_crtc.c:1042:9: error: incompatible pointer to integer conversion returning 'struct resource *' from a function with result type 'int' [-Wint-conversion]
+    1042 |         return ret;
+         |                ^~~
+   5 errors generated.
+
+
+vim +1039 drivers/gpu/drm/armada/armada_crtc.c
+
+  1007	
+  1008	static int
+  1009	armada_lcd_bind(struct device *dev, struct device *master, void *data)
+  1010	{
+  1011		struct platform_device *pdev = to_platform_device(dev);
+  1012		struct drm_device *drm = data;
+  1013		struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+  1014		int irq = platform_get_irq(pdev, 0);
+  1015		const struct armada_variant *variant;
+  1016		struct device_node *port = NULL;
+  1017		struct device_node *np, *parent = dev->of_node;
+  1018	
+  1019		if (irq < 0)
+  1020			return irq;
+  1021	
+  1022	
+  1023		variant = device_get_match_data(dev);
+  1024		if (!variant)
+  1025			return -ENXIO;
+  1026	
+  1027		if (parent) {
+  1028			np = of_get_child_by_name(parent, "ports");
+  1029			if (np)
+  1030				parent = np;
+  1031			port = of_get_child_by_name(parent, "port");
+  1032			of_node_put(np);
+  1033			if (!port) {
+  1034				dev_err(dev, "no port node found in %pOF\n", parent);
+  1035				return -ENXIO;
+  1036			}
+  1037		}
+  1038	
+> 1039		ret = armada_drm_crtc_create(drm, dev, res, irq, variant, port);
+  1040		if (ret)
+  1041			of_node_put(port);
+> 1042		return ret;
+  1043	}
+  1044	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
