@@ -4,89 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1CFCD4F24
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:06:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C307CCD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:24:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E72C10E5BF;
-	Wed, 13 May 2026 10:06:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0744D10E2F7;
+	Wed, 13 May 2026 10:24:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gNQLUOOi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jNA1jK3r";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7D1E10E5BF
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:06:02 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-bd21ffaca79so379740966b.0
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 03:06:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778666761; x=1779271561; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Y8agHE2UtR+0v8hUNRpGN3/NHmgQczj9TZKmKbKc+JU=;
- b=gNQLUOOiLIQwEBxLiDQJLc2/m4OXiQygE2gHYUoCnOiYBWVQqWmTCwLZQB7QK6VyAB
- a7Xy/nqleVqE5SmDOvNiH+2ahb0uskyg6m4Jd3cugiF/l1S0h2ls06sMqTHazmez0hxP
- uZ8eb1s13zO82MUYLi8qvh4D876EmRBwDqgzjkCtcz7pn6hNwfMNzoNTre2InRRxqmOe
- XDmhqE7g95PtnP3xf3z+E8084ki8QHCOThxou2b68uEKXfjR5P1ou0BiMbeeYf2TWjpd
- Xy2bCf6KzH1qauPR64qZfGKzs3rctEsQ0ULsCShOSTPidB25H0zh5LvEpBJuowVbsDGr
- ihTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778666761; x=1779271561;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Y8agHE2UtR+0v8hUNRpGN3/NHmgQczj9TZKmKbKc+JU=;
- b=H+HuJ+nBDmmLnYu7FY36xMGy+svDlCOsqnv0bJpMdgmlw3TIe1U/1TqSTKuSPeMHvb
- OekqM6Eeti8mZyHW3Keiv7fHtqAsVJtTGHMz1ctNyDyAcIrU/EqCQ2R5ShNA2BVzhfDZ
- SqnpcTkjDfA9hKmgFEvIxfWZ6UCwOXD2r0cHtyLX071WC+2rAk4JaBtozI09OGCnymz8
- nLh7bK6k4F470QLggllXGc1gHMr+dqZKJnCFPeDfhxU9ChjpPvKptu/NoOPjo4L48wNh
- 2m9AxEZKBmxh2qEvmPqne/JclEyYsuQ8jkQlCktgmMHBeCSvuxcj85ny850BIb4nXJQO
- 3IAA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+UQboDmTE7jD8yFZ7QGqUVUJ9+djzg0D0vmcSCb8oHTK53megVqTJ1oBJ71OFhgazKG9DqpeJpzpQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxg4efvGQKsnJj3mN7I9n3At6oTlw4MUaKIE8+bvwUaEbJQcrUi
- 4wsUH4MJEZKZhGwVyz3MuSfiZt8avwD+wHsJ5C/88PB3KQdm1Nx0HANh
-X-Gm-Gg: Acq92OHmB01ZxX9x4seZgRgGoIl6WlHHiLnbsrfJmKJjGqTRd7sOzujmHUJ2BzuIwDa
- 9tg6LXA52cyIbH2zL/G4GKhbwl+aikZJ3FojhiRQ9i67iafftYXBJP7jPwxBojVf925XaIUbCMq
- r0Qu2JlxG3kCPKzlBGZHOZD/4oXlq5DZS5VCZf35GvLNNDUojsyA2dk85NrlInM+8GkbPXXpIT/
- SHl2wHJQyazPR4I8O1T+M/eRQ3y0+abxSMq+QSVRHsdb3taoVv3+j5hHs6aizORevrQWq9H0kTc
- naQhF28bFT0HUxlijTyeUAWr0eubxlf7OsUO03LbiCkRNHkghI4iadoJ3SOOZYthMaOVNYcZRlp
- 7b9IKWJCdfXhxSGt7hfd6nlFnLsrbxNBl2e5WahjRpQuONiEDqQ4KUFi9pWMkJYYKu6pq9pFr0N
- 77R/cfC4Gu4V0JbKFXOTX2VgO+jE5klOcZ5SnZICYZdD90JYXWFZvtO4wisFUu
-X-Received: by 2002:a17:907:9493:b0:bc5:2352:555c with SMTP id
- a640c23a62f3a-bd3add39c4bmr174356866b.14.1778666759127; 
- Wed, 13 May 2026 03:05:59 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bd2dba8fd22sm216615666b.16.2026.05.13.03.05.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 03:05:58 -0700 (PDT)
-Date: Wed, 13 May 2026 11:05:57 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Pavel Begunkov <asml.silence@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph
- Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Andrew
- Morton <akpm@linux-foundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, Nitesh
- Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Anuj
- Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [PATCH v3 02/10] iov_iter: add iterator type for dmabuf maps
-Message-ID: <20260513110557.705bdeed@pumpkin>
-In-Reply-To: <20a233d2f35274817aa643cc0fe113707eb47e72.1777475843.git.asml.silence@gmail.com>
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <20a233d2f35274817aa643cc0fe113707eb47e72.1777475843.git.asml.silence@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54FB310E2F7;
+ Wed, 13 May 2026 10:24:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778667859; x=1810203859;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=4wefMVkZ2b1CWXY9jD02Xn87mvdkQbPY1jMc+Kksl2U=;
+ b=jNA1jK3rYq9OlXgXsq9xEGOfRAKk6WMfNi2+z0pK3M2y7GIshe/6b+6n
+ c14mhjjpQBhog8cFvHPByMWok5qTm8DAifp+7b3i5uzDPTvoVJQ4PJFwy
+ CX+HUEjXRv9ISoaqmAzrXPpwLiWZ3R2laWAJ9cOd4aA+/vNydqOuxKT/b
+ /VZW6/Tqf/hEkkLkIumOn6zuTPqpWXuiPzPryLf6Ody28+GprbSvnL1ig
+ 2HQhV7aYlkK8t/IF9TdM+ht7l90T4qTFsJXItvYe8NqFUVZuj10g+QGxc
+ qMtBDRfa/qku5+i3Q9R+22jpFuyb5eXPwdpdIjqEGVv9b+grgxME9lYOA g==;
+X-CSE-ConnectionGUID: ak6OBCN8SoSliL/7OMaMwg==
+X-CSE-MsgGUID: KWNvP5FIQL2/9MnWbB1F7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="102257683"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="102257683"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 03:24:19 -0700
+X-CSE-ConnectionGUID: w58b6nA/QrCbcOi/jOowPA==
+X-CSE-MsgGUID: 7zU/hjTiQMmeDGSx5RVxpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="242056400"
+Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
+ by orviesa003.jf.intel.com with ESMTP; 13 May 2026 03:24:17 -0700
+Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wN6lB-000000003v9-2N10;
+ Wed, 13 May 2026 10:24:13 +0000
+Date: Wed, 13 May 2026 18:24:00 +0800
+From: kernel test robot <lkp@intel.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Dave Airlie <airlied@redhat.com>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup
+ failure
+Message-ID: <202605131824.SbQ7agaE-lkp@intel.com>
+References: <20260511162443.24352-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260511162443.24352-1-thomas.hellstrom@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,162 +77,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 29 Apr 2026 16:25:48 +0100
-Pavel Begunkov <asml.silence@gmail.com> wrote:
+Hi Thomas,
 
-> Introduce a new iterator type for dmabuf maps. The map in an opaque
-> object with internals and format specific to the subsystem / driver, and
-> only it can use that subsystem / driver for issuing IO. The task of the
-> middle layers is to pass the map / iterator further down, maybe doing
-> basic splitting and length checking. The iterator can only be used by
-> operations of the file the associated map was created for.
-> 
-> Suggested-by: Keith Busch <kbusch@kernel.org>
-> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
-> ---
->  include/linux/uio.h | 11 +++++++++++
->  lib/iov_iter.c      | 29 +++++++++++++++++++++++------
->  2 files changed, 34 insertions(+), 6 deletions(-)
-> 
-> diff --git a/include/linux/uio.h b/include/linux/uio.h
-> index a9bc5b3067e3..75051aed70de 100644
-> --- a/include/linux/uio.h
-> +++ b/include/linux/uio.h
-> @@ -12,6 +12,7 @@
->  
->  struct page;
->  struct folio_queue;
-> +struct io_dmabuf_map;
->  
->  typedef unsigned int __bitwise iov_iter_extraction_t;
->  
-> @@ -29,6 +30,7 @@ enum iter_type {
->  	ITER_FOLIOQ,
->  	ITER_XARRAY,
->  	ITER_DISCARD,
-> +	ITER_DMABUF_MAP,
->  };
->  
->  #define ITER_SOURCE	1	// == WRITE
-> @@ -71,6 +73,7 @@ struct iov_iter {
->  				const struct folio_queue *folioq;
->  				struct xarray *xarray;
->  				void __user *ubuf;
-> +				struct io_dmabuf_map *dmabuf_map;
->  			};
->  			size_t count;
->  		};
-> @@ -155,6 +158,11 @@ static inline bool iov_iter_is_xarray(const struct iov_iter *i)
->  	return iov_iter_type(i) == ITER_XARRAY;
->  }
->  
-> +static inline bool iov_iter_is_dmabuf_map(const struct iov_iter *i)
-> +{
-> +	return iov_iter_type(i) == ITER_DMABUF_MAP;
-> +}
-> +
->  static inline unsigned char iov_iter_rw(const struct iov_iter *i)
->  {
->  	return i->data_source ? WRITE : READ;
-> @@ -300,6 +308,9 @@ void iov_iter_folio_queue(struct iov_iter *i, unsigned int direction,
->  			  unsigned int first_slot, unsigned int offset, size_t count);
->  void iov_iter_xarray(struct iov_iter *i, unsigned int direction, struct xarray *xarray,
->  		     loff_t start, size_t count);
-> +void iov_iter_dmabuf_map(struct iov_iter *i, unsigned int direction,
-> +			struct io_dmabuf_map *map,
-> +			loff_t off, size_t count);
->  ssize_t iov_iter_get_pages2(struct iov_iter *i, struct page **pages,
->  			size_t maxsize, unsigned maxpages, size_t *start);
->  ssize_t iov_iter_get_pages_alloc2(struct iov_iter *i, struct page ***pages,
-> diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-> index 243662af1af7..e2253684b991 100644
-> --- a/lib/iov_iter.c
-> +++ b/lib/iov_iter.c
-> @@ -575,7 +575,8 @@ void iov_iter_advance(struct iov_iter *i, size_t size)
->  {
->  	if (unlikely(i->count < size))
->  		size = i->count;
-> -	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i))) {
-> +	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i)) ||
-> +	    unlikely(iov_iter_is_dmabuf_map(i))) {
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v7.1-rc3 next-20260508]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Hellstr-m/drm-ttm-Fix-ttm_bo_shrink-infinite-LRU-walk-on-backup-failure/20260513-095356
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260511162443.24352-1-thomas.hellstrom%40linux.intel.com
+patch subject: [PATCH] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup failure
+config: x86_64-allmodconfig (https://download.01.org/0day-ci/archive/20260513/202605131824.SbQ7agaE-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260513/202605131824.SbQ7agaE-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605131824.SbQ7agaE-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/ttm/ttm_bo_util.c:1121:3: error: call to undeclared function 'ttm_resource_del_bulk_move_unevictable'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1121 |                 ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
+         |                 ^
+   drivers/gpu/drm/ttm/ttm_bo_util.c:1121:3: note: did you mean 'ttm_resource_del_bulk_move'?
+   include/drm/ttm/ttm_resource.h:449:6: note: 'ttm_resource_del_bulk_move' declared here
+     449 | void ttm_resource_del_bulk_move(struct ttm_resource *res,
+         |      ^
+   1 error generated.
 
 
-Doesn't the extra check add more code to all the non-ubuf cases?
-This could be fixed by either making iter_type a bitmask (with one bit set)
-or writing an iter_is_one_of(i, ITER_xxx, ITER_yyy) define that uses
-'(1 << i->iter_type) & ((1 << ITER_xxx) | ...)'
-(look at the the nolibc printf code for an example).
+vim +/ttm_resource_del_bulk_move_unevictable +1121 drivers/gpu/drm/ttm/ttm_bo_util.c
 
->  		i->iov_offset += size;
->  		i->count -= size;
->  	} else if (likely(iter_is_iovec(i) || iov_iter_is_kvec(i))) {
-> @@ -631,7 +632,8 @@ void iov_iter_revert(struct iov_iter *i, size_t unroll)
->  		return;
->  	}
->  	unroll -= i->iov_offset;
-> -	if (iov_iter_is_xarray(i) || iter_is_ubuf(i)) {
-> +	if (iov_iter_is_xarray(i) || iter_is_ubuf(i) ||
+  1067	
+  1068	/**
+  1069	 * ttm_bo_shrink() - Helper to shrink a ttm buffer object.
+  1070	 * @ctx: The struct ttm_operation_ctx used for the shrinking operation.
+  1071	 * @bo: The buffer object.
+  1072	 * @flags: Flags governing the shrinking behaviour.
+  1073	 *
+  1074	 * The function uses the ttm_tt_back_up functionality to back up or
+  1075	 * purge a struct ttm_tt. If the bo is not in system, it's first
+  1076	 * moved there.
+  1077	 *
+  1078	 * Return: The number of pages shrunken or purged, or
+  1079	 * negative error code on failure.
+  1080	 */
+  1081	long ttm_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
+  1082			   const struct ttm_bo_shrink_flags flags)
+  1083	{
+  1084		static const struct ttm_place sys_placement_flags = {
+  1085			.fpfn = 0,
+  1086			.lpfn = 0,
+  1087			.mem_type = TTM_PL_SYSTEM,
+  1088			.flags = 0,
+  1089		};
+  1090		static struct ttm_placement sys_placement = {
+  1091			.num_placement = 1,
+  1092			.placement = &sys_placement_flags,
+  1093		};
+  1094		struct ttm_device *bdev = bo->bdev;
+  1095		long lret;
+  1096	
+  1097		dma_resv_assert_held(bo->base.resv);
+  1098	
+  1099		if (flags.allow_move && bo->resource->mem_type != TTM_PL_SYSTEM) {
+  1100			int ret = ttm_bo_validate(bo, &sys_placement, ctx);
+  1101	
+  1102			/* Consider -ENOMEM and -ENOSPC non-fatal. */
+  1103			if (ret) {
+  1104				if (ret == -ENOMEM || ret == -ENOSPC)
+  1105					ret = -EBUSY;
+  1106				return ret;
+  1107			}
+  1108		}
+  1109	
+  1110		ttm_bo_unmap_virtual(bo);
+  1111		lret = ttm_bo_wait_ctx(bo, ctx);
+  1112		if (lret < 0)
+  1113			return lret;
+  1114	
+  1115		lret = ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
+  1116				     {.purge = flags.purge,
+  1117				      .writeback = flags.writeback});
+  1118	
+  1119		if (lret > 0) {
+  1120			spin_lock(&bdev->lru_lock);
+> 1121			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
+  1122			ttm_resource_move_to_lru_tail(bo->resource);
+  1123			spin_unlock(&bdev->lru_lock);
+  1124		}
+  1125	
+  1126		if (lret < 0 && lret != -EINTR)
+  1127			return -EBUSY;
+  1128	
+  1129		return lret;
+  1130	}
+  1131	EXPORT_SYMBOL(ttm_bo_shrink);
+  1132	
 
-iter_is_ubuf() should have been first here.
-
--- David
-
-> +	    iov_iter_is_dmabuf_map(i)) {
->  		BUG(); /* We should never go beyond the start of the specified
->  			* range since we might then be straying into pages that
->  			* aren't pinned.
-> @@ -775,6 +777,20 @@ void iov_iter_xarray(struct iov_iter *i, unsigned int direction,
->  }
->  EXPORT_SYMBOL(iov_iter_xarray);
->  
-> +void iov_iter_dmabuf_map(struct iov_iter *i, unsigned int direction,
-> +			 struct io_dmabuf_map *map,
-> +			 loff_t off, size_t count)
-> +{
-> +	WARN_ON(direction & ~(READ | WRITE));
-> +	*i = (struct iov_iter){
-> +		.iter_type = ITER_DMABUF_MAP,
-> +		.data_source = direction,
-> +		.dmabuf_map = map,
-> +		.count = count,
-> +		.iov_offset = off,
-> +	};
-> +}
-> +
->  /**
->   * iov_iter_discard - Initialise an I/O iterator that discards data
->   * @i: The iterator to initialise.
-> @@ -841,7 +857,7 @@ static unsigned long iov_iter_alignment_bvec(const struct iov_iter *i)
->  
->  unsigned long iov_iter_alignment(const struct iov_iter *i)
->  {
-> -	if (likely(iter_is_ubuf(i))) {
-> +	if (likely(iter_is_ubuf(i)) || iov_iter_is_dmabuf_map(i)) {
->  		size_t size = i->count;
->  		if (size)
->  			return ((unsigned long)i->ubuf + i->iov_offset) | size;
-> @@ -872,7 +888,7 @@ unsigned long iov_iter_gap_alignment(const struct iov_iter *i)
->  	size_t size = i->count;
->  	unsigned k;
->  
-> -	if (iter_is_ubuf(i))
-> +	if (iter_is_ubuf(i) || iov_iter_is_dmabuf_map(i))
->  		return 0;
->  
->  	if (WARN_ON(!iter_is_iovec(i)))
-> @@ -1469,11 +1485,12 @@ EXPORT_SYMBOL_GPL(import_ubuf);
->  void iov_iter_restore(struct iov_iter *i, struct iov_iter_state *state)
->  {
->  	if (WARN_ON_ONCE(!iov_iter_is_bvec(i) && !iter_is_iovec(i) &&
-> -			 !iter_is_ubuf(i)) && !iov_iter_is_kvec(i))
-> +			 !iter_is_ubuf(i) && !iov_iter_is_kvec(i) &&
-> +			 !iov_iter_is_dmabuf_map(i)))
->  		return;
->  	i->iov_offset = state->iov_offset;
->  	i->count = state->count;
-> -	if (iter_is_ubuf(i))
-> +	if (iter_is_ubuf(i) || iov_iter_is_dmabuf_map(i))
->  		return;
->  	/*
->  	 * For the *vec iters, nr_segs + iov is constant - if we increment
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
