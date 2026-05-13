@@ -4,79 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C7EFCD37B6
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D8C8CD4F35
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:53:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 621DC10EDE4;
-	Wed, 13 May 2026 10:37:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE1E10E440;
+	Wed, 13 May 2026 10:53:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Io6MBFJe";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hQDWnKQ+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F0B10E4F2;
- Wed, 13 May 2026 10:37:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778668631; x=1810204631;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=BxjfMH/H3au7DOcyqElNJ36t78ne1+5k8Gh44S/bASU=;
- b=Io6MBFJeq4hG5jpAIWIIBWuBGVPkNTs0Tvcvoi15CrdVEQjn7nG6f+n/
- 6W8PndAIAuWnqworsulSA0SD/QWOIRrR3jrW+781uUH1slp5Ebx4rHRqT
- fetfpWAm+CmiJYj+8brIAz8xSw6TL+KI3jMhbMkR1I8YGXZfw4O+wwSI1
- DsO7h51Pa2CoW3Nm5CKL9WORu3TvNgKgqqhwMMI9g0iul7pO01JyG4hQ2
- kXvSLz6FY/1Xw/N/pgZR+cYTRL+Mx4Rhdnjb1z2qaGX/aAB7TXjaBsB2n
- VL6qhz/RYeT+sQlX/BBIaNYo6/deIqXBZ8BsWprf6pRJy4GEToE6K7PNz Q==;
-X-CSE-ConnectionGUID: Rj8XZO7uQwSgH9i4q88SrQ==
-X-CSE-MsgGUID: 4MGGhPoyS7Oy4cBHxcIjiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="105051552"
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="105051552"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 03:37:10 -0700
-X-CSE-ConnectionGUID: tg4Gi978RJefcU6sBiWAiQ==
-X-CSE-MsgGUID: 7s6mhKSbQj2Zwhr+kHYyOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="242401523"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.49])
- ([10.245.244.49])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 03:37:05 -0700
-Message-ID: <c0b5b94dfb4d04a1319bfb110f326afd2c29d48b.camel@linux.intel.com>
-Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, intel-xe@lists.freedesktop.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes
- <ljs@kernel.org>,  "Liam R. Howlett"	 <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko	 <mhocko@suse.com>, Hugh Dickins
- <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Brendan
- Jackman <jackmanb@google.com>,  Johannes Weiner <hannes@cmpxchg.org>, Zi
- Yan <ziy@nvidia.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
- <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org
-Date: Wed, 13 May 2026 12:37:01 +0200
-In-Reply-To: <65596f86-e6a3-48b0-aa3d-2e608964e29d@kernel.org>
-References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
- <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
- <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
- <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
- <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
- <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
- <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
- <1ce447ceea88bbe56c7d28654a51fc2856a7f986.camel@linux.intel.com>
- <65596f86-e6a3-48b0-aa3d-2e608964e29d@kernel.org>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD4D110EE13
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:52:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=/pSI1JvO0NFLmL+d6/AnPZYeTz9myAsQ3W06SnQt04s=; b=hQDWnKQ+DRdL4dypozKArdfNLy
+ sBL+55lOKHzuh0p74lk302c/sRAWo+lAoDJ0YK2ewe9smdrXicSMpqj88p4orJ7Qv2Iv1bhr4w/dY
+ Oh+kQmlN4ibB2V5LEQPs2wUkmoqjT8rW+wDWgVoFB6GiR4akKcgfPildSNcrOtY9cMNwaDn8mjBQa
+ 2oxkpUz6BoKyxGOeAj94s9SXAGbW7CefGfQVavzfuEPVzi+N44jsDPmzPtf4wRx60XXKhsW7+tOHp
+ BJhcKGOKdGVXug53FznGZqOE8HHZ6MAcwLO833/rwQ60UvNTjrO82ykSaJVhdsgLWmCZ3gTZRc66F
+ xPg0nTng==;
+Received: from [189.7.87.67] (helo=[192.168.0.5])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wN7Cx-009vOX-8u; Wed, 13 May 2026 12:52:55 +0200
+Message-ID: <93753efc-ce02-4888-9e34-8b0f4cbfae08@igalia.com>
+Date: Wed, 13 May 2026 07:52:50 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/v3d: Refactor perfmon locking
+To: Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com>
+ <20260508-v3d-perfmon-lifetime-v1-1-f5b5642c085f@igalia.com>
+ <7afa2b5b743d76f6f9ddf4bf58997e2ac178a0ba.camel@igalia.com>
+ <93a2cb1e-3907-4aae-833e-15d0cbbbf255@igalia.com>
+ <f485f5b5fb06053fd383fd31b99f95d2e6fe25c5.camel@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <f485f5b5fb06053fd383fd31b99f95d2e6fe25c5.camel@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,121 +90,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-05-13 at 12:03 +0200, David Hildenbrand (Arm) wrote:
-> On 5/13/26 10:51, Thomas Hellstr=C3=B6m wrote:
-> > On Wed, 2026-05-13 at 10:37 +0200, David Hildenbrand (Arm) wrote:
-> > > On 5/13/26 09:47, Christian K=C3=B6nig wrote:
-> > > > Hi David & Thomas,
-> > > >=20
-> > > > ...
-> > > >=20
-> > > > Exactly that is one of the major reasons why we aren't using a
-> > > > shmem as backing store for TTM buffers in the first place.
-> > >=20
-> > > What was the problem with that the last time this was considered?
-> > >=20
-> > > shmem nowadays supports THP (e.g., 2M) and even mTHP (e.g., 64K).
-> > >=20
-> > > For internal mounts, it must be enabled accordingly
-> > > (/sys/kernel/mm/transparent_hugepage/.../shmem_enabled).
-> > >=20
-> > > Some distributions still default to "never". I guess if an admin
-> > > enables it, you
-> > > would just get THPs.
-> >=20
-> > FWIW, the i915 driver which uses shmem "natively" uses a special
-> > mount
-> > here that gives back THPs.
-> >=20
-> > >=20
-> > > If "distro default" is the only problem, I guess we could think
-> > > about
-> > > how to
-> > > improve that. For example, just let internal GPU DRM objects
-> > > allocate
-> > > any folio
-> > > size available and supported etc.
-> > >=20
-> > > Would that make it possible to just use shmem natively? (e.g.,
-> > > how
-> > > would this
-> > > interact with shmem features like folio migration, would that be
-> > > workable with
-> > > DRM objects?).
-> >=20
-> > Currently the drivers that use shmem in this way use
-> > "mapping_set_unevictable()" as long as the object is bound to the
-> > GPU.
-> > Then shrinkers can unbind from GPU and revert that setting.
->=20
-> Right, but mapping_set_unevictable() only affects folio_evictable() -
-> -reclaim
-> behavior. Not other properties (such as folio migration).
+Hi Iago,
 
-Interesting. Does that imply that a shmem folio can be replaced
-underneath without additional measures? It looks like most DRM
-call sites imply that mapping_set_unevictable() pins underlying shmem
-folios
+On 13/05/26 02:43, Iago Toral wrote:
+> El mar, 12-05-2026 a las 07:55 -0300, Maíra Canal escribió:
+>> Hi Iago,
+>>
+>> On 12/05/26 05:20, Iago Toral wrote:
+>>> El vie, 08-05-2026 a las 10:41 -0300, Maíra Canal escribió:
+>>>>
+>>> (...)
+>>>> +void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon
+>>>> *perfmon)
+>>>> +{
+>>>> +	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
+>>>> +
+>>>> +	perfmon = v3d->global_perfmon ?: perfmon;
+>>>> +
+>>>
+>>>
+>>> What's the rationale for having this function do this? The caller
+>>> explicitly passes a perfmon to be started, but this here can ignore
+>>> that and instead act on the global perform under the hood.
+>>
+>> v3d_perfmon_start() is called in 3 different places: the run_job()
+>> callback for BIN, RENDER, and CSD jobs. If the global perfmon is
+>> enabled
+>> at submission time, we can assure that the job perfmon is NULL.
+>> However,
+>> if a global perfmon is set in between the submit ioctl and the job
+>> actual execution, we give preference to the global perfmon and new
+>> submissions will be rejected with per-job perfmons while the global
+>> perfmon is set.
+> 
+> So if we choose the global perfmon here, does that mean the current job
+> will fail early and won't be submitted?
 
+If the global perfmon is set before attaching a job->perfmon in the
+submission ioctl, the submission ioctl will fail with -EAGAIN.
 
->=20
-> >=20
-> > The problem, (as also stated in the cover letter of this series) is
-> > for
-> > drivers that need to change caching of the pages to WC or UC.
->=20
-> I assume you mean "To be able to easily maintain pools of pages
-> mapped uncached
-> or write-combined".
->=20
+If the global perfmon is set after the submission ioctl succeed, but
+before the job actually start the execution, the current job will run
+normally with v3d->global_perfmon.
 
-Exactly.
+> 
+> Also, what would happen if we choose the job's perfmon over the global
+> perfmon instead? I understand the implication would be that the global
+> perfmon would have to wait for the next job without a perfmon to be
+> started but things would otherwise work correctly?
 
+As I write, I have the impression that the best solution would be
+starting the perfmon in the set_global_perfmon ioctl and stop it when
+clearing the global perfmon. Thinking right now, I'm under the
+impression this could simplify the code and ensure a more consistent
+behavior.
 
-> Can you point me at the code that changes the caching of the pages?
+Thanks for your feedback!
 
+Best regards,
+- Maíra
 
-
-x86 implementation is here:
-https://elixir.bootlin.com/linux/v7.1-rc3/source/arch/x86/mm/pat/set_memory=
-.c#L2556
-
-TTM calls it here:
-https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/gpu/drm/ttm/ttm_po=
-ol.c#L249
-
-And there are actually shmem helpers that do this as well, without
-pooling.
-https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/gpu/drm/drm_gem_sh=
-mem_helper.c#L212
-
-
->=20
-> > That's an
-> > extremely costly operation so TTM needs to pool such allocations.
-> > That's where using shmem natively becomes very ugly, because you
-> > can't
-> > really use a 1:1 mapping between shmem objects and DRM objects
-> > anymore.
->=20
-> So you would require different caching attributes within a DRM
-> object?
-
-The way the TTM pools work are that there are separate pools for each
-allocation order and caching modes. That would essentially mean
-allocations from a single shmem object would be spread out across
-different pools, and we'd loose the 1:1 mapping between DRM objects and
-shmem objects.
-
-One alternative would be a single large sparse shmem object common for
-all DRM objects, with a range allocator, but that also got pretty ugly
-when I tried to implement that.
-
-Finally, (and I think that might be what Christian was getting at as
-well) Without CONFIG_TRANSPARENT_HUGEPAGE, we'd only see order 0 shmem
-folios, right?
-
-Thanks,
-Thomas
-
+> 
+>>>
+>>> I think it would be better if this decision is made expicitly
+>>> before
+>>> calling the function and have the function always act on the
+>>> perfmon
+>>> requested instead.
+>>>
+>>
+>> I believe this would lead to code duplication as this function is
+>> called
+>> in multiple places. Also, this would mean that we would need to
+>> transfer
+>> the global perfmon logic to all run_job() callbacks. Also note that
+>> we
+>> can only access the v3d->global_perfmon with the spinlock locked, so
+>> we
+>> would need to open-code the locking in all run_job() callbacks.
+>>
+> 
+> Right, we definitely want to avoid that.
+> 
+> Iago
+> 
+>>>
+>>>> +	if (!perfmon)
+>>>> +		return;
+>>>> +
+>>>> +	if (perfmon == v3d->perfmon_state.active)
+>>>> +		return;
+>>>> +
+>>>> +	if (!pm_runtime_get_if_active(v3d->drm.dev))
+>>>> +		return;
+>>>> +
+>>>> +	v3d_perfmon_hw_start(v3d, perfmon);
+>>>> +	v3d->perfmon_state.active = perfmon;
+>>>> +
+>>>> +	v3d_pm_runtime_put(v3d);
+>>>> +}
+>>>> +
+>>>>
+>>> (...)
+>>>>    
+>>>>    struct v3d_perfmon *v3d_perfmon_find(struct v3d_file_priv
+>>>> *v3d_priv,
+>>>> int id)
+>>>> @@ -316,11 +354,15 @@ static void v3d_perfmon_delete(struct
+>>>> v3d_file_priv *v3d_priv,
+>>>>    	struct v3d_dev *v3d = v3d_priv->v3d;
+>>>>    
+>>>>    	/* If the active perfmon is being destroyed, stop it
+>>>> first
+>>>> */
+>>>> -	if (perfmon == v3d->active_perfmon)
+>>>> -		v3d_perfmon_stop(v3d, perfmon, false);
+>>>> +	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock)
+>>>> {
+>>>> +		/* If the global perfmon is being destroyed, set
+>>>> it
+>>>> to NULL */
+>>>> +		if (v3d->global_perfmon == perfmon) {
+>>>> +			v3d->global_perfmon = NULL;
+>>>> +			v3d_perfmon_put(perfmon);
+>>>> +		}
+>>>>    
+>>>> -	/* If the global perfmon is being destroyed, set it to
+>>>> NULL
+>>>> */
+>>>> -	cmpxchg(&v3d->global_perfmon, perfmon, NULL);
+>>>> +		v3d_perfmon_stop_locked(v3d, perfmon, false);
+>>>
+>>> I think it would be better to stop the perfmon first and check if
+>>> it is
+>>> global second, even if we are certain the put above is never going
+>>> to
+>>> delete the last reference in that scenario.
+>>>
+>>> Also, maybe we would want to document here with a comment that we
+>>> increase the refcnt when we set a global perfmon, which is why in
+>>> that
+>>> case we put it twice when it is destroyed.
+>>
+>> Ack. I'll address it in v2. Thanks for your review!
+>>
+>> Best regards,
+>> - Maíra
+>>
+>>>
+>>> Iago
+>>>
+>>
+>>
+> 
 
