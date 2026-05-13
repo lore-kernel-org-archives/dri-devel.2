@@ -4,54 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB50CCD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 15:15:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90C56CD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 15:18:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4491D10EF19;
-	Wed, 13 May 2026 15:15:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEFA810E5F5;
+	Wed, 13 May 2026 15:18:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XUTNBPXN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QDGdDD+S";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3324F10E5F5;
- Wed, 13 May 2026 15:15:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Vh4HQrQm9GFKlIqiEab4T+AecgO/Zv8btuEpFSr95JM=; b=XUTNBPXNa3nIuiuEdCgFxdz3AI
- dA09Cqi9ehi+zvOWoJ5l4dP3B0r4Dwnjl0JJDpkU7Ej0gJtS3wAkwNWprmqi7+/TAFDi2UEM4NSu4
- 60RZFSgj3EdACzTF6rYZEbP/rnZWptu/Foia12sDvVGJuTHvzivi72LBM+ZISMWFLGl9Fc5n2UFP0
- YXquL/S3iDjnqvbWR/Hz9KlcPBnj0CDUDEB1YhGNdMqz8gruL/52lKLlNJfWgYzT1SS2XX4XzBMnt
- XK4/wuDpbqI65gqBoFBwMKI7C7UQmnzs8G4sC0Nt+tAk5uusdMvRUKa4tY6F6yeNECH1jlTWaUL1C
- 5gK9vd/Q==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wNBIN-00A1It-Di; Wed, 13 May 2026 17:14:47 +0200
-Date: Wed, 13 May 2026 16:14:46 +0100
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-fixes
-Message-ID: <agSVZmNC_qV4G6jQ@linux>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86E3410E5F5;
+ Wed, 13 May 2026 15:18:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778685489; x=1810221489;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=1YfMie5J1UEzTeh7XuhTU4CGSXgkbVt7LBESRE3Xke8=;
+ b=QDGdDD+SRRuprQ4gfHZuQadqo+f4MfEXfSf2Uorfi0+RwIIs3SE219WH
+ AiHjOwPyHMNLucGA2r41idjigoEHntNmrUbAbNRu3+tFDSDL1fUZU8o1f
+ 1AKuDSW+a3Pw2wqvOvVObZxUCUwhG6YPSxLTwESHJXCfN6wBJTLRX1/h7
+ 4FbdoQM3FqFeJZEt5IUvWnDSpiGgbQtND3iD7hG/tsC3JNUWJ9dZ1Gkkw
+ 9NNJU+roOYSZxfSbUHMD9OPMO0tKkMD1Qbc0DAYPC565G1B73OUdnVtvg
+ mF7VFgP1JHf9Wn2q1Gdw9xKLycCEBCrtBY/c+shP8KuV1UjDYfRseaXP5 Q==;
+X-CSE-ConnectionGUID: Ze8sSk2hRIyiKO25RG5R0w==
+X-CSE-MsgGUID: FLIo8rhvQbennp3IYLfTqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79329385"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="79329385"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 08:18:08 -0700
+X-CSE-ConnectionGUID: e2r+19W2R3ezcAmiBFYMPg==
+X-CSE-MsgGUID: ZP8XX9mmRdmDbgLvXuyq/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="237131300"
+Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
+ by orviesa006-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 08:18:05 -0700
+Date: Wed, 13 May 2026 17:18:03 +0200
+From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: Re: [PATCH i-g-t 2/8] Adjust xe_cgroups test to use igt_dmem_driver
+Message-ID: <20260513151803.giwafssvrishv75p@kamilkon-DESK.igk.intel.com>
+Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+References: <20260512215156.4083082-1-cascardo@igalia.com>
+ <20260512215156.4083082-3-cascardo@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+In-Reply-To: <20260512215156.4083082-3-cascardo@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,40 +83,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Thadeu,
+On 2026-05-12 at 18:51:49 -0300, Thadeu Lima de Souza Cascardo wrote:
+> Using the driver should not have any functional changes.
+> 
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> ---
+>  tests/intel/xe_cgroups.c | 69 ++++++++--------------------------------
+>  1 file changed, 14 insertions(+), 55 deletions(-)
 
-Hi Dave, Sima,
+Instead of a change and in next patch a file rename,
+could you squash the two into one? Xe test is not merged yet.
 
-Two fixes this week. One for a rare race on the SandyBridge reset path and
-one to fix dynamic range setting on RGB formats over DisplayPort.
+Regards,
+Kamil
 
-Tvrtko
-
-drm-intel-fixes-2026-05-13:
-- Skip __i915_request_skip() for already signaled requests (Sebastian Brzezinka)
-- Fix VSC dynamic range signaling for RGB formats [dp] (Chaitanya Kumar Borah)
-The following changes since commit 5d6919055dec134de3c40167a490f33c74c12581:
-
-  Linux 7.1-rc3 (2026-05-10 14:08:09 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-05-13
-
-for you to fetch changes up to 1ae15b6c7965d137eef21f2cc7d367b29cb88369:
-
-  drm/i915/dp: Fix VSC dynamic range signaling for RGB formats (2026-05-12 08:05:24 +0100)
-
-----------------------------------------------------------------
-- Skip __i915_request_skip() for already signaled requests (Sebastian Brzezinka)
-- Fix VSC dynamic range signaling for RGB formats [dp] (Chaitanya Kumar Borah)
-
-----------------------------------------------------------------
-Chaitanya Kumar Borah (1):
-      drm/i915/dp: Fix VSC dynamic range signaling for RGB formats
-
-Sebastian Brzezinka (1):
-      drm/i915: skip __i915_request_skip() for already signaled requests
-
- drivers/gpu/drm/i915/display/intel_dp.c | 9 +++++++--
- drivers/gpu/drm/i915/gt/intel_reset.c   | 3 ++-
- 2 files changed, 9 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tests/intel/xe_cgroups.c b/tests/intel/xe_cgroups.c
+> index 08cf8e3bdc5b..9ff8d46570ab 100644
+> --- a/tests/intel/xe_cgroups.c
+> +++ b/tests/intel/xe_cgroups.c
+> @@ -25,6 +25,7 @@
+>  #include "igt.h"
+>  #include "igt_aux.h"
+>  #include "igt_cgroup.h"
+> +#include "igt_dmem_driver.h"
+>  #include "xe_drm.h"
+>  #include "xe/xe_ioctl.h"
+>  #include "xe/xe_query.h"
+> @@ -110,27 +111,14 @@ static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
+>  	return current;
+>  }
+>  
+> -static int fill_vram(int fd, uint32_t vm, uint64_t vram_region,
+> -		     uint32_t *handles, int max_bo)
+> +static int fill_vram(struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo)
+>  {
+> -	uint32_t handle;
+> -	uint64_t addr = BIND_BASE;
+>  	int n_bo, err = 0;
+>  
+>  	for (n_bo = 0; n_bo < max_bo; n_bo++) {
+> -		err = __xe_bo_create(fd, 0, BO_SIZE, vram_region,
+> -				     DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING,
+> -				     NULL, &handle);
+> +		err = drv->allocate_vram(ctx, n_bo, BO_SIZE);
+>  		if (err)
+>  			break;
+> -
+> -		handles[n_bo] = handle;
+> -
+> -		err = __xe_vm_bind_lr_sync(fd, vm, handle, 0, addr, BO_SIZE, 0);
+> -		if (err)
+> -			break;
+> -
+> -		addr += BO_SIZE;
+>  	}
+>  
+>  	igt_assert_f(err == -ENOMEM || err == -ENOSPC,
+> @@ -140,47 +128,20 @@ static int fill_vram(int fd, uint32_t vm, uint64_t vram_region,
+>  	return n_bo;
+>  }
+>  
+> -static void unfill_vram(int fd, uint32_t vm, uint32_t *handles, int n_bo)
+> -{
+> -	uint64_t addr = BIND_BASE;
+> -	int i;
+> -
+> -	for (i = 0; i < n_bo; i++) {
+> -		if (handles[i]) {
+> -			xe_vm_unbind_lr_sync(fd, vm, 0, addr, BO_SIZE);
+> -			gem_close(fd, handles[i]);
+> -		}
+> -		addr += BO_SIZE;
+> -	}
+> -	free(handles);
+> -}
+> -
+> -static void test_write_eviction(int fd, unsigned int flags)
+> +static void test_write_eviction(int fd, unsigned int flags, struct igt_dmem_driver *drv)
+>  {
+> +	void *ctx;
+>  	struct igt_cgroup *cg;
+>  	char *cg_region;
+> -	uint32_t vm;
+> -	uint64_t vram_region = 0;
+> -	uint64_t region;
+> -	uint32_t *handles = NULL;
+>  	int n_bo = 0, max_bo;
+>  	uint64_t current, capacity, cg_max, limit, after;
+> -	int set_err;
+> +	int set_err, err;
+>  
+>  	/* Check dmem cgroup controller is available before doing anything else */
+>  	igt_require_f(igt_cgroup_dmem_available(),
+>  		      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
+>  
+> -	/* Find first VRAM region */
+> -	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
+> -		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
+> -			vram_region = region;
+> -			break;
+> -		}
+> -	}
+> -	igt_require_f(vram_region, "No VRAM region found on this device\n");
+> -
+> -	cg_region = xe_cgroup_region_name(fd, vram_region);
+> +	cg_region = drv->get_region_name(fd);
+>  	igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
+>  
+>  	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+> @@ -204,13 +165,12 @@ static void test_write_eviction(int fd, unsigned int flags)
+>  	igt_cgroup_move_current(cg);
+>  	igt_cgroup_dmem_set_max(cg, cg_region, cg_max);
+>  
+> -	vm = xe_vm_create(fd, DRM_XE_VM_CREATE_FLAG_LR_MODE, 0);
+> -
+>  	max_bo = (cg_max / BO_SIZE) + 8; /* headroom for overcommit */
+> -	handles = calloc(max_bo, sizeof(*handles));
+> -	igt_assert(handles);
+>  
+> -	n_bo = fill_vram(fd, vm, vram_region, handles, max_bo);
+> +	err = drv->init(&ctx, fd, max_bo);
+> +	igt_assert_f(!err, "Failed to initialize driver");
+> +
+> +	n_bo = fill_vram(drv, ctx, fd, max_bo);
+>  
+>  	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+>  	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> @@ -261,9 +221,8 @@ static void test_write_eviction(int fd, unsigned int flags)
+>  
+>  	/* Cleanup */
+>  	igt_cgroup_dmem_set_max(cg, cg_region, IGT_CGROUP_DMEM_MAX);
+> -	unfill_vram(fd, vm, handles, n_bo);
+> -	handles = NULL;
+> -	xe_vm_destroy(fd, vm);
+> +	drv->free_vram(ctx, n_bo, BO_SIZE);
+> +	drv->deinit(ctx);
+>  	free(cg_region);
+>  	igt_cgroup_free(cg);
+>  }
+> @@ -288,7 +247,7 @@ int igt_main()
+>  
+>  	for (int i = 0; subtests[i].name; i++)
+>  		igt_subtest(subtests[i].name)
+> -			test_write_eviction(fd, subtests[i].flags);
+> +			test_write_eviction(fd, subtests[i].flags, &xe_dmem_driver);
+>  
+>  	igt_fixture() {
+>  		drm_close_driver(fd);
+> -- 
+> 2.47.3
+> 
