@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05FF8CD484C
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 04:31:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBE84CD37B6
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 04:40:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF0910E2DF;
-	Wed, 13 May 2026 04:30:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D33BE10EC92;
+	Wed, 13 May 2026 04:40:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="Xxnyp9ij";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nRTcOdCO";
 	dkim-atps=neutral
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com
- [162.62.57.252])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3036210E2EA
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 04:30:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1778646652; bh=jao3C9hjnud6Ug5HguXODDDvFR08PIGevezNPa49qMg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Xxnyp9ij9Ztj79AxPuhgiJ4zwbKjjjOGYFr2/BCKqY6rEPC+6L8RBMILNSdF4/xlv
- RvnJoxD9lKQPPz/wHDOmkPoJfBexAS+dOFvZ+x5CYPVsMuOAyipZSnTLdLNg5Bh491
- f29+X0DPIgGUgUW35O0SXMenAY1a04fk+PNaBhbE=
-Received: from lxu-ped-host.. ([111.198.231.89])
- by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
- id 7B1342F7; Wed, 13 May 2026 12:30:49 +0800
-X-QQ-mid: xmsmtpt1778646649t9igv4z1w
-Message-ID: <tencent_C267296443AAA4567771176886DFF364A305@qq.com>
-X-QQ-XMAILINFO: M1rD3f8svNzn6BNGvTIE8xYgjYv2a6B6Ukpbwek5tx+ybjccufiLPgSV4yRA4l
- 5mZYRWxZf4hOhRWVy7eHNc+zF8zlj/0so11zcr6zcoEWFQS7iqBeCnQdcwfnTlkNBnje1Pf8xi9z
- 7joExwa0j9+iR914R75JuQeUhob1RAOB9qRlcFXvIO9cuNvbUAyVorLRTVxO5+ahjY9sn0/MZEbc
- b9z6a7g5c8LZV1b0hgM0piSMNvnwNjEdukMW6OlBbT2lGmYjgTvq1B7uiXeoE3CMkP7MzhC9a0Uv
- /6u7YtAGKFzuEGJ4kUM+Sm/bM2JLGX5GkdodCh9KMZ2acPdQUdeMgnp2l6bDD4fY+08dpEnCoLtx
- TpbDpbblaoVtak2CyBD0c3CEGystXCJ1TphYrJ6EfKlNIIcA059OmUt+zJcPlTlTuMpeU4sNymSF
- G0a6aM+dF91iQTvFrVPve848KYGR+afI/OFmMUP4mc9DJsLdUnHLBMkShuPryDsnsEREs+eqOdM0
- 86tvi8hB2mGEobBvY9lrGZO62qNhOGQGcT1iUtPW7bPWzUw+VdE+tjZmPEPjU3L4Ge1yyneS6Psu
- xCgdegV1ZOMaJ+e9nbXmeBHCJbTQKwL1c0HO6nxOlcfh62Gphugykil14lrY6N4OAp5jHy5/p7zO
- zQXtSymIuW96gv5O0wDcVmXpTVtgH1ZNMcYIHnzFvJePNkIB7OgpmFT+GM0U6IAAgmwCSWUTEgzL
- ILBygtjW3QlIQZ3j+BpOLZr+Slo5dd9C3XIeRpjP832RE+Rk0UVpFkf6vJ2YSYbnpxjYfRo25dYW
- nti3/CLYW4vXhvGV16fVGs+MK+MO/3WSmxwdD3FO4p5i9qW192AAoNiUBgGp9vFnaErszF9Lusj5
- 1f/ZVOsgFuY4xMCy3PdpJ83lmRDlp5cz9/2o9HhAvp9rih+HFuX2e9hDQ0F10lBz5cCCYQrr80nd
- rbc3VV5QzbLZA5yo32kTJQSyMsPGsbO9dBam/A45miA8MheMWM8v5Fp/jJk2HQEZQ8bPFsENl5C9
- aiLAdPkcsNrQCyAU+e
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Edward Adam Davis <eadavis@qq.com>
-To: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
-Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com,
- tzimmermann@suse.de, David.Francis@amd.com
-Subject: [PATCH] drm: Replace old pointer to new idr
-Date: Wed, 13 May 2026 12:30:50 +0800
-X-OQ-MSGID: <20260513043049.363250-2-eadavis@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6a0385f1.a00a0220.3890a0.0002.GAE@google.com>
-References: <6a0385f1.a00a0220.3890a0.0002.GAE@google.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B539910E5AA;
+ Wed, 13 May 2026 04:40:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778647241; x=1810183241;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=A2MYt6X3AceVB5ddiyNXVfZfTRAFZeN+VNfDQfv/GNw=;
+ b=nRTcOdCORfHucLlL6VO64tD1HjSREQKTJZYOi5kuWNWxZdX6HZ0QKCTT
+ 5qFVCMP6IYUDVrH20VArAFq8BpRGLcA5SYS0sj/qMo3IPVUbK03TmhTHU
+ kStKjcdwxId5EzdBuAb5tqFD/mez07gGhNRNO881lJ8ZFrmFYkIGovfv7
+ k0P4a1hciUrtc6vvsQf4h9bYpwMRUzOH1sOEH/qwtBeavG4L8NhspnmgU
+ DbLluLnc9JCpsAvSUPfn1P7X03Etej8iINFbXuPAN09bv1iCrrGd8tTpV
+ SgKwTuyGSFe6RNZF139j+T8YR/zE3fOXi1541EyZDpvdg/m6QZNFCeUoa w==;
+X-CSE-ConnectionGUID: kQoEYHZLRXuCjB8XWM8c7w==
+X-CSE-MsgGUID: Z/uGHlKXRNiGUGjMmf/qnw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="79462079"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="79462079"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 21:40:41 -0700
+X-CSE-ConnectionGUID: wJUJkKPQR9a8WkJp+seoag==
+X-CSE-MsgGUID: rUSZELysTEKf/ihRRoWgHA==
+X-ExtLoop1: 1
+Received: from igk-lkp-server01.igk.intel.com (HELO bdf09bfdbd5f)
+ ([10.211.93.152])
+ by fmviesa003.fm.intel.com with ESMTP; 12 May 2026 21:40:37 -0700
+Received: from kbuild by bdf09bfdbd5f with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wN1Od-000000008Sv-1QeJ;
+ Wed, 13 May 2026 04:40:35 +0000
+Date: Wed, 13 May 2026 06:39:53 +0200
+From: kernel test robot <lkp@intel.com>
+To: Andre Jun Hirata <andrejhirata@usp.br>, kenneth.feng@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, gabriel.dimant@usp.br,
+ guilhermesangabriel@usp.br, Andre Jun Hirata <andrejhirata@usp.br>
+Subject: Re: [PATCH v5] drm/amd/pm: Use guard(mutex) instead of manual
+ lock+unlock
+Message-ID: <202605130638.LqIgORiV-lkp@intel.com>
+References: <20260508230312.6108-1-andrejhirata@usp.br>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260508230312.6108-1-andrejhirata@usp.br>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,67 +74,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 5e28b7b94408 introduced a logical error by failing to replace the
-newly generated IDR pointer to old id's pointer at the correct location
-within the "change handle" logic; this resulted in the issue reported by
-syzbot [1].
+Hi Andre,
 
-Specifically, the new IDR object pointer is intended to replace the original
-id's pointer during the normal execution flow.
+kernel test robot noticed the following build errors:
 
-Additionally, an unnecessary conditional check for the ret exit path has
-been removed.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v7.1-rc3 next-20260508]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-[1]
-!RB_EMPTY_ROOT(&prime_fpriv->dmabufs)
-WARNING: drivers/gpu/drm/drm_prime.c:224 at drm_prime_destroy_file_private+0x48/0x60 drivers/gpu/drm/drm_prime.c:224, CPU#0: syz.0.17/5833
-Call Trace:
- drm_file_free.part.0+0x7e6/0xcc0 drivers/gpu/drm/drm_file.c:269
- drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
- drm_close_helper.isra.0+0x186/0x200 drivers/gpu/drm/drm_file.c:290
- drm_release+0x1ab/0x360 drivers/gpu/drm/drm_file.c:438
+url:    https://github.com/intel-lab-lkp/linux/commits/Andre-Jun-Hirata/drm-amd-pm-Use-guard-mutex-instead-of-manual-lock-unlock/20260513-040937
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260508230312.6108-1-andrejhirata%40usp.br
+patch subject: [PATCH v5] drm/amd/pm: Use guard(mutex) instead of manual lock+unlock
+config: x86_64-rhel-9.4-ltp (https://download.01.org/0day-ci/archive/20260513/202605130638.LqIgORiV-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260513/202605130638.LqIgORiV-lkp@intel.com/reproduce)
 
-Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
-Reported-by: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d7c9eed171647e421013
-Tested-by: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
-Signed-off-by: Edward Adam Davis <eadavis@qq.com>
----
- drivers/gpu/drm/drm_gem.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605130638.LqIgORiV-lkp@intel.com/
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 51a887cc7fd7..8afab57fc055 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1067,17 +1067,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 
- 	spin_unlock(&file_priv->table_lock);
- 
--	if (ret < 0)
--		goto out_unlock;
--
- 	if (obj->dma_buf) {
- 		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
- 					       handle);
- 		if (ret < 0) {
- 			spin_lock(&file_priv->table_lock);
- 			idr_remove(&file_priv->object_idr, handle);
--			idrobj = idr_replace(&file_priv->object_idr, obj, handle);
--			WARN_ON(idrobj != NULL);
- 			spin_unlock(&file_priv->table_lock);
- 			goto out_unlock;
- 		}
-@@ -1089,7 +1084,9 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 
- 	spin_lock(&file_priv->table_lock);
- 	idr_remove(&file_priv->object_idr, args->handle);
-+	idrobj = idr_replace(&file_priv->object_idr, obj, handle);
- 	spin_unlock(&file_priv->table_lock);
-+	WARN_ON(idrobj != NULL);
- 
- out_unlock:
- 	mutex_unlock(&file_priv->prime.lock);
--- 
-2.43.0
+All error/warnings (new ones prefixed by >>):
 
+   drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm.c: In function 'amdgpu_dpm_is_mode1_reset_supported':
+>> drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm.c:247:47: error: expected ';' before '}' token
+     247 |         return smu_mode1_reset_is_support(smu)
+         |                                               ^
+         |                                               ;
+     248 | }
+         | ~                                              
+   drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm.c: In function 'amdgpu_dpm_get_vce_clock_state':
+>> drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm.c:833:31: warning: unused variable 'vstate' [-Wunused-variable]
+     833 |         struct amd_vce_state *vstate = NULL;
+         |                               ^~~~~~
+
+
+vim +247 drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm.c
+
+   238	
+   239	bool amdgpu_dpm_is_mode1_reset_supported(struct amdgpu_device *adev)
+   240	{
+   241		struct smu_context *smu = adev->powerplay.pp_handle;
+   242	
+   243		if (!is_support_sw_smu(adev))
+   244			return false;
+   245	
+   246		guard(mutex)(&adev->pm.mutex);
+ > 247		return smu_mode1_reset_is_support(smu)
+   248	}
+   249	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
