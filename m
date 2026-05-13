@@ -4,92 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3822CD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 17:06:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9298DCD37AC
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 17:14:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05A1610EF8D;
-	Wed, 13 May 2026 17:06:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB21110EFBE;
+	Wed, 13 May 2026 17:14:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l0XlaDlU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S3m5osUJ";
 	dkim-atps=neutral
 Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
  [74.125.224.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 154B810EF8D
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 17:06:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0027410EFBE
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 17:14:12 +0000 (UTC)
 Received: by mail-yx1-f43.google.com with SMTP id
- 956f58d0204a3-651d6347a69so6757539d50.0
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:06:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778691986; cv=none;
+ 956f58d0204a3-65c2cd216c9so6961316d50.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:14:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778692452; cv=none;
  d=google.com; s=arc-20240605;
- b=gR0/btSwIKHXQl4Ewa1vet63CNOWvcU9vX/U7Diw6WSf7VSgH6AsNhs/SMs8Qyu0bB
- tQy0uk2kuGTgXX2cB6TcUPObPEvYG/IpWtw/JRm2foOLy88q23vRRUMJBjkBOqA1VQAn
- K9rGeyWUFaBHhTzHyBSVmQEpsDkz2X7k2+bsEhgSiXXoOD0VrKezrxcI9g+Js+C7w7bk
- cHTAoD9yxP70vNcvtxDKTCXfoNsggNg7/RD4kSNtJTtvaYUrRmFo3wwTAv5Crx+Ozv60
- laPxKdMpfKhPfWBHD0mI4e+FZNYB2FqpA10UP3QhskyV1WR1R2ukGRVsLSSro4GVAcl5
- 4KxQ==
+ b=B8QwexzY8bJSadfvXZRDlF+4A1NHJ+xo3fkp8UMaP0Xcmd6jmd8myK6FW6Fdur1fye
+ GC28wBr8Xf/v4TwS75WAcPiXSzSMcH7DX7UiHxeUhwEfPstmJpN7+C9+SaPwRePRhnKw
+ IfP4sjlXUiHjVmN7QPuz0Sa6NfJYQpWOdPzFqVask5eonlJdn8cCZ+7RLQfwHdB16Rnv
+ ZJMs/Jjz8HSyPK0Dbju8DgdkryLP6337oDvgZ3DXriWhHHoWQIuNqyr9Oik2Rrkp1kHH
+ MTrtQZYWGmABSLzWUqdsy2z4ymHQUdrO0KIoIl6vHy6xkDwXuYKdSocb2Bw0mzVLHP38
+ /RPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=0V9CbYi6l+/mep8ny4atr6u2VxLzAeNM1fG1CMAw3pc=;
- fh=GU+cQ7UuXc3aX/DLuHhbjkW44C8aPyWZ/uix0sKPXx4=;
- b=ibthVSf2CIYd6XzfGeiFV9cO67D/wW8cu+At0J/p7zI/7njo/cuRlB/s4a0W8VsW7u
- ibgH3nClWHALe4rK3hMx5auwey65ZYEI7kNzCh9mJ3uhjFwRmplIRjnCxLauW8kS2/BJ
- 4j4RWdG46JPWtUL5DEAc4/n2oQTwDsXl/CVTfvBgm5FebgjGtEpSctOxk2+GlmKfwEi1
- u5sgaLL+fJvADjfb3g/+huVZfJ4kuE9ATFlvr80ERMyafywh/R5hFKOWTsdqp9Avs25B
- jQNXULd9/w7nOkvjuMp+8s2Ax3J6tjig2JOMCMeWByCwAsuAfpofgbTkh4ju68aNqaai
- 5uZA==; darn=lists.freedesktop.org
+ bh=oisuNanuMjz1L0GV1nlwcaNMrehOKNF/BX+HSx8SYko=;
+ fh=V5rZVaE9rvGgETosbWkUh/O5MtXOoZ6duCLZ3hZCI+I=;
+ b=lQCoX/y4I5BK/oClDhpn2UAmw5lLmkt2AWv0ECHv6uFIl0Ckhc857i7SDDYJrWaBN8
+ vhuOJGme3l60NpGJH/o3L7rydDcZEd9SYXX3KT+JxvzEfWxGzzgm5NqUxoNJWOzB4HwT
+ u2SVxa3tTLLsv9JL8q4WtGApYWfctxy08Eym64N3+UEt0QNyeKeg7I8pkAmmb/1aymuv
+ 1IsxFLcnP96rfEVurimEDT1sNmYUNeLzePI7NNfbvVSZAuHFIUKLyOn9va5y0htv26QE
+ 33WaMY/1WtPZGqAaeT5qQ7ZtbSlpD0BPH8eLptu/tj/ErIFz1eT3IS8IaRSklTOA987y
+ vtLA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778691986; x=1779296786; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778692452; x=1779297252; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0V9CbYi6l+/mep8ny4atr6u2VxLzAeNM1fG1CMAw3pc=;
- b=l0XlaDlU5itRlvf2bn8+rcviar/af9P/Tnsw5eR097MmMjX2D5ERzG27xyJ5fM95mT
- RTaOi55U95YSn9GSTvb771kWjNZ4NnrZVDqQ6CdIQJCs853nNCRyaujhPWlY+Lpf6UFA
- DUu0PiyPfhX1iGfke027HsG84ruNX18ecKjfG6G/fojduXq4Ysab2HaaWrkYUmbq+DSV
- XHn9FmctYXyTqW8ixcmGveEFMUi2pb9ZrQLePzjL9yXj68MKq+1uvXVL6yCCF3LsRba6
- tT8t9Tv678//96H/J5v3uH1WoA6BFPbh3WRwtTJdO4/EhxHdTusQT803jG5Zv1BXPWLU
- 1/5Q==
+ bh=oisuNanuMjz1L0GV1nlwcaNMrehOKNF/BX+HSx8SYko=;
+ b=S3m5osUJdmhbkocdeHjQE1Gm+zYJIpuerb9ZmCoC9O/lLOaKdmLuR2T4pTlNZx7V0M
+ HlguM31axy4ms0B68B/ymGpmr6hleJFLZSUd/ZKuB6sqHLx3NVCCJmUQ0Fpk8kEWpG3r
+ HCFmUoTIPOEgXOmtxU5YJUgA9QeSJdsmvAD6F6XrNlQeHlGucLytvOz+qywC0VwRp/gr
+ 7toA7Q9GQk8S+6L99TaIDVngLiRELVcVt8eDU6Tn+ULkpZ3CkR3beSdB4y8TBiZzHlUi
+ 6Ut8KnDBDMxAjpXzpNv9cIAVJ8tWCp8d/WxTu+ga84xE0HV0JfAEHG3bynoN55uwBcO6
+ pOHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778691986; x=1779296786;
+ d=1e100.net; s=20251104; t=1778692452; x=1779297252;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=0V9CbYi6l+/mep8ny4atr6u2VxLzAeNM1fG1CMAw3pc=;
- b=G9rL7vY88bi0lCuiuhRxpJx8aqkkrFA04nZZkfbOba7KTEkECRWIwtRdtvfnbGy/f1
- 8nDtOjteOFeqUveGBLIEhQddQwe3FjuJdKN3mlui/+hfsXd7Y8jKsr+EhRnDs7HmQ1Uu
- nx9an0kCv8EiprGLF1a+XSvpASAI8tG+/nMzvlIGhWWfsXMaLe8Hbk4XDsAd48kRYYhe
- ODU0BCV06/Sa4Swst/KnTgtsYZdpxMmkHWnamL+v5XfUqI5Epf03hBogFHxuMewrY5We
- ur7oK1ta8+I41Us3pSY90fg5Abw8iy+V6uRC3KkVBjYOjKd/Sz1ab5HwyWgICy6uRAib
- IntA==
+ bh=oisuNanuMjz1L0GV1nlwcaNMrehOKNF/BX+HSx8SYko=;
+ b=JMJn5fSO/uujnkgGV6Bh6lXSsafb/zlz4aIR/lUYaK+QaFbPZdn3H12E1H4t/9bJBt
+ WcgYAp8nB6VUju0OE4JoivmU05EyjSYZtEiS14HRct78RuYzJJUaGdWXBxjpt5tbQhO6
+ qNWRBtw08J7Ij0yFNqxJsgRypB+VFFP+TUGiGTKSUSEJtEBsDgbTDemsxxZIK1u3vHvq
+ IuCq9r5fKorQTLaP++iVC+Nzc19Yk8bjYj+8FfI9A81me7XjCdcgv8yEfber3PbLVqVR
+ NpbV9nvXVwtZcDqo+AVcy1tqIPVwlblp4a2IewQy72Zxno3YuLjoOLd4EeYKpnpJt3Zm
+ cDgg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/UUgcyf2acIe7A8qSPyI7/Qahk1cDQrqxlXWiXl28pw93IJG6ayj7RWcQPJN9oTAu2e4thHOpx9a0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyoWEJFdyvKIqMAe5IBvTYIQ7/Xdqfw8zIoig4yk4dQ0kr8PCJn
- 60YWYoYsU1YWLc1bZW3lUlFJPDwnmKqZEswLJKky4eS0YHQs+xEAa4YKpD+dhtKtJUEq9GEQ4kf
- D/WIjA2I2A4m9sBnVlvGaXA3RUL8STtI=
-X-Gm-Gg: Acq92OHU/jVBqfA4hU18CuhFGN0e/u/EaIaHAc0gQK+IfzfS4a+QxLQIN/rNaDupQEn
- LRnHNNwlGD3pTtzFtjN1/lpvZn8/yaet2UEVu0iSORHUT+7vIa0wurxE4RnfiUgSlHygUuJLh3O
- rQP6unwDqKq/20qQwN/tphz0yGVyiCzR2QI2F3AJ71lWKynqWb7RzUyUZHuzAToab7smCGt+SgZ
- 08y2vuQ6swyjU/Tk8Vx9qgCKobYApmECl32TJRA0kcitp8D9Wjc/jZICkZRfsNbtVe+bWJbgYn8
- kdmal9iHgOO4oCfF8FjpU5Gni6Usa3r9BWpF+HUYSKmXcxmL6LyRNGAafGeintZ2QGayQbYJpQ=
+ AFNElJ9Dykc4zD+XTDdJbBMBgV6Ebi78XBrDobvs43Qklmw0WW6fd7X4WpO4bbfUDuO1bjf2O9DIb8BZE2s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGF4AkdCRll4u4x7NEqrUYLE/6qsZHN/K6LG+9hdn5wWdwhJ7y
+ SWJatGNgQ7JHvT2NtAtjDcIxHMaysGP2DHj3j7zlwvgTgYVloFobLCzsFfGj9PUhLcIA9+CmH/S
+ y+5WZjX128DA3Q+iCdJ9FfBeeuF1x3uc=
+X-Gm-Gg: Acq92OFudI8W61il+5Kjj0LfekO1AsSY6K2C03A0XDDg9U5QBRQdkdZUm9YhvmNO0RX
+ SIB5cxfha957qi/ZcD3ODS/uHD8Dw0xPFBx3+5t29ugI6z3DonVI8eSE/J05yjtm9WHwW8l8qZC
+ nKmervlwFNVNvbcwSycg0PxHEPXXyBJDTHNw412SJtXmN8y9qWpw1RUrXanXjSEiRja2wGlCzmV
+ pDZjCjpHiXgwKnKLnSdowAKttQS9yMGMjiIqprvHi7aDaONvdsisvyNKIcyCf/GDmwuSsNG2PQq
+ O55fxpoLjuNE9iCTwKUGTirltXgChzupK3egsJlrP1AXUqkNpyA2moy6UW3UFzEfvlVXowzBIw=
  =
-X-Received: by 2002:a05:690c:4911:b0:7c2:db9a:7bdc with SMTP id
- 00721157ae682-7c7e80123e3mr3584537b3.22.1778691985793; Wed, 13 May 2026
- 10:06:25 -0700 (PDT)
+X-Received: by 2002:a05:690c:e14c:20b0:7bd:69b8:f2e5 with SMTP id
+ 00721157ae682-7c6ab5e75camr34700047b3.3.1778692452052; Wed, 13 May 2026
+ 10:14:12 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-4-95c614a739cb@collabora.com>
- <CAPaKu7R56gakVRPrzXAu94Kk-AL+Ac=uFrikTyXsj8QtWKM29w@mail.gmail.com>
- <20260513100901.7b497929@fedora>
-In-Reply-To: <20260513100901.7b497929@fedora>
+ <20260512-panthor-signal-from-irq-v2-8-95c614a739cb@collabora.com>
+ <CAPaKu7Sx85JpFFJ_4w3mZ6_OPkCHDqp68Uo+RbeYx=5v03vdww@mail.gmail.com>
+ <20260513104225.0c0992d5@fedora>
+In-Reply-To: <20260513104225.0c0992d5@fedora>
 From: Chia-I Wu <olvaffe@gmail.com>
-Date: Wed, 13 May 2026 10:06:14 -0700
-X-Gm-Features: AVHnY4Kma_PzelE4xO46LmID4jNnngKJd90lFTmO_QKOBh4mzf0-KpI-wngPAf8
-Message-ID: <CAPaKu7TN4+PRYZWMRWFuEP6a9NL6sP_x1_zZrAbkVXsht-yQnw@mail.gmail.com>
-Subject: Re: [PATCH v2 04/11] drm/panthor: Extend the IRQ logic to allow
- fast/hard IRQ handlers
+Date: Wed, 13 May 2026 10:14:01 -0700
+X-Gm-Features: AVHnY4KwW9W05Bin1vca7LBrwzHeJsbDEynLFAXqK1gx7mQr6xrijvToQtbl7Ig
+Message-ID: <CAPaKu7Q2FnhGkhY8i04TYOjnc5m4ssCDedfgsw2o86xkTh31WQ@mail.gmail.com>
+Subject: Re: [PATCH v2 08/11] drm/panthor: Automatically enable interrupts in
+ panthor_fw_wait_acks()
 To: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -114,76 +114,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 13, 2026 at 1:09=E2=80=AFAM Boris Brezillon
+On Wed, May 13, 2026 at 1:42=E2=80=AFAM Boris Brezillon
 <boris.brezillon@collabora.com> wrote:
 >
-> On Tue, 12 May 2026 12:11:08 -0700
+> On Tue, 12 May 2026 14:55:30 -0700
 > Chia-I Wu <olvaffe@gmail.com> wrote:
 >
 > > On Tue, May 12, 2026 at 4:54=E2=80=AFAM Boris Brezillon
 > > <boris.brezillon@collabora.com> wrote:
 > > >
-> > > All drivers except panthor signal their fences from their interrupt
-> > > handler to minimize latency. We could do the same from the threaded
-> > > handler, but the latency is still quite high in that case, so let's
-> > > allow components to choose the context they want their IRQ handler
-> > > to run in by exposing support for custom hard handlers.
+> > > Rather than assuming an interrupt is always expected for request
+> > > acks, temporarily enable the relevant interrupts when the polling-wai=
+t
+> > > failed. This should hopefully reduce the number of interrupts the CPU
+> > > has to process.
 > > >
-> > > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> > > Reviewed-by: Steven Price <steven.price@arm.com>
 > > > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > WIth minor comments below, Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 > > > ---
-> > >  drivers/gpu/drm/panthor/panthor_device.h | 11 ++++++++---
-> > >  drivers/gpu/drm/panthor/panthor_fw.c     |  1 +
-> > >  drivers/gpu/drm/panthor/panthor_gpu.c    |  1 +
-> > >  drivers/gpu/drm/panthor/panthor_mmu.c    |  1 +
-> > >  drivers/gpu/drm/panthor/panthor_pwr.c    |  1 +
-> > >  5 files changed, 12 insertions(+), 3 deletions(-)
+> > >  drivers/gpu/drm/panthor/panthor_fw.c    | 34 +++++++++++++++++++----=
+----------
+> > >  drivers/gpu/drm/panthor/panthor_sched.c |  5 +++--
+> > >  2 files changed, 23 insertions(+), 16 deletions(-)
 > > >
-> > > diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/d=
-rm/panthor/panthor_device.h
-> > > index 393fcda73d88..1aaf06df875b 100644
-> > > --- a/drivers/gpu/drm/panthor/panthor_device.h
-> > > +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> > > @@ -672,6 +672,7 @@ static inline void panthor_irq_disable_events(str=
-uct panthor_irq *pirq, u32 mask
-> > >  static inline int
-> > >  panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq=
- *pirq,
-> > >                     int irq, u32 mask, void __iomem *iomem, const cha=
-r *name,
-> > > +                   irqreturn_t (*raw_handler)(int, void *data),
-> > >                     irqreturn_t (*threaded_handler)(int, void *data))
+> > > diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/p=
+anthor/panthor_fw.c
+> > > index 8239a6951569..f5e0ceca4130 100644
+> > > --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> > > +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> > > @@ -1039,16 +1039,10 @@ static void panthor_fw_init_global_iface(stru=
+ct panthor_device *ptdev)
+> > >         glb_iface->input->progress_timer =3D PROGRESS_TIMEOUT_CYCLES =
+>> PROGRESS_TIMEOUT_SCALE_SHIFT;
+> > >         glb_iface->input->idle_timer =3D panthor_fw_conv_timeout(ptde=
+v, IDLE_HYSTERESIS_US);
+> > >
+> > > -       /* Enable interrupts we care about. */
+> > > -       glb_iface->input->ack_irq_mask =3D GLB_CFG_ALLOC_EN |
+> > > -                                        GLB_PING |
+> > > -                                        GLB_CFG_PROGRESS_TIMER |
+> > > -                                        GLB_CFG_POWEROFF_TIMER |
+> > > -                                        GLB_IDLE_EN |
+> > > -                                        GLB_IDLE;
+> > > -
+> > > -       if (panthor_fw_has_glb_state(ptdev))
+> > > -               glb_iface->input->ack_irq_mask |=3D GLB_STATE_MASK;
+> > > +       /* Enable interrupts for asynchronous events that are not
+> > > +        * triggered by request acks.
+> > > +        */
+> > > +       glb_iface->input->ack_irq_mask =3D GLB_IDLE;
+> > We should static_assert or & with GLB_EVT_MASK. Same for CSG and CS.
+>
+> Yep, good idea, I'll add a static_assert() in all places where
+> ->ack_irq_mask is set.
+>
+> >
+> > >
+> > >         panthor_fw_update_reqs(glb_iface, req, GLB_IDLE_EN | GLB_COUN=
+TER_EN,
+> > >                                GLB_IDLE_EN | GLB_COUNTER_EN);
+> > > @@ -1318,8 +1312,8 @@ void panthor_fw_unplug(struct panthor_device *p=
+tdev)
+> > >   * Return: 0 on success, -ETIMEDOUT otherwise.
+> > >   */
+> > >  static int panthor_fw_wait_acks(const u32 *req_ptr, const u32 *ack_p=
+tr,
+> > > -                               wait_queue_head_t *wq,
+> > > -                               u32 req_mask, u32 *acked,
+> > > +                               u32 *ack_irq_mask_ptr, spinlock_t *lo=
+ck,
+> > > +                               wait_queue_head_t *wq, u32 req_mask, =
+u32 *acked,
+> > >                                 u32 timeout_ms)
 > > >  {
-> > >         const char *full_name;
-> > > @@ -687,9 +688,13 @@ panthor_irq_request(struct panthor_device *ptdev=
-, struct panthor_irq *pirq,
-> > >                 return -ENOMEM;
+> > >         u32 ack, req =3D READ_ONCE(*req_ptr) & req_mask;
+> > > @@ -1334,8 +1328,16 @@ static int panthor_fw_wait_acks(const u32 *req=
+_ptr, const u32 *ack_ptr,
+> > >         if (!ret)
+> > >                 return 0;
 > > >
-> > >         panthor_irq_resume(pirq);
-> > > -       return devm_request_threaded_irq(ptdev->base.dev, irq,
-> > > -                                        panthor_irq_default_raw_hand=
-ler,
-> > > -                                        threaded_handler,
+> > > -       if (wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) =
+=3D=3D req,
+> > > -                              msecs_to_jiffies(timeout_ms)))
+> > > +       scoped_guard(spinlock_irqsave, lock)
+> > > +               *ack_irq_mask_ptr |=3D req_mask;
 > > > +
-> > > +       if (!threaded_handler) {
-> > > +               return devm_request_irq(ptdev->base.dev, irq, raw_han=
-dler,
-> > > +                                       IRQF_SHARED, full_name, pirq)=
-;
-> > > +       }
-> > devm_request_irq expands to devm_request_threaded_irq plus
-> > IRQF_COND_ONESHOT. This appears redundant.
+> > > +       ret =3D wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_ma=
+sk) =3D=3D req,
+> > > +                                msecs_to_jiffies(timeout_ms));
+> > > +
+> > > +       scoped_guard(spinlock_irqsave, lock)
+> > > +               *ack_irq_mask_ptr &=3D ~req_mask;
+> > We should add a comment saying that this is safe because
+> > {GLB,CSG,CS}_REQ_MASK and {GLB,CSG,CS}_EVT_MASK are disjoint, and thus
+> > req_mask and ack_irq_mask are disjoint.
 >
-> I considered going for devm_request_threaded_irq(COND_ONESHOT), but I
-> thought it was easier to reason about with a regular devm_request_irq()
-> and an extra conditional since request_irq() is what people tend
-> to use when they just have a hard handler (see [1], there's just one
-> driver using it, and it's not even needed, because it's calling
-> devm_request_irq() which adds this flag already)
-It is unclear to me why the current version wants IRQF_COND_ONESHOT in
-one case but not in another. Can't we call devm_request_threaded_irq
-without IRQF_COND_ONESHOT for both cases?
-
+> You mean the ack_irq_mask set at init time? Because
+> xxx_iface->input->ack_irq_mask is moving target now.
 >
-> [1]https://elixir.bootlin.com/linux/v7.1-rc3/A/ident/IRQF_COND_ONESHOT
+> Well, if we expand on safety matters, I'd say none of this is safe
+> since it relies on the caller knowing what it does and passing a valid
+> req_mask. But I'll add a comment mentioning that the original
+> ack_irq_mask shouldn't intersect with any of the bits that might be set
+> in req_mask (that's basically the static_assert() you suggested).
+The callers of panthor_fw_wait_acks validate req_mask. With a
+static_assert on ack_irq_mask at init, we are sure the two masks are
+disjoint upon entry. We just need a comment explaining why
+save-and-restore is unnecessary.
