@@ -4,64 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C307CCD4F24
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:24:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EFB7CD37B6
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0744D10E2F7;
-	Wed, 13 May 2026 10:24:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6052F10E142;
+	Wed, 13 May 2026 10:24:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jNA1jK3r";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="n459xclz";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bhT5mQcb";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54FB310E2F7;
- Wed, 13 May 2026 10:24:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778667859; x=1810203859;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=4wefMVkZ2b1CWXY9jD02Xn87mvdkQbPY1jMc+Kksl2U=;
- b=jNA1jK3rYq9OlXgXsq9xEGOfRAKk6WMfNi2+z0pK3M2y7GIshe/6b+6n
- c14mhjjpQBhog8cFvHPByMWok5qTm8DAifp+7b3i5uzDPTvoVJQ4PJFwy
- CX+HUEjXRv9ISoaqmAzrXPpwLiWZ3R2laWAJ9cOd4aA+/vNydqOuxKT/b
- /VZW6/Tqf/hEkkLkIumOn6zuTPqpWXuiPzPryLf6Ody28+GprbSvnL1ig
- 2HQhV7aYlkK8t/IF9TdM+ht7l90T4qTFsJXItvYe8NqFUVZuj10g+QGxc
- qMtBDRfa/qku5+i3Q9R+22jpFuyb5eXPwdpdIjqEGVv9b+grgxME9lYOA g==;
-X-CSE-ConnectionGUID: ak6OBCN8SoSliL/7OMaMwg==
-X-CSE-MsgGUID: KWNvP5FIQL2/9MnWbB1F7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="102257683"
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="102257683"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 03:24:19 -0700
-X-CSE-ConnectionGUID: w58b6nA/QrCbcOi/jOowPA==
-X-CSE-MsgGUID: 7zU/hjTiQMmeDGSx5RVxpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="242056400"
-Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
- by orviesa003.jf.intel.com with ESMTP; 13 May 2026 03:24:17 -0700
-Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wN6lB-000000003v9-2N10;
- Wed, 13 May 2026 10:24:13 +0000
-Date: Wed, 13 May 2026 18:24:00 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Dave Airlie <airlied@redhat.com>, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup
- failure
-Message-ID: <202605131824.SbQ7agaE-lkp@intel.com>
-References: <20260511162443.24352-1-thomas.hellstrom@linux.intel.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044AE10E03C
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:24:39 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64D4p9T02652381
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:24:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ifxChmry+TttLoFTQQ/tL55R4hjUx2mBibZDRYzje7c=; b=n459xclzrhyZI8rh
+ ahLpy8jIzNeMLZuEued+3bxg6DPmCaFbTuDq8DU2owZzCvvrn2Mg+DQEPK0c50Sr
+ jV6tsw5VvTlwESMA9S09qs3+PVS6VJOsfaDcwntdwxN9WFvJtHPCd7C0HeEilI/t
+ sH1V3XnzzIgiYs/Gj8+TdiY1jdoZB67uIypgwYdU3o2cUXp5+tyjSTeIWdS3svfz
+ lNG/o4/uUkNmJuGXJH15ZjtvFLzpBu+xyUAOJXBAG2WWtsbenievG+RMNEJZduDy
+ 5uNzH5D/C4NTJ3bFII9+xEhj2odA+sy5FgUAbF9BHpJpKjfnTpfNYJEqPHxh/yca
+ y6UJdw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e45avm7tx-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:24:38 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-5162ee45a77so13790451cf.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 03:24:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778667878; x=1779272678;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=ifxChmry+TttLoFTQQ/tL55R4hjUx2mBibZDRYzje7c=;
+ b=bhT5mQcb4nlH8cxt4ZUwAIn7unqFeNWnRXBEAZh668IOaJQwT7ar8/0hkw5cSSbpNw
+ xbZjmq7d023jk01cLrIn3ztBQhau6mgcvn/BFlwGY3X7rfhjoVqq9kXndk5SiDYLPXzH
+ 9HsBTxuIlvD3S7Th1jsyHvEosH0KQZpCQGszd+kdkEhDwKMQRSbvP6iRQm/kNYWo8JNd
+ cK9nBqOgVnAEKaY7p3FSkeDXcPYzwQH/jP39i8fbEWwXiWK8U3BfTGzu5o2pJ9Qt10cg
+ 6rFVvDfSqUlhBKPLiFUabjOwfMX3eKO9Y3bNvpocN3EF2maYMkiuezZGxF9+6XhoZWMr
+ nXwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778667878; x=1779272678;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ifxChmry+TttLoFTQQ/tL55R4hjUx2mBibZDRYzje7c=;
+ b=nl4hQnsToUxvyM97sxTlWiRJOjC3uR+/NzOqaPrHht8B5c51XJKXPjUIEDFIzRKLbs
+ QHeDjFBP/ETC/E0HMSbqoDol1C1UdEsxv4tpbgxYra9or7fKVNukcAzNXU9KGZHsZWVy
+ DmmzibTQx1h8gLUSvZImcqPW8YbdgsJD0Az9Wdn5S6JPLmCXfsgnD1NrSV97sM5I1F5M
+ 2ZjopxWUOeE3hwdLXReBHC6SiEGfS07N5sjHhuRco4ApO7+z8GQBGUWGVjW60CDxHmnv
+ rZooVs1DACQh+rl9sI5zj3hfAd53n2khe+2Jm6uZEuquOFWbjhh3sC2yKNRIfp5Z02px
+ KYxQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9Vd9TE6hheGXFsV+0rSgmJq1KC+AE6+Ue9vdYQfDS0u6RODc14z+s9ZhH+02JvrhnA4lK9P1aj+vE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzbZ7GvTsXpi4zbBwhnLTE3MfALhT01GvqopBLDM9EjTJRB7wOo
+ Ui8WivL9SY5Q6q0f7laVj9+alLVnnMcpBYdGO5MuopqRA4QLTqGv3ixVnDzY55hAL8XmhLbChtC
+ RCYJEXiqw8r+V54Sypt8n4GVr8lMG/dxOoMuSfC0fgPNvmfTSv/bUiP0ViZSviYhCdp/YsIE=
+X-Gm-Gg: Acq92OE8b8trZM/mP0QUke9O9qoIJIOV3mAofWnxAilcv3KMs0OBLgTDzicNQja45FQ
+ fzdlJoep8YVEgODt6+OoKq84ny3lKhL/mTVbctLqyzjTFmoRCP6XW9btFKtpgsIrMIJxQX30Zs+
+ yrsqpCrf764tn++C3Dmnflf+blcKZ6jWCvyP8miWvT9oXfVM0HHPOVTPr0S8T+PANuy6u/26J64
+ mnVx4rKtU05FxUNsmCsERDtRdTtZUXZkBVuI1NQCOSXA47+WrsXhIXV/QS1xHHNLNd4X/t2XyUJ
+ 4FRGZykn0Z9Nqi2YwdVTEeOTxAFIw+sir/cE6nYgeEOBAfvPbFLEd1UDG5vjWYGmSNHwl87rhj/
+ DkobStHrJpEXhb0w2MSU10rWAzYC/kNWW/leM0wn/x0ptzjvPbtdv1WwS1mfQiBhnUKJvMajJ5t
+ sUOLzYZt5LgMNL7Ozs4x4qqMql1n0+evX3Nsc=
+X-Received: by 2002:a05:622a:5885:b0:512:e813:7ce8 with SMTP id
+ d75a77b69052e-5162f67cf1dmr32339311cf.54.1778667877685; 
+ Wed, 13 May 2026 03:24:37 -0700 (PDT)
+X-Received: by 2002:a05:622a:5885:b0:512:e813:7ce8 with SMTP id
+ d75a77b69052e-5162f67cf1dmr32338891cf.54.1778667877183; 
+ Wed, 13 May 2026 03:24:37 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a8a955e19dsm3963961e87.49.2026.05.13.03.24.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 May 2026 03:24:36 -0700 (PDT)
+Date: Wed, 13 May 2026 13:24:34 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Sunyun Yang <syyang@lontium.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ maarten.lankhorst@linux.intel.com, rfoss@kernel.org,
+ mripard@kernel.org, Laurent.pinchart@ideasonboard.com,
+ tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com,
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
+ MIPI DSI to HDMI driver
+Message-ID: <vly3gbft3k76mrcztcn6vxuqadz647hsaz2q7qpmpofowofodb@nnxrr2cdueru>
+References: <20260508142500.4922-1-syyang@lontium.com>
+ <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260511162443.24352-1-thomas.hellstrom@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
+X-Proofpoint-GUID: pIzSPKCMlPyX1bShmAePr1eZAjWZlfF3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDEwNyBTYWx0ZWRfX1Nc6V8rsZ3YA
+ h7tRwp1TUonMsNVKSh6GwP7fd+rnpcgsmVvISJ44UFMHszJ7SmaBstQG1MF8EOpWNp/2FqqCOFN
+ eSWAGdgUUU855hZQidX0fRVUHU7tBB1k/CaQHik5p+usyntZH9rSYxhn8WZoLTnV4ie+4LMGd61
+ a58qWxAHSUd8rOiBtwcBX3227jEME77NiEPpLmhSStTmFH6nLruHstgTlaR34J4mmgicKU0LQG2
+ /bfeGLSla/44vxD4WshXIsCg5QwiKfXKF4lOau6K+rWP9Oy5e4E0Y7VQ3y9ILfbqnkQnt2NQQ+v
+ AREweTHT5r3YWgJStfQ1V1RMwbGVlt0zWFcz4iDg9yY3l40i1m2I0Y1+xmQAk5NEyfV7ib+qjSP
+ 7ZBOJhOhM4N+nLpL9WKtDHp1Ys2T9gI32/AOmohVBucMaufbS8CkhuUpxc+5HllG5AT0Q6ejf3/
+ RRo/X9Tgdek51x6O6zA==
+X-Authority-Analysis: v=2.4 cv=bOwm5v+Z c=1 sm=1 tr=0 ts=6a045166 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=Kz8-B0t5AAAA:8 a=IfaksdFsjFagpZptrvcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22 a=RuZk68QooNbwfxovefhk:22
+X-Proofpoint-ORIG-GUID: pIzSPKCMlPyX1bShmAePr1eZAjWZlfF3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0 spamscore=0
+ malwarescore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130107
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,110 +149,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+On Mon, May 11, 2026 at 11:28:06AM +0800, Sunyun Yang wrote:
+> <syyang@lontium.com> 于2026年5月8日周五 22:25写道：
+> >
+> > From: Sunyun Yang <syyang@lontium.com>
+> 
+> Gentle ping.
+> Thanks.
 
-kernel test robot noticed the following build errors:
+You've posted the bindings on May 8th. Please give maintainers some time
+to react. Not to mention that you posting the bindings 4 times in a row
+(once together with the driver and other 3 times separately) doesn't
+help maintainers.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v7.1-rc3 next-20260508]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+See https://lore.kernel.org/dri-devel/?q=bindings+Lt9611c+v6
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Hellstr-m/drm-ttm-Fix-ttm_bo_shrink-infinite-LRU-walk-on-backup-failure/20260513-095356
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260511162443.24352-1-thomas.hellstrom%40linux.intel.com
-patch subject: [PATCH] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup failure
-config: x86_64-allmodconfig (https://download.01.org/0day-ci/archive/20260513/202605131824.SbQ7agaE-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260513/202605131824.SbQ7agaE-lkp@intel.com/reproduce)
+> 
+> > 2.34.1
+> >
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202605131824.SbQ7agaE-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/ttm/ttm_bo_util.c:1121:3: error: call to undeclared function 'ttm_resource_del_bulk_move_unevictable'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    1121 |                 ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
-         |                 ^
-   drivers/gpu/drm/ttm/ttm_bo_util.c:1121:3: note: did you mean 'ttm_resource_del_bulk_move'?
-   include/drm/ttm/ttm_resource.h:449:6: note: 'ttm_resource_del_bulk_move' declared here
-     449 | void ttm_resource_del_bulk_move(struct ttm_resource *res,
-         |      ^
-   1 error generated.
-
-
-vim +/ttm_resource_del_bulk_move_unevictable +1121 drivers/gpu/drm/ttm/ttm_bo_util.c
-
-  1067	
-  1068	/**
-  1069	 * ttm_bo_shrink() - Helper to shrink a ttm buffer object.
-  1070	 * @ctx: The struct ttm_operation_ctx used for the shrinking operation.
-  1071	 * @bo: The buffer object.
-  1072	 * @flags: Flags governing the shrinking behaviour.
-  1073	 *
-  1074	 * The function uses the ttm_tt_back_up functionality to back up or
-  1075	 * purge a struct ttm_tt. If the bo is not in system, it's first
-  1076	 * moved there.
-  1077	 *
-  1078	 * Return: The number of pages shrunken or purged, or
-  1079	 * negative error code on failure.
-  1080	 */
-  1081	long ttm_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
-  1082			   const struct ttm_bo_shrink_flags flags)
-  1083	{
-  1084		static const struct ttm_place sys_placement_flags = {
-  1085			.fpfn = 0,
-  1086			.lpfn = 0,
-  1087			.mem_type = TTM_PL_SYSTEM,
-  1088			.flags = 0,
-  1089		};
-  1090		static struct ttm_placement sys_placement = {
-  1091			.num_placement = 1,
-  1092			.placement = &sys_placement_flags,
-  1093		};
-  1094		struct ttm_device *bdev = bo->bdev;
-  1095		long lret;
-  1096	
-  1097		dma_resv_assert_held(bo->base.resv);
-  1098	
-  1099		if (flags.allow_move && bo->resource->mem_type != TTM_PL_SYSTEM) {
-  1100			int ret = ttm_bo_validate(bo, &sys_placement, ctx);
-  1101	
-  1102			/* Consider -ENOMEM and -ENOSPC non-fatal. */
-  1103			if (ret) {
-  1104				if (ret == -ENOMEM || ret == -ENOSPC)
-  1105					ret = -EBUSY;
-  1106				return ret;
-  1107			}
-  1108		}
-  1109	
-  1110		ttm_bo_unmap_virtual(bo);
-  1111		lret = ttm_bo_wait_ctx(bo, ctx);
-  1112		if (lret < 0)
-  1113			return lret;
-  1114	
-  1115		lret = ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
-  1116				     {.purge = flags.purge,
-  1117				      .writeback = flags.writeback});
-  1118	
-  1119		if (lret > 0) {
-  1120			spin_lock(&bdev->lru_lock);
-> 1121			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
-  1122			ttm_resource_move_to_lru_tail(bo->resource);
-  1123			spin_unlock(&bdev->lru_lock);
-  1124		}
-  1125	
-  1126		if (lret < 0 && lret != -EINTR)
-  1127			return -EBUSY;
-  1128	
-  1129		return lret;
-  1130	}
-  1131	EXPORT_SYMBOL(ttm_bo_shrink);
-  1132	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+With best wishes
+Dmitry
