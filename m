@@ -4,101 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A89CD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 18:07:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA92CD37AC
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 18:14:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5546010EFAE;
-	Wed, 13 May 2026 18:07:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DD5410EFFD;
+	Wed, 13 May 2026 18:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H2QX/Bdt";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YLYQC72s";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kgz9bNce";
 	dkim-atps=neutral
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com
- [74.125.224.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A72A910EFAE
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 18:07:41 +0000 (UTC)
-Received: by mail-yx1-f48.google.com with SMTP id
- 956f58d0204a3-651d6347a69so6881579d50.0
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:07:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778695660; cv=none;
- d=google.com; s=arc-20240605;
- b=eGJKh+TxcK4u4xYoENtyqzF2F4Ni/PpAE5Ue7jg7s7T0VRdDoiXop49GHTNa50EQEm
- 5B9+kqsglzb5LpeDtm7MKDCITKe5yk6XUJpD2w4YcsG5FCOX1qO/HbniPnbOyDbHDrn0
- aMpyhioDSrAtbA4hj7UlmSZPyD5zQCzE8qYzoMjGrx0kIE80CyoTB4Dc4azI1lzkG/5O
- 5Yw2/lYuyD3VVCRsQlI8Iaz5fPcAbqeFkuqtWTgcyUguRh4a60Sz40yWOcCE1i8GMien
- W7ux604oKuiNJAxSHpkEY3vsUsJ36SBJFuclSFfFXimsSEUiluRgeH7/iDaqUQkaEC39
- eQow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=jxclsP1jswumT4PiuNawpBapcJpnal40G/paeXbGMCA=;
- fh=7upOyMj5ExPNd9r6mVoI4w7ItGWNPcKePGhoGTU4qY0=;
- b=XuW84EkbnZUPFLUtaY8nNdC+kkI8bE/568EJFcOjRS7O/8SIQRCZ1MHRkdTpIncXnQ
- e0c26He5xSu4+j8lCsM3YrrEMBg7gOqGri9B37EwK5LnHpc48OKiZjOFio10C0LK6PCw
- 5kpXPs6nLlU2dQsRepzuUvRUbctzGxi3rcoNuTjRHB2tm1m6qfLgyRInExWl0zlNLCey
- AzxmO0vyibpfYN1pg+WH4w4RpthSTkRInBGRIRIMJv0evuXfnI+ajzo/I34RNKhZSd0L
- takBuMkR4wD5NG4fyJKUBf9OaQU+/zQzufmXhq3jzs9q0pLC1JVUrTa8YbSpHNJfWkvj
- z4lQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E4CE10EFE9
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 18:14:09 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64DF4qeF2887823
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 18:14:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=+5YP0QOKpbphYDgLRVZVQZ
+ pcwDOr8t0VL/ATQqa7Tmw=; b=YLYQC72syw3caPf+4dU9R138TxtZPBD8Y6O0Fr
+ TUV84VyPdV6XYwBTyHNoo+Hxo8bZn6sZKAYMxlMVRn+kfPCPLBSsEkjBqzX4p7+R
+ y4iAeGrYOdHU0f9hqJbi0iJvjKsXZ1X026deoKIMJbASlBFyaKsQCtl2S75Viw3R
+ M/fF68OppKTSZfgCW/+SfbuJeM1YlGB+4yJD4rHuFQP4xqxfmoX2H8p/roY1pXLR
+ PTngClyo65nCtt/YB2tVDnB3mv+hT/fRYCNk6rUBMHhdoLDuAJvNHtKreWd+PG7Y
+ 6Y4CnfsYP86oLN5SntyPqus5zCJvGcSgizmE0dqudcxbn0qQ==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
+ [209.85.222.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4p4gj8ja-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 18:14:08 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id
+ a1e0cc1a2514c-95f8863e500so2447120241.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:14:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778695660; x=1779300460; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jxclsP1jswumT4PiuNawpBapcJpnal40G/paeXbGMCA=;
- b=H2QX/Bdt7LD3sC/8KBidnNuUYZ1OLbjBQc4783lGlmXs+TIjzh6mNMhSVSH1S/o4g9
- 3vZzBV6od7gW99H8izp9yi58n9I3RrMMY5OjnrJtg5tk6qS0U8djceXuGwmRYuZsuoxR
- 9Plc2TGVwwz92eurjYWiXh81f4/gJ4krMSwvnlsIjh9jp6n4MwY5yNJh7w0VCglhAoLA
- o4b5DsjOUcoA9BzB60llF3uZIF2fTdyDSmZpc3LYOdogZOtBAg2jw/Hl08Z79ACPSwQz
- dy5OvuKhR9aWYD4O8uG0aNe/NWFNtWESRb1IAl8yaz6CvV01hdbdUHmRearrpn51swl8
- MMiw==
+ d=oss.qualcomm.com; s=google; t=1778696048; x=1779300848;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=+5YP0QOKpbphYDgLRVZVQZpcwDOr8t0VL/ATQqa7Tmw=;
+ b=kgz9bNcem+qEEzg/KWMThHTxxxygLakOT9qohRmdR6qijMc5R/oFfGMBFQfIhyYAjP
+ yFtJjRUKy1J8HoJwK7zTmQCRPvxWg5kwyRCAw67rbCypT3NJOutW4e+jquo0+5QvlRvD
+ GI/VJiHD1BLJap5EQUTm/RP/HOsqBqnD0xYYvkAFn9qVzwo0uG48LZ8k0eb/F4dstGUi
+ NMxGOpie60YDYFuPu0ZlNhAGgn1Dtbvh6RSTDt3S8dRSpmXM9rvl0OFFhjyFmw8k4PFd
+ WLlLMkYJd0q3g52tR5DDiHGt0PTD+61pKRaiywUPsdsDeAwNqPJjkh1QwZS5cQdO+a4M
+ LWBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778695660; x=1779300460;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=jxclsP1jswumT4PiuNawpBapcJpnal40G/paeXbGMCA=;
- b=QN8GrA88WC8D0dP1EDnI+oEfFKaAR5ASmFhfjPYctI/+Cw1LyUfzDZo60EMas5qobV
- U15g8Atx2vwZgTgJsuMpokn4j6zs0ZKZeJio5I7YdkVc259EexbUfnA0/WipF3q6Q7Jp
- 4wAg5wZ1Xiwt/pkC5isqdsTMwNj3wRG7u1U8mFOUI9Wkl/Ov+NoFKU8n1lwRe9sLtNWW
- PSERqF/IJKfaTi34YwzovsoMewXlgKf59XKZNkhWqzsWbniRYJhWR/s1tsF+nrn0UjDJ
- CueG8o2+fxrheBXtkdSVkXgZZixo2r70bJiUoolWaGDXdmyae8BYkLp7ajVtbl3QxcJ6
- Kq7Q==
+ d=1e100.net; s=20251104; t=1778696048; x=1779300848;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+5YP0QOKpbphYDgLRVZVQZpcwDOr8t0VL/ATQqa7Tmw=;
+ b=Q8/EaubVqQtKtmpF6ZmhEPralesKX4Z5p2+yBn6QOLY2sLwHGKbAEu+nSOk4NB5pkD
+ zwNTMCrUS7umphArKpE33gM8XV/M35tmt8p8og12AQSd10TWBteqN4rzSegFM12cJJmc
+ O7FGsa9zvH/yDhzRmUcVoWh57D17psDGssBe0rVntuECHXxAa+kJtcOGkB5738hTbKae
+ B0CcnnBzFaXMwtTuXSzxt3bE22HX138OnJMU7nVEj8w1QxPjI6YYDAjrPEtb28P03ijK
+ GF3ER1BU61JuwvVG5og+PQLuzUI5XBIPyHlJYydZFwuK28yaxdaCbrCJZJi57cFk/abP
+ T8tQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ841Jo028NVarkkYSw7ygmNEKXu2dEAuE8TExvA/kTfUAeCkrmzlywZsAtvC+VO+7AArBkpAfUZiGA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwkgPyJbBMIxo/9Gy15+Gl51jYZzd705dA0wG3n21USCo/eJ6J1
- EUv4PFK1t+fSzdni1nA0gbDSMwGCeuthSWYOHEPcdJujM8nvknzUh1HOHIrtFl6JfE9MjOGwYNd
- ULz6wtFxyf19x8oMQbBy5TBfsr++fTjQ=
-X-Gm-Gg: Acq92OHx+1bpmSg6WJHAXtW0TGuUr4gNa/x9J43aOneaMP26j4qh2fDv3GESOVrfhNE
- e2/S6N8rCLYMGrWJpI9EcxnQYSWamifqYkWBkziwvhQaihipnVagNdufEMjfc8VJTH7kkCZc6WH
- l2ofhQWRTIKOsn7TcMJxtG2GwnteC4lwP2i75onmimVoJWz+xboK0WL5d0oVxgLDqn79PA6G2ZW
- 8PBsjF3rhywc3URNkCMaAqnPegTjOXjABz68/B74YlXS09C5o+RVooQH5BCn/rc6Y/J4SoH3DLd
- ukcMIB7aYUuacMdJN3LKYBSIrHD2Ao23n4sb5zGYEsebOBbJnopquNh3lhJiT7O/m/Ic27ntPkT
- DWRegnjSFGVvfH/7clYw=
-X-Received: by 2002:a05:690c:6e0c:b0:7bf:eadc:c13d with SMTP id
- 00721157ae682-7c7e92c7e52mr5571997b3.31.1778695660353; Wed, 13 May 2026
- 11:07:40 -0700 (PDT)
+ AFNElJ/VF3PTWCM1Wnbe6AhqNszxSw/AxS59/EJ8MLJjlUHATizWpOWUtyFXc4S6Ld8Zs8inn36ACTICZr8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx32vqzN5TfxLC6GAJhEh8YiwRHpseH/7ML5q0hlNqgNy+wsSaZ
+ mXL5H/H8uaMgSBtQr3LdciYJ1Jg9qSU8UIILEjE/ST5u4ej00hfwgNNKu7wdfowJMRJ35KA0xlq
+ 6548M3SzuHIQir6VuxxR2KnwR/SAqGyCEWvLFAV54XLMw4t0TrBL+io4G9FyUivXC4y534Ig=
+X-Gm-Gg: Acq92OGAefECIXrABC95YtT/AspfzAq75mCKJ6f2subm7P9dQSGw5D0EQSR4yXyNJ6q
+ wyDacXnjIW6xCE9Z/zClp6H7Av6c9sEnBwFsgwrZOvdkoCkARpHkhK2O/Er3QrnUFWoWKdlZwwV
+ gkZQeyyCA7Z1RESWCUWAxPkktP0RNfjfG4Yz2j5jPPogVKVfR25NN7ps/1OfPoxxPBgTW9abomQ
+ 6rIybZMczaio2xI+kgfAiVdMTdNALy+Su2NvYzJBtwn/9a3Dx7fuKlGQD1Km3CcEb5kjCtRaYKF
+ TdITQDRSkoL3RpbaV49wZjCqLUoZacDjFmmru6j6C5FjJ42N0v0LvwtNLd1zcP37gR02EGbyoBT
+ 7s34VaSHUTLbeB1RDGbDW4MbISrwF4/1hH1F2qfDdsYKXTOjRdi800/f2qlQs3OzAIK4wOV5a0P
+ Vqd9EUc5Skk4MG+aACXccJ0yk2uVqMD1XUVy4=
+X-Received: by 2002:a05:6102:945:b0:632:29a5:2b24 with SMTP id
+ ada2fe7eead31-637a6c2fad0mr2435854137.3.1778696047658; 
+ Wed, 13 May 2026 11:14:07 -0700 (PDT)
+X-Received: by 2002:a05:6102:945:b0:632:29a5:2b24 with SMTP id
+ ada2fe7eead31-637a6c2fad0mr2435842137.3.1778696047257; 
+ Wed, 13 May 2026 11:14:07 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a8bd7d8974sm3174770e87.64.2026.05.13.11.14.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 May 2026 11:14:06 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v9 0/5] drm/msm/hdmi & phy: use generic PHY framework
+Date: Wed, 13 May 2026 21:14:03 +0300
+Message-Id: <20260513-fd-hdmi-phy-v9-0-ca98c72f1f9f@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-11-95c614a739cb@collabora.com>
- <20260512135041.7801aa88@fedora>
- <CAPaKu7Qk+aYY-O+HFLbg5D+cc4KZrU1dt23kATc7mpWPEP2gOg@mail.gmail.com>
- <20260513105418.6e59142a@fedora>
-In-Reply-To: <20260513105418.6e59142a@fedora>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Wed, 13 May 2026 11:07:29 -0700
-X-Gm-Features: AVHnY4LkiXfdjiTDWADDu9Cpj2VP_MwSp5FbmKV-lh6Zi09VqauiP-1pPtwHaS8
-Message-ID: <CAPaKu7T28Qy7v6zAfhEKDLWrC18VbnsdnAvMxF+Mi0gEyTgiYg@mail.gmail.com>
-Subject: Re: [PATCH v2 11/11] drm/panthor: Process GPU events in IRQ context
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGu/BGoC/3XRy2rDMBAF0F8JWldGI+vZVf6jdKGXY9HYSiXX1
+ AT/e+VAaFyajeAKdLgzuqIScgwFvR6uKIc5lpjGGvTLAbnejKeAo68ZUUIZAaJx53Hvh4gv/YI
+ Zs6oF3VnnJKovLjl08fumvb3X3OU04KnPwdyNlmiqAEC0pAEKkoHGgKs35aWxJi+l/0jz8RxHk
+ 1OT8mlj+1imlJdbx5lt+EZxwinZ1ZkZrhfOGiM4NV7yYyql+fwyZ5eGoakH2lrN/E4I0gLbE7w
+ SXAGlJmjhW/uEEI/EfimzqIQLnSPKcM4keULIB4L+aSErYRl4H5RXrVVPCPVL1M/ZE2obBCwJW
+ gXfCfcPsa7rD9FxG04AAgAA
+X-Change-ID: 20240109-fd-hdmi-phy-44b8319fbcc7
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-phy@lists.infradead.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5467;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=mqLUBTI2S2Voxvu3yvM6wDaQbTBkg1ZFVIhIqHpLXg0=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQxbL/px7MZlGkzPWN8gLJcXH1iyZ8OmYXl+P6aK11pPTs
+ 0Q/LZLqZDRmYWDkYpAVU2TxKWiZGrMpOezDjqn1MINYmUCmMHBxCsBEFjNxMDTq+s+dKzlpS2SL
+ c9j3VruZ2muExKqXFfl4NiseCV5zsC2aXYPR/IhNYz5zclTLmWTe1A8vcrXO52tP3KzH6HvErkS
+ yLfeK758FzOez6zJmKdceLF1ZvVrMQGGL3gRbHlGBetvFRtMfSd1oar5hsqWy38dYosL6isNU5r
+ s5/093X3KqtNX4baV/rvVJjGLPHJ3HWe37X9c/zXvw+d1asynrsmP1FRX+6sUfrfh9Q3zWH3b79
+ 28f3p71hs/f6eF26VUzJpnLVyb4Liv1tkxO7emwO6K1onHe9PmLGnx47qWG9m9MXef2h+ufZ2ZV
+ /H2hFt+1S257f7ovvd4ytqlsnqW70qswg4DeBrdksxgA
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: j_6iPGP_nb3hX_Go13JguBNnRoWf8I_6
+X-Authority-Analysis: v=2.4 cv=DOS/JSNb c=1 sm=1 tr=0 ts=6a04bf70 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=0ODQC-He88dBTbE4dnsA:9 a=QEXdDO2ut3YA:10
+ a=TOPH6uDL9cOC6tEoww4z:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: j_6iPGP_nb3hX_Go13JguBNnRoWf8I_6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE4MiBTYWx0ZWRfXxcPUQWVSoo3e
+ x7ydz29A3Y58xvxr6M+N3AbDKV1+GwWjHWZb/5SzPdQexq8EBXhpEtBHpBiHCCX5RM72D7ATZFj
+ 0wit61ZIZ9D8aqJWdQXyp8ItBfgXOQ1DRzKLx895oihOp8/s5G7zoCdVKCsNdPRlGN2NcoFR4Sw
+ ZwcmjyZJUtW6iImhvRn4E58hG97b71rN8bpHgpkhoTzsLs0Q9NznSQV+DrXqx6dzwhP7WSkP/NY
+ 8tBBp5aX+3mToZJmKtZh4Ab4SE0M7i1GSy+79/UHZVl5l2Hg321QTKOxZ0Ohw1dKL4kb2qgGnvx
+ TlRd/BE5EcfyNPCR3KXw/PHDLI/0CxglBhXNIrUt4fut4kzaJb4CYGprYHN4H6eL7fiHnnXgpZg
+ JVmUmEHsCsyPZOOdmdBoNMXRaF3qTodmS2vIRDFUD0pGtzs8iqpQpB8DaLxV8lMpFoN1NqbwjAe
+ Rs77m5VtiHUzqJ3iIsg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-13_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 impostorscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130182
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,104 +166,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 13, 2026 at 1:54=E2=80=AFAM Boris Brezillon
-<boris.brezillon@collabora.com> wrote:
->
-> On Tue, 12 May 2026 15:40:41 -0700
-> Chia-I Wu <olvaffe@gmail.com> wrote:
->
-> > On Tue, May 12, 2026 at 5:09=E2=80=AFAM Boris Brezillon
-> > <boris.brezillon@collabora.com> wrote:
-> > >
-> > > On Tue, 12 May 2026 13:37:41 +0200
-> > > Boris Brezillon <boris.brezillon@collabora.com> wrote:
-> > >
-> > > > The current panthor_gpu_irq_handler() logic is already IRQ-safe
-> > > > (no sleep or sleeping locks, spinlocks taken with irqsave in other
-> > > > contexts, etc), so let's toggle the switch and make it an hard IRQ
-> > > > handler.
-> > > >
-> > > > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > > > ---
-> > > >  drivers/gpu/drm/panthor/panthor_gpu.c | 15 ++++++++-------
-> > > >  1 file changed, 8 insertions(+), 7 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/dr=
-m/panthor/panthor_gpu.c
-> > > > index b9c51f8a051d..04c8f23baf3f 100644
-> > > > --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> > > > +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> > > > @@ -86,10 +86,15 @@ static void panthor_gpu_l2_config_set(struct pa=
-nthor_device *ptdev)
-> > > >       gpu_write(gpu->iomem, GPU_L2_CONFIG, l2_config);
-> > > >  }
-> > > >
-> > > > -static void panthor_gpu_irq_handler(struct panthor_irq *pirq, u32 =
-status)
-> > > > +static irqreturn_t panthor_gpu_irq_raw_handler(int irq, void *data=
-)
-> > > >  {
-> > > > +     struct panthor_irq *pirq =3D data;
-> > > >       struct panthor_device *ptdev =3D pirq->ptdev;
-> > > >       struct panthor_gpu *gpu =3D ptdev->gpu;
-> > > > +     u32 status =3D gpu_read(gpu->irq.iomem, INT_STAT);
-> > > > +
-> > > > +     if (!status)
-> > > > +             return IRQ_NONE;
-> > > >
-> > >
-> > > Forgot to add the pirq state transition here:
-> > >
-> > >        scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
-> > >                if (pirq->state !=3D PANTHOR_IRQ_STATE_ACTIVE)
-> > >                        return IRQ_NONE;
-> > >
-> > >                pirq->state =3D PANTHOR_IRQ_STATE_PROCESSING;
-> > >        }
-> > >
-> > > >       gpu_write(gpu->irq.iomem, INT_CLEAR, status);
-> > > >
-> > > > @@ -115,11 +120,8 @@ static void panthor_gpu_irq_handler(struct pan=
-thor_irq *pirq, u32 status)
-> > > >               ptdev->gpu->pending_reqs &=3D ~status;
-> > > >               wake_up_all(&ptdev->gpu->reqs_acked);
-> > > >       }
-> > > > -}
-> > > >
-> > > > -static irqreturn_t panthor_gpu_irq_threaded_handler(int irq, void =
-*data)
-> > > > -{
-> > > > -     return panthor_irq_default_threaded_handler(data, panthor_gpu=
-_irq_handler);
-> > >
-> > > and restore it here:
-> > >
-> > >        scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
-> > >                if (pirq->state =3D=3D PANTHOR_IRQ_STATE_PROCESSING)
-> > >                        pirq->state =3D PANTHOR_IRQ_STATE_ACTIVE;
-> > >        }
-> > >
-> > It looks like we can get rid of state transitions if
-> > panthor_irq_{enable,disable}_events updates INT_MASK directly when the
-> > handler is not threaded.
->
-> Hm, this would add some conditionals to
-> panthor_irq_{enable,disable}_events() and it makes the whole thing even
-> harder to reason about, because now it's different depending on whether
-> this is a threaded handler or not.
-The difference comes from the default raw handler clears INT_MASK
-while the custom raw handler does not. That's how one interacts with
-{enable,disable}_events and the other does not.
+The MSM HDMI PHYs have been using the ad-hoc approach / API instead of
+using the generic API framework. Move MSM HDMI PHY drivers to
+drivers/phy/qualcomm and rework them to use generic PHY framework. This
+way all the QMP-related code is kept at the same place.
+Also MSM8974 HDMI PHY, 28nm DSI PHY and apq8964 SATA PHY now can use
+common helpers for the UNI PLL.
 
-I think it makes sense to move work from hot raw handlers to cold
-{enable,disable}_events in the event. It can certainly be a follow-up
-series because the benefit is insignificant compared to this series :)
+This also causes some design changes. Currently on MSM8996 the HDMI PLL
+implements clock's set_rate(), while other HDMI PHY drivers used the
+ad-hoc PHY API for setting the PLL rate (this includes in-tree MSM8960
+driver and posted, but not merged, MSM8974 driver). This might result in
+the PLL being set to one rate, while the rest of the PHY being tuned to
+work at another rate. Adopt the latter idea and always use
+phy_configure() to tune the PHY and set the PLL rate.
 
->
-> > Hm, we can even make pirq->state atomic again
-> > to get rid of locking.
->
-> I'd say, if we really want to optimize that, we do it in a follow-up
-> series. And I'd rather have an attempt at turning the MMU handler into a
-> hard handler (which implies selecting what we process immediately and
-> what we defer) than adding conditionals to irq_enabled/disable_events.
+Merge strategy: Merge the first patch (either through drm/msm or through
+the PHY tree), merge the rest of the patches in the next cycle.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Changes in v9:
+- Split 28lpm changes to a separate patch (Sashiko)
+- Reworked PHY power up /down sequences in hdmi_bridge.c (Sashiko)
+- Switched to pm_runtime_put_sync() (Sashiko)
+- Link to v8: https://patch.msgid.link/20260401-fd-hdmi-phy-v8-0-51b0e98edf6c@oss.qualcomm.com
+
+Changes in v8:
+- Rebased on linux-next, fixing conflicts
+- Added missing ids for APQ8084 and MSM8998 (Sashiko)
+- Switched to pm_runtime_put() (Sashiko)
+- Fixed several missed *1000 after pixclk -> tmds_char_rate conversion
+  (Sashiko)
+- Fixed several math overflows (Sashiko)
+- Moved UNIPHY_PLL_LOCK to the common header (Sashiko)
+- Link to v7: https://patch.msgid.link/20260324-fd-hdmi-phy-v7-0-b41dde8d83b8@oss.qualcomm.com
+
+Changes in v7:
+- Fixed the build issue between msm8974 patches.
+- Dropped even more writel / readl wrappers (now from QMP PHYs)
+- Link to v6: https://lore.kernel.org/r/20260319-fd-hdmi-phy-v6-0-cefc08a55470@oss.qualcomm.com
+
+Changes in v6:
+- Changed MSM8974 HDMI PHY driver to use FIELD_PREP / FIELD_GET (Konrad)
+- Fixed rate recalculation for MSM8974 HDMI PHY (Konrad)
+- Dropped register read/write wrappers
+- Link to v5: https://lore.kernel.org/r/20260314-fd-hdmi-phy-v5-0-58122ae96d3b@oss.qualcomm.com
+
+Changes in v5:
+- Kept only a single place which handles extp clk (after PHY power on,
+  before PHY power off) (Neil)
+- Inlined pm_runtime calls in the HDMI TX driver, replaced
+  pm_runtime_resume_and_get() with pm_runtime_get_sync(), since
+  atomic_pre_enable() can not fail.
+- Renamed registers defines to drop the REG_ prefix.
+- Link to v4: https://lore.kernel.org/r/20250520-fd-hdmi-phy-v4-0-fcbaa652ad75@oss.qualcomm.com
+
+Changes in v3-v4:
+- Rebased on top of linux-next, solving conflicts
+- Squashed add-and-remove patches into a single git mv patch
+- Dropped HDMI PHY header patch (merged upstream)
+
+Changes in v2:
+- Changed msm8960 / apq8064 to calculate register data instead of using
+  fixed tables. This extends the list of supported modes.
+  (Implementation is based on mdss-hdmi-pll-28lpm.c from msm-4.14).
+
+- Fixed the reprogramming of PLL rate on apq8064.
+
+- Merged all non-QMP HDMI PHY drivers into a common PHY_QCOM_HDMI
+  driver (suggested by Rob Clark)
+
+---
+Dmitry Baryshkov (5):
+      drm/msm/hdmi: switch to generic PHY subsystem
+      phy: qualcomm: hdmi-28lpm: provide dynamic configuration
+      phy: qcom: apq8064-sata: extract UNI PLL register defines
+      phy: qcom-uniphy: add more registers from display PHYs
+      phy: qualcomm: add MSM8974 HDMI PHY support
+
+ drivers/gpu/drm/msm/Makefile                     |   7 -
+ drivers/gpu/drm/msm/hdmi/hdmi.c                  |  59 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.h                  |  83 +--
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c           |  88 ++-
+ drivers/gpu/drm/msm/hdmi/hdmi_phy.c              | 226 -------
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8960.c         |  51 --
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c         | 761 ----------------------
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c         | 765 -----------------------
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c         | 141 -----
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8x74.c         |  44 --
+ drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c         | 460 --------------
+ drivers/gpu/drm/msm/registers/display/hdmi.xml   | 537 ----------------
+ drivers/phy/qualcomm/Kconfig                     |  24 +
+ drivers/phy/qualcomm/Makefile                    |  14 +
+ drivers/phy/qualcomm/phy-qcom-apq8064-sata.c     |  24 +-
+ drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c       | 353 +++++++++++
+ drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c       | 477 ++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-hdmi-45nm.c        | 186 ++++++
+ drivers/phy/qualcomm/phy-qcom-hdmi-preqmp.c      | 211 +++++++
+ drivers/phy/qualcomm/phy-qcom-hdmi-preqmp.h      |  59 ++
+ drivers/phy/qualcomm/phy-qcom-qmp-hdmi-base.c    | 185 ++++++
+ drivers/phy/qualcomm/phy-qcom-qmp-hdmi-msm8996.c | 440 +++++++++++++
+ drivers/phy/qualcomm/phy-qcom-qmp-hdmi-msm8998.c | 489 +++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-qmp-hdmi.h         |  49 ++
+ drivers/phy/qualcomm/phy-qcom-uniphy.h           |  76 +++
+ 25 files changed, 2617 insertions(+), 3192 deletions(-)
+---
+base-commit: e6e0eed7a4199442ad9be37daafafa4503c3f436
+change-id: 20240109-fd-hdmi-phy-44b8319fbcc7
+
+Best regards,
+--  
+With best wishes
+Dmitry
+
