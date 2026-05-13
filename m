@@ -4,80 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5478CD37AC
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 20:57:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFED9CD4F21
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 20:57:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E142E10F07D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E44CD10F07E;
 	Wed, 13 May 2026 20:57:02 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CgivsKR9";
-	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 427FA10EDE2
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:09:08 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-82f9fdfc965so2900935b3a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 03:09:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778666948; x=1779271748; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Zfvlu5mb61YW6djjjZABEhL76NEylTpLflYnznw7iL4=;
- b=CgivsKR9/AhUl4wdKqK4QKoWPz1NtQ29YSdTm8Vhp+TvFUeqrHxKDT//TX9AOcNSTE
- BaUbkpV51c4QXmqynanv6BEgxYmEkWME0vL6s5L7sCRfI7NCNWJzKuE00XwoW8fROB7l
- XkrkGsWQgZIKZyPNfd7Hsexwi59KXYpKfa4jQONMwVZvbdCoHB7ZnJy+GS8mgw35T17K
- qgaV87F4a4KY/sUid8QA1Z6pBTm4sNN2yK93sdJ3Sx3b1G+zkIz0XbtAD39N9IM8ubab
- 1HPExGMKgGRtnhgOZDtpS31ltvbk57MVI5NR4dd4v+u3z/x5Dfe+2Q5YL/TESct5kBiD
- y92w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778666948; x=1779271748;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Zfvlu5mb61YW6djjjZABEhL76NEylTpLflYnznw7iL4=;
- b=j3xu4kTPjlH1rG3XUECgjK/S5a3Ie6/JGuOKmLDz2R6XiZprqU4reeCxkZpJrwmCaX
- Wp3/gNrmQeBOA8t7Qravt3om6BarCwRzlqaA+sLH22KdymQuUGqMzcDGTD+Dh3bNBJsA
- yKkSYRLeoxLqLyifiqvyL4Ko+yoLHS7FV4gfbZ1n2gmnFt5Ap3qPKDNjcTj03dQT9yOI
- GwhOpMDGcSpLjwITtP6LmOaUALJpWNHRcgf1w+zA4YMHCzICu8AVoULnLxTVu3HATvYE
- XQcDeyqCajCbFgJUvh0wLX8LFG63IQCOgeiYZVU8cEE4KLFQf1tM4yoxtPEiIavlmUnc
- peAg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/rYbKdZN3sQwNW6h3kktxj9+boJLwoxWAKMxEyUw2pOhtj9FIr2oh6313MFnaaH4fqMZXKChFBffI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyyEiR2pSjbv1eMhGWPrfL4Kgam6SZb0jO4ITe3UApQB6NNd4Ld
- iKQ+0eIbD2/5BNXfmnlyR9m8B0U097OQlfoQ0mI4iVsJXh3Zh4SJ7aiU
-X-Gm-Gg: Acq92OEOet5NPp5qIo3rD9GgPW2KHdpoAAGC5x6DNJ1Ea1/DQlcPt5Q4qlIBc6trBLf
- 9gNXiAPcCF6Py0ZVKrVcH4XTTtj4a7zrjYXPBaO9NdsrZs3Co8xmMcRFe7lEJLBmwhDVRaMNxne
- 29arccnA4bhDA1ViBTFXE24ddqp5bPV7u41gnkX9f77IEo5DQ+Z4+k2nZG9MkI16jYHBvCXkoeH
- XMrlnVV46PCVO1y2I+SfR6T5ews9YWOoyP90vIPdjQcbULrFMzrlQ4STD524j3r66nPD3+qgc8D
- Yvzu2wpx+3pQaWe+jppCL2/H0sP98HJ0BL2fW2N0wRlzWdaX/+vzCRnv8+Eg2ynGuAh+ugmV59V
- 9AhYNGDlRhAbpJwwm3k8SaZabSflKlZOGX2mGuu01YVt0U0QIUCIA9TBlPjGqy/iYLMHOCtEyuA
- fU72+dZLtKTqOXjW/6u8ubDSGYPgBaPNbMfK9v/QXbl1WXFJyTGiaDWA==
-X-Received: by 2002:a05:6a00:4509:b0:83e:eeab:aff8 with SMTP id
- d2e1a72fcca58-83f04290259mr2661772b3a.25.1778666947745; 
- Wed, 13 May 2026 03:09:07 -0700 (PDT)
-Received: from souradipto-das-Latitude-3460..
- ([2405:201:8011:1c:5511:5483:bbf3:4c46])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83965c30ddasm33968239b3a.21.2026.05.13.03.09.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 03:09:07 -0700 (PDT)
-From: Souradipto Das <souradiptodas6@gmail.com>
-To: thierry.reding@kernel.org,
-	mperttunen@nvidia.com
-Cc: tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- jonathanh@nvidia.com, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- Souradipto Das <souradiptodas6@gmail.com>
-Subject: [PATCH v2] drm/tegra: hdmi: Open-code drm_simple_encoder_init()
-Date: Wed, 13 May 2026 15:35:01 +0530
-Message-ID: <20260513100501.6468-1-souradiptodas6@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260502143420.7850-1-souradiptodas6@gmail.com>
-References: <20260502143420.7850-1-souradiptodas6@gmail.com>
+Received: from de-smtp-delivery-119.mimecast.com
+ (de-smtp-delivery-119.mimecast.com [194.104.109.119])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C938F10ED5B
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 09:03:03 +0000 (UTC)
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11022084.outbound.protection.outlook.com
+ [52.101.66.84]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ de-mta-111-QyrqaNLXPR2xkyO-IpUEjg-2; Wed, 13 May 2026 11:03:00 +0200
+X-MC-Unique: QyrqaNLXPR2xkyO-IpUEjg-2
+X-Mimecast-MFC-AGG-ID: QyrqaNLXPR2xkyO-IpUEjg_1778662978
+Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ (2603:10a6:102:227::10) by VI1PR01MB6893.eurprd01.prod.exchangelabs.com
+ (2603:10a6:800:19a::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
+ 2026 09:02:55 +0000
+Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ ([fe80::5adb:b6ca:f689:1ac6]) by PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ ([fe80::5adb:b6ca:f689:1ac6%3]) with mapi id 15.20.9913.009; Wed, 13 May 2026
+ 09:02:55 +0000
+Date: Wed, 13 May 2026 11:02:52 +0200
+From: =?utf-8?B?QsO2cmdlIFN0csO8bXBmZWw=?= <bstruempfel@data-modul.com>
+To: Marek Vasut <marex@nabladev.com>
+CC: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/bridge: lt9211: Add drive-strength-microamp DT
+ property
+Message-ID: <agQ4pVGFEMGaMqgc@DATAMODULBOERGELINUX>
+References: <20260512164609.3390700-1-bstruempfel@data-modul.com>
+ <20260512164609.3390700-3-bstruempfel@data-modul.com>
+ <dff39a7a-a25c-4565-ad20-48026995af11@nabladev.com>
+In-Reply-To: <dff39a7a-a25c-4565-ad20-48026995af11@nabladev.com>
+X-ClientProxiedBy: FR3P281CA0192.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::16) To PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ (2603:10a6:102:227::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR01MB8486:EE_|VI1PR01MB6893:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0fd87e0f-0318-4ed0-0a49-08deb0ce6ba8
+X-LD-Processed: d72fb47f-f4be-4915-91c7-ebd53299157b,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|18002099003|56012099003|22082099003
+X-Microsoft-Antispam-Message-Info: euDSvUY1Eo3Dg6JQeJ0zFyNakTDwkcrt26L7JH5/i/hDd2H6H0sXDVXzEsvNUhzNH1mDy1LtXJgJmpPVVUmo8hwT17EHaoY1KuZNZQ6ceiC8Hhlz2plfbmlRVywfOAIv3BVDmXBL1Rx8CNSi5FDkDG9Tjiw/OYoZcc6FoBv81PMHiqfUnvb0fsFqdrFpR3aUOUqW3VQ2ydq1UjjwK18gbweIIXZYv4M5rc9GZAAX01C0htW8LT3314Zb47RIVKduvHHjlvrkYkbFXCf/D53p/5S00AygdsTKoHSK9sdZUae3JN9Eb1nIAMCTrSES5bgBsDX+HhapL7xauBTv+GwGHOAmF7OB+ouLU2hgQt2o+h040UaQkN6vVegDdxHbydXRpqPkdjgjFUsqh3FM6xUcIb4t1wr7nNDrNTlLLk89yPtfErSgwyjjCvScUmPFajvh3F97t589U1od+xsnIgVLFjX3r8uKL/77d/sM2WFZprPCYSOVtqVdg+K3ICireHI3n3KS3WEALnkVstfi0lW0xLUF5LUYFyB1uX0TzUZasGoBxk2SBT3UL8W+dnG0P38Kd7xckF5GDVqOoqC2IAE9vE5Zhp2WGvNq4KUpgpvzB4UFNanOoSAcxeNPo0TwyMjlMo+sQZlfjJTX4dAQ7yerW60llDL1ZbJsZB7eLxtqRJxvr/5CJGnYCSUqprU0BzjR
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR01MB8486.eurprd01.prod.exchangelabs.com; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REhkVzR6bDUreWtoUlp4OXllR3ZYZXZ4V2RGdXlINUxvRHVvWlVMU1BscjNS?=
+ =?utf-8?B?R3VmWGdyTkNBaG9ETTBWQUFVV3d5dDd3Vk5iTzB0V3hIR1dpWExiM3VmOGE5?=
+ =?utf-8?B?TUx1UUdWb3czbkRsQWNDanN0ZkhVNStjeEtJOHBpdFlEcGQ3RkRFeDNQVWN1?=
+ =?utf-8?B?Ymc3dEYwRkkzQlNWSmZxRGpWNlIzNUQyd0xzekhjR0h1STJzQ1N3TU44S2lu?=
+ =?utf-8?B?TElFTVZsS014NUVQOW1pMGZHa0lvK3RUM3k5ZnRRVVM0U2ZjZjlVV25YamNE?=
+ =?utf-8?B?Skk4K2p4TnhWTVVJQjlVU2IvdTRtYThXcHlsS2RDaEhsWEIwRE1KRGYyWVg5?=
+ =?utf-8?B?MUFXMXFFVkIrdDdOakl0TmZ2NTkwa0FRWVRvcnlrQ28wSktIdTBjS0RxUVoy?=
+ =?utf-8?B?blQvb1B4L0g1KzhPT1ZwdGR1Zk05eHlSZDVTMU1zS2pKazg1ZTlTb2cwajIx?=
+ =?utf-8?B?SmtVYmN3ZEtEWSt6ai9WVFQ4MHRxdklKMDNhTXBOODNrcTR2K2lYOGZXQUQx?=
+ =?utf-8?B?NUNQVUhXZ0VWdURZS3hVL2t3QUpZSGs5dlQ2b0ZTN1RyOUJaY3VQUUFIYVVL?=
+ =?utf-8?B?ZStjT2FrOUxzMCtoU29DcDJFaVhYYld6MldYWUZMZjZ0bDRtZnUxRzVJVXp1?=
+ =?utf-8?B?SmdZcU1BYUY5N0tjTWZHMWp2US9mVzRiVWpTdVlMZi9Pa3lMMEtoeUZNcFB0?=
+ =?utf-8?B?YVByNVZjNmxGVlFWcEl4SFFsVVB1ek05c3VGUDFYUkVSempKQ1hTc0xSR2dE?=
+ =?utf-8?B?andvaWJxQVNnRTBYWjdxWGVibW1yS0FLSDZlbUhGRzE2VU94cnF4a09EcnJu?=
+ =?utf-8?B?SmNhOSt4ek9EcndLS1dxeVFSZjI4d25wc3hUbVArV3ZJRDhNS1VrSGtTc3Rt?=
+ =?utf-8?B?NnZuVU5vT0tZcXdHZmUvREppNHhYUTlvVVB2TUxubWlQRU1FSnBZZDhVbzZi?=
+ =?utf-8?B?NGFVM29ReTB3UmRISmFVYThmN3Z4WHBuMVJMZ2ZHS1hxZ3crSDB2NFQwV2ZV?=
+ =?utf-8?B?Y1VTRzI5N05pWFFabFVDRGtwWjQrT294UDZzRWxPdUZpZG54SjFmOEQ3ZVFt?=
+ =?utf-8?B?WXhsdmYxQWwyVjZoYlQ0U1dZVjlkYTEzOGRMTy9yaDUvWVNrNDRlYXRqQThQ?=
+ =?utf-8?B?M2tUbnpUYmMxTGFHZlJmR201RFo2TEdUcU51UlY5Z043NFlCZm4vVy90MmxU?=
+ =?utf-8?B?RFlqZCtPS0tqcVhQZDVvVEtpTmYrWlAwVEFtOXdpQ0hyNmVyeGQvaEpmR1JH?=
+ =?utf-8?B?YWJSQzJPYUV6bVlpL3hEa2NWcXA1dkxjb0RPWm55K3VEY044WFd6Nm9IN0FX?=
+ =?utf-8?B?cHFEVk5MWUh2UjRUQ3Z6MklwRS9PKytSUmR6ZGlwVUVTZUoxNXorbGsycFFz?=
+ =?utf-8?B?dndoYkkzd2dlUlM2NUFaVUdkVXUvcWtOVTJYT0hkT3VhVmVLMVlKcVhVZzhv?=
+ =?utf-8?B?MmViYmFzTDM0TXY0TjRCbjZndEdiLzNmNmQwVGlpalR5YXBhM1lHUFA2czQ3?=
+ =?utf-8?B?bnpWcUM4QkU5d1QrS0I5dFdrTk0xeDREeUdXTnFkL041V3pXdHIvQVNObi9I?=
+ =?utf-8?B?RFU1RVU2T1JnSFBGTnp3MmFjRmx4dHZVRlliTmd0WlRPbkFLWlZBb3NrMWVM?=
+ =?utf-8?B?OStidStUVkVsbEU1Zk9ZUytOM0N5ZFRnWWptZUtUN0tCNnl1eldvOUZiVVpS?=
+ =?utf-8?B?OEkxbDdHbFNnL0h2UXBFNE9kdGxhdjBtOU8yeWZSRVRidGplMXhEREM5b1BL?=
+ =?utf-8?B?ZHJWeFlNVmFBSjVDeTNjb0o3V01RYUtBN0t3ZjNBcDRRUEJqalJES3pveUhQ?=
+ =?utf-8?B?cjB5cjFza2hwWjVEMHR3eEJTUEgxQVJyOG5rdURwdzZ4TGhtd2RIZ2R2L1RZ?=
+ =?utf-8?B?SDdHVVdtSHdSVHNDVlc4YUl0R1M5UnhUUTdMS3V2TnV0OWJ4eUpWWk1OLzla?=
+ =?utf-8?B?T3FWczEzVFYvYmFQeTh0YjJpSUpuTWlsU2pUQUltY0dGQlBwVURsdTJ0QVdn?=
+ =?utf-8?B?OEdnUW8wajZuSTdTVWd0MmNWQ21YOVJma1VwcGlsTGtDNjNyYWtpc3BaT09S?=
+ =?utf-8?B?UVZ2OG9VaEN1QlBpZXY0c3dYNGMxZVJSTDlUYW9TK0p5VnFoTHVRWkRENjNM?=
+ =?utf-8?B?akNhQng2Nk8zOWRyaWpaQkZPMjcvV2Q0Vm5kUTB6aXRSakN3NUtSOEkwY09n?=
+ =?utf-8?B?eWtTOXVCNzBzS0kzYi8wY0M0bTlUZW53K3lEN3dMRDNtczErdGZpNjJ5Q1Er?=
+ =?utf-8?B?MXNjU05IUm96NkVKNTNmSVpndlhJVGh6RFBENkNPQUNDTGNyOG9QSlRDMTdz?=
+ =?utf-8?B?V1lkL3o2UnZXcEI3aEVNenlHUUxCUXVLZ2lpQnJKeGJLeXhMTTVnZnpIVVRL?=
+ =?utf-8?Q?oynTu2x7WOsA0GwA=3D?=
+X-Exchange-RoutingPolicyChecked: jFsntCcj2dV0geWE+unv0wHZOBC+DDInyqzClO/ReYbwwcIKHZ+f4bp6yKAq12BmpT5vfAxX3TEkKb9QL8Izd3/3BCEAYEL/pbWWJPVBgdU6y/bx3U16sueaZcaN/KWXGkPMMQLUDJfrE+gabIpI1xU9D5Zn0EyG7NiyPs/OjWP8sD/kEJaU0O6Rw5mCScriMGGicHsc7XQXeqz005NfruQF1L+uZooemBEsCOmRlFt2PaL4wzuZTFJrWQar77RVbx2Nx3tBS98j/wXEbeI2NoE9KZfhJqz6osDxg7mWvOeZwXBPHgnCp3iX9rQH6KAAOysuldATICWVLp4/956I6g==
+X-OriginatorOrg: data-modul.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fd87e0f-0318-4ed0-0a49-08deb0ce6ba8
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 09:02:55.0724 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d72fb47f-f4be-4915-91c7-ebd53299157b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vKc4FzG8ccEJQaOkA/A1+Qeo7DXieQb4+1gKrbH0KQAf2NUxTGEYaLF5Hbg+KW6+M0nZ9qmpir/l37DWziC/v7DDdZcQa5hYldP5o/FZFX8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR01MB6893
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: w7R1lXOm358H7vj_m1NzEWi0jubVwBw6BNJWp27eCd0_1778662978
+X-Mimecast-Originator: data-modul.com
+Content-Type: text/plain; charset=UTF-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 13 May 2026 20:57:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,62 +143,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The helper drm_simple_encoder_init() is a trivial wrapper around
-drm_encoder_init() that only provides a static drm_encoder_funcs with
-.destroy set to drm_encoder_cleanup(). Open-code the initialization
-with a driver-specific instance of drm_encoder_funcs and remove the
-dependency on drm_simple_kms_helper.
+Hello Marek,
 
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Souradipto Das <souradiptodas6@gmail.com>
----
-v2:
-  - Remove stray blank line
-  - Patch is compile-tested only 
-  - No functional changes.
+Thank you for your feedback,
 
- drivers/gpu/drm/tegra/hdmi.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+On Tue, May 12, 2026 at 08:29:55PM +0200, Marek Vasut wrote:
+> On 5/12/26 6:46 PM, Boerge Struempfel wrote:
+>=20
+> > +/* Maps register value (index) to drive-strength-microamp DT property =
+value */
+> > +static const u32 lt9211_hsdrv_microamp[] =3D {
+>=20
+> This can be u8 .
+>=20
 
-diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
-index 0adcd4244a42..068a32be0c13 100644
---- a/drivers/gpu/drm/tegra/hdmi.c
-+++ b/drivers/gpu/drm/tegra/hdmi.c
-@@ -25,12 +25,12 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_debugfs.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_encoder.h>
- #include <drm/drm_eld.h>
- #include <drm/drm_file.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
--#include <drm/drm_simple_kms_helper.h>
- 
- #include "hda.h"
- #include "hdmi.h"
-@@ -371,6 +371,9 @@ static const struct tmds_config tegra124_tmds_config[] = {
- 			PEAK_CURRENT_LANE3(PEAK_CURRENT_0_800_mA),
- 	},
- };
-+static const struct drm_encoder_funcs tegra_hdmi_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
- 
- static void tegra_hdmi_audio_lock(struct tegra_hdmi *hdmi)
- {
-@@ -1555,8 +1558,8 @@ static int tegra_hdmi_init(struct host1x_client *client)
- 
- 	hdmi->output.dev = client->dev;
- 
--	drm_simple_encoder_init(drm, &hdmi->output.encoder,
--				DRM_MODE_ENCODER_TMDS);
-+	drm_encoder_init(drm, &hdmi->output.encoder, &tegra_hdmi_encoder_funcs,
-+				DRM_MODE_ENCODER_TMDS, NULL);
- 	drm_encoder_helper_add(&hdmi->output.encoder,
- 			       &tegra_hdmi_encoder_helper_funcs);
- 
--- 
-2.43.0
+you are right, I'll change that in the v2.
+
+> > +=0912, 14, 16, 17, 19, 20, 22, 23, 25, 27, 28, 30, 31, 33, 34, 36
+> > +};
+> > +
+> >   struct lt9211 {
+> >   =09struct drm_bridge=09=09bridge;
+> >   =09struct device=09=09=09*dev;
+> > @@ -50,6 +55,7 @@ struct lt9211 {
+> >   =09struct regulator=09=09*vccio;
+> >   =09bool=09=09=09=09lvds_dual_link;
+> >   =09bool=09=09=09=09lvds_dual_link_even_odd_swap;
+> > +=09u8=09=09=09=09lvds_hsdrv_isel;
+> >   };
+> >  =20
+> >   static const struct regmap_range lt9211_rw_ranges[] =3D {
+> > @@ -374,7 +380,8 @@ static int lt9211_configure_tx(struct lt9211 *ctx, =
+bool jeida,
+> >   =09=09/* BIT(7) is LVDS dual-port */
+> >   =09=09{ 0x823b, 0x38 | (ctx->lvds_dual_link ? BIT(7) : 0) },
+> >   =09=09{ 0x823e, 0x92 },
+> > -=09=09{ 0x823f, 0x48 },
+> > +=09=09/* bits 3:0: RG_MLTX_HSDRV_ISEL, LVDS TX driver current */
+> > +=09=09{ 0x823f, 0x40 | ctx->lvds_hsdrv_isel },
+> >   =09=09{ 0x8240, 0x31 },
+> >   =09=09{ 0x8243, 0x80 },
+> >   =09=09{ 0x8244, 0x00 },
+> > @@ -629,7 +636,9 @@ static int lt9211_parse_dt(struct lt9211 *ctx)
+> >   =09struct device *dev =3D ctx->dev;
+> >   =09struct drm_panel *panel;
+> >   =09int dual_link;
+> > +=09u32 microamp;
+> >   =09int ret;
+> > +=09int i;
+> >  =20
+> >   =09ctx->vccio =3D devm_regulator_get(dev, "vccio");
+> >   =09if (IS_ERR(ctx->vccio))
+> > @@ -666,6 +675,23 @@ static int lt9211_parse_dt(struct lt9211 *ctx)
+> >  =20
+> >   =09ctx->panel_bridge =3D panel_bridge;
+> >  =20
+> > +=09ctx->lvds_hsdrv_isel =3D 8; /* default: 25 uA */
+> > +=09ret =3D of_property_read_u32(dev->of_node, "drive-strength-microamp=
+",
+> > +=09=09=09=09   &microamp);
+>=20
+> if ret !=3D 0 , then what happens here ?
+>=20
+
+if ret !=3D 0, we will keep the default value of 8 (corresponding to 25 uA
+as written above), which is the behavior that the driver had previously.
+
+According to the documentation, of_property_read_u32() will return 0 on
+success, -EINVAL if the property does not exist, -ENODATA if property
+does not have a value, and -EOVERFLOW if the property data isn't large
+enough. I think we only would need to give a warning or similar if the
+-ENODATA or -EOVERFLOW cases. However, I personally do not think that is
+necessary, as the usage is specified unambiguously in the devicetree
+bindings.
+
+If you feel like we should add a warning in those cases, I can add them
+however.
+
+> > +=09if (!ret) {
+> > +=09=09for (i =3D 0; i < ARRAY_SIZE(lt9211_hsdrv_microamp); i++) {
+> > +=09=09=09if (lt9211_hsdrv_microamp[i] =3D=3D microamp) {
+> > +=09=09=09=09ctx->lvds_hsdrv_isel =3D i;
+> > +=09=09=09=09break;
+> > +=09=09=09}
+> > +=09=09}
+> > +=09=09if (i =3D=3D ARRAY_SIZE(lt9211_hsdrv_microamp)) {
+> > +=09=09=09dev_err(dev, "Invalid drive-strength-microamp value %u\n",
+> > +=09=09=09=09microamp);
+> > +=09=09=09return -EINVAL;
+> > +=09=09}
+> > +=09}
+> > +
+> >   =09return 0;
+> [...]
+>=20
+
+--=20
+Best regards,
+B=C3=B6rge Str=C3=BCmpfel
+
+DATA MODUL AG
+Landsberger Str. 322
+80687 M=C3=BCnchen
 
