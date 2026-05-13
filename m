@@ -4,72 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9633CD4F35
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 08:51:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0637ACD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 08:54:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F96D10ED51;
-	Wed, 13 May 2026 08:51:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AAF210E2C4;
+	Wed, 13 May 2026 08:54:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lJP070Cl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WscbgpiU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5253610E5B6;
- Wed, 13 May 2026 08:51:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F11FF10E5B6;
+ Wed, 13 May 2026 08:54:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778662290; x=1810198290;
+ t=1778662455; x=1810198455;
  h=message-id:subject:from:to:cc:date:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=Gb6cdQvgIjVHP6q1cmpqeNRXvuWiP2WWdB4XYzroKVA=;
- b=lJP070ClFHv3Bff0hiN9rjQF/4SbWIAK2vZdj764pq2TZp7Jt2Lt4DWg
- oVnASCtbfqxxhFNfCavV2T/alLeo8gDq4RSyn+umYTMMRieUBaNTmjskZ
- V+0Eg7lPOBCJjcVYGDUJ9f7q2vU7FJyY8DYL14sz/irVPOz1g0pHAF8dv
- lYjhzVhCzCsJ+Ol1Z2h9oNRrkcGtWghO09JBBYUJDgAA7sirSJsObDDWJ
- MtScwWuNNPmi6WJeb1UJy4vRl49Ht8GYZF0iJYnEITKERPFpQ3L/zYjB5
- tZWDwPcsHARHQOGDrUZg5/tpAu24j1ksLiNNkga9MusVLZCNJOkjgJy7v g==;
-X-CSE-ConnectionGUID: G3EBZSgFQLqiG9EWrPODAA==
-X-CSE-MsgGUID: MZRyYpkuQ0qtJeTrkJjQ3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="79478891"
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="79478891"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 01:51:29 -0700
-X-CSE-ConnectionGUID: lxKHFfy8S8yGC7CiOwCOCw==
-X-CSE-MsgGUID: hT7mcpayQQ+0Z7a3TAKHHg==
+ bh=Jgp2UTOFNInsOSeSpPgO0/7DmN2y2j0R3zuWEKTH2EQ=;
+ b=WscbgpiUBUVfWYsno48tPSMsrFNHyv5x8UJiUZuoIwSYvaG1aDXabH8S
+ onyVGyaH+3Pw6flYKHuA1zyxDijBeMKtly8yC5hX/l2q4yl5Q0CIJvpwt
+ 57yqcRuQhYOjwHcBsGqIff284AulQKlS5ZGOQb7YkF4Dm2KYa7HVAc2Xf
+ q52yw68IOw97xK1OKL2SIKuqxJSELGDvTQ1vngJW+d55D5Lrg+ENNAMzh
+ DhGbwcp9q0Dt6q0SvIQxQ7TfbjOlhZz6AYHMfLtBFqITgR/+FutwZoIqM
+ CXxI3ThvvVxb5q8zGqqAZrQYccM8EbwgS+2pOaOZrIQrwtNWO/us45QPP w==;
+X-CSE-ConnectionGUID: u++Eq4omTMGeEIB6pv3dkA==
+X-CSE-MsgGUID: pT+AX7zkQvq+HELNqjkf3A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="82151214"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="82151214"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 01:54:15 -0700
+X-CSE-ConnectionGUID: D7jmCdnESpW3WBvi8P2EGw==
+X-CSE-MsgGUID: GqmBRViOSG612pY7NMdvUA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="261767495"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="238267969"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.49])
  ([10.245.244.49])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 01:51:24 -0700
-Message-ID: <1ce447ceea88bbe56c7d28654a51fc2856a7f986.camel@linux.intel.com>
-Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 01:54:12 -0700
+Message-ID: <54760b7dc968b830d3db4606fee43a02e8184ce9.camel@linux.intel.com>
+Subject: Re: [PATCH i-g-t 0/8] dmem: add amdgpu support and one more test
 From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, intel-xe@lists.freedesktop.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes
- <ljs@kernel.org>,  "Liam R. Howlett"	 <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko	 <mhocko@suse.com>, Hugh Dickins
- <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Brendan
- Jackman <jackmanb@google.com>,  Johannes Weiner <hannes@cmpxchg.org>, Zi
- Yan <ziy@nvidia.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
- <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org
-Date: Wed, 13 May 2026 10:51:21 +0200
-In-Reply-To: <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
-References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
- <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
- <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
- <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
- <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
- <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
- <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Thadeu
+ Lima de Souza Cascardo <cascardo@igalia.com>, igt-dev@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, maarten.lankhorst@linux.intel.com, Natalie
+ Vock	 <natalie.vock@gmx.de>, kernel-dev@igalia.com, Tvrtko Ursulin	
+ <tvrtko.ursulin@igalia.com>, "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
+Date: Wed, 13 May 2026 10:54:08 +0200
+In-Reply-To: <ceb093fc-f028-4c03-8f16-08ab2d0b1ed7@amd.com>
+References: <20260512215156.4083082-1-cascardo@igalia.com>
+ <ceb093fc-f028-4c03-8f16-08ab2d0b1ed7@amd.com>
 Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -90,90 +75,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-05-13 at 10:37 +0200, David Hildenbrand (Arm) wrote:
-> On 5/13/26 09:47, Christian K=C3=B6nig wrote:
-> > Hi David & Thomas,
+On Wed, 2026-05-13 at 10:06 +0200, Christian K=C3=B6nig wrote:
+> On 5/12/26 23:51, Thadeu Lima de Souza Cascardo wrote:
+> > This work builds on top of Thomas Hellstr=C3=B6m's patches at [1].
 > >=20
-> > On 5/12/26 22:03, David Hildenbrand (Arm) wrote:
-> > > On 5/12/26 13:31, Thomas Hellstr=C3=B6m wrote:
-> > ...
-> > > >=20
-> > > > OK, can eliminate those. Is VM_WARN_ON_FOLIO() preferred,
-> > > > or any other type of assert?
-> > >=20
-> > > VM_WARN_ON_FOLIO() is usually what you want, or
-> > > VM_WARN_ON_ONCE().
-> > >=20
-> > > >=20
-> > > >=20
-> > > > OK, let me understand the concern. The pages are allocated as
-> > > > multi-
-> > > > page folios using alloc_pages(gfp, order), but typically not
-> > > > promoted
-> > > > to compound pages, until inserted here. Is it that promotion
-> > > > that is of
-> > > > concern or inserting pages of unknown origin into shmem?
-> > > > Anything we
-> > > > can do to alleviate that concern?
-> > >=20
-> > > It's all rather questionable.
-> > >=20
-> > > A couple of points:
-> > >=20
-> > > a) The pages are allocated to be unmovable, but adding them to
-> > > shmem effectively
-> > > =C2=A0=C2=A0 turns them movable. Now you interfere with the page allo=
-cator
-> > > logic of
-> > > =C2=A0=C2=A0 placing movable and unmovable pages a reasonable way int=
-o
-> > > =C2=A0=C2=A0 pageblocks that group allocations of similar types.
-> > >=20
-> > > b) A driver is not supposed to decide which folio size will be
-> > > allocated for
-> > > =C2=A0=C2=A0 shmem.
+> > Besides the case of eviction when setting dmem.max, which still
+> > needs
+> > support from [2], there are other cases for testing dmem behavior
+> > and
+> > potential regressions. Thomas' patches lay over the groundwork for
+> > this,
+> > while this patchset addes one basic test of checking current usage
+> > and that
+> > drivers respect max setting when no eviction is taking place yet.
 > >=20
-> > Exactly that is one of the major reasons why we aren't using a
-> > shmem as backing store for TTM buffers in the first place.
+> > This patchset also introduces a driver layer such that the same
+> > tests can
+> > work with different drivers. amdgpu support is here added too.
 >=20
-> What was the problem with that the last time this was considered?
+> Of hand that looks really nice.
 >=20
-> shmem nowadays supports THP (e.g., 2M) and even mTHP (e.g., 64K).
+> Please always keep Vitaly CCed for igt test patches which affect
+> amdgpu as well.
 >=20
-> For internal mounts, it must be enabled accordingly
-> (/sys/kernel/mm/transparent_hugepage/.../shmem_enabled).
->=20
-> Some distributions still default to "never". I guess if an admin
-> enables it, you
-> would just get THPs.
+> Thanks,
+> Christian.
 
-FWIW, the i915 driver which uses shmem "natively" uses a special mount
-here that gives back THPs.
-
->=20
-> If "distro default" is the only problem, I guess we could think about
-> how to
-> improve that. For example, just let internal GPU DRM objects allocate
-> any folio
-> size available and supported etc.
->=20
-> Would that make it possible to just use shmem natively? (e.g., how
-> would this
-> interact with shmem features like folio migration, would that be
-> workable with
-> DRM objects?).
-
-Currently the drivers that use shmem in this way use
-"mapping_set_unevictable()" as long as the object is bound to the GPU.
-Then shrinkers can unbind from GPU and revert that setting.
-
-The problem, (as also stated in the cover letter of this series) is for
-drivers that need to change caching of the pages to WC or UC. That's an
-extremely costly operation so TTM needs to pool such allocations.
-That's where using shmem natively becomes very ugly, because you can't
-really use a 1:1 mapping between shmem objects and DRM objects anymore.
+Agree this looks nice.
+For the xe changes (once [1] gets merged)
+Acked-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
 Thanks,
 Thomas
 
 
+>=20
+> >=20
+> > [1] https://patchwork.freedesktop.org/series/163935/
+> >=20
+> > Thadeu Lima de Souza Cascardo (8):
+> > =C2=A0 Introduce dmem driver and implement Xe support
+> > =C2=A0 Adjust xe_cgroups test to use igt_dmem_driver
+> > =C2=A0 Make xe_cgroup test a generic test
+> > =C2=A0 amdgpu: add amdgpu_cgroup_region_name
+> > =C2=A0 igt_dmem_driver: add amdgpu support
+> > =C2=A0 dmem: add test for current/max
+> > =C2=A0 dmem: only check for dmem availability once
+> > =C2=A0 dmem: get region once per driver
+> >=20
+> > =C2=A0lib/amdgpu/amd_dmem.c=C2=A0=C2=A0=C2=A0 |=C2=A0 94 ++++++++++
+> > =C2=A0lib/amdgpu/amd_memory.c=C2=A0 |=C2=A0 25 +++
+> > =C2=A0lib/amdgpu/amd_memory.h=C2=A0 |=C2=A0=C2=A0 2 +
+> > =C2=A0lib/igt_dmem_driver.h=C2=A0=C2=A0=C2=A0 |=C2=A0 25 +++
+> > =C2=A0lib/meson.build=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0=C2=A0 2 +
+> > =C2=A0lib/xe/xe_dmem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+| 145 +++++++++++++++
+> > =C2=A0tests/drv_dmem_cgroups.c | 390
+> > +++++++++++++++++++++++++++++++++++++++
+> > =C2=A0tests/intel/xe_cgroups.c | 296 -----------------------------
+> > =C2=A0tests/meson.build=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 2 +-
+> > =C2=A09 files changed, 684 insertions(+), 297 deletions(-)
+> > =C2=A0create mode 100644 lib/amdgpu/amd_dmem.c
+> > =C2=A0create mode 100644 lib/igt_dmem_driver.h
+> > =C2=A0create mode 100644 lib/xe/xe_dmem.c
+> > =C2=A0create mode 100644 tests/drv_dmem_cgroups.c
+> > =C2=A0delete mode 100644 tests/intel/xe_cgroups.c
+> >=20
