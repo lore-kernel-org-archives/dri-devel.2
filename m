@@ -4,134 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2F28CD37AC
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 20:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED52CD4F21
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 21:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ADD510E343;
-	Wed, 13 May 2026 20:59:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEDC910F06E;
+	Wed, 13 May 2026 21:09:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="oVC4hm4g";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="B9sJPLiO";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IueEuEGB";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010031.outbound.protection.outlook.com
- [40.93.198.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA16210E343
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 20:59:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=evmZoH+2vx0mR9heduOIAoDC4aOTfxm3KCEyC3o8e2HoICVKdoUeH01mHc1Xlv5jXaGRcw+hzyHfyls7tlNZQu344D9+IyMPWS5w61QxtmPJqjkUZQC19oJXwbnkJqSdk+68Efa+6uij679uo7765UKsau1f1rmgEnjEYo+K2FJysaYWR95yX9U9bqkOV8TVjX2KQ1A0FlU55+j3G47r5vLzN/zGOH4sfERDzlUDz3/9ZyshqDQE5M0LMBtz993jP9zrjPDhbB1fuIcJRLK01siyRm/wy1A9ahYIGUG7xNXewCpQklO3qX4t5eSvrK0PDiqjWA6VlY1r7Mx2FqKGtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OkcB6PUtx+eymFhHADSd2CdJgqhDUBgBojstAjS9ADs=;
- b=jKBX6Y4K8OvSF1UhHKVow4pQSeE5PbZwTyQoAv72y8+Oi9wzNvojYqkdDOSS8/J964PS82f1VNiTYMZ/lwbTwTNsn/hTr40jOqlX0N9yuzmam6qXDX67fLTZNr2zQRY74beNsy+/hXbCxvElkmVDsnIrICSLgymJxWs/9MNj52YeS9ZQ81BQ3seH/QYHPQf7lvX6Jnbh1qmqjRYur5f5ctWK2mIJckj1raCEM9Ss+stR+rPjLGayqthXuRzKdZd7b1rpR5X0Wxk5TN5K5XRxLtjlECjLWzH4cs9A0q/vSClVeqa3vIyQ3wxmLFT8yL6GAzKF/ovuRmZMFjq0A4BPQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OkcB6PUtx+eymFhHADSd2CdJgqhDUBgBojstAjS9ADs=;
- b=oVC4hm4g7xL6xRuUeDofviY7BaLScliGDOfHaDrfuREfDZ0v8hYNh2so7bTcM+X8jr1R5MEClU8HrmF05ImmIqVey8B3IJSP5gxbO3qahb5ISIm8TJyuVyOrgT9iXx6Lgh7IaGoJf43HjU+R4nGwpY5Z0CjQeQUitcyzzwER7uqF8u3hZjjE8CnacQe0pFsuZVNsCRGYEg7xhdP12vQ7B08425/NFxrgQ6cnpqazj3x2s24gAmNLfYkA2srGa4k55wYQ10k2JhckBGkTNfJuu/rOKd545sj8qdRm7v/W16U+inxHpgis9GgFSx+54pcm0FpnvyWd7ehXGI9SPtAJGQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- CY3PR12MB9678.namprd12.prod.outlook.com (2603:10b6:930:101::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
- 2026 20:59:44 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.20.9913.009; Wed, 13 May 2026
- 20:59:43 +0000
-Message-ID: <72641f20-a15d-4ac8-ac1d-26c88f52ee25@nvidia.com>
-Date: Wed, 13 May 2026 13:59:41 -0700
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A50C710F06F
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 21:09:42 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64DGuIfj3995530
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 21:09:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ jkhJMB3p3x9g/m7z4wc6rLzCh+cUSNcjou/V/e/uRck=; b=B9sJPLiOytiZis+i
+ OD6Ce6a43XJnEe+NBuX6cguSEihH9ZeJNQ7Wd6kQwSIkbpAnC8FkJSqp7Qxuwr0A
+ BY74u6GiTGdx2wJJ2Uestj+AIaF8uv0yTVWNmxbDs8V9kcZXR0Oc8Aj12bxndB8N
+ aACvfqhYwkxxUap/+OnPoo3VxsSofvwQocrkmKnVHqwIw5gtBtudt3b2HZjG1NU7
+ yjZxHIzJ2ci/wTYhJSOwdr5caWDefzjQn5VYjGxZao+68XGM7G49KZ11/qoiU676
+ cBrlVFRagE+DHblBk3uY3fdVPdd1avgB1m/qyA23VFm1uFxDcsebZo0I1IYNSGds
+ hUplFg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4w8us01h-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 21:09:41 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-3662668b825so441149a91.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:09:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778706580; x=1779311380;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jkhJMB3p3x9g/m7z4wc6rLzCh+cUSNcjou/V/e/uRck=;
+ b=IueEuEGBxsaiITSnf2QvZlsCueYcbuaSMrQnp/XLGwkE8tJe7PAn6z5nu7kllxNEAA
+ BqPbbYW/ea/cbdp9z/bddUO2v/YCJdyi6wRYWTBfTrn7sP2krSF8bvISqYbiotMHi7Xx
+ wE1IANLXsROV2wxlY8GGE9IoeWR4LiRLcwVyeqEufxM7ij2spI0mH8QWkMP90GN8C9LE
+ 49XnsTI2+0+mJLJuFu5/5idLPuNRxPy7g6m8fiy1YQ1ZkhdUWF3V45Z0XAwhW16Cr9co
+ PAU/GmJBsDBelRZMlnLLwx3bXMNO3OMFz/0tYDVlgHHh1pqOq0ApI8Yizpp0yucIVxtm
+ BOAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778706580; x=1779311380;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jkhJMB3p3x9g/m7z4wc6rLzCh+cUSNcjou/V/e/uRck=;
+ b=tPz6GRj0NcbULjPcHfVv55+ZHksapUSuS89z5FR4Q4krRHH1r0xEcuIvkt1F1dwwmz
+ fOh1xFhtWbsakvgbcqFxbDQXXZQxEkToyyizNMvfKU8+MOhD7VU5fNvcx1sEFNYf3c2K
+ Wxw7jUyZnQYqKCS1Zn+xcZkuC4STVs2yVuzgEAGcbRxyJCwhs6Af0O+3QE1AC4ly/pj9
+ jXWKa/yMcbSInsZJMLGL7AVysXwVhiJKolG9dZS9cWclAnHzBrvbqLplct5pN5l7ZEeP
+ E+LF5Q14eCOeKNB2k5ZJQkdNhlS4J7juRdry7xNtntUS4O0g3ZOnB2DdZ3QSuuAdKET7
+ +CZQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9WGswh2WPSl1BbLMnTr4CeU1FTbMcFCItiV3BHfSF1y4z0qGnYUlwQ+Y7QtYbtJQY4tbFNBReKSLQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzVJyzfp3OgLIxP8Kfn3S0Jh4HHoHIYzlzwYaNOQnYAY7iFOPgk
+ EI0u5B3hkkxPN//6mhsksw4StmYpAwLBpPhvOWKtBUPnw+nxkR9bNlfFe7BEtJfZKMJssT9YRtv
+ n9UdbRI1CdgJm/gPTw/4p+mno0dPKs7+CeJFZKN/iAkEMTIZANhyy1XLTZSQgSfMzXIv6wnI=
+X-Gm-Gg: Acq92OEfe23aL1o5OTaP9vQgmXWypr3BksBdj17K83yAkU6XlQ6B6MLkzPDghQvvUaX
+ qKEawPGpEpaRrUVsozwaN1CkgxraQ+7/vktZKUPLfY56KLUWoRhQQt9YmIByNvfjQsEMRjkAwnt
+ lNg4p4RkB2DeforPiaWlZsTNc2iJql0ihISVugiIuibu7gkfYGmi3wD0pVfTGL8McF/ZMLvTzjj
+ owXtt2wVlpNjX0VUNm3MOub5D3wYNK5F4ywyEDDFGpjyXqwuxyyOvVS1+jLC2MGSr/TsAANG6qd
+ G4oqQS0pfChoyI6a26eUcz1qP4wSc9E5FcThEWgw4moxO2zMMamweQhvphfa/BxWFNpBcj5VOvg
+ q1MbBxsCqh4oPzryx4mKDVeEBUnLjKbn/bSkcNhi1jGCTg2dxPN1JwHo=
+X-Received: by 2002:a17:90b:3f83:b0:35b:9b77:d7c with SMTP id
+ 98e67ed59e1d1-368f7993ccbmr4800523a91.14.1778706580521; 
+ Wed, 13 May 2026 14:09:40 -0700 (PDT)
+X-Received: by 2002:a17:90b:3f83:b0:35b:9b77:d7c with SMTP id
+ 98e67ed59e1d1-368f7993ccbmr4800494a91.14.1778706580063; 
+ Wed, 13 May 2026 14:09:40 -0700 (PDT)
+Received: from [192.168.1.6] ([106.222.229.33])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-368edf6738bsm4863172a91.8.2026.05.13.14.09.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 May 2026 14:09:39 -0700 (PDT)
+Message-ID: <f94bebb3-8d33-446c-b9c4-b0c40850aea5@oss.qualcomm.com>
+Date: Thu, 14 May 2026 02:39:33 +0530
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/6] gpu: nova-core: run unload sequence upon unbinding
-To: Alexandre Courbot <acourbot@nvidia.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+Subject: Re: [PATCH RFT 4/5] drm/msm: Always use component model for
+ standalone GPU
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Boqun Feng <boqun@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-References: <20260422-nova-unload-v3-0-1d2c81bd3ced@nvidia.com>
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260513-gmu-sync-state-fix-v1-0-6e33e6aa9b4f@oss.qualcomm.com>
+ <20260513-gmu-sync-state-fix-v1-4-6e33e6aa9b4f@oss.qualcomm.com>
+ <pbvoyojew67yeo2cr4n7msem242ytlh2qqtrxli2q3tv7e3iao@myqtn5w57paz>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20260422-nova-unload-v3-0-1d2c81bd3ced@nvidia.com>
+In-Reply-To: <pbvoyojew67yeo2cr4n7msem242ytlh2qqtrxli2q3tv7e3iao@myqtn5w57paz>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY3PR10CA0024.namprd10.prod.outlook.com
- (2603:10b6:a03:255::29) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|CY3PR12MB9678:EE_
-X-MS-Office365-Filtering-Correlation-Id: e76a5840-1ced-4f78-c0a7-08deb1328ed9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|1800799024|376014|366016|921020|18002099003|22082099003|11063799003|3023799003|56012099003;
-X-Microsoft-Antispam-Message-Info: DEN43iQ6e2oZajmc+lDI7l2/076MI/QiJ3KtRS0lrU6Reb7skwT0BmyT9158JD42gMDp4NH1TrHGnTB3gszT0ZD2u2/Uj29dUMVX1dBsdu+uJGDAYMJq3TMk1nGKP9ClH2YFSe8xyoA77gKH62926gofY2Xl0Qjyy68vqNvokJNhERC6Glbom8MoJ192mD0SenvzeHJbeLLOnAJRVy7b8TmXvrgUbG/CGYG0KrUq3M2YIgmMZxMcfoVdQxHmlQ5LkPxhO7P2R8f8wjPTBfjab+5Ift8ors153qB6Dezzw8NoThQW5+RFTB8uy4s7vnIVMf7WZJfDmxMewLr4LrneSVUhTdrR7m+oQn5ZGp3IQE9rGlDe8PWc1iYZeNY0pNp08alyKx2EFz/RGAGqMQyuscwXjkWYBCe6tHn7yA/gGpY3iLSz4PFcDV07UL1hldBIxrn+O+0TKsUaS+Uslm4CIW8AGiM4EajgPODDz7YYil7xmma/RqYYmBtShV5T+HI/1GBX/LYTqgTaVLWdt6uqgZ+FCkx+y/vHvnYLLsvSnbGXEvfOAclVPoYb90/qRerH0FvSAce7UIbd9WvjS3OCaUkIZ+2lgbEzMX5xmRwDDEhkzJ6ba0CSPcGXCK56V845OQM0p9Ntz4wFbRJ4ksdhjvjqHYM03xP8USAuP9SHlIiknEgnH8loU59iA792MezcCLhmELuXR8dS/rM/QYkSkbRVMFplM00tPsl6Gad/hsQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(376014)(366016)(921020)(18002099003)(22082099003)(11063799003)(3023799003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUJ0K1R0cHZyYzVzVUd1elYzQmd4TUF2QmdIeHM0M216SWMvOGZndUcySzFQ?=
- =?utf-8?B?MHNRWmh6L01SOC83WEJkSkFqVFVKOTdBYWpyTW1EdDZNRmsxKy9UNmtmRUow?=
- =?utf-8?B?UC9OdzJWNERuS0ZueXZEUFlrQXpqVUZvSXAwUGhCdCs2bkkrcFQvb2JIL2Ja?=
- =?utf-8?B?K3J5WG85MHJBR2Z2YUtlc2M4SC96cTYxR1k0N3A2dkxSdEVqVGx2TzF3KzJh?=
- =?utf-8?B?eTBqNUJiMjJUZHQ3TGJwNHdPU2NwVWoxR3ZHRTNkbUNlRUFoWVZUYmltUE4x?=
- =?utf-8?B?b3pKMXFhUWlTbHEwbFNpT0FkUXZpYnNVNjF4NkhOdXpvZDhoVldqbnN4OGFP?=
- =?utf-8?B?aDNZMUREQ0NoMm1mN1lFT0Y2eXQzMGYzOXlmeFVSR2NSemNEOXZ2VTY3QTZP?=
- =?utf-8?B?SEFTRXlhMTA4eCtENDBMaUZwbUErRDRPMkgrUHArUUI0dytYekVzYXIrVG96?=
- =?utf-8?B?MFJNUFpjM245eUdYU0xtTkxaR1NTRmcyd3NySmRSYnBVcGRoQ2hlOXNSYjY4?=
- =?utf-8?B?K3QxU1hIbjlzbDdEK2xUSDNhRmxxU2Yzbk10SUVtTVNUNGpnU2RtdTcxZ1A1?=
- =?utf-8?B?UDc4WEJSd2FmVklpdzVRczM3NGJQNTBNRTVRYU4zZWd3TFVRamdSaWtiSnV2?=
- =?utf-8?B?V2ZlbEZDcVQ2WjRmSE95ZGZmWEVhMXorbXFHdU9YVnZTQ3M5cFhtUXZza2VM?=
- =?utf-8?B?bTdvbTFaUDNidkswVXVtcHdZOGdmR3hvS08xY2J3SkhyQXFYMU54N1NpU1Zk?=
- =?utf-8?B?RzZ1N3B1ajlxVTJUcWQrREljMCtHQWxOemNqL2FNdUhwREtPUUFtTThqNlhC?=
- =?utf-8?B?K3BXa3JNS2EvQi9vWWgrQklwODdkNVg3MWtQb2hlTmlkVFlIb05tWkVpYzVS?=
- =?utf-8?B?TnNxekdHN3Y2cmh0dHZWNnVoTTluQlhIUytITFNVdE1Vamx2eG9wWExYc25H?=
- =?utf-8?B?eUZIa1dMLzRkQVpLOEZBUlBXeWhKdTZ4M2xpNUhIbVR2VFRjYjZpa1RyM241?=
- =?utf-8?B?QVFGQlBOSXJFcnl0VUtXU0tBaFNKMU5vY0lva21QUE0yMTJGLzVEdEZCRHgv?=
- =?utf-8?B?Y29DSHdLYm5ERXZJWHpHSjNPKzhEeEJaWjk1TUZGVkZuKytNTEtObU5uREda?=
- =?utf-8?B?amR6U045dkFRQVRVcWd6WDdxQ1llbFRncGQ5bld1dmViSllxTzJka0U5bUha?=
- =?utf-8?B?ODdCK2FqYkEzQ3NLYjIwazNrMi9na1FtbjgxQXVQamMxNnRsRmhoY25tMHNx?=
- =?utf-8?B?YXVJRkNnZGcrOFQ1S3l5NllaMnA3N3hNeUFJZ054dU1QbEt6Y0t6RFFQSk92?=
- =?utf-8?B?SHZJTWVCbnV3dlhqU2lRUjZMU0ZtR2hKc0ZSRGdxT2JvSUF2MW1tQWdhd0pY?=
- =?utf-8?B?UjBiemljeXJRcnNaTEJhRXMxaWJZbC9GUVdLbHhYSFFtS1c2T1lUQWExREQx?=
- =?utf-8?B?blNMdWUyZzZDWWNHbkd6RjlJRzc0TitnN2NlcTBpZ3p0bXBrQjYrcTRIb0Fu?=
- =?utf-8?B?NitVeFRBTVUrWmQ3c3QzLzNBOXlNMlN5a0tFWk5UY3pPWjZGZ3FneGNZRkE0?=
- =?utf-8?B?TzBIWEFabXJFSlpwam1iYWJGSWxPMXlpSnRCUlptdFRaUEVuSGp4Q0ZUNDlN?=
- =?utf-8?B?YTBUZ1pEelMzYnV4bnBJSXFiUHpDREFrNnhnNnUraE9hVW12UUpuK3Z6d0JO?=
- =?utf-8?B?eHJnZ21YZlFJamJtUEVCVjhLZkVDWjcxVVlQRWEyd1l4cGxRdHEwU3R5MHZY?=
- =?utf-8?B?OE0wSlVlMXlaWE5FRS9CRG9XNXVGV0VQM0gzbHlVRWtYaGZPdEVzaUs2WCt3?=
- =?utf-8?B?NTJVM01mRFVvSXZCUGZ2SkdCbk5nckVrN3Bsa3B5RDBycHY0cEhlNEo0cUVJ?=
- =?utf-8?B?ZG5UK2dGWFFTL28rWkE0dnpKRVpDb2tlN0wzNE9hOEdUbC9CSjZsN2tmdTlY?=
- =?utf-8?B?alBuWDM5dkJHTzgvUHB6b0dwbGExbmQxeVFielYzZVZGWFQzSjRpbGZRSzBx?=
- =?utf-8?B?Um9ZN2pJT1BpS3ZqV3BSSDBidzF0OXRrY2w2S3FoVFRzK01jUlc3MktidFdr?=
- =?utf-8?B?VjdhNHVCbXZmZ25uVWd6L2NGSlN5Ry9pRXpzc1Q2cDBZRjBLWjhJNEoxK3hk?=
- =?utf-8?B?ZzdrMUpqRDVscHp5TFZXTHMxOWtWcm5aZnRqTWxtWmlRTXdXR0dIKzc2WTlo?=
- =?utf-8?B?bGhQcXhHaUFUWnNIbXJ6QS92V3NWM2c3d2F2YUk5ZVlKaktuL2xMaTlSb2tm?=
- =?utf-8?B?em5OVWdPVElrazJVQ0NnbURGazR0T211NTcwbjcxa0szaGF4ZUNFWk5GZTVQ?=
- =?utf-8?B?elIwellvTjd4QW4wZnAvdi8rcThhZFNWeEVaTXl3YmRuNitWdjVZUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e76a5840-1ced-4f78-c0a7-08deb1328ed9
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 20:59:43.8387 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DZHdN0JUTZ7FFic7OzSAQrBOJeUxYVUmImK3APZ1BvrEKiPTS92mGMEr1y/WXzDCOhOx7909SLccFmdIcmuoqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9678
+X-Authority-Analysis: v=2.4 cv=WP1PmHsR c=1 sm=1 tr=0 ts=6a04e895 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nm1BsBjGsf7C+PoY3QnOXg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=QCrFGBqe7VSYUZ7klbgA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: Hea_ytqYTWKHaRO7LVWo3WtcYs3dH_P-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDIwOSBTYWx0ZWRfX5q3294llYJSv
+ 32wj56g4+0xVvv3MNWEaPqqC6Bczw+b3VOhVGHXbl36U4qufqgST2/ISOiG0z8CEZokYa4TUgu9
+ e1QdiWX0wrYGJL5324mtB0biDaFPZhzrCdQUpOBLg9VR8Gg5lSzfIQplnnlAIoJj/xXrGJBhi0a
+ FbHSg9uBKfyz1kXcc7SBh4mx6HQVeIbrWdy5IrrXHx4XLpTw/K3LUAwv2Ueo3ai58J19MudnOon
+ +pJ8sdFNcARV6EQRhnc4Vl5PkQe74JB/EhCnxmsmhVfWKBNjViNKHPxahwrTLZlFXUx4anHS9vJ
+ Lh3XexGfESXJhbKbNe9qNE7Eg/zqi4ZsW9/EwPFKyuIaHt9b5yhWuBgoxiLf7OV9B5HLMltLDmy
+ zUBcvXSkS27qn5iNSGCipeSD72tRmBWbmq5AOYvRFmihiQXtZ3OXFT07OqlcIGq7Xh0AxXEFjLf
+ GA8PALT7Om/qn1Wy9UA==
+X-Proofpoint-ORIG-GUID: Hea_ytqYTWKHaRO7LVWo3WtcYs3dH_P-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-13_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
+ bulkscore=0 spamscore=0 impostorscore=0 suspectscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
+ definitions=main-2605130209
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,92 +152,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/22/26 6:40 AM, Alexandre Courbot wrote:
-> Currently the GSP is left running and the WPR2 memory region untouched
-> when the driver is unbound. This is obviously not ideal for at least two
-> reasons:
+On 5/13/2026 5:13 PM, Dmitry Baryshkov wrote:
+> On Wed, May 13, 2026 at 02:22:59AM +0530, Akhil P Oommen wrote:
+>> When separate_gpu_kms=1 (or the device is compatible with "amd,imageon"),
+>> msm_gpu_no_components() evaluates true and adreno_probe() bypasses the
+>> component framework by calling msm_gpu_probe() directly. In this case,
+>> we skip creating components and directly bind the GPU.
+>>
+>> That shortcut makes it impossible to add a second sibling on the GPU
+>> master without introducing ad-hoc plumbing. To prepare for adding the
+>> GMU as a peer component on this master, turn the GPU pdev into both a
+>> component master and the sole component of itself in this path. A follow
+>> up patch will introduce GMU as a component device.
+>>
+>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>> ---
+>>  drivers/gpu/drm/msm/adreno/adreno_device.c | 20 ++++++++++++-----
+>>  drivers/gpu/drm/msm/msm_drv.c              | 35 +++++++++++++++++++++++++-----
+>>  drivers/gpu/drm/msm/msm_drv.h              |  6 ++---
+>>  3 files changed, 45 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+>> index 66953e551d86..67686424f3a1 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+>> @@ -271,18 +271,26 @@ static const struct component_ops a3xx_ops = {
+>>  
+>>  static int adreno_probe(struct platform_device *pdev)
+>>  {
+>> -	if (msm_gpu_use_separate_drm_dev(pdev))
+>> -		return msm_gpu_probe(pdev, &a3xx_ops);
+>> +	int ret;
+>>  
+>> -	return component_add(&pdev->dev, &a3xx_ops);
+>> +	if (msm_gpu_use_separate_drm_dev(pdev)) {
+>> +		ret = msm_gpu_probe(pdev);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	ret = component_add(&pdev->dev, &a3xx_ops);
+>> +	if (ret && msm_gpu_use_separate_drm_dev(pdev))
+>> +		msm_gpu_remove(pdev);
+> 
+> What about making it more clear:
+> 
+> 	if (!msm_gpu_use_separate_drm_dev(pdev))
+> 		return component_add(&pdev->dev, &a3xx_ops);
+> 
+> 	ret = msm_gpu_probe(pdev);
+> 	if (ret)
+> 		return ret;
+> 
+> 	ret = component_add(&pdev->dev, &a3xx_ops);
+> 
+> 	if (ret)
+> 		msm_gpu_remove(pdev);
+> 
+> 	return ret;
 
-Hi,
-
-Is this ready to merge, or are you looking for more reviews?
-
-thanks,
--- 
-John Hubbard
+Ack. this is more readable.
 
 > 
-> - Probing requires setting up the WPR2 region, which cannot be done if
->   there is already one in place. Hence the current requirement to reset
->   the GPU (using e.g. `echo 1 >/sys/bus/pci/devices/.../reset`) before
->   the driver can be probed again after removal.
-> - The running GSP may still attempt to access shared memory regions
->   which the kernel might recycle.
-> 
-> On top of that, there is a nasty bug in the Blackwell VBIOS that
-> sometimes borks the GPU upon PCI reset, requiring a reboot. So relying
-> on the PCI reset to unload/reload Nova is really not practical here.
-> 
-> This series does what is needed to leave the GPU in a clean state after
-> unbind, for all currently supported GPUs. Blackwell support is trivial
-> and will be added alongside the Blackwell series [1] if this can be
-> merged first.
-> 
-> The first patch adds a `warn_on_err` utility macro to the kernel crate
-> as it is useful to warn on failures in the driver unbind path, but I can
-> remove it if it is not deemed useful.
-> 
-> This series applies cleanly on `master` as of today.
-> 
-> [1] https://lore.kernel.org/all/20260411024953.473149-1-jhubbard@nvidia.com/
-> 
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
-> Changes in v3:
-> - Disambiguate doccomment for `warn_on_err`.
-> - Test the correct bit instead of the whole register value to determine
->   that the GSP has stopped.
-> - Use an enum instead of a boolean to encode the power level when
->   shutting down the GSP.
-> - Add missing newline to `dev_err`.
-> - Add missing doccomments for new types.
-> - Use values from bindings instead of magic numbers.
-> - Remove the redundant `get_gsp_info` function.
-> - Better document Booter Unloader mailbox sentinel value, and check the
->   value of mbox0 upon return.
-> - Link to v2: https://patch.msgid.link/20260421-nova-unload-v2-0-2fe54963af8b@nvidia.com
-> 
-> Changes in v2:
-> - Rebase on top of `master` and remove unneeded/obsolete preparatory patches.
-> - Tidy up the imports of commands from the `fw` module in the `gsp` module.
-> - Link to v1: https://patch.msgid.link/20251216-nova-unload-v1-0-6a5d823be19d@nvidia.com
-> 
-> ---
-> Alexandre Courbot (6):
->       rust: add warn_on_err macro
->       gpu: nova-core: use warn_on_err macro
->       gpu: nova-core: remove unneeded get_gsp_info proxy function
->       gpu: nova-core: do not import firmware commands into GSP command module
->       gpu: nova-core: send UNLOADING_GUEST_DRIVER GSP command upon unloading
->       gpu: nova-core: run Booter Unloader and FWSEC-SB upon unbinding
-> 
->  drivers/gpu/nova-core/firmware/booter.rs          |   1 -
->  drivers/gpu/nova-core/firmware/fwsec.rs           |   1 -
->  drivers/gpu/nova-core/gpu.rs                      |  21 +++--
->  drivers/gpu/nova-core/gsp/boot.rs                 | 100 +++++++++++++++++++++-
->  drivers/gpu/nova-core/gsp/commands.rs             |  69 +++++++++++----
->  drivers/gpu/nova-core/gsp/fw.rs                   |   4 +
->  drivers/gpu/nova-core/gsp/fw/commands.rs          |  44 ++++++++++
->  drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs |  11 +++
->  drivers/gpu/nova-core/regs.rs                     |   5 ++
->  rust/kernel/bug.rs                                |  10 +++
->  10 files changed, 241 insertions(+), 25 deletions(-)
-> ---
-> base-commit: b4e07588e743c989499ca24d49e752c074924a9a
-> change-id: 20251216-nova-unload-4029b3b76950
-> 
-> Best regards,
-> --  
-> Alexandre Courbot <acourbot@nvidia.com>
-> 
+> However with this patch in place, maybe it's easier to use the main
+> msm_drv_probe()? It would need some fixes to handle !kms case as the
+> GPU-only, but it looks very similar to your new functions.
+>
 
+Agree. Will do this in a separate patch in the next rev.
+
+> 
+>> +
+>> +	return ret;
+>>  }
+>>  
+>>  static void adreno_remove(struct platform_device *pdev)
+>>  {
+>> +	component_del(&pdev->dev, &a3xx_ops);
+>>  	if (msm_gpu_use_separate_drm_dev(pdev))
+>> -		msm_gpu_remove(pdev, &a3xx_ops);
+>> -	else
+>> -		component_del(&pdev->dev, &a3xx_ops);
+>> +		msm_gpu_remove(pdev);
+>>  }
+>>  
+>>  static void adreno_shutdown(struct platform_device *pdev)
+>> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+>> index b61deafd02c3..af5aa7ff6179 100644
+>> --- a/drivers/gpu/drm/msm/msm_drv.c
+>> +++ b/drivers/gpu/drm/msm/msm_drv.c
+>> @@ -1097,10 +1097,25 @@ int msm_drv_probe(struct device *master_dev,
+>>  	return 0;
+>>  }
+>>  
+>> -int msm_gpu_probe(struct platform_device *pdev,
+>> -		  const struct component_ops *ops)
+>> +static int msm_gpu_drm_bind(struct device *dev)
+>> +{
+>> +	return msm_drm_init(dev, &msm_gpu_driver, NULL);
+> 
+> With this patch in place, we can remove the ops argument from
+> msm_drm_init() and msm_drm_uninit().
+
+I didn't notice this. Will drop the unused arg. Thanks.
+
+-Akhil.
+
+> 
+>> +}
+>> +
+>> +static void msm_gpu_drm_unbind(struct device *dev)
+>> +{
+>> +	msm_drm_uninit(dev, NULL);
+>> +}
+>> +
+>> +static const struct component_master_ops msm_gpu_drm_ops = {
+>> +	.bind = msm_gpu_drm_bind,
+>> +	.unbind = msm_gpu_drm_unbind,
+>> +};
+>> +
+>> +int msm_gpu_probe(struct platform_device *pdev)
+>>  {
+>>  	struct msm_drm_private *priv;
+>> +	struct component_match *match = NULL;
+>>  	int ret;
+>>  
+>>  	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+>> @@ -1116,13 +1131,21 @@ int msm_gpu_probe(struct platform_device *pdev,
+>>  	if (ret)
+>>  		return ret;
+>>  
+>> -	return msm_drm_init(&pdev->dev, &msm_gpu_driver, ops);
+>> +	/*
+>> +	 * The GPU pdev acts as both the component master and the sole
+>> +	 * component (added by adreno_probe()). Future patches add the
+>> +	 * GMU node as a second component on this same master.
+>> +	 */
+>> +	drm_of_component_match_add(&pdev->dev, &match,
+>> +				   component_compare_of, pdev->dev.of_node);
+>> +
+>> +	return component_master_add_with_match(&pdev->dev, &msm_gpu_drm_ops,
+>> +					       match);
+>>  }
+>>  
+>> -void msm_gpu_remove(struct platform_device *pdev,
+>> -		    const struct component_ops *ops)
+>> +void msm_gpu_remove(struct platform_device *pdev)
+>>  {
+>> -	msm_drm_uninit(&pdev->dev, ops);
+>> +	component_master_del(&pdev->dev, &msm_gpu_drm_ops);
+>>  }
+>>  
+>>  static int __init msm_drm_register(void)
+>> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+>> index 6fcb696ceb7c..6264ff27496f 100644
+>> --- a/drivers/gpu/drm/msm/msm_drv.h
+>> +++ b/drivers/gpu/drm/msm/msm_drv.h
+>> @@ -544,10 +544,8 @@ extern const struct component_master_ops msm_drm_ops;
+>>  int msm_kms_pm_prepare(struct device *dev);
+>>  void msm_kms_pm_complete(struct device *dev);
+>>  
+>> -int msm_gpu_probe(struct platform_device *pdev,
+>> -		  const struct component_ops *ops);
+>> -void msm_gpu_remove(struct platform_device *pdev,
+>> -		    const struct component_ops *ops);
+>> +int msm_gpu_probe(struct platform_device *pdev);
+>> +void msm_gpu_remove(struct platform_device *pdev);
+>>  int msm_drv_probe(struct device *dev,
+>>  	int (*kms_init)(struct drm_device *dev),
+>>  	struct msm_kms *kms);
+>>
+>> -- 
+>> 2.51.0
+>>
+> 
 
