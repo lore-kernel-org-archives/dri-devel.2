@@ -4,54 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57607CD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 21:41:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36400CD37AC
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 21:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DBD510F086;
-	Wed, 13 May 2026 21:41:12 +0000 (UTC)
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
- [209.85.161.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18AA410E37A
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 21:41:11 +0000 (UTC)
-Received: by mail-oo1-f72.google.com with SMTP id
- 006d021491bc7-6967fe3eeb1so2993433eaf.0
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:41:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778708470; x=1779313270;
- h=cc:to:from:subject:message-id:in-reply-to:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Tqk0Slr65mDNKAZF2Vaic14WCI6WBEKE9EJXBGKW5II=;
- b=Oo5u5e/YkKFHraFTfVjizELP4P/d6ijRIXg2jtBzFrThGXJv75eNl1AAoNF7+dIrcd
- iAXog3nnKVEmxHzy+SqgyRhHTzBVMlKvVCLrrvgHG4OO70EuNRI/6bE4wdkSrLKNIL+X
- /Z0ZbkUFiV3OvUSyUNUw4whY+Ib+KUXQAcxinXFyXvpxkCAn47d9q95eK9m04N829giT
- eZSQRKgz1Ej3FhhTHjEyjOzi1nOni6QISTXNu1zux3pMXzTFyTdct2Fad8+QLdOB0JkX
- jJwiGh2zivTcwZ64F70eZu9NviZW8KrVYFylrnUy0/I/8kVGI7a7N8XU7pWO0Di3Kjzt
- n/2A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+iZdEhJAbE7prZLmlhvFgPliuRQn4lXLvhU3MpxXNBD0Bnt665Gf6cYyAMFxSb0rxsSt5PTH1ruyg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxct/JRN+sJTxJmBs6+9glL+EaB73MLlF40mYdb7agt/Oko33j1
- qvdYP6FHTupXtNjwm60KxK5K7ZH/jsAHDcNyVOKcVyZX0CSrkj4Y5E6AvL7IsmXtXtfskp1IuCb
- tkkFTjWmQifvsOwCDeVccxUfxt/5xfbPtPfa9g2QvEw8Knjn7gFdGQ/yzr28=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92FD410E00E;
+	Wed, 13 May 2026 21:54:33 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="NDxen76W";
+	dkim-atps=neutral
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53EE910E00E
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 21:54:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1778709265; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=aNSnV93oxeSja22MsEvLyWiZoJzMBmEm9eKTfBJB+egi4r7i7NU17+97eYEFpXwpxkmC+bbtDkAtpP06rkmqR4C3cqDB/g7W/BUjJiL+P00jUE53a8JCLrnmGZ4tXs880CDoMPgzL4DUpxz4r1h6cArJQ94Gn2ObhbbpKhoCDyM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1778709265;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=qoFWKqXZsC4n+E9tB5UYBR7txBwkhdlz6HD0mf/7Ujs=; 
+ b=TgHafZyLNtW/P0DrFaUXuKy7RifFIeFGtWisvx1CaERD/62Q2btiEByq66Wky+dcv2JEUIWh25octfizO24kg7ayJC98dScilyP8dmLUzN+Mrl+2y2PEWESQrjPrZftpBfZzm2qacUsyiXYkE5iN6Wub+P4BsX4YUziTVwXdTs8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778709264; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=qoFWKqXZsC4n+E9tB5UYBR7txBwkhdlz6HD0mf/7Ujs=;
+ b=NDxen76WjO/i53fhYdVeHIOY+3XGbaE2bAx8SB4IL/t442UPkwzOsb5ypcBHrr5B
+ HICCJJ+bqxKqxmKsCB5cX2wMH6ObFZezA7i9LjSAOGfXL0kg+xH9IdmqhUWhhDVvlez
+ vyCj5V0IEgt1QUOE+fUFEcy9RTbuACcQRbzHODZE=
+Received: by mx.zohomail.com with SMTPS id 1778709263404877.5235059423231;
+ Wed, 13 May 2026 14:54:23 -0700 (PDT)
+Message-ID: <8a986c52-964f-42a5-b063-fbe2b242ca36@collabora.com>
+Date: Thu, 14 May 2026 00:54:19 +0300
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2902:b0:696:2038:82d7 with SMTP id
- 006d021491bc7-69b78d5922cmr2866345eaf.23.1778708470301; Wed, 13 May 2026
- 14:41:10 -0700 (PDT)
-Date: Wed, 13 May 2026 14:41:10 -0700
-In-Reply-To: <82aeba42-7872-4e92-ade8-2b7b6a8a5e43@collabora.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a04eff6.170a0220.14b6e7.0321.GAE@google.com>
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/virtio: add timeout to virtqueue wait to avoid hung
  task
-From: syzbot <syzbot@syzkaller.appspotmail.com>
-To: dmitry.osipenko@collabora.com
-Cc: airlied@redhat.com, dmitry.osipenko@collabora.com, 
- dri-devel@lists.freedesktop.org, gurchetansingh@chromium.org, 
- kraxel@redhat.com, linux-kernel@vger.kernel.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, olvaffe@gmail.com, 
- ryasuoka@redhat.com, simona@ffwll.ch, tzimmermann@suse.de, 
- virtualization@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260512-virtio-gpu_wait_event-v1-1-207eb4c1a69a@redhat.com>
+ <82aeba42-7872-4e92-ade8-2b7b6a8a5e43@collabora.com>
+Content-Language: en-US
+In-Reply-To: <82aeba42-7872-4e92-ade8-2b7b6a8a5e43@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,20 +74,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 5/14/26 00:40, Dmitry Osipenko wrote:
 > Hi,
->
+> 
 > On 5/12/26 11:59, Ryosuke Yasuoka wrote:
 >> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
 >> wait_event() without timeout when waiting for virtqueue space. If the
 >> host device stops processing commands, these waits block indefinitely.
 >> Since callers may hold DRM locks, this can make the entire system
 >> unresponsive.
->> 
+>>
 >> Replace wait_event() with wait_event_timeout() using a 5-second timeout,
 >> consistent with the existing timeout pattern in the driver. On timeout,
 >> clean up and return -ENODEV, following the same error path as
 >> drm_dev_enter() failure.
->> 
+>>
 >> Reported-by: syzbot+d6dd6f86d3aaf7eebe7406e45c1c6e549453f224@syzkaller.appspotmail.com
 >> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
 >> Reported-by: syzbot+908bd910da5dd79b88de4cf7baf376cc873a922e@syzkaller.appspotmail.com
@@ -89,15 +97,19 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 >> ---
 >>  drivers/gpu/drm/virtio/virtgpu_vq.c | 20 ++++++++++++++++++--
 >>  1 file changed, 18 insertions(+), 2 deletions(-)
->
+> 
 > If host stops processing commands, this is a problem on host side. Isn't it?
->
-> -- 
-> Best regards,
-> Dmitry
 
-I see the command but can't find the corresponding bug.
-The email is sent to  syzbot+HASH@syzkaller.appspotmail.com address
-but the HASH does not correspond to any known bug.
-Please double check the address.
+It may be acceptable to have wait_event_timeout() in a loop, printing
+warnings about unresponsive host.
 
+Don't think we can assume that 5 seconds is enough to say that host is
+busted, unless spec says so.
+
+There could be a driver module parameter, specifying the timeoout. This
+will be acceptable as user takes responsibility for the special timeout
+behaviour.
+
+-- 
+Best regards,
+Dmitry
