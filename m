@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D67ACD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 08:42:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8944BCD37B6
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 08:44:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84CA410E2D7;
-	Wed, 13 May 2026 08:42:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF93610E29C;
+	Wed, 13 May 2026 08:44:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qWiNDU5g";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="j7IzMQzs";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BE3E10E2D7
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 08:42:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 600E010E29C
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 08:44:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778661750;
- bh=BknAMhAVq8EiQCjsOx5ehbbkhdCnxVThiaBVd7cx7qY=;
+ s=mail; t=1778661895;
+ bh=wiDCBOwq5enTpnnegMkeburnpNjYmEPN9NiWi9ZR5wk=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=qWiNDU5gl6Ee5EHcBpkseGP3RPyTaaxmpaj3MIYjOPMCUYJtlp9Qdjui9RlYNYciW
- skcaIp+iKFrV1fPGYP3UBBBafI7N7FmqUCV0CBJ8shS6zHgdzUvc3aMKNqsoCJQq7P
- CUXn07/2bCOfn3pgsgVnlc6NwIEY7islPQJbjKdouJpVA13r/Q59fyIfuTtT86sZXK
- LYVBGGiOB2dY7KcAXgFhlQVwoNvVjHHjeS5MCAaT8fgGZCBRBAYSMZF71n/VsCb+Zq
- cWFFvLQjMFuqEMF4uZl1slbjBz0BPgct6EgPp5kYjhimOqZBznyg33DNDNFUAtuA8y
- vzBi6lN58e+hg==
+ b=j7IzMQzsabo6iAV/yLVY76emBHSQwiKdj1TZG7+Cr05nD6aR1H0zv1RHC9JqW4Nav
+ x1T1vZNDysZtQyeFZClImxxCAJ6/0/YsYjjfjXwbufqEqmvCE9pRI7MYD8h06TVjkK
+ cJ5Ca5fkQve8SR/31eAonaKT/4of/6YvIJT/Yr1yx0Zw5KJo2Exxj/U3CGNV1/huAK
+ DUbf01+EDfPQCDCaTinYzqtjcV4RUmLpxDBS6eDCZT3BGlpXgHacqBIPUMPxrr6nuE
+ 3itJgYtrdhD7ZoEYahAekYxesEK1pTg1dtXyI5rIDfNafeJ0PQsg1S4lBrenKV9ezp
+ 82s8mbEOM37tw==
 Received: from fedora (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5D1E317E0411;
- Wed, 13 May 2026 10:42:30 +0200 (CEST)
-Date: Wed, 13 May 2026 10:42:25 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9EFFF17E0443;
+ Wed, 13 May 2026 10:44:54 +0200 (CEST)
+Date: Wed, 13 May 2026 10:44:51 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Chia-I Wu <olvaffe@gmail.com>
 Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -41,13 +41,13 @@ Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
  <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
  <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 08/11] drm/panthor: Automatically enable interrupts
- in panthor_fw_wait_acks()
-Message-ID: <20260513104225.0c0992d5@fedora>
-In-Reply-To: <CAPaKu7Sx85JpFFJ_4w3mZ6_OPkCHDqp68Uo+RbeYx=5v03vdww@mail.gmail.com>
+Subject: Re: [PATCH v2 09/11] drm/panthor: Process FW events in IRQ context
+Message-ID: <20260513104451.28c65c9b@fedora>
+In-Reply-To: <CAPaKu7S=Cq=nASYBRRa_y2Zj4X7sX3+RY6tc4C=Vqq3-5-nqqg@mail.gmail.com>
 References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-8-95c614a739cb@collabora.com>
- <CAPaKu7Sx85JpFFJ_4w3mZ6_OPkCHDqp68Uo+RbeYx=5v03vdww@mail.gmail.com>
+ <20260512-panthor-signal-from-irq-v2-9-95c614a739cb@collabora.com>
+ <CAPaKu7SHcS=KaeLvSrxcopgL_aKQm2vVeRmGHGWW+E2YgGOM0Q@mail.gmail.com>
+ <CAPaKu7S=Cq=nASYBRRa_y2Zj4X7sX3+RY6tc4C=Vqq3-5-nqqg@mail.gmail.com>
 Organization: Collabora
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -68,100 +68,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 12 May 2026 14:55:30 -0700
+On Tue, 12 May 2026 15:09:47 -0700
 Chia-I Wu <olvaffe@gmail.com> wrote:
 
-> On Tue, May 12, 2026 at 4:54=E2=80=AFAM Boris Brezillon
-> <boris.brezillon@collabora.com> wrote:
+> On Tue, May 12, 2026 at 3:05=E2=80=AFPM Chia-I Wu <olvaffe@gmail.com> wro=
+te:
 > >
-> > Rather than assuming an interrupt is always expected for request
-> > acks, temporarily enable the relevant interrupts when the polling-wait
-> > failed. This should hopefully reduce the number of interrupts the CPU
-> > has to process.
-> >
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com> =20
-> WIth minor comments below, Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_fw.c    | 34 +++++++++++++++++++------=
---------
-> >  drivers/gpu/drm/panthor/panthor_sched.c |  5 +++--
-> >  2 files changed, 23 insertions(+), 16 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/pan=
-thor/panthor_fw.c
-> > index 8239a6951569..f5e0ceca4130 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> > @@ -1039,16 +1039,10 @@ static void panthor_fw_init_global_iface(struct=
- panthor_device *ptdev)
-> >         glb_iface->input->progress_timer =3D PROGRESS_TIMEOUT_CYCLES >>=
- PROGRESS_TIMEOUT_SCALE_SHIFT;
-> >         glb_iface->input->idle_timer =3D panthor_fw_conv_timeout(ptdev,=
- IDLE_HYSTERESIS_US);
-> >
-> > -       /* Enable interrupts we care about. */
-> > -       glb_iface->input->ack_irq_mask =3D GLB_CFG_ALLOC_EN |
-> > -                                        GLB_PING |
-> > -                                        GLB_CFG_PROGRESS_TIMER |
-> > -                                        GLB_CFG_POWEROFF_TIMER |
-> > -                                        GLB_IDLE_EN |
-> > -                                        GLB_IDLE;
-> > -
-> > -       if (panthor_fw_has_glb_state(ptdev))
-> > -               glb_iface->input->ack_irq_mask |=3D GLB_STATE_MASK;
-> > +       /* Enable interrupts for asynchronous events that are not
-> > +        * triggered by request acks.
-> > +        */
-> > +       glb_iface->input->ack_irq_mask =3D GLB_IDLE; =20
-> We should static_assert or & with GLB_EVT_MASK. Same for CSG and CS.
+> > On Tue, May 12, 2026 at 4:54=E2=80=AFAM Boris Brezillon
+> > <boris.brezillon@collabora.com> wrote: =20
+> > >
+> > > Now that everything is set to allow processing FW events in IRQ conte=
+xt,
+> > > go for it. This should reduce the dma_fence signaling latency.
+> > >
+> > > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > > ---
+> > >  drivers/gpu/drm/panthor/panthor_fw.c | 27 +++++++++++++++++++++++----
+> > >  1 file changed, 23 insertions(+), 4 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/p=
+anthor/panthor_fw.c
+> > > index f5e0ceca4130..8cfebf180de7 100644
+> > > --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> > > +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> > > @@ -1087,9 +1087,29 @@ static void panthor_job_irq_handler(struct pan=
+thor_irq *pirq, u32 status)
+> > >         }
+> > >  }
+> > >
+> > > -static irqreturn_t panthor_job_irq_threaded_handler(int irq, void *d=
+ata)
+> > > +static irqreturn_t panthor_job_irq_raw_handler(int irq, void *data)
+> > >  {
+> > > -       return panthor_irq_default_threaded_handler(data, panthor_job=
+_irq_handler);
+> > > +       struct panthor_irq *pirq =3D data;
+> > > +
+> > > +       if (!gpu_read(pirq->iomem, INT_STAT))
+> > > +               return IRQ_NONE;
+> > > +
+> > > +       scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
+> > > +               if (pirq->state !=3D PANTHOR_IRQ_STATE_ACTIVE)
+> > > +                       return IRQ_NONE;
+> > > +
+> > > +               pirq->state =3D PANTHOR_IRQ_STATE_PROCESSING;
+> > > +       }
+> > > +
+> > > +       /* We can use INT_STAT here, because we didn't mask the IRQs.=
+ */
+> > > +       panthor_job_irq_handler(pirq, gpu_read(pirq->iomem, INT_STAT)=
+); =20
+> > We should loop here until INT_STAT is cleared. =20
+> Perhaps not. This is hardirq.
 
-Yep, good idea, I'll add a static_assert() in all places where
-->ack_irq_mask is set.
+Yep, the absence of loop is intentional here. We process it one at a
+time, and give other interrupt handlers a chance to do their stuff
+before we get called again.
 
 >=20
-> >
-> >         panthor_fw_update_reqs(glb_iface, req, GLB_IDLE_EN | GLB_COUNTE=
-R_EN,
-> >                                GLB_IDLE_EN | GLB_COUNTER_EN);
-> > @@ -1318,8 +1312,8 @@ void panthor_fw_unplug(struct panthor_device *ptd=
-ev)
-> >   * Return: 0 on success, -ETIMEDOUT otherwise.
-> >   */
-> >  static int panthor_fw_wait_acks(const u32 *req_ptr, const u32 *ack_ptr,
-> > -                               wait_queue_head_t *wq,
-> > -                               u32 req_mask, u32 *acked,
-> > +                               u32 *ack_irq_mask_ptr, spinlock_t *lock,
-> > +                               wait_queue_head_t *wq, u32 req_mask, u3=
-2 *acked,
-> >                                 u32 timeout_ms)
-> >  {
-> >         u32 ack, req =3D READ_ONCE(*req_ptr) & req_mask;
-> > @@ -1334,8 +1328,16 @@ static int panthor_fw_wait_acks(const u32 *req_p=
-tr, const u32 *ack_ptr,
-> >         if (!ret)
-> >                 return 0;
-> >
-> > -       if (wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) =
-=3D=3D req,
-> > -                              msecs_to_jiffies(timeout_ms)))
-> > +       scoped_guard(spinlock_irqsave, lock)
-> > +               *ack_irq_mask_ptr |=3D req_mask;
-> > +
-> > +       ret =3D wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask=
-) =3D=3D req,
-> > +                                msecs_to_jiffies(timeout_ms));
-> > +
-> > +       scoped_guard(spinlock_irqsave, lock)
-> > +               *ack_irq_mask_ptr &=3D ~req_mask; =20
-> We should add a comment saying that this is safe because
-> {GLB,CSG,CS}_REQ_MASK and {GLB,CSG,CS}_EVT_MASK are disjoint, and thus
-> req_mask and ack_irq_mask are disjoint.
+> Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
+> > > +
+> > > +       scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
+> > > +               if (pirq->state =3D=3D PANTHOR_IRQ_STATE_PROCESSING)
+> > > +                       pirq->state =3D PANTHOR_IRQ_STATE_ACTIVE;
+> > > +       }
+> > > +
+> > > +       return IRQ_HANDLED;
+> > >  }
+> > >
+> > >  static int panthor_fw_start(struct panthor_device *ptdev)
+> > > @@ -1489,8 +1509,7 @@ int panthor_fw_init(struct panthor_device *ptde=
+v)
+> > >
+> > >         ret =3D panthor_irq_request(ptdev, &fw->irq, irq, 0,
+> > >                                   ptdev->iomem + JOB_INT_BASE, "job",
+> > > -                                 panthor_irq_default_raw_handler,
+> > > -                                 panthor_job_irq_threaded_handler);
+> > > +                                 panthor_job_irq_raw_handler, NULL);
+> > >         if (ret) {
+> > >                 drm_err(&ptdev->base, "failed to request job irq");
+> > >                 return ret;
+> > >
+> > > --
+> > > 2.54.0
+> > > =20
 
-You mean the ack_irq_mask set at init time? Because
-xxx_iface->input->ack_irq_mask is moving target now.
-
-Well, if we expand on safety matters, I'd say none of this is safe
-since it relies on the caller knowing what it does and passing a valid
-req_mask. But I'll add a comment mentioning that the original
-ack_irq_mask shouldn't intersect with any of the bits that might be set
-in req_mask (that's basically the static_assert() you suggested).
