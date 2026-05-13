@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B254CD4F40
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9829FCD4F42
 	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:18:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEA1810EE80;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A65BB10EE7E;
 	Wed, 13 May 2026 13:18:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CgcgVaZ0";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KWYq6mDK";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 297B010EE79
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:18:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0A2610EE77
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:18:04 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id CD3D12F0D;
- Wed, 13 May 2026 15:17:57 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 737B02E4F;
+ Wed, 13 May 2026 15:17:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778678278;
- bh=qlAAHPuyfwHqortEyoSLGkoCaKp5dsbc6D/L7Uu8qiE=;
+ s=mail; t=1778678275;
+ bh=bSJ25hdhRUWRW/tt7xLdkj0tLeAfFpTuwryHocg6FPM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=CgcgVaZ00ZC/gRlmRFZGJlc9i1nQ9FRvfwoVc/Z7w8FEqeHSo7wLubCqU+arj7ah2
- D+VWdUvXndyg8QywPaCSLxvKCrhPL1d5ZSTZatmE+92tXHx2hrPRnh3/CcN7ZhqEPD
- pT9iaCyqA9v8rzPL9c6X0gbZsUBqDhvC/X5Q4aaY=
+ b=KWYq6mDKn3YTBmsrpB+gmpADSvAEOqMRdYIoxsDrCZpEooPq+q4N+hau/Mxdg9v8d
+ D4bcnmlCwGIBQfvmP88AHvjRG7OX6Qf+CzZ3VBPhxYW/cg2pblEzOEgF/xhSNCK9Hr
+ zJoJWmvqTlnEGykIXbLBFTkCH2CK6xPXh02+H878=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Wed, 13 May 2026 16:17:32 +0300
-Subject: [PATCH v2 10/16] drm/tidss: Add support for DPIENABLE bit
+Date: Wed, 13 May 2026 16:17:29 +0300
+Subject: [PATCH v2 07/16] drm/tidss: oldi: Remove define for unused
+ register OLDI_LB_CTRL
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-beagley-ai-display-v2-10-9e9bcefde6bc@ideasonboard.com>
+Message-Id: <20260513-beagley-ai-display-v2-7-9e9bcefde6bc@ideasonboard.com>
 References: <20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com>
 In-Reply-To: <20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,21 +50,21 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4235;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=737;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=qlAAHPuyfwHqortEyoSLGkoCaKp5dsbc6D/L7Uu8qiE=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHn/6E/+DIUFLlIWGpILW9sqFa7vxeqDtI08G
- VwHofIO+JGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR5/wAKCRD6PaqMvJYe
- 9TDkD/4x3MiPYu9hRaFX1cGtbr//N7niKSvVzlTqlimNsME+DIQPoa/GBO/2L5DC199fOD+rGjI
- 81P7oO8yYuwK+OORdt380WW3EI6eIhUX/EGT63Mf90GYMCwtuZZPL2pKb33CFWw1kQgYAWvqqcd
- fDJuIR/MSJMxlWI4R0xHLP7lh1LmMqInYW+iWfJwrnUy79idDye9FqsS7EdjiiIDcHmkNAHmdAo
- J8E2mbtTYYyb35goiSa09D0LaeKTqDngI0RePeiFa79aFpmKIaUUKBYEG6KGULqOxYUKyISEhbH
- y1j6m6bH8jzqeMrjLzqqjSj7KVynVqrUKmnuacKyjeVCO69qYy2afB6ttbRuG7lMrTgD8WEGii1
- mhlxlYqZBD3ofIqOgW8HheHmxaW5wWDGFEsa9W5fjXhdfSTUKghsVVc4pC+aTMl40aKafKFvFYk
- d/qNRt5etaC/QjVeWZRuzMUdaG+oX5LtEKw1d9eXmPYs+rYwImfse3bEE/YvjAUo+CIb+EhWZvh
- OP5tt/eSwyKywB8BiOLAE/kamBsal1RU8SRF5XEIKElA3w2WMwQlv38wiE03Qq+o1+ByjICFBY8
- 4LNgFzKRi6q6B5ScALYewk3JIhEtrndZS4zP0XwmfZvBUXatLFshiEo35u46gZ+XXxAPsAoDEUe
- /Le5O2gk6gJQpFw==
+ bh=bSJ25hdhRUWRW/tt7xLdkj0tLeAfFpTuwryHocg6FPM=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHn+2YNXZZ8aN7zUh1BcDJWnr/httpnHSfxdC
+ cui6qEUcaCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR5/gAKCRD6PaqMvJYe
+ 9SiqD/92c2VScAUTj8GGdabM+26DMx/WnaEAeKL7Xr0dK0X766sGDIr+pltCP7TpbKRVBk48LX8
+ UVOeX6UMs8i6Gv8EI94LABG54BXMBDZX8LEjV5q3jdiV+3U7OKu5xTnN+qugSHlXwI8J9RN5/HV
+ JDdam/oFzvnDu9fnjqTTkYHHUYtTWYh5xYeH9Ocnyop4bEVdVx87a6KLyl/I/RI8entf1JwlMC9
+ 2xyg/SBt7ib3koWQJZsESSqvaaw5dNNd3p75kFFtMXVssoeaeJY+GJbRnQDR3ONVoJmZSWvZfrc
+ vQhCc8SKk5rAYK31mJg6cPp+BDKOcEqqP+jy3FhYXiZ3aeGttksrR28c0Rhw6npgFtvn9zCsCYO
+ D9IszvVqi3RVGGP2t5CblnrZQnCn6M0v7yJb595Ogc0Hxb/HpsIt1oYF7m8D6y7vSIUs00KCVO9
+ PnSWlDzdVIflD6Cb9RoNX4Ygnvkxhzb4w93t+78QA2uuxsmhQMYmA6KGmrK2uZ/MmR81ZsyUC0S
+ 54G6i1FMLlDWujFD+Az/Gqs2SN5+FTD2jKR1/hnQsONUNk7cqUGMGnybQYVnH23CYETJdcG0HuM
+ Ee5NxS2HUMlmzpxxOZMfzQrL3tc4vI5f28BbIhBFRy6ELLrGeQX7n2lTxcs2ljHBUOiwHY8sps5
+ vRzPI3e0rqvR0bg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,111 +82,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Many (or even all?) K3 SoCs have DSS VP_CONTROL.DPIENABLE bit described
-in their documentation. This bit controls whether the DPI block is
-enabled, and is set to 1 by default (i.e. DPI is enabled at HW reset).
-
-However, in almost all SoCs the setting does not actually do anything,
-and at the moment the bit is not managed by the driver.
-
-The exception is AM62L, which does have DPIENABLE connected, and
-disabling the DPI block when it is not in use provides power savings.
-
-Let's add a new feature flag for this, 'has_vp_control_dpienable', and
-implement the support.  Disable DPIENABLE for all videoports at resume
-time, so that it is 0 by default. Specifically enable and disable it in
-dispc_vp_enable() and dispc_vp_disable() for DPI output.
+OLDI_LB_CTRL define is not used, and doesn't seem to exist at least on
+some SoCs. Let's remove the define.
 
 Tested-by: Swamil Jain <s-jain1@ti.com>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c      | 23 +++++++++++++++++++++--
- drivers/gpu/drm/tidss/tidss_dispc.h      |  2 ++
- drivers/gpu/drm/tidss/tidss_dispc_regs.h |  1 +
- 3 files changed, 24 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/tidss/tidss_oldi.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 92cba069ed6c..82e0b3184cc4 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -442,6 +442,8 @@ const struct dispc_features dispc_am62l_feats = {
- 	},
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.h b/drivers/gpu/drm/tidss/tidss_oldi.h
+index 8cd535c5ee65..a361e6dbfce3 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.h
++++ b/drivers/gpu/drm/tidss/tidss_oldi.h
+@@ -20,7 +20,6 @@ struct tidss_oldi;
  
- 	.vid_order = {0},
-+
-+	.has_vp_control_dpienable = true,
- };
+ /* Register offsets */
+ #define OLDI_PD_CTRL            0x100
+-#define OLDI_LB_CTRL            0x104
  
- static const u16 *dispc_common_regmap;
-@@ -1214,6 +1216,11 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
- 
- void dispc_vp_enable(struct dispc_device *dispc, u32 hw_videoport)
- {
-+	if (dispc->feat->has_vp_control_dpienable &&
-+	    dispc->vp_data[hw_videoport].dpi_output)
-+		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
-+			       DISPC_VP_CONTROL_DPIENABLE_MASK);
-+
- 	VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
- 		       DISPC_VP_CONTROL_ENABLE_MASK);
- }
-@@ -1222,6 +1229,11 @@ void dispc_vp_disable(struct dispc_device *dispc, u32 hw_videoport)
- {
- 	VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
- 		       DISPC_VP_CONTROL_ENABLE_MASK);
-+
-+	if (dispc->feat->has_vp_control_dpienable &&
-+	    dispc->vp_data[hw_videoport].dpi_output)
-+		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
-+			       DISPC_VP_CONTROL_DPIENABLE_MASK);
- }
- 
- void dispc_vp_unprepare(struct dispc_device *dispc, u32 hw_videoport)
-@@ -2445,10 +2457,17 @@ static void dispc_vp_init(struct dispc_device *dispc)
- 
- 	dev_dbg(dispc->dev, "%s()\n", __func__);
- 
--	/* Enable the gamma Shadow bit-field for all VPs*/
--	for (i = 0; i < dispc->feat->num_vps; i++)
-+	for (i = 0; i < dispc->feat->num_vps; i++) {
-+		/* Enable the gamma Shadow bit-field for all VPs*/
- 		VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONFIG, 1,
- 			       DISPC_VP_CONFIG_GAMMAENABLE_MASK);
-+
-+		if (dispc->feat->has_vp_control_dpienable) {
-+			/* Disable DPIENABLE for all VPs */
-+			VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONTROL, 0,
-+				       DISPC_VP_CONTROL_DPIENABLE_MASK);
-+		}
-+	}
- }
- 
- static void dispc_initial_config(struct dispc_device *dispc)
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index 6f53d554259c..0fbfb86adfbf 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -92,6 +92,8 @@ struct dispc_features {
- 	u32 num_vids;
- 	struct dispc_vid_info vid_info[TIDSS_MAX_PLANES];
- 	u32 vid_order[TIDSS_MAX_PLANES];
-+	/* The DSS has VP_CONTROL.DPIENABLE bit */
-+	bool has_vp_control_dpienable;
- };
- 
- extern const struct dispc_features dispc_k2g_feats;
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc_regs.h b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
-index 4cdde24d8372..4246c72efdd5 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc_regs.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
-@@ -230,6 +230,7 @@ enum dispc_common_regs {
- 
- #define DISPC_VP_CONTROL			0x4
- #define DISPC_VP_CONTROL_DATALINES_MASK			GENMASK(10, 8)
-+#define DISPC_VP_CONTROL_DPIENABLE_MASK			GENMASK(6, 6)
- #define DISPC_VP_CONTROL_GOBIT_MASK			GENMASK(5, 5)
- #define DISPC_VP_CONTROL_ENABLE_MASK			GENMASK(0, 0)
- 
+ /* Power control bits */
+ #define OLDI_PWRDOWN_TX(n)	BIT(n)
 
 -- 
 2.43.0
