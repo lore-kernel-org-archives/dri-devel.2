@@ -4,61 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 169A7CD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 14:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A35ACD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 15:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68F9A10EEFF;
-	Wed, 13 May 2026 14:57:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9396110E5E5;
+	Wed, 13 May 2026 15:00:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nb6QF9K7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EcCxLE80";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 846E110EF02;
- Wed, 13 May 2026 14:57:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778684279; x=1810220279;
- h=message-id:subject:from:to:date:in-reply-to:references:
- content-transfer-encoding:mime-version;
- bh=nVS3kt3V8BGNmtrLQJEFZZE5l/jxxtNeysdVWTtN0kI=;
- b=nb6QF9K74lsrjm9o2QnbRzHdzjYJxb6Lu2VgKxJajSihmjCWQ4Bp3ZNt
- xV396qnPxxDB2hREB0aRsRIgEZtAJtFj+DoNRELspMgmWt9KsCndxE4oN
- oFTV6fEzFOtyhqy6JceXzql3h1UOsSFCX+0yIVTN9k2/EGFh3NwD0zZ39
- thAakc3IyF5+zgBxL3bP2FBBahn763U+cthSdq4cQlUVNMfJANHWShXHl
- fsnt+R4ocuPQ8Ke2swvP3xPwMnAmbzJiliwlJ3z6MQlWFLupjgZx539pV
- f4N15yfmTAz28S25NW/fjDA8HDiCesvNl+IyjjXzUaryvjDJ4HVB9wENM w==;
-X-CSE-ConnectionGUID: nVGAHTtOTj2UKunKtjZhDQ==
-X-CSE-MsgGUID: sUHBsjgXQHekiS32BeFaMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79728665"
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="79728665"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 07:57:58 -0700
-X-CSE-ConnectionGUID: Rcu9dULLSC+mWoHyRgMcNA==
-X-CSE-MsgGUID: 16+KQekbSn+gyRn1Ae+vaw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="239917959"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.49])
- ([10.245.244.49])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 07:57:55 -0700
-Message-ID: <233b5a1e9383e9c9ac6a10beee635cfcffc2336b.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/xe: Fix operator precedence bug in
- emit_flush_invalidate
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: lirongqing <lirongqing@baidu.com>, Matthew Brost
- <matthew.brost@intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Matthew Auld
- <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Date: Wed, 13 May 2026 16:57:52 +0200
-In-Reply-To: <20260513113725.2313-1-lirongqing@baidu.com>
-References: <20260513113725.2313-1-lirongqing@baidu.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBCDF10E5E5
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:59:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 16A306012B
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:59:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE394C2BCFA
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:59:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778684398;
+ bh=b65Hj6vzoGQXDZXC2RU8pJ9mqehhTTIbmi7MEFwB91g=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=EcCxLE80HyAkiMQl9wnKaOyPCwvsa61x4UC91VHBTAPbnm8GFbgQ57yTZvw3Wp8s6
+ Rpc7y4M19BbqYjr2RiyVoqU+xBmBgJXnEZxmtuLa6S1Wm7UEHwvqwOON63FbNSox83
+ i7K/73sw8czbs7JgtopUuNUoZUSlbHbqWKgaxU29qrec1pk+ucW7KG4mGcNXdaXGVM
+ EwTEPsoRs4fOKtvtKBfoLK/fUNnLY28HE5cV7Wk4dpNoDF1FyUnA4KeqbsPcZZtK4S
+ 7nlrcHFJgu/uYW5u6FElDT/k/H63bkM2OxSfPLeHNqAWwDvImeSakle+Bwq8jLN5G+
+ Y5G6YGyjbKUIA==
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-13354eb66baso2960797c88.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:59:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/jFcWQpN4D99auD7U35nyPoeY6qhwIkPwMMJ3PxAUbcsJccKLLuShsZKcXHexVF5KFWvU+oOKtNAM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyObjJoWaPF/zxvATk/OR6o8HKRp7W98JYo+rxkI2zZu7FQP/sG
+ eJkKeP9sWRh/wi5xvCDNBAGlSosKx2yYw+c7FSKmZcVMzdHK+9XrOhhnEaPL4bsl/H3fXp2e1go
+ MsdhdRbLb2WCopznCxX3ZAQEE2lFlBg==
+X-Received: by 2002:a05:7022:41a0:b0:132:1e79:9c55 with SMTP id
+ a92af1059eb24-13436aa4a7amr2312761c88.31.1778684398054; Wed, 13 May 2026
+ 07:59:58 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260403-drm-mediatek-opencode-encoder-init-v1-1-7be86241b876@zohomail.in>
+In-Reply-To: <20260403-drm-mediatek-opencode-encoder-init-v1-1-7be86241b876@zohomail.in>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Wed, 13 May 2026 14:59:45 +0000
+X-Gmail-Original-Message-ID: <CAAOTY__a6R7CkNApwymRYFLOQ3LErTvWXNh0oOMS7d6iK5+nNQ@mail.gmail.com>
+X-Gm-Features: AVHnY4Kxza9CuHOvMdkcK_8Vffimp1ycRH16uNep4anPkT7aEPEK318s88QDYsE
+Message-ID: <CAAOTY__a6R7CkNApwymRYFLOQ3LErTvWXNh0oOMS7d6iK5+nNQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/mediatek: mtk_dpi: Open-code drm_simple_encoder_init()
+To: shivamkalra98@zohomail.in
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,51 +76,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-05-13 at 07:37 -0400, lirongqing wrote:
-> From: Li RongQing <lirongqing@baidu.com>
->=20
-> The expression:
-> =C2=A0=C2=A0=C2=A0 MI_FLUSH_IMM_DW | (flush_flags & MI_INVALIDATE_TLB) ?:=
- 0;
->=20
-> is parsed as:
-> =C2=A0=C2=A0=C2=A0 (MI_FLUSH_DW | MI_FLUSH_DW_OP_STOREDW | MI_FLUSH_IMM_D=
-W |
-> =C2=A0=C2=A0=C2=A0=C2=A0 (flush_flags & MI_INVALIDATE_TLB)) ?: 0;
->=20
-> Since the combined constant flags are always non-zero, the GNU
-> extension
-> '?: 0' acts as a no-op and does not change the value. Remove this
-> redundant
-> and confusing logic.
->=20
-> Signed-off-by: Li RongQing <lirongqing@baidu.com>
+Hi, Shivam:
 
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+Shivam Kalra via B4 Relay
+<devnull+shivamkalra98.zohomail.in@kernel.org> =E6=96=BC 2026=E5=B9=B44=E6=
+=9C=883=E6=97=A5=E9=80=B1=E4=BA=94
+=E4=B8=8B=E5=8D=8812:00=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> From: Shivam Kalra <shivamkalra98@zohomail.in>
+>
+> The helper drm_simple_encoder_init() is a trivial wrapper around
+> drm_encoder_init() that only provides a static drm_encoder_funcs with
+> .destroy set to drm_encoder_cleanup(). Open-code the initialization
+> with a driver-specific instance of drm_encoder_funcs and remove the
+> dependency on drm_simple_kms_helper.
 
-Will push to drm-xe-next once CI is clean.
+Applied to mediatek-drm-next [1], thanks.
 
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
+log/?h=3Dmediatek-drm-next
 
+Regards,
+Chun-Kuang.
+
+>
+> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Signed-off-by: Shivam Kalra <shivamkalra98@zohomail.in>
 > ---
-> =C2=A0drivers/gpu/drm/xe/xe_ring_ops.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/xe/xe_ring_ops.c
-> b/drivers/gpu/drm/xe/xe_ring_ops.c
-> index cfeb4fc..ee468d3 100644
-> --- a/drivers/gpu/drm/xe/xe_ring_ops.c
-> +++ b/drivers/gpu/drm/xe/xe_ring_ops.c
-> @@ -144,7 +144,7 @@ static int emit_bb_start(u64 batch_addr, u32
-> ppgtt_flag, u32 *dw, int i)
-> =C2=A0static int emit_flush_invalidate(u32 addr, u32 val, u32 flush_flags=
-,
-> u32 *dw, int i)
-> =C2=A0{
-> =C2=A0	dw[i++] =3D MI_FLUSH_DW | MI_FLUSH_DW_OP_STOREDW |
-> -		=C2=A0 MI_FLUSH_IMM_DW | (flush_flags &
-> MI_INVALIDATE_TLB) ?: 0;
-> +		=C2=A0 MI_FLUSH_IMM_DW | (flush_flags &
-> MI_INVALIDATE_TLB);
-> =C2=A0
-> =C2=A0	dw[i++] =3D addr | MI_FLUSH_DW_USE_GTT;
-> =C2=A0	dw[i++] =3D 0;
+> Addresses the "Open-code drm_simple_encoder_init()" task from
+> Documentation/gpu/todo.rst.
+> ---
+>  drivers/gpu/drm/mediatek/mtk_dpi.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediate=
+k/mtk_dpi.c
+> index 53360b5d12ba..5b83ca6aecb2 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dpi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
+> @@ -25,8 +25,8 @@
+>  #include <drm/drm_bridge_connector.h>
+>  #include <drm/drm_crtc.h>
+>  #include <drm/drm_edid.h>
+> +#include <drm/drm_encoder.h>
+>  #include <drm/drm_of.h>
+> -#include <drm/drm_simple_kms_helper.h>
+>
+>  #include "mtk_ddp_comp.h"
+>  #include "mtk_disp_drv.h"
+> @@ -993,6 +993,10 @@ static const struct drm_bridge_funcs mtk_dpi_bridge_=
+funcs =3D {
+>         .debugfs_init =3D mtk_dpi_debugfs_init,
+>  };
+>
+> +static const struct drm_encoder_funcs mtk_dpi_encoder_funcs =3D {
+> +       .destroy =3D drm_encoder_cleanup,
+> +};
+> +
+>  void mtk_dpi_start(struct device *dev)
+>  {
+>         struct mtk_dpi *dpi =3D dev_get_drvdata(dev);
+> @@ -1026,8 +1030,8 @@ static int mtk_dpi_bind(struct device *dev, struct =
+device *master, void *data)
+>         int ret;
+>
+>         dpi->mmsys_dev =3D priv->mmsys_dev;
+> -       ret =3D drm_simple_encoder_init(drm_dev, &dpi->encoder,
+> -                                     DRM_MODE_ENCODER_TMDS);
+> +       ret =3D drm_encoder_init(drm_dev, &dpi->encoder, &mtk_dpi_encoder=
+_funcs,
+> +                              DRM_MODE_ENCODER_TMDS, NULL);
+>         if (ret) {
+>                 dev_err(dev, "Failed to initialize decoder: %d\n", ret);
+>                 return ret;
+>
+> ---
+> base-commit: 4b9c36c83b34f710da9573291404f6a2246251c1
+> change-id: 20260403-drm-mediatek-opencode-encoder-init-36336e4c4ff3
+>
+> Best regards,
+> --
+> Shivam Kalra <shivamkalra98@zohomail.in>
+>
+>
