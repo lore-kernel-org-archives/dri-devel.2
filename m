@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90C56CD4F24
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 15:18:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4945ECD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 15:21:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEFA810E5F5;
-	Wed, 13 May 2026 15:18:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A682310E32C;
+	Wed, 13 May 2026 15:21:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QDGdDD+S";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HmUyWrfE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86E3410E5F5;
- Wed, 13 May 2026 15:18:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A68010E32C;
+ Wed, 13 May 2026 15:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778685489; x=1810221489;
+ t=1778685686; x=1810221686;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=1YfMie5J1UEzTeh7XuhTU4CGSXgkbVt7LBESRE3Xke8=;
- b=QDGdDD+SRRuprQ4gfHZuQadqo+f4MfEXfSf2Uorfi0+RwIIs3SE219WH
- AiHjOwPyHMNLucGA2r41idjigoEHntNmrUbAbNRu3+tFDSDL1fUZU8o1f
- 1AKuDSW+a3Pw2wqvOvVObZxUCUwhG6YPSxLTwESHJXCfN6wBJTLRX1/h7
- 4FbdoQM3FqFeJZEt5IUvWnDSpiGgbQtND3iD7hG/tsC3JNUWJ9dZ1Gkkw
- 9NNJU+roOYSZxfSbUHMD9OPMO0tKkMD1Qbc0DAYPC565G1B73OUdnVtvg
- mF7VFgP1JHf9Wn2q1Gdw9xKLycCEBCrtBY/c+shP8KuV1UjDYfRseaXP5 Q==;
-X-CSE-ConnectionGUID: Ze8sSk2hRIyiKO25RG5R0w==
-X-CSE-MsgGUID: FLIo8rhvQbennp3IYLfTqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79329385"
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="79329385"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 08:18:08 -0700
-X-CSE-ConnectionGUID: e2r+19W2R3ezcAmiBFYMPg==
-X-CSE-MsgGUID: ZP8XX9mmRdmDbgLvXuyq/Q==
+ bh=B1gFXMZG4UifJDCalQPh5CCHGkLIdsb/52e5tsA+j0c=;
+ b=HmUyWrfE/jsybIjvJMOXFcGVaPuUoob3xM738A5DbJNzJ41w/UwprJTP
+ /7BSwFtlFUUjEK/mVTtGPFq0THXH3Wxipw9jA9jJvwqrmbGbDqOJFdESH
+ Uk3kjF/1ukbujog7CbHcF2GlZJuA2KN94qT7Hp9SmrzShpwLYXI1xMIzM
+ OF3XeMvgIndjyrUBz15bacABaQ5NNxJvTWAGRLr9CXHhf5BmqfsixL7lL
+ jtYpudKzARvwfubz0ljiklV4TkuGD+O7ghbiT8v4rA5+tYyOkVfUIMpeY
+ OetwC4MTXWwK92ezKevaciDUoq1EZqd+BN3dOTuMBMXfxixoYn/gYWwc2 Q==;
+X-CSE-ConnectionGUID: ETjLozYnTQWIi7UeoqdMpw==
+X-CSE-MsgGUID: dtGCWrz0To2Il9Buq40S9A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="83489645"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="83489645"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 08:21:25 -0700
+X-CSE-ConnectionGUID: iJ22L8+3Q8WdVPIYt+NBUg==
+X-CSE-MsgGUID: rPXW3bIeRwGm1IOETJhKKg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="237131300"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="239931938"
 Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
- by orviesa006-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 08:18:05 -0700
-Date: Wed, 13 May 2026 17:18:03 +0200
+ by fmviesa004-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 08:21:23 -0700
+Date: Wed, 13 May 2026 17:21:20 +0200
 From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
 To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -50,9 +50,10 @@ Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  maarten.lankhorst@linux.intel.com,
  Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: Re: [PATCH i-g-t 2/8] Adjust xe_cgroups test to use igt_dmem_driver
-Message-ID: <20260513151803.giwafssvrishv75p@kamilkon-DESK.igk.intel.com>
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Subject: Re: [PATCH i-g-t 3/8] Make xe_cgroup test a generic test
+Message-ID: <20260513152120.yaes367qju6juxvb@kamilkon-DESK.igk.intel.com>
 Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
  igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -61,13 +62,14 @@ Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
  maarten.lankhorst@linux.intel.com,
  Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 References: <20260512215156.4083082-1-cascardo@igalia.com>
- <20260512215156.4083082-3-cascardo@igalia.com>
+ <20260512215156.4083082-4-cascardo@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260512215156.4083082-3-cascardo@igalia.com>
+In-Reply-To: <20260512215156.4083082-4-cascardo@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,154 +86,185 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Thadeu,
-On 2026-05-12 at 18:51:49 -0300, Thadeu Lima de Souza Cascardo wrote:
-> Using the driver should not have any functional changes.
+On 2026-05-12 at 18:51:50 -0300, Thadeu Lima de Souza Cascardo wrote:
+> It should not be driver specific anymore. Make it run for multiple drivers,
+> though there is still only Xe now.
 > 
 > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 > ---
->  tests/intel/xe_cgroups.c | 69 ++++++++--------------------------------
->  1 file changed, 14 insertions(+), 55 deletions(-)
+>  .../xe_cgroups.c => drv_dmem_cgroups.c}       | 61 +++++++++++--------
 
-Instead of a change and in next patch a file rename,
-could you squash the two into one? Xe test is not merged yet.
+Can we start with a more generic name? imho core_cgroups.c
+looks better, so it will be tests/core_cgroups.c
+
++cc Janusz
+Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+
+>  tests/meson.build                             |  2 +-
+>  2 files changed, 38 insertions(+), 25 deletions(-)
+>  rename tests/{intel/xe_cgroups.c => drv_dmem_cgroups.c} (83%)
+> 
+> diff --git a/tests/intel/xe_cgroups.c b/tests/drv_dmem_cgroups.c
+> similarity index 83%
+> rename from tests/intel/xe_cgroups.c
+> rename to tests/drv_dmem_cgroups.c
+> index 9ff8d46570ab..6f4f779f3c2c 100644
+> --- a/tests/intel/xe_cgroups.c
+> +++ b/tests/drv_dmem_cgroups.c
+> @@ -4,13 +4,12 @@
+>   */
+>  
+>  /**
+> - * TEST: xe_cgroups
+> - * DESCRIPTION: Tests exercising the dmem cgroup controller on xe devices.
+> + * TEST: drv_dmem_cgroups
+> + * DESCRIPTION: Tests exercising the dmem cgroup controller on devices.
+>   * Category: Core
+>   * Mega feature: General Core features
+>   * Sub-category: cgroup
+>   * FUNCTIONALITY: cgroup dmem controller
+> - * SUBSETS: xe
+>   */
+>  
+>  #include <errno.h>
+> @@ -26,9 +25,6 @@
+>  #include "igt_aux.h"
+>  #include "igt_cgroup.h"
+>  #include "igt_dmem_driver.h"
+> -#include "xe_drm.h"
+> -#include "xe/xe_ioctl.h"
+> -#include "xe/xe_query.h"
+>  
+>  #define BO_SIZE			SZ_128M
+>  #define MAX_LIMIT		((uint64_t)4 * SZ_1G)
+> @@ -45,13 +41,12 @@
+>   * DESCRIPTION:
+>   *   Create a dmem cgroup, move the current process into it and set the max
+>   *   device memory limit for the first VRAM region to 4 GiB.  Then fill VRAM
+> - *   by creating BOs with %DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING (so that the
+> - *   physical allocation is deferred until VM_BIND) and binding them into an
+> - *   LR VM until the cgroup limit is hit.  Verify that the reported cgroup
+> - *   current usage is within the expected range when the error occurs.
+> + *   by creating BOs.
+> + *   Verify that the reported cgroup current usage is within the expected
+> + *   range when the error occurs.
+>   *   Finally lower the max limit in 256 MiB steps and verify that the cgroup
+>   *   usage follows.
+> - * REQUIREMENTS: must run as root; xe device with at least one VRAM region
+> + * REQUIREMENTS: must run as root; device with at least one VRAM region
+>   */
+>  
+>  /**
+> @@ -61,7 +56,7 @@
+>   *   igt_fork_signal_helper() to verify that the dmem.max write path handles
+>   *   signal interruption correctly.  A signal handler counts received signals
+>   *   and the count is reported as debug output at the end of the test.
+> - * REQUIREMENTS: must run as root; xe device with at least one VRAM region
+> + * REQUIREMENTS: must run as root; device with at least one VRAM region
+
+Almost all igt tests require a root, do we need this comment here?
 
 Regards,
 Kamil
 
-> 
-> diff --git a/tests/intel/xe_cgroups.c b/tests/intel/xe_cgroups.c
-> index 08cf8e3bdc5b..9ff8d46570ab 100644
-> --- a/tests/intel/xe_cgroups.c
-> +++ b/tests/intel/xe_cgroups.c
-> @@ -25,6 +25,7 @@
->  #include "igt.h"
->  #include "igt_aux.h"
->  #include "igt_cgroup.h"
-> +#include "igt_dmem_driver.h"
->  #include "xe_drm.h"
->  #include "xe/xe_ioctl.h"
->  #include "xe/xe_query.h"
-> @@ -110,27 +111,14 @@ static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
+>   */
+>  
+>  static atomic_int signal_count;
+> @@ -111,7 +106,7 @@ static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
 >  	return current;
 >  }
 >  
-> -static int fill_vram(int fd, uint32_t vm, uint64_t vram_region,
-> -		     uint32_t *handles, int max_bo)
-> +static int fill_vram(struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo)
+> -static int fill_vram(struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo)
+> +static int fill_vram(const struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo)
 >  {
-> -	uint32_t handle;
-> -	uint64_t addr = BIND_BASE;
 >  	int n_bo, err = 0;
 >  
->  	for (n_bo = 0; n_bo < max_bo; n_bo++) {
-> -		err = __xe_bo_create(fd, 0, BO_SIZE, vram_region,
-> -				     DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING,
-> -				     NULL, &handle);
-> +		err = drv->allocate_vram(ctx, n_bo, BO_SIZE);
->  		if (err)
->  			break;
-> -
-> -		handles[n_bo] = handle;
-> -
-> -		err = __xe_vm_bind_lr_sync(fd, vm, handle, 0, addr, BO_SIZE, 0);
-> -		if (err)
-> -			break;
-> -
-> -		addr += BO_SIZE;
->  	}
->  
->  	igt_assert_f(err == -ENOMEM || err == -ENOSPC,
-> @@ -140,47 +128,20 @@ static int fill_vram(int fd, uint32_t vm, uint64_t vram_region,
+> @@ -128,7 +123,7 @@ static int fill_vram(struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo)
 >  	return n_bo;
 >  }
 >  
-> -static void unfill_vram(int fd, uint32_t vm, uint32_t *handles, int n_bo)
-> -{
-> -	uint64_t addr = BIND_BASE;
-> -	int i;
-> -
-> -	for (i = 0; i < n_bo; i++) {
-> -		if (handles[i]) {
-> -			xe_vm_unbind_lr_sync(fd, vm, 0, addr, BO_SIZE);
-> -			gem_close(fd, handles[i]);
-> -		}
-> -		addr += BO_SIZE;
-> -	}
-> -	free(handles);
-> -}
-> -
-> -static void test_write_eviction(int fd, unsigned int flags)
-> +static void test_write_eviction(int fd, unsigned int flags, struct igt_dmem_driver *drv)
+> -static void test_write_eviction(int fd, unsigned int flags, struct igt_dmem_driver *drv)
+> +static void test_write_eviction(int fd, unsigned int flags, const struct igt_dmem_driver *drv)
 >  {
-> +	void *ctx;
+>  	void *ctx;
 >  	struct igt_cgroup *cg;
->  	char *cg_region;
-> -	uint32_t vm;
-> -	uint64_t vram_region = 0;
-> -	uint64_t region;
-> -	uint32_t *handles = NULL;
->  	int n_bo = 0, max_bo;
->  	uint64_t current, capacity, cg_max, limit, after;
-> -	int set_err;
-> +	int set_err, err;
+> @@ -161,7 +156,7 @@ static void test_write_eviction(int fd, unsigned int flags, struct igt_dmem_driv
+>  		install_sigcont_counter();
 >  
->  	/* Check dmem cgroup controller is available before doing anything else */
->  	igt_require_f(igt_cgroup_dmem_available(),
->  		      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
->  
-> -	/* Find first VRAM region */
-> -	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
-> -		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
-> -			vram_region = region;
-> -			break;
-> -		}
-> -	}
-> -	igt_require_f(vram_region, "No VRAM region found on this device\n");
-> -
-> -	cg_region = xe_cgroup_region_name(fd, vram_region);
-> +	cg_region = drv->get_region_name(fd);
->  	igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
->  
->  	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-> @@ -204,13 +165,12 @@ static void test_write_eviction(int fd, unsigned int flags)
+>  	/* Create cgroup and move into it */
+> -	cg = igt_cgroup_new("xe_cgroups_test");
+> +	cg = igt_cgroup_new("igt_cgroups_test");
 >  	igt_cgroup_move_current(cg);
 >  	igt_cgroup_dmem_set_max(cg, cg_region, cg_max);
 >  
-> -	vm = xe_vm_create(fd, DRM_XE_VM_CREATE_FLAG_LR_MODE, 0);
-> -
->  	max_bo = (cg_max / BO_SIZE) + 8; /* headroom for overcommit */
-> -	handles = calloc(max_bo, sizeof(*handles));
-> -	igt_assert(handles);
+> @@ -236,20 +231,38 @@ static const struct {
+>  	{ }
+>  };
 >  
-> -	n_bo = fill_vram(fd, vm, vram_region, handles, max_bo);
-> +	err = drv->init(&ctx, fd, max_bo);
-> +	igt_assert_f(!err, "Failed to initialize driver");
+> +static const struct {
+> +	int driver_flag;
+> +	const struct igt_dmem_driver *driver;
+> +} drivers[] = {
+> +	{ DRIVER_XE, &xe_dmem_driver },
+> +	{ },
+> +};
 > +
-> +	n_bo = fill_vram(drv, ctx, fd, max_bo);
->  
->  	igt_cgroup_dmem_get_current(cg, cg_region, &current);
->  	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> @@ -261,9 +221,8 @@ static void test_write_eviction(int fd, unsigned int flags)
->  
->  	/* Cleanup */
->  	igt_cgroup_dmem_set_max(cg, cg_region, IGT_CGROUP_DMEM_MAX);
-> -	unfill_vram(fd, vm, handles, n_bo);
-> -	handles = NULL;
-> -	xe_vm_destroy(fd, vm);
-> +	drv->free_vram(ctx, n_bo, BO_SIZE);
-> +	drv->deinit(ctx);
->  	free(cg_region);
->  	igt_cgroup_free(cg);
->  }
-> @@ -288,7 +247,7 @@ int igt_main()
->  
->  	for (int i = 0; subtests[i].name; i++)
->  		igt_subtest(subtests[i].name)
-> -			test_write_eviction(fd, subtests[i].flags);
-> +			test_write_eviction(fd, subtests[i].flags, &xe_dmem_driver);
->  
+>  int igt_main()
+>  {
+> -	int fd = -1;
+> -
 >  	igt_fixture() {
->  		drm_close_driver(fd);
+> -		fd = drm_open_driver(DRIVER_XE);
+>  		igt_require_f(getuid() == 0, "Test requires root\n");
+>  	}
+>  
+> -	for (int i = 0; subtests[i].name; i++)
+> -		igt_subtest(subtests[i].name)
+> -			test_write_eviction(fd, subtests[i].flags, &xe_dmem_driver);
+> -
+> -	igt_fixture() {
+> -		drm_close_driver(fd);
+> +	for (int d = 0; drivers[d].driver; d++) {
+> +		igt_subtest_group() {
+> +			int fd = -1;
+> +			igt_fixture() {
+> +				fd = drm_open_driver(drivers[d].driver_flag);
+> +				igt_require_f(fd >= 0,
+> +					"No %s device found, skipping\n",
+> +					drivers[d].driver->name);
+> +			}
+> +
+> +			for (int i = 0; subtests[i].name; i++)
+> +				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
+> +					test_write_eviction(fd, subtests[i].flags, drivers[d].driver);
+> +
+> +			igt_fixture() {
+> +				if (fd >= 0)
+> +					drm_close_driver(fd);
+> +			}
+> +		}
+>  	}
+>  }
+> diff --git a/tests/meson.build b/tests/meson.build
+> index b4463a722361..deb049875b46 100644
+> --- a/tests/meson.build
+> +++ b/tests/meson.build
+> @@ -17,6 +17,7 @@ test_progs = [
+>  	'drm_mm',
+>  	'drm_read',
+>  	'drm_virtgpu',
+> +	'drv_dmem_cgroups',
+>  	'fbdev',
+>  	'kms_3d',
+>  	'kms_addfb_basic',
+> @@ -292,7 +293,6 @@ intel_xe_progs = [
+>  	'xe_dma_buf_sync',
+>  	'xe_drm_fdinfo',
+>  	'xe_eu_stall',
+> -	'xe_cgroups',
+>  	'xe_evict',
+>  	'xe_evict_ccs',
+>  	'xe_exec_atomic',
 > -- 
 > 2.47.3
 > 
