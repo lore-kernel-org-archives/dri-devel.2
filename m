@@ -4,67 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 541D1CD4F24
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:27:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C7EFCD37B6
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:37:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 696D110EDD1;
-	Wed, 13 May 2026 10:27:07 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4502D10EDD1
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:27:06 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1wN6na-0002e8-Ls; Wed, 13 May 2026 12:26:42 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <mfe@pengutronix.de>) id 1wN6nY-000aCU-35;
- Wed, 13 May 2026 12:26:40 +0200
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
- (envelope-from <mfe@pengutronix.de>) id 1wN6nY-00000002o8f-3PSk;
- Wed, 13 May 2026 12:26:40 +0200
-Date: Wed, 13 May 2026 12:26:40 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Rob Herring <robh@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Marek Vasut <marex@denx.de>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com, 
- victor.liu@nxp.com, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
- reg property"
-Message-ID: <uyh5s6g7bvuufnhfjrmungp5dbyllxfrgfzaxno22knpxxojmj@qqvh75ezblpp>
-References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
- <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
- <20260505141538.GA2547282-robh@kernel.org>
- <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
- <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com>
- <zbbez4lpme7szgnsd7fqufbuhmvcftw4sqrmwwwzyxu64i2ppb@fh2fgdkc6tat>
- <CAL_JsqJWyRPh_hmJW8p7+VvtcqpS0a_azjMO-PyQgkqQUfLAGA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 621DC10EDE4;
+	Wed, 13 May 2026 10:37:12 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Io6MBFJe";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80F0B10E4F2;
+ Wed, 13 May 2026 10:37:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778668631; x=1810204631;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=BxjfMH/H3au7DOcyqElNJ36t78ne1+5k8Gh44S/bASU=;
+ b=Io6MBFJeq4hG5jpAIWIIBWuBGVPkNTs0Tvcvoi15CrdVEQjn7nG6f+n/
+ 6W8PndAIAuWnqworsulSA0SD/QWOIRrR3jrW+781uUH1slp5Ebx4rHRqT
+ fetfpWAm+CmiJYj+8brIAz8xSw6TL+KI3jMhbMkR1I8YGXZfw4O+wwSI1
+ DsO7h51Pa2CoW3Nm5CKL9WORu3TvNgKgqqhwMMI9g0iul7pO01JyG4hQ2
+ kXvSLz6FY/1Xw/N/pgZR+cYTRL+Mx4Rhdnjb1z2qaGX/aAB7TXjaBsB2n
+ VL6qhz/RYeT+sQlX/BBIaNYo6/deIqXBZ8BsWprf6pRJy4GEToE6K7PNz Q==;
+X-CSE-ConnectionGUID: Rj8XZO7uQwSgH9i4q88SrQ==
+X-CSE-MsgGUID: 4MGGhPoyS7Oy4cBHxcIjiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="105051552"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="105051552"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 03:37:10 -0700
+X-CSE-ConnectionGUID: tg4Gi978RJefcU6sBiWAiQ==
+X-CSE-MsgGUID: 7s6mhKSbQj2Zwhr+kHYyOg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="242401523"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.49])
+ ([10.245.244.49])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 03:37:05 -0700
+Message-ID: <c0b5b94dfb4d04a1319bfb110f326afd2c29d48b.camel@linux.intel.com>
+Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, intel-xe@lists.freedesktop.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes
+ <ljs@kernel.org>,  "Liam R. Howlett"	 <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko	 <mhocko@suse.com>, Hugh Dickins
+ <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Brendan
+ Jackman <jackmanb@google.com>,  Johannes Weiner <hannes@cmpxchg.org>, Zi
+ Yan <ziy@nvidia.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
+ <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org
+Date: Wed, 13 May 2026 12:37:01 +0200
+In-Reply-To: <65596f86-e6a3-48b0-aa3d-2e608964e29d@kernel.org>
+References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
+ <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
+ <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
+ <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
+ <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
+ <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
+ <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
+ <1ce447ceea88bbe56c7d28654a51fc2856a7f986.camel@linux.intel.com>
+ <65596f86-e6a3-48b0-aa3d-2e608964e29d@kernel.org>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAL_JsqJWyRPh_hmJW8p7+VvtcqpS0a_azjMO-PyQgkqQUfLAGA@mail.gmail.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,132 +92,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 26-05-07, Rob Herring wrote:
-> On Thu, May 7, 2026 at 6:55 AM Marco Felsch <m.felsch@pengutronix.de> wrote:
+On Wed, 2026-05-13 at 12:03 +0200, David Hildenbrand (Arm) wrote:
+> On 5/13/26 10:51, Thomas Hellstr=C3=B6m wrote:
+> > On Wed, 2026-05-13 at 10:37 +0200, David Hildenbrand (Arm) wrote:
+> > > On 5/13/26 09:47, Christian K=C3=B6nig wrote:
+> > > > Hi David & Thomas,
+> > > >=20
+> > > > ...
+> > > >=20
+> > > > Exactly that is one of the major reasons why we aren't using a
+> > > > shmem as backing store for TTM buffers in the first place.
+> > >=20
+> > > What was the problem with that the last time this was considered?
+> > >=20
+> > > shmem nowadays supports THP (e.g., 2M) and even mTHP (e.g., 64K).
+> > >=20
+> > > For internal mounts, it must be enabled accordingly
+> > > (/sys/kernel/mm/transparent_hugepage/.../shmem_enabled).
+> > >=20
+> > > Some distributions still default to "never". I guess if an admin
+> > > enables it, you
+> > > would just get THPs.
+> >=20
+> > FWIW, the i915 driver which uses shmem "natively" uses a special
+> > mount
+> > here that gives back THPs.
+> >=20
+> > >=20
+> > > If "distro default" is the only problem, I guess we could think
+> > > about
+> > > how to
+> > > improve that. For example, just let internal GPU DRM objects
+> > > allocate
+> > > any folio
+> > > size available and supported etc.
+> > >=20
+> > > Would that make it possible to just use shmem natively? (e.g.,
+> > > how
+> > > would this
+> > > interact with shmem features like folio migration, would that be
+> > > workable with
+> > > DRM objects?).
+> >=20
+> > Currently the drivers that use shmem in this way use
+> > "mapping_set_unevictable()" as long as the object is bound to the
+> > GPU.
+> > Then shrinkers can unbind from GPU and revert that setting.
+>=20
+> Right, but mapping_set_unevictable() only affects folio_evictable() -
+> -reclaim
+> behavior. Not other properties (such as folio migration).
 
-...
+Interesting. Does that imply that a shmem folio can be replaced
+underneath without additional measures? It looks like most DRM
+call sites imply that mapping_set_unevictable() pins underlying shmem
+folios
 
-> > > But nowhere have you said the LDB registers are mixed with other
-> > > functions. If they aren't, then there is absolutely nothing to change
-> > > in the binding. If they are, then yes, we shouldn't have 'reg'.
-> >
-> > No they aren't mixed with other functions (for now).
-> 
-> For now? Is the h/w going to change or is the binding *still* incomplete.
 
-Sorry for the confusion. By for now I mean that NXP tend to reuse IPs
-but with minor changes. So no, the binding is not incomplete with our
-current HW knowledge.
+>=20
+> >=20
+> > The problem, (as also stated in the cover letter of this series) is
+> > for
+> > drivers that need to change caching of the pages to WC or UC.
+>=20
+> I assume you mean "To be able to easily maintain pools of pages
+> mapped uncached
+> or write-combined".
+>=20
 
-> > Can you please
-> > confirm that mixing 'reg' based sub-device nodes with non 'reg' based
-> > sub-device nodes  is allowed? E.g. if the below example is allowed?
-> >
-> >         system-controller@4ac10000 {
-> >                 compatible = "fsl,imx93-media-blk-ctrl", "syscon";
-> >                 reg = <0x4ac10000 0x10000>;
-> >                 #address-cells = <1>;
-> >                 #size-cells = <1>;
-> >
-> >                 ...
-> >
-> >                 bridge@5c {
-> >                         compatible = "fsl,imx8mp-ldb";
-> >                         reg = <0x5c 0x4>, <0x128 0x4>;
-> >                         reg-names = "ldb", "lvds";
-> >
-> >                         ...
-> >                 };
-> >
-> >                 dpi-bridge {
-> >                         compatible = "nxp,imx93-pdfc";
-> >
-> >                         ...
-> 
-> Depends what is in "...". If only a compatible, then no. If there are
-> actual resources defined, then yes.
+Exactly.
 
-Please see the below full example, is this allowed?
 
-system-controller@4ac10000 {
-	compatible = "fsl,imx93-media-blk-ctrl", "syscon";
-	reg = <0x4ac10000 0x10000>;
-	#address-cells = <1>;
-	#size-cells = <1>;
+> Can you point me at the code that changes the caching of the pages?
 
-	...
 
-	bridge@5c {
-		compatible = "fsl,imx8mp-ldb";
-		reg = <0x5c 0x4>, <0x128 0x4>;
-		reg-names = "ldb", "lvds";
-		clocks = <&clk IMX8MP_CLK_MEDIA_LDB_ROOT>;
-		clock-names = "ldb";
-		assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>;
-		assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
-		status = "disabled";
 
-		ports {
-			#address-cells = <1>;
-			#size-cells = <0>;
+x86 implementation is here:
+https://elixir.bootlin.com/linux/v7.1-rc3/source/arch/x86/mm/pat/set_memory=
+.c#L2556
 
-			port@0 {
-				reg = <0>;
+TTM calls it here:
+https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/gpu/drm/ttm/ttm_po=
+ol.c#L249
 
-				ldb_from_lcdif2: endpoint {
-					remote-endpoint = <&lcdif2_to_ldb>;
-				};
-			};
+And there are actually shmem helpers that do this as well, without
+pooling.
+https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/gpu/drm/drm_gem_sh=
+mem_helper.c#L212
 
-			port@1 {
-				reg = <1>;
 
-				ldb_lvds_ch0: endpoint {
-				};
-			};
+>=20
+> > That's an
+> > extremely costly operation so TTM needs to pool such allocations.
+> > That's where using shmem natively becomes very ugly, because you
+> > can't
+> > really use a 1:1 mapping between shmem objects and DRM objects
+> > anymore.
+>=20
+> So you would require different caching attributes within a DRM
+> object?
 
-			port@2 {
-				reg = <2>;
+The way the TTM pools work are that there are separate pools for each
+allocation order and caching modes. That would essentially mean
+allocations from a single shmem object would be spread out across
+different pools, and we'd loose the 1:1 mapping between DRM objects and
+shmem objects.
 
-				ldb_lvds_ch1: endpoint {
-				};
-			};
-		};
-	};
+One alternative would be a single large sparse shmem object common for
+all DRM objects, with a range allocator, but that also got pretty ugly
+when I tried to implement that.
 
-	dpi-bridge {
-		compatible = "nxp,imx93-pdfc";
-		status = "disabled";
+Finally, (and I think that might be what Christian was getting at as
+well) Without CONFIG_TRANSPARENT_HUGEPAGE, we'd only see order 0 shmem
+folios, right?
 
-		ports {
-			#address-cells = <1>;
-			#size-cells = <0>;
+Thanks,
+Thomas
 
-			port@0 {
-				reg = <0>;
 
-				dpi_from_lcdif: endpoint {
-					remote-endpoint = <&lcdif_to_dpi>;
-				};
-			};
-
-			port@1 {
-				reg = <1>;
-
-				dpi_to_panel: endpoint {
-				};
-			};
-		};
-	};
-};
-
-> > Furthermore I thought that for the MMIO bridge@5c device, the 'reg'
-> > porperty would either require the full register address, e.g. 0x4ac1005c
-> > or there needs to be a ranges property.
-> 
-> There should be a ranges property no matter what.
-
-Good point, something to fix too :/
-
-Regards,
-  Marco
