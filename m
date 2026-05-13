@@ -4,83 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B8F1CD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 12:01:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 942B1CD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 12:10:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB6B810E306;
-	Wed, 13 May 2026 12:01:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D475310EE0A;
+	Wed, 13 May 2026 12:10:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="LzN7/buc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ky5wpLDY";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF34010E306
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 12:01:16 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64DBW32J1061321; Wed, 13 May 2026 13:00:58 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=Hjq6r4eY1n8YGRSnmCIyCFR
- Js9KBbxRHJDuv05y3RyM=; b=LzN7/bucTJOUnpPqmvk/guJqv6bl0U9rr81vMV+
- A1U74aP6Kg4SAbllk8bRWLLP5pFv3Uzy15SWLFKZqkrrimA9NaqRVpQnX6LaeCOA
- ZUsWCI230bQH3jtM+9sZRV78jnk3nXfYaCUlqF2ryK3URlBg+zDIw8wH1ZmlO1tf
- 8erPPVM8u+Iwnd2F/YGmzTd3EYwzxypPbMijTlqT1heLt1JUYvGAJW6RQTr/9VxJ
- DezLfOU6YUHvBt8m2VzOMKqQsPYs36tejDXOAHL8dlssoI8c1FB7qnjQHvy85fXa
- kDPtMdZTRym0lGnb3mSsNKM4JqxzPqJlYAZgNJjY/eBvvHQ==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4e1u6pk95k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 May 2026 13:00:58 +0100 (BST)
-Received: from [127.0.1.1] (172.25.10.37) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 13 May
- 2026 13:00:56 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Wed, 13 May 2026 15:00:45 +0300
-Subject: [PATCH] drm/imagination: Add support for trace points
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
+ [209.85.222.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D14010EE0A
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 12:10:06 +0000 (UTC)
+Received: by mail-ua1-f41.google.com with SMTP id
+ a1e0cc1a2514c-95f2b0bd920so2804482241.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 05:10:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778674205; cv=none;
+ d=google.com; s=arc-20240605;
+ b=AXN33oO3lO+EtkJC79OcxWG2i6Ps6czqau9GYth8oQd/MaTl9fQdafyf8gXOTgFPZ/
+ h1VZJLRD+vYgfxMfyYvKWwtRY6c/zSE2jtq50DzxBKp7QcrDoigSxAO7GqYAzP/MpgcO
+ 3wdJuVLoBbRFANOYyT4DJY69W8Fqg61uWDlp+kDfTt7pDUUJsp7/gQgrtuidzIuAT2qd
+ /8Tl9iXrH1CbosADW9VvLoRrezMVFL0ByS173x24+d8wB8v29olke6bWT7kzrHMHfEPt
+ zHD30lnp99Oough6d9GlTS6+ehC6t0WYzBxDaNqNSRATCrPRmdTqKLLtTY5stXBea8GV
+ 8IaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=QJuK7DvHMj1EAy7tj/RVkf9fqNfoJVTMmH7EDF5zYKY=;
+ fh=XYbx9Tz48LvBh7hK7qdA4VjuEUwho0WspYiTtsZ19cg=;
+ b=eH8Sg3q1JwPdytRCeKrg6msrNtijqRd6CLiR6vDQs0fDDNO/6bl01Io/mOfpLGhpIe
+ V3Utp+0JtPk1Fc8sMa2spsGZZwH74LyBs/v0fJopwDDdEbJCYyQ5mukewfYItVfArt15
+ 5fi76dbaOVFN/4X4XyElghOpj1pyTrJFlxkDOVErRtvacW5GVmmV73jzP6oFNvikxzYg
+ Qbwy+8u0oayLGz2Xf7aj9CPEX5F45r4WHRVaiY6SYSlf8pemWLcy8DbNeu6AXUHuOhRR
+ 6pNlg87QVXJ7+34uJwTGkjGh8CyXSj7OvWbC1DSj1mET8vhpwyhQIuFzuuSakheu/k4I
+ MA7Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778674205; x=1779279005; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=QJuK7DvHMj1EAy7tj/RVkf9fqNfoJVTMmH7EDF5zYKY=;
+ b=ky5wpLDYAp+jjksuPzqN4RUWRIFlHzfnEu+cQov+2He6G9bkTcnJ++TZp+K1Zs6u1j
+ H6CX9ssPJB6Qc/z0leJ4xmTExu+cxkHjrKxbgXer+6p71jhYgGP0+5QbXz5scXu/JTvr
+ C6dr9cywRDrEfYE37HeOl1PO04ys5Lztb/z7NkkiE6U1gWfI4w5lXvXwdc+xPzBykZMF
+ 7qTUk1H2zb4dR7X9w1GgNSVbJkin/7gEmdfweogkxEoWeU7Ag/t2kHcV8jYrOEOqi3LY
+ 9qpH0yKAEwXO+bFrhQlbdC6tW5NBjQ5r6wltw5k9x953qkITLPJT1YQr29X60m8sR4/C
+ jIEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778674205; x=1779279005;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QJuK7DvHMj1EAy7tj/RVkf9fqNfoJVTMmH7EDF5zYKY=;
+ b=Zv9sGtQgcT8hvCHR6Wyi1ypKF+Zc7knSk4OznxwJn3l0ff7YfysKWxPmVeP+v3lCdc
+ Un2C6jQuxkqqBblQEjuUj3nG4rX8oMcLwkFWBVFsBElHRD9/zCo6oOBtLiQrXMWBA3L5
+ mQiWwqCdKFqx0YynQrGhP5rbuBMP6SM7U6S5JYKswdlD4VO6xC4DHT6+Gdybuh0lmD/P
+ fYlsGMZytBxQE+MXOEvlJDnEXuXxvtKHDbvb7PYyAS6OuS4xKuyfSXlS1lBU1MGGoDuh
+ iIbYlE8+wYgAQjwOIp3/NUg9b1zszGoq9quXzuCgo3tMdFK3uVPZ7GVYhtFedE24bYjv
+ uSdw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8lhZEaNtlEJof8It/5ouBRG/TXDxKt5QKba7WP78qm8l2E9WGrrg1RCgOdU6dJz9p03wyaA4tIUjs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwVrqcnLZURcAU2YHrkDwd+D00oyD2anp3AeY3r/d4u7W5Wsurj
+ NMem1M2/MbWJ7oP03o3aCZhTM+jnjMJnkw1VIIwy5wQU9FpzLT59KzsOImLZglFm70W6k+zcuoA
+ E43Ppd35uhV1BiteodWl1MnDVyCha6h4=
+X-Gm-Gg: Acq92OHVHBz9JPmaECPxvOl80CkFhsjblAwQ6Nw7sSNap+G0WyhsCtpR7ut4ivu89+6
+ nw0WmV8o/Q/mg89KL4BhltDY8FJmVStT/32BDfM900LrR8Eaqzr5P6TWsR6cQL0FQQsYikhIpNZ
+ TXAPv205Qkxk/QlnH1DUEUIu5DnaykIixBnvkytlsph2exe+3GWvLX9/iaROdu3zNKOL7lsVtRH
+ nWtPXWHEUvsvTflHv2OSrSfC4xUdVcE97TUhEWx+jZOEjM0+1dJBu+RQy30ADuthx3EmpWannLA
+ UY04mtGO
+X-Received: by 2002:a05:6102:38c7:b0:631:d445:171f with SMTP id
+ ada2fe7eead31-6376463539amr1094442137.15.1778674204715; Wed, 13 May 2026
+ 05:10:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260513-b4-pvr-trace-points-v1-1-81222d1a4c99@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAOxnBGoC/x3MMQqAMAxA0auUzAaaqh28ijhojZqlllSKIN7d4
- viG/x/IrMIZBvOAcpEsZ6ygxkA45rgzyloNzjpve3K4dJiK4qVzYEynxCtjt7aL90SeqYdaJuV
- N7v86Tu/7AfqG6CRlAAAA
-To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+References: <20260314-panel-patches-v4-0-1ecbb2c0c3c8@gmail.com>
+ <177818605997.73000.9692910497119100760.b4-ty@kernel.org>
+In-Reply-To: <177818605997.73000.9692910497119100760.b4-ty@kernel.org>
+From: Yedaya Katsman <yedaya.ka@gmail.com>
+Date: Wed, 13 May 2026 15:09:53 +0300
+X-Gm-Features: AVHnY4LglPfFc_nbVIjyAIVKXzzO_CSHQSJk1Zv3noSm1yMcp9X7Hz7jaJLq39s
+Message-ID: <CAHuF_Zr0Z+rP72fLts5Ar56XyY8VMROzE0wQ_S5iyO+A4YoMSw@mail.gmail.com>
+Subject: Re: (subset) [PATCH v4 0/3] Add support for the Samsung S6E8FCO DSI
+ and M1906F9 display panel
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- "Alessio Belle" <alessio.belle@imgtec.com>, Brajesh Gupta
- <brajesh.gupta@imgtec.com>, Donald Robson <donald.robson@imgtec.com>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778673656; l=8174;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=tqdbPtlGvvhK/qsd0y9a0NUA83nKK8w2syqoNZUxOVc=;
- b=7AB36py/W7euNfpFw0ofQrexP6GfZXIpSzosWDr5bljA9jGkCvgo+SmjCfcAGSjjxd/XIsX35
- mVJDR0mjN2jDnA7VHS8r/Yeyf51VNLupBSjVOybWFHh00yqRIuZLA4r
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Originating-IP: [172.25.10.37]
-X-Proofpoint-GUID: lubozX-_gUh6Rm_3T9Ibo5WVee9-uVLy
-X-Proofpoint-ORIG-GUID: lubozX-_gUh6Rm_3T9Ibo5WVee9-uVLy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDEyNSBTYWx0ZWRfX+LEo+3RethSa
- gV5/FvJvTeckPqGqY2rggIne7D0ZJ2SJv4U9V1LDXBcLasQooABFme9yvXevv4/aFNXlyuntl3t
- 46Vt0GA6mNwQWHo7GYTGDUuOL59RlpVe3UD1v3NZ81S+CI52FyE5jWzXdnI6+vmPfwnQ3xNt/Zt
- mXcZbq4I7pyPRYV8xb4ZDeNPnMQlKIsjrMUa02ix/HGzqIzg34qmoMUNIVL4OH/g7gxPU3hXbJB
- KvKMu8wHwU/nfaHpiI28SJbqfY6MMdnW3u6sgivWcPpqzDW6OEY/sVQ1gF51SnJJS3Mp1KlSTvD
- mB10i+zxqlBsParVbIbHD+VYUVdZp5hVX8qQRPL9bZYPH7S2+F3fXaqs4cItRVMo6RafJ6zsSo0
- cG1QuIN2XhHDaVei6FfxQacqcSERI2hsF2naWAmMAhvIMeDs3z5xE3+iV1Np68aUfydxUJBw50D
- uLw4VBIXzYTH647+1Sg==
-X-Authority-Analysis: v=2.4 cv=dIeWXuZb c=1 sm=1 tr=0 ts=6a0467fa cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=7IANbbwssFwA:10 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=2RyeVlAdm6kr-1W8CGsA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ =?UTF-8?B?S2FtaWwgR2/FgmRh?= <kamil.golda@protonmail.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Kaustabh Chakraborty <kauschluss@disroot.org>, 
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,244 +118,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for workload submission trace points.
+On Thu, 7 May 2026 at 23:35, Bjorn Andersson <andersson@kernel.org> wrote:
+>
+>
+> On Sat, 14 Mar 2026 23:46:20 +0200, Yedaya Katsman wrote:
+> > This adds a driver to support the Samsung S6E8FCO DSI controller with the
+> > M1906F9 display panel found in Xiaomi Mi A3 (xiaomi-laurel). The driver is
+> > generated using linux-mdss-dsi-panel-driver-generator[0].
+> >
+> > The mdss reset dependency makes the screen work more reliably.
+> >
+> > [0]: https://github.com/msm8916-mainline/linux-mdss-dsi-panel-driver-generator
+> > Original tree with patches: https://gitlab.postmarketos.org/SzczurekYT/linux/-/tree/laurel
+> >
+> > [...]
+>
+> Applied, thanks!
+>
+> [3/3] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: Enable MDSS and add panel
+>       commit: 493cb869874cd301c370adf9a3f9577942c4f0f1
 
-Co-developed-by: Donald Robson <donald.robson@imgtec.com>
-Signed-off-by: Donald Robson <donald.robson@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/Makefile           |   3 +
- drivers/gpu/drm/imagination/pvr_drv.c          |   3 +
- drivers/gpu/drm/imagination/pvr_job.c          |   3 +
- drivers/gpu/drm/imagination/pvr_queue.c        |   5 ++
- drivers/gpu/drm/imagination/pvr_trace.h        | 113 +++++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_trace_points.c |   7 ++
- 6 files changed, 134 insertions(+)
+Thanks for applying, but notice that this is an old version, the last
+version is v7:
+https://lore.kernel.org/all/20260320-panel-patches-v7-3-3eaefc4b3878@gmail.com/
+The compatible string was fixed in v5, and other patches in the series
+were applied with the new version.
 
-diff --git a/drivers/gpu/drm/imagination/Makefile b/drivers/gpu/drm/imagination/Makefile
-index 1222a14262e4..a5c5e386f16a 100644
---- a/drivers/gpu/drm/imagination/Makefile
-+++ b/drivers/gpu/drm/imagination/Makefile
-@@ -32,6 +32,9 @@ powervr-y := \
- powervr-$(CONFIG_DEBUG_FS) += \
- 	pvr_debugfs.o
- 
-+powervr-$(CONFIG_TRACEPOINTS) += \
-+	pvr_trace_points.o
-+
- obj-$(CONFIG_DRM_POWERVR) += powervr.o
- 
- obj-$(CONFIG_DRM_POWERVR_KUNIT_TEST) += pvr_test.o
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 268900464ab6..b20c462bcba0 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -14,6 +14,7 @@
- #include "pvr_rogue_defs.h"
- #include "pvr_rogue_fwif_client.h"
- #include "pvr_rogue_fwif_shared.h"
-+#include "pvr_trace.h"
- #include "pvr_vm.h"
- 
- #include <uapi/drm/pvr_drm.h>
-@@ -1150,6 +1151,8 @@ pvr_ioctl_submit_jobs(struct drm_device *drm_dev, void *raw_args,
- 	int idx;
- 	int err;
- 
-+	trace_pvr_job_submit_ioctl(pvr_dev, args->jobs.count);
-+
- 	if (!drm_dev_enter(drm_dev, &idx))
- 		return -EIO;
- 
-diff --git a/drivers/gpu/drm/imagination/pvr_job.c b/drivers/gpu/drm/imagination/pvr_job.c
-index dd9f5df01e08..b8a58d817009 100644
---- a/drivers/gpu/drm/imagination/pvr_job.c
-+++ b/drivers/gpu/drm/imagination/pvr_job.c
-@@ -14,6 +14,7 @@
- #include "pvr_stream.h"
- #include "pvr_stream_defs.h"
- #include "pvr_sync.h"
-+#include "pvr_trace.h"
- 
- #include <drm/drm_exec.h>
- #include <drm/drm_gem.h>
-@@ -510,6 +511,8 @@ static int pvr_job_data_init(struct pvr_device *pvr_dev,
- 		}
- 
- 		job_data_out[i].sync_op_count = job_args[i].sync_ops.count;
-+
-+		trace_pvr_job_create(pvr_dev, job_data_out[i].job, job_data_out[i].sync_op_count);
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index d10a13173f0f..3c2331e834fb 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -10,6 +10,7 @@
- #include "pvr_drv.h"
- #include "pvr_job.h"
- #include "pvr_queue.h"
-+#include "pvr_trace.h"
- #include "pvr_vm.h"
- 
- #include "pvr_rogue_fwif_client.h"
-@@ -725,6 +726,8 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
- 		cmd->partial_render_geom_frag_fence.value = job->done_fence->seqno - 1;
- 	}
- 
-+	trace_pvr_job_submit_fw(job);
-+
- 	/* Submit job to FW */
- 	pvr_cccb_write_command_with_header(cccb, job->fw_ccb_cmd_type, job->cmd_len, job->cmd,
- 					   job->id, job->id);
-@@ -1193,6 +1196,8 @@ void pvr_queue_job_cleanup(struct pvr_job *job)
- 
- 	if (job->base.s_fence)
- 		drm_sched_job_cleanup(&job->base);
-+
-+	trace_pvr_job_done(job);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_trace.h b/drivers/gpu/drm/imagination/pvr_trace.h
-new file mode 100644
-index 000000000000..ffbbde3b2bcc
---- /dev/null
-+++ b/drivers/gpu/drm/imagination/pvr_trace.h
-@@ -0,0 +1,113 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-+/* Copyright (c) 2026 Imagination Technologies Ltd. */
-+
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM pvr
-+
-+#if !defined(PVR_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define PVR_TRACE_H
-+
-+#include "pvr_context.h"
-+#include "pvr_device.h"
-+#include "pvr_fw.h"
-+#include "pvr_hwrt.h"
-+#include "pvr_job.h"
-+#include "pvr_sync.h"
-+
-+#include <linux/stringify.h>
-+#include <linux/types.h>
-+#include <linux/tracepoint.h>
-+
-+/*
-+ * NOTE:
-+ * When adding trace points, or extra data to existing ones - you must capture
-+ * all the data in the TP_fast_assign section that you wish to use in the
-+ * TP_printk section. This is because the printk is performed on demand from the
-+ * captured data when you `cat /sys/kernel/tracing/trace` and by the time this
-+ * happens any pointers you captured will likely no longer point to valid data.
-+ */
-+
-+/* Job submit */
-+
-+TRACE_EVENT(pvr_job_submit_ioctl,
-+	    TP_PROTO(struct pvr_device *pvr_dev, u32 count),
-+	    TP_ARGS(pvr_dev, count),
-+	    TP_STRUCT__entry(__field(struct pvr_device *, pvr_dev)
-+			     __field(u32, count)),
-+	    TP_fast_assign(__entry->pvr_dev = pvr_dev;
-+			   __entry->count = count;),
-+	    TP_printk("pvr_dev=%p count=%u",
-+		      __entry->pvr_dev,
-+		      __entry->count)
-+);
-+
-+#define PVR_JOB_TYPE_TO_STR(val)                                         \
-+	__print_symbolic(val,                                            \
-+			 { DRM_PVR_JOB_TYPE_GEOMETRY, "geometry" },      \
-+			 { DRM_PVR_JOB_TYPE_FRAGMENT, "fragment" },      \
-+			 { DRM_PVR_JOB_TYPE_COMPUTE, "compute" },        \
-+			 { DRM_PVR_JOB_TYPE_TRANSFER_FRAG, "transfer" })
-+
-+TRACE_EVENT(pvr_job_create,
-+	    TP_PROTO(struct pvr_device *pvr_dev, struct pvr_job *job,
-+		     u32 sync_op_count),
-+	    TP_ARGS(pvr_dev, job, sync_op_count),
-+	    TP_STRUCT__entry(__field(struct pvr_device *, pvr_dev)
-+			     __field(struct pvr_context *, ctx)
-+			     __field(struct pvr_fw_object *, fw_obj)
-+			     __field(u32, fw_addr)
-+			     __field(u32, hwrt_addr)
-+			     __field(struct pvr_job *, job)
-+			     __field(enum drm_pvr_job_type, job_type)
-+			     __field(u32, sync_op_count)),
-+	    TP_fast_assign(__entry->pvr_dev = pvr_dev;
-+			   __entry->ctx = job->ctx;
-+			   __entry->fw_obj = job->ctx->fw_obj;
-+			   pvr_fw_object_get_fw_addr(job->ctx->fw_obj, &__entry->fw_addr);
-+			   __entry->hwrt_addr = job->hwrt ?
-+						job->hwrt->fw_obj->fw_addr_offset :
-+						0;
-+			   __entry->job = job;
-+			   __entry->job_type = job->type;
-+			   __entry->sync_op_count = sync_op_count;),
-+	    TP_printk("pvr_dev=%p ctx=%p fw_obj=%p fw_addr=0x%x hwrt_addr=0x%x job=%p job_type=%s sync_op_count=%u",
-+		      __entry->pvr_dev,
-+		      __entry->ctx,
-+		      __entry->fw_obj,
-+		      __entry->fw_addr,
-+		      __entry->hwrt_addr,
-+		      __entry->job,
-+		      PVR_JOB_TYPE_TO_STR(__entry->job_type),
-+		      __entry->sync_op_count)
-+);
-+
-+#undef PVR_JOB_TYPE_TO_STR
-+
-+TRACE_EVENT(pvr_job_submit_fw,
-+	    TP_PROTO(struct pvr_job *job),
-+	    TP_ARGS(job),
-+	    TP_STRUCT__entry(__field(struct pvr_job *, job)
-+			     __field(u32, done_seqno)),
-+	    TP_fast_assign(__entry->job = job;
-+			   __entry->done_seqno = job->done_fence->seqno;),
-+	    TP_printk("job=%p done_seqno=%u",
-+		      __entry->job,
-+		      __entry->done_seqno)
-+);
-+
-+TRACE_EVENT(pvr_job_done,
-+	    TP_PROTO(struct pvr_job *job),
-+	    TP_ARGS(job),
-+	    TP_STRUCT__entry(__field(struct pvr_job *, job)),
-+	    TP_fast_assign(__entry->job = job;),
-+	    TP_printk("job=%p", __entry->job)
-+);
-+
-+#endif /* PVR_TRACE_H */
-+
-+/* This part must be outside protection */
-+#undef TRACE_INCLUDE_PATH
-+#undef TRACE_INCLUDE_FILE
-+#define TRACE_INCLUDE_PATH ../../drivers/gpu/drm/imagination
-+#define TRACE_INCLUDE_FILE pvr_trace
-+#include <trace/define_trace.h>
-diff --git a/drivers/gpu/drm/imagination/pvr_trace_points.c b/drivers/gpu/drm/imagination/pvr_trace_points.c
-new file mode 100644
-index 000000000000..71b53f267af0
---- /dev/null
-+++ b/drivers/gpu/drm/imagination/pvr_trace_points.c
-@@ -0,0 +1,7 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/* Copyright (c) 2026 Imagination Technologies Ltd. */
-+
-+#ifndef __CHECKER__
-+#define CREATE_TRACE_POINTS
-+#include "pvr_trace.h"
-+#endif
+The difference is in the compatible, 's6e8fc0' with a zero instead of an O.
 
----
-base-commit: 921578cf373981eba92774a27f7644a11282cf89
-change-id: 20260512-b4-pvr-trace-points-4d3b66116e15
-
-Best regards,
--- 
-Alexandru Dadu <alexandru.dadu@imgtec.com>
-
+> Best regards,
+> --
+> Bjorn Andersson <andersson@kernel.org>
