@@ -4,68 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0DBCCD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 11:35:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E506CD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 11:35:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0728C10E2FD;
-	Wed, 13 May 2026 11:35:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE36710E30E;
+	Wed, 13 May 2026 11:35:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="ty5itgjz";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BPZZb0gS";
 	dkim-atps=neutral
-Received: from out28-115.mail.aliyun.com (out28-115.mail.aliyun.com
- [115.124.28.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CFEA10E2FD
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1778672146; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
- bh=M8zeVEfjBDW34iL0F6fTCPJeNaBBq8G+h0BQnTdBWZk=;
- b=ty5itgjzYju5aITbJnPhH7f/YGmdPFH0lrLtoV37XmdIy7v14C08erHLwyxf0IRCyUt4rNhkNa2X+scDHi2KnjiW8VEG5Zp+TCs5dYw/njgUUwe4JG2gStcHHM4pO5A3+LzHvxvSPIfsSsiX6LCME30UgRVOor4wxEYMdubVDrnoePK2KZU6N7jxYO2O9h2g9ats+cKNfL41bzvS2oECK6LT9aLR03/M0FR8+MmU+isKUrPQLzBOzoXAUuxnJDV+1CZQFM33hzuSmGFNfvXRtSfT0XmMmx7jXKNETXPV950INfkpb+7gb+C0EuFFcwiB3ZU2gPAdKUm42U4BwxgzCQ==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.08028814|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_regular_dialog|0.0345328-0.00169345-0.963774;
- FP=7875452850044925897|14|1|10|0|-1|-1|-1;
- HT=maildocker-contentspam033045018182; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=1; RT=1; SR=0; TI=SMTPD_---.hWM7KmL_1778672142; 
-Received: from mail-ot1-f54.google.com(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hWM7KmL_1778672142 cluster:ay29) by smtp.aliyun-inc.com;
- Wed, 13 May 2026 19:35:43 +0800
-Received: by mail-ot1-f54.google.com with SMTP id
- 46e09a7af769-7de4e6c5a30so7130043a34.0
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 04:35:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/RcDQt3YUqpsu9IkY/9fG7U7NPDvKWMRutXCB3E1jNtGnp8Jg7PFdleWX7nveW4etSJmyk7Qb+RBU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhLgiTeEh7zgG1Ho5vc94vzpvOKoTAvhKjXbVz3psRrmda89pU
- pJr1d9Doab1UpqdKNhQFH3z7YIXcuxy6Lz2BlF1NS/jz7eFEn8R5U5Odq1dh6ZRRYBc8oTdgYnZ
- QEmOOLP283yJ3nhTRwM4wLv5nb4Srw0M=
-X-Received: by 2002:a05:6820:1606:b0:69b:3a3c:1e4c with SMTP id
- 006d021491bc7-69b7ab67b96mr1189462eaf.50.1778672140987; Wed, 13 May 2026
- 04:35:40 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260508142500.4922-1-syyang@lontium.com>
- <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
- <vly3gbft3k76mrcztcn6vxuqadz647hsaz2q7qpmpofowofodb@nnxrr2cdueru>
- <CAFQXuNZKoahwq0zoWg860Z-amTKEefBFuen2fDG1htKjzE7ymw@mail.gmail.com>
- <0636aa3c-5240-44a7-a551-4740956ba5cd@oss.qualcomm.com>
- <CAFQXuNb8w-+xEYeDSxaqK-2hxdu5ADo_Vtvy4iVBzSgNzRmSuw@mail.gmail.com>
- <b951a99a-bddf-4fe7-8ed0-4861d93aaf4e@oss.qualcomm.com>
-In-Reply-To: <b951a99a-bddf-4fe7-8ed0-4861d93aaf4e@oss.qualcomm.com>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Wed, 13 May 2026 19:35:28 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNYwdbqTzEop0WtVyCEnKaOWLV72yCBHtN3H+jcXnV8U0A@mail.gmail.com>
-X-Gm-Features: AVHnY4LfMuOH_31yB6a3LxhFungtv4P-uelzOpALQfnP9pmpiZSY5RfdsqScGcA
-Message-ID: <CAFQXuNYwdbqTzEop0WtVyCEnKaOWLV72yCBHtN3H+jcXnV8U0A@mail.gmail.com>
-Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
- maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
- Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
- xbpeng@lontium.com
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51B4410E30E
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:35:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=SAFIgd5sMjeB73oogEt7MNVNzhGjFePHXti1u5oMosE=; b=BPZZb0gSBgiZNWoExiuehiSjnB
+ 99QMNGuMRD05s1nXraur4jRiwlYhUj3ZRffK9erhxqMBm0hFjHYEyDUPRe4cYLacX8zZ+27vHWHE5
+ 4kOtqDPvsE4AOV0ofY+0NhHI6D8Up6nx089ZEXqD5+xUxSeoyrZTjBOWsu7t2/DUjSDdTej9kuy+Z
+ gMC/Z7K2gvIx8olwpQ0LmBwW3J81Fd7cNELF6LtQUSfQ8sBDTMNKuN6bwEkLJ2jFZtetP5BxUTWKB
+ nJMjZr5XsIFBO93a9cwPmtJ5cqZhjVaum3X4d2zvAUbSCD3/pnsAKEQFtRxdOxCrzgqrorqLGvhco
+ UdhEbFCg==;
+Received: from static-197-2-86-188.ipcom.comunitel.net ([188.86.2.197]
+ helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wN7sR-009wKE-NE; Wed, 13 May 2026 13:35:47 +0200
+Message-ID: <13aaaa3270882a5714dbe16462d75ad26a1f45ae.camel@igalia.com>
+Subject: Re: [PATCH 1/2] drm/v3d: Refactor perfmon locking
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+Date: Wed, 13 May 2026 13:35:37 +0200
+In-Reply-To: <b6159ce5-f164-4166-96cc-ef564165da5c@igalia.com>
+References: <20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com>
+ <20260508-v3d-perfmon-lifetime-v1-1-f5b5642c085f@igalia.com>
+ <7afa2b5b743d76f6f9ddf4bf58997e2ac178a0ba.camel@igalia.com>
+ <93a2cb1e-3907-4aae-833e-15d0cbbbf255@igalia.com>
+ <f485f5b5fb06053fd383fd31b99f95d2e6fe25c5.camel@igalia.com>
+ <93753efc-ce02-4888-9e34-8b0f4cbfae08@igalia.com>
+ <e93a852823994bbcf40817e8af5bbd0d8aeb95ce.camel@igalia.com>
+ <b6159ce5-f164-4166-96cc-ef564165da5c@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,64 +68,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-5=E6=9C=8813=E6=97=A5=E5=91=A8=E4=B8=89 19:23=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 13/05/2026 14:22, Sunyun Yang wrote:
-> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
-=B9=B45=E6=9C=8813=E6=97=A5=E5=91=A8=E4=B8=89 19:10=E5=86=99=E9=81=93=EF=BC=
-=9A
-> >>
-> >> On 13/05/2026 14:07, Sunyun Yang wrote:
-> >>> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
-=B9=B45=E6=9C=8813=E6=97=A5=E5=91=A8=E4=B8=89 18:24=E5=86=99=E9=81=93=EF=BC=
-=9A
-> >>>>
-> >>>> On Mon, May 11, 2026 at 11:28:06AM +0800, Sunyun Yang wrote:
-> >>>>> <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B45=E6=9C=888=E6=97=A5=E5=
-=91=A8=E4=BA=94 22:25=E5=86=99=E9=81=93=EF=BC=9A
-> >>>>>>
-> >>>>>> From: Sunyun Yang <syyang@lontium.com>
-> >>>>>
-> >>>>> Gentle ping.
-> >>>>> Thanks.
-> >>>>
-> >>>> You've posted the bindings on May 8th. Please give maintainers some =
-time
-> >>>> to react. Not to mention that you posting the bindings 4 times in a =
-row
-> >>>> (once together with the driver and other 3 times separately) doesn't
-> >>>> help maintainers.
-> >>>>
-> >>> Sorry, when I submitted the patch on May 8th, I received bounce
-> >>> notifications from devicetree@vger.kernel.org and conor+dt@kernel.org=
-,
-> >>> which is why I sent the patch again.
-> >>
-> >> And some patch trackers will now have incomplete series, others will
-> >> have duplicate entries, etc.
-> >>
-> >> In future please use `b4 --resend` to resend the whole series at once.
-> >>
-> >
-> > Isn't it recommended not to use 'git send-email' ?
->
-> The 'b4' tool is generally recommended over raw usage of 'git
-> send-email'. It saves you from some of the troubles and catches several
-> typical errors.
->
-thanks.
+El mi=C3=A9, 13-05-2026 a las 08:08 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+>=20
+>=20
+> On 13/05/26 08:01, Iago Toral wrote:
+> > El mi=C3=A9, 13-05-2026 a las 07:52 -0300, Ma=C3=ADra Canal escribi=C3=
+=B3:
+> > > Hi Iago,
+> > >=20
+> > > On 13/05/26 02:43, Iago Toral wrote:
+> > > > El mar, 12-05-2026 a las 07:55 -0300, Ma=C3=ADra Canal escribi=C3=
+=B3:
+> > > > > Hi Iago,
+> > > > >=20
+> > > > > On 12/05/26 05:20, Iago Toral wrote:
+> > > > > > El vie, 08-05-2026 a las 10:41 -0300, Ma=C3=ADra Canal escribi=
+=C3=B3:
+> > > > > > >=20
+> > > > > > (...)
+> > > > > > > +void v3d_perfmon_start(struct v3d_dev *v3d, struct
+> > > > > > > v3d_perfmon
+> > > > > > > *perfmon)
+> > > > > > > +{
+> > > > > > > +	guard(spinlock_irqsave)(&v3d-
+> > > > > > > >perfmon_state.lock);
+> > > > > > > +
+> > > > > > > +	perfmon =3D v3d->global_perfmon ?: perfmon;
+> > > > > > > +
+> > > > > >=20
+> > > > > >=20
+> > > > > > What's the rationale for having this function do this? The
+> > > > > > caller
+> > > > > > explicitly passes a perfmon to be started, but this here
+> > > > > > can
+> > > > > > ignore
+> > > > > > that and instead act on the global perform under the hood.
+> > > > >=20
+> > > > > v3d_perfmon_start() is called in 3 different places: the
+> > > > > run_job()
+> > > > > callback for BIN, RENDER, and CSD jobs. If the global perfmon
+> > > > > is
+> > > > > enabled
+> > > > > at submission time, we can assure that the job perfmon is
+> > > > > NULL.
+> > > > > However,
+> > > > > if a global perfmon is set in between the submit ioctl and
+> > > > > the
+> > > > > job
+> > > > > actual execution, we give preference to the global perfmon
+> > > > > and
+> > > > > new
+> > > > > submissions will be rejected with per-job perfmons while the
+> > > > > global
+> > > > > perfmon is set.
+> > > >=20
+> > > > So if we choose the global perfmon here, does that mean the
+> > > > current
+> > > > job
+> > > > will fail early and won't be submitted?
+> > >=20
+> > > If the global perfmon is set before attaching a job->perfmon in
+> > > the
+> > > submission ioctl, the submission ioctl will fail with -EAGAIN.
+> > >=20
+> > > If the global perfmon is set after the submission ioctl succeed,
+> > > but
+> > > before the job actually start the execution, the current job will
+> > > run
+> > > normally with v3d->global_perfmon.
+> > >=20
+> > > >=20
+> > > > Also, what would happen if we choose the job's perfmon over the
+> > > > global
+> > > > perfmon instead? I understand the implication would be that the
+> > > > global
+> > > > perfmon would have to wait for the next job without a perfmon
+> > > > to be
+> > > > started but things would otherwise work correctly?
+> > >=20
+> > > As I write, I have the impression that the best solution would be
+> > > starting the perfmon in the set_global_perfmon ioctl and stop it
+> > > when
+> > > clearing the global perfmon. Thinking right now, I'm under the
+> > > impression this could simplify the code and ensure a more
+> > > consistent
+> > > behavior.
+> > >=20
+> >=20
+> > I was thinking the same, but then we would have to deal with the
+> > situation where we receive a request to set a global perfmon but at
+> > the
+> > time we process the ioctl for that we find we already have a non-
+> > global
+> > perfmon running. What would you suggest we do in that case?
+>=20
+> In this series, I'm proposing returning -EBUSY if v3d-
+> >perfmon_state.active
+> is already set. However, even if we don't do that, I don't believe
+> this
+> would be an issue, as v3d_perfmon_start() is guarded by the spinlock.
+>=20
 
-Please ignore patch v6. Due to some issues with the driver, i will
-send patch v7.
-(Sashiko AI:   When built into the kernel, probe executes before the
-root filesystem is
-mounted, which would cause this to fail with -ENOENT. Because the error
-is propagated without returning -EPROBE_DEFER, the subsystem might not
-retry the probe later.)
+Returning -EBUSY sounds good to me.
 
-Please let the maintainers handle patch v7.
+Iago
 
-> --
-> With best wishes
-> Dmitry
+
+> Best regards,
+> - Ma=C3=ADra
+>=20
+> >=20
+> > Iago
+> >=20
+> > > Thanks for your feedback!
+> > >=20
+> > > Best regards,
+> > > - Ma=C3=ADra
+> > >=20
+> > > >=20
+> > > > > >=20
+> > > > > > I think it would be better if this decision is made
+> > > > > > expicitly
+> > > > > > before
+> > > > > > calling the function and have the function always act on
+> > > > > > the
+> > > > > > perfmon
+> > > > > > requested instead.
+> > > > > >=20
+> > > > >=20
+> > > > > I believe this would lead to code duplication as this
+> > > > > function is
+> > > > > called
+> > > > > in multiple places. Also, this would mean that we would need
+> > > > > to
+> > > > > transfer
+> > > > > the global perfmon logic to all run_job() callbacks. Also
+> > > > > note
+> > > > > that
+> > > > > we
+> > > > > can only access the v3d->global_perfmon with the spinlock
+> > > > > locked,
+> > > > > so
+> > > > > we
+> > > > > would need to open-code the locking in all run_job()
+> > > > > callbacks.
+> > > > >=20
+> > > >=20
+> > > > Right, we definitely want to avoid that.
+> > > >=20
+> > > > Iago
+> > > >=20
+> > > > > >=20
+> > > > > > > +	if (!perfmon)
+> > > > > > > +		return;
+> > > > > > > +
+> > > > > > > +	if (perfmon =3D=3D v3d->perfmon_state.active)
+> > > > > > > +		return;
+> > > > > > > +
+> > > > > > > +	if (!pm_runtime_get_if_active(v3d->drm.dev))
+> > > > > > > +		return;
+> > > > > > > +
+> > > > > > > +	v3d_perfmon_hw_start(v3d, perfmon);
+> > > > > > > +	v3d->perfmon_state.active =3D perfmon;
+> > > > > > > +
+> > > > > > > +	v3d_pm_runtime_put(v3d);
+> > > > > > > +}
+> > > > > > > +
+> > > > > > >=20
+> > > > > > (...)
+> > > > > > > =C2=A0=C2=A0=C2=A0=20
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0struct v3d_perfmon *v3d_perfmon_find(=
+struct
+> > > > > > > v3d_file_priv
+> > > > > > > *v3d_priv,
+> > > > > > > int id)
+> > > > > > > @@ -316,11 +354,15 @@ static void
+> > > > > > > v3d_perfmon_delete(struct
+> > > > > > > v3d_file_priv *v3d_priv,
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0	struct v3d_dev *v3d =3D v3d_priv->v3=
+d;
+> > > > > > > =C2=A0=C2=A0=C2=A0=20
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0	/* If the active perfmon is being de=
+stroyed,
+> > > > > > > stop it
+> > > > > > > first
+> > > > > > > */
+> > > > > > > -	if (perfmon =3D=3D v3d->active_perfmon)
+> > > > > > > -		v3d_perfmon_stop(v3d, perfmon, false);
+> > > > > > > +	scoped_guard(spinlock_irqsave, &v3d-
+> > > > > > > > perfmon_state.lock)
+> > > > > > > {
+> > > > > > > +		/* If the global perfmon is being
+> > > > > > > destroyed,
+> > > > > > > set
+> > > > > > > it
+> > > > > > > to NULL */
+> > > > > > > +		if (v3d->global_perfmon =3D=3D perfmon) {
+> > > > > > > +			v3d->global_perfmon =3D NULL;
+> > > > > > > +			v3d_perfmon_put(perfmon);
+> > > > > > > +		}
+> > > > > > > =C2=A0=C2=A0=C2=A0=20
+> > > > > > > -	/* If the global perfmon is being destroyed, set
+> > > > > > > it
+> > > > > > > to
+> > > > > > > NULL
+> > > > > > > */
+> > > > > > > -	cmpxchg(&v3d->global_perfmon, perfmon, NULL);
+> > > > > > > +		v3d_perfmon_stop_locked(v3d, perfmon,
+> > > > > > > false);
+> > > > > >=20
+> > > > > > I think it would be better to stop the perfmon first and
+> > > > > > check
+> > > > > > if
+> > > > > > it is
+> > > > > > global second, even if we are certain the put above is
+> > > > > > never
+> > > > > > going
+> > > > > > to
+> > > > > > delete the last reference in that scenario.
+> > > > > >=20
+> > > > > > Also, maybe we would want to document here with a comment
+> > > > > > that
+> > > > > > we
+> > > > > > increase the refcnt when we set a global perfmon, which is
+> > > > > > why
+> > > > > > in
+> > > > > > that
+> > > > > > case we put it twice when it is destroyed.
+> > > > >=20
+> > > > > Ack. I'll address it in v2. Thanks for your review!
+> > > > >=20
+> > > > > Best regards,
+> > > > > - Ma=C3=ADra
+> > > > >=20
+> > > > > >=20
+> > > > > > Iago
+> > > > > >=20
+> > > > >=20
+> > > > >=20
+> > > >=20
+> > >=20
+> > >=20
+> >=20
+>=20
+>=20
+
