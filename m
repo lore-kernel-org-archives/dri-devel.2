@@ -4,107 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7B66CD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 09:58:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3227CD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBF7210EDAE;
-	Wed, 13 May 2026 09:58:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5386810EDB5;
+	Wed, 13 May 2026 10:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qoNayJSA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QYQeNyMT";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012036.outbound.protection.outlook.com
- [40.93.195.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBEE410EDBF;
- Wed, 13 May 2026 09:58:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VfBshuz40+NlLzjBTr2uV/8X+ZaZCOCt3aZvqEJ/J5p16lrv020jTT+BLFgaC0q5K6GX8J+SYcPHuHbewAJoodI3tRaqti1BLN8imGGIOaKRYXNfm5O5cR/BaNCudmc6+IIZYebEztod+yyLvsmGesVENlemf0Qml0iDWBlkhT1Eti+DA/UrDx64hFzNaPDV12feEixPFoSu9C6HYnztVZRSK8muPXj2uktlOZpn4wy3fvwOLa0ujVlGJDxnaqP+OpZxEx3D36Zp4j16D754mjvVD1LAwNq6jziS3DsSrJ1HvEYviNpPREAW+fcrFLvMbkh6YOY4kqkg5dVfaIoKDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i/Z25Cq83OxSBnw5zRNfWh12SCDQ9CUCAUuTPPqjzVk=;
- b=GwBpeTNpJ9w6k1cIBHvzi1dOneRrTFBoOF/T6+6pvCWgqEZ0Wk10sTzfcC48sY45GxQ5HpnP+YpESQO1QKSsp14dDT1YyFwOi401jApVBLjQyg+XVyIrLXLL7LVkayotvLRM7ZKvjLLVz2sU4plC1b3FTjSQOchY3dB/Yx1gGwXXLK9pQluVXlR7YzzMz6RJYKoN7kaqOUt9aUE+uVf8EMPIbFWQk6VQlgfuP3tZf3vf309/9Y4BLIPMOlXSjvNky4bNeRGWJXyjIYvny1upWcCpYT9D8GvheuucGfRRxJZLYfaap66+strxAtFcqyY/FUyGnkoe+hXrwWaw/pEtMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i/Z25Cq83OxSBnw5zRNfWh12SCDQ9CUCAUuTPPqjzVk=;
- b=qoNayJSA04MXBx3uIm0zi5hyK7PTR0lf3g9mVHiSyZtITp2ZfHCHq0cRZXvjLciMJcnFw5sLvB0TtgKfWXvMXvLbpoVB35Dvx+YRR0k062IGZguutnnbJZU56onPYoIPSJ/ngQJ7BiX3Gomb8UTtyeteE9wIflnJjxovvMajVP8=
-Received: from MN0PR05CA0017.namprd05.prod.outlook.com (2603:10b6:208:52c::21)
- by PH8PR12MB6940.namprd12.prod.outlook.com (2603:10b6:510:1bf::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Wed, 13 May
- 2026 09:57:56 +0000
-Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
- (2603:10b6:208:52c:cafe::92) by MN0PR05CA0017.outlook.office365.com
- (2603:10b6:208:52c::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.18 via Frontend Transport; Wed, 13
- May 2026 09:57:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Wed, 13 May 2026 09:57:55 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 13 May
- 2026 04:57:55 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 13 May
- 2026 02:57:54 -0700
-Received: from junhua-PC.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 13 May 2026 04:57:51 -0500
-From: Junhua Shen <Junhua.Shen@amd.com>
-To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
- <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
- <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
- <honglei1.huang@amd.com>, <Lingshan.Zhu@amd.com>, <simona@ffwll.ch>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <Junhua.Shen@amd.com>
-Subject: [PATCH v4 5/6] drm/amdgpu: hook up ZONE_DEVICE registration in device
- init and reset
-Date: Wed, 13 May 2026 17:57:33 +0800
-Message-ID: <20260513095734.69598-6-Junhua.Shen@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260513095734.69598-1-Junhua.Shen@amd.com>
-References: <20260513095734.69598-1-Junhua.Shen@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CAFB10EDB5;
+ Wed, 13 May 2026 10:03:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 05597444FB;
+ Wed, 13 May 2026 10:03:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F18C2BCB7;
+ Wed, 13 May 2026 10:03:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778666614;
+ bh=uNr/uFHa8lFJk/JJ/8kd9ZumVdyGQuQQfbYHdUl02UA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=QYQeNyMThpHjuSLKa58f6dppmWVqBeBwSraMrvGJW3jNALwIswOENNrssr9p9eTBR
+ Q3aMvEfZFP+wFNDCbqCVIID/PyxalTbdPQy/d4sWJJkNODltdx2dFIbqTgYHOVCSoB
+ o+x01VAEcKRnWfVOq896D4oaoy82xi+n3/bEaUkrzst0INftTsXsRAbZiIOeyhKflz
+ lQnQVp928t+BO9kjs9ISzqh2vYZ6O2GILsrYPSDEY8qXCcVUiFVRWEABkx3wFA5bqt
+ Gmlh0fwZTTPBaae/HTBvWClE4tJyF27OeL2ZLc8nZbQ5TX6bjVBl/M+txt/WCt4NBV
+ rFKP3SPG1FF5Q==
+Message-ID: <65596f86-e6a3-48b0-aa3d-2e608964e29d@kernel.org>
+Date: Wed, 13 May 2026 12:03:26 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Brendan Jackman <jackmanb@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
+ <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
+ <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
+ <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
+ <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
+ <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
+ <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
+ <1ce447ceea88bbe56c7d28654a51fc2856a7f986.camel@linux.intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <1ce447ceea88bbe56c7d28654a51fc2856a7f986.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|PH8PR12MB6940:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8346f52-403f-4221-2861-08deb0d61b01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|22082099003|18002099003|921020|11063799003;
-X-Microsoft-Antispam-Message-Info: FAhjU2HolJBjuNihgv1wFTPHq6zaCmFO8WXbaRoYbrmhr1lsTrMyjJSoe980+keglukS67zY0WJ327l1ZPEDzE5zVrDNUd3KNZCCQq7jmqIcrHeWSv6kZbpFE1LAh0Tf8fEXyS2H1/mc0I7D3gMKCZh14WyGaK22Uva7SrwzbOH4Xss3AXI10v+zqPPu/tJdcUQJVmGGiZjWPP7TYz5cEe6roUrmyi/Ks6WBIYNydLbFxEPEJNZHredRwRvKCtPZ3BdWeKSE5D6BvNTZW77xUClN6iBZaZ/OffJktz7Ce2LFcS53K3sLfRn1DcM22xZ1mQ2gtvgSJkDHm+pZbjmagfX0Uw0EEZZYhltm04qgv9nXbRPO6fZnFjYHQMWmtAUHPNy/OgZxOR1Ril7AUBYU6MNa6VcFK0wkNrc4E7WfGNPiDbbkqgC/GOYRmK6jwuIhtE+TwxM3Lhqxf7iTRrR5b/wnHbgH6XE7nMcUlqhOwyDYyeurFIM7rMke4OoRnzscNpcSIExsXbViKoHWTbDW7EO25duNncCcpGdYSX5pz2Q+TZMFysfSWBYDKlkM5bUQtnaZNUjM/eounFrgrxzPnQ+fI6wv2CCK3ifT2x3wweppu/KX4VbV72g1juMA8LqOVPkttKFPYgEhlTfYu7fuAtmHKyNZ125l54+iZoIo0cVBS1ZLVynGDPocJs4cFCDL+J2vSiyK+bqqRqvT27VEXUFXrUhRS31TxoVOxGqtMAM2O4maiqWZR3aV7qXRQgC258VULtZhmUeQspt/LxrY/Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(22082099003)(18002099003)(921020)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: K5rJ5xnu+QvdSOao3hbL4MAJFJHc0wkuEBsTVNUpUeNW24TeRbO0TuXlYAQTmQqGvHySt33/8sn0VkVs/Z3uysGV962VKjPdjqvyOt2B7dCMyQXHzJnCumav41V4bsq2jMdRkSQ/HmQpgM1G8yvL+64YozHnspjAvsc4s53n7ESP0098qK3i2x135dwqf3HGsLKwgZV5gpG6tN7NL/PSnhtWkaSHXvy6VcIncJHmKv7DBBWHydlkvfuoaVO1j0XxmW9nNCuJhydxOl5mJiWzC8kUFRQn/paBw5KCQTvP+FPyaxAezJA6avkQD1lIvVsJvT+lsCSXKrloLtdsRSFKXibwuz5hOZ59BP6AGj8129baQKyL/VxVoKpsrPONK0+QbDNP83CwN0lN9kkBwDoACZwRiw0ezw3vRdblP/AFU/ItghSAMZ7Z3rH9sZV/TLoh
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 09:57:55.5313 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8346f52-403f-4221-2861-08deb0d61b01
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E61.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6940
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,62 +124,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Call amdgpu_svm_migration_init() in the device initialization and
-XGMI reset-restore paths to register the GPU's VRAM as a ZONE_DEVICE
-region before KFD initialization.
+On 5/13/26 10:51, Thomas Hellström wrote:
+> On Wed, 2026-05-13 at 10:37 +0200, David Hildenbrand (Arm) wrote:
+>> On 5/13/26 09:47, Christian König wrote:
+>>> Hi David & Thomas,
+>>>
+>>> ...
+>>>
+>>> Exactly that is one of the major reasons why we aren't using a
+>>> shmem as backing store for TTM buffers in the first place.
+>>
+>> What was the problem with that the last time this was considered?
+>>
+>> shmem nowadays supports THP (e.g., 2M) and even mTHP (e.g., 64K).
+>>
+>> For internal mounts, it must be enabled accordingly
+>> (/sys/kernel/mm/transparent_hugepage/.../shmem_enabled).
+>>
+>> Some distributions still default to "never". I guess if an admin
+>> enables it, you
+>> would just get THPs.
+> 
+> FWIW, the i915 driver which uses shmem "natively" uses a special mount
+> here that gives back THPs.
+> 
+>>
+>> If "distro default" is the only problem, I guess we could think about
+>> how to
+>> improve that. For example, just let internal GPU DRM objects allocate
+>> any folio
+>> size available and supported etc.
+>>
+>> Would that make it possible to just use shmem natively? (e.g., how
+>> would this
+>> interact with shmem features like folio migration, would that be
+>> workable with
+>> DRM objects?).
+> 
+> Currently the drivers that use shmem in this way use
+> "mapping_set_unevictable()" as long as the object is bound to the GPU.
+> Then shrinkers can unbind from GPU and revert that setting.
 
-This activates the drm_pagemap migration infrastructure.
+Right, but mapping_set_unevictable() only affects folio_evictable() - -reclaim
+behavior. Not other properties (such as folio migration).
 
-Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 4 ++++
- 2 files changed, 8 insertions(+)
+> 
+> The problem, (as also stated in the cover letter of this series) is for
+> drivers that need to change caching of the pages to WC or UC.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index fbe553c38583..3be51a2c0106 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -78,6 +78,7 @@
- #include "amdgpu_reset.h"
- #include "amdgpu_virt.h"
- #include "amdgpu_dev_coredump.h"
-+#include "amdgpu_migrate.h"
- 
- #include <linux/suspend.h>
- #include <drm/task_barrier.h>
-@@ -4076,6 +4077,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 
- 	/* Don't init kfd if whole hive need to be reset during init */
- 	if (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
-+#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
-+		amdgpu_svm_migration_init(adev);
-+#endif
- 		kgd2kfd_init_zone_device(adev);
- 		kfd_update_svm_support_properties(adev);
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index 28c4ad62f50e..c94d43f3ab42 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -25,6 +25,7 @@
- #include "aldebaran.h"
- #include "sienna_cichlid.h"
- #include "smu_v13_0_10.h"
-+#include "amdgpu_migrate.h"
- 
- static int amdgpu_reset_xgmi_reset_on_init_suspend(struct amdgpu_device *adev)
- {
-@@ -87,6 +88,9 @@ static int amdgpu_reset_xgmi_reset_on_init_restore_hwctxt(
- 		return r;
- 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
- 		if (!tmp_adev->kfd.init_complete) {
-+#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
-+			amdgpu_svm_migration_init(tmp_adev);
-+#endif
- 			kgd2kfd_init_zone_device(tmp_adev);
- 			amdgpu_amdkfd_device_init(tmp_adev);
- 			amdgpu_amdkfd_drm_client_create(tmp_adev);
+I assume you mean "To be able to easily maintain pools of pages mapped uncached
+or write-combined".
+
+Can you point me at the code that changes the caching of the pages?
+
+> That's an
+> extremely costly operation so TTM needs to pool such allocations.
+> That's where using shmem natively becomes very ugly, because you can't
+> really use a 1:1 mapping between shmem objects and DRM objects anymore.
+
+So you would require different caching attributes within a DRM object?
+
 -- 
-2.34.1
+Cheers,
 
+David
