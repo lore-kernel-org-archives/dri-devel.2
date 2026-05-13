@@ -4,48 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA278CD37AC
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:40:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7B82CD4F25
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:43:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F23610F035;
-	Wed, 13 May 2026 19:40:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E26C410F038;
+	Wed, 13 May 2026 19:43:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="wXztKGVz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PswWi5U5";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD0710F038
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 19:40:21 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1ECC39A0;
- Wed, 13 May 2026 21:40:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778701211;
- bh=jlWHu1fXFM3qCsVs2Dtd/hqL0fuEiheEM0UFk2/CMU0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=wXztKGVz1CXEhaxpmnwbdlF8KW+G19KK17oDOgLFOwWmNCx2g/E+Of9LDXhXsBD4+
- W/jz9XT90s69Gw9fLOGCOkt14m3mfpGTEfvT9keJIune0nbfFNvuLbKZ4gr+xP679G
- byNe44q9m9LtsC8yuY1l4zS5Ru8lnY6wZbKXdUL0=
-Date: Wed, 13 May 2026 22:40:18 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH 05/11] media: renesas: vsp1: Use mutex guards
-Message-ID: <20260513194018.GA291825@killaraus.ideasonboard.com>
-References: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260511235637.3468558-6-laurent.pinchart+renesas@ideasonboard.com>
- <20260513192054.GH332351@ragnatech.se>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E566210F033;
+ Wed, 13 May 2026 19:43:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 98C4744142;
+ Wed, 13 May 2026 19:43:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B38C19425;
+ Wed, 13 May 2026 19:43:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778701409;
+ bh=mjCtTKqd0fVUd6hQ2t6t5iSRgHn1i0rQEkCW2VMbau8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=PswWi5U5R2uMro/LaDmbP7VIqiyhF4gylLPGQUCiQuw0rY6WNXUl9KHQApUPsQd6W
+ 4fU1gwteWEOaTMqkI93WiVxzlsmY5RLpkTOQXBs6OeNljyWOTHpXMEU4+yZXIS+rIb
+ XTuaFLkH7nuXrHcfhoWVIGxw5BzbyLGpgaAIcBPmGVhYdwBm/LLY61kmnLbpkEKz9G
+ nM1PwFq8U0jihBiIGhcNyZDYC5qFhXFqz3+0b9dvi7xkmrzYaK2DorsMyuKzCS8Vi3
+ IcRb/pFyeq0zW/AxYEUbhRztgWkD72M0Ua/qp8qdEhEzO/vFNX+lBO5Fqbi9da9bIt
+ wjjySZetYrNcA==
+Message-ID: <c2881d16-a12c-4598-8f8d-3b6523266fcc@kernel.org>
+Date: Wed, 13 May 2026 21:43:20 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Brendan Jackman <jackmanb@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
+ <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
+ <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
+ <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
+ <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
+ <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
+ <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
+ <0ba9bc77-ace1-4077-a193-4540880b242b@amd.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <0ba9bc77-ace1-4077-a193-4540880b242b@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260513192054.GH332351@ragnatech.se>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,683 +124,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 13, 2026 at 09:20:54PM +0200, Niklas Söderlund wrote:
-> Hi Laurent,
+On 5/13/26 13:54, Christian König wrote:
+> On 5/13/26 10:37, David Hildenbrand (Arm) wrote:
+>> On 5/13/26 09:47, Christian König wrote:
+>>> Hi David & Thomas,
+>>>
+>>> ...
+>>>
+>>> Exactly that is one of the major reasons why we aren't using a shmem as backing store for TTM buffers in the first place.
+>>
+>> What was the problem with that the last time this was considered?
+>>
+>> shmem nowadays supports THP (e.g., 2M) and even mTHP (e.g., 64K).
+>>
+>> For internal mounts, it must be enabled accordingly
+>> (/sys/kernel/mm/transparent_hugepage/.../shmem_enabled).
+>>
+>> Some distributions still default to "never". I guess if an admin enables it, you
+>> would just get THPs.
 > 
-> These new constructs are so useful, nice to take the time to make use of 
-> them in existing drivers.
+> Yeah, exactly that is not acceptable. We have some customers who already use that approach through udmabuf, so we already have some experience with it.
+> 
+> And I can't count how often I had to explain that it's a configuration issue and that the admin has to enable THP to get decent performance.
 
-Yes, I like them too. The scoped guards are sometimes more annoying as
-they add one indentation level.
+A lot of concern with shmem and THP is around memory waste.
 
-> On 2026-05-12 02:56:29 +0300, Laurent Pinchart wrote:
-> > Replace manual mutex locking and unlocking with guards. This simplifies
-> > error paths and reduces the amount of code. Limit the changes to
-> > locations where the guard covers until the end of the function to ease
-> > review. Scoped guards will be introduced separately.
-> > 
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+But the DRM use case of shmem is really different than ordinary shmem usage, in
+particular when it can steer the folio size used (and better control memory
+waste I assume?).
+
 > 
-> Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+>> If "distro default" is the only problem, I guess we could think about how to
+>> improve that. For example, just let internal GPU DRM objects allocate any folio
+>> size available and supported etc.
 > 
-> > ---
-> >  .../media/platform/renesas/vsp1/vsp1_brx.c    | 26 ++++-------
-> >  .../media/platform/renesas/vsp1/vsp1_drm.c    |  7 +--
-> >  .../media/platform/renesas/vsp1/vsp1_entity.c | 19 +++-----
-> >  .../media/platform/renesas/vsp1/vsp1_histo.c  | 35 +++++----------
-> >  .../media/platform/renesas/vsp1/vsp1_hsit.c   | 15 +++----
-> >  .../media/platform/renesas/vsp1/vsp1_rwpf.c   | 44 ++++++-------------
-> >  .../media/platform/renesas/vsp1/vsp1_sru.c    | 13 ++----
-> >  .../media/platform/renesas/vsp1/vsp1_uds.c    | 13 ++----
-> >  .../media/platform/renesas/vsp1/vsp1_uif.c    | 29 ++++--------
-> >  .../media/platform/renesas/vsp1/vsp1_video.c  | 20 ++++-----
-> >  .../media/platform/renesas/vsp1/vsp1_wpf.c    | 17 +++----
-> >  11 files changed, 77 insertions(+), 161 deletions(-)
-> > 
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_brx.c b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
-> > index 9d93cb8b8e82..bd2672341386 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_brx.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
-> > @@ -130,15 +130,12 @@ static int brx_set_format(struct v4l2_subdev *subdev,
-> >  	struct vsp1_brx *brx = to_brx(subdev);
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> > -	int ret = 0;
-> >  
-> > -	mutex_lock(&brx->entity.lock);
-> > +	guard(mutex)(&brx->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&brx->entity, sd_state, fmt->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	brx_try_format(brx, state, fmt->pad, &fmt->format);
-> >  
-> > @@ -166,9 +163,7 @@ static int brx_set_format(struct v4l2_subdev *subdev,
-> >  		}
-> >  	}
-> >  
-> > -done:
-> > -	mutex_unlock(&brx->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static int brx_get_selection(struct v4l2_subdev *subdev,
-> > @@ -213,7 +208,6 @@ static int brx_set_selection(struct v4l2_subdev *subdev,
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> >  	struct v4l2_rect *compose;
-> > -	int ret = 0;
-> >  
-> >  	if (sel->pad == brx->entity.source_pad)
-> >  		return -EINVAL;
-> > @@ -221,13 +215,11 @@ static int brx_set_selection(struct v4l2_subdev *subdev,
-> >  	if (sel->target != V4L2_SEL_TGT_COMPOSE)
-> >  		return -EINVAL;
-> >  
-> > -	mutex_lock(&brx->entity.lock);
-> > +	guard(mutex)(&brx->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&brx->entity, sd_state, sel->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	/*
-> >  	 * The compose rectangle top left corner must be inside the output
-> > @@ -248,9 +240,7 @@ static int brx_set_selection(struct v4l2_subdev *subdev,
-> >  	compose = v4l2_subdev_state_get_compose(state, sel->pad);
-> >  	*compose = sel->r;
-> >  
-> > -done:
-> > -	mutex_unlock(&brx->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static const struct v4l2_subdev_pad_ops brx_pad_ops = {
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drm.c b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-> > index 1f431874064d..1439cf7bfb59 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-> > @@ -920,7 +920,7 @@ void vsp1_du_atomic_flush(struct device *dev, unsigned int pipe_index,
-> >  
-> >  	drm_pipe->crc = cfg->crc;
-> >  
-> > -	mutex_lock(&vsp1->drm->lock);
-> > +	guard(mutex)(&vsp1->drm->lock);
-> >  
-> >  	if (cfg->writeback.pixelformat) {
-> >  		const struct vsp1_du_writeback_config *wb_cfg = &cfg->writeback;
-> > @@ -929,7 +929,7 @@ void vsp1_du_atomic_flush(struct device *dev, unsigned int pipe_index,
-> >  						       wb_cfg->pixelformat,
-> >  						       wb_cfg->pitch);
-> >  		if (WARN_ON(ret < 0))
-> > -			goto done;
-> > +			return;
-> >  
-> >  		pipe->output->mem.addr[0] = wb_cfg->mem[0];
-> >  		pipe->output->mem.addr[1] = wb_cfg->mem[1];
-> > @@ -942,9 +942,6 @@ void vsp1_du_atomic_flush(struct device *dev, unsigned int pipe_index,
-> >  	vsp1_pipeline_dump(pipe, "atomic update");
-> >  
-> >  	vsp1_du_pipeline_configure(pipe);
-> > -
-> > -done:
-> > -	mutex_unlock(&vsp1->drm->lock);
-> >  }
-> >  EXPORT_SYMBOL_GPL(vsp1_du_atomic_flush);
-> >  
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_entity.c b/drivers/media/platform/renesas/vsp1/vsp1_entity.c
-> > index 839b75b62ceb..3820ba53b45f 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_entity.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_entity.c
-> > @@ -172,9 +172,9 @@ int vsp1_subdev_get_pad_format(struct v4l2_subdev *subdev,
-> >  	if (!state)
-> >  		return -EINVAL;
-> >  
-> > -	mutex_lock(&entity->lock);
-> > +	guard(mutex)(&entity->lock);
-> > +
-> >  	fmt->format = *v4l2_subdev_state_get_format(state, fmt->pad);
-> > -	mutex_unlock(&entity->lock);
-> >  
-> >  	return 0;
-> >  }
-> > @@ -308,22 +308,19 @@ int vsp1_subdev_set_pad_format(struct v4l2_subdev *subdev,
-> >  	struct v4l2_mbus_framefmt *format;
-> >  	struct v4l2_rect *selection;
-> >  	unsigned int i;
-> > -	int ret = 0;
-> >  
-> > -	mutex_lock(&entity->lock);
-> > +	guard(mutex)(&entity->lock);
-> >  
-> >  	state = vsp1_entity_get_state(entity, sd_state, fmt->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	format = v4l2_subdev_state_get_format(state, fmt->pad);
-> >  
-> >  	if (fmt->pad == entity->source_pad) {
-> >  		/* The output format can't be modified. */
-> >  		fmt->format = *format;
-> > -		goto done;
-> > +		return 0;
-> >  	}
-> >  
-> >  	/*
-> > @@ -369,9 +366,7 @@ int vsp1_subdev_set_pad_format(struct v4l2_subdev *subdev,
-> >  	selection->width = format->width;
-> >  	selection->height = format->height;
-> >  
-> > -done:
-> > -	mutex_unlock(&entity->lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static int vsp1_entity_init_state(struct v4l2_subdev *subdev,
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_histo.c b/drivers/media/platform/renesas/vsp1/vsp1_histo.c
-> > index 3f87a2c9df0e..72f6ef2fdc4f 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_histo.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_histo.c
-> > @@ -196,18 +196,15 @@ static int histo_get_selection(struct v4l2_subdev *subdev,
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> >  	struct v4l2_rect *crop;
-> > -	int ret = 0;
-> >  
-> >  	if (sel->pad != HISTO_PAD_SINK)
-> >  		return -EINVAL;
-> >  
-> > -	mutex_lock(&histo->entity.lock);
-> > +	guard(mutex)(&histo->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&histo->entity, sd_state, sel->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	switch (sel->target) {
-> >  	case V4L2_SEL_TGT_COMPOSE_BOUNDS:
-> > @@ -237,13 +234,10 @@ static int histo_get_selection(struct v4l2_subdev *subdev,
-> >  		break;
-> >  
-> >  	default:
-> > -		ret = -EINVAL;
-> > -		break;
-> > +		return -EINVAL;
-> >  	}
-> >  
-> > -done:
-> > -	mutex_unlock(&histo->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static int histo_set_crop(struct v4l2_subdev *subdev,
-> > @@ -321,29 +315,22 @@ static int histo_set_selection(struct v4l2_subdev *subdev,
-> >  {
-> >  	struct vsp1_histogram *histo = subdev_to_histo(subdev);
-> >  	struct v4l2_subdev_state *state;
-> > -	int ret;
-> >  
-> >  	if (sel->pad != HISTO_PAD_SINK)
-> >  		return -EINVAL;
-> >  
-> > -	mutex_lock(&histo->entity.lock);
-> > +	guard(mutex)(&histo->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&histo->entity, sd_state, sel->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	if (sel->target == V4L2_SEL_TGT_CROP)
-> > -		ret = histo_set_crop(subdev, state, sel);
-> > +		return histo_set_crop(subdev, state, sel);
-> >  	else if (sel->target == V4L2_SEL_TGT_COMPOSE)
-> > -		ret = histo_set_compose(subdev, state, sel);
-> > +		return histo_set_compose(subdev, state, sel);
-> >  	else
-> > -		ret = -EINVAL;
-> > -
-> > -done:
-> > -	mutex_unlock(&histo->entity.lock);
-> > -	return ret;
-> > +		return -EINVAL;
-> >  }
-> >  
-> >  static int histo_set_format(struct v4l2_subdev *subdev,
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_hsit.c b/drivers/media/platform/renesas/vsp1/vsp1_hsit.c
-> > index 830e124beb7b..df069c228243 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_hsit.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_hsit.c
-> > @@ -115,15 +115,12 @@ static int hsit_set_format(struct v4l2_subdev *subdev,
-> >  	struct vsp1_hsit *hsit = to_hsit(subdev);
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> > -	int ret = 0;
-> >  
-> > -	mutex_lock(&hsit->entity.lock);
-> > +	guard(mutex)(&hsit->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&hsit->entity, sd_state, fmt->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	format = v4l2_subdev_state_get_format(state, fmt->pad);
-> >  
-> > @@ -133,7 +130,7 @@ static int hsit_set_format(struct v4l2_subdev *subdev,
-> >  		 * modified.
-> >  		 */
-> >  		fmt->format = *format;
-> > -		goto done;
-> > +		return 0;
-> >  	}
-> >  
-> >  	format->code = hsit->inverse ? MEDIA_BUS_FMT_AHSV8888_1X32
-> > @@ -161,9 +158,7 @@ static int hsit_set_format(struct v4l2_subdev *subdev,
-> >  
-> >  	vsp1_entity_adjust_color_space(format);
-> >  
-> > -done:
-> > -	mutex_unlock(&hsit->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static const struct v4l2_subdev_pad_ops hsit_pad_ops = {
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_rwpf.c b/drivers/media/platform/renesas/vsp1/vsp1_rwpf.c
-> > index c72518b29f84..ced01870acd6 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_rwpf.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_rwpf.c
-> > @@ -116,15 +116,12 @@ static int vsp1_rwpf_set_format(struct v4l2_subdev *subdev,
-> >  	struct vsp1_rwpf *rwpf = to_rwpf(subdev);
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> > -	int ret = 0;
-> >  
-> > -	mutex_lock(&rwpf->entity.lock);
-> > +	guard(mutex)(&rwpf->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&rwpf->entity, sd_state, fmt->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	/* Default to YUV if the requested format is not supported. */
-> >  	if (fmt->format.code != MEDIA_BUS_FMT_ARGB8888_1X32 &&
-> > @@ -174,7 +171,7 @@ static int vsp1_rwpf_set_format(struct v4l2_subdev *subdev,
-> >  		fmt->format = *format;
-> >  		fmt->format.flags = flags;
-> >  
-> > -		goto done;
-> > +		return 0;
-> >  	}
-> >  
-> >  	format->code = fmt->format.code;
-> > @@ -213,9 +210,7 @@ static int vsp1_rwpf_set_format(struct v4l2_subdev *subdev,
-> >  		format->height = fmt->format.width;
-> >  	}
-> >  
-> > -done:
-> > -	mutex_unlock(&rwpf->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static int vsp1_rwpf_get_selection(struct v4l2_subdev *subdev,
-> > @@ -225,7 +220,6 @@ static int vsp1_rwpf_get_selection(struct v4l2_subdev *subdev,
-> >  	struct vsp1_rwpf *rwpf = to_rwpf(subdev);
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> > -	int ret = 0;
-> >  
-> >  	/*
-> >  	 * Cropping is only supported on the RPF and is implemented on the sink
-> > @@ -234,13 +228,11 @@ static int vsp1_rwpf_get_selection(struct v4l2_subdev *subdev,
-> >  	if (rwpf->entity.type == VSP1_ENTITY_WPF || sel->pad != RWPF_PAD_SINK)
-> >  		return -EINVAL;
-> >  
-> > -	mutex_lock(&rwpf->entity.lock);
-> > +	guard(mutex)(&rwpf->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&rwpf->entity, sd_state, sel->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	switch (sel->target) {
-> >  	case V4L2_SEL_TGT_CROP:
-> > @@ -256,13 +248,10 @@ static int vsp1_rwpf_get_selection(struct v4l2_subdev *subdev,
-> >  		break;
-> >  
-> >  	default:
-> > -		ret = -EINVAL;
-> > -		break;
-> > +		return -EINVAL;
-> >  	}
-> >  
-> > -done:
-> > -	mutex_unlock(&rwpf->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static int vsp1_rwpf_set_selection(struct v4l2_subdev *subdev,
-> > @@ -275,7 +264,6 @@ static int vsp1_rwpf_set_selection(struct v4l2_subdev *subdev,
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> >  	struct v4l2_rect *crop;
-> > -	int ret = 0;
-> >  
-> >  	/*
-> >  	 * Cropping is only supported on the RPF and is implemented on the sink
-> > @@ -287,13 +275,11 @@ static int vsp1_rwpf_set_selection(struct v4l2_subdev *subdev,
-> >  	if (sel->target != V4L2_SEL_TGT_CROP)
-> >  		return -EINVAL;
-> >  
-> > -	mutex_lock(&rwpf->entity.lock);
-> > +	guard(mutex)(&rwpf->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&rwpf->entity, sd_state, sel->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	/* Make sure the crop rectangle is entirely contained in the image. */
-> >  	format = v4l2_subdev_state_get_format(state, RWPF_PAD_SINK);
-> > @@ -342,9 +328,7 @@ static int vsp1_rwpf_set_selection(struct v4l2_subdev *subdev,
-> >  	format->width = crop->width;
-> >  	format->height = crop->height;
-> >  
-> > -done:
-> > -	mutex_unlock(&rwpf->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static const struct v4l2_subdev_pad_ops vsp1_rwpf_pad_ops = {
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_sru.c b/drivers/media/platform/renesas/vsp1/vsp1_sru.c
-> > index 94149da0c900..3fd9fde5c724 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_sru.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_sru.c
-> > @@ -216,15 +216,12 @@ static int sru_set_format(struct v4l2_subdev *subdev,
-> >  	struct vsp1_sru *sru = to_sru(subdev);
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> > -	int ret = 0;
-> >  
-> > -	mutex_lock(&sru->entity.lock);
-> > +	guard(mutex)(&sru->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&sru->entity, sd_state, fmt->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	sru_try_format(sru, state, fmt->pad, &fmt->format);
-> >  
-> > @@ -239,9 +236,7 @@ static int sru_set_format(struct v4l2_subdev *subdev,
-> >  		sru_try_format(sru, state, SRU_PAD_SOURCE, format);
-> >  	}
-> >  
-> > -done:
-> > -	mutex_unlock(&sru->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static const struct v4l2_subdev_pad_ops sru_pad_ops = {
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_uds.c b/drivers/media/platform/renesas/vsp1/vsp1_uds.c
-> > index dd4722315c56..9f7bb112929e 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_uds.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_uds.c
-> > @@ -199,15 +199,12 @@ static int uds_set_format(struct v4l2_subdev *subdev,
-> >  	struct vsp1_uds *uds = to_uds(subdev);
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> > -	int ret = 0;
-> >  
-> > -	mutex_lock(&uds->entity.lock);
-> > +	guard(mutex)(&uds->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&uds->entity, sd_state, fmt->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	uds_try_format(uds, state, fmt->pad, &fmt->format);
-> >  
-> > @@ -222,9 +219,7 @@ static int uds_set_format(struct v4l2_subdev *subdev,
-> >  		uds_try_format(uds, state, UDS_PAD_SOURCE, format);
-> >  	}
-> >  
-> > -done:
-> > -	mutex_unlock(&uds->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  /* -----------------------------------------------------------------------------
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_uif.c b/drivers/media/platform/renesas/vsp1/vsp1_uif.c
-> > index 3aefe5c9d421..52dbfe58a70d 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_uif.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_uif.c
-> > @@ -60,18 +60,15 @@ static int uif_get_selection(struct v4l2_subdev *subdev,
-> >  	struct vsp1_uif *uif = to_uif(subdev);
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> > -	int ret = 0;
-> >  
-> >  	if (sel->pad != UIF_PAD_SINK)
-> >  		return -EINVAL;
-> >  
-> > -	mutex_lock(&uif->entity.lock);
-> > +	guard(mutex)(&uif->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&uif->entity, sd_state, sel->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	switch (sel->target) {
-> >  	case V4L2_SEL_TGT_CROP_BOUNDS:
-> > @@ -88,13 +85,10 @@ static int uif_get_selection(struct v4l2_subdev *subdev,
-> >  		break;
-> >  
-> >  	default:
-> > -		ret = -EINVAL;
-> > -		break;
-> > +		return -EINVAL;
-> >  	}
-> >  
-> > -done:
-> > -	mutex_unlock(&uif->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static int uif_set_selection(struct v4l2_subdev *subdev,
-> > @@ -105,19 +99,16 @@ static int uif_set_selection(struct v4l2_subdev *subdev,
-> >  	struct v4l2_subdev_state *state;
-> >  	struct v4l2_mbus_framefmt *format;
-> >  	struct v4l2_rect *selection;
-> > -	int ret = 0;
-> >  
-> >  	if (sel->pad != UIF_PAD_SINK ||
-> >  	    sel->target != V4L2_SEL_TGT_CROP)
-> >  		return -EINVAL;
-> >  
-> > -	mutex_lock(&uif->entity.lock);
-> > +	guard(mutex)(&uif->entity.lock);
-> >  
-> >  	state = vsp1_entity_get_state(&uif->entity, sd_state, sel->which);
-> > -	if (!state) {
-> > -		ret = -EINVAL;
-> > -		goto done;
-> > -	}
-> > +	if (!state)
-> > +		return -EINVAL;
-> >  
-> >  	/* The crop rectangle must be inside the input frame. */
-> >  	format = v4l2_subdev_state_get_format(state, UIF_PAD_SINK);
-> > @@ -133,9 +124,7 @@ static int uif_set_selection(struct v4l2_subdev *subdev,
-> >  	selection = v4l2_subdev_state_get_crop(state, sel->pad);
-> >  	*selection = sel->r;
-> >  
-> > -done:
-> > -	mutex_unlock(&uif->entity.lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  /* -----------------------------------------------------------------------------
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_video.c b/drivers/media/platform/renesas/vsp1/vsp1_video.c
-> > index a8db94bdb670..4cf2cc370416 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_video.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_video.c
-> > @@ -590,9 +590,9 @@ static void vsp1_video_pipeline_put(struct vsp1_pipeline *pipe)
-> >  {
-> >  	struct media_device *mdev = &pipe->output->entity.vsp1->media_dev;
-> >  
-> > -	mutex_lock(&mdev->graph_mutex);
-> > +	guard(mutex)(&mdev->graph_mutex);
-> > +
-> >  	kref_put(&pipe->kref, vsp1_video_pipeline_release);
-> > -	mutex_unlock(&mdev->graph_mutex);
-> >  }
-> >  
-> >  /* -----------------------------------------------------------------------------
-> > @@ -933,9 +933,9 @@ vsp1_video_get_format(struct file *file, void *fh, struct v4l2_format *format)
-> >  	if (format->type != video->queue.type)
-> >  		return -EINVAL;
-> >  
-> > -	mutex_lock(&video->lock);
-> > +	guard(mutex)(&video->lock);
-> > +
-> >  	format->fmt.pix_mp = video->rwpf->format;
-> > -	mutex_unlock(&video->lock);
-> >  
-> >  	return 0;
-> >  }
-> > @@ -967,19 +967,15 @@ vsp1_video_set_format(struct file *file, void *fh, struct v4l2_format *format)
-> >  	if (ret < 0)
-> >  		return ret;
-> >  
-> > -	mutex_lock(&video->lock);
-> > +	guard(mutex)(&video->lock);
-> >  
-> > -	if (vb2_is_busy(&video->queue)) {
-> > -		ret = -EBUSY;
-> > -		goto done;
-> > -	}
-> > +	if (vb2_is_busy(&video->queue))
-> > +		return -EBUSY;
-> >  
-> >  	video->rwpf->format = format->fmt.pix_mp;
-> >  	video->rwpf->fmtinfo = info;
-> >  
-> > -done:
-> > -	mutex_unlock(&video->lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static int
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
-> > index cd6c5592221b..e7ed3c8e9e90 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
-> > @@ -47,7 +47,6 @@ static int vsp1_wpf_set_rotation(struct vsp1_rwpf *wpf, unsigned int rotation)
-> >  	struct v4l2_mbus_framefmt *sink_format;
-> >  	struct v4l2_mbus_framefmt *source_format;
-> >  	bool rotate;
-> > -	int ret = 0;
-> >  
-> >  	/*
-> >  	 * Only consider the 0°/180° from/to 90°/270° modifications, the rest
-> > @@ -58,19 +57,17 @@ static int vsp1_wpf_set_rotation(struct vsp1_rwpf *wpf, unsigned int rotation)
-> >  		return 0;
-> >  
-> >  	/* Changing rotation isn't allowed when buffers are allocated. */
-> > -	mutex_lock(&video->lock);
-> > +	guard(mutex)(&video->lock);
-> >  
-> > -	if (vb2_is_busy(&video->queue)) {
-> > -		ret = -EBUSY;
-> > -		goto done;
-> > -	}
-> > +	if (vb2_is_busy(&video->queue))
-> > +		return -EBUSY;
-> >  
-> >  	sink_format = v4l2_subdev_state_get_format(wpf->entity.state,
-> >  						   RWPF_PAD_SINK);
-> >  	source_format = v4l2_subdev_state_get_format(wpf->entity.state,
-> >  						     RWPF_PAD_SOURCE);
-> >  
-> > -	mutex_lock(&wpf->entity.lock);
-> > +	guard(mutex)(&wpf->entity.lock);
-> >  
-> >  	if (rotate) {
-> >  		source_format->width = sink_format->height;
-> > @@ -82,11 +79,7 @@ static int vsp1_wpf_set_rotation(struct vsp1_rwpf *wpf, unsigned int rotation)
-> >  
-> >  	wpf->flip.rotate = rotate;
-> >  
-> > -	mutex_unlock(&wpf->entity.lock);
-> > -
-> > -done:
-> > -	mutex_unlock(&video->lock);
-> > -	return ret;
-> > +	return 0;
-> >  }
-> >  
-> >  static int vsp1_wpf_s_ctrl(struct v4l2_ctrl *ctrl)
+> Mhm, that sounds not so bad.
+> 
+> I think what drivers really need is that they can give the order to shmem_read_folio_gfp() and get a folio with that order or -ENOMEM as return.
+
+Is it really helpful to fail and not make progress on a fragmented system?
+
+I'd assume you'd want the largest folio up to a specific order. Not larger,
+because it would waste memory. But maybe smaller to make progress.
+
+> 
+> In other words we need to enforce it and if the desired page size doesn't work we can then still decide if we want a fallback or not based on the use case the driver tries to implement.
+
+In which use case would you not want to fallback? Would it be something to
+tackle separately later?
+
+> 
+>> Would that make it possible to just use shmem natively? (e.g., how would this
+>> interact with shmem features like folio migration, would that be workable with
+>> DRM objects?).
+> 
+> Mostly, I mean there is still the use case for UC and USWC memory but at least for AMD GPUs that is mostly negligible (we need it for a handfull of workarounds for HW bugs etc...).
+
+Thanks!
 
 -- 
-Regards,
+Cheers,
 
-Laurent Pinchart
+David
