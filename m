@@ -4,111 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7B82CD4F25
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:43:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0925BCD4F21
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:44:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E26C410F038;
-	Wed, 13 May 2026 19:43:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A34110F03A;
+	Wed, 13 May 2026 19:44:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PswWi5U5";
+	dkim=pass (2048-bit key; unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.b="Zb3/J8Gq";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="fehknpLB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E566210F033;
- Wed, 13 May 2026 19:43:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 98C4744142;
- Wed, 13 May 2026 19:43:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B38C19425;
- Wed, 13 May 2026 19:43:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778701409;
- bh=mjCtTKqd0fVUd6hQ2t6t5iSRgHn1i0rQEkCW2VMbau8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=PswWi5U5R2uMro/LaDmbP7VIqiyhF4gylLPGQUCiQuw0rY6WNXUl9KHQApUPsQd6W
- 4fU1gwteWEOaTMqkI93WiVxzlsmY5RLpkTOQXBs6OeNljyWOTHpXMEU4+yZXIS+rIb
- XTuaFLkH7nuXrHcfhoWVIGxw5BzbyLGpgaAIcBPmGVhYdwBm/LLY61kmnLbpkEKz9G
- nM1PwFq8U0jihBiIGhcNyZDYC5qFhXFqz3+0b9dvi7xkmrzYaK2DorsMyuKzCS8Vi3
- IcRb/pFyeq0zW/AxYEUbhRztgWkD72M0Ua/qp8qdEhEzO/vFNX+lBO5Fqbi9da9bIt
- wjjySZetYrNcA==
-Message-ID: <c2881d16-a12c-4598-8f8d-3b6523266fcc@kernel.org>
-Date: Wed, 13 May 2026 21:43:20 +0200
+Received: from fhigh-a5-smtp.messagingengine.com
+ (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B79C10F03A
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 19:44:08 +0000 (UTC)
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id D3D09140006E;
+ Wed, 13 May 2026 15:44:07 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-03.internal (MEProxy); Wed, 13 May 2026 15:44:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1778701447;
+ x=1778787847; bh=vq8AplGuZyE7KuVYiOXha2pA1P/pIeAOsJq+kKq4w+4=; b=
+ Zb3/J8Gq/8zSYeRanwmBPSFsHZjwgyRNVu7twLGs3O5eNCO/7zPgsM6jgpOW/Lqx
+ iY1zs+uYoBIlBouYZcU1aEaddmVBArGdaM1JsCZglWTg93zh0l3OuCvT2WQxFNUy
+ npbJ93jgWhmSwssK1gcyXcJASU3KbcfajyqhrsI7s/UX6wrlZuNKLGSQKPKsrK1/
+ TVC+Cud5LdUfX+mJxiyfT4fgH3AUvNiwqdNBwF1DVh0XTQ5b3XJTxBvjxh+FHkyn
+ bn7mdiqDhAOXM5tc4d9MBbUNZa71uJ/hkC3pbilS5rmr6u1U6uV0W/cpzJucR7yy
+ +TZRufNi2fSHhviSiJ2CfQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1778701447; x=
+ 1778787847; bh=vq8AplGuZyE7KuVYiOXha2pA1P/pIeAOsJq+kKq4w+4=; b=f
+ ehknpLBOJv+ow/RrtKmrZebrmw8JgzeYhn7K3QgbWmiIF8e2Jwj878AGpiSuaymi
+ wRFX+As/3sNHetQb+AhN+nPmVaRm2T1t01q/khthzDBjTDW3ErG0zmXbTfveo5zS
+ Cr+vVdONgRfcjRIDhWHLAvZ5HuXRS06PGWYA0V9Z3x2KN+565AzKVnehFKzSGMrE
+ xCBdVia8tUWbZcSIhAPM5/VZvr+ucMIol18yh81rr9Fe5V8pxGR3jxCORNu5BqnG
+ 7heSKn5q3T1oh1RooK9DxXBIjnJfOSfgWccheHOyXEij0g+jf7Y21J8/yiHeTQZ2
+ o1IHIuPG1d9rhegfg/zmA==
+X-ME-Sender: <xms:h9QEalkBNqR-oZTH-NOFrTkA7QaNh3SqTrw1m3lXjZbfh6Eihx1b5g>
+ <xme:h9QEatZvDFRzEgHNQmwuHnpFP67U2gRwS8FrJrYcm0oaUmswqe2pPAxs69kM4NQjw
+ BD9GtTMaJwnIlO1G4AQf9mUzKOj_s2luDOAPQLYowewAi4HlSGonzo>
+X-ME-Received: <xmr:h9QEagEbtBZg9qZrnYocWVkXbAgg6_T1g5apN34jm209eA3Wa1m7CHiNkRa1We5-k4KEWvFvB1J5-Rl7-uifgF5LVCidUngxQdn0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduvdehheduucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhepfffhvfevuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefpihhklhgr
+ shcuufpnuggvrhhluhhnugcuoehnihhklhgrshdrshhouggvrhhluhhnugesrhgrghhnrg
+ htvggthhdrshgvqeenucggtffrrghtthgvrhhnpeevteegtddvvdfhtdekgefhfeefheet
+ heekkeegfeejudeiudeuleegtdehkeekteenucevlhhushhtvghrufhiiigvpedtnecurf
+ grrhgrmhepmhgrihhlfhhrohhmpehnihhklhgrshdrshhouggvrhhluhhnugesrhgrghhn
+ rghtvggthhdrshgvpdhnsggprhgtphhtthhopeelpdhmohguvgepshhmthhpohhuthdprh
+ gtphhtthhopehlrghurhgvnhhtrdhpihhntghhrghrthdorhgvnhgvshgrshesihguvggr
+ shhonhgsohgrrhgurdgtohhmpdhrtghpthhtoheplhhinhhugidqmhgvughirgesvhhgvg
+ hrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhs
+ rdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheplhhinhhugidqrhgvnhgvsh
+ grshdqshhotgesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehtohhmihdr
+ vhgrlhhkvghinhgvnhesihguvggrshhonhgsohgrrhgurdgtohhmpdhrtghpthhtohepkh
+ hivghrrghnrdgsihhnghhhrghmsehiuggvrghsohhnsghorghrugdrtghomhdprhgtphht
+ thhopegsihhjuhdruggrshdrjhiisegsphdrrhgvnhgvshgrshdrtghomhdprhgtphhtth
+ hopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehf
+ fhiflhhlrdgthh
+X-ME-Proxy: <xmx:h9QEasZmU26Rp4jroqQGWSTJG3TYnyElUrCnAW9ed04fw14IJozkig>
+ <xmx:h9QEakx-frbMlqLb5-X2jW3faASm7_TD2RtebZz6Ji5NUVc4r8xWhQ>
+ <xmx:h9QEauSFZog46_N5G6LcWv7B3IFXDNKFWwWPH-YxwYxAz_ggRLKKZg>
+ <xmx:h9QEahJD4umhOBy5Pq_aQpUw_zUWmxlQh0MoydzcofYWMrLX5E5iaA>
+ <xmx:h9QEat-HKxK0cRwJy2_T4ON9G21hMmoieOGYnc53AyKS_Hjf7vvSOA2g>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 13 May 2026 15:44:07 -0400 (EDT)
+Date: Wed, 13 May 2026 21:44:05 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH 09/11] media: renesas: vsp1: Simplify iteration over
+ format arrays
+Message-ID: <20260513194405.GL332351@ragnatech.se>
+References: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260511235637.3468558-10-laurent.pinchart+renesas@ideasonboard.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Brendan Jackman <jackmanb@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
- <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
- <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
- <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
- <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
- <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
- <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
- <0ba9bc77-ace1-4077-a193-4540880b242b@amd.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <0ba9bc77-ace1-4077-a193-4540880b242b@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260511235637.3468558-10-laurent.pinchart+renesas@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,65 +111,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/13/26 13:54, Christian König wrote:
-> On 5/13/26 10:37, David Hildenbrand (Arm) wrote:
->> On 5/13/26 09:47, Christian König wrote:
->>> Hi David & Thomas,
->>>
->>> ...
->>>
->>> Exactly that is one of the major reasons why we aren't using a shmem as backing store for TTM buffers in the first place.
->>
->> What was the problem with that the last time this was considered?
->>
->> shmem nowadays supports THP (e.g., 2M) and even mTHP (e.g., 64K).
->>
->> For internal mounts, it must be enabled accordingly
->> (/sys/kernel/mm/transparent_hugepage/.../shmem_enabled).
->>
->> Some distributions still default to "never". I guess if an admin enables it, you
->> would just get THPs.
+Hi Laurent,
+
+Thanks for your work.
+
+On 2026-05-12 02:56:33 +0300, Laurent Pinchart wrote:
+> Introduce a vsp1_for_each_format() macro to iterate over format arrays,
+> to improve readability. No functional change intended.
 > 
-> Yeah, exactly that is not acceptable. We have some customers who already use that approach through udmabuf, so we already have some experience with it.
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+
+> ---
+>  .../media/platform/renesas/vsp1/vsp1_pipe.c   | 36 ++++++-------------
+>  1 file changed, 10 insertions(+), 26 deletions(-)
 > 
-> And I can't count how often I had to explain that it's a configuration issue and that the admin has to enable THP to get decent performance.
-
-A lot of concern with shmem and THP is around memory waste.
-
-But the DRM use case of shmem is really different than ordinary shmem usage, in
-particular when it can steer the folio size used (and better control memory
-waste I assume?).
-
+> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_pipe.c b/drivers/media/platform/renesas/vsp1/vsp1_pipe.c
+> index f9c7c75a7ad0..7197f2917417 100644
+> --- a/drivers/media/platform/renesas/vsp1/vsp1_pipe.c
+> +++ b/drivers/media/platform/renesas/vsp1/vsp1_pipe.c
+> @@ -229,6 +229,10 @@ static const struct vsp1_format_info vsp1_video_hsit_formats[] = {
+>  	  1, { 32, 0, 0 }, false, false, 1, 1, false },
+>  };
+>  
+> +#define vsp1_for_each_format(info, formats) \
+> +	for (const struct vsp1_format_info *info = &formats[0]; \
+> +	     info < formats + ARRAY_SIZE(formats); ++info)
+> +
+>  /**
+>   * vsp1_get_format_info - Retrieve format information for a 4CC
+>   * @vsp1: the VSP1 device
+> @@ -240,30 +244,20 @@ static const struct vsp1_format_info vsp1_video_hsit_formats[] = {
+>  const struct vsp1_format_info *vsp1_get_format_info(struct vsp1_device *vsp1,
+>  						    u32 fourcc)
+>  {
+> -	unsigned int i;
+> -
+> -	for (i = 0; i < ARRAY_SIZE(vsp1_video_formats); ++i) {
+> -		const struct vsp1_format_info *info = &vsp1_video_formats[i];
+> -
+> +	vsp1_for_each_format(info, vsp1_video_formats) {
+>  		if (info->fourcc == fourcc)
+>  			return info;
+>  	}
+>  
+>  	if (vsp1->info->gen == 2) {
+> -		for (i = 0; i < ARRAY_SIZE(vsp1_video_gen2_formats); ++i) {
+> -			const struct vsp1_format_info *info =
+> -				&vsp1_video_gen2_formats[i];
+> -
+> +		vsp1_for_each_format(info, vsp1_video_gen2_formats) {
+>  			if (info->fourcc == fourcc)
+>  				return info;
+>  		}
+>  	}
+>  
+>  	if (vsp1_feature(vsp1, VSP1_HAS_HSIT)) {
+> -		for (i = 0; i < ARRAY_SIZE(vsp1_video_hsit_formats); ++i) {
+> -			const struct vsp1_format_info *info =
+> -				&vsp1_video_hsit_formats[i];
+> -
+> +		vsp1_for_each_format(info, vsp1_video_hsit_formats) {
+>  			if (info->fourcc == fourcc)
+>  				return info;
+>  		}
+> @@ -287,8 +281,6 @@ const struct vsp1_format_info *
+>  vsp1_get_format_info_by_index(struct vsp1_device *vsp1, unsigned int index,
+>  			      u32 code)
+>  {
+> -	unsigned int i;
+> -
+>  	if (!code) {
+>  		if (index < ARRAY_SIZE(vsp1_video_formats))
+>  			return &vsp1_video_formats[index];
+> @@ -308,9 +300,7 @@ vsp1_get_format_info_by_index(struct vsp1_device *vsp1, unsigned int index,
+>  		return NULL;
+>  	}
+>  
+> -	for (i = 0; i < ARRAY_SIZE(vsp1_video_formats); ++i) {
+> -		const struct vsp1_format_info *info = &vsp1_video_formats[i];
+> -
+> +	vsp1_for_each_format(info, vsp1_video_formats) {
+>  		if (info->mbus == code) {
+>  			if (!index)
+>  				return info;
+> @@ -319,10 +309,7 @@ vsp1_get_format_info_by_index(struct vsp1_device *vsp1, unsigned int index,
+>  	}
+>  
+>  	if (vsp1->info->gen == 2) {
+> -		for (i = 0; i < ARRAY_SIZE(vsp1_video_gen2_formats); ++i) {
+> -			const struct vsp1_format_info *info =
+> -				&vsp1_video_gen2_formats[i];
+> -
+> +		vsp1_for_each_format(info, vsp1_video_gen2_formats) {
+>  			if (info->mbus == code) {
+>  				if (!index)
+>  					return info;
+> @@ -332,10 +319,7 @@ vsp1_get_format_info_by_index(struct vsp1_device *vsp1, unsigned int index,
+>  	}
+>  
+>  	if (vsp1_feature(vsp1, VSP1_HAS_HSIT)) {
+> -		for (i = 0; i < ARRAY_SIZE(vsp1_video_hsit_formats); ++i) {
+> -			const struct vsp1_format_info *info =
+> -				&vsp1_video_hsit_formats[i];
+> -
+> +		vsp1_for_each_format(info, vsp1_video_hsit_formats) {
+>  			if (info->mbus == code) {
+>  				if (!index)
+>  					return info;
+> -- 
+> Regards,
 > 
->> If "distro default" is the only problem, I guess we could think about how to
->> improve that. For example, just let internal GPU DRM objects allocate any folio
->> size available and supported etc.
+> Laurent Pinchart
 > 
-> Mhm, that sounds not so bad.
 > 
-> I think what drivers really need is that they can give the order to shmem_read_folio_gfp() and get a folio with that order or -ENOMEM as return.
-
-Is it really helpful to fail and not make progress on a fragmented system?
-
-I'd assume you'd want the largest folio up to a specific order. Not larger,
-because it would waste memory. But maybe smaller to make progress.
-
-> 
-> In other words we need to enforce it and if the desired page size doesn't work we can then still decide if we want a fallback or not based on the use case the driver tries to implement.
-
-In which use case would you not want to fallback? Would it be something to
-tackle separately later?
-
-> 
->> Would that make it possible to just use shmem natively? (e.g., how would this
->> interact with shmem features like folio migration, would that be workable with
->> DRM objects?).
-> 
-> Mostly, I mean there is still the use case for UC and USWC memory but at least for AMD GPUs that is mostly negligible (we need it for a handfull of workarounds for HW bugs etc...).
-
-Thanks!
 
 -- 
-Cheers,
-
-David
+Kind Regards,
+Niklas Söderlund
