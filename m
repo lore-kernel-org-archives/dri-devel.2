@@ -4,118 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 178EACD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:31:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0345CD37AC
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 722DC10F027;
-	Wed, 13 May 2026 19:31:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3926010F02F;
+	Wed, 13 May 2026 19:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fiG8rgXh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qG7ffT5K";
 	dkim-atps=neutral
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
- [74.125.224.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0058710F027
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 19:31:44 +0000 (UTC)
-Received: by mail-yx1-f49.google.com with SMTP id
- 956f58d0204a3-651bc83e74aso8075249d50.2
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 12:31:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778700704; cv=none;
- d=google.com; s=arc-20240605;
- b=O5tA3TRsJK0wzBpGtwEPrp/G9c5+1kd6lP13lG6/s0rISL1LX5e1uekVQXiVot1Kod
- pFfYrCbQqU6U490K7BaFlQ2DgPdRmwgrUiXih1mGMHWz8BSgs63K42q3wRAm6TwaoKtw
- 0FphbSEY2ljbpK/24RVL+UVs3xeU6xWsetLzzinXpl3IYnWsn70hqR0obWx8AVysCcCt
- vbGNj8uP5CIqfLUjfvylvziKHg4/jUn3vXwIwXpGy2hE2VHnc+zIS+w+DDuyxZd9/JjM
- ZzIZO+OS1A+ZdYUnYvIgsdXtPXAxNaG7+XGJMTxwV1t/7GJ25pnITPZ5CrliepGkYOKI
- P75w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=g4Y3i2VzEUpUrHnVXfd2puXKp9894xeLrJot7HkksF4=;
- fh=l7GAbvihEG92WnXlL+cpE+zdE50gQe2NZMT9MDxaohI=;
- b=Pf29SPABCDT2+WM69IQbiJPeqwvdHv3NVJLKd+XOjtkNnxRp3qA1A5Wfd+q+ScsoPg
- YTF1gxNy+tYR+IMxCAuDi3BnjflElcbiab86xP99hLafmRCbW/Mv2jINlgxFRFX0zhZ7
- mJktD7kQVIeKZ/+arhH3vp2LwJ+HpapbWnuLpRC/9V5NElrEjzvAHQal+27oFy7g9Rez
- 50CINqkXrT8sZvnBLjRWMi2dcI1d7D/fNl4Ma8x10KzlskpWgnT9OqyBfSdH/e6HHNo1
- dRSJSGqh3WCccFGDWScSw7+x5HId9q0dmlhCkHDPim/+AJlS+kCONdJ6C0z31WLuYIb/
- GIBA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778700704; x=1779305504; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=g4Y3i2VzEUpUrHnVXfd2puXKp9894xeLrJot7HkksF4=;
- b=fiG8rgXhRfjKRxslioLMOzQ0LmUpPY2wZnhBITQpdM7Ir4/DNeFV0TF3EgbgkvktfZ
- NmE00KuJyE7XT3loAdYaktEgawz+VJNsdhGKX187LvYMeIC+AU9rfdPCafDwJLN4QnxV
- 6eh86pk0DxiZ33I/S2FFyHh4GTUdsVMvCX/H++ZVX/tB0QOrQ/SoE+8l4rashoVLr0wk
- HUnICWP14AI6GvwtV8WTlLyAeUblbxQUAzry5b2kXHrpnaOpOEqKhJ3gXx+9Osk4oq5h
- alzF2Pfrw4/7KPO1Qlr44VMDSyRLii2f1KCnLCMq3KfnAHqu5UO4fknf6NUeeegaGKVd
- v09w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778700704; x=1779305504;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=g4Y3i2VzEUpUrHnVXfd2puXKp9894xeLrJot7HkksF4=;
- b=RtTtqWC6rbOQKUaLnbd3PgIGJfFrn9HoqobemJ6jgTqRB5xEFBnDfOCQWDVZ42u6IT
- Zr0/hrMjzlLUbu/2pOXNkhD/x1C6EG4gtWrUBrCd23JHcLLXH5Kq8t0QCaU0Etvw6OWp
- zq0+/Q/F9VaO4Fr1gzJgARxiR5KRSe389HfLiAkFksaUFV3m3bZrcL21L1hyiMCV25uj
- RvaZ/eQMq9Kmf+JzuPibfLY4qBGfFKF1FwROY+8IYPRXDDMyVVW8d5w2kFJWkUfsvE8K
- Jsdu0UniWn6/EWLdlA+C/ypg8pb8d/ug74OdToYZOszom+FHREc1C40Guv0E2QVu16ss
- JkBw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8WxK1eTkAMz0ZTZrw3EvFaFSwTS/yqHso/pAnhwhdebYXV8+75PhXtr9YspzAmrqbIrXoqdH7UDjE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPVuletfqpw4xOzEmqmYUswqU9xhBFURLVtDStFbqq0kUCvLHQ
- InhucK1Cra4fltKpTcmEPOfsVc0fJX6qkxYGqEHfmhM9/RxMVHmBtG2w3MAIeKWRGhy6j1OetcG
- GHVCcZjad8L/a32N5I+fLHvC2sMWJfMg=
-X-Gm-Gg: Acq92OHhpbiShYrH8OnEXZ8SekOoEVmKwcNsnm8I1x7czZiBX2eAK8zqIVfuhYwVAR3
- OqlypLDuNJ7MORa08vz5jevcXUf6o9pSOFfxFWNlZlURGQxZ+aVI0lJErqUXYyIaX75H0MSjb/+
- FE8FIDgaKQNLNivVF+I4emdSYwOVlocQf859XQZm1ABM+WSujmlVm4hKSFNIeNuA/kv30TJMcv3
- uqKhVKH8vb3lRxVtANZoLmGJk4XLWsSLxtwsUW+b2vDleiaff3Zq0rlXcxf4ntG268PfDoOfWDo
- vE2Z3N6ZGvKk8z4VdlEq4ODeAoJJDlim11cOZeiYS0PIKVOSIXRvCg06godVvD/NCZKhCMu2Fw=
- =
-X-Received: by 2002:a05:690c:38b:b0:7bd:a50c:454c with SMTP id
- 00721157ae682-7c6da2152a8mr42579647b3.19.1778700703738; Wed, 13 May 2026
- 12:31:43 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9992110F02F;
+ Wed, 13 May 2026 19:35:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id CB98F60052;
+ Wed, 13 May 2026 19:35:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1BADC19425;
+ Wed, 13 May 2026 19:35:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778700954;
+ bh=NmlmhJchdEEPAxfALJc7ddzIb6+LDxvUj3dXafADxGk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=qG7ffT5K6SA1jvg4rw3t0icFPpAUNdco6mG4Ox3ShD78+OZIdQdZ/Ch482XtwYYdm
+ v789yre3HMwccaFoAhdtnGabe8nS/fLIuG2HLU8u1Kdif7PCseLLY6FHXlqtRrQL69
+ ICdciY2O914HyapHzMXutQGW9j7Y31MMwIxjnueGRyQlDfDoNaisPrQbIbt7llzBtk
+ luP4XXYqPgvLcGeJ+pITZ9szEY2J9Art9M9VYGVFFabLgT7MRj8xVq/nsmwu4DlIdC
+ 7wMyHAWuPHa7gWgBK4HB5J0hTHNsZIz53fHPIWGIh2cTcDKO3eWDnytPqUjRh1Jb4T
+ owpQ+SKDt+T3A==
+Message-ID: <ea5063c9-9db1-4314-a8d0-c693de412b65@kernel.org>
+Date: Wed, 13 May 2026 21:35:44 +0200
 MIME-Version: 1.0
-References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
- <20260505140516.1372388-5-ketil.johnsen@arm.com>
- <20260505181523.49a3d85c@fedora>
- <afxVIuVVPisBQ9p_@e129842.arm.com> <20260507135356.5428d50d@fedora>
- <agMvb_jeRsO7tSS-@e142607> <20260512161111.0cb7000e@fedora>
- <agNJasayW8VCHTiU@e142607>
-In-Reply-To: <agNJasayW8VCHTiU@e142607>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Wed, 13 May 2026 12:31:32 -0700
-X-Gm-Features: AVHnY4JH8Ip_tVhSu6utyw5cZH7Mreif1YmCt2t2xjBKPcGuoTWdGxm_i0T-RLg
-Message-ID: <CAPaKu7QC7FdjL6m_OSb+E5aYKs6bmT-9DAHc5PC=XctCmRph2Q@mail.gmail.com>
-Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
- allocation in panthor
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
- =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@arm.com>, 
- Ketil Johnsen <ketil.johnsen@arm.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Steven Price <steven.price@arm.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- dri-devel@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Florent Tomasin <florent.tomasin@arm.com>, nd@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Brendan Jackman <jackmanb@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
+ <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
+ <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
+ <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
+ <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
+ <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
+ <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
+ <1ce447ceea88bbe56c7d28654a51fc2856a7f986.camel@linux.intel.com>
+ <65596f86-e6a3-48b0-aa3d-2e608964e29d@kernel.org>
+ <c0b5b94dfb4d04a1319bfb110f326afd2c29d48b.camel@linux.intel.com>
+ <d7cc273b-17a2-4b5f-af6a-0dc708c8cabf@kernel.org>
+ <d5e310c7f4506ef373c705180b33b9d5b2645b1a.camel@linux.intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <d5e310c7f4506ef373c705180b33b9d5b2645b1a.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,92 +128,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 8:39=E2=80=AFAM Liviu Dudau <liviu.dudau@arm.com> w=
-rote:
->
-> On Tue, May 12, 2026 at 04:11:11PM +0200, Boris Brezillon wrote:
-> > On Tue, 12 May 2026 14:47:27 +0100
-> > Liviu Dudau <liviu.dudau@arm.com> wrote:
-> >
-> > > On Thu, May 07, 2026 at 01:53:56PM +0200, Boris Brezillon wrote:
-> > > > On Thu, 7 May 2026 11:02:26 +0200
-> > > > Marcin =C5=9Alusarz <marcin.slusarz@arm.com> wrote:
-> > > >
-> > > > > On Tue, May 05, 2026 at 06:15:23PM +0200, Boris Brezillon wrote:
-> > > > > > > @@ -277,9 +286,21 @@ int panthor_device_init(struct panthor_d=
-evice *ptdev)
-> > > > > > >                     return ret;
-> > > > > > >     }
-> > > > > > >
-> > > > > > > +   /* If a protected heap name is specified but not found, d=
-efer the probe until created */
-> > > > > > > +   if (protected_heap_name && strlen(protected_heap_name)) {
-> > > > > >
-> > > > > > Do we really need this strlen() > 0? Won't dma_heap_find() fail=
- is the
-> > > > > > name is "" already?
-> > > > >
-> > > > > If dma_heap_find() will fail, then the whole probe with fail too.
-> > > > > This check prevents that.
-> > > >
-> > > > Yeah, that's also a questionable design choice. I mean, we can
-> > > > currently probe and boot the FW even though we never setup the
-> > > > protected FW sections, so why should we defer the probe here? Can't=
- we
-> > > > just retry the next time a group with the protected bit is created =
-and
-> > > > fail if we can find a protected heap?
-> > >
-> > > The problem we have with the current firmware is that it does a numbe=
-r of setup steps at "boot"
-> > > time only. One of the steps is preparing its internal structures for =
-when it enters protected
-> > > mode and it stores them in the buffer passed in at firmware loading. =
-We cannot later run the
-> > > process when we have a group with protected mode set.
-> >
-> > No, but we can force a full/slow reset and have that thing
-> > re-initialized, can't we? I mean, that's basically what we do when a
-> > fast reset fails: we re-initialize all the sections and reset again, at
-> > which point the FW should start from a fresh state, and be able to
-> > properly initialize the protected-related stuff if protected sections
-> > are populated. Am I missing something?
->
-> Right, we can do that. For some reason I keep associating the reset with =
-the
-> error handling and not with "normal" operations.
-I kind of hope we end up with either
+On 5/13/26 16:53, Thomas Hellström wrote:
+> On Wed, 2026-05-13 at 13:36 +0200, David Hildenbrand (Arm) wrote:
+>> On 5/13/26 12:37, Thomas Hellström wrote:
+>>
+>>
+>>>
+> [...]
+>>> One alternative would be a single large sparse shmem object common
+>>> for
+>>> all DRM objects, with a range allocator, but that also got pretty
+>>> ugly
+>>> when I tried to implement that.
+>>
+>> Does not sound too crazy, though.
+>>
+>>>
+> 
+> Yeah, I stumbled on finding a reasonable idea to connect a shmem folio
+> to the pool LRUs and the range allocator metadata.
+> 
+> Assuming a shmem folio is pinned using the memfd pinning interface,
+> would folio->private be temporarily available?
 
- - panthor knows the exact heap to use and fails with EPROBE_DEFER if
-the heap is missing, or
- - panthor gets a dma-buf from userspace and does the full reset
-   - userspace also needs to provide a dma-buf for each protected
-group for the suspend buffer
+I think shmem uses folio->private only when the folio is in the swapcache
+(through folio->swap). So one has to protect against that.
 
-than something in-between. The latter is more ad-hoc and basically
-kicks the issue to the userspace.
+So you're thinking of a model, where a shmem file is essentially fully "owned"
+by a DRM object, and that owner could make use of folio->private as long as the
+folio is prevented from getting swapped out? (e.g., longterm pinned etc)
 
-For the former, expressing the relation in DT seems to be the best,
-but only if possible :-). Otherwise, a kconfig option (instead of
-module param) should be easier to work with.
+-- 
+Cheers,
 
-Looking at the userspace implementation, can we also have an panthor
-ioctl to return the heap to userspace? A dma-heap ioctl to query the
-heap size is also lacking.
-
-
->
-> Best regards,
-> Liviu
->
->
-> --
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> | I would like to |
-> | fix the world,  |
-> | but they're not |
-> | giving me the   |
->  \ source code!  /
->   ---------------
->     =C2=AF\_(=E3=83=84)_/=C2=AF
->
+David
