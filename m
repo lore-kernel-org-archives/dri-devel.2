@@ -4,111 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3227CD4F24
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:03:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1CFCD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 10:06:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5386810EDB5;
-	Wed, 13 May 2026 10:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E72C10E5BF;
+	Wed, 13 May 2026 10:06:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QYQeNyMT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gNQLUOOi";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CAFB10EDB5;
- Wed, 13 May 2026 10:03:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 05597444FB;
- Wed, 13 May 2026 10:03:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F18C2BCB7;
- Wed, 13 May 2026 10:03:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778666614;
- bh=uNr/uFHa8lFJk/JJ/8kd9ZumVdyGQuQQfbYHdUl02UA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=QYQeNyMThpHjuSLKa58f6dppmWVqBeBwSraMrvGJW3jNALwIswOENNrssr9p9eTBR
- Q3aMvEfZFP+wFNDCbqCVIID/PyxalTbdPQy/d4sWJJkNODltdx2dFIbqTgYHOVCSoB
- o+x01VAEcKRnWfVOq896D4oaoy82xi+n3/bEaUkrzst0INftTsXsRAbZiIOeyhKflz
- lQnQVp928t+BO9kjs9ISzqh2vYZ6O2GILsrYPSDEY8qXCcVUiFVRWEABkx3wFA5bqt
- Gmlh0fwZTTPBaae/HTBvWClE4tJyF27OeL2ZLc8nZbQ5TX6bjVBl/M+txt/WCt4NBV
- rFKP3SPG1FF5Q==
-Message-ID: <65596f86-e6a3-48b0-aa3d-2e608964e29d@kernel.org>
-Date: Wed, 13 May 2026 12:03:26 +0200
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7D1E10E5BF
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 10:06:02 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-bd21ffaca79so379740966b.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 03:06:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778666761; x=1779271561; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Y8agHE2UtR+0v8hUNRpGN3/NHmgQczj9TZKmKbKc+JU=;
+ b=gNQLUOOiLIQwEBxLiDQJLc2/m4OXiQygE2gHYUoCnOiYBWVQqWmTCwLZQB7QK6VyAB
+ a7Xy/nqleVqE5SmDOvNiH+2ahb0uskyg6m4Jd3cugiF/l1S0h2ls06sMqTHazmez0hxP
+ uZ8eb1s13zO82MUYLi8qvh4D876EmRBwDqgzjkCtcz7pn6hNwfMNzoNTre2InRRxqmOe
+ XDmhqE7g95PtnP3xf3z+E8084ki8QHCOThxou2b68uEKXfjR5P1ou0BiMbeeYf2TWjpd
+ Xy2bCf6KzH1qauPR64qZfGKzs3rctEsQ0ULsCShOSTPidB25H0zh5LvEpBJuowVbsDGr
+ ihTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778666761; x=1779271561;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Y8agHE2UtR+0v8hUNRpGN3/NHmgQczj9TZKmKbKc+JU=;
+ b=H+HuJ+nBDmmLnYu7FY36xMGy+svDlCOsqnv0bJpMdgmlw3TIe1U/1TqSTKuSPeMHvb
+ OekqM6Eeti8mZyHW3Keiv7fHtqAsVJtTGHMz1ctNyDyAcIrU/EqCQ2R5ShNA2BVzhfDZ
+ SqnpcTkjDfA9hKmgFEvIxfWZ6UCwOXD2r0cHtyLX071WC+2rAk4JaBtozI09OGCnymz8
+ nLh7bK6k4F470QLggllXGc1gHMr+dqZKJnCFPeDfhxU9ChjpPvKptu/NoOPjo4L48wNh
+ 2m9AxEZKBmxh2qEvmPqne/JclEyYsuQ8jkQlCktgmMHBeCSvuxcj85ny850BIb4nXJQO
+ 3IAA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+UQboDmTE7jD8yFZ7QGqUVUJ9+djzg0D0vmcSCb8oHTK53megVqTJ1oBJ71OFhgazKG9DqpeJpzpQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxg4efvGQKsnJj3mN7I9n3At6oTlw4MUaKIE8+bvwUaEbJQcrUi
+ 4wsUH4MJEZKZhGwVyz3MuSfiZt8avwD+wHsJ5C/88PB3KQdm1Nx0HANh
+X-Gm-Gg: Acq92OHmB01ZxX9x4seZgRgGoIl6WlHHiLnbsrfJmKJjGqTRd7sOzujmHUJ2BzuIwDa
+ 9tg6LXA52cyIbH2zL/G4GKhbwl+aikZJ3FojhiRQ9i67iafftYXBJP7jPwxBojVf925XaIUbCMq
+ r0Qu2JlxG3kCPKzlBGZHOZD/4oXlq5DZS5VCZf35GvLNNDUojsyA2dk85NrlInM+8GkbPXXpIT/
+ SHl2wHJQyazPR4I8O1T+M/eRQ3y0+abxSMq+QSVRHsdb3taoVv3+j5hHs6aizORevrQWq9H0kTc
+ naQhF28bFT0HUxlijTyeUAWr0eubxlf7OsUO03LbiCkRNHkghI4iadoJ3SOOZYthMaOVNYcZRlp
+ 7b9IKWJCdfXhxSGt7hfd6nlFnLsrbxNBl2e5WahjRpQuONiEDqQ4KUFi9pWMkJYYKu6pq9pFr0N
+ 77R/cfC4Gu4V0JbKFXOTX2VgO+jE5klOcZ5SnZICYZdD90JYXWFZvtO4wisFUu
+X-Received: by 2002:a17:907:9493:b0:bc5:2352:555c with SMTP id
+ a640c23a62f3a-bd3add39c4bmr174356866b.14.1778666759127; 
+ Wed, 13 May 2026 03:05:59 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bd2dba8fd22sm216615666b.16.2026.05.13.03.05.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 May 2026 03:05:58 -0700 (PDT)
+Date: Wed, 13 May 2026 11:05:57 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph
+ Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Andrew
+ Morton <akpm@linux-foundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, Nitesh
+ Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Anuj
+ Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v3 02/10] iov_iter: add iterator type for dmabuf maps
+Message-ID: <20260513110557.705bdeed@pumpkin>
+In-Reply-To: <20a233d2f35274817aa643cc0fe113707eb47e72.1777475843.git.asml.silence@gmail.com>
+References: <cover.1777475843.git.asml.silence@gmail.com>
+ <20a233d2f35274817aa643cc0fe113707eb47e72.1777475843.git.asml.silence@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- intel-xe@lists.freedesktop.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Brendan Jackman <jackmanb@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
- <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
- <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
- <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
- <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
- <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
- <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
- <1ce447ceea88bbe56c7d28654a51fc2856a7f986.camel@linux.intel.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <1ce447ceea88bbe56c7d28654a51fc2856a7f986.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,67 +102,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/13/26 10:51, Thomas Hellström wrote:
-> On Wed, 2026-05-13 at 10:37 +0200, David Hildenbrand (Arm) wrote:
->> On 5/13/26 09:47, Christian König wrote:
->>> Hi David & Thomas,
->>>
->>> ...
->>>
->>> Exactly that is one of the major reasons why we aren't using a
->>> shmem as backing store for TTM buffers in the first place.
->>
->> What was the problem with that the last time this was considered?
->>
->> shmem nowadays supports THP (e.g., 2M) and even mTHP (e.g., 64K).
->>
->> For internal mounts, it must be enabled accordingly
->> (/sys/kernel/mm/transparent_hugepage/.../shmem_enabled).
->>
->> Some distributions still default to "never". I guess if an admin
->> enables it, you
->> would just get THPs.
+On Wed, 29 Apr 2026 16:25:48 +0100
+Pavel Begunkov <asml.silence@gmail.com> wrote:
+
+> Introduce a new iterator type for dmabuf maps. The map in an opaque
+> object with internals and format specific to the subsystem / driver, and
+> only it can use that subsystem / driver for issuing IO. The task of the
+> middle layers is to pass the map / iterator further down, maybe doing
+> basic splitting and length checking. The iterator can only be used by
+> operations of the file the associated map was created for.
 > 
-> FWIW, the i915 driver which uses shmem "natively" uses a special mount
-> here that gives back THPs.
+> Suggested-by: Keith Busch <kbusch@kernel.org>
+> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+> ---
+>  include/linux/uio.h | 11 +++++++++++
+>  lib/iov_iter.c      | 29 +++++++++++++++++++++++------
+>  2 files changed, 34 insertions(+), 6 deletions(-)
 > 
->>
->> If "distro default" is the only problem, I guess we could think about
->> how to
->> improve that. For example, just let internal GPU DRM objects allocate
->> any folio
->> size available and supported etc.
->>
->> Would that make it possible to just use shmem natively? (e.g., how
->> would this
->> interact with shmem features like folio migration, would that be
->> workable with
->> DRM objects?).
-> 
-> Currently the drivers that use shmem in this way use
-> "mapping_set_unevictable()" as long as the object is bound to the GPU.
-> Then shrinkers can unbind from GPU and revert that setting.
+> diff --git a/include/linux/uio.h b/include/linux/uio.h
+> index a9bc5b3067e3..75051aed70de 100644
+> --- a/include/linux/uio.h
+> +++ b/include/linux/uio.h
+> @@ -12,6 +12,7 @@
+>  
+>  struct page;
+>  struct folio_queue;
+> +struct io_dmabuf_map;
+>  
+>  typedef unsigned int __bitwise iov_iter_extraction_t;
+>  
+> @@ -29,6 +30,7 @@ enum iter_type {
+>  	ITER_FOLIOQ,
+>  	ITER_XARRAY,
+>  	ITER_DISCARD,
+> +	ITER_DMABUF_MAP,
+>  };
+>  
+>  #define ITER_SOURCE	1	// == WRITE
+> @@ -71,6 +73,7 @@ struct iov_iter {
+>  				const struct folio_queue *folioq;
+>  				struct xarray *xarray;
+>  				void __user *ubuf;
+> +				struct io_dmabuf_map *dmabuf_map;
+>  			};
+>  			size_t count;
+>  		};
+> @@ -155,6 +158,11 @@ static inline bool iov_iter_is_xarray(const struct iov_iter *i)
+>  	return iov_iter_type(i) == ITER_XARRAY;
+>  }
+>  
+> +static inline bool iov_iter_is_dmabuf_map(const struct iov_iter *i)
+> +{
+> +	return iov_iter_type(i) == ITER_DMABUF_MAP;
+> +}
+> +
+>  static inline unsigned char iov_iter_rw(const struct iov_iter *i)
+>  {
+>  	return i->data_source ? WRITE : READ;
+> @@ -300,6 +308,9 @@ void iov_iter_folio_queue(struct iov_iter *i, unsigned int direction,
+>  			  unsigned int first_slot, unsigned int offset, size_t count);
+>  void iov_iter_xarray(struct iov_iter *i, unsigned int direction, struct xarray *xarray,
+>  		     loff_t start, size_t count);
+> +void iov_iter_dmabuf_map(struct iov_iter *i, unsigned int direction,
+> +			struct io_dmabuf_map *map,
+> +			loff_t off, size_t count);
+>  ssize_t iov_iter_get_pages2(struct iov_iter *i, struct page **pages,
+>  			size_t maxsize, unsigned maxpages, size_t *start);
+>  ssize_t iov_iter_get_pages_alloc2(struct iov_iter *i, struct page ***pages,
+> diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+> index 243662af1af7..e2253684b991 100644
+> --- a/lib/iov_iter.c
+> +++ b/lib/iov_iter.c
+> @@ -575,7 +575,8 @@ void iov_iter_advance(struct iov_iter *i, size_t size)
+>  {
+>  	if (unlikely(i->count < size))
+>  		size = i->count;
+> -	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i))) {
+> +	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i)) ||
+> +	    unlikely(iov_iter_is_dmabuf_map(i))) {
 
-Right, but mapping_set_unevictable() only affects folio_evictable() - -reclaim
-behavior. Not other properties (such as folio migration).
 
-> 
-> The problem, (as also stated in the cover letter of this series) is for
-> drivers that need to change caching of the pages to WC or UC.
+Doesn't the extra check add more code to all the non-ubuf cases?
+This could be fixed by either making iter_type a bitmask (with one bit set)
+or writing an iter_is_one_of(i, ITER_xxx, ITER_yyy) define that uses
+'(1 << i->iter_type) & ((1 << ITER_xxx) | ...)'
+(look at the the nolibc printf code for an example).
 
-I assume you mean "To be able to easily maintain pools of pages mapped uncached
-or write-combined".
+>  		i->iov_offset += size;
+>  		i->count -= size;
+>  	} else if (likely(iter_is_iovec(i) || iov_iter_is_kvec(i))) {
+> @@ -631,7 +632,8 @@ void iov_iter_revert(struct iov_iter *i, size_t unroll)
+>  		return;
+>  	}
+>  	unroll -= i->iov_offset;
+> -	if (iov_iter_is_xarray(i) || iter_is_ubuf(i)) {
+> +	if (iov_iter_is_xarray(i) || iter_is_ubuf(i) ||
 
-Can you point me at the code that changes the caching of the pages?
+iter_is_ubuf() should have been first here.
 
-> That's an
-> extremely costly operation so TTM needs to pool such allocations.
-> That's where using shmem natively becomes very ugly, because you can't
-> really use a 1:1 mapping between shmem objects and DRM objects anymore.
+-- David
 
-So you would require different caching attributes within a DRM object?
+> +	    iov_iter_is_dmabuf_map(i)) {
+>  		BUG(); /* We should never go beyond the start of the specified
+>  			* range since we might then be straying into pages that
+>  			* aren't pinned.
+> @@ -775,6 +777,20 @@ void iov_iter_xarray(struct iov_iter *i, unsigned int direction,
+>  }
+>  EXPORT_SYMBOL(iov_iter_xarray);
+>  
+> +void iov_iter_dmabuf_map(struct iov_iter *i, unsigned int direction,
+> +			 struct io_dmabuf_map *map,
+> +			 loff_t off, size_t count)
+> +{
+> +	WARN_ON(direction & ~(READ | WRITE));
+> +	*i = (struct iov_iter){
+> +		.iter_type = ITER_DMABUF_MAP,
+> +		.data_source = direction,
+> +		.dmabuf_map = map,
+> +		.count = count,
+> +		.iov_offset = off,
+> +	};
+> +}
+> +
+>  /**
+>   * iov_iter_discard - Initialise an I/O iterator that discards data
+>   * @i: The iterator to initialise.
+> @@ -841,7 +857,7 @@ static unsigned long iov_iter_alignment_bvec(const struct iov_iter *i)
+>  
+>  unsigned long iov_iter_alignment(const struct iov_iter *i)
+>  {
+> -	if (likely(iter_is_ubuf(i))) {
+> +	if (likely(iter_is_ubuf(i)) || iov_iter_is_dmabuf_map(i)) {
+>  		size_t size = i->count;
+>  		if (size)
+>  			return ((unsigned long)i->ubuf + i->iov_offset) | size;
+> @@ -872,7 +888,7 @@ unsigned long iov_iter_gap_alignment(const struct iov_iter *i)
+>  	size_t size = i->count;
+>  	unsigned k;
+>  
+> -	if (iter_is_ubuf(i))
+> +	if (iter_is_ubuf(i) || iov_iter_is_dmabuf_map(i))
+>  		return 0;
+>  
+>  	if (WARN_ON(!iter_is_iovec(i)))
+> @@ -1469,11 +1485,12 @@ EXPORT_SYMBOL_GPL(import_ubuf);
+>  void iov_iter_restore(struct iov_iter *i, struct iov_iter_state *state)
+>  {
+>  	if (WARN_ON_ONCE(!iov_iter_is_bvec(i) && !iter_is_iovec(i) &&
+> -			 !iter_is_ubuf(i)) && !iov_iter_is_kvec(i))
+> +			 !iter_is_ubuf(i) && !iov_iter_is_kvec(i) &&
+> +			 !iov_iter_is_dmabuf_map(i)))
+>  		return;
+>  	i->iov_offset = state->iov_offset;
+>  	i->count = state->count;
+> -	if (iter_is_ubuf(i))
+> +	if (iter_is_ubuf(i) || iov_iter_is_dmabuf_map(i))
+>  		return;
+>  	/*
+>  	 * For the *vec iters, nr_segs + iov is constant - if we increment
 
--- 
-Cheers,
-
-David
