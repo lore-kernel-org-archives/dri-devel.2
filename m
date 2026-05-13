@@ -4,59 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CC36CD4F24
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 14:44:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78686CD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 14:50:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5E5910E104;
-	Wed, 13 May 2026 14:44:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AED4A10E593;
+	Wed, 13 May 2026 14:50:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ej3HW4OB";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="msE136Cw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ED0B10E104
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:44:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DFADE44527
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:44:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21D3C19425
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:44:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778683470;
- bh=AcQajWoyianxBFqe9+pwgEA3+MQbwflajHJBLxqkzsU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=Ej3HW4OBwPIi6rJmznPSDxDaw7Cb4pzfnyS5VzLoN8nWrOWAoEZQqBnyG6+xEn+D0
- 7yQ+0yN0qvgc8YDVK5iwmHHmsRarF1KnWXlq5HRNnhf7FVJxsqatR2ZfNZ+bAEASX7
- 20w9peYQWVBPhZVdOSboBcbVaxQJoNTGnGylj4nMQmItWMJ1zYAhV1GnO1dy83mqoG
- oYneIX9I6M1IyEGummRuPudQ4xwc2UdgaUrUuieMxPESU59WuaYuxFNEAQLkLAa21b
- zhtZklZgUnYEhUzZaiKi0bKGFtnqx742GrBbwSeN6oxk78OHZxBMrye10FYGKq1u0k
- /Dz8Lcjt0vzzA==
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-12db2e415a7so4850062c88.1
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:44:30 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70CF510E593
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:50:21 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-48e82c23840so32134425e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:50:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1778683820; x=1779288620; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9aCSbvN8MRClnV4Yg1EbNe+CFjWMezo1Gq6IiKlokcU=;
+ b=msE136CwUGpSZH7Ebc30HDbDPX9wNHaQvJPEnCf29BKYBEzCz1zfdCE32s2yIwVB+X
+ vOP+wJGW2wcF6hxX4sceUR2RorawqXuBm5cAd7uuvaZLfZ5P98AKbHY1O+2vba/h7zDj
+ PVyJR4rg82xzILa2G85xLwpzCEBKHretez1CEyibssMvH9wVOf2NEnyfnqTHAVelUmMV
+ Q+bPf1UXdEp9qPxb9e1uJmFOpQdIrm0Xwuhkeq+x7f82vvG9nLlnoBPZJP+0GeXvHq9s
+ 67VU5yFhRL0EpC6ZiUKtj7KumwEMCWkZVfQZGKhLaKOihzU07S9aR/qw99t90BZNRSGP
+ XlFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778683820; x=1779288620;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9aCSbvN8MRClnV4Yg1EbNe+CFjWMezo1Gq6IiKlokcU=;
+ b=oqJ37mbzMnI2VGac01Nqswu1Fb1J3ieC17J8DpsUHzIlgMBNbg8HaB/o5EVpHO44xj
+ 3JHua4g9pmUHL0hSB4sB3HEdjfHFvAZnbytQOegZTTxSlxVRmgYkrXAEz4iaxI0hE245
+ vzXXywf6M9PXhCupn248OZvGwCipsV+/pYFVz07pHP1J9L6Sr0dou7yOQsWqYQtWe552
+ sMbIkXEdZi8ROcluKhIXgYt0M2InS2wyMWMPRwXiLFEKcosvxgBZqZ7sCUXlhiR/XnZW
+ MGOQLPywbvCetwE5AdlhgtA6ZELP810wHSviCljXIzoZ0XrVV/Nr6XDxFhx2E+9vqe0y
+ u9Xg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8eD6+EXpJUod4c+0i4cKIpvrdU8DBBUz8AGBoP5N8ldQZqd0TCj0GeOEbxzaybyQLOwccDsLhMx0I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yww5qoFFl9DWkgIqRDYodkjKcjPSRrJeh6tCu99whmBGDlPRqmP
- +EmRyBYHXL0F+OJaO3boK7vPu8V7lh+8hJvHLeXihmsMBjValawBy0vs2zQD6aTeo0s5Z03/qIK
- IqhUNLM52GpI/3q9/r3XfSWrkB/yXWw==
-X-Received: by 2002:a05:7022:45a5:b0:130:a257:f723 with SMTP id
- a92af1059eb24-1349a703b38mr2163136c88.2.1778683469857; Wed, 13 May 2026
- 07:44:29 -0700 (PDT)
+ AFNElJ/qoFFtJl46eVkvEyQuBEDg+jaX1cS/NnInaQtXgXYM/KjBjXmVZaM7ealoUgXuera9wnaPsoSt1MQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxEx/cjtNxRpSuQaaI9gYEoouudFBpNfLuUHJ/rnYCd6PFsuFOa
+ uleAu5Az/KV9QzT+fzK3vtyqExWsrjMoM/UUtsdJd0nc4V/KEwQXzjdRBjKyyQIN+bXCGHQ08SI
+ +xNe6
+X-Gm-Gg: Acq92OG9k62lfcMljBHRJKplMlujaQd3Rux7eaTk2YualKjqCa4dqqbUtoXdN9RKe3/
+ KsRGLKQBmEpwsUXBk8nPDTux0VOrciq4F/KXl5uRjaepzo2yaRNE58dU9J90qT1PqcaWJchcgJC
+ jyX/z08IVXo3EuwjV15UYDc3meVxV5tF+t9RKDFqJtv+PQR0CwkMTazkw0ichBSKDiFKgOoftUI
+ YMGBfc2d0isWqdFydkOueXlW5hb4n4pNtHEmIaxpMJAs7fIz7BQ3DehSYkk9SfyflGP+uIy13lX
+ CGMAiwQycc40G2l/O3vdgCWYmxuWOywJWIQsL/VGYEEYwXHY2fHuJO3V0JF2QP2kfaIpD5WN0OR
+ iVjxJWkgtAGGZy7Nikia9RU13wdr6KaVaXCobkccqJh+GLiZ78IfBjAOHe+nEElaA+n609jSion
+ W77CWZvw+16TJFEM9RhOpGSSbjWrFxe7WPlAJ+gNUenrvZuCspIX++zPk=
+X-Received: by 2002:a05:600c:811b:b0:489:1f08:91b with SMTP id
+ 5b1f17b1804b1-48fc9a2cae7mr52718585e9.16.1778683819197; 
+ Wed, 13 May 2026 07:50:19 -0700 (PDT)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48e8f3c65f2sm78154115e9.1.2026.05.13.07.50.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 May 2026 07:50:18 -0700 (PDT)
+Message-ID: <a059d1e9-e356-41b0-8336-8b25ea24e7e1@ursulin.net>
+Date: Wed, 13 May 2026 15:50:18 +0100
 MIME-Version: 1.0
-References: <20260420064544.266478-1-suryasaimadhu369@gmail.com>
-In-Reply-To: <20260420064544.266478-1-suryasaimadhu369@gmail.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Wed, 13 May 2026 14:44:17 +0000
-X-Gmail-Original-Message-ID: <CAAOTY__-A_LAaDG5QBMVAaWh0QYiNETvF_uhVevGLQr0cfxV6w@mail.gmail.com>
-X-Gm-Features: AVHnY4KoaT4lFur0qX9u_4-uJObxdFb4r8bJVHNWvz9hHmWh3RXQFM5ONm8Jba4
-Message-ID: <CAAOTY__-A_LAaDG5QBMVAaWh0QYiNETvF_uhVevGLQr0cfxV6w@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/mediatek: hdmi: Convert DRM_ERROR() to drm_err()
-To: sai madhu <suryasaimadhu369@gmail.com>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, 
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/ttm: Support 52-bit PAs in ttm_place
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: christian.koenig@amd.com
+References: <20260513141253.20410-1-felix.kuehling@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260513141253.20410-1-felix.kuehling@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,53 +93,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi, sai:
 
-sai madhu <suryasaimadhu369@gmail.com> =E6=96=BC 2026=E5=B9=B44=E6=9C=8820=
-=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8A=E5=8D=886:45=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> The DRM_ERROR() macro is deprecated in favor of drm_err() which
-> provides device-specific logging.
->
-> Replace DRM_ERROR() with drm_err() in the Mediatek HDMI bridge
-> driver and pass the drm_device pointer via bridge->dev.
->
-> No functional change intended.
+On 13/05/2026 15:12, Felix Kuehling wrote:
+> fpfn and lpfn in struct ttm_place are 32-bit page numbers. With 4KB page
+> size this can support up to 44-bit physical addressing. Grow these to
+> unsigned long to support larger physical addresses.
+> 
+> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+> ---
+>   include/drm/ttm/ttm_placement.h | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/drm/ttm/ttm_placement.h b/include/drm/ttm/ttm_placement.h
+> index b510a4812609..ab2639e42c54 100644
+> --- a/include/drm/ttm/ttm_placement.h
+> +++ b/include/drm/ttm/ttm_placement.h
+> @@ -81,8 +81,8 @@
+>    * Structure indicating a possible place to put an object.
+>    */
+>   struct ttm_place {
+> -	unsigned	fpfn;
+> -	unsigned	lpfn;
+> +	uint64_t	fpfn;
+> +	uint64_t	lpfn;
+>   	uint32_t	mem_type;
+>   	uint32_t	flags;
+>   };
 
-Applied to mediatek-drm-next [1], thanks.
+Maybe audit of usage sites is required to make sure no compiler warnings 
+on 32-bit builds if nothing else. Things like:
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
-log/?h=3Dmediatek-drm-next
+amdgpu_vram_mgr_intersects()
+...
+		if (place->fpfn < lpfn &&
+		    (!place->lpfn || place->lpfn > fpfn))
+			return true;
+
+Etc. Probably are all best adjusted to match the new type.
+
+There is also:
+
+struct ttm_resource {
+	unsigned long start;
+
+Which also may need aligning. I know no one cares about 32-bit builds 
+but some automated systems will probably test it and send reports.
 
 Regards,
-Chun-Kuang.
 
->
-> Signed-off-by: sai madhu <suryasaimadhu369@gmail.com>
-> ---
->  drivers/gpu/drm/mediatek/mtk_hdmi.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediat=
-ek/mtk_hdmi.c
-> index 1ea259854780..4ddcdbf7bc8c 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-> @@ -981,8 +981,8 @@ static int mtk_hdmi_bridge_attach(struct drm_bridge *=
-bridge,
->         int ret;
->
->         if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
-> -               DRM_ERROR("%s: The flag DRM_BRIDGE_ATTACH_NO_CONNECTOR mu=
-st be supplied\n",
-> -                         __func__);
-> +               drm_err(bridge->dev,
-> +                       "DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied\=
-n");
->                 return -EINVAL;
->         }
->
-> --
-> 2.34.1
->
+Tvrtko
+
