@@ -4,75 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C80ACD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 11:55:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1AFCCD4F24
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 11:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC15B10E5D1;
-	Wed, 13 May 2026 11:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20BA710EE00;
+	Wed, 13 May 2026 11:56:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bh0TgWy+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iAFtKj/Q";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA91D10E5D1
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:55:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6536F10EE00
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:56:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 960AB444EE
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:55:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D4C8C2BCFF
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:55:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4BAD74404F;
+ Wed, 13 May 2026 11:56:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA66C2BCB7;
+ Wed, 13 May 2026 11:55:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778673326;
- bh=C3ROoSAwEcHmpVj4q2nXE9Zx2ZOZUZAfV3pe+l9yKtQ=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=bh0TgWy+eepwj2qnbn9Rc3qYpCqJLPwMWlEQbiwSrKH5tnYeUUxAyM+acmatna/d0
- bT+bKrITNGzPCW7k/nmRZFlOqsOwK8hE73H/w62ib0yp1843+uP6BxNttJwaMKvExP
- N1yvsRysJsvMOJvCF07i4kCwa8710Bf7vSOmvABfpxMurufWzXS1Wow/dqJJ5ybMdP
- dT7G/QMOcYEGUGyCcrrP5C9TGD/MGKFrOnoXNydAdFCCYKgsH5hiBcU7p48blC/lpy
- pVHuh+PGbdSN0o3cwqyC82SUJY/j0Bqp61k8JN/YjLFwO298TbChViZHTjcsEbVrGD
- Rc4Y5M8iAMRmA==
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-5a74ac8b40aso6110305e87.1
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 04:55:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9pRCMzczBu4fjhDK1HXo4mxBTlDt46gyVIn8eXHBr6NNUeRn78fbkfy2/llxK0/7KuhMfg6QtIItU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxbwGr806cJBhYakxuvwInELMGddweJRDGHXjR70gVyuyXhZW76
- ypWftwHXjYcw9m85jCJE2MFtocg6QiF0srogFtlD7l5yHEqOdu6yZyWxyJUzUUHDL2iMmMjEdKN
- gLrVxJqbn8HjTTrPXQq4+msQSuBRUxl1ONuvk8nhecQ==
-X-Received: by 2002:a05:6512:68a:b0:5a8:9b6a:5749 with SMTP id
- 2adb3069b0e04-5a8ef9af8a5mr1068752e87.28.1778673324966; Wed, 13 May 2026
- 04:55:24 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260512-swnode-remove-on-dev-unreg-v5-0-0035eff63812@oss.qualcomm.com>
- <20260512-swnode-remove-on-dev-unreg-v5-3-0035eff63812@oss.qualcomm.com>
- <DIGUBLZXZXPJ.8CX0K5EL6255@kernel.org>
-In-Reply-To: <DIGUBLZXZXPJ.8CX0K5EL6255@kernel.org>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Wed, 13 May 2026 13:55:11 +0200
-X-Gmail-Original-Message-ID: <CAMRc=MdnKgkxsiw7UtpXaSYf+5WHMWZidy4YukPhndZY2Uft9w@mail.gmail.com>
-X-Gm-Features: AVHnY4IuEQ8uACIYu2CQFY2xUnaqBV75CJzYWeWWso-yewElWdvH5VZ2Hb43cmI
-Message-ID: <CAMRc=MdnKgkxsiw7UtpXaSYf+5WHMWZidy4YukPhndZY2Uft9w@mail.gmail.com>
-Subject: Re: [PATCH v5 3/7] driver core: platform: provide
- platform_device_add_software_node()
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Brendan Higgins <brendan.higgins@linux.dev>, 
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
- Andy Shevchenko <andy@kernel.org>, Maximilian Luz <luzmaximilian@gmail.com>, 
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, driver-core@lists.linux.dev,
- linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- platform-driver-x86@vger.kernel.org, intel-xe@lists.freedesktop.org, 
+ s=k20201202; t=1778673360;
+ bh=rlilNasJWUJC6SDcuWXWpeqL3VgDAEA+rHvxSo8OB7o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iAFtKj/QG8K/likLAONPz/mvPKoT5r9NG7Jc77vGPoPFZ8EgJArIYFTO/F1zrWtvd
+ d2MfV0Ag2MGCGRGJOcaWpB4gWGF+wODNrmBBFlwx9QZexCqevppE5Fjk/d89fsgYC1
+ 40PSM2ayZDHkIcCH4eyNl6l/x1Slg9kxDoF4SqvlVjNO3KDAA7gOIadIa26GE6NS9v
+ dwX5DvVMdps+bQPasNz4X3QcG4HmZf+adcnxeKNcg+L++mJDu/G7+EezjIItkflEiP
+ c7d5XbDz9qhUrLLfxGgQPZ6cGN6e8nj2VKDfa8QFJ+Z5n86DeZZVaAwUxUV3+ePXLi
+ xxv59Nb025pxA==
+Date: Wed, 13 May 2026 13:55:57 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ David Airlie <airlied@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Phong LE <ple@baylibre.com>,
+ Robert Foss <rfoss@kernel.org>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
  dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 1/2] drm/bridge: ite-it66121: Set TX mode in the
+ .atomic_enable callback
+Message-ID: <20260513-huge-mongoose-of-wealth-464fac@houat>
+References: <20260512132232.333654-1-javierm@redhat.com>
+ <20260512132232.333654-2-javierm@redhat.com>
+ <20260512-romantic-qualified-hound-b5f9b9@houat>
+ <87tsscxxuy.fsf@ocarina.mail-host-address-is-not-set>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="2gr3mafseznvxniq"
+Content-Disposition: inline
+In-Reply-To: <87tsscxxuy.fsf@ocarina.mail-host-address-is-not-set>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,25 +70,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 6:31=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> On Tue May 12, 2026 at 1:59 PM CEST, Bartosz Golaszewski wrote:
-> > +int platform_device_add_software_node(struct platform_device *pdev,
-> > +                                   const struct software_node *swnode)
-> > +{
-> > +     return device_add_software_node(&pdev->dev, swnode);
->
-> I think this should be device_create_managed_software_node(), see also [1=
-].
->
-> That said, now that I see the resulting code and the corresponding sublet=
-ies, I
-> think we should reconsider your (well predicted) "temporary
-> platform_device_release_full()" idea for -fixes, while iterating this for=
- -next.
->
 
-Agreed, I think it's much safer this way.
+--2gr3mafseznvxniq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 1/2] drm/bridge: ite-it66121: Set TX mode in the
+ .atomic_enable callback
+MIME-Version: 1.0
 
-Bart
+On Tue, May 12, 2026 at 08:54:13PM +0200, Javier Martinez Canillas wrote:
+> Maxime Ripard <mripard@kernel.org> writes:
+>=20
+> Thanks again for your feedback!
+>=20
+> > Hi,
+> >
+> > On Tue, May 12, 2026 at 03:22:15PM +0200, Javier Martinez Canillas wrot=
+e:
+> >> The HDMI transmission mode set and AVI infoframes enable are done in t=
+he
+> >> .mode_set callback, but it is more correct to do this in .atomic_enabl=
+e.
+> >>=20
+> >> Because the information about the sink type is in the struct drm_conne=
+ctor
+> >> display_info.is_hdmi and this might not be available when the .mode_set
+> >> callback is executed.
+> >>=20
+> >> Currently the driver is not checking display info to determine whether=
+ the
+> >> mode has to be set to HDMI or DVI, but this is a bug that will be fixe=
+d by
+> >> a follow-up change.
+> >>=20
+> >> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+> >> ---
+> >>=20
+> >> (no changes since v1)
+> >>=20
+> >>  drivers/gpu/drm/bridge/ite-it66121.c | 18 ++++++++++++++++++
+> >>  1 file changed, 18 insertions(+)
+> >>=20
+> >> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/br=
+idge/ite-it66121.c
+> >> index 19a027d75b61..648ca50712df 100644
+> >> --- a/drivers/gpu/drm/bridge/ite-it66121.c
+> >> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
+> >> @@ -669,6 +669,22 @@ static int it66121_set_mute(struct it66121_ctx *c=
+tx, bool mute)
+> >>  			    IT66121_PKT_GEN_CTRL_ON | IT66121_PKT_GEN_CTRL_RPT);
+> >>  }
+> >> =20
+> >> +static void it66121_set_tx_mode(struct it66121_ctx *ctx)
+> >> +{
+> >> +	mutex_lock(&ctx->lock);
+> >> +
+> >> +	/* Enable AVI infoframe */
+> >> +	if (regmap_write(ctx->regmap, IT66121_AVI_INFO_PKT_REG,
+> >> +			 IT66121_AVI_INFO_PKT_ON | IT66121_AVI_INFO_PKT_RPT))
+> >> +		goto unlock;
+> >> +
+> >> +	/* Set TX mode to HDMI */
+> >> +	regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG, IT66121_HDMI_MODE_H=
+DMI);
+> >> +
+> >> +unlock:
+> >> +	mutex_unlock(&ctx->lock);
+> >> +}
+> >> +
+> >>  #define MAX_OUTPUT_SEL_FORMATS	1
+> >> =20
+> >>  static u32 *it66121_bridge_atomic_get_output_bus_fmts(struct drm_brid=
+ge *bridge,
+> >> @@ -729,6 +745,8 @@ static void it66121_bridge_enable(struct drm_bridg=
+e *bridge,
+> >>  	ctx->connector =3D drm_atomic_get_new_connector_for_encoder(state, b=
+ridge->encoder);
+> >> =20
+> >>  	it66121_set_mute(ctx, false);
+> >> +
+> >> +	it66121_set_tx_mode(ctx);
+> >>  }
+> >
+> > Having some part of it in mode_set and some part in enable is still kind
+> > of weird. The best there would be to put everything in enable (and
+> > pre_enable), and drop mode_set entirely.
+> >
+>=20
+> I agree that this will be the correct approach. I wonder though if could =
+be
+> acceptable to land the changes in this series as a minimal fix for the DVI
+> mode issue, and then do further refactoring as a follow-up.
+
+The thing is that you're now making the driver and its interaction with
+the hardware more complex. Like, what would happen if mode_set is now
+called after atomic_enable? How does the hardware behavies if you modify
+the SII902X_SYS_CTRL_DATA register only after it's been enabled?
+
+Moving everything to atomic_enable keeps things simple and keep the
+hardware access ordering the same.
+
+And if you don't plan on sending that to fixes, the fact that the patch
+is small is kind of irrelevant anyway.
+
+Maxime
+
+--2gr3mafseznvxniq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCagRmxQAKCRAnX84Zoj2+
+dvTxAYCmJPl1Cste7SvsOtmy8sf0a3gTcOWhoa/gzMHZ37lJrmJGoCJqm7XqYdb7
+g25ignEBgPoMc/Czmt9T0HNkJJT8LDMyKlpdmO6gFs3diNI33COKuV1OBbnfwML4
+YBeujwOAWQ==
+=Iq0L
+-----END PGP SIGNATURE-----
+
+--2gr3mafseznvxniq--
