@@ -4,80 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED004CD37B6
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 06:57:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3104CD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:21:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3550110EA78;
-	Wed, 13 May 2026 06:57:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7B9910E2F6;
+	Wed, 13 May 2026 07:21:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PaXZG3kz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JpJvT+Af";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DFA810ECD1
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 06:57:31 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-3664df32e91so5137968a91.3
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 23:57:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778655450; x=1779260250; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lpyhgMOndReaAQGfFDlhOvUXYhINkrL7L3hO9NJYJ10=;
- b=PaXZG3kzi/CKpkJeJZdwVmkohFZYgaXM2x0efpWL8yYE1WB6zAUlCyrp/TzbBLa31z
- 83yZnzcfe1Cf/b0g4avqyhHVBg2qi1Ae9xRjtFGFFVhDezsTKQ3vdZ0mTJtt7I8Pig6+
- GwGH+xvznQQjstynzYppdK3S9NQTxlr7mL+m/MD1hKhUnf86QP2TYYeqNZTNp6oOR8qB
- b1BUf8a51wfZYfhSZYWUa/2nAhCVNicmTo7+8IrloS4IV/OXESpjT74Ceh5sHJhVlsyK
- twwhuIRN4hyTqC1HEjGUoo8e5jlwjzCwdmtmLpLJEy2VkImTrwlF8MN27J1mXWCXvjBq
- W9og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778655450; x=1779260250;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lpyhgMOndReaAQGfFDlhOvUXYhINkrL7L3hO9NJYJ10=;
- b=jdHxQMaX4806Dt6dU/7Y+bawllx78YDXpqYxzzh5N3B2U08vQM8bil5N9ab1KiJRyS
- aO27aBGp7saTpnZClvU7S91RXUIDNoCbJJaX081BWx2K2OCx2Tt6qts4Mkkdpefi+dc8
- ezU610zJ+ccKRYmGtFX6jjzam0oTlzLOZIJLDK5UYOLD6ue56/Cy7gwtXcxgTL6tdOse
- tNcUnqVLapESy2NEUmDeiaScejiNeq6Cy9tjnhxNCoxNMK38a0v85RsUmRVEjCn9B8MS
- kGXMYd3xBeHa8zeIX3QaypRwqZfa0tbu294KTiswHzfyTZ/meoy+X+Hsege2YJ/9Ixw1
- PdJg==
-X-Gm-Message-State: AOJu0YwuO6g87f5LhIXC8lvhaTK4cX+TNyfNYTb9W7q72naGIruz23Kw
- MqXiE1JEI8hWn4EHf+6sTQ3l6M9YfbC/2TYe+uh/XL15e3zcqabXK5nJS3FxJ+w=
-X-Gm-Gg: Acq92OGZaB2mIFqCXJi1aPtCYV4ziX3ztxU71EwNPU+M/UoyD25G5FMz4Rua2nHxc10
- VSVbGuii/PgEXiaDnnPJrX/QTPW3oaPmsaIeO7plRJcw6k+Qt+69skfv+d6JiKX3s3SP05et9yv
- /cioX+gl8UkBIVir31qsqWfKx05xNhiDGXIDO6lejch8ivbKp1lq072AWqUxEVYELQFpOu6yvyW
- 0JuSszWR257V6AKTHkeP/H9YC79dJvzrU3Iqr/uI7Qzql++eRZZz1nFpGp/DeN7MWDQCs2QOgKa
- +om7bCJhKErY7Uux6tvQhlebTxDS9iB7AbVTPTSm42Rz0WP7Mi5KKMsFUkvZTqOKyg2VxD4rKlU
- vGA0hPmZKSrvg/TLkxmDXWyIspEg02gHlcFm/WZXW211GRiU8MGqyrL+n9Qicvs2gLlANDmiu3w
- dmoe3RepLrGe4gHpz0pmQDoWs4MtX2R9z4HwtQu9PnF9ObdbiVZHhotd9w9at/jJdEhWhOsIEFn
- A==
-X-Received: by 2002:a17:90b:3a8e:b0:35f:b5df:463 with SMTP id
- 98e67ed59e1d1-368f3d1fa46mr2326543a91.14.1778655450438; 
- Tue, 12 May 2026 23:57:30 -0700 (PDT)
-Received: from localhost.localdomain ([211.198.234.66])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-368b07163d0sm1945647a91.11.2026.05.12.23.57.27
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 12 May 2026 23:57:29 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Myeonghun Pak <mhun512@gmail.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Sui Jingfeng <suijingfeng@loongson.cn>, Jianmin Lv <lvjianmin@loongson.cn>,
- Qianhai Wu <wuqianhai@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
- Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>,
- Huacai Chen <chenhuacai@loongson.cn>
-Subject: [PATCH v3] drm/loongson: Use managed KMS polling
-Date: Wed, 13 May 2026 15:57:00 +0900
-Message-ID: <20260513065706.23803-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98F8510E1C0;
+ Wed, 13 May 2026 07:21:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778656860; x=1810192860;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=8Pf3UZtBPmTUC54/TMtWx2SebrwAHuEtJ5XI7lvahhg=;
+ b=JpJvT+AftCkOtoWCHsNZeSW1A2kS0s+I8Q4vGflob1u5eGTDLwIuymKn
+ 43kuzgQboA06Y2uL0lr8IE56lhp6LTbMIR2YvayMX56g+G3ef1SGbhvok
+ ZjVHpVABMCHH1OQuvFkkWvC892a5eB5B3/J2yiXKRsL0wBCmcnTndubJi
+ PIyG77fbakDGoFUlLjJklEaA+iJzDC0X+jgGEQUT3w1C7WKsEGpL1Qw5E
+ kJslDEHDsplKmypu8lzB1F7/28twTyVwxVGGwpdMcrEIVSM1VzGKNAI18
+ JefEgwcOhYu4SL7ek0CkT/E6cy7wq1tpKtZRnrfC95/YYUDvoomCSwrWG A==;
+X-CSE-ConnectionGUID: pn5ScXRzQkmZO8lpZbi72A==
+X-CSE-MsgGUID: /qhsToqFSHe2sLGc0Pvaog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="90156121"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="90156121"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 00:21:00 -0700
+X-CSE-ConnectionGUID: cspXtXtrQXapiE9erISACw==
+X-CSE-MsgGUID: I/qqA0Z/Sh+bSpHlKEaJzA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="242964678"
+Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
+ by fmviesa005.fm.intel.com with ESMTP; 13 May 2026 00:20:58 -0700
+Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wN3tn-000000003eR-13jN;
+ Wed, 13 May 2026 07:20:55 +0000
+Date: Wed, 13 May 2026 15:20:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Dave Airlie <airlied@redhat.com>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup
+ failure
+Message-ID: <202605131522.yUSpVs9Q-lkp@intel.com>
+References: <20260511162443.24352-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260511162443.24352-1-thomas.hellstrom@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,50 +77,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-lsdc_pci_probe() initializes KMS polling before setting up vblank support,
-requesting the IRQ and registering the DRM device. If any of those later
-steps fails, probe returns without finalizing polling. The driver also
-never finalizes polling on regular removal.
+Hi Thomas,
 
-Use drmm_kms_helper_poll_init() so polling is tied to the DRM device
-lifetime and automatically finalized on probe failure and device removal.
+kernel test robot noticed the following build errors:
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v7.1-rc3 next-20260508]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Jianmin Lv <lvjianmin@loongson.cn>
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Changes in v3:
-- Capitalize the subject as suggested by Huacai Chen.
-- Add Reviewed-by and Acked-by tags.
+url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Hellstr-m/drm-ttm-Fix-ttm_bo_shrink-infinite-LRU-walk-on-backup-failure/20260513-095356
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260511162443.24352-1-thomas.hellstrom%40linux.intel.com
+patch subject: [PATCH] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup failure
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260513/202605131522.yUSpVs9Q-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260513/202605131522.yUSpVs9Q-lkp@intel.com/reproduce)
 
-Changes in v2:
-- Switch to drmm_kms_helper_poll_init() as suggested by Icenowy Zheng
-  and Thomas Zimmermann instead of adding manual cleanup paths.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605131522.yUSpVs9Q-lkp@intel.com/
 
- drivers/gpu/drm/loongson/lsdc_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
-index abf5bf68ee..4b97750897 100644
---- a/drivers/gpu/drm/loongson/lsdc_drv.c
-+++ b/drivers/gpu/drm/loongson/lsdc_drv.c
-@@ -292,7 +292,7 @@ static int lsdc_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	vga_client_register(pdev, lsdc_vga_set_decode);
- 
--	drm_kms_helper_poll_init(ddev);
-+	drmm_kms_helper_poll_init(ddev);
- 
- 	if (loongson_vblank) {
- 		ret = drm_vblank_init(ddev, descp->num_of_crtc);
+   drivers/gpu/drm/ttm/ttm_bo_util.c: In function 'ttm_bo_shrink':
+>> drivers/gpu/drm/ttm/ttm_bo_util.c:1121:17: error: implicit declaration of function 'ttm_resource_del_bulk_move_unevictable'; did you mean 'ttm_resource_del_bulk_move'? [-Wimplicit-function-declaration]
+    1121 |                 ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                 ttm_resource_del_bulk_move
+
+
+vim +1121 drivers/gpu/drm/ttm/ttm_bo_util.c
+
+  1067	
+  1068	/**
+  1069	 * ttm_bo_shrink() - Helper to shrink a ttm buffer object.
+  1070	 * @ctx: The struct ttm_operation_ctx used for the shrinking operation.
+  1071	 * @bo: The buffer object.
+  1072	 * @flags: Flags governing the shrinking behaviour.
+  1073	 *
+  1074	 * The function uses the ttm_tt_back_up functionality to back up or
+  1075	 * purge a struct ttm_tt. If the bo is not in system, it's first
+  1076	 * moved there.
+  1077	 *
+  1078	 * Return: The number of pages shrunken or purged, or
+  1079	 * negative error code on failure.
+  1080	 */
+  1081	long ttm_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
+  1082			   const struct ttm_bo_shrink_flags flags)
+  1083	{
+  1084		static const struct ttm_place sys_placement_flags = {
+  1085			.fpfn = 0,
+  1086			.lpfn = 0,
+  1087			.mem_type = TTM_PL_SYSTEM,
+  1088			.flags = 0,
+  1089		};
+  1090		static struct ttm_placement sys_placement = {
+  1091			.num_placement = 1,
+  1092			.placement = &sys_placement_flags,
+  1093		};
+  1094		struct ttm_device *bdev = bo->bdev;
+  1095		long lret;
+  1096	
+  1097		dma_resv_assert_held(bo->base.resv);
+  1098	
+  1099		if (flags.allow_move && bo->resource->mem_type != TTM_PL_SYSTEM) {
+  1100			int ret = ttm_bo_validate(bo, &sys_placement, ctx);
+  1101	
+  1102			/* Consider -ENOMEM and -ENOSPC non-fatal. */
+  1103			if (ret) {
+  1104				if (ret == -ENOMEM || ret == -ENOSPC)
+  1105					ret = -EBUSY;
+  1106				return ret;
+  1107			}
+  1108		}
+  1109	
+  1110		ttm_bo_unmap_virtual(bo);
+  1111		lret = ttm_bo_wait_ctx(bo, ctx);
+  1112		if (lret < 0)
+  1113			return lret;
+  1114	
+  1115		lret = ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
+  1116				     {.purge = flags.purge,
+  1117				      .writeback = flags.writeback});
+  1118	
+  1119		if (lret > 0) {
+  1120			spin_lock(&bdev->lru_lock);
+> 1121			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
+  1122			ttm_resource_move_to_lru_tail(bo->resource);
+  1123			spin_unlock(&bdev->lru_lock);
+  1124		}
+  1125	
+  1126		if (lret < 0 && lret != -EINTR)
+  1127			return -EBUSY;
+  1128	
+  1129		return lret;
+  1130	}
+  1131	EXPORT_SYMBOL(ttm_bo_shrink);
+  1132	
+
 -- 
-2.47.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
