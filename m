@@ -4,92 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 275D0CD37B6
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 04:26:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05FF8CD484C
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 04:31:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8579C10E2DE;
-	Wed, 13 May 2026 04:26:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF0910E2DF;
+	Wed, 13 May 2026 04:30:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YAahhl2I";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="Xxnyp9ij";
 	dkim-atps=neutral
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DE9010E2DE
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 04:26:31 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5a4113ab355so6016851e87.1
- for <dri-devel@lists.freedesktop.org>; Tue, 12 May 2026 21:26:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778646390; cv=none;
- d=google.com; s=arc-20240605;
- b=AbQpBMvEMrtnKR+/wLVJYYoWha6WklhpAYAYz9sUQGbXGeP2ZuDJXrD1gyR/dOz2aG
- Kpako0CboWkGQMkEsZ/OeUv75mmbNWd1jobWxwjEwx7iiI8mi+hGZZ0H+asefU8PFwFU
- z9quVzBgO7T6xveqGtR9i00i/QNBA3lvBCatQl4gwOppWk1scaUoiisSJWKLxaFYRzMd
- fGWeaK6G9yenRzxAyKx3gv+EeTRK10u5mX5tQ5U45KXc9Ub8xmcsURLqo121BDIRwToa
- Mer6bL3QgzSdjO+g9ipePS4gd2Tyem8xCe4HYRaWvbol95w0L3KjF68r8QcqZfGIiwC6
- jLxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Od/jy1kSO8cYiVwYqYVgfsO6PcYARFxGf8hhuSZCNSY=;
- fh=/rq8FVLfPK6Wt4T8E8RmywVgpb8HjNVqRXZJR34WcgE=;
- b=Pcrnt/jQ7BPaMek7zMjiHF4LY3M2uETOXM8QvWo36EuVQEWzDqbijMAbHcUTS2rZrY
- E/bTPuFZlzLGvplGUaUnb33dNT3t4cg8Bm0/l7lv5v89qpzZri/B6+cflDRqaQVAuVew
- HXKO86lAet1woDk8XoPoOKuldabsNoxyFwERwjVWeJyOnyxalcEo38l8Sj3zqjHA3vr2
- 5Klc3ydqbKrb9lV9rZ016IVaQ54jt/YD/7HaHIHgurdbV14D0jOQwKdMvWzzbC0lDMJy
- qFL1afzppgIN8ItxmOi0VC+8ejPv7+LH2ru08BFk17OnMGnDjCvSsoerKG9PiRA30+IL
- EMkA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778646390; x=1779251190; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Od/jy1kSO8cYiVwYqYVgfsO6PcYARFxGf8hhuSZCNSY=;
- b=YAahhl2I4fPK6QgvrE8DzQhCX0u+mn0aJdB/VUwJZ2UB1hBGDcE3dbOwI4XeNm7k6Q
- bnQJtFdG29DnoeW1QyG+N0iqwZzkIlNS7rXhAMXM7Jw6v3zBhLV60F4cd176SDSPwTCW
- I+x6eX8YfDeWZj3cnovGP4KW6t/MCR+RDD1GTwAq7DEOYwVtypEfFxpRE3jeqfM9Gg/H
- zdQrXBsG7P85O8+UXnbdIGV26b7060IqkVi6ZttCXSpUzMcGygrocmVnmV3rTpf0dlKV
- 8movLLlNaStIoGOWmDwSKZrRZEwBzRw/zhPIbbADKrdRo51wsvR/GX/B50jiaBcPr1Sw
- B1EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778646390; x=1779251190;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Od/jy1kSO8cYiVwYqYVgfsO6PcYARFxGf8hhuSZCNSY=;
- b=Jc7mRrlxc6yTQan0TeGz6eD7xQd2NRs6M6CDh9lmLwGWu9Gv0FjoJr3jS7qgI/uQ7S
- ChIpLhLuyAmypvz3UmqSXleHT4kaP3Z/n8NinlsD4uBnDesZeBDshONOEfOI6c6uNHk0
- IIdBaC7HiWYnQNUJ5dBqR9omy3KPPYfUqw0eVeM6m5KfqUTuqMzwSQaW0tu4Jep5Op7D
- 9MqzMUg8PwIvNn5APfat1xpztwOVDWva9AovVn0YqF9tTDGLD7sEBHpcU277G+U+6Bn3
- IPAIXHkcZAMPssK1GHk62iSkbF1CHWx4D4Ahj9fGQtmfu32VxhNRg0IVSesaDvoiCLdK
- GPFA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/qi4NSvSYTAjTWO4WiB/VrAu4FZtK1t24qh5Cpq+dLsQFkJc+YiwPky7sOP3O0RFtvd/d8iu3eknQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzrGx/sTfFFew7TKS6n2k0albdmD2CTkqQpOvJl6DWQSKryS8eT
- eAT/JGwP2aQf2Ywd7EVtsbsy+OjD4+JahBnUiTQPfltXcpXf3nHrZtePRqGC/eNWoazpN077PWK
- oYMRxUByBuaMBTcgKiJgyGH2eccfTDog=
-X-Gm-Gg: Acq92OGf9ejjXuOGnKQJru0AWyxh0Mlb33eS6E/lfc5p4rQrkTHOMqUfBtNXpkP1ofp
- WkHiQyaru+0FPcKmC7zOlBoxZlwbSj9Ka76dx/Fzdyfm+peVL5kmC/C/jd4eDKGNAXWofjmcoXD
- MGN78HzIy9MG74ZWIM6Xwt5SbasQ8HQOFpF3Gg0YDRv+guxetCwrUp2hOxY8nu8d2/fYfjEonSK
- BVjyIYqu2KvYx2swZAF4SZc7uVrpAcJRqkPyqvaDlUKvmCneQM3fsgCWu+kTzk0FYP9zgNu4nFI
- WSH7vFMfy4cHVRuejGIKxsmgm5vwy6YQImahdyCczArJBxH/oUljqGjDGE5tdWgzyZEn
-X-Received: by 2002:a05:6512:3984:b0:5a8:9909:50a3 with SMTP id
- 2adb3069b0e04-5a8ef9b33f1mr558092e87.32.1778646389282; Tue, 12 May 2026
- 21:26:29 -0700 (PDT)
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com
+ [162.62.57.252])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3036210E2EA
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 04:30:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1778646652; bh=jao3C9hjnud6Ug5HguXODDDvFR08PIGevezNPa49qMg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Xxnyp9ij9Ztj79AxPuhgiJ4zwbKjjjOGYFr2/BCKqY6rEPC+6L8RBMILNSdF4/xlv
+ RvnJoxD9lKQPPz/wHDOmkPoJfBexAS+dOFvZ+x5CYPVsMuOAyipZSnTLdLNg5Bh491
+ f29+X0DPIgGUgUW35O0SXMenAY1a04fk+PNaBhbE=
+Received: from lxu-ped-host.. ([111.198.231.89])
+ by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+ id 7B1342F7; Wed, 13 May 2026 12:30:49 +0800
+X-QQ-mid: xmsmtpt1778646649t9igv4z1w
+Message-ID: <tencent_C267296443AAA4567771176886DFF364A305@qq.com>
+X-QQ-XMAILINFO: M1rD3f8svNzn6BNGvTIE8xYgjYv2a6B6Ukpbwek5tx+ybjccufiLPgSV4yRA4l
+ 5mZYRWxZf4hOhRWVy7eHNc+zF8zlj/0so11zcr6zcoEWFQS7iqBeCnQdcwfnTlkNBnje1Pf8xi9z
+ 7joExwa0j9+iR914R75JuQeUhob1RAOB9qRlcFXvIO9cuNvbUAyVorLRTVxO5+ahjY9sn0/MZEbc
+ b9z6a7g5c8LZV1b0hgM0piSMNvnwNjEdukMW6OlBbT2lGmYjgTvq1B7uiXeoE3CMkP7MzhC9a0Uv
+ /6u7YtAGKFzuEGJ4kUM+Sm/bM2JLGX5GkdodCh9KMZ2acPdQUdeMgnp2l6bDD4fY+08dpEnCoLtx
+ TpbDpbblaoVtak2CyBD0c3CEGystXCJ1TphYrJ6EfKlNIIcA059OmUt+zJcPlTlTuMpeU4sNymSF
+ G0a6aM+dF91iQTvFrVPve848KYGR+afI/OFmMUP4mc9DJsLdUnHLBMkShuPryDsnsEREs+eqOdM0
+ 86tvi8hB2mGEobBvY9lrGZO62qNhOGQGcT1iUtPW7bPWzUw+VdE+tjZmPEPjU3L4Ge1yyneS6Psu
+ xCgdegV1ZOMaJ+e9nbXmeBHCJbTQKwL1c0HO6nxOlcfh62Gphugykil14lrY6N4OAp5jHy5/p7zO
+ zQXtSymIuW96gv5O0wDcVmXpTVtgH1ZNMcYIHnzFvJePNkIB7OgpmFT+GM0U6IAAgmwCSWUTEgzL
+ ILBygtjW3QlIQZ3j+BpOLZr+Slo5dd9C3XIeRpjP832RE+Rk0UVpFkf6vJ2YSYbnpxjYfRo25dYW
+ nti3/CLYW4vXhvGV16fVGs+MK+MO/3WSmxwdD3FO4p5i9qW192AAoNiUBgGp9vFnaErszF9Lusj5
+ 1f/ZVOsgFuY4xMCy3PdpJ83lmRDlp5cz9/2o9HhAvp9rih+HFuX2e9hDQ0F10lBz5cCCYQrr80nd
+ rbc3VV5QzbLZA5yo32kTJQSyMsPGsbO9dBam/A45miA8MheMWM8v5Fp/jJk2HQEZQ8bPFsENl5C9
+ aiLAdPkcsNrQCyAU+e
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: Edward Adam Davis <eadavis@qq.com>
+To: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com,
+ tzimmermann@suse.de, David.Francis@amd.com
+Subject: [PATCH] drm: Replace old pointer to new idr
+Date: Wed, 13 May 2026 12:30:50 +0800
+X-OQ-MSGID: <20260513043049.363250-2-eadavis@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6a0385f1.a00a0220.3890a0.0002.GAE@google.com>
+References: <6a0385f1.a00a0220.3890a0.0002.GAE@google.com>
 MIME-Version: 1.0
-References: <CALHNRZ9mmf_4OagcooO-s+SU1KrggT5_ZwM--ambxZKXN-oQDg@mail.gmail.com>
- <I47hlmySTbquW1VgZFOofQ@nvidia.com>
-In-Reply-To: <I47hlmySTbquW1VgZFOofQ@nvidia.com>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Tue, 12 May 2026 23:26:17 -0500
-X-Gm-Features: AVHnY4J05I14Pa6Vt4Ngz3X_e3VtIngTjwNHxIsqjoQPHNK2DwVj1oFmnqeuLK0
-Message-ID: <CALHNRZ_EjqA4aeqZhmicRwdpMxjKp1QpwLW98dyRa36HBX8aDA@mail.gmail.com>
-Subject: Re: [BUG] drm/tegra: DMA buffers are not always freed
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,53 +72,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 10:26=E2=80=AFPM Mikko Perttunen <mperttunen@nvidia=
-.com> wrote:
->
-> On Tuesday, May 12, 2026 2:29=E2=80=AFPM Aaron Kling wrote:
-> > There is an issue with tegra-drm where some buffers get created, then
-> > freed, but the dma buffer never gets freed. Causing display controller
-> > memory allocations to start failing after the leaks fill up cma.
-> >
-> > I created an issue on the freedesktop issue tracker [0] with a patch
-> > with some debug logs I added, then a log from Android that contains
-> > these logs. CMA is set to 512MB, and when allocations start to fail,
-> > the unfreed allocations add up to just shy of 500MB, where it's
-> > reasonable to expect that 8MB contiguous is no longer available. The
-> > log was generated on a Jetson TX2 NX, but I have seen this leak on
-> > other archs as well, this also does not appear to be limited to soc's
-> > with nvdisplay.
-> >
-> > This does not appear to be a userspace issue. The graphics allocator
-> > works as expected for other soc vendors. And as the logs show, the
-> > delete dumb buffer ioctl is called, but is not always followed by the
-> > dma buffer getting freed. I have also observed this issue with a
-> > gralloc that uses the tegra gem create and such, this is not unique to
-> > dumb buffers, that's just the last log I had when deciding to post the
-> > issue to lkml.
-> >
-> > What I primarily intend to ask here is how to further debug this
-> > issue. I'm not finding any direct path between the delete dumb ioctl
-> > handling and gem release or tegra bo free. Can someone point me to the
-> > pieces in the middle I'm missing, where the logic is to decide is a
-> > buffer should be freed?
-> >
-> > Aaron
-> >
-> > [0] https://gitlab.freedesktop.org/drm/tegra/-/work_items/9
-> >
->
-> If the issue is specific to buffers that get used with display, I have
-> an idea of what the issue is -- there is some circular reference
-> counting with the BO cache in the host1x driver, and that means that
-> BOs that end up in the cache never get released.
+Commit 5e28b7b94408 introduced a logical error by failing to replace the
+newly generated IDR pointer to old id's pointer at the correct location
+within the "change handle" logic; this resulted in the issue reported by
+syzbot [1].
 
-As far as I know, this only affects display controller buffers. Though
-unfortunately, I have limited ways to test the media engines right
-now.
+Specifically, the new IDR object pointer is intended to replace the original
+id's pointer during the normal execution flow.
 
-> Let me do some testing locally and I'll send out a patch once ready.
+Additionally, an unnecessary conditional check for the ret exit path has
+been removed.
 
-Sounds good, thanks.
+[1]
+!RB_EMPTY_ROOT(&prime_fpriv->dmabufs)
+WARNING: drivers/gpu/drm/drm_prime.c:224 at drm_prime_destroy_file_private+0x48/0x60 drivers/gpu/drm/drm_prime.c:224, CPU#0: syz.0.17/5833
+Call Trace:
+ drm_file_free.part.0+0x7e6/0xcc0 drivers/gpu/drm/drm_file.c:269
+ drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
+ drm_close_helper.isra.0+0x186/0x200 drivers/gpu/drm/drm_file.c:290
+ drm_release+0x1ab/0x360 drivers/gpu/drm/drm_file.c:438
 
-Aaron
+Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
+Reported-by: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d7c9eed171647e421013
+Tested-by: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@qq.com>
+---
+ drivers/gpu/drm/drm_gem.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 51a887cc7fd7..8afab57fc055 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1067,17 +1067,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+ 
+ 	spin_unlock(&file_priv->table_lock);
+ 
+-	if (ret < 0)
+-		goto out_unlock;
+-
+ 	if (obj->dma_buf) {
+ 		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
+ 					       handle);
+ 		if (ret < 0) {
+ 			spin_lock(&file_priv->table_lock);
+ 			idr_remove(&file_priv->object_idr, handle);
+-			idrobj = idr_replace(&file_priv->object_idr, obj, handle);
+-			WARN_ON(idrobj != NULL);
+ 			spin_unlock(&file_priv->table_lock);
+ 			goto out_unlock;
+ 		}
+@@ -1089,7 +1084,9 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+ 
+ 	spin_lock(&file_priv->table_lock);
+ 	idr_remove(&file_priv->object_idr, args->handle);
++	idrobj = idr_replace(&file_priv->object_idr, obj, handle);
+ 	spin_unlock(&file_priv->table_lock);
++	WARN_ON(idrobj != NULL);
+ 
+ out_unlock:
+ 	mutex_unlock(&file_priv->prime.lock);
+-- 
+2.43.0
+
