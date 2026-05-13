@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E41EECD37B6
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44DB2CD4F35
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1DE088668;
-	Wed, 13 May 2026 07:54:31 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7652710E148
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 06:40:06 +0000 (UTC)
-X-UUID: 3c12b0804d0411f1aa26b74ffac11d73-20260511
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:f0f91fc8-8208-4355-aad3-255cd683fc87, IP:0,
- U
- RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:20
-X-CID-META: VersionHash:e7bac3a, CLOUDID:161d4b1f46ccd6a30e485e9a7e661017,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102|850|898,TC:nil,Content:0|15|50,EDM:5
- ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
- :0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3c12b0804d0411f1aa26b74ffac11d73-20260511
-X-User: yanlonglong@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <yanlonglong@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1184201426; Mon, 11 May 2026 14:40:00 +0800
-From: Bob ynn <yanlonglong@kylinos.cn>
-To: dri-devel@lists.freedesktop.org
-Cc: andy.yan@rock-chips.com, dmitry.baryshkov@linaro.org,
- yanlonglong <yanlonglong@kylinos.cn>
-Subject: [PATCH] drm/bridge: synopsys: dw-dp: fix bool function returning
- negative error code
-Date: Mon, 11 May 2026 14:39:41 +0800
-Message-ID: <20260511063941.2070-1-yanlonglong@kylinos.cn>
-X-Mailer: git-send-email 2.47.1.windows.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FA1589798;
+	Wed, 13 May 2026 07:54:32 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Z1sg4zZ1";
+	dkim-atps=neutral
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 159C210ECDE
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:37:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=bt
+ Qp0D6vHdKR6HkgZFmsrQBrm2zmBt70kTdlxMSUbIk=; b=Z1sg4zZ1rocTsjjvSj
+ nd/SHKj6ZsEVtIs+y5PoqcZzffEG6D3QshMFn19k0escRlaHY4FVzCqWkBFRcNa6
+ z9nsGFAJRibbXZvX9lCmIgs/upiXeVxKyCbxj50hW03SlEI7qn93uxBxChvOWrn2
+ bI4F9hZSXwckHbEr9R2wpmcD0=
+Received: from wmy.localdomain (unknown [])
+ by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id
+ _____wCHZeETKgRqTjh7BA--.6891S2; 
+ Wed, 13 May 2026 15:37:01 +0800 (CST)
+From: <w15303746062@163.com>
+To: Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jocelyn Falempe <jfalempe@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: BUG: drm/ast: soft lockup due to missing timeout in hardware polling
+ (ast_2500_patch_ahb)
+Date: Wed, 13 May 2026 15:36:48 +0800
+Message-Id: <20260513073649.352831-1-w15303746062@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wCHZeETKgRqTjh7BA--.6891S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KryUuFyrWFy8Ar4fWF17Jrb_yoW5Jr1fpa
+ yY9ws8KayDJ3WDKa48Aa1xZryrZw4rKay5GFykKr1Fvw1DKF9Yyr1Sqwsxt3W7C39FyFyS
+ q3Wqqryj9ayDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jntxDUUUUU=
+X-Originating-IP: [113.200.174.100]
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC-x0tEWoEKh2vCAAA3g
 X-Mailman-Approved-At: Wed, 13 May 2026 07:53:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,32 +62,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: yanlonglong <yanlonglong@kylinos.cn>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-The function dw_dp_video_need_vsc_sdp() is declared to return bool, but
-it returns -EINVAL when dw_dp_get_bridge_state() fails. Since -EINVAL is
-a non-zero value (-22), it is implicitly converted to true, which is the
-opposite of the intended behavior
+Hi all,
 
-Fixes: 86eecc3a9c2e("drm/bridge: synopsys: Add DW DPTX Controller support library")
-Signed-off-by: yanlonglong <yanlonglong@kylinos.cn>
----
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+While analyzing the AST driver's hardware interactions using our custom device emulation and fuzzing framework (DevGen), we observed a severe soft lockup in the DRM driver. 
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 21541be094c4..7b99d91b3456 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1143,7 +1143,7 @@ static bool dw_dp_video_need_vsc_sdp(struct dw_dp *dp)
- 
- 	state = dw_dp_get_bridge_state(dp);
- 	if (!state)
--		return -EINVAL;
-+		return false;
- 
- 	if (!link->vsc_sdp_supported)
- 		return false;
--- 
-2.43.0
+Although the underlying trigger in our environment was an incomplete emulation of the ASPEED AHB bridge, this highlighted a critical defensive programming gap in the driver itself: a complete lack of timeout mechanisms in the hardware polling loops.
+
+This issue causes a complete system hang (CPU stuck for 143s+) and leads to subsequent I/O starvation and system paralysis (e.g., jbd2 and systemd-journald blocked).
+
+### Crash Log Snippet
+
+watchdog: BUG: soft lockup - CPU#3 stuck for 143s! [systemd-udevd:162]
+RIP: 0010:ioread32+0x0/0xa0
+Call Trace:
+ <TASK>
+ __ast_read32
+ __ast_mindwm+0x4d/0x80 [ast]
+ ast_2500_patch_ahb+0x9d/0x120 [ast]
+ ast_detect_chip 
+ ast_pci_probe+0xa1a/0xb70 [ast]
+ ...
+
+### Vulnerability Analysis
+
+Even on bare-metal hardware, an unresponsive ASPEED chip, a PCIe bus fault, or unexpected hardware states can cause the kernel to hang forever in the following loops during initialization:
+
+1. Inside `ast_2500_patch_ahb()`:
+    do {
+        __ast_moutdwm(regs, 0x1e6e2000, 0x1688A8A8);
+        data = __ast_mindwm(regs, 0x1e6e2000);
+    } while (data != 1); // <--- Infinite loop if hardware doesn't respond properly
+
+2. Inside the underlying I/O accessors `__ast_mindwm()` and `__ast_moutdwm()`:
+    do {
+        data = __ast_read32(regs, 0xf004) & 0xffff0000;
+    } while (data != (r & 0xffff0000)); // <--- Infinite loop
+
+### Proposed Fix Direction
+
+To prevent the kernel from hanging indefinitely and to gracefully abort the probe (`-ENODEV`) upon hardware failure, these loops must implement a timeout mechanism (e.g., using `readx_poll_timeout` or a loop counter with `udelay`).
+
+Interestingly, other functions in the same file (e.g., `mmc_test`) correctly implement a timeout counter (`if (++timeout > TIMEOUT) return false;`), but the initialization paths mentioned above blindly trust the hardware state.
+
+We are reporting this defect so that the maintainers can decide the appropriate timeout thresholds and implement a safe fallback mechanism across the `ast` driver.
+
+Please let us know if you need more information or the full dmesg log.
+
+Reported-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+
+Best regards,
+Mingyu Wang
 
