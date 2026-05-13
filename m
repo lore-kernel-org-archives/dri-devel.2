@@ -4,64 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C744BCD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:44:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEBECCD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE25C10E2FA;
-	Wed, 13 May 2026 13:44:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFAC10E308;
+	Wed, 13 May 2026 13:47:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FDYher6R";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uNExFU4G";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B70A410E2FA;
- Wed, 13 May 2026 13:44:32 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id ED0F260120;
- Wed, 13 May 2026 13:44:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1176C2BCB7;
- Wed, 13 May 2026 13:44:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778679871;
- bh=is0KYTGOsVpRCsXKi6U0CNrbeApTd8okxTWcWkH/G7U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FDYher6RCd6Ke0F5yUffKCKOC4y3xlzyoZKSBFkMJxoIC8Lc4IX9X1CLNBQ3rxPin
- 9A/hq5dKEtapvWudtRQBVIrMBJYCoZKJTft3WjA0Nsvq/i0xaL+Cj7Rbgkzyw2tt53
- aQlUtznOwMkhk6fYk5Fn9aP1M2dvDN1tBFx//19W0mYq3k6p+CoCXJDmk9JwWRuFXG
- TEMtP6jgsl7WCoNqSlqbH1PXDpHeMUB0QbDwLEdOSFa5c0iYyne8Gb/GoopDsRPNSN
- J4gzj/2yKopaFOlM5fOwDxoWa0412qbWVWuEXbt4pPdBQRcv5M1MMrZLSMmQtkydQc
- GoKFaBp1SPdgA==
-Date: Wed, 13 May 2026 19:14:15 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: andersson@kernel.org, konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org,
- robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v5 00/16] firmware: qcom: Add OP-TEE PAS service support
-Message-ID: <agSAL-z6NUV1p2kH@sumit-xelite>
-References: <20260504130603.1474043-1-sumit.garg@kernel.org>
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010067.outbound.protection.outlook.com
+ [40.93.198.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 223EE10E308;
+ Wed, 13 May 2026 13:47:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=svtUx6DgWYbdsMJ5PZ9ZnapftB3M7p/BRTJAv64uRsxUA8S8cOYwnQU+T0GSaGyQf8IZ2Bx/TXYolt9H12cfGDSjo0hBdzkK39WcdpwjqvRc4CJgiky+NQdoyEahbkBus975WP4NP4s0WhFQ/scljcdK/nBrM7CjXJjSbAuI2/xrk9HpBUU6QeLbeAiua17eYV+NdSOoLGT9QU5M0ZgYdCP9l3gq3EG44i4yHF0CVt4PjjFYvDGQv3nJntMfHGPYK20opv68EYe/9Lx4z62Mpl0G2ta6DzvEi+O6IuAeeYWxOqzGpVMnDWJ+4/dyc2wxZvh4k4yEfnIOTCAMQXQ4Xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7x1A8t306T9UZqAAd6Hb1XOKe9GVHQa/bsleg7FBmiU=;
+ b=Wi4sYZk9Rhbm61DgkUjznEefmDidLblOAqTyjodWDfETyW+WqX87exuwqWihiPrQRUaRlNUuOrJXWLhHV6SONeClc5HEWARYTf4Ppg49ylBhMrwBYA+llTSwoqlYR5HRulaLa8V1m2Tn36Fdz1HEq+3EBUSFJb9VhwwHB8pIV0rc/aM+4mDCSnPUMYg4gDajAbVc8+drN/hRnMW+0Q1WpNAVxdIcDGEBGYIui/Y4X74/rrQx1xsNbTH6fNyBwZRJNY5xQ6oez75PAFvBSJZ3BbjxLNaY+0EttL5Lpvs5WE8BIAP+etKRsHaENYpQB/wMDuHSpMF9vbzn5V09XjAlKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7x1A8t306T9UZqAAd6Hb1XOKe9GVHQa/bsleg7FBmiU=;
+ b=uNExFU4GLnl1n4mWMBYdIEuBatK6H2IpRqezVbJR74Aat80I41wbdQNPpOLbU12uebV3xcbWySvCP4UkqQhUU//wq7JuNPFsIV3dHXTkBJ9oUeR31LC0Cbr8lM2ZrgQmlVzMNXEUjcAQPsxMJlhmSY4QnMYO0aMFJJaG/IxZ2E8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV3PR12MB9266.namprd12.prod.outlook.com (2603:10b6:408:21b::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
+ 2026 13:47:43 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9891.021; Wed, 13 May 2026
+ 13:47:43 +0000
+Message-ID: <901369e4-9763-4477-a908-86ac8d77cb4e@amd.com>
+Date: Wed, 13 May 2026 15:47:33 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/6] drm/amdgpu: hook up ZONE_DEVICE registration in
+ device init and reset
+To: Junhua Shen <Junhua.Shen@amd.com>, Alexander.Deucher@amd.com,
+ Felix.Kuehling@amd.com, Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com,
+ Philip.Yang@amd.com, Xiaogang.Chen@amd.com, Ray.Huang@amd.com,
+ honglei1.huang@amd.com, Lingshan.Zhu@amd.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260513095734.69598-1-Junhua.Shen@amd.com>
+ <20260513095734.69598-6-Junhua.Shen@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260513095734.69598-6-Junhua.Shen@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0002.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260504130603.1474043-1-sumit.garg@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV3PR12MB9266:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7701dc2c-daac-428b-d77b-08deb0f63520
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|921020|56012099003|18002099003|22082099003|11063799003;
+X-Microsoft-Antispam-Message-Info: KOElgTviXDCFvm1P2dUu+5qpVdGqHFi/cZcwPd07S7nVbNhoaREQSY9I/O+zH5vBqaiGlKW6YMX2O3oHTm0t/wYKmXgEhchS2Nw598jJghARwoA1zmu4YXyIEy61dwPXfyHH+A9vc7fi0HY/eJPl1MRsZQd8JLYWs7vhlluBxVbBLHksbAp7aXADyX2S9MKwkvNWSGBlMnsMwvw1XJwXmsyuRQuj54wVImXoao/8AdR+vf1n8aAmsYA4a324THAuL3joLZKow3Ip1LYhSU/OGxeppM9dN63cIxIBvVgtOOj017m38Ch15kedmYC3WwnTRvXZhSGbZ/2D3t1aFTYfVDddJdAduf6p0gCd0YgaFqfdAZDaovEQT2zaZF7qc1syqsJpTqdy8BIaC+JnpQdLgoHzsN7HnAH7ra7Q+TCaVhGwYkHvvdXDZmjomEwgxD1b8R4+yooo+ODGIsHinFch7nIyZ3EiAtcHpWKS9vR68GwkYEqk4jqahsuu63wk3mx+uRQ2FgCYspB1ZetZ14n61oAWYhPSbVVXmI4W7nQAdDnIIC2YfYySd6kZu6pBFzluMkfUQd/A5rE1MqMY/O95FWBBEgzrvbMX5RzzdU03ZH0jpqz8+esl5Dz6txtMr7nuVgPOXLIfOTJGtVaUPDGHREL16TbIKUl/TT4wuuwwj59uVdV2VIqgH8Bak24xN9b35mhFwsg1NW/FBK/MtFHbqlbtKuaQNfkG/kVQKrdrJco=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(921020)(56012099003)(18002099003)(22082099003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VktXNFZDM2wzekZwSW45YWZtb01CMzJMNlFySVlGam9RakVsdXUzcG1kaHJi?=
+ =?utf-8?B?OEZSVDJpajRqRUFFRUNIY2QzTXVYOUV1Y0kybkpPaGR4ZXhGYU9JUm0wRTJh?=
+ =?utf-8?B?UjRQUW1mL2lqYm55MC9mdTVRL1hCTEZGNjBxZEsySlVTcnVaN2Z3SHlvamlx?=
+ =?utf-8?B?RTdVbWI2ZGxOclZzK0VBUW5DdFFzcUJOcUhJSnpqN3NIYUFkSWFSaWgxdWo2?=
+ =?utf-8?B?eTJiRlVnS0FESE5Fcm1Mc1R6U1pwVENRcFJ1MVhJSzU1NUJEWXdNcnRpOFF5?=
+ =?utf-8?B?b3hMemRRWkRBRUpGRWZVQUp1UEREWEtOaDhXMU9BMjVuZUlHWFVaOC8rYjBX?=
+ =?utf-8?B?SlpCRTYvbzUxSmNMdGI1RDA5N0VtSU02TmlmWm03SkxwUEJUcTVIK0VadDla?=
+ =?utf-8?B?QUtXK1Uyc2ZaSVo0bWRCOWFJcml3NzcwOVV3MVhWQkFzamFyem9JSmRFT1hI?=
+ =?utf-8?B?Wm54ZlpLeHVqbmY3OU9sTUpyMXVJbUVxcTdKU3pJZWQ1TWJBd3pMTUI1Q21G?=
+ =?utf-8?B?ckp6bU0wWTlUQU8ySXNHZkM0SlNOM1hnZlZzTVkxaUFNNWlBdldHeWpNWm9B?=
+ =?utf-8?B?RStMS05qZFRvc3hseDUzVGFDNnpqNmpHL3RqN3lkMmhSc2JPMEErYkNCL3Bv?=
+ =?utf-8?B?Rm1SZDNsMVBrN3FMSm42K2ZjSGxObXFod2xNcW9pcGkwcjlLNitWZUlza0ty?=
+ =?utf-8?B?dytRZ1ZHSE51elAyYml4cmtrU28vV3QrR3NGNEFSOWluNlBqQ09GSUJiRlU4?=
+ =?utf-8?B?WnBGb3JkaC80dVhra0RFb1g5ZTB1c2psam1kVnp6T0ZXYmIvQWpYM1VRa05y?=
+ =?utf-8?B?MUdxYVNrZlVJZ3dIQVNUTFI2cCtNVTFlVG83VGVJNDJkRHg4VWxQNnNSV0l0?=
+ =?utf-8?B?bU1XVm4rQklnQzRHVG5FM2k5TldTcUswRXVDWDdjOUYrU3lPcmQyMlBrangy?=
+ =?utf-8?B?dFh3RXhlcnY0ekhtdnBYMytCT3JpRjlNTEtEY3RabUFRclgxSkw1dE45cUk0?=
+ =?utf-8?B?YlRUTTBuTnhGdG5obVZvS3hoeitHWmR3MXNJemF4UjlBd1pvQ2x0SkNVc1ha?=
+ =?utf-8?B?TXF6M3dZTHlKT1NBNlp1U2dnVy85ZHByaWxxNXcrNmczQ1BLMXpUa2RqL0F3?=
+ =?utf-8?B?UjJQK0wrNHRUOTUwWCtobTQ0aXoxWUVYeVdVNTdCUm11Z1IvU2xSMHlrdXpU?=
+ =?utf-8?B?VlJtVytOZ0tTV2Jqb0I3VndHZVVBdEQ2WnJXWnJMczhMdDJyU29NNDNMcFdh?=
+ =?utf-8?B?RjNKT2pMY0pidndkRElraDhyTWpQRjRBWFFwRUh3VjUrcU96Z1cwQkRRb2Jn?=
+ =?utf-8?B?S2hvZUVybVFyeXdPL0JXSEd3NFF2YUFqMXFkb3VjcC9YUjROTFNmeXBydXdH?=
+ =?utf-8?B?R25ZWFFNYVhIaUhVbm1Fa1p6eWwvclhiRE5vN1M1WmJRRTV2Z3liaG4yMkgw?=
+ =?utf-8?B?bmd3eFEwVHlSaWZsc1pmUmJjSEoxdFNFc003bUQ0ZFUxbFVuVEs0MnVUdExS?=
+ =?utf-8?B?Tm81dWpyRDBVd2lLNVZ0VlpQclpnQmtTT1NQNTBwOUt5Tkd3TE1ZVmRMOXRj?=
+ =?utf-8?B?T1d6dmx0T2RNdlh4SjdOdVlWdnBjL3VJYVN1NFlKRkxINzVQS0dNVG1jWFEy?=
+ =?utf-8?B?ak41YjFIVmJVSnFsWjU1b2dWdmtDQXhsR0NFS2txcFUyUnNaWXkycVFjdjJG?=
+ =?utf-8?B?MDBPb2tkYlg5ZGNseTAzejh1RWRxQThXbWh0amlqL0Vmdm1WekRjbGlTU09a?=
+ =?utf-8?B?czlXdExzTVNNUnA0YUFyNmZuOHRZTDJnYUZublVCaHovb1AwZzlkdUtWZHgr?=
+ =?utf-8?B?WW1UQU83VStHZjdpemREeXhiTmcvblFaWVJNWkZHdldBRjdUa3pqdnZBckZk?=
+ =?utf-8?B?MmxhY2tYTlZmQmRYbkFTcjlEb2d6WlNFUlNLMnNuS0o5M09kb2RWUEl6TFBl?=
+ =?utf-8?B?d1k2WjhPL1YxSnk3bzVMcUpzR1psMjhsaUFsWitUdGNJbnZjSy9TekQ2MVhz?=
+ =?utf-8?B?dWdJL0F2ZnVXOTRZNHVSVkFTQk85TVlOaXZvMWRNRUlEZ0NLZ3paRHhkaUNM?=
+ =?utf-8?B?Wkt3Umt0RlJrTzZMTjQ4MG9sVDlQQitVdFZhNXVVMlU3aGRnZzcyU01sQnlY?=
+ =?utf-8?B?c2hINWt4RE5EKzdEYUNIaVk2MjBVdzR5dmViUWQ2Z1l2VXpkc25ma3pXT2J6?=
+ =?utf-8?B?aGt2bklqVXpSeUpPRmtFVmptTlpJelFlT3Nyd3IzUSs0NDNhSDFxbnI3OGRB?=
+ =?utf-8?B?WFBoRThXbFdMNjY1czQrMXhud0FuTDgxQ0FvRTRjYUVseGkrY25JOVF3SEdR?=
+ =?utf-8?Q?Zp2n1zjGbIim97kBO5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7701dc2c-daac-428b-d77b-08deb0f63520
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 13:47:43.4432 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PLD/FqkxAobvxbbIw83aLD0FvK/rbVuNC8RGZkKVe2EJ1pqXmIfP5J0h5jUs5YAn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9266
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,183 +140,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Bjorn,
 
-Just a gentle reminder for any further reviews for this series. If not
-then please help to pick it up this merge window since we have got acks
-from corresponding subsystem maintainer too. There were few minor comments
-addressed by following diff on top of this series. Let me know if you
-need a new version for that or can they be folded in when you pick this
-series?
 
-diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
-index 025308adf553..bc6c42f2b3c6 100644
---- a/drivers/firmware/qcom/qcom_pas.c
-+++ b/drivers/firmware/qcom/qcom_pas.c
-@@ -181,7 +181,7 @@ EXPORT_SYMBOL_GPL(qcom_pas_auth_and_reset);
-  * qcom_pas_prepare_and_auth_reset() - Prepare, authenticate, and reset the
-  *                                    remote processor
-  *
-- * @ctx:       Context saved during call to qcom_scm_pas_context_init()
-+ * @ctx:       Context saved during call to devm_qcom_pas_context_alloc()
-  *
-  * This function performs the necessary steps to prepare a PAS subsystem,
-  * authenticate it using the provided metadata, and initiate a reset sequence.
-diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
-index c5ba91e6f95e..dff7fa7027c5 100644
---- a/drivers/net/wireless/ath/ath12k/ahb.c
-+++ b/drivers/net/wireless/ath/ath12k/ahb.c
-@@ -488,7 +488,7 @@ static void ath12k_ahb_power_down(struct ath12k_base *ab, bool is_suspend)
-                ret = qcom_pas_shutdown(pasid);
-                if (ret)
-                        ath12k_err(ab, "pas shutdown failed for userPD%d: %d\n",
--                                  ab_ahb->userpd_id);
-+                                  ab_ahb->userpd_id, ret);
-        }
- }
-
--Sumit
-
-On Mon, May 04, 2026 at 06:35:47PM +0530, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+On 5/13/26 11:57, Junhua Shen wrote:
+> Call amdgpu_svm_migration_init() in the device initialization and
+> XGMI reset-restore paths to register the GPU's VRAM as a ZONE_DEVICE
+> region before KFD initialization.
 > 
-> Qcom platforms has the legacy of using non-standard SCM calls
-> splintered over the various kernel drivers. These SCM calls aren't
-> compliant with the standard SMC calling conventions which is a
-> prerequisite to enable migration to the FF-A specifications from Arm.
+> This activates the drm_pagemap migration infrastructure.
 > 
-> OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> support these non-standard SCM calls. And even for newer architectures
-> using S-EL2 with Hafnium support, QTEE won't be able to support SCM
-> calls either with FF-A requirements coming in. And with both OP-TEE
-> and QTEE drivers well integrated in the TEE subsystem, it makes further
-> sense to reuse the TEE bus client drivers infrastructure.
-> 
-> The added benefit of TEE bus infrastructure is that there is support
-> for discoverable/enumerable services. With that client drivers don't
-> have to manually invoke a special SCM call to know the service status.
-> 
-> So enable the generic Peripheral Authentication Service (PAS) provided
-> by the firmware. It acts as the common layer with different TZ
-> backends plugged in whether it's an SCM implementation or a proper
-> TEE bus based PAS service implementation.
-> 
-> The TEE PAS service ABI is designed to be extensible with additional API
-> as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
-> extensions of the PAS service needed while still maintaining backwards
-> compatibility.
-> 
-> Currently OP-TEE support is being added to provide the backend PAS
-> service implementation which can be found as part of this PR [1].
-> This implementation has been tested on Kodiak/RB3Gen2 board with lemans
-> EVK board being the next target. In addition to that WIN/IPQ targets
-> planning to use OP-TEE will use this service too. Surely the backwards
-> compatibility is maintained and tested for SCM backend.
-> 
-> Note that kernel PAS service support while running in EL2 is at parity
-> among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
-> on proper IOMMU support being worked out on the PAS client end.
-> 
-> Patch summary:
-> - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
->   only allow UEFI and Linux to boot in EL2.
-> - Patch #2: adds generic PAS service.
-> - Patch #3: migrates SCM backend to generic PAS service.
-> - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
-> - Patch #5-#14: migrates all client drivers to generic PAS service.
-> - Patch #15: drops legacy PAS SCM exported APIs.
-> 
-> The patch-set is based on v7.1-rc1 tag and can be found in git tree here
-> [2].
-> 
-> Merge strategy:
-> 
-> It is expected due to APIs dependency, the entire patch-set to go via
-> the Qcom tree. All other subsystem maintainers, it will be great if I
-> can get acks for the corresponding subsystem patches.
-> 
-> [1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v5
-> 
+> Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
 > ---
-> Changes in v5:
-> - Incorporated misc. comments from Mukesh.
-> - Split up patch #11 into 2 to add an independent commit for passing
->   proper PAS ID to set_remote_state API.
-> - Picked up tags.
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 4 ++++
+>  2 files changed, 8 insertions(+)
 > 
-> Changes in v4:
-> - Incorporate misc. comments on patch #4.
-> - Picked up an ack for patch #10.
-> - Clarify in cover letter about state of media support.
-> 
-> Changes in v3:
-> - Incorporated some style and misc. comments for patch #2, #3 and #4.
-> - Add QCOM_PAS Kconfig dependency for various subsystems.
-> - Switch from pseudo TA to proper TA invoke commands.
-> 
-> Changes in v2:
-> - Fixed kernel doc warnings.
-> - Polish commit message and comments for patch #2.
-> - Pass proper PAS ID in set_remote_state API for media firmware drivers.
-> - Added Maintainer entry and dropped MODULE_AUTHOR.
-> 
-> Mukesh Ojha (1):
->   arm64: dts: qcom: kodiak: Add EL2 overlay
-> 
-> Sumit Garg (15):
->   firmware: qcom: Add a generic PAS service
->   firmware: qcom_scm: Migrate to generic PAS service
->   firmware: qcom: Add a PAS TEE service
->   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
->   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
->   soc: qcom: mdtloader: Switch to generic PAS TZ APIs
->   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
->   remoteproc: qcom: Select QCOM_PAS generic service
->   drm/msm: Switch to generic PAS TZ APIs
->   media: qcom: Switch to generic PAS TZ APIs
->   media: qcom: Pass proper PAS ID to set_remote_state API
->   net: ipa: Switch to generic PAS TZ APIs
->   wifi: ath12k: Switch to generic PAS TZ APIs
->   firmware: qcom_scm: Remove SCM PAS wrappers
->   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
-> 
->  MAINTAINERS                                   |   9 +
->  arch/arm64/boot/dts/qcom/Makefile             |   2 +
->  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
->  drivers/firmware/qcom/Kconfig                 |  19 +
->  drivers/firmware/qcom/Makefile                |   2 +
->  drivers/firmware/qcom/qcom_pas.c              | 291 +++++++++++
->  drivers/firmware/qcom/qcom_pas.h              |  50 ++
->  drivers/firmware/qcom/qcom_pas_tee.c          | 476 ++++++++++++++++++
->  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
->  drivers/gpu/drm/msm/Kconfig                   |   1 +
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
->  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
->  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
->  drivers/media/platform/qcom/venus/Kconfig     |   1 +
->  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
->  drivers/net/ipa/Kconfig                       |   2 +-
->  drivers/net/ipa/ipa_main.c                    |  13 +-
->  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
->  drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
->  drivers/remoteproc/Kconfig                    |   4 +-
->  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
->  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
->  drivers/remoteproc/qcom_wcnss.c               |  12 +-
->  drivers/soc/qcom/mdt_loader.c                 |  12 +-
->  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
->  include/linux/firmware/qcom/qcom_scm.h        |  29 --
->  include/linux/soc/qcom/mdt_loader.h           |   6 +-
->  28 files changed, 1117 insertions(+), 318 deletions(-)
->  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
->  create mode 100644 drivers/firmware/qcom/qcom_pas.c
->  create mode 100644 drivers/firmware/qcom/qcom_pas.h
->  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
->  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> 
-> -- 
-> 2.51.0
-> 
-> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index fbe553c38583..3be51a2c0106 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -78,6 +78,7 @@
+>  #include "amdgpu_reset.h"
+>  #include "amdgpu_virt.h"
+>  #include "amdgpu_dev_coredump.h"
+> +#include "amdgpu_migrate.h"
+>  
+>  #include <linux/suspend.h>
+>  #include <drm/task_barrier.h>
+> @@ -4076,6 +4077,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  
+>  	/* Don't init kfd if whole hive need to be reset during init */
+>  	if (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
+> +#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
+> +		amdgpu_svm_migration_init(adev);
+> +#endif
+
+Looks good in general, but just a style advise:
+
+Instead of spread those #if IS_ENABLED() It's good practice to do something like this in the header:
+
+#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
+
+void amdgpu_svm_migration_init(struct amdgpu_device *adev);
+
+#else
+
+void amdgpu_svm_migration_init(struct amdgpu_device *adev) {}
+
+#endif
+
+Especially when the function is used multiple times.
+
+Regards,
+Christian.
+
+>  		kgd2kfd_init_zone_device(adev);
+>  		kfd_update_svm_support_properties(adev);
+>  	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> index 28c4ad62f50e..c94d43f3ab42 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> @@ -25,6 +25,7 @@
+>  #include "aldebaran.h"
+>  #include "sienna_cichlid.h"
+>  #include "smu_v13_0_10.h"
+> +#include "amdgpu_migrate.h"
+>  
+>  static int amdgpu_reset_xgmi_reset_on_init_suspend(struct amdgpu_device *adev)
+>  {
+> @@ -87,6 +88,9 @@ static int amdgpu_reset_xgmi_reset_on_init_restore_hwctxt(
+>  		return r;
+>  	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
+>  		if (!tmp_adev->kfd.init_complete) {
+> +#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
+> +			amdgpu_svm_migration_init(tmp_adev);
+> +#endif
+>  			kgd2kfd_init_zone_device(tmp_adev);
+>  			amdgpu_amdkfd_device_init(tmp_adev);
+>  			amdgpu_amdkfd_drm_client_create(tmp_adev);
+
