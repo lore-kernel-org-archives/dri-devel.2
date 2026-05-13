@@ -4,70 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AED8CD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 15:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6283ACD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 15:32:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 971F910EEFC;
-	Wed, 13 May 2026 15:31:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAEB410EF29;
+	Wed, 13 May 2026 15:32:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J2+It5B+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q6T1B3Mx";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4815510E313;
- Wed, 13 May 2026 15:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778686280; x=1810222280;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=zMQaxEsS1So+uYuvwRnT7buBO/fQ8iaMqPHMPkticiA=;
- b=J2+It5B+hHQAMqFLnpFeETFKhWH0n+L85FsMvLNMqkFtUaZcOX3fFyPN
- R/5S6JxGT1MT83PAM+/NGsjz/VSDswUgQcg6VtNnWSxe1o1j9Fnu2D051
- Kf4Vd9djSQzwP11iExcIHQt3LqSMAYIV2PRG6ZxgG4Svjfh9iay42NpUf
- LsJ30JkEjln1dWP6dOlmoMaa7Pg9h0/3KCnmbf/6QJ4zaeHy6MSGJ1p4C
- bj5YhVNQGLn3NpivGemjmwDLahXolYd462GQyBfq3OFCw0oFsHRCR561r
- YsSQTe9uCbNCCVhDaivtbgImuVL07fhPKbFeHOvP6+AdEvBscEigq8mGj A==;
-X-CSE-ConnectionGUID: h5oRh8sIRKKHtSlSDWO6Lw==
-X-CSE-MsgGUID: mzZZ4lUaS1Gp4lvQ+t4bHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="91001117"
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; d="scan'208";a="91001117"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 08:31:20 -0700
-X-CSE-ConnectionGUID: YIUIny/2TQGLrbVRZaHmvw==
-X-CSE-MsgGUID: 55mp6dLITz6ZAyuXru9LRw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; d="scan'208";a="239934498"
-Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
- by fmviesa004-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 08:31:17 -0700
-Date: Wed, 13 May 2026 17:31:15 +0200
-From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: Re: [PATCH i-g-t 6/8] dmem: add test for current/max
-Message-ID: <20260513153115.bbfstpsrubasw4rq@kamilkon-DESK.igk.intel.com>
-Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-References: <20260512215156.4083082-1-cascardo@igalia.com>
- <20260512215156.4083082-7-cascardo@igalia.com>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011060.outbound.protection.outlook.com [52.101.52.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC26910EF27;
+ Wed, 13 May 2026 15:32:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LfyyXpKepG62ecnDNdi2JFUQNR1kPQwWmkby5qebvh87v+DZ4TPpH4zoUC2yFM9PP5Y4vwyFOvCIf02BJZ6i8L3uGreAgpNmbeh7Ptdn9B2HzpMD2Tm/h9fkmw1h1ZG3IlYJLlWwoaSvWrXaBBg02zwFTustB77EsT9QTMya28AakoVfpXYdYzynJzlEdYvvZkl/FF5a2ozslxZOO476AWv38Dr84cjVQTon/O60y6hxahnP2ahIT97/7cdTmcLXsOpCjPis8GCjkwTfhJ1y0fKmL7/uCtTfsLRFvEZJFpGzkXAI+wp5iU4inTIjbJLds1N/GHa8gMYM1n3ASpJiEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+I9jnhZIU/mZTue2/ct2bcdz7K2ON52a0aFj75Z/6Wg=;
+ b=TJtMGZsEXU7ObfNvBcesV7/VrHuRVmZr5ml1PvilLTEGonoscPpUuwcQCFPBCoddxeyXppwjlZxOEH3IqkKmJckRNkm4HVqaaEKbeowmn2cS6z7OApkbMykvlauvjER+234QTh7/Rv2GhLVWFUWcGk9CwgmiqMUvoyrcjrWZMEqlsoeDmlKgZqGF8uckLSeomHcQxSyaoY7FyMX6Rb/gpj/WU4AXH5gK2PloUvkI3ezk36ebnNhw+oXz+FM/yFskLGJSoPTtrNXIhnbu8FNMBL2LLz6igK+sDmNDjgV8H9uOFH03j/xBlN88Y1xC79eTvnLyzfzJOVGss/JyZ6Lapw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+I9jnhZIU/mZTue2/ct2bcdz7K2ON52a0aFj75Z/6Wg=;
+ b=q6T1B3MxRgZ4CLVmITpfw32kd2bV0vxmRn4OzMos9ztzRbRI9gy2oxcVamIs2BrObkasEUF0Up75Xv0kAFz9UxSG5/XXlpJ3D/4rWdd0Ld3ugtciO/SaSjDh/Of17aIjqzl8BLUmwgvYqh3pVpdDHESGD0vYdFn/yR2bZVyPvig=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH8PR12MB7373.namprd12.prod.outlook.com (2603:10b6:510:217::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Wed, 13 May
+ 2026 15:32:27 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9891.021; Wed, 13 May 2026
+ 15:32:27 +0000
+Message-ID: <7eab78a1-ab10-4b8b-8d63-35de502bed5c@amd.com>
+Date: Wed, 13 May 2026 17:32:20 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/ttm: Support 52-bit PAs in ttm_place
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260513141253.20410-1-felix.kuehling@amd.com>
+ <a059d1e9-e356-41b0-8336-8b25ea24e7e1@ursulin.net>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <a059d1e9-e356-41b0-8336-8b25ea24e7e1@ursulin.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FRYP281CA0003.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::13)
+ To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260512215156.4083082-7-cascardo@igalia.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB7373:EE_
+X-MS-Office365-Filtering-Correlation-Id: 806b64fe-2199-4451-08b8-08deb104d67b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|22082099003|18002099003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info: TPw+pBbFtjGXFXQR1+9jFtIHAHB3gNcENyZUr2tfK2UvXAQ2CoJlci2pq7FWk5FOgFekfocmlrhR1ChT1j8IdBQ2ciXVEtDQdZPUf6ztWT7mMz1UTQC8qVR5OD5qQycQE22af7ffUWlmYNevxgMB64a7QI7uAc8G9P37TT0g44o/5R2XStcJo3l05p3cy1Sv/l4UGhIDKsacd+1roW5ajc0ZUeOzsfu16HqO+6BGQGch/+WXX/qpJgq2MT+29+rU4tAgFpMqT2rluRI54q2lj8OSVwIz6gHeLG1OB9TyQ5eTDPOoAiQIDZ56kwstlq11u8dISTYDigXsb7tvHKQAiWmOUfFnMiSFlNonP+MbGTp3vKfCSxl6779SDWiZphzpQEVqfY/XjKjIStwhwYgiRbhYGBGHN8GNa8BB7FgO+DiycBDaK+IvdS9wbgiaWFCK+spbtGY3Tqj9iFXsNgoP5xX8AtcMXQBc2qMKWchu9x3QKOK8azJkqhN2iwwwtzzYSe+DISHH0XOmjgBdEcNnoJqrcSPW29e4HI0CuftaE9eMcOkGJilcvaRwVNmm/f3IHPjtw9fCEBW0vP3/GFETQMQvJAxvijJipx0e9x445fU2TVMOGR669ci3Lslj9+UoOsXCb2h9n7yy8w8zzcQzQQ7QPH6QhenCIQ6oBiNYaYxKr8o1ARcZoP+/0faHImLv
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(18002099003)(56012099003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YlgrandEZG9mY1FzSmhrUW15dmREV0I1RDB0UUI1QW9aNXhnbkNhYWFLVjM4?=
+ =?utf-8?B?TnpWb0tOdTgzSzJlTWFwbGZHZGVXUXQ1aXF4aVVDVGhTMTF2YjBhRDhhcFox?=
+ =?utf-8?B?MHB1bzR6VEZhKzYzT1lNQjJEb1hhNG43bkNBZGIyQ1NJbmdvYTBnbHhEM0tq?=
+ =?utf-8?B?ZGpSZkdNL3RKeVp5cmNJRnNPNTVuVytLcHIvUzZHa1hjakJzTFd2OXdIRHhC?=
+ =?utf-8?B?WTRvNHBVc1QxZ1IydnVWWkxIdnVwQXUwTU1oQWNLNEpOMkszTERxTGowSmNL?=
+ =?utf-8?B?YTBnSlU5WXk4K2RXUGRUYWxEbGR4bkkxK2E3TVRHR3pTYVh4R0E1c3JnL0ND?=
+ =?utf-8?B?eFNGek1qajhDU3RsQ3J4cGgzM2VwL3ZBeldtKyt5QW5XTHFTK2RWWmVhSUps?=
+ =?utf-8?B?QnZzaTlGemtsZVo5Z0tRV3UrRnpTZFhic1p2d2VRQjA1dXdmcE1IeFJWYzZx?=
+ =?utf-8?B?cUcyT2d3ekg5TnV2YlFiK1FNbVZHWGlTWGIvT1N4THVPbDIrRmNOeExYOHV3?=
+ =?utf-8?B?NGVuL1oyckhkOVR1a3FuTkNiNlFWbkRBdi9FSWxZaXA2dmdGWXlYcWVJU2hx?=
+ =?utf-8?B?ZGRPUytwV1RDbDFSdCtMWnNlUGQyZkZ6Qyt0MWtrTUV2b1ZSdG1aTWVOaU1Z?=
+ =?utf-8?B?VFk4ZHJsUkQvYVpGdGhjS3NVUzU1eUg2K3g1ZXpRU09tTE16cHdNQjRhc3RO?=
+ =?utf-8?B?VVNkUVJQeCt0bmZkRnJ1a1JHK1BUcGJXSWN5UkRCNjFyNUhaWmRIVllMVk1K?=
+ =?utf-8?B?dlNQQkpGWWhaMFRqNTBNK0dVQTFtNnlWNGpGb2pkc3BQM0hRRkRDTW9zbElB?=
+ =?utf-8?B?WDJDbW11emZEaGdRWFZCS2lmYWZRWVBtOWQ5ZVZlNnI2NDFmWlRmbjZQSHpx?=
+ =?utf-8?B?d1kzU3VCRFBPSFlLaEVRbTFtYSttSW9ENWdVOG0xZDRpY2xIUTVSNG9LczFO?=
+ =?utf-8?B?RDlWeUVqZW5odzh6dVpMVzZOUFN1NjYxeVhLd3pmVGQ2VTNiSHJOS3FmemNQ?=
+ =?utf-8?B?bm1KYktiODJxRGV5dlY5MXVHb2dvYkVpUVN3b29ZdXQwVU84RzBaUmNmeE9x?=
+ =?utf-8?B?ZEt1dVdDdkFkc3BGMVNFU3ovM1FMWFljTlF2VGk3RkpiQ24rODl2MTVyV29y?=
+ =?utf-8?B?dE8rTFo2TVluOEVVTE5uQnY2U0xpbWVSQTlPSFhoaGhkamZRWVFVR1ljWGtv?=
+ =?utf-8?B?aXVQVlIrcDBya2E2VVMwMVVES3hQWlhPSkRpQ1g3aVJIY1g4c2N3ZjJBa2R3?=
+ =?utf-8?B?eEJiS05IZ0hKdHJpTHlHMU9QdTE0L0tpNnJPK0dhMzA1dE9YQ0NtRGtlTG80?=
+ =?utf-8?B?WEZ0SW9kdzN5cHhoNDVEYlVNYnd3UXo4UXF5WkVyY3pZNXVScEdITlBoUUZj?=
+ =?utf-8?B?MDduaVQ0eUFwb09ZZ25EQ0V2Ny9qVXFWRGErUlRkOEpUY3pDNDBDWkkyR0kx?=
+ =?utf-8?B?SnQ5dXlEa2t1eGt4OEhHSmVWTFk4bHJHSy9pMEZhK1hHVys2eFVUMnEzQVAy?=
+ =?utf-8?B?ckVBeTV1Lzd6UytIU1lmaU5qbEhCWXJENWJyLzZqWnUydnU4S255L1l4MFAz?=
+ =?utf-8?B?L01ySVU0b0FnbEg4eVdHeXc1c1pSekFOaEVkL0JpRCtkY0ZRVm0yTzc0Z2xQ?=
+ =?utf-8?B?OXp6YWVtQkxiV1V0cWhFNWZmSCtwanFVdVl0Njg1ZXgwdjFaaUZucnFEUU1y?=
+ =?utf-8?B?VHdWekg5djgydkVXVWt6OEg1UkJ4aWhXT1ZmcndWWHlwMmRLa3h3cHZjUlBP?=
+ =?utf-8?B?b3hFMnFVZW0ySzlaRWRZbWpoMGpnaWhHdWI3Qmlia2NlTW9CUU1JRWRzUnBD?=
+ =?utf-8?B?S0Jtc1VKeWJvZmVWVnplN1NtbkZOMEluQ0FpQWIwcFdXdWFtUWJRSXZtdlU5?=
+ =?utf-8?B?M0h5QUIxQlBYUHVlRFNYMHFDWHA3Ti9DUThEN0VmWExUYWlIcUkrbmpqRjNX?=
+ =?utf-8?B?WFh4RkVwVU9JR3IzbzNLUzZRQ21HQUpRSmZiZ2JwNDhXSDZoSFNITWd4UjNT?=
+ =?utf-8?B?cWdWQjhOYkU0dGRNaFBJcU8xa1E0TkhYSDFZUEdkUW1xR2RDOE5lV1g0RS9o?=
+ =?utf-8?B?UllxeC80VFFNblh1M1R2ZEVETU9IRGZ4d2hZcllYUTI5eStmNmp0ZGZsK09x?=
+ =?utf-8?B?VGNIdEhaenlheENsYnoxaFRVSzNlV2lzMSsvWTQ3c1QrRm5hNGNOeTl2WUg1?=
+ =?utf-8?B?RnRlWGxoaHZyeUY5cjEybGNGNFFwNkRPa0RlVS9RMnpVUnpqaDh1SlZRbCtK?=
+ =?utf-8?B?ZTBRSTdCdEFOSUZmemtmQk5qOE9hK3NsV2hzN0QrZlVkUTNGalhtVmw1elJQ?=
+ =?utf-8?Q?rl2J8I5N3MZVgQjRry?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 806b64fe-2199-4451-08b8-08deb104d67b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 15:32:27.2229 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e6e8H6kOOEXP6Py7qiKT7US5DP8PSE+67C7miFsvfOnswVZyW1M+OKN4uXRttgwZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7373
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,189 +136,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thadeu,
-On 2026-05-12 at 18:51:53 -0300, Thadeu Lima de Souza Cascardo wrote:
-> Add a test that checks for current usage after VRAM allocation and release.
-> Set max to different values and track that current usage is not above max,
-> given some slack.
+On 5/13/26 16:50, Tvrtko Ursulin wrote:
+> On 13/05/2026 15:12, Felix Kuehling wrote:
+>> fpfn and lpfn in struct ttm_place are 32-bit page numbers. With 4KB page
+>> size this can support up to 44-bit physical addressing. Grow these to
+>> unsigned long to support larger physical addresses.
+>>
+>> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+>> ---
+>>   include/drm/ttm/ttm_placement.h | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/include/drm/ttm/ttm_placement.h b/include/drm/ttm/ttm_placement.h
+>> index b510a4812609..ab2639e42c54 100644
+>> --- a/include/drm/ttm/ttm_placement.h
+>> +++ b/include/drm/ttm/ttm_placement.h
+>> @@ -81,8 +81,8 @@
+>>    * Structure indicating a possible place to put an object.
+>>    */
+>>   struct ttm_place {
+>> -    unsigned    fpfn;
+>> -    unsigned    lpfn;
+>> +    uint64_t    fpfn;
+>> +    uint64_t    lpfn;
+>>       uint32_t    mem_type;
+>>       uint32_t    flags;
+>>   };
 > 
-> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> ---
->  tests/drv_dmem_cgroups.c | 136 ++++++++++++++++++++++++++++++++++++++-
-
-When you make a change in test only, add a prefix tests/a_test_name_here:
-so in subject there will be:
-
-[PATCH i-g-t 6/8] tests/drv_dmem_cgroups: add test for current/max
-
-Btw I see below only 'current' subtest, where is 'max'?
-
->  1 file changed, 133 insertions(+), 3 deletions(-)
+> Maybe audit of usage sites is required to make sure no compiler warnings on 32-bit builds if nothing else. Things like:
 > 
-> diff --git a/tests/drv_dmem_cgroups.c b/tests/drv_dmem_cgroups.c
-> index 0e26b7e2bb9a..43331117854c 100644
-> --- a/tests/drv_dmem_cgroups.c
-> +++ b/tests/drv_dmem_cgroups.c
-> @@ -223,12 +223,142 @@ static void test_write_eviction(int fd, unsigned int flags, const struct igt_dme
->  	igt_cgroup_free(cg);
->  }
->  
-> +static int allocate_vram(const struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo, size_t len)
-> +{
-> +	int n_bo, err = 0;
-> +	for (n_bo = 0; n_bo < max_bo; n_bo++) {
-> +		err = drv->allocate_vram(ctx, n_bo, len);
-> +		if (err)
-> +			break;
-> +	}
-> +	return err ?: n_bo;
-> +}
-> +
-> +static void test_current(int fd, unsigned int flags, const struct igt_dmem_driver *drv)
-> +{
-> +	struct igt_cgroup *cg;
-> +	char *cg_region;
-> +	void *ctx;
-> +	uint64_t current, capacity, cg_max;
-> +	int n_bo = 0, max_bo;
-> +	int err;
-> +
-> +	cg_region = drv->get_region_name(fd);
-> +	igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
-> +
-> +	/* Check dmem cgroup controller is available before doing anything else */
-> +	igt_require_f(igt_cgroup_dmem_available(),
-> +		      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
-> +
-> +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-> +	igt_require_f(capacity >= 4 * BO_SIZE,
-> +		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-> +		      capacity / SZ_1M);
-> +
-> +	/*
-> +	 * Use up to 4 GiB, or the full capacity if the device has less.
-> +	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-> +	 * exhausted before the cgroup limit is hit.
-> +	 */
-> +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-> +	cg_max = ALIGN_DOWN(cg_max, EVICT_STEP);
-> +
-> +	if (flags & TEST_INTERRUPTIBLE)
-> +		install_sigcont_counter();
-> +
-> +	/* Create cgroup and move into it */
-> +	cg = igt_cgroup_new("igt_cgroups_test");
-> +	igt_cgroup_move_current(cg);
-> +
-> +	max_bo = cg_max / BO_SIZE;
-> +
-> +	err = drv->init(&ctx, fd, max_bo);
-> +	igt_assert_f(!err, "Failed to initialize driver");
-> +
-> +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current < cg_max + USAGE_SLACK && current > cg_max - USAGE_SLACK,
-> +		     "current usage (%"PRIu64" MiB) is not within margin of allocation (%"PRIu64" MiB)\n",
-> +		     current / SZ_1M, cg_max / SZ_1M);
-> +
-> +	drv->free_vram(ctx, n_bo, BO_SIZE);
-> +	sleep(1);
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current < USAGE_SLACK,
-> +		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
-> +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
-> +
-> +	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE);
-> +
-> +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current < 2 * BO_SIZE + USAGE_SLACK && current > 2 * BO_SIZE - USAGE_SLACK,
-> +		     "current usage (%"PRIu64" MiB) is not within margin of allocation (%"PRIu64" MiB)\n",
-> +		     current / SZ_1M, cg_max / SZ_1M);
-> +
-> +	drv->free_vram(ctx, n_bo, BO_SIZE);
-> +	sleep(1);
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current < USAGE_SLACK,
-> +		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
-> +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
-> +
-> +	igt_cgroup_dmem_set_max(cg, cg_region, 0);
-> +
-> +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-> +	igt_assert_f(n_bo != -ENOMEM, "VRAM allocation succeeded despite max set to 0\n");
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current < USAGE_SLACK,
-> +		     "current usage (%"PRIu64" MiB) is not within margin\n",
-> +		     current / SZ_1M);
-> +
-> +	if (n_bo > 0)
-> +		drv->free_vram(ctx, n_bo, BO_SIZE);
-> +	sleep(1);
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current < USAGE_SLACK,
-> +		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
-> +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
-> +
-> +	drv->deinit(ctx);
-> +	free(cg_region);
-> +	igt_cgroup_free(cg);
-> +}
-> +
->  static const struct {
->  	const char *name;
-> +	void (*test_fn)(int fd, unsigned int flags, const struct igt_dmem_driver *drv);
->  	unsigned int flags;
->  } subtests[] = {
-> -	{ "write_eviction",		0 },
-> -	{ "write_eviction_interruptible",	TEST_INTERRUPTIBLE },
-> +	{ "current", test_current, 0 },
+> amdgpu_vram_mgr_intersects()
+> ...
+>         if (place->fpfn < lpfn &&
+>             (!place->lpfn || place->lpfn > fpfn))
+>             return true;
+> 
+> Etc. Probably are all best adjusted to match the new type.
+> 
+> There is also:
+> 
+> struct ttm_resource {
+>     unsigned long start;
+> 
+> Which also may need aligning. I know no one cares about 32-bit builds but some automated systems will probably test it and send reports.
 
-For each new subetest add a corresponding SUBTEST: comment section.
+Yeah I have been trying to remove ttm_resource.start exactly for that reason for a very very long time now.
+
+Drivers shouldn't use that and instead rely on their own backends to give the actual placement.
 
 Regards,
-Kamil
+Christian.
 
-> +	{ "write_eviction", test_write_eviction, 0 },
-> +	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
->  	{ }
->  };
->  
-> @@ -259,7 +389,7 @@ int igt_main()
->  
->  			for (int i = 0; subtests[i].name; i++)
->  				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
-> -					test_write_eviction(fd, subtests[i].flags, drivers[d].driver);
-> +					subtests[i].test_fn(fd, subtests[i].flags, drivers[d].driver);
->  
->  			igt_fixture() {
->  				if (fd >= 0)
-> -- 
-> 2.47.3
 > 
+> Regards,
+> 
+> Tvrtko
+> 
+
