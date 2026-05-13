@@ -4,64 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3104CD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:21:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB232CD37B6
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7B9910E2F6;
-	Wed, 13 May 2026 07:21:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4377410E5BD;
+	Wed, 13 May 2026 07:28:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JpJvT+Af";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JZqhc8zE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yTMQOrRt";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="foR6gQjj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qBwo+DuB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98F8510E1C0;
- Wed, 13 May 2026 07:21:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778656860; x=1810192860;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8Pf3UZtBPmTUC54/TMtWx2SebrwAHuEtJ5XI7lvahhg=;
- b=JpJvT+AftCkOtoWCHsNZeSW1A2kS0s+I8Q4vGflob1u5eGTDLwIuymKn
- 43kuzgQboA06Y2uL0lr8IE56lhp6LTbMIR2YvayMX56g+G3ef1SGbhvok
- ZjVHpVABMCHH1OQuvFkkWvC892a5eB5B3/J2yiXKRsL0wBCmcnTndubJi
- PIyG77fbakDGoFUlLjJklEaA+iJzDC0X+jgGEQUT3w1C7WKsEGpL1Qw5E
- kJslDEHDsplKmypu8lzB1F7/28twTyVwxVGGwpdMcrEIVSM1VzGKNAI18
- JefEgwcOhYu4SL7ek0CkT/E6cy7wq1tpKtZRnrfC95/YYUDvoomCSwrWG A==;
-X-CSE-ConnectionGUID: pn5ScXRzQkmZO8lpZbi72A==
-X-CSE-MsgGUID: /qhsToqFSHe2sLGc0Pvaog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="90156121"
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="90156121"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 00:21:00 -0700
-X-CSE-ConnectionGUID: cspXtXtrQXapiE9erISACw==
-X-CSE-MsgGUID: I/qqA0Z/Sh+bSpHlKEaJzA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="242964678"
-Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
- by fmviesa005.fm.intel.com with ESMTP; 13 May 2026 00:20:58 -0700
-Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wN3tn-000000003eR-13jN;
- Wed, 13 May 2026 07:20:55 +0000
-Date: Wed, 13 May 2026 15:20:46 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Dave Airlie <airlied@redhat.com>, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup
- failure
-Message-ID: <202605131522.yUSpVs9Q-lkp@intel.com>
-References: <20260511162443.24352-1-thomas.hellstrom@linux.intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F1C10ECF6
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:28:18 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9E4EA75F1A;
+ Wed, 13 May 2026 07:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778657297; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q3LbR2UJkrKZCrwSOdUef4NhlipoLEOykLGJfelUpdE=;
+ b=JZqhc8zEfaBRWOtm7sCZSsQSe6KGq7Est2R5Nwl+C19VmxN4fVgv7wp8/dzNM8oHo37tVR
+ NXDV35/9NEQRGDflpmhg4co8Go0dGHxLMQ998NaukSxHh9bOoWtvvqhimVn4LV+D/LmYzv
+ zXTIkxIOjnr9D4i2LoPICjs62IuuIOE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778657297;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q3LbR2UJkrKZCrwSOdUef4NhlipoLEOykLGJfelUpdE=;
+ b=yTMQOrRt8jBCvgP8oBmUJJuBcHCxVM413HEEw0U7VjmHtqO3OFtSjQnhrG6i7QqrlMGCdh
+ 06anOCJjYWnJ1iDQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=foR6gQjj;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=qBwo+DuB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778657295; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q3LbR2UJkrKZCrwSOdUef4NhlipoLEOykLGJfelUpdE=;
+ b=foR6gQjjVGyftrmhLW3DhYd3mXm9V2yklbYboWA7dVdRJiN4JArCyTyoKLrWhclKCNv1KM
+ E304Zr/fXC5DEH2SU3FR7efxU3aK2HsAPf32Ahsqn4HF2amxzlhELXSqbL1VYb72j93GjG
+ Uh74IEPAZmN5cFMRjMta1Mu4dFadX5E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778657295;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q3LbR2UJkrKZCrwSOdUef4NhlipoLEOykLGJfelUpdE=;
+ b=qBwo+DuBWDywYlDbUbYZAvr+5DXC77LJXeiajuZIDffNNgWwZmfX3C7fwKK0qKdnM715OL
+ jUgbVQWa906cpBBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 262B2593A9;
+ Wed, 13 May 2026 07:28:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id TbUPCA8oBGoocAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 13 May 2026 07:28:15 +0000
+Message-ID: <ad257c82-b390-4fd2-9029-d991cc7c8d9c@suse.de>
+Date: Wed, 13 May 2026 09:28:14 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260511162443.24352-1-thomas.hellstrom@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v6 0/4] Fix some bugs in the hibmc
+ driver
+To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
+ tiantao6@hisilicon.com, xinliang.liu@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ daniel@ffwll.ch, kong.kongxinwei@hisilicon.com
+Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
+ helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260509032302.2057227-1-shiyongbang@huawei.com>
+ <d45b7e90-9e13-4c04-8f4c-37898aabc2c0@suse.de>
+ <d017d6e8-1035-4088-a543-6fc00f2c29c3@huawei.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <d017d6e8-1035-4088-a543-6fc00f2c29c3@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCPT_COUNT_TWELVE(0.00)[17];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ URIBL_BLOCKED(0.00)[huawei.com:email,checkpatch.pl:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:dkim,hisilicon.com:email,suse.com:url];
+ ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[checkpatch.pl:url, hisilicon.com:email,
+ huawei.com:email, suse.de:mid, suse.de:dkim, suse.com:url,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 9E4EA75F1A
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,107 +157,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Hi
 
-kernel test robot noticed the following build errors:
+Am 12.05.26 um 14:12 schrieb Yongbang Shi:
+>> Hi,
+>>
+>> I've gone through the series and reviewed the patches. Let me know when they are ready to get merged.
+>>
+> Thanks for the review. The series is ready for merging now.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v7.1-rc3 next-20260508]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Thanks for sticking with it. The series is now merged into drm-misc-next.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Hellstr-m/drm-ttm-Fix-ttm_bo_shrink-infinite-LRU-walk-on-backup-failure/20260513-095356
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260511162443.24352-1-thomas.hellstrom%40linux.intel.com
-patch subject: [PATCH] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup failure
-config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260513/202605131522.yUSpVs9Q-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260513/202605131522.yUSpVs9Q-lkp@intel.com/reproduce)
+Best regards
+Thomas
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202605131522.yUSpVs9Q-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/ttm/ttm_bo_util.c: In function 'ttm_bo_shrink':
->> drivers/gpu/drm/ttm/ttm_bo_util.c:1121:17: error: implicit declaration of function 'ttm_resource_del_bulk_move_unevictable'; did you mean 'ttm_resource_del_bulk_move'? [-Wimplicit-function-declaration]
-    1121 |                 ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
-         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |                 ttm_resource_del_bulk_move
-
-
-vim +1121 drivers/gpu/drm/ttm/ttm_bo_util.c
-
-  1067	
-  1068	/**
-  1069	 * ttm_bo_shrink() - Helper to shrink a ttm buffer object.
-  1070	 * @ctx: The struct ttm_operation_ctx used for the shrinking operation.
-  1071	 * @bo: The buffer object.
-  1072	 * @flags: Flags governing the shrinking behaviour.
-  1073	 *
-  1074	 * The function uses the ttm_tt_back_up functionality to back up or
-  1075	 * purge a struct ttm_tt. If the bo is not in system, it's first
-  1076	 * moved there.
-  1077	 *
-  1078	 * Return: The number of pages shrunken or purged, or
-  1079	 * negative error code on failure.
-  1080	 */
-  1081	long ttm_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
-  1082			   const struct ttm_bo_shrink_flags flags)
-  1083	{
-  1084		static const struct ttm_place sys_placement_flags = {
-  1085			.fpfn = 0,
-  1086			.lpfn = 0,
-  1087			.mem_type = TTM_PL_SYSTEM,
-  1088			.flags = 0,
-  1089		};
-  1090		static struct ttm_placement sys_placement = {
-  1091			.num_placement = 1,
-  1092			.placement = &sys_placement_flags,
-  1093		};
-  1094		struct ttm_device *bdev = bo->bdev;
-  1095		long lret;
-  1096	
-  1097		dma_resv_assert_held(bo->base.resv);
-  1098	
-  1099		if (flags.allow_move && bo->resource->mem_type != TTM_PL_SYSTEM) {
-  1100			int ret = ttm_bo_validate(bo, &sys_placement, ctx);
-  1101	
-  1102			/* Consider -ENOMEM and -ENOSPC non-fatal. */
-  1103			if (ret) {
-  1104				if (ret == -ENOMEM || ret == -ENOSPC)
-  1105					ret = -EBUSY;
-  1106				return ret;
-  1107			}
-  1108		}
-  1109	
-  1110		ttm_bo_unmap_virtual(bo);
-  1111		lret = ttm_bo_wait_ctx(bo, ctx);
-  1112		if (lret < 0)
-  1113			return lret;
-  1114	
-  1115		lret = ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
-  1116				     {.purge = flags.purge,
-  1117				      .writeback = flags.writeback});
-  1118	
-  1119		if (lret > 0) {
-  1120			spin_lock(&bdev->lru_lock);
-> 1121			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
-  1122			ttm_resource_move_to_lru_tail(bo->resource);
-  1123			spin_unlock(&bdev->lru_lock);
-  1124		}
-  1125	
-  1126		if (lret < 0 && lret != -EINTR)
-  1127			return -EBUSY;
-  1128	
-  1129		return lret;
-  1130	}
-  1131	EXPORT_SYMBOL(ttm_bo_shrink);
-  1132	
+>
+> Thanks,
+> Yongbang.
+>
+>
+>> Best regards
+>> Thomas
+>>
+>>
+>> Am 09.05.26 um 05:22 schrieb Yongbang Shi:
+>>> From: Lin He <helin52@huawei.com>
+>>>
+>>> There are some bugfix for hibmc-drm driver.
+>>>
+>>> ---
+>>> ChangeLog:
+>>> v5 -> v6:
+>>>     - Rename 'phys_state' to 'phys_status'
+>>>     - Replace `drm_kms_helper_poll_init` with `drmm_kms_helper_poll_init`
+>>>       and adjust the timing of the call.
+>>>     - Split "return vdac->phys_state = state;" into separate statements.
+>>>     - Change `get_mode` to return 0 when no modes are available, allowing DRM to
+>>>       install a default resolution.
+>>>     - Change the initial phys_status of vdac from
+>>>       'connector_status_connected' to 'connector_status_disconnected'
+>>>     - Removed invalid bit configurations from `hibmc_display_ctrl`.
+>>>     - Modify the return values of `hibmc_get_best_clock_idx` and
+>>>       `hibmc_crtc_mode_valid`
+>>> v4 -> v5:
+>>>     - The 'epoch_counter' of the vdac connector is incremented when the
+>>>      physical status changes.
+>>>     - The polling mechanism for the KMS helper is enabled.
+>>> v3 -> v4:
+>>>     - fix incorrect cover-letter subject prefix in v3.
+>>> v2 -> v3:
+>>>     - remove unused macro CLOCK_TOLERANCE.
+>>> v1 -> v2:
+>>>     - fix the checkpatch.pl warning "Unknown commit ID 'e6c7c59da494'".
+>>>     - fix the checkpatch.pl warning "line length of 83/85 exceeds 80 columns".
+>>>     - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
+>>>       be given in public.
+>>>     - add 'drm-misc-fixes' in subject prefix.
+>>> ---
+>>>
+>>> Lin He (4):
+>>>     drm/hisilicon/hibmc: add updating link cap in DP detect()
+>>>     drm/hisilicon/hibmc: fix no showing when no connectors connected
+>>>     drm/hisilicon/hibmc: move display contrl config to hibmc_probe()
+>>>     drm/hisilicon/hibmc: use clock to look up the PLL value
+>>>
+>>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  1 +
+>>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
+>>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c  |  2 +-
+>>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 80 +++++++++++--------
+>>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 35 +++++---
+>>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 14 ++++
+>>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  1 +
+>>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 75 +++++++++--------
+>>>    8 files changed, 124 insertions(+), 85 deletions(-)
+>>>
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
