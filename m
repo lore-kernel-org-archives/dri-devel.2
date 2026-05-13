@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A7A9CD4F3E
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:10:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6721CD4F3F
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 13:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9C8A10EE5D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C39CF10EE62;
 	Wed, 13 May 2026 13:10:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="MYL7M+Av";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KZFfprXM";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B80E710EE58
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:10:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C545E10EE51
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 13:10:43 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8966C266F;
- Wed, 13 May 2026 15:10:38 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7AE24C79;
+ Wed, 13 May 2026 15:10:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778677839;
- bh=JR1XaCynAqkLEsI0fyomn5txwykOGGzcMsQKm/y2zys=;
+ s=mail; t=1778677834;
+ bh=8jIOgsyHgmNQ7xpDzmhtB2qIKIklUENHUNlx1wpR2Ck=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=MYL7M+AvEt5RMit16C0Ua3VY5YSoTluk+6GDXFAAq90T9wW2TrYWrK2o2YRPUoGEm
- 4O+maRrbxy+w4QWMtr9hv6zbiJza0Fabk6iyUFl3bgQrJU0TJ3QdD2dLitlMko8/Vd
- 9uYBadzZntDlVQ2HbUh/5WykzL2kqX+7DeZ7t30g=
+ b=KZFfprXMakfj4JXU7bHORyGL97Q9LtXptACAbwK67dVpmcJbhC56XsFVAk8Wh5wlP
+ uqVKcp/UZ/HTHTiq4b2fK3l+r0yJdoTgh6BHFNMz1xlpesENhpBQVixfsqX4BN0AQN
+ rkjDxC4iMjP85ixVd+R01t7s5/3uuAivQl8kDxPs=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Wed, 13 May 2026 16:10:16 +0300
-Subject: [PATCH v3 07/13] drm/bridge: tc358762: Update comment about the
- number of lanes
+Date: Wed, 13 May 2026 16:10:11 +0300
+Subject: [PATCH v3 02/13] drm/bridge: tc358762: Improve SYSCTRL register
+ defines
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-tc358762-fixes-v3-7-6698b55008b9@ideasonboard.com>
+Message-Id: <20260513-tc358762-fixes-v3-2-6698b55008b9@ideasonboard.com>
 References: <20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com>
 In-Reply-To: <20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,21 +48,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1121;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1747;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=JR1XaCynAqkLEsI0fyomn5txwykOGGzcMsQKm/y2zys=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHhMEz+LoP63lR/6OSzHGt0ddSh6P874/4XGF
- RwELM9trFKJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR4TAAKCRD6PaqMvJYe
- 9epsD/439EkhD9+3YZGy9F2AL83IXY4QQ1paEqec2sGfhftvvQvl62N2PRoaWcHTuw6W5WMPmDW
- k5KMFszGFmthmMNGA+wGm0lmpcLMyofhJk1K256MlxmGy8DQRbhWpgLNX+wsLi6JRrspgjJV7ny
- 1ZXH8srTogNVLpcrVoVNjNF/IVRP83bwBFQffJe6NsLSxGPKvM38DpxV/XDGhGU7kkrNzm+eSxg
- odW/FQJTWxmB/hf94IeFvgIozj8jP/mfW+cT20oJqgq+iDqFyeXQt3fWomwhtcX7eX+p+Dm7KJ+
- wLsW9Y/cWOaOoCRhImXeryfRml0WyhRlpLuHKT2NWM2rIuwZHL1rxUO8QYF27ZVx66G79celJOU
- tpSrVVnjbRj0QZJUS/AAP68RXd0NwWy6RZGovSzdmMOXe3TTZ+X2loJPGhzd32iRiFgIl0SHTW6
- 8wYEHXSeBHx4Jjmrt8OxVV+m5tcZppwk2R/WmJtfPEnBJleMfMzuoJ263FN9KwOM6agtsKvBEj1
- M4aMUXae09+3ts9HLJwjFwilU6YaTtVkJb+7WHuzTlKx3oxeB5jeRacfR2MNHOj34tCQZ8+2swm
- FL0NkGOtpK/DWzC1qYrR6r3AILkeqeuB23qVhBd+VssTMpkQt9dZDSqNxWx1OGNL8chX0gDNvqs
- B3R7RRMQ/3zhrWg==
+ bh=8jIOgsyHgmNQ7xpDzmhtB2qIKIklUENHUNlx1wpR2Ck=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHhLP3dFzkXSQgeTGQc680G3SO7pAfbmot3Hv
+ oU8ysNdjH6JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR4SwAKCRD6PaqMvJYe
+ 9cMQD/9U+7rZkgDTwtPmebKEQoy0Lc+r15Vd75s4h98efV2ZYZ0askhsglFJr0AapE4c3BqHF2R
+ EFTiWgW54/50iI7HFQJKoBUaSP5DIOMv3P9FpYuO0ShsZqEGcjVs5rO467wXKYLp8M6rEELzWwg
+ Sw5r26GCe33JOot66KuT7C2l4khJbH3VhnTJMsmpn3yc1mEwYAhR86MThIaZJ8obbVjgs24iTG/
+ iYCmjq29uNrIth2CNxutMDzkq7h3fWersSZqh44uLrnQxQ96SOMpITg8T3E9El0XMcIhJSZKkER
+ OiX+Xi3hTk9lAJeZAGstJgikMRrhI7FArK0wW2dmXlQpFw0opdF1IXH9cauEnLV9IdAVTatHimk
+ QsEnNR9AZ2DFH7K5O4IjXkVOQEmfh/TVCujMq5w0MCNaHL9GPtwTsCptfKNpyQtsiuhAiTczd9b
+ j7E99bN42HaBBuhANXzgd81XhrqZQcNy8XhZjCLT0I4omdwj971ooHloZ8J2NAJVNhz1gfv1nm6
+ OkWyd+QofdDK5e8kOsmnT8qNtyCzYwg7bYcpAUjp0Hcb0pZu4quao04E3phGDJqPVSmlOtd7dhy
+ 2rRTkir6/sgJuQiRPeW7exRJkwl2B9Fe6Er3oumPJLJYPmjLzNuBdtXOPd3/SNiSuLhy4BBIYkL
+ g5xIaZ6IXoGd+cQ==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,33 +80,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update comment about the number of lanes.
+Define SYSCTRL fields. No functional changes.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/tc358762.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 7840ab3454f6..c5734c4df440 100644
+index 833fd9913c75..c8b9984ff301 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -306,7 +306,14 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
- 	ctx->dev = dev;
- 	ctx->pre_enabled = false;
+@@ -10,6 +10,7 @@
+  *  Eric Anholt <eric@anholt.net>
+  */
  
--	/* TODO: Find out how to get dual-lane mode working */
-+	/*
-+	 * When using DSI clk for pixel clock (only mode supported in the driver),
-+	 * the pclk is derived directly from the DSI byteclk via simple divider,
-+	 * which is either 2 or 3.
-+	 * The required divider can be calculated with bitspp / 8 / nlanes. Thus,
-+	 * for RGB888, only nlanes = 1 works as nlanes = 2 would require divider
-+	 * of 1.5.
-+	 */
- 	dsi->lanes = 1;
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
++#include <linux/bitfield.h>
+ #include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/mod_devicetable.h>
+@@ -64,6 +65,19 @@
+ 
+ /* System Controller Registers */
+ #define SYSCTRL			0x0464
++#define SYSCTRL_DPIDATA_IO_MASK GENMASK_U32(1, 0)
++#define SYSCTRL_DPIDATA_IO_1MA	0
++#define SYSCTRL_DPIDATA_IO_2MA	1
++#define SYSCTRL_DPIDATA_IO_3MA	2
++#define SYSCTRL_DPIDATA_IO_4MA	3
++#define SYSCTRL_DPISTB_IO_MASK	GENMASK_U32(3, 2)
++#define SYSCTRL_DPISTB_IO_1MA	0
++#define SYSCTRL_DPISTB_IO_2MA	1
++#define SYSCTRL_DPISTB_IO_3MA	2
++#define SYSCTRL_DPISTB_IO_4MA	3
++#define SYSCTRL_PCLKDIV_MASK	GENMASK_U32(11, 8)
++#define SYSCTRL_PCLKDIV_DIV_2	2
++#define SYSCTRL_PCLKDIV_DIV_3	4
+ 
+ #define LPX_PERIOD		3
+ 
+@@ -137,7 +151,11 @@ static int tc358762_init(struct tc358762 *ctx)
+ 
+ 	tc358762_write(ctx, LCDCTRL, lcdctrl);
+ 
+-	tc358762_write(ctx, SYSCTRL, 0x040f);
++	tc358762_write(ctx, SYSCTRL,
++		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
++		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
++		       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
++
+ 	msleep(100);
+ 
+ 	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
 
 -- 
 2.43.0
