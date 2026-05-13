@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 678C2CD4851
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 14:53:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 169A7CD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 14:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB3F110EEF2;
-	Wed, 13 May 2026 14:53:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68F9A10EEFF;
+	Wed, 13 May 2026 14:57:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TKAbkL06";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nb6QF9K7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F182310EEF2
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:53:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A89F2444C8
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:53:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88ACDC4AF0B
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 14:53:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778684010;
- bh=LMhdgoi3njzJotgYcklPor79GNIBzJsVfXsl3qI6Kk0=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=TKAbkL06NRIUOFtZQUCIOXnZYnSu80pwRDQO94B9hL9he39AJIPBvovzEvwVfteaI
- itY8WTQZ60PL4ARlaBHG3ACL/78bajJ6pRjpeH1PFaHkqkSVXmoIuQKHlvT0jxN6Ov
- 0YYAZpY7VdalRcNXYaI3UnixyRgxVx00phYd0xKKaqHzPslG3vMjNv8XMv/SpI9qGI
- 80tkQl04CWSpuNKmQucrsD4rY+s2Hadw16F3jCpfyKswCiSVVGjnPgydcP/SL1GSCF
- XZnjO5LlhQx8oPd34xc/ZnIQWBQE+3vDF0deqIGy9e7baN2Nk4KaoQFlpSuQ4d1OE8
- 8De+FnUxhCIzw==
-Received: by mail-dl1-f44.google.com with SMTP id
- a92af1059eb24-133466cf955so1245113c88.0
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 07:53:30 -0700 (PDT)
-X-Gm-Message-State: AOJu0YxqbLiOoCCC+xY8UCNshvRdNlfANACw2kxHcHHIjZEM42aImEQS
- MwXFCOZ8TuH2bcKvICSRhwRCXkyjARUo4ikm2agAfbUyp/wydChRHBmK+lVfrvTRs3CtiflSR6h
- xUxzw6WlarCuQEpSCArxTxeuT+7bufw==
-X-Received: by 2002:a05:7022:43a1:b0:130:5ec9:7ad0 with SMTP id
- a92af1059eb24-13436bb11f1mr2400986c88.41.1778684009895; Wed, 13 May 2026
- 07:53:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260331002357.7995-1-rosenp@gmail.com>
-In-Reply-To: <20260331002357.7995-1-rosenp@gmail.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Wed, 13 May 2026 14:53:17 +0000
-X-Gmail-Original-Message-ID: <CAAOTY__MJGamrOAENzdvzL3gVMdhon-yYGV8rfvsE_euG2jw0A@mail.gmail.com>
-X-Gm-Features: AVHnY4LYLjxIAceAyLRSTOkEhrTPNAlqPiXtwzu6SK6gKwAm8kNQnVmKIaBiuH0
-Message-ID: <CAAOTY__MJGamrOAENzdvzL3gVMdhon-yYGV8rfvsE_euG2jw0A@mail.gmail.com>
-Subject: Re: [PATCH] drm/mediatek: simplify mtk_crtc allocation
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- "moderated list:DRM DRIVERS FOR MEDIATEK" <linux-mediatek@lists.infradead.org>,
- "open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>, 
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 846E110EF02;
+ Wed, 13 May 2026 14:57:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778684279; x=1810220279;
+ h=message-id:subject:from:to:date:in-reply-to:references:
+ content-transfer-encoding:mime-version;
+ bh=nVS3kt3V8BGNmtrLQJEFZZE5l/jxxtNeysdVWTtN0kI=;
+ b=nb6QF9K74lsrjm9o2QnbRzHdzjYJxb6Lu2VgKxJajSihmjCWQ4Bp3ZNt
+ xV396qnPxxDB2hREB0aRsRIgEZtAJtFj+DoNRELspMgmWt9KsCndxE4oN
+ oFTV6fEzFOtyhqy6JceXzql3h1UOsSFCX+0yIVTN9k2/EGFh3NwD0zZ39
+ thAakc3IyF5+zgBxL3bP2FBBahn763U+cthSdq4cQlUVNMfJANHWShXHl
+ fsnt+R4ocuPQ8Ke2swvP3xPwMnAmbzJiliwlJ3z6MQlWFLupjgZx539pV
+ f4N15yfmTAz28S25NW/fjDA8HDiCesvNl+IyjjXzUaryvjDJ4HVB9wENM w==;
+X-CSE-ConnectionGUID: nVGAHTtOTj2UKunKtjZhDQ==
+X-CSE-MsgGUID: sUHBsjgXQHekiS32BeFaMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79728665"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="79728665"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 07:57:58 -0700
+X-CSE-ConnectionGUID: Rcu9dULLSC+mWoHyRgMcNA==
+X-CSE-MsgGUID: 16+KQekbSn+gyRn1Ae+vaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; d="scan'208";a="239917959"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.49])
+ ([10.245.244.49])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 07:57:55 -0700
+Message-ID: <233b5a1e9383e9c9ac6a10beee635cfcffc2336b.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/xe: Fix operator precedence bug in
+ emit_flush_invalidate
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: lirongqing <lirongqing@baidu.com>, Matthew Brost
+ <matthew.brost@intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Matthew Auld
+ <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Date: Wed, 13 May 2026 16:57:52 +0200
+In-Reply-To: <20260513113725.2313-1-lirongqing@baidu.com>
+References: <20260513113725.2313-1-lirongqing@baidu.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,73 +74,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi, Rosen:
+On Wed, 2026-05-13 at 07:37 -0400, lirongqing wrote:
+> From: Li RongQing <lirongqing@baidu.com>
+>=20
+> The expression:
+> =C2=A0=C2=A0=C2=A0 MI_FLUSH_IMM_DW | (flush_flags & MI_INVALIDATE_TLB) ?:=
+ 0;
+>=20
+> is parsed as:
+> =C2=A0=C2=A0=C2=A0 (MI_FLUSH_DW | MI_FLUSH_DW_OP_STOREDW | MI_FLUSH_IMM_D=
+W |
+> =C2=A0=C2=A0=C2=A0=C2=A0 (flush_flags & MI_INVALIDATE_TLB)) ?: 0;
+>=20
+> Since the combined constant flags are always non-zero, the GNU
+> extension
+> '?: 0' acts as a no-op and does not change the value. Remove this
+> redundant
+> and confusing logic.
+>=20
+> Signed-off-by: Li RongQing <lirongqing@baidu.com>
 
-Rosen Penev <rosenp@gmail.com> =E6=96=BC 2026=E5=B9=B43=E6=9C=8831=E6=97=A5=
-=E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=8812:24=E5=AF=AB=E9=81=93=EF=BC=9A
->
-> Use a flexible array member to combine allocations.
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-Applied to mediatek-drm-next [1], thanks.
+Will push to drm-xe-next once CI is clean.
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
-log/?h=3Dmediatek-drm-next
 
-Regards,
-Chun-Kuang.
-
->
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 > ---
->  drivers/gpu/drm/mediatek/mtk_crtc.c | 13 ++++---------
->  1 file changed, 4 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediat=
-ek/mtk_crtc.c
-> index fcb16f3f7b23..914841d2396e 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-> @@ -62,7 +62,6 @@ struct mtk_crtc {
->         struct device                   *dma_dev;
->         struct mtk_mutex                *mutex;
->         unsigned int                    ddp_comp_nr;
-> -       struct mtk_ddp_comp             **ddp_comp;
->         unsigned int                    num_conn_routes;
->         const struct mtk_drm_route      *conn_routes;
->
-> @@ -71,6 +70,8 @@ struct mtk_crtc {
->         bool                            config_updating;
->         /* lock for config_updating to cmd buffer */
->         spinlock_t                      config_lock;
-> +
-> +       struct mtk_ddp_comp             *ddp_comp[];
->  };
->
->  struct mtk_crtc_state {
-> @@ -1048,18 +1049,12 @@ int mtk_crtc_create(struct drm_device *drm_dev, c=
-onst unsigned int *path,
->                 }
->         }
->
-> -       mtk_crtc =3D devm_kzalloc(dev, sizeof(*mtk_crtc), GFP_KERNEL);
-> +       mtk_crtc =3D devm_kzalloc(dev, struct_size(mtk_crtc, ddp_comp, pa=
-th_len + (conn_routes ? 1 : 0)), GFP_KERNEL);
->         if (!mtk_crtc)
->                 return -ENOMEM;
->
-> -       mtk_crtc->mmsys_dev =3D priv->mmsys_dev;
->         mtk_crtc->ddp_comp_nr =3D path_len;
-> -       mtk_crtc->ddp_comp =3D devm_kcalloc(dev,
-> -                                         mtk_crtc->ddp_comp_nr + (conn_r=
-outes ? 1 : 0),
-> -                                         sizeof(*mtk_crtc->ddp_comp),
-> -                                         GFP_KERNEL);
-> -       if (!mtk_crtc->ddp_comp)
-> -               return -ENOMEM;
-> +       mtk_crtc->mmsys_dev =3D priv->mmsys_dev;
->
->         mtk_crtc->mutex =3D mtk_mutex_get(priv->mutex_dev);
->         if (IS_ERR(mtk_crtc->mutex)) {
-> --
-> 2.53.0
->
+> =C2=A0drivers/gpu/drm/xe/xe_ring_ops.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/xe/xe_ring_ops.c
+> b/drivers/gpu/drm/xe/xe_ring_ops.c
+> index cfeb4fc..ee468d3 100644
+> --- a/drivers/gpu/drm/xe/xe_ring_ops.c
+> +++ b/drivers/gpu/drm/xe/xe_ring_ops.c
+> @@ -144,7 +144,7 @@ static int emit_bb_start(u64 batch_addr, u32
+> ppgtt_flag, u32 *dw, int i)
+> =C2=A0static int emit_flush_invalidate(u32 addr, u32 val, u32 flush_flags=
+,
+> u32 *dw, int i)
+> =C2=A0{
+> =C2=A0	dw[i++] =3D MI_FLUSH_DW | MI_FLUSH_DW_OP_STOREDW |
+> -		=C2=A0 MI_FLUSH_IMM_DW | (flush_flags &
+> MI_INVALIDATE_TLB) ?: 0;
+> +		=C2=A0 MI_FLUSH_IMM_DW | (flush_flags &
+> MI_INVALIDATE_TLB);
+> =C2=A0
+> =C2=A0	dw[i++] =3D addr | MI_FLUSH_DW_USE_GTT;
+> =C2=A0	dw[i++] =3D 0;
