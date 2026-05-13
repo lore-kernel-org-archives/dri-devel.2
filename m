@@ -4,45 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F934CD37AC
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 20:57:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48EDBCD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 20:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9BC110F082;
-	Wed, 13 May 2026 20:57:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9549810F08A;
+	Wed, 13 May 2026 20:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="l65gntyR";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="aIVDnf+8";
 	dkim-atps=neutral
-X-Greylist: delayed 603 seconds by postgrey-1.36 at gabe;
- Wed, 13 May 2026 12:15:45 UTC
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
- [45.254.49.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDCE810E305
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 12:15:45 +0000 (UTC)
-Received: from LAPTOP-99KJFSET (unknown [112.10.223.127])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3e43f8521;
- Wed, 13 May 2026 20:00:35 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: tomi.valkeinen@ideasonboard.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- getshell@seu.edu.cn, jianhao.xu@seu.edu.cn,
- Slavin Liu <220245772@seu.edu.cn>
-Subject: [PATCH] drm/omapdrm: avoid double drm_mode_config_cleanup()
-Date: Wed, 13 May 2026 20:00:34 +0800
-Message-ID: <20260513120034.182-1-getshell@seu.edu.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 882F710E405
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 11:40:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=oa
+ 1f3hrw4/M/YajnRmCu8nU2TAclHxrHz3Ccb9Nr+xk=; b=aIVDnf+8l/58FZ/2dp
+ ecXJ6BGg/WaVgDX1obnEzHevwSWBROm4NxJxLZXhoOfvjcbeBxUWP7eU/Y+mXBzA
+ Gmdt62cwpicx0tyYRv1v4L2ez7SfCZRXULaXIpDwfClK/S92vEV4bMTcvfM7MsEU
+ fiZIu4rJc0omRZzMfi12XKYgA=
+Received: from wmy.localdomain (unknown [])
+ by gzsmtp2 (Coremail) with SMTP id PSgvCgDHgPwHYwRqq7GCEQ--.37431S2;
+ Wed, 13 May 2026 19:39:59 +0800 (CST)
+From: <w15303746062@163.com>
+To: tzimmermann@suse.de,
+	airlied@redhat.com,
+	jfalempe@redhat.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: [PATCH] drm/ast: Add timeouts to AHB/SCU polling loops to prevent
+ soft lockups
+Date: Wed, 13 May 2026 19:39:49 +0800
+Message-Id: <20260513113949.356537-1-w15303746062@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <b98e1013-25ae-44e1-8905-88f104cc0608@suse.de>
+References: <b98e1013-25ae-44e1-8905-88f104cc0608@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e2135cf9603a1kunm47f9c4fb6587c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQ0pNVklMTksdS0tNSkhMHVYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSklVSktVSUlIVUpJTFlXWRYaDxIVHRRZQVlLVUtVS1VLWQ
- Y+
-DKIM-Signature: a=rsa-sha256;
- b=l65gntyRAbfrjpZsAnTZmep7Yla+HAobTstcsS2Iu0zzceCC5StCYR3ci5iCFLATIleyfvTQQfXErjCI8qs0gEsZ2vuHE8rGkp112cFPnabLlj7RtrETXFPy6OtWtrGjd+/LehALrR9nuAQu8tx4PBk5J0DordEBIpJSesyjO4c=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=Xa0d+UNBMZwuB0ZCYSY8W+dd2tOK9S8K+AuU2bmHfsw=;
- h=date:mime-version:subject:message-id:from;
+X-CM-TRANSID: PSgvCgDHgPwHYwRqq7GCEQ--.37431S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCFWfZryfuF4DtryUKw4kZwb_yoWrZr4Upa
+ y5KrZ5Kr4qq3W3trZ7Aa1DZa4rXa1FqayUGasrKwnavr98G3W5Xrn5tFWjkFy7G3y29ry2
+ q3ZxtFyjkF1jyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jeSoXUUUUU=
+X-Originating-IP: [113.200.174.100]
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC5A93W2oEYw8YAQAA3c
 X-Mailman-Approved-At: Wed, 13 May 2026 20:57:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,46 +63,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-omapdrm_init() unwinds drm_vblank_init() and drm_dev_register()
-failures through omap_modeset_fini() and then falls through to
-err_gem_deinit, which calls drm_mode_config_cleanup() again.
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-omapdrm_cleanup() has the same problem during the normal teardown path:
-it calls omap_modeset_fini() and then calls drm_mode_config_cleanup()
-again afterwards.
+While validating the driver using DevGen (a framework that synthesizes
+virtual device models directly from driver source code via LLM guidance),
+a severe soft lockup was observed.
 
-omap_modeset_fini() should only undo omap_modeset_init(). The
-drm_mode_config_init()/drm_mode_config_cleanup() pairing already lives
-in the top-level init and cleanup paths, so keeping another
-drm_mode_config_cleanup() inside omap_modeset_fini() causes repeated
-cleanup of the same mode_config state.
+The hardware polling loops in `__ast_mindwm`, `__ast_moutdwm`, and
+`ast_2500_patch_ahb` lack a timeout mechanism. On bare-metal systems,
+if the ASPEED chip becomes unresponsive or a PCIe bus fault occurs,
+the CPU will spin indefinitely in these loops. This results in a system
+hang, triggering the watchdog soft lockup and causing subsequent I/O
+starvation (e.g., blocking jbd2).
 
-Remove drm_mode_config_cleanup() from omap_modeset_fini() so each path
-cleans mode_config exactly once.
+Fix this by introducing a bounded loop with a safe timeout of
+approximately 100ms using `udelay(10)`. Using `udelay()` ensures
+that the fix remains safe even if these accessors are called from
+an atomic context or while holding spinlocks. If the hardware fails
+to respond, the loop breaks and emits a `WARN_ONCE`, allowing the
+kernel to degrade gracefully and preventing complete system paralysis.
 
-Fixes: 2f95bc6d324a ("drm: omapdrm: Perform initialization/cleanup at probe/remove time")
-Issue found using a prototype static analysis tool
-and confirmed by code review.
-
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-Signed-off-by: Slavin Liu <220245772@seu.edu.cn>
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 ---
- drivers/gpu/drm/omapdrm/omap_drv.c | 2 --
- 1 file changed, 2 deletions(-)
+Hi Thomas,
 
-diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
-index bf0bad8c8cf1..838a1a236160 100644
---- a/drivers/gpu/drm/omapdrm/omap_drv.c
-+++ b/drivers/gpu/drm/omapdrm/omap_drv.c
-@@ -538,8 +538,6 @@ static int omap_modeset_init(struct drm_device *dev)
- static void omap_modeset_fini(struct drm_device *ddev)
+Thanks for the prompt response and confirmation!
+
+Instead of just waiting for threshold suggestions, I have drafted this 
+patch to address the soft lockup. Since changing the return types of 
+`__ast_mindwm` and `__ast_moutdwm` to propagate error codes (e.g., 
+`-ETIMEDOUT`) would require an intrusive refactoring across the entire 
+AST driver, I took a more defensive, minimal-invasive approach.
+
+To avoid the risk of sleeping in an atomic context (in case these 
+low-level I/O accessors are ever called under a spinlock), I used 
+a bounded loop with `udelay(10)` and a maximum of 10000 iterations 
+(approx. 100ms total timeout). If the ASPEED hardware completely 
+fails to respond, it breaks the infinite loop, emits a `WARN_ONCE`, 
+and prevents the CPU from halting the entire system.
+
+Please let me know if you think the 100ms threshold and the `udelay` 
+approach are appropriate for this specific AHB/SCU hardware sequence.
+
+ drivers/gpu/drm/ast/ast_2500.c |  8 +++++++-
+ drivers/gpu/drm/ast/ast_post.c | 16 ++++++++++++++--
+ 2 files changed, 21 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/ast/ast_2500.c b/drivers/gpu/drm/ast/ast_2500.c
+index 2a52af0ded56..08d18f90201a 100644
+--- a/drivers/gpu/drm/ast/ast_2500.c
++++ b/drivers/gpu/drm/ast/ast_2500.c
+@@ -107,6 +107,7 @@ static const u32 ast2500_ddr4_1600_timing_table[REGTBL_NUM] = {
+ void ast_2500_patch_ahb(void __iomem *regs)
  {
- 	omap_drm_irq_uninstall(ddev);
--
--	drm_mode_config_cleanup(ddev);
- }
+ 	u32 data;
++	int retries = 10000; /* ~100ms timeout */
  
- /*
+ 	/* Clear bus lock condition */
+ 	__ast_moutdwm(regs, 0x1e600000, 0xAEED1A03);
+@@ -136,7 +137,12 @@ void ast_2500_patch_ahb(void __iomem *regs)
+ 	do {
+ 		__ast_moutdwm(regs, 0x1e6e2000, 0x1688A8A8);
+ 		data = __ast_mindwm(regs, 0x1e6e2000);
+-	} while (data != 1);
++		if (data == 1)
++			break;
++		udelay(10);
++	} while (--retries);
++
++	WARN_ONCE(!retries, "ast: timeout waiting for AHB patch\n");
+ 
+ 	__ast_moutdwm(regs, 0x1e6e207c, 0x08000000); /* clear fast reset */
+ }
+diff --git a/drivers/gpu/drm/ast/ast_post.c b/drivers/gpu/drm/ast/ast_post.c
+index b72914dbed38..66eb80925e27 100644
+--- a/drivers/gpu/drm/ast/ast_post.c
++++ b/drivers/gpu/drm/ast/ast_post.c
+@@ -37,13 +37,19 @@
+ u32 __ast_mindwm(void __iomem *regs, u32 r)
+ {
+ 	u32 data;
++	int retries = 10000; /* ~100ms timeout */
+ 
+ 	__ast_write32(regs, 0xf004, r & 0xffff0000);
+ 	__ast_write32(regs, 0xf000, 0x1);
+ 
+ 	do {
+ 		data = __ast_read32(regs, 0xf004) & 0xffff0000;
+-	} while (data != (r & 0xffff0000));
++		if (data == (r & 0xffff0000))
++			break;
++		udelay(10);
++	} while (--retries);
++
++	WARN_ONCE(!retries, "ast: timeout reading from AHB/SCU\n");
+ 
+ 	return __ast_read32(regs, 0x10000 + (r & 0x0000ffff));
+ }
+@@ -51,13 +57,19 @@ u32 __ast_mindwm(void __iomem *regs, u32 r)
+ void __ast_moutdwm(void __iomem *regs, u32 r, u32 v)
+ {
+ 	u32 data;
++	int retries = 10000; /* ~100ms timeout */
+ 
+ 	__ast_write32(regs, 0xf004, r & 0xffff0000);
+ 	__ast_write32(regs, 0xf000, 0x1);
+ 
+ 	do {
+ 		data = __ast_read32(regs, 0xf004) & 0xffff0000;
+-	} while (data != (r & 0xffff0000));
++		if (data == (r & 0xffff0000))
++			break;
++		udelay(10);
++	} while (--retries);
++
++	WARN_ONCE(!retries, "ast: timeout writing to AHB/SCU\n");
+ 
+ 	__ast_write32(regs, 0x10000 + (r & 0x0000ffff), v);
+ }
 -- 
-2.50.1.windows.1
+2.34.1
 
