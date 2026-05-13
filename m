@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56950CD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:21:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 875C9CD37AC
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:24:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B849010ED2C;
-	Wed, 13 May 2026 19:21:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E610910F01F;
+	Wed, 13 May 2026 19:24:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.b="ron3m7lL";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="i5WzK42O";
+	dkim=pass (2048-bit key; unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.b="tSF/mCi0";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="Rj7pRxqP";
 	dkim-atps=neutral
-Received: from fout-a8-smtp.messagingengine.com
- (fout-a8-smtp.messagingengine.com [103.168.172.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A80AE10F01F
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 19:21:07 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfout.phl.internal (Postfix) with ESMTP id 378D9EC00D7;
- Wed, 13 May 2026 15:11:50 -0400 (EDT)
+Received: from fout-a1-smtp.messagingengine.com
+ (fout-a1-smtp.messagingengine.com [103.168.172.144])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A141310E284
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 19:24:48 +0000 (UTC)
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+ by mailfout.phl.internal (Postfix) with ESMTP id 0AFBFEC012D;
+ Wed, 13 May 2026 15:24:48 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Wed, 13 May 2026 15:11:50 -0400
+ by phl-compute-11.internal (MEProxy); Wed, 13 May 2026 15:24:48 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
  cc:cc:content-transfer-encoding:content-type:content-type:date
  :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1778699510;
- x=1778785910; bh=IMiTolzI/z84pa6E563G2cQo6bO9Q+x/ya5iPnM63iU=; b=
- ron3m7lLO4wF5u+0kYddL6j1mJmPJtsnv8Icv6T64E1ZA/kDx2crRbz9UC2MGBIR
- XecVvo+ltsjwyLiWlnTlpGUGoOnlkG2/wid8Jiix0A374kodKwU14/yPKUvOCK4R
- d0ACRnc3Yus0rAtUziwXtrpo7JWP9FBGFUyDYtqniL4EwHNj+knAjNpGXmzR1pZO
- gEpCk8FA9iu9IWJNzMMAa2vLoZdSNg/LyODNxBQMlgHrMKyKZ3oHTKK7WdhZyHa5
- iHxlr27lgfpEuvTr+ehtukM0Wn08nL6fs6I0jmBZwrF1GXOUJMA2xorYvB4YjSTy
- D+IwPwaj/LTCMR18gG6bhg==
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1778700288;
+ x=1778786688; bh=EyyxCJdYkagema2fQ27LfIFrsHe01PeuwInIxPvtBRQ=; b=
+ tSF/mCi0XMOOm0WRf2iPDb4GHqnNs54p+rTO4bmnVsB8FMh2HurseJM1KKO+AkQ0
+ 2yovAUh2MNomF2tDUM3cdp5QJL2al7Ua6U+Uau1Hxbo8pUYd3hq3a+BM5am+eEt0
+ 2hZpn9lbDriX3wNz2J2cLTp4mcD++UHTWyxjc9died9gReJ+Uqx+ox13RfPEde5a
+ 7FmGu02l4RUIgs/nsFzGLzq6VloRouSEGV7BreZU6V+8zLqkkpYUbU3wNigFAXOy
+ o9+Q4nUWHoNokWpDkvF4p/TzPG2UVNLVYBzVvqO5lcC6sfc7Fr0ys8mz0NhtB+QT
+ m/7FK16gfYyZ9y2JtrVzzQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:content-type:date:date:feedback-id:feedback-id
  :from:from:in-reply-to:in-reply-to:message-id:mime-version
  :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1778699510; x=
- 1778785910; bh=IMiTolzI/z84pa6E563G2cQo6bO9Q+x/ya5iPnM63iU=; b=i
- 5WzK42OpzeRFjBXLOfh6BXtaCGX8cH9qoRdC6L6L4vbgoDtpt7Ln2cl8POK+7/v3
- TGLeLsMLftk8ctJNR2yBnnTVpmTqAaRoLOOsu8J3Cq52W61IgwrPIxHMWd/DApfx
- mFpUZnwnrE3XSe1EoUP4anuKkjGTZu2p0HEMN/KI6MEpBfrYJoRMy2JWIievNV9+
- x0dM/r0YzuLrsreZAhYv3DUUxwqBGblE128bpRjC1g2QfPiRZpLtCLy21AYPAWOU
- NwfmSJcBjnATyYZe9WrRfz3uZzP7AiFTAfCc97MKv0U6vDVgSKU2Nr9T1w7dZyM3
- hyNcOnqm3JG5G+k9cB24Q==
-X-ME-Sender: <xms:9cwEaspxsYnqeavZlOTl6bnkp_ml0uQ6CSQxJP_4DVzI3KlumiAwyw>
- <xme:9cwEavPVzJZAHrnPyEPTobJ60TesctgAWrsFnQxYgRA2uNqgJHMcg1UP4obJTsadc
- G2NLNfeN90sEqwS2YHnvW5-oiI3oZMQAeUBQuQ9n6Ix1QkUIrODWhU>
-X-ME-Received: <xmr:9cwEalqjGad4RdOOfblTEsC3N6I8xJvJ6lRP0431UN-mWpIIk63ZIwMb-V65guzpTZF7n1sH24_ilQnABKgm7w_f7B4ISbuuPUeR>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduvdehgeeiucetufdoteggodetrf
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1778700288; x=
+ 1778786688; bh=EyyxCJdYkagema2fQ27LfIFrsHe01PeuwInIxPvtBRQ=; b=R
+ j7pRxqPZtblpB+K15R3FWmxjAFSgRZ5kNb+XvDWi6k9DSu4SecTSmAzNgygYu8HI
+ yC56Ju1+lK9yE81JbUK21qOwg/VFQI0xTDAD4EUKDFLAaIafR7SaALdem8NamnOU
+ 1XpxddQMfC+KkVQ2DAr40BJq3U8fZpZ680858Ubi5f+t3XwN/3O0MOUIlaGi5OjS
+ 0eTVL0hhuKm/Np9RpJsWticcmNragzMfuUjCG3m0k1n3gETynrBXAlBQZmo90ypJ
+ /VQBz06RfgqWuZ9NbCe73iYtKteySBuFaXtJRFavWIA/C3cNng8Mfj031TWnYaSt
+ RwcgfRBB9GVcGwCT8ijVQ==
+X-ME-Sender: <xms:_88EanCgCLPmLqhhaMwdrQJ1C0WyCMiefyOrafKObZ8pkky9SpioNw>
+ <xme:_88EaqHW3HlKmYcfLVRnXFnc5bbvG9f0tx3AZhJcA2FXNK5q5QKkIExxga_e4OBMq
+ n_SQvI1BlbCez1uYfsfZYD-YpaGfTZKypn-b6gKhWmuPz4RjVdzAhc>
+X-ME-Received: <xmr:_88EanBB7jm8wdLOlSUg6KntOoq6RgJOtlVe9rPw2CstCsk01In1vS4PmN63ExI7qocbkDuW7xMPmVQlmiPujurQs-7icYO8Ga3d>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduvdehgeekucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
  gurhepfffhvfevuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefpihhklhgr
@@ -69,15 +69,15 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduvdehgeeiucetufdote
  thhopegsihhjuhdruggrshdrjhiisegsphdrrhgvnhgvshgrshdrtghomhdprhgtphhtth
  hopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehf
  fhiflhhlrdgthh
-X-ME-Proxy: <xmx:9swEaqtqGgIaT7q_YDsKyUiGZtAKt3A3YqCOmkHETGlT7PzT-uZi9g>
- <xmx:9swEas3k1pyH-74rWcluYmPILsjMJbKhASJKOgFm-dtpmGtxmWoF-A>
- <xmx:9swEatEQDmU8A8F-iB3xeUeNH2Afp2MEqo0uespSvISwlPli34Tk1A>
- <xmx:9swEavtXhfz2zApUlgLlC9vGsJUkyhjHyvU668lcpYMdfcTF7NIJhw>
- <xmx:9swEapy-4W8srdo3CMmOuGM-c62WAfp-jidf_PRxSIaaqKWAngyuBLfc>
+X-ME-Proxy: <xmx:_88Eagl-8Vw6R0fBRGp9qMrVvl1ZqiTpEefxUXNSe8vLRbbDbq_mXg>
+ <xmx:_88EatOXeOQMUo6S-Ny4zhot-B_N4qwoXCzViARgLmZU_Lfrg4Fzag>
+ <xmx:_88Eal-uRmkyyoBRfcmQy00MJwPn7stetYRANDtggN11_0yF7z942A>
+ <xmx:_88EanEBFgk-rY8iWeynjarNRz6ntPcnoe9X34PrWc-kSLuSaoo_FA>
+ <xmx:ANAEagojRKO67q9O1gxHA0tusU_Zoo8bkHJRlMX_Np9sPaShtQiTNtN1>
 Feedback-ID: i80c9496c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 13 May 2026 15:11:49 -0400 (EDT)
-Date: Wed, 13 May 2026 21:11:48 +0200
+ 13 May 2026 15:24:47 -0400 (EDT)
+Date: Wed, 13 May 2026 21:24:46 +0200
 From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
 To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -86,15 +86,15 @@ Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Kieran Bingham <kieran.bingham@ideasonboard.com>,
  Biju Das <biju.das.jz@bp.renesas.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH 02/11] media: renesas: vsp1: Split vsp1_du_setup_lif()
-Message-ID: <20260513191148.GE332351@ragnatech.se>
+Subject: Re: [PATCH 06/11] media: renesas: vsp1: Use mutex scoped guards
+Message-ID: <20260513192446.GI332351@ragnatech.se>
 References: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260511235637.3468558-3-laurent.pinchart+renesas@ideasonboard.com>
+ <20260511235637.3468558-7-laurent.pinchart+renesas@ideasonboard.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260511235637.3468558-3-laurent.pinchart+renesas@ideasonboard.com>
+In-Reply-To: <20260511235637.3468558-7-laurent.pinchart+renesas@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,243 +112,361 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Laurent,
 
-Thanks for your cleanup!
+Thanks for your work.
 
-On 2026-05-12 02:56:26 +0300, Laurent Pinchart wrote:
-> The vsp1_du_setup_lif() function is used to configure and enable a
-> pipeline, as well as disable it, depending on the cfg argument being a
-> valid pointer or NULL. This creates a confusing API. Improve it by
-> splitting the function in two, a vsp1_du_enable() function to configure
-> a pipeline, and a vsp1_du_disable() function to disaple it.
-> 
-> Keep vsp1_du_setup_lif() as an inline wrapper for existing callers in
-> the DRM subsystem, to simplify merging. The callers will be updated
-> separately and the old API will then be removed.
+On 2026-05-12 02:56:30 +0300, Laurent Pinchart wrote:
+> Replace remaining manual mutex locking and unlocking with scoped
+> guards. This simplifies error paths and reduces the amount of code.
 > 
 > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
 Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
 > ---
->  .../media/platform/renesas/vsp1/vsp1_drm.c    | 140 ++++++++++--------
->  include/media/vsp1.h                          |  14 +-
->  2 files changed, 91 insertions(+), 63 deletions(-)
+>  .../media/platform/renesas/vsp1/vsp1_brx.c    |   7 +-
+>  .../media/platform/renesas/vsp1/vsp1_drm.c    | 117 ++++++++----------
+>  .../media/platform/renesas/vsp1/vsp1_entity.c |   8 +-
+>  .../media/platform/renesas/vsp1/vsp1_hgo.c    |  10 +-
+>  .../media/platform/renesas/vsp1/vsp1_hgt.c    |  16 +--
+>  .../media/platform/renesas/vsp1/vsp1_video.c  |  60 ++++-----
+>  6 files changed, 102 insertions(+), 116 deletions(-)
 > 
+> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_brx.c b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
+> index bd2672341386..325be30836d7 100644
+> --- a/drivers/media/platform/renesas/vsp1/vsp1_brx.c
+> +++ b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
+> @@ -190,9 +190,10 @@ static int brx_get_selection(struct v4l2_subdev *subdev,
+>  		if (!state)
+>  			return -EINVAL;
+>  
+> -		mutex_lock(&brx->entity.lock);
+> -		sel->r = *v4l2_subdev_state_get_compose(state, sel->pad);
+> -		mutex_unlock(&brx->entity.lock);
+> +		scoped_guard(mutex, &brx->entity.lock) {
+> +			sel->r = *v4l2_subdev_state_get_compose(state, sel->pad);
+> +		}
+> +
+>  		return 0;
+>  
+>  	default:
 > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drm.c b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-> index 79b85968b061..1f431874064d 100644
+> index 1439cf7bfb59..2b64d9b5a81c 100644
 > --- a/drivers/media/platform/renesas/vsp1/vsp1_drm.c
 > +++ b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-> @@ -629,14 +629,14 @@ int vsp1_du_init(struct device *dev)
->  EXPORT_SYMBOL_GPL(vsp1_du_init);
+> @@ -675,43 +675,37 @@ int vsp1_du_enable(struct device *dev, unsigned int pipe_index,
+>  		__func__, pipe_index, cfg->width, cfg->height,
+>  		pipe->interlaced ? "i" : "");
 >  
->  /**
-> - * vsp1_du_setup_lif - Setup the output part of the VSP pipeline
-> + * vsp1_du_enable - Setup and enable a DU pipeline
->   * @dev: the VSP device
->   * @pipe_index: the DRM pipeline index
->   * @cfg: the LIF configuration
->   *
->   * Configure the output part of VSP DRM pipeline for the given frame @cfg.width
->   * and @cfg.height. This sets up formats on the BRx source pad, the WPF sink and
-> - * source pads, and the LIF sink pad.
-> + * source pads, and the LIF sink pad, and then starts the pipeline.
->   *
->   * The @pipe_index argument selects which DRM pipeline to setup. The number of
->   * available pipelines depend on the VSP instance.
-> @@ -649,14 +649,13 @@ EXPORT_SYMBOL_GPL(vsp1_du_init);
->   *
->   * Return 0 on success or a negative error code on failure.
->   */
-> -int vsp1_du_setup_lif(struct device *dev, unsigned int pipe_index,
-> -		      const struct vsp1_du_lif_config *cfg)
-> +int vsp1_du_enable(struct device *dev, unsigned int pipe_index,
-> +		   const struct vsp1_du_lif_config *cfg)
->  {
+> -	mutex_lock(&vsp1->drm->lock);
+> +	scoped_guard(mutex, &vsp1->drm->lock) {
+> +		/* Setup formats through the pipeline. */
+> +		ret = vsp1_du_pipeline_setup_inputs(vsp1, pipe);
+> +		if (ret < 0)
+> +			return ret;
+>  
+> -	/* Setup formats through the pipeline. */
+> -	ret = vsp1_du_pipeline_setup_inputs(vsp1, pipe);
+> -	if (ret < 0)
+> -		goto unlock;
+> +		ret = vsp1_du_pipeline_setup_output(vsp1, pipe);
+> +		if (ret < 0)
+> +			return ret;
+>  
+> -	ret = vsp1_du_pipeline_setup_output(vsp1, pipe);
+> -	if (ret < 0)
+> -		goto unlock;
+> +		vsp1_pipeline_dump(pipe, "DU enable");
+>  
+> -	vsp1_pipeline_dump(pipe, "DU enable");
+> +		/* Enable the VSP1. */
+> +		ret = vsp1_device_get(vsp1);
+> +		if (ret < 0)
+> +			return ret;
+>  
+> -	/* Enable the VSP1. */
+> -	ret = vsp1_device_get(vsp1);
+> -	if (ret < 0)
+> -		goto unlock;
+> +		/*
+> +		 * Register a callback to allow us to notify the DRM driver of frame
+> +		 * completion events.
+> +		 */
+> +		drm_pipe->du_complete = cfg->callback;
+> +		drm_pipe->du_private = cfg->callback_data;
+>  
+> -	/*
+> -	 * Register a callback to allow us to notify the DRM driver of frame
+> -	 * completion events.
+> -	 */
+> -	drm_pipe->du_complete = cfg->callback;
+> -	drm_pipe->du_private = cfg->callback_data;
+> +		/* Disable the display interrupts. */
+> +		vsp1_write(vsp1, VI6_DISP_IRQ_STA(pipe_index), 0);
+> +		vsp1_write(vsp1, VI6_DISP_IRQ_ENB(pipe_index), 0);
+>  
+> -	/* Disable the display interrupts. */
+> -	vsp1_write(vsp1, VI6_DISP_IRQ_STA(pipe_index), 0);
+> -	vsp1_write(vsp1, VI6_DISP_IRQ_ENB(pipe_index), 0);
+> -
+> -	/* Configure all entities in the pipeline. */
+> -	vsp1_du_pipeline_configure(pipe);
+> -
+> -unlock:
+> -	mutex_unlock(&vsp1->drm->lock);
+> -
+> -	if (ret < 0)
+> -		return ret;
+> +		/* Configure all entities in the pipeline. */
+> +		vsp1_du_pipeline_configure(pipe);
+> +	}
+>  
+>  	/* Start the pipeline. */
+>  	spin_lock_irqsave(&pipe->irqlock, flags);
+> @@ -739,7 +733,6 @@ int vsp1_du_disable(struct device *dev, unsigned int pipe_index)
 >  	struct vsp1_device *vsp1 = dev_get_drvdata(dev);
 >  	struct vsp1_drm_pipeline *drm_pipe;
 >  	struct vsp1_pipeline *pipe;
->  	unsigned long flags;
-> -	unsigned int i;
+> -	struct vsp1_brx *brx;
+>  	unsigned int i;
 >  	int ret;
 >  
->  	if (pipe_index >= vsp1->info->lif_count)
-> @@ -665,60 +664,6 @@ int vsp1_du_setup_lif(struct device *dev, unsigned int pipe_index,
+> @@ -749,45 +742,43 @@ int vsp1_du_disable(struct device *dev, unsigned int pipe_index)
 >  	drm_pipe = &vsp1->drm->pipe[pipe_index];
 >  	pipe = &drm_pipe->pipe;
 >  
-> -	if (!cfg) {
-> -		struct vsp1_brx *brx;
-> -
-> -		mutex_lock(&vsp1->drm->lock);
-> -
-> -		brx = to_brx(&pipe->brx->subdev);
-> -
+> -	mutex_lock(&vsp1->drm->lock);
+> +	scoped_guard(mutex, &vsp1->drm->lock) {
+> +		struct vsp1_brx *brx = to_brx(&pipe->brx->subdev);
+>  
+> -	brx = to_brx(&pipe->brx->subdev);
+> +		ret = vsp1_pipeline_stop(pipe);
+> +		if (ret == -ETIMEDOUT)
+> +			dev_err(vsp1->dev, "DRM pipeline stop timeout\n");
+>  
+> -	ret = vsp1_pipeline_stop(pipe);
+> -	if (ret == -ETIMEDOUT)
+> -		dev_err(vsp1->dev, "DRM pipeline stop timeout\n");
+> +		for (i = 0; i < ARRAY_SIZE(pipe->inputs); ++i) {
+> +			struct vsp1_rwpf *rpf = pipe->inputs[i];
+>  
+> -	for (i = 0; i < ARRAY_SIZE(pipe->inputs); ++i) {
+> -		struct vsp1_rwpf *rpf = pipe->inputs[i];
+> +			if (!rpf)
+> +				continue;
+>  
+> -		if (!rpf)
+> -			continue;
+> +			/*
+> +			 * Remove the RPF from the pipe and the list of BRx
+> +			 * inputs.
+> +			 */
+> +			WARN_ON(!rpf->entity.pipe);
+> +			rpf->entity.pipe = NULL;
+> +			list_del(&rpf->entity.list_pipe);
+> +			pipe->inputs[i] = NULL;
+>  
 > -		/*
-> -		 * NULL configuration means the CRTC is being disabled, stop
-> -		 * the pipeline and turn the light off.
+> -		 * Remove the RPF from the pipe and the list of BRx
+> -		 * inputs.
 > -		 */
-> -		ret = vsp1_pipeline_stop(pipe);
-> -		if (ret == -ETIMEDOUT)
-> -			dev_err(vsp1->dev, "DRM pipeline stop timeout\n");
-> -
-> -		for (i = 0; i < ARRAY_SIZE(pipe->inputs); ++i) {
-> -			struct vsp1_rwpf *rpf = pipe->inputs[i];
-> -
-> -			if (!rpf)
-> -				continue;
-> -
-> -			/*
-> -			 * Remove the RPF from the pipe and the list of BRx
-> -			 * inputs.
-> -			 */
-> -			WARN_ON(!rpf->entity.pipe);
-> -			rpf->entity.pipe = NULL;
-> -			list_del(&rpf->entity.list_pipe);
-> -			pipe->inputs[i] = NULL;
-> -
-> -			brx->inputs[rpf->brx_input].rpf = NULL;
-> -		}
-> -
-> -		drm_pipe->du_complete = NULL;
-> -		pipe->num_inputs = 0;
-> -
-> -		dev_dbg(vsp1->dev, "%s: pipe %u: releasing %s\n",
-> -			__func__, pipe->lif->index,
-> -			BRX_NAME(pipe->brx));
-> -
-> -		list_del(&pipe->brx->list_pipe);
-> -		pipe->brx->pipe = NULL;
-> -		pipe->brx = NULL;
-> -
-> -		mutex_unlock(&vsp1->drm->lock);
-> -
-> -		vsp1_dlm_reset(pipe->output->dlm);
-> -		vsp1_device_put(vsp1);
-> -
-> -		dev_dbg(vsp1->dev, "%s: pipeline disabled\n", __func__);
-> -
-> -		return 0;
-> -	}
-> -
->  	/* Reset the underrun counter */
->  	pipe->underrun_count = 0;
+> -		WARN_ON(!rpf->entity.pipe);
+> -		rpf->entity.pipe = NULL;
+> -		list_del(&rpf->entity.list_pipe);
+> -		pipe->inputs[i] = NULL;
+> +			brx->inputs[rpf->brx_input].rpf = NULL;
+> +		}
 >  
-> @@ -741,7 +686,7 @@ int vsp1_du_setup_lif(struct device *dev, unsigned int pipe_index,
->  	if (ret < 0)
->  		goto unlock;
+> -		brx->inputs[rpf->brx_input].rpf = NULL;
+> +		drm_pipe->du_complete = NULL;
+> +		pipe->num_inputs = 0;
+> +
+> +		dev_dbg(vsp1->dev, "%s: pipe %u: releasing %s\n",
+> +			__func__, pipe->lif->index,
+> +			BRX_NAME(pipe->brx));
+> +
+> +		list_del(&pipe->brx->list_pipe);
+> +		pipe->brx->pipe = NULL;
+> +		pipe->brx = NULL;
+>  	}
 >  
-> -	vsp1_pipeline_dump(pipe, "LIF setup");
-> +	vsp1_pipeline_dump(pipe, "DU enable");
+> -	drm_pipe->du_complete = NULL;
+> -	pipe->num_inputs = 0;
+> -
+> -	dev_dbg(vsp1->dev, "%s: pipe %u: releasing %s\n",
+> -		__func__, pipe->lif->index,
+> -		BRX_NAME(pipe->brx));
+> -
+> -	list_del(&pipe->brx->list_pipe);
+> -	pipe->brx->pipe = NULL;
+> -	pipe->brx = NULL;
+> -
+> -	mutex_unlock(&vsp1->drm->lock);
+> -
+>  	vsp1_dlm_reset(pipe->output->dlm);
+>  	vsp1_device_put(vsp1);
 >  
->  	/* Enable the VSP1. */
->  	ret = vsp1_device_get(vsp1);
-> @@ -777,7 +722,80 @@ int vsp1_du_setup_lif(struct device *dev, unsigned int pipe_index,
+> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_entity.c b/drivers/media/platform/renesas/vsp1/vsp1_entity.c
+> index 3820ba53b45f..2ae2a573f0de 100644
+> --- a/drivers/media/platform/renesas/vsp1/vsp1_entity.c
+> +++ b/drivers/media/platform/renesas/vsp1/vsp1_entity.c
+> @@ -216,10 +216,10 @@ int vsp1_subdev_enum_mbus_code(struct v4l2_subdev *subdev,
+>  		if (!state)
+>  			return -EINVAL;
+>  
+> -		mutex_lock(&entity->lock);
+> -		format = v4l2_subdev_state_get_format(state, 0);
+> -		code->code = format->code;
+> -		mutex_unlock(&entity->lock);
+> +		scoped_guard(mutex, &entity->lock) {
+> +			format = v4l2_subdev_state_get_format(state, 0);
+> +			code->code = format->code;
+> +		}
+>  	}
 >  
 >  	return 0;
->  }
-> -EXPORT_SYMBOL_GPL(vsp1_du_setup_lif);
-> +EXPORT_SYMBOL_GPL(vsp1_du_enable);
-> +
-> +/**
-> + * vsp1_du_disable - Disable and stop a DU pipeline
-> + * @dev: the VSP device
-> + * @pipe_index: the DRM pipeline index
-> + *
-> + * The @pipe_index argument selects which DRM pipeline to disable. The number
-> + * of available pipelines depend on the VSP instance.
-> + *
-> + * Return 0 on success or a negative error code on failure.
-> + */
-> +int vsp1_du_disable(struct device *dev, unsigned int pipe_index)
-> +{
-> +	struct vsp1_device *vsp1 = dev_get_drvdata(dev);
-> +	struct vsp1_drm_pipeline *drm_pipe;
-> +	struct vsp1_pipeline *pipe;
-> +	struct vsp1_brx *brx;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (pipe_index >= vsp1->info->lif_count)
-> +		return -EINVAL;
-> +
-> +	drm_pipe = &vsp1->drm->pipe[pipe_index];
-> +	pipe = &drm_pipe->pipe;
-> +
-> +	mutex_lock(&vsp1->drm->lock);
-> +
-> +	brx = to_brx(&pipe->brx->subdev);
-> +
-> +	ret = vsp1_pipeline_stop(pipe);
-> +	if (ret == -ETIMEDOUT)
-> +		dev_err(vsp1->dev, "DRM pipeline stop timeout\n");
-> +
-> +	for (i = 0; i < ARRAY_SIZE(pipe->inputs); ++i) {
-> +		struct vsp1_rwpf *rpf = pipe->inputs[i];
-> +
-> +		if (!rpf)
-> +			continue;
-> +
-> +		/*
-> +		 * Remove the RPF from the pipe and the list of BRx
-> +		 * inputs.
-> +		 */
-> +		WARN_ON(!rpf->entity.pipe);
-> +		rpf->entity.pipe = NULL;
-> +		list_del(&rpf->entity.list_pipe);
-> +		pipe->inputs[i] = NULL;
-> +
-> +		brx->inputs[rpf->brx_input].rpf = NULL;
+> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_hgo.c b/drivers/media/platform/renesas/vsp1/vsp1_hgo.c
+> index 2c8ce7175a4e..0ef512e3a94b 100644
+> --- a/drivers/media/platform/renesas/vsp1/vsp1_hgo.c
+> +++ b/drivers/media/platform/renesas/vsp1/vsp1_hgo.c
+> @@ -153,11 +153,11 @@ static void hgo_configure_stream(struct vsp1_entity *entity,
+>  		       (crop->width << VI6_HGO_SIZE_HSIZE_SHIFT) |
+>  		       (crop->height << VI6_HGO_SIZE_VSIZE_SHIFT));
+>  
+> -	mutex_lock(hgo->ctrls.handler.lock);
+> -	hgo->max_rgb = hgo->ctrls.max_rgb->cur.val;
+> -	if (hgo->ctrls.num_bins)
+> -		hgo->num_bins = hgo_num_bins[hgo->ctrls.num_bins->cur.val];
+> -	mutex_unlock(hgo->ctrls.handler.lock);
+> +	scoped_guard(mutex, hgo->ctrls.handler.lock) {
+> +		hgo->max_rgb = hgo->ctrls.max_rgb->cur.val;
+> +		if (hgo->ctrls.num_bins)
+> +			hgo->num_bins = hgo_num_bins[hgo->ctrls.num_bins->cur.val];
 > +	}
-> +
-> +	drm_pipe->du_complete = NULL;
-> +	pipe->num_inputs = 0;
-> +
-> +	dev_dbg(vsp1->dev, "%s: pipe %u: releasing %s\n",
-> +		__func__, pipe->lif->index,
-> +		BRX_NAME(pipe->brx));
-> +
-> +	list_del(&pipe->brx->list_pipe);
-> +	pipe->brx->pipe = NULL;
-> +	pipe->brx = NULL;
-> +
-> +	mutex_unlock(&vsp1->drm->lock);
-> +
-> +	vsp1_dlm_reset(pipe->output->dlm);
-> +	vsp1_device_put(vsp1);
-> +
-> +	dev_dbg(vsp1->dev, "%s: pipeline disabled\n", __func__);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(vsp1_du_disable);
 >  
->  /**
->   * vsp1_du_atomic_begin - Prepare for an atomic update
-> diff --git a/include/media/vsp1.h b/include/media/vsp1.h
-> index d9b91ff02761..d2085cdb7fcb 100644
-> --- a/include/media/vsp1.h
-> +++ b/include/media/vsp1.h
-> @@ -44,8 +44,18 @@ struct vsp1_du_lif_config {
->  	void *callback_data;
->  };
+>  	hratio = crop->width * 2 / compose->width / 3;
+>  	vratio = crop->height * 2 / compose->height / 3;
+> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_hgt.c b/drivers/media/platform/renesas/vsp1/vsp1_hgt.c
+> index 858f330d44fa..78b5a9201c70 100644
+> --- a/drivers/media/platform/renesas/vsp1/vsp1_hgt.c
+> +++ b/drivers/media/platform/renesas/vsp1/vsp1_hgt.c
+> @@ -152,15 +152,15 @@ static void hgt_configure_stream(struct vsp1_entity *entity,
+>  		       (crop->width << VI6_HGT_SIZE_HSIZE_SHIFT) |
+>  		       (crop->height << VI6_HGT_SIZE_VSIZE_SHIFT));
 >  
-> -int vsp1_du_setup_lif(struct device *dev, unsigned int pipe_index,
-> -		      const struct vsp1_du_lif_config *cfg);
-> +int vsp1_du_enable(struct device *dev, unsigned int pipe_index,
-> +		   const struct vsp1_du_lif_config *cfg);
-> +int vsp1_du_disable(struct device *dev, unsigned int pipe_index);
+> -	mutex_lock(hgt->ctrls.lock);
+> -	for (i = 0; i < HGT_NUM_HUE_AREAS; ++i) {
+> -		lower = hgt->hue_areas[i*2 + 0];
+> -		upper = hgt->hue_areas[i*2 + 1];
+> -		vsp1_hgt_write(hgt, dlb, VI6_HGT_HUE_AREA(i),
+> -			       (lower << VI6_HGT_HUE_AREA_LOWER_SHIFT) |
+> -			       (upper << VI6_HGT_HUE_AREA_UPPER_SHIFT));
+> +	scoped_guard(mutex, hgt->ctrls.lock) {
+> +		for (i = 0; i < HGT_NUM_HUE_AREAS; ++i) {
+> +			lower = hgt->hue_areas[i*2 + 0];
+> +			upper = hgt->hue_areas[i*2 + 1];
+> +			vsp1_hgt_write(hgt, dlb, VI6_HGT_HUE_AREA(i),
+> +				       (lower << VI6_HGT_HUE_AREA_LOWER_SHIFT) |
+> +				       (upper << VI6_HGT_HUE_AREA_UPPER_SHIFT));
+> +		}
+>  	}
+> -	mutex_unlock(hgt->ctrls.lock);
+>  
+>  	hratio = crop->width * 2 / compose->width / 3;
+>  	vratio = crop->height * 2 / compose->height / 3;
+> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_video.c b/drivers/media/platform/renesas/vsp1/vsp1_video.c
+> index 4cf2cc370416..138d4e08eee9 100644
+> --- a/drivers/media/platform/renesas/vsp1/vsp1_video.c
+> +++ b/drivers/media/platform/renesas/vsp1/vsp1_video.c
+> @@ -810,22 +810,21 @@ static int vsp1_video_start_streaming(struct vb2_queue *vq, unsigned int count)
+>  	unsigned long flags;
+>  	int ret;
+>  
+> -	mutex_lock(&pipe->lock);
+> -	if (pipe->stream_count == pipe->num_inputs) {
+> -		ret = vsp1_video_setup_pipeline(pipe);
+> -		if (ret < 0) {
+> -			vsp1_video_release_buffers(video);
+> -			vsp1_video_cleanup_pipeline(pipe);
+> -			mutex_unlock(&pipe->lock);
+> -			return ret;
+> +	scoped_guard(mutex, &pipe->lock) {
+> +		if (pipe->stream_count == pipe->num_inputs) {
+> +			ret = vsp1_video_setup_pipeline(pipe);
+> +			if (ret < 0) {
+> +				vsp1_video_release_buffers(video);
+> +				vsp1_video_cleanup_pipeline(pipe);
+> +				return ret;
+> +			}
 > +
-> +static inline int vsp1_du_setup_lif(struct device *dev, unsigned int pipe_index,
-> +				    const struct vsp1_du_lif_config *cfg)
-> +{
-> +	if (cfg)
-> +		return vsp1_du_enable(dev, pipe_index, cfg);
-> +	else
-> +		return vsp1_du_disable(dev, pipe_index);
-> +}
+> +			start_pipeline = true;
+>  		}
 >  
->  /**
->   * struct vsp1_du_atomic_config - VSP atomic configuration parameters
+> -		start_pipeline = true;
+> +		pipe->stream_count++;
+>  	}
+>  
+> -	pipe->stream_count++;
+> -	mutex_unlock(&pipe->lock);
+> -
+>  	/*
+>  	 * vsp1_pipeline_ready() is not sufficient to establish that all streams
+>  	 * are prepared and the pipeline is configured, as multiple streams
+> @@ -859,16 +858,17 @@ static void vsp1_video_stop_streaming(struct vb2_queue *vq)
+>  	pipe->buffers_ready &= ~(1 << video->pipe_index);
+>  	spin_unlock_irqrestore(&video->irqlock, flags);
+>  
+> -	mutex_lock(&pipe->lock);
+> -	if (--pipe->stream_count == pipe->num_inputs) {
+> -		/* Stop the pipeline. */
+> -		ret = vsp1_pipeline_stop(pipe);
+> -		if (ret == -ETIMEDOUT)
+> -			dev_err(video->vsp1->dev, "pipeline stop timeout\n");
+> +	scoped_guard(mutex, &pipe->lock) {
+> +		if (--pipe->stream_count == pipe->num_inputs) {
+> +			/* Stop the pipeline. */
+> +			ret = vsp1_pipeline_stop(pipe);
+> +			if (ret == -ETIMEDOUT)
+> +				dev_err(video->vsp1->dev,
+> +					"pipeline stop timeout\n");
+>  
+> -		vsp1_video_cleanup_pipeline(pipe);
+> +			vsp1_video_cleanup_pipeline(pipe);
+> +		}
+>  	}
+> -	mutex_unlock(&pipe->lock);
+>  
+>  	video_device_pipeline_stop(&video->video);
+>  	vsp1_video_release_buffers(video);
+> @@ -995,22 +995,16 @@ vsp1_video_streamon(struct file *file, void *fh, enum v4l2_buf_type type)
+>  	 * touching an entity in the pipeline can be activated or deactivated
+>  	 * once streaming is started.
+>  	 */
+> -	mutex_lock(&mdev->graph_mutex);
+> +	scoped_guard(mutex, &mdev->graph_mutex) {
+> +		pipe = vsp1_video_pipeline_get(video);
+> +		if (IS_ERR(pipe))
+> +			return PTR_ERR(pipe);
+>  
+> -	pipe = vsp1_video_pipeline_get(video);
+> -	if (IS_ERR(pipe)) {
+> -		mutex_unlock(&mdev->graph_mutex);
+> -		return PTR_ERR(pipe);
+> +		ret = __video_device_pipeline_start(&video->video, &pipe->pipe);
+> +		if (ret < 0)
+> +			goto err_pipe;
+>  	}
+>  
+> -	ret = __video_device_pipeline_start(&video->video, &pipe->pipe);
+> -	if (ret < 0) {
+> -		mutex_unlock(&mdev->graph_mutex);
+> -		goto err_pipe;
+> -	}
+> -
+> -	mutex_unlock(&mdev->graph_mutex);
+> -
+>  	/*
+>  	 * Verify that the configured format matches the output of the connected
+>  	 * subdev.
 > -- 
 > Regards,
 > 
