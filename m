@@ -4,143 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B5ECCD37AC
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 16:51:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35A41CD37AC
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 16:52:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD4910E32B;
-	Wed, 13 May 2026 16:51:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 961E110EF6D;
+	Wed, 13 May 2026 16:52:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OKhBglmb";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PONBrUb5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aMH4NK6E";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A85AD10E32B
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 16:51:43 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64DF8glB2888316
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 16:51:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=kvW9MFUmG8rvh5PNkmsY1wyy
- sIDeA/uWWz+EQKpqk6g=; b=OKhBglmbyQEX6oq9vBhZaGVssws+8Oa4lvLJQKfB
- 4FEJkO4YRuPf1HRAdUShy1fygbwX1pfjz83GjEUwa93LLuDPghfBuLMvFuTG2SLD
- +65p0KgExqbkudiKV2L3KmrxwRmWK6rQVhZrlmOeYqa2bWAX+GcJA5dtB8wV3MiC
- GnZ3NhJtQRhAf+nKH6KnRWLrfB406qwwwvtg0i/brx3tQ7mz47ZA+FOIjO7TZx4I
- 4kb1qi66BpS1Ytc8S25d0HiTqTyte/pKRc0O9kDA6FXxAa/VYyTTRoUVFDq585jX
- 2c4sPuGmX84QWsN5ESl9w2jikrBUf0wOO+0tNGV5gplOaQ==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
- [209.85.217.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4p4ghx3u-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 16:51:43 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id
- ada2fe7eead31-634ce585b41so2068730137.0
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 09:51:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778691102; x=1779295902;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=kvW9MFUmG8rvh5PNkmsY1wyysIDeA/uWWz+EQKpqk6g=;
- b=PONBrUb50h8l+3mAN/FIEc5Xa/PEkz34LG3Yxc+YYCiMTdNDqhGC1sMymiYD/yqFWN
- amVhTyJP9Mrz9SxA413ryBmtE/jP6TdIpPEtzzF04OaOfltkgGF4Y6aezpdHRKm/ObxY
- bJ/ULpTDjcRWxxWop15ujWAz90GnoaN46oHtxd//74Yfa3QpsTu9yMWOTTHGCKfKIEBD
- ItG8MMLuZTUm/lW4J+06siAyZcHCCJdBGCZDgA8JQegqoSIIO1EesWFHxh5N6m586BDW
- tl23/OygYwOH+vZYN70G/oxfSEG1SAYH2ul1qt/Akok4nkxYdPvvqsmxMVSLKCT0+HF5
- tUIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778691102; x=1779295902;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=kvW9MFUmG8rvh5PNkmsY1wyysIDeA/uWWz+EQKpqk6g=;
- b=rMlOhTFkhCVq85MBfesvVSG+gT5WysYdmG3FtN9pDP8S1J4EEu30Pi5TaYTrwc2Vxw
- h7WUAL70yVz7jLOAFy0oIuMiFXYlGIOSYlpTSYyd+UT33HRsCLJzwTL72ld1tdCwgSz5
- OpcrAtlMKhpi7ZN3XCPFF3IN1e2YuQQuWwiZTqmMRCX3kp4nvbGa3VlUlXVTNktrwaya
- GkzH3A1ZWfrKkqEHjaAlgYIbozGU3TC1F/1Lc78OD6vIN8pW3+khVNy1iDuI8N0/h4f1
- ZD2/UvuzFx0KKvFXXe0MnQB/oby4beg0rfjMgGxP0y8MZPLWO0iUHXiY+6vDaWJW+4aL
- Zp3A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9vXmPZUVHyrccZj2IYTb5ZZI+NaXNkAR0WigR0hGCFmOw3DfIxRTRKICcabeuzxMZmPDToamNlS64=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWfs8MsdG89JqUs4ypFjqL01oCdsGXsGKkKWz8xpyIOHQpH6Z/
- bpx3OLvzLaPGbbtEY7JL5tD2ViGPP+B/CEX4s1EGnOq82b+70tztu0UkY+QvDR4O9dtvk6ftl7+
- s9xW0gOAr2/s6Slhz7m75iwEF/jed4JIlDPGwKqjUFRERR1sShyTMagk/WVbDBffSK4vs/Ok=
-X-Gm-Gg: Acq92OGGyHgOK+wg7qHZQOBKTmIXLD35PM0Dw7xv8mLUC8BJNQ57v0BITgfpAV0wMsV
- Bodje/wneqXAoBzPGbcijDd5b7s75XHGqFKFcw7BBocO3NZKUhN//D5JRtIzZZ4++gyImOAMYqx
- espPWhe5ZAEqaeGAx+4gjTvopGUFpBJnd9q8b86+688KVfbiNZ9zHtHjqYsZAbEFAPat3+IyDnS
- R8W0hWa6MKRIX9r8sixfDk8evj/3xDEvxRbevJeXH54KiUouZeyCMmOt+Pzj08N5unlkHqSljVF
- 3Z2y7eJ4EjsnLLZwnm9Tj7es746qTVA53ctWh8OP1Hmq9SHplHrqLlylrKBTJ9BFuMkD213UbBz
- fbI/N6pFLnFr44pu9RJGtpriVhanMO3TUOw9kFu1gL9Vd0LE3U9c1CTbUYowNVD9ztUFznEbvHE
- c1G8de9p37zE1wABUj3p1LHoahWuWI1jPlKbg=
-X-Received: by 2002:a05:6102:358e:b0:631:7781:fe89 with SMTP id
- ada2fe7eead31-637728ca842mr2437812137.7.1778691102142; 
- Wed, 13 May 2026 09:51:42 -0700 (PDT)
-X-Received: by 2002:a05:6102:358e:b0:631:7781:fe89 with SMTP id
- ada2fe7eead31-637728ca842mr2437801137.7.1778691101711; 
- Wed, 13 May 2026 09:51:41 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a8a955dfbfsm4156067e87.46.2026.05.13.09.51.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 09:51:40 -0700 (PDT)
-Date: Wed, 13 May 2026 19:51:38 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Qingqing Zhou <quic_qqzhou@quicinc.com>
-Subject: Re: [PATCH 3/8] arm64: dts: qcom: kaanapali: add the GPU SMMU node
-Message-ID: <ergnufuk7qx7b3xsccdifdhlwfoxka5k4y6s72zpqvcfmv4uxm@brakkpiqkqhy>
-References: <20260512-kaana-gpu-dt-v1-0-13e1c07c2050@oss.qualcomm.com>
- <20260512-kaana-gpu-dt-v1-3-13e1c07c2050@oss.qualcomm.com>
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013000.outbound.protection.outlook.com
+ [40.107.201.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B537110EF6D
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 16:52:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TNSfyg/Pu4ITJ8RcZmO/cQYFiwHgzSLdKz+rfwFfeN4ZYoixMbXvDfl123QzXdPN0qvkpIRHr94Wh341+/kOYzjBrGAhzscXnEPIvLoIirq4uW83p6JqdE83qpkt/ZP2rk/S58lfJb6becbn+sQXMtQziMTY/q2zIe7DndF0p/UOf/KIaaYnlTWYd7LodKBG3TZTPIygFcFHg/1FPGO6E+HeEgX6AOTEKQO3C/k/hZw6jro73M2dFkhSUdJQmaPTZXjmYNvT23Zko06o/WqJ6YAdkv3oAVTlVQbYSiX0sgZpjH9NHPN7BLtn6Vf0ijudkUqDjMV8R6rhet4QGHmO0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EhlBXcw8gPqqznMHqI3KHEcToXLDtvH6VbOdLjrZ7yI=;
+ b=jSgwCVu57AweJo/nIJ9vP43xlH+1o3Fq4O9lwEDG2+MlrAE85DZC3Zo2RO6L2vIldN6ysjDXfJ3Klfb4jN8UO9DKEDu8xOt4KBgcZy62uWsehW/a70BzKOl8i48OHgJOjRfTqiLPCWNYk2LpF198Cj0aeU2XkMc22MNelHuKNfUvpfjQIl/wOP99gSbTu7O7hU/1QxtqzkkM7zGN4cfjBT+giuu/ILRAn/00IW4nDdi7/Gz6LjXuYBkT6ZM/kRZfUm+UMwhEzsRLzqOlG377FqLg7vzqnI2OCO2Gfa0Rq3NnM9T3kGBKQEb3wXM2A5o6kYRCnMXAfycOcQtvB5wKtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=oss.qualcomm.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EhlBXcw8gPqqznMHqI3KHEcToXLDtvH6VbOdLjrZ7yI=;
+ b=aMH4NK6EEwJCn/bsNTX3EcA1EnwHkqDw/r1aMRB7DzdlP+FeFLkEudWHEA+rEaXsdODBKqNL9EocNFC3uxkzcBHBbB/F7kBbCc8WAPpllOCflktzYFNqvY8UbllhK5CPvsfZDc/DJhGqPbXBlRRkjDZAHEqwTl4m2u8xtF4AypI=
+Received: from MN2PR22CA0013.namprd22.prod.outlook.com (2603:10b6:208:238::18)
+ by DS0PR12MB7898.namprd12.prod.outlook.com (2603:10b6:8:14c::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Wed, 13 May
+ 2026 16:51:55 +0000
+Received: from BL6PEPF0001AB54.namprd02.prod.outlook.com
+ (2603:10b6:208:238:cafe::8b) by MN2PR22CA0013.outlook.office365.com
+ (2603:10b6:208:238::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.16 via Frontend Transport; Wed, 13
+ May 2026 16:51:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB54.mail.protection.outlook.com (10.167.241.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Wed, 13 May 2026 16:51:54 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Wed, 13 May
+ 2026 11:51:54 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 May
+ 2026 11:51:54 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 13 May 2026 11:51:53 -0500
+Message-ID: <72fc7f93-a7ef-c448-6170-827bb54f1063@amd.com>
+Date: Wed, 13 May 2026 09:51:53 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260512-kaana-gpu-dt-v1-3-13e1c07c2050@oss.qualcomm.com>
-X-Proofpoint-GUID: 3hZsQyb-ruA9CCoXi0ZcW2Hk7VaInYIq
-X-Authority-Analysis: v=2.4 cv=DOS/JSNb c=1 sm=1 tr=0 ts=6a04ac1f cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=54KNg95dvv-uSQ5X8vIA:9 a=CjuIK1q_8ugA:10
- a=gYDTvv6II1OnSo0itH1n:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: 3hZsQyb-ruA9CCoXi0ZcW2Hk7VaInYIq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE3MCBTYWx0ZWRfX+sld2PQmZSsI
- VcXtWgG0JF1NXjoRbfm6Oz8Yx01746WpYqgBqUFPnXcp2ZDgNYUDD6C5zFp87OZ026h+Zzt+87X
- 5om8pimB5u48LXZdVdu6J8P/G9GH5YlWr6261fvh7jnWCriG73iqDQxmVm0UdkrIvm9iRlTeGcX
- wlO8Xc6yqyC0CHYeW4t81FsjvVmz74XmLBsFyh1TNM7u4eBtlt+2ACW4VK4thFbMaG7dKNpJFa0
- 9a1AbktvgVolSco1x1A3YejDKaCqoY73lttzp5l4n2u2PqYDazH2rHnQBaDZhmcLL2ivS6OUcHH
- SW4fN/hFEtaQ5UEMijQFMscsNzylhCith8m5PcfGh9xgxDqauTSlhqJfj0BXqDimeThES8eISws
- RhuTVc4NtaF7BVRBwb61/i46fakbdl8l+4RBbfiMhUHQ+EGbSky3Yoz3aCayVLOdQArfWk2smh8
- 98lJEmnTt0QC6S4dY7Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-13_01,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 impostorscore=0 bulkscore=0 clxscore=1015
- priorityscore=1501 phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130170
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/qaic: Address potential out-of-bounds read in
+ resp_worker()
+Content-Language: en-US
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Youssef Samir
+ <youssef.abdulrahman@oss.qualcomm.com>, <carl.vanderlip@oss.qualcomm.com>,
+ <troy.hanson@oss.qualcomm.com>, <zachary.mckevitt@oss.qualcomm.com>
+CC: <ogabbay@kernel.org>, <karol.wachowski@linux.intel.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, "Ruikai
+ Peng" <ruikai@pwno.io>
+References: <20260414173249.3672053-1-youssef.abdulrahman@oss.qualcomm.com>
+ <78a955ce-8990-8594-1ebc-e7d4da14dce0@amd.com>
+ <8c12cacc-ab86-49aa-b4ac-d80ef965b55f@oss.qualcomm.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <8c12cacc-ab86-49aa-b4ac-d80ef965b55f@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB54:EE_|DS0PR12MB7898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6169a5a7-6f40-4854-a609-08deb10ff06e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|82310400026|36860700016|18002099003|22082099003|56012099003|11063799003|4143699003;
+X-Microsoft-Antispam-Message-Info: 1GdshNG9fCPmQ6jUboLlRbgZl2TcEvAXTG5pSWhRzm9XP5Z7CKDFJG2wyj6dC3WZ1eoewXFgt9+N2MYA8cYRdxVtNA1QM3YlpHP6ld49RxP8pW5NHgi5NN70Afkw+hrer7ibYLrX64YfswWfnrwwR1QFz8mULqU1WPnWx4Suix7ficvd4q5CEzC5KFwcY0lT2AY++Redf+0Loar9zh8LQW97OObR85oOWuVc8+/gXLaxaubyPPRM+v7tYsebn002ptROCWw8M4XhhBzlCprLqQEny+GWJ2CUorxpu7DrHHxPYwIK4ZCJuTcsoKb7JG5Jn651aR2g8mGwIXBWPMpaLooifrrXspf+1GBIG0KJ08AbCjslL/+dQ3TQ5y9ICD2NhIQU00syKqloraENA7YmI6MDE7WBvYKraKPM5uD/ECT4LP/sEjYxkLyZAJz6AkHiYGhLga22VyHfgHpF9dc3iFm6qnD4XnAsRDSYPPiUyHHza0MTyajWSs/0BIYKF/0eNI02YRhlbIP3W0MVFcXxxYBKUyX2nxSXQjsHG7JqQZqxWGF2FjIdiVOA+sQpvpiQH6Pbhl+iRZohsZE7aJRUviFnUuVeRZhHlReAG11uZSXm+e1WNfGZHVUs9C9ikBnfi+8wPR5WRaHwFpVGfUC8YhvcNWOsNrw3CzKsQRYNtCiQny9nHT9uo70QZTZ2XQY6lgDl9+hVQ8WnwVkJUPeRFBWDGLxi9j9/v2JDmvEYz8k=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(36860700016)(18002099003)(22082099003)(56012099003)(11063799003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: w/9gcVYYVZPjFUU08LEAVHRuqsc4EFmUPvMP44tKrrK2tv2k53UOtAMI4YRSPA1XLk4dwgY0xMouIUYZ6CTZQgRxMjyN25TZ7nQl+mGWTD/RxEtd2C5aCy8cKOD3eOxzdtuEMvOXUqkRt7VCJITVN3N8v2p5caE/w72e64rNVplh7xbzNVgp0CJTIg4TR0EHz6p6xr7o1E+2a9VijETMOoQKLj7Q+32riSWq4fAtd+pZ2VIG+FLXitKP+gASNw7+L6JSpyqA0MDl++wK7l+Jhs8nIFHxfLuSVmAIMviXNpNDHHPKjHH7/CNJMHAzM7Rwb1Kh355BXHbx7hOi+jPcUwhCJElSg3JD0xpmgEdtGfqptCdbnS9HKevhAcG9sLbXYPKRH+/gW+Y6XuRiVZanONlp4Nd1hoTIjJ9zWNUT2ETu9VsL+pgCGqgCTUlVI7ka
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 16:51:54.9152 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6169a5a7-6f40-4854-a609-08deb10ff06e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB54.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7898
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,45 +126,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 03:53:17AM +0530, Akhil P Oommen wrote:
-> From: Qingqing Zhou <quic_qqzhou@quicinc.com>
-> 
-> Add the Adreno GPU SMMU node for kaanapali platform.
-> 
-> Signed-off-by: Qingqing Zhou <quic_qqzhou@quicinc.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/kaanapali.dtsi | 41 +++++++++++++++++++++++++++++++++
->  1 file changed, 41 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-> index bab654bbd6d0..26a4de9c8d45 100644
-> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-> @@ -2597,6 +2597,47 @@ gpucc: clock-controller@3d90000 {
->  			#power-domain-cells = <1>;
->  		};
->  
-> +		adreno_smmu: iommu@3da0000 {
-> +			compatible = "qcom,kaanapali-smmu-500", "qcom,adreno-smmu",
-> +					"qcom,smmu-500", "arm,mmu-500";
-> +			reg = <0x0 0x3da0000 0x0 0x40000>;
-> +			#iommu-cells = <2>;
-> +			#global-interrupts = <1>;
-> +			dma-coherent;
-> +
-> +			power-domains = <&gpucc GPU_CC_CX_GDSC>;
-> +
-> +			clocks = <&gpucc GPU_CC_GPU_SMMU_VOTE_CLK>;
-> +			clock-names = "hlos";
-> +
-> +			interrupts = <GIC_SPI 674 IRQ_TYPE_LEVEL_HIGH>,
-> +				<GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
 
-Please align on '<' symbol
-
-> +				<GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
-
--- 
-With best wishes
-Dmitry
+On 5/12/26 09:29, Jeff Hugo wrote:
+> On 4/15/2026 10:52 AM, Lizhi Hou wrote:
+>>
+>> On 4/14/26 10:32, Youssef Samir wrote:
+>>> Although 'commit 2feec5ae5df7 ("accel/qaic: Handle DBC deactivation 
+>>> if the
+>>> owner went away")' fixes the scenario it was intended for by walking 
+>>> the
+>>> message and only decoding QAIC_TRANS_DEACTIVATE_FROM_DEV, if 
+>>> present, it
+>>> skipped over the bounds checking code that is included in 
+>>> decode_message().
+>>> This could lead to issues such as reading past the slab allocation's 
+>>> end,
+>>> infinite loops or kernel panics. For those issues to happen, a 
+>>> malformed
+>>> wire message is needed to be sent from the device.
+>>>
+>>> Instead of duplicating the bounds checking code already present in
+>>> decode_message(), use the function inside resp_worker().
+>>>
+>>> Reported-by: Ruikai Peng <ruikai@pwno.io>
+>>> Fixes: 2feec5ae5df7 ("accel/qaic: Handle DBC deactivation if the 
+>>> owner went away")
+>>> Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+>>> ---
+>>>   drivers/accel/qaic/qaic_control.c | 48 
+>>> ++++++++++++++++---------------
+>>>   1 file changed, 25 insertions(+), 23 deletions(-)
+>>>
+>>> diff --git a/drivers/accel/qaic/qaic_control.c b/drivers/accel/qaic/ 
+>>> qaic_control.c
+>>> index b21e6b5b3a10..818a77adde2a 100644
+>>> --- a/drivers/accel/qaic/qaic_control.c
+>>> +++ b/drivers/accel/qaic/qaic_control.c
+>>> @@ -1075,11 +1075,13 @@ static int decode_status(struct qaic_device 
+>>> *qdev, void *trans, struct manage_ms
+>>>   static int decode_message(struct qaic_device *qdev, struct 
+>>> manage_msg *user_msg,
+>>>                 struct wire_msg *msg, struct ioctl_resources 
+>>> *resources,
+>>> -              struct qaic_user *usr)
+>>> +              struct qaic_user *usr, bool orphaned_deactivate)
+>>>   {
+>>> +    u32 msg_hdr_count = le32_to_cpu(msg->hdr.count);
+>>>       u32 msg_hdr_len = le32_to_cpu(msg->hdr.len);
+>>>       struct wire_trans_hdr *trans_hdr;
+>>>       u32 msg_len = 0;
+>>> +    int trans_type;
+>>>       int ret;
+>>>       int i;
+>>> @@ -1089,13 +1091,15 @@ static int decode_message(struct qaic_device 
+>>> *qdev, struct manage_msg *user_msg,
+>>>           return -EINVAL;
+>>>       }
+>>> -    user_msg->len = 0;
+>>> -    user_msg->count = le32_to_cpu(msg->hdr.count);
+>>> +    if (user_msg) {
+>>> +        user_msg->len = 0;
+>>> +        user_msg->count = msg_hdr_count;
+>>> +    }
+>>>       trace_qaic_manage_dbg(qdev->qddev, "Number of transaction to 
+>>> decode is %llu.",
+>>> -                  user_msg->count);
+>>> +                  msg_hdr_count);
+>>> -    for (i = 0; i < user_msg->count; ++i) {
+>>> +    for (i = 0; i < msg_hdr_count; ++i) {
+>>>           u32 hdr_len;
+>>>           if (msg_len > msg_hdr_len - sizeof(*trans_hdr))
+>>> @@ -1110,7 +1114,20 @@ static int decode_message(struct qaic_device 
+>>> *qdev, struct manage_msg *user_msg,
+>>>           trace_qaic_manage_dbg(qdev->qddev, "Decoding transaction 
+>>> %llu.",
+>>>                         le32_to_cpu(trans_hdr->type));
+>>> -        switch (le32_to_cpu(trans_hdr->type)) {
+>>> +        trans_type = le32_to_cpu(trans_hdr->type);
+>>> +        /*
+>>> +         * orphaned_deactivate is the case where a deactivate response
+>>> +         * is received from the device after the user owning the DBC,
+>>> +         * and the message requesting deactivation, has gone away.
+>>> +         * In this case, only process QAIC_TRANS_DEACTIVATE_FROM_DEV
+>>> +         * transaction and skip the others.
+>>> +         */
+>>> +        if (orphaned_deactivate && trans_type != 
+>>> QAIC_TRANS_DEACTIVATE_FROM_DEV) {
+>>> +            msg_len += hdr_len;
+>>> +            continue;
+>>> +        }
+>>> +
+>>> +        switch (trans_type) {
+>>>           case QAIC_TRANS_PASSTHROUGH_FROM_DEV:
+>>>               ret = decode_passthrough(qdev, trans_hdr, user_msg, 
+>>> &msg_len);
+>>>               break;
+>>> @@ -1430,7 +1447,7 @@ static int qaic_manage(struct qaic_device 
+>>> *qdev, struct qaic_user *usr, struct m
+>>>           goto dma_cont_failed;
+>>>       }
+>>> -    ret = decode_message(qdev, user_msg, rsp, &resources, usr);
+>>> +    ret = decode_message(qdev, user_msg, rsp, &resources, usr, false);
+>>>   dma_cont_failed:
+>>>       free_dbc_buf(qdev, &resources);
+>>> @@ -1607,22 +1624,7 @@ static void resp_worker(struct work_struct 
+>>> *work)
+>>>            * response to the QAIC_TRANS_TERMINATE_TO_DEV transaction,
+>>>            * otherwise, the user can issue an soc_reset to the device.
+>>>            */
+>>> -        u32 msg_count = le32_to_cpu(msg->hdr.count);
+>>> -        u32 msg_len = le32_to_cpu(msg->hdr.len);
+>>> -        u32 len = 0;
+>>> -        int j;
+>>> -
+>>> -        for (j = 0; j < msg_count && len < msg_len; ++j) {
+>>> -            struct wire_trans_hdr *trans_hdr;
+>>> -
+>>> -            trans_hdr = (struct wire_trans_hdr *)(msg->data + len);
+>>> -            if (le32_to_cpu(trans_hdr->type) == 
+>>> QAIC_TRANS_DEACTIVATE_FROM_DEV) {
+>>> -                if (decode_deactivate(qdev, trans_hdr, &len, NULL))
+>>> -                    len += le32_to_cpu(trans_hdr->len);
+>>> -            } else {
+>>> -                len += le32_to_cpu(trans_hdr->len);
+>>> -            }
+>>> -        }
+>>> +        decode_message(qdev, NULL, msg, NULL, NULL, true);
+>>
+>> This seems changing the previous behavior. The original code will 
+>> continue the loop when decode_deactivate() returns error. And 
+>> decode_message() will error immediately when decode_deactivate() 
+>> returns error.
+>
+> In practice, there can only be one QAIC_TRANS_DEACTIVATE_FROM_DEV 
+> instance per message, so the two behaviors are functionally the same.
+>
+> This is somewhat an argument for this change because having different 
+> behaviors across the code feels like a recipe for problems from corner 
+> cases.
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>
+> -Jeff
