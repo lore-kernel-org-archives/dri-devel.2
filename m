@@ -4,97 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5C86CD4F21
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:29:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 178EACD4F21
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 19:31:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57D4410F024;
-	Wed, 13 May 2026 19:29:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 722DC10F027;
+	Wed, 13 May 2026 19:31:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.b="K03akZj5";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ayNgYVAt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fiG8rgXh";
 	dkim-atps=neutral
-Received: from fhigh-a5-smtp.messagingengine.com
- (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 846F210F024
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 19:29:50 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.phl.internal (Postfix) with ESMTP id E02381400174;
- Wed, 13 May 2026 15:29:49 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Wed, 13 May 2026 15:29:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1778700589;
- x=1778786989; bh=CdMuDRPLzXXsMqTH2LrTi+iM4eaNqLP7/cvENwR3dWU=; b=
- K03akZj5ujSx0qZ8Mrw/yEzL0yAF0JJ4LbMrQzmZePrsxkjCoEXrjyOSc4BoBazU
- 9GjaJz2F3N+k9cKFixMPLvxYGDw0VhTeQ+UGlc8AR/lLiq3blQlrlJvcnEyZiRVP
- MQ8BvRZJGrnJC64ri/jrvff0UhCDweDo8l7XVSvh35PN5nnKl0NZVJlVHbsG3rZE
- o4alx++rwIFux29czvo9mEh6z9kyS3cb4Bq812Cc/XejxsOOQpb/qf+hg11if6xr
- bIBDMD9k7YjnLYGZwKm451la1/L60djZvKDy/lhB5sxeeZzbvXFZHxrAYo66F9Np
- SFWrkwba5eITKInP9Kf94w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1778700589; x=
- 1778786989; bh=CdMuDRPLzXXsMqTH2LrTi+iM4eaNqLP7/cvENwR3dWU=; b=a
- yNgYVAtL+funpZEQ//UxLPA3VfVolGPF0lqlGtzHIidtEMrtPPIuunwSgnzR/1XB
- 6gKHFoOMgqk30KHOXi9mNymSP57q4mmLslydkHdRbtS2UvKl2FKsoojh4O899Xxm
- pdxt1/8ZPbQyY7idjjDCy/SEovhI/7q8B+ZzO2pboePOKbEUMEuvhCjnmpXEPxAv
- A2Cms19Mt/plCg796UyEu6MXMG8dyBkgThyeVuXNw7cWZuy0zKWc24dDfEH3hWY9
- eq3ETBxw9XHTo0YgriSRSiE+USHSORwY9THGsatWDrpsoeL8M3HoWBdpSpmR+14n
- WjxMQAahVhaXZKbcRlLFw==
-X-ME-Sender: <xms:LdEEapdu2k0S6nZmHdyL_ezK-MzoPi5zAj1D3OZito2EC2R3W62oPQ>
- <xme:LdEEajynXMJRMEL0rNt2RwIsvXaFJmpsLgVl2nvgn3S_GaG73Snuhl03aWJN1Hagc
- xylv2oarBC56JyU1qYzwo6zv_R30LUoHxYkm_ONxMUkhEI7_jVPfG0>
-X-ME-Received: <xmr:LdEEam9Vqaa98jedMMF0Jth83azjJyCIRgvM6yJMllISTXpJ4i4c1XzNVzm9Qn0wO50uS6X_0E5G_uSM7PCyaFfJGL693iR9LFr8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduvdehgeelucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
- gurhepfffhvfevuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefpihhklhgr
- shcuufpnuggvrhhluhhnugcuoehnihhklhgrshdrshhouggvrhhluhhnugesrhgrghhnrg
- htvggthhdrshgvqeenucggtffrrghtthgvrhhnpeevteegtddvvdfhtdekgefhfeefheet
- heekkeegfeejudeiudeuleegtdehkeekteenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehnihhklhgrshdrshhouggvrhhluhhnugesrhgrghhn
- rghtvggthhdrshgvpdhnsggprhgtphhtthhopeelpdhmohguvgepshhmthhpohhuthdprh
- gtphhtthhopehlrghurhgvnhhtrdhpihhntghhrghrthdorhgvnhgvshgrshesihguvggr
- shhonhgsohgrrhgurdgtohhmpdhrtghpthhtoheplhhinhhugidqmhgvughirgesvhhgvg
- hrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhs
- rdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheplhhinhhugidqrhgvnhgvsh
- grshdqshhotgesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehtohhmihdr
- vhgrlhhkvghinhgvnhesihguvggrshhonhgsohgrrhgurdgtohhmpdhrtghpthhtohepkh
- hivghrrghnrdgsihhnghhhrghmsehiuggvrghsohhnsghorghrugdrtghomhdprhgtphht
- thhopegsihhjuhdruggrshdrjhiisegsphdrrhgvnhgvshgrshdrtghomhdprhgtphhtth
- hopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehf
- fhiflhhlrdgthh
-X-ME-Proxy: <xmx:LdEEapwbpE02ZqmDWmH1NeP6BOARPXuLsPmfn2ql7LZjomLCgyPE6Q>
- <xmx:LdEEamrBm5fS65StbDQ546uYwOj0j1bucs_f7HenJ-aYGhWTV6-rTQ>
- <xmx:LdEEaqoN0Y_MRXJMdp2XSd3r20W6jvM_Tnvz8EJ5NOecIl0A5it1zg>
- <xmx:LdEEamD2wab-x3cL4pY3HgrDvS-p8wADw8FcCRjjSG67o6JnkrwrNg>
- <xmx:LdEEagUyEpKPaxfHVDbYykTuEjp3g6ncNDFYT4E8XN6GSsok6b2uphhm>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 13 May 2026 15:29:49 -0400 (EDT)
-Date: Wed, 13 May 2026 21:29:48 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH 07/11] media: renesas: vsp1: Use spinlock guards
-Message-ID: <20260513192948.GJ332351@ragnatech.se>
-References: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260511235637.3468558-8-laurent.pinchart+renesas@ideasonboard.com>
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
+ [74.125.224.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0058710F027
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 19:31:44 +0000 (UTC)
+Received: by mail-yx1-f49.google.com with SMTP id
+ 956f58d0204a3-651bc83e74aso8075249d50.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 12:31:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778700704; cv=none;
+ d=google.com; s=arc-20240605;
+ b=O5tA3TRsJK0wzBpGtwEPrp/G9c5+1kd6lP13lG6/s0rISL1LX5e1uekVQXiVot1Kod
+ pFfYrCbQqU6U490K7BaFlQ2DgPdRmwgrUiXih1mGMHWz8BSgs63K42q3wRAm6TwaoKtw
+ 0FphbSEY2ljbpK/24RVL+UVs3xeU6xWsetLzzinXpl3IYnWsn70hqR0obWx8AVysCcCt
+ vbGNj8uP5CIqfLUjfvylvziKHg4/jUn3vXwIwXpGy2hE2VHnc+zIS+w+DDuyxZd9/JjM
+ ZzIZO+OS1A+ZdYUnYvIgsdXtPXAxNaG7+XGJMTxwV1t/7GJ25pnITPZ5CrliepGkYOKI
+ P75w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=g4Y3i2VzEUpUrHnVXfd2puXKp9894xeLrJot7HkksF4=;
+ fh=l7GAbvihEG92WnXlL+cpE+zdE50gQe2NZMT9MDxaohI=;
+ b=Pf29SPABCDT2+WM69IQbiJPeqwvdHv3NVJLKd+XOjtkNnxRp3qA1A5Wfd+q+ScsoPg
+ YTF1gxNy+tYR+IMxCAuDi3BnjflElcbiab86xP99hLafmRCbW/Mv2jINlgxFRFX0zhZ7
+ mJktD7kQVIeKZ/+arhH3vp2LwJ+HpapbWnuLpRC/9V5NElrEjzvAHQal+27oFy7g9Rez
+ 50CINqkXrT8sZvnBLjRWMi2dcI1d7D/fNl4Ma8x10KzlskpWgnT9OqyBfSdH/e6HHNo1
+ dRSJSGqh3WCccFGDWScSw7+x5HId9q0dmlhCkHDPim/+AJlS+kCONdJ6C0z31WLuYIb/
+ GIBA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778700704; x=1779305504; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g4Y3i2VzEUpUrHnVXfd2puXKp9894xeLrJot7HkksF4=;
+ b=fiG8rgXhRfjKRxslioLMOzQ0LmUpPY2wZnhBITQpdM7Ir4/DNeFV0TF3EgbgkvktfZ
+ NmE00KuJyE7XT3loAdYaktEgawz+VJNsdhGKX187LvYMeIC+AU9rfdPCafDwJLN4QnxV
+ 6eh86pk0DxiZ33I/S2FFyHh4GTUdsVMvCX/H++ZVX/tB0QOrQ/SoE+8l4rashoVLr0wk
+ HUnICWP14AI6GvwtV8WTlLyAeUblbxQUAzry5b2kXHrpnaOpOEqKhJ3gXx+9Osk4oq5h
+ alzF2Pfrw4/7KPO1Qlr44VMDSyRLii2f1KCnLCMq3KfnAHqu5UO4fknf6NUeeegaGKVd
+ v09w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778700704; x=1779305504;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=g4Y3i2VzEUpUrHnVXfd2puXKp9894xeLrJot7HkksF4=;
+ b=RtTtqWC6rbOQKUaLnbd3PgIGJfFrn9HoqobemJ6jgTqRB5xEFBnDfOCQWDVZ42u6IT
+ Zr0/hrMjzlLUbu/2pOXNkhD/x1C6EG4gtWrUBrCd23JHcLLXH5Kq8t0QCaU0Etvw6OWp
+ zq0+/Q/F9VaO4Fr1gzJgARxiR5KRSe389HfLiAkFksaUFV3m3bZrcL21L1hyiMCV25uj
+ RvaZ/eQMq9Kmf+JzuPibfLY4qBGfFKF1FwROY+8IYPRXDDMyVVW8d5w2kFJWkUfsvE8K
+ Jsdu0UniWn6/EWLdlA+C/ypg8pb8d/ug74OdToYZOszom+FHREc1C40Guv0E2QVu16ss
+ JkBw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8WxK1eTkAMz0ZTZrw3EvFaFSwTS/yqHso/pAnhwhdebYXV8+75PhXtr9YspzAmrqbIrXoqdH7UDjE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPVuletfqpw4xOzEmqmYUswqU9xhBFURLVtDStFbqq0kUCvLHQ
+ InhucK1Cra4fltKpTcmEPOfsVc0fJX6qkxYGqEHfmhM9/RxMVHmBtG2w3MAIeKWRGhy6j1OetcG
+ GHVCcZjad8L/a32N5I+fLHvC2sMWJfMg=
+X-Gm-Gg: Acq92OHhpbiShYrH8OnEXZ8SekOoEVmKwcNsnm8I1x7czZiBX2eAK8zqIVfuhYwVAR3
+ OqlypLDuNJ7MORa08vz5jevcXUf6o9pSOFfxFWNlZlURGQxZ+aVI0lJErqUXYyIaX75H0MSjb/+
+ FE8FIDgaKQNLNivVF+I4emdSYwOVlocQf859XQZm1ABM+WSujmlVm4hKSFNIeNuA/kv30TJMcv3
+ uqKhVKH8vb3lRxVtANZoLmGJk4XLWsSLxtwsUW+b2vDleiaff3Zq0rlXcxf4ntG268PfDoOfWDo
+ vE2Z3N6ZGvKk8z4VdlEq4ODeAoJJDlim11cOZeiYS0PIKVOSIXRvCg06godVvD/NCZKhCMu2Fw=
+ =
+X-Received: by 2002:a05:690c:38b:b0:7bd:a50c:454c with SMTP id
+ 00721157ae682-7c6da2152a8mr42579647b3.19.1778700703738; Wed, 13 May 2026
+ 12:31:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260511235637.3468558-8-laurent.pinchart+renesas@ideasonboard.com>
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+ <20260505140516.1372388-5-ketil.johnsen@arm.com>
+ <20260505181523.49a3d85c@fedora>
+ <afxVIuVVPisBQ9p_@e129842.arm.com> <20260507135356.5428d50d@fedora>
+ <agMvb_jeRsO7tSS-@e142607> <20260512161111.0cb7000e@fedora>
+ <agNJasayW8VCHTiU@e142607>
+In-Reply-To: <agNJasayW8VCHTiU@e142607>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Wed, 13 May 2026 12:31:32 -0700
+X-Gm-Features: AVHnY4JH8Ip_tVhSu6utyw5cZH7Mreif1YmCt2t2xjBKPcGuoTWdGxm_i0T-RLg
+Message-ID: <CAPaKu7QC7FdjL6m_OSb+E5aYKs6bmT-9DAHc5PC=XctCmRph2Q@mail.gmail.com>
+Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
+ allocation in panthor
+To: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+ =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@arm.com>, 
+ Ketil Johnsen <ketil.johnsen@arm.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Steven Price <steven.price@arm.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Florent Tomasin <florent.tomasin@arm.com>, nd@arm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,395 +131,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
+On Tue, May 12, 2026 at 8:39=E2=80=AFAM Liviu Dudau <liviu.dudau@arm.com> w=
+rote:
+>
+> On Tue, May 12, 2026 at 04:11:11PM +0200, Boris Brezillon wrote:
+> > On Tue, 12 May 2026 14:47:27 +0100
+> > Liviu Dudau <liviu.dudau@arm.com> wrote:
+> >
+> > > On Thu, May 07, 2026 at 01:53:56PM +0200, Boris Brezillon wrote:
+> > > > On Thu, 7 May 2026 11:02:26 +0200
+> > > > Marcin =C5=9Alusarz <marcin.slusarz@arm.com> wrote:
+> > > >
+> > > > > On Tue, May 05, 2026 at 06:15:23PM +0200, Boris Brezillon wrote:
+> > > > > > > @@ -277,9 +286,21 @@ int panthor_device_init(struct panthor_d=
+evice *ptdev)
+> > > > > > >                     return ret;
+> > > > > > >     }
+> > > > > > >
+> > > > > > > +   /* If a protected heap name is specified but not found, d=
+efer the probe until created */
+> > > > > > > +   if (protected_heap_name && strlen(protected_heap_name)) {
+> > > > > >
+> > > > > > Do we really need this strlen() > 0? Won't dma_heap_find() fail=
+ is the
+> > > > > > name is "" already?
+> > > > >
+> > > > > If dma_heap_find() will fail, then the whole probe with fail too.
+> > > > > This check prevents that.
+> > > >
+> > > > Yeah, that's also a questionable design choice. I mean, we can
+> > > > currently probe and boot the FW even though we never setup the
+> > > > protected FW sections, so why should we defer the probe here? Can't=
+ we
+> > > > just retry the next time a group with the protected bit is created =
+and
+> > > > fail if we can find a protected heap?
+> > >
+> > > The problem we have with the current firmware is that it does a numbe=
+r of setup steps at "boot"
+> > > time only. One of the steps is preparing its internal structures for =
+when it enters protected
+> > > mode and it stores them in the buffer passed in at firmware loading. =
+We cannot later run the
+> > > process when we have a group with protected mode set.
+> >
+> > No, but we can force a full/slow reset and have that thing
+> > re-initialized, can't we? I mean, that's basically what we do when a
+> > fast reset fails: we re-initialize all the sections and reset again, at
+> > which point the FW should start from a fresh state, and be able to
+> > properly initialize the protected-related stuff if protected sections
+> > are populated. Am I missing something?
+>
+> Right, we can do that. For some reason I keep associating the reset with =
+the
+> error handling and not with "normal" operations.
+I kind of hope we end up with either
 
-Thanks for your patch.
+ - panthor knows the exact heap to use and fails with EPROBE_DEFER if
+the heap is missing, or
+ - panthor gets a dma-buf from userspace and does the full reset
+   - userspace also needs to provide a dma-buf for each protected
+group for the suspend buffer
 
-On 2026-05-12 02:56:31 +0300, Laurent Pinchart wrote:
-> Replace manual spinlock locking and unlocking with guards. This
-> simplifies error paths and reduces the amount of code. Limit the changes
-> to locations where the guard covers until the end of the function to
-> ease review. Scoped guards will be introduced separately.
-> 
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+than something in-between. The latter is more ad-hoc and basically
+kicks the issue to the userspace.
 
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+For the former, expressing the relation in DT seems to be the best,
+but only if possible :-). Otherwise, a kconfig option (instead of
+module param) should be easier to work with.
 
-> ---
->  drivers/media/platform/renesas/vsp1/vsp1_dl.c | 49 ++++++-------------
->  .../media/platform/renesas/vsp1/vsp1_histo.c  | 20 +++-----
->  .../media/platform/renesas/vsp1/vsp1_pipe.c   |  9 +---
->  .../media/platform/renesas/vsp1/vsp1_video.c  | 14 ++----
->  .../media/platform/renesas/vsp1/vsp1_wpf.c    |  4 +-
->  5 files changed, 31 insertions(+), 65 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_dl.c b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
-> index 6c5578d9d2de..4a19ff1437b0 100644
-> --- a/drivers/media/platform/renesas/vsp1/vsp1_dl.c
-> +++ b/drivers/media/platform/renesas/vsp1/vsp1_dl.c
-> @@ -336,9 +336,8 @@ void vsp1_dl_body_pool_destroy(struct vsp1_dl_body_pool *pool)
->  struct vsp1_dl_body *vsp1_dl_body_get(struct vsp1_dl_body_pool *pool)
->  {
->  	struct vsp1_dl_body *dlb = NULL;
-> -	unsigned long flags;
->  
-> -	spin_lock_irqsave(&pool->lock, flags);
-> +	guard(spinlock_irqsave)(&pool->lock);
->  
->  	if (!list_empty(&pool->free)) {
->  		dlb = list_first_entry(&pool->free, struct vsp1_dl_body, free);
-> @@ -346,8 +345,6 @@ struct vsp1_dl_body *vsp1_dl_body_get(struct vsp1_dl_body_pool *pool)
->  		refcount_set(&dlb->refcnt, 1);
->  	}
->  
-> -	spin_unlock_irqrestore(&pool->lock, flags);
-> -
->  	return dlb;
->  }
->  
-> @@ -359,8 +356,6 @@ struct vsp1_dl_body *vsp1_dl_body_get(struct vsp1_dl_body_pool *pool)
->   */
->  void vsp1_dl_body_put(struct vsp1_dl_body *dlb)
->  {
-> -	unsigned long flags;
-> -
->  	if (!dlb)
->  		return;
->  
-> @@ -369,9 +364,9 @@ void vsp1_dl_body_put(struct vsp1_dl_body *dlb)
->  
->  	dlb->num_entries = 0;
->  
-> -	spin_lock_irqsave(&dlb->pool->lock, flags);
-> +	guard(spinlock_irqsave)(&dlb->pool->lock);
-> +
->  	list_add_tail(&dlb->free, &dlb->pool->free);
-> -	spin_unlock_irqrestore(&dlb->pool->lock, flags);
->  }
->  
->  /**
-> @@ -493,9 +488,8 @@ static
->  struct vsp1_dl_ext_cmd *vsp1_dl_ext_cmd_get(struct vsp1_dl_cmd_pool *pool)
->  {
->  	struct vsp1_dl_ext_cmd *cmd = NULL;
-> -	unsigned long flags;
->  
-> -	spin_lock_irqsave(&pool->lock, flags);
-> +	guard(spinlock_irqsave)(&pool->lock);
->  
->  	if (!list_empty(&pool->free)) {
->  		cmd = list_first_entry(&pool->free, struct vsp1_dl_ext_cmd,
-> @@ -503,24 +497,20 @@ struct vsp1_dl_ext_cmd *vsp1_dl_ext_cmd_get(struct vsp1_dl_cmd_pool *pool)
->  		list_del(&cmd->free);
->  	}
->  
-> -	spin_unlock_irqrestore(&pool->lock, flags);
-> -
->  	return cmd;
->  }
->  
->  static void vsp1_dl_ext_cmd_put(struct vsp1_dl_ext_cmd *cmd)
->  {
-> -	unsigned long flags;
-> -
->  	if (!cmd)
->  		return;
->  
->  	/* Reset flags, these mark data usage. */
->  	cmd->flags = 0;
->  
-> -	spin_lock_irqsave(&cmd->pool->lock, flags);
-> +	guard(spinlock_irqsave)(&cmd->pool->lock);
-> +
->  	list_add_tail(&cmd->free, &cmd->pool->free);
-> -	spin_unlock_irqrestore(&cmd->pool->lock, flags);
->  }
->  
->  static void vsp1_dl_ext_cmd_pool_destroy(struct vsp1_dl_cmd_pool *pool)
-> @@ -611,11 +601,10 @@ static void vsp1_dl_list_free(struct vsp1_dl_list *dl)
->  struct vsp1_dl_list *vsp1_dl_list_get(struct vsp1_dl_manager *dlm)
->  {
->  	struct vsp1_dl_list *dl = NULL;
-> -	unsigned long flags;
->  
->  	lockdep_assert_not_held(&dlm->lock);
->  
-> -	spin_lock_irqsave(&dlm->lock, flags);
-> +	guard(spinlock_irqsave)(&dlm->lock);
->  
->  	if (!list_empty(&dlm->free)) {
->  		dl = list_first_entry(&dlm->free, struct vsp1_dl_list, list);
-> @@ -629,8 +618,6 @@ struct vsp1_dl_list *vsp1_dl_list_get(struct vsp1_dl_manager *dlm)
->  		dl->allocated = true;
->  	}
->  
-> -	spin_unlock_irqrestore(&dlm->lock, flags);
-> -
->  	return dl;
->  }
->  
-> @@ -690,14 +677,12 @@ static void __vsp1_dl_list_put(struct vsp1_dl_list *dl)
->   */
->  void vsp1_dl_list_put(struct vsp1_dl_list *dl)
->  {
-> -	unsigned long flags;
-> -
->  	if (!dl)
->  		return;
->  
-> -	spin_lock_irqsave(&dl->dlm->lock, flags);
-> +	guard(spinlock_irqsave)(&dl->dlm->lock);
-> +
->  	__vsp1_dl_list_put(dl);
-> -	spin_unlock_irqrestore(&dl->dlm->lock, flags);
->  }
->  
->  /**
-> @@ -937,7 +922,6 @@ void vsp1_dl_list_commit(struct vsp1_dl_list *dl, unsigned int dl_flags)
->  {
->  	struct vsp1_dl_manager *dlm = dl->dlm;
->  	struct vsp1_dl_list *dl_next;
-> -	unsigned long flags;
->  
->  	/* Fill the header for the head and chained display lists. */
->  	vsp1_dl_list_fill_header(dl, list_empty(&dl->chain));
-> @@ -950,14 +934,12 @@ void vsp1_dl_list_commit(struct vsp1_dl_list *dl, unsigned int dl_flags)
->  
->  	dl->flags = dl_flags & ~VSP1_DL_FRAME_END_COMPLETED;
->  
-> -	spin_lock_irqsave(&dlm->lock, flags);
-> +	guard(spinlock_irqsave)(&dlm->lock);
->  
->  	if (dlm->singleshot)
->  		vsp1_dl_list_commit_singleshot(dl);
->  	else
->  		vsp1_dl_list_commit_continuous(dl);
-> -
-> -	spin_unlock_irqrestore(&dlm->lock, flags);
->  }
->  
->  /* -----------------------------------------------------------------------------
-> @@ -991,7 +973,7 @@ unsigned int vsp1_dlm_irq_frame_end(struct vsp1_dl_manager *dlm)
->  	u32 status = vsp1_read(vsp1, VI6_STATUS);
->  	unsigned int flags = 0;
->  
-> -	spin_lock(&dlm->lock);
-> +	guard(spinlock)(&dlm->lock);
->  
->  	/*
->  	 * The mem-to-mem pipelines work in single-shot mode. No new display
-> @@ -1001,7 +983,7 @@ unsigned int vsp1_dlm_irq_frame_end(struct vsp1_dl_manager *dlm)
->  		__vsp1_dl_list_put(dlm->active);
->  		dlm->active = NULL;
->  		flags |= VSP1_DL_FRAME_END_COMPLETED;
-> -		goto done;
-> +		return flags;
->  	}
->  
->  	/*
-> @@ -1011,7 +993,7 @@ unsigned int vsp1_dlm_irq_frame_end(struct vsp1_dl_manager *dlm)
->  	 * and retry.
->  	 */
->  	if (vsp1_dl_list_hw_update_pending(dlm))
-> -		goto done;
-> +		return flags;
->  
->  	/*
->  	 * Progressive streams report only TOP fields. If we have a BOTTOM
-> @@ -1019,7 +1001,7 @@ unsigned int vsp1_dlm_irq_frame_end(struct vsp1_dl_manager *dlm)
->  	 * next frame end interrupt.
->  	 */
->  	if (status & VI6_STATUS_FLD_STD(dlm->index))
-> -		goto done;
-> +		return flags;
->  
->  	/*
->  	 * If the active display list has the writeback flag set, the frame
-> @@ -1058,9 +1040,6 @@ unsigned int vsp1_dlm_irq_frame_end(struct vsp1_dl_manager *dlm)
->  		dlm->pending = NULL;
->  	}
->  
-> -done:
-> -	spin_unlock(&dlm->lock);
-> -
->  	return flags;
->  }
->  
-> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_histo.c b/drivers/media/platform/renesas/vsp1/vsp1_histo.c
-> index 72f6ef2fdc4f..97dbfb93abe9 100644
-> --- a/drivers/media/platform/renesas/vsp1/vsp1_histo.c
-> +++ b/drivers/media/platform/renesas/vsp1/vsp1_histo.c
-> @@ -35,20 +35,18 @@ to_vsp1_histogram_buffer(struct vb2_v4l2_buffer *vbuf)
->  struct vsp1_histogram_buffer *
->  vsp1_histogram_buffer_get(struct vsp1_histogram *histo)
->  {
-> -	struct vsp1_histogram_buffer *buf = NULL;
-> +	struct vsp1_histogram_buffer *buf;
->  
-> -	spin_lock(&histo->irqlock);
-> +	guard(spinlock)(&histo->irqlock);
->  
->  	if (list_empty(&histo->irqqueue))
-> -		goto done;
-> +		return NULL;
->  
->  	buf = list_first_entry(&histo->irqqueue, struct vsp1_histogram_buffer,
->  			       queue);
->  	list_del(&buf->queue);
->  	histo->readout = true;
->  
-> -done:
-> -	spin_unlock(&histo->irqlock);
->  	return buf;
->  }
->  
-> @@ -68,10 +66,10 @@ void vsp1_histogram_buffer_complete(struct vsp1_histogram *histo,
->  	vb2_set_plane_payload(&buf->buf.vb2_buf, 0, size);
->  	vb2_buffer_done(&buf->buf.vb2_buf, VB2_BUF_STATE_DONE);
->  
-> -	spin_lock(&histo->irqlock);
-> +	guard(spinlock)(&histo->irqlock);
-> +
->  	histo->readout = false;
->  	wake_up(&histo->wait_queue);
-> -	spin_unlock(&histo->irqlock);
->  }
->  
->  /* -----------------------------------------------------------------------------
-> @@ -123,9 +121,9 @@ static void histo_buffer_queue(struct vb2_buffer *vb)
->  	struct vsp1_histogram *histo = vb2_get_drv_priv(vb->vb2_queue);
->  	struct vsp1_histogram_buffer *buf = to_vsp1_histogram_buffer(vbuf);
->  
-> -	spin_lock_irq(&histo->irqlock);
-> +	guard(spinlock_irq)(&histo->irqlock);
-> +
->  	list_add_tail(&buf->queue, &histo->irqqueue);
-> -	spin_unlock_irq(&histo->irqlock);
->  }
->  
->  static int histo_start_streaming(struct vb2_queue *vq, unsigned int count)
-> @@ -138,7 +136,7 @@ static void histo_stop_streaming(struct vb2_queue *vq)
->  	struct vsp1_histogram *histo = vb2_get_drv_priv(vq);
->  	struct vsp1_histogram_buffer *buffer;
->  
-> -	spin_lock_irq(&histo->irqlock);
-> +	guard(spinlock_irq)(&histo->irqlock);
->  
->  	/* Remove all buffers from the IRQ queue. */
->  	list_for_each_entry(buffer, &histo->irqqueue, queue)
-> @@ -147,8 +145,6 @@ static void histo_stop_streaming(struct vb2_queue *vq)
->  
->  	/* Wait for the buffer being read out (if any) to complete. */
->  	wait_event_lock_irq(histo->wait_queue, !histo->readout, histo->irqlock);
-> -
-> -	spin_unlock_irq(&histo->irqlock);
->  }
->  
->  static const struct vb2_ops histo_video_queue_qops = {
-> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_pipe.c b/drivers/media/platform/renesas/vsp1/vsp1_pipe.c
-> index aaec1aa15091..924e87f91903 100644
-> --- a/drivers/media/platform/renesas/vsp1/vsp1_pipe.c
-> +++ b/drivers/media/platform/renesas/vsp1/vsp1_pipe.c
-> @@ -487,14 +487,9 @@ void vsp1_pipeline_run(struct vsp1_pipeline *pipe)
->  
->  bool vsp1_pipeline_stopped(struct vsp1_pipeline *pipe)
->  {
-> -	unsigned long flags;
-> -	bool stopped;
-> +	guard(spinlock_irqsave)(&pipe->irqlock);
->  
-> -	spin_lock_irqsave(&pipe->irqlock, flags);
-> -	stopped = pipe->state == VSP1_PIPELINE_STOPPED;
-> -	spin_unlock_irqrestore(&pipe->irqlock, flags);
-> -
-> -	return stopped;
-> +	return pipe->state == VSP1_PIPELINE_STOPPED;
->  }
->  
->  int vsp1_pipeline_stop(struct vsp1_pipeline *pipe)
-> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_video.c b/drivers/media/platform/renesas/vsp1/vsp1_video.c
-> index 138d4e08eee9..1e5d9e42cea0 100644
-> --- a/drivers/media/platform/renesas/vsp1/vsp1_video.c
-> +++ b/drivers/media/platform/renesas/vsp1/vsp1_video.c
-> @@ -667,7 +667,7 @@ static void vsp1_video_buffer_queue(struct vb2_buffer *vb)
->  	if (!empty)
->  		return;
->  
-> -	spin_lock_irqsave(&pipe->irqlock, flags);
-> +	guard(spinlock_irqsave)(&pipe->irqlock);
->  
->  	video->rwpf->mem = buf->mem;
->  	pipe->buffers_ready |= 1 << video->pipe_index;
-> @@ -675,8 +675,6 @@ static void vsp1_video_buffer_queue(struct vb2_buffer *vb)
->  	if (vb2_start_streaming_called(&video->queue) &&
->  	    vsp1_pipeline_ready(pipe))
->  		vsp1_video_pipeline_run(pipe);
-> -
-> -	spin_unlock_irqrestore(&pipe->irqlock, flags);
->  }
->  
->  static int vsp1_video_pipeline_setup_partitions(struct vsp1_pipeline *pipe)
-> @@ -778,14 +776,13 @@ static int vsp1_video_setup_pipeline(struct vsp1_pipeline *pipe)
->  static void vsp1_video_release_buffers(struct vsp1_video *video)
->  {
->  	struct vsp1_vb2_buffer *buffer;
-> -	unsigned long flags;
->  
->  	/* Remove all buffers from the IRQ queue. */
-> -	spin_lock_irqsave(&video->irqlock, flags);
-> +	guard(spinlock_irqsave)(&video->irqlock);
-> +
->  	list_for_each_entry(buffer, &video->irqqueue, queue)
->  		vb2_buffer_done(&buffer->buf.vb2_buf, VB2_BUF_STATE_ERROR);
->  	INIT_LIST_HEAD(&video->irqqueue);
-> -	spin_unlock_irqrestore(&video->irqlock, flags);
->  }
->  
->  static void vsp1_video_cleanup_pipeline(struct vsp1_pipeline *pipe)
-> @@ -807,7 +804,6 @@ static int vsp1_video_start_streaming(struct vb2_queue *vq, unsigned int count)
->  	struct vsp1_video *video = vb2_get_drv_priv(vq);
->  	struct vsp1_pipeline *pipe = video->rwpf->entity.pipe;
->  	bool start_pipeline = false;
-> -	unsigned long flags;
->  	int ret;
->  
->  	scoped_guard(mutex, &pipe->lock) {
-> @@ -835,10 +831,10 @@ static int vsp1_video_start_streaming(struct vb2_queue *vq, unsigned int count)
->  	if (!start_pipeline)
->  		return 0;
->  
-> -	spin_lock_irqsave(&pipe->irqlock, flags);
-> +	guard(spinlock_irqsave)(&pipe->irqlock);
-> +
->  	if (vsp1_pipeline_ready(pipe))
->  		vsp1_video_pipeline_run(pipe);
-> -	spin_unlock_irqrestore(&pipe->irqlock, flags);
->  
->  	return 0;
->  }
-> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
-> index e7ed3c8e9e90..327c7457126f 100644
-> --- a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
-> +++ b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
-> @@ -111,9 +111,9 @@ static int vsp1_wpf_s_ctrl(struct v4l2_ctrl *ctrl)
->  	if (rotation == 180 || rotation == 270)
->  		flip ^= BIT(WPF_CTRL_VFLIP) | BIT(WPF_CTRL_HFLIP);
->  
-> -	spin_lock_irq(&wpf->flip.lock);
-> +	guard(spinlock_irq)(&wpf->flip.lock);
-> +
->  	wpf->flip.pending = flip;
-> -	spin_unlock_irq(&wpf->flip.lock);
->  
->  	return 0;
->  }
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
-> 
-> 
+Looking at the userspace implementation, can we also have an panthor
+ioctl to return the heap to userspace? A dma-heap ioctl to query the
+heap size is also lacking.
 
--- 
-Kind Regards,
-Niklas Söderlund
+
+>
+> Best regards,
+> Liviu
+>
+>
+> --
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> | I would like to |
+> | fix the world,  |
+> | but they're not |
+> | giving me the   |
+>  \ source code!  /
+>   ---------------
+>     =C2=AF\_(=E3=83=84)_/=C2=AF
+>
