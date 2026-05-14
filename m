@@ -4,46 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75386CD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 14:25:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09760CD4851
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 15:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7BBD10E389;
-	Thu, 14 May 2026 14:25:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52AD110E166;
+	Thu, 14 May 2026 15:11:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="j46jCVvt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d6e1zB+Z";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5660810E389
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 14:25:11 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 866C81C00;
- Thu, 14 May 2026 07:25:05 -0700 (PDT)
-Received: from [10.1.37.28] (e122027.cambridge.arm.com [10.1.37.28])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD8133F7B4;
- Thu, 14 May 2026 07:25:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1778768710; bh=l7LotTyfe1YXxHTYaep0pAJ6PentvBrdPtfTlDlMwNc=;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46EEE10E166
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 15:11:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0B13E42AE7;
+ Thu, 14 May 2026 15:11:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9F04C2BCB3;
+ Thu, 14 May 2026 15:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778771484;
+ bh=hozAw0rEPrOq8LRlaqbe/lv3mLiyhX6RyL3aLIPpo+c=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=j46jCVvt6GLlhSl5L7eOJ0RC8mmKqOPIVM47HyMcptJIU2ljZmNKnEVvnXfKfjx3+
- fea5iKUOrzk3QRMzlPAjlEDBoa5Bx6tvG1YiU6Be/NEz4zYNw3DNbnhX0AmjZhA4xA
- 3q3Mm8GmPvm/w8rhwhWsplXGL5YDVHj1+nCi6oCo=
-Message-ID: <44d8b158-76bd-4ad5-9fd5-616afd432155@arm.com>
-Date: Thu, 14 May 2026 15:25:07 +0100
+ b=d6e1zB+Z2U3ZKOLAXZGNXOymdfqOhsVQiU7tH6xzvehhkecwNID9tf5GGum6vWgHE
+ IEdluTVOKmAGhLV6piProU2wXkZHQrbCs190J7AMp3bbC4R2u0u+vCMUtrKtfEuUTi
+ 9ysLKtvpZ+FXoJg7imltNnF1XeDzwKLlFvLf28bICokhgN4oPTkq39m+oYbOQtL4F/
+ E0+WBuDm1bj67U2Zb1aWDsjr9lnQuZFRZgsCwxGhiW/0gcyWk+iw/t3BwPEdAf9a4Y
+ 04MwWseJ04cgKYwlZIhsRGKv/SWe+tARJXSFgvQgsFtcFGMDTBbtLvj/uNMEeNMlni
+ ktyWHbzrhU+5A==
+Message-ID: <81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@kernel.org>
+Date: Thu, 14 May 2026 17:11:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/11] drm/panthor: Automatically enable interrupts in
- panthor_fw_wait_acks()
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
+To: Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-8-95c614a739cb@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260512-panthor-signal-from-irq-v2-8-95c614a739cb@collabora.com>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
+ <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
+ <20260501-yogurt-wise-2a2884e3ec59@spud>
+ <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
+ <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
+ <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
+ <dd7ebb25-014c-4983-ae31-6a6cbd24e628@kernel.org>
+ <DID4LW3GMLDV.338VDV2L2IPL@fairphone.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <DID4LW3GMLDV.338VDV2L2IPL@fairphone.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -61,136 +118,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 12/05/2026 12:37, Boris Brezillon wrote:
-> Rather than assuming an interrupt is always expected for request
-> acks, temporarily enable the relevant interrupts when the polling-wait
-> failed. This should hopefully reduce the number of interrupts the CPU
-> has to process.
+On 08/05/2026 09:44, Luca Weiss wrote:
+> Hi Krzysztof,
 > 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-
-As mentioned in the other thread[1] it turns out this won't work with
-the current firmware.
-
-The firmware checks the interrupt mask before signalling the ACK - so
-enabling the bit in the mask just before waiting for it is problematic -
-the firmware may not see the addition in the mask and will not trigger
-the interrupt.
-
-In practice this will mostly work - the CPU is fast enough that it's
-unlikely the firmware will have picked up the request by the time we
-become blocked (and hence the firmware's mask read will be after the
-host is already in the wait_event_timeout()). But it's not robust.
-
-I'm hoping to get at least a clarification in the spec if not a change
-in (later) firmware.
-
-Thanks,
-Steve
-
-[1]
-https://lore.kernel.org/all/3c721f22-d1a7-474e-8276-f0afc7cd9a0b@arm.com/
-
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c    | 34 +++++++++++++++++++--------------
->  drivers/gpu/drm/panthor/panthor_sched.c |  5 +++--
->  2 files changed, 23 insertions(+), 16 deletions(-)
+> On Tue May 5, 2026 at 9:25 AM CEST, Krzysztof Kozlowski wrote:
+>> On 05/05/2026 08:40, Luca Weiss wrote:
+>>>>>>> +  compatible:
+>>>>>>> +    contains:
+>>>>>>> +      const: boe,bj631jhm-t71-d900
+>>>>>>
+>>>>>> Compatible doesn't match the filename, nor does the commit message match
+>>>>>> what you've got here. Sounds like you're missing a fallback to
+>>>>>> $filename.
+>>>>>
+>>>>> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
+>>>>> this was the requested way of doing things.
+>>>>
+>>>> So this was requested that time and is requested now. What is here
+>>>> uncertain?
+>>>>
+>>>>>
+>>>>> Compatible being the company and model number making the actual panel
+>>>>> assembly (driver IC + touchscreen + glass etc), while the rest being
+>>>>> named after the driver IC manufacturer & number.
+>>>>
+>>>> So exactly what was asked for...
+>>>
+>>> I don't quite understand what is asked for now, that's my issue.
+>>>
+>>> 1. Change the filename to boe,bj631jhm-t71-d900.yaml and leave the rest
+>>>    as-is.
+>>>
+>>> 2. Add a fallback compatible for novatek,nt37705. IIRC last time it was
+>>>    argued that a "generic" nt37705 driver will never be correct for a
+>>>    specific panel since it's missing a bunch of panel-specific init. So
+>>>    that's why there should not be a fallback to nt37705.
+>>
+>> To my limited knowledge the (2) with fallback describing the specific IC
+>> is preferred, because that compatible although not currently usable is
+>> still specific and describes actual IC used. I imagine that such
+>> fallback still could be useful to some SW implementation to determine
+>> the IC and act based on that.
+>>
+>> If you have sources of other preference, please share, but I just gave
+>> same review to Neil for his ayaneo,wt0600-2k panels.
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index 8239a6951569..f5e0ceca4130 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1039,16 +1039,10 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
->  	glb_iface->input->progress_timer = PROGRESS_TIMEOUT_CYCLES >> PROGRESS_TIMEOUT_SCALE_SHIFT;
->  	glb_iface->input->idle_timer = panthor_fw_conv_timeout(ptdev, IDLE_HYSTERESIS_US);
->  
-> -	/* Enable interrupts we care about. */
-> -	glb_iface->input->ack_irq_mask = GLB_CFG_ALLOC_EN |
-> -					 GLB_PING |
-> -					 GLB_CFG_PROGRESS_TIMER |
-> -					 GLB_CFG_POWEROFF_TIMER |
-> -					 GLB_IDLE_EN |
-> -					 GLB_IDLE;
-> -
-> -	if (panthor_fw_has_glb_state(ptdev))
-> -		glb_iface->input->ack_irq_mask |= GLB_STATE_MASK;
-> +	/* Enable interrupts for asynchronous events that are not
-> +	 * triggered by request acks.
-> +	 */
-> +	glb_iface->input->ack_irq_mask = GLB_IDLE;
->  
->  	panthor_fw_update_reqs(glb_iface, req, GLB_IDLE_EN | GLB_COUNTER_EN,
->  			       GLB_IDLE_EN | GLB_COUNTER_EN);
-> @@ -1318,8 +1312,8 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
->   * Return: 0 on success, -ETIMEDOUT otherwise.
->   */
->  static int panthor_fw_wait_acks(const u32 *req_ptr, const u32 *ack_ptr,
-> -				wait_queue_head_t *wq,
-> -				u32 req_mask, u32 *acked,
-> +				u32 *ack_irq_mask_ptr, spinlock_t *lock,
-> +				wait_queue_head_t *wq, u32 req_mask, u32 *acked,
->  				u32 timeout_ms)
->  {
->  	u32 ack, req = READ_ONCE(*req_ptr) & req_mask;
-> @@ -1334,8 +1328,16 @@ static int panthor_fw_wait_acks(const u32 *req_ptr, const u32 *ack_ptr,
->  	if (!ret)
->  		return 0;
->  
-> -	if (wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) == req,
-> -			       msecs_to_jiffies(timeout_ms)))
-> +	scoped_guard(spinlock_irqsave, lock)
-> +		*ack_irq_mask_ptr |= req_mask;
-> +
-> +	ret = wait_event_timeout(*wq, (READ_ONCE(*ack_ptr) & req_mask) == req,
-> +				 msecs_to_jiffies(timeout_ms));
-> +
-> +	scoped_guard(spinlock_irqsave, lock)
-> +		*ack_irq_mask_ptr &= ~req_mask;
-> +
-> +	if (ret)
->  		return 0;
->  
->  	/* Check one last time, in case we were not woken up for some reason. */
-> @@ -1369,6 +1371,8 @@ int panthor_fw_glb_wait_acks(struct panthor_device *ptdev,
->  
->  	return panthor_fw_wait_acks(&glb_iface->input->req,
->  				    &glb_iface->output->ack,
-> +				    &glb_iface->input->ack_irq_mask,
-> +				    &glb_iface->lock,
->  				    &ptdev->fw->req_waitqueue,
->  				    req_mask, acked, timeout_ms);
->  }
-> @@ -1395,6 +1399,8 @@ int panthor_fw_csg_wait_acks(struct panthor_device *ptdev, u32 csg_slot,
->  
->  	ret = panthor_fw_wait_acks(&csg_iface->input->req,
->  				   &csg_iface->output->ack,
-> +				   &csg_iface->input->ack_irq_mask,
-> +				   &csg_iface->lock,
->  				   &ptdev->fw->req_waitqueue,
->  				   req_mask, acked, timeout_ms);
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 6c5ba747ae45..a9124bcc7de6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1110,7 +1110,7 @@ cs_slot_prog_locked(struct panthor_device *ptdev, u32 csg_id, u32 cs_id)
->  	cs_iface->input->ringbuf_output = queue->iface.output_fw_va;
->  	cs_iface->input->config = CS_CONFIG_PRIORITY(queue->priority) |
->  				  CS_CONFIG_DOORBELL(queue->doorbell_id);
-> -	cs_iface->input->ack_irq_mask = ~0;
-> +	cs_iface->input->ack_irq_mask = CS_FATAL | CS_FAULT | CS_TILER_OOM;
->  	panthor_fw_update_reqs(cs_iface, req,
->  			       CS_IDLE_SYNC_WAIT |
->  			       CS_IDLE_EMPTY |
-> @@ -1378,7 +1378,8 @@ csg_slot_prog_locked(struct panthor_device *ptdev, u32 csg_id, u32 priority)
->  		csg_iface->input->protm_suspend_buf = 0;
->  	}
->  
-> -	csg_iface->input->ack_irq_mask = ~0;
-> +	csg_iface->input->ack_irq_mask = CSG_SYNC_UPDATE | CSG_IDLE |
-> +					 CSG_PROGRESS_TIMER_EVENT;
->  	panthor_fw_toggle_reqs(csg_iface, doorbell_req, doorbell_ack, queue_mask);
->  	return 0;
->  }
+> I found the discussion from 2024 for the Fairphone 4 panel:
 > 
+> https://lore.kernel.org/lkml/f9164049-6529-42c1-a35a-e91132c823b9@linaro.org/
+> 
+> (quoting)
+> 
+> '''
+>   Not sure if "himax,hx83112a" is needed here, the "djn,9a-3r063-1102b"
+>   is enough to know the IC is hx83112a.
+> 
+>   I don't think you'll ever find a "djn,9a-3r063-1102b" with another
+>   controller IC ?
+> 
+>   And "himax,hx83112a" alone as fallback is not enough to describe the
+>   panel hardware, so I think it should be dropped.
+> '''
+> 
+> With Konrad replying "+1" to that.
 
+The arguments from Linux drivers point of view are correct. And you can
+apply the same to board-level compatibles. Each most-specific board
+level compatible already defines the soc, thus soc-compatible fallback
+is redundant, right?
+
+And also the soc-compatible fallback is too generic to be used alone by
+the SW in many cases.
+
+Yet we use it. Same here. Why? For the same reasons as we use for
+board-level compatibles. Because that's convenient way for defining
+quirks for the controller IC which otherwise would need to match all
+panel compatibles.
+
+I do not insist on this (for panels, of course), however I would prefer
+consistency in the code and in the reviews. Heh, I bet you too would
+prefer consistency. :) All my recent reviews were proposing to have the
+fallback, thus I consistently propose one here, but I won't object for
+the patch in current form, thus:
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+But please also add Link to this exact email I am writing.
+
+( Link: ....)
+
+Best regards,
+Krzysztof
