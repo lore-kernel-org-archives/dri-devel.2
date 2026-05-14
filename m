@@ -4,71 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F8CECD4F3C
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 17:25:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A837ECD4F39
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 17:36:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91F6510F2D3;
-	Thu, 14 May 2026 17:25:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 074AA10F2C3;
+	Thu, 14 May 2026 17:36:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="twYHJtLa";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="O+9A/8aK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E2CA10E0D2
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 17:24:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 991CF60008;
- Thu, 14 May 2026 17:24:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 481E5C2BCB3;
- Thu, 14 May 2026 17:24:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778779495;
- bh=3PC5Cuco5w85pnBqFY1Ju+w2SKqZmWd6DZncQX5MeUw=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=twYHJtLa4DjDkJfyZgd6J1tOScBxAuOWGMoU1lAd905StY/xqk+MdayGhs+iISNgX
- G1RCn30OjZwGEVJbkQjPTOOycO1HtO6xvsN31JzrigzvsllVJ0ZT1jvQhUMjB1Xmn2
- BMCEs8hqNUQdvnC03OzF38pSBhbs0A8B67kL7VkpRsCNEglZ8rl03nlop+nJHc2v8B
- PxAQuFnuVKWc+LYo6eED+Ekok/OyhqdUJsTawjtAxsCWdY40EdRSFwaVUN5v2pycrg
- OJ+F6gf75781fMFoLuQJkSPxA4zvL3olC2zCZggaZ7evurmagDZYEC8CnAD5cmmTpG
- tdz8U/uhIsTpg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 34BC3CD4F39;
- Thu, 14 May 2026 17:24:55 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] drm/panel: Add panel driver for Chipone ICNA35XX
- based panels
-Date: Thu, 14 May 2026 12:24:48 -0500
-Message-Id: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2B3710F2E5
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 17:36:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:Content-Description
+ :Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=GwwUeKFsKyVyc2+pTaKswdPzG1/YgpdUqtqHsE9uC3c=; b=O+9A/8aKWex7YSsZulUvCRbT22
+ LS39rgmpP6xjmZFVNSpkoI67QDvh3fbOJvgPayTkCWw4Rn0Na3KxjTkUHhGZVFZUIOn6MzsutEncE
+ 33O19MnrHYpx3Yt3NhNYfz/KFLz3k3iGqycn2laA6IryKLQuX+gX6RbuosFqCnXFxv9S95+U4q+K6
+ wgb5OguCJO6p55H62aR/LmtJbiJjCVVKRa1tFq31rv3Z0Xa0PVPZpFF4PBjqRJQKs2fg3GZ8VwkvI
+ 1gFMAIHQVUyMe7l+/NHpi5c4xogIy1NDC+zPejjuTuP+NhD8tEk4ft1FY7g5WJn9gWPNCO+31zjnf
+ x9aARObA==;
+Received: from 179-125-79-241-dinamico.pombonet.net.br ([179.125.79.241]
+ helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wNZz8-000Aig-0e; Thu, 14 May 2026 19:36:34 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Thu, 14 May 2026 14:36:08 -0300
+Subject: [PATCH v3] cgroup/dmem: introduce a peak file
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02PwW7DIBBEf8XiXKpdiDH2qf9R5bDAkiDVdgOu5
- Sjyv4c6h/Y4q52ZNw9ROCcuYmgeIvOaSpqnKtRbI/yVpgvLFKoWCpQBpUAmP5Fut02y7ykSakY
- iUd+/M8e0HVGf55fOfPupicvrKBwVln4ex7QMDfc2KPTYgQMMgaM2JoLSzkUfjdPYQh/JavGfp
- IIdHNhJuk/y5ottW5BoPHTO6MDKDKsVv/XXVJY5349hKx79h7fG/m1YUYI01gYdTowQ+4/LSOn
- rvUKK877vT0WbP6kfAQAA
-X-Change-ID: 20260220-icna35xx-ec9afa13e1aa
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
- Teguh Sobirin <teguh@sobir.in>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778779494; l=1862;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=3PC5Cuco5w85pnBqFY1Ju+w2SKqZmWd6DZncQX5MeUw=;
- b=Wh1N5cpYCZdga0nk4wOwnV9ABC9/lY5pPUnc2HrUszpEudGn4yPoOv3IIUW0tPlU6/ZaiVvfm
- iVO9k/+gM0kBNR++MRDKXEvdjND/zRrMYVSYXGDKl1fFwsIXCb9YS7v
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Message-Id: <20260514-dmem_peak-v3-1-b64ce5d3ac38@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAAgIBmoC/1WMyw6CMBBFf8V0bc20BaSu/A9jTB8jTJRHWtNoC
+ P9uwQ0uz809Z2IRA2Fkp93EAiaKNPQZ1H7HXGv6Bjn5zEyCrKAAzX2H3W1E8+DKWCcs6hKOkuX
+ /GPBO77V1uWZuKb6G8FnTSSzrr1JCtakkwYHXvgaFVhWFdmdqzJPMwQ0dWzJJblShtqrkgnvjo
+ NJae6vxT53n+QtDElqX3gAAAA==
+X-Change-ID: 20260409-dmem_peak-3abc1be95072
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Natalie Vock <natalie.vock@gmx.de>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+X-Mailer: b4 0.16-dev-62088
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,52 +70,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This driver is based on the one by Teguh Sobirin [0].
-    
-Due to [1], the AYN vendor description patch has been folded into the
-AYN QCS8550 dt series. Which means this series depends on said series
-and it must be picked up before this.
+Just like we have memory.peak, introduce a dmem.peak, which uses the
+page_counter support for that.
 
-[0] https://github.com/AYNTechnologies/linux/commit/4c5e76e974db7cca853619ca138eecd8f004622f
-[1] https://lore.kernel.org/linux-arm-msm/c7fb3f89-6574-4761-9ef2-2fdf6d4801b5@kernel.org
+For now, make it read-only.
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+This allows for memory usage monitoring without polling dmem.current when
+the information needed is the maximum device memory used. That can be used
+for capacity planning, such that dmem.max can be properly setup for a given
+workload. It can also be used for debugging to determine whether a given
+workload would have caused eviction or system memory use.
+
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
+Changes in v3:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v2: https://patch.msgid.link/20260513-dmem_peak-v2-1-dac06999db9e@igalia.com
+
 Changes in v2:
-- Fix lint warning in patch 1
-- Add ayaneo,pocketds-panel-top compatible to patches 1 and 2, it uses the
-  same init sequence as the odin 2 portal panel.
-- Link to v1: https://lore.kernel.org/r/20260509-icna35xx-v1-0-688d3d4e10f9@gmail.com
+- Make it read-only for now and adjust documentation accordingly.
+- Link to v1: https://patch.msgid.link/20260506-dmem_peak-v1-0-8d803eb3449c@igalia.com
+---
+ Documentation/admin-guide/cgroup-v2.rst |  6 ++++++
+ kernel/cgroup/dmem.c                    | 15 +++++++++++++++
+ 2 files changed, 21 insertions(+)
+
+diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+index 6efd0095ed99..d103623b2be4 100644
+--- a/Documentation/admin-guide/cgroup-v2.rst
++++ b/Documentation/admin-guide/cgroup-v2.rst
+@@ -2808,6 +2808,12 @@ DMEM Interface Files
+ 	The semantics are the same as for the memory cgroup controller, and are
+ 	calculated in the same way.
+ 
++  dmem.peak
++	A read-only nested-keyed file that exists on non-root cgroups.
++
++	The max device memory usage recorded for the cgroup and its
++	descendants since the creation of the cgroup for each region.
++
+   dmem.capacity
+ 	A read-only file that describes maximum region capacity.
+ 	It only exists on the root cgroup. Not all memory can be
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index 4753a67d0f0f..6430c7ce1e03 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -182,6 +182,11 @@ static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
+ 	return pool ? page_counter_read(&pool->cnt) : 0;
+ }
+ 
++static u64 get_resource_peak(struct dmem_cgroup_pool_state *pool)
++{
++	return pool ? READ_ONCE(pool->cnt.watermark) : 0;
++}
++
+ static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
+ {
+ 	set_resource_min(rpool, 0);
+@@ -808,6 +813,11 @@ static int dmemcg_limit_show(struct seq_file *sf, void *v,
+ 	return 0;
+ }
+ 
++static int dmem_cgroup_region_peak_show(struct seq_file *sf, void *v)
++{
++	return dmemcg_limit_show(sf, v, get_resource_peak);
++}
++
+ static int dmem_cgroup_region_current_show(struct seq_file *sf, void *v)
+ {
+ 	return dmemcg_limit_show(sf, v, get_resource_current);
+@@ -856,6 +866,11 @@ static struct cftype files[] = {
+ 		.name = "current",
+ 		.seq_show = dmem_cgroup_region_current_show,
+ 	},
++	{
++		.name = "peak",
++		.seq_show = dmem_cgroup_region_peak_show,
++		.flags = CFTYPE_NOT_ON_ROOT,
++	},
+ 	{
+ 		.name = "min",
+ 		.write = dmem_cgroup_region_min_write,
 
 ---
-Aaron Kling (1):
-      dt-bindings: display: panel: Add Chipone ICNA 35xx OLED driver bindings
-
-Teguh Sobirin (1):
-      drm/panel: Add panel driver for Chipone ICNA35XX based panels
-
- .../bindings/display/panel/chipone,icna35xx.yaml   |  79 +++
- drivers/gpu/drm/panel/Kconfig                      |  11 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-chipone-icna35xx.c     | 619 +++++++++++++++++++++
- 4 files changed, 710 insertions(+)
----
-base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
-change-id: 20260220-icna35xx-ec9afa13e1aa
-prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v8
-prerequisite-patch-id: 2b010637c46f5ea0e19a2fa87cc5ccb19bfd9204
-prerequisite-patch-id: d0c633dc17f0aba726a8e8d21fee52b944bf67ff
-prerequisite-patch-id: 11f4208bd788df984cec7404088c7d071ec49dfc
-prerequisite-patch-id: 76b61799dba520fc7fa3ff39b044e24103337af3
-prerequisite-patch-id: 3844bef2eda3cf59031b1d131eb6ba9295629bb4
-prerequisite-patch-id: 3331648bc6f4ac3bb156f0525aa1ede92bfc57f1
+base-commit: d3b0a7f21119f5a66cb76aa28fb8cc13206aaf7d
+change-id: 20260409-dmem_peak-3abc1be95072
 
 Best regards,
--- 
-Aaron Kling <webgeek1234@gmail.com>
-
+--  
+Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
