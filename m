@@ -4,54 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7926ECD4F39
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 18:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD9ABCD4F3C
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 18:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE9E210E3E4;
-	Thu, 14 May 2026 18:07:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FF8710F2C9;
+	Thu, 14 May 2026 18:16:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wh5bwybi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RFLSa1Es";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5462810E3E4
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 18:07:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 711FA10F2C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 18:16:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9834160008;
- Thu, 14 May 2026 18:07:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A05C2BCB3;
- Thu, 14 May 2026 18:06:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D6BE1444AD;
+ Thu, 14 May 2026 18:16:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77756C2BCB3;
+ Thu, 14 May 2026 18:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778782021;
- bh=ZJhDvmaNEP1ySX2XrRgUq2t9T2ZNXHWBA7mglE4QaNs=;
+ s=k20201202; t=1778782594;
+ bh=fJEm25dH1y6EOkMRRYqO7y8ORNR0reygkJUR3Cbg4Yo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Wh5bwybi1QPNyvNi3hFQ1/ZJnAsKgvnQpQO38MT+AXZ7iFU4+O++iUmpyUyRRIwwB
- jJ5tZCknJoAeyl/NI1y/QzinPuC5dGRuvK1gb0AncPhLjfJz9KdRamy3jDdRurjuzA
- Jnj0krRWE0tqVls5+v4ONDtKJsh23y3Z7hS2JN+Sep9M3IzorTMP011rHy4ptCO7oc
- 8OxC9ja3PfY9VLZ9LeGabPIInLXMD0dVhSRWoSYbY1j/n5ums78FFuzzqlLCYkdKiX
- +S7yOLVLHllpWrBi3IOQWxiK8yOBLGcovB/xjb6JP1E/lbt9sJvUtwqo5Yi6tKhgxn
- STEpGoTWbqPrw==
-Date: Thu, 14 May 2026 19:06:56 +0100
+ b=RFLSa1Esfxz7x1JwzdViATqXIRSaoQSXevi1OJtbMbtHqLQpSO+ZcPMKkh1nlyS2M
+ R8lt7VLW3yJKEd+3CNLstb03LDrHISdsQhyrbbpKI3UmA6QpTU1qiB67R0W2r7Q4t2
+ jCuphqpdWqDq6hTtuKhzk0755NkrH/8ECe0xluGyh5sUZeZ1Jb4YMquxEg3NHmeva8
+ Ze2GuxElc4KboQwjoTCDYiWEGi4pw7sP4nVJ4aol82oJfFPVM5en06KmgFt/MZ5GrG
+ JVFSdyuTMbgaIdvvSSdILDiLs7PAOdr16jSpYckBeFCqy089YAb3ZhhaIn7XyCuult
+ 94RlkDoAGH0Wg==
+Date: Thu, 14 May 2026 19:16:27 +0100
 From: Conor Dooley <conor@kernel.org>
-To: webgeek1234@gmail.com
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add Chipone ICNA
- 35xx OLED driver bindings
-Message-ID: <20260514-ambush-salvation-ce6616190390@spud>
-References: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
- <20260514-icna35xx-v2-1-45acd1dfa566@gmail.com>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
+ jonas@kwiboo.se, jernej.skrabec@gmail.com,
+ nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com,
+ sebastian.reichel@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
+ luca.ceresoli@bootlin.com, dianders@chromium.org,
+ m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/3] dt-bindings: display: rockchip: analogix-dp:
+ Expose inherited properties
+Message-ID: <20260514-upstate-sneer-0b6e78682798@spud>
+References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
+ <20260514070133.2275069-2-damon.ding@rock-chips.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="2GlSKCpp1lgwMr3n"
+ protocol="application/pgp-signature"; boundary="mVkoKuQ4tnstZXFd"
 Content-Disposition: inline
-In-Reply-To: <20260514-icna35xx-v2-1-45acd1dfa566@gmail.com>
+In-Reply-To: <20260514070133.2275069-2-damon.ding@rock-chips.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,89 +72,60 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---2GlSKCpp1lgwMr3n
+--mVkoKuQ4tnstZXFd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 14, 2026 at 12:24:49PM -0500, Aaron Kling via B4 Relay wrote:
-> From: Aaron Kling <webgeek1234@gmail.com>
+On Thu, May 14, 2026 at 03:01:31PM +0800, Damon Ding wrote:
+> Expose the inherited properties from the base analogix-dp schema
+> to satisfy unevaluatedProperties constraints.
 >=20
-> The Chipone ICNA35xx series of DDICs are high refresh, low power
-> MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
-> Portal and the icna3520 is used by the Ayn Thor top panel and the Ayn
-> Odin 3.
->=20
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+
+Given it's unevaluatedProperties, not addtionalProperties, this patch
+shouldn't be needed?
+
 > ---
->  .../bindings/display/panel/chipone,icna35xx.yaml   | 79 ++++++++++++++++=
-++++++
->  1 file changed, 79 insertions(+)
+>  .../bindings/display/rockchip/rockchip,analogix-dp.yaml    | 7 +++++++
+>  1 file changed, 7 insertions(+)
 >=20
-> diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna=
-35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna35x=
-x.yaml
-> new file mode 100644
-> index 00000000000000..6464d8d0cf86d5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.ya=
-ml
-
-Filename matching a compatible please.
-
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/chipone,icna35xx.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
+analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
+hip,analogix-dp.yaml
+> index bb75d898a5c5..896ded87880f 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> @@ -50,6 +50,13 @@ properties:
+>    aux-bus:
+>      $ref: /schemas/display/dp-aux-bus.yaml#
+> =20
+> +  reg: true
+> +  interrupts: true
+> +  phys: true
+> +  phy-names: true
+> +  force-hpd: true
+> +  ports: true
 > +
-> +title: Chipone ICNA35xx display drivers
-> +
-> +maintainers:
-> +  - Neil Armstrong <neil.armstrong@linaro.org>
-> +
-> +description:
-> +  The Chipone ICNA35xx are a series of DDICs connected
-> +  using a MIPI-DSI video interface.
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - ayaneo,pocketds-panel-top
-> +              - ayntec,odin2portal-panel
-> +          - const: chipone,icna3512
-> +
-> +      - items:
-> +          - enum:
-> +              - ayntec,odin3-panel
-> +              - ayntec,thor-panel-top
-> +          - const: chipone,icna3520
+>  required:
+>    - compatible
+>    - clocks
+> --=20
+> 2.34.1
+>=20
+>=20
 
-Commit message should state why these ddics are not compatible with one
-another.
-
-Rest of this seems okay.
-
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
---2GlSKCpp1lgwMr3n
+--mVkoKuQ4tnstZXFd
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagYPQAAKCRB4tDGHoIJi
-0qhTAQDuWpG815w2psYFuRBAqW6QCw0uwketZvhj1aQkpAzUmAEA07sYOL9/Ytzo
-9JO/9/41YAeuQ1TpbaG+Em0qhu8CBQo=
-=yJu9
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagYRewAKCRB4tDGHoIJi
+0gh6AQDIt0Wy+KmYo0XcRM9NN7v66Y9rNrmbrCAaSxSTx2tAuwD/XM5Y1B12VcMT
+yz1+fUbrvZi2xJUPMA4qhMFXCvAXGgA=
+=+BYe
 -----END PGP SIGNATURE-----
 
---2GlSKCpp1lgwMr3n--
+--mVkoKuQ4tnstZXFd--
