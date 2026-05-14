@@ -4,90 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE3F7CD37AC
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 18:24:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1280BCD4F39
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 18:27:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31485897AC;
-	Thu, 14 May 2026 18:24:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEC0B10E5ED;
+	Thu, 14 May 2026 18:27:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RZrWnNHB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aQ5F/L4X";
 	dkim-atps=neutral
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 290A6897AC
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 18:24:33 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-393da8f389bso84035801fa.1
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 11:24:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778783071; cv=none;
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2364510E5ED
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 18:27:16 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-3937014be0cso77538501fa.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 11:27:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778783234; cv=none;
  d=google.com; s=arc-20240605;
- b=L9hEWH+lNfEzKLuBVzSc0iyTCXWD9940dI850MopIQbXGLM3izARJU4XHOsAaDKqoO
- M1Ej6o29wH12ZeREPXYmI3qQXWovQGELI96nkthDjHQMPEbQKHM9ypIe0K7cIzsIZJi3
- KuEten8GlwjZw1sGfLt06ZnYGz+HL8RTIFEzMzETxygPqZZgmpQCnISXva81lLbxw18Z
- 1x0HUfXWIzSQJsRAtDQr8R040ljNcgjQtksqMUDPOVVHGxMIzDpf/PpBxnBF/iLhQCdF
- V4t5IIVKAszZtG6e/0SLrdOhIdiEWTstTDezm0aRHUUJFvOqJStik9JGOTOUIiTYif2p
- YkCA==
+ b=aWuadDV+BHyafySCpnEwrJU+b/Q67y4dgy+6+wcRRlt0l2GRF6m2h1ildWW4Uqb7no
+ TnXnkW9FRDxgLZHhbRWlot+4GJ6Qgw0QGqBPXtrnTtsYIEZP6w1btjpUou49lscTUlgy
+ tGHzUSYgsx3QufwOLtoUsPTXTZT4DM8rckf07lXjqFj5sHwDpXC12Nw9Tc0NVG4LDO/I
+ 1r7toUquK+dKq35guAZjJ5eFpksgvypSdOv//p92oTHXoJ7xPwFO0TYmnBda0ZBBMYQX
+ sxZNmnGn05fW0M8eiZynJjCqL0wNnTP+C62U63vaOflO33y7G9bXnlawJgMsJlskkpbH
+ uxRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=g/n7qmH+UjfqU3oZNtSb+ulfjY44x4tUNOP96fJ9Gp8=;
- fh=0mduObTPTNRiKpS8O7Rdeh8TDeROzdmxb6mXKQa6LF0=;
- b=dCsIw6SE+OnnaczlV1V7dmKS9cY0HH2hq+C2qSVY5LUhAUyuc+t/2ECHkSmUKBHqM7
- 2tOSLDmUzY2MKAlFC3uowOPf2nQS07FUFGQlmT4unSPm3eDFv86aippAVrGWh9dVEpKh
- XZfHYPyDe7c98nwi3Tqd8GMLXRDXaxEQQmZGcanNsN3Fo7q+F150rY28JhJc/yTVp5ob
- qsj3WCAP0nhj8omskc18+gIPTrXH+l2sf70MZRlzdusOkPKIvQND8mlSFpFFTPp0Ah5/
- 0bSrTZF6YxOTAANW4BA+3toqazWQiJe0gj1QATazJgJkdag6mhH/OGkv7eTfCM4JthOX
- Z/Mg==; darn=lists.freedesktop.org
+ bh=2Xh19LyQF10UTWKq1me0fwm+mh43ExASMESLfzu7G68=;
+ fh=UpDZZEkmUqmUx9C+rlCbwjY2076RzoZ3/7AnGKgmo7A=;
+ b=CdhaUOBM3fmW8MiM1ePJAV4eUS/aok0HeGXPfAIcTdFG3GE5IWrXfWKyCp1T2CFXBC
+ dmJb/t8WGednXb4i25eYORyeGx6F/JJ8jUOTQtp+cPMn/lIMnaDtbYxLAaTrPkjP1q1V
+ LY8BbGdcR9w/X44FAfIRVvAd5Huh6lOYgeXf+Q0ISowx440+ZRL5gY10NlI39nzml+vH
+ boDUJuKYz613cwoSOXVQUvwDlbNdbMjymK9++nyHT4S74bD2hTRQv7sp8hF61LXQM5AB
+ nIFeSBovIFpfIxtcTSM/+r9XYh+lZUiIQLcY90OpilQ98nnj869jAyxGaqWH8N360glX
+ Q4GA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778783071; x=1779387871; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778783234; x=1779388034; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=g/n7qmH+UjfqU3oZNtSb+ulfjY44x4tUNOP96fJ9Gp8=;
- b=RZrWnNHBiFwi0ZI36D2nzvIug3ZSjNDLGMb9yilRGPR1P5/uQ2e9eFUe7GUcBiG+3e
- konlKD0ggkjii0dJt6+IEkxLtON2tzLX77RR5C8qXBIWkopPiJgfLYCCH6NYsDAOGWd8
- EiPVeDc7QVIqAFn8ar5U+S09erZqfhCl53+lIqkyDfx9ptBzcuTZqIVKYfxOgwEDwI76
- WWGnohp8Vwk7Xirl/kes/mQnQUITN2Pt5ZfpoIQ98G/6Kd2UekcMZ26eP76LvOndI/e5
- VEpTtjFUv8+HLG2fsH2VL3K5dJQDr4/Urewi194fBWzy/C4spcg7Jepuv4VbWb8nPipY
- 4MAA==
+ bh=2Xh19LyQF10UTWKq1me0fwm+mh43ExASMESLfzu7G68=;
+ b=aQ5F/L4XE4VVBtIfP8N1IjXsVRsixHqsR6tv4Wtb4tsMuV+extGg4mct2r/bO4Rm+n
+ xc2sf4Upy77GMBO5gAVdyUGV0ZGaUZFaLAYv/9yDkQKzBQCUkk6Uqn7uOjyHSzgHX/mE
+ +oAnLUUkVnBWmRAQYFEgTYXOt1liuRztS6hU/yJpP87yBNoerqL2NxvblM6lNFBzWhn8
+ 6SPYxAn8gowKXINgFeIYDEKlG2f3Yx8HtpDJVuv9LYwfCXw25EqupMW9mlkbF2l5reSG
+ RZ5kYE0b6uW38T9d7iLKleoWJc+/KuOwoAd+zAxr3BaAgXq2uDMkJbitv8hPs8HpVOv7
+ 0yGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778783071; x=1779387871;
+ d=1e100.net; s=20251104; t=1778783234; x=1779388034;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=g/n7qmH+UjfqU3oZNtSb+ulfjY44x4tUNOP96fJ9Gp8=;
- b=Q+ZS97KY0RIb8NiJtDjlVI+7hHbbmYEfKrhXf3l88W6X/z8NiLQ/DsqeMmxFUWeIpe
- 33xkC0OWYpUzcUmodfsZMgZYDz31etfARO4B3KtAUyD7OLhG9w3qKq9SMRRiUThLyEFC
- qHFRqhE2qoaVwZTAvjHa0MxFL7Kw18ZeQUseg4S6GZ3cGm6yaxgbZlbKurMS+Ce+Nrpm
- bzdNWwv2dX83omvou29Nd9yN5pPKV0hsrhn46/gUgL3IBXWaF2KLwiBx/lowrdK+SdNr
- xZ9syKXKCcugqiVZSO61/8DXicD3NRoCbImlIy1e44QDY4sq5w3KJg+jMYaa4Phg/geo
- CO7Q==
+ bh=2Xh19LyQF10UTWKq1me0fwm+mh43ExASMESLfzu7G68=;
+ b=ag0wdoB80wXd+iNjd+4nItIy5IOfSXbG0rPc+gTf3iuBKLcgbm29b4IYicoxJZOlaE
+ bUxlnizydCLQE7Mzkk0mllQfJRU7bMa7Je6c8vTnxqhPC4ZIj61Vnurk0y8o0DsoIRPv
+ kQi+7eLT84ievW2woLwaTNSYCDp/G4vrqi2KOULPvhD68kuitzDK2mFE6H7pGezOZhab
+ +Vkm8QDBE86f/eX7RFPH69NXxVn1nVieJ9CYh0foHEc/Pnore0o+t62PrdQxrR3TH8vC
+ HYrzrRvj0//SQfbshRnJRNhtE+KL+BnaOziwqdzffTUV5/1RPhjJEMRSXcXcA2z+0YTZ
+ 9aSA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+yBS+Di4kv3yuo7qxOOO2w6biF8D3hX2d9KuP8uCcKC6xW6SzKMy9o57UnAzy0DmHuUKIqRP6BYaE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYcD4h/mxoX9WyQr9zoE8SQO5Xgl2kJPn15QX7wf4jB0ofWWvs
- mldlOz0mNkitWpgiMDVCJKGl0J8w+HDoopwNx2uRbC2dFrHVIj0w8AntdY4/wJ0GwyVQsgA11hJ
- eXk/Y6bxGbqJNGv7OM4K7UxQ8G30vmZ8=
-X-Gm-Gg: Acq92OHEk743901pLojRTGCuuc2D/xAqeEIfeI0+CIw5Uc72FteCfMdjzEsEnQfqWjU
- uIAZU1LztTValufQWRvoY5KcAtTcsombNlNn3Ytwm+dp4M3x1V1SGqWdx/48zQ8oeo2jB/0C+op
- Ig/69kftWbpUuHCtyPJ+tYPU69k9BGkXOMJkJDH+QVu4LN2OMJdJxynj5XQVhnwvPtwqS+juXsC
- RMtytRiMtlO5wAgxIfOhkylXnVJMxn2xUY16Q0BphzelibFzOfWbzb7uvfFG6jknZAWPpnEQRXn
- Q3spqbt5q+XMTzmTEwgHiK71LX3hoRTeMY45epYQqRHv5NT1IeM9Qui++95ZTR44me24
-X-Received: by 2002:a05:651c:b0d:b0:38c:6b42:3d83 with SMTP id
- 38308e7fff4ca-39561d884e6mr611691fa.15.1778783071177; Thu, 14 May 2026
- 11:24:31 -0700 (PDT)
+ AFNElJ/DVJQojZKe26SxrSy+CwKoNwY47urGeUIC+1LGIVawABs1iWhAd2tZZbOWo77I89kDDFxS+wDsMME=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+0AghzHxPRz7zBBxcmpyNOewdm/syQLc0f+h5C14hAnVhUUnP
+ neBxOCy5NkbdcGf2/hqvNRcnGPDTuY+HNKQhGjbD+kVjXoZ0MzlpfOJoUqGxshYC55Ix7oriMYb
+ KEfa2/Y4m2Q4DJD5QhhF0w2qiQfgfzgA=
+X-Gm-Gg: Acq92OFLDXPNCMDUPcdGdsVDciMw61FoHOzTfYpha8o96qk42HzqL5oHmZghDHA8vH+
+ pK2CZyeStGJFh2NkUhFenLoCAKbxHknEFdSrED4D0yXYR3gGilmZVoxdhAZ/dEwEBC1JqQqdVIN
+ 5JUUelRHCZu/6IYoJQEv1udnJxQ2CpcEt41RhiS6YmThmQ7Mr5b3ww9ap8fVqfIvUPySOd19zoq
+ 58MYjpSRpHDhkanEuLR10mbjK3ZM+RGb1ogGpCh2/klqaA37ku4yL/n8GKNwKyXe61XLeqwOsyI
+ BDL4KYB0e9jXIA4MlK/kTTkFtOHBijCfGJTThI4UJBlA6kNCUEMJ+PNCFMtQ7CSnOT5VmzbrENH
+ kdl8=
+X-Received: by 2002:a2e:b8d6:0:b0:393:fcd7:5f69 with SMTP id
+ 38308e7fff4ca-39561fa5c00mr481851fa.17.1778783234209; Thu, 14 May 2026
+ 11:27:14 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
- <20260514-icna35xx-v2-2-45acd1dfa566@gmail.com>
- <20260514-sphere-overstep-e564bf7ca609@spud>
-In-Reply-To: <20260514-sphere-overstep-e564bf7ca609@spud>
+ <20260514-icna35xx-v2-1-45acd1dfa566@gmail.com>
+ <20260514-ambush-salvation-ce6616190390@spud>
+ <CALHNRZ8ukiSM2+uj+Qg6rVbUjjFeo88HQjLZsFHbHBs_GTy_1Q@mail.gmail.com>
+ <20260514-accompany-expiring-c90c6af5f7a9@spud>
+In-Reply-To: <20260514-accompany-expiring-c90c6af5f7a9@spud>
 From: Aaron Kling <webgeek1234@gmail.com>
-Date: Thu, 14 May 2026 13:24:19 -0500
-X-Gm-Features: AVHnY4IjQHSroQwEIE5qXCkACNibttIrvT8hL7GmzRjoramD1sZbohpVjnGBbBM
-Message-ID: <CALHNRZ_4aii1MTqd58zZ_1sFoxNZPPehuRauvExvQzzBBb7tKg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] drm/panel: Add panel driver for Chipone ICNA35XX
- based panels
+Date: Thu, 14 May 2026 13:27:02 -0500
+X-Gm-Features: AVHnY4KadKJWIbrmQIWY9oV52j-lGH3-yJCkf7ITOkZqzHwuTXiKriwXdalEiD0
+Message-ID: <CALHNRZ_qBwobaf=nX0i-CwnKexf_PnucEoctFk4Ec913YwDzNA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add Chipone ICNA 35xx
+ OLED driver bindings
 To: Conor Dooley <conor@kernel.org>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -97,7 +100,7 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -115,33 +118,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 14, 2026 at 1:05=E2=80=AFPM Conor Dooley <conor@kernel.org> wro=
+On Thu, May 14, 2026 at 1:23=E2=80=AFPM Conor Dooley <conor@kernel.org> wro=
 te:
 >
-> On Thu, May 14, 2026 at 12:24:50PM -0500, Aaron Kling via B4 Relay wrote:
+> On Thu, May 14, 2026 at 01:20:57PM -0500, Aaron Kling wrote:
+> > On Thu, May 14, 2026 at 1:07=E2=80=AFPM Conor Dooley <conor@kernel.org>=
+ wrote:
+> > >
+> > > On Thu, May 14, 2026 at 12:24:49PM -0500, Aaron Kling via B4 Relay wr=
+ote:
+> > > > From: Aaron Kling <webgeek1234@gmail.com>
+> > > >
+> > > > The Chipone ICNA35xx series of DDICs are high refresh, low power
+> > > > MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn O=
+din 2
+> > > > Portal and the icna3520 is used by the Ayn Thor top panel and the A=
+yn
+> > > > Odin 3.
+> > > >
+> > > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > > > ---
+> > > >  .../bindings/display/panel/chipone,icna35xx.yaml   | 79 ++++++++++=
+++++++++++++
+> > > >  1 file changed, 79 insertions(+)
+> > > >
+> > > > diff --git a/Documentation/devicetree/bindings/display/panel/chipon=
+e,icna35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,i=
+cna35xx.yaml
+> > > > new file mode 100644
+> > > > index 00000000000000..6464d8d0cf86d5
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/display/panel/chipone,icna3=
+5xx.yaml
+> > >
+> > > Filename matching a compatible please.
+> >
+> > Does this require splitting / duplicating the files for each ddic, or
+> > can one be arbitrarily picked and the other stay with it?
 >
-> > +static const struct of_device_id icna35xx_of_match[] =3D {
-> > +     { .compatible =3D "ayaneo,pocketds-panel-top", .data =3D &odin2po=
-rtal_desc },
-> > +     { .compatible =3D "ayntec,odin2portal-panel", .data =3D &odin2por=
-tal_desc },
-> > +     { .compatible =3D "ayntec,odin3-panel", .data =3D &thor_top_desc =
-},
-> > +     { .compatible =3D "ayntec,thor-panel-top", .data =3D &thor_top_de=
-sc },
+> Pick an arbitrary one. Maybe which one is older?
+
+Alright. I'm going to assume, perhaps unsafely, that the lower number is ol=
+der.
 >
-> This looks like you could be using the fallback compatibles instead of
-> matching on the panel's. Why aren't you?
-
-I'm uncertain if the panels are actually the same between these
-devices or if the init sequences are just similar enough to share. I
-am told that the thor top panel and the odin 3 panel are the same
-model. But I don't know about the portal and the pocket ds, just know
-that they both fire up and work as expected with the same init
-sequence. I'm trying to follow the bindings idea that these might be
-different physical panels that only share a ddic and thus driver
-handling.
-
-> > +     { /* sentinel */ }
-
-Aaron
+> > > > @@ -0,0 +1,79 @@
+> > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/display/panel/chipone,icna35xx.=
+yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: Chipone ICNA35xx display drivers
+> > > > +
+> > > > +maintainers:
+> > > > +  - Neil Armstrong <neil.armstrong@linaro.org>
+> > > > +
+> > > > +description:
+> > > > +  The Chipone ICNA35xx are a series of DDICs connected
+> > > > +  using a MIPI-DSI video interface.
+> > > > +
+> > > > +allOf:
+> > > > +  - $ref: panel-common.yaml#
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    oneOf:
+> > > > +      - items:
+> > > > +          - enum:
+> > > > +              - ayaneo,pocketds-panel-top
+> > > > +              - ayntec,odin2portal-panel
+> > > > +          - const: chipone,icna3512
+> > > > +
+> > > > +      - items:
+> > > > +          - enum:
+> > > > +              - ayntec,odin3-panel
+> > > > +              - ayntec,thor-panel-top
+> > > > +          - const: chipone,icna3520
+> > >
+> > > Commit message should state why these ddics are not compatible with o=
+ne
+> > > another.
+> >
+> > Ack. Short version: some of the mipi vendor commands don't match.
+> >
+> > > Rest of this seems okay.
+> > >
+> > > pw-bot: changes-requested
+> > >
+> > > Thanks,
+> > > Conor.
+> >
+> > Aaron
