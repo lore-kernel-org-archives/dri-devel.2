@@ -4,102 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C95ACD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 17:02:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F76ACD4F25
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 17:09:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDB0610E3BE;
-	Thu, 14 May 2026 17:02:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5D2310E3CD;
+	Thu, 14 May 2026 17:09:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KS3pxNmU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ni9qhWy5";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012004.outbound.protection.outlook.com [52.101.43.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9790710E3CA;
- Thu, 14 May 2026 17:02:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ER5QfBArXa8ppSjP1odOyotK+6I6CtLucjUau9VTIX5XZzf5xHNDQf0hgtpt2O0eoxUAflp7qgJPaycZ/VBFMhqFGtA2SefyvJc+3vFxgDAscND3+KbWl9MmpZNZ4jzutWuhphWxxzKZH8tPugLInAQ/ukhOX7KOyFtqTBiAXez9d348HYTX7BJZHkXC2V3ZCg51vGlx7qgfejUGImD8JuSRftP2UnSDLJg9EM2d9h97IF24duN6HQRt6yEs8pP6NWoWaLJENsnmtcShs/FEIamat3DV8k6ctnYD4XS6rotA7PgA/e2jeW42d3EKb3PIO/DZSoQnOjFLjDwBzgaWcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BNBtypnnMPtjA2redigw9vdP+OHc++8G5ZSIEwEI9wY=;
- b=aIQ7h2D9KyViS2RpAiYXwS/KWghiIYcRtLif1i64Rq/GA8ljqUojNft3uDp1a+rZpaW5VEYMBzFe+5JuOJnJx0ntaLvV/UCWcca1cy64vOhyg70XbSsP6KfKtqYZiezj4fKoi95QO0OD5jPElP/7F25A1TQ1T4TKxUYHa2Dimpdi1tVR+aWjc0aeAkOOiTFtZsU9EGtoHqUoEc6MKeBQlz/J/Mjem3aMtxhAAhsu/Pu4ab4jTExP9ILn2jusCXa7fqyyGsH9jrAOJPE0FaDR1B9vhyUD83jvG6BhIsERzwNAPoNCAUm8n0CBKhumPzh6BQIpYiycPIRTSIbdwltt4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BNBtypnnMPtjA2redigw9vdP+OHc++8G5ZSIEwEI9wY=;
- b=KS3pxNmUQaEpz/0UA5Ws4lrN2Y7+8pEUKX7jlUA4JdQlJjlqp554YuphchezUSsu5zj93kl4MtFHg4sbQmGBFm6GoWenpQH5oEsrC9+821yYTCuPQ85ZhGrm43U04UruKL7DdEnfbW1oLO9+Arj5Ip6GOBekgVUcqbkjN9JQMUM=
-Received: from PH1PEPF0001330D.namprd07.prod.outlook.com (2603:10b6:518:1::1c)
- by DS5PPF78FC67EBA.namprd12.prod.outlook.com (2603:10b6:f:fc00::655)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Thu, 14 May
- 2026 17:02:50 +0000
-Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
- (2a01:111:f403:f912::1) by PH1PEPF0001330D.outlook.office365.com
- (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.17 via Frontend Transport; Thu, 14
- May 2026 17:02:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Thu, 14 May 2026 17:02:49 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 14 May
- 2026 12:02:49 -0500
-Received: from kylin.lan (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 14 May
- 2026 10:02:47 -0700
-From: Alex Hung <alex.hung@amd.com>
-To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <harry.wentland@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-CC: <alex.hung@amd.com>, kernel test robot <lkp@intel.com>
-Subject: [PATCH] drm/amdkfd: Fix UML build guards for x86_64-only code
-Date: Thu, 14 May 2026 11:01:39 -0600
-Message-ID: <20260514170139.335618-1-alex.hung@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
+ [74.125.224.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB9810E3CA
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 17:09:22 +0000 (UTC)
+Received: by mail-yx1-f50.google.com with SMTP id
+ 956f58d0204a3-65e170f1ca5so1710727d50.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 10:09:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778778562; cv=none;
+ d=google.com; s=arc-20240605;
+ b=c67V7Frb9oqt1dpPuIs6DjlY9w9oUuNeH7yek8Q8Znfl82WWTDWX6DScPwhPW5GdpO
+ qovJPE4/ymL0AAAwVz+NabTD3ZYEMgmyN6aFTB2B1CcPr6+D+Cf4/MO6FstMvqt6GXIO
+ FSIYz4o/N7arMfFORVnl47rT1UeM8IBnILFMbbkqZT4NpnbrhfJk+ZT0tVzWPK/Q0sQF
+ Wu6NEDv1PHC009bFS+piL4Y5xOzMZyT6Hn1hvXYcJzfV5HC8WHeFG2O7oYrnaJp93NLS
+ jXeEBZ6vjA7sFIn9KFLMatXxJ6Quc++uBj/FoAdtg9FE5u1SiVYIUAsVd0YrfCEm6hSK
+ QxdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Q68k3qvFh5WSmW5/XAb3NIaTUyA2Pk7yy6D1aLYaWeE=;
+ fh=QCto1aBWyM9GCkf/i5CpntnMvN4GFcoc6V+fbtLcnAY=;
+ b=EDzjzYsjH8X4z5lqkDPTb5H/fGcFXUHNVU/kBDlxP1+q2kP7K2AsSR0NbmCnbD84dj
+ gMQqylBjLQenOiGnPTQhbOlMrHp7JF4r/u9+YkFW6Z01oBbxJdq/QdeniQ0GQRq1lzNU
+ 9RlSAayLe6JBOzZxx4s7oOouq4htuUCfcWpy4Zn6ufgAqFVXz5NfWubgaEWHPTgTtTpP
+ 1N/BHVTPqOgMkJsAoyd0Czv4Y6qmUdxlF8AyPmOavtFdH/2Tg9Z1Ap0eAUYdqY8WnU+/
+ DUABahFuaKaAuqRJcm2PObz9I9of65AktKuGgLYGTFtKA4g/9t04iem8ZNEAJKy2eVzp
+ b8/w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778778562; x=1779383362; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Q68k3qvFh5WSmW5/XAb3NIaTUyA2Pk7yy6D1aLYaWeE=;
+ b=Ni9qhWy5Yn08TFjJwuaOOENnurnsCVeM2iiAUC6yk6gmeFagApIg5iLNgPR8NPmB/l
+ SbnY+xDc84YS2dHXayMOLEn/H1EollMT6z61Xtz5tnohpgGHexsy02r56hiW2qXWIYSk
+ LzSIVOfGsXlqqQKN6SN+f0jSMHm55iXn59+qtbiS4oeJhXdciMfIO8TbG19R2IA1kkHi
+ yyp0sBI0QMAWlWjdD+cosRzRHzP+BcMySShQtE5YTYfmXaa5UhHkr3/yi4+25FjUQsD1
+ MNaetEVnKS075Eb65ZigJwxhYIyervkRyf3gHXVMCFoVJ/0p7L0EaiH8O8WP5nEnYEtA
+ Mnng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778778562; x=1779383362;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Q68k3qvFh5WSmW5/XAb3NIaTUyA2Pk7yy6D1aLYaWeE=;
+ b=k6TGagH90wD/jFe/WhzJ1yf975BpWv/+evM5ISfG/CzLdi6kCo5s+sq4GUOmijDFkj
+ V8j9tEFUVpUc8baM0njGwCPY+d+VKddflww98pfSj7thirg52liYcWh/++ngc6R6Itvz
+ IZiG4r37UT8iKXbymhixPdohkp9p3xYe5vy/2CLNgmbuoHbWFuenNvtlCMj7RuYJxYk0
+ L1PGhUtasi5eYZ+RrnjJXn0aGAuWokHoC94M+45mGD05B254RgTY9MopmW1bqLZr3L3p
+ ENqMBvsIwDmxno4cGq2LrT61KkWzaFNKtiQkDFPqwqrty/+Q7GM8fA7CUc3/FBw8VJ70
+ Nxxg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/L0Fa4AZlBDo0fAcj4XVPrnCt33nMWWpxE2zuUphHyR6NYyzFZsZ3cTpRveK3d9acVjbwaVOvptT4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yznv/2pkoBrJ7VvWaw3jBVHw5QuoYJHkeGrpZxMuA8TMBPKKUlq
+ DEtR4iyVW8nb+PHjr4vmX8Gm63ixOk3dDMGnapLTVJYgOdXz+eir9c52ZY8jZ96a0bwMP2I5OGE
+ 3ZIFh9sQ6safhC8pUTG6SeMi13Df37vk=
+X-Gm-Gg: Acq92OHxQCFSXIbdQGsa1CmpE0XILvfhc2Pg9J+li39zbk3fCTAgXe975WJnOKm+CW3
+ DmBH1RzURipPvpulFI25t/XtcrHIfCCR2i5Pqd73UFuisaWFr9y5w8D6IaV9AzHHKgOwFwnI8tS
+ 6xwAv0CaAVmKweC0QG3DyTcQJcK1LAG+PoTtZ5nTWdt9/4r7RY3M/IHFzAUjdHNIY9MLcar4Dqf
+ vNgkCgtcSwShLmooBWOyigFqyvS8E09WlGfAqqPK8RiTaE/TpMUEyBCTmkTeVq8VBFuOQ8sKph7
+ QkKxxdehTapxwUbcT98X0tooBFkgSBDuYRyYlZ+icvoXn/MHm6ndd4HGV+zFSiiFB5N51CbUxw=
+ =
+X-Received: by 2002:a05:690c:6d84:b0:7bd:7b55:ebe1 with SMTP id
+ 00721157ae682-7c959f80c19mr1966067b3.1.1778778561722; Thu, 14 May 2026
+ 10:09:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|DS5PPF78FC67EBA:EE_
-X-MS-Office365-Filtering-Correlation-Id: be88f994-2a5a-48c0-6376-08deb1daa122
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700016|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: 4qqQJMrRij/cqwlEqSr1X0wDUKx08XieRI8YZOyRR4HOVf+fk8WUjM1eEeOZ9L7VY7A3BaffGic7rYGJbnWCMlzd6V5RYOaU3o6jimyJYBJWjDiCiiai1Al1X1w9cgizF0yS3wnbWzE9Ue6oToXx9iXGlJ9D44jT2U4LtcugvQRmY68bljKNe+uxp0W9WoB+HXyTirK5DV1cyGzIIIcn60K64HoIO4hnuUNjxWd5a30Yo/qhOZsAcZSwWscuBnKnmmgIT31/2cc7R7i+Hdkw6G/G7L9eT0tX7CkMDVDx6a0zqK4tVwhJOcwnXSX19Jm1j2LbexxIatGimrJ8TDaKeZh6FjbqqWGsV7z751uMnXjpaDsEWwnHnyfnNUVa7t8kbbGj6bUT7KQOzpRqn2hdJWIUy8i7a3VlXuUKgc4CtLRApkCwam36O3RSJO03ZHENZOY26Gs5x7vqFjxhfLHM6pUIuM9SxXSCsswXb6Bs1RgHIe6bdsonTe5HmC7mqLbB1IQGrtx4bNqqs5QtHK0xtsBj11AwVpol4PRh9ydzNv4bdcir2YjERB5c/zwDNN7Xizkbdkko0/eXQfNmg4UdvwiztXTr/5D4cEzN48Q9ZUCEiZex0El7Fo6yeGwQgt76Ug+tUkYSwQusIggq9VycyTzaMH9VFevDD5XPnX6ikozcjbm26bJioDONmoLzeUDMvlxVZk8RTqq70ByTVhEL1o7qqqI0Z6uccl1UCF0LOEI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(56012099003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: yXIkLPSWO9xKT6AGSXlIG8Y4jM/9BvXZU55dz8irsYalxl45Lp00WdPdtl3wSBy3XP0OTzR9c3qETgpIC5a88nZ6rOMaLbVu1tewJmhaUqC5zS2e0G98GI+3kpQbPZuol2avA43/NTSMu1AokogRcqmrrnbztb1/7WDjrL5deQt1t/EEQU55oFaVbWsoQwH0IS9XD3Ec9gPue70Fl+kLwacIA+pq/AyvpxWYM6448kJzZG5yRX8WfAqEPHpJ+HsxGjTkSGy0xy9U5rf70kauLnAqJ3otj6V3syXjXusMr+T36BWgdOd4jXl/eYnZxnm7OMDqQI0M50nz9XqN+x/E4iToOWoKnM52rtNd1vKjqz0IXzHCNvOahlxKJj18JqO+CatEed1KTceNpIgzLqDevwaHvY1gbM4/cnFGgpofhKSKf8P5ihVamCXQGRMjT2YR
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 17:02:49.6530 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be88f994-2a5a-48c0-6376-08deb1daa122
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF78FC67EBA
+References: <20260513-panthor-guard-refactor-v1-0-f2d8c15a97ce@collabora.com>
+ <20260513-panthor-guard-refactor-v1-1-f2d8c15a97ce@collabora.com>
+ <5ab2d07c-74a4-4a2c-b145-6ed7b0060944@arm.com>
+In-Reply-To: <5ab2d07c-74a4-4a2c-b145-6ed7b0060944@arm.com>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Thu, 14 May 2026 10:09:10 -0700
+X-Gm-Features: AVHnY4I212PjTT_rDyYSXIkovkEef-Opnswhr90mIqa564wAfvhabndPAnzBHJ8
+Message-ID: <CAPaKu7S9WMbJERrWa=bj5qyQg72no9MPex6S1MY6t8nXoMbB-Q@mail.gmail.com>
+Subject: Re: [PATCH 1/6] drm/panthor: Driver-wide xxx_[un]lock ->
+ [scoped_]guard replacement
+To: Steven Price <steven.price@arm.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,69 +116,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-cpu_data().topo.apicid and kfd_fill_iolink_info_for_cpu() rely on
-x86-specific structs not present on UML. The kfd_topology.c and
-kfd_crat.c were guarded by CONFIG_X86_64 alone, causing build
-failures when CONFIG_DRM_AMDGPU is selected on UML.
+On Thu, May 14, 2026 at 6:24=E2=80=AFAM Steven Price <steven.price@arm.com>=
+ wrote:
+>
+> On 13/05/2026 17:58, Boris Brezillon wrote:
+> > Right now panthor is mixed bag of manual locks and guards. Let's
+> > make that more consitent and thus encourage new submissions to go
+> > for guards.
+>
+> I'm fine with encouraging guards for future code - but I'm a little wary
+> of a big change like this - it's hard to review it and check that
+> everything works the same. And it's a little dubious that the mechanical
+> refactoring produces more readable code in some cases.
+I agree with Steven in general, although I am in favor of landing now
+that you've gone through the trouble.
 
-Update guards to '#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)'
-to ensure x86_64-only paths are excluded on UML builds.
+I also have mixed feelings about some of the non-scoped guards. Their
+scopes are extended slightly than before, supposedly to avoid adding
+another level of indentation. But other than slightly slower, it also
+becomes less clear what exactly do the guards protect.
 
-Fixes: e6b71bcdc409 ("drm/amdgpu: Remove UML build exclusion from Kconfig")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202605140506.TI8zPIBG-lkp@intel.com/
-Cc: Harry Wentland <harry.wentland@amd.com>
-Assisted-by: Copilot:Claude-Sonnet-4.6
-Signed-off-by: Alex Hung <alex.hung@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index a1087c13f241..cf7b1b038d5f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1821,7 +1821,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
- 	return 0;
- }
- 
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
- 				uint32_t *num_entries,
- 				struct crat_subtype_iolink *sub_type_hdr)
-@@ -1880,7 +1880,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
- 	struct crat_subtype_generic *sub_type_hdr;
- 	int avail_size = *size;
- 	int numa_node_id;
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- 	uint32_t entries = 0;
- #endif
- 	int ret = 0;
-@@ -1945,7 +1945,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
- 			sub_type_hdr->length);
- 
- 		/* Fill in Subtype: IO Link */
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- 		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
- 				&entries,
- 				(struct crat_subtype_iolink *)sub_type_hdr);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 46db0d65d242..87e13f021457 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -2349,7 +2349,7 @@ static int kfd_cpumask_to_apic_id(const struct cpumask *cpumask)
- 	first_cpu_of_numa_node = cpumask_first(cpumask);
- 	if (first_cpu_of_numa_node >= nr_cpu_ids)
- 		return -1;
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- 	return cpu_data(first_cpu_of_numa_node).topo.apicid;
- #else
- 	return first_cpu_of_numa_node;
--- 
-2.43.0
-
+>
+> That said I asked my friendly AI bot...
+>
+> [...]
+>
+> > @@ -3142,48 +3126,44 @@ panthor_mmu_reclaim_priv_bos(struct panthor_dev=
+ice *ptdev,
+> >       LIST_HEAD(remaining_vms);
+> >       LIST_HEAD(vms);
+> >
+> > -     mutex_lock(&ptdev->reclaim.lock);
+> > -     list_splice_init(&ptdev->reclaim.vms, &vms);
+> > +     scoped_guard(mutex, &ptdev->reclaim.lock)
+> > +             list_splice_init(&ptdev->reclaim.vms, &vms);
+> >
+> >       while (freed < nr_to_scan) {
+> >               struct panthor_vm *vm;
+> >
+> > -             vm =3D list_first_entry_or_null(&vms, typeof(*vm),
+> > -                                           reclaim.lru_node);
+> > -             if (!vm)
+> > -                     break;
+> > -
+> > -             if (!kref_get_unless_zero(&vm->base.kref)) {
+> > -                     list_del_init(&vm->reclaim.lru_node);
+> > -                     continue;
+> > +             scoped_guard(mutex, &ptdev->reclaim.lock) {
+> > +                     vm =3D list_first_entry_or_null(&vms, typeof(*vm)=
+,
+> > +                                                   reclaim.lru_node);
+> > +                     if (vm && !kref_get_unless_zero(&vm->base.kref)) =
+{
+> > +                             list_del_init(&vm->reclaim.lru_node);
+> > +                             vm =3D NULL;
+> > +                     }
+> >               }
+> >
+> > -             mutex_unlock(&ptdev->reclaim.lock);
+> > +             if (!vm)
+> > +                     break;
+>
+> ... and it said the above has changed behaviour.
+>
+> In the !kref_get_unless_zero() case you now assign vm =3D NULL which then
+> leads to the 'break' case above. Previously we 'continue'd.
+>
+> Thanks,
+> Steve
