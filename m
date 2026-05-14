@@ -4,60 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21DEDCD37AC
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 00:45:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B81CD4F21
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 00:56:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B99B10E35A;
-	Thu, 14 May 2026 00:45:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EDAB10F0F4;
+	Thu, 14 May 2026 00:56:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UVpAhvtC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LDEltaer";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 279DE10E35A;
- Thu, 14 May 2026 00:45:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 293B710F0F0;
+ Thu, 14 May 2026 00:56:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778719554; x=1810255554;
+ t=1778720217; x=1810256217;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=155Am94qWe/f3pp9RvZy6Owf9p1+ieYSxje12j4/trI=;
- b=UVpAhvtCJcDLFPnYJkBZbA714yfHEOMDTQ0+UKgxEeKoB2vUny4+WWEp
- iYz3ciSsrTiPriUPqXTOrp2MsGDW8XL0ajFSbH5bJD6jYUM9IhahjNihC
- WQG2RXtmfBXiRmDE5XhCuz50aW+eIFz7CH8F2IqbJQ7xwO1VBwvUeIjq/
- VEkroWhLS9WnhxEpmueJesQy2qwGJxP2udCmKb3fxRBlmR2QhF3OaQBBg
- htAoEh4Q3GhKLK7UVuB1ZS1d4sbhxONvn74lYgJK3do6IuVxT1baWHlRs
- xm6R28Z2DlBwITpd9r9hEOSR2EITzyLwEhcpmQy5q8MZFGAIDHWPx1myR g==;
-X-CSE-ConnectionGUID: 5JXM0gweSzmlqBuqboV0Fw==
-X-CSE-MsgGUID: oWau6bNdRHuI6C9ipkMXBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="82222877"
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; d="scan'208";a="82222877"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2026 17:45:54 -0700
-X-CSE-ConnectionGUID: G/z3JY/6QK69mHz1Z2vkxQ==
-X-CSE-MsgGUID: Ja+PiS1rSnicC0N+EQfSmw==
+ bh=vyu57ovXPjleRJ4YGZDfKQBeE3LjznYEnTFJmwS3NkA=;
+ b=LDEltaer7gtxMnMWal+L5LbgJz2lYSeW0kCkVm3AuAysbqDMg6koG1cM
+ 1hORC2ut/WnR59YZqVJEgDgodDa3hSxCsD7cCEp7tLyNMn3lJmXvDGghS
+ t3bH2OmkXjIwv4La3qoNALHC+P6r3zB36nFoU3ao7qx8vt4BIaLDU0dB8
+ pV+4s2NiG5LORzBEoqjZbOPkHXswbwJXxR9teARH/PcpjdBpnsEhaJjTc
+ /psTyP5VTlBHxv+NYJ/H104YaQT3ngW+DOcmetHQH5H4M9Dk+Xqxh1fyC
+ 2GW5gsWdpK2gN3rlAH9/Ilr3E3DNyKZLohhsZ2lQ2K2PFKUes2SBxS1LI g==;
+X-CSE-ConnectionGUID: R4+2DsDFRZGlRDeOtop1vw==
+X-CSE-MsgGUID: JXthNee2TreYBEAL1a+4Vg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="83507947"
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; d="scan'208";a="83507947"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 17:56:56 -0700
+X-CSE-ConnectionGUID: IB6DiO87RHO8nISzs2kFBg==
+X-CSE-MsgGUID: Y7bWg4vrTXaryqD/8ip2/Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; d="scan'208";a="235578919"
 Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
- by fmviesa008.fm.intel.com with ESMTP; 13 May 2026 17:45:50 -0700
+ by fmviesa003.fm.intel.com with ESMTP; 13 May 2026 17:56:52 -0700
 Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wNKCy-000000005RD-27ZJ;
- Thu, 14 May 2026 00:45:48 +0000
-Date: Thu, 14 May 2026 08:45:18 +0800
+ (envelope-from <lkp@intel.com>) id 1wNKNd-000000005S3-0imQ;
+ Thu, 14 May 2026 00:56:49 +0000
+Date: Thu, 14 May 2026 08:55:57 +0800
 From: kernel test robot <lkp@intel.com>
-To: Alex Hung <alex.hung@amd.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- timur.kristof@gmail.com, pratap.nirujogi@amd.com,
- vitaly.prosyak@amd.com, harry.wentland@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH] drm/amdgpu: Remove UML build exclusion from Kconfig
-Message-ID: <202605140801.Fqury68H-lkp@intel.com>
-References: <20260505162018.1755740-1-alex.hung@amd.com>
+To: Boris Brezillon <bbrezillon@kernel.org>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: oe-kbuild-all@lists.linux.dev,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] drm/gem: Make the GEM LRU lock part of drm_device
+Message-ID: <202605140848.SHAmSWp0-lkp@intel.com>
+References: <20260512-panthor-shrinker-fixes-v3-1-3bf066259471@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260505162018.1755740-1-alex.hung@amd.com>
+In-Reply-To: <20260512-panthor-shrinker-fixes-v3-1-3bf066259471@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,98 +82,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alex,
+Hi Boris,
 
-kernel test robot noticed the following build errors:
+kernel test robot noticed the following build warnings:
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v7.1-rc3 next-20260508]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+[auto build test WARNING on b2ed01e7ad3de80333e9b962a44024b094bc0b2b]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Hung/drm-amdgpu-Remove-UML-build-exclusion-from-Kconfig/20260513-150500
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260505162018.1755740-1-alex.hung%40amd.com
-patch subject: [PATCH] drm/amdgpu: Remove UML build exclusion from Kconfig
-config: um-allmodconfig (https://download.01.org/0day-ci/archive/20260514/202605140801.Fqury68H-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260514/202605140801.Fqury68H-lkp@intel.com/reproduce)
+url:    https://github.com/intel-lab-lkp/linux/commits/Boris-Brezillon/drm-gem-Make-the-GEM-LRU-lock-part-of-drm_device/20260514-051749
+base:   b2ed01e7ad3de80333e9b962a44024b094bc0b2b
+patch link:    https://lore.kernel.org/r/20260512-panthor-shrinker-fixes-v3-1-3bf066259471%40collabora.com
+patch subject: [PATCH v3] drm/gem: Make the GEM LRU lock part of drm_device
+config: csky-randconfig-r071-20260514 (https://download.01.org/0day-ci/archive/20260514/202605140848.SHAmSWp0-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 15.2.0
+smatch: v0.5.0-9185-gbcc58b9c
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260514/202605140848.SHAmSWp0-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202605140801.Fqury68H-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605140848.SHAmSWp0-lkp@intel.com/
 
-All errors (new ones prefixed by >>):
+All warnings (new ones prefixed by >>):
 
-   In file included from drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:26:
-   In file included from include/linux/pci.h:38:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:24:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:12:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2353:9: error: call to undeclared function 'cpu_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2353 |         return cpu_data(first_cpu_of_numa_node).topo.apicid;
-         |                ^
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2353:41: error: member reference base type 'int' is not a structure or union
-    2353 |         return cpu_data(first_cpu_of_numa_node).topo.apicid;
-         |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-   1 warning and 2 errors generated.
---
-   In file included from drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:24:
-   In file included from include/linux/pci.h:38:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:24:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:12:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1830:27: error: call to undeclared function 'cpu_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    1830 |         struct cpuinfo_x86 *c = &cpu_data(0);
-         |                                  ^
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1830:26: error: cannot take the address of an rvalue of type 'int'
-    1830 |         struct cpuinfo_x86 *c = &cpu_data(0);
-         |                                 ^~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1833:7: error: incomplete definition of type 'struct cpuinfo_x86'
-    1833 |         if (c->x86_vendor == X86_VENDOR_AMD)
-         |             ~^
-   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1830:9: note: forward declaration of 'struct cpuinfo_x86'
-    1830 |         struct cpuinfo_x86 *c = &cpu_data(0);
-         |                ^
-   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1833:23: error: use of undeclared identifier 'X86_VENDOR_AMD'
-    1833 |         if (c->x86_vendor == X86_VENDOR_AMD)
-         |                              ^
-   1 warning and 4 errors generated.
-
-
-vim +/cpu_data +2353 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c
-
-851a645efd0fee Felix Kuehling  2017-11-27  2342  
-520b8fb755ccfb Felix Kuehling  2017-12-08  2343  static int kfd_cpumask_to_apic_id(const struct cpumask *cpumask)
-520b8fb755ccfb Felix Kuehling  2017-12-08  2344  {
-520b8fb755ccfb Felix Kuehling  2017-12-08  2345  	int first_cpu_of_numa_node;
-520b8fb755ccfb Felix Kuehling  2017-12-08  2346  
-520b8fb755ccfb Felix Kuehling  2017-12-08  2347  	if (!cpumask || cpumask == cpu_none_mask)
-520b8fb755ccfb Felix Kuehling  2017-12-08  2348  		return -1;
-520b8fb755ccfb Felix Kuehling  2017-12-08  2349  	first_cpu_of_numa_node = cpumask_first(cpumask);
-520b8fb755ccfb Felix Kuehling  2017-12-08  2350  	if (first_cpu_of_numa_node >= nr_cpu_ids)
-520b8fb755ccfb Felix Kuehling  2017-12-08  2351  		return -1;
-df1dd4f4a7271e Felix Kuehling  2019-01-02  2352  #ifdef CONFIG_X86_64
-b9655e702dc5d8 Thomas Gleixner 2023-08-14 @2353  	return cpu_data(first_cpu_of_numa_node).topo.apicid;
-df1dd4f4a7271e Felix Kuehling  2019-01-02  2354  #else
-df1dd4f4a7271e Felix Kuehling  2019-01-02  2355  	return first_cpu_of_numa_node;
-df1dd4f4a7271e Felix Kuehling  2019-01-02  2356  #endif
-520b8fb755ccfb Felix Kuehling  2017-12-08  2357  }
-520b8fb755ccfb Felix Kuehling  2017-12-08  2358  
+>> Warning: drivers/gpu/drm/drm_gem.c:1643 function parameter 'dev' not described in 'drm_gem_lru_scan'
+>> Warning: drivers/gpu/drm/drm_gem.c:1643 function parameter 'dev' not described in 'drm_gem_lru_scan'
 
 --
 0-DAY CI Kernel Test Service
