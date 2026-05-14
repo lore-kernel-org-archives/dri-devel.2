@@ -4,144 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3241ECD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 07:12:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C798BCD4F25
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 07:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ABEE10E392;
-	Thu, 14 May 2026 07:12:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B16710E36D;
+	Thu, 14 May 2026 07:33:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="diIkAXFG";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hd0Wdn85";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PvEVEimr";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A99E910E38D
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 07:12:26 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64E68ZCZ1965366
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 07:12:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4A/3dwK+XbYKnmvRsDst5JWcZQlTSj0jgLv8jjjFtiU=; b=diIkAXFGS8Y+PwsG
- tMGNjPAZyVomq2b1ZvyCnzXS68XC4dHor+TW2lOxYv9ltLFdnJtiK3vQWAAnLd/R
- 3RFJVz1GV0WihPFYXIWVcUVCVNGWSMsJ2n4PMFdNoRddIGhOVdeOssBQJYQH9hoX
- May/4GyRftzXpT7pWiSj6UTmaVXUMx9xwa3iIDzVuGH2hUDw64xr4/F3RjO3KJU/
- iHoKc1zqY4oSH27Z36aHB8pzYCvhgDqe/fE7ZvcmuKwkavze1K/ocfFWwaW20Bf4
- 2SIYIOF7w5Y9necSC8F1JEbbetvNVxV0OtrhnKRSUWGNfFUhrUxB+4c2J5ffE7KR
- s5NpUA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e58v886s7-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 07:12:25 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-366ded5ab5fso11409643a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 00:12:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778742744; x=1779347544;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4A/3dwK+XbYKnmvRsDst5JWcZQlTSj0jgLv8jjjFtiU=;
- b=hd0Wdn85mHIj8U4nvYK9VrUcbsXTA0puqCjUpX4mf/wtpGpW5WH0wp2rUUj4pWBx8M
- 5YqLTq1N8soCfBNj9a8jxYbxxgo/ui1QPakc8133h8fOz6IiHvb8z31yu7m0iPB/z+jJ
- sFwqrl87khCt3yQ8X+iI8mgxCNUnS3sI9VpipKzm0UWhz9kYCMzaNm3H4yt/VpZSpo4T
- Cd79kRWWVKO0jcGbLtNvxgGESGksxLLwsDP6vypGxJPLqLnQ1C+u6DzujVctAzGYwlf2
- DlwWgE/qidJbx6kKxIQv6I46K7u9KhHFwPoTZxXwIuhTwDqvC2t3R/uS1Pg22X2ALLo3
- PhgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778742744; x=1779347544;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4A/3dwK+XbYKnmvRsDst5JWcZQlTSj0jgLv8jjjFtiU=;
- b=tCX434ua5Jp1DuTBd9fXbCBTmb+CaZvaPhDM1mKsOCgi40fNJ+LADPfHY6eWw54TL+
- EYvKfGVhnfSBJE1i3Q9qBuz6I01OXV/78Y6Mp7u3+KdyBZbqgfN6PkqgaTElk85FGgYK
- hLN5u0y13g9uv2S7As5fMzKpbSQigjf6g4JLeQupgTa38FlJwYC5KJFiyZewB9t1AgiI
- HGTLALF7FY+WkkjKrXg8yWo8YS5fZHTmDgKR8NrAS4D/ggpuYw5fFeYmdlTFzptESYCT
- EgPWlrbrEKB6V4/iH8c/gJIqaSroxvlcITFLq+mRzuf0L9BTLwjqB1k735iejR0y9cSV
- 3qYA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/g/buFU/OEEU4Sq4w53Z44Be4NYj46EgaxeLE9h2HfcOwIzc7s7ZJCoHbL/ePl0dmujBS6jsebeDA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVFpq011YY0ARzQRW3d5gFrfqNGvovMeOsM9c3euu+zZ88uzUf
- j/9RhRwO0W3OR9l+w0fUw2t9dprX1K4V16uVCgyqDEWG+sYeG1iJFiM5Vcu0D3cD51+Wsf2CRDX
- hAXyjyyzQtC1G2BHboW6wJsBcgS0lVkb7WZxI3lesb3NOmSuTF3YbSRcB90lDDGSRyXQ1qjI=
-X-Gm-Gg: Acq92OFqJj/TZhvz75OvTL6lzfYHg/gY8Wvozweb9Z37YELmhxgcJEw3CxYOe6YHaPO
- Opcw42jA6wlyOvZkGclL8fXBKNryVjn01v1bDGPFcCSIAXmqKBUHkOsmKh0FeKF1zhhQZaYT3Kw
- ix6H0H1nmcAz4KCLf/9fgodKlwk3nt8Uc+wNfnGWAQe4IBkWPsYsWidcSFVpRhI9jCo+XE9GWte
- VjxczHZFFNy8S1uV+QtaQ6y2bgdTH327OT45JOqEGgcl+CcriZ2p52gzNYyqRq320hjkzG2kWZO
- v7/IuRQ5GZFK3NjJAnpwf2G7gr9MwhDIJeYIP7KQQ72qQC1a+8m1Xr+40JTm0c1MGgx6QE6sU2m
- T92PD5ts7tG8SYTYMHap1J2gl1WV9+q+RWlH43D/5VAYbSC5kZrAy5oVv4ph7ItPfoxLppacmRV
- YQ4JbjwXZjEkVXOE6DREMfB4VgU2zh
-X-Received: by 2002:a17:90a:dfc4:b0:366:5c38:fd61 with SMTP id
- 98e67ed59e1d1-368f3ac4a7fmr7446788a91.12.1778742744202; 
- Thu, 14 May 2026 00:12:24 -0700 (PDT)
-X-Received: by 2002:a17:90a:dfc4:b0:366:5c38:fd61 with SMTP id
- 98e67ed59e1d1-368f3ac4a7fmr7446731a91.12.1778742743390; 
- Thu, 14 May 2026 00:12:23 -0700 (PDT)
-Received: from [10.133.33.246] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bd5c05fcb3sm14931795ad.26.2026.05.14.00.12.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 May 2026 00:12:22 -0700 (PDT)
-Message-ID: <d4c5d26c-47f1-4e42-9852-d407982cb4f6@oss.qualcomm.com>
-Date: Thu, 14 May 2026 15:12:17 +0800
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010000.outbound.protection.outlook.com
+ [40.93.198.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD4C410E36D;
+ Thu, 14 May 2026 07:33:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x7tzRUOPQ+tmPY93/kmo/E3kb41kzmSDQEQBNZ5Qv5Bb+WnvygVHeAj68Fcr18MGl0A258iR617BLaCzerNjbeWdZmxy8bXFd8FnfFnxnhSOymBQ39YLkg8kSltyJrGr8ZOX2kZcqtW2Qfo+iNT5kt6SwsKtNL05Ok7CKEMIAwRa2rb1fvTfpowQ2Gejtj6C8qx4IZ20h688CeUaydCpJl4hekB7Rc3sAMvmLi81m9eyEGOw9gwmU+VBT8xSb8/tBEeMYWBlGfkVcw9RwHYE2yegTw5aVzhMw4kmdMWq6H6f9uvdEDcTyLIn+uQATmjT0PNJNbWsdlYHTNnQAJDqww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TyEndAKgVlXRNu9Xd0EJb0kxMPwBMmkjlUwg0Mzus0w=;
+ b=ASgS2yQL7W7ssbA5j1tFiKLLreo+1eAP9BLvg3dorq2t4QGspKqdBZ/mP2+aTRkSHlXROzm0n3JSkwAMjDiKIaUNKXbRuFuesmmllzmDhfzb8uf41c+1k51boMoQBASziBoC1qzSMpvBGRTSeL/QLMpy/HJSfi7SNrMCjoMshZU4x88KLKszdUwPGlasmARyj3J9wYNc8JIfo/OlXEKg0S5K26jtEzYua6n4ouc0c8dc3+9p6YMDym2lRtPvFXy4TjLT2lGxSNXbliukHwPzTVar7D+By73mNKbvce90c9USrdocAlqKaDHLLMjQxHTOAORIv9JG0AI00f5Te/fbGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TyEndAKgVlXRNu9Xd0EJb0kxMPwBMmkjlUwg0Mzus0w=;
+ b=PvEVEimrLL4bj+YrEJPmITevC2QxkBx7EnC09TP12RMq62UAD3OOlamYb0msCp7zfMxKxxni8dsvxtb01+4ZbmewJonHjAGqsawlzQgNq9WcXeuhccQmzdkiNnvGVQW+de3mg796tKgbFaDn9l2DJX5wjrAV/qLBpn74t80zUaE=
+Received: from MW4P223CA0030.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::35)
+ by MN6PR12MB8472.namprd12.prod.outlook.com (2603:10b6:208:46c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Thu, 14 May
+ 2026 07:33:30 +0000
+Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
+ (2603:10b6:303:80:cafe::16) by MW4P223CA0030.outlook.office365.com
+ (2603:10b6:303:80::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.18 via Frontend Transport; Thu, 14
+ May 2026 07:33:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Thu, 14 May 2026 07:33:29 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Thu, 14 May
+ 2026 02:33:29 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 14 May
+ 2026 02:33:28 -0500
+Received: from junhua-PC (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 14 May 2026 02:33:26 -0500
+Date: Thu, 14 May 2026 15:33:20 +0800
+From: Junhua Shen <Junhua.Shen@amd.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+CC: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>, <Oak.Zeng@amd.com>, 
+ <Jenny-Jing.Liu@amd.com>, <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, 
+ <Ray.Huang@amd.com>, <honglei1.huang@amd.com>, <Lingshan.Zhu@amd.com>,
+ <simona@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 5/6] drm/amdgpu: hook up ZONE_DEVICE registration in
+ device init and reset
+Message-ID: <20260514073320.zlab32baqmazp3qv@junhua-PC>
+References: <20260513095734.69598-1-Junhua.Shen@amd.com>
+ <20260513095734.69598-6-Junhua.Shen@amd.com>
+ <901369e4-9763-4477-a908-86ac8d77cb4e@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 31/38] drm/msm/dp: add HPD callback for dp MST
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-31-01faacfcdedd@oss.qualcomm.com>
- <pc4brjias4ixewzlsvnlhqhlz774z4p6aq7j4kldu5ze2e35sh@tsm2mtrkk3zi>
- <b5b3b1b8-ed48-429c-a87f-0278a6632313@oss.qualcomm.com>
- <tlt2ffn2xz3mpeoojcciieh35zc6pyowlkcjtxkkrnaj32enne@mbcrdrnkmaoz>
- <07ff4730-2efd-4e9d-b632-9fbb517179f9@oss.qualcomm.com>
- <vdjgzhx4xkvid2ukp7j3yir3n4tr423riyzvyzkrh2ssiub5at@pj6wfcy4jz5q>
- <4b18f14f-d485-4b9c-a75c-ead6f7c80f95@oss.qualcomm.com>
- <k6y3e4fqfwkevvvv3zmzmovsrz4i6qkxs3duhz7khsggxwwa77@uogtrpuaxhnc>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <k6y3e4fqfwkevvvv3zmzmovsrz4i6qkxs3duhz7khsggxwwa77@uogtrpuaxhnc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDA2OSBTYWx0ZWRfXzonVcXHu3mw5
- cat1hgmxXCkp1i22AovVxsWlBhUnHbr9F4a4DjxIGRbhzBxstNxGUddZraXwZvripjdwzH9nraK
- Owwm5icGbg2WWdaBZ2n8R46BcTDLxLPkpqYBBJm1tuXI9Q2gzwOEyoZh8qCnU1Xeg3QOdlmyz3C
- 3i1eCvxhXCfXwrS3ZhvNEQdEHW0K6GjUEpgvCaA0Km6aOPo3qJ4i/FEDcoB1TjM2UdPdN5RYEhT
- puelbKkwNarpUBPh6ybdO707VN8W/PCs/q4FlzqM4cB4wIBzs5PG9ZJCiM9pcLJG9IvjX7nuSzz
- z9quCS3zBgfeurSCUqhnVzbFHrdhxL6YgD4A0SD5ndCdZ+6LI9bzamvBN1AidtxfhzKoLYoJjLT
- ZiI6YcZusGLJXksRiZDphCn2chtN7ZNqm1+VI44wamKw0kU468mawYFgPunI8jpbgsI8vR405u2
- AKAiswE75soWtU9mTXQ==
-X-Proofpoint-GUID: IJAkRyBQjpvvILD05LTa0AIkTqJ71z9l
-X-Authority-Analysis: v=2.4 cv=YZSNIQRf c=1 sm=1 tr=0 ts=6a0575d9 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=TETkF4qc1S3FjmaiS5QA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
- a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: IJAkRyBQjpvvILD05LTa0AIkTqJ71z9l
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_01,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 impostorscore=0 priorityscore=1501 spamscore=0
- bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140069
+In-Reply-To: <901369e4-9763-4477-a908-86ac8d77cb4e@amd.com>
+Received-SPF: None (SATLEXMB03.amd.com: Junhua.Shen@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|MN6PR12MB8472:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e88383c-ae18-4583-9039-08deb18b1816
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|1800799024|82310400026|18002099003|22082099003|4143699003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info: lXI3qtJzb5tgs3PSZaqylEz/uAMzIusarLtw6OODGPBrv1lvdB+b4puT5OnWKqEP5bTwDkUVBowvOVUsxUcZvwFi0rTa4/JMDuLI6M2WuiuvZoC1w6e1rszPNyuc0afF2KMHG8RHfTQqGjFqF1VcPQR0FddwoYVp/yzKVebF6TCpq/cQKypyKRijqtJ0CcDl3TJ7XyniZHokoasfiQv/QAw+HcxwY9rNV3mgdL0tMaOG7ZRHFd8f/q5Po8PLgL5EOx14p6aYaDLvv8VI+ba57/V6ykgg5GzteEw4X8VRDMtMyjniDcmhjpKY0aLEjFIdNXTsntZzMp/EO16blHHa3k6jSKxSJ3OY2/DQIOiFnt8Z3NeaHf4CigChrKzAJ9aeWHoMfQBFaI9My97AclmlwycjmGAo6nuv/1cd9mnAZw6G87Kc59pX7ahK35t7jbwN/KBNb1pBi+EZrgYO5lwC8wzJbn9uzyeAsWY/Z1yDFJWcsWnrQvHDJeo9ebt5hrj+Lw4GJQbZiKuWgMC9yFfv1hSOKsXLog0u+yYY7YL9zvI39i83sbAVRODJpTM3D2B2LQb3NoPMhx2bifoEbgqcpF1X/aZpvk3wwJB8uKGqpAMkrbhOBMpDs2Sy07W08Ff/xhiAeeYQyKO/SXW2IIS1FrrTfkgNVU50Qs0m/q0Om8IZDN+IFyFWW8EiMv6InPy9ZuVGJTiwfM4Kp23k2+Zx4E3xSxLPABs4hmiV3DbXb0I=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(18002099003)(22082099003)(4143699003)(56012099003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: YYFxKR9XSVrCwE6Z+v3GmhjgsJW3nimTK66QvvE9YDYBxbm1qi18HcgtnnGON8GC4nS+Lqhb43kQXvxYeuNIE8mcfGo6BjtP72t/UsJUYPG0ry97WTiBZNJFXNjOkpB01OOBlTRRZjGXgYeHRL/4FkabBXTBZX3YzL7/1RaC0qD0lXK4nsWCVEsvtRnDxelf1hbdn9h0D4w8RDp1VKTxgMfl1p85kAeTVPgBYsKFhHq8Bslvjarq4mBU+eSP47e6vdS1uAZN8wtWWcZDzMyjDSAA6Q2Z+fwQ4a1+pKLjuS/xuERhGJcFME5pj5i+qRvNYEBuhwHku410ocq7dDqoiHBth5nF1nwcabuoBAAdsykDgTDB13eOv1+chcMuNR+ywh3PXYvj5aGoKC3ZZqkVvNKtUnZ6JZxtr3JcPsBd0hZe8LVWh/ckp5hHA8N0hm+V
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 07:33:29.5182 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e88383c-ae18-4583-9039-08deb18b1816
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6194.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8472
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,159 +124,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, May 13, 2026 at 03:47:33PM +0200, Christian König wrote:
+> 
+> 
+> On 5/13/26 11:57, Junhua Shen wrote:
+> > Call amdgpu_svm_migration_init() in the device initialization and
+> > XGMI reset-restore paths to register the GPU's VRAM as a ZONE_DEVICE
+> > region before KFD initialization.
+> > 
+> > This activates the drm_pagemap migration infrastructure.
+> > 
+> > Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 4 ++++
+> >  2 files changed, 8 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index fbe553c38583..3be51a2c0106 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -78,6 +78,7 @@
+> >  #include "amdgpu_reset.h"
+> >  #include "amdgpu_virt.h"
+> >  #include "amdgpu_dev_coredump.h"
+> > +#include "amdgpu_migrate.h"
+> >  
+> >  #include <linux/suspend.h>
+> >  #include <drm/task_barrier.h>
+> > @@ -4076,6 +4077,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+> >  
+> >  	/* Don't init kfd if whole hive need to be reset during init */
+> >  	if (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
+> > +#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
+> > +		amdgpu_svm_migration_init(adev);
+> > +#endif
+> 
+> Looks good in general, but just a style advise:
+> 
+> Instead of spread those #if IS_ENABLED() It's good practice to do something like this in the header:
+> 
+> #if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
+> 
+> void amdgpu_svm_migration_init(struct amdgpu_device *adev);
+> 
+> #else
+> 
+> void amdgpu_svm_migration_init(struct amdgpu_device *adev) {}
+> 
+> #endif
+> 
+> Especially when the function is used multiple times.
+>
+Thank you for the style advice.
 
+The header (amdgpu_migrate.h) already provides the static inline stub
+for the CONFIG_DRM_AMDGPU_SVM case.
 
-On 4/19/2026 8:29 AM, Dmitry Baryshkov wrote:
-> On Wed, Apr 15, 2026 at 06:32:29PM +0800, Yongxing Mou wrote:
->>
->>
->> On 4/15/2026 2:43 AM, Dmitry Baryshkov wrote:
->>> On Tue, Apr 14, 2026 at 05:51:51PM +0800, Yongxing Mou wrote:
->>>>
->>>>
->>>> On 3/25/2026 3:30 AM, Dmitry Baryshkov wrote:
->>>>> On Tue, Mar 24, 2026 at 09:04:24PM +0800, Yongxing Mou wrote:
->>>>>>
->>>>>>
->>>>>> On 8/27/2025 2:40 AM, Dmitry Baryshkov wrote:
->>>>>>> On Mon, Aug 25, 2025 at 10:16:17PM +0800, Yongxing Mou wrote:
->>>>>>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>>>>>
->>>>>>>> Add HPD callback for the MST module which shall be invoked from the
->>>>>>>> dp_display's HPD handler to perform MST specific operations in case
->>>>>>>> of HPD. In MST case, route the HPD messages to MST module.
->>>>>>>>
->>>>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>>>>>>> ---
->>>>>>>>      drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++++++---
->>>>>>>>      drivers/gpu/drm/msm/dp/dp_mst_drm.c | 34 ++++++++++++++++++++++++++++++++++
->>>>>>>>      drivers/gpu/drm/msm/dp/dp_mst_drm.h |  2 ++
->>>>>>>>      3 files changed, 48 insertions(+), 3 deletions(-)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->>>>>>>> index abcab3ed43b6da5ef898355cf9b7561cd9fe0404..59720e1ad4b1193e33a4fc6aad0c401eaf9cbec8 100644
->>>>>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>>>>>> @@ -500,9 +500,16 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
->>>>>>>>      static int msm_dp_display_usbpd_attention_cb(struct device *dev)
->>>>>>>>      {
->>>>>>>> -	int rc = 0;
->>>>>>>> -	u32 sink_request;
->>>>>>>>      	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
->>>>>>>> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
->>>>>>>> +	u32 sink_request;
->>>>>>>> +	int rc = 0;
->>>>>>>> +
->>>>>>>> +	if (msm_dp_display->mst_active) {
->>>>>>>> +		if (msm_dp_aux_is_link_connected(dp->aux) != ISR_DISCONNECTED)
->>>>>>>> +			msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
->>>>>>>> +		return 0;
->>>>>>>> +	}
->>>>>>>>      	/* check for any test request issued by sink */
->>>>>>>>      	rc = msm_dp_link_process_request(dp->link);
->>>>>>>> @@ -1129,8 +1136,10 @@ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)
->>>>>>>>      	if (hpd_isr_status & DP_DP_HPD_UNPLUG_INT_MASK)
->>>>>>>>      		msm_dp_display_send_hpd_notification(dp, false);
->>>>>>>> -	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK)
->>>>>>>> +	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK) {
->>>>>>>>      		msm_dp_display_send_hpd_notification(dp, true);
->>>>>>>> +		msm_dp_irq_hpd_handle(dp, 0);
->>>>>>>
->>>>>>> Why is it a part of this patch?? It has nothing to do with MST.
->>>>>>>
->>>>>> Emm ... maybe here we can directly call msm_dp_mst_display_hpd_irq..
->>>>>> I tried an alternative approach by calling the MST IRQ handler from
->>>>>> msm_dp_bridge_hpd_notify(). I expected that when hpd_isr_status ==
->>>>>> DP_DP_IRQ_HPD_INT_MASK, the hpd_link_status read in
->>>>>> msm_dp_bridge_hpd_notify() would be ISR_IRQ_HPD_PULSE_COUNT. That way, we
->>>>>> could handle both SST and MST interrupt paths in msm_dp_irq_hpd_handle().
->>>>>> However, hpd_link_status only reports ISR_CONNECTED. So I had to move the
->>>>>> MST IRQ handling into the IRQ thread. Do you have any suggestions on this?
->>>>>
->>>>> When are the link status bits updated? Please remember, we need to
->>>>> support all three cases:
->>>>>
->>>>> - Native DP, native DP HPD pin handling
->>>>> - Native DP, DP HPD pin not handled by the controller
->>>>> - DP AltMode, DP HPD pin not used at all
->>>>>
->>>>> In the second and the third cases we will not be getting the IRQs.
->>>>> Instead one of the next bridges (connector, EC, AltMode, etc.) will send
->>>>> the HPD event, which lands in the .hpd_notify() callback.
->>>>>
->>>> I added some logs and did some testing. I think
->>>> msm_dp_aux_is_link_connected() only shows the current HPD state. Since IRQ
->>>> HPD Pulse Count is very short, by the time we read REG_DP_DP_HPD_INT_STATUS
->>>> in the IRQ flow, the HPD state machine has usually already finished pulse
->>>> classification and returned to Connected.
->>>
->>> But the IRQ should be sticky and it should be readable from the status
->>> bits.
->>>
->> Yes... I’m not sure how this is handled on other platforms, but on LeMans
->> can not get IRQ status from msm_dp_aux_is_link_connected().
-> 
-> Can we clarify that somehow? Maybe with the hardware team if it is
-> uncear from the HPG?
-> 
->>> Note, in the USB-C AltMode case the HPD machine is not used at all.
->>>
->>>>
->>>> Because of that, the condition hpd_link_status == ISR_IRQ_HPD_PULSE_COUNT
->>>> will usually not be hit.
->>>>
->>>> do you have any suggestion that in how to distinguish between an IRQ event
->>>> and a plug event in .hpd_notify() better? We probably don’t want to
->>>> introduce another state machine.
->>>
->>> Then, I assume, currently there is no way to actually distinguish those.
->>> The easiest way to handle the replug would be to store the current
->>> "connected" status and verify if we are receiving "connected" while
->>> being connected or if it is a disconnected -> connected change.
->>>
->> Emm.. Currently, regardless of whether it is the native DP HPD (on LeMans)
->> or DP over Type‑C Alt Mode(test on Hamoa), a single plug event always
->> results in two or more identical .hpd_notify() callbacks.
-> 
-> Could you please check, why? On Hamoa it might be because of the LTTPRs.
-> 
->> In other words, after the transition from disconnected → connected is
->> completed, there is still one more .hpd_notify() with connected → connected.
->> So it still can store "connected" to distinguish between an IRQ event and a
->> plug event from .hpd_notify()?
-> 
-> I've sent a series, which explicitly tracks the IRQ events. Hope that
-> helps.
-> 
-Very thanks for sending the HPD IRQ series 
-https://patchwork.freedesktop.org/series/151522/. it very helpful for 
-TYPE-C MST.
+I'll drop the #if IS_ENABLED() guards at the call sites in both
+amdgpu_device.c and amdgpu_reset.c, and just call
+amdgpu_svm_migration_init() directly.
 
-I’ve been testing it locally based on HPD refator series, and TYPE-C 
-basic plug case works on my side (although with some local modify, maybe 
-now it is workaround). At least the IRQ is being delivered correctly now 
-and the simplest case works. It still need to do some additional testing.
+Regards,
+Junhua
 
-There is a small question:
-When do you plan to merge the HPD refactor series? and could you please 
-rebase the irq series patch to HPD refactor series ? so that i can keep 
-MST  depend on those 2 series.
-> Thoug storing of the "connected" state should help us to identify the
-> long HPD pulse (wich should be treated as unplug & replug).
+> Regards,
+> Christian.
 > 
->> This is my current understanding. If this is incorrect, please feel free to
->> correct me. Thanks.
->> As an additional note, msm_dp_hpd_plug_handle runs through its full flow
->> twice for a single plug event. Also, the behavior I described above does not
->> include any MST-specific filtering codes.
->>> For a longer term (and granted that HDMI also has a notion of HPD pulse
->>> events) we might want to extend the DRM HPD API to pass through the "IRQ
->>> pulse" events as is (instead of converting those to
->>> connected-whilec-connected events).
->>>
->>> Let me sketch a draft for that.
->>>
->>
+> >  		kgd2kfd_init_zone_device(adev);
+> >  		kfd_update_svm_support_properties(adev);
+> >  	}
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> > index 28c4ad62f50e..c94d43f3ab42 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> > @@ -25,6 +25,7 @@
+> >  #include "aldebaran.h"
+> >  #include "sienna_cichlid.h"
+> >  #include "smu_v13_0_10.h"
+> > +#include "amdgpu_migrate.h"
+> >  
+> >  static int amdgpu_reset_xgmi_reset_on_init_suspend(struct amdgpu_device *adev)
+> >  {
+> > @@ -87,6 +88,9 @@ static int amdgpu_reset_xgmi_reset_on_init_restore_hwctxt(
+> >  		return r;
+> >  	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
+> >  		if (!tmp_adev->kfd.init_complete) {
+> > +#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
+> > +			amdgpu_svm_migration_init(tmp_adev);
+> > +#endif
+> >  			kgd2kfd_init_zone_device(tmp_adev);
+> >  			amdgpu_amdkfd_device_init(tmp_adev);
+> >  			amdgpu_amdkfd_drm_client_create(tmp_adev);
 > 
-
