@@ -4,63 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 898D0CD4F21
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 01:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB87CD4846
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 03:56:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7D4410E050;
-	Thu, 14 May 2026 01:41:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0F8B10E16E;
+	Thu, 14 May 2026 03:56:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="MjUO20vK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HYZ+A3Ew";
 	dkim-atps=neutral
-Received: from out28-105.mail.aliyun.com (out28-105.mail.aliyun.com
- [115.124.28.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF0B10E050
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 01:40:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1778722857; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
- bh=paSUUNeM9d+Dg+dK0ePPB8BCcy3aHvmTkKmP2lDWFOQ=;
- b=MjUO20vKDOChLLpnh34n+L8BaCPxQzS6CjtMv6dByS3lSv0vIXvUt2FIhZ8GRlVFT7IYZDvmOLI+W5BN19+vfcOXnan+HLLdVaTAWSSPhUieYrMmAj0UTVTkLNCCM225ei83Ix9FsUsDzs4gtnA9Qjn5oaWo5GyP5OimhnAubGERHsZ7YIVIHB7iEHOYtNMpHUrmwXKBRa8AExbduN2zA9kUNodP/bmqMJTV7YOB+SuiHOzkfkJ6ppeowEb6pDfhaxK5ThCCJakW4Qc2laeG0pzUBWIg1L7LpqDf4dkhanZ4943O5fVFSAc/LIFDT/PvgkYONbJiQuYegpx9euYGtA==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.3534878|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_regular_dialog|0.174381-0.0202541-0.805365;
- FP=11096877952077132768|13|1|9|0|-1|-1|-1;
- HT=maildocker-contentspam033037025160; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=1; RT=1; SR=0; TI=SMTPD_---.hWbPEmQ_1778722853; 
-Received: from mail-oo1-f41.google.com(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hWbPEmQ_1778722853 cluster:ay29) by smtp.aliyun-inc.com;
- Thu, 14 May 2026 09:40:54 +0800
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-6966d0665baso4459076eaf.1
- for <dri-devel@lists.freedesktop.org>; Wed, 13 May 2026 18:40:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/SNjH7zoou5EMNVfEJ58uFf/4DKh2VansMCzkLVGji6ihZItXrNU3VM5jbsh5sp3eEqkgIpgrpIOE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRSaztfkoPm9/nlLkDpg1xxNRI7aDQs2jYELZjxmtcVgvRJvX/
- WfJYwc4yPdJJgSp6UbYXwNIKkset5dDmM+ZkOKa2BWQ2wFwNW9QqCJ299/Q3f9v9yh9WN8gFoBj
- o/ecnldIZW1S/87+eq9TMReZFuodEh0o=
-X-Received: by 2002:a05:6820:818d:b0:694:980c:9609 with SMTP id
- 006d021491bc7-69b7ab2de0emr2947356eaf.36.1778722852317; Wed, 13 May 2026
- 18:40:52 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3041A10E0C2;
+ Thu, 14 May 2026 03:56:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778731000; x=1810267000;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=nNXzELtutpEq+OmJxmrD51XitSjV4T7MrHzTWpLXGqs=;
+ b=HYZ+A3EwF52lVNkBtMJjiUPbi4kwcKUltDHunEyzMIQHF11CiqXyQWv2
+ lpy0J/JenKlAxjZKTVSt34aPuhD+bwn3KvhiKBXms45FE3N8/i4EI8A2C
+ hyEKLOUXMTls/fXQt+jN/rcWgQ3WofG8yJ9C0RQ7BafD1+JyoidhQcggQ
+ OPSFpWxTsjBEyx6XV8MHdt0Ao2GHCdHDTB1/UmfwNsEZCAzini6+7iX+L
+ A5TfBnqUe1eQYZwc1pTwGAlaYZ+CmBDfjO6BnTwUwcrd+hsiGlcajRPe6
+ wRsEoSi0VhRZOsPwq3o0tpBsZvRFcfZIyUA/n6GFtLRny28tSOogINkqs g==;
+X-CSE-ConnectionGUID: +Ms7QPjcR7uPtjoGVsXl2g==
+X-CSE-MsgGUID: e6M/VWqPQIaG/3/+Eo86MQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79564425"
+X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="79564425"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 20:56:39 -0700
+X-CSE-ConnectionGUID: ZFJEVrqUR0CG+RnG12WEVg==
+X-CSE-MsgGUID: DhVLug9hRyiwfjGsvKVn5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="243251014"
+Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
+ by orviesa005.jf.intel.com with ESMTP; 13 May 2026 20:56:35 -0700
+Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wNNBX-000000005mN-0hyq;
+ Thu, 14 May 2026 03:56:31 +0000
+Date: Thu, 14 May 2026 11:56:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Boris Brezillon <bbrezillon@kernel.org>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] drm/gem: Make the GEM LRU lock part of drm_device
+Message-ID: <202605141138.kI3vechU-lkp@intel.com>
+References: <20260512-panthor-shrinker-fixes-v3-1-3bf066259471@collabora.com>
 MIME-Version: 1.0
-References: <20260507034049.97765-1-syyang@lontium.com>
- <20260513192515.GA1728398-robh@kernel.org>
-In-Reply-To: <20260513192515.GA1728398-robh@kernel.org>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Thu, 14 May 2026 09:40:40 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNb8WBrCvBpdKdpCUSdrS+qEWjyETE0qD09LH5HOfjOH7A@mail.gmail.com>
-X-Gm-Features: AVHnY4IkVGhomaeI1wAG41IL6-oFivJQBQuT2mzo4d72gRbFAuy9FvNbwo8LR2Q
-Message-ID: <CAFQXuNb8WBrCvBpdKdpCUSdrS+qEWjyETE0qD09LH5HOfjOH7A@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: Rob Herring <robh@kernel.org>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
- neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
- maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
- Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
- xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512-panthor-shrinker-fixes-v3-1-3bf066259471@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,71 +83,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rob Herring <robh@kernel.org> =E4=BA=8E2026=E5=B9=B45=E6=9C=8814=E6=97=A5=
-=E5=91=A8=E5=9B=9B 03:25=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Thu, May 07, 2026 at 11:40:49AM +0800, syyang@lontium.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
-> >
-> > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual por=
-t
-> > mipi dsi and output hdmi, differences in hardware features:
-> > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> >
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> > ---
-> >  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
-> >  1 file changed, 6 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,l=
-t9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt961=
-1.yaml
-> > index 429a06057ae8..b20a43456b01 100644
-> > --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.y=
-aml
-> > +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.y=
-aml
-> > @@ -4,19 +4,23 @@
-> >  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
-> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >
-> > -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> > +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
-> >
-> >  maintainers:
-> >    - Vinod Koul <vkoul@kernel.org>
-> >
-> >  description: |
-> > -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDM=
-I
-> > +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX and LT=
-9611UXD
->
-> Use a normal ','.
->
-> > +  are bridge devices which convert DSI to HDMI
->
-> Missing period.
->
+Hi Boris,
 
-thanks, Rob Herring.
+kernel test robot noticed the following build warnings:
 
-we will fixed in patch v7.
+[auto build test WARNING on b2ed01e7ad3de80333e9b962a44024b094bc0b2b]
 
-> >
-> >  properties:
-> >    compatible:
-> >      enum:
-> >        - lontium,lt9611
-> >        - lontium,lt9611uxc
-> > +      - lontium,lt9611c
-> > +      - lontium,lt9611ex
-> > +      - lontium,lt9611uxd
-> >
-> >    reg:
-> >      maxItems: 1
-> > --
-> > 2.34.1
-> >
+url:    https://github.com/intel-lab-lkp/linux/commits/Boris-Brezillon/drm-gem-Make-the-GEM-LRU-lock-part-of-drm_device/20260514-051749
+base:   b2ed01e7ad3de80333e9b962a44024b094bc0b2b
+patch link:    https://lore.kernel.org/r/20260512-panthor-shrinker-fixes-v3-1-3bf066259471%40collabora.com
+patch subject: [PATCH v3] drm/gem: Make the GEM LRU lock part of drm_device
+config: arm-randconfig-002-20260514 (https://download.01.org/0day-ci/archive/20260514/202605141138.kI3vechU-lkp@intel.com/config)
+compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 5bac06718f502014fade905512f1d26d578a18f3)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260514/202605141138.kI3vechU-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605141138.kI3vechU-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/msm/msm_gem.c:827:26: warning: unused variable 'priv' [-Wunused-variable]
+     827 |         struct msm_drm_private *priv = obj->dev->dev_private;
+         |                                 ^~~~
+   1 warning generated.
+
+
+vim +/priv +827 drivers/gpu/drm/msm/msm_gem.c
+
+4cd33c48ea25ba1 Rob Clark             2016-05-17  823  
+599089c6af68300 Rob Clark             2020-10-23  824  void msm_gem_purge(struct drm_gem_object *obj)
+68209390f116034 Rob Clark             2016-05-17  825  {
+68209390f116034 Rob Clark             2016-05-17  826  	struct drm_device *dev = obj->dev;
+6c7c8fb863f7c31 Rob Clark             2023-03-20 @827  	struct msm_drm_private *priv = obj->dev->dev_private;
+68209390f116034 Rob Clark             2016-05-17  828  	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+68209390f116034 Rob Clark             2016-05-17  829  
+d4d7d3630d703ff Rob Clark             2022-08-02  830  	msm_gem_assert_locked(obj);
+90643a24a7bfbe9 Rob Clark             2021-04-05  831  	GEM_WARN_ON(!is_purgeable(msm_obj));
+68209390f116034 Rob Clark             2016-05-17  832  
+20d0ae2f8c72e36 Rob Clark             2021-04-05  833  	/* Get rid of any iommu mapping(s): */
+0b4339c55ef59ff Rob Clark             2025-06-29  834  	put_iova_spaces(obj, NULL, false, "purge");
+0e08270a1f01bce Sushmita Susheelendra 2017-06-13  835  
+599089c6af68300 Rob Clark             2020-10-23  836  	msm_gem_vunmap(obj);
+68209390f116034 Rob Clark             2016-05-17  837  
+81d4d597d4faadb Rob Clark             2021-04-05  838  	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
+81d4d597d4faadb Rob Clark             2021-04-05  839  
+68209390f116034 Rob Clark             2016-05-17  840  	put_pages(obj);
+68209390f116034 Rob Clark             2016-05-17  841  
+c20ad1ee88c074c Boris Brezillon       2026-05-12  842  	mutex_lock(&dev->gem_lru_mutex);
+6c7c8fb863f7c31 Rob Clark             2023-03-20  843  	/* A one-way transition: */
+68209390f116034 Rob Clark             2016-05-17  844  	msm_obj->madv = __MSM_MADV_PURGED;
+c20ad1ee88c074c Boris Brezillon       2026-05-12  845  	mutex_unlock(&dev->gem_lru_mutex);
+68209390f116034 Rob Clark             2016-05-17  846  
+68209390f116034 Rob Clark             2016-05-17  847  	drm_gem_free_mmap_offset(obj);
+68209390f116034 Rob Clark             2016-05-17  848  
+68209390f116034 Rob Clark             2016-05-17  849  	/* Our goal here is to return as much of the memory as
+68209390f116034 Rob Clark             2016-05-17  850  	 * is possible back to the system as we are called from OOM.
+68209390f116034 Rob Clark             2016-05-17  851  	 * To do this we must instruct the shmfs to drop all of its
+68209390f116034 Rob Clark             2016-05-17  852  	 * backing pages, *now*.
+68209390f116034 Rob Clark             2016-05-17  853  	 */
+68209390f116034 Rob Clark             2016-05-17  854  	shmem_truncate_range(file_inode(obj->filp), 0, (loff_t)-1);
+68209390f116034 Rob Clark             2016-05-17  855  
+68209390f116034 Rob Clark             2016-05-17  856  	invalidate_mapping_pages(file_inode(obj->filp)->i_mapping,
+68209390f116034 Rob Clark             2016-05-17  857  			0, (loff_t)-1);
+68209390f116034 Rob Clark             2016-05-17  858  }
+68209390f116034 Rob Clark             2016-05-17  859  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
