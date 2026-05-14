@@ -4,83 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62347CD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 10:41:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1CC8CD4F25
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 10:57:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6DC610E3A0;
-	Thu, 14 May 2026 10:41:02 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ujv1brq9";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7657710E3A0;
- Thu, 14 May 2026 10:41:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778755262; x=1810291262;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=UdUtbB1KKCUQA7QYGmM8hiQm9oKu3vwDYTWqyKgFU4Y=;
- b=Ujv1brq9yQglJ8JJKYfNKYIQFZ6FYb2Z9VsoxI0OED79f5arh3OQqsm7
- oGHC6v4HBBj+atffLy8fJy0M5LsOPvP451Vih64/Hh56YGIct4y8qEJO4
- vpgG5jVqGefEP/JdZjKPf9jEMhOc6q2qYn7szQGVGd5u+QlDqTq7kPket
- Qz7PPoyKFFIqPqXcXQ+fiOZ48QtQvW98yewhSu+EmVABcmxHZ76LVvvsD
- aZRwwNdnm1dDKlJVHJJuBxs6hxBau0AQobvP6T8jPo7EbhfDMDygXfV2O
- ti4M5z8Yld46vR7OkUoG9HjWYSj3+Ba5oVBw78b/v6megNmi2DvD4aIMQ g==;
-X-CSE-ConnectionGUID: nvhU+O4IQf2e2wYfOdp0Ew==
-X-CSE-MsgGUID: hgnotP+rSvCRyTx32KrAQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79408513"
-X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="79408513"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2026 03:41:01 -0700
-X-CSE-ConnectionGUID: 8iaG3PHYQ6+GrAdKFrQALQ==
-X-CSE-MsgGUID: vunfD7ioRj6XQNXNyLC5YQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="237489377"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.244.244])
- ([10.245.244.244])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2026 03:40:55 -0700
-Message-ID: <0fd47baa4bf8a83e258f8cd74de3a51c056ae59c.camel@linux.intel.com>
-Subject: Re: [PATCH 1/2] mm/shmem: add shmem_insert_folio()
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, intel-xe@lists.freedesktop.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes
- <ljs@kernel.org>,  "Liam R. Howlett"	 <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko	 <mhocko@suse.com>, Hugh Dickins
- <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Brendan
- Jackman <jackmanb@google.com>,  Johannes Weiner <hannes@cmpxchg.org>, Zi
- Yan <ziy@nvidia.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
- <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org
-Date: Thu, 14 May 2026 12:40:53 +0200
-In-Reply-To: <ea5063c9-9db1-4314-a8d0-c693de412b65@kernel.org>
-References: <20260512110339.6244-1-thomas.hellstrom@linux.intel.com>
- <20260512110339.6244-2-thomas.hellstrom@linux.intel.com>
- <f14d99d3-c1ff-453b-a280-17b8c4d5af94@kernel.org>
- <b4800086347aa3b27edc42b6536cb3a2b76a1aa8.camel@linux.intel.com>
- <26479389-459b-4cc4-914d-e7d29d5e5cc9@kernel.org>
- <c6b4031a-5625-4b1b-8a51-6e47241d32c9@amd.com>
- <bbde0793-fd21-4a9c-b85d-f13d8b787c50@kernel.org>
- <1ce447ceea88bbe56c7d28654a51fc2856a7f986.camel@linux.intel.com>
- <65596f86-e6a3-48b0-aa3d-2e608964e29d@kernel.org>
- <c0b5b94dfb4d04a1319bfb110f326afd2c29d48b.camel@linux.intel.com>
- <d7cc273b-17a2-4b5f-af6a-0dc708c8cabf@kernel.org>
- <d5e310c7f4506ef373c705180b33b9d5b2645b1a.camel@linux.intel.com>
- <ea5063c9-9db1-4314-a8d0-c693de412b65@kernel.org>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAE5F10E145;
+	Thu, 14 May 2026 10:57:04 +0000 (UTC)
+Received: from de-smtp-delivery-119.mimecast.com
+ (de-smtp-delivery-119.mimecast.com [194.104.109.119])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D530A10E145
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 10:57:02 +0000 (UTC)
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11020074.outbound.protection.outlook.com
+ [52.101.84.74]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ de-mta-113-fRc-bBLKOVWWvfLdX5X4UQ-2; Thu, 14 May 2026 12:56:59 +0200
+X-MC-Unique: fRc-bBLKOVWWvfLdX5X4UQ-2
+X-Mimecast-MFC-AGG-ID: fRc-bBLKOVWWvfLdX5X4UQ_1778756218
+Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ (2603:10a6:102:227::10) by DU4PR01MB12195.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:620::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.18; Thu, 14 May
+ 2026 10:56:57 +0000
+Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ ([fe80::5adb:b6ca:f689:1ac6]) by PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ ([fe80::5adb:b6ca:f689:1ac6%3]) with mapi id 15.21.0025.012; Thu, 14 May 2026
+ 10:56:57 +0000
+Date: Thu, 14 May 2026 12:56:54 +0200
+From: =?utf-8?B?QsO2cmdlIFN0csO8bXBmZWw=?= <bstruempfel@data-modul.com>
+To: Marek Vasut <marex@nabladev.com>
+CC: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display/bridge: lt9211: Add
+ drive-strength-microamp property
+Message-ID: <agWqLjNdHxqvwTx3@DATAMODULBOERGELINUX>
+References: <20260513133127.376458-1-bstruempfel@data-modul.com>
+ <20260513133127.376458-2-bstruempfel@data-modul.com>
+ <271d1839-e372-4f5b-84bc-29fe30b928a8@nabladev.com>
+In-Reply-To: <271d1839-e372-4f5b-84bc-29fe30b928a8@nabladev.com>
+X-ClientProxiedBy: FR0P281CA0173.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::20) To PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ (2603:10a6:102:227::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR01MB8486:EE_|DU4PR01MB12195:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8048ebe4-20a8-4026-8565-08deb1a78434
+X-LD-Processed: d72fb47f-f4be-4915-91c7-ebd53299157b,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|1800799024|376014|366016|7416014|4143699003|18002099003|22082099003|56012099003|3023799003
+X-Microsoft-Antispam-Message-Info: lyyfoOWzVPz9/mvvckoWC3/rRw4ai+9c/Hp2rVXgsY0/yoZsPdmEjLOqrJtoEXFsluuYg54XWwe0nI99xqP8xB6Mqe9HUUNPwhpIrA2rjL7t06mpSi587wJyLmGvvgmSyOBGWq6yZB5CgqbsOClYU/JZdHuvzE4z2VoJFZw6FpSQoTl50g02dSbg1WpNogNFZFEQaHkBGxz3rg/Rm1QffIOU2MJZjo8f9ub8D5BIPrRI2FVWD0eQTFB3ifv3GoVwvdwmjdOK9A2L61bA3ROZhvdIa+sCWQDsrHXdbKja7PFTGyuQMNPsIjsomwPvRzbH3FnG9a/FUgFeaxL5LLvD3YCs83TujMLHjpT6yQgNyu9thkvzq79zCYLBtpoEJCRhL7m6SFR/qMYPxGd4oRLbqIepA9HF3JNpQDQHmr1ZHSF3lPvL5p5RzvNjLScHnBA4gZ6m2Fc6B8LmBgCpFublbHq8qnrLdZ8h88N/9VarQyqkebFVcr/04zWHcQ3CZP+WqxEBH3Sx0EwbeEoM8Vmx+Ig5hO621dBAlD++Unr2K6ZxHjOyi8EGLEez6LzovSjR74zDtCDiQpJgsYT8lfCeX34DQVldGxzd4MJcuAZGZTkjzWuteX1fbl/Le1P0z8CE2pmYabSDeHtW1tNwyFT5E72NgskdtxSdCD7e89Iy4ab4bbuH934S9uaknPYoqQFI
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR01MB8486.eurprd01.prod.exchangelabs.com; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(10070799003)(1800799024)(376014)(366016)(7416014)(4143699003)(18002099003)(22082099003)(56012099003)(3023799003);
+ DIR:OUT; SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clZSOU4rZCtsSkVuZjJiL1dxNmZpMXNBYXRrOTExdzRnNmdHQ2J6RHdTYlVK?=
+ =?utf-8?B?RjVFZ2N1NnhNdmtuZkl1T0RFZGZnRWJkWkliNGdnVk5pb2FPeXBrVXlZNDNB?=
+ =?utf-8?B?RnFTaDEzV0RIMXo3S2s3Uk9NZG5kV1lvR2t6NnpMVlFZV1F1eER4dGFGUjBB?=
+ =?utf-8?B?YmE1K1RuQWZuemppL01ZUW8xQ3FrUzFNNldqUFdFeCtuZUdZM2Q1VnFBMVcx?=
+ =?utf-8?B?ZDdvWXd4NVhObG5LTkRhRVpCZUN2eHBGTHpqMk1yOUlqN29NS1RtSmhsVmZi?=
+ =?utf-8?B?cHFpS01KYWFNM3dPZDMwc1JGamRrQkJtQytHNWNjM1JveGpXYXF2UFcrOE9R?=
+ =?utf-8?B?YzFnbFZUZVI2TXJXRWpZVWZoZ1JOM296dmNMZmFnSExQS2c0UEpDY2lMYmM1?=
+ =?utf-8?B?RFdVTTY1dDFVZ3FnTWtlYVU0U01YVlp4MkprQTJsTUxYMHB2YUU2c0FNOVZ2?=
+ =?utf-8?B?OGYyTHZ5SlUxa21oY3JNank2bHVrZzNSL0NZN2R6MmhTd2JURHNuSkdlK2Ex?=
+ =?utf-8?B?S041NW1jeFR4aEZ5OFFualExc1RBODJGazlKQWhFc1NRSjNwQVRYS01mZmsy?=
+ =?utf-8?B?ZkpTQUlaRlVIcGhLSUJ3VkZJWUdHUnJVdEZTY0JwaHZmaXI4R3ptVnMxV3hI?=
+ =?utf-8?B?alhRczhvWUlvcW1UTGtmNVlSbE9nV3Z3YWE2TnUyVlhzNmMwTy9Fbnp4N29s?=
+ =?utf-8?B?WndQaXp4cTczeWYrZzV0d0pwZHZFNng3ZVFRbVA2N09Iamk3S1pMUHozS3RL?=
+ =?utf-8?B?WC9CUTJjTXFRSFZHMGVScVN0RHN1T0dINHhBSGY2QXliMEtxMXB3VE9VSVVE?=
+ =?utf-8?B?bFJtSWxjQThCb1ZhUktIaGlxY3JvTW5CRTNueDd6ajJ0d0QwbldCVDJ6NzVo?=
+ =?utf-8?B?VTNIemR0V3NMRUMwcFFxaWR4MCs5d0UrYkdXSm9DclRna2FXWDU4TWl5SlVi?=
+ =?utf-8?B?SCtLQm4vbER5dnNhSWQwSkprTkdIUEwrNmtYQmpuOVRsNUZVcktYWHVXRitr?=
+ =?utf-8?B?cmlzeFphdHQ2alNCYjc4SEdRL3pJQys1dWRqTWh4TEJVbjZ4U0xKK3hEazZr?=
+ =?utf-8?B?M0QwOXpIN1UzMHB3NFl2RE9iN1NyeERyVTFZbndHalMzRWNEZmdtWFYzSjI0?=
+ =?utf-8?B?VHE3Qk1ycjR5YnR5aEt3MjA4VE1lblV6dUJleFhTaDJFRURQSHNMaDA5UTYv?=
+ =?utf-8?B?OWhPQUhxNWx3K1lIWDd0VjFHMWxhMWthVnpyOHJDcndyRzJHRW81RmpJVUll?=
+ =?utf-8?B?SkxmTW5ZSVZjT3pMQjFTOUE5d243dHhGMmYzUytETWVlTDc2djN3UGhDZnBk?=
+ =?utf-8?B?OG81dDhqNmFIMGVMY1Y4V3Zpa1M4M041SUFUTENKN051aUovYmd3QklNc28r?=
+ =?utf-8?B?ZnhYeVJSZ3NUMkllZHhyRncrU3A4WXcrNVN1Nm9mMVVPWTcxdnB6RkF4bktw?=
+ =?utf-8?B?ODBxRmhSVVBZcjJ4STdzeHRxQTRHVEdJOGZ5WVlsTGlBS0FmRnJudm5hMU1t?=
+ =?utf-8?B?SkV4clh2R1hLZVAxZ0FMUXpDWUJVSXNjVDloRGFsVkZGZkZ5R1JZTkJJSzhp?=
+ =?utf-8?B?QXdhTGh6WVZ2cGhzS3U2blZRbU1XcW10RHI4NXZsc2IrcHJmb09VTE0xdGtw?=
+ =?utf-8?B?cjBJb3pLK2gvZTZOOWUyVUNma3ZKdklqeWI5TElUYmsrZWdGNjNLUDVpVUo0?=
+ =?utf-8?B?bzVSTC91YzQzamxiRjQ3c3NXL3ZlQkYxeGJlL0tKdjBWZU9YNm1nNkxCOVpJ?=
+ =?utf-8?B?S0J6KzhEb0tDb3JNWkFLTFJzaGUxbkIyYU5oR0JZRlRGYkJHdXdrZ2dVbS9i?=
+ =?utf-8?B?ejBtSWNBV2tuK0JQZnhoam5GM2tQajhzL29XMVpjZEJ1TUo1NlByazM4WHFY?=
+ =?utf-8?B?aXpZdmV1c1FUalVNV0d6cWZSU1BJVWM5R3U2RWFaSUUrbE9BZlZoZFVHaUxi?=
+ =?utf-8?B?Sk1ucWdHWFlIbnJZR3dFaUp2ZnJvN0tydngwN2ZNRTJvZEVkMEN3ZTk5VXpL?=
+ =?utf-8?B?TXJ0Q2RSOWxLNmxFazBqWHppU3IvTHA0M3V3M3JCS0NwNkxhSFVTL3ZnQXJl?=
+ =?utf-8?B?KzBYdmdCSVdmVGtVSEdCdWNBWVhKRkl5RGpIRElFSU14S2lPWTVsdW9LNlNy?=
+ =?utf-8?B?eVVkamtLVHl0OWJBOWlZclVuYzg4a0VRSU1HMkJIV1VIcVZzMU16SkxuMklG?=
+ =?utf-8?B?cXlPUVZJM0hnd2FVckM4SzBXS1lUVU4rNlpWdzViZndsbjZTaHd1T2UwcmtU?=
+ =?utf-8?B?cms1NFlhd1RuQ0gwWmwyZllsaVNLWmVvcVQ3N1l6QjZjbCt3K0J5VVh0YWpn?=
+ =?utf-8?B?ZmlvdG04QUJ3UFRaSnFreEk2d3JhTFhmMmdLcWxsTEhPcjNaQTZRbFRLYUtR?=
+ =?utf-8?Q?c9me9922+o+93oVNbTWT55j5noNFfm8KB+JAxtHWLk7wb?=
+X-MS-Exchange-AntiSpam-MessageData-1: 1eNN/36lhw+viU9KmPKX8SrLs74QqzojCNo=
+X-Exchange-RoutingPolicyChecked: jbPzwvQqU8PLM3SRhvHbHPqDFHQBN0dbANPnu/byFF+lxOuXnTy4O4rz34vPgo3qX3tO4rB9NL2GHMcIRlZOHgG3199HDqI0h1Czbl7HXTgSUfqO8ZJA8X1IRPlMavV8sp8MxmxYiVyyEhjBpK9GPaqRi3Pc4wMDcb92ndtzlM+3WUNCzmlK/xKrup9Qwk96/cmdZDUJDLuP4bGtg7qpo8arWSNl7XPTZeQ6hZn7mOWRLmgi1H+JF4gWRxOUBuDyLwjLP9xfInIrQxCYa9PBBK5K3EohBMagwOnQ6p2WHMToL2pNxKSlZYaEef07DIWq0m2pGPtBajr1oZiB0Eb8NQ==
+X-OriginatorOrg: data-modul.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8048ebe4-20a8-4026-8565-08deb1a78434
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 10:56:56.9749 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d72fb47f-f4be-4915-91c7-ebd53299157b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AHezrM8jSzKpMxySqQTN3XF0H8twMfa1Cmm5uIrs20jxLQYgH/qjNkfn+DHyehAgtBLEPRIBtxvcKgMx+LChnL18RlFCD/M/fIGlm6vetkk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR01MB12195
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: I_zQVOpCPId0SCaFxK__tHXK7ck8D8WrRVW0d0PVcZY_1778756218
+X-Mimecast-Originator: data-modul.com
+Content-Type: text/plain; charset=UTF-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,45 +143,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-05-13 at 21:35 +0200, David Hildenbrand (Arm) wrote:
-> On 5/13/26 16:53, Thomas Hellstr=C3=B6m wrote:
-> > On Wed, 2026-05-13 at 13:36 +0200, David Hildenbrand (Arm) wrote:
-> > > On 5/13/26 12:37, Thomas Hellstr=C3=B6m wrote:
-> > >=20
-> > >=20
-> > > >=20
-> > [...]
-> > > > One alternative would be a single large sparse shmem object
-> > > > common
-> > > > for
-> > > > all DRM objects, with a range allocator, but that also got
-> > > > pretty
-> > > > ugly
-> > > > when I tried to implement that.
-> > >=20
-> > > Does not sound too crazy, though.
-> > >=20
-> > > >=20
+On Wed, May 13, 2026 at 03:41:41PM +0200, Marek Vasut wrote:
+> On 5/13/26 3:31 PM, Boerge Struempfel wrote:
+> > Add the 'drive-strength-microamp' property to allow board DTs to
+> > configure the LT9211 LVDS TX output driver current. Sixteen discrete
+> > levels are supported, ranging from 12 uA to 36 uA. Defaults to 25 uA.
 > >=20
-> > Yeah, I stumbled on finding a reasonable idea to connect a shmem
-> > folio
-> > to the pool LRUs and the range allocator metadata.
-> >=20
-> > Assuming a shmem folio is pinned using the memfd pinning interface,
-> > would folio->private be temporarily available?
+> > Signed-off-by: Boerge Struempfel <bstruempfel@data-modul.com>
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> AB goes before SoB line.
 >=20
-> I think shmem uses folio->private only when the folio is in the
-> swapcache
-> (through folio->swap). So one has to protect against that.
->=20
-> So you're thinking of a model, where a shmem file is essentially
-> fully "owned"
-> by a DRM object, and that owner could make use of folio->private as
-> long as the
-> folio is prevented from getting swapped out? (e.g., longterm pinned
-> etc)
+Thank you Marek. I will fix this in v3.
 
-Yeah, exactly.
+--=20
+Best regards,
+B=C3=B6rge Str=C3=BCmpfel
 
-Thanks,
-Thomas
+DATA MODUL AG
+Landsberger Str. 322
+80687 M=C3=BCnchen
+
