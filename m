@@ -4,49 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3952ACD4851
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 09:50:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B78A0CD4851
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 09:56:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 951EB10E065;
-	Thu, 14 May 2026 09:50:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F262E10E397;
+	Thu, 14 May 2026 09:56:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EkoU6SkV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AZePJsb0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED07510E065
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 09:50:37 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AA92D60008;
- Thu, 14 May 2026 09:45:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED29DC2BCB3;
- Thu, 14 May 2026 09:45:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778751903;
- bh=PLNJMPTVnkRKB2ZVyKp4WUwzWIH4JrjwI4L1YKFK+5E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EkoU6SkVlkLreI3yOVr8L+wl8F9b3HyU2LzVUKB4V4atMh+/XhxHNwLwuhes9k3/f
- 02P+xM6XY3kqYpGPkkxGAQ5wjSGLEuZwVSjvYOyr1FPKll5jzffV0MNgvBnVKmaNpb
- HB3zHJRARq+FEqWhiz/jBsoS1M/+bVs3QNGGoCAX59UDZ3hFJyfOmubFYC+wLFRYul
- YOP8d3YjQyD7NzOfUb3etaPbM/T5ON9VNhDx8XjkXLFC6KscLNAPlxo8RqmXrClFwd
- x2zIHInQdC3oqd9t7RvoPXa5vwMBtX+kPSUP4YJoiJGxNM91Fz4Fw1nM9zmXWRlTzU
- HKvAtqCJLU01A==
-Date: Thu, 14 May 2026 10:45:00 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Alistair Popple <apopple@nvidia.com>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
- aarsenovic@baylibre.com, dri-devel@lists.freedesktop.org,
- matthew.brost@intel.com, 
- thomas.hellstrom@linux.intel.com, jhubbard@nvidia.com, david@kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] mm/memory: Fix spurious warning when unmapping
- device-private/exclusive pages
-Message-ID: <agWYFd2H8baj_Six@lucifer>
-References: <20260501065116.2057242-1-apopple@nvidia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BDD210E38E;
+ Thu, 14 May 2026 09:56:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778752581; x=1810288581;
+ h=message-id:date:subject:to:references:from:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=StoHslJiu41H1z6fiVYv/20e+Y0GFERzww71cEY0DpA=;
+ b=AZePJsb0lwe6clF7Nh1rsJWK5LhqJrxlQCCwVbWKzjeeFAaKDRLXH1mN
+ rjv6vI9UcVilGy+i5nNSWiL5ZdpTYlAVIJtMUF+XTqdipl9p4WX7CceJK
+ /pnlUDHmwAY+JabfOHtonEiLqsdSsjTuo3Has8U30CRh82RUT+4nObSUC
+ wUsv3MJNgPLFyOTjDdkeLzcNMyPR273Q8Wwu4uVMuqJU6HXA+fRRkx9xy
+ Ylx7mrLQMvlqKdBP7WqMdakIZ8ghb4BM8P+VrbjodWauWqZHYt0GoDd91
+ Jofl1ZBpeZgeEYptcIiBR/HIzg5LtP7t+HxkIBjFgkaE7ALSPF0mVAKRX Q==;
+X-CSE-ConnectionGUID: ylPspa4jR4qi/evjga68Zw==
+X-CSE-MsgGUID: t0ChTL+rTB2MgspO2ymDMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79672059"
+X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="79672059"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 May 2026 02:56:20 -0700
+X-CSE-ConnectionGUID: KcUXGCzPQ0aIo1R7qKtt+w==
+X-CSE-MsgGUID: 9YtdWTy0QUSb1lXKhM8E8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="235694424"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 May 2026 02:56:19 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 14 May 2026 02:56:19 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 14 May 2026 02:56:19 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.68) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 14 May 2026 02:56:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XxX/l+9/tRGZhXOm/k9O+brgAD59XGig9Gbf8SecoZXFmWKuWRl+z8J9kR+RFbnXceXZpQInrNpvd5N66zkxgyx2mWwLxiA6Ypz/aGTkc69KEROMp2H6FsoRVtE+b3+XukSxg56g/QmTmeyVEei7AuupxOsqXdPHHwKQo4Yp6APe+YhHIM5MLOPCsmEg8NAPcRwfQZ8K6rPs2hMHS0WLPGd0XNPVOvWGZKfYIrd1MHuijchsvcFKcQIBd599pKE5mRvZtd5D47UvlZGqKVRBXVwFGSHW0vHue7qY8OWMfjhOVL17/Ottyjd2OU67JYmM7PeHWkMHghbA+spsWf2S+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mGOAsWpm9bSyOvISlIb4Olml3OHgRZVJHWApIJiFGmk=;
+ b=LS3uw6p1ZFGyH7X+6mzsDiRL468398prY72BWgU48MwPIV/kgwtixSEPkeK+setsLWJ1eupWkV0JwJB88M0F8gOsN7mXC/g2WQQHyBMnbUxaFk3XumuPAT2fzikkcA0b73onUAf35OwJVxyUD/MaJ7ZxXTCxEe7Rr9AdIlKtwK77R3ZfYIfOeWNFBk+RDuQNPeyMgEzp3chNJYnDv7kKGXkhq91bmg0MtLfmhdHT4vKGqvmQ5oVSN421UltRCiu4ijZTaoIaozu1MJqyMxlSYvd36m6FvMurJmdMUQEINoMhSCMKbySB+3wEDka+aCvRIiJ+mX0A9qyP9s06SUZejw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
+ by SN7PR11MB7137.namprd11.prod.outlook.com (2603:10b6:806:2a0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Thu, 14 May
+ 2026 09:56:16 +0000
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9913.009; Thu, 14 May 2026
+ 09:56:16 +0000
+Message-ID: <fb3995be-6e74-4eb1-8990-4b8e6f56db7f@intel.com>
+Date: Thu, 14 May 2026 15:26:09 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm/i915/dp: Decode dsc max delta bpp from sink dpcd
+To: Nemesa Garg <nemesa.garg@intel.com>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+References: <20260423143035.2267634-1-nemesa.garg@intel.com>
+ <20260423143035.2267634-4-nemesa.garg@intel.com>
+Content-Language: en-US
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260423143035.2267634-4-nemesa.garg@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260501065116.2057242-1-apopple@nvidia.com>
+X-ClientProxiedBy: MA5PR01CA0039.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d6::12) To DM4PR11MB5341.namprd11.prod.outlook.com
+ (2603:10b6:5:390::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|SN7PR11MB7137:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5b6a93f-188a-413b-9d90-08deb19f0a14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|11063799003|4143699003|22082099003|18002099003|56012099003|3023799003;
+X-Microsoft-Antispam-Message-Info: OjFMfB/kB0gXg77JuFX7IQhi9IqddyW15xJhwAyLLYDLYKni3L4oW86EF/YW1eZioztSytUQ8wKERA7wdzL5KsExpp1HR+SuHYqQNkpXTKcNLPPt5+hj4boe4mv4g7qgQKpQZkG5kW92Pe4PbRHurco9LwF40OYdsbE3+qvfkYIw7MeaxiFlh++aboIH48Nbj/Bc6Zlof+zPQUEdIPZPZPeXseuGuw8lNw+QnFhJ0Jz6LxppVm3hCjLNBSehSkbcuGx/4BfoIaq7gfKDEYLuHirLWjboeA8GRO/uK9/iXSb3aI0kil1pG9b6SkNv/eBTb8fQ6wGaENnvYLviKxlfGSvNXvVUrC5lv66YtuOlBnU+OoD/vcff8y/UYLCmYsdPyWYRRprCQPN7s5fSSA+SHmnVtR4iAxZ3TRXt0/SQ3JFh5d1wJwEKcf3h0ZbtOW3AtOPKQD/k7sHfESeaYtXEA1UDqIQYBuT6rJX+v5+S9Gs2iTjdvjbpdUUVbxK65fBuRCfp5z5/srtTsYDNhhr3dJSZkNj+z5dsq8Rh6yIYh8/0xXL2C48C43oxQzzklDhJFy5BH3jZe/ojfJMQe2Pq2egxD2GjbLROBHNnwg/R+YWbstfymvrxTuNxjOoK7EJbpdKsMY56gByx1+5bIwMAGeJF6/sO+q6V6rr6z6whYA6CUCaOIAkPSnd8CplJt1dU
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(11063799003)(4143699003)(22082099003)(18002099003)(56012099003)(3023799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEhnT1c2dElMLyt1WjVuWjFJalNHVGdUUjdFckNROEowWHVpUTlyandSWFNE?=
+ =?utf-8?B?bmhkdjRzeE43V2VScHVTZjJteUF2UUhaMWpOaTlhUjcrRk1qSGxDZkdtdUtP?=
+ =?utf-8?B?RGY5Qk1JTVhpMWlwWVZzZU5Jc1FJZW1SNG9scUF3dEpwb0MwZEdLd1VnMCtS?=
+ =?utf-8?B?RFNBUTBycGRHL0MzMWZqVU1HNVRWMyt6Ni9CVkQ4NkRWeVo4bmFIUFdLdk9C?=
+ =?utf-8?B?NStVclhrZEdBcy9aVzI5UHliUlM2MzVFMGFxYWMyWFlpV2JBZmdlUXBGSTRL?=
+ =?utf-8?B?RlR5eG1uWnVoMTV4NTRwNVZRQ0h0M2VoVE4vYlhvVTljWUIyNjlpZFlIMURL?=
+ =?utf-8?B?WWFTcy9CMVY4MjB3dVhZNklUajRJSzFXMXNtQ1h2YVA5c2xGRFNDSlVWc1h3?=
+ =?utf-8?B?emFjYnB4RlJ1eTFaanNjMlFoMWV0OTF6eGNZajlWeVoyQnF6TWUyYi90cXZz?=
+ =?utf-8?B?NkE3TjJEQVIrNWdZNTRBS3VHb2xtcGFIQVZYUlQrc3QraVVSNGlLRXdobGhM?=
+ =?utf-8?B?MUZtQnQ1N0RDYVZOcUUwcnQwQ0p2WjN0RmMrM2VMZFJHYk1JR3J3WENaSFE4?=
+ =?utf-8?B?YUUvSUJrendjdjNzZHJxSDByaXMvN2ZTeVl5dlRlejY0WU1tU2kyektGK1lU?=
+ =?utf-8?B?U3AzaDBEakFuMFczNUtadWFySm50QWlwMGoxdmFxN3I0VExndVhJWUZSSlFX?=
+ =?utf-8?B?aG9DOWhJcFllZldkbkFrUndxbjhOTUQvaHZ1a0twd1JzMWZuKzViZ2dWamhL?=
+ =?utf-8?B?d1E4a3F4UTdMc3g4RkRJakFPYnV5U1lUek8wcndDbXhZdURDcDFPVVJoa3B5?=
+ =?utf-8?B?WXpsS1Q4YUw0M04xVk5BNUdkam9vdWZqYVZUbjVIckJnclVEYmI0WW1EekZX?=
+ =?utf-8?B?R1RYY25rR1FWUVJwM2xJSTBIa3RuWkJlV1BHNHdJYnRmOXBCY3JRU201aWR3?=
+ =?utf-8?B?WnNxZ1VadDhpN040SVFtS1A0SWkrR1NMWFlkUlM1RG5vZGZ2SUNxb2VtWDgw?=
+ =?utf-8?B?ejNUOWc2NW8ra2pXcEhDZ2phUUtHTHVpc2ZWVGZvNkxZOC9Bb3oyVk5uL2Rr?=
+ =?utf-8?B?ODlRck84V2s2VnVVajIycSs5MGZCM29ycFlrZ0lHdUZZNTZWcjI3OUpMOGhG?=
+ =?utf-8?B?MzA0enpHNnBWaWVHY0xaM3FtcVBxNkJrMkY5bDM4WUw0alNYVkdpdmVPeXpz?=
+ =?utf-8?B?UVJEZ3RPdTZXdkpZblU1SURyMjdtajhCSURlSVRtemZJbWRxQWJUblFCcnEr?=
+ =?utf-8?B?WXczOC9qTm1lUWpDelMwSkMvRjIreU1Pd0FkcWswOWlHenlmU0xHczMwdk44?=
+ =?utf-8?B?ci9PQWswMi9NSVFCRDFrSVFyaUNsTTlpUnF5UHkrd2VzYm96d1FmdkpmUktQ?=
+ =?utf-8?B?M0VTaEtsSGZvMzJMUE9kL2hGWWpXeHNkWmRmbjRJTm9TNHJhSURWTTY2empI?=
+ =?utf-8?B?UHROckw4MytRdXhqekVGaThrTUp4OG9jRWVMam9nMEhCWXJZYy9mdW54QlBp?=
+ =?utf-8?B?TlZuOTM2MnYrbjZQT1RJL1ZMazlUMmVuQUMyN3NWZGxHaHBoNlFFMEh5VW9L?=
+ =?utf-8?B?K29qYk43UGEwVDhOTUE3YmF5KzJLdHgwMVF3RzBsR3lYcG04bit2dGNLOEVy?=
+ =?utf-8?B?amhheS9MTkdmbmZuNHh2am9XK2c3OUk3c2kwZThaMmx2SlBFWExYVndacU5O?=
+ =?utf-8?B?L3NDZnQvdDdCVHRWZUlvZVZwNFVJdlZPdGIrdWVSWS83SnVwMVo3RVVQSk05?=
+ =?utf-8?B?ZGJJQlJwbmg1d2pEblVTUkpGN2xXSWY1ZlFZOWRqM09vWVRpVGpSVUxVZmVI?=
+ =?utf-8?B?MFdFTThxNGhQQU1pODBtNVhlV0pnTk5iT202TVFPYXNndG4yeHg3VlIxcXFT?=
+ =?utf-8?B?RGZlbUx2THFoaEJPSDZkek95ejlTVUF4OGFWQXpXdHZnZkMzQjc0d0h1WTQ2?=
+ =?utf-8?B?c09KMkI2VU5YZ1M2a2xweTFzWnpUM1NkbDRBZENFcjRhcFFtamgvdm5sNG81?=
+ =?utf-8?B?QzVUVWNxR0R0S0UxQVE3YitzTHJYQzJsQ0l0TjVaZWJEdXhXWnlPNUcvNnNV?=
+ =?utf-8?B?NUhIRTh0TzV0czdINVlTL3FHTEpqb1o4NXk1SldNb29wRVFyUGNCTXVhZ1Nm?=
+ =?utf-8?B?aitNZHNFOTdOb0RYUVBqVUNncitjQnVaVHpta1B0NjRLNmRxUExYZk5ETzUz?=
+ =?utf-8?B?UDJhRWo4a0cya0QvNVBVODlsZlhIRDZuMXpNZUcrMFhFNjRWOGdrdGZ1TVlz?=
+ =?utf-8?B?SW8vcG5CNWo2bWtmbkUvaFVhbXpxNENNdVlibUJZODlxbWNoUFBnZUJMamdH?=
+ =?utf-8?B?SWpJdWZFSkNhZXdLcmo1SWhTYWhjMXdzZ25iZW43M2NJV0pMUGlCNHU3QzV3?=
+ =?utf-8?Q?dQWW+j2rF77Dnv+4=3D?=
+X-Exchange-RoutingPolicyChecked: h4YNmg7Q7kT6Yx9rDEYOjtHnRxj1vpO2xZqcVl85MllfPpY5CQWDl9safcVrEBu77Y5hP7LczrEa/RtUsFwvwd/LUg/OhwEB3yMYP7r4lnv1TpCLUr6x5HScPpWE5XyqOrfBd8qItD7fqEdvboJdj2AVHTyQOzKKjHwc4wdTCogpYptYgV5iVBWopINem1b8lqoVF1yCYtIHAcfCPmNpdUtefIcd4PG5vuFEHsNwYIbKIaLGevPwE/9r/wqLmQLlS7J9FSQsImbVu3/5TTdguvVhmB13XL/6ZUTRsx0+MDoutzGXajbqD0HI+2RQ6SapVPY3KmdpTccGJMrqDGg7+g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5b6a93f-188a-413b-9d90-08deb19f0a14
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 09:56:16.4688 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DZQlZGedRaS8YKbbwOI1b98snfIlTospi3KRiJ/7qnQIT9h/MOwdExMhKokEojIqwxVlqVPDydUdzSTwj0RQxu1dg7gEhKRQwHhXWnNk/T0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7137
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,188 +170,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 01, 2026 at 04:51:16PM +1000, Alistair Popple wrote:
-> Device private and exclusive entries are only supported for anonymous
-> folios. This condition is tested in __migrate_device_pages() and
-> make_device_exclusive() using folio_test_anon(). However the unmap path
-> tests this assumption using vma_is_anonymous().
+
+On 4/23/2026 8:00 PM, Nemesa Garg wrote:
+> Add intel_dp_dsc_max_delta_bppx16() to parse sink dsc max
+> delta bpp from dpcd when DP_DSC_MAX_BPP_DELTA_AVAILABILITY
+> is set. The helper decodes RGB/YCbCr444 and YCbCr420 delta
+> range from DP_DSC_MAX_BPP_DELTA.
 >
-> This is wrong because whilst anonymous VMAs can only contain folios
-> where folio_test_anon() is true the opposite relation does not
-> hold. A folio for which folio_test_anon() is true does not imply
-> vma_is_anonymous() is true. Such a condition can occur if for example a
-> folio is part of a private filebacked mapping.
+> With this the flow will be first check format-specific
+> range, if given calculate max compressed bpp accordingly.
+> If not check for sink supported max compressed bpp and
+> use that. If this is also not there go with mandatory
+> max range supported bpp.
 
-Yes this is a classic case of anon _VMA_ vs. anon _folio_ :) and it's our good
-friend MAP_PRIVATE file-backed mappings at play also.
+Perhaps, this could be phrased more clearly with proper punctuation.
 
 >
-> In this case vma_is_anonymous() is false as the mapping is filebacked,
-> but folio_test_anon() may be true, thus permitting devices to migrate
-> the folio to device private memory. This can lead to the following
-> spurious warnings during process teardown:
+> v2: Reorder the check flow for max_bpp. [Ankit]
 >
-> [  772.737706] ------------[ cut here ]------------
-> [  772.739201] WARNING: mm/memory.c:1754 at unmap_page_range.cold+0x26/0x18a, CPU#17: hmm-tests/2041
-> [  772.742050] Modules linked in: test_hmm nvidia_uvm(O) nvidia(O)
-> [  772.743959] CPU: 17 UID: 0 PID: 2041 Comm: hmm-tests Tainted: G        W  O        7.0.0+ #387 PREEMPT(full)
-> [  772.747104] Tainted: [W]=WARN, [O]=OOT_MODULE
-> [  772.748509] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-> [  772.752117] RIP: 0010:unmap_page_range.cold+0x26/0x18a
-> [  772.753780] Code: 7e fe ff ff 48 89 4c 24 78 4c 89 44 24 38 e8 f2 ff b1 00 48 8b 4c 24 78 4c 8b 44 24 38 48 8b 44 24 18 48 83 78 48 00 74 04 90 <0f> 0b 90 48 89 ca b8 ff ff 37 00 48 c1 ea 03 48 c1 e0 2a 80 3c 02
-> [  772.759602] RSP: 0018:ffff888112607550 EFLAGS: 00010286
-> [  772.761310] RAX: ffff88811bbf4dc0 RBX: dffffc0000000000 RCX: ffffea03e9bfffd8
-> [  772.763583] RDX: 1ffff1102377e9c1 RSI: 0000000000000008 RDI: ffff88811bbf4e08
-> [  772.765914] RBP: 0000000000000006 R08: ffff8881059f7448 R09: ffffed10224c0e68
-> [  772.768184] R10: ffff888112607347 R11: 0000000000000001 R12: 0000000000000001
-> [  772.770461] R13: ffffea03e9bfffc0 R14: ffff888112607908 R15: ffffea03e9bfffc0
-> [  772.772782] FS:  00007f327caa2780(0000) GS:ffff888427b7d000(0000) knlGS:0000000000000000
-> [  772.775328] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  772.777187] CR2: 00007f327ca89000 CR3: 00000001994d5000 CR4: 00000000000006f0
-> [  772.779135] Call Trace:
-> [  772.779792]  <TASK>
-> [  772.780317]  ? dmirror_interval_invalidate+0x1a3/0x290 [test_hmm]
-> [  772.781873]  ? vm_normal_page_pud+0x2b0/0x2b0
-> [  772.782992]  ? __rwlock_init+0x150/0x150
-> [  772.784006]  ? lock_release+0x216/0x2b0
-> [  772.785008]  ? __mmu_notifier_invalidate_range_start+0x505/0x6e0
-> [  772.786522]  ? lock_release+0x216/0x2b0
-> [  772.787498]  ? unmap_single_vma+0xb6/0x210
-> [  772.788573]  unmap_vmas+0x27d/0x520
-> [  772.789506]  ? unmap_single_vma+0x210/0x210
-> [  772.790607]  ? mas_update_gap.part.0+0x620/0x620
-> [  772.791834]  unmap_region+0x19e/0x350
-> [  772.792769]  ? remove_vma+0x130/0x130
-> [  772.793684]  ? mas_alloc_nodes+0x1f2/0x300
-> [  772.794730]  vms_complete_munmap_vmas+0x8c1/0xe20
-> [  772.795926]  ? unmap_region+0x350/0x350
-> [  772.796917]  do_vmi_align_munmap+0x36a/0x4e0
-> [  772.798018]  ? lock_release+0x216/0x2b0
-> [  772.799024]  ? vma_shrink+0x620/0x620
-> [  772.799983]  do_vmi_munmap+0x150/0x2c0
-> [  772.800939]  __vm_munmap+0x161/0x2c0
-> [  772.801872]  ? expand_downwards+0xd60/0xd60
-> [  772.802948]  ? clockevents_program_event+0x1ef/0x540
-> [  772.804217]  ? lock_release+0x216/0x2b0
-> [  772.805158]  __x64_sys_munmap+0x59/0x80
-> [  772.805776]  do_syscall_64+0xfc/0x670
-> [  772.806336]  ? irqentry_exit+0xda/0x580
-> [  772.806976]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-> [  772.807772] RIP: 0033:0x7f327cbb2717
-> [  772.808323] Code: 73 01 c3 48 8b 0d f9 76 0d 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 b8 0b 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c9 76 0d 00 f7 d8 64 89 01 48
-> [  772.811337] RSP: 002b:00007ffde7f57d38 EFLAGS: 00000202 ORIG_RAX: 000000000000000b
-> [  772.812564] RAX: ffffffffffffffda RBX: 00007f327cc9c000 RCX: 00007f327cbb2717
-> [  772.813733] RDX: 0000000000000000 RSI: 0000000000400000 RDI: 00007f327c289000
-> [  772.814867] RBP: 0000000000421360 R08: 000000000000001a R09: 0000000000000000
-> [  772.815991] R10: 0000000000000003 R11: 0000000000000202 R12: 00007ffde7f57d74
-> [  772.817121] R13: 00007f327c689010 R14: 0000000000100000 R15: 00007f327c289000
-> [  772.818272]  </TASK>
-> [  772.818614] irq event stamp: 0
-> [  772.819159] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
-> [  772.820174] hardirqs last disabled at (0): [<ffffffff82a57ab3>] copy_process+0x19f3/0x6440
-> [  772.821511] softirqs last  enabled at (0): [<ffffffff82a57b00>] copy_process+0x1a40/0x6440
-> [  772.822869] softirqs last disabled at (0): [<0000000000000000>] 0x0
-> [  772.823871] ---[ end trace 0000000000000000 ]---
->
-> Fix this by using the same check for folio_test_anon() in
-> zap_nonpresent_ptes(). Also add a hmm-test case for this.
->
-> Signed-off-by: Alistair Popple <apopple@nvidia.com>
-
-LGTM so:
-
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-
-Cheers, Lorenzo
-
-> Reported-by: Arsen Arsenović <aarsenovic@baylibre.com>
-> Fixes: 999dad824c39e ("mm/shmem: persist uffd-wp bit across zapping for file-backed")
-> Cc: stable@vger.kernel.org
+> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
 > ---
->  mm/memory.c                            |  2 +-
->  tools/testing/selftests/mm/hmm-tests.c | 50 ++++++++++++++++++++++++++
->  2 files changed, 51 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/i915/display/intel_dp.c | 43 +++++++++++++++++++++++--
+>   1 file changed, 41 insertions(+), 2 deletions(-)
 >
-> diff --git a/mm/memory.c b/mm/memory.c
-> index c65e82c86fed..3f22a67a4d7f 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -1750,7 +1750,7 @@ static inline int zap_nonpresent_ptes(struct mmu_gather *tlb,
->  		 * consider uffd-wp bit when zap. For more information,
->  		 * see zap_install_uffd_wp_if_needed().
->  		 */
-> -		WARN_ON_ONCE(!vma_is_anonymous(vma));
-
-I actually wonder if we should rename this to vma_is_pure_anon() or something to
-make it clearer. But that'd be quite some churn, even for me :)
-
-> +		WARN_ON_ONCE(!folio_test_anon(folio));
->  		rss[mm_counter(folio)]--;
->  		folio_remove_rmap_pte(folio, page, vma);
->  		folio_put(folio);
-> diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
-> index e8328c89d855..eb860b5d6f85 100644
-> --- a/tools/testing/selftests/mm/hmm-tests.c
-> +++ b/tools/testing/selftests/mm/hmm-tests.c
-> @@ -1034,6 +1034,56 @@ TEST_F(hmm, migrate)
->  	hmm_buffer_free(buffer);
->  }
->
-> +/*
-> + * Migrate private file memory to device private memory.
-> + */
-> +TEST_F(hmm, migrate_file_private)
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 35b8fb5740aa..3c6893beeffa 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -2169,17 +2169,56 @@ static int dsc_compute_link_config(struct intel_dp *intel_dp,
+>   	return -EINVAL;
+>   }
+>   
+> +static u16 intel_dp_dsc_max_delta_bppx16(const struct intel_connector *connector,
+> +					 enum intel_output_format output_format)
 > +{
-> +	struct hmm_buffer *buffer;
-> +	unsigned long npages;
-> +	unsigned long size;
-> +	unsigned long i;
-> +	int *ptr;
-> +	int ret;
-> +	int fd;
+> +	const u8 *dsc_dpcd = connector->dp.dsc_dpcd;
+> +	u8 max_bpp_delta_v1 = dsc_dpcd[DP_DSC_MAX_BPP_DELTA_VERSION_1 - DP_DSC_SUPPORT];
+> +	int max_bpp;
 > +
-> +	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-> +	ASSERT_NE(npages, 0);
-> +	size = npages << self->page_shift;
+> +	if (!(dsc_dpcd[DP_DSC_MAX_BITS_PER_PIXEL_HI - DP_DSC_SUPPORT] &
+> +	    DP_DSC_MAX_BPP_DELTA_AVAILABILITY))
+> +		return 0;
 > +
-> +	fd = hmm_create_file(size);
-> +	ASSERT_GE(fd, 0);
+> +	switch (output_format) {
+> +	case INTEL_OUTPUT_FORMAT_RGB:
+> +	case INTEL_OUTPUT_FORMAT_YCBCR444:
+> +		max_bpp =  max_bpp_delta_v1 &
+> +			DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK;
+
+nit pick: this can be in the same line.
+
+
+> +		if (max_bpp >= 1 && max_bpp <= 21)
+> +			max_bpp =  max_bpp + DP_DSC_BPP_DELTA_444 - 1;
+> +		break;
+> +	case INTEL_OUTPUT_FORMAT_YCBCR420:
+> +		max_bpp = (max_bpp_delta_v1 &
+> +				DP_DSC_RGB_YCbCr420_MAX_BPP_DELTA_MASK) >>
+> +				DP_DSC_BPP_DELTA_SHIFT_420;
+
+This is a bit difficult to read. perhaps:
+
+                 max_bpp = (max_bpp_delta_v1 & 
+DP_DSC_RGB_YCbCr420_MAX_BPP_DELTA_MASK) >>
+                                        DP_DSC_BPP_DELTA_SHIFT_420;
+
+Otherwise the patch looks good to me.
+
+With the above fixed:
+
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+
+
+> +		if (max_bpp >= 1 && max_bpp <= 7)
+> +			max_bpp = max_bpp + DP_DSC_BPP_DELTA_420 - 1;
+> +		break;
+> +	default:
+> +		MISSING_CASE(output_format);
+> +		return 0;
+> +	}
 > +
-> +	buffer = malloc(sizeof(*buffer));
-> +	ASSERT_NE(buffer, NULL);
-> +
-> +	buffer->fd = fd;
-> +	buffer->size = size;
-> +	buffer->mirror = malloc(size);
-> +	ASSERT_NE(buffer->mirror, NULL);
-> +
-> +	buffer->ptr = mmap(NULL, size,
-> +			   PROT_READ | PROT_WRITE,
-> +			   MAP_PRIVATE,
-> +			   buffer->fd, 0);
-> +	ASSERT_NE(buffer->ptr, MAP_FAILED);
-> +
-> +	/* Initialize buffer in system memory. */
-> +	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-> +		ptr[i] = i;
-> +
-> +	/* Migrate memory to device. */
-> +	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-> +	ASSERT_EQ(ret, 0);
-> +	ASSERT_EQ(buffer->cpages, npages);
-> +
-> +	/* Check what the device read. */
-> +	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-> +		ASSERT_EQ(ptr[i], i);
-> +
-> +	hmm_buffer_free(buffer);
+> +	return max_bpp << 4;
 > +}
 > +
->  /*
->   * Migrate anonymous memory to device private memory and fault some of it back
->   * to system memory, then try migrating the resulting mix of system and device
-> --
-> 2.54.0
->
->
->
+>   static
+>   u16 intel_dp_dsc_max_sink_compressed_bppx16(const struct intel_connector *connector,
+>   					    enum intel_output_format output_format,
+>   					    int bpc)
+>   {
+> -	u16 max_bppx16 = drm_edp_dsc_sink_output_bpp(connector->dp.dsc_dpcd);
+> +	u16 max_bppx16 = intel_dp_dsc_max_delta_bppx16(connector, output_format);
+> +
+> +	if (max_bppx16)
+> +		return max_bppx16;
+> +
+> +	max_bppx16 = drm_edp_dsc_sink_output_bpp(connector->dp.dsc_dpcd);
+>   
+>   	if (max_bppx16)
+>   		return max_bppx16;
+>   	/*
+> -	 * If support not given in DPCD 67h, 68h use the Maximum Allowed bit rate
+> +	 * If support not given in DPCD 67h, 68h, 6Eh, 6Fh use the Maximum Allowed bit rate
+>   	 * values as given in spec Table 2-157 DP v2.0
+>   	 */
+>   	switch (output_format) {
