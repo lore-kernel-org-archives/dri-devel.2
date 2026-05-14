@@ -4,163 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACEB9CD4F39
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 09:39:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3952ACD4851
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 09:50:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E747210E10A;
-	Thu, 14 May 2026 09:39:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 951EB10E065;
+	Thu, 14 May 2026 09:50:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C/ye4m73";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EkoU6SkV";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3D7B10E10A;
- Thu, 14 May 2026 09:38:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778751540; x=1810287540;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=eQRh2ZsydWha6c+KzgsauiUOkgi3LZBd1oBuxOzPMTQ=;
- b=C/ye4m73zNhuZtpebyX/6ZthoNl+PAoQ4sNT8+QW9u+alFlPuXuWTxYw
- P8TpF0GxyZ53rSlyJb5eXUWx2w5cx8Q6hx+CdhIdl0aZmha+TxTk6iS05
- 3GJbf0ZMGkNL6DQLULN8i8/mtp5jgNr/UQIGn7riuPqns6Hc+0kOPqwSc
- T9VRyQKGTnrCkTHnNAe+Tse4e+ODQuDwdZD/lb6Bmue1Tftw1FqFyWHyl
- HgZiaq5Pw9v7OILUVdIuB5hVIkAWZ62fzLVZhoGUWvk00Jm9OET2q7sLz
- hWbMlPEH95BV44GPycT9O9Q0tuf9XSExZoM/FkC4vPE5rgnYYoJAGmyVs g==;
-X-CSE-ConnectionGUID: jBCHhb8sTh+Ps3TbF9zU9g==
-X-CSE-MsgGUID: Revbn2o6T+qGCgek5Li2sg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="78832344"
-X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="78832344"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2026 02:36:59 -0700
-X-CSE-ConnectionGUID: 67DTb+twTuOr3tVut0GCWg==
-X-CSE-MsgGUID: L0SV64ZJQXyIBjfTM1Twyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="237357005"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2026 02:36:59 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 14 May 2026 02:36:57 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 14 May 2026 02:36:57 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.17) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 14 May 2026 02:36:57 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SFXOIPdNUCWBiobzanGtbwGz5QbG7qE2mbPHhvwV0b5yv8dC/4Bik783VCbJHLI4XgcnqBSvNcV50cTP+H6oPw0aF8i9pLzEzk5J6BIEiwKdeKTcdYYzuf3SpYrnY/kd49SHDBTDi0PVf0YTrGAQWsq6odU1AKPtRsWRtGdWFymvfppAexlhxR1YkEQtLPSbcaSzXje/4gzF1TIE/FUE48BB3V+hQ0RVmuJH/UaGzqjvAU5z3QxwmZWI4VmIbvNpNfNWALqjA3RvWqxebvw8dwfKgLcuB4S1HG9rQnqeaw7/bMt80m6jaZE7u9Ul6EYB6EDrAuEptlYTp/vRKpJ86g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hGCSSXgfM4a5F0TtZzdTbK4KuMuYZ42t5J9+KjGz2Gc=;
- b=LSvK7aAJa1P5s6JMBJru56wKXcCa8OKVFFLkioZPiouGcbZd1Z+HtTT+42nf/kaexUkX0MEYrtOwobEVHms3nXZQ7KmkPj0sTO6LdFplNGUqb0L/9y7ouZnGAccwxhFUETMTt/tOAHlLmmIF31PagrbYfgxiA85L5nkd9Ba2DBBliliu1+W58ZbGv5BmIrgsWlOPOsBXnWYkbfXMTbZoR3QIpzx9n9Face6E82JeUTOQjpelAHVYczT9HnqbFvgIPK+vx20q6hSlAFshtC6XtntS6avzHk3fiYmuZVJacfTcEx+O7tKFq/e2EMoqa2svb/sEgKDV8KlWLlpTmaAoAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- SA2PR11MB5050.namprd11.prod.outlook.com (2603:10b6:806:fb::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9913.11; Thu, 14 May 2026 09:36:50 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%6]) with mapi id 15.20.9913.009; Thu, 14 May 2026
- 09:36:50 +0000
-Message-ID: <0e5cef01-3770-4865-8571-82611f52c553@intel.com>
-Date: Thu, 14 May 2026 15:06:38 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/5] drm/xe: Suppress Surprise Link Down on non-hotplug
- device
-To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <rodrigo.vivi@intel.com>
-CC: <andrealmeid@igalia.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
- <simona.vetter@ffwll.ch>, <mripard@kernel.org>,
- <maarten.lankhorst@linux.intel.com>, <tzimmermann@suse.de>,
- <anshuman.gupta@intel.com>, <badal.nilawar@intel.com>,
- <karthik.poosa@intel.com>, <sk.anirban@intel.com>, <raag.jadav@intel.com>
-References: <20260512132614.1793083-7-mallesh.koujalagi@intel.com>
- <20260512132614.1793083-12-mallesh.koujalagi@intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <20260512132614.1793083-12-mallesh.koujalagi@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA0PR01CA0103.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:af::17) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED07510E065
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 09:50:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id AA92D60008;
+ Thu, 14 May 2026 09:45:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED29DC2BCB3;
+ Thu, 14 May 2026 09:45:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778751903;
+ bh=PLNJMPTVnkRKB2ZVyKp4WUwzWIH4JrjwI4L1YKFK+5E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EkoU6SkVlkLreI3yOVr8L+wl8F9b3HyU2LzVUKB4V4atMh+/XhxHNwLwuhes9k3/f
+ 02P+xM6XY3kqYpGPkkxGAQ5wjSGLEuZwVSjvYOyr1FPKll5jzffV0MNgvBnVKmaNpb
+ HB3zHJRARq+FEqWhiz/jBsoS1M/+bVs3QNGGoCAX59UDZ3hFJyfOmubFYC+wLFRYul
+ YOP8d3YjQyD7NzOfUb3etaPbM/T5ON9VNhDx8XjkXLFC6KscLNAPlxo8RqmXrClFwd
+ x2zIHInQdC3oqd9t7RvoPXa5vwMBtX+kPSUP4YJoiJGxNM91Fz4Fw1nM9zmXWRlTzU
+ HKvAtqCJLU01A==
+Date: Thu, 14 May 2026 10:45:00 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Alistair Popple <apopple@nvidia.com>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+ aarsenovic@baylibre.com, dri-devel@lists.freedesktop.org,
+ matthew.brost@intel.com, 
+ thomas.hellstrom@linux.intel.com, jhubbard@nvidia.com, david@kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] mm/memory: Fix spurious warning when unmapping
+ device-private/exclusive pages
+Message-ID: <agWYFd2H8baj_Six@lucifer>
+References: <20260501065116.2057242-1-apopple@nvidia.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|SA2PR11MB5050:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3077d843-2b43-4c6a-b91a-08deb19c5311
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|22082099003|56012099003|4143699003|18002099003|11063799003;
-X-Microsoft-Antispam-Message-Info: Fhd5lYEMKPy4+VO2tvQ8zrLaJQxLlvSkcAkvoVcYrEJ0es1neH9uTE6nFCbwjv+819QqAA944kCT6agu0oDCqrzxgOHO99b43kbjtj5FvfNfPGb9UvEjMaU0JqDYBi509tXWgpnZ0MO421XphSieCLtmiPyVR3pZ49ZU1S79INbltOtcb9wxLQMk9Xzgjm5GCOErNCbAucnDgGFKUs/uogVvqCOmT7RBJQs/tv9s5mPXP+L5khcwa3Llvi5IWzM3lvcHNlB7U7CQTjIAZ84dtS3IQ/G7ISncQNx6FkSac07NZ4FGdPTqVk+TR/MOqFjlEn6hptkrPf30Bv2se3Jf4g7GWximy3euqt+H2Miy7ZJ3cGi5cSkXXpR9XyVV97YZ8N/zSgKJAkA7F5UG9sZulY7zma7DpDA99uTmOU3TyylQ9q2D80wJILb3VL31k3JempwuTObKks3ZZ82VzA0KBnaoqZClvNrvbC6MOvmI3uh1jfuTbNtTTHuKio7t8nbeS6C+IqL0oUAI/1wGv44DinL1hB/JdaUOGX7HmW8UE0EOGfkjMuBkY1FVARn24SOorWkP/qL8FEvsNj7+w2jeOCuCA3K4R4I0ItEFBXzNJ2mMpDs3YYIQ7PeFE8IDTJQXbou04ogT36NXnEg2btoB2cEPwsqBQoho/sodf+jWBzrp7DM5mnrdLpQeeIJaTf7d
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(56012099003)(4143699003)(18002099003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0FwNGVuLyt6OFZiRFM3eWRSMDltdGhiMHNwd0xBTlBUbFFiTGhjYWZuekJ6?=
- =?utf-8?B?WXRXYTFSdzRDdHkxMG12b0RUNlg4YUlIbVJJMG40RklIcStaMlYvZGpEVEY5?=
- =?utf-8?B?MjgwVTI4eGtNWGpGbTd1V0dBYTluNS9sNWR5M0ZneGFWb0ZrMkprWmVkd3NW?=
- =?utf-8?B?eVNkbld6MUJvcVRPVVZvR1FsM050UzhjazBOMjJIV0JBcjlaQzFScEt0cCtC?=
- =?utf-8?B?UXd4M3BlRVJWcklqcDEwSnJGMUhrdExnMUxCSlNJMml3aWlFRzRPZk9qSElk?=
- =?utf-8?B?QTZRK2FKSzBMN3VWUnl5NG9JNml2d1BlNjdmTFdDUXU1czRIM2xrTzB2Lzll?=
- =?utf-8?B?ZHJRZmtaSndFOVRvZlkwSVN2U214UlhPc2dVVmtWR1F5SEIyYVBJenhkRWVi?=
- =?utf-8?B?RzZVWmZ4NGlydHowTHMzUWVZVVJPUGxDM1Jxd2k1UXJJQ2hZemV1SDhpbUtK?=
- =?utf-8?B?bWd6c1ZMNktDVlo3M0lLeW9QVzJCanU1UjVvUXJNZUlDUWZaUURFYTdzY2M5?=
- =?utf-8?B?WHVjY1N3T2p4em1La2VVQnRpUEZOTWRFN1N2RmRMeW56OFllYmVoZVVpajhh?=
- =?utf-8?B?R1hpUWp0RlNnUXRLR1NHNjVpQjU3ZU44QjRqSlIwbXhYY2ZNZWUzb1djMTQx?=
- =?utf-8?B?dHdydmRwWlBEOTVzN1lmVHZXZmZlM0R1V08vM29wTW5XS3ZzZTdCSW04WDJm?=
- =?utf-8?B?OW0xSDk1UjNGVVk2S1hWRjNRSFFjN1J1bzgvamZjUHFWRnRONSs3azNmOFQ4?=
- =?utf-8?B?d3BNSTB0d1VwY2hRaWdxWWMwcDdCSm5nejU2T2JLT2p4ZVUwbFZ6VXprQlhr?=
- =?utf-8?B?ZGZHMXRzMUVTdWZ1YVAwcXJRc09iQlZsanR0d2JMMG9BTGdwaDVhalhTdFdy?=
- =?utf-8?B?VXkxcU1sWTFCclZIdlRwUDdWaFBSeTNnc1ZlZE9tak1sT1RYTThCMUU3ZWd6?=
- =?utf-8?B?K0kyRXFudjVvL2ZZdmZKTktZakQ3c2VoNHFxTDE4YWRVbElSd0gwWGlpRkcx?=
- =?utf-8?B?VjQyakJOU2UvblFjSjZiNGM0Nmp4N0NwZWplNnh6Q2hNdnFjWFNya0JxNjhw?=
- =?utf-8?B?My9YSDlXbFNVcHFQenkxbytiVlB0dStpZnRPOXVaYzVzRHZNb2NPMzdXcm9B?=
- =?utf-8?B?Q3d0RVppR21UUzNSMWM4Q3Z6azVrSzI1N25qZTZ4a1daMDYwYUJEMEE0VXdk?=
- =?utf-8?B?ejd6Y3RKQW9kL2pVVU1PUzBDVThnSzdVWUMxdVI4WW9CNUxINmp6R0tob1Ax?=
- =?utf-8?B?NUpKVEdEWEFFSi9SZDBrMEpBMHZRTFVCZlVTbGxyZ1pHVVJnV05vck9BRWg5?=
- =?utf-8?B?cmJKQmx0N1cvL0szNElLbW1xL2FKVW5TZkNCU2piN0F4QkwrOFhJdHpsSHRT?=
- =?utf-8?B?NVNvdlg3cUM0WHNtR0dwcHRkYXJLc3hzOENJTkdhdkdVZ2VwYmt5a3E1K1R2?=
- =?utf-8?B?K3k0MVlKOGxXWURUaTVqNXZMendDNXN3cDdXUCt3QXg2cUNrRzhPWThmMVZ6?=
- =?utf-8?B?UzF4elhsMmkzakg3R3ZmdHhTSEVEQ0JXUHRMcFJMUUprT29Qb0FIdU12cHdW?=
- =?utf-8?B?djZ2TEVwaUFTd0c4ZWEzZVVSb1M0MSsrcnhpUXJBVnZERnRLMkxhSFFER2ly?=
- =?utf-8?B?STV4WUJUNnRYWFNTYkNJYVRaMTAyTHVPSVJ6aUFsK1NZcDRSZlFtTVlhTnVR?=
- =?utf-8?B?VHdQN2tiMWNFS1FHQnVxQkx6SDRpbnZ6T0puUW5iOU1Nam9JT2FaWGp4SXpR?=
- =?utf-8?B?cVRZU3BnQU95VHpUWnovaTJjV1ZsNGl0Y1h5NXVxM3RmSHY5RDExaHNSMWx4?=
- =?utf-8?B?bzhIdy9oL2xxdTBLam5MZU9BZE1uU21mOEJGZ2IzdVUzYXR1VUU3cmh3V1l0?=
- =?utf-8?B?aDRGZDFGVWhqQUN2ZDNteWlDTFd6R3JHNWFncWEydDJQbS9pd0lQaHRUVC96?=
- =?utf-8?B?RUNMS2FobVBPQXJvZWFucjhKZStVaVgrSWRBaWU4S3hXcThycTU0QWhxb1VW?=
- =?utf-8?B?REYvK0NZOHNRVkp3NytrMVFKVHRqN0ZpSFlWUWVvMFNUdGppV01KYjRpMHcx?=
- =?utf-8?B?c3RGTVZETlhpajZWQXpyMUtzOCtSaGoxNjJBSVJUWmJaY1FKcUJVSGx2Q3Fl?=
- =?utf-8?B?U0JYRXozeStYNVdFVEtOOXE1QytENnZSb1c2RFU3VjFQZ0hMcVo2K3dVK3Ir?=
- =?utf-8?B?RTAvRmU0RS9XU0FueFBVQWJEcDdRUHFocG0xbDVEdkt2VTdJNXFlRXVwTEk3?=
- =?utf-8?B?N1hTYzdrUC9oakNVNGFmR2ROZXZTZUhIZVFHbUg3ZDlMOHd4N1dxOVFDa3pN?=
- =?utf-8?B?K05KOWduRUovVklhbEFqdjlSMmdKZlE1dzJTUFJSbEllZmpCVkhIQT09?=
-X-Exchange-RoutingPolicyChecked: XTJCQu7xv5w5BWD3Dd5O9Mf+nIrpE7g28m/XlMDLBsHINudSwnfj5JbC7lGR6r5SGuZrkGY03PaPFmsRO28Kvp1Xtji/oIajdLH21Ufi91RoUu9w/Ln7azmlr7xiS05xdGsBG6vQVqfiUmpJlUs52K6htNfhoxaZCQbH5hM1mEPK7BvxmRLMihGfB2GhN2ic9th/BXkpQ6KkoduvBckC+9ldwSRxn8IL5gnObbpEiMMlAEVsl+kzEvcR4/2rV07vFV78SCbij/ULdRoGFjFQXQDbiPya10mELtOlzeNoALXlLr8lgdHTG4Gf3my+lTzWuCZFlcs0nwOwpCZ+99gTgg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3077d843-2b43-4c6a-b91a-08deb19c5311
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 09:36:50.3312 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HCN05ygvfdBiV6WCbYagcflwrRfz+ba3oQMDAhwY4Kd1UGLISGzdfftMXc6/EGHGC07G0hQK9rQKVlAZCBbnug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5050
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260501065116.2057242-1-apopple@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,102 +62,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, May 01, 2026 at 04:51:16PM +1000, Alistair Popple wrote:
+> Device private and exclusive entries are only supported for anonymous
+> folios. This condition is tested in __migrate_device_pages() and
+> make_device_exclusive() using folio_test_anon(). However the unmap path
+> tests this assumption using vma_is_anonymous().
+>
+> This is wrong because whilst anonymous VMAs can only contain folios
+> where folio_test_anon() is true the opposite relation does not
+> hold. A folio for which folio_test_anon() is true does not imply
+> vma_is_anonymous() is true. Such a condition can occur if for example a
+> folio is part of a private filebacked mapping.
 
-On 5/12/2026 6:56 PM, Mallesh Koujalagi wrote:
-> If the slot is not hotplug capable, pcie_suppress_surprise_link_down()
-> masks the Surprise Link Down bit (PCI_ERR_UNC_SURPDN) in the USP's AER
-> Uncorrectable Error Mask register before punit_error_handler()
-> triggers the cold reset.
-Provide more details on why. Avoid function names and macros unless 
-necessary.
-Make it more human readable.
+Yes this is a classic case of anon _VMA_ vs. anon _folio_ :) and it's our good
+friend MAP_PRIVATE file-backed mappings at play also.
 
 >
-> Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+> In this case vma_is_anonymous() is false as the mapping is filebacked,
+> but folio_test_anon() may be true, thus permitting devices to migrate
+> the folio to device private memory. This can lead to the following
+> spurious warnings during process teardown:
+>
+> [  772.737706] ------------[ cut here ]------------
+> [  772.739201] WARNING: mm/memory.c:1754 at unmap_page_range.cold+0x26/0x18a, CPU#17: hmm-tests/2041
+> [  772.742050] Modules linked in: test_hmm nvidia_uvm(O) nvidia(O)
+> [  772.743959] CPU: 17 UID: 0 PID: 2041 Comm: hmm-tests Tainted: G        W  O        7.0.0+ #387 PREEMPT(full)
+> [  772.747104] Tainted: [W]=WARN, [O]=OOT_MODULE
+> [  772.748509] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+> [  772.752117] RIP: 0010:unmap_page_range.cold+0x26/0x18a
+> [  772.753780] Code: 7e fe ff ff 48 89 4c 24 78 4c 89 44 24 38 e8 f2 ff b1 00 48 8b 4c 24 78 4c 8b 44 24 38 48 8b 44 24 18 48 83 78 48 00 74 04 90 <0f> 0b 90 48 89 ca b8 ff ff 37 00 48 c1 ea 03 48 c1 e0 2a 80 3c 02
+> [  772.759602] RSP: 0018:ffff888112607550 EFLAGS: 00010286
+> [  772.761310] RAX: ffff88811bbf4dc0 RBX: dffffc0000000000 RCX: ffffea03e9bfffd8
+> [  772.763583] RDX: 1ffff1102377e9c1 RSI: 0000000000000008 RDI: ffff88811bbf4e08
+> [  772.765914] RBP: 0000000000000006 R08: ffff8881059f7448 R09: ffffed10224c0e68
+> [  772.768184] R10: ffff888112607347 R11: 0000000000000001 R12: 0000000000000001
+> [  772.770461] R13: ffffea03e9bfffc0 R14: ffff888112607908 R15: ffffea03e9bfffc0
+> [  772.772782] FS:  00007f327caa2780(0000) GS:ffff888427b7d000(0000) knlGS:0000000000000000
+> [  772.775328] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  772.777187] CR2: 00007f327ca89000 CR3: 00000001994d5000 CR4: 00000000000006f0
+> [  772.779135] Call Trace:
+> [  772.779792]  <TASK>
+> [  772.780317]  ? dmirror_interval_invalidate+0x1a3/0x290 [test_hmm]
+> [  772.781873]  ? vm_normal_page_pud+0x2b0/0x2b0
+> [  772.782992]  ? __rwlock_init+0x150/0x150
+> [  772.784006]  ? lock_release+0x216/0x2b0
+> [  772.785008]  ? __mmu_notifier_invalidate_range_start+0x505/0x6e0
+> [  772.786522]  ? lock_release+0x216/0x2b0
+> [  772.787498]  ? unmap_single_vma+0xb6/0x210
+> [  772.788573]  unmap_vmas+0x27d/0x520
+> [  772.789506]  ? unmap_single_vma+0x210/0x210
+> [  772.790607]  ? mas_update_gap.part.0+0x620/0x620
+> [  772.791834]  unmap_region+0x19e/0x350
+> [  772.792769]  ? remove_vma+0x130/0x130
+> [  772.793684]  ? mas_alloc_nodes+0x1f2/0x300
+> [  772.794730]  vms_complete_munmap_vmas+0x8c1/0xe20
+> [  772.795926]  ? unmap_region+0x350/0x350
+> [  772.796917]  do_vmi_align_munmap+0x36a/0x4e0
+> [  772.798018]  ? lock_release+0x216/0x2b0
+> [  772.799024]  ? vma_shrink+0x620/0x620
+> [  772.799983]  do_vmi_munmap+0x150/0x2c0
+> [  772.800939]  __vm_munmap+0x161/0x2c0
+> [  772.801872]  ? expand_downwards+0xd60/0xd60
+> [  772.802948]  ? clockevents_program_event+0x1ef/0x540
+> [  772.804217]  ? lock_release+0x216/0x2b0
+> [  772.805158]  __x64_sys_munmap+0x59/0x80
+> [  772.805776]  do_syscall_64+0xfc/0x670
+> [  772.806336]  ? irqentry_exit+0xda/0x580
+> [  772.806976]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> [  772.807772] RIP: 0033:0x7f327cbb2717
+> [  772.808323] Code: 73 01 c3 48 8b 0d f9 76 0d 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 b8 0b 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c9 76 0d 00 f7 d8 64 89 01 48
+> [  772.811337] RSP: 002b:00007ffde7f57d38 EFLAGS: 00000202 ORIG_RAX: 000000000000000b
+> [  772.812564] RAX: ffffffffffffffda RBX: 00007f327cc9c000 RCX: 00007f327cbb2717
+> [  772.813733] RDX: 0000000000000000 RSI: 0000000000400000 RDI: 00007f327c289000
+> [  772.814867] RBP: 0000000000421360 R08: 000000000000001a R09: 0000000000000000
+> [  772.815991] R10: 0000000000000003 R11: 0000000000000202 R12: 00007ffde7f57d74
+> [  772.817121] R13: 00007f327c689010 R14: 0000000000100000 R15: 00007f327c289000
+> [  772.818272]  </TASK>
+> [  772.818614] irq event stamp: 0
+> [  772.819159] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
+> [  772.820174] hardirqs last disabled at (0): [<ffffffff82a57ab3>] copy_process+0x19f3/0x6440
+> [  772.821511] softirqs last  enabled at (0): [<ffffffff82a57b00>] copy_process+0x1a40/0x6440
+> [  772.822869] softirqs last disabled at (0): [<0000000000000000>] 0x0
+> [  772.823871] ---[ end trace 0000000000000000 ]---
+>
+> Fix this by using the same check for folio_test_anon() in
+> zap_nonpresent_ptes(). Also add a hmm-test case for this.
+>
+> Signed-off-by: Alistair Popple <apopple@nvidia.com>
+
+LGTM so:
+
+Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+
+Cheers, Lorenzo
+
+> Reported-by: Arsen Arsenović <aarsenovic@baylibre.com>
+> Fixes: 999dad824c39e ("mm/shmem: persist uffd-wp bit across zapping for file-backed")
+> Cc: stable@vger.kernel.org
 > ---
->   drivers/gpu/drm/xe/xe_ras.c | 51 +++++++++++++++++++++++++++++++++++++
->   1 file changed, 51 insertions(+)
+>  mm/memory.c                            |  2 +-
+>  tools/testing/selftests/mm/hmm-tests.c | 50 ++++++++++++++++++++++++++
+>  2 files changed, 51 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index 604470565bf3..67b4f25370c9 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-> @@ -224,8 +224,59 @@ static enum xe_ras_recovery_action handle_core_compute_errors(struct xe_device *
->   	return XE_RAS_RECOVERY_ACTION_RECOVERED;
->   }
->   
-> +#ifdef CONFIG_PCIEAER
-> +static bool pcie_slot_is_hotplug_capable(struct pci_dev *usp)
+> diff --git a/mm/memory.c b/mm/memory.c
+> index c65e82c86fed..3f22a67a4d7f 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -1750,7 +1750,7 @@ static inline int zap_nonpresent_ptes(struct mmu_gather *tlb,
+>  		 * consider uffd-wp bit when zap. For more information,
+>  		 * see zap_install_uffd_wp_if_needed().
+>  		 */
+> -		WARN_ON_ONCE(!vma_is_anonymous(vma));
+
+I actually wonder if we should rename this to vma_is_pure_anon() or something to
+make it clearer. But that'd be quite some churn, even for me :)
+
+> +		WARN_ON_ONCE(!folio_test_anon(folio));
+>  		rss[mm_counter(folio)]--;
+>  		folio_remove_rmap_pte(folio, page, vma);
+>  		folio_put(folio);
+> diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
+> index e8328c89d855..eb860b5d6f85 100644
+> --- a/tools/testing/selftests/mm/hmm-tests.c
+> +++ b/tools/testing/selftests/mm/hmm-tests.c
+> @@ -1034,6 +1034,56 @@ TEST_F(hmm, migrate)
+>  	hmm_buffer_free(buffer);
+>  }
+>
+> +/*
+> + * Migrate private file memory to device private memory.
+> + */
+> +TEST_F(hmm, migrate_file_private)
 > +{
-> +	struct pci_dev *root_port = pci_upstream_bridge(usp);
-> +	u32 sltcap;
+> +	struct hmm_buffer *buffer;
+> +	unsigned long npages;
+> +	unsigned long size;
+> +	unsigned long i;
+> +	int *ptr;
+> +	int ret;
+> +	int fd;
 > +
-> +	if (!root_port)
-> +		return false;
- From the PCIe spec
-
-"If this register is implemented but the Slot Implemented bit is Clear, 
-the field behavior of this entire register is undefined."
-
-Please check the slot implemented bit (8) in  PCI Express Capabilities 
-Register before reading the slot capability register.
-
+> +	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
+> +	ASSERT_NE(npages, 0);
+> +	size = npages << self->page_shift;
 > +
-> +	if (pcie_capability_read_dword(root_port, PCI_EXP_SLTCAP, &sltcap))
-> +		return false;
+> +	fd = hmm_create_file(size);
+> +	ASSERT_GE(fd, 0);
 > +
-> +	return (sltcap & (PCI_EXP_SLTCAP_HPC | PCI_EXP_SLTCAP_PCP)) ==
-> +		(PCI_EXP_SLTCAP_HPC | PCI_EXP_SLTCAP_PCP);
-
-Do we need to check power controller here? Isn't hotpluggable denoted by
-PCI_EXP_SLTCAP_HPC ?
-
+> +	buffer = malloc(sizeof(*buffer));
+> +	ASSERT_NE(buffer, NULL);
+> +
+> +	buffer->fd = fd;
+> +	buffer->size = size;
+> +	buffer->mirror = malloc(size);
+> +	ASSERT_NE(buffer->mirror, NULL);
+> +
+> +	buffer->ptr = mmap(NULL, size,
+> +			   PROT_READ | PROT_WRITE,
+> +			   MAP_PRIVATE,
+> +			   buffer->fd, 0);
+> +	ASSERT_NE(buffer->ptr, MAP_FAILED);
+> +
+> +	/* Initialize buffer in system memory. */
+> +	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
+> +		ptr[i] = i;
+> +
+> +	/* Migrate memory to device. */
+> +	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+> +	ASSERT_EQ(ret, 0);
+> +	ASSERT_EQ(buffer->cpages, npages);
+> +
+> +	/* Check what the device read. */
+> +	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
+> +		ASSERT_EQ(ptr[i], i);
+> +
+> +	hmm_buffer_free(buffer);
 > +}
 > +
-> +static void pcie_suppress_surprise_link_down(struct pci_dev *usp)
-> +{
-> +	u32 aer_uncorr_mask;
-> +	u16 aer_cap;
-> +
-> +	aer_cap = usp->aer_cap;
-> +	if (!aer_cap)
-> +		return;
-add debug log
-> +
-> +	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, &aer_uncorr_mask);
-> +	aer_uncorr_mask |= PCI_ERR_UNC_SURPDN;
-> +	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, aer_uncorr_mask);
-
-save config space?
-
-Thanks
-Riana
-
-> +	dev_dbg(&usp->dev, "Non-hotplug slot: Surprise Link Down masked for cold reset\n");
-> +}
-> +#endif /* CONFIG_PCIEAER */
-> +
->   static void punit_error_handler(struct xe_device *xe)
->   {
-> +#ifdef CONFIG_PCIEAER
-> +	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
-> +	struct pci_dev *vsp, *usp;
-> +
-> +	/*
-> +	 * Device Hierarchy:
-> +	 *
-> +	 * Root Port --> Upstream Switch Port (USP) --> Virtual Switch Port (VSP) --> SGunit
-> +	 *
-> +	 * Cold reset power-cycles the slot, dropping the PCIe link. On a non-hotplug
-> +	 * slot this triggers a spurious Surprise Link Down AER event on the USP.
-> +	 * Suppress it if the slot is not hotplug capable.
-> +	 */
-> +	vsp = pci_upstream_bridge(pdev);
-> +	usp = vsp ? pci_upstream_bridge(vsp) : NULL;
-> +
-> +	if (usp && !pcie_slot_is_hotplug_capable(usp))
-> +		pcie_suppress_surprise_link_down(usp);
-> +#endif
->   	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
->   	xe_device_declare_wedged(xe);
->   }
+>  /*
+>   * Migrate anonymous memory to device private memory and fault some of it back
+>   * to system memory, then try migrating the resulting mix of system and device
+> --
+> 2.54.0
+>
+>
+>
