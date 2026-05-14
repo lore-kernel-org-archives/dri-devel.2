@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 634F5CD37AC
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 00:24:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21DEDCD37AC
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 00:45:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71A4410E031;
-	Thu, 14 May 2026 00:24:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B99B10E35A;
+	Thu, 14 May 2026 00:45:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D9vSb8xJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UVpAhvtC";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 083F710E031;
- Thu, 14 May 2026 00:24:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 425BB60052;
- Thu, 14 May 2026 00:24:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF790C19425;
- Thu, 14 May 2026 00:24:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778718250;
- bh=NqTvVIlot6Nb0r8ZPjLmjRZqNKYxl16s8XgEe0ozoIk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=D9vSb8xJYf/Q/rPGAK1bR24UGmaQuaeMybhf4c50GuGLwAjx1Bdwwhn6BaNYxtyKR
- eDTgB6YidzWwVdFy9rEPztW3/lhOWERBvdt0k6iDUtW9nDr/SNuVLLBURBGEkepKnZ
- tEdGdi0vKyS+eHBom5htZm6wyeALz5mH5SLn3+kg08iRN4DcpfgaswEnbl6zFsSCl8
- 51FJF5pnPw0bOPUHBlZcZSXYTmSI0XJsHXkHEbSXv9vHi+C81NcmZCsekvko1/Rb2s
- ec8YT4QahQHzV4VBH244ZwmeaRZEVcy6l9qEigbb/CG9WsHwb7eoN1/qIfozLQzCM6
- V4fu7qaetErUg==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Andy Shevchenko <andy@kernel.org>,
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, brgl@kernel.org,
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- platform-driver-x86@vger.kernel.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: (subset) [PATCH v6 0/6] driver core: remove software node from
- platform devices on device release
-Date: Thu, 14 May 2026 02:24:00 +0200
-Message-ID: <20260514002400.869648-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260513-swnode-remove-on-dev-unreg-v6-0-f9c58939df27@oss.qualcomm.com>
-References: <20260513-swnode-remove-on-dev-unreg-v6-0-f9c58939df27@oss.qualcomm.com>
-X-Patch-Reply: applied
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 279DE10E35A;
+ Thu, 14 May 2026 00:45:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778719554; x=1810255554;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=155Am94qWe/f3pp9RvZy6Owf9p1+ieYSxje12j4/trI=;
+ b=UVpAhvtCJcDLFPnYJkBZbA714yfHEOMDTQ0+UKgxEeKoB2vUny4+WWEp
+ iYz3ciSsrTiPriUPqXTOrp2MsGDW8XL0ajFSbH5bJD6jYUM9IhahjNihC
+ WQG2RXtmfBXiRmDE5XhCuz50aW+eIFz7CH8F2IqbJQ7xwO1VBwvUeIjq/
+ VEkroWhLS9WnhxEpmueJesQy2qwGJxP2udCmKb3fxRBlmR2QhF3OaQBBg
+ htAoEh4Q3GhKLK7UVuB1ZS1d4sbhxONvn74lYgJK3do6IuVxT1baWHlRs
+ xm6R28Z2DlBwITpd9r9hEOSR2EITzyLwEhcpmQy5q8MZFGAIDHWPx1myR g==;
+X-CSE-ConnectionGUID: 5JXM0gweSzmlqBuqboV0Fw==
+X-CSE-MsgGUID: oWau6bNdRHuI6C9ipkMXBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="82222877"
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; d="scan'208";a="82222877"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2026 17:45:54 -0700
+X-CSE-ConnectionGUID: G/z3JY/6QK69mHz1Z2vkxQ==
+X-CSE-MsgGUID: Ja+PiS1rSnicC0N+EQfSmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; d="scan'208";a="235578919"
+Received: from lkp-server01.sh.intel.com (HELO dca79079c3eb) ([10.239.97.150])
+ by fmviesa008.fm.intel.com with ESMTP; 13 May 2026 17:45:50 -0700
+Received: from kbuild by dca79079c3eb with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wNKCy-000000005RD-27ZJ;
+ Thu, 14 May 2026 00:45:48 +0000
+Date: Thu, 14 May 2026 08:45:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alex Hung <alex.hung@amd.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ timur.kristof@gmail.com, pratap.nirujogi@amd.com,
+ vitaly.prosyak@amd.com, harry.wentland@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev
+Subject: Re: [PATCH] drm/amdgpu: Remove UML build exclusion from Kconfig
+Message-ID: <202605140801.Fqury68H-lkp@intel.com>
+References: <20260505162018.1755740-1-alex.hung@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260505162018.1755740-1-alex.hung@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,18 +73,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 13 May 2026 17:04:47 +0200, Bartosz Golaszewski wrote:
-> [PATCH v6 0/6] driver core: remove software node from platform devices on device release
+Hi Alex,
 
-Applied, thanks!
+kernel test robot noticed the following build errors:
 
-  Branch: driver-core-linus
-  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v7.1-rc3 next-20260508]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-[1/6] driver core: platform: remove software node on release()
-      commit: 50030d63b4d3
+url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Hung/drm-amdgpu-Remove-UML-build-exclusion-from-Kconfig/20260513-150500
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260505162018.1755740-1-alex.hung%40amd.com
+patch subject: [PATCH] drm/amdgpu: Remove UML build exclusion from Kconfig
+config: um-allmodconfig (https://download.01.org/0day-ci/archive/20260514/202605140801.Fqury68H-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260514/202605140801.Fqury68H-lkp@intel.com/reproduce)
 
-The patch will appear in the next linux-next integration (typically within 24
-hours on weekdays).
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605140801.Fqury68H-lkp@intel.com/
 
-The patch is queued up for Linus's tree and should land in the next -rc release.
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:26:
+   In file included from include/linux/pci.h:38:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/um/include/asm/hardirq.h:24:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:12:
+   In file included from arch/um/include/asm/io.h:24:
+   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
+         |                                                   ~~~~~~~~~~ ^
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2353:9: error: call to undeclared function 'cpu_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    2353 |         return cpu_data(first_cpu_of_numa_node).topo.apicid;
+         |                ^
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2353:41: error: member reference base type 'int' is not a structure or union
+    2353 |         return cpu_data(first_cpu_of_numa_node).topo.apicid;
+         |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+   1 warning and 2 errors generated.
+--
+   In file included from drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:24:
+   In file included from include/linux/pci.h:38:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/um/include/asm/hardirq.h:24:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:12:
+   In file included from arch/um/include/asm/io.h:24:
+   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
+         |                                                   ~~~~~~~~~~ ^
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1830:27: error: call to undeclared function 'cpu_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1830 |         struct cpuinfo_x86 *c = &cpu_data(0);
+         |                                  ^
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1830:26: error: cannot take the address of an rvalue of type 'int'
+    1830 |         struct cpuinfo_x86 *c = &cpu_data(0);
+         |                                 ^~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1833:7: error: incomplete definition of type 'struct cpuinfo_x86'
+    1833 |         if (c->x86_vendor == X86_VENDOR_AMD)
+         |             ~^
+   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1830:9: note: forward declaration of 'struct cpuinfo_x86'
+    1830 |         struct cpuinfo_x86 *c = &cpu_data(0);
+         |                ^
+   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1833:23: error: use of undeclared identifier 'X86_VENDOR_AMD'
+    1833 |         if (c->x86_vendor == X86_VENDOR_AMD)
+         |                              ^
+   1 warning and 4 errors generated.
+
+
+vim +/cpu_data +2353 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c
+
+851a645efd0fee Felix Kuehling  2017-11-27  2342  
+520b8fb755ccfb Felix Kuehling  2017-12-08  2343  static int kfd_cpumask_to_apic_id(const struct cpumask *cpumask)
+520b8fb755ccfb Felix Kuehling  2017-12-08  2344  {
+520b8fb755ccfb Felix Kuehling  2017-12-08  2345  	int first_cpu_of_numa_node;
+520b8fb755ccfb Felix Kuehling  2017-12-08  2346  
+520b8fb755ccfb Felix Kuehling  2017-12-08  2347  	if (!cpumask || cpumask == cpu_none_mask)
+520b8fb755ccfb Felix Kuehling  2017-12-08  2348  		return -1;
+520b8fb755ccfb Felix Kuehling  2017-12-08  2349  	first_cpu_of_numa_node = cpumask_first(cpumask);
+520b8fb755ccfb Felix Kuehling  2017-12-08  2350  	if (first_cpu_of_numa_node >= nr_cpu_ids)
+520b8fb755ccfb Felix Kuehling  2017-12-08  2351  		return -1;
+df1dd4f4a7271e Felix Kuehling  2019-01-02  2352  #ifdef CONFIG_X86_64
+b9655e702dc5d8 Thomas Gleixner 2023-08-14 @2353  	return cpu_data(first_cpu_of_numa_node).topo.apicid;
+df1dd4f4a7271e Felix Kuehling  2019-01-02  2354  #else
+df1dd4f4a7271e Felix Kuehling  2019-01-02  2355  	return first_cpu_of_numa_node;
+df1dd4f4a7271e Felix Kuehling  2019-01-02  2356  #endif
+520b8fb755ccfb Felix Kuehling  2017-12-08  2357  }
+520b8fb755ccfb Felix Kuehling  2017-12-08  2358  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
