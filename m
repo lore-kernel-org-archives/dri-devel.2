@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B1FECD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:26:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0CE5CD4851
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:26:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0183A10F160;
-	Thu, 14 May 2026 08:26:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EB6A10F164;
+	Thu, 14 May 2026 08:26:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="zqqlCrbU";
+	dkim=pass (2048-bit key; unprotected) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="XnaIzUgN";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C71510F163
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 08:26:12 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-c8025500cc7so5587951a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 01:26:12 -0700 (PDT)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9115110F164
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 08:26:19 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-c828daf83e2so2232673a12.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 01:26:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1778747172; x=1779351972;
+ d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1778747179; x=1779351979;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=GheaXfm6WhMIcKtl8e6E9+wMuBUvLISEtMm7ivNoGig=;
- b=zqqlCrbUw+6ZAZu8jEkiFOEmw7SPWmC4UY0/7zAwxOA/zudSAoGRYlBJcMCDdUybJX
- QTZgoxGiB4VnGr7r2G0yir+6AcjqHe33eJibrGYYOB2jtugww9YiZk+GimMGFK+hZTEZ
- 2YRDqyrCNoY5Fgw6e+Odg8VW82EA3qdNA8X/fqlTq3Bs3lPaxWFjo5so66FOKHBJVKR0
- PGEkzszK6AQtzlqQTHmWFKM/DoUNyiu1nrRfPcXJoLiJD1PwTyOsaIEKraBKXtPpL5OO
- vmow8GO+9Liabhuf6Z5TjmJYEmdFBg+PBDp6gAqVX6yzzNd3iefka2SaI7Hunc9dHpde
- 60sg==
+ :reply-to; bh=Bcm+FEfphE7RWlNG6KH2TrNjmFAxIKcw/vHzKLgiSIA=;
+ b=XnaIzUgNmPEkPDeb1Eqo5PuJDDUO9JsrJgDjM5k8wRrnZ/LEyhduTROrAM3nBUMFgv
+ 3TMP2i1q0NCCkIsEl2KBRN06ruv7N9bzboUSGsrlLT/WB4kv/uZj4StgB+VnYCpf42Yn
+ vBus7yubVxeuibnq3muASUBPxpZt6EyAxYgVHXxJB2abVB+ncwEgWMTYmRAWp54myK3a
+ mKlral7UmU7sRt/9lMXHKolPg1rKnk4amtPlEwrOcqgKM9orHrgE1vudJtUkfIa87J7M
+ eI0Nl3XbK5OFK2y+nzTQz1ltaGSKH9MntROjurjJpmNsVcxSDtf5jaoJlbzkoeIn82rp
+ qDDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778747172; x=1779351972;
+ d=1e100.net; s=20251104; t=1778747179; x=1779351979;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=GheaXfm6WhMIcKtl8e6E9+wMuBUvLISEtMm7ivNoGig=;
- b=C9lhcpAmwzMACWc9BVSpw86bOxzxEOmd/w9uYpaXIslbOiTjDnnCQGjkACH++EKXya
- VoPRZSHTn5WyDGoKtJr9Vg77sb1GLay5MK6lajOHQXbKzbfHfA7dJtf9qJppXIfI//Y4
- TFv+8J+gIY3OpyLWK6wDPktA2M4URvahJNX/64nmPZ3S8QIXVrsYJWh0PXB5Xl+ZKREF
- fD5VCKqQUcdhxi0AQrXgrpMQjASwWGC57f9mNE/zOMSGGaw8fMj5sM79rOMeuTxarTWC
- YrSBSVzPRTsdvDjCuBTr2L4hRkTv6KGvjJ5KCHXMU6rULtNnucAWPJpcMsRcpb9IUnBR
- NRkg==
+ bh=Bcm+FEfphE7RWlNG6KH2TrNjmFAxIKcw/vHzKLgiSIA=;
+ b=YyFkTChVdZzng2Jg8Bb1l1/yQ0HEMos94QMJceXVv3Seeu32hcG4RVeXFbAl3XvSxD
+ bh/qf3fLPvwaqgvsZgL5cziUCvWBM3dzTjiG842FdtYcMLwEy13lz3//IHJ38Gz35Oho
+ oUQxKB+o2TYaOAk/uyuvJjMTfEfVsF/CBOsi10dcboLFJfI0D9jM4SvkyhSks/5UVH2C
+ byBA8uvk63onHj1ig0DbHJhCfv4qWcAc0dxFvnouPdvXZacfYnBxTA2bh3MCB2UR/mS7
+ crDYFyFDPGtTJBemqLcQgF1uBe5tTTZYdMvXc0YpwGQmXTVbmbcQ2iZuURs1eMbyHBLM
+ w2VQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/y9xsjMmiq35Y+k1SbRJd/iHMHeu2xZAANJD9NvrPpF3poOjMERxxeEljhQfcMd7aw/oXaZ7HjLmA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0tiAdo+5vXVVbZrA+EC+I/L9ol6A65sCbmb2qpPrZF09RgFZj
- P+6qxM+Eo9Y9HrHxacrMLwak98h7jm7NJisx3z5PR9Cng0WCd61XCrw3WaNETFiZdoY=
-X-Gm-Gg: Acq92OHQ3XPTe/4U6RNHDFUXlhmd8F7Mx5EhKB19DFDgXhXmyPlTW2HGhMdM9gooNIK
- 6Ve3YVpuXo0ducxKuzFKoVnwlTi9+HgzMDfYm3rgcnospSbSTTn4uzj26lBWXieBqpeL7gRrG01
- qGvNd4poCJK77wf8l34qeUP4IaV5WEzDISqP1g2YOPWLSjv6x2qgQl1A5jAR+VDLDzX65pIsMHJ
- i3WyjZwSot8s65fcO5mEYqyKL8vGyTeA81mKCTlKMmyZO47puoe8zbR33tKP73jfd1deNUHbgAm
- 2UJoADzCffjPRURtInmiXAxwc1hjp5hKC2FNSBdTLTrs/MZC6Bh7PXM5QDaCNk6TtniF0hO3v8P
- P1myF4tOTXySN3s8zyrObvhmWVYHmfvNHbJYYuhGMVoJ2rPS3CcoKseTJLnwZhci50Gbz4ScN13
- 8skj3Vcbz1ZyQyvUX3UXyhTzmej/ZvCb8qKZfiCzyPaNrv5R/eKFyvEhOpaxrIWTZGRLMp0pmWE
- sLg2gF7d/yTtmi1Gh7d2wHLXYkyD4yQilLh11sqJyCj
-X-Received: by 2002:a05:6a20:7f8e:b0:398:8002:8033 with SMTP id
- adf61e73a8af0-3afb0524b0fmr7156205637.49.1778747171713; 
- Thu, 14 May 2026 01:26:11 -0700 (PDT)
+ AFNElJ+pX8QyY5uHljvZzm2TwPAaqksitMQ0jQMuUXFjqobhiFa/zIYqLhy+4Mlyv0yAAZ/M60sWXJEMSE0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwgaT4LflAVImr8JWs7MpJIF075u6SaRjrIFoxtYTTlPo89FRe1
+ wJJgPhDTJ28pScDN0w1rTR5mcSK/o7+tam2ESawEMkz8d5CdgeEDLa2JDcYPODYbQix+gyKbNfM
+ 0rq9SiHc=
+X-Gm-Gg: Acq92OFBAzSR9X5yUYYVGJUE6VqJclVzkoJ6GCqenuF4wpa9o55N7/mHXz/NvxCISBO
+ rkLGDPXy7+LHqi8L5eUdntxSeIysJK3ejC0htBCvO2xGSpRVpRRgSjmXq60Hj5eb6UkBiigmZXp
+ x4SXM0Tfd3xKsIj963Ibj5F7sXzQiQL3pTk2+Et4GJlS2IPW+WBk78Ah/LaKpp0vX6GkgnY6rAO
+ EHcHOLpuQyNN6GB4mpkbU3mRimvUetCDtBsWd46QccHKjk+XINnLW/kVOpMtqmkVom6MZ75AQ67
+ GrMZYn54kke/FCa8h3qcSbI1496qqzzKJZ0ybgcuqDOyVzVeGPRPF82RnHY4D+sCOQ+EgYndNzk
+ eU3ao+RqsoV1sadcntQm5DfaX4/OBHMQFuelqs2S6yD3zsdYi69FMYk7N0y7AdLrdIDm8P60pGr
+ rTPlTjC/a8pe636Eqkkkef2/HMR894WZIDhCAqr/7dM9kj9ojTejvNULuHuubWsurWUcerogntM
+ TDT8bgnmtC76qURplO2nNDU4t9YqeUm2aji/03h/Faa
+X-Received: by 2002:a05:6a21:998e:b0:3ab:13f4:c721 with SMTP id
+ adf61e73a8af0-3afaf522ea5mr6800186637.18.1778747178988; 
+ Thu, 14 May 2026 01:26:18 -0700 (PDT)
 Received: from [127.0.1.1] ([103.158.43.41])
  by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-c82bb06875bsm1589102a12.3.2026.05.14.01.26.04
+ 41be03b00d2f7-c82bb06875bsm1589102a12.3.2026.05.14.01.26.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 01:26:11 -0700 (PDT)
+ Thu, 14 May 2026 01:26:18 -0700 (PDT)
 From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Date: Thu, 14 May 2026 13:54:40 +0530
-Subject: [PATCH 11/14] fbdev: uvesafb: fix potential memory leak in
- uvesafb_probe()
+Date: Thu, 14 May 2026 13:54:41 +0530
+Subject: [PATCH 12/14] fbdev: efifb: fix memory leak in efifb_probe()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260514-fbdev-v1-11-b3a2474fa720@cse.iitm.ac.in>
+Message-Id: <20260514-fbdev-v1-12-b3a2474fa720@cse.iitm.ac.in>
 References: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
 In-Reply-To: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
 To: Helge Deller <deller@gmx.de>, 
@@ -104,38 +104,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Due to an incorrect goto label, memory allocated for modedb and modelist
-in uvesafb_vbe_init() is not freed in some error paths. Fix this by
-updating the goto label.
+Since commit 73ce73c30ba9 ("fbdev: Transfer video= option strings to
+caller; clarify ownership") the string returned from fb_get_options()
+is expected to be freed by the caller, but the string is not freed in
+efifb_probe(). Fix that by freeing the option string after setup.
 
-Fixes: 8bdb3a2d7df4 ("uvesafb: the driver core")
+Fixes: 73ce73c30ba9 ("fbdev: Transfer video= option strings to caller; clarify ownership")
 Cc: stable@vger.kernel.org
 Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
 ---
- drivers/video/fbdev/uvesafb.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/video/fbdev/efifb.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/video/fbdev/uvesafb.c b/drivers/video/fbdev/uvesafb.c
-index 88667fccc27b..9d82326c744f 100644
---- a/drivers/video/fbdev/uvesafb.c
-+++ b/drivers/video/fbdev/uvesafb.c
-@@ -1694,14 +1694,14 @@ static int uvesafb_probe(struct platform_device *dev)
- 	i = uvesafb_vbe_init_mode(info);
- 	if (i < 0) {
- 		err = -EINVAL;
--		goto out;
-+		goto out_mode;
- 	} else {
- 		mode = &par->vbe_modes[i];
- 	}
+diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
+index 47ebc0107209..ad8dec7807c3 100644
+--- a/drivers/video/fbdev/efifb.c
++++ b/drivers/video/fbdev/efifb.c
+@@ -377,6 +377,7 @@ static int efifb_probe(struct platform_device *dev)
+ 	if (fb_get_options("efifb", &option))
+ 		return -ENODEV;
+ 	efifb_setup(si, option);
++	kfree(option);
  
- 	if (fb_alloc_cmap(&info->cmap, 256, 0) < 0) {
- 		err = -ENXIO;
--		goto out;
-+		goto out_mode;
- 	}
- 
- 	uvesafb_init_info(info, mode);
+ 	/* We don't get linelength from UGA Draw Protocol, only from
+ 	 * EFI Graphics Protocol.  So if it's not in DMI, and it's not
 
 -- 
 2.43.0
