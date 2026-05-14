@@ -4,51 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0F9ACD4851
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 12:04:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B93CCD4F39
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 12:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 472A210E45F;
-	Thu, 14 May 2026 12:04:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF16410E5E7;
+	Thu, 14 May 2026 12:25:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rlEa66C4";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="R4TbKiR+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCDD010E45F
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 12:04:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D9BA60121;
- Thu, 14 May 2026 12:04:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 313F8C2BCB3;
- Thu, 14 May 2026 12:04:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778760253;
- bh=3Ophp1rxRSOQOJoDZj+hxZG0S99E1oAe3Jsf1A4VFLg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rlEa66C483gqkdV75Q58miOOP3AEeMxaN8khSI05Hi8O854PezJ3slt0Qx1lOql1s
- De/Fp3derf8ytHNA6LNqQ8K9NtSan9ij8uu1s+0k0Rc3wYzf5jVdVMS6JcreSTn/8O
- pLML4huCT3hNRtguQjx6HnGrnGbvWR8+QHAsGdJiQUDw1Dv8663DX40ML+rngtj2mx
- G9ciTPPXiKoz4nraWCTXQZqTZdap8IJb8WPYqRtu8unwi1IKoUbz0kHtsZABQjGXYQ
- MVvFm2enwuXzjE2+sxa+js5cjFFMPRixgColVzsmqjtMeYPwH2fSgTij0l2VGuxMK6
- X6PtaVNlqvjug==
-Date: Thu, 14 May 2026 14:04:11 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: wens@csie.org, samuel@sholland.org, mripard@kernel.org, 
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- mturquette@baylibre.com, 
- sboyd@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
- layer reg space
-Message-ID: <20260514-valiant-ape-of-discourse-a4f5a9@quoll>
-References: <20260509190015.79086-1-jernej.skrabec@siol.net>
- <20260509190015.79086-8-jernej.skrabec@siol.net>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D96710E21D
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 12:25:24 +0000 (UTC)
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5733B56D;
+ Thu, 14 May 2026 14:25:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1778761513;
+ bh=KX7cPNWNQV3tTJGSzBFahn7mQVOVPuP673fOrBp4UxE=;
+ h=From:Subject:Date:To:Cc:From;
+ b=R4TbKiR+isuwOI8qDg0VeWHNUvma84CNwvHgaQRTKP6UwGvW4bwhotarVdExzrJiU
+ 8jarJyoR4F/DHJOrz5+/jottgfew6S8iOtJP/GlwhF/PPvl+t5tE403CNuur83CY8Y
+ Offd89ylD8hHotWRtL7bfOBwPdaUpqVTnlxVWRsk=
+From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Subject: [PATCH 0/5] drm/rcar-du: Add support for DSI pipelines with DSC
+Date: Thu, 14 May 2026 15:24:52 +0300
+Message-Id: <20260514-rcar-du-dsc-v1-0-d65f7a9e9841@ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260509190015.79086-8-jernej.skrabec@siol.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABW/BWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDU0MT3aLkxCLdlFLdlOJkXRPTpOQ0g2SjtFQLMyWgjoKi1LTMCrBp0bG
+ 1tQDj8v0gXQAAAA==
+X-Change-ID: 20260514-rcar-du-dsc-45bcf0c2fe86
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+X-Mailer: b4 0.15-dev-c25d1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1914;
+ i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
+ bh=KX7cPNWNQV3tTJGSzBFahn7mQVOVPuP673fOrBp4UxE=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBb8qu7RLSJGNdiijIDGQ9JxOiApet0G3sGId5
+ zUiW6KMH8eJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagW/KgAKCRD6PaqMvJYe
+ 9WH9D/9CKruh2KnftyraPjOg9Z5+PkKDTx1ltVakbcxFbP3UGVyORJBeYpbecx842m9Vz6tsQ6Z
+ opO8luYLP+533lPTrh/EbChdfvnxPJrnhfMOgSRhEvXUI33vsiZazNtZSQ9fBWUA3stHgrpL0VD
+ jf30zKmO8p6b9Ld9oBCjed0hLfD1ixsEJx9UsMXrjjcFxK49zL10gCn+fd4/AqlkP+BP6QBlrNc
+ wKdvTeBROpl67zCEARgRO739l+2RPrZUYlI4jqsa3WfNtv1IGrZ5E+TwS2xat+UKpXbWPjfkBuL
+ HyhFwYj3KlkSBkVBbpjYZPg7uWmuNLDqi2R9ROFnTzF5yBdFyh/tNP32yMbp4ruJnh98Qly5PMa
+ ForrrdereDmeOBDYJfiTtBUHExIGcm9bbIj2JHaUIMG8zVxZHlOWQiuxLUkD4s/ozY1x6QDzj5u
+ qDGZ0mKVZwCAQs4achaSGb5DwBbcgCyqmffd9612sdaKdtTT5oSkpX7V3YO3RVwcgfs4rDA8QE+
+ OeQ6HG4pGSVxU7Vv+GA6UAgL0Xl0Dc94dCsGg0f5F2PSjjZwhfevHTQ+pxbhY4kvRJdwJy/PKDs
+ t1jQBhmFAtU1Bupx47XyBsvuGgYsHLz7HNHhwCkycuuJs4NROCFJYRc9SjWao5TmbnACWhLIN7B
+ qCo74GwwkCGA48Q==
+X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,32 +90,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
-> From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> 
-> As it turns out, current H616 DE33 binding was written based on
-> incomplete understanding of DE33 design. Namely, planes are shared
-> resource and not tied to specific mixer, which was the case for previous
-> generations of Display Engine (DE3 and earlier).
-> 
-> This means that current DE33 binding doesn't properly reflect HW and
-> using it would mean that second mixer (used for second display output)
-> can't be supported.
-> 
-> Remove layer register space, which will be represented with additional
-> node, and replace it with phandle, which will point to that new, shared
-> node. That way, all mixers can share same layers.
-> 
-> There is no user of this binding yet, so changes can be made safely,
-> without breaking any backward compatibility.
+Some DSI pipelines have DSC (Display Stream Compression) IP block
+between the DU and the DSI. Even if DSC is not needed, the IP must be
+enabled for the DSI output to work.
 
-There is user. git grep gives me:
-drivers/gpu/drm/sun4i/sun8i_mixer.c
+This series adds a basic DSC driver, so that the DSC IP gets enabled in
+bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
+the DP output comes from DSI and sn65dsi86 bridge.
 
-which means this is a released ABI. As I understood, the old code was
-working fine but just did not support all use cases. Why this cannot be
-kept backwards compatible?
+Original series from Marek.
+
+Note: I see that not every run of kms++'s kmstest gives me a picture on
+my monitor. Sometimes the monitor seems to be trying to repeatedly sync,
+but fails, and the screen stays black. However, I see this same issue on
+WhiteHawk, which uses DSI0 pipeline, without DSC, so I think that is a
+separate issue.
+
+ Tomi
+
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+---
+Marek Vasut (4):
+      clk: renesas: r8a779g0: Add DSC clock
+      dt-bindings: display: bridge: Document Renesas R-Car V4H DSC bindings
+      drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H DSC driver
+      arm64: dts: renesas: Add Renesas R-Car V4H DSC
+
+Tomi Valkeinen (1):
+      drm/rcar-du: dsi: Support DSC in the pipeline
+
+ .../bindings/display/bridge/renesas,dsc.yaml       |  96 ++++++++++++
+ arch/arm64/boot/dts/renesas/r8a779g0.dtsi          |  31 +++-
+ .../boot/dts/renesas/r8a779g3-sparrow-hawk.dts     |   5 +
+ drivers/clk/renesas/r8a779g0-cpg-mssr.c            |   1 +
+ drivers/gpu/drm/renesas/rcar-du/Kconfig            |  13 ++
+ drivers/gpu/drm/renesas/rcar-du/Makefile           |   1 +
+ drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c         | 163 +++++++++++++++++++++
+ drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c    |  36 ++++-
+ 8 files changed, 343 insertions(+), 3 deletions(-)
+---
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
+change-id: 20260514-rcar-du-dsc-45bcf0c2fe86
 
 Best regards,
-Krzysztof
+-- 
+Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
