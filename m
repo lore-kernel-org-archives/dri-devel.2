@@ -4,47 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CED3CD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 15:23:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E03DCD4F25
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 15:23:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A593F10E37D;
-	Thu, 14 May 2026 15:23:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B461A10F275;
+	Thu, 14 May 2026 15:23:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="anD7SvoD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EWFiSNnc";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id E466C10F27F
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 15:23:27 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 162A21655;
- Thu, 14 May 2026 08:23:22 -0700 (PDT)
-Received: from [10.1.37.28] (e122027.cambridge.arm.com [10.1.37.28])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8F7D23F836;
- Thu, 14 May 2026 08:23:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1778772207; bh=69LAz44gXqc4NIyDtpSy///c51rYIp3PaLqICN+TdLA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=anD7SvoDWSwk/qlgZM/tkS6/ZxmRPeISNNt9sZED/edYJ1MQnY1nnpZqltSdCS/gr
- GzOY7q1MDSVdfERcDG6VdBkUrTMCFWL0qcqxV1ISsbWzF3ohuXfEeu9xjyi7yhBsND
- Dc/6ce+TYubrBOD71iWguGbdff0U9WIYqh5yIPtM=
-Message-ID: <c5b6e08f-066c-4894-af9a-5dd248ac9adf@arm.com>
-Date: Thu, 14 May 2026 16:23:23 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6406410F275
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 15:23:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9E0ED60154;
+ Thu, 14 May 2026 15:23:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06FC2C2BCC7;
+ Thu, 14 May 2026 15:23:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778772212;
+ bh=JvugWyByTkXEaIiK4vIpB6X4Zi+TSZyKhUr1GwFqia0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EWFiSNnc3dSAI7/O8AGV6HRJlPPpdM0omY94DJV0t1xNMNDmXd77WNVptjBI4LqM+
+ J6eBL3atJACHKI7alCexSwPf8VItP7gqXfKFdio/YEVXB5Y5DMGmt2pbAXD7Zo7aag
+ pBRGqZfGuBq77ctyeUArqY3aWFwgcku/nuHFfWaPiZkaNTT2H5qlfczGMIcZ48hrxH
+ QX/qKDZ6qYc1j5QYnecdWpga9qP/lIzPEnKPiCuxHe0Dp+FLWWiSQQ8pdt7fqtIAeY
+ Z1zbliDw451ngxw4FNmDmvdNzvp2wueQi/MfOKwOupMWNG9+/cK5MUYFFmRuLgSHgX
+ XzSohzDYdTcMQ==
+Date: Thu, 14 May 2026 10:23:29 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, dri-devel@lists.freedesktop.org,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH v3 2/5] dt-bindings: display: renesas,rzg2l-du: Add
+ RZ/T2H and RZ/N2H support
+Message-ID: <177877220882.612619.10485324075713791036.robh@kernel.org>
+References: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260512144104.761531-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/11] drm/panthor: Process FW events in IRQ context
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-9-95c614a739cb@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260512-panthor-signal-from-irq-v2-9-95c614a739cb@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512144104.761531-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,63 +71,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 12/05/2026 12:37, Boris Brezillon wrote:
-> Now that everything is set to allow processing FW events in IRQ context,
-> go for it. This should reduce the dma_fence signaling latency.
+
+On Tue, 12 May 2026 15:41:01 +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-
-Reviewed-by: Steven Price <steven.price@arm.com>
-
+> Document the Display Unit (DU) support for the RZ/T2H and RZ/N2H SoCs.
+> 
+> The DU block on RZ/T2H is functionally equivalent to the RZ/G2UL DU and
+> supports the DPI interface, but includes SoC-specific register differences
+> and has no reset control. Add a dedicated compatible string to represent
+> this variant and update the allOf constraints accordingly.
+> 
+> As the DU implementation on RZ/N2H matches RZ/T2H, describe it using an
+> RZ/N2H specific compatible string with the RZ/T2H compatible as fallback.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 27 +++++++++++++++++++++++----
->  1 file changed, 23 insertions(+), 4 deletions(-)
+> v2->v3:
+> - No change
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index f5e0ceca4130..8cfebf180de7 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1087,9 +1087,29 @@ static void panthor_job_irq_handler(struct panthor_irq *pirq, u32 status)
->  	}
->  }
->  
-> -static irqreturn_t panthor_job_irq_threaded_handler(int irq, void *data)
-> +static irqreturn_t panthor_job_irq_raw_handler(int irq, void *data)
->  {
-> -	return panthor_irq_default_threaded_handler(data, panthor_job_irq_handler);
-> +	struct panthor_irq *pirq = data;
-> +
-> +	if (!gpu_read(pirq->iomem, INT_STAT))
-> +		return IRQ_NONE;
-> +
-> +	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
-> +		if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)
-> +			return IRQ_NONE;
-> +
-> +		pirq->state = PANTHOR_IRQ_STATE_PROCESSING;
-> +	}
-> +
-> +	/* We can use INT_STAT here, because we didn't mask the IRQs. */
-> +	panthor_job_irq_handler(pirq, gpu_read(pirq->iomem, INT_STAT));
-> +
-> +	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
-> +		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING)
-> +			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
-> +	}
-> +
-> +	return IRQ_HANDLED;
->  }
->  
->  static int panthor_fw_start(struct panthor_device *ptdev)
-> @@ -1489,8 +1509,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
->  
->  	ret = panthor_irq_request(ptdev, &fw->irq, irq, 0,
->  				  ptdev->iomem + JOB_INT_BASE, "job",
-> -				  panthor_irq_default_raw_handler,
-> -				  panthor_job_irq_threaded_handler);
-> +				  panthor_job_irq_raw_handler, NULL);
->  	if (ret) {
->  		drm_err(&ptdev->base, "failed to request job irq");
->  		return ret;
+> v1->v2:
+> - Dropped the "port" property in favor of "ports" with a single port@0
+>   child, to align with the existing RZ/G2L bindings and simplify the
+>   device tree structure.
+> - Updated the commit message to reflect the change from "port" to "ports".
+> - Dropped RB tag from Rob due to above changes.
+> ---
+>  .../bindings/display/renesas,rzg2l-du.yaml    | 20 +++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
 > 
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
