@@ -4,79 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1296DCD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 22:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DFFCCD4F25
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 22:45:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB1B10E3F2;
-	Thu, 14 May 2026 22:39:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4C810E063;
+	Thu, 14 May 2026 22:45:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Zpu10FYE";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="FiqWNNO3";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5237D10E3F2
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:39:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
- Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Q/1w/pAVW95WK9YzKUDjOYOarf1ClcHbhkmttHS7cpI=; b=Zpu10FYEqHcf5dK5mAXU7fBhK7
- em6Ejvzaoyy8BTFnqAZIe0SI0dBEUhv4zrzj2VodLouEMeSd00khUXNEMPmi8NgUka83jpK6tSnSk
- wmsJN1XR94bx32Pvk2iO48yv+1G9WzwnrHU1VDsjCAnCGnjqn36M9zRDM/Ps28DYlUMfhQNP6uUck
- GMB4YDpGa7tv4bRmDrOhVrtDqg8qtGFl7ATRwo9N0ShIBkgy7iOlsE+Voz5B0oCbRbQZV6LrSJ0t/
- JFStnW0/Q7SrcF1vjt75mYYxwI0VXvjb0PHzMu02y3cVZmm6jbhZWR9KAD3OZu5iqp2fgKYm8STUt
- 3gyNqxvg==;
-Received: from [187.43.221.194] (helo=[172.20.10.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wNei7-000GaP-BI; Fri, 15 May 2026 00:39:19 +0200
-Message-ID: <3c616d25-381e-43a7-af71-73bf0b9ee063@igalia.com>
-Date: Thu, 14 May 2026 19:39:10 -0300
+Received: from mail-pf1-f226.google.com (mail-pf1-f226.google.com
+ [209.85.210.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E98010E063
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:45:57 +0000 (UTC)
+Received: by mail-pf1-f226.google.com with SMTP id
+ d2e1a72fcca58-82f9fdfc965so3919992b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 15:45:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778798757; x=1779403557;
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=TdalToY785SBD7KCeHZ3kuDVygT65e3z/bCNeB39po0=;
+ b=lsCU2aR9+idKEFk9Bmbhh2KzIacD2NamBh+lESUkPB0gXKG9620pmN8EeyA15ZONII
+ qNqrnS0/4zvvdstCQA+zOi0jww6i6nVcv4/EREZb74l+PpPyXoEeKQmFC8BsWG5RE4xe
+ V1sJs6bCzsMY0lNz8sBk3blc7Vh9wlZ+R7QijSQHSSb0cI7jzdDi0K8Qej/370KAxeh7
+ khKFCbOmRJ6xHTnTqailjgQ4WOFIjB/F842Q9PsdyCBVz3TQxBeMqJLyu9Jdo6yqZEKf
+ USKsbNPZlWzoTaUyCgRgaVPz4xJCulMjSJMJ3N66zzQOgsyx4VmeeurTA2uoTzGcqap8
+ TurA==
+X-Gm-Message-State: AOJu0YyskjeM2wvaxuScIbNwVUuDH72DtRrZZrCnNYdXiT96IYAWlfco
+ nRvF5wubo26aVl6Zd3A3OuiI5BqZgsgpBCPYW/QMqXLVrmNPzK6ujflPNLbGsGW8Id/kBzlAJcv
+ kjWjjM7CgwUfFURA4F4OBEDdlYhzVz0Acc8BBsW5PIzJ+rQu6tkWFiHo1N/Z40+M44QIzi2QaTf
+ Hxf0Wg/QO0/JuBX5uVoheeTLOaiUKeh3tDdyu6e4SqF1aUv81IcOZb8l81rcXQRzMGwMddhz6W9
+ 7gaxIAIBV4OTTKAP60LzG0agmo5OQg=
+X-Gm-Gg: Acq92OEj4yj+qk/gp3u5zErXf20je+WWa5MKUBXjFFsNyHQBVmzBS8tZiTqJV+l5prL
+ KpguwIIdnAEt3hcmdN/9FHCwD2PD5r/eYN2FJzQfpeyhcGT9b6WTV5Rdwu0kC4bB76mdAR4flCg
+ 6xN7/xc3Gq97v85inP3EfsxBCdpjkNZC6NbNE8n9zKaToLFDC6VqBq2YjYfqxoTu87kulJgILaD
+ NwzjZQoO4l2gxs6t4q5RwTVI3Qy6+cqDExn8YQjswik4U5SIk9xHvs0iciL+2h6+IOa8hBbhcmE
+ h403TZkkBP0RjPnNb6+rkLIFtX44sz8dARAFsQqrZK0/SsgZ5fm02ARxOUVDMjyYEUSyHepYEsH
+ evfb1PAZ6kWjmrl9rq+zzRLxKEN8FNlqwP62NPVNUUTon4uI63HQLnvacwf9cmPuXrrXdyAHzWl
+ zbzRNRvQ+VwFCOeGeYcOOwXz6NGP3BUbujLVGII/6D4v6wqqdh9w5Om7UugK9Kpw==
+X-Received: by 2002:a05:6a00:3005:b0:837:db9d:9606 with SMTP id
+ d2e1a72fcca58-83f33d26f5cmr1505894b3a.23.1778798757065; 
+ Thu, 14 May 2026 15:45:57 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
+ by smtp-relay.gmail.com with ESMTPS id
+ d2e1a72fcca58-83f1980259fsm335143b3a.3.2026.05.14.15.45.56
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 14 May 2026 15:45:57 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f71.google.com with SMTP id
+ a92af1059eb24-132d5ad9c32so10255564c88.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 15:45:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1778798755; x=1779403555;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TdalToY785SBD7KCeHZ3kuDVygT65e3z/bCNeB39po0=;
+ b=FiqWNNO3u9GZTpq9gqIUTG4fugqolzMeXznCas8N41Kqn3QRf7ImlsAQTFdqPLKQ27
+ bOOats4VgAiMVbIR2LdPTv8tevd2OM0kkEedNOQo4Yn9Y7Qdv4Ojv+VYa8mnJhrfogdf
+ ydxZU5793/6eK8NrFNTaQDivq1d2PF2Us7EWk=
+X-Received: by 2002:a05:7022:4183:b0:132:1e01:8737 with SMTP id
+ a92af1059eb24-1350542e5a3mr550478c88.26.1778798755145; 
+ Thu, 14 May 2026 15:45:55 -0700 (PDT)
+X-Received: by 2002:a05:7022:4183:b0:132:1e01:8737 with SMTP id
+ a92af1059eb24-1350542e5a3mr550462c88.26.1778798754473; 
+ Thu, 14 May 2026 15:45:54 -0700 (PDT)
+Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
+ ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-134cbdcf140sm6678737c88.5.2026.05.14.15.45.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 May 2026 15:45:53 -0700 (PDT)
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+To: dri-devel@lists.freedesktop.org
+Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
+ zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Subject: [PATCH v3 0/5] Fix some issues from igt runs.
+Date: Thu, 14 May 2026 15:48:14 -0700
+Message-ID: <20260514224819.3631763-1-maaz.mombasawala@broadcom.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dma-fence: Clarify external lock use case in
- dma_fence_init() docs
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <ckoenig.leichtzumerken@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kernel-dev@igalia.com
-References: <20260419134943.54833-2-mcanal@igalia.com>
- <6389c57fd1453b545709c15c5fa74aa76a3d9afa.camel@mailbox.org>
- <d4267251-e113-42ae-b756-ea1ab63f9f7e@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <d4267251-e113-42ae-b756-ea1ab63f9f7e@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,105 +101,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-+cc Christian's AMD e-mail
+I ran igt-gpu-tools with vmwgfx and fixed some issues I found.
 
-On 5/4/26 11:47, Maíra Canal wrote:
-> Hi Christian,
-> 
-> When possible, could you take a look at this patch? If you are okay with
-> it, I can apply it to drm-misc-next.
+Changes in v3:
+- Minor changes so series can apply cleanly on drm-misc-next.
 
-Gentle ping.
+Changes in v2:
+- Changes based on Zack's comments.
+- For vrefresh changes, removed stdu specific checks so that test
+kms_invalid_mode@overflow-vrefresh passes with sou and ldu displays.
+For ttm ref changes, fixed a ref leak in ttm_prime_fd_to_handle()
+which fixes a memleak in test vmw_prime@tri-map-dmabuf and removed
+release callback for dumb buffer surface since the gem buffer will
+handle release of the surface.
+Added commit to remove duplicate functions in vmwgfx_bo.h.
 
-Best regards,
-- Maíra
 
-> 
-> Best regards,
-> - Maíra
-> 
-> On 20/04/26 06:18, Philipp Stanner wrote:
->> On Sun, 2026-04-19 at 10:48 -0300, Maíra Canal wrote:
->>> The kerneldoc comment on dma_fence_init() and dma_fence_init64() 
->>> describe
->>> the legacy reason to pass an external lock as a need to prevent multiple
->>> fences "from signaling out of order". However, this wording is a bit
->>> misleading: a shared spinlock does not (and cannot) prevent the signaler
->>> from signaling out of order. Signaling order is the driver's 
->>> responsibility
->>> regardless of whether the lock is shared or per-fence.
->>>
->>> What a shared lock actually provides is serialization of signaling and
->>> observation across fences in a given context, so that observers never
->>> see a later fence signaled while an earlier one is not.
->>>
->>> Reword both comments to describe this more accurately.
->>>
->>> Signed-off-by: Maíra Canal <mcanal@igalia.com>
->>
->> Reviewed-by: Philipp Stanner <phasta@kernel.org>
->>
->>>
->>> ---
->>>
->>> v1 -> v2: https://lore.kernel.org/dri-devel/20260411185756.1887119-4- 
->>> mcanal@igalia.com/
->>>
->>> - Be more explicit about not allowing new users to use an external lock.
->>> - De-duplicate the explanation in dma_fence_init64() by pointing to the
->>>    dma_fence_init() documentation.
->>> ---
->>>   drivers/dma-buf/dma-fence.c | 13 +++++++------
->>>   1 file changed, 7 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->>> index 1c1eaecaf1b0..63b349ba9a34 100644
->>> --- a/drivers/dma-buf/dma-fence.c
->>> +++ b/drivers/dma-buf/dma-fence.c
->>> @@ -1102,9 +1102,11 @@ __dma_fence_init(struct dma_fence *fence, 
->>> const struct dma_fence_ops *ops,
->>>    * context and seqno are used for easy comparison between fences, 
->>> allowing
->>>    * to check which fence is later by simply using dma_fence_later().
->>>    *
->>> - * It is strongly discouraged to provide an external lock because 
->>> this couples
->>> - * lock and fence life time. This is only allowed for legacy use 
->>> cases when
->>> - * multiple fences need to be prevented from signaling out of order.
->>> + * External locks are a relic from legacy use cases that needed a 
->>> shared lock
->>> + * to serialize signaling and observation of fences within a 
->>> context, so that
->>> + * observers never see a later fence signaled while an earlier one 
->>> isn't. New
->>> + * users MUST NOT use external locks, as they force the issuer to 
->>> outlive all
->>> + * fences that reference the lock.
->>>    */
->>>   void
->>>   dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops 
->>> *ops,
->>> @@ -1129,9 +1131,8 @@ EXPORT_SYMBOL(dma_fence_init);
->>>    * Context and seqno are used for easy comparison between fences, 
->>> allowing
->>>    * to check which fence is later by simply using dma_fence_later().
->>>    *
->>> - * It is strongly discouraged to provide an external lock because 
->>> this couples
->>> - * lock and fence life time. This is only allowed for legacy use 
->>> cases when
->>> - * multiple fences need to be prevented from signaling out of order.
->>> + * New users MUST NOT use external locks. Check the documentation in
->>> + * dma_fence_init() to understand the motives behind the legacy use 
->>> cases.
->>>    */
->>>   void
->>>   dma_fence_init64(struct dma_fence *fence, const struct 
->>> dma_fence_ops *ops,
->>
-> 
+Maaz Mombasawala (5):
+  drm/vmwgfx: Add some checks to vmw_cursor_plane_atomic_update
+  drm/vmwgfx: Check vrefresh in drm_mode_setcrtc.
+  drm/vmwgfx: Reserve ttm object before resv usage
+  drm/vmwgfx: Change ttm refs for dumb buffers.
+  drm/vmwgfx: Remove duplicates in vmwgfx_bo.h
+
+ drivers/gpu/drm/vmwgfx/ttm_object.c          |  7 +++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c           |  6 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.h           | 15 ---------
+ drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c      |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 16 +++++++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h          |  1 -
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c      |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c          | 32 ++++++++++++++++++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h          |  9 ++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c      |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_prime.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_resource.c     | 12 ++++----
+ drivers/gpu/drm/vmwgfx/vmwgfx_shader.c       |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c         | 12 ++------
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c      | 11 ++++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c         | 12 ++++++++
+ 16 files changed, 94 insertions(+), 55 deletions(-)
+
+-- 
+2.54.0
 
