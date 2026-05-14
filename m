@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9C5BCD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:25:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F462CD4F25
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:25:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2253110F16B;
-	Thu, 14 May 2026 08:25:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A8A910F13C;
+	Thu, 14 May 2026 08:25:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="AsXYk8Qb";
+	dkim=pass (2048-bit key; unprotected) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="GW2T3k2A";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F4A810E4D9
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 08:25:33 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-c8025500cc7so5587509a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 01:25:33 -0700 (PDT)
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 763CB10F13C
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 08:25:41 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-c80167f5716so3426282a12.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 01:25:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1778747133; x=1779351933;
+ d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1778747141; x=1779351941;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=V4vRiLxRbLX8JHWNngfg2YrhJ/NxLEtrCOUYTYRBYTo=;
- b=AsXYk8QbWe8rcOMPkw1mGcxh5yvxcUOhVI0ej0kMvInrihwc4nMu9J4w9wsK7AXQYl
- eyOzbl2f0jHy+CqFsfPiFtuD8JwzGudpgI0ZqRpr8rJzyESkcw7HoTHFM22vWT1+sMUb
- 4b73kbjgVvaSO/WeKhAt/OD9Q9fMc1hQFMR7wx9MXaMJrGYwRh5k29pwGOIo9hCA7/YX
- BKDjHhAfbdf5LXt0smWZKYCe69iyBGa9tIS9tnIqzgq28Vr/ltCc1T8uQidfbIaqsTU1
- nkcV42ztSXg/jNpes1ePjLDDYEJUunlXP3uSa3a9ztvXYKecE7EZzEue12Y++MnWEDxg
- 81kA==
+ :reply-to; bh=XqQpLk2INDxanrU5EbiD7pVjr54bhFQM7xaG69RB0RA=;
+ b=GW2T3k2AxYBA0m3mcI2iFo6JAY6V+KzA2tWhQseY1OnCySvqpDsk6GUXAsewyFaOQQ
+ LPnEBb3TGzjtc+7rMiKWngEWj5/uDndrs0AT8CM/VysVf1OqEUwD0kNRaOmnHir6MFfU
+ twCYoPZyYpGtIPkn1SoRfuiKQ4sCMV6qZgMJToesRKDbvo2YQdhrzUNECXBcyqinSoHB
+ Ty5jbgo9qwsYuQZYSUFPZGfYx2IC4lDHg4MWCp2Q+jQ47NSZDn7CzhTpAOHOmt711w7B
+ farKsvFC+b+ZOuSo7ePXABVe4wQjyfJpGQG/lGnpsLwKPvSX53EHiAUnMC5NW2sMwJVW
+ M9rQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778747133; x=1779351933;
+ d=1e100.net; s=20251104; t=1778747141; x=1779351941;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=V4vRiLxRbLX8JHWNngfg2YrhJ/NxLEtrCOUYTYRBYTo=;
- b=JCSafd+pj9MwxdiPfyaP2up9SgKcge/+LS7Dj2lLmkhuOtGjmPjlo9kgIv+fSyfTCz
- 0iIVhr0jJQ11zImmQV9rKS/H00wiUmDyGakqLZIMyGIX+rh8tGPiH1PhHB+DFbguwz8B
- 6JKNDElW43DZ0zyVWiKPo8XKI4k0/yhoZe6G24xAyNZFs4eoxSNQqzNKWUne0k+AikyZ
- NfIPXk8VbCSyAQWtixdd/yQ80/xLqCGE5zqmmkU2cK6Z5njk1R7gd4RQchNpnV0mUS2p
- hJYMEFNoum9VYeQFTqU1lwlpGqPWdSn7DpIfOwTGuaYAzkhAydHhmkUN8o5WGQAIzUoC
- NwGg==
+ bh=XqQpLk2INDxanrU5EbiD7pVjr54bhFQM7xaG69RB0RA=;
+ b=r4N5EKguXp9V+9tmJdJAu5Q77/Bf1oxJWPKymufp3LpAcInW//BF3X4tzyCJ5ZVBKx
+ Ija2p+rYVZssMPBO17rPP9qS0dzlza9Lb/ea3UciQpcKxuZGlLnq1UfCBk9Pb1BvUgVq
+ pOkv8N3IJ9/fJ7UTpJe2L346295GFXRuoan5S1X1FhcHe2M5CiIauNVn/9AU4PU0XboS
+ ripS/zqwnIywAUsRb5PRRi41k/gjMmJ0Y6RicMB68pFg7QPyStFShMwN1B/5pkJ7ZA8c
+ kifG+mjzEjLx6PW0Re49UXVm2CRwLYm9KeifP9/uACCLIFN45OCFNx7Km1NOeykDL1h2
+ DaTQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/MJ9TgnklSWhS5Qj39quWFW4RQwCmgxNZNdPaPn0c1TzF5xUcDDvw2MrapFPukAayxfQJL54yG9Hk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyCfikq+IO99XWkagx4xtkYUMoOcpsBFnbafQkb/LWPCJn3OImH
- ytyiimMSd4OVrB/i0tMJLLffGQBLFT2CUDdVSLe9VTKls7WSjru7yrSjDDVgvrTqdPU=
-X-Gm-Gg: Acq92OHn0EDPwhj05nnO0qjILfrB/c3EigBvkrzRQ9nuElBn4w9mwS5TtmYsPFRYUmA
- 07XjMJwv8l3I8+bRlghHnyfJp9JTmWEAS0vPsYUTm1gvSORM+QGrwXTt8cY5MP6JE+twNMSx+/N
- CnsIJ4k8aqjPwiUxeuDw2hcUn61NtN/OXOMjNP/IfhQ6ty4S4l7p5ecMD9FlP97QW6yIdIEHxDn
- GjL4WnkHmbQkbx27XZPrB5wUyj2XLoPg406+LZD5WGxPCcBsUnS0syE0yeWEjWN4ZztZu7H7cLe
- ToY3jOP3fhnCGcgx3Jf6CllLBWJre3/6YjgPAiSuuKdMZpSiBZdVcEClR8h823d4w9IICKYJjU7
- Bp7ny3T1B3v/ZUeULtqr0pSD8Rw5IhcqUh2fKysgOEzg5i1PrfkwvvMRn+jQZY5205jEQpGEMk4
- KXBW7ZQQdR5uaRlzx3fIS5ZMFZeSK2IJ/6cQsrCnXg+a+xEZgUeMiDinRyMMkwHMMQRswSkJ2i5
- 0/382a2bGN/G70/NqWZAtzz0F+htKm/BF1tDMCmMIkx
-X-Received: by 2002:a05:6a21:999d:b0:39b:ba95:b127 with SMTP id
- adf61e73a8af0-3afacd2054dmr7947534637.4.1778747132838; 
- Thu, 14 May 2026 01:25:32 -0700 (PDT)
+ AFNElJ/otSw9v3a9sChbtCnxu0zk4X9t4bEN9iMGPMrPVj0WQWxG1MGG/el5Xr07NewFPLz9HIcrxCCGs6c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz1l8X6ixQq7jIYYxpWrD5UIh2nlthIJqZbd5JoI3VmZmN9ozcB
+ /x1UVqpULsvqiw6mazvMI1MvrjKi3b6OI8BcrjBdHtNk9yepnAwRuSPA8h4FkrJC0DM=
+X-Gm-Gg: Acq92OG78ZFKN4a6GrxkRJ2Aer/DqloxG4haoRtL4rS1CPsQ9nxxvtJbdcZYZOe+1GC
+ 8DvHsXvpdSnznj/WTRRJBJWDV3egcirRXd/Xux09oLqiOzjwgOBMv3hl0rbo8oAeWb+ey0DN6Mx
+ EkLXKWIl6Xq+IE7sP3jWIOmBGt0vvrA7BogL8E7rpi8TE19sJ5TnrIfENfqwi7HUNJMep0cBI3R
+ OTrAwHuriivpwP4O+TNcg0qTravLWMouHZAE7RjwEU/9Ppm40jOkOzdq7RJ5luYnflv4WY1+Fwx
+ jQ2bJmp87SWwrN0yu6n7ovnKTeVYQF9wq+1OaxczRnrPIGVLIHtlgcbEn2P04dymwFZILkwzuXh
+ z5qX3VF7c2Dh6naPaWrjqGOPb3YapvHFWscIzU8Zxhvz0nDdgKCIkfBSjrbpMFZkYWAAFD06tIS
+ im98/U2ZnPaQLdE5+kCnkfBPVsry6VTjK9ZiuI6KLSV4jDOwDZFpxxEN4TlDnNv6UeDaTx9t3xz
+ Z+J6madQAFR9+hjnkpDYkt0/eqqWSgxf1vTe9SznFmm
+X-Received: by 2002:a05:6a20:431c:b0:398:7eea:50a0 with SMTP id
+ adf61e73a8af0-3af7f86f95amr7286510637.18.1778747140737; 
+ Thu, 14 May 2026 01:25:40 -0700 (PDT)
 Received: from [127.0.1.1] ([103.158.43.41])
  by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-c82bb06875bsm1589102a12.3.2026.05.14.01.25.25
+ 41be03b00d2f7-c82bb06875bsm1589102a12.3.2026.05.14.01.25.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 01:25:32 -0700 (PDT)
+ Thu, 14 May 2026 01:25:39 -0700 (PDT)
 From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Date: Thu, 14 May 2026 13:54:35 +0530
-Subject: [PATCH 06/14] fbdev: i740fb: fix potential memory leak in
- i740fb_probe()
+Date: Thu, 14 May 2026 13:54:36 +0530
+Subject: [PATCH 07/14] fbdev: nvidia: fix potential memory leak in
+ nvidiafb_probe()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260514-fbdev-v1-6-b3a2474fa720@cse.iitm.ac.in>
+Message-Id: <20260514-fbdev-v1-7-b3a2474fa720@cse.iitm.ac.in>
 References: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
 In-Reply-To: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
 To: Helge Deller <deller@gmx.de>, 
@@ -104,29 +104,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In i740fb_probe(), the memory allocated in fb_videomode_to_modelist()
-for modelist is not freed in the error paths. Fix that by calling
-fb_destroy_modelist().
+In nvidiafb_probe(), the memory allocated for modelist in
+nvidia_set_fbinfo() is not freed in the subsequent error paths.
+Fix that by calling fb_destroy_modelist().
 
-Fixes: 5350c65f4f15 ("Resurrect Intel740 driver: i740fb")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
 ---
- drivers/video/fbdev/i740fb.c | 1 +
+ drivers/video/fbdev/nvidia/nvidia.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/video/fbdev/i740fb.c b/drivers/video/fbdev/i740fb.c
-index 9b74dae71472..c14a19382769 100644
---- a/drivers/video/fbdev/i740fb.c
-+++ b/drivers/video/fbdev/i740fb.c
-@@ -1152,6 +1152,7 @@ static int i740fb_probe(struct pci_dev *dev, const struct pci_device_id *ent)
- 	fb_dealloc_cmap(&info->cmap);
- err_alloc_cmap:
- err_find_mode:
+diff --git a/drivers/video/fbdev/nvidia/nvidia.c b/drivers/video/fbdev/nvidia/nvidia.c
+index da2d486022e8..7d20c4087aeb 100644
+--- a/drivers/video/fbdev/nvidia/nvidia.c
++++ b/drivers/video/fbdev/nvidia/nvidia.c
+@@ -1424,6 +1424,7 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
+ 
+ err_out_iounmap_fb:
+ 	iounmap(info->screen_base);
 +	fb_destroy_modelist(&info->modelist);
- 	if (par->ddc_registered)
- 		i2c_del_adapter(&par->ddc_adapter);
- 	pci_iounmap(dev, par->regs);
+ err_out_free_base1:
+ 	fb_destroy_modedb(info->monspecs.modedb);
+ 	nvidia_delete_i2c_busses(par);
 
 -- 
 2.43.0
