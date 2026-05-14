@@ -4,96 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7B6FCD4F39
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 20:44:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6CC2CD4F39
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 21:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 528C010F330;
-	Thu, 14 May 2026 20:44:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4834E10E2E5;
+	Thu, 14 May 2026 21:29:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.b="JD7aMel+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cYfzJ8Aw";
 	dkim-atps=neutral
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
- [209.85.219.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96E5010F330
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 20:44:12 +0000 (UTC)
-Received: by mail-qv1-f52.google.com with SMTP id
- 6a1803df08f44-8b59772d441so84821516d6.0
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 13:44:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=paul-moore.com; s=google; t=1778791451; x=1779396251;
- darn=lists.freedesktop.org; 
- h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
- :mime-version:message-id:date:from:to:cc:subject:date:message-id
- :reply-to; bh=iIn517qMFa/72Ee/XGTDeeK9Cq6VJiGDpV2GCDJOS7E=;
- b=JD7aMel++wt6XqXq202Zo5g5sssnnMRBNNnQ00EOnHPaPvQs1KJapHOW0tNJ7QHAoq
- eRuLrys0iwEn/Nwjb7dGzH/YTvGzUXLmn2xscrI/0yTIsL8BCYp3yTtGKvJDnq3gWd8z
- x1ILiEhYoVUhKFgofehWnh2qLN/u5PVABV7kqp0lVhv+KSSYdIJP1TA3xJzTnCpLa1HH
- DF4kM4/hrVRWWIlxOQm+gapLW6JA9WLXMH70BjioTocD/jmDRc7DuI6T2bV12GmU2O1r
- jRlebA6iLtbfxG2OnR6MQLPTufz85wPLEwRX0zdRrmfDoyJvLwnrnhPBE//iU0e1gMS2
- sGmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778791451; x=1779396251;
- h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
- :mime-version:message-id:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=iIn517qMFa/72Ee/XGTDeeK9Cq6VJiGDpV2GCDJOS7E=;
- b=Qk5CwbLSfrbACJbDQLfXHrtlSAoPRhD2YtXudiS8kUXklQMt54mMNL+ooPfWR5WBft
- PxD+AJw4SVx4s+6F4M/r/GI3zcma2ZyaHuFjjqZx4feQerGDqKDvOht7fFENOia2TOTG
- L35udT5HB78jmJ2hH3wwpDy2ZDaDlm/YtIsggMxRY/vB/0/bvLa+L3F2Kj56HuHhYdYw
- 5/1Dgukwts820BxdqzAwZ+cHGakUndG/RtSHpL3lEw7a//eM3Bpd70jDoQS2daa7zPeg
- ipsaoBMkujT/2nXTTsXqoYpG3IX9KaqijbRwXd9NpQIvUI3vJLCGxMcTdWQaUUQLBiL/
- K6Jw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8W+iwlVAsgdOlvsuAGj8MW2c/wsLWhVgqkuEAJiV10vu9cNxUlK3Xy3imnWQ2lnRAElY1B8rSjmXM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywi9grzfa9BB9uZtMV8XloQSLy0l4oDOxOVTR4Pj7pkXzIBvmq4
- nsw1yDMpeNbjBPDIKBcjZtTJixLjwlGJvi3MLgPsU2Hgg/lZHgpdiWkFBfIQvlp4pA==
-X-Gm-Gg: Acq92OELnHYn7bWPzrJy1kri8m+DGWhka6E3WbsuvXuVxeFDTs4eTU/mFIR5ni2kSLr
- zdZx8fHX8Ao8j+ub0HTrHzAEwvkgrK++rNSwYHYIx2Ko5IQlEQskHdqJ8QZiupkih+YGgfNNfiu
- lJr3vLmXHsaSG7szxZuzTJeU+tasqX19AA5oGzqzTWbVc/QtZQiwMqFOLCQow1eCrJWRj7jjRTH
- TR/OTZmzfQUDnONm1TR6Y8uvqMtpZoeYYvnwznzi+nKDZs39XDQ5c965RhQRBZcYnJZv/Q+6SrW
- 8F9oPemmqBer5Zo1XeIwUkp/8cse67pGgKEajaQnIdI3ZUwaj44aQdaBfqnJwnXn7M+5roLr918
- 116wSAZkjFUwVzH8LDYaFXjBPNHe6bLJLuMt6WBywIwGrr2yYx0jyJSnU1tVBnaCfVbJBOOc6B3
- 1F76dn/VG6Ss4q1cQIADs7PAsqJWBgE8i8/deH1JKAB8xQZeh+bzrzzBHYakeGUTm4wwmzI8ouJ
- yXaXmM=
-X-Received: by 2002:ad4:5e88:0:b0:8ac:b70c:8a9b with SMTP id
- 6a1803df08f44-8ca0f70f697mr20146116d6.44.1778791451056; 
- Thu, 14 May 2026 13:44:11 -0700 (PDT)
-Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net.
- [71.126.255.178]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8c90c358539sm32474826d6.41.2026.05.14.13.44.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 13:44:10 -0700 (PDT)
-Date: Thu, 14 May 2026 16:44:09 -0400
-Message-ID: <16093a0278a6d7d1a0a8bc055c228bed@paul-moore.com>
-MIME-Version: 1.0 
-Content-Type: text/plain; charset=UTF-8 
-Content-Transfer-Encoding: 8bit 
-X-Mailer: pstg-pwork:20260514_1634/pstg-lib:20260514_1359/pstg-pwork:20260514_1634
-From: Paul Moore <paul@paul-moore.com>
-To: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Christian Brauner <brauner@kernel.org>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-mm@kvack.org, linux-security-module@vger.kernel.org,
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Albert Esteve <aesteve@redhat.com>, mripard@kernel.org, echanude@redhat.com
-Subject: Re: [PATCH RFC 4/5] selinux: Restrict cross-cgroup dma-heap charging
-References: <20260512-v2_20230123_tjmercier_google_com-v1-4-6326701c3691@redhat.com>
-In-Reply-To: <20260512-v2_20230123_tjmercier_google_com-v1-4-6326701c3691@redhat.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C46210E3FD
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 21:29:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 939C9444F9;
+ Thu, 14 May 2026 21:29:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6DB12C2BCC7;
+ Thu, 14 May 2026 21:29:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778794181;
+ bh=TOd4g1kArrVBssU9X9NQsYGPgQQlLFG/Azt0iGKbDTM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=cYfzJ8AwlcaCjfp60jmpAor7sn631XYwo1AYnaaMP6DHfhKKfXl/QzO2aduvtlnQT
+ BA1GEIEAl5oKSe40Gu0FA22zGLJfn9jxPvWPqRbn8Hjevuq4ObbEwtoMvs9uAPjcjP
+ YpmzS+o5Wqqsnzx/JrRgQi2s6tflnXJ2T7Hdf4n4sXyHrAAmXlHIlKSax8QW6bVcKu
+ b/eRvPIkQZWXWSMDR2psuFXi0XoeFuDUIPSX1l19+8v0IebcPZ/OYY9pu7BJWYqh8+
+ P8wOAO4U0/D/YjcH4BZtqVwO6Ome03uc+/YXmOvDimGf4uPTUWfAv5gGcWZ/uo+0aU
+ dWuRvccbzgjWA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 599ABCD4F39;
+ Thu, 14 May 2026 21:29:41 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Thu, 14 May 2026 16:29:16 -0500
+Subject: [PATCH v3 1/2] dt-bindings: display: panel: Add Chipone ICNA3512
+ OLED driver bindings
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260514-icna35xx-v3-1-c304f04c32c4@gmail.com>
+References: <20260514-icna35xx-v3-0-c304f04c32c4@gmail.com>
+In-Reply-To: <20260514-icna35xx-v3-0-c304f04c32c4@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778794180; l=2767;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=uXlXkwegKgV3qNGrNC6g+UVa4Tf9QiIsRwWcXXJ26os=;
+ b=3gRn5+UA1owjYxDH0L2VB9lTCq8jsxb1VgdlQPPmNWaDZSb6EUWHv15IMw68otnowpfkKvv3A
+ JCLDMhThPkGD7xv32ujb/4k8FRZs61ZxvZIW8g/3VaPvxnD6CyfWLse
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,82 +76,112 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On May 12, 2026 Albert Esteve <aesteve@redhat.com> wrote:
-> 
-> The security_dma_heap_alloc() hook allows security modules
-> to control which processes may charge dma-buf allocations
-> to another process's cgroup via the charge_pid_fd field of
-> DMA_HEAP_IOCTL_ALLOC. Without a policy implementation, the
-> hook is a no-op and the restriction is not enforced.
-> 
-> On SELinux-managed systems any domain with access to a
-> dma-heap device node can therefore exhaust another cgroup's
-> memory budget without restriction.
-> 
-> Implement selinux_dma_heap_alloc() using avc_has_perm() with
-> a new dma_heap object class and a charge_to permission. Policy
-> authors can then grant cross-cgroup charging selectively,
-> for example:
-> 
->   allow allocator_app_t client_app_t:dma_heap charge_to;
-> 
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
->  security/selinux/hooks.c            | 7 +++++++
->  security/selinux/include/classmap.h | 1 +
->  2 files changed, 8 insertions(+)
-> 
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index 0f704380a8c81..ea1f410b9f619 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -2189,6 +2189,12 @@ static int selinux_capable(const struct cred *cred, struct user_namespace *ns,
->  	return cred_has_capability(cred, cap, opts, ns == &init_user_ns);
->  }
->  
-> +static int selinux_dma_heap_alloc(const struct cred *from, const struct cred *to)
-> +{
-> +	return avc_has_perm(cred_sid(from), cred_sid(to),
-> +			    SECCLASS_DMA_HEAP, DMA_HEAP__CHARGE_TO, NULL);
-> +}
-> +
->  static int selinux_quotactl(int cmds, int type, int id, const struct super_block *sb)
->  {
->  	const struct cred *cred = current_cred();
-> @@ -7541,6 +7547,7 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
->  	LSM_HOOK_INIT(capget, selinux_capget),
->  	LSM_HOOK_INIT(capset, selinux_capset),
->  	LSM_HOOK_INIT(capable, selinux_capable),
-> +	LSM_HOOK_INIT(dma_heap_alloc, selinux_dma_heap_alloc),
->  	LSM_HOOK_INIT(quotactl, selinux_quotactl),
->  	LSM_HOOK_INIT(quota_on, selinux_quota_on),
->  	LSM_HOOK_INIT(syslog, selinux_syslog),
-> diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
-> index 90cb61b164256..d232f7808f6b8 100644
-> --- a/security/selinux/include/classmap.h
-> +++ b/security/selinux/include/classmap.h
-> @@ -181,6 +181,7 @@ const struct security_class_mapping secclass_map[] = {
->  	{ "user_namespace", { "create", NULL } },
->  	{ "memfd_file",
->  	  { COMMON_FILE_PERMS, "execute_no_trans", "entrypoint", NULL } },
-> +	{ "dma_heap", { "charge_to", NULL } },
->  	/* last one */ { NULL, {} }
->  };
+From: Aaron Kling <webgeek1234@gmail.com>
 
-While we have seen some one-off patches to add specific resource/cgroups
-controls in the past, much like this one, we've yet to see a patchset
-that provides a more comprehensive set of resource/cgroup access controls
-for SELinux.
+The Chipone ICNA3512 and ICNA3520 DDICs are high refresh, low power
+MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
+Portal and the Ayaneo Pocket DS top panel while the icna3520 is used by
+the Ayn Thor top panel and the Ayn Odin 3.
 
-I'm not opposed to a patch like this, but I would like to see it as part
-of a larger effort to introduce access controls across all of the
-existing cgroup control points where it makes sense.  In other words,
-let's see a design for cgroup access controls so that we can ensure we
-have something that is meaningful and makes sense from a policy
-developer's perspective.
+These ddic's are generally compatible, but some MIPI vendor commands
+differ between them, so they are not fully fallback compatible.
 
---
-paul-moore.com
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ .../bindings/display/panel/chipone,icna3512.yaml   | 79 ++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna3512.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna3512.yaml
+new file mode 100644
+index 00000000000000..90e69f30cd91ca
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/chipone,icna3512.yaml
+@@ -0,0 +1,79 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/chipone,icna3512.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Chipone ICNA3512 and ICNA3520 display drivers
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description:
++  The Chipone ICNA3512 and ICNA3520 are DDICs connected
++  using a MIPI-DSI video interface.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - ayaneo,pocketds-panel-top
++              - ayntec,odin2portal-panel
++          - const: chipone,icna3512
++
++      - items:
++          - enum:
++              - ayntec,odin3-panel
++              - ayntec,thor-panel-top
++          - const: chipone,icna3520
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  vdd-supply: true
++  vddio-supply: true
++  vci-supply: true
++  disp-supply: true
++  blvdd-supply: true
++
++  port: true
++  reset-gpios: true
++  rotation: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - vddio-supply
++  - vci-supply
++  - disp-supply
++  - blvdd-supply
++  - reset-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        panel@0 {
++            compatible = "ayntec,odin2portal-panel", "chipone,icna3512";
++            reg = <0>;
++            vdd-supply = <&vreg_l11b_1p2>;
++            vddio-supply = <&vreg_l12b_1p8>;
++            vci-supply = <&vreg_l13b_3p0>;
++            disp-supply = <&vdd_disp_2v8>;
++            blvdd-supply = <&vdd_bl_5v0>;
++            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
++        };
++    };
++
++...
+
+-- 
+2.53.0
+
+
