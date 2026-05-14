@@ -4,93 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8912DCD37AC
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 17:19:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 408A2CD4F39
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 17:24:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D03C110E3FB;
-	Thu, 14 May 2026 17:19:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46B7910F2BB;
+	Thu, 14 May 2026 17:24:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ndb9J5KK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YQw6V4ci";
 	dkim-atps=neutral
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F5FA10E524
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 17:19:29 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-1325d6391a1so535251c88.2
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 10:19:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778779168; cv=none;
- d=google.com; s=arc-20240605;
- b=fJaZzyi9au3wT2SLXN2Iv88wFhJQsqDy7hzH+znk/MMi3Lu1jD8GOF5D2K3Bd4kqcY
- ERLKMtRg03JDwABzwzvPMgChOJ5tY82cmQHQGwGmqdLvsWKXw924w14OvZvqdgAferO6
- 4e5PUJAuAlu7VH1hvYzi3Wdjk95ak3rssWxK1k0Lpqvca+Z58lu3UjgTbwtf0I2DENVp
- JohtXVX6K22AD+kktbLBFY9SoD6wn049wMjkSb5T6aSBM+pLmdyGUD4E7DrWpuTQIjLY
- gVDr6KSFKP7Z8+hKIOgFuLYcmk/EO2wgzHxGME5AYWQSNOTxRr5PzNjBrQp/ve9f6UNC
- S/Bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=+kgt6VghtXyCeOewAd2bBhxKrJ5EeB0MoPNkdQdR5b0=;
- fh=Ps8/jnnN6KPlgDyFzF8PJ/+NFtNXf1K3ev8rDUFnB0c=;
- b=IXXHQ1S4D4ixVHYfzc3DuCoZpWyIAaW/ymsrFio90wYFxjVxXFnlbAOvuFsx6NwlJt
- kIBXTerELMH7q/jKdHfGoBORpOzS6G9REiwWmWbuWnjrDK2pssA76FCpn40z8b8NkFee
- FtjWAygeHz5q3McwcGA3YSpXXTYsft4h4SQqbnfOjeOXhZybnTJg5utqdelHLTKb7OdV
- 2cLqDqVdu3HV1hxZdI/hfHcmyRP9wOHMZJ0xLZZKrlsiYFWkCd0hkfrBjFTDlPA67jaI
- i4nfZK1ptDfJ5i2Y0yGpULLdcb5ALJzXw89smIhgg9INoC5jEbiP8hkVhLYyWpT9k5iX
- 4PDQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778779168; x=1779383968; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+kgt6VghtXyCeOewAd2bBhxKrJ5EeB0MoPNkdQdR5b0=;
- b=Ndb9J5KKqcBaOk4YLclWTT5qCrO8Qr+UYwAHhGOeddIDFdnQGSiDKcxoF5r+C5XiwN
- ESyvZ4iT4fZKoJKQ6XjUNK/WXbTwTf5gH7yPAWkC8nlBssC3B7rXiI5e29CIdgVWmPj+
- OSu9J3+Igk9tig0IIPhM/2zMEeXkDyy/e7rJHKpDMnTnG3zS/uDNzIA0KNCtF4OdmD9g
- cIRgPOPj3EPVT0xxbooytCeweFFWOJPPjwbvO5bvFJa9jg3RUW87C0US50uk0S+hhD6w
- qlBE/yiJP+PvFJXII7kcuMyFnh1o4g6z+uKLOFc44aJp0bzjA9qbXe6bXwSBsStlePly
- PvTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778779168; x=1779383968;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=+kgt6VghtXyCeOewAd2bBhxKrJ5EeB0MoPNkdQdR5b0=;
- b=nbjNK99MdGRmnG4iO7NjTLuNACPEJWMXhRl7cro2XEedapI0/S5KdN5BUjrtOpck4K
- +HMoxDec5JopsxvUxkCjvkTEt6UWCSkwFnpGFjufoNSqsN4O+Lm7bxrjQ1thZpnAwnfu
- tDjI9rNY4e6vWDC9jCbeAEcnZ+1kxsxnW7ziRvhxXu7lrk2rTs9XhetHBUaGjNt2v+OZ
- QB8NNp8d6GAsesNeb0l33kPlke73hcZsFnnUi+ITrxryVSi1Egwujh79TCba3yQi1Foj
- u5PMI+PnLIY89UNnh3lzoMw0cvJW+5BfVtzVGAnvkTYQuBX+ayXWd0rKrRxmSobEl9Y7
- CtvA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8fBgvHyXcCsbqhFr9FnBtdvK5cNzDN1HtGxvcdJp5tKW8p7zoheuIibBEQHNQz4gY/y64AUueV/yA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyCnmJkZ7M+0FXxpWuhw0YZp6CgkTzDF0GZiinEiBOMhJ20FPAJ
- AgDPB+bv7xrRsIdnTTZTUmyxGZNa1c0ZufR5Bn9A7+u1xG9xyt5nEu3BBYWgB2+Bq/3tx0STjIF
- 1PFDu7v8+nZeuqztA+BrW2mZwP9VKby8=
-X-Gm-Gg: Acq92OE1oM7M0yZab6r8wn+XRQpVPYzA20JcyBN/YYrYGpTYJOhkymPhDA39HFhZ3Vr
- sY6aeJmZDyr3FFXoyiFYO2kpQWPSlW3ZJVFpgKPLj0hHx8zfUaBSbWMP9zEXuLcl42ZNC+OIoi8
- r1LYYm/iEk8nSyyYXrswLGRR2lU9VMGEnjSrGiAUvkElgZOy3fzsnlOHql3xe2iy65Oo01hnrOX
- wd2joAbKHTi0aSkjQ3Lj3DbHgtsiVLq0uHFeEQnBnNkmsFrjCPaOt6vKjNeVzHfFn1twC/gAAS5
- x7sv3U1hWg3FZ5vO1vX/4M+U9MilUTdrp32aIPcMXhyJScAFRQiPjdifsdcBLY28uEG3vw==
-X-Received: by 2002:a05:7022:60a9:b0:130:8ed9:203e with SMTP id
- a92af1059eb24-13503fe8579mr18309c88.0.1778779168197; Thu, 14 May 2026
- 10:19:28 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EF5B10E3F7
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 17:24:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id A70306013B;
+ Thu, 14 May 2026 17:24:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 548E5C2BCB7;
+ Thu, 14 May 2026 17:24:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778779495;
+ bh=bAMBBHIU5JpHs5WIj7GRPOsNIX+w2cKhwu46K4nUuyY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=YQw6V4cijzYe7SKFrySUuUYPvPQ1QJVwbLabWwMEWbQs0k5Dnz9cB2RZusB/mZySg
+ 5aTcEea7FYRgMY+lsH4nb26SR/qpuw/Ha5SzmCKd9s6CXvsjPOs6yJiD88e2JOexeo
+ QzoL6LRz+Qt7AazjhFFpYRprAHD4kG53gaIS7X6dn7vuxdgt4X96j4hrt8D3zoULxa
+ qr+gz4FqvbAJQhpk5TEZEPxgfuIhUcZ3qWDwzj9C57ZwXV+MCTUz8fnwzyBDuZROhm
+ uenxzt45NoEfAbc0ijNMvurjmgRImL1+m36D4KGB58G3+FGFnWY7p81jGDUMow/3K6
+ I48/5BUt7/H3A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 46CBECD4F25;
+ Thu, 14 May 2026 17:24:55 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Thu, 14 May 2026 12:24:49 -0500
+Subject: [PATCH v2 1/2] dt-bindings: display: panel: Add Chipone ICNA 35xx
+ OLED driver bindings
 MIME-Version: 1.0
-References: <20260514170139.335618-1-alex.hung@amd.com>
-In-Reply-To: <20260514170139.335618-1-alex.hung@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 May 2026 13:19:15 -0400
-X-Gm-Features: AVHnY4J4r3RZAvJcrVS79xkNwSaEe7tXxUwqGyTSplDANI65OpLuqquJItPOrTg
-Message-ID: <CADnq5_MZ=S-b3smHdHA_0_+hZq92Y66oKO=KCfzoG79F_fardA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: Fix UML build guards for x86_64-only code
-To: Alex Hung <alex.hung@amd.com>
-Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com, 
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
- harry.wentland@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260514-icna35xx-v2-1-45acd1dfa566@gmail.com>
+References: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
+In-Reply-To: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778779494; l=2576;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=u+xNtbXC2ipkpodEb8alKozIa29lnpYUjbXquoCzHmQ=;
+ b=D5QyChQvw1PtY6pF+5ePWpatZFHu7kX5ejKoZy3hJZ8E7SLTrlwJiZY8rC+puhkqYIRnHrm/K
+ tDCmJXjYu+aAPzh52yHs6NhRzt/rbOYyxdl5Hfp+UPPcw1+wKRKG+Xw
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,89 +76,109 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 14, 2026 at 1:03=E2=80=AFPM Alex Hung <alex.hung@amd.com> wrote=
-:
->
-> cpu_data().topo.apicid and kfd_fill_iolink_info_for_cpu() rely on
-> x86-specific structs not present on UML. The kfd_topology.c and
-> kfd_crat.c were guarded by CONFIG_X86_64 alone, causing build
-> failures when CONFIG_DRM_AMDGPU is selected on UML.
->
-> Update guards to '#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)'
-> to ensure x86_64-only paths are excluded on UML builds.
->
-> Fixes: e6b71bcdc409 ("drm/amdgpu: Remove UML build exclusion from Kconfig=
-")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202605140506.TI8zPIBG-lkp@i=
-ntel.com/
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Assisted-by: Copilot:Claude-Sonnet-4.6
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
+From: Aaron Kling <webgeek1234@gmail.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+The Chipone ICNA35xx series of DDICs are high refresh, low power
+MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
+Portal and the icna3520 is used by the Ayn Thor top panel and the Ayn
+Odin 3.
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
->  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
->  2 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_crat.c
-> index a1087c13f241..cf7b1b038d5f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> @@ -1821,7 +1821,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_=
-id, int *avail_size,
->         return 0;
->  }
->
-> -#ifdef CONFIG_X86_64
-> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->  static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_siz=
-e,
->                                 uint32_t *num_entries,
->                                 struct crat_subtype_iolink *sub_type_hdr)
-> @@ -1880,7 +1880,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_i=
-mage, size_t *size)
->         struct crat_subtype_generic *sub_type_hdr;
->         int avail_size =3D *size;
->         int numa_node_id;
-> -#ifdef CONFIG_X86_64
-> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->         uint32_t entries =3D 0;
->  #endif
->         int ret =3D 0;
-> @@ -1945,7 +1945,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_i=
-mage, size_t *size)
->                         sub_type_hdr->length);
->
->                 /* Fill in Subtype: IO Link */
-> -#ifdef CONFIG_X86_64
-> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->                 ret =3D kfd_fill_iolink_info_for_cpu(numa_node_id, &avail=
-_size,
->                                 &entries,
->                                 (struct crat_subtype_iolink *)sub_type_hd=
-r);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/=
-amd/amdkfd/kfd_topology.c
-> index 46db0d65d242..87e13f021457 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -2349,7 +2349,7 @@ static int kfd_cpumask_to_apic_id(const struct cpum=
-ask *cpumask)
->         first_cpu_of_numa_node =3D cpumask_first(cpumask);
->         if (first_cpu_of_numa_node >=3D nr_cpu_ids)
->                 return -1;
-> -#ifdef CONFIG_X86_64
-> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->         return cpu_data(first_cpu_of_numa_node).topo.apicid;
->  #else
->         return first_cpu_of_numa_node;
-> --
-> 2.43.0
->
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ .../bindings/display/panel/chipone,icna35xx.yaml   | 79 ++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml
+new file mode 100644
+index 00000000000000..6464d8d0cf86d5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml
+@@ -0,0 +1,79 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/chipone,icna35xx.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Chipone ICNA35xx display drivers
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description:
++  The Chipone ICNA35xx are a series of DDICs connected
++  using a MIPI-DSI video interface.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - ayaneo,pocketds-panel-top
++              - ayntec,odin2portal-panel
++          - const: chipone,icna3512
++
++      - items:
++          - enum:
++              - ayntec,odin3-panel
++              - ayntec,thor-panel-top
++          - const: chipone,icna3520
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  vdd-supply: true
++  vddio-supply: true
++  vci-supply: true
++  disp-supply: true
++  blvdd-supply: true
++
++  port: true
++  reset-gpios: true
++  rotation: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - vddio-supply
++  - vci-supply
++  - disp-supply
++  - blvdd-supply
++  - reset-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        panel@0 {
++            compatible = "ayntec,odin2portal-panel", "chipone,icna3512";
++            reg = <0>;
++            vdd-supply = <&vreg_l11b_1p2>;
++            vddio-supply = <&vreg_l12b_1p8>;
++            vci-supply = <&vreg_l13b_3p0>;
++            disp-supply = <&vdd_disp_2v8>;
++            blvdd-supply = <&vdd_bl_5v0>;
++            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
++        };
++    };
++
++...
+
+-- 
+2.53.0
+
+
