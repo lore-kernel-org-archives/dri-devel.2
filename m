@@ -4,71 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04A74CD4F39
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 21:29:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF705CD4F39
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 21:46:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D44910E608;
-	Thu, 14 May 2026 21:29:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECAD310E5F7;
+	Thu, 14 May 2026 21:46:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h9FE9svj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ltyBb/RN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C20E10E2E5
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 21:29:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7DF0A44198;
- Thu, 14 May 2026 21:29:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 55F67C2BCB3;
- Thu, 14 May 2026 21:29:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778794181;
- bh=SbsBVDltEsAEw0XMf+/R1l5EehsrIDBu3yBrZiL89Zg=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=h9FE9svj4V0O/ARXr2cuTLbE0h3F3Ifw7NZHquLSQuUz2d55ZX5FFWdMpFLMiXdkD
- nOKC4H+xb25ppSYkIzAoK9nNupH+qH+IV2vZod0IDjxHGZEmXsAPaqCbjDl+DAY4PL
- dfyoiC8g/w9eNdThugWMotwTELLasxuIvovG7n6RY3Z2MYiivugXGs9uMHxj41oFuL
- xu89nAcxU9Qnyn1wFBa9cb3MJN5UW5/jtNav7xuTwLImKJSHUPjHp2dnnDIZPCJlcp
- sNkAcMRDG/XFYPqNX9ijdAn+lPkicpHWYjBBAFZdbXTJWU5oP2xLecG2me+FVH1n0h
- c/j23GCzYBkSg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3C649CD4F25;
- Thu, 14 May 2026 21:29:41 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Subject: [PATCH v3 0/2] drm/panel: Add panel driver for Chipone ICNA35XX
- based panels
-Date: Thu, 14 May 2026 16:29:15 -0500
-Message-Id: <20260514-icna35xx-v3-0-c304f04c32c4@gmail.com>
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEB6310E3D8
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 17:41:49 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-5a88de2b52eso10450129e87.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 10:41:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778780508; x=1779385308; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=1l+SpR/UEyvWMAal4xyrEteWb4GfZNc3Ty6R5bexWb8=;
+ b=ltyBb/RNrS0Lx0eUMykFWZQWSkMlqr4a1XfzaI+Jtga48yu+2bPGIN5tmQkejQR4Bq
+ BwZmv53jremzcQxCevimW8/cIjH0ryIdRD10Nk0dvCYxSmglVDcSSfsv30XyCnv3TyM1
+ oE7KSa1fA0LIsesXS9OTElxScLyHDF0mYIsvaqZnamRLehdlk+Wh6UrlPW9J2nKYveus
+ QJvwJxGVaI2KKmBSVlN4jD9OHtieQjDlveYqymsPKphgvdFDlHe+gNJI57Nk6RpryZ8w
+ RNFYI7SVf/eS8OdvVMyB5m3/zgxDAkNuN4N7QcpEmlxfQFTISQ72CKtUJp5tFo7IAWmS
+ cIxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778780508; x=1779385308;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1l+SpR/UEyvWMAal4xyrEteWb4GfZNc3Ty6R5bexWb8=;
+ b=LzkIWEiP/l8fUuRLuVAmBSdqnjAWO8HXz6lohQ3n48i+rbHoB6vf7e4SDPdEzEfm2j
+ 7cZ1B9ldEL7bADHz//6e1KD/TB66ZoXPjpS1R4pgLz0KJvUFSsGMw3RaPPnOb3tEImhQ
+ NZU3hp3SWm1FMyG8yeNZ2jdCLwvAzLk/cC2fCQnWma6Gw7L0q/2J9TNLe+fVrGucuicF
+ b7ZclMIX4jB8BYoi/CbWHIiVg2/5r1+pTERQ3Bmx44h3Zjs/hTVXmpqivIBZAsf5G8dx
+ ZBUajVYqEXUAqRs/RFcAhL0nyQbWIC6RmwQD/prDrEDc21ZOOE+72wnB1MpvjLtVmX0V
+ YfiA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+tb+N8Ne1oWVukQUgw/P6ZplHP378HXjY6toGYO/ouVuMRHKUsA3+M8+w7Pt6ll9/nTqa8t5rT4W0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwxYGXGsIRz2GfkASnNnV4E/WMqttECL/OR5e395skwr0NMcFJE
+ k8SMJt1HhvZ/AqrNSrnBPxUV1Ie8QCD1ZtBNwC/1msTzKaQRHEhF2J5R
+X-Gm-Gg: Acq92OHrXtG902eyNACEZSbb3LrcsL0FfOeGlqz5Ou1/VqWnodnREE3l70SMLy/+JD6
+ aTW28PyOh9nYr1yuAJuooWQtQda/5O63hTB7YlqkzTpRc7ck0KdcB3/mMkf7R6u0OaNHDnZWst9
+ ABH5VHkooUlW9/vRYegBWetelYqPoTqa8S7mzkJVNbl4Nef8q8kYZ3fAEf6+IqTG+4CJa5wgGlL
+ 6X+EE2NIELC6U73ZTRMRG2NDDln83rUrXoOX+giDEN2KAKblhGRQeFnVeDR8cQcPeg/vxlnTCc6
+ YzL1TP8cHtiJ+JP4pBhUHRhpiTaU+rDJ27Jw/L7jmJgISvmgpkuZIcmBBhZGzoeof+5nyCx9yMp
+ UH72bnB3k7Uvte4hwy2jx32sYtBTZzcxUucrhMtRgRNnNrp1m1QhP9ZRS4kp/glsOKYwOkVqt6y
+ zDK2Kv1eZO9IouKHEeJPft/Y++pgsPT0gY06Cq5+7xsn9poXEtVVtByMuG1iaw19JFyIU=
+X-Received: by 2002:a05:6512:1287:b0:5a9:bdab:2d19 with SMTP id
+ 2adb3069b0e04-5aa0e5c3b4emr47624e87.0.1778780507399; 
+ Thu, 14 May 2026 10:41:47 -0700 (PDT)
+Received: from localhost.localdomain ([217.107.127.207])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a90f10c84dsm613528e87.10.2026.05.14.10.41.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 May 2026 10:41:46 -0700 (PDT)
+From: Bulatov Mark <ms.bulatov7@gmail.com>
+To: Lyude Paul <lyude@redhat.com>
+Cc: Mark Bulatov <ms.bulatov7@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>,
+ Dave Airlie <airlied@redhat.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org
+Subject: [PATCH] drm/nouveau: handle nouveau_hw_get_clock() return value
+Date: Thu, 14 May 2026 20:40:08 +0300
+Message-Id: <20260514174008.4515-1-ms.bulatov7@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02PTW6DMBCFr4K8riuPjY1h1XtUWYztcWKpQIIJI
- oq4e11YlOUbzfd+3izTlCizrnqziZaU0zgUoT4q5m84XImnUDSTQhohpeDJD6j0unLyLUYERYD
- Iyvt9opjW3er7cuiJHs/iOB9H5jAT92Pfp7mrqLVBgodGOAEhUFTGRCGVc9FH4xRo0Ua0ip2bd
- NXRAxqOr4E/fLZaCw7Gi8YZFUiabrHsL/6W8jxOr33YAnv+zhbb/w0LcMGNtUGFmkDE9uvaY/r
- 5LCV3k0WeQKhPoCxgrdEHCBG1MWdw27ZfEJCflFgBAAA=
-X-Change-ID: 20260220-icna35xx-ec9afa13e1aa
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
- Teguh Sobirin <teguh@sobir.in>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778794180; l=2148;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=SbsBVDltEsAEw0XMf+/R1l5EehsrIDBu3yBrZiL89Zg=;
- b=eRgWM/GviVsKIIMDZ42FpgkiCbQMwLJ+9I+tXq38amhmUz/86ZpxrRJyoDbrzOrZQuybHEWFx
- P8KPlqiXipeDfq0JVg0/gdcpwp+9XtdJpq/4N9sanKd1yf3dWImW+xI
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 14 May 2026 21:46:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,58 +90,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This driver is based on the one by Teguh Sobirin [0].
-    
-Due to [1], the AYN vendor description patch has been folded into the
-AYN QCS8550 dt series. Which means this series depends on said series
-and it must be picked up before this.
+From: Mark Bulatov <ms.bulatov7@gmail.com>
 
-[0] https://github.com/AYNTechnologies/linux/commit/4c5e76e974db7cca853619ca138eecd8f004622f
-[1] https://lore.kernel.org/linux-arm-msm/c7fb3f89-6574-4761-9ef2-2fdf6d4801b5@kernel.org
+In the nv04_update_arb() function, MClk and NVClk are passed to
+nv04_calc_arb() or nv10_calc_arb(), where they are used as divisors.
+MClk and NVClk are calculated using nouveau_hw_get_clock(), which, via
+nouveau_hw_pllvals_to_clk(), can return 0, resulting in division by 0.
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+The result of nouveau_hw_get_pllvals() in the nouveau_hw_get_clock()
+function can also return -ENOENT, which is not checked anywhere.
+
+Fix all this by adding a check.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 6ee738610f41 ("drm/nouveau: Add DRM driver for NVIDIA GPUs")
+Signed-off-by: Mark Bulatov <ms.bulatov7@gmail.com>
 ---
-Changes in v3:
-- Rename binding in patch 1 to icna3512 to match a compatible being used
-- Edit commit messages in both patches 1 and 2 to better clarify the
-  supported hardware and differences
-- Link to v2: https://lore.kernel.org/r/20260514-icna35xx-v2-0-45acd1dfa566@gmail.com
+ drivers/gpu/drm/nouveau/dispnv04/arb.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Changes in v2:
-- Fix lint warning in patch 1
-- Add ayaneo,pocketds-panel-top compatible to patches 1 and 2, it uses the
-  same init sequence as the odin 2 portal panel.
-- Link to v1: https://lore.kernel.org/r/20260509-icna35xx-v1-0-688d3d4e10f9@gmail.com
-
----
-Aaron Kling (1):
-      dt-bindings: display: panel: Add Chipone ICNA3512 OLED driver bindings
-
-Teguh Sobirin (1):
-      drm/panel: Add panel driver for Chipone ICNA35XX based panels
-
- .../bindings/display/panel/chipone,icna3512.yaml   |  79 +++
- drivers/gpu/drm/panel/Kconfig                      |  11 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-chipone-icna35xx.c     | 619 +++++++++++++++++++++
- 4 files changed, 710 insertions(+)
----
-base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
-change-id: 20260220-icna35xx-ec9afa13e1aa
-prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v8
-prerequisite-patch-id: 2b010637c46f5ea0e19a2fa87cc5ccb19bfd9204
-prerequisite-patch-id: d0c633dc17f0aba726a8e8d21fee52b944bf67ff
-prerequisite-patch-id: 11f4208bd788df984cec7404088c7d071ec49dfc
-prerequisite-patch-id: 76b61799dba520fc7fa3ff39b044e24103337af3
-prerequisite-patch-id: 3844bef2eda3cf59031b1d131eb6ba9295629bb4
-prerequisite-patch-id: 3331648bc6f4ac3bb156f0525aa1ede92bfc57f1
-
-Best regards,
+diff --git a/drivers/gpu/drm/nouveau/dispnv04/arb.c b/drivers/gpu/drm/nouveau/dispnv04/arb.c
+index 1d3542d6006b..2f59b8739fc1 100644
+--- a/drivers/gpu/drm/nouveau/dispnv04/arb.c
++++ b/drivers/gpu/drm/nouveau/dispnv04/arb.c
+@@ -202,6 +202,9 @@ nv04_update_arb(struct drm_device *dev, int VClk, int bpp,
+ 	uint32_t cfg1 = nvif_rd32(device, NV04_PFB_CFG1);
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 
++	if (MClk <= 0 || NVClk <= 0)
++		return;
++
+ 	sim_data.pclk_khz = VClk;
+ 	sim_data.mclk_khz = MClk;
+ 	sim_data.nvclk_khz = NVClk;
 -- 
-Aaron Kling <webgeek1234@gmail.com>
-
+2.39.5
 
