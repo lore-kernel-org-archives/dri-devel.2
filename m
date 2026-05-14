@@ -4,91 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C23CD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:26:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6020CD4851
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:36:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C067410F163;
-	Thu, 14 May 2026 08:26:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 348BE10E39B;
+	Thu, 14 May 2026 08:36:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="E9IxzMqI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O6+3Gks6";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C65CA10F163
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 08:26:34 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-c796163fac5so5663165a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 01:26:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1778747194; x=1779351994;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=t5YZ5/RDTjOVXbQmmL0DlnfYt163pcXn6d4m+SJiGG8=;
- b=E9IxzMqI/II/0NHt90oPRV1SrRKOH1x2lCVjL7JyBc0d2IPnli1cGt/M/z+nTGs+qp
- gCvOQF1bZWS1ObHcNzr1HzoRYqkBfJk0YZsjoGU8aD9K3+dDzIYuEAjiSijDMBR0xmJv
- xDnvONoxjka7pDCQg38wAY0qiNLW0eY5uFPrlXFEHq8QfZAjR3iYFHZUnpf9NfCyQYcU
- hI+DUR4DxH3ntlvsr/tPdUZq2qYe4+MgzHwHso3emB33PbkdVGNwKHoGGdzUgR6ELno6
- viLWBwzgwcz7UyVyve4xeYgzD4QA+8eKx79ZierdF9arwBKsWLk6N8RVr8Po9UKqDF8a
- I5jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778747194; x=1779351994;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=t5YZ5/RDTjOVXbQmmL0DlnfYt163pcXn6d4m+SJiGG8=;
- b=nHIBhXX6bM3RWM5W8arqO8bIqyiBrmVQCEGqKifEYhbez7WPAQefBaisQ3vyoogXoW
- Ke98FF0CeeHr+IP/mhYyHdxfD8CUzMWG11G2+N32IHmpUgJ4Ct4XVb02fdO8DE32gtvk
- ndE6uW7njyYbQ++9snVecz+3eS41C6dAEA7QqgJJEoi/mfs+72Guxfobm4dIlY0trttr
- /GpTMwe3mpYx14NyfAzOkDYTU3lWZkPVba/r3NmCCROSE5RwwxSgYCaf/+Uv8wadD5n2
- RUQOaZq//qph0Bd4H00KAEGbXy443LclzeBOcNKR1R8Sr+E3t7S3oOHP5RsIMenlAvK5
- 3qQQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/lPyThtfIG1xNxQxllK0n60/uGLHOscAB2rJ28H1Kj9dk68c4nTQG9uuDfxaaZK8OzyXX6UkgZpa8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwHSiprLiGfwRHSU3BUxdi+fKL5qEsp9utUbJfhnO9d1z7EHgft
- 2nHxRtqDOzf0OPTgR7VW3jUms/lV3nADy4UMP6nQ6WP62FKyAx19dS0k6KsDR/exNF4=
-X-Gm-Gg: Acq92OEXgJQWaHTkNTnYCRqoeVwFLPU5G9Z/AUkgeRGEhPFh5j/MllVotiohZeEZcF2
- gqn2WShAtorSTSjGZmGmpvM62o9v0E8U+rrcUYcWHF6berkZ5a5T6EWHYkXuTyjrQAwo9uadrbS
- e3ans6PSvknX3yDQ4G4y51cFNbMbAdVt+S0awfPIXtuLRCyp0fznPYpN25DDy72jd6UlDRt3Qpl
- nlWtDi7byTIjqOkZXWUcMkKRds+ZbSyFGCv2WV+duU+mXV4YYvz60pxgY5u5+lieG5ji8oe8z6n
- ZHzILGuwZ3FwUMIrPx0nhUj8f5XrrnK3/FSZPO71d32FvVbHwERx7uXoQVltC4TAPNHDiEssK3a
- 4lm2kAPdQC/TEFmq5UStboLB2DqcwfVzIjNhiqBBOwQRZ38jwLBKD8AkWgv1SWeMFgx1oD1y0+q
- nsTZXXmhx9VEafKJHHKe4sZwnkOKqPKuYfDq/xmowdmSxiAURciICW9UwGw4GZNRK/jBCTnIQeK
- 6frPU0s79YQe2qpCv3NauHDbcvE2sEJtDJxiWj7bAoJ
-X-Received: by 2002:a05:6a20:4306:b0:39b:e6af:2d8 with SMTP id
- adf61e73a8af0-3af8016e0f6mr7940447637.4.1778747194198; 
- Thu, 14 May 2026 01:26:34 -0700 (PDT)
-Received: from [127.0.1.1] ([103.158.43.41])
- by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-c82bb06875bsm1589102a12.3.2026.05.14.01.26.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 01:26:33 -0700 (PDT)
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Date: Thu, 14 May 2026 13:54:43 +0530
-Subject: [PATCH 14/14] fbdev: sm501fb: fix potential memory leak in
- sm501fb_probe()
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DF9910E382;
+ Thu, 14 May 2026 08:36:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778747765; x=1810283765;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=aJLLTyRMLEAGSJa7N0aHnU6a9CRNGaFQ7l1XGulOEa4=;
+ b=O6+3Gks69mFPzbh1XWDOC05TyHny8PpD60nBN0bMoevUkTOzLMhmFxJD
+ TZxCPN/odXjUSNv9LPp4D90pjgEn71KLXdvNwR+vcl9VXoaf2VsIs1R+W
+ fNs2gZSHCXeb07ST2sJeOrhDcJavnK7jEI5VknMsz80TWspqwGGa7n3E0
+ 32Gsrhuj4dm0bKQFwHSTSzFJ0RV5VMJVkXRkcfz7g1WThO/9z4yugQc6k
+ S/X1bqzNeLBM2AcNgxti/ymB3qDAiMoSQpkH0qwF3I6eQme14k2mSLJOi
+ XrugHR+DdkXJpHrjMvB45o/meZTzOGlMF4jRc8GWFtA5e+gAVsIWBnznb g==;
+X-CSE-ConnectionGUID: Rl+VuhZyROCjZkKuH9Exxg==
+X-CSE-MsgGUID: H0gBha3ZSVKzCNmHleWzGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="90379242"
+X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="90379242"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 May 2026 01:36:04 -0700
+X-CSE-ConnectionGUID: bERuLJ/xTyCupiYBrlJ2gA==
+X-CSE-MsgGUID: JTftsTYiRXKYXs1vaTgskg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="242323042"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 May 2026 01:36:01 -0700
+Date: Thu, 14 May 2026 10:35:57 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com, andrealmeid@igalia.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona.vetter@ffwll.ch,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, anshuman.gupta@intel.com,
+ badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com
+Subject: Re: [PATCH v5 5/5] drm/xe: Suppress Surprise Link Down on
+ non-hotplug device
+Message-ID: <agWJbWQXA9XJnool@black.igk.intel.com>
+References: <20260512132614.1793083-7-mallesh.koujalagi@intel.com>
+ <20260512132614.1793083-12-mallesh.koujalagi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260514-fbdev-v1-14-b3a2474fa720@cse.iitm.ac.in>
-References: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
-In-Reply-To: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
-To: Helge Deller <deller@gmx.de>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Sebastian Siewior <bigeasy@linutronix.de>, 
- Florian Tobias Schandinat <FlorianSchandinat@gmx.de>, 
- Ondrej Zary <linux@rainbow-software.org>, 
- Antonino Daplas <adaplas@gmail.com>, Paul Mundt <lethal@linux-sh.org>, 
- Krzysztof Helt <krzysztof.h1@wp.pl>, Tomi Valkeinen <tomi.valkeinen@ti.com>, 
- Michal Januszewski <spock@gentoo.org>, Heiko Schocher <hs@denx.de>, 
- Peter Jones <pjones@redhat.com>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Abdun Nihaal <nihaal@cse.iitm.ac.in>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512132614.1793083-12-mallesh.koujalagi@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,32 +75,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The memory allocated for info->edid_data in sm501fb_probe() when
-CONFIG_OF is defined is not freed in the subsequent error paths.
-Fix that by freeing it in the error path if CONFIG_OF is defined.
+On Tue, May 12, 2026 at 06:56:20PM +0530, Mallesh Koujalagi wrote:
+> If the slot is not hotplug capable, pcie_suppress_surprise_link_down()
+> masks the Surprise Link Down bit (PCI_ERR_UNC_SURPDN) in the USP's AER
+> Uncorrectable Error Mask register before punit_error_handler()
+> triggers the cold reset.
 
-Fixes: 4295f9bf74a8 ("video, sm501: add OF binding to support SM501")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
----
- drivers/video/fbdev/sm501fb.c | 3 +++
- 1 file changed, 3 insertions(+)
+Can you please elaborate on the "why" part? Is this something Intel
+specific?
 
-diff --git a/drivers/video/fbdev/sm501fb.c b/drivers/video/fbdev/sm501fb.c
-index fee4b9f84592..1ee7842517b8 100644
---- a/drivers/video/fbdev/sm501fb.c
-+++ b/drivers/video/fbdev/sm501fb.c
-@@ -2048,6 +2048,9 @@ static int sm501fb_probe(struct platform_device *pdev)
- 	framebuffer_release(info->fb[HEAD_CRT]);
- 
- err_alloc:
-+#if defined(CONFIG_OF)
-+	kfree(info->edid_data);
-+#endif
- 	kfree(info);
- 
- 	return ret;
+> Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+> ---
+>  drivers/gpu/drm/xe/xe_ras.c | 51 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 51 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+> index 604470565bf3..67b4f25370c9 100644
+> --- a/drivers/gpu/drm/xe/xe_ras.c
+> +++ b/drivers/gpu/drm/xe/xe_ras.c
+> @@ -224,8 +224,59 @@ static enum xe_ras_recovery_action handle_core_compute_errors(struct xe_device *
+>  	return XE_RAS_RECOVERY_ACTION_RECOVERED;
+>  }
+>  
+> +#ifdef CONFIG_PCIEAER
+> +static bool pcie_slot_is_hotplug_capable(struct pci_dev *usp)
 
--- 
-2.43.0
+Shouldn't all of it be part of xe_pci_error.c?
 
+> +{
+> +	struct pci_dev *root_port = pci_upstream_bridge(usp);
+> +	u32 sltcap;
+> +
+> +	if (!root_port)
+> +		return false;
+> +
+> +	if (pcie_capability_read_dword(root_port, PCI_EXP_SLTCAP, &sltcap))
+> +		return false;
+> +
+> +	return (sltcap & (PCI_EXP_SLTCAP_HPC | PCI_EXP_SLTCAP_PCP)) ==
+> +		(PCI_EXP_SLTCAP_HPC | PCI_EXP_SLTCAP_PCP);
+> +}
+> +
+> +static void pcie_suppress_surprise_link_down(struct pci_dev *usp)
+> +{
+> +	u32 aer_uncorr_mask;
+> +	u16 aer_cap;
+> +
+> +	aer_cap = usp->aer_cap;
+> +	if (!aer_cap)
+> +		return;
+> +
+> +	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, &aer_uncorr_mask);
+> +	aer_uncorr_mask |= PCI_ERR_UNC_SURPDN;
+> +	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, aer_uncorr_mask);
+> +	dev_dbg(&usp->dev, "Non-hotplug slot: Surprise Link Down masked for cold reset\n");
+
+So is it required for all devices that want to use cold-reset method
+generically? If yes, shouldn't this be part of recovery script or atleast
+documented somewhere?
+
+Raag
+
+> +}
+> +#endif /* CONFIG_PCIEAER */
+> +
+>  static void punit_error_handler(struct xe_device *xe)
+>  {
+> +#ifdef CONFIG_PCIEAER
+> +	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
+> +	struct pci_dev *vsp, *usp;
+> +
+> +	/*
+> +	 * Device Hierarchy:
+> +	 *
+> +	 * Root Port --> Upstream Switch Port (USP) --> Virtual Switch Port (VSP) --> SGunit
+> +	 *
+> +	 * Cold reset power-cycles the slot, dropping the PCIe link. On a non-hotplug
+> +	 * slot this triggers a spurious Surprise Link Down AER event on the USP.
+> +	 * Suppress it if the slot is not hotplug capable.
+> +	 */
+> +	vsp = pci_upstream_bridge(pdev);
+> +	usp = vsp ? pci_upstream_bridge(vsp) : NULL;
+> +
+> +	if (usp && !pcie_slot_is_hotplug_capable(usp))
+> +		pcie_suppress_surprise_link_down(usp);
+> +#endif
+>  	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
+>  	xe_device_declare_wedged(xe);
+>  }
+> -- 
+> 2.34.1
+> 
