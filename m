@@ -4,88 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E028CD4F39
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 22:46:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13D54CD4F39
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 22:46:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3E2310F35D;
-	Thu, 14 May 2026 22:46:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B91510E3AD;
+	Thu, 14 May 2026 22:46:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="MciDwja4";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="ExBOPbi0";
 	dkim-atps=neutral
-Received: from mail-pl1-f228.google.com (mail-pl1-f228.google.com
- [209.85.214.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BE7D10F35D
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:46:10 +0000 (UTC)
-Received: by mail-pl1-f228.google.com with SMTP id
- d9443c01a7336-2bc7b311e77so1587355ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 15:46:10 -0700 (PDT)
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com
+ [209.85.215.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7781610E3AD
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:46:12 +0000 (UTC)
+Received: by mail-pg1-f227.google.com with SMTP id
+ 41be03b00d2f7-c80203b9d7bso3595446a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 15:46:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778798770; x=1779403570;
+ d=1e100.net; s=20251104; t=1778798772; x=1779403572;
  h=content-transfer-encoding:mime-version:reply-to:references
  :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=UDKFuLv6AxprCwra6j671WX8fMGEO4TQYdVYH/Kucbg=;
- b=WinDouMv9W7RhHxp0mp4Mk3RgcQz1H2E8+dXV0QG1KBJi5tc3S3qxbmdAuEVKQYpmO
- OsU2l5PTVRYdAQ+FThTsTBb/FdJeq5bM8bA777YT6O9/eH04ADbwAXDkjgR4yKtRbGDr
- qTs2+aaFon9LxVn0l7wCiSxTHkEhWL6KRRbLuPwLuJU/W2eJa48NCmOZRWwsSVe0XHEC
- LYbe7pd6t5d5vi36A7xHZr2UZpeDrs7l93CB+AWnqkeOkfNCmpGoaks7P8e0upB+icVZ
- Xqmc4nWzdnxVWuQ1dF/gybBL/AJmB5N1zsd2CnrjwRp2TuNtc10fBSiRpRv0etvQlr46
- Zojw==
-X-Gm-Message-State: AOJu0YxoTQ1EwDb4SrTEfJLENOmAqRO9Aj7qnqSLgMCHMOmqMabeHYsB
- RwOlrvG0jUtpwOGFOyH4grdCWNVUCKR+b0Lywkl0WbhgtnmYFHYG4zoo8FApig/gv2eB5hSY9OJ
- PlUVX1qzLNKvUmc4dSG+MoO+ttEB7snwCewTj5ueSvF9q+dWC71meHVJlEG+DYPmYv19iieEw1L
- SJ0S1LYWkJj7mCDBOGgrevuI1uh9Ji6IVeKaXlJLWCxSQIZP9z6Sr51UaXKSpuzfwwh2JTLoVnN
- KS13kNlknkmNxtN/6dCKPEo0WdbLKA=
-X-Gm-Gg: Acq92OGsKswo/ts1LWtTiHPDC1/qxK5b/TDkRS1FJOQVlijxdPOOCCdv3Q63+reWZiq
- 3mdUNG0N5Ggmz1RVVWfGfRyEOWg5P5oBKAXGjjV+o4cBzWYfLmwaGaGidIR8EwLi3fmsaqQO+eC
- HZzricvqaxYxYyvHNY68wX4OoRitPXJJg5pWWJ2npb9Nhgr0ZAn8e5GVchDzhjuH7ADS1GFxtII
- tuf9+oKlbiRjDcQPGXfGZCYGpqWmn6xUWxgi0Vw9Z725Fqbi0Ce8DSVIy2HQgyZX8KVXNwI4gU1
- JdrXXOO/VGTaJJKQ8gf2ePjl1HDQ/KFnWrp0rAp3bb9O2FVTfxGKH4EmjHMBR94unvUO51FXD+x
- aMTfAc8CTegxW4jgb6Sd8OXm0C+q9uXP+6v/1VnRvk3ozDt4vRCPm4UL7ewXWlIy9dj1TpGUVVM
- w0xCX1nuKj1A==
-X-Received: by 2002:a17:902:f78a:b0:2bc:cf06:221c with SMTP id
- d9443c01a7336-2bd527d773dmr46191395ad.21.1778798769769; 
- Thu, 14 May 2026 15:46:09 -0700 (PDT)
+ bh=Mvnx1syYDBetY3Se2t4QyUDEMb1h+VIeMK+wWLJEFEc=;
+ b=Awd235mnvxON/fCn2IEzqBSmp1hDswGZA6vrdZ7DYzCArBkhpjiuPIsSlMbl4wE+u2
+ 2DgP09K7+O5q22of6E5JpuWKRfx+zDdR4Xd1DWdwSxZYiAGBiGET2YjolGWAKOwVJ7Ob
+ lH7CX6NkEthUPNnB1J9onZGZLpKBh24VsIrcembzCYZU2M2rsBcXbaUgDmrpH4u0AwRC
+ gI3L5QmQfwHN0SYGE8auroSFMcd0xDqT2ZRUeEWAbj9xse6us2m482xlgzVPOOhajEYO
+ 3VpwMpI8Wu3Fo5tYYYaLl8UGBzpEBNNDlHX4kDt285/JEusOztoLSxqSrcfp/Gn8X+vw
+ sXFw==
+X-Gm-Message-State: AOJu0YxTFbfFD2CiVfKjLQ5DciDZr1t/C6zhHpxMWb4bhO2UuZiJPQ1q
+ H8nvK4dSpHxPx6sZqn+76QaWyUpVFmmt8KXP+otv+xOV+XhX/wjXWDWFTWhshOmGRkR96HejPIl
+ SlYd930X0aDKJxxizaUpZFHp1Pc7gjnsprAMA6M5dkFhPqIACzZcEjUqspH8TWbPZPJ0bfHNlCa
+ 3NYypT350x+2dZVfcfh4jlxtoh57vWIc/O/5aAFukNTIgrdFjImt0djinDZaJ1yZryO+mwwoiAC
+ rFQto8l1dESCZdZULbyGe064Ohm88Q=
+X-Gm-Gg: Acq92OFmM0GU/Zj4Ezb+EWxH/UuuvlpdzQ6PEn+JeCEoS5g1qjuJUFzknCuHMeRfWBT
+ adprFuHGwy/3VpIV8RzOKgkOFI/++qCxbD9kn5n5CPDuWWu+636zxAZy62DYj/4D8xOBLqYy0hK
+ KjkUrLlztsf8cjx+eUiGpoTpnh5nmLfGaSsO87vGVqmVUq4BwTbBossmxXxFLjRhHhWHHgEvh7c
+ uUXFk4xGWvkHCjfy6b7TPuzno2hXwRIlNkXuq7jNxjPzN4DlcGGbsrzjRPQiuaLhERpv7suY8v1
+ VFLuZyH4AMJBK8GBt+11DkurviFameZeb7dyHYlUqbC3phOHEhTyNa/ymEB+QenODI5UCIl0VS1
+ NCWhQDrn4hsA42fCb8xQO7ArEZ49z1D95MXCJqR+Vn6yTU1hAutPEH1MT2UGGvMncVOP3Oc9Nuv
+ t9e7tUdDNxz6Y6dPQO2z/XR0MflVIOSMlHFfTcwmzB6vMggorBZgiP9PtSsiXmPA==
+X-Received: by 2002:a05:6a20:158b:b0:3aa:f9cb:d43c with SMTP id
+ adf61e73a8af0-3b22ed00276mr1204210637.34.1778798771647; 
+ Thu, 14 May 2026 15:46:11 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- ([144.49.247.127]) by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2bd5c35d715sm3052635ad.24.2026.05.14.15.46.09
+ (address-144-49-247-21.dlp.protect.broadcom.com. [144.49.247.21])
+ by smtp-relay.gmail.com with ESMTPS id
+ 41be03b00d2f7-c82bb11a844sm271763a12.6.2026.05.14.15.46.11
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 14 May 2026 15:46:09 -0700 (PDT)
+ Thu, 14 May 2026 15:46:11 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-2f1383b7439so285549eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 15:46:08 -0700 (PDT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-2fe1cf409a1so9200689eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 15:46:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1778798768; x=1779403568;
+ d=broadcom.com; s=google; t=1778798770; x=1779403570;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:reply-to:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to;
- bh=UDKFuLv6AxprCwra6j671WX8fMGEO4TQYdVYH/Kucbg=;
- b=MciDwja4F1fcnJZKedEw7PcTlS3jDH9Q8/QCPv4gRl+Nfj+1ClGnsnpCOqor0AhQ4j
- jF9RyWVMyq6iopd+bnAElbd4TomNavA0/ve4GPsttCWGUsnYtA27aeDdEHdWfw35CS6N
- 1kW8uZkfhC8TZnKKPEfJF+ER3boSH5bSabw4g=
-X-Received: by 2002:a05:7022:4587:b0:134:d3bc:b4b4 with SMTP id
- a92af1059eb24-134ffa55146mr767672c88.4.1778798767904; 
- Thu, 14 May 2026 15:46:07 -0700 (PDT)
-X-Received: by 2002:a05:7022:4587:b0:134:d3bc:b4b4 with SMTP id
- a92af1059eb24-134ffa55146mr767651c88.4.1778798767138; 
- Thu, 14 May 2026 15:46:07 -0700 (PDT)
+ bh=Mvnx1syYDBetY3Se2t4QyUDEMb1h+VIeMK+wWLJEFEc=;
+ b=ExBOPbi0ewqypbQPgNzDBf01FngdjPX0ND7WbWUB6NTQfgPsp66po730mFwJ65PdsJ
+ o4OrKQV2lWecl+qIWBmfL6GH5Efa5Jc7m35TYbT4fQcC7QXxPM4g+hlWTYtrSfTBSt/s
+ qpJPBUvXp8x/ZT5xMWInQ3ECaoffa2NhIqUGo=
+X-Received: by 2002:a05:7022:128c:b0:128:d20a:2f40 with SMTP id
+ a92af1059eb24-1350430e545mr597864c88.8.1778798769728; 
+ Thu, 14 May 2026 15:46:09 -0700 (PDT)
+X-Received: by 2002:a05:7022:128c:b0:128:d20a:2f40 with SMTP id
+ a92af1059eb24-1350430e545mr597855c88.8.1778798769021; 
+ Thu, 14 May 2026 15:46:09 -0700 (PDT)
 Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
  ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-134cbdcf140sm6678737c88.5.2026.05.14.15.46.06
+ a92af1059eb24-134cbdcf140sm6678737c88.5.2026.05.14.15.46.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 15:46:06 -0700 (PDT)
+ Thu, 14 May 2026 15:46:08 -0700 (PDT)
 From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
  zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Subject: [PATCH v3 3/5] drm/vmwgfx: Reserve ttm object before resv usage
-Date: Thu, 14 May 2026 15:48:17 -0700
-Message-ID: <20260514224819.3631763-4-maaz.mombasawala@broadcom.com>
+Subject: [PATCH v3 4/5] drm/vmwgfx: Change ttm refs for dumb buffers.
+Date: Thu, 14 May 2026 15:48:18 -0700
+Message-ID: <20260514224819.3631763-5-maaz.mombasawala@broadcom.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260514224819.3631763-1-maaz.mombasawala@broadcom.com>
 References: <20260514224819.3631763-1-maaz.mombasawala@broadcom.com>
@@ -108,60 +109,64 @@ Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We hit dma_resv_assert_held warnings in several places, reserve the ttm
-base object when it's being used to avoid them.
+Preserve a ttm reference during dumb buffer creation. This keeps the dumb
+buffer valid for framebuffer usage and fixes all igt tests that use dumb
+buffers.
+Also fix ttm_prime_fd_to_handle(), which in the error case was leaking a
+dma_buf reference. During vmw_prime_fd_to_handle() this function
+is expected to fail for dumb buffers since the fd is for a gem object,
+the dma_buf would in turn hold a reference to the dumb buffer gem object
+and cause a memory leak.
 
 Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c   |  2 ++
- drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 12 ++++++++++++
- 2 files changed, 14 insertions(+)
+ drivers/gpu/drm/vmwgfx/ttm_object.c     | 7 +++++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 5 +++--
+ 2 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 9c7a73c0b0dc..6817e0b8ce99 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -55,7 +55,9 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
- 			/* Reserve and switch the backing mob. */
- 			mutex_lock(&res->dev_priv->cmdbuf_mutex);
- 			(void)vmw_resource_reserve(res, false, true);
-+			ttm_bo_reserve(bo, false, false, NULL);
- 			vmw_resource_mob_detach(res);
-+			ttm_bo_unreserve(bo);
- 			if (res->dirty)
- 				res->func->dirty_free(res);
- 			if (res->coherent)
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-index 7b8163b5e501..da6ccd5e318e 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-@@ -131,6 +131,7 @@ crc_generate_worker(struct work_struct *work)
- 	spin_unlock_irq(&du->vkms.crc_state_lock);
+diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
+index 2421b0dd057c..f9042bafdc93 100644
+--- a/drivers/gpu/drm/vmwgfx/ttm_object.c
++++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
+@@ -547,14 +547,17 @@ int ttm_prime_fd_to_handle(struct ttm_object_file *tfile,
+ 	if (IS_ERR(dma_buf))
+ 		return PTR_ERR(dma_buf);
  
- 	if (surf) {
-+		int ret;
- 		if (vmw_surface_sync(vmw, surf)) {
- 			drm_warn(
- 				crtc->dev,
-@@ -138,7 +139,18 @@ crc_generate_worker(struct work_struct *work)
- 			return;
- 		}
+-	if (dma_buf->ops != &tdev->ops)
+-		return -ENOSYS;
++	if (dma_buf->ops != &tdev->ops) {
++		ret = -ENOSYS;
++		goto out;
++	}
  
-+		ret = ttm_bo_reserve(&surf->res.guest_memory_bo->tbo, false, false, NULL);
-+		if (ret != 0) {
-+			drm_warn(&vmw->drm, "%s: failed reserve\n", __func__);
-+			goto done;
-+		}
-+
- 		compute_crc(crtc, surf, &crc32);
-+
-+		ttm_bo_unreserve(&surf->res.guest_memory_bo->tbo);
-+
-+done:
-+
- 		vmw_surface_unreference(&surf);
- 	}
+ 	prime = (struct ttm_prime_object *) dma_buf->priv;
+ 	base = &prime->base;
+ 	*handle = base->handle;
+ 	ret = ttm_ref_object_add(tfile, base, NULL, false);
  
++out:
+ 	dma_buf_put(dma_buf);
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index b2d3927b5567..256e7b89daea 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -2328,11 +2328,12 @@ int vmw_dumb_create(struct drm_file *file_priv,
+ 	struct vmw_user_surface *usurf = container_of(vbo->dumb_surface,
+ 						struct vmw_user_surface, srf);
+ 	usurf->prime.base.refcount_release = NULL;
++
+ err:
+ 	if (res)
+ 		vmw_resource_unreference(&res);
+-
+-	ttm_ref_object_base_unref(tfile, arg.rep.handle);
++	if (ret)
++		ttm_ref_object_base_unref(tfile, arg.rep.handle);
+ 
+ 	return ret;
+ }
 -- 
 2.54.0
 
