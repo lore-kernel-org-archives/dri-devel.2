@@ -4,54 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC9BDCD4851
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 15:44:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C95ACD4F25
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 17:02:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4B6A10E205;
-	Thu, 14 May 2026 15:44:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDB0610E3BE;
+	Thu, 14 May 2026 17:02:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Nm/iTiOh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KS3pxNmU";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B0AC610E205;
- Thu, 14 May 2026 15:44:20 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C8BE51BF3;
- Thu, 14 May 2026 08:44:14 -0700 (PDT)
-Received: from [10.1.37.28] (e122027.cambridge.arm.com [10.1.37.28])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AB5323F836;
- Thu, 14 May 2026 08:44:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1778773460; bh=ZXTe1nLJTuLAiWEkSBh53GqRFQNXjqgExh4lDd4Oz9k=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Nm/iTiOhYaFoHlarhn0irtBzHzDfxIEVwqXAn1F8Kr03ssDh1+1dP8LgJ7EZn40p9
- 3hgOLaV2E9hxbZxZOE6X/vMs0l9SvhmJJ/Xur6Q8n2pONhvl8BC+P1Y5cXxiH7lEmd
- J/NhWbgXMNWviiYATjQW1VQT054ZbeQTLhWahcfE=
-Message-ID: <903b21e7-5a44-431d-ab21-93726b2e97ac@arm.com>
-Date: Thu, 14 May 2026 16:44:12 +0100
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012004.outbound.protection.outlook.com [52.101.43.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9790710E3CA;
+ Thu, 14 May 2026 17:02:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ER5QfBArXa8ppSjP1odOyotK+6I6CtLucjUau9VTIX5XZzf5xHNDQf0hgtpt2O0eoxUAflp7qgJPaycZ/VBFMhqFGtA2SefyvJc+3vFxgDAscND3+KbWl9MmpZNZ4jzutWuhphWxxzKZH8tPugLInAQ/ukhOX7KOyFtqTBiAXez9d348HYTX7BJZHkXC2V3ZCg51vGlx7qgfejUGImD8JuSRftP2UnSDLJg9EM2d9h97IF24duN6HQRt6yEs8pP6NWoWaLJENsnmtcShs/FEIamat3DV8k6ctnYD4XS6rotA7PgA/e2jeW42d3EKb3PIO/DZSoQnOjFLjDwBzgaWcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BNBtypnnMPtjA2redigw9vdP+OHc++8G5ZSIEwEI9wY=;
+ b=aIQ7h2D9KyViS2RpAiYXwS/KWghiIYcRtLif1i64Rq/GA8ljqUojNft3uDp1a+rZpaW5VEYMBzFe+5JuOJnJx0ntaLvV/UCWcca1cy64vOhyg70XbSsP6KfKtqYZiezj4fKoi95QO0OD5jPElP/7F25A1TQ1T4TKxUYHa2Dimpdi1tVR+aWjc0aeAkOOiTFtZsU9EGtoHqUoEc6MKeBQlz/J/Mjem3aMtxhAAhsu/Pu4ab4jTExP9ILn2jusCXa7fqyyGsH9jrAOJPE0FaDR1B9vhyUD83jvG6BhIsERzwNAPoNCAUm8n0CBKhumPzh6BQIpYiycPIRTSIbdwltt4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BNBtypnnMPtjA2redigw9vdP+OHc++8G5ZSIEwEI9wY=;
+ b=KS3pxNmUQaEpz/0UA5Ws4lrN2Y7+8pEUKX7jlUA4JdQlJjlqp554YuphchezUSsu5zj93kl4MtFHg4sbQmGBFm6GoWenpQH5oEsrC9+821yYTCuPQ85ZhGrm43U04UruKL7DdEnfbW1oLO9+Arj5Ip6GOBekgVUcqbkjN9JQMUM=
+Received: from PH1PEPF0001330D.namprd07.prod.outlook.com (2603:10b6:518:1::1c)
+ by DS5PPF78FC67EBA.namprd12.prod.outlook.com (2603:10b6:f:fc00::655)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Thu, 14 May
+ 2026 17:02:50 +0000
+Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
+ (2a01:111:f403:f912::1) by PH1PEPF0001330D.outlook.office365.com
+ (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.17 via Frontend Transport; Thu, 14
+ May 2026 17:02:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.203) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Thu, 14 May 2026 17:02:49 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 14 May
+ 2026 12:02:49 -0500
+Received: from kylin.lan (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 14 May
+ 2026 10:02:47 -0700
+From: Alex Hung <alex.hung@amd.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <harry.wentland@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+CC: <alex.hung@amd.com>, kernel test robot <lkp@intel.com>
+Subject: [PATCH] drm/amdkfd: Fix UML build guards for x86_64-only code
+Date: Thu, 14 May 2026 11:01:39 -0600
+Message-ID: <20260514170139.335618-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/gem: Make the GEM LRU lock part of drm_device
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <rob.clark@oss.qualcomm.com>
-References: <20260512-panthor-shrinker-fixes-v3-1-3bf066259471@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260512-panthor-shrinker-fixes-v3-1-3bf066259471@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|DS5PPF78FC67EBA:EE_
+X-MS-Office365-Filtering-Correlation-Id: be88f994-2a5a-48c0-6376-08deb1daa122
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|18002099003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info: 4qqQJMrRij/cqwlEqSr1X0wDUKx08XieRI8YZOyRR4HOVf+fk8WUjM1eEeOZ9L7VY7A3BaffGic7rYGJbnWCMlzd6V5RYOaU3o6jimyJYBJWjDiCiiai1Al1X1w9cgizF0yS3wnbWzE9Ue6oToXx9iXGlJ9D44jT2U4LtcugvQRmY68bljKNe+uxp0W9WoB+HXyTirK5DV1cyGzIIIcn60K64HoIO4hnuUNjxWd5a30Yo/qhOZsAcZSwWscuBnKnmmgIT31/2cc7R7i+Hdkw6G/G7L9eT0tX7CkMDVDx6a0zqK4tVwhJOcwnXSX19Jm1j2LbexxIatGimrJ8TDaKeZh6FjbqqWGsV7z751uMnXjpaDsEWwnHnyfnNUVa7t8kbbGj6bUT7KQOzpRqn2hdJWIUy8i7a3VlXuUKgc4CtLRApkCwam36O3RSJO03ZHENZOY26Gs5x7vqFjxhfLHM6pUIuM9SxXSCsswXb6Bs1RgHIe6bdsonTe5HmC7mqLbB1IQGrtx4bNqqs5QtHK0xtsBj11AwVpol4PRh9ydzNv4bdcir2YjERB5c/zwDNN7Xizkbdkko0/eXQfNmg4UdvwiztXTr/5D4cEzN48Q9ZUCEiZex0El7Fo6yeGwQgt76Ug+tUkYSwQusIggq9VycyTzaMH9VFevDD5XPnX6ikozcjbm26bJioDONmoLzeUDMvlxVZk8RTqq70ByTVhEL1o7qqqI0Z6uccl1UCF0LOEI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(56012099003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: yXIkLPSWO9xKT6AGSXlIG8Y4jM/9BvXZU55dz8irsYalxl45Lp00WdPdtl3wSBy3XP0OTzR9c3qETgpIC5a88nZ6rOMaLbVu1tewJmhaUqC5zS2e0G98GI+3kpQbPZuol2avA43/NTSMu1AokogRcqmrrnbztb1/7WDjrL5deQt1t/EEQU55oFaVbWsoQwH0IS9XD3Ec9gPue70Fl+kLwacIA+pq/AyvpxWYM6448kJzZG5yRX8WfAqEPHpJ+HsxGjTkSGy0xy9U5rf70kauLnAqJ3otj6V3syXjXusMr+T36BWgdOd4jXl/eYnZxnm7OMDqQI0M50nz9XqN+x/E4iToOWoKnM52rtNd1vKjqz0IXzHCNvOahlxKJj18JqO+CatEed1KTceNpIgzLqDevwaHvY1gbM4/cnFGgpofhKSKf8P5ihVamCXQGRMjT2YR
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 17:02:49.6530 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: be88f994-2a5a-48c0-6376-08deb1daa122
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF78FC67EBA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,562 +115,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 12/05/2026 07:59, Boris Brezillon wrote:
-> Recently, a few races have been discovered in the GEM LRU logic, all
-> of them caused by the fact the LRU lock is accessed through
-> gem->lru->lock, and that very same lock also protects changes to
-> gem->lru, leading to situations where gem->lru needs to first be
-> accessed without the lock held, to then get the lru to access the lock
-> through and finally take the lock and do the expected operation.
-> 
-> Currently, the only driver making use of this API (MSM) declares a
-> device-wide lock, and the user we're about to add (panthor) will
-> do the same. There's no evidence that we will ever have a driver
-> that wants different pools of LRUs protected by different locks under
-> the same drm_device. So we're better off moving this lock to drm_device
-> and always locking it through obj->dev->gem_lru_mutex, or directly
-> through dev->gem_lru_mutex.
-> 
-> If anyone ever needs more fine-grained locking, this can be revisited
-> to pass some drm_gem_lru_pool object representing the pool of LRUs
-> under a specific lock, but for now, the per-device lock seems to be
-> enough.
-> 
-> Fixes: e7c2af13f811 ("drm/gem: Add LRU/shrinker helper")
-> Reported-by: Chia-I Wu <olvaffe@gmail.com>
-> Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
-> Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+cpu_data().topo.apicid and kfd_fill_iolink_info_for_cpu() rely on
+x86-specific structs not present on UML. The kfd_topology.c and
+kfd_crat.c were guarded by CONFIG_X86_64 alone, causing build
+failures when CONFIG_DRM_AMDGPU is selected on UML.
 
-As the kernel test robot points out there's some kerneldoc above
-drm_gem_lru_scan() which needs fixing. Also drm_gem_lru_init().
+Update guards to '#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)'
+to ensure x86_64-only paths are excluded on UML builds.
 
-But with that fixed the non-msm parts are:
+Fixes: e6b71bcdc409 ("drm/amdgpu: Remove UML build exclusion from Kconfig")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202605140506.TI8zPIBG-lkp@intel.com/
+Cc: Harry Wentland <harry.wentland@amd.com>
+Assisted-by: Copilot:Claude-Sonnet-4.6
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-Reviewed-by: Steven Price <steven.price@arm.com>
-
-Thanks,
-Steve
-
-> ---
-> As reported by Chia-I [1], a race exists between drm_gem_lru_remove()
-> and drm_gem_lru_scan(), causing a UAF on a stack-allocated object.
-> 
-> This new version only keeps the last patch of the series that
-> addresses the problem more generically by moving the LRU lock to the
-> drm_device object.
-> 
-> [1]https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
-> ---
-> Changes in v3:
-> - Only keep patch 4 and flag it for backport
-> - Rebase on drm-misc-fixes
-> - Link to v2: https://lore.kernel.org/r/20260508-panthor-shrinker-fixes-v2-0-39cdb7d577c9@collabora.com
-> 
-> Changes in v2:
-> - Collect R-b
-> - Drop a useless obj->lru != NULL check in drm_gem_lru_scan()
-> - Fix another race introduced in patch 2
-> - Document why the lru != NULL check done without the lru lock held
->   in drm_gem_lru_remove() is safe
-> - Add a patch to sanitize the GEM LRU locking: lock is now part of
->   drm_device, meaning we don't have this chicken/egg problem where
->   the lock that needs to acquired is under gem->lru->lock, and
->   gem->lru is also supposed to be accessed with the lru->lock held
-> - Fix typos in commit messages and comments
-> - Link to v1: https://lore.kernel.org/r/20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com
-> ---
->  drivers/gpu/drm/drm_drv.c              |  2 ++
->  drivers/gpu/drm/drm_gem.c              | 34 +++++++++++++++-------------------
->  drivers/gpu/drm/msm/msm_drv.c          | 11 +++++------
->  drivers/gpu/drm/msm/msm_drv.h          |  7 -------
->  drivers/gpu/drm/msm/msm_gem.c          | 32 ++++++++++++++++----------------
->  drivers/gpu/drm/msm/msm_gem_shrinker.c |  4 ++--
->  drivers/gpu/drm/msm/msm_gem_submit.c   |  6 +++---
->  drivers/gpu/drm/msm/msm_gem_vma.c      | 12 ++++++------
->  drivers/gpu/drm/msm/msm_ringbuffer.c   |  6 +++---
->  include/drm/drm_device.h               |  7 +++++++
->  include/drm/drm_gem.h                  | 20 +++++++++-----------
->  11 files changed, 68 insertions(+), 73 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 985c283cf59f..675675480da4 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -697,6 +697,7 @@ static void drm_dev_init_release(struct drm_device *dev, void *res)
->  	mutex_destroy(&dev->master_mutex);
->  	mutex_destroy(&dev->clientlist_mutex);
->  	mutex_destroy(&dev->filelist_mutex);
-> +	mutex_destroy(&dev->gem_lru_mutex);
->  }
->  
->  static int drm_dev_init(struct drm_device *dev,
-> @@ -738,6 +739,7 @@ static int drm_dev_init(struct drm_device *dev,
->  	INIT_LIST_HEAD(&dev->vblank_event_list);
->  
->  	spin_lock_init(&dev->event_lock);
-> +	mutex_init(&dev->gem_lru_mutex);
->  	mutex_init(&dev->filelist_mutex);
->  	mutex_init(&dev->clientlist_mutex);
->  	mutex_init(&dev->master_mutex);
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index d6424267260b..2b1ac2b02b14 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1544,9 +1544,8 @@ EXPORT_SYMBOL(drm_gem_unlock_reservations);
->   * @lock: The lock protecting the LRU
->   */
->  void
-> -drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock)
-> +drm_gem_lru_init(struct drm_gem_lru *lru)
->  {
-> -	lru->lock = lock;
->  	lru->count = 0;
->  	INIT_LIST_HEAD(&lru->list);
->  }
-> @@ -1571,14 +1570,10 @@ drm_gem_lru_remove_locked(struct drm_gem_object *obj)
->  void
->  drm_gem_lru_remove(struct drm_gem_object *obj)
->  {
-> -	struct drm_gem_lru *lru = obj->lru;
-> -
-> -	if (!lru)
-> -		return;
-> -
-> -	mutex_lock(lru->lock);
-> -	drm_gem_lru_remove_locked(obj);
-> -	mutex_unlock(lru->lock);
-> +	mutex_lock(&obj->dev->gem_lru_mutex);
-> +	if (obj->lru)
-> +		drm_gem_lru_remove_locked(obj);
-> +	mutex_unlock(&obj->dev->gem_lru_mutex);
->  }
->  EXPORT_SYMBOL(drm_gem_lru_remove);
->  
-> @@ -1593,7 +1588,7 @@ EXPORT_SYMBOL(drm_gem_lru_remove);
->  void
->  drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_gem_object *obj)
->  {
-> -	lockdep_assert_held_once(lru->lock);
-> +	lockdep_assert_held_once(&obj->dev->gem_lru_mutex);
->  
->  	if (obj->lru)
->  		drm_gem_lru_remove_locked(obj);
-> @@ -1617,9 +1612,9 @@ EXPORT_SYMBOL(drm_gem_lru_move_tail_locked);
->  void
->  drm_gem_lru_move_tail(struct drm_gem_lru *lru, struct drm_gem_object *obj)
->  {
-> -	mutex_lock(lru->lock);
-> +	mutex_lock(&obj->dev->gem_lru_mutex);
->  	drm_gem_lru_move_tail_locked(lru, obj);
-> -	mutex_unlock(lru->lock);
-> +	mutex_unlock(&obj->dev->gem_lru_mutex);
->  }
->  EXPORT_SYMBOL(drm_gem_lru_move_tail);
->  
-> @@ -1640,7 +1635,8 @@ EXPORT_SYMBOL(drm_gem_lru_move_tail);
->   * @ticket: Optional ww_acquire_ctx context to use for locking
->   */
->  unsigned long
-> -drm_gem_lru_scan(struct drm_gem_lru *lru,
-> +drm_gem_lru_scan(struct drm_device *dev,
-> +		 struct drm_gem_lru *lru,
->  		 unsigned int nr_to_scan,
->  		 unsigned long *remaining,
->  		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
-> @@ -1650,9 +1646,9 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->  	struct drm_gem_object *obj;
->  	unsigned freed = 0;
->  
-> -	drm_gem_lru_init(&still_in_lru, lru->lock);
-> +	drm_gem_lru_init(&still_in_lru);
->  
-> -	mutex_lock(lru->lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  
->  	while (freed < nr_to_scan) {
->  		obj = list_first_entry_or_null(&lru->list, typeof(*obj), lru_node);
-> @@ -1675,7 +1671,7 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->  		 * rest of the loop body, to reduce contention with other
->  		 * code paths that need the LRU lock
->  		 */
-> -		mutex_unlock(lru->lock);
-> +		mutex_unlock(&dev->gem_lru_mutex);
->  
->  		if (ticket)
->  			ww_acquire_init(ticket, &reservation_ww_class);
-> @@ -1709,7 +1705,7 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->  
->  tail:
->  		drm_gem_object_put(obj);
-> -		mutex_lock(lru->lock);
-> +		mutex_lock(&dev->gem_lru_mutex);
->  	}
->  
->  	/*
-> @@ -1721,7 +1717,7 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->  	list_splice_tail(&still_in_lru.list, &lru->list);
->  	lru->count += still_in_lru.count;
->  
-> -	mutex_unlock(lru->lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  
->  	return freed;
->  }
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 195f40e331e5..cc2bcd14b1c2 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -128,11 +128,10 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv,
->  	/*
->  	 * Initialize the LRUs:
->  	 */
-> -	mutex_init(&priv->lru.lock);
-> -	drm_gem_lru_init(&priv->lru.unbacked, &priv->lru.lock);
-> -	drm_gem_lru_init(&priv->lru.pinned,   &priv->lru.lock);
-> -	drm_gem_lru_init(&priv->lru.willneed, &priv->lru.lock);
-> -	drm_gem_lru_init(&priv->lru.dontneed, &priv->lru.lock);
-> +	drm_gem_lru_init(&priv->lru.unbacked);
-> +	drm_gem_lru_init(&priv->lru.pinned);
-> +	drm_gem_lru_init(&priv->lru.willneed);
-> +	drm_gem_lru_init(&priv->lru.dontneed);
->  
->  	/* Initialize stall-on-fault */
->  	spin_lock_init(&priv->fault_stall_lock);
-> @@ -140,7 +139,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv,
->  
->  	/* Teach lockdep about lock ordering wrt. shrinker: */
->  	fs_reclaim_acquire(GFP_KERNEL);
-> -	might_lock(&priv->lru.lock);
-> +	might_lock(&ddev->gem_lru_mutex);
->  	fs_reclaim_release(GFP_KERNEL);
->  
->  	if (priv->kms_init) {
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index 6d847d593f1a..617b3c4b42c0 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -150,13 +150,6 @@ struct msm_drm_private {
->  		 * DONTNEED state (ie. can be purged)
->  		 */
->  		struct drm_gem_lru dontneed;
-> -
-> -		/**
-> -		 * lock:
-> -		 *
-> -		 * Protects manipulation of all of the LRUs.
-> -		 */
-> -		struct mutex lock;
->  	} lru;
->  
->  	struct notifier_block vmap_notifier;
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index 2cb3ab04f125..070f5fc4bc17 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -177,11 +177,11 @@ static void update_lru_locked(struct drm_gem_object *obj)
->  
->  static void update_lru(struct drm_gem_object *obj)
->  {
-> -	struct msm_drm_private *priv = obj->dev->dev_private;
-> +	struct drm_device *dev = obj->dev;
->  
-> -	mutex_lock(&priv->lru.lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  	update_lru_locked(obj);
-> -	mutex_unlock(&priv->lru.lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  }
->  
->  static struct page **get_pages(struct drm_gem_object *obj)
-> @@ -292,11 +292,11 @@ void msm_gem_pin_obj_locked(struct drm_gem_object *obj)
->  
->  static void pin_obj_locked(struct drm_gem_object *obj)
->  {
-> -	struct msm_drm_private *priv = obj->dev->dev_private;
-> +	struct drm_device *dev = obj->dev;
->  
-> -	mutex_lock(&priv->lru.lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  	msm_gem_pin_obj_locked(obj);
-> -	mutex_unlock(&priv->lru.lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  }
->  
->  struct page **msm_gem_pin_pages_locked(struct drm_gem_object *obj)
-> @@ -487,16 +487,16 @@ int msm_gem_pin_vma_locked(struct drm_gem_object *obj, struct drm_gpuva *vma)
->  
->  void msm_gem_unpin_locked(struct drm_gem_object *obj)
->  {
-> -	struct msm_drm_private *priv = obj->dev->dev_private;
-> +	struct drm_device *dev = obj->dev;
->  	struct msm_gem_object *msm_obj = to_msm_bo(obj);
->  
->  	msm_gem_assert_locked(obj);
->  
-> -	mutex_lock(&priv->lru.lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  	msm_obj->pin_count--;
->  	GEM_WARN_ON(msm_obj->pin_count < 0);
->  	update_lru_locked(obj);
-> -	mutex_unlock(&priv->lru.lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  }
->  
->  /* Special unpin path for use in fence-signaling path, avoiding the need
-> @@ -507,10 +507,10 @@ void msm_gem_unpin_locked(struct drm_gem_object *obj)
->   */
->  void msm_gem_unpin_active(struct drm_gem_object *obj)
->  {
-> -	struct msm_drm_private *priv = obj->dev->dev_private;
-> +	struct drm_device *dev = obj->dev;
->  	struct msm_gem_object *msm_obj = to_msm_bo(obj);
->  
-> -	GEM_WARN_ON(!mutex_is_locked(&priv->lru.lock));
-> +	GEM_WARN_ON(!mutex_is_locked(&dev->gem_lru_mutex));
->  
->  	msm_obj->pin_count--;
->  	GEM_WARN_ON(msm_obj->pin_count < 0);
-> @@ -797,12 +797,12 @@ void msm_gem_put_vaddr(struct drm_gem_object *obj)
->   */
->  int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv)
->  {
-> -	struct msm_drm_private *priv = obj->dev->dev_private;
-> +	struct drm_device *dev = obj->dev;
->  	struct msm_gem_object *msm_obj = to_msm_bo(obj);
->  
->  	msm_gem_lock(obj);
->  
-> -	mutex_lock(&priv->lru.lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  
->  	if (msm_obj->madv != __MSM_MADV_PURGED)
->  		msm_obj->madv = madv;
-> @@ -814,7 +814,7 @@ int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv)
->  	 */
->  	update_lru_locked(obj);
->  
-> -	mutex_unlock(&priv->lru.lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  
->  	msm_gem_unlock(obj);
->  
-> @@ -839,10 +839,10 @@ void msm_gem_purge(struct drm_gem_object *obj)
->  
->  	put_pages(obj);
->  
-> -	mutex_lock(&priv->lru.lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  	/* A one-way transition: */
->  	msm_obj->madv = __MSM_MADV_PURGED;
-> -	mutex_unlock(&priv->lru.lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  
->  	drm_gem_free_mmap_offset(obj);
->  
-> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> index 31fa51a44f86..c07af9602fee 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> @@ -186,7 +186,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  		if (!stages[i].cond)
->  			continue;
->  		stages[i].freed =
-> -			drm_gem_lru_scan(stages[i].lru, nr,
-> +			drm_gem_lru_scan(priv->dev, stages[i].lru, nr,
->  					 &stages[i].remaining,
->  					 stages[i].shrink,
->  					 &ticket);
-> @@ -255,7 +255,7 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr)
->  	unsigned long remaining = 0;
->  
->  	for (idx = 0; lrus[idx] && unmapped < vmap_shrink_limit; idx++) {
-> -		unmapped += drm_gem_lru_scan(lrus[idx],
-> +		unmapped += drm_gem_lru_scan(priv->dev, lrus[idx],
->  					     vmap_shrink_limit - unmapped,
->  					     &remaining,
->  					     vmap_shrink,
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 26ea8a28be47..3c6bc90c3d48 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -352,7 +352,7 @@ static int submit_fence_sync(struct msm_gem_submit *submit)
->  
->  static int submit_pin_objects(struct msm_gem_submit *submit)
->  {
-> -	struct msm_drm_private *priv = submit->dev->dev_private;
-> +	struct drm_device *dev = submit->dev;
->  	int i, ret = 0;
->  
->  	for (i = 0; i < submit->nr_bos; i++) {
-> @@ -381,11 +381,11 @@ static int submit_pin_objects(struct msm_gem_submit *submit)
->  	 * get_pages() which could trigger reclaim.. and if we held the LRU lock
->  	 * could trigger deadlock with the shrinker).
->  	 */
-> -	mutex_lock(&priv->lru.lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  	for (i = 0; i < submit->nr_bos; i++) {
->  		msm_gem_pin_obj_locked(submit->bos[i].obj);
->  	}
-> -	mutex_unlock(&priv->lru.lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  
->  	submit->bos_pinned = true;
->  
-> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-> index 1a952b171ed7..c4cfe036066b 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-> @@ -702,7 +702,7 @@ static struct dma_fence *
->  msm_vma_job_run(struct drm_sched_job *_job)
->  {
->  	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
-> -	struct msm_drm_private *priv = job->vm->drm->dev_private;
-> +	struct drm_device *dev = job->vm->drm;
->  	struct msm_gem_vm *vm = to_msm_vm(job->vm);
->  	struct drm_gem_object *obj;
->  	int ret = vm->unusable ? -EINVAL : 0;
-> @@ -745,13 +745,13 @@ msm_vma_job_run(struct drm_sched_job *_job)
->  	if (ret)
->  		msm_gem_vm_unusable(job->vm);
->  
-> -	mutex_lock(&priv->lru.lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  
->  	job_foreach_bo (obj, job) {
->  		msm_gem_unpin_active(obj);
->  	}
->  
-> -	mutex_unlock(&priv->lru.lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  
->  	/* VM_BIND ops are synchronous, so no fence to wait on: */
->  	return NULL;
-> @@ -1305,7 +1305,7 @@ vm_bind_job_pin_objects(struct msm_vm_bind_job *job)
->  			return PTR_ERR(pages);
->  	}
->  
-> -	struct msm_drm_private *priv = job->vm->drm->dev_private;
-> +	struct drm_device *dev = job->vm->drm;
->  
->  	/*
->  	 * A second loop while holding the LRU lock (a) avoids acquiring/dropping
-> @@ -1314,10 +1314,10 @@ vm_bind_job_pin_objects(struct msm_vm_bind_job *job)
->  	 * get_pages() which could trigger reclaim.. and if we held the LRU lock
->  	 * could trigger deadlock with the shrinker).
->  	 */
-> -	mutex_lock(&priv->lru.lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  	job_foreach_bo (obj, job)
->  		msm_gem_pin_obj_locked(obj);
-> -	mutex_unlock(&priv->lru.lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  
->  	job->bos_pinned = true;
->  
-> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> index 30ddb5351e98..2d6b930b766e 100644
-> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> @@ -16,13 +16,13 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
->  	struct msm_gem_submit *submit = to_msm_submit(job);
->  	struct msm_fence_context *fctx = submit->ring->fctx;
->  	struct msm_gpu *gpu = submit->gpu;
-> -	struct msm_drm_private *priv = gpu->dev->dev_private;
-> +	struct drm_device *dev = gpu->dev;
->  	unsigned nr_cmds = submit->nr_cmds;
->  	int i;
->  
->  	msm_fence_init(submit->hw_fence, fctx);
->  
-> -	mutex_lock(&priv->lru.lock);
-> +	mutex_lock(&dev->gem_lru_mutex);
->  
->  	for (i = 0; i < submit->nr_bos; i++) {
->  		struct drm_gem_object *obj = submit->bos[i].obj;
-> @@ -32,7 +32,7 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
->  
->  	submit->bos_pinned = false;
->  
-> -	mutex_unlock(&priv->lru.lock);
-> +	mutex_unlock(&dev->gem_lru_mutex);
->  
->  	/* TODO move submit path over to using a per-ring lock.. */
->  	mutex_lock(&gpu->lock);
-> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-> index bc78fb77cc27..768a8dae83c5 100644
-> --- a/include/drm/drm_device.h
-> +++ b/include/drm/drm_device.h
-> @@ -375,6 +375,13 @@ struct drm_device {
->  	 * Root directory for debugfs files.
->  	 */
->  	struct dentry *debugfs_root;
-> +
-> +	/**
-> +	 * @gem_lru_mutex:
-> +	 *
-> +	 * Lock protecting movement of GEM objects between LRUs.
-> +	 */
-> +	struct mutex gem_lru_mutex;
->  };
->  
->  void drm_dev_set_dma_dev(struct drm_device *dev, struct device *dma_dev);
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 86f5846154f7..8a704f6a65c1 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -245,17 +245,11 @@ struct drm_gem_object_funcs {
->   * for lockless &shrinker.count_objects, and provides
->   * &drm_gem_lru_scan for driver's &shrinker.scan_objects
->   * implementation.
-> + *
-> + * Any access to this kind of object must be done with
-> + * drm_device::gem_lru_mutex held.
->   */
->  struct drm_gem_lru {
-> -	/**
-> -	 * @lock:
-> -	 *
-> -	 * Lock protecting movement of GEM objects between LRUs.  All
-> -	 * LRUs that the object can move between should be protected
-> -	 * by the same lock.
-> -	 */
-> -	struct mutex *lock;
-> -
->  	/**
->  	 * @count:
->  	 *
-> @@ -453,6 +447,9 @@ struct drm_gem_object {
->  	 * @lru:
->  	 *
->  	 * The current LRU list that the GEM object is on.
-> +	 *
-> +	 * Access to this field must be done with drm_device::gem_lru_mutex
-> +	 * held.
->  	 */
->  	struct drm_gem_lru *lru;
->  };
-> @@ -610,12 +607,13 @@ void drm_gem_unlock_reservations(struct drm_gem_object **objs, int count,
->  int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
->  			    u32 handle, u64 *offset);
->  
-> -void drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock);
-> +void drm_gem_lru_init(struct drm_gem_lru *lru);
->  void drm_gem_lru_remove(struct drm_gem_object *obj);
->  void drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_gem_object *obj);
->  void drm_gem_lru_move_tail(struct drm_gem_lru *lru, struct drm_gem_object *obj);
->  unsigned long
-> -drm_gem_lru_scan(struct drm_gem_lru *lru,
-> +drm_gem_lru_scan(struct drm_device *dev,
-> +		 struct drm_gem_lru *lru,
->  		 unsigned int nr_to_scan,
->  		 unsigned long *remaining,
->  		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
-> 
-> ---
-> base-commit: b2ed01e7ad3de80333e9b962a44024b094bc0b2b
-> change-id: 20260506-panthor-shrinker-fixes-58c1f45cfc41
-> 
-> Best regards,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index a1087c13f241..cf7b1b038d5f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1821,7 +1821,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
+ 	return 0;
+ }
+ 
+-#ifdef CONFIG_X86_64
++#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+ static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+ 				uint32_t *num_entries,
+ 				struct crat_subtype_iolink *sub_type_hdr)
+@@ -1880,7 +1880,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 	struct crat_subtype_generic *sub_type_hdr;
+ 	int avail_size = *size;
+ 	int numa_node_id;
+-#ifdef CONFIG_X86_64
++#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+ 	uint32_t entries = 0;
+ #endif
+ 	int ret = 0;
+@@ -1945,7 +1945,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 			sub_type_hdr->length);
+ 
+ 		/* Fill in Subtype: IO Link */
+-#ifdef CONFIG_X86_64
++#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+ 		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
+ 				&entries,
+ 				(struct crat_subtype_iolink *)sub_type_hdr);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 46db0d65d242..87e13f021457 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -2349,7 +2349,7 @@ static int kfd_cpumask_to_apic_id(const struct cpumask *cpumask)
+ 	first_cpu_of_numa_node = cpumask_first(cpumask);
+ 	if (first_cpu_of_numa_node >= nr_cpu_ids)
+ 		return -1;
+-#ifdef CONFIG_X86_64
++#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+ 	return cpu_data(first_cpu_of_numa_node).topo.apicid;
+ #else
+ 	return first_cpu_of_numa_node;
+-- 
+2.43.0
 
