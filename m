@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72FC9CD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:25:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 738BCCD4F25
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:25:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C79B110E391;
-	Thu, 14 May 2026 08:25:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D234E10E3C3;
+	Thu, 14 May 2026 08:25:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="H0cO7Y7G";
+	dkim=pass (2048-bit key; unprotected) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="eU5w4j3c";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0BF010E391
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 08:25:02 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-c80291e6237so5544927a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 01:25:02 -0700 (PDT)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7323210E3C3
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 08:25:10 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-c796163fac5so5662287a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 01:25:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1778747102; x=1779351902;
+ d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1778747110; x=1779351910;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=7d38f+IaIo+LqPs0VUxtKb87zLxGu6BC7Fyaado5mzo=;
- b=H0cO7Y7GNoetxbbltaIaSiC+q40fN8CR6CxtXy/rIVBiaji7hfTcZJUp6XX8sclg0Y
- huDH6DZpB3HV/ZpSjK065JLdacSPeuzc11v1k+qc5Aq8uV/FQEqGYt4leACf/Pw1Z1o9
- JUC8RMVuHCvV1EDmwNTg4enWDtuzzI5hV+dNabUF27Ou75+D61Zc8Okev0BYUIMCcpqb
- Lt53cB8lo+8mE8OZwuIk1rSkTa6jaDkUP7KbZKMO5gYQ/Cfzb9nqskhErKHOeIEsEkzP
- 6DY40tL3tA/F7F1i9bD+XZpcGetDgx7NQPdUi5CxTMpEoUaH1S5d3tTivQJ2WKzH8PfR
- MGNA==
+ :reply-to; bh=cETLUD+cFYpJj1ZB4GUnM/Wn7jURn1pWYkE3ZLuZekk=;
+ b=eU5w4j3c5dSX+X5WnGEZ/2pck4aY0jlKrOszqwe0uOHlM+WShiLmeJPPhJtulyoYV1
+ 8JliLLoqPIANLhTHk5B3b0UuQB5Z0uPZLe6V04LAiOBDu0g9re3p1+JAsaX48R+tYfEq
+ 1rlT0dwyHt2xOylDBIR7RRmnJ+caU7cFtz6tc6qrdWVbUjIcsKKQPccjomg25eNWGo0s
+ 69tmrS2rCU959oaNj6sax5WpPwvTVyuqOzJxm5tVmIqlGiFydzR37qllwwbcmhoEO0yp
+ oyFPOyj1+W+GJMCDZn66oaRg8/2q41mj1yFQpBtc2Ktxz/fFlpIy5udLId0tvIbqCI1b
+ zYDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778747102; x=1779351902;
+ d=1e100.net; s=20251104; t=1778747110; x=1779351910;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=7d38f+IaIo+LqPs0VUxtKb87zLxGu6BC7Fyaado5mzo=;
- b=Yt0djxlVOx9DRkMzbX7h3cLlXj/vkTUpZDmxEw5SkJatxHS4szMS8nhyU2vuh6WVY2
- 060ZGCsdQTTbAbLTvY0GNcuNRUPwjdLaVN0k5Rdd29vMs7W5P7/jOVr7oWcONReILmKI
- Rejxq/KAHyPWAgEXpAUzMnymFGmbKACwaSbcJ8KjbzDKPQ0BKQQh/ZnCpxe5TXFlG/y+
- 7zGLeKCzh//UOOHLwzLv8YSaHZIUNpOYI7wxJYiUh6aC5VKj7ygQhr+dBNH04Py3M1bh
- 8PebpTZXV0L5K1usNGrTEAcocVxx2iq0bYpzqkor86wAI0piMSeSIJNfXqMz0B966IO/
- TMLA==
+ bh=cETLUD+cFYpJj1ZB4GUnM/Wn7jURn1pWYkE3ZLuZekk=;
+ b=GBj+iD0rwuAdOK6gAdlt/P60th58W3OY5DT2U21BpqNgEXkvooTZSQvsTjGHJ83lry
+ fez/E59uMdiUmilbhw0rPVyAv+KNjqR5w4yweOkzApxCzxyp0tCsYoJhG6pwN+aigvr4
+ Bok9N1MhqiDM/Q+aqsjq5htSiW1RlQYr9/9bKmDTKYzJ1cZJPJD+sg0hMK44K1g8SeoS
+ TRmTXGmEph1HwHIRuOKCHUG6QrRViw1Mvu37uWZWRi00mVAT2nmzwZkUJnntjly3w3iJ
+ cAiq1E9De0drDhyEQkMP2n8FayA/HAMr5Js/RdhWzHAgVS+ebWDECbxjR8rERxRDoyBO
+ plDA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8nsb9o97fo+lUEl957EujAumLZ0Tk5o4IByR8ihRlsiJFC21F6Z2Hjca4BBSHBYpEiZBBrvUj++yg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx3xbjzDwAr14UVVkYTm+Ys3rznKesMkv2fxbB0CvzNxZZcxVZf
- G7GyIkeAgMGqOpLSHQu1xwgbPeFL+ksJhFzTD9r1A3KKICVRj8mLBr+SWTDRWeToZTA=
-X-Gm-Gg: Acq92OGdMJw8me5sarYn5krWBeQ0nZW1CvhbTz9/whGDIlrsAJGEio08S/k4EvKR2wu
- 8y99OFmLzosjZ9bBGT+26ojoY6mbBQz0RQu37AyK6mBtIBdI9953i1NbhUk6fok9Vug2vxUr4cB
- k55qkeR8xWDqtllg/J1VsPLimtyiyL466UnvcMYgGmxo9NSQCkD4OTSbVI6x7DWDt+Chyk4YJ7w
- Qoj3ErKUeedpBxYkP8jRx3Dqs+XCLX1rhO4c2lw26CLazqT+cnAXfP/2txX4FPSI1/GM/tPWeQN
- qteqUa+Ypr3yqff2lbew5vNlSCB9peAk+7dYcV902MzfG+UUqI56CsHveNwN0tXivEjLJBCaLkt
- qz97h3VQ5GSiNGdDFVpjB7iFDX/sSuwzGN/VXx8RM5xo+p0pyGpG9JO1dFlvUNLerExed3IKy01
- 6yYET5OLBNbY09K+TRn+vkK0yic7xNTPLscYGvy6ZErT+7LB+1qmN/utYBxkG3lK+4DiBJEIoz1
- PhEZoq+l0WUbfCQ5nKS8vWP+sEj2QPj/QyPjlUdZzvYiJZmUFtILco=
-X-Received: by 2002:a05:6a20:7495:b0:38b:d9b5:5de2 with SMTP id
- adf61e73a8af0-3af83e4433bmr7439055637.50.1778747102141; 
- Thu, 14 May 2026 01:25:02 -0700 (PDT)
+ AFNElJ9QxlzeioGM6zG1hCxNMEICiCEVAvM9Edz4Tjeiv5aMS+U2w9XcVBDFzCmYTbMZKBcxiKSeE1JL6LU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwqvjnRfVf7GDBdC04GYq9nUsSH1N8YyKx2QjvIauJteHnv1pgk
+ tT5ekTW4lzgvkc8PXmY9sxOmS/7gOeRTgdEcp4e64TdxYXJNoedfxGt4EmJcdLjihqY=
+X-Gm-Gg: Acq92OGlAOx58clrZaJwxfq5fC/kaC4QWbA6omM8uUk8TI/36bGLDsJLT6XIk9YcN7F
+ zveG5gDa+rcBNRfJ0fe9nhopbGmVx0LBecr2J765MpYIdVP/iFd3nk2UDLkRq013TEEHdmLm313
+ 4aXJ+sbjZ41YNYTd931GDndd28Sq4ufQmZdoImfNo5QVG3SGqlsptyXC5ysP5pMYaR8REEPxeSe
+ 9tssAf4CNm9BO2p5QTKkFxmg8grL9U85AyFWrzm7SwTCajYZsplRaeYZiXv3H2pJLa+j25cMXvS
+ dMW8X0lmZSCrIZQkl7J+0lQ9Phtr7P8SXtux9XQ+e7jriKGB/PlY2qSDWoDRMztkEH2awR4fEaO
+ noHGFzd0vC3DA8o3VBKhM3KGyCs6db5bn4ULLDTcEODeWyTVzM+h4p2ipvZ/SU0M3+MB7AfDVW+
+ Oj2+WDe6Yp55fizGtkIWcsEN7rNyAGcvD/Gl2/fjzVJPJmUHWNp6ZlfipYilCRlbrLdSFH4kTlW
+ z38M5bNx6K19dPuzvDn5n5TQ/CzwftFVes/AzeCAgig
+X-Received: by 2002:a05:6a21:4ec4:20b0:3b1:8cf6:8f79 with SMTP id
+ adf61e73a8af0-3b18cf6979cmr603100637.44.1778747109771; 
+ Thu, 14 May 2026 01:25:09 -0700 (PDT)
 Received: from [127.0.1.1] ([103.158.43.41])
  by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-c82bb06875bsm1589102a12.3.2026.05.14.01.24.54
+ 41be03b00d2f7-c82bb06875bsm1589102a12.3.2026.05.14.01.25.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 01:25:01 -0700 (PDT)
+ Thu, 14 May 2026 01:25:09 -0700 (PDT)
 From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Date: Thu, 14 May 2026 13:54:31 +0530
-Subject: [PATCH 02/14] fbdev: broadsheetfb: fix potential memory leak in
- broadsheetfb_probe()
+Date: Thu, 14 May 2026 13:54:32 +0530
+Subject: [PATCH 03/14] fbdev: metronomefb: fix potential memory leak in
+ metronomefb_probe()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260514-fbdev-v1-2-b3a2474fa720@cse.iitm.ac.in>
+Message-Id: <20260514-fbdev-v1-3-b3a2474fa720@cse.iitm.ac.in>
 References: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
 In-Reply-To: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
 To: Helge Deller <deller@gmx.de>, 
@@ -111,39 +111,39 @@ Fixes: 56c134f7f1b5 ("fbdev: Track deferred-I/O pages in pageref struct")
 Cc: stable@vger.kernel.org
 Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
 ---
- drivers/video/fbdev/broadsheetfb.c | 8 ++++++--
+ drivers/video/fbdev/metronomefb.c | 8 ++++++--
  1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/video/fbdev/broadsheetfb.c b/drivers/video/fbdev/broadsheetfb.c
-index c8ba098a8c42..582f1ee4c9b6 100644
---- a/drivers/video/fbdev/broadsheetfb.c
-+++ b/drivers/video/fbdev/broadsheetfb.c
-@@ -1072,12 +1072,14 @@ static int broadsheetfb_probe(struct platform_device *dev)
+diff --git a/drivers/video/fbdev/metronomefb.c b/drivers/video/fbdev/metronomefb.c
+index 6f0942c6e5f1..83c614963a0a 100644
+--- a/drivers/video/fbdev/metronomefb.c
++++ b/drivers/video/fbdev/metronomefb.c
+@@ -645,12 +645,14 @@ static int metronomefb_probe(struct platform_device *dev)
  	info->flags = FBINFO_VIRTFB;
  
- 	info->fbdefio = &broadsheetfb_defio;
+ 	info->fbdefio = &metronomefb_defio;
 -	fb_deferred_io_init(info);
 +	retval = fb_deferred_io_init(info);
 +	if (retval)
-+		goto err_vfree;
++		goto err_free_irq;
  
- 	retval = fb_alloc_cmap(&info->cmap, 16, 0);
+ 	retval = fb_alloc_cmap(&info->cmap, 8, 0);
  	if (retval < 0) {
  		dev_err(&dev->dev, "Failed to allocate colormap\n");
--		goto err_vfree;
+-		goto err_free_irq;
 +		goto err_fbdefio;
  	}
  
  	/* set cmap */
-@@ -1121,6 +1123,8 @@ static int broadsheetfb_probe(struct platform_device *dev)
- 	board->cleanup(par);
+@@ -673,6 +675,8 @@ static int metronomefb_probe(struct platform_device *dev)
+ 
  err_cmap:
  	fb_dealloc_cmap(&info->cmap);
 +err_fbdefio:
 +	fb_deferred_io_cleanup(info);
- err_vfree:
- 	vfree(videomemory);
- err_fb_rel:
+ err_free_irq:
+ 	board->cleanup(par);
+ err_csum_table:
 
 -- 
 2.43.0
