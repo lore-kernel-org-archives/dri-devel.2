@@ -4,157 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF7FCD4F39
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:19:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36D03CD4851
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 08:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB4E210E39C;
-	Thu, 14 May 2026 08:19:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9674310E0FF;
+	Thu, 14 May 2026 08:24:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LSDLlO4t";
+	dkim=pass (2048-bit key; unprotected) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="KjRwMCDq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 057EA10E384;
- Thu, 14 May 2026 08:19:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778746768; x=1810282768;
- h=message-id:date:subject:to:references:from:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=Zc8jaLiOdunkysKPqCeE4pAdMj/mnipxMuepIkOQ4w0=;
- b=LSDLlO4tvxu4mEWuHHloR65OGA7S94xA3HlOrGLoaEpu+pbFRCBjNbYb
- EnGEpG1+xQD6Q5HYwdE5/VMmNQPzfr72jrv42oAxM0ZpYDfEzJ2CJeAbE
- 1zE9Hg6VVtwJUKLO3ENTjFnuGnWTbVUAqUq7xc+FZA0F+LZnWULeC6egE
- aGHBY85F6Ex08IDjQWj2aQG3ItWGCO6rW1zwP+l/9tB5pd32R8cdKVMHF
- DSWd6oeBzuVHi+1L0pt0pWwbETcLiuNNgAE3PvyR6sJvR1Nc2ja0wob+Q
- 7fCDY0/KFpRy3NPPHkAcGvtHfEWPQU1ludglVkNxDedpn92bmopINe5A4 w==;
-X-CSE-ConnectionGUID: lxEAzTf+RYeoFsD0d4VgQw==
-X-CSE-MsgGUID: p8YeVI28TYGuVv5HxSSRPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79639018"
-X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="79639018"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2026 01:19:28 -0700
-X-CSE-ConnectionGUID: 0HUX9iUTQNeYh7lzSJ2MSw==
-X-CSE-MsgGUID: pzFR8jpkRtqrrvshyIPfCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,234,1770624000"; d="scan'208";a="238439210"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2026 01:19:28 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 14 May 2026 01:19:27 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 14 May 2026 01:19:27 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.39) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 14 May 2026 01:19:25 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NoN7nNM2ZNnxbyiflEdnP+L8lm9LwcXvjAyexwoQ5aPpXaDebiMJNXfkJmZ6ONQ/euwup2u/nz2VeGb9eEgoNjsBLoHAs99N9WUsIGIDI1LiVJBjdqDAatAbbQzaLUCWWqURI4iweUptk08FQDHy3nAlfS0JUMalK5ugJPl+wM/yFzgvrXMQgu2WNYMfG5KEGFTMRRu7/omJiQKsZPLGJOlgc3lXE6JqR7adEjFrFU94gRj2ayoTxB3L578jum6tS5uSHC4pw48cEduu22mE4gUpvv2SQz26TlYjksK1vTAM+X/+wVe03vQOTOYzt76EFSrE4Su2rXhFLG7EfHPyjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a4yldlJYOFhLAORDFn7+1X+B9dOxfj00eo0u//UjAN4=;
- b=BoJ9HsVYGiF17wge+1yQNR4GUswqNW6prSer6jANYJYfzP/qVrwf5ktrHJLYuy+dVH961xpMkoRxdK/wgqks4Mt4X0mlbVSN6InZ2EEN+MrY5FEgaeLi3+t1KCuuCLN8TW6LT+TqVz5rIDQFtDhDlI+8/Z+1uYv+zN5tWyXKXKLPoqNuIitwmjsXbnyS849Di+a3Ppy/WL0iX1etJD9aCioUvw/wqRAX0k2Pj5zK7QFa2AnkNYz7KajGekTmClCqX7UDRUbQoPCRJSbxxLze9RGo4SZo8ol0DOwpKzo0pHxxpWXwjtoecy27qOb2pHGgJamB3vpRY6zJi1hpP/IVWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
- by MW6PR11MB8391.namprd11.prod.outlook.com (2603:10b6:303:243::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Thu, 14 May
- 2026 08:19:21 +0000
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9913.009; Thu, 14 May 2026
- 08:19:21 +0000
-Message-ID: <e0eb5070-1790-49ff-be2b-895533caafb8@intel.com>
-Date: Thu, 14 May 2026 13:49:14 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/dp: Add DP_DSC_MAX_BPP_DELTA register
-To: Nemesa Garg <nemesa.garg@intel.com>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-References: <20260423143035.2267634-1-nemesa.garg@intel.com>
- <20260423143035.2267634-2-nemesa.garg@intel.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <20260423143035.2267634-2-nemesa.garg@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0170.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1af::7) To DM4PR11MB5341.namprd11.prod.outlook.com
- (2603:10b6:5:390::22)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00D4810E0FF
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 08:24:46 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-c798fc1a28cso3653801a12.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 01:24:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1778747086; x=1779351886;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4mgvCm8MfJh47lqaqPNfqzc/xfynw7OZOiaI/rFvWqY=;
+ b=KjRwMCDq0W9nv6ege5hr5/SNXvlf+VxC4o+OhToT7X2c5rj19Xrr4/UOkZ3NX1jzO5
+ rowRu5HUovREZzuVRxcEO3s7FdopQEv07KkU49POD6Jb+0AFilk6Yr8Z0NgfZpoZhbyX
+ 4maZSuZDejSK1TBkfjfe2TsCfVaZsgPICzKyndeddzCR9358BE4j7zsFscFvjvXQ8obc
+ zgKI368TavFWoMVfv92zUGFzxD+apVJhs4Ka80KpEHLeIg5qjOIP/5fwNn06AMyK+oze
+ En1m3/JtbMyxg/6aATIEcJLYsNGV6V5Q+FehBTRvfZrAfp9sobDmheYRdjCAzn7PvMzE
+ HE/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778747086; x=1779351886;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4mgvCm8MfJh47lqaqPNfqzc/xfynw7OZOiaI/rFvWqY=;
+ b=O+ODF8RTPpcsbBuqQJ1SqnekjPrCFgL5PVnSQ+m05WuSV7ZjdC7jDEi8k0lf9oSfAM
+ mzUopvI8kZjMmrirExUhlyo6YtZstKq/SJoutLQDMpSwZmgVZ9Ye4bo1HCwpr4izHB6m
+ FBm7kSqCvWZLO5hjXFT5OT4dCEtDhtjR2Yenki5XcI6PP+u9iSeIca6syq+hrIOvlv2l
+ 7T2jEOqM2LKSNwwkuP4i7pX9B9vsdW4844OBq+GympJr4HbocrbnkD/4CRpD131vkcJu
+ x12uT5+WNKfdyD2UIeIOe2tQcMBMz8fG5KJdfbGX7lB9lIX7j+/xsrotJLdsJ7L7kJwa
+ v6mA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/a0jRSwFomyoVCKw7fazqMKgbgb70GYmzVr6M67gErHbTQUA2pb3P8QXEDYag8g/EEkQlLKubxhU8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwNl9q8PiO7pHdRMvynh+WRGExZguvET/+cs+TBvIO3ZNKgkfW/
+ gqnXiZXQWN9pfolwSD71BatvG1eLvKJUc4v6IgUeyUN55MjI64m4N3fRG3UepVKP76A=
+X-Gm-Gg: Acq92OEDv9S8hJ5EIVSG4IG6LB+2/MTqq1MWTkyJQjAi/atCnDToHre9q6NMk3zq0i6
+ F+QdM9SYMGC4RJg9YTyGBs5gr6yvChsGIhJwmUEon9R6RD6EZkYooGn1Sp0F6Zx4cBs5MBZRrnG
+ 4GRcsnbepAwO/NxthcbXs4mML4PShnBPBWIXARM1nbx7s/BwYNxrTk+hBReLL99q58DT2eEvthC
+ 2IkCpeXctn1z50YYoUn1AF0kItYLdHzs9PccHSdiuyc2MduURpWQiYNwVVWcpc78vdoD8Unrk9V
+ q0mQb1bjCOzSPkYFvPxhbL2VzWBOJ28+HvRtAL4+CvC0fIcbWX8c8z9qwGFQlsKtVAvNes2O7JS
+ lGv8yx26EqZ7Fk/77NgqX7hJpg6ss6pzzxBqCjEOG6XEfma6UwDk44xNjL0oc4NYbWuzn+6UEnK
+ zUHAc8d3TWD8mA8ved7JVr9eX8tQbgulcU7OoviZd+kJQ25NTc6YWNhCqB8JF36J6l2Rl/xq5Ce
+ 3+15WjGOikvqIerc98LTUBkRQpQ+mSs2OW/DIQximhcr7jaxg2c2JU=
+X-Received: by 2002:a05:6300:218d:b0:395:ce56:4448 with SMTP id
+ adf61e73a8af0-3af7f97ae44mr7226883637.25.1778747085948; 
+ Thu, 14 May 2026 01:24:45 -0700 (PDT)
+Received: from [127.0.1.1] ([103.158.43.41])
+ by smtp.googlemail.com with ESMTPSA id
+ 41be03b00d2f7-c82bb06875bsm1589102a12.3.2026.05.14.01.24.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 May 2026 01:24:45 -0700 (PDT)
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Subject: [PATCH 00/14] fbdev: fix various memory leaks
+Date: Thu, 14 May 2026 13:54:29 +0530
+Message-Id: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|MW6PR11MB8391:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d41f91e-1af1-4e4d-a67a-08deb1918031
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|4143699003|22082099003|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: hdg/37KN0CJ2wJ8ENTyt1Tg1kqYIgvutvA3w1G/V6LqDzfjZ4XkKoRb/R0FQuriuYzQ7ZiQ5YUtvGfGut8uFjdf404SvX32jM3hkGv3xy2QOXhzZMdXHcroBBHHkJRewHPlEfg6e1l0WSZOwnIl/wnV6imaUcwP5P4r+XTRtaP64v6Kg2M3fztGc65VOUvpyqaDgYWU+uBA5rP1HJX+U6u2TmFj8yzeRXS/RPvXumQH6+p7i1AjmKKn2hgIafcYuYKv6NepP8dX0XqZSbmec3d9XTeBGxTmHlrE96+x0BlCF8rrsBBDCLWACsxUXeNrD4mUXwHsc2jz2bdGTPezaiOHAdDGCd0Ht4bKTtT0GSYpF/yLQ2eMNBpnW2fuBq2iTtia1dmKg0GkN54gS9KA6fHvxgFBHJbVlL9a0pzvvaiPpB5jZYG/A62UtIofcbVhznkPE+eJVRYwKpATKhxGyYL/yjqjVga/6EpIIGpUQtkcXaWxSHikwTyNK2771YATM7SlIgKU6l5X8AAo0hmBL0wt0llwmr3CTMkDfZwMMvDMGsS5+0rNw7QUD6NpJvhkDxGQM+e8Zuz4nHl0wIBVDxllRhTBP3vcTs2oILIhux1OPu1n7zr6Jpq7/7HcMxbtISAnamqyEfEaHXPFGEC9DvNEYMbCF0op7tFRTRM0Fo2AR7zTFKZ5zlOihGUWLMuVA
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(4143699003)(22082099003)(18002099003)(56012099003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUhkclI3aTduM29BQ1lCY1R5d3A0SWxscTczM05KTUk2MGlzQ2FzZ1YwUDMr?=
- =?utf-8?B?UXNCQ0hZTGZQVnRBNS8xa0piUnlqU3d5WjlPaThOUHVYSG5xTE9idVZCYzRK?=
- =?utf-8?B?alYrNVBnRHFRV3NEV1dOUWE0YTJzcG1OdDNKNkJGcHI3RWZOMEhrL0c4d0dK?=
- =?utf-8?B?STZFbjFXZzlwUytnTmFyUzJJR3pTOVVjQThGOTdrSXFNRE5uWjZnb01DSUli?=
- =?utf-8?B?cVRSZHdPaWhQWnRrN0tCSUtTMVVrRDFMN1JmbHVUUDV1Y2xOcjRsNE1kaXhJ?=
- =?utf-8?B?a2x3SEZhOXNQaUN2cThOQWJSVjFLWGxIaGdiRTZRd0NDRWRwOXFLcjlzbDBi?=
- =?utf-8?B?R0FDaFBtbFlFZFpZd3FMWk9xdm13cTh4QnZEKzJUVktSbjRWa01aa0Q5VWpj?=
- =?utf-8?B?d0dNNit0ZkpCT3RrMXF0NnVQZU5SM0V3UnVwc2FUcXNHbUhCNldzTEJxL0wr?=
- =?utf-8?B?dy9Fb1RWYlVlemZlOGVaM1NPVjlScmhHVHNCNTZTS1ZNaHNVdENscGhleVhU?=
- =?utf-8?B?SndZM1cvOUk2ZjE5eHhxbURiWENTYVR0SGdObVlreFFHL2p5YVVMem5BV2xq?=
- =?utf-8?B?SkJaOWg2OXQzVHRZNm5GbVVta28xMHVNRWxvZUd3ZnBUdXI4dGt0VnRqUExa?=
- =?utf-8?B?aHM4U1NtZkRGZXE0aWJ6SGdaK0lLZHp5MVhoU2IrNllSZzFzSW4wNTV4U2Ri?=
- =?utf-8?B?d2VCQ2ZDTDJGbG50ejByOFdCUkFKeEQ3cnA3MjlsbzZkbGV1Q2J5YWt1UXJC?=
- =?utf-8?B?VlRRS1JKL0QrM0tkM29sNnhBUnJpc2pUOEpPN3M2MFlSQm5HVDBXMDFEYzNX?=
- =?utf-8?B?OTBOZ2x1TEpxVUV0TXpHc3ZXMzVHM2ZOUFh3Wno4U0FSZ0RMTkVFa2dYanEv?=
- =?utf-8?B?NjRjUmJPUXBqZVJGa1RyV0ZaZjNmSnZ6eW94bG5jQXlFSTJqUzU3bjYxaUs0?=
- =?utf-8?B?OXljN0ZWNmg2bnB1NTJlQzh0cEVnRGprVmkxV1NMUWU2VTVBRmFIOXpSSCtV?=
- =?utf-8?B?VkxZYXh6NEk1TUpHOWxxaFRBOFZwSjBoek5QRTY0RXV6Rms1b05QREc4eDl2?=
- =?utf-8?B?aUVxTUJsb0Q3K0JmK2h0c1Z0Qm9QZ0VBU0xUS3VPVWZIZmpOZjlKbG5EdVJS?=
- =?utf-8?B?N0JSZUhxaU8raklsTHJ4SDR5VFM5bDhwTi8rblNHODdOK0xKVjhMdFE0bUtV?=
- =?utf-8?B?clRpbmZwU0pSTTVYLzVPVnV2ZE9OMVpOR1pCV1RNZTNBSUdOOXVwK1c4VGV6?=
- =?utf-8?B?REJSZTZVdWx5UU9vMm16ZE9ROHNlWUQxOHhJVktNNjZZTW9Ld3dFSnNMQUN0?=
- =?utf-8?B?bGV4VEI3QTNwNW9XZGxZSE1tdEJYejloeWZUTFhycEF4NmEvRjFmalRzYkNx?=
- =?utf-8?B?cjc0Tk5rZ0tBb0E3NDdGNncvRWlHUWZLcXJ2b1l5UTFHZmpnb256c29jV2du?=
- =?utf-8?B?QUNBV0JJZ3BwajJlRjRaM0tKd2tDbUJ3S1g1Ym0wSU1Oa0NyQ25LSG1QbjY4?=
- =?utf-8?B?TW5vcUtNS3pNWlBOQU56WG1uaVp4aGhaNVJoYVF5Z3ZNcHpQS1loVmdpVjE5?=
- =?utf-8?B?c0l0VzZMQXA3aThOL0dqRFY1OXowVXcvWnRhN1lOK0dDbHVrRFZQYUZ4cGh1?=
- =?utf-8?B?clQ2RU1qWTFOV2E5Wmg2UWdLVWgyVnBMTnZVL1E0NkxWTXJadzZnRlNQZ1Jx?=
- =?utf-8?B?REJPSmNHNHBxMnIxU2crU0U1RG82MGY2NktiQm92b2RHQlcySTJEekJ1U1RU?=
- =?utf-8?B?cDRuanlkWHVsYk5EaFpqOStPNzBoQ3o4K0E3eExkYW9IK1pwTGhaYkpOMTJD?=
- =?utf-8?B?V3EvNjROTHZSdjRVWmxGV29sTG1ZTVI0cEVTSzhPaGM1Uy9aUmZkVElUMWpT?=
- =?utf-8?B?a3R6WWNkcGluYWZiMDFGNG1YQnR2SFlONldYNW83UW4vbE5MU3czU1lMeEhI?=
- =?utf-8?B?aUphQTd4bFArMmp2TFpzbkhDM1V3RXdUa0p6SEo2cHczRHBLZTVoMmZsQy9S?=
- =?utf-8?B?RTJxejBXbC9zUzVDOEV1MjIwcCs4bW11cEZmVmJyS01UaXphaWRYVjB1TFdZ?=
- =?utf-8?B?KzNtczd3OGJ3d1JTRDZzY2RUMExWem80SUdvd0VjVnVQbU0zaThybEJwcFFu?=
- =?utf-8?B?Qi9KUVUrcFJ0VVIxWWdnWnJlakpLRVVuazZWa2JqVkx0RndNNUJobUR4bGxZ?=
- =?utf-8?B?b05SOTI2NDlTUXhuU1MrRHY3Njg2b2xUbEkwMng0TDVQYzkvemE4Z0pyUXh1?=
- =?utf-8?B?NmZtVVN3TDlOOWVwWFFVdWQ1cThHV3kxWXJaMDJZUnU4aEVWVlNCNzFraHhQ?=
- =?utf-8?B?OFVrNGxHTUQxWnFpNDZtNmlha2UvWC93WnB1UFhWM2x1SzYvdjlGai9aVG1G?=
- =?utf-8?Q?nGPfC5V50qTabVWc=3D?=
-X-Exchange-RoutingPolicyChecked: G4QjV5+73VSECv/m9WdMYOmZ43M6+LVZCgtaorP9F2rv2LpN963B2PaZVF+6ScrBdTUwtbeN1p2Mfu+ybrrGyRcVCMmaTJU1YsQah3nTUEKEcnT3ECsIBrGtL5tSjm/y5tkFyQYDvTjHbqkYq43WmUejEUQqAu5E+gGhyBVSutltB5ig0hfO/kqdDvPNVnVaFOu8/vQZ3JCk5M8iNats1hKZqqxxf4TxmZBJsbfdz418Ye8RKztIrAU27j5/dL7qp8qM1+RuL+qSpkKXQWQDdZUo4V5UboAU1dupvoR6jpVbJWMKC89GcHtk/diDEcvA3SLge7ZnjTIeKh67kVG64w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d41f91e-1af1-4e4d-a67a-08deb1918031
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 08:19:21.8241 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sFxwCqFxBitJ0v86g+dLTiDbcxgClwzImN0/+SHNyofUHdcA6aGC7ZdVGT+1NClVNKR2F4TIhP0WKZsoNu3LdZN1k6Brc5dkymsEfrN/H6o=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR11MB8391
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAL2GBWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDU0Nj3bSklNQyXUvLRFPjlGQDc1OTNCWg2oKi1LTMCrA50bG1tQBF/GH
+ kVwAAAA==
+To: Helge Deller <deller@gmx.de>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Sebastian Siewior <bigeasy@linutronix.de>, 
+ Florian Tobias Schandinat <FlorianSchandinat@gmx.de>, 
+ Ondrej Zary <linux@rainbow-software.org>, 
+ Antonino Daplas <adaplas@gmail.com>, Paul Mundt <lethal@linux-sh.org>, 
+ Krzysztof Helt <krzysztof.h1@wp.pl>, Tomi Valkeinen <tomi.valkeinen@ti.com>, 
+ Michal Januszewski <spock@gentoo.org>, Heiko Schocher <hs@denx.de>, 
+ Peter Jones <pjones@redhat.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Abdun Nihaal <nihaal@cse.iitm.ac.in>
+X-Mailer: b4 0.13.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,43 +104,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This patchset fixes some memory leak issues present in fbdev drivers.
 
-On 4/23/2026 8:00 PM, Nemesa Garg wrote:
-> The dsc max bpp delta masks were incorrectly placed
-> under the DP_DSC_BITS_PER_PIXEL_INC(0x06F) register.
-> Move these under correct DP_DSC_MAX_BPP_DELTA(0x06E)
-> register.
->
-> v2: Separate patch for correcting register. [Ankit]
->
-> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-> ---
->   include/drm/display/drm_dp.h | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-> index 8b15d3eeb716..520490ac6778 100644
-> --- a/include/drm/display/drm_dp.h
-> +++ b/include/drm/display/drm_dp.h
-> @@ -354,9 +354,11 @@
->   # define DP_DSC_20_PER_DP_DSC_SINK          (1 << 1)
->   # define DP_DSC_24_PER_DP_DSC_SINK          (1 << 2)
->   
-> -#define DP_DSC_BITS_PER_PIXEL_INC           0x06F
-> +#define DP_DSC_MAX_BPP_DELTA		    0x06E
->   # define DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK 0x1f
->   # define DP_DSC_RGB_YCbCr420_MAX_BPP_DELTA_MASK 0xe0
+Since commit 56c134f7f1b5 ("fbdev: Track deferred-I/O pages in pageref struct")
+fb_deferred_io_init() allocated memory for pagerefs and returned an
+error code, but the existing drivers which call fb_deferred_io_init()
+were not updated to do cleanup. The first three commits address this.
+- fbdev: hecubafb: fix potential memory leak in hecubafb_probe()
+- fbdev: broadsheetfb: fix potential memory leak in broadsheetfb_probe()
+- fbdev: metronomefb: fix potential memory leak in metronomefb_probe()
 
-This should be called DP_DSC_Native_YCbCr420_MAX_BPP_DELTA_MASK
+Probe functions that call fb_add_videomode() or fb_videomode_to_modelist() 
+sometimes did not call fb_destry_modelist() to free the allocated
+memory. The following patches address this issue.
+- fbdev: radeon: fix potential memory leak in radeonfb_pci_register()
+- fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()
+- fbdev: i740fb: fix potential memory leak in i740fb_probe()
+- fbdev: nvidia: fix potential memory leak in nvidiafb_probe()
+- fbdev: s3fb: fix potential memory leak in s3_pci_probe()
+- fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()
+- fbdev: tridentfb: fix potential memory leak in trident_pci_probe()
+- fbdev: uvesafb: fix potential memory leak in uvesafb_probe()
 
-But that should be yet another patch.
+Since commit 73ce73c30ba9 ("fbdev: Transfer video= option strings to caller; clarify ownership")
+the fb_get_options() function transfers ownership of the memory
+allocated for options, and so the caller is expected to free it. The
+following two patches address this issue.
+- fbdev: efifb: fix memory leak in efifb_probe()
+- fbdev: vesafb: fix memory leak in vesafb_probe()
 
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+The following commit fixes a simple memory leak.
+- fbdev: sm501fb: fix potential memory leak in sm501fb_probe()
 
+All the patches were only compile tested.
+The issues were found using static analysis.
 
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+---
+Abdun Nihaal (14):
+      fbdev: hecubafb: fix potential memory leak in hecubafb_probe()
+      fbdev: broadsheetfb: fix potential memory leak in broadsheetfb_probe()
+      fbdev: metronomefb: fix potential memory leak in metronomefb_probe()
+      fbdev: radeon: fix potential memory leak in radeonfb_pci_register()
+      fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()
+      fbdev: i740fb: fix potential memory leak in i740fb_probe()
+      fbdev: nvidia: fix potential memory leak in nvidiafb_probe()
+      fbdev: s3fb: fix potential memory leak in s3_pci_probe()
+      fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()
+      fbdev: tridentfb: fix potential memory leak in trident_pci_probe()
+      fbdev: uvesafb: fix potential memory leak in uvesafb_probe()
+      fbdev: efifb: fix memory leak in efifb_probe()
+      fbdev: vesafb: fix memory leak in vesafb_probe()
+      fbdev: sm501fb: fix potential memory leak in sm501fb_probe()
 
-> +
-> +#define DP_DSC_BITS_PER_PIXEL_INC           0x06F
->   # define DP_DSC_BITS_PER_PIXEL_1_16         0x0
->   # define DP_DSC_BITS_PER_PIXEL_1_8          0x1
->   # define DP_DSC_BITS_PER_PIXEL_1_4          0x2
+ drivers/video/fbdev/aty/radeon_base.c | 1 +
+ drivers/video/fbdev/broadsheetfb.c    | 8 ++++++--
+ drivers/video/fbdev/carminefb.c       | 1 +
+ drivers/video/fbdev/efifb.c           | 1 +
+ drivers/video/fbdev/hecubafb.c        | 6 +++++-
+ drivers/video/fbdev/i740fb.c          | 1 +
+ drivers/video/fbdev/metronomefb.c     | 8 ++++++--
+ drivers/video/fbdev/nvidia/nvidia.c   | 1 +
+ drivers/video/fbdev/s3fb.c            | 1 +
+ drivers/video/fbdev/sm501fb.c         | 3 +++
+ drivers/video/fbdev/tdfxfb.c          | 1 +
+ drivers/video/fbdev/tridentfb.c       | 1 +
+ drivers/video/fbdev/uvesafb.c         | 4 ++--
+ drivers/video/fbdev/vesafb.c          | 1 +
+ 14 files changed, 31 insertions(+), 7 deletions(-)
+---
+base-commit: ba2e787b4814ebf9ab5f6a84181678b67eb3677b
+change-id: 20260513-fbdev-99a53dc0754f
+
+Best regards,
+-- 
+Abdun Nihaal <nihaal@cse.iitm.ac.in>
+
