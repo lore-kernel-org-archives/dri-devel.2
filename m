@@ -4,125 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD26ECD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 21:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 684CFCD4F3D
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 21:46:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A30310E5FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70A7310E61A;
 	Thu, 14 May 2026 21:46:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="uID4L/RT";
+	dkim=pass (2048-bit key; unprotected) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="MKWJK1wn";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2621610E0D2
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 17:52:55 +0000 (UTC)
-Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64EFZDP52341409
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 10:52:54 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=i7CC6BqBBL9skWarpnUsM1vRDVhAGp/lgIIkSrH6DrI=; b=uID4L/RTFdpM
- ym5kuxwAZGXnMvm5RC/hAqjahIGR4X97DZNauwiy3+2qdGeLwon1A2giOFCwt250
- p2DDOFCJbt9Xw927M+aXcmNFZurvTU6m7SIy/PDM/fiVkf7NqG6TpGzja1cpG9MB
- oTwuC4fhNj9UVZMTydsFMZmhDJ/rrspbDs+/u3Ko5yH+4iTRpMG6q0zdA+yDi3Md
- tcjYwnReCHshyKmsj+AJkYVjYTAYGsJnOGhPIjZevNDHjlHO3kIJTYdOvoyyMEyt
- xMAEBJM041u78SHl6dC35/Cnr/q8/tjegsMQIjHnAXNRAxTU9Av7XNoZtpSdIjkC
- VOZpBcrPXw==
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4e3nw295mj-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 10:52:53 -0700 (PDT)
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-44d9ace59efso5514783f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 10:52:53 -0700 (PDT)
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
+ [74.125.224.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 677A410E558
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 13:14:58 +0000 (UTC)
+Received: by mail-yx1-f43.google.com with SMTP id
+ 956f58d0204a3-651c36a7ee9so1321484d50.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 06:14:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1778764497; x=1779369297;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=29KtfuJlXrDbhr12CTsDbe7NtrYpv9Xo28OIJR4h52E=;
+ b=MKWJK1wngZACbYxQaxPF0/O2uKkeymOLdBZ+VpIw8LihYulpm3v8UfsxsCXGDWPoNn
+ bDEL3jL9vwUt9E4JryNTHYx7VBU8qoa8qbAjlT3a539/t6nyXfFzcZezYunMM2xPbZPk
+ Lg2FquLrfhZGyRQ5TtUka7ygghm3bIKaBDiW42gCJumXqBkMkIw+HzKA2sqgmEja7kvD
+ oAHuGqj/8w4RzD55etxT1l1R1ZfERReIASjVbjd2opZQNeyBCpw3tQXDgc0POSjbBlAv
+ 9urJNNQGyzRWTGs82IEiI0bTtKHxrqxcf1YV7B+52rb6onuaoJLMxTbkTPrU+ZAgZ04S
+ zi7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778781173; x=1779385973;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=i7CC6BqBBL9skWarpnUsM1vRDVhAGp/lgIIkSrH6DrI=;
- b=cPEHMBMuFf/QJqmA7AsAqm0YojVzRbMNPXrHMUPz5nua5E2myy8CBfFOkHhMtn8F0i
- 7WC/1P3bWlXfHz7ty+yyZLwQFUzOBXkGiP6Yds7JgDaSJ2MRFH3lgzAaQ4nYoqLgfEz0
- otdn78mi/zVJLJxNLyEcC8SJenpl8N/4xuN0mgKNXbo4GqAcD/A9NWQu0pbvqEv1hPCU
- 2/wo7BY4tGJZU89lbcc2kWu3EyGniOq9YBomypP3M5jhbgIt/FCRoxZit3IH6Y5a1s/C
- op146qIcwuSyS5NbHHdyjeB09lbCP7WVDfmKywtiUGUfUc0A2/jAnpjFTYZnCYxPPawp
- sIWA==
+ d=1e100.net; s=20251104; t=1778764497; x=1779369297;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=29KtfuJlXrDbhr12CTsDbe7NtrYpv9Xo28OIJR4h52E=;
+ b=l9r74+eBmyHouEJrUnJpkTIM3sa4BoV53FKPFfMDXcH0yT3MvCNFF64Qms3TxqL9Cx
+ 5ogTnZDqsU19or57aCG6Y+eIzi54fTQUcRm1JQAWRRqmCwIhwAWz4KEuPc0qS6DJP7o1
+ GLuK3SR1MSmBjOq42nn3Cwnmp6U8mGG3aITn7b4sGC6BxTUnZGhM1OI8q7kKZUIcNQxp
+ PY/d3Rh176/whxwKof/lObzvW3Min7SOoW3XtXsIr26lA36ktdPahS5hPJVgN6wYJGAk
+ XJbnpH1zmelHNYIQOb0fFGwM0vFpqVY9aC9qujUcvTatQpyCSKxavYJnpKSaeEK2fuAH
+ MTlQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8nOj9RPJ1PsTj7utlPfrfxWSfvbyjBlv0lB7qfooVXtBbJNljyGvKglSZMp7WSMjv9K2PIi2G8tXQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwyIfLqfAHSvyTcwSLVhWvH7bdmu6qn7EZmj61pF5M2WuleYJ/1
- YBr5r48fmInDnt7vtYiw5bTXSX3NDVd1ba97BFeWmuDV0aDuOEI3rq/Ckp+r6mILiSbfmzrW/p5
- TnybAgDhsKI1Tl0z6Or2kCzx8KuyhcwefG1M7qK+LKcduQSgwrxhly7urJZ6xg9LSpOkG
-X-Gm-Gg: Acq92OH+jCOzIXYZCaWMleSn1ntAPGD4HEtlhYb4Zsf0hjY4gyyg3eaGK1QEmNglt02
- C0arcpdRPl9A/jf7LDcQmz9rGDXt85OCwPrC9b/lZQWgfK6LSfALfntb91ldQBC5CeZpRjlV5nk
- MYxcqQexy6ySJFF9li1eJ5eHTJoAWE27d+G8alRWW/nrNYYy1pVBr80oGEGMxYbY6N882oD1wIV
- H5rTeWEQMS1/EPicN0ZVtTsMAjuLUcWTKq67EovVtjhjY3rFR4om5Uswn6hCT3gKgabKUOgNrWM
- FInsa1WV7Xxk5cE8ffcFxmW8SSTjwkYNxSBfj73cxIHN46s60/PvM5zJKDdukpoHWIGkdpw1fvg
- 8+HbrGC4kI5gDKlpy1/idKiBtnS1GFWbQv+IR/Cy/UN3heAN5Q/+Hu3CQH2SULArGM1RXNhdefd
- yqOqMyuwets3TuCx2MtrF4jMFwHgPHGH0GKTwMdyYVanSgSu2U9BOTLALmRdtrsqdtENpqzHxY3
- fsiXh6mI/01vWtBtj4jEZs=
-X-Received: by 2002:a05:6000:2f87:b0:452:c246:ab7a with SMTP id
- ffacd0b85a97d-45e5c5beb43mr98797f8f.14.1778781172714; 
- Thu, 14 May 2026 10:52:52 -0700 (PDT)
-X-Received: by 2002:a05:6000:2f87:b0:452:c246:ab7a with SMTP id
- ffacd0b85a97d-45e5c5beb43mr98748f8f.14.1778781172259; 
- Thu, 14 May 2026 10:52:52 -0700 (PDT)
-Received: from ?IPV6:2001:8b0:8b6:13d4:102e:f2af:e074:5cde?
- (e.d.c.5.4.7.0.e.f.a.2.f.e.2.0.1.4.d.3.1.6.b.8.0.0.b.8.0.1.0.0.2.ip6.arpa.
- [2001:8b0:8b6:13d4:102e:f2af:e074:5cde])
+ AFNElJ8QsHZKAmURaEZ0wU0Rp5ZvSRY8YsVktM5QzmNh+Bz+isZpBRZbxxY+symTK1adFc7hEXHN7a07yL8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNG+mAJSMMTYhrHU0PPOx21Fb3Psq3gcmuKAcY3ALep58sM7Lr
+ bS/+jX3gr3QeKddSiAngkuShKmGqhAoW2Uy0EZPFWtnQwAskMTsyzQ5DfWd6d+jWNB1d
+X-Gm-Gg: Acq92OHXAMC9JOC/rqOLgoZPNx/yAZAYunccrIDlIUxS7uWUVK1fLlPDc0FBJ7Ov0iv
+ OdmwmeD0kBBjJGpnuukCol+YNYuKcJZ9efD3OzWt29WK58Uaqal5KImjTQSCf0lXXjRl492M6wc
+ 98rJDcNpZvD9TXZkhRmhuRjdAFrm+V3qQ6xUE1xrJZ0bS+HMiA4qD4TMrxVOe91am328Xkc6DaE
+ In2oY/iz3RG4bbuesuWacuFaNcNtQdafSWWDQMvL2nxvqAEnmhI+rklF8HSYrMrfqtat00vx4yB
+ WME0Qu1JfseMO2ThtAq+nDQefnq0vHLar0znRMly4UyrbZoy6GB8T0IOcRfYt9YEt5jjv7j7UaZ
+ u7BbidF2O4Rmq+/6nFixO2YHOCVvSLjiIS2V8LFmeQVjeibl5U28J4MekuO/RDXUs7x9PeF3Rxo
+ MtHS0J9QncvDHTbNnf8QXP9JCpMUpRgdlI5nJTf2CKIdpfEY7nkF+X79MqResyhVhKxG4v+Q6hY
+ gGuuq1Zg+ZkHsY=
+X-Received: by 2002:a05:690e:4004:b0:65c:ca50:a6 with SMTP id
+ 956f58d0204a3-65df61e049amr4748006d50.2.1778764497126; 
+ Thu, 14 May 2026 06:14:57 -0700 (PDT)
+Received: from kelso.tail8e61da.ts.net
+ (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da15a6449sm7910203f8f.37.2026.05.14.10.52.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 May 2026 10:52:51 -0700 (PDT)
-Message-ID: <c2601b9c-9265-43da-9321-66db57446807@meta.com>
-Date: Thu, 14 May 2026 18:52:50 +0100
+ 956f58d0204a3-65e0db69f26sm1009573d50.17.2026.05.14.06.14.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 May 2026 06:14:55 -0700 (PDT)
+From: Christopher Lusk <clusk@northecho.dev>
+To: Lucas Stach <l.stach@pengutronix.de>
+Cc: Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] drm/etnaviv: honor read-only userptr flag in GPU MMU
+ mapping
+Date: Thu, 14 May 2026 09:14:01 -0400
+Message-ID: <20260514131401.2660079-1-clusk@northecho.dev>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/9] vfio/pci: Convert BAR mmap() to use a DMABUF
-Content-Language: en-GB
-To: Leon Romanovsky <leon@kernel.org>, Alex Williamson <alex@shazbot.org>,
- Jason Gunthorpe <jgg@nvidia.com>
-Cc: Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org
-References: <20260416131815.2729131-1-mattev@meta.com>
- <20260416131815.2729131-5-mattev@meta.com>
- <20260501161915.75525c15@shazbot.org> <afhNeYS174EW7RYp@nvidia.com>
- <20260505104911.GB11063@unreal> <20260505085058.74c34290@shazbot.org>
- <20260506053511.GG11063@unreal>
-From: Matt Evans <mattev@meta.com>
-In-Reply-To: <20260506053511.GG11063@unreal>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDE3OSBTYWx0ZWRfX4ZfXI3ZBS9CI
- U0uo2T0pgmZpNpq8Iz7YybOHwLu+lbgikFl3CFvj6hlzZhY+kGq03jalTOAXbzHh5dc4ZsXauni
- aTXrTDCtYscWHzNO4xfJzGyVk/F8TwwHkZ3OUpyea5rlsVXDrbSp2bh4/m5M94GGYnSdkwaijjo
- EojNDuSwzlLuv1/GFrQaWOJ0e5QcXGu4RwE2swv8bSLrFZAjJ8O8aO6gTEqY/zIZSQKAvrsatOC
- 5T+9q2qjnW4Felm5HN4XjnEVKCKNQ2+LmGufLke7Y43L+2unwhLnxfXg4xXKLHGEtwni1uTl+hl
- 1JMqxWu7RVqx/cCIQlPqC/9qDWBwTCwUifUqAEugc7NkFcA+ZRDgFXAM5IYxqT7rb9NxoLeIJTp
- 1TzIJGpOQ0Hjrwp4VC/HAOdqxhZ135h7a4LHIhF86d6NOsMtchOKFfRN8e1x61t1DadaZJ0DCHJ
- 2zg/stlSWJeMPimeUdw==
-X-Proofpoint-ORIG-GUID: u6tuZx-6Zp-2teu-33heXKnieE8K6A_A
-X-Proofpoint-GUID: u6tuZx-6Zp-2teu-33heXKnieE8K6A_A
-X-Authority-Analysis: v=2.4 cv=MspiLWae c=1 sm=1 tr=0 ts=6a060bf5 cx=c_pps
- a=CsXZvLRfiTx/ye2xXAwb9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=JnKecZnUtZousrUlYMGU:22 a=VwQbUJbxAAAA:8 a=QhZvmJRm3SQzdzbRGmYA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=F7q00xkr9EfWfQvbdVXI:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_04,2026-05-13_01,2025-10-01_01
 X-Mailman-Approved-At: Thu, 14 May 2026 21:46:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,102 +94,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Leon, Alex, Jason,
+A userptr buffer object created with ETNA_USERPTR_READ (no
+ETNA_USERPTR_WRITE) is pinned without FOLL_WRITE in
+etnaviv_gem_userptr_get_pages(); the kernel agrees to allow only
+read access to the underlying user pages, and the state is
+recorded as etnaviv_obj->userptr.ro = true.
 
-On 06/05/2026 06:35, Leon Romanovsky wrote:
-> 
-> On Tue, May 05, 2026 at 08:50:58AM -0600, Alex Williamson wrote:
->> On Tue, 5 May 2026 13:49:11 +0300
->> Leon Romanovsky <leon@kernel.org> wrote:
->>
->>> On Mon, May 04, 2026 at 04:40:41AM -0300, Jason Gunthorpe wrote:
->>>> On Fri, May 01, 2026 at 04:19:15PM -0600, Alex Williamson wrote:
->>>>    
->>>>> Exporting dma-bufs from vfio-pci is a feature, but mmap of MMIO BARs is
->>>>> a legacy requirement.  That legacy requirement now depends on
->>>>> PCI_P2PDMA, which depends on 64BIT and ZONE_DEVICE.
->>>>
->>>> That should be split up now, Leon missed it when he added the new
->>>> APIs that didn't require ZONE_DEVICE..
->>>
->>> Sorry, what did I miss here?
->>> VFIO_DMABUF is an optional feature and is enabled only when P2P support is
->>> available. It does not affect legacy systems where P2P cannot be enabled.
->>
->> If we look at the long term view of moving exclusively to cdev/iommufd,
->> where VFIO_DMABUF becomes the mechanism for implementing P2P DMA
->> mappings, VFIO_DMABUF may be optional, but it's highly desirable for
->> legacy compatibility.  There's an argument though that providing P2P
->> compatibility on platforms that support PCI_P2PDMA is probably
->> sufficient.
->>
->> However, in providing mmap of dmabufs as a feature, this series is
->> wiring all mmaps through dmabufs and therefore that dependency becomes
->> fundamental to the use of vfio-pci.  Thus the discussion whether the
->> noted config requirements could be lifted.  Thanks,
-> 
-> Right, there was no need to remove ZONE_DEVICE when I added my code, and I
-> left the task of cleaning it out of is_pci_p2pdma_page() for another day.
-> Without ZONE_DEVICE, all pages are treated as non‑P2P.
-Just checking I'm following the deps correctly...
+etnaviv_iommu_map_gem() then maps the object's sg_table into
+the GPU MMU with ETNAVIV_PROT_READ | ETNAVIV_PROT_WRITE
+unconditionally, regardless of userptr.ro. A submission that
+names the BO as a write target therefore causes the GPU to write
+pages that the kernel pinned without write permission, including
+page-cache pages of files the caller has only read access to.
 
-If we remove the PCI_P2PDMA dependency on ZONE_DEVICE then (without) 
-it's present with P2P hard-disabled (as Leon says).  Already 
-`is_pci_p2pdma_page() == false` because folio_is_zone_device() is always 
-false in that config.
+The ioctl entry points (DRM_ETNAVIV_GEM_NEW_USERPTR, GEM_SUBMIT)
+are DRM_RENDER_ALLOW, so the path is reachable from any
+unprivileged render-group user. No intervening permission check,
+no RO-aware branch, no MMU-level fallback.
 
-The only dependency this series adds is for pcim_p2pdma_provider() (and 
-support).  We can select PCI_P2PDMA for provider purposes (VFIO!) but if 
-!ZONE_DEVICE there's no P2P.
+This is the same class shape as drivers/accel/ivpu
+commit 7dd57d7a6350 ("accel/ivpu: Disallow re-exporting imported GEM objects"),
+fixed 2026-04-30. The Etnaviv manifestation has a simpler trigger
+path that does not require PRIME re-import. Source-level analysis
+only - no Vivante hardware was available to validate the mutation
+primitive end-to-end.
 
-Nothing in PCI_P2PDMA depends on 64BIT and that dependency can be 
-removed [1].  (ZONE_DEVICE depends on 64BIT.)
+Mask ETNAVIV_PROT_WRITE in the call to etnaviv_iommu_map() when
+the buffer originates as a read-only userptr. The userptr.mm
+check guards against any non-userptr object that might somehow
+have userptr.ro set.
 
-That seems a path to VFIO operating unchanged on 32-bit platforms and 
-others without ZONE_DEVICE.
+This work is LLM-assisted: Codex (gpt-5.5) drove the static
+analysis and class sweep that identified the candidate site;
+Claude (claude-opus-4-7) drove the writeup and patch refinement.
+Operator review at each gate. Methodology context at
+https://northecho.dev/posts/codex-vs-claude-code-vuln-research/.
+Posted to the public list per the security-bugs.rst exception
+for findings trivial to discover via automated tooling, as
+interpreted by the kernel security team for LLM-assisted reports.
 
-(PCI_P2PDMA currently also depends on NEED_SG_DMA_FLAGS, which seems to 
-be unnecessary if !ZONE_DEVICE is preventing P2P pages (no 
-sg_dma_mark_bus_address() would happen for example), is that right?)
+Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+Assisted-by: Codex:gpt-5.5
+Assisted-by: Claude:claude-opus-4-7
+---
+v7.1-rc2 reference: drivers/gpu/drm/etnaviv/etnaviv_mmu.c:303-304
 
+Open questions for review:
 
-Then VFIO_PCI depends on a subset of PCI_P2PDMA configuation:
+1. v1 MMU shortcut. etnaviv_iommu_map_gem() takes a shortcut for
+   v1 MMU + single-segment sg_table at lines 278-291, bypassing
+   etnaviv_iommu_map() entirely and using sg_dma_address directly.
+   For typical multi-page userptr BOs sgt->nents > 1 so the
+   shortcut is not taken, but for small contiguous regions on v1
+   MMU hardware it may apply. This patch does not address the v1
+   MMU path. If you believe v1 MMU also needs handling, I am happy
+   to follow up with a separate patch.
 
-"Diet" PCI_P2PDMA_CORE available even when !ZONE_DEVICE:
-  - Compatible with 32-bit platforms; doesn't need to depend on 64BIT
-  - Returns a provider, which allows VFIO mmap(), DMABUF mmap().
-  - Doesn't allow P2P DMA (eg. via DMABUFs).
-  - Doesn't need to select NEED_SG_DMA_FLAGS.
+2. ETNA_SUBMIT_BO_WRITE per-BO flag. etnaviv_gem_submit accepts
+   ETNA_SUBMIT_BO_READ / ETNA_SUBMIT_BO_WRITE per buffer object,
+   currently used for synchronization dependency tracking. Should
+   a submit naming an RO userptr BO with ETNA_SUBMIT_BO_WRITE be
+   rejected at submit time as defense-in-depth? Orthogonal to
+   this patch; happy to follow up with a separate small patch in
+   etnaviv_gem_submit.c if you would like that.
 
-"Classic" PCI_P2PDMA depending on ZONE_DEVICE:
-  - Behaves as PCI_P2PDMA does today
-  - If ZONE_DEVICE then PCI_P2PDMA enabled, which enables VFIO_PCI_DMABUF
+3. Fixes: tag. My v7.1-rc2 clone is shallow; I could not trace
+   the introducing commit for the userptr.ro / ETNA_USERPTR_WRITE
+   distinction. The bug is present in v7.0, v7.1-rc2, and
+   linux-next (2026-05-08). If you have the introducing commit
+   handy from deep Etnaviv history, please add the Fixes: tag in
+   your applied version, or let me know and I will supply it from
+   an unshallowed mirror.
 
-Meaning:
+A reviewer with Vivante hardware can confirm the primitive with
+the following pseudocode (before/after this patch):
 
-32-bit configs (or 64-bit without ZONE_DEVICE):
-  - No P2P anyway
-  - VFIO mmap() works
-  - VFIO_PCI_DMABUF is disabled (no point enabling DMABUF export since it
-    can't be used for its original P2P purpose)
+  fd = open("/dev/dri/renderD128", O_RDWR);
+  ptr = mmap(...);  /* page-aligned, page-cache-backed file */
+  bo_handle = drm_ioctl(fd, DRM_IOCTL_ETNAVIV_GEM_USERPTR,
+                        .ptr = ptr, .size = page,
+                        .flags = ETNA_USERPTR_READ);
+  /* GEM_SUBMIT with the BO listed as ETNA_SUBMIT_BO_WRITE and a
+     command stream that writes to the BO GPU VA */
+  drm_ioctl(fd, DRM_IOCTL_ETNAVIV_GEM_SUBMIT, ...);
+  /* observe: on unpatched kernel, ptr contents have changed;
+              on patched kernel, the write does not land in the
+              user page-cache pages. */
 
-64-bit configs that support ZONE_DEVICE:
-  - As today, DMABUF P2P, mmap() of BARs via VFIO or DMABUF
+I am happy to source a Vivante board (Sabre Lite, Wandboard,
+HummingBoard Pro) and post a v2 with Tested-by trailers if you
+prefer hardware validation before this lands. Source-only is
+offered first to avoid asking for a hardware-spend decision that
+may not be necessary.
 
+ drivers/gpu/drm/etnaviv/etnaviv_mmu.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Just added PCI_P2PDMA_CORE and (functionally) ~no code changes are 
-needed since disabling P2P just falls out of !ZONE_DEVICE.  But most of 
-p2pdma.c does nothing in that config (except for pcim_p2pdma_provider() 
-and its support) so benefits from some #ifdef to reduce it.  WDYT about 
-a pcip2pdma_core.c containing just the provider management?
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
+index e3572461b599..c4dcb7ee3e49 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
+@@ -301,7 +301,9 @@ int etnaviv_iommu_map_gem(struct etnaviv_iommu_context *context,
+ 
+ 	mapping->iova = node->start;
+ 	ret = etnaviv_iommu_map(context, node->start, etnaviv_obj->size, sgt,
+-				ETNAVIV_PROT_READ | ETNAVIV_PROT_WRITE);
++				(etnaviv_obj->userptr.mm && etnaviv_obj->userptr.ro) ?
++				ETNAVIV_PROT_READ :
++				(ETNAVIV_PROT_READ | ETNAVIV_PROT_WRITE));
+ 
+ 	if (ret < 0) {
+ 		drm_mm_remove_node(node);
+-- 
+2.54.0
 
-
-Thanks,
-
-Matt
-
-[1]:  The drivers/pci/Kconfig's PCI_P2PDMA states:
-   # The need for the scatterlist DMA bus address flag means PCI P2PDMA
-   # requires 64bit
-I think this isn't quite right as AFAICT the flags are usable on 32b 
-too, and actually it's ZONE_DEVICE that requires 64bit.
