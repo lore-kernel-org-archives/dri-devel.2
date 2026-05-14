@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5D7DCD4F39
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 22:33:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1296DCD4F25
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 22:39:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 316F010E041;
-	Thu, 14 May 2026 22:33:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB1B10E3F2;
+	Thu, 14 May 2026 22:39:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Q74I3hWg";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Zpu10FYE";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCA8310E041
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:33:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5237D10E3F2
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:39:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
@@ -22,18 +22,18 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Q/1w/pAVW95WK9YzKUDjOYOarf1ClcHbhkmttHS7cpI=; b=Q74I3hWgxU5dixScBrrPgkqq5D
- ZFpH+H4hr6Vxlx3uZ9X/J3ZoALWoIyYHNrZctonFOV96uJsrQbiL/tWc/UZGr8a6ojlnfgJbsEC0Q
- pMLDa2sdFoJJ7Pgqka2883X2p2dP8/3F/dDPVq+Yg7AH2ZVY6hj/53gt6RtP6ooxQgosUW5damw00
- BA3ALuD0c7WpVn77vBua2NQf4S7rTNK5SsXbiH7ajaQurXYL7YafOXN2vhcG6k5VUNN8VL+yUGCIj
- amI6cVgoI3W3C3poS7ZKx1/oKXIwvT5jATb+B9u/JkcmDt3ECARJIOFU1/OKZ/QBeFi9De/xwP9P6
- dcGK34Hg==;
-Received: from gwsc.sc.usp.br ([143.107.225.16] helo=[172.24.27.208])
+ bh=Q/1w/pAVW95WK9YzKUDjOYOarf1ClcHbhkmttHS7cpI=; b=Zpu10FYEqHcf5dK5mAXU7fBhK7
+ em6Ejvzaoyy8BTFnqAZIe0SI0dBEUhv4zrzj2VodLouEMeSd00khUXNEMPmi8NgUka83jpK6tSnSk
+ wmsJN1XR94bx32Pvk2iO48yv+1G9WzwnrHU1VDsjCAnCGnjqn36M9zRDM/Ps28DYlUMfhQNP6uUck
+ GMB4YDpGa7tv4bRmDrOhVrtDqg8qtGFl7ATRwo9N0ShIBkgy7iOlsE+Voz5B0oCbRbQZV6LrSJ0t/
+ JFStnW0/Q7SrcF1vjt75mYYxwI0VXvjb0PHzMu02y3cVZmm6jbhZWR9KAD3OZu5iqp2fgKYm8STUt
+ 3gyNqxvg==;
+Received: from [187.43.221.194] (helo=[172.20.10.2])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wNecK-000GVR-R5; Fri, 15 May 2026 00:33:21 +0200
-Message-ID: <983fdc40-cce2-4476-bce7-180855e63212@igalia.com>
-Date: Thu, 14 May 2026 19:33:13 -0300
+ id 1wNei7-000GaP-BI; Fri, 15 May 2026 00:39:19 +0200
+Message-ID: <3c616d25-381e-43a7-af71-73bf0b9ee063@igalia.com>
+Date: Thu, 14 May 2026 19:39:10 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] dma-fence: Clarify external lock use case in
