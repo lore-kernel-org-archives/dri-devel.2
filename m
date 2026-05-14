@@ -4,130 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDBD7CD4F25
-	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 11:21:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0022CD4851
+	for <dri-devel@archiver.kernel.org>; Thu, 14 May 2026 11:41:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE87810E3B7;
-	Thu, 14 May 2026 11:21:00 +0000 (UTC)
-Received: from de-smtp-delivery-119.mimecast.com
- (de-smtp-delivery-119.mimecast.com [194.104.109.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D501A10E3B7
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 11:20:59 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11023076.outbound.protection.outlook.com
- [40.107.159.76]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- de-mta-35-dc69cFQEOzeeDj3fSm1SqQ-2; Thu, 14 May 2026 13:20:57 +0200
-X-MC-Unique: dc69cFQEOzeeDj3fSm1SqQ-2
-X-Mimecast-MFC-AGG-ID: dc69cFQEOzeeDj3fSm1SqQ_1778757656
-Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
- (2603:10a6:102:227::10) by GVXPR01MB10824.eurprd01.prod.exchangelabs.com
- (2603:10a6:150:218::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Thu, 14 May
- 2026 11:20:52 +0000
-Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
- ([fe80::5adb:b6ca:f689:1ac6]) by PAXPR01MB8486.eurprd01.prod.exchangelabs.com
- ([fe80::5adb:b6ca:f689:1ac6%3]) with mapi id 15.21.0025.012; Thu, 14 May 2026
- 11:20:52 +0000
-Date: Thu, 14 May 2026 13:20:49 +0200
-From: =?utf-8?B?QsO2cmdlIFN0csO8bXBmZWw=?= <bstruempfel@data-modul.com>
-To: Marek Vasut <marex@nabladev.com>
-CC: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] drm/bridge: lt9211: Add drive-strength-microamp
- DT property
-Message-ID: <agWuyCxPqwZ4ztVF@DATAMODULBOERGELINUX>
-References: <20260513133127.376458-1-bstruempfel@data-modul.com>
- <20260513133127.376458-3-bstruempfel@data-modul.com>
- <8bf05bf2-66a3-49e0-972e-4ab7ad9f0ff0@nabladev.com>
-In-Reply-To: <8bf05bf2-66a3-49e0-972e-4ab7ad9f0ff0@nabladev.com>
-X-ClientProxiedBy: FRYP281CA0006.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::16)
- To PAXPR01MB8486.eurprd01.prod.exchangelabs.com
- (2603:10a6:102:227::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1126A10E3C9;
+	Thu, 14 May 2026 11:41:54 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ejb/PgHL";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FW66UgUe";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D96510E3C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 11:41:52 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64EBeXPC2554582
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 11:41:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ XN/svW0Jt+ncyOKlvvxZnVvpxXsVA9QC86tQ/FOEaIY=; b=Ejb/PgHL4Hh2Pyf1
+ vLHN+/6ozUtuCdEpQMd9u4UOr8Kh5EHOCzn0MwqcUrMfF1KY1DfwLwQhvf0fOBmN
+ K6qz1qRJQW/7HIfhRTqWXWJ5l5gxw6liZbpJ++KhhNssFQtj5lRz4rVOc65s67+U
+ 0NaDXs6dqMDYKSqJv2uUmMm4mbhbzHh7B2GIt/o7xyfoYxvUrnnaSkqy8TebPwrr
+ NRFFRA/QI8az8+s+YIP1egAr53LTgGu1zaUkg8O8OEUUIQmq3qPBbsvqhUO6gMAa
+ viClD+QsJeoZkuQrhA3ljtP3LhvZU/FSFnNWYUFgjq4kldA2KaspJpb4bn+/taxc
+ b6ubig==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5b0brk88-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 11:41:51 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2b4654f9bb6so82254895ad.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 04:41:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778758910; x=1779363710;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=XN/svW0Jt+ncyOKlvvxZnVvpxXsVA9QC86tQ/FOEaIY=;
+ b=FW66UgUeiJhzh5Tyx79wqlAaIjiJswH2dJbPiKQXgYVsMWvkR/ypNXrzG2ZgQ9tqg0
+ LuNF6p4YjMFBZJdftTToNjM4U/mYk/lgUx2TKlvdzfOXOfLfdsLKxmL7UkAJeMkSTO6H
+ ApQHzvAQ247N4C2k8G6ajXKceaInUPCtlXDQRS1hndredeSwnIlyWvvpkew9CHQYRmqx
+ j87TmXSFMntJNZshuW25x514xGRw/RXPCRZ9UKGyKWIrEG07yZP+g9PNQ0glIhGntbZ2
+ AWtq15S8Lp8U1SQX7Nl0oVoc8McitpMDQ7WtrLDOgUWiRSFgeMMx39zYFwNtv1EElWSv
+ MT3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778758910; x=1779363710;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XN/svW0Jt+ncyOKlvvxZnVvpxXsVA9QC86tQ/FOEaIY=;
+ b=QstdtLzf/+1/nKFloyBwRX833JI/TIzVWomLGEiGOkRhkMwnqU71dB/Wcg7BrUkycK
+ 1vdBOhhzMjpMLOBYYhaFyhXockbnSHFORrCl1CYDw0R40K06OEYp6CqXoOoBjDNynHdR
+ A9hxZnEDs5p5jtVrBz1JJKLFHVV1hiorXjmYCDGJHSHEHI8yi/1MOY/xWoDKRXYsChcg
+ qL7EGVZalDiRtjJ0iWbZ0+jcJvQzPqRGlGSFQ9UdzVDH1H8dz009hNKXnc/uoAVg/oaT
+ DdZbOK23cwLDslNvSyuh6weeQVzZNziwYYq9QiGD9uSxe938vIWHfxZTY/DCzLYoCr9t
+ S5fw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/Z/xDwLKbd7DihmvsDNidVg/rJ+C0vioLpxA0OPEHNuu1NVMiIKhMmIgCjctPt7lEUyjcKI6k+/wU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzO3CrZo86goW21MyuQFXaVhFfT9k5q81oPYwfGKQsvJ90c/iju
+ ZXk98T4arf5PhgYKhuf73fpXRCPHjASqys6w+HcTmSPTQRlTciZK5CPaBs92R5iu9l5Z6GNIu3a
+ qrY3vjFQBNQlLgJ/wz5H7CAQdj3NxsNmiyDrtzTCHfZG89Q5xSCXH61majmO/WdCIlCI3SlU=
+X-Gm-Gg: Acq92OE2jcoPy4NHwy8xK/kYUdK3GIc3cnbZULEyVRhFrQ7Zy8LpUtvWRwGadh2+4WH
+ VJjm3e/i7+3bPO+bFCguZ/Dqul1t+XonvXauOh/9JWG05Oza2noKzOYHikNJaRcCPoZEepR15j5
+ PdIrCnRvMlHt/A7+7/InuVVOOoEoNwZJ/koilWXZM9bg+v5N8otGo/VjSpiMzpJgKZSCbcR4iSc
+ 4ISc3lofR+yvNcNPbl39kz3NFw8Ja564XVIbv6v9EIenXEQ3yaKnh/9EbSr7TLA5pzGZYhQ87Yq
+ LafQ2QpGi8QV9T5KKzIcqvsgHF/tfV7iyq8HLXsZtTDBrUMcMGVtGp0Z/2Ds4JeZeMEGmj3qIbO
+ IbaIqqUGRFVJAxQ/BanBW9O4bDUOMJOgXjDfX7joPJMG4hu+8BQ1Syp/DZ7SpuwTg3VWuCxnnVv
+ bNq3OQDEnrbM70MlAUFZdUmeHN+4AP2GgSKsFBe1E=
+X-Received: by 2002:a17:902:f54f:b0:2bd:7ca:e67d with SMTP id
+ d9443c01a7336-2bd276dfda1mr85598225ad.29.1778758910267; 
+ Thu, 14 May 2026 04:41:50 -0700 (PDT)
+X-Received: by 2002:a17:902:f54f:b0:2bd:7ca:e67d with SMTP id
+ d9443c01a7336-2bd276dfda1mr85597715ad.29.1778758909638; 
+ Thu, 14 May 2026 04:41:49 -0700 (PDT)
+Received: from [10.190.200.238]
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2bd5d0fd384sm24879805ad.65.2026.05.14.04.41.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 May 2026 04:41:49 -0700 (PDT)
+Message-ID: <5494a379-1e49-4551-a5f0-50d0bd7cd7d0@oss.qualcomm.com>
+Date: Thu, 14 May 2026 17:11:41 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR01MB8486:EE_|GVXPR01MB10824:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54e52489-8478-4f36-6078-08deb1aadbb2
-X-LD-Processed: d72fb47f-f4be-4915-91c7-ebd53299157b,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|1800799024|376014|10070799003|56012099003|18002099003|22082099003|4143699003
-X-Microsoft-Antispam-Message-Info: ucO1vdI1HltDzP+wTZ89wP9hEkBZdjT/HSos0Wc53pBk9U7u96JufVj5AHGJuoLqM75DKF+keZd8Qa85NM+dbk6I1i0IO7b1ar6UQOL8vbhSyBCfzB5qVMStHDUyesA7khHbRoVIQ5++ns7R6CnIEFDhlS34J9q5GEMlCOY2X/7Z2mOhvhGYrKmuppsNDiI9zRW1QFk9IQGun23z94VGWHayggUvWfHARWSevB40wF/oSN8p3RGkENLDRFd4zo5kufqmfzG1+pIdoYzcR1SLnt36J39D8qGO3taDAQZzr2zZFqQZcmHtdzMeGgW7n3R7eS5G7sLjL2lU4Jx2SDt9s5pr7LBYbfU1WdqAQ/AMahL1o2pZ4ciiNGKYz0e1OGW2J9OV4NNHiLZrqANwiW1rDLWasfq1d9DrGBJiotvE+/UWXbqGks7/c7IdKTMRfH2RkTpC1ozgDIdk4mz3b06QiBRKu7zZ+TU+OwDldGvQRhDRiBbDYvOyZZBAzIU+Y9bQuvr1xm69YnP+dui8rySZ69fUlvcXfQzbXHvqjcFccj4kQr49hpgxcEj+E5o894mcpXc9qQ9vqgzrBQYIwoI22z1cwI/74u6Kq4R7F8MbpT4rBgBow6L5BbNf6UUsRDFW6D7YM2bY4Bt2UXA01ErK5hnkWYCEv428nyJZ2HRrLjpkVnZJ5rhSNKyYlSkDgOwg
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR01MB8486.eurprd01.prod.exchangelabs.com; PTR:;
- CAT:NONE;
- SFS:(13230040)(366016)(7416014)(1800799024)(376014)(10070799003)(56012099003)(18002099003)(22082099003)(4143699003);
- DIR:OUT; SFP:1102
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnNsejlmR3JCK0RBUVJWM3lta3E3TDBlWTc2M01EVXZVT283aWt2dUV2Q0pu?=
- =?utf-8?B?SHlWOXlnQVRMS0oraWlIajloSlIyYUYrTllRQ2F0eHRrUFQ3alRMdWpjbG9k?=
- =?utf-8?B?d0cyZHFsN1dFbk54WDRxbWVmS0UvSkNOKzJIdlp6L09jWHMyWVFweW5zTUlq?=
- =?utf-8?B?c0pZcTZhdVdpOU15bFVzbUpRRURFYnZhMWFYY1M4ZlpYV3o0REJsL0FORFJ0?=
- =?utf-8?B?cmVHSyszN2NCMjZZd3E1QkZCbGRHOEZIWWgyUTlrRi92Qmh2T3dDN2JxV3Vq?=
- =?utf-8?B?WHhuOWhPaTViNW82OGMvMmpZNTB4SkFJZVMyNXoyYW95aTBkQzFPK0ovLytw?=
- =?utf-8?B?NlZqbXhnNEhxMi9XYlljTjUyNVJHZFIwcVBlSFRYSFNOR05yNjFSQUs3VUNK?=
- =?utf-8?B?dWJ4aW82ZjBnV2FVRFA1SHBOeW44VmJzNXJnTlJ1YTB2aVF6d2tHVWJXK0Ey?=
- =?utf-8?B?NTRkZE11eUdwLytkd0VMc1RsQzRZOWIxQ2tnd0FVN0RzVGhqRTllUGV3K3Q5?=
- =?utf-8?B?U09jdHdKU1ljck8vQi9CbU93bWFUNXZHK1lVTFVCQTJqdWRRYjB5MjlwVW0v?=
- =?utf-8?B?Z0lVSTZXZ1RYVU9FRUdhQ3Y3bGtjOHNHRE9TbWRUS2Q5YjQ2OG9FOHlzcE5v?=
- =?utf-8?B?SjJmcVBkbWZxb3N6bTFEZFFBdWZWM3NRTTZmeXpmeTFTOGdRQllrbzlEV0dG?=
- =?utf-8?B?TThUQXQrK1I3YzJqMlNyUVh6YWlMWjRTeTBxb0prRXZRQkJQY3pOYVh6RW9W?=
- =?utf-8?B?M1U0MHVwSHhiT0xOUkJkS2FjLzNGcmhwdTFTdnVBWHF0UmEyVGYzdVlvNkZK?=
- =?utf-8?B?RjdDMHdHN096WU9RWkJEZ3hVcisxb0hSMnZpaWptZWs4RXYyZWRPb3J1d2lh?=
- =?utf-8?B?N3FXTWphTWFPTXRtNFJXbXhMVmFtdkZ4Vjg4ZDYxVUNaYlpVNXhMbjFtRjll?=
- =?utf-8?B?YjVJVG51QldiTHFvSmtIQ1R6clpzRTNJdk9IUUtYZmUxbWIzUVd1OVV5ai9t?=
- =?utf-8?B?NUVEc1VLZ3huQjhRTU5PY25IbUV5SFpCUGJRaFkxUEdqTS9LTXl1ZkFJWVAy?=
- =?utf-8?B?Y3YwaEpSY2NIU21yYWkxMU85c2d1bERpR214VCtJWEVmUEZyRk52ZytPYzFZ?=
- =?utf-8?B?TnNBTWgzNVVGL29yY2VGTC83dmZCVllKc283MWI1dzluWStyQVBPUW9hNFha?=
- =?utf-8?B?d3d4WmZEQWdFcTZydW9qWVRYSVJob085Ym5WL2xySjQ0QVpZUUdGVHR6Y1pY?=
- =?utf-8?B?OHc1cXcycm9IcWtKaWJEY2FJNEg1OWUxdUkxQUJ4Y2EvL2h2KzdQKzRBekRG?=
- =?utf-8?B?cWcxeTV2Ti8wT2pwRVZJK1NGUDA1TFpha1pFR0NKMlpmU2VkNnVjbGtNZHJN?=
- =?utf-8?B?QklRbmpCTEdiSzY4RWkxbDh4bVJ6MVJvMlFHZW9CZUpCYkE4Y0hZc1hjVU8v?=
- =?utf-8?B?UEhQK2FOaGttSWllT2tzNStoRW5Fbm55UDZscEc0RWh2cWppNkNieXAxZjdH?=
- =?utf-8?B?Uy9WS1NpRWRkajVXVlN6Yk8wTjF0ZVQ2OUUvZWxlTC9TMXZyaDBoQXZ4MUk5?=
- =?utf-8?B?eHBxQzE5T0h1RkQ3RGZuaGxCNjdRbjBvRDcvcnZvL01CY3ZOOFFaSUZvRDVD?=
- =?utf-8?B?QktHVTNnUmtkWC9FQzhTRkdWeThndzRXbndLQnNycE8rbUxBak8yYlVCcmh3?=
- =?utf-8?B?RE9wUjluMzFmOERyZmE2cjZFT0xnREt0MzEvNHlxODJCNStDdXpIWWxrRXpZ?=
- =?utf-8?B?YUd4dDVtR005alFFVzFFVkE4ZlptREhhYXZGVjE2bXd5cStPbFUvWVlBSyt2?=
- =?utf-8?B?c0tMVnpqaVZLVnBhTHpwSWUwOU9XSksxRWE2dHNlVkdPRWtiQkM3VU9iL3l3?=
- =?utf-8?B?Y3RWSm1lSnhicVExTUp2UWpnRk02QVdFa2g0OFFEMS9ra29VZFNCYlBYaWFI?=
- =?utf-8?B?Nm9ncE1yMXkrSHNGV05ZRjcwQXl6cFk3S0ZrczNudU5GV0FUbGlOSmZsMXd4?=
- =?utf-8?B?Y2VEQlIwbTA3WlViMWZMZ3J4U2lpVTlZYW90UXVCcnZFWGVEV3ZGa3hpT2JP?=
- =?utf-8?B?cEIvWXJQNVdrRDlUaDUzRFlFWVN3Rnl2VUZSWk8wVVNtbUNuY1Q1aUNPaG1t?=
- =?utf-8?B?cUF3bWI0cHZpY2ozcDFGQnFtQVBQZ2h5Sy9aNEN3UEpyMkM0QWg0WVY2eExV?=
- =?utf-8?B?VVFvT0NYYjNsYk1sdjdSeER4ZHdwQkNaRS9UK0VDR1hEVi9QZ3RHd0xSSy9M?=
- =?utf-8?B?TGN5N29WNTR1ZFVvekZBZjhhdmRSMGNaZ29vUmxBYXR2N2NhbUMvQVVycXdD?=
- =?utf-8?B?aURJWVhBV2FlTVdqbGo2OHorbnZrclV3UnU5YjRDZVpBdFdSdUJqUWQ4bjNx?=
- =?utf-8?Q?RQuqlBll0pZ4U4NgqHKRiIWQiqullgIZKttdL+y+Vukej?=
-X-MS-Exchange-AntiSpam-MessageData-1: dBk+/0ATncTgGiDJv3IeQlIzGt8ctaBGrTw=
-X-Exchange-RoutingPolicyChecked: TNLxNT2YjdJlwdHpTWLXBSHchFWXcXWlgcBlQOtbOgZMhn1FOTpk0SNT6RHaHq6BWpC42RU89qDaRzicMu96aZ38aX/476rzaTx+kS6KmEABRk1+wpy1oUT0yK5j12dGoU6uaGD2cegV5Tf+cEVdZA6h4Qk4He44+63Gb1cZkv4yttAu2ZFww9VAl/JSYfdgLbdhVK8LIxCYwbJrzVAZ3KNyDPZ0WgiAr8ogiivR4J8nRCef07trWil8Y+rzGmT/Z3UrEO0mNybkqQW9mP1FsUsDNqXxTH9ze4MS69HlvMm4EgqEQic2zqcf+Xo4dAc+wUrlshZKjDxkH4oHxO6PWw==
-X-OriginatorOrg: data-modul.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54e52489-8478-4f36-6078-08deb1aadbb2
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR01MB8486.eurprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 11:20:52.2534 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d72fb47f-f4be-4915-91c7-ebd53299157b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Iry/lzYAO1FqBPcqkPkeL2Iq5+GpBkSvZV5AnJBeiXy8w1ltA9hk19WcwddGmmE3c0iFdYyjW5QDvrlMwhaIUq4t2u0MwIQBz6xLn50e0OU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR01MB10824
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: jZiwKHtaUXNIwNs198T-Is86soYjOWHpmlRacAMx8bk_1778757656
-X-Mimecast-Originator: data-modul.com
-Content-Type: text/plain; charset=UTF-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC V6 0/8] arm_scmi: vendors: Qualcomm Generic Vendor Extensions
+To: Lukasz Luba <lukasz.luba@arm.com>
+Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ sudeep.holla@kernel.org, konradybcio@kernel.org,
+ myungjoo.ham@samsung.com, kyungmin.park@samsung.com,
+ cw00.choi@samsung.com, cristian.marussi@arm.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, arm-scmi@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-pm@vger.kernel.org,
+ dmitry.baryshkov@oss.qualcomm.com, jonathanh@nvidia.com,
+ thierry.reding@kernel.org, digetx@gmail.com, conor+dt@kernel.org,
+ krzk+dt@kernel.org, robh@kernel.org
+References: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
+ <436ce846-bd9e-45bb-bdc2-d2a0fd00dc25@arm.com>
+Content-Language: en-US
+From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+In-Reply-To: <436ce846-bd9e-45bb-bdc2-d2a0fd00dc25@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDExNyBTYWx0ZWRfXxEjFvrhB0za/
+ pvstYfgZGoD766EDo1HFudWXcUvUySjrHLEalIgTww6nfKvlExLQOY1+tiXMAsFWVy/88Jl97Go
+ nrCNwY+voGmvguk1ZVDHAcd7eo7sLPP0AGG+kwO2XfOsVYaaxcIxZgF2B5aSkl1RUyLMsMGKAC1
+ H2musfsq/yldkvxmsyCQPEh6N25szsdv17nIENbfbvMt95REYD6w+daft2L9enJ0p9saWCRHZjg
+ gYO7fS+1HPoOPSjdGsz5nEp4M7crrbKI882qTVUF6MDN03VNUgFT+uz9zMx3TzDdUm7kvvmcpvC
+ fMlB7ZZ/GfMKb34JuUoTI7f7WLGpsbqjBgTz0INzSciQgyBa3zBoStaoh3oNVC/At3fVCtGrdxs
+ 3bOVKINBtsLM0sfJr8vjSY8EtmfD956B5kmkw1jwYTngEqFA1Z5RqemMpGVoVz0RkO3EMzdLDd0
+ mxCoD4mUHdaAGuIWtwg==
+X-Authority-Analysis: v=2.4 cv=b+2CJNGx c=1 sm=1 tr=0 ts=6a05b4ff cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=2dUMNUc8cBhmsmHMSX8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: gjQg41IOor11upeMibUgT7FFa5xUohD9
+X-Proofpoint-ORIG-GUID: gjQg41IOor11upeMibUgT7FFa5xUohD9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-14_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140117
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,61 +151,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 13, 2026 at 03:45:43PM +0200, Marek Vasut wrote:
-> On 5/13/26 3:31 PM, Boerge Struempfel wrote:
->=20
-> [...]
->=20
-> > @@ -666,6 +675,26 @@ static int lt9211_parse_dt(struct lt9211 *ctx)
-> >  =20
-> >   =09ctx->panel_bridge =3D panel_bridge;
-> >  =20
-> > +=09ctx->lvds_hsdrv_isel =3D 8; /* default: 25 uA */
-> > +=09ret =3D of_property_read_u32(dev->of_node, "drive-strength-microamp=
-",
-> > +=09=09=09=09   &microamp);
->=20
-> if (ret && ret !=3D -EINVAL) {
->    ... error handling ...
->    return ret;
-> }
->=20
-> Then you won't need the if (!ret) conditional and can reduce indent.
 
-Thank you for this suggestion. We will than need to do the lookup even
-in case of no value being supplied, but that would make the code
-cleaner. Therefore I am changing this in v3.
->=20
-> I also wonder whether it wouldn't be better to simply bail with=20
-> dev_err_probe() if the property is invalid, let the user know they=20
-> should fix their DTs before it is too late.
-Ok. I'll change that in v3.
->=20
-> > +=09if (!ret) {
-> > +=09=09for (i =3D 0; i < ARRAY_SIZE(lt9211_hsdrv_microamp); i++) {
-> > +=09=09=09if (lt9211_hsdrv_microamp[i] =3D=3D microamp) {
-> > +=09=09=09=09ctx->lvds_hsdrv_isel =3D i;
-> > +=09=09=09=09break;
-> > +=09=09=09}
-> > +=09=09}
-> > +=09=09if (i =3D=3D ARRAY_SIZE(lt9211_hsdrv_microamp)) {
-> > +=09=09=09dev_err(dev, "Invalid drive-strength-microamp value %u\n",
-> > +=09=09=09=09microamp);
-> > +=09=09=09return -EINVAL;
-> > +=09=09}
->=20
-> [...]
->=20
-> > +
-> >   =09return 0;
-> >   }
->=20
+On 5/13/2026 10:30 PM, Lukasz Luba wrote:
+>
+>
+> On 5/7/26 07:22, Sibi Sankar wrote:
+>> The QCOM SCMI vendor protocol provides a generic way of exposing a 
+>> number of
+>> Qualcomm SoC specific features (like memory bus scaling) through a 
+>> mixture of
+>> pre-determined algorithm strings and param_id pairs hosted on the SCMI
+>> controller. On Qualcomm Glymur and Hamoa SoCs, the memlat governor 
+>> and the
+>> mechanism to control the various caches and ram is hosted on the CPU 
+>> Control
+>> Processor (CPUCP) and the method to tweak and start the governor is 
+>> exposed
+>> through the QCOM SCMI Generic Extension Protocol.
+>>
+>> This series introduces the devfreq scmi client driver that uses the 
+>> memlat
+>> algorithm string hosted on QCOM SCMI Generic Extension Protocol to 
+>> detect
+>> memory latency workloads and control frequency/level of the various 
+>> memory
+>> buses (DDR/LLCC/DDR_QOS). The DDR/LLCC/DDR_QOS are modelled as devfreq
+>> devices, with the governor set to remote devfreq governor. This 
+>> serves as
+>> a way to get a basic insight into the device operation through 
+>> trans_stat
+>> and provides for ways to further tweak the parameters of the remote
+>> governor.
+>>
+>> Transtat data for DDR/LLCC/DDR_QOS is now available in this series:
+>>
+>> #cat llcc/trans_stat
+>>> From  :   To
+>> 315000000 479000000 545000000 725000000 840000000 
+>> 95900000010900000001211000000   time(ms)
+>> 315000000:         0         3         6         6 6         
+>> 7         0        30    143956
+>> 479000000:         2         0         7         1 1         
+>> 1         0         3       356
+>> 545000000:         7         6         0         5 5         
+>> 0         0        10      1200
+>> 725000000:         3         0         5         0 6         
+>> 1         0         6      2172
+>> 840000000:         8         2         3         2 0         
+>> 4         0        12      1188
+>> 959000000:         3         0         1         2 2         
+>> 0         0        13       272
+>> 1090000000:         0         0         0         0 0         
+>> 0         0         0         0
+>> 1211000000:        35         4        11         5 11         
+>> 8         0         0     21684
+>> Total transition : 253
+>>
+>> QCOM SCMI Generic Vendor protocol background:
+>> It was found that a lot of the vendor protocol used internally was
+>> for debug/internal development purposes that would either be super
+>> SoC specific or had to be disabled because of some features being
+>> fused out during production. This lead to a large number of vendor
+>> protocol numbers being quickly consumed and were never released
+>> either. Using a generic vendor protocol with functionality abstracted
+>> behind algorithm strings gave us the flexibility of allowing such
+>> functionality exist during initial development/debugging while
+>> still being able to expose functionality like memlat once they have
+>> matured enough. The param-ids are certainly expected to act as ABI
+>> for algorithms strings like MEMLAT.
+>>
+>> Thanks in advance for taking time to review the series.
+>>
+>
 
---=20
-Best regards,
-B=C3=B6rge Str=C3=BCmpfel
+Hey Lukasz,
 
-DATA MODUL AG
-Landsberger Str. 322
-80687 M=C3=BCnchen
+Thanks for taking time to review the series!
+
+> Based on this description I have a few questions:
+> 1. Why we don't use SCMI notifications for this purpose?
+
+
+This is an attempt to retrofit firmware, that is already out in the wild 
+running
+on X1E laptops and Glymur which continues to use the same firmware, into
+generic linux frameworks, so that it provides some useful information to 
+user
+rather than it being a complete black box. We already have a ton of firmware
+changes suggested by Sudeep/Cristian that will be taken into account for the
+next generation of SoCs, will make sure this is accounted for as well :)
+
+> 2. Is it safe to assume that there was no extra frequency change
+>    during that polling sampling period?
+
+Yup, there is expected to be at most one transition of DDR/LLCC/DDR-QOS
+per polling cycle.
+
+> 3. Shouldn't we sample 2x faster than the changes that we try to
+>    observe?
+
+Yup, that makes sense. Will fix this in the next re-spin.
+
+> 4. IIRC there was some extension in the SCMI protocol for performance
+>    domains which allows to expose the stats like the one above but in
+>    the shared memory. Why we couldn't use this? It would be more robust.
+
+Same answer as the first point, since the current firmware provides to no
+such provisions :(
+
+-Sibi
+
+
 
