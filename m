@@ -4,98 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF6D3CD4F3C
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 04:06:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C979CD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 04:30:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E90B10F3BE;
-	Fri, 15 May 2026 04:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B367510E025;
+	Fri, 15 May 2026 04:30:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hfzifJFK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P0asgAaS";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62F7710E04E
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 04:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778817958;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aZ+iLTZST8FxP/oRfZ0ADx0fv2jSubDq1lGkoIHgCgI=;
- b=hfzifJFKP4h3SVYD4BbBln4j/zaEyBQx7nCC2voMwosrr8e+2DovDxNZ1AqPpZ1Gba4N+k
- IHJMUy/WI2mEpJsrbV9UDfMfeIHbw0tgSfdUOMm8FumFHxbboQrSv9SBg8sb/EmBGVEm0d
- FaEq7ShzNOGHpxRiHfT/Rc5KYQQlzv4=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-576-O3a_MQ_uOWad8ar8icrqDA-1; Fri, 15 May 2026 00:05:56 -0400
-X-MC-Unique: O3a_MQ_uOWad8ar8icrqDA-1
-X-Mimecast-MFC-AGG-ID: O3a_MQ_uOWad8ar8icrqDA_1778817955
-Received: by mail-lf1-f72.google.com with SMTP id
- 2adb3069b0e04-5a894c2d57cso1271859e87.0
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 21:05:55 -0700 (PDT)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6BF210E025
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 04:30:21 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-38e800deae4so74363991fa.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 21:30:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778819420; cv=none;
+ d=google.com; s=arc-20240605;
+ b=OJAc6T6pCN4151XIM7nXBCrbi+9r6WSl0rdH3OVC53CgELzMwOcjsxolKV+h3O+l2m
+ loNLhIPHm0FfgMUCIML4e/IlmQDtc5cfsabKhxN8BW+NXZ/eLmZcYOxRtyPsGMorZxG+
+ 317Zc52VgdAGjEIvgYHE6b2QJPZtyznt8ZOMv9Euv+ZlMpRxlNhTd4sTd+As2cTCcjYH
+ znb1q4VsjpGzg3IRggi/shcoRwNFsG5IekNyti9PYX/zqF255A9GOc+UiStEkH6hP/Fe
+ 05Y68dYnSrSCX26DGuUWNPlcgevhh/dDxAWIZ0qnu0sSiAe7uEkP4PZuDCfnnLwTwyF7
+ n/aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ErpV5Q9aO8CtpXnIYlr1TjML/GGAT1epacCJTC2ieJw=;
+ fh=MusZ0N5jBJxkjHYvS6DCv363NFaqKsVOsyVLIqTJw+E=;
+ b=Mn0uW+B6baZf9u2PM2YubNl+d3sB37fICA1OeFk9ttbI9WbVvKvfW4Grr/2GwOmqjM
+ I5i1/fg5Z8/0C1ianIIsBkf/FpgARayWGWpoKzKF1sPMgf/wY7reaedH3DeYUi5ZtBwK
+ 1yOSbfGK41BcCJjvEix47LMpDu1SbCd01fbEVOuhoQfQ8He/5anzzxYJRKD0rfNcTfBB
+ JTsKgnog0smAx8+hUD9FgFKS03ITbou5F/X99oLo0MQMqS7Vs1RyT1MfOvPcp0kVMtcu
+ QgOmXi2nL9w4Z2dRpbKr2GBHFyz6ESMouiHGhGgbHtEnA5aBGKfetq9u9BhWsYvtDzeO
+ joTQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778819420; x=1779424220; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ErpV5Q9aO8CtpXnIYlr1TjML/GGAT1epacCJTC2ieJw=;
+ b=P0asgAaSClBD8OwQzkdhs6v4zFAKqoHZ+YyceXGdOsTfy7uhNjMKQzKOj4n6SsNEFG
+ 7JDZTV/30Kh0Do2oCIv6o2Fl/gB+9dDIKN+j7DT4iyieOD9CO0Lp0HxfE0FHZJXuBfK9
+ KytKJp+d+4uhKT7tgskOayewIUMN4z4kVgGCgOytjd+pdDpBSwkYN54B4u+lE9neTP9u
+ +/Xx7Vy5ONoAHSHT9Wg0HyW3WdF9ePlAxn3iRMeFyeML7k8ouu9SCxsRjKMWRK/TER/U
+ /7pxfG7tX5IwMpg77qHuK22BjkH2D3WWzWZAvwaA6anumS5UmRHM8pfM7Bu/VtPfJMFj
+ 5TwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778817954; x=1779422754;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=aZ+iLTZST8FxP/oRfZ0ADx0fv2jSubDq1lGkoIHgCgI=;
- b=aQS5QxHdPcuv5BLZgV3cxqc9LJhi+WbZskJkMMSkGFAFiOKyLNMapNFCcrdGfWJmJZ
- M2ly1Gju9Hxxy1VFmZhO0hideu4paL62tXasj/ZNRUuTXmdUBH+Gtwd94GXvBild8we8
- e9siHzzRZ7F9li4ZDNjjj0w0kLzCijmJg0qgjetgmS2qtjkkHoDIowN6dz7Z3lWNSNV5
- MFoLRXI1hTNSf9ARQsIT+AkzQM1NTc+GD0oaeNL5N1chM2SDDModWdXXVPaEFjAUMj69
- nWgh/ok+KQ0kcqoN8Hx2pO3gt+oSIpqadVZxwVHeF4Tp7vYXT4luQxljapFJgeWsRZO1
- gIFQ==
+ d=1e100.net; s=20251104; t=1778819420; x=1779424220;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ErpV5Q9aO8CtpXnIYlr1TjML/GGAT1epacCJTC2ieJw=;
+ b=ombqaEd/nb2wNhHh7tM8KVku5Bt6NEyqsaPcstOoRPPTapDTZV7qRgEPirLoW7eVQ4
+ mkWrxuczgE5Bn2vepUmM/hxT2UbCNWuMO55V1Oqh9s6/0lKNL1PYa1MY+VsXnXUpoJsu
+ d5oHI4IfvCl5Iojxgk6qTddZzk95LDMmxPI+H0sppJhNTfopx+HAflL3WADTcQ4diwr4
+ fOQAebN/0E6jmTrzaa3NiIu2hksZciPgB7qOyDo9O/8uLMkCb3VuXaY1QWh8f4yBrirl
+ KXS7FqX02UXFo6bsC0qJA/xjg6ANHiVbTtm5riFbOEXDhl0xiNEBYcaEndKZ/FB3/NNf
+ c0zA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/BVbWFn7leNetEB9klcX7CQ/suAnzVgjjR85jVSNGxDA5iDdOW9XMhs5u0zwHA76aBF9EhSsrJLio=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxxnhHzeuzrElr3ZrUZ/IiBG/3IBzyjGw02ul5CozKccA3jCOvB
- 51eYQA94SQoDdVPXJ7LBOKUZNqb1h9CHt/KwFZMO5+QCDf/XmCngwzrJNzHM3CYmr2DrG4y7jhS
- hrDw8XoV+RJKWVARbyNrSZAF5rO4onkOrhaa8W5JAIGov04Ji2KgP6c/HHtSTpl78YXUn
-X-Gm-Gg: Acq92OEEPaUhJ4jtK+fBgVtUYbSaeNzYG8pbxCLx3rH48HO986kS8Yq2Y4p26p8mr/f
- BiAv978rND0u5TvNxnqTA7gjX34+XZSY6JAFyYvdpqA4yo42y/WLi+TeEyUGumLa4pdidk6PHaz
- K4cLbQRpYwqHGQSRRCGnxa9PWZ+TvC/JPLcCm/KTlwUhgBQRXaBfUoLFjqkk+AgVXQNazk14khX
- NeyAhkXMkYUmtX2iwwY+pH8CoD49JGruMMAbpFB5a6w44oQexySPq+uW5x58KS2u/aJC04pNrRa
- aLvEattPF7LZfyp8GMkFisYav9EAv/Z7Kdsh8ZRBA0huWF8x2WooHugYM2s/UWtV6EzE7GMnryZ
- A4i6VXgjwkvb/+0ooryzlGIpXhzmkALyaAPet3TzshGnmDwg=
-X-Received: by 2002:a05:6512:2397:b0:5a8:9909:50b1 with SMTP id
- 2adb3069b0e04-5aa0e610e9amr452538e87.10.1778817954390; 
- Thu, 14 May 2026 21:05:54 -0700 (PDT)
-X-Received: by 2002:a05:6512:2397:b0:5a8:9909:50b1 with SMTP id
- 2adb3069b0e04-5aa0e610e9amr452515e87.10.1778817953842; 
- Thu, 14 May 2026 21:05:53 -0700 (PDT)
-Received: from [192.168.1.86] (85-23-51-1.bb.dnainternet.fi. [85.23.51.1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a90f11a7c2sm932482e87.32.2026.05.14.21.05.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 May 2026 21:05:53 -0700 (PDT)
-Message-ID: <2fe8d022-a414-4b23-af4f-9cecf1aac3d1@redhat.com>
-Date: Fri, 15 May 2026 07:05:52 +0300
+ AFNElJ9bf+PVs/jiKwCkXIrhSSpw7HOvzXXhyZK6nVYLLjb1Bnv9lk3YCOYTQFjAU1q5aZg7uNqDUHnFYUI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrFTaXZUhOhtpkHNO9cfZNJ2A7A+KfIOTp212xKCJR72o3gdwo
+ mUcaqlP3zz9i0Rvzk9ebkeHRYP9EteZtPu/ehOBpnqIXPkyJDQqyHZyHERQcUbnyX8NF8D0X37n
+ OFBL4KMLp801LsDHmTc+0GavFpvA35iIKbQ==
+X-Gm-Gg: Acq92OFbzPL51qwOWbi+bnRivzvTecTj/OEYCBZ9sh2cnyXvtP57KRoyy5spGt/oUlA
+ 1+j1gufoe+fONWCZmCSoS8Pg6OKgPtMkwJXZJQdIZB0R6QWJHZKcWkGwUFOHHgOgpv4/NiYXxIU
+ f3vQtyS72RpmewvIw+SgenUcQJDSFfh9G4oiwRCUm9EGJb33Vo0FJ9ElG/aLhARKDeWp+HaTPmZ
+ inveFF2gdUes5Sn/BwwsQGW//QR3207B2hIMQ+9KMqi2FzMrEzKFg4QacErfTQwpfu3UJzeqU4T
+ 4CMdjFsXePAAoFT6QumWWF1MvqMtlAs4CJx08AmeCOD3ZZr0XmnOzgpiZxmpQG1gS+E07IFX7VV
+ NjoI=
+X-Received: by 2002:a2e:9059:0:b0:38e:58c7:cd1 with SMTP id
+ 38308e7fff4ca-39561dc13c1mr3692541fa.21.1778819419755; Thu, 14 May 2026
+ 21:30:19 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 0/5] Migrate on fault for device pages
-To: Balbir Singh <balbirs@nvidia.com>
-Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-References: <20260505184421.2324798-1-mpenttil@redhat.com>
- <agaN29W7hAklrCxz@parvat>
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <agaN29W7hAklrCxz@parvat>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: utXRWpgMHcrVQryHv87dVl2mscLWwDEEgfqv1rM1zc8_1778817955
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CALHNRZ9mmf_4OagcooO-s+SU1KrggT5_ZwM--ambxZKXN-oQDg@mail.gmail.com>
+ <I47hlmySTbquW1VgZFOofQ@nvidia.com>
+ <CALHNRZ_EjqA4aeqZhmicRwdpMxjKp1QpwLW98dyRa36HBX8aDA@mail.gmail.com>
+ <QKr0fha2SnWy9Cj9I74wxw@nvidia.com>
+In-Reply-To: <QKr0fha2SnWy9Cj9I74wxw@nvidia.com>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Thu, 14 May 2026 23:30:07 -0500
+X-Gm-Features: AVHnY4KMxQxcdb0xOeM8iOKKVIXWOA-iHaJh2OHO8vszrzLtndX_JaZ-2BAd_9Y
+Message-ID: <CALHNRZ8MZmPiWtKHkcQwu3_1Jf5rU8pZQL4h1AfHtuEdY3XjPg@mail.gmail.com>
+Subject: Re: [BUG] drm/tegra: DMA buffers are not always freed
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,93 +108,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-> FYI: While testing with hmm_tests I ran into
+On Thu, May 14, 2026 at 9:39=E2=80=AFPM Mikko Perttunen <mperttunen@nvidia.=
+com> wrote:
 >
-> [  107.866004] ============================================
-> [  107.866284] WARNING: possible recursive locking detected
-> [  107.866577] 7.1.0-rc3-00311-g4277273ca0e1 #12 Not tainted
-> [  107.866877] --------------------------------------------
-> [  107.867217] hmm-tests/1098 is trying to acquire lock:
-> [  107.867491] ffff888113571b38 (&mm->mmap_lock){++++}-{4:4}, at: dmirror_range_fault+0x147/0x610 [test_hmm] <- line 368 of lib/test_hmm.c
-> [  107.868076] 
-> [  107.868076] but task is already holding lock:
-> [  107.868383] ffff888113571b38 (&mm->mmap_lock){++++}-{4:4}, at: dmirror_fault_and_migrate_to_device.constprop.0+0x3aa/0x6a0 [test_hmm] <- line 1267 of lib/test_hmm.c
-> [  107.869076] 
-> [  107.869076] other info that might help us debug this:
-> [  107.869415]  Possible unsafe locking scenario:
-> [  107.869415] 
-> [  107.869729]        CPU0
-> [  107.869866]        ----
-> [  107.870054]   lock(&mm->mmap_lock);
-> [  107.870247]   lock(&mm->mmap_lock);
-> [  107.870436] 
-> [  107.870436]  *** DEADLOCK ***
-> [  107.870436] 
-> [  107.870743]  May be due to missing lock nesting notation
-> [  107.870743] 
-> [  107.871158] 1 lock held by hmm-tests/1098:
-> [  107.871377]  #0: ffff888113571b38 (&mm->mmap_lock){++++}-{4:4}, at: dmirror_fault_and_migrate_to_device.constprop.0+0x3aa/0x6a0 [test_hmm]
-> [  107.872081] 
-> [  107.872081] stack backtrace:
-> [  107.872348] CPU: 1 UID: 0 PID: 1098 Comm: hmm-tests Not tainted 7.1.0-rc3-00311-g4277273ca0e1 #12 PREEMPT(full) 
-> [  107.872350] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS edk2-20260213-6.fc44 02/13/2026
-> [  107.872354] Call Trace:
-> [  107.872357]  <TASK>
-> [  107.872358]  dump_stack_lvl+0x5d/0x80
-> [  107.872385]  print_deadlock_bug.cold+0xc0/0xe2
-> [  107.872393]  __lock_acquire+0x10cf/0x1b90
-> [  107.872400]  lock_acquire+0x189/0x2f0
-> [  107.872401]  ? dmirror_range_fault+0x147/0x610 [test_hmm]
-> [  107.872404]  down_read+0x9b/0x4b0
-> [  107.872420]  ? dmirror_range_fault+0x147/0x610 [test_hmm]
-> [  107.872421]  ? lock_acquire+0x189/0x2f0
-> [  107.872422]  ? __pfx_down_read+0x10/0x10
-> [  107.872424]  ? __lock_acquire+0x3c2/0x1b90
-> [  107.872425]  dmirror_range_fault+0x147/0x610 [test_hmm]
-> [  107.872427]  ? __pfx_down_read+0x10/0x10
-> [  107.872429]  ? __pfx_dmirror_range_fault+0x10/0x10 [test_hmm]
-> [  107.872430]  ? __lock_acquire+0x3c2/0x1b90
-> [  107.872434]  dmirror_fault_and_migrate_to_device.constprop.0+0x3bf/0x6a0 [test_hmm]
-> [  107.872436]  ? __pfx_dmirror_fault_and_migrate_to_device.constprop.0+0x10/0x10 [test_hmm]
-> [  107.872439]  ? find_held_lock+0x2b/0x80
-> [  107.872444]  ? dmirror_device_remove_chunks+0x5b8/0xa00 [test_hmm]
-> [  107.872445]  ? __is_insn_slot_addr+0xee/0x1f0
-> [  107.872458]  ? lock_acquire+0x189/0x2f0
-> [  107.872460]  ? avc_has_extended_perms+0x234/0x1350
-> [  107.872476]  ? __might_fault+0x89/0x150
-> [  107.872484]  ? lock_release+0xe1/0x320
-> [  107.872486]  dmirror_fops_unlocked_ioctl+0x9ba/0xdb0 [test_hmm]
-> [  107.872488]  ? ioctl_has_perm.constprop.0.isra.0+0x2fe/0x6c0
-> [  107.872494]  ? __pfx_dmirror_fops_unlocked_ioctl+0x10/0x10 [test_hmm]
-> [  107.872498]  ? count_memcg_events_mm.constprop.0+0x22/0x1a0
-> [  107.872499]  ? __pfx_ioctl_has_perm.constprop.0.isra.0+0x10/0x10
-> [  107.872501]  ? count_memcg_events_mm.constprop.0+0xaa/0x1a0
-> [  107.872503]  ? lock_release+0xe1/0x320
-> [  107.872504]  ? find_held_lock+0x2b/0x80
-> [  107.872506]  ? exc_page_fault+0x7e/0xf0
-> [  107.872510]  __x64_sys_ioctl+0x13c/0x1d0
-> [  107.872521]  ? lockdep_hardirqs_on_prepare+0xd9/0x190
-> [  107.872523]  do_syscall_64+0xf3/0x6a0
-> [  107.872526]  ? exc_page_fault+0xde/0xf0
-> [  107.872528]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> [  107.872529] RIP: 0033:0x7f7381c543ad
-> [  107.872531] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
-> [  107.872532] RSP: 002b:00007ffc3160a9b0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> [  107.872539] RAX: ffffffffffffffda RBX: 00007f7381b44000 RCX: 00007f7381c543ad
-> [  107.872540] RDX: 00007ffc3160aa30 RSI: 00000000c0284803 RDI: 0000000000000022
-> [  107.872541] RBP: 00007ffc3160aa00 R08: 00000000ffffffff R09: 0000000000000000
-> [  107.872541] R10: 0000000000000022 R11: 0000000000000246 R12: 00007ffc3160aa24
-> [  107.872542] R13: 000000000041f380 R14: 0000000000000200 R15: 00007f7381200000
-> [  107.872544]  </TASK>
+> On Wednesday, May 13, 2026 1:26=E2=80=AFPM Aaron Kling wrote:
+> > On Tue, May 12, 2026 at 10:26=E2=80=AFPM Mikko Perttunen <mperttunen@nv=
+idia.com> wrote:
+> > >
+> > > On Tuesday, May 12, 2026 2:29=E2=80=AFPM Aaron Kling wrote:
+> > > > There is an issue with tegra-drm where some buffers get created, th=
+en
+> > > > freed, but the dma buffer never gets freed. Causing display control=
+ler
+> > > > memory allocations to start failing after the leaks fill up cma.
+> > > >
+> > > > I created an issue on the freedesktop issue tracker [0] with a patc=
+h
+> > > > with some debug logs I added, then a log from Android that contains
+> > > > these logs. CMA is set to 512MB, and when allocations start to fail=
+,
+> > > > the unfreed allocations add up to just shy of 500MB, where it's
+> > > > reasonable to expect that 8MB contiguous is no longer available. Th=
+e
+> > > > log was generated on a Jetson TX2 NX, but I have seen this leak on
+> > > > other archs as well, this also does not appear to be limited to soc=
+'s
+> > > > with nvdisplay.
+> > > >
+> > > > This does not appear to be a userspace issue. The graphics allocato=
+r
+> > > > works as expected for other soc vendors. And as the logs show, the
+> > > > delete dumb buffer ioctl is called, but is not always followed by t=
+he
+> > > > dma buffer getting freed. I have also observed this issue with a
+> > > > gralloc that uses the tegra gem create and such, this is not unique=
+ to
+> > > > dumb buffers, that's just the last log I had when deciding to post =
+the
+> > > > issue to lkml.
+> > > >
+> > > > What I primarily intend to ask here is how to further debug this
+> > > > issue. I'm not finding any direct path between the delete dumb ioct=
+l
+> > > > handling and gem release or tegra bo free. Can someone point me to =
+the
+> > > > pieces in the middle I'm missing, where the logic is to decide is a
+> > > > buffer should be freed?
+> > > >
+> > > > Aaron
+> > > >
+> > > > [0] https://gitlab.freedesktop.org/drm/tegra/-/work_items/9
+> > > >
+> > >
+> > > If the issue is specific to buffers that get used with display, I hav=
+e
+> > > an idea of what the issue is -- there is some circular reference
+> > > counting with the BO cache in the host1x driver, and that means that
+> > > BOs that end up in the cache never get released.
+> >
+> > As far as I know, this only affects display controller buffers. Though
+> > unfortunately, I have limited ways to test the media engines right
+> > now.
 >
+> I've been working on some more userspace for the media engines.
+> Hopefully I can get that in shape soon.
+
+Great to hear. My android use case unfortunately has some very
+specific requirements, namely a c2 aidl hal. But maybe with more
+examples of the uapi in action, I can try looking at one again.
+Though, my last attempt using the existing nvdec example had my head
+spinning in about 3 seconds flat between that and the c2 api.
+
+> >
+> > > Let me do some testing locally and I'll send out a patch once ready.
+> >
+> > Sounds good, thanks.
 >
-> Thanks,
-> Balbir
->
-Thanks, I could reproduce. Had lockdep dropped off so went unnoticed. It is nesting mmap_read_lock in the test suite, I will change that in next version.
+> I posted a fix, please give it a try. Incidentally, on my side I don't
+> have that much testing set up for the display :)
 
---Mika
+My initial test run on p2972 using swiftshader is looking good for
+this specific issue at least. Part way through a vts run and I haven't
+got any allocation fails, far past where I got them previously.
+However, this may have peeled back that onion to another problem. I'm
+getting stack traces from shared plane atomics, and a lot of mmu
+faults during the graphics tests. I'll see if I can narrow down a
+simple reproduction and trace down the cause. And I'll check the bo
+caching patch on a few other devices, then post a tested-by on there
+if they work.
 
-
+Aaron
