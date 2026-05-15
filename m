@@ -4,59 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15C1BCD37AC
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 02:36:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2480CD4F3C
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 02:39:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69A4510F3A6;
-	Fri, 15 May 2026 02:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56A8510F3B2;
+	Fri, 15 May 2026 02:39:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="LqrIEfZA";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="edubf78M";
 	dkim-atps=neutral
-Received: from mail-m8286.xmail.ntesmail.com (mail-m8286.xmail.ntesmail.com
- [156.224.82.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5045F10F3A6
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 02:36:36 +0000 (UTC)
-Received: from [172.16.12.43] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3e7fc10ae;
- Fri, 15 May 2026 10:36:32 +0800 (GMT+08:00)
-Message-ID: <f290b425-d5e1-46dd-a63e-0fac53067ca0@rock-chips.com>
-Date: Fri, 15 May 2026 10:36:32 +0800
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012018.outbound.protection.outlook.com [52.101.53.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B91F010F3B2
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 02:39:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WZIt2EGXNsWbfsdPPhGMmZHl9BEh//YX969l4rKSNytQeIayOVnBSAJ6yA05QhHYM7K72/IJCcm8hLNrC4WnccYsLZocbHUWV2KYEePS4H8beGd4mRWcI1lCGfd+t4Q331G4tSfcXqckYR2XeoxH5+gHskgKuZwr+JB94R23iVzSnJgu4iR0hqiejvN9sEK/qNG7XDQ91l6QoDKJE+r3tf632QPAkiq9kFTn1zh0CaX7LVW68guZxE6uuyOIirw3lBQPYX3sM29kf0KDByi5KofLWmdvtlWWzFFF6cBtidaJeTfoFlwMT/iH/2E2/QAWud4L/tPnT9lEsV9q6FnlMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1U/ksOXLHJZTLLqgwkwXTzXGIFOHWDhY+bqVuQvqayg=;
+ b=UF4hLOXK+ie6BXA+bUMvKI9TvR+7pZLq3eKP6x9ZVO0A5jvb838YcYfR/9jHOgYZi/ORSEOPDNA4fCPeA0eHwa1DXg8In954bRO/KVcTkW3hOw+UV69m9qD3q1kK5A4CgsWrQPq/oDFaQ/6oUQE+iM8ZjUZhKEaNCLegiR7/64m+NUoeFd1pJhEiPpToU4K9A9KoBzJ6KCLCnfRdjfyHZCtKR5YD7vdb2UuyovAv94v8DMU89Od+J304kIFooNgTtoy5t5fT7BiRHy1G4P7rcUc3wS7mMzh3lNkVkZs/Swra0I19Qbx4n9DhIEqkGmyh83C0KXEj0K9tC+O1AiWEbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1U/ksOXLHJZTLLqgwkwXTzXGIFOHWDhY+bqVuQvqayg=;
+ b=edubf78MNYyon30oc9woHGRgxzUOf0BpMpfLSzLm2HduHHaCH696UyznJ06KxDnUUJZtuYGwEDgc9uAb/TS/72kVFi+gcDjoSB6u+q5Zt0nldb+B6hX/brVIuLTsw42FGJOET1dpuun0b5AAmfECDF1Mzk/du7+hMtW5uAMu03fYKlCQtdV4hT5CPqVZbon1R8OIb91yOQBWewsvHGqz3H7khn9TQ9EpzTA1ikZ2evVpRssJwdSF+OdkSNVpprUwIPAgMkhr99/NDsWpnN6QG7UdZ6omMqUEjtpPdcz9Iz0hWmI1K/0D/GJeMGqfuTAnIhAO5W0eKZQskes3UFPDsw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS7PR12MB5768.namprd12.prod.outlook.com (2603:10b6:8:77::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Fri, 15 May
+ 2026 02:39:28 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.21.0025.016; Fri, 15 May 2026
+ 02:39:28 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [BUG] drm/tegra: DMA buffers are not always freed
+Date: Fri, 15 May 2026 11:39:25 +0900
+Message-ID: <QKr0fha2SnWy9Cj9I74wxw@nvidia.com>
+In-Reply-To: <CALHNRZ_EjqA4aeqZhmicRwdpMxjKp1QpwLW98dyRa36HBX8aDA@mail.gmail.com>
+References: <CALHNRZ9mmf_4OagcooO-s+SU1KrggT5_ZwM--ambxZKXN-oQDg@mail.gmail.com>
+ <I47hlmySTbquW1VgZFOofQ@nvidia.com>
+ <CALHNRZ_EjqA4aeqZhmicRwdpMxjKp1QpwLW98dyRa36HBX8aDA@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP286CA0109.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::6) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
- hclk as third clock for RK3588
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
- <20260513074414.2053435-2-damon.ding@rock-chips.com>
- <20260514-elegant-agate-pug-449ec2@quoll>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260514-elegant-agate-pug-449ec2@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e297e20f403a3kunmc0deb7cd11afb4
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHkgfVkMfShlLT0kdS0lKTFYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=LqrIEfZA+38ljtZG4tF5/WXxztcTnpzY/0OJHfmpE6+LRkFfaUBXdEd9wAWhiPI+0kT6NObp8PeeC962DlhXclUpfPS8fboSaz+TH7sCUqcyub0csGGdW0gd7744Ue1MZAg6ad/M3haGgxeWshyXu7maKjiAb/B0UcwE2TAEa+k=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=U0zZkFsIJMlo+SmTsm1vbbfTBR0506CjYpUXxe4Vvng=;
- h=date:mime-version:subject:message-id:from;
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS7PR12MB5768:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8a38e63-15b9-4fab-2443-08deb22b2fa3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|10070799003|22082099003|18002099003|4143699003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info: i4qqMEZoY7M7E0VeB/7Btfy2hZCqYKBWxFSMWXRRKzp5iO9OxK9Ah5xDsCfWpVROTbeif4b7hSClVvl7zSZhn07Y5d0ydBKnYiJEH8Z0SqoMg3T/ce9uc73caRMLtNFuZerbLlKQIk1pjKyVEP3/Z8s7T7SSJNjJacH3gdVMuzEtT/Dwm4zRPwoLXazyxQsBTgc8B1CQX4IJJkB3Gccyx8wFKm3BojOC3mWKEBJDmNNwkICdLJyXmz+yvKnOulxJWvsKXKfxVsFpgn3bwgXYIJKJfsOx/esVb7huTRWFCypFOxdCkbiYIlQcLNS5GU9QjWWXSie6YSUOiHhOb+Oakya9S2+SM0C6p9pbzZYv7zZBkZGAxsPqq9HD51pv5670mm6RL+Sq+JZyqDP/HCGB5KIE8kGEmktrzo68NEu1puDH8j2KAbWgrIBg4dN/aMYXB3exw3MCOtIeKYjPvFvZasj/GdpgNvboWCHP9R1dxz6PFFetSvdYRK5zxCSNRRInGwNRmjCf8g20s7PI1AdAfd5wEgPCVxXqBPpwrIL486quDx3Z78bHdbqylngj8QHEPyC+jn2Brt395YIHeM2mgw83Wj4m5pZyPtftCvr7CjQnfVPlNpyZ3QazMkFb8C2T4VLt6TlonyTuW+oZ4o0/5IjFO9TGwiOmW1fUfE7+LChsMgGz1nFcMcipvt+ryQij
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(10070799003)(22082099003)(18002099003)(4143699003)(56012099003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGNTTFdXN2FVQ3IzYno0bXN3ZXJZQ0VSU2UzY2pGQ1RIUEpCWVVKUldFTU5v?=
+ =?utf-8?B?L1REMEN4OHQ3VWF5cHpCbUVvbGlaZlNZSzZxdXAyblRTREpqU1lBS3NJaUxa?=
+ =?utf-8?B?NU1Gb3FMRVQ0VDAvWHQwN1RNc3pYQ1lFekVCT0phM0pOaVFIUzJOeUVDd0hI?=
+ =?utf-8?B?NUtIa0UrSmd5c3I5Q0NSSzlqTmp0RGhseEZ4VGd4dTMxaVc2QSsvSzdGc3Q5?=
+ =?utf-8?B?T0ptYVMwSElTZFl4TGppUE9nN0lwTGlNQ3FxeFBNbVpSMVlZb0FuTktJVFpM?=
+ =?utf-8?B?c3RhaGdLSC9RQjlvVkFXay9SUWpWcXVtMXNPWUZIbnZ0L2lVZnlUV1Y5Y095?=
+ =?utf-8?B?QnNkQldvZzk2MlFQOThsVTFBUEtCVDh1UDdwK3Frd3NtMHV0Z3FJSGQvb3o1?=
+ =?utf-8?B?RWpZSUdMYVRTUEJKcnYzMExkVUhUa20zaVNMUTR3NFIrbHN1TFBYcWt3R0dz?=
+ =?utf-8?B?U0VtMGNFMEd6R2lOamZjWC9WaTFrcEJJV2tWaXdDK2FWYnA2UE9BbHRJQkpP?=
+ =?utf-8?B?VUVnRENiTElDY0J2bGZkdlpYcnVkVEttbDlmWDFiRThJQnRXL25GV1k1bCtE?=
+ =?utf-8?B?dzB0dDYxTzNQVjJmczY0VWdjOXl4YXJ2bGJXN1Y0bWU5TVZhSTFnVHJFREsv?=
+ =?utf-8?B?ejRzeEJYYUcyZDZFeFdHcTFISlJBV1FOMXI2N0ZzSG55bWRlUVN0ZGl5NHgw?=
+ =?utf-8?B?UllkZzRyREVFOEwzUTY5Q05VUlJpcEw5STBWNXRXTEFiWkFXeXBySWQrMnNQ?=
+ =?utf-8?B?Sk13eWJQcXhkdVZ1NmRaaEMrbjl4L3loS1doVGFDejVKOEFMQ1NOWExPeXBa?=
+ =?utf-8?B?dXRCN0FKZFlQNVVVTVE2ODUzdnN1R2dERmVveEVYUi9TVHByVmZYZkprMFZ1?=
+ =?utf-8?B?dXpwTzNycGZGeDNHdWZ1TjBPbUR5Z1lFNngyWUFvcmZ0akEyK09IOWJua2Vo?=
+ =?utf-8?B?SGVKaE5ld1N3YlYveStCRzJCTjlybUMveXFKdjI4b3B0d3czMFBQZS9wZU1L?=
+ =?utf-8?B?c2NhRitsOFFkYVlIZlJDYkREblVTbW9DeEJ0YjZtWGZTTU5BdFlxVytQOWJa?=
+ =?utf-8?B?SVo2YjZBcFl4amxnL2pPMUtsVHN0OGRDN1BDUVVnQkhvbnBSOXlmbWxPa0hH?=
+ =?utf-8?B?MFRiT0IxMHRVOVMrc0pNU2NyNjFYMDdnNUlQN2hkaE9hSS9Ra3EybmtVZy9o?=
+ =?utf-8?B?eDFXMXJ1NFRHQ1gwRzRkQkpId2hQUEN0L3hDTnUyQ2hHNVZ1c1VaS2hUOUox?=
+ =?utf-8?B?VEp0TEIwOVBRWlplSDhNTVRRRnRIZjJRNnE3Mno1RklQLy9DTS9zNXA1S25D?=
+ =?utf-8?B?eHBab1JvZGVnK01uNXhpdWtHNGZJMUNiSU1zcWc3MjB1YkN3WDJuUWloY0Fs?=
+ =?utf-8?B?dDNvMUhBcjhld3RFRXUxNUZFZGtPTUt3ZHRSZTZkbC9ZdC9nNDVmWDU1ekdq?=
+ =?utf-8?B?K2lOZmFYc29yLzViclA0eXBzWkVLM05Yd1VxNldxWXVSV3crZ3V2MC9IRWYy?=
+ =?utf-8?B?SWJEaTBVTG9Yb0xrQTc5dnd4Qmk4L2QzbjI0a2JySW53eS9xdjdFdEJ0VUNy?=
+ =?utf-8?B?U1MvbGpySHQ2cVdobWRDUG5JKzhhVXVWMUFwUzh2bThoc0pxVi9kYTU2T01q?=
+ =?utf-8?B?T2tNekM1RmlsL0RJbkRlOGR1SVR3alJzYzY3TjMyRklXUHp3blQ1ZDc4TFAw?=
+ =?utf-8?B?YndoOGJHaCs2Tm9weEhhYjVTLzRMS2FMdlNCbGdnVGdkN2g1a2ttY0MycWoz?=
+ =?utf-8?B?OFYxTEgyTTJBV1V0Qkx6ZThsaDJjQUptclArM1dKbFg2WXd1TlM5NXIyNXNt?=
+ =?utf-8?B?RmxtclZCTVN6d1JkVU1yUm1Xcnl2alBOR1J5SlQwM2hEUVFmcSs3SzY1ZE1q?=
+ =?utf-8?B?a1dVaHE0VVQwcGRtbXRpcVZpSG96YmFudWw1cFRYZDFMNzgvRDVhcmRsdGgy?=
+ =?utf-8?B?aHlXVVkwS1dFajZBYnVNNE1uYW9wK3R1UFVSK0VQZ21URzJkSHJjQlBzZjQ5?=
+ =?utf-8?B?NWhBNEFrenVYMGhiVmR5RUtjS2VLZTBDbWxpd1VRakZUQ2pFSjc0NE1JNGJG?=
+ =?utf-8?B?cHZVSGVkVSthTlFYd1N1bnNrWkVpZUZERXFZaXY4bkQ2ZGowSGRMaVJwdUNL?=
+ =?utf-8?B?WE9rV1RBRHArUmNidDZ5VzdsMEFvbWNFR3FBcGtKZ3VrRmtkMk5hcE4rbzN6?=
+ =?utf-8?B?VVlXQ3JPaHR3Q0R6eHliemNtSFVYRHpuQ3ZUMGNEU0g5NmJNVFkrbWdqSXBG?=
+ =?utf-8?B?U2hOZitrRkZsNituUm1SY0xGRllnU2lYaDNiL3U2M0lrTzFDR2E4b05ia0FI?=
+ =?utf-8?B?MHVCT3ltVTVTTmJuVDg1VEdrRHc5VzlKY0RiV0VjVkMwNEp2WmxHQjhUNWtR?=
+ =?utf-8?Q?b1rKg79rcWtkR8gIt6CXj3z2nLM4lb7SpUYU/4OsTabh8?=
+X-MS-Exchange-AntiSpam-MessageData-1: CGyf4qTmJOAkkQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8a38e63-15b9-4fab-2443-08deb22b2fa3
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 02:39:28.7286 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t5vN7RYQmuSHR7VZRbA+jzEel7XlQnpSu2Mv4IDLt+puidJzi1hIfQfROzbFvAkVhPW3C3szUtkAEEiIEVhxwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5768
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,134 +137,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+On Wednesday, May 13, 2026 1:26=E2=80=AFPM Aaron Kling wrote:
+> On Tue, May 12, 2026 at 10:26=E2=80=AFPM Mikko Perttunen <mperttunen@nvid=
+ia.com> wrote:
+> >
+> > On Tuesday, May 12, 2026 2:29=E2=80=AFPM Aaron Kling wrote:
+> > > There is an issue with tegra-drm where some buffers get created, then
+> > > freed, but the dma buffer never gets freed. Causing display controlle=
+r
+> > > memory allocations to start failing after the leaks fill up cma.
+> > >
+> > > I created an issue on the freedesktop issue tracker [0] with a patch
+> > > with some debug logs I added, then a log from Android that contains
+> > > these logs. CMA is set to 512MB, and when allocations start to fail,
+> > > the unfreed allocations add up to just shy of 500MB, where it's
+> > > reasonable to expect that 8MB contiguous is no longer available. The
+> > > log was generated on a Jetson TX2 NX, but I have seen this leak on
+> > > other archs as well, this also does not appear to be limited to soc's
+> > > with nvdisplay.
+> > >
+> > > This does not appear to be a userspace issue. The graphics allocator
+> > > works as expected for other soc vendors. And as the logs show, the
+> > > delete dumb buffer ioctl is called, but is not always followed by the
+> > > dma buffer getting freed. I have also observed this issue with a
+> > > gralloc that uses the tegra gem create and such, this is not unique t=
+o
+> > > dumb buffers, that's just the last log I had when deciding to post th=
+e
+> > > issue to lkml.
+> > >
+> > > What I primarily intend to ask here is how to further debug this
+> > > issue. I'm not finding any direct path between the delete dumb ioctl
+> > > handling and gem release or tegra bo free. Can someone point me to th=
+e
+> > > pieces in the middle I'm missing, where the logic is to decide is a
+> > > buffer should be freed?
+> > >
+> > > Aaron
+> > >
+> > > [0] https://gitlab.freedesktop.org/drm/tegra/-/work_items/9
+> > >
+> >
+> > If the issue is specific to buffers that get used with display, I have
+> > an idea of what the issue is -- there is some circular reference
+> > counting with the BO cache in the host1x driver, and that means that
+> > BOs that end up in the cache never get released.
+>=20
+> As far as I know, this only affects display controller buffers. Though
+> unfortunately, I have limited ways to test the media engines right
+> now.
 
-On 5/14/2026 6:03 PM, Krzysztof Kozlowski wrote:
-> On Wed, May 13, 2026 at 03:44:05PM +0800, Damon Ding wrote:
->> RK3588 eDP controller requires HCLK_VO1 (video output bus clock)
->> to access the VO1 GRF registers and enable the video datapath.
-> 
-> To access GRF? Then it is the same clock input.
+I've been working on some more userspace for the media engines.
+Hopefully I can get that in shape soon.
 
-Not the same as RK3399 case.
-(The same as the descriptions in [0])
+>=20
+> > Let me do some testing locally and I'll send out a patch once ready.
+>=20
+> Sounds good, thanks.
 
-RK3588 hclk_vo1 related NOC design:
+I posted a fix, please give it a try. Incidentally, on my side I don't
+have that much testing set up for the display :)
 
-PD_VO1
-    hclk_vo1
-      └─ pclk_vo1_root
+Mikko
 
-Then the clock tree design:
+>=20
+> Aaron
 
-hclk_vo1 (200M)
-├─ hclk_vo1_niu_en
-│    └─ hclk_vo1_niu (200M)
-├─ hclk_hdcp1_en
-│    └─ hclk_hdcp1 (200M)
-├─ hclk_i2s5_8ch_en
-│    └─ hclk_i2s5_8ch (200M)
-├─ hclk_spdif4_en
-│    └─ hclk_spdif4 (200M)
-├─ hclk_spdifrx1_en
-│    └─ hclk_spdifrx1 (200M)
-├─ hclk_i2s9_8ch_en
-│    └─ hclk_i2s9_8ch (200M)
-└─ hclk_i2s6_8ch_en
-       └─ hclk_i2s6_8ch (200M)
 
-pclk_vo1_root (150M)
-├─ pclk_edp0_en
-│    └─ pclk_edp0 (150M)
-├─ pclk_edp1_en
-│    └─ pclk_edp1 (150M)
-├─ pclk_hdmitx1_en
-│    └─ pclk_hdmitx1 (150M)
-├─ pclk_vo1grf_en
-│    └─ pclk_vo1grf (150M)
-├─ pclk_hdcp1_en
-│    └─ pclk_hdcp1 (150M)
-├─ pclk_hdmitx0_en
-│    └─ pclk_hdmitx0 (150M)
-└─ pclk_trng1_en
-      └─ pclk_trng1 (150M)
-
-On RK3399, the 'grf' clock is only used exclusively for GRF register access.
-
-But on RK3576/RK3588, the 'hclk' (HCLK_VO1) acts as the parent clock for 
-pclk_vo1_root in NOC design. Meanwhile pclk_vo1_root is further the 
-parent of pclk_vo1grf and pclk_edp0/pclk_edp1 in clock tree. So this 
-hclk affects both GRF register access and the overall APB clock domain 
-of the eDP controller, which makes it necessary to be listed independently.
-
-> 
-> AGAIN (reiterated soooo many times by me): you describe here clock
-> input, NOT OUTPUT.
-> 
-
-You're absolutely right, thank you for the repeated clarification.
-
-I used "video output bus clock" as a shorthand to refer to HCLK_VO1,
-which clocks the entire video output domain including eDP and HDMI
-interfaces.
-
-I will rephrase the commit message more precisely in the next version.
-
->>
->> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
->> phandle reference, which allowed the eDP to work without explicitly
->> managing the hclk_vo1 clock. However, this is not safe or explicit.
->>
->> Enforce the correct third clock name on a per-compatible basis to
->> standardize clock requirements per SoC. This makes the clock
->> dependency clear and removes reliance on implicit clock enablement
->> from GRF phandle.
->>
->> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>
->> ---
->>
->> Changes in v4:
->> - Modify the commit msg.
->>
->> Changes in v5:
->> - Enforce the correct third clock name on a per-compatible basis.
->> - Modify the commit msg simultaneously.
->> ---
->>   .../rockchip/rockchip,analogix-dp.yaml        | 37 +++++++++++++++++--
->>   1 file changed, 33 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> index d99b23b88cc5..8001c1facf98 100644
->> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> @@ -23,10 +23,7 @@ properties:
->>   
->>     clock-names:
->>       minItems: 2
->> -    items:
->> -      - const: dp
->> -      - const: pclk
->> -      - const: grf
-> 
-> What is 'grf' clock in such case?
-> 
-
-The 'grf' clock here was specifically for RK3399, which is only used for 
-GRF register access.
-
-Moreover, the control logic for the new 'hclk' clock is different from 
-'grf' clock:
-- The 'grf' clock was gated dynamically before/after GRF register access;
-- The 'hclk' needs to be enabled during probe and kept running 
-continuously [1].
-
-Best regards,
-Damon
-
-[0] 
-https://lore.kernel.org/all/c349eaf2-5852-4bb6-9dac-f7240e1c8098@rock-chips.com/
-[1] 
-https://lore.kernel.org/all/20260513074414.2053435-6-damon.ding@rock-chips.com/
 
