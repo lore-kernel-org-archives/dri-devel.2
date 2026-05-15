@@ -4,87 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10FCCD343F
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:08:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D95ACD4851
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 485BD10F472;
-	Fri, 15 May 2026 08:08:56 +0000 (UTC)
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F53910F472
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:08:55 +0000 (UTC)
-Received: by mail-qt1-f182.google.com with SMTP id
- d75a77b69052e-50e5dbd8e0eso88726321cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 01:08:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778832534; x=1779437334;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mk3+gk0uvDvPr4J0ZYYOynNFHdcw9MrgwNKr9DcQAuQ=;
- b=hKFJzWkZPtUZslVaFHpT87Ko0BoCeQHm78GL73l5NU/J1pHe8akhBFdOrt2wesUCae
- NuQzxiXgrdxX3ttWa8G0N7oFCYTStUfrFL5ckE1vc34wWBLf1Wvvx9jKkZWQ0HGfLBVd
- u11YzRXva/z2EbGSk4ORwNgjX+5ULHoM0I0fVpfJ47YwOf4eA0mBPCWs08uibDaYEQH2
- Ps6RJyXVcs8H6dVHTG9r3ZCtkMra/r/yslNvHTU0sY0DvHZK6Wfdnp/1T3jk8PZby5iJ
- STD96b1kvQaOZMDL+uD+Z81MsitFkDE2Pi7+bNW7GKH7i2NQiAEW6F9c3mbNzBpGN+VL
- +/vg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/CuXaK1IX2mEoe6yfe4JOH8hWwPYzvtCBqud9GkbOpJtXhoa+La4D0vqJXsz8Bb5t4rrtfmX99FBQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwW2t7fDMriQ9mh3fILtmUd/2QV8BCQDnetuLhbgrf7V0mxmq0Z
- UMLK1x7fJbuTwa2Ng0LRPlUNfKzZGOe8K6tpWwRkJjsvWk1krpvQx7BadHeGF4vS
-X-Gm-Gg: Acq92OFDFEgqfNE/IeNv4QEZS16j9DIuQg9RQ+2EVXx78F2wntEa/+k0+E6e3PtITf1
- nB/FbjYxxCHEbmPfRfnWvYdn0Q5dJsdATknz8jmCNZP2ntEX+jd4IYQAcB/2cu7Oe/JQsw84t57
- ICIjCX0QTJ4Pg06lUwWE8tOzMrsCD8kiCUfC70f4ACkg2IEkTozrU9v1oNbqEDPO79yD/Lm1rc3
- s0gPMA+ZnN2omsq7pG4x+aVNfWtGreD3m7fHjUN1QxrpyY59yV7eNg+Ap9Gl/pMHsTTCIYg/kL+
- gFgt/jvPXR6Apy1/Q87MAtuPX1GiUxaWDyEt2WCyrUSAczADp1Np9V9DHuE1eRK8dLHCKGkDBa8
- gBwK1FODBnsfFCaP/I/M6ojP58kHod/e9TpwthOYg7/dfSWGILs+4IXtPanrsE/qNVX4+Z2P5Nq
- RJ7ejvWixSemwaiaEjE7zPN2zWWkTjRFVHiKnJ5ag/ryhuHcKEe63GkaKER1zmXtEA
-X-Received: by 2002:ac8:7f8e:0:b0:510:12d0:3d74 with SMTP id
- d75a77b69052e-51659fec867mr41037591cf.15.1778832533710; 
- Fri, 15 May 2026 01:08:53 -0700 (PDT)
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com.
- [209.85.160.174]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-516457d630csm37473591cf.14.2026.05.15.01.08.53
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 May 2026 01:08:53 -0700 (PDT)
-Received: by mail-qt1-f174.google.com with SMTP id
- d75a77b69052e-516389a9b70so22381161cf.3
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 01:08:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9fkarpK+M9Izt7dX23mdxrJg5ICweDVsScr6MI/6E209WFF08vQEFr1iUdMfpnuDSbviMV5EeSdZ0=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:ec7:b0:575:44b3:300d with SMTP id
- 71dfb90a1353d-5760c0528f5mr1639450e0c.10.1778832080852; Fri, 15 May 2026
- 01:01:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD48810E10C;
+	Fri, 15 May 2026 08:09:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="cYT8N6Xj";
+	dkim-atps=neutral
+Received: from out28-124.mail.aliyun.com (out28-124.mail.aliyun.com
+ [115.124.28.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 107A010E10C
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:09:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
+ t=1778832578; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ bh=n97Oyg84dk5EY4d0I+9QASAv1qZ2GCLeJ3izRMOQfW4=;
+ b=cYT8N6XjjdougjV9UzxUC9M9aU0cghbzW8HBUz/8QYkpjeUvYRdbni/bJllP+1djFQzZdl9gvhNG6ChYd7a0lqeLcue2PnTFazc8Tmup8/z5P+3vk1bgUb7nU5jW8PMl4//XFnywH9as9ah2AqxjB1iujIMlR0XP79g3Mj4ykNjpPQHGVZXNminJAGj74wHsTH1STf+BhiKN1E/6eHyqJSyBkhIefAqELroD0jwYxsBLj/xoCemNUoN01NEseOO2vaC2Lb26nFUOlXGXGBZhErNqH6k8WmyDy5ZZjaKP8Hn753gncSElzkikaHZmjJxKpDlJMZq2aTS9b3plWGm4GA==
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07503951|-1; CH=green;
+ DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.00535992-0.000147791-0.994492;
+ FP=7586586509018128504|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam033068005250;
+ MF=syyang@lontium.com; NM=1; PH=DS; RN=21; RT=21; SR=0;
+ TI=SMTPD_---.hXlHgq0_1778832576; 
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
+ fp:SMTPD_---.hXlHgq0_1778832576 cluster:ay29) by smtp.aliyun-inc.com;
+ Fri, 15 May 2026 16:09:38 +0800
+From: syyang@lontium.com
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
+ xbpeng@lontium.com, Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v8 0/2] Add Lontium LT7911EXC eDP to MIPI DSI bridge
+Date: Fri, 15 May 2026 16:09:32 +0800
+Message-Id: <20260515080934.9870-1-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
-In-Reply-To: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 15 May 2026 10:01:09 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdU_HF-L+KrMNTUMO0_ukfVJE=nZLjoadFFWf0qDopKs8A@mail.gmail.com>
-X-Gm-Features: AVHnY4Juo1yrSdWSEhGd8PIKGe45raKjJnOdNJywoBplErTdAE8Qpe6uxcK4nzs
-Message-ID: <CAMuHMdU_HF-L+KrMNTUMO0_ukfVJE=nZLjoadFFWf0qDopKs8A@mail.gmail.com>
-Subject: Re: [PATCH v2 0/5] drm/rcar-du: Add support for DSI pipelines with DSC
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,33 +61,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tomi,
+From: Sunyun Yang <syyang@lontium.com>
 
-On Fri, 15 May 2026 at 09:56, Tomi Valkeinen
-<tomi.valkeinen+renesas@ideasonboard.com> wrote:
-> Some DSI pipelines have DSC (Display Stream Compression) IP block
-> between the DU and the DSI. Even if DSC is not needed, the IP must be
-> enabled for the DSI output to work.
->
-> This series adds a basic DSC driver, so that the DSC IP gets enabled in
-> bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
-> the DP output comes from DSI and sn65dsi86 bridge.
->
-> Original series from Marek.
+The LT7911EXC is an I2C-controlled bridge that receives eDP1.4
+and output mipi dsi. This series introduces:
 
-Thanks for your series!
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
-Now we can revisit "[PATCH/RFC 1/1] arm64: dts: renesas: white-hawk:
-Add mini-DP output support", too?
-https://lore.kernel.org/05e43f61321b4191d5f97dec2349facd4b56c899.1729240989.git.geert+renesas@glider.be/
+Signed-off-by: Sunyun Yang<syyang@lontium.com>
+---
+Change in v8:
+- dt-binding:
+- drm/bridge:
+ 1. Protect firmware upgrade and DRM bridge callback paths with ocm_lock.          [sashiko-bot]
+ 2. Remove the hardware reset from the remove callback, and ensure that
+    all hardware reset operations are protected by ocm_lock.
+ 3. crc reconstruction explicitly casts each byte to u32 before shifting
+ 4. The display configuration is handled by the firmware, and the MIPI
+    DSI host registration issue has been fixed.
+ 5. The batch register read/write operations have already been updated
+    to include return value checking.
+ 6. The dev_err_probe() used outside of probe context has been fixed.
+- Link to v7: https://lore.kernel.org/lkml/20260512064013.40066-1-syyang@lontium.com/
 
-Gr{oetje,eeting}s,
+Change in v7:
+- dt-binding:
+ 1. fix commit message typos(Receiver、signal)                            [sashiko-bot]
+ 2. remove the ambiguity caused by "signal/dual".
+- drm/bridge:
+ 1. using devm_regulator_get_enable avoids power leaks.                   [sashiko-bot]
+ 2. set reset gpio is low after cutting off power in lt7911exc_remove function, avoid backpowering.
+ 3. synchronous request_firmware() call cause a permanent probe failure if the driver is built-in,
+    probe executes before the root filesystem is mounted, which would cause this to fail with -ENOENT,
+    we have removed this functionality. Use trigger to upgrade.
+ 4. add `depends on I2C` and `select REGMAP_I2C` in Kconfig.
+ 5. add return value of `devm_drm_bridge_add()` in `probe()`.
+ 6. add directly header files (linux/slab.h, linux/delay.h, linux/regulator/consumer.h)
+- Link to v6: https://lore.kernel.org/lkml/20260508134702.4713-1-syyang@lontium.com/
 
-                        Geert
+Change in v6:
+- dt-binding:
+- drm/bridge:
+ 1. use #define FW_FILE  "Lontium/lt7911exc_fw.bin" to match linux-firmware
+- Link to v5: https://lore.kernel.org/lkml/20260506013153.2240-1-syyang@lontium.com/
+
+Change in v5:
+- dt-binding:
+- drm/bridge:
+ 1. Change "mipi" to "mipi dsi" in the commit message.     [Dmitry]
+ 2. Change "eDP/MIPI" to "eDP/MIPI DSI" in Kconfig.
+- Link to v4: https://lore.kernel.org/lkml/20260430094612.3408174-1-syyang@lontium.com/
+
+Change in v4:
+- dt-binding:
+ 1. Fix the missing spaces on the "subject".             [Krzysztof]
+ 2. Fix the error descriptions for port@0 and port@1.
+- drm/bridge:
+- Link to v3: https://lore.kernel.org/lkml/20260429040541.3404116-1-syyang@lontium.com/
+
+Change in v3:
+- dt-binding:
+- drm/bridge:
+ 1. already submit lt7911exc_fw.bin to linux-firmware.  [Dmitry]
+ 2. remove lt7911exc_remove function.
+ 3. drop  the "lontium, "  in lt7911exc_i2c_table.
+- Link to v2: https://lore.kernel.org/lkml/20260428063224.3316655-1-syyang@lontium.com/
+
+Change in v2:
+- dt-binding:
+ 1. reset pins use active low.                        [Dmitry]
+- drm/bridge:
+ 1. use atomic_* callbacks.                           [Quentin]
+ 2. fix the incorrect formatting and spaces.
+ 3. add the required header files.                    [Dmitry]
+ 4. remove "enabled" flag.
+ 5. remove *fw from the lt7911exc struct.
+ 6. .max_register and .range_max use actual range.
+ 7. regulator use bulk interface.
+ 8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
+ 9. Replace GPL v2 with GPL.
+- Link to v1: https://lore.kernel.org/lkml/20260420023354.1192642-1-syyang@lontium.com/
+
+---
+Sunyun Yang (2):
+  dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+  drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+
+ .../display/bridge/lontium,lt7911exc.yaml     |  89 +++
+ drivers/gpu/drm/bridge/Kconfig                |  15 +
+ drivers/gpu/drm/bridge/Makefile               |   1 +
+ drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 642 ++++++++++++++++++
+ 4 files changed, 747 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.34.1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
