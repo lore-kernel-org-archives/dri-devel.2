@@ -4,122 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA940CD4F51
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:41:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F54CD4F48
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:41:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4E010E6D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7131110E6D7;
 	Mon, 18 May 2026 07:41:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="aqF7+XlB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N6a6nbMx";
 	dkim-atps=neutral
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012018.outbound.protection.outlook.com [52.101.66.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A498510E38F
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 19:59:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R4THiuUw3H8Ps0LQ3t2awwKIfndzEtCASKnnWdvPbJu9+3HpGD+Cy4fUbOPFDmrp3LTX1KqJrXLmyl2MaW/V52rSC5D4k7vNsM/XOJVwcm9cSeCfN592ChzBiFmbrKoAQGYtQ6mbfkdHtcVdAq80H3HVgSiv8tRi4EnPKdRA1wBIfAhPW+ZJewhkXnGiUGhP8NFzxaNiUAgM5YqSYd9pVHXxWYAnrR07KDhD+oo4Bb3QEGbm9XSo3EgCyjAWK93bZIKelCxGLXyqC8S7WJ3XzpAKNmDONtjvJWbv5BnjjHAyRODkRXLuf4NUj+ftAThlcfm6s8eXg2sn8N8uSncciA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sBr9qbX5SogYIZzu+43ahYK60O3zqrj7XPcZCiO7onI=;
- b=iMJAbSc9uDGUg+iFsxWGrBeLA0fqD7TFKTUXMuqyU5PG3P3EyKPc6x4F+DpMETXE6vNevEE0MY47MyrTyblrpTnzJmqajhGlsF33dnnLwtKV6MUI7v/VkkPZdLpgItm+9sfAFyjYfG7ktfLHasru35XSe/lzil50s21aSGVvJ4uZt+txq9cnN5nD21Mn+ZvPEKMHOZ7zRdm2Mha/Zl4Oe7AgssOsYpB9nL8vmbCD6ngriD6TOcrkR3SgU4QKXM4oJXZXNumAE26Fv4pOjYmwc9v6boNNJt5oQ4FJYyEjipM9RHKEglb0zPV5Nr7di/iWJOnXgrm2EMhn44EffdzaGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sBr9qbX5SogYIZzu+43ahYK60O3zqrj7XPcZCiO7onI=;
- b=aqF7+XlB4OvWBLTfk3SU1wjiVz9HJ68pFyZSd2uo9TGZS7J28UaYpqq9pinpiUtHn99FtRUqizUqqdDYe5bENqR6LXOQNL4WebDp3+3gMJHiptdp4JhPbAdwBN829NmwZo7AGsQkMsiqsZ3fRaX+YME39gj4dTFA91zXc2i8iqgevlRBW+zOZe4rE1kXXTsxSfj7wuhcNpxxr/qdiQMd3Wz9eePiWp11BT6hBRKRWCtWIoJMG1nttFWFXZiirCDrrHl3NaAhd1diwJDPiZdgmruWvPkzle25xRo+eqyihkO7NYZTswloptRJ5hntbjgi/lu+nB+oBBHe8QOWwH6g0A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB10353.eurprd04.prod.outlook.com (2603:10a6:150:1d8::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Fri, 15 May
- 2026 19:59:42 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.20.9913.009; Fri, 15 May 2026
- 19:59:42 +0000
-From: Frank.Li@oss.nxp.com
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- dri-devel@lists.freedesktop.org (open list:DRM PANEL DRIVERS),
- devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE
- BINDINGS), linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH 1/1] dt-bindings: display: simple: add avic,tm097tdh02 panel
-Date: Fri, 15 May 2026 15:59:34 -0400
-Message-ID: <20260515195935.2415466-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0154.namprd05.prod.outlook.com
- (2603:10b6:a03:339::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
+ [74.125.224.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD08F10F48F
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:41:54 +0000 (UTC)
+Received: by mail-yx1-f42.google.com with SMTP id
+ 956f58d0204a3-65c477a3278so11089187d50.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 01:41:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778834513; cv=none;
+ d=google.com; s=arc-20240605;
+ b=ZbwStF2RrMnu9IfNaZ2J5OEoNVWui8OoA94LIkoFFWsyOlGHvmfEA1QLcJmobtGcC9
+ +7K6dk20FNZUmmWE3cCUGUAuysWDgste2qIhMwrLZsAtQw/qSE5lyYyIrWtzbczEwn8q
+ XuTBOoUCfSogDGB5x8uo1UDyt/PLt5HuTl2Kno6Y33jPR3xGHjO/o2hA6r8aqHdSlcTa
+ SBbohC0e2bfPD427Fu8PQto7/q9ks8htyDvoqFGVp2xTE3yuSRodogyCDcJ32qOgAVca
+ Dsct6dZdKd8yG/8Uee8XjUYuSOi0kcz+kI+cAFb4gXtiFncUdBr1QU0/ebGax7hLVWPx
+ 9Rqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=PBSjZR3vBTrgdu+SMltlDgYPuNOIji8ITlL8pViUrIo=;
+ fh=8ZdOuvYdlFR9drBoqqPAp4V0MTj7lx1ClX5TiBAOmf0=;
+ b=A561nDU5/LVsMxlAXsHqqTCPZWeBFq6r0PQWurOjC4A2cxEotB1v5ufW6OYH7bka4R
+ If6WFSibRI2XI7mcdZsh1woNcXasqxE9y2thj7Xi/OvakRwfXMQ59lN6jGHskiH18bhE
+ e5XCHbfMD4legAO9PysAU3o0QDfjVvHgcIhMX0p7+2utcEbKbTKv+j+VKzzzE5NF2YkT
+ MGBFPzXCVQcRhLnKX0ulJaq0uIbD6tDMtW3Q64cQ4BUhJ8y4fe0gpI3IX4SLSFvJnpWI
+ cIpP7a5X3xSFZE0IYClWPDaS10LPzLXAX/iXHyRThDRzSNy65cLvrw+y95U5J867mzVP
+ FD1g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778834513; x=1779439313; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PBSjZR3vBTrgdu+SMltlDgYPuNOIji8ITlL8pViUrIo=;
+ b=N6a6nbMxtdaZN4RJIxsOtZhZhreCNf7uZreriyU87DmOjE7TujMnqBZHg2239lio6E
+ whoAyGxlb/6BjeV9depsVU4aWjxe/HuU3BCXad434NVUzVfhJKnbXahDmqoyWPRoSk/T
+ q7+XPDhMJLQqlJDea3zeQfSiyMusCcbSgd3Wq1IFzLvfwNko6nJ2ZMJxYqXAFVxMSL3H
+ WCHGR9i76xP9EiCSytfld0DQLcjoS2x6ciCsQDBS2d4NuTd3bf01ksRtRR4WR8jmQ0vS
+ 77CAesQemN0zBG0ALmpabHKdIstwhxFm3+7JM2I7G9oq6pHLiVQh8LSVxKDLMCp18Nd8
+ L0tQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778834513; x=1779439313;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=PBSjZR3vBTrgdu+SMltlDgYPuNOIji8ITlL8pViUrIo=;
+ b=aR/OW2UU560maF0lAQySFCShobD/KVfNKQYcrPh+0GL4xhoAq4ZADnlQw1MjWpPDaS
+ xaCPaADnMRYwvBI6CXOxsU9g5GfTJ54GVKUQMe6up8cwSJvEALucqSz+uNvLnraSsPPh
+ s9cdPjqWu3QLE2EIY2yFLbbxLZPWosaIARCn8w58c5rhWPx0ydirkBgqo4SMRGz+KVNH
+ 0isNmCGO/YhLCbTFtOJrApCZO9Q/1nad7crgzzSt1jtipPetDZKjOL6kgUURJRBFODUQ
+ cVL1++zghLFFyrxBF7UVvnUl928pGMQzfFlyuZZ0ocYjlZhNHUrXMCz3H5mE1dKIpTyH
+ 2L5Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9L06IQiL89Us44fdurLDeYUEF9vC2ZFN/V4kZRqyrKKYSg1v6h1/TN/KlZeXZKwfMie84QQSYTOOE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxb3nV7FP2w59m3fgo4KKES6AufAi65bKSHFA48jFWoMgiBnDqW
+ bU6/3jB1QKraiDvZ+5Eexz4e4hEpcizs4bH6ywGBCk59iGxqTXfr6oQ0mBBKyKZaOcPaAl0fQGS
+ 2qAwUfP7XSYrALUncN5hqxvkOw+MBUu4=
+X-Gm-Gg: Acq92OG+D3AS9M1464wI88LOjNzbm9y4tBC0LhbJk6Hpuhib2Tr/cePArKYcMWcVemq
+ JJIjlampo2phcY+ymUma+7ROkqMGM0UQHo+NTfpOw7jVFL6tHMjW4ofLgcfGfsAxwT1iCd4QyAU
+ pDuMmlUr1j66/bJkCckRJhEWMGLs448GnUMi9N0VVOrUomwktHeJ/wkOn57vQsVHvWTUVcjtvXS
+ SP62nrc49BuwugNS1FgLVWbTq8wYkmjGqGYU9rNmAo9I6z836hMEw5lqdgvnUY/LeB1PzdjNtDa
+ u3ptwmQKtzV+Y1fMXncPcr08Zh53oS2XwRfP0dniwbco6sZUXsqJIJhmHOGt8MyqXUviM60O
+X-Received: by 2002:a05:690c:4:b0:79f:d961:47bf with SMTP id
+ 00721157ae682-7c9594b0105mr32678827b3.8.1778834513472; Fri, 15 May 2026
+ 01:41:53 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10353:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9e98fe8-c847-47d6-dbe4-08deb2bc80dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|19092799006|18002099003|56012099003|921020|11063799003;
-X-Microsoft-Antispam-Message-Info: 5w+HT/F1+mpRzv7Uyxh3koLBxgpumf84rG95CjwxzoV9+TYCp5g+yLpdRQsmtEPtJLk2nvKOuKSjQKblbidAZVpxyeAMmY22ZWxr8hUTa3K0NccYLYgphsLjo5dvrSQy/UombH2w55S62WrjpyDWa+eqxjCYrvpLYXHfeuG0l9S8a+reVpROt+Cx4aE2s4IVR6j3IuESQPmoMrreRTPVyxC9s4oZReeeJY5xSIn6RDWu2OZpQF/7eizMwfO8ovcR5Eapc55loygDegVUiSdl/oMZrQAZ4nb55iLhz/0CP8P0heZlWXL6BBAleLXasIpPDVCASpfX4/NflcHI1GNUNlUkVFpWRkmlx4Ni7kZSEUa5/2Q+9NxGuD+HfUzYsiizwLTSUbavlxjpDU4b5I63t2zI2ie68nNs9odnlecXTFbVt/buBjbtfPwYI1H1su1S3G57zuO9SyWcfB7qLBwV/chs7b/HqtqwSE02O5mpBRaLG5cIxHbelI/18sFOKAm29rs6frhygiWGY/wDMkyU7wmRjaqxuTNd4gO6pEW20IfLhRHSTMQTwvA9fCG4wtZqu18Av5BEIexX1QaHqeqdB+dC477BhDEzdYirm3QsYxghu1DexQ0wBSfRaCt0WADRjs3IH4nBGk5CLSoiPSM+TXVt+OOv1cZt5xwGfwnbw16yMWh9VB1iDmgQBnDb9v/PGfbz6VbCsMy7F4tVCszrozvwG1oR4PAnbDHWvtW8y0A=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(18002099003)(56012099003)(921020)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?iiEWydohmiEjv2HhBeVcX1xFA2n6dVrs1wo9pT735WAVhMs7AyOY/o7L2vQd?=
- =?us-ascii?Q?Cf0UkkRW/HYl0Ptc6vXz16ufB7nnXellciRATl7SWy7RVVuagsiJ5SI+uGbZ?=
- =?us-ascii?Q?MgkZ0HiCjgX5G6JhZZnOuxbxd6A1hge/sPXeJiqygHT2gA9c0/TcIjoij3Gx?=
- =?us-ascii?Q?xsXbvOJQxCKoDFpo9I6I5FaX5u6FHN3MUvLt2iR1y9uPpVBdm4M2GS/S3PNG?=
- =?us-ascii?Q?hKwPBByaG1sbrYpP516KDFAj4P7TK3N5M8qUuWjEJ4My6KT092ri8kSFKrfs?=
- =?us-ascii?Q?26nxEnYn9fKYo+JzG2D1TfqzUdFKtuZuZrQkRwqzdehsI0/1VO+AM+64zN7e?=
- =?us-ascii?Q?+/WBTk4Z1la/r4+BrWbUe7huOOaiDqJZvnHAKP5Q7LDA8uAJICLncLvFPDXy?=
- =?us-ascii?Q?w90QZHJbnnYz4Z8353M3r7OBPNO0OiWnk07/DclUIRBKS+FGobIyMHQp+8yO?=
- =?us-ascii?Q?fmGzbZyyoz5odMaaAeYuwBGurzb6Bo8aji8FrQ3ZRhwcLtxPOIyyLiPltpMW?=
- =?us-ascii?Q?W1NMGQ7KxYd7iPNAT+Rr8ECFTQ7AWr7nSdTgZxpFwhCUm2obDbRryWImdTtV?=
- =?us-ascii?Q?n4b2TiGHDYoFGJ9hknYBFPHQNVoioKdW0k9xQsqiB4ksiO9bVcNmxji4UNMK?=
- =?us-ascii?Q?AUOV6i/cNv4VmddWKuxXNRhX8C7aBez5fMQNwC8YkeqJwIxpKHxI+/6/14Cv?=
- =?us-ascii?Q?Vx6Kwv3sMVNMLLChYGx7VLCVTJLqnOK6ufvLSpAQaENpblEGP34zYdhJxu5Y?=
- =?us-ascii?Q?VK2O5QaYV1TytjWy+8Rs0/3FG3HtCLm6g8EqA0vnKikkfWT2uDo5iJvftK9v?=
- =?us-ascii?Q?46FYULi9dgEyem8uu9uX42NDUzE87YJbHlmjBqt+J4pIYDhXKEbyaOxIDrWZ?=
- =?us-ascii?Q?gFIFh8tOxv8qyU0lmWK9VA0upxonnRXwsQLMFlpHuFxptvWXTSScVRFnsVMI?=
- =?us-ascii?Q?q6YfLpqoVndeThYXWkyKhXfgc+Rw7PxqhwYDLKX02b8hk5v/swATFh+KKeCK?=
- =?us-ascii?Q?VNfcqeIhuHlBXGXm47u56cap9nDDBYmWYgZpfeVpkfV641g6CtcOPZ6sxaSs?=
- =?us-ascii?Q?oBfAOLUFDnmhZEfqLgM7KHFEbZcdPzVV6d3yOqJoV22o6wLEnYmQJOuZlLSK?=
- =?us-ascii?Q?apIMZuYu1HMCrYZXMC2jicS6QsMtLPBuntx8HeemBxY4LmesPLTHdNvQiGws?=
- =?us-ascii?Q?ePcEWNI7IafLWfb927vJa7J45OzPAcVuFgwltSscD4395VNNXZLEN6H6xYrn?=
- =?us-ascii?Q?F3YPwLPL96s8DsNlS9hCr4gjMgVX44PctD/7gSMX+b4wjGdpZTs9jxhk254v?=
- =?us-ascii?Q?6Lt2DsrNpAHsj+etrXYGYemNkt6C3MwFznF5sXqp7Fgi3tuQdv9DR9iuHLHU?=
- =?us-ascii?Q?soiL8E2nQtPTd/hqFjVPBq0TZ38NWSdq7snRs/Vj3Ug8737luJHlo2sxOUFQ?=
- =?us-ascii?Q?6qktXAuy43m7kJ2A+HEjVl+J8o7XM9T0UPl6LEcL0wwq9Rl7BEsRsOLOnRWU?=
- =?us-ascii?Q?nbE1x0HXziWVR3oB1Vc8CWeQuCdKYdaIeh2aq7ohw+7YJDXMQNqGRzXrxmcl?=
- =?us-ascii?Q?N+Dot0nskppBcfBFmjRkHXHXpOTrTOVBwQ8J/IqKl8yW78X92bGH3wPvknTd?=
- =?us-ascii?Q?4AFceiYi80IAEKbek+Z4J87sL882WQaEhB5HXuwiCdHyB6eOJZm4wkqPo0ty?=
- =?us-ascii?Q?l9RZvsfnEMr7Uj4/5XRvCHJUlbsqbQbOBD4s7Gd66vhmlQa0BsBeNO4+OHI8?=
- =?us-ascii?Q?jbOdEIWxTn1cq0deX/nvRpoj5JNZ2RYdWH38wxF6qzzZkwBsRYeV?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9e98fe8-c847-47d6-dbe4-08deb2bc80dd
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 19:59:42.1370 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ltR0ee0ddgifxZPq0UP2DvQ44LgdtpFa1UpogPtaBcVhkbMqOofK+o8Vc2/RCGG9p70FeGfAq/2amTiod1e+hbRiqg6uiHdIiAwKnk16KARVLkKtYZe9s+P5rfO32ceB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10353
+References: <20260512020718.108044-1-kartikey406@gmail.com>
+ <d1bc8d7d-3a4f-4ede-8266-81cc66bf11b5@collabora.com>
+ <CADhLXY7N0eLpA30eV4Rb=F4vzCf9XYtDjMpxBSJtGeMWNi6Cwg@mail.gmail.com>
+ <65da2ce9-a2ab-4800-a73e-1a26082d0605@collabora.com>
+In-Reply-To: <65da2ce9-a2ab-4800-a73e-1a26082d0605@collabora.com>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Fri, 15 May 2026 14:11:42 +0530
+X-Gm-Features: AVHnY4IGHTZnfpb9msWE08vJttVqhQ6G8dsaF1hRX2r-HcKGXn0VdlxicBL5ZuQ
+Message-ID: <CADhLXY6L1RJvgfMGuogmw7bx5Sj-_6G2C7zR5q+xLQXu_M-Tjw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/virtio: move cursor resv lock acquisition to
+ prepare_fb
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: airlied@redhat.com, kraxel@redhat.com, gurchetansingh@chromium.org, 
+ olvaffe@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, simona@ffwll.ch, sumit.semwal@linaro.org, 
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 18 May 2026 07:41:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,28 +115,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Frank Li <Frank.Li@nxp.com>
+On Wed, May 13, 2026 at 2:40=E2=80=AFPM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> > Does that match what you had in mind?
+>
+> Sounds good. The virtio_gpu_resource_flush() also should be updated to
+> use uninterruptible() variant.
+>
+> --
+> Best regards,
+> Dmitry
 
-Add compatilbe string avic,tm097tdh02 for AVIC Optoelectronics 9.7".
+I  have sent patch v3.
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- .../devicetree/bindings/display/panel/panel-simple.yaml         | 2 ++
- 1 file changed, 2 insertions(+)
+Thanks
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-index fdf522a15d2ea..a8f057208e23d 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-@@ -63,6 +63,8 @@ properties:
-       - auo,p320hvn03
-         # Shanghai AVIC Optoelectronics 7" 1024x600 color TFT-LCD panel
-       - avic,tm070ddh03
-+        # Shanghai AVIC Optoelectronics 9.7" 1024x600 color TFT-LCD panel
-+      - avic,tm097tdh02
-         # BOE AV101HDT-a10 10.1" 1280x720 LVDS panel
-       - boe,av101hdt-a10
-         # BOE BP082WX1-100 8.2" WXGA (1280x800) LVDS panel
--- 
-2.43.0
-
+Deepanshu
