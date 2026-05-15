@@ -4,73 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D372FCD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:41:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB926CD4F48
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:41:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA5B10E05D;
-	Mon, 18 May 2026 07:41:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E762510E2F6;
+	Mon, 18 May 2026 07:41:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gceE5waf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NJu+Vk+i";
 	dkim-atps=neutral
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
- [209.85.210.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B83910E0B7
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 17:05:01 +0000 (UTC)
-Received: by mail-ot1-f50.google.com with SMTP id
- 46e09a7af769-7e568ab0bc5so1815607a34.0
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 10:05:01 -0700 (PDT)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4DC910E238
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 18:08:28 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-bd4f81505ccso6374366b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 11:08:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779037500; x=1779642300; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778868507; x=1779473307; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=D6n/+RyCb939qAJyBNb0yYir20+X71GnlDVWuo/Eg5E=;
- b=gceE5wafnUj5KArV1h9KCNan2k4ug30ZpmE+cbzkBm36uTcr5mIs5yL47y6vmIJmCK
- 2Syh2XlGoaBlIk2rEWjVKI78amv4dRfUbo2/VcnbKUxeMUO4jp6mWLYXU86S6F1v5emi
- vFJaSAfndpxlOxLeP4W04p2iQeLRUEpShp6sWkC1VcecN8AyfOcgJ5gXLd60hP1T/tto
- XENsIjLXrEPxRJJxo9cJRYkLaRYiIG43leavxkDoxdncAzlgpNhzPAbn5buKNqmZumSN
- w/9dYoH7jSDR3llhzxHbG4o4DZCzBn2PEap54Bp4e35seyfvWu0wxAKjqykQxOIdmFbp
- OSgA==
+ bh=la+O/bFtpnyaY0c5pxjy6SLIjk1Ilk22rZ0fIeKn2mA=;
+ b=NJu+Vk+izmqoTks2Mx9CgRawXMfNH1olI5W1gvcGXDcugT/McYxF+08vnlmzltTM9A
+ iCIlyVkjIoIKxweK2Eo9bjWRJ91usLFdJT+KYQKcUIi136dGFPGrGlD/ORq0IJgEjvvo
+ bTC9U776KyW5Lf2xeR2kYbYHC3vxg2J17Mcoj/moI2DqMOkyDmk7z7EnO1CNwCusMbKg
+ CCL9hkgZpx22dPJkDesBvPCGc5FvaO2bUZromFfUAd/AEWXEq/BB22WdTMcP17XbkKH7
+ IK9j/rKJvIG2sa5PY7323ZIXhJu/Np5Byd/vqayxmWaP7IWIQiL9HDk92e/almGQXH4u
+ n2nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779037500; x=1779642300;
+ d=1e100.net; s=20251104; t=1778868507; x=1779473307;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=D6n/+RyCb939qAJyBNb0yYir20+X71GnlDVWuo/Eg5E=;
- b=kzhNbFynWvVDBS7YJ1p+Xt9Iqxbt92RZNr9HWK1QwOoSdCVNZsQ3GFx29AkJE6y5jU
- zulYd50r/iXs0Q87xAm1b6aJE0LPSeaZdnpjSnQ5SQzZirpibMrWjgPjOx9puvZi3uJO
- Mv2p4d4aq7IUSEBSd0w27cAd9oOSA/BcEZvniMlwAk86mDRrAKbxrwRjkjC1dlutqF9u
- PjoK3SudT5rOdJVuhL3iRRPDZotPr3DHzlQzp29++Qeg41ECBCWG47Ou9ijf39RGDc4S
- hyu0lyV6WZBRlCjGiSS5p7dZd5uvVia/NJHjs01ZLe8DeEaDBA4p6TdgopNLbDWQWV1T
- UBrw==
+ bh=la+O/bFtpnyaY0c5pxjy6SLIjk1Ilk22rZ0fIeKn2mA=;
+ b=OQ2abn5uIZm5erUW/cNfj1AAz3ZtsM0fi/x0kja9t1vlEYA7EsRzB/U0NWb1ZihoIN
+ JqeIWnZjmFjO/CcacfLDo12fsNh9BfaVxJldwXx8bHM7KhopIa4emBx//nXyzMFzpDNk
+ YrIvBzW7hoPoCJWaM91MQH3CdJj6QiaMTTf/s9lGOdLH4mBl8LlyyEoGvmNEeuEDX24B
+ lVRFpY3EEwj/cmKgzGwmvhvMqI5XWs7n0540RtS9jolVzCT0xoWIYWZ272qvv/B0L/QB
+ jA0M3c2lA0oqIvKz1lFRcZu0NyqHvZnWrQXaaydDttCwiN8IV5RadrgdrdF/bEHSQWxt
+ g93A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8gskPKS+Di+RYjp68Q57rfERCY0WV4Sz4ePyrn9wo948QPmYvoRnq91oQ4AsiqzekekrijEUFIPio=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz9yCGIzBs/UKkZuPBiX+NGgJhESGPyCSBKM6KDRGq3dCEi1iJd
- vzKkfsC54CuhdJw0aCpip/PdChExxtgauTFpVk0CSxHJW+vgwmgOHbod
-X-Gm-Gg: Acq92OGq3Gew93Y9cdY/QDjAx3FGoGzitxC2/3uKF2febZVks5x7mvK50UjAic0tq4+
- PSXqW+Tdqx7q8FOy18MEVlDMzHnfyoLaYEoZCMRUqzIcd13Bj5WDhZw647lwP4q7C00dtBy8hBC
- Ah8V8GNvGwxKbMc08lwHW8pA+YY9vK2ITY/Toysp3VPQNO5o9DM10oWtPkol+xBOz8zQ0LtKp/e
- OQ1mYPmf9msFXFckyebYpnC0LoB1t/pab6E18Ss9ynvtvyJjSx0hgWb4RAJZ39ZoWq0k1S1NtGm
- Eh6YpnZlc4IJLH/MvWXglV78wbxVOTooGALnBctISbSCXN3gE18FHdJTtI91r0kVI6lTl4E27ZN
- D4Pagx+dSGtqZYDcd6XDM58qe+OdFgSJWdB2WbpczFUKVOdPckttX5TCRkhmtBZIABvLnnR2IUh
- 7uQjUOm1XB5HjVSlCnkMvYmKck04EZIXbfRPd9zHlTdS5ZbQ==
-X-Received: by 2002:a9d:5381:0:b0:7dc:9908:6cba with SMTP id
- 46e09a7af769-7e3f1024c53mr6941913a34.6.1779037500072; 
- Sun, 17 May 2026 10:05:00 -0700 (PDT)
-Received: from MacMini.lan ([172.127.162.94]) by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7e55bbd10aesm5924188a34.18.2026.05.17.10.04.59
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 17 May 2026 10:04:59 -0700 (PDT)
-From: shayderrr <darknessshayder@gmail.com>
-To: thierry.reding@gmail.com,
-	cyndis@kapsi.fi
-Cc: airlied@linux.ie, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- shayderrr <darknessshayder@gmail.com>
-Subject: [PATCH] host1x: bus: Fix missing ops null check in error teardown
-Date: Sun, 17 May 2026 12:04:56 -0500
-Message-ID: <20260517170456.84927-1-darknessshayder@gmail.com>
-X-Mailer: git-send-email 2.50.1
+ AFNElJ9cpIPymcsML0M7BCYdqc/zehL5hEA/vFb3IovDXucmTFvAP0c1K1LYGUoQF+8e656AEgQyuQnHw1Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNDU64z28fmuwdzDUjcQE8lWMUi05lRaYKW1dubcI8lS90qG7g
+ YQAqDZmQ3Mv6+XxMKGQxWIBk4CgKkd7MOU3rcnfWfmjUYoV6mjkrKzw9
+X-Gm-Gg: Acq92OFge1spweVpTThtd1kQzZZHIvf61+K/IEv7i1KeayENOzdsLngojRqRT4wve3M
+ bamS8Qx3oqr0MubBYuX4DvMKGPhdGP8T2Id+nxWLV3NoY2q+tpfy8qfART58alPtKD0xhDcEJaN
+ LWQ2Oun3M8rYgRhGQ/L/tXjWT9Zk3p2MfR9j+0Wd5KAy/34yfUUB5ZmeJlEaQci6jTS4QW6kc1l
+ EWOOw9D2u+FEaPxjhmaF5p+C9SP69weD81zfxQexF3R8oMpHg23+m0DDxrllknVxPh/MzoPSA3f
+ pm9yg5TuMKuHqUD4lIzL991C0GUtrB/6I0Y9ICNqUljLSfVVDdct3f0XjTNqCuaq7TT2HSG7gYp
+ 97Xg3SxmSgMagKpuSbbvpwoF8PKEvglg2eOP76Daw1q5NF9n97QmJj4EGBLHOo+nZk3mQ+euboT
+ knnBfICVdoppCMcx8DEHva1mnvfY5a/oXv
+X-Received: by 2002:a17:906:6185:b0:bd0:6dbe:22b1 with SMTP id
+ a640c23a62f3a-bd5177ec5dfmr278321866b.12.1778868506983; 
+ Fri, 15 May 2026 11:08:26 -0700 (PDT)
+Received: from pc-oliwiera ([2a02:2a40:4bf0:bd00:6130:de6:bb7:addf])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bd4f4bd1bc9sm263471566b.9.2026.05.15.11.08.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 May 2026 11:08:26 -0700 (PDT)
+From: Oli R <sigmatwojastara@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ James Clark <james.clark@linaro.org>, Shuah Khan <shuah@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ linux-arm-msm@vger.kernel.org (open list:DRM DRIVER for Qualcomm display
+ hardware), 
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVER for Qualcomm display
+ hardware), 
+ freedreno@lists.freedesktop.org (open list:DRM DRIVER for Qualcomm display
+ hardware), linux-kernel@vger.kernel.org (open list),
+ linux-crypto@vger.kernel.org (open list:AMD CRYPTOGRAPHIC COPROCESSOR (CCP)
+ DRIVER - DB...), 
+ linux-perf-users@vger.kernel.org (open list:PERFORMANCE EVENTS SUBSYSTEM),
+ linux-kselftest@vger.kernel.org (open list:KERNEL SELFTEST FRAMEWORK)
+Cc: Oli R <sigmatwojastara@gmail.com>
+Subject: [PATCH] treewide: replace /usr/bin/python3 shebangs with env python3
+Date: Fri, 15 May 2026 20:07:59 +0200
+Message-ID: <20260515180806.246914-1-sigmatwojastara@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 18 May 2026 07:41:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,41 +112,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In host1x_device_init(), the error teardown paths do not check
-client->ops before dereferencing it, unlike the forward init paths
-which correctly guard with 'client->ops &&'. This can result in a
-NULL pointer dereference if client->ops is NULL.
+Use /usr/bin/env python3 instead of hardcoded interpreter paths
+to improve portability across environments where python3 is not
+installed in /usr/bin.
 
-Fix by adding the missing client->ops check in both the teardown
-and teardown_late labels.
+No functional changes intended.
 
-Signed-off-by: shayderrr <darknessshayder@gmail.com>
+Signed-off-by: Oli R <sigmatwojastara@gmail.com>
 ---
- drivers/gpu/host1x/bus.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/registers/gen_header.py                     | 2 +-
+ scripts/macro_checker.py                                        | 2 +-
+ tools/crypto/ccp/dbc.py                                         | 2 +-
+ tools/crypto/ccp/dbc_cli.py                                     | 2 +-
+ tools/crypto/ccp/test_dbc.py                                    | 2 +-
+ tools/perf/tests/shell/lib/perf_json_output_lint.py             | 2 +-
+ .../selftests/devices/probe/test_discoverable_devices.py        | 2 +-
+ tools/testing/selftests/rseq/rseq-slice-hist.py                 | 2 +-
+ 8 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/host1x/bus.c b/drivers/gpu/host1x/bus.c
-index f814eb4941c0..43ce048de73a 100644
---- a/drivers/gpu/host1x/bus.c
-+++ b/drivers/gpu/host1x/bus.c
-@@ -221,7 +221,7 @@ int host1x_device_init(struct host1x_device *device)
+diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
+index 2acad951f1e2..10316f517a7d 100644
+--- a/drivers/gpu/drm/msm/registers/gen_header.py
++++ b/drivers/gpu/drm/msm/registers/gen_header.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python3
++#!/usr/bin/env python3
+ #
+ # Copyright © 2019-2024 Google, Inc.
+ #
+diff --git a/scripts/macro_checker.py b/scripts/macro_checker.py
+index ba550982e98f..7dbb114a57d5 100755
+--- a/scripts/macro_checker.py
++++ b/scripts/macro_checker.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python3
++#!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ # Author: Julian Sun <sunjunchao2870@gmail.com>
  
- teardown:
- 	list_for_each_entry_continue_reverse(client, &device->clients, list)
--		if (client->ops->exit)
-+		if (client->ops && client->ops->exit)
- 			client->ops->exit(client);
+diff --git a/tools/crypto/ccp/dbc.py b/tools/crypto/ccp/dbc.py
+index 2b91415b1940..cd56a63aa8ce 100644
+--- a/tools/crypto/ccp/dbc.py
++++ b/tools/crypto/ccp/dbc.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python3
++#!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
  
- 	/* reset client to end of list for late teardown */
-@@ -229,7 +229,7 @@ int host1x_device_init(struct host1x_device *device)
+ import ctypes
+diff --git a/tools/crypto/ccp/dbc_cli.py b/tools/crypto/ccp/dbc_cli.py
+index bf52233fd038..bfe34f01e619 100755
+--- a/tools/crypto/ccp/dbc_cli.py
++++ b/tools/crypto/ccp/dbc_cli.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python3
++#!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ import argparse
+ import binascii
+diff --git a/tools/crypto/ccp/test_dbc.py b/tools/crypto/ccp/test_dbc.py
+index bb0e671be96d..0ee3da6c6be7 100755
+--- a/tools/crypto/ccp/test_dbc.py
++++ b/tools/crypto/ccp/test_dbc.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python3
++#!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ import unittest
+ import os
+diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+index dafbde56cc76..dccafd507bb7 100644
+--- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
++++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python3
+ # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
+ # Basic sanity check of perf JSON output as specified in the man page.
  
- teardown_late:
- 	list_for_each_entry_continue_reverse(client, &device->clients, list)
--		if (client->ops->late_exit)
-+		if (client->ops && client->ops->late_exit)
- 			client->ops->late_exit(client);
+diff --git a/tools/testing/selftests/devices/probe/test_discoverable_devices.py b/tools/testing/selftests/devices/probe/test_discoverable_devices.py
+index d7a2bb91c807..72a94bbfbc7b 100755
+--- a/tools/testing/selftests/devices/probe/test_discoverable_devices.py
++++ b/tools/testing/selftests/devices/probe/test_discoverable_devices.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python3
++#!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ # Copyright (c) 2023 Collabora Ltd
+diff --git a/tools/testing/selftests/rseq/rseq-slice-hist.py b/tools/testing/selftests/rseq/rseq-slice-hist.py
+index b7933eeaefb9..2c43b2e2bf0d 100644
+--- a/tools/testing/selftests/rseq/rseq-slice-hist.py
++++ b/tools/testing/selftests/rseq/rseq-slice-hist.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python3
++#!/usr/bin/env python3
  
- 	mutex_unlock(&device->clients_lock);
+ #
+ # trace-cmd record -e hrtimer_start -e hrtimer_cancel -e hrtimer_expire_entry -- $cmd
 -- 
-2.50.1 (Apple Git-155)
+2.54.0
 
