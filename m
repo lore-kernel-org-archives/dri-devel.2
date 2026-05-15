@@ -4,133 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 258D4CD4F3C
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 02:35:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15C1BCD37AC
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 02:36:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9353E10F398;
-	Fri, 15 May 2026 02:35:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A4510F3A6;
+	Fri, 15 May 2026 02:36:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="NSbJ3Hxx";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="LqrIEfZA";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013006.outbound.protection.outlook.com
- [40.93.196.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A32BC10E612
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 02:35:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wkGhkM8fwX1rYL6WOlLV8LSeZGiwwl+oKjWBZlAL4tpz+79P6V9VkjlQN2Cl98phkGLahy5Xk4fa5j/8rn+Ncj9y8ZWTaAamGDpVLQL45HJsye5vgDqm/osxiVjJoTDHxbE2x3RlR62wQT18VdTvwgxIeioPXJ3J9nsg4N2XjsBaaVrqWTSRDxu2ghjr84byzIXmwRkd/+THn8cVhkcfveDjxnGxDtWbxCfxx6EqgpAm4qJd03IhRuAuxpUzs28LRjogw7dfE8H4z5t+RxWO2HAc6S1uzhvsZeknwVSk3BzHiyZi4mPT7yE6kBGKxYZ8FD3olP0vAv9frV0VjUDRXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RfUewLfQEpIrya13XjeDWxHNo6T4mhhoKo2av7emPWE=;
- b=x1DE16w1c87eKTrcIhRIL5q35+MCPCBJzx5HjX+IwQJUzdaLKWCNf2eVd+Cyd+eNQ4bFBxtiKdxS7XMMSjaaRDFQmpr0N/bivE3tWUqA9VG4z9M4IOo3c7AUqd4baybrLSRJpugpqXtbCPUdt3LA+baxo91FzIsYLMl5KEEPGSf8lerjBu4YUzC3dV8mdNpdzHWBQh5ypnJddlE2e55Z7sTSpr2X5o5Cpf4pOOVtK3MS7xKdFQuoNweq6gXu3rYVP2CNMVQFCiCCQPudGDvhP9i69JKv4TNeq0zIeqfD9kETGUnEtKUUzplqCCnt2y2/EAaqdLJztxOj0huGdll6jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RfUewLfQEpIrya13XjeDWxHNo6T4mhhoKo2av7emPWE=;
- b=NSbJ3HxxoLooZ/8mRh96ZE47Nu3fCBfkKwP/HtA53p9hFF1LkNoO9ZsAoRBqibPdXsuWh6d1SuJ8YCa6205ZubvBclSAq6NBFdUlpeLv/r22+39gng8IzIVrnozcBrwsiBPmrGMeh21RJITMsdrNxrgRuhoCqLLMyOp6ru+Pa5HLThSvSgjPihhM+ObWYBji2aPA4epL8VrqsUfaFZySvHtpoabeCh4QIug8OAlVRsQmHuubuG5swdCWlDCfhvJzKQ+DILKsCPSPrc78GW01vVBdBTPGqoj2e5RIx3E958nXf9e4KkMoC0DRDaa9ewg0jD9ig+jRaku14/kYhd23ow==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DS7PR12MB5768.namprd12.prod.outlook.com (2603:10b6:8:77::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Fri, 15 May
- 2026 02:34:56 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.21.0025.016; Fri, 15 May 2026
- 02:34:56 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Subject: [PATCH 0/2] Fix leaking of cached Host1x buffer objects
-Date: Fri, 15 May 2026 11:34:50 +0900
-Message-Id: <20260515-host1x-bocache-leak-v1-0-a0375f68aeab@nvidia.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTsJLSDiVYyLtv7aUUNJBw0J4
- e5WXX6L91ZSZIHSsVop4y0qaSwwu4pCdOMNLJdisrXd151pOCadzcI+BRci+An34LbvhubQwve
- DpVJOGVdZftfT+W99+TvC/F3Rtn0AGfNfWXcAAAA=
-X-Change-ID: 20260513-host1x-bocache-leak-4759384eb792
-To: Thierry Reding <thierry.reding@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Akhil R <akhilrajeev@nvidia.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, 
- Aaron Kling <webgeek1234@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TY4PR01CA0101.jpnprd01.prod.outlook.com
- (2603:1096:405:378::11) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+Received: from mail-m8286.xmail.ntesmail.com (mail-m8286.xmail.ntesmail.com
+ [156.224.82.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5045F10F3A6
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 02:36:36 +0000 (UTC)
+Received: from [172.16.12.43] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3e7fc10ae;
+ Fri, 15 May 2026 10:36:32 +0800 (GMT+08:00)
+Message-ID: <f290b425-d5e1-46dd-a63e-0fac53067ca0@rock-chips.com>
+Date: Fri, 15 May 2026 10:36:32 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS7PR12MB5768:EE_
-X-MS-Office365-Filtering-Correlation-Id: 08385c5a-5eec-42b8-52d7-08deb22a8d58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|10070799003|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: 4w/NZv1TrJ5R7vVAcJT94i9/2ZYOccwUp07ddIk7MXZyoaCWVdVk2t2NC3f7m4M1CIOZ8uhSzBAaXAp/CZn5+L5pYgO+Hqt8Y9bICWUMfDshE+43zr6YhfwJQq7XnK2pkgeVZYqWUuPlhXO9f0ft2WHubvHZrS7TKrbZ1y6cU1bFGqlqQUURBRi4jK5LfkZhlxqSjVnmzXaOgxo+22vS03jK/UrEPRLp3/jWVB2/zvvvo7JjCKRMT7qq3FUq3wLNGJp7xD9dn7//UarJP00c0hwWGMGYWJRQVjVPXmgZl8QSLTTYkJtZaMqDVDa7rqNHopmWxgkYL6ugMHAG2iqKVxvPLXdecerauqMAHi7LgP85s+GI8eCllEmpsu/lXhXTDKV3IZrhj/vC0KfsJWPXuqbnGxBPUSGAfYyqPrE2UWo2zBgn1Kla12mASVUOzau/87jRAqPz6LXDlfmPF/mGMa+j/QWhnaKU/eX228pX3S8ZBmqz1QJ7m7iN1xXBkRfv2LyunfKYkDMhxTRpQA3mBUJhfjXJ9QvtZbM8MNLWyIYAmQp0qt6XM5CupC72RzsIxlop5HXwmlbT/KGLv06FvyekZKSaXzHAsfBa1EOoUUYU4A2RnV3BmGIm9Qs6hMnH/ugUjNREHwSilVawmItcjykaD30h4QOpkpYOisEsUlt2XMRuCOgoVuVEAB9IUjKj
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003)(18002099003)(56012099003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NzMvVzFmbWNlNUwxQi9UdzZTUW5qTU1leWV2a1VoK0tOQ3JaM2hTNjYxaitv?=
- =?utf-8?B?ZTVWdzdXQjdvVmNGRXJ2M0JFTXA4eW1aT3dXaThaY1I1eUN6SkVTSk9rU2Fp?=
- =?utf-8?B?YnVTWVNxcVBZMW56d21vL01tQ0pReGoxR1lrNmtkT0FGYXE5U3UvRmgyS2xT?=
- =?utf-8?B?U1hPa3d1dFhZcEUwcW9iT3ZTWDdVRGdVazl0bUlCaDVQNkU4N21RRm9TMWhC?=
- =?utf-8?B?V3pjejJCMEFIb2tnaU9GTlhTS1AxN29CSHB1b2Q5eXFHY0dSZDJrT04vcm1l?=
- =?utf-8?B?L0VoRkh3UDhYdVFRRTdOT0xLbDRITGRsY0FhQUdReEpXVGx5K3N2ZmxpMWY2?=
- =?utf-8?B?NW5qd2loQ1drYlZZZEJLNEk3c05VcUZhRnRqRDZHd3dxeVFwREFGVFhmNzhU?=
- =?utf-8?B?TFJuWHlVbU5QNHlaOGtCZ3RnQlNyZitvbllYSDJaMjVRc3NiL2RuUW1wQ2c1?=
- =?utf-8?B?UXIzVTRtVEk3ampad2l2TkVDZk03dEdnbnN1UzUxalpBeGFOVW0rTGhtTjNk?=
- =?utf-8?B?Zy9xUmhkUnlsV3hrT3F1WW1VTVEzbG5pUkE0b2l3aXRXcHN0c1lVVHFVeE9z?=
- =?utf-8?B?THpKQVBnLytod3VlaTBzSTlpeEgvT0IvN3p1MVZITGZXRHg3VmRvUXRmVDgr?=
- =?utf-8?B?a291RmpWM1RESUlBT0dtVFBTNW83UWlPWkpRTTlEMWNvNDFJZjlHK1lRbTJL?=
- =?utf-8?B?Y0FTWkhYT2xnYXNOb2NwU0ZlQzFqTjZHNktCcElscWFteEpOWnYvbUtmTXho?=
- =?utf-8?B?QzFuVStIUFI2US9ieFYwZzExN3pDc2JJa3Bnby9GRTVHR3dkZWQySC9oUzNy?=
- =?utf-8?B?VUU2UnZYSzRzR01EWnlmU0xMSG50N1k4TSt1a0xCcjlyMkIxejJlcVRtSGw5?=
- =?utf-8?B?SmNxTXQyUmRsSmRtSW0wdGFYQW9HZUFjRDRuR3FWWjJHRi91czZFaEJuOEo1?=
- =?utf-8?B?ZkhMMmU5SEZkN3lBQTk0SEhNYVA3cjFsV3FFRnMvT3ZmT0tjWmRSc04vTEY4?=
- =?utf-8?B?c3ZPMFVHbUYwOHRJai9iMWplMW1lUkhOaW01TzBTZGhjbmgxK0FZbjZtQmcy?=
- =?utf-8?B?UHVnRnJ5Y1lMa3hTaVFmaE84SDF5akx6azF5cEFGSXEvcTVKMWdXZEZ0Z1Yw?=
- =?utf-8?B?VGdDRlExdVU3aEFvUnk5ZmZuTkdud2NuYWFjSHRJODBLRlhVUTd4dGV0ekRq?=
- =?utf-8?B?cUJqVXhpamViMUduNDdPcnZ2YkFNdEQvNyt6LzFGeGpjSFpKTThJa3p2anBw?=
- =?utf-8?B?S0Zadm5mYU04Z0gySTdWcGxDWEVFS2IrZm9qQk5XNk4wVUhXeEtVdU52MTRD?=
- =?utf-8?B?dzYxQkFLT2xyV2NlM1RvdWkrckp3N1ordXNDcGN5Y0tKV1U4cUNKTTZ2NzBO?=
- =?utf-8?B?aHkwTWJvbTl5Y0tialh5TGdYMHE5aGt6T2NuSnkvTzRYRUVPd1k0WXpWRzV6?=
- =?utf-8?B?eGNHRHlxVVovdDhVekkrckJQbWVleUo3bDFnVWlGeHB5MkdIcTIxdW15ZXQ4?=
- =?utf-8?B?djlzcDNuUU5tdlpNdk96L3pwNXVFOVIzQlBiN0p6emQvYVc4YnVvaS9oOU4v?=
- =?utf-8?B?cm9xYVpyTlpsc3dqbFM0aHV1OG15eG4yUXRWVzc5cVlIaHFVK281dnZjdkEw?=
- =?utf-8?B?QjFla29qeGV5RkR2a1NObnBjZTU3WHZuSHYwT052RUFPNkpzU1FHd0ZIQzgw?=
- =?utf-8?B?OXo0V3U5QkRSOS8yb3QwMDZ5WU9OTE5vWnJPWnB1VTNjd2lmdWdCWGFtWkRi?=
- =?utf-8?B?WnczNFNOcU1nL3BqNDBkcEFNSTh3K1g5Q1ZhL28xZCs2aDVwRk52bG9xeHFD?=
- =?utf-8?B?MFBjTk9BUkM3ODYva1RRK01DdmNXMjNTSEc0US8wR3N2WlBPMlYzdTVJM1VK?=
- =?utf-8?B?cEtoZyt4N2VRdVpsSlpOQVJMeDYyMVhZbHl5aEtLUzZ5b1VVR3k2WEoxY1ZD?=
- =?utf-8?B?WGNGbmxUZ1hiSzFUZXpHckVqMDh1MjdwVWx6WkdzUjV1N3VmUDJYQXdreXlK?=
- =?utf-8?B?STNNRDNwU1dtMDVtNXpzc2JEYVpkd3NXNmt0K3FyK0paTFdTRVcrSmR3Yk9R?=
- =?utf-8?B?TnZHVkV4QVRqTys2Z3NwNXdUNnVIM1NTRnorWENNRUJiUFhhUmtTckRFQURM?=
- =?utf-8?B?WjU3azJ3RXpDL2ZiTm9DVm9BZ3RVSzhaTTlCUzh1TFYwSHZtS250WHJqeStN?=
- =?utf-8?B?TDd0UFBEa0ZyUXYxN0lscEFSWit1MVFkNWM5Q3dFdGRpZ05nYWRQcVpBUEpC?=
- =?utf-8?B?SDR6SVVRdEhJbGs1bUd2dy8wNUlUbEpBOHl2a1BhelY5NFo4MGNkTVNkd0k5?=
- =?utf-8?B?NE5JT2dlZEl2N3FDTUVQT1ZLNDJKeGowbXM4SVdFa0Erd295cVdGUnJ3cDc1?=
- =?utf-8?Q?rE+q6yTVszbpsf14uty8kemXWNvXMGlFFLcKya2sEwOb9?=
-X-MS-Exchange-AntiSpam-MessageData-1: SwGqvWuPGww8gA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08385c5a-5eec-42b8-52d7-08deb22a8d58
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 02:34:56.5289 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WmmQgnggMm2WEAMGzopO/5iWw+WzzGN/tkutQqtHlbrboveY47jIwH6StbdK4UaE+AjTrufEcDRggpr68RJP3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5768
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
+ hclk as third clock for RK3588
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
+ <20260513074414.2053435-2-damon.ding@rock-chips.com>
+ <20260514-elegant-agate-pug-449ec2@quoll>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260514-elegant-agate-pug-449ec2@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e297e20f403a3kunmc0deb7cd11afb4
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHkgfVkMfShlLT0kdS0lKTFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=LqrIEfZA+38ljtZG4tF5/WXxztcTnpzY/0OJHfmpE6+LRkFfaUBXdEd9wAWhiPI+0kT6NObp8PeeC962DlhXclUpfPS8fboSaz+TH7sCUqcyub0csGGdW0gd7744Ue1MZAg6ad/M3haGgxeWshyXu7maKjiAb/B0UcwE2TAEa+k=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=U0zZkFsIJMlo+SmTsm1vbbfTBR0506CjYpUXxe4Vvng=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,35 +72,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Host1x implements a mechanism to cache buffer object mappings to allow 
-skipping costly map/unmap cycles for buffers that where that commonly 
-happens (buffers used with display). The intention was that once the 
-user frees the buffer, the cache mapping also goes away.
+Hi Krzysztof,
 
-However, the cached mapping was also keeping a refcount on the buffer, 
-so the code freeing the buffer -- and releasing the cached mapping -- 
-would never run, hence leaking any buffer used with the cache.
+On 5/14/2026 6:03 PM, Krzysztof Kozlowski wrote:
+> On Wed, May 13, 2026 at 03:44:05PM +0800, Damon Ding wrote:
+>> RK3588 eDP controller requires HCLK_VO1 (video output bus clock)
+>> to access the VO1 GRF registers and enable the video datapath.
+> 
+> To access GRF? Then it is the same clock input.
 
-Fix by making cache's reference to the buffer weak.
+Not the same as RK3399 case.
+(The same as the descriptions in [0])
 
-Merging notes:
+RK3588 hclk_vo1 related NOC design:
 
-The change to the crypto driver is safe to merge independently. The 
-driver keeps its own refcount regardless so the buffer won't get freed 
-incorrectly.
+PD_VO1
+    hclk_vo1
+      └─ pclk_vo1_root
 
----
-Mikko Perttunen (2):
-      gpu: host1x: Allow entries in BO caches to be freed
-      crypto: tegra - Don't touch bo refcount in host1x bo pin/unpin
+Then the clock tree design:
 
- drivers/crypto/tegra/tegra-se-main.c |  3 +-
- drivers/gpu/drm/tegra/gem.c          | 13 ++------
- drivers/gpu/drm/tegra/submit.c       |  3 +-
- drivers/gpu/host1x/bus.c             | 60 +++++++++++++++++++++++++++++++++++-
- include/linux/host1x.h               |  7 +++++
- 5 files changed, 70 insertions(+), 16 deletions(-)
----
-base-commit: 028ef9c96e96197026887c0f092424679298aae8
-change-id: 20260513-host1x-bocache-leak-4759384eb792
+hclk_vo1 (200M)
+├─ hclk_vo1_niu_en
+│    └─ hclk_vo1_niu (200M)
+├─ hclk_hdcp1_en
+│    └─ hclk_hdcp1 (200M)
+├─ hclk_i2s5_8ch_en
+│    └─ hclk_i2s5_8ch (200M)
+├─ hclk_spdif4_en
+│    └─ hclk_spdif4 (200M)
+├─ hclk_spdifrx1_en
+│    └─ hclk_spdifrx1 (200M)
+├─ hclk_i2s9_8ch_en
+│    └─ hclk_i2s9_8ch (200M)
+└─ hclk_i2s6_8ch_en
+       └─ hclk_i2s6_8ch (200M)
+
+pclk_vo1_root (150M)
+├─ pclk_edp0_en
+│    └─ pclk_edp0 (150M)
+├─ pclk_edp1_en
+│    └─ pclk_edp1 (150M)
+├─ pclk_hdmitx1_en
+│    └─ pclk_hdmitx1 (150M)
+├─ pclk_vo1grf_en
+│    └─ pclk_vo1grf (150M)
+├─ pclk_hdcp1_en
+│    └─ pclk_hdcp1 (150M)
+├─ pclk_hdmitx0_en
+│    └─ pclk_hdmitx0 (150M)
+└─ pclk_trng1_en
+      └─ pclk_trng1 (150M)
+
+On RK3399, the 'grf' clock is only used exclusively for GRF register access.
+
+But on RK3576/RK3588, the 'hclk' (HCLK_VO1) acts as the parent clock for 
+pclk_vo1_root in NOC design. Meanwhile pclk_vo1_root is further the 
+parent of pclk_vo1grf and pclk_edp0/pclk_edp1 in clock tree. So this 
+hclk affects both GRF register access and the overall APB clock domain 
+of the eDP controller, which makes it necessary to be listed independently.
+
+> 
+> AGAIN (reiterated soooo many times by me): you describe here clock
+> input, NOT OUTPUT.
+> 
+
+You're absolutely right, thank you for the repeated clarification.
+
+I used "video output bus clock" as a shorthand to refer to HCLK_VO1,
+which clocks the entire video output domain including eDP and HDMI
+interfaces.
+
+I will rephrase the commit message more precisely in the next version.
+
+>>
+>> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
+>> phandle reference, which allowed the eDP to work without explicitly
+>> managing the hclk_vo1 clock. However, this is not safe or explicit.
+>>
+>> Enforce the correct third clock name on a per-compatible basis to
+>> standardize clock requirements per SoC. This makes the clock
+>> dependency clear and removes reliance on implicit clock enablement
+>> from GRF phandle.
+>>
+>> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
+>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>>
+>> ---
+>>
+>> Changes in v4:
+>> - Modify the commit msg.
+>>
+>> Changes in v5:
+>> - Enforce the correct third clock name on a per-compatible basis.
+>> - Modify the commit msg simultaneously.
+>> ---
+>>   .../rockchip/rockchip,analogix-dp.yaml        | 37 +++++++++++++++++--
+>>   1 file changed, 33 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> index d99b23b88cc5..8001c1facf98 100644
+>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> @@ -23,10 +23,7 @@ properties:
+>>   
+>>     clock-names:
+>>       minItems: 2
+>> -    items:
+>> -      - const: dp
+>> -      - const: pclk
+>> -      - const: grf
+> 
+> What is 'grf' clock in such case?
+> 
+
+The 'grf' clock here was specifically for RK3399, which is only used for 
+GRF register access.
+
+Moreover, the control logic for the new 'hclk' clock is different from 
+'grf' clock:
+- The 'grf' clock was gated dynamically before/after GRF register access;
+- The 'hclk' needs to be enabled during probe and kept running 
+continuously [1].
+
+Best regards,
+Damon
+
+[0] 
+https://lore.kernel.org/all/c349eaf2-5852-4bb6-9dac-f7240e1c8098@rock-chips.com/
+[1] 
+https://lore.kernel.org/all/20260513074414.2053435-6-damon.ding@rock-chips.com/
 
