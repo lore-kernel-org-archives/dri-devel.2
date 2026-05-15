@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E42B2CD343F
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 09:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3653DCD4851
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 09:10:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C70F10F4A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44B8810F4AE;
 	Fri, 15 May 2026 09:10:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="AAyx7CGT";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p0ryn/q/";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6128610F4A3
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 09:10:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 191DD10F4A5
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 09:10:09 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2CD041123;
- Fri, 15 May 2026 11:09:52 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id E8BDC19EF;
+ Fri, 15 May 2026 11:09:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778836193;
- bh=gBQFB78X4KGzpd0DZyLsXnhD9qIE3f4obIum+k+GS5o=;
+ s=mail; t=1778836198;
+ bh=sQ7dH7dQ/n7Rrc06bQe/1ItYvKBy46snwgvffXpYWQw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=AAyx7CGTxMpwqNDXZpxdnJMoxnJHZdKCvwoVX3FV+UAkWyLYdxNP421KsHe3ZrXyt
- ZKWW7VxzQO9UwoLQbqLPTjdIrN+60iXpSTh1UDgrI0E0KL0pN0NCiOpDRk68mI6Fge
- V7Mh5NngRHBd6PyaIaktt7hiwOeaGjWJpWSbOh2s=
+ b=p0ryn/q/koHB4EiO3lUEZBGJiilxYg2Ju3pwaRJUOMw68YWtiDt9cVXiQ4C+H8Did
+ nObo5oRehPB4FD7buNzVMzIStwCmCtx1JqMGya1UjIQSfojdL2vHklf8+OHu2AfCXR
+ VQyD1FQRerLK9u+x0h3Mb3yV3DKMtaMeUm0fsTdg=
 From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Date: Fri, 15 May 2026 12:09:29 +0300
-Subject: [PATCH v3 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+Date: Fri, 15 May 2026 12:09:32 +0300
+Subject: [PATCH v3 7/7] arm64: dts: renesas: white-hawk: Add second mini-DP
+ output support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
+Message-Id: <20260515-rcar-du-dsc-v3-7-164157820498@ideasonboard.com>
 References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
 In-Reply-To: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>, 
@@ -56,21 +57,21 @@ Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  devicetree@vger.kernel.org, 
  Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2997;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2737;
  i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
- bh=gBQFB78X4KGzpd0DZyLsXnhD9qIE3f4obIum+k+GS5o=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBuLhJ0hC8Yq7b2bP6uZ61PSSoK4QV30lgeyVu
- BikaFfnkS2JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbi4QAKCRD6PaqMvJYe
- 9Xr6D/4mgsmuvgX6IPeKR7i8IESTN8ojqf8HWHW57ABeqPGwELcOfYaGBCYwlsMGkNSepSbaJaR
- UQttkxQywK1v/IVm1N5vW1h35Cb34TEHhP/eA4+fHglR7XPe4yg+IZgci9yoz8UVzebO2sqmvl9
- 7KKQDh+ggRSujarVj1gFpbTrQtSNyo23F6kdsdW/ph0dfMUuU6FCjYmLnhIolVmMDA73F7/7iPv
- Dg9+h/vCF6kfSBlsmmZKzq3fx/h77EO+7Tp6lWfc7gyduLtnYooDANLwdHFbBE6lmUS5Oo/BJuf
- a3jPIwAweqWQk2bAkh2cjKYt+91T3YyB8nwyGCevzs3adxxPBSyLdpZulkjvtA64lt6cwMTAJ4W
- y9LiVvzR0ArB+Y5BFNqKML1NH+IUQXZufaTiSyeYPmN6j7YubCwNAKnnQys4XkJf0ei65RqRLU1
- BhHByRJn8KTUjpHdhGx6MxYpY5aYSR2GN3QwVLJpToSwSCCQbfWNjgwzwqOtEquLmf7ii0MeM3T
- 4Z9LoWynxK/jDCDBaPArVQhO/vUGbFy2zZOjO1poYzHZWJMOX8XHXIutakJIzU1Fz+dF3Ohflbx
- cAEW/2GPBS1MxU4BTdVhXtjiNIbXbJ95i4Hot9Pb/h07lvU+7eZjAwNXy/KQUNtMYTV4HJzXU0E
- 7PuLktvFpEB9gfQ==
+ bh=C9rP9GABvcYb9jE1vUzXF6HhHnFgCbKipQ/Ea+SbMGY=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBuLiiTqP0RYYEkYtroljiEpni+J1CY4V6VoG8
+ JXMaS1cCKKJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbi4gAKCRD6PaqMvJYe
+ 9SBaEACOaDZzTIQrGoWXa20lEGTRBsBiOPRk39I3W4jUj2vT/HXxsm754izvyNcLrExit01qCd+
+ 0Dyqc8bdMokPw+kZ9tgcrgpNygj0GhyCKOQUgWNEIoQz8B4C9R9xbf7ytyhZV7RsDDLWKMTgbGo
+ UFFvlY215G98Woio/0cc31juMbD/c2QIgS393VE57YTCnhibSXTgNx2pRBxg0l5IWLlMZZ7T09j
+ cTCUq4mbClqGEXyjT6pQkj1357ODLklbv7DJexilLJdhTllNuiFD4C041C8oOyGhacqlF2q3gvf
+ RpfEbfdmRpNxeDEiH0kckpiEUhSEC0NdrGf4wlH79b7kMisNDFib44xrT8Ou6k8iR801Mfr3dK7
+ 8fBfvQjSZjm7bRCIcNpR6eCMekjYtFcRhknWIT1MypuQnO7+1vH6eFEeypoQ+r5pwfiyIBqL6zK
+ vZaIn+4BG3qZHKGbnvuQCgy3cWxZTs0ujKIFCqfnb9xqmJNXtt+I75atA9Xi1F8syp6wvPg9Vyy
+ hWTl5euKDxQE1vbl8FY+U7parLfPJgfOJCDJG3wpSMa5g08p63E/w+QR8E2fejHGYwSv7qqgIOU
+ sxrmtu+HcF/Rl64O2XqqStalOCKhN4QxLswKXuDaweH3EZTkwHHCYSDezJrc+JmgXVehZIqKYTG
+ jLnzcMA7RbZc6rg==
 X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,91 +89,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
-provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
-crtc, when enabling the crtc.
+From: Geert Uytterhoeven <geert+renesas@glider.be>
 
-With DSC (added in upcoming patch) in the pipeline, between the DU and
-the DSI, the above call path is broken as the crtc tries to call
-rcar_mipi_dsi_pclk_enable() on the DSC.
+Add support for the mini-DisplayPort connector on the White Hawk
+BreakOut board.  This port is driven by a TI SN65DSI86 DSI to eDP
+bridge, which in turn gets the pixel data from the second DSI channel on
+the R-Car V4H SoC.  Note that this port is not present on the White Hawk
+Single development board.
 
-Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
-in that case gets the next bridge from the DSC, which is the DSI.
-
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+[tomi.valkeinen: added status=okay for dsc]
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 ---
- drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
- 1 file changed, 34 insertions(+), 2 deletions(-)
+ .../arm64/boot/dts/renesas/r8a779g0-white-hawk.dts | 94 ++++++++++++++++++++++
+ 1 file changed, 94 insertions(+)
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-index 4ef2e3c129ed..085e229bcb0b 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-@@ -88,6 +88,8 @@ struct dsi_setup_info {
- 	const struct dsi_clk_config *clkset;
+diff --git a/arch/arm64/boot/dts/renesas/r8a779g0-white-hawk.dts b/arch/arm64/boot/dts/renesas/r8a779g0-white-hawk.dts
+index 784d4e8b204c..89d60b83ac4f 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779g0-white-hawk.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779g0-white-hawk.dts
+@@ -12,4 +12,98 @@
+ / {
+ 	model = "Renesas White Hawk CPU and Breakout boards based on r8a779g0";
+ 	compatible = "renesas,white-hawk-breakout", "renesas,white-hawk-cpu", "renesas,r8a779g0";
++
++	sn65dsi86_refclk2: clk-x16 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <38400000>;
++	};
++
++	mini-dp-con2 {
++		compatible = "dp-connector";
++		label = "CN15";
++		type = "mini";
++
++		port {
++			mini_dp_con_in2: endpoint {
++				remote-endpoint = <&sn65dsi86_out2>;
++			};
++		};
++	};
++};
++
++&dsc {
++	status = "okay";
++};
++
++&dsi1 {
++	status = "okay";
++
++	ports {
++		port@1 {
++			dsi1_out: endpoint {
++				remote-endpoint = <&sn65dsi86_in2>;
++				data-lanes = <1 2 3 4>;
++			};
++		};
++	};
++};
++
++&i2c4 {
++	pinctrl-0 = <&i2c4_pins>;
++	pinctrl-names = "default";
++
++	status = "okay";
++	clock-frequency = <400000>;
++
++	bridge@2c {
++		pinctrl-0 = <&irq1_pins>;
++		pinctrl-names = "default";
++
++		compatible = "ti,sn65dsi86";
++		reg = <0x2c>;
++
++		clocks = <&sn65dsi86_refclk2>;
++		clock-names = "refclk";
++
++		interrupts-extended = <&intc_ex 1 IRQ_TYPE_LEVEL_HIGH>;
++
++		enable-gpios = <&gpio1 27 GPIO_ACTIVE_HIGH>;
++
++		vccio-supply = <&reg_1p8v>;
++		vpll-supply = <&reg_1p8v>;
++		vcca-supply = <&reg_1p2v>;
++		vcc-supply = <&reg_1p2v>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				sn65dsi86_in2: endpoint {
++					remote-endpoint = <&dsi1_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++				sn65dsi86_out2: endpoint {
++					remote-endpoint = <&mini_dp_con_in2>;
++				};
++			};
++		};
++	};
++};
++
++&pfc {
++	i2c4_pins: i2c4 {
++		groups = "i2c4";
++		function = "i2c4";
++	};
++
++	irq1_pins: irq1 {
++		groups = "intc_ex_irq1_a";
++		function = "intc_ex";
++	};
  };
- 
-+static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
-+
- static inline struct rcar_mipi_dsi *
- bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
- {
-@@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
- 	rcar_mipi_dsi_stop_video(dsi);
- }
- 
-+/*
-+ * We need to skip the DSC bridge when we have DSC in between the DU and
-+ * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
-+ * next_bridge is the DSI bridge. If this is not the case, the DT data
-+ * is wrong (so it shouldn't really happen).
-+ */
-+static struct drm_bridge *
-+rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
-+{
-+	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-+		bridge = bridge->next_bridge;
-+
-+	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-+		return NULL;
-+
-+	return bridge;
-+}
-+
- void rcar_mipi_dsi_pclk_enable(struct drm_bridge *bridge,
- 			       struct drm_atomic_state *state)
- {
--	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
- 	const struct drm_display_mode *mode;
- 	struct drm_connector *connector;
-+	struct rcar_mipi_dsi *dsi;
- 	struct drm_crtc *crtc;
- 	int ret;
- 
-+	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
-+	if (WARN_ON(!bridge))
-+		return;
-+
-+	dsi = bridge_to_rcar_mipi_dsi(bridge);
-+
- 	connector = drm_atomic_get_new_connector_for_encoder(state,
- 							     bridge->encoder);
- 	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
-@@ -885,7 +911,13 @@ EXPORT_SYMBOL_GPL(rcar_mipi_dsi_pclk_enable);
- 
- void rcar_mipi_dsi_pclk_disable(struct drm_bridge *bridge)
- {
--	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
-+	struct rcar_mipi_dsi *dsi;
-+
-+	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
-+	if (WARN_ON(!bridge))
-+		return;
-+
-+	dsi = bridge_to_rcar_mipi_dsi(bridge);
- 
- 	rcar_mipi_dsi_shutdown(dsi);
- 	rcar_mipi_dsi_clk_disable(dsi);
 
 -- 
 2.43.0
