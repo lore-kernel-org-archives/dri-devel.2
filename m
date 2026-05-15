@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D64F3CD4851
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 09:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58FD2CD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 09:10:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E23F10F4A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9340E10F4AD;
 	Fri, 15 May 2026 09:10:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QxpDTze9";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SJn3QliH";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E506D10F4A5
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 09:10:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAA610F4A5
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 09:10:07 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id BDE3F1337;
- Fri, 15 May 2026 11:09:53 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5E68F149B;
+ Fri, 15 May 2026 11:09:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778836195;
- bh=Q0KK8Vnmn0OKEEcWFrpokO4RWx/VC1ho0JpGmPQEI5Q=;
+ s=mail; t=1778836196;
+ bh=DWzkqIRHTRJjknXuzOwZzjBG6UpC2H2U3Eys36fgkuw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=QxpDTze9IPXVXHJyWDbbaXDTI2JoVnhsZgvSYrEwX8mzwMitYEeRIlO3sdUMWhhAB
- WkkNfRFlDM/IoH/NBXxeukRwzqujQgVVNrEQdbZzn3gPztkWHCjrfUdp4sqb6mUuDB
- T/QDwgIlSrf7HFWkzuaKNHsFPLJmUVnVZl0B3kCU=
+ b=SJn3QliHDVG7fpTW6IRqUrfAcW/cldd6vO9J9XYgMUabJRkFyyRuTg9UDzH23EB+Y
+ ESbxPsenT/gFa8xNMwaRM8p6U0Ra0foQKHymXO92PwIk7Lv7Q93CG+FK74W/yrMqrd
+ KmyXZTgk9nmBDXfjGZjLhh+sj3bqqWcPrM/Vjq/4=
 From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Date: Fri, 15 May 2026 12:09:30 +0300
-Subject: [PATCH v3 5/7] arm64: dts: renesas: r8a779g0: Add DSC
+Date: Fri, 15 May 2026 12:09:31 +0300
+Subject: [PATCH v3 6/7] arm64: dts: renesas: sparrow-hawk: Enable
+ DisplayPort by adding DSC
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-rcar-du-dsc-v3-5-164157820498@ideasonboard.com>
+Message-Id: <20260515-rcar-du-dsc-v3-6-164157820498@ideasonboard.com>
 References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
 In-Reply-To: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>, 
@@ -56,21 +57,21 @@ Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  devicetree@vger.kernel.org, 
  Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1848;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1235;
  i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
- bh=LB0h2hc6Sj2kvghRC2Rip9B8urRMXGeEfCaq9x9z/6Q=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBuLiI9h3bVKCgisUxUZwYF14YJcg2kBLL3u2X
- Bluo9pkMTyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbi4gAKCRD6PaqMvJYe
- 9egAD/4q54Y9c6EsRHM/rWayxcTqLqCxyZYt8tosp+hQvuZmKiYBwojjQUPk8u/o9QniHV6Nolb
- zKP1JR5Ww/X9OglYMOejbwPtoKwPDVRoM9Y3Crs4e5Dafqm0KV3g9IRUVxCPwfpm0IBs8QiGkx1
- nFd4Dm3OQWq9JmHXzLt3n2MILpu3tCe+SYGxoJvuDqBZhSbALqztFEyAry6/RDKQPcO2EGUXEwL
- iy4nFUGFPD131rdxQCpyRmwrp+KLC/XJJ5+w5UiHr6mhioc6Al6anhC3PlZYCIXE8TiG7Lx4lxf
- DM5cnaarIguh80XubmHbR0+egF5uZYQCihEaWseTVIqsl6SLlfPAOo9M8f/WJmvGyWhubJln8Xu
- 3qfe8U/Z/96xZXzb1/CNAtbePAo6AHYT5E3KHVYVMG/BWO01JB7giSySsPNXsOrLejLk6FRhseo
- C8A0XWCcLdiJIY+efL6q1esDzQjjjda8eOfo23eCAn5ob/Rey8Z69joW0WGvyiJPtIm0if3V2nl
- CQk2s0EjVxU9AZfoniWNR4uNwxQLU3mbTQhaBWYyYMoU7Vsf+X3ZMC62bK6zZHBvkfsxiB53tCU
- wc3vioEaUqze14rlToLcyz7DrrBLi/meYrO5YrYh8GsanVIjHTlsUHhdqj1IveI8r7soQfR4fxQ
- 7HDMGyWBJvjIkQg==
+ bh=ANA0pOGvbcFJPr/oOvpf6RijEfVZm+6cIfmd0bzB3rU=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBuLixs99OiDBbPEBME7nzu5haOunCYoH1ekQl
+ gzt6SydVyyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbi4gAKCRD6PaqMvJYe
+ 9ZpMD/9DlDWjvfmRl9pal1YS9gznGFBYEbhF0VK98Vh8FbWslthU/g0aAcXjV0886b8jBdgg5co
+ 9DDr0IBIC24+xj0Nz1fpeGMGGT5NHZmuyibIN0zC/7amHJdoHI4ltG1k7/g1YwLfT8VVELoxleE
+ TN9xSbpVldcxg8vDS/UXk4Lw7c7RfHCjxP1ATbK1FS1H13KJZWd1mUz1mKUuhgFFpsRHMZQ+/8V
+ PoQp3m7WhUTrQwm1ap9WRme7S0/Oaoa+blW0sQaWN/tgDEV6JQbfP2WlYJ/4hp/9PyU8b+rtZK6
+ 7vHttNcVy4P/42TldMwlRiMiqrAx1ojXl0LU0sD7aPlv6oRwOlLWajtHltWGXaWZWWO4S5MxPrt
+ W8qdbe54gAw8tExtMmdFUiWs8B6RWofyVroObMziMFgKkwrgiAnRwlXqxfwHsgyyUh5uKI2Og7K
+ NxjDYHvBfKmwgDQatnA7bzNhy67qk4o+XWbjbugVidpboJhLfHv+kTASevdxv/Zl6pQvKp3bpjB
+ mFw9kVRf7i900eQFO4mIMY9gc2Dsmo+OXMi76cIq3tYjJrdQaRGZ4K+Y/naGztEzKsUXQvTglC2
+ J4InDyqhVJLoL9yTEXyJi7pBUgJOcQoWfVPMQlX+qAKksY9026r0r9K75IcHHjYuQ+UFKGz7NDp
+ GJ9VtNliej134hg==
 X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,68 +91,38 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-The Renesas DSC Display Stream Compression is a bridge embedded in the
-Renesas R-Car V4H SoC. The bridge is placed between DU and DSI1 units.
+DisplayPort on the Sparrow Hawk board uses sn65dsi86 bridge, which in
+turn gets the video stream from the SoC's DSI1 port. DSI1 pipeline has a
+DSC block in between the DU and the DSI1. However, there was no DSC
+driver in Linux and also the DSC was not defined in the dts files, and
+thus the DisplayPort output did not work.
 
-The current dtsi file does not represent the DSC at all, and thus the
-pipeline for DSI1 has not been functional.
+Now that we have DSC defined in the SoC dts file (r8a779g0.dtsi), we can
+enable DSC for sparrowhawk.
 
 Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-[tomi.valkeinen: separated the sparrowhawk changes]
+[tomi.valkeinen: separated the sparrow hawk changes from the soc changes]
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 ---
- arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-index 82a7278836e5..52a6176f9fd0 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-@@ -2298,6 +2298,35 @@ du_out_dsi0: endpoint {
- 				port@1 {
- 					reg = <1>;
- 					du_out_dsi1: endpoint {
-+						remote-endpoint = <&dsc_in_dsi1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		dsc: dsc@feb8d000 {
-+			compatible = "renesas,r8a779g0-dsc";
-+			reg = <0 0xfeb8d000 0 0x400>;
-+			interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD 2819>;
-+			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-+			resets = <&cpg 2819>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dsc_in_dsi1: endpoint {
-+						remote-endpoint = <&du_out_dsi1>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dsc_out_dsi1: endpoint {
- 						remote-endpoint = <&dsi1_in>;
- 					};
- 				};
-@@ -2534,7 +2563,7 @@ ports {
- 				port@0 {
- 					reg = <0>;
- 					dsi1_in: endpoint {
--						remote-endpoint = <&du_out_dsi1>;
-+						remote-endpoint = <&dsc_out_dsi1>;
- 					};
- 				};
+diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
+index 812b133cf29e..f418998c6b05 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
+@@ -288,6 +288,11 @@ channel4 {
+ 	};
+ };
  
++/* Page 27 / DSI to Display */
++&dsc {
++	status = "okay";
++};
++
+ /* Page 27 / DSI to Display */
+ &dsi1 {
+ 	status = "okay";
 
 -- 
 2.43.0
