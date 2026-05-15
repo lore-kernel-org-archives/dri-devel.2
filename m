@@ -4,62 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70D8CCD343F
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:17:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9277CCD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C190110E0E4;
-	Fri, 15 May 2026 08:17:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0377E10E034;
+	Fri, 15 May 2026 08:22:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="AH3Pu3Ej";
+	dkim=pass (1024-bit key; unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="DqzQ6kXN";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAB8D10E0E4
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:17:47 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8908063C;
- Fri, 15 May 2026 10:17:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778833056;
- bh=b0OEhP8qvyiis/NQ4grQI4aqjG0M9Ql0pGcC48E6k7k=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=AH3Pu3EjoCZzvtcnrUiKvK55iGeHCjQLkNPgq5qKvPw7mCpEdzLNiylbnbstODP0R
- Cf2zW43dk6zFuEO19RZJTSLTvsV/o4WBrBdKkVzGPM35zy2YzZrctfIhnqcyZQkFlX
- h7EN5XSWeuShMFS5p6wLUF1CD5AnDCJfTirm38x0=
-Message-ID: <d7447f51-c2f7-4947-9fd0-ac0d45027c59@ideasonboard.com>
-Date: Fri, 15 May 2026 11:17:42 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H
- DSC driver
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF66010E034
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:22:44 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-bd2d8bb1068so685621866b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 01:22:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google; t=1778833363; x=1779438163;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=9Y029AYLsU3gQyx7qK3mdElsxQO0fMSNbqm4SAjcN30=;
+ b=DqzQ6kXNmNvsmQH6e1Tswq1VahSqkPlcwsASEJpp3eSYYsRK3OVvZhLY/QFTzGQpZS
+ aUBRcHBhNReUHsaX843OCHU6E7YLST/nMx/BwQLk80dov+rNBBtVFIIRO1bxwSujxUjc
+ P8G3UhOZ49RfqQMGiv+GaJs6sf26fea2JMlBk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778833363; x=1779438163;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9Y029AYLsU3gQyx7qK3mdElsxQO0fMSNbqm4SAjcN30=;
+ b=lQkZyNZ2q4VDdtdfHxMBaFlUBjQvVR5q8G38bu2RDDatYW9OQeYVMzPi8C1jj+a5Q0
+ rU+gIBNTQ2W98ftsNpBr33mq47C1zVw0KZGxXbcA7iAMSBDVmjrj8n0ME8+E2qNwyRNW
+ p1TPFXsxTR6mbMkUdpQUee4nqAb9SWYz/aLtJZHbOtnufNDP8N8v8V3LjAsChWprsXtI
+ v2kcheF6ECDnY6bLI5qY2voYRX9srRh8HAFj8EId694wPtGe9ao4YMT31iSGcBiy8Byu
+ ujFCNaZaz+0za+ryKsYibtfIWD9v7ERoMy81ETXvCFDbOmHf5bWDehiBKrVt6/WN157Y
+ CUDw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+jP/XtwAg0pKMWWE5K/scDz5/A3bw5LtNgTc6Iblcp+7XtgP1zdybf0PNs0GBKsWPly9gkojl0WpU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyMJurLOTcfWXFHodpCPFjDQDxWvY5hAvtdsHZ07h7yEETZ+5Fe
+ zsb+YcZBeH2HTCZh8CagWd+Oh4uTteVF1b1cjxunZZIWyDApNi97TC2qj1glrnhr35M=
+X-Gm-Gg: Acq92OH8ZOby3Nv0INscC+HFPoqdCt+NNcgeHqOFKo28NRpnw+tG/jlUGnrRk0gXCsz
+ f3u5fo3C0F2R+86LH0ETB/RpbkzML0mMj9IYudllistVn+ZXLBtjkBPi89lbko5gcQ/LnB1IGxM
+ pZyfn+vilfD4UvNnFPi7Yw0JrjXEEsVo1ZMgDId5tjix4VxWOO8/TeGAaF3MN2w0IBfh7wPL8PF
+ ddgdrRXqqHOfKGQU106ESADOcoq10xPHke7TjorQYmTQugyssME5w5FfGL7T+bJ0ZCDisatAKNI
+ kLey4Oo4Ac6yCVZR+hXTdV7Mr0jpLuOavQA+g7HTbqstRSWIzi/EU+HFaWIS8a8tFykGhpG5xWb
+ 6lqf8RRKB8xQuJlCR1eQuAij5MPbHDhn0rt/zrxf1UpWyMxa2LgTLvfmn4uJ0yTulrVqhWzlm7L
+ RZUS3mlZZSmk2CuwPPE98mZlmFxOwy60dA+RsLAb945GIykDO7Ma5K4s3iz1NnUozDXwGUmeYlC
+ +jBQsLEtYfwgt7z2FdW0PtBOTmIQVvUsLAnnVO5FmkGOve1rdzUtYb5Zz0=
+X-Received: by 2002:a17:907:c291:b0:bd4:f594:8a59 with SMTP id
+ a640c23a62f3a-bd51792d179mr143825566b.38.1778833363275; 
+ Fri, 15 May 2026 01:22:43 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.112])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bd4f4e4d54dsm189529966b.47.2026.05.15.01.22.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 May 2026 01:22:42 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20260514-rcar-du-dsc-v1-0-d65f7a9e9841@ideasonboard.com>
- <20260514-rcar-du-dsc-v1-3-d65f7a9e9841@ideasonboard.com>
- <CAMuHMdVTgQp9WRiFpLX+pP7kOGF2v6oButALPu1B8QkYhVyvJA@mail.gmail.com>
- <6db159d9-56af-4d79-a1f1-9d5a6349b5ac@ideasonboard.com>
- <CAMuHMdVL9s=EHbw38kBzEVGa5-LawVY4YBUfSMA-6U+i3OSrbw@mail.gmail.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <CAMuHMdVL9s=EHbw38kBzEVGa5-LawVY4YBUfSMA-6U+i3OSrbw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Sam Ravnborg <sam@ravnborg.org>, Simona Vetter <simona@ffwll.ch>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 1/2] dt-bindings: display: simple: Add AM-1280800W8TZQW-T00H
+Date: Fri, 15 May 2026 10:22:00 +0200
+Message-ID: <20260515082232.1766586-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,69 +94,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Add dt-bindings for 10.1" TFT LCD module from Ampire Co. Ltd.
+as part of panel-simple.
 
-On 15/05/2026 11:05, Geert Uytterhoeven wrote:
-> Hi Tomi,
-> 
-> On Fri, 15 May 2026 at 10:03, Tomi Valkeinen
-> <tomi.valkeinen@ideasonboard.com> wrote:
->> On 15/05/2026 10:49, Geert Uytterhoeven wrote:
->>> On Thu, 14 May 2026 at 14:25, Tomi Valkeinen
->>> <tomi.valkeinen+renesas@ideasonboard.com> wrote:
->>>> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>>>
->>>> The Renesas DSC Display Stream Compression is a bridge embedded in the
->>>> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
->>>> 8k or 400 Mpixel/s . Add rudimentary driver, which currently acts as a
->>>> pass-through bridge and allows DSI1 to be operational on R-Car V4H.
->>>>
->>>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>>> [tomi.valkeinen: use bridge->next_bridge, minor changes]
->>>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
->>>
->>> Thanks for your patch!
->>>
->>>> --- /dev/null
->>>> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
->>>
->>>> +
->>>> +static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
->>>> +                                  struct drm_atomic_state *state)
->>>> +{
->>>> +       struct rcar_dsc *dsc = bridge_to_rcar_dsc(bridge);
->>>> +
->>>> +       WARN_ON(clk_prepare_enable(dsc->clk));
->>
->> Ah, just missed your comment and sent the v2.
->>
->>> Who don't you use pm_runtime_resume_and_get() instead, like
->>> rcar_cmm.c? Then you don't need to get the clock at all, and the driver
->>
->> Hmm, why wouldn't I need to get the clock? What does the runtime PM do
->> on Renesas?
-> 
-> Runtime PM powers on the power domain (if present), and starts
-> the device by enabling its module clock.
-> 
->>> will keep on working if the DSC ever ends up in a power domain.
->> I can add runtime PM. I just felt that it was overcomplicating a "dummy"
->> driver that just needs to enable the clock when the video pipeline is
->> enabled.
-> 
-> Funny, I would say you are overcomplicating a dummy driver by adding
-> explicit clock control ;-)
-Well, now that I know the runtime PM does magics behind the scenes, you 
-are right =).
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-How's "module clock" defined? Is it the first clock in the clocks DT 
-property?
+---
 
-I'll have a look at whitehawk too. The funny thing is, I had a 
-recollection that dsc was somehow used on whitehawk too. I looked at the 
-board, and saw only the single mini DP connector on the CPU board, which 
-already works, so I then concluded that the other DSI path is for the 
-GMSL... I think I need new eyeglasses.
+Changes in v2:
+- Insert the new compatible string in alphabetical order in
+  Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+- Replace WQVGA with WXGA.
 
-  Tomi
+ .../devicetree/bindings/display/panel/panel-simple.yaml         | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+index 3e41ed0ef5d5..617cf9d64627 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+@@ -31,6 +31,8 @@ properties:
+ 
+         # Ampire AM-1280800N3TZQW-T00H 10.1" WQVGA TFT LCD panel
+       - ampire,am-1280800n3tzqw-t00h
++        # Ampire AM-1280800W8TZQW-T00H 10.1" WXGA TFT LCD panel
++      - ampire,am-1280800w8tzqw-t00h
+         # Ampire AM-480272H3TMQW-T01H 4.3" WQVGA TFT LCD panel
+       - ampire,am-480272h3tmqw-t01h
+         # Ampire AM-800480L1TMQW-T00H 5" WVGA TFT LCD panel
+-- 
+2.43.0
+
+base-commit: 70eda68668d1476b459b64e69b8f36659fa9dfa8
+branch: am-1280800N3tzqw-to00h
