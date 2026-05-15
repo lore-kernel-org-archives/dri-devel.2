@@ -4,98 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB926CD4F48
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EB94CD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E762510E2F6;
-	Mon, 18 May 2026 07:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 186D810E6B6;
+	Mon, 18 May 2026 07:41:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NJu+Vk+i";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gf+s8wz+";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4DC910E238
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 18:08:28 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-bd4f81505ccso6374366b.1
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 11:08:28 -0700 (PDT)
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
+ [209.85.210.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B89610E114
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 13:05:05 +0000 (UTC)
+Received: by mail-pf1-f179.google.com with SMTP id
+ d2e1a72fcca58-8383fb7143aso4226388b3a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 06:05:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778850305; cv=none;
+ d=google.com; s=arc-20240605;
+ b=k94gjOU6Sxl4reSo6LvKVSQjwYjyUfdIDysEOrow0qhc7aC3YErNzK7Vi77We6ZMOI
+ 48Tnd+ebNfAfDrp1kidu2cKXIPqkS5LRx5tgK8eUV3bUKhjHcTJqL/gUdDuqyM7z0pKr
+ QmaqdEgD3CxPBMO57eFlv+TQ2PQMyTT1U9iJU857LGm5LkyqAuG1IaH0hPGk2g5FdV2q
+ 3cy2m0nChj+gDVHRbpl5P68yB2NpkQGf/zdNzEap5QXw3GCRoKJzhujQCXh6fUM2ZivL
+ Wv+5igMzjpa8JjHYpnyFLz+fvowRpxswIuuTzSyYQ6rBjwdi8AZuVM8ppsdX67jqU/kF
+ xnFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=l/9aFXPo/Kj5zdvPDq/cdhqAB+Pc0j5dY01OZPwhcM8=;
+ fh=v41vjA+mZqdUYt/Fu/pu5ImC+tLSqdC8bicX1z7MpK8=;
+ b=W6LKGs1jGcvi44zFlzofnztrZ/NljmM3igf9g/7ndoZvq8NOB4A9O6hdAxzTDxX3sI
+ iv87kxaalXPQES26WADa92ECCjp3GKAbOK0U+VQjgKygufFEojX5qt8in4qubUEHEai4
+ VSuZDjpHhqkuFJalDUfaCYyyRSE/Q2O5C+fuzAGzJpge9fNyAjdyBkJtykPSpJwiaXK2
+ jogA/HgtBDBY5aGwC8xrcmMMYyA3YdagF2FdssyQt/UDpD8/0PUH3I0l5OQw8cz4kPAL
+ +nzOonzPgkS43F2aa85AGXLF/c79WQyLzLaJbZmHxFRUoT+KLGKDMmrnkOv2LOimsaDR
+ oA1A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778868507; x=1779473307; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=la+O/bFtpnyaY0c5pxjy6SLIjk1Ilk22rZ0fIeKn2mA=;
- b=NJu+Vk+izmqoTks2Mx9CgRawXMfNH1olI5W1gvcGXDcugT/McYxF+08vnlmzltTM9A
- iCIlyVkjIoIKxweK2Eo9bjWRJ91usLFdJT+KYQKcUIi136dGFPGrGlD/ORq0IJgEjvvo
- bTC9U776KyW5Lf2xeR2kYbYHC3vxg2J17Mcoj/moI2DqMOkyDmk7z7EnO1CNwCusMbKg
- CCL9hkgZpx22dPJkDesBvPCGc5FvaO2bUZromFfUAd/AEWXEq/BB22WdTMcP17XbkKH7
- IK9j/rKJvIG2sa5PY7323ZIXhJu/Np5Byd/vqayxmWaP7IWIQiL9HDk92e/almGQXH4u
- n2nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778868507; x=1779473307;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1778850305; x=1779455105; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=la+O/bFtpnyaY0c5pxjy6SLIjk1Ilk22rZ0fIeKn2mA=;
- b=OQ2abn5uIZm5erUW/cNfj1AAz3ZtsM0fi/x0kja9t1vlEYA7EsRzB/U0NWb1ZihoIN
- JqeIWnZjmFjO/CcacfLDo12fsNh9BfaVxJldwXx8bHM7KhopIa4emBx//nXyzMFzpDNk
- YrIvBzW7hoPoCJWaM91MQH3CdJj6QiaMTTf/s9lGOdLH4mBl8LlyyEoGvmNEeuEDX24B
- lVRFpY3EEwj/cmKgzGwmvhvMqI5XWs7n0540RtS9jolVzCT0xoWIYWZ272qvv/B0L/QB
- jA0M3c2lA0oqIvKz1lFRcZu0NyqHvZnWrQXaaydDttCwiN8IV5RadrgdrdF/bEHSQWxt
- g93A==
+ bh=l/9aFXPo/Kj5zdvPDq/cdhqAB+Pc0j5dY01OZPwhcM8=;
+ b=gf+s8wz+WwpoargpoN2Qxzwarvm6G1jfsUzhVqtNy0tJnarCO2EQKUJWqbyEMmzbbo
+ EGUQVlbA1/JVvqiSrCfALpPinpKnGtOlZCa/i4cNayLG6NBxVub0ChqjtuxP1ZgTGiVf
+ FRGqOW3VWslkCz8mgcFUwPdciMOUU2j1NaGSl1g3rNrpgGjzLLnkYPz1PoKAPE6ZFRo5
+ PHwXiuaMaqkqmqT2qfOweo6UEqUWxBo0JReoLsr8Q+TT0vSoqMbQpSQXSQnK07mNzosw
+ xGW+VueIYZsqDcIeHPx+fg7aJFk7d1PncEVZ7VvEatzsRD7vGaqDFYpuGzr506TnB3za
+ FcBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778850305; x=1779455105;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=l/9aFXPo/Kj5zdvPDq/cdhqAB+Pc0j5dY01OZPwhcM8=;
+ b=Xm+Un4nHUP5dd76LKPuUcvqKuF1bnwtrJ6lQoMgXAPNs/TLfKHCFFJh3H1cwd5ZSUp
+ 0C1tsANugDPzJX2bSPHHlv8whF8jXz+46OWbzmiqNkGT0+/lGP0TYdmW0ZqTsZkSkFls
+ KoFE2T6GspuoSh99KhjxIp8j0BR9gnJvksAOG3jdY78ok3TIvK1tTWa5A8BSx39HmcKM
+ jYQkU7ZmsSq7K8lNJzj2Fr3ZPysDX2EeYccSLyEaN8y2B9XBJtnk7NvtZV8XJfwWOIaX
+ 9ATlqBNtQLXl6zcBDyNNPB1u1c8xUIq9/y/gOVI2vskE6z0FHBsBraJ0Cc/D0amLqIa1
+ Kalg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9cpIPymcsML0M7BCYdqc/zehL5hEA/vFb3IovDXucmTFvAP0c1K1LYGUoQF+8e656AEgQyuQnHw1Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNDU64z28fmuwdzDUjcQE8lWMUi05lRaYKW1dubcI8lS90qG7g
- YQAqDZmQ3Mv6+XxMKGQxWIBk4CgKkd7MOU3rcnfWfmjUYoV6mjkrKzw9
-X-Gm-Gg: Acq92OFge1spweVpTThtd1kQzZZHIvf61+K/IEv7i1KeayENOzdsLngojRqRT4wve3M
- bamS8Qx3oqr0MubBYuX4DvMKGPhdGP8T2Id+nxWLV3NoY2q+tpfy8qfART58alPtKD0xhDcEJaN
- LWQ2Oun3M8rYgRhGQ/L/tXjWT9Zk3p2MfR9j+0Wd5KAy/34yfUUB5ZmeJlEaQci6jTS4QW6kc1l
- EWOOw9D2u+FEaPxjhmaF5p+C9SP69weD81zfxQexF3R8oMpHg23+m0DDxrllknVxPh/MzoPSA3f
- pm9yg5TuMKuHqUD4lIzL991C0GUtrB/6I0Y9ICNqUljLSfVVDdct3f0XjTNqCuaq7TT2HSG7gYp
- 97Xg3SxmSgMagKpuSbbvpwoF8PKEvglg2eOP76Daw1q5NF9n97QmJj4EGBLHOo+nZk3mQ+euboT
- knnBfICVdoppCMcx8DEHva1mnvfY5a/oXv
-X-Received: by 2002:a17:906:6185:b0:bd0:6dbe:22b1 with SMTP id
- a640c23a62f3a-bd5177ec5dfmr278321866b.12.1778868506983; 
- Fri, 15 May 2026 11:08:26 -0700 (PDT)
-Received: from pc-oliwiera ([2a02:2a40:4bf0:bd00:6130:de6:bb7:addf])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bd4f4bd1bc9sm263471566b.9.2026.05.15.11.08.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 May 2026 11:08:26 -0700 (PDT)
-From: Oli R <sigmatwojastara@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, Shuah Khan <shuah@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- "Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>,
- linux-arm-msm@vger.kernel.org (open list:DRM DRIVER for Qualcomm display
- hardware), 
- dri-devel@lists.freedesktop.org (open list:DRM DRIVER for Qualcomm display
- hardware), 
- freedreno@lists.freedesktop.org (open list:DRM DRIVER for Qualcomm display
- hardware), linux-kernel@vger.kernel.org (open list),
- linux-crypto@vger.kernel.org (open list:AMD CRYPTOGRAPHIC COPROCESSOR (CCP)
- DRIVER - DB...), 
- linux-perf-users@vger.kernel.org (open list:PERFORMANCE EVENTS SUBSYSTEM),
- linux-kselftest@vger.kernel.org (open list:KERNEL SELFTEST FRAMEWORK)
-Cc: Oli R <sigmatwojastara@gmail.com>
-Subject: [PATCH] treewide: replace /usr/bin/python3 shebangs with env python3
-Date: Fri, 15 May 2026 20:07:59 +0200
-Message-ID: <20260515180806.246914-1-sigmatwojastara@gmail.com>
-X-Mailer: git-send-email 2.54.0
+ AFNElJ9f63lEffglqYE6CD3o44X8ACP3W0bBUPIX4bF0oxSANIqen7WMV9xCDzQHFGTB1UaqhxSiVX2Kb50=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcX65581cI7unRFVxDEEed+aw2I1BY7BVHp8WwF93UXcfbPrNN
+ h5UnU11HJyoiBwSFTLKasZ+KkeAhchuWW/xqYcT/IG8a2DKfuhqceeH3JzBOv1ogpjok5MkTEsQ
+ La4Vt2Geps5Nt+SpQIbGph4N9RL7nLNg=
+X-Gm-Gg: Acq92OEsX4oYyKjh2GyEpAq6Vah72Mr1FAlLT/bZAcdQs7Dx/P39uNxEdtFMr/0B5JL
+ NFuSM4vGEQaYLzBxSOarnuenXrVzL9JY7AYWNDUTutI+BVJhBY5M6uTXJ8+/vUPu/nP66wvL7LH
+ i4nkn1N8H7WHKh7AWicc/idUBfqs3jyrhyDj8vzCc4t5kpkIEovMMRGBdnOJiytN/DcfC8VLlPY
+ ul8FLoLYXPZmnNsdYgAg6TilRWvMuKkZuYQJ+1kfqtpEdSbg43lGkh98Npw2IXbS9NNHRNWlfpu
+ IwGJ1PmGK10x7KY9lRhOMku2x4ZguiMAnC51V7g8H0TJU7bjphVd
+X-Received: by 2002:a05:6a00:1ca0:b0:827:2ee0:411f with SMTP id
+ d2e1a72fcca58-83f33bc8fc4mr4111977b3a.4.1778850304834; Fri, 15 May 2026
+ 06:05:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260507144425.2488057-1-liviu.dudau@arm.com>
+ <agb9Bq2y6tq0z6at@e142607>
+ <55dfe576-6c49-4051-92e3-a0a678ba8187@mailbox.org>
+In-Reply-To: <55dfe576-6c49-4051-92e3-a0a678ba8187@mailbox.org>
+From: Erik Kurzinger <ekurzinger@gmail.com>
+Date: Fri, 15 May 2026 09:04:53 -0400
+X-Gm-Features: AVHnY4KlpvaVCRlU9XpcXQy4LUQWZNayTYPhiwFxR5aspYXHEdVReyCcOGODxlI
+Message-ID: <CAMPXRisk4anhOgrtfXvw7Pvy+MSg_b48zkbEgEOAg+4R1UW3Fg@mail.gmail.com>
+Subject: Re: [PATCH] drm/syncobj: Fix memory leak in drm_syncobj_find_fence()
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>, 
+ Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, Sam Spencer <Sam.Spencer@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 18 May 2026 07:41:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,104 +112,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use /usr/bin/env python3 instead of hardcoded interpreter paths
-to improve portability across environments where python3 is not
-installed in /usr/bin.
+On Fri, May 15, 2026 at 8:58=E2=80=AFAM Michel D=C3=A4nzer
+<michel.daenzer@mailbox.org> wrote:
+>
+> On 5/15/26 13:01, Liviu Dudau wrote:
+> > On Thu, May 07, 2026 at 03:44:25PM +0100, Liviu Dudau wrote:
+> >> Commit 18226ba52159 ("drm/syncobj: reject invalid flags in
+> >> drm_syncobj_find_fence") forgot to take into account the fact that
+> >> drm_syncobj_find() takes a reference to syncobj and returns early
+> >> without dropping the reference, leading to memory leaks.
+> >>
+> >> Fixes: 18226ba52159 ("drm/syncobj: reject invalid flags in drm_syncobj=
+_find_fence")
+> >> Reported by: Sam Spencer <sam.spencer@arm.com>
+> >> Signed-off-by: Liviu Dudau <liviu.dudau@arm.com>
+> >
+> > Ping on this patch.
+> >
+> > Erik's email address is bouncing, anyone else willing to give an ack?
+>
+> Trying Erik's gmail address.
+>
+>
 
-No functional changes intended.
+Whoops. Thanks for fixing this.
+And, yeah, I'm not with Nvidia anymore.
 
-Signed-off-by: Oli R <sigmatwojastara@gmail.com>
----
- drivers/gpu/drm/msm/registers/gen_header.py                     | 2 +-
- scripts/macro_checker.py                                        | 2 +-
- tools/crypto/ccp/dbc.py                                         | 2 +-
- tools/crypto/ccp/dbc_cli.py                                     | 2 +-
- tools/crypto/ccp/test_dbc.py                                    | 2 +-
- tools/perf/tests/shell/lib/perf_json_output_lint.py             | 2 +-
- .../selftests/devices/probe/test_discoverable_devices.py        | 2 +-
- tools/testing/selftests/rseq/rseq-slice-hist.py                 | 2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
+Acked-by: Erik Kurzinger <ekurzinger@gmail.com>
 
-diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
-index 2acad951f1e2..10316f517a7d 100644
---- a/drivers/gpu/drm/msm/registers/gen_header.py
-+++ b/drivers/gpu/drm/msm/registers/gen_header.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/python3
-+#!/usr/bin/env python3
- #
- # Copyright © 2019-2024 Google, Inc.
- #
-diff --git a/scripts/macro_checker.py b/scripts/macro_checker.py
-index ba550982e98f..7dbb114a57d5 100755
---- a/scripts/macro_checker.py
-+++ b/scripts/macro_checker.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/python3
-+#!/usr/bin/env python3
- # SPDX-License-Identifier: GPL-2.0
- # Author: Julian Sun <sunjunchao2870@gmail.com>
- 
-diff --git a/tools/crypto/ccp/dbc.py b/tools/crypto/ccp/dbc.py
-index 2b91415b1940..cd56a63aa8ce 100644
---- a/tools/crypto/ccp/dbc.py
-+++ b/tools/crypto/ccp/dbc.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/python3
-+#!/usr/bin/env python3
- # SPDX-License-Identifier: GPL-2.0
- 
- import ctypes
-diff --git a/tools/crypto/ccp/dbc_cli.py b/tools/crypto/ccp/dbc_cli.py
-index bf52233fd038..bfe34f01e619 100755
---- a/tools/crypto/ccp/dbc_cli.py
-+++ b/tools/crypto/ccp/dbc_cli.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/python3
-+#!/usr/bin/env python3
- # SPDX-License-Identifier: GPL-2.0
- import argparse
- import binascii
-diff --git a/tools/crypto/ccp/test_dbc.py b/tools/crypto/ccp/test_dbc.py
-index bb0e671be96d..0ee3da6c6be7 100755
---- a/tools/crypto/ccp/test_dbc.py
-+++ b/tools/crypto/ccp/test_dbc.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/python3
-+#!/usr/bin/env python3
- # SPDX-License-Identifier: GPL-2.0
- import unittest
- import os
-diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/perf/tests/shell/lib/perf_json_output_lint.py
-index dafbde56cc76..dccafd507bb7 100644
---- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
-+++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/python
-+#!/usr/bin/env python3
- # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
- # Basic sanity check of perf JSON output as specified in the man page.
- 
-diff --git a/tools/testing/selftests/devices/probe/test_discoverable_devices.py b/tools/testing/selftests/devices/probe/test_discoverable_devices.py
-index d7a2bb91c807..72a94bbfbc7b 100755
---- a/tools/testing/selftests/devices/probe/test_discoverable_devices.py
-+++ b/tools/testing/selftests/devices/probe/test_discoverable_devices.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/python3
-+#!/usr/bin/env python3
- # SPDX-License-Identifier: GPL-2.0
- #
- # Copyright (c) 2023 Collabora Ltd
-diff --git a/tools/testing/selftests/rseq/rseq-slice-hist.py b/tools/testing/selftests/rseq/rseq-slice-hist.py
-index b7933eeaefb9..2c43b2e2bf0d 100644
---- a/tools/testing/selftests/rseq/rseq-slice-hist.py
-+++ b/tools/testing/selftests/rseq/rseq-slice-hist.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/python3
-+#!/usr/bin/env python3
- 
- #
- # trace-cmd record -e hrtimer_start -e hrtimer_cancel -e hrtimer_expire_entry -- $cmd
--- 
-2.54.0
-
+> >> ---
+> >>  drivers/gpu/drm/drm_syncobj.c | 10 ++++++----
+> >>  1 file changed, 6 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_synco=
+bj.c
+> >> index 8d9fd1917c6e6..c9dbf64c0c9f2 100644
+> >> --- a/drivers/gpu/drm/drm_syncobj.c
+> >> +++ b/drivers/gpu/drm/drm_syncobj.c
+> >> @@ -442,13 +442,15 @@ int drm_syncobj_find_fence(struct drm_file *file=
+_private,
+> >>      u64 timeout =3D nsecs_to_jiffies64(DRM_SYNCOBJ_WAIT_FOR_SUBMIT_TI=
+MEOUT);
+> >>      int ret;
+> >>
+> >> -    if (flags & ~DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT)
+> >> -            return -EINVAL;
+> >> -
+> >>      if (!syncobj)
+> >>              return -ENOENT;
+> >>
+> >> -    /* Waiting for userspace with locks help is illegal cause that ca=
+n
+> >> +    if (flags & ~DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT) {
+> >> +            ret =3D -EINVAL;
+> >> +            goto out;
+> >> +    }
+> >> +
+> >> +    /* Waiting for userspace with locks held is illegal cause that ca=
+n
+> >>       * trivial deadlock with page faults for example. Make lockdep co=
+mplain
+> >>       * about it early on.
+> >>       */
+> >> --
+> >> 2.54.0
+> >>
+> >
+>
+>
+> --
+> Earthling Michel D=C3=A4nzer       \        GNOME / Xwayland / Mesa devel=
+oper
+> https://redhat.com             \               Libre software enthusiast
