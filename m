@@ -4,84 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B653CD343F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 011C3CD4F3D
 	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 07:13:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF36D10F426;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE59310F421;
 	Fri, 15 May 2026 07:13:11 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TMCRaVUP";
-	dkim-atps=neutral
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9165B10F3E7
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 05:42:38 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-82fbdd60b64so6559990b3a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:42:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778823758; x=1779428558; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0S90v3cSnC5Da6GOQpoJCPTnbSf2YszUbZPGAtd7qaM=;
- b=TMCRaVUPnn3cdu94GMr6T2zJlFk0moGFA//MMr9oOhkCzwPZCWFIk2gaHzuchOE9EM
- mAiOO4WUYlhN4Ef+aUpslMH6WzROg/wYe64aRr8EoX9gnsH+3AEZFLE1Owfhsds+qKUn
- Q19vuPQ369SQQNHd0ijvWmpRLrwdMeTmPjEPvzI9TkkgDndt/Oe06QEkvqHpoNz2py5f
- ST1L9N9Mx0r2B8GSW9yt2z2M7IeiquKJDbCUYHaDP4k4CB1ZchSt/VsI7hMpzFnbzah+
- ZSaOWfoxMaBKHU12Q50CteLqj01Zv77xnPHtv4ZoWaDszFlhNgkhLPXe5rum6ArCdN27
- gS7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778823758; x=1779428558;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=0S90v3cSnC5Da6GOQpoJCPTnbSf2YszUbZPGAtd7qaM=;
- b=NSIyy0GhhjHEPIGSyeULaj00mm2yIIjKB1PZywbAVgqv/ZIia7F1ciyj2KMvMyzAbB
- 7kX703g13KCZ9TOCoDZ0OkJRO5xY99veHi/fIvRQndWJvSuLlHMVG90verjC9Vo99dzW
- J7s5eRVYn6NZDCzkDrw9kVm39LVStcTRGMgQZL0pDo8XheMgVRnz2ykfIXZjQHPoz2IA
- f9SHnl614Ro2SXnk+VY4xWhDfBavn3h2BozZGEkY+3Tsctaef8jsV62OC/UMZE111VNa
- mCbWKnsYdiZPpAH2rgGnKOxUjyUgYtf0G7pJJ9sCE5nZay52FRnYj6o2RW0xpNHQ8kiE
- 9ApA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/6T5XSvKRJHF20OP+b7Z20vt6InY7rJYJIdWzd3I0d+rerGtXJGUdmqbhyLZ5PzuLrawd25pQR7g4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+UvN7CHzoffyAw93pTwcQQXyI5iitaW/wv1Kff8C+8TT1fQ6l
- e6/xTETEM3UECUSXrRm//im19VMFeQ44AEV7OmtM8pMt4hkF17SGJvie
-X-Gm-Gg: Acq92OEdLLo3F6DX7NQ5Z37PBx7ztt8uS//xY3uEj2AURXKZo0Vy6SYeluIK+KAnkHD
- oSziyi3uo5K12wx6sy4+ib7CiFvXLqET72QYHcMRH9WKRWZRLQfuVvWGlThYdFtOfiGUq/YJEu0
- YhGXJ6rLq104yerrjIGR3GiC8tS1W18lefKXG8X6+YSi/6LhBPgyPhlKG7Dh6WgooHC6wcJOEeN
- XZP4uZfZKqGL3kXwmHESi34Egk06WYIaRs3sP1pmZDmWdACOVVxwboLL/76kEDjABP8p7xZ6SNA
- CtVr3wFuQyGonGAZJhTr5G+nlm+0lCz5ed3rXUmzQPezpK5uDpVAXhmbf+xbDIyX37wCL5FlGvA
- lbEUMyBMQ6RAdMAjiUQg6lzupBnWl8VNGfv3EgRzhMQYGpuhBgE1sV8W3JxeHs+16derroFGRVX
- YJQAZovlpTcvXjGzC/dyvGx45EK6/UwUp2DJaHZ4/1knpymJAx44KrXLyEDMqKzbi3qTX1boPAF
- ryDTiomQv0/IGhcYPwQXdmjOCw=
-X-Received: by 2002:a05:6a00:400a:b0:835:cc47:6fe7 with SMTP id
- d2e1a72fcca58-83f33d96b70mr2736897b3a.30.1778823758064; 
- Thu, 14 May 2026 22:42:38 -0700 (PDT)
-Received: from harrison-Surface-Pro-12in-1st-Ed-with-Snapdragon.wework.com
- ([203.117.161.34]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83f2b9bec8fsm3106116b3a.33.2026.05.14.22.42.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 22:42:37 -0700 (PDT)
-From: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, jikos@kernel.org, bentiss@kernel.org,
- luzmaximilian@gmail.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com
-Cc: Douglas Anderson <dianders@chromium.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: [PATCH v2 2/7] dt-bindings: crypto: Add x1e80100 inline crypto
-Date: Fri, 15 May 2026 15:41:47 +1000
-Message-ID: <14cd42e3d3af4b2591c9dd8dffde11ef18666751.1778822464.git.harrison.vanderbyl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
-References: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E6BF10E401
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 02:02:20 +0000 (UTC)
+X-UUID: 17988f08500211f1aa26b74ffac11d73-20260515
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:760c5b62-446b-4af5-b661-e25add304837, IP:0,
+ U
+ RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:20
+X-CID-META: VersionHash:e7bac3a, CLOUDID:7671be52743ff18bfacf7cc4190eba34,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:102|850|898,TC:nil,Content:0|15|50,EDM:5
+ ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
+ :0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 17988f08500211f1aa26b74ffac11d73-20260515
+X-User: yanlonglong@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yanlonglong@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1355092927; Fri, 15 May 2026 10:02:14 +0800
+From: Bob ynn <yanlonglong@kylinos.cn>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, Andy Yan <andy.yan@rock-chips.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@idesanoboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ yanlonglong <yanlonglong@kylinos.cn>
+Subject: [PATCH] drm/bridge: synopsys: dw-dp: fix bool function returning
+ negative error code
+Date: Fri, 15 May 2026 10:01:55 +0800
+Message-ID: <20260515020156.601-1-yanlonglong@kylinos.cn>
+X-Mailer: git-send-email 2.47.1.windows.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 15 May 2026 07:13:06 +0000
@@ -100,26 +69,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add compatibility string for the x1e80100/x1p42100
-inline crypto engine.
+From: yanlonglong <yanlonglong@kylinos.cn>
 
-Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+The function dw_dp_video_need_vsc_sdp() is declared to return bool, but
+it returns -EINVAL when dw_dp_get_bridge_state() fails. Since -EINVAL is
+a non-zero value (-22), it is implicitly converted to true, which is the
+opposite of the intended behavior
+
+Fixes: 86eecc3a9c2e("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Signed-off-by: yanlonglong <yanlonglong@kylinos.cn>
 ---
- .../devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml    | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-index 876bf90ed96e..a338c4a33e98 100644
---- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-+++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-@@ -24,6 +24,7 @@ properties:
-           - qcom,sm8550-inline-crypto-engine
-           - qcom,sm8650-inline-crypto-engine
-           - qcom,sm8750-inline-crypto-engine
-+          - qcom,x1e80100-inline-crypto-engine
-       - const: qcom,inline-crypto-engine
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 21541be094c4..7b99d91b3456 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1143,7 +1143,7 @@ static bool dw_dp_video_need_vsc_sdp(struct dw_dp *dp)
  
-   reg:
+ 	state = dw_dp_get_bridge_state(dp);
+ 	if (!state)
+-		return -EINVAL;
++		return false;
+ 
+ 	if (!link->vsc_sdp_supported)
+ 		return false;
 -- 
-2.53.0
+2.43.0
 
