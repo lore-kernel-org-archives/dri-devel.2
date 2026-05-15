@@ -4,78 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 449D6CD4851
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 09:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CECACD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 09:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85D1810F4B3;
-	Fri, 15 May 2026 09:12:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9943B10E0CF;
+	Fri, 15 May 2026 09:17:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="reZNZpB+";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="dQYHBp41";
 	dkim-atps=neutral
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Fri, 15 May 2026 09:12:16 UTC
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39D0F10F4B3
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 09:12:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1778836336; x=1810372336;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=JF3uZsy6llHlDV7C7vLRRmWCmal9y3CobKnloKpst78=;
- b=reZNZpB+VcjqshqSvYUgoLBEeP21vrB8EkgJcDajdHmzi1EbXvAcZZyH
- dKtYbZa5O1V0vTwClC+LQ91iyUKOtjNT7Zzt5kmQuH7tGxOa4U/pXftsp
- acCdTNBPXHN00TR4QOi7Pb+u3n0jc2oL/nS71wsQOV1u1jYmVef6qK5WU
- PIK8317LN42Ch6lwgy9Jo4hcR0d+n6ZcV1DPFy4HB7qCgaE6+6S00WtC+
- ZJgz/YIWGby+/YG4wzEX3sUUmuKtpzIKqecMFd/9AStXCfW6YYPCgQA1m
- OIpqQrQKNJA1DZjY+5ErY3s0oq+hFRMxNiW7nupjClEGR+Jw5xsgd1FiW g==;
-X-CSE-ConnectionGUID: aBy8wa7JRn+FUchmSVlp4w==
-X-CSE-MsgGUID: fbVAwTCTQfC/IGhAcLgkpA==
-X-IronPort-AV: E=Sophos;i="6.23,236,1770620400"; 
- d="asc'?scan'208";a="57964607"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2026 02:05:08 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.37; Fri, 15 May 2026 02:05:08 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex01.mchp-main.com (10.10.85.143)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 15 May 2026 02:05:03 -0700
-Date: Fri, 15 May 2026 10:04:25 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Damon Ding <damon.ding@rock-chips.com>
-CC: Conor Dooley <conor@kernel.org>, <hjc@rock-chips.com>, <heiko@sntech.de>, 
- <andy.yan@rock-chips.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <robh@kernel.org>, <krzk+dt@kernel.org>,
- <conor+dt@kernel.org>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
- <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <nicolas.frattaroli@collabora.com>,
- <cristian.ciocaltea@collabora.com>, <sebastian.reichel@collabora.com>,
- <dmitry.baryshkov@oss.qualcomm.com>, <luca.ceresoli@bootlin.com>,
- <dianders@chromium.org>, <m.szyprowski@samsung.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-rockchip@lists.infradead.org>, 
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1 1/3] dt-bindings: display: rockchip: analogix-dp:
- Expose inherited properties
-Message-ID: <20260515-confess-hungrily-4f64ce0d8de2@wendy>
-References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
- <20260514070133.2275069-2-damon.ding@rock-chips.com>
- <20260514-upstate-sneer-0b6e78682798@spud>
- <2f653664-27e9-4632-97e9-8b59cf7e585e@rock-chips.com>
+Received: from SY8PR01CU002.outbound.protection.outlook.com
+ (mail-australiaeastazolkn19010075.outbound.protection.outlook.com
+ [52.103.72.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5F1610E0CF
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 09:17:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tt+C4Gjj4x8L7tvEy6CuysWspO3UWtbGcpa2ddzdsYJmA5FbmUSJ6McNC8XWs3OF1LPrgsfVMm4FmPd7DFuwABo6mFvRGEvXZduU5+lYlsu4tWgtLaXBx3SrGmsw/62eMXSoQc/py9aOZK1lH9CZxXTqg+ZqRpNbwfGymKn/5ZFl+KRUC6Ji/vO/JrQHcbA8ndj295021xsr0bde49RDsAXH7+De7reegIuPyrnkC6AObQooxlk10NyUKXLLLkQ6tbEPlPmSt/Z12VU9tAYDErWAkaXMDcPNecxe9CYG7kFsDBflWqxlUfmm2AssDXC6U//duXwQ6WBNqCHb6cTw7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CTH+kRt+3gqjIzKfMXGexkgWXGv50dwPfmox1sJJnSA=;
+ b=ExxxuBY7CdSgCVlOAeqKCscBgw0jKVC7GHhfPC5VnsD+XzQOmoyt+/qDUR9paZobPILn056lupVIwqZ0FUg3DOq1uCGmdDpMrSP1DBX1n9BVWfAUJZDjwdiPUte1a1FfpnZhFbkcleYK0Qn0dDbAFKuddbpBJku+CdQQKe2bcDIJxr521b9fGaaJ+QSPfDvVKxNU1ijGH2A6JbaWenjDa9izQnFkaVm7WVUzUcDFjxlkUR8WKsziXGMXZMfZSjO8oGP3ueu7t5aDw6Dik/jtloX3nC1/1yAUYC9MmcV3385xQc9lcosD5XgI6Cpwn3Hd5C8xDRSGLEWMyVxqCz2Sxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CTH+kRt+3gqjIzKfMXGexkgWXGv50dwPfmox1sJJnSA=;
+ b=dQYHBp41BLRaiLmRnuZeHsYIqFzitOWI7x2WnXvFFNKTev846vi7U283v1BAD6AUBMsh8PK0wWFdz1m9MzbtLIr8LG2Zfb61mYATiWxm8bpSWTpLQu/da2PRmH/EoeCpF8ix2/5vhiKRVJTkFaIH2941g7f0UZKksa5269nyp1XIeOCGWSrS+F90l6cvjlUiqg7FsUCOUsLtZYko22fGMKVPwQq8I+zQeLqz+b8Mo3QJbpdOVL9FRZDYZfZ/037dpXwKZYd7aDkeXFzeiK4sVYxRXW23v6gEOXR57IqtHuaJTtgqOwuhopfHy9xJdtWEXm2ge95sRMtXpJD5pF2knw==
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
+ by SY9PR01MB11031.ausprd01.prod.outlook.com (2603:10c6:10:323::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.19; Fri, 15 May
+ 2026 09:17:14 +0000
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c%3]) with mapi id 15.21.0025.016; Fri, 15 May 2026
+ 09:17:14 +0000
+From: Junrui Luo <moonafterrain@outlook.com>
+Date: Fri, 15 May 2026 17:16:03 +0800
+Subject: [PATCH] misc: fastrpc: fix DMA address corruption due to find_vma
+ misuse
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <SYBPR01MB78819393A1F4FA658B2AB076AF042@SYBPR01MB7881.ausprd01.prod.outlook.com>
+X-B4-Tracking: v=1; b=H4sIAFLkBmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDU0NT3bTMitRiXQMDc8NEU0sjS8tUUyWg2oKiVLAEUGl0bG0tAMTflQp
+ XAAAA
+X-Change-ID: 20260515-fixes-0071a59299e5
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Yuhao Jiang <danisjiang@gmail.com>, Junrui Luo <moonafterrain@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1389;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=HYfAoouaWF48muOf3K2vQvoKmzyJXDLag48ZwcWoLXQ=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGLLYnQUqmtqJ/tIrTz8jPnFCxo819851iT7dnJ6ea/
+ ozZK2Gr1NJRysIgxsUgK6bIcrzg0jcL3y26W3y2JMPMYWUCGcLAxSkAE3lmwvDfRyX3gLix/5o3
+ giu0Vsz19Zhy4/9URxUnhjk55RtXsmo7M/zT4A/w235z1c/2jW8cr5zKqNp+79Eav2m3FCv3yMu
+ I3jDiAwDio0nw
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-ClientProxiedBy: TYCP301CA0085.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:7b::7) To SYBPR01MB7881.ausprd01.prod.outlook.com
+ (2603:10c6:10:1b0::5)
+X-Microsoft-Original-Message-ID: <20260515-fixes-v1-1-26d6ead8b8d9@outlook.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="JTEOF7u1knQLxomm"
-Content-Disposition: inline
-In-Reply-To: <2f653664-27e9-4632-97e9-8b59cf7e585e@rock-chips.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SYBPR01MB7881:EE_|SY9PR01MB11031:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96f9f053-cfc7-4316-c30e-08deb262c06a
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|19110799012|15080799012|23021999003|41001999006|8060799015|5072599009|51005399006|24021099003|6090799003|55001999006|5062599005|24121999003|22091999003|440099028|3412199025|31101999003|40105399003|1710799026;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QTRlbkFob0Mvcyttdmtad25LZnJVUFJEVlQxUHJFUXBIVEZQZFRXTlBQVjR2?=
+ =?utf-8?B?K2tDSHZhaGhtSGQvY2VveXRGbWxXTVhSZ0tCWTBOaDFOL3RVcTl4a1pqN050?=
+ =?utf-8?B?cnNxaXdlVnIzZlB0THBEM1pPcVRjWjVWbFZSNXZMYk84aDBjUERSNjBiZzdv?=
+ =?utf-8?B?TEZaZ3dVaEtzZGVSYXhXYlJFMy94cVpJRFhrV1VwTk1oOHE0bWRMRXlrd3ZZ?=
+ =?utf-8?B?d1FpVlV1bW52ODZ1N1lReEdjd0QvK0ZIZVE4dVlzRi9YdzRvY2p5RG9FQkNk?=
+ =?utf-8?B?MVFVQTlmWndaVjQ0aDBIbWtiMUFzS2tQNDVIS1ZaTWtteVRNODVNT2JLalNn?=
+ =?utf-8?B?YlkyTm05VXV2TkY0eVRTVFQ2TTQ2UmZIRExpM3h0eWJzb3VjWVhyZnpnaDhy?=
+ =?utf-8?B?eG52cEIzTUZ6RHI1UmxhRFhVYTFaeEhTY09paVlqQTZsM0JoNi9EVVZvTzRN?=
+ =?utf-8?B?VVloM0RhYzY4ZEc0ZnV1NEVWc3lwUktibmxST2ZLRnhhVXFNS1F2TDE0K1VD?=
+ =?utf-8?B?U1lsYnVEMVljYUp6MDBHVk5DaGI0L1JiaGRZb1dpb05GYWIrNWNWNFI2anJp?=
+ =?utf-8?B?eWFOc1lPcmQ0Z2hjSnR2dDRLL3ZaMTI3UzJHNVBqa0NkeCtFbzg3eFAxNklo?=
+ =?utf-8?B?SFNVWCtQeG1sYzJQWHdYNThoYk5HVDFEb3NERkxDQjRGMlNWbUphU0YwdGNl?=
+ =?utf-8?B?OG1jRnZXcDZxaXpZSWhxazRCUHZzWXBRalBHMmxGU1R1d24rRmgrYklJT1dm?=
+ =?utf-8?B?dUxoV2xGYUx5RVJhcHFXeUNZZFBheWViM0NGcy8zQzNvWlVkQ1FTZ1JMcVVB?=
+ =?utf-8?B?LzQreDZ3U1A1THExUU5MTHZ2cTJ2QmlJTUdKT1FYTkNzUFJOaksxNzJlTEVt?=
+ =?utf-8?B?dUJNZFd2S2ZnYUx5YUJXbjdzemlhcEx2QlUrTFNFNWQ0SUtwelQySFhDVmRs?=
+ =?utf-8?B?b21sL0VLcHJ0NFdPaWpWaU4rYTZMYXpiVVhFNXp0OUVzcHk3eWZPV3JwdytJ?=
+ =?utf-8?B?Rmw5MDBEdDNIRXMyOUlyL3pkVStCS3R3OERaUStmdDdCMjZwK0NjRHNycEJ1?=
+ =?utf-8?B?K0NMSU5tRmpTRGt0cGloM0RMcjd2Zkx4aWVQSFhBMnljeHJObHQ3dWx4NlFL?=
+ =?utf-8?B?S3d2Ym5jWk1YZ3hZR1NlVTRiYlJCT055K3RRUXEvYUcxR3AzNzlEamQ3T3Q2?=
+ =?utf-8?B?UTNxNGQ0S1JGUGFJTG5ReHNUL3FobTBoaHRCNmJodSsxVWtFRTJKUVVZdFg5?=
+ =?utf-8?B?TURGOEk0SXgxbmVSRG9QKzlkRGFQQWh2R2FMWk91aXhXRjcyWnZYemRhYklJ?=
+ =?utf-8?B?aVBUYi9aMUNxa1F1cVh2dGhRN1orM0JoZWlhRndYUlMwYWMrdXBOVkJMeHV0?=
+ =?utf-8?B?Q1phQ3FGRjM5eWFOcHpLQXJQK21IKzdnanNEaCtieUMrdlB3cUZ4UVg0TDlC?=
+ =?utf-8?B?bENUdHFDTkE3Ny9Wdnlwd0FpODFuUzFHN1EyenArSXYzaXBjc1NPOHRMNHVB?=
+ =?utf-8?B?L1dXL0lBUEFZZzRjQ08zaUJXdERCdGlhU0ZuUy93TlJLdlRjN3JyVjJGWmpS?=
+ =?utf-8?Q?ZiEJK29Nj8rZwidm/9/zP/9O0mkdmj5umRkQu4w7AT8Tlo?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3Rha0tqWWQ1ZmxxMW13dGd2TEZRSHFaUFMwZGlyNjdreXE3Y0hDc204cWlI?=
+ =?utf-8?B?cTRTWUFCYW1OQWxqOVoxZnJOeDVGL3o1VHdmMHR4QnNTZStXYVVrVHNRSXky?=
+ =?utf-8?B?NFJod2dWV1NjbFFNVmlTUmphdnd3UkxaQjhDRUFnVmdzS3ZxY3BKbFFyT0xS?=
+ =?utf-8?B?clNGaG53LzhDZHQrUkRuaHQ5aExZVlljV1dQaUxKWHg1M3lLMEgzV0J2R1kx?=
+ =?utf-8?B?cG1uRkxodFJXTjEvUFdpa0hTZy83UkFpUmVNYVhGNitpVFdNTUw1VERHRHhP?=
+ =?utf-8?B?QVFtZlpQTmNCNnVLRnNvK1pjd3R1bWRyRmd6QmJWbUkyUVZBU1REU1N1SkVP?=
+ =?utf-8?B?Y2JQZkQvYit4c3FIWGN3MUdtcEhGZjZhZDBPblFQODJGb0ZaaTRPY3VWd2xu?=
+ =?utf-8?B?cXdrZGh5dUpyVHhqSVZhejY4eFp3dEhtejkxbHBxZFZHVXBIYWtMRmxVYkRV?=
+ =?utf-8?B?dXpDL280UUtxbFJxdkNxd0kyZ1NlNlNiSXNxMDc2UUw4MS9LVEU3U3NNU0dV?=
+ =?utf-8?B?ek9ob3cxOEgyeTBRMTB1Q3NSVXZwVUxRMEVoVERCOE5Gc2QwbUhvVWdHNm96?=
+ =?utf-8?B?b2lrRUYrcGZRcm5lZGtYOENnWWxnOGFOaStNK3dyUXFSdGZTNmZzd2Y4NzV2?=
+ =?utf-8?B?SWw3blk0UERVenhJYUJaTk43ekg2d0RCTWVTb1JMek1IaXExYlE0ZGlHc1Jr?=
+ =?utf-8?B?alE1Y3pZUVJrb1lMTkFuSjBaZVF1OUJJU1NZNnNzT05sZVljakgrc1NSKzNJ?=
+ =?utf-8?B?amtFTWd2Y1FwRFI5ZWJ0TFpFNGFld3I1azd1djFsY3BGRWFiT1JUU251V2c2?=
+ =?utf-8?B?TW5YUUNxY1hxcmxGVmtybDdJcTR0ZFhKaUtLRk9NUC9tYThzMGdTRVozNFVN?=
+ =?utf-8?B?WGFGTTNidlhTVjIwK1lqUkwrZXJoMzdCWlJkY3E5VGphOXorZFAzcG15cSsw?=
+ =?utf-8?B?NmRiK1FrMFRWVzJGSDYvT3pBSXFoMCtRWWVjM0xSZ2xGcmJPRGkwU2JqU1Rl?=
+ =?utf-8?B?clN4K3BXTjVmdG5BalJpYVZ6djdlclBRS3NrWS9GdGlYd2V3L2dHVUg5bjZY?=
+ =?utf-8?B?RnNma1NtVk1weFFPZXJLMHFya05VSkFLbTNpVlRObkUzcE1WQWZ4S0ltcWU5?=
+ =?utf-8?B?S2UvOXJxcHBtTjZ0WXJueFZkL0xiQ054SFNzR3FPT3pFeEFzb1daVkRUWmtR?=
+ =?utf-8?B?YWFZcXIyMTVVNFJKaHN3Z1hPNnNZMytvYXpPM3RuTnJyckFEK2x0TCs5eXJN?=
+ =?utf-8?B?V0xvUE9sa1h4SnJyU05oTDBZT2RqWm5iTjJ5K0gxc1d5RnlWM01QT0dTR2wr?=
+ =?utf-8?B?dGgvTTczL2VwNHJpZ0hITGtVZldWaFBqd1FZMTArTnR3V252alg5dVdob3Vj?=
+ =?utf-8?B?eFVJL2JoU2s4TjBvV2x3U2NDd3doekRTMlhTb2J1M1c4QkR5UEhENW9DOHBB?=
+ =?utf-8?B?QUtPdmE5aFJoSjdnd2YrVkc2M1A0SnR0amRLaXFJMGhCYVhlVER0dEVJSE9E?=
+ =?utf-8?B?d0RLdE5WK21QMS9TWnB4ZElRUS85eVU5SkI3UDVoZk9jVjlveXhLa2JwWU9I?=
+ =?utf-8?B?dXBlV0ErTlpiUTFJb0NPbzVEVXZkdlhOazBVQjVwZUxEMzh4STAxakpTbWpW?=
+ =?utf-8?B?UWQ4N0VBNy9jZ1IxVDMrZnpDQ1dZaTNmVGlEdmo5cVZkSjV3QmhpWHVHa2xs?=
+ =?utf-8?B?NnJHUTV1R3IrN1kwZDI4aHYreThGeGhSdWxoeHNRUW9tT2x0bVdYZnd0OGZn?=
+ =?utf-8?B?WDJsRW04NDVQQjRLK0c1UXc4cWpWaVZUWHBmS1FQYUh1eDZYd25oYUVKdHRt?=
+ =?utf-8?B?L1lGeXlwOTlOVEFVUmFuMXJTTkVFZmJsTGc4VzBseXA3dU1Tc0pMMlFxdTBE?=
+ =?utf-8?B?R1Ryb3RQRFdockZaZEpVYWt6dzhNWmkydi9rL00yTFdSbVE9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96f9f053-cfc7-4316-c30e-08deb262c06a
+X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 09:17:14.3534 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY9PR01MB11031
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,131 +162,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---JTEOF7u1knQLxomm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+fastrpc_get_args() uses find_vma() to look up the VMA for a user-provided
+pointer and compute a DMA address offset. When the address falls in a gap
+before the returned VMA, (ptr & PAGE_MASK) - vma->vm_start underflows,
+corrupting the DMA address sent to the DSP.
 
-On Fri, May 15, 2026 at 11:57:58AM +0800, Damon Ding wrote:
-> Hi Conor,
->=20
-> On 5/15/2026 2:16 AM, Conor Dooley wrote:
-> > On Thu, May 14, 2026 at 03:01:31PM +0800, Damon Ding wrote:
-> > > Expose the inherited properties from the base analogix-dp schema
-> > > to satisfy unevaluatedProperties constraints.
-> > >=20
-> > > Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> >=20
-> > Given it's unevaluatedProperties, not addtionalProperties, this patch
-> > shouldn't be needed?
-> >=20
->=20
-> When I remove both the top-level data-lanes property and those explicit
-> "xxx: true" property entries and run the dtbs check with:
->=20
-> make CHECK_DTBS=3Dy CROSS_COMPILE=3Daarch64-linux-gnu- LT0=3Dnone LLVM=3D1
-> LLVM_IAS=3D1 ARCH=3Darm64 rockchip/rk3588-evb1-v10.dtb
-> rockchip/rk3588s-evb1-v10.dtb rockchip/rk3399-sapphire-excavator.dtb
-> rockchip/rk3576-evb1-v10.dtb -j4
->=20
-> It results in validation errors like these:
->=20
-> /home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb:
-> edp@27dc0000: ports:port@1:endpoint: Unevaluated properties are not allow=
-ed
-> ('data-lanes' was unexpected)
->         from schema $id:
-> http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
-> /home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb:
-> edp@27dc0000: Unevaluated properties are not allowed ('force-hpd',
-> 'interrupts', 'phy-names', 'phys', 'ports', 'reg' were unexpected)
->         from schema $id:
-> http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
->=20
-> I suspect that the properties defined in the child binding are
-> overriding/masking all the inherited properties from the parent Analogix =
-DP
-> schema.
->=20
-> Is there a better way to fix this issue without explicitly listing all
-> inherited properties as true?
+Replace find_vma() with vma_lookup(), which returns NULL when the address
+is not contained within any VMA.
 
-The example in this file uses most of the properties that you mention
-above:
-    dp@ff970000 {
-      compatible =3D "rockchip,rk3288-dp";
-      reg =3D <0xff970000 0x4000>;
-      interrupts =3D <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>;
-      clocks =3D <&cru SCLK_EDP>, <&cru PCLK_EDP_CTRL>;
-      clock-names =3D "dp", "pclk";
-      phys =3D <&dp_phy>;
-      phy-names =3D "dp";
-      resets =3D <&cru 111>;
-      reset-names =3D "dp";
-      rockchip,grf =3D <&grf>;
-      pinctrl-0 =3D <&edp_hpd>;
-      pinctrl-names =3D "default";
+Cc: stable@vger.kernel.org
+Fixes: 80f3afd72bd4 ("misc: fastrpc: consider address offset before sending to DSP")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+---
+ drivers/misc/fastrpc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-dt_binding_check reports no problems with this node, so I think the
-problem might lie elsewhere?
-There's no edp node in the dts you mention above, so this looks like an
-interaction with something that's not yet upstream.
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 47356a5d5804..31b709fe6ed1 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -1041,7 +1041,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 			pages[i].addr = ctx->maps[i]->dma_addr;
+ 
+ 			mmap_read_lock(current->mm);
+-			vma = find_vma(current->mm, ctx->args[i].ptr);
++			vma = vma_lookup(current->mm, ctx->args[i].ptr);
+ 			if (vma)
+ 				pages[i].addr += (ctx->args[i].ptr & PAGE_MASK) -
+ 						 vma->vm_start;
 
-If this is required for the rk3576 edp, then you should include this
-patch in the rk3576 edp support series rather than this one anyway where
-it can actually be evaluated alongside the node it apparently causes
-problems with.
+---
+base-commit: 7aaa8047eafd0bd628065b15757d9b48c5f9c07d
+change-id: 20260515-fixes-0071a59299e5
 
-pw-bot: changes-requested
+Best regards,
+-- 
+Junrui Luo <moonafterrain@outlook.com>
 
-Thanks,
-Conor.
-
->=20
-> Best regards,
-> Damon
->=20
-> > > ---
-> > >   .../bindings/display/rockchip/rockchip,analogix-dp.yaml    | 7 ++++=
-+++
-> > >   1 file changed, 7 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/display/rockchip/rockc=
-hip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/r=
-ockchip,analogix-dp.yaml
-> > > index bb75d898a5c5..896ded87880f 100644
-> > > --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,ana=
-logix-dp.yaml
-> > > +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,ana=
-logix-dp.yaml
-> > > @@ -50,6 +50,13 @@ properties:
-> > >     aux-bus:
-> > >       $ref: /schemas/display/dp-aux-bus.yaml#
-> > > +  reg: true
-> > > +  interrupts: true
-> > > +  phys: true
-> > > +  phy-names: true
-> > > +  force-hpd: true
-> > > +  ports: true
-> > > +
-> > >   required:
-> > >     - compatible
-> > >     - clocks
-> > > --=20
-> > > 2.34.1
-> > >=20
-> > >=20
->=20
-
---JTEOF7u1knQLxomm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagbhmQAKCRB4tDGHoIJi
-0hL9AQDMzOGCBAaj30x0MldbIEzDvxHY9JZ/Hr59JunC6U0AhQEAhrUYE74I+05k
-njcJ1OaOANoefame5d09LLbMsepD7Q4=
-=jYCg
------END PGP SIGNATURE-----
-
---JTEOF7u1knQLxomm--
