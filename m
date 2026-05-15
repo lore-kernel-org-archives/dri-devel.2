@@ -4,41 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEA45CD343F
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 09:10:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8E2DCD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 09:10:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B67710F4A4;
-	Fri, 15 May 2026 09:10:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 234A010E00F;
+	Fri, 15 May 2026 09:10:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="f+Cvtnuh";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DHKkwbeS";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FA9410E00F
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 09:09:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DFA310E00F
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 09:10:01 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id CC7E5454;
- Fri, 15 May 2026 11:09:45 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0A0508FA;
+ Fri, 15 May 2026 11:09:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778836187;
- bh=QkQuKbs3kTlKxTsbVSwlqIa7UFeA+IsMXFr+8EVhxAE=;
- h=From:Subject:Date:To:Cc:From;
- b=f+Cvtnuh71qA0h6CzDyqevEiD6nTrFk9j051b3ugyzRB4/5hwTNB+X8E2CT7zXsvv
- O/B8SHaYYxxcjpxlaCwYAS3wBiPQ4jMQy0LpDxR598b8oZq7iMOvXB1N/7TID0hZqa
- q2qdOLzDJga4/dR2q3urk+FQ32VCqNoo6da3FYSI=
+ s=mail; t=1778836190;
+ bh=kHksZJfpFMV47h8nwdHcFDKgVfCurmMft/yFeQpokLU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=DHKkwbeSS5VYcx4gG5/X+1z7Y/8pVMELOaeTkpby2KYZcrKfSEZzBUOBOHWotYAMx
+ M0sGiedY/dy1qwq4TaVD4qbhi/jDtxdj+akVcK9sUSaddgjACvJa9rKZQwdzl00saV
+ 5nxi5M/woIWNq9VIK7B69IFUGh3742lRAwK1rzWg=
 From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Subject: [PATCH v3 0/7] drm/rcar-du: Add support for DSI pipelines with DSC
-Date: Fri, 15 May 2026 12:09:25 +0300
-Message-Id: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
+Date: Fri, 15 May 2026 12:09:27 +0300
+Subject: [PATCH v3 2/7] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMXiBmoC/23MQQ7CIBCF4as0s3YMIGDrynsYFxQGy8JiQImm6
- d2lXWnSzST/JO+bIFMKlOHUTJCohBziWOOwa8AOZrwRBlcbBBOaKS4xWZPQvdBli1L11jMrPLU
- a6uKRyIf3ql2utYeQnzF9Vrzw5bvtFI4MnVb+aDrqWsnPwZHJceyjSW5v4x0WrohfQv0TohJe9
- 52QzPB6Noh5nr+YfB8/8AAAAA==
-X-Change-ID: 20260514-rcar-du-dsc-45bcf0c2fe86
+Message-Id: <20260515-rcar-du-dsc-v3-2-164157820498@ideasonboard.com>
+References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
+In-Reply-To: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>, 
  Michael Turquette <mturquette@baylibre.com>, 
  Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -59,21 +57,21 @@ Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  devicetree@vger.kernel.org, 
  Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2773;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3100;
  i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
- bh=QkQuKbs3kTlKxTsbVSwlqIa7UFeA+IsMXFr+8EVhxAE=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBuLdhC3aBbT/EdqjeJDPhr9tj5KzWAv2gt+/i
- GP3lJ5khB+JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbi3QAKCRD6PaqMvJYe
- 9Z9JEACtCZTvQ1lSbUNYwSqLND/x6gQdwNiGTo3wRXSCIGcEvBv9WiWHOL11tDcZnZgJNfEcsm+
- bLzsuBdXKC7FpSFn+B4klgaXSwMgM13jG1dFamx4dsxnqG8s5A5mxoVs1ckF3OV3uDMsodTb2Sf
- pNLoEw2jj9gclLwf/ocrBluP8C9EZuM+PuGG7WaQbiGYg8Fl3uR1RnBI2f8clyKwYI4f4pp61SH
- b1ELeGUrC+l5Ps3wn9jk6gS4WDP78Awh2ECCjRJbAQ6UbnAQpGrOG0LzkbgPMh34DR61dDWpb1a
- DEAv17XKd/V1v0xTEu7QTiGC1mtHJMR4DC4+OdPxUXGJb/XIhNQtMEHA80mRZuaCouOZE7gODq9
- VwjhWwFWP/YTg0h4MEiUoelAkAFklwsQ3wUoQxgmtcONtRkEDXAy5NoOAarm8+tCEFlGRzlBWM4
- PDuDdKYx2Eri3WuAwMz9z983fYIP9xwdF22Q2gNAPe6SXgBsjFigJ3yeFArvpYfRaa7nUysEyGf
- ZZaIq7k4Dl+CIuaDsKZOeDQt/m+HWQS5hPo+wp6Yd9W00FTAgzGBIythRx7mCs3mriKt4l3jXed
- PwF0NhboA1BTwtA5IGSr/BkYabyeIdgVAreLUaXwQBRBVKcgZ7o50LwfNsqKFgg0xa2HMHKHE+a
- JylOjCWyDQQMIMA==
+ bh=2I8UDeCqT/cBmhnGJPNLMM2v8v1+nikKwEBiZMwtls4=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBuLhbW1mhCjr09AFE2KgytB8mnKa6AjvIuikT
+ NyD2PGebFmJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbi4QAKCRD6PaqMvJYe
+ 9TSfD/0YKMJMP2O2NflaziOWV6m+6vSbdgJxqk1w/6BmTL8dSzVAeNYs03V0D7qyb6+dgYdwpwQ
+ oE1QxE5RbhQbgScVDrFRpy5CzjLQG5ivXgq3fbGE5VOSDXQdgu5Y4BjimG2Z1LY9uml8LUjRMhf
+ 2a2AyCJuitisvfvXAvOklFqax+njfL7bEEENgIUdyOMXq3xHEmtjBqniVpYb2xDATFjbr8NSh9g
+ LmTUYLU7HfYrv9vw8CsHAwBkBpqPrmPvgytbTHFOsW3/eclBhNLJWvQg8N/6sZPVtoGmWSFv3DT
+ 9+Gz2BBr/Cm8BK1yro6z0Pb72vuukaIIOS9Tz7V+i9DT0jyTZgzene86mwD22kkKeUgtcq00ikw
+ xqh7kRnag/g2zUVUJxNblJZW80+l+ACfl5lxif2f8FW+ep2TYta2bhjP8iUo+x7xmPwu/wyy2Nw
+ l1tzkCQKRagba9DJPqM8IUmvoF2nrtA8lq2JmsbHhZtOZTUtWFJ2RKgtkPCXO/MamEeApKlahO8
+ XM0l4G9/0Bqwf7jJtpZgicyD3YbPSY6sQULQKnrlHVSBwJnV7xhCLT+BRPCVetsr1y1bB3yvloh
+ ZCmji19tyhi8gaCNj0esJJA7Unuc7slB+pH8dns88nVkEuX1jBk8piw3ZorJlfZu+haZSGIWeRt
+ H7CCBOKyMrV3b7g==
 X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,68 +89,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some DSI pipelines have DSC (Display Stream Compression) IP block
-between the DU and the DSI. Even if DSC is not needed, the IP must be
-enabled for the DSI output to work.
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-This series adds a basic DSC driver, so that the DSC IP gets enabled in
-bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
-the DP output comes from DSI and sn65dsi86 bridge, and also White Hawk
-board's second mini-DP output.
+The Renesas DSC Display Stream Compression is a bridge embedded in the
+Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+8k or 400 Mpixel/s .
 
-Original series from Marek.
-
-Note: I see that not every run of kms++'s kmstest gives me a picture on
-my monitor. Sometimes the monitor seems to be trying to repeatedly sync,
-but fails, and the screen stays black. However, I see this same issue on
-WhiteHawk, which uses DSI0 pipeline, without DSC, so I think that is a
-separate issue.
-
- Tomi
-
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+[tomi.valkeinen: fix the example]
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 ---
-Changes in v3:
-- Simplify DSC driver: drop reset control, drop clk handling, use runtime PM
-- Split dts changes for r8a779g0 and sparrow-hawk to separate patches
-- Add "arm64: dts: renesas: white-hawk: Add second mini-DP output
-  support"
-- Link to v2: https://patch.msgid.link/20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com
+ .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
+ 1 file changed, 96 insertions(+)
 
-Changes in v2:
-- Fixed the dts example in "dt-bindings: display: bridge: Document
-  Renesas R-Car V4H DSC bindings"
-- Link to v1: https://lore.kernel.org/r/20260514-rcar-du-dsc-v1-0-d65f7a9e9841@ideasonboard.com
+diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+new file mode 100644
+index 000000000000..2918d592732b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+@@ -0,0 +1,96 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Renesas R-Car DSC Display Stream Compression
++
++maintainers:
++  - Marek Vasut <marek.vasut+renesas@mailbox.org>
++
++description: |
++  This binding describes the VESA DSC Display Stream Compression encoder
++  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
++  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
++
++properties:
++  compatible:
++    const: renesas,r8a779g0-dsc
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  power-domains:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: R-Car DU input port
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: R-Car DSI output port
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - interrupts
++  - power-domains
++  - resets
++  - ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/power/r8a779g0-sysc.h>
++
++    dsc@feb8d000 {
++        compatible = "renesas,r8a779g0-dsc";
++        reg = <0xfeb8d000 0x400>;
++        interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&cpg CPG_MOD 2819>;
++        power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
++        resets = <&cpg 2819>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                dsc_in_dsi1: endpoint {
++                    remote-endpoint = <&du_out_dsi1>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++                dsc_out_dsi1: endpoint {
++                    remote-endpoint = <&dsi1_in>;
++                };
++            };
++        };
++    };
++...
 
----
-Geert Uytterhoeven (1):
-      arm64: dts: renesas: white-hawk: Add second mini-DP output support
-
-Marek Vasut (5):
-      clk: renesas: r8a779g0: Add DSC clock
-      dt-bindings: display: bridge: Document Renesas R-Car V4H DSC bindings
-      drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H DSC driver
-      arm64: dts: renesas: r8a779g0: Add DSC
-      arm64: dts: renesas: sparrow-hawk: Enable DisplayPort by adding DSC
-
-Tomi Valkeinen (1):
-      drm/rcar-du: dsi: Support DSC in the pipeline
-
- .../bindings/display/bridge/renesas,dsc.yaml       |  96 +++++++++++++
- .../arm64/boot/dts/renesas/r8a779g0-white-hawk.dts |  94 ++++++++++++
- arch/arm64/boot/dts/renesas/r8a779g0.dtsi          |  31 +++-
- .../boot/dts/renesas/r8a779g3-sparrow-hawk.dts     |   5 +
- drivers/clk/renesas/r8a779g0-cpg-mssr.c            |   1 +
- drivers/gpu/drm/renesas/rcar-du/Kconfig            |  12 ++
- drivers/gpu/drm/renesas/rcar-du/Makefile           |   1 +
- drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c         | 160 +++++++++++++++++++++
- drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c    |  36 ++++-
- 9 files changed, 433 insertions(+), 3 deletions(-)
----
-base-commit: 028ef9c96e96197026887c0f092424679298aae8
-change-id: 20260514-rcar-du-dsc-45bcf0c2fe86
-
-Best regards,
---  
-Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+-- 
+2.43.0
 
