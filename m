@@ -4,76 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4E5FCD4851
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 07:56:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B02E7CD4851
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 07:57:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A34410F461;
-	Fri, 15 May 2026 07:56:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 264A010F44C;
+	Fri, 15 May 2026 07:57:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Zrsgextj";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="P/K9hu14";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="C0LSZtVQ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="El6OPZ7D";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NLQ9f2hu";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FDF410F456
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 07:56:47 +0000 (UTC)
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 315BF1123;
- Fri, 15 May 2026 09:56:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778831796;
- bh=epDgLDQTOQLsxSIGm1FoiCtmVkVYkjcH+hGsLBHI0Wg=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ZrsgextjoUNnoUpCMrxOazFsNP92NjglB4S+Kh4sDclLL2vS0hrx1xls6s2Iyn79c
- czFyFy1v2m5Cm/B7L2ffE2zcqEE3MMKM+hgDHHaW3ALhj2DXqMsBUyh+0xoLmZBmJD
- vnM9oYmaYTdhzvd3/MrTnH5Li0/97PH/1Uxbc9us=
-From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Date: Fri, 15 May 2026 10:56:16 +0300
-Subject: [PATCH v2 3/5] drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H
- DSC driver
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D19A10F44C
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 07:57:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DFB63676DA;
+ Fri, 15 May 2026 07:57:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778831839; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=iIDUAGf8EFrjHik7XGeRaiTedf2UhZ6dVEW7BKkCsvI=;
+ b=P/K9hu140ErFmUGYcq64W+unv9OI3EDR5uo20v87um8ztjAPYu21GDnDny7S/yPWR6pdMd
+ u/BOibtBFd2BLx5o4HRO+I5HQ/RACllJo/uGxRsCRmArq4F48jaiceZfCzAI0i6OkSTsFm
+ 4YSub5QBQLhy0Fxj3uEYZbLKNrSO3tA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778831839;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=iIDUAGf8EFrjHik7XGeRaiTedf2UhZ6dVEW7BKkCsvI=;
+ b=C0LSZtVQF7oVhuuzhlCKC2CqpuH2AJr548FvSRQcBnkS5rvTSspDQTEiR+ey345ZNBo6dC
+ 8xxzeFTkPJLMjhAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778831834; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=iIDUAGf8EFrjHik7XGeRaiTedf2UhZ6dVEW7BKkCsvI=;
+ b=El6OPZ7DlH30HAYtTuS/OeH981gTx7CRe7FcwJpwo2J0gQAXud47jiVJDIMURkxPsD+fBx
+ 9Milh6HxEpF31I5uw6IRW41gS5ycPHSO409Kf6ezY6kc9m/nmWxvbRsz0+jJw0GfwLlxX8
+ +HZL6iJIbweGauafmbL7n0c5m9u3hBk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778831834;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=iIDUAGf8EFrjHik7XGeRaiTedf2UhZ6dVEW7BKkCsvI=;
+ b=NLQ9f2huiDc3rmQRct19rSf67SeqXahCVT2bqxCaBhXULm0j4Tk1TltltO3bHHOh5V9b6l
+ REDpuEQOZ+DT2UDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 67354593A9;
+ Fri, 15 May 2026 07:57:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id NtyyF9rRBmoAEQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 15 May 2026 07:57:14 +0000
+Message-ID: <4be4bcdc-6348-473b-be48-d6e47c98f60d@suse.de>
+Date: Fri, 15 May 2026 09:57:13 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-rcar-du-dsc-v2-3-f6b9240a1240@ideasonboard.com>
-References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
-In-Reply-To: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6866;
- i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
- bh=lZXV9zDNtBcZP1iYgupaF2p7YJZFHlVyrRbo4zRvwrY=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBtG2n2K6+ESQiGuf0Z3InZuqI6KHNMFDCQ+B/
- 2Dowh+mpyyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbRtgAKCRD6PaqMvJYe
- 9bgzD/4wEz1xGMjXTLYI1GUAeT4MMtOLEa6SY2rLJRE6sTkjbwrPkTdYBGNTJY6tNbN6AZEB6yL
- vJVWLBy45ocWk86Xg8fuTJ2BSD0fVy+C8s5Wd7NIp4GmCR3tmfa1S7igIdZ1UrXC7EAnsu4IatA
- oV4W71wvD2PgvSYgH1nMMHMOZevd4jX8ixvZ3BRn6jfKLviaUD5WwYxcv+5g9u93a6ClzhhJer+
- /4TgSHWRJ7NvdNrjqsos/ONW816M4fUaLDIYOBbxDnQN8PVas0u415zVwnDBayGL4qzFPcBgO7a
- Y+Papj5mF4xUw3jqJAZ4yEQKtkS0e8ZLhRjdUzG23OQzojjRSeRCs/7MK/s7zTms8R4Tz8LlQfC
- uB1C8TtJatQYJSQERQlqmPLmWSjqgauwfsUs0qlCGlpO7CpsHLOk9SFhGjNyZvq3Bap4wcsX9fD
- wgzyo+BHNPMhlt8O4w6/iPbYvAP3RpAToFvOALuFbaWIWaw66E6wEC4vNqwf3wJczYidMVW9BCU
- ja49vlw9Ip9VdkdQyvmblQxq7kOr1TweuseH6vANHKEbPZvCMGD8wy/oBWJD5VSepWFYt8bbqoL
- Z/3H6Uv20uNGwkxNwaq6N2/SH4Uh9xEyNHvch0mC3BBN7wtRKSDV+I7C3Jy3Xzb8GIg5cpRN7Af
- PPxW4SviNYBhXLw==
-X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/14] fbdev: hecubafb: fix potential memory leak in
+ hecubafb_probe()
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>, Helge Deller <deller@gmx.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sebastian Siewior <bigeasy@linutronix.de>,
+ Florian Tobias Schandinat <FlorianSchandinat@gmx.de>,
+ Ondrej Zary <linux@rainbow-software.org>, Antonino Daplas
+ <adaplas@gmail.com>, Paul Mundt <lethal@linux-sh.org>,
+ Krzysztof Helt <krzysztof.h1@wp.pl>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Michal Januszewski <spock@gentoo.org>, Heiko Schocher <hs@denx.de>,
+ Peter Jones <pjones@redhat.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
+ <20260514-fbdev-v1-1-b3a2474fa720@cse.iitm.ac.in>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260514-fbdev-v1-1-b3a2474fa720@cse.iitm.ac.in>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[cse.iitm.ac.in,gmx.de,redhat.com,kernel.crashing.org,linux-foundation.org,linutronix.de,rainbow-software.org,gmail.com,linux-sh.org,wp.pl,ti.com,gentoo.org,denx.de];
+ RCPT_COUNT_TWELVE(0.00)[19]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de,wp.pl];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[iitm.ac.in:email, imap1.dmz-prg2.suse.org:helo,
+ suse.de:mid, suse.de:email, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,227 +150,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-The Renesas DSC Display Stream Compression is a bridge embedded in the
-Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-8k or 400 Mpixel/s . Add rudimentary driver, which currently acts as a
-pass-through bridge and allows DSI1 to be operational on R-Car V4H.
 
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-[tomi.valkeinen: use bridge->next_bridge, minor changes]
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
----
- drivers/gpu/drm/renesas/rcar-du/Kconfig    |  13 +++
- drivers/gpu/drm/renesas/rcar-du/Makefile   |   1 +
- drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c | 163 +++++++++++++++++++++++++++++
- 3 files changed, 177 insertions(+)
+Am 14.05.26 um 10:24 schrieb Abdun Nihaal:
+> The memory allocated for pagerefs in fb_deferred_io_init() is not freed
+> on the error path. Fix it by calling fb_deferred_io_cleanup().
+>
+> Fixes: 56c134f7f1b5 ("fbdev: Track deferred-I/O pages in pageref struct")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/drivers/gpu/drm/renesas/rcar-du/Kconfig
-index 840305fdeb49..a51f996d3537 100644
---- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
-+++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
-@@ -33,6 +33,19 @@ config DRM_RCAR_DW_HDMI
- 	help
- 	  Enable support for R-Car Gen3 or RZ/G2 internal HDMI encoder.
- 
-+config DRM_RCAR_USE_DSC
-+	bool "R-Car DU DSC Encoder Support"
-+	depends on DRM_BRIDGE && OF
-+	depends on DRM_RCAR_DU || COMPILE_TEST
-+	default DRM_RCAR_DU
-+	help
-+	  Enable support for the R-Car Display Unit embedded DSC encoder.
-+
-+config DRM_RCAR_DSC
-+	def_tristate DRM_RCAR_DU
-+	depends on DRM_RCAR_USE_DSC
-+	select RESET_CONTROLLER
-+
- config DRM_RCAR_USE_LVDS
- 	bool "R-Car DU LVDS Encoder Support"
- 	depends on DRM_BRIDGE && OF
-diff --git a/drivers/gpu/drm/renesas/rcar-du/Makefile b/drivers/gpu/drm/renesas/rcar-du/Makefile
-index 6f132325c8b7..cc27b2265d94 100644
---- a/drivers/gpu/drm/renesas/rcar-du/Makefile
-+++ b/drivers/gpu/drm/renesas/rcar-du/Makefile
-@@ -12,5 +12,6 @@ rcar-du-drm-$(CONFIG_DRM_RCAR_WRITEBACK) += rcar_du_writeback.o
- obj-$(CONFIG_DRM_RCAR_CMM)		+= rcar_cmm.o
- obj-$(CONFIG_DRM_RCAR_DU)		+= rcar-du-drm.o
- obj-$(CONFIG_DRM_RCAR_DW_HDMI)		+= rcar_dw_hdmi.o
-+obj-$(CONFIG_DRM_RCAR_DSC)		+= rcar_dsc.o
- obj-$(CONFIG_DRM_RCAR_LVDS)		+= rcar_lvds.o
- obj-$(CONFIG_DRM_RCAR_MIPI_DSI)		+= rcar_mipi_dsi.o
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
-new file mode 100644
-index 000000000000..2ab5a4bb099c
---- /dev/null
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
-@@ -0,0 +1,163 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * R-Car DSC Encoder
-+ *
-+ * Copyright (C) 2025 Marek Vasut <marek.vasut+renesas@mailbox.org>
-+ * Copyright (C) 2025 Renesas Electronics Corporation
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_of.h>
-+
-+struct rcar_dsc {
-+	struct drm_bridge bridge;
-+
-+	struct device *dev;
-+	void __iomem *mmio;
-+	struct clk *clk;
-+	struct reset_control *rst;
-+};
-+
-+static inline struct rcar_dsc *bridge_to_rcar_dsc(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct rcar_dsc, bridge);
-+}
-+
-+/* -----------------------------------------------------------------------------
-+ * Bridge
-+ */
-+
-+static int rcar_dsc_attach(struct drm_bridge *bridge,
-+			   struct drm_encoder *encoder,
-+			   enum drm_bridge_attach_flags flags)
-+{
-+	struct rcar_dsc *dsc = bridge_to_rcar_dsc(bridge);
-+
-+	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
-+		return -EINVAL;
-+
-+	return drm_bridge_attach(encoder, dsc->bridge.next_bridge, bridge,
-+				 DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+}
-+
-+static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
-+				   struct drm_atomic_state *state)
-+{
-+	struct rcar_dsc *dsc = bridge_to_rcar_dsc(bridge);
-+
-+	WARN_ON(clk_prepare_enable(dsc->clk));
-+	WARN_ON(reset_control_deassert(dsc->rst));
-+}
-+
-+static void rcar_dsc_atomic_disable(struct drm_bridge *bridge,
-+				    struct drm_atomic_state *state)
-+{
-+	struct rcar_dsc *dsc = bridge_to_rcar_dsc(bridge);
-+
-+	reset_control_assert(dsc->rst);
-+	clk_disable_unprepare(dsc->clk);
-+}
-+
-+static enum drm_mode_status
-+rcar_dsc_bridge_mode_valid(struct drm_bridge *bridge,
-+			   const struct drm_display_info *info,
-+			   const struct drm_display_mode *mode)
-+{
-+	if (mode->hdisplay < 320 || mode->hdisplay > 8190)
-+		return MODE_BAD_HVALUE;
-+
-+	if (mode->vdisplay < 160 || mode->vdisplay > 8190)
-+		return MODE_BAD_VVALUE;
-+
-+	if (mode->clock > 400000) /* Really 400 Mpixel/s */
-+		return MODE_CLOCK_HIGH;
-+
-+	return MODE_OK;
-+}
-+
-+static const struct drm_bridge_funcs rcar_dsc_bridge_ops = {
-+	.attach = rcar_dsc_attach,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_enable = rcar_dsc_atomic_enable,
-+	.atomic_disable = rcar_dsc_atomic_disable,
-+	.mode_valid = rcar_dsc_bridge_mode_valid,
-+};
-+
-+/* -----------------------------------------------------------------------------
-+ * Probe & Remove
-+ */
-+
-+static int rcar_dsc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *remote;
-+	struct rcar_dsc *dsc;
-+
-+	dsc = devm_drm_bridge_alloc(dev, struct rcar_dsc, bridge,
-+				    &rcar_dsc_bridge_ops);
-+	if (IS_ERR(dsc))
-+		return PTR_ERR(dsc);
-+
-+	platform_set_drvdata(pdev, dsc);
-+
-+	dsc->dev = &pdev->dev;
-+
-+	/* Acquire resources. */
-+	dsc->mmio = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(dsc->mmio))
-+		return PTR_ERR(dsc->mmio);
-+
-+	dsc->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(dsc->clk))
-+		return dev_err_probe(dev, PTR_ERR(dsc->clk),
-+				     "Failed to get CPG clock\n");
-+
-+	dsc->rst = devm_reset_control_get(dev, NULL);
-+	if (IS_ERR(dsc->rst))
-+		return dev_err_probe(dev, PTR_ERR(dsc->rst),
-+				     "Failed to get CPG reset\n");
-+
-+	remote = of_graph_get_remote_node(dev->of_node, 1, 0);
-+	if (!remote)
-+		return -EINVAL;
-+
-+	dsc->bridge.next_bridge = of_drm_find_and_get_bridge(remote);
-+	of_node_put(remote);
-+	if (!dsc->bridge.next_bridge)
-+		return -EPROBE_DEFER;
-+
-+	dsc->bridge.of_node = dev->of_node;
-+
-+	return devm_drm_bridge_add(dev, &dsc->bridge);
-+}
-+
-+static const struct of_device_id rcar_dsc_of_table[] = {
-+	{ .compatible = "renesas,r8a779g0-dsc" },
-+	{}
-+};
-+
-+MODULE_DEVICE_TABLE(of, rcar_dsc_of_table);
-+
-+static struct platform_driver rcar_dsc_platform_driver = {
-+	.probe          = rcar_dsc_probe,
-+	.driver         = {
-+		.name   = "rcar-dsc",
-+		.of_match_table = rcar_dsc_of_table,
-+	},
-+};
-+
-+module_platform_driver(rcar_dsc_platform_driver);
-+
-+MODULE_DESCRIPTION("Renesas R-Car DSC Encoder Driver");
-+MODULE_LICENSE("GPL");
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+>   drivers/video/fbdev/hecubafb.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/video/fbdev/hecubafb.c b/drivers/video/fbdev/hecubafb.c
+> index 3547d58a29cf..dd2af980f3d8 100644
+> --- a/drivers/video/fbdev/hecubafb.c
+> +++ b/drivers/video/fbdev/hecubafb.c
+> @@ -192,7 +192,9 @@ static int hecubafb_probe(struct platform_device *dev)
+>   	info->flags = FBINFO_VIRTFB;
+>   
+>   	info->fbdefio = &hecubafb_defio;
+> -	fb_deferred_io_init(info);
+> +	retval = fb_deferred_io_init(info);
+> +	if (retval)
+> +		goto err_fbdefio;
+>   
+>   	retval = register_framebuffer(info);
+>   	if (retval < 0)
+> @@ -209,6 +211,8 @@ static int hecubafb_probe(struct platform_device *dev)
+>   
+>   	return 0;
+>   err_fbreg:
+> +	fb_deferred_io_cleanup(info);
+> +err_fbdefio:
+>   	framebuffer_release(info);
+>   err_fballoc:
+>   	vfree(videomemory);
+>
 
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
