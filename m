@@ -4,51 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF733CD343F
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 16:28:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EE51CD4F25
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 16:56:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E54D310E223;
-	Fri, 15 May 2026 16:28:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 828D610E351;
+	Fri, 15 May 2026 16:56:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aQrWa2oN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xa3pZcmi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72A3210E223
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 16:28:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F3F610E351;
+ Fri, 15 May 2026 16:56:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C1CBC601DB;
- Fri, 15 May 2026 16:28:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC9CC2BCF5;
- Fri, 15 May 2026 16:28:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 252C842E3C;
+ Fri, 15 May 2026 16:56:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 979D9C2BCB0;
+ Fri, 15 May 2026 16:56:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778862500;
- bh=fevXNOMD2wqSxfojs9FldeJgBr0Sp/Q5mbdpF+ByygA=;
+ s=k20201202; t=1778864172;
+ bh=SedbGXwK4aJOlbTTWEI5B8hx7KCD74sgdfit/X5/dJM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aQrWa2oNCgb6cyENrUHkmbLCtQl2opci189wPhgJ0aXRcJPBsjgEdHbZYtGu03OeM
- ZmqrbV+Bpotd6rlwGLZvoIROgWLXDMK9c+zBvvu+yRam4SRNocCX4yYXWIw1dOjUlb
- 7g8vi25C8aV0gGVYYKWzreSgCyYVdwk982rH3OP6RK00rULGKjJ0locZj7+iAzKzbG
- EKsHXKEX0Wk3075Wd4InovCyadkG9Yyg1qTvkSIXTrkQoilUoY2Na9HYK+MqZITNGy
- atHED3uLIk58X/0D5LNKotSeh27RnQbm/kAgJ4MDMVeESERuc0xqRFiFm0zz9ubfRM
- NzrGTEdH9RgyQ==
-Date: Fri, 15 May 2026 17:28:14 +0100
-From: Daniel Thompson <danielt@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
-Subject: Re: [PATCH v2 2/2] backlight: Add SY7758 6-channel High Efficiency
- LED Driver support
-Message-ID: <agdJnpz9O00lywRm@aspen.lan>
-References: <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-0-308140640de9@linaro.org>
- <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-2-308140640de9@linaro.org>
+ b=Xa3pZcmiApyLXNIWHocH1qtmaMryAJkTWFgl+rng4s+TItk7aPdEyki3iosuzdkpy
+ dgMoi/zAjmq1PaylNozIrTBcWx2+miI4B3X/5vpx2wIA4hyWqf/WnNbnV9bsUNJdi0
+ A2/NaH5AKgVd7c5/xDWZpgPnsQ6J66Ni0O3qxYhlMkyNkAonTG/uiTVDQ9sQ0ismet
+ gkX84eIz9xXaskpFWuRsmZ01UJ8CUA/lAInYKclnjXLC68dSmjN8pdCc2G31aiAxC0
+ UucbSO9ecDfCOoB5pNipj0B2O1REqoFub+DwkVlt7VWbjAZx43vX5E1L7xODkNvcyH
+ ewY6CfpJxGZkg==
+Date: Fri, 15 May 2026 22:25:59 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Mathias Nyman <mathias.nyman@intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ linux-ide@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-usb@vger.kernel.org,
+ Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 5/9] PCI: tegra: Explicitly specify PMC instance to use
+Message-ID: <rt3tpcu7eucylbxurtvraghnyljkv52zau75jwkkbtyfslc2ox@2bjkryjd4nqp>
+References: <20260506-pmc-v1-0-a6de5da7216b@nvidia.com>
+ <20260506-pmc-v1-5-a6de5da7216b@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-2-308140640de9@linaro.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260506-pmc-v1-5-a6de5da7216b@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,136 +77,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 30, 2026 at 11:47:16AM +0200, Neil Armstrong wrote:
-> From: KancyJoe <kancy2333@outlook.com>
->
-> Implement support for the Silergy SY7758 6-channel High Efficiency LED
-> Driver used for backlight brightness control in the Ayaneo Pocket S2
-> dual-DSI panel.
->
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: KancyJoe <kancy2333@outlook.com>
+On Wed, May 06, 2026 at 03:41:56PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> Currently the kernel relies on a global variable to reference the PMC
+> context. Use an explicit lookup for the PMC and pass that to the public
+> PMC APIs.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
 > ---
->  drivers/video/backlight/Kconfig  |   8 +
->  drivers/video/backlight/Makefile |   1 +
->  drivers/video/backlight/sy7758.c | 311 +++++++++++++++++++++++++++++++++++++++
->  3 files changed, 320 insertions(+)
-> <snip>
-> diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/sy7758.c
-> new file mode 100644
-> index 000000000000..9b2d3bbb4ded
-> --- /dev/null
-> +++ b/drivers/video/backlight/sy7758.c
-> @@ -0,0 +1,311 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Silergy SY7758 6-channel High Efficiency LED Driver
-> + *
-> + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
-> + * Copyright (C) 2026 Linaro Limited
-> + * Author: Neil Armstrong <neil.armstrong@linaro.org>
-
-I'm a bit confused by this comment. The git author and the
-MODULE_AUTHOR() is Kancy Joe. What does this comment signify?
-
-
-> + */
-> <snip>
-> +/* OTP memory */
-> +#define REG_OTP_CFG98 0x98
-> +#define REG_OTP_CFG9E 0x9E
-> +#define REG_OTP_CFG0 0xA0
-> +#define REG_OTP_CFG1 0xA1
-> +#define REG_OTP_CFG2 0xA2
-> +#define REG_OTP_CFG3 0xA3
-> +#define REG_OTP_CFG4 0xA4
-> +#define REG_OTP_CFG5 0xA5
-> +#define REG_OTP_CFG6 0xA6
-> +#define REG_OTP_CFG7 0xA7
-> +#define REG_OTP_CFG9 0xA9
-> +#define REG_OTP_CFGA 0xAA
-> +#define REG_OTP_CFGE 0xAE
-
-There seems to be a lot of unused macros here, especially
-combined with the unused bitfields that tell us how to interpret
-the values.
-
-Do we need them?
-
-
-> <snip>
-> +static int sy7758_probe(struct i2c_client *client)
-> +{
-> +	struct backlight_properties props = { };
-> +	struct device *dev = &client->dev;
-> +	struct sy7758 *sydev;
-> +	unsigned int dev_id;
-> +	int ret;
+>  drivers/pci/controller/pci-tegra.c | 20 +++++++++++++++-----
+>  1 file changed, 15 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/pci-tegra.c b/drivers/pci/controller/pci-tegra.c
+> index 512309763d1f..2c6c521e6901 100644
+> --- a/drivers/pci/controller/pci-tegra.c
+> +++ b/drivers/pci/controller/pci-tegra.c
+> @@ -340,6 +340,8 @@ struct tegra_pcie {
+>  	struct reset_control *afi_rst;
+>  	struct reset_control *pcie_xrst;
+>  
+> +	struct tegra_pmc *pmc;
 > +
-> +	sydev = devm_kzalloc(dev, sizeof(*sydev), GFP_KERNEL);
-> +	if (!sydev)
-> +		return -ENOMEM;
-> +
-> +	i2c_set_clientdata(client, sydev);
-> +
-> +	/* Initialize regmap */
-> +	sydev->client = client;
-> +	sydev->regmap = devm_regmap_init_i2c(client, &sy7758_regmap_config);
-> +	if (IS_ERR(sydev->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(sydev->regmap),
-> +				     "failed to init regmap\n");
-> +
-> +	/* Get and enable regulators */
-> +	ret = devm_regulator_get_enable(dev, "vddio");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get regulator\n");
-> +
-> +	usleep_range(100, 200);
+>  	bool legacy_phy;
+>  	struct phy *phy;
+>  
+> @@ -1165,7 +1167,7 @@ static void tegra_pcie_power_off(struct tegra_pcie *pcie)
+>  	clk_disable_unprepare(pcie->afi_clk);
+>  
+>  	if (!dev->pm_domain)
+> -		tegra_powergate_power_off(TEGRA_POWERGATE_PCIE);
+> +		tegra_pmc_powergate_power_off(pcie->pmc, TEGRA_POWERGATE_PCIE);
+>  
+>  	err = regulator_bulk_disable(pcie->num_supplies, pcie->supplies);
+>  	if (err < 0)
+> @@ -1183,7 +1185,7 @@ static int tegra_pcie_power_on(struct tegra_pcie *pcie)
+>  	reset_control_assert(pcie->pex_rst);
+>  
+>  	if (!dev->pm_domain)
+> -		tegra_powergate_power_off(TEGRA_POWERGATE_PCIE);
+> +		tegra_pmc_powergate_power_off(pcie->pmc, TEGRA_POWERGATE_PCIE);
+>  
+>  	/* enable regulators */
+>  	err = regulator_bulk_enable(pcie->num_supplies, pcie->supplies);
+> @@ -1191,12 +1193,14 @@ static int tegra_pcie_power_on(struct tegra_pcie *pcie)
+>  		dev_err(dev, "failed to enable regulators: %d\n", err);
+>  
+>  	if (!dev->pm_domain) {
+> -		err = tegra_powergate_power_on(TEGRA_POWERGATE_PCIE);
+> +		err = tegra_pmc_powergate_power_on(pcie->pmc,
+> +						   TEGRA_POWERGATE_PCIE);
+>  		if (err) {
+>  			dev_err(dev, "failed to power ungate: %d\n", err);
+>  			goto regulator_disable;
+>  		}
+> -		err = tegra_powergate_remove_clamping(TEGRA_POWERGATE_PCIE);
+> +		err = tegra_pmc_powergate_remove_clamping(pcie->pmc,
+> +							  TEGRA_POWERGATE_PCIE);
+>  		if (err) {
+>  			dev_err(dev, "failed to remove clamp: %d\n", err);
+>  			goto powergate;
+> @@ -1234,7 +1238,7 @@ static int tegra_pcie_power_on(struct tegra_pcie *pcie)
+>  	clk_disable_unprepare(pcie->afi_clk);
+>  powergate:
+>  	if (!dev->pm_domain)
+> -		tegra_powergate_power_off(TEGRA_POWERGATE_PCIE);
+> +		tegra_pmc_powergate_power_off(pcie->pmc, TEGRA_POWERGATE_PCIE);
+>  regulator_disable:
+>  	regulator_bulk_disable(pcie->num_supplies, pcie->supplies);
+>  
+> @@ -1432,6 +1436,12 @@ static int tegra_pcie_get_resources(struct tegra_pcie *pcie)
+>  		return err;
+>  	}
+>  
+> +	pcie->pmc = devm_tegra_pmc_get(dev);
+> +	if (IS_ERR(pcie->pmc)) {
+> +		dev_err_probe(dev, PTR_ERR(pcie->pmc), "failed to get PMC\n");
+> +		return err;
 
-Any reason not to use fsleep() here?
+As Sashiko pointed out, you need to return dev_err_probe() directly.
 
+- Mani
 
-> +	/* Get enable GPIO and set to high */
-> +	sydev->gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(sydev->gpio))
-> +		return dev_err_probe(dev, PTR_ERR(sydev->gpio),
-> +				     "failed to get enable GPIO\n");
-> +
-> +	/* Let some time for HW to settle */
-> +	usleep_range(10000, 11000);
-
-And here?
-
-
-> +
-> +	/* try read and check device id */
-> +	ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to read device id\n");
-> +	if (dev_id != 0x63) {
-> +		dev_err(dev, "unexpected device id: 0x%02x\n", dev_id);
-> +		return -ENODEV;
-> +	}
-> +
-> +	/* Initialize and set default brightness */
-> +	ret = sy7758_init(sydev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	props.type = BACKLIGHT_RAW;
-> +	props.max_brightness = MAX_BRIGHTNESS;
-> +	props.brightness = DEFAULT_BRIGHTNESS;
-> +	props.scale = BACKLIGHT_SCALE_LINEAR;
-> +
-> +	sydev->bl = devm_backlight_device_register(dev, "sy7758-backlight",
-> +						   dev, sydev, &sy7758_backlight_ops,
-> +						   &props);
-> +	if (IS_ERR(sydev->bl))
-> +		return dev_err_probe(dev, PTR_ERR(sydev->bl),
-> +				     "failed to register backlight device\n");
-> +
-> +	return backlight_update_status(sydev->bl);
-> +}
-
-
-Daniel.
+-- 
+மணிவண்ணன் சதாசிவம்
