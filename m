@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23C16CD4851
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 07:03:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9911BCD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 07:04:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB4010F414;
-	Fri, 15 May 2026 07:03:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0B6F10F415;
+	Fri, 15 May 2026 07:04:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RoYIE3d1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KVQsGyhy";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5C3210F414
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 07:03:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B912610F415
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 07:04:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1810860581;
- Fri, 15 May 2026 07:03:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E6CC2BCB0;
- Fri, 15 May 2026 07:03:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 261ED60252;
+ Fri, 15 May 2026 07:04:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46380C2BCB0;
+ Fri, 15 May 2026 07:04:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778828594;
- bh=UFt1H7tojIcyi2oC15rpkmT6R6HC5/FNUsSIF/Zi1J4=;
+ s=k20201202; t=1778828642;
+ bh=VHpZwYfNEozDI+mmX5fvgkM6Qsp2KkrAn2XfYL3rH+c=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RoYIE3d18NM5bJCnRjqcHMyUcICYz9g4b2qzfHDjKjsLG2NaqBdm/6uE1oD/XZgoF
- 14+tsjB/Wia9FkSFusxW0lRQEkXa5m8Cc7NNtU1sDtBEn7QaDGgMbgEYAVB0NEeSwj
- rwQj1NbvIeDv5yiovPNvJd/b2xK1/hq54Zb8rz5GXsX7phXFqwEcAQtYirqBaUn1Ro
- pl64DRyaRU+W+hn0U3tZQn5Z+znD+zKwBkAy5mNILA1PWsrzK8PIDLIGOqvbddTmz4
- LLY0kz6yf3SuHK7B6+rFr0/dFkNdPnr7LbfZ5nQXSTMTcISlVmW6+9uf3LwrWPXYuC
- FOYqihvAmu8Uw==
-Date: Fri, 15 May 2026 09:03:12 +0200
+ b=KVQsGyhyrGGTy+Ynv5DH6pAAqYEA2jCqX1HE6J2Zy+bU/rKztBgV2tbXgEYOy+3y0
+ RvPkZml7s+M+u88HySPw4RVc1nVqGJB/ZyHCuOJ/iYrMtgQiL6Fs0VIA5+PNgLukyJ
+ F/iJFdLCnXIA4O/XcNADnKp2nG8cV9mWwqYgPy0xqxQDIDT5Nx6tXch8lsHc9hwW8S
+ UAHV2bm10zN8DzRTGPpiYFp0R8E2suFrFyv1RH7tA9FG7v/YZ2jcFhsLiYT/Nwg5iL
+ egx3sPx+4I8kZoMc3y2likVcrd+kWWsIqCjO9LMEnsjJgpHlLqxXepTN+lrQXzQNPU
+ WCbql5NIOsSYw==
+Date: Fri, 15 May 2026 09:04:00 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
 Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
@@ -46,15 +46,14 @@ Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
  linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2 1/7] dt-bindings: arm: qcom: Add Microsoft Surface Pro
- 12in
-Message-ID: <20260515-fabulous-married-pogona-ebccd9@quoll>
+Subject: Re: [PATCH v2 2/7] dt-bindings: crypto: Add x1e80100 inline crypto
+Message-ID: <20260515-pistachio-mongoose-of-engineering-dcd29f@quoll>
 References: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
- <e54aa6c1e190b0e26d58504c5ea1b05fd09d64d3.1778822464.git.harrison.vanderbyl@gmail.com>
+ <14cd42e3d3af4b2591c9dd8dffde11ef18666751.1778822464.git.harrison.vanderbyl@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <e54aa6c1e190b0e26d58504c5ea1b05fd09d64d3.1778822464.git.harrison.vanderbyl@gmail.com>
+In-Reply-To: <14cd42e3d3af4b2591c9dd8dffde11ef18666751.1778822464.git.harrison.vanderbyl@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,28 +69,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 15, 2026 at 03:41:46PM +1000, Harrison Vanderbyl wrote:
-> Document the compatible string for the Microsoft Surface Pro
-> 12-inch, 1st Edition with Snapdragon, based on the Qualcomm X1P42100
-> SoC.
+On Fri, May 15, 2026 at 03:41:47PM +1000, Harrison Vanderbyl wrote:
+> Add compatibility string for the x1e80100/x1p42100
+> inline crypto engine.
 > 
 > Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index b4943123d2e4..aaa9a129908a 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -1168,6 +1168,10 @@ properties:
->            - const: microsoft,denali
->            - const: qcom,x1e80100
->  
-> +      - items:
-> +          - const: microsoft,surface-pro-12in
 
-Why isn't this part of the other enum with all devices?
+This was posted, please do not duplicate work.
+https://lore.kernel.org/all/eggp3un5ufbw2mjamxmpfccq3cs2luxabpa2sucofydzoak4vg@hy7mx3rtqfko/
+
+
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
 
 Best regards,
 Krzysztof
