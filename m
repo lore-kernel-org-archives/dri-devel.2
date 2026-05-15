@@ -4,93 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46D19CD343F
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:48:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D39E8CD4851
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6024D10F47D;
-	Fri, 15 May 2026 08:48:01 +0000 (UTC)
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
- [209.85.222.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB67110F47D
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:48:00 +0000 (UTC)
-Received: by mail-ua1-f46.google.com with SMTP id
- a1e0cc1a2514c-95695190911so2292215241.2
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 01:48:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778834879; x=1779439679;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VVgJPqzdVEsAMlVw8p1sldLEqlhvUsFX5k1afv6GStQ=;
- b=hK5VDpbEoh8iRmjZgUOegLPevYMqPi18eSnXu3M1flsQ/3J5w6Az1UsR/KqW21Cdip
- coRuzUdFMusOplQ7u9BFOoNT5h/TQ43531yLbKgpPhFJ0bbsUrSqQ42b8x+v95UDzE3c
- V1yB8THRwkbJ2MF7QPT1cdL2DuvWnWfuEWzQDKExfzj49zZMTOohwM7UcuJnXsdeWKFH
- 3xk+8Xj6h25RUMJcdnM9QHVKpvSssbOChBlR1+jdqDZyHOfqFClB09UNhi1rQqz7e7VA
- 7OXXvq6EvK04q1wy7xYPylEE1vLJF/2+amq8vHfgwIZ/RtRGV7zI5qCdch1KNYB6hRWV
- ftdQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8ItBzFaKeaBU/NE21ULkn9UxeqQOf1noe44zfv3BKTDYlf6Pso6f7XFHykPgLv5nobJtKzT8ZU10A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMmRC97cezNkk+oqDNf560S/CpI+6pTuZEGfs9O6fLU+9RRalI
- /+yluF+/5a96GiR4VtgwkRoNtcR02bHOwmEzb+muxgRjMPaKCXpSKz+K3YQbPmyd
-X-Gm-Gg: Acq92OF6S0K/9lkRfhqv+CDleHYdxVAXDogFhnAXS/6EEjkGA5VC9cw2yuOco/AV2M1
- OfANLU/RWkFlf6Hgt+JEVYceKzP4SDv8ga/y/JEc5lDmPZk/993MELuPHu6HJRJFJ43YmPHujLu
- e0EFJxXoV5h/gWqFpX3nnmSMUPFu8TxieAVKptE6eicdrDqfxSK90MDfEq1Nrc4QQLuDPf98CQC
- ju3gRhZvKZZjM/qN/Wcx0E60gjqRrkk5xdbDDX39CllzFUHjMggpjNeCwNERKM48ZZHHGPhCEvH
- b/ay/yAW+BtO9LyXwnSi/091vyK6Kf55RpYHQQYuJKADeiN4AIuLyJgEo64gDXa/uYDEewhB/Qc
- o8Usxmq5OdIUfpXb0WReP4xFW+y3r4bWV+4fSKo96llnwAS41D2ryxEbP2lnbs4cOiY4fAk2mt2
- K02Isbw791raRur+bBBU0DiEKTtwuPGUfh2jlTaw0Zro/fCgDjrgIjrB/bVZWabnzm
-X-Received: by 2002:a05:6102:1528:b0:630:2428:7abe with SMTP id
- ada2fe7eead31-63a3cf11014mr1283721137.9.1778834879441; 
- Fri, 15 May 2026 01:47:59 -0700 (PDT)
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com.
- [209.85.221.170]) by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-95fc2f874easm692733241.9.2026.05.15.01.47.58
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 May 2026 01:47:58 -0700 (PDT)
-Received: by mail-vk1-f170.google.com with SMTP id
- 71dfb90a1353d-57513ac61f0so2673044e0c.3
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 01:47:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ+LTjrI2x2+8GG3MOkfrvUminzMf9Ymknvt8VGR6/CLyf/tBqz33WlSQeNGMdCbhPUYggC3DNHo7J8=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:358e:b0:62f:34db:9474 with SMTP id
- ada2fe7eead31-63a3ee86884mr1297663137.20.1778834878086; Fri, 15 May 2026
- 01:47:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0334C10E02E;
+	Fri, 15 May 2026 08:53:19 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Er2Z0EgG";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB41B10E02E
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:53:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778835196;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=FoeXP8IPHQo8m2XylW4O1e9RVcotvFK209BP66FzlQ8=;
+ b=Er2Z0EgGTszBLfh/+LhDepVQ3tTewPmU3GIEaM3Yy2gouM56hg38uIOZ/rQK3Mnhqwn551
+ 5P6p6bR6y4mH9OhvUn/yNwPeghiPRc9/TR6EwwhJnu/LWnABajMiw0mRhmvMkKd0/1qIvs
+ PNSshlP8ukZ6hf4ysH1XbfxLqoLOJUE=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-54-Yej80VBHN4C6Jz1IuNrkvQ-1; Fri,
+ 15 May 2026 04:53:12 -0400
+X-MC-Unique: Yej80VBHN4C6Jz1IuNrkvQ-1
+X-Mimecast-MFC-AGG-ID: Yej80VBHN4C6Jz1IuNrkvQ_1778835189
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1AFB2195608C; Fri, 15 May 2026 08:53:07 +0000 (UTC)
+Received: from [192.168.1.153] (headnet01.pony-001.prod.iad2.dc.redhat.com
+ [10.2.32.101])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6E5D51956053; Fri, 15 May 2026 08:52:57 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v12 0/4] kunit: Add support for suppressing warning backtraces
+Date: Fri, 15 May 2026 10:52:49 +0200
+Message-Id: <20260515-kunit_add_support-v12-0-a216dc228be8@redhat.com>
 MIME-Version: 1.0
-References: <20260514-rcar-du-dsc-v1-0-d65f7a9e9841@ideasonboard.com>
- <20260514-rcar-du-dsc-v1-3-d65f7a9e9841@ideasonboard.com>
- <CAMuHMdVTgQp9WRiFpLX+pP7kOGF2v6oButALPu1B8QkYhVyvJA@mail.gmail.com>
- <6db159d9-56af-4d79-a1f1-9d5a6349b5ac@ideasonboard.com>
- <CAMuHMdVL9s=EHbw38kBzEVGa5-LawVY4YBUfSMA-6U+i3OSrbw@mail.gmail.com>
- <d7447f51-c2f7-4947-9fd0-ac0d45027c59@ideasonboard.com>
-In-Reply-To: <d7447f51-c2f7-4947-9fd0-ac0d45027c59@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 15 May 2026 10:47:46 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUS9jrsjqqPRKXJa9978kj1aYZ9aPrepv5kueiHGGLkCg@mail.gmail.com>
-X-Gm-Features: AVHnY4JCOAjr3bsj3LmrYGms2JUgvp1AhIShwYqx91e-BUfZ61J5zvr2A9mA72E
-Message-ID: <CAMuHMdUS9jrsjqqPRKXJa9978kj1aYZ9aPrepv5kueiHGGLkCg@mail.gmail.com>
-Subject: Re: [PATCH 3/5] drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H
- DSC driver
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23QS2rDMBCA4asEr6swI0WvrHqPUoKskWpRYhvZM
+ S3Bd68cCHGxlzOgj390r4aQUxiq8+Fe5TClIXVtGZC/HSrfuPYrsERlUXHgCgRy9n1r03hxRJf
+ h1vddHhmPQhpQNVqiqrzrc4jp54F+fJY55u7KxiYH95QkSK5QcC3lEZVCCQyZ8y5fU+vec6DGj
+ UffXRetScPY5d9H4aQW89mid1omxYARce5CLWKQtNaWmEm/iBOHPUIXIpjaqwBRA4UNYV6EhNM
+ eYQohgrRS+xIj5Iawa8LsEbYQ1lLUzhkDUW0IhJWBYs9AWE4R2hIH5Y3f/gbiGtm9BbEgtVBOC
+ nCKTPyHzPP8B2TZASVFAgAA
+X-Change-ID: 20260312-kunit_add_support-2f35806b19dd
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ dri-devel@lists.freedesktop.org, workflows@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org, 
+ peterz@infradead.org, Alessandro Carminati <acarmina@redhat.com>, 
+ Guenter Roeck <linux@roeck-us.net>, Kees Cook <kees@kernel.org>, 
+ Albert Esteve <aesteve@redhat.com>, 
+ Linux Kernel Functional Testing <lkft@linaro.org>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Dan Carpenter <error27@gmail.com>, Kees Cook <kees@kernel.org>, 
+ Simona Vetter <simona.vetter@ffwll.ch>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778835177; l=10625;
+ i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
+ bh=DXrTHnJRsNBLgtTyh0yUNmg0Bf9Ow0FsIDm0xcMWfSY=;
+ b=dF4NCSeN8SmCPCVQ1hhWdAeLuK2bj0aMH6eBrjm9vugjfXQ1g0I3TZ7JZdC490//zzSpKl42i
+ x8IRIUOwP8fBBTa7A76p8qDUvHIrr3Etyw1Zr7vyxFpkSq+0WWiR8V4
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-MFC-PROC-ID: 9S9TbFJ2FnQGofc7KiuHg5dZFoC5S2Rm5p0TMRCVGqA_1778835189
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,77 +103,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tomi,
+Some unit tests intentionally trigger warning backtraces by passing bad
+parameters to kernel API functions. Such unit tests typically check the
+return value from such calls, not the existence of the warning backtrace.
 
-On Fri, 15 May 2026 at 10:17, Tomi Valkeinen
-<tomi.valkeinen@ideasonboard.com> wrote:
-> On 15/05/2026 11:05, Geert Uytterhoeven wrote:
-> > On Fri, 15 May 2026 at 10:03, Tomi Valkeinen
-> > <tomi.valkeinen@ideasonboard.com> wrote:
-> >> On 15/05/2026 10:49, Geert Uytterhoeven wrote:
-> >>> On Thu, 14 May 2026 at 14:25, Tomi Valkeinen
-> >>> <tomi.valkeinen+renesas@ideasonboard.com> wrote:
-> >>>> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> >>>>
-> >>>> The Renesas DSC Display Stream Compression is a bridge embedded in the
-> >>>> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> >>>> 8k or 400 Mpixel/s . Add rudimentary driver, which currently acts as a
-> >>>> pass-through bridge and allows DSI1 to be operational on R-Car V4H.
-> >>>>
-> >>>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> >>>> [tomi.valkeinen: use bridge->next_bridge, minor changes]
-> >>>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> >>>
-> >>> Thanks for your patch!
-> >>>
-> >>>> --- /dev/null
-> >>>> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
-> >>>
-> >>>> +
-> >>>> +static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
-> >>>> +                                  struct drm_atomic_state *state)
-> >>>> +{
-> >>>> +       struct rcar_dsc *dsc = bridge_to_rcar_dsc(bridge);
-> >>>> +
-> >>>> +       WARN_ON(clk_prepare_enable(dsc->clk));
-> >>
-> >> Ah, just missed your comment and sent the v2.
-> >>
-> >>> Who don't you use pm_runtime_resume_and_get() instead, like
-> >>> rcar_cmm.c? Then you don't need to get the clock at all, and the driver
-> >>
-> >> Hmm, why wouldn't I need to get the clock? What does the runtime PM do
-> >> on Renesas?
-> >
-> > Runtime PM powers on the power domain (if present), and starts
-> > the device by enabling its module clock.
-> >
-> >>> will keep on working if the DSC ever ends up in a power domain.
-> >> I can add runtime PM. I just felt that it was overcomplicating a "dummy"
-> >> driver that just needs to enable the clock when the video pipeline is
-> >> enabled.
-> >
-> > Funny, I would say you are overcomplicating a dummy driver by adding
-> > explicit clock control ;-)
-> Well, now that I know the runtime PM does magics behind the scenes, you
-> are right =).
->
-> How's "module clock" defined? Is it the first clock in the clocks DT
-> property?
+Such intentionally generated warning backtraces are neither desirable
+nor useful for a number of reasons:
+- They can result in overlooked real problems.
+- A warning that suddenly starts to show up in unit tests needs to be
+  investigated and has to be marked to be ignored, for example by
+  adjusting filter scripts. Such filters are ad hoc because there is
+  no real standard format for warnings. On top of that, such filter
+  scripts would require constant maintenance.
 
-It's the clock pointing to the cpg device node, and having "CPG_MOD"
-as its first cell.  Usually it's the first clock.  Note that e.g. the
-DU is special, as it' is represented by a single device node with
-multiple module clocks (and multiple (but less) resets), due to the
-tight integration between the individual channels.
+One option to address the problem would be to add messages such as
+"expected warning backtraces start/end here" to the kernel log.
+However, that would again require filter scripts, might result in
+missing real problematic warning backtraces triggered while the test
+is running, and the irrelevant backtrace(s) would still clog the
+kernel log.
 
-Gr{oetje,eeting}s,
+Solve the problem by providing a means to suppress warning backtraces
+originating from the current kthread while executing test code.
+Since each KUnit test runs in its own kthread, this effectively scopes
+suppression to the test that enabled it, without requiring any
+architecture-specific code.
 
-                        Geert
+Overview:
+Patch#1 Introduces the suppression infrastructure integrated into
+        KUnit's hook mechanism.
+Patch#2 Adds selftests to validate the functionality.
+Patch#3 Demonstrates real-world usage in the DRM subsystem.
+Patch#4 Documents the new API and usage guidelines.
 
+Design Notes:
+Suppression is integrated into the existing KUnit hooks infrastructure,
+reusing the kunit_running static branch for zero overhead
+when no tests are running. The implementation lives entirely in the
+kunit module; only a static-inline wrapper and a function pointer
+slot are added to built-in code.
+
+Suppression is checked at three points in the warning path:
+- In `warn_slowpath_fmt()` (kernel/panic.c), for architectures without
+  __WARN_FLAGS. The check runs before any output, fully suppressing
+  both message and backtrace.
+- In `__warn_printk()` (kernel/panic.c), for architectures that define
+  __WARN_FLAGS but not their own __WARN_printf (arm64, loongarch,
+  parisc, powerpc, riscv, sh). The check suppresses the warning message
+  text that is printed before the trap enters __report_bug().
+- In `__report_bug()` (lib/bug.c), for architectures that define
+  __WARN_FLAGS. The check runs before `__warn()` is called, suppressing
+  the backtrace and stack dump. 
+
+To avoid double-counting on architectures where both `__warn_printk()`
+and `__report_bug()` run for the same warning, the hook takes a bool
+parameter: true to increment the suppression counter, false to suppress
+without counting.
+
+The suppression state is dynamically allocated via kunit_kzalloc() and
+tied to the KUnit test lifecycle via `kunit_add_action()`, ensuring
+automatic cleanup at test exit. Writer-side access to the global
+suppression list is serialized with a spinlock; readers use RCU.
+
+Two API forms are provided:
+- kunit_warning_suppress(test) { ... }: scoped blocks with automatic
+  cleanup. The suppression handle is not accessible outside the block,
+  so warning counts (if needed) must be checked inside. Multiple
+  suppression blocks are allowed.
+- kunit_start/end_suppress_warning(test): direct functions that return
+  an explicit handle. Use when the handle needs to be retained, or passed
+  across helpers. Multiple suppression blocks are allowed.
+
+This series is based on the RFC patch and subsequent discussion at
+https://patchwork.kernel.org/project/linux-kselftest/patch/02546e59-1afe-4b08-ba81-d94f3b691c9a@moroto.mountain/
+and offers a more comprehensive solution of the problem discussed there.
+
+Changes since RFC:
+- Introduced CONFIG_KUNIT_SUPPRESS_BACKTRACE
+- Minor cleanups and bug fixes
+- Added support for all affected architectures
+- Added support for counting suppressed warnings
+- Added unit tests using those counters
+- Added patch to suppress warning backtraces in dev_addr_lists tests
+
+Changes since v1:
+- Rebased to v6.9-rc1
+- Added Tested-by:, Acked-by:, and Reviewed-by: tags
+  [I retained those tags since there have been no functional changes]
+- Introduced KUNIT_SUPPRESS_BACKTRACE configuration option, enabled by
+  default.
+
+Changes since v2:
+- Rebased to v6.9-rc2
+- Added comments to drm warning suppression explaining why it is needed.
+- Added patch to move conditional code in arch/sh/include/asm/bug.h
+  to avoid kerneldoc warning
+- Added architecture maintainers to Cc: for architecture specific patches
+- No functional changes
+
+Changes since v3:
+- Rebased to v6.14-rc6
+- Dropped net: "kunit: Suppress lock warning noise at end of dev_addr_lists tests"
+  since 3db3b62955cd6d73afde05a17d7e8e106695c3b9
+- Added __kunit_ and KUNIT_ prefixes.
+- Tested on interessed architectures.
+
+Changes since v4:
+- Rebased to v6.15-rc7
+- Dropped all code in __report_bug()
+- Moved all checks in WARN*() macros.
+- Dropped all architecture specific code.
+- Made __kunit_is_suppressed_warning nice to noinstr functions.
+
+Changes since v5:
+- Rebased to v7.0-rc3
+- Added RCU protection for the suppressed warnings list.
+- Added static key and branching optimization.
+- Removed custom `strcmp` implementation and reworked
+  __kunit_is_suppressed_warning() entrypoint function.
+
+Changes since v6:
+- Moved suppression checks from WARN*() macros to warn_slowpath_fmt()
+  and __report_bug().
+- Replaced stack-allocated suppression struct with kunit_kzalloc() heap
+  allocation tied to the KUnit test lifecycle.
+- Changed suppression strategy from function-name matching to task-scoped:
+  all warnings on the current task are suppressed between START and END,
+  rather than only warnings originating from a specific named function.
+- Simplified macro API: removed KUNIT_DECLARE_SUPPRESSED_WARNING(),
+  the START macro now takes (test) and handles allocation internally.
+- Removed static key and branching optiomization, as by the time it
+  was executed, callers are already in warn slowpaths.
+- Link to v6: https://lore.kernel.org/r/20260317-kunit_add_support-v6-0-dd22aeb3fe5d@redhat.com
+
+Changes since v7:
+- Integrated suppression into existing KUnit hooks infrastructure
+- Removed CONFIG_KUNIT_SUPPRESS_BACKTRACE
+- Added suppression check in __warn_printk()
+- Added spinlock for writer-side RCU protection
+- Replaced explicit rcu_read_lock/unlock with guard(rcu)()
+- Added scoped API (kunit_warning_suppress) using __cleanup attribute
+- Updated DRM patch to use scoped API
+- Expanded self-tests: incremental counting, cross-kthread isolation
+- Rewrote documentation covering all three API forms with examples
+- Link to v7: https://lore.kernel.org/r/20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com
+
+Changes since v8:
+- Rebased to v7.1-rc2
+- Remove KUNIT_START/END_SUPPRESSED_WARNING() macros
+- Add KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT checks to drm tests
+- Link to v8: https://lore.kernel.org/r/20260504-kunit_add_support-v8-0-3e5957cdd235@redhat.com
+
+Changes since v9:
+- Fix silent false-pass when kunit_start_suppress_warning() returns NULL
+- Fix RCU lockdep splat for kunit_is_suppressed_warning() calls
+- Move disable_trace_on_warning() in __report_bug()
+- Make suppress counter atomic
+- Mark helper warn functions in selftest as noinline
+- Add kunit_skip() for CONFIG_BUG=n in selftests
+- Fix potentially uninitialized data.was_active in kthread seltest
+- Add kthread_stop() in kthread selftest early exit
+- Initialize scaling_factor to INT_MIN in DRM scaling tests
+- Add include for bool in test-bug.h to fix CONFIG_KUNIT=n case
+- Link to v9: https://lore.kernel.org/r/20260508-kunit_add_support-v9-0-99df7aa880f6@redhat.com
+
+Changes since v10:
+- Remove synchronize_rcu() to avoid sleeping in atomic context
+- Pin task_struct refcount to prevent ABA false-positive matches
+- Loop in suppression selftest to prevent use-after-free on kthread exit
+- Skip DRM rect tests on CONFIG_BUG=n
+- Link to v10: https://lore.kernel.org/r/20260513-kunit_add_support-v10-0-e379d206c8cd@redhat.com
+
+Changes since v11:
+- Use call_rcu() to defer free without blocking
+- Remove #ifdef CONFIG_KUNIT guard in lib/bug.c
+- Remove stale config checks from selftest
+- Replace skip on DRM rect tests with conditional expectation
+- Link to v11: https://lore.kernel.org/r/20260514-kunit_add_support-v11-0-b36a530a6d8f@redhat.com
+
+--
+2.34.1
+
+---
+To: Brendan Higgins <brendan.higgins@linux.dev>
+To: David Gow <david@davidgow.net>
+To: Rae Moar <raemoar63@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+Cc: kunit-dev@googlegroups.com
+Cc: linux-riscv@lists.infradead.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: workflows@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+
+---
+Alessandro Carminati (1):
+      bug/kunit: Core support for suppressing warning backtraces
+
+Guenter Roeck (3):
+      kunit: Add backtrace suppression self-tests
+      drm: Suppress intentional warning backtraces in scaling unit tests
+      kunit: Add documentation for warning backtrace suppression API
+
+ Documentation/dev-tools/kunit/usage.rst |  46 +++++++-
+ drivers/gpu/drm/tests/drm_rect_test.c   |  36 +++++-
+ include/kunit/test-bug.h                |  26 +++++
+ include/kunit/test.h                    |  98 ++++++++++++++++
+ kernel/panic.c                          |  11 ++
+ lib/bug.c                               |  12 +-
+ lib/kunit/Makefile                      |   4 +-
+ lib/kunit/backtrace-suppression-test.c  | 192 ++++++++++++++++++++++++++++++++
+ lib/kunit/bug.c                         | 131 ++++++++++++++++++++++
+ lib/kunit/hooks-impl.h                  |   2 +
+ 10 files changed, 548 insertions(+), 10 deletions(-)
+---
+base-commit: 74fe02ce122a6103f207d29fafc8b3a53de6abaf
+change-id: 20260312-kunit_add_support-2f35806b19dd
+
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Albert Esteve <aesteve@redhat.com>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
