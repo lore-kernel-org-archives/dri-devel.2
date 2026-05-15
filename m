@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3265DCD4F3D
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 07:13:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E106CD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 07:13:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAECC10F42F;
-	Fri, 15 May 2026 07:13:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C31110F43E;
+	Fri, 15 May 2026 07:13:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="InuP9YzS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XgPKRDqd";
 	dkim-atps=neutral
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2763210E0A6
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 05:43:01 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-83d31ac4017so3717872b3a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:43:01 -0700 (PDT)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2453510E0A6
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 05:42:46 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-82faf871346so6548887b3a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:42:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778823781; x=1779428581; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778823766; x=1779428566; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=L3PjlyOf8sBl8btmWeVxVjjQtlMp0Y5dRKaD1umBdh4=;
- b=InuP9YzSnt1HVo06eNEVWrHlM+U08jrs+9kbqvMpC+vDz+S6rzlC1pqFWQN3xaIO8j
- lOKgr50TxOyuNvut0ozInL13UTI4qZuPgp/ZPp6mKLjR/oFus46xrVlm6ZPfwvS1cVg/
- 2J8cUODAHWbIzRJmFiYnL5B/DnwzGqzajN5bIcox0AA1SraPJe3HW63JTXkXvyJDMKEN
- y4rd/Xf83RnU/x3y/uEPN5nd+gHorOI1qxsZMa70x65cxFbWC9QC1CZX+RYUn9e6KlcB
- 3mewgR80TZu08Uv6TOszc3QV7XA1uevCBdJAktYp7a2ZDehZu2vpgJWCCqAnik/ES97E
- bYog==
+ bh=1QMruzNzp/w/H8WMl6Rm7xeR7IZKT2QV9Y6KPDlL64Q=;
+ b=XgPKRDqdddvaXbtga4HO/yUkElkd0TAa6lREFpIPTj+EwU14IJU1VstUpogcRt6xY6
+ 8kLOtNeaWOH7/uPLVRjONhK7xbxf3dQUrnHfQJpxxpYR2CwKImDmA3MAwLQEhfIZBJfa
+ 5Gg4xM+ZnLC2FQnHh9g6uyGD27Y+3L0rFSAZEx1mMst38vw9eCMOLFF+LOXgNUBMGqjy
+ VXRxYvivNMKJ1R40N+Xi38lLXE8QkBBQicTG2Ko+nU2oTwQ+evnELb1mKQZcKu7Plym7
+ WrNeCjINvkJtr++lf2bz49e7ubB18CiGmqru+i31AXffZZZyFMdPF2eRSIHjofMpHfN5
+ Uo1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778823781; x=1779428581;
+ d=1e100.net; s=20251104; t=1778823766; x=1779428566;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=L3PjlyOf8sBl8btmWeVxVjjQtlMp0Y5dRKaD1umBdh4=;
- b=VlLxPSZUkmTFF04ng0L2VQKRR4x+ivX/JU5/Domo/momott1XcnYwx9tqH2kDpCNr7
- jnfJq5g+lMj77UltPnQ8uMX3K4R3GflU5HYiTvgRsrVeGRwn1VjgUWChU5pkcD+4TdsR
- 1RWEIujMDHh265ChqpuM2b5iMZ57N00MuebRvE0v9tUBf34VLXYvV2e/5iYgAHns70qC
- tooaZ4d10cyqgVDKBdZKwv18uy751zdxBH0hTySUAf0mShu4PZ+Pckz+Neb/3zRjMXQP
- mdWS9xaTC7NJhUygMtiY+BS9BS9RG0074Pks3BU/OW/GVdM6WAZcK0szMEEHbcH+do3H
- /OGg==
+ bh=1QMruzNzp/w/H8WMl6Rm7xeR7IZKT2QV9Y6KPDlL64Q=;
+ b=kDXmgRmhrneg8dThlCmEQUvoRLM6z0AGktjuXWLgRa4aWD8i29Ea4x0+GJ4nE07xJ9
+ 2qmS5/UKkAj1EtJSD25DmEPMhXNVXtYDoeSTcYDW/BrpXlzdj3vA9VS5DY7wm+n1Gbnl
+ AVYpICCqGOosgoPDjFAJY1mYQNr+RdDv2J6Glvy1CXzUD49zIZcc7XTeVuUtV5cm16uG
+ vdVouKqRpUK2ckziK/vZSJaANw/BhF3j4OzL5q8w2fx8+QnSfpbfcC5dDJc4F+HOW3hZ
+ D04tivU7OpjHUU7Zrih8mRMA9LNDimCwhNV2IS550AEyLfl91ekUUqfKuIxApCAQ3ug3
+ yDWA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/jZ1OqB5N/ekQQXGe/TEt+6bd82NhusE4h7jhIJ1m7r1SsUbXBA3fbOR8QNLVyrFvMqUFZWVyvj5c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywal7K+UezEWaaMwz2pCwKOeNWgg69COhfppGE5hyKO6WpEQjfv
- YKj626zj73y728O0FVF4TgfLmoMQK311nFzD7qqiNWDC1wchM4Kg+Z8/
-X-Gm-Gg: Acq92OGJn+W5FIofquHZzFG9vGvgQSe4M4a5TXacvPs83nOs7qOsNfxmIONzEPSXh8d
- 3qQBNZ/RpWoNqzuWPihd9AhlT8Jl3a3Mr8ylhb/k4IFaSyw1XAQb+YsVMaYH1WreFXrX49K9tNi
- Envvs29zjA0EoPy1q6TiYq3YVnQ5M9Si5h4cOqtgX3bW16s6XDnhSxJU7C2/9fgd1KNwx3D37GI
- F/PkieRrOjUwMtcAD5fQr94bCHEAtbAbc0re34TemRPQFXLbqmjQIfFhC8h2TZHaK0ggAePXV8V
- y5oxk0ATwbgXz/A0JOoGuKwSvoUgH5HkdHkXUKv2bkJKVDjRn0fenanyMkq2Cb1Kg2l/vbrJF7V
- ReHYx6/7vZRV67Dv2VEsdQirpghQHUfP2BYOCHXB+1y5fNce35nWDhGwb8jPr8T8b7MQOoyOFz+
- G1Oo5589frFAELJxSH/bRppHpk55xQWD5j/adVxx/PwWdJAE0SoR52VHRtaloFyDK1sKvaExebQ
- LHhxehKL2Sjt+9b7T+ZKW9OtEsPar5x/ctqMw==
-X-Received: by 2002:a05:6a00:3921:b0:83c:de0e:bac5 with SMTP id
- d2e1a72fcca58-83f33f3d3c7mr2755385b3a.49.1778823780683; 
- Thu, 14 May 2026 22:43:00 -0700 (PDT)
+ AFNElJ/qa8Tlkp5kcVIEdrMLQOkKm0zlENnICiZ7eegkBruF+Bww3SiEU24SDq9Hc1si1zPtxAva9UR5DAY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwNt0pcDmMmEZs8WZVpwSAa6LV+g3VXq13D/zVMZZl9o9H+HF3Q
+ oCg00WC3lUKrjF9sb/t7XTHE5FqQiRM0bToF4gKjV4CuYM4RbhfpFVpc
+X-Gm-Gg: Acq92OGqrAJj5xQFOvD1uagRsq7XbXLXkkRtvhBXZKKyn5bKZ7URmeULA1FvoAF6iBk
+ GIovxqlcrJ1N0hqOSRCEVxv59eAaquNvJHXSxEKMwLc9O7Es7TseYw/Oc9cXeNnZ8wQXOMIGh8U
+ m0VatSDxkhlKk7B4y73d8PmuE71lv6w7PAtoXYsTh6sQ73/V3C/+qSeTF7HQTYp1DNTPhsKPlYd
+ kOOLY5s+I+2rwgQ+yEUy/SHQe5yHqbjwcZJ1okQcv6QNPkctmSyhcGoc+ytW0klBSuqEVIM7E5F
+ 4iAlHyC9m/ZsAdBwJMuRzjyhmLLXbQJmKshv52/3NdWZDWIdUEKc+V5kln5Q8M8eAmGAkj7wWAN
+ q0jBJJ1epUIlNwDGh952XtFPWI5R05zxXRz+QxFkClbafrii8Z7sIQvQC7cZtfqxVqwxsvVJNwW
+ xNLRdPdTf8sVGf07F1xDWNifLYcArIq8/XpD17iyervUozFJmY/U/t4I0vKNTOvRL+TMoOjRm14
+ C6u+zQ8WTylMkEJp2EBODjk2rM=
+X-Received: by 2002:a05:6a00:340c:b0:82c:6b46:271d with SMTP id
+ d2e1a72fcca58-83f33d0a2e5mr2772793b3a.48.1778823765596; 
+ Thu, 14 May 2026 22:42:45 -0700 (PDT)
 Received: from harrison-Surface-Pro-12in-1st-Ed-with-Snapdragon.wework.com
  ([203.117.161.34]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83f2b9bec8fsm3106116b3a.33.2026.05.14.22.42.54
+ d2e1a72fcca58-83f2b9bec8fsm3106116b3a.33.2026.05.14.22.42.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 22:43:00 -0700 (PDT)
+ Thu, 14 May 2026 22:42:45 -0700 (PDT)
 From: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
 To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org,
@@ -76,9 +76,9 @@ Cc: Douglas Anderson <dianders@chromium.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: [PATCH v2 5/7] drm/panel-edp: Add panel for Surface Pro 12in
-Date: Fri, 15 May 2026 15:41:50 +1000
-Message-ID: <9e749a3a483e4a3c684eac3ee6a4b241c94a0362.1778822464.git.harrison.vanderbyl@gmail.com>
+Subject: [PATCH v2 3/7] platform/surface: SAM: Add support for Surface Pro 12in
+Date: Fri, 15 May 2026 15:41:48 +1000
+Message-ID: <ab458aadea651396d9ea7629419a32dc7510c593.1778822464.git.harrison.vanderbyl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
 References: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
@@ -100,40 +100,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add an entry for the BOE NE120DRM-N28 panel,
-used in the Microsoft Surface Pro 12-inch.
+Add a SAM client device node group and registry entry for the
+Microsoft Surface Pro, 12-inch with Snapdragon.
 
-The values chosen were tested to be working fine
-for wake from sleep and hibernation.
+This set enables the use of the following devices.
+1: cover keyboard
+2: cover touchpad
+3: pen stash events.
 
-Panel edid:
-
-00 ff ff ff ff ff ff 00 09 e5 c9 0c a0 06 00 07
-0a 22 01 04 a5 19 11 78 07 9f 15 a6 55 4c 9b 25
-0e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 62 53 94 a0 80 b8 2e 50 18 10
-3a 00 fe a9 00 00 00 1a 13 7d 94 a0 80 b8 2e 50
-18 10 3a 00 fe a9 00 00 00 1a 00 00 00 fd 00 18
-5a 5b 88 20 01 0a 20 20 20 20 20 20 00 00 00 fc
-00 4e 45 31 32 30 44 52 4d 2d 4e 32 38 0a 00 0a
+The battery info and charger info devices have been
+purposefully omitted as they are also reported by
+other drivers and cause conflicts.
 
 Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../surface/surface_aggregator_registry.c         | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 497dcd48f57b..2cf52f03c217 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2020,6 +2020,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c26, &delay_200_500_p2e200, "NV140WUM-T08"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c93, &delay_200_500_e200, "Unknown"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cb6, &delay_200_500_e200, "NT116WHM-N44"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cc9, &delay_200_500_e50, "NE120DRM-N28"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf2, &delay_200_500_e200, "NV156FHM-N4S"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf6, &delay_200_500_e200_d100, "NV140WUM-N64"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cfa, &delay_200_500_e50, "NV116WHM-A4D"),
+diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/drivers/platform/surface/surface_aggregator_registry.c
+index 0599d5adf02e..884049961415 100644
+--- a/drivers/platform/surface/surface_aggregator_registry.c
++++ b/drivers/platform/surface/surface_aggregator_registry.c
+@@ -422,6 +422,19 @@ static const struct software_node *ssam_node_group_sp11[] = {
+ 	NULL,
+ };
+ 
++/* Devices for Surface Pro 12" first edition (ARM/QCOM) */
++static const struct software_node *ssam_node_group_sp12in[] = {
++	&ssam_node_root,
++	&ssam_node_hub_kip,
++	&ssam_node_tmp_sensors,
++	&ssam_node_hid_kip_keyboard,
++	&ssam_node_hid_sam_penstash,
++	&ssam_node_hid_kip_touchpad,
++	&ssam_node_hid_kip_fwupd,
++	&ssam_node_pos_tablet_switch,
++	NULL,
++};
++
+ /* -- SSAM platform/meta-hub driver. ---------------------------------------- */
+ 
+ static const struct acpi_device_id ssam_platform_hub_acpi_match[] = {
+@@ -500,6 +513,8 @@ static const struct of_device_id ssam_platform_hub_of_match[] __maybe_unused = {
+ 	{ .compatible = "microsoft,arcata", (void *)ssam_node_group_sp9_5g },
+ 	/* Surface Pro 11 (ARM/QCOM) */
+ 	{ .compatible = "microsoft,denali", (void *)ssam_node_group_sp11 },
++	/* Surface Pro 12in First Edition (ARM/QCOM) */
++	{ .compatible = "microsoft,surface-pro-12in", (void *)ssam_node_group_sp12in },
+ 	/* Surface Laptop 7 */
+ 	{ .compatible = "microsoft,romulus13", (void *)ssam_node_group_sl7 },
+ 	{ .compatible = "microsoft,romulus15", (void *)ssam_node_group_sl7 },
 -- 
 2.53.0
 
