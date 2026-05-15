@@ -4,141 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E2ECD343F
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 22:22:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8371CD4F46
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 23:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F4B110F624;
-	Fri, 15 May 2026 22:22:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 498C310E44E;
+	Fri, 15 May 2026 23:47:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XcbOdW4I";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gYMpZFU+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qIeesAWR";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D22FA10E181
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 22:22:20 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64FJek6Z3076666
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 22:22:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- FUhQPzpeTqHUfVcim/+MklcBBi2uunm5wIH6HIt0Drg=; b=XcbOdW4IdXKTwfdf
- UCWRWzVz6g1qaoyITQQlJWNBy7JxyIuOcCyzTIivs04p1MedtYdzH5r6ywMPp669
- 3hpR4IugI+hLnRgUO6cVCGHPr+OhCTPASDcZr23X7UM3L4AgZruaQfq4f94JMetg
- BqrlT1ZIeKT4oZcjsrK0FaM3oRMF29Tlyf0VfeefmLZb+bjVWJaONKLB5sk5JQBr
- aojENqCau8cKNlOCS5kVX9/2ChWmzKppz+bBq/h1SZ5RwCBfQ/hVe/tkXBhlF60T
- vLd8nqyRg3m+t7DOIxuL5UBtssn06XyBM+40ZIFjDDxi3QVZXBjIOUesKZt/dkq0
- jT2F8Q==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e68g2rpa9-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 22:22:20 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2ba268cb5e6so3231745ad.1
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 15:22:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778883740; x=1779488540;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=FUhQPzpeTqHUfVcim/+MklcBBi2uunm5wIH6HIt0Drg=;
- b=gYMpZFU+yS0zagYxMG4HYGN0huNmDZMdPaEQ8P4xFYYDOxL0qqnuUaSelmonoLDT1L
- T/O7JLJwx17wIM/DVVd52AWEJ+L0d4XGVYXDEA/7NCCvSLqvlQRsP6zaG40q3Uzkks5u
- w794A88Kt2JbAvKTUo3ZNSqqaiXTX7cGN8NEzai4+Nxbby8B32F5IktK0heNemREPrMI
- MnCYuwG0YJwwPIoNvG5txzEDQyIuQlBKfVToPZpK97Bz1O9EZqIxGJhJaqiNTMI/U5Wf
- X6rjJMAewJ7s+6eGa2FyDU4mJhR/xldDr0XQE5V/OAAMdfeBKej6dOQsMIIroGgUEia0
- 7slw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778883740; x=1779488540;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FUhQPzpeTqHUfVcim/+MklcBBi2uunm5wIH6HIt0Drg=;
- b=hSWvq10O9Sric/6oQDjKgvQSEUPqLXSSeZy3hfBgdPb50yhcsE0tgSAAluZUQgexjE
- iZIcZ8x4nhyIIvUMy0LzZqNFM5i3JggnqQtwfMGDaYJWQNSoyjVhqTUT3Mvz8/FAXEwY
- LcTlfcsA4HWbvokSnZvPizxO/WCwiCKv9WxyYz/KmmGIQlE1v1xih8c8sKxyHYairGjx
- 5uwUlqJj8zb+dBe+SpeR0EFZJYT7lbvQj8/YCY61NI0zGirZo+c9a4xIolG7Oo0VFdwV
- yfqSv1n6GZADImOyYyyxFPXlEatYlox9wwJzV/wHf2CVr74p1HYNHAaTNNev5CRXyE8D
- lE5A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/yh1pYQ4mk4d0xaePrC+vAwCnrT+TCm2/Tvh/OsVE/RREVxbDDEc425e+5aKe1/GX8ed+gGb+1lSk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzqY3wrghhjeUhuKU9WDapzOjQns3ZBRek0O+HWcliZlJA1wv3M
- d3UBcRQaFHRSa6ivTxN8xCI0VVb1VUFovW/90KSzYHUaMazrv9fyslFQQ+sLG2NksnLDClwrfiX
- eURDXfKq5T4lcrm5nUeA8j9rSnL26hGi0pS2Gbg7DtdHZZiVL8CvA0FnkKJcXJh0l6J85a+Y=
-X-Gm-Gg: Acq92OFe1QSaB6FCkAJ3/8cD1CVJefsNECikETxxuxgQX8TOEyRIXFfWJfiwsaAz/eY
- KOYlOK97GuEacVoZ+NdTXjOh2H4oUKenngMT89Q7XsL85GotGtSrMH3SLadqk4cpwfVM56ljPmX
- BiGtIIQPjGgY2DjCKQa6l/ADeftX46NkCbKxA+8xjzvKZH8M6cN5NJ07dcrYsZEqKoWPs6p0FLM
- /Z7H528IEQgfx6E+vQ/a/EOdCDR/71ky1QdTzBkQGFzuEd3wSiqw5Vvw6U7QttQ51emeRJ9od88
- 8P4LggUGuzO2KlsWL6DmLOPPMI3ddeB/rL8EwYAZOr/iLt90+wgvyJB2BftSo9T90xztVRHgVat
- icUMhxEaMzmTqomqiGUxy38MS2tACys0jkoc3twwfmM4=
-X-Received: by 2002:a17:903:2ecb:b0:2bd:936c:8155 with SMTP id
- d9443c01a7336-2bd936c85b3mr32869385ad.13.1778883739313; 
- Fri, 15 May 2026 15:22:19 -0700 (PDT)
-X-Received: by 2002:a17:903:2ecb:b0:2bd:936c:8155 with SMTP id
- d9443c01a7336-2bd936c85b3mr32869195ad.13.1778883738842; 
- Fri, 15 May 2026 15:22:18 -0700 (PDT)
-Received: from [192.168.1.3] ([182.60.13.113])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bd5d0fd384sm72133065ad.65.2026.05.15.15.22.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 May 2026 15:22:18 -0700 (PDT)
-Message-ID: <3dc009dc-8f36-4735-b849-d952fb626cf4@oss.qualcomm.com>
-Date: Sat, 16 May 2026 03:52:08 +0530
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010016.outbound.protection.outlook.com
+ [52.101.193.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B31510E444;
+ Fri, 15 May 2026 23:47:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bTCdAL9/PmydQJm2ttPncN+5HS+s0jR11ErzKorpWpdZxmKcyk4fL8edVvJX1sAl1QbiCppWfJegZMQuvrJYf/y0VjW/2EP8cxrV1m2RR4qB63KENh1Devyu6HJaAw1shCzDD7l+7bO5ftXibSdb5QB3HEakCucw2XN4vC95jEh6C3xRFW51Rm5Hyo8Dw9bylHb6fZo+uYc/sVnPneo/vgmbhV1StwB0gqozlJaA4f/9VNPypCMXgvrktqhF+jkUG+GyvBduGv0ckXnapcpweLNhDR3pyHXnLhsjl4F1SViR6dimyWFuZtF7JoVvEbttyJco1zB7xAP5sO5IPvg0hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MHG9CuFVoiL95bT/YH6cd3J31Y5mEV71zM4DNCY508o=;
+ b=geMPKYmi7MR9YEEqRkwGBaoNskuGxcegRwqqR2enGZpAAemMKIMAUxaOOK5qk5o+ht/z0V4IjXpJ93dKAhiu3fBUFrmpMpIE0eBzwvNhoDgu8H562Wn/z1aVm6saUJiEUApnZCMTt2zpO1fZgGLpl5ExY9oH/MyjWxyuCqV1+zn1mve5Drq0V8w/OS7AydH/DGO5CdXNCtyVYMTCvTEuowYMfdMGeSh8yIxPstmR2O6vMiSKiasf+Gy70TYZKb4r4udMO6AvpaKgD+eQNJ9WdhFQfImaUgac4CAKETEVlJWcRjmG5NF3Dt6QEn0+tMvO/TNkFlGtPN8zcavVpdV3hQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MHG9CuFVoiL95bT/YH6cd3J31Y5mEV71zM4DNCY508o=;
+ b=qIeesAWRb3gnuYnv+6hJc6csFbGuRKJtqWkf6DY5KHhSqPI3FNcFTqyqsujx0ZJBqlr47rLc6lj58KxcC/2IUNd9e++avxBVUf56WZrtSruCd07XEY8zcXstJvZuGEME0P07x747rq+JwlLuNV5SzD1MR3bneHZ4f6MS/feVy30=
+Received: from DS7P222CA0022.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::25) by
+ CH3PR12MB8076.namprd12.prod.outlook.com (2603:10b6:610:127::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.20; Fri, 15 May
+ 2026 23:47:09 +0000
+Received: from DS2PEPF00003448.namprd04.prod.outlook.com
+ (2603:10b6:8:2e:cafe::cb) by DS7P222CA0022.outlook.office365.com
+ (2603:10b6:8:2e::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.12 via Frontend Transport; Fri,
+ 15 May 2026 23:47:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS2PEPF00003448.mail.protection.outlook.com (10.167.17.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Fri, 15 May 2026 23:47:09 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Fri, 15 May
+ 2026 18:47:09 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 May
+ 2026 18:47:09 -0500
+Received: from [10.4.12.198] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 15 May 2026 18:47:08 -0500
+Message-ID: <020f60b5-b2c4-494a-a16d-07a700d299f4@amd.com>
+Date: Fri, 15 May 2026 19:47:08 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 0/7] Add support for Adreno 810 GPU
-To: Alexander Koskovich <akoskovich@pm.me>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] drm/edid: parse panel type from DisplayID 2.x Display
+ Parameters block
+To: Jani Nikula <jani.nikula@intel.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Ray Wu <Ray.Wu@amd.com>,
+ Limonciello Mario <Mario.Limonciello@amd.com>
+References: <20260514065606.1151834-1-chen-yu.chen@amd.com>
+ <20260514065606.1151834-2-chen-yu.chen@amd.com>
+ <8e0c6356a570c55e3df54be6c2d7952dfcee2a06@intel.com>
 Content-Language: en-US
-In-Reply-To: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
-Content-Type: text/plain; charset=UTF-8
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <8e0c6356a570c55e3df54be6c2d7952dfcee2a06@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: BchqfRXBQJi7CfBgWSQ323RCU46__hk4
-X-Authority-Analysis: v=2.4 cv=EJ82FVZC c=1 sm=1 tr=0 ts=6a079c9c cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ba8plz+5YpscmDk5DVa2Cg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=6H0WHjuAAAAA:8 a=i76A9G0zAiINRuBm_vQA:9
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDIyMyBTYWx0ZWRfX7GNuAUZPQQEC
- NpkmSlL90f57X48oPJZt0KZVfWvOp4qBC/191iKx2QGFNAQbyOnaAHMY/FziNVFD8QmsmwkR3Dc
- v/1dqwLqbNoUiZLwzOYZeFnQ06jLpc/nKVKAQyEUkl9OiekimndFkXaKG2OChj03id3guSsziKK
- VIB/9oycAO2lmvxpnGYVmrsHP9rMzg7AuGMY1i/KzNecMYnGlGyQoD3qP1yZa7DJNqeq39kuX61
- zMKUvBCbDihMxPG0U0G7Oawpocr+DP90F450UgGJsUS3WlpYnYzttzfFzp4hdexVWwreU0GDnlm
- ucShIOnHUTJ1rmnXbm8XzgNK87M8kME7FXkhxlnYSVn+OW1X774MPzkF+W4aJUa4EegJOThMSD1
- m49kB6M6cYpyPpVlXBygsekZQREBTBsHZdSlrd9/DigAAAHhBCapzkyg8bQXrXB4TGodIAsl65+
- vVG45Ks3GFBCcLUaK4g==
-X-Proofpoint-ORIG-GUID: BchqfRXBQJi7CfBgWSQ323RCU46__hk4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-15_05,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 bulkscore=0 spamscore=0 priorityscore=1501
- impostorscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150223
+Received-SPF: None (SATLEXMB04.amd.com: sunpeng.li@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003448:EE_|CH3PR12MB8076:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f3d2ffc-4555-4840-496d-08deb2dc4786
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|42112799006|82310400026|36860700016|376014|3023799003|11063799003|22082099003|18002099003|56012099003|4143699003;
+X-Microsoft-Antispam-Message-Info: uADu3N/yhlX8Zdqjm2kiI7LSJbiV/AH5+h/NVYCzRF1p7upUfQS4vM8JhkX+UpiVESaR4BNFJYB7O42g/kaw+K6VKPp1sZVWZjdYgnM5Fzj7TjCc/pUbwkcXwF03audtn5HkY1MC+O9J2supdD1B8eKZUaHDNr7usJfSf3+Et9u3JavzOTbuA9H/G2+qUu2FuyhmzqQy+FNUG4RzT8HUR0iZa8FyThCQGjPUXP/RvQy+5rhNnTTVcqaS8RSpMXFNxzA5oNZhrOvGp3S+e3D3NC8pS9Hy+9fuYs1uS3SbihKHXEz3VTqbwF6bxIEOU/k+EQ4KZYBlbyrdVLwKTCPLq9DhgeeB9wBpZ/uUqowUusInd/+9DbkgcRKs+qVkb+RZyGo90yMqYegEqzzUG6asqeYZ9hr+qtxL/NJVtNxXSWq7lmasunOHmfjj+HCQfdo1b6foFv9D82PM/3TDBbhDox4UCSJJB+6Xw/s+djc4ASvt7+5B0zPO8sbJIVA5a9L8Km9gEfo4fcYDlZ0YL1YlFmdVz03BZmkb73BL8ep0f/xFap/vcIN97kihCq38G6/WmHbHiw1NCAmtY4fqdcgrPCmEjdXXovJOAo7ufU6KgV+Qzru5HATcBKCrF1mSpX5epbHTv/LfNsP59a6Mvmdgja4MiTINNXi82tx6qRByz/bGv7o0ejNc7GDLbGNKCCPo9IbLwUwxXUAsH1mepknN/U8osh6xAtksnIcX+Kjr/ag=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(42112799006)(82310400026)(36860700016)(376014)(3023799003)(11063799003)(22082099003)(18002099003)(56012099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: HQuppyKh1YI+9da/wClSuUqWmFHu7QSaguotYsNlGE/F7jZ9uwjgTj5pOFTPmIVbHlJoKwGK01+z7kUf0skgXJ6uiDlKtIiFpxn8PkTws5JR8vxPcL3+u+UKkVP1h/tqjPDrR9WMqaHlFWBopeM5V1IaLXyKMFhkR2VFA+t2wOtpB3M7B4+UoDSmqSweGxg0jqOxV4LhKtImDX+BmtkJy2X3KgWsgAcVfdZRkbhPBPxkEhKUCrnvIs2xJuWFdopU/8vKZ35A6WgmkP+ukYp5XHYgTxK3UUBt1wT9lFycJpU0n2nsgeLVqNpj/WXgA19vDJqa3wlIu+bKDZAF0i/9OELLjfPgLpI3DYGlZcNsEaUc9SL6pLNI9vEftnzSPFo/S2C2BSM8qYgeeI02Zbhr5Vhf/1RvAfeE/0SfpCkVTKbHOI7c8oKodCPM/haP1Oh3
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 23:47:09.5270 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f3d2ffc-4555-4840-496d-08deb2dc4786
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003448.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8076
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,88 +123,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/15/2026 10:38 AM, Alexander Koskovich wrote:
-> Adreno 810 is present in the Milos SoC and is the first GPU to be released in
-> the A8x family.
-> 
-> This series is marked as RFC because it depends on a few other in review
-> series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2], and devicetree
-> support for Glymur [3] (for a8xx RSCC offset fix and X2-185 bindings change).
-> 
-> Also depends on the GXCLKCTL block for Milos [4], but this is no longer in
-> review and has been applied.
-> 
-> [1]: https://lore.kernel.org/linux-arm-msm/20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com
-> [2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017cc642db@pm.me
-> [3]: https://lore.kernel.org/linux-arm-msm/20260513-glymur-gpu-dt-v4-0-f83832c3bc9a@oss.qualcomm.com
-> [4]: https://lore.kernel.org/linux-arm-msm/20260417-milos-gxclkctl-v3-0-08f5988c43a2@fairphone.com
-> 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
-For the rest of the patches that doesn't have my R-b tag in this series.
+On 2026-05-15 04:23, Jani Nikula wrote:
+> On Thu, 14 May 2026, Chenyu Chen <chen-yu.chen@amd.com> wrote:
+>> Parse the Display Parameters Data Block (tag 0x21) defined in
+>> DisplayID v2.1a Section 4.2.6. Extract the Display Device Technology
+>> field from payload byte 27, bits [6:4], which indicates whether the
+>> panel is LCD (001b) or OLED (010b).
+>>
+>> Store the result in drm_display_info.did_panel_type so that downstream
+>> drivers can use it for panel-type-dependent behavior.
+>>
+>> Assisted-by: Copilot:Claude-Opus-4.6
+>> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+>> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>>  drivers/gpu/drm/drm_displayid_internal.h | 25 ++++++++++
+>>  drivers/gpu/drm/drm_edid.c               | 61 +++++++++++++++++++-----
+>>  include/drm/drm_connector.h              |  6 +++
+>>  include/uapi/drm/drm_mode.h              |  1 +
+>>  4 files changed, 82 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+>> index 5b1b32f73516..e0f7c54d2987 100644
+>> --- a/drivers/gpu/drm/drm_displayid_internal.h
+>> +++ b/drivers/gpu/drm/drm_displayid_internal.h
+>> @@ -142,6 +142,31 @@ struct displayid_formula_timing_block {
+>>  	struct displayid_formula_timings_9 timings[];
+>>  } __packed;
+>>  
+>> +/*
+>> + * DisplayID v2.x Display Parameters Data Block (tag 0x21).
+>> + *
+>> + * Per VESA DisplayID v2.1a, Section 4.2.6, Table 4-14:
+>> + * Offset 0x1E (payload byte 27) contains Native Color Depth and
+>> + * Display Device Technology fields.
+>> + *   bits [2:0] = Native Color Depth
+>> + *   bit  [3]   = RESERVED
+>> + *   bits [6:4] = Display Device Technology
+>> + *     000b = not specified, 001b = LCD, 010b = OLED, others reserved
+>> + *   bit  [7]   = Display Device Theme Preference
+>> + */
+>> +#define DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH	GENMASK(6, 4)
+>> +
+>> +struct displayid_display_params_block {
+>> +	struct displayid_block base;
+>> +	u8 payload[27];
+>> +	u8 device_tech_byte; /* bits [6:4] = Display Device Technology */
+>> +	u8 reserved;
+>> +} __packed;
+>> +
+>> +#define DISPLAYID_DISPLAY_PARAMS_MIN_LEN	\
+>> +	(sizeof(struct displayid_display_params_block) -	\
+>> +	 sizeof(struct displayid_block))
+>> +
+>>  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+>>  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
+>>  
+>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>> index 8031f021d4d0..9b160a878df4 100644
+>> --- a/drivers/gpu/drm/drm_edid.c
+>> +++ b/drivers/gpu/drm/drm_edid.c
+>> @@ -6713,6 +6713,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
+>>  
+>>  	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
+>>  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
+>> +
+>> +	info->did_panel_type = DRM_MODE_PANEL_TYPE_UNKNOWN;
+>>  }
+>>  
+>>  static void update_displayid_info(struct drm_connector *connector,
+>> @@ -6721,24 +6723,61 @@ static void update_displayid_info(struct drm_connector *connector,
+>>  	struct drm_display_info *info = &connector->display_info;
+>>  	const struct displayid_block *block;
+>>  	struct displayid_iter iter;
+>> +	const u8 *section = NULL;
+>>  
+>>  	displayid_iter_edid_begin(drm_edid, &iter);
+>>  	displayid_iter_for_each(block, &iter) {
+>> +		if (section != iter.section) {
+>> +			drm_dbg_kms(connector->dev,
+>> +				    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
+>> +				    connector->base.id, connector->name,
+>> +				    displayid_version(&iter),
+>> +				    displayid_primary_use(&iter));
+>> +			if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+>> +			    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
+>> +			     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
+>> +				info->non_desktop = true;
+>> +			section = iter.section;
+>> +		}
+> 
+> What is this even supposed to do?
+> 
 
--Akhil
+I think the intention is to log and process the DisplayID base section header only once instead on every
+iteration. Maybe a `bool header_processed` works better?
 
-> ---
-> Changes in v6:
-> - Re-jigged the register ranges for GPU/GMU to match Glymur
-> - Depend on RSCC offset fix
-> - Fix bindings to add constraints for reg list
-> - Link to v5: https://lore.kernel.org/r/20260502-adreno-810-v5-0-bc9fd2bb788d@pm.me
+- Leo
+
+>> +
+>>  		drm_dbg_kms(connector->dev,
+>> -			    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
+>> +			    "[CONNECTOR:%d:%s] DisplayID block tag 0x%02x, rev 0x%02x, size %u\n",
+>>  			    connector->base.id, connector->name,
+>> -			    displayid_version(&iter),
+>> -			    displayid_primary_use(&iter));
+>> +			    block->tag, block->rev, block->num_bytes);
+>> +
+>>  		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+>> -		    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
+>> -		     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
+>> -			info->non_desktop = true;
+>> +		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS) {
+>> +			const struct displayid_display_params_block *params =
+>> +				(const struct displayid_display_params_block *)block;
+>> +			u8 tech;
+>> +
+>> +			if (block->num_bytes < DISPLAYID_DISPLAY_PARAMS_MIN_LEN) {
+>> +				drm_dbg_kms(connector->dev,
+>> +					    "[CONNECTOR:%d:%s] DisplayID Display Parameters block too short (%u < %zu)\n",
+>> +					    connector->base.id, connector->name,
+>> +					    block->num_bytes,
+>> +					    DISPLAYID_DISPLAY_PARAMS_MIN_LEN);
+>> +				continue;
+>> +			}
+>>  
+>> -		/*
+>> -		 * We're only interested in the base section here, no need to
+>> -		 * iterate further.
+>> -		 */
+>> -		break;
+>> +			tech = FIELD_GET(DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH,
+>> +					 params->device_tech_byte);
+>> +
+>> +			drm_dbg_kms(connector->dev,
+>> +				    "[CONNECTOR:%d:%s] DisplayID Display Parameters: device technology %u\n",
+>> +				    connector->base.id, connector->name, tech);
+>> +
+>> +			switch (tech) {
+>> +			case 1: /* LCD */
+>> +				info->did_panel_type = DRM_MODE_PANEL_TYPE_LCD;
+>> +				break;
+>> +			case 2: /* OLED */
+>> +				info->did_panel_type = DRM_MODE_PANEL_TYPE_OLED;
+>> +				break;
+>> +			default:
+>> +				break;
+>> +			}
+>> +		}
 > 
-> Changes in v5:
-> - Sync with latest kgsl
-> - Link to v4: https://lore.kernel.org/r/20260416-adreno-810-v4-0-61676e073f8a@pm.me
+> Please tell copilot to not add so much crap in the iterator block. Add
+> functions. Add the first function as a refactor for non_desktop, add
+> more stuff on top, i.e. split this into multiple patches.
 > 
-> Changes in v4:
-> - Add 1150MHz speedbin
-> - Rebase on next-20260415
-> - Add dep on efuse patchset
-> - Link to v3: https://lore.kernel.org/r/20260407-adreno-810-v3-0-30cb7f196ed4@pm.me
+> BR,
+> Jani.
 > 
-> Changes in v3:
-> - Drop DEMET from GMU clocks (not required on A810)
-> - Document qcom,adreno-44010000 compatible (regex is gone in 7.0+)
-> - Drop zeroed out CP_PROTECT_REG[46, 62] range, not required
-> - Add a810_protect to __build_asserts
-> - Add UCHE_CCHE_TRAP_BASE_[LO|HI] and UCHE_CCHE_WRITE_THRU_BASE_[LO|HI] to a810_pwrup_reglist_regs
-> - Move TPL1 registers to a810_pwrup_reglist_regs
-> - Include all protect registers in a810_ifpc_reglist_regs
-> - Revert pipe reg comment, just copied it from downstream but original also works
-> - Link to v2: https://lore.kernel.org/r/20260402-adreno-810-v2-0-ce337ca87a9e@pm.me
 > 
-> Changes in v2:
-> - Mark as RFC due to dependency on in-review changes
-> - Explain in DTS commit why qcom,kaanapali-gxclkctl.h and not qcom,milos-gxclkctl.h
-> - cx_mmio -> cx_misc_mmio
-> - Sync a810_nonctxt_regs with GRAPHICS.LA.14.0.r5-03100-lanai.0
-> - Link to v1: https://lore.kernel.org/r/20260331-adreno-810-v1-0-725801dbb12b@pm.me
+>>  	}
+>>  	displayid_iter_end(&iter);
+>>  }
+>> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+>> index c398dbc68bbc..b95aec34ddb7 100644
+>> --- a/include/drm/drm_connector.h
+>> +++ b/include/drm/drm_connector.h
+>> @@ -899,6 +899,12 @@ struct drm_display_info {
+>>  	 * @amd_vsdb: AMD-specific VSDB information.
+>>  	 */
+>>  	struct drm_amd_vsdb_info amd_vsdb;
+>> +
+>> +	/**
+>> +	 * @did_panel_type: Panel type from DisplayID Display Parameters
+>> +	 * Data Block (tag 0x21). Uses DRM_MODE_PANEL_TYPE_* constants.
+>> +	 */
+>> +	u8 did_panel_type;
+>>  };
+>>  
+>>  int drm_display_info_set_bus_formats(struct drm_display_info *info,
+>> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+>> index 3693d82b5279..d7ca1040b92e 100644
+>> --- a/include/uapi/drm/drm_mode.h
+>> +++ b/include/uapi/drm/drm_mode.h
+>> @@ -169,6 +169,7 @@ extern "C" {
+>>  /* Panel type property */
+>>  #define DRM_MODE_PANEL_TYPE_UNKNOWN	0
+>>  #define DRM_MODE_PANEL_TYPE_OLED	1
+>> +#define DRM_MODE_PANEL_TYPE_LCD		2
+>>  
+>>  /*
+>>   * DRM_MODE_ROTATE_<degrees>
 > 
-> ---
-> Alexander Koskovich (7):
->       dt-bindings: display/msm/gmu: Document Adreno 810 GMU
->       dt-bindings: display/msm/gpu: Document Adreno 810 GPU
->       drm/msm/adreno: rename llc_mmio to cx_misc_mmio
->       drm/msm/adreno: set cx_misc_mmio regardless of if platform has LLCC
->       drm/msm/a8xx: use pipe protect slot 15 for last-span-unbound feature
->       drm/msm/adreno: add Adreno 810 GPU support
->       arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU nodes
-> 
->  .../devicetree/bindings/display/msm/gmu.yaml       |  30 +++
->  .../devicetree/bindings/display/msm/gpu.yaml       |   5 +-
->  arch/arm64/boot/dts/qcom/milos.dtsi                | 165 ++++++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 298 +++++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   8 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  44 ++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |  14 +-
->  drivers/gpu/drm/msm/adreno/a8xx_gpu.c              |   6 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   5 +
->  9 files changed, 536 insertions(+), 39 deletions(-)
-> ---
-> base-commit: 2ca0470eca8b4cee27aeeb39bd93c1f4c96b7e7b
-> change-id: 20260330-adreno-810-5a47525522cd
-> 
-> Best regards,
 
