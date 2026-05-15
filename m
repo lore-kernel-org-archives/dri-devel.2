@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9277CCD343F
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:22:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB6D4CD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:22:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0377E10E034;
-	Fri, 15 May 2026 08:22:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BAC910E15B;
+	Fri, 15 May 2026 08:22:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="DqzQ6kXN";
+	dkim=pass (1024-bit key; unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="WbcC1JEs";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF66010E034
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:22:44 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-bd2d8bb1068so685621866b.1
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 01:22:44 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACA7710E15B
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:22:46 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-bd0fc4c336eso966011366b.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 01:22:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1778833363; x=1779438163;
+ d=amarulasolutions.com; s=google; t=1778833365; x=1779438165;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=9Y029AYLsU3gQyx7qK3mdElsxQO0fMSNbqm4SAjcN30=;
- b=DqzQ6kXNmNvsmQH6e1Tswq1VahSqkPlcwsASEJpp3eSYYsRK3OVvZhLY/QFTzGQpZS
- aUBRcHBhNReUHsaX843OCHU6E7YLST/nMx/BwQLk80dov+rNBBtVFIIRO1bxwSujxUjc
- P8G3UhOZ49RfqQMGiv+GaJs6sf26fea2JMlBk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778833363; x=1779438163;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9Y029AYLsU3gQyx7qK3mdElsxQO0fMSNbqm4SAjcN30=;
- b=lQkZyNZ2q4VDdtdfHxMBaFlUBjQvVR5q8G38bu2RDDatYW9OQeYVMzPi8C1jj+a5Q0
- rU+gIBNTQ2W98ftsNpBr33mq47C1zVw0KZGxXbcA7iAMSBDVmjrj8n0ME8+E2qNwyRNW
- p1TPFXsxTR6mbMkUdpQUee4nqAb9SWYz/aLtJZHbOtnufNDP8N8v8V3LjAsChWprsXtI
- v2kcheF6ECDnY6bLI5qY2voYRX9srRh8HAFj8EId694wPtGe9ao4YMT31iSGcBiy8Byu
- ujFCNaZaz+0za+ryKsYibtfIWD9v7ERoMy81ETXvCFDbOmHf5bWDehiBKrVt6/WN157Y
- CUDw==
+ bh=/jyqc86C0RaOsmVCtF4adD//ESUXJ+e9Bl/YFrb0r+E=;
+ b=WbcC1JEs6kKmlpVBaYawA1XYFj6cxHxarSWcbnguOLX2oLVFAODwvsDKJjSv2Vg7Ga
+ WwP8zx1C9Wm4ht9eXjMdH3RqUQlCMhSJ2gfjn/He3t2rNbyOKv7qXYUIz9vtdgKMYaha
+ z6yHAPyGlFKmHMu370FDsol3jyZBb7ZWqe+XI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778833365; x=1779438165;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=/jyqc86C0RaOsmVCtF4adD//ESUXJ+e9Bl/YFrb0r+E=;
+ b=sNO0xCuvqouyD1SzrufOiGLajyzEvvU/TbPyeIN5qXz6XdHbssHUTWr5+LHsCw/I0L
+ JsS4KGcw0+e62yPcDA3cXSzKCBhQ49/olPZmsPH9OctX/af8zVE70AEfSZFkxYgpq8U/
+ sRfancyQOajsr0TZyo55X65FbRl4QXVQTJ9WBb4v4U8P0Sk9DEBp3JUn+D3pwLMNPhBB
+ m45W6WI1ChfJobPT/dW2CkrvYOfi69f/RkoseFSe+8tYMhMOmZeBKAdL1AbKKCNPBH2p
+ ByGXGRxpS1q7Hmy0Kj0JskaTFRvTGE/bqFGdjixvhlmJL6NVcY9INSdTn/V4EjddfdAw
+ 6Sow==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+jP/XtwAg0pKMWWE5K/scDz5/A3bw5LtNgTc6Iblcp+7XtgP1zdybf0PNs0GBKsWPly9gkojl0WpU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMJurLOTcfWXFHodpCPFjDQDxWvY5hAvtdsHZ07h7yEETZ+5Fe
- zsb+YcZBeH2HTCZh8CagWd+Oh4uTteVF1b1cjxunZZIWyDApNi97TC2qj1glrnhr35M=
-X-Gm-Gg: Acq92OH8ZOby3Nv0INscC+HFPoqdCt+NNcgeHqOFKo28NRpnw+tG/jlUGnrRk0gXCsz
- f3u5fo3C0F2R+86LH0ETB/RpbkzML0mMj9IYudllistVn+ZXLBtjkBPi89lbko5gcQ/LnB1IGxM
- pZyfn+vilfD4UvNnFPi7Yw0JrjXEEsVo1ZMgDId5tjix4VxWOO8/TeGAaF3MN2w0IBfh7wPL8PF
- ddgdrRXqqHOfKGQU106ESADOcoq10xPHke7TjorQYmTQugyssME5w5FfGL7T+bJ0ZCDisatAKNI
- kLey4Oo4Ac6yCVZR+hXTdV7Mr0jpLuOavQA+g7HTbqstRSWIzi/EU+HFaWIS8a8tFykGhpG5xWb
- 6lqf8RRKB8xQuJlCR1eQuAij5MPbHDhn0rt/zrxf1UpWyMxa2LgTLvfmn4uJ0yTulrVqhWzlm7L
- RZUS3mlZZSmk2CuwPPE98mZlmFxOwy60dA+RsLAb945GIykDO7Ma5K4s3iz1NnUozDXwGUmeYlC
- +jBQsLEtYfwgt7z2FdW0PtBOTmIQVvUsLAnnVO5FmkGOve1rdzUtYb5Zz0=
-X-Received: by 2002:a17:907:c291:b0:bd4:f594:8a59 with SMTP id
- a640c23a62f3a-bd51792d179mr143825566b.38.1778833363275; 
- Fri, 15 May 2026 01:22:43 -0700 (PDT)
+ AFNElJ82iot09ALAQBwexOVfz9O52jqfEZ9PSoMJorPBckYOKovKyADF+/dmlN04tm5qlRC2TcC8/pLCSho=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yym3wubR6XmSVF5Guem6MtuFUl+46MnBKLPrOnKMQjay+lcnvgy
+ YX6XAkN+FpmEmpRyFoYsQinOPkQu6Mmb3E5D8X9LKrbEcYkJXK0MLptTqHAQs4BLZRg=
+X-Gm-Gg: Acq92OFa22lv9nz0dqev1lSfVdG4is0WPjXrHOW02biXrBHlxMgwE7/aKkm2LK8Z+Mp
+ kEeIKBB7KXO7EgxgWtYgrQ8O+ZUjJbp6cjAcloP1RBx+1RSgHiv7G/gpbII9sGSRObifJqyRvs6
+ 5WQkfmoUe30fQwWvvneCnzAcsH7Ion05kMcIHgnOJjwuUiiNg7+kzzxmOaEf8Mctp1SmRCXc03R
+ Utqu2dKx2UujzTcVQicuuoMgSnyvc4eXAwVyY06JVguNpyIPIRV4CG77xGSLXa47V4WPtQNFMv3
+ 8QzZ8UZ1fWHcULzDdVnuHkwhp6EOva9Bg228fc1EbPakLLhMezd6PEHstW+otFLr+Qoj1XLrbjd
+ 5KufD/jC/YdUhKdCnu+GFwhQw2yL9Sb6uA478XGc55fxmWLHxX77cN1iFwQRvGxf4sQsrE3PJc5
+ h+rmjTuZktG3P7v5k7pDXy5pbbdXkRR5Gvn0mpE05BwY+bzqNj+oI4pdsGrm2aInRqRNTyH8RoA
+ rTVRqhkf7I+9+VNyxMd7VHHnrS3g8GMOyJ8mAb1cE7foeLF
+X-Received: by 2002:a17:907:94d0:b0:bd4:f3e2:ee5 with SMTP id
+ a640c23a62f3a-bd51790b44fmr119141466b.23.1778833365102; 
+ Fri, 15 May 2026 01:22:45 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.112])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bd4f4e4d54dsm189529966b.47.2026.05.15.01.22.41
+ a640c23a62f3a-bd4f4e4d54dsm189529966b.47.2026.05.15.01.22.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 May 2026 01:22:42 -0700 (PDT)
+ Fri, 15 May 2026 01:22:44 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
 Cc: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Michael Trimarchi <michael@amarulasolutions.com>,
+ David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Sam Ravnborg <sam@ravnborg.org>, Simona Vetter <simona@ffwll.ch>,
- Thierry Reding <thierry.reding@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 1/2] dt-bindings: display: simple: Add AM-1280800W8TZQW-T00H
-Date: Fri, 15 May 2026 10:22:00 +0200
-Message-ID: <20260515082232.1766586-1-dario.binacchi@amarulasolutions.com>
+Subject: [PATCH v2 2/2] drm/panel: simple: Add AM-1280800W8TZQW-T00H
+Date: Fri, 15 May 2026 10:22:01 +0200
+Message-ID: <20260515082232.1766586-2-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260515082232.1766586-1-dario.binacchi@amarulasolutions.com>
+References: <20260515082232.1766586-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,34 +94,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add dt-bindings for 10.1" TFT LCD module from Ampire Co. Ltd.
-as part of panel-simple.
+Add Ampire, AM-1280800W8TZQW-T00H 10.1" TFT LCD panel timings.
 
+Co-developed-by: Michael Trimarchi <michael@amarulasolutions.com>
+Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
 ---
 
 Changes in v2:
-- Insert the new compatible string in alphabetical order in
-  Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-- Replace WQVGA with WXGA.
+- Insert the new data in alphabetical order in
+  drivers/gpu/drm/panel/panel-simple.c.
 
- .../devicetree/bindings/display/panel/panel-simple.yaml         | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/panel/panel-simple.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-index 3e41ed0ef5d5..617cf9d64627 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-@@ -31,6 +31,8 @@ properties:
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index 236bd56208cc..1bf21cd836c1 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -820,6 +820,31 @@ static const struct panel_desc ampire_am_1280800n3tzqw_t00h = {
+ 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
+ };
  
-         # Ampire AM-1280800N3TZQW-T00H 10.1" WQVGA TFT LCD panel
-       - ampire,am-1280800n3tzqw-t00h
-+        # Ampire AM-1280800W8TZQW-T00H 10.1" WXGA TFT LCD panel
-+      - ampire,am-1280800w8tzqw-t00h
-         # Ampire AM-480272H3TMQW-T01H 4.3" WQVGA TFT LCD panel
-       - ampire,am-480272h3tmqw-t01h
-         # Ampire AM-800480L1TMQW-T00H 5" WVGA TFT LCD panel
++static const struct drm_display_mode ampire_am_1280800w8tzqw_t00h_mode = {
++	.clock = 72400,
++	.hdisplay = 1280,
++	.hsync_start = 1280 + 40,
++	.hsync_end = 1280 + 40 + 80,
++	.htotal = 1280 + 40 + 80 + 40,
++	.vdisplay = 800,
++	.vsync_start = 800 + 10,
++	.vsync_end = 800 + 10 + 18,
++	.vtotal = 800 + 10 + 18 + 10,
++};
++
++static const struct panel_desc ampire_am_1280800w8tzqw_t00h = {
++	.modes = &ampire_am_1280800w8tzqw_t00h_mode,
++	.num_modes = 1,
++	.bpc = 8,
++	.size = {
++		.width = 217,
++		.height = 136,
++	},
++	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
++	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
++	.connector_type = DRM_MODE_CONNECTOR_LVDS,
++};
++
+ static const struct drm_display_mode ampire_am_480272h3tmqw_t01h_mode = {
+ 	.clock = 9000,
+ 	.hdisplay = 480,
+@@ -5193,6 +5218,9 @@ static const struct of_device_id platform_of_match[] = {
+ 	{
+ 		.compatible = "ampire,am-1280800n3tzqw-t00h",
+ 		.data = &ampire_am_1280800n3tzqw_t00h,
++	}, {
++		.compatible = "ampire,am-1280800w8tzqw-t00h",
++		.data = &ampire_am_1280800w8tzqw_t00h,
+ 	}, {
+ 		.compatible = "ampire,am-480272h3tmqw-t01h",
+ 		.data = &ampire_am_480272h3tmqw_t01h,
 -- 
 2.43.0
 
