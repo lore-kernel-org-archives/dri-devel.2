@@ -4,97 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F3FCD4851
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:30:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE559CD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CB8610F479;
-	Fri, 15 May 2026 08:30:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="N5Z2s3wb";
-	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E6E110F479
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:30:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778833822;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bl97SG38DqEYm+qLShyfMzefRk/OXd7eX3bX+dxr3ds=;
- b=N5Z2s3wbGD5T2Ur87tk2PSZ7jF5uYSYh5vcEP7+xZ1Y2XhEVw2CrSDg6rxPDb5XxpAOsSk
- hEWj6JV3TPDX1Fr/vrUBvLbNlyFgExNlz5pIXHYjubNnLT7PmGl0N0rHrduz0lhP0Lj+UU
- PvwG9DT8ljWWWqdXTpiP9FSTYHDKmO0=
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
- [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-467-0uFBBkbZPzSoGGKk6hGGvQ-1; Fri, 15 May 2026 04:30:21 -0400
-X-MC-Unique: 0uFBBkbZPzSoGGKk6hGGvQ-1
-X-Mimecast-MFC-AGG-ID: 0uFBBkbZPzSoGGKk6hGGvQ_1778833821
-Received: by mail-yx1-f70.google.com with SMTP id
- 956f58d0204a3-651bd2131f0so21689036d50.3
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 01:30:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778833821; x=1779438621;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bl97SG38DqEYm+qLShyfMzefRk/OXd7eX3bX+dxr3ds=;
- b=K/gwQG6MC82g8EXEsNerSXYbyg068M6I5MAOw2JC9LMlyBCEdB9gnvm5eDkEK/nBHi
- wWYebPR0YBE2Ik2kJww2vs5xSSQPanI1AI2Q4eO2AsXvX/bUOWoqAhcsbSOmqxo81Vpu
- X4nd1Qy8Vqu/gwrNaNitEYpo3+hGSkLyXzC1DeKrvKDqGkHfIenAkyknVitWo6894kbC
- RisPewoYy1blthg9qpvINEOq0mAWSBwMZZjInm1hy6dCp8kOQCs0nx8xQbw9QE8fHb9B
- LKZxwgXNS2vhgGUebcZx5wPEURYpXvbDV4FFOfO5PphlwhKxpuhYJUOP7F58dcjNchYF
- t1uA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9xZYpc5IKrdbX+mUlGzgulncpeOohtF8u0L4bVjGYtPbOMo/RMbhADiwDg0lnWrdMSo0XTcUUbUQU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRSYJ4LKugrj7uEZK7Q3swTfbyin6fXS73/GIbncBXxISjDhnU
- yjkeLcmfFMxHLrAruNM1f1mluAXCA+0X0wsPnuUUyl6fcDzhspkNSBFuT1lFLx9L8bhvMm8A0qn
- a++iZbGg5GJpR4WXyHMGwfrOtAgzwTXLwRBQG0ewj4txBBWxhsrOeF6wHmPIpI+KZJfYzEi3EAN
- HGtp0u7Uqzwhsda+yXVZC0RfS6AZK0wACXdAcc8BBP+uIO
-X-Gm-Gg: Acq92OELusUTYpw+1NCznEmuL6FW+vu7vWj/2OKl5ZY2RLZjj83JKXJoDEjydI6A71Q
- jXtoBtqZg8DMy3Xixsfyy2PyXcbuhWN0e0LkS0wKlItNrQ4sFxl4VBl/nvL8fe/TltzLGoNG1dr
- RL62OM0nQJ3TpeNwvPJylTIVzSjikunBKsoSiu99F8hocoKyKEQADnyUrGKXhD1uwA6mkpin/Jg
- ufl8A==
-X-Received: by 2002:a05:690c:d91:b0:7a4:8718:8c73 with SMTP id
- 00721157ae682-7c959f7eae9mr29527787b3.9.1778833820532; 
- Fri, 15 May 2026 01:30:20 -0700 (PDT)
-X-Received: by 2002:a05:690c:d91:b0:7a4:8718:8c73 with SMTP id
- 00721157ae682-7c959f7eae9mr29527457b3.9.1778833820057; Fri, 15 May 2026
- 01:30:20 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260514-kunit_add_support-v11-0-b36a530a6d8f@redhat.com>
- <20260514-kunit_add_support-v11-2-b36a530a6d8f@redhat.com>
-In-Reply-To: <20260514-kunit_add_support-v11-2-b36a530a6d8f@redhat.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 15 May 2026 10:30:07 +0200
-X-Gm-Features: AVHnY4IpbN1L0iL3JJ5V1KLP5rKC5fDaPhQjSTbBKstC7eTK3NlVXbuxOJbgBlw
-Message-ID: <CADSE00KxDcyvw5MzRzrY0haZze8=9Npb8W8SwsxR+wjcS0R9pw@mail.gmail.com>
-Subject: Re: [PATCH v11 2/4] kunit: Add backtrace suppression self-tests
-To: Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- dri-devel@lists.freedesktop.org, workflows@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org, 
- peterz@infradead.org, Guenter Roeck <linux@roeck-us.net>, 
- Linux Kernel Functional Testing <lkft@linaro.org>,
- Alessandro Carminati <acarmina@redhat.com>, Dan Carpenter <error27@gmail.com>,
- Kees Cook <kees@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 2Lem96XXLPF7z0160E8wuYDsH8U0f1sOobWvxYiECQw_1778833821
-X-Mimecast-Originator: redhat.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9BA910F46A;
+	Fri, 15 May 2026 08:39:03 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D1810F48F
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:39:01 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
+ by APP-05 (Coremail) with SMTP id zQCowAAHlwqc2wZqB+ZSEA--.46578S2;
+ Fri, 15 May 2026 16:38:53 +0800 (CST)
+Message-ID: <1c4d8611411e2d14699ac0b9aeb5b2377feedc8a.camel@iscas.ac.cn>
+Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
+ DCUltra Lite display controller
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 15 May 2026 16:38:52 +0800
+In-Reply-To: <1a42a168-1dbb-467e-9053-b5585a737f71@gmail.com>
+References: <20260511075142.54752-1-a0987203069@gmail.com>
+ <20260511075142.54752-3-a0987203069@gmail.com>
+ <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
+ <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
+ <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
+ <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
+ <4bf6efbb222ebc4d770ad613d17c6185e7cb2fda.camel@iscas.ac.cn>
+ <1d04dd6d-f245-4b83-96b0-c5491fad8093@gmail.com>
+ <76a9e9b676509e85484a1eb31c723b46c7e21a19.camel@iscas.ac.cn>
+ <1a42a168-1dbb-467e-9053-b5585a737f71@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: zQCowAAHlwqc2wZqB+ZSEA--.46578S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtFyUXF4DAr15CF4UWr1ftFb_yoW3Gw1fpr
+ ykGFW0kr4DJryayr47tw1DtFyjyw1UJw43Wr1kJr1rXr1qyr17WF4UJr1UCF1kWr1kGr18
+ Jr48JrWxXry5ArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+ ZFpf9x07betCcUUUUU=
+X-Originating-IP: [112.94.100.82]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,284 +75,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 14, 2026 at 1:07=E2=80=AFPM Albert Esteve <aesteve@redhat.com> =
-wrote:
->
-> From: Guenter Roeck <linux@roeck-us.net>
->
-> Add unit tests to verify that warning backtrace suppression works.
->
-> Tests cover both API forms:
-> - Scoped: kunit_warning_suppress() with in-block count verification
->   and post-block inactivity check.
-> - Direct functions: kunit_start/end_suppress_warning() with
->   sequential independent suppression blocks and per-block counts.
->
-> Furthermore, tests verify incremental warning counting, that
-> kunit_has_active_suppress_warning() transitions correctly around
-> suppression boundaries, and that suppression active in the test
-> kthread does not leak to a separate kthread.
->
-> If backtrace suppression does _not_ work, the unit tests will likely
-> trigger unsuppressed backtraces, which should actually help to get
-> the affected architectures / platforms fixed.
->
-> Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
-> Acked-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Reviewed-by: Kees Cook <keescook@chromium.org>
-> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-> Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
-> Reviewed-by: David Gow <david@davidgow.net>
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
->  lib/kunit/Makefile                     |   1 +
->  lib/kunit/backtrace-suppression-test.c | 198 +++++++++++++++++++++++++++=
-++++++
->  2 files changed, 199 insertions(+)
->
-> diff --git a/lib/kunit/Makefile b/lib/kunit/Makefile
-> index 4592f9d0aa8dd..2e8a6b71a2ab0 100644
-> --- a/lib/kunit/Makefile
-> +++ b/lib/kunit/Makefile
-> @@ -22,6 +22,7 @@ obj-$(if $(CONFIG_KUNIT),y) +=3D                hooks.o
->
->  obj-$(CONFIG_KUNIT_TEST) +=3D            kunit-test.o
->  obj-$(CONFIG_KUNIT_TEST) +=3D            platform-test.o
-> +obj-$(CONFIG_KUNIT_TEST) +=3D            backtrace-suppression-test.o
->
->  # string-stream-test compiles built-in only.
->  ifeq ($(CONFIG_KUNIT_TEST),y)
-> diff --git a/lib/kunit/backtrace-suppression-test.c b/lib/kunit/backtrace=
--suppression-test.c
-> new file mode 100644
-> index 0000000000000..7a2a59c6a780d
-> --- /dev/null
-> +++ b/lib/kunit/backtrace-suppression-test.c
-> @@ -0,0 +1,198 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * KUnit test for suppressing warning tracebacks.
-> + *
-> + * Copyright (C) 2024, Guenter Roeck
-> + * Author: Guenter Roeck <linux@roeck-us.net>
-> + */
-> +
-> +#include <kunit/test.h>
-> +#include <linux/bug.h>
-> +#include <linux/completion.h>
-> +#include <linux/kthread.h>
-> +
-> +static void backtrace_suppression_test_warn_direct(struct kunit *test)
-> +{
-> +       if (!IS_ENABLED(CONFIG_BUG))
-> +               kunit_skip(test, "requires CONFIG_BUG");
-> +
-> +       kunit_warning_suppress(test) {
-> +               WARN(1, "This backtrace should be suppressed");
-> +               /*
-> +                * Count must be checked inside the scope; the handle
-> +                * is not accessible after the block exits.
-> +                */
-> +               KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-> +       }
-> +       KUNIT_EXPECT_FALSE(test, kunit_has_active_suppress_warning());
-> +}
-> +
-> +static noinline void trigger_backtrace_warn(void)
-> +{
-> +       WARN(1, "This backtrace should be suppressed");
-> +}
-> +
-> +static void backtrace_suppression_test_warn_indirect(struct kunit *test)
-> +{
-> +       if (!IS_ENABLED(CONFIG_BUG))
-> +               kunit_skip(test, "requires CONFIG_BUG");
-> +
-> +       kunit_warning_suppress(test) {
-> +               trigger_backtrace_warn();
-> +               KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-> +       }
-> +}
-> +
-> +static void backtrace_suppression_test_warn_multi(struct kunit *test)
-> +{
-> +       if (!IS_ENABLED(CONFIG_BUG))
-> +               kunit_skip(test, "requires CONFIG_BUG");
-> +
-> +       kunit_warning_suppress(test) {
-> +               WARN(1, "This backtrace should be suppressed");
-> +               trigger_backtrace_warn();
-> +               KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 2);
-> +       }
-> +}
-> +
-> +static void backtrace_suppression_test_warn_on_direct(struct kunit *test=
-)
-> +{
-> +       if (!IS_ENABLED(CONFIG_BUG))
-> +               kunit_skip(test, "requires CONFIG_BUG");
-> +       if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE) && !IS_ENABLED(CONFIG_KA=
-LLSYMS))
-> +               kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE or CON=
-FIG_KALLSYMS");
-> +
-> +       kunit_warning_suppress(test) {
-> +               WARN_ON(1);
-> +               KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-> +       }
-> +}
-> +
-> +static noinline void trigger_backtrace_warn_on(void)
-> +{
-> +       WARN_ON(1);
-> +}
-> +
-> +static void backtrace_suppression_test_warn_on_indirect(struct kunit *te=
-st)
-> +{
-> +       if (!IS_ENABLED(CONFIG_BUG))
-> +               kunit_skip(test, "requires CONFIG_BUG");
-> +       if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE))
-> +               kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE");
-Sashiko says:
-"""
-Is there a reason why backtrace_suppression_test_warn_on_direct() falls bac=
-k
-to checking CONFIG_KALLSYMS while
-backtrace_suppression_test_warn_on_indirect() does not?
-The core warning suppression logic matches on the task, so it seems like
-CONFIG_KALLSYMS should be sufficient for both.
-Could this cause tests to be unnecessarily skipped on systems with
-CONFIG_KALLSYMS enabled but CONFIG_DEBUG_BUGVERBOSE disabled?
-"""
-This is interesting. I am not sure why they were different; it was
-probably an oversight. But after looking at it, this is probably a
-leftover from when suppression occurred at the macros. They do not
-seem necessary anymore. So I will remove them.
+=E5=9C=A8 2026-05-15=E4=BA=94=E7=9A=84 14:25 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+>=20
+> On 5/12/2026 9:12 PM, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 18:59 +0800=EF=BC=8CJoey Lu=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > > On 5/12/2026 6:01 PM, Icenowy Zheng wrote:
+> > > > =E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 17:06 +0800=EF=BC=8CJoey Lu=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > >=20
+> > > > =3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > > > > > > diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > > > > > b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > > > > > index 7a93049368db..225af322de32 100644
+> > > > > > > > > --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > > > > > +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > > > > > @@ -164,13 +164,16 @@ static void
+> > > > > > > > > vs_bridge_enable_common(struct
+> > > > > > > > > vs_crtc *crtc,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_C=
+LK_E
+> > > > > > > > > N);
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	regmap_set_bits(dc->regs,
+> > > > > > > > > VSDC_DISP_PANEL_CONFIG(output),
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_R=
+UNNI
+> > > > > > > > > NG);
+> > > > > > > > > -	regmap_clear_bits(dc->regs,
+> > > > > > > > > VSDC_DISP_PANEL_START,
+> > > > > > > > > -		=09
+> > > > > > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+> > > > > > > > > -	regmap_set_bits(dc->regs,
+> > > > > > > > > VSDC_DISP_PANEL_START,
+> > > > > > > > > -
+> > > > > > > > > 			VSDC_DISP_PANEL_START_RUNNIN
+> > > > > > > > > G(ou
+> > > > > > > > > tput));
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > > > > -	regmap_set_bits(dc->regs,
+> > > > > > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc-
+> > > > > > > > > > id),
+> > > > > > > > > -
+> > > > > > > > > 			VSDC_DISP_PANEL_CONFIG_EX_CO
+> > > > > > > > > MMIT);
+> > > > > > > > > +	if (dc->info->has_config_ex) {
+> > > > > > > > > +		regmap_clear_bits(dc->regs,
+> > > > > > > > > VSDC_DISP_PANEL_START,
+> > > > > > > > > +			=09
+> > > > > > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+> > > > > > > > > +		regmap_set_bits(dc->regs,
+> > > > > > > > > VSDC_DISP_PANEL_START,
+> > > > > > > > > +				VSDC_DISP_PANEL_STAR
+> > > > > > > > > T_RU
+> > > > > > > > > NNIN
+> > > > > > > > > G(ou
+> > > > > > > > > tput
+> > > > > > > > > ));
+> > > > > > > > > +
+> > > > > > > > > +		regmap_set_bits(dc->regs,
+> > > > > > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
+> > > > > > > > > +				VSDC_DISP_PANEL_CONF
+> > > > > > > > > IG_E
+> > > > > > > > > X_CO
+> > > > > > > > > MMIT
+> > > > > > > > > );
+> > > > > > > > Should the commit operation happen on
+> > > > > > > > DC8000/DCUltraLite
+> > > > > > > > too?
+> > > > > > > > (By
+> > > > > > > > writing to DcregFrameBufferConfig0.VALID).
+> > > > > > > >=20
+> > > > > > > > Many registers written has "Note: This field is double
+> > > > > > > > buffered" in
+> > > > > > > > the
+> > > > > > > > DCUltraLite documentation.
+> > > > > > > >=20
+> > > > > > > > I suggest create a static function for commit -- write
+> > > > > > > > to
+> > > > > > > > the
+> > > > > > > > corresponding commit bit on DC8200, and write to
+> > > > > > > > DcregFrameBufferConfig0.VALID on DC8000/DCUltraLite.
+> > > > > > > [a] There is no commit operation for DCUltra Lite.
+> > > > > > > I'll not add a `VSDC_FB_CONFIG_VALID` macro. VALID
+> > > > > > > (BIT(3))
+> > > > > > > is a
+> > > > > > > hardware-managed double-buffer status bit: hardware
+> > > > > > > writes
+> > > > > > > 1=3DPENDING
+> > > > > > > when a new register set is ready and clears to 0=3DWORKING
+> > > > > > > after
+> > > > > > > the
+> > > > > > > VBLANK copy. Software must never write it, and there is
+> > > > > > > no
+> > > > > > > polling
+> > > > > > > use
+> > > > > > It seems to be writable and controls whether register
+> > > > > > buffering
+> > > > > > is
+> > > > > > enabled, see [1].
+> > > > > >=20
+> > > > > > The description of this bit in MA35D1 TRM says "This
+> > > > > > ensures a
+> > > > > > frame
+> > > > > > will always start with a valid working set if this register
+> > > > > > is
+> > > > > > programmed last, which reduces the need for SW to wait for
+> > > > > > the
+> > > > > > start of
+> > > > > > a VBLANK signal in order to ensure all states are loaded
+> > > > > > before
+> > > > > > the
+> > > > > > next VBLANK", which indicates some kind of "committing
+> > > > > > write",
+> > > > > > although
+> > > > > > the code at [1] seems to indicate that double buffering is
+> > > > > > only
+> > > > > > enabled
+> > > > > > when bit is cleared.
+> > > > > >=20
+> > > > > > Anyway this bit should be programmable, and "Software must
+> > > > > > never
+> > > > > > write
+> > > > > > it" contradicts with the MA35D1 TRM.
+> > > > > >=20
+> > > > > > Thanks,
+> > > > > > Icenowy
+> > > > > >=20
+> > > > > > [1]
+> > > > > > https://github.com/rockos-riscv/rockos-kernel/blob/rockos-v6.6.=
+y/drivers/gpu/drm/eswin/es_dc_hw.c#L993
+> > > > > Thank you for the correction. I'll add
+> > > > > `#define VSDC_FB_CONFIG_VALID BIT(3)` to
+> > > > > vs_primary_plane_regs.h
+> > > > > and
+> > > > > write it in `vs_primary_plane_commit()` for non-config_ex
+> > > > > variants.
+> > > > > > > case in the driver that requires a named constant. For
+> > > > > > > non-
+> > > > > > > config_ex
+> > > > > > > variants, `vs_primary_plane_commit()` performs no commit
+> > > > > > > operation =E2=80=94
+> > > > > > > `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
+> > > > > > > `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET`
+> > > > > > > (BIT(4))
+> > > > > > > is
+> > > > > > > set/cleared in the bridge enable/disable paths.
+> > > > Well according to the driver code for DC8000 from Eswin, and
+> > > > the
+> > > > bit
+> > > > named "VALID", maybe it should be cleared before programming
+> > > > the
+> > > > registers, and set after programming registers, to make the
+> > > > process
+> > > > of
+> > > > programming registers atomic from the perspective of the
+> > > > display
+> > > > controller.
+> > > >=20
+> > > > Anyway this should require testing on real hardware to verify.
+> > > >=20
+> > > > By the way, I see multiple peripheral drivers for MA35D1 get
+> > > > applied in
+> > > > the torvalds tree, but the device tree is still only a
+> > > > skeleton;
+> > > > when
+> > > > will the device tree be updated?
+> > > >=20
+> > > > Thanks,
+> > > > Icenowy
+> > > Thanks for pointing this out.=C2=A0I=E2=80=99ll perform tests on real=
+ hardware
+> > > since
+> > > I haven=E2=80=99t used this bit before.
+> > >=20
+> > > As for the device tree,=C2=A0we plan to update it comprehensively
+> > > after
+> > > completing several major IPs, with the goal of releasing the
+> > > update
+> > > later this year.
+> > Well I bought a MA35D1 board (MYIR MYB-LMA35 + RGB LCD) earlier
+> > this
+> > year (and this is where I got the MA35D1 identification register
+> > values). Hope I can have a chance to test this driver by myself.
+> >=20
+> > As MMC, Ethernet and USB support is all applied, maybe it's already
+> > worthy to update the device tree ;-)
+> >=20
+> > Thanks,
+> > Icenowy
+>=20
+> Yes you can!
+>=20
+> I have performed hardware validation on the MA35D1 and found that
+> this=20
+> bit acts as a manual latch for the shadow registers rather than an=20
+> auto-clearing trigger, which clarifies the slightly ambiguous=20
+> description in the TRM.
+>=20
+> Following your suggestion, I will align the implementation with
+> ESWIN's=20
+> DC8000 logic: setting the VALID bit at atomic_begin and clearing it
 
-> +
-> +       kunit_warning_suppress(test) {
-> +               trigger_backtrace_warn_on();
-> +               KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-> +       }
-> +}
-> +
-> +static void backtrace_suppression_test_count(struct kunit *test)
-> +{
-> +       if (!IS_ENABLED(CONFIG_BUG))
-> +               kunit_skip(test, "requires CONFIG_BUG");
-> +
-> +       kunit_warning_suppress(test) {
-> +               KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 0);
-> +
-> +               WARN(1, "suppressed");
-> +               KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-> +
-> +               WARN(1, "suppressed again");
-> +               KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 2);
-> +       }
-> +}
-> +
-> +static void backtrace_suppression_test_active_state(struct kunit *test)
-> +{
-> +       KUNIT_EXPECT_FALSE(test, kunit_has_active_suppress_warning());
-> +
-> +       kunit_warning_suppress(test) {
-> +               KUNIT_EXPECT_TRUE(test, kunit_has_active_suppress_warning=
-());
-> +       }
-> +
-> +       KUNIT_EXPECT_FALSE(test, kunit_has_active_suppress_warning());
-> +
-> +       kunit_warning_suppress(test) {
-> +               KUNIT_EXPECT_TRUE(test, kunit_has_active_suppress_warning=
-());
-> +       }
-> +
-> +       KUNIT_EXPECT_FALSE(test, kunit_has_active_suppress_warning());
-> +}
-> +
-> +static void backtrace_suppression_test_multi_scope(struct kunit *test)
-> +{
-> +       struct kunit_suppressed_warning *sw1, *sw2;
-> +
-> +       if (!IS_ENABLED(CONFIG_BUG))
-> +               kunit_skip(test, "requires CONFIG_BUG");
-> +       if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE))
-> +               kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE");
-> +
-> +       sw1 =3D kunit_start_suppress_warning(test);
-> +       trigger_backtrace_warn_on();
-> +       WARN(1, "suppressed by sw1");
-> +       kunit_end_suppress_warning(test, sw1);
-> +
-> +       sw2 =3D kunit_start_suppress_warning(test);
-> +       WARN(1, "suppressed by sw2");
-> +       kunit_end_suppress_warning(test, sw2);
-> +
-> +       KUNIT_EXPECT_EQ(test, kunit_suppressed_warning_count(sw1), 2);
-> +       KUNIT_EXPECT_EQ(test, kunit_suppressed_warning_count(sw2), 1);
-> +}
-> +
-> +struct cross_kthread_data {
-> +       bool was_active;
-> +       struct completion done;
-> +};
-> +
-> +static int cross_kthread_fn(void *data)
-> +{
-> +       struct cross_kthread_data *d =3D data;
-> +
-> +       d->was_active =3D kunit_has_active_suppress_warning();
-> +       complete(&d->done);
-> +       while (!kthread_should_stop())
-> +               schedule();
-> +       return 0;
-> +}
-> +
-> +static void backtrace_suppression_test_cross_kthread(struct kunit *test)
-> +{
-> +       struct cross_kthread_data data;
-> +       struct task_struct *task;
-> +
-> +       data.was_active =3D false;
-> +       init_completion(&data.done);
-> +
-> +       kunit_warning_suppress(test) {
-> +               task =3D kthread_run(cross_kthread_fn, &data, "kunit-cros=
-s-test");
-> +               KUNIT_ASSERT_FALSE(test, IS_ERR(task));
-> +               wait_for_completion(&data.done);
-> +               kthread_stop(task);
-> +       }
-> +
-> +       KUNIT_EXPECT_FALSE(test, data.was_active);
-> +}
-> +
-> +static struct kunit_case backtrace_suppression_test_cases[] =3D {
-> +       KUNIT_CASE(backtrace_suppression_test_warn_direct),
-> +       KUNIT_CASE(backtrace_suppression_test_warn_indirect),
-> +       KUNIT_CASE(backtrace_suppression_test_warn_multi),
-> +       KUNIT_CASE(backtrace_suppression_test_warn_on_direct),
-> +       KUNIT_CASE(backtrace_suppression_test_warn_on_indirect),
-> +       KUNIT_CASE(backtrace_suppression_test_count),
-> +       KUNIT_CASE(backtrace_suppression_test_active_state),
-> +       KUNIT_CASE(backtrace_suppression_test_multi_scope),
-> +       KUNIT_CASE(backtrace_suppression_test_cross_kthread),
-> +       {}
-> +};
-> +
-> +static struct kunit_suite backtrace_suppression_test_suite =3D {
-> +       .name =3D "backtrace-suppression-test",
-> +       .test_cases =3D backtrace_suppression_test_cases,
-> +};
-> +kunit_test_suites(&backtrace_suppression_test_suite);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("KUnit test to verify warning backtrace suppression")=
-;
->
-> --
-> 2.53.0
->
+Ah do you mean clearing it at begin and setting it at flush?
+
+In the Eswin driver (which seems to be based on reference code by
+Verisilicon, I saw similar driver code for DC8200),
+dc_hw_enable_shadow_register() clears VALID bit when enable is true,
+and all register setting sequences calls that function with enable =3D
+true before setting and enable =3D false after setting.
+
+In addition, considering this bit is called "VALID" instead of
+"INVALID", I think it represents that the DC will apply the new setting
+when it's set and keep the current setting when it's cleared, so I
+think it should be cleared before modeset sequence and be set after
+modeset sequence.
+
+Thanks,
+Icenowy
+
+> at=20
+> atomic_flush. My tests confirm this allows the hardware to latch the=20
+> plane configuration correctly while avoiding the blank screen issues=20
+> observed with other configurations.
+>=20
+> I am preparing the v2 patchset with this change, along with the=20
+> requested commit splits, and will submit it shortly.=F0=9F=99=82
+>=20
+> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > > >=20
 
