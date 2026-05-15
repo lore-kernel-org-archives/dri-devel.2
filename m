@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C6A8CD4F49
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 12:09:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56B3CCD4851
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 12:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B88DB10F50B;
-	Fri, 15 May 2026 12:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 994E810F4FC;
+	Fri, 15 May 2026 12:09:42 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B11110F508
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 12:09:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83E7210F50F
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 12:09:38 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 66BC85EC3C;
- Fri, 15 May 2026 12:09:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 303125EDA1;
+ Fri, 15 May 2026 12:09:23 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 06DA7593AA;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C95A0593AA;
  Fri, 15 May 2026 12:09:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id sMt5APIMB2rQFwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iDDqL/IMB2rQFwAAD6G6ig
  (envelope-from <tzimmermann@suse.de>); Fri, 15 May 2026 12:09:22 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com,
@@ -37,9 +37,9 @@ To: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
  spice-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 5/9] drm/cirrus: Set DRM_VBLANK_FLAG_SIMULATED
-Date: Fri, 15 May 2026 13:55:10 +0200
-Message-ID: <20260515120916.333614-6-tzimmermann@suse.de>
+Subject: [PATCH 7/9] drm/qxl: Set DRM_VBLANK_FLAG_SIMULATED
+Date: Fri, 15 May 2026 13:55:12 +0200
+Message-ID: <20260515120916.333614-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260515120916.333614-1-tzimmermann@suse.de>
 References: <20260515120916.333614-1-tzimmermann@suse.de>
@@ -49,10 +49,10 @@ X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 66BC85EC3C
+X-Rspamd-Queue-Id: 303125EDA1
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,25 +69,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mark the vblank event on cirrus as simulated, so that the WAIT_VBLANK
+Mark the vblank event on qxl as simulated, so that the WAIT_VBLANK
 ioctl fails with an error. The ioctl should not be supported because
 the output is not synchronized to a display refresh.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/tiny/cirrus-qemu.c | 2 +-
+ drivers/gpu/drm/qxl/qxl_display.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/cirrus-qemu.c b/drivers/gpu/drm/tiny/cirrus-qemu.c
-index 075221b431d3..01522d1158b2 100644
---- a/drivers/gpu/drm/tiny/cirrus-qemu.c
-+++ b/drivers/gpu/drm/tiny/cirrus-qemu.c
-@@ -501,7 +501,7 @@ static int cirrus_pipe_init(struct cirrus_device *cirrus)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
+index a026bd35ef48..b808fdebbd89 100644
+--- a/drivers/gpu/drm/qxl/qxl_display.c
++++ b/drivers/gpu/drm/qxl/qxl_display.c
+@@ -1300,7 +1300,7 @@ int qxl_modeset_init(struct qxl_device *qdev)
  
--	ret = drm_vblank_init(dev, 1);
-+	ret = drmm_vblank_init(dev, 1, DRM_VBLANK_FLAG_SIMULATED);
+ 	qxl_display_read_client_monitors_config(qdev);
+ 
+-	ret = drm_vblank_init(&qdev->ddev, qxl_num_crtc);
++	ret = drmm_vblank_init(&qdev->ddev, qxl_num_crtc, DRM_VBLANK_FLAG_SIMULATED);
  	if (ret)
  		return ret;
  
