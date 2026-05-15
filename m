@@ -4,31 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE3ACD4F48
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 12:09:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D911CD4F3D
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 12:09:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0A4510F4E2;
-	Fri, 15 May 2026 12:09:29 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB3110F3BD
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 12:09:26 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7DA610F500;
+	Fri, 15 May 2026 12:09:33 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ZrrxfK3Q";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="59nq6O2c";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZrrxfK3Q";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="59nq6O2c";
+	dkim-atps=neutral
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BE1210F4E9
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 12:09:30 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 934F166DBB;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F3DB65ED11;
  Fri, 15 May 2026 12:09:21 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778846962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Yuh6TyilX4VWG6Zmg1V90Jch9YZvkfz6xDh17+YehGA=;
+ b=ZrrxfK3Q1F76T2qQp+4ymFzW9yjTurZZ1eWeMb0ZSJCdW1hlB+y66wOFzdUys31PMGVgdA
+ b4WHGmfc0HLK/KSVObWwHcjZG6PTT0pFdMi729f/hk6wdpmo68okaFiIzPOycXVZW2lHO5
+ 560SduVsmWyE9dXGKKbQEkV1JD8smXQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778846962;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Yuh6TyilX4VWG6Zmg1V90Jch9YZvkfz6xDh17+YehGA=;
+ b=59nq6O2cE8xjt2PT6Xxdj9W5m+yGWBz8gIFuPLWlIrCe1BtWVaZ0/uWGZyfMLnxzSEfg7X
+ LYcYLmlvsOzVU6CA==
+Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778846962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Yuh6TyilX4VWG6Zmg1V90Jch9YZvkfz6xDh17+YehGA=;
+ b=ZrrxfK3Q1F76T2qQp+4ymFzW9yjTurZZ1eWeMb0ZSJCdW1hlB+y66wOFzdUys31PMGVgdA
+ b4WHGmfc0HLK/KSVObWwHcjZG6PTT0pFdMi729f/hk6wdpmo68okaFiIzPOycXVZW2lHO5
+ 560SduVsmWyE9dXGKKbQEkV1JD8smXQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778846962;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Yuh6TyilX4VWG6Zmg1V90Jch9YZvkfz6xDh17+YehGA=;
+ b=59nq6O2cE8xjt2PT6Xxdj9W5m+yGWBz8gIFuPLWlIrCe1BtWVaZ0/uWGZyfMLnxzSEfg7X
+ LYcYLmlvsOzVU6CA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3B96D593AA;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9955C593A9;
  Fri, 15 May 2026 12:09:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yJtcDfEMB2rQFwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WAI7JPEMB2rQFwAAD6G6ig
  (envelope-from <tzimmermann@suse.de>); Fri, 15 May 2026 12:09:21 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com,
@@ -37,23 +78,29 @@ To: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
  spice-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 3/9] drm/amdgpu: vkms: Set DRM_VBLANK_FLAG_SIMULATED
-Date: Fri, 15 May 2026 13:55:08 +0200
-Message-ID: <20260515120916.333614-4-tzimmermann@suse.de>
+Subject: [PATCH 4/9] drm/bochs: Set DRM_VBLANK_FLAG_SIMULATED
+Date: Fri, 15 May 2026 13:55:09 +0200
+Message-ID: <20260515120916.333614-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260515120916.333614-1-tzimmermann@suse.de>
 References: <20260515120916.333614-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 934F166DBB
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
+ RCPT_COUNT_TWELVE(0.00)[14]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com,collabora.com,emersion.fr,linux.intel.com,kernel.org];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RL9d8yydhbkx9sasttcqzahbbr)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,28 +116,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mark the vblank event on amdgpu's vkms as simulated, so that the
-WAIT_VBLANK ioctl fails with an error. The ioctl should not be
-supported because the output is not synchronized to a display refresh.
+Mark the vblank event on bochs as simulated, so that the WAIT_VBLANK
+ioctl fails with an error. The ioctl should not be supported because
+the output is not synchronized to a display refresh.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tiny/bochs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index 170adaf7e76a..bc88acc819a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -413,7 +413,8 @@ static int amdgpu_vkms_sw_init(struct amdgpu_ip_block *ip_block)
- 			return r;
- 	}
+diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
+index e2d957e51505..b5955ef39e31 100644
+--- a/drivers/gpu/drm/tiny/bochs.c
++++ b/drivers/gpu/drm/tiny/bochs.c
+@@ -677,7 +677,7 @@ static int bochs_kms_init(struct bochs_device *bochs)
+ 	drm_connector_attach_edid_property(connector);
+ 	drm_connector_attach_encoder(connector, encoder);
  
--	r = drm_vblank_init(adev_to_drm(adev), adev->mode_info.num_crtc);
-+	r = drmm_vblank_init(adev_to_drm(adev), adev->mode_info.num_crtc,
-+			     DRM_VBLANK_FLAG_SIMULATED);
- 	if (r)
- 		return r;
+-	ret = drm_vblank_init(dev, 1);
++	ret = drmm_vblank_init(dev, 1, DRM_VBLANK_FLAG_SIMULATED);
+ 	if (ret)
+ 		return ret;
  
 -- 
 2.54.0
