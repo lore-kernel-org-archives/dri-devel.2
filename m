@@ -4,124 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D99CD4F3C
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 03:08:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC36ACD4F3C
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 03:26:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F26210F3B9;
-	Fri, 15 May 2026 03:08:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 333FB10E070;
+	Fri, 15 May 2026 03:26:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ch0Cx9p+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VX7RPy+O";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013020.outbound.protection.outlook.com
- [40.107.201.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 404C410F3B4;
- Fri, 15 May 2026 03:08:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lA58MJ2dHeq6HIL2Qfpj9MkiiL27/76wP6EgX0Ie24ndUTPXgd21yLGmNQ1tcRCm4wS89MTOoY3l/ZUmshTIvTjjriDbpHG4Tw3gP1WQVVJFatwbkUqSp88zAKVl1LdYGUH8EzS+n3qogOtJ8F94xF6FEMKAsfayiabWZHpijhb3DKuH0WmgcZRgA/o/cpEEqB/YTPvkEwVyj+9qx6KdTPKRibYTbWsW9UIvLSIAu2SloGuPlll7CgqqtCiLaDjFgUQ2eIcebipETTW68L8vCQkN/cpeNLWYIL5M4EzepqrJe4G8i0GZWOeO/TK58LFaeXzjFYvkn8Hnc6E9rPv7sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8oUOH4oh6VU+tUOFfjWE9+VIX/tjZisMQuMWOFTNmQ0=;
- b=il6v4L/ePSx6Sf7sBuRqIYNcgUd2bEdwnATBreUoVLxtILv66XWFqzjZQa4QBJzhiK6uTgrZfFW/KYqsJHZxT193cLW9eUdGZb5T5PfNPfRc+g4KnCxnv0dE5onuVzO0Pjey+j3bX2cDvz9dW1MbUlZk6gr1MOzGrCBaDZ9sxxue7krxE925rPTtlxLRrq9gizgzZuRZt08OmdZ7WRIoHFASyTopLETLICkmaYRan0Gcv5U9v/ywwzarp/soclrwuBkYPFpbaUfsHY00vtMDTpq2hgMdpbVHXec4xm/SsmO64ojZM+01ka2uqgsQ3SQjfMmLMPILGgPbIDGhMf3d0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8oUOH4oh6VU+tUOFfjWE9+VIX/tjZisMQuMWOFTNmQ0=;
- b=Ch0Cx9p+tfo6UBvoH+n+4l6GbgMxJVx6lpf4ahAkLf5YCLD/KXwL5u3heUVUQozTMmEvpDEjCZwSMLq0VXcWx3E6JMz1V7WncNxICapDUYBNRzSsKZa0SAH21janK1CHmX+VIsnauHdlqfE9wZybztSU9aEN2/kVCZ9RRGWw9c96q919+2FCFFKoFWchlr0aPmd2HUSy2P0rKNPPnJ4kdARI6G2TZoyvQ6FZ1pnQv2eguPlCrOyp1nrcBHmsX+797/5/tHULAnYq7BiPMDjsECPVwNUkAdnONGoDByuVf+TPOC4AUBAkNkGbfHyTe/iMRn9xm77TPLtMDMt0t3OG/Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7277.namprd12.prod.outlook.com (2603:10b6:510:223::13)
- by PH7PR12MB6833.namprd12.prod.outlook.com (2603:10b6:510:1af::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.18; Fri, 15 May
- 2026 03:08:03 +0000
-Received: from PH8PR12MB7277.namprd12.prod.outlook.com
- ([fe80::2920:e6d9:4461:e2b4]) by PH8PR12MB7277.namprd12.prod.outlook.com
- ([fe80::2920:e6d9:4461:e2b4%5]) with mapi id 15.21.0025.016; Fri, 15 May 2026
- 03:08:03 +0000
-Date: Fri, 15 May 2026 13:07:58 +1000
-From: Balbir Singh <balbirs@nvidia.com>
-To: mpenttil@redhat.com
-Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-Subject: Re: [PATCH v10 0/5] Migrate on fault for device pages
-Message-ID: <agaN29W7hAklrCxz@parvat>
-References: <20260505184421.2324798-1-mpenttil@redhat.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260505184421.2324798-1-mpenttil@redhat.com>
-X-ClientProxiedBy: SY4P282CA0015.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:a0::25) To PH8PR12MB7277.namprd12.prod.outlook.com
- (2603:10b6:510:223::13)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E0E410E070
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 03:26:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B259060252;
+ Fri, 15 May 2026 03:26:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB3DC2BCB0;
+ Fri, 15 May 2026 03:26:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778815597;
+ bh=dXAH5XSiyzFugsUjrGRAuFWoa6KhsQ5kgROjoL57xJk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=VX7RPy+OgO+6q8ug1jl98MFB+WtA6l/vd/dTpONu1IkdHEjS3Jc+9SjCgKI1RBbP4
+ iy/K47jAXjqkbKbJFBUeyev4eVQOqt9uMm4U6LjicDypWGe+TK/pBb7xjnRaGlleEQ
+ AbMzsWqpPr9vTcQCxlfSIuqO3RutD8Oeui1TjAry8YUqQZMnFFzc23fiviSAmrKiMv
+ p9WfXxCgpkRA9ktCP8boSdFGcDcoOF2gocbgZg85bis5cJGn6vwl81cCqECBl6krOC
+ CG8s2lLMWOkTjJl5XPKCrlzUAe9ZawmhVjYWPQ3CauadkbIHZDCGAIdrfgMXZsD6d0
+ LyRCy3zY+iC+w==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-hardening@vger.kernel.org
+Subject: [PATCH v2] accel: ethosu: Add performance counter support
+Date: Thu, 14 May 2026 22:26:22 -0500
+Message-ID: <20260515032625.1880618-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7277:EE_|PH7PR12MB6833:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17b55e97-8714-4565-eb40-08deb22f2d43
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|18002099003|56012099003|22082099003|11063799003;
-X-Microsoft-Antispam-Message-Info: oWgnfpmli8h5fQW3f33yYHFaOcB56EU7kPxnPfPupv8T9OjMPfst+gphVruaSUTQQyuJ4Bq3RSfFvcgxtqPu7skSZiV7wfYk3x20fslWePqsdJF+L8Glh4yL0vQPjyP7u++DEy6cUWV6hGxLCVCQd3BzQp3BlIx/GcmwRP/ubsOkeBT84By/2m3d49rxJDbGdJJysOSiqnGzJQ/05y1vVRVy9NaiWdH2Q5VWpi5YhB4o3Z9d28a3SsFm2RWGOMCUPdYbAnS9jGkbaCNckAVYdxN1BwCKqzVISfMBf6nVTYDqz4RQKm2QUQMvTJ4gSnhZSH5cenGlmTuAW83Waq02CaDFOQgvl6krC9P8DNvAhPVSS+XEaE6vUP8H6UNFAsxftnGVqE/fUaUDXHPuUCgMHtaGbIbo5GAHtShyZEKthuX6n4DfpV/CvhxLqSkIx7X1xiAi0rR8Cz4M+z/Lpa03HDPmQPQLz3hfFhZzgD/2mZGc0Olx6CGFL2VF1HaQZOgYzWXThXVCMYdtF9iORuSgWt0/jwFtt6Jent2gm5g/QMpYdNM944uWZVgQ/VqGBD7oQfroWkUpLn7ICPzPgQaNrKJFif8GiUnX8KzQ2+WI4kgwRnxRaZeViKw5u9CwizlLl6PtUiGHICdDLQQ4DqDwlJ5E83WRMG+1yyP1OV8/QpezVOgor5xiV/h8K2/Bq74urOPYYktVllXaCCCqqbCCIg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7277.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(18002099003)(56012099003)(22082099003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?ECqk9tvoawPQg99jGD5e4x7gWwQ21/ZrvHaSMFGYxBiDzYJ1x2TuJtvEy2?=
- =?iso-8859-1?Q?VjsVz1QUvYK9uOTZYgMo5rCQ5a9AmJrJtf72x7wnIdHaZ9sUvrUPvt2P9e?=
- =?iso-8859-1?Q?ZPq1zyJy1O498+pD5IOgNtgvBLYxQex3ZqP7XvPSnjn037MH1IXFXcXPGy?=
- =?iso-8859-1?Q?yilqTQ9yivAWGmS+qB2CtU8S+7qT/j2kKYL8R0/yqea1b4QIrH22KPdFEH?=
- =?iso-8859-1?Q?WO/hWVRA+g7TeqMeswjBxNMDTJ9OkSQliLH2RoTCBoyAESP0dpurNBlVIL?=
- =?iso-8859-1?Q?A4cxikLplz60fnPgTGNwqHZFZu9ZSznWbBZ7BTrm1jur5uTh/OTZ0Ix3it?=
- =?iso-8859-1?Q?5AXkxqAjdzFUlsSgp416WQzNyt4Lq5EvQBOwqO3BrjlTuSdOccIPnK1TyT?=
- =?iso-8859-1?Q?XSDP4tgLNATap2GMtTpmGblbubV1+RuIuWiG/jr/mqnRmSFTyCbgD9O5dN?=
- =?iso-8859-1?Q?vtLSzuUTw5urdt0O7Ov0RnfV5TRrETZxrRPKHyivc6vC1oKU+3hUxyejCZ?=
- =?iso-8859-1?Q?4H27WZblpnRORXzwyJ0Hy1w5Rsy9JZi/K0cC6Jg4I1QI9Ub4sDXqce0CzN?=
- =?iso-8859-1?Q?zV+HKM/EIuHPKbpKctetGngH3mNLj3EtLWLaYvOiw2Bsv0wg+Re7AFAuLV?=
- =?iso-8859-1?Q?B+R/lb3SVpP5i1Ku5r7ZBxB+FQN9B1qFC83PJPAw2ZloFG6vn8JZ+lccfm?=
- =?iso-8859-1?Q?S+SNMg3ag0RQKnjtTCrpnNd1uniYm90B5P07MxfSCMHVY5m4A7D0/aohmZ?=
- =?iso-8859-1?Q?SrM6T0SdaoK5QIjQ7ojCdf8Ytt5u69UEANQQ3SvZh3LSlx/di03DHUCM1f?=
- =?iso-8859-1?Q?lu6PezKE2RBvA0rcwM6EzBtjWxTAojlsc/KdqrUjsaQvZzeIeTWfpBCAoI?=
- =?iso-8859-1?Q?T9W2R4SAdXsFzwU6mueRbmKZs9gPwHEfVGJ+hINGR3tj5Gm1Om8RAo4nxs?=
- =?iso-8859-1?Q?Y+qPLAxS668wMpIX4JcUkgNu/T8ZQ1tY+gxXVopXXkkvA11kVqCQwVlq0/?=
- =?iso-8859-1?Q?P7iN0m9U5VjGWIhBZKEVhGonaMQFRyOw8FGMJXOwmHjZXeYyLZk6XLfD/9?=
- =?iso-8859-1?Q?328GtjLKn0LNwnTdpV5s4JsjwlfaZDr3QHgeXHvvjPd6nAW3mFezJa/vf6?=
- =?iso-8859-1?Q?mAZ4Dlg7pniHiIKJHxXqQ2OBmTey7/CWyi8QJQCf11SBNz0ABbeUaOEvB/?=
- =?iso-8859-1?Q?ZPcPiQJJsHjbe5n7rPIdLO6UaWaJofjfvkO+3CKxwIMVH4PznLoMddx1pn?=
- =?iso-8859-1?Q?mB4hObJQOrLNYljMzUEmysUR6KCIllu7UcBGkmGGILCFPsSakRXctJRoGQ?=
- =?iso-8859-1?Q?sO8QemeVCt940XoirMdlNbykO1j2fbZCnknopu0ET8ZmA9v0hVa41F39JB?=
- =?iso-8859-1?Q?6KYKmwjXc56CjlXUYpjuT8WuqrFtCW52XUROS2vIqBIvmqOohXzYIdnUOK?=
- =?iso-8859-1?Q?2Qlvc+0jGMb7UIhkRmWyU84TjpjT1XdR42fME6zsJMyFG3im8LxSpmQWpC?=
- =?iso-8859-1?Q?z7SYcXtw8hP/DL3Kk6HjuLPw8Eow6HECQRPmSm9NirPykLBxgq7BVZkmCl?=
- =?iso-8859-1?Q?JST1jI+X/vr9ceSsyu9nBgVujQv3I1jBvfDKQZv0Ygw7CHnhhTzJTNydtA?=
- =?iso-8859-1?Q?RE3LfjiAXjd69IxSvTO4Inv+WqdCqHHsSrSa+k+Vnv6/RXf0Ga+0A776fE?=
- =?iso-8859-1?Q?nvK4M7uf2qlSnlA9aKmA3BU2F7bOF2x4mrJYVIIqueytSrAoWqDRmN9VZL?=
- =?iso-8859-1?Q?Y1DI+r81KVRiJAdzJ7e1KSXqfgWuokrDnqdpfywQx6i3rDPNvo1vq0O2av?=
- =?iso-8859-1?Q?GjBgHB1ySw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17b55e97-8714-4565-eb40-08deb22f2d43
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7277.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 03:08:02.9669 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WW42m4TZW8a49l3AnjqKIwPb6qkAT0GtG+HZftCmWwrVAYsl8eg9jufuI202J4zXmwv+Q+OutPLpEhOS15IJtg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6833
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,249 +61,794 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 05, 2026 at 09:44:16PM +0300, mpenttil@redhat.com wrote:
-> From: Mika Penttilä <mpenttil@redhat.com>
-> 
-> Currently, the way device page faulting and migration works
-> is not optimal, if you want to do both fault handling and
-> migration at once.
-> 
-> Being able to migrate not present pages (or pages mapped with incorrect
-> permissions, eg. COW) to the GPU requires doing either of the
-> following sequences:
-> 
-> 1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
-> 2. migrate_vma_*() - migrate the pages
-> 
-> Or:
-> 
-> 1. migrate_vma_*() - migrate present pages
-> 2. If non-present pages detected by migrate_vma_*():
->    a) call hmm_range_fault() to fault pages in
->    b) call migrate_vma_*() again to migrate now present pages
-> 
-> The problem with the first sequence is that you always have to do two
-> page walks even when most of the time the pages are present or zero page
-> mappings so the common case takes a performance hit.
-> 
-> The second sequence is better for the common case, but far worse if
-> pages aren't present because now you have to walk the page tables three
-> times (once to find the page is not present, once so hmm_range_fault()
-> can find a non-present page to fault in and once again to setup the
-> migration). It is also tricky to code correctly. One page table walk
-> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
-> 
-> We should be able to walk the page table once, faulting
-> pages in as required and replacing them with migration entries if
-> requested.
-> 
-> Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
-> which tells to prepare for migration also during fault handling.
-> Also, for the migrate_vma_setup() call paths, a flag, MIGRATE_VMA_FAULT,
-> is added to tell to add fault handling to migrate.
-> 
-> One extra benefit of migrating with hmm_range_fault() path
-> is the migrate_vma.vma gets populated, so no need to
-> retrieve that separataly.
-> 
-> Tested in X86-64 VM with HMM test device, passing the selftests.
-> For performance, the migrate throughput tests from the selftests
-> show similar numbers (within error margin) as unmodified kernel.
-> Tested also rebased on the
-> "Remove device private pages from physical address space" series:
-> https://lore.kernel.org/linux-mm/20260130111050.53670-1-jniethe@nvidia.com/
-> plus a small patch to adjust with no problems.
-> 
-> Changes v9-v10
->   - Fix for issue Intel CI found, forgotten pte_unmap() before
->     migration_entry_wait()
-> 
-> Changes v8-v9
->   - rebase on drm-tip
->   - fixed uaf around  migrate_vma_split_folio() usage
->   - added missing pmd unlock
-> 
-> Changes v7-v8
->   - rebase on 7.0
->   - fixed subject in two patches
->   - enhanced commit messages
->   - squashed patch 6 into patch 4 to fix kernel test robot warning
->   - readded dropped Cc block from cover letter
->   - fixed white space
-> 
-> Changes v6-v7
->   - rebase on 7.0.0-rc6
->   - added documentation and comments
->   - denote to be migrated zero page as HMM_PFN_MIGRATE alone
->   - got rid of HMM_PFN_INOUT_FLAGS movement in patch 2
->   - picked up Acked-By from David for patch 1
->   
-> Changes v5-v6
->   - rebase on 7.0.0-rc4
->   - use range based TLB flushing while unmapping ptes
->   - gate migration behind HMM_PFN_REQ_MIGRATE for fault and
->     migrate paths
->   - always infer migration flags from migrate->flags only
-> 
-> Changes v4-v5
->   - rebase on 6.19
->   - fixed David's email address
->   - fixed link issue without CONFIG_TRANSPARENT_HUGEPAGE
->   - refactored into smaller commits
->   - added more comments to code
-> 
-> Changes v3-v4:
->   - rebase on 6.19-rc8
->   - fixed issues found by kernel test robot with random configs
->   - fixed typos
-> 
-> Changes v2-v3:
->   - rebase on 6.19-rc7
->   - fixed issues found by kernel test robot
->   - fixed smatch issues reported by Dan Carpenter <dan.carpenter@linaro.org>
->   - fixes to lock handling (pmd/pte) on errors
->   - added assertions for pmd/pte lock states
->   - other issues discovered by Matthew, thanks!
-> 
-> Changes v1-v2:
->   - rebase on 6.19-rc6
->   - fixed issues found by kernel test robot
->   - fixed locking (pmd/ptl) to cover handle_ and prepare_ regions
->     parts if migrating
->   - other issues discovered by Matthew, thanks!
-> 
-> Changes RFC-v1:
->   - rebase on 6.19-rc5
->   - adjust for the device THP
->   - changes from feedback
-> 
-> Revisions:
->   - RFC https://lore.kernel.org/linux-mm/20250814072045.3637192-1-mpenttil@redhat.com/
->   - v1: https://lore.kernel.org/all/20260114091923.3950465-1-mpenttil@redhat.com/
->   - v2: https://lore.kernel.org/all/20260119112502.645059-1-mpenttil@redhat.com/
->   - v3: https://lore.kernel.org/all/20260126111939.1332983-2-mpenttil@redhat.com/
->   - v4: https://lore.kernel.org/all/20260202112622.2104213-1-mpenttil@redhat.com/
->   - v5: https://lore.kernel.org/linux-mm/20260211081301.2940672-1-mpenttil@redhat.com/
->   - v6: https://lore.kernel.org/linux-mm/20260316062407.3354636-1-mpenttil@redhat.com/
->   - v7: https://lore.kernel.org/linux-mm/20260330115611.347988-1-mpenttil@redhat.com/
->   - v8: https://lore.kernel.org/linux-mm/20260414041226.1539439-1-mpenttil@redhat.com/
->   - v9: https://lore.kernel.org/linux-mm/20260505051658.2219537-1-mpenttil@redhat.com/
-> 
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Jason Gunthorpe <jgg@nvidia.com>
-> Cc: Leon Romanovsky <leonro@nvidia.com>
-> Cc: Alistair Popple <apopple@nvidia.com>
-> Cc: Balbir Singh <balbirs@nvidia.com>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
-> Cc: Vlastimil Babka <vbabka@suse.cz>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Suren Baghdasaryan <surenb@google.com>
-> Cc: Michal Hocko <mhocko@suse.com>
-> 
-> Mika Penttilä (5):
->   mm/Kconfig: changes for migrate on fault for device pages
->   mm: Add helper to convert HMM pfn to migrate pfn
->   mm/hmm: do the plumbing for HMM to participate in migration
->   mm: setup device page migration in HMM pagewalk
->   lib/test_hmm:: add a new testcase for the migrate on fault
-> 
->  include/linux/hmm.h                    |  19 +-
->  include/linux/migrate.h                |  26 +-
->  lib/test_hmm.c                         | 101 ++-
->  lib/test_hmm_uapi.h                    |  19 +-
->  mm/Kconfig                             |   2 +
->  mm/hmm.c                               | 836 +++++++++++++++++++++++--
->  mm/migrate_device.c                    | 583 +++--------------
->  tools/testing/selftests/mm/hmm-tests.c |  54 ++
->  8 files changed, 1067 insertions(+), 573 deletions(-)
-> 
-> drm-tip
-> base-commit: 94d56a898a2db27f841b17f6966a81ba502fe63c
-> -- 
+The Arm Ethos-U NPUs have a PMU with performance counters. The PMU h/w
+supports up to 4 (U65) or 8 (U85) counters which can be programmed for
+different events. There is also a dedicated cycle counter.
 
-FYI: While testing with hmm_tests I ran into
+The ABI and implementation are copied from the V3D driver. The main
+difference in the ABI is there is no query API for the the event list.
+The events differ between the U65 and U85, so the events lists are
+maintained in userspace along with other differences between the U65 and
+U85.
 
-[  107.866004] ============================================
-[  107.866284] WARNING: possible recursive locking detected
-[  107.866577] 7.1.0-rc3-00311-g4277273ca0e1 #12 Not tainted
-[  107.866877] --------------------------------------------
-[  107.867217] hmm-tests/1098 is trying to acquire lock:
-[  107.867491] ffff888113571b38 (&mm->mmap_lock){++++}-{4:4}, at: dmirror_range_fault+0x147/0x610 [test_hmm] <- line 368 of lib/test_hmm.c
-[  107.868076] 
-[  107.868076] but task is already holding lock:
-[  107.868383] ffff888113571b38 (&mm->mmap_lock){++++}-{4:4}, at: dmirror_fault_and_migrate_to_device.constprop.0+0x3aa/0x6a0 [test_hmm] <- line 1267 of lib/test_hmm.c
-[  107.869076] 
-[  107.869076] other info that might help us debug this:
-[  107.869415]  Possible unsafe locking scenario:
-[  107.869415] 
-[  107.869729]        CPU0
-[  107.869866]        ----
-[  107.870054]   lock(&mm->mmap_lock);
-[  107.870247]   lock(&mm->mmap_lock);
-[  107.870436] 
-[  107.870436]  *** DEADLOCK ***
-[  107.870436] 
-[  107.870743]  May be due to missing lock nesting notation
-[  107.870743] 
-[  107.871158] 1 lock held by hmm-tests/1098:
-[  107.871377]  #0: ffff888113571b38 (&mm->mmap_lock){++++}-{4:4}, at: dmirror_fault_and_migrate_to_device.constprop.0+0x3aa/0x6a0 [test_hmm]
-[  107.872081] 
-[  107.872081] stack backtrace:
-[  107.872348] CPU: 1 UID: 0 PID: 1098 Comm: hmm-tests Not tainted 7.1.0-rc3-00311-g4277273ca0e1 #12 PREEMPT(full) 
-[  107.872350] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS edk2-20260213-6.fc44 02/13/2026
-[  107.872354] Call Trace:
-[  107.872357]  <TASK>
-[  107.872358]  dump_stack_lvl+0x5d/0x80
-[  107.872385]  print_deadlock_bug.cold+0xc0/0xe2
-[  107.872393]  __lock_acquire+0x10cf/0x1b90
-[  107.872400]  lock_acquire+0x189/0x2f0
-[  107.872401]  ? dmirror_range_fault+0x147/0x610 [test_hmm]
-[  107.872404]  down_read+0x9b/0x4b0
-[  107.872420]  ? dmirror_range_fault+0x147/0x610 [test_hmm]
-[  107.872421]  ? lock_acquire+0x189/0x2f0
-[  107.872422]  ? __pfx_down_read+0x10/0x10
-[  107.872424]  ? __lock_acquire+0x3c2/0x1b90
-[  107.872425]  dmirror_range_fault+0x147/0x610 [test_hmm]
-[  107.872427]  ? __pfx_down_read+0x10/0x10
-[  107.872429]  ? __pfx_dmirror_range_fault+0x10/0x10 [test_hmm]
-[  107.872430]  ? __lock_acquire+0x3c2/0x1b90
-[  107.872434]  dmirror_fault_and_migrate_to_device.constprop.0+0x3bf/0x6a0 [test_hmm]
-[  107.872436]  ? __pfx_dmirror_fault_and_migrate_to_device.constprop.0+0x10/0x10 [test_hmm]
-[  107.872439]  ? find_held_lock+0x2b/0x80
-[  107.872444]  ? dmirror_device_remove_chunks+0x5b8/0xa00 [test_hmm]
-[  107.872445]  ? __is_insn_slot_addr+0xee/0x1f0
-[  107.872458]  ? lock_acquire+0x189/0x2f0
-[  107.872460]  ? avc_has_extended_perms+0x234/0x1350
-[  107.872476]  ? __might_fault+0x89/0x150
-[  107.872484]  ? lock_release+0xe1/0x320
-[  107.872486]  dmirror_fops_unlocked_ioctl+0x9ba/0xdb0 [test_hmm]
-[  107.872488]  ? ioctl_has_perm.constprop.0.isra.0+0x2fe/0x6c0
-[  107.872494]  ? __pfx_dmirror_fops_unlocked_ioctl+0x10/0x10 [test_hmm]
-[  107.872498]  ? count_memcg_events_mm.constprop.0+0x22/0x1a0
-[  107.872499]  ? __pfx_ioctl_has_perm.constprop.0.isra.0+0x10/0x10
-[  107.872501]  ? count_memcg_events_mm.constprop.0+0xaa/0x1a0
-[  107.872503]  ? lock_release+0xe1/0x320
-[  107.872504]  ? find_held_lock+0x2b/0x80
-[  107.872506]  ? exc_page_fault+0x7e/0xf0
-[  107.872510]  __x64_sys_ioctl+0x13c/0x1d0
-[  107.872521]  ? lockdep_hardirqs_on_prepare+0xd9/0x190
-[  107.872523]  do_syscall_64+0xf3/0x6a0
-[  107.872526]  ? exc_page_fault+0xde/0xf0
-[  107.872528]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  107.872529] RIP: 0033:0x7f7381c543ad
-[  107.872531] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
-[  107.872532] RSP: 002b:00007ffc3160a9b0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-[  107.872539] RAX: ffffffffffffffda RBX: 00007f7381b44000 RCX: 00007f7381c543ad
-[  107.872540] RDX: 00007ffc3160aa30 RSI: 00000000c0284803 RDI: 0000000000000022
-[  107.872541] RBP: 00007ffc3160aa00 R08: 00000000ffffffff R09: 0000000000000000
-[  107.872541] R10: 0000000000000022 R11: 0000000000000246 R12: 00007ffc3160aa24
-[  107.872542] R13: 000000000041f380 R14: 0000000000000200 R15: 00007f7381200000
-[  107.872544]  </TASK>
+The cycle counter is always enabled when the PMU is enabled. When the
+user requests N events, reading the counters will return the N events
+plus the cycle counter.
 
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+v2:
+ - Use XArray instead of idr
+ - Rework locking to use per device spinlock to protect modifying active
+   perfmon. Based on pending V3D changes:
+   https://lore.kernel.org/all/20260508-v3d-perfmon-lifetime-v1-1-f5b5642c085f@igalia.com/
+ - Add missing perfmon puts in ethosu_ioctl_perfmon_set_global() and
+   ethosu_ioctl_perfmon_get_values() error paths.
+ - Fix reading number of counters on U85.
+ - Add defines NPU_REG_PMCCNTR_CFG
+---
+ drivers/accel/ethosu/Makefile         |   2 +-
+ drivers/accel/ethosu/ethosu_device.h  |  32 +++
+ drivers/accel/ethosu/ethosu_drv.c     |  21 +-
+ drivers/accel/ethosu/ethosu_drv.h     |  62 +++++-
+ drivers/accel/ethosu/ethosu_job.c     |  41 +++-
+ drivers/accel/ethosu/ethosu_job.h     |   2 +
+ drivers/accel/ethosu/ethosu_perfmon.c | 296 ++++++++++++++++++++++++++
+ include/uapi/drm/ethosu_accel.h       |  59 ++++-
+ 8 files changed, 500 insertions(+), 15 deletions(-)
+ create mode 100644 drivers/accel/ethosu/ethosu_perfmon.c
 
-Thanks,
-Balbir
+diff --git a/drivers/accel/ethosu/Makefile b/drivers/accel/ethosu/Makefile
+index 17db5a600416..598a388b7179 100644
+--- a/drivers/accel/ethosu/Makefile
++++ b/drivers/accel/ethosu/Makefile
+@@ -1,4 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+ obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU) := ethosu.o
+-ethosu-y += ethosu_drv.o ethosu_gem.o ethosu_job.o
++ethosu-y += ethosu_drv.o ethosu_gem.o ethosu_job.o ethosu_perfmon.o
+diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
+index b189fa783d6a..92b6f2c69254 100644
+--- a/drivers/accel/ethosu/ethosu_device.h
++++ b/drivers/accel/ethosu/ethosu_device.h
+@@ -43,6 +43,15 @@ struct gen_pool;
+ #define NPU_REG_BASEP_HI(x)	(0x0084 + (x) * 8)
+ #define NPU_BASEP_REGION_MAX	8
+ 
++#define NPU_REG_PMCR		0x0180
++#define NPU_REG_PMCNTENSET	0x0184
++#define NPU_REG_PMCNTENCLR	0x0188
++#define NPU_REG_PMCCNTR_LO	0x01A0
++#define NPU_REG_PMCCNTR_HI	0x01A4
++#define NPU_REG_PMCCNTR_CFG	0x01A8
++#define NPU_REG_PMU_EVCNTR(x)	(0x0300 + (x) * 4)
++#define NPU_REG_PMU_EVTYPER(x)	(0x0380 + (x) * 4)
++
+ #define ID_ARCH_MAJOR_MASK	GENMASK(31, 28)
+ #define ID_ARCH_MINOR_MASK	GENMASK(27, 20)
+ #define ID_ARCH_PATCH_MASK	GENMASK(19, 16)
+@@ -67,6 +76,15 @@ struct gen_pool;
+ 
+ #define PROT_ACTIVE_CSL		BIT(1)
+ 
++#define PMCR_NUM_EVENT_CNT_MASK	GENMASK(15, 11)
++#define PMCR_CYCLE_CNT_RST	BIT(2)
++#define PMCR_EVENT_CNT_RST	BIT(1)
++#define PMCR_CNT_EN		BIT(0)
++
++#define PMU_EV_TYPE_NONE	0
++#define PMU_EV_TYPE_CYCLES	0x11
++#define PMU_EV_TYPE_IDLE	0x20
++
+ enum ethosu_cmds {
+ 	NPU_OP_CONV = 0x2,
+ 	NPU_OP_DEPTHWISE = 0x3,
+@@ -152,6 +170,8 @@ enum ethosu_cmds {
+ 
+ #define ETHOSU_SRAM_REGION	2	/* Matching Vela compiler */
+ 
++struct ethosu_perfmon;
++
+ /**
+  * struct ethosu_device - Ethosu device
+  */
+@@ -161,6 +181,7 @@ struct ethosu_device {
+ 
+ 	/** @iomem: CPU mapping of the registers. */
+ 	void __iomem *regs;
++	void __iomem *pmu_regs;
+ 
+ 	void __iomem *sram;
+ 	struct gen_pool *srampool;
+@@ -184,6 +205,17 @@ struct ethosu_device {
+ 	struct mutex sched_lock;
+ 	u64 fence_context;
+ 	u64 emit_seqno;
++
++	/* Tracks the performance monitor state. */
++	struct {
++		/* Protects @active. */
++		spinlock_t lock;
++
++		/* Perfmon currently programmed in HW (or NULL if none). */
++		struct ethosu_perfmon *active;
++	} perfmon_state;
++
++	struct ethosu_perfmon *global_perfmon;
+ };
+ 
+ #define to_ethosu_device(drm_dev) \
+diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+index 9992193d7338..67fc971d7f60 100644
+--- a/drivers/accel/ethosu/ethosu_drv.c
++++ b/drivers/accel/ethosu/ethosu_drv.c
+@@ -155,6 +155,7 @@ static int ethosu_open(struct drm_device *ddev, struct drm_file *file)
+ 	if (ret)
+ 		goto err_put_mod;
+ 
++	ethosu_perfmon_open_file(priv);
+ 	file->driver_priv = no_free_ptr(priv);
+ 	return 0;
+ 
+@@ -166,6 +167,7 @@ static int ethosu_open(struct drm_device *ddev, struct drm_file *file)
+ static void ethosu_postclose(struct drm_device *ddev, struct drm_file *file)
+ {
+ 	ethosu_job_close(file->driver_priv);
++	ethosu_perfmon_close_file(file->driver_priv);
+ 	kfree(file->driver_priv);
+ 	module_put(THIS_MODULE);
+ }
+@@ -180,6 +182,10 @@ static const struct drm_ioctl_desc ethosu_drm_driver_ioctls[] = {
+ 	ETHOSU_IOCTL(BO_MMAP_OFFSET, bo_mmap_offset, 0),
+ 	ETHOSU_IOCTL(CMDSTREAM_BO_CREATE, cmdstream_bo_create, 0),
+ 	ETHOSU_IOCTL(SUBMIT, submit, 0),
++	ETHOSU_IOCTL(PERFMON_CREATE, perfmon_create, 0),
++	ETHOSU_IOCTL(PERFMON_DESTROY, perfmon_destroy, 0),
++	ETHOSU_IOCTL(PERFMON_GET_VALUES, perfmon_get_values, 0),
++	ETHOSU_IOCTL(PERFMON_SET_GLOBAL, perfmon_set_global, 0),
+ };
+ 
+ DEFINE_DRM_ACCEL_FOPS(ethosu_drm_driver_fops);
+@@ -312,11 +318,16 @@ static int ethosu_init(struct ethosu_device *ethosudev)
+ 
+ 	ethosudev->npu_info.id = id = readl_relaxed(ethosudev->regs + NPU_REG_ID);
+ 	ethosudev->npu_info.config = config = readl_relaxed(ethosudev->regs + NPU_REG_CONFIG);
+-
+ 	ethosu_sram_init(ethosudev);
+ 
++	if (!ethosu_is_u65(ethosudev))
++		ethosudev->pmu_regs += 0x1000;
++
++	ethosudev->npu_info.pmu_counters = FIELD_GET(PMCR_NUM_EVENT_CNT_MASK,
++		readl_relaxed(ethosudev->pmu_regs + NPU_REG_PMCR));
++
+ 	dev_info(ethosudev->base.dev,
+-		 "Ethos-U NPU, arch v%ld.%ld.%ld, rev r%ldp%ld, cmd stream ver%ld, %d MACs, %dKB SRAM\n",
++		 "Ethos-U NPU, arch v%ld.%ld.%ld, rev r%ldp%ld, cmd stream ver%ld, %d MACs, %dKB SRAM, %d PMU cntrs\n",
+ 		 FIELD_GET(ID_ARCH_MAJOR_MASK, id),
+ 		 FIELD_GET(ID_ARCH_MINOR_MASK, id),
+ 		 FIELD_GET(ID_ARCH_PATCH_MASK, id),
+@@ -324,7 +335,8 @@ static int ethosu_init(struct ethosu_device *ethosudev)
+ 		 FIELD_GET(ID_VER_MINOR_MASK, id),
+ 		 FIELD_GET(CONFIG_CMD_STREAM_VER_MASK, config),
+ 		 1 << FIELD_GET(CONFIG_MACS_PER_CC_MASK, config),
+-		 ethosudev->npu_info.sram_size / 1024);
++		 ethosudev->npu_info.sram_size / 1024,
++		 ethosudev->npu_info.pmu_counters);
+ 
+ 	return 0;
+ }
+@@ -343,11 +355,14 @@ static int ethosu_probe(struct platform_device *pdev)
+ 	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(40));
+ 
+ 	ethosudev->regs = devm_platform_ioremap_resource(pdev, 0);
++	ethosudev->pmu_regs = ethosudev->regs;
+ 
+ 	ethosudev->num_clks = devm_clk_bulk_get_all(&pdev->dev, &ethosudev->clks);
+ 	if (ethosudev->num_clks < 0)
+ 		return ethosudev->num_clks;
+ 
++	spin_lock_init(&ethosudev->perfmon_state.lock);
++
+ 	ret = ethosu_job_init(ethosudev);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/accel/ethosu/ethosu_drv.h b/drivers/accel/ethosu/ethosu_drv.h
+index 9e21dfe94184..8fed43c2a7af 100644
+--- a/drivers/accel/ethosu/ethosu_drv.h
++++ b/drivers/accel/ethosu/ethosu_drv.h
+@@ -1,15 +1,75 @@
+ /* SPDX-License-Identifier: GPL-2.0-only OR MIT */
+-/* Copyright 2025 Arm, Ltd. */
++/* Copyright 2025-2026 Arm, Ltd. */
+ #ifndef __ETHOSU_DRV_H__
+ #define __ETHOSU_DRV_H__
+ 
++#include <linux/mutex.h>
++#include <linux/xarray.h>
+ #include <drm/gpu_scheduler.h>
+ 
+ struct ethosu_device;
++struct drm_device;
++struct drm_file;
+ 
+ struct ethosu_file_priv {
+ 	struct ethosu_device *edev;
+ 	struct drm_sched_entity sched_entity;
++	struct xarray perfmons;
+ };
+ 
++/* Performance monitor object. The perform lifetime is controlled by userspace
++ * using perfmon related ioctls. A perfmon can be attached to a submit_cl
++ * request, and when this is the case, HW perf counters will be activated just
++ * before the submit_cl is submitted to the GPU and disabled when the job is
++ * done. This way, only events related to a specific job will be counted.
++ */
++struct ethosu_perfmon {
++	/* Tracks the number of users of the perfmon, when this counter reaches
++	 * zero the perfmon is destroyed.
++	 */
++	refcount_t refcnt;
++
++	/* Number of counters activated in this perfmon instance
++	 * (should be less than or equal to DRM_ETHOSU_MAX_PERF_COUNTERS).
++	 */
++	u8 ncounters;
++
++	/* Events counted by the HW perf counters. */
++	u16 counters[DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS];
++
++	/*
++	 * Storage for counter values. Counters are incremented by the HW
++	 * perf counter values every time the perfmon is attached to a
++	 * NPU job. This way, perfmon users don't have to retrieve the
++	 * results after each job if they want to track events covering
++	 * several submissions. Note that counter values can't be reset,
++	 * but you can fake a reset by destroying the perfmon and
++	 * creating a new one.
++	 */
++	u64 values[] __counted_by(ncounters);
++};
++
++/* ethosu_perfmon.c */
++void ethosu_perfmon_init(struct ethosu_device *ethosu);
++void ethosu_perfmon_get(struct ethosu_perfmon *perfmon);
++void ethosu_perfmon_put(struct ethosu_perfmon *perfmon);
++void ethosu_perfmon_start(struct ethosu_device *ethosu,
++			  struct ethosu_perfmon *perfmon);
++void ethosu_perfmon_stop(struct ethosu_device *ethosu,
++			 struct ethosu_perfmon *perfmon, bool capture);
++void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon,
++				bool capture);
++struct ethosu_perfmon *ethosu_perfmon_find(struct ethosu_file_priv *ethosu_priv,
++					   int id);
++void ethosu_perfmon_open_file(struct ethosu_file_priv *ethosu_priv);
++void ethosu_perfmon_close_file(struct ethosu_file_priv *ethosu_priv);
++int ethosu_ioctl_perfmon_create(struct drm_device *dev, void *data,
++				struct drm_file *file_priv);
++int ethosu_ioctl_perfmon_destroy(struct drm_device *dev, void *data,
++				 struct drm_file *file_priv);
++int ethosu_ioctl_perfmon_get_values(struct drm_device *dev, void *data,
++				    struct drm_file *file_priv);
++int ethosu_ioctl_perfmon_set_global(struct drm_device *dev, void *data,
++				    struct drm_file *file_priv);
++
+ #endif
+diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+index e7b07cdbcced..5712848236af 100644
+--- a/drivers/accel/ethosu/ethosu_job.c
++++ b/drivers/accel/ethosu/ethosu_job.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-only OR MIT
+ /* Copyright 2024-2025 Tomeu Vizoso <tomeu@tomeuvizoso.net> */
+-/* Copyright 2025 Arm, Ltd. */
++/* Copyright 2025-2026 Arm, Ltd. */
+ 
+ #include <linux/bitfield.h>
+ #include <linux/genalloc.h>
+@@ -147,6 +147,8 @@ static void ethosu_job_err_cleanup(struct ethosu_job *job)
+ {
+ 	unsigned int i;
+ 
++	ethosu_perfmon_put(job->perfmon);
++
+ 	for (i = 0; i < job->region_cnt; i++)
+ 		drm_gem_object_put(job->region_bo[i]);
+ 
+@@ -181,6 +183,26 @@ static void ethosu_job_free(struct drm_sched_job *sched_job)
+ 	ethosu_job_put(job);
+ }
+ 
++static void
++ethosu_switch_perfmon(struct ethosu_device *ethosu, struct ethosu_job *job)
++{
++	struct ethosu_perfmon *perfmon;
++
++	guard(spinlock)(&ethosu->perfmon_state.lock);
++
++	perfmon = READ_ONCE(ethosu->global_perfmon);
++	if (!perfmon)
++		perfmon = job->perfmon;
++
++	if (perfmon == ethosu->perfmon_state.active)
++		return;
++
++	ethosu_perfmon_stop_locked(ethosu, ethosu->perfmon_state.active, true);
++
++	if (perfmon && ethosu->perfmon_state.active != perfmon)
++		ethosu_perfmon_start(ethosu, perfmon);
++}
++
+ static struct dma_fence *ethosu_job_run(struct drm_sched_job *sched_job)
+ {
+ 	struct ethosu_job *job = to_ethosu_job(sched_job);
+@@ -194,6 +216,8 @@ static struct dma_fence *ethosu_job_run(struct drm_sched_job *sched_job)
+ 		       dev->fence_context, ++dev->emit_seqno);
+ 	dma_fence_get(fence);
+ 
++	ethosu_switch_perfmon(dev, job);
++
+ 	scoped_guard(mutex, &dev->job_lock) {
+ 		dev->in_flight_job = job;
+ 		ethosu_job_hw_submit(dev, job);
+@@ -366,7 +390,8 @@ void ethosu_job_close(struct ethosu_file_priv *ethosu_priv)
+ }
+ 
+ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file,
+-				   struct drm_ethosu_job *job)
++				   struct drm_ethosu_job *job,
++				   int perfmon_id)
+ {
+ 	struct ethosu_device *edev = to_ethosu_device(dev);
+ 	struct ethosu_file_priv *file_priv = file->driver_priv;
+@@ -390,6 +415,9 @@ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 	ejob->dev = edev;
+ 	ejob->sram_size = job->sram_size;
+ 
++	if (perfmon_id)
++		ejob->perfmon = ethosu_perfmon_find(file_priv, perfmon_id);
++
+ 	ejob->done_fence = kzalloc_obj(*ejob->done_fence);
+ 	if (!ejob->done_fence) {
+ 		ret = -ENOMEM;
+@@ -426,7 +454,7 @@ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 
+ 				dev_err(dev->dev,
+ 					"cmd stream region %d size greater than SRAM size (%llu > %u)\n",
+-					i, cmd_info->region_size[i], 
++					i, cmd_info->region_size[i],
+ 					edev->npu_info.sram_size);
+ 				ret = -EINVAL;
+ 				goto out_cleanup_job;
+@@ -492,11 +520,6 @@ int ethosu_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
+ 	int ret = 0;
+ 	unsigned int i = 0;
+ 
+-	if (args->pad) {
+-		drm_dbg(dev, "Reserved field in drm_ethosu_submit struct should be 0.\n");
+-		return -EINVAL;
+-	}
+-
+ 	struct drm_ethosu_job __free(kvfree) *jobs =
+ 		kvmalloc_objs(*jobs, args->job_count);
+ 	if (!jobs)
+@@ -510,7 +533,7 @@ int ethosu_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
+ 	}
+ 
+ 	for (i = 0; i < args->job_count; i++) {
+-		ret = ethosu_ioctl_submit_job(dev, file, &jobs[i]);
++		ret = ethosu_ioctl_submit_job(dev, file, &jobs[i], args->perfmon_id);
+ 		if (ret)
+ 			return ret;
+ 	}
+diff --git a/drivers/accel/ethosu/ethosu_job.h b/drivers/accel/ethosu/ethosu_job.h
+index ff1cf448d094..8988edd00eed 100644
+--- a/drivers/accel/ethosu/ethosu_job.h
++++ b/drivers/accel/ethosu/ethosu_job.h
+@@ -21,6 +21,8 @@ struct ethosu_job {
+ 	u8 region_cnt;
+ 	u32 sram_size;
+ 
++	struct ethosu_perfmon *perfmon;
++
+ 	/* Fence to be signaled by drm-sched once its done with the job */
+ 	struct dma_fence *inference_done_fence;
+ 
+diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
+new file mode 100644
+index 000000000000..c9860a777e65
+--- /dev/null
++++ b/drivers/accel/ethosu/ethosu_perfmon.c
+@@ -0,0 +1,296 @@
++// SPDX-License-Identifier: GPL-2.0-only or MIT
++/* Copyright 2026 Arm, Ltd. */
++/* Based on v3d_perfmon.c, Copyright (C) 2021 Raspberry Pi */
++
++#include <linux/device.h>
++#include <linux/errno.h>
++#include <linux/pm_runtime.h>
++#include <linux/types.h>
++#include <linux/slab.h>
++#include <linux/uaccess.h>
++
++#include <drm/drm_file.h>
++#include <drm/drm_ioctl.h>
++
++#include <uapi/drm/ethosu_accel.h>
++
++#include "ethosu_drv.h"
++#include "ethosu_device.h"
++
++void ethosu_perfmon_get(struct ethosu_perfmon *perfmon)
++{
++	if (perfmon)
++		refcount_inc(&perfmon->refcnt);
++}
++
++void ethosu_perfmon_put(struct ethosu_perfmon *perfmon)
++{
++	if (perfmon && refcount_dec_and_test(&perfmon->refcnt)) {
++		kfree(perfmon);
++	}
++}
++
++void ethosu_perfmon_start(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon)
++{
++	unsigned int i;
++	u8 ncounters;
++	u32 mask;
++
++	if (WARN_ON_ONCE(!perfmon || ethosu->perfmon_state.active))
++		return;
++
++	writel_relaxed(PMCR_CNT_EN, ethosu->pmu_regs + NPU_REG_PMCR);
++	writel_relaxed(PMU_EV_TYPE_CYCLES, ethosu->pmu_regs + NPU_REG_PMCCNTR_CFG);
++
++	mask = 0x80000000;
++	ncounters = perfmon->ncounters - 1;
++	if (ncounters)
++		mask |= GENMASK(ncounters - 1, 0);
++
++	for (i = 0; i < ncounters; i++)
++		writel_relaxed(perfmon->counters[i], ethosu->pmu_regs + NPU_REG_PMU_EVTYPER(i));
++
++	writel_relaxed(mask, ethosu->pmu_regs + NPU_REG_PMCNTENSET);
++	writel_relaxed(PMCR_CNT_EN | PMCR_EVENT_CNT_RST | PMCR_CYCLE_CNT_RST,
++		ethosu->pmu_regs + NPU_REG_PMCR);
++	ethosu->perfmon_state.active = perfmon;
++}
++
++void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon,
++				bool capture)
++{
++	unsigned int i;
++	u8 ncounters;
++	u32 mask;
++
++	if (!perfmon || perfmon != ethosu->perfmon_state.active)
++		return;
++
++	ncounters = perfmon->ncounters - 1;
++
++	if (!pm_runtime_get_if_active(ethosu->base.dev)) {
++		ethosu->perfmon_state.active = NULL;
++		return;
++	}
++
++	if (capture) {
++		for (i = 0; i < ncounters; i++)
++			perfmon->values[i] += readl_relaxed(ethosu->pmu_regs + NPU_REG_PMU_EVCNTR(i));
++		perfmon->values[ncounters] +=
++			readl_relaxed(ethosu->pmu_regs + NPU_REG_PMCCNTR_LO) |
++			(u64)readl_relaxed(ethosu->pmu_regs + NPU_REG_PMCCNTR_HI) << 32;
++	}
++
++	mask = 0x80000000;
++	if (ncounters)
++		mask |= GENMASK(ncounters - 1, 0);
++	writel_relaxed(mask, ethosu->pmu_regs + NPU_REG_PMCNTENCLR);
++
++	writel_relaxed(0, ethosu->pmu_regs + NPU_REG_PMCR);
++	ethosu->perfmon_state.active = NULL;
++
++	pm_runtime_put(ethosu->base.dev);
++}
++
++void ethosu_perfmon_stop(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon,
++			 bool capture)
++{
++	if (!perfmon)
++		return;
++
++	guard(spinlock)(&ethosu->perfmon_state.lock);
++	ethosu_perfmon_stop_locked(ethosu, perfmon, capture);
++}
++
++struct ethosu_perfmon *ethosu_perfmon_find(struct ethosu_file_priv *ethosu_priv, int id)
++{
++	struct ethosu_perfmon *perfmon;
++
++	xa_lock(&ethosu_priv->perfmons);
++	perfmon = xa_load(&ethosu_priv->perfmons, id);
++	ethosu_perfmon_get(perfmon);
++	xa_unlock(&ethosu_priv->perfmons);
++
++	return perfmon;
++}
++
++void ethosu_perfmon_open_file(struct ethosu_file_priv *ethosu_priv)
++{
++	xa_init_flags(&ethosu_priv->perfmons, XA_FLAGS_ALLOC1);
++}
++
++static void ethosu_perfmon_delete(struct ethosu_file_priv *ethosu_priv,
++				 struct ethosu_perfmon *perfmon)
++{
++	struct ethosu_device *ethosu = ethosu_priv->edev;
++
++	/* If the active perfmon is being destroyed, stop it first */
++	scoped_guard(spinlock_irqsave, &ethosu->perfmon_state.lock) {
++		/* If the global perfmon is being destroyed, set it to NULL */
++		if (ethosu->global_perfmon == perfmon) {
++			ethosu->global_perfmon = NULL;
++			ethosu_perfmon_put(perfmon);
++		}
++
++		ethosu_perfmon_stop_locked(ethosu, perfmon, false);
++	}
++
++	ethosu_perfmon_put(perfmon);
++}
++
++void ethosu_perfmon_close_file(struct ethosu_file_priv *ethosu_priv)
++{
++	struct ethosu_perfmon *perfmon;
++	unsigned long id;
++
++	xa_for_each(&ethosu_priv->perfmons, id, perfmon)
++		ethosu_perfmon_delete(ethosu_priv, perfmon);
++
++	xa_destroy(&ethosu_priv->perfmons);
++}
++
++int ethosu_ioctl_perfmon_create(struct drm_device *dev, void *data,
++			     struct drm_file *file_priv)
++{
++	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
++	struct drm_ethosu_perfmon_create *req = data;
++	struct ethosu_device *ethosu = to_ethosu_device(dev);
++	struct ethosu_perfmon *perfmon;
++	unsigned int i, event_max;
++	int ret;
++	u32 id;
++
++	/* Number of monitored counters cannot exceed HW limits. */
++	if (req->ncounters > ethosu->npu_info.pmu_counters)
++		return -EINVAL;
++
++	/* Make sure all counters are valid. */
++	event_max = ethosu_is_u65(ethosu) ? 433 : 671;
++	for (i = 0; i < req->ncounters; i++) {
++		if (req->counters[i] > event_max)
++			return -EINVAL;
++	}
++
++	/* Add 1 more counter for cycle counter  */
++	req->ncounters++;
++
++	perfmon = kzalloc_flex(*perfmon, values, req->ncounters);
++	if (!perfmon)
++		return -ENOMEM;
++
++	for (i = 0; i < req->ncounters - 1; i++)
++		perfmon->counters[i] = req->counters[i];
++
++	perfmon->ncounters = req->ncounters;
++
++	refcount_set(&perfmon->refcnt, 1);
++
++	ret = xa_alloc(&ethosu_priv->perfmons, &id, perfmon, xa_limit_32b,
++		       GFP_KERNEL);
++
++	if (ret < 0) {
++		kfree(perfmon);
++		return ret;
++	}
++
++	req->id = id;
++
++	return 0;
++}
++
++int ethosu_ioctl_perfmon_destroy(struct drm_device *dev, void *data,
++				 struct drm_file *file_priv)
++{
++	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
++	struct drm_ethosu_perfmon_destroy *req = data;
++	struct ethosu_perfmon *perfmon;
++
++	perfmon = xa_erase(&ethosu_priv->perfmons, req->id);
++	if (!perfmon)
++		return -EINVAL;
++
++	ethosu_perfmon_delete(ethosu_priv, perfmon);
++
++	return 0;
++}
++
++int ethosu_ioctl_perfmon_get_values(struct drm_device *dev, void *data,
++				 struct drm_file *file_priv)
++{
++	struct ethosu_device *ethosu = to_ethosu_device(dev);
++	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
++	struct drm_ethosu_perfmon_get_values *req = data;
++	struct ethosu_perfmon *perfmon;
++	int ret = 0;
++
++	if (req->pad != 0)
++		return -EINVAL;
++
++	perfmon = ethosu_perfmon_find(ethosu_priv, req->id);
++	if (!perfmon)
++		return -EINVAL;
++
++	ret = pm_runtime_resume_and_get(dev->dev);
++	if (ret) {
++		ethosu_perfmon_put(perfmon);
++		return ret;
++	}
++	ethosu_perfmon_stop(ethosu, perfmon, true);
++
++	pm_runtime_put_autosuspend(dev->dev);
++
++	if (copy_to_user(u64_to_user_ptr(req->values_ptr), perfmon->values,
++			 perfmon->ncounters * sizeof(u64)))
++		ret = -EFAULT;
++
++	ethosu_perfmon_put(perfmon);
++
++	return ret;
++}
++
++int ethosu_ioctl_perfmon_set_global(struct drm_device *dev, void *data,
++				 struct drm_file *file_priv)
++{
++	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
++	struct drm_ethosu_perfmon_set_global *req = data;
++	struct ethosu_device *ethosu = to_ethosu_device(dev);
++	struct ethosu_perfmon *perfmon;
++
++	if (req->flags & ~DRM_ETHOSU_PERFMON_CLEAR_GLOBAL)
++		return -EINVAL;
++
++	perfmon = ethosu_perfmon_find(ethosu_priv, req->id);
++	if (!perfmon)
++		return -EINVAL;
++
++	/* If the request is to clear the global performance monitor */
++	if (req->flags & DRM_ETHOSU_PERFMON_CLEAR_GLOBAL) {
++		struct ethosu_perfmon *old;
++		scoped_guard(spinlock, &ethosu->perfmon_state.lock) {
++			old = ethosu->global_perfmon;
++			if (!old) {
++				ethosu_perfmon_put(perfmon);
++				return -EINVAL;
++			}
++
++			ethosu->global_perfmon = NULL;
++			ethosu_perfmon_stop_locked(ethosu, old, true);
++		}
++
++		ethosu_perfmon_put(old);
++		ethosu_perfmon_put(perfmon);
++
++		return 0;
++	}
++
++	scoped_guard(spinlock, &ethosu->perfmon_state.lock) {
++		if (ethosu->perfmon_state.active || ethosu->global_perfmon) {
++			ethosu_perfmon_put(perfmon);
++			return -EBUSY;
++		}
++
++		ethosu->global_perfmon = perfmon;
++	}
++
++	return 0;
++}
+diff --git a/include/uapi/drm/ethosu_accel.h b/include/uapi/drm/ethosu_accel.h
+index af78bb4686d7..dde6756642ea 100644
+--- a/include/uapi/drm/ethosu_accel.h
++++ b/include/uapi/drm/ethosu_accel.h
+@@ -43,6 +43,11 @@ enum drm_ethosu_ioctl_id {
+ 
+ 	/** @DRM_ETHOSU_SUBMIT: Submit a job and BOs to run. */
+ 	DRM_ETHOSU_SUBMIT,
++
++	DRM_ETHOSU_PERFMON_CREATE,
++	DRM_ETHOSU_PERFMON_DESTROY,
++	DRM_ETHOSU_PERFMON_GET_VALUES,
++	DRM_ETHOSU_PERFMON_SET_GLOBAL,
+ };
+ 
+ /**
+@@ -79,6 +84,7 @@ struct drm_ethosu_npu_info {
+ 	__u32 config;
+ 
+ 	__u32 sram_size;
++	__u32 pmu_counters;
+ };
+ 
+ /**
+@@ -220,8 +226,51 @@ struct drm_ethosu_submit {
+ 	/** Input: Number of jobs passed in. */
+ 	__u32 job_count;
+ 
+-	/** Reserved, must be zero. */
++	/** Input: Id returned by DRM_ETHOSU_PERFMON_CREATE */
++	__u32 perfmon_id;
++};
++
++#define DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS	8
++#define DRM_ETHOSU_MAX_PERF_COUNTERS \
++	(DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS + 1)
++
++struct drm_ethosu_perfmon_create {
++	__u32 id;
++	__u32 ncounters;
++	__u16 counters[DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS];
++};
++
++struct drm_ethosu_perfmon_destroy {
++	__u32 id;
++};
++
++/*
++ * Returns the values of the performance counters tracked by this
++ * perfmon (as an array of (ncounters + 1) u64 values).
++ *
++ * No implicit synchronization is performed, so the user has to
++ * guarantee that any jobs using this perfmon have already been
++ * completed.
++ */
++struct drm_ethosu_perfmon_get_values {
++	__u32 id;
+ 	__u32 pad;
++	__u64 values_ptr;
++};
++
++#define DRM_ETHOSU_PERFMON_CLEAR_GLOBAL    0x0001
++
++/**
++ * struct drm_ethosu_perfmon_set_global - ioctl to define a global performance
++ * monitor
++ *
++ * The global performance monitor will be used for all jobs. If a global
++ * performance monitor is defined, jobs with a self-defined performance
++ * monitor won't be allowed.
++ */
++struct drm_ethosu_perfmon_set_global {
++	__u32 flags;
++	__u32 id;
+ };
+ 
+ /**
+@@ -252,6 +301,14 @@ enum {
+ 		DRM_IOCTL_ETHOSU(WR, CMDSTREAM_BO_CREATE, cmdstream_bo_create),
+ 	DRM_IOCTL_ETHOSU_SUBMIT =
+ 		DRM_IOCTL_ETHOSU(WR, SUBMIT, submit),
++	DRM_IOCTL_ETHOSU_PERFMON_CREATE =
++		DRM_IOCTL_ETHOSU(WR, PERFMON_CREATE, perfmon_create),
++	DRM_IOCTL_ETHOSU_PERFMON_DESTROY =
++		DRM_IOCTL_ETHOSU(WR, PERFMON_DESTROY, perfmon_destroy),
++	DRM_IOCTL_ETHOSU_PERFMON_GET_VALUES =
++		DRM_IOCTL_ETHOSU(WR, PERFMON_GET_VALUES, perfmon_get_values),
++	DRM_IOCTL_ETHOSU_PERFMON_SET_GLOBAL =
++		DRM_IOCTL_ETHOSU(WR, PERFMON_SET_GLOBAL, perfmon_set_global),
+ };
+ 
+ #if defined(__cplusplus)
+-- 
+2.53.0
+
