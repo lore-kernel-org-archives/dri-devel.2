@@ -4,110 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8371CD4F46
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 23:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA05ECD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 23:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 498C310E44E;
-	Fri, 15 May 2026 23:47:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 435DE10E44F;
+	Fri, 15 May 2026 23:47:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qIeesAWR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hNiS0bNm";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010016.outbound.protection.outlook.com
- [52.101.193.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B31510E444;
- Fri, 15 May 2026 23:47:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bTCdAL9/PmydQJm2ttPncN+5HS+s0jR11ErzKorpWpdZxmKcyk4fL8edVvJX1sAl1QbiCppWfJegZMQuvrJYf/y0VjW/2EP8cxrV1m2RR4qB63KENh1Devyu6HJaAw1shCzDD7l+7bO5ftXibSdb5QB3HEakCucw2XN4vC95jEh6C3xRFW51Rm5Hyo8Dw9bylHb6fZo+uYc/sVnPneo/vgmbhV1StwB0gqozlJaA4f/9VNPypCMXgvrktqhF+jkUG+GyvBduGv0ckXnapcpweLNhDR3pyHXnLhsjl4F1SViR6dimyWFuZtF7JoVvEbttyJco1zB7xAP5sO5IPvg0hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MHG9CuFVoiL95bT/YH6cd3J31Y5mEV71zM4DNCY508o=;
- b=geMPKYmi7MR9YEEqRkwGBaoNskuGxcegRwqqR2enGZpAAemMKIMAUxaOOK5qk5o+ht/z0V4IjXpJ93dKAhiu3fBUFrmpMpIE0eBzwvNhoDgu8H562Wn/z1aVm6saUJiEUApnZCMTt2zpO1fZgGLpl5ExY9oH/MyjWxyuCqV1+zn1mve5Drq0V8w/OS7AydH/DGO5CdXNCtyVYMTCvTEuowYMfdMGeSh8yIxPstmR2O6vMiSKiasf+Gy70TYZKb4r4udMO6AvpaKgD+eQNJ9WdhFQfImaUgac4CAKETEVlJWcRjmG5NF3Dt6QEn0+tMvO/TNkFlGtPN8zcavVpdV3hQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MHG9CuFVoiL95bT/YH6cd3J31Y5mEV71zM4DNCY508o=;
- b=qIeesAWRb3gnuYnv+6hJc6csFbGuRKJtqWkf6DY5KHhSqPI3FNcFTqyqsujx0ZJBqlr47rLc6lj58KxcC/2IUNd9e++avxBVUf56WZrtSruCd07XEY8zcXstJvZuGEME0P07x747rq+JwlLuNV5SzD1MR3bneHZ4f6MS/feVy30=
-Received: from DS7P222CA0022.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::25) by
- CH3PR12MB8076.namprd12.prod.outlook.com (2603:10b6:610:127::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.20; Fri, 15 May
- 2026 23:47:09 +0000
-Received: from DS2PEPF00003448.namprd04.prod.outlook.com
- (2603:10b6:8:2e:cafe::cb) by DS7P222CA0022.outlook.office365.com
- (2603:10b6:8:2e::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.12 via Frontend Transport; Fri,
- 15 May 2026 23:47:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DS2PEPF00003448.mail.protection.outlook.com (10.167.17.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Fri, 15 May 2026 23:47:09 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Fri, 15 May
- 2026 18:47:09 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 May
- 2026 18:47:09 -0500
-Received: from [10.4.12.198] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 15 May 2026 18:47:08 -0500
-Message-ID: <020f60b5-b2c4-494a-a16d-07a700d299f4@amd.com>
-Date: Fri, 15 May 2026 19:47:08 -0400
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 570A510E44F
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 23:47:48 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-90d2acb9936so61963185a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 16:47:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778888867; cv=none;
+ d=google.com; s=arc-20240605;
+ b=DzL6xj8/w51wdcqln9yMyRhcRwACl7bEGNf6ATcdS98i5a9oMFkFEtHGyCLJ3pHpXE
+ LLKuWZ9Yg1Fh1aAE0LkqpGhLDD21MboI6RIBoUFozY7b19aVcimSsK5QMddhy8W5em5y
+ jovagUsICGwbfac+1j6EIBposKT+62S+Twnz4Lj68pOL3wG7gt0zyUlAGuck0BK73ek2
+ kE4QvNZ2GHetmYmFbANoS6Q3yC0eonTKD0LuDQEzVtffO2bhm5bulbRgiiyvE7G3qZAu
+ qKdNLJxjwp/WeXksFUCQscoTPLdQHukb3htzB9pbB5NNTxjbAz0C0nfQsRfk7EtSQ/Ma
+ cO5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=dzaISux0gIy56Dz+aHmjNvcjHo0xCTdush8TXP7uSzw=;
+ fh=A08XZwmmb57jzirbgTkluPSvjDeiJMkkojF1n6qDmTk=;
+ b=MRgMEF2FB4iSO4QuqMhc0v7lkm0jXQIHTousAMoyeEmTk8aiy2nbZQCzQapdh0pJFX
+ il50dLc6Fmb3nMAA2OF1l00zlwNfBjVRpDdwdU2CRue+bRx3vSNKh0JeTwbfK60jNpbU
+ huDwfTXIUeMIVugBmmqG16vXt9sELcUPZZpPpYoh1z0XU0GNJ6e0oTksCSz8ozEoKNF3
+ D/uJHdeqwA8J/SXxyYoYEpKlju4vY/TjYz3AkLZBnZqQtDhA6OzTreMW/S7aWQUCdwPk
+ F9TwD75jWc6j91S6u73XEmfRvpBFJOJ5Fz7Z5J20bgBkdrnEIUMxNrC+nHPBx11z5haq
+ Id4g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778888867; x=1779493667; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=dzaISux0gIy56Dz+aHmjNvcjHo0xCTdush8TXP7uSzw=;
+ b=hNiS0bNmOrkEdvkn13m529lmyvbBc974k6u126JtYRqE3SRrIJBr+fOYLKLUAaTan4
+ c0OQz74h58fSJHBnooWR9mTL8BYihRnE9JLgqLJhy6z0vfgJYvnIYd6/rU34Zx0qHe4r
+ C/gRmEwaEtTn8szRb8iiio4jGjFxRkMMShup1U8mB0CMXynHMsxMwWigAo3AfaiNY+m9
+ O1zjiqRp1iYRPywACyq5IFRkl5MqCEaLOZ6wsB37pASE5S5uRgzcM5hQY1bnHi9APjkN
+ 7rFqCtZGD5TS/4IsHBOPaC683drPtm0cDRTM1QZVmtWls+8QEMNpgmdrqMc9FjRBbtDV
+ A32A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778888867; x=1779493667;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dzaISux0gIy56Dz+aHmjNvcjHo0xCTdush8TXP7uSzw=;
+ b=BIM80LLesgVjTRkX5qf45S89zACy/pCn/bkpWaj2L7ZyrVaTY3Lk+mIbsono6vumFt
+ ut5jxl4wASVBAMoWxJOcdE6bqqFZpu6G4RB0zJ9wI9U8JVSmAebgE9OjHCwlR5d3ek0R
+ C6Izbv7PC8jjDG6BYb/j1DJgSMtJKRNmuZAt1jhJvVP9ejRuHKU+tUa65dAQ1i9X9bn/
+ I8rxr/WrE57C1Ixu198dmT3CFw/wgLUZGvGtdCaFE7qJw+89doyuO2jPpeAGbuOo/apA
+ ZIP3L+tH9D7qC0LuwYQHzxYO0HnE7KWEHRfbxyF+OU+mUohlaMHWGZS6FdMDjA3Wv7jH
+ tbpg==
+X-Gm-Message-State: AOJu0Yzpk1uReZ3vNJ3ZMcQ30gL8SGa9wT8QaCKuPQ2AYrIKvRWVtmAn
+ gTydtJ3/vj01uPOS1XnHw20FwFIWW45qj1+6Wc6YEuX4Zyh+gNE4XHJnzOdFmPZybmcAq1c5nJ1
+ R5YMuyjbmWZZkNNyrouvcF3w7bWqR4/Q=
+X-Gm-Gg: Acq92OGO0zv1alfAHhLA53S/Gd1NGSqnNAXYdEBN2VBGc3evZZpFlYRTYSD3iHAyh3f
+ Uj/30tIyZik2fFuAfSQ/DJ7sI7nFMw6Xxn91tCYjs9UzF8RLUfgGZnT9IDcpFLuz++YxgwpXEnA
+ QE6eCWRPIzK99CK1I79DfuT0t4/I3DZ+dURzyRWejhBBfUFlfI1lU0a3MrJbWMWH/8c+5OfteRx
+ g+sKMRiunMO2wZWOafAvGbRIOwZ4iuBhIhN1SMhYRtZ/kas9F0H1D9wU6yZZdJmcXIX+OuUOkJO
+ iKC4pzUBu4dkXuXyQp9qyNj4xl3Ke7MjVGiLwLsZAc31D6N+SOS9v8azhn3Feb+X53w=
+X-Received: by 2002:a05:620a:a8f:b0:911:e1ab:a3c0 with SMTP id
+ af79cd13be357-911e1aba5e4mr684469885a.60.1778888867129; Fri, 15 May 2026
+ 16:47:47 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/edid: parse panel type from DisplayID 2.x Display
- Parameters block
-To: Jani Nikula <jani.nikula@intel.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Ray Wu <Ray.Wu@amd.com>,
- Limonciello Mario <Mario.Limonciello@amd.com>
-References: <20260514065606.1151834-1-chen-yu.chen@amd.com>
- <20260514065606.1151834-2-chen-yu.chen@amd.com>
- <8e0c6356a570c55e3df54be6c2d7952dfcee2a06@intel.com>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <8e0c6356a570c55e3df54be6c2d7952dfcee2a06@intel.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 16 May 2026 09:47:35 +1000
+X-Gm-Features: AVHnY4LzNQsE-S1ojBr2D4AZm7rngzhPd64vTtNWIzo7nE_rnXdsQW1P438UU2Q
+Message-ID: <CAPM=9tysLUnY240+JBoYG8QVo=cVDCxai4kkS-an9_1n6qnA2A@mail.gmail.com>
+Subject: [git pull] drm fixes for 7.1-rc4
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: sunpeng.li@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003448:EE_|CH3PR12MB8076:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f3d2ffc-4555-4840-496d-08deb2dc4786
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|42112799006|82310400026|36860700016|376014|3023799003|11063799003|22082099003|18002099003|56012099003|4143699003;
-X-Microsoft-Antispam-Message-Info: uADu3N/yhlX8Zdqjm2kiI7LSJbiV/AH5+h/NVYCzRF1p7upUfQS4vM8JhkX+UpiVESaR4BNFJYB7O42g/kaw+K6VKPp1sZVWZjdYgnM5Fzj7TjCc/pUbwkcXwF03audtn5HkY1MC+O9J2supdD1B8eKZUaHDNr7usJfSf3+Et9u3JavzOTbuA9H/G2+qUu2FuyhmzqQy+FNUG4RzT8HUR0iZa8FyThCQGjPUXP/RvQy+5rhNnTTVcqaS8RSpMXFNxzA5oNZhrOvGp3S+e3D3NC8pS9Hy+9fuYs1uS3SbihKHXEz3VTqbwF6bxIEOU/k+EQ4KZYBlbyrdVLwKTCPLq9DhgeeB9wBpZ/uUqowUusInd/+9DbkgcRKs+qVkb+RZyGo90yMqYegEqzzUG6asqeYZ9hr+qtxL/NJVtNxXSWq7lmasunOHmfjj+HCQfdo1b6foFv9D82PM/3TDBbhDox4UCSJJB+6Xw/s+djc4ASvt7+5B0zPO8sbJIVA5a9L8Km9gEfo4fcYDlZ0YL1YlFmdVz03BZmkb73BL8ep0f/xFap/vcIN97kihCq38G6/WmHbHiw1NCAmtY4fqdcgrPCmEjdXXovJOAo7ufU6KgV+Qzru5HATcBKCrF1mSpX5epbHTv/LfNsP59a6Mvmdgja4MiTINNXi82tx6qRByz/bGv7o0ejNc7GDLbGNKCCPo9IbLwUwxXUAsH1mepknN/U8osh6xAtksnIcX+Kjr/ag=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(42112799006)(82310400026)(36860700016)(376014)(3023799003)(11063799003)(22082099003)(18002099003)(56012099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: HQuppyKh1YI+9da/wClSuUqWmFHu7QSaguotYsNlGE/F7jZ9uwjgTj5pOFTPmIVbHlJoKwGK01+z7kUf0skgXJ6uiDlKtIiFpxn8PkTws5JR8vxPcL3+u+UKkVP1h/tqjPDrR9WMqaHlFWBopeM5V1IaLXyKMFhkR2VFA+t2wOtpB3M7B4+UoDSmqSweGxg0jqOxV4LhKtImDX+BmtkJy2X3KgWsgAcVfdZRkbhPBPxkEhKUCrnvIs2xJuWFdopU/8vKZ35A6WgmkP+ukYp5XHYgTxK3UUBt1wT9lFycJpU0n2nsgeLVqNpj/WXgA19vDJqa3wlIu+bKDZAF0i/9OELLjfPgLpI3DYGlZcNsEaUc9SL6pLNI9vEftnzSPFo/S2C2BSM8qYgeeI02Zbhr5Vhf/1RvAfeE/0SfpCkVTKbHOI7c8oKodCPM/haP1Oh3
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 23:47:09.5270 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f3d2ffc-4555-4840-496d-08deb2dc4786
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003448.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8076
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,196 +101,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Linus,
 
+Weekly fixes pull, small and all over fixes, mostly xe and amdgpu,
+with some ttm and a core fix for the handle change pain.
 
-On 2026-05-15 04:23, Jani Nikula wrote:
-> On Thu, 14 May 2026, Chenyu Chen <chen-yu.chen@amd.com> wrote:
->> Parse the Display Parameters Data Block (tag 0x21) defined in
->> DisplayID v2.1a Section 4.2.6. Extract the Display Device Technology
->> field from payload byte 27, bits [6:4], which indicates whether the
->> panel is LCD (001b) or OLED (010b).
->>
->> Store the result in drm_display_info.did_panel_type so that downstream
->> drivers can use it for panel-type-dependent behavior.
->>
->> Assisted-by: Copilot:Claude-Opus-4.6
->> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
->> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->>  drivers/gpu/drm/drm_displayid_internal.h | 25 ++++++++++
->>  drivers/gpu/drm/drm_edid.c               | 61 +++++++++++++++++++-----
->>  include/drm/drm_connector.h              |  6 +++
->>  include/uapi/drm/drm_mode.h              |  1 +
->>  4 files changed, 82 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
->> index 5b1b32f73516..e0f7c54d2987 100644
->> --- a/drivers/gpu/drm/drm_displayid_internal.h
->> +++ b/drivers/gpu/drm/drm_displayid_internal.h
->> @@ -142,6 +142,31 @@ struct displayid_formula_timing_block {
->>  	struct displayid_formula_timings_9 timings[];
->>  } __packed;
->>  
->> +/*
->> + * DisplayID v2.x Display Parameters Data Block (tag 0x21).
->> + *
->> + * Per VESA DisplayID v2.1a, Section 4.2.6, Table 4-14:
->> + * Offset 0x1E (payload byte 27) contains Native Color Depth and
->> + * Display Device Technology fields.
->> + *   bits [2:0] = Native Color Depth
->> + *   bit  [3]   = RESERVED
->> + *   bits [6:4] = Display Device Technology
->> + *     000b = not specified, 001b = LCD, 010b = OLED, others reserved
->> + *   bit  [7]   = Display Device Theme Preference
->> + */
->> +#define DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH	GENMASK(6, 4)
->> +
->> +struct displayid_display_params_block {
->> +	struct displayid_block base;
->> +	u8 payload[27];
->> +	u8 device_tech_byte; /* bits [6:4] = Display Device Technology */
->> +	u8 reserved;
->> +} __packed;
->> +
->> +#define DISPLAYID_DISPLAY_PARAMS_MIN_LEN	\
->> +	(sizeof(struct displayid_display_params_block) -	\
->> +	 sizeof(struct displayid_block))
->> +
->>  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
->>  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
->>  
->> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->> index 8031f021d4d0..9b160a878df4 100644
->> --- a/drivers/gpu/drm/drm_edid.c
->> +++ b/drivers/gpu/drm/drm_edid.c
->> @@ -6713,6 +6713,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
->>  
->>  	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
->>  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
->> +
->> +	info->did_panel_type = DRM_MODE_PANEL_TYPE_UNKNOWN;
->>  }
->>  
->>  static void update_displayid_info(struct drm_connector *connector,
->> @@ -6721,24 +6723,61 @@ static void update_displayid_info(struct drm_connector *connector,
->>  	struct drm_display_info *info = &connector->display_info;
->>  	const struct displayid_block *block;
->>  	struct displayid_iter iter;
->> +	const u8 *section = NULL;
->>  
->>  	displayid_iter_edid_begin(drm_edid, &iter);
->>  	displayid_iter_for_each(block, &iter) {
->> +		if (section != iter.section) {
->> +			drm_dbg_kms(connector->dev,
->> +				    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
->> +				    connector->base.id, connector->name,
->> +				    displayid_version(&iter),
->> +				    displayid_primary_use(&iter));
->> +			if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
->> +			    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
->> +			     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
->> +				info->non_desktop = true;
->> +			section = iter.section;
->> +		}
-> 
-> What is this even supposed to do?
-> 
+Let me know if any issues,
 
-I think the intention is to log and process the DisplayID base section header only once instead on every
-iteration. Maybe a `bool header_processed` works better?
+Dave.
 
-- Leo
+drm-fixes-2026-05-16:
+drm fixes for 7.1-rc4
 
->> +
->>  		drm_dbg_kms(connector->dev,
->> -			    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
->> +			    "[CONNECTOR:%d:%s] DisplayID block tag 0x%02x, rev 0x%02x, size %u\n",
->>  			    connector->base.id, connector->name,
->> -			    displayid_version(&iter),
->> -			    displayid_primary_use(&iter));
->> +			    block->tag, block->rev, block->num_bytes);
->> +
->>  		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
->> -		    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
->> -		     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
->> -			info->non_desktop = true;
->> +		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS) {
->> +			const struct displayid_display_params_block *params =
->> +				(const struct displayid_display_params_block *)block;
->> +			u8 tech;
->> +
->> +			if (block->num_bytes < DISPLAYID_DISPLAY_PARAMS_MIN_LEN) {
->> +				drm_dbg_kms(connector->dev,
->> +					    "[CONNECTOR:%d:%s] DisplayID Display Parameters block too short (%u < %zu)\n",
->> +					    connector->base.id, connector->name,
->> +					    block->num_bytes,
->> +					    DISPLAYID_DISPLAY_PARAMS_MIN_LEN);
->> +				continue;
->> +			}
->>  
->> -		/*
->> -		 * We're only interested in the base section here, no need to
->> -		 * iterate further.
->> -		 */
->> -		break;
->> +			tech = FIELD_GET(DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH,
->> +					 params->device_tech_byte);
->> +
->> +			drm_dbg_kms(connector->dev,
->> +				    "[CONNECTOR:%d:%s] DisplayID Display Parameters: device technology %u\n",
->> +				    connector->base.id, connector->name, tech);
->> +
->> +			switch (tech) {
->> +			case 1: /* LCD */
->> +				info->did_panel_type = DRM_MODE_PANEL_TYPE_LCD;
->> +				break;
->> +			case 2: /* OLED */
->> +				info->did_panel_type = DRM_MODE_PANEL_TYPE_OLED;
->> +				break;
->> +			default:
->> +				break;
->> +			}
->> +		}
-> 
-> Please tell copilot to not add so much crap in the iterator block. Add
-> functions. Add the first function as a refactor for non_desktop, add
-> more stuff on top, i.e. split this into multiple patches.
-> 
-> BR,
-> Jani.
-> 
-> 
->>  	}
->>  	displayid_iter_end(&iter);
->>  }
->> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
->> index c398dbc68bbc..b95aec34ddb7 100644
->> --- a/include/drm/drm_connector.h
->> +++ b/include/drm/drm_connector.h
->> @@ -899,6 +899,12 @@ struct drm_display_info {
->>  	 * @amd_vsdb: AMD-specific VSDB information.
->>  	 */
->>  	struct drm_amd_vsdb_info amd_vsdb;
->> +
->> +	/**
->> +	 * @did_panel_type: Panel type from DisplayID Display Parameters
->> +	 * Data Block (tag 0x21). Uses DRM_MODE_PANEL_TYPE_* constants.
->> +	 */
->> +	u8 did_panel_type;
->>  };
->>  
->>  int drm_display_info_set_bus_formats(struct drm_display_info *info,
->> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
->> index 3693d82b5279..d7ca1040b92e 100644
->> --- a/include/uapi/drm/drm_mode.h
->> +++ b/include/uapi/drm/drm_mode.h
->> @@ -169,6 +169,7 @@ extern "C" {
->>  /* Panel type property */
->>  #define DRM_MODE_PANEL_TYPE_UNKNOWN	0
->>  #define DRM_MODE_PANEL_TYPE_OLED	1
->> +#define DRM_MODE_PANEL_TYPE_LCD		2
->>  
->>  /*
->>   * DRM_MODE_ROTATE_<degrees>
-> 
+core:
+- fix for the fix for the handle change race.
 
+ttm:
+- avoid infinite loop in swap out
+- avoid infinite loop in BO shrinking
+- convert -EAGAIN from dmem_cgroup_try_charge to -ENOSPC
+
+bridge:
+- imx8qxp-pxl2dpi: avoid ERR_PTR with device_node cleanup
+
+i915:
+- Skip __i915_request_skip() for already signaled requests
+- Fix VSC dynamic range signaling for RGB formats [dp]
+
+xe:
+- Madvise fix around purgeability tracking
+- Restore engine mask for specific blitter style
+- Couple UAF fixes
+- Drop unused ggtt_balloon field
+
+amdgpu:
+- Userq fixes
+- DCN 3.2 fix
+- RAS fix
+- GC 12 fix
+
+gma500:
+- oaktrail_lvds: fix i2c handling
+
+loongson:
+- use managed cleanup for connector polling
+
+panfrost:
+- handle results from reservation locking correctly
+
+qaic:
+- check for integer overflows in mmap logic
+
+rocket:
+- handle results from reservation locking correctly
+The following changes since commit 5d6919055dec134de3c40167a490f33c74c12581=
+:
+
+  Linux 7.1-rc3 (2026-05-10 14:08:09 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-05-16
+
+for you to fetch changes up to dc366607c41c45fd0ae6f3db090f31dd611b644a:
+
+  drm: Replace old pointer to new idr (2026-05-16 09:32:43 +1000)
+
+----------------------------------------------------------------
+drm fixes for 7.1-rc4
+
+core:
+- fix for the fix for the handle change race.
+
+ttm:
+- avoid infinite loop in swap out
+- avoid infinite loop in BO shrinking
+- convert -EAGAIN from dmem_cgroup_try_charge to -ENOSPC
+
+bridge:
+- imx8qxp-pxl2dpi: avoid ERR_PTR with device_node cleanup
+
+i915:
+- Skip __i915_request_skip() for already signaled requests
+- Fix VSC dynamic range signaling for RGB formats [dp]
+
+xe:
+- Madvise fix around purgeability tracking
+- Restore engine mask for specific blitter style
+- Couple UAF fixes
+- Drop unused ggtt_balloon field
+
+amdgpu:
+- Userq fixes
+- DCN 3.2 fix
+- RAS fix
+- GC 12 fix
+
+gma500:
+- oaktrail_lvds: fix i2c handling
+
+loongson:
+- use managed cleanup for connector polling
+
+panfrost:
+- handle results from reservation locking correctly
+
+qaic:
+- check for integer overflows in mmap logic
+
+rocket:
+- handle results from reservation locking correctly
+
+----------------------------------------------------------------
+Arvind Yadav (1):
+      drm/xe/madvise: Track purgeability with BO-local counters
+
+Chaitanya Kumar Borah (1):
+      drm/i915/dp: Fix VSC dynamic range signaling for RGB formats
+
+Christian K=C3=B6nig (4):
+      drm/amdgpu: remove deadlocks from amdgpu_userq_pre_reset
+      drm/amdgpu: rework amdgpu_userq_signal_ioctl v3
+      drm/amdgpu: remove almost all calls to
+amdgpu_userq_detect_and_reset_queues
+      drm/amdgpu: fix userq hang detection and reset
+
+Dave Airlie (4):
+      Merge tag 'drm-intel-fixes-2026-05-13' of
+https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
+      Merge tag 'amd-drm-fixes-7.1-2026-05-13' of
+https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
+      Merge tag 'drm-xe-fixes-2026-05-14' of
+https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
+      Merge tag 'drm-misc-fixes-2026-05-15' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+
+Edward Adam Davis (1):
+      drm: Replace old pointer to new idr
+
+Guangshuo Li (1):
+      drm/bridge: imx8qxp-pxl2dpi: avoid ERR_PTR with device_node cleanup
+
+Gyeyoung Baek (2):
+      accel/rocket: Fix prep_bo ioctl leaking positive return from
+dma_resv_wait_timeout()
+      drm/panfrost: Fix wait_bo ioctl leaking positive return from
+dma_resv_wait_timeout()
+
+Jesse Zhang (1):
+      drm/amdgpu/gfx_v12_0: set gfx.rs64_enable from PFP header on GFX12
+
+Johan Hovold (3):
+      drm/gma500/oaktrail_hdmi: fix i2c adapter leak on setup
+      drm/gma500/oaktrail_lvds: fix hang on init failure
+      drm/gma500/oaktrail_lvds: fix i2c adapter leaks on init
+
+Matt Roper (1):
+      drm/xe: Make decision to use Xe2-style blitter instructions a feature=
+ flag
+
+Matthew Auld (2):
+      drm/xe/dma-buf: handle empty bo and UAF races
+      drm/xe/dma-buf: fix UAF with retry loop
+
+Michal Wajdeczko (1):
+      drm/xe: Drop unused ggtt_balloon field
+
+Mikhail Gavrilov (1):
+      drm/amd/display: Wrap DCN32 phantom-plane allocation in
+DC_RUN_WITH_PREEMPTION_ENABLED
+
+Myeonghun Pak (1):
+      drm/loongson: Use managed KMS polling
+
+Sebastian Brzezinka (1):
+      drm/i915: skip __i915_request_skip() for already signaled requests
+
+Thomas Hellstr=C3=B6m (3):
+      drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure
+      drm/ttm: Convert -EAGAIN from dmem_cgroup_try_charge to -ENOSPC
+      drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup failure
+
+Xiang Liu (1):
+      drm/amd/ras: Fix CPER ring debugfs read overflow
+
+Zack McKevitt (1):
+      accel/qaic: Add overflow check to remap_pfn_range during mmap
+
+ drivers/accel/qaic/qaic_data.c                     |  23 +-
+ drivers/accel/rocket/rocket_gem.c                  |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |  29 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          | 131 +++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h          |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    | 245 ++++++++++-------=
+----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h    |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |   7 +
+ .../amd/display/dc/resource/dcn32/dcn32_resource.c |   8 +-
+ drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c       |  40 ++--
+ drivers/gpu/drm/drm_gem.c                          |   7 +-
+ drivers/gpu/drm/gma500/oaktrail_hdmi.c             |   1 +
+ drivers/gpu/drm/gma500/oaktrail_lvds.c             |   9 +-
+ drivers/gpu/drm/i915/display/intel_dp.c            |   9 +-
+ drivers/gpu/drm/i915/gt/intel_reset.c              |   3 +-
+ drivers/gpu/drm/loongson/lsdc_drv.c                |   2 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c            |   2 +
+ drivers/gpu/drm/ttm/ttm_bo.c                       |  18 +-
+ drivers/gpu/drm/ttm/ttm_bo_util.c                  |  11 +-
+ drivers/gpu/drm/ttm/ttm_resource.c                 |  18 +-
+ drivers/gpu/drm/xe/xe_bo.c                         |   6 +-
+ drivers/gpu/drm/xe/xe_bo.h                         |  88 +++++++-
+ drivers/gpu/drm/xe/xe_bo_types.h                   |  28 ++-
+ drivers/gpu/drm/xe/xe_dma_buf.c                    |  80 ++++---
+ drivers/gpu/drm/xe/xe_gt_types.h                   |   7 +
+ drivers/gpu/drm/xe/xe_migrate.c                    |  18 +-
+ drivers/gpu/drm/xe/xe_pci.c                        |   9 +
+ drivers/gpu/drm/xe/xe_tile_types.h                 |   2 -
+ drivers/gpu/drm/xe/xe_vm.c                         |  51 ++++-
+ drivers/gpu/drm/xe/xe_vm_madvise.c                 | 162 +-------------
+ drivers/gpu/drm/xe/xe_vm_madvise.h                 |   2 -
+ include/drm/ttm/ttm_resource.h                     |   2 +
+ 32 files changed, 540 insertions(+), 495 deletions(-)
