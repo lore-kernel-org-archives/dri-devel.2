@@ -4,55 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B74E5CD4F47
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 16:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97EDFCD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 16:58:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6A710E443;
-	Fri, 15 May 2026 16:56:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0E2810E3AA;
+	Fri, 15 May 2026 16:58:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="UvGbHkwM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HnufnKRZ";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E12A010E416;
- Fri, 15 May 2026 16:56:52 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gHCz53wg2z9vGy;
- Fri, 15 May 2026 18:56:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1778864209;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=THjYyH3uKjG/pqf0jTnTgVB5bOzHeeCO4NiACkPzCAA=;
- b=UvGbHkwMnE9NToXjbUNAsRia0LLJVuP/0ZjKLW6ppzyZhQjhcZMz+u2V8owicjpL+qc90x
- pT7ZRQpu3L7J/espeI8XH0yqUTi+/i2ei6D7Q8t89DylkuCkHKVKrHCQEmuwomb8THbO3P
- 91TGgfWvRRM9aDNcdFxJddbLX7rHhYCfeEQM9BMv8jVPLYkLJttn+s8blSnzZrQ7w4Zngr
- WguOA7Ic/8jY+ANKQcdlrSdKDBFHC01WR1Sd0WAXYVjIJ/2tvmWFCYnG6mUGIFsWN9Ov4o
- dEMrs8Wdc8pkp+8WiAxu+ggIsRS0RPxrIimKc2/m8fDZxG3ZR6G22gMMbLpY/Q==
-Message-ID: <cb461424-e4c1-4d2c-934b-ffd7374e2a56@mailbox.org>
-Date: Fri, 15 May 2026 18:56:45 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5872D10E3AA;
+ Fri, 15 May 2026 16:58:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8C5DF600FC;
+ Fri, 15 May 2026 16:58:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE8AC2BCB3;
+ Fri, 15 May 2026 16:57:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778864283;
+ bh=2z5dLIWyL/gV1rAo31oirSt/RVWW0XQ4DifQczJePGI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HnufnKRZfSdE7NKiVIkh8SzMZ2amgPWr0mdJncaBe+aG4KWO/zp+vLxAajbedi7FS
+ b0zrl4MVSTnTtguuW9Ns0M+VFlzwwLo3mG2DkbaeExbvnlsaSNWLOQdhX8hQzbZo/Y
+ lrM699UVFIkjtTtEEKz4+o4n/y9ZJVRdTKvoesVlNAeQmjXNWiSyWcPuXYQVCCnF/r
+ kDZx/6/JrTSufawkMoMXxYUpVZj8M34oR9RtwMweLiVt+Tp2KPyYemeBpW8ecASvQU
+ RBXPYe6XMGQezQvP2wa+/fslwbs1mVIqj4dyikM619smxSRzaHRitYfR4vTpqNqohH
+ fE+JrFZQ5w45w==
+Date: Fri, 15 May 2026 22:27:48 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Mathias Nyman <mathias.nyman@intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ linux-ide@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-usb@vger.kernel.org,
+ Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 5/9] PCI: tegra: Explicitly specify PMC instance to use
+Message-ID: <5gtqxwkjw6adv65tz7ji5wxdyscqe5zlk2ugkogrsrnwituhhm@f3iaamhyxdcm>
+References: <20260506-pmc-v1-0-a6de5da7216b@nvidia.com>
+ <20260506-pmc-v1-5-a6de5da7216b@nvidia.com>
+ <rt3tpcu7eucylbxurtvraghnyljkv52zau75jwkkbtyfslc2ox@2bjkryjd4nqp>
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/9] drm: Limit DRM_IOCTL_WAIT_VBLANK to vblank interrupts
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
- airlied@gmail.com, pekka.paalanen@collabora.com, jadahl@gmail.com,
- contact@emersion.fr, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
-References: <20260515120916.333614-1-tzimmermann@suse.de>
- <b5d03921-1e6f-4c4f-900e-fc9e28222176@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <b5d03921-1e6f-4c4f-900e-fc9e28222176@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: de84221aa493230eab5
-X-MBO-RS-META: 9sey5mwxehe7tcisizu96h4qcw6kgr1r
+In-Reply-To: <rt3tpcu7eucylbxurtvraghnyljkv52zau75jwkkbtyfslc2ox@2bjkryjd4nqp>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,43 +78,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-[ Adding the wayland-devel list for awareness ]
-
-On 5/15/26 17:12, Michel Dänzer wrote:
-> On 5/15/26 13:55, Thomas Zimmermann wrote:
->> DRM's WAIT_VBLANK ioctl synchronizes user-space clients to display
->> refresh. This is meaningless with vblank timers, which run unrelated
->> to the hardware's vblank.
->>
->> Disable the ioctl for simulated vblanks. Set DRM_VBLANK_FLAG_SIMULATED
->> for CRTCs with simulated vblank events in all such drivers. The vblank
->> timers of these devices still rate-limit the number of page-flip events
->> to match the display refresh.
->>
->> According to maintainers, user-space compositors do not require the ioctl
->> for rate-limitting display output. Weston and Kwin rely on page-flip
->> events. Mutter uses and internal timer to limit the number of display
->> updates per second.
+On Fri, May 15, 2026 at 10:26:12PM +0530, Manivannan Sadhasivam wrote:
+> On Wed, May 06, 2026 at 03:41:56PM +0200, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> > 
+> > Currently the kernel relies on a global variable to reference the PMC
+> > context. Use an explicit lookup for the PMC and pass that to the public
+> > PMC APIs.
+> > 
+> > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > ---
+> >  drivers/pci/controller/pci-tegra.c | 20 +++++++++++++++-----
+> >  1 file changed, 15 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/pci/controller/pci-tegra.c b/drivers/pci/controller/pci-tegra.c
+> > index 512309763d1f..2c6c521e6901 100644
+> > --- a/drivers/pci/controller/pci-tegra.c
+> > +++ b/drivers/pci/controller/pci-tegra.c
+> > @@ -340,6 +340,8 @@ struct tegra_pcie {
+> >  	struct reset_control *afi_rst;
+> >  	struct reset_control *pcie_xrst;
+> >  
+> > +	struct tegra_pmc *pmc;
+> > +
+> >  	bool legacy_phy;
+> >  	struct phy *phy;
+> >  
+> > @@ -1165,7 +1167,7 @@ static void tegra_pcie_power_off(struct tegra_pcie *pcie)
+> >  	clk_disable_unprepare(pcie->afi_clk);
+> >  
+> >  	if (!dev->pm_domain)
+> > -		tegra_powergate_power_off(TEGRA_POWERGATE_PCIE);
+> > +		tegra_pmc_powergate_power_off(pcie->pmc, TEGRA_POWERGATE_PCIE);
+> >  
+> >  	err = regulator_bulk_disable(pcie->num_supplies, pcie->supplies);
+> >  	if (err < 0)
+> > @@ -1183,7 +1185,7 @@ static int tegra_pcie_power_on(struct tegra_pcie *pcie)
+> >  	reset_control_assert(pcie->pex_rst);
+> >  
+> >  	if (!dev->pm_domain)
+> > -		tegra_powergate_power_off(TEGRA_POWERGATE_PCIE);
+> > +		tegra_pmc_powergate_power_off(pcie->pmc, TEGRA_POWERGATE_PCIE);
+> >  
+> >  	/* enable regulators */
+> >  	err = regulator_bulk_enable(pcie->num_supplies, pcie->supplies);
+> > @@ -1191,12 +1193,14 @@ static int tegra_pcie_power_on(struct tegra_pcie *pcie)
+> >  		dev_err(dev, "failed to enable regulators: %d\n", err);
+> >  
+> >  	if (!dev->pm_domain) {
+> > -		err = tegra_powergate_power_on(TEGRA_POWERGATE_PCIE);
+> > +		err = tegra_pmc_powergate_power_on(pcie->pmc,
+> > +						   TEGRA_POWERGATE_PCIE);
+> >  		if (err) {
+> >  			dev_err(dev, "failed to power ungate: %d\n", err);
+> >  			goto regulator_disable;
+> >  		}
+> > -		err = tegra_powergate_remove_clamping(TEGRA_POWERGATE_PCIE);
+> > +		err = tegra_pmc_powergate_remove_clamping(pcie->pmc,
+> > +							  TEGRA_POWERGATE_PCIE);
+> >  		if (err) {
+> >  			dev_err(dev, "failed to remove clamp: %d\n", err);
+> >  			goto powergate;
+> > @@ -1234,7 +1238,7 @@ static int tegra_pcie_power_on(struct tegra_pcie *pcie)
+> >  	clk_disable_unprepare(pcie->afi_clk);
+> >  powergate:
+> >  	if (!dev->pm_domain)
+> > -		tegra_powergate_power_off(TEGRA_POWERGATE_PCIE);
+> > +		tegra_pmc_powergate_power_off(pcie->pmc, TEGRA_POWERGATE_PCIE);
+> >  regulator_disable:
+> >  	regulator_bulk_disable(pcie->num_supplies, pcie->supplies);
+> >  
+> > @@ -1432,6 +1436,12 @@ static int tegra_pcie_get_resources(struct tegra_pcie *pcie)
+> >  		return err;
+> >  	}
+> >  
+> > +	pcie->pmc = devm_tegra_pmc_get(dev);
+> > +	if (IS_ERR(pcie->pmc)) {
+> > +		dev_err_probe(dev, PTR_ERR(pcie->pmc), "failed to get PMC\n");
+> > +		return err;
 > 
-> Actually mutter fundamentally relies on atomic commit completion events for that, same as Weston & KWin. Mutter uses the WAIT_VBLANK ioctl only for minimizing input → output latency (which can hide issues when completion of atomic commits isn't properly throttled).
+> As Sashiko pointed out, you need to return dev_err_probe() directly.
 > 
-> 
-> (Just a side not on the cover letter, no objections to the patches themselves)
 
-After more discussion on IRC, I have some concerns.
+With the change,
 
+Acked-by: Manivannan Sadhasivam <mani@kernel.org>
 
-The big one first: For drivers with no strict refresh cycle (i.e. an atomic commit can take effect more or less anytime after at least one "refresh cycle" has passed since the last one), does this change really make sense / what's the actual benefit?
+Feel free to take it through Tegra tree.
 
-In the case of the asahi & nvidia drivers, the problem with exposing this functionality to user space is that if the timestamps aren't accurate, it can result in missing display refresh cycles, which are dictated by hardware. That's why it makes sense to reject it there.
-
-When there's no strict refresh cycle, that issue doesn't apply though.
-
-
-Any changes made to the WAIT_VBLANK ioctl should also be made to the CRTC_GET_SEQUENCE / CRTC_QUEUE_SEQUENCE ioctls, which are slightly different UAPI for the same functionality.
-
+- Mani
 
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+மணிவண்ணன் சதாசிவம்
