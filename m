@@ -4,87 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A582CD4F41
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 07:13:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C146CCD343F
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 07:17:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C94D10F431;
-	Fri, 15 May 2026 07:13:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A8CB10F41A;
+	Fri, 15 May 2026 07:17:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g19KuSDj";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Gooi8TGv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DGpcQHMr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Gooi8TGv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DGpcQHMr";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB4310E0A6
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 05:42:30 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-82f8b60e485so4387720b3a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 22:42:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778823750; x=1779428550; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uA3KbxtyArVx1TPayII+4ue5MWymrrbmptjetuH5M+E=;
- b=g19KuSDjRPmN+Kf3C1g5Frs2Xp4UttPStteaK0KuXAq3Idrl8gxLJfH+esTiOkI9qI
- QmOyMc5BNkATaGgHfocvhRoL0UFPgsFnivAXu/tzZmxCADeFfwQF1L011YTc6eVeTGhG
- cwwFOEq04k7SqoF6p04DOiOOCk/B4Xv+iYR6nGgaK/7EM2WMENBTmXV4qVfvH6ag1nMC
- fPglBK2QS+xmL9hfAIwHWAFEij9epOy9qjW1vx//aLLJVNHnnoXwJCrmt+P0Zis3cZlr
- PA5pY0CemjhjFby4lXXNOCk+hhi3d5d6V1Q/waMWykIwnzRcYuFrYNFIRebfs3i++agr
- rhsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778823750; x=1779428550;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=uA3KbxtyArVx1TPayII+4ue5MWymrrbmptjetuH5M+E=;
- b=nwWmocAUrbuWZn9JZdP3FSv3GIYDLut0TMks4GjQRxOikS+rqBI8M48NFdycYY/TIO
- NiFvgPfqSvCDOG+HIhUnd+ZFkXJ3pK2uctq2nWGZ0UTT2ltm1sEX4WqfN4rzb1wcDl7R
- V8lR73TpH3H4jNGC68xrg3HEM+Wlx6HKTTLc/rM1YI1B4FFowbYU8IkEX+WV9lTRKOwk
- nGa0HsisP74fiesb+fg4P28ZWflF3fq+JyUE22J8AJ8PMI7uiMWMW/nIfvzIGpG/2f8p
- gsXdJKm/kw+yn5zaM0H0hCymbaQPU8yLw5NNZGIznb3pROR4hpa3uNcLNuMXK+p8Gfld
- VFFA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/sjn2GYt7AUyVBTQeUMO4SVUx5imzPff5Qc1ihrCbZOTposJd+y0P2W/rZNPPLBeJXEjbmNghpkmA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwAS/4QmQuitNyz2WEMjkwJMwkL5kOoUH7fBWcS6m2PKxjiEGdD
- RTWrllcDb0keqr4TiPudfNQAkp/43L7km0ebtD8mZBP//sge4QIWYgeI
-X-Gm-Gg: Acq92OFYGqWqQWlJo0RmvSNHdcxVOplfZqVVzt1QVt7uGHacXMw5ohDESxW5dR7qucL
- 22YJeu5tOBWHOf+tFEHwADgZyaUikAJTHNrdJnuAHOL+/KRP69Y4F42zAnSoGnTdJRjQAtltv+Q
- ghX5rPBkSy30jwvQ4q8Rbjuahs9NW+uhKaGGh9leyDC/qY5r9vYard2tw4Vr2YqnXRDKgwi0zUs
- nyf5A3CzTCfta8Q38brxvOt5w/1JLEZIK57ziY6vpxKkUnnfLmAlqfcvIMO1IBchTXG7TUmsCnT
- Gk6j0oJ0qK2/BTXEYew41wG3Qx8eoLA2UgIZpoYRBCVhzwLbWDwmfawg1RAFiCNDTJJgzkFrC/w
- WwAbEndzp1C5wKOHcqrsyqzXOR5C9W2qhy6awnpB02e8XDRbrXgxPE+4Ny3/F9/+SmABa9a+0r6
- GAWZwzakKfFavc8hyEL+p6oRUJLD8GTAORcoH7reXwQeus7SveSp1z4v6irD/Vgz/7hQfC+Hm3P
- nAXUx8zoVYZIcDH8ZaiHisOnxU=
-X-Received: by 2002:a05:6a00:2793:b0:83f:2568:d456 with SMTP id
- d2e1a72fcca58-83f33d277e9mr2723997b3a.29.1778823749726; 
- Thu, 14 May 2026 22:42:29 -0700 (PDT)
-Received: from harrison-Surface-Pro-12in-1st-Ed-with-Snapdragon.wework.com
- ([203.117.161.34]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83f2b9bec8fsm3106116b3a.33.2026.05.14.22.42.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 22:42:29 -0700 (PDT)
-From: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, jikos@kernel.org, bentiss@kernel.org,
- luzmaximilian@gmail.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com
-Cc: Douglas Anderson <dianders@chromium.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: [PATCH v2 1/7] dt-bindings: arm: qcom: Add Microsoft Surface Pro 12in
-Date: Fri, 15 May 2026 15:41:46 +1000
-Message-ID: <e54aa6c1e190b0e26d58504c5ea1b05fd09d64d3.1778822464.git.harrison.vanderbyl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
-References: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D400A10F41A
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 07:16:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7A89A67556;
+ Fri, 15 May 2026 07:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778829416; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6MUWdahX70SzCzK+wvsew1PcXDlF5iH3w90M7v7khfg=;
+ b=Gooi8TGvVccH0C3VF0qgFgK7P7QfhGS8je3VIKONmToOygU8Y/jMho5AwGF53BQwq+LEg9
+ aL/G0u+gKMCEX4M2K6lPGShDRRiq/yOhzRoHv8dmoTm/h7E/tZxgb8rGgqpkZsQUzefkxM
+ Vprx7J5oQKlh3UixGpbjXcuqmREtf4Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778829416;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6MUWdahX70SzCzK+wvsew1PcXDlF5iH3w90M7v7khfg=;
+ b=DGpcQHMrafk1zvlKgso3fVR1ked6pEjRD5i1i+MMyJBplyQ7+ZkUBYFYV60YNJNK16HrXn
+ EqLF07v5RHMBY5BA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Gooi8TGv;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DGpcQHMr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778829416; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6MUWdahX70SzCzK+wvsew1PcXDlF5iH3w90M7v7khfg=;
+ b=Gooi8TGvVccH0C3VF0qgFgK7P7QfhGS8je3VIKONmToOygU8Y/jMho5AwGF53BQwq+LEg9
+ aL/G0u+gKMCEX4M2K6lPGShDRRiq/yOhzRoHv8dmoTm/h7E/tZxgb8rGgqpkZsQUzefkxM
+ Vprx7J5oQKlh3UixGpbjXcuqmREtf4Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778829416;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6MUWdahX70SzCzK+wvsew1PcXDlF5iH3w90M7v7khfg=;
+ b=DGpcQHMrafk1zvlKgso3fVR1ked6pEjRD5i1i+MMyJBplyQ7+ZkUBYFYV60YNJNK16HrXn
+ EqLF07v5RHMBY5BA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 08595593A9;
+ Fri, 15 May 2026 07:16:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id t4LWAGjIBmp1aAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 15 May 2026 07:16:56 +0000
+Message-ID: <94d1e9cc-e4a3-435e-9013-aae467a3a0a4@suse.de>
+Date: Fri, 15 May 2026 09:16:55 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/14] fbdev: efifb: fix memory leak in efifb_probe()
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>, Helge Deller <deller@gmx.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sebastian Siewior <bigeasy@linutronix.de>,
+ Florian Tobias Schandinat <FlorianSchandinat@gmx.de>,
+ Ondrej Zary <linux@rainbow-software.org>, Antonino Daplas
+ <adaplas@gmail.com>, Paul Mundt <lethal@linux-sh.org>,
+ Krzysztof Helt <krzysztof.h1@wp.pl>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Michal Januszewski <spock@gentoo.org>, Heiko Schocher <hs@denx.de>,
+ Peter Jones <pjones@redhat.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
+ <20260514-fbdev-v1-12-b3a2474fa720@cse.iitm.ac.in>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260514-fbdev-v1-12-b3a2474fa720@cse.iitm.ac.in>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 15 May 2026 07:13:06 +0000
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ FREEMAIL_TO(0.00)[cse.iitm.ac.in,gmx.de,redhat.com,kernel.crashing.org,linux-foundation.org,linutronix.de,rainbow-software.org,gmail.com,linux-sh.org,wp.pl,ti.com,gentoo.org,denx.de];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de,wp.pl];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Queue-Id: 7A89A67556
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,30 +157,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document the compatible string for the Microsoft Surface Pro
-12-inch, 1st Edition with Snapdragon, based on the Qualcomm X1P42100
-SoC.
+Hi
 
-Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+Am 14.05.26 um 10:24 schrieb Abdun Nihaal:
+> Since commit 73ce73c30ba9 ("fbdev: Transfer video= option strings to
+> caller; clarify ownership") the string returned from fb_get_options()
+> is expected to be freed by the caller, but the string is not freed in
+> efifb_probe(). Fix that by freeing the option string after setup.
+>
+> Fixes: 73ce73c30ba9 ("fbdev: Transfer video= option strings to caller; clarify ownership")
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index b4943123d2e4..aaa9a129908a 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1168,6 +1168,10 @@ properties:
-           - const: microsoft,denali
-           - const: qcom,x1e80100
- 
-+      - items:
-+          - const: microsoft,surface-pro-12in
-+          - const: qcom,x1p42100
-+
-       - items:
-           - enum:
-               - qcom,purwa-iot-evk
+Right, the commit message even mentions the (pre-existing) leak. There 
+might be other drivers with a similar issue.
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+>   drivers/video/fbdev/efifb.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
+> index 47ebc0107209..ad8dec7807c3 100644
+> --- a/drivers/video/fbdev/efifb.c
+> +++ b/drivers/video/fbdev/efifb.c
+> @@ -377,6 +377,7 @@ static int efifb_probe(struct platform_device *dev)
+>   	if (fb_get_options("efifb", &option))
+>   		return -ENODEV;
+>   	efifb_setup(si, option);
+> +	kfree(option);
+>   
+>   	/* We don't get linelength from UGA Draw Protocol, only from
+>   	 * EFI Graphics Protocol.  So if it's not in DMI, and it's not
+>
+
 -- 
-2.53.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
