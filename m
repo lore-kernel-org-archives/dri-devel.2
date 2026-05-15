@@ -4,85 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4688CD4F41
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 08:53:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2EB6CD4851
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 09:03:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41C9910F494;
-	Fri, 15 May 2026 08:53:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECCD810F4A7;
+	Fri, 15 May 2026 09:03:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ceAHAWqC";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="TsuWbZDi";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 261BB10F49A
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 08:53:50 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46A1A10F498
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 09:03:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778835229;
+ s=mimecast20190719; t=1778835804;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mmxOVGUrnxS/H09zubyapT22aA5Jy+w6JF95xU/Ftgg=;
- b=ceAHAWqCOpJ8+9la40EwiqFjm2LwOrmh229FVuLUBTtz3MiPsXmFPJHsDc9taLOGDxVzvW
- JtClDP53FmM0AMGVYVk2UOwxTnXsuvg56/n4RE/+oyRUmqt4uUydqvGByPBN+AItJ9nnk2
- cuHApyCEf0dKCcHQ82FTIUbOXGh2uT8=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-484-XDqT1YrxOLCP5ZZge2o2rA-1; Fri,
- 15 May 2026 04:53:42 -0400
-X-MC-Unique: XDqT1YrxOLCP5ZZge2o2rA-1
-X-Mimecast-MFC-AGG-ID: XDqT1YrxOLCP5ZZge2o2rA_1778835219
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4B1411956054; Fri, 15 May 2026 08:53:38 +0000 (UTC)
-Received: from [192.168.1.153] (headnet01.pony-001.prod.iad2.dc.redhat.com
- [10.2.32.101])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id DBD4D1955D85; Fri, 15 May 2026 08:53:31 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 15 May 2026 10:52:53 +0200
-Subject: [PATCH v12 4/4] kunit: Add documentation for warning backtrace
- suppression API
+ content-transfer-encoding:content-transfer-encoding;
+ bh=LfHDA2lu9SdmcNfUFLEQpGK4hzLMbqXJdHhI2cGEcxc=;
+ b=TsuWbZDiwQuGL4rbaO7+3ywRbfmRD+UgsGJvElbECJOY36boidNIQyxvNCq6Uh4q4JPVer
+ aDFaRK5bguB2g/OuwBhddCCy4D7akinsGCuELGfUNW+4zNl9QVq1NF46zunAE4BTq2eufH
+ BnFYMHV/ZG8uh+n/FAqn1AjUSCl9fYI=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-253-XJOrLLDwP1Ob3DWIGeamNw-1; Fri, 15 May 2026 05:03:22 -0400
+X-MC-Unique: XJOrLLDwP1Ob3DWIGeamNw-1
+X-Mimecast-MFC-AGG-ID: XJOrLLDwP1Ob3DWIGeamNw_1778835801
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-48fd233d1e2so21842835e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 02:03:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778835801; x=1779440601;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LfHDA2lu9SdmcNfUFLEQpGK4hzLMbqXJdHhI2cGEcxc=;
+ b=UMVs4FTCAdpRHsL1u7IDp/B7yeH9/XKN+bnYllttId7fnmXDIyU+OtbOWTa8g6AmAc
+ d/NIsW0PaJDDdqVzcYM6EEgPL1EeQd9klcQrDHPL6IaDCbxE66AmvMJxvQMGGLxYQ+Vf
+ edWtcBzkA7//wYjWSyPrxFp+w+KQfMue/GDrNrFEk6ikxMT+D9yx8Lhz5ZF1P+livj5L
+ QQL3itG4Dm9CX+J/1lST0e5os5gNZxBXgcePhu4UiAScmE2laDW2ARf+/7sVdhSpgA7T
+ AtfuUEIXELfpOizshP51UIHG6gGzt8lBGSb3GABoZIjiUBEv/TRx6iwgSjW7VOM1jdyY
+ nYyA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ866g23Z9a1pIybHy1yIy1MaVO1aR5yKwvcbS3LMZGxVPby6aR+bghqgr7HfoJMPLSON0IIntpxCmM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxL07QCXaR7gHGeiUfX8PCoPYJF92V/JCikQviwM1YEA/lfRptW
+ ACCshSrUkJxbCyspC7M70fRugglDRjck65+b5IIQ36Q3fvdC5xElheKFGFEl3XKrY5WVMJ2ALUR
+ Hg2amQgQBaAWC6GHZ0jsTZEBDINoRAKBqrq3BC2EzjBnbzP7CnsjS8RdudHOt0HoZbHTuCg==
+X-Gm-Gg: Acq92OF3bguVeNR+zUhdpl3RhY8eoBRMWAVG/jqgPaTATlvEYXtexRFNn0sZZHub9GD
+ YvoqhOgfwx3I8CCvT6v4LNEEhuaTLkqcgBmwhJZlxMhSUAnvDvh+dcdlxntQ/1HMbFf9I97MXLC
+ GlcfgrlWNAsOGgs16wlb63aJDGcExl/h2nLWW1k0ry3rPMzmXm+BhWhzXiKyd8lv7xi5Wg8V0iR
+ x0mXlsPmKuSpZXgbSiwaRm7KMPR1oH0XrtCDJ60d5pINkb66jFNl1Og7/707u5vSEMdXkm6RNpD
+ Xx8ARJjn0lUshAsXzTlunmxQBfgEGpTwfXOvEFzPE7xQVWhCObJxfngeSPqn94wMU7AYH3LaVsC
+ z9PXS1yH4pv+CpuXCyzj07FW4L3VRlCY/84DhtIduPKDNk4p9L+MDLgH8ZA==
+X-Received: by 2002:a05:600c:3506:b0:485:40db:d40c with SMTP id
+ 5b1f17b1804b1-48fe60e13d1mr41799635e9.3.1778835801314; 
+ Fri, 15 May 2026 02:03:21 -0700 (PDT)
+X-Received: by 2002:a05:600c:3506:b0:485:40db:d40c with SMTP id
+ 5b1f17b1804b1-48fe60e13d1mr41798765e9.3.1778835800593; 
+ Fri, 15 May 2026 02:03:20 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48fe4c88e5asm47427035e9.6.2026.05.15.02.03.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 May 2026 02:03:19 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Phong LE <ple@baylibre.com>,
+ Robert Foss <rfoss@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 0/3] drm/bridge: ite-it66121: Fix display output for DVI
+ monitors
+Date: Fri, 15 May 2026 11:02:08 +0200
+Message-ID: <20260515090220.809830-1-javierm@redhat.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Message-Id: <20260515-kunit_add_support-v12-4-a216dc228be8@redhat.com>
-References: <20260515-kunit_add_support-v12-0-a216dc228be8@redhat.com>
-In-Reply-To: <20260515-kunit_add_support-v12-0-a216dc228be8@redhat.com>
-To: Arnd Bergmann <arnd@arndb.de>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Rae Moar <raemoar63@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- dri-devel@lists.freedesktop.org, workflows@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org, 
- peterz@infradead.org, Guenter Roeck <linux@roeck-us.net>, 
- Linux Kernel Functional Testing <lkft@linaro.org>, 
- Alessandro Carminati <acarmina@redhat.com>, 
- Albert Esteve <aesteve@redhat.com>, Dan Carpenter <error27@gmail.com>, 
- Kees Cook <kees@kernel.org>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778835177; l=2728;
- i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=YX7AMC4Z3qCvd9o2GGoQ6LMsoUJS/dulVvDsXv5Qzg4=;
- b=uU8iZP3aKTG6p9f6uzLQ+7585Tt2YEgz1OTvweQ4CuLQ3H8MMENyxt9ulFNJQ1k4vJADogKw5
- Vq1oW3OIyVmDghCtrvC2+FcWQVlJ23+UX8uxtuiWX2rKMKaZvQTxK9J
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: zRFmRCCCzdDw_1Fb_RL_PJ6DLseIH1lvfvRYAjvYvG8_1778835219
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: RISM85y0hdai39T44M2JPNTgTtMXlvHD5Jk1bXGN74c_1778835801
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,84 +106,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Guenter Roeck <linux@roeck-us.net>
+Display output does not work when connecting an AM625 BeaglePlay board to
+a DVI monitor, because the DRM it66121 bridge driver assumes that the sink
+type is always HDMI. This patch series fixes the issue.
 
-Document API functions for suppressing warning backtraces.
+Patch #1 reworks the driver to use the HDMI helpers instead of open coding
+the AVI infoframes buffer management.
 
-Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
-Acked-by: Dan Carpenter <dan.carpenter@linaro.org>
-Reviewed-by: Kees Cook <keescook@chromium.org>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
-Reviewed-by: David Gow <david@davidgow.net>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- Documentation/dev-tools/kunit/usage.rst | 46 ++++++++++++++++++++++++++++++++-
- 1 file changed, 45 insertions(+), 1 deletion(-)
+Patch #2 moves the .mode_set logic to the .atomic_enable handler.
 
-diff --git a/Documentation/dev-tools/kunit/usage.rst b/Documentation/dev-tools/kunit/usage.rst
-index ebd06f5ea4550..1c78dfff94e8a 100644
---- a/Documentation/dev-tools/kunit/usage.rst
-+++ b/Documentation/dev-tools/kunit/usage.rst
-@@ -157,6 +157,50 @@ Alternatively, one can take full control over the error message by using
- 	if (some_setup_function())
- 		KUNIT_FAIL(test, "Failed to setup thing for testing");
- 
-+Suppressing warning backtraces
-+------------------------------
-+
-+Some unit tests trigger warning backtraces either intentionally or as a side
-+effect. Such backtraces are normally undesirable since they distract from
-+the actual test and may result in the impression that there is a problem.
-+
-+Backtraces can be suppressed with **task-scoped suppression**: while
-+suppression is active on the current task, the backtrace and stack dump from
-+``WARN*()``, ``WARN_ON*()``, and related macros on that task are suppressed.
-+Two API forms are available.
-+
-+- Scoped suppression is the simplest form. Wrap the code that triggers
-+  warnings in a ``kunit_warning_suppress()`` block:
-+
-+.. code-block:: c
-+
-+	static void some_test(struct kunit *test)
-+	{
-+		kunit_warning_suppress(test) {
-+			trigger_backtrace();
-+			KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-+		}
-+	}
-+
-+.. note::
-+   The warning count must be checked inside the block; the suppression handle
-+   is not accessible after the block exits.
-+
-+- Direct functions return an explicit handle pointer. Use them when the handle
-+  needs to be retained or passed across helper functions:
-+
-+.. code-block:: c
-+
-+	static void some_test(struct kunit *test)
-+	{
-+		struct kunit_suppressed_warning *w;
-+
-+		w = kunit_start_suppress_warning(test);
-+		trigger_backtrace();
-+		kunit_end_suppress_warning(test, w);
-+
-+		KUNIT_EXPECT_EQ(test, kunit_suppressed_warning_count(w), 1);
-+	}
- 
- Test Suites
- ~~~~~~~~~~~
-@@ -1211,4 +1255,4 @@ For example:
- 		dev_managed_string = devm_kstrdup(fake_device, "Hello, World!");
- 
- 		// Everything is cleaned up automatically when the test ends.
--	}
-\ No newline at end of file
-+	}
+Patch #3 finally fixes the mentioned issue by using the display information
+to determine whether HDMI or DVI mode should be set.
+
+This is a v4 of the series, that addresses issues pointed out by Maxime.
+
+The patches were tested on both DVI and an HDMI monitors.
+
+Changes in v4:
+- Convert the driver to use the HDMI helpers (Maxime Ripard).
+- Move .mode_set logic to .atomic_enable (Maxime Ripard).
+
+Changes in v3:
+- Move the HDMI/DVI mode set to the .atomic_enable handler (Maxime Ripard).
+
+Changes in v2:
+- Don't store the sink type in a per-commit bridge state (Maxime Ripard).
+
+Javier Martinez Canillas (3):
+  drm/bridge: ite-it66121: Switch to the HDMI connector helpers
+  drm/bridge: ite-it66121: Move logic .mode_set setup to .atomic_enable
+  drm/bridge: ite-it66121: Select HDMI or DVI mode based on sink type
+
+ drivers/gpu/drm/bridge/Kconfig       |   2 +
+ drivers/gpu/drm/bridge/ite-it66121.c | 198 ++++++++++++++++-----------
+ 2 files changed, 121 insertions(+), 79 deletions(-)
 
 -- 
-2.53.0
+2.54.0
+
+base-commit: 4c26e162947f91aa78ba57dd4fddd38fc80e7d60
+branch: it66121-fix-dvi-mode-v4
 
