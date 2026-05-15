@@ -4,61 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B5DCD343F
-	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 03:58:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF6D3CD4F3C
+	for <dri-devel@archiver.kernel.org>; Fri, 15 May 2026 04:06:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0217810F3BA;
-	Fri, 15 May 2026 03:58:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E90B10F3BE;
+	Fri, 15 May 2026 04:06:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="UZB7lH4h";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hfzifJFK";
 	dkim-atps=neutral
-X-Greylist: delayed 159202 seconds by postgrey-1.36 at gabe;
- Fri, 15 May 2026 03:58:03 UTC
-Received: from mail-m83145.xmail.ntesmail.com (mail-m83145.xmail.ntesmail.com
- [156.224.83.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 723E610F3BE
- for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 03:58:02 +0000 (UTC)
-Received: from [172.16.12.43] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3e82fac39;
- Fri, 15 May 2026 11:57:58 +0800 (GMT+08:00)
-Message-ID: <2f653664-27e9-4632-97e9-8b59cf7e585e@rock-chips.com>
-Date: Fri, 15 May 2026 11:57:58 +0800
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62F7710E04E
+ for <dri-devel@lists.freedesktop.org>; Fri, 15 May 2026 04:05:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778817958;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=aZ+iLTZST8FxP/oRfZ0ADx0fv2jSubDq1lGkoIHgCgI=;
+ b=hfzifJFKP4h3SVYD4BbBln4j/zaEyBQx7nCC2voMwosrr8e+2DovDxNZ1AqPpZ1Gba4N+k
+ IHJMUy/WI2mEpJsrbV9UDfMfeIHbw0tgSfdUOMm8FumFHxbboQrSv9SBg8sb/EmBGVEm0d
+ FaEq7ShzNOGHpxRiHfT/Rc5KYQQlzv4=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-576-O3a_MQ_uOWad8ar8icrqDA-1; Fri, 15 May 2026 00:05:56 -0400
+X-MC-Unique: O3a_MQ_uOWad8ar8icrqDA-1
+X-Mimecast-MFC-AGG-ID: O3a_MQ_uOWad8ar8icrqDA_1778817955
+Received: by mail-lf1-f72.google.com with SMTP id
+ 2adb3069b0e04-5a894c2d57cso1271859e87.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 14 May 2026 21:05:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778817954; x=1779422754;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=aZ+iLTZST8FxP/oRfZ0ADx0fv2jSubDq1lGkoIHgCgI=;
+ b=aQS5QxHdPcuv5BLZgV3cxqc9LJhi+WbZskJkMMSkGFAFiOKyLNMapNFCcrdGfWJmJZ
+ M2ly1Gju9Hxxy1VFmZhO0hideu4paL62tXasj/ZNRUuTXmdUBH+Gtwd94GXvBild8we8
+ e9siHzzRZ7F9li4ZDNjjj0w0kLzCijmJg0qgjetgmS2qtjkkHoDIowN6dz7Z3lWNSNV5
+ MFoLRXI1hTNSf9ARQsIT+AkzQM1NTc+GD0oaeNL5N1chM2SDDModWdXXVPaEFjAUMj69
+ nWgh/ok+KQ0kcqoN8Hx2pO3gt+oSIpqadVZxwVHeF4Tp7vYXT4luQxljapFJgeWsRZO1
+ gIFQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/BVbWFn7leNetEB9klcX7CQ/suAnzVgjjR85jVSNGxDA5iDdOW9XMhs5u0zwHA76aBF9EhSsrJLio=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxnhHzeuzrElr3ZrUZ/IiBG/3IBzyjGw02ul5CozKccA3jCOvB
+ 51eYQA94SQoDdVPXJ7LBOKUZNqb1h9CHt/KwFZMO5+QCDf/XmCngwzrJNzHM3CYmr2DrG4y7jhS
+ hrDw8XoV+RJKWVARbyNrSZAF5rO4onkOrhaa8W5JAIGov04Ji2KgP6c/HHtSTpl78YXUn
+X-Gm-Gg: Acq92OEEPaUhJ4jtK+fBgVtUYbSaeNzYG8pbxCLx3rH48HO986kS8Yq2Y4p26p8mr/f
+ BiAv978rND0u5TvNxnqTA7gjX34+XZSY6JAFyYvdpqA4yo42y/WLi+TeEyUGumLa4pdidk6PHaz
+ K4cLbQRpYwqHGQSRRCGnxa9PWZ+TvC/JPLcCm/KTlwUhgBQRXaBfUoLFjqkk+AgVXQNazk14khX
+ NeyAhkXMkYUmtX2iwwY+pH8CoD49JGruMMAbpFB5a6w44oQexySPq+uW5x58KS2u/aJC04pNrRa
+ aLvEattPF7LZfyp8GMkFisYav9EAv/Z7Kdsh8ZRBA0huWF8x2WooHugYM2s/UWtV6EzE7GMnryZ
+ A4i6VXgjwkvb/+0ooryzlGIpXhzmkALyaAPet3TzshGnmDwg=
+X-Received: by 2002:a05:6512:2397:b0:5a8:9909:50b1 with SMTP id
+ 2adb3069b0e04-5aa0e610e9amr452538e87.10.1778817954390; 
+ Thu, 14 May 2026 21:05:54 -0700 (PDT)
+X-Received: by 2002:a05:6512:2397:b0:5a8:9909:50b1 with SMTP id
+ 2adb3069b0e04-5aa0e610e9amr452515e87.10.1778817953842; 
+ Thu, 14 May 2026 21:05:53 -0700 (PDT)
+Received: from [192.168.1.86] (85-23-51-1.bb.dnainternet.fi. [85.23.51.1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a90f11a7c2sm932482e87.32.2026.05.14.21.05.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 May 2026 21:05:53 -0700 (PDT)
+Message-ID: <2fe8d022-a414-4b23-af4f-9cecf1aac3d1@redhat.com>
+Date: Fri, 15 May 2026 07:05:52 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] dt-bindings: display: rockchip: analogix-dp:
- Expose inherited properties
-To: Conor Dooley <conor@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
- <20260514070133.2275069-2-damon.ding@rock-chips.com>
- <20260514-upstate-sneer-0b6e78682798@spud>
+Subject: Re: [PATCH v10 0/5] Migrate on fault for device pages
+To: Balbir Singh <balbirs@nvidia.com>
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+References: <20260505184421.2324798-1-mpenttil@redhat.com>
+ <agaN29W7hAklrCxz@parvat>
+From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+In-Reply-To: <agaN29W7hAklrCxz@parvat>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: utXRWpgMHcrVQryHv87dVl2mscLWwDEEgfqv1rM1zc8_1778817955
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260514-upstate-sneer-0b6e78682798@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e29c8ae0703a3kunmd1b8d9bd125afa
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSktLVkIYTR8aHkgdTE0YSVYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=UZB7lH4hvEXP3pLiPNBhvVIN/gQNsy9iafLoKvDKgsRRFlrJKAecHptJ7/J77wyBeceuZOOprBHD36ae6nHJk5rWBHxxSgKKrOX7JTLhssGbJxofO/ZsqaDhRPiJGMf+/tYd2AQbZfHuNBGK4/0Iow6PsrJyKqHXbi5WbuimHJU=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=num2dBkmQCmOz3VFEseziFih+L9BmXJ8Dbo1P1UCNNw=;
- h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,74 +111,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Conor,
+Hi,
 
-On 5/15/2026 2:16 AM, Conor Dooley wrote:
-> On Thu, May 14, 2026 at 03:01:31PM +0800, Damon Ding wrote:
->> Expose the inherited properties from the base analogix-dp schema
->> to satisfy unevaluatedProperties constraints.
->>
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> 
-> Given it's unevaluatedProperties, not addtionalProperties, this patch
-> shouldn't be needed?
-> 
+> FYI: While testing with hmm_tests I ran into
+>
+> [  107.866004] ============================================
+> [  107.866284] WARNING: possible recursive locking detected
+> [  107.866577] 7.1.0-rc3-00311-g4277273ca0e1 #12 Not tainted
+> [  107.866877] --------------------------------------------
+> [  107.867217] hmm-tests/1098 is trying to acquire lock:
+> [  107.867491] ffff888113571b38 (&mm->mmap_lock){++++}-{4:4}, at: dmirror_range_fault+0x147/0x610 [test_hmm] <- line 368 of lib/test_hmm.c
+> [  107.868076] 
+> [  107.868076] but task is already holding lock:
+> [  107.868383] ffff888113571b38 (&mm->mmap_lock){++++}-{4:4}, at: dmirror_fault_and_migrate_to_device.constprop.0+0x3aa/0x6a0 [test_hmm] <- line 1267 of lib/test_hmm.c
+> [  107.869076] 
+> [  107.869076] other info that might help us debug this:
+> [  107.869415]  Possible unsafe locking scenario:
+> [  107.869415] 
+> [  107.869729]        CPU0
+> [  107.869866]        ----
+> [  107.870054]   lock(&mm->mmap_lock);
+> [  107.870247]   lock(&mm->mmap_lock);
+> [  107.870436] 
+> [  107.870436]  *** DEADLOCK ***
+> [  107.870436] 
+> [  107.870743]  May be due to missing lock nesting notation
+> [  107.870743] 
+> [  107.871158] 1 lock held by hmm-tests/1098:
+> [  107.871377]  #0: ffff888113571b38 (&mm->mmap_lock){++++}-{4:4}, at: dmirror_fault_and_migrate_to_device.constprop.0+0x3aa/0x6a0 [test_hmm]
+> [  107.872081] 
+> [  107.872081] stack backtrace:
+> [  107.872348] CPU: 1 UID: 0 PID: 1098 Comm: hmm-tests Not tainted 7.1.0-rc3-00311-g4277273ca0e1 #12 PREEMPT(full) 
+> [  107.872350] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS edk2-20260213-6.fc44 02/13/2026
+> [  107.872354] Call Trace:
+> [  107.872357]  <TASK>
+> [  107.872358]  dump_stack_lvl+0x5d/0x80
+> [  107.872385]  print_deadlock_bug.cold+0xc0/0xe2
+> [  107.872393]  __lock_acquire+0x10cf/0x1b90
+> [  107.872400]  lock_acquire+0x189/0x2f0
+> [  107.872401]  ? dmirror_range_fault+0x147/0x610 [test_hmm]
+> [  107.872404]  down_read+0x9b/0x4b0
+> [  107.872420]  ? dmirror_range_fault+0x147/0x610 [test_hmm]
+> [  107.872421]  ? lock_acquire+0x189/0x2f0
+> [  107.872422]  ? __pfx_down_read+0x10/0x10
+> [  107.872424]  ? __lock_acquire+0x3c2/0x1b90
+> [  107.872425]  dmirror_range_fault+0x147/0x610 [test_hmm]
+> [  107.872427]  ? __pfx_down_read+0x10/0x10
+> [  107.872429]  ? __pfx_dmirror_range_fault+0x10/0x10 [test_hmm]
+> [  107.872430]  ? __lock_acquire+0x3c2/0x1b90
+> [  107.872434]  dmirror_fault_and_migrate_to_device.constprop.0+0x3bf/0x6a0 [test_hmm]
+> [  107.872436]  ? __pfx_dmirror_fault_and_migrate_to_device.constprop.0+0x10/0x10 [test_hmm]
+> [  107.872439]  ? find_held_lock+0x2b/0x80
+> [  107.872444]  ? dmirror_device_remove_chunks+0x5b8/0xa00 [test_hmm]
+> [  107.872445]  ? __is_insn_slot_addr+0xee/0x1f0
+> [  107.872458]  ? lock_acquire+0x189/0x2f0
+> [  107.872460]  ? avc_has_extended_perms+0x234/0x1350
+> [  107.872476]  ? __might_fault+0x89/0x150
+> [  107.872484]  ? lock_release+0xe1/0x320
+> [  107.872486]  dmirror_fops_unlocked_ioctl+0x9ba/0xdb0 [test_hmm]
+> [  107.872488]  ? ioctl_has_perm.constprop.0.isra.0+0x2fe/0x6c0
+> [  107.872494]  ? __pfx_dmirror_fops_unlocked_ioctl+0x10/0x10 [test_hmm]
+> [  107.872498]  ? count_memcg_events_mm.constprop.0+0x22/0x1a0
+> [  107.872499]  ? __pfx_ioctl_has_perm.constprop.0.isra.0+0x10/0x10
+> [  107.872501]  ? count_memcg_events_mm.constprop.0+0xaa/0x1a0
+> [  107.872503]  ? lock_release+0xe1/0x320
+> [  107.872504]  ? find_held_lock+0x2b/0x80
+> [  107.872506]  ? exc_page_fault+0x7e/0xf0
+> [  107.872510]  __x64_sys_ioctl+0x13c/0x1d0
+> [  107.872521]  ? lockdep_hardirqs_on_prepare+0xd9/0x190
+> [  107.872523]  do_syscall_64+0xf3/0x6a0
+> [  107.872526]  ? exc_page_fault+0xde/0xf0
+> [  107.872528]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> [  107.872529] RIP: 0033:0x7f7381c543ad
+> [  107.872531] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+> [  107.872532] RSP: 002b:00007ffc3160a9b0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> [  107.872539] RAX: ffffffffffffffda RBX: 00007f7381b44000 RCX: 00007f7381c543ad
+> [  107.872540] RDX: 00007ffc3160aa30 RSI: 00000000c0284803 RDI: 0000000000000022
+> [  107.872541] RBP: 00007ffc3160aa00 R08: 00000000ffffffff R09: 0000000000000000
+> [  107.872541] R10: 0000000000000022 R11: 0000000000000246 R12: 00007ffc3160aa24
+> [  107.872542] R13: 000000000041f380 R14: 0000000000000200 R15: 00007f7381200000
+> [  107.872544]  </TASK>
+>
+>
+> Thanks,
+> Balbir
+>
+Thanks, I could reproduce. Had lockdep dropped off so went unnoticed. It is nesting mmap_read_lock in the test suite, I will change that in next version.
 
-When I remove both the top-level data-lanes property and those explicit 
-"xxx: true" property entries and run the dtbs check with:
+--Mika
 
-make CHECK_DTBS=y CROSS_COMPILE=aarch64-linux-gnu- LT0=none LLVM=1 
-LLVM_IAS=1 ARCH=arm64 rockchip/rk3588-evb1-v10.dtb 
-rockchip/rk3588s-evb1-v10.dtb rockchip/rk3399-sapphire-excavator.dtb 
-rockchip/rk3576-evb1-v10.dtb -j4
-
-It results in validation errors like these:
-
-/home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb: 
-edp@27dc0000: ports:port@1:endpoint: Unevaluated properties are not 
-allowed ('data-lanes' was unexpected)
-         from schema $id: 
-http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
-/home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb: 
-edp@27dc0000: Unevaluated properties are not allowed ('force-hpd', 
-'interrupts', 'phy-names', 'phys', 'ports', 'reg' were unexpected)
-         from schema $id: 
-http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
-
-I suspect that the properties defined in the child binding are 
-overriding/masking all the inherited properties from the parent Analogix 
-DP schema.
-
-Is there a better way to fix this issue without explicitly listing all 
-inherited properties as true?
-
-Best regards,
-Damon
-
->> ---
->>   .../bindings/display/rockchip/rockchip,analogix-dp.yaml    | 7 +++++++
->>   1 file changed, 7 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> index bb75d898a5c5..896ded87880f 100644
->> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> @@ -50,6 +50,13 @@ properties:
->>     aux-bus:
->>       $ref: /schemas/display/dp-aux-bus.yaml#
->>   
->> +  reg: true
->> +  interrupts: true
->> +  phys: true
->> +  phy-names: true
->> +  force-hpd: true
->> +  ports: true
->> +
->>   required:
->>     - compatible
->>     - clocks
->> -- 
->> 2.34.1
->>
->>
 
