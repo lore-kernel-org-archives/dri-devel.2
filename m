@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA3A1CD4851
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:41:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7698CD4F3C
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:41:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 110A910E54A;
-	Sat, 16 May 2026 18:41:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12FBB10E55A;
+	Sat, 16 May 2026 18:41:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="Vpbicv/N";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="SDx94bxi";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DCFD10E54A
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:41:04 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0358D10E55A
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:41:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778956857; bh=F+B4zzfm0qQngrqIRhNxCD+JotMwmB0joBA2rRqW0KA=;
- b=Vpbicv/NtvY8Rvret3BIC2qpudZfl06x4R8fqBdKvPnNpsPXAP9bAi10o80bChe4FsQBAOlL6
- z5lDCbphfH0P9Kndvuo0IBYyQNPHaYstgFSoK1eKQT8oNXLTL7zIqL+ZKUT3KFgstriFli+Upd+
- DIR0baix+o0zDpD5q+Uw05bi4jNwrq25YVPaXzM9Po1jfg5sqEJTgCwgnesKtSPwOEV3QtxL+jU
- 9tYiAWjBbMBSsEw8U99vZy0qL0nJfJ0IOJEo4miVilNq+sbIAWwvbOV0bj9Zk5GM0XgOhRPCR+o
- XDKvTcgpjSbX3Uk5snaOeik6OAMnHim+mdDAGvwZwVuw==
-X-Forward-Email-ID: 6a08ba1479c7625f20eeef65
+ t=1778956876; bh=8Xu8zmkoGpSjHmQcHYNXb6z5Nt0YqaebtxsoCwdpiVk=;
+ b=SDx94bxikXJ3usLHMmX7hs4k0cdHbcR30TQVCDVv/FF6Fc7mxAlPQiKA1vBn9Uro+KTOvbwe7
+ qdZoQ4yFukd09rb8YvyVQoSfAAQpo9u5SGEVC7yAxwFgIMz4x7nhtKhLI7CHwVmM9QH+8OD15vK
+ qUfMzSf7Pf+StZ9DLD64LMzvduFZTarIhnzdWNfKmxbQshPXgMSlvK7YLurM9Vk4gjFzHc/0FvK
+ IGqwAF7o2XMpzyOsp+BX6jjJUpxt7Rz8uHbJDza1hg23YFe+yFzfLnUZ4AC8tUcgWBgjGkFvYnX
+ yKAw2mo53wVWmGtN5QIZi5tVf5v6Hc+FtczYCQcpeDXQ==
+X-Forward-Email-ID: 6a08b9d279c7625f20eeedab
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
+ 149.28.215.223
 X-Forward-Email-Version: 2.8.12
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -53,10 +53,10 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 22/22] drm: bridge: dw_hdmi: Merge top and bottom half IRQ
- handlers
-Date: Sat, 16 May 2026 18:38:32 +0000
-Message-ID: <20260516183838.2024991-23-jonas@kwiboo.se>
+Subject: [PATCH v6 07/22] drm: bridge: dw_hdmi: Hold bridge ref until
+ connector cleanup
+Date: Sat, 16 May 2026 18:38:17 +0000
+Message-ID: <20260516183838.2024991-8-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260516183838.2024991-1-jonas@kwiboo.se>
 References: <20260516183838.2024991-1-jonas@kwiboo.se>
@@ -77,92 +77,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The bottom half IRQ handler only modify delay of or queue a delayed work
-used for HPD handling. The mod_delayed_work() called is documented as
-being safe to call from any context including IRQ handler.
+drmres connector cleanup typically run after devres has released the
+last dw-hdmi bridge reference. Since struct dw_hdmi, where the connector
+lives, is freed when the last bridge reference is released, connector
+cleanup can end up accessing freed memory.
 
-Merge top and bottom half IRQ handlers to simplify IRQ handling now that
-HPD event is handled using a delayed work.
+Call trace without a bridge reference held until connector cleanup:
+- dw_hdmi_bridge_detach()
+- dw_hdmi_bridge_destroy()      <<-- struct dw_hdmi is free()
+- [drm:drm_managed_release] drmres release begin
+- [drm:drm_managed_release] REL (____ptrval____) drm_mode_config_init_release (0 bytes)
+- dw_hdmi_connector_destroy()
+  - drm_connector_cleanup()     <<-- drm_connector is use-after-free
+  [...]
+- [drm:drm_managed_release] drmres release end
+
+Hold a bridge reference for as long as the connector exists and drop it
+after drm_connector_cleanup() has completed to keep struct dw_hdmi alive
+until connector teardown is finished and avoids the use-after-free.
+
+Call trace with a bridge reference held until connector cleanup:
+- dw_hdmi_bridge_detach()
+- [drm:drm_managed_release] drmres release begin
+- [drm:drm_managed_release] REL (____ptrval____) drm_mode_config_init_release (0 bytes)
+- dw_hdmi_connector_destroy()
+  - drm_connector_cleanup()     <<-- drm_connector is destroy()
+  - drm_bridge_put()
+- dw_hdmi_bridge_destroy()      <<-- struct dw_hdmi is free()
+  [...]
+- [drm:drm_managed_release] drmres release end
 
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v6: Collect r-b tag
-v5: No change
-v4: New patch
+v6: Collect t-b tag
+v5: New patch
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 34 ++++++++---------------
- 1 file changed, 11 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 79851ae27496..a9b2707149b6 100644
+index a176eb55418c..cbbd15578042 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2993,30 +2993,18 @@ static irqreturn_t dw_hdmi_hardirq(int irq, void *dev_id)
- 	if (hdmi->i2c)
- 		ret = dw_hdmi_i2c_irq(hdmi);
- 
--	intr_stat = hdmi_readb(hdmi, HDMI_IH_PHY_STAT0);
--	if (intr_stat) {
--		hdmi_writeb(hdmi, ~0, HDMI_IH_MUTE_PHY_STAT0);
--		return IRQ_WAKE_THREAD;
--	}
--
--	return ret;
--}
--
--static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
--{
--	struct dw_hdmi *hdmi = dev_id;
--	u8 intr_stat;
--
- 	/*
- 	 * Interrupt generation is accomplished in the following way:
- 	 *   interrupt = (mask == 0) && (polarity == status)
- 	 * All interrupts are forwarded to the Interrupt Handler sticky bit
- 	 * register ih_phy_stat0 and muted using the register ih_mute_phy_stat0.
- 	 */
--	intr_stat = hdmi_readb(hdmi, HDMI_IH_PHY_STAT0);
--	if (intr_stat & HDMI_IH_PHY_STAT0_HPD) {
-+	intr_stat = hdmi_readb(hdmi, HDMI_IH_PHY_STAT0) & HDMI_IH_PHY_STAT0_HPD;
-+	if (intr_stat) {
- 		enum drm_connector_status status;
- 
-+		hdmi_writeb(hdmi, ~0, HDMI_IH_MUTE_PHY_STAT0);
-+
- 		/* Set HPD interrupt polarity based on current HPD status. */
- 		status = dw_hdmi_phy_read_hpd(hdmi, hdmi->phy.data);
- 		hdmi_modb(hdmi, status == connector_status_connected ?
-@@ -3028,12 +3016,13 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
- 
- 		mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
- 				 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
-+
-+		hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
-+		hdmi_writeb(hdmi, ~HDMI_IH_PHY_STAT0_HPD, HDMI_IH_MUTE_PHY_STAT0);
-+		ret = IRQ_HANDLED;
- 	}
- 
--	hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
--	hdmi_writeb(hdmi, ~HDMI_IH_PHY_STAT0_HPD, HDMI_IH_MUTE_PHY_STAT0);
--
--	return IRQ_HANDLED;
-+	return ret;
+@@ -2528,10 +2528,18 @@ static void dw_hdmi_connector_force(struct drm_connector *connector)
+ 	mutex_unlock(&hdmi->mutex);
  }
  
- static void dw_hdmi_hpd_work(struct work_struct *work)
-@@ -3343,9 +3332,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
- 	INIT_DELAYED_WORK(&hdmi->hpd_work, dw_hdmi_hpd_work);
- 	disable_delayed_work(&hdmi->hpd_work);
++static void dw_hdmi_connector_destroy(struct drm_connector *connector)
++{
++	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
++
++	drm_connector_cleanup(connector);
++	drm_bridge_put(&hdmi->bridge);
++}
++
+ static const struct drm_connector_funcs dw_hdmi_connector_funcs = {
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+ 	.detect = dw_hdmi_connector_detect,
+-	.destroy = drm_connector_cleanup,
++	.destroy = dw_hdmi_connector_destroy,
+ 	.force = dw_hdmi_connector_force,
+ 	.reset = drm_atomic_helper_connector_reset,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+@@ -2548,6 +2556,7 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+ 	struct drm_connector *connector = &hdmi->connector;
+ 	struct cec_connector_info conn_info;
+ 	struct cec_notifier *notifier;
++	int ret;
  
--	ret = devm_request_threaded_irq(dev, irq, dw_hdmi_hardirq,
--					dw_hdmi_irq, IRQF_SHARED,
--					dev_name(dev), hdmi);
-+	ret = devm_request_irq(dev, irq, dw_hdmi_hardirq, IRQF_SHARED,
-+			       dev_name(dev), hdmi);
- 	if (ret)
- 		goto err_res;
+ 	if (hdmi->version >= 0x200a)
+ 		connector->ycbcr_420_allowed =
+@@ -2560,10 +2569,14 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
  
+ 	drm_connector_helper_add(connector, &dw_hdmi_connector_helper_funcs);
+ 
+-	drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
+-				    &dw_hdmi_connector_funcs,
+-				    DRM_MODE_CONNECTOR_HDMIA,
+-				    hdmi->ddc);
++	ret = drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
++					  &dw_hdmi_connector_funcs,
++					  DRM_MODE_CONNECTOR_HDMIA,
++					  hdmi->ddc);
++	if (ret)
++		return ret;
++
++	drm_bridge_get(&hdmi->bridge);
+ 
+ 	/*
+ 	 * drm_connector_attach_max_bpc_property() requires the
 -- 
 2.54.0
 
