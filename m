@@ -4,47 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F10DDCD4F21
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 09:51:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DE49CD4F25
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 10:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB60C10E186;
-	Sat, 16 May 2026 09:51:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C42BA10E06B;
+	Sat, 16 May 2026 10:10:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Do3ffFL4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YgCmL5Bm";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F1A110E186
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 09:51:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1285C10E06B
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 10:10:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 15F0660138;
- Sat, 16 May 2026 09:51:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A45C19425;
- Sat, 16 May 2026 09:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1778925115;
- bh=BUSSURdgLQ4YIhYewunrGBSH8jEmDTjnZ5bx7//RKTE=;
+ by tor.source.kernel.org (Postfix) with ESMTP id 46F5F601E5;
+ Sat, 16 May 2026 10:10:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6886BC2BCC7;
+ Sat, 16 May 2026 10:10:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778926244;
+ bh=1qvLF+Zqi75df4aB2OVRCs7kHbPNN8nrk32CUkEYElk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Do3ffFL45gZaMeh3qIm+wGMso7ZmQxL7Ss8PiQoU9Sr7W2vGtmPs6gnqidpTwuCX/
- AqcYWLKNQQCHHVXO7OhRFlzIkH53eVUtv/ORPnUxDRnRTLFmwHf0YhI4UHfkfsFRz0
- JkBA1oPR0ox/fv4utXvt2eGFVFXlRNmpyI+4BHJw=
-Date: Sat, 16 May 2026 11:51:59 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: w15303746062 <w15303746062@163.com>
-Cc: louis.chauvet@bootlin.com, hamohammed.sa@gmail.com, simona@ffwll.ch,
- melissa.srw@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: Re: Re: [PATCH 6.18.y] drm/vkms: Fix ABBA deadlock in vblank disable
- and timer callback
-Message-ID: <2026051633-skyward-parrot-cdd3@gregkh>
-References: <20260515131826.388154-1-w15303746062@163.com>
- <2026051557-thermal-petite-7da0@gregkh>
- <581657f0.ba8.19e2eaaf003.Coremail.w15303746062@163.com>
+ b=YgCmL5BmnQv6t1PCS9Ixh+uGJu+zHYaCC956+X4QQEwklkQaN6XBpH9i7w3V1eivo
+ aNmDZougxQazSBdQ5XtWLR6Z3hihax05oLgszwI6FKgtgDxz7sFpRzmG17CQuKVklA
+ 0ywYaKtBLScEsDTIIL4vMwZTxUtZmShcWwzM64CRWvxOfmt3UpSkS4XL6L+yd2XGW4
+ kmUvW6z6a1s0UFKHw2Bm3qSMAukMpMmb3xzWNAkUoaBcL1O3GVKYJuT0ayok02KdHt
+ nLaYjO8mZZxxtZjGrpElYVPrbB+tmXNzDoZZQW3Fiovo6xcaJdGjcE4AKuQrthXkTx
+ zR36C89fxi1rw==
+Date: Sat, 16 May 2026 12:10:41 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
+ Sam Ravnborg <sam@ravnborg.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>, 
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 1/1] dt-bindings: display: simple: add avic,tm097tdh02
+ panel
+Message-ID: <20260516-gigantic-enchanted-lyrebird-f39fce@quoll>
+References: <20260515195935.2415466-1-Frank.Li@oss.nxp.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <581657f0.ba8.19e2eaaf003.Coremail.w15303746062@163.com>
+In-Reply-To: <20260515195935.2415466-1-Frank.Li@oss.nxp.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,56 +68,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 16, 2026 at 10:43:35AM +0800, w15303746062 wrote:
+On Fri, May 15, 2026 at 03:59:34PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> Hi Greg,
-> 
-> Thanks for the quick response and review.
-> 
-> 
-> At 2026-05-15 23:09:46, "Greg KH" <greg@kroah.com> wrote:
-> >On Fri, May 15, 2026 at 09:18:26PM +0800, w15303746062@163.com wrote:
-> >> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-> >> 
-> >> [Note: This patch addresses a legacy VKMS implementation deadlock specific
-> >> to older stable trees (e.g., 6.18.y). Mainline has removed this code during
-> >> the generic DRM_CRTC_VBLANK_TIMER_FUNCS refactoring.]
-> >
-> >Why not apply those upstream commits here as well?  No need to diverge
-> >from Linus's tree, otherwise we will end up having a mess that nothing
-> >can ever be backported to.
-> >
-> >How many commits need to be backported?  Have you tried?
-> 
-> I have looked into the upstream commits. The commit that removed this 
-> vulnerable legacy code in mainline is:
-> 02e2681ffe1a ("drm/vkms: Convert to DRM's vblank timer")
-> 
-> I tried to apply it to 6.18.y, but it does not apply cleanly. The reason 
-> is that this upstream commit is not a simple bug fix, but a massive 
-> refactoring. It completely rips out the custom VKMS hrtimer and ports 
-> the driver to a newly introduced DRM core infrastructure 
-> (DRM_CRTC_VBLANK_TIMER_FUNCS and drm_vblank_helper.h).
-> 
-> To backport commit 02e2681ffe1a, we would first need to backport the 
-> entire DRM generic vblank timer infrastructure to 6.18.y. This seems 
-> too intrusive and violates the minimal-risk policy for stable trees.
+> Add compatilbe string avic,tm097tdh02 for AVIC Optoelectronics 9.7".
 
-There is no "minimal-risk policy for stable trees".  And if there was,
-the least ammount of risk would be to take the reviewed and tested
-patches that are already in Linus's tree, and NOT take anything that is
-not already there, as 90% of the time that we do that, it comes back to
-bite us hard.
+Please stop with these single liners without any explanation.
 
-So please, just backport all the needed changes here.  Otherwise how are
-we going to deal with the merge conflicts for the next 4 years in this
-file?
+Best regards,
+Krzysztof
 
-Or, get the maintainers of this file to agree and review this one-off
-change that it is acceptable.  As they are going to be the ones getting
-the bug reports and not having their patches applied over the years, not
-anyone else :)
-
-thanks,
-
-greg k-h
