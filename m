@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B430ACD4F21
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 11:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9D8ECD4F47
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 11:06:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74D4C10E1A0;
-	Sat, 16 May 2026 11:06:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 147EF10E18C;
+	Sat, 16 May 2026 11:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iWNSKY//";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UbX/IywC";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2683F10E18C
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 11:06:47 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-488b8bc6bc9so3182365e9.3
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 04:06:47 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFF610E18C
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 11:06:48 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-488ff90d6c7so4171935e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 04:06:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778929606; x=1779534406; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778929607; x=1779534407; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=lYlLPOH4yVQW/c+VIhwYHIXyYVIQiO3ciiQAaKF6Jpo=;
- b=iWNSKY//Ws99DgXYEgXPPX44dvTI8wg7bwAqSeTnIDoXtwK9bg03UqxHDG6lAd513E
- 1aBM8a4sSwAFec+LkfgvixoKkINTysOkdst3mUfnU0PTVtxj83vc6bFUy6hHBovltR7X
- PogzEyl1P6V1xzvtFs/tP/wF6QD1SuJtNu8qMvhW/gnpl6nAll9P3Tt/uRkjYAMVcaaX
- 9NrdJ5sw//zGB2SLmx250m1eFCUP/BOWG2UiZ2OojLT/Mzzk81KQmHl7JvZdEcVFjMY7
- 5jQlT959iPWCqeSWZtBLApuUbPdFyIGayIpKA8sBGY5WlQ8koKSRt3Wk+qAtGv3sZPWD
- d9TQ==
+ :reply-to; bh=DZXH6WE6NwIFHcNfcXNqTsh8pXC1vp/igAOE1DEZDoU=;
+ b=UbX/IywCVWiJh4Sr+7kVEKWXWio3N77Gu0Q0XVyGSiA5uT2OvEFZqb1Kee1Hi7BXbN
+ PzrlQy8167q78AEACVL30yFRER54P2/J7lti+VragvV0MoMFxHWBHuMXUyTRcfW4KKq1
+ Kt68em1sLzPlJNXUu9tXkfNBjr2TT8jUxkZ8Xgilu5dNaG6tC6yeCApuEH/9WXBOu/77
+ jcyBuMd0lp1ie7mRUanwXdUTLFuj9E+2h9cR9aC8PrR2O7/+M34REDJH+0O0XX+yQzMe
+ 52CPNpKE56+8j0DCVxRDBgo/kmnvjg8Rx1JfdYNhh1ea/PBM9DucfcHtAm9iY4MaGG+e
+ hQEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778929606; x=1779534406;
+ d=1e100.net; s=20251104; t=1778929607; x=1779534407;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=lYlLPOH4yVQW/c+VIhwYHIXyYVIQiO3ciiQAaKF6Jpo=;
- b=OemwKfpKYOgdX8NJoudJmUp6IKcaeDs7uoHRjAPgYgGWhbwwSa7p+4I+jkhAW/evuX
- Ev92RSL30VlVY3timbhNIz1bSgAIjBnpFASDnZ/6kRW4lT3sf7LBiHyX112935I6ETfu
- twGqh7hvLzHq4v46AwiS0gF8NvnaI7OzLynMJBLmkmaJ3LzI5bISDvB/2J0GK8zvvsjq
- cRtaW3zO8CBrtJ4rC2+fLDrTliCmYi8LmnTFfxxA8EO4TJduyMMr1gFvCkU5op1do6lf
- +Y7wVBSX44OOGzeBECzaGbqHMG3ZjFkQNJDx+VoNLeoXmoUifwiPEpGLv1rXzxD0ANU2
- MxMg==
-X-Gm-Message-State: AOJu0YwV3IQZlFBLFbzwkYlVcNIEVvei65R3Zuf/SjVrfuuo1r8dcVgl
- DWL56GgELWvNIQ3qLucGT1llEfnuJLvmykU/5b2KxBZ9zr6WXLesXj7R
-X-Gm-Gg: Acq92OFdVFJyQWqS3SjWOtv6suGrPIewQUZkySp0ewJqS+s7Bws9NgAscgvRSlTNAip
- aKJAvlEcWVxPeOSNp85gDKznWY4xX5GydWuJQDRYqHf30XX8cwJHlFpD1dhaUa/zrCoFJKQsd0Q
- OvKMb1w2brrldFYGEKM38Qe22rQvDkBqyobMkH3SW+r44Cu0iagh9Zmt3x8WrTg7dA79Oh9zwn9
- qO2nRILam3y8DnpbKkKZfrm/SRg4xMabNEVGiuP4kidvrvldASfto5GPgL7kLmXqaC06rfeba28
- lpLfFHOM9Gct3R1DyXhln7Cv16olqvsROu/WuqAwL0saKk6rTJ+zA4GHPNw+oLZWOIz6y0w/t1F
- p35lm06ZIa/C0GZ8gZZ+c+9dMEkfKkI7waQrYgIxU9Gw+eLh+LAR9QYHEXhzNqs/DTX1HxGzc4u
- Fdg7A1QFUraYjyEfBNh/2kIXggAwJjD8PfgOpFE2VsTj359sN/nluIMBCzQ1xcP5Yw/Yq/D6GEU
- krdEEE=
-X-Received: by 2002:a05:600c:4e43:b0:48f:e230:8cad with SMTP id
- 5b1f17b1804b1-48fe6632135mr98825375e9.33.1778929605528; 
- Sat, 16 May 2026 04:06:45 -0700 (PDT)
+ bh=DZXH6WE6NwIFHcNfcXNqTsh8pXC1vp/igAOE1DEZDoU=;
+ b=OJWte9GeSTouTHurQJAZwuxmR93OSDMuRTnsq00i8SFvEBuPih4R058RItKTnmymOX
+ m97I0q/sZ2mtyFzgdn2uIKqgQNx7N3V/hveUEqqSjTFn4NtqD2xXym5DXSVqv8i0QUY6
+ RqsSRnYnq1Aq5sg0K+0CMwLmjSKMAwCjxz5HHpbNGXeAxXrLG7hzxGANvo3TkhwmjolX
+ sB3rE10PsDQGuBnoVeiniBkMjhPxO7jcBd4P0o4IBKhvfdW0bKTUIyluo0B0c6Q1hFfw
+ eQagIu54gegaDo5Dgtbdfn3OsqhWCAkuJWLzZRyGN1TtRzQJXyWcVQn3rPqrm7Smyb5s
+ aH4A==
+X-Gm-Message-State: AOJu0YzePoE2lDJwb24jc/JVm3+HNjitnZV1uP0ikp3JIUkMypAOOl+Q
+ w5t8C3B0PIDxyqj/OJzSRVutxVx6df/wlopdnpIf5ii296z9tRegPhnK
+X-Gm-Gg: Acq92OFqxXKGMHb04/Rka1YVFInRBSeVlCKq2gPEBUYh9inMw0CkJ6kFYHRiUXraQ99
+ mnxYqaF9WrMCEfHNelN5vo4NqeJQCy9uOl9+jfuqJjoIMRn+9Ohpzi/qbhwnULC6X7QOrO0JVKT
+ +izO0c4CihWy1xe2GlvLC22soa4+KLDsujbRoYxzavFTyaeUiknsj3t/+k6rwJewFAGAGHTS2C7
+ KkL0eGVw0NKEMByzC4WI2NyEpMZT5vhCdM+2Rh6wesIfZnKHIgOYw8sgXZrwRYRZipu977kB3HF
+ GKcTfuDMJZ01a9cepe95Ghp+2N55uOty7U9conbfeUwD8owkN0n7vm4FbVKh/xHjoyIjn+WKL0y
+ /0bNuJmm8cPBi0wYsjXM4QPvS4cxkDaCuyMRopD1+307UXl1LNE074R5YzQGwfXk8w45SRqV87k
+ BovbBYbNuustWE6EF7AVi4A0eIHraLyZg/2WyrC/gpwV5b6hDIlNbNH4tkfc3nNRlwVy1STet6m
+ r5IH7wZnqOawoyptg==
+X-Received: by 2002:a05:600c:4692:b0:48f:d835:e104 with SMTP id
+ 5b1f17b1804b1-48fe6325391mr108240075e9.16.1778929606890; 
+ Sat, 16 May 2026 04:06:46 -0700 (PDT)
 Received: from [10.13.0.20] (ip87-106-117-14.pbiaas.com. [87.106.117.14])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48feb00e5easm36399545e9.13.2026.05.16.04.06.44
+ 5b1f17b1804b1-48feb00e5easm36399545e9.13.2026.05.16.04.06.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 May 2026 04:06:45 -0700 (PDT)
+ Sat, 16 May 2026 04:06:46 -0700 (PDT)
 From: Julian Orth <ju.orth@gmail.com>
-Date: Sat, 16 May 2026 13:06:04 +0200
-Subject: [PATCH 01/12] drm/syncobj: add drm_syncobj_from_fd
+Date: Sat, 16 May 2026 13:06:05 +0200
+Subject: [PATCH 02/12] drm/syncobj: add drm_syncobj_fence_lookup
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260516-jorth-syncobj-v1-1-88ede9d98a81@gmail.com>
+Message-Id: <20260516-jorth-syncobj-v1-2-88ede9d98a81@gmail.com>
 References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
 In-Reply-To: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -82,11 +82,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
  ju.orth@gmail.com
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778929602; l=2530;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778929602; l=3464;
  i=ju.orth@gmail.com; s=20251120; h=from:subject:message-id;
- bh=Xxs8inG7yNnVnqsTeDmsro1fFz3EEPayoUW9RCB58oE=;
- b=+8Ntp4CeTenAuSVPrMlJyQQ3aZauaK6+QLTjIL8uRDHdQOin3LlpX/RlNsbP4/cmzUNFxQZTX
- jdMvakZq1vTDS+YTjld0PyK5yiRyPU+nmJ9Cooj8Tm+KOPLpLdSvCEH
+ bh=a9lG2nbpvJpNBTclhiNFI8DwaJzMN3KTgSfTJHOAb6U=;
+ b=07+mwlPAmGj35N8dMENXh6PCoPSv2aMD6VxpSxRkS+KDubuwjlGqM09oILAMtWVMbSAEmf3Bp
+ UZUi9wH3NLuA1L+LQNH3MdycdnESgn7NfT46epz4KcBbp+qwZvxkBy9
 X-Developer-Key: i=ju.orth@gmail.com; a=ed25519;
  pk=uM2SS4lelkuIoYHc7v9N9bgBZ3hS632zJS2xjRJLPLI=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -104,85 +104,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Given a syncobj FD, returns the underlying drm_syncobj.
+This makes the logic from drm_syncobj_find_fence available to callers
+that have a drm_syncobj instead of a drm_file/handle pair.
 
 Signed-off-by: Julian Orth <ju.orth@gmail.com>
 ---
- drivers/gpu/drm/drm_syncobj.c | 37 +++++++++++++++++++++++++++----------
- include/drm/drm_syncobj.h     |  1 +
- 2 files changed, 28 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/drm_syncobj.c | 34 ++++++++++++++++++++++++++++------
+ include/drm/drm_syncobj.h     |  2 ++
+ 2 files changed, 30 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index 8d9fd1917c6e..d992aa082ace 100644
+index d992aa082ace..8df438fe0807 100644
 --- a/drivers/gpu/drm/drm_syncobj.c
 +++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -684,6 +684,31 @@ int drm_syncobj_get_fd(struct drm_syncobj *syncobj, int *p_fd)
- }
- EXPORT_SYMBOL(drm_syncobj_get_fd);
- 
-+/**
-+ * drm_syncobj_from_fd - lookup and reference a syncobj.
-+ * @fd: syncobj file descriptor
-+ *
-+ * Returns a reference to the syncobj pointed to by @fd or NULL. The
-+ * reference must be released by calling drm_syncobj_put().
-+ */
-+struct drm_syncobj *drm_syncobj_from_fd(int fd)
-+{
-+	struct drm_syncobj *syncobj;
-+
-+	CLASS(fd, f)(fd);
-+
-+	if (fd_empty(f))
-+		return NULL;
-+
-+	if (fd_file(f)->f_op != &drm_syncobj_file_fops)
-+		return NULL;
-+
-+	syncobj = fd_file(f)->private_data;
-+	drm_syncobj_get(syncobj);
-+	return syncobj;
-+}
-+EXPORT_SYMBOL(drm_syncobj_from_fd);
-+
- static int drm_syncobj_handle_to_fd(struct drm_file *file_private,
- 				    u32 handle, int *p_fd)
+@@ -427,7 +427,7 @@ static int drm_syncobj_assign_null_handle(struct drm_syncobj *syncobj)
+  * @fence: out parameter for the fence
+  *
+  * This is just a convenience function that combines drm_syncobj_find() and
+- * drm_syncobj_fence_get().
++ * drm_syncobj_fence_lookup().
+  *
+  * Returns 0 on success or a negative error value on failure. On success @fence
+  * contains a reference to the fence, which must be released by calling
+@@ -438,8 +438,6 @@ int drm_syncobj_find_fence(struct drm_file *file_private,
+ 			   struct dma_fence **fence)
  {
-@@ -701,20 +726,12 @@ static int drm_syncobj_handle_to_fd(struct drm_file *file_private,
- static int drm_syncobj_fd_to_handle(struct drm_file *file_private,
- 				    int fd, u32 *handle)
- {
--	struct drm_syncobj *syncobj;
--	CLASS(fd, f)(fd);
-+	struct drm_syncobj *syncobj = drm_syncobj_from_fd(fd);
+ 	struct drm_syncobj *syncobj = drm_syncobj_find(file_private, handle);
+-	struct syncobj_wait_entry wait;
+-	u64 timeout = nsecs_to_jiffies64(DRM_SYNCOBJ_WAIT_FOR_SUBMIT_TIMEOUT);
  	int ret;
  
--	if (fd_empty(f))
--		return -EINVAL;
--
--	if (fd_file(f)->f_op != &drm_syncobj_file_fops)
-+	if (!syncobj)
- 		return -EINVAL;
+ 	if (flags & ~DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT)
+@@ -448,6 +446,32 @@ int drm_syncobj_find_fence(struct drm_file *file_private,
+ 	if (!syncobj)
+ 		return -ENOENT;
  
--	/* take a reference to put in the xarray */
--	syncobj = fd_file(f)->private_data;
--	drm_syncobj_get(syncobj);
++	ret = drm_syncobj_fence_lookup(syncobj, point, flags, fence);
++
++	drm_syncobj_put(syncobj);
++
++	return ret;
++}
++EXPORT_SYMBOL(drm_syncobj_find_fence);
++
++/**
++ * drm_syncobj_fence_lookup - lookup and reference the fence in a sync object
++ * @syncobj: sync object to lookup.
++ * @point: timeline point
++ * @flags: DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT or not
++ * @fence: out parameter for the fence
++ *
++ * Returns 0 on success or a negative error value on failure. On success @fence
++ * contains a reference to the fence, which must be released by calling
++ * dma_fence_put().
++ */
++int drm_syncobj_fence_lookup(struct drm_syncobj *syncobj, u64 point,
++			     u64 flags, struct dma_fence **fence)
++{
++	struct syncobj_wait_entry wait;
++	u64 timeout = nsecs_to_jiffies64(DRM_SYNCOBJ_WAIT_FOR_SUBMIT_TIMEOUT);
++	int ret;
++
+ 	/* Waiting for userspace with locks help is illegal cause that can
+ 	 * trivial deadlock with page faults for example. Make lockdep complain
+ 	 * about it early on.
+@@ -511,11 +535,9 @@ int drm_syncobj_find_fence(struct drm_file *file_private,
+ 		drm_syncobj_remove_wait(syncobj, &wait);
+ 
+ out:
+-	drm_syncobj_put(syncobj);
 -
- 	ret = xa_alloc(&file_private->syncobj_xa, handle, syncobj, xa_limit_32b,
- 		       GFP_KERNEL);
- 	if (ret)
+ 	return ret;
+ }
+-EXPORT_SYMBOL(drm_syncobj_find_fence);
++EXPORT_SYMBOL(drm_syncobj_fence_lookup);
+ 
+ /**
+  * drm_syncobj_free - free a sync object.
 diff --git a/include/drm/drm_syncobj.h b/include/drm/drm_syncobj.h
-index b40052132e52..5da9988834b5 100644
+index 5da9988834b5..580a967ae364 100644
 --- a/include/drm/drm_syncobj.h
 +++ b/include/drm/drm_syncobj.h
-@@ -117,6 +117,7 @@ drm_syncobj_fence_get(struct drm_syncobj *syncobj)
- 
- struct drm_syncobj *drm_syncobj_find(struct drm_file *file_private,
- 				     u32 handle);
-+struct drm_syncobj *drm_syncobj_from_fd(int fd);
- void drm_syncobj_add_point(struct drm_syncobj *syncobj,
- 			   struct dma_fence_chain *chain,
- 			   struct dma_fence *fence,
+@@ -124,6 +124,8 @@ void drm_syncobj_add_point(struct drm_syncobj *syncobj,
+ 			   uint64_t point);
+ void drm_syncobj_replace_fence(struct drm_syncobj *syncobj,
+ 			       struct dma_fence *fence);
++int drm_syncobj_fence_lookup(struct drm_syncobj *syncobj, u64 point,
++			     u64 flags, struct dma_fence **fence);
+ int drm_syncobj_find_fence(struct drm_file *file_private,
+ 			   u32 handle, u64 point, u64 flags,
+ 			   struct dma_fence **fence);
 
 -- 
 2.54.0
