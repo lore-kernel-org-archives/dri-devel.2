@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59299CD4F48
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:39:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8816ACD4F48
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97DF310E532;
-	Sat, 16 May 2026 18:39:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E967510E53A;
+	Sat, 16 May 2026 18:39:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="zHHo/Y5H";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="HQMDF6WS";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3764B10E532
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:39:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48C7A10E53A
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778956787; bh=vw23cGc0SB8mW0jx69+yUGKp7a1je/y9C5lDAkaYNQ8=;
- b=zHHo/Y5HAlyUse1UWtkwJUx5Fgx9Jod31735mixkfujhW9YAvHzmYIbbqZnQRAq68fRTuvgcT
- hhrGpFecxfmbOPledADsZbdPKNEQzHrCOk9s/A/a4NKMBCWwmzwkmhNtBkobgZT+8jmD+4GiyvQ
- 3XlX5lGqF7Q96JqBd30KRMiMRLXCSu6sJBn9YEsw/O/6MXpXzgUlOReDfdADAfWkHK0183qtPb2
- GSD1ZXNGGMPd+MCX5sVRE31YQnrrUG5rqsf5oeMvCjMLRJOSWvdx5nAQr4XRkyFSySQaxpKkzHZ
- FSZCOPyxtICzD18q+/PIm8SaOJq4rGmzF5yPWPY7YgGA==
-X-Forward-Email-ID: 6a08b9ec79c7625f20eeee6c
+ t=1778956797; bh=q6oJRtq3nxYHTSv0l15nZn4LSwId0laraARb9whniTg=;
+ b=HQMDF6WSbxc/aI2wefZKWkKlQVWhSHIfF4yAWkWa0211i6EF+r29WK0Q7OVVJzqoFzmfqWioD
+ 0u3bL1fRqG5UhSQ1PCcCL8qT7Su/wgcsS7/KInYdpAHrVRle+UM8Lhhz6heSVYbCW0bVLVldtzc
+ YwH25GsA1rUYGCyaiHwEuqace4Oo1vOyu24R1GbOzDCBTjYbT8/TH2bE1gA4Jz9uGoEHuHdChRT
+ Akl3wCVm4IIvuSQP0V+nPSgZ5tF5UC8hYBZr9BIzPWGfh3kUR5zdhBtTRCspccByjtc3dLckhBO
+ 4zvcHLhd3ylsoh3gbkC4QupeHLCj5gzHwNU9E6zV7YLQ==
+X-Forward-Email-ID: 6a08b9f979c7625f20eeeebf
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  121.127.44.73
 X-Forward-Email-Version: 2.8.12
@@ -53,10 +53,10 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 13/22] drm: bridge: dw_hdmi: Use generic CEC notifier
- helpers
-Date: Sat, 16 May 2026 18:38:23 +0000
-Message-ID: <20260516183838.2024991-14-jonas@kwiboo.se>
+Subject: [PATCH v6 16/22] drm: bridge: dw_hdmi: Use display_info is_hdmi and
+ has_audio
+Date: Sat, 16 May 2026 18:38:26 +0000
+Message-ID: <20260516183838.2024991-17-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260516183838.2024991-1-jonas@kwiboo.se>
 References: <20260516183838.2024991-1-jonas@kwiboo.se>
@@ -77,126 +77,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The commit 8b1a8f8b2002 ("drm/display: add CEC helpers code") added
-generic CEC helpers to be used by HDMI drivers.
+drm_edid_connector_update() is being called from bridge connector funcs
+and from detect and force funcs for dw-hdmi connector.
 
-Replace the open-coded CEC notifier handling with use of the generic CEC
-notifier helpers. Ensure DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER is also
-selected when DRM_DW_HDMI_CEC is enabled so that the CEC helpers is
-available.
+Change to use is_hdmi and has_audio from display_info directly instead
+of keeping our own state in sink_is_hdmi and sink_has_audio.
 
-The drmm release action for the generic CEC notifier should run just
-before dw_hdmi_connector_destroy(), closely matching the lifetime of
-the replaced CEC notifier and the connector.
+Also remove the old and unused edid struct member and related define.
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v6: Update commit message,
-    Collect t-b tag
-v5: Collect r-b tag
-v4: New patch
+v6: Collect t-b tag
+v5: No change
+v4: Collect r-b tag
+v3: No change
+v2: Collect r-b tag
 ---
- drivers/gpu/drm/bridge/synopsys/Kconfig   |  1 +
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 26 +++++------------------
- 2 files changed, 6 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 32 ++++-------------------
+ 1 file changed, 5 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/Kconfig b/drivers/gpu/drm/bridge/synopsys/Kconfig
-index a46df7583bcf..e6723af03b43 100644
---- a/drivers/gpu/drm/bridge/synopsys/Kconfig
-+++ b/drivers/gpu/drm/bridge/synopsys/Kconfig
-@@ -49,6 +49,7 @@ config DRM_DW_HDMI_CEC
- 	depends on DRM_DW_HDMI
- 	select CEC_CORE
- 	select CEC_NOTIFIER
-+	select DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER
- 	help
- 	  Support the CE interface which is part of the Synopsys
- 	  Designware HDMI block.
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index a4ecf830103d..2bb043d64b65 100644
+index 1402b3963ae1..e9c4e24c090c 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -23,12 +23,11 @@
- #include <linux/dma-mapping.h>
- #include <linux/spinlock.h>
+@@ -45,8 +45,6 @@
+ #define DDC_CI_ADDR		0x37
+ #define DDC_SEGMENT_ADDR	0x30
  
--#include <media/cec-notifier.h>
+-#define HDMI_EDID_LEN		512
 -
- #include <linux/media-bus-format.h>
- #include <linux/videodev2.h>
+ /* DW-HDMI Controller >= 0x200a are at least compliant with SCDC version 1 */
+ #define SCDC_MIN_SOURCE_VERSION	0x1
  
- #include <drm/bridge/dw_hdmi.h>
-+#include <drm/display/drm_hdmi_cec_helper.h>
- #include <drm/display/drm_hdmi_helper.h>
- #include <drm/display/drm_scdc_helper.h>
- #include <drm/drm_atomic.h>
-@@ -189,8 +188,6 @@ struct dw_hdmi {
- 	void (*enable_audio)(struct dw_hdmi *hdmi);
- 	void (*disable_audio)(struct dw_hdmi *hdmi);
+@@ -146,8 +144,6 @@ struct dw_hdmi {
  
--	struct cec_notifier *cec_notifier;
+ 	int vic;
+ 
+-	u8 edid[HDMI_EDID_LEN];
 -
- 	hdmi_codec_plugged_cb plugged_cb;
- 	struct device *codec_dev;
- 	enum drm_connector_status last_connector_result;
-@@ -2475,7 +2472,7 @@ dw_hdmi_connector_status_update(struct dw_hdmi *hdmi,
+ 	struct {
+ 		const struct dw_hdmi_phy_ops *ops;
+ 		const char *name;
+@@ -157,8 +153,6 @@ struct dw_hdmi {
  
- 	if (status == connector_status_disconnected) {
- 		drm_edid_connector_update(connector, NULL);
--		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
-+		drm_connector_cec_phys_addr_invalidate(connector);
- 		return;
+ 	struct i2c_adapter *ddc;
+ 	void __iomem *regs;
+-	bool sink_is_hdmi;
+-	bool sink_has_audio;
+ 
+ 	struct pinctrl *pinctrl;
+ 	struct pinctrl_state *default_state;
+@@ -2053,7 +2047,7 @@ static void hdmi_av_composer(struct dw_hdmi *hdmi,
+ 		HDMI_FC_INVIDCONF_IN_I_P_INTERLACED :
+ 		HDMI_FC_INVIDCONF_IN_I_P_PROGRESSIVE;
+ 
+-	inv_val |= hdmi->sink_is_hdmi ?
++	inv_val |= display->is_hdmi ?
+ 		HDMI_FC_INVIDCONF_DVI_MODEZ_HDMI_MODE :
+ 		HDMI_FC_INVIDCONF_DVI_MODEZ_DVI_MODE;
+ 
+@@ -2289,7 +2283,7 @@ static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
+ 	if (hdmi->hdmi_data.enc_out_bus_format == MEDIA_BUS_FMT_FIXED)
+ 		hdmi->hdmi_data.enc_out_bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+ 
+-	hdmi->hdmi_data.rgb_limited_range = hdmi->sink_is_hdmi &&
++	hdmi->hdmi_data.rgb_limited_range = display->is_hdmi &&
+ 		drm_default_rgb_quant_range(mode) ==
+ 		HDMI_QUANTIZATION_RANGE_LIMITED;
+ 
+@@ -2309,7 +2303,7 @@ static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
+ 	/* HDMI Initialization Step B.3 */
+ 	dw_hdmi_enable_video_path(hdmi);
+ 
+-	if (hdmi->sink_has_audio) {
++	if (display->has_audio) {
+ 		dev_dbg(hdmi->dev, "sink has audio support\n");
+ 
+ 		/* HDMI Initialization Step E - Configure audio */
+@@ -2318,7 +2312,7 @@ static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
  	}
  
-@@ -2484,8 +2481,7 @@ dw_hdmi_connector_status_update(struct dw_hdmi *hdmi,
- 	drm_edid_free(drm_edid);
+ 	/* not for DVI mode */
+-	if (hdmi->sink_is_hdmi) {
++	if (display->is_hdmi) {
+ 		dev_dbg(hdmi->dev, "%s HDMI mode\n", __func__);
  
- 	if (status == connector_status_connected)
--		cec_notifier_set_phys_addr(hdmi->cec_notifier,
--				connector->display_info.source_physical_address);
-+		drm_connector_cec_phys_addr_set(connector);
- }
- 
- static enum drm_connector_status
-@@ -2547,9 +2543,6 @@ static void dw_hdmi_connector_destroy(struct drm_connector *connector)
+ 		/* HDMI Initialization Step F - Configure AVI InfoFrame */
+@@ -2432,29 +2426,13 @@ static const struct drm_edid *dw_hdmi_edid_read(struct dw_hdmi *hdmi,
+ 						struct drm_connector *connector)
  {
- 	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
+ 	const struct drm_edid *drm_edid;
+-	const struct edid *edid;
  
--	cec_notifier_conn_unregister(hdmi->cec_notifier);
--	hdmi->cec_notifier = NULL;
+ 	if (!hdmi->ddc)
+ 		return NULL;
+ 
+ 	drm_edid = drm_edid_read_ddc(connector, hdmi->ddc);
+-	if (!drm_edid) {
++	if (!drm_edid)
+ 		dev_dbg(hdmi->dev, "failed to get edid\n");
+-		return NULL;
+-	}
 -
- 	drm_connector_cleanup(connector);
- 	drm_bridge_put(&hdmi->bridge);
+-	/*
+-	 * FIXME: This should use connector->display_info.is_hdmi and
+-	 * connector->display_info.has_audio from a path that has read the EDID
+-	 * and called drm_edid_connector_update().
+-	 */
+-	edid = drm_edid_raw(drm_edid);
+-
+-	dev_dbg(hdmi->dev, "got edid: width[%d] x height[%d]\n",
+-		edid->width_cm, edid->height_cm);
+-
+-	hdmi->sink_is_hdmi = drm_detect_hdmi_monitor(edid);
+-	hdmi->sink_has_audio = drm_detect_monitor_audio(edid);
+ 
+ 	return drm_edid;
  }
-@@ -2572,8 +2565,6 @@ static const struct drm_connector_helper_funcs dw_hdmi_connector_helper_funcs =
- static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
- {
- 	struct drm_connector *connector = &hdmi->connector;
--	struct cec_connector_info conn_info;
--	struct cec_notifier *notifier;
- 	int ret;
- 
- 	if (hdmi->version >= 0x200a)
-@@ -2609,15 +2600,8 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
- 
- 	drm_connector_attach_encoder(connector, hdmi->bridge.encoder);
- 
--	cec_fill_conn_info_from_drm(&conn_info, connector);
--
--	notifier = cec_notifier_conn_register(hdmi->dev, NULL, &conn_info);
--	if (!notifier)
--		return -ENOMEM;
--
--	hdmi->cec_notifier = notifier;
--
--	return 0;
-+	return drmm_connector_hdmi_cec_notifier_register(connector, NULL,
-+							 hdmi->dev);
- }
- 
- /* -----------------------------------------------------------------------------
 -- 
 2.54.0
 
