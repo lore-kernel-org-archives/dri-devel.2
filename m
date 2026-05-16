@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7698CD4F3C
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79D8DCD4F3C
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12FBB10E55A;
-	Sat, 16 May 2026 18:41:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C58B810E56B;
+	Sat, 16 May 2026 18:42:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="SDx94bxi";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="Xwio8vuz";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0358D10E55A
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:41:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4F8D10E55C
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:42:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778956876; bh=8Xu8zmkoGpSjHmQcHYNXb6z5Nt0YqaebtxsoCwdpiVk=;
- b=SDx94bxikXJ3usLHMmX7hs4k0cdHbcR30TQVCDVv/FF6Fc7mxAlPQiKA1vBn9Uro+KTOvbwe7
- qdZoQ4yFukd09rb8YvyVQoSfAAQpo9u5SGEVC7yAxwFgIMz4x7nhtKhLI7CHwVmM9QH+8OD15vK
- qUfMzSf7Pf+StZ9DLD64LMzvduFZTarIhnzdWNfKmxbQshPXgMSlvK7YLurM9Vk4gjFzHc/0FvK
- IGqwAF7o2XMpzyOsp+BX6jjJUpxt7Rz8uHbJDza1hg23YFe+yFzfLnUZ4AC8tUcgWBgjGkFvYnX
- yKAw2mo53wVWmGtN5QIZi5tVf5v6Hc+FtczYCQcpeDXQ==
-X-Forward-Email-ID: 6a08b9d279c7625f20eeedab
+ t=1778956921; bh=CMbmb6BqufwrFcXTmw0fRixNzPtrB0QWtRrlp+vXgq8=;
+ b=Xwio8vuz6eqWHu8DYz+M27HvYt3crRtUxSdxFr4hh90SdBYQGHY6emhFVXKc6Ci63kXSXFz9X
+ N6oG9UtMPjKtOZiyc1/hVGfgdmSvesslf/kl6Mqyov/9qLuLxchkunDZJT8wzPyam2yNhhAMC1W
+ idCZurMd3vmwLFz3+g3Ja0c8f5XTyy+RtiVnQMStj3ND4+0H/e8n++isAh8fqqIoCRMX3kFSqxC
+ Z1EiaXtYHONub2oGTGm4qkMJ1hvljdlfTNd+NgHLBviRvOpEV+FSP7mNe+PdMC0Pt+Yxp6yAuaD
+ 3CTXbkRa5GdLCBu8ZazTUCoLn+UCk4uG5Y6IWKrhEovA==
+X-Forward-Email-ID: 6a08b9e879c7625f20eeee51
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  149.28.215.223
 X-Forward-Email-Version: 2.8.12
@@ -53,10 +53,10 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 07/22] drm: bridge: dw_hdmi: Hold bridge ref until
- connector cleanup
-Date: Sat, 16 May 2026 18:38:17 +0000
-Message-ID: <20260516183838.2024991-8-jonas@kwiboo.se>
+Subject: [PATCH v6 12/22] drm: bridge: dw_hdmi: Use
+ dw_hdmi_connector_status_update()
+Date: Sat, 16 May 2026 18:38:22 +0000
+Message-ID: <20260516183838.2024991-13-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260516183838.2024991-1-jonas@kwiboo.se>
 References: <20260516183838.2024991-1-jonas@kwiboo.se>
@@ -77,96 +77,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drmres connector cleanup typically run after devres has released the
-last dw-hdmi bridge reference. Since struct dw_hdmi, where the connector
-lives, is freed when the last bridge reference is released, connector
-cleanup can end up accessing freed memory.
+Update connector EDID and CEC phys addr from detect and force funcs to
+ensure that userspace always have access to latest read EDID after a
+sink use a HPD low voltage pulse to indicate that EDID has changed.
 
-Call trace without a bridge reference held until connector cleanup:
-- dw_hdmi_bridge_detach()
-- dw_hdmi_bridge_destroy()      <<-- struct dw_hdmi is free()
-- [drm:drm_managed_release] drmres release begin
-- [drm:drm_managed_release] REL (____ptrval____) drm_mode_config_init_release (0 bytes)
-- dw_hdmi_connector_destroy()
-  - drm_connector_cleanup()     <<-- drm_connector is use-after-free
-  [...]
-- [drm:drm_managed_release] drmres release end
+With EDID being updated in detect and force funcs, there should no
+longer be a need to re-read EDID in get_modes funcs, so drop it.
 
-Hold a bridge reference for as long as the connector exists and drop it
-after drm_connector_cleanup() has completed to keep struct dw_hdmi alive
-until connector teardown is finished and avoids the use-after-free.
+This change make the dw-hdmi connector work more closely like the bridge
+connector does with a hdmi bridge.
 
-Call trace with a bridge reference held until connector cleanup:
-- dw_hdmi_bridge_detach()
-- [drm:drm_managed_release] drmres release begin
-- [drm:drm_managed_release] REL (____ptrval____) drm_mode_config_init_release (0 bytes)
-- dw_hdmi_connector_destroy()
-  - drm_connector_cleanup()     <<-- drm_connector is destroy()
-  - drm_bridge_put()
-- dw_hdmi_bridge_destroy()      <<-- struct dw_hdmi is free()
-  [...]
-- [drm:drm_managed_release] drmres release end
-
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v6: Collect t-b tag
-v5: New patch
+v6: Pass struct dw_hdmi as a parameter,
+    Collect t-b tag
+v5: No change
+v4: Move last_connector_result assign in force ops to this patch,
+    Collect r-b tag
+v3: Reworked 'Update EDID during hotplug processing' patch
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 28 ++++++++++++-----------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index a176eb55418c..cbbd15578042 100644
+index a056e147731b..a4ecf830103d 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2528,10 +2528,18 @@ static void dw_hdmi_connector_force(struct drm_connector *connector)
- 	mutex_unlock(&hdmi->mutex);
+@@ -2473,36 +2473,36 @@ dw_hdmi_connector_status_update(struct dw_hdmi *hdmi,
+ {
+ 	const struct drm_edid *drm_edid;
+ 
++	if (status == connector_status_disconnected) {
++		drm_edid_connector_update(connector, NULL);
++		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
++		return;
++	}
++
+ 	drm_edid = dw_hdmi_edid_read(hdmi, connector);
+ 	drm_edid_connector_update(connector, drm_edid);
+ 	drm_edid_free(drm_edid);
+ 
+-	cec_notifier_set_phys_addr(hdmi->cec_notifier,
+-				   connector->display_info.source_physical_address);
++	if (status == connector_status_connected)
++		cec_notifier_set_phys_addr(hdmi->cec_notifier,
++				connector->display_info.source_physical_address);
  }
  
-+static void dw_hdmi_connector_destroy(struct drm_connector *connector)
-+{
+ static enum drm_connector_status
+ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ {
+-	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
+-					     connector);
 +	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
+ 	enum drm_connector_status status;
+ 
+ 	status = dw_hdmi_detect(hdmi);
+ 
+-	if (status == connector_status_disconnected)
+-		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
++	dw_hdmi_connector_status_update(hdmi, connector, status);
+ 
+ 	return status;
+ }
+ 
+ static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
+ {
+-	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
+-					     connector);
+-
+-	dw_hdmi_connector_status_update(hdmi, connector, connector->status);
+-
+ 	return drm_edid_connector_add_modes(connector);
+ }
+ 
+@@ -2532,13 +2532,15 @@ static int dw_hdmi_connector_atomic_check(struct drm_connector *connector,
+ 
+ static void dw_hdmi_connector_force(struct drm_connector *connector)
+ {
+-	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
+-					     connector);
++	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
+ 
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->force = connector->force;
++	hdmi->last_connector_result = connector->status;
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	mutex_unlock(&hdmi->mutex);
 +
-+	drm_connector_cleanup(connector);
-+	drm_bridge_put(&hdmi->bridge);
-+}
-+
- static const struct drm_connector_funcs dw_hdmi_connector_funcs = {
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.detect = dw_hdmi_connector_detect,
--	.destroy = drm_connector_cleanup,
-+	.destroy = dw_hdmi_connector_destroy,
- 	.force = dw_hdmi_connector_force,
- 	.reset = drm_atomic_helper_connector_reset,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-@@ -2548,6 +2556,7 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
- 	struct drm_connector *connector = &hdmi->connector;
- 	struct cec_connector_info conn_info;
- 	struct cec_notifier *notifier;
-+	int ret;
++	dw_hdmi_connector_status_update(hdmi, connector, connector->status);
+ }
  
- 	if (hdmi->version >= 0x200a)
- 		connector->ycbcr_420_allowed =
-@@ -2560,10 +2569,14 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
- 
- 	drm_connector_helper_add(connector, &dw_hdmi_connector_helper_funcs);
- 
--	drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
--				    &dw_hdmi_connector_funcs,
--				    DRM_MODE_CONNECTOR_HDMIA,
--				    hdmi->ddc);
-+	ret = drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
-+					  &dw_hdmi_connector_funcs,
-+					  DRM_MODE_CONNECTOR_HDMIA,
-+					  hdmi->ddc);
-+	if (ret)
-+		return ret;
-+
-+	drm_bridge_get(&hdmi->bridge);
- 
- 	/*
- 	 * drm_connector_attach_max_bpc_property() requires the
+ static void dw_hdmi_connector_destroy(struct drm_connector *connector)
 -- 
 2.54.0
 
