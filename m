@@ -4,52 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3875CD343F
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 02:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E97B9CD4F21
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 03:43:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0F2110E064;
-	Sat, 16 May 2026 02:44:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5206A10E1BB;
+	Sat, 16 May 2026 03:43:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="iQlF63E2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I/tJEmJS";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DD2310E064
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 02:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=ICKCX/tLCEDtejDHyXne+nOIIbge8mBJ5uanV2vlxAs=; b=i
- QlF63E2HOVlQdhbVRCWpFGeXuzsHWcjJ2+hQUSqSAsQsDWGkksq3Aps3ra/9vryD
- kFXzMGrlOuwTiO0FbSZ/8qNbyEsA0HSLsnbvOnnGfp6YA8cnnkrWOBJHZQToYEYH
- S7DVZwWgjNclOqemGbJY162x5B+FYFg5S5A8ELy5/U=
-Received: from w15303746062$163.com ( [113.200.174.80] ) by
- ajax-webmail-wmsvr-40-106 (Coremail) ; Sat, 16 May 2026 10:43:35 +0800
- (CST)
-X-Originating-IP: [113.200.174.80]
-Date: Sat, 16 May 2026 10:43:35 +0800 (CST)
-From: w15303746062  <w15303746062@163.com>
-To: "Greg KH" <greg@kroah.com>
-Cc: louis.chauvet@bootlin.com, hamohammed.sa@gmail.com, simona@ffwll.ch,
- melissa.srw@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
-Subject: Re:Re: [PATCH 6.18.y] drm/vkms: Fix ABBA deadlock in vblank disable
- and timer callback
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <2026051557-thermal-petite-7da0@gregkh>
-References: <20260515131826.388154-1-w15303746062@163.com>
- <2026051557-thermal-petite-7da0@gregkh>
-X-NTES-SC: AL_Qu2cCvSStkwq4yCbZ+kfmU0Qguw9Xcq5uPkj34FWN5t8jCDp6AkFeXhTAFnX++eoFB6+mRKZdCV3+PhceaBDXJgs/CVh6Xs9i5Zsll3yPlbkYQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D53E10E1BB
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 03:43:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778902998; x=1810438998;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ID9tdn2gYJjBbnWVxJgcOf7EQejKZETrIpsg4qqVtHY=;
+ b=I/tJEmJS4CYF06UuAfmFimH6OoQRz2Zc6XhQvIrv809/eprSqce+W2ei
+ 9IpEFjwTggXzCAYbfSm41HEQ0+r6Vr2aZ/RVy/9vHhmbYZFuOqfEHeIak
+ 9BX1QT2GHZfDd0aoYVeyqt7RGzkM+mGPDuIIXWMzcaT1h+s8xHNibtISu
+ oxiQB/lnPaeLMIN92ogj3pP6gY2XnMHUtw5Zb/r6LLYM1tLhvJ7x5Aw2C
+ OsOgo1t6evzLxoAwMNje+ZUuhdEpN27WO8lSgaayFy8NG79i/TLAqZoCd
+ WVKEBavcZnTj1Tn6oHSI2ur2ZmEtAy+rnnj+Sb1sOQE97EybYqH3dtRAP w==;
+X-CSE-ConnectionGUID: xKBLTrGbSzSxCZHGHAuqPw==
+X-CSE-MsgGUID: toSSL3a1Q6isP5gwFD1qzw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11787"; a="79886302"
+X-IronPort-AV: E=Sophos;i="6.23,237,1770624000"; d="scan'208";a="79886302"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2026 20:43:18 -0700
+X-CSE-ConnectionGUID: s5Ygh37dSiCMUGCwRldduA==
+X-CSE-MsgGUID: 3wjoSGchQBmh5FEgL/7rQQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,237,1770624000"; d="scan'208";a="276974691"
+Received: from lkp-server01.sh.intel.com (HELO d94e5e629b2d) ([10.239.97.150])
+ by orviesa001.jf.intel.com with ESMTP; 15 May 2026 20:43:14 -0700
+Received: from kbuild by d94e5e629b2d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wO5vj-000000000RJ-1Wna;
+ Sat, 16 May 2026 03:43:11 +0000
+Date: Sat, 16 May 2026 11:43:03 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
+ quic_jhugo@quicinc.com, mario.limonciello@amd.com,
+ karol.wachowski@linux.intel.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Lizhi Hou <lizhi.hou@amd.com>, linux-kernel@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ christian.koenig@amd.com, simona@ffwll.ch, max.zhen@amd.com,
+ sonal.santan@amd.com
+Subject: Re: [PATCH V1] accel/amdxdna: Remove mmap and export support for ubuf
+Message-ID: <202605161116.6FTLJOlI-lkp@intel.com>
+References: <20260515155332.743097-1-lizhi.hou@amd.com>
 MIME-Version: 1.0
-Message-ID: <581657f0.ba8.19e2eaaf003.Coremail.w15303746062@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: aigvCgD3X1LX2QdqChakAA--.278W
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC-xcI62oH2ddrzAAA3P
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260515155332.743097-1-lizhi.hou@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,35 +75,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CkhpIEdyZWcsCgpUaGFua3MgZm9yIHRoZSBxdWljayByZXNwb25zZSBhbmQgcmV2aWV3LgoKCkF0
-IDIwMjYtMDUtMTUgMjM6MDk6NDYsICJHcmVnIEtIIiA8Z3JlZ0Brcm9haC5jb20+IHdyb3RlOgo+
-T24gRnJpLCBNYXkgMTUsIDIwMjYgYXQgMDk6MTg6MjZQTSArMDgwMCwgdzE1MzAzNzQ2MDYyQDE2
-My5jb20gd3JvdGU6Cj4+IEZyb206IE1pbmd5dSBXYW5nIDwyNTE4MTIxNDIxN0BzdHUueGlkaWFu
-LmVkdS5jbj4KPj4gCj4+IFtOb3RlOiBUaGlzIHBhdGNoIGFkZHJlc3NlcyBhIGxlZ2FjeSBWS01T
-IGltcGxlbWVudGF0aW9uIGRlYWRsb2NrIHNwZWNpZmljCj4+IHRvIG9sZGVyIHN0YWJsZSB0cmVl
-cyAoZS5nLiwgNi4xOC55KS4gTWFpbmxpbmUgaGFzIHJlbW92ZWQgdGhpcyBjb2RlIGR1cmluZwo+
-PiB0aGUgZ2VuZXJpYyBEUk1fQ1JUQ19WQkxBTktfVElNRVJfRlVOQ1MgcmVmYWN0b3JpbmcuXQo+
-Cj5XaHkgbm90IGFwcGx5IHRob3NlIHVwc3RyZWFtIGNvbW1pdHMgaGVyZSBhcyB3ZWxsPyAgTm8g
-bmVlZCB0byBkaXZlcmdlCj5mcm9tIExpbnVzJ3MgdHJlZSwgb3RoZXJ3aXNlIHdlIHdpbGwgZW5k
-IHVwIGhhdmluZyBhIG1lc3MgdGhhdCBub3RoaW5nCj5jYW4gZXZlciBiZSBiYWNrcG9ydGVkIHRv
-Lgo+Cj5Ib3cgbWFueSBjb21taXRzIG5lZWQgdG8gYmUgYmFja3BvcnRlZD8gIEhhdmUgeW91IHRy
-aWVkPwoKSSBoYXZlIGxvb2tlZCBpbnRvIHRoZSB1cHN0cmVhbSBjb21taXRzLiBUaGUgY29tbWl0
-IHRoYXQgcmVtb3ZlZCB0aGlzIAp2dWxuZXJhYmxlIGxlZ2FjeSBjb2RlIGluIG1haW5saW5lIGlz
-OgowMmUyNjgxZmZlMWEgKCJkcm0vdmttczogQ29udmVydCB0byBEUk0ncyB2YmxhbmsgdGltZXIi
-KQoKSSB0cmllZCB0byBhcHBseSBpdCB0byA2LjE4LnksIGJ1dCBpdCBkb2VzIG5vdCBhcHBseSBj
-bGVhbmx5LiBUaGUgcmVhc29uIAppcyB0aGF0IHRoaXMgdXBzdHJlYW0gY29tbWl0IGlzIG5vdCBh
-IHNpbXBsZSBidWcgZml4LCBidXQgYSBtYXNzaXZlIApyZWZhY3RvcmluZy4gSXQgY29tcGxldGVs
-eSByaXBzIG91dCB0aGUgY3VzdG9tIFZLTVMgaHJ0aW1lciBhbmQgcG9ydHMgCnRoZSBkcml2ZXIg
-dG8gYSBuZXdseSBpbnRyb2R1Y2VkIERSTSBjb3JlIGluZnJhc3RydWN0dXJlIAooRFJNX0NSVENf
-VkJMQU5LX1RJTUVSX0ZVTkNTIGFuZCBkcm1fdmJsYW5rX2hlbHBlci5oKS4KClRvIGJhY2twb3J0
-IGNvbW1pdCAwMmUyNjgxZmZlMWEsIHdlIHdvdWxkIGZpcnN0IG5lZWQgdG8gYmFja3BvcnQgdGhl
-IAplbnRpcmUgRFJNIGdlbmVyaWMgdmJsYW5rIHRpbWVyIGluZnJhc3RydWN0dXJlIHRvIDYuMTgu
-eS4gVGhpcyBzZWVtcyAKdG9vIGludHJ1c2l2ZSBhbmQgdmlvbGF0ZXMgdGhlIG1pbmltYWwtcmlz
-ayBwb2xpY3kgZm9yIHN0YWJsZSB0cmVlcy4KClRoZXJlZm9yZSwgc2luY2UgdGhlIGxlZ2FjeSBj
-dXN0b20gaHJ0aW1lciBzdGlsbCBleGlzdHMgaW4gNi4xOC55IGFuZCAKaXMgYWN0aXZlbHkgY2F1
-c2luZyBBQkJBIGRlYWRsb2NrcyAoUkNVIHN0YWxscyksIHRoaXMgbWluaW1hbGlzdGljIAphbmQg
-bG9jYWxpemVkIHBhdGNoICh1c2luZyBocnRpbWVyX3RyeV90b19jYW5jZWwpIGlzIHByb3Bvc2Vk
-IGFzIHRoZSAKc2FmZXN0IHdheSB0byBmaXggdGhlIGlzc3VlIHNwZWNpZmljYWxseSBmb3Igb2xk
-ZXIgc3RhYmxlIGJyYW5jaGVzIAp3aXRob3V0IHB1bGxpbmcgaW4gbWFqb3IgRFJNIGNvcmUgcmVm
-YWN0b3JpbmcuCgpXb3VsZCB0aGlzIGxvY2FsaXplZCBmaXggYmUgYWNjZXB0YWJsZSBmb3IgdGhl
-IHN0YWJsZSB0cmVlPwoKVGhhbmtzLApNaW5neXUKCg==
+Hi Lizhi,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v7.1-rc3 next-20260508]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Lizhi-Hou/accel-amdxdna-Remove-mmap-and-export-support-for-ubuf/20260516-000523
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260515155332.743097-1-lizhi.hou%40amd.com
+patch subject: [PATCH V1] accel/amdxdna: Remove mmap and export support for ubuf
+config: x86_64-randconfig-002-20260516 (https://download.01.org/0day-ci/archive/20260516/202605161116.6FTLJOlI-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260516/202605161116.6FTLJOlI-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605161116.6FTLJOlI-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/accel/amdxdna/amdxdna_ubuf.c:86:42: warning: unused variable 'amdxdna_ubuf_vm_ops' [-Wunused-const-variable]
+      86 | static const struct vm_operations_struct amdxdna_ubuf_vm_ops = {
+         |                                          ^~~~~~~~~~~~~~~~~~~
+   1 warning generated.
+
+
+vim +/amdxdna_ubuf_vm_ops +86 drivers/accel/amdxdna/amdxdna_ubuf.c
+
+bd72d4acda1069 Lizhi Hou 2025-07-16  85  
+bd72d4acda1069 Lizhi Hou 2025-07-16 @86  static const struct vm_operations_struct amdxdna_ubuf_vm_ops = {
+bd72d4acda1069 Lizhi Hou 2025-07-16  87  	.fault = amdxdna_ubuf_vm_fault,
+bd72d4acda1069 Lizhi Hou 2025-07-16  88  };
+bd72d4acda1069 Lizhi Hou 2025-07-16  89  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
