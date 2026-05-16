@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C47E0CD4F25
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 11:37:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26062CD4F25
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 11:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB06910E17D;
-	Sat, 16 May 2026 11:37:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BBE910E1AC;
+	Sat, 16 May 2026 11:38:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MPbcEsl3";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e4bYTYQ1";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55F1210E17D;
- Sat, 16 May 2026 11:37:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9262410E1AC;
+ Sat, 16 May 2026 11:38:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7CDC043F06;
- Sat, 16 May 2026 11:37:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD8CC19425;
- Sat, 16 May 2026 11:37:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6B7B343BC2;
+ Sat, 16 May 2026 11:38:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8AA8C19425;
+ Sat, 16 May 2026 11:38:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1778931444;
- bh=8LMT1TIsNVvknyrLg69MYjeZewa0zQXqnKxuS28eL+c=;
+ s=korg; t=1778931527;
+ bh=H8mAOeWk44Og/4ED7nEp6u4We/tCu4LArRG+KtxZ93k=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MPbcEsl37NrIoi6gkugdu76RGm+1B1heXb0avm7x3+5zUv3BKP6/+DAud92stKTIy
- kVV9us91F1CU39b8ftDkbwPgqSfZj9wdQ9o3dELEOwiFS9+rHKDvQMw0oRxHPIFE8N
- CasPNjOXD9veE4YohlCf8+S1cGeUkKhoENg/gaYk=
-Date: Sat, 16 May 2026 13:37:28 +0200
+ b=e4bYTYQ1IFzOyGzcyeZWMrAiPpnmyMYcSLRQQi95dm+iq76V/XKOTcaYNXgLfmw1k
+ 6nWDho9fq4Y/BNEYASWVYokzVul0kp7foBRtyJAjvkXtBm+yAgA0mKMk4foDvBZ7zp
+ AWJnKP6k4OqUtaYUH7/b14TYFm1903wG8+eCD/RA=
+Date: Sat, 16 May 2026 13:38:51 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Julian Orth <ju.orth@gmail.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -42,7 +42,7 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org,
  wayland-devel@lists.freedesktop.org
 Subject: Re: [PATCH 12/12] misc/syncobj: add new device
-Message-ID: <2026051653-walmart-morally-3be7@gregkh>
+Message-ID: <2026051652-pork-omission-b762@gregkh>
 References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
  <20260516-jorth-syncobj-v1-12-88ede9d98a81@gmail.com>
 MIME-Version: 1.0
@@ -92,34 +92,12 @@ On Sat, May 16, 2026 at 01:06:15PM +0200, Julian Orth wrote:
 >  drivers/misc/syncobj.c                             | 404 +++++++++++++++++++++
 >  include/uapi/linux/syncobj.h                       |  75 ++++
 >  5 files changed, 491 insertions(+)
-> 
-> diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
-> index 331223761fff..5e140ae5735e 100644
-> --- a/Documentation/userspace-api/ioctl/ioctl-number.rst
-> +++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
-> @@ -395,6 +395,7 @@ Code  Seq#    Include File                                             Comments
->                                                                         <mailto:michael.klein@puffin.lb.shuttle.de>
->  0xCC  00-0F  drivers/misc/ibmvmc.h                                     pseries VMC driver
->  0xCD  01     linux/reiserfs_fs.h                                       Dead since 6.13
-> +0xCD  00-0F  uapi/linux/syncobj.h
->  0xCE  01-02  uapi/linux/cxl_mem.h                                      Compute Express Link Memory Devices
->  0xCF  02     fs/smb/client/cifs_ioctl.h
->  0xDD  00-3F                                                            ZFCP device driver see drivers/s390/scsi/
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index 00683bf06258..c1e7749bd356 100644
-> --- a/drivers/misc/Kconfig
-> +++ b/drivers/misc/Kconfig
-> @@ -644,6 +644,16 @@ config MCHP_LAN966X_PCI
->  	    - lan966x-miim (MDIO_MSCC_MIIM)
->  	    - lan966x-switch (LAN966X_SWITCH)
->  
-> +config SYNCOBJ_DEV
-> +	tristate "DRM syncobj device (/dev/syncobj)"
-> +	depends on DRM
 
-If this is a drm-only thing, then please put it in the drm subdirs, not
-in drivers/misc/ as that would imply that I have to maintain this, not
-the DRM developers :)
+As this is a bunch of user-facing code, why not do this in rust to at
+least get some semblance of proper parsing of user data sanity?  Or is
+the api to the drm layer just to complex for that at the moment?
+
+Just curious, not a criticism of this in C at all.
 
 thanks,
 
