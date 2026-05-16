@@ -4,91 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67957CD4F25
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 11:07:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73358CD4F25
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 11:34:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 519E210E1A9;
-	Sat, 16 May 2026 11:07:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83B7E10E356;
+	Sat, 16 May 2026 11:34:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sBxrgHId";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YsYbrPfn";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WVwlDUWK";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F46F10E492
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 11:07:00 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-488b0e1b870so9714975e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 04:07:00 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19F2210E356
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 11:34:01 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64G3mG1i3574152
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 11:34:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=EGAbnTi4v8/K8BXWQ8fTbV4x
+ t9A1k5FW2Sg09trRd5c=; b=YsYbrPfn1bZCXumJC9ISc2eSa0f38KNA4pyqjLE8
+ Xwb3JLCQl7mqGcMCshOofXZsQAQfc5fg/swBJlkt32JBzllgmi87kfjKjVTdmaVF
+ g0eVJ4RzJhL3N5WOZbOVGN/gJ8J8gKBOf3eLhi9pSmPLqB1uL2dRuY2+Xdl5k4xP
+ HzVsIE1QoahKBNMMRRXV26LwY/ZMovTj2Sl9El77VN5nIR4JLtd46bBaeQ746i0K
+ frI5/HIXEGyqIevDXyJeGoJ+dSmbroCMVnv5r6Oc1ZVj5yUQr+99sz0LFCfidbw/
+ wp8Qd3PyeqJ5bddDe5Lc0iYVuQ9466Gq2zC1Hyc7jsJ2Aw==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6h01grfj-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 11:34:00 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-8b46c014a26so23215266d6.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 04:34:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778929619; x=1779534419; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=dVfs+wqDh2APf8gPwREvGpcVhgxv7KkNQvxDWgzbhy8=;
- b=sBxrgHIdLf2BFEeSxe7zJkVzaKJhvZ5JjbqtBK3IkHQGqDpjF1NnQwwlu9YGYjtyN0
- UkfotjNXCYPQxbHJI6Ty89i/YNJnCvwirmQo5n9SuuJ0OBwSDpgOpsyUdbBk8MAeAdjR
- vAmrZB8+kjnlvb2xApojV9RUlf95ho+kpuZbCkhb1SiWe0haal3RpPkXnmkcLNe40Ido
- HR25rvSUu4rOzHUrKa5kUjIJcCb71cOIunPMlkwPx0CaCWQECewBUm94r5TpsMqrMZM1
- 2BLHBySoJyb+xfvPNCrpcswGZamowx5sNU3ObLmSo258mGfRCQWwuRu8WqGjEH+jtbyb
- oO0A==
+ d=oss.qualcomm.com; s=google; t=1778931240; x=1779536040;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=EGAbnTi4v8/K8BXWQ8fTbV4xt9A1k5FW2Sg09trRd5c=;
+ b=WVwlDUWKgVYwkxvCFDjm+/PygLFfc4XPArikBQ+xp7ESXHKVV1BQsuGKFhXRsLY4XU
+ l5k1LY4Nd9Pe85ve0nA5giajRpGPYpQjfxOlt2vzltg7L9NYFMy70ip16X/01+E/lk1m
+ bOyZOMpHMWAju4zpuz/jVgG+zZVJo0BcbKci7ba5S4VTb9RWxZHmTjEF53KVudeZVa5H
+ bXUrI8iH+RtQQkNVcjrXrcievqJmAaqCEa4GCTlLdAcE2gurjmQP+to5R9KpIRoGTkO9
+ si976R9I9Hjvms6hYrJwD/s0ZXrzSkVdGbnV0wH5WamXiGBYcwdGaL0Zds8kdG28VUHG
+ E75A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778929619; x=1779534419;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=dVfs+wqDh2APf8gPwREvGpcVhgxv7KkNQvxDWgzbhy8=;
- b=d+ndabUJo5f1ZcbFN3SsfbGQewMl286u3DB4e5+hH6sR4DXts7/4gSGxCIiKQsdg5c
- yoxVa5Qjy78z+o+razW0fKjcIQ+HffY5zKqUSMzvN1CeIyzZXh0AYrg+MXO54WDn0sCY
- FAJRBgv34moRQTpZxMZFCNF4f6fna0eb3dFKivE/ieiMywDJE86bMBiqLB6wdc0Hsb45
- +PEI5R2EKPZxIOZsjbGI4xJQrvUZezgBqakV35O2k9iRoDaLCXHIdtZeiwQJBMv0lE0r
- Bb8cHZYoXjU3hqPUhv7D5rzsYwktG81iP2s5JVNTDHoKEF3q98Ilb1e0p/+mXO1+XTKV
- yoYw==
-X-Gm-Message-State: AOJu0YzRi8mwDfL6mINUZ57ypqJV8oOXSVBSWqC9T0SdjCdOPYbZzXNB
- M4MxUjtTEb/YUnU4zsiKS4TFmKSq7zGtoHcPyOjZGKHyQLXVV02O76RM
-X-Gm-Gg: Acq92OFQPHTSGROB+4mj/UkSo88Q3+FeTiE4gyPG/BZUXAaFvMNkeOMA02QQ6NWUyti
- YoOAwXTonJPWGFAX2pozLM1y3Waye+Rc5c540ix2t6wg8lVIETfc4SNZcuSfP6ynQgPMrU7uj6u
- P8znlANxhg3j9jwhtI6L/6UEqxI/f8beJZEYwcA4oLYJQnylkIEwhQODNztj/24lZZcA+r4hQXu
- aJxF6ISV1twOUH3kGS2cRWAXUvWPI2iTio3N1nmNLPwbYIW4tRRHdyoQnXcUlQ/vDgJzHj1ghBC
- ehD4Jx4lFR9WkvXFuPNnY6EwK2uvaWpg2wsS+We47WkbAsJvyIZECL0i07+wyw4OOZIS9raR6fy
- XWIvKu4RulxaL4YYAtKgMMER4B5iGFXRzD+GeX/HoPNelhhz9uxLVlvUyNXrbl+bRHjAscXRvj6
- rC6odDJEqTsCDnkLzhH4oNC3q5uHHiB7JDVwl4pqnW8JeSUKCmZKPEhpIUtLWyB08W/RyetCr27
- G5QTVQ=
-X-Received: by 2002:a05:600c:c4a1:b0:48a:5363:8cac with SMTP id
- 5b1f17b1804b1-48fe63268eemr108045305e9.22.1778929618884; 
- Sat, 16 May 2026 04:06:58 -0700 (PDT)
-Received: from [10.13.0.20] (ip87-106-117-14.pbiaas.com. [87.106.117.14])
+ d=1e100.net; s=20251104; t=1778931240; x=1779536040;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=EGAbnTi4v8/K8BXWQ8fTbV4xt9A1k5FW2Sg09trRd5c=;
+ b=EyrmGyHKgZrrQ14byjMXNU6FnlATYX98Ie2b+E0OAB03TDNY94jI2AoHxTP4pW1B/T
+ nawhBh9N57vA9T6ARn91ouEjSeAwuCtzlfZMevsSEwv+BOhILtxjXZEGEALcuNUR+ob2
+ FImtq8NSl1eYEncmy+vr24e/7HpCf7FW7sWqxueiN9IVozswBWgU4npwsPFYPIg7TunE
+ lDDz4c1aohWIpB3M+puPw3Mik2M10yJ+X5Zr+VDo8+5vXiF7pCyZBzGe41HbQq11z/me
+ EtwFpeWQqDDww7q0Vupd8eVDYYxgpv3tyZEaBXoG6DEYvXkaCuoyU2rkWiS63cWlfsKq
+ vaZA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/YYv5aFf4m68jt4c29YmKMO2tuka8jY2KgTyFR6P4tbr6uI24XKmSmNzuikhwFb/LoOTxIJOyinHE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwOWXCU4q5MmC9SqEU38enkh4iR385P+GjbX2oMk2ecVUbZ98a9
+ cOh3mFmS1NRtoCIK3TORtKw2bJLnLGQhQktddUhRZ6k352CVaA8OPJ8gXO6amSuFR2jsno7B++/
+ l6SKAQ2kqq+U1xxtM31cMA2J4YvfgWimZoGD6yVsWCGHlliJlDg5PZIuXJZGcwT3ghyytnW0=
+X-Gm-Gg: Acq92OGG+/PFcQcw8JLAqiDeJBe2bDeHyA8RGJp2YdGMRn3ZeNwF/Z7RzP0L8a1kPr/
+ cgG9+hl2M412UeqFyAiQ+IJnsosB0lwagdEu+SDEvxEcLVkgzo5B3KdpE0Glh/Q/LtFKlnPqBI/
+ qelA5kY9C6SrTmxc946cto5k4phrcsleVtSF6r3QJKgBMa7VOTK2k/ng1OcliBDzvqAoYJjZsVp
+ Zlcp+31G+JwCtICRexi9DIxlSLsh0Y1UcyN+b5IkI/oUbzUGhA5tzN8Y7/3p/HSR3whFLTmQN9C
+ rngxW2h2i4fnpi+89z+8N1z4nLFLZhJOQ2oExq1uFlf3TQnyIMO+aczivC4FxAJyr86pmIxzX/S
+ SFnDt9d9I7NMboUjq8a++HuYZusxLpEhNDL3D6uLUaSO3l3fpHRncHI6znl7dsMWQJiCDL0sCvj
+ nUxrOAynjbMaLMIrhtMAHlcQXnOZnqD4CinDg=
+X-Received: by 2002:a05:622a:428d:b0:514:6667:73b8 with SMTP id
+ d75a77b69052e-5165a1db12bmr100939281cf.37.1778931240424; 
+ Sat, 16 May 2026 04:34:00 -0700 (PDT)
+X-Received: by 2002:a05:622a:428d:b0:514:6667:73b8 with SMTP id
+ d75a77b69052e-5165a1db12bmr100938941cf.37.1778931239947; 
+ Sat, 16 May 2026 04:33:59 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48feb00e5easm36399545e9.13.2026.05.16.04.06.57
+ 38308e7fff4ca-3945cab4a48sm22255751fa.26.2026.05.16.04.33.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 May 2026 04:06:58 -0700 (PDT)
-From: Julian Orth <ju.orth@gmail.com>
-Date: Sat, 16 May 2026 13:06:14 +0200
-Subject: [PATCH 11/12] drm/syncobj: add drm_syncobj_export_sync_file
+ Sat, 16 May 2026 04:33:58 -0700 (PDT)
+Date: Sat, 16 May 2026 14:33:56 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Salendarsingh Gaud <sgaud@qti.qualcomm.com>
+Subject: Re: [PATCH] drm/msm/snapshot: fix dumping of the unaligned regions
+Message-ID: <hx4wermsrgbnnzukzj565subelf6hjireabjvszfbc4ataptnu@t2pk3hqrvsk6>
+References: <20260516-msm-fix-dsi-dump-2-v1-1-43928094d25b@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260516-jorth-syncobj-v1-11-88ede9d98a81@gmail.com>
-References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
-In-Reply-To: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- ju.orth@gmail.com
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778929602; l=3389;
- i=ju.orth@gmail.com; s=20251120; h=from:subject:message-id;
- bh=9xL4k8P4OzDmeuDyBCak9cYfAMz/kFZpIBcu/tKVYxQ=;
- b=IyP6KTEg/nnToCAtPFKyKdeoh+C+VT61maR9YZkQriDB2BckEZMqDGD+hg82OZFoyq8W/t5dM
- UcduM0gEp0VDuV8slfvoJd+B0QiHGRqTA8TF5AMzoWTfDIVoRvYYEyG
-X-Developer-Key: i=ju.orth@gmail.com; a=ed25519;
- pk=uM2SS4lelkuIoYHc7v9N9bgBZ3hS632zJS2xjRJLPLI=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260516-msm-fix-dsi-dump-2-v1-1-43928094d25b@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: oIJc-TggyaUNxyVRgAHWCo23ikn8EgFF
+X-Authority-Analysis: v=2.4 cv=XbG5Co55 c=1 sm=1 tr=0 ts=6a085629 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=cBU2fVVTaiHfvuHJ6MQA:9 a=CjuIK1q_8ugA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: oIJc-TggyaUNxyVRgAHWCo23ikn8EgFF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE2MDExMyBTYWx0ZWRfX8WZjoXpTaxSc
+ mTtFAjv8XpsNpyGk45Cud5UCDZfbKOxe4W/2glwkvvEggLN9UqO9ggymayA9DaBip8m6vcfSdBQ
+ aRiRzsNnVwgOEztR9rBjVODdIbnQCFkQ6V2AqT0zigabc+wsnD6iFWcH+eE9nYhYLvmTLkqoWMc
+ FxUAOfVjNO+o82MHGt7W+Qxkbz1X42+/aNcQeS4tX0LMyPbXbu6ynR7Yvw8rvFYf/i39r4CwDuw
+ mRZlfg3Z16KGWTgtPUZE6VYZfGripn6TzzWBCzjjWdWs69+8/ecJgt/38QD7DH9uqBhFH5DKPd9
+ IdJWQJhTiqYsEMrztU957skKvA/BBD9qsO19FoeMBhJnL/l9mVBnH76X73azyN5/wA/3kBo43ku
+ 7S39YF0m3TeIXazzoX9G5K6qAl3kXbPu/BcN3lgM5GVFGMD9D2XO917OBdcMASpHWLf/URNOaAh
+ xGJCQv1rjgklqwcJ9og==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-16_01,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
+ lowpriorityscore=0 phishscore=0 adultscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605160113
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,101 +143,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This makes the logic from drm_syncobj_export_sync_file_by_handle
-available to callers that have a drm_syncobj instead of a
-drm_file/handle pair.
+On Sat, May 16, 2026 at 12:40:10AM +0300, Dmitry Baryshkov wrote:
+> The snapshotting code internally aligns data segment to 16 bytes. This
+> works fine for DPU code (where most of the regions are aligned), but
+> fails for snapshotting of the DSI data (because DSI data region is
+> shifted by 4 bytes). Fix the code by removing length alignment and by
+> accurately printing last registers in the region. While reworking the
+> code also fix the 16x memory overallocation in
+> msm_disp_state_dump_regs().
+> 
+> Fixes: 98659487b845 ("drm/msm: add support to take dpu snapshot")
+> Reported-by: Salendarsingh Gaud <sgaud@qti.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 27 ++++++++++++++++++-----
+>  1 file changed, 21 insertions(+), 6 deletions(-)
+> 
+> @@ -172,6 +184,9 @@ void msm_disp_snapshot_add_block(struct msm_disp_state *disp_state, u32 len,
+>  	struct va_format vaf;
+>  	va_list va;
+>  
+> +	if (strcmp(fmt, "dsi%d_ctrl"))
+> +		return;
+> +
 
-Signed-off-by: Julian Orth <ju.orth@gmail.com>
----
- drivers/gpu/drm/drm_syncobj.c | 39 ++++++++++++++++++++++++++++++++++-----
- include/drm/drm_syncobj.h     |  2 ++
- 2 files changed, 36 insertions(+), 5 deletions(-)
+And this is a debugging change, which I forgot to remove. I'll send v2.
 
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index 4c1667c67cb7..d5e633738730 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -815,8 +815,34 @@ int drm_syncobj_import_sync_file(struct drm_syncobj *syncobj,
- }
- EXPORT_SYMBOL(drm_syncobj_import_sync_file);
- 
--static int drm_syncobj_export_sync_file(struct drm_file *file_private,
--					int handle, u64 point, int *p_fd)
-+static int drm_syncobj_export_sync_file_by_handle(struct drm_file *file_private,
-+						   int handle, u64 point,
-+						   int *p_fd)
-+{
-+	struct drm_syncobj *syncobj;
-+	int ret;
-+
-+	syncobj = drm_syncobj_find(file_private, handle);
-+	if (!syncobj)
-+		return -ENOENT;
-+
-+	ret = drm_syncobj_export_sync_file(syncobj, point, p_fd);
-+
-+	drm_syncobj_put(syncobj);
-+
-+	return ret;
-+}
-+
-+/**
-+ * drm_syncobj_export_sync_file - export a syncobj fence as a sync_file fd
-+ * @syncobj: syncobj to export from
-+ * @point: timeline point or 0
-+ * @p_fd: out parameter for the new file descriptor
-+ *
-+ * Returns 0 on success or a negative error value on failure.
-+ */
-+int drm_syncobj_export_sync_file(struct drm_syncobj *syncobj,
-+				 u64 point, int *p_fd)
- {
- 	int ret;
- 	struct dma_fence *fence;
-@@ -826,7 +852,7 @@ static int drm_syncobj_export_sync_file(struct drm_file *file_private,
- 	if (fd < 0)
- 		return fd;
- 
--	ret = drm_syncobj_find_fence(file_private, handle, point, 0, &fence);
-+	ret = drm_syncobj_fence_lookup(syncobj, point, 0, &fence);
- 	if (ret)
- 		goto err_put_fd;
- 
-@@ -847,6 +873,8 @@ static int drm_syncobj_export_sync_file(struct drm_file *file_private,
- 	put_unused_fd(fd);
- 	return ret;
- }
-+EXPORT_SYMBOL(drm_syncobj_export_sync_file);
-+
- /**
-  * drm_syncobj_open - initializes syncobj file-private structures at devnode open time
-  * @file_private: drm file-private structure to set up
-@@ -933,8 +961,9 @@ drm_syncobj_handle_to_fd_ioctl(struct drm_device *dev, void *data,
- 		point = args->point;
- 
- 	if (args->flags & DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_EXPORT_SYNC_FILE)
--		return drm_syncobj_export_sync_file(file_private, args->handle,
--						    point, &args->fd);
-+		return drm_syncobj_export_sync_file_by_handle(file_private,
-+							      args->handle,
-+							      point, &args->fd);
- 
- 	if (args->point)
- 		return -EINVAL;
-diff --git a/include/drm/drm_syncobj.h b/include/drm/drm_syncobj.h
-index 1571ffa12a5c..48476c570595 100644
---- a/include/drm/drm_syncobj.h
-+++ b/include/drm/drm_syncobj.h
-@@ -145,6 +145,8 @@ int drm_syncobj_query(struct drm_syncobj **syncobjs, u64 user_points,
- 		      u32 count, u32 flags);
- int drm_syncobj_import_sync_file(struct drm_syncobj *syncobj,
- 				 int sync_file_fd, u64 point);
-+int drm_syncobj_export_sync_file(struct drm_syncobj *syncobj,
-+				 u64 point, int *p_fd);
- void drm_syncobj_free(struct kref *kref);
- int drm_syncobj_create(struct drm_syncobj **out_syncobj, uint32_t flags,
- 		       struct dma_fence *fence);
+>  	new_blk = kzalloc_obj(struct msm_disp_state_block);
+>  	if (!new_blk)
+>  		return;
 
 -- 
-2.54.0
-
+With best wishes
+Dmitry
