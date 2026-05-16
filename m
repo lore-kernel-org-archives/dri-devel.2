@@ -4,102 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03E89CD4F3C
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 12:08:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAFFECD4F3C
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 13:23:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D916210E49E;
-	Sat, 16 May 2026 12:08:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE8F10E098;
+	Sat, 16 May 2026 13:23:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="srz7iAfx";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aUiQgmW+";
 	dkim-atps=neutral
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
- [74.125.224.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C27010E4A4
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 12:08:56 +0000 (UTC)
-Received: by mail-yx1-f42.google.com with SMTP id
- 956f58d0204a3-6587cee8b57so1170381d50.2
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 05:08:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778933335; cv=none;
- d=google.com; s=arc-20240605;
- b=KkMtCMq0RqsjiNBmI1P2BBdRnlSBpMY5zXhwim5Kco1VTiu9xnQc8x3cW6U9oExXBx
- 8Y3eCUr8t+r7GkaAXQFud/Z4YVRtwJKaG3LtRK5ujqC/Z9Cp5ToISNRaAP5YucVAyZQF
- d6bRXLvR6kuwSXAdPEn7W5naQ7U3v1JVWsW7svwz0iD/pFZl64e/u3AdOMUZgEV9Y9jp
- UQOhM9IP5UMrNvuGZAwfG6AxptUUc54pVfRpAYiaNVupCA5H8TRp/r1DUh9LB0Ni9HVA
- xGtctiLQXFGZ9CcSB4Z7Qy8Xn0iPkkLwsYwE93QcyQimnN8t4r0tnthjJVlITtI3i0M8
- Oslw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=pXKN0MkYU+n3rTPZHnEN2kaQtyY3hF+mGwCAYWY3s6g=;
- fh=lZlhriPfQunrNmnBzS0iXhLNva5lFd6VFr2T1CU8Cgs=;
- b=T06sWXzX0OG+rbHEs7O3jrr2MDwSGvsgJROWDrQrS6qGyZr8JyJ84fYt5ph3uSYwmz
- Ry8fRj1+Xnm2AJkMcXA3F1bTX4I2lKahKnHHMxHxsf9Az+TwAU9R1HkySK54LZFvNoCX
- ilNlns7Kln+2O7sxRpJPngUZhPWCZyKSAPuDCn8xcJRYBcLAWzvEuxtBJD0tluZv1hNo
- 9Tywmi1Pui+U74KZuS5VX5JfT/RTtBa20nPIJ1KI6hhs2eJesZ/tOrGY6CUwNQst7zpP
- UxoxfBip4zGXL1HJAju4s7jpzBEV5gXZyy0XQrUIWH24uv/+yIJ0GD3wW9dOoR5G6BDL
- ggiA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778933335; x=1779538135; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pXKN0MkYU+n3rTPZHnEN2kaQtyY3hF+mGwCAYWY3s6g=;
- b=srz7iAfxVeGKKmd57ApW8Qi9pbDs2AuaYun5+D+YymHhMi2gWaBW0WiRGop0gKqrOG
- p/Axw5wRJzy8yMreDwJa83iVxdM+/jOCGwuvw1sg7IfIK3cQERSmYBJq9r5DEtB0akj0
- ohlhySDGW8pDnjoK5pIOIajWH556r0540iwh3HkTIPaEIHzLktXln4yAWXtCHKt+1/HL
- 0uAPmm1R45+H+rPdqHHWPTHSrhUnSLOHIAgArmHR62Eufk9uqDfUZvdr+6EGpulDanvC
- AFgXM+UwMikht11RYSqj720lGdmIg64VJ+tr8dJkFbtFPI8jaBUHlYWq8LhPedooILIc
- UfJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778933335; x=1779538135;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=pXKN0MkYU+n3rTPZHnEN2kaQtyY3hF+mGwCAYWY3s6g=;
- b=p+orWwoLGDl7R9PnBvdpTalQEEsUXjWypjGjJet9DUwN/pBapbeBn+S6y6uV7ZVwN6
- 5CM0ue7qF0rt9N6hv2rd327GpEglX/AgTpd3Xt2Wpwgvhhk8wF7h6Tpz5il58c/ET7vo
- j/4eNNCXZCreGbJuYlqW1z1dPuDN1GwYrLXvR0ym3KpoklzRIl+XPJAyZi13VA/wSl6p
- u+pWha5MdHo5CSY5wyZWFwTCEcsWu5bJlpNpnVPto0usjQf+ye99FI+bleyazr7E2ZjH
- F5ZWauULei1ncIOLU8iXH++wAorw1gdkvdeJMMqbiT+aHSj3DZ37/MuYnI9UvVqogOG3
- BAHQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8iJgmAufAcrjS17TwyleZu2iDS9e2NzbCgTr/Gl8lgkwNIRRE42M3Jbp1+IIwpNh2pPzUOkwUL9OE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyj253L2JeLWgT1tQ7QmEHVMXJgLn9yhS0tn7VHcJP2gcBsP5F0
- 7O52FhdsI2ZmAQLgRwsaH7u+90RyuGUF0eH+2+lIBUp4oGh4ySj0QMjzFuaDyYxxwXfN2nEbTbq
- ralR8fPdKBaomeFvIPb307+B9qMBu7I4=
-X-Gm-Gg: Acq92OGlL32UJR6d0v6EkTKQlrPw6psGNLPmYwuuy3VVHk3XOfm+PKKVi5WKcb01Esz
- W/K26DOk85JNsIm7cobvKhljXAVPMaqR/U6YR9pcOXvXkaEPQLI0rKp7sGeOD+oxfNYP8cZwFYv
- L7XKkklplCc8MoJJVD5PIaJKv2IVVMFhocidbuyS6n5x+2v4XeN/lbyp/YXUX4L+GcNLdbkv0ms
- h9m44r5XNeEXZK1rVSVDe+DUJMT0/LDXKgZlqp5+lRhc8FQEMR5/ZlxEpyVzW1VLtWdMzUVb+BM
- LRuzCGpYkixQeSbg5JMFfxoebSha/1sg9oWKpoeLdW9NCiHIaE/hI31dAuQ=
-X-Received: by 2002:a53:d015:0:b0:651:c29e:f0b0 with SMTP id
- 956f58d0204a3-65e22701655mr7274124d50.4.1778933335045; Sat, 16 May 2026
- 05:08:55 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12F5D10E098
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 13:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hg5koSK88GNTPNtB54sLaSvXDg2Npu+cx3T1iNwNOWI=; b=aUiQgmW+Xaiiwi1wnDepzOmqlF
+ aYI6mvgRCWcxxU7HAJ3ogL4r4/JzqQaSLqXP3KhmlOTacUlBiOxQGgFtbIrftn4tPUR76eTfYZV92
+ q24U9GsHJZoy1AnNzDGL/woRK9Af6/7DRpfJwXXs2nEHe3rWV8kxnmOXQJNDCAg8gb/z1mCdIwUCr
+ vTN6njYqg3rilqtGBNbdEJpQIACUef1kIyH69iO61MnFpIB/sM3p5W9GuIJ2vEvSR3tNVTQ46Y2Pp
+ hmEvwRPodfgb0Hfy8pP8jwiRhnQ5kDMC7/s0kk//Y0cJk3xrsJU+skx9GHO0terpY2QUDxRnrhqY3
+ 51Cb/6PQ==;
+Received: from [189.7.87.67] (helo=[192.168.0.5])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wOEzT-000xR1-57; Sat, 16 May 2026 15:23:39 +0200
+Message-ID: <bb4a9db8-9db1-4f92-8fb3-87415e467df4@igalia.com>
+Date: Sat, 16 May 2026 10:23:31 -0300
 MIME-Version: 1.0
-References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
- <20260516-jorth-syncobj-v1-12-88ede9d98a81@gmail.com>
- <2026051652-pork-omission-b762@gregkh>
-In-Reply-To: <2026051652-pork-omission-b762@gregkh>
-From: Julian Orth <ju.orth@gmail.com>
-Date: Sat, 16 May 2026 14:08:44 +0200
-X-Gm-Features: AVHnY4LliAXwIRGSinLMXXpk0k3pE4bCMnvt3uyz5Wz7sqrJHyVxIP5cb_UqBE8
-Message-ID: <CAHijbEU3+3ZoxTuUCkJx=a75_yNxt2Nn3UKU7gbS-Xf1bPqBUg@mail.gmail.com>
-Subject: Re: [PATCH 12/12] misc/syncobj: add new device
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Arnd Bergmann <arnd@arndb.de>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
- wayland-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel: ethosu: Add performance counter support
+To: "Rob Herring (Arm)" <robh@kernel.org>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-hardening@vger.kernel.org
+References: <20260515032625.1880618-1-robh@kernel.org>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260515032625.1880618-1-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,55 +90,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 16, 2026 at 1:38=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Sat, May 16, 2026 at 01:06:15PM +0200, Julian Orth wrote:
-> > This device makes the DRM_IOCTL_SYNCOBJ_* ioctls available via a
-> > dedicated device. This allows applications to use syncobjs without
-> > having to open device nodes in /dev/dri, on systems that don't have any
-> > such nodes, or on systems whose devices don't support the
-> > DRIVER_SYNCOBJ_TIMELINE feature.
-> >
-> > Wayland uses syncobjs as its buffer synchronization mechanism. Most
-> > compositors use the DRM_IOCTL_SYNCOBJ_EVENTFD ioctl to perform a pure
-> > CPU wait for syncobj point. DRM devices are not involved in this proces=
-s
-> > except insofar that a DRM device needs to be used to access the ioctl.
-> >
-> > Similarly, a software-rendered client might perform rendering on a
-> > dedicated thread and use the wayland syncobj protocol to submit frames
-> > before they finish rendering. Again, this does not involve DRM devices
-> > except insofar ... as above.
-> >
-> > As an added benefit, this device removes the need to translate between
-> > file descriptors and handles.
-> >
-> > Signed-off-by: Julian Orth <ju.orth@gmail.com>
-> > ---
-> >  Documentation/userspace-api/ioctl/ioctl-number.rst |   1 +
-> >  drivers/misc/Kconfig                               |  10 +
-> >  drivers/misc/Makefile                              |   1 +
-> >  drivers/misc/syncobj.c                             | 404 +++++++++++++=
-++++++++
-> >  include/uapi/linux/syncobj.h                       |  75 ++++
-> >  5 files changed, 491 insertions(+)
->
-> As this is a bunch of user-facing code, why not do this in rust to at
-> least get some semblance of proper parsing of user data sanity?  Or is
-> the api to the drm layer just to complex for that at the moment?
+Hi Rob,
 
-I didn't consider using rust because I'm not familiar with rust in the kern=
-el.
+On 15/05/26 00:26, Rob Herring (Arm) wrote:
+> The Arm Ethos-U NPUs have a PMU with performance counters. The PMU h/w
+> supports up to 4 (U65) or 8 (U85) counters which can be programmed for
+> different events. There is also a dedicated cycle counter.
+> 
+> The ABI and implementation are copied from the V3D driver. The main
+> difference in the ABI is there is no query API for the the event list.
+> The events differ between the U65 and U85, so the events lists are
+> maintained in userspace along with other differences between the U65 and
+> U85.
+> 
+> The cycle counter is always enabled when the PMU is enabled. When the
+> user requests N events, reading the counters will return the N events
+> plus the cycle counter.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+> v2:
+>   - Use XArray instead of idr
+>   - Rework locking to use per device spinlock to protect modifying active
+>     perfmon. Based on pending V3D changes:
+>     https://lore.kernel.org/all/20260508-v3d-perfmon-lifetime-v1-1-f5b5642c085f@igalia.com/
+>   - Add missing perfmon puts in ethosu_ioctl_perfmon_set_global() and
+>     ethosu_ioctl_perfmon_get_values() error paths.
+>   - Fix reading number of counters on U85.
+>   - Add defines NPU_REG_PMCCNTR_CFG
+> ---
+>   drivers/accel/ethosu/Makefile         |   2 +-
+>   drivers/accel/ethosu/ethosu_device.h  |  32 +++
+>   drivers/accel/ethosu/ethosu_drv.c     |  21 +-
+>   drivers/accel/ethosu/ethosu_drv.h     |  62 +++++-
+>   drivers/accel/ethosu/ethosu_job.c     |  41 +++-
+>   drivers/accel/ethosu/ethosu_job.h     |   2 +
+>   drivers/accel/ethosu/ethosu_perfmon.c | 296 ++++++++++++++++++++++++++
+>   include/uapi/drm/ethosu_accel.h       |  59 ++++-
+>   8 files changed, 500 insertions(+), 15 deletions(-)
+>   create mode 100644 drivers/accel/ethosu/ethosu_perfmon.c
+> 
 
-But even if I had considered it, I probably would not have done it
-because drm_syncobj currently has no rust bindings. The driver as-is
-is just a thin layer around drm_syncobj.c so if drm_syncobj gains rust
-bindings it should be easy to convert the driver.
+[...]
 
->
-> Just curious, not a criticism of this in C at all.
->
-> thanks,
->
-> greg k-h
+> diff --git a/drivers/accel/ethosu/ethosu_drv.h b/drivers/accel/ethosu/ethosu_drv.h
+> index 9e21dfe94184..8fed43c2a7af 100644
+> --- a/drivers/accel/ethosu/ethosu_drv.h
+> +++ b/drivers/accel/ethosu/ethosu_drv.h
+> @@ -1,15 +1,75 @@
+>   /* SPDX-License-Identifier: GPL-2.0-only OR MIT */
+> -/* Copyright 2025 Arm, Ltd. */
+> +/* Copyright 2025-2026 Arm, Ltd. */
+>   #ifndef __ETHOSU_DRV_H__
+>   #define __ETHOSU_DRV_H__
+>   
+> +#include <linux/mutex.h>
+> +#include <linux/xarray.h>
+>   #include <drm/gpu_scheduler.h>
+>   
+>   struct ethosu_device;
+> +struct drm_device;
+> +struct drm_file;
+>   
+>   struct ethosu_file_priv {
+>   	struct ethosu_device *edev;
+>   	struct drm_sched_entity sched_entity;
+> +	struct xarray perfmons;
+>   };
+>   
+> +/* Performance monitor object. The perform lifetime is controlled by userspace
+> + * using perfmon related ioctls. A perfmon can be attached to a submit_cl
+
+submit_cl?
+
+> + * request, and when this is the case, HW perf counters will be activated just
+> + * before the submit_cl is submitted to the GPU and disabled when the job is
+
+Maybe replace the "submit_cl is submitted to the GPU" with NPU related
+wording?
+
+> + * done. This way, only events related to a specific job will be counted.
+> + */
+> +struct ethosu_perfmon {
+> +	/* Tracks the number of users of the perfmon, when this counter reaches
+> +	 * zero the perfmon is destroyed.
+> +	 */
+> +	refcount_t refcnt;
+> +
+> +	/* Number of counters activated in this perfmon instance
+> +	 * (should be less than or equal to DRM_ETHOSU_MAX_PERF_COUNTERS).
+> +	 */
+> +	u8 ncounters;
+> +
+> +	/* Events counted by the HW perf counters. */
+> +	u16 counters[DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS];
+> +
+> +	/*
+> +	 * Storage for counter values. Counters are incremented by the HW
+> +	 * perf counter values every time the perfmon is attached to a
+> +	 * NPU job. This way, perfmon users don't have to retrieve the
+> +	 * results after each job if they want to track events covering
+> +	 * several submissions. Note that counter values can't be reset,
+> +	 * but you can fake a reset by destroying the perfmon and
+> +	 * creating a new one.
+> +	 */
+> +	u64 values[] __counted_by(ncounters);
+> +};
+> +
+> +/* ethosu_perfmon.c */
+> +void ethosu_perfmon_init(struct ethosu_device *ethosu);
+> +void ethosu_perfmon_get(struct ethosu_perfmon *perfmon);
+> +void ethosu_perfmon_put(struct ethosu_perfmon *perfmon);
+> +void ethosu_perfmon_start(struct ethosu_device *ethosu,
+> +			  struct ethosu_perfmon *perfmon);
+> +void ethosu_perfmon_stop(struct ethosu_device *ethosu,
+> +			 struct ethosu_perfmon *perfmon, bool capture);
+> +void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon,
+> +				bool capture);
+> +struct ethosu_perfmon *ethosu_perfmon_find(struct ethosu_file_priv *ethosu_priv,
+> +					   int id);
+> +void ethosu_perfmon_open_file(struct ethosu_file_priv *ethosu_priv);
+> +void ethosu_perfmon_close_file(struct ethosu_file_priv *ethosu_priv);
+> +int ethosu_ioctl_perfmon_create(struct drm_device *dev, void *data,
+> +				struct drm_file *file_priv);
+> +int ethosu_ioctl_perfmon_destroy(struct drm_device *dev, void *data,
+> +				 struct drm_file *file_priv);
+> +int ethosu_ioctl_perfmon_get_values(struct drm_device *dev, void *data,
+> +				    struct drm_file *file_priv);
+> +int ethosu_ioctl_perfmon_set_global(struct drm_device *dev, void *data,
+> +				    struct drm_file *file_priv);
+> +
+>   #endif
+> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+> index e7b07cdbcced..5712848236af 100644
+> --- a/drivers/accel/ethosu/ethosu_job.c
+> +++ b/drivers/accel/ethosu/ethosu_job.c
+> @@ -1,6 +1,6 @@
+>   // SPDX-License-Identifier: GPL-2.0-only OR MIT
+>   /* Copyright 2024-2025 Tomeu Vizoso <tomeu@tomeuvizoso.net> */
+> -/* Copyright 2025 Arm, Ltd. */
+> +/* Copyright 2025-2026 Arm, Ltd. */
+>   
+>   #include <linux/bitfield.h>
+>   #include <linux/genalloc.h>
+> @@ -147,6 +147,8 @@ static void ethosu_job_err_cleanup(struct ethosu_job *job)
+>   {
+>   	unsigned int i;
+>   
+> +	ethosu_perfmon_put(job->perfmon);
+> +
+>   	for (i = 0; i < job->region_cnt; i++)
+>   		drm_gem_object_put(job->region_bo[i]);
+>   
+> @@ -181,6 +183,26 @@ static void ethosu_job_free(struct drm_sched_job *sched_job)
+>   	ethosu_job_put(job);
+>   }
+>   
+> +static void
+> +ethosu_switch_perfmon(struct ethosu_device *ethosu, struct ethosu_job *job)
+> +{
+> +	struct ethosu_perfmon *perfmon;
+> +
+> +	guard(spinlock)(&ethosu->perfmon_state.lock);
+> +
+> +	perfmon = READ_ONCE(ethosu->global_perfmon);
+
+Considering that you are under the spinlock, I believe that using
+READ_ONCE is unneeded.
+
+> +	if (!perfmon)
+> +		perfmon = job->perfmon;
+> +
+> +	if (perfmon == ethosu->perfmon_state.active)
+> +		return;
+> +
+> +	ethosu_perfmon_stop_locked(ethosu, ethosu->perfmon_state.active, true);
+> +
+> +	if (perfmon && ethosu->perfmon_state.active != perfmon)
+> +		ethosu_perfmon_start(ethosu, perfmon);
+
+Also, if you are going to keep ethosu_switch_perfmon(), you don't need
+to use a spinlock. In V3D, I'm only using a spinlock because I'm
+stopping the perfmon in a IRQ context. But considering that you are
+stopping the perfmon in run_job(), you can use a sleeping mutex.
+
+Moreover, I believe that if (perfmon != NULL) then automatically
+(ethosu->perfmon_state.active != perfmon) as we already checked if
+(perfmon == ethosu->perfmon_state.active).
+
+Best regards,
+- Maíra
