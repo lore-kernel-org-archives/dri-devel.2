@@ -4,46 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A07E8CD4F21
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 14:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68680CD4F21
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 15:01:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A744C10E0CC;
-	Sat, 16 May 2026 14:46:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5D2710E184;
+	Sat, 16 May 2026 15:01:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dRtYqAj5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Lmw9Zgdp";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FA7C10E0CC
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 14:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=RAjEV2u0wbUbeOB+fs6iieBuLeYR07/gzKV2MJzOV7M=; b=dRtYqAj5r+sVKrcRicm2yBcL5X
- 75Zy+vtYRgjIMpRAqWaEBCJLzGTJNG1P7HpoOah0OLkD0nFQLvNQ96H0kshPfWLjGQX3JOlTObpZg
- IkCJU8keBQWm8C0PuFVhP4Pc+w0mAn91gS0sVkq7tIR8mZ4v0SVZvHArI8p2xuflQdrfn+sv1nzSa
- 5EGNW7pYayBY987bgIr2d4t1T+ijVCRHG/elrX3vISKXEnhLVsrU0rd6OPkuogE+uawk7AhbNDyG1
- 0Z1XymJFnL3pjWMgmWCKHNbwXbSWRyv5FQMBBj8A7Z46Qm9T+NK3qkyRA7Jp1FIynLuks8FPQ94h2
- rIFNLYmw==;
-Received: from [189.7.87.67] (helo=prince) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wOGHr-000yTa-S7; Sat, 16 May 2026 16:46:44 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Rob Herring <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Oded Gabbay <ogabbay@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Subject: [PATCH] accel: ethosu: Remove redundant job_lock
-Date: Sat, 16 May 2026 11:40:59 -0300
-Message-ID: <20260516144623.2582427-2-mcanal@igalia.com>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010042.outbound.protection.outlook.com
+ [52.101.193.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72D4D10E1B7;
+ Sat, 16 May 2026 15:01:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M9LTxhdwb1bSHr1wDr5Hk51V8STJbqoLr6hA4AzX5uQwWS3ZIp1pOCqUa/ilOauQbkyUbgu0fEOEYqM7s/DJGD//IsaO1LLm7WNr9SAca/hTv8nIu4uJu/0IPkPQVBHaoN/G9eS0iPgB+yg7CEJEfGS6J5A6fClQGfeC7RYbYc4gQTfhzzftDb5PFQdX6mc6B2hU0USJKPi/yK4i+Tftsnns+rFH5RD119TCWyZG5faLnHEKixhxDs7nnBbjuq1gqHgBLayHvZOhPNmKOASsbrUNQ9pnkFDlCNB8PveeRFHqfXvRQT4BipvGfICHXk2vgFhxqjm2TiyynW98ipZkDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kyG2EnKA/SktDjIT+Ui9wwYn4momPSal+tWcdqtEOfg=;
+ b=F5IJAj22qBTVCqXUenItmij3YeLdS+AvQtF+qDLGmCHohAACDz3vb3R5W8l9k9Ju9NLosWfe5vevOHUndvAErcA+HL/sh85EccB/43u0C1oTBV1WPe0reOnFiA2IdTFIilBtttoch4H8dL5BxOZ9YahC2/dVYKnGKkzXMNDAuN6mlppTy6jRz6rW6bmUbGuFKSqwEPEkRxh2AzSIuBRzdeyZLqzVbtxhAjVF7cR2h7BFCaj5mWvdQ4N3u3UrG/gIS7De2vui09Lm0Fw06yFlfbmCoCQ7JNzkx++sxWKIaWW1+BUqEL4Nn0VsHr6FBO8ElSz7IMM5uhxwy1ac5igXYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kyG2EnKA/SktDjIT+Ui9wwYn4momPSal+tWcdqtEOfg=;
+ b=Lmw9Zgdpm5eE5kfGgKHPCQHr5RILcvcbQHhevhHalnIBVypkE8MNBzfKreRHNh8wxpuyjKfMFmkxoWEV+K1E1urDONtHYDg4Gdxd4RSKCci10aHJpE3uPqrAOg85tuu+tKlNqMAK3L/iOaUtEExSdES/AYlsN9UV7Mk1ZkxUtR0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS4PR12MB9612.namprd12.prod.outlook.com (2603:10b6:8:278::5) by
+ BL3PR12MB6450.namprd12.prod.outlook.com (2603:10b6:208:3b9::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.21; Sat, 16 May
+ 2026 15:01:51 +0000
+Received: from DS4PR12MB9612.namprd12.prod.outlook.com
+ ([fe80::5e55:25ea:365c:f99c]) by DS4PR12MB9612.namprd12.prod.outlook.com
+ ([fe80::5e55:25ea:365c:f99c%5]) with mapi id 15.21.0025.020; Sat, 16 May 2026
+ 15:01:51 +0000
+Message-ID: <33465492-458c-4a50-b035-ca546ec810c0@amd.com>
+Date: Sat, 16 May 2026 11:01:47 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: Fix UML build guards for x86_64-only code
+To: Alex Deucher <alexdeucher@gmail.com>, Alex Hung <alex.hung@amd.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, harry.wentland@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel test robot <lkp@intel.com>
+References: <20260514170139.335618-1-alex.hung@amd.com>
+ <CADnq5_MZ=S-b3smHdHA_0_+hZq92Y66oKO=KCfzoG79F_fardA@mail.gmail.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <CADnq5_MZ=S-b3smHdHA_0_+hZq92Y66oKO=KCfzoG79F_fardA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN0PR07CA0022.namprd07.prod.outlook.com
+ (2603:10b6:408:141::14) To DS4PR12MB9612.namprd12.prod.outlook.com
+ (2603:10b6:8:278::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PR12MB9612:EE_|BL3PR12MB6450:EE_
+X-MS-Office365-Filtering-Correlation-Id: 009d8b66-5998-47a7-be6d-08deb35c0f4e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003|4143699003|11063799003;
+X-Microsoft-Antispam-Message-Info: 9tJbD9oNBB6x+WAIfWmJ273lM10r2AM/FrIoMN47KG4D6RBdRjUcyLCf6MbT4/Eb5kXwoYbF8baC0aU+3JkDqlOJayoC1G4GFDDM8REwf/9BUxEqIM++1xit158DXQvDLhqf6yn5zTLGrP6OtEjI/VCcrD7SFZH+eiDdMQBdfes6vT+wTEp5gCPEsA81A0UivVS+rOhPM12OI2ccI1YI98QbSFujEUPbbCFKANzzmGw0Ua77mHzTWteGai36MJdrt7FrzblrI0Mz+FQZdAgMaYnxf8znnNnn6GNAsy9h1zwNG0iPEjNDW/EWFa0U028mpIEvq9kHSAWig/d83TdjSm5XBtVoDiALQFI8fMerI0GlZxmWjVba5mSLVh+4s1v+L5zFm90x25hUf057BPc81U6nSixL/etmNXqPSkybEEZp0ReENn1TiZaHdNwbgvZbupE2rDC2WGAsx0dfMWzw19o4XL9L9DRADv82ZJNraxueA9UQ16R8/UZ75Z9oatoqfMcnWTfRPZZ2ypCDlvXvVlGcte+SlT3X2L5MEYqwq9ncLu8VGNjek9Mff3yEhxi63/TnG9KkdiTtap1H/88Node3dAX7/7R1xmEtfobn+R8562bF7SnEB5NkggoFM+jWA+nVOXrT7Q9ScDxCjCcaafdLFAmMgVPchUqtMWlSJhwN+2nxsWn0VcGo028xcPiP2Wv/2GUpEouypDEV7JQOgA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PR12MB9612.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003)(4143699003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXF3YTkrelNBK3VIeUJNSHdaTDlvdTROY0o5bUtIK0lHSkpEaVlYNUFubkpT?=
+ =?utf-8?B?enRjTUN4cGcwcE1VNUcybU9iVUFHYmFMT3cwWW5LQ3V6c2ZBc2s1Rjd4YitJ?=
+ =?utf-8?B?VkIzU0lVZEQ2S3V5L0FHWWw3TEVaVGxSRG1WNVdrTGVyVmFZTGxyV2dtUDZy?=
+ =?utf-8?B?cHpqNnhnYytHL1JWbGRHdEkxU3NyZkYyUk5FTHZLN3hMdURXa1lOVUEwSnhl?=
+ =?utf-8?B?RTFXc3Q0THRFTUJTMzVYZnBYT0huTW9wczNWdmxjRld3ZjdKZUJYQXdTcU8y?=
+ =?utf-8?B?cEZNdDdBdFl2Y2dHbkVDSkFDUmlIdEhWR2ZmVDFxMDVqN2tyTzVqT1U4WDlD?=
+ =?utf-8?B?QTB2bitQdFcyMEE1N2xneWduelEzWG9IR29WR1Nybk4vUkQxbkVFK2lVcDBX?=
+ =?utf-8?B?NEkzalpnZjluVi9tSnZFY1NQTDhFSVBWcFoyc2NCazNtbkU5YXExZ2d6MGt5?=
+ =?utf-8?B?a0tkRjEvZDBvd0JtUVZnVHZuaHJIN2NsMlpxeXd4OVBaQzRSNFdOb2N6aVl5?=
+ =?utf-8?B?QzZDRG5XbTIyQnNSWDRZaEQrcitBaDBlWkJkdm9LT2gycWRHWHA4dUZEeVlX?=
+ =?utf-8?B?cVZsaEJIaWJJT0ZqaS9idkIwOWMzR3lBTGtQOVU1T2ZvSDlWWWY2SmRzRkdp?=
+ =?utf-8?B?bXFkN1dOZmlwcGxrekRlNkQrMyt1aG1mSUU0REkyVVdTa2RsUjd6QVQvYkdT?=
+ =?utf-8?B?cGdZOTJDTnlqdjVudFE3bU9TeEJ6bGRBRDlnV2VzMVpaRFA4a044R2s3SHJK?=
+ =?utf-8?B?OVAzZnhONVV4OTNNL1NYaXRqL3pIWUF5YzgwNXdhbDlEL0xjdFBIK0x2dXd6?=
+ =?utf-8?B?U2RkaUlZcUdNb1lZVVFOZnhDU0Z4RGhDSDhiVnRiQlZndkdlQ0xUcXlJYlVB?=
+ =?utf-8?B?OVRnTW85aTVaVkx3K0xPSlA3T3lJdDg4NjdZY1VxM3ZEWm9YNlRFVis2elBR?=
+ =?utf-8?B?RFZsNEFBK0djT1VTSFRwYU4xSG84SXh0amR0VDFDbFhqVWFnVFp4aHRUZEhK?=
+ =?utf-8?B?M3VUaWZaUUg3M2loWW1qdm52cmFEeUlIVzJRWFJ1VzFPRFJpcllWanlVVWtz?=
+ =?utf-8?B?RDVtYXBKdmVnbVJBbjE1bCtJVGQ2ZWY5M1hLRVo2bjN2NmRhZFFOcGtmT2hW?=
+ =?utf-8?B?cEdGeHp1SVQ4aEVWNDNNMjN5TU9aUE1xd3doT056MUZ4SHNRUlcvbjdiN292?=
+ =?utf-8?B?TlRVVGQ1TzZEQkJpV2dhRi8wOTRKSnY3ZFNkVFc4NG05SXB0a2hGUzY0NXBT?=
+ =?utf-8?B?eWtMUHpqWXdmSG1FL2FlUW1KSGhtY0NHTkxZUVlqY0RVcnRFNjlXSndNVzdt?=
+ =?utf-8?B?NjZmUjg1cmNoNTlIQzZ6K3dQUEJQbnRhUUk4NldVaWFtWkhWQnFRM01vT0hT?=
+ =?utf-8?B?WUNlcktKQURoUURIMTV5cGUyck4yd1V6TkJ2ZDV0VzdVWGpyR0hmWllxNkRJ?=
+ =?utf-8?B?anBid0ZTOFN1WExuL2pHSTNpTmkrS2IrYnZNa0w0dlI3VGx0N1pPdURFZVZv?=
+ =?utf-8?B?ekUya1pVZVpVSnQyWWpXcFZNT0JMZ2dmdjhxZ3VTTzduaEhva0RFZ1dRd21S?=
+ =?utf-8?B?Q3pYcHVQL0d5d1ZlZE9SOUZVbDg1bzE5cG81aTVlWnUwdlpKRjNqMGRxRHgr?=
+ =?utf-8?B?RVFMbkxxM25tM1BpMW1uaGFkVGJ3R3JjQ2tDTTZiaUpjMHIxYXBqZDdPcDJU?=
+ =?utf-8?B?SXlYMDlaU0lUV0VmM1c2QWE2eVozQ2UvWTFET1lZQ2JtcXdjYnlteGpnTndO?=
+ =?utf-8?B?YXJlblkxaWluaFZmK2JKSTBFVnhlclpYQ1V6RFU0cjNNdkVwNXgyV3k1TE9j?=
+ =?utf-8?B?ZEZmNG84TFJobTRRSVExcktnRlNha2NvSUFaUXM5RVpiNGZGalptb0ZyVEFR?=
+ =?utf-8?B?b3JBNXlhb3gvUGZ2R3RJUHYrNWRNMytvOEo3OEJsT3pkTElubmJkcDdMVzM0?=
+ =?utf-8?B?UDR1WWI3WnFRcURrclg2cEtSREJDNDhpSERnT05Ock9WWGwvYzA3SmhXY0xT?=
+ =?utf-8?B?dThMZEJnVjB1NThUODZENnBQTC84N21tZ2U4NWk0RTlUbit5TGhaNUExRWRF?=
+ =?utf-8?B?SlRBaHdub1Y0RHFJT1FzajBDNmRiVUNLWGIvcGR3b3FmVW9DOWMvdUhjRk1h?=
+ =?utf-8?B?bWZzM1dnRHZBN0p2SlhFc3ZVMnJ1cEhUUEtDSk1SWmQ0OUNPMXR5L1JRdUZh?=
+ =?utf-8?B?UlRKYmsrbmtzd1BMR29mV3gzU20zZ3VJdG1JZ3VOWkZlQ1BwdDRrZENMek9k?=
+ =?utf-8?B?SEtucytPeHRRekJxbVRtOVEvTFAxZmwwUWZvUGtqeFBJZ0FIOU1zbUVHZEox?=
+ =?utf-8?B?R1FKb3E5UThQcjB5Uk9zajRzNjBBcjFDcllqalM4U2I2VmtydWNndz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 009d8b66-5998-47a7-be6d-08deb35c0f4e
+X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB9612.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2026 15:01:51.0740 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zDVF50TplpMBJMdKt1y79S0Z3EtX76BucWV3MssA4+eC4uVUv1IVRg53J+8y1aCwSJ1EehCJdy+5auAaTUR7Ew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6450
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,130 +138,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The job_lock mutex guarded dev->in_flight_job across ethosu_job_run(),
-the threaded IRQ handler, and ethosu_job_timedout(). However, the DRM
-scheduler already provides most of the serialization required, which
-makes this mutex redundant.
 
-Analyzing the different scenarios:
+On 2026-05-14 13:19, Alex Deucher wrote:
+> On Thu, May 14, 2026 at 1:03 PM Alex Hung <alex.hung@amd.com> wrote:
+>> cpu_data().topo.apicid and kfd_fill_iolink_info_for_cpu() rely on
+>> x86-specific structs not present on UML. The kfd_topology.c and
+>> kfd_crat.c were guarded by CONFIG_X86_64 alone, causing build
+>> failures when CONFIG_DRM_AMDGPU is selected on UML.
+>>
+>> Update guards to '#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)'
+>> to ensure x86_64-only paths are excluded on UML builds.
+>>
+>> Fixes: e6b71bcdc409 ("drm/amdgpu: Remove UML build exclusion from Kconfig")
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes: https://lore.kernel.org/oe-kbuild-all/202605140506.TI8zPIBG-lkp@intel.com/
+>> Cc: Harry Wentland <harry.wentland@amd.com>
+>> Assisted-by: Copilot:Claude-Sonnet-4.6
+>> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-  1. run_job() and timedout_job() are mutually exclusive scheduler
-     callbacks, so the scheduler itself serializes them.
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
-  2. run_job() and the IRQ handler are implicitly serialized, but they can
-     overlap in time: dma_fence_signal() synchronously queues the next
-     run_job onto submit_wq, and the worker can execute run_job(next) on
-     another CPU before the IRQ thread finishes. The mutex previously kept
-     the IRQ's trailing "in_flight_job = NULL" from racing run_job(next)'s
-     "in_flight_job = next" store.
 
-     The handler is now restructured to clear in_flight_job before calling
-     dma_fence_signal(), so any run_job(next) woken by the signal observes
-     NULL.
-
-  3. timedout_job() and the IRQ handler can also overlap if the hardware
-     completes the timed-out job near the timeout boundary, since
-     drm_sched_stop()'s cancel_work_sync() only synchronizes with the
-     scheduler's workqueue. The IRQ handler saves in_flight_job into a
-     local with READ_ONCE() before dereferencing ->done_fence, and
-     run_job()/timedout_job() publish the field with WRITE_ONCE(). This
-     prevents the compiler from reloading the pointer, and keeps the IRQ
-     thread operating on the same job for the duration of the handler even
-     if timedout_job() concurrently clears the field.
-
-Drop the mutex along with its initialization.
-
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
-
-Hi,
-
-I noticed this pattern while reviewing "[PATCH v2] accel: ethosu: Add
-performance counter support" and I had the impression this could be a
-nice code simplification. However, I don't have the hardware to test it,
-so this was only "compile-tested".
-
-Best regards,
-- Maíra
-
- drivers/accel/ethosu/ethosu_device.h |  2 --
- drivers/accel/ethosu/ethosu_job.c    | 22 ++++++++--------------
- 2 files changed, 8 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index b189fa783d6a..c2c59681a019 100644
---- a/drivers/accel/ethosu/ethosu_device.h
-+++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -173,8 +173,6 @@ struct ethosu_device {
- 	struct drm_ethosu_npu_info npu_info;
- 
- 	struct ethosu_job *in_flight_job;
--	/* For in_flight_job and ethosu_job_hw_submit() */
--	struct mutex job_lock;
- 
- 	/* For dma_fence */
- 	spinlock_t fence_lock;
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index 418463c03bfb..5a9bd017f3bc 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -194,10 +194,8 @@ static struct dma_fence *ethosu_job_run(struct drm_sched_job *sched_job)
- 		       dev->fence_context, ++dev->emit_seqno);
- 	dma_fence_get(fence);
- 
--	scoped_guard(mutex, &dev->job_lock) {
--		dev->in_flight_job = job;
--		ethosu_job_hw_submit(dev, job);
--	}
-+	WRITE_ONCE(dev->in_flight_job, job);
-+	ethosu_job_hw_submit(dev, job);
- 
- 	return fence;
- }
-@@ -205,6 +203,7 @@ static struct dma_fence *ethosu_job_run(struct drm_sched_job *sched_job)
- static void ethosu_job_handle_irq(struct ethosu_device *dev)
- {
- 	u32 status = readl_relaxed(dev->regs + NPU_REG_STATUS);
-+	struct ethosu_job *job;
- 
- 	if (status & (STATUS_BUS_STATUS | STATUS_CMD_PARSE_ERR)) {
- 		dev_err(dev->base.dev, "Error IRQ - %x\n", status);
-@@ -212,11 +211,10 @@ static void ethosu_job_handle_irq(struct ethosu_device *dev)
- 		return;
- 	}
- 
--	scoped_guard(mutex, &dev->job_lock) {
--		if (dev->in_flight_job) {
--			dma_fence_signal(dev->in_flight_job->done_fence);
--			dev->in_flight_job = NULL;
--		}
-+	job = READ_ONCE(dev->in_flight_job);
-+	if (job) {
-+		WRITE_ONCE(dev->in_flight_job, NULL);
-+		dma_fence_signal(job->done_fence);
- 	}
- }
- 
-@@ -272,8 +270,7 @@ static enum drm_gpu_sched_stat ethosu_job_timedout(struct drm_sched_job *bad)
- 
- 	drm_sched_stop(&dev->sched, bad);
- 
--	scoped_guard(mutex, &dev->job_lock)
--		dev->in_flight_job = NULL;
-+	WRITE_ONCE(dev->in_flight_job, NULL);
- 
- 	/* Proceed with reset now. */
- 	pm_runtime_force_suspend(dev->base.dev);
-@@ -304,9 +301,6 @@ int ethosu_job_init(struct ethosu_device *edev)
- 	int ret;
- 
- 	spin_lock_init(&edev->fence_lock);
--	ret = devm_mutex_init(dev, &edev->job_lock);
--	if (ret)
--		return ret;
- 	ret = devm_mutex_init(dev, &edev->sched_lock);
- 	if (ret)
- 		return ret;
--- 
-2.54.0
-
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
+>>   2 files changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>> index a1087c13f241..cf7b1b038d5f 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>> @@ -1821,7 +1821,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
+>>          return 0;
+>>   }
+>>
+>> -#ifdef CONFIG_X86_64
+>> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>   static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+>>                                  uint32_t *num_entries,
+>>                                  struct crat_subtype_iolink *sub_type_hdr)
+>> @@ -1880,7 +1880,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+>>          struct crat_subtype_generic *sub_type_hdr;
+>>          int avail_size = *size;
+>>          int numa_node_id;
+>> -#ifdef CONFIG_X86_64
+>> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>          uint32_t entries = 0;
+>>   #endif
+>>          int ret = 0;
+>> @@ -1945,7 +1945,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+>>                          sub_type_hdr->length);
+>>
+>>                  /* Fill in Subtype: IO Link */
+>> -#ifdef CONFIG_X86_64
+>> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>                  ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
+>>                                  &entries,
+>>                                  (struct crat_subtype_iolink *)sub_type_hdr);
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> index 46db0d65d242..87e13f021457 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> @@ -2349,7 +2349,7 @@ static int kfd_cpumask_to_apic_id(const struct cpumask *cpumask)
+>>          first_cpu_of_numa_node = cpumask_first(cpumask);
+>>          if (first_cpu_of_numa_node >= nr_cpu_ids)
+>>                  return -1;
+>> -#ifdef CONFIG_X86_64
+>> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>          return cpu_data(first_cpu_of_numa_node).topo.apicid;
+>>   #else
+>>          return first_cpu_of_numa_node;
+>> --
+>> 2.43.0
+>>
