@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7895CD4F3C
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:39:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09D6CD4851
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:39:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A11410E1FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A46B10E220;
 	Sat, 16 May 2026 18:39:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="kL72BVyh";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="RggEy5bk";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D882110E1FD
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0212810E220
  for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:39:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778956763; bh=zkkX/KyTfJX+Kz8/6aczHqfvmFQd2dSTtHRmLreRDH4=;
- b=kL72BVyhDOPi/VuQivrOcMCGHJjCpyteajHLlzrbqY0o6Cp3VJD/jGROGcQ36mGHgk6WnK7xY
- oeGe+5RB+GK8xAJJxfcBwLV71/ETtnUcsl0efQNsqkFKKKl32sUmET7ZpRuWJMdQ2luePMUv7/0
- Fw+zEdKc1sEEANocmM/ePkZZkMe+KEMVcaFWNlrnTbyinm6TInq5NK+NuQF7SZW8pMXupd1qQ1N
- ayC2jU+sxUJUD529FljUZNAdeom2iJkt9uPDnB/PDV/XGn/Xop9BeYoCV8ovDjsdXMqGEKxVcW4
- PrGtAvCCUEoGTtXJGRi/VJPX7A3smxrlGnRiBueqDzDw==
-X-Forward-Email-ID: 6a08b9ca79c7625f20eeed73
+ t=1778956763; bh=7CYPmVz1SxlBbGAJK0dfY+LC2aAK8s0zuK8cfxzH2cY=;
+ b=RggEy5bkNhVNR6iMADCpsB7R4HsdIoFPOG+3GPaf200A31bhuqjiBHokV09oOlI2UyORyITNN
+ +r3aaeaV4siOhQ7dXSAW/qJv61NfOjw3dqQssAJI2EfPMG52ysPuk6OwAamH0bsEkGonVZq6NP2
+ +o3Eeko21tx9UtY1hBLzb/eiOZz3x5EcokTG3FlgFhn5p6nLCgRMsqNBL6V84OTeSQbbm34qDX1
+ JBE5gJTr/AO5m+LqtoOujIpL265MHvcceH02N+tK8oqP3X0yXMMVzv/UtZtqq+qG3Y58rGCGDhd
+ xgbct5T+gC5ujlntwfvAzLRgac7Tle/sPBzXU63MR/iQ==
+X-Forward-Email-ID: 6a08b9c679c7625f20eeed58
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  121.127.44.73
 X-Forward-Email-Version: 2.8.12
@@ -53,10 +53,10 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 05/22] drm: bridge: dw_hdmi: Fold poweron and setup
- functions
-Date: Sat, 16 May 2026 18:38:15 +0000
-Message-ID: <20260516183838.2024991-6-jonas@kwiboo.se>
+Subject: [PATCH v6 04/22] drm: bridge: dw_hdmi: Use passed mode instead of
+ stored previous_mode
+Date: Sat, 16 May 2026 18:38:14 +0000
+Message-ID: <20260516183838.2024991-5-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260516183838.2024991-1-jonas@kwiboo.se>
 References: <20260516183838.2024991-1-jonas@kwiboo.se>
@@ -77,77 +77,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fold the poweron and setup functions into one function and use the
-adjusted_mode directly from the new crtc_state to remove the need of
-storing previous_mode.
+Use the passed mode instead of mixing use of passed mode and the stored
+previous_mode in dw_hdmi_setup(). The passed mode is currenly always the
+previous_mode.
+
+Also fix a small typo and add a variable to help shorten a code line.
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
 v6: Collect t-b tag
-v5: No change, rebase on next-20260508
+v5: No change
 v4: No change
 v3: Collect r-b tag
-v2: No change
+v2: Update commit message, s/type/typo/
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index aa12397b3343..607faf4da967 100644
+index 8f7949d2c7f2..aa12397b3343 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2254,9 +2254,9 @@ static void hdmi_disable_overflow_interrupts(struct dw_hdmi *hdmi)
- 		    HDMI_IH_MUTE_FC_STAT2);
- }
- 
--static int dw_hdmi_setup(struct dw_hdmi *hdmi,
--			 const struct drm_connector *connector,
--			 const struct drm_display_mode *mode)
-+static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
-+			   const struct drm_connector *connector,
-+			   const struct drm_display_mode *mode)
+@@ -2258,6 +2258,7 @@ static int dw_hdmi_setup(struct dw_hdmi *hdmi,
+ 			 const struct drm_connector *connector,
+ 			 const struct drm_display_mode *mode)
  {
- 	const struct drm_display_info *display = &connector->display_info;
++	const struct drm_display_info *display = &connector->display_info;
  	int ret;
-@@ -2396,15 +2396,6 @@ static void initialize_hdmi_ih_mutes(struct dw_hdmi *hdmi)
- 	hdmi_writeb(hdmi, ih_mute, HDMI_IH_MUTE);
- }
  
--static void dw_hdmi_poweron(struct dw_hdmi *hdmi)
--{
--	/*
--	 * The curr_conn field is guaranteed to be valid here, as this function
--	 * is only be called when !hdmi->disabled.
--	 */
--	dw_hdmi_setup(hdmi, hdmi->curr_conn, &hdmi->previous_mode);
--}
--
- static void dw_hdmi_poweroff(struct dw_hdmi *hdmi)
- {
- 	if (hdmi->phy.enabled) {
-@@ -2969,15 +2960,19 @@ static void dw_hdmi_bridge_atomic_enable(struct drm_bridge *bridge,
- 					 struct drm_atomic_commit *state)
- {
- 	struct dw_hdmi *hdmi = bridge->driver_private;
-+	const struct drm_display_mode *mode;
- 	struct drm_connector *connector;
-+	struct drm_crtc *crtc;
+ 	hdmi_disable_overflow_interrupts(hdmi);
+@@ -2303,12 +2304,10 @@ static int dw_hdmi_setup(struct dw_hdmi *hdmi,
+ 	hdmi->hdmi_data.video_mode.mdataenablepolarity = true;
  
- 	connector = drm_atomic_get_new_connector_for_encoder(state,
- 							     bridge->encoder);
-+	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
-+	mode = &drm_atomic_get_new_crtc_state(state, crtc)->adjusted_mode;
+ 	/* HDMI Initialization Step B.1 */
+-	hdmi_av_composer(hdmi, &connector->display_info, mode);
++	hdmi_av_composer(hdmi, display, mode);
  
- 	mutex_lock(&hdmi->mutex);
- 	hdmi->disabled = false;
- 	hdmi->curr_conn = connector;
--	dw_hdmi_poweron(hdmi);
-+	dw_hdmi_poweron(hdmi, connector, mode);
- 	dw_hdmi_update_phy_mask(hdmi);
- 	handle_plugged_change(hdmi, true);
- 	mutex_unlock(&hdmi->mutex);
+-	/* HDMI Initializateion Step B.2 */
+-	ret = hdmi->phy.ops->init(hdmi, hdmi->phy.data,
+-				  &connector->display_info,
+-				  &hdmi->previous_mode);
++	/* HDMI Initialization Step B.2 */
++	ret = hdmi->phy.ops->init(hdmi, hdmi->phy.data, display, mode);
+ 	if (ret)
+ 		return ret;
+ 	hdmi->phy.enabled = true;
 -- 
 2.54.0
 
