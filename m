@@ -4,29 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42FFCCD4F3C
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBECCCD4851
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:49:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE8B10E575;
-	Sat, 16 May 2026 18:49:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D50710E1E9;
+	Sat, 16 May 2026 18:49:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="uTUZbXvZ";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="gFUn7SBy";
 	dkim-atps=neutral
-X-Greylist: delayed 616 seconds by postgrey-1.36 at gabe;
- Sat, 16 May 2026 18:49:11 UTC
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 571FB10E211
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:49:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5D2F10E550
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:49:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778957350; bh=QosCojTWludr4NWZrChxbWqZ5P3GAyS/u/IZWtni4VU=;
- b=uTUZbXvZc7IEOlP4TBNPGCBReZZvryyxdMlsjhn7l/e9jkiwYuUnwymeU/jzgBLZgoAr+JKdK
- jq5rLc5vaxeAC656BQBypQRuaCvjcR2JfoL3RXz11Z5jYdX/qje0OHDeq51SYtf3S/rjeK5/cUb
- dGr2LO7Yc1AAVLl6B8DLXh2sDSJxH9YXFiZJz4G9WqLOuzctNHveZorpgpPrZny0L1aEV3y+DWb
- 0gxOrjXq1VBvSJoqmUR0HJIeUkmiYQQ7cCtbZ04ODprCJvQePw8CMceOZRpyT8ntrkm2aoGsST9
- dVMPOGmN/5/YOCh6U9cyqy8PXkybmM/s3VfbebFeFjLA==
-X-Forward-Email-ID: 6a08b9b979c7625f20eeed07
+ t=1778957391; bh=xhoSyXY4f4aWD/HBjbi250zDfNzEt9yIVksiBtAL3Lw=;
+ b=gFUn7SBymlKpbCOs++/mFyTza2HdcACWMcOAtI5m37iBuZijrIjBIee9xQdxqRh920cdKR26J
+ 1LRulwA+OL1PoYDsxICt30rbaFkrhUFNAur/gOA3Ist0Dhv9del4lbFYr/oDMpBO5rRad+wWnuY
+ lgijMbtOs6fz8QrK4/ajxnE1cPzxYGc4lxpZo1Yp4FnmTYd+6RkSj7wbOV61VZSXet6PSTOIcPr
+ KWnVBgHMdhVBK8L79EkfNvD8kaRXfguoyZ1cO9Ovd9zFj8WO6gm+hZvqGx0Y35mouM80oD+YNUc
+ q4v7vkuonIDCpDrUvflLd4zTrsphzohtAGFAaUY8K8vQ==
+X-Forward-Email-ID: 6a08b9ce79c7625f20eeed8e
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  121.127.44.66
 X-Forward-Email-Version: 2.8.12
@@ -54,12 +52,11 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- Christopher Obbard <chris.obbard@collabora.com>
-Subject: [PATCH v6 01/22] drm: bridge: dw_hdmi: Disable scrambler feature when
- not supported
-Date: Sat, 16 May 2026 18:38:11 +0000
-Message-ID: <20260516183838.2024991-2-jonas@kwiboo.se>
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v6 06/22] drm: bridge: dw_hdmi: Remove previous_mode and
+ mode_set
+Date: Sat, 16 May 2026 18:38:16 +0000
+Message-ID: <20260516183838.2024991-7-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260516183838.2024991-1-jonas@kwiboo.se>
 References: <20260516183838.2024991-1-jonas@kwiboo.se>
@@ -80,44 +77,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The scrambler feature can be left enabled when hotplugging from a sink
-and mode that require scrambling to a sink that does not support SCDC or
-scrambling.
+With the use of adjusted_mode directly from the crtc_state there is no
+longer a need to store a copy in previous_mode, remove it and the now
+unneeded mode_set ops.
 
-Typically a blank screen or 'no signal' message can be observed after
-using a HDMI 2.0 4K@60Hz mode and then hotplugging to a sink that only
-support HDMI 1.4.
-
-Fix this by disabling the scrambler feature when SCDC is not supported.
-
-Fixes: 264fce6cc2c1 ("drm/bridge: dw-hdmi: Add SCDC and TMDS Scrambling support")
-Reported-by: Christopher Obbard <chris.obbard@collabora.com>
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
 v6: Collect t-b tag
-v5: No change
+v5: No change, rebase on next-20260508
 v4: No change
 v3: Collect r-b tag
-v2: New patch
+v2: No change
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 19 +------------------
+ 1 file changed, 1 insertion(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 41b3a9cfa2f5..d3e6a6562870 100644
+index 607faf4da967..a176eb55418c 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2135,6 +2135,8 @@ static void hdmi_av_composer(struct dw_hdmi *hdmi,
- 				    HDMI_MC_SWRSTZ);
- 			drm_scdc_set_scrambling(hdmi->curr_conn, 0);
- 		}
-+	} else if (hdmi->version >= 0x200a) {
-+		hdmi_writeb(hdmi, 0, HDMI_FC_SCRAMBLER_CTRL);
- 	}
+@@ -156,8 +156,6 @@ struct dw_hdmi {
+ 		bool enabled;
+ 	} phy;
  
- 	/* Set up horizontal active pixel width */
+-	struct drm_display_mode previous_mode;
+-
+ 	struct i2c_adapter *ddc;
+ 	void __iomem *regs;
+ 	bool sink_is_hdmi;
+@@ -167,7 +165,7 @@ struct dw_hdmi {
+ 	struct pinctrl_state *default_state;
+ 	struct pinctrl_state *unwedge_state;
+ 
+-	struct mutex mutex;		/* for state below and previous_mode */
++	struct mutex mutex;		/* for state below */
+ 	enum drm_connector_force force;	/* mutex-protected force state */
+ 	struct drm_connector *curr_conn;/* current connector (only valid when !disabled) */
+ 	bool disabled;			/* DRM has disabled our bridge */
+@@ -2928,20 +2926,6 @@ dw_hdmi_bridge_mode_valid(struct drm_bridge *bridge,
+ 	return mode_status;
+ }
+ 
+-static void dw_hdmi_bridge_mode_set(struct drm_bridge *bridge,
+-				    const struct drm_display_mode *orig_mode,
+-				    const struct drm_display_mode *mode)
+-{
+-	struct dw_hdmi *hdmi = bridge->driver_private;
+-
+-	mutex_lock(&hdmi->mutex);
+-
+-	/* Store the display mode for plugin/DKMS poweron events */
+-	drm_mode_copy(&hdmi->previous_mode, mode);
+-
+-	mutex_unlock(&hdmi->mutex);
+-}
+-
+ static void dw_hdmi_bridge_atomic_disable(struct drm_bridge *bridge,
+ 					  struct drm_atomic_commit *state)
+ {
+@@ -3005,7 +2989,6 @@ static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
+ 	.atomic_get_input_bus_fmts = dw_hdmi_bridge_atomic_get_input_bus_fmts,
+ 	.atomic_enable = dw_hdmi_bridge_atomic_enable,
+ 	.atomic_disable = dw_hdmi_bridge_atomic_disable,
+-	.mode_set = dw_hdmi_bridge_mode_set,
+ 	.mode_valid = dw_hdmi_bridge_mode_valid,
+ 	.detect = dw_hdmi_bridge_detect,
+ 	.edid_read = dw_hdmi_bridge_edid_read,
 -- 
 2.54.0
 
