@@ -4,125 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68680CD4F21
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 15:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CA08CD4F21
+	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 15:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5D2710E184;
-	Sat, 16 May 2026 15:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC1A10E1BA;
+	Sat, 16 May 2026 15:25:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Lmw9Zgdp";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PC6YqNrs";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A6T+CH8n";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010042.outbound.protection.outlook.com
- [52.101.193.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72D4D10E1B7;
- Sat, 16 May 2026 15:01:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M9LTxhdwb1bSHr1wDr5Hk51V8STJbqoLr6hA4AzX5uQwWS3ZIp1pOCqUa/ilOauQbkyUbgu0fEOEYqM7s/DJGD//IsaO1LLm7WNr9SAca/hTv8nIu4uJu/0IPkPQVBHaoN/G9eS0iPgB+yg7CEJEfGS6J5A6fClQGfeC7RYbYc4gQTfhzzftDb5PFQdX6mc6B2hU0USJKPi/yK4i+Tftsnns+rFH5RD119TCWyZG5faLnHEKixhxDs7nnBbjuq1gqHgBLayHvZOhPNmKOASsbrUNQ9pnkFDlCNB8PveeRFHqfXvRQT4BipvGfICHXk2vgFhxqjm2TiyynW98ipZkDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kyG2EnKA/SktDjIT+Ui9wwYn4momPSal+tWcdqtEOfg=;
- b=F5IJAj22qBTVCqXUenItmij3YeLdS+AvQtF+qDLGmCHohAACDz3vb3R5W8l9k9Ju9NLosWfe5vevOHUndvAErcA+HL/sh85EccB/43u0C1oTBV1WPe0reOnFiA2IdTFIilBtttoch4H8dL5BxOZ9YahC2/dVYKnGKkzXMNDAuN6mlppTy6jRz6rW6bmUbGuFKSqwEPEkRxh2AzSIuBRzdeyZLqzVbtxhAjVF7cR2h7BFCaj5mWvdQ4N3u3UrG/gIS7De2vui09Lm0Fw06yFlfbmCoCQ7JNzkx++sxWKIaWW1+BUqEL4Nn0VsHr6FBO8ElSz7IMM5uhxwy1ac5igXYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kyG2EnKA/SktDjIT+Ui9wwYn4momPSal+tWcdqtEOfg=;
- b=Lmw9Zgdpm5eE5kfGgKHPCQHr5RILcvcbQHhevhHalnIBVypkE8MNBzfKreRHNh8wxpuyjKfMFmkxoWEV+K1E1urDONtHYDg4Gdxd4RSKCci10aHJpE3uPqrAOg85tuu+tKlNqMAK3L/iOaUtEExSdES/AYlsN9UV7Mk1ZkxUtR0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS4PR12MB9612.namprd12.prod.outlook.com (2603:10b6:8:278::5) by
- BL3PR12MB6450.namprd12.prod.outlook.com (2603:10b6:208:3b9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.21; Sat, 16 May
- 2026 15:01:51 +0000
-Received: from DS4PR12MB9612.namprd12.prod.outlook.com
- ([fe80::5e55:25ea:365c:f99c]) by DS4PR12MB9612.namprd12.prod.outlook.com
- ([fe80::5e55:25ea:365c:f99c%5]) with mapi id 15.21.0025.020; Sat, 16 May 2026
- 15:01:51 +0000
-Message-ID: <33465492-458c-4a50-b035-ca546ec810c0@amd.com>
-Date: Sat, 16 May 2026 11:01:47 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix UML build guards for x86_64-only code
-To: Alex Deucher <alexdeucher@gmail.com>, Alex Hung <alex.hung@amd.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, harry.wentland@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel test robot <lkp@intel.com>
-References: <20260514170139.335618-1-alex.hung@amd.com>
- <CADnq5_MZ=S-b3smHdHA_0_+hZq92Y66oKO=KCfzoG79F_fardA@mail.gmail.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <CADnq5_MZ=S-b3smHdHA_0_+hZq92Y66oKO=KCfzoG79F_fardA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN0PR07CA0022.namprd07.prod.outlook.com
- (2603:10b6:408:141::14) To DS4PR12MB9612.namprd12.prod.outlook.com
- (2603:10b6:8:278::5)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B52EC10E1BA
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 15:25:18 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64G3f0DX777387
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 15:25:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UmI5XrkPGnRBEzq4y4AE8xpkFe5kBtdDq5bDE/u4Ncw=; b=PC6YqNrsYNsJWpGf
+ 1MjnbI2ErVqwyREzJ932C52J1MhVztX4nY4YLzZ/tVq/8z7YT+nxAdfVEpIMgEw2
+ YMoi4xc3lMjSQ/V5DX42bPSow1gKAaJiwIWPHGT7w/sAaj8YsH8j/p79AX1pm6GD
+ K6/BjoQU8yU+yl1ah6LxBwHdMfQInR0uu0AxJbWbiOCvSZKj8LVEaig115U7PNuq
+ moLpdadYawAKdGYyswB/CbZiQF0cDvFhEYqwl6wAEnhaZrYLivxQIyJK4PQLxrwE
+ xMvNy+LGuqkdLx8OQlhYSc9j4FF01ahJPIzweSDC2JtfNHtvHKNHxf/qzDi2KDPe
+ TiPkZw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gvys5tx-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 15:25:17 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-51009190feeso31168861cf.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 08:25:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778945117; x=1779549917;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UmI5XrkPGnRBEzq4y4AE8xpkFe5kBtdDq5bDE/u4Ncw=;
+ b=A6T+CH8nV/HFLVOjyyGiVTSABE9O59TtuG1fufRyoHHCwaCzoI0By4+qq0jl603aAS
+ /TKL47eyQZe8XPCGmU9XPOnZ5l2S2OAIFtk7aZTVnDOSLaOOlYHUUl1DXEylulkpX+Z7
+ vyPmVTJjSGceBjs4VeMyzm8dJZsnNIC4oVyUdrp2ayVpSpmMs4+4LgXiPt3/ZcNjeER2
+ ATR4pxy6Lk7ORJcnF/oAhvapy30VnAlUU+cxIqHQQZWrTKBkdY104UPH2NqTFZ9adhjp
+ Az3VkAhexIVjmXULlJschTGBJ/G31JNlxEi5SrP7hlEtolJuoOA5KcKwPtGA4TXnfH1x
+ XHPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778945117; x=1779549917;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=UmI5XrkPGnRBEzq4y4AE8xpkFe5kBtdDq5bDE/u4Ncw=;
+ b=tEItTqKrPiVSgMSxK7IUelF1uB2IqIVvgzrgVtdS6sKMRIce8oezaFXcrlyIj12X+d
+ EzkmVK2ilAhQZznjpEN+CPtIu8lE3TvwBgfO4hAQWxkdQxDU3pxRWKe0FYPO1L9rcMrV
+ CgpxVwEWeH7spRjiiJHAVF6N7yTMZnLcj4N0WNfbFvm2zZLnUDPUkVjBOHs4NubpCvVA
+ BdfegKVN7i2w5VIUsLkvPpRJgWip1RtZdpxGQQxEhZIwUtVAMNfHnEqlCasDS4708t4G
+ vfBFNlT2F0Ugf2DllLAKSmj8b57FHM7J25Gc+DrOB3XKhbP9dHso5eCVKSHrNAq2c+v+
+ 7RWg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8rJi7KT8/kX/AU762B2GFwvO46HYHybqEm2w9bHCa3AFxBjNH5uJ6IFiE267ihWDlZUINQlYiYjR0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5aMstQK8U37Uy5F75RpgLiYQJze6Ob45/sLnqZtqEgYZgPQir
+ kifOZ18vHVCagpYmyn/SzKqzVzHiCTkVCtoMABYfIWFnYpCJtwCKxDT6S2sI48H6dQq71ZgCTFb
+ 5m0kP4HLfMgSafu2aY9G5eyE2bs5TY2zvkBSn9trH7PQ0bnYblE9moNxq/l+S+yjCCAIl6ow=
+X-Gm-Gg: Acq92OEp5ItSDV8ZZ87Z3bsO+PreIrgr0Vp2gMNpOdagAzItqa2iznvK8bXJI4VGCFx
+ mXG7PBn3K5WroC1JpIl6DEPxcmIz2Wx9bUIQMzpwN5XeUcNlPKHtjZgRXw+eF9iabjpOFgPWFS7
+ 6GzqfEufRBaQFS/18/emNgynAfRTXsIH05w1y7Hcaa0F6cxIZW7vbuNTZ1XMYh7YytbJvUOwB5H
+ SCCdGTeIvWJjTBdlJZ4Q1UETjSfyJtEJoKJNAP2vIEIIo9GKb/XiGl0viZKy+A5feCElunmedF4
+ jsAL1LUlDpOmICGpkPV+tmX973GxJvCl6PTxLxXhApq4kWlCJgWObTuKyBU0eHujKqHIyx5ZF6G
+ XiXaaMvb1KywCUk8PZuk4gHOenGBqUwVA144oUC9OlPOGinHe/5A60KFYH/qADXdHRFb0IRxIAs
+ /hJiglzqkwpAkaum0ku32NOe1r4qjAOIV8Npk=
+X-Received: by 2002:a05:622a:1f97:b0:50d:9e8d:9837 with SMTP id
+ d75a77b69052e-5165a010632mr135796721cf.11.1778945116908; 
+ Sat, 16 May 2026 08:25:16 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f97:b0:50d:9e8d:9837 with SMTP id
+ d75a77b69052e-5165a010632mr135796381cf.11.1778945116499; 
+ Sat, 16 May 2026 08:25:16 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a9164cd939sm2057972e87.70.2026.05.16.08.25.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 16 May 2026 08:25:15 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi: don't dump registers past the mapped region
+Date: Sat, 16 May 2026 18:25:13 +0300
+Message-ID: <177894506978.2448625.16346847676373449764.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260428-msm-fix-dsi-dump-v1-1-5d4cb5ccfac7@oss.qualcomm.com>
+References: <20260428-msm-fix-dsi-dump-v1-1-5d4cb5ccfac7@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PR12MB9612:EE_|BL3PR12MB6450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 009d8b66-5998-47a7-be6d-08deb35c0f4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003|4143699003|11063799003;
-X-Microsoft-Antispam-Message-Info: 9tJbD9oNBB6x+WAIfWmJ273lM10r2AM/FrIoMN47KG4D6RBdRjUcyLCf6MbT4/Eb5kXwoYbF8baC0aU+3JkDqlOJayoC1G4GFDDM8REwf/9BUxEqIM++1xit158DXQvDLhqf6yn5zTLGrP6OtEjI/VCcrD7SFZH+eiDdMQBdfes6vT+wTEp5gCPEsA81A0UivVS+rOhPM12OI2ccI1YI98QbSFujEUPbbCFKANzzmGw0Ua77mHzTWteGai36MJdrt7FrzblrI0Mz+FQZdAgMaYnxf8znnNnn6GNAsy9h1zwNG0iPEjNDW/EWFa0U028mpIEvq9kHSAWig/d83TdjSm5XBtVoDiALQFI8fMerI0GlZxmWjVba5mSLVh+4s1v+L5zFm90x25hUf057BPc81U6nSixL/etmNXqPSkybEEZp0ReENn1TiZaHdNwbgvZbupE2rDC2WGAsx0dfMWzw19o4XL9L9DRADv82ZJNraxueA9UQ16R8/UZ75Z9oatoqfMcnWTfRPZZ2ypCDlvXvVlGcte+SlT3X2L5MEYqwq9ncLu8VGNjek9Mff3yEhxi63/TnG9KkdiTtap1H/88Node3dAX7/7R1xmEtfobn+R8562bF7SnEB5NkggoFM+jWA+nVOXrT7Q9ScDxCjCcaafdLFAmMgVPchUqtMWlSJhwN+2nxsWn0VcGo028xcPiP2Wv/2GUpEouypDEV7JQOgA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PR12MB9612.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003)(4143699003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXF3YTkrelNBK3VIeUJNSHdaTDlvdTROY0o5bUtIK0lHSkpEaVlYNUFubkpT?=
- =?utf-8?B?enRjTUN4cGcwcE1VNUcybU9iVUFHYmFMT3cwWW5LQ3V6c2ZBc2s1Rjd4YitJ?=
- =?utf-8?B?VkIzU0lVZEQ2S3V5L0FHWWw3TEVaVGxSRG1WNVdrTGVyVmFZTGxyV2dtUDZy?=
- =?utf-8?B?cHpqNnhnYytHL1JWbGRHdEkxU3NyZkYyUk5FTHZLN3hMdURXa1lOVUEwSnhl?=
- =?utf-8?B?RTFXc3Q0THRFTUJTMzVYZnBYT0huTW9wczNWdmxjRld3ZjdKZUJYQXdTcU8y?=
- =?utf-8?B?cEZNdDdBdFl2Y2dHbkVDSkFDUmlIdEhWR2ZmVDFxMDVqN2tyTzVqT1U4WDlD?=
- =?utf-8?B?QTB2bitQdFcyMEE1N2xneWduelEzWG9IR29WR1Nybk4vUkQxbkVFK2lVcDBX?=
- =?utf-8?B?NEkzalpnZjluVi9tSnZFY1NQTDhFSVBWcFoyc2NCazNtbkU5YXExZ2d6MGt5?=
- =?utf-8?B?a0tkRjEvZDBvd0JtUVZnVHZuaHJIN2NsMlpxeXd4OVBaQzRSNFdOb2N6aVl5?=
- =?utf-8?B?QzZDRG5XbTIyQnNSWDRZaEQrcitBaDBlWkJkdm9LT2gycWRHWHA4dUZEeVlX?=
- =?utf-8?B?cVZsaEJIaWJJT0ZqaS9idkIwOWMzR3lBTGtQOVU1T2ZvSDlWWWY2SmRzRkdp?=
- =?utf-8?B?bXFkN1dOZmlwcGxrekRlNkQrMyt1aG1mSUU0REkyVVdTa2RsUjd6QVQvYkdT?=
- =?utf-8?B?cGdZOTJDTnlqdjVudFE3bU9TeEJ6bGRBRDlnV2VzMVpaRFA4a044R2s3SHJK?=
- =?utf-8?B?OVAzZnhONVV4OTNNL1NYaXRqL3pIWUF5YzgwNXdhbDlEL0xjdFBIK0x2dXd6?=
- =?utf-8?B?U2RkaUlZcUdNb1lZVVFOZnhDU0Z4RGhDSDhiVnRiQlZndkdlQ0xUcXlJYlVB?=
- =?utf-8?B?OVRnTW85aTVaVkx3K0xPSlA3T3lJdDg4NjdZY1VxM3ZEWm9YNlRFVis2elBR?=
- =?utf-8?B?RFZsNEFBK0djT1VTSFRwYU4xSG84SXh0amR0VDFDbFhqVWFnVFp4aHRUZEhK?=
- =?utf-8?B?M3VUaWZaUUg3M2loWW1qdm52cmFEeUlIVzJRWFJ1VzFPRFJpcllWanlVVWtz?=
- =?utf-8?B?RDVtYXBKdmVnbVJBbjE1bCtJVGQ2ZWY5M1hLRVo2bjN2NmRhZFFOcGtmT2hW?=
- =?utf-8?B?cEdGeHp1SVQ4aEVWNDNNMjN5TU9aUE1xd3doT056MUZ4SHNRUlcvbjdiN292?=
- =?utf-8?B?TlRVVGQ1TzZEQkJpV2dhRi8wOTRKSnY3ZFNkVFc4NG05SXB0a2hGUzY0NXBT?=
- =?utf-8?B?eWtMUHpqWXdmSG1FL2FlUW1KSGhtY0NHTkxZUVlqY0RVcnRFNjlXSndNVzdt?=
- =?utf-8?B?NjZmUjg1cmNoNTlIQzZ6K3dQUEJQbnRhUUk4NldVaWFtWkhWQnFRM01vT0hT?=
- =?utf-8?B?WUNlcktKQURoUURIMTV5cGUyck4yd1V6TkJ2ZDV0VzdVWGpyR0hmWllxNkRJ?=
- =?utf-8?B?anBid0ZTOFN1WExuL2pHSTNpTmkrS2IrYnZNa0w0dlI3VGx0N1pPdURFZVZv?=
- =?utf-8?B?ekUya1pVZVpVSnQyWWpXcFZNT0JMZ2dmdjhxZ3VTTzduaEhva0RFZ1dRd21S?=
- =?utf-8?B?Q3pYcHVQL0d5d1ZlZE9SOUZVbDg1bzE5cG81aTVlWnUwdlpKRjNqMGRxRHgr?=
- =?utf-8?B?RVFMbkxxM25tM1BpMW1uaGFkVGJ3R3JjQ2tDTTZiaUpjMHIxYXBqZDdPcDJU?=
- =?utf-8?B?SXlYMDlaU0lUV0VmM1c2QWE2eVozQ2UvWTFET1lZQ2JtcXdjYnlteGpnTndO?=
- =?utf-8?B?YXJlblkxaWluaFZmK2JKSTBFVnhlclpYQ1V6RFU0cjNNdkVwNXgyV3k1TE9j?=
- =?utf-8?B?ZEZmNG84TFJobTRRSVExcktnRlNha2NvSUFaUXM5RVpiNGZGalptb0ZyVEFR?=
- =?utf-8?B?b3JBNXlhb3gvUGZ2R3RJUHYrNWRNMytvOEo3OEJsT3pkTElubmJkcDdMVzM0?=
- =?utf-8?B?UDR1WWI3WnFRcURrclg2cEtSREJDNDhpSERnT05Ock9WWGwvYzA3SmhXY0xT?=
- =?utf-8?B?dThMZEJnVjB1NThUODZENnBQTC84N21tZ2U4NWk0RTlUbit5TGhaNUExRWRF?=
- =?utf-8?B?SlRBaHdub1Y0RHFJT1FzajBDNmRiVUNLWGIvcGR3b3FmVW9DOWMvdUhjRk1h?=
- =?utf-8?B?bWZzM1dnRHZBN0p2SlhFc3ZVMnJ1cEhUUEtDSk1SWmQ0OUNPMXR5L1JRdUZh?=
- =?utf-8?B?UlRKYmsrbmtzd1BMR29mV3gzU20zZ3VJdG1JZ3VOWkZlQ1BwdDRrZENMek9k?=
- =?utf-8?B?SEtucytPeHRRekJxbVRtOVEvTFAxZmwwUWZvUGtqeFBJZ0FIOU1zbUVHZEox?=
- =?utf-8?B?R1FKb3E5UThQcjB5Uk9zajRzNjBBcjFDcllqalM4U2I2VmtydWNndz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 009d8b66-5998-47a7-be6d-08deb35c0f4e
-X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB9612.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2026 15:01:51.0740 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zDVF50TplpMBJMdKt1y79S0Z3EtX76BucWV3MssA4+eC4uVUv1IVRg53J+8y1aCwSJ1EehCJdy+5auAaTUR7Ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6450
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE2MDE1MiBTYWx0ZWRfXw5CUTgp7nrBr
+ LXSvHdLzU4SHrMYu5w7QPpLlUR/rXF0Hi3MZL+Mupw2+w9AhKyaMNqAdQe+xHUbV3j9YQWLrDAK
+ SzS+Mf2ZO5qOvhzFlZqJ9E1OM9xM1cX1zzY95OYU06SD2VeMHNo1TBRfU6eagiEbPGb+iAOY4tY
+ GiZmCGXoIuzhajwNJUFqtz+y0s6XTAnvwIPGdgQ3GV70LvCzQhbqLHmfyGijS2sRKqMrD9qMOHr
+ Dz1aIqotxOOs2HYPEixpRMRgrdHsKm9NDN0Ubwnty6Sbqwk/k8+yZiWLuMmIXrlhaBfOHu4rxk7
+ gWCyx6ERBenovERU333MILoKh36m5CL9BKaNjq9l2l89nhTVV1e8osr0dt6opLF874PspRlICg9
+ BB5XY6lIp9MQNNYAhMMSBgmavBrJvWXbKI33Va6R57IHID43HOOUYaf7Wxbar2e2XIwhXAnhuYj
+ W3zFB6ecFW26kycr8cQ==
+X-Proofpoint-ORIG-GUID: DSdj7utbNYyoFaHB33SGh0JpB7qtSn54
+X-Proofpoint-GUID: DSdj7utbNYyoFaHB33SGh0JpB7qtSn54
+X-Authority-Analysis: v=2.4 cv=X5Ni7mTe c=1 sm=1 tr=0 ts=6a088c5e cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=e5mUnYsNAAAA:8
+ a=pSQ9VKN1VO86L-afhjsA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=zZCYzV9kfG8A:10 a=dawVfQjAaf238kedN5IG:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-16_01,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 adultscore=0 spamscore=0 phishscore=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605160152
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,78 +147,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, 28 Apr 2026 20:21:38 +0300, Dmitry Baryshkov wrote:
+> On DSI 6G platforms the IO address space is internally adjusted by
+> io_offset. Later this adjusted address might be used for memory dumping.
+> However the size that is used for memory dumping isn't adjusted to
+> account for the io_offset, leading to the potential access to the
+> unmapped region. Lower ctrl_size by the io_offset value to prevent
+> access past the mapped area.
+> 
+> [...]
 
-On 2026-05-14 13:19, Alex Deucher wrote:
-> On Thu, May 14, 2026 at 1:03 PM Alex Hung <alex.hung@amd.com> wrote:
->> cpu_data().topo.apicid and kfd_fill_iolink_info_for_cpu() rely on
->> x86-specific structs not present on UML. The kfd_topology.c and
->> kfd_crat.c were guarded by CONFIG_X86_64 alone, causing build
->> failures when CONFIG_DRM_AMDGPU is selected on UML.
->>
->> Update guards to '#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)'
->> to ensure x86_64-only paths are excluded on UML builds.
->>
->> Fixes: e6b71bcdc409 ("drm/amdgpu: Remove UML build exclusion from Kconfig")
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202605140506.TI8zPIBG-lkp@intel.com/
->> Cc: Harry Wentland <harry.wentland@amd.com>
->> Assisted-by: Copilot:Claude-Sonnet-4.6
->> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Applied to msm-fixes, thanks!
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+[1/1] drm/msm/dsi: don't dump registers past the mapped region
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/5b49a46baa85
+
+Best regards,
+-- 
+With best wishes
+Dmitry
 
 
->
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
->>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
->>   2 files changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> index a1087c13f241..cf7b1b038d5f 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> @@ -1821,7 +1821,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
->>          return 0;
->>   }
->>
->> -#ifdef CONFIG_X86_64
->> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>   static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
->>                                  uint32_t *num_entries,
->>                                  struct crat_subtype_iolink *sub_type_hdr)
->> @@ -1880,7 +1880,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
->>          struct crat_subtype_generic *sub_type_hdr;
->>          int avail_size = *size;
->>          int numa_node_id;
->> -#ifdef CONFIG_X86_64
->> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>          uint32_t entries = 0;
->>   #endif
->>          int ret = 0;
->> @@ -1945,7 +1945,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
->>                          sub_type_hdr->length);
->>
->>                  /* Fill in Subtype: IO Link */
->> -#ifdef CONFIG_X86_64
->> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>                  ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
->>                                  &entries,
->>                                  (struct crat_subtype_iolink *)sub_type_hdr);
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> index 46db0d65d242..87e13f021457 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> @@ -2349,7 +2349,7 @@ static int kfd_cpumask_to_apic_id(const struct cpumask *cpumask)
->>          first_cpu_of_numa_node = cpumask_first(cpumask);
->>          if (first_cpu_of_numa_node >= nr_cpu_ids)
->>                  return -1;
->> -#ifdef CONFIG_X86_64
->> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>          return cpu_data(first_cpu_of_numa_node).topo.apicid;
->>   #else
->>          return first_cpu_of_numa_node;
->> --
->> 2.43.0
->>
