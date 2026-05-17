@@ -4,81 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAD94CD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1221CD4F51
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55AC310E6E9;
-	Mon, 18 May 2026 07:41:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4198410E6EB;
+	Mon, 18 May 2026 07:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kendell.dev header.i=@kendell.dev header.b="b+SDDFM3";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="qXjmEEvA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KEc+2POH";
 	dkim-atps=neutral
-X-Greylist: delayed 532 seconds by postgrey-1.36 at gabe;
- Sun, 17 May 2026 16:34:35 UTC
-Received: from fhigh-b1-smtp.messagingengine.com
- (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D4DF10E248;
- Sun, 17 May 2026 16:34:35 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 80A3A7A00C2;
- Sun, 17 May 2026 12:25:42 -0400 (EDT)
-Received: from phl-imap-18 ([10.202.2.89])
- by phl-compute-05.internal (MEProxy); Sun, 17 May 2026 12:25:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kendell.dev; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:message-id:mime-version:reply-to
- :subject:subject:to:to; s=fm1; t=1779035142; x=1779121542; bh=o+
- EPcssOqrbPCx1pVKmqpk3V0RomYQ93fDRvzPao+sA=; b=b+SDDFM3VvODhF5YUu
- F1iK5rfvPMoHbASA+UlR3uItx5X5Y5ecoGXcOwdzHEa6ML6HKWSN19wQnP7IIIRI
- 9Fg5etkWpFGCjNGVgFNRs/hKAI8W79sSlCfGLX4/r5HB6UaoGrTbZ4bv1IMskWFO
- LIH1cLpmJgFYks/nL5PMDxE6MnlxM4Fy2d2aGnppPi1HNRH5hmfU+D4Ty9BLOB5R
- QgJD751gW5w/w1GEj21ERaIjk3CDDcw71I+9mmCww2n6XvzA+6l0Vxwp5Ka/NFlu
- DxGrK2nu+KYGc48Y9a5KEulj320z/EANTNYJbF3vw+7gZ+7E9L+z4UIueWLlrkuv
- PmVA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:message-id:mime-version:reply-to:subject
- :subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1779035142; x=1779121542; bh=o+EPcssOqrbPCx1pVKmqpk3V0Rom
- YQ93fDRvzPao+sA=; b=qXjmEEvAd0NMYvfN3eS88OHvWWkOrgMeST59tlab8KIN
- foJQL4pUdaMYbfZnUvitP8mLCQZTXZL1d6+BR3UB2pc4D6XT1B969f0wYHpASw1O
- jYCZLyc0/VSUQ9JSn9uTBhUnq+f7KuABut3DswUsiVTXsqufLxcaZGivuyYss/c9
- bQWvQsTwpZg9Ft797SD608njSTnCvb9lSEUtaSBLidKui7UC+PWW4bEIsHlN72os
- a89OVLpmD8TcdLKdQ13gdrJmc0hVIUOvd92gIMO/tvo63Qc45F12fAgfrAZI/jrH
- s3DhLGkodoUm4lwCPT0UkkKraJBy4bIDBeAMGyyWuA==
-X-ME-Sender: <xms:BewJatSjxIZAfBZv9or6X8uJy2stXqvaGsMTRHvglKuhAIPRcjwURw>
- <xme:BewJahkN6ccUslEJj9ZvR0z1BusePlF_DIQnHZlxsJXXAqql9AIT9rwaA0NQCpuv-
- -un_LWZhIe18FAh5HCTDuxq2IQviUFmGEmroxgc6hGZxn53omeQqi4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddufeeigeeiucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucenucfjughrpefoggffhffvvefkufgtgfesthejredtre
- dttdenucfhrhhomhepmfgvnhguvghllhcuoehlihhnuhigsehkvghnuggvlhhlrdguvghv
- qeenucggtffrrghtthgvrhhnpefgfeekieehteelleeikeeftedthfefveekhffgvdejud
- dttdekveejfeekffekkeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
- ihhlfhhrohhmpehlihhnuhigsehkvghnuggvlhhlrdguvghvpdhnsggprhgtphhtthhope
- dvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhs
- thhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepfhhrvggvughrvghnoh
- eslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrgh
-X-ME-Proxy: <xmx:BewJakm9477PwprTMGhsSd-sh8ZyManqfvrH3LPvRcfNMHmtBmEhXw>
- <xmx:BuwJaoIZ603yTQgnuuQxeLevJg9FETq3ZfhUcqkIVPpnGflO_7Ozzw>
- <xmx:BuwJahxbcYG_taMZE_IvzSVsFSCPRr6yf1H8mMOjjwZQmLpRxFsvOQ>
- <xmx:BuwJaovqwOzg80xPuy1CZXaD6AeJkw1UWSXHZ21U7P-UpTgTJHxtKA>
- <xmx:BuwJatmnj1fzDQitGRzGBqPkAN8bDbq4Y0Hpd0cyoYfc1XTpKaK5RmBx>
-Feedback-ID: ie9be4849:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id DFF6E15C008C; Sun, 17 May 2026 12:25:41 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9326B10E0A3
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:41:36 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-43d76dd4ee8so1110323f8f.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 06:41:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779025295; x=1779630095; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=e0Fqrssiq5EKJqOqnUySdSTXrmaCviyXE8eaNVLH4Wo=;
+ b=KEc+2POHpjliCpwMjzbpr29fe3fwG92xQFdT7EhA32MwQbSBoFMOVRcD3BKia3vPcj
+ H1uj4muEP+HV1wk/Y+sxQrxkhkH/v6rFOpqDkOJ9LNe162UnWwfqiTy2A4D4knkEN5kc
+ 4Dja1Levf+E3SpBUlNibkU+PzOC06/5DZWzvEOKhEKsbhWUOgApHs2FcvPOIaVyRSEmk
+ jGT2pYMeSlGJgWocxNZputcXcv3xUHoSL9Hwq0buXQMph41wH4q/xZOBEWsJIcRus/Kv
+ g3oQK9GkQT6xGLyhFCw64wyqYljVChDM/yQsK/BT4L2p5Nr6CN2KH+MrGYUyB23KQfb8
+ 5Bow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779025295; x=1779630095;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=e0Fqrssiq5EKJqOqnUySdSTXrmaCviyXE8eaNVLH4Wo=;
+ b=tM+XtzXSIWErAQj9I1T79wXTxwtXHDZDfQWuOwKTiL52tChHE5XAjot5zIz+MxPV/h
+ Ecku+pCmjrKgvh3pjqB9EaVqD9qo4SZdSRBB75zUIYl3R9IaZ06ah9VzxI00IRaPYq7H
+ cz7rcvIc1y5excyxe67uwYKUTiyFEt5tOJYpar6Pwvqjxa5Dp4Zq83mL75zL2mF7zzKg
+ SQzY3Gs2unLJUMhAGIV1MAynPWaYecBoG1CCqmCYB6nbi/C7Hxp/L3e3HUpztzzgcwT4
+ z3Otx6DG2OIhJ1xIjTchfhBLDfANWiWPtRpB+MAxHPjdAONdIezzCOiPb41NKPnFhQbP
+ aoBw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/DOB85AvxE2ygIK8PI0GXDlIRxhlAZ9vp3Cb9/HydWU+R9jbFttMZlEAwxK9Qna1i9Gm+GJl404c8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyxjXV9yD06o4X7f9SdAi+YsQavsAEOuW2t/dW0/AFn8yhyh6Gx
+ MWcoQnSITC7bugs5z1x1Gp3cijbQ6rFlOp1ZXGipsmX7dZS6d1JG2ynj
+X-Gm-Gg: Acq92OHfarN9GPUWATt+ay1o33DnajJKQ40+hl9s8RKiLJGBfef+8oudS6BgWtFNa+9
+ j3htoKdFVBhCBQ0CYrZ7uO7Ltdz6d6V6Ex29HL+MT1Vwqx2jjuGSBq3U/kGzvdL0r/9oX/bchb5
+ VvZjkVOCZG3i37KWw3VnVJIl7iX5U9Da1XrNmJXw3TwoLAj429uIdxl+1SeanI5cNu6iv9cxilm
+ 7ysgU8zSchHLrHua5QS+N4y2i7n4pcSfOcbSbslCloflCLitslPfFfmDDqxxdBYJCCQLVBLZHpz
+ FBzMW1YzqkmXxwV/xnIC07WQvSHcUCseBRvB+S8zTYSXEpFVKIGeL7TPc6VIfWEVlZWKHYkfm/V
+ Qbs7Q6XICHsGCnuJsiGevtcwKKKHRhxCTSNgF7TdHudjrwt6UMkU/Z07mTJo73VG/MpwV/CJnQR
+ lSJ6e2iwXC+86AQwXR4wv+mW+whbU06SfbJrV0H65206OfZxAQ1cQEPDm5G5OjKkTnTHhKhizSi
+ Q==
+X-Received: by 2002:a05:6000:4010:b0:43f:df1b:9e07 with SMTP id
+ ffacd0b85a97d-45e5c5a5580mr16862802f8f.42.1779025294346; 
+ Sun, 17 May 2026 06:41:34 -0700 (PDT)
+Received: from localhost.localdomain (i59F7ABEC.versanet.de. [89.247.171.236])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45da15a666fsm28231673f8f.36.2026.05.17.06.41.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 17 May 2026 06:41:33 -0700 (PDT)
+From: Elliot Tester <elliotctester1@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, corbet@lwn.net
+Cc: skhan@linuxfoundation.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Elliot Tester <elliotctester1@gmail.com>
+Subject: [PATCH] docs: gpu: fix spelling errors and remove duplicate sentence
+Date: Sun, 17 May 2026 15:41:22 +0200
+Message-ID: <20260517134122.38389-1-elliotctester1@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Date: Sun, 17 May 2026 09:25:17 -0700
-From: Kendell <linux@kendell.dev>
-To: freedreno@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Message-Id: <492340a5-5894-475b-acd5-6c6b6b32c706@app.fastmail.com>
-Subject: [BUG] drm/msm: WW mutex self-deadlock in msm_gem_shrinker via direct
- reclaim from msm_gem_fault
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 18 May 2026 07:41:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,133 +91,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Fix various spelling errors in GPU docs:
+- indicies -> indices (userq.rst)
+- umap -> unmap (userq.rst)
+- pre-empt -> preempt (drm-compute.rst)
+- buffer-leaks -> buffer leaks (drm-uapi.rst)
+- Additionally to -> In addition to (drm-uapi.rst)
+- unpriviledged -> unprivileged (drm-uapi.rst)
+- fucntions -> functions (todo.rst)
+- varios -> various (todo.rst)
+- implementions -> implementations (todo.rst)
+- complection -> completion (todo.rst)
 
-I've hit a full GPU deadlock on Snapdragon X1E running the Zed editor.
-The shrinker self-deadlocks when msm_gem_fault() triggers direct reclaim
-while holding the VM's dma_resv.
+Ale remove a duplicated sentance and stray "uff." in the todo.rst, add
+missing period after drm_ioctl.c reference, and add missing newline at
+end of drm-uapi.rst. Fixing this would make reading the docs just a
+little bit easier.
 
-System info
------------
-Kernel: 7.0.0-32-qcom-x1e #32-Ubuntu SMP PREEMPT_DYNAMIC Tue Apr 21 00:33:58 UTC 2026
-Hardware: Qualcomm X1E (Snapdragon X Elite), Adreno GPU (msm_dpu)
-Distro: Ubuntu (linux-qcom-x1e package)
+Signed-off-by: Elliot Tester <elliotctester1@gmail.com>
+---
+ Documentation/gpu/amdgpu/userq.rst |  4 ++--
+ Documentation/gpu/drm-compute.rst  |  2 +-
+ Documentation/gpu/drm-uapi.rst     | 10 +++++-----
+ Documentation/gpu/todo.rst         | 11 +++++------
+ 4 files changed, 13 insertions(+), 14 deletions(-)
 
-Trigger
--------
-Running Zed editor, which uses WebAssembly language servers (multiple
-/memfd:wasm-memory-image allocations) and DMA-BUF GPU interaction.
+diff --git a/Documentation/gpu/amdgpu/userq.rst b/Documentation/gpu/amdgpu/userq.rst
+index 88f54393b..94427e18a 100644
+--- a/Documentation/gpu/amdgpu/userq.rst
++++ b/Documentation/gpu/amdgpu/userq.rst
+@@ -156,9 +156,9 @@ IOCTL Interfaces
+ GPU virtual addresses used for queues and related data (rptrs, wptrs, context
+ save areas, etc.) should be validated by the kernel mode driver to prevent the
+ user from specifying invalid GPU virtual addresses.  If the user provides
+-invalid GPU virtual addresses or doorbell indicies, the IOCTL should return an
++invalid GPU virtual addresses or doorbell indices, the IOCTL should return an
+ error message.  These buffers should also be tracked in the kernel driver so
+-that if the user attempts to unmap the buffer(s) from the GPUVM, the umap call
++that if the user attempts to unmap the buffer(s) from the GPUVM, the unmap call
+ would return an error.
+ 
+ INFO
+diff --git a/Documentation/gpu/drm-compute.rst b/Documentation/gpu/drm-compute.rst
+index f90c3e63a..35cc8d654 100644
+--- a/Documentation/gpu/drm-compute.rst
++++ b/Documentation/gpu/drm-compute.rst
+@@ -7,7 +7,7 @@ seconds. (The time let the user wait before he reaches for the power button).
+ This means that other techniques need to be used to manage those workloads,
+ that cannot use fences.
+ 
+-Some hardware may schedule compute jobs, and have no way to pre-empt them, or
++Some hardware may schedule compute jobs, and have no way to preempt them, or
+ have their memory swapped out from them. Or they simply want their workload
+ not to be preempted or swapped out at all.
+ 
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 579e87cb9..0ef498bff 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -150,10 +150,10 @@ separate render node called renderD<num>. There will be one render node
+ per device. No ioctls except PRIME-related ioctls will be allowed on
+ this node. Especially GEM_OPEN will be explicitly prohibited. For a
+ complete list of driver-independent ioctls that can be used on render
+-nodes, see the ioctls marked DRM_RENDER_ALLOW in drm_ioctl.c  Render
+-nodes are designed to avoid the buffer-leaks, which occur if clients
++nodes, see the ioctls marked DRM_RENDER_ALLOW in drm_ioctl.c.  Render
++nodes are designed to avoid the buffer leaks, which occur if clients
+ guess the flink names or mmap offsets on the legacy interface.
+-Additionally to this basic interface, drivers must mark their
++In addition to this basic interface, drivers must mark their
+ driver-dependent render-only ioctls as DRM_RENDER_ALLOW so render
+ clients can use them. Driver authors must be careful not to allow any
+ privileged ioctls on render nodes.
+@@ -568,7 +568,7 @@ ENOSPC:
+ EPERM/EACCES:
+         Returned for an operation that is valid, but needs more privileges.
+         E.g. root-only or much more common, DRM master-only operations return
+-        this when called by unpriviledged clients. There's no clear
++        this when called by unprivileged clients. There's no clear
+         difference between EACCES and EPERM.
+ 
+ ENODEV:
+@@ -761,4 +761,4 @@ Stable uAPI events
+ From ``drivers/gpu/drm/scheduler/gpu_scheduler_trace.h``
+ 
+ .. kernel-doc::  drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
+-   :doc: uAPI trace events
+\ No newline at end of file
++   :doc: uAPI trace events
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index bc9f14c8a..b13cd4347 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -55,7 +55,7 @@ There are still drivers that use drm_simple_display_pipe. The task here is to
+ convert them to use regular atomic helpers. Search for a driver that calls
+ drm_simple_display_pipe_init() and inline all helpers from drm_simple_kms_helper.c
+ into the driver, such that no simple-KMS interfaces are required. Please also
+-rename all inlined fucntions according to driver conventions.
++rename all inlined functions according to driver conventions.
+ 
+ Contact: Thomas Zimmermann, respective driver maintainer
+ 
+@@ -301,7 +301,7 @@ Various hold-ups:
+   valid formats for atomic drivers.
+ 
+ - Many drivers subclass drm_framebuffer, we'd need a embedding compatible
+-  version of the varios drm_gem_fb_create functions. Maybe called
++  version of the various drm_gem_fb_create functions. Maybe called
+   drm_gem_fb_create/_with_dirty/_with_funcs as needed.
+ 
+ Contact: Simona Vetter
+@@ -326,10 +326,9 @@ everything after it has done the write-protect/mkwrite trickery:
+ 
+       vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
+ 
+-- Set the mkwrite and fsync callbacks with similar implementions to the core
++- Set the mkwrite and fsync callbacks with similar implementations to the core
+   fbdev defio stuff. These should all work on plain ptes, they don't actually
+-  require a struct page.  uff. These should all work on plain ptes, they don't
+-  actually require a struct page.
++  require a struct page.
+ 
+ - Track the dirty pages in a separate structure (bitfield with one bit per page
+   should work) to avoid clobbering struct page.
+@@ -914,7 +913,7 @@ Querying errors from drm_syncobj
+ ================================
+ 
+ The drm_syncobj container can be used by driver independent code to signal
+-complection of submission.
++completion of submission.
+ 
+ One minor feature still missing is a generic DRM IOCTL to query the error
+ status of binary and timeline drm_syncobj.
+-- 
+2.54.0
 
-Deadlock sequence
------------------
-1. msm_gem_fault() locks the GEM object (via msm_gem_lock_interruptible).
-   For NO_SHARE objects, obj->resv IS the VM's dma_resv.
-2. get_pages() -> drm_prime_pages_to_sg() -> sg_kmalloc() -> alloc_pages()
-   with GFP_KERNEL (unconditional in drm_prime.c).
-3. CMA is nearly exhausted (3.2 MB / 128 MB free), so the page allocator
-   enters direct reclaim.
-4. Direct reclaim calls msm_gem_shrinker_scan(), which calls evict().
-5. evict() -> with_vm_locks() tries dma_resv_lock(vm->resv, ticket) on
-   a NON-NO_SHARE object attached to the same VM.
-6. vm->resv is already held by the same thread from step 1. Deadlock.
-
-The code comment in with_vm_locks() is relevant:
-
-    "Since we already skip the case when the VM and obj share a resv
-     (ie. _NO_SHARE objs), we don't expect to hit a double-locking
-     scenario..."
-
-The check skips ww_mutex locking when resv == obj->resv (the NO_SHARE case
-for the object being evicted). But the deadlock is cross-object: a NO_SHARE
-object caused the fault, locked the VM resv, and the shrinker tries to evict
-a different non-NO_SHARE object whose VM resv is the same - but whose
-obj->resv is different. The skip doesn't trigger, and the lock is already
-held by the same thread via a different ww_acquire_ctx, so -EALREADY can't
-be returned.
-
-Dmesg traces
-------------
-[ 6390.715487] INFO: task zed-editor:27479 is blocked on a mutex likely
-               owned by task zed-editor:27479.
-[ 6513.594800] task:zed-editor      state:D stack:0     pid:27479
-[ 6513.594830]  __ww_mutex_lock_slowpath+0x20/0x48
-[ 6513.594835]  ww_mutex_lock+0xe8/0x178
-[ 6513.594839]  with_vm_locks+0x78/0x1a8 [msm]
-[ 6513.594884]  evict+0x70/0xc8 [msm]
-[ 6513.594927]  msm_gem_shrinker_scan+0x1a4/0x538 [msm]
-[ 6513.594975]  do_shrink_slab+0x164/0x640
-[ 6513.594988]  shrink_one+0x9c/0x1d8
-[ 6513.595004]  do_try_to_free_pages+0xe0/0x5a0
-[ 6513.595015]  __alloc_pages_slowpath.constprop.0+0x25c/0xb18
-[ 6513.595048]  sg_kmalloc+0x44/0x60
-[ 6513.595054]  sg_alloc_append_table_from_pages+0x238/0x480
-[ 6513.595065]  drm_prime_pages_to_sg+0xac/0x150
-[ 6513.595113]  msm_gem_fault+0x48/0x170 [msm]
-[ 6513.595155]  __do_fault+0x44/0x200
-[ 6513.595179]  do_page_fault+0x1fc/0x870
-
-System memory pressure (at time of deadlock)
----------------------------------------------
-CMA total: 32768 pages (128 MB)
-CMA free:  810 pages (3.2 MB)
-allocstall (normal):  519
-allocstall (movable): 3387
-compact_fail:   7151
-compact_success: 886
-direct reclaim pages scanned: 1,194,389
-Shmem: 2.5 GB (likely WASM memfds)
-
-Root cause
-----------
-The unconditional GFP_KERNEL in drm_prime_pages_to_sg() (via
-sg_alloc_table_from_pages_segment) permits direct reclaim while the
-calling thread holds the VM's dma_resv. When memory is constrained,
-the shrinker re-enters the dma_resv lock path on the same VM, causing
-a self-deadlock.
-
-Proposed fix
-------------
-Suppress direct reclaim during the fault path's page allocation by
-wrapping get_pages() with memalloc_noreclaim_save/restore:
-
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -10,6 +10,7 @@
- #include <linux/spinlock.h>
- #include <linux/shmem_fs.h>
- #include <linux/dma-buf.h>
-+#include <linux/sched/mm.h>
-
- #include <drm/drm_dumb_buffers.h>
- #include <drm/drm_prime.h>
-@@ -282,6 +283,7 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
-        struct page **pages;
-        unsigned long pfn;
-        pgoff_t pgoff;
-+       unsigned int noreclaim_flag;
-        int err;
-        vm_fault_t ret;
-
-@@ -300,8 +302,13 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
-                return VM_FAULT_SIGBUS;
-        }
-
-+       /* Disable direct reclaim while holding GEM/VM locks to avoid
-+        * self-deadlock in the shrinker (drm_prime_pages_to_sg uses
-+        * GFP_KERNEL unconditionally).
-+        */
-+       noreclaim_flag = memalloc_noreclaim_save();
-        pages = get_pages(obj);
-+       memalloc_noreclaim_restore(noreclaim_flag);
-
-        if (IS_ERR(pages)) {
-                ret = vmf_error(PTR_ERR(pages));
-
-This is the standard approach used across DRM drivers to prevent reclaim
-while holding dma_resv locks.
-
-Notes
------
-- Bug report assisted by Kimi K2.6 (language model).
-- The original hung task traces above timestamp 6390 were not captured;
-  the ring buffer may have wrapped.
