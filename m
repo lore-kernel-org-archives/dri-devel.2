@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83DADCD4F47
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 17:31:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDA9ECD4F47
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 17:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0C9B10E269;
-	Sun, 17 May 2026 17:31:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDBBD10E0F9;
+	Sun, 17 May 2026 17:58:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="C0Jkif0W";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="kFMB9b0r";
 	dkim-atps=neutral
-X-Greylist: delayed 460 seconds by postgrey-1.36 at gabe;
- Sun, 17 May 2026 17:31:47 UTC
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com
- [95.215.58.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4F0A10E269
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 17:31:46 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1779038645;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=hueLhtL3zsdmdXnMtuPrauJ8fkjBDESO/03aEH4/H2E=;
- b=C0Jkif0WiffvNY1BfsznBsr9/Y/cagb1baZyUmCRRG+gY5j7nDRJdQ7djJktZoFUtCItnD
- kCRU3w5AxOEEqgzpcZOpFnKDCpkic3dHBIl9LiImC/iipMlJY/sPVxy2us+CHCeckgtdYV
- hZj8+rL8KwTOEqEPDfXoJXWIu5GgUe8=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND v2] dma-buf: heaps: use max3 in dma_heap_ioctl
-Date: Sun, 17 May 2026 19:23:53 +0200
-Message-ID: <20260517172352.3615-2-thorsten.blum@linux.dev>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA4E910E0F9
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 17:58:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779040721; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=WmfY19OKFKnkWyJW49PKrDGRayA5/Z9UssCuIxe2vntvM0FDMDa7y4tIecx8yADOUvT/I97cERvbP04iNEYWPM01h6/0n3J+O6uDYtAl8kbJgPMQLCJ793D3+CvLyvfrG4yvp9IvldkHWFYE3FtYbab+CTPI0239YGvIPRo75ek=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779040721;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=VeevrAQiCsQUxOzHl4izVJTD529JtlfihkTekpvzD/Q=; 
+ b=LeDcYhPTFU5s+Sjfqesl14sg/H+sJBRntL92E6zT8bfgI6HB/unKHtnPXYdU8A9YG8hCpAR4XNzLHOASdfYgg70m0tSm5JSXWm+LosgUph3EDZdz+7s9Ec175fjStWgssT9q+mK0r5ZQR3XqFlL8wqdj/eVUYxyFzQ+sZgLQ6ns=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779040720; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+ bh=VeevrAQiCsQUxOzHl4izVJTD529JtlfihkTekpvzD/Q=;
+ b=kFMB9b0rTNzu8GgHyvO74n1nDy7k93/Qmqv7K3jv4CtO0UJFGbfX4Y1Rhkvkk6O8
+ mR/DfyZe/O0J0reu5g/NsabuZx0bGDP2pMO3WY0YXss4YtArETGzd+Q4SrMRELGnv1Z
+ 0bsJfVjJOu16X5eNpqm/ZePytwegcLlNAljOJfT8=
+Received: by mx.zohomail.com with SMTPS id 1779040719433684.9088233288549;
+ Sun, 17 May 2026 10:58:39 -0700 (PDT)
+Message-ID: <39c2d048-8b29-4893-8fbb-12adb0697fd6@collabora.com>
+Date: Sun, 17 May 2026 20:58:36 +0300
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1175; i=thorsten.blum@linux.dev;
- h=from:subject; bh=2Qy1bhZE4ZUxVczuVFGuB6tJXixNg2z/25mUfsiG6bg=;
- b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmcP1f4TOnRZosXO71QYZ/h1sf+CvOZt2/JPL1xhs+GC
- 7uC8p0fd5SyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEMl8w/E9NZXQWOpjX9cFP
- f9vU6zOv1X+PfHhp+uVIM635Py32vT3CyPDq+bI7L7+o7Dk7r8LjhUit7tp7R1sErpt88eeW0la
- YXcsFAA==
-X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp;
- fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/3] drm/virtio: Freeze and restore hooks to support
+ suspend and resume
+To: dongwon.kim@intel.com, dri-devel@lists.freedesktop.org,
+ airlied@redhat.com, kraxel@redhat.com
+References: <20260429204729.993669-1-dongwon.kim@intel.com>
+ <20260429204729.993669-2-dongwon.kim@intel.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260429204729.993669-2-dongwon.kim@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,36 +68,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace two nested max() calls with a single max3() in dma_heap_ioctl().
+29.04.2026 23:47, dongwon.kim@intel.com пишет:
+> +static int virtgpu_freeze(struct virtio_device *vdev)
+> +{
+> +	struct drm_device *dev = vdev->priv;
+> +	struct virtio_gpu_device *vgdev = dev->dev_private;
+> +	int error;
+> +
+> +	error = drm_mode_config_helper_suspend(dev);
+> +	if (error) {
+> +		DRM_ERROR("suspend error %d\n", error);
+> +		return error;
+> +	}
+> +
+> +	flush_work(&vgdev->obj_free_work);
+> +	flush_work(&vgdev->ctrlq.dequeue_work);
+> +	flush_work(&vgdev->cursorq.dequeue_work);
+> +	flush_work(&vgdev->config_changed_work);
+> +
+> +	wait_event_timeout(vgdev->ctrlq.ack_queue,
+> +		vgdev->ctrlq.vq->num_free == vgdev->ctrlq.vq->num_max,
+> +		5 * HZ);
+> +
+> +	wait_event_timeout(vgdev->cursorq.ack_queue,
+> +		vgdev->cursorq.vq->num_free == vgdev->cursorq.vq->num_max,
+> +		5 * HZ);
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
-Changes in v2:
-- Include minmax.h as suggested by T.J. Mercier
-- v1: https://lore.kernel.org/lkml/20260427172519.417333-3-thorsten.blum@linux.dev/
----
- drivers/dma-buf/dma-heap.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Return error on timeout or better wait indefinitely. On [1] I suggested
+to print warning messages on event timeout, could be a common
+virtio_gpu_wait_queue_event() helper.
 
-diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-index ac5f8685a649..d49188893608 100644
---- a/drivers/dma-buf/dma-heap.c
-+++ b/drivers/dma-buf/dma-heap.c
-@@ -13,6 +13,7 @@
- #include <linux/err.h>
- #include <linux/export.h>
- #include <linux/list.h>
-+#include <linux/minmax.h>
- #include <linux/nospec.h>
- #include <linux/syscalls.h>
- #include <linux/uaccess.h>
-@@ -153,7 +154,7 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 		in_size = 0;
- 	if ((ucmd & kcmd & IOC_OUT) == 0)
- 		out_size = 0;
--	ksize = max(max(in_size, out_size), drv_size);
-+	ksize = max3(in_size, out_size, drv_size);
- 
- 	/* If necessary, allocate buffer for ioctl argument */
- 	if (ksize > sizeof(stack_kdata)) {
+[1]
+https://lore.kernel.org/dri-devel/8a986c52-964f-42a5-b063-fbe2b242ca36@collabora.com/
+
+-- 
+Best regards,
+Dmitry
