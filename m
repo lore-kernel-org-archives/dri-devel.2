@@ -4,80 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B724ECD37AC
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 13:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E43E1CD4F21
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 13:20:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6AFF10E09F;
-	Sun, 17 May 2026 13:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45D0110E1ED;
+	Sun, 17 May 2026 13:20:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R5sdup77";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="Q+E6UdkE";
 	dkim-atps=neutral
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
- [209.85.219.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3A610E1ED
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:18:01 +0000 (UTC)
-Received: by mail-qv1-f43.google.com with SMTP id
- 6a1803df08f44-8b3d6b215cfso29780896d6.3
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 06:18:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779023880; x=1779628680; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=8qmzV4OG/gwgrFg2WjVRa5yFfeYJiaj+u8zvgWP2oxA=;
- b=R5sdup77L4kbL+l8/kbVMfHt21OiXaBTOg0BH6iK9mgMGCChhl+7vf6JTKCdIzTX8g
- uK1kYo4wJ/EcXuIYMOmMeJ6jMlD6ktqu8zrHZ7DdW3rHf4eJDHfpo5yxgB7g0Cusgrw5
- 99aS/HRvr845CtRSAmheI5eTx5rx5dVegxHILKtMUtKjSfb805eIdB+tcrI8HIZ5uXNY
- 5CD+JrFXs6M1Hvk0FToZ/YfJve9oTrbodWcZwv8mEdgy4I3bx3r7yKtTR7M6nJWyuBac
- zj8LwV89qNqoaYVbdFfi9oRsnQrXqWx+WpKdSsBhaP2imGJSREff8i9fCFKgzrhIxR1y
- BBwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779023880; x=1779628680;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8qmzV4OG/gwgrFg2WjVRa5yFfeYJiaj+u8zvgWP2oxA=;
- b=LThasO1j9OAW+sW2IMonLNqqY8CJCx+DB+f8sd/XBxwT4oZrCJXOhUyQ5qE+lD4KlK
- Yor6m0PWEUuRn/YVD6EMP1UacsUTIE3/jdzdf9FEr5+BEtoffy163EC6soxSRkzEPUIa
- pJT0NUhJLmXxnn8fwgCIW3Px+MSSPUUogoQnZTd4Ak1Cqgp+U83YQZzbd4ZfsCAIQXDL
- DUEzTHrKnkhayAKq8t8xeGhxF7C5Xi0lWqch+w+QMWiZjjaL0Xr4XU9RHt91Sszi2B33
- 4TYqjhSjjK2p/RCdJWMl19agyeXXvbgXqOejEmGzB1GdCldokOHFm4NDELV623qnOnlN
- N+tQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+vTJD7ACWH2Rou1C8UDhb3JSE0sHbx1iiUqdN2QsLWvhzNCoFCLzO/yTdvX5JXXP/0AycZe2JRLfU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxtgEEjZCP11R+TCO06W3y4PiCNgVodtjGku4UStcIkZa5rupOc
- j6hk7zhdRVQ2QBIE1TxHvJzkX05zKBJBXPcSbeGGWF1dPP0FiR2HbTMj
-X-Gm-Gg: Acq92OFOlminAyxReZT8rsSBVrx+CG04VzNFsNwKNfAx6I/Z4ZM9mSq4bmW6GdA2UPf
- 2aLyJXUF7lRAwGS4fn+11VPh0SE9RatB79dDGIyEmXugrN+WJJuol3Qr4lsoSiiOBTm3qub6SRs
- pDYjvB0OJwD8O+fiD6O63m8tAMgC4IaF5o0H1NfXy5HR8VTZoEcbNxi6yUrdpcmL+q1HUKGdw28
- +U4O7Qpaktn12sGuhVb0CQ5NRA8VNvHCPzpSczkPapxUwWiMBXVjErl+T2QksfHqWXcouCJhzmV
- 9NI/S5ySmw3mtpqU2vmoTV4TzKu51MnGOr85U6zb3dG3BPlGeRa01IcUkkyWqxKRxRGCV8agV1r
- dnkUb1ZcmPKAvtwdi0gHxEzFRrG3vd+jPtP2oObq4mfna8QIWqc7NPH4yeW2+aSNXdVXyjgY7Kv
- Wtxe/VWau0MmJqLjF64GnXjqIrEGCpfyIepti/IUdBF4oBiTy+qny2+8afugGMh4sLbj12dDgFn
- z6Updjqwi1Nt5tVmGCfI2ZtOe1Sk1GOAGliRrvGP+U=
-X-Received: by 2002:ad4:4211:0:b0:8bd:6baa:6a0c with SMTP id
- 6a1803df08f44-8ca0f611b62mr138164296d6.11.1779023879979; 
- Sun, 17 May 2026 06:17:59 -0700 (PDT)
-Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net.
- [68.48.65.54]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ca3619c703sm22268846d6.33.2026.05.17.06.17.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2026 06:17:59 -0700 (PDT)
-From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- David Francis <David.Francis@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Cc: Ziyi Guo <n7l8m4@u.northwestern.edu>
-Subject: [PATCH] drm/amdgpu: fix lock leak on ENOMEM in
- AMDGPU_GEM_OP_GET_MAPPING_INFO
-Date: Sun, 17 May 2026 09:17:42 -0400
-Message-ID: <20260517131742.3435209-1-michael.bommarito@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from mail-03.1984.is (mail-03.1984.is [93.95.224.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8762910E1ED
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:20:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=berkoc.com; 
+ s=1984;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=ldPh9qqiOD6rik1ZyLFqBmBS78przHDh7LwDDhS9xzE=; b=Q+E6UdkEgUfoxzVvgwhf9sA33q
+ CaVb7rGxa3G6GrIS5gk5cEPVeqeKdgwsfa3jMOhIkhBIn7Zg++AMXQl11Si/qXmadDPBODzQ5MpDp
+ iOuC1ao4ERvsl8wJ9JBwHUvDPAFlEcU2Znzj/Vl0KSIrlTgqH2Yn1m7xJsLJkwOrCO7qJ19JFrtmo
+ HGW+dKB2f8YRvWneUDIaExbUs3g+bgZKGY5RPoX110E6t7nbYm8sHnHm9mFjAy5faMpppDI6zAqfV
+ MNQ2zof2ZsjqHp8TMxzpnvsTnppgW3SRFGbIP0nYwJtOImZbhuWk9V88pReOiKmk8gWHafrjBHgyv
+ G4L4keQg==;
+Received: from localhost by mail-03.1984.is with utf8esmtp (Exim 4.96)
+ (envelope-from <me@berkoc.com>) id 1wObG1-00H5Ss-1i;
+ Sun, 17 May 2026 13:10:14 +0000
+From: Berkant Koc <me@berkoc.com>
+To: Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wei Liu <wei.liu@kernel.org>,
+ Michael Kelley <mhklinux@outlook.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Deepak Rawat <drawat.floss@gmail.com>
+Subject: [PATCH 1/2] drm/hyperv: validate resolution_count from host VMBus
+ message
+Date: Sun, 17 May 2026 14:55:01 +0200
+Message-ID: <20260517-drm-hyperv-patch1@berkoc.com>
+In-Reply-To: <20260517-drm-hyperv-cover@berkoc.com>
+References: <20260517-drm-hyperv-cover@berkoc.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Authenticated-User: me@berkoc.com
+X-Sender-Address: me@berkoc.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,68 +65,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The AMDGPU_GEM_OP_GET_MAPPING_INFO branch of amdgpu_gem_op_ioctl()
-holds three cleanup-tracked resources before calling kvcalloc():
-the drm_gem_object reference from drm_gem_object_lookup(), the
-drm_exec lock on the looked-up GEM via drm_exec_lock_obj(), and
-the drm_exec lock on the per-process VM root page directory via
-amdgpu_vm_lock_pd().  All three are released by the out_exec
-label that every other error path in this function jumps to.
-The kvcalloc() failure path returns -ENOMEM directly, skipping
-out_exec and leaking all three.
+The synthetic video device receives a SYNTHVID_RESOLUTION_RESPONSE
+containing a u8 resolution_count and a u8 default_resolution_index
+from the host. The existing check rejects resolution_count == 0 and
+rejects an index that is greater or equal to resolution_count, but
+does not bound resolution_count itself against the fixed
+supported_resolution[SYNTHVID_MAX_RESOLUTION_COUNT] array. A host
+that returns resolution_count > 64 together with an in-range
+default_resolution_index causes the subsequent loop to read past
+the array.
 
-The leaked per-process VM root PD dma_resv lock is the
-load-bearing leak: any subsequent operation on the same VM
-(further GEM ops, command-submission, eviction, TTM shrinker
-callbacks) blocks on the held lock.  DRM_IOCTL_AMDGPU_GEM_OP is
-DRM_AUTH | DRM_RENDER_ALLOW, so this is an unprivileged-local
-denial of service against the caller's GPU context, reachable
-by any process with /dev/dri/renderD* access.
+Reject any resolution_count that exceeds SYNTHVID_MAX_RESOLUTION_COUNT,
+folded into the existing zero-check for one log entry per failure.
+This matches the input-validation pattern used by other VMBus parsers
+under drivers/hv/ and trims one host-controlled value from the trusted
+path.
 
-Route the failure through out_exec so drm_exec_fini() and
-drm_gem_object_put() run.
-
-Reproduced on stock 7.0.0-10, Ryzen 7 5700U / Radeon Vega
-(Lucienne): the failing ioctl returns -ENOMEM and a second
-GET_MAPPING_INFO on the same fd then blocks in
-drm_exec_lock_obj() on the leaked dma_resv.  SIGKILL on the
-caller does not reap the task; the fd-release path during
-process exit goes through amdgpu_gem_object_close() ->
-drm_exec_prepare_obj() on the same lock, leaving the task in D
-state until the box is rebooted.  The patched kernel was not
-rebuilt and re-tested on this hardware; the fix is mechanical.
-Tested on a single Lucienne / Vega box only.
-
-Ziyi Guo posted an independent INT_MAX-bound check for
-args->num_entries in the same branch [1]; the two patches are
-complementary and can land in either order.
-
-Fixes: 4d82724f7f2b ("drm/amdgpu: Add mapping info option for GEM_OP ioctl")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260208000255.4073363-1-n7l8m4@u.northwestern.edu/ # [1]
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Assisted-by: Claude:claude-opus-4-7
+Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic video device")
+Cc: stable@vger.kernel.org # 5.14+
+Signed-off-by: Berkant Koc <me@berkoc.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 9ef80bca4102..8224fb499fdf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -1091,8 +1091,10 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 		 * be retried.
- 		 */
- 		vm_entries = kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KERNEL);
--		if (!vm_entries)
--			return -ENOMEM;
-+		if (!vm_entries) {
-+			r = -ENOMEM;
-+			goto out_exec;
-+		}
+diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+index 051ecc526832..003bb118d64c 100644
+--- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
++++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+@@ -391,8 +391,11 @@ static int hyperv_get_supported_resolution(struct hv_device *hdev)
+ 		return -ETIMEDOUT;
+ 	}
  
- 		amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) {
- 			if (num_mappings < args->num_entries) {
+-	if (msg->resolution_resp.resolution_count == 0) {
+-		drm_err(dev, "No supported resolutions\n");
++	if (msg->resolution_resp.resolution_count == 0 ||
++	    msg->resolution_resp.resolution_count >
++	    SYNTHVID_MAX_RESOLUTION_COUNT) {
++		drm_err(dev, "Invalid resolution count: %d\n",
++			msg->resolution_resp.resolution_count);
+ 		return -ENODEV;
+ 	}
+ 
 -- 
-2.53.0
+2.47.3
 
