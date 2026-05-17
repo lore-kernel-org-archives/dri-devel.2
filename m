@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B21ECD4F3C
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 00:04:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF698CD4F3C
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 00:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD10B10E645;
-	Sun, 17 May 2026 00:04:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE2710E64A;
+	Sun, 17 May 2026 00:04:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tWAQTXre";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uCfR4BaQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 612AF10E645
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 00:04:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D46DA10E64A
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 00:04:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4843941A4D;
+ by tor.source.kernel.org (Postfix) with ESMTP id 4295960125;
+ Sun, 17 May 2026 00:04:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9610CC2BCB7;
  Sun, 17 May 2026 00:04:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C710EC2BCC7;
- Sun, 17 May 2026 00:04:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778976281;
- bh=rJ9Zf42krWnw6GFHxY+YcEyrmhC+ZgJmklrrd85+jss=;
+ s=k20201202; t=1778976288;
+ bh=VzhZN2bLBZmjc+UBgjV2Jy3Issf2Ch22S+Nhyhuudf0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tWAQTXreNrT3sTiNeC5mlLs5oVKJdEHYos4o7ou+u0R5pKnc2F5Lv6UNooFPq5D4o
- Du1SZ/+CZ1vHAo6IAkKY9t7dV0xKvnV2QQVKgva7CpVxCTnJWm4nP4S30nxOHvnNAm
- Y7yOc1FCSsnXkp7T5FHMYjz6dZuuCi+nX/FXZ4zJKgkSgmYjgIwYlh4M0QxG6VUtUS
- OmX9auaax/8hdAk2ehehF5hxFZ50EJfwBjKc6keA1TUq5clH/AgME35e7VBXZEgw4Y
- DfDPPsgMZzGobzLlZlQkz3O4NhcqV+9A76HMxhizG7hskO/4NMYTN84KczSRT8z4rE
- oB4RF47wbDJ2A==
+ b=uCfR4BaQBAxYF9hZUkQRGPxokfCRPhA4LZwa/IJLFrzzQllB5rdRH9zgjuRnAcJBj
+ PIaLc5ECKQJl0xnGEcHmSXBTNVZU2MgGIWFN1C1iYRujH4BydpYZigQBXXygbwo1gj
+ y0raYZJm9y+snMpZ+yJGQyJWX6G70XRhT73ez4O0AQxsQB35nikPqMxWwDO7MpcR7S
+ Y2cy46hNf21LJ5TdcJPm+AOZSt7bUBPefikTRlFgY2+vpIF3T6m81JvmV+mskgPpGe
+ LWp542JP/X0JE5WRuf/GHyKCkGx8+llHESG/8AIKH0XQyFqn30GXMS+eqr/DzPwngU
+ VTYU1rCBEZalw==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
@@ -45,9 +45,9 @@ Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
  Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH REF v3 23/27] gpu: nova-core: rename 'a lifetime to 'bound
-Date: Sun, 17 May 2026 02:01:11 +0200
-Message-ID: <20260517000149.3226762-24-dakr@kernel.org>
+Subject: [PATCH REF v3 24/27] gpu: nova-core: use lifetime for Bar
+Date: Sun, 17 May 2026 02:01:12 +0200
+Message-ID: <20260517000149.3226762-25-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260517000149.3226762-1-dakr@kernel.org>
 References: <20260517000149.3226762-1-dakr@kernel.org>
@@ -68,101 +68,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rename the generic lifetime parameter from 'a to 'bound in nova-core.
-This makes it explicit that the lifetime represents the device binding
-scope, consistent with the convention established by the HRT series.
+Take advantage of the lifetime-parameterized pci::Bar<'bound> to hold
+the BAR mapping directly in NovaCore<'bound>, and pass a borrowed
+reference to Gpu<'bound>.
+
+This eliminates the Arc<Devres<Bar0>> indirection, removes runtime
+revocation checks for BAR access, and simplifies Gpu::unbind().
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/nova-core/firmware/gsp.rs    |  8 ++++----
- drivers/gpu/nova-core/gpu.rs             |  8 ++++----
- drivers/gpu/nova-core/gsp/commands.rs    | 10 +++++-----
- drivers/gpu/nova-core/gsp/fw/commands.rs |  4 +++-
- 4 files changed, 16 insertions(+), 14 deletions(-)
+ drivers/gpu/nova-core/driver.rs    | 46 +++++++++++++++---------------
+ drivers/gpu/nova-core/gpu.rs       | 27 +++++++-----------
+ drivers/gpu/nova-core/nova_core.rs |  2 +-
+ 3 files changed, 34 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/firmware/gsp.rs
-index 2fcc255c3bc8..9dbd88c55f7e 100644
---- a/drivers/gpu/nova-core/firmware/gsp.rs
-+++ b/drivers/gpu/nova-core/firmware/gsp.rs
-@@ -65,11 +65,11 @@ pub(crate) struct GspFirmware {
- impl GspFirmware {
-     /// Loads the GSP firmware binaries, map them into `dev`'s address-space, and creates the page
-     /// tables expected by the GSP bootloader to load it.
--    pub(crate) fn new<'a>(
--        dev: &'a device::Device<device::Bound>,
-+    pub(crate) fn new<'bound>(
-+        dev: &'bound device::Device<device::Bound>,
-         chipset: Chipset,
--        ver: &'a str,
--    ) -> impl PinInit<Self, Error> + 'a {
-+        ver: &'bound str,
-+    ) -> impl PinInit<Self, Error> + 'bound {
-         pin_init::pin_init_scope(move || {
-             let firmware = super::request_firmware(dev, chipset, "gsp", ver)?;
- 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 0f6fe9a1b955..9288b30fe4c3 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -241,11 +241,11 @@ pub(crate) struct Gpu {
- }
- 
- impl Gpu {
--    pub(crate) fn new<'a>(
--        pdev: &'a pci::Device<device::Bound>,
-+    pub(crate) fn new<'bound>(
-+        pdev: &'bound pci::Device<device::Bound>,
-         devres_bar: Arc<Devres<Bar0>>,
--        bar: &'a Bar0,
--    ) -> impl PinInit<Self, Error> + 'a {
-+        bar: &'bound Bar0,
-+    ) -> impl PinInit<Self, Error> + 'bound {
-         try_pin_init!(Self {
-             spec: Spec::new(pdev.as_ref(), bar).inspect(|spec| {
-                 dev_info!(pdev,"NVIDIA ({})\n", spec);
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index c89c7b57a751..0da5b92f4b27 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -35,18 +35,18 @@
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 3f6d8cedf5ab..fb52d21a7d92 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -14,12 +14,9 @@
+     },
+     prelude::*,
+     sizes::SZ_16M,
+-    sync::{
+-        atomic::{
+-            Atomic,
+-            Relaxed, //
+-        },
+-        Arc,
++    sync::atomic::{
++        Atomic,
++        Relaxed, //
+     },
+     types::ForLt,
  };
+@@ -30,9 +27,10 @@
+ static AUXILIARY_ID_COUNTER: Atomic<u32> = Atomic::new(0);
  
- /// The `GspSetSystemInfo` command.
--pub(crate) struct SetSystemInfo<'a> {
--    pdev: &'a pci::Device<device::Bound>,
-+pub(crate) struct SetSystemInfo<'bound> {
-+    pdev: &'bound pci::Device<device::Bound>,
+ #[pin_data]
+-pub(crate) struct NovaCore {
++pub(crate) struct NovaCore<'bound> {
+     #[pin]
+-    pub(crate) gpu: Gpu,
++    pub(crate) gpu: Gpu<'bound>,
++    bar: pci::Bar<'bound, BAR0_SIZE>,
+     #[allow(clippy::type_complexity)]
+     _reg: Devres<auxiliary::Registration<ForLt!(())>>,
  }
+@@ -47,12 +45,14 @@ pub(crate) struct NovaCore {
+ // DMA addresses. These systems should be quite rare.
+ const GPU_DMA_BITS: u32 = 47;
  
--impl<'a> SetSystemInfo<'a> {
-+impl<'bound> SetSystemInfo<'bound> {
-     /// Creates a new `GspSetSystemInfo` command using the parameters of `pdev`.
--    pub(crate) fn new(pdev: &'a pci::Device<device::Bound>) -> Self {
-+    pub(crate) fn new(pdev: &'bound pci::Device<device::Bound>) -> Self {
-         Self { pdev }
+-pub(crate) type Bar0 = pci::Bar<'static, BAR0_SIZE>;
++pub(crate) type Bar0 = kernel::io::Mmio<BAR0_SIZE>;
++
++pub(crate) struct NovaCoreDriver;
+ 
+ kernel::pci_device_table!(
+     PCI_TABLE,
+     MODULE_PCI_TABLE,
+-    <NovaCore as pci::Driver>::IdInfo,
++    <NovaCoreDriver as pci::Driver>::IdInfo,
+     [
+         // Modern NVIDIA GPUs will show up as either VGA or 3D controllers.
+         (
+@@ -74,15 +74,15 @@ pub(crate) struct NovaCore {
+     ]
+ );
+ 
+-impl pci::Driver for NovaCore {
++impl pci::Driver for NovaCoreDriver {
+     type IdInfo = ();
+-    type Data<'bound> = Self;
++    type Data<'bound> = NovaCore<'bound>;
+     const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
+ 
+     fn probe<'bound>(
+         pdev: &'bound pci::Device<Core>,
+         _info: &'bound Self::IdInfo,
+-    ) -> impl PinInit<Self, Error> + 'bound {
++    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         pin_init::pin_init_scope(move || {
+             dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+ 
+@@ -94,14 +94,14 @@ fn probe<'bound>(
+             // other threads of execution.
+             unsafe { pdev.dma_set_mask_and_coherent(DmaMask::new::<GPU_DMA_BITS>())? };
+ 
+-            let bar = Arc::new(
+-                pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?
+-                    .into_devres()?,
+-                GFP_KERNEL,
+-            )?;
+-
+-            Ok(try_pin_init!(Self {
+-                gpu <- Gpu::new(pdev, bar.clone(), bar.access(pdev.as_ref())?),
++            Ok(try_pin_init!(NovaCore {
++                bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?,
++                // TODO: Use `&bar` self-referential pin-init syntax once available.
++                //
++                // SAFETY: `bar` is initialized before this expression is evaluated
++                // (`try_pin_init!()` initializes fields in declaration order), lives at a pinned
++                // stable address, and is dropped after `gpu` (struct field drop order).
++                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar) }),
+                 _reg: auxiliary::Registration::new(
+                     pdev.as_ref(),
+                     c"nova-drm",
+@@ -115,7 +115,7 @@ fn probe<'bound>(
+         })
+     }
+ 
+-    fn unbind<'bound>(pdev: &'bound pci::Device<Core>, this: Pin<&'bound Self>) {
+-        this.gpu.unbind(pdev.as_ref());
++    fn unbind<'bound>(_pdev: &'bound pci::Device<Core>, this: Pin<&'bound Self::Data<'bound>>) {
++        this.gpu.unbind();
      }
  }
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 9288b30fe4c3..03295fa6fb32 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -2,13 +2,11 @@
  
--impl<'a> CommandToGsp for SetSystemInfo<'a> {
-+impl<'bound> CommandToGsp for SetSystemInfo<'bound> {
-     const FUNCTION: MsgFunction = MsgFunction::GspSetSystemInfo;
-     type Command = GspSetSystemInfo;
-     type Reply = NoReply;
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index db46276430be..d3ef7ecdd73e 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -24,7 +24,9 @@ pub(crate) struct GspSetSystemInfo {
- impl GspSetSystemInfo {
-     /// Returns an in-place initializer for the `GspSetSystemInfo` command.
-     #[allow(non_snake_case)]
--    pub(crate) fn init<'a>(dev: &'a pci::Device<device::Bound>) -> impl Init<Self, Error> + 'a {
-+    pub(crate) fn init<'bound>(
-+        dev: &'bound pci::Device<device::Bound>,
-+    ) -> impl Init<Self, Error> + 'bound {
-         type InnerGspSystemInfo = bindings::GspSystemInfo;
-         let init_inner = try_init!(InnerGspSystemInfo {
-             gpuPhysAddr: dev.resource_start(0)?,
+ use kernel::{
+     device,
+-    devres::Devres,
+     fmt,
+     io::Io,
+     num::Bounded,
+     pci,
+-    prelude::*,
+-    sync::Arc, //
++    prelude::*, //
+ };
+ 
+ use crate::{
+@@ -224,10 +222,10 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+ 
+ /// Structure holding the resources required to operate the GPU.
+ #[pin_data]
+-pub(crate) struct Gpu {
++pub(crate) struct Gpu<'bound> {
+     spec: Spec,
+-    /// MMIO mapping of PCI BAR 0
+-    bar: Arc<Devres<Bar0>>,
++    /// MMIO mapping of PCI BAR 0.
++    bar: &'bound Bar0,
+     /// System memory page required for flushing all pending GPU-side memory writes done through
+     /// PCIE into system memory, via sysmembar (A GPU-initiated HW memory-barrier operation).
+     sysmem_flush: SysmemFlush,
+@@ -240,10 +238,9 @@ pub(crate) struct Gpu {
+     gsp: Gsp,
+ }
+ 
+-impl Gpu {
+-    pub(crate) fn new<'bound>(
++impl<'bound> Gpu<'bound> {
++    pub(crate) fn new(
+         pdev: &'bound pci::Device<device::Bound>,
+-        devres_bar: Arc<Devres<Bar0>>,
+         bar: &'bound Bar0,
+     ) -> impl PinInit<Self, Error> + 'bound {
+         try_pin_init!(Self {
+@@ -257,6 +254,8 @@ pub(crate) fn new<'bound>(
+                     .inspect_err(|_| dev_err!(pdev, "GFW boot did not complete\n"))?;
+             },
+ 
++            bar,
++
+             sysmem_flush: SysmemFlush::register(pdev.as_ref(), bar, spec.chipset)?,
+ 
+             gsp_falcon: Falcon::new(
+@@ -270,19 +269,13 @@ pub(crate) fn new<'bound>(
+             gsp <- Gsp::new(pdev),
+ 
+             _: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
+-
+-            bar: devres_bar,
+         })
+     }
+ 
+     /// Called when the corresponding [`Device`](device::Device) is unbound.
+     ///
+     /// Note: This method must only be called from `Driver::unbind`.
+-    pub(crate) fn unbind(&self, dev: &device::Device<device::Core>) {
+-        kernel::warn_on!(self
+-            .bar
+-            .access(dev)
+-            .inspect(|bar| self.sysmem_flush.unregister(bar))
+-            .is_err());
++    pub(crate) fn unbind(&self) {
++        self.sysmem_flush.unregister(self.bar);
+     }
+ }
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 04a1fa6b25f8..073d87714d3a 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -47,7 +47,7 @@ struct NovaCoreModule {
+     // Fields are dropped in declaration order, so `_driver` is dropped first,
+     // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
+     #[pin]
+-    _driver: Registration<pci::Adapter<driver::NovaCore>>,
++    _driver: Registration<pci::Adapter<driver::NovaCoreDriver>>,
+     _debugfs_guard: DebugfsRootGuard,
+ }
+ 
 -- 
 2.54.0
 
