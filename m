@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C848CD4F25
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 07:55:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DF3CCD37AC
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 07:59:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B59C210E198;
-	Sun, 17 May 2026 07:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C33F10E1A7;
+	Sun, 17 May 2026 07:59:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PLFmYx+8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YNDxb9WS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6536C10E198
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 07:55:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB4110E1A7
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 07:59:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779004527; x=1810540527;
+ t=1779004759; x=1810540759;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=i0kfLz76ZUS7mXXRA6d1PSTN4kPR6EHkESc4EYiFmcU=;
- b=PLFmYx+8PP+X7PUKWejWPC9oXi+Pmy4aNUJaOPEb8PYjRbYpp9kEiuN0
- DDguKycuuTuwYlf8Po6TAAesdB6K3c0u547Gd3fBscJNfGN8ITeFgI921
- 55N0opdSLHtQESUw31cDpljhtPlyFaM4X3ThPiktGPg6QQPC/K022Nwia
- ye0AecGWmroae7BdAstdsdxHEvCiSaHD6SGpVLHHpAlOZXDD09V43h9Ey
- z99OvQcPj3X32GpSumKiNBXBDAIeicANpCT4PXOUti31bFcKizGBF+lB6
- VpnmxXwQhDDkP1oFl88qRQ5CFiAcIsKt5NHK+S4XCpRLkxyxRCeMwOUo0 A==;
-X-CSE-ConnectionGUID: k135lTsFRguyBIbcG5TiwA==
-X-CSE-MsgGUID: 6/dutP4LTMiqrkL14qoyyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11788"; a="79606872"
-X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; d="scan'208";a="79606872"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2026 00:55:26 -0700
-X-CSE-ConnectionGUID: UauCmfXUSYaqhGk3+0DCCw==
-X-CSE-MsgGUID: 7XNc7wVTTtOLron1bLoE+Q==
+ bh=RCztGsesV7QNXwOx6El2gib8koFC1gVYlbosBrs9hB4=;
+ b=YNDxb9WSZmdjmNUum8BR14IvD3MBggsiV19f+RwWU9Dgb3SnjvlufJrb
+ 6PZgRGETM2R95PLg1qZYQ4YZffMlnvWviAXrh72L966Ijzf6FeaTfX2oM
+ PyGM7Tu9WYOH4hS4uxgGBMrklxOHgxzQEeGhucJRl0xr5yDRuFA9u+c6u
+ VcUSErpPOlB4mkxPm4jFZs+tK0uJJmvvptblbc3gXkZIXatMfIFLE8tae
+ Eccu0ksb04qHFhAsOTjFxOIFqhGqcVbuyaSX0qC5wF4B00IBAZVmlFOVL
+ UPYklh4dY6RF8JAwkXN6bo1OPTynr9wWC1PY3shZChLIdCm0fUGCoNivf g==;
+X-CSE-ConnectionGUID: DrBgJTqKScGWs9TdX2lUTA==
+X-CSE-MsgGUID: hl+aiHwxR9yTR7Po6veVIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11788"; a="90995772"
+X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; d="scan'208";a="90995772"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2026 00:59:19 -0700
+X-CSE-ConnectionGUID: fEhjprTLT9GHbm5HCE3P9Q==
+X-CSE-MsgGUID: 632bb8nxSsKUq/xhD4M5Rg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; d="scan'208";a="236489130"
+X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; d="scan'208";a="232733648"
 Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
  ([10.245.245.182])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2026 00:55:21 -0700
-Date: Sun, 17 May 2026 10:55:19 +0300
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2026 00:59:14 -0700
+Date: Sun, 17 May 2026 10:59:11 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
@@ -55,14 +55,14 @@ Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v1 2/6] mfd: lm3533: Convert to use OF bindings
-Message-ID: <agl0Z_EGzX8X4No4@ashevche-desk.local>
+Subject: Re: [PATCH v1 0/6] mfd: lm3533: convert to OF bindings, improve
+ support
+Message-ID: <agl1T8O6kwP7SFZ1@ashevche-desk.local>
 References: <20260517074306.30937-1-clamor95@gmail.com>
- <20260517074306.30937-3-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260517074306.30937-3-clamor95@gmail.com>
+In-Reply-To: <20260517074306.30937-1-clamor95@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,15 +80,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, May 17, 2026 at 10:43:02AM +0300, Svyatoslav Ryhel wrote:
-> Since there are no users of this driver via platform data, remove the
-> platform data support and switch to using Device Tree bindings.
-> Additionally, optimize functions used only by platform data.
+On Sun, May 17, 2026 at 10:43:00AM +0300, Svyatoslav Ryhel wrote:
+> Convert LM3533 to OF bindings, add missing VIN supply, add support for
+> setting mapping mode and LED sources based on device tree. 
 
-This is a mixture of at least (!) three patches:
-- devm conversion
-- the change of some constants
-- the rest
+How is this being different to
+https://lore.kernel.org/lkml/20250218132702.114669-1-clamor95@gmail.com/
+?
+
+What about this comment
+https://lore.kernel.org/lkml/ZmBcvtLCzllQDWVX@hovoldconsulting.com/
+? Have you talked to Bjorn A and Johan?
 
 -- 
 With Best Regards,
