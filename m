@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24C15CD4F3C
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 00:03:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE09DCD4F3C
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 00:03:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B3C10E580;
-	Sun, 17 May 2026 00:03:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14DAB10E58C;
+	Sun, 17 May 2026 00:03:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IoPVBIzP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XtGwfL8D";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F34910E580
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 00:03:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F239F10E658
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 00:03:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A6AD660125;
+ by tor.source.kernel.org (Postfix) with ESMTP id 75803600BB;
+ Sun, 17 May 2026 00:03:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B2EC19425;
  Sun, 17 May 2026 00:03:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043BEC2BCC7;
- Sun, 17 May 2026 00:03:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778976206;
- bh=avrhsflP+Zp0J2Q2FrOowrwuKNUrLPH/AYRqanHkf2A=;
+ s=k20201202; t=1778976213;
+ bh=HnenYj+M4p4qXsQQTJ2FKMdGG+njf7P3a3XdXnokphw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IoPVBIzPQrPw3//jYeUZUdeRMbyQ/J5Dw9JpDDFf6xBKAe8HtUHlZ7V26Tkq0hhJJ
- 5iRLFwbCaR0fIP3Pfx9RU8MUMVbabn3CcxZY0Ebly0AgyIsHA3tt2Swg+0zEibuz41
- 5dj0B1SPUf4Zu9LGsLklnabM6CjSTLg73Phm3Keu+e7M8jawW4KbJQIeO2Mi9meRHf
- 4eHLMiY+q/RybsvOSsjOfsuK+EHWfZzWmoNhNHKdU9vLDE+ancpL3cVLGcE6AMSgNT
- P/T7w9Oc1r4sM92nK/WIFhJe8XZ7Aiv3litDJBb1rRpZ6Hcez9cK5rFNMycrC1guUH
- lBm4eE+QMh3WA==
+ b=XtGwfL8D4rLCRYovUzuxP1x5uDxfvnkOdhYR83Blktzf7gNSbzR5kg/9hD7Hoj4UK
+ +YAxxW9ObPLquzvwzVo4eIVd0DcZg8wthiFopQE7VyUQDH1eGxftDrNKeGELyGRB4Z
+ yB8mlahjHtAXeMEWPWyTjHZ23oUpmDuosyqplPYNygw0xqc+cBALz4hs+90LrNopgC
+ 14F8OEyWvw9AyxGDCuWR3nqk2SJudogUKDQ211Jmmc8MV9n5l4tok3Xivp5bTlVQK7
+ yZzr+/CsbwJOV458v6qTggUZRg7a18vbv3utHHOgOT4eN4KgkF4RRiFv74m0TjRD8T
+ ZNBXGTtB7H6VQ==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
@@ -45,10 +45,9 @@ Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
  Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH v3 12/27] rust: auxiliary: make Driver trait
- lifetime-parameterized
-Date: Sun, 17 May 2026 02:01:00 +0200
-Message-ID: <20260517000149.3226762-13-dakr@kernel.org>
+Subject: [PATCH v3 13/27] rust: usb: make Driver trait lifetime-parameterized
+Date: Sun, 17 May 2026 02:01:01 +0200
+Message-ID: <20260517000149.3226762-14-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260517000149.3226762-1-dakr@kernel.org>
 References: <20260517000149.3226762-1-dakr@kernel.org>
@@ -84,54 +83,63 @@ behavior.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/drm/nova/driver.rs        |  7 +++++--
- rust/kernel/auxiliary.rs              | 14 ++++++++------
- samples/rust/rust_driver_auxiliary.rs |  7 +++++--
- 3 files changed, 18 insertions(+), 10 deletions(-)
+ rust/kernel/usb.rs              | 39 +++++++++++++++++++--------------
+ samples/rust/rust_driver_usb.rs | 14 ++++++------
+ 2 files changed, 30 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
-index 08136ec0bccb..1d73c595dda4 100644
---- a/drivers/gpu/drm/nova/driver.rs
-+++ b/drivers/gpu/drm/nova/driver.rs
-@@ -51,10 +51,13 @@ pub(crate) struct NovaData {
- 
- impl auxiliary::Driver for NovaDriver {
-     type IdInfo = ();
--    type Data = Self;
-+    type Data<'bound> = Self;
-     const ID_TABLE: auxiliary::IdTable<Self::IdInfo> = &AUX_TABLE;
- 
--    fn probe(adev: &auxiliary::Device<Core>, _info: &Self::IdInfo) -> impl PinInit<Self, Error> {
-+    fn probe<'bound>(
-+        adev: &'bound auxiliary::Device<Core>,
-+        _info: &'bound Self::IdInfo,
-+    ) -> impl PinInit<Self, Error> + 'bound {
-         let data = try_pin_init!(NovaData { adev: adev.into() });
- 
-         let drm = drm::Device::<Self>::new(adev.as_ref(), data)?;
-diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-index c6d97c95c3e7..3f1e2966c03a 100644
---- a/rust/kernel/auxiliary.rs
-+++ b/rust/kernel/auxiliary.rs
-@@ -46,7 +46,7 @@
+diff --git a/rust/kernel/usb.rs b/rust/kernel/usb.rs
+index 995221d327b8..ec67e4d2416f 100644
+--- a/rust/kernel/usb.rs
++++ b/rust/kernel/usb.rs
+@@ -41,7 +41,7 @@
  // - `DEVICE_DRIVER_OFFSET` is the correct byte offset to the embedded `struct device_driver`.
  unsafe impl<T: Driver> driver::DriverLayout for Adapter<T> {
-     type DriverType = bindings::auxiliary_driver;
+     type DriverType = bindings::usb_driver;
 -    type DriverData<'bound> = T::Data;
 +    type DriverData<'bound> = T::Data<'bound>;
      const DEVICE_DRIVER_OFFSET: usize = core::mem::offset_of!(Self::DriverType, driver);
  }
  
-@@ -112,7 +112,7 @@ extern "C" fn remove_callback(adev: *mut bindings::auxiliary_device) {
-         // SAFETY: `remove_callback` is only ever called after a successful call to
+@@ -110,7 +110,7 @@ extern "C" fn disconnect_callback(intf: *mut bindings::usb_interface) {
+         // SAFETY: `disconnect_callback` is only ever called after a successful call to
          // `probe_callback`, hence it's guaranteed that `Device::set_drvdata()` has been called
          // and stored a `Pin<KBox<T::Data>>`.
--        let data = unsafe { adev.as_ref().drvdata_borrow::<T::Data>() };
-+        let data = unsafe { adev.as_ref().drvdata_borrow::<T::Data<'_>>() };
+-        let data = unsafe { dev.drvdata_borrow::<T::Data>() };
++        let data = unsafe { dev.drvdata_borrow::<T::Data<'_>>() };
  
-         T::unbind(adev, data);
+         T::disconnect(intf, data);
      }
-@@ -203,7 +203,7 @@ pub trait Driver {
+@@ -287,18 +287,22 @@ macro_rules! usb_device_table {
+ ///
+ /// impl usb::Driver for MyDriver {
+ ///     type IdInfo = ();
+-///     type Data = Self;
++///     type Data<'bound> = Self;
+ ///     const ID_TABLE: usb::IdTable<Self::IdInfo> = &USB_TABLE;
+ ///
+-///     fn probe(
+-///         _interface: &usb::Interface<Core>,
+-///         _id: &usb::DeviceId,
+-///         _info: &Self::IdInfo,
+-///     ) -> impl PinInit<Self::Data, Error> {
++///     fn probe<'bound>(
++///         _interface: &'bound usb::Interface<Core>,
++///         _id: &'bound usb::DeviceId,
++///         _info: &'bound Self::IdInfo,
++///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+ ///         Err(ENODEV)
+ ///     }
+ ///
+-///     fn disconnect(_interface: &usb::Interface<Core>, _data: Pin<&Self::Data>) {}
++///     fn disconnect<'bound>(
++///         _interface: &'bound usb::Interface<Core>,
++///         _data: Pin<&'bound Self::Data<'bound>>,
++///     ) {
++///     }
+ /// }
+ ///```
+ pub trait Driver {
+@@ -306,7 +310,7 @@ pub trait Driver {
      type IdInfo: 'static;
  
      /// The type of the driver's bus device private data.
@@ -140,49 +148,65 @@ index c6d97c95c3e7..3f1e2966c03a 100644
  
      /// The table of device ids supported by the driver.
      const ID_TABLE: IdTable<Self::IdInfo>;
-@@ -211,8 +211,10 @@ pub trait Driver {
-     /// Auxiliary driver probe.
+@@ -315,16 +319,19 @@ pub trait Driver {
      ///
-     /// Called when an auxiliary device is matches a corresponding driver.
--    fn probe(dev: &Device<device::Core>, id_info: &Self::IdInfo)
--        -> impl PinInit<Self::Data, Error>;
+     /// Called when a new USB interface is bound to this driver.
+     /// Implementers should attempt to initialize the interface here.
+-    fn probe(
+-        interface: &Interface<device::Core>,
+-        id: &DeviceId,
+-        id_info: &Self::IdInfo,
+-    ) -> impl PinInit<Self::Data, Error>;
 +    fn probe<'bound>(
-+        dev: &'bound Device<device::Core>,
++        interface: &'bound Interface<device::Core>,
++        id: &'bound DeviceId,
 +        id_info: &'bound Self::IdInfo,
 +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
  
-     /// Auxiliary driver unbind.
+     /// USB driver disconnect.
      ///
-@@ -224,7 +226,7 @@ fn probe(dev: &Device<device::Core>, id_info: &Self::IdInfo)
-     /// operations to gracefully tear down the device.
-     ///
-     /// Otherwise, release operations for driver resources should be performed in `Drop`.
--    fn unbind(dev: &Device<device::Core>, this: Pin<&Self::Data>) {
-+    fn unbind<'bound>(dev: &'bound Device<device::Core>, this: Pin<&'bound Self::Data<'bound>>) {
-         let _ = (dev, this);
-     }
+     /// Called when the USB interface is about to be unbound from this driver.
+-    fn disconnect(interface: &Interface<device::Core>, data: Pin<&Self::Data>);
++    fn disconnect<'bound>(
++        interface: &'bound Interface<device::Core>,
++        data: Pin<&'bound Self::Data<'bound>>,
++    );
  }
-diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_driver_auxiliary.rs
-index 2f57912fe87f..972a3d5b25e7 100644
---- a/samples/rust/rust_driver_auxiliary.rs
-+++ b/samples/rust/rust_driver_auxiliary.rs
-@@ -31,11 +31,14 @@
  
- impl auxiliary::Driver for AuxiliaryDriver {
+ /// A USB interface.
+diff --git a/samples/rust/rust_driver_usb.rs b/samples/rust/rust_driver_usb.rs
+index 5942e4b01fd8..4403bd758db9 100644
+--- a/samples/rust/rust_driver_usb.rs
++++ b/samples/rust/rust_driver_usb.rs
+@@ -26,21 +26,21 @@ struct SampleDriver {
+ 
+ impl usb::Driver for SampleDriver {
      type IdInfo = ();
 -    type Data = Self;
 +    type Data<'bound> = Self;
+     const ID_TABLE: usb::IdTable<Self::IdInfo> = &USB_TABLE;
  
-     const ID_TABLE: auxiliary::IdTable<Self::IdInfo> = &AUX_TABLE;
- 
--    fn probe(adev: &auxiliary::Device<Core>, _info: &Self::IdInfo) -> impl PinInit<Self, Error> {
+-    fn probe(
+-        intf: &usb::Interface<Core>,
+-        _id: &usb::DeviceId,
+-        _info: &Self::IdInfo,
+-    ) -> impl PinInit<Self, Error> {
 +    fn probe<'bound>(
-+        adev: &'bound auxiliary::Device<Core>,
++        intf: &'bound usb::Interface<Core>,
++        _id: &'bound usb::DeviceId,
 +        _info: &'bound Self::IdInfo,
 +    ) -> impl PinInit<Self, Error> + 'bound {
-         dev_info!(
-             adev,
-             "Probing auxiliary driver for auxiliary device with id={}\n",
+         let dev: &device::Device<Core> = intf.as_ref();
+         dev_info!(dev, "Rust USB driver sample probed\n");
+ 
+         Ok(Self { _intf: intf.into() })
+     }
+ 
+-    fn disconnect(intf: &usb::Interface<Core>, _data: Pin<&Self>) {
++    fn disconnect<'bound>(intf: &'bound usb::Interface<Core>, _data: Pin<&'bound Self>) {
+         let dev: &device::Device<Core> = intf.as_ref();
+         dev_info!(dev, "Rust USB driver sample disconnected\n");
+     }
 -- 
 2.54.0
 
