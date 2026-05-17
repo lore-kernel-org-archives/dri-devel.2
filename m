@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACF35CD4F3C
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 00:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B21ECD4F3C
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 00:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C65E10E647;
-	Sun, 17 May 2026 00:04:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD10B10E645;
+	Sun, 17 May 2026 00:04:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LP2i6WUg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tWAQTXre";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 984AA10E645
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 00:04:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 612AF10E645
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 00:04:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 78B1C41A02;
+ by sea.source.kernel.org (Postfix) with ESMTP id 4843941A4D;
+ Sun, 17 May 2026 00:04:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C710EC2BCC7;
  Sun, 17 May 2026 00:04:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0399CC4AF09;
- Sun, 17 May 2026 00:04:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778976274;
- bh=f+IsdvlwojPvLZFUcjIecxcaPpxbe1roFDOzzjKR8FE=;
+ s=k20201202; t=1778976281;
+ bh=rJ9Zf42krWnw6GFHxY+YcEyrmhC+ZgJmklrrd85+jss=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LP2i6WUgJ/Yz9aXIdp15J2D4TND8gZDOOkNt+XdjdF6i5Rb1DOJlbbJe31LdtUWpE
- zODdfCuv2TDrjwPbZ8lwxh1MyJxKxycD+1JPRWy18gkEH730FOPxbBGLORg1b/RgW9
- yvytB/KfemmQhULeaCq/NXTgi3RNNVD6LZGd8qTWB3hNSdW29Q54zBXlOa29cU8kBH
- RCjfCi7qashfkKsISjUCC0enOd2Eu9jGOvOKokNk6KrejtkpDAkZyGaMDuoi3g84w4
- tq/u/y13QGTfZe7tfFnHKO/ngXBdfOPl1wOiOSbCCBKKYW7O9TWECCdI2CMTTxnQVL
- C4IA6dgmBQ+1A==
+ b=tWAQTXreNrT3sTiNeC5mlLs5oVKJdEHYos4o7ou+u0R5pKnc2F5Lv6UNooFPq5D4o
+ Du1SZ/+CZ1vHAo6IAkKY9t7dV0xKvnV2QQVKgva7CpVxCTnJWm4nP4S30nxOHvnNAm
+ Y7yOc1FCSsnXkp7T5FHMYjz6dZuuCi+nX/FXZ4zJKgkSgmYjgIwYlh4M0QxG6VUtUS
+ OmX9auaax/8hdAk2ehehF5hxFZ50EJfwBjKc6keA1TUq5clH/AgME35e7VBXZEgw4Y
+ DfDPPsgMZzGobzLlZlQkz3O4NhcqV+9A76HMxhizG7hskO/4NMYTN84KczSRT8z4rE
+ oB4RF47wbDJ2A==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
@@ -45,9 +45,9 @@ Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
  Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH v3 22/27] rust: driver-core: rename 'a lifetime to 'bound
-Date: Sun, 17 May 2026 02:01:10 +0200
-Message-ID: <20260517000149.3226762-23-dakr@kernel.org>
+Subject: [PATCH REF v3 23/27] gpu: nova-core: rename 'a lifetime to 'bound
+Date: Sun, 17 May 2026 02:01:11 +0200
+Message-ID: <20260517000149.3226762-24-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260517000149.3226762-1-dakr@kernel.org>
 References: <20260517000149.3226762-1-dakr@kernel.org>
@@ -68,214 +68,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rename the generic lifetime parameter from 'a to 'bound in pci,
-platform, i2c and devres. This makes it explicit that the lifetime
-represents the device binding scope, consistent with the convention
-established by the HRT series.
+Rename the generic lifetime parameter from 'a to 'bound in nova-core.
+This makes it explicit that the lifetime represents the device binding
+scope, consistent with the convention established by the HRT series.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/devres.rs   | 14 +++++++++-----
- rust/kernel/i2c.rs      |  6 +++---
- rust/kernel/pci/irq.rs  | 38 +++++++++++++++++++-------------------
- rust/kernel/platform.rs | 18 +++++++++---------
- 4 files changed, 40 insertions(+), 36 deletions(-)
+ drivers/gpu/nova-core/firmware/gsp.rs    |  8 ++++----
+ drivers/gpu/nova-core/gpu.rs             |  8 ++++----
+ drivers/gpu/nova-core/gsp/commands.rs    | 10 +++++-----
+ drivers/gpu/nova-core/gsp/fw/commands.rs |  4 +++-
+ 4 files changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-index ec63317665f4..58efe80474bd 100644
---- a/rust/kernel/devres.rs
-+++ b/rust/kernel/devres.rs
-@@ -280,10 +280,11 @@ pub fn device(&self) -> &Device {
-         &self.dev
-     }
- 
--    /// Obtain `&'a T`, bypassing the [`Revocable`].
-+    /// Obtain `&'bound T`, bypassing the [`Revocable`].
-     ///
--    /// This method allows to directly obtain a `&'a T`, bypassing the [`Revocable`], by presenting
--    /// a `&'a Device<Bound>` of the same [`Device`] this [`Devres`] instance has been created with.
-+    /// This method allows to directly obtain a `&'bound T`, bypassing the
-+    /// [`Revocable`], by presenting a `&'bound Device<Bound>` of the same
-+    /// [`Device`] this [`Devres`] instance has been created with.
-     ///
-     /// # Errors
-     ///
-@@ -316,7 +317,7 @@ pub fn device(&self) -> &Device {
-     ///     Ok(())
-     /// }
-     /// ```
--    pub fn access<'a>(&'a self, dev: &'a Device<Bound>) -> Result<&'a T> {
-+    pub fn access<'bound>(&'bound self, dev: &'bound Device<Bound>) -> Result<&'bound T> {
-         if self.dev.as_raw() != dev.as_raw() {
-             return Err(EINVAL);
-         }
-@@ -338,7 +339,10 @@ pub fn try_access_with<R, F: FnOnce(&T) -> R>(&self, f: F) -> Option<R> {
-     }
- 
-     /// [`Devres`] accessor for [`Revocable::try_access_with_guard`].
--    pub fn try_access_with_guard<'a>(&'a self, guard: &'a rcu::Guard) -> Option<&'a T> {
-+    pub fn try_access_with_guard<'bound>(
-+        &'bound self,
-+        guard: &'bound rcu::Guard,
-+    ) -> Option<&'bound T> {
-         self.data().try_access_with_guard(guard)
-     }
- }
-diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
-index 7b92d42a2b98..2bb7e54922e5 100644
---- a/rust/kernel/i2c.rs
-+++ b/rust/kernel/i2c.rs
-@@ -566,11 +566,11 @@ unsafe impl Sync for I2cClient {}
- 
- impl Registration {
-     /// The C `i2c_new_client_device` function wrapper for manual I2C client creation.
--    pub fn new<'a>(
-+    pub fn new<'bound>(
-         i2c_adapter: &I2cAdapter,
-         i2c_board_info: &I2cBoardInfo,
--        parent_dev: &'a device::Device<device::Bound>,
--    ) -> impl PinInit<Devres<Self>, Error> + 'a {
-+        parent_dev: &'bound device::Device<device::Bound>,
-+    ) -> impl PinInit<Devres<Self>, Error> + 'bound {
-         Devres::new(parent_dev, Self::try_new(i2c_adapter, i2c_board_info))
-     }
- 
-diff --git a/rust/kernel/pci/irq.rs b/rust/kernel/pci/irq.rs
-index d9230e105541..92207fd46403 100644
---- a/rust/kernel/pci/irq.rs
-+++ b/rust/kernel/pci/irq.rs
-@@ -76,19 +76,19 @@ const fn as_raw(self) -> u32 {
- /// This type ties an IRQ vector to the device it was allocated for,
- /// ensuring the vector is only used with the correct device.
- #[derive(Clone, Copy)]
--pub struct IrqVector<'a> {
--    dev: &'a Device<Bound>,
-+pub struct IrqVector<'bound> {
-+    dev: &'bound Device<Bound>,
-     index: u32,
- }
- 
--impl<'a> IrqVector<'a> {
-+impl<'bound> IrqVector<'bound> {
-     /// Creates a new [`IrqVector`] for the given device and index.
-     ///
-     /// # Safety
-     ///
-     /// - `index` must be a valid IRQ vector index for `dev`.
-     /// - `dev` must point to a [`Device`] that has successfully allocated IRQ vectors.
--    unsafe fn new(dev: &'a Device<Bound>, index: u32) -> Self {
-+    unsafe fn new(dev: &'bound Device<Bound>, index: u32) -> Self {
-         Self { dev, index }
-     }
- 
-@@ -98,10 +98,10 @@ fn index(&self) -> u32 {
-     }
- }
- 
--impl<'a> TryInto<IrqRequest<'a>> for IrqVector<'a> {
-+impl<'bound> TryInto<IrqRequest<'bound>> for IrqVector<'bound> {
-     type Error = Error;
- 
--    fn try_into(self) -> Result<IrqRequest<'a>> {
-+    fn try_into(self) -> Result<IrqRequest<'bound>> {
-         // SAFETY: `self.as_raw` returns a valid pointer to a `struct pci_dev`.
-         let irq = unsafe { bindings::pci_irq_vector(self.dev.as_raw(), self.index()) };
-         if irq < 0 {
-@@ -129,12 +129,12 @@ impl IrqVectorRegistration {
-     ///
-     /// Allocates IRQ vectors and registers them with devres for automatic cleanup.
-     /// Returns a range of valid IRQ vectors.
--    fn register<'a>(
--        dev: &'a Device<Bound>,
-+    fn register<'bound>(
-+        dev: &'bound Device<Bound>,
-         min_vecs: u32,
-         max_vecs: u32,
-         irq_types: IrqTypes,
--    ) -> Result<RangeInclusive<IrqVector<'a>>> {
-+    ) -> Result<RangeInclusive<IrqVector<'bound>>> {
-         // SAFETY:
-         // - `dev.as_raw()` is guaranteed to be a valid pointer to a `struct pci_dev`
-         //   by the type invariant of `Device`.
-@@ -173,13 +173,13 @@ fn drop(&mut self) {
- 
- impl Device<device::Bound> {
-     /// Returns a [`kernel::irq::Registration`] for the given IRQ vector.
--    pub fn request_irq<'a, T: crate::irq::Handler + 'static>(
--        &'a self,
--        vector: IrqVector<'a>,
-+    pub fn request_irq<'bound, T: crate::irq::Handler + 'static>(
-+        &'bound self,
-+        vector: IrqVector<'bound>,
-         flags: irq::Flags,
-         name: &'static CStr,
--        handler: impl PinInit<T, Error> + 'a,
--    ) -> impl PinInit<irq::Registration<T>, Error> + 'a {
-+        handler: impl PinInit<T, Error> + 'bound,
-+    ) -> impl PinInit<irq::Registration<T>, Error> + 'bound {
+diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/firmware/gsp.rs
+index 2fcc255c3bc8..9dbd88c55f7e 100644
+--- a/drivers/gpu/nova-core/firmware/gsp.rs
++++ b/drivers/gpu/nova-core/firmware/gsp.rs
+@@ -65,11 +65,11 @@ pub(crate) struct GspFirmware {
+ impl GspFirmware {
+     /// Loads the GSP firmware binaries, map them into `dev`'s address-space, and creates the page
+     /// tables expected by the GSP bootloader to load it.
+-    pub(crate) fn new<'a>(
+-        dev: &'a device::Device<device::Bound>,
++    pub(crate) fn new<'bound>(
++        dev: &'bound device::Device<device::Bound>,
+         chipset: Chipset,
+-        ver: &'a str,
+-    ) -> impl PinInit<Self, Error> + 'a {
++        ver: &'bound str,
++    ) -> impl PinInit<Self, Error> + 'bound {
          pin_init::pin_init_scope(move || {
-             let request = vector.try_into()?;
+             let firmware = super::request_firmware(dev, chipset, "gsp", ver)?;
  
-@@ -188,13 +188,13 @@ pub fn request_irq<'a, T: crate::irq::Handler + 'static>(
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 0f6fe9a1b955..9288b30fe4c3 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -241,11 +241,11 @@ pub(crate) struct Gpu {
+ }
+ 
+ impl Gpu {
+-    pub(crate) fn new<'a>(
+-        pdev: &'a pci::Device<device::Bound>,
++    pub(crate) fn new<'bound>(
++        pdev: &'bound pci::Device<device::Bound>,
+         devres_bar: Arc<Devres<Bar0>>,
+-        bar: &'a Bar0,
+-    ) -> impl PinInit<Self, Error> + 'a {
++        bar: &'bound Bar0,
++    ) -> impl PinInit<Self, Error> + 'bound {
+         try_pin_init!(Self {
+             spec: Spec::new(pdev.as_ref(), bar).inspect(|spec| {
+                 dev_info!(pdev,"NVIDIA ({})\n", spec);
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index c89c7b57a751..0da5b92f4b27 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -35,18 +35,18 @@
+ };
+ 
+ /// The `GspSetSystemInfo` command.
+-pub(crate) struct SetSystemInfo<'a> {
+-    pdev: &'a pci::Device<device::Bound>,
++pub(crate) struct SetSystemInfo<'bound> {
++    pdev: &'bound pci::Device<device::Bound>,
+ }
+ 
+-impl<'a> SetSystemInfo<'a> {
++impl<'bound> SetSystemInfo<'bound> {
+     /// Creates a new `GspSetSystemInfo` command using the parameters of `pdev`.
+-    pub(crate) fn new(pdev: &'a pci::Device<device::Bound>) -> Self {
++    pub(crate) fn new(pdev: &'bound pci::Device<device::Bound>) -> Self {
+         Self { pdev }
      }
+ }
  
-     /// Returns a [`kernel::irq::ThreadedRegistration`] for the given IRQ vector.
--    pub fn request_threaded_irq<'a, T: crate::irq::ThreadedHandler + 'static>(
--        &'a self,
--        vector: IrqVector<'a>,
-+    pub fn request_threaded_irq<'bound, T: crate::irq::ThreadedHandler + 'static>(
-+        &'bound self,
-+        vector: IrqVector<'bound>,
-         flags: irq::Flags,
-         name: &'static CStr,
--        handler: impl PinInit<T, Error> + 'a,
--    ) -> impl PinInit<irq::ThreadedRegistration<T>, Error> + 'a {
-+        handler: impl PinInit<T, Error> + 'bound,
-+    ) -> impl PinInit<irq::ThreadedRegistration<T>, Error> + 'bound {
-         pin_init::pin_init_scope(move || {
-             let request = vector.try_into()?;
- 
-diff --git a/rust/kernel/platform.rs b/rust/kernel/platform.rs
-index 6e4437866c30..44f68da5432d 100644
---- a/rust/kernel/platform.rs
-+++ b/rust/kernel/platform.rs
-@@ -337,13 +337,13 @@ macro_rules! define_irq_accessor_by_index {
-         $handler_trait:ident
-     ) => {
-         $(#[$meta])*
--        pub fn $fn_name<'a, T: irq::$handler_trait + 'static>(
--            &'a self,
-+        pub fn $fn_name<'bound, T: irq::$handler_trait + 'static>(
-+            &'bound self,
-             flags: irq::Flags,
-             index: u32,
-             name: &'static CStr,
--            handler: impl PinInit<T, Error> + 'a,
--        ) -> impl PinInit<irq::$reg_type<T>, Error> + 'a {
-+            handler: impl PinInit<T, Error> + 'bound,
-+        ) -> impl PinInit<irq::$reg_type<T>, Error> + 'bound {
-             pin_init::pin_init_scope(move || {
-                 let request = self.$request_fn(index)?;
- 
-@@ -366,13 +366,13 @@ macro_rules! define_irq_accessor_by_name {
-         $handler_trait:ident
-     ) => {
-         $(#[$meta])*
--        pub fn $fn_name<'a, T: irq::$handler_trait + 'static>(
--            &'a self,
-+        pub fn $fn_name<'bound, T: irq::$handler_trait + 'static>(
-+            &'bound self,
-             flags: irq::Flags,
--            irq_name: &'a CStr,
-+            irq_name: &'bound CStr,
-             name: &'static CStr,
--            handler: impl PinInit<T, Error> + 'a,
--        ) -> impl PinInit<irq::$reg_type<T>, Error> + 'a {
-+            handler: impl PinInit<T, Error> + 'bound,
-+        ) -> impl PinInit<irq::$reg_type<T>, Error> + 'bound {
-             pin_init::pin_init_scope(move || {
-                 let request = self.$request_fn(irq_name)?;
- 
+-impl<'a> CommandToGsp for SetSystemInfo<'a> {
++impl<'bound> CommandToGsp for SetSystemInfo<'bound> {
+     const FUNCTION: MsgFunction = MsgFunction::GspSetSystemInfo;
+     type Command = GspSetSystemInfo;
+     type Reply = NoReply;
+diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
+index db46276430be..d3ef7ecdd73e 100644
+--- a/drivers/gpu/nova-core/gsp/fw/commands.rs
++++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
+@@ -24,7 +24,9 @@ pub(crate) struct GspSetSystemInfo {
+ impl GspSetSystemInfo {
+     /// Returns an in-place initializer for the `GspSetSystemInfo` command.
+     #[allow(non_snake_case)]
+-    pub(crate) fn init<'a>(dev: &'a pci::Device<device::Bound>) -> impl Init<Self, Error> + 'a {
++    pub(crate) fn init<'bound>(
++        dev: &'bound pci::Device<device::Bound>,
++    ) -> impl Init<Self, Error> + 'bound {
+         type InnerGspSystemInfo = bindings::GspSystemInfo;
+         let init_inner = try_init!(InnerGspSystemInfo {
+             gpuPhysAddr: dev.resource_start(0)?,
 -- 
 2.54.0
 
