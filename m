@@ -4,76 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7017DCD4F55
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:42:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5163ACD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:42:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD1F10E6E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4666C10E6E6;
 	Mon, 18 May 2026 07:41:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pde+B6vm";
+	dkim=pass (2048-bit key; unprotected) header.d=mariushoch.de header.i=@mariushoch.de header.b="t/GjFmdY";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E23D10E1EE
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 21:01:50 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-488d2079582so8847505e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 14:01:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778965309; x=1779570109; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=c9ekvX0DWIiiJWYzSLMlzJT6YU8iYAyRXmqi1P20r90=;
- b=pde+B6vm183UKSsi9gasG+pd4twhuGSRqDGy3nL6hsEQPZRZ42P2+k/XwnGA/DVVjo
- GZ4CnfTzFVApkYM+kdI11wJ1dHmbH6tHhiaiwOpS8zr2SprCH8GrHKoSpSx9sWypMt3n
- TiirpeNgNKsaL2ZF1deicM2JFvW2rL0usv1ogerufrU+DMiYivKgE1Ag3XefpBHDB3Ry
- g8KEYnETCB4QiZcKPk24JrxTXJbx9Ew4enxTOm0vZ4XgoEcEg1S2TqMa7c9qaJQQmNkX
- cBu4SCDcw2UwCarktbBPhxwWXSCx5jvUMbUQfpQKZ7RRUbAFoRd3tPBLtUI/+eaJOCVs
- mk6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778965309; x=1779570109;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=c9ekvX0DWIiiJWYzSLMlzJT6YU8iYAyRXmqi1P20r90=;
- b=ozn4qNZMtM5d3xeB5bng2u9TBpWvHUcUQfHSq6ExcwApPKNaz8Hj10GEv9P75Rzqlb
- PnDWXlz8c0Ktw5rct1um8tneDcSSkC4P0KC+vFI6mHbfPU6QEAyr5vX1NzmAfdeGcd4+
- 385m9GSdZG2v/lFn6F4DWJ/q1JdSBdwxVo0Il7STojgbGKr8C50YXmh/5qpcvYFCb6ot
- +dLH2hg5TI4MgjFLPAKDjBimFqmLcYz2UQaIYjW+SHUqqlFZCV8ifGi4sp1tadJPg0Pi
- ThZywHxMaHjtDrDNvTWHSvxdzek+QAw48nUNyx4O3MZ6adEOj8KUld2lvgvjnXIqBiuL
- y2Xw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/EGyLWvQTBS2keOQlz+bZDdkJQf+7UJQALLciQFjrdxZUlx+rFhq+W4wHTArJzwq2KV9YAf2wsobI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7saUxCHKT9L+7DQRQqWwxTDc6ShZdAZsMPrktvCbxObYAAM5A
- fugp8M6YxnrNh66A42Fl9QRfMFq7jYkDm6NR9RfjQKy2G8S4W1okSpKe
-X-Gm-Gg: Acq92OH0D4oz3ag4TqO+RG8RxOEn8+TBKmTfWQW3hI1BqBlAf6Yh3WUlq/W8Ezb7uzU
- Q33GDBUtuHMXqAj66eoFeeImiTEmArCc1idZwAnPR8lohWjJ7JNKY9jOj6VX3p2v3Awilh3TEf8
- Hf11RO8NRDMxGm4rfqzSFvEBPGzuCLdYi7y94mB7senMr5j9vv7WFjrg1+jG2/ija7xfMKNBwDm
- T+oJvRP+wW8+4bDbs2XZtmPbYPTUO+HuQntS0l9QRf4R0pnklDjRs3ngSOloFPSe7lboKL+YAq8
- ZLlvv8K0oIwncz5RJJebTXE6xTQlBICW3OUbVAtk1oL3idyacOVfL9WBYXw0vPI61D/aMSH7K9/
- wH+kfVsIKV/HLRf21lnRjfWJnPy/grGCQ9QX3Rvi1V98eUVugSbSRxtVLU+Z6pR8n4VnN0wFQOk
- rMEDRHPJpbcUDJPyEaG0/xX3Xn/bqW7Rhx
-X-Received: by 2002:a05:600c:34cc:b0:48e:635a:18d7 with SMTP id
- 5b1f17b1804b1-48fe59b047bmr142612965e9.0.1778965308595; 
- Sat, 16 May 2026 14:01:48 -0700 (PDT)
-Received: from Godswill ([102.90.99.61]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe5694fcasm131254605e9.5.2026.05.16.14.01.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 May 2026 14:01:48 -0700 (PDT)
-From: Godswill Onwusilike <onwusilikegodswill@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+X-Greylist: delayed 309 seconds by postgrey-1.36 at gabe;
+ Sun, 17 May 2026 19:36:27 UTC
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A37689DC0
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 19:36:27 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gJWJL4k6Jz9vMJ;
+ Sun, 17 May 2026 21:31:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mariushoch.de;
+ s=MBO0001; t=1779046274;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=HtBGrCSyW2NnOwZk7qn0QEVN8bg/qGhu9x0TQGAPFWg=;
+ b=t/GjFmdYeZY4av9rmEaIlmWesE/3j/2luN3vTpUoua1hGMTIypl0FMyrinyaO61fiAf/t8
+ /5L7gVR91A3UxNAyr24tJpr2euAzacGK4KiceUzIGnFHB0EffcghDabQNyyA/1kgfwbZjZ
+ AbbGTN3Iw0/D/KTPvZDn7f1PLBquPSN47p3pQUqZfIEPjWD7pIJzlG8hR2NSYJw//RKpzn
+ WtR6GJXiaexYHzh71nZIeu2fldf6ukjuAYMfpCnA/AH5m/dp0oVuHyNcNC3LVhw4y6TMnL
+ IpU5mbBxtijCGXnZGH/np7N5M4UTFhJZLgEmQ1qanwUF2KlwzMeSx68Hkef5og==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of mail@mariushoch.de designates
+ 2001:67c:2050:b231:465::1 as permitted sender)
+ smtp.mailfrom=mail@mariushoch.de
+From: Marius Hoch <mail@mariushoch.de>
+To: linux-kernel@vger.kernel.org
+Cc: Marius Hoch <mail@mariushoch.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Godswill Onwusilike <onwusilikegodswill@gmail.com>
-Subject: [PATCH] docs: gpu: todo: fix spelling of "fucntion"
-Date: Sat, 16 May 2026 22:01:41 +0100
-Message-ID: <20260516210141.42971-1-onwusilikegodswill@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm: panel-orientation-quirks: Cover IdeaPad Duet 3 10IGL5-LTE
+Date: Sun, 17 May 2026 21:29:15 +0200
+Message-ID: <20260517193001.1741134-1-mail@mariushoch.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4gJWJL4k6Jz9vMJ
 X-Mailman-Approved-At: Mon, 18 May 2026 07:41:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,25 +68,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Correct the spelling of "fucntion" to "function" in todo.rst
-documentation
+The LTE enabled version of the IdeaPad Duet 3 10IGL5 needs the
+same quirk as the non-LTE version. As these are the only two
+IdeaPad Duet 3 10IGL5 versions, we can safely use non exact matching.
 
-Signed-off-by: Godswill Onwusilike <onwusilikegodswill@gmail.com>
+Tested on an IdeaPad Duet 3 10IGL5-LTE.
+
+Signed-off-by: Marius Hoch <mail@mariushoch.de>
 ---
- Documentation/gpu/todo.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_panel_orientation_quirks.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 841e4e986c48..7526ed31b0af 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -1001,4 +1001,4 @@ DRM driver that can run X11 and Weston.
- 
- Contact: Thomas Zimmermann <tzimmermann@suse.de>
- 
--Level: Advanced
-+Level: Advanced
-\ No newline at end of file
+diff --git a/drivers/gpu/drm/drm_panel_orientation_quirks.c b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+index 3a218fb592ce..b62f19af4642 100644
+--- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
++++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+@@ -415,10 +415,11 @@ static const struct dmi_system_id orientation_data[] = {
+ 		  DMI_EXACT_MATCH(DMI_PRODUCT_VERSION, "Lenovo ideapad D330-10IGL"),
+ 		},
+ 		.driver_data = (void *)&lcd800x1280_rightside_up,
+-	}, {	/* Lenovo IdeaPad Duet 3 10IGL5 */
++	}, {	/* Lenovo IdeaPad Duet 3 10IGL5 and 10IGL5-LTE */
+ 		.matches = {
+ 		  DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+-		  DMI_EXACT_MATCH(DMI_PRODUCT_VERSION, "IdeaPad Duet 3 10IGL5"),
++		  /* Non exact match to also match the LTE version */
++		  DMI_MATCH(DMI_PRODUCT_VERSION, "IdeaPad Duet 3 10IGL5"),
+ 		},
+ 		.driver_data = (void *)&lcd1200x1920_rightside_up,
+ 	}, {	/* Lenovo Legion Go 8APU1 */
 -- 
-2.53.0
+2.54.0
 
