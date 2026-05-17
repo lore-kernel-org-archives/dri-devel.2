@@ -4,110 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6AD4CD4F3C
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 20:30:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AD87CD4F3C
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 20:59:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82D7310E07B;
-	Sun, 17 May 2026 20:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF98510E079;
+	Sun, 17 May 2026 20:59:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qyhwZREc";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hfDkIigZ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bLEss2C2";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A426C10E07B
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 20:30:55 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-48ff4f8ef0dso17585745e9.3
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:30:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779049854; cv=none;
- d=google.com; s=arc-20240605;
- b=DzTpzMo0a6Y9ofj0+PZmMh/WJOEvxvfaUgNBdmnvinszSuF3IZKvNAgSnBmFcYQsMf
- FoBlkDFOdJVRn6zieT0VXP4J1VNM19Vp3nqvT45x4YMnXIGzQUkE5SrJeBvusLZTQgWu
- IvnGT21CohJNeaG3dkIuAFe297fnAyQaQ+i2AzWizmIBlIcH6eWrcAMREp/ASXtUa3+n
- tVXbYaktIVp4pamlSBcnXZBK+Oz6kfxKzqEAdJlqrGpyBOB44rokB2WzHZ4nQZQnJaff
- 2c5AIfKDmsoAOwvNRoBc3dIp4G9ctSWfIJzrrKYnlcgd3NzJAyrBjgKIydh1jZr8xmC5
- rUaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=m5W2yksOeDngCRoP0/L217ADV5Bob6V0u6vG3fCF/SQ=;
- fh=EIwFpjYLh/ZlLqajPhmJDYfFciQcIdWXtd8MD8KSCoI=;
- b=BtlLZAWlQFRMPJjq+RI+tV9y2Xmxalwrujcpqu5sWbZjfth0gNseFaacOQG7L3uNK7
- FzRKj2sObLZQycY5/evWZ7EUI9c7ezWcL2nbS1n1TKXABAPc2U+uAJ8bFI5uQMGhTDex
- 1i7BLrZY8YWwgsYnVd6K50EnfLpqmoxVm2MUO72RPMOqLPczZZlP+A3L0qNLcq1KmO34
- LpYKry1ysRZ2fccxrG+3AjURNxWb3dOOXR+TYU04P3wd0v4PPJ0JMxxvBMohIC1K7YnT
- 0AFwNLoLysky5GS4h1wb0zQqbcT6xCOxhM6RduXANjIvusIGURVCVF6phttGm7UuErBG
- c3bg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F52A10E079
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 20:59:02 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64H4uha63769234
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 20:59:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=2dKp9YnG53YGWrs9aAI98NZT
+ hxDIm5i1rqFv/DosqOU=; b=hfDkIigZkbZdJ6Kzh5AzT7tLgSq+opsv4MJhXVrE
+ WFwq2PndcbKYuZ/VWoms6I6bPldhMD7gJaxY+T5YJnt8HcL1n97nwmIvzsNtzXNx
+ w+ELtQDaZgXpnKIt3/f769l6lKUykv3h4vlnQaTc6dIKE7wKmG53oYMStfIoe33T
+ p1O2StkaIu+Vq+e7g2frakwRM8o3UgjOjkg09MRxrNZlgdsSTqAmfGXUbcLCpN0j
+ 6nH3xDXnBtuRzjv0Cx3OQYCkWr2N79J5n4mHeBjYbWCRyfMURFdElVytrDp3/2E8
+ RKibffLoMQKXjr17f6GE3SSK+s5//tEwsalL888MtsQqaQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6hbcbh85-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 20:59:01 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-516879bf1a7so20875761cf.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:59:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779049854; x=1779654654; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=m5W2yksOeDngCRoP0/L217ADV5Bob6V0u6vG3fCF/SQ=;
- b=qyhwZREcmO6Z3g1bOJes02P3MYDEb07X6YIyNW4z/zhoQlZdc7cnnbwURK8H2xo24v
- ZJe1ugbb98BktGr/qmAsdTYmKMmLFIRAx+txdA0sKrGo6yYYuuWomDECSqzuS7QMhESL
- QCclBu4ylhQLdFMHk+70pe/ITYSi6p0rSfIYBLr2yAc38z50z53JqLsFLaQlweLOq/CK
- xZf7w5hLkQoL1hYHbpRdYhEzwkXjlZvtoSrEpsf7X55J+ZGTQMYs6oFTSn37bZbgAzBq
- T+5/WnR2FQHNwtMrnmnRDJtygAyc8mRcUFTulQPKeq0jL5OmT/mz6q0MjL9aIckNW+vV
- 5VDw==
+ d=oss.qualcomm.com; s=google; t=1779051540; x=1779656340;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=2dKp9YnG53YGWrs9aAI98NZThxDIm5i1rqFv/DosqOU=;
+ b=bLEss2C2o5EGgytgm62N3LI0fSCHjX+k8XRtd4qtpB/9/MEMyhDd/bSeClpGTdsPhp
+ EzR5ncqb4im3xaLZHNrNwgxNrKXyNKdaG3kexL+eC8HxZNKltGcWXVhAWURm6SFpmESQ
+ MmNKVoQA04+iozGzSH1pgmn9GXysj0gMr/sfxcdncQ5EugbkQxuy5/PUkmG4q3d8Tsai
+ yHj4EhPTGNpVvn4ijOQE6RL+9LvhIzqkZdN096zN7HSPgBoJl3xOX6M0wSGD0HmYYljU
+ ulzcTNnvS+nGUpILQolcQ79YRYzcx1xT0fJZoKythmo4ME9TERDCyh4jcOQuIy3nIA52
+ 1LeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779049854; x=1779654654;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=m5W2yksOeDngCRoP0/L217ADV5Bob6V0u6vG3fCF/SQ=;
- b=s4L+yGNQRtboouM+MokGc2ICEqBI7eu0Xsm2ZAoyRao1HIH/azYIXlY1ATCaY8Y30z
- 0H21RQMqLWisO0GawFFR88FzbFjJFGnoFYx1X4VAqxLW41ooIti5ZRFyPAuam0BsPpU5
- q22u3bs9WroSORJRKW+3wQD4643QeGlAQReOVwm5ZvdROn1FPdm5h4IH4aO1QfqUF+Z8
- RYrwLDcmZFaPuQ/gI+TA6BgEM/fjTujLU+3O9tyXaTKdqIIrWpCxf2Opc+o0gFPyWE/q
- A61NKdCQ5glfG6nmeBXfUZ/Zq5Xsm/r7zJMjz2IEvpzrxrJhK39ig4PvVU9yMDfJ7tCV
- 933Q==
+ d=1e100.net; s=20251104; t=1779051540; x=1779656340;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2dKp9YnG53YGWrs9aAI98NZThxDIm5i1rqFv/DosqOU=;
+ b=ObsPEiGS4oTNFuWGr5XjMVR9V8E8YnY14Q/eGzVzoaMCebaxGIouAEZ4Wv6Qb3PxYU
+ 4n6+jorOZQl5E35Zmmp+FEE5GRh9cpDUo+Gk4FeIQf6QqQHdzDKlWvBMXmYpOsESG5hY
+ 3Bc8FviASu6zdjajZKYpG6ZHIrO1JVV6gsGWDmo7s5t9EOrePdTLq1AQB8a1IxXo0WtG
+ rDcyMq50j0S8/Oykug0oMNpQ/19l6FZxpKTpnO1tlTxW2rqqfV0mK9OheOV6uhzbt3v8
+ PwP5iqU0ijxiIz1kryFTkHdxVb9kXsG0smAZcrPdvy111nI7mzFCPEk+HIlnCuOEjs0T
+ n4sA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9Ekf3+w5i5azC6JAXWm4Dg6+S03dKJU9px7Xjmvig6L3QWqC9/XAV3FVxA7+cQLIa8E+6acubFZFc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy2CQz+6KEl5z/2mkTix5qNCBPmXqkdm34yzXBTMRIaPmaOKTko
- EKrP6Gnu8ij1E8wm4emvMTihYIjbvNcoM4v3pYftGd7uslSQjoq0tnD8ZIRLWs0RiYSHIBAu20q
- JwVGx6FH3q55Rl0dttwAYPODniTCG214=
-X-Gm-Gg: Acq92OEHt4pcxY2lZMdDX3e1mXfFD0daqD1cdCFEyJmMX7tXEd9qcu03aAbnfp5G76e
- jptIBUfKTMKqoyAkdDrUEEkCv9ODGYGnpsVXq5OeoVvn/E0iu9q1LB8i2XPvX9/lzZlo8RqhGWK
- IhiZxdbMrHmz0EabNxxXA3TNN7LjC6nmbIrvb8uxrgOex90q4DGzZBfY8PNmog/Ew0YcSlUJ8S1
- +q2zj3QrFzqNxeFpjGrKQe9aGVSzfMcMy0QOycy+YsxpstW8SVmQdVikHNEXo7unypVmqec+P7l
- zwQgfSK+y/LGkIZr6rgwGX10DmaAkVjkH7AWqy2zWvCk9koI1aWerixTFTnpq3ZLFjlCNup9LYp
- tN7Q=
-X-Received: by 2002:a05:600c:4e02:b0:483:2c98:4368 with SMTP id
- 5b1f17b1804b1-48fe6322416mr195114775e9.18.1779049853553; Sun, 17 May 2026
- 13:30:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260512144104.761531-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <TY3PR01MB11346174DD5FFD70AB39F570086022@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To: <TY3PR01MB11346174DD5FFD70AB39F570086022@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Sun, 17 May 2026 21:30:26 +0100
-X-Gm-Features: AVHnY4L4Iw5hWO4PauuBTrDRjWPhgs5UmEFDfgWOBP_KZfNbj_cxu6qjfmeyJWg
-Message-ID: <CA+V-a8v_gmPEcWgFsC3Kv4X_M_qzbVHeEY=EmzdYxzy+PkyB-Q@mail.gmail.com>
-Subject: Re: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to
- per-output clock limits
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ AFNElJ9DbjbkGsI3HVnwTkxQawWbjsghLTnvWowb/Qnkn4M5sFKK8kRbeHxr7Hz3R08/J2hYKh1+Vi6Z42I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/fTByZpOVsFB0qG6FqYEXEhHbsZf3xZYZgkPkEVIeQ1ONbpH1
+ VEA8F3t0JgGBCrWaL9pWVMJ+8ApGjXnMNSKhJvxcM3NDpOJIyyS9ZN6ID3w+imfqKSncqJ62YMJ
+ 8N5m5UIT2IPmm9Ied7On/stX/1HrFrObL/lDoT5C3B+GE76p+MPK3tlpLsaC5xesUn9mDkSE=
+X-Gm-Gg: Acq92OH7sZwMRDuTW9NEgpgukwMUuy0wP6x2Udf+9O2zZytwJYobYnlvf51n7jlNAda
+ VFDSxGEB6fxgxbnBFRSBJGoWV88R58So+5SuNvTqHA7Lc9NRO/75BG7sg82cgu9B4ozOAHN5335
+ ZJAeje+7yTkKHwtEpXTBNfImkdOjTzVo/tOSSAYFWhPjVce6gg+PITZXCxTY2wMMwk8RouhYMmR
+ TAoPKWHxk7UmqDflaf769E9BUTRueol+nHUcBJl45hJhES/V1O0/yt+5Xb+OTGeCNaiHdvSYI+o
+ H0eJy2xHGsemLBAknql2JNatzNKozm5fTiMo6GAqi5To4wFgVRYQXdji9bqXytN+naYEFxgZyJ9
+ ERF7cByfMuC5pha/L3+n8ALjR+jMIu+1JOTqbvRzBjOiHv+5J3mTps9fqr33l3+Gk+Pf9p2q/fc
+ aeEYf5bSQvb6hnmerlhpGOTDAGYFRwvc8zzfk=
+X-Received: by 2002:ac8:1089:0:b0:516:4781:39e7 with SMTP id
+ d75a77b69052e-51647813c38mr145392441cf.21.1779051539967; 
+ Sun, 17 May 2026 13:58:59 -0700 (PDT)
+X-Received: by 2002:ac8:1089:0:b0:516:4781:39e7 with SMTP id
+ d75a77b69052e-51647813c38mr145392281cf.21.1779051539541; 
+ Sun, 17 May 2026 13:58:59 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-395882814f1sm7159191fa.2.2026.05.17.13.58.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 17 May 2026 13:58:58 -0700 (PDT)
+Date: Sun, 17 May 2026 23:58:55 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: vishnu.saini@oss.qualcomm.com
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- "magnus.damm" <magnus.damm@gmail.com>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ prahlad.valluru@oss.qualcomm.com, Ravi Agola <raviagol@qti.qualcomm.com>
+Subject: Re: [PATCH] drm/bridge: lt9611uxc: support displays with up to 4
+ EDID blocks
+Message-ID: <v6bw7iszyaoukbcgnunieuo5vcjjrqgf5mct4svpqxcomwssgv@xvfb6y32vt4f>
+References: <20260517-lt9611usc_edid34_misc_next-v1-1-5e2fd8c6399b@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260517-lt9611usc_edid34_misc_next-v1-1-5e2fd8c6399b@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=cuSrVV4i c=1 sm=1 tr=0 ts=6a0a2c15 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=AsM0TcmizTee10SJ8BgA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDIyNiBTYWx0ZWRfX1KyPU5QmAh3V
+ HUx9TulPUCbHZosJSJZEXngsnQ7Lvrwp+GWnilQf/zDtAcnA7xvvJY3CUC6/z17NkguBPcO676S
+ Cwr6BwvGzKQ/htdsRibPOJCjrGDVZWHHYefUpLj/oOE9fesPcwq1dG27mly/NxJ2jctLGbkSJiC
+ jDUQ+3IQx81A9yP7o5CEPqIWtOgP6oCmKEfLPIktfPOIuJByJqTzkeAe2N9eovhjG5ULKbQfTXK
+ IOb5gCMvpiZeJmq9pbnjZZGVH0S/8GxRsASk4cqzX1TkN/+N5cx4N0sm8+AsjlJ3jM5jCIXjIrs
+ 4LjNz9KQ9kAldLBUSqBRbwBBclAsJhd2kVenlVrKWLociGpde9YsLnn8nmeiHQCVTBrp/vkZSEG
+ ZbAF7OiDRFhoYqyoUaoNvFAkH+YSxoDZpnIQFGsv70gwWSijQkD9LTl4DZdOCBuy0hUZwGzEoTC
+ Se3QfPX426ZJMCFrVtw==
+X-Proofpoint-GUID: AxwTJLeh7TrsUjxunEVKz5N3PSROL_mB
+X-Proofpoint-ORIG-GUID: AxwTJLeh7TrsUjxunEVKz5N3PSROL_mB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-17_05,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 adultscore=0
+ spamscore=0 clxscore=1015 suspectscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605170226
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,137 +147,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Biju,
+On Sun, May 17, 2026 at 11:44:49PM +0530, vishnu.saini@oss.qualcomm.com wrote:
+> From: Ravi Agola <raviagol@qti.qualcomm.com>
+> 
+> The LT9611UXC bridge can fetch only 2 EDID blocks at a time, which
+> previously limited EDID reading to 2 blocks and prevented support
+> for displays exposing more than 2 EDID blocks.
+> 
+> Extend the driver to support up to 4 EDID blocks by re-triggering
+> EDID access after the first 2 blocks are read. For block 2, clear
+> the EDID ready flag in 0xb02a so the bridge can expose the remaining
+> blocks, then retry the read until the expected EDID is returned.
 
-Thank you for the review.
+Won't this affect re-reading of the EDID? If so, we might need to reset
+the flag at the block0 path too.
 
-On Sun, May 17, 2026 at 6:59=E2=80=AFPM Biju Das <biju.das.jz@bp.renesas.co=
-m> wrote:
->
-> Hi Prabhakar,
->
-> Thanks for the patch.
->
-> > -----Original Message-----
-> > From: Prabhakar <prabhakar.csengg@gmail.com>
-> > Sent: 12 May 2026 15:41
-> > Subject: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to p=
-er-output clock limits
-> >
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Move pixel clock validation from a fixed encoder check to per-output co=
-nstraints stored in
-> > rzg2l_du_output_routing.
-> >
-> > Previously, rzg2l_du_encoder_mode_valid() applied a hard-coded 83.5 MHz=
- upper limit specifically for
-> > DPAD0. This approach cannot scale across the RZ DU family because pixel=
- clock limits vary per SoC and
-> > per output interface.
-> >
-> > Add mode_clock_min and mode_clock_max fields to rzg2l_du_output_routing=
- so that clock constraints are
-> > expressed at the granularity of individual output interfaces rather tha=
-n globally per SoC. Update
-> > rzg2l_du_encoder_mode_valid() to look up the routing entry for the acti=
-ve output and return
-> > MODE_CLOCK_LOW or MODE_CLOCK_HIGH when the pixel clock falls outside th=
-e declared range. A value of 0
-> > for either field means no bound is enforced in that direction.
-> >
-> > Set the DPAD0 pixel clock limits for RZ/G2UL (R9A07G043U) to 20.875 MHz=
- minimum and 83.5 MHz maximum.
-> > RZ/G2L and RZ/G2LC (R9A07G044) share the same DPAD0 pixel clock limits.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> > v2->v3:
-> > - Moved clock limits from device_info to output_routing to allow
-> >   per-output constraints.
-> > - Updated commit message to reflect the change in approach.
-> >
-> > v1->v2:
-> > - Dropped storing info pointer in struct rzg2l_du_encoder as it's not n=
-eeded.
-> > ---
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 4 ++++
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 6 +++++-
-> >  3 files changed, 13 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu=
-/drm/renesas/rz-
-> > du/rzg2l_du_drv.c
-> > index 0fef33a5a089..d1bc205eb5f8 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > @@ -33,6 +33,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a=
-07g043u_info =3D {
-> >               [RZG2L_DU_OUTPUT_DPAD0] =3D {
-> >                       .possible_outputs =3D BIT(0),
-> >                       .port =3D 0,
-> > +                     .mode_clock_min =3D 20875,
-> > +                     .mode_clock_max =3D 83500,
-> >               },
-> >       },
-> >  };
-> > @@ -47,6 +49,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a=
-07g044_info =3D {
-> >               [RZG2L_DU_OUTPUT_DPAD0] =3D {
-> >                       .possible_outputs =3D BIT(0),
-> >                       .port =3D 1,
-> > +                     .mode_clock_min =3D 20875,
-> > +                     .mode_clock_max =3D 83500,
-> >               }
-> >       }
-> >  };
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu=
-/drm/renesas/rz-
-> > du/rzg2l_du_drv.h
-> > index 58806c2a8f2b..307ae70dd382 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> > @@ -30,6 +30,8 @@ enum rzg2l_du_output {
-> >   * struct rzg2l_du_output_routing - Output routing specification
-> >   * @possible_outputs: bitmask of possible outputs
-> >   * @port: device tree port number corresponding to this output route
-> > + * @mode_clock_min: minimum pixel clock in kHz
-> > + * @mode_clock_max: maximum pixel clock in kHz
-> >   *
-> >   * The DU has 2 possible outputs (DPAD0, DSI0). Output routing data
-> >   * specify the valid SoC outputs, which CRTC can drive the output, and=
- the type @@ -38,6 +40,8 @@ enum
-> > rzg2l_du_output {  struct rzg2l_du_output_routing {
-> >       unsigned int possible_outputs;
-> >       unsigned int port;
-> > +     int mode_clock_min;
-> > +     int mode_clock_max;
-> >  };
-> >
-> >  /*
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers=
-/gpu/drm/renesas/rz-
-> > du/rzg2l_du_encoder.c
-> > index 0e567b57a408..4af2ae09ff39 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> > @@ -50,8 +50,12 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *enco=
-der,
-> >                           const struct drm_display_mode *mode)  {
-> >       struct rzg2l_du_encoder *renc =3D to_rzg2l_encoder(encoder);
-> > +     struct rzg2l_du_device *rcdu =3D to_rzg2l_du_device(renc->base.de=
-v);
-> > +     const struct rzg2l_du_output_routing *route =3D
-> > +&rcdu->info->routes[renc->output];
-> >
-> > -     if (renc->output =3D=3D RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83=
-500)
->
-> Please retain the check for DPAD output, to avoid checking the same for D=
-SI and LVDS.
->
-This patch checks only for pads that have added constraints.
+> 
+> Also cache the full EDID blob in the driver and reuse it until the
+> next HPD disconnect event, so repeated EDID reads do not re-query
+> the bridge.
 
-Cheers,
-Prabhakar
+Separte commit, separate justification. Most of the drivers don't use
+the cache, so, I'd say, most likely no.
+
+> 
+> Signed-off-by: Ravi Agola <raviagol@qti.qualcomm.com>
+> Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 84 ++++++++++++++++++++++++++----
+>  1 file changed, 73 insertions(+), 11 deletions(-)
+> 
+-- 
+With best wishes
+Dmitry
