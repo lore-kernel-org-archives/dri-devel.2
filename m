@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E43E1CD4F21
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 13:20:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8715ACD4F21
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 13:28:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45D0110E1ED;
-	Sun, 17 May 2026 13:20:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDB4C10E222;
+	Sun, 17 May 2026 13:28:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="Q+E6UdkE";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="EoYmUfQ3";
 	dkim-atps=neutral
 Received: from mail-03.1984.is (mail-03.1984.is [93.95.224.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8762910E1ED
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:20:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F371A10E222
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:28:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=berkoc.com; 
  s=1984;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,15 +22,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=berkoc.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=ldPh9qqiOD6rik1ZyLFqBmBS78przHDh7LwDDhS9xzE=; b=Q+E6UdkEgUfoxzVvgwhf9sA33q
- CaVb7rGxa3G6GrIS5gk5cEPVeqeKdgwsfa3jMOhIkhBIn7Zg++AMXQl11Si/qXmadDPBODzQ5MpDp
- iOuC1ao4ERvsl8wJ9JBwHUvDPAFlEcU2Znzj/Vl0KSIrlTgqH2Yn1m7xJsLJkwOrCO7qJ19JFrtmo
- HGW+dKB2f8YRvWneUDIaExbUs3g+bgZKGY5RPoX110E6t7nbYm8sHnHm9mFjAy5faMpppDI6zAqfV
- MNQ2zof2ZsjqHp8TMxzpnvsTnppgW3SRFGbIP0nYwJtOImZbhuWk9V88pReOiKmk8gWHafrjBHgyv
- G4L4keQg==;
+ bh=PBjs0lncXBQIUANeQ0FdMkMsnlM+ULn4MUfrxqEcwrE=; b=EoYmUfQ3MeS4j3A1WqG8gqXVEv
+ l+wOPiE6yg7icRPFywNqpc3i+6ozwTfquB6M/seo3tpuBWkRJJCGSSSsfPwGm/DbZ/svnqnB+c8H6
+ Zyayagx0/uaNyE85357t2QLWWS57AOZKeb9/Yhh7AO2GTLNhvAMbNUjmRapgepuVhltnySdxHrBY9
+ Du8lsN9IYdNGxtp7t0BOxmmT2wzDAla8taQoPtFoRUsH0SveqdgGhlnTrFICUPeHDuKBZU13Xmf/t
+ inCqMt07/HluE4QOV53amG+wa+x+NJPjABi6TrtHEA4lMRCN/p3hoHDGLm6z1SCp6AR1XhmVrQIwf
+ xkQzkb9A==;
 Received: from localhost by mail-03.1984.is with utf8esmtp (Exim 4.96)
- (envelope-from <me@berkoc.com>) id 1wObG1-00H5Ss-1i;
- Sun, 17 May 2026 13:10:14 +0000
+ (envelope-from <me@berkoc.com>) id 1wObGF-00H5VV-0s;
+ Sun, 17 May 2026 13:10:28 +0000
 From: Berkant Koc <me@berkoc.com>
 To: Saurabh Sengar <ssengar@linux.microsoft.com>,
  Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
@@ -39,10 +39,9 @@ Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Michael Kelley <mhklinux@outlook.com>, Thomas Zimmermann <tzimmermann@suse.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Deepak Rawat <drawat.floss@gmail.com>
-Subject: [PATCH 1/2] drm/hyperv: validate resolution_count from host VMBus
- message
-Date: Sun, 17 May 2026 14:55:01 +0200
-Message-ID: <20260517-drm-hyperv-patch1@berkoc.com>
+Subject: [PATCH 2/2] drm/hyperv: validate VMBus packet size in receive callback
+Date: Sun, 17 May 2026 14:55:02 +0200
+Message-ID: <20260517-drm-hyperv-patch2@berkoc.com>
 In-Reply-To: <20260517-drm-hyperv-cover@berkoc.com>
 References: <20260517-drm-hyperv-cover@berkoc.com>
 MIME-Version: 1.0
@@ -65,46 +64,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The synthetic video device receives a SYNTHVID_RESOLUTION_RESPONSE
-containing a u8 resolution_count and a u8 default_resolution_index
-from the host. The existing check rejects resolution_count == 0 and
-rejects an index that is greater or equal to resolution_count, but
-does not bound resolution_count itself against the fixed
-supported_resolution[SYNTHVID_MAX_RESOLUTION_COUNT] array. A host
-that returns resolution_count > 64 together with an in-range
-default_resolution_index causes the subsequent loop to read past
-the array.
+hyperv_receive() reads bytes_recvd from vmbus_recvpacket() but does not
+forward that value to hyperv_receive_sub(). The sub-handler reads
+msg->vid_hdr.type and msg->feature_chg.is_dirt_needed without knowing
+how many bytes the host actually wrote, so a short packet leaves the
+parser reading bytes that the host did not write in this packet. The
+unconditional memcpy(hv->init_buf, msg, VMBUS_MAX_PACKET_SIZE) on the
+wait-completion path also copies the full 16 KiB recv_buf regardless
+of bytes_recvd, including any residue from the prior message.
 
-Reject any resolution_count that exceeds SYNTHVID_MAX_RESOLUTION_COUNT,
-folded into the existing zero-check for one log entry per failure.
-This matches the input-validation pattern used by other VMBus parsers
-under drivers/hv/ and trims one host-controlled value from the trusted
-path.
+Pass bytes_recvd into hyperv_receive_sub() and reject any packet shorter
+than the pipe + synthvid header. The dirt-feature branch additionally
+requires the feature_change payload size before reading is_dirt_needed.
+The init_buf copy now uses bytes_recvd as the length argument, which
+keeps it bounded by VMBUS_MAX_PACKET_SIZE through the new upper check.
 
 Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic video device")
 Cc: stable@vger.kernel.org # 5.14+
 Signed-off-by: Berkant Koc <me@berkoc.com>
 ---
- drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-index 051ecc526832..003bb118d64c 100644
+index 003bb118d64c..0d32d9944c43 100644
 --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
 +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-@@ -391,8 +391,11 @@ static int hyperv_get_supported_resolution(struct hv_device *hdev)
- 		return -ETIMEDOUT;
+@@ -420,26 +420,35 @@ static int hyperv_get_supported_resolution(struct hv_device *hdev)
+ 	return 0;
+ }
+ 
+-static void hyperv_receive_sub(struct hv_device *hdev)
++static void hyperv_receive_sub(struct hv_device *hdev, u32 bytes_recvd)
+ {
+ 	struct hyperv_drm_device *hv = hv_get_drvdata(hdev);
+ 	struct synthvid_msg *msg;
++	size_t hdr_size;
+ 
+ 	if (!hv)
+ 		return;
+ 
++	hdr_size = sizeof(struct pipe_msg_hdr) +
++		   sizeof(struct synthvid_msg_hdr);
++	if (bytes_recvd < hdr_size || bytes_recvd > VMBUS_MAX_PACKET_SIZE)
++		return;
++
+ 	msg = (struct synthvid_msg *)hv->recv_buf;
+ 
+ 	/* Complete the wait event */
+ 	if (msg->vid_hdr.type == SYNTHVID_VERSION_RESPONSE ||
+ 	    msg->vid_hdr.type == SYNTHVID_RESOLUTION_RESPONSE ||
+ 	    msg->vid_hdr.type == SYNTHVID_VRAM_LOCATION_ACK) {
+-		memcpy(hv->init_buf, msg, VMBUS_MAX_PACKET_SIZE);
++		memcpy(hv->init_buf, msg, bytes_recvd);
+ 		complete(&hv->wait);
+ 		return;
  	}
  
--	if (msg->resolution_resp.resolution_count == 0) {
--		drm_err(dev, "No supported resolutions\n");
-+	if (msg->resolution_resp.resolution_count == 0 ||
-+	    msg->resolution_resp.resolution_count >
-+	    SYNTHVID_MAX_RESOLUTION_COUNT) {
-+		drm_err(dev, "Invalid resolution count: %d\n",
-+			msg->resolution_resp.resolution_count);
- 		return -ENODEV;
- 	}
+ 	if (msg->vid_hdr.type == SYNTHVID_FEATURE_CHANGE) {
++		if (bytes_recvd < hdr_size +
++		    sizeof(struct synthvid_feature_change))
++			return;
+ 		hv->dirt_needed = msg->feature_chg.is_dirt_needed;
+ 		if (hv->dirt_needed)
+ 			hyperv_hide_hw_ptr(hv->hdev);
+@@ -466,7 +475,7 @@ static void hyperv_receive(void *ctx)
+ 				       &bytes_recvd, &req_id);
+ 		if (bytes_recvd > 0 &&
+ 		    recv_buf->pipe_hdr.type == PIPE_MSG_DATA)
+-			hyperv_receive_sub(hdev);
++			hyperv_receive_sub(hdev, bytes_recvd);
+ 	} while (bytes_recvd > 0 && ret == 0);
+ }
  
 -- 
 2.47.3
