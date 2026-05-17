@@ -4,76 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B43BACD4851
-	for <dri-devel@archiver.kernel.org>; Sat, 16 May 2026 18:52:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84B41CD4851
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 00:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D0410E547;
-	Sat, 16 May 2026 18:52:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CEC610E20F;
+	Sun, 17 May 2026 00:02:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PmfbwzMe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WzynblCj";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05E2E10E586
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 18:52:36 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4891c0620bcso4489535e9.1
- for <dri-devel@lists.freedesktop.org>; Sat, 16 May 2026 11:52:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778957555; x=1779562355; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Of5uJ4G2xF4w03OvBq3FrKhJGQfgKwZiWtACnNDXJdY=;
- b=PmfbwzMeen5/Oz3+AprV4zHq7Zr6oMmV13yJ8Fk8IQW+NatzIDyJtVNdmRxKNv0USf
- G0C6s0LOzYhF0ATQdi2ALbxG7pH3mj8ArnU0IIC6IQrETnZhtOb1f3vb51sQHi89Unle
- F3c2R22r5rTOgfYwK185wgnUKxxdgJvzCjzN8MprI6Mxm7iKBXzx11S9Awxt3MAUaYM4
- 5bFMcsSsdfItD8afXjwwZBIyj6afdYAMAqT2Zblo14/9ER0pWrx6yyWf9d28FX/754GZ
- fj7CLfREmFk1qLaTwHh506wwD4SEOxC6qJk0vhLExhPdYfZ/UNVb6aZbkVcZjKlqahbm
- g4qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778957555; x=1779562355;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Of5uJ4G2xF4w03OvBq3FrKhJGQfgKwZiWtACnNDXJdY=;
- b=MXMB7dHpVhDdNYmErEAb+LeO0GMNgjec5mNrKkmyeiLY2qUrPF09cdt33tjIObvm40
- vMYyjRrbvPOZfUGojYuPFGIrbj+IXXAL8RjUbJHKPFDM/IJAi9T9sqmIJdZdvqv3sumR
- 8QH1M2SY+UcOGunpkRkv01fAdb+kwo1Wy7D0ZepuiQU8cR9KM1c0z7apmumDFGxYpwUB
- ak8bN8wwj9UXmeBsLT1hlOSs7X/ukXq1NSL/ojVsJ3LO/C4KDolvpKfdamvJO/rCqKVJ
- ffUq0CN8ysXrQ9zLR5hYp7AibyTjDkEH5MOa0RQnUPSnIZodianiA+3i8u8u0RgulAdT
- 11Aw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+NvcNA8D78JcMafyJ26cH7apBWfn3XJqb1BwifQI0Uc//Bq/SFXXfsBITDffx5T66hqDsXInhw2yI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhiPtQl/X/grkiZRvjb/u+QoGTWh8CogteXP5yKHrRH9wEoZNb
- jXpafNoiMZdnNsfm3iSFzy2LNa1+4fHoteDr7P9Re4+H09YMg2fQENJH
-X-Gm-Gg: Acq92OFuK0iukQ1V9pFwKYiQBZlUIYTnNyn6WqIVTmoKp3HXeDjaQkgjM+X+KDJ1tYr
- WvHa3UeZbgvNvkMdl+TnarhjRzaDYXzoKQU232d/YOr3unhOhb6MQ0wlbgseq8CCNPaZq86gzy8
- Z0AI8swVUbJgNJlqGIrkpofo/KIXrq8I25i+rfEZ3I2MFwAeGc95BZtk67s3lUHNdG+HV2CHOVe
- gaKQ+zR7MSqbHtY49r2FGEw/Li/c0D2JCWdw9lDb1RfOKAD9gzf8SqzLFJhaaYlzTXFoEeZiraw
- 3/0sHceYQxHDwD9mpcafv2Y20VfsVxEc5JDtJo9maXpJ8AIcfddH9Z2Uz+1GjHPIEgZg6hMYidY
- iqt3rCk5V13cX7rg54HzClsDwIp/Esw3WE/cMMdwRBzpbLpER12RUxvnLrU1XNFGKHPcTTF0P0v
- Ug+2BsVQSk8mz5qOJc6f7608jNBRE07DouaqNm+A==
-X-Received: by 2002:a05:600d:10:b0:489:e696:8362 with SMTP id
- 5b1f17b1804b1-48fe60d7882mr105852915e9.13.1778957555135; 
- Sat, 16 May 2026 11:52:35 -0700 (PDT)
-Received: from skylab.fritz.box ([2a06:4944:10fb:f400:d904:da17:d4e8:49c7])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe5cab818sm147773865e9.14.2026.05.16.11.52.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 May 2026 11:52:34 -0700 (PDT)
-From: Gilles Risch <gilles.risch@gmail.com>
-To: alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Gilles Risch <gilles.risch@gmail.com>
-Subject: [PATCH] drm/radeon: fix eDP resume from suspend on iMac11,
- 1 / DCE3.1 systems
-Date: Sat, 16 May 2026 20:52:26 +0200
-Message-ID: <20260516185226.3005-1-gilles.risch@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260516092420.3579-2-gilles.risch@gmail.com>
-References: <20260516092420.3579-2-gilles.risch@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A84AF10E20F
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 00:02:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id BA3E2403B3;
+ Sun, 17 May 2026 00:02:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340A4C19425;
+ Sun, 17 May 2026 00:01:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778976124;
+ bh=FueW5XHGsrTI0/bBHXpSoGIK5l+aDF+K76K15915R0E=;
+ h=From:To:Cc:Subject:Date:From;
+ b=WzynblCj7QPOl3VxEzVVM+iO3ZBB7X97GhpUHW9bls4qUvzqHncXrOmdcLCmyYpK4
+ gEqbvT4xZ09FHIZHdnzqJv/kM7IFBAfbpCKMa8z5XNU3IY3mmfCAfdp3nsk60qtdam
+ U6/SrR0XdVac1kymIl07WPmLMa0JiLRCK3CVAMLV38eF0d8HmXVUQ6ZdgBYNNfnL9H
+ gWHVUrCvd4dQcvpkKqD663DYdzqhDnjGJ+QJuCYIMFMZ8PXqBft2llxytWhK7mhMAo
+ 2ggJ6eK8LUNCEV6EpLdLl1ior3PaSjuHBzeHypI679XaiwZuthituZ/68Q83yO6Z5O
+ WtfEFquCH1hXg==
+From: Danilo Krummrich <dakr@kernel.org>
+To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
+ aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
+ leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
+ ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
+ abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu, igor.korotin@linux.dev, daniel.almeida@collabora.com,
+ pcolberg@redhat.com
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH v3 00/27] rust: device: Higher-Ranked Lifetime Types for
+ device drivers
+Date: Sun, 17 May 2026 02:00:48 +0200
+Message-ID: <20260517000149.3226762-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,57 +68,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-After suspend/resume the internal eDP display on iMac11,1 (and
-potentially other DCE3.1 systems) stays dark because
-atombios_set_edp_panel_power() skips panel power control for
-anything older than DCE4.
+Currently, Rust device drivers access device resources such as PCI BAR mappings
+and I/O memory regions through Devres<T>.
 
-Fix this by:
-- Extending atombios_set_edp_panel_power() to also handle DCE3.1
-  by changing the !ASIC_IS_DCE4() guard to !ASIC_IS_DCE31().
-  HPD polling works correctly on DCE3.1 (verified: HPD is asserted
-  at iteration 0 on iMac11,1).
-- Issuing ATOM_ENCODER_CMD_DP_VIDEO_ON/OFF for DCE3.1 in addition
-  to DCE4+.
+Devres::access() provides zero-overhead access by taking a &Device<Bound>
+reference as proof that the device is still bound. Since a &Device<Bound> is
+available in almost all contexts by design, Devres is mostly a type-system level
+proof that the resource is valid, but it can also be used from scopes without
+this guarantee through its try_access() accessor.
 
-Tested on iMac11,1 (Mobility Radeon HD 4850, RV770/DCE3.1).
+This works well in general, but has a few limitations:
 
-Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
----
- drivers/gpu/drm/radeon/atombios_encoders.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+  - Every access to a device resource goes through Devres::access(), which
+    despite zero cost, adds boilerplate to every access site.
 
-diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
-index 4e984973c043..b62fd713efcf 100644
---- a/drivers/gpu/drm/radeon/atombios_encoders.c
-+++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-@@ -1383,7 +1383,7 @@ atombios_set_edp_panel_power(struct drm_connector *connector, int action)
- 	if (connector->connector_type != DRM_MODE_CONNECTOR_eDP)
- 		goto done;
- 
--	if (!ASIC_IS_DCE4(rdev))
-+	if (!ASIC_IS_DCE31(rdev))
- 		goto done;
- 
- 	if ((action != ATOM_TRANSMITTER_ACTION_POWER_ON) &&
-@@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *encoder, int mode)
- 		if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encoder)) && connector) {
- 			/* DP_SET_POWER_D0 is set in radeon_dp_link_train */
- 			radeon_dp_link_train(encoder, connector);
--			if (ASIC_IS_DCE4(rdev))
-+			if (ASIC_IS_DCE4(rdev) || ASIC_IS_DCE31(rdev))
- 				atombios_dig_encoder_setup(encoder, ATOM_ENCODER_CMD_DP_VIDEO_ON, 0);
- 		}
- 		if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)) {
-@@ -1724,7 +1724,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *encoder, int mode)
- 	case DRM_MODE_DPMS_SUSPEND:
- 	case DRM_MODE_DPMS_OFF:
- 
--		if (ASIC_IS_DCE4(rdev)) {
-+		if (ASIC_IS_DCE4(rdev) || ASIC_IS_DCE31(rdev)) {
- 			if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encoder)) && connector)
- 				atombios_dig_encoder_setup(encoder, ATOM_ENCODER_CMD_DP_VIDEO_OFF, 0);
- 		}
+  - Destructors do not receive a &Device<Bound>, so they must use try_access(),
+    which can fail. In practice the access succeeds if teardown ordering is
+    correct, but the type system can't express this, forcing drivers to handle a
+    failure path that should never be taken.
+
+  - Sharing a resource across components (e.g. passing a BAR to a sub-component)
+    requires Arc<Devres<T>>.
+
+  - Device references must be stored as ARef<Device> rather than plain &Device
+    borrows.
+
+These limitations stem from the driver's bus device private data being 'static
+-- the driver struct cannot borrow from the device reference it receives in
+probe(), even though it structurally cannot outlive the device binding.
+
+This series introduces Higher-Ranked Lifetime Types (HRT) for Rust device
+drivers. An HRT is a type that is generic over a lifetime -- it does not have a
+fixed lifetime, but can be instantiated with any lifetime chosen by the caller.
+
+Bus driver traits use a Generic Associated Type (GAT) type Data<'bound> to
+introduce the lifetime on the private data, rather than parameterizing the
+Driver trait itself. This avoids a driver trait global lifetime and avoids the
+need for ForLt for bus device private data, making the bus implementations much
+simpler. ForLt is only needed for auxiliary registration data, where the
+lifetime is not introduced by a trait callback but must be threaded through
+Registration.
+
+With HRT, driver structs carry a lifetime parameter tied to the device binding
+scope -- the interval of a bus device being bound to a driver. Device resources
+like pci::Bar<'bound> and IoMem<'bound> are handed out with this lifetime, so
+the compiler enforces at build time that they do not escape the binding scope.
+
+Before:
+
+	struct MyDriver {
+	    pdev: ARef<pci::Device>,
+	    bar: Devres<pci::Bar<BAR_SIZE>>,
+	}
+
+	let io = self.bar.access(dev)?;
+	io.read32(OFFSET);
+
+After:
+
+	struct MyDriver<'bound> {
+	    pdev: &'bound pci::Device,
+	    bar: pci::Bar<'bound, BAR_SIZE>,
+	}
+
+	self.bar.read32(OFFSET);
+
+Lifetime-parameterized device resources can be put into a Devres at any point
+via Bar::into_devres() / IoMem::into_devres(), providing the exact same
+semantics as before. This is useful for resources shared across subsystem
+boundaries where revocation is needed.
+
+This also synergizes with the upcoming self-referential initialization support
+in pin-init, which allows one field of the driver struct to borrow another
+during initialization without unsafe code.
+
+The same pattern is applied to auxiliary device registration data as a first
+example beyond bus device private data. Registration<F: ForLt> can hold
+lifetime-parameterized data tied to the parent driver's binding scope. Since the
+auxiliary bus guarantees that the parent remains bound while the auxiliary
+device is registered, the registration data can safely borrow the parent's
+device resources.
+
+More generally, binding resource lifetimes to a registration scope applies to
+every registration that is scoped to a driver binding -- auxiliary devices,
+class devices, IRQ handlers, workqueues.
+
+A follow-up series extends this to class device registrations, starting with
+DRM, so that class device callbacks (IOCTLs, etc.) can safely access device
+resources through the separate registration data bound to the registration's
+lifetime without Devres indirection.
+
+The series contains a few driver patches for reference, indicated by the REF
+suffix.
+
+Thanks to Gary for coming up with the ForLt implementation; thanks to Alice for
+the early discussions around lifetime-parameterized private data that helped
+shape the direction of this work.
+
+Changes in v3:
+  - Rework all bus "make Driver trait lifetime-parameterized" patches to use a
+    GAT (type Data<'bound>); in the context of adding a 'bound lifetime, this
+    avoids a driver trait global lifetime and avoids ForLt for bus device
+    private data making the bus implementations much simpler
+
+Changes in v2:
+  - Add 'a bound to ForLt::Of<'a> and WithLt::Of, making the lifetime bound
+    inherent to the trait; remove all F::Of<'static>: 'static where clauses
+  - Drop "rust: devres: add ForLt support to Devres"; Devres itself stays
+    unchanged -- ForLt-aware access is introduced later through DevresLt in a
+    separate series
+  - Use 'bound instead of 'a; add patches to consistently use 'bound for
+    pre-existing 'a
+
+Danilo Krummrich (24):
+  rust: driver: decouple driver private data from driver type
+  rust: driver core: drop drvdata before devres release
+  rust: pci: implement Sync for Device<Bound>
+  rust: platform: implement Sync for Device<Bound>
+  rust: auxiliary: implement Sync for Device<Bound>
+  rust: usb: implement Sync for Device<Bound>
+  rust: device: implement Sync for Device<Bound>
+  rust: pci: make Driver trait lifetime-parameterized
+  rust: platform: make Driver trait lifetime-parameterized
+  rust: auxiliary: make Driver trait lifetime-parameterized
+  rust: usb: make Driver trait lifetime-parameterized
+  rust: i2c: make Driver trait lifetime-parameterized
+  rust: driver: update module documentation for GAT-based Data type
+  rust: auxiliary: generalize Registration over ForLt
+  samples: rust: rust_driver_auxiliary: showcase lifetime-bound
+    registration data
+  rust: pci: make Bar lifetime-parameterized
+  rust: io: make IoMem and ExclusiveIoMem lifetime-parameterized
+  samples: rust: rust_driver_pci: use HRT lifetime for Bar
+  rust: driver-core: rename 'a lifetime to 'bound
+  gpu: nova-core: rename 'a lifetime to 'bound
+  gpu: nova-core: use lifetime for Bar
+  gpu: nova-core: unregister sysmem flush page from Drop
+  gpu: nova-core: replace ARef<Device> with &'bound Device in
+    SysmemFlush
+  gpu: drm: tyr: use lifetime for IoMem
+
+Gary Guo (3):
+  rust: alloc: remove `'static` bound on `ForeignOwnable`
+  rust: driver: move 'static bounds to constructor
+  rust: types: add `ForLt` trait for higher-ranked lifetime support
+
+ drivers/base/dd.c                        |   2 +-
+ drivers/cpufreq/rcpufreq_dt.rs           |   9 +-
+ drivers/gpu/drm/nova/driver.rs           |   6 +-
+ drivers/gpu/drm/tyr/driver.rs            |  23 ++-
+ drivers/gpu/drm/tyr/gpu.rs               |  62 +++---
+ drivers/gpu/drm/tyr/regs.rs              |  21 +-
+ drivers/gpu/nova-core/driver.rs          |  51 ++---
+ drivers/gpu/nova-core/fb.rs              |  31 ++-
+ drivers/gpu/nova-core/firmware/gsp.rs    |   8 +-
+ drivers/gpu/nova-core/gpu.rs             |  38 ++--
+ drivers/gpu/nova-core/gsp/commands.rs    |  10 +-
+ drivers/gpu/nova-core/gsp/fw/commands.rs |   4 +-
+ drivers/gpu/nova-core/nova_core.rs       |   2 +-
+ drivers/pwm/pwm_th1520.rs                |  13 +-
+ include/linux/device/driver.h            |   4 +-
+ rust/Makefile                            |   1 +
+ rust/kernel/alloc/kbox.rs                |  24 ++-
+ rust/kernel/auxiliary.rs                 |  98 +++++----
+ rust/kernel/cpufreq.rs                   |   9 +-
+ rust/kernel/device.rs                    |  12 +-
+ rust/kernel/devres.rs                    |  16 +-
+ rust/kernel/driver.rs                    |  37 ++--
+ rust/kernel/i2c.rs                       |  62 +++---
+ rust/kernel/io/mem.rs                    | 133 +++++++------
+ rust/kernel/pci.rs                       |  39 ++--
+ rust/kernel/pci/io.rs                    |  68 ++++---
+ rust/kernel/pci/irq.rs                   |  38 ++--
+ rust/kernel/platform.rs                  |  62 +++---
+ rust/kernel/types.rs                     |  12 +-
+ rust/kernel/types/for_lt.rs              | 117 +++++++++++
+ rust/kernel/usb.rs                       |  53 +++--
+ rust/macros/for_lt.rs                    | 242 +++++++++++++++++++++++
+ rust/macros/lib.rs                       |  12 ++
+ samples/rust/rust_debugfs.rs             |   9 +-
+ samples/rust/rust_dma.rs                 |   6 +-
+ samples/rust/rust_driver_auxiliary.rs    |  41 ++--
+ samples/rust/rust_driver_i2c.rs          |  13 +-
+ samples/rust/rust_driver_pci.rs          |  90 ++++-----
+ samples/rust/rust_driver_platform.rs     |   9 +-
+ samples/rust/rust_driver_usb.rs          |  13 +-
+ samples/rust/rust_i2c_client.rs          |  14 +-
+ samples/rust/rust_soc.rs                 |   9 +-
+ 42 files changed, 1011 insertions(+), 512 deletions(-)
+ create mode 100644 rust/kernel/types/for_lt.rs
+ create mode 100644 rust/macros/for_lt.rs
+
+
+base-commit: 8d3bea93f483cb8f92b9f85d1528268a6469af28
 -- 
-2.47.3
+2.54.0
 
