@@ -4,43 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212D6CD37AC
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 13:03:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C38FECD4F21
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 13:10:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03B0110E042;
-	Sun, 17 May 2026 13:03:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1801610E07D;
+	Sun, 17 May 2026 13:10:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="KhR5E3Lh";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="pfpT511i";
 	dkim-atps=neutral
 Received: from mail-01.1984.is (mail-01.1984.is [185.112.145.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8711310E042
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:03:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CDA510E07D
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=berkoc.com; 
  s=1984;
- h=Subject:Cc:To:From:Message-ID:Date:Sender:Reply-To:MIME-Version:
- Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date
+ :Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
  Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
  In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=D9kECFUMtuKh0TE7iHonFkqbM5K+lBf35nG9AQ8cfUI=; b=KhR5E3LhqCJewlgXOx6eBv3ByC
- QDm/vd+N7NB9IxWiSkrQluzZKyxuvdHvf3LbrYEgjLbqJmtamfZ0933twJSyx9Q65FlDCtxLi54r1
- VPkV0vLnFJmX40/1K0wRUZ/NIrFx/CFyLp61nCmdfPhlkloUcRVgLDrf4WKNv0mQK1fn3dC3lM/yq
- XCSYYfP11otwHj0gv01sekNqSC+Jk2tOCJpvkZTWakS90x7HyaIrMfBxtZLiBooDi5gV6ewhPeYsV
- LbROp7LmgYQQH0pTnntLMpqOH/1OIuoqVRwxMaqCOrbrhCyoLSZyBmDw+7gKZHc4R96zGrukkMIBh
- 7EcrVIsQ==;
+ bh=eAHnVX5ofCROL6dD/lUWJLdN6yFCfghtocjMNvR+AIY=; b=pfpT511iiLMpDH2n2tGpOrAA/z
+ mcvV4hoVjiHCy+WT0ZjSDbuqywwAIZP9nBwoNtbtCVuqWNaDreWSeZUGz8T5j4T7xnYj6U2my5FiM
+ RHo0+LBwPgUVtOH87IddThLvXWFGt5+XnZE3DKJDcGIgFNHGHVhWFR0J7Wh8FFupI8zQXPR0FEf6o
+ JBZmP4Hhn/1IDJsV3AzHYPBp3nLnVT8lci/EBT+Frnpnjg9C4eNFmvFVKXHDIvhgXaqOTgWCMJoMb
+ 0LS+6D8qT0WyQ/e4X3EKvBr3lBIMbu9Pu4awb6J5uL/2JNEIZAq/HoPsWzk3SNYKoqBf+nSSRghBa
+ e+eurULg==;
 Received: from localhost by mail-01.1984.is with utf8esmtp (Exim 4.96)
- (envelope-from <me@berkoc.com>) id 1wOb9H-00FziQ-2K;
- Sun, 17 May 2026 13:03:23 +0000
-Date: Sun, 17 May 2026 15:03:09 +0200
-Message-ID: <28e476e896dafdd31518dc5360ab7766@berkoc.com>
+ (envelope-from <me@berkoc.com>) id 1wObFn-00G0yq-2c;
+ Sun, 17 May 2026 13:10:00 +0000
 From: Berkant Koc <me@berkoc.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Jocelyn Falempe <jfalempe@redhat.com>, Dave Airlie <airlied@redhat.com>,
+To: Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wei Liu <wei.liu@kernel.org>,
+ Michael Kelley <mhklinux@outlook.com>, Thomas Zimmermann <tzimmermann@suse.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/mgag200: reject pixel clocks outside PLL range
+ Maxime Ripard <mripard@kernel.org>, Deepak Rawat <drawat.floss@gmail.com>
+Subject: [PATCH 0/2] drm/hyperv: harden VMBus message parser input validation
+Date: Sun, 17 May 2026 14:55:00 +0200
+Message-ID: <20260517-drm-hyperv-cover@berkoc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Authenticated-User: me@berkoc.com
 X-Sender-Address: me@berkoc.com
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -58,230 +62,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 877507bb954e ("drm/mgag200: Provide per-device callbacks for
-PIXPLLC") split the PLL compute code into per-model source files. The
-g200se variant kept the existing permitteddelta sanity check and
-returns -EINVAL when no register combination matches the requested
-pixel clock within tolerance, which lets atomic_check reject the mode.
+The hyperv synthetic video driver parses VMBus messages from the host
+without bounding two host-controlled values that feed into fixed-size
+buffers. Both items are input validation, not security bugs: the
+Hyper-V host sits inside the trusted compute base under the default
+Hyper-V threat-model. The patches still trim the inputs the driver
+accepts at face value, matching the trajectory drivers/hv/ has
+followed for Confidential-VMBus work where the host is no longer
+fully trusted.
 
-The matching helpers in g200wb, g200eh, g200er, g200ev, g200eh3 and
-g200ew3 omit that check. When the search loop finds no candidate, m,
-n, p and s stay at their initial zero values and the function still
-returns success. atomic_update then programs those zero values into
-the PIXPLLCM/N/P registers, which yields a corrupted output clock on
-the affected models.
+Patch 1 bounds resolution_count against
+supported_resolution[SYNTHVID_MAX_RESOLUTION_COUNT]; the existing
+default_resolution_index check is bypassable when both values
+exceed 64.
 
-Apply the same permitteddelta test (clock * 5 / 1000, matching the
-g200se reference) in all six helpers so that out-of-range modes are
-rejected during atomic_check instead of producing garbage register
-writes during atomic_update.
+Patch 2 forwards bytes_recvd from vmbus_recvpacket() into the
+sub-handler so that vid_hdr.type and feature_chg.is_dirt_needed
+are only read once the host actually delivered enough bytes, and
+so that the init_buf memcpy uses the received length.
 
-Fixes: 877507bb954e ("drm/mgag200: Provide per-device callbacks for PIXPLLC")
-Cc: stable@vger.kernel.org # v6.1+
-Signed-off-by: Berkant Koc <me@berkoc.com>
----
+Sending as a plain patch series, not a security disclosure.
+Compile-tested against drm-fixes (6916d5703ddf), static-only.
 
-Build-tested with CONFIG_DRM_MGAG200=m, allmodconfig defaults; no new
-warnings. checkpatch.pl --no-tree clean (0 errors, 0 warnings).
+Berkant Koc (2):
+  drm/hyperv: validate resolution_count from host VMBus message
+  drm/hyperv: validate VMBus packet size in receive callback
 
- drivers/gpu/drm/mgag200/mgag200_g200eh.c  | 8 +++++++-
- drivers/gpu/drm/mgag200/mgag200_g200eh3.c | 8 +++++++-
- drivers/gpu/drm/mgag200/mgag200_g200er.c  | 8 +++++++-
- drivers/gpu/drm/mgag200/mgag200_g200ev.c  | 8 +++++++-
- drivers/gpu/drm/mgag200/mgag200_g200ew3.c | 8 +++++++-
- drivers/gpu/drm/mgag200/mgag200_g200wb.c  | 8 +++++++-
- 6 files changed, 42 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/mgag200/mgag200_g200eh.c b/drivers/gpu/drm/mgag200/mgag200_g200eh.c
-index d2aa931f579d..2387ff87550a 100644
---- a/drivers/gpu/drm/mgag200/mgag200_g200eh.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_g200eh.c
-@@ -51,13 +51,14 @@ static int mgag200_g200eh_pixpllc_atomic_check(struct drm_crtc *crtc,
- 	struct mgag200_crtc_state *new_mgag200_crtc_state = to_mgag200_crtc_state(new_crtc_state);
- 	long clock = new_crtc_state->mode.clock;
- 	struct mgag200_pll_values *pixpllc = &new_mgag200_crtc_state->pixpllc;
--	unsigned int delta, tmpdelta;
-+	unsigned int delta, tmpdelta, permitteddelta;
- 	unsigned int testp, testm, testn;
- 	unsigned int p, m, n, s;
- 	unsigned int computed;
- 
- 	m = n = p = s = 0;
- 	delta = 0xffffffff;
-+	permitteddelta = clock * 5 / 1000;
- 
- 	for (testp = 16; testp > 0; testp >>= 1) {
- 		if (clock * testp > vcomax)
-@@ -82,6 +83,11 @@ static int mgag200_g200eh_pixpllc_atomic_check(struct drm_crtc *crtc,
- 		}
- 	}
- 
-+	if (delta > permitteddelta) {
-+		pr_warn("PLL delta too large\n");
-+		return -EINVAL;
-+	}
-+
- 	pixpllc->m = m;
- 	pixpllc->n = n;
- 	pixpllc->p = p;
-diff --git a/drivers/gpu/drm/mgag200/mgag200_g200eh3.c b/drivers/gpu/drm/mgag200/mgag200_g200eh3.c
-index 7bea7a728f56..322e93982ea2 100644
---- a/drivers/gpu/drm/mgag200/mgag200_g200eh3.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_g200eh3.c
-@@ -26,13 +26,14 @@ static int mgag200_g200eh3_pixpllc_atomic_check(struct drm_crtc *crtc,
- 	struct mgag200_crtc_state *new_mgag200_crtc_state = to_mgag200_crtc_state(new_crtc_state);
- 	long clock = new_crtc_state->mode.clock;
- 	struct mgag200_pll_values *pixpllc = &new_mgag200_crtc_state->pixpllc;
--	unsigned int delta, tmpdelta;
-+	unsigned int delta, tmpdelta, permitteddelta;
- 	unsigned int testp, testm, testn;
- 	unsigned int p, m, n, s;
- 	unsigned int computed;
- 
- 	m = n = p = s = 0;
- 	delta = 0xffffffff;
-+	permitteddelta = clock * 5 / 1000;
- 	testp = 0;
- 
- 	for (testm = 150; testm >= 6; testm--) {
-@@ -59,6 +60,11 @@ static int mgag200_g200eh3_pixpllc_atomic_check(struct drm_crtc *crtc,
- 			break;
- 	}
- 
-+	if (delta > permitteddelta) {
-+		pr_warn("PLL delta too large\n");
-+		return -EINVAL;
-+	}
-+
- 	pixpllc->m = m;
- 	pixpllc->n = n;
- 	pixpllc->p = p;
-diff --git a/drivers/gpu/drm/mgag200/mgag200_g200er.c b/drivers/gpu/drm/mgag200/mgag200_g200er.c
-index 8fa8fe943abf..e180db21902b 100644
---- a/drivers/gpu/drm/mgag200/mgag200_g200er.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_g200er.c
-@@ -69,13 +69,14 @@ static int mgag200_g200er_pixpllc_atomic_check(struct drm_crtc *crtc,
- 	struct mgag200_crtc_state *new_mgag200_crtc_state = to_mgag200_crtc_state(new_crtc_state);
- 	long clock = new_crtc_state->mode.clock;
- 	struct mgag200_pll_values *pixpllc = &new_mgag200_crtc_state->pixpllc;
--	unsigned int delta, tmpdelta;
-+	unsigned int delta, tmpdelta, permitteddelta;
- 	int testr, testn, testm, testo;
- 	unsigned int p, m, n, s;
- 	unsigned int computed, vco;
- 
- 	m = n = p = s = 0;
- 	delta = 0xffffffff;
-+	permitteddelta = clock * 5 / 1000;
- 
- 	for (testr = 0; testr < 4; testr++) {
- 		if (delta == 0)
-@@ -110,6 +111,11 @@ static int mgag200_g200er_pixpllc_atomic_check(struct drm_crtc *crtc,
- 		}
- 	}
- 
-+	if (delta > permitteddelta) {
-+		pr_warn("PLL delta too large\n");
-+		return -EINVAL;
-+	}
-+
- 	pixpllc->m = m;
- 	pixpllc->n = n;
- 	pixpllc->p = p;
-diff --git a/drivers/gpu/drm/mgag200/mgag200_g200ev.c b/drivers/gpu/drm/mgag200/mgag200_g200ev.c
-index 3fadbeb10af9..0e882872e968 100644
---- a/drivers/gpu/drm/mgag200/mgag200_g200ev.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_g200ev.c
-@@ -57,13 +57,14 @@ static int mgag200_g200ev_pixpllc_atomic_check(struct drm_crtc *crtc,
- 	struct mgag200_crtc_state *new_mgag200_crtc_state = to_mgag200_crtc_state(new_crtc_state);
- 	long clock = new_crtc_state->mode.clock;
- 	struct mgag200_pll_values *pixpllc = &new_mgag200_crtc_state->pixpllc;
--	unsigned int delta, tmpdelta;
-+	unsigned int delta, tmpdelta, permitteddelta;
- 	unsigned int testp, testm, testn;
- 	unsigned int p, m, n, s;
- 	unsigned int computed;
- 
- 	m = n = p = s = 0;
- 	delta = 0xffffffff;
-+	permitteddelta = clock * 5 / 1000;
- 
- 	for (testp = 16; testp > 0; testp--) {
- 		if (clock * testp > vcomax)
-@@ -89,6 +90,11 @@ static int mgag200_g200ev_pixpllc_atomic_check(struct drm_crtc *crtc,
- 		}
- 	}
- 
-+	if (delta > permitteddelta) {
-+		pr_warn("PLL delta too large\n");
-+		return -EINVAL;
-+	}
-+
- 	pixpllc->m = m;
- 	pixpllc->n = n;
- 	pixpllc->p = p;
-diff --git a/drivers/gpu/drm/mgag200/mgag200_g200ew3.c b/drivers/gpu/drm/mgag200/mgag200_g200ew3.c
-index e387a455eae5..da8f2a66cde3 100644
---- a/drivers/gpu/drm/mgag200/mgag200_g200ew3.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_g200ew3.c
-@@ -33,13 +33,14 @@ static int mgag200_g200ew3_pixpllc_atomic_check(struct drm_crtc *crtc,
- 	struct mgag200_crtc_state *new_mgag200_crtc_state = to_mgag200_crtc_state(new_crtc_state);
- 	long clock = new_crtc_state->mode.clock;
- 	struct mgag200_pll_values *pixpllc = &new_mgag200_crtc_state->pixpllc;
--	unsigned int delta, tmpdelta;
-+	unsigned int delta, tmpdelta, permitteddelta;
- 	unsigned int testp, testm, testn, testp2;
- 	unsigned int p, m, n, s;
- 	unsigned int computed;
- 
- 	m = n = p = s = 0;
- 	delta = 0xffffffff;
-+	permitteddelta = clock * 5 / 1000;
- 
- 	for (testp = 1; testp < 8; testp++) {
- 		for (testp2 = 1; testp2 < 8; testp2++) {
-@@ -68,6 +69,11 @@ static int mgag200_g200ew3_pixpllc_atomic_check(struct drm_crtc *crtc,
- 		}
- 	}
- 
-+	if (delta > permitteddelta) {
-+		pr_warn("PLL delta too large\n");
-+		return -EINVAL;
-+	}
-+
- 	pixpllc->m = m;
- 	pixpllc->n = n;
- 	pixpllc->p = p;
-diff --git a/drivers/gpu/drm/mgag200/mgag200_g200wb.c b/drivers/gpu/drm/mgag200/mgag200_g200wb.c
-index d847fa8ded8c..ca4775173ff0 100644
---- a/drivers/gpu/drm/mgag200/mgag200_g200wb.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_g200wb.c
-@@ -49,13 +49,14 @@ static int mgag200_g200wb_pixpllc_atomic_check(struct drm_crtc *crtc,
- 	struct mgag200_crtc_state *new_mgag200_crtc_state = to_mgag200_crtc_state(new_crtc_state);
- 	long clock = new_crtc_state->mode.clock;
- 	struct mgag200_pll_values *pixpllc = &new_mgag200_crtc_state->pixpllc;
--	unsigned int delta, tmpdelta;
-+	unsigned int delta, tmpdelta, permitteddelta;
- 	unsigned int testp, testm, testn;
- 	unsigned int p, m, n, s;
- 	unsigned int computed;
- 
- 	m = n = p = s = 0;
- 	delta = 0xffffffff;
-+	permitteddelta = clock * 5 / 1000;
- 
- 	for (testp = 1; testp < 9; testp++) {
- 		if (clock * testp > vcomax)
-@@ -81,6 +82,11 @@ static int mgag200_g200wb_pixpllc_atomic_check(struct drm_crtc *crtc,
- 		}
- 	}
- 
-+	if (delta > permitteddelta) {
-+		pr_warn("PLL delta too large\n");
-+		return -EINVAL;
-+	}
-+
- 	pixpllc->m = m;
- 	pixpllc->n = n;
- 	pixpllc->p = p;
+
+base-commit: 6916d5703ddf9a38f1f6c2cc793381a24ee914c6
 -- 
+2.47.3
