@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 851BACD4F4A
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 17:22:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83DADCD4F47
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 17:31:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B5D310E0B7;
-	Sun, 17 May 2026 17:22:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0C9B10E269;
+	Sun, 17 May 2026 17:31:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="BFon1sMy";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="C0Jkif0W";
 	dkim-atps=neutral
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com
- [91.218.175.185])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4498810E0B7
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 17:22:06 +0000 (UTC)
+X-Greylist: delayed 460 seconds by postgrey-1.36 at gabe;
+ Sun, 17 May 2026 17:31:47 UTC
+Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com
+ [95.215.58.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4F0A10E269
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 17:31:46 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1779038522;
+ t=1779038645;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding;
- bh=yZmaAymEf94w5ri0n7R2r9elxJpUR1I7BbcC1iYQPFk=;
- b=BFon1sMyUxgtZ9EwV0Zjebho7wZlRIcgOzhTZgBAAI6SCEpiXJKSpLl9ooHVHDgWMuc/55
- XOP/4aTutVKdr0JqDkdNOjgOh5cua7tLqAxSG3rwJT4P1JFUqpTk12zJRwuhRdCFmoCp0m
- thRrxBIEYUQNFGkPRRP5vpxgEDgf1Gg=
+ bh=hueLhtL3zsdmdXnMtuPrauJ8fkjBDESO/03aEH4/H2E=;
+ b=C0Jkif0WiffvNY1BfsznBsr9/Y/cagb1baZyUmCRRG+gY5j7nDRJdQ7djJktZoFUtCItnD
+ kCRU3w5AxOEEqgzpcZOpFnKDCpkic3dHBIl9LiImC/iipMlJY/sPVxy2us+CHCeckgtdYV
+ hZj8+rL8KwTOEqEPDfXoJXWIu5GgUe8=
 From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, dri-devel@lists.freedesktop.org,
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Thorsten Blum <thorsten.blum@linux.dev>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND] drm/bridge: sii902x: inline i2c_check_functionality
- check
-Date: Sun, 17 May 2026 19:21:37 +0200
-Message-ID: <20260517172136.3321-2-thorsten.blum@linux.dev>
+Subject: [PATCH RESEND v2] dma-buf: heaps: use max3 in dma_heap_ioctl
+Date: Sun, 17 May 2026 19:23:53 +0200
+Message-ID: <20260517172352.3615-2-thorsten.blum@linux.dev>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=883; i=thorsten.blum@linux.dev;
- h=from:subject; bh=4i3U+9Yy4ls9YwFIxzycxJuN/TJC62hME9rytIzY3pg=;
- b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmcPxV4+jOT2wK7vgReePpp8pv73KUGq1dcffLyZBBf4
- N1vzOwXOkpZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAi7K4Mv1kNbC50+pzKlny5
- c+2nKws+ZQkc5kjvuJ7pbxj97jtXXC/Df9cG993ut9nmXj44r+dSYLD2y5aezzlvvwa3NOxfJP5
- XmBMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1175; i=thorsten.blum@linux.dev;
+ h=from:subject; bh=2Qy1bhZE4ZUxVczuVFGuB6tJXixNg2z/25mUfsiG6bg=;
+ b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmcP1f4TOnRZosXO71QYZ/h1sf+CvOZt2/JPL1xhs+GC
+ 7uC8p0fd5SyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEMl8w/E9NZXQWOpjX9cFP
+ f9vU6zOv1X+PfHhp+uVIM635Py32vT3CyPDq+bI7L7+o7Dk7r8LjhUit7tp7R1sErpt88eeW0la
+ YXcsFAA==
 X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp;
  fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
@@ -69,26 +67,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Inline the i2c_check_functionality() check, since the function returns a
-boolean status rather than an error code.
+Replace two nested max() calls with a single max3() in dma_heap_ioctl().
 
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
 Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 ---
- drivers/gpu/drm/bridge/sii902x.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Changes in v2:
+- Include minmax.h as suggested by T.J. Mercier
+- v1: https://lore.kernel.org/lkml/20260427172519.417333-3-thorsten.blum@linux.dev/
+---
+ drivers/dma-buf/dma-heap.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-index ea543be4ae3e..38d176d4eef2 100644
---- a/drivers/gpu/drm/bridge/sii902x.c
-+++ b/drivers/gpu/drm/bridge/sii902x.c
-@@ -1158,9 +1158,7 @@ static int sii902x_probe(struct i2c_client *client)
- 	static const char * const supplies[] = {"iovcc", "cvcc12"};
- 	int ret;
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index ac5f8685a649..d49188893608 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -13,6 +13,7 @@
+ #include <linux/err.h>
+ #include <linux/export.h>
+ #include <linux/list.h>
++#include <linux/minmax.h>
+ #include <linux/nospec.h>
+ #include <linux/syscalls.h>
+ #include <linux/uaccess.h>
+@@ -153,7 +154,7 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 		in_size = 0;
+ 	if ((ucmd & kcmd & IOC_OUT) == 0)
+ 		out_size = 0;
+-	ksize = max(max(in_size, out_size), drv_size);
++	ksize = max3(in_size, out_size, drv_size);
  
--	ret = i2c_check_functionality(client->adapter,
--				      I2C_FUNC_SMBUS_BYTE_DATA);
--	if (!ret) {
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_SMBUS_BYTE_DATA)) {
- 		dev_err(dev, "I2C adapter not suitable\n");
- 		return -EIO;
- 	}
+ 	/* If necessary, allocate buffer for ioctl argument */
+ 	if (ksize > sizeof(stack_kdata)) {
