@@ -4,49 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52A38CD37AC
-	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 13:15:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B724ECD37AC
+	for <dri-devel@archiver.kernel.org>; Sun, 17 May 2026 13:18:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B092B10E00C;
-	Sun, 17 May 2026 13:15:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6AFF10E09F;
+	Sun, 17 May 2026 13:18:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="T3V6Q0mL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R5sdup77";
 	dkim-atps=neutral
-X-Greylist: delayed 322 seconds by postgrey-1.36 at gabe;
- Sun, 17 May 2026 13:15:40 UTC
-Received: from mail-03.1984.is (mail-03.1984.is [93.95.224.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3635610E00C
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:15:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=berkoc.com; 
- s=1984;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:Message-ID
- :Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Wh3QcLRs83WEkHTY6XgRRLXC3lPrZS+fkSDBdkuCb2w=; b=T3V6Q0mLe/hf0fDRBP3wwzlUjz
- S5HGjL99n44Zsv1b71qdGElZRcdB4XgbsUKlvgx6QG2B3PCQouHaxTCmRDYuOlef2iWFTK2XbKf9s
- 5Tz6tha8ORPgUFah201AvcSdq6SgA0hA0tmaDGUHf+CbSJuboOX7VnJsUAdzKfF/F2n2TDofFT+Bq
- UoeBaegRgcpZ0E4FhMmub2R+k5Q9gjRHAYZ4RcF+MewOUuoTh1TL8WZ0+gW9ogZj0O7yLLQuhvefI
- kE39a7JRiYb2i3aKptcDqzL6eZ8m8iVgJfEgk+z/he69pVPU+LTSzhTlKsh7dDbIvQ68p8XOQgSFe
- cfyp/GOg==;
-Received: from localhost by mail-03.1984.is with utf8esmtp (Exim 4.96)
- (envelope-from <me@berkoc.com>) id 1wObLB-00H6O5-1w;
- Sun, 17 May 2026 13:15:34 +0000
-From: Berkant Koc <me@berkoc.com>
-To: security@kernel.org
-Cc: Zack Rusin <zack.rusin@broadcom.com>, bcm-kernel-feedback-list@broadcom.com,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [REPORT] drm/vmwgfx: vmw_cmd_draw header.size lower-bound missing -
- guest-local OOB-read/write
-Message-ID: <20260517-vmwgfx-uaf-report@berkoc.com>
-Date: Sun, 17 May 2026 15:00:00 +0200
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
+ [209.85.219.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3A610E1ED
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:18:01 +0000 (UTC)
+Received: by mail-qv1-f43.google.com with SMTP id
+ 6a1803df08f44-8b3d6b215cfso29780896d6.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 06:18:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779023880; x=1779628680; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=8qmzV4OG/gwgrFg2WjVRa5yFfeYJiaj+u8zvgWP2oxA=;
+ b=R5sdup77L4kbL+l8/kbVMfHt21OiXaBTOg0BH6iK9mgMGCChhl+7vf6JTKCdIzTX8g
+ uK1kYo4wJ/EcXuIYMOmMeJ6jMlD6ktqu8zrHZ7DdW3rHf4eJDHfpo5yxgB7g0Cusgrw5
+ 99aS/HRvr845CtRSAmheI5eTx5rx5dVegxHILKtMUtKjSfb805eIdB+tcrI8HIZ5uXNY
+ 5CD+JrFXs6M1Hvk0FToZ/YfJve9oTrbodWcZwv8mEdgy4I3bx3r7yKtTR7M6nJWyuBac
+ zj8LwV89qNqoaYVbdFfi9oRsnQrXqWx+WpKdSsBhaP2imGJSREff8i9fCFKgzrhIxR1y
+ BBwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779023880; x=1779628680;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8qmzV4OG/gwgrFg2WjVRa5yFfeYJiaj+u8zvgWP2oxA=;
+ b=LThasO1j9OAW+sW2IMonLNqqY8CJCx+DB+f8sd/XBxwT4oZrCJXOhUyQ5qE+lD4KlK
+ Yor6m0PWEUuRn/YVD6EMP1UacsUTIE3/jdzdf9FEr5+BEtoffy163EC6soxSRkzEPUIa
+ pJT0NUhJLmXxnn8fwgCIW3Px+MSSPUUogoQnZTd4Ak1Cqgp+U83YQZzbd4ZfsCAIQXDL
+ DUEzTHrKnkhayAKq8t8xeGhxF7C5Xi0lWqch+w+QMWiZjjaL0Xr4XU9RHt91Sszi2B33
+ 4TYqjhSjjK2p/RCdJWMl19agyeXXvbgXqOejEmGzB1GdCldokOHFm4NDELV623qnOnlN
+ N+tQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+vTJD7ACWH2Rou1C8UDhb3JSE0sHbx1iiUqdN2QsLWvhzNCoFCLzO/yTdvX5JXXP/0AycZe2JRLfU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtgEEjZCP11R+TCO06W3y4PiCNgVodtjGku4UStcIkZa5rupOc
+ j6hk7zhdRVQ2QBIE1TxHvJzkX05zKBJBXPcSbeGGWF1dPP0FiR2HbTMj
+X-Gm-Gg: Acq92OFOlminAyxReZT8rsSBVrx+CG04VzNFsNwKNfAx6I/Z4ZM9mSq4bmW6GdA2UPf
+ 2aLyJXUF7lRAwGS4fn+11VPh0SE9RatB79dDGIyEmXugrN+WJJuol3Qr4lsoSiiOBTm3qub6SRs
+ pDYjvB0OJwD8O+fiD6O63m8tAMgC4IaF5o0H1NfXy5HR8VTZoEcbNxi6yUrdpcmL+q1HUKGdw28
+ +U4O7Qpaktn12sGuhVb0CQ5NRA8VNvHCPzpSczkPapxUwWiMBXVjErl+T2QksfHqWXcouCJhzmV
+ 9NI/S5ySmw3mtpqU2vmoTV4TzKu51MnGOr85U6zb3dG3BPlGeRa01IcUkkyWqxKRxRGCV8agV1r
+ dnkUb1ZcmPKAvtwdi0gHxEzFRrG3vd+jPtP2oObq4mfna8QIWqc7NPH4yeW2+aSNXdVXyjgY7Kv
+ Wtxe/VWau0MmJqLjF64GnXjqIrEGCpfyIepti/IUdBF4oBiTy+qny2+8afugGMh4sLbj12dDgFn
+ z6Updjqwi1Nt5tVmGCfI2ZtOe1Sk1GOAGliRrvGP+U=
+X-Received: by 2002:ad4:4211:0:b0:8bd:6baa:6a0c with SMTP id
+ 6a1803df08f44-8ca0f611b62mr138164296d6.11.1779023879979; 
+ Sun, 17 May 2026 06:17:59 -0700 (PDT)
+Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net.
+ [68.48.65.54]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8ca3619c703sm22268846d6.33.2026.05.17.06.17.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 17 May 2026 06:17:59 -0700 (PDT)
+From: Michael Bommarito <michael.bommarito@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ David Francis <David.Francis@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Cc: Ziyi Guo <n7l8m4@u.northwestern.edu>
+Subject: [PATCH] drm/amdgpu: fix lock leak on ENOMEM in
+ AMDGPU_GEM_OP_GET_MAPPING_INFO
+Date: Sun, 17 May 2026 09:17:42 -0400
+Message-ID: <20260517131742.3435209-1-michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authenticated-User: me@berkoc.com
-X-Sender-Address: me@berkoc.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,68 +93,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA512
+The AMDGPU_GEM_OP_GET_MAPPING_INFO branch of amdgpu_gem_op_ioctl()
+holds three cleanup-tracked resources before calling kvcalloc():
+the drm_gem_object reference from drm_gem_object_lookup(), the
+drm_exec lock on the looked-up GEM via drm_exec_lock_obj(), and
+the drm_exec lock on the per-process VM root page directory via
+amdgpu_vm_lock_pd().  All three are released by the out_exec
+label that every other error path in this function jumps to.
+The kvcalloc() failure path returns -ENOMEM directly, skipping
+out_exec and leaking all three.
 
-Hi all,
+The leaked per-process VM root PD dma_resv lock is the
+load-bearing leak: any subsequent operation on the same VM
+(further GEM ops, command-submission, eviction, TTM shrinker
+callbacks) blocks on the held lock.  DRM_IOCTL_AMDGPU_GEM_OP is
+DRM_AUTH | DRM_RENDER_ALLOW, so this is an unprivileged-local
+denial of service against the caller's GPU context, reachable
+by any process with /dev/dri/renderD* access.
 
-Following the drm/qxl apply_reloc report from 14 May 2026
-(prior thread: https://lore.kernel.org/virtualization/36acd33982bfdce04090e17294596ff8@berkoc.com/T/),
-I audited the DRM cousin-drivers for the same bug-class. vmwgfx exposes a
-stronger instance.
+Route the failure through out_exec so drm_exec_fini() and
+drm_gem_object_put() run.
 
-Primary site: `vmw_cmd_draw` in
-`drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c:1558-1607`. The verifier does
+Reproduced on stock 7.0.0-10, Ryzen 7 5700U / Radeon Vega
+(Lucienne): the failing ioctl returns -ENOMEM and a second
+GET_MAPPING_INFO on the same fd then blocks in
+drm_exec_lock_obj() on the leaked dma_resv.  SIGKILL on the
+caller does not reap the task; the fd-release path during
+process exit goes through amdgpu_gem_object_close() ->
+drm_exec_prepare_obj() on the same lock, leaving the task in D
+state until the box is rebooted.  The patched kernel was not
+rebuilt and re-tested on this hardware; the fix is mechanical.
+Tested on a single Lucienne / Vega box only.
 
-    maxnum = (header->size - sizeof(cmd->body)) / sizeof(*decl);
-    if (cmd->body.numVertexDecls > maxnum) return -EINVAL;
+Ziyi Guo posted an independent INT_MAX-bound check for
+args->num_entries in the same branch [1]; the two patches are
+complementary and can land in either order.
 
-Commit `32b415a9dc2c` ("drm/vmwgfx: Validate command header size against
-SVGA_CMD_MAX_DATASIZE", Oct 2025) added the upper bound but not the
-lower bound. With `header->size < sizeof(cmd->body)` the size_t
-subtraction wraps, `maxnum` becomes ~SIZE_MAX, and the loop walks
-attacker-chosen `numVertexDecls` entries past the cmd-buffer. Each
-iteration is a 4-byte OOB-read via `vmw_cmd_res_check`; on a handle
-collision `vmw_resource_relocation_add` records the OOB address as
-`rel->offset` (29-bit), and `vmw_resource_relocations_apply` later does
-a 32-bit kernel write at `cb + rel->offset` within a 512 MiB window.
+Fixes: 4d82724f7f2b ("drm/amdgpu: Add mapping info option for GEM_OP ioctl")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260208000255.4073363-1-n7l8m4@u.northwestern.edu/ # [1]
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Assisted-by: Claude:claude-opus-4-7
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Exploitability split:
-  - OOB-read at first iteration is deterministic.
-  - OOB-write requires `id_loc` to resolve to a valid surface handle;
-    surface-spray makes this practical but the write side is probabilistic.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 9ef80bca4102..8224fb499fdf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -1091,8 +1091,10 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+ 		 * be retried.
+ 		 */
+ 		vm_entries = kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KERNEL);
+-		if (!vm_entries)
+-			return -ENOMEM;
++		if (!vm_entries) {
++			r = -ENOMEM;
++			goto out_exec;
++		}
+ 
+ 		amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) {
+ 			if (num_mappings < args->num_entries) {
+-- 
+2.53.0
 
-Two cousin sites share the same root cause (details in BUG.md):
-  - `vmw_cmd_dma` (line 1495): pointer underflow -> 4-byte OOB-read of
-    `suffix->suffixSize`.
-  - `vmw_cmd_shader_define` (line 1898): `size = header.size - sizeof(body)`
-    wraps and reaches `vmw_compat_shader_add`; ENOMEM-bounded DoS.
-
-Reachability: DRM_VMW_EXECBUF, DRM_RENDER_ALLOW. Any `/dev/dri/renderD128`
-user (default `video` group) on a VMware or KVM SVGA-II guest. No DRM_AUTH,
-no DRM_MASTER, no root.
-
-CVSS 3.1: `CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H` -> 7.8 High
-(deterministic OOB-read, probabilistic 32-bit kernel write within 512 MiB;
-guest-local LPE, no host escape claimed).
-
-Suggested fix: per-site lower-bound check on `header->size` before the
-subtraction, or the safe pattern using `check_mul_overflow` /
-`check_add_overflow`. A draft patch is sent as the follow-up RFC in
-this thread.
-
-Attachments: BUG.md (full trace) and repro.c (KASAN-trigger PoC, no
-exploitation).
-
-Happy to follow your standard timeline per Documentation/process/security-bugs.rst
-(typically <=7 days post-fix-merge).
-
-Berkant Koc <me@berkoc.com>
-GPG: 0C58 8DFD 7620 4987 2842 13EA 0AC5 29C4 1F8A A5D6
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQQMWI39diBJhyhCE+oKxSnEH4ql1gUCagm/bwAKCRAKxSnEH4ql
-1i1PAQCXhrf6CdxpwCifgpjYZJdzspd9dckht9le4AeUJpKRpwD/csbOYVl+oMDY
-mekPtFhNq+TujSRVzvRZ0MKzOawzAwU=
-=7oh3
------END PGP SIGNATURE-----
