@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32509CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 15:02:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1007CCD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 15:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C53510E8D9;
-	Mon, 18 May 2026 15:02:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6662E10E8CF;
+	Mon, 18 May 2026 15:02:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="Ea8r8Ne2";
-	dkim=pass (1024-bit key; unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="Hy/O9qnh";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="EOwommuB";
+	dkim=pass (1024-bit key; unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="MtEpS71D";
 	dkim-atps=neutral
 Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
  [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36B5310E8CF
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 15:02:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8AF710E8DF
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 15:02:09 +0000 (UTC)
 Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
  by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64IEGJvK2121487; Mon, 18 May 2026 16:01:49 +0100
+ 64IEFc8P2119320; Mon, 18 May 2026 16:02:00 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=dk201812; bh=uY+wVqNdLFh7II+38xPTqSyJe
- ssfgVpHt6XvXdueWuo=; b=Ea8r8Ne290WP1+r6ngPix3JxDznjesZTyZnlS/FBp
- QkJDuT5sNiFTFY3GGfwAHU3NKO0oz0PW6IbCQ4nicCV6bzdRU6uwMlnW1HYceJKc
- XvpNiSEBL2z4AB3MEy0cPPYOSSQWMkOt5/stLm4EtWeC2zmGWfs9fjxi1eE3dBEx
- g/6wFVdmu1eFdcyEZgm4nCmTsx13a68sDNR8s1JRELIezrNg1ToGiCtWv/jGgLbG
- y9JBVYDPj8GOFCY/AJW1Qv4Vx4Lp5BJHPF9AHq/ZFUgJTSAyBqKjvHajo4D6Rq5p
- h7Kk7+5oY+dZMOx3bdkaxArpHsstMMw66ey65K+0WSMMQ==
-Received: from cwxp265cu008.outbound.protection.outlook.com
- (mail-ukwestazon11020101.outbound.protection.outlook.com [52.101.195.101])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4e6eup1kpb-1
+ :references:subject:to; s=dk201812; bh=SeHKJSiCMGsN28PAurg9QTRJw
+ UDcsBIXGnRdIrF5yH4=; b=EOwommuBMqposspfM2hDRPaY7dD/ms3S+e6LlOLd5
+ M3OkpYF5jgkGLvr4SWf2FSLNQW/VcKKxCQtfGovUdK6juXxvPIr2S1QUOm6hlhfA
+ FcxZUI1N7O6PUyRsEfCDBmAWlDLD7ryZg6UZZJhJ8meMcKmveg5PvOQ/hFVzhhPh
+ XtGDR3Bwv9m4hsw62q9gtNpWoktTmRKRnoCTPHhSgWceU0aLGtapt8apu3uIKGhA
+ js5xRB3/yPou8pfwGxjxnCsvXjYKv4vMfJ9cCK4UL1ddnCnZq1ZCxn5Qs4K7kJ4Z
+ mgf9FL7Zn5EAmg+LsKFPV4CzcrRGBJi8tqtgs30gA5faw==
+Received: from lo3p265cu004.outbound.protection.outlook.com
+ (mail-uksouthazon11020081.outbound.protection.outlook.com [52.101.196.81])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4e6eup1kpf-1
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Mon, 18 May 2026 16:01:48 +0100 (BST)
+ Mon, 18 May 2026 16:02:00 +0100 (BST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bwBVpZNuWAK/gHoQZ1cFic4l2wvwk3iSvTCGERJEwf0Fdq9EY+JfKkM2DCfOkTTubrQKkW0/SKJwxRbHBdiRjqOFVNNXMskkyoiMVx8bj2LytPPMW4Ct9H/tgTarxgA5p3jEfcvYVdcH9fsXgPv/sPKNs5qTSWgmm5aczhyZtWmpFHx9HJH8jR4qcyv9B83xhiYl8xZHW/80yeg6rNrtFB5W9V8rBz2LPATY3zSMZOQr3cAePgFT+f2NLl/VTkp5H0vJCsTQ54LjOCXPZqL+ciyNhQqs9AUhndwxAT7h6Sz3PQPs6kRQJ4Q8XSsWCjIxhjfjvi4ATVw42MEy2ahUeg==
+ b=XCZBFuBNTLDamkrqaa78ZvqLPMulvuvcdl62kTt32rXoZ4HxYgThw+3ehzpObIEErYA12geh9g8JwvXbKEzu/iyGzjfGpvV9SlL0XBuhGYmXyFeZUW6yQ85ORlx6Wi5UxKtDkmtuRHhflKo2o3tBtVrSLCWqejrC3HFMNFVtvvxTAE6FR4NWHf/Im+V296zZ3gnp3/fzX0MosDplcKJYjvdbV9W5a7JO5sinYwgTfm6EbzFIsVwn0c6cjGADNTcJPB+00hN87M2kmq0LVb8BijQbJ/7aiy72+vFkLpisVsA9IEOCg0zBmuJ4Zj5mEQaYK3s9S4M8NoMIxMWKaJRvqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uY+wVqNdLFh7II+38xPTqSyJessfgVpHt6XvXdueWuo=;
- b=BOihG+1J659HcgeNisk9snw06dmXy+tyWifIs9WAn2sIO33CoyC3iKDEx+jUpcgggQw+vHACDH/gKbQk44ur/pbQtsa2VaqGbQ+bHt15ZjB8CYv38w2tyZnP/CpWirgmoYC3hTNHwd7JMpFnF9HTW7yV7KIuNzI5/Z46Q8bOnZn4/aeZELnNe3qA/Njc64eVOYjwqXX3XHsXh0Lay6oybsT2z9tNkN2nEElsr6JVMk4Dx94o5MpkvMGuAvXYVAo/MAP0U3hAipQ4DdH/EewZf5JlbtYuSNqf+na89HQapjxx4r0fTyDhNkb+jp0XuZQw9A+YT6+fzm3dSi+FJqAEjw==
+ bh=SeHKJSiCMGsN28PAurg9QTRJwUDcsBIXGnRdIrF5yH4=;
+ b=IaXU6QdSE8q1jbYlB3XPSa0rUkm1h4StYB23ygf/+3iIHSyNhIi8pzCYQrowxrqTU0XVmUNQ4/kSisUjYS0N9PBetHHQtLthj89THXKIOQRRIIo+bOYPMfIPSjwAwKDkG00ANwj5QndwHvGHgKy06aHieV7TbJhqIasNlAfewX8aorKwcDDHqNznaBLjd9/+sghqu+YduRuJC1pgy5SBAl86XYj5ToyDgAVN06MLJxkvNTVvGo/nlBDgd/dbiqjslwzpi+oXjWY9cfP70HHbrH04+jeSW8QC1zwVhXcF+J+ih4XJUui/MJn6mXQGpyR9+j3NjcmGPZnOVDtJ134i+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
  dkim=pass header.d=imgtec.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uY+wVqNdLFh7II+38xPTqSyJessfgVpHt6XvXdueWuo=;
- b=Hy/O9qnhlHNHunBy8WECxond74XUecbJa3cjjUEcF6kgXDhlKDy24mm9Haed+c4TlINJh0KYQOqYU6y1rOwwILwfFTWHbKmLU8CqwLTbvmTuPsMy7XDrQCfcx53wuw6H2DvnarsIeTobn8y+KsysMlxFAdjsHamV/8NVseeQoCM=
+ bh=SeHKJSiCMGsN28PAurg9QTRJwUDcsBIXGnRdIrF5yH4=;
+ b=MtEpS71DJk1eD/9fGTMhyJ5mgo65VD5iEcGVA1fOcRM2wWx5wTcpp+eKxLU5crFHtHcEtRHmr8Q8BqAJ4rPkzZo872FXwo0ahMuAv6LzTiZwACDhp/iBl3Le6mOiJtXrsUoXnGy8agjjX70l9z1mOp7aaEH5FweTsPAqucC46h4=
 Received: from CWLP265MB3393.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:e2::14)
  by LOBP265MB8899.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:48f::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 15:01:47 +0000
+ 2026 15:01:57 +0000
 Received: from CWLP265MB3393.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f32f:ed34:4f98:6cd6]) by CWLP265MB3393.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f32f:ed34:4f98:6cd6%3]) with mapi id 15.21.0025.022; Mon, 18 May 2026
- 15:01:47 +0000
+ 15:01:57 +0000
 From: Matt Coster <Matt.Coster@imgtec.com>
 To: Brajesh Gupta <Brajesh.Gupta@imgtec.com>
 CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
@@ -67,105 +67,103 @@ CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
  Alexandru Dadu <Alexandru.Dadu@imgtec.com>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/4] drm/imagination: Populate FW common context ID before
- passing to the FW
-Thread-Topic: [PATCH 1/4] drm/imagination: Populate FW common context ID
- before passing to the FW
-Thread-Index: AQHc4ds2i5a2FHJZxUqu/RHo8GhWfbYT6scA
-Date: Mon, 18 May 2026 15:01:46 +0000
-Message-ID: <d24d4065-e121-4c78-9b7c-78a6561e0a1a@imgtec.com>
+Subject: Re: [PATCH 3/4] drm/imagination: Rename FW booted to FW initialised
+Thread-Topic: [PATCH 3/4] drm/imagination: Rename FW booted to FW initialised
+Thread-Index: AQHc4ds5EGJSZh6MsEeNR5Ko8sowlrYT6tSA
+Date: Mon, 18 May 2026 15:01:57 +0000
+Message-ID: <2d408760-9467-4d31-a4a3-b1883e56a433@imgtec.com>
 References: <20260512-b4-context_reset-v1-0-439bee96ed83@imgtec.com>
- <20260512-b4-context_reset-v1-1-439bee96ed83@imgtec.com>
-In-Reply-To: <20260512-b4-context_reset-v1-1-439bee96ed83@imgtec.com>
+ <20260512-b4-context_reset-v1-3-439bee96ed83@imgtec.com>
+In-Reply-To: <20260512-b4-context_reset-v1-3-439bee96ed83@imgtec.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: CWLP265MB3393:EE_|LOBP265MB8899:EE_
-x-ms-office365-filtering-correlation-id: c5eefb2f-cfc1-4d5b-0c2b-08deb4ee61d0
+x-ms-office365-filtering-correlation-id: c3ea1255-c0ec-439a-81f8-08deb4ee683d
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|1800799024|6049299003|366016|376014|38070700021|4053099003|22082099003|18002099003|56012099003|4143699003;
-x-microsoft-antispam-message-info: t3l0FWmnc7NxAC6YaoOMznCFZsDnQ3sN1N6qkaHw768z8BaiDEVr2KAPT5cHATHb7V5b2dcEwaglfYZIRwRCm3KPRXQNkZvqQTxPCA+3PF2dMGaeYYMYTQpeTSg/duDHL9NfqBR+GWVNGGfrrWtt7j0Wx/DfqReZn+RwthK0TIEoOD3sfbCqMJdmtforzWU36EipnfPQKl3W30+6KdOxwRA0CJfUc3Ovb/Wk2cl5ypNIf46jcDMT+eiZV09fjL8InyXi/fukOEo+ca7hw5Kc4QOHsIz6TK955sz8+PkUP17XJp2okdUrFeVxP41WvoZGeaJDty5WWoEZlG2Jd+GjEoLqm7GtDIbJVWNoHvPVYM0m+tTP/OIWqpMFHdBtpWNwoa/E3fLUiqUyfrEjRuMETiaYGwnNv29XRc67HmYvWfGIj39liIe4hBSOTbxlWBIUZsrd1UwoN0szDFtMECA2yAUDoLBEpZi0uNg+2oOzPktrbji8QXSJir+YS92y7mrV3oI99U5wQDytnuYi15ftKQf4y6k0lgiA0WAYrSuzPmO7Xs0+IMuex6OTEG5lz+aCuQrFEBIRb7FRZJ/emBhOwJEkhxWYBX/OTZc+y0TUPensJlTZXJaBRPrI/nJbFJWeAYn3hqx92ereW+rLToFshM9N8x/5Qrhrr6b6TRLOz+bms5VqlJol0eI/hs9Jp8GqgLQEQ9x299Cyz1VE6keUOXUe34sKH9iq3OUUy1595glW3ljTj49rkdjZLwg2A5tz
+x-microsoft-antispam-message-info: +JS9MZmaMXbJDLo9JdbrnFRtTkhShitjw2Hri7aZv1p2FdeimbSnKQ3YyVNw4yFA2QskoObbSKfuqd8xqoJ9Rd29U0A2YULW3h1DM2A1uucnnKJDkJoucI+ZEEzwUahTExIQHPwGC9CXM+GsqtfYZyliBR0YTW4RtYEaYyzCJ0lxzF8NN9KIYPsJrtZU9U4xXMibldnKeNLyyx60VS2GJKTuesNv1fqAQVhD/6aFRB78jDv9dUq2kNZq2Q/ZnaPQJrOKKesu3IL4sq3N6PHmlNWBxTCvzZkl2s9Nj/a2h8c8c7H0Xq31zMKteRm0D4hzzWllUNCgOhDSG+XEMS4PM3wH/AeUdyviWyHb9oEqZrwE7FQkWPatzvndO3NowyX1Ztw9ha8fB/0kT22r2K748O57N/GuVQKW9rNKYhO6UrwSSwtCJj2WOE+3Uk8aFpvwFVsd+YL5adWG7Ly5IWFlz+RcEPa6mTOC2jC1/cQXD/zgIrcynHP5MtyFUpoGXQmztNa6t26fSwmu4Xzt4hzn3+mN41KMQHp5gZlPUhVVqO6Nlw0CO2Ds2Vj3Ak31XpXqDzqOTLHIevkTfCNeW2jz8ZsjzEl5rUKSEsZjGO+R+TKVv+PdJrC0g0pnuA4MVvw6a8eWjlIpL/2EC3XQQbBULQf22sJ4dCgTdn62Pm/SAu90iZmVSWEwoiNVGLRFLQ7ZEj8hM1EiN+yjOgYaihQzPIqgKJtHULMS7rvUphKM8k0CyBZGUHTNNPbqy4CTeyZD
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CWLP265MB3393.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(6049299003)(366016)(376014)(38070700021)(4053099003)(22082099003)(18002099003)(56012099003)(4143699003);
  DIR:OUT; SFP:1102; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aG00TUFiRW9RVU0rcXlJVVFVbDdhVGZXVUwycjNWQk5kdE4xS3FTbjMva1lF?=
- =?utf-8?B?UnhFdFJkaDE2NjlTNXdTZGhmQ0xlNi8rdytLOHNQNXduSVlEM2lCU3FMRFpt?=
- =?utf-8?B?THI0eGJBeUQrbUxUUG8zOXJuWUgvQlVELzlHaDNLLyswVVgzWHczVU54UU9N?=
- =?utf-8?B?ckVEdW9IcUlKcmVnR0k3RVlleUlqMVkrL3BWVDI0NnNTMFlONTNvNENDNlZX?=
- =?utf-8?B?S0hVM2VyanJlamhkZkI1RENXcXUrNVFLak1WNG9GVUdJbkN0KzFFYURHRXZS?=
- =?utf-8?B?YmtFS1ZvT1cxQ1g0NS9qQUwreC9sZUl4RE52L0ZLS2FRZnk0Z1Q5bWplZlZj?=
- =?utf-8?B?UlhIb0ZZaWJlaG8wNE9GdkZpQXZsb1J5MjM1eHZlQU5EK3ZFbXBqTnQraGx6?=
- =?utf-8?B?WisrbWZzalFndWxmMHZkU2YwdUZPekw4SGdwczFKT2dISDhpL21odmY1ZERZ?=
- =?utf-8?B?S3VKWWp4U3h3bnp1eXRXb213NkVacG1VdDZjNUhPdGViYW9MeWtoWXE3ZHU3?=
- =?utf-8?B?ZmJaV1FOSEpNVkpZL3h1Z2MwWHI1aGpra3U1L0hYc3I3TlloRyszVWhLQWFq?=
- =?utf-8?B?WWgwVnRUVmM1a2w1NnBkVFJlMlg2anBHcG90SWlaZm53bENDd0p3YjB0eXJL?=
- =?utf-8?B?N25idWUva3RKcUhna2hWdHJFcmRqM1krSkVTT1JsUHl2VUNaQ0xMSS93UUtS?=
- =?utf-8?B?NmVBanpxUDIrOElzajNoc01FdWhpMUs4OWZDT1JjanNQZ09LeWI1aExhN05O?=
- =?utf-8?B?Z2oxTU5MLzQySUJ5V3dDNVRhOGJSVDFRNlFtd1kyZFVybklLLzFkYnBKbmYy?=
- =?utf-8?B?NXNnckY0Q0JaYkdqRW9EdmZXV3kxKzU4SzRSUEppeVh2RzIyd2FqcndiS1RS?=
- =?utf-8?B?OXFudlhnbzZYdThhaW0vNjZjUEVuMVpKMS9XZ1FuU1NjTVU2c3FaTm9ocDBu?=
- =?utf-8?B?QUcvcWRjNmdqeUpzSjJhWWZ0M1RCbkVvMjlZclQyUS9IS2tSeFA5NHQxUmIx?=
- =?utf-8?B?ZjBGTkJSTkM5dHdrbE1tbG1WVmFrclIxMFZhM0Vib2R6WGVqTStudUNjWUJR?=
- =?utf-8?B?YTlLMzIwT1lhZGxSSzF4UTltZ3N5TVJjNE8wczN5Z1N4RFZ1RHI2QmFvM0FE?=
- =?utf-8?B?VjZaOU9MN3FoaHIrS3JzTTFqWWVqNndGWXFWVmV5UExGVlU1a1hLT2d3cnB6?=
- =?utf-8?B?OEpmQmNia0FhOGh2bCt3VTdDa1E1NExVN0Y5VkJMcWVZM1dRZTZldktJVFl0?=
- =?utf-8?B?SFEycTJKTnlTbU96cHhrdE9zdC9WcThCMmRoWnlBeWFEbTNJRGNBbkZrOEpv?=
- =?utf-8?B?c0xzUEprQmExa2VyWHhkSmNiTDlaYjZ2MFA4aXh3WEFJd0dIVjBsQzZJOEJ1?=
- =?utf-8?B?alJXdDhGY1Y4WUtLSW1wSGl1NVNIbGxJV0dzaXIxV2k2ZXRsUFRrRjhVMWVa?=
- =?utf-8?B?alU0S3pubUwwYXRuRmxFeGl2NUE2TTFhV3B4WjFEWTdUQjVNSFZaZ3M1Z04x?=
- =?utf-8?B?alIwQWExczNtdXY1TkFXbUJTWUlSaCsyUFhTVS9nU21NNk4xSVc2bzBSbkho?=
- =?utf-8?B?RVdLbkNQTDloZ3d2b1hKWnp6VUlSUUVkNkRmVHZ5ZUNRTHM2bTh5bGxqTUxG?=
- =?utf-8?B?TU41c29sMG1KRFBGM1NsOWxSTGhucXFQZXpOZ3VVbXBoaEM3U0x6c2hVU0Vj?=
- =?utf-8?B?OUtMOW5RRldsMTc0Tloxc3EwU3o3K0E4alZmMmNUMFk0TGtGYzRIQlJiSVli?=
- =?utf-8?B?RHBJZHcxbUsvU2ZHKy95cTZiTVErSW9jOE55UjdvVktjdUc2eW9hMWYwSWd2?=
- =?utf-8?B?TThnVlJNb1YrZ05mRU82Mk1vdjZsOE9xSjFXTDJsMk5KS1I0UUplUDRiK0Vy?=
- =?utf-8?B?Z3pTYm5LaU50VTZCV05Ra1kzdXZKZHhENEVpaXV2Q3c0cElySXhuci9ibkFn?=
- =?utf-8?B?ZmtGK1VHYTdtWWx6WG9vUTh0dk1QVG95Y09xYkxUWXJnVkxZV0ZxWE9HdjR5?=
- =?utf-8?B?WUI2YndwdCt6ZEhBSkxWMHFMcitudDdrSzAwUmVuTjhmUkwyMjFYNW1lV3F0?=
- =?utf-8?B?amJDN2VtYnByQU5sZ1pTNC9nVUJ2YWJhY0VSdGZyYzQralNlUWorWWZqaTd4?=
- =?utf-8?B?TFFzMlFVTFFqV0ExVVpQMVlVK3pQUWVCL0gzdWNpc1NDZGhQSWdiZHp4dVpO?=
- =?utf-8?B?V0tLQTRaaGtucmdOYk1WempOZjJCeE9rLzBkeVltZFl3dldTeXVTcFFyTzdZ?=
- =?utf-8?B?QVVNbTRxZzJSSEQ1dG1QQ09vMzh1OWxoOUlrL1l5TUN0R2VmK28wNUtuQVlD?=
- =?utf-8?B?dDJpbVFxZXUra09sQWtMcnplcXYwRzM0OUNwMzI5bjd4Y2wxMFJpMkhoZ0Zl?=
- =?utf-8?Q?S8dPeiHaDSCl56Fw=3D?=
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TzJEcHU0SE1HQ2UyS04zVkpUQTJqWXZjSEdRZitDVk05VUpLV0Y0dDRsOEUw?=
+ =?utf-8?B?T3VuTW9UUGVEbjc1WDAyQS9TT0J5YzhBdTZGU2o2aGF6cFNYT2NIRnVDMzNi?=
+ =?utf-8?B?SzU1YlZkL1ZQeHZDZTExUzV1d0Y1WmY3d2ZReFZ2WGNUZkJKcVZ0OXFxUi81?=
+ =?utf-8?B?S1E0eEtROFA5bjZwU3A5Z2ZjUzB1eHpaVWE5cjA5TW5tWTljL3YwN0NpNjJZ?=
+ =?utf-8?B?Tkc5UmJnT0tjZEljSWNFUDBuQ3NHZkNRdDlEL25XazZvSHAvTW9hZjZzRmdl?=
+ =?utf-8?B?b0RlQ3FOSnBiNjhNeTAvbXNRcGI1Z1ZwWjM3VXhHM01JNHo4Sk1nd1BYTjgv?=
+ =?utf-8?B?WVI3VnJJaGVGYVFWNEg0bzVjS2t6RTVybkJOMHFkdWF3akgvNUFNMG1sSFR2?=
+ =?utf-8?B?TW1WbjVKZkpLOXZUbkVZMWcyQzN1eGNjaEQzTnBQTUgvR0ZNRitFaWhuNm5K?=
+ =?utf-8?B?TUN2akhCd1FVSWlobStvc2RLdnRLUWVFK3VvSURpTEhFZ0tBTnlrOE43d3Nk?=
+ =?utf-8?B?Z3Rwbml4ZzZRamxPWWpTWkJWOUtYdCtJUUlKTkN6akFjWXFWWURlcHVhM3Rl?=
+ =?utf-8?B?dWtqNGdYOU1Hem9GQTdKQ1BvTEpya2g3amtML3J6dEtXRjMzUWNVR0lVaTZu?=
+ =?utf-8?B?b2pHWWhqaFdpOC8yd2JBM1RyczdZemZGNFI3a3dmMXVIRENQTXA2ZzhNZklh?=
+ =?utf-8?B?TUpvUXZSYXBhVy8zdk45ZnVVNFpmbm9KNXpDNnZ2SEZsUUptVERkU2k2S1hi?=
+ =?utf-8?B?SUZ6WHBQUUJZY3h3bE5kZk5RZUluWkk2K2ZEYnBuYTJ3eTVTaHhJRjNjR0tj?=
+ =?utf-8?B?OEVTMy9pdHduYVZHYXZIb2RKdDQ2U1QySDE2NW5ycXNEN21OWEw5NkdjNmQ1?=
+ =?utf-8?B?bzUzUDRqN3FlMFNUVWhGYkljNlRYWVJyQUNoSEwwL1Z4eTU4OGZVQ2NmKzU5?=
+ =?utf-8?B?WktwK3RxMk1INC9BdmFtcW1hUng5OXpDTDAxUFZLSWxjQzdtTjJ2NDQ1K3N3?=
+ =?utf-8?B?c3diK3RoVDZtTHJwNEx3ZFFTMlhYK0p0bktqUi8ybVdOTG5QcjIvYi9vMWZR?=
+ =?utf-8?B?bEJ3NUdYOWlWcmQ4REJpanJwaC9KbllXMld2RjE4SWZkNGJTS3JsVjR2cFdR?=
+ =?utf-8?B?czdNdG1CbDh3Z0RyWXd5UFdPY1ZTTGZXTEp1bTJRQlFTZld0dHNRUmIvZC9i?=
+ =?utf-8?B?a2lTeksvVHR6YVlrNy9MM1g4ZEYrWDF4N2FncWRqS0Izem5zeXNhbGR1QjNk?=
+ =?utf-8?B?TmJ4ZnlWai9aYVUyd0VWTDl4N2ZIVkVJWXJyL05uRkdXRy9Fc3JsWjZ4UmNX?=
+ =?utf-8?B?UExLQUlRYTdCRGRaYjR3TzlScnc4TEkzNm1BbFJLUklmaWRwWlE1TXBvemY4?=
+ =?utf-8?B?ajltbEdMWVVLRjE2K1V5MHdXM0ZwSnZSUm85K3BkVS9BR1RFSmVsRVRpSVp5?=
+ =?utf-8?B?ZS84RGxybVpkKzVNczl6MnhlNG5LdSszTFNwQXVKc0l2WjJ2NG93V2N4b09w?=
+ =?utf-8?B?WWRIYStNOXhHVkRlamlKWEdLbkVoc1pQVUF5VWpVdTBnNVhvc2hDcEFGbDFN?=
+ =?utf-8?B?cXdFQkQ4MVVxUkt6Vzl5Z0xrU2VrVEZWOWlYdkZJWFBNR1Noc3A2WW5aUGpG?=
+ =?utf-8?B?Mk5WWnh1cEVNVzQyOGpCM1ZoQlJQeFFFcER1S2pzUmJEMUY0Z1d3a2dNN2dt?=
+ =?utf-8?B?KzZsUGpWQlF3Z1B1TlF0aXpiTkxLSHJpVmRGdWRmMGFCb0phYTNQQ2FhRE1q?=
+ =?utf-8?B?Sjhmb1ZrRGs5WUxRYVRLM3IySXA2TFIzOGMyQkpzUGs5MS9xUndIcG80ME11?=
+ =?utf-8?B?QVBlREFnd3Y1anphREE4dEoyWHZwOG5mSm9lbEtNZWhOdG9vQkN3UXVIeEpQ?=
+ =?utf-8?B?NGJiVHIyenhqNUJUUnFaN1YxQS8wdXpSUFlxUStoSHUrR2t5WDVkbjloWWQ1?=
+ =?utf-8?B?RkFjbHZDZU5tV2dndWJXeUJkT0lWcVFFclVuRXpJQjVDMDQyd01tWDdIdDZx?=
+ =?utf-8?B?UjJUeEJ6VEduTmQ4UHIybzBIWmNDNEZ0VmRaSFFlRjBQL2RKWkE2SFdqTDF1?=
+ =?utf-8?B?a01NQmJ6bGc5YWxRUFp1a08rd1d0S051dzA1YWQxdEtmcVY3bDFPajNnTUZZ?=
+ =?utf-8?B?TkdUYklxeXBJNnh6NS9PVzFrbkU0T2tCSTJ5Y0Z2QWVTd2c2dGFjVnN1SkhK?=
+ =?utf-8?B?SlBGcUZpeHZLTGV4TlRRYlRJNFNOendpT0owTUdMbTRDQUthdmUxam83cktU?=
+ =?utf-8?B?dDA2cGZUeWdESUM4bDhWVmV4RmNEWi9zY1F1ck1qR2pvUDFQSHFPc3YrK1ZH?=
+ =?utf-8?B?V2tIS0k4K3ZtVzI3eXJIdUptbm0xK2R2SFFpVi9hL0V5ZFJSR0hkd0pOTEc2?=
+ =?utf-8?Q?bWNoeZjzbsBNuGbg=3D?=
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------UtNfPWMQ4X1y5scrSz8sfTbN"
+ boundary="------------WLWz5cfmdT4Y4QtZRmX7CMel"
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: U2AhOL6p4LT32+gIOeM25setkVo685xb7jb+QcD/jPRHXphw5I/Ras811Mb2UyAR6kJbqk9yKdoh9BxTGe0wuFGYgDBSIi1dcrHeNPslcKir1mjxEVlGEzPfeiFkQrj5IsQa03BUi8t7qcCk8Tk003bXqyRBS+UCQl+hb/E5ooca546hALRsZqp5OHIz3h56YSLVHWNp83Xqm7TLkCVvar6NWaN6Ji/lPgGf3OmJYZ5Su86hhsIxRlVEnBYD82iNtWlZGhNSV9jjjNv+/yHPxqwub044Xv8G33XBlZHzqXvu/aFaumnXZf+D6Jqp42biSpqM8Y1cauL42tEfQfuVWg==
+X-Exchange-RoutingPolicyChecked: Rs2XZzAr+EI6A5sme1WQ/avrANrYqaIj21QKk5AdSH38kJO4nWd23T1BRfj4WQaMCHrsAfaHFCjP5ouv99JjV1iQc5gBm/5y2fyzdSkcQuWEfWxgCHZVRZrD2bkBaxLJHjPpv3B2ls4K9BKEl3fr5q8ZD7vArnZi9XJvFJ+VRGWEsSy0L7t93D8X+1B0QWmBHYPFKoQtZZzDAuRj/JgmGkpaFf5q62bCiiGZADszIM03elSzkLnjqNKNIY7dSxN9y35C9T5dLIcsD+upsEsKpWtn2m2f3UJhnOoJU15zqkUL1izu+ExQEoiWBXU0pTGq0pat0NNza/NlA6lD5bWyFQ==
 X-OriginatorOrg: imgtec.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB3393.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5eefb2f-cfc1-4d5b-0c2b-08deb4ee61d0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 15:01:46.9087 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3ea1255-c0ec-439a-81f8-08deb4ee683d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 15:01:57.7223 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nSvexvObNdtL5tZ22/gAE24d+aRGhrDGLsIz1xgxRwxTEpPOItCgQKqEYQRUd/9hrUFmQH04PxiL2G6SVcy44Q==
+X-MS-Exchange-CrossTenant-userprincipalname: ultWr3tqI0AqQAqImtxt9ySYHzWUZbQQP3Gjz8kWnDj0Wtx3KSP6dl7O3GESvDvk7cgMUV1n5idw8hmCKYz35w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOBP265MB8899
-X-Proofpoint-GUID: _GPEXlSAQJHGgg2zVqkavzh8xOeiZglr
-X-Proofpoint-ORIG-GUID: _GPEXlSAQJHGgg2zVqkavzh8xOeiZglr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDE0NyBTYWx0ZWRfX6XqtLAE3iPEF
- ZeByiMjmSbMwApF80TDIAGwZ5t7NYHfdOT4HtRp17Mcl0HppNDZCfA2K4B2AwQ2wY95zENGkoAE
- sANkPwmu4fCQgLeZhLfVJMHn3sVByJShInjBvujwrZ7Pj4qg5n1/tD0CuYypL5iFayzPd4wdNyw
- Ka6KMHBCjX3XILounbteLbEdD6P/jB6Tv1D8aw3prenjsAZFGhFIpst6IdExVPfx3qMS1k4SJk9
- fgTw5EXUFfQVeNuiPJed1gWp8Gl8W8q06ZGv7w2Mul5QHfMHl4NCYdpJRv62DIlcPVhwEvjaVEi
- 0Ueb6PE7MPrcBgqRmkQ7kSvcsZFG/HJJt+T/NU00PwaBJRjSU7/purLM26gX/9umXzReFKZ/ugi
- EVzENTN0P47sF28KxAHtfsqj7GsgoFy2IBzK4SUA4qKBWGDxArJ0g0NAexUcalC5HrycujldL8q
- ravtbkaJTQ5DM1U9yDQ==
-X-Authority-Analysis: v=2.4 cv=BIiDalQG c=1 sm=1 tr=0 ts=6a0b29dd cx=c_pps
- a=SnpTzkidA27yMbk9lDQz0w==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+X-Proofpoint-GUID: tfePc2lXmXzD8Nui1HeHWwsCRSN6Dy8A
+X-Proofpoint-ORIG-GUID: tfePc2lXmXzD8Nui1HeHWwsCRSN6Dy8A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDE0NyBTYWx0ZWRfXyAeQhE7Puo+s
+ lAHz5IbZJAhc1OaCqObJFi7QN0N7SkbXv0Zc/nZA8m+nYrnThyKmXej2FgE5DqKaktUEXlYRH2L
+ tZA6ylew6TCJcmnGkahaeAYPNPgJV11gN219+c7/sk2+WbaGovemgPi33a6Q/p9cpLDF2HGzz+a
+ ahHE2jWCKkn760AYOMFDL+IWRW/t+RyFdaFt84DLqDe6xao6XWDxlKGcrpLv2Kc97H2vNyt+A5Y
+ UZXs4mTmflFOM7vFsZVuQig4Sr+c2qxa4ZWYcdpHObNHAdAwtD/6ey2Pl6GEsk+4mEYd4bn9U3C
+ DEOlXj+lU2cfa6MvJH1Bph60M84XtpfW6deWZmcysiXRbLaZIEC5kvAcw7wlTuYPrpcCE1DdvaM
+ BUI9pHn+e+a3WAVcpLcMaua4ZfVjGXMvlNGR7dpAgAS0n+OX7EnJCiKjnn8FKgl4YK9u0H2WE49
+ 9wA7oV6+L0lJyVMH31Q==
+X-Authority-Analysis: v=2.4 cv=BIiDalQG c=1 sm=1 tr=0 ts=6a0b29e8 cx=c_pps
+ a=Rvvafz/nfqJTHwFgE6i6/g==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
  a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22
- a=qZQ2PDNLMSdLoqI-hfl9:22 a=r_1tXGB3AAAA:8 a=RziZQn1t94O8_LsdYPIA:9
- a=QEXdDO2ut3YA:10 a=RIm8ZqsVQ7PL_hLJbiYA:9 a=FfaGCDsud1wA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
+ a=qZQ2PDNLMSdLoqI-hfl9:22 a=r_1tXGB3AAAA:8 a=uji3MpxeiruQX1L7JFEA:9
+ a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10 a=CBv0nxMjoVHzJITRQJwA:9
+ a=FfaGCDsud1wA:10 a=t8nPyN_e6usw4ciXM-Pk:22
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -181,15 +179,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---------------UtNfPWMQ4X1y5scrSz8sfTbN
-Content-Type: multipart/mixed; boundary="------------3XU9ViKsW9pRzbzj63TQaaik";
+--------------WLWz5cfmdT4Y4QtZRmX7CMel
+Content-Type: multipart/mixed; boundary="------------oA0v4OSOV20AypRkMolJb1vB";
  protected-headers="v1"; hp="clear"
-Message-ID: <d24d4065-e121-4c78-9b7c-78a6561e0a1a@imgtec.com>
-Date: Mon, 18 May 2026 16:01:46 +0100
+Message-ID: <2d408760-9467-4d31-a4a3-b1883e56a433@imgtec.com>
+Date: Mon, 18 May 2026 16:01:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/imagination: Populate FW common context ID before
- passing to the FW
+Subject: Re: [PATCH 3/4] drm/imagination: Rename FW booted to FW initialised
 To: Brajesh Gupta <brajesh.gupta@imgtec.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -199,7 +196,7 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Alexandru Dadu <alexandru.dadu@imgtec.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 References: <20260512-b4-context_reset-v1-0-439bee96ed83@imgtec.com>
- <20260512-b4-context_reset-v1-1-439bee96ed83@imgtec.com>
+ <20260512-b4-context_reset-v1-3-439bee96ed83@imgtec.com>
 Content-Language: en-GB
 From: Matt Coster <matt.coster@imgtec.com>
 Autocrypt: addr=matt.coster@imgtec.com; keydata=
@@ -211,29 +208,20 @@ Autocrypt: addr=matt.coster@imgtec.com; keydata=
  7NOv2jNbeXqjP9ekY7rzy7auiEZ5PxaDWUQVAwEIB8J+BBgWCAAmAhsMFiEEBaQM/OcmnWHZ
  cQChdH8KkDb5DfoFAmgHpowFCQlsaBoACgkQdH8KkDb5DfoK+AD/Q4aN/zUvP72RRE4cNWpM
  MXeRXg+LTN+OJ24U10LltxIA/2w3kDqMC/0t1oqO8TM+c2LMWO/x2IBkG7oRZ/hVw1QI
-In-Reply-To: <20260512-b4-context_reset-v1-1-439bee96ed83@imgtec.com>
+In-Reply-To: <20260512-b4-context_reset-v1-3-439bee96ed83@imgtec.com>
 
---------------3XU9ViKsW9pRzbzj63TQaaik
+--------------oA0v4OSOV20AypRkMolJb1vB
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Hi Brajesh,
 
 On 12/05/2026 07:47, Brajesh Gupta wrote:
-> Fix context ID value for the FW common context by moving the context
-> allocation earlier.
+> Update name to FW initialised from booted to better represent FW state.=
 
-"Fix" is pretty vague here =E2=80=93 can you describe the current behavio=
-ur, and
-why that's wrong?
 
-I also assume this fixes a previous change, so can you please add a
-Fixes: tag referencing the commit which introduced the faulty behaviour
-(and possibly a Cc: stable tag, if needed)?
-
-> Also an old incorrect comment was removed.
-
-This detail probably doesn't need to be mentioned.
+Can you please add an explanation of the distinction between "booted"
+and "initialised" that makes this useful?
 
 Cheers,
 Matt
@@ -241,86 +229,152 @@ Matt
 >=20
 > Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
 > ---
->  drivers/gpu/drm/imagination/pvr_context.c | 30 ++++++++++++++++-------=
--------
->  1 file changed, 16 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/imagination/pvr_device.c |  2 +-
+>  drivers/gpu/drm/imagination/pvr_fw.c     |  4 ++--
+>  drivers/gpu/drm/imagination/pvr_fw.h     |  7 +++++--
+>  drivers/gpu/drm/imagination/pvr_mmu.c    |  4 ++--
+>  drivers/gpu/drm/imagination/pvr_power.c  | 14 +++++++-------
+>  5 files changed, 17 insertions(+), 14 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/imagination/pvr_context.c b/drivers/gpu/dr=
-m/imagination/pvr_context.c
-> index 8de70c30b9de..eba4694400b5 100644
-> --- a/drivers/gpu/drm/imagination/pvr_context.c
-> +++ b/drivers/gpu/drm/imagination/pvr_context.c
-> @@ -318,10 +318,14 @@ int pvr_context_create(struct pvr_file *pvr_file,=
- struct drm_pvr_ioctl_create_co
->                 goto err_put_vm;
+> diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm=
+/imagination/pvr_device.c
+> index dbb6f5a8ded1..49696101b547 100644
+> --- a/drivers/gpu/drm/imagination/pvr_device.c
+> +++ b/drivers/gpu/drm/imagination/pvr_device.c
+> @@ -213,7 +213,7 @@ static irqreturn_t pvr_device_irq_thread_handler(in=
+t irq, void *data)
+>         while (pvr_fw_irq_pending(pvr_dev)) {
+>                 pvr_fw_irq_clear(pvr_dev);
+>=20
+> -               if (pvr_dev->fw_dev.booted) {
+> +               if (pvr_dev->fw_dev.initialised) {
+>                         pvr_fwccb_process(pvr_dev);
+>                         pvr_kccb_wake_up_waiters(pvr_dev);
+>                         pvr_device_process_active_queues(pvr_dev);
+> diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/ima=
+gination/pvr_fw.c
+> index 288516dc2560..b8ad3f1d222c 100644
+> --- a/drivers/gpu/drm/imagination/pvr_fw.c
+> +++ b/drivers/gpu/drm/imagination/pvr_fw.c
+> @@ -1004,7 +1004,7 @@ pvr_fw_init(struct pvr_device *pvr_dev)
+>                 goto err_fw_stop;
 >         }
 >=20
-> -       err =3D pvr_context_create_queues(ctx, args, ctx->data);
-> +       err =3D xa_alloc(&pvr_dev->ctx_ids, &ctx->ctx_id, ctx, xa_limit=
-_32b, GFP_KERNEL);
->         if (err)
->                 goto err_free_ctx_data;
+> -       fw_dev->booted =3D true;
+> +       fw_dev->initialised =3D true;
 >=20
-> +       err =3D pvr_context_create_queues(ctx, args, ctx->data);
-> +       if (err)
-> +               goto err_free_ctx_id;
-> +
->         err =3D init_fw_objs(ctx, args, ctx->data);
->         if (err)
->                 goto err_destroy_queues;
-> @@ -329,23 +333,12 @@ int pvr_context_create(struct pvr_file *pvr_file,=
- struct drm_pvr_ioctl_create_co
->         err =3D pvr_fw_object_create(pvr_dev, ctx_size, PVR_BO_FW_FLAGS=
-_DEVICE_UNCACHED,
->                                    ctx_fw_data_init, ctx, &ctx->fw_obj)=
-;
->         if (err)
-> -               goto err_free_ctx_data;
-> +               goto err_destroy_queues;
+>         return 0;
 >=20
-> -       err =3D xa_alloc(&pvr_dev->ctx_ids, &ctx->ctx_id, ctx, xa_limit=
-_32b, GFP_KERNEL);
-> +       err =3D xa_alloc(&pvr_file->ctx_handles, &args->handle, ctx, xa=
-_limit_32b, GFP_KERNEL);
->         if (err)
->                 goto err_destroy_fw_obj;
+> @@ -1044,7 +1044,7 @@ pvr_fw_fini(struct pvr_device *pvr_dev)
+>  {
+>         struct pvr_fw_device *fw_dev =3D &pvr_dev->fw_dev;
 >=20
-> -       err =3D xa_alloc(&pvr_file->ctx_handles, &args->handle, ctx, xa=
-_limit_32b, GFP_KERNEL);
-> -       if (err) {
-> -               /*
-> -                * It's possible that another thread could have taken a=
- reference on the context at
-> -                * this point as it is in the ctx_ids xarray. Therefore=
- instead of directly
-> -                * destroying the context, drop a reference instead.
-> -                */
-> -               pvr_context_put(ctx);
-> -               return err;
-> -       }
-> -
->         spin_lock(&pvr_dev->ctx_list_lock);
->         list_add_tail(&ctx->file_link, &pvr_file->contexts);
->         spin_unlock(&pvr_dev->ctx_list_lock);
-> @@ -358,6 +351,15 @@ int pvr_context_create(struct pvr_file *pvr_file, =
-struct drm_pvr_ioctl_create_co
->  err_destroy_queues:
->         pvr_context_destroy_queues(ctx);
+> -       fw_dev->booted =3D false;
+> +       fw_dev->initialised =3D false;
 >=20
-> +err_free_ctx_id:
-> +       /*
-> +        * Ctx_id is not exposed to userspace and not visible yet withi=
-n
-> +        * the kernel/FW, plus a matching context handle (exposed to us=
-erspace)
-> +        * hasn't been allocated yet, so it is safe to remove ctx_id
-> +        * from the ctx_ids xarray.
+>         pvr_fw_destroy_structures(pvr_dev);
+>         pvr_fw_object_unmap_and_destroy(pvr_dev->kccb.rtn_obj);
+> diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/ima=
+gination/pvr_fw.h
+> index 1404dd492d7c..3390c84e4fd3 100644
+> --- a/drivers/gpu/drm/imagination/pvr_fw.h
+> +++ b/drivers/gpu/drm/imagination/pvr_fw.h
+> @@ -295,8 +295,11 @@ struct pvr_fw_device {
+>         /** @mem: Structure containing objects representing firmware me=
+mory allocations. */
+>         struct pvr_fw_mem mem;
+>=20
+> -       /** @booted: %true if the firmware has been booted, %false othe=
+rwise. */
+> -       bool booted;
+> +       /**
+> +        * @initialised: %true if the firmware has been successfully in=
+itialised,
+> +        *               %false otherwise.
 > +        */
-> +       xa_erase(&pvr_dev->ctx_ids, ctx->ctx_id);
-> +
->  err_free_ctx_data:
->         kfree(ctx->data);
+> +       bool initialised;
 >=20
+>         /**
+>          * @processor_type: FW processor type for this device. Must be =
+one of
+> diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/im=
+agination/pvr_mmu.c
+> index 2e4da5b2c499..e9fefcc4e234 100644
+> --- a/drivers/gpu/drm/imagination/pvr_mmu.c
+> +++ b/drivers/gpu/drm/imagination/pvr_mmu.c
+> @@ -133,8 +133,8 @@ int pvr_mmu_flush_exec(struct pvr_device *pvr_dev, =
+bool wait)
+>         if (!drm_dev_enter(from_pvr_device(pvr_dev), &idx))
+>                 return -EIO;
+>=20
+> -       /* Can't flush MMU if the firmware hasn't booted yet. */
+> -       if (!pvr_dev->fw_dev.booted)
+> +       /* Can't flush MMU if the firmware hasn't been initialised yet.=
+ */
+> +       if (!pvr_dev->fw_dev.initialised)
+>                 goto err_drm_dev_exit;
+>=20
+>         cmd_mmu_cache_data->cache_flags =3D
+> diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/=
+imagination/pvr_power.c
+> index 88fcce433d12..a73a6815306b 100644
+> --- a/drivers/gpu/drm/imagination/pvr_power.c
+> +++ b/drivers/gpu/drm/imagination/pvr_power.c
+> @@ -216,7 +216,7 @@ pvr_watchdog_worker(struct work_struct *work)
+>         if (pm_runtime_get_if_in_use(from_pvr_device(pvr_dev)->dev) <=3D=
+ 0)
+>                 goto out_requeue;
+>=20
+> -       if (!pvr_dev->fw_dev.booted)
+> +       if (!pvr_dev->fw_dev.initialised)
+>                 goto out_pm_runtime_put;
+>=20
+>         stalled =3D pvr_watchdog_kccb_stalled(pvr_dev);
+> @@ -378,8 +378,8 @@ pvr_power_device_suspend(struct device *dev)
+>         if (!drm_dev_enter(drm_dev, &idx))
+>                 return -EIO;
+>=20
+> -       if (pvr_dev->fw_dev.booted) {
+> -               err =3D pvr_power_fw_disable(pvr_dev, false, true);
+> +       if (pvr_dev->fw_dev.initialised) {
+> +               err =3D pvr_power_fw_disable(pvr_dev, false);
+>                 if (err)
+>                         goto err_drm_dev_exit;
+>         }
+> @@ -408,8 +408,8 @@ pvr_power_device_resume(struct device *dev)
+>         if (err)
+>                 goto err_drm_dev_exit;
+>=20
+> -       if (pvr_dev->fw_dev.booted) {
+> -               err =3D pvr_power_fw_enable(pvr_dev, true);
+> +       if (pvr_dev->fw_dev.initialised) {
+> +               err =3D pvr_power_fw_enable(pvr_dev);
+>                 if (err)
+>                         goto err_power_off;
+>         }
+> @@ -548,7 +548,7 @@ pvr_power_reset(struct pvr_device *pvr_dev, bool ha=
+rd_reset)
+>                 err =3D pvr_power_fw_disable(pvr_dev, hard_reset, false=
+);
+>                 if (!err) {
+>                         if (hard_reset) {
+> -                               pvr_dev->fw_dev.booted =3D false;
+> +                               pvr_dev->fw_dev.initialised =3D false;
+>                                 WARN_ON(pvr_power_device_suspend(from_p=
+vr_device(pvr_dev)->dev));
+>=20
+>                                 err =3D pvr_fw_hard_reset(pvr_dev);
+> @@ -556,7 +556,7 @@ pvr_power_reset(struct pvr_device *pvr_dev, bool ha=
+rd_reset)
+>                                         goto err_device_lost;
+>=20
+>                                 err =3D pvr_power_device_resume(from_pv=
+r_device(pvr_dev)->dev);
+> -                               pvr_dev->fw_dev.booted =3D true;
+> +                               pvr_dev->fw_dev.initialised =3D true;
+>                                 if (err)
+>                                         goto err_device_lost;
+>                         } else {
 >=20
 > --
 > 2.43.0
@@ -331,19 +385,19 @@ erspace)
 Matt Coster
 E: matt.coster@imgtec.com
 
---------------3XU9ViKsW9pRzbzj63TQaaik--
+--------------oA0v4OSOV20AypRkMolJb1vB--
 
---------------UtNfPWMQ4X1y5scrSz8sfTbN
+--------------WLWz5cfmdT4Y4QtZRmX7CMel
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wnsEABYIACMWIQS4qDmoJvwmKhjY+nN5vBnz2d5qsAUCagsp2gUDAAAAAAAKCRB5vBnz2d5qsNX8
-AQCOScRuv2xlXqNM74j2EA5zsLCuALgtf8aZUsJDndHBFAEAqvQVl3ArwEgJIbDcUhwu9OrUzct2
-VLACK/2Rt/EZSAQ=
-=Xy3m
+wnsEABYIACMWIQS4qDmoJvwmKhjY+nN5vBnz2d5qsAUCagsp5QUDAAAAAAAKCRB5vBnz2d5qsAd0
+APwI973ygTXOqVPHyoDX+Khm6GNp1jokFH0rPR59mA6VPQD+KEE9wwfjxobEJ4CQQqrcGV6lpYTI
+ziSpLi3nnoOEnw0=
+=zdBn
 -----END PGP SIGNATURE-----
 
---------------UtNfPWMQ4X1y5scrSz8sfTbN--
+--------------WLWz5cfmdT4Y4QtZRmX7CMel--
