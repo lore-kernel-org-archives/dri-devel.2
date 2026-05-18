@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93C32CD343F
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:38:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43EA3CD4F54
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:38:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEE0510E811;
-	Mon, 18 May 2026 19:38:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC4E610E814;
+	Mon, 18 May 2026 19:38:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="IrSsRb/3";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="bg7/Jk2w";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 632FD10E814
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6327510E811
  for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:38:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779133125; bh=ZtDLujMYuaqr2SiPa1eP+PIvqx/feLGXDK/xQNhph9Y=;
- b=IrSsRb/3d1RgW9UZsr8CBlaMyARboIhcgOYE2dksYFDyJ5PnYSbniB6wWJ17fJsknBYTz/GS1
- wfIIelcZI7IYOObvOtv6JmhLQ8Qsyxa3P+Ve7sagBWjY7ydGW4RzxHIhoolK3gWpNHmSelAHUyv
- gehg5XEkL4mWvzYSkzqRj7JQIWwnY7savR59hqJc6myutxyKXNEuLbrnVfLpWDiMS9oTnj5Iiem
- bvhl3GKDGRlFh4ZHiZ3MZ9k6Bv2k0lNMRCBzxjT6A7s3day7zPNd990hZiaV//63kiMZHU5bzjW
- fnPx9QxlMvMxNhe7FMjXrLBT6uTnD+bGdsXaJ5GuTkIw==
-X-Forward-Email-ID: 6a0b6aad486b4b38b826fa5c
+ t=1779133125; bh=7lfieJ/EGL73t6zCSw5MfpEMZTviCbjtrDbmqYNxjp8=;
+ b=bg7/Jk2wPLzZhiP/5kT7yMZz+KnsaKGlSKBR17Hqg47S7bbUO0ysP1MP9UXq6gmqxMWww2jiA
+ rrVW6kqKI6AKfuVlaJPskJH/UVfro/cSfEkFmnal+S+hzsIHnsDN72qMwjW+3LSW7N2K6xy9QKt
+ 7HaKMB1GyFv1JOsvXJHB1b7gPSC6Wem5iBlYH/rwgIVsk2DxsBSV5C5U1Y3T+4/j1ws4d2CXG+f
+ W/zpW2S2giMZIuha+Fu2lZKOViW8tJB+hAdW4UyrHQ9jmEDA0nHtl1BN1Lp5nMTtGJnFGgvioJi
+ KLD4pxmr55lXKIadTay1lQwNcI44E8t9wmv1stMQL4DQ==
+X-Forward-Email-ID: 6a0b6ab0486b4b38b826fa77
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  149.28.215.223
 X-Forward-Email-Version: 2.8.12
@@ -42,9 +42,10 @@ To: =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
 Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Jonas Karlman <jonas@kwiboo.se>
-Subject: [PATCH v2 07/11] drm/rockchip: dw_hdmi: Clean up whitespace
-Date: Mon, 18 May 2026 19:37:41 +0000
-Message-ID: <20260518193748.2482823-8-jonas@kwiboo.se>
+Subject: [PATCH v2 08/11] drm/rockchip: dw_hdmi: Set output_port for
+ RK3568/RK3566
+Date: Mon, 18 May 2026 19:37:42 +0000
+Message-ID: <20260518193748.2482823-9-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518193748.2482823-1-jonas@kwiboo.se>
 References: <20260518193748.2482823-1-jonas@kwiboo.se>
@@ -65,47 +66,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move the blank line before the RK3328 definitions for readability and
-make the phy_config table spacing consistent with other tables.
+All in-tree RK3568/RK3566 device trees using HDMI also include the
+required hdmi-connector node at port@1 since their introduction.
+
+Define the output_port for RK3568 so that dw-hdmi bridge driver can pick
+up the display-connector bridge once the dw-hdmi connector is replaced
+with a bridge connector in a future change.
 
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
 v2: No change
 ---
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-index bd530321b49c..02ee606c648e 100644
+index 02ee606c648e..6c4923b9b659 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-@@ -31,8 +31,8 @@
- 
- #define RK3288_GRF_SOC_CON6		0x025C
- #define RK3288_HDMI_LCDC_SEL		BIT(4)
--#define RK3328_GRF_SOC_CON2		0x0408
- 
-+#define RK3328_GRF_SOC_CON2		0x0408
- #define RK3328_HDMI_SDAIN_MSK		BIT(11)
- #define RK3328_HDMI_SCLIN_MSK		BIT(10)
- #define RK3328_HDMI_HPD_IOE		BIT(2)
-@@ -190,11 +190,11 @@ static const struct dw_hdmi_curr_ctrl rockchip_cur_ctr[] = {
- 
- static const struct dw_hdmi_phy_config rockchip_phy_config[] = {
- 	/*pixelclk   symbol   term   vlev*/
--	{ 74250000,  0x8009, 0x0004, 0x0272},
--	{ 165000000, 0x802b, 0x0004, 0x0209},
--	{ 297000000, 0x8039, 0x0005, 0x028d},
--	{ 594000000, 0x8039, 0x0000, 0x019d},
--	{ ~0UL,	     0x0000, 0x0000, 0x0000}
-+	{ 74250000,  0x8009, 0x0004, 0x0272 },
-+	{ 165000000, 0x802b, 0x0004, 0x0209 },
-+	{ 297000000, 0x8039, 0x0005, 0x028d },
-+	{ 594000000, 0x8039, 0x0000, 0x019d },
-+	{ ~0UL,	     0x0000, 0x0000, 0x0000 },
+@@ -459,6 +459,7 @@ static const struct dw_hdmi_plat_data rk3568_hdmi_drv_data = {
+ 	.phy_config = rockchip_phy_config,
+ 	.phy_data = &rk3568_chip_data,
+ 	.use_drm_infoframe = true,
++	.output_port = 1,
  };
  
- static enum drm_mode_status
+ static const struct of_device_id dw_hdmi_rockchip_dt_ids[] = {
 -- 
 2.54.0
 
