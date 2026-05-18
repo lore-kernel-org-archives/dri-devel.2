@@ -4,105 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACA10CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 15:57:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0649ACD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 15:58:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB7B10E929;
-	Mon, 18 May 2026 15:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6659610E8EB;
+	Mon, 18 May 2026 15:58:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fez9jC7h";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UWaLcniO";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010025.outbound.protection.outlook.com [52.101.56.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F06E410E8EB
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 15:57:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CzqB+jQplPr3wyfJ7Kj8+iHScVVIvi4hBqbYpCF4eeVD8/NSU5NYjKDC8tuBmmUSdYvq2lrmR/ocxEYVv3uV+vM6yGYsU5Udgxt6ZnxUzB+X/qM0IbFgqGsVunEWPF7YUcq+8mVV8r9fSrQZ51EKgr5cg/u1Vj0jDyy3uh5ok9wRqOeMiiqdTUFww7rlsyVpHZeJ98qj4kxxK1fIVXhY54mkVunvhCbY7xl83nS/MAV53Qczsp1PJ99Xt6tADE1DCkPwVjU1d0om9oLzvXfK+XA5i6ZEk5DlBA0IxGflzuUuv5cifvyssZSeTC7WCWFiPTSwHQiv1B4b5Is5jBq+IQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SW0PQkmHbqIgFVRfYX43j9x3TuCRGG0eNMQOZjIcZe4=;
- b=RsdX53/9MN3AWX42G06nIFr99OwO8frD6OKSrM+2FGi+D/RqdCcQ8JZs5KDRrv02LTQxO4gRjN2dn55m4CLIhtZtjbsfFtVtOW7vri75LT7Rd3zAW20hCvNbtamAR07kn8hiKPpbbbuhD9mLP2DDu2H06Ns5u8C0XgPPvgsskzmL8asdFbJ/IMQmlj6xLLKLHK2/PlOVnJP71fB+geJfcIreJO6xEqRFnlr2r+ok6znZkJDANGUz2IeGX+wu0g4M19S+4Ac/2hy5YqXueWwQNeJR/SaiBLX+xaDoIgil3W6H5FV+epCg+Gdqnl93r+/4F0qSTHcnTZP7i+KYT79i/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SW0PQkmHbqIgFVRfYX43j9x3TuCRGG0eNMQOZjIcZe4=;
- b=fez9jC7hEtHBaBZAu/cgqOkB9Auv2IvNsnpZFcnBplSz3KjV6fiOJDstN3V/ykZEzQckKBg5lQrnjH8Q4PRwAEgB6XAp0+XBdRUoZ8Vi3G62jwJm41S+UqUY9qZqYkFUETuASWHLHp4FChCoxceHibqib+QZlAL5zW9hWFTRmy4=
-Received: from CH0PR03CA0058.namprd03.prod.outlook.com (2603:10b6:610:b3::33)
- by PH8PR12MB7254.namprd12.prod.outlook.com (2603:10b6:510:225::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 15:57:29 +0000
-Received: from CH2PEPF0000013E.namprd02.prod.outlook.com
- (2603:10b6:610:b3:cafe::34) by CH0PR03CA0058.outlook.office365.com
- (2603:10b6:610:b3::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.23 via Frontend Transport; Mon, 18
- May 2026 15:57:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF0000013E.mail.protection.outlook.com (10.167.244.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 15:57:28 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Mon, 18 May
- 2026 10:57:18 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 18 May
- 2026 10:57:18 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Mon, 18 May 2026 10:57:17 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <linaro-mm-sig@lists.linaro.org>, <dri-devel@lists.freedesktop.org>,
- <christian.koenig@amd.com>, <simona@ffwll.ch>, <max.zhen@amd.com>,
- <sonal.santan@amd.com>
-Subject: [PATCH V2] accel/amdxdna: Remove mmap and export support for ubuf
-Date: Mon, 18 May 2026 08:57:05 -0700
-Message-ID: <20260518155706.937461-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD2B510E8EB;
+ Mon, 18 May 2026 15:58:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779119890; x=1810655890;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Tgf/ATTtiWXRL+hNl7LjoiT5hgyoYKhkTvfeGulCYCM=;
+ b=UWaLcniO2TLeADgLw5wF29uGLDeNQXCajrbzldFd8zPpnNeQegpzm/k7
+ XDwUP/69VjidjLVRwORL1i6nBnb80yVaovRTo1ULcMsYeq525TMhgcxDU
+ ap0+t1XmG2BYOz36DzWxwD+TMhXUhylZ95mvVlJXFE69VgkfDtvMuO6KF
+ 3A2/9MP6Z+l1JyNgAyUFaQsN8vbmSyNPm8NaebjUH8MvoDcVJDXkccHY6
+ e+ufZ6y4RTKSbgbeonHX4X0S7pN2uE83qR0caMw9FqMEBVMyzwH9d+8CG
+ saxRrUbG3Dt7qWq6uamMo0xsPfs5M56ESfchYqC5hEae8o4Rzp71+N9a0 Q==;
+X-CSE-ConnectionGUID: nz9fuldtQoO3zLNeEMSyEQ==
+X-CSE-MsgGUID: GcxGA9aRTeKf0LdWpiQ/sA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="97546215"
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; d="scan'208";a="97546215"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2026 08:58:09 -0700
+X-CSE-ConnectionGUID: EA4oxBCJSyuWbu+tQI/hXg==
+X-CSE-MsgGUID: Dm9j6miQSHy75ythNMfluQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; d="scan'208";a="262981743"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.57])
+ ([10.245.244.57])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2026 08:58:08 -0700
+Message-ID: <6e126bb7-4bfb-46e4-9f3d-b900145f1ac5@intel.com>
+Date: Mon, 18 May 2026 16:58:06 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: lizhi.hou@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013E:EE_|PH8PR12MB7254:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf5d4738-68a2-4a09-cc10-08deb4f6294b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: XKtVVS8rMdPbZRVTYflLeBdXl9oLebHcgiJuRURjyWJzYhOR12WSBEW8uRYXAOxtXX+xVLbFr2KP76duPNsJT+Ns90TiqO+tRuF5VVKf7ErMhCegN1ZLqmbHHKrw+wCl7vtUfxANY/MfxhWupubqXzMgKDKrV12gWUKnb9AKcrTWiJweLLhnf1r1iWifq8Z63Yq9C+4I690BlkDdvLb43I10A88UysqbQhsZItWMHry5K3SgSbBkGvoRXgOYh3fTYDCfiHskvjzMMrj4RT1zQW0HXuOD9TMXvfrQJmkk/vFe+pz96Vk/dsH6Ap5T4bFXsIUOXhU1Wc9Vz2RZ3YfE/EqExY5ZzjUoMmv7X4hs8K3xvIRFSiOyvY279sEnS3FRprps8AVVweYiDxUsoc3RQHTPJQWx6AZ5GCF/Nr1JDHdrPnr603dOC9Wx77nudkPOGmD7v61iWkW9Su4QCCxNbntaXR+rdJZmaoeOl8HmZz3H6LzyT238dGnfNgcZFbVP1sSHYxwpOoVeaGCGQdPKFN4V7gyXclp29hLqkTyxjhGn2C53Tg4uOXxbmcgl4LseDlnPXcYgiYFb7HUvmt63guClpQ47hO3iDTH3VM67hc2+bielclEcV76PPyRJE07kOJZq4qPRbuYXAeZOlk4qm9nl7IRVkERZ3Hw2JvA+O22HIJ4ZvRJ8njnOCM1K8TCo2pUNn51kn6VIwM7plnzIVkGH15hZJkxK56XHUc4izsg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(56012099003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: QujnHfeIiKWoJ/bpxy+0lH6sl8SFi8ThuRp/ni5AQ7TXFBoIRN/PN9o9oHF7JqNFUo+8wgy80wLq/dCHi7GXtiEojMXxAk1iIw5jSmF9uzX2C7lOdFiPwNj72w9b3i1IlLmjZL9A7/Re2GenYp42NSizsye/ffFwct1ZVkJryhdBVkJfA/SPCV54SfjRxiJOSil8g/nXRv6AyKvnUsCce94geYktvAFLOFdvJyg1MXcgsD06RyoSbLVkx/rfJwgQxE8npVdGJSyDGWDRA1noC003yGNw37ByyjhuNBuG4LH+XUEeyjENBIRKvNeLKEUWi70R+O2nF9Q8E+GtCFkk8+1VIXf/llBnWRhKpBQEjpuHqvD0Z/bCG5wP4UhLyLZR08fsGvnrBxZc2lWng5cbBOKt59BM7DntqISfLS67zxJGKXZditOXj/+zrKzHIHWn
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 15:57:28.0426 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf5d4738-68a2-4a09-cc10-08deb4f6294b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7254
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] gpu/buddy: Track per-order free blocks with a
+ scoreboard
+To: Francois Dugast <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+References: <20260518141446.124508-1-francois.dugast@intel.com>
+ <20260518141446.124508-5-francois.dugast@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260518141446.124508-5-francois.dugast@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,137 +72,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Ubuf pages should not be mmaped or exported. Remove the ubuf mmap callback
-and return -EOPNOTSUPP when exporting ubuf objects.
+On 18/05/2026 15:14, Francois Dugast wrote:
+> Reporting per-order free block counts in drm_buddy_print() currently
+> requires walking all rbtrees, which is O(n) over the total number of
+> free blocks and holds the allocator lock for the duration. This becomes
+> expensive on large VRAM heaps with many small free fragments.
+> 
+> Maintain a free_scoreboard[] array indexed by order instead, so that
+> the count for any order is always available in O(1). The scoreboard is
+> kept accurate by hooking into the four places where a block's free state
+> changes: mark_free(), mark_allocated(), mark_split(), and the sites in
+> __gpu_buddy_free(), __force_merge(), and the four err_undo paths that
+> call rbtree_remove() directly on free blocks without going through
+> mark_*().
+> 
+> The print functions are simplified as a result: the rbtree traversal
+> is replaced by a direct array lookup.
+> 
+> v3: Update after introducing __gpu_buddy_undo_splits() helper
+> 
+> v2: Update after fix for use-after-free in split_block() call sites
+> 
+> Signed-off-by: Francois Dugast <francois.dugast@intel.com>
+> Assisted-by: GitHub Copilot:claude-sonnet-4.6
 
-ubuf vmap is also removed for there is not a real use case yet.
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
-Fixes: bd72d4acda10 ("accel/amdxdna: Support user space allocated buffer")
-Cc: Christian Koenig <christian.koenig@amd.com>
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
-v2:
-  Remove dead code amdxdna_ubuf_vm_ops structure and amdxdna_ubuf_vm_fault
-  function.
-  Rename Non-exportable buffer flag from 'pri' to 'private_buffer'
-
- drivers/accel/amdxdna/amdxdna_gem.c  |  9 ++++-
- drivers/accel/amdxdna/amdxdna_gem.h  |  2 ++
- drivers/accel/amdxdna/amdxdna_ubuf.c | 50 ----------------------------
- 3 files changed, 10 insertions(+), 51 deletions(-)
-
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index 319d2064fafa..6b9b556de555 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -492,6 +492,9 @@ static struct dma_buf *amdxdna_gem_prime_export(struct drm_gem_object *gobj, int
- 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
- 	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
- 
-+	if (abo->private_buffer)
-+		return ERR_PTR(-EOPNOTSUPP);
-+
- 	if (abo->dma_buf) {
- 		get_dma_buf(abo->dma_buf);
- 		return abo->dma_buf;
-@@ -716,6 +719,7 @@ amdxdna_gem_create_ubuf_object(struct drm_device *dev, struct amdxdna_drm_create
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(dev);
- 	struct amdxdna_drm_va_tbl va_tbl;
-+	struct amdxdna_gem_obj *abo;
- 	struct drm_gem_object *gobj;
- 	struct dma_buf *dma_buf;
- 
-@@ -742,7 +746,10 @@ amdxdna_gem_create_ubuf_object(struct drm_device *dev, struct amdxdna_drm_create
- 
- 	dma_buf_put(dma_buf);
- 
--	return to_xdna_obj(gobj);
-+	abo = to_xdna_obj(gobj);
-+	abo->private_buffer = true;
-+
-+	return abo;
- }
- 
- static struct amdxdna_gem_obj *
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
-index 4fc48a1189d2..957305ccb485 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.h
-+++ b/drivers/accel/amdxdna/amdxdna_gem.h
-@@ -54,6 +54,8 @@ struct amdxdna_gem_obj {
- 
- 	/* True, if BO is managed by XRT, not application */
- 	bool				internal;
-+	/* True, if BO is not exportable */
-+	bool				private_buffer;
- };
- 
- #define to_gobj(obj)    (&(obj)->base.base)
-diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
-index 3769210c55cc..bb60fb80467e 100644
---- a/drivers/accel/amdxdna/amdxdna_ubuf.c
-+++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
-@@ -69,60 +69,10 @@ static void amdxdna_ubuf_release(struct dma_buf *dbuf)
- 	kfree(ubuf);
- }
- 
--static vm_fault_t amdxdna_ubuf_vm_fault(struct vm_fault *vmf)
--{
--	struct vm_area_struct *vma = vmf->vma;
--	struct amdxdna_ubuf_priv *ubuf;
--	unsigned long pfn;
--	pgoff_t pgoff;
--
--	ubuf = vma->vm_private_data;
--	pgoff = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
--
--	pfn = page_to_pfn(ubuf->pages[pgoff]);
--	return vmf_insert_pfn(vma, vmf->address, pfn);
--}
--
--static const struct vm_operations_struct amdxdna_ubuf_vm_ops = {
--	.fault = amdxdna_ubuf_vm_fault,
--};
--
--static int amdxdna_ubuf_mmap(struct dma_buf *dbuf, struct vm_area_struct *vma)
--{
--	struct amdxdna_ubuf_priv *ubuf = dbuf->priv;
--
--	vma->vm_ops = &amdxdna_ubuf_vm_ops;
--	vma->vm_private_data = ubuf;
--	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
--
--	return 0;
--}
--
--static int amdxdna_ubuf_vmap(struct dma_buf *dbuf, struct iosys_map *map)
--{
--	struct amdxdna_ubuf_priv *ubuf = dbuf->priv;
--	void *kva;
--
--	kva = vmap(ubuf->pages, ubuf->nr_pages, VM_MAP, PAGE_KERNEL);
--	if (!kva)
--		return -EINVAL;
--
--	iosys_map_set_vaddr(map, kva);
--	return 0;
--}
--
--static void amdxdna_ubuf_vunmap(struct dma_buf *dbuf, struct iosys_map *map)
--{
--	vunmap(map->vaddr);
--}
--
- static const struct dma_buf_ops amdxdna_ubuf_dmabuf_ops = {
- 	.map_dma_buf = amdxdna_ubuf_map,
- 	.unmap_dma_buf = amdxdna_ubuf_unmap,
- 	.release = amdxdna_ubuf_release,
--	.mmap = amdxdna_ubuf_mmap,
--	.vmap = amdxdna_ubuf_vmap,
--	.vunmap = amdxdna_ubuf_vunmap,
- };
- 
- static int readonly_va_entry(struct amdxdna_drm_va_entry *va_ent)
--- 
-2.34.1
+> ---
+>   drivers/gpu/buddy.c         | 36 +++++++++++++++++++++---------------
+>   drivers/gpu/drm/drm_buddy.c | 16 ++--------------
+>   include/linux/gpu_buddy.h   |  7 +++++++
+>   3 files changed, 30 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 8654604b87a4..de18b63fef0a 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -193,6 +193,8 @@ static void mark_allocated(struct gpu_buddy *mm,
+>   	block->header &= ~GPU_BUDDY_HEADER_STATE;
+>   	block->header |= GPU_BUDDY_ALLOCATED;
+>   
+> +	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
+> +
+>   	rbtree_remove(mm, block);
+>   }
+>   
+> @@ -204,6 +206,8 @@ static void mark_free(struct gpu_buddy *mm,
+>   	block->header &= ~GPU_BUDDY_HEADER_STATE;
+>   	block->header |= GPU_BUDDY_FREE;
+>   
+> +	mm->free_scoreboard[gpu_buddy_block_order(block)]++;
+> +
+>   	tree = get_block_tree(block);
+>   	rbtree_insert(mm, block, tree);
+>   }
+> @@ -214,6 +218,8 @@ static void mark_split(struct gpu_buddy *mm,
+>   	block->header &= ~GPU_BUDDY_HEADER_STATE;
+>   	block->header |= GPU_BUDDY_SPLIT;
+>   
+> +	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
+> +
+>   	rbtree_remove(mm, block);
+>   }
+>   
+> @@ -271,6 +277,7 @@ static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
+>   		}
+>   
+>   		rbtree_remove(mm, buddy);
+> +		mm->free_scoreboard[gpu_buddy_block_order(buddy)]--;
+>   		if (force_merge && gpu_buddy_block_is_clear(buddy))
+>   			mm->clear_avail -= gpu_buddy_block_size(mm, buddy);
+>   
+> @@ -335,6 +342,7 @@ static int __force_merge(struct gpu_buddy *mm,
+>   					iter = rb_prev(iter);
+>   
+>   				rbtree_remove(mm, block);
+> +				mm->free_scoreboard[gpu_buddy_block_order(block)]--;
+>   				if (gpu_buddy_block_is_clear(block))
+>   					mm->clear_avail -= gpu_buddy_block_size(mm, block);
+>   
+> @@ -384,11 +392,17 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+>   
+>   	BUG_ON(mm->max_order > GPU_BUDDY_MAX_ORDER);
+>   
+> +	mm->free_scoreboard = kcalloc(mm->max_order + 1,
+> +				      sizeof(*mm->free_scoreboard),
+> +				      GFP_KERNEL);
+> +	if (!mm->free_scoreboard)
+> +		return -ENOMEM;
+> +
+>   	mm->free_trees = kmalloc_array(GPU_BUDDY_MAX_FREE_TREES,
+>   				       sizeof(*mm->free_trees),
+>   				       GFP_KERNEL);
+>   	if (!mm->free_trees)
+> -		return -ENOMEM;
+> +		goto out_free_scoreboard;
+>   
+>   	for_each_free_tree(i) {
+>   		mm->free_trees[i] = kmalloc_array(mm->max_order + 1,
+> @@ -450,6 +464,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+>   	while (i--)
+>   		kfree(mm->free_trees[i]);
+>   	kfree(mm->free_trees);
+> +out_free_scoreboard:
+> +	kfree(mm->free_scoreboard);
+>   	return -ENOMEM;
+>   }
+>   EXPORT_SYMBOL(gpu_buddy_init);
+> @@ -488,6 +504,7 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
+>   		kfree(mm->free_trees[i]);
+>   	kfree(mm->free_trees);
+>   	kfree(mm->roots);
+> +	kfree(mm->free_scoreboard);
+>   }
+>   EXPORT_SYMBOL(gpu_buddy_fini);
+>   
+> @@ -659,6 +676,7 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
+>   	    (gpu_buddy_block_is_free(block) &&
+>   	     gpu_buddy_block_is_free(buddy))) {
+>   		rbtree_remove(mm, block);
+> +		mm->free_scoreboard[gpu_buddy_block_order(block)]--;
+>   		__gpu_buddy_free(mm, block, false);
+>   	}
+>   }
+> @@ -1487,21 +1505,9 @@ void gpu_buddy_print(struct gpu_buddy *mm)
+>   		mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
+>   
+>   	for (order = mm->max_order; order >= 0; order--) {
+> -		struct gpu_buddy_block *block, *tmp;
+> -		struct rb_root *root;
+> -		u64 count = 0, free;
+> -		unsigned int tree;
+> -
+> -		for_each_free_tree(tree) {
+> -			root = &mm->free_trees[tree][order];
+> -
+> -			rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
+> -				BUG_ON(!gpu_buddy_block_is_free(block));
+> -				count++;
+> -			}
+> -		}
+> +		u64 count = mm->free_scoreboard[order];
+> +		u64 free = count * (mm->chunk_size << order);
+>   
+> -		free = count * (mm->chunk_size << order);
+>   		if (free < SZ_1M)
+>   			pr_info("order-%2d free: %8llu KiB, blocks: %llu\n",
+>   				order, free >> 10, count);
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index faa025498de4..eef995e08a37 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -47,23 +47,11 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
+>   		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
+>   
+>   	for (order = mm->max_order; order >= 0; order--) {
+> -		struct gpu_buddy_block *block, *tmp;
+> -		struct rb_root *root;
+> -		u64 count = 0, free;
+> -		unsigned int tree;
+> -
+> -		for_each_free_tree(tree) {
+> -			root = &mm->free_trees[tree][order];
+> -
+> -			rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
+> -				BUG_ON(!gpu_buddy_block_is_free(block));
+> -				count++;
+> -			}
+> -		}
+> +		u64 count = mm->free_scoreboard[order];
+> +		u64 free = count * (mm->chunk_size << order);
+>   
+>   		drm_printf(p, "order-%2d ", order);
+>   
+> -		free = count * (mm->chunk_size << order);
+>   		if (free < SZ_1M)
+>   			drm_printf(p, "free: %8llu KiB", free >> 10);
+>   		else
+> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+> index 71941a039648..a28f7d7637ca 100644
+> --- a/include/linux/gpu_buddy.h
+> +++ b/include/linux/gpu_buddy.h
+> @@ -173,6 +173,13 @@ struct gpu_buddy {
+>   	 * that fits in the remaining space.
+>   	 */
+>   	struct gpu_buddy_block **roots;
+> +	/*
+> +	 * Per-order free block scoreboard: free_scoreboard[order] holds the
+> +	 * number of blocks of that order currently in the free state.
+> +	 * Incremented in mark_free(), decremented wherever rbtree_remove() is
+> +	 * called on a free block.
+> +	 */
+> +	u64 *free_scoreboard;
+>   /* public: */
+>   	unsigned int n_roots;
+>   	unsigned int max_order;
 
