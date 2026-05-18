@@ -4,95 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22E64CD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:40:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D09D5CD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:43:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41A5F10E31A;
-	Mon, 18 May 2026 14:40:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A40410E0E8;
+	Mon, 18 May 2026 14:43:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mSRMFyFd";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="RGrkBwty";
 	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AD8010E31A
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 14:40:17 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-67e2498f3a7so5258888a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:40:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779115215; cv=none;
- d=google.com; s=arc-20240605;
- b=c84NsSw/mMI62xHUUI2mUl3xb6kcwpJVreZEMsr80Lu1hjAHjcjqyBGsCCFanV0ldR
- 5RXM+cCdbzLjMk1tfwovTR+TtMemOSBPTUuvSSLriMNId5eYa90X0Fj9bzyKbziEynXw
- 0M/RLH4IStX9CgrYJ5EKMHDhyCXYp35kIqoaNElIx0sSPT2pNA2u4+ofAsLwp9T4prMG
- 3GXOvet5Mf+FO9SHVtkpfpOiDGsVPXIl9NJ+utLBy0NMfJCTLw+OrEEZPcE2ik2ih3Z0
- bstFE8srg2ubu5JRn7Lf+4HB4HTMcTxBo5Sx8agFjmO7PYk8ZWkuYK2Rg2cJS+rsYxnj
- LtRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=23OQBj946LsrUWd9smy0+poYAXMVfhuEdwxjZI4yuq0=;
- fh=ELuX8qFncJ3eFvZoBLCsOYdsNQGmzp3sE1nM7k0JL34=;
- b=CGickRxz4lZ63Q8QIYd1n6Qr+SCfMykMCCAXgMF4AFPE60c3hR2xQ4FQxagmI1Z0Y6
- L+AW5yjcdC6scMFzDCjUwBNGghHs0Dile6HO35bi6x2/amK4D236YY6VmT0uEnmAmC09
- y7vrD3qftcrtEerDvTLUCqqG+uin42DR9xJ2sjwtAb8C2rN4NlOMAGrE201YKGUPfqrr
- zn6MV/IaQmr2uL6lT4OfaYEWMQwBLWp+ycwjrZsOQRnbmL6HTIWANa+nwToN657+el9+
- 2z2tUqxM+UKGFA7/A/a+bhcIuVFiHfXdGiJDSKzg3Af0soAm0pv5UpXTC/nsNxKnd8XD
- nj/Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779115215; x=1779720015; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=23OQBj946LsrUWd9smy0+poYAXMVfhuEdwxjZI4yuq0=;
- b=mSRMFyFdbo/NKMCkLwwqLJPuI2BpZB6EVfX/9EXYcM/LH2/+rviLs6HtbUX+GAFsSj
- Z52KlrmaLSMDh07zxWRGTMKjt1MsJ8N3QIVcXH/Kb5Gze1fH/+jL6Nbhsh3pLWIxCKhr
- 4Re3y5rbn6d7m8iwY1xYBwW/JzT/swq4sC65P4nkuiHXHKDVHt67AwUH60hV76y+WHbH
- 8HWHXmP40GA7r9Krwgn88LHQLyRObULfnTrmIeZFnidqoGWWdzvVbFkzFSdRD9GsTUKM
- l8OuoueGvnDdi+qTQ+5CR7iFoxQqvhrPYW9E2+EVPaRCVfFJRGqMXWeQWB4ZP8simEoB
- Ns5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779115215; x=1779720015;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=23OQBj946LsrUWd9smy0+poYAXMVfhuEdwxjZI4yuq0=;
- b=RKJHga1oqfbDSPXFCbxrPaTOowO5cNnvzlYfoWMzi7kSxGxdxeA7Gi9q8Kg0dhdTcw
- /pyGRkpCkd+hZ6CJT5kftu5hyXlxLcvJz6TqLilw2paN7F7O/W759rI3TcU/SP/eoOI+
- 1SvkISexJJbSd1D0LWpWY/wN2S5T/SQ3ce/aCpYIALLOG2RcF4ifea6FKSdltKUpF0u0
- Cjo2mf1qGRS+GPuDXVVlrVU3D0kKso8HAwm/PIC9YxLZV/3ubc5pOL64b89XPSbfV3AR
- hgTvbGF0/SgWQzjcfUofwTI7UDyDnV0DiSAMVP75aa7UeMMaIlPAfBGkd1rC/EwkaP9K
- 4Mbg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+EhvUPJaXYmuNan2sqzja0Qwv7zglpuiC6OVQEijiWUhBwUOPFMa5PNYzmficeXTJJBeMW0c/Vg8Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzAktv1JbCvOOU4y5EnMM+Ye9ZP+mFqzKyxW+6+SKPYexdPECd2
- pd2VlhHvVcY7lApyLkhxX9SA4zcEY9tzsTr78oQ2mejdfurlHMcX01Sn/Fr70xJreWL/YkmGsH4
- Q01jEJ8RLAit/Grcu4LURBSKJGqQGwRA=
-X-Gm-Gg: Acq92OEgJWHiyZqMRlfgez7e9F/eo0nCh3lRGeycWHmBQBuevR+aB+S78ctXpUQu6D8
- u/hw2pW9guEerYc7+0pDiYWpXaw82jQF2t2+ysIakH8jHDohzIZ6mkzgIzq/QUYaVRREgDz1AAM
- 3r23ibHEswFpE1nknXoil3CEUg/vllSSCBjBqmRXtTN7N0feRstQ1voaNZY8YLttNvKpvS58jLi
- nbfPM4MvTqkc5pT7DMr6G0T9LCjj6CpPDvpSqEGHavb/lCNJEcQVapM92uZXqjiwkyUCbtaFFXk
- AwOZmw==
-X-Received: by 2002:a05:6402:1bcd:b0:67e:2498:dc77 with SMTP id
- 4fb4d7f45d1cf-683bc2c14b3mr4963249a12.6.1779115215271; Mon, 18 May 2026
- 07:40:15 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260516092420.3579-2-gilles.risch@gmail.com>
- <20260516185226.3005-1-gilles.risch@gmail.com>
- <CADnq5_OZ8c4r-b6EzWCWuPA4BfDWs99ypJx-tS0FBuRZqHzH8w@mail.gmail.com>
-In-Reply-To: <CADnq5_OZ8c4r-b6EzWCWuPA4BfDWs99ypJx-tS0FBuRZqHzH8w@mail.gmail.com>
-From: Gilles Risch <gilles.risch@gmail.com>
-Date: Mon, 18 May 2026 16:40:02 +0200
-X-Gm-Features: AVHnY4L2NaW4w8sTXjQU5-0-qwZgPRCfD39LXc2zqmS6AjQsLTGx9Dzu4uqk_6c
-Message-ID: <CALnjqVm06ZJ0mAE9=mQdPwDrNu0gtPmsQpwzn0NDbXDNugvJxg@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: fix eDP resume from suspend on iMac11, 1 /
- DCE3.1 systems
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011063.outbound.protection.outlook.com [52.101.52.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D381E10E0E8
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 14:43:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hDlsUeRIQ+HRRsHS0ViILMs45y4ECW56uyBH4auz1jsxRUwnb0xdO5lkWGCEaD/xRqmkFPBImATHLulwBdlP7xNnvRWOY/VM8gF3Np3oy2QEIkgMjWYmAiewwcx77WWw1N2Ay6cSVtWJz7+wFz38clIEbsMGctoTz4xen8iM/431UUwCP/VKvCm2305kmOpUEyFQ1hrVRp1/1pZgTZuNKltQ08WkjIawIdHUCsvG5DjeG6QF0/OFaE2FGMR584BodjW+0m3l9dMKt+mTLgQO0AYLzb0+jII8r7IhbwdDXaQ6M04D74avJGJKSSoTW171WSg7Qr9O+etSCG0hmXffcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TFwmaYeDnaNHIqFoI7sV82Gs0z0KbjMHRnror54Dp/g=;
+ b=gN31RJy7CoMMyTJxBv/QhqugFQpPSBEMMqwt27DIn01OpUVHGOFwhZjYcBLr2bRtkccu0yf/z9R1KMLCsaNfJM8P+ptXuZql8RgIzUNj0eUtpgSdpWarY8/7AI4tZdrJIbpW7L8mZUJdzexLRR9oQJMQrwgriEIvDKqDJ3FZj+7emECslrIyZSrqjGCmPwBpZ7vcfZm3u0oXY9EY3un5D6brXd+EAdCuU7/d4ZLMsEBoDjOxUZm79iipwtr2xnfAhwjk206L4yR6IdYZWend7eDHuI2qnYEN2QIlOIC1wJZl3WEVlXL/g+HwHE3Iq8QIBETrroXFdVmNJxel2K4hWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TFwmaYeDnaNHIqFoI7sV82Gs0z0KbjMHRnror54Dp/g=;
+ b=RGrkBwtywwnBrIApYDcmf+EwCX96exdTnbMkWbXo68B6pPJES+pck+z8XDgvcEub0ximOLZMX9ubg8GgZXGH+407IVLF3RHgp0Yhfi7X+7u06a0tRT9wEMs4fpG1qRhBVJmnEZFrtUtLuf07BrWqEUk3TBVsobvETc9E2RlIP7rGU+Wsp15V77+2JNx+POWH4wv5Buu4bj47q0YPtwuFHSvz5hE2XYNhVscszk54l4GqctBB9I90a3ECzkDXlnXPecZLWW33mMkTzgu5YWu3Y6seZ5r+I7vqF01Aq71xZQZlPuyRM/3Dgj+w7gaKuXfhvq4E7W4HmX1d7yFHwtaiaw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Mon, 18 May
+ 2026 14:42:51 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 14:42:48 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 18 May 2026 23:42:45 +0900
+Message-Id: <DILVRFJWZR2H.UHBNBE1QUYOA@nvidia.com>
+Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <aliceryhl@google.com>, <david.m.ertman@intel.com>, <ira.weiny@intel.com>,
+ <leon@kernel.org>, <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v3 01/27] rust: alloc: remove `'static` bound on
+ `ForeignOwnable`
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
 Content-Transfer-Encoding: quoted-printable
+References: <20260517000149.3226762-1-dakr@kernel.org>
+ <20260517000149.3226762-2-dakr@kernel.org>
+In-Reply-To: <20260517000149.3226762-2-dakr@kernel.org>
+X-ClientProxiedBy: OS7PR01CA0284.jpnprd01.prod.outlook.com
+ (2603:1096:604:259::13) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH7PR12MB8796:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5bb6dcc7-dd7d-4091-f579-08deb4ebbb2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|10070799003|22082099003|56012099003|18002099003|4143699003|11063799003;
+X-Microsoft-Antispam-Message-Info: FUBmlGX1PgDVRcJ0QGSNRmTq2FEKg3uDyY2Az2N0aG+vjnEJrUzsUhAoICe6OD0qBOi/A2qbeFuRd3x74QMJ1pXjMx28BETszRPj0Y7iQ0PIdQdPqC3rSKQufYKQdnrxgHppnOlC5MMN23nOMVgKg9Lw3XbU1hEom6ywT00J3GJV88VsWh83f7SHXql2kxGeQ4ITrunNx92zS8yklMvyRu7N3DI8w/XN9huJyzZ1/418eirt88llPu4mjRGpnycSDqC4+5b7sldhorbXX3OukhTh98axv0s5z5wPLsyfHP03hQWz4GsVYFylHqnAJOhKLAOQpmTmZdL8dUPg/6HGRifLAfoulqd89F48LqfnXgTqEs6PKBYI+C6EVxAEd1LjdqTteqgZaEdcGzQSzrYF3OIdelcUU+oQDlDJ3g1EDPBfoHyudfjCjDSziP+pMrZ65ZgFGtU9oTo0JWgj+C2XY+ZxPx7l65KxwXH2ALG9fe5/FV4cCaGr8FEZPk2LsMgh2nj14bSQg2Fr1dusUcH2lX+UDshNeiOnGuTpf+XHYTjT769i6g1oDSV0/ykwGejh4lq3seQtQNKJH/XrB0mq5ujNEKAGnvCTvfPZLnm+hLH4QAisestm3HkHYRoc1YFythsnH4cyD1Pdsjzn0VPJAxDLFXvABwnCIHo6+PgJIfpgTuZ6PBlIm3Rk6yw2k22A
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(10070799003)(22082099003)(56012099003)(18002099003)(4143699003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UkV0WDJZTUMzeUJrNE9SdDZTaWhhTmxLWkp1cjFyQVdEZ1ZiYUtucG1abUta?=
+ =?utf-8?B?azNoMmoxSVBXc0FCcTFkWlN5NmNYUUgvU0tVTmJMMzF5QTcwbmVtRU9sY0Jp?=
+ =?utf-8?B?Q0pvcnM5LzNzUTA3TStENjJPOU14eFI4cjJNK0UrVGlsRHRnanRMdjFtSzFu?=
+ =?utf-8?B?WlJDQTZCMmNKNytFSVdVb002UDNhUExtU0JqRGZwYWNvNFduNXhDcUJ1emdS?=
+ =?utf-8?B?OEM3Mnl1RGpsUUNac0N4cUxRTkJMVVpDR1M4b3RZWndVcWlrcHg0MjJQOWlE?=
+ =?utf-8?B?K1pTckRCUFE2Q2JPMlU1VHgrTG5ZL0IzK2tkQUl3Zndta0FJem0vWGFXNklQ?=
+ =?utf-8?B?anpkc3RtekkxR25kQUhXNE9tUjFUVHVaR1RoaEsxblVGZTNLUUFMbm1SNjVz?=
+ =?utf-8?B?a2VKOHRqRVVZb1JlcFhOWjdHMUlUcm8wQUowQUJLVUhZNXo3K0NMRXNKM0xj?=
+ =?utf-8?B?eUhTcjJTbUJ1T0xBcExTV042bnFJMCtsWjZSUlRuYVJoY00wZkhqVXNjQjlU?=
+ =?utf-8?B?bFJGYlZ3N1JENlROSlZSL3Q4VmptVFdYeHBXSjRnd0dibVp0M3dmWis1WWZy?=
+ =?utf-8?B?R0RMTU1VRzhZeXlTV21VVTRkOWMvTllXenVSYitpUEwwMHZ3THcvbUdxWWF5?=
+ =?utf-8?B?QWRHUWZhK1lWR2tBK0Zqa1NXQVpxQmR2cWxpZHB3UEpLbktOOW1RbjA1NnJG?=
+ =?utf-8?B?enFwaVhDblp0R2FJVmJRMFhUUCtIamlVQ3JQa2FHTytCTm01cGxTQUFPcWI5?=
+ =?utf-8?B?SDlncWsyaXZHaWNjcWJycUI4cVcycno2Z2w1Wk5XMTRFeHY4ODhsVjdFRTFo?=
+ =?utf-8?B?TGRiaTFqUTgySWRXRkJEcXhLMUZmU2JoSlBwSzB6N09RQndSQmFNUXZCZ0Y3?=
+ =?utf-8?B?bjNJUEVBa2xXOTJ2cUNEbGJjZXVNL0gwWFVQdkhIMnpBN0NuNVYybjF5VlhX?=
+ =?utf-8?B?QUdmdEFPSG9BaTA3QVlZR2oxNGlWaGlGVXNpZWVJKzRsU2FMcVZzMTEwMTNa?=
+ =?utf-8?B?VkY3Um82ekdkWFEyVDJIN29RcWZTZEczcW54NjJuWDFUSzVNVWF5bFF3ZlFX?=
+ =?utf-8?B?c29EQ3VXTlZtTXB4aUZuUUpEUWZJUS9YRmljZ20wcXNHYWlIRlQ4WnVJOWdT?=
+ =?utf-8?B?MDdyemNOWGJWQjhWYmhybndvQjFlOU1Gakp0OFk1OWpRa1ZNK3ZQd1A2NUhZ?=
+ =?utf-8?B?dElRbElKbENBUm5aa0FuZHFOTkZneG1GRE5iaVcvOWpoQU91YzBBUWZ0bTRw?=
+ =?utf-8?B?b29XaXI5WkZHV1hEVHVBbkYzUVZjenRlRThYdHNLSlI1dXl2Tk1uRjhCNC9X?=
+ =?utf-8?B?MEZKZTl1elBleXgvUnZmRzlWdEoyVDBnKzNsTkFNem1tbnNJUUo1OGFQNVJS?=
+ =?utf-8?B?elg0am41aVRzcUVVMkpQR0tKdWNWa0Y5dGtYbWYrY3BkdUM4WnhhWmhmMmNN?=
+ =?utf-8?B?Rmxxa3lpYmNrM2kvYWJiTnhHclQvWE1KSzNzbGpQTDRiMkVCTWx3bXV1YlVv?=
+ =?utf-8?B?Z3ZRcVhkTmV6MnJHMWY4NWMwMk5mMTFMMGs2ZVZIUHdBTTRXZmVqSGFuWG0r?=
+ =?utf-8?B?MW1YVzFKOURkOFpUN3Q5bDlzaEgwOTFJa1VGOGNmelowVTB2bm1lWTQ4dVl4?=
+ =?utf-8?B?dVJlMHF5N1lLc004SlZtbnFkeWpIRTJJYWVBL3JjbHBjdEYzZ3FZK3pNZmM4?=
+ =?utf-8?B?NGZDYmNEN1F6QXI2ckhVREZpRUN1Rm5UM0xHbnBmclhmam9JY1NhRndCYWMv?=
+ =?utf-8?B?RWwwWTI1K3hEZWNUNGFJcEhBUUhBWE1JWE9JeHVOVmVGaTBkQWZHbExXU2t2?=
+ =?utf-8?B?L2czZjFCK0xZeVlvYzl6TmFZVUpDSFVXc2ZPakM1aXhqaTU3SkJFdFpDK3BF?=
+ =?utf-8?B?WFhjR2pIZWVpYkg2dWE4ZWFmVG9jOWJNSGNHSkNMK2lvaXlvR3dTTGI3c1Za?=
+ =?utf-8?B?L2xUQmg5YWlFWHRxZkd4NEN0dFUrb0pTZkpkdU96MnNMYjRDclRXb0R5bTV6?=
+ =?utf-8?B?QmVHcHdSWnR6NnpEbEFGdE1DSnF1VG5INHVtYTJmd0Q4NlpPZmtNOU44UjJX?=
+ =?utf-8?B?NHFCazdYQUxSOG4xVHd0dnF4YlJBYTVnQkNCTVRTQlhTNVRHQnNYWXk1QVky?=
+ =?utf-8?B?NTcxT3BENDlSS3FvNjI3SzV4b1FVSHRJc3BFcFVHWHR0Q0xCd1FTTnI2dmoy?=
+ =?utf-8?B?OXRleWlubmZsNWNBWElNTEtvNE02TmJZUktoeU9WMW9kcXA4MW8zUWJFeWdK?=
+ =?utf-8?B?UFJDYmczenl4UFM3TENmRERkTjExYXZhL1BZNnF6RzhZaS82UGpPRDdQZWo5?=
+ =?utf-8?B?SmZHbjl3bWZZWFpkWVhzUjdzdGdscVhQcDEzM2hOZGFrZDdLSzNibVhVcGRo?=
+ =?utf-8?Q?tMRAZqFvzNmXuM0VLRytzv/jclH4QfAxFPi79uich3jGt?=
+X-MS-Exchange-AntiSpam-MessageData-1: /iIrFWI0Nzz+ZQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bb6dcc7-dd7d-4091-f579-08deb4ebbb2b
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 14:42:48.7743 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vWM1Uz28NhO65epOj9fm7GgQVGD/oQjq4kDvcCtSJwL7AST9iNncTqiWZkXG4OLp+IlN+BZ67FQm9EQCzh2srg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8796
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,84 +149,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Mo., 18. Mai 2026 um 16:13 Uhr schrieb Alex Deucher <alexdeucher@gmail.c=
-om>:
+On Sun May 17, 2026 at 9:00 AM JST, Danilo Krummrich wrote:
+> From: Gary Guo <gary@garyguo.net>
 >
-> On Sat, May 16, 2026 at 2:52=E2=80=AFPM Gilles Risch <gilles.risch@gmail.=
-com> wrote:
-> >
-> > After suspend/resume the internal eDP display on iMac11,1 (and
-> > potentially other DCE3.1 systems) stays dark because
-> > atombios_set_edp_panel_power() skips panel power control for
-> > anything older than DCE4.
-> >
-> > Fix this by:
-> > - Extending atombios_set_edp_panel_power() to also handle DCE3.1
-> >   by changing the !ASIC_IS_DCE4() guard to !ASIC_IS_DCE31().
-> >   HPD polling works correctly on DCE3.1 (verified: HPD is asserted
-> >   at iteration 0 on iMac11,1).
-> > - Issuing ATOM_ENCODER_CMD_DP_VIDEO_ON/OFF for DCE3.1 in addition
-> >   to DCE4+.
-> >
-> > Tested on iMac11,1 (Mobility Radeon HD 4850, RV770/DCE3.1).
-> >
-> > Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
-> > ---
-> >  drivers/gpu/drm/radeon/atombios_encoders.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/d=
-rm/radeon/atombios_encoders.c
-> > index 4e984973c043..b62fd713efcf 100644
-> > --- a/drivers/gpu/drm/radeon/atombios_encoders.c
-> > +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-> > @@ -1383,7 +1383,7 @@ atombios_set_edp_panel_power(struct drm_connector=
- *connector, int action)
-> >         if (connector->connector_type !=3D DRM_MODE_CONNECTOR_eDP)
-> >                 goto done;
-> >
-> > -       if (!ASIC_IS_DCE4(rdev))
-> > +       if (!ASIC_IS_DCE31(rdev))
-> >                 goto done;
-> >
-> >         if ((action !=3D ATOM_TRANSMITTER_ACTION_POWER_ON) &&
-> > @@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *=
-encoder, int mode)
-> >                 if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encode=
-r)) && connector) {
-> >                         /* DP_SET_POWER_D0 is set in radeon_dp_link_tra=
-in */
-> >                         radeon_dp_link_train(encoder, connector);
-> > -                       if (ASIC_IS_DCE4(rdev))
-> > +                       if (ASIC_IS_DCE4(rdev) || ASIC_IS_DCE31(rdev))
-> >                                 atombios_dig_encoder_setup(encoder, ATO=
-M_ENCODER_CMD_DP_VIDEO_ON, 0);
-> >                 }
-> >                 if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)=
-) {
-> > @@ -1724,7 +1724,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *=
-encoder, int mode)
-> >         case DRM_MODE_DPMS_SUSPEND:
-> >         case DRM_MODE_DPMS_OFF:
-> >
-> > -               if (ASIC_IS_DCE4(rdev)) {
-> > +               if (ASIC_IS_DCE4(rdev) || ASIC_IS_DCE31(rdev)) {
-> >                         if (ENCODER_MODE_IS_DP(atombios_get_encoder_mod=
-e(encoder)) && connector)
-> >                                 atombios_dig_encoder_setup(encoder, ATO=
-M_ENCODER_CMD_DP_VIDEO_OFF, 0);
-> >                 }
+> The `'static` bound is currently necessary because there's no
+> restriction on the lifetime of the GAT. Add a `Self: 'a` bound to
+> restrict possible lifetimes on `Borrowed` and `BorrowedMut`, and lift
+> the `'static` requirement.
 >
-> These changes don't make sense and will break other DCE3.c boards.   I
-> had the attached patch from you in one of my old branches, does it fix
-> the issue?
->
-> Alex
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-While the initial attached patch resolved the dark screen issue after
-a fresh boot, this follow-up patch addresses the same problem
-occurring after resuming from suspend. Should I used dmi_match() to
-avoid breaking other DCE3.c boards?
-
-Regards,
-Gilles
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
