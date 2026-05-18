@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FD0CD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:14:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C109CD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:14:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0A910E9A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A05B10E9A4;
 	Mon, 18 May 2026 18:14:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="bRVinOtJ";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="PDz0D1nm";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8373110E9A5
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:13:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F3A510E9A5
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:13:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779128025; bh=y1qusCJrJS8qT16e2pU+cznjnv8NM8UAIVFu7XIBUj8=;
- b=bRVinOtJ7aA25QEPNImoILOa9ACVoA7xUpb/tk2iDoHXT/jMfTttckGpOAZRq7nPBTyqOePPY
- vrWGHlarIOm72qeOretp3Cx+UT4B2G94H8HcQx23SrE6ni+tgySVR9xAao3lyrRHQbMH2RUBinK
- xkrMsSSD5pP/1w8mBjEUE12A7sZgSdqrm3cAcdO7mp82UBpTlJO3Si4KDuVNdB/a0cEqrPUijcV
- o7hVz7kUiv4+egVEaeGO0tL6o2zpAcIND5vHkNpNMkurSB4muvioi2+1YKTnz1cX2gzXNGSNHwu
- ppnnncG1zulxX3/K3yRYwfmYYKF4I79NOiick2Zv87OA==
-X-Forward-Email-ID: 6a0b544cb84dbc72d2274e87
+ t=1779128025; bh=1SwUqaE6mORlk0iEp6kMdcbakTgSMLCePrjjya+/Sfw=;
+ b=PDz0D1nm5NtUbfcXBh/cWIhn2n+V+pEbRnCT3PODqyhkhJz8ofpg9sbmTytZsJqS0R6WHeZ9M
+ F4bLmw2lLNTu7S0n8rJV67KpICORGLor5xgkj8HAWGLjZcg8FRQ0uQKix3NfW46Yb9O5ZT+CsjN
+ gl+m+k7PvD7c3ifLnR1Ybow1JBg0xX5k3qXQOiu1lg4hwxlGUtUUDXrgojSgPlnpMP0s98vktkU
+ oGyEufMWewlV0oExbM+lc9tH3jaoXUUdRNDWRnkt8AagRek0VCpfy3Nbd0uNxH87unTYt+Epma/
+ j2KEGrKX926P9smYa12QM6UifaSVgA8V50+Etj255UUQ==
+X-Forward-Email-ID: 6a0b5443b84dbc72d2274e51
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  149.28.215.223
 X-Forward-Email-Version: 2.8.12
@@ -53,10 +53,10 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v7 09/23] drm: bridge: dw_hdmi: Unregister CEC notifier during
- connector cleanup
-Date: Mon, 18 May 2026 18:01:45 +0000
-Message-ID: <20260518180206.2480119-10-jonas@kwiboo.se>
+Subject: [PATCH v7 07/23] drm: bridge: dw_hdmi: Fold poweron and setup
+ functions
+Date: Mon, 18 May 2026 18:01:43 +0000
+Message-ID: <20260518180206.2480119-8-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518180206.2480119-1-jonas@kwiboo.se>
 References: <20260518180206.2480119-1-jonas@kwiboo.se>
@@ -77,64 +77,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The CEC notifier is being unregistered when the bridge detach,
-something that happens earlier than normal connector cleanup.
+Fold the poweron and setup functions into one function and use the
+adjusted_mode directly from the new crtc_state to remove the need of
+storing previous_mode.
 
-Change to unregister the CEC notifier at connector cleanup, in the
-connector .destroy() func, to align the lifetime of the connector and
-the CEC notifier and closer match a drmres handled generic CEC notifier.
-
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
 v7: No change
 v6: Collect t-b tag
-v5: New patch
+v5: No change, rebase on next-20260508
+v4: No change
+v3: Collect r-b tag
+v2: No change
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index cbbd15578042..5fd26ff8f55b 100644
+index 7a9b4a7e9cbf..161ab16fdd78 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2532,6 +2532,11 @@ static void dw_hdmi_connector_destroy(struct drm_connector *connector)
+@@ -2254,9 +2254,9 @@ static void hdmi_disable_overflow_interrupts(struct dw_hdmi *hdmi)
+ 		    HDMI_IH_MUTE_FC_STAT2);
+ }
+ 
+-static int dw_hdmi_setup(struct dw_hdmi *hdmi,
+-			 const struct drm_connector *connector,
+-			 const struct drm_display_mode *mode)
++static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
++			   const struct drm_connector *connector,
++			   const struct drm_display_mode *mode)
  {
- 	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
- 
-+	mutex_lock(&hdmi->cec_notifier_mutex);
-+	cec_notifier_conn_unregister(hdmi->cec_notifier);
-+	hdmi->cec_notifier = NULL;
-+	mutex_unlock(&hdmi->cec_notifier_mutex);
-+
- 	drm_connector_cleanup(connector);
- 	drm_bridge_put(&hdmi->bridge);
- }
-@@ -2909,16 +2914,6 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
- 	return dw_hdmi_connector_create(hdmi);
+ 	const struct drm_display_info *display = &connector->display_info;
+ 	int ret;
+@@ -2396,15 +2396,6 @@ static void initialize_hdmi_ih_mutes(struct dw_hdmi *hdmi)
+ 	hdmi_writeb(hdmi, ih_mute, HDMI_IH_MUTE);
  }
  
--static void dw_hdmi_bridge_detach(struct drm_bridge *bridge)
+-static void dw_hdmi_poweron(struct dw_hdmi *hdmi)
 -{
--	struct dw_hdmi *hdmi = bridge->driver_private;
--
--	mutex_lock(&hdmi->cec_notifier_mutex);
--	cec_notifier_conn_unregister(hdmi->cec_notifier);
--	hdmi->cec_notifier = NULL;
--	mutex_unlock(&hdmi->cec_notifier_mutex);
+-	/*
+-	 * The curr_conn field is guaranteed to be valid here, as this function
+-	 * is only be called when !hdmi->disabled.
+-	 */
+-	dw_hdmi_setup(hdmi, hdmi->curr_conn, &hdmi->previous_mode);
 -}
 -
- static enum drm_mode_status
- dw_hdmi_bridge_mode_valid(struct drm_bridge *bridge,
- 			  const struct drm_display_info *info,
-@@ -2996,7 +2991,6 @@ static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_reset = drm_atomic_helper_bridge_reset,
- 	.attach = dw_hdmi_bridge_attach,
--	.detach = dw_hdmi_bridge_detach,
- 	.atomic_check = dw_hdmi_bridge_atomic_check,
- 	.atomic_get_output_bus_fmts = dw_hdmi_bridge_atomic_get_output_bus_fmts,
- 	.atomic_get_input_bus_fmts = dw_hdmi_bridge_atomic_get_input_bus_fmts,
+ static void dw_hdmi_poweroff(struct dw_hdmi *hdmi)
+ {
+ 	if (hdmi->phy.enabled) {
+@@ -2982,15 +2973,19 @@ static void dw_hdmi_bridge_atomic_enable(struct drm_bridge *bridge,
+ 					 struct drm_atomic_commit *state)
+ {
+ 	struct dw_hdmi *hdmi = bridge->driver_private;
++	const struct drm_display_mode *mode;
+ 	struct drm_connector *connector;
++	struct drm_crtc *crtc;
+ 
+ 	connector = drm_atomic_get_new_connector_for_encoder(state,
+ 							     bridge->encoder);
++	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
++	mode = &drm_atomic_get_new_crtc_state(state, crtc)->adjusted_mode;
+ 
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->disabled = false;
+ 	hdmi->curr_conn = connector;
+-	dw_hdmi_poweron(hdmi);
++	dw_hdmi_poweron(hdmi, connector, mode);
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	handle_plugged_change(hdmi, true);
+ 	mutex_unlock(&hdmi->mutex);
 -- 
 2.54.0
 
