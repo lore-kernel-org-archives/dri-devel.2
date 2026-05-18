@@ -4,134 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 925DBCD4F48
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:59:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59D4DCD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 08:04:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB2CE10E6EE;
-	Mon, 18 May 2026 07:59:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0BF510E5CB;
+	Mon, 18 May 2026 08:04:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="d9s9F95e";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HvCxlctW";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="an5bPjxh";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ixWhVKGG";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E543310E6EE
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:59:19 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3824610E5CB
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 08:04:57 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64I5en4m1255259
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:59:19 GMT
+ 64I7e4GG2892697
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 08:04:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- zxa4aoJy+8GGKmRaYi1pSnhQkdsyiCfnvq+yyPcQAFI=; b=d9s9F95ePq5loa3q
- s7a+Qgrahhvnw7U4g31QyHl0l96kBUbykO0djD5c3qZx1lOZpotOF7EkzspCpYLL
- CJGiUfJPitFxRhxmet7mwTwVmim1IV8Qf2loJYL8YVw7Oam2h5x6eBaHmhb2pz3f
- JmkuLPKWf/4tLsb4LWmujUBH17S2ieu0YzD0V6f77YYte3Jw1Fgal6bIljyAzR2K
- +JnB7TLDBmVLHOovvHQ0bh/zdYjINpZRZJetNZ+rJ2JDta0tPyocuDy0IWfkNxB+
- CuZe81paVkyj3sX6S0DB5eafMUgWVHH0hmUreH5STkpWla1vNfIksZWDO34TYFkx
- FyXmMw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6tvcm6ra-1
+ ZewacJ3i9lKnkmzTTca31dtk4aGbjL3egDzG8Fs6hJM=; b=an5bPjxh9W9uZAis
+ qJ7AWW2Gyc+6/v8OPAslx0aP+c783pPpC52iegEeBmd4xOTu+E/f5VO8qjW/SND9
+ lCEKKRKK31oKDifc5fvYKN261vn12J1UVi9YP3t1AVd97jCAg6R7mFqyUrJBENin
+ TAHUD1teG9wd08hC5BrUVd3bFWmmhhnWadk5s2YWxY99X17FPC5mfbky7AGWdLmz
+ JeLqNOJw4v1tl1p+cpRf0QpAXqy51E6IBjwZ6w9R0T1K2/Qtr/Spj5TBLyghoEGj
+ ykbySr798kLVC4mwS5fSsqMGMvzHNEfk8HF6NrTRv1Uc8RxKvvSsV3UEfOgX+4n4
+ +YsG3Q==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e7xk183t9-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:59:19 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50fb0b93e90so6733971cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 00:59:19 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 08:04:56 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50f1b94ac9dso10581151cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 01:04:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779091158; x=1779695958;
+ d=oss.qualcomm.com; s=google; t=1779091496; x=1779696296;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=zxa4aoJy+8GGKmRaYi1pSnhQkdsyiCfnvq+yyPcQAFI=;
- b=HvCxlctWqkDRug2V3KJpAM0QRaElKD1huFgXMNx39VUTOsYElJcyP10iCx2y9PBnHM
- QBfo+UMLE6k3q0AqPnrX+avRLoBp3mTkfq0Q62ZXqp3KR5C2rPMUI/yuWgs7J4t8cQ0S
- aItqZy8VF3cFd7CA+5shRUVo1Oh+W3qt6nFG2vaXLfPauB/pKMnnVy9GZTHMt2ZN5Ied
- U/VDBMxjMSRZ3Iw0ybVS522OAxUI/JhfaDp84QH0KVwlB4WmSmS5qFPnvYWW63F9YJBA
- k7HCPlo0MGsW5iUwHizjDKnT7QxafdmKMdOsl3M4ejdargdcY7xBoqC2XJWawpNw1j4d
- xoDw==
+ bh=ZewacJ3i9lKnkmzTTca31dtk4aGbjL3egDzG8Fs6hJM=;
+ b=ixWhVKGGrg0drpoTN4TX2lbGXtwy34W1MscP/DYo6rIE4jvUpXJWv67tGlTMN7tXyD
+ KIGKAexm+6W5rF3fdrD8s7NZY/09UWUpqu9sR0sQph0PTY/o9BTjzqzlbxpkeTjJcaYA
+ 0sFOOMiHgBlrMxHL5OYkkrMvppiHwD0r1Sv+At6z3zpcwKrQqh22QLHmsFC/9rFLscsQ
+ y6QjY5EVzZeKjBgtp8sw5m4PfEOgFIN6j6pJoq9D4FEH6JbodeVKQQC6+EW5ZC/0eAqy
+ GtEG1HOyVgvY6KS9XiTK11ZsWGv784WQPOMlpo8Op/ksJmhUZMNlbmFje33fNB93LrNt
+ TuBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779091158; x=1779695958;
+ d=1e100.net; s=20251104; t=1779091496; x=1779696296;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=zxa4aoJy+8GGKmRaYi1pSnhQkdsyiCfnvq+yyPcQAFI=;
- b=ByhLBzMffJChgxE4wLe2vZcKGxb6JSd985Z7INLkYjKF8jsIZLU7sJgGVy7Nj1PJGf
- jFUGVOuJ0mhWN+P5MXdFSLGkOScmz9g+Pls8hSz9gV1WBcojHXqhmT8/IqRkOSN95F4O
- 77qDS5bXAkYoT/tww9JMbsHL3/D2JwCQjSAP3M7a1td/3nyXQkR84FvgZt0onKKE+pDr
- o05p24vsqzX6Tt0eVQXxG7Qu9kpVGNbRMNciOpKjT9Jq6qXfD1cYwQ4t2DuTF/fMcEjz
- l8bwszOxpsq1x8vlHV/2vf69cFwUbwu/SD1IsL8m5wnScBYLowIwxR4492OO4MvvHQC/
- MjnA==
+ bh=ZewacJ3i9lKnkmzTTca31dtk4aGbjL3egDzG8Fs6hJM=;
+ b=m5sMMOqh9nCeqM8WNSRoHSDNNE36VHxnrv/8QhKcLWM6uAY8Ft7B0wGxly6D+TRWxY
+ RqaWA2bd83sjEG/C8uFkgazvj1x7jggCSPJIER40E4TzZiLZfPm1Qte1gCpyFXcPGrwy
+ CZVbsvdhB3INbcJ50n9W6gNtZe3Loiif+wXxh/ykhUsrMSrK3WDfqzfTktyYmcsyQgkx
+ qF242X/D9R7WG1NI+h1BhKyk9KYGW0FTGdahOZ0L0j4l85xLmU2l5E8clrRcqS2l2dst
+ 6wkhOlb/QHvVhu4lZ+j7nHvb5r3tMQw8TkK+HImjzCj1/PeQqGVnbLu+Xl6KzXjkHXp9
+ Jvyw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/2UZ5D8byZYHjXGCa7j/FpDVRRjzJhHqQkLfbFfc3sAdmtWT+nie9ebeh74NcGYM6di9ewsXqikFc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxdBVDFL71/15/rZ5iIDzZCb0vQDHO6SbjTtYZZe1RPyexht07h
- S3Ltax9aKqvY0Bf3rLFTUEXJu8cfmCNUlHYcR0xEFjGoNTMQ4bG22YcFSjOcCdh9h2lPCpfJHYx
- y0a3SRx/mcowEU4LJzGsHwFFMHeyoRcMvPuNLvxUisxAV6+x9IE0KVI0ByJRlS11RIahNKFk=
-X-Gm-Gg: Acq92OFOpRaE1mfeVgdcTfqm/YOLfJfD5AAYbHaJbifaJza6DS2JKqWldtK+zNmsDaW
- 2UZd44Rq6wPi755TGEW43S6bLo2LPwDSJvKNAeQhNn2rOm7BsadgtfQKeh2YRSOorYdDFN2/YmP
- n7NwGmxxFc/vSH9q9m1yCZg1sFR+diah29/IrMfEGRI0LQ7Vei274h+KRShYjWPr9EPtRIXXXdx
- TmQPn4BrO/KWOHAcFOgE+69jWXNIpOjNEJlFybb/yhZ1jQZj80kiVLr5RRtSEs7DrmFB0Fbx/Dy
- p/i90iwpXQYpqr/UveXu1YyPkH6J+14g2TZB+oHk2VDxCqICQlXzVd5RjlVUYUghY9qvLkj8nD8
- fSv/x8Yfk1lnlFt+wr9L/eessNHBKGoJ2Otbh/6U/AE/x3Yf6KDfKItabRmi/23CkPxAYKGZ8D7
- HAB5s=
-X-Received: by 2002:a05:622a:1104:b0:50e:487a:bfef with SMTP id
- d75a77b69052e-51659fd3213mr148249791cf.2.1779091158288; 
- Mon, 18 May 2026 00:59:18 -0700 (PDT)
-X-Received: by 2002:a05:622a:1104:b0:50e:487a:bfef with SMTP id
- d75a77b69052e-51659fd3213mr148249591cf.2.1779091157767; 
- Mon, 18 May 2026 00:59:17 -0700 (PDT)
+ AFNElJ/VslW3CxDCgJijet6eU34BThgKGMdqhbsQ+uJUO3jd0xp74RCyVk5lgv6cflCYvfZ9jOkEtUByKFw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJMJlAzzKNkWWb5ZQvOLb0zztuc0TkJtHlR8jD9ol8yCn9k5Xt
+ KLFuWLk7l65j9ZkaIawSoqCMSGd/Y249zN3xII4RPci6jNro/XAi3H/weN/9iLS2yWYdzd7VohX
+ U8qplQlHHQm0RtsewAo0TCdmiKQOIxHV8qLKqbiR41wkli6y2niqDl9mDVhAx0PlhYJJCwbM=
+X-Gm-Gg: Acq92OGscxMNyPGLDOH5GIaMp/nEjLegFw1+RcJLlECXISOmFbrEUaRehJs13owhmi+
+ gawfemaIBPOSyPXNszDtz6wSF8qqYyYBPb4/EY3Nl6MVGxZ+1MVJFLnBapEekGUjtutksQrUUB1
+ oRQQsqhU4bYuhive3WJNZ02YUbBYA3pByz4WK5nAyyBVeDAi0w0BKxdQA+6IHBaGuTWE2cSVoN5
+ DcOEB7FtTMFS4cIaNYPoej1gT+VtVtQ3NDy2Gj/qBqZXR4unN6F2Y9SHPsfVZfyB8n4DMNcc2kP
+ TEX+wPrX92ZYeCFC/gFr4qQEL7111tXs9/Yj3JCFgVAp7rIx0fMj2Z1hsTYwtslgt/R9SFMwJAD
+ SMe8D+fV9eg9IrMJ1uSN3n9xx2GXYf9EU6BCcmWtI3kfIrRotsuww0chQ/cZKtR43ZcFM55UEzZ
+ 3Kf6wqCkZbU9wC1A==
+X-Received: by 2002:a05:622a:11ce:b0:513:43ce:eaa3 with SMTP id
+ d75a77b69052e-5165a202f87mr142817351cf.6.1779091495638; 
+ Mon, 18 May 2026 01:04:55 -0700 (PDT)
+X-Received: by 2002:a05:622a:11ce:b0:513:43ce:eaa3 with SMTP id
+ d75a77b69052e-5165a202f87mr142817141cf.6.1779091495183; 
+ Mon, 18 May 2026 01:04:55 -0700 (PDT)
 Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bd4f4e68fa6sm543154966b.54.2026.05.18.00.59.15
+ a640c23a62f3a-bd4f4bd2f67sm531577166b.7.2026.05.18.01.04.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 May 2026 00:59:16 -0700 (PDT)
-Message-ID: <4f8697b8-d602-4718-bc8f-4bd0dba50040@oss.qualcomm.com>
-Date: Mon, 18 May 2026 09:59:14 +0200
+ Mon, 18 May 2026 01:04:54 -0700 (PDT)
+Message-ID: <bd5fd048-7336-4609-ac78-abc6c2caeae8@oss.qualcomm.com>
+Date: Mon, 18 May 2026 10:04:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/5] misc: fastrpc: Fail Audio PD init when reserved
- memory is missing
-To: Jianping Li <jianping.li@oss.qualcomm.com>, srini@kernel.org,
- amahesh@qti.qualcomm.com, arnd@arndb.de, gregkh@linuxfoundation.org,
- abelvesa@kernel.org, jorge.ramirez-ortiz@linaro.org
+Subject: Re: [PATCH 1/3] drm/msm/a6xx: Add HFI support for CLX feature
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, ekansh.gupta@oss.qualcomm.com,
- quic_chennak@quicinc.com, stable@kernel.org
-References: <20260515124217.20723-1-jianping.li@oss.qualcomm.com>
- <20260515124217.20723-4-jianping.li@oss.qualcomm.com>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260516-a8xx-clx-support-v1-0-62508bf651ac@oss.qualcomm.com>
+ <20260516-a8xx-clx-support-v1-1-62508bf651ac@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260515124217.20723-4-jianping.li@oss.qualcomm.com>
+In-Reply-To: <20260516-a8xx-clx-support-v1-1-62508bf651ac@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: XYbSpPnV7eAhzHIT8B6dKucP7bKcNiLD
-X-Authority-Analysis: v=2.4 cv=UIDt2ify c=1 sm=1 tr=0 ts=6a0ac6d7 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Proofpoint-GUID: Z4E0uedTVUnUvxngbCr4H6VWsnjDpCdV
+X-Proofpoint-ORIG-GUID: Z4E0uedTVUnUvxngbCr4H6VWsnjDpCdV
+X-Authority-Analysis: v=2.4 cv=BICDalQG c=1 sm=1 tr=0 ts=6a0ac828 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=hhTr-yxhb_4ls8DXav4A:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: XYbSpPnV7eAhzHIT8B6dKucP7bKcNiLD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA3NSBTYWx0ZWRfXxm4J+avZN+9A
- ot3pQWjFBS7w19OMG5jeLE4jmYOSa5d23XLBTEWTuGkorh8yPwYFsm02FX6AyFHgBr8J3yQH5Yc
- tHmAtO7WD5ZYVM2WBHqBKJCQf5JPe6IAEh6XI/aU3QlpzS5KPsNKVRqCwPV/QYlgmyI2oJ+tt7o
- r/+HudKqv3oYZbRNIKJ/L7wkPtCqiceYU3dFj0j2BKTSqtuooxxuZFxTrFilQF4vBH9yS5qhbel
- BLHuz1pd0zrH01p+XUZUGnY/tzmzKV5zDQXQJ67GtG1/0gKbmJyprJzd8u/0SSOHKnGVYH0HT1E
- EWwy/Ep1u2eBlNnNnJ+QfDQkbKyJCG4uw4f5iH0sL3nVJpDLoGgryqqqvk3Ch7XRvpa2GML20dS
- 1yWGpdl2PxlYi+qq3idnCEgpKLy/kC2RfYv919UZyrOXamkk5o9i5ldqjVUmiyAjFtRhrv+aZ9d
- P28EypBXutkdO/QaPbw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=ktFr412pgo1MGF5CTeQA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA3NSBTYWx0ZWRfX3OZvexzq3GWF
+ 1PeZb7QD4DVuYQffvhqN7lp80NNOdRlF6/S2H5WzwphKeJ9IIkdGZTkieZlh/FwvtmQ7QhDO+iM
+ vbGTCPIwbPV8PzsPVjS+yuUXsaerJRqu5w6wtLNXGfzWtsmFUNSgddSIGP/n7rxairZPNzXdNGk
+ X8Fqefolptvfy9qDokAeYxe9m7G+ykosaUWNukZ4/7TeAi6pm9Gmw9xU4bvjyVnY+UFDQ2A17Q4
+ tSmSVlzcTXGjuRPjjjMJkMvHyMW4DtX0oWMwoL6eBQ/u7EHSKwn7V5sJcPBDdAHnh7cget8L65J
+ 7up+3RimPfmgci4THc1bj1gC4n0yFUEXUxJCS0fSfBGZihV7fHt5ocgy/KXEaW++rsfX/5SWOkP
+ 0AKucp2deN2YpDmM+ZH9yFgDZtYqS5ZYO3OEvA0qpEPWG/xPuIaFoCcKg6tYq12qQjJH1CBVWBr
+ chQFVPySciEkO5oNU/g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605180075
+ adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180075
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,39 +149,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/15/26 2:42 PM, Jianping Li wrote:
-> Audio PD static process creation assumes that a reserved-memory
-> region is defined in DT and exposed via cctx->remote_heap.
+On 5/15/26 10:07 PM, Akhil P Oommen wrote:
+> Add support for Current Limit Extension (CLX) feature found on a few A8x
+> GPUs. This feature is required to limit the peak current consumption to
+> avoid HW spec violation on GX/MX rails.
 > 
-> If reserved-memory is missing or incomplete, the driver may pass
-> invalid address/size information to the DSP, leading to undefined
-> behavior or crashes.
+> Add the necessary HFI interface support to pass the recommended CLX and
+> IFF/PCLX limits tables to the GMU. Per-GPU configuration is consumed
+> from the catalog entries.
 > 
-> Add explicit validation for remote_heap presence and size before
-> sending the memory to DSP, and fail early if the configuration is
-> invalid.
-> 
-> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
-> Cc: stable@kernel.org
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
->  drivers/misc/fastrpc.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 3c7c3b410d7d..a0337cce77f3 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -1363,6 +1363,12 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  	args[1].length = inbuf.namelen;
->  	args[1].fd = -1;
->  
-> +	if (!fl->cctx->remote_heap ||
-> +	    !fl->cctx->remote_heap->dma_addr ||
-> +	    !fl->cctx->remote_heap->size) {
-> +		err = -ENOMEM;
-> +		goto err;
 
-Let's maybe add an UERR() with some context
+[...]
+
+> +static int a6xx_hfi_enable_clx(struct a6xx_gmu *gmu)
+> +{
+> +	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
+> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+> +	const struct a6xx_info *info = adreno_gpu->info->a6xx;
+> +	struct a6xx_hfi_clx_table_v2_cmd cmd = { 0 };
+> +	int ret;
+> +
+> +	if (!info->clx_tbl)
+> +		return 0;
+> +
+> +	ret = a6xx_hfi_feature_ctrl_msg(gmu, HFI_FEATURE_CLX, 1, 0);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(gmu->dev, "Unable to enable CLX (%d)\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	memcpy(&cmd, info->clx_tbl, sizeof(cmd));
+
+You're not adjusting anything (unlike the other function), so you can just pass
+info->clx_tbl below
+
+> +
+> +	ret = a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_CLX_TBL, &cmd, sizeof(cmd), NULL, 0);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(gmu->dev, "Unable to send CLX table (%d)\n", ret);
+> +		return ret;
+> +	}
 
 Konrad
