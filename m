@@ -4,133 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2A6FCD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 09:17:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75355CD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 09:22:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B71C10E5D0;
-	Mon, 18 May 2026 09:17:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A23F10E5B6;
+	Mon, 18 May 2026 09:22:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n2cu12bm";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UG32ST08";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010008.outbound.protection.outlook.com
- [52.101.193.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 571C010E5D0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:17:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=huV/hQorE2M5rnl0MiXAKMKP0LMHWDD36h1puEvA20ixXbzV9Nk1En7DK3oWYIjzd8Q3bqj4i/DF4UcErcxtn42LnjridWxDLs4UOfQwBFXv9AkI00LoRoKicpKXawMEUWiVgLoLE1D/N7kvYtnBabOVwl0SVew0BeRknh1ZAd+4C2Nmoy9zdL+F05x98b1Ox41OW7vfG9OyDQuv8KjZBmDqPP/hRxEezzeIHCTh589vBNjeiwYnAid1g9kUuU19IVO4V7kh0dh4b2vPpcNd94AJvS2ev2okm+E5Nz7uvyrEMm41SAvW7Eurw9YkT5tThNe7ppYXT6+5FAFrHOyi0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8mwNt+McfOPGrwrs7q6p+5GwN65tbNUfu4uqRqZCFxI=;
- b=McSAEKsKmZvmhTjgA4I9UJE6Nx+YVH7E8qdI3BS0ocEAgdJq1sUx6kj3il/03xYkgdc/oViJ9kxJRSBD770ql50nPrBU/6WAwI8ZysmPT1U+emChLkEfBHz644b+oWoFW98gno9bzMbCMax6EpcwmKlpjGAswgX9kr0Abn3c3nXOYeAVitE3TO01JRj4lP2YY+DnJavsrvhl42z4G79MF5a+Yyk+JwgZLHOufpjhLwNHe5B0haMQUtOe6UUlXMCYQB9jk4f1gNUgB2a5JpUn3fLvYsOed9QsJl0hZOQYIdRusdhCkSnWKtE3rF46LgAQ4WmPCZf5p+Ai1kWyoChPLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8mwNt+McfOPGrwrs7q6p+5GwN65tbNUfu4uqRqZCFxI=;
- b=n2cu12bmQpLq6+SV8mtSeieQnGkycvn9bR2Kz7mnJt4JcYmaHYLyIRI+GpADtIh+9JsZCgmKPHBA8ZRX2NIhw2Xd+S4NT5wBGrXpz7wu6cksTGwgnEghPCItJ+xXQWBVYARGmZqiM8L9rGhhMBJP+seU+rQoO1lG/uzEdHv/dLs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8353.namprd12.prod.outlook.com (2603:10b6:610:12c::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.18; Mon, 18 May
- 2026 09:17:01 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Mon, 18 May 2026
- 09:17:01 +0000
-Message-ID: <a872ef35-6d5b-41fd-9242-bb44902fb237@amd.com>
-Date: Mon, 18 May 2026 11:16:55 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] drm: Define a conditional guard for
- drm_dev_{enter,exit}()
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Chia-I Wu <olvaffe@gmail.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20260513-panthor-guard-refactor-v1-0-f2d8c15a97ce@collabora.com>
- <20260513-panthor-guard-refactor-v1-3-f2d8c15a97ce@collabora.com>
- <CAPaKu7TULU6_-8eoygq0svBTbnX-vFvF3sH5hDzyi9kDP-9enQ@mail.gmail.com>
- <20260518102813.50555650@fedora>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260518102813.50555650@fedora>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0270.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e8::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3792410E5B6
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:22:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779096141;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lQO1/7FO9sTnoT11sCio/KFSKpDAF4QkGjd6FaweRXM=;
+ b=UG32ST089IXKKhnfQSt5dTXJjTnvcrfjWxqasGKDVG1fBpj7WLckDvFUevUp/G/F8ohV9o
+ lb+wAjLbyGTZ0Kcv4t/RhHd+97R0ntVVAnZQJ5iu2VTcnQCh2YN/Her6VHS4tlzNNrmHI7
+ A0MIP1rV5QVroBOxCP91eUEyRXqD8Pc=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-459-S5S8OOppNLSSXqmmK4lGyA-1; Mon, 18 May 2026 05:22:17 -0400
+X-MC-Unique: S5S8OOppNLSSXqmmK4lGyA-1
+X-Mimecast-MFC-AGG-ID: S5S8OOppNLSSXqmmK4lGyA_1779096136
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-48fd8162ed7so16512395e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 02:22:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779096136; x=1779700936;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=lQO1/7FO9sTnoT11sCio/KFSKpDAF4QkGjd6FaweRXM=;
+ b=klCmOZ6A6M7VLZOl0C4KHdzTErZS+yC2WTvzLyvIO7JQUui1iOrTpdycxCjw+LP0C/
+ /MJYE/nyfCwsQaNYD100151Awkds/Jsk0+P3uONZf6gL8aFpZUv4hAFgG84I63tigluN
+ +yZLII6auwokq7BXNMcnPu7aTRJkO5dRURcI+AWhMrmxnxu3MsW7ZY39ab4kESbNb37j
+ 7ilqunN6gK4XWLmWA0eJKTBYAiN8I5SsRQ4T5UkZoQm0ZYjFLRuR5QZ1N7yH53BHRw8/
+ PcJgH9DsqaLSKynqoWf1NL0nUSKLMeUCSth7U9YkwfQ5qxTv4NX0V42mES9xIekqjzt4
+ 2JtA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+Ta6hVVq3Z/fosdH1dqsw3gCTTxpmfNbfxP7XxNmKCe56oL/eh+iqL2IKG1/7Z4EHNEwTkeWxVUok=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxG/3ChnslsGSknZjH3W3Q7pM4JIbOoMHtbYN529e3NGP9CPkAx
+ wtM2hZhDhHkQMzaaCC9ZIku6s/bFOsckm/3ALb35+v/xUGjdoNvRQ1dnk8mrEd7XmFrriOizMZj
+ zK5XsMi1avl5IUePK83AhaE/RHSpA3sLwoUZVqqhdT/1C0kF1fvMNTlCABFTj0uii6bVL9A==
+X-Gm-Gg: Acq92OE3bJdFiKDUSScoP52U6wx9ZLzOjjiPz7LmFy6TClF+QMVRFyn/n9aAqmMnbQQ
+ NLYJUf4/0CY/7BeGILNbrEJBKSZagdTtknR6H8jXqyJaNamwPVzkKPE6cRPsjSJixMhIh6QukcR
+ LctJqQPalNlKHqDsTyp7qeT3lc7pTJx97G299gsxra4nwk0V0hENkS6A28WK5fP0EejhF6sMPjU
+ /RpYMse70tPe9f21Zr8bY3UavI2t8xq40ayHjfrUC845+DFdVe7riTp3Aa+45iMYmdWyuF79hcu
+ XXrGc1WAH++oNxnpfjzEOCT0Nn/U6nLTT8CWxVg8nfuTaRKZEfUJCplNNgx4FqK/NFqRFWcRd3H
+ BC/Im2OxST0zgw6pY+roNOOyzOdtDC5qAXS7dybxn1GUTFL9IryoNXLEHKBW22Gyvkux9f1K7O1
+ UMHnGkU/VBrYD/irg=
+X-Received: by 2002:a05:600c:858d:b0:488:f453:b976 with SMTP id
+ 5b1f17b1804b1-48fe651c8b1mr148072175e9.27.1779096136165; 
+ Mon, 18 May 2026 02:22:16 -0700 (PDT)
+X-Received: by 2002:a05:600c:858d:b0:488:f453:b976 with SMTP id
+ 5b1f17b1804b1-48fe651c8b1mr148071815e9.27.1779096135715; 
+ Mon, 18 May 2026 02:22:15 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48fea52a0bfsm114035395e9.0.2026.05.18.02.22.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2026 02:22:14 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Julien Chauveau <chauveau.julien@gmail.com>, Phong LE
+ <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ dri-devel@lists.freedesktop.org
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Julien Chauveau
+ <chauveau.julien@gmail.com>
+Subject: Re: [PATCH] drm/bridge: it66121: acquire reset GPIO in probe
+In-Reply-To: <20260324193011.16583-1-chauveau.julien@gmail.com>
+References: <20260324193011.16583-1-chauveau.julien@gmail.com>
+Date: Mon, 18 May 2026 11:22:13 +0200
+Message-ID: <87lddhxebe.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8353:EE_
-X-MS-Office365-Filtering-Correlation-Id: 750752e5-23c8-4d8d-895b-08deb4be37ea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|4143699003|11063799003|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: tuMXEwIiV+wRpSgkgJA4CAvwY/aKKrx2oaiNKddvFml0xPLUzuWwhQCMu/vx7286UcgT40pdo3kPbCJeJGjUQZw1v8tGdToNPMMbwumPEPE7D0jI7Nr0DONG7NnWXO37joU1tW3b3WiNVAWWICRqkNIrSMNBdog49Ify3C4cw/u0sqBsET+7EVwkKN+JE0cZpX2mhPeerJakfcOLa/bLpfxJLPjC/DjZxHZjoU0TgzGRSdG3MNiYxdN3eTZr3HF+rmvZv88OLNLwASCLk/5lt7Yupa38Nvv9ziV/Jznzn7yNkedOlhyGQTZl2EHiuepUPy31tBDSvkM45rpifHmUJFY2U7DNX5+uFAsRw0tOslOWEbg165bEvrFxSbuU5og6wmFXYpZvDil0+ryI/0/9jKPr7HqCadVNNRj64dGUQQYtuc9+lcgab0tYYbdh2JFrlSBZtDHvNz7o0F+HZypWcUbiyL36GWCWDEmchGbhz2JN+gmWKSD/uXCe20W+GbWR0QN9amnPi/s16fun/wCXAIUtYy7uSpOUUcl8tN0ADQ4K8bH1VzpHO3ul7dMU8+TQKbDW1MjDDqg9oTuHBjyposEPHMfR0Lq/mews9OopNF8KCMwEei4wh+CM1133oAw+pD6Z22hQ48CDpdGlmDuF13jKe5SEzEk+j0cwkPqh6itHJRvjJYPqvsd8BMWnT4JK
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(4143699003)(11063799003)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RUY2TGYrbjNHNHoxcVpwUDVCamJhNjZ6cmlPWnRjYmRXK1pQc3BONVYwZkF0?=
- =?utf-8?B?VFNDZ0tybUNaUWtlTFFhaHczc05kZGg0MWQ1c1RRUkpFd2UwN0hMaWdkdjZp?=
- =?utf-8?B?RFY5SHpwQlFVd0N2aVZ3Y2ZxdGluNHBIUkU4cWEwVGpFeHB3b2lFTnZac0hF?=
- =?utf-8?B?ZlRKS0dHNm5XWGh6WDU3elg1cHdDRXlDRnp2WmwrM2pRVFZaZWlXeTN2UFJo?=
- =?utf-8?B?WXI2WUQ0VU5qMmxmZnQ0WG5MeVNBbXUwSXNwSUdTaVdVM0xEdVQzRDlMOFNs?=
- =?utf-8?B?YkxCTFhqdG50QytvbUdVOHBNNGZORS92MXMwVUR1SlB0TzM5bTNwcTgyOVps?=
- =?utf-8?B?M2lBekJMeW53S1lJNTVJM1FlS0tCZmhqZzhpUUswN0wvcVZDSk5UeGUwVEh4?=
- =?utf-8?B?M2JVUGxNT3lXcElDWEYyeTNhb2tqbUxncTdOcm5QM1hSSDhPa1NLRmlBUW00?=
- =?utf-8?B?RG96Nm9rWUY2aTM0TDBQWVltdEp1ZFJVSmczUU9XVlZkWjRpK2pRT2RuTUtj?=
- =?utf-8?B?Qm1zbCtxZnBQU2xTNzRwMmlPVUlvZ3dWemxnam01RzhtQ2pIdnNzUUR0YnJI?=
- =?utf-8?B?b3ZSSWdmbWQ4cno5cEhJUnRNdHNFWEE3TTltbU1EUGtMenFIT21Id0hTWXFh?=
- =?utf-8?B?V3E3NmRMMURJVnlHdkFOWW5XQ3pZTjh1Nng4QktKWmxBZUZmV1FPVm8rL2lt?=
- =?utf-8?B?UGVFRmE4bnNZSGM5by9ScnVCWmdnUXpmQUc5b3owSCtrU0orL3VUMVVaMkQy?=
- =?utf-8?B?QU5wOGJJME93UzcweHlUMTBkMnd2WW0rNXJjQ0E2b1UweTRVdHFJYXp0dzcv?=
- =?utf-8?B?RS9NWFJMU1NlY2VtTGt2Szd6Sk1CZGxsMWJpOW1haEU0QlQ2bTRoNUw1Zncx?=
- =?utf-8?B?TGpGdkc0NlRYQ0VMcEZSOWoyVUpYdGVlMTlRQmtxazQ5SEpPelM0WGhzcElK?=
- =?utf-8?B?aXRoOVBHOWFFVzE2bzFKcWhmc0t2TXFNeU1rcUNwZUVnMFVtMzNjdWZ3eGwz?=
- =?utf-8?B?Y3l3YVZLYUVuOXppNWZQbnR6RERISEtwZmE2S1FyU3lUdXA5R0E2c3NDSU1J?=
- =?utf-8?B?eEQ3cGVNR2pmQTl0TElBK0Nwc3NQN2hEb3NhY29XUU50aTVUdzlmS21aSEpQ?=
- =?utf-8?B?ZDhwU0UxcEJoQnp6b1k5VEFSaW9tU1FDTHBYQW9YQUUxdGl4UUlBQ2dKTnpj?=
- =?utf-8?B?UVF5NW9JdXM1ck9sbWU3RHFjL2lFL1V6UzZVQVpsbFpmN2dGcGpWMnB4bEtC?=
- =?utf-8?B?bFVWaXgzTE1PYzltTytrL1BRNkhRUTU3dVQ0ZjY5T2NUUUpjcG1odEIxUVBn?=
- =?utf-8?B?cWQwSDNpREs1TGlFK2lMWC9qTEVmcldDRTVsbDRXR3pyTG9GRGpPK1NFbnhw?=
- =?utf-8?B?aDYxVHRFTUovL1h2OU1iSDlqSnVINVBkanJyTmxqaGVQUDJRZVZNeUxBUzlQ?=
- =?utf-8?B?a0Vpa0dVYmtpR0xEWWs5aDlJaForQUJMelA2WHIwcjlJSjJqaXd6c3JtY041?=
- =?utf-8?B?V1pUNUxGeWVBYyttRHdjMWo3K0djclRqTzRZRkR1aXJ6TU50ZUtCY2VsOWNQ?=
- =?utf-8?B?WXpZNnJBaTFOb01nd28zU1B1QWlZeWtPV1hWd2lBNmswZG03K0plK1gzWWIv?=
- =?utf-8?B?bnFibHQvdFF3dWtQNFpEdTFwTEtRTTdpZy90K0p5N0RWZWxOMDZGWFF2TUtE?=
- =?utf-8?B?THNlNVdrMWJYa0VNWDBoTHZUYUJKeEZpTk16MVJwelB1dTQxMFRwa1RjWkh1?=
- =?utf-8?B?aDY4RDQ5NDN5N0p5UUxhRVRBYk5zc1VRZEVBZlFIdEVwR0ZtbWtDNkp0YXJK?=
- =?utf-8?B?d2RXditFajA4cG9mRnpNK1Bpc2ZEMW1RbXVPbnloL1BVZmRhYmRHNzNQVEx0?=
- =?utf-8?B?YTYxbmlyaGI4VFBaUENrUVRKSWszeFh4Um02SlREb3dtRk9JS0c0RWxHMmNJ?=
- =?utf-8?B?dHpHUE9yQlNBN3M1dE95VGR2NFVTclBQUExDUG5vQ2NlS2ZXK0p3WWFKZGRj?=
- =?utf-8?B?YnlONk5rMFVKSytLWEV3OCtDRktWOFhDajJLT3BmWjFCSVBKS1plZGJFOTRa?=
- =?utf-8?B?MXRveEQ4VGkwNXlpN0dKSy9HY1lJcnVIRG03Z2FIRjhKQXBuNDNsSC9UN0dl?=
- =?utf-8?B?NjVsZkM3RlAvcElndkZtb0hmN2RVVnJMNFByVmhLeWl0MVYxQjVXNHRPMEJG?=
- =?utf-8?B?eHhGTDA5TksyeVF4bloxQkh2ZkFZZ29XS1V2NEl5K25XQ0x2NVh2ZnB1UTVt?=
- =?utf-8?B?emwwQVhpM2NpKzNzMjJYMEZKbXBSbnR5OHVWNThVeVBab2t2dm50WXIreVkw?=
- =?utf-8?Q?Jz2YxiSsU8r1nWLdPv?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 750752e5-23c8-4d8d-895b-08deb4be37ea
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 09:17:01.1274 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bfh9Nur/+DpxnmR1wZGgXjzAGrQtVHv1PLHFyItD0jQvkBVMCNs8yScjOtTfBbuP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8353
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: px25HeEOy0KQL9RBwVb-h8WFmcrmFcY1R_i_lEold3Q_1779096136
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,73 +106,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Julien Chauveau <chauveau.julien@gmail.com> writes:
 
+Hello Julien,
 
-On 5/18/26 10:28, Boris Brezillon wrote:
-> On Thu, 14 May 2026 11:34:52 -0700
-> Chia-I Wu <olvaffe@gmail.com> wrote:
-> 
->> On Wed, May 13, 2026 at 10:24 AM Boris Brezillon
->> <boris.brezillon@collabora.com> wrote:
->>>
->>> Define a conditional drm_dev_access guard to automate the
->>> drm_dev_{enter,exit}() sequence.
->>>
->>> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
->>> ---
->>>  include/drm/drm_drv.h | 9 +++++++++
->>>  1 file changed, 9 insertions(+)
->>>
->>> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
->>> index 42fc085f986d..79d1958f93e4 100644
->>> --- a/include/drm/drm_drv.h
->>> +++ b/include/drm/drm_drv.h
->>> @@ -490,6 +490,15 @@ void drm_dev_unplug(struct drm_device *dev);
->>>  int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
->>>                          struct drm_wedge_task_info *info);
->>>
->>> +/*
->>> + * Only the conditional drm_dev_access guard is valid. The drm_dev one is
->>> + * here so we can extend it with a conditional variant.
->>> + */
->>> +DEFINE_LOCK_GUARD_1(drm_dev, struct drm_device,
->>> +                   { WARN_ON("Use cond guards"); _T->idx = -1; },
->>> +                   drm_dev_exit(_T->idx), int idx);  
->> If this is ever mis-used, drm_dev_exit(-1) seems to cause OOB access.
->> Is BUG more appropriate than WARN_ON?
-> 
-> I actually had
-> 
-> 			if (_T->idx >= 0) drm_dev_exit(_T->idx),
-> 
-> at some point, and I ditched it thinking the WARN_ON_ONCE()
-> in srcu_read_unlock() would cover for that. I can add it back, of
-> course.
-> 
-> I'd be fine with a BUG_ON() too, but every time I tried to add one I've
-> been encouraged to handle the unexpected case instead.
-> 
-> Ideally, we would have a DEFINE_LOCK_GUARD_COND() variant that, instead
-> of expanding a non-conditional one, would define the whole thing so
-> that the non-conditional variant is never exposed.
+> The it66121_ctx structure has a gpio_reset field, and it66121_hw_reset()
+> calls gpiod_set_value() on it. However, the GPIO descriptor is never
+> acquired via devm_gpiod_get(), leaving gpio_reset as NULL throughout
+> the driver lifetime.
+>
+> gpiod_set_value() silently returns when passed a NULL descriptor, so
+> the hardware reset sequence in it66121_hw_reset() is a no-op. This
+> leaves the chip in an undefined state at probe time, which can prevent
+> it from responding on the I2C bus.
+>
+> The DT binding marks reset-gpios as a required property, so all
+> compliant device trees provide this GPIO. Add the missing
+> devm_gpiod_get() call after enabling power supplies and before the
+> hardware reset, so the chip is properly reset with power applied.
+>
+> Fixes: 988156dc2fc9 ("drm: bridge: add it66121 driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Julien Chauveau <chauveau.julien@gmail.com>
+> ---
 
-Would it be possible to use BUILD_BUG() here?
+The patch looks good to me. I've also tested it on my BeaglePlay board.
 
-Otherwise I think we should somehow come up with just the conditional guard version since the guard one is clearly broken for SRCUs.
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Tested-by: Javier Martinez Canillas <javierm@redhat.com>
 
-Regards,
-Christian.
+-- 
+Best regards,
 
-> 
->>
->>> +DEFINE_LOCK_GUARD_1_COND(drm_dev, _access, drm_dev_enter(_T->lock, &_T->idx));
->>> +
->>>  /**
->>>   * drm_dev_is_unplugged - is a DRM device unplugged
->>>   * @dev: DRM device
->>>
->>> --
->>> 2.54.0
->>>  
-> 
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
