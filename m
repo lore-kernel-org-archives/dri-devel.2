@@ -4,48 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D1DFCD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 23:54:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E973CD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 23:55:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D634810E35E;
-	Mon, 18 May 2026 23:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DD8510E817;
+	Mon, 18 May 2026 23:55:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WR4OCB0I";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SR7d5+u1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE8C410E35E
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 23:54:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71C3C10E817;
+ Mon, 18 May 2026 23:55:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 02BFE60120;
- Mon, 18 May 2026 23:54:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7EF6C2BCB8;
- Mon, 18 May 2026 23:54:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3D89943C30;
+ Mon, 18 May 2026 23:55:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81D7C2BCB7;
+ Mon, 18 May 2026 23:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779148449;
- bh=ZZernUP6/Hi6KA5O7QXbFZWWf//ctZy3kOMXm/a4ikQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=WR4OCB0I7mOtJEjSJu5BrcVnBmtMsjcFskuVZ3m9ZjrRdeX4LbZ21o1mmS6G9m+DD
- KVpI5Pf21t44NZ+ddBVofR/0hF1n+cxokMAdZ1cDXXcmnRvyhUdHe0Ne/gMWqZGEE3
- 3dueirwjGNoZdkV2f0PkJxVQ1hF4WD2rQX0pkcGjIdVC70wOiM6MOHOen+r9CdTxx+
- 4p+7Kkc7kcvu+Cx6lfUZaJXlq9YAZZpSakXcwKxJ+UIbo/pLy3W8BFyib5CZV+jZdC
- wREcWsPsZ42Npf3O4Uo+XysmbpL9hZTMbtgY10zZWCaNgTYtXEl5f0xmVFoYhUfVrR
- psjrPpVNWwAfw==
-Message-ID: <a1d2b178-acac-41ef-ab81-0997a0a19612@kernel.org>
-Date: Mon, 18 May 2026 18:54:07 -0500
+ s=k20201202; t=1779148512;
+ bh=Oq+gnuMQRWjKoACeXqW8Y4zLGstl6ODlk5GgQd7tCZ8=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=SR7d5+u17pNQYr8ELcR1xR6JkyTOzTM7GiEFnfi8yqYX6yxpe+CXZdjyY770E8O5q
+ 3h1r06qdamKnBL5bVPZYGdpEbdDkH47F+T88CHYxX3Y+iNTmdg7jZdBPVebyI6RkZk
+ gNR5jWYEmalMXgdnSOEXSwBKOoyHVUUwPculI94XbhrvNK3/AUMNKGVP3vlfwpFZhr
+ Wg8YsIC0Qa6lB+Uy4DD84inuaBjXqED4JVElgKDBkc4MMd7TSpyCzUwBgZnF9cDb4k
+ SRCQaJmL4M1LiMW5hsE55y5GtoZgnVIs5133RoHmzam32zoMsljjxPSWRY3BHwB3/g
+ TUvzofbsc8PrA==
+Message-ID: <097fe9ea-bd19-4aec-a854-f00b050603a6@kernel.org>
+Date: Mon, 18 May 2026 18:55:08 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2] accel/amdxdna: Remove mmap and export support for ubuf
-To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, karol.wachowski@linux.intel.com
-Cc: linux-kernel@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- dri-devel@lists.freedesktop.org, christian.koenig@amd.com, simona@ffwll.ch,
- max.zhen@amd.com, sonal.santan@amd.com
-References: <20260518155706.937461-1-lizhi.hou@amd.com>
+Subject: Re: [PATCH] treewide: replace /usr/bin/python3 shebangs with env
+ python3
 Content-Language: en-US
+To: Oli R <sigmatwojastara@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Shuah Khan <shuah@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ "open list:DRM DRIVER for Qualcomm display hardware"
+ <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER for Qualcomm display hardware"
+ <dri-devel@lists.freedesktop.org>,
+ "open list:DRM DRIVER for Qualcomm display hardware"
+ <freedreno@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>,
+ "open list:AMD CRYPTOGRAPHIC COPROCESSOR (CCP) DRIVER - DB..."
+ <linux-crypto@vger.kernel.org>,
+ "open list:PERFORMANCE EVENTS SUBSYSTEM" <linux-perf-users@vger.kernel.org>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
+References: <20260515180806.246914-1-sigmatwojastara@gmail.com>
 From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260518155706.937461-1-lizhi.hou@amd.com>
+In-Reply-To: <20260515180806.246914-1-sigmatwojastara@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,137 +84,104 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 5/18/26 10:57, Lizhi Hou wrote:
-> Ubuf pages should not be mmaped or exported. Remove the ubuf mmap callback
-> and return -EOPNOTSUPP when exporting ubuf objects.
+On 5/15/26 13:07, Oli R wrote:
+> Use /usr/bin/env python3 instead of hardcoded interpreter paths
+> to improve portability across environments where python3 is not
+> installed in /usr/bin.
 > 
-> ubuf vmap is also removed for there is not a real use case yet.
+> No functional changes intended.
 > 
-> Fixes: bd72d4acda10 ("accel/amdxdna: Support user space allocated buffer")
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> Signed-off-by: Oli R <sigmatwojastara@gmail.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org) (tools/crypto/ccp)
 > ---
-> v2:
->    Remove dead code amdxdna_ubuf_vm_ops structure and amdxdna_ubuf_vm_fault
->    function.
->    Rename Non-exportable buffer flag from 'pri' to 'private_buffer'
+>   drivers/gpu/drm/msm/registers/gen_header.py                     | 2 +-
+>   scripts/macro_checker.py                                        | 2 +-
+>   tools/crypto/ccp/dbc.py                                         | 2 +-
+>   tools/crypto/ccp/dbc_cli.py                                     | 2 +-
+>   tools/crypto/ccp/test_dbc.py                                    | 2 +-
+>   tools/perf/tests/shell/lib/perf_json_output_lint.py             | 2 +-
+>   .../selftests/devices/probe/test_discoverable_devices.py        | 2 +-
+>   tools/testing/selftests/rseq/rseq-slice-hist.py                 | 2 +-
+>   8 files changed, 8 insertions(+), 8 deletions(-)
 > 
->   drivers/accel/amdxdna/amdxdna_gem.c  |  9 ++++-
->   drivers/accel/amdxdna/amdxdna_gem.h  |  2 ++
->   drivers/accel/amdxdna/amdxdna_ubuf.c | 50 ----------------------------
->   3 files changed, 10 insertions(+), 51 deletions(-)
-> 
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index 319d2064fafa..6b9b556de555 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -492,6 +492,9 @@ static struct dma_buf *amdxdna_gem_prime_export(struct drm_gem_object *gobj, int
->   	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
->   	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+> diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
+> index 2acad951f1e2..10316f517a7d 100644
+> --- a/drivers/gpu/drm/msm/registers/gen_header.py
+> +++ b/drivers/gpu/drm/msm/registers/gen_header.py
+> @@ -1,4 +1,4 @@
+> -#!/usr/bin/python3
+> +#!/usr/bin/env python3
+>   #
+>   # Copyright © 2019-2024 Google, Inc.
+>   #
+> diff --git a/scripts/macro_checker.py b/scripts/macro_checker.py
+> index ba550982e98f..7dbb114a57d5 100755
+> --- a/scripts/macro_checker.py
+> +++ b/scripts/macro_checker.py
+> @@ -1,4 +1,4 @@
+> -#!/usr/bin/python3
+> +#!/usr/bin/env python3
+>   # SPDX-License-Identifier: GPL-2.0
+>   # Author: Julian Sun <sunjunchao2870@gmail.com>
 >   
-> +	if (abo->private_buffer)
-> +		return ERR_PTR(-EOPNOTSUPP);
-> +
->   	if (abo->dma_buf) {
->   		get_dma_buf(abo->dma_buf);
->   		return abo->dma_buf;
-> @@ -716,6 +719,7 @@ amdxdna_gem_create_ubuf_object(struct drm_device *dev, struct amdxdna_drm_create
->   {
->   	struct amdxdna_dev *xdna = to_xdna_dev(dev);
->   	struct amdxdna_drm_va_tbl va_tbl;
-> +	struct amdxdna_gem_obj *abo;
->   	struct drm_gem_object *gobj;
->   	struct dma_buf *dma_buf;
+> diff --git a/tools/crypto/ccp/dbc.py b/tools/crypto/ccp/dbc.py
+> index 2b91415b1940..cd56a63aa8ce 100644
+> --- a/tools/crypto/ccp/dbc.py
+> +++ b/tools/crypto/ccp/dbc.py
+> @@ -1,4 +1,4 @@
+> -#!/usr/bin/python3
+> +#!/usr/bin/env python3
+>   # SPDX-License-Identifier: GPL-2.0
 >   
-> @@ -742,7 +746,10 @@ amdxdna_gem_create_ubuf_object(struct drm_device *dev, struct amdxdna_drm_create
+>   import ctypes
+> diff --git a/tools/crypto/ccp/dbc_cli.py b/tools/crypto/ccp/dbc_cli.py
+> index bf52233fd038..bfe34f01e619 100755
+> --- a/tools/crypto/ccp/dbc_cli.py
+> +++ b/tools/crypto/ccp/dbc_cli.py
+> @@ -1,4 +1,4 @@
+> -#!/usr/bin/python3
+> +#!/usr/bin/env python3
+>   # SPDX-License-Identifier: GPL-2.0
+>   import argparse
+>   import binascii
+> diff --git a/tools/crypto/ccp/test_dbc.py b/tools/crypto/ccp/test_dbc.py
+> index bb0e671be96d..0ee3da6c6be7 100755
+> --- a/tools/crypto/ccp/test_dbc.py
+> +++ b/tools/crypto/ccp/test_dbc.py
+> @@ -1,4 +1,4 @@
+> -#!/usr/bin/python3
+> +#!/usr/bin/env python3
+>   # SPDX-License-Identifier: GPL-2.0
+>   import unittest
+>   import os
+> diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+> index dafbde56cc76..dccafd507bb7 100644
+> --- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
+> +++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+> @@ -1,4 +1,4 @@
+> -#!/usr/bin/python
+> +#!/usr/bin/env python3
+>   # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
+>   # Basic sanity check of perf JSON output as specified in the man page.
 >   
->   	dma_buf_put(dma_buf);
+> diff --git a/tools/testing/selftests/devices/probe/test_discoverable_devices.py b/tools/testing/selftests/devices/probe/test_discoverable_devices.py
+> index d7a2bb91c807..72a94bbfbc7b 100755
+> --- a/tools/testing/selftests/devices/probe/test_discoverable_devices.py
+> +++ b/tools/testing/selftests/devices/probe/test_discoverable_devices.py
+> @@ -1,4 +1,4 @@
+> -#!/usr/bin/python3
+> +#!/usr/bin/env python3
+>   # SPDX-License-Identifier: GPL-2.0
+>   #
+>   # Copyright (c) 2023 Collabora Ltd
+> diff --git a/tools/testing/selftests/rseq/rseq-slice-hist.py b/tools/testing/selftests/rseq/rseq-slice-hist.py
+> index b7933eeaefb9..2c43b2e2bf0d 100644
+> --- a/tools/testing/selftests/rseq/rseq-slice-hist.py
+> +++ b/tools/testing/selftests/rseq/rseq-slice-hist.py
+> @@ -1,4 +1,4 @@
+> -#!/usr/bin/python3
+> +#!/usr/bin/env python3
 >   
-> -	return to_xdna_obj(gobj);
-> +	abo = to_xdna_obj(gobj);
-> +	abo->private_buffer = true;
-> +
-> +	return abo;
->   }
->   
->   static struct amdxdna_gem_obj *
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
-> index 4fc48a1189d2..957305ccb485 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.h
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.h
-> @@ -54,6 +54,8 @@ struct amdxdna_gem_obj {
->   
->   	/* True, if BO is managed by XRT, not application */
->   	bool				internal;
-> +	/* True, if BO is not exportable */
-> +	bool				private_buffer;
->   };
->   
->   #define to_gobj(obj)    (&(obj)->base.base)
-> diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
-> index 3769210c55cc..bb60fb80467e 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ubuf.c
-> +++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
-> @@ -69,60 +69,10 @@ static void amdxdna_ubuf_release(struct dma_buf *dbuf)
->   	kfree(ubuf);
->   }
->   
-> -static vm_fault_t amdxdna_ubuf_vm_fault(struct vm_fault *vmf)
-> -{
-> -	struct vm_area_struct *vma = vmf->vma;
-> -	struct amdxdna_ubuf_priv *ubuf;
-> -	unsigned long pfn;
-> -	pgoff_t pgoff;
-> -
-> -	ubuf = vma->vm_private_data;
-> -	pgoff = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
-> -
-> -	pfn = page_to_pfn(ubuf->pages[pgoff]);
-> -	return vmf_insert_pfn(vma, vmf->address, pfn);
-> -}
-> -
-> -static const struct vm_operations_struct amdxdna_ubuf_vm_ops = {
-> -	.fault = amdxdna_ubuf_vm_fault,
-> -};
-> -
-> -static int amdxdna_ubuf_mmap(struct dma_buf *dbuf, struct vm_area_struct *vma)
-> -{
-> -	struct amdxdna_ubuf_priv *ubuf = dbuf->priv;
-> -
-> -	vma->vm_ops = &amdxdna_ubuf_vm_ops;
-> -	vma->vm_private_data = ubuf;
-> -	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
-> -
-> -	return 0;
-> -}
-> -
-> -static int amdxdna_ubuf_vmap(struct dma_buf *dbuf, struct iosys_map *map)
-> -{
-> -	struct amdxdna_ubuf_priv *ubuf = dbuf->priv;
-> -	void *kva;
-> -
-> -	kva = vmap(ubuf->pages, ubuf->nr_pages, VM_MAP, PAGE_KERNEL);
-> -	if (!kva)
-> -		return -EINVAL;
-> -
-> -	iosys_map_set_vaddr(map, kva);
-> -	return 0;
-> -}
-> -
-> -static void amdxdna_ubuf_vunmap(struct dma_buf *dbuf, struct iosys_map *map)
-> -{
-> -	vunmap(map->vaddr);
-> -}
-> -
->   static const struct dma_buf_ops amdxdna_ubuf_dmabuf_ops = {
->   	.map_dma_buf = amdxdna_ubuf_map,
->   	.unmap_dma_buf = amdxdna_ubuf_unmap,
->   	.release = amdxdna_ubuf_release,
-> -	.mmap = amdxdna_ubuf_mmap,
-> -	.vmap = amdxdna_ubuf_vmap,
-> -	.vunmap = amdxdna_ubuf_vunmap,
->   };
->   
->   static int readonly_va_entry(struct amdxdna_drm_va_entry *va_ent)
+>   #
+>   # trace-cmd record -e hrtimer_start -e hrtimer_cancel -e hrtimer_expire_entry -- $cmd
 
