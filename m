@@ -4,136 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DC55CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6EC6CD4F50
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:02:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6673110E961;
-	Mon, 18 May 2026 18:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 315E410E95C;
+	Mon, 18 May 2026 18:02:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RSDROQY7";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ctXCEAx7";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="nHUCDO5J";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F6B510E95C
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:00:30 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64IEnGxR2975395
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:00:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=rlz37L1Ot7SSgmPwCHZrzPnX
- arrehpmT2ZWzmBEacA4=; b=RSDROQY7e0wJOQKFunCiywPq0NTHWyff32fQHfaj
- kPeDbPW8pIEHA/FFDQ/leEA7UJPH6aapc+SP6lNzuv9NV0fsV9i67j5QRNu2YcjS
- BUOky5ZcvgOSCYiybCYPCPwO5ToMY2Q8aQ8pZIDU+ht3b25UUklN1rH399XlbpBn
- EaQOs3xTgQxjS2UGtaZELxVwdGBm/XzF54TrYUIf4DsCANmTNC47/zXzNkp3+NBS
- rFKZFmWaKoPqIXJuBltDcES6U+FFV/erapR5iWg+9Fb2feLF7QgV5MV49/DCsJS6
- AYC3pKXjxNUY6p7CDTgr6t5Zp4lOj1h2KzQRL9ZcdSpaDg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e84v48qsa-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:00:29 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50fb6d713ddso43471451cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 11:00:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779127229; x=1779732029;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=rlz37L1Ot7SSgmPwCHZrzPnXarrehpmT2ZWzmBEacA4=;
- b=ctXCEAx7ViASO81zpdSsJMnIVhKMBd6wEICheSfkhP30arnAU1D7WgX74h96JGvJ0g
- u2CPT3cdDfymO59JtyKCRGo21Mmyvyd64wooxJ8XnBkyFf7zM9ogTJKMRNIAjvkbybyy
- jj7GjoMe99ceAT5lRFLGopZ06cBk9OS6+G+jVwyX/7Rp1B6cKaBEzyzpcz8AbHBvOLUY
- dEaNCZuNzONS4BhsV8gRn3l2J3aLXRy77ffmevNg6ljcmTLfd/v6l93skBxqx3Ujm1WW
- rFx5jFfIAv7FHVy+PNzptFCcBk3MOTXOlzSZ9fBKs4mh9M0qXVVainEMWQ8Z/21ZM0Tt
- HZuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779127229; x=1779732029;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rlz37L1Ot7SSgmPwCHZrzPnXarrehpmT2ZWzmBEacA4=;
- b=T1Bjn/FoERarSgz9a0rwQ598Zone1U2fRPYINBVMRhVpDlrlgpCeRT4MGiyOd01ian
- 7VBatDhNQkB9iFy++4QC/JkjAfG7yNqCtfyWhzzByfgvuGjK5K+JKXfSrey9iAUBf+7V
- RgB4hSeAx4cF7e+SctbgVtxZKkBWeu+pvHUiedyxcxW9kH5uEQzCf6PdnMTJhibb/lTR
- MUDRBSSU0CeRYE0jgCE4IuPe7FLDQ1o6qHjA2tsj8PoR7V82M16TzsGyehWiUYYyGkR+
- 53jDKz8VP2+zODWXksannlqryb0rOmm4lMijxeNtY3Z+1bRLFhm0RnYh8+qTD3Lt5uff
- CmvA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9niLowTd1zX8yE8OBIBNQm243V9dN3N3UkYxqjU3g7W6w3IJPxu0pv9NJ1rD/clmLh0f8RWpfU6so=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+gcEAggIQOMsjKKs0SqXjS0FfFzi+Z9pyg8fdwNMunpHG1O/L
- JU74xWuSCLsUxsy0ey7AoisZ5StRTFXkOw5PDc6KzhDelfnHHeccr+IZGiKHGgjVa06sHxohgSp
- kdHmpjHwq+qNCPSREcyIuTqvKOAsd+5xI9lzSTlVenHkU1I0GyxGRfyZD8VmUpNFj3wEaYm8=
-X-Gm-Gg: Acq92OHf+9rgV4HpZzrIy0gh7Ydob2zzVkc/w3x9cOj9TxVw2wdjn900eoTI/EU0Dmg
- QJcExbAYIc6PT8FDZZPJXjN4WXlp0CCqsl0OU1uXH4HUVvus0xOypHRu7oweIDzlMwKyz0sjkHu
- JAdmT/2QJwm+sht/GaJG7iMIgNu4HhWkSBrvcnIY9raDo31/x4B9KTubijXbZY6yY8ohYdgF8ww
- UOgRahvNgorv7NxT10rdBtKhX4aarfG9EN8aVAHV9aihXyJkToIn2XOx9VWwxoFBgDdANkSCHQb
- muCeYpOgszO/pWfey9kNd8tVXunGDk5o5do3IGfgbW5JpzbrmxRZX12njsB7OJPlEK14cVWxc6M
- ccZ4WYbZbSyLP7FB7Yyt8wJfH9Yhd+BRBsG0l83n4T0h+cPl8gqOm/g/4mu0I0yVWPweMzYQdtg
- Accnkyi984nQ0tMTXgpWnL2V2fx78utiVy1ksnAnvxLNulWw==
-X-Received: by 2002:a05:622a:1ccb:b0:50d:a3a3:e612 with SMTP id
- d75a77b69052e-5165a0b5e80mr238863541cf.18.1779127228322; 
- Mon, 18 May 2026 11:00:28 -0700 (PDT)
-X-Received: by 2002:a05:622a:1ccb:b0:50d:a3a3:e612 with SMTP id
- d75a77b69052e-5165a0b5e80mr238861911cf.18.1779127227591; 
- Mon, 18 May 2026 11:00:27 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a90f10c944sm3573510e87.6.2026.05.18.11.00.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 May 2026 11:00:26 -0700 (PDT)
-Date: Mon, 18 May 2026 21:00:24 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 148D010E95C
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:02:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
+ t=1779127357; bh=UTke0A6Lv/1fUQtQniAEq60/oKDmSb3Qk0p4Red78bM=;
+ b=nHUCDO5JZlhrIrzW336/5Uej+6ONc//nxQAv95reVUGE7dHiYviqxoPOIPzTxGKhW725hqqWX
+ TVqXiHfCIIJ7UGBiGchCx3mSsIqINDMQn+fcYABnFo5bdbIfIy2uEqLNo3JR1umS8GTMEV7NOiZ
+ wx7CQqnDHnaxUH/ffYmPZLFNJLpVpB4z25JqgOdVHsZCVcixh+0OnHAxGzmLJxWYXCT6awEjNQV
+ gwZfxSMdnMLl2c9kJOjnC2GPwkz/KKMS0iTFE4LUmvK+PNihzeE3oXhbsl3tAzuDoAibosy/mHS
+ F/GdKND0TP9EjBqy6YWVsP7dduZe2hqCk3L7EvYRPmfg==
+X-Forward-Email-ID: 6a0b543bb84dbc72d2274e1b
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.73
+X-Forward-Email-Version: 2.8.12
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Jonas Karlman <jonas@kwiboo.se>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/2] drm/mipi-dsi: add flag for sending all DSC slices
- in one packet
-Message-ID: <kxbtfiizjbprs4sqkmtotbaeqmm5e3draavlmdskhmws2l6ivq@73r3hnghmmrv>
-References: <20260318-dsi-dsc-slice-per-pkt-v2-0-0a1b316f8250@pm.me>
- <20260318-dsi-dsc-slice-per-pkt-v2-1-0a1b316f8250@pm.me>
- <rrgnyzpxo6g3ufjcnxnshexjotyq3riruc6wqjhirmcjo4qdta@gmwhs3mu2xld>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v7 05/23] drm: bridge: dw_hdmi: Call poweron/poweroff from
+ atomic enable/disable
+Date: Mon, 18 May 2026 18:01:41 +0000
+Message-ID: <20260518180206.2480119-6-jonas@kwiboo.se>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260518180206.2480119-1-jonas@kwiboo.se>
+References: <20260518180206.2480119-1-jonas@kwiboo.se>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <rrgnyzpxo6g3ufjcnxnshexjotyq3riruc6wqjhirmcjo4qdta@gmwhs3mu2xld>
-X-Authority-Analysis: v=2.4 cv=VJPtWdPX c=1 sm=1 tr=0 ts=6a0b53bd cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=H1zEYEgKh_2JjXxmUTcA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: kLKHYPifBC3UYIL77xE-x8TV9M8W2sQk
-X-Proofpoint-GUID: kLKHYPifBC3UYIL77xE-x8TV9M8W2sQk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDE3NyBTYWx0ZWRfX6rwqVx5LOB6v
- 97oB///vF+NcW7BfLhq37nPBTELiFJk7f5bPnH4KGO9gWVAYiTSd2rP7yEHd6sjpgmFVNhV3np2
- kjSb7FYL7C0qyojxrPPgb79rywZV+S8uHS8kdhPUFzi4RBMU/UBd41X3ROxISqgEzZ5xBgHf/wK
- FA4OwDo7TUYZIr5VnaNRmJ4H9HXTaianz7AGomfbiY5bwIQX11MTSVjner4trIK7Kkiu5ZYzi7J
- KGxadTXJhLP6GqdB92fZ6YBPgPirM2tbEzl8G0YR1tENah8ZurXbeB2I/xpWXYQ2pDRU59cMtM1
- 8wDDu26f+vR4YsAFYq+mE/gGrfIApkWmnGoAEBkOQZuv5e5PzggyWPIwD5B/3cFxnDDNAYt53FE
- FKvFe3W0hXzFtG2VFIZwIhH7r7RpOZSqrpRjfIN4EhP1rU2QlmcVIAlEq/uZYWOr6A7sKxNK53d
- Rk/gYwwkspMJZlVsFyw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 bulkscore=0
- spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180177
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,33 +77,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 12:33:45PM +0200, Dmitry Baryshkov wrote:
-> On Wed, Mar 18, 2026 at 09:54:04AM +0000, Alexander Koskovich wrote:
-> > The MIPI DSI v1.3 spec defines two modes for transporting compressed
-> > pixel data: one slice per packet or multiple slice widths in a single
-> > packet (Section 8.8.24 Figure 40).
-> > 
-> > Add a MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT flag that panel drivers can
-> > set to indicate that all DSC slices for a line should be packed into a
-> > single packet. When unset should default to 1 slice per packet.
-> > 
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> 
-> As I wrote for v1, I'd prefer to get more opinions before applying
+Change to only call poweron/poweroff from atomic_enable/atomic_disable
+funcs instead of trying to be clever by keeping a bridge_is_on state and
+poweron/off in the hotplug IRQ handler.
 
-Any comments? I'll apply it in a few days otherwise.
+The bridge is already enabled/disabled depending on connection status
+with the call to drm_helper_hpd_irq_event() in hotplug IRQ handler.
 
-> 
-> > Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> > ---
-> >  include/drm/drm_mipi_dsi.h | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> 
-> -- 
-> With best wishes
-> Dmitry
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+---
+v7: No change
+v6: Update commit message,
+    Collect t-b tag
+v5: No change
+v4: No change
+v3: Collect r-b tag
+v2: Update commit message
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 33 ++---------------------
+ 1 file changed, 2 insertions(+), 31 deletions(-)
 
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 9d795c550f8a..8bec9b5cd803 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -171,7 +171,6 @@ struct dw_hdmi {
+ 	enum drm_connector_force force;	/* mutex-protected force state */
+ 	struct drm_connector *curr_conn;/* current connector (only valid when !disabled) */
+ 	bool disabled;			/* DRM has disabled our bridge */
+-	bool bridge_is_on;		/* indicates the bridge is on */
+ 	bool rxsense;			/* rxsense state */
+ 	u8 phy_mask;			/* desired phy int mask settings */
+ 	u8 mc_clkdis;			/* clock disable register */
+@@ -2400,8 +2399,6 @@ static void initialize_hdmi_ih_mutes(struct dw_hdmi *hdmi)
+ 
+ static void dw_hdmi_poweron(struct dw_hdmi *hdmi)
+ {
+-	hdmi->bridge_is_on = true;
+-
+ 	/*
+ 	 * The curr_conn field is guaranteed to be valid here, as this function
+ 	 * is only be called when !hdmi->disabled.
+@@ -2415,30 +2412,6 @@ static void dw_hdmi_poweroff(struct dw_hdmi *hdmi)
+ 		hdmi->phy.ops->disable(hdmi, hdmi->phy.data);
+ 		hdmi->phy.enabled = false;
+ 	}
+-
+-	hdmi->bridge_is_on = false;
+-}
+-
+-static void dw_hdmi_update_power(struct dw_hdmi *hdmi)
+-{
+-	int force = hdmi->force;
+-
+-	if (hdmi->disabled) {
+-		force = DRM_FORCE_OFF;
+-	} else if (force == DRM_FORCE_UNSPECIFIED) {
+-		if (hdmi->rxsense)
+-			force = DRM_FORCE_ON;
+-		else
+-			force = DRM_FORCE_OFF;
+-	}
+-
+-	if (force == DRM_FORCE_OFF) {
+-		if (hdmi->bridge_is_on)
+-			dw_hdmi_poweroff(hdmi);
+-	} else {
+-		if (!hdmi->bridge_is_on)
+-			dw_hdmi_poweron(hdmi);
+-	}
+ }
+ 
+ /*
+@@ -2563,7 +2536,6 @@ static void dw_hdmi_connector_force(struct drm_connector *connector)
+ 
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->force = connector->force;
+-	dw_hdmi_update_power(hdmi);
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	mutex_unlock(&hdmi->mutex);
+ }
+@@ -3001,7 +2973,7 @@ static void dw_hdmi_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->disabled = true;
+ 	hdmi->curr_conn = NULL;
+-	dw_hdmi_update_power(hdmi);
++	dw_hdmi_poweroff(hdmi);
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	handle_plugged_change(hdmi, false);
+ 	mutex_unlock(&hdmi->mutex);
+@@ -3019,7 +2991,7 @@ static void dw_hdmi_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->disabled = false;
+ 	hdmi->curr_conn = connector;
+-	dw_hdmi_update_power(hdmi);
++	dw_hdmi_poweron(hdmi);
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	handle_plugged_change(hdmi, true);
+ 	mutex_unlock(&hdmi->mutex);
+@@ -3119,7 +3091,6 @@ void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense)
+ 		if (hpd)
+ 			hdmi->rxsense = true;
+ 
+-		dw_hdmi_update_power(hdmi);
+ 		dw_hdmi_update_phy_mask(hdmi);
+ 	}
+ 	mutex_unlock(&hdmi->mutex);
 -- 
-With best wishes
-Dmitry
+2.54.0
+
