@@ -4,90 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26746CD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81519CD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:14:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 843B610E880;
-	Mon, 18 May 2026 14:14:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7C0110E5DA;
+	Mon, 18 May 2026 14:14:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GmJ9nZMR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a9gVuZfP";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8F710E880
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 14:14:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779113661;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=X0PKPpLFUcJ5PNICdj+fODP+ieu23TytLui2uhS6hnY=;
- b=GmJ9nZMRzPWgTwYvRl3BlR1nJbd9ZPayn3+B4mvX2DWt4h/GHOJHPlMTjtTug+hEyGLA3x
- z9qrSdc2FSIQDuKUjURg/Qm2pEmr//PTTNTzroOYj6VvhI9lvljhDytyZJUSmjhEo/lXAx
- pfaHHnikkIYZ56RohbahzxvP8dgz7B4=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-670-cjcY52dIMBac1SvNbDkZ7A-1; Mon, 18 May 2026 10:14:17 -0400
-X-MC-Unique: cjcY52dIMBac1SvNbDkZ7A-1
-X-Mimecast-MFC-AGG-ID: cjcY52dIMBac1SvNbDkZ7A_1779113656
-Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-5a3fe7e7c94so134690e87.3
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:14:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779113656; x=1779718456;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=X0PKPpLFUcJ5PNICdj+fODP+ieu23TytLui2uhS6hnY=;
- b=Pobd7DiRb5FvbAE3rG4qQFSzTYvKYiJoaisFq10iAt+MUWYU741rAgjVf+fPimGTkw
- O12SMRBVd4k958yzjyw8zngmeraMxCpk5WuZxmqYtYnRIO/xoN6qhYA4CUuruPJphiqk
- u8orS2p70B/Iy61pYoAJL78uLF3a9O5vdegW9A2prsRId+EXS47g5rniADUIelVIDrM9
- IVZBcPn1HlfPMo/1H6tqHks7M6zkA5912wvi9CLDkmem/y4gLHZvEPTz2AmiHsckOfUf
- 9tEfffNvbXCg933CQ2+huggPKrrtdmObyfrekNKEDJWk1RU/debyEuIGmXTBnGbL4k9c
- Unvw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8VUuWKPG+h4Ty88VPnPnDlVkMrQkFkt63kcflYQ1REeyMROnI2KtPr8EaL4rBetjNe5pf0mCO+9S4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw7MhUTCEuuMcyDnuRjcclhmnn1hk+STBzplORGdiBLY6Z0y5/L
- iC94VFm3Fc/9wGGjzWM38f7qz25UXTWpLhlQNdiG2FlwHBmmmsWBXurNIp5ZnE7rq5nVoeIayz8
- MDnucVM9Si9pgBlSgAHB8p18j++3YQ7G4kalQ8bAcPFkBU7jpezlY8tvk/OznmCczHHxBNjV5/0
- FABp6XyO21t0MFEV/7Ebj9zwHOEHww7ybDSWMQxCtOpyf2
-X-Gm-Gg: Acq92OF6JRSwvapitWGNilFBg4PIdOJO5Jt7xTPLmA5ZJRg/0QMl+kp8nUALDTU+ON4
- ZEcwjW7YZo7x7zddG4xIhRqE2RYkaBCeDXzKrN2vOgHkaWg7CpmMk7QgkFFcuzdoRu1oyVioa3Z
- BNSHYhmuLWSowVhtIL/Lhu2dRSK0Ojn8462kIx5yOzI+e79MJuvUuYvS64MBj4IsMC6JyZN97SM
- Qz9wA==
-X-Received: by 2002:a05:651c:410e:b0:38f:f6a2:a61d with SMTP id
- 38308e7fff4ca-39561f2f883mr11802421fa.4.1779113656333; 
- Mon, 18 May 2026 07:14:16 -0700 (PDT)
-X-Received: by 2002:a05:651c:410e:b0:38f:f6a2:a61d with SMTP id
- 38308e7fff4ca-39561f2f883mr11802281fa.4.1779113655655; Mon, 18 May 2026
- 07:14:15 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E65BB10E5DA;
+ Mon, 18 May 2026 14:14:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779113698; x=1810649698;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=tR0KxukUXrz2IgbVSJNBiQdUnGpksWcRCLl4DzgPNZE=;
+ b=a9gVuZfP538cYe6oF4Fp9KmT+cSp2PiCOVh1xZOFWnzQHuA7K74v7bkp
+ mR125Z/LQz5TkdadFPqZqAeOl7trFCbCjqccwua3+URF0NX8404qtqFFS
+ DLqo9UqTg6VNyC21pZCLoIW5zeSzUj0J84NFlS/Gabwbp2gBwRFPvx/au
+ D7jTMte4eIeORvCBCTux2iLxALT5hGSxEnSvaptBU8TKyMbHk9sdBEvZx
+ nd10PsiobRTpps5y3W8P/StEnKmrSI/4/fiKLWuvpNMFRHDMEMb3QrgD1
+ NShMpyt1SQFKT522VRGZOluz7Ar1HFVO2l0dooXmtmMkglKvK/bLpQfGw g==;
+X-CSE-ConnectionGUID: fZnmRhszTaOCKW/aLb1ktg==
+X-CSE-MsgGUID: dLiUmSKsRESvF47f6PXxmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="79105893"
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; d="scan'208";a="79105893"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2026 07:14:58 -0700
+X-CSE-ConnectionGUID: 63s+UT/nTb6ss9JSzLX8Sg==
+X-CSE-MsgGUID: M3AHzj8NQxqlepRx1jWVpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; d="scan'208";a="244417238"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO fdugast-desk.intel.com)
+ ([10.245.244.73])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2026 07:14:56 -0700
+From: Francois Dugast <francois.dugast@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, matthew.auld@intel.com,
+ Francois Dugast <francois.dugast@intel.com>
+Subject: [PATCH v3 0/5] gpu/buddy: Per-order free and used block scoreboards
+Date: Mon, 18 May 2026 16:14:25 +0200
+Message-ID: <20260518141446.124508-1-francois.dugast@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260216150205.212318-1-larisa.grigore@oss.nxp.com>
- <aaGkGwbk-sh0YJqj@jkangas-thinkpadp1gen3.rmtuswa.csb>
-In-Reply-To: <aaGkGwbk-sh0YJqj@jkangas-thinkpadp1gen3.rmtuswa.csb>
-From: Enric Balletbo i Serra <eballetb@redhat.com>
-Date: Mon, 18 May 2026 16:14:02 +0200
-X-Gm-Features: AVHnY4JRP0kGP-z42K5FI0qcb3gAysvgY6dzw7kUR8X3jOVZKVkXLna2nVCi7XY
-Message-ID: <CALE0LRuahJy2EKa7YUukGRq1w9iws6kDvjZ7o33ahJUGc2JSsw@mail.gmail.com>
-Subject: Re: [PATCH 00/13] Add DMA support for LINFlexD UART driver
-To: Jared Kangas <jkangas@redhat.com>
-Cc: Larisa Grigore <larisa.grigore@oss.nxp.com>, gregkh@linuxfoundation.org, 
- jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com, 
- chester62515@gmail.com, cosmin.stoica@nxp.com, adrian.nitu@freescale.com, 
- stefan-gabriel.mirea@nxp.com, Mihaela.Martinas@freescale.com, 
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, s32@nxp.com, 
- imx@lists.linux.dev, clizzi@redhat.com, aruizrui@redhat.com, 
- echanude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: MtEN_0HLyHkjqDhtpAxkqvUOYC7p6UEY4UE-o2jNWsE_1779113656
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,81 +68,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi all,
+drm_buddy_print() currently reports per-order free block counts by
+walking all rbtrees, which is O(n) in the total number of free blocks
+and holds the allocator lock for the duration. On large VRAM heaps with
+many small fragments this becomes expensive.
 
-Any chance these series can be considered? They still apply on top of
-the mainline kernel.
+This series replaces the rbtree walk with two lightweight scoreboard
+arrays — free_scoreboard and used_scoreboard — indexed by order and
+maintained incrementally at the points where block state transitions
+occur. The print functions become simple array lookups, and drivers
+reading debugfs (/sys/kernel/debug/dri/0/tile0/vram_mm) now get both
+free and used counts per order at O(1) cost.
 
-On Fri, Feb 27, 2026 at 3:03=E2=80=AFPM Jared Kangas <jkangas@redhat.com> w=
-rote:
->
-> Hi Larisa,
->
-> On Mon, Feb 16, 2026 at 04:01:52PM +0100, Larisa Grigore wrote:
-> > This patchset enhances the LINFlexD UART driver and its device tree bin=
-dings to
-> > support DMA transfers, configurable clock inputs, dynamic baudrate chan=
-ges, and
-> > termios features. It also includes a series of fixes and improvements t=
-o ensure
-> > reliable operation across various modes and configurations.
-> >
-> > The changes added can be summarized as follows:
-> > 1. Fixes with respect to FIFO handling, locking, interrupt related regi=
-sters and
-> > INITM mode transition.
->
-> Tested this series with the default devicetree configuration by booting
-> the board to a login prompt about 200 times. Without the series applied,
-> I was seeing a bug roughly every 30-50 boots where the kernel would
-> would hang in linflex_console_putchar() waiting for DTFTFF. In my tests
-> with the series applied, I didn't see any regressions and the bug no
-> longer appeared. Thanks for the fix!
->
-> Tested-by: Jared Kangas <jkangas@redhat.com> # S32G3, interrupt-driven
->
+v3: Add __gpu_buddy_undo_splits() helper as suggested by Matt
 
-FWIW I also reproduced the issue Jared faced. Current state of the
-LinFLEX serial driver in mainline seems a bit buggy and I can confirm
-that these fix the problem.
+v2: Add first patch to fix bug reported by Sashiko [1] then update
+    following patches accordingly
 
-Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
+Francois Dugast (5):
+  gpu/buddy: Fix use-after-free in split_block() call sites
+  gpu/buddy: Remove redundant condition in alloc_from_freetree() error
+    path
+  gpu/buddy: Introduce __gpu_buddy_undo_splits() helper
+  gpu/buddy: Track per-order free blocks with a scoreboard
+  gpu/buddy: Track per-order used blocks with a scoreboard
 
-> > 2. Removal of the earlycon workaround, as proper FIFO handling and INIT=
-M
-> > transitions now ensure stable behavior.
-> > 3. Support for configurable stop bits and dynamic baudrate changes base=
-d on
-> > clock inputs and termios settings.
-> > 4. Optional DMA support for RX and TX paths, preventing character loss =
-during
-> > high-throughput operations like copy-paste. Cyclic DMA is used for RX t=
-o avoid
-> > gaps between transactions.
-> >
-> > Larisa Grigore (8):
-> >   serial: linflexuart: Clean SLEEP bit in LINCR1 after suspend
-> >   serial: linflexuart: Check FIFO full before writing
-> >   serial: linflexuart: Correctly clear UARTSR in buffer mode
-> >   serial: linflexuart: Update RXEN/TXEN outside INITM mode
-> >   serial: linflexuart: Ensure FIFO is empty when entering INITM
-> >   serial: linflexuart: Revert earlycon workaround
-> >   serial: linflexuart: Add support for configurable stop bits
-> >   serial: linflexuart: Add DMA support
-> >
-> > Radu Pirea (5):
-> >   serial: linflexuart: Fix locking in set_termios
-> >   dt-bindings: serial: fsl-linflexuart: add clock input properties
-> >   dt-bindings: serial: fsl-linflexuart: add dma properties
-> >   serial: linflexuart: Add support for changing baudrate
-> >   serial: linflexuart: Avoid stopping DMA during receive operations
-> >
-> >  .../bindings/serial/fsl,s32-linflexuart.yaml  |  31 +
-> >  drivers/tty/serial/fsl_linflexuart.c          | 972 +++++++++++++++---
-> >  2 files changed, 846 insertions(+), 157 deletions(-)
-> >
-> > --
-> > 2.47.0
-> >
->
+ drivers/gpu/buddy.c         | 104 ++++++++++++++++++++++--------------
+ drivers/gpu/drm/drm_buddy.c |  30 +++++------
+ include/linux/gpu_buddy.h   |  15 ++++++
+ 3 files changed, 90 insertions(+), 59 deletions(-)
+
+-- 
+2.43.0
 
