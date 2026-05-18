@@ -4,132 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B853CCD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 12:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98E4ECD4F52
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 12:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 088EF10E320;
-	Mon, 18 May 2026 12:41:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3FF710E5CD;
+	Mon, 18 May 2026 12:47:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3fTYU7+w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FFJD4NvJ";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012055.outbound.protection.outlook.com [52.101.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55B9010E320;
- Mon, 18 May 2026 12:41:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TTxIXDxN+MJYm7v7sgkcCLtrEAp+DKo1B1MwwTxnsjluO/JwR6806skKpiVSMK/EbbNMBS1rwmVgQK4hr/5gArvVU717XUnKVFEZDKNqkfFlx8dTXLoaCuZgIkgxu2klMiAYprU5XqcVGT8MXAxHkO+vygWLrOLJ7PgP71qzrP3Dfm3qgz3P9K+nFbd37EJjU8hrXcjBFf4OPDRnEjRzwUE21FRxJIHRFsTFLZO0S3LtXOG/Yzc4OW0SzPq409Jg8K1/yaAFre6jXLdPloLggENIZs6EDlXDMnS/6cVfU3JTJ7h6+fwnUwSJVaogARZzwXk2lG43i982LWaQqddUig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q/Z/E2hFjFFAbzsL9ceWcozmjH4Mqz0lGgryK33A4zI=;
- b=PcjnrXf5mVESC6ajMWCdssjISSDR8E4rukNTcqYauGpi+La/Td6ReVHaCkxEmZY2oALMebAOozPRcwVc6q5wtR9S/c2tkT7MvjA/Z1mdeBlyA64B9kR1AjQ0i8NQxAyNVqBB3F8ZanZXcbx6eyhZswUjQ1UqIUL1RmQyDAeOh3ryDCFEZSsrBS74bag3T7Yd+MWnI7z9HigsdPMQQSd2JLhnVOoqgwIB9sy+QJnFmz0UhSLaU6vXWNTuQQO50Qzs8bEOHxr180yqDVwlf6Ajqjkx0ejPLaX8LH5eChvzmRTMGnuK+QAdsY+KsYtX36ptw4IQA2NT90NBGi3KGOKNiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q/Z/E2hFjFFAbzsL9ceWcozmjH4Mqz0lGgryK33A4zI=;
- b=3fTYU7+wUcwRoua9ZOK2ckVwRv6Fq/eKT26JA5rKjTBibXxsZmHsRFjWzmtTwFAwAnHU3ydTYGMc/UW0fFdSORp8qJ8xfeepCOqNFy2JnnWXuvDYNmyxr9S8jNxYaO80z+ARaoPwMillGuv2tOn0NhX+7RVDbYu/skHcoaRkmYg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB8193.namprd12.prod.outlook.com (2603:10b6:930:71::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.22; Mon, 18 May
- 2026 12:41:38 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Mon, 18 May 2026
- 12:41:38 +0000
-Message-ID: <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
-Date: Mon, 18 May 2026 14:41:31 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
-To: Julian Orth <ju.orth@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
- <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
- <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0379.namprd13.prod.outlook.com
- (2603:10b6:208:2c0::24) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16A7B10E7F3
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 12:47:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 94D5540A08;
+ Mon, 18 May 2026 12:47:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0850FC2BCB8;
+ Mon, 18 May 2026 12:47:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1779108478;
+ bh=oS1k4nCM6/Jl+d0AtTLVKl0QoqSThznHhnmLEPr7fcU=;
+ h=Date:From:To:Cc:Subject:From;
+ b=FFJD4NvJbhjht1SFV1Inyx/vZ77CvM6T9yGTyTHLx8Z2tBavHW3giASdFLMnvK6+S
+ 2E4dGM8eF2AKG7GMfln+9ifAaZyYGFlqp5nZa4anqlZUe9jiQU9QbCbxHsgjqoDPxJ
+ iAkT2/b6reG/qUKMAbc5nfDm3Uzcx9OWP1C+CGKGY+AzHg1ifU5bZl92B3k1tOqWLQ
+ 4f75UWYBuvqUWswtmTqFa7TV/INgTAhC8ftIHT1Wmp8Z+0Un3tjYYyHhzB66KuuQl+
+ dd0M9ikKXuvzspHieeyo31BHIUbtW4kVNw8pxTfYfidXqWxMq4FoFZyoO3sYB3K7QY
+ L97jMAEH4Zucg==
+Date: Mon, 18 May 2026 13:47:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: linux-next: manual merge of the drm tree with the origin tree
+Message-ID: <agsKemEUW7r-8Q6g@sirena.org.uk>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8193:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f45624a-3473-4923-5efc-08deb4dace05
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|56012099003|22082099003|18002099003|3023799003|11063799003|4143699003;
-X-Microsoft-Antispam-Message-Info: wdEsQJ24qQ6Xc+YMHcsMhJ5WOpolYX9OUcxBvOT0O3N8OcoyQ53gY8W/Jpeub1ebrAFkn5+45FjGhpYdahkNTN74mJwv1vjQvfuAVxQ31VnntSfnQfxOBuOGhu9lamGlpgm5ha19NbcmCVMS13vzeBgW/52o9NeeVDiVatU5tmrQz3tTBeXmcz2kob0GNaETAaYi4LHXIKn/IovNt9RuJftEYgL6stFW8LSSeizDV2v4zj/o46Y1/68DBugNx8HfCc06XZ5IyZ5UH3ypr3s2sHEkc0fPGLvPopMv0X2QFgo9j84IgrjGjisMbMRMxTvN1fLW7nyk56j0Xvt1HK6tgS+SNqmVMvBYJtf49RrU+aN3g46xpCzVk7f+yTq4zXDoE46SNv311QbDftU2t6BpKf0jUU2WqnFqrD7kwCPROnSjof5Cr06/Gq0nBceYtj4ZL7GFwenqPT4T/eyrPErBKKgym8/rudz+RMq5VGyntqtlDfqJyJtgpNaLi7DKUZ3uPaux4hrV/SI91W6xSofjV9bsGHNZRd4sapJLFka4uPsF4cuUWWopUntuw15hbaHkIYz2cVKFQ5OU1tWkBDrxC9TnXWq7AvUpe8Bx4R1/PxT4VUTU+TT7Km3Vw9E6ZCNz9YUBBu1nW48urjs6eS7EndyUeUhu4oMh1ywgnfIsLxkklVQzlkpEoOHw3hZiIYpm
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(56012099003)(22082099003)(18002099003)(3023799003)(11063799003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U1ZGNkZ1UGlGdThOaGdwaU5EcWhueHpZMjZyN09lV052aCtNUHpvNVYwcnZt?=
- =?utf-8?B?Zis0SjN1dU00enJySHk2dW9nYWljTktlOHdST2NJWk1xcGZ2V20yUlVBdnVS?=
- =?utf-8?B?M25haHRUNTE1eUJnWTJ4aXhlWUpnOCt6RCtaMEVDSzFqZXdWcDRSaTMvUVRa?=
- =?utf-8?B?Sm52cUljcDBhZEJNL3NUbmZ4cTdrajc0VWNEVHVCeTYvTnV6TWsyZSsyb0Nv?=
- =?utf-8?B?Qlo4L1oxVzVkYXdZWmgwMk5YdGV6Rzl2eVF5bHJMOURvZkxhTGV5UjBjRTJo?=
- =?utf-8?B?VHQxMWNVc3NyWjhvZFc1ZE41MWgyMFFUSnVsWVh1WmI0VjZkcytGTHNMUktR?=
- =?utf-8?B?eVFWT2F4bXAwSHBWK0g0Q21ITjFJZVI5NUh2VEFaVjlNQTFNNy8xbCtKQ0x6?=
- =?utf-8?B?SituRjJvN2p4YStLUEw1Y2VmTHVabDBjT05CV3NBKzN6ZmkvU3NSczZ4aUZE?=
- =?utf-8?B?akNQVUxQQlF6SENKM2lTWTlSMTFDVXFmdTBpSW9LbUJyZ29pZXdnZ1pNenIr?=
- =?utf-8?B?ZFg0K0tVQ0ErUDJXVmtmMzBRQUlGRzMwMWVJY3FKUDl4c1RVUzM0eVBPeHp5?=
- =?utf-8?B?U1U5RmFZSnhmV2xuUTFac0dTWlBhT0pKbFhndkpQMGM4aGlxU3g3a0xqV2My?=
- =?utf-8?B?VWU0Ym9zdWNXNEZsRmJUMzIwYlB5cjZwZWZBWWUzVTFON29xQjNpZi85QlFQ?=
- =?utf-8?B?WmFtUUdnVlJMYzJtVGpyWC9VV1lndlhWdjZ4Mmd3SEwvWnA0SUdqK25ZUldO?=
- =?utf-8?B?NWVscUJ4Y1RrcHdRWXRsTlBjTUFIVE1ONC9xN2prNkNzbzEwbmhLbmhmNHM1?=
- =?utf-8?B?SUNTeGE4THZuSUk3NlkzV0MwTzFyc1IycHJNRzAxZHFUTTF6OHJlVDJyNTMz?=
- =?utf-8?B?MVJSaTRjZUhLejg1QVIyWlhYbGVvMUZLMmZrd3I1ekpPWnBJVTdnU2srOVpC?=
- =?utf-8?B?Zm9pQk8rOHdiT09YcnZyNUhtdkpyLzBLMkxURGE0RUdvdGROVVJTNXV2dUpk?=
- =?utf-8?B?L1hnVjRiTWhTc2FQSjFGZzZkcTJQYWNGdmtJYzBpb2M4SnJEOXVsZU9uZ1Q5?=
- =?utf-8?B?YTZSWDVlQm9lYkRhYUJ6a3REMnNCUzRoQVBLN0xCbU9UM0l0N29lQkhJMXVX?=
- =?utf-8?B?VkJMV3FYMmVFOHFEYWY3RVBaZnJMK0dyQW1CWmNoTjY5UU1lbGJkaC9KSlBr?=
- =?utf-8?B?QWIwYUpMYjVmMk1rYXJjcUxsanB3bFJuQ1ZYRGZWREZrM2FBd25oL0dYT3NJ?=
- =?utf-8?B?cFRUQVdtaE0vcm1DUGJYdkV6Z3dwblZhcS8yUzlRek1SbDllSnJRUWRNbmU1?=
- =?utf-8?B?Kzd2YjByTkFHWDhkMDJwLzhoSitnRVROM1g3RmZoTFowdU01WWN6VTRWdlRE?=
- =?utf-8?B?UnlnQmZRRUxtNENzaEZ4WC9SYitSL1h0c0tVVGwyZndiekFDOG9FZFBUN1BJ?=
- =?utf-8?B?YmFic1c4eURsWHRROVdObFlTSFExMERLZ2FtQVltK2VCdklRdHVEOEJWeUh0?=
- =?utf-8?B?VHM1QWUwNCtRODNsU2R0SUs0aUpudC8wV1hZUktuMUVFRGRQOTRpcWkwOTdv?=
- =?utf-8?B?N2lrM3BoZHAxU3hSSldESlp3WHROQ1loMEkzRkpPOXErdC9RMUVUOVg1cnQz?=
- =?utf-8?B?cFNnOHVNV3QvTnRPV2htYyt1VHM4ZFE5ZEdNS25wRGtVMk1IbzAxZERSOVhC?=
- =?utf-8?B?Rzg2K2g2UXZBWHJtejVqVDJ0d3FBVjZzNDhPeDZidSt2cDBnM3ZkcGJHRkVv?=
- =?utf-8?B?ZlI5dHMzT0s4NXpUQmZveDVBVEx4VFdsclhaVE54WmhBUnFFTUxvOEJzNEFJ?=
- =?utf-8?B?c21iSm5BMk5MemFYdzczQ1ZzVEpyZ1ZoOVpYZnlZODZpWWlkOHgrTGxvdUsw?=
- =?utf-8?B?UDlSL3BmWUt5QVBTTEVSSW9qV2ZuektxNHNDRE1HbkJoWWFZVHdYU2ZsRllE?=
- =?utf-8?B?S1JyQWpjbkl6YXMzdE5SeFlEQU9UUzFadlRPbWVYZzJZWTE1R3RDVDlhdlpQ?=
- =?utf-8?B?SktndHc0dE1FbE9jci9tRks3dmltdWFiTGk2TFR6anlQVXhLQjdRVUZYbzNT?=
- =?utf-8?B?UnRYYzNua0JuSTJrNEdlNW52djllN28yZnlmMGlJM1R2YldYTklTa0pkSFEr?=
- =?utf-8?B?TzM3alhLeHcxT3JVblk3TUcvRTkvZG5zeGVCYUlGN3FmazUxZkJCM3RCVDRQ?=
- =?utf-8?B?dmVGNTdIN2NIYi9XbTkrSTJzdXN1TUZVUzNMS2tGV2YwMnkxdFRyaFVCZ2ZP?=
- =?utf-8?B?bkY5ZWhqNGVNRnA0a2dOcS81NFN3UUkvaVFHZ0ROTlp2L0k0TjBveHM3bHov?=
- =?utf-8?Q?7cO3qlggzgpuZUSnRA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f45624a-3473-4923-5efc-08deb4dace05
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 12:41:38.6721 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LRL49hsLdY1w0S4PO+fSQ0SbN+4/+/VOAXuPIUx6PTTny9VIHur4zCxwZrM/XC2/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8193
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pRcJvvGffeQd5RuQ"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,116 +59,268 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/18/26 14:02, Julian Orth wrote:
-> On Mon, May 18, 2026 at 1:58 PM Christian König
-> <christian.koenig@amd.com> wrote:
->>
->> On 5/16/26 13:06, Julian Orth wrote:
->>> This series adds a new device /dev/syncobj that can be used to create
->>> and manipulate DRM syncobjs. Previously, these operations required the
->>> use of a DRM device and the device needed to support the DRIVER_SYNCOBJ
->>> and DRIVER_SYNCOBJ_TIMELINE features.
->>>
->>> There are several issues with the existing API:
->>>
->>> - Syncobjs are the only explicit sync mechanism available on wayland.
->>>   Most compositors do not use GPU waits. Instead, they use the
->>>   DRM_IOCTL_SYNCOBJ_EVENTFD ioctl to perform a CPU wait. Being tied to
->>>   DRM devices means that compositors cannot consistently offer this
->>>   feature even though no device-specific logic is involved.
->>
->> Well the drm_syncobj is a container for device specific dma fences.
-> 
-> Not necessarily. The DRM_IOCTL_SYNCOBJ_TIMELINE_SIGNAL ioctl attaches
-> some kind of dummy fence that is already signaled. I don't believe
-> this is device specific. That is also the path that llvmpipe would
-> use.
 
-Yeah I feared that.
+--pRcJvvGffeQd5RuQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This is the wait before signal path and if I'm not completely mistaken that one is not supported by a lot of compositors.
+Hi all,
 
-The last time I looked for GPU support the compositor needs to spawn a separate thread for each client to support this approach.
+Today's linux-next merge of the drm tree got a conflict in:
 
-It could be that we have eventfd integration for that as well now, but in that case you could give the compositor an eventfd instead of a drm_syncobj fd in the first place.
+  drivers/gpu/drm/xe/xe_migrate.c
 
-So as far as I can see using drm_syncobj for software rendering really doesn't make sense, eventfd is a much better fit for that use case.
+between commit:
 
-Regards,
-Christian.
+  4568dfbb8363a ("drm/xe: Make decision to use Xe2-style blitter instructio=
+ns a feature flag")
 
-> 
->>
->> What could be possible instead is to pass an eventfd into Wayland, but that is something userspace needs to decide.
->>
->>> - llvmpipe currently cannot offer syncobj interop because it does not
->>>   have access to a DRM device. This means that applications using
->>>   llvmpipe cannot present images before they have finished rendering,
->>>   despite llvmpipe using threaded rendering.
->>
->> Yeah, but that is completely intentional. You *CAN'T* use a dma_fence as completion event for llvmpipe rendering. See the kernel documentation on that.
->>
->> What could be possible is to use the drm_syncobjs functionality to wait before signal, but that has different semantics.
->>
->> Regards,
->> Christian.
->>
->>> - Clients that do not use the Vulkan WSI need to manually probe /dev/dri
->>>   for devices that support the syncobj ioctls in order to use the
->>>   wayland syncobj protocol.
->>> - Similarly, clients that want to use screen capture have no equivalent
->>>   to the WSI and are therefore forced into that path.
->>> - Having to keep a DRM device open has potentially negative interactions
->>>   with GPU hotplug.
->>> - Having to translate between syncobj FDs and handles is troublesome in
->>>   the compositor usecase since syncobjs come and go frequently and need
->>>   to be cleaned up when clients disconnect.
->>>
->>> /dev/syncobj solves these issues by providing all syncobj ioctls under a
->>> consistent path that is not tied to any DRM device. It also operates
->>> directly on file descriptors instead of syncobj handles.
->>>
->>> The series starts with a number of small refactorings in drm_syncobj.c
->>> to make its functionality available outside of the file and without the
->>> need for drm_file/handle pairs.
->>>
->>> The last commit adds the /dev/syncobj module. I've added it as a misc
->>> device but maybe this should instead live somewhere under gpu/drm.
->>>
->>> An application using the new interface can be found at [1].
->>>
->>> [1]: https://github.com/mahkoh/jay/pull/947
->>>
->>> ---
->>> Julian Orth (12):
->>>       drm/syncobj: add drm_syncobj_from_fd
->>>       drm/syncobj: add drm_syncobj_fence_lookup
->>>       drm/syncobj: make drm_syncobj_array_wait_timeout public
->>>       drm/syncobj: add drm_syncobj_register_eventfd
->>>       drm/syncobj: have transfer functions accept drm_syncobj directly
->>>       drm/syncobj: add drm_syncobj_transfer
->>>       drm/syncobj: add drm_syncobj_timeline_signal
->>>       drm/syncobj: add drm_syncobj_query
->>>       drm/syncobj: fix resource leak in drm_syncobj_import_sync_file_fence
->>>       drm/syncobj: add drm_syncobj_import_sync_file
->>>       drm/syncobj: add drm_syncobj_export_sync_file
->>>       misc/syncobj: add new device
->>>
->>>  Documentation/userspace-api/ioctl/ioctl-number.rst |   1 +
->>>  drivers/gpu/drm/drm_syncobj.c                      | 374 ++++++++++++++-----
->>>  drivers/misc/Kconfig                               |  10 +
->>>  drivers/misc/Makefile                              |   1 +
->>>  drivers/misc/syncobj.c                             | 404 +++++++++++++++++++++
->>>  include/drm/drm_syncobj.h                          |  21 ++
->>>  include/uapi/linux/syncobj.h                       |  75 ++++
->>>  7 files changed, 795 insertions(+), 91 deletions(-)
->>> ---
->>> base-commit: 6916d5703ddf9a38f1f6c2cc793381a24ee914c6
->>> change-id: 20260516-jorth-syncobj-d4d374c8c61b
->>>
->>> Best regards,
->>> --
->>> Julian Orth <ju.orth@gmail.com>
->>>
->>
+=66rom the origin tree and commits:
 
+  09b3998429075 ("drm/xe: Make decision to use Xe2-style blitter instructio=
+ns a feature flag")
+  388768fe17386 ("drm/xe: Refactor emit_clear_main_copy")
+  65be72013baf9 ("drm/xe: Refactor emit_clear_link_copy")
+
+=66rom the drm tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/gpu/drm/xe/xe_migrate.c
+index a22413f892a09,9428dd5e7760c..0000000000000
+--- a/drivers/gpu/drm/xe/xe_migrate.c
++++ b/drivers/gpu/drm/xe/xe_migrate.c
+@@@ -31,6 -31,7 +31,7 @@@
+  #include "xe_map.h"
+  #include "xe_mem_pool.h"
+  #include "xe_mocs.h"
++ #include "xe_pat.h"
+  #include "xe_printk.h"
+  #include "xe_pt.h"
+  #include "xe_res_cursor.h"
+@@@ -217,7 -218,7 +218,7 @@@ static void xe_migrate_prepare_vm(struc
+  				  struct xe_vm *vm, u32 *ofs)
+  {
+  	struct xe_device *xe =3D tile_to_xe(tile);
+- 	u16 pat_index =3D xe->pat.idx[XE_CACHE_WB];
++ 	u16 pat_index =3D xe_cache_pat_idx(xe, XE_CACHE_WB);
+  	u8 id =3D tile->id;
+  	u32 num_entries =3D NUM_PT_SLOTS, num_level =3D vm->pt_root[id]->level;
+  #define VRAM_IDENTITY_MAP_COUNT	2
+@@@ -337,7 -338,7 +338,7 @@@
+  		 * if flat ccs is enabled.
+  		 */
+  		if (GRAPHICS_VER(xe) >=3D 20 && xe_device_has_flat_ccs(xe)) {
+- 			u16 comp_pat_index =3D xe->pat.idx[XE_CACHE_NONE_COMPRESSION];
++ 			u16 comp_pat_index =3D xe_cache_pat_idx(xe, XE_CACHE_NONE_COMPRESSION);
+  			u64 vram_offset =3D IDENTITY_OFFSET +
+  				DIV_ROUND_UP_ULL(actual_phy_size, SZ_1G);
+  			u64 pt31_ofs =3D xe_bo_size(bo) - XE_PAGE_SIZE;
+@@@ -637,10 -638,10 +638,10 @@@ static void emit_pte(struct xe_migrate=20
+ =20
+  	/* Indirect access needs compression enabled uncached PAT index */
+  	if (GRAPHICS_VERx100(xe) >=3D 2000)
+- 		pat_index =3D is_comp_pte ? xe->pat.idx[XE_CACHE_NONE_COMPRESSION] :
+- 					  xe->pat.idx[XE_CACHE_WB];
++ 		pat_index =3D is_comp_pte ? xe_cache_pat_idx(xe, XE_CACHE_NONE_COMPRESS=
+ION) :
++ 					  xe_cache_pat_idx(xe, XE_CACHE_WB);
+  	else
+- 		pat_index =3D xe->pat.idx[XE_CACHE_WB];
++ 		pat_index =3D xe_cache_pat_idx(xe, XE_CACHE_WB);
+ =20
+  	ptes =3D DIV_ROUND_UP(size, XE_PAGE_SIZE);
+ =20
+@@@ -727,7 -728,22 +728,22 @@@ static void emit_copy_ccs(struct xe_gt=20
+  	bb->len =3D cs - bb->cs;
+  }
+ =20
+- #define EMIT_COPY_DW 10
++ static u32 blt_fast_copy_cmd_len(struct xe_device *xe)
++ {
++ 	return 10;
++ }
++=20
++ static u32 blt_mem_copy_cmd_len(struct xe_device *xe)
++ {
++ 	return 10;
++ }
++=20
++ static u32 emit_copy_cmd_len(struct xe_device *xe)
++ {
++ 	return (xe->info.has_mem_copy_instr) ? blt_mem_copy_cmd_len(xe) :
++ 		  blt_fast_copy_cmd_len(xe);
++ }
++=20
+  static void emit_xy_fast_copy(struct xe_gt *gt, struct xe_bb *bb, u64 src=
+_ofs,
+  			      u64 dst_ofs, unsigned int size,
+  			      unsigned int pitch)
+@@@ -735,6 -751,7 +751,7 @@@
+  	struct xe_device *xe =3D gt_to_xe(gt);
+  	u32 mocs =3D 0;
+  	u32 tile_y =3D 0;
++ 	u32 len;
+ =20
+  	xe_gt_assert(gt, !(pitch & 3));
+  	xe_gt_assert(gt, size / pitch <=3D S16_MAX);
+@@@ -747,7 -764,8 +764,8 @@@
+  	if (GRAPHICS_VERx100(xe) >=3D 1250)
+  		tile_y =3D XY_FAST_COPY_BLT_D1_SRC_TILE4 | XY_FAST_COPY_BLT_D1_DST_TILE=
+4;
+ =20
+- 	bb->cs[bb->len++] =3D XY_FAST_COPY_BLT_CMD | (10 - 2);
++ 	len =3D blt_fast_copy_cmd_len(xe);
++ 	bb->cs[bb->len++] =3D XY_FAST_COPY_BLT_CMD | (len - 2);
+  	bb->cs[bb->len++] =3D XY_FAST_COPY_BLT_DEPTH_32 | pitch | tile_y | mocs;
+  	bb->cs[bb->len++] =3D 0;
+  	bb->cs[bb->len++] =3D (size / pitch) << 16 | pitch / 4;
+@@@ -764,6 -782,7 +782,7 @@@ static void emit_mem_copy(struct xe_gt=20
+  			  u64 dst_ofs, unsigned int size, unsigned int pitch)
+  {
+  	u32 mode, copy_type, width;
++ 	u32 len;
+ =20
+  	xe_gt_assert(gt, IS_ALIGNED(size, pitch));
+  	xe_gt_assert(gt, pitch <=3D U16_MAX);
+@@@ -789,7 -808,9 +808,9 @@@
+ =20
+  	xe_gt_assert(gt, width <=3D U16_MAX);
+ =20
+- 	bb->cs[bb->len++] =3D MEM_COPY_CMD | mode | copy_type;
++ 	len =3D blt_mem_copy_cmd_len(gt_to_xe(gt));
++=20
++ 	bb->cs[bb->len++] =3D MEM_COPY_CMD | mode | copy_type | (len - 2);
+  	bb->cs[bb->len++] =3D width - 1;
+  	bb->cs[bb->len++] =3D size / pitch - 1; /* ignored by hw for page-copy/l=
+inear above */
+  	bb->cs[bb->len++] =3D pitch - 1;
+@@@ -966,7 -987,7 +987,7 @@@ static struct dma_fence *__xe_migrate_c
+  		}
+ =20
+  		/* Add copy commands size here */
+- 		batch_size +=3D ((copy_only_ccs) ? 0 : EMIT_COPY_DW) +
++ 		batch_size +=3D ((copy_only_ccs) ? 0 : emit_copy_cmd_len(xe)) +
+  			((needs_ccs_emit ? EMIT_COPY_CCS_DW : 0));
+ =20
+  		bb =3D xe_bb_new(gt, batch_size, usm);
+@@@ -1405,7 -1426,7 +1426,7 @@@ struct dma_fence *xe_migrate_vram_copy_
+ =20
+  		batch_size +=3D pte_update_size(m, 0, sysmem, &sysmem_it, &vram_L0, &sy=
+smem_L0_ofs,
+  					      &sysmem_L0_pt, 0, avail_pts, avail_pts);
+- 		batch_size +=3D EMIT_COPY_DW;
++ 		batch_size +=3D emit_copy_cmd_len(xe);
+ =20
+  		bb =3D xe_bb_new(gt, batch_size, usm);
+  		if (IS_ERR(bb)) {
+@@@ -1460,12 -1481,17 +1481,17 @@@
+  	return fence;
+  }
+ =20
++ static u32 blt_mem_set_cmd_len(struct xe_device *xe)
++ {
++ 	return 7;
++ }
++=20
+  static void emit_clear_link_copy(struct xe_gt *gt, struct xe_bb *bb, u64 =
+src_ofs,
+  				 u32 size, u32 pitch)
+  {
+  	struct xe_device *xe =3D gt_to_xe(gt);
+  	u32 *cs =3D bb->cs + bb->len;
+- 	u32 len =3D PVC_MEM_SET_CMD_LEN_DW;
++ 	u32 len =3D blt_mem_set_cmd_len(xe);
+ =20
+  	*cs++ =3D PVC_MEM_SET_CMD | PVC_MEM_SET_MATRIX | (len - 2);
+  	*cs++ =3D pitch - 1;
+@@@ -1483,15 -1509,21 +1509,21 @@@
+  	bb->len +=3D len;
+  }
+ =20
++ static u32 blt_fast_color_cmd_len(struct xe_device *xe)
++ {
++ 	if (GRAPHICS_VERx100(xe) >=3D 1250)
++ 		return 16;
++ 	else
++ 		return 11;
++ }
++=20
+  static void emit_clear_main_copy(struct xe_gt *gt, struct xe_bb *bb,
+  				 u64 src_ofs, u32 size, u32 pitch, bool is_vram)
+  {
+  	struct xe_device *xe =3D gt_to_xe(gt);
+  	u32 *cs =3D bb->cs + bb->len;
+- 	u32 len =3D XY_FAST_COLOR_BLT_DW;
++ 	u32 len =3D blt_fast_color_cmd_len(xe);
+ =20
+- 	if (GRAPHICS_VERx100(xe) < 1250)
+- 		len =3D 11;
+ =20
+  	*cs++ =3D XY_FAST_COLOR_BLT_CMD | XY_FAST_COLOR_BLT_DEPTH_32 |
+  		(len - 2);
+@@@ -1526,10 -1558,12 +1558,12 @@@
+ =20
+  static u32 emit_clear_cmd_len(struct xe_gt *gt)
+  {
++ 	struct xe_device *xe =3D gt_to_xe(gt);
++=20
+  	if (gt->info.has_xe2_blt_instructions)
+- 		return PVC_MEM_SET_CMD_LEN_DW;
++ 		return blt_mem_set_cmd_len(xe);
+  	else
+- 		return XY_FAST_COLOR_BLT_DW;
++ 		return blt_fast_color_cmd_len(xe);
+  }
+ =20
+  static void emit_clear(struct xe_gt *gt, struct xe_bb *bb, u64 src_ofs,
+@@@ -1862,7 -1896,7 +1896,7 @@@ __xe_migrate_update_pgtables(struct xe_
+ =20
+  	/* For sysmem PTE's, need to map them in our hole.. */
+  	if (!IS_DGFX(xe)) {
+- 		u16 pat_index =3D xe->pat.idx[XE_CACHE_WB];
++ 		u16 pat_index =3D xe_cache_pat_idx(xe, XE_CACHE_WB);
+  		u32 ptes, ofs;
+ =20
+  		ppgtt_ofs =3D NUM_KERNEL_PDE - 1;
+@@@ -2084,7 -2118,7 +2118,7 @@@ static void build_pt_update_batch_sram(
+  				       struct drm_pagemap_addr *sram_addr,
+  				       u32 size, int level)
+  {
+- 	u16 pat_index =3D tile_to_xe(m->tile)->pat.idx[XE_CACHE_WB];
++ 	u16 pat_index =3D xe_cache_pat_idx(tile_to_xe(m->tile), XE_CACHE_WB);
+  	u64 gpu_page_size =3D 0x1ull << xe_pt_shift(level);
+  	u32 ptes;
+  	int i =3D 0;
+@@@ -2202,7 -2236,7 +2236,7 @@@ static struct dma_fence *xe_migrate_vra
+  	xe_assert(xe, npages * PAGE_SIZE <=3D MAX_PREEMPTDISABLE_TRANSFER);
+ =20
+  	batch_size +=3D pte_update_cmd_size(npages << PAGE_SHIFT);
+- 	batch_size +=3D EMIT_COPY_DW;
++ 	batch_size +=3D emit_copy_cmd_len(xe);
+ =20
+  	bb =3D xe_bb_new(gt, batch_size, use_usm_batch);
+  	if (IS_ERR(bb)) {
+
+--pRcJvvGffeQd5RuQ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoLCnkACgkQJNaLcl1U
+h9AJ+wf8DmVdit04jm4d9XEdTC6OBxhQg0o6lmV3yBYyaOrHAcVhKqaZSWYl49w9
+Q5I77EE/gtYPtZn8d7E4tlHK8nU/Z4CdzwENKEpBu9WsRdaKGNfpyiT+oFD3b4DU
+1zN5C7mDEYF0dnLfGAASi6XQCvbVzCAiysXiGOArN5rK9oMoU9MauIoI72+/8nmL
+FZhxABPWH8HfphKUEbbeObjJiOeZamS1Rn/oMxx6M62EoBeU+p+fVINN3uP+rdI/
+Q5Jgc4baR/yNzXNIjc9DCFXvm8VHfalMrMhPFly4I9sAQhNLqnJt3RZqgcixO5bE
+ZT9DKUlRamkt6advPQJ0QX52NGmQwA==
+=OBFN
+-----END PGP SIGNATURE-----
+
+--pRcJvvGffeQd5RuQ--
