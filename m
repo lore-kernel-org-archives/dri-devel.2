@@ -4,90 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83841CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 06:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE8D2CD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:10:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0FF910E5B3;
-	Mon, 18 May 2026 06:45:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2510D10E696;
+	Mon, 18 May 2026 07:10:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YO9wDGjw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EB6Ew+V0";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6999D10E5B3
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 06:45:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779086722;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
- bh=lb4D9I8LCWFY3eDV+BXkeQ/GVQwuSR0y7Ch7qCZIx6o=;
- b=YO9wDGjwVbHF+VLOoxgxGHUW1Gk0H80MvCABjh1WRY3nSVH4pz/JTHbamcolaTZuGg0Vo9
- 5OqB/wMxrKMRM2uLBEhALpafqceIfsZC3Urji9XXDiK0D1MV45IlrCv4hmJLdONLvs/Eea
- +LxA7KdmP5VAfsuKSydSKcinoiPsu3U=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-583-h5pfrFGGNLmeQH880MMnkQ-1; Mon, 18 May 2026 02:45:20 -0400
-X-MC-Unique: h5pfrFGGNLmeQH880MMnkQ-1
-X-Mimecast-MFC-AGG-ID: h5pfrFGGNLmeQH880MMnkQ_1779086719
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-367bb9caa54so1666983a91.2
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 23:45:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779086719; x=1779691519;
- h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
- :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=nIbbyJCYg8R6Fd/O6iKvRYV24FiZuro4jX0wJ+biCCI=;
- b=gpqS/qp8+MatBRdMLKZDRBdlIpYF+kp2+OoP9eF4I7vsW+shhH/zrl9lGrihdKUgwF
- 3ydTaLfPa17OKPmy4Rp+J9cIcPm2Q056ynBxotNp7gRIIlNkF3oQkBRxipRNXEtGl8L7
- VATIHRaidrZTDNcKczdsgkqsvq+D6yUPV4AOAfqAhxpXYD4huSoq6JAOUNVBcd0ipOxJ
- sW8zfEOYkO3LQFEutNdLL7KbW+kxm/65EQYgYeEImqMvZNJXGyYFez6YDPvKOuJz8X/d
- AbSaR7IleWmWBWlo73YqTzPeDxsADeN8/EEwckhAPWJThlDPI6AojmxNJr80biyZFD5v
- +snA==
-X-Gm-Message-State: AOJu0Yzk7gsldLxg81Pmpry5/dL6FDDP0geRiKY/0OV9zX8+RCg++HUM
- nWMU99mUyvc4pVcyw/KobJsb5jiL98mYlCzVdJNhU7BEJqQuVVOPl21nxqsgyw/diokWRW3U4tV
- ZS0QTJD0BaA761u6+wobcLSgnASn4osodKv7+KpEdlmJCkUrEHp31QSC8sLIN1WBtl4HIyA==
-X-Gm-Gg: Acq92OFRTDrYfvmlPHOjDhluYNS8ZlVTDJc3KjIHhNvkRogh7R2w6fwnwXxNTPtQUcE
- xVuCcgyeHhG1K0CWmehJLc2jHZk6s/bACa0lVe3ybK9EFIugV0fGr2/ZD5+etDPKKheUYM9lu/s
- LRfMsvQ/w+TiNCE9QtUPdBRNf87hO/eEIUPfvTPJspnDBNz1JM/qqZMgf57aWCRCvRI+JYsvzuK
- AGmHGK4ZANAQkr7llPXaXs13hisnl49q/7Cze5MpkZMIvTfIA4gDftvzUefyFotw50CNBAJ5pdr
- Iumbnhswmn2hmoMMN/yJChqMcb6OGeAVMZ9bGE4dNVaFvM3XwMKl88lPM1NgqbxAp7lX0ZSAESO
- SafP2TCC/p6NHGTap+MgZ7SQ+PIJ8+b7lWrMpo18uVkpTnOqibE9FK0hhch0=
-X-Received: by 2002:a17:90b:57e4:b0:367:b819:2214 with SMTP id
- 98e67ed59e1d1-36951b82d4dmr14013359a91.13.1779086719376; 
- Sun, 17 May 2026 23:45:19 -0700 (PDT)
-X-Received: by 2002:a17:90b:57e4:b0:367:b819:2214 with SMTP id
- 98e67ed59e1d1-36951b82d4dmr14013324a91.13.1779086718859; 
- Sun, 17 May 2026 23:45:18 -0700 (PDT)
-Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3695a09e95esm3849670a91.9.2026.05.17.23.45.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2026 23:45:18 -0700 (PDT)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010069.outbound.protection.outlook.com [52.101.201.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2B710E696
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:10:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VLRGFsLBIZN/4/HaPCu6XbhgqCYVZoyMLwBJbt1rWXyzBp53fcEp+eg9MqPpso+EWrl+ECXwaj6Mv//6u9B2nQ4gsbnjcoipeHxWzANHtyAjuUvYpkplo/iycTCDyq0L1C/i9IaPcJmrbPfC+mSuaH3wTnZCxVYf1h6gGHyU4opW9v8mSDpn/vEm6h6hKBiVoSKlk9o1/OgzykdJ7RP9W3uyGeS/4oMqaUwqGaXcgZT8d+t8mE3yZv8SRF5bjT0S/XgX0sc5P55at09Z2mMg5Ep/HHxBQpnNoOYF16YS7XCZLW3gbO/1OCp3QZ0PrhDZ71hJDzzaOMVEHjcYOYaLRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hv/EuG1WPJeVlDUtwL9KLMZlTu4YMpUr+dBM8KhSnuE=;
+ b=j8sdW3S0FCBZkwbdYHQFKYlu5IQoZzzyUiIPIjHIzwtAS/p62BV6ANWdMhGkOl0TGa1U6z93fhuTIEgOtubKY+giBh96Woq4XAjBZ0cvR2qcD6yWXE9F+HcrnirG7UUwJTcZBX5Apz7W54C6NvFa+0DteiM4OkD5gm38NcxX1q5pL0W2S9awOqCJBZS7TuhGNmf0Qg3g1xbP64nIuPIqkH72iamOBGPso/atbA3srM9Z8aodmNU1WcN5Etv7ghahx6LMdk1xkOajtdANF7Fz/CZ6xP8o6fzsABIbvs3cWKB/Pw1tuZE/xPktYuGFQ2NA7bMFPCo65FzXkaELQ/cYHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hv/EuG1WPJeVlDUtwL9KLMZlTu4YMpUr+dBM8KhSnuE=;
+ b=EB6Ew+V0zH7WldTsxxmjygyABaqWC16WaGuFELuCjJGkkFLaWE75D4yY00I9As7J0JufzSEicTDtqbmNqp7N7n5HZLGBxXW0PziS//kQEDyqxjFWyVSDqdnnsTCECOuxRSM6fS0cwXAMxmYtAS8G1wL14CnbfALEaNoGuHoVICE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH8PR12MB6748.namprd12.prod.outlook.com (2603:10b6:510:1c4::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
+ 2026 07:10:31 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 07:10:31 +0000
+Message-ID: <03a57011-e734-4a74-aef2-e3a6016e15fc@amd.com>
+Date: Mon, 18 May 2026 09:10:23 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] dma-resv: Define guards for context-less dma_resv
+ locks
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20260513-panthor-guard-refactor-v1-0-f2d8c15a97ce@collabora.com>
+ <20260513-panthor-guard-refactor-v1-2-f2d8c15a97ce@collabora.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260513-panthor-guard-refactor-v1-2-f2d8c15a97ce@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0177.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
-To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
- "David Airlie" <airlied@redhat.com>, "Gerd Hoffmann" <kraxel@redhat.com>, 
- "Gurchetan Singh" <gurchetansingh@chromium.org>, 
- "Chia-I Wu" <olvaffe@gmail.com>, 
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, 
- "Maxime Ripard" <mripard@kernel.org>, 
- "Thomas Zimmermann" <tzimmermann@suse.de>, 
- "Simona Vetter" <simona@ffwll.ch>
-In-Reply-To: <8a986c52-964f-42a5-b063-fbe2b242ca36@collabora.com>
-Cc: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/virtio: add timeout to virtqueue wait to avoid hung
- task
-Message-ID: <18b095f06dafb7a0.57d57ad28d13539f.2240916b4a5459e2@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Date: Mon, 18 May 2026 06:45:12 +0000
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: bnWgwQfTFnwbMR9UK3AsH07-IXLm7ldt8auWsaKF2Mg_1779086719
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6748:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ba60c40-7978-48b1-cb81-08deb4ac8c3a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|1800799024|56012099003|22082099003|18002099003|4143699003|11063799003;
+X-Microsoft-Antispam-Message-Info: qac2ir2EyddERn8gKXUsDBz3eqff9+Q14/dwuLmc8NRhtssR7MYOcttd9yPzXDArWi9g9XcV5oTjtdpxUohRjMWc4bs1Zuj/xdohStLrhGDg+U8H0eoPctdDh0yPLUu0KN6LX4c511epuw63Iipu06/naUOtuQw7201TWvd0B8MNpe1SDoOv0mBvg14daBB7oNqbh9dc+TUjSd1f2O925ZsBFt8e0NwXtflW07nuhznMignNJhGY9v1t07vxrBp48Ry5ogiWOuoL/uEZlNAvh1WFWKnnhSwxzc3/x3pX0/Ri/u4RDFV6N7b6N4iUzWZKrzsxK9WcUM05EC/Z7UofyQVNDqZUGuAfg6qAN2Qb+s8AxVa5aExEAWpHCvO46/Nvb8IZn7J6KnA+aFi7lollo7m4XAhAcQIZ1n+OdM0woOxUaZkV8PhPZnEsBI7lOWtNhgMwbq9ZraPKjiVsrMyAmyKNPCOXvQ4ApDvq0hIordw6Un00v8hEaKJ1GyphTo5Iv7s6PMBqRIXO4qlS5au39lEBxW0WHUi5Q6e6nMteqCN3Ltgc4Cs+uOEmRIyCvwG7n0pvYU0hf6yHE0afce6xifl9w29Q7ggH+XWLjtFaqPEeZqYD9pjKQ8rQkVVYhnue5fj6Gp51fgaSzIr2iftTsNoSr6CCtZje/EMwkBpYWFMh1D7we5oTlpNuH3pM44Gs
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003)(4143699003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzVpQkpHSjhiNlJzRnJobEJ1MGs3azMweGhneXFLcmJ5OXNUdnVCTGYwc1pL?=
+ =?utf-8?B?QVpyWi9ITFM3dDUzTTFPOEhOUldZaTBtMVBqL24zbExyeVEyUXJDbUtESWE1?=
+ =?utf-8?B?QnlqL2dMNHRJdXZmVERuOWZkU2xaR2NpQStVdVVxRnBBazZ6cXRZa0E3WmhJ?=
+ =?utf-8?B?RjlaVWk0S0x4d1c3L0ZGTHVuWFpScTVMalZrWVdmOFVHUzBJZkt5WElZTGVC?=
+ =?utf-8?B?K1FMTTh3ZjJGZ0JWZW1ib1BUN3hEWGt3VGxteFdtVDJEbFpvMFdVdTBjbmY2?=
+ =?utf-8?B?dWNSQ2hyeDRIRTFIeDVOUG5OSDJVKzJXWE1NYS9ycFpZOXdyd291bm9XNXB5?=
+ =?utf-8?B?aC9oZG04dnJsTTVuODROMWZGZ2RlcG5EMDA5MDU0TnZRT2EzRWZmd09UWE1r?=
+ =?utf-8?B?VGEvQkFydHA5UFNhZm5ZelMydTBvSUgwK3VoN29tcEF3eVNodXFZWkxLZGRl?=
+ =?utf-8?B?YkNBNUNseTNjU3VEdzB0VFdsMmhPWWxua010MWNSM2FqK0g0N0xlajhXMW5a?=
+ =?utf-8?B?SDZNSUxyaUp0b09JbFJSUTBjYlkzMHNnK3lUVzJJT0hOcEs4T1lvWTIrTlRP?=
+ =?utf-8?B?aXpaK1ZnV00ydlA0c0dFUCs3REQ2NzdjbHZ3WldtK0dZdm1OUU1WdnRnbnpL?=
+ =?utf-8?B?cEZPR1A1ODlaaE5iY24wNStZRWlVMWZBOWx6VmRZUUhxUHN2cHdTZ2E1ZU1F?=
+ =?utf-8?B?T1RRNDBLVW5NbVNWRDFtb3RqQjZKRSt2N1pOTzcwOTJTOTVacmEyTC9vdXNp?=
+ =?utf-8?B?cU9VSUhSRVpHL3Q0MjZBWEY4NkZKL2NZK2x5UEJISDJTK3kyclBkQnRxbHRD?=
+ =?utf-8?B?T0FiV0Q3Q2FjT2QyQ2pGZDVOU3lISEt5U0J1NzdZSEtNT1JxUFBlam54Qkxz?=
+ =?utf-8?B?UmhXZ1kxRERHUEhEdUxFaktVVW43NHlnRE1zOWVscnVUNjg2ek83SWMxWDl5?=
+ =?utf-8?B?cm9PdUxZaEJBbWZtM2g2Zk4wTWNCcklmM1JLd09WSkdQcE1BZDdUOW5lNmxl?=
+ =?utf-8?B?cXFFUGlvc09PS213MTE1Ymc4Unk4MDBzYXM2ZzMxa3Y4NGwza2hNa1FCN25S?=
+ =?utf-8?B?bVNPRGV4Rk53cXI0NjBCSWVBM2ZJaEhJR1ltVm03MTkyUUNQVUQrZUMvYm56?=
+ =?utf-8?B?N3o5eTVibVhaVm1MdDU3Yk55d3NQOHNCTmJCY0I4NVlibWR3ZFhGbVYxOGE0?=
+ =?utf-8?B?TnNzaEtid1JjaVA4d2RVRU1razMvMTdGMzB6L0NEVGlpVHdaRmhyYmZsTG5S?=
+ =?utf-8?B?RWFOTUNCN2JzTDdjdzNuaXRKaWlxSjhuVG1rcm9IZEVrNG15bXJ2Yk5ESnVX?=
+ =?utf-8?B?Y0dleVZzTnZWZUdSY0txMjVlQ2tHQ2JxT0R3dXFIeUMrdGNPUjJjRDY0Q3dW?=
+ =?utf-8?B?dDZocW94WW1WTHhNUkZBNHZxc2wva2pudHZjK25GcUxpck5GUmxVZWRMUDVP?=
+ =?utf-8?B?K0h1Yit0UHBEdXQ4WDVDc2NBRlQ1MU9PQjRhS0ZoYkVySCtrSVVKUFJ6dmtw?=
+ =?utf-8?B?QUpMSU1YWG5FMzRpWll0b3c0bUFYd01YV3prMndNcDBhbVFaY2lSNG1OLzhD?=
+ =?utf-8?B?ZnBaMm9zSFBuVnpVZ3dEZ2hMQjEyOE5iaE5LNDlIMjBSdzhPTjZrdkVhR25H?=
+ =?utf-8?B?K3RMUFY0SU9rOWF2bWM2YzdxSXl2b05Lbk9UOURZSG9oclUrTUNmTHVydUJy?=
+ =?utf-8?B?R1B1bklWYjZqUCtQZXI5dFIzMW55Y0R0WjZsbVZCdFVsZWlLcWdCRUFaZlZ1?=
+ =?utf-8?B?WkZEQVY4WkhkUnVHVEpxbDJrSGFnMzErZTd0T240b2d0V3laeENuOW1TL0x4?=
+ =?utf-8?B?anFla2FsdjRhUjlGMzhEdzdUbUF6bjYyb09SUGRKQnJYK2FoOEpuRE9pMWRG?=
+ =?utf-8?B?bXRzRE9RZm9MVVNBTm9XOWJzanlHTTFQZ0FNb1FsdWpDc3ZGNCttMFBKd3Mw?=
+ =?utf-8?B?Z25RTVlqQk04L3lpVFl3RmVaTDR2eCtyeVZhYVcyTTZzZkk5Q2V2RFhtT2Qy?=
+ =?utf-8?B?N0pKQXZYeS9lRXg5Rk5QRzdBUXZtZXcxTkN1aEJMV2pydFU2MlJFbldWMWx1?=
+ =?utf-8?B?R1RQcVNIcTYwWTdLUVlmS0hBcE1UajdOaFpPOHp0eTU1RE5sMUJjRWtxY3pj?=
+ =?utf-8?B?YThNZ1prVlNGdHNDc1FQN3FhRUhVOUdEQlk0VVdDL3JLUHZ5VGcvN21JOTMy?=
+ =?utf-8?B?V3NwbWVoZjFibllWV0ZWSXFNM3FMcGdiSDJlQ0YzS1VvcDZWMTU4dm1GSU1x?=
+ =?utf-8?B?YUxhN2Y5SmN4am1XVjlGdVJaeTlzZ3E1c1lxOUg3UjVZSHF1Z0Y4a1hxNVo3?=
+ =?utf-8?Q?oTETOfBrIoheuiKiiM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ba60c40-7978-48b1-cb81-08deb4ac8c3a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 07:10:31.4727 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SAb4m3kIqYGTH6xYIQkLgOME/6IhxbOzAPcUf75hbpfYjZ6A/l5nyrx1zO1CZoig
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6748
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,76 +142,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 5/13/26 18:58, Boris Brezillon wrote:
+> When used without a context, dma_resv are no different from regular
+> locks. Define guards so we can use the guard-syntactic sugars for
+> explicit/implicit scoped locks.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Hi Dmitry,
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Thank you for your review.
+How do you want to upstream it? My preference would be drm-misc-next, but I think I can live with a panthor specific branch as well.
 
-On 14/05/2026 00:54, Dmitry Osipenko wrote:
-> On 5/14/26 00:40, Dmitry Osipenko wrote:
->> Hi,
->>=20
->> On 5/12/26 11:59, Ryosuke Yasuoka wrote:
->>> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
->>> wait_event() without timeout when waiting for virtqueue space. If the
->>> host device stops processing commands, these waits block indefinitely.
->>> Since callers may hold DRM locks, this can make the entire system
->>> unresponsive.
->>>
->>> Replace wait_event() with wait_event_timeout() using a 5-second timeout=
-,
->>> consistent with the existing timeout pattern in the driver. On timeout,
->>> clean up and return -ENODEV, following the same error path as
->>> drm_dev_enter() failure.
->>>
->>> Reported-by: syzbot+d6dd6f86d3aaf7eebe7406e45c1c6e549453f224@syzkaller.=
-appspotmail.com
->>> Closes: https://syzkaller.appspot.com/bug?id=3Dd6dd6f86d3aaf7eebe7406e4=
-5c1c6e549453f224
->>> Reported-by: syzbot+908bd910da5dd79b88de4cf7baf376cc873a922e@syzkaller.=
-appspotmail.com
->>> Closes: https://syzkaller.appspot.com/bug?id=3D908bd910da5dd79b88de4cf7=
-baf376cc873a922e
->>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
->>> ---
->>>  drivers/gpu/drm/virtio/virtgpu_vq.c | 20 ++++++++++++++++++--
->>>  1 file changed, 18 insertions(+), 2 deletions(-)
->>=20
->> If host stops processing commands, this is a problem on host side. Isn't=
- it?
+Regards,
+Christian.
 
-Yes, it is. But the guest has no way to recover from this situation on
-its own. The wait_event{,_timeout}() is inside the device critical
-section between drm_dev_enter/exit(). Removing the device via sysfs and
-graceful shutdown call drm_dev_unplug(), which is blocked until the
-critical section completes, so they cannot proceed either. Also, IIUC
-the virtio-gpu device cannot be hot-unplugged from the host side. The
-only option left is a forced reboot.
-
-> It may be acceptable to have wait_event_timeout() in a loop, printing
-> warnings about unresponsive host.
-
-I considered this approach, but it does not solve the recovery problem
-described above. The guest would still be stuck in the loop with no way
-to remove the device or shut down gracefully.
-
-> Don't think we can assume that 5 seconds is enough to say that host is
-> busted, unless spec says so.
->=20
-> There could be a driver module parameter, specifying the timeoout. This
-> will be acceptable as user takes responsibility for the special timeout
-> behaviour.
-
-Agreed. In v2, the default behavior is preserved (wait_event, wait
-indefinitely). A new 'timeout' module parameter (in seconds) lets the
-user specify when to give up. When set to a non-zero value, the driver
-returns -ENODEV after the specified duration with a warning message.
-
-Also, I'm considering proposing a host response timeout in the
-virtio-gpu specificaiton. If a spec-defined timeout is accepted in the
-future, the driver could use it as the default instead of relying on the
-module parameter.
-
-Best regards,
-Ryosuke
+> ---
+>  include/linux/dma-resv.h | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+> index c5ab6fd9ebe8..e559b1811ca3 100644
+> --- a/include/linux/dma-resv.h
+> +++ b/include/linux/dma-resv.h
+> @@ -40,6 +40,7 @@
+>  #define _LINUX_RESERVATION_H
+>  
+>  #include <linux/ww_mutex.h>
+> +#include <linux/cleanup.h>
+>  #include <linux/dma-fence.h>
+>  #include <linux/slab.h>
+>  #include <linux/seqlock.h>
+> @@ -484,4 +485,8 @@ void dma_resv_set_deadline(struct dma_resv *obj, enum dma_resv_usage usage,
+>  bool dma_resv_test_signaled(struct dma_resv *obj, enum dma_resv_usage usage);
+>  void dma_resv_describe(struct dma_resv *obj, struct seq_file *seq);
+>  
+> +DEFINE_GUARD(dma_resv, struct dma_resv *, dma_resv_lock(_T, NULL), dma_resv_unlock(_T));
+> +DEFINE_GUARD_COND(dma_resv, _intr, dma_resv_lock_interruptible(_T, NULL), !_RET);
+> +DEFINE_GUARD_COND(dma_resv, _try, dma_resv_trylock(_T));
+> +
+>  #endif /* _LINUX_RESERVATION_H */
+> 
 
