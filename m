@@ -4,102 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 321D4CD4F52
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 12:03:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C75CACD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 12:05:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87A6B10E328;
-	Mon, 18 May 2026 12:03:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EB9D10E7D6;
+	Mon, 18 May 2026 12:05:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iNjPLRGR";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="laaGXP/g";
 	dkim-atps=neutral
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
- [74.125.224.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D66510E328
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 12:03:08 +0000 (UTC)
-Received: by mail-yx1-f49.google.com with SMTP id
- 956f58d0204a3-65c3ea2ebf7so2495899d50.0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 05:03:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779105787; cv=none;
- d=google.com; s=arc-20240605;
- b=lWEWhvP7d4/8QN2osjmhSJATABB0mVzVtSpvyX4bw79WchQjHz6KrqG5dFWDJyq5+M
- Jz8WPoy4ZAOF0AUfgQg+OZ3c5sp+2clVSwIb9RaKWOSo2ii4hRD2f4ZmRIQqd3m7rDi+
- Q8KzHKhEbfXMOYhxWMy4xt+fg92gzobhv+Zp1GIirplDhPRfTeCMvuxOQwImus4JFXr0
- gDdzcTQ5/tPJZ5POYWcUiFIayFb57as8YmwCyhaLpaB+KCXZl9ruCDvgEzMuOptvXfDO
- TaOsMfiSZQxA4ruaCRvqGtahTkL+WVc451FwKsHAIFkqC184raUmKJhis5Vckcev6QaH
- ztXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=nQfhxPsXqrqiZeeyVw9wkJXgorhextrPmIU5IhGc6HM=;
- fh=RBQwKGrCLYxs9BbZm4d24GYmIRMNtdglDOLost0cmmA=;
- b=TJlCzFJ7dFtZber5sXkQfvnd015ZHs6Clb6ZnWnBunBl0Bt6ghsFMdCOzWCUwD0kZg
- 5GJ2JqBxDH4o6mAm0iSN4uWeclcnZE1Mh0qTN9+XZT0vjKBvdQaY8rK2FEUzuVp1pEmV
- l2VEe2CoXFVcK2Vf7o3VzUyKISU6nH23eiptUTOVMICb4cxppQpTUDV2f5B912BW+Szd
- jsjPpPojPSDfYR6j3bWcGoKUYnqU+7mo69wO/S4ASrlPtb582lyM3MRsumSS9ArqkGRK
- zwE9E8ticpkf0cfLKiDjuY/YUlbWlrtrEg6gf5dZCwUR8PJKCz3WBWCEIe3bPSsUFJNR
- MSew==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779105787; x=1779710587; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nQfhxPsXqrqiZeeyVw9wkJXgorhextrPmIU5IhGc6HM=;
- b=iNjPLRGRejlsQNAF2k1aierMo2pLPZPIlQrccTGliPQJDKfH9oX5Q8pYStJGWDSHHl
- lF9+c9RK1rNmX4PvcBTC7tvLTOWlHg/REoo/ngAMUCk4rZp16LTuDeHXmqzz5PTqTREq
- R7yanW+kmuI6tBOceASaYstE/46KpPKJKK+YgTIjBhKGod73M7Pe4glfp9jcpq6ADTq/
- Tny5n/6vI2DuNig71Pd9lTpPDaEA9DMxumMvcu9SUMwQsBS/jz23VTBSZaLjxaO6F52s
- PZDn48zhhc39wF0lbGTlSXw/DsI4QIUultz39u+NBZ1uuw5eM6IEAHQ3VmbtzkK05bT3
- q89g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779105787; x=1779710587;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=nQfhxPsXqrqiZeeyVw9wkJXgorhextrPmIU5IhGc6HM=;
- b=byGQTpDgYgHJGOETiMwI+JKU7LgIzJkp+yozzq/SXprh5iniTpggRrUsaFxMUJ2GKx
- kjuTuSHVJ7Zzrj8fNVmgtHgjFyoPmmA2iOKvDQixscQt2T7xRHa0nNGCHiX9TtX0L12d
- VD+Gn/M2Tx3FrvH0r/n9yPdEPLekdn/H3LHVv3UyWx4hXBpW9n0lRiMGMcnfBKFfqte8
- +EvEdlDIeuwFGHo/NYy7jFodYEqvck7GigUabyUYkNfm45rPxSTCujksZ8aw7IF61c6r
- Ze2heQWZ+DsNFzq1YmVZU10qFkeQPuteUUZ0xc7euu4ynO6IGJiYG1bMQe2bkHKqmbjF
- xnMA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9OJKbwjz3AZKS0/15UEjG4teuMEGZjaY3PfoO67SGDwu4d+IixvgGo0Ynu2RouAWIZE/MlvrM5+lo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzgztNESM1OKtX/7ttFaMKfvAeQbrOKFPdRMvYuhkfhal1YSvGA
- fEv9c1A6qQVX+uM+7uN+A1mimQM3HK4xBpB9C4VOUvwB92CTm4PuWr1Ucs2YiYGnXUcHk+myhhW
- dIC5LqKt02NR2pmG7wAiNzCY5AceI5Sg=
-X-Gm-Gg: Acq92OHVRK2TjAvi8OhF/0KHX5tr2gfSchB7tY7tJW77Xznyc5vqGbtlRp8V+ZBv7a/
- 68+qFe+aPm+ET5OJikSu+yfbRF5Dck44PSKtJkNdccVypcM4d0a1Kvvlp2YTvCdOthNYtYOXDzx
- 051RHqyXJUR0DFgo/3unRcDEMeCFYLyEb5l0svTYK20gGfyMZetIKgS3Q3x0hdboTuhaskzd474
- MO5D1u0gBSv66KdWVLuZaqEbNE0Fy9rSl4DeMEt1QM2RT4DqesyBvo4cmu5V+/0ok0py/zbn+kx
- pvMpvaFcmK95B6CEOYlwRVS1Qjh3MDu2KZOzktQPe54pf58E
-X-Received: by 2002:a05:690e:d4c:b0:64e:d622:9d1a with SMTP id
- 956f58d0204a3-65e22663ef0mr13926928d50.4.1779105787361; Mon, 18 May 2026
- 05:03:07 -0700 (PDT)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013031.outbound.protection.outlook.com
+ [40.107.162.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 669D410E7D6
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 12:05:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wktTlSVqfZLQPEkwGe/ELOBrnGrpL8a4YXpjRLSN8FooI0mZ5RMDrB+BkWk/WawQYdbxCspnmAO6BMQAs0fD04cbyrbBzhScr2m5NjLINsh1aOQmGgc0S0Xxv1Gc5aJg97fbjp/S8uKNfHb07xSKuQdgfpD+lmhHKdclU9vjIIi8B8EwXBegJTIVpImNxpv0gx3cU+TMwiPu7Q7UJLz4PRTRXdQpjXWOtICuH4GFzpWfFR/pWMgRS5Z9NxA+TniEDwx6y4xGu0mZbDWa9IuFejJry0gvCpaCO+nSN0SGJioJQxF5CCxF9bpWEbffghKYQN5q5/Zxi9oh+zNkPWfwcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pDxuOpfIOYT72bPJ15mpmilBs/RaSXzitxNg0KonYmo=;
+ b=gVy2uDqfk5u3F4qNLaAYPW0zI+eXIGjJOlaZuuvrGOAvBiaCNp1BM6PmRHSyQ0uxlJUv+hTx6hXSfpSdvnjUYGO812TfS4CGhp4zW5KQU5Q2Xa+1293mO51FKwznhurCEDtMWJrnOvuGKiiM0VFDY5mIPGzoFjScmLtLBIjpsi02kVCOW5n+UrZpQh3boH58sXiuaXRaUjPGh0H/KSHy4U2/EmZe/P9hMsJO982nHYbnmnZpG9e1VOpKEGq6o2pGLQDYskuz18BMH4mkWzQr3iQU/Jz5XXoAxVcnEcY4NEFTeNwy3mYQpKejVMDeZ9jEaDnTqdcNzxIw6CerjV1JGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pDxuOpfIOYT72bPJ15mpmilBs/RaSXzitxNg0KonYmo=;
+ b=laaGXP/gZTBR3EjK3KfOgKwzUpMIg8FmV6LpV1GwuhinVpne+5L1YK+3rufgvFT98n63npNFounrnEHcxR3F2keVAEXDQZDIl0PEDFOPDY9NsCvUeveSITMPDUwyK0AMkyN5WXlCz0hZ8b/sW6PkYDXi8jo2d36D78lVXHcpl6upD+BnWfko8M0RCMiMVeAdf8Ls/2zWrbcmkN78niPhO2uhfVmaIKeaI8kS5tU1RGsfBMrYLJSWEnRjmEclqdI64jWt9zmYB7h2EQigjTCjPiKRgtUsw7xrokKWVXv3XYHAIoxlEXwVb2E4a39RkJCiEOJA5ePQqztl7rq799KsAQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV1PR04MB9135.eurprd04.prod.outlook.com (2603:10a6:150:26::19)
+ by DU0PR04MB9225.eurprd04.prod.outlook.com (2603:10a6:10:350::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
+ 2026 12:05:41 +0000
+Received: from GV1PR04MB9135.eurprd04.prod.outlook.com
+ ([fe80::3826:2706:1e81:c9e2]) by GV1PR04MB9135.eurprd04.prod.outlook.com
+ ([fe80::3826:2706:1e81:c9e2%5]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 12:05:41 +0000
+Date: Mon, 18 May 2026 15:05:37 +0300
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Yicong Hui <yiconghui@gmail.com>
+Cc: l.stach@pengutronix.de, maarten.lankhorst@linux.intel.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ skhan@linuxfoundation.org, me@brighamcampbell.com
+Subject: Re: [PATCH] drm/imx: Fix three kernel-doc warnings in dcss-scaler.c
+Message-ID: <zu7ancfarhze3lw27d7g4i6sk2z7hjv5frybile67jru4thml2@sfakblqlfsdv>
+References: <20260406180013.2442096-1-yiconghui@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260406180013.2442096-1-yiconghui@gmail.com>
+X-ClientProxiedBy: FR4P281CA0031.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c7::15) To GV1PR04MB9135.eurprd04.prod.outlook.com
+ (2603:10a6:150:26::19)
 MIME-Version: 1.0
-References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
- <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
-In-Reply-To: <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
-From: Julian Orth <ju.orth@gmail.com>
-Date: Mon, 18 May 2026 14:02:56 +0200
-X-Gm-Features: AVHnY4KJe2qI5pXNXCOzwBarOTRKtwJTNVIpdIJzUsAV6Iz4wL27sHKB6tNYDng
-Message-ID: <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
-Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
- wayland-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV1PR04MB9135:EE_|DU0PR04MB9225:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c94636f-4f90-4ceb-cbd3-08deb4d5c7f7
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|19092799006|1800799024|11063799003|56012099003|18002099003|22082099003|27256017;
+X-Microsoft-Antispam-Message-Info: Pt/LJODFSHjRk8iLQe5IEGzN8s3rtj5N2nT1ZpOLm4IgLnb+34PN48PAXojVGteL+8Nb/N6qQ9cmwO+uuFh77lqbD6wG6BGgTob1P1vpBM08+aIZwx25VUuzaXdSVgU1tnB1SMAFvtVGIJLuZc2Pf9kxJEiTFzswBP3jCmNmrGM2d9PUbEbZb2v0oDEx5wvyHbNoxBzlzWPyZYgsNl0oJ410fLUP47zW7BZN6+ZEsM7vg/TPLaqp9BkVs4+W7sqb9/3SufSLVNrgS+gn9heo3uz47Ghb24K8y+1wiU5UxXUOHoQ4xGwOfYPmaCSMDWdaCvWo0iNZT/4/XA1hc4DROiibYlAv1Lf4ZwYxELHdfbWqqgjTwpduGoj2zyM9qAnYFGiHp8NMhQjppPvco9GcDwlgErzFMs2Lq/f41EdyRa3inqW3W2Wi3GTstXW+QKo5jh7MSj3XLI0DsB39ZbW1Dp2C3cmB2xNAvR62u2g7dKI+OvN0HiWckl/gLqwKrDLeRp/D9REyEYd9X8EtfThrJG6UpyrCl4f2LpHN8u5W/gcgalgSsp6uN3t/PK8KbuDs/uG0bPmthxk5vepI7WM+WzkvatmTL5WihxWPXsqn8mDaZ30xec3hqg7WzCsV5rEVL86z3Wejze3l32+U7xZgh174YPS2/kBxpHYR804+TbUStkwgl0kXluLP1WtFgHQ8zVdhnB0D7t+ljjdw8dFEugcObHvm3sKWWIH6PSmeWGnZpLQ41DifRyuv5KB0Z3DE
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV1PR04MB9135.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(19092799006)(1800799024)(11063799003)(56012099003)(18002099003)(22082099003)(27256017);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jSiZ1qgQUwYO+uOUXH7VE3CE/nLmFjWQ2DaY3vDyjGssVfCF5AATK70f9ACJ?=
+ =?us-ascii?Q?yk0KtTK5Z7S2cUKDTWvBLxZK9mfGm7DhXlo24B//pEOk8LxK7KHp0qWKrZ7M?=
+ =?us-ascii?Q?0u8iorFY8ra5seo3eldNkcvNnrORB6YfG24RX4xIOttMW5wR26Fq17DIdu59?=
+ =?us-ascii?Q?T9JoGFf3Lg36c2oBxFnhbchA9BNRFlgljgxaLQXK4sDjWjdHKyy8vvD9Mjcg?=
+ =?us-ascii?Q?ioEYIO7D8n8lFd01KNFdPzGH/U15IxDkCbnvuEYTrynfFFza39gDKqTgfJxA?=
+ =?us-ascii?Q?XguJlI0Xe1X7I9VeKR4ByOJhq9ES3jN7gsKJYdzNuwb9t/JhjHmX5WTX+6qP?=
+ =?us-ascii?Q?wMCNr8FtNojbd3+gquUaV/QII8r1IRWpZKz0+/iBf1uYCnB1TmjUlkyTz0lM?=
+ =?us-ascii?Q?qEXelHLVZEZx9biBjB14wP3l0RL39me2Zr9KfihyaFbYn6zJlAMyWrO22SdU?=
+ =?us-ascii?Q?Wm8BXZUOoW85LdeOtYVsBA4v9zFpMiYB8Kb/waLrdguaW75GRM8qtBy2u2y6?=
+ =?us-ascii?Q?MqpRh4XukJaCkMM+V4VBaMdYlRv2hAEfCpo1sUo+a2NPGucXPP8++tU0r+1c?=
+ =?us-ascii?Q?P0Nz93YgpdgF1/5ko6qWFKcxH900aaTxiFt4ncUdpmi63077E/MU5Mzo8aj+?=
+ =?us-ascii?Q?ee/GH9bjdozppEj+iksCQBOAdsde7s0BmdKbmq7X5r6uOcuNS2r7UNwyM6cM?=
+ =?us-ascii?Q?J8LZg7HFiO3UnbUFn9Pc5BBtMxBC09BaJ3k7EGaF8rHy+RUjfVJ4wvwU4Fn8?=
+ =?us-ascii?Q?NfXOsvRRqN9Eh4N1MO6TVY1BixpniM6HSHfzeKt/IJ9lPD1RKhvFxBRQol2S?=
+ =?us-ascii?Q?JG9fwKJG0T4pP+GtEFZUN3vJrf+HakiO94wAxOWSFSQvCKey5AVj3NmSdAcF?=
+ =?us-ascii?Q?+lGifG6r/2GMCDwhTla0zXFm61L4UnZVycsEcMqY3YSkdLpujtuNuDkI4ISi?=
+ =?us-ascii?Q?MumIz9mImdesV56xYGwUnlBqXAYUtso92v9LTNDyMHapOv/jeroJLRMnu0qr?=
+ =?us-ascii?Q?Bx7ROyWaYvZRDElxUptfE2zOSI1eJQGY5n9R0fhX6GLPtNTKREYZ+E5l612c?=
+ =?us-ascii?Q?g0JuPOE+z8GaY6fkctfLtr7WzNiIupstpbWQ/YaZiPVk3rY9u2ZiY1gH73TP?=
+ =?us-ascii?Q?gDO0xTUs0KWxNQnhNkcho1UGgBZtfuW7Hsq4eHxsZ0GR2xLRQqbzsBKkt7Uc?=
+ =?us-ascii?Q?ZTVneng2SfhnWImWkPHfCugG5LgLjYTX+4RZqufubg11tb07p/5oE0qn2A0e?=
+ =?us-ascii?Q?OwDKo4BaMELJmhTyd8JDduDYssRfa2KEynIygwELPzpTb2CRg/9AQHVQZyxV?=
+ =?us-ascii?Q?UhujTBCP5uJmkZRjnZPlbYIkm+6TFRoMRw6WPSEwpYKovibqOQ4PYuzTQeDd?=
+ =?us-ascii?Q?woqFXBStnPoYf2Ol/rPosk3ucn5ravhCNBZ9oT27YGCuzW+ou4xSk9+GaGcb?=
+ =?us-ascii?Q?Q6csxDjDIenVf+rOh+zgaajuXmdhvuOBPWzBexrz08OGlx9GV9PszxUrEtOv?=
+ =?us-ascii?Q?1R6aRoYkC5zktQrLrZ1vEe5l6M5QNb+oEmrhTAH/40xull4eRpAlntEpLn4w?=
+ =?us-ascii?Q?gtClCRafjhC1PgHqxzSux0sA4ALIpGDp+brRmAGviu911Fbxb4PcV25oeRsY?=
+ =?us-ascii?Q?zvI1gQbFW93spfVXWdnkgswFs7QHTNiNLYooIEzg4Gi5Weo2OmesecFkOjk8?=
+ =?us-ascii?Q?P7icHw6mIAr5jr45kC5MVqRanmKk4uTECV1zgx6/MPWhPtcn6Cgym9PahCe9?=
+ =?us-ascii?Q?ni0jnNpYHBB2aRCvhiz2ey5GO72+wnc=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c94636f-4f90-4ceb-cbd3-08deb4d5c7f7
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB9135.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 12:05:41.1703 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xfKT3IeXLo/08Y0oxIeq4Ok+XVopXTEMlQ32DO1XGdtQk146gp9TjkWHspmb5WxUUccIIepPCixmI92QsldqHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9225
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,110 +129,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2026 at 1:58=E2=80=AFPM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 5/16/26 13:06, Julian Orth wrote:
-> > This series adds a new device /dev/syncobj that can be used to create
-> > and manipulate DRM syncobjs. Previously, these operations required the
-> > use of a DRM device and the device needed to support the DRIVER_SYNCOBJ
-> > and DRIVER_SYNCOBJ_TIMELINE features.
-> >
-> > There are several issues with the existing API:
-> >
-> > - Syncobjs are the only explicit sync mechanism available on wayland.
-> >   Most compositors do not use GPU waits. Instead, they use the
-> >   DRM_IOCTL_SYNCOBJ_EVENTFD ioctl to perform a CPU wait. Being tied to
-> >   DRM devices means that compositors cannot consistently offer this
-> >   feature even though no device-specific logic is involved.
->
-> Well the drm_syncobj is a container for device specific dma fences.
+Hi Yicong,
 
-Not necessarily. The DRM_IOCTL_SYNCOBJ_TIMELINE_SIGNAL ioctl attaches
-some kind of dummy fence that is already signaled. I don't believe
-this is device specific. That is also the path that llvmpipe would
-use.
+On Mon, Apr 06, 2026 at 07:00:13PM +0100, Yicong Hui wrote:
+> Fix the following W=1 kerneldoc warnings by adding the missing parameter
+> descriptions for @phase0_identity and @nn_interpolation in
+> dcss_scaler_filter_design() and @phase0_identity in
+> dcss_scaler_gaussian_filter()
+> 
+> Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:173 function parameter 'phase0_identity' not described in 'dcss_scaler_gaussian_filter'
+> Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:270 function parameter 'phase0_identity' not described in 'dcss_scaler_filter_design'
+> Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:270 function parameter 'nn_interpolation' not described in 'dcss_scaler_filter_design'
+> 
+> Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
+> Signed-off-by: Yicong Hui <yiconghui@gmail.com>
 
->
-> What could be possible instead is to pass an eventfd into Wayland, but th=
-at is something userspace needs to decide.
->
-> > - llvmpipe currently cannot offer syncobj interop because it does not
-> >   have access to a DRM device. This means that applications using
-> >   llvmpipe cannot present images before they have finished rendering,
-> >   despite llvmpipe using threaded rendering.
->
-> Yeah, but that is completely intentional. You *CAN'T* use a dma_fence as =
-completion event for llvmpipe rendering. See the kernel documentation on th=
-at.
->
-> What could be possible is to use the drm_syncobjs functionality to wait b=
-efore signal, but that has different semantics.
->
-> Regards,
-> Christian.
->
-> > - Clients that do not use the Vulkan WSI need to manually probe /dev/dr=
-i
-> >   for devices that support the syncobj ioctls in order to use the
-> >   wayland syncobj protocol.
-> > - Similarly, clients that want to use screen capture have no equivalent
-> >   to the WSI and are therefore forced into that path.
-> > - Having to keep a DRM device open has potentially negative interaction=
-s
-> >   with GPU hotplug.
-> > - Having to translate between syncobj FDs and handles is troublesome in
-> >   the compositor usecase since syncobjs come and go frequently and need
-> >   to be cleaned up when clients disconnect.
-> >
-> > /dev/syncobj solves these issues by providing all syncobj ioctls under =
-a
-> > consistent path that is not tied to any DRM device. It also operates
-> > directly on file descriptors instead of syncobj handles.
-> >
-> > The series starts with a number of small refactorings in drm_syncobj.c
-> > to make its functionality available outside of the file and without the
-> > need for drm_file/handle pairs.
-> >
-> > The last commit adds the /dev/syncobj module. I've added it as a misc
-> > device but maybe this should instead live somewhere under gpu/drm.
-> >
-> > An application using the new interface can be found at [1].
-> >
-> > [1]: https://github.com/mahkoh/jay/pull/947
-> >
-> > ---
-> > Julian Orth (12):
-> >       drm/syncobj: add drm_syncobj_from_fd
-> >       drm/syncobj: add drm_syncobj_fence_lookup
-> >       drm/syncobj: make drm_syncobj_array_wait_timeout public
-> >       drm/syncobj: add drm_syncobj_register_eventfd
-> >       drm/syncobj: have transfer functions accept drm_syncobj directly
-> >       drm/syncobj: add drm_syncobj_transfer
-> >       drm/syncobj: add drm_syncobj_timeline_signal
-> >       drm/syncobj: add drm_syncobj_query
-> >       drm/syncobj: fix resource leak in drm_syncobj_import_sync_file_fe=
-nce
-> >       drm/syncobj: add drm_syncobj_import_sync_file
-> >       drm/syncobj: add drm_syncobj_export_sync_file
-> >       misc/syncobj: add new device
-> >
-> >  Documentation/userspace-api/ioctl/ioctl-number.rst |   1 +
-> >  drivers/gpu/drm/drm_syncobj.c                      | 374 +++++++++++++=
-+-----
-> >  drivers/misc/Kconfig                               |  10 +
-> >  drivers/misc/Makefile                              |   1 +
-> >  drivers/misc/syncobj.c                             | 404 +++++++++++++=
-++++++++
-> >  include/drm/drm_syncobj.h                          |  21 ++
-> >  include/uapi/linux/syncobj.h                       |  75 ++++
-> >  7 files changed, 795 insertions(+), 91 deletions(-)
-> > ---
-> > base-commit: 6916d5703ddf9a38f1f6c2cc793381a24ee914c6
-> > change-id: 20260516-jorth-syncobj-d4d374c8c61b
-> >
-> > Best regards,
-> > --
-> > Julian Orth <ju.orth@gmail.com>
-> >
->
+Sorry, I totally missed your patch... :/
+
+Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+
+-- 
+Thanks,
+Laurentiu
