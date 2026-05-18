@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B00CCD343F
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A119BCD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:48:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80D7610E8A5;
-	Mon, 18 May 2026 19:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 100D610E8BB;
+	Mon, 18 May 2026 19:48:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="Xm1RRIvl";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="daem7E5Y";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E09B10E892
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:48:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80B5A10E8BB
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:48:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779133696; bh=4zO/JslR4dtpUare48IWPEh7zby/iEoySFzUlGPOX5Q=;
- b=Xm1RRIvlneLKo+MJPLt0y+1SHu9y2lZ38caWkROcsXT+ge3MPxeCmq6IKTxWk0QZhgY09cS3l
- mJd7Oylttqr3GyLxuYOCmpGrijiPj1lq4mopK1DViSf3Bf9CyU522qAQAaK+GzlzK/8ZbRube9e
- VFyuPnPffjxCv8Jd0swQB/e+nq3ZESj1Rds2xDfka/8N6SS6rdzY/X8sp3sGhMqsHEmPSHFsS6b
- frK+btL9otbYgWfnhFP/DM18NB+o8mZiob4yW1yI+bqEnb0aSANpTy0gnS+lkYTmQyae+jR+M0j
- l/vr/fO43NiXFpGZ2gNXwxaMqp6MNKuVpNMuiiEA7YsA==
-X-Forward-Email-ID: 6a0b6cfdb74b0ebd362eeeab
+ t=1779133704; bh=rUWzeTlhp2CU5KEvkS4D0u4FPJCTowD3dhS+chglbQQ=;
+ b=daem7E5YOIGIM/ad1PPsKxwFhmaJYuzqvBsBFMp+0pcXoAjFoOBIcbvy0N083eQZy6GSFCyox
+ aZbwiTbZqbvmEmHRnvR5i2cVcNYzi48u1QuK4FCWDabuxQA5oYAQIn00PMOtJQZtiCAg/9ThCMV
+ 8GTa/scYI5KZgyp0n5fpirCgem+4Y4/TCxXyG/S1dD22zJ4rlOwHQRCX/anQZ9Vmilc/c5WOolI
+ MuYOJVjqDQOL1XxmpjYW0+3X8k4V39/XQhMhDtSSvihkPw3PI1TuyVmAXJO4KlxuYr6x8rFR9pl
+ mUU/HXWtAc8yFTGwp2E4Dvz3BrrJVJtAe2d6R991DEbg==
+X-Forward-Email-ID: 6a0b6d06b74b0ebd362eeee1
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  121.127.44.73
 X-Forward-Email-Version: 2.8.12
@@ -43,10 +43,10 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Jonas Karlman <jonas@kwiboo.se>, linux-rockchip@lists.infradead.org
-Subject: [PATCH 05/13] drm/meson: encoder_hdmi: Use CEC phys addr from
- display_info
-Date: Mon, 18 May 2026 19:47:33 +0000
-Message-ID: <20260518194744.2483580-6-jonas@kwiboo.se>
+Subject: [PATCH 07/13] drm/meson: encoder_hdmi: Report ycbcr_420_allowed from
+ encoder
+Date: Mon, 18 May 2026 19:47:35 +0000
+Message-ID: <20260518194744.2483580-8-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518194744.2483580-1-jonas@kwiboo.se>
 References: <20260518194744.2483580-1-jonas@kwiboo.se>
@@ -67,55 +67,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dw-hdmi bridge detect() func now updates EDID for the connector.
-Something that ensures that display_info.source_physical_address has an
-updated CEC phys addr when the hpd_notify() func is called.
+The bridge connector report ycbcr_420_allowed support when all bridges
+in the chain support ycbcr_420_allowed.
 
-Change to use display_info source_physical_address directly instead of
-re-reading EDID to set the CEC phys addr at HPD interrupt.
+Report ycbcr_420_allowed on the encoder bridge so that the bridge
+connector automatically can report correct ycbcr_420_allowed support.
 
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
- drivers/gpu/drm/meson/meson_encoder_hdmi.c | 26 ++++------------------
- 1 file changed, 4 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-index 55c0601df3c6..1b9a1d9ed3d3 100644
+index 45104ef35344..484675cb8284 100644
 --- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
 +++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-@@ -330,28 +330,10 @@ static void meson_encoder_hdmi_hpd_notify(struct drm_bridge *bridge,
- 	if (!encoder_hdmi->cec_notifier)
- 		return;
+@@ -354,6 +354,7 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+ 	meson_encoder_hdmi->bridge.of_node = priv->dev->of_node;
+ 	meson_encoder_hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
+ 	meson_encoder_hdmi->bridge.interlace_allowed = true;
++	meson_encoder_hdmi->bridge.ycbcr_420_allowed = true;
  
--	if (status == connector_status_connected) {
--		const struct drm_edid *drm_edid;
--		const struct edid *edid;
--
--		drm_edid = drm_bridge_edid_read(encoder_hdmi->bridge.next_bridge,
--						encoder_hdmi->connector);
--		if (!drm_edid)
--			return;
--
--		/*
--		 * FIXME: The CEC physical address should be set using
--		 * cec_notifier_set_phys_addr(encoder_hdmi->cec_notifier,
--		 * connector->display_info.source_physical_address) from a path
--		 * that has read the EDID and called
--		 * drm_edid_connector_update().
--		 */
--		edid = drm_edid_raw(drm_edid);
--
--		cec_notifier_set_phys_addr_from_edid(encoder_hdmi->cec_notifier, edid);
--
--		drm_edid_free(drm_edid);
--	} else
-+	if (status == connector_status_connected)
-+		cec_notifier_set_phys_addr(encoder_hdmi->cec_notifier,
-+					   connector->display_info.source_physical_address);
-+	else
- 		cec_notifier_phys_addr_invalidate(encoder_hdmi->cec_notifier);
- }
+ 	pdev = of_find_device_by_node(remote);
+ 	of_node_put(remote);
+@@ -406,9 +407,6 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
  
+ 	drm_connector_attach_max_bpc_property(meson_encoder_hdmi->connector, 8, 8);
+ 
+-	/* Handle this here until handled by drm_bridge_connector_init() */
+-	meson_encoder_hdmi->connector->ycbcr_420_allowed = true;
+-
+ 	priv->encoders[MESON_ENC_HDMI] = meson_encoder_hdmi;
+ 
+ 	dev_dbg(priv->dev, "HDMI encoder initialized\n");
 -- 
 2.54.0
 
