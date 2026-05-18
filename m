@@ -4,86 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08204CD4F3C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDB2CCD4F5E
 	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:13:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2446D10EAC1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD74F10EAC6;
 	Tue, 19 May 2026 07:13:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FfzNdkJ1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TksMm5Tf";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC2C310E7E9
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:05:10 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-44e1ebb3122so1550268f8f.2
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 12:05:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779131109; cv=none;
- d=google.com; s=arc-20240605;
- b=Ja94BaRCb8kwlZmvOVHPUdMabdJyuo27zZvLrrnOT2aChs1Fr4pfdqG0ZAaosUkvD/
- faKhsVxCGpDhnn7FKZSQ9k/AGtc0vEVheq8FtpmyV/R54ZONO/KfLA39FqvI7/e9Wl4d
- 9CbxHge+7RJwpJFrncKUQXSDZAgxupOz7VmWXK23ca0/NekCevQMnzgzeuORynO10An2
- qlnyLl3zXjHwhKCfVrpwbnU0XKuouE1vR6OVywIPNSuwHOGhR2PB5cg3pLtSbqKZJLRf
- /28k7i8RUSWVInE/HahjDSzA1uwQWi5zOtl2MvIt+8VRtgLqUqIHJdJbytKzOu2nkpSL
- b7xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=u31YXDFjxv7mXffscFNx6oOp8B/R90pltj1VyavSSyc=;
- fh=mgQBznAFuQD/hk4WlEcz+JsQkskgZeqy7agP24Es3r0=;
- b=cfwe/IzMNgkaRhXoF9Wa2XBbWd2/9hjnxi2ZtILmIBkPPU9AgGkV+aEFy7On+015qB
- XTqFNWFk1Z1feGAwxNxKb5kyl+9L93TiPWEa3BMt/SZ2ByTUlcxX6KgaQvUjP7tfZHvy
- buOm00RPvyJzmtMwlyaUDRSYSRFUYLb19LawUoLxCt2wnvxV6bjlSee4cMa0R7QfIH0R
- SkrBdB4Evts3eaovQB+iiU7H1MKVkt0GABdOMlgn3rdoHtZZDLKejazxfuvhar7D5f9w
- hUJWq8ccwj5bLJsHw3EWJkz9Un01TXYEiKGsVqMH4PCpJz+RKp1/TuopIwvXfW102Kbg
- Kg1w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47BCA10E8EA
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 21:20:13 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-48d102471a4so22608675e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 14:20:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779131109; x=1779735909; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=u31YXDFjxv7mXffscFNx6oOp8B/R90pltj1VyavSSyc=;
- b=FfzNdkJ1VEhpgh5h14ux2PcFmCjBrIwxQLzcaXqk3kx2qUcTUSZwxxrOjZzxzQ/AUs
- 7yWOTzWoKjKyylh8mppIVhLTRrtO4YshTyug7FOKYkXL6q8EcLuLzEdTICXP30xWfVfD
- OvCRSZl2Prbf7SdzAvw1edr6rtce1naQptU9bTvDmq4Xj/cs2505YRKAxSQowRM681Wq
- Cu+8zsiX4xrhyTd/5YdwfMAjpFhk1iVviEBfrYi2GYeQUBZWbatQ4ADQoETabHoOjLM0
- gI4vhXHBi5nrhsHsSISNEtpl6/bDGrs8+hg2tZ/HZ2804RIA7AhVmNDBysSqWNmiFsGZ
- TSUQ==
+ d=gmail.com; s=20251104; t=1779139212; x=1779744012; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eib3eRFzS2+00sCLYIMDe5vm4mlk/dWlRJSkbmyxtqY=;
+ b=TksMm5TfdCGVJclcnfxJcT2vlQa5pGrzYY7XL+DUSwd5dauXkaCoTxUbJAP0BfK4j3
+ EqK1i3Tb9MDo5ojR9kIaZI4ghfELrWL3rpz7OuZUPN6hDKJ1YrkF0Bxi7uMh5okv9zrt
+ jP91TM7i+WYN9Z2tRVZ0VHbljBVaK3C4lZ9BNa+ZUdL1d6fbIhKElft5yUr2qR9Jg48I
+ 4wz9e+Ony6Ns7VwFsgjBg+mL2hGVZsOzndQPwPBK8Et027k9XEBRaJxg+GPg2Pot3p5f
+ o38bicxoR3Buwsj7eVuRSpaNYfOZhoheZP1B3hxam3WnoJcEEPnA1T8gldybuo0w9QkC
+ oi/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779131109; x=1779735909;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=u31YXDFjxv7mXffscFNx6oOp8B/R90pltj1VyavSSyc=;
- b=YGEJz2A/7HdEUqNQ+iZevzt80wYU3w/Lto3o3x5NXkTU2Btk/X1QV4jcJHCMXFG2X6
- zPgJu78BN68V/r3+SAie1T05jz2yENcS5TbuhsN0YGNq3iob/EMObidrof3TIICpmu0b
- FVsW3YbWrNClToqwK+awkrtukajxfEE0R3cmKCHS7bcybVFPncsE6VKKonndCJNF4rP/
- gUePeOU5DGLvOJWk+uCHIPeu15Lp+qIJ+dbUgbO+Li4RT2MbrjM88aydur8fYiZb5lKK
- dLHQbNLV/ruI6sLtRDVAeFoSIBCz/MHHG1o7pPKFqJBOaeu+eW/Gpddy8vfa4CmqYDEN
- fkqQ==
+ d=1e100.net; s=20251104; t=1779139212; x=1779744012;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=eib3eRFzS2+00sCLYIMDe5vm4mlk/dWlRJSkbmyxtqY=;
+ b=V7xBSHZSJgyVcFomXpbU2KPTJKEZzVILSU9LwI1tl4xkhYzFeKXniVcsDJeQZvAYC7
+ ckBWOolKeRGAcL+7SEUKX/6T3p8eVvr8d2Sl3mILqANrqM9V9UEeDAliUCE+wK3+Z0uv
+ TZm0XNpcfKOwpxd8m0M91LtgPFDUqfXL2lmKY1m3q7CSfa1Dmq0YSyooSWdJKQOBtDq4
+ gG1VcWshFDEgOO2O0xSpl/j5cKVpsfOQ0gxkByFzXIS0vnuSkYw9GHdqCu8KUe7POtHZ
+ PI2Kx+gc/fK7t+zPQvEesANYy5JZHHcHUvejLBkhbeFl1+5N4eFoDMUg48byzYEGGVeP
+ 4qOA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9sEKeQ4fd9x2oqFZ1KvrfcOd9FpM5gCpI2SoON0pRrog7MnK4WFgjW0RJr8JOy7sv430fYpcZ6UGQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxOnlLhCkveqhUorodT9wO+tnhP5rRIdRaomUeiwEI4bFbWWtvQ
- AUm7MK0a/pwIM6g9de5sAueejc3zi0MRF+lG3gPu/yg1qx0C1ZY/IbOrWEt0/y2NBN6HKnjOsMW
- v/ZEUvw/qjakyM9HN869NdN6FAjKmUxw=
-X-Gm-Gg: Acq92OHEVv7ildLGmFvy99mnugZszPsrLSGFy2f+n8IP6oJIlrpU4039w0fGluuwcAs
- FTHYOUAYJQGXQeuFYiFxRlpSf/iAzkITUovw+oLhqBkCIDzbUjRPvDMb9yIOcGpF2DNzj+/PNnV
- 1tbC3tKFX7+2bSKJFP0qeFKdhjkXVNn7QGUb169RuIWr3kPZg8LFKbGLdZ+ZQIK9FFFtJ/cCip5
- AL/AGME3hej0tOl9DdFSbcO/stgyxxWmttJgq56rpIGkPJmyZ48p1fEjkOVEjINK91bTsje3Yn1
- 2LfVZ/li
-X-Received: by 2002:a5d:6083:0:b0:45e:8526:7dd1 with SMTP id
- ffacd0b85a97d-45e85267eb9mr3505962f8f.22.1779131109069; Mon, 18 May 2026
- 12:05:09 -0700 (PDT)
+ AFNElJ9gXM8PKYr7kfPqIl4fIQ3ZHD7p9eXpoKkOr6Jyqn/OGuRMYjD/Zca1trG6De+tCFq2sQlUgtlZauw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkM9DoenWZg+N4O/vbRgf2zgyaIi3blSAw/YY1u+iK2KBUJ0tx
+ jZd96ZDDF9lc4qRgQUHdANC63rTPZv17wytR/zTXZ5lGmjZDjLZsSfQ2
+X-Gm-Gg: Acq92OGVY8lChPXZjj6TxjzDczwhvJjHL6awYiYy5kgCkWAL20lNB2RuKHbc1wljwsI
+ SioCdjaqCWWxNa3AsiUMa5R6vrA0bnhDXX818MdXduyYMpyGUWw2v8N8STE4nVPWitZC4hkKERl
+ DugwY8DNNx+RBBI1Q5gofhr7jLVoD7JxChXWbLCdTjquiZEsjizYr14sSLTp5aPvmS4SQ//8FfY
+ bJ7SwzGyDfUSCB64Z+26n6Kt98xj3Tcu3gqy+rJHIxkfBIhNq64+mjjSwULe+WybLKy3a3JkRwj
+ Rlm0X7Px5vW/OnkndJQJWYGFqTv+ZMUsiT5zAMnSpGPP2lKona7ITCM2KFKJcuiovsAQnAvNPon
+ WTY7kL4jw5IjWnh0sPqNDLor9svGMHEOMmfAjrKMalrK+7omxzTjXG0U9HVru9AI2JEw/jta+Jn
+ uiU07bltNr3cbDsEBl1MAjaRzsJeUE7wK5qYUV3uI7MRRQM6bq
+X-Received: by 2002:a05:600c:a405:b0:48a:52ce:a4b1 with SMTP id
+ 5b1f17b1804b1-48fe60dd5e8mr252074615e9.15.1779139211392; 
+ Mon, 18 May 2026 14:20:11 -0700 (PDT)
+Received: from skylab.fritz.box ([2a06:4944:10fb:f400:564:5711:52c6:59ff])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45d9ed2ffdfsm37133980f8f.15.2026.05.18.14.20.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2026 14:20:11 -0700 (PDT)
+From: Gilles Risch <gilles.risch@gmail.com>
+To: alexander.deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ lkp@intel.com, Gilles Risch <gilles.risch@gmail.com>
+Subject: [PATCH v3 0/2] drm/radeon: fix iMac11,1 dark display
+Date: Mon, 18 May 2026 23:14:09 +0200
+Message-ID: <20260518211409.4868-3-gilles.risch@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CADnq5_PhXmCNOGz9zK8mz7Y0Jw-J9uexhVjGLRqMA4AOHsJ5TQ@mail.gmail.com>
+References: <CADnq5_PhXmCNOGz9zK8mz7Y0Jw-J9uexhVjGLRqMA4AOHsJ5TQ@mail.gmail.com>
 MIME-Version: 1.0
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-Date: Tue, 19 May 2026 03:04:56 +0800
-X-Gm-Features: AVHnY4JqD7F6NFItY_ez5TsTDteXgtDuNdUeoz_k-jjq1wjdNPe4El-vSTxFOT0
-Message-ID: <CAHPEe=G26qGCko0FxMa5SdKpOeZagY_mQKcn9ZGPW0qn+i3vUw@mail.gmail.com>
-Subject: fbdev: iterator used after loop end in fb_deferred_io_pageref_get?
-To: jayalk@intworks.biz, simona@ffwll.ch, deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 19 May 2026 07:13:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,50 +90,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi all,
+Hello Alex,
 
-While reading drivers/video/fbdev/core/fb_defio.c I noticed
-something that looks like a past the end iterator pattern.
-I would appreciate it if you could take a look and let me
-know whether this is a real issue, and whether it is worth
-fixing.
+thank you for the feedback. I've updated the patch to use dmi_match()
+as suggested, limited to iMac11,1 only since that is the only machine
+I have tested so far.
 
-The site is fb_deferred_io_pageref_get() (linux-7.1-rc1,
-around line 203):
+I will have access to other older Apple iMacs which also show display
+issues under Linux. Given your comment about unusual wiring and
+potentially broken atom tables on these machines, it would make sense
+to investigate this more thoroughly in the long run. I would be happy
+to help with testing if that would be useful.
 
-    list_for_each_entry(cur, &fbdefio_state->pagereflist, list) {
-            if (cur->offset > pageref->offset)
-                    break;
-    }
-    pos = &cur->list;
+The build error reported by the kernel test robot is also fixed — the
+previous version was missing the dependency on the ASIC_IS_DCE31()
+macro introduced in patch 1. Both patches are now submitted together
+as a series.
 
-When the loop walks all entries without break, cur has gone
-one step past the last entry. &cur->list then aliases
-&fbdefio_state->pagereflist (the list head) via container_of
-offset cancellation, so pos equals the head and the
-subsequent list_add_tail(&pageref->list, pos) lands at the
-list tail. That is the intended behaviour, but the access
-is undefined per C11.
+Changes in v3:
+- Submit both patches together as a series to fix the build dependency
+- Use dmi_match(DMI_PRODUCT_NAME, "iMac11,1") instead of
+  ASIC_IS_DCE31() to avoid breaking other DCE3.x boards
+  (suggested by Alex Deucher)
+- Limit fix to iMac11,1 only (only tested machine)
 
-Jakob Koschel cleaned up many such sites in 2022, for example
-commits 99d8ae4ec8a (tracing: Remove usage of list iterator
-variable after the loop), 2966a9918df (clockevents: Use dedicated
-list iterator variable) and dc1acd5c946 (dlm: replace usage of
-found with dedicated list iterator variable). This site in
-fb_defio was not covered.
+Tested on iMac11,1 with Debian Linux.
 
-A candidate fix would move the pos = &cur->list assignment
-inside the break arm, so pos is only overwritten when the
-loop actually finds a position. The default value of pos
-(set earlier in the function to &fbdefio_state->pagereflist)
-already covers the loop fall through case. The observable
-behaviour is unchanged.
+Gilles Risch (2):
+  drm/radeon: fix internal display on iMac11,1 (RV770/DCE3.1)
+  drm/radeon: fix eDP resume from suspend on iMac11,1 / DCE3.1 systems
 
-If this is intentional or already known, please disregard.
-Otherwise, I am happy to send a [PATCH] or to leave the fix
-to you. Thank you for your time, and sorry for the noise if
-this is not actually worth fixing or has already been spotted.
+ drivers/gpu/drm/radeon/atombios_crtc.c     |  4 ++--
+ drivers/gpu/drm/radeon/atombios_encoders.c | 16 +++++++++-------
+ drivers/gpu/drm/radeon/radeon.h            |  1 +
+ 3 files changed, 12 insertions(+), 9 deletions(-)
 
-Thanks,
-Maoyi Xie
-https://maoyixie.com/
+
+base-commit: 6916d5703ddf9a38f1f6c2cc793381a24ee914c6
+-- 
+2.47.3
+
