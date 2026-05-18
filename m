@@ -4,60 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC2BCD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1135CD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:55:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B88DA10E8CC;
-	Mon, 18 May 2026 14:54:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0460810E8D2;
+	Mon, 18 May 2026 14:55:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eYr01A7X";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="dIIqHo2V";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 985E710E8CB;
- Mon, 18 May 2026 14:54:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779116062;
- bh=oZ7CkMTxEyLnhv4slzz//huzxLZ5v0lcPPpQPJz574o=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=eYr01A7XGUWFU4xhftgSgRlDgcA+DCKmQ1rM8zcjZKiJWCsOJKgD6PqchE18y1MYA
- Zkn3fa4Qq8t0TRjIXHFxEUxxN8iwVFGzwSX082l3hmrXROlDViU9u+jdpZeXY5Y9Tl
- r1p8h5KO2RXcrILce9MTd3uKKicpf4+qEI2zIs8q5crxtrrQJQvI0UJbvt/AqnPNS5
- uz3h7Ig8N6CU5X8O2PE4yTIj/jxIpOoAwaO32Yhis/ZAWxBNk5golnGNeUyBm86x4P
- 4USrMW8CK0uwtXStbuzMG/lmRF9uozB7A1ofNy47iVK618Mm7ktqBlP2ZdJTJsex0O
- AA0U6nhWt/QUw==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 795A117E0566;
- Mon, 18 May 2026 16:54:21 +0200 (CEST)
-Date: Mon, 18 May 2026 16:54:14 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, Mark Brown
- <broonie@kernel.org>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>, Chia-I Wu
- <olvaffe@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry
- Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
- Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <rob.clark@oss.qualcomm.com>
-Subject: Re: [PATCH v4] drm/gem: Make the GEM LRU lock part of drm_device
-Message-ID: <20260518165414.3e6e1447@fedora>
-In-Reply-To: <20260518165225.145175b1@fedora>
-References: <20260518-panthor-shrinker-fixes-v4-1-1920234470d5@collabora.com>
- <20260518165225.145175b1@fedora>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013040.outbound.protection.outlook.com
+ [40.107.201.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16CCE10E8D0
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 14:55:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=weUuIsPN4SnCO8puvYfdq05fmL6TUCUyxBPJdnWi77KqvRzJBO9iEzn0/K5sYSMEul6ij5VpKGcitnNi0ozt2vwNArC75m3kI2YMZJ4LuEM5qRRbILnmjpTESKg0iNlSRMZMfIzXHktzv7UQTxKqFAkt7juShruG8axSjhAnzK7cSGaS19If9UAEYBcZBVIYY43MIGnp1tU8IbWjt7uF8MhxVK3HJbpMhRs1gUwBqcg4VtfLIlVLOrnkxcwIMsdQGK1ByXfgUZkNNc8+mdMHFyBn2qhcZ7kKpKEVREGNezy77QAMuWwm1wgcl04C0IB8JEtf15qsIKtOjmWtath/XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lH6hedU/H2IOx1vw8q32rm9CLcN1HAthAx3w/4dIUv0=;
+ b=hP++NCJkQ1xWueo08zqdnLfpPZdDkJ8P4oQlidEbkZOhHrWM07DxrOnrEAhKPnmBA1zcZs38R+x+s5FGFpKbFuuCPCy4R2RDsS8YgUOdLhViMJ/2TJ3e2xzMcF9aadY2RzXwsirtnPbsIjyV0lTDZRpb6zWhsFzbkcz6wV03dyufESGQ2L4qB/MV5LyViNLvm1JPIk8kbWMtnqAnn6v0D7CBeowiGH0kn4fmNHjUEKwjcDQgWgqPzg7Fr6R7aoy2KUzsM0wz0wLMn8S3naJjh1MiQclJXdpzbreGxEUiFGTzUDLh8EqokibvxC14ziM3tADsJ1Gk6BhRK8q4qGxcrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lH6hedU/H2IOx1vw8q32rm9CLcN1HAthAx3w/4dIUv0=;
+ b=dIIqHo2V9KxThRIvW4KHm8RLg+YuiZpBqdEcsjbACR/eJLo8cO/icfBJQKKJgX5Eqios8anW//u2IG6gIXRLEBfWa9Uu96tpJUEH11bdmHO6hXM7YD9kivXNFhSpID967nW6LW65kj6i4noTd4btrAn1fgZGMRqH/eG3YKCsa+PWeyvSY6X1RIZOunjp71MSIv7k9CCY0keI45eEDkV3rwVwcGXl7hT17nEcxPcU9RHzu17QgYZACp1CBf6kFc4c4wNWuq7hiQa0N+hl8HvD/7DZIt3PFWB3eagnthO+buHY7n58fDloaW79iT30BxvpAKuE6BAFKKjx0NLvGBmpdQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by CH1PPF12253E83C.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::606) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Mon, 18 May
+ 2026 14:55:29 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 14:55:25 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 18 May 2026 23:55:22 +0900
+Message-Id: <DILW13F30IR6.2VYUDF0GDK2ZS@nvidia.com>
+Subject: Re: [PATCH v3 11/27] rust: platform: make Driver trait
+ lifetime-parameterized
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <aliceryhl@google.com>, <david.m.ertman@intel.com>, <ira.weiny@intel.com>,
+ <leon@kernel.org>, <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+References: <20260517000149.3226762-1-dakr@kernel.org>
+ <20260517000149.3226762-12-dakr@kernel.org>
+In-Reply-To: <20260517000149.3226762-12-dakr@kernel.org>
+X-ClientProxiedBy: TY1PR01CA0192.jpnprd01.prod.outlook.com (2603:1096:403::22)
+ To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH1PPF12253E83C:EE_
+X-MS-Office365-Filtering-Correlation-Id: b1a2bcc3-de2b-4e48-45d8-08deb4ed7e80
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|376014|1800799024|7416014|22082099003|18002099003|11063799003|56012099003|4143699003;
+X-Microsoft-Antispam-Message-Info: 7/AN8z/cLmuEw3Ke1dVJuE2LmJ8tjut45Qv0gwV8HZJk53VAp2L6fKwD9URg8z19I/64LWkkMccODiqmQuJ3ZQ5z3VlWtr5k5GCe0AJ6uZvgBKs0j47eFjcujQE8qSBPmsGcUGKW+Ia9KBEsSJfqadcrAbWdd1k+RwM2PloXVBpuZM5TIaSOVt+f9I+yQcZ0pehP3tWk8+XltUrI9BqMmxGmg974JIsfeG9d29UvkVuMEl27Tojyml9/2CnosGHWRRzHKvGVKwFbEnnvSVwVG8ozadixSELTgr7vi7wSMfkVj6xjyasY3tUId8d+o2xu0Ke8ooeWkQ8W8avjB/O8jAsOEwZ/Ihqt3peh/oJoV6ejFKjeMTl66GpLeK4rAMToLWHoLJc5ud8XLZqJ+2UsPLEPtfVQFR1mhtYM5p8JpWJcyjEeL+HFtCeqe/r4HmNAJatuUdlYGcm21nTQlNn7PVOaZeTLld2J4PEOXSyhTvCKXHWleKnCwyVTy32vRbAbr26FeCj1ON8rqSKS60idImFilGY43LICqzNvLmJVgEcPznyzGctdh6fuS22yYVYDHTGurtUQLcvvWr0IGN94zPlDfuEuiLvQ942H4VzbMrKoENsPtyAhM0RxuFPMMJOjndxzvbVULZ6n4GtcN5xiymFqV+gE0fJ+a7E+aypWDcCfoKmkmaP7HO/4JIUhEKmw
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(376014)(1800799024)(7416014)(22082099003)(18002099003)(11063799003)(56012099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Uk03MTEycXRTdTdOaEw3Z3pSd3pIeDZmR2dZZFd5YTBXem90dkJCUjBuVEhu?=
+ =?utf-8?B?L1dXZnpxUDhWeTUza1JiYVI3aGZKa3JkNWIvL2s2d1ExOHRrQ3lZd25YT2dY?=
+ =?utf-8?B?OGRrbW52VzJidU9aaHVQOEc5NnMrMkNETHgzTloyUjA3Z2xScnVERElwZi9q?=
+ =?utf-8?B?cUJQYmt5NHpPYU9xOHJYLzFnTHpLM25ObVI4bmo5YU5FbmMwcU01QThlYjQ0?=
+ =?utf-8?B?UDkxMjBwYkJua1Bpa09FL1p4VVF5ZXpmb2VFUjg0L0VzcHQwNXpjOGp5U0lX?=
+ =?utf-8?B?bXNpSVdhRzB5amJCb3VxUXVrMk9rV3NDSVFZZCsvYkQ1cm1MWUZkWkpNWXdx?=
+ =?utf-8?B?ajZYc0ZXL1pIRmxnc0RHTFRodVgyZDYrcjM1OTNnUXJsOHpZcDNVRHJFME9U?=
+ =?utf-8?B?M2kyZDdpZFVOeXZNdUhXQTRQZzZ3VE03LzZwRXVpZ3VEMS9QTWtHZHZ3NURk?=
+ =?utf-8?B?QWFmVUMwSG1WNnZaWjhIR1lOMEd6a0dyUmJqdXRYTkowRjFMTkhTQ1B6ZGlw?=
+ =?utf-8?B?RzhFbHUvSlEvek5CVVpTUFJrd3BQcklKbTYwd043bm4zeHdpZFJ0Uy96dEd2?=
+ =?utf-8?B?YWp3UWNMUG1wcW9iTkMycFlqd3UySmhFMlVlWXROaSt0MnJsQVVjSU05eFhj?=
+ =?utf-8?B?Nk1abXlOckZzakFOZVg5TSsvN2JYMkxGWXQzVXFQUFI4TkdxS2E0TWVWVHJh?=
+ =?utf-8?B?VnNUWDd0STZUL3ZpSEdQOGVHRy96Tkp3Y25GVTVKQ0RhOWd4UC9CVkw4WGIx?=
+ =?utf-8?B?enZTWFhnTjRzeHJEUTJTQ2ZFaDJENVR5eVFDRWl3S01YaUVJS1dJcTk1V1VE?=
+ =?utf-8?B?bmo5WnVWaXdFSFo3blhPZS9ZSTVQVDZLSUcvSUQySFM1dnRBQ0s1eUphdFJk?=
+ =?utf-8?B?a3NTamdCQVc5U3dMTzJrVk53WENiRXRVRWo1NVNOMzJNYm1obFBIdk5ZQUp6?=
+ =?utf-8?B?NlhNVVZGV2tKd2FQS1hvL1lneVlBUkZJT1RHaFVjL2ZYMGEvT3lKWnBhSUE0?=
+ =?utf-8?B?S2tTeFBDVnhwUFgxMi9XQ2toVTE4TGlnTTcrNUhmWm05YnE4ZG5odGhHb3dn?=
+ =?utf-8?B?cGtaWXlKc2F4dVVGL2tUNUNWOEFUaG54dzMzVEVhaTd6SGMwZnV0b21FNTJw?=
+ =?utf-8?B?REN3TmZvcHphU3BQYUFRTzlLd1B3czVZK0p5VWtKWmlQVzYvcTBnQnFVU1VY?=
+ =?utf-8?B?eVZrUFhiR2ozRFc2SGpwTmQxNkZpNlA4eFdjT0tudEs0ZFkxUVBzNm5nL1Rq?=
+ =?utf-8?B?QmVIRTFvSTdJVmI1ZVB6OTEzaEtNZ0hJQlZ1OVgybG9JMVQ5aEtaV011T0Vz?=
+ =?utf-8?B?enpIdE91bUc4ckZDMktuUERvTjd1SCtVNGx2SFpxaFVTanFHa3Q1VTJwZ1BN?=
+ =?utf-8?B?K3JZRW10TjZ2dS9uWklNUWxiSGdjUHptSEc2TGNhU245bUFSZEVsWFUxQzBO?=
+ =?utf-8?B?OWtGZDg2L0F2cDZOQU51d0VnRFl5bmJXT1BiVVdMdlVTM256dUZYc0ExeUE0?=
+ =?utf-8?B?aUx2M3dIS28zeXJaUjlaYXM1cHFmakZVZHZ4ZWFONHlPUFlWMTVpbXlXV29T?=
+ =?utf-8?B?QzdDSlViNDc1dnkzQmZ1QTZnWThPZU4zWnhKN3h3b01zMlFtQnZ6V0t3c3cr?=
+ =?utf-8?B?YzB2dWRCQkx5aXpCZjYxV1ZXSGk0ZGZwbzVKekEyWi9IZVVGUm1SaGtnL0dQ?=
+ =?utf-8?B?d2liK1dRRjQ2LzFySjliUjY4aG1zNU9wNE81MnZzdFZjeGM1V2JQaFhpRkg1?=
+ =?utf-8?B?UGVGbWluUmt5bVdsNm42TStYc2VGV1pLeEhKTTk0VHNRdTJLMWYvNzVvQ0Rz?=
+ =?utf-8?B?NG1uM3U2L0ZHYUdGNEpPcTdpOUlMVFd4dGJVWTdDMTVFcVBSbG1jdUN0Nzkr?=
+ =?utf-8?B?TUQ5c1cyOFRUNXEwUXZaUkk1SnkrOEtUSVBRNEs2S2FGTEdwYnh1QW9naExk?=
+ =?utf-8?B?NExxdUwzQTBROWI2MEJJTWFqQWRnemtiWkt3QmdKMU1jOE4zc1NMWEhTSU1B?=
+ =?utf-8?B?RmpJOVA4N1doVzFVTk1zVXA1dy9XWXBUNUZUSmVYcDJ6K0V2aEpYWnh4Qno4?=
+ =?utf-8?B?REVUK1I2bzJnYVZ2UEl0MjJzWTJIdG05RlZuT1J4QkJwWWJaYW9scllHUGtY?=
+ =?utf-8?B?UENRcXZxQW81SVVuVnFyWDRzcmlmWU1odG9lbVJmc3I2aThaSXZVZnB6aExB?=
+ =?utf-8?B?Tm43STUyS3l2bGVCWURSYzFlUHllUmpLYjV0S0E0aFA5SU9ISzU1N2YrOEJT?=
+ =?utf-8?B?UThvamEzNEZZaUIrdjhESUh0cXFUU2VLTlNDVzFGc3hRbTRCK2RyQVdWMFRO?=
+ =?utf-8?B?eWFKcVA3bHNoNmVjK3owcFlJdGNsSmpUblJHWit3SjAyMlkwVVlldFJuU3h4?=
+ =?utf-8?Q?Blxg8U64md30M7r1KBR2BPCw0WBwXH0kvQbUTmmYhCaji?=
+X-MS-Exchange-AntiSpam-MessageData-1: WZ+GVvcCSgmhsA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1a2bcc3-de2b-4e48-45d8-08deb4ed7e80
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 14:55:25.7490 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iWwGVtCgPEBQvpeuyUtFk/T7co+0YzuRnsIHtJXG00sw6L6uXv8Byb6775UZhza+ZnNaCM5EobeUmO4K+v72gw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF12253E83C
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,224 +150,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 18 May 2026 16:52:25 +0200
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
+On Sun May 17, 2026 at 9:00 AM JST, Danilo Krummrich wrote:
+> Add a 'bound lifetime to the associated Data, changing type Data to type
+> Data<'bound>.
+>
+> This allows the driver's bus device private data to capture the device /
+> driver bound lifetime; device resources can be stored directly by
+> reference rather than requiring Devres.
+>
+> The probe() and unbind() callbacks thus gain a 'bound lifetime parameter
+> on the methods themselves; avoiding a global lifetime on the trait impl.
+>
+> Existing drivers set type Data<'bound> =3D Self, preserving the current
+> behavior.
+>
+> Acked-by: Uwe Kleine-K=C3=B6nig <ukleinek@kernel.org>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-> +Mark for the silent conflict resolution needed to reconcile
-> drm-misc-fixes and drm-next/drm-misc-next.
-> 
-> On Mon, 18 May 2026 13:41:45 +0200
-> Boris Brezillon <boris.brezillon@collabora.com> wrote:
-> 
-> > Recently, a few races have been discovered in the GEM LRU logic, all
-> > of them caused by the fact the LRU lock is accessed through
-> > gem->lru->lock, and that very same lock also protects changes to
-> > gem->lru, leading to situations where gem->lru needs to first be
-> > accessed without the lock held, to then get the lru to access the lock
-> > through and finally take the lock and do the expected operation.
-> > 
-> > Currently, the only driver making use of this API (MSM) declares a
-> > device-wide lock, and the user we're about to add (panthor) will
-> > do the same. There's no evidence that we will ever have a driver
-> > that wants different pools of LRUs protected by different locks under
-> > the same drm_device. So we're better off moving this lock to drm_device
-> > and always locking it through obj->dev->gem_lru_mutex, or directly
-> > through dev->gem_lru_mutex.
-> > 
-> > If anyone ever needs more fine-grained locking, this can be revisited
-> > to pass some drm_gem_lru_pool object representing the pool of LRUs
-> > under a specific lock, but for now, the per-device lock seems to be
-> > enough.
-> > 
-> > Fixes: e7c2af13f811 ("drm/gem: Add LRU/shrinker helper")
-> > Reported-by: Chia-I Wu <olvaffe@gmail.com>
-> > Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
-> > Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
-> > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> > Reviewed-by: Steven Price <steven.price@arm.com>
-> > Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>  
-> 
-> Queued to drm-misc-next.
-
-s/drm-misc-next/drm-misc-fixes/, sorry for the typo.
-
-> 
-> Note for the linux-next maintainers: below is the conflict
-> resolution currently stored in drm-tip.
-> 
-> Note for the drm-misc maintainers: we'll need a backmerge of the
-> next -rc into drm-misc-next so we can resolve the conflict there.
-> 
-> --->8---  
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index 4e4607bca7cc..a412a50eec76 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -187,9 +187,6 @@ struct panthor_device {
->  		/** @reclaim.shrinker: Shrinker instance */
->  		struct shrinker *shrinker;
->  
-> -		/** @reclaim.lock: Lock protecting all LRUs */
-> -		struct mutex lock;
-> -
->  		/**
->  		 * @reclaim.unused: BOs with unused pages
->  		 *
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index 13295d7a593d..abe0c5bb1bca 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -1495,13 +1495,13 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  	if (!can_swap())
->  		goto out;
->  
-> -	freed += drm_gem_lru_scan(&ptdev->reclaim.unused,
-> +	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.unused,
->  				  sc->nr_to_scan - freed, &remaining,
->  				  panthor_gem_try_evict_no_resv_wait, NULL);
->  	if (freed >= sc->nr_to_scan)
->  		goto out;
->  
-> -	freed += drm_gem_lru_scan(&ptdev->reclaim.mmapped,
-> +	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.mmapped,
->  				  sc->nr_to_scan - freed, &remaining,
->  				  panthor_gem_try_evict_no_resv_wait, NULL);
->  	if (freed >= sc->nr_to_scan)
-> @@ -1515,7 +1515,7 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  	if (freed >= sc->nr_to_scan)
->  		goto out;
->  
-> -	freed += drm_gem_lru_scan(&ptdev->reclaim.gpu_mapped_shared,
-> +	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.gpu_mapped_shared,
->  				  sc->nr_to_scan - freed, &remaining,
->  				  panthor_gem_try_evict, NULL);
->  
-> @@ -1544,21 +1544,16 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  int panthor_gem_shrinker_init(struct panthor_device *ptdev)
->  {
->  	struct shrinker *shrinker;
-> -	int ret;
-> -
-> -	ret = drmm_mutex_init(&ptdev->base, &ptdev->reclaim.lock);
-> -	if (ret)
-> -		return ret;
->  
->  	INIT_LIST_HEAD(&ptdev->reclaim.vms);
-> -	drm_gem_lru_init(&ptdev->reclaim.unused, &ptdev->reclaim.lock);
-> -	drm_gem_lru_init(&ptdev->reclaim.mmapped, &ptdev->reclaim.lock);
-> -	drm_gem_lru_init(&ptdev->reclaim.gpu_mapped_shared, &ptdev->reclaim.lock);
-> +	drm_gem_lru_init(&ptdev->reclaim.unused);
-> +	drm_gem_lru_init(&ptdev->reclaim.mmapped);
-> +	drm_gem_lru_init(&ptdev->reclaim.gpu_mapped_shared);
->  	ptdev->reclaim.gpu_mapped_count = 0;
->  
->  	/* Teach lockdep about lock ordering wrt. shrinker: */
->  	fs_reclaim_acquire(GFP_KERNEL);
-> -	might_lock(&ptdev->reclaim.lock);
-> +	might_lock(&ptdev->base.gem_lru_mutex);
->  	fs_reclaim_release(GFP_KERNEL);
->  
->  	shrinker = shrinker_alloc(0, "drm-panthor-gem");
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 452d0b6d4668..9d4500850561 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -715,10 +715,10 @@ int panthor_vm_active(struct panthor_vm *vm)
->  	 * never became active in the first place will be reclaimed last, but
->  	 * that's an acceptable trade-off.
->  	 */
-> -	mutex_lock(&ptdev->reclaim.lock);
-> +	mutex_lock(&ptdev->base.gem_lru_mutex);
->  	if (vm->reclaim.lru.count)
->  		list_move_tail(&vm->reclaim.lru_node, &ptdev->reclaim.vms);
-> -	mutex_unlock(&ptdev->reclaim.lock);
-> +	mutex_unlock(&ptdev->base.gem_lru_mutex);
->  
->  	/* Make sure we don't race with lock/unlock_region() calls
->  	 * happening around VM bind operations.
-> @@ -1962,9 +1962,9 @@ static void panthor_vm_free(struct drm_gpuvm *gpuvm)
->  	struct panthor_vm *vm = container_of(gpuvm, struct panthor_vm, base);
->  	struct panthor_device *ptdev = vm->ptdev;
->  
-> -	mutex_lock(&ptdev->reclaim.lock);
-> +	mutex_lock(&ptdev->base.gem_lru_mutex);
->  	list_del_init(&vm->reclaim.lru_node);
-> -	mutex_unlock(&ptdev->reclaim.lock);
-> +	mutex_unlock(&ptdev->base.gem_lru_mutex);
->  
->  	mutex_lock(&vm->heaps.lock);
->  	if (drm_WARN_ON(&ptdev->base, vm->heaps.pool))
-> @@ -2360,11 +2360,11 @@ void panthor_vm_update_bo_reclaim_lru_locked(struct panthor_gem_object *bo)
->  		drm_WARN_ON(&ptdev->base, vm);
->  		vm = container_of(vm_bo->vm, struct panthor_vm, base);
->  
-> -		mutex_lock(&ptdev->reclaim.lock);
-> +		mutex_lock(&ptdev->base.gem_lru_mutex);
->  		drm_gem_lru_move_tail_locked(&vm->reclaim.lru, &bo->base);
->  		if (list_empty(&vm->reclaim.lru_node))
->  			list_move(&vm->reclaim.lru_node, &ptdev->reclaim.vms);
-> -		mutex_unlock(&ptdev->reclaim.lock);
-> +		mutex_unlock(&ptdev->base.gem_lru_mutex);
->  	}
->  }
->  
-> @@ -2774,7 +2774,7 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
->  	vm->kernel_auto_va.start = auto_kernel_va_start;
->  	vm->kernel_auto_va.end = vm->kernel_auto_va.start + auto_kernel_va_size - 1;
->  
-> -	drm_gem_lru_init(&vm->reclaim.lru, &ptdev->reclaim.lock);
-> +	drm_gem_lru_init(&vm->reclaim.lru);
->  	INIT_LIST_HEAD(&vm->reclaim.lru_node);
->  	INIT_LIST_HEAD(&vm->node);
->  	INIT_LIST_HEAD(&vm->as.lru_node);
-> @@ -3140,7 +3140,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
->  	LIST_HEAD(remaining_vms);
->  	LIST_HEAD(vms);
->  
-> -	mutex_lock(&ptdev->reclaim.lock);
-> +	mutex_lock(&ptdev->base.gem_lru_mutex);
->  	list_splice_init(&ptdev->reclaim.vms, &vms);
->  
->  	while (freed < nr_to_scan) {
-> @@ -3156,12 +3156,13 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
->  			continue;
->  		}
->  
-> -		mutex_unlock(&ptdev->reclaim.lock);
-> +		mutex_unlock(&ptdev->base.gem_lru_mutex);
->  
-> -		freed += drm_gem_lru_scan(&vm->reclaim.lru, nr_to_scan - freed,
-> +		freed += drm_gem_lru_scan(&ptdev->base, &vm->reclaim.lru,
-> +					  nr_to_scan - freed,
->  					  remaining, shrink, NULL);
->  
-> -		mutex_lock(&ptdev->reclaim.lock);
-> +		mutex_lock(&ptdev->base.gem_lru_mutex);
->  
->  		/* If the VM is still in the temporary list, remove it so we
->  		 * can proceed with the next VM.
-> @@ -3177,11 +3178,11 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
->  				list_add_tail(&vm->reclaim.lru_node, &remaining_vms);
->  		}
->  
-> -		mutex_unlock(&ptdev->reclaim.lock);
-> +		mutex_unlock(&ptdev->base.gem_lru_mutex);
->  
->  		panthor_vm_put(vm);
->  
-> -		mutex_lock(&ptdev->reclaim.lock);
-> +		mutex_lock(&ptdev->base.gem_lru_mutex);
->  	}
->  
->  	/* Re-insert VMs with remaining data to reclaim at the beginning of
-> @@ -3192,7 +3193,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
->  	 */
->  	list_splice_tail(&vms, &remaining_vms);
->  	list_splice(&remaining_vms, &ptdev->reclaim.vms);
-> -	mutex_unlock(&ptdev->reclaim.lock);
-> +	mutex_unlock(&ptdev->base.gem_lru_mutex);
->  
->  	return freed;
->  }
-
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
