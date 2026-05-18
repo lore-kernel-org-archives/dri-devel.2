@@ -4,46 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD7BDCD4F49
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 15:06:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3858DCD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 15:07:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D11710E8DD;
-	Mon, 18 May 2026 15:06:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9558910E8E5;
+	Mon, 18 May 2026 15:07:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dFmRQNgv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LO3L/M5y";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 613CF10E8DD
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 15:06:49 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 151AF43CBC;
- Mon, 18 May 2026 15:06:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F976C2BCB7;
- Mon, 18 May 2026 15:06:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779116809;
- bh=pBqnVpw3j1aq4FC8bJx5X8I7niRcnpb+yzemwEGWIm8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dFmRQNgvaK/sEKCsSU5dU9VXcXDYrkV1E8PUzaTOCyb/A2q2XxNpxqsKRgh83MGSq
- iL9bUarFULyucGdH1rsCHCbludiwbA5afG7jhMKwYHrAmx9kFd/BpZCXrY4FTLKKcF
- +qppNazAKQp2zjd09uPeUCgiy9a/py736dNl8tW8icQJ+jC6937z6lxrUojQRY0gm4
- mPQ9m8AYvcJIMwaUEvEXAH0lqkW9239pMDoGwIyYdIlksBODCVfQKYxmxobwWoiOck
- EpJdbJ5ZhzNiVBk+lAH0KuQh0K2gsD2v9c90UrQilKexeNSLVmBsitaHU/d5+pyhSX
- LF1cV7m7fFzcg==
-Date: Mon, 18 May 2026 16:06:44 +0100
-From: Will Deacon <will@kernel.org>
-To: Dan Carpenter <error27@gmail.com>, jstultz@google.com, tjmercier@google.com
-Cc: Catalin Marinas <catalin.marinas@arm.com>, linux-mm@kvack.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [bug report] dma-buf: heaps: Rework heap allocation hooks to
- return struct dma_buf instead of fd
-Message-ID: <agsrBPXYXA2vZgj1@willie-the-truck>
-References: <afXGeq1AvqFY76MY@stanley.mountain>
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011036.outbound.protection.outlook.com
+ [40.93.194.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D00E810E8E4;
+ Mon, 18 May 2026 15:07:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l7wLLvV1Nk+d8AGiwb1lXu4o38lIcs2oYEHx6jXnpflz2iVwZ7IAag4YWN43ND5nSjkMtbHn8lr1QBZAxGVo4kqDKR1E1MA3exPAPUUZri5pbYBmU+GbrZ7ob6+8Qqe/LGPjvvEarNggsT75Ga/Tg6NquClwWuX8LV9eWYfY1kY5iuBV5nx0MfbToO1DQzYaxqAy7uP4FwaQC0hymE+X3SENhMqwHzMWFUPUUKRY2doGIadJgkTEoZ18JlpOlC93S5E32kmQwoxDlEqtdgAabIi6p4NuQ4Njg1PXm1qGfw3bYQGsDGZF4jcmNkUNxYa+0BsgjcPbt8LHCcNhLwrMTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sBAKV68rML2SzmDcrxEnmVCuZ2HbOmy+OYcYF9i09Hc=;
+ b=FjPcbB9fXcPj2GxkpjxLaR0mB4sDoTF0lV9BpYUeiOFFJIA+qNuIN6CDE9UfalG64gTWbbIPLih6hD/zygKkhhP0tWxTBooUdOQC/h3Bph/bVzu1/GOKjdC2XVEqXNR0uJD2m6uOR7KCJfV8cJ+zzBdQTY9ohVtGGlK7p4Z7FCQCf6K6+MNPj2qTXUtV34pWhaFadCpjuYWCV56Qi02hVHPWIM4immwwUtJFDrYaHcX2B+JpDDTrhIZoqcaWgkKKRV8raHKvyne43FDAnDQxuXxYHjrDSbDT29m0C5avcpDzfb8N06uCt4/jX8x7U9xTCDAU8FLS/0aCyj3txQotFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sBAKV68rML2SzmDcrxEnmVCuZ2HbOmy+OYcYF9i09Hc=;
+ b=LO3L/M5y7o9KBE+wk9qwDirKgnwdXD1caWyvSYUdKqp+oUzSu05WmEj1awoKxgpnDvTBCTcrFGPxRGibPE/oB7L8FutUa+imknNyMvGn6haQ53Uc0MsRc4HzIygDVNnsvYj5XfgGBTETGRqTKJXKDgtS7R0pRXy0ozoo6eloMbg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB8059.namprd12.prod.outlook.com (2603:10b6:806:32b::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.22; Mon, 18 May
+ 2026 15:06:59 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 15:06:59 +0000
+Message-ID: <15efb253-2171-4436-bf97-0b0d0408e7e2@amd.com>
+Date: Mon, 18 May 2026 17:06:52 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Julian Orth <ju.orth@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
+References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
+ <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
+ <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
+ <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
+ <1162f62e-9c65-446b-9788-bb289a202e6e@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <1162f62e-9c65-446b-9788-bb289a202e6e@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR06CA0018.namprd06.prod.outlook.com
+ (2603:10b6:208:23d::23) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afXGeq1AvqFY76MY@stanley.mountain>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB8059:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd318ded-88c6-442f-3fad-08deb4ef1bad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|18002099003|11063799003|4143699003|56012099003|22082099003|3023799003;
+X-Microsoft-Antispam-Message-Info: deFyHXmC38/j1yuK0aViM4+abTpaeAv10g4yS2ccKfi4qIeNj/EQmQbiOxP/2EfBK6WpnF23s+06ErrUGSKWoBu9HqTEyJRESFkkONlY/jSlkMvYqSlVyV5fRROHaYojBoYpd1QCjM9QNuUrFUW7Dn6CTUr2wn14NtbSNZN01yNascduTnFZAXuPez6uwqiFA9DswN2c03MX9dCh6HKKim3zt2SCNAPduijwE3XjNjr2Q5Es+Q0iCw9ufnlmVu47JxHigU64Q6AFqdBuNJ8gUTWy9kzeQBm2td+R89H5LuC/XEUk95LEBAQhn7d0utdbvGrhJmVuq8rhrvGRRP6wPDXBPCKmcB6eiNmi+sUSAmzueudnWA0Q5ePc5mYy59V/o/sQ2wbZQ8S2GnXiHNdFUhHEpDH3ZF3MEHr/8TP3C+E7P0z6Tf86Fxn0bZE28s1gfiWO43mhx+NmifNYk957GuKvJIcHi26NHFVhEpw8NLHV7tYRCwfa/wPn9mIRZpXMRUDVzeHCAt/BS6uAOzAO/zXw0WdnA8lWt/AWIyZNoiE/ifs7uceVIOueGUqa/H5cxKy2sBdd7I1L0eVoKHtjG7UMk2zlGNTNvFOpvJV9GGM3i2pxftHDntEnNDLaoWYaw9qIIEgz+z6FA/jvQ1jLzXEN/onvckdrOu0gs8JwZhlfnr/lNOstENBMlWfa919u
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(18002099003)(11063799003)(4143699003)(56012099003)(22082099003)(3023799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RkpsaUNISExTWU5lNjA4OVJiWDNpbVloWXRmOVRGSVVUMFB4N3R2ZVRpY3M3?=
+ =?utf-8?B?YkhIa0Z5OWJlelJrMllHRGxnSlBSMlc4QWJOeXpTd0F4Wm9xZkNVU3dKbmNM?=
+ =?utf-8?B?TGNwMURacjZ4LzlBOFVEbERKQmY5cW1DOUttOWp1Z1Y3SWUwZkZNbW5scDBn?=
+ =?utf-8?B?UThNeGcxSWd6VXNpYThHZ1A2SlJyMlRmR1ZqWFlMTmc0SjNNS2RvK0QyenBh?=
+ =?utf-8?B?bFVEVnorZ0lTSDFiWFV2bkI2WW0wMUNiRVh4dEdOaVA1QmRhaUtsS3lvbzV0?=
+ =?utf-8?B?VHF2Q2wyNGgzMzNoOWF5czlTOFUySEpIdVpnM3dYNzBIWjVrT054Qm5OSVlu?=
+ =?utf-8?B?M1plNWc4Q3dldEZ6MEY2bHM2V1hQWk5vZit5SUt1S2U1ZzMyVm94ZHpIYnl0?=
+ =?utf-8?B?dTYvN0JCL2dxMXRmV3ZWOXFmVXh2Y01LMzM2WjQ5OU52OXJpbHlXV2hFU1R1?=
+ =?utf-8?B?akVKR1VPQXQ1YXN5WlFrTmUyQ0JVRkdDWTI5cVJxdW8rSFQvVGRZOHlQR1Qr?=
+ =?utf-8?B?UUVCSTZXYmNkRUM5ZTJkc1VSa1dETEpLeXdZTWwzQTEweUpIcjVMbmhoWmZy?=
+ =?utf-8?B?cHdMZ1AzaHRYNUx0L0Q1VlFsRm00V1JRQXdhbHIycDNWR3kvOCtJSzRHK2pI?=
+ =?utf-8?B?RWovUjlOMFdqUFFJY09scjA4YXB6OXZVczJ6bkpvQ0FseTJyTTV0emI0UllB?=
+ =?utf-8?B?b1dvV25mbEJlOTAxeXNITGFCL0w4MEN5Y3JKQlNiaGN2WW1VRUpNeDQvWVE5?=
+ =?utf-8?B?eVFHdEZTd0dLaGRsY3FaMjQvdzFZditkd0ROSXh5cmZNTDlYZU5hQnJrUk1k?=
+ =?utf-8?B?UnVXckloS3YyQ0NBM0R1Y3QyNjJEem85SmdGaGt3Nklmd3p6a1FUZEFYMEgz?=
+ =?utf-8?B?THZhSEVPSmllSWFNTHNJbXBYSE5SY3RmS3FUcG9YcGdJTGNiU3MwcmRMRzZU?=
+ =?utf-8?B?NHR1SWhHOGRVcEpqMFdaSEU3RjdGaTBqRnpkN1FwMHNEWDJyWTRqK0NRYWxl?=
+ =?utf-8?B?V3JRT0dUNllVRzNFK2xPTGV6bVROQS82RnJ1bEtENEhrdUs4UWFjaVRRTEVC?=
+ =?utf-8?B?NGl4ZDFsZk13SVhRb0g5K2FDaVBOV2ROOU9CRExDdGU2V0poRU90cmhPcFgv?=
+ =?utf-8?B?TytWVDAzMm53UUFEQUYvZ0ovODJrMHl1YXg0ZjR2akZQZU1XTUlzRGRZcXNC?=
+ =?utf-8?B?NGM0NitjakJZNEp0N2NKZ2ZVTHEyMU04MnpMS3NGUnJGMnpGQXdXekVCM2lK?=
+ =?utf-8?B?K0RCUm5KcGdrc1NMTTdVUFZOMEZMaHY2SjNKd1RDQ1U3Y3RZSjQ2R2FMcjhk?=
+ =?utf-8?B?Mno1UER5eUhZL3lYT2M5cDN3dFlIN0s3Uy84RXdGQ1N0OGdYa1RsZDNCcjZ4?=
+ =?utf-8?B?ejZ4MzFWbmtqRm5WUFROcWlGc01QWFJwVVkwS1hTMHpCbkdkOENuUDgvVmsx?=
+ =?utf-8?B?aFduNGg3ZFlJY0NuV0dpTlREVWVZUGdVcWpsSEVHRnJyMVNMU0Y2UjFWdFFK?=
+ =?utf-8?B?Ny9NSGJkaWtBY2VXZEZXcGhLMnJJNUxjM0FwUEFTeHVvRkhyb05ZVVFHcGVC?=
+ =?utf-8?B?Qnd3UFpVVVVDcFRydEkwajVpbFdSRlZiNGloSUlJMlRkUHNacVN3U2s4L1Ry?=
+ =?utf-8?B?Zko3SFJTOU13UitVS3UrbDVVWXhmZk4zYS91UmxEb0dtRlZ5RDlsdkh3UlRW?=
+ =?utf-8?B?ajkxRzJieUd5Q3pIS3pUM2FRSy9KaC83SmVxSjBGTTVWaFI1b3FLdTBVN2Fo?=
+ =?utf-8?B?R1M5dk5FRUt5Q0JSeElYcTd3em8xMXlFc290ajV1bitqUXNQUVJBWE5GdTZy?=
+ =?utf-8?B?VXVNZW9MY2JyYlB6dHZxNGRZRW1nSVN2Z3gyRno0aWdMTmgrZlNwbTBVY1ZY?=
+ =?utf-8?B?YzdjUE9MMEg0K21QVHBKZFBVV3NrZnpnazVtcWVpSlB0eEZ4UnBudmNtcGU4?=
+ =?utf-8?B?U0ZPYm53cU9JOE9TUnRkT1p3ekI2N1MxejZOaExnbnJkQjQwUWFTYloxS0JV?=
+ =?utf-8?B?VzloUHorSVVNNmVJeFdtYzREM2h2L000MGMyOThpNy9kY1BOZlFWbWtMZmFX?=
+ =?utf-8?B?bmdnVi9KMHhPU2t6L0NDWTIyY2Vod3pERGNBdmIxcXZjRHJnN2lNa0sydnBB?=
+ =?utf-8?B?Q2pVQlR0TXV1T0l4WGhlc0VySDB6VFNKZ3NremZibDl6TnBpRWxIOVRjSytG?=
+ =?utf-8?B?UU12YzRtTWhNVDlWMVgyZU82ZWZKOHErRFU2eVNzcURMSWMrWm9acDB5Syt3?=
+ =?utf-8?B?TlVqMUtLKzNoeXNybmh6YUx4YmJIaDVDRll3NkxTeGhTUitoQkp0RmROcHR3?=
+ =?utf-8?Q?/HEFmbS5jYNPkPEqGV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd318ded-88c6-442f-3fad-08deb4ef1bad
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 15:06:58.9961 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oiRuQoDUwaEfV1oy5CCosYqHD0aJin7XzUSclP5RGd7fz7j+zadbS1naF01K4rjC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8059
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,89 +148,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 02, 2026 at 12:40:10PM +0300, Dan Carpenter wrote:
-> I'm not sure exactly who to report this bug too.  Probably the mm
-> devs?
+On 5/18/26 16:59, Michel Dänzer wrote:
+> On 5/18/26 14:41, Christian König wrote:
+>> On 5/18/26 14:02, Julian Orth wrote:
+>>> On Mon, May 18, 2026 at 1:58 PM Christian König
+>>> <christian.koenig@amd.com> wrote:
+>>>> On 5/16/26 13:06, Julian Orth wrote:
+>>>>> This series adds a new device /dev/syncobj that can be used to create
+>>>>> and manipulate DRM syncobjs. Previously, these operations required the
+>>>>> use of a DRM device and the device needed to support the DRIVER_SYNCOBJ
+>>>>> and DRIVER_SYNCOBJ_TIMELINE features.
+>>>>>
+>>>>> There are several issues with the existing API:
+>>>>>
+>>>>> - Syncobjs are the only explicit sync mechanism available on wayland.
+>>>>>   Most compositors do not use GPU waits. Instead, they use the
+>>>>>   DRM_IOCTL_SYNCOBJ_EVENTFD ioctl to perform a CPU wait. Being tied to
+>>>>>   DRM devices means that compositors cannot consistently offer this
+>>>>>   feature even though no device-specific logic is involved.
+>>>>
+>>>> Well the drm_syncobj is a container for device specific dma fences.
+>>>
+>>> Not necessarily. The DRM_IOCTL_SYNCOBJ_TIMELINE_SIGNAL ioctl attaches
+>>> some kind of dummy fence that is already signaled. I don't believe
+>>> this is device specific. That is also the path that llvmpipe would
+>>> use.
+>>
+>> Yeah I feared that.
+>>
+>> This is the wait before signal path and if I'm not completely mistaken that one is not supported by a lot of compositors.
+> 
+> Where did you get that impression from?
 
-[Adding John and TJ, in case they are interested / able to help]
+Kernel space seems to not handle that support very well. We added the flag at some point for drivers, but only a fraction actually implemented it.
 
-Will
+I wasn't aware that the general eventfd implementation can handle it, but yeah when compositors use that one then that actually makes sense.
 
-(original report follows)
+> It's arguably the main point of the syncobj Wayland protocol extension, which is supported by all major compositors (except Weston, where it's still a pending MR).
+> 
+> 
+>> So as far as I can see using drm_syncobj for software rendering really doesn't make sense, eventfd is a much better fit for that use case.
+> 
+> I agree with Julian's rebuttal to that.
 
-> 	drivers/dma-buf/heaps/system_heap.c:499 system_heap_allocate()
-> 	warn: passing positive error code 's32min-(-1),1' to 'ERR_PTR'
-> 
-> drivers/dma-buf/heaps/system_heap.c
->     459         if (cc_shared) {
->     460                 for_each_sgtable_sg(table, sg, i) {
->     461                         ret = system_heap_set_page_decrypted(sg_page(sg));
->     462                         if (ret)
->     463                                 goto free_pages;
-> 
-> It kind of looks like system_heap_set_page_decrypted() can return 1.
-> 
->     464                 }
->     465         }
->     466 
->     467         /* create the dmabuf */
->     468         exp_info.exp_name = dma_heap_get_name(heap);
->     469         exp_info.ops = &system_heap_buf_ops;
->     470         exp_info.size = buffer->len;
->     471         exp_info.flags = fd_flags;
->     472         exp_info.priv = buffer;
->     473         dmabuf = dma_buf_export(&exp_info);
->     474         if (IS_ERR(dmabuf)) {
->     475                 ret = PTR_ERR(dmabuf);
->     476                 goto free_pages;
->     477         }
->     478         return dmabuf;
->     479 
->     480 free_pages:
->     481         for_each_sgtable_sg(table, sg, i) {
->     482                 struct page *p = sg_page(sg);
->     483 
->     484                 /*
->     485                  * Intentionally leak pages that cannot be re-encrypted
->     486                  * to prevent shared memory from being reused.
->     487                  */
->     488                 if (buffer->cc_shared &&
->     489                     system_heap_set_page_encrypted(p))
->     490                         continue;
->     491                 __free_pages(p, compound_order(p));
->     492         }
->     493         sg_free_table(table);
->     494 free_buffer:
->     495         list_for_each_entry_safe(page, tmp_page, &pages, lru)
->     496                 __free_pages(page, compound_order(page));
->     497         kfree(buffer);
->     498 
-> --> 499         return ERR_PTR(ret);
->     500 }
-> 
-> The problem is that add_to_pagemap() returns PM_END_OF_BUFFER (1)
-> which is used by pagemap_read() and nowhere else.  The call tree
-> is:
-> 
-> system_heap_allocate()
-> system_heap_set_page_decrypted()
-> set_memory_decrypted()
-> realm_set_memory_decrypted()
-> __set_memory_enc_dec()
-> __change_memory_common()
-> update_range_prot()
-> walk_kernel_page_table_range_lockless()
-> walk_pgd_range()
-> pagemap_pte_hole()
-> add_to_pagemap()
-> 
-> This code seems sort of old and I guess no one has reported the bug
-> so maybe it's a false positive, but it feels like it's asking for
-> problems to return the PM_END_OF_BUFFER.  There aren't any comments
-> on any of those functions above explaining what return values are
-> expected.
-> 
-> This email is a free service from the Smatch-CI project [smatch.sf.net].
-> 
-> regards,
-> dan carpenter
+That eventfd is missing the timeline functionality is a pretty good argument, but I'm still not sure if that justifies the extra kernel complexity.
+
+Regards,
+Christian.
