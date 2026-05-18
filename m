@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F48BCD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:38:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93C32CD343F
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:38:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 660A610E80D;
-	Mon, 18 May 2026 19:38:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEE0510E811;
+	Mon, 18 May 2026 19:38:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="iq0rBncQ";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="IrSsRb/3";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF4210E80D
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:38:42 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 632FD10E814
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:38:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779133119; bh=XEwDdtys9FjJECYlrc2Okrnfg0gf3ND0lggi7Dw2M8o=;
- b=iq0rBncQVfMmWdaupMD277dVly8+SD0LaE2/Ul7AzJgW1Mphyzz5O/LVs0Escjq1rzqKr4Ltv
- g5H6N7zfYVGP4jNIhflYoT/v7glcrCg/k43Os2hs49kDRpJ3nqDZ63Q5zsc0N8X/erT3ENkBQHG
- tmTKS66zeFSbRe7jd5sPnoDp+yBnbifUmU3C0QSNlhqd6LbKYfZNcr7N82+8WAxrkH2AjT/Zb2I
- rjV3VwsVCi/8k90hQ9IKrYTrkJbr4X68o9hGxM8WvopuZjhKZuoPSMoOyTKXErku1Fi97UBj8se
- f07c/GdY4eLzeabjilvaZVpOMqq4ot5JBMmStNyrb4QQ==
-X-Forward-Email-ID: 6a0b6abb486b4b38b826fae7
+ t=1779133125; bh=ZtDLujMYuaqr2SiPa1eP+PIvqx/feLGXDK/xQNhph9Y=;
+ b=IrSsRb/3d1RgW9UZsr8CBlaMyARboIhcgOYE2dksYFDyJ5PnYSbniB6wWJ17fJsknBYTz/GS1
+ wfIIelcZI7IYOObvOtv6JmhLQ8Qsyxa3P+Ve7sagBWjY7ydGW4RzxHIhoolK3gWpNHmSelAHUyv
+ gehg5XEkL4mWvzYSkzqRj7JQIWwnY7savR59hqJc6myutxyKXNEuLbrnVfLpWDiMS9oTnj5Iiem
+ bvhl3GKDGRlFh4ZHiZ3MZ9k6Bv2k0lNMRCBzxjT6A7s3day7zPNd990hZiaV//63kiMZHU5bzjW
+ fnPx9QxlMvMxNhe7FMjXrLBT6uTnD+bGdsXaJ5GuTkIw==
+X-Forward-Email-ID: 6a0b6aad486b4b38b826fa5c
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.66
+ 149.28.215.223
 X-Forward-Email-Version: 2.8.12
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -42,10 +42,9 @@ To: =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
 Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Jonas Karlman <jonas@kwiboo.se>
-Subject: [PATCH v2 11/11] drm/rockchip: dw_hdmi: Use resume_early pm ops for
- system suspend
-Date: Mon, 18 May 2026 19:37:45 +0000
-Message-ID: <20260518193748.2482823-12-jonas@kwiboo.se>
+Subject: [PATCH v2 07/11] drm/rockchip: dw_hdmi: Clean up whitespace
+Date: Mon, 18 May 2026 19:37:41 +0000
+Message-ID: <20260518193748.2482823-8-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518193748.2482823-1-jonas@kwiboo.se>
 References: <20260518193748.2482823-1-jonas@kwiboo.se>
@@ -66,76 +65,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rockchip_drm_sys_resume()/drm_mode_config_helper_resume() is called
-before the resume pm ops of dw-hdmi. This result in an atomic_enable()
-before dw_hdmi_rockchip_resume()/dw_hdmi_resume() is called.
-
-Resume (without changes):
-- rockchip_drm_sys_resume()
-  - drm_mode_config_helper_resume()
-    - atomic_enable()
-- dw_hdmi_rockchip_resume()
-  - dw_hdmi_resume()
-    - dw_hdmi_init_hw()
-
-Change to use resume_early pm ops for system suspend to ensure pm ops
-for dw-hdmi is run before rockchip-drm pm ops. Also fix a possible NULL
-pointer dereference timing issue while at it.
-
-Resume (with changes):
-- dw_hdmi_rockchip_resume_early()
-  - dw_hdmi_resume()
-    - dw_hdmi_init_hw()
-- rockchip_drm_sys_resume()
-  - drm_mode_config_helper_resume()
-    - atomic_enable()
+Move the blank line before the RK3328 definitions for readability and
+make the phy_config table spacing consistent with other tables.
 
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v2: New patch
-
-This can be tested using CONFIG_PM_DEBUG with a simulated suspend:
-  echo N > /sys/module/printk/parameters/console_suspend
-  echo 1 > /sys/power/pm_debug_messages
-  echo platform > /sys/power/pm_test
-  echo mem > /sys/power/state
-or using something like following for real suspend/resume:
-  echo N > /sys/module/printk/parameters/console_suspend
-  rtcwake -m mem -s 5
-
-Note that RK356x has an issue related to EHCI/OHCI and a missing USBPHY
-clock reference during suspend, and GPU during resume (mainline TF-A).
-A separate patch to address the ECHI/OHCI issue will be sent.
+v2: No change
 ---
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-index 0133a4b67b3b..ac6a48ce8642 100644
+index bd530321b49c..02ee606c648e 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-@@ -692,17 +692,18 @@ static void dw_hdmi_rockchip_remove(struct platform_device *pdev)
- 	component_del(&pdev->dev, &dw_hdmi_rockchip_ops);
- }
+@@ -31,8 +31,8 @@
  
--static int __maybe_unused dw_hdmi_rockchip_resume(struct device *dev)
-+static int __maybe_unused dw_hdmi_rockchip_resume_early(struct device *dev)
- {
- 	struct rockchip_hdmi *hdmi = dev_get_drvdata(dev);
+ #define RK3288_GRF_SOC_CON6		0x025C
+ #define RK3288_HDMI_LCDC_SEL		BIT(4)
+-#define RK3328_GRF_SOC_CON2		0x0408
  
--	dw_hdmi_resume(hdmi->hdmi);
-+	if (hdmi)
-+		dw_hdmi_resume(hdmi->hdmi);
++#define RK3328_GRF_SOC_CON2		0x0408
+ #define RK3328_HDMI_SDAIN_MSK		BIT(11)
+ #define RK3328_HDMI_SCLIN_MSK		BIT(10)
+ #define RK3328_HDMI_HPD_IOE		BIT(2)
+@@ -190,11 +190,11 @@ static const struct dw_hdmi_curr_ctrl rockchip_cur_ctr[] = {
  
- 	return 0;
- }
- 
- static const struct dev_pm_ops dw_hdmi_rockchip_pm = {
--	SET_SYSTEM_SLEEP_PM_OPS(NULL, dw_hdmi_rockchip_resume)
-+	SET_LATE_SYSTEM_SLEEP_PM_OPS(NULL, dw_hdmi_rockchip_resume_early)
+ static const struct dw_hdmi_phy_config rockchip_phy_config[] = {
+ 	/*pixelclk   symbol   term   vlev*/
+-	{ 74250000,  0x8009, 0x0004, 0x0272},
+-	{ 165000000, 0x802b, 0x0004, 0x0209},
+-	{ 297000000, 0x8039, 0x0005, 0x028d},
+-	{ 594000000, 0x8039, 0x0000, 0x019d},
+-	{ ~0UL,	     0x0000, 0x0000, 0x0000}
++	{ 74250000,  0x8009, 0x0004, 0x0272 },
++	{ 165000000, 0x802b, 0x0004, 0x0209 },
++	{ 297000000, 0x8039, 0x0005, 0x028d },
++	{ 594000000, 0x8039, 0x0000, 0x019d },
++	{ ~0UL,	     0x0000, 0x0000, 0x0000 },
  };
  
- struct platform_driver dw_hdmi_rockchip_pltfm_driver = {
+ static enum drm_mode_status
 -- 
 2.54.0
 
