@@ -4,62 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2CC1CD4F3D
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 02:44:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8225ECD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 03:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05EBC10E0A5;
-	Mon, 18 May 2026 02:44:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C97B910E2C3;
+	Mon, 18 May 2026 03:04:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="FwLaaBmh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZlonhWgc";
 	dkim-atps=neutral
-Received: from mail-m3294.qiye.163.com (mail-m3294.qiye.163.com
- [220.197.32.94])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9300010E0A5
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 02:44:34 +0000 (UTC)
-Received: from [172.16.12.43] (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3ec15c82d;
- Mon, 18 May 2026 10:44:29 +0800 (GMT+08:00)
-Message-ID: <a7ab01f6-78a4-405f-8160-8af31a8ef99c@rock-chips.com>
-Date: Mon, 18 May 2026 10:44:29 +0800
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05DC510E2C3
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 03:04:38 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-c802196bd32so80459a12.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 20:04:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779073477; x=1779678277; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YrxjtDTNgHDLtXt57ombRVo2sbxeJ2Owhr7VJ48SGuM=;
+ b=ZlonhWgcHHx+rLb3LWH/Q553oeahKZKoNogg2DgPt7UzuYrCLlw0LXypCMxnscrFdt
+ 3QZqhIxCuPMXIZuy6PxShzFEh++bB0d5InRGvd9WjwbJRFKwaxUK/cgxX0yT5VaCF3hg
+ TmkLJNXSlzTpqCYpDzJALpP4ftTjaFdXHFmb7d7VJBPEAgXSjlz1InUO4OT8lF5NeNs2
+ 8G1ApWau7RfRr7kBCgUxqV4ML1mStGH9pobg7Q7l8gl310Il3f+Aq7reO6JA+SaFUjqF
+ g/IVzfuJNxsRjODJIwdI7Z2jhCyF5jWX9Cin0W+Ds2Bu9C4u8NIfOhyLiRvUYcUyIgJU
+ d5GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779073477; x=1779678277;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=YrxjtDTNgHDLtXt57ombRVo2sbxeJ2Owhr7VJ48SGuM=;
+ b=apMRxn17kNTqPcoNtkqvT6DXWh20LmCg6HhDQu9QifYTkzCYbhpovICcAtEwtyK/Ge
+ edzvMMAnSyoB34a3F/vQd4wpiGapqlZq3o/HTnotBb6RFfZAJNMgZFMTXjWRxSKb2oGm
+ b8Fkjx41u9ZPH0u/5tZNFn6Vx/ZuzBfJuZ/4+GwQIXtIBDxc248mPIw6i6ibAjuOnLNb
+ TKGgYB3QoPHbqOcAZfspZy69AFF1hIYk0dG9lK24uSGRgoHR61R6bpYFGlvJ4hn3kFiB
+ o00JAHrPecfovVlUXrh1CKgE8RUAfhYLXIgNleIIpL2LksgvJLj1RiXAdARXSAEKiR7v
+ pb0g==
+X-Gm-Message-State: AOJu0YxCT8uO2vErPCmR9loXt6JCO6Frc/mfQyYs/u2Lxop3r38ZDhtU
+ SUHifHtJt3nEfAeECrj4VkL84Fc1r9agzCLjFc3GtnSf8sVoOLmKTgbZZS1/Gg==
+X-Gm-Gg: Acq92OHoZSzvxDYihDfQL+T7YmPjI8f0c4UBhHdP24dlbe0kamLGXzK+9ktDKkaNoyw
+ 7fWDtpWkJSo+7E/Kyi/wIPnYYN859zlTHzdSH7XRGZRmrK2EZotsvHCGl9DADZSR0OH705wSo2C
+ mJ7J/GegHh5T+lYEf4bgNFJGm5dpr/Sv6tcQZ/UBn4WFyaQcnBh0Wf/2zJsArWDR0Fk5CGl9nmX
+ pEyg8h3hUOnstvKpnJif3ovsPikz5okfvwOUd60ucjVz5tEKyKbwBiecqR7FHkLeJYNPAHmGHLv
+ SA/OIMdEaHaLg07ZBnvgbkEYgtCogFDfIhJE801QMrYgid/mxvwGrEZ0JIykTWz8vCOe3jtXjQw
+ wgdzn8aszr56ZlhJScWe0cNDwGY91v50miPbJ5UD0ydH8FllOY1/etRcddF++71CQilYjUDeuOs
+ ywSLcSQEeVgKHwbTdKMvR7Ug==
+X-Received: by 2002:a05:6a00:39a8:b0:835:3730:5731 with SMTP id
+ d2e1a72fcca58-83f33ad5901mr7794512b3a.2.1779073477458; 
+ Sun, 17 May 2026 20:04:37 -0700 (PDT)
+Received: from marchy ([2405:3800:84b:d130:ee8e:77ff:fed4:d18b])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-83f19776733sm12637117b3a.13.2026.05.17.20.04.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 17 May 2026 20:04:37 -0700 (PDT)
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org,
+	gregkh@linuxfoundation.org
+Subject: Re: [RFC PATCH v1 0/2] Migrate RAiO RA8875 from fbtft to DRM
+Date: Mon, 18 May 2026 11:04:34 +0800
+Message-ID: <20260518030434.431556-1-azuddinadam@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260505122636.11859-1-azuddinadam@gmail.com>
+References: <20260505122636.11859-1-azuddinadam@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] dt-bindings: display: rockchip: analogix-dp:
- Expose inherited properties
-To: Conor Dooley <conor.dooley@microchip.com>
-Cc: Conor Dooley <conor@kernel.org>, hjc@rock-chips.com, heiko@sntech.de,
- andy.yan@rock-chips.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
- <20260514070133.2275069-2-damon.ding@rock-chips.com>
- <20260514-upstate-sneer-0b6e78682798@spud>
- <2f653664-27e9-4632-97e9-8b59cf7e585e@rock-chips.com>
- <20260515-confess-hungrily-4f64ce0d8de2@wendy>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260515-confess-hungrily-4f64ce0d8de2@wendy>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e38f87b4603a3kunm9c63833a220204
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQk1DSlZISUJPHkwfS0
- pMH0JWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
- tIVUpLSEpKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=FwLaaBmhRyX/1x2IvWIC8qOmg34/xaCXClSHSdAJaEUcRSf5nX3SBXOZhMb994CUmRYQeSsjZ6y0NOI6bU0UW1xVnMC9WLJxklcjrM2drB63dzkXrU7kaLlmYkFEXYIvDYF0lijlkN3eymJS+Yf77EsmSG7sshWzf/Qm15GFjng=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=mmp02j+JTh/LSA7GCH0kahZIKzpGQLcvXOXcVOAsbFw=;
- h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,127 +87,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Conor,
+Hi everyone,
 
-On 5/15/2026 5:04 PM, Conor Dooley wrote:
-> On Fri, May 15, 2026 at 11:57:58AM +0800, Damon Ding wrote:
->> Hi Conor,
->>
->> On 5/15/2026 2:16 AM, Conor Dooley wrote:
->>> On Thu, May 14, 2026 at 03:01:31PM +0800, Damon Ding wrote:
->>>> Expose the inherited properties from the base analogix-dp schema
->>>> to satisfy unevaluatedProperties constraints.
->>>>
->>>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>>
->>> Given it's unevaluatedProperties, not addtionalProperties, this patch
->>> shouldn't be needed?
->>>
->>
->> When I remove both the top-level data-lanes property and those explicit
->> "xxx: true" property entries and run the dtbs check with:
->>
->> make CHECK_DTBS=y CROSS_COMPILE=aarch64-linux-gnu- LT0=none LLVM=1
->> LLVM_IAS=1 ARCH=arm64 rockchip/rk3588-evb1-v10.dtb
->> rockchip/rk3588s-evb1-v10.dtb rockchip/rk3399-sapphire-excavator.dtb
->> rockchip/rk3576-evb1-v10.dtb -j4
->>
->> It results in validation errors like these:
->>
->> /home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb:
->> edp@27dc0000: ports:port@1:endpoint: Unevaluated properties are not allowed
->> ('data-lanes' was unexpected)
->>          from schema $id:
->> http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
->> /home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb:
->> edp@27dc0000: Unevaluated properties are not allowed ('force-hpd',
->> 'interrupts', 'phy-names', 'phys', 'ports', 'reg' were unexpected)
->>          from schema $id:
->> http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
->>
->> I suspect that the properties defined in the child binding are
->> overriding/masking all the inherited properties from the parent Analogix DP
->> schema.
->>
->> Is there a better way to fix this issue without explicitly listing all
->> inherited properties as true?
-> 
-> The example in this file uses most of the properties that you mention
-> above:
->      dp@ff970000 {
->        compatible = "rockchip,rk3288-dp";
->        reg = <0xff970000 0x4000>;
->        interrupts = <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>;
->        clocks = <&cru SCLK_EDP>, <&cru PCLK_EDP_CTRL>;
->        clock-names = "dp", "pclk";
->        phys = <&dp_phy>;
->        phy-names = "dp";
->        resets = <&cru 111>;
->        reset-names = "dp";
->        rockchip,grf = <&grf>;
->        pinctrl-0 = <&edp_hpd>;
->        pinctrl-names = "default";
-> 
-> dt_binding_check reports no problems with this node, so I think the
-> problem might lie elsewhere?
-> There's no edp node in the dts you mention above, so this looks like an
-> interaction with something that's not yet upstream.
+Just a quick ping to see if anyone has had a chance to review this RFC. 
+Any feedback or guidance on the driver would be greatly appreciated.
 
-Ah, I see.
-
-I did add extra changes to the edp node on my local rk3576-evb1 board 
-DTS, which indeed caused this 'asymmetric information' issue and made 
-the validation fail incorrectly.
-
-I will try adding the data-lanes property to the example in the binding 
-document to ensure dt_binding_check passes cleanly.
-
-> 
-> If this is required for the rk3576 edp, then you should include this
-> patch in the rk3576 edp support series rather than this one anyway where
-> it can actually be evaluated alongside the node it apparently causes
-> problems with.
-
-The data-lanes property is actually applicable and useful for all 
-Rockchip eDP platforms, not just rk3576.
-
-In the next version, I will modify the series to better separate this 
-common data-lanes change from the rk3576 specific eDP support patches.
-
-> 
-> pw-bot: changes-requested
-> 
->>
->> Best regards,
->> Damon
->>
->>>> ---
->>>>    .../bindings/display/rockchip/rockchip,analogix-dp.yaml    | 7 +++++++
->>>>    1 file changed, 7 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->>>> index bb75d898a5c5..896ded87880f 100644
->>>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->>>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->>>> @@ -50,6 +50,13 @@ properties:
->>>>      aux-bus:
->>>>        $ref: /schemas/display/dp-aux-bus.yaml#
->>>> +  reg: true
->>>> +  interrupts: true
->>>> +  phys: true
->>>> +  phy-names: true
->>>> +  force-hpd: true
->>>> +  ports: true
->>>> +
->>>>    required:
->>>>      - compatible
->>>>      - clocks
->>>> -- 
->>>> 2.34.1
->>>>
->>>>
->>
-
-Best regards,
-Damon
-
+Thanks,
+Adam
