@@ -4,135 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8684DCD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 15:36:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5365ACD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 15:38:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95E3A10E5D2;
-	Mon, 18 May 2026 15:36:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB96A10E8D8;
+	Mon, 18 May 2026 15:38:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="fDHE2FE/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NO3z2qV6";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020102.outbound.protection.outlook.com [52.101.195.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BB8510E5D2
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 15:36:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wUfrwGu6VEkUB+ZaTm1Ur3Ai3qapwMBk5z6FZCMiIea4kkoMKMAvY30kAjQp6ODNWyKzLz8I5BuLp2BXL90sr6svGYzxNr8E2ZkMVRBFyY7gJC49zSUHIDcUoWaBYfwv/KvD5Y5sK4SFDeZ0cEpIezqgCcnoAGNwPOqBEWyS1irvWxYh2l76h4TLK/S8lE3JCXIbaHWz2FxStgXv0R8gobLlRZfCxuwAV+6HoQnvfOLfS1nv8Dyx51358JhVNCKcbcYPZ51O9GOaCXIjHKgRmXR3KPNjBvjJLG2gpgSo9qFc+DyHqrQKZ+eOrv5g932edAqk3+Qg4UMF483Jv5b1Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AKjHB2QFXvYJWMAN4WnidWEgvW0Vy/z5udusgQgh0P4=;
- b=IeudAWgcEhuL4OJwEv9rwrYgcF9bwiR1SZJekXr5jmK7qaT2I8IonPe7kLFrNfbswoPP1356kQNe8lhrO0I6DSFsbO1jG/ZGAFHayNyEuZT8mGGCik8W/zxnf2LipDpf3IAiM/CZvLarwuJwp1ntVJq21B3qUL8BeAZrcGA9a55xea5YoGfdbGTYgXrjC1V8eLTkG5Rhjm0IfkVgjYHtvv+F3bxnk24kBkVyIHoDrmgJ3m+PVvJTa96grRB2jUTz5NDCv2N1DPfXuH3w2LDy37kuT2rWGORaCw9TQPdlRtvByYoSkQmVcIdZlDEJqKtR6esFuq59FUCBp7Hyx/lORw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AKjHB2QFXvYJWMAN4WnidWEgvW0Vy/z5udusgQgh0P4=;
- b=fDHE2FE/dL1jZFvIYqh9Ef4JosNBId+RisvPTnAnFytxSFZbs5pcJ8M3JtPTAXwRz9biqgEHgnwvqbSLkvDw56IRCj2Abx1M27oToGW94/yaJwRWUMH2GN4N5WPDMjz+9tOf+FQ+uboJVEfjBcqIdWunPPxXVQcuyURdvO4FPCw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO2P265MB5727.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:26d::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 15:36:25 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9913.009; Mon, 18 May 2026
- 15:36:25 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 18 May 2026 16:36:24 +0100
-Message-Id: <DILWWIPKW00V.2W06IJU4ET4AX@garyguo.net>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 10/27] rust: pci: make Driver trait
- lifetime-parameterized
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
- <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
-X-Mailer: aerc 0.21.0
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-11-dakr@kernel.org>
-In-Reply-To: <20260517000149.3226762-11-dakr@kernel.org>
-X-ClientProxiedBy: LO4P265CA0242.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:350::16) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ADB010E5F5;
+ Mon, 18 May 2026 15:38:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779118692; x=1810654692;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=QtQzHczivCw5Lh8GqVNurExxrQyEk0hdEQiAdEQNbA8=;
+ b=NO3z2qV6msbuALVaz5lizCXy3WJjKIueejYlNoyRLGgXEzINwNLLHKP9
+ is50bLeJMYOWhLBNiBLDzj2sl5hyKA/BCIf+No4sL6L0amz6x+e8FsOSP
+ Rf1oRHHdyWa5bDwmXmtTSk5EzMTorGzsKBDLGqj3cRyupppc7dvSsA5E6
+ dieuZ5FbhN+PSU2LvKcqRpKaJBi9uisHOTc1aQ8txVWirM9dn1l/riUu8
+ FNWQkltXJtTd4vlLPTOvBt9PO5LPKhFfshRXFN1cmOWMdtj1OCQ9xnRgv
+ tcBdepLlHFInQV/9twUmz8oz+HBXK9miXB2KyaFpIYqfAv3V+QXFscdFD g==;
+X-CSE-ConnectionGUID: 61tAZ5iZS9+/qqxkrN0LTA==
+X-CSE-MsgGUID: 3WgviNRIR5Sqg6+lCDmc/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="97544083"
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; d="scan'208";a="97544083"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2026 08:38:11 -0700
+X-CSE-ConnectionGUID: uUMDyEjFSKyeJdoc5Dm+gQ==
+X-CSE-MsgGUID: i9wragSOSm2biC8yTykX+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; d="scan'208";a="262977548"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.57])
+ ([10.245.244.57])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2026 08:38:10 -0700
+Message-ID: <c4b26104-41c8-4e32-b7a7-aa6b5063985f@intel.com>
+Date: Mon, 18 May 2026 16:38:08 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB5727:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d6d3ecc-6cd7-418f-9c25-08deb4f338b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|366016|7416014|376014|921020|18002099003|22082099003|56012099003|4143699003;
-X-Microsoft-Antispam-Message-Info: p9Wg8zWzvz9N3FFTYDEG82QSxJ6iA5FaVBVvETMRJiT56ve+QsFvB2+UR9hznZmgo97DpUGyq1lR9VRgfayUKdcSXQlt8zszac7MHLbTdJLKxdD7vwCWLRp3RmDc0M2dEO1//+8xJ5s6EPVmdO4dKl/HpaEMjsw6Bok4cQhr+NHaSI+GXEJb8fBP1L9eZoLrKFMUYjEuWzt9F3iYi6MkrtzbMIxkid9B+Ap1X932DR8eXDNnGAUV4Gb7fTS7DR2R7HJs2P0znE0KbYGZXog6ftAEOxTEUEaqaz5XmOGaMhyM2YlTIsvNv6MRblTUbPUTi0bWkf6CE/UlKDDHRKRNHKgLGuIi/7OWzwE4B/3Y/r6K8aHE0TicBjMEt01IhBcPhgZKDhds+6XU9c/DBbdD0iXox809F8EXJZFeKuBQ8WFBtaFNrdkoezkVrshV6tN7qHBcXYmZOH6/RH8gJTuOaDD8LUoYI2YgA+vXSYZjVq1uD8PiADeLNu8jPW8eGxFy8QL8fbI6z9AxuoUzMp760auf5vinGP+HgdPEUnNdwFA0Krpo/66JPOIrWRroNvQobfFvaQ/+3naBAKIIbD2FiW78Gmg/as9i3yHIw2/p70KGUPsERZbV4Kcbl38rDa3pQb5ACWqcbYj1XfR/5LHhjw4rKSnn0NGb5yU+RQwgq1hfrp92M3u4bi6dXqnTN2YaZJPgUWSX/ti1Bh8xkAie1xxDXP3ySJrqRNedBO0O2uA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(366016)(7416014)(376014)(921020)(18002099003)(22082099003)(56012099003)(4143699003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDVIZmowWnNHRDVZOXlPZFdJbzY4dkJ6anNQVEgxeUt5YWhDc0lEdFRuTTNn?=
- =?utf-8?B?UDk3aVdOYkxnQW9RRzlybm1CbDZtL2FSK2VTaFRCV01lZVN1bDVvSThoeVNU?=
- =?utf-8?B?UHptRVFwRGx1NjZhcjNGYWdadUlFMnVUNEk3NEtkWElVMmppS2ZKL1RxVjYz?=
- =?utf-8?B?RGpHNGM4UGVqVWxjOUdBLzNmdWVaM0xFWXpNNjVOTUIzQ0ZGM0NIVTZuR1lF?=
- =?utf-8?B?N2k0NHRTb3pjaTdBSmtWbTF3K01nL0krZnptWWo0Z0RDOFlnbVdXbnBUK0R6?=
- =?utf-8?B?YTU1UE9kekhvbnBhTE1Ja3BvMEF6Y0owTjZaRkNYUmxsUFZkUDF5QjZrdWVN?=
- =?utf-8?B?OUZuQVNHallVYUQvODhDbHdVUHFTaldSK2R2WFB4akVaN3ZhWFBMeU02TjU3?=
- =?utf-8?B?dHRmMzdPcVhZNk5SVGRJQlM1Y3FBMlRneWJydjcwNjhSK2w2NFVRRk5hMEsr?=
- =?utf-8?B?TG5RMWRZSDlvNzBXVU0vaHIvS3NIU2xsbGkvek0xZ05hV1BuM29QcmFEZXA2?=
- =?utf-8?B?dVFMOGswRzkvVmJjMkQyU1NDMi8zby9wLzdjek50RTFUbUk3b3ltbFFZODNo?=
- =?utf-8?B?c0dJUzN0Rk1pUlRTSlpqR21qeGtWVENPWm9CN2tpWXVqRWVhNW04bUttZk5S?=
- =?utf-8?B?cmJPOXVjbEY5YkMyWHI2NmRybGtpNERqSlhQZkRzeTZxSkxZZmpYSElmMlVK?=
- =?utf-8?B?WnBMcE83Tkx6SDJMVjU0Z2d6dlJxdnV4RXBOYjRudVBGV1drOGtOenZqZG5R?=
- =?utf-8?B?YXpONnl1SXkrYnZyYmhocGFBQXRIVmp4VjhXbmcxd0RyMFZXOC9kbDJxZEg4?=
- =?utf-8?B?di9iNEdZUzA5a2RtUGhJTExPNFRrNlh4TEN3cUZkU1pSKzJFelV0QWgvcFc2?=
- =?utf-8?B?WVJEWmhTRGRVV3V3djlMZ3VYVXlGeUZRemtsTGM1N2gxWVgwdUpGZ1dWYzlI?=
- =?utf-8?B?T3FsTmg2cThHay9hTTNVQzFMOTZvVGNiZVYvQmZ2REpRUFRXK2JIZDZQMzc2?=
- =?utf-8?B?UmFNbDJzUWNQL2VTT1B1N0ZXMTRkVTJVc08yWE16eUZ6azhJOFh4a0NDYm14?=
- =?utf-8?B?czlUWVR4UmJGWEdlZUxoWVZSZGNiU3JQYm42M25KdmdzaHRtWW1XemNPUmVN?=
- =?utf-8?B?R3NnZUxGSkdFaXZERldFTnFxbUVKcXdmekRsczAzUGlIQm1XcWFjL2xuWnQz?=
- =?utf-8?B?LzUwYzFWZjlJRFltNG5BZGlYTlY1U0h6VFhON0hYYkEzQlZWN0JBQms3VFJY?=
- =?utf-8?B?enEzcDVQZWloNzBvSjJpTXJTNHNUOFdzYVRHWTNra1d2VnRxeXBWVlBFSGlL?=
- =?utf-8?B?bUsvRkVhTkNhTldXemxPT01Gd2o3TlBFdHFaYzduVGhQWDdnS2g2Tzhlc0Rt?=
- =?utf-8?B?bWZTQjJDeEljYWhnMDBTWkZ1cE1RQjEvQjU2L2FlOGgyUlVhUzVaUERFMlF5?=
- =?utf-8?B?cFlCQjNGTlBzQjduOVVCaks3T2p0V3kySFRNVDl5RllVRE55dFQyWlZOc3Uv?=
- =?utf-8?B?THpwUnZxbGg3N083cXIwQ0NHZU1jVGdVMGZyelgya0txeUpydW9odUxxakpK?=
- =?utf-8?B?WTFVUWorZGg4V0d6anVaajlmY3Z4WlUxRm5vVXlxcXhISDU1NHR5SDAxcEhv?=
- =?utf-8?B?ZlFabmhoSlIrT1kzYUw0dlRKbnV2OWRxcThrRngrTExGTzBZMk5MSmw2cjNn?=
- =?utf-8?B?dlBleGx4YW1pWGdueExtbldSalcxUHBBUlNHREkyVW5RQVF1RVdaYVk1YzZh?=
- =?utf-8?B?VGJjdjZuTTY0TVJYL3BUa0hiWU5HMzFyZHhJWUJwMEgxMlozc1Avc1VpbEwz?=
- =?utf-8?B?bHRtaUhhR1lOcTNjaTlqejNOODg4ZjdVSGJHS3poMHp5SHFYaXBIODZsL0kx?=
- =?utf-8?B?Rld6Um9lWHBZZjBFUHVTNzNWNFQzSXpHK3o3OXdDT2pLL2xOOEFyaEQ3SERh?=
- =?utf-8?B?b0EwdGx2dmRaU2poMitkVkg2aThqaVJlS3dLdk8wUlNMcmhvdHNqU0p3V0k2?=
- =?utf-8?B?ajJxZnRnL1N0Vk5TMWJFdFlSc3AyMmxSTEpnTlhVZlJUZEVPRW5hcU9teUxu?=
- =?utf-8?B?eGRGcVpxeDlWaURCMWNMREx4dk9JL01DMitKUkFzSWt5Z2MvSlRuR0UxbEpP?=
- =?utf-8?B?TzBpaDcyYWtUK1FzcmZzNWludkJJOE1tZWpqdGJodGtzWXhvbklhTFdQRlJ2?=
- =?utf-8?B?bVBzemVIZ3J0TnBVMmpPSWhBbzgvWjVqTzdtTjlUSzlnUU9sbUhXcFpqWVlI?=
- =?utf-8?B?c1J3VnNMMi8rSEFSME1CUlhGNDZaV0tDZHRlNm94T0Ztc1R0dnlqbndQWlFn?=
- =?utf-8?B?UzRvb2IwN0FyWEo2bG1Td1JFcm9jYlp1QThZWVhRVS9kTlNvVG8rZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d6d3ecc-6cd7-418f-9c25-08deb4f338b2
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 15:36:25.5651 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dn7yaXToYNZ0qmSafDxCP7A+OqRGlsEAULtEHcgjP/QBlVbZ096P8o7FDI+xqjrywHDpRdJ7sHEnupAQ+8lQVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB5727
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] gpu/buddy: Fix use-after-free in split_block()
+ call sites
+To: Francois Dugast <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Sashiko <sashiko-bot@kernel.org>
+References: <20260518141446.124508-1-francois.dugast@intel.com>
+ <20260518141446.124508-2-francois.dugast@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260518141446.124508-2-francois.dugast@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,227 +72,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun May 17, 2026 at 1:00 AM BST, Danilo Krummrich wrote:
-> Add a 'bound lifetime to the associated Data, changing type Data to type
-> Data<'bound>.
->
-> This allows the driver's bus device private data to capture the device /
-> driver bound lifetime; device resources can be stored directly by
-> reference rather than requiring Devres.
->
-> The probe() and unbind() callbacks thus gain a 'bound lifetime parameter
-> on the methods themselves; avoiding a global lifetime on the trait impl.
->
-> Existing drivers set type Data<'bound> =3D Self, preserving the current
-> behavior.
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On 18/05/2026 15:14, Francois Dugast wrote:
+> When split_block() fails it returns before calling mark_split(), leaving
+> the block in the FREE state and still linked in the rbtree.  The four
+> err_undo paths then call __gpu_buddy_free() without first removing the
+> block from the tree, which leads to two distinct bugs:
+> 
+>   - If the buddy is also free, __gpu_buddy_free() merges the two siblings
+>     by calling gpu_block_free(mm, block) while block->rb is still linked
+>     in the tree.  Any subsequent rbtree traversal will follow the now-
+>     dangling pointer, causing a use-after-free.
+> 
+>   - In alloc_from_freetree(), where there is no buddy guard,
+>     __gpu_buddy_free() always reaches mark_free() -> rbtree_insert() with
+>     block still in the tree, corrupting the rbtree.
+> 
+> The same pattern is already used correctly in __force_merge(): call
+> rbtree_remove() to unlink the block before handing it to
+> __gpu_buddy_free().  Apply the same fix to all four err_undo sites.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Francois Dugast <francois.dugast@intel.com>
+> Assisted-by: GitHub Copilot:claude-sonnet-4.6
+
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
 > ---
->  drivers/gpu/nova-core/driver.rs       |  9 ++++++---
->  rust/kernel/pci.rs                    | 24 +++++++++++++-----------
->  samples/rust/rust_dma.rs              |  7 +++++--
->  samples/rust/rust_driver_auxiliary.rs |  7 +++++--
->  samples/rust/rust_driver_pci.rs       |  7 +++++--
->  5 files changed, 34 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
-er.rs
-> index 699e27046c93..fe4eafe1ebf0 100644
-> --- a/drivers/gpu/nova-core/driver.rs
-> +++ b/drivers/gpu/nova-core/driver.rs
-> @@ -74,10 +74,13 @@ pub(crate) struct NovaCore {
-> =20
->  impl pci::Driver for NovaCore {
->      type IdInfo =3D ();
-> -    type Data =3D Self;
-> +    type Data<'bound> =3D Self;
->      const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-> =20
-> -    fn probe(pdev: &pci::Device<Core>, _info: &Self::IdInfo) -> impl Pin=
-Init<Self, Error> {
-> +    fn probe<'bound>(
-> +        pdev: &'bound pci::Device<Core>,
-
-This is technically incorrect, as the `Device<Core>` only lives as long as =
-the
-callback. Having `'bound` would be incorrect.
-
-This can either be addressed via
-
-    pdev: &pci::Device<Core>, pdev_bound: &'bound pci::Device<Bound>, ...
-
-or perhaps by adding a lifetime to `Core<'_>`
-
-    pdev: &'bound pci::Device<Core<'_>>,
-
-Best,
-Gary
-
-> +        _info: &'bound Self::IdInfo,
-> +    ) -> impl PinInit<Self, Error> + 'bound {
->          pin_init::pin_init_scope(move || {
->              dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
-> =20
-> @@ -109,7 +112,7 @@ fn probe(pdev: &pci::Device<Core>, _info: &Self::IdIn=
-fo) -> impl PinInit<Self, E
->          })
->      }
-> =20
-> -    fn unbind(pdev: &pci::Device<Core>, this: Pin<&Self>) {
-> +    fn unbind<'bound>(pdev: &'bound pci::Device<Core>, this: Pin<&'bound=
- Self>) {
->          this.gpu.unbind(pdev.as_ref());
->      }
->  }
-> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-> index c06ac3fb2a64..8060861199d4 100644
-> --- a/rust/kernel/pci.rs
-> +++ b/rust/kernel/pci.rs
-> @@ -64,7 +64,7 @@
->  // - `DEVICE_DRIVER_OFFSET` is the correct byte offset to the embedded `=
-struct device_driver`.
->  unsafe impl<T: Driver> driver::DriverLayout for Adapter<T> {
->      type DriverType =3D bindings::pci_driver;
-> -    type DriverData<'bound> =3D T::Data;
-> +    type DriverData<'bound> =3D T::Data<'bound>;
->      const DEVICE_DRIVER_OFFSET: usize =3D core::mem::offset_of!(Self::Dr=
-iverType, driver);
->  }
-> =20
-> @@ -130,7 +130,7 @@ extern "C" fn remove_callback(pdev: *mut bindings::pc=
-i_dev) {
->          // SAFETY: `remove_callback` is only ever called after a success=
-ful call to
->          // `probe_callback`, hence it's guaranteed that `Device::set_drv=
-data()` has been called
->          // and stored a `Pin<KBox<T::Data>>`.
-> -        let data =3D unsafe { pdev.as_ref().drvdata_borrow::<T::Data>() =
-};
-> +        let data =3D unsafe { pdev.as_ref().drvdata_borrow::<T::Data<'_>=
->() };
-> =20
->          T::unbind(pdev, data);
->      }
-> @@ -279,13 +279,13 @@ macro_rules! pci_device_table {
->  ///
->  /// impl pci::Driver for MyDriver {
->  ///     type IdInfo =3D ();
-> -///     type Data =3D Self;
-> +///     type Data<'bound> =3D Self;
->  ///     const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
->  ///
-> -///     fn probe(
-> -///         _pdev: &pci::Device<Core>,
-> -///         _id_info: &Self::IdInfo,
-> -///     ) -> impl PinInit<Self, Error> {
-> +///     fn probe<'bound>(
-> +///         _pdev: &'bound pci::Device<Core>,
-> +///         _id_info: &'bound Self::IdInfo,
-> +///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
->  ///         Err(ENODEV)
->  ///     }
->  /// }
-> @@ -302,7 +302,7 @@ pub trait Driver: Send {
->      type IdInfo: 'static;
-> =20
->      /// The type of the driver's bus device private data.
-> -    type Data;
-> +    type Data<'bound>: 'bound;
-> =20
->      /// The table of device ids supported by the driver.
->      const ID_TABLE: IdTable<Self::IdInfo>;
-> @@ -311,8 +311,10 @@ pub trait Driver: Send {
->      ///
->      /// Called when a new pci device is added or discovered. Implementer=
-s should
->      /// attempt to initialize the device here.
-> -    fn probe(dev: &Device<device::Core>, id_info: &Self::IdInfo)
-> -        -> impl PinInit<Self::Data, Error>;
-> +    fn probe<'bound>(
-> +        dev: &'bound Device<device::Core>,
-> +        id_info: &'bound Self::IdInfo,
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
-> =20
->      /// PCI driver unbind.
->      ///
-> @@ -324,7 +326,7 @@ fn probe(dev: &Device<device::Core>, id_info: &Self::=
-IdInfo)
->      /// operations to gracefully tear down the device.
->      ///
->      /// Otherwise, release operations for driver resources should be per=
-formed in `Drop`.
-> -    fn unbind(dev: &Device<device::Core>, this: Pin<&Self::Data>) {
-> +    fn unbind<'bound>(dev: &'bound Device<device::Core>, this: Pin<&'bou=
-nd Self::Data<'bound>>) {
->          let _ =3D (dev, this);
->      }
->  }
-> diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-> index e583c6b8390a..943655a85ec6 100644
-> --- a/samples/rust/rust_dma.rs
-> +++ b/samples/rust/rust_dma.rs
-> @@ -58,10 +58,13 @@ unsafe impl kernel::transmute::FromBytes for MyStruct=
- {}
-> =20
->  impl pci::Driver for DmaSampleDriver {
->      type IdInfo =3D ();
-> -    type Data =3D Self;
-> +    type Data<'bound> =3D Self;
->      const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-> =20
-> -    fn probe(pdev: &pci::Device<Core>, _info: &Self::IdInfo) -> impl Pin=
-Init<Self, Error> {
-> +    fn probe<'bound>(
-> +        pdev: &'bound pci::Device<Core>,
-> +        _info: &'bound Self::IdInfo,
-> +    ) -> impl PinInit<Self, Error> + 'bound {
->          pin_init::pin_init_scope(move || {
->              dev_info!(pdev, "Probe DMA test driver.\n");
-> =20
-> diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_dr=
-iver_auxiliary.rs
-> index 61d5bf2e8c0d..2f57912fe87f 100644
-> --- a/samples/rust/rust_driver_auxiliary.rs
-> +++ b/samples/rust/rust_driver_auxiliary.rs
-> @@ -66,11 +66,14 @@ struct ParentDriver {
-> =20
->  impl pci::Driver for ParentDriver {
->      type IdInfo =3D ();
-> -    type Data =3D Self;
-> +    type Data<'bound> =3D Self;
-> =20
->      const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-> =20
-> -    fn probe(pdev: &pci::Device<Core>, _info: &Self::IdInfo) -> impl Pin=
-Init<Self, Error> {
-> +    fn probe<'bound>(
-> +        pdev: &'bound pci::Device<Core>,
-> +        _info: &'bound Self::IdInfo,
-> +    ) -> impl PinInit<Self, Error> + 'bound {
->          Ok(Self {
->              _reg0: auxiliary::Registration::new(
->                  pdev.as_ref(),
-> diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_p=
-ci.rs
-> index f43c6a660b39..30b9311812f3 100644
-> --- a/samples/rust/rust_driver_pci.rs
-> +++ b/samples/rust/rust_driver_pci.rs
-> @@ -140,11 +140,14 @@ fn config_space(pdev: &pci::Device<Bound>) {
-> =20
->  impl pci::Driver for SampleDriver {
->      type IdInfo =3D TestIndex;
-> -    type Data =3D Self;
-> +    type Data<'bound> =3D Self;
-> =20
->      const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-> =20
-> -    fn probe(pdev: &pci::Device<Core>, info: &Self::IdInfo) -> impl PinI=
-nit<Self, Error> {
-> +    fn probe<'bound>(
-> +        pdev: &'bound pci::Device<Core>,
-> +        info: &'bound Self::IdInfo,
-> +    ) -> impl PinInit<Self, Error> + 'bound {
->          pin_init::pin_init_scope(move || {
->              let vendor =3D pdev.vendor_id();
->              dev_dbg!(
+>   drivers/gpu/buddy.c | 16 ++++++++++++----
+>   1 file changed, 12 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index eb1457376307..dac2027bb64a 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -737,8 +737,10 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>   	buddy = __get_buddy(block);
+>   	if (buddy &&
+>   	    (gpu_buddy_block_is_free(block) &&
+> -	     gpu_buddy_block_is_free(buddy)))
+> +	     gpu_buddy_block_is_free(buddy))) {
+> +		rbtree_remove(mm, block);
+>   		__gpu_buddy_free(mm, block, false);
+> +	}
+>   	return ERR_PTR(err);
+>   }
+>   
+> @@ -847,8 +849,10 @@ alloc_from_freetree(struct gpu_buddy *mm,
+>   	return block;
+>   
+>   err_undo:
+> -	if (tmp != order)
+> +	if (tmp != order) {
+> +		rbtree_remove(mm, block);
+>   		__gpu_buddy_free(mm, block, false);
+> +	}
+>   	return ERR_PTR(err);
+>   }
+>   
+> @@ -968,8 +972,10 @@ gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
+>   	buddy = __get_buddy(block);
+>   	if (buddy &&
+>   	    (gpu_buddy_block_is_free(block) &&
+> -	     gpu_buddy_block_is_free(buddy)))
+> +	     gpu_buddy_block_is_free(buddy))) {
+> +		rbtree_remove(mm, block);
+>   		__gpu_buddy_free(mm, block, false);
+> +	}
+>   	return ERR_PTR(err);
+>   }
+>   
+> @@ -1054,8 +1060,10 @@ static int __alloc_range(struct gpu_buddy *mm,
+>   	buddy = __get_buddy(block);
+>   	if (buddy &&
+>   	    (gpu_buddy_block_is_free(block) &&
+> -	     gpu_buddy_block_is_free(buddy)))
+> +	     gpu_buddy_block_is_free(buddy))) {
+> +		rbtree_remove(mm, block);
+>   		__gpu_buddy_free(mm, block, false);
+> +	}
+>   
+>   err_free:
+>   	if (err == -ENOSPC && total_allocated_on_err) {
 
