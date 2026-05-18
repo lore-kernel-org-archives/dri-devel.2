@@ -4,67 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11629CD4F50
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:14:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B4DBCD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30CFE10E9AD;
-	Mon, 18 May 2026 18:14:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2B4310E338;
+	Mon, 18 May 2026 19:01:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="rUDJ+a6l";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="06H5Fk1g";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E84410E9AA
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:14:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779128091; bh=9uqA4jKYzliYkZko16kXvMFNWZFyXqBx7ysVDcNYMxw=;
- b=rUDJ+a6l4JajA2AGf9yDyWBg8k5Lb/xPT3HkzKwFBcUzy1riQvIan7rW1TfOzhpHGm52i7o/a
- 25+LULk3fzVZQ7i979BzizNdIucXLXMGQIga/YFa1H1woglW83R7HBai4QmRdnApRfTFDZk7ia6
- RBpOhShiWnXxPrZiD+NlzUNSl+E8c69Ty2o2MtJhaBY+rPVN9XI8RWAirV/B4liNHAMKbF9maZi
- +8W533jUwY6XNTqR1WXvuP/ArzjtfGULOBQ9ptNDnukd2MhuNXbcGnNCsuJbn4citAgamKTw5IM
- QPxc17mJ6WkbCyA/mgBTaMoeTH5mv9SQ54wF78MetmJw==
-X-Forward-Email-ID: 6a0b5485b84dbc72d2274ffb
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
-X-Forward-Email-Version: 2.8.12
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Jonas Karlman <jonas@kwiboo.se>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Liu Ying <victor.liu@nxp.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>
-Cc: Christian Hewitt <christianshewitt@gmail.com>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v7 22/23] drm: bridge: dw_hdmi: Remove the empty
- dw_hdmi_phy_update_hpd()
-Date: Mon, 18 May 2026 18:01:58 +0000
-Message-ID: <20260518180206.2480119-23-jonas@kwiboo.se>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260518180206.2480119-1-jonas@kwiboo.se>
-References: <20260518180206.2480119-1-jonas@kwiboo.se>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7716E10E338
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:01:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7822340A2E;
+ Mon, 18 May 2026 19:01:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C75C2BCB7;
+ Mon, 18 May 2026 19:01:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1779130892;
+ bh=fw+q1hdy9gHSKP+DrE9FxxvQVeReNOjpqzZgPMQeP8M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=06H5Fk1gy9y8tlQho7zcqXihtsQKHU5b3Vhhuf3NcgpQPLWOVchJQZq4J+Qb9GojJ
+ VxFX5DHgKZFr5krV/VckQrU3V57wlPe64tripRkC4EhM8Rqw1bWKyl0bCfCPfqKmil
+ mj/N3GUe/qCtVGZZKPHJrqWM2BrPOTvMgUAz/ePw=
+Date: Mon, 18 May 2026 21:00:44 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: D D <dhabal123@gmail.com>
+Cc: security@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] accel/ethosu: fix integer overflow in cmd_to_addr()
+ address computation
+Message-ID: <2026051812-blemish-croon-5b37@gregkh>
+References: <CA+g3TbsDGcsmdPn-p70OO3DwS2Fsq0NN9v1FVYqSa13JCPvFXQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+g3TbsDGcsmdPn-p70OO3DwS2Fsq0NN9v1FVYqSa13JCPvFXQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,123 +54,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dw_hdmi_phy_update_hpd() helper is empty and no longer needed after
-recent RXSENSE and HPD rework, remove it.
+On Mon, May 18, 2026 at 09:02:18PM +0530, D D wrote:
+> In cmd_to_addr(), the expression (cmd[0] & 0xff0000) << 16 performs the
+> left-shift in 32-bit arithmetic because cmd[0] is u32 and the intermediate
+> result of the AND is also u32. The meaningful bits (positions 16-23) need
+> to land in positions 32-39 of the result, but these positions exceed the
+> 32-bit width, so they are silently discarded before the cast to u64.
+> 
+> This causes cmd_to_addr() to always return an address with a zeroed upper
+> half, producing an incorrect DMA address for the Ethos-U NPU. The device
+> may then read from or write to the wrong physical memory region, leading
+> to kernel memory corruption or information disclosure.
+> 
+> Fix by casting to u64 before the shift so the operation is performed in
+> 64-bit arithmetic and no bits are lost.
+> 
+> Found by manual source code audit of Linux kernel v6.19
+> (drivers/accel/ethosu/ethosu_gem.c, line 157).
+> Affected versions: v6.19+ (since initial Ethos-U driver merge).
 
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
-Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
----
-v7: No change
-v6: Collect t-b tag
-v5: No change
-v4: New patch
----
- drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c | 1 -
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c   | 7 -------
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 2 --
- drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c      | 2 --
- include/drm/bridge/dw_hdmi.h                | 4 ----
- 5 files changed, 16 deletions(-)
+Can you use a Fixes: tag properly here?
 
-diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
-index 8e8cfd66f23b..20d389dbfdc5 100644
---- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
-+++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
-@@ -78,7 +78,6 @@ static const struct dw_hdmi_phy_ops imx8mp_hdmi_phy_ops = {
- 	.disable	= imx8mp_hdmi_phy_disable,
- 	.setup_hpd	= im8mp_hdmi_phy_setup_hpd,
- 	.read_hpd	= dw_hdmi_phy_read_hpd,
--	.update_hpd	= dw_hdmi_phy_update_hpd,
- };
- 
- static int imx8mp_dw_hdmi_bind(struct device *dev)
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 42d630efb875..c596534510da 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -1687,12 +1687,6 @@ enum drm_connector_status dw_hdmi_phy_read_hpd(struct dw_hdmi *hdmi,
- }
- EXPORT_SYMBOL_GPL(dw_hdmi_phy_read_hpd);
- 
--void dw_hdmi_phy_update_hpd(struct dw_hdmi *hdmi, void *data,
--			    bool force, bool disabled, bool rxsense)
--{
--}
--EXPORT_SYMBOL_GPL(dw_hdmi_phy_update_hpd);
--
- void dw_hdmi_phy_setup_hpd(struct dw_hdmi *hdmi, void *data)
- {
- 	/*
-@@ -1716,7 +1710,6 @@ static const struct dw_hdmi_phy_ops dw_hdmi_synopsys_phy_ops = {
- 	.init = dw_hdmi_phy_init,
- 	.disable = dw_hdmi_phy_disable,
- 	.read_hpd = dw_hdmi_phy_read_hpd,
--	.update_hpd = dw_hdmi_phy_update_hpd,
- 	.setup_hpd = dw_hdmi_phy_setup_hpd,
- };
- 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-index 0dc1eb5d2ae3..7136e713df2e 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-@@ -413,7 +413,6 @@ static const struct dw_hdmi_phy_ops rk3228_hdmi_phy_ops = {
- 	.init		= dw_hdmi_rockchip_genphy_init,
- 	.disable	= dw_hdmi_rockchip_genphy_disable,
- 	.read_hpd	= dw_hdmi_phy_read_hpd,
--	.update_hpd	= dw_hdmi_phy_update_hpd,
- 	.setup_hpd	= dw_hdmi_rk3228_setup_hpd,
- };
- 
-@@ -449,7 +448,6 @@ static const struct dw_hdmi_phy_ops rk3328_hdmi_phy_ops = {
- 	.init		= dw_hdmi_rockchip_genphy_init,
- 	.disable	= dw_hdmi_rockchip_genphy_disable,
- 	.read_hpd	= dw_hdmi_rk3328_read_hpd,
--	.update_hpd	= dw_hdmi_phy_update_hpd,
- 	.setup_hpd	= dw_hdmi_rk3328_setup_hpd,
- };
- 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c b/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
-index 4fa69c463dc4..2ac99b8ce8c4 100644
---- a/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
-@@ -221,7 +221,6 @@ static const struct dw_hdmi_phy_ops sun8i_a83t_hdmi_phy_ops = {
- 	.init		= sun8i_a83t_hdmi_phy_config,
- 	.disable	= sun8i_a83t_hdmi_phy_disable,
- 	.read_hpd	= dw_hdmi_phy_read_hpd,
--	.update_hpd	= dw_hdmi_phy_update_hpd,
- 	.setup_hpd	= dw_hdmi_phy_setup_hpd,
- };
- 
-@@ -395,7 +394,6 @@ static const struct dw_hdmi_phy_ops sun8i_h3_hdmi_phy_ops = {
- 	.init		= sun8i_h3_hdmi_phy_config,
- 	.disable	= sun8i_h3_hdmi_phy_disable,
- 	.read_hpd	= dw_hdmi_phy_read_hpd,
--	.update_hpd	= dw_hdmi_phy_update_hpd,
- 	.setup_hpd	= dw_hdmi_phy_setup_hpd,
- };
- 
-diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
-index a612b9fa6dbb..10013b8d3adb 100644
---- a/include/drm/bridge/dw_hdmi.h
-+++ b/include/drm/bridge/dw_hdmi.h
-@@ -118,8 +118,6 @@ struct dw_hdmi_phy_ops {
- 		    const struct drm_display_mode *mode);
- 	void (*disable)(struct dw_hdmi *hdmi, void *data);
- 	enum drm_connector_status (*read_hpd)(struct dw_hdmi *hdmi, void *data);
--	void (*update_hpd)(struct dw_hdmi *hdmi, void *data,
--			   bool force, bool disabled, bool rxsense);
- 	void (*setup_hpd)(struct dw_hdmi *hdmi, void *data);
- };
- 
-@@ -213,8 +211,6 @@ void dw_hdmi_phy_gen2_reset(struct dw_hdmi *hdmi);
- 
- enum drm_connector_status dw_hdmi_phy_read_hpd(struct dw_hdmi *hdmi,
- 					       void *data);
--void dw_hdmi_phy_update_hpd(struct dw_hdmi *hdmi, void *data,
--			    bool force, bool disabled, bool rxsense);
- void dw_hdmi_phy_setup_hpd(struct dw_hdmi *hdmi, void *data);
- 
- bool dw_hdmi_bus_fmt_is_420(struct dw_hdmi *hdmi);
--- 
-2.54.0
+> Signed-off-by: Dhabaleshwar Das (dhabal123@gmail.com)
 
+Does not match your From: line.
+
+> ---
+>  drivers/accel/ethosu/ethosu_gem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/accel/ethosu/ethosu_gem.c
+> b/drivers/accel/ethosu/ethosu_gem.c
+> index abcdef1..1234567 100644
+> --- a/drivers/accel/ethosu/ethosu_gem.c
+> +++ b/drivers/accel/ethosu/ethosu_gem.c
+> @@ -155,7 +155,7 @@ static u64 cmd_to_addr(u32 *cmd)
+>  static u64 cmd_to_addr(u32 *cmd)
+>  {
+> - return ((u64)((cmd[0] & 0xff0000) << 16)) | cmd[1];
+> + return (((u64)(cmd[0] & 0xff0000)) << 16) | cmd[1];
+>  }
+
+Patch is corrupted and can not be applied :(
+
+thanks,
+
+greg k-h
