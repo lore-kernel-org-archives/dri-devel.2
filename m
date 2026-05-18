@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08183CD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:48:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 100AECD343F
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:48:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC6C10E336;
-	Mon, 18 May 2026 19:48:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 743BA10E84B;
+	Mon, 18 May 2026 19:48:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="i9wkstBj";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="T5vLYGeh";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D114B10E336
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:48:04 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A593010E84B
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779133684; bh=ix3tqGj9O/73OPDzykQq3AN3AmgT+JSGiiTMGr+5/U4=;
- b=i9wkstBjXuW2iJ6R4OUVlT8vfxaw27j0cPBdGbQnqZFjCw9Tip9JsBwAwTHTIYamUKQWxroy9
- LZj/tswsd9FiD+0iCTPXnoLDaqi+ZLTcvw2NoAOWiLd6eB/X99jDGwtWlCsUqV3JS23oMFDEaQD
- AUVqE/YYQ1zHEX/dW5WBzORZlOSnS3kryuWf30XNfVzhmyv71YDrW7OIDmTqXSBY0DTiM39sC8l
- Py0QMvIpBkma/aDte5A5Ibifl/k5V0DfFrJoUuS+aN5Tj5girs4+QcQYOsdHr+m4OnnXwFpTYOh
- mLQ8y40QT+astmZcRA6fAh4WSQpHx/mjI5cP90lgFBvw==
-X-Forward-Email-ID: 6a0b6cecb74b0ebd362eee20
+ t=1779133694; bh=fkGNzPgLT1Dz0z6nTFi2No6Ifen2fpOCha4Dk4M3oxg=;
+ b=T5vLYGehIzCZM1S/x8LHz5E128F+A/DKHRYd3dtREEkDbJVm5aaj2Azzc8r4e1SyOASLn8WOr
+ TvOXrsP9zgdHVl3SKOP4na2loL8bpZ2lx2gwEEuNTkMsfqWLUfI8SzZdTXxHebRqkSJHEhF8p+n
+ 18Oh7Xl5RxQs+Xi+m7HkrR1u441C8CVVh4Niyr5Gg/6mWVv1nGhv//zn43IyYSNB7YbCLlJ/y1h
+ Gw5insWH64VCtP8X940I40dKnFIbJ52LM+t1U8v1wXydadnOuWSRpbkQP9F+pFCcORNPuY9M4WA
+ qgL/njx1yEAoTIIMicMULmeqKLfzdG/Gp+bnytvliH7g==
+X-Forward-Email-ID: 6a0b6cf1b74b0ebd362eee3b
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
+ 149.28.215.223
 X-Forward-Email-Version: 2.8.12
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -39,14 +39,15 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Sam Ravnborg <sam@ravnborg.org>
 Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Jonas Karlman <jonas@kwiboo.se>, linux-rockchip@lists.infradead.org
-Subject: [PATCH 01/13] drm/meson: dw-hdmi: Report connector status based on
- HPD bit
-Date: Mon, 18 May 2026 19:47:29 +0000
-Message-ID: <20260518194744.2483580-2-jonas@kwiboo.se>
+Subject: [PATCH 02/13] drm/meson: dw-hdmi: Protect from possible NULL pointer
+ dereference
+Date: Mon, 18 May 2026 19:47:30 +0000
+Message-ID: <20260518194744.2483580-3-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518194744.2483580-1-jonas@kwiboo.se>
 References: <20260518194744.2483580-1-jonas@kwiboo.se>
@@ -67,50 +68,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-G12A added support for RX-SENSE, status for both HPD and RX-SENSE is
-reported in the TOP_STAT0 register.
+The IRQ handler can be called at any time after the call to
+devm_request_threaded_irq() completes, even before dw_hdmi->bridge has
+been assigned later in meson_dw_hdmi_bind().
 
-Limit read_hpd() phy ops to only report connected status based on the
-HPD status bit in TOP_STAT0, to help ensure that EDID can be read from
-the sink in the connector detect() func.
+Protect from a possible NULL pointer dereference in IRQ handler by only
+calling drm_helper_hpd_irq_event() when bridge has been assigned.
 
-Fixes: 3b7c1237a72a ("drm/meson: Add G12A support for the DW-HDMI Glue")
+Fixes: e67f6037ae1b ("drm/meson: split out encoder from meson_dw_hdmi")
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
- drivers/gpu/drm/meson/meson_dw_hdmi.c | 6 ++++--
- drivers/gpu/drm/meson/meson_dw_hdmi.h | 3 +++
- 2 files changed, 7 insertions(+), 2 deletions(-)
+I only observed this NULL pointer dereference one time, without being
+able to reliably re-create a similar timing scenario. I still think this
+is an issue that possible could happen and likely should be fixed.
+
+Note that patches later in this series will fully replace this change.
+---
+ drivers/gpu/drm/meson/meson_dw_hdmi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-index 2a8756da569b..993f6d5d4b29 100644
+index 993f6d5d4b29..eafe7daf6ff1 100644
 --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
 +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-@@ -457,9 +457,11 @@ static enum drm_connector_status dw_hdmi_read_hpd(struct dw_hdmi *hdmi,
- 			     void *data)
- {
- 	struct meson_dw_hdmi *dw_hdmi = (struct meson_dw_hdmi *)data;
-+	unsigned int stat;
+@@ -520,7 +520,8 @@ static irqreturn_t dw_hdmi_top_thread_irq(int irq, void *dev_id)
+ 	u32 stat = dw_hdmi->irq_stat;
  
--	return !!dw_hdmi->data->top_read(dw_hdmi, HDMITX_TOP_STAT0) ?
--		connector_status_connected : connector_status_disconnected;
-+	stat = dw_hdmi->data->top_read(dw_hdmi, HDMITX_TOP_STAT0);
-+	return stat & HDMITX_TOP_STAT0_HPD ? connector_status_connected :
-+					     connector_status_disconnected;
- }
+ 	/* HPD Events */
+-	if (stat & (HDMITX_TOP_INTR_HPD_RISE | HDMITX_TOP_INTR_HPD_FALL)) {
++	if (stat & (HDMITX_TOP_INTR_HPD_RISE | HDMITX_TOP_INTR_HPD_FALL) &&
++	    dw_hdmi->bridge) {
+ 		bool hpd_connected = false;
  
- static void dw_hdmi_setup_hpd(struct dw_hdmi *hdmi,
-diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.h b/drivers/gpu/drm/meson/meson_dw_hdmi.h
-index 08e1c14e4ea0..cb4616daf667 100644
---- a/drivers/gpu/drm/meson/meson_dw_hdmi.h
-+++ b/drivers/gpu/drm/meson/meson_dw_hdmi.h
-@@ -157,4 +157,7 @@
-  */
- #define HDMITX_TOP_STAT0                        (0x00E)
- 
-+#define HDMITX_TOP_STAT0_HPD		BIT(0)
-+#define HDMITX_TOP_STAT0_RXSENSE	BIT(1)
-+
- #endif /* __MESON_DW_HDMI_H */
+ 		if (stat & HDMITX_TOP_INTR_HPD_RISE)
 -- 
 2.54.0
 
