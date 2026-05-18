@@ -4,101 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 030FBCD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 23:21:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79033CD343F
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 23:33:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE7110E149;
-	Mon, 18 May 2026 23:21:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6EA10E213;
+	Mon, 18 May 2026 23:33:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="AZoBDsM4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="altV7c2C";
 	dkim-atps=neutral
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
- [74.125.224.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BBE610E213
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 23:20:59 +0000 (UTC)
-Received: by mail-yx1-f50.google.com with SMTP id
- 956f58d0204a3-651bf695701so2797164d50.2
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:20:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779146458; cv=none;
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
+ [209.85.128.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5833510E213
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 23:33:32 +0000 (UTC)
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-7bb0d18c7f9so22176487b3.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:33:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779147211; cv=none;
  d=google.com; s=arc-20240605;
- b=kt4+dpRS0f6cCcL56moE0v3N3ISJTQvGxbEIpuG8IJFzuDImUsncjOqvLPJf0nDVHt
- UB/frVw5iFsrJp2tJR+6gVvCt1+Ox3fMSQJNzvhKGKgBuipDltR9M+10kgLnX+LliSv2
- 6Xb0HBN8h0kse2QZr1QwFbO0kjCpwwoiP3/Oxj8tn8vNk1wQvm3sszqX4VEKbFTfZa6P
- +mgq9GCDP3gZZ5gr8u3+KgE+FaGQadwkylJIcCDgKsDRz1ddQt5WohlbItL6UqPti9Fl
- oNnw7Axl+wns6EkX7S4V84o+WbzuEgJa+WKW43+S0KFu9KjqoKSGmRYuzqOUlmwZxfTJ
- WlVg==
+ b=RSK/8jUWHIH4FKr8ErE45kN8Xz9IJpxARf39T+tbRFD6pWQmz0t8L4ikVj4vTH5l3q
+ 3OqNnB1OmIpJhIJFezJbYPFjyOTonus/bX9IghUrzskEwM6YJvAvMTY5rnfbVSJcwRBN
+ diW21oZC+/Icl9qzq1v3y8dz0ptc5uZx8dlwYAUibtwyQlXz65tFLReOlVWbjcCN5SVO
+ JmNrrYeMcjyEP6uXEaHTdpFGtYmRog9XFm7HU2RWbnJHQ9Clj+iDSlyV5rgkj+I+GiKC
+ c5fGQJF3rSvMg3bq3OwD90jkX9q0lSPN/VsL0YlyMi54T/L8ArI8esrnMg+gBB46BU9q
+ uXRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=qyiC/6ER7XJQAQS9fYV1hi++02Ay+WfrOqQ6ixqtbHQ=;
- fh=Fx2khRydsmaAdl/aJKhroEH62r6hmM2r6fPNhmfpzdM=;
- b=B1xEEfQTObBCORWICtGxUXYdcatwYFK4t6IIlnwrkI2oNOX4dOfYfCYllUPhMxP2Cd
- 8hyv2A89hkxptnbt129ERpjhaNcgimnMKoLusarO5oTNnUgFrXqLOFQboJ4qhvQ/zIdh
- oS3duPoZF1Ho5QfUGF9yTOm2Xdn0X9b8ywN8zD2lfRgw9xxh8L8ZGB36xK50jbcR7IEh
- vzjWP+SJgVUwGrTMrsmiTifdX3b77Vt7jV+F2dnctsjFac5H8bUQHVBKoE8ZNZdTQu9P
- 0stIFKt/HYH4D2aUdjtOgfH0usc4Od9/yyXXIAkODK/Mz9PILjfKxrjCAebV0k9jejlw
- UTyA==; darn=lists.freedesktop.org
+ bh=Ldxv8bqI+dSzVq+DQ1STQWmDJwgS7f+ndmxRwB2idE4=;
+ fh=8ZKp/IPlH4RMFXPKLf0q6BUWG/KIXFrpGPmV0ESRUHY=;
+ b=Mf3K79b8wy+ZBDmsYuZstgX/Qnqz1vNEM+2NZGo5d3U8udQZyJ6P0m76Cjm2sjY97s
+ U89fyae67pCfRI+IDxOnH/it5NkqEog30HCH5xV2JwVuxi7PwiMRSPmaAGv2HdkuPLwk
+ 3EC72Ier1Kb/5EgwWShYjYYWTBaslT3Sas7dCgRdzOJmtE/gX3T4h6QBPIt6B6fBe3UQ
+ SIhpJvC0WadLRETikO1qMYlmSnJF+snj1BQsIIYdngnA9O7oxHlKrqgMllkOuxmWvD9n
+ cZnbukxycc4nf4qdRyOgqPnfBVCyFlx14nLC5wi1FUC9kkWpb8QStPg6oVMdhwp+gKZ5
+ 5w3w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bitbyteword.org; s=google; t=1779146458; x=1779751258;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1779147211; x=1779752011; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qyiC/6ER7XJQAQS9fYV1hi++02Ay+WfrOqQ6ixqtbHQ=;
- b=AZoBDsM4+UmK9xTQpYnH+tQmJczU3tysd/hHt8TozSrBKDRzU5H8Sl999edx/9dtFX
- LsVzaURGLffRfnqQjYMNlaxPjouyDrhQxJpXLXjEyeh64huo7hfPc5lslj0baj8MDgn2
- oB4v0v6Se1AwBmxk1p2hm2G4UgVE47oZKppL8bolgJ+ZDQtTP8PDR7SLgcWIjUyEphtG
- 8SUPbQcFb2h5uaxFIqKbJkV20XYAKgAQHbCTfLvr6LvHof42YcIvQR7evr3HjuDda7tU
- 15kZOBpaRIeeaZhNrkdDIOrkNjNYHTt6W0CHZoFt1jfsSMdaDyaPy1eNxigEWhMkGnR6
- I7Hg==
+ bh=Ldxv8bqI+dSzVq+DQ1STQWmDJwgS7f+ndmxRwB2idE4=;
+ b=altV7c2CECrFVcfg4QEWqhc5MAJwW/h+iF7ACXmOIfe4xJtwBgYIRVve/v+U4XULCA
+ xL40gFjfQyacBM9/ndQ7iTtPBeb6uyN0+mnTLhF4wKuknt/1e3wW4NVyJE1VxSlRdGSN
+ Ah1XZKm3hDGWzZDePtw7yRbkJg5wahe936o6z9MAq81GDxTPmyNHa13patf3O5Nu90E7
+ XFyN/3CdxjU8hX7NwkrMk/Pzqv3LNc6OeJ/cJqvxhuuBhHS06YyDAknGnyEbDB39p/P8
+ 1pRmgKByI2O9jvEZuZ6XzKavQco5HBsQoEGfIaTeLaqdZxlNK9bSO8Z6nPjHeSUNAf/p
+ 27JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779146458; x=1779751258;
+ d=1e100.net; s=20251104; t=1779147211; x=1779752011;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=qyiC/6ER7XJQAQS9fYV1hi++02Ay+WfrOqQ6ixqtbHQ=;
- b=LQc4rfYo2ktrSNYVsgd2AOTFuuDjnjL39N/cQic+UuSI3DomloHYpReO/2M2DMIDh1
- /XqV0Pu+5CQNQIKsZGArEXticCdpNXpezt4iAYVhvlIA7h1FfH9KAMNvKR1PgtQKvXOz
- Zw2FzuPgV/stSUSy/bGZniQ5DGxZ59OZPY31WE/XZOp15rGfz6SqzVcxu84LQLRnbJo0
- fD+del+GjEIkSAhw1sfzC480Z5IFXEtxQDRCGQ/Rv7Bpng4M7PDoTHXlyoW96pY7RV59
- UwvHfmZmEBPfiac61D5d4pVNNhQHo9rj8mMqho6nT5MBVCzNw/BAfXqn1zi/u1KTw+Fl
- Jdww==
+ bh=Ldxv8bqI+dSzVq+DQ1STQWmDJwgS7f+ndmxRwB2idE4=;
+ b=q4GagP3tRHmjDpXp71F99MHQQdBOx+kxmmd65VDgfYJVqgYzCHc8InC6H8zPuL/9Ay
+ UcB3kB8Xqtd3oHssU80LMDqrfaBx58QBwbZIQ7mzAiZ+gWBIJCDLhPeFjbXvx9kkxkBk
+ v/vuL4f4DgnBXOr4J+lvl6FZzXzkvB793EPVLwZnfI4yh/nhbBgbRBpHxH2Qqr5y96DM
+ amQnfhxnt2wcaxzr25iwfVOe/i4Q9P094e8nC7RrRqp+3owXIQjuK/LObiV7IeOz4hSh
+ Z88dC8Ppdkv9aN+ZCh1PK1CkouG5/pYH9vxwwea0mtnEEyzqDeC+n7Qi4Nx06UfU7ibL
+ 5IUA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/zd9FOq8cdNdgFk3e4LtwuZTdS1Pb+hZLAx6WLyAHVwozDOsrKxhlK4NTCCy8xOI7vGq7FDcsOVbM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxgvQA8oPFUlHByhPW0yANhRyXGxZUjSkTVsCteewHtG+Jnz2HC
- ZoDkXlgdke8dRHQXJuNFsrkg8Wi7yP+gE2fFqRvNpGOF1XCFxt3BqaKdpQxRs8Uqf3h1J8ZKtNC
- 7EoDzTCSMZPaXFlLpywOD4ET7FucJsANre6Gsa6RFgQ==
-X-Gm-Gg: Acq92OEZTEzX38jxM3pZ3h+CY7XrimrfWAGebH3Unw86CReFiwZeNxPNbsBDhOiumtX
- xW8PYbThOGYhPIZ96yzRtQTZ4yHGZBod3/5VjybIJrb+dZvhYen7/237VTtoceHX1fWgjj7JcnY
- hINPdW0HdasghzXLvLGi7FWqf+9zm+k6LfJv49czBxSO42vPYoVq7EvCuAYeXjxO5WH4iEn0bZ0
- jLJHkgVEx/NBEGj50PcveFD7v0EQ2gkLL8PnceTb3h2GS/y588mdAffQOITzIJIj/zHzG9+oJCT
- z/xhqYhCIA==
-X-Received: by 2002:a05:690e:148b:b0:65c:6164:f29a with SMTP id
- 956f58d0204a3-65e22839e7fmr18959504d50.46.1779146457665; Mon, 18 May 2026
- 16:20:57 -0700 (PDT)
+ AFNElJ++UCT/a+xgUDZoBFsoMTnERJAmgPFPugX45X2tzvj/5GyoI4jqXgDZSEM7g2E3XrZmzr3661UtLfg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvuKKKVH6ahcjjCR+jHkVJ1wQy6W3wjodjCKfZKd8hTsAOfMes
+ fqIoyhMiODFe4PGKztJRjkIz08BUQ0vmODvIh8Gcjm31rJnqJxqusMKowRltzD8dxroSzbOScTI
+ xsUvwJKuhB8fhgmTDPloMaqfxk3jo3DA=
+X-Gm-Gg: Acq92OF7LOXzc4lYXVJ6BVu+/ppCCHElrpTT+LNRP3c/q0PE/74Mos//l4OzWWwfocN
+ Fs5RdpzJQeJvHwQU3M9iGcpBtrMuZSHyTh1nD8tH/J27BnY1v9qxj0yyrwYLGAXQezlxzLXpIhf
+ K+9W8CicSUQZtG8gL4PU39HCFF8YczhXPp1oALEwZ8eXUx7dIuIw3Yj5eWIr0ZzCuMAFLjw1qaE
+ R71HIPeLtThF0eK/lGP3yk7VBtieIw/gJ9GF+LRFzhNxLM8PN81CzG1XTyAj9fPggdlETjARNXe
+ elNs1BSL4gZd7q5XQOo02WONp0LN7ksbvt/vJnUkqH8gyNNg4+4gQpvhNDJ6rdQC23ZQEh6y
+X-Received: by 2002:a05:690c:a013:b0:7b3:f33:35e2 with SMTP id
+ 00721157ae682-7c958fbfc87mr150864637b3.10.1779147211278; Mon, 18 May 2026
+ 16:33:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260515135932.2238842-1-vineeth@bitbyteword.org>
- <81783d0807a5ffac93f61eddba0d2f595d7f239f.camel@mailbox.org>
-In-Reply-To: <81783d0807a5ffac93f61eddba0d2f595d7f239f.camel@mailbox.org>
-From: Vineeth Remanan Pillai <vineeth@bitbyteword.org>
-Date: Mon, 18 May 2026 19:20:46 -0400
-X-Gm-Features: AVHnY4KAw0ZavPbDVfhEtyHlzriwrbmjQeDlQua14-BfS3GXG-7uIcLEub9UvWg
-Message-ID: <CAO7JXPhMBd0xgDRO-gZ2HpSTnrj1OD67c39jrXWEKaowNc9GEA@mail.gmail.com>
-Subject: Re: [PATCH v3 06/11] drm: Use trace_call__##name() at guarded
- tracepoint call sites
-To: phasta@kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Steven Rostedt <rostedt@goodmis.org>, 
- linux-trace-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>
+References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
+ <20260512-panthor-signal-from-irq-v2-6-95c614a739cb@collabora.com>
+ <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
+ <20260513102941.7321cbc3@fedora>
+ <CAPaKu7SJbeRwN7_S5_ciC6sSf_MM_4s7-iJS8aqh=ispBZBf2w@mail.gmail.com>
+ <20260518154516.65ba8592@fedora>
+In-Reply-To: <20260518154516.65ba8592@fedora>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Mon, 18 May 2026 16:33:20 -0700
+X-Gm-Features: AVHnY4K9LtrivMX3XWo6Pp_P0NxmdzOwbNRep65H1-1-F0yv9-Z51ERpArUlZvg
+Message-ID: <CAPaKu7RL5Hs2jXcj_v0F99xsM1Vo-U5iTzBvQ3Sev=dRiwBcuw@mail.gmail.com>
+Subject: Re: [PATCH v2 06/11] drm/panthor: Prepare the scheduler logic for FW
+ events in IRQ context
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -116,153 +115,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2026 at 11:01=E2=80=AFAM Philipp Stanner <phasta@mailbox.or=
-g> wrote:
+On Mon, May 18, 2026 at 6:45=E2=80=AFAM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
 >
-> On Fri, 2026-05-15 at 09:59 -0400, Vineeth Pillai (Google) wrote:
-> > From: Vineeth Pillai <vineeth@bitbyteword.org>
-> >
-> > Replace trace_foo() with the new trace_call__foo() at sites already
-> > guarded by trace_foo_enabled(), avoiding a redundant
-> > static_branch_unlikely() re-evaluation inside the tracepoint.
-> > trace_call__foo() calls the tracepoint callbacks directly without
-> > utilizing the static branch again.
+> On Wed, 13 May 2026 10:47:28 -0700
+> Chia-I Wu <olvaffe@gmail.com> wrote:
 >
-> The "foo" terminology is unusual I think? I always wrote it with regex,
-> like "trace_*()".
+> > > >
+> > > > Multiple things happen in this commit. I try to identify things tha=
+t
+> > > > can be separate commits. If this does not make sense, feel free to
+> > > > ignore.
+> > > >
+> > > > >         /** @tiler_oom_work: Work used to process tiler OOM event=
+s happening on this group. */
+> > > > >         struct work_struct tiler_oom_work;
+> > > > >
+> > >
+> > > [...]
+> > >
+> > > > >  /**
+> > > > >   * panthor_sched_report_fw_events() - Report FW events to the sc=
+heduler.
+> > > > >   * @ptdev: Device.
+> > > > > @@ -1902,8 +1953,19 @@ void panthor_sched_report_fw_events(struct=
+ panthor_device *ptdev, u32 events)
+> > > > This can be renamed to panthor_sched_handle_fw_events.
+> > >
+> > > It's not quite handling events though. For most of them, it's really
+> > > just deferring the processing to work items, SYNC_UPDATE is the
+> > > exception.
+> > panthor_sched_report_fw_events no longer just queues
+> > process_fw_events_work. It processes fw events immediately. If
+> > "handle" is not the right verb, perhaps we can go with "process".
 >
-Sorry about the terminology. Part of the patches got merged this way,
-so is it okay to continue the terminology to have consistency?
+> I guess "demux" would be more accurate, but do we need to rename this
+> function in the first place? I mean, panthor_sched_report_fw_events()
+> doesn't imply that events are processed/handled, it just reflects the
+> fact FW events are reported to the scheduler. Up to the scheduler to
+> do what it wants with this piece of information (process some of them
+> immediately, defer the processing for others, etc).
+process_fw_events_work gets inlined into
+panthor_sched_report_fw_events. Either report/process/handle should be
+fine. Let's drop this comment.
 
 >
+> >
+> >
+> > >
+> > > >
+> > > > >         if (!ptdev->scheduler)
+> > > > >                 return;
+> > > > >
+> > > > > -       atomic_or(events, &ptdev->scheduler->fw_events);
+> > > > > -       sched_queue_work(ptdev->scheduler, fw_events);
+> > > > > +       guard(spinlock_irqsave)(&ptdev->scheduler->events_lock);
+> > > > > +
+> > > > > +       if (events & JOB_INT_GLOBAL_IF) {
+> > > > > +               sched_process_global_irq_locked(ptdev);
+> > > > > +               events &=3D ~JOB_INT_GLOBAL_IF;
+> > > > > +       }
+> > > > > +
+> > > > > +       while (events) {
+> > > > > +               u32 csg_id =3D ffs(events) - 1;
+> > > > > +
+> > > > > +               sched_process_csg_irq_locked(ptdev, csg_id);
+> > > > > +               events &=3D ~BIT(csg_id);
+> > > > > +       }
+> > > > This handles all fw events in the irq context. Are there concerns t=
+hat
+> > > > it may take too long? I might be wrong, but it seems possible to
+> > > > handle only CSG_SYNC_UPDATE and defer the rest as before.
+> > >
+> > > I started with just the SYNC_UPDATE processing done in the hard-irq
+> > > context, but after auditing the other stuff done in the handler, I
+> > > realized it's basically just deferring all actual processing to work
+> > > items. Yes, there's the overhead of demuxing the events from the
+> > > ack/req regs, but part of this is already done to get to SYNC_UPDATE
+> > > anyway, so at this point we're probably better off demuxing everythin=
+g
+> > > and scheduling works for all kind of events.
+> > >
+> > > I also compared the perfs between the two approaches (though I didn't
+> > > do as much testing as I did with the new version, so I might have
+> > > missed something), and it didn't seem to matter at all, because the
+> > > interrupts we receive the most are SYNC_UPDATE and IDLE events, and
+> > > those are at the same level.
+> > Looking at ftrace irq events, when there is one active csg,
+> > panthor-job takes 6us (median) / 17us (95%) / 27us (slowest).
+> >
+> > I don't have a good sense if that's considered normal in hardirq. But
+> > if that is ever an issue, and if the majority of the time is spent in
+> > CSG_SYNC_UPDATE anyway, we can always revert the last patch to move
+> > processing to threaded handler.
 >
-> >
-> > Original v2 series:
-> > https://lore.kernel.org/linux-trace-kernel/20260323160052.17528-1-vinee=
-th@bitbyteword.org/
->
-> I'd put this in a Link: tag section below.
->
-Makes sense, will do. Steve also suggested to put this whole section
-after "---" because it isn't relevant to the changes. Will fix this in
-next iteration.
-
-> >
-> > Parts of the original v2 series have already been merged in mainline.
-> > This patch is being reposted as a follow-up cleanup for the remaining
-> > unmerged pieces.
->
-> So this v3 series as a whole is a followup to that v2?
->
-v3 is a follow up to remaining patches that were not merged with the
-previous cycle. The core api and couple of patches went in the
-previous cycle, so this is for rest of it.
-
-The intention was to send this v3 as a direct patch to individual
-subsystem maintainers but forgot to remove the numbering and hence
-there might be a confusion. Will remove the numbering and send it  as
-stand alone patch in the next iteration.
-
-> >
-> > Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-> > Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> > Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-> > Assisted-by: Claude:claude-sonnet-4-6
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c            |  2 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |  4 ++--
-> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++-----
-> >  drivers/gpu/drm/scheduler/sched_entity.c          |  5 +++--
-> >  4 files changed, 11 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_cs.c
-> > index b24d5d21be5f..cb0b5cb07d57 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > @@ -1004,7 +1004,7 @@ static void trace_amdgpu_cs_ibs(struct amdgpu_cs_=
-parser *p)
-> >               struct amdgpu_job *job =3D p->jobs[i];
-> >
-> >               for (j =3D 0; j < job->num_ibs; ++j)
-> > -                     trace_amdgpu_cs(p, job, &job->ibs[j]);
-> > +                     trace_call__amdgpu_cs(p, job, &job->ibs[j]);
-> >       }
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.c
-> > index 9ba9de16a27a..a36ae94c425f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -1415,7 +1415,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *ade=
-v, struct amdgpu_bo_va *bo_va,
-> >
-> >       if (trace_amdgpu_vm_bo_mapping_enabled()) {
-> >               list_for_each_entry(mapping, &bo_va->valids, list)
-> > -                     trace_amdgpu_vm_bo_mapping(mapping);
-> > +                     trace_call__amdgpu_vm_bo_mapping(mapping);
-> >       }
-> >
-> >  error_free:
-> > @@ -2183,7 +2183,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, =
-struct ww_acquire_ctx *ticket)
-> >                               continue;
-> >               }
-> >
-> > -             trace_amdgpu_vm_bo_cs(mapping);
-> > +             trace_call__amdgpu_vm_bo_cs(mapping);
-> >       }
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 5fc5d5608506..fbdc12cdd6bb 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -5263,11 +5263,11 @@ static void amdgpu_dm_backlight_set_level(struc=
-t amdgpu_display_manager *dm,
-> >       }
-> >
-> >       if (trace_amdgpu_dm_brightness_enabled()) {
-> > -             trace_amdgpu_dm_brightness(__builtin_return_address(0),
-> > -                                        user_brightness,
-> > -                                        brightness,
-> > -                                        caps->aux_support,
-> > -                                        power_supply_is_system_supplie=
-d() > 0);
-> > +             trace_call__amdgpu_dm_brightness(__builtin_return_address=
-(0),
-> > +                                              user_brightness,
-> > +                                              brightness,
-> > +                                              caps->aux_support,
-> > +                                              power_supply_is_system_s=
-upplied() > 0);
-> >       }
-> >
-> >       if (caps->aux_support) {
-> > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm=
-/scheduler/sched_entity.c
-> > index fe174a4857be..185a2636b599 100644
-> > --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> > @@ -429,7 +429,8 @@ static bool drm_sched_entity_add_dependency_cb(stru=
-ct drm_sched_entity *entity,
-> >
-> >       if (trace_drm_sched_job_unschedulable_enabled() &&
-> >           !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &entity->dependency->f=
-lags))
-> > -             trace_drm_sched_job_unschedulable(sched_job, entity->depe=
-ndency);
-> > +             trace_call__drm_sched_job_unschedulable(sched_job,
-> > +                                                     entity->dependenc=
-y);
->
-> I would be more happy if you sacrifice a bit of space here and keep it
-> a single line since the if condition is already quite convoluted and
-> challenging to read.
->
-I understand, will fix it in next iteration.
-
-Thanks,
-Vineeth
+> Actually, the threaded -> hard transition (patch 9) is where the perf
+> gain is.
+hardirq is even more timely for sure. For our use case, the threaded
+handler is RT and is also good enough.
