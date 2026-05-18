@@ -4,78 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1221CD4F51
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:42:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D17B8CD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:44:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4198410E6EB;
-	Mon, 18 May 2026 07:42:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3563410E6EA;
+	Mon, 18 May 2026 07:44:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KEc+2POH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QBFC1mp3";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9326B10E0A3
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 13:41:36 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-43d76dd4ee8so1110323f8f.2
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 06:41:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779025295; x=1779630095; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=e0Fqrssiq5EKJqOqnUySdSTXrmaCviyXE8eaNVLH4Wo=;
- b=KEc+2POHpjliCpwMjzbpr29fe3fwG92xQFdT7EhA32MwQbSBoFMOVRcD3BKia3vPcj
- H1uj4muEP+HV1wk/Y+sxQrxkhkH/v6rFOpqDkOJ9LNe162UnWwfqiTy2A4D4knkEN5kc
- 4Dja1Levf+E3SpBUlNibkU+PzOC06/5DZWzvEOKhEKsbhWUOgApHs2FcvPOIaVyRSEmk
- jGT2pYMeSlGJgWocxNZputcXcv3xUHoSL9Hwq0buXQMph41wH4q/xZOBEWsJIcRus/Kv
- g3oQK9GkQT6xGLyhFCw64wyqYljVChDM/yQsK/BT4L2p5Nr6CN2KH+MrGYUyB23KQfb8
- 5Bow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779025295; x=1779630095;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=e0Fqrssiq5EKJqOqnUySdSTXrmaCviyXE8eaNVLH4Wo=;
- b=tM+XtzXSIWErAQj9I1T79wXTxwtXHDZDfQWuOwKTiL52tChHE5XAjot5zIz+MxPV/h
- Ecku+pCmjrKgvh3pjqB9EaVqD9qo4SZdSRBB75zUIYl3R9IaZ06ah9VzxI00IRaPYq7H
- cz7rcvIc1y5excyxe67uwYKUTiyFEt5tOJYpar6Pwvqjxa5Dp4Zq83mL75zL2mF7zzKg
- SQzY3Gs2unLJUMhAGIV1MAynPWaYecBoG1CCqmCYB6nbi/C7Hxp/L3e3HUpztzzgcwT4
- z3Otx6DG2OIhJ1xIjTchfhBLDfANWiWPtRpB+MAxHPjdAONdIezzCOiPb41NKPnFhQbP
- aoBw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/DOB85AvxE2ygIK8PI0GXDlIRxhlAZ9vp3Cb9/HydWU+R9jbFttMZlEAwxK9Qna1i9Gm+GJl404c8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxjXV9yD06o4X7f9SdAi+YsQavsAEOuW2t/dW0/AFn8yhyh6Gx
- MWcoQnSITC7bugs5z1x1Gp3cijbQ6rFlOp1ZXGipsmX7dZS6d1JG2ynj
-X-Gm-Gg: Acq92OHfarN9GPUWATt+ay1o33DnajJKQ40+hl9s8RKiLJGBfef+8oudS6BgWtFNa+9
- j3htoKdFVBhCBQ0CYrZ7uO7Ltdz6d6V6Ex29HL+MT1Vwqx2jjuGSBq3U/kGzvdL0r/9oX/bchb5
- VvZjkVOCZG3i37KWw3VnVJIl7iX5U9Da1XrNmJXw3TwoLAj429uIdxl+1SeanI5cNu6iv9cxilm
- 7ysgU8zSchHLrHua5QS+N4y2i7n4pcSfOcbSbslCloflCLitslPfFfmDDqxxdBYJCCQLVBLZHpz
- FBzMW1YzqkmXxwV/xnIC07WQvSHcUCseBRvB+S8zTYSXEpFVKIGeL7TPc6VIfWEVlZWKHYkfm/V
- Qbs7Q6XICHsGCnuJsiGevtcwKKKHRhxCTSNgF7TdHudjrwt6UMkU/Z07mTJo73VG/MpwV/CJnQR
- lSJ6e2iwXC+86AQwXR4wv+mW+whbU06SfbJrV0H65206OfZxAQ1cQEPDm5G5OjKkTnTHhKhizSi
- Q==
-X-Received: by 2002:a05:6000:4010:b0:43f:df1b:9e07 with SMTP id
- ffacd0b85a97d-45e5c5a5580mr16862802f8f.42.1779025294346; 
- Sun, 17 May 2026 06:41:34 -0700 (PDT)
-Received: from localhost.localdomain (i59F7ABEC.versanet.de. [89.247.171.236])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da15a666fsm28231673f8f.36.2026.05.17.06.41.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2026 06:41:33 -0700 (PDT)
-From: Elliot Tester <elliotctester1@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, corbet@lwn.net
-Cc: skhan@linuxfoundation.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Elliot Tester <elliotctester1@gmail.com>
-Subject: [PATCH] docs: gpu: fix spelling errors and remove duplicate sentence
-Date: Sun, 17 May 2026 15:41:22 +0200
-Message-ID: <20260517134122.38389-1-elliotctester1@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A61110E1C0;
+ Mon, 18 May 2026 07:44:30 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 05AA944212;
+ Mon, 18 May 2026 07:44:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEABFC2BCB7;
+ Mon, 18 May 2026 07:44:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1779090269;
+ bh=2VgfqRzwkyb5bRCypLGDNrZHPZPUmDh1p0S4IvBWaA0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QBFC1mp3CcT7A19F66kJxDLr/EwzcxFYyB54RQgNL6HJN90bbyxiIi1rVk8oNYmjW
+ N7pkQjsG/+FJJrlvVNGlHWEGy7se1TxSu6KZy7K+7E+wZQXS/IeZ9wxlPYV9Qh520z
+ tF3L46YTZbdEwuPeMbgS4uAMVc8ag5tiw8vB13KNQSyPFFSqbZqDegfvvZVivFQ6Mc
+ 9CopzrMSyHYPLAZbl108nRjMfWutLPptrqdvSU5zJmh18l1VyT1kuqCtr1GZvIsCKQ
+ FZ9L0xvHZfBPuVzOK3neMz+v7hFl2OwzvUctTjjeOaECUjpT7NsuxTBbg0zMwOLRhZ
+ Cd9EP5GLpeXzw==
+Date: Mon, 18 May 2026 13:14:12 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: andersson@kernel.org, konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v5 00/16] firmware: qcom: Add OP-TEE PAS service support
+Message-ID: <agrDTB5ewEgibQLJ@sumit-xelite>
+References: <20260504130603.1474043-1-sumit.garg@kernel.org>
+ <agSAL-z6NUV1p2kH@sumit-xelite>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 18 May 2026 07:41:36 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <agSAL-z6NUV1p2kH@sumit-xelite>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,138 +78,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix various spelling errors in GPU docs:
-- indicies -> indices (userq.rst)
-- umap -> unmap (userq.rst)
-- pre-empt -> preempt (drm-compute.rst)
-- buffer-leaks -> buffer leaks (drm-uapi.rst)
-- Additionally to -> In addition to (drm-uapi.rst)
-- unpriviledged -> unprivileged (drm-uapi.rst)
-- fucntions -> functions (todo.rst)
-- varios -> various (todo.rst)
-- implementions -> implementations (todo.rst)
-- complection -> completion (todo.rst)
+On Wed, May 13, 2026 at 07:14:15PM +0530, Sumit Garg wrote:
+> Hi Bjorn,
+> 
+> Just a gentle reminder for any further reviews for this series. If not
+> then please help to pick it up this merge window since we have got acks
+> from corresponding subsystem maintainer too. There were few minor comments
+> addressed by following diff on top of this series. Let me know if you
+> need a new version for that or can they be folded in when you pick this
+> series?
+>
 
-Ale remove a duplicated sentance and stray "uff." in the todo.rst, add
-missing period after drm_ioctl.c reference, and add missing newline at
-end of drm-uapi.rst. Fixing this would make reading the docs just a
-little bit easier.
+Okay, so I went ahead with v6 [1] for this series including below fixes.
+Let me know if I miss anything to get this into linux-next.
 
-Signed-off-by: Elliot Tester <elliotctester1@gmail.com>
----
- Documentation/gpu/amdgpu/userq.rst |  4 ++--
- Documentation/gpu/drm-compute.rst  |  2 +-
- Documentation/gpu/drm-uapi.rst     | 10 +++++-----
- Documentation/gpu/todo.rst         | 11 +++++------
- 4 files changed, 13 insertions(+), 14 deletions(-)
+[1] https://lore.kernel.org/all/20260518072856.22790-1-sumit.garg@kernel.org/
 
-diff --git a/Documentation/gpu/amdgpu/userq.rst b/Documentation/gpu/amdgpu/userq.rst
-index 88f54393b..94427e18a 100644
---- a/Documentation/gpu/amdgpu/userq.rst
-+++ b/Documentation/gpu/amdgpu/userq.rst
-@@ -156,9 +156,9 @@ IOCTL Interfaces
- GPU virtual addresses used for queues and related data (rptrs, wptrs, context
- save areas, etc.) should be validated by the kernel mode driver to prevent the
- user from specifying invalid GPU virtual addresses.  If the user provides
--invalid GPU virtual addresses or doorbell indicies, the IOCTL should return an
-+invalid GPU virtual addresses or doorbell indices, the IOCTL should return an
- error message.  These buffers should also be tracked in the kernel driver so
--that if the user attempts to unmap the buffer(s) from the GPUVM, the umap call
-+that if the user attempts to unmap the buffer(s) from the GPUVM, the unmap call
- would return an error.
- 
- INFO
-diff --git a/Documentation/gpu/drm-compute.rst b/Documentation/gpu/drm-compute.rst
-index f90c3e63a..35cc8d654 100644
---- a/Documentation/gpu/drm-compute.rst
-+++ b/Documentation/gpu/drm-compute.rst
-@@ -7,7 +7,7 @@ seconds. (The time let the user wait before he reaches for the power button).
- This means that other techniques need to be used to manage those workloads,
- that cannot use fences.
- 
--Some hardware may schedule compute jobs, and have no way to pre-empt them, or
-+Some hardware may schedule compute jobs, and have no way to preempt them, or
- have their memory swapped out from them. Or they simply want their workload
- not to be preempted or swapped out at all.
- 
-diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-index 579e87cb9..0ef498bff 100644
---- a/Documentation/gpu/drm-uapi.rst
-+++ b/Documentation/gpu/drm-uapi.rst
-@@ -150,10 +150,10 @@ separate render node called renderD<num>. There will be one render node
- per device. No ioctls except PRIME-related ioctls will be allowed on
- this node. Especially GEM_OPEN will be explicitly prohibited. For a
- complete list of driver-independent ioctls that can be used on render
--nodes, see the ioctls marked DRM_RENDER_ALLOW in drm_ioctl.c  Render
--nodes are designed to avoid the buffer-leaks, which occur if clients
-+nodes, see the ioctls marked DRM_RENDER_ALLOW in drm_ioctl.c.  Render
-+nodes are designed to avoid the buffer leaks, which occur if clients
- guess the flink names or mmap offsets on the legacy interface.
--Additionally to this basic interface, drivers must mark their
-+In addition to this basic interface, drivers must mark their
- driver-dependent render-only ioctls as DRM_RENDER_ALLOW so render
- clients can use them. Driver authors must be careful not to allow any
- privileged ioctls on render nodes.
-@@ -568,7 +568,7 @@ ENOSPC:
- EPERM/EACCES:
-         Returned for an operation that is valid, but needs more privileges.
-         E.g. root-only or much more common, DRM master-only operations return
--        this when called by unpriviledged clients. There's no clear
-+        this when called by unprivileged clients. There's no clear
-         difference between EACCES and EPERM.
- 
- ENODEV:
-@@ -761,4 +761,4 @@ Stable uAPI events
- From ``drivers/gpu/drm/scheduler/gpu_scheduler_trace.h``
- 
- .. kernel-doc::  drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
--   :doc: uAPI trace events
-\ No newline at end of file
-+   :doc: uAPI trace events
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index bc9f14c8a..b13cd4347 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -55,7 +55,7 @@ There are still drivers that use drm_simple_display_pipe. The task here is to
- convert them to use regular atomic helpers. Search for a driver that calls
- drm_simple_display_pipe_init() and inline all helpers from drm_simple_kms_helper.c
- into the driver, such that no simple-KMS interfaces are required. Please also
--rename all inlined fucntions according to driver conventions.
-+rename all inlined functions according to driver conventions.
- 
- Contact: Thomas Zimmermann, respective driver maintainer
- 
-@@ -301,7 +301,7 @@ Various hold-ups:
-   valid formats for atomic drivers.
- 
- - Many drivers subclass drm_framebuffer, we'd need a embedding compatible
--  version of the varios drm_gem_fb_create functions. Maybe called
-+  version of the various drm_gem_fb_create functions. Maybe called
-   drm_gem_fb_create/_with_dirty/_with_funcs as needed.
- 
- Contact: Simona Vetter
-@@ -326,10 +326,9 @@ everything after it has done the write-protect/mkwrite trickery:
- 
-       vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
- 
--- Set the mkwrite and fsync callbacks with similar implementions to the core
-+- Set the mkwrite and fsync callbacks with similar implementations to the core
-   fbdev defio stuff. These should all work on plain ptes, they don't actually
--  require a struct page.  uff. These should all work on plain ptes, they don't
--  actually require a struct page.
-+  require a struct page.
- 
- - Track the dirty pages in a separate structure (bitfield with one bit per page
-   should work) to avoid clobbering struct page.
-@@ -914,7 +913,7 @@ Querying errors from drm_syncobj
- ================================
- 
- The drm_syncobj container can be used by driver independent code to signal
--complection of submission.
-+completion of submission.
- 
- One minor feature still missing is a generic DRM IOCTL to query the error
- status of binary and timeline drm_syncobj.
--- 
-2.54.0
+-Sumit
 
+> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
+> index 025308adf553..bc6c42f2b3c6 100644
+> --- a/drivers/firmware/qcom/qcom_pas.c
+> +++ b/drivers/firmware/qcom/qcom_pas.c
+> @@ -181,7 +181,7 @@ EXPORT_SYMBOL_GPL(qcom_pas_auth_and_reset);
+>   * qcom_pas_prepare_and_auth_reset() - Prepare, authenticate, and reset the
+>   *                                    remote processor
+>   *
+> - * @ctx:       Context saved during call to qcom_scm_pas_context_init()
+> + * @ctx:       Context saved during call to devm_qcom_pas_context_alloc()
+>   *
+>   * This function performs the necessary steps to prepare a PAS subsystem,
+>   * authenticate it using the provided metadata, and initiate a reset sequence.
+> diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
+> index c5ba91e6f95e..dff7fa7027c5 100644
+> --- a/drivers/net/wireless/ath/ath12k/ahb.c
+> +++ b/drivers/net/wireless/ath/ath12k/ahb.c
+> @@ -488,7 +488,7 @@ static void ath12k_ahb_power_down(struct ath12k_base *ab, bool is_suspend)
+>                 ret = qcom_pas_shutdown(pasid);
+>                 if (ret)
+>                         ath12k_err(ab, "pas shutdown failed for userPD%d: %d\n",
+> -                                  ab_ahb->userpd_id);
+> +                                  ab_ahb->userpd_id, ret);
+>         }
+>  }
+> 
+> -Sumit
+> 
+> On Mon, May 04, 2026 at 06:35:47PM +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> > 
+> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> > support these non-standard SCM calls. And even for newer architectures
+> > using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+> > calls either with FF-A requirements coming in. And with both OP-TEE
+> > and QTEE drivers well integrated in the TEE subsystem, it makes further
+> > sense to reuse the TEE bus client drivers infrastructure.
+> > 
+> > The added benefit of TEE bus infrastructure is that there is support
+> > for discoverable/enumerable services. With that client drivers don't
+> > have to manually invoke a special SCM call to know the service status.
+> > 
+> > So enable the generic Peripheral Authentication Service (PAS) provided
+> > by the firmware. It acts as the common layer with different TZ
+> > backends plugged in whether it's an SCM implementation or a proper
+> > TEE bus based PAS service implementation.
+> > 
+> > The TEE PAS service ABI is designed to be extensible with additional API
+> > as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+> > extensions of the PAS service needed while still maintaining backwards
+> > compatibility.
+> > 
+> > Currently OP-TEE support is being added to provide the backend PAS
+> > service implementation which can be found as part of this PR [1].
+> > This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+> > EVK board being the next target. In addition to that WIN/IPQ targets
+> > planning to use OP-TEE will use this service too. Surely the backwards
+> > compatibility is maintained and tested for SCM backend.
+> > 
+> > Note that kernel PAS service support while running in EL2 is at parity
+> > among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
+> > on proper IOMMU support being worked out on the PAS client end.
+> > 
+> > Patch summary:
+> > - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+> >   only allow UEFI and Linux to boot in EL2.
+> > - Patch #2: adds generic PAS service.
+> > - Patch #3: migrates SCM backend to generic PAS service.
+> > - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+> > - Patch #5-#14: migrates all client drivers to generic PAS service.
+> > - Patch #15: drops legacy PAS SCM exported APIs.
+> > 
+> > The patch-set is based on v7.1-rc1 tag and can be found in git tree here
+> > [2].
+> > 
+> > Merge strategy:
+> > 
+> > It is expected due to APIs dependency, the entire patch-set to go via
+> > the Qcom tree. All other subsystem maintainers, it will be great if I
+> > can get acks for the corresponding subsystem patches.
+> > 
+> > [1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
+> > [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v5
+> > 
+> > ---
+> > Changes in v5:
+> > - Incorporated misc. comments from Mukesh.
+> > - Split up patch #11 into 2 to add an independent commit for passing
+> >   proper PAS ID to set_remote_state API.
+> > - Picked up tags.
+> > 
+> > Changes in v4:
+> > - Incorporate misc. comments on patch #4.
+> > - Picked up an ack for patch #10.
+> > - Clarify in cover letter about state of media support.
+> > 
+> > Changes in v3:
+> > - Incorporated some style and misc. comments for patch #2, #3 and #4.
+> > - Add QCOM_PAS Kconfig dependency for various subsystems.
+> > - Switch from pseudo TA to proper TA invoke commands.
+> > 
+> > Changes in v2:
+> > - Fixed kernel doc warnings.
+> > - Polish commit message and comments for patch #2.
+> > - Pass proper PAS ID in set_remote_state API for media firmware drivers.
+> > - Added Maintainer entry and dropped MODULE_AUTHOR.
+> > 
+> > Mukesh Ojha (1):
+> >   arm64: dts: qcom: kodiak: Add EL2 overlay
+> > 
+> > Sumit Garg (15):
+> >   firmware: qcom: Add a generic PAS service
+> >   firmware: qcom_scm: Migrate to generic PAS service
+> >   firmware: qcom: Add a PAS TEE service
+> >   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+> >   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+> >   soc: qcom: mdtloader: Switch to generic PAS TZ APIs
+> >   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+> >   remoteproc: qcom: Select QCOM_PAS generic service
+> >   drm/msm: Switch to generic PAS TZ APIs
+> >   media: qcom: Switch to generic PAS TZ APIs
+> >   media: qcom: Pass proper PAS ID to set_remote_state API
+> >   net: ipa: Switch to generic PAS TZ APIs
+> >   wifi: ath12k: Switch to generic PAS TZ APIs
+> >   firmware: qcom_scm: Remove SCM PAS wrappers
+> >   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+> > 
+> >  MAINTAINERS                                   |   9 +
+> >  arch/arm64/boot/dts/qcom/Makefile             |   2 +
+> >  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
+> >  drivers/firmware/qcom/Kconfig                 |  19 +
+> >  drivers/firmware/qcom/Makefile                |   2 +
+> >  drivers/firmware/qcom/qcom_pas.c              | 291 +++++++++++
+> >  drivers/firmware/qcom/qcom_pas.h              |  50 ++
+> >  drivers/firmware/qcom/qcom_pas_tee.c          | 476 ++++++++++++++++++
+> >  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+> >  drivers/gpu/drm/msm/Kconfig                   |   1 +
+> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+> >  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+> >  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+> >  drivers/media/platform/qcom/venus/Kconfig     |   1 +
+> >  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+> >  drivers/net/ipa/Kconfig                       |   2 +-
+> >  drivers/net/ipa/ipa_main.c                    |  13 +-
+> >  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+> >  drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
+> >  drivers/remoteproc/Kconfig                    |   4 +-
+> >  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+> >  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+> >  drivers/remoteproc/qcom_wcnss.c               |  12 +-
+> >  drivers/soc/qcom/mdt_loader.c                 |  12 +-
+> >  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+> >  include/linux/firmware/qcom/qcom_scm.h        |  29 --
+> >  include/linux/soc/qcom/mdt_loader.h           |   6 +-
+> >  28 files changed, 1117 insertions(+), 318 deletions(-)
+> >  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> > 
+> > -- 
+> > 2.51.0
+> > 
+> > 
+> 
