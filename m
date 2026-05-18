@@ -4,61 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B73DFCD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:59:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AFBFCD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 15:01:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1749610E8DA;
-	Mon, 18 May 2026 14:59:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41FDA10E8CD;
+	Mon, 18 May 2026 15:01:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="DXjbUy/A";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="kCvTcmWi";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E722C10E8D8;
- Mon, 18 May 2026 14:59:22 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E424D10E8CD;
+ Mon, 18 May 2026 15:01:56 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gK1D76l2tz9vRv;
- Mon, 18 May 2026 16:59:19 +0200 (CEST)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gK1H50xWcz9v50;
+ Mon, 18 May 2026 17:01:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1779116360;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ s=mail20150812; 
+ t=1779116513; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xEoW7QI8tOR5iNVRlAhv7eG6k5IqVBNzfswNCeXalc0=;
- b=DXjbUy/AOTZW3zBiwywU8iZ3jrmaRsxLyz+8KUrE7j9hQKSmrki6ROAGhHAM6WedaoyvhQ
- 9jSe5+nmE9VcOnf0+fm7/54Zjf+jtSjDOd+/7I7qVefYGPD2zPDnWpw+07awWynVUM2FE1
- hRW1PZDSxyC7Ni81aCUPphUPUiSg3BWb0svS/bDMm4aevBsDHCf3BtFT4l6ibHVkm2NtQg
- SsqgMevsPLEGZ6vImSVOcBt/o0pTsjHQDAOrMP+RI+r0qDrz6Sk+Ei5sRhDsYCKFhjLTTc
- TbQNJtDMQ/4IQ5ZGYZ1zzoQPJuGqIfp3KGz3Z1ihsIuflzN8G1UZXUqZmgRsAw==
-Message-ID: <1162f62e-9c65-446b-9788-bb289a202e6e@mailbox.org>
-Date: Mon, 18 May 2026 16:59:12 +0200
+ bh=mDUFG3QH/zn6Pfjyji/Qqlp3OYsc/LM+HLI24lCrrXk=;
+ b=kCvTcmWitl6r0wU+738S/qKBalalles5Mi9GzjMrsXjFkg8DvZXF0Af0391ujRu3ciuhV4
+ 6a+4JpyMUE1A2GNSC80Hzfu6K38OgWH51vjshjCehnSXDB8XqPusFyi9a4azpx1au6Wuw8
+ H+ssFYU/GA9cU0ggK6RpFQGq9vKhvD7iXjq0WnyTRkAolSpt6SqvwAt/2rPTNkOrqIneWL
+ ps599r2wMW8FpwzKnlhw4fJUQVbKjLX8uIw1dNFfdVUSxBfKdd7vdbsStlPC5gag+SH6SZ
+ sL4isC6las8iOF5BOx7Hib17nw5KI/sp1EA9v2YH5O0rNvimj4D/kb/8RqNlTg==
+Message-ID: <81783d0807a5ffac93f61eddba0d2f595d7f239f.camel@mailbox.org>
+Subject: Re: [PATCH v3 06/11] drm: Use trace_call__##name() at guarded
+ tracepoint call sites
+From: Philipp Stanner <phasta@mailbox.org>
+To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
+ <sunpeng.li@amd.com>, Matthew Brost <matthew.brost@intel.com>, Danilo
+ Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Steven
+ Rostedt <rostedt@goodmis.org>, linux-trace-kernel@vger.kernel.org, Peter
+ Zijlstra <peterz@infradead.org>
+Date: Mon, 18 May 2026 17:01:42 +0200
+In-Reply-To: <20260515135932.2238842-1-vineeth@bitbyteword.org>
+References: <20260515135932.2238842-1-vineeth@bitbyteword.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Julian Orth <ju.orth@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
-References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
- <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
- <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
- <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 4nag1dydo76jap3z98ifcc9bkczk6f9r
-X-MBO-RS-ID: da9341ae0f9ef38a13e
+X-MBO-RS-ID: 1678094390674a1865d
+X-MBO-RS-META: pqim3bixj3ebt8cs9fmnjx4xowyx5n3y
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,48 +69,149 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/18/26 14:41, Christian König wrote:
-> On 5/18/26 14:02, Julian Orth wrote:
->> On Mon, May 18, 2026 at 1:58 PM Christian König
->> <christian.koenig@amd.com> wrote:
->>> On 5/16/26 13:06, Julian Orth wrote:
->>>> This series adds a new device /dev/syncobj that can be used to create
->>>> and manipulate DRM syncobjs. Previously, these operations required the
->>>> use of a DRM device and the device needed to support the DRIVER_SYNCOBJ
->>>> and DRIVER_SYNCOBJ_TIMELINE features.
->>>>
->>>> There are several issues with the existing API:
->>>>
->>>> - Syncobjs are the only explicit sync mechanism available on wayland.
->>>>   Most compositors do not use GPU waits. Instead, they use the
->>>>   DRM_IOCTL_SYNCOBJ_EVENTFD ioctl to perform a CPU wait. Being tied to
->>>>   DRM devices means that compositors cannot consistently offer this
->>>>   feature even though no device-specific logic is involved.
->>>
->>> Well the drm_syncobj is a container for device specific dma fences.
->>
->> Not necessarily. The DRM_IOCTL_SYNCOBJ_TIMELINE_SIGNAL ioctl attaches
->> some kind of dummy fence that is already signaled. I don't believe
->> this is device specific. That is also the path that llvmpipe would
->> use.
-> 
-> Yeah I feared that.
-> 
-> This is the wait before signal path and if I'm not completely mistaken that one is not supported by a lot of compositors.
+On Fri, 2026-05-15 at 09:59 -0400, Vineeth Pillai (Google) wrote:
+> From: Vineeth Pillai <vineeth@bitbyteword.org>
+>=20
+> Replace trace_foo() with the new trace_call__foo() at sites already
+> guarded by trace_foo_enabled(), avoiding a redundant
+> static_branch_unlikely() re-evaluation inside the tracepoint.
+> trace_call__foo() calls the tracepoint callbacks directly without
+> utilizing the static branch again.
 
-Where did you get that impression from?
-
-It's arguably the main point of the syncobj Wayland protocol extension, which is supported by all major compositors (except Weston, where it's still a pending MR).
+The "foo" terminology is unusual I think? I always wrote it with regex,
+like "trace_*()".
 
 
-> So as far as I can see using drm_syncobj for software rendering really doesn't make sense, eventfd is a much better fit for that use case.
 
-I agree with Julian's rebuttal to that.
+>=20
+> Original v2 series:
+> https://lore.kernel.org/linux-trace-kernel/20260323160052.17528-1-vineeth=
+@bitbyteword.org/
+
+I'd put this in a Link: tag section below.
+
+>=20
+> Parts of the original v2 series have already been merged in mainline.
+> This patch is being reposted as a follow-up cleanup for the remaining
+> unmerged pieces.
+
+So this v3 series as a whole is a followup to that v2?
+
+>=20
+> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+> Suggested-by: Peter Zijlstra <peterz@infradead.org>
+> Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+> Assisted-by: Claude:claude-sonnet-4-6
+> ---
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A0drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++-----
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +++--
+> =C2=A04 files changed, 11 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index b24d5d21be5f..cb0b5cb07d57 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1004,7 +1004,7 @@ static void trace_amdgpu_cs_ibs(struct amdgpu_cs_pa=
+rser *p)
+> =C2=A0		struct amdgpu_job *job =3D p->jobs[i];
+> =C2=A0
+> =C2=A0		for (j =3D 0; j < job->num_ibs; ++j)
+> -			trace_amdgpu_cs(p, job, &job->ibs[j]);
+> +			trace_call__amdgpu_cs(p, job, &job->ibs[j]);
+> =C2=A0	}
+> =C2=A0}
+> =C2=A0
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 9ba9de16a27a..a36ae94c425f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1415,7 +1415,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,=
+ struct amdgpu_bo_va *bo_va,
+> =C2=A0
+> =C2=A0	if (trace_amdgpu_vm_bo_mapping_enabled()) {
+> =C2=A0		list_for_each_entry(mapping, &bo_va->valids, list)
+> -			trace_amdgpu_vm_bo_mapping(mapping);
+> +			trace_call__amdgpu_vm_bo_mapping(mapping);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0error_free:
+> @@ -2183,7 +2183,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, st=
+ruct ww_acquire_ctx *ticket)
+> =C2=A0				continue;
+> =C2=A0		}
+> =C2=A0
+> -		trace_amdgpu_vm_bo_cs(mapping);
+> +		trace_call__amdgpu_vm_bo_cs(mapping);
+> =C2=A0	}
+> =C2=A0}
+> =C2=A0
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 5fc5d5608506..fbdc12cdd6bb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5263,11 +5263,11 @@ static void amdgpu_dm_backlight_set_level(struct =
+amdgpu_display_manager *dm,
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (trace_amdgpu_dm_brightness_enabled()) {
+> -		trace_amdgpu_dm_brightness(__builtin_return_address(0),
+> -					=C2=A0=C2=A0 user_brightness,
+> -					=C2=A0=C2=A0 brightness,
+> -					=C2=A0=C2=A0 caps->aux_support,
+> -					=C2=A0=C2=A0 power_supply_is_system_supplied() > 0);
+> +		trace_call__amdgpu_dm_brightness(__builtin_return_address(0),
+> +						 user_brightness,
+> +						 brightness,
+> +						 caps->aux_support,
+> +						 power_supply_is_system_supplied() > 0);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (caps->aux_support) {
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
+cheduler/sched_entity.c
+> index fe174a4857be..185a2636b599 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -429,7 +429,8 @@ static bool drm_sched_entity_add_dependency_cb(struct=
+ drm_sched_entity *entity,
+> =C2=A0
+> =C2=A0	if (trace_drm_sched_job_unschedulable_enabled() &&
+> =C2=A0	=C2=A0=C2=A0=C2=A0 !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &entity-=
+>dependency->flags))
+> -		trace_drm_sched_job_unschedulable(sched_job, entity->dependency);
+> +		trace_call__drm_sched_job_unschedulable(sched_job,
+> +							entity->dependency);
+
+I would be more happy if you sacrifice a bit of space here and keep it
+a single line since the if condition is already quite convoluted and
+challenging to read.
 
 
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+P.
+
+> =C2=A0
+> =C2=A0	if (!dma_fence_add_callback(entity->dependency, &entity->cb,
+> =C2=A0				=C2=A0=C2=A0=C2=A0 drm_sched_entity_wakeup))
+> @@ -586,7 +587,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *=
+sched_job)
+> =C2=A0		unsigned long index;
+> =C2=A0
+> =C2=A0		xa_for_each(&sched_job->dependencies, index, entry)
+> -			trace_drm_sched_job_add_dep(sched_job, entry);
+> +			trace_call__drm_sched_job_add_dep(sched_job, entry);
+> =C2=A0	}
+> =C2=A0	atomic_inc(entity->rq->sched->score);
+> =C2=A0	WRITE_ONCE(entity->last_user, current->group_leader);
+
