@@ -4,79 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10C8FCD343F
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 03:43:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AD16CD343F
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 03:56:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38ECB10E2C2;
-	Mon, 18 May 2026 03:43:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD8E10E2CC;
+	Mon, 18 May 2026 03:56:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gc/AkvYg";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="l3H/5uEN";
 	dkim-atps=neutral
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E4AC10E2C2
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 03:43:13 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-83f674f978fso207994b3a.3
- for <dri-devel@lists.freedesktop.org>; Sun, 17 May 2026 20:43:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779075793; x=1779680593; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=TUA3cPtzM9uPcBkOLN0h00OZZHnDRsQ9uXVemg5h2Eg=;
- b=Gc/AkvYgQZ/6Pyh0LzGvb11uCrbd2FgKcpafP2L6HsSFDzpSY2nI8vSH85A6iYLtyd
- fyWApJK79Py/68jA8s+1CJG5ygNuVvILoXVMMSabqqgeDYxtJLEoN5SWvjnAZObVWvOx
- 0L9P71FsyDIlAooGf8Lbjv+svMFIjEnLPf4NqLYfEoXPu1DdU3ZJ1I+9OMeeN0bdk5/C
- eYf6G/kGWJXTzNUtsG1bXu9EoX5XEdws4jsq3T3eNxh1uqf0Yfn6o8UQkiNdazwp4xrH
- EirS7kKGM6mVZ6NBMfdDDvMGHo0mBcs7elVIYHkWmr/Gxjr5OdMzdFzsmw2AJZ6ZXmfI
- pyZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779075793; x=1779680593;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TUA3cPtzM9uPcBkOLN0h00OZZHnDRsQ9uXVemg5h2Eg=;
- b=U50wLaP+dWOkfzyBzX1zAcgswX54MmpXUUcyjL2+ZTpQYuVBDsY2QxLB/geaKQhhQx
- GzakkkT5g9RI9wih+cznHDmgpts9X+L/qx/BG3u6/ciHmoRfhs/U8HncAGqljRSAE+yy
- YrsdEBUo7VN91bBMgFnq/rVoTD/oIFnuebukGIV8B6uoOb0lPUdEThR0XRRvHz/Eedls
- dFkYRFljLQMJvaNApI8ObDq8C+qTVQSQQTCVATafoPVd75+Z4KVICaqLM2Y5Zj2zbEtF
- 8jxHOfvkwQquJT29EFdNPeH66l47jiVKS647hp1d+9cE6Ki0y+aorLo3unYD95FWFfHb
- Bqpw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8hRhc7OqqYu1yTOP/4HUgKwJScuYVPtrF+aPsc4guhdKyUmMUdai36mqxRms1TRBdxc8QTEaaPuKw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7v8j0p/O3kjYL85uxGS4IkJuJZk2MQvCQCzq+acZhgi9jFnXU
- 8Gx5DHR4nrH6Q6qCk1A8b1id0AN12P1Xh8sAffb62mahnPbIAX1r178M
-X-Gm-Gg: Acq92OEs9E84clUuEcpUZGMfIhXVAbcdBwkwKSqAtrZMWb31xlcDFd7qfm34+l0QDYQ
- uK1OODwPuYBwXxLVz6FEEWYKNL9TKSAo6whOBsGl+Wawbcxn0zBQuBWUJBG87LUBaV38HX9zNlt
- gocHFieiBHOEZC+TBJ7mNNnom9WWAG+Zly4VRJwsfrdPuazKVIpuW4ZIzWF/vf9bD3ACqmfMTWZ
- ncwpqM9JsFfk6ovu+FIYxKSN7HOBdjl/CAN5eEh7CrZzAdCnTy27ga5NJa2JXQ7A9RxEP1ca/Iz
- w3lm06GOCzDHfuLmYjuh8mXeFy5ixh5++FxwflSKU+nMqVnvchYVHYBMTjS/P4D29FbmZQiZ4bS
- +9IJXfzwTq8Voe/OJ5JmfnzVvWH5FZWGf0JqINbXtiZZSfAbV+8FhlkV3Mn+opk71CXfVoDi5GD
- tuK7tYSmjt9oyNV8QAhgQ1/siVq/WwXaytPzdKf3TSxKwPDyIrLPTHvJquJSSqnB1cLi4h0jNHS
- ymcuVhelU2EZUwLkv2umcHLD1fVqHC3HGAumGQyyGyQKeMc1MNfhXQc0Y/IhUj2zUofcBi1oqnz
- z5guZ/2/nldRhOOF
-X-Received: by 2002:a05:6a00:1709:b0:82f:9aa:d63d with SMTP id
- d2e1a72fcca58-83f33d3337amr12698207b3a.49.1779075792455; 
- Sun, 17 May 2026 20:43:12 -0700 (PDT)
-Received: from cmpatel-home.hsd1.or.comcast.net
- ([2601:1c0:5780:9200:790e:a8df:c769:91e7])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83f196660f9sm15808366b3a.10.2026.05.17.20.43.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2026 20:43:11 -0700 (PDT)
-From: Chintan Patel <chintanlike@gmail.com>
-To: sumit.semwal@linaro.org,
-	neil.armstrong@linaro.org
-Cc: dianders@chromium.org, jesszhan0024@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Chintan Patel <chintanlike@gmail.com>
-Subject: [PATCH v2] drm/panel: novatek-nt36672a: Inline panel init sequences
-Date: Sun, 17 May 2026 20:42:52 -0700
-Message-ID: <20260518034252.16337-1-chintanlike@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010037.outbound.protection.outlook.com
+ [52.101.193.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E58E10E2CC
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 03:56:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AtSJIxGILGcjC+yEe9xQ4d4VRHjl2OqYMYLIovRucgXEp3wZSbX4m02+n+TrVRIWyM5Z/9LtCN6GBfCbckScFRveUIwse2FPGObcN0QpmQpKKPSjmJMNWSEpHA8YTAFbJrgttLD2PYDqWo3jXtRe1Cq9SPY3VhMKZlrT/fReDAnsr644LPcr0jSVUntE9VnRSPN8jQ1kJuGMKLxkhHAMca7H59CqMjH6V/36zPZgc5XSpDZndr5uSp4Q0+h+a7YAE6Uma73B2fIRUY0b3RgCuk1fyexAf9nVe3UvPW/dmjyX3Iap/aOm1AA6oIE8K2W4L3SqOBmihq9slXWDPCd8sA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i6NXCb+oJWo6nKQgeeJwawKEkW/7dLceuHvvzqv5gW0=;
+ b=DWktiYXiUgtFs7jrVuDPb3vpa+SRRYHiG3GTnNIioAjFHfs5fAC1kmehzUi66DQiok/jIc03Iy9iycNfaVAu8yTXH8yfN/Zk2aCduBkreOCGiOjicY7l8J3UOPg7mKknnZFqiJGVZLZwxAcshYgLIvq0IdXQ4vXjnhHMBAjuY5asejnwdArXQqyFcVsoWUEY3e9XbXYr52GVLbR7v5KDt0XBvhM87NKxdevBViT+R2vVpQ2ORkpkaIg31WspXQikLB8lqFBpkwMUwOOlZThyr/xERU3kvyjmCkqVqs7SQ/obq1Zp0z6pbriBSp81bx2NflESORIbVeu5RuZ9Ws0N+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i6NXCb+oJWo6nKQgeeJwawKEkW/7dLceuHvvzqv5gW0=;
+ b=l3H/5uENfI03yzMk0azS+fZXpGBfAUesIkwBdjp7zlVwbKK9XVM657Sxy6Nw2q+GZ/8YhDYWFqVpZIz6QN7FRqGM2AhyfCeywjYbF/W8JNv7l/quoUHLxzaf0q609s2mdxKRqODPP9PFQ9QsJOxWcDW57lj+MkhujrDjym13YCQkBEGtJd9n1ZzyVnr0O3r5Y9VPPm7I3Cyr+7hVDpNW43DQbw6KADBH0dlMSrYqiHCTgDGFPQwdFoekMcvLLh5xDdG664cLOLKaDigeyzTelxN8rK52YJ5qSuhDJ/hUOmqtAYfhzinKJtbwZmngTEpOFtZwL0+3eo88l9ZeF7w0Fg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS0PR12MB7972.namprd12.prod.outlook.com (2603:10b6:8:14f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
+ 2026 03:56:48 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.21.0025.020; Mon, 18 May 2026
+ 03:56:48 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Akhil R <akhilrajeev@nvidia.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org
+Subject: Re: [PATCH 1/2] gpu: host1x: Allow entries in BO caches to be freed
+Date: Mon, 18 May 2026 11:12:46 +0900
+Message-ID: <vTpFv1KrTcGkVeSTU1oWRQ@nvidia.com>
+In-Reply-To: <CALHNRZ8-UKV1aVf6z_8uKOQ5eP1aP_7SEVJAtQ0fvCuAybb37Q@mail.gmail.com>
+References: <20260515-host1x-bocache-leak-v1-0-a0375f68aeab@nvidia.com>
+ <20260515-host1x-bocache-leak-v1-1-a0375f68aeab@nvidia.com>
+ <CALHNRZ8-UKV1aVf6z_8uKOQ5eP1aP_7SEVJAtQ0fvCuAybb37Q@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP286CA0371.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:79::7) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS0PR12MB7972:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f7423bc-3b9c-4976-18b6-08deb4917c6f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|10070799003|1800799024|56012099003|22082099003|18002099003|4143699003|11063799003;
+X-Microsoft-Antispam-Message-Info: HUizJsc0hpiIvhiYG97scfEZG12wEzyYRVL9bQRX0V+vpYKAvR2Sl9OaK+Uz74z0g7KTY90ZIh14ozt4Z2DV3162Al/h1xSXHpfxJryVEWvKFcvWPanrYkLfteLTpLKhxkKoakS0m0URjWWgGuNkIBgcGZNshsLDbJ33l+JEGctMT9rXRC+tyC5ljW75jJWJnC/7/dwpeE7gYjEOKmJyDPlXu5eJSQ8EHzKmAh/RvoGKX1+PGqgaOyWNgB+7G/FpsZvp0wPf7TC+VCb+4D+CIDLX+7Xv5VTmV0w5UveYNaWA+Guvvgz3aCcqIxsI5zqfDaYGCtAQJCxGnPSK8TkRe15t943aj72jmN/YmhRdt24zkZinOfgLLwsFyDpF+RlLye8dk2hdHgGD/xt1NXFMNqLV01SilQ7L/uQ5DJx/Jzp68xa253WO2LPY2XYMgnxRX8Z0LdQih3ehW8UeAqVFOi9UYCYuoSU60y7lczyOS9umcJz5vMTDcroSuiPaORSDfLnxgkKGHr4ILrmy+VXwktdw5rSsvYA9RZg8t6v4sxhM7UEW0FVU3VGtLnpRqKpEB8O3ZDLSR1wYtKXdu0t+Tz6gLE6qW++j/sNnt4ejLEwk2ScHkhOpfNOXu3Yx3dWW8l7UQyoQyCCnI0u80NHzZ6wHHvXh23B46lqRlGGbQWSFGpb5RYlPf1qxIHn4S5tV
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(10070799003)(1800799024)(56012099003)(22082099003)(18002099003)(4143699003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ck12ZkZVZDJBcWQrUjNCaDVlS3l2Y3VmTW5kcC9Nd1UrcWJLQ1hjR3c4N1o0?=
+ =?utf-8?B?UENtNjE3MUtPQmdWd0x4QWZjM2t4a0NOUXRGZlpOd0Z3ZzAxSldJYkZWVVNB?=
+ =?utf-8?B?QW5xZjZtR2RDU2tYeTZ4MkNYOEtLQnlSOUYyZnlSeE9qeVBHQUR3Y3R6WUZZ?=
+ =?utf-8?B?NzJzUHY1THlybW1yMThtUmhUSHhyR3luL3RnbmZhbG04TStFR2ZHaVNmN0g1?=
+ =?utf-8?B?Y3VWdWNiMG8yS1BZSVZJL0hKaWg4aXlsSFRiT1JHY0pRcXh0TEV4TmliT3d2?=
+ =?utf-8?B?eHhEa3VxK3pNYmFQRVZiTzJ4TEhqTTA3WFdQZ0FBSkZQZ1NXNysyako3bU16?=
+ =?utf-8?B?amJIdlZYb2JGOVMxY0hTOUhoWTJmNWtIUFEwRjhuK0pPWUpwVWhmRExLeklF?=
+ =?utf-8?B?TjRyVW1VZHJQTG16R0JGWUh0T2JrZlQ1VnU0SDlNQUFIQUxnd2REZ1dhNVRH?=
+ =?utf-8?B?NkNMTUpHVUFPQ1IvaUFXKzBLc2k1T1lOdkowMStVelJFZGE5TjcvdUVtZlc1?=
+ =?utf-8?B?RU9JRTltZUVSMmdSMTVUUTJkQ0tkdEp6VkJJeUNjMUtyVUoxODFKUTFTSGpv?=
+ =?utf-8?B?TUZmVmNnblJVQXI3VTQ1RHBGVHYzb2dTVG54Ulk5NzcrL3hCVHJKSzJOTm8y?=
+ =?utf-8?B?R2VhNDdMQkgxWlc4U05Ea21YTXQyN1VLZzBpak9uajVkcFk4R1FHdithaUtZ?=
+ =?utf-8?B?YTB4NWRBL1VzSFZoSythRFVMVHIrZmtBeURvWk53RW01SE1mazVla3pheUF6?=
+ =?utf-8?B?SDlaeDZoUm5palBBakpQeXBqWmpET1JVTktOUnRYQnlvZnFiaEd3RUUvSXpu?=
+ =?utf-8?B?WTM0djN0eklJMEFHc1IyN3lvVEo4RVlQMUYwcVhUbGRhVjAyWVdEOUJrdHU5?=
+ =?utf-8?B?YzBXVGIycmRkc1orS0x0RHdOaG1kT3RkLzlwK1YyOFpyaG9KdE5IVHBKN3Nu?=
+ =?utf-8?B?QjRZVm5qQWEyT2hIcFFkcUxtU2J3Sk1kbzQzRnQyTHpnNVQ3ZHg0Z2ZQcFNE?=
+ =?utf-8?B?TGNRYmQybXNaMmVMamtJejVKUVd5RHpkMlVLeE50WXpoMmQ5MHdnVnRwNmpw?=
+ =?utf-8?B?Z1VwN3lkN0FKci9KMFB2T1BxTkZaNWdVOVJZamd4VnFNU3AwZlBTNnFhRGN5?=
+ =?utf-8?B?YkxjZExBOGlhNTNkZ2VJWE1YR1g5OFJaazRwNzF6eGo1VGVSNHRiaWJucFJL?=
+ =?utf-8?B?S3FBLzFVRnpmNUhUalR5SHN0M1VFaE5GSHZhS25CdFVuWFA2My9vbU16akx0?=
+ =?utf-8?B?ZTFtWWhJY2w2NzJRWGRyVXc4cUtqbzBDRWZXZXJSSm5WTlc3T2QvbXpzV0dT?=
+ =?utf-8?B?UTl0RW14V25CODFab2s3UnNGTFlLeHRXTGg1dnJEZC9ZZUJybW1BRHVHRmFr?=
+ =?utf-8?B?dTR6SU8rNWVQc2VnekQxekNmTFhkUGdzNEhTLzhzcTFqcXpKYkpuTHZub1NP?=
+ =?utf-8?B?a1pNbjVvWlArS2RiMlpudEFNc0xJUDFHSWdDWFY5QmxXWlY3QklCV3p4aXA3?=
+ =?utf-8?B?K01lVS9PNko5aTVUM0IwSG1zRDdXK1pwSS9uM2xwS0dOM3ZXVis5eFNGNHQy?=
+ =?utf-8?B?bitReEk5TzlqRWpiR01ObTFpYUkvVjlZWXhrbFZZcytoUnpRZlNLSCtKRmZO?=
+ =?utf-8?B?NlprYUpPTVQrZnlIckxaZXpVUWVnQ3pIMDdRUVRnYnhFNVNiNGRySStRbHhE?=
+ =?utf-8?B?cGJmcVRjYzFtc2pZNFpPZ2JCekQzRkw4eEt6WGZJREtVQ01sQzJrdG56clBR?=
+ =?utf-8?B?cjJjdFlqSFRLbmhWT09xcHd1cHc2QzdOWEJ1U25KV2xTWXQ0TWVFd1hvSkFG?=
+ =?utf-8?B?MXBna0F5a1BXR2xhU0JFekVpM2hQSVp2MUppZXZ0OE1taStmb2dOMFRPSk5Q?=
+ =?utf-8?B?YU9id0ZHYi80VXovMGlWTE9JYXJPaGk0OVptQ25RR01GbVhMTFN0RjRnZmNa?=
+ =?utf-8?B?UC9NWHZkTGlHbitKRHVQT2tqdUFFMWtFQjJkQ3B6T3QyWVJtbmZSTW95OXBO?=
+ =?utf-8?B?TDg1NGVZN25NUXRsVjIzbmxVQWpiK2VKSGtBMmhLaTVXUXB0U1k1a3ZMY1Rj?=
+ =?utf-8?B?bzJvT25mZlBCTDZxWUVzV0FOS1orUk9nQnFNV2NPRE1VVWtJL1QyQnF0Nllz?=
+ =?utf-8?B?S3pWcFdkQnI4aTNFeVE3d0ZFVnRkWkIyQ1IweVRxVjkwU0hJTGFIMm9rbUR6?=
+ =?utf-8?B?VzgwM1ZlYlRGTXdZMmlRVDJ1a2hLTEdHTlZYTTl2eXUxalIzMWUxK3FOd3Nn?=
+ =?utf-8?B?M1FCZHp5UjlLdU12bXRnWVpkcXJ1L1UyZ1U5QzdwUlBWT25uMVlvYkIzTXVm?=
+ =?utf-8?B?NU9ZSHY2RjM1dlB0cnhCZlhUWExhVjZMUjMwYU5GeTlXSmNlbjhGQXpHMjlz?=
+ =?utf-8?Q?ohnxTLiKxL3CbKJkJT8UdMP0fDWL7+2X910EGMSo+/8mM?=
+X-MS-Exchange-AntiSpam-MessageData-1: vLWhcLqfokDCYg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f7423bc-3b9c-4976-18b6-08deb4917c6f
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 03:56:48.5748 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J94WEafJF6yHL53vui2eZW1uDeVZNe8PSwC3RXGRhMFh9sh9CTD/jTek3hxFPgo1qqUGfWjiP/NfJzuQUiUtWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7972
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,628 +144,282 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Inline the panel initialization command sequences and remove the
-table-based command abstraction used by the NT36672A panel driver.
+On Monday, May 18, 2026 5:02=E2=80=AFAM Aaron Kling wrote:
+> On Thu, May 14, 2026 at 9:35=E2=80=AFPM Mikko Perttunen <mperttunen@nvidi=
+a.com> wrote:
+> >
+> > When a buffer object is pinned via host1x_bo_pin() with a cache, the
+> > resulting mapping is kept in the cache so it can be reused on subsequen=
+t
+> > pins. Each mapping held a reference to the underlying host1x_bo (taken
+> > in tegra_bo_pin / gather_bo_pin), so as long as a mapping was cached,
+> > the bo itself could not be freed.
+> >
+> > However, the only way to remove the cached mapping was through the free
+> > path of the buffer object. This meant that if a bo got cached, it could
+> > never get freed again.
+> >
+> > Resolve the circularity by holding a weak reference to the bo from the
+> > cache side. This is done by having the .pin callbacks not bump the bo's
+> > refcount -- instead the common Host1x bo code does so, except for the
+> > cache reference.
+> >
+> > Also move the remove-cache-mapping-on-free code into a common function
+> > inside Host1x code. This is only called from the TegraDRM GEM buffers
+> > since those are the only ones that can be cached at the moment.
+> >
+> > Reported-by: Aaron Kling <webgeek1234@gmail.com>
+> > Fixes: 1f39b1dfa53c ("drm/tegra: Implement buffer object cache")
+> > Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> > ---
+> >  drivers/gpu/drm/tegra/gem.c    | 13 ++-------
+> >  drivers/gpu/drm/tegra/submit.c |  3 +--
+> >  drivers/gpu/host1x/bus.c       | 60 ++++++++++++++++++++++++++++++++++=
++++++++-
+> >  include/linux/host1x.h         |  7 +++++
+> >  4 files changed, 69 insertions(+), 14 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+> > index d2bae88ad545..2377e2b76397 100644
+> > --- a/drivers/gpu/drm/tegra/gem.c
+> > +++ b/drivers/gpu/drm/tegra/gem.c
+> > @@ -69,7 +69,7 @@ static struct host1x_bo_mapping *tegra_bo_pin(struct =
+device *dev, struct host1x_
+> >                 return ERR_PTR(-ENOMEM);
+> >
+> >         kref_init(&map->ref);
+> > -       map->bo =3D host1x_bo_get(bo);
+> > +       map->bo =3D bo;
+> >         map->direction =3D direction;
+> >         map->dev =3D dev;
+> >
+> > @@ -170,7 +170,6 @@ static void tegra_bo_unpin(struct host1x_bo_mapping=
+ *map)
+> >                 kfree(map->sgt);
+> >         }
+> >
+> > -       host1x_bo_put(map->bo);
+> >         kfree(map);
+> >  }
+> >
+> > @@ -509,17 +508,9 @@ static struct tegra_bo *tegra_bo_import(struct drm=
+_device *drm,
+> >  void tegra_bo_free_object(struct drm_gem_object *gem)
+> >  {
+> >         struct tegra_drm *tegra =3D gem->dev->dev_private;
+> > -       struct host1x_bo_mapping *mapping, *tmp;
+> >         struct tegra_bo *bo =3D to_tegra_bo(gem);
+> >
+> > -       /* remove all mappings of this buffer object from any caches */
+> > -       list_for_each_entry_safe(mapping, tmp, &bo->base.mappings, list=
+) {
+> > -               if (mapping->cache)
+> > -                       host1x_bo_unpin(mapping);
+> > -               else
+> > -                       dev_err(gem->dev->dev, "mapping %p stale for de=
+vice %s\n", mapping,
+> > -                               dev_name(mapping->dev));
+> > -       }
+> > +       host1x_bo_clear_cached_mappings(&bo->base);
+> >
+> >         if (tegra->domain) {
+> >                 tegra_bo_iommu_unmap(tegra, bo);
+> > diff --git a/drivers/gpu/drm/tegra/submit.c b/drivers/gpu/drm/tegra/sub=
+mit.c
+> > index 3009b8b9e619..e5841857c937 100644
+> > --- a/drivers/gpu/drm/tegra/submit.c
+> > +++ b/drivers/gpu/drm/tegra/submit.c
+> > @@ -76,7 +76,7 @@ gather_bo_pin(struct device *dev, struct host1x_bo *b=
+o, enum dma_data_direction
+> >                 return ERR_PTR(-ENOMEM);
+> >
+> >         kref_init(&map->ref);
+> > -       map->bo =3D host1x_bo_get(bo);
+> > +       map->bo =3D bo;
+> >         map->direction =3D direction;
+> >         map->dev =3D dev;
+> >
+> > @@ -117,7 +117,6 @@ static void gather_bo_unpin(struct host1x_bo_mappin=
+g *map)
+> >         dma_unmap_sgtable(map->dev, map->sgt, map->direction, 0);
+> >         sg_free_table(map->sgt);
+> >         kfree(map->sgt);
+> > -       host1x_bo_put(map->bo);
+> >
+> >         kfree(map);
+> >  }
+> > diff --git a/drivers/gpu/host1x/bus.c b/drivers/gpu/host1x/bus.c
+> > index f814eb4941c0..772e05a7b45b 100644
+> > --- a/drivers/gpu/host1x/bus.c
+> > +++ b/drivers/gpu/host1x/bus.c
+> > @@ -887,6 +887,20 @@ int host1x_client_resume(struct host1x_client *cli=
+ent)
+> >  }
+> >  EXPORT_SYMBOL(host1x_client_resume);
+> >
+> > +/**
+> > + * host1x_bo_pin() - Create a DMA mapping for the buffer object
+> > + * @dev: Device onto which DMA map to
+> > + * @bo: Buffer object to map
+> > + * @dir: DMA direction
+> > + * @cache: Cache in which to store mapping, or NULL
+> > + *
+> > + * Creates a DMA mapping pointing to @bo for @dev. The refcount of @bo=
+ is incremented
+> > + * until host1x_bo_unpin is called.
+> > + *
+> > + * If @cache is specified, the mapping is also stored in the cache and=
+ not released
+> > + * until @bo is freed (refcount drops to zero). This improves performa=
+nce when a buffer
+> > + * is pinned and unpinned frequently as in the case of display use.
+> > + */
+> >  struct host1x_bo_mapping *host1x_bo_pin(struct device *dev, struct hos=
+t1x_bo *bo,
+> >                                         enum dma_data_direction dir,
+> >                                         struct host1x_bo_cache *cache)
+> > @@ -899,6 +913,7 @@ struct host1x_bo_mapping *host1x_bo_pin(struct devi=
+ce *dev, struct host1x_bo *bo
+> >                 list_for_each_entry(mapping, &cache->mappings, entry) {
+> >                         if (mapping->bo =3D=3D bo && mapping->direction=
+ =3D=3D dir) {
+> >                                 kref_get(&mapping->ref);
+> > +                               host1x_bo_get(bo);
+> >                                 goto unlock;
+> >                         }
+> >                 }
+> > @@ -908,6 +923,8 @@ struct host1x_bo_mapping *host1x_bo_pin(struct devi=
+ce *dev, struct host1x_bo *bo
+> >         if (IS_ERR(mapping))
+> >                 goto unlock;
+> >
+> > +       host1x_bo_get(bo);
+> > +
+> >         spin_lock(&mapping->bo->lock);
+> >         list_add_tail(&mapping->list, &bo->mappings);
+> >         spin_unlock(&mapping->bo->lock);
+> > @@ -918,7 +935,12 @@ struct host1x_bo_mapping *host1x_bo_pin(struct dev=
+ice *dev, struct host1x_bo *bo
+> >
+> >                 list_add_tail(&mapping->entry, &cache->mappings);
+> >
+> > -               /* bump reference count to track the copy in the cache =
+*/
+> > +               /*
+> > +                * Bump the mapping reference count to track the mappin=
+g in the cache,
+> > +                * but do not bump the BO's refcount. This allows the B=
+O to still get freed,
+> > +                * triggering the release of the cache mapping through
+> > +                * host1x_bo_clear_cached_mappings.
+> > +                */
+> >                 kref_get(&mapping->ref);
+> >         }
+> >
+> > @@ -948,9 +970,17 @@ static void __host1x_bo_unpin(struct kref *ref)
+> >         mapping->bo->ops->unpin(mapping);
+> >  }
+> >
+> > +/**
+> > + * host1x_bo_unpin() - Release an established DMA mapping of a buffer =
+object
+> > + * @mapping: Mapping to release
+> > + *
+> > + * Unmaps the given @mapping, unless it is cached. Decreases the refco=
+unt on
+> > + * the underlying buffer object.
+> > + */
+> >  void host1x_bo_unpin(struct host1x_bo_mapping *mapping)
+> >  {
+> >         struct host1x_bo_cache *cache =3D mapping->cache;
+> > +       struct host1x_bo *bo =3D mapping->bo;
+> >
+> >         if (cache)
+> >                 mutex_lock(&cache->lock);
+> > @@ -959,5 +989,33 @@ void host1x_bo_unpin(struct host1x_bo_mapping *map=
+ping)
+> >
+> >         if (cache)
+> >                 mutex_unlock(&cache->lock);
+> > +
+> > +       host1x_bo_put(bo);
+> >  }
+> >  EXPORT_SYMBOL(host1x_bo_unpin);
+> > +
+> > +/**
+> > + * host1x_bo_clear_cached_mappings() - Remove all cached mappings poin=
+ting at a bo
+> > + * @bo: Buffer object to release mappings of
+> > + *
+> > + * Drops references to any mappings pointing to @bo left in any caches=
+. This must
+> > + * be called by any host1x_bo implementers that may be pinned with cac=
+hing enabled
+> > + * before freeing the bo.
+> > + */
+> > +void host1x_bo_clear_cached_mappings(struct host1x_bo *bo)
+> > +{
+> > +       struct host1x_bo_mapping *mapping, *tmp;
+> > +       struct host1x_bo_cache *cache;
+> > +
+> > +       list_for_each_entry_safe(mapping, tmp, &bo->mappings, list) {
+> > +               cache =3D mapping->cache;
+> > +               if (WARN_ON(!cache))
+> > +                       continue;
+> > +
+> > +               mutex_lock(&mapping->cache->lock);
+> > +               WARN_ON(kref_read(&mapping->ref) !=3D 1);
+> > +               __host1x_bo_unpin(&mapping->ref);
+> > +               mutex_unlock(&mapping->cache->lock);
+> > +       }
+> > +}
+> > +EXPORT_SYMBOL(host1x_bo_clear_cached_mappings);
+> > diff --git a/include/linux/host1x.h b/include/linux/host1x.h
+> > index 5e7a63143a4a..d8f052a85b75 100644
+> > --- a/include/linux/host1x.h
+> > +++ b/include/linux/host1x.h
+> > @@ -143,6 +143,12 @@ static inline struct host1x_bo_mapping *to_host1x_=
+bo_mapping(struct kref *ref)
+> >         return container_of(ref, struct host1x_bo_mapping, ref);
+> >  }
+> >
+> > +/**
+> > + * struct host1x_bo_ops - operations implemented by a host1x_bo provid=
+er
+> > + *
+> > + * @pin: create a DMA mapping. Implementation must not touch the bo's =
+refcount.
+> > + * @unpin: destroy a DMA mapping. Implementation must not touch the bo=
+'s refcount.
+> > + */
+> >  struct host1x_bo_ops {
+> >         struct host1x_bo *(*get)(struct host1x_bo *bo);
+> >         void (*put)(struct host1x_bo *bo);
+> > @@ -181,6 +187,7 @@ struct host1x_bo_mapping *host1x_bo_pin(struct devi=
+ce *dev, struct host1x_bo *bo
+> >                                         enum dma_data_direction dir,
+> >                                         struct host1x_bo_cache *cache);
+> >  void host1x_bo_unpin(struct host1x_bo_mapping *map);
+> > +void host1x_bo_clear_cached_mappings(struct host1x_bo *bo);
+> >
+> >  static inline void *host1x_bo_mmap(struct host1x_bo *bo)
+> >  {
+> >
+> > --
+> > 2.53.0
+> >
+>=20
+> I have verified this on a Jetson AGX Xavier devkit, a Jetson Xavier NX
+> devkit, a Jetson TX2 devkit, and a Jetson TX2 NX in a p3509 carrier.
+> No longer seeing allocation failures nor am I seeing any obvious
+> regressions. I am currently unable to boot any t210 device to Android
+> userspace to verify those for various preexisting reasons, and Android
+> recovery does not reallocate buffers to stress this issue.
+>=20
+> Tested-by: Aaron Kling <webgeek1234@gmail.com>
+>=20
+> Aaron
 
-Replace the nt36672a_panel_cmd tables and nt36672a_send_cmds()
-helper with explicit initialization functions using
-mipi_dsi_dcs_write_seq_multi() and
-mipi_dsi_dcs_write_var_seq_multi() directly.
+Thank you!
 
-This improves readability by making the panel programming sequence
-explicit in code and allows future sharing of common command
-subsequences between panels. It also removes an unnecessary wrapper
-around the MIPI DSI helpers.
-
-Additionally, compress repeated register writes into small loops where
-appropriate to reduce duplication in the initialization sequences.
-
-Add:
-tianma_fhd_video_on_init_1()
-tianma_fhd_video_on_init_2()
-tianma_fhd_video_off_init()
-
-Update nt36672a_panel_desc to use function pointers for panel init
-sequences and invoke them directly from prepare/unprepare paths.
-
-Signed-off-by: Chintan Patel <chintanlike@gmail.com>
----
-Changes in v2:
-- Replace command tables with explicit init functions
-- Remove nt36672a_send_cmds() helper entirely
-- Use mipi_dsi_dcs_write_seq_multi() directly
-- Use mipi_dsi_dcs_write_var_seq_multi() loops for repeated register writes
-- Convert nt36672a_panel_desc command table fields to function pointers
----
- .../gpu/drm/panel/panel-novatek-nt36672a.c    | 522 +++++++-----------
- 1 file changed, 186 insertions(+), 336 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 7e8b5e059575..4c706c6e9b1c 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -28,10 +28,6 @@
- 
- #include <video/mipi_display.h>
- 
--struct nt36672a_panel_cmd {
--	const char data[2];
--};
--
- static const char * const nt36672a_regulator_names[] = {
- 	"vddio",
- 	"vddpos",
-@@ -55,13 +51,9 @@ struct nt36672a_panel_desc {
- 	enum mipi_dsi_pixel_format format;
- 	unsigned int lanes;
- 
--	unsigned int num_on_cmds_1;
--	const struct nt36672a_panel_cmd *on_cmds_1;
--	unsigned int num_on_cmds_2;
--	const struct nt36672a_panel_cmd *on_cmds_2;
--
--	unsigned int num_off_cmds;
--	const struct nt36672a_panel_cmd *off_cmds;
-+	void (*on_init_1)(struct mipi_dsi_multi_context *dsi_ctx);
-+	void (*on_init_2)(struct mipi_dsi_multi_context *dsi_ctx);
-+	void (*off_init)(struct mipi_dsi_multi_context *dsi_ctx);
- };
- 
- struct nt36672a_panel {
-@@ -79,19 +71,6 @@ static inline struct nt36672a_panel *to_nt36672a_panel(struct drm_panel *panel)
- 	return container_of(panel, struct nt36672a_panel, base);
- }
- 
--static void nt36672a_send_cmds(struct mipi_dsi_multi_context *dsi_ctx,
--			       const struct nt36672a_panel_cmd *cmds, int num)
--{
--	unsigned int i;
--
--	for (i = 0; i < num; i++) {
--		const struct nt36672a_panel_cmd *cmd = &cmds[i];
--
--		/* cmd->data[0] is the DCS command, cmd->data[1] is the parameter */
--		mipi_dsi_dcs_write_buffer_multi(dsi_ctx, cmd->data, sizeof(cmd->data));
--	}
--}
--
- static void nt36672a_panel_power_off(struct drm_panel *panel)
- {
- 	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
-@@ -110,8 +89,8 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
- 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->link };
- 
- 	/* send off cmds */
--	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->off_cmds,
--			   pinfo->desc->num_off_cmds);
-+	if (pinfo->desc->off_init)
-+		pinfo->desc->off_init(&dsi_ctx);
- 
- 	/* Reset error to continue with display off even if send_cmds failed */
- 	dsi_ctx.accum_err = 0;
-@@ -162,8 +141,8 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
- 	dsi_ctx.accum_err = nt36672a_panel_power_on(pinfo);
- 
- 	/* send first part of init cmds */
--	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->on_cmds_1,
--			   pinfo->desc->num_on_cmds_1);
-+	if (pinfo->desc->on_init_1)
-+		pinfo->desc->on_init_1(&dsi_ctx);
- 
- 	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
- 
-@@ -173,8 +152,8 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
- 	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
- 
- 	/* Send rest of the init cmds */
--	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->on_cmds_2,
--			   pinfo->desc->num_on_cmds_2);
-+	if (pinfo->desc->on_init_2)
-+		pinfo->desc->on_init_2(&dsi_ctx);
- 
- 	mipi_dsi_msleep(&dsi_ctx, 120);
- 
-@@ -213,310 +192,184 @@ static const struct drm_panel_funcs panel_funcs = {
- 	.get_modes = nt36672a_panel_get_modes,
- };
- 
--static const struct nt36672a_panel_cmd tianma_fhd_video_on_cmds_1[] = {
-+static void tianma_fhd_video_on_init_1(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	u8 reg;
-+
- 	/* skin enhancement mode */
--	{ .data = {0xFF, 0x22} },
--	{ .data = {0x00, 0x40} },
--	{ .data = {0x01, 0xC0} },
--	{ .data = {0x02, 0x40} },
--	{ .data = {0x03, 0x40} },
--	{ .data = {0x04, 0x40} },
--	{ .data = {0x05, 0x40} },
--	{ .data = {0x06, 0x40} },
--	{ .data = {0x07, 0x40} },
--	{ .data = {0x08, 0x40} },
--	{ .data = {0x09, 0x40} },
--	{ .data = {0x0A, 0x40} },
--	{ .data = {0x0B, 0x40} },
--	{ .data = {0x0C, 0x40} },
--	{ .data = {0x0D, 0x40} },
--	{ .data = {0x0E, 0x40} },
--	{ .data = {0x0F, 0x40} },
--	{ .data = {0x10, 0x40} },
--	{ .data = {0x11, 0x50} },
--	{ .data = {0x12, 0x60} },
--	{ .data = {0x13, 0x70} },
--	{ .data = {0x14, 0x58} },
--	{ .data = {0x15, 0x68} },
--	{ .data = {0x16, 0x78} },
--	{ .data = {0x17, 0x77} },
--	{ .data = {0x18, 0x39} },
--	{ .data = {0x19, 0x2D} },
--	{ .data = {0x1A, 0x2E} },
--	{ .data = {0x1B, 0x32} },
--	{ .data = {0x1C, 0x37} },
--	{ .data = {0x1D, 0x3A} },
--	{ .data = {0x1E, 0x40} },
--	{ .data = {0x1F, 0x40} },
--	{ .data = {0x20, 0x40} },
--	{ .data = {0x21, 0x40} },
--	{ .data = {0x22, 0x40} },
--	{ .data = {0x23, 0x40} },
--	{ .data = {0x24, 0x40} },
--	{ .data = {0x25, 0x40} },
--	{ .data = {0x26, 0x40} },
--	{ .data = {0x27, 0x40} },
--	{ .data = {0x28, 0x40} },
--	{ .data = {0x2D, 0x00} },
--	{ .data = {0x2F, 0x40} },
--	{ .data = {0x30, 0x40} },
--	{ .data = {0x31, 0x40} },
--	{ .data = {0x32, 0x40} },
--	{ .data = {0x33, 0x40} },
--	{ .data = {0x34, 0x40} },
--	{ .data = {0x35, 0x40} },
--	{ .data = {0x36, 0x40} },
--	{ .data = {0x37, 0x40} },
--	{ .data = {0x38, 0x40} },
--	{ .data = {0x39, 0x40} },
--	{ .data = {0x3A, 0x40} },
--	{ .data = {0x3B, 0x40} },
--	{ .data = {0x3D, 0x40} },
--	{ .data = {0x3F, 0x40} },
--	{ .data = {0x40, 0x40} },
--	{ .data = {0x41, 0x40} },
--	{ .data = {0x42, 0x40} },
--	{ .data = {0x43, 0x40} },
--	{ .data = {0x44, 0x40} },
--	{ .data = {0x45, 0x40} },
--	{ .data = {0x46, 0x40} },
--	{ .data = {0x47, 0x40} },
--	{ .data = {0x48, 0x40} },
--	{ .data = {0x49, 0x40} },
--	{ .data = {0x4A, 0x40} },
--	{ .data = {0x4B, 0x40} },
--	{ .data = {0x4C, 0x40} },
--	{ .data = {0x4D, 0x40} },
--	{ .data = {0x4E, 0x40} },
--	{ .data = {0x4F, 0x40} },
--	{ .data = {0x50, 0x40} },
--	{ .data = {0x51, 0x40} },
--	{ .data = {0x52, 0x40} },
--	{ .data = {0x53, 0x01} },
--	{ .data = {0x54, 0x01} },
--	{ .data = {0x55, 0xFE} },
--	{ .data = {0x56, 0x77} },
--	{ .data = {0x58, 0xCD} },
--	{ .data = {0x59, 0xD0} },
--	{ .data = {0x5A, 0xD0} },
--	{ .data = {0x5B, 0x50} },
--	{ .data = {0x5C, 0x50} },
--	{ .data = {0x5D, 0x50} },
--	{ .data = {0x5E, 0x50} },
--	{ .data = {0x5F, 0x50} },
--	{ .data = {0x60, 0x50} },
--	{ .data = {0x61, 0x50} },
--	{ .data = {0x62, 0x50} },
--	{ .data = {0x63, 0x50} },
--	{ .data = {0x64, 0x50} },
--	{ .data = {0x65, 0x50} },
--	{ .data = {0x66, 0x50} },
--	{ .data = {0x67, 0x50} },
--	{ .data = {0x68, 0x50} },
--	{ .data = {0x69, 0x50} },
--	{ .data = {0x6A, 0x50} },
--	{ .data = {0x6B, 0x50} },
--	{ .data = {0x6C, 0x50} },
--	{ .data = {0x6D, 0x50} },
--	{ .data = {0x6E, 0x50} },
--	{ .data = {0x6F, 0x50} },
--	{ .data = {0x70, 0x07} },
--	{ .data = {0x71, 0x00} },
--	{ .data = {0x72, 0x00} },
--	{ .data = {0x73, 0x00} },
--	{ .data = {0x74, 0x06} },
--	{ .data = {0x75, 0x0C} },
--	{ .data = {0x76, 0x03} },
--	{ .data = {0x77, 0x09} },
--	{ .data = {0x78, 0x0F} },
--	{ .data = {0x79, 0x68} },
--	{ .data = {0x7A, 0x88} },
--	{ .data = {0x7C, 0x80} },
--	{ .data = {0x7D, 0x80} },
--	{ .data = {0x7E, 0x80} },
--	{ .data = {0x7F, 0x00} },
--	{ .data = {0x80, 0x00} },
--	{ .data = {0x81, 0x00} },
--	{ .data = {0x83, 0x01} },
--	{ .data = {0x84, 0x00} },
--	{ .data = {0x85, 0x80} },
--	{ .data = {0x86, 0x80} },
--	{ .data = {0x87, 0x80} },
--	{ .data = {0x88, 0x40} },
--	{ .data = {0x89, 0x91} },
--	{ .data = {0x8A, 0x98} },
--	{ .data = {0x8B, 0x80} },
--	{ .data = {0x8C, 0x80} },
--	{ .data = {0x8D, 0x80} },
--	{ .data = {0x8E, 0x80} },
--	{ .data = {0x8F, 0x80} },
--	{ .data = {0x90, 0x80} },
--	{ .data = {0x91, 0x80} },
--	{ .data = {0x92, 0x80} },
--	{ .data = {0x93, 0x80} },
--	{ .data = {0x94, 0x80} },
--	{ .data = {0x95, 0x80} },
--	{ .data = {0x96, 0x80} },
--	{ .data = {0x97, 0x80} },
--	{ .data = {0x98, 0x80} },
--	{ .data = {0x99, 0x80} },
--	{ .data = {0x9A, 0x80} },
--	{ .data = {0x9B, 0x80} },
--	{ .data = {0x9C, 0x80} },
--	{ .data = {0x9D, 0x80} },
--	{ .data = {0x9E, 0x80} },
--	{ .data = {0x9F, 0x80} },
--	{ .data = {0xA0, 0x8A} },
--	{ .data = {0xA2, 0x80} },
--	{ .data = {0xA6, 0x80} },
--	{ .data = {0xA7, 0x80} },
--	{ .data = {0xA9, 0x80} },
--	{ .data = {0xAA, 0x80} },
--	{ .data = {0xAB, 0x80} },
--	{ .data = {0xAC, 0x80} },
--	{ .data = {0xAD, 0x80} },
--	{ .data = {0xAE, 0x80} },
--	{ .data = {0xAF, 0x80} },
--	{ .data = {0xB7, 0x76} },
--	{ .data = {0xB8, 0x76} },
--	{ .data = {0xB9, 0x05} },
--	{ .data = {0xBA, 0x0D} },
--	{ .data = {0xBB, 0x14} },
--	{ .data = {0xBC, 0x0F} },
--	{ .data = {0xBD, 0x18} },
--	{ .data = {0xBE, 0x1F} },
--	{ .data = {0xBF, 0x05} },
--	{ .data = {0xC0, 0x0D} },
--	{ .data = {0xC1, 0x14} },
--	{ .data = {0xC2, 0x03} },
--	{ .data = {0xC3, 0x07} },
--	{ .data = {0xC4, 0x0A} },
--	{ .data = {0xC5, 0xA0} },
--	{ .data = {0xC6, 0x55} },
--	{ .data = {0xC7, 0xFF} },
--	{ .data = {0xC8, 0x39} },
--	{ .data = {0xC9, 0x44} },
--	{ .data = {0xCA, 0x12} },
--	{ .data = {0xCD, 0x80} },
--	{ .data = {0xDB, 0x80} },
--	{ .data = {0xDC, 0x80} },
--	{ .data = {0xDD, 0x80} },
--	{ .data = {0xE0, 0x80} },
--	{ .data = {0xE1, 0x80} },
--	{ .data = {0xE2, 0x80} },
--	{ .data = {0xE3, 0x80} },
--	{ .data = {0xE4, 0x80} },
--	{ .data = {0xE5, 0x40} },
--	{ .data = {0xE6, 0x40} },
--	{ .data = {0xE7, 0x40} },
--	{ .data = {0xE8, 0x40} },
--	{ .data = {0xE9, 0x40} },
--	{ .data = {0xEA, 0x40} },
--	{ .data = {0xEB, 0x40} },
--	{ .data = {0xEC, 0x40} },
--	{ .data = {0xED, 0x40} },
--	{ .data = {0xEE, 0x40} },
--	{ .data = {0xEF, 0x40} },
--	{ .data = {0xF0, 0x40} },
--	{ .data = {0xF1, 0x40} },
--	{ .data = {0xF2, 0x40} },
--	{ .data = {0xF3, 0x40} },
--	{ .data = {0xF4, 0x40} },
--	{ .data = {0xF5, 0x40} },
--	{ .data = {0xF6, 0x40} },
--	{ .data = {0xFB, 0x1} },
--	{ .data = {0xFF, 0x23} },
--	{ .data = {0xFB, 0x01} },
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFF, 0x22);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x00, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x01, 0xC0);
-+	for (reg = 0x02; reg <= 0x10; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x11, 0x50);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x12, 0x60);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x13, 0x70);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x14, 0x58);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x15, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x16, 0x78);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x17, 0x77);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x18, 0x39);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x19, 0x2D);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1A, 0x2E);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1B, 0x32);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1C, 0x37);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1D, 0x3A);
-+	for (reg = 0x1E; reg <= 0x28; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2D, 0x00);
-+	for (reg = 0x2F; reg <= 0x3B; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3D, 0x40);
-+	for (reg = 0x3F; reg <= 0x52; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x54, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0xFE);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x56, 0x77);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x58, 0xCD);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x59, 0xD0);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5A, 0xD0);
-+	for (reg = 0x5B; reg <= 0x6F; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x50);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x70, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x71, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x72, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x73, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x74, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x75, 0x0C);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x76, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x77, 0x09);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x78, 0x0F);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x79, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7A, 0x88);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7C, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7D, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7E, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7F, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x81, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x87, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0x91);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8A, 0x98);
-+	for (reg = 0x8B; reg <= 0x9F; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xA0, 0x8A);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xA2, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xA6, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xA7, 0x80);
-+	for (reg = 0xA9; reg <= 0xAF; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xB7, 0x76);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xB8, 0x76);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xB9, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xBA, 0x0D);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xBB, 0x14);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xBC, 0x0F);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xBD, 0x18);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xBE, 0x1F);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xBF, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC0, 0x0D);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC1, 0x14);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC2, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC3, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC4, 0x0A);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC5, 0xA0);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC6, 0x55);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC7, 0xFF);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC8, 0x39);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC9, 0x44);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xCA, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xCD, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xDB, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xDC, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xDD, 0x80);
-+	for (reg = 0xE0; reg <= 0xE4; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x80);
-+	for (reg = 0xE5; reg <= 0xF6; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFB, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFF, 0x23);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFB, 0x01);
- 	/* dimming enable */
--	{ .data = {0x01, 0x84} },
--	{ .data = {0x05, 0x2D} },
--	{ .data = {0x06, 0x00} },
--	 /* resolution 1080*2246 */
--	{ .data = {0x11, 0x01} },
--	{ .data = {0x12, 0x7B} },
--	{ .data = {0x15, 0x6F} },
--	{ .data = {0x16, 0x0B} },
--	 /* UI mode */
--	{ .data = {0x29, 0x0A} },
--	{ .data = {0x30, 0xFF} },
--	{ .data = {0x31, 0xFF} },
--	{ .data = {0x32, 0xFF} },
--	{ .data = {0x33, 0xFF} },
--	{ .data = {0x34, 0xFF} },
--	{ .data = {0x35, 0xFF} },
--	{ .data = {0x36, 0xFF} },
--	{ .data = {0x37, 0xFF} },
--	{ .data = {0x38, 0xFC} },
--	{ .data = {0x39, 0xF8} },
--	{ .data = {0x3A, 0xF4} },
--	{ .data = {0x3B, 0xF1} },
--	{ .data = {0x3D, 0xEE} },
--	{ .data = {0x3F, 0xEB} },
--	{ .data = {0x40, 0xE8} },
--	{ .data = {0x41, 0xE5} },
--	 /* STILL mode */
--	{ .data = {0x2A, 0x13} },
--	{ .data = {0x45, 0xFF} },
--	{ .data = {0x46, 0xFF} },
--	{ .data = {0x47, 0xFF} },
--	{ .data = {0x48, 0xFF} },
--	{ .data = {0x49, 0xFF} },
--	{ .data = {0x4A, 0xFF} },
--	{ .data = {0x4B, 0xFF} },
--	{ .data = {0x4C, 0xFF} },
--	{ .data = {0x4D, 0xED} },
--	{ .data = {0x4E, 0xD5} },
--	{ .data = {0x4F, 0xBF} },
--	{ .data = {0x50, 0xA6} },
--	{ .data = {0x51, 0x96} },
--	{ .data = {0x52, 0x86} },
--	{ .data = {0x53, 0x76} },
--	{ .data = {0x54, 0x66} },
--	 /* MOVING mode */
--	{ .data = {0x2B, 0x0E} },
--	{ .data = {0x58, 0xFF} },
--	{ .data = {0x59, 0xFF} },
--	{ .data = {0x5A, 0xFF} },
--	{ .data = {0x5B, 0xFF} },
--	{ .data = {0x5C, 0xFF} },
--	{ .data = {0x5D, 0xFF} },
--	{ .data = {0x5E, 0xFF} },
--	{ .data = {0x5F, 0xFF} },
--	{ .data = {0x60, 0xF6} },
--	{ .data = {0x61, 0xEA} },
--	{ .data = {0x62, 0xE1} },
--	{ .data = {0x63, 0xD8} },
--	{ .data = {0x64, 0xCE} },
--	{ .data = {0x65, 0xC3} },
--	{ .data = {0x66, 0xBA} },
--	{ .data = {0x67, 0xB3} },
--	{ .data = {0xFF, 0x25} },
--	{ .data = {0xFB, 0x01} },
--	{ .data = {0x05, 0x04} },
--	{ .data = {0xFF, 0x26} },
--	{ .data = {0xFB, 0x01} },
--	{ .data = {0x1C, 0xAF} },
--	{ .data = {0xFF, 0x10} },
--	{ .data = {0xFB, 0x01} },
--	{ .data = {0x51, 0xFF} },
--	{ .data = {0x53, 0x24} },
--	{ .data = {0x55, 0x00} },
--};
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x01, 0x84);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x2D);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x06, 0x00);
-+	/* resolution 1080*2246 */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x11, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x12, 0x7B);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x15, 0x6F);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x16, 0x0B);
-+	/* UI mode */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x29, 0x0A);
-+	for (reg = 0x30; reg <= 0x37; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0xFF);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x38, 0xFC);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x39, 0xF8);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3A, 0xF4);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3B, 0xF1);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3D, 0xEE);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3F, 0xEB);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x40, 0xE8);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x41, 0xE5);
-+	/* STILL mode */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2A, 0x13);
-+	for (reg = 0x45; reg <= 0x4C; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0xFF);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x4D, 0xED);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x4E, 0xD5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x4F, 0xBF);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x50, 0xA6);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x96);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x52, 0x86);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x76);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x54, 0x66);
-+	/* MOVING mode */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2B, 0x0E);
-+	for (reg = 0x58; reg <= 0x5F; reg++)
-+		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0xFF);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0xF6);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x61, 0xEA);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x62, 0xE1);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x63, 0xD8);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x64, 0xCE);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x65, 0xC3);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x66, 0xBA);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x67, 0xB3);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFF, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFB, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFF, 0x26);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFB, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1C, 0xAF);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFF, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFB, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0xFF);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
-+}
- 
--static const struct nt36672a_panel_cmd tianma_fhd_video_on_cmds_2[] = {
--	{ .data = {0xFF, 0x24} },
--	{ .data = {0xFB, 0x01} },
--	{ .data = {0xC3, 0x01} },
--	{ .data = {0xC4, 0x54} },
--	{ .data = {0xFF, 0x10} },
--};
-+static void tianma_fhd_video_on_init_2(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFF, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFB, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC3, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC4, 0x54);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFF, 0x10);
-+}
- 
--static const struct nt36672a_panel_cmd tianma_fhd_video_off_cmds[] = {
--	{ .data = {0xFF, 0x24} },
--	{ .data = {0xFB, 0x01} },
--	{ .data = {0xC3, 0x01} },
--	{ .data = {0xFF, 0x10} },
--};
-+static void tianma_fhd_video_off_init(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFF, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFB, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xC3, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xFF, 0x10);
-+}
- 
- static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
- 	.clock		= 161331,
-@@ -546,12 +399,9 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
- 			| MIPI_DSI_MODE_VIDEO_BURST,
- 	.format = MIPI_DSI_FMT_RGB888,
- 	.lanes = 4,
--	.on_cmds_1 = tianma_fhd_video_on_cmds_1,
--	.num_on_cmds_1 = ARRAY_SIZE(tianma_fhd_video_on_cmds_1),
--	.on_cmds_2 = tianma_fhd_video_on_cmds_2,
--	.num_on_cmds_2 = ARRAY_SIZE(tianma_fhd_video_on_cmds_2),
--	.off_cmds = tianma_fhd_video_off_cmds,
--	.num_off_cmds = ARRAY_SIZE(tianma_fhd_video_off_cmds),
-+	.on_init_1 = tianma_fhd_video_on_init_1,
-+	.on_init_2 = tianma_fhd_video_on_init_2,
-+	.off_init = tianma_fhd_video_off_init,
- };
- 
- static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
--- 
-2.43.0
 
