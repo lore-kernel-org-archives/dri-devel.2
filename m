@@ -4,96 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B58EBCD4F52
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 11:12:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A034ECD4F52
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 11:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF8810E142;
-	Mon, 18 May 2026 11:12:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05CE510E7C3;
+	Mon, 18 May 2026 11:25:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="LaRyfW9t";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="UtWNeIwt";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBE9210E142
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 11:12:18 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-44e1860558fso1196698f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 04:12:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1779102737; x=1779707537;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=U4/++U9j8mYC/3Jzj1PcVr50bYvBfT6iMwOvy7pBLPM=;
- b=LaRyfW9tRFYQyWniSZusjs2n3xFSWuD0paFflWk7ZdX9CgMvMeroig/3tJ2ppxb8fR
- eKHFt19Ihh2jSRGFBNC3edGYDPO3QiP2vu7mKZE5QUeCqH2TdQp8dAJF6/leIsNN7Q/l
- 1G8ZoGZhmRZtX6mZioYJqfq3upNYH/ZeYaR9lGtnxelKRlFg5nX7H20/lvosYVhn33FA
- hrYWMC+XKgN1aq9fNL3Rx3lWH/dt0dxBp8k2IVKvkYSf/XuwYcRXrLYu4gWJ7MiFs0ov
- UkW1XiqYwxLl4e/EX7OFjxlvBnw5xPFAffAT7sKqC3qFm0YH/ncReTRBeeaMA0OfG0ro
- Neng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779102737; x=1779707537;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=U4/++U9j8mYC/3Jzj1PcVr50bYvBfT6iMwOvy7pBLPM=;
- b=keVHs4u6queF2C+OtftAlwkZ231RxP80tdcXzOdwDwig3nYiofZeXnqIHa7jQZnHGU
- 2S5GmFz2KLCcLdO9m0Vu0c8YVp7fq7dPwiMLg0juAFD/aPRDxJvRW/OyZc4r3nD0sNcC
- +jUxwslyGf71TiQhqLSrdhLzaC37Jbhw+3QN9fk/VZCgBGkt1rlrr7r38uTE8R0yty2e
- oCOcC0U2YCumWCZ7zYnvnTn9rgaWDKYNDzRftDY1bzMn3RDGeBmEVJcapuBlmnvwtgmC
- w+KpWfoOjBB338mdOC7C0YB61InK8Ufm9g5CRAR9e/1LiylkblOnXT1xSBbMqtG0XlxW
- V18w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/KBxrSrdPWUIo0qu8IMIPUY+6M2aQNiVCyK7+KuXxL7OtQ2MqwO/8b1jiYv2JzZTpRD07gSweckYI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjA0Bs505B03YDl+FAyuGsWfb+z4QrvBV2BWWTd5t6GXxL16qz
- NNgWNWGluxiJom8E91mWfxjTDoZijKA5N2QsQiuasjTLKkdgrEbkifU16AKPGmBbj8M=
-X-Gm-Gg: Acq92OFPf2EY1TQ1SvA8qHVoI8giqTZCdS7cymBU+pDrROe6hCiRyG0vNQAg3meq1ia
- VHYSp17kJLNcihQZDflw/yVr5Ua74Tmsn4rKQa2C9e/dZBbfzJ3VhjDRgv4MGIYrfXFgqHj6H83
- Ud1nUcKwAR6xu1rEEFiGUj/FSkvYLJRnWNL0lcz1S7xqhsBxh0XmwzV4DtHZDjTomrW6OmK7ceZ
- J5B2eN+3roXmbKp2ozmPOArUgZB/94G/1jp79krmuErlXZEwYGCNan5HASZjHFHdJOMfBy5DbdI
- RVCjVn64+O8mFPs0JBHeL1xWbly2h3VTGIoO/j95ksuLrlO6v+FUrBXrzA9hwpzpcXDzZUfHlnr
- gzn8FWRk54Sm8GGUeJNnhB42KTR2EmNAtu/VXPzh67oExWqkTydU5lfM494yKEluc5sBgdScY91
- 1fssG7eG09JohY+9x7uXTMX1JfrCRpAUOf9Rn6hMa4QIGsUx7TjCZbYArJ3G72YgS/8Pzy+A07g
- 2itjHQP8auw92+KRYIeiZW5ww==
-X-Received: by 2002:a05:6000:1aca:b0:451:bbe4:b48e with SMTP id
- ffacd0b85a97d-45e5c57d380mr21724462f8f.5.1779102736933; 
- Mon, 18 May 2026 04:12:16 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db049367b55fc4056f2b.dip0.t-ipconnect.de.
- [2003:f6:5f47:db04:9367:b55f:c405:6f2b])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-45d9ed30110sm40072081f8f.13.2026.05.18.04.12.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 May 2026 04:12:16 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>
-Cc: Michael Hennerich <michael.hennerich@analog.com>,
- Helge Deller <deller@gmx.de>, Junjie Cao <caojunjie650@gmail.com>,
- Jianhua Lu <lujianhua000@gmail.com>, Flavio Suligoi <f.suligoi@asem.it>,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] backlight: Use named initializers for arrays of
- i2c_device_data
-Date: Mon, 18 May 2026 13:12:03 +0200
-Message-ID: <20260518111203.639603-2-u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 608EB10E7BF
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 11:25:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1779103468; x=1779708268; i=markus.elfring@web.de;
+ bh=nMcXuM8rbRcq1h434qj3epfj8FYsmvo3X+4NIcO/AeY=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=UtWNeIwteHAyG+PDJFr1TVyr3K8w2z9a56O5Km7kzGUMYP498Jr77ox067lwbyNT
+ BJHIKkuFuj6i93TsLLJZmoFOyWyZGh2JXKSXDDvRYkLEDzPrN/8/v+V5AhrQ4KXqX
+ x0ttZbQ9H/osH5dY49E4WGthwuI0croI9RMKsTStrs9HGdUPx2sU+idWCZ8i/+fAp
+ iPdlLrtuWIByVa3NWI3yE2bYwkk9Ly1W1tDY3r8OTi+J5Z9/QSbFnaFreYCMaGMoT
+ +dS6CiwO4G6kGz+NgRmVh/bifAW5RF/VzeT+W9yYsV+BwISb4o6X8tVl8Mux4tID3
+ szP3CfBKYGkT3g5i8w==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MNOQy-1wi6Z41JP8-00OZDB; Mon, 18
+ May 2026 13:24:28 +0200
+Message-ID: <d97b79dc-24b8-446d-997a-d8a37b003363@web.de>
+Date: Mon, 18 May 2026 13:24:24 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Pavel Begunkov <asml.silence@gmail.com>, linux-block@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Christian Brauner <brauner@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
+ Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Anuj Gupta <anuj20.g@samsung.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Kees Cook <kees@kernel.org>, Nitesh Shetty <nj.shetty@samsung.com>,
+ Phil Cayton <phil.cayton@intel.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>
+References: <c61e6d928f86f4cb253ae350272e6039faefd3a6.1777475843.git.asml.silence@gmail.com>
+Subject: Re: [PATCH v3 05/10] lib: add dmabuf token infrastructure
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <c61e6d928f86f4cb253ae350272e6039faefd3a6.1777475843.git.asml.silence@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10444;
- i=u.kleine-koenig@baylibre.com; h=from:subject;
- bh=K3nI7LF5tAwngbkcN/5y5N1EdW2D0ZhyMSO4iSSKwwc=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqCvQDGhiz+NaNyCL/bt09zi+ljomP6xQyEK03D
- Jw9Z6v71dyJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCagr0AwAKCRCPgPtYfRL+
- TuwGCACQmNoq+xBBztZ4JjEvMXVaDKp024W7I5M0OdibuvGqottuSIMsO6nKHTUe96WHjqNd8Na
- sVYXq+Ulvsx/qnzZ0eCVG8vZK0ADa8e3FANK8W9OKZo42Btyv5Zx8MehVXX/6chtHrH15023LE4
- 4cvYYo5nDsZqsms8W37SGSj2x7R02rkHlHwblWeBbbBEKdRrm1t87X96cMfIW9sS/BypNQ4itz5
- ndCoRNt4tAZ+ARN4zDPJMAGfn05Gf7+i28Ro9jPoqv0ku7yEJbjKCbVuh+6u9VAsgyzAJzTfUSG
- Y3V6+zBFM3Fn0z1Ywn5IYB3gZG2RJHslickgak1do1X/WlBR
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:ClnTC+RILrMOo7Arq+ysZiHvtRle/7V2w7AwdQsr0JleXzTN7HK
+ LFG3yVXQ5ZWDJtLnKNJFaF0j9Q/2Zh01NNL7Uq6A/PFClJGlY0R59BgEoCw9EvvGPrml2ye
+ 6E6f45rrx+LDDjKioK8EErghlkfHVXDURUxpR5Cqzcul9Tox5YXYjMObkkjl/T39H2LtGWx
+ RUsH12tLCyRdqcepJUh/Q==
+UI-OutboundReport: notjunk:1;M01:P0:7DkAQz8NlEQ=;9+B13di3sT2nKmFwTLuEX89UtvK
+ tKx7G7YCw1HCgbNx14i3n2yO7wAZcIfhjTos+JMsK9biE5eyDONx4kG9/4ctB/3m3955socli
+ YzoB1WPr9m+VaoC8+DZwRsw1YzcORwDvW4lsWsX4TvgoqeXBz6qFQApRAXiQsEzeA28/I3yTW
+ JY4n+htPWpuFLG3ADnfIWwqPawck2Ao5Hl3tZWiaQwDWcQpSSbCNtbVPdO9bKNsviRZ6AU/je
+ wybrPTQXjFzvghDnw9I2d01306SXgcWWltJInfVkuG40aFFRNitrY5rWuGPluUl8l6hM3uP8Z
+ skkXVz9dgesxAOLPLCbLJDMlK+RgOazrkIfbioGVtxlSgLjXG14r6vo0eaaRAAlvad2tNolbR
+ GnjO8OjmzZgkXlFEV0MZyjV7O9PQEQcMzrwKcuYsOXPm9wx/hIH3eSXJTKPF3u35J8ja9VRDN
+ x9yjvDO10pLO9kyINVeG0qjuFblNEJGG6CWJu5pa+9trDeACA12W5XjKcKuCtSSyZsPicu0hh
+ xzUQeP3zS08XnILA+6G+6cetvqqQL6JZGkOJ2iTYIdmtOnAtKAVlK+dIdIHKaV/kpXih1I6vi
+ d4n4HDNquEjPC6GveY53DJojtkPJQcaI8ychEBCDSjcvB0U0KZRf/f8nY0JDIPWRFFa5ll0hx
+ CWlOQ5xmhhrKcMuKCNaHJ/gviMf6BO0bHESxYqPeKqajHrQN6AXjG7FiFZlREB/Y9uC3iSHJy
+ LjvYqqzTLc9aNTKVFVBLKGeb+RQ3BMzpsjddFeSHQkDOjjoiM7Qa1OwKmuH5/9rvvFVl18uT6
+ yJ6Y0NbRTt22y3l/lKR5xitpmIGGn9aUiRo4PYUm+2rmSACwNLRKR2eaxxyO5EghZ4/URnteI
+ h8iEuSsHg+cxhnOchHKVDH/Sf9Mw8IYYBEgdCfd67AjEaPGgPH6yxgUXrspYzR02BfaCSQbpb
+ tkpgjeUvm3sYHNC8lrw2vSQnSi520xg1KkiX8VnQkqK3kyzVIRLB7YwdeM1570DCbuKmEP6fo
+ 6DJwBgYTdD2hj81KgpK9kpJYSsipyKRtQsmp1wZl0rxfPZ3F0RY+dAzanIi+hk887c689Y0dF
+ OoI4RqkdETQOC9lXW4FJDWw9u94YfH4tn6DDdDMLvqqwOSCqrfOIOFU+uDwAqQ7Xg/QG0ahL8
+ a/1HPCGA7n6MV6fLDHrXjWYbf4BAdDr8GlV5VTyTT4Ke4Pa1TWmq2YG/luTHNAG0qJi2eRtvb
+ KxLYBB5Gj0JloU2lF7+6hImyHpLOTJM366tLMDrrgyRpaFvqLCrhtw0JPyNhEOOCz9nw6zmM1
+ Oxe39UEeoDA8KvNPvRyfP7qGZxPMCiGv9BD8hk6Fz8GfXtX8LYRcSbP+g8VMXnIgx19Edn67V
+ a6coMonqxKWkEP47LzpGDNSfaZVUu5hjOZeIzGOIan+VUX2ajH9dCAguyfvnpHNUUF7kqNS7e
+ CKo5aDiWi05sxWgRL0pzj+SKJTwp8P1HqcYpKpyRzeVvniKVn8EvZMU3DWxDZ90vh5Pj3qoYl
+ a4PkJpMVok0IX7Q55WOnyr/KMDOQWVUzIBH5VTTH45UfBTh/VyVlnEdq3KzDWTB7zUYOi/tOp
+ e5UW/X7WFjIm9GqRRg3v4yMm8qVJp37ADByI+hZ4M67ofs+fEi/SQb47BqT49cnwTGkI/ekI9
+ 6e3f8Rg8HO47BKdh23pFGvlvYWquJWfh1slB7NG9RbtglZaeUv7VQMc0ibKBiZ42tGflgrjxx
+ w4ibs8jKr3pvwWbF+f/czWJ45Y6+BRsYYhIej/72PxdsJ5dRws0AfbWFlcFxDEKIwkXaeluie
+ eUPJGZTaf9d9Rs5MhWPMRYX6+AaTytlrP16FGFJ7LQ98E7SfA2xgW3MIi8b/2xq+ZTMT2BwzV
+ zp+5OwOP3T1rWba5z2F0OXfSy8N8vMYRi/WFS7zBbvO4KHkR5TxglP/pU2NtuodsznF1+zj69
+ DmPkp067EqlcHNoIIc1KeKagSXJEdzzMg43mFqsSR1p1N+ymcj7vPvhqj1fEKZgdYmDAr3xBA
+ /O4mrMMhyMVUfMMuFlm6jaL8zJo44xzkUGiXV6IULKron11EXXCOjMRajYk2j39lkLkFag+0n
+ +jT8h2XtAeJs7tCryXHWsRW0RuuyoWp++gknn3CswC5Pi5yaFido4XI+ppkcHktdi51RJPYrr
+ pdF8ZZkLmS9g9x2t8A4p5LlzHRN+s/SxZ0kCDsv4e+UbHI3Oy85PQ3HWmgAI8+qq70Q0QVKwq
+ n70xe9vP1cZjiOCQcC024OZ5DYtP8Sqa9/Qoqu52doh8MM3icBUD8U9vyQ45+VHlhONyQQyas
+ uWXN+PaTDZWxnHgy/Hgib8waF50+krlIKVaW0xcS+3Y6725QAIejrTKFrZOenC9o+f0Gync5O
+ jeXDjC9+qLvuTSRot1FRtrRzUCGTSToO8+ApKopslh9bPKCe7DgFBHiAegkCbw6YXVjT1fWB6
+ rtay9IXjoc1PTdnasmWhVTTVK5w5ZAQo+zfADgE6XAc6M1eEf7e2q0B9vBJ+yMS26n907X40s
+ +iuTyf5Pm5pgUwmu6Y2w+WFJt6bL2jAs9YQgRCQEAwxY2SWqrA1aPaKFCXmbPh/wOs4h3ubeO
+ uRA/6tDChv2rdgcQNsYX/x+p+pAI0P1QJX/fSpKLWSO3eumc2v70RumQTk3sRnb9Axk1fca4D
+ yl8XQyedHmB1aNGYE2e8yneLMWCAyt0RnUQLFpbYJl1dl7sAuZvoBAFULfrCRX7ZYOcxnSqMT
+ HD0Si20Nc8lcn7rL/BCgj2rzagFrXLgRM2aXQqAn8ek9hKnya11TgsXTfoEpQQXg/vGiEBIuX
+ bvbiSkAp6vZRcTo0a78xI241L+06jEeKx0FLc9TTfsn6yvlRLmsV8qouFsAbC4XAPOASfOOgN
+ 0CO7qZ3L1BI39qYWHj7c88+33pjJmKlVaYvzZqUP0hKLDI4FTH1GQL6sYu4gWVMf+fG+frDBn
+ QZsoiV4zJvQbuHPtB6BJGu6cDAamfJ8/n5ze8b3f2u/7BMFllsy6fvCWbAwaqEABs+KL7N2q4
+ Ka7QKgsfapCpo16vhR5uZwK0JyDvtmp86KUITpEDzvjLDNl7jAdsWLAu74NUp8dYZrvuv3EaC
+ Ezabc7Qd/mAf25FgOhXrcz0cKvz8BQW6RmXicn8ZV2bQzuwAj8TifqwaxgkSW7pc5Lvj0LtSR
+ 0rRLI+u8iRQnQa+E2DBsxZFMdzwjiU7Ih6J+S6ZlyEONFYu2ivfWwNUkYOQgC/euLLflog+5j
+ 5YvCTykZqoLpBOo6WN2LL5CfRda6hvz+hZRmB2NvcwUyH6NjaQhL0Y4oyCBaPMscdfvpgPese
+ G/nH1oYpR734IE1o/cG4voJVCjO/lWSgmpGHhtJz5fpcgxtChehc3JcOGNHnNu5bAACHbNuPQ
+ dLmSuYWMyZcCitugzW7NjgqfdaXXpTs3quCnFOUzEhsFhXynVJMeWd8FrUcHpB4zhx2pfeVBp
+ ENQrcDPPOmj9rXt4IAWtaZHAWMigXbmLEVqT2KKKK9bYjqXGVi5iEIz3ETnVWqstWEWRtqnBT
+ pTch4+nAQR8z7kkberZ1K79TKFXNm4PQ+VPV3hPFizSOwt45wz+boWLAtIUYXMY1UPpuf+Qe1
+ TBuACZI02e7Swa5XF8hSqRFFmlLWmCbjM7UCmL7a7asRv1VNtmckHKIR+YVbvYAOptfJSSiOk
+ GrEPSbdzPhiqeUXfkec1haOB4Pp57sf8t8b7HMZyOxY5WSA7f8TwyV8Z9WDkm2QK4U9+sBz/m
+ uMVm+xMgsRWZyWXyQrp8msfZ/9dMd0q0qsWdRy2whs1ZnVri6Xgsditjh4QG2CtrEdGGvtC6O
+ LvwKKsucMIly4b49XmrNilBiH/eNw2IY35u3rkhEEcKQOmSpZAfZh9hjPM1tAYPqTsxAXEAey
+ CP99giyg3lhyEUTrfa2evYj70Ce9jXfnLDY/RN6s7/2eZWUOkTQ8i/05/7wLm/NCtIEtwB37e
+ Kjs+cRt3CCwbsYQJCH8PqOV+oqP9KZJyDDcHjYV+HZAKRXv/nVLaBN8v0iGX21WjwpOYjg4+g
+ snDUr0QZudR1VtVCYehfgiLvIYbDcxJb9YR9mybfFE/48U/BC7EqHi9DRP+GurW3iR1KSCq1m
+ Y/EOZetTXabIG6OozmZaMUR1kQbnSQaPeOxlLsnsNuQT5yRYXRi01mnf/TNuPzsvdVyduSbZf
+ nVh/l84ICembTZK5ox2WuPq5geO2dXrXUz7ZQvMwBb8lmLIPmid6wd4rjIMi1NMJCHXOAq+xp
+ 6863kuDUNKKXeKxIhWGZg5QL9FTck2bAmTmYW49K1QLSLig2iJ8d07qpr6ZhIybxBNt4iPa9x
+ 4y/Guba5Hg78ih/0lnNehGQsHO7slCSCjiMozU/UCVU5feXcAlbdkJ4gbhvxggSsXpKEPpCxc
+ ADPzf9ViDSulQ0onkCvcTr7k7QoOsnPfcNizcIGAMeU1mlEsc7jqnmaMFMst4ICKYIILZUsoZ
+ 3TkHB2SrSv8mibPpcSmOPHS3Pg4GpPOQ4huK6Od6cqvTwC4nEG8YC8zcBLVZH2UpCIQf3meUj
+ taUtYnttowvNzehlwWwURyE1uCrY4WpTX+227UBZvtOmZbcdVMu4ti93IRCEFRosTs98cxh39
+ tQ8pceo/2yRBjiLXmF96GME2YqGf4938TG6CArnO1sTp61iuO2k/p05HJABdSRU0mgxVo+cYK
+ 3Kxkyrh9E1VmtLCCxzEjoQgPUza6K2N1sH6K//5u2CrRCrjU4g49GtDhuy7Hc5GT+dd1xcxwS
+ ibvz3KNZND+FGzll994GMibpI1/mGwbe0CTvotzL4pNhb2Xip05wVCrPCp096DATnLyPf5VTi
+ rUth4U+5yEXAWubs54i1y3U7kiECE6eDHMAdKTT/tw+rAcxbq4bLYT7Al8KGCJbU4hNxoskiw
+ NoiVGgMortNMHA74ScR2zKr9PK4PQ6gh61+NKhp+k6UHO0sJMSwZ4skrIqmd2GqPNEra4U4yi
+ +t50Z1+ijCBMG5v7CkGeUZmSEVJclecv1T/3rQARhR6zPatHD4eb3w4mprsYOkXhTUzK2acX8
+ YTtxlnwEAX8+Vq7/qDmbgLxLffNuXKdONE0qRV1p8PinHg5jb0CWTIteu0Ia/kZNhRcdD1+7U
+ nU4+c2UBzBcmqFoA5T823JycNiyW6AcNZ/VZ1YKhmacGyR9ShLFQOurZUJnTQ4+wPGn91VJWK
+ qJ1dqhz2/fC/Kn9wbDa15QORJr8h4rMB/i2eErACHvxyJ5VvuahrQ/8dNWuLzL9YAkp34XWki
+ fi4Enwr6cLQHCPh/S9wuxPnMAHpR+zkiCXfRap3FPEIrAzT+RtUaB1GRhZSR6Qkw1ypzjhFfQ
+ scHnKlR2FMpZiG/CkKO3YPd32f/KcFtaJa6+7YH/gsZ0vdCwK5aO3+XPLH5GxxCA5sVjfg4Uk
+ QGPgMvSctnCRZRdeXUeIPMH0DT3UnxKnj1ELafFw1rzCahoPCuljPQwLQ0L8zkhQUq
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,288 +155,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While being less compact, using named initializers allows to more easily
-see which members of the structs are assigned which value without having
-to lookup the declaration of the struct. And it's also more robust
-against changes to the struct definition.
+=E2=80=A6
+> +++ b/lib/io_dmabuf_token.c
+> @@ -0,0 +1,272 @@
+=E2=80=A6
+> +int io_dmabuf_init_map(struct io_dmabuf_token *token, struct io_dmabuf_=
+map *map)
+> +{
+> +	struct io_dmabuf_fence *fence =3D NULL;
+> +	int ret;
+> +
+> +	fence =3D kzalloc(sizeof(*fence), GFP_KERNEL);
 
-The mentioned robustness is relevant for a planned change to struct
-i2c_device_id that replaces .driver_data by an anonymous union.
+How do you think about to use kzalloc_obj() instead?
+https://elixir.bootlin.com/linux/v7.1-rc3/source/include/linux/slab.h#L103=
+9-L1040
 
-While touching all these arrays, unify usage of whitespace in the list
-terminator.
 
-This patch doesn't modify the compiled arrays, only their representation
-in source form benefits. The former was confirmed with x86 and arm64
-builds.
+=E2=80=A6
+> +	if (!fence)
+> +		return -ENOMEM;
+> +
+> +	ret =3D percpu_ref_init(&map->refs, io_dmabuf_map_refs_release, 0, GFP=
+_KERNEL);
+> +	if (ret) {
+> +		kfree(fence);
+> +		return ret;
+> +	}
+=E2=80=A6
 
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
-Hello,
+Would you like to use the attribute =E2=80=9C__free(kfree)=E2=80=9D?
+https://elixir.bootlin.com/linux/v7.1-rc3/source/include/linux/slab.h#L517
 
-the mentioned change to i2c_device_id is the following:
-
-	diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
-	index 23ff24080dfd..aebd3a5e90af 100644
-	--- a/include/linux/mod_devicetable.h
-	+++ b/include/linux/mod_devicetable.h
-	@@ -477,7 +477,11 @@ struct rpmsg_device_id {
-
-	 struct i2c_device_id {
-		char name[I2C_NAME_SIZE];
-	-	kernel_ulong_t driver_data;	/* Data private to the driver */
-	+	union {
-	+		/* Data private to the driver */
-	+		kernel_ulong_t driver_data;
-	+		const void *driver_data_ptr;
-	+	};
-	 };
-
-	 /* pci_epf */
-
-and this requires that .driver_data is assigned via a named initializer
-for static data. This requirement isn't a bad one because named
-initializers are also much better readable than list initializers.
-
-The union added to struct i2c_device_id enables further cleanups like:
-
-	diff --git a/drivers/regulator/ad5398.c b/drivers/regulator/ad5398.c
-	index 0123ca8157a8..dfb0b07500a7 100644
-	--- a/drivers/regulator/ad5398.c
-	+++ b/drivers/regulator/ad5398.c
-	@@ -207,8 +207,8 @@ struct ad5398_current_data_format {
-	 static const struct ad5398_current_data_format df_10_4_120 = {10, 4, 0, 120000};
-
-	 static const struct i2c_device_id ad5398_id[] = {
-	-	{ .name = "ad5398", .driver_data = (kernel_ulong_t)&df_10_4_120 },
-	-	{ .name = "ad5821", .driver_data = (kernel_ulong_t)&df_10_4_120 },
-	+	{ .name = "ad5398", .driver_data_ptr = &df_10_4_120 },
-	+	{ .name = "ad5821", .driver_data_ptr = &df_10_4_120 },
-	 	{ }
-	 };
-	 MODULE_DEVICE_TABLE(i2c, ad5398_id);
-	@@ -219,8 +219,7 @@ static int ad5398_probe(struct i2c_client *client)
-	 	struct regulator_init_data *init_data = dev_get_platdata(&client->dev);
-	 	struct regulator_config config = { };
-	 	struct ad5398_chip_info *chip;
-	-	const struct ad5398_current_data_format *df =
-	-	                (struct ad5398_current_data_format *)id->driver_data;
-	+	const struct ad5398_current_data_format *df = id->driver_data;
-
-	 	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
-	 	if (!chip)
-
-that are an improvement for readability (again!) and it keeps some
-properties of the pointers (here: being const) without having to pay
-attention for that. (I didn't find a backlight driver that benefits, so
-this is "only" a regulator driver example.)
-
-My additional motivation for this effort is CHERI[1]. This is a hardware
-extension that uses 128 bit pointers but unsigned long is still 64 bit.
-So with CHERI you cannot store pointers in unsigned long variables.
-
-Best regards
-Uwe
-
-[1] https://cheri-alliance.org/discover-cheri/
-    https://lwn.net/Articles/1037974/
----
- drivers/video/backlight/adp8860_bl.c |  6 +++---
- drivers/video/backlight/adp8870_bl.c |  2 +-
- drivers/video/backlight/arcxcnn_bl.c |  2 +-
- drivers/video/backlight/aw99706.c    |  2 +-
- drivers/video/backlight/bd6107.c     |  2 +-
- drivers/video/backlight/ktz8866.c    |  4 ++--
- drivers/video/backlight/lm3509_bl.c  |  4 ++--
- drivers/video/backlight/lm3630a_bl.c |  4 ++--
- drivers/video/backlight/lm3639_bl.c  |  4 ++--
- drivers/video/backlight/lp855x_bl.c  | 14 +++++++-------
- drivers/video/backlight/lv5207lp.c   |  2 +-
- drivers/video/backlight/mp3309c.c    |  2 +-
- 12 files changed, 24 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/video/backlight/adp8860_bl.c b/drivers/video/backlight/adp8860_bl.c
-index d4bbd7a7406b..09dd67702431 100644
---- a/drivers/video/backlight/adp8860_bl.c
-+++ b/drivers/video/backlight/adp8860_bl.c
-@@ -790,9 +790,9 @@ static SIMPLE_DEV_PM_OPS(adp8860_i2c_pm_ops, adp8860_i2c_suspend,
- 			adp8860_i2c_resume);
- 
- static const struct i2c_device_id adp8860_id[] = {
--	{ "adp8860", adp8860 },
--	{ "adp8861", adp8861 },
--	{ "adp8863", adp8863 },
-+	{ .name = "adp8860", .driver_data = adp8860 },
-+	{ .name = "adp8861", .driver_data = adp8861 },
-+	{ .name = "adp8863", .driver_data = adp8863 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, adp8860_id);
-diff --git a/drivers/video/backlight/adp8870_bl.c b/drivers/video/backlight/adp8870_bl.c
-index e09e20492e7c..d009f2c8a11d 100644
---- a/drivers/video/backlight/adp8870_bl.c
-+++ b/drivers/video/backlight/adp8870_bl.c
-@@ -962,7 +962,7 @@ static SIMPLE_DEV_PM_OPS(adp8870_i2c_pm_ops, adp8870_i2c_suspend,
- 			adp8870_i2c_resume);
- 
- static const struct i2c_device_id adp8870_id[] = {
--	{ "adp8870" },
-+	{ .name = "adp8870" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, adp8870_id);
-diff --git a/drivers/video/backlight/arcxcnn_bl.c b/drivers/video/backlight/arcxcnn_bl.c
-index 1d5a570cfe02..f46eeab02e90 100644
---- a/drivers/video/backlight/arcxcnn_bl.c
-+++ b/drivers/video/backlight/arcxcnn_bl.c
-@@ -382,7 +382,7 @@ static const struct of_device_id arcxcnn_dt_ids[] = {
- MODULE_DEVICE_TABLE(of, arcxcnn_dt_ids);
- 
- static const struct i2c_device_id arcxcnn_ids[] = {
--	{"arc2c0608", ARC2C0608},
-+	{ .name = "arc2c0608", .driver_data = ARC2C0608 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, arcxcnn_ids);
-diff --git a/drivers/video/backlight/aw99706.c b/drivers/video/backlight/aw99706.c
-index 938f352aaab7..18299faf06ad 100644
---- a/drivers/video/backlight/aw99706.c
-+++ b/drivers/video/backlight/aw99706.c
-@@ -443,7 +443,7 @@ static int aw99706_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(aw99706_pm_ops, aw99706_suspend, aw99706_resume);
- 
- static const struct i2c_device_id aw99706_ids[] = {
--	{ "aw99706" },
-+	{ .name = "aw99706" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, aw99706_ids);
-diff --git a/drivers/video/backlight/bd6107.c b/drivers/video/backlight/bd6107.c
-index 74567af84e97..6778b4030b02 100644
---- a/drivers/video/backlight/bd6107.c
-+++ b/drivers/video/backlight/bd6107.c
-@@ -179,7 +179,7 @@ static void bd6107_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id bd6107_ids[] = {
--	{ "bd6107" },
-+	{ .name = "bd6107" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, bd6107_ids);
-diff --git a/drivers/video/backlight/ktz8866.c b/drivers/video/backlight/ktz8866.c
-index 351c2b4d63ed..53c1301dbb8c 100644
---- a/drivers/video/backlight/ktz8866.c
-+++ b/drivers/video/backlight/ktz8866.c
-@@ -179,8 +179,8 @@ static void ktz8866_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id ktz8866_ids[] = {
--	{ "ktz8866" },
--	{}
-+	{ .name = "ktz8866" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ktz8866_ids);
- 
-diff --git a/drivers/video/backlight/lm3509_bl.c b/drivers/video/backlight/lm3509_bl.c
-index 24e1a19ff72d..53136c5e1460 100644
---- a/drivers/video/backlight/lm3509_bl.c
-+++ b/drivers/video/backlight/lm3509_bl.c
-@@ -311,8 +311,8 @@ static void lm3509_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id lm3509_id[] = {
--	{ LM3509_NAME },
--	{}
-+	{ .name = LM3509_NAME },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(i2c, lm3509_id);
-diff --git a/drivers/video/backlight/lm3630a_bl.c b/drivers/video/backlight/lm3630a_bl.c
-index 37651c2b9393..8f49e59ce374 100644
---- a/drivers/video/backlight/lm3630a_bl.c
-+++ b/drivers/video/backlight/lm3630a_bl.c
-@@ -596,8 +596,8 @@ static void lm3630a_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id lm3630a_id[] = {
--	{ LM3630A_NAME },
--	{}
-+	{ .name = LM3630A_NAME },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(i2c, lm3630a_id);
-diff --git a/drivers/video/backlight/lm3639_bl.c b/drivers/video/backlight/lm3639_bl.c
-index 37ccc631c498..ea748b80b737 100644
---- a/drivers/video/backlight/lm3639_bl.c
-+++ b/drivers/video/backlight/lm3639_bl.c
-@@ -403,8 +403,8 @@ static void lm3639_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id lm3639_id[] = {
--	{ LM3639_NAME },
--	{}
-+	{ .name = LM3639_NAME },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(i2c, lm3639_id);
-diff --git a/drivers/video/backlight/lp855x_bl.c b/drivers/video/backlight/lp855x_bl.c
-index d191560ce285..43a2123d3a4d 100644
---- a/drivers/video/backlight/lp855x_bl.c
-+++ b/drivers/video/backlight/lp855x_bl.c
-@@ -570,13 +570,13 @@ static const struct of_device_id lp855x_dt_ids[] __maybe_unused = {
- MODULE_DEVICE_TABLE(of, lp855x_dt_ids);
- 
- static const struct i2c_device_id lp855x_ids[] = {
--	{"lp8550", LP8550},
--	{"lp8551", LP8551},
--	{"lp8552", LP8552},
--	{"lp8553", LP8553},
--	{"lp8555", LP8555},
--	{"lp8556", LP8556},
--	{"lp8557", LP8557},
-+	{ .name = "lp8550", .driver_data = LP8550 },
-+	{ .name = "lp8551", .driver_data = LP8551 },
-+	{ .name = "lp8552", .driver_data = LP8552 },
-+	{ .name = "lp8553", .driver_data = LP8553 },
-+	{ .name = "lp8555", .driver_data = LP8555 },
-+	{ .name = "lp8556", .driver_data = LP8556 },
-+	{ .name = "lp8557", .driver_data = LP8557 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, lp855x_ids);
-diff --git a/drivers/video/backlight/lv5207lp.c b/drivers/video/backlight/lv5207lp.c
-index a205f004eab2..e643ab9c3536 100644
---- a/drivers/video/backlight/lv5207lp.c
-+++ b/drivers/video/backlight/lv5207lp.c
-@@ -131,7 +131,7 @@ static void lv5207lp_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id lv5207lp_ids[] = {
--	{ "lv5207lp" },
-+	{ .name = "lv5207lp" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, lv5207lp_ids);
-diff --git a/drivers/video/backlight/mp3309c.c b/drivers/video/backlight/mp3309c.c
-index 9337110ce6e5..413cfe27dfd9 100644
---- a/drivers/video/backlight/mp3309c.c
-+++ b/drivers/video/backlight/mp3309c.c
-@@ -400,7 +400,7 @@ static const struct of_device_id mp3309c_match_table[] = {
- MODULE_DEVICE_TABLE(of, mp3309c_match_table);
- 
- static const struct i2c_device_id mp3309c_id[] = {
--	{ "mp3309c" },
-+	{ .name = "mp3309c" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, mp3309c_id);
-
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
--- 
-2.47.3
-
+Regards,
+Markus
