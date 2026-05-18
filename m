@@ -4,60 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BCEACD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 10:50:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7B8DCD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 11:05:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E9B10E5DD;
-	Mon, 18 May 2026 10:50:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EDBD10E30A;
+	Mon, 18 May 2026 11:05:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="heXyafCM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XwdnYYxE";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87FAF10E5DD
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 10:50:30 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id C0E714E42CE2;
- Mon, 18 May 2026 10:50:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 741C95FFA3;
- Mon, 18 May 2026 10:50:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 685B811AF8493; 
- Mon, 18 May 2026 12:50:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1779101427; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=9/zO0zp2r2FGgOERfPfiqfEES0NFm6hJuu5wdDFRS34=;
- b=heXyafCM/wLX2BEnRUVB6I1LvciXkXkGOp1QVSXzvEVNPgbmW4kOe5GBgki6tpZrpmEpQm
- XYGDYYm87gHlRs/wz1vK2gz227wopf/fMYJaEHGmOWDznkO4nyZAoHhGILrwsTcM5RWIxD
- mbiCD94a95vAXB5AzxHG96indCe5cXxpC0GLXk/mnorsK6skaw8EstUgNekqTXNg9O4qbF
- ae87N/6mNYw99dtmyztg5Krr+bq4yxC9LZ3Nxk9bYxZmzQVZifp8IH5R0aJov160Zs+mtv
- 5N04Gbbpo2IUhzf0uzLgITVYZMF3IEv9ClgD7I+6IHOa++cAstqYqOUsnjHzbw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 18 May 2026 12:50:18 +0200
-Message-Id: <DILQTGH47XGL.1K6I6UI6IXP92@bootlin.com>
-To: "Simon Wright" <simon@symple.nz>, "Cristian Ciocaltea"
- <cristian.ciocaltea@collabora.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: compute audio CTS from N when
- not in TMDS table
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Heiko
- Stuebner" <heiko@sntech.de>, "Andy Yan" <andy.yan@rock-chips.com>,
- "Sebastian Reichel" <sebastian.reichel@collabora.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Algea Cao"
- <algea.cao@rock-chips.com>, <dri-devel@lists.freedesktop.org>,
- <linux-rockchip@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.20.1
-References: <92aa4191-2a2a-41e3-badb-c0a5b1fbb957@symple.nz>
-In-Reply-To: <92aa4191-2a2a-41e3-badb-c0a5b1fbb957@symple.nz>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F358310E5D8
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 11:05:10 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64I7dqHo2891865; Mon, 18 May 2026 11:05:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ bgQE0Op0XHhKZyY7w+AzfDOIImhNlhM/Z0IM04s6IBk=; b=XwdnYYxEsPjjVqNR
+ VawrRiuENLvX4so//GWy5j2Ozs8C/IIxe5MMPqGanwqo8KPrcOcgddq8qGeoLNiw
+ rjilkPJTbHByoQKyV5002QgBKKCVyXK9LNyIGk6NxJgAY7OXlD//McyBtqEbLftQ
+ zRVb1zR1HFQG03Q0zAKJeQunP/XZko9rx2sjRbc1mm1ayIOQ6MNLjT8uzriEpHaw
+ CIITtcbwGTassrSsSYmuA5SeGckMsooI3eDZvBfbqB96TM7zhhPEPcZe761wOn0I
+ zv/aJYDE7NTafcGIL/VDRzZWnMv0mGIaKgCitVJ1hwn7ZPd44DHp77wFEaQ88hUs
+ 1oIYQA==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e7xk18v5g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 May 2026 11:05:05 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64IB52gY032184; 
+ Mon, 18 May 2026 11:05:02 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4e716d13un-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 May 2026 11:05:02 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64IB51jM032155;
+ Mon, 18 May 2026 11:05:01 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com
+ [10.147.248.17])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 64IB51gR032143
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 May 2026 11:05:01 +0000 (GMT)
+Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
+ by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id 8A2EB618;
+ Mon, 18 May 2026 16:35:00 +0530 (+0530)
+From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Date: Mon, 18 May 2026 16:34:12 +0530
+Subject: [PATCH 1/2] dt-bindings: display: panel: add Ilitek ILI7807S panel
+ controller
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260518-ili7807s-panel-v1-1-d7b048163b1c@oss.qualcomm.com>
+References: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
+In-Reply-To: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>,
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+ Arpit Saini <arpit.saini@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779102300; l=3425;
+ i=arpit.saini@oss.qualcomm.com; s=20260518; h=from:subject:message-id;
+ bh=D0gOSLweKw5oS3Y5ijkYO6YwyEh0iHWt1wtvyJLCtuI=;
+ b=JUEfZ41LV6CCW4SXSuCp1p+xlpT0DAQEoh/q/fghFZEeb+wHWLmjtlZeRuan8Cj1uz689F+UL
+ GSfheecMaGEARk3Kg/0qywhyvLtB+RYMO2eUFrOxykMkSkaLiqgUMLk
+X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
+ pk=OGOh7FGwrnkILHNlcTTABbBMQxxo319duzbTg0YPDAc=
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: bIkLobfGR_w9px3r2EY7_oPP-5jGZU2y
+X-Proofpoint-ORIG-GUID: bIkLobfGR_w9px3r2EY7_oPP-5jGZU2y
+X-Authority-Analysis: v=2.4 cv=BICDalQG c=1 sm=1 tr=0 ts=6a0af261 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=gEfo2CItAAAA:8
+ a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=rkP1aWTRSjUe3YeTyuAA:9 a=QEXdDO2ut3YA:10
+ a=sptkURWiP4Gy88Gu7hUp:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDEwNiBTYWx0ZWRfX+sOwBWI+KLeI
+ F7T/9R/dR45rINQ0nIwri6YDosH7Lgy2HzYKarssCcbnwJ91xgFE34f8oycHNdsLPLhlRbIDyUU
+ NDWZ4MRmJEHMCZh/CuAeNWDzcJadWrXsJVtaqt6tj591ImegRbpAkO5ftjIZl+1olLhFhIIVXpK
+ YPfJIJAM7YKFZ/jCRzx7qlc40SGqWJtLvsYTzvSPk6mFsaDjA3koNQuOhi4A4P/UdF/zOWgcX4n
+ 7AfhBdZw5wvTLOrvBLMJOYM4fTGsQgvdL877HdAZ+IHAcRbBWr0zyIBnJaaEvtNA8+z9yry9Ct9
+ yb7JGe0U+N/qt0VZmw/WBf0SXRXiuB90ZbhoL9T4I3xbiLOsZseKk6o/wUtBSwJVUwC/nifWg5g
+ kDEHDJ3wwyqn1a2gPOgnAlVpE9qDhLi8xMYd+EXSqa0TL7+JEv8h9Wp+rioJCzMBzVciUF4SwNj
+ Lg52uUoUa2jLbAtwMWA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 clxscore=1011 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180106
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,118 +125,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Simon,
+ILI7807S is a DSI display controller used to drive MIPI-DSI panels.
+The DLC DLC0697 1080x1920 LCD panel is based on this controller.
 
-On Sat May 9, 2026 at 9:09 AM CEST, Simon Wright wrote:
-> dw_hdmi_qp_find_cts() returns 0 for any TMDS character rate not
-> present in common_tmds_cts_table[] (which terminates at 148.5 MHz).
-> In that case dw_hdmi_qp_set_sample_rate() calls dw_hdmi_qp_set_cts_n()
-> with cts =3D=3D 0, which leaves AUDPKT_ACR_CTS_OVR_EN clear and falls
-> back to the controller's internal CTS auto-measurement.
-> On at least the RK3576 hdptx integration, strict HDMI sinks mute
-> audio in this configuration. =C2=A0The behaviour reproduces at any rate
-> not present in the table -- it is not specific to HDMI 2.x:
-> 1920x1080@60 with 10-bit deep colour (185.625 MHz, HDMI 1.4) is
-> affected, as is 3840x2160@60 8-bit (594 MHz, HDMI 2.0). =C2=A0Supplying
-> explicit CTS via the standard set_cts_n() override path resolves
-> the mute.
-> The driver already has the symmetric machinery for the N-table-miss
-> case: dw_hdmi_qp_compute_n() falls back to a dynamic search using
-> dw_hdmi_qp_audio_math_diff() ((pixel_clk * n) / (128 * freq)) when
-> no table entry matches. =C2=A0The CTS path lacks the equivalent fallback.
-> Compute CTS inline in dw_hdmi_qp_set_sample_rate() from N per the
-> HDMI spec (CTS =3D TMDS * N / (128 * Fs)) when find_cts() returns 0.
-> The same formula appears in the legacy DesignWare HDMI driver
-> (drivers/gpu/drm/bridge/synopsys/dw-hdmi.c, hdmi_set_clk_regenerator())
-> under its AHB / GP audio paths.
-> Tested on R76S (RK3576) on Armbian-edge mainline 7.0.1 with Cristian
-> Ciocaltea's hdptx-clk-fixes v1 series applied:
->  =C2=A0 TMDS =C2=A0 =C2=A0 =C2=A0 =C2=A0 Mode =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 In table? =C2=A0Audio with fix
->  =C2=A0 148.5 MHz =C2=A0 =C2=A01080p60 =C2=A08-bit =C2=A0 yes =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0plays (regression check)
->  =C2=A0 185.625 MHz =C2=A01080p60 10-bit =C2=A0 no =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 plays
->  =C2=A0 297 MHz =C2=A0 =C2=A0 =C2=A03840p30 =C2=A08-bit =C2=A0 no =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 plays
->  =C2=A0 594 MHz =C2=A0 =C2=A0 =C2=A03840p60 =C2=A08-bit =C2=A0 no =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 plays
-> Sinks tested: LG G3 OLED, LG C4 OLED, TCL 75P7K QLED, Kogan
-> KALED43XU9210STA (Changhong-OEM 4K LED). =C2=A0Without the fix, the LG
-> G3 mutes audio -- this is the originally reported bug
-> (linux-rockchip 070633). =C2=A0The LG C4 was verified during this cycle
-> to mute at 185.625 MHz (1080p60 10-bit) with the unpatched module.
-> The Kogan TV plays audio with or without the fix; it is a
-> permissive HDMI 2.0 implementation that does not strictly cross-
-> check ACR timing. =C2=A0The TCL 75P7K was tested with the fix loaded
-> only.
-> Audio plays at every supported sample rate (32 / 44.1 / 48 / 96 /
-> 192 kHz) verified on the TCL at the 185.625 MHz out-of-table TMDS
-> rate -- the fallback's CTS =3D (TMDS * N) / (128 * Fs) computation is
-> independent of sample rate, as expected.
-> The LG C4's CTA-861 SVDs do not advertise 3840x2160@60 over TMDS
-> (it is signalled FRL-only on that model), so that one row is N/A
-> on the C4. =C2=A0The same audio-path code is exercised at 297 MHz on
-> that sink and behaves identically to the G3.
-> Reported-by: Simon Wright <simon@symple.nz>
-> Closes:
-> https://lists.infradead.org/pipermail/linux-rockchip/2026-May/070633.html
-> Suggested-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> Tested-by: Simon Wright <simon@symple.nz>
-> Signed-off-by: Simon Wright <simon@symple.nz>
-> ---
->  =C2=A0drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 15 +++++++++++++++
->  =C2=A01 file changed, 15 insertions(+)
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> index 0dbb1274360..25ac8d3cfc8 100644
-> ---a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> @@-461,6 +461,21 @@static void dw_hdmi_qp_set_sample_rate(struct
-> dw_hdmi_qp *hdmi, unsigned long lo
->  =C2=A0 n =3D dw_hdmi_qp_find_n(hdmi, tmds_char_rate, sample_rate);
->  =C2=A0 cts =3D dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate);
-> + /*
-> + =C2=A0* dw_hdmi_qp_find_cts() returns 0 for any TMDS rate not in
-> + =C2=A0* common_tmds_cts_table[]. =C2=A0Falling through to the controlle=
-r's
-> + =C2=A0* auto-measure path mutes audio on strict HDMI sinks at out-of-
-> + =C2=A0* table rates (e.g. 185.625 MHz, 297 MHz, 594 MHz). =C2=A0Compute=
- CTS
-> + =C2=A0* from N per HDMI spec instead, so the standard override path
-> + =C2=A0* supplies it on the wire.
-> + =C2=A0*/
-> + if (!cts && n) {
-> + =C2=A0 u64 computed =3D (u64)tmds_char_rate * n;
-> +
-> + =C2=A0 do_div(computed, 128ULL * sample_rate);
-> + =C2=A0 cts =3D (unsigned int)computed;
-> + }
-> +
->  =C2=A0 dw_hdmi_qp_set_cts_n(hdmi, cts, n);
->  =C2=A0}
+The panel requires a reset GPIO, backlight enable GPIO, I/O voltage
+supply (vddi), positive LCD bias supply (avdd) and negative LCD bias
+supply (avee). The panel operates in video burst mode with four data
+lanes using RGB888 pixel format.
 
-Thanks for your patch. I cannot comment on the content but I can point for
-formal issues with your submission.
+Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+---
+ .../bindings/display/panel/ilitek,ili7807s.yaml    | 80 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 ++
+ 2 files changed, 87 insertions(+)
 
-Your patch got mangled by your mailer and cannot be applied. Please don't
-try to convince your mailer to send patches the right way: save your time
-and use "git-format patch + git send-email", or even better use b4.
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+new file mode 100644
+index 000000000000..93c511d03c00
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+@@ -0,0 +1,80 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/ilitek,ili7807s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ilitek ILI7807S-based DSI panels
++
++maintainers:
++  - Arpit Saini <arpit.saini@oss.qualcomm.com>
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - dlc,dlc0697
++      - const: ilitek,ili7807s
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  reset-gpios: true
++
++  backlight-en-gpios:
++    description: Backlight enable GPIO (active high)
++
++  vddi-supply:
++    description: I/O voltage supply (1.8V)
++
++  avdd-supply:
++    description: Positive LCD bias supply (AVDD), typically +5.5V
++      (range 4.5V to 6.3V)
++
++  avee-supply:
++    description: Negative LCD bias supply (AVEE), typically -5.5V
++      (range -6.3V to -4.5V)
++
++  port: true
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vddi-supply
++  - avdd-supply
++  - avee-supply
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "dlc,dlc0697", "ilitek,ili7807s";
++            reg = <0>;
++
++            reset-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
++            backlight-en-gpios = <&tlmm 91 GPIO_ACTIVE_HIGH>;
++
++            vddi-supply = <&pm4125_l15>;
++            avdd-supply = <&avdd>;
++            avee-supply = <&avee>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi0_out>;
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 26060e51c067..529aed669401 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7941,6 +7941,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/bridge/chipone,icn6211.yaml
+ F:	drivers/gpu/drm/bridge/chipone-icn6211.c
+ 
++DRM DRIVER FOR ILITEK ILI7807S DSI PANEL
++M:	Arpit Saini <arpit.saini@oss.qualcomm.com>
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
++F:	drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
++
+ DRM DRIVER FOR EBBG FT8719 PANEL
+ M:	Joel Selvaraj <jo@jsfamily.in>
+ S:	Maintained
 
-Also your commit message is very detailed, and think it would be more
-readable if split in paragraphs. You can have a look at various commits in
-the kernel log for inspiration.
+-- 
+2.34.1
 
-There's plenty of suggestions on how to send patches in [0], ensure you
-read them all.
-
-[0] https://docs.kernel.org/process/submitting-patches.html
-
-Thanks!
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
