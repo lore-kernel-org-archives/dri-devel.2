@@ -4,80 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2AD9CD343F
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 22:43:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C94CD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 23:04:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53A2010E09B;
-	Mon, 18 May 2026 22:43:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01A2A10E13D;
+	Mon, 18 May 2026 23:04:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nTTN3vFX";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ITZXHGHa";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22D1710E09B
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 22:43:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AA6FC4451F
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 22:43:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87017C2BCB7
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 22:43:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779144218;
- bh=ZqxlUv6AphBiZDSxvrCBSCRC+/VdjzoWlIzND7rNfMs=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=nTTN3vFXwxkfBS/2diN6IbZTP+fnH/T8FI57XIZGAO3FwpjPhvbx8RkqrZbC8ZFny
- w0CTYVupfTF1PxaWyksrncAABDZgMf0CsrWEZVJcONhx0u5eRQSHUJkzEAgUfxTlTc
- TjcJu1uys5Rz/+NZlGn4OJMjLDyVvp2Bgid8g+MEj2FoR02tepl95QTjFwWDxfmbnU
- iJlYDCPdbch72+TN2b/JFGuDSuckVFSTYqbjgXo+Fc/WDdFIpj4UDZEsy0DroMLdDd
- WUNA1Mf58ShT5mhH7O13rSyfQeSo1ya9ZPgbrV5tATX4E9HRL35JIGM6VKgNHc8EzH
- Mnkq9OHVwsW8Q==
-Received: by mail-vs1-f46.google.com with SMTP id
- ada2fe7eead31-631a7868228so2152659137.0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 15:43:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/xXIr9oiuKnKb1j5b8kbt0X741okpmDh6+1o2hFi3Ae93ilMftnFGhHpXzLD/4lQYa56ke8i4VIpc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxQn6wwSQHmk9Z+DxfvQ42t+gH1E11rzrqIbMPRyzhvsc/DpYBH
- OwO7gKspTgDx/peZqVYDxgqJMMyX/gDe5Is3ta6Q6UeEsrdrEQ+T5a6aPUi6irSyBB+strBhruy
- AfYsAGi+vSYt0caQYAX2pOV7Z0sX1SrU=
-X-Received: by 2002:a05:6102:1497:b0:632:eef7:4b7f with SMTP id
- ada2fe7eead31-63a3f38ed3dmr9090434137.22.1779144217888; Mon, 18 May 2026
- 15:43:37 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81F5C10E13D
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 23:04:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=lRx5kbohWye5VuObo0S+mUmP9SutsPzV+ip02W8EkuU=; b=ITZXHGHaVgyShRkO8/Zd2VzfeF
+ Iz/mjCujhlArfJGi4a3ZjnJYBgWpiqvR2z61g9bqw9dJyqXcY3NtGHpFa+PfZs7JK4rfvrM5FOwRB
+ wpC4G7jr0NOnv6ntEJxzED3027P4WijGbAXjdl9D/DroqC30n39vwP5I2w8oxBiSiK3Sn/GWqONoA
+ e9xqo9j9gyM0kDRdIaLF5Hv0vca2qTWF+j2l4uxCoExvQmJJH1PcyKRiMVwh7Gze6hfAhebvH+7By
+ P9D7DsBTg0n2IonlNJLAxkzIPEHexxrmS8CDYoFLuo9fKGpsrjIUsyMz6rS6r46AMmtz6FP5WGlMM
+ LbvZB6jA==;
+Received: from [189.7.87.67] (helo=prince) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wP70h-002ro2-Bt; Tue, 19 May 2026 01:04:31 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Cc: kernel-dev@igalia.com,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 0/2] drm/v3d: Fix CPU job teardown bugs
+Date: Mon, 18 May 2026 20:02:55 -0300
+Message-ID: <177914536557.3484982.5704242734975270847.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260515-v3d-cpu-job-leaks-v1-0-7f147cbbf935@igalia.com>
+References: <20260515-v3d-cpu-job-leaks-v1-0-7f147cbbf935@igalia.com>
 MIME-Version: 1.0
-References: <20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com>
- <20260512-v2_20230123_tjmercier_google_com-v1-2-6326701c3691@redhat.com>
- <CAGsJ_4xfznffbjOaNKwnN6oZk_H6pqOzYqd1zx4Q9XrocdzV8A@mail.gmail.com>
- <CADSE00LjJcL8P5M-UPEpzZijU70uEmUirnin29N8YR5W5D-oFg@mail.gmail.com>
-In-Reply-To: <CADSE00LjJcL8P5M-UPEpzZijU70uEmUirnin29N8YR5W5D-oFg@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 19 May 2026 06:43:26 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xwJ7SAhKPJyRtMTw6psTO7H1EcFFpDw0po1W8PX4FE8g@mail.gmail.com>
-X-Gm-Features: AVHnY4KEVuNU5LGUxbEGufPnQvVfof22PSDgrj8C9uNhmMZb-wsisqSstH9JT8s
-Message-ID: <CAGsJ_4xwJ7SAhKPJyRtMTw6psTO7H1EcFFpDw0po1W8PX4FE8g@mail.gmail.com>
-Subject: Re: [PATCH RFC 2/5] dma-heap: charge dma-buf memory via explicit memcg
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
- Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>, 
- Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org,
- linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, mripard@kernel.org, 
- echanude@redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,82 +61,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2026 at 8:16=E2=80=AFPM Albert Esteve <aesteve@redhat.com> =
-wrote:
->
-> On Sat, May 16, 2026 at 9:37=E2=80=AFAM Barry Song <baohua@kernel.org> wr=
-ote:
-> >
-> > On Tue, May 12, 2026 at 5:18=E2=80=AFPM Albert Esteve <aesteve@redhat.c=
-om> wrote:
-> > >
-> > > On embedded platforms a central process often allocates dma-buf
-> > > memory on behalf of client applications. Without a way to
-> > > attribute the charge to the requesting client's cgroup, the
-> > > cost lands on the allocator, making per-cgroup memory limits
-> > > ineffective for the actual consumers.
-> > >
-> > > Add charge_pid_fd to struct dma_heap_allocation_data. When set to
-> > > a valid pidfd, DMA_HEAP_IOCTL_ALLOC resolves the target task's
-> > > memcg and charges the buffer there via mem_cgroup_charge_dmabuf()
-> > > inside dma_heap_buffer_alloc(). Without charge_pid_fd, and with
-> > > the mem_accounting module parameter enabled, the buffer is charged
-> > > to the allocator's own cgroup.
-> > >
-> > > Additionally, commit 3c227be90659 ("dma-buf: system_heap: account for
-> > > system heap allocation in memcg") adds __GFP_ACCOUNT to system-heap
-> > > page allocations. Keeping __GFP_ACCOUNT would charge the same pages
-> > > twice (once to kmem, once to MEMCG_DMABUF), thus remove it and route
-> > > all accounting through a single MEMCG_DMABUF path.
-> > >
-> > [...]
-> >
-> > > -               if (mem_accounting)
-> > > -                       flags |=3D __GFP_ACCOUNT;
-> >
-> > Hi Albert,
-> >
-> > would it be better to move this and its description to patch 1? It
-> > looks like patch 1 already introduces the double accounting changes,
-> > and patch 2 is mainly just supporting remote charging.
->
-> Hi Barry,
->
-> Thanks for looking into this series! Yes, in my head I was trying to
-> keep patch 1, which was taken from a previous, different series, and
-> then diverge from it starting with patch 2. This would clarify the
-> difference between the two. But I can see it just added some confusion
-> (for example, patch 1 charges on dma_buf_export() and then it is moved
-> to dma_heap_buffer_alloc() in patch 2). I will reorganize it better
-> for the next version, including your suggestion.
 
-Yep, I understand the situation now. I also understand
-that you were referring to T.J.'s patch, which caused
-some back-and-forth confusion for readers when reading
-patches 1 and 2.
+On Fri, 15 May 2026 12:07:13 -0300, Maíra Canal wrote:
+> This series addresses two independent teardown bugs in V3D's CPU job
+> submission path:
+> 
+>  - PATCH 1: A use-after-free on the ioctl's fail label, where the timestamp
+>    and performance query arrays are freed through cpu_job after
+>    v3d_job_cleanup() has already released the job. It consolidates the CPU
+>    job teardown into the job's kref destructor so a single code path covers
+>    both the scheduler .free_job and ioctl error paths.
+> 
+> [...]
 
->
-> >
-> > Also, mem_accounting is only used by system_heap.c; has this patchset
-> > also eliminated its need?
->
-> No, mem_accounting is still handled in this patch for the general case
-> where no `charge_pid_fd` is used. See dma_heap_buffer_alloc() code:
->
-> +       if (memcg)
-> +               css_get(&memcg->css);
-> +       else if (mem_accounting)
-> +               memcg =3D get_mem_cgroup_from_mm(current->mm);
+Added the `Cc: stable@vger.kernel.org` tag to the patches and applied to
+drm-misc-fixes.
 
-I see. What feels a bit odd to me is that mem_accounting
-could either be dropped (with unconditional charging), or
-it should cover both remote and local charge cases.
+[1/2] drm/v3d: Fix use-after-free of CPU job query arrays on error path
+      commit: b0fe80c0b9250b35e2211bf3117e7aca814a21b0
+[2/2] drm/v3d: Release indirect CSD GEM reference on CPU job free
+      commit: 6eb6e5acafa46854d4363e6c34981289995f3ace
 
-I don=E2=80=99t have a strong opinion here=E2=80=94it just feels a bit
-strange, since its description is quite generic for memcg:
-
-"Enable cgroup-based memory accounting for dma-buf heap
-allocations (default=3Dfalse)."
-
-Best Regards
-Barry
+Best regards,
+- Maíra
