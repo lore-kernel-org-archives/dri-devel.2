@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3353FCD4F54
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE7BCCD343F
 	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 19:48:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DBBB10E9AC;
-	Mon, 18 May 2026 19:48:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 256B010E9B4;
+	Mon, 18 May 2026 19:48:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="VIMjGkSt";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="dQ6EBiOT";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B644110E8C6
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:48:29 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D1CD10E8C9
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 19:48:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779133709; bh=kjTG1Ak+F+PLmCEEhmKg5bB7H85Hff4CbMbJgrGq+P0=;
- b=VIMjGkStZ1C1Mj+NqYyJW+cDI2Yqc8Yc9969L232HHQuNnxAA2G/PlYK5sa1GDaYQpMEyD7mC
- C9O1GHloK3pmgfdxgiWRtc7FktrbjKAUlJAnkVUx3ccMPzfwCT6xFw/rd/okUJ9hrdmKzRX/YSq
- OSBUFzipgLJojC0G8A1EzN9DpsraoRETxAZI0gzzaLrOZQm1ZPDgHx5EQrhtCwLVNIPjhlQG5zt
- r/NOgcDTHrSsaXNRPidC1xzPhHFcMeFtcGlilZ0t7D7UQk5BMpmiLHZtRkz1HhuP5DOJJCGpPGY
- rpAp231A0PwPo1FnB2bATQ+md35u7KJfCZ09f0J9+TGw==
-X-Forward-Email-ID: 6a0b6cf5b74b0ebd362eee56
+ t=1779133710; bh=7JC4z5SSlIB4qdrFliBTqw3gKNDB+YCBzwjUWTmrrdA=;
+ b=dQ6EBiOTvM5agiBBryecJbdr+jYuxPaEqYwUzwvbxaOGcHJzjj4Wsr3bazUgh53o8hBBixQMg
+ Qzeg4+6fNGB1h5CaTare6N+4s0ghrHYbf+kM8yNZz61wKuARc36zytS1W4fJrR9d387IjpYExsb
+ lXiNjv00sT2RNGLY+ks3LNv1BO1WAJMoWHWCUud+WaqoWtnU3EtfzqymZXYFQEpvkfpGRB9pCWA
+ YhS8nx/sr+ibtmBJ4n/yYcuUgHOKIc/oilrX4FeUV2ri0X+Ew6hDDiLF7FZoCP4ioOQI0LaQZJL
+ SzHNsYUxWSavwerqA+RVm8uEDNbASQKV1zBTGq8Y1R2g==
+X-Forward-Email-ID: 6a0b6d0ab74b0ebd362eeefc
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 149.28.215.223
+ 121.127.44.73
 X-Forward-Email-Version: 2.8.12
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -43,9 +43,10 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Jonas Karlman <jonas@kwiboo.se>, linux-rockchip@lists.infradead.org
-Subject: [PATCH 03/13] drm/meson: dw-hdmi: Call dw_hdmi_remove() consistently
-Date: Mon, 18 May 2026 19:47:31 +0000
-Message-ID: <20260518194744.2483580-4-jonas@kwiboo.se>
+Subject: [PATCH 08/13] drm/meson: dw-hdmi: Use local dev variable consistently
+ in bind()
+Date: Mon, 18 May 2026 19:47:36 +0000
+Message-ID: <20260518194744.2483580-9-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518194744.2483580-1-jonas@kwiboo.se>
 References: <20260518194744.2483580-1-jonas@kwiboo.se>
@@ -66,55 +67,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dw-hdmi export two similar pair of functions to probe()/remove() and
-bind()/unbind(), update to use dw_hdmi_remove() for consistency.
-
-dw_hdmi_probe() will drm_bridge_add() the dw-hdmi bridge, so it is
-expected that of_drm_find_and_get_bridge() always return the dw-hdmi
-bridge. Regardless, validate that the dw-hdmi can be found for
-consistent error handling.
-
-Also always ensure the IRQ handler and bridge is released before
-dw_hdmi_remove() is called.
+Replace indirect struct device accesses via pdev->dev with the local dev
+parameter already available in meson_dw_hdmi_bind(), for consistency and
+readability.
 
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
- drivers/gpu/drm/meson/meson_dw_hdmi.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/meson/meson_dw_hdmi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-index eafe7daf6ff1..9aafdc768f2b 100644
+index 30099bf71aad..fcd2426af9fc 100644
 --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
 +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-@@ -775,10 +775,17 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
- 	platform_set_drvdata(pdev, meson_dw_hdmi);
+@@ -671,9 +671,9 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
  
- 	meson_dw_hdmi->hdmi = dw_hdmi_probe(pdev, &meson_dw_hdmi->dw_plat_data);
--	if (IS_ERR(meson_dw_hdmi->hdmi))
-+	if (IS_ERR(meson_dw_hdmi->hdmi)) {
-+		devm_free_irq(dev, irq, meson_dw_hdmi);
+ 	DRM_DEBUG_DRIVER("\n");
+ 
+-	match = of_device_get_match_data(&pdev->dev);
++	match = of_device_get_match_data(dev);
+ 	if (!match) {
+-		dev_err(&pdev->dev, "failed to get match data\n");
++		dev_err(dev, "failed to get match data\n");
+ 		return -ENODEV;
+ 	}
+ 
+@@ -771,7 +771,7 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
  		return PTR_ERR(meson_dw_hdmi->hdmi);
-+	}
+ 	}
  
- 	meson_dw_hdmi->bridge = of_drm_find_and_get_bridge(pdev->dev.of_node);
-+	if (!meson_dw_hdmi->bridge) {
-+		devm_free_irq(dev, irq, meson_dw_hdmi);
-+		dw_hdmi_remove(meson_dw_hdmi->hdmi);
-+		return -ENODEV;
-+	}
- 
- 	DRM_DEBUG_DRIVER("HDMI controller initialized\n");
- 
-@@ -793,8 +800,8 @@ static void meson_dw_hdmi_unbind(struct device *dev, struct device *master,
- 	int irq = platform_get_irq(pdev, 0);
- 
- 	devm_free_irq(dev, irq, meson_dw_hdmi);
--	dw_hdmi_unbind(meson_dw_hdmi->hdmi);
- 	drm_bridge_put(meson_dw_hdmi->bridge);
-+	dw_hdmi_remove(meson_dw_hdmi->hdmi);
- }
- 
- static const struct component_ops meson_dw_hdmi_ops = {
+-	meson_dw_hdmi->bridge = of_drm_find_and_get_bridge(pdev->dev.of_node);
++	meson_dw_hdmi->bridge = of_drm_find_and_get_bridge(dev->of_node);
+ 	if (!meson_dw_hdmi->bridge) {
+ 		devm_free_irq(dev, irq, meson_dw_hdmi);
+ 		dw_hdmi_remove(meson_dw_hdmi->hdmi);
 -- 
 2.54.0
 
