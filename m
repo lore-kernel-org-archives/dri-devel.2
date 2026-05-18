@@ -4,57 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A29DCD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:15:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E486FCD4F49
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:15:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78FE710E891;
-	Mon, 18 May 2026 14:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4931510E883;
+	Mon, 18 May 2026 14:15:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G5FEZjDh";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MjR5dh6D";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1CE10E888;
- Mon, 18 May 2026 14:15:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779113703; x=1810649703;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=adigWh7GgwAtKgUNr3rUr4JY3FzeXch8EYTxvdtkar4=;
- b=G5FEZjDhdIoH2uVydpS1adNqVWKUJSDi4uBzCtlVrFfOcNVZh2Z7l2eD
- 5H6SIgUGbOhpsVnlJ3IKAQeA0XM7qcsb6nJyDA0qh+ABtYjkjhSC9AU54
- 8zYGwH6q/3npAZB/RGPPJd4XJnukUDnPdmoSovl/Rj/SZAcshZoXDKbsp
- a6G6qwKPblim6M2Nt1KJp4Lr/ZgDfgc8eVdBc4DYqt1cTlRn0JXLRsqP6
- ZnMN/DpRdN2wkeah/tIG7Sy9KG4if9rvvScZLSmuAXuQrnAG9Nuo0PzjJ
- +sRX+lx5Hh/b+TDa1sQaZq+TTImwbEzPTp8T2I/hHNja98pemefsoNer5 Q==;
-X-CSE-ConnectionGUID: RLYnDtVqTGOb544jjCnShQ==
-X-CSE-MsgGUID: 0mWdnEK5ThOeqHonHePlWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="79105902"
-X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; d="scan'208";a="79105902"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2026 07:15:03 -0700
-X-CSE-ConnectionGUID: O8vOF0edRO6bXBxLP7aikw==
-X-CSE-MsgGUID: iikUQTx3SF+Tr0Zy27nbMQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; d="scan'208";a="244417293"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO fdugast-desk.intel.com)
- ([10.245.244.73])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2026 07:15:02 -0700
-From: Francois Dugast <francois.dugast@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, matthew.auld@intel.com,
- Francois Dugast <francois.dugast@intel.com>
-Subject: [PATCH v3 4/5] gpu/buddy: Track per-order free blocks with a
- scoreboard
-Date: Mon, 18 May 2026 16:14:29 +0200
-Message-ID: <20260518141446.124508-5-francois.dugast@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260518141446.124508-1-francois.dugast@intel.com>
-References: <20260518141446.124508-1-francois.dugast@intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EE8310E890
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 14:15:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779113735;
+ bh=QDhP2ywyXlpxq310WYLb3KtdttgJ/FJZ9LPyfSF/Qxk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=MjR5dh6DsJgL0f40EMCWwtquK5OJ/A/kVSwXGNDcgSomQblUUjk8ZTwjRW3ENLNrs
+ aiJfPViRQVbayYcHJ5w6Z67KNWoebKyOi3echpl6ZFlozTqWd6xYAVsleIjLVVTXjf
+ d45/S10lQa/h9nykuB1QorwzPVinCUd/10e0iG9fY0sZuMhu3nPtmU/AcTTpaMjv2E
+ Bth3MqjjCZqzo3LzfKzg9sBu4eNgCPM4m+CY0tUPWW1EuwvqjeZrXWLJw2Y84ocqNe
+ 3RdZvqYVsovVTElND8wBV8oVrhdqjGToQJErRh5s24fuPU6igUxKNAgTzfkrS3KO20
+ /E20WxyY+UuLg==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1D05117E04E2;
+ Mon, 18 May 2026 16:15:35 +0200 (CEST)
+Date: Mon, 18 May 2026 16:15:31 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/6] dma-resv: Define guards for context-less dma_resv
+ locks
+Message-ID: <20260518161531.331cab2d@fedora>
+In-Reply-To: <a9ee80aa-0c9b-4bd7-87bb-d3e228357b18@amd.com>
+References: <20260513-panthor-guard-refactor-v1-0-f2d8c15a97ce@collabora.com>
+ <20260513-panthor-guard-refactor-v1-2-f2d8c15a97ce@collabora.com>
+ <03a57011-e734-4a74-aef2-e3a6016e15fc@amd.com>
+ <20260518111456.30ba9bba@fedora>
+ <a9ee80aa-0c9b-4bd7-87bb-d3e228357b18@amd.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,197 +72,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reporting per-order free block counts in drm_buddy_print() currently
-requires walking all rbtrees, which is O(n) over the total number of
-free blocks and holds the allocator lock for the duration. This becomes
-expensive on large VRAM heaps with many small free fragments.
+On Mon, 18 May 2026 14:18:41 +0200
+Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
 
-Maintain a free_scoreboard[] array indexed by order instead, so that
-the count for any order is always available in O(1). The scoreboard is
-kept accurate by hooking into the four places where a block's free state
-changes: mark_free(), mark_allocated(), mark_split(), and the sites in
-__gpu_buddy_free(), __force_merge(), and the four err_undo paths that
-call rbtree_remove() directly on free blocks without going through
-mark_*().
+> On 5/18/26 11:14, Boris Brezillon wrote:
+> > Hi Christian,
+> >=20
+> > On Mon, 18 May 2026 09:10:23 +0200
+> > Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
+> >  =20
+> >> On 5/13/26 18:58, Boris Brezillon wrote: =20
+> >>> When used without a context, dma_resv are no different from regular
+> >>> locks. Define guards so we can use the guard-syntactic sugars for
+> >>> explicit/implicit scoped locks.
+> >>>
+> >>> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>   =20
+> >>
+> >> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >>
+> >> How do you want to upstream it? My preference would be drm-misc-next, =
+but I think I can live with a panthor specific branch as well. =20
+> >=20
+> > Everything Panthor related goes through drm-misc-next, so drm-misc-next
+> > also has my preference ;-). But I'd like to wait for more feedback on
+> > the other drm patches, and there are a few things I need to address in
+> > the panthor patches anyway, so it's likely to take a couple more weeks
+> > for this series to hit the drm-misc tree, unless you have a good reason
+> > to fast-track this specific patch. =20
+>=20
+> Well the DMA-buf code itself uses dma_resv_lock/unlock
 
-The print functions are simplified as a result: the rbtree traversal
-is replaced by a direct array lookup.
+There's no use in dma-resv.c that can be converted to guards. I gave
+dma-buf.c a try, but just like for panthor, I don't really like the fact
+it's halfway through (other locks still use manual locking), so I'd be
+tempted to convert everything at once for consistency. If you're fine
+with that, I can give this a try.
 
-v3: Update after introducing __gpu_buddy_undo_splits() helper
+> and obviously has test cases for all the different variants.
 
-v2: Update after fix for use-after-free in split_block() call sites
-
-Signed-off-by: Francois Dugast <francois.dugast@intel.com>
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
----
- drivers/gpu/buddy.c         | 36 +++++++++++++++++++++---------------
- drivers/gpu/drm/drm_buddy.c | 16 ++--------------
- include/linux/gpu_buddy.h   |  7 +++++++
- 3 files changed, 30 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index 8654604b87a4..de18b63fef0a 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -193,6 +193,8 @@ static void mark_allocated(struct gpu_buddy *mm,
- 	block->header &= ~GPU_BUDDY_HEADER_STATE;
- 	block->header |= GPU_BUDDY_ALLOCATED;
- 
-+	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
-+
- 	rbtree_remove(mm, block);
- }
- 
-@@ -204,6 +206,8 @@ static void mark_free(struct gpu_buddy *mm,
- 	block->header &= ~GPU_BUDDY_HEADER_STATE;
- 	block->header |= GPU_BUDDY_FREE;
- 
-+	mm->free_scoreboard[gpu_buddy_block_order(block)]++;
-+
- 	tree = get_block_tree(block);
- 	rbtree_insert(mm, block, tree);
- }
-@@ -214,6 +218,8 @@ static void mark_split(struct gpu_buddy *mm,
- 	block->header &= ~GPU_BUDDY_HEADER_STATE;
- 	block->header |= GPU_BUDDY_SPLIT;
- 
-+	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
-+
- 	rbtree_remove(mm, block);
- }
- 
-@@ -271,6 +277,7 @@ static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
- 		}
- 
- 		rbtree_remove(mm, buddy);
-+		mm->free_scoreboard[gpu_buddy_block_order(buddy)]--;
- 		if (force_merge && gpu_buddy_block_is_clear(buddy))
- 			mm->clear_avail -= gpu_buddy_block_size(mm, buddy);
- 
-@@ -335,6 +342,7 @@ static int __force_merge(struct gpu_buddy *mm,
- 					iter = rb_prev(iter);
- 
- 				rbtree_remove(mm, block);
-+				mm->free_scoreboard[gpu_buddy_block_order(block)]--;
- 				if (gpu_buddy_block_is_clear(block))
- 					mm->clear_avail -= gpu_buddy_block_size(mm, block);
- 
-@@ -384,11 +392,17 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
- 
- 	BUG_ON(mm->max_order > GPU_BUDDY_MAX_ORDER);
- 
-+	mm->free_scoreboard = kcalloc(mm->max_order + 1,
-+				      sizeof(*mm->free_scoreboard),
-+				      GFP_KERNEL);
-+	if (!mm->free_scoreboard)
-+		return -ENOMEM;
-+
- 	mm->free_trees = kmalloc_array(GPU_BUDDY_MAX_FREE_TREES,
- 				       sizeof(*mm->free_trees),
- 				       GFP_KERNEL);
- 	if (!mm->free_trees)
--		return -ENOMEM;
-+		goto out_free_scoreboard;
- 
- 	for_each_free_tree(i) {
- 		mm->free_trees[i] = kmalloc_array(mm->max_order + 1,
-@@ -450,6 +464,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
- 	while (i--)
- 		kfree(mm->free_trees[i]);
- 	kfree(mm->free_trees);
-+out_free_scoreboard:
-+	kfree(mm->free_scoreboard);
- 	return -ENOMEM;
- }
- EXPORT_SYMBOL(gpu_buddy_init);
-@@ -488,6 +504,7 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
- 		kfree(mm->free_trees[i]);
- 	kfree(mm->free_trees);
- 	kfree(mm->roots);
-+	kfree(mm->free_scoreboard);
- }
- EXPORT_SYMBOL(gpu_buddy_fini);
- 
-@@ -659,6 +676,7 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
- 	    (gpu_buddy_block_is_free(block) &&
- 	     gpu_buddy_block_is_free(buddy))) {
- 		rbtree_remove(mm, block);
-+		mm->free_scoreboard[gpu_buddy_block_order(block)]--;
- 		__gpu_buddy_free(mm, block, false);
- 	}
- }
-@@ -1487,21 +1505,9 @@ void gpu_buddy_print(struct gpu_buddy *mm)
- 		mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
- 
- 	for (order = mm->max_order; order >= 0; order--) {
--		struct gpu_buddy_block *block, *tmp;
--		struct rb_root *root;
--		u64 count = 0, free;
--		unsigned int tree;
--
--		for_each_free_tree(tree) {
--			root = &mm->free_trees[tree][order];
--
--			rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
--				BUG_ON(!gpu_buddy_block_is_free(block));
--				count++;
--			}
--		}
-+		u64 count = mm->free_scoreboard[order];
-+		u64 free = count * (mm->chunk_size << order);
- 
--		free = count * (mm->chunk_size << order);
- 		if (free < SZ_1M)
- 			pr_info("order-%2d free: %8llu KiB, blocks: %llu\n",
- 				order, free >> 10, count);
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index faa025498de4..eef995e08a37 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -47,23 +47,11 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
- 		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
- 
- 	for (order = mm->max_order; order >= 0; order--) {
--		struct gpu_buddy_block *block, *tmp;
--		struct rb_root *root;
--		u64 count = 0, free;
--		unsigned int tree;
--
--		for_each_free_tree(tree) {
--			root = &mm->free_trees[tree][order];
--
--			rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
--				BUG_ON(!gpu_buddy_block_is_free(block));
--				count++;
--			}
--		}
-+		u64 count = mm->free_scoreboard[order];
-+		u64 free = count * (mm->chunk_size << order);
- 
- 		drm_printf(p, "order-%2d ", order);
- 
--		free = count * (mm->chunk_size << order);
- 		if (free < SZ_1M)
- 			drm_printf(p, "free: %8llu KiB", free >> 10);
- 		else
-diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-index 71941a039648..a28f7d7637ca 100644
---- a/include/linux/gpu_buddy.h
-+++ b/include/linux/gpu_buddy.h
-@@ -173,6 +173,13 @@ struct gpu_buddy {
- 	 * that fits in the remaining space.
- 	 */
- 	struct gpu_buddy_block **roots;
-+	/*
-+	 * Per-order free block scoreboard: free_scoreboard[order] holds the
-+	 * number of blocks of that order currently in the free state.
-+	 * Incremented in mark_free(), decremented wherever rbtree_remove() is
-+	 * called on a free block.
-+	 */
-+	u64 *free_scoreboard;
- /* public: */
- 	unsigned int n_roots;
- 	unsigned int max_order;
--- 
-2.43.0
-
+Looks like the test cases all validate that dma_resv_lock(x, NULL)
+returns 0. If I were to convert those to guard(dma_resv)(), these checks
+would be gone. Is that okay with you?
