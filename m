@@ -4,91 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F265CD4F52
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 10:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A87BCD4F52
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 10:40:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0786F10E794;
-	Mon, 18 May 2026 10:37:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD23C10E79B;
+	Mon, 18 May 2026 10:40:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="cSy5AvpJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YPDtsDgz";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26C0110E794
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 10:37:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779100652;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=j8DhTEQbisiNb0DazV/8Ac1m1lv8eoNvuThrrZbbnYc=;
- b=cSy5AvpJdduYwAA78lJRI9lABfNVaNvl189gi96ngGPbTaqlP9nVv+c4sU2AXxw6lucpQ5
- NQ4xI2TJFixNBtWi81oZfR1MMGBa1D+L8RA5Guzw7gbxNKre5jXyeSWRSXoKTcEA/sZ8KM
- ZbOMApWNIM3miNAYDjdgCX7yHLvihGo=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-387-MDfrDStKO8mW22opFn1zMA-1; Mon, 18 May 2026 06:37:28 -0400
-X-MC-Unique: MDfrDStKO8mW22opFn1zMA-1
-X-Mimecast-MFC-AGG-ID: MDfrDStKO8mW22opFn1zMA_1779100648
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-488d1b5bca0so8164485e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 03:37:28 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45A3710E5C3
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 10:40:14 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-488b0e1b870so31544685e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 03:40:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779100813; x=1779705613; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KBUJm1g4jrVLHLARnQ410xCyIfZ2+knqUA7xvFczZVo=;
+ b=YPDtsDgz/cggN6fZZylkytDY84Pbx0HNPgPe3uiF/MPZnlgjQ89l+wodhzZYyM0Ink
+ 68vaJKSqWbMTE1WCFZElWrTl5+rm8ZrQ2Kx2FZOaUY5Wvo6lQAwGRoYptEHw9+Zv/qSz
+ MkBk1nbi4HXVJZ2qQPNkqoiw0VqU5NwsUT9qinQIXd5xbGUkfKbu47dFQY5VjsYP8+2R
+ UoxXUbmxw+o27xDH9XO1vlrwcS/s4tFNLe3MYuaHH5TImkXbhPCIOdf5M41lC0MVr3qc
+ DHCdvTyEGL7Fpf9XyCNJAHV0e7mG++cM9ZyLNEaXEOIba8T6LX54cRrjJ47QsatzZsVJ
+ 7JRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779100648; x=1779705448;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=j8DhTEQbisiNb0DazV/8Ac1m1lv8eoNvuThrrZbbnYc=;
- b=MsiDlzP3Sgvni97KTvh8TrSmga7ZkAA0t26sGGtscL7T6tyyXJCQxVTDeo8WfHwqDY
- IfjfFxdjEInzkBx87bEELqHl5GjsB/PeAMdZ2Ed2gvYC31xpmuDd5ONZLiBxcgbHXgtU
- N5dddyJma6HQQlDALLLpeUjPNTi+dIMwgZFKQz4gM8Fv0NEVNjwWG8Szlb7HOzsnis8o
- qOseXuHBLcS2dooCxYyh0Lslvu9NNwb2v050M5OtYxqVn2TGaKINCkegKfVF49SlVYY7
- ftNlX0YbyXKLI7sovEVRYLPxgn95+dpKOc0//YO/OCQ4iymlZOdx5/vhZbuHe9qUl6Tl
- Nahg==
+ d=1e100.net; s=20251104; t=1779100813; x=1779705613;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=KBUJm1g4jrVLHLARnQ410xCyIfZ2+knqUA7xvFczZVo=;
+ b=FciUvitELzxQ6Cr8cR7V3HPX/Gh38kpnMCldd4Rr+lxJhoX3dEDFxocziOgWJXJAXT
+ jDVdKFO80rghysIdEH0KoPQb3uVWpIVUwQV5vqfz8evX6R3RXkTPyaKdYN5sPl2UL0Fm
+ XEKHaotmNvpwx44c1oNchyz6WCgvnGff7tlh7AFvqXLLkfI5ei1bTJc1o/g7+yajCHyw
+ AMV4tB5ZGTzgEh9ApiycFuO6YRQGDiXXeFWNs5RIrXUHb+BzBfCQzxMgV2qRW/O+2oKO
+ U+FtgUf3+x/OMIqz6glBy0SFcVtGp7FO04GORTGzLC17gSqkACHd27jEbrQm2NmYbuTY
+ 36BA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9ZYFkuB/KaJS1YhNInAGoGCsPvSYL5eUXz2TUIbYtm6iqmFnuKvHel7/D6WN4ftterjOLwUBEpRkU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxlpxa1QchXf3YPqezAQreU+/IM6tHjg2d2UZHf2zD5EFX9ybsX
- dRr35p+ohdN0ilwptfFVt/6K0NDHx+2TDCn/iI4QFu47YeFrM5G4t1zCy4BSQUjNoRvaz0RtSEh
- Ni5E63Lv+9s7MtXnkTJykHg+sehJM7nxmhieIXrH5BNNGiARwJNzpsYkJpdkOpYtZfpF6Fg==
-X-Gm-Gg: Acq92OEV0U1wL5vvSf6Wck8Xb6fPA1Y/vAz+XBW85XeSQXBqDg95EuOxxH97w9Fd4bR
- 1mXcnfKEPpSz/DZZYcBia35xQwi6CghmKCDg0zfaKeC2JAjjMxMHSrKN30GfFcUAPdMvhxhEWFe
- LrVsoR9C2Dcx+shBrnIiiJZBM4OzittSSLJQE3JL2p8p7kNSNHdJwDBYmBqmkCbZnzbZZh3bcJo
- BTatjt2CKKk5dLHRgBmf5kWG2nZRGBiUBpCB/JNYVWGEUE5r4DDdYupeeYkdogIDyHZqRcDVcEn
- gvvEy4QLwuUMI65y1fREesBE/ujpFMVr6yhu3ZCACJUyz8dMQ+JDbaUrgLS9CeUyF6zGGaEczz9
- 3P42YiBU+TBqJjM8uZySBOMMNByoZFfKbn+5vTUKu1QEi/daadnkJPmZWykP1egbCzu1mAEsGUs
- /QDx4p
-X-Received: by 2002:a05:600c:a30a:b0:48e:62ec:f264 with SMTP id
- 5b1f17b1804b1-48fe61f29femr172075355e9.17.1779100647524; 
- Mon, 18 May 2026 03:37:27 -0700 (PDT)
-X-Received: by 2002:a05:600c:a30a:b0:48e:62ec:f264 with SMTP id
- 5b1f17b1804b1-48fe61f29femr172074825e9.17.1779100647017; 
- Mon, 18 May 2026 03:37:27 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ AFNElJ+piFTBVBjp51Swtko9ZKW1wvJhDGA2i2VpR1G/GWAgpOze4bFAWGeAyBA0NPSIZGbvFJRwhZh0z64=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzosGULywnq2ZEHOPeX8NcGYd0zt/CfB/Wr8HeOFtOs/SatOkND
+ mVzgYqitg4YI2vqtTwKkjKwPFtDdY4B5G2rK4VjeqPjiUiiw9SVtWMIh
+X-Gm-Gg: Acq92OFPsvnu2kVWfbUSMfUDBwzpviXr6LzlOgRscXOk+Qe+JZBgoHomucocGX54URq
+ LmWonmL7Qv8gjvUKm8fFZECZrE0UFUvaXzWGFmGyQuz+givsDiSUbiRlE036Wg7puthfkIyJeBZ
+ 5Ikum4+YBvtQjKJpJSalMNrgWX/xIIaPZvqcBDJ5V5to3sj8TW5bui6OvJRhZpj0p04VNQo8mva
+ 8s6hYkBt+CKu4yAJU5OMK40a6wef1f3t8NjVsEXd8eMecVZmyBWCa574/80CWmlYiw3KqgH+qOJ
+ 99BrBVg4CS2NSUQ8xyUD0i8p+K/c6J8Iv74Z5fmV51O8/7xiAwp8Gxj3Yv8lu8MvOyVOnAEGSwg
+ 7sdrCmfEOGyZqAFhrs2YU8Zv+CGh0DHx2HWGHbJO7xF7AuyaBarqaKLONJi632C4zmRHr29Fka6
+ GLLhp6/HGfNWR6k1dYuXYCwF7wFhu4G1PHzPaGiDN7N6hnOAeLtFmoYP+v8IskhfuT7XbWuf5Bj
+ NyYbmPpPYP2ZQ==
+X-Received: by 2002:a05:600c:4fc9:b0:489:1c1f:35df with SMTP id
+ 5b1f17b1804b1-48fe60e58ecmr202920365e9.10.1779100812550; 
+ Mon, 18 May 2026 03:40:12 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe5ab52a6sm244036005e9.10.2026.05.18.03.37.26
+ 5b1f17b1804b1-48fe4c90b27sm255713955e9.8.2026.05.18.03.40.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 May 2026 03:37:26 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Sen Wang <sen@ti.com>, ple@baylibre.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com
-Cc: andrzej.hajda@intel.com, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devarsht@ti.com, s-jain1@ti.com, j-sahu@ti.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Sen Wang
- <sen@ti.com>
-Subject: Re: [PATCH v2] drm/bridge: ite-it66121: Convert to DRM HDMI Audio
- Helper
-In-Reply-To: <87ecj9xb70.fsf@ocarina.mail-host-address-is-not-set>
-References: <20260318154636.3230454-1-sen@ti.com>
- <87ecj9xb70.fsf@ocarina.mail-host-address-is-not-set>
-Date: Mon, 18 May 2026 12:37:25 +0200
-Message-ID: <87bjedxau2.fsf@ocarina.mail-host-address-is-not-set>
+ Mon, 18 May 2026 03:40:12 -0700 (PDT)
+Date: Mon, 18 May 2026 11:40:10 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph
+ Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Andrew
+ Morton <akpm@linux-foundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, Nitesh
+ Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Anuj
+ Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v3 02/10] iov_iter: add iterator type for dmabuf maps
+Message-ID: <20260518114010.6e1f7391@pumpkin>
+In-Reply-To: <4b2f74e9-3225-47f6-85fe-911720030e35@gmail.com>
+References: <cover.1777475843.git.asml.silence@gmail.com>
+ <20a233d2f35274817aa643cc0fe113707eb47e72.1777475843.git.asml.silence@gmail.com>
+ <20260513110557.705bdeed@pumpkin> <20260513142909.03ae6c2b@pumpkin>
+ <4b2f74e9-3225-47f6-85fe-911720030e35@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: LreYWSYv3G2BQta13M3DFpCkPqPupFfXo82nUQArndU_1779100648
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,52 +105,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Javier Martinez Canillas <javierm@redhat.com> writes:
+On Mon, 18 May 2026 10:24:35 +0100
+Pavel Begunkov <asml.silence@gmail.com> wrote:
 
-> Sen Wang <sen@ti.com> writes:
->
-> Hello Sen,
->
->> Convert the IT66121 HDMI bridge driver from manually registering an
->> hdmi-codec platform device to using the DRM HDMI Audio Helper framework
->> via DRM_BRIDGE_OP_HDMI_AUDIO instead.
->>
->> The previous implementation manually allocated hdmi_codec_pdata,
->> registered the platform device, and implemented hdmi_codec_ops callbacks
->> including get_eld. The new approach sets DRM_BRIDGE_OP_HDMI_AUDIO on the
->> bridge, letting the framework handle the codec registration. This also
->> resolves some non-compliance issues with the current audio implementation,
->> such as HDMI audio advertising a non-functional capture stream to userspace.
->>
->> The audio callbacks are converted from hdmi_codec_ops signatures to
->> drm_bridge_funcs hdmi_audio callbacks:
->>   - it66121_audio_hw_params   -> it66121_hdmi_audio_prepare
->>   - it66121_audio_startup     -> it66121_hdmi_audio_startup
->>   - it66121_audio_shutdown    -> it66121_hdmi_audio_shutdown
->>   - it66121_audio_mute        -> it66121_hdmi_audio_mute_stream
->>
->> The it66121_audio_get_eld, it66121_audio_codec_ops, and
->> it66121_audio_codec_init functions are removed as the framework handles
->> these responsibilities.
->>
->> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> Signed-off-by: Sen Wang <sen@ti.com>
->> ---
->
-> The patch looks correct to me but I'm not that familiar with the HDMI
-> helpers, so it would be great if either Dmitry or Maxime could take a
-> look to the changes before merging it.
->
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
->
+> On 5/13/26 14:29, David Laight wrote:
+> > On Wed, 13 May 2026 11:05:57 +0100
+> > David Laight <david.laight.linux@gmail.com> wrote:
+> > 
+> > ...  
+> >>> @@ -575,7 +575,8 @@ void iov_iter_advance(struct iov_iter *i, size_t size)
+> >>>   {
+> >>>   	if (unlikely(i->count < size))
+> >>>   		size = i->count;
+> >>> -	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i))) {
+> >>> +	if (likely(iter_is_ubuf(i)) || unlikely(iov_iter_is_xarray(i)) ||
+> >>> +	    unlikely(iov_iter_is_dmabuf_map(i))) {  
+> >>
+> >>
+> >> Doesn't the extra check add more code to all the non-ubuf cases?
+...
+> >> or writing an iter_is_one_of(i, ITER_xxx, ITER_yyy) define that uses
+> >> '(1 << i->iter_type) & ((1 << ITER_xxx) | ...)'  
+> > 
+> > This seems to DTRT:
+> > 
+> > #define _ITER_IS_ONE_OF(iter, t1, t2, t3, t4, t5, t6, t7, t8, ...) \
+> >      ((1u << (iter)->iter_type) & ((1u << ITER_##t1) | (1u << ITER_##t2) | \
+> >          (1u << ITER_##t3) | (1u << ITER_##t4) | (1u << ITER_##t5) | \
+> >          (1u << ITER_##t6) | (1u << ITER_##t7) | (1u << ITER_##t8)))
+> > #define ITER_IS_ONE_OF(iter, t, ...) \
+> >      _ITER_IS_ONE_OF(iter, t, ## __VA_ARGS__, t, t, t, t, t, t, t)  
+> 
+> We definitely don't want that, using them directly would've been
+> much cleaner.
+> 
+> if (get_type_mask(i) & (TYPE1 | TYPE2)) ...
 
-Actually, I noticed now that Dmitry already provided an r-b tag. I'll
-wait for a few more days and merge this by the end of the week then.
+You need to shift all the TYPEn as well.
+The above condition would become:
+	if (likely(ITER_IS_ONE_OF(i, UBUF, XARRAY, DMABUF_MAP))) {
+which reads reasonable well.
+Without the token pasting it becomes:
+	if (likely(ITER_IS_ONE_OF(i, ITER_UBUF, ITER_XARRAY, ITER_DMABUF_MAP))) {
+and the line starts getting long.
+Although that version probably needs a check that the mask is constant.
 
--- 
-Best regards,
+-- David
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+
+> 
 
