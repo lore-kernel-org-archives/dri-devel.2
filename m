@@ -4,53 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A39CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 10:10:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8F40CD4F52
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 10:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B10B10E02A;
-	Mon, 18 May 2026 10:10:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5065910E796;
+	Mon, 18 May 2026 10:12:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m8Lkslkv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SEYHc1kI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4525F10E02A
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 10:10:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7287610E77B;
+ Mon, 18 May 2026 10:12:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9137160125;
- Mon, 18 May 2026 10:10:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434D8C2BCB7;
- Mon, 18 May 2026 10:10:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4FBF743215;
+ Mon, 18 May 2026 10:12:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF92AC2BCB7;
+ Mon, 18 May 2026 10:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779099047;
- bh=aUORUiqrvW7zb9bXPpjnpLQLn0KymJQcaxGWHgaAmr0=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=m8LkslkvKrksMa89hR8I0c0EtoABcua57UIZhTq3aPPc91iVfYZFRqZI0hihuCt+Y
- 4pCAySTfDl9vQPiblQKGlvTFggbl95kqdeVodd6OwZbq2gqvZh+jf9XCadgm4YAzz2
- vOp6uwgbEoC9tmL6skOuFnM1NjkJiuU0RjIBPyFdILqzb235d0R4C4Ad3owCNbPdzm
- YEuV3el9nB/OtJ0WWvmbsk2Ce59Ize/wEgngaANsQFXpLdSdgymelxm61UEl/mpORp
- I1FraZNchONMJzzMotAo+5oOLX7lk6gBhUJhj2Tk+XJB8Dsi84nDI5CpEuj4qTGOOd
- yWC1rDHsoPNxQ==
+ s=k20201202; t=1779099129;
+ bh=f/arUHoVXKfmviLjeY1oEv2xDMa9pOsUjvRxdFaqouA=;
+ h=Date:Cc:To:From:Subject:References:In-Reply-To:From;
+ b=SEYHc1kIT60KWlsqIT7KwCHeIEYzYoBj3+8hAbCRMa+PnvfmPELgqq37VcP9ezC/g
+ WkOz3xrgiGbXrBJh7+5X8GHJNSVrbEkMz7EZ5KQs0+F3p++5CW0jllxmPn+O/e7baF
+ hbSgD7ol4GsJvtm8659d4bXUxsW9BJj50WYlYLHdqRdKhYz9Cul4rTuVHItF3eDAEE
+ LcMjArAK5jtQM+Uae6AAUxw1sdaEm5eYNe6Nj2XE6E5eHeB8xdLSzVfDB2kvZw8Srj
+ 16VmQK/LcU1JIaR71mts0fJMkXiCE6Lp8zxP9Y1TumztaIQGJ3qfM1iyiTpPPbXwUc
+ /TEfLc7kjwD8w==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 18 May 2026 12:10:42 +0200
-Message-Id: <DILPZ57SSUVY.39LBSOQ8OL268@kernel.org>
-Subject: Re: [PATCH 12/13] drm/tyr: add vms and gpuvas debugfs interface
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, <rust-for-linux@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>
-To: "Alvin Sun" <alvin.sun@linux.dev>
+Date: Mon, 18 May 2026 12:12:01 +0200
+Message-Id: <DILQ0599UG5L.1PYZZRYNMNEH0@kernel.org>
+Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Lyude
+ Paul" <lyude@redhat.com>, "Marcus Folkesson" <marcus.folkesson@gmail.com>,
+ "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jagan
+ Teki" <jagan@amarulasolutions.com>, "Liu Ying" <victor.liu@nxp.com>,
+ "Adrien Grassein" <adrien.grassein@gmail.com>, "Peter Senna Tschudin"
+ <peter.senna@gmail.com>, "Ian Ray" <ian.ray@ge.com>, "Martyn Welch"
+ <martyn.welch@collabora.co.uk>, "Russell King" <linux@armlinux.org.uk>,
+ "Douglas Anderson" <dianders@chromium.org>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Biju Das"
+ <biju.das.jz@bp.renesas.com>, "Tommaso Merciai"
+ <tommaso.merciai.xr@bp.renesas.com>, "Manikandan Muralidharan"
+ <manikandan.m@microchip.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
+ "Andy Yan" <andy.yan@rock-chips.com>, "Xin Ji" <xji@analogixsemi.com>,
+ "Loic Poulain" <loic.poulain@oss.qualcomm.com>, "Fei Shao"
+ <fshao@chromium.org>, "Arnd Bergmann" <arnd@arndb.de>, "Kees Cook"
+ <kees@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <nouveau@lists.freedesktop.org>
+To: =?utf-8?b?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
+ <u.kleine-koenig@baylibre.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev>
- <20260326-b4-tyr-debugfs-v1-12-074badd18716@linux.dev>
-In-Reply-To: <20260326-b4-tyr-debugfs-v1-12-074badd18716@linux.dev>
+Subject: Re: [PATCH] drm: Use named initializers for arrays of i2c_device_data
+References: <20260518100401.631351-2-u.kleine-koenig@baylibre.com>
+In-Reply-To: <20260518100401.631351-2-u.kleine-koenig@baylibre.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,44 +78,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Mar 26, 2026 at 7:53 AM CET, Alvin Sun wrote:
-> +/// Writes VM debug information for the "gpuvas" debugfs file.
-> +fn show_vm(vm: &Vm, f: &mut impl Write) -> core::fmt::Result {
-> +    writeln!(
-> +        f,
-> +        "DRM GPU VA space ({:?}) [0x{:016x};0x{:016x}]",
-> +        vm.gpuvm.name(),
-> +        vm.va_range.start,
-> +        vm.va_range.end,
-> +    )?;
-> +
-> +    let kva =3D vm.gpuvm.kernel_alloc_va();
-> +    writeln!(
-> +        f,
-> +        "Kernel reserved node [0x{:016x};0x{:016x}]",
-> +        kva.addr(),
-> +        kva.addr() + kva.length(),
-> +    )?;
-> +
-> +    writeln!(f, " VAs | start              | range              | end   =
-             | object             | object offset")?;
-> +    writeln!(f, "-------------------------------------------------------=
-------------------------------------------------------")?;
-> +    for va in vm.gpuvm_core.lock().va_mappings() {
-> +        f.write_fmt(fmt!(
-> +            "     | 0x{:016x} | 0x{:016x} | 0x{:016x} | {:18p} | 0x{:016=
-x}\n",
-> +            va.addr(),
-> +            va.length(),
-> +            va.addr() + va.length(),
-> +            va.obj().as_raw(),
-> +            va.gem_offset(),
-> +        ))?;
-> +    }
-> +    Ok(())
-> +}
+On Mon May 18, 2026 at 12:04 PM CEST, Uwe Kleine-K=C3=B6nig (The Capable Hu=
+b) wrote:
+> I was unsure if I should split the patch. I guess doing all of
+> drivers/gpu/drm/bridge together is fine, please tell if I should split
+> off drivers/gpu/drm/nouveau/ and/or drivers/gpu/drm/sitronix/.
 
-Why is this code duplicated? The implementation already exists in [1].
-
-[1] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/gpu/drm/drm_debu=
-gfs.c#L209
+Acked-by: Danilo Krummrich <dakr@kernel.org>
