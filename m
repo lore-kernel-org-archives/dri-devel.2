@@ -4,48 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B36DDCD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 17:55:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE17CD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 17:59:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05BF810E956;
-	Mon, 18 May 2026 17:55:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3BF110E958;
+	Mon, 18 May 2026 17:59:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mCLv/GGp";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="J+AcTKlf";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66E0010E956
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 17:55:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779126912;
- bh=/1ILoxpmqZWfAumf47v8TGHhvAX8kM6JHCgLHG3kEHk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mCLv/GGpSZ22RKNf9pftuH/DsK49k2rkxzyq60wyL91LxfYmhCV9xu93YIZrjtuia
- 01pkBW5GA3Br666jMtgf1VI6eHgfIM7tMvi0LCdMNmh9yYQgbPBtlQTazSTfTDOolM
- RZ+O4JPxaYgpakfW5lXbUKrRX014aT25MQS6vXq0zknT1mXffWapgyhcoeGpc4pGff
- VDMLP+u6XOK1ew7qtBghkbjTPVnOKb2/Rwk3NfLz2CLFUag2lb6uQlkhlR0A5zXEbr
- QKKhDiFjHzuK2Mp87ZZLis9LKCh4jFr/1f4nrNix4DbrPOzOQSrvwKOAyF+I4YBQvA
- zPQ1yvQMrwmAQ==
-Received: from archlinux (unknown [100.64.1.80])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: leandrohrb)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A2A1F17E0246;
- Mon, 18 May 2026 19:55:08 +0200 (CEST)
-From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: airlied@gmail.com, daniels@collabora.com, jani.nikula@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- pekka.paalanen@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
- ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] drm: ensure blend mode supported if alpha exposed
-Date: Mon, 18 May 2026 14:54:29 -0300
-Message-ID: <20260518175429.80615-3-leandro.ribeiro@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260518175429.80615-1-leandro.ribeiro@collabora.com>
-References: <20260518175429.80615-1-leandro.ribeiro@collabora.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3E310E958
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 17:59:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779127185;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=j4sNqFFdBJ8b21DSexy1vR9Tkhrd1gBVC1evlaHSZRo=;
+ b=J+AcTKlfhmg1ndbxWzfX6hcYMT7X8ocr6KV7VDZPxx1+Fx4xm7Nk1XAq3EWJYrp9OZBxgn
+ k3PsSkA4Cn1mA+OUl/YJuQhRw2OA7ZtL8ff0s11pia2XveFyGKru8IJ7TCYdpDuL57BiT9
+ CV8eejCbzTv0SunJJjb3ikIffezfn8M=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-424-EUKwTF3QO8K58MsCq1IxEA-1; Mon, 18 May 2026 13:59:44 -0400
+X-MC-Unique: EUKwTF3QO8K58MsCq1IxEA-1
+X-Mimecast-MFC-AGG-ID: EUKwTF3QO8K58MsCq1IxEA_1779127183
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-8acafc224a8so88336626d6.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 10:59:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779127183; x=1779731983;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=u8nJotCS5ieH4qI/fVkCf7erQnf4wXUQWNAiQ92BJeI=;
+ b=jzKYvcGYAJsxiGFzFRpAdYvSI+tEERRFU76++FHw3dQVDed4Z0xTqi0JfzYU6tOsr8
+ Raq3oQOSGWyQx3YHOHBtWgOmFUq2MQ36WUd1PE1gnfgJEKwtWmjJRke2LgrslavM/CT8
+ xnLM/dP1L3kwHwKwvUEAx6v5E0GEexgwo7G/P1PmpODhTsgdwggPJmNqiTD7cA6yRNKh
+ LUhIMGlQh79evB2F92/CuyAD5J/E27DGWdL7j2DFno0Mr4/p7xRIsX1whWaAiFMCCS2i
+ sSopJO1i4qopfc/EF378s7s7bnREaDvTy87TobYunugSHoL0LsNmN4cA1e/JkcIXYmSD
+ acgQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8DTs/6YqgQIDMggIwGLASfkef3nBYZuuRV0a/VqZPcs9l4E94Xwy5IkOxdxN84eE5cHWacO+jtScU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNteLfZrLOJbBuP/F9kzg6kfdb0HEHB6jPC2/YQDhuIN/jkai+
+ 80s+fnF+9S77d53PDZ7M3DlFzbJ1yAnvjFxoslkTkJVBmLeYi+BYyjh44eaF+dkHvkqgYPPqpCi
+ 6B5rTTZiG+qm5BAFlYAplzDQRi35aXsLGJInJQZ2HyFwGkFQDaxm5ArHmZYH9QPcgKw8VBw==
+X-Gm-Gg: Acq92OEWC/38PPHp8sF1iykzw39gBpZGO6uF+Ao8D6yfIHqfj8I4SdcKpffZND/HxP/
+ 3PcEAQdBkUkLkUd6fOdEBB49buL+6O3BSdvjGk9RABL9tivgB6PcjAfRdI80y7r3P6fPcKMWIPl
+ T4ZUI+kI5aesGAmuCZAwLfHmmPnlrtkrvRoqx1sLDXwJhq/p/ts0lFzVtnOCTW7Gu2kKWNHfnfi
+ kLc+ai7dYqyEIgY/uWlT3Oo6RdYnX24fE0R6qsjfIzFl6D5MT4CCnd1nB6/xgMfYD+x9mZkMYXv
+ mvmtDhVY6qxRGbvTsdPzSVG8eA+8nQMmLFZjhlgVl+aJ02Pppz2f+7tbw3Izi5R0Nc9kMx/bLs2
+ Nl7lkzzpdZPOsx5SS+A==
+X-Received: by 2002:a05:6214:5e06:b0:8ca:1f6b:a27d with SMTP id
+ 6a1803df08f44-8ca1f6ba690mr181285006d6.20.1779127183530; 
+ Mon, 18 May 2026 10:59:43 -0700 (PDT)
+X-Received: by 2002:a05:6214:5e06:b0:8ca:1f6b:a27d with SMTP id
+ 6a1803df08f44-8ca1f6ba690mr181284626d6.20.1779127183069; 
+ Mon, 18 May 2026 10:59:43 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8ca3619c7d9sm62373116d6.36.2026.05.18.10.59.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2026 10:59:42 -0700 (PDT)
+Message-ID: <04a87b5cebc6aeea103997c453e0487ffee70022.camel@redhat.com>
+Subject: Re: [PATCH v2] drm/dp/mst: fix OOB reads on 2-byte fields in
+ sideband reply parsers
+From: lyude@redhat.com
+To: Ashutosh Desai <ashutoshdesai993@gmail.com>, 
+ dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org, airlied@gmail.com, daniel@ffwll.ch, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch, linux-kernel@vger.kernel.org
+Date: Mon, 18 May 2026 13:59:41 -0400
+In-Reply-To: <20260510203128.2884846-1-ashutoshdesai993@gmail.com>
+References: <20260510203128.2884846-1-ashutoshdesai993@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: wJI3_QFBmf91QGZ_kaBwopFvpX2LMwBnb7vrcav5n8A_1779127183
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,120 +102,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Before "drm/drm_blend: allow blend mode property without PREMULTI",
-userspace would have to assume that only PREMULTI was supported by
-drivers that didn't expose the blend mode property. But now userspace
-shouldn't relly on that, as they can't count with drivers always
-supporting PREMULTI.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Error out if a driver expose alpha property or pixel formats with alpha
-and does not expose the blend mode property. This way userspace don't
-have to guess. Drivers that hit such error must be fixed.
+Will push to drm-misc-next in just a moment
 
-Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
----
- drivers/gpu/drm/drm_crtc_internal.h |  2 +-
- drivers/gpu/drm/drm_drv.c           |  7 ++++--
- drivers/gpu/drm/drm_mode_config.c   | 37 +++++++++++++++++++++++++++--
- 3 files changed, 41 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-index c09409229644..2a4862202496 100644
---- a/drivers/gpu/drm/drm_crtc_internal.h
-+++ b/drivers/gpu/drm/drm_crtc_internal.h
-@@ -95,7 +95,7 @@ int drm_mode_setcrtc(struct drm_device *dev,
- /* drm_mode_config.c */
- int drm_modeset_register_all(struct drm_device *dev);
- void drm_modeset_unregister_all(struct drm_device *dev);
--void drm_mode_config_validate(struct drm_device *dev);
-+int drm_mode_config_validate(struct drm_device *dev);
- 
- /* drm_modes.c */
- const char *drm_get_mode_status_name(enum drm_mode_status status);
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 985c283cf59f..def78046a963 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -1059,8 +1059,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 	const struct drm_driver *driver = dev->driver;
- 	int ret;
- 
--	if (!driver->load)
--		drm_mode_config_validate(dev);
-+	if (!driver->load) {
-+		ret = drm_mode_config_validate(dev);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	WARN_ON(!dev->managed.final_kfree);
- 
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index 66f7dc37b597..18c6b5707532 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -674,16 +674,45 @@ static void validate_encoder_possible_crtcs(struct drm_encoder *encoder)
- 	     encoder->possible_crtcs, crtc_mask);
- }
- 
--void drm_mode_config_validate(struct drm_device *dev)
-+static int plane_alpha_require_blend_mode(struct drm_plane *plane)
-+{
-+	struct drm_device *dev = plane->dev;
-+	const struct drm_format_info *fmt;
-+	u32 i;
-+
-+	/* blend mode property supported, no need to check anything */
-+	if (plane->blend_mode_property)
-+		return 0;
-+
-+	if (plane->alpha_property) {
-+		drm_err(dev, "[PLANE:%d:%s] alpha property exposed but blend mode not setup",
-+			plane->base.id, plane->name);
-+		return -EINVAL;
-+	}
-+
-+	for (i = 0; i < plane->format_count; i++) {
-+		fmt = drm_format_info(plane->format_types[i]);
-+		if (fmt->has_alpha) {
-+			drm_err(dev, "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup",
-+				plane->base.id, plane->name);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int drm_mode_config_validate(struct drm_device *dev)
- {
- 	struct drm_encoder *encoder;
- 	struct drm_crtc *crtc;
- 	struct drm_plane *plane;
- 	u32 primary_with_crtc = 0, cursor_with_crtc = 0;
- 	unsigned int num_primary = 0;
-+	int ret = 0;
- 
- 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
--		return;
-+		return ret;
- 
- 	drm_for_each_encoder(encoder, dev)
- 		fixup_encoder_possible_clones(encoder);
-@@ -732,9 +761,13 @@ void drm_mode_config_validate(struct drm_device *dev)
- 	drm_for_each_plane(plane, dev) {
- 		if (plane->type == DRM_PLANE_TYPE_PRIMARY)
- 			num_primary++;
-+
-+		ret |= plane_alpha_require_blend_mode(plane);
- 	}
- 
- 	WARN(num_primary != dev->mode_config.num_crtc,
- 	     "Must have as many primary planes as there are CRTCs, but have %u primary planes and %u CRTCs",
- 	     num_primary, dev->mode_config.num_crtc);
-+
-+	return ret;
- }
--- 
-2.54.0
+On Sun, 2026-05-10 at 20:31 +0000, Ashutosh Desai wrote:
+> Three sideband reply parsers read 16-bit fields as:
+>=20
+> =C2=A0 val =3D (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+>=20
+> and check bounds only after the fact. When idx =3D=3D raw->curlen,
+> raw->msg[idx+1] reads one byte past the received message data into
+> the following struct fields (curchunk_len, curchunk_idx, curlen).
+>=20
+> Affected functions:
+> =C2=A0- drm_dp_sideband_parse_enum_path_resources_ack()
+> =C2=A0=C2=A0 full_payload_bw_number and avail_payload_bw_number fields
+> =C2=A0- drm_dp_sideband_parse_allocate_payload_ack()
+> =C2=A0=C2=A0 allocated_pbn field
+> =C2=A0- drm_dp_sideband_parse_query_payload_ack()
+> =C2=A0=C2=A0 allocated_pbn field
+>=20
+> Fix by using a single combined check (idx + 2 > curlen) before each
+> 2-byte read. Since the check is strictly tighter than idx > curlen,
+> no separate step is needed.
+>=20
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
+> ---
+> Changes in v2:
+> - Drop separate idx > curlen check immediately before idx + 2 >
+> curlen;
+> =C2=A0 the combined check strictly subsumes it (Lyude Paul)
+>=20
+> =C2=A0drivers/gpu/drm/display/drm_dp_mst_topology.c | 17 ++++------------=
+-
+> =C2=A01 file changed, 4 insertions(+), 13 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index 9416a48804c8..6e7896193772 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -925,16 +925,13 @@ static bool
+> drm_dp_sideband_parse_enum_path_resources_ack(struct drm_dp_sideband
+> =C2=A0=09repmsg->u.path_resources.port_number =3D (raw->msg[idx] >> 4)
+> & 0xf;
+> =C2=A0=09repmsg->u.path_resources.fec_capable =3D raw->msg[idx] & 0x1;
+> =C2=A0=09idx++;
+> -=09if (idx > raw->curlen)
+> +=09if (idx + 2 > raw->curlen)
+> =C2=A0=09=09goto fail_len;
+> =C2=A0=09repmsg->u.path_resources.full_payload_bw_number =3D (raw-
+> >msg[idx] << 8) | (raw->msg[idx+1]);
+> =C2=A0=09idx +=3D 2;
+> -=09if (idx > raw->curlen)
+> +=09if (idx + 2 > raw->curlen)
+> =C2=A0=09=09goto fail_len;
+> =C2=A0=09repmsg->u.path_resources.avail_payload_bw_number =3D (raw-
+> >msg[idx] << 8) | (raw->msg[idx+1]);
+> -=09idx +=3D 2;
+> -=09if (idx > raw->curlen)
+> -=09=09goto fail_len;
+> =C2=A0=09return true;
+> =C2=A0fail_len:
+> =C2=A0=09DRM_DEBUG_KMS("enum resource parse length fail %d %d\n",
+> idx, raw->curlen);
+> @@ -952,12 +949,9 @@ static bool
+> drm_dp_sideband_parse_allocate_payload_ack(struct drm_dp_sideband_ms
+> =C2=A0=09=09goto fail_len;
+> =C2=A0=09repmsg->u.allocate_payload.vcpi =3D raw->msg[idx];
+> =C2=A0=09idx++;
+> -=09if (idx > raw->curlen)
+> +=09if (idx + 2 > raw->curlen)
+> =C2=A0=09=09goto fail_len;
+> =C2=A0=09repmsg->u.allocate_payload.allocated_pbn =3D (raw->msg[idx] <<
+> 8) | (raw->msg[idx+1]);
+> -=09idx +=3D 2;
+> -=09if (idx > raw->curlen)
+> -=09=09goto fail_len;
+> =C2=A0=09return true;
+> =C2=A0fail_len:
+> =C2=A0=09DRM_DEBUG_KMS("allocate payload parse length fail %d %d\n",
+> idx, raw->curlen);
+> @@ -971,12 +965,9 @@ static bool
+> drm_dp_sideband_parse_query_payload_ack(struct drm_dp_sideband_msg_r
+> =C2=A0
+> =C2=A0=09repmsg->u.query_payload.port_number =3D (raw->msg[idx] >> 4) &
+> 0xf;
+> =C2=A0=09idx++;
+> -=09if (idx > raw->curlen)
+> +=09if (idx + 2 > raw->curlen)
+> =C2=A0=09=09goto fail_len;
+> =C2=A0=09repmsg->u.query_payload.allocated_pbn =3D (raw->msg[idx] << 8)
+> | (raw->msg[idx + 1]);
+> -=09idx +=3D 2;
+> -=09if (idx > raw->curlen)
+> -=09=09goto fail_len;
+> =C2=A0=09return true;
+> =C2=A0fail_len:
+> =C2=A0=09DRM_DEBUG_KMS("query payload parse length fail %d %d\n",
+> idx, raw->curlen);
 
