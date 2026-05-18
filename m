@@ -4,118 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3624CD343F
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 21:17:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B52E3CD343F
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 22:06:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35F9310E0C0;
-	Mon, 18 May 2026 21:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16F5A10E086;
+	Mon, 18 May 2026 22:06:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="byu43w9a";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IQFmdHOx";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IW/k47oS";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D25410E0C0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 21:17:40 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-488940ccfa6so105e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 14:17:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779139059; cv=none;
- d=google.com; s=arc-20240605;
- b=gA2hXBrsk8ECgmuClnm27aqUqfhmq1ZK/SfrEGpJHO/tm0seatgZvKaXYvQq2dcx/R
- p8F66ANSuBk/o0I+H27Se7IUvJZcKL9IPw0Me0D1goWG/GKma3xbD1kAxNiMRKeqv6xQ
- oaMZEZzDaHndCQr1V3EQ4JjdEZAHSit/z6sRjXe2R3M2H+x2tcU7yt5XcK5hDun4lp6c
- O4AparzYnbDxgjknPFB3DhkUvFyLaCGCBdvAjtPFmovuihf3JZ1OGI8WA1iWCBbnB86i
- cpH90kqYiiyFTUHwGVHDki7+Ej016k19dOJet3uTh3yzZoRniZHG8WcLe2EqZj6QcCy4
- cOjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=log57cx8SdjIr5w2o2XwNSf2dPRv6imxY1LxmZJSaF0=;
- fh=Qjr+1DMwWdmdoWVoCD7lZ5y9rWAKKbMflditr/jgiSI=;
- b=ewS+xl2vNX9Tr7iXvLYbdnhRRLaOduDJ5PCvtNWN86H0HOqubQvy7sgjOjfUYssPL6
- ry6sz6GP9AerGI5batDsy9lahtemyUMJmTFpTa3WrzHzTjk/6YEgcZeXMVhFsgxYD7HN
- 4sOXciSDlHnBbLCoomKFfMjGxIWofmsFPXAOOtvMtkBPChOvH+7fHq+4LUf6WyFds1uC
- sN5MylBVt9y58p7TCYmEqPZKdGY2qFYkHVkSu1+HbnbswqufCLdogX3QxJL540rnv8Wy
- 361z4zyYyK5ZM0y/8Hmgg0TSJoU8FXWU0AB7l4/DQkSASrdh7rNsT783tY1dISy6G89U
- f4/g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAB0E10E34D
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 22:06:01 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64IHGuB82083092
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 22:06:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=JIJpag4IKBHS2NicIuKqeOID
+ rWkd8Nnw40za2QOynbQ=; b=IQFmdHOx/4qj0UzdCqejB0i/f3FtsBfQuy2Cp3sp
+ wZu31uMEJ605riwKW0zxt/T8wLmYfR2uSfR3UMH/gcgelHe/ncTf94IrLWxzNN8n
+ 0fHTbx/ucBB5LIakZKqXdPwSz/Sz99ipibGJloZV77v3Rt6TvmMsi7tsgejI5xWk
+ m1gvalzFlNB1LrDbdGIpkglSAHs1REYk20u8a+YxpqFgzLMRyNyzYccE5aWs7cyG
+ IALPWkolsS0VqDAnx896njujJ1DLxkeJ458rPOjxSypEfFN315p1KYVwARkyKIp7
+ NVs/wgBjZidkI1agcoCbxKAAqN5odE41qb+sY2rzysEYhQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e81chafav-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 22:06:00 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-5162ee45a77so78981391cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 15:06:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1779139059; x=1779743859;
+ d=oss.qualcomm.com; s=google; t=1779141960; x=1779746760;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=log57cx8SdjIr5w2o2XwNSf2dPRv6imxY1LxmZJSaF0=;
- b=byu43w9at+YDogwkwRD8bpjA+AG3ltiQ+EV/QiWpmaT9TqvbiVpw0WjQdy0+eI61l4
- AjslTSdlhIIu9zQJ0ZnieL9v7u+Lygn183AEedfj9xwMvAPlQSf7I+8S3usnaWb7hEeD
- AKa3eWJxLJVttKAAc1qng1cGG06Qa/LpeijRoUDpY7YsE2OBpU1z61mdeqoMnJXJMs4g
- oWJqiQDCE83NWWgaD7+jwrKMD5I35qdjAQYsutjl4ooLrn2m4xw9j7K/jJHTzd1z+Lc1
- 4oYb4YrfvShy+Wh2d7LWrgFvSNBs4qntBrIn71vbbmgD78hLNyiWfZ3sWd+FW6hXM6v8
- AehA==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=JIJpag4IKBHS2NicIuKqeOIDrWkd8Nnw40za2QOynbQ=;
+ b=IW/k47oSTwzuibv9aMV2Vge6CcEuHcbj8/JKQC0gb4ito1hiktYAT1heLbReleXhhw
+ K876NvUhXI3tu8l8VUI5h1674gGPdAvA5RbtDOH2N37KsLG1QdmbyUcNEXLNRLbsi/zZ
+ vQm4/enU2d90beU32ECA7NGl4TOJaaacjt6VS4prbmrHjPnODFeR9hIZ/dghc4EPkbkL
+ Zw3kGpLakOLrksPx13Yj7UbYBetyQ7fcTZOnOdw6lRjV9dG5MenR+yad2l5O5F+N1nOR
+ krLglAIjq2Hhq0y/wGRYzi+k5DBBy9vv8KMf2UI4Vwf1A8RDbrib1k8vFrx1fRU5suna
+ /ZTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779139059; x=1779743859;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=log57cx8SdjIr5w2o2XwNSf2dPRv6imxY1LxmZJSaF0=;
- b=n/4gVgix8bUyBNaA5OXvpc628NDROMrlFiuI5qW6NhGn4I2seRMqylIC9uw8SbuJBD
- H2NRijTKhMapb/p9OqUGJ+wprNYj+hyR53hCWsCO6ctLFkHWkE18XcfHMLmssVOZsZYQ
- rXvtifB8t16S6J4m8fmoKCI0SJ+sQJeYpT6e6co+ndDsCW8KOK3SX4kihWm+AZ26F/f0
- O/jAfdBYIq75VnTJFkz0+Tmaryuv+tKANfW4pSCAG+pdbVrRiXrk74lh4k5Fp4WQuaiH
- TSlEByoc19KBIlIsc7rFlwziH6tqkVenhQRWZQzDyxyGFq0oaTnpf/ST6jrI5DPREeoW
- wgKQ==
+ d=1e100.net; s=20251104; t=1779141960; x=1779746760;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JIJpag4IKBHS2NicIuKqeOIDrWkd8Nnw40za2QOynbQ=;
+ b=CK6C6qV+XqCJHJ2UWrHfAcDwLqSj+jrIWQ7vLfdgtM90LNLauR37kAQQaz/UN49Zrl
+ emga+0RosZBpToZvzzsgfQdSIHy/UHhRVJkXDVukRb51CAH1FFi36DQ2nlpZ5NIAUXHl
+ NrB/3ZtGGzkOwsEjYJAzjvN3hz6oWb7e57Aaaqjh2zyUoyPLzMR3DUa7DTOgKKbWv6J5
+ jEYXaj6bbcNK3EUDixsfC6zzpA7i+e0hJ2rf4Qim8PBt9rtkH0AYWWojfbu11cNmg+WC
+ X87o5ZWRzkh+AUvLfpdNXy3NZq3j4TWJez4icGITqeWlUqZqAQ5cbPeoHaYZQMRbYp2b
+ yfLA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+foW7KJbHKqsq2/pnaIMFWOAd8N5DpWcOAebkOGzT98VZPykrnZsRW/aK1f4MNBlVWF+77cDatBCQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxiev2F17sK0GrVrtxK1NRo4UTpyLGrOlIrV9Q4wUhIaEJbgbac
- zeYPqExIF3I8HV0TPE7QPRfPrqAE0+7dgU5rk3gyxYt96PpffAL5BWfKSFg+R1Mkr4oXRMhaekL
- mWAfVopNbKfpDJkEBPd2xTudgzxd1osRo1jUu1L3e
-X-Gm-Gg: Acq92OFN/+JT8lUMo3ZMyFuDY+UkhAROF/bt3MtLYOYvFz0eHQLvDwnUvnAZY3jorqs
- bpvZkkfu7tTh9A7Qu3aPRiviTm38O8TMNsXk8ZoDA0vgWR7DmVHiyefK6cBsL27969jPucFXKv1
- fhq6ThhvfMOzGvOJnKtli/z673iJmj2JWzwvI3GqMs6wAtWlOpSBC6ECk0s9yJtvTFMxLtzcROe
- C+bgNwZ/1exE30h1YPaaSDMjMHCNeOpSF7J33vm8cvlxy9f8DFn2ocCRwVO1d7qonYrlSP4pN0I
- Iz8NtuVyvOfmlC5Mv1rwI71WyZonQssegPJoiMpcOrtfIm5TzBWQfSe0om8=
-X-Received: by 2002:a05:600c:5888:b0:45f:2940:d194 with SMTP id
- 5b1f17b1804b1-48ffa5a3865mr1584195e9.2.1779139058579; Mon, 18 May 2026
- 14:17:38 -0700 (PDT)
+ AFNElJ8U0wzs0nmAm1CH9Sl0UtD5pnaPsrtMAUXV4BSqn9nhSUbDSRezMd7Uok/RL8xbIlKPSO+5i0X5pQA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxgk2RCD9cINYyMIpg9LHu/SAIXvNtWTRQIlmCEasNZWnn9kIGT
+ wJWFH8nNHbushshMPQwnX9xMJgy9uVHeEqDbT7gxPvnAkGMBgsHHN5FExIrJfIf48c2Mrxse0FU
+ +y2zi67cVwNk4rvTDz5GkKKsZcb/aV1xvO2ZHPV/WqWTLSSdyl68Sz8Nuwz6ddlSlR+Vaiio=
+X-Gm-Gg: Acq92OEO+TLqDQkp5a+IjJV4+aeO49eek49coxW1y/ITKY60SAp5LriwBA4+3oKINKk
+ 0NznVbZTh3Cp4ID+UuYcimc3TjytiWcbLVmCfbDPK0iPbUEMmuE3WTzwWaI6FKVMfympGNdT0v2
+ n45ZxdtlUShfHFvLLm5q8fxG9jfWc6OUidGIWEwxjuj14zuk7Tc4OoiblL3k2KUPPc+S7uzvxxg
+ Y6xh38+XH/A8Ebuw4nUOEEV7y7nHMbOeZ88f6jh1I+PKr3Z67S/5vXqkY0P8wU3SuihwQPrmZM9
+ dbo7L5qxkr0q7GWOprsOmaCLqUj0jHUl8K7/9YzcVIewT3vpLcng3kjFfvZb0u5Q1Gl+sVmyml2
+ emkwoJVTI9EknVtY0wESIwq3CeIMb4qZlcZeuiTnqs0hg4uodLXes2u7H0FRVOOhw6LwnQKEcFN
+ jtvGMDh2nJ7ppSf/5NIzrRBXyw1c0a6HGNJVI=
+X-Received: by 2002:ac8:7c4e:0:b0:50e:5cea:a519 with SMTP id
+ d75a77b69052e-5165a002a69mr244016091cf.12.1779141960173; 
+ Mon, 18 May 2026 15:06:00 -0700 (PDT)
+X-Received: by 2002:ac8:7c4e:0:b0:50e:5cea:a519 with SMTP id
+ d75a77b69052e-5165a002a69mr244015631cf.12.1779141959750; 
+ Mon, 18 May 2026 15:05:59 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a9164bc440sm3589514e87.51.2026.05.18.15.05.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2026 15:05:58 -0700 (PDT)
+Date: Tue, 19 May 2026 01:05:56 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Souradipto Das <souradiptodas6@gmail.com>
+Cc: stefan@agner.ch, alison.wang@nxp.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/fsl-dcu: Remove redundant unregister call in
+ connector destroy
+Message-ID: <vqskr4uqhd5bfm5jc2hbyagodmcakfqsygipnnj7gfe3srqjgm@kv7jb4hge4ec>
+References: <20260518200755.5389-1-souradiptodas6@gmail.com>
 MIME-Version: 1.0
-References: <20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com>
- <20260512-v2_20230123_tjmercier_google_com-v1-2-6326701c3691@redhat.com>
- <8ef38815-6ae9-4359-86d4-042554357639@amd.com>
- <CABdmKX2uwZ12kYJYPJGfWxuMBOJS=64b1GRj72tfB5D=NKM22w@mail.gmail.com>
- <CAGsJ_4zjrFJYQQsLThTGXR6g+2PXzeAhjyDpLHfDFqVViWvyBQ@mail.gmail.com>
- <CABdmKX0gqg309hcXcOHSj_yTg0h1zwDL34GDk8mX3wp4YoyfDg@mail.gmail.com>
-In-Reply-To: <CABdmKX0gqg309hcXcOHSj_yTg0h1zwDL34GDk8mX3wp4YoyfDg@mail.gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Mon, 18 May 2026 14:17:26 -0700
-X-Gm-Features: AVHnY4KTHXYs5nrbWVXYvXQ9l6M2g--DIK3-AK3RR8R_cqbjNyBgiR1O8BbuYxI
-Message-ID: <CABdmKX3wwgovwS-V8rVC3=+EZcTvPs_cttpQb1w6WemwLAVhsw@mail.gmail.com>
-Subject: Re: [PATCH RFC 2/5] dma-heap: charge dma-buf memory via explicit memcg
-To: Barry Song <baohua@kernel.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, 
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, Christian Brauner <brauner@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Ondrej Mosnacek <omosnace@redhat.com>, Shuah Khan <shuah@kernel.org>,
- cgroups@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, 
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, mripard@kernel.org, echanude@redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260518200755.5389-1-souradiptodas6@gmail.com>
+X-Authority-Analysis: v=2.4 cv=a4MAM0SF c=1 sm=1 tr=0 ts=6a0b8d48 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=gKvw02I0i8aR3cq_mwEA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDIxOSBTYWx0ZWRfXw3ZlMKulcy2h
+ 24R+l8hiOCMZLRWfohxmKbddwRVYq/x2G1mXEwKlR32QvbXTnNjEGBDH/5rAjxdLam07yfTHjTj
+ Ef1aty96uOVtrDrvz47CRJc4PG4+oNgKbAlqxrTvQQlurIwZHcSqpFmU1FScJzCFM6xmHAn+Bts
+ n3Ho7pZ+ggZGmiMBOf6UgDzIfD4YnC561uI83L4QZpJIccwzE6EoEkHSy6vgzJ5/S6taE0o494l
+ qelBgwGc+3MQLREAIiv6re304tIpispUQA2vKkfKvq/UMsK7h4t80fS2pyHzndBT5NYAUbTbrtj
+ C2MFcwOybUW5ozDq4NSreky8e3LDzsvS3CfNUhs89RVg+vZzRQp1FKf0Pz71OJhQeVv8JYIOfQA
+ U8RbqlPQjRBPqNItM33yoWoLz2gaB2dw07FFZ0JIGRaFhBtbrSN69DkzSoltGEJ9PruUX5QUkv3
+ cNPVujQgYRP93DQAExw==
+X-Proofpoint-ORIG-GUID: Y7WG0ocTP9Tgenuw4iGv_AE9JPWcsT03
+X-Proofpoint-GUID: Y7WG0ocTP9Tgenuw4iGv_AE9JPWcsT03
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_04,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 suspectscore=0 spamscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180219
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,144 +141,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2026 at 2:12=E2=80=AFPM T.J. Mercier <tjmercier@google.com>=
- wrote:
->
-> On Sat, May 16, 2026 at 1:40=E2=80=AFAM Barry Song <baohua@kernel.org> wr=
-ote:
-> >
-> > On Wed, May 13, 2026 at 2:54=E2=80=AFAM T.J. Mercier <tjmercier@google.=
-com> wrote:
-> > >
-> > > On Tue, May 12, 2026 at 3:14=E2=80=AFAM Christian K=C3=B6nig
-> > > <christian.koenig@amd.com> wrote:
-> > > >
-> > > > On 5/12/26 11:10, Albert Esteve wrote:
-> > > > > On embedded platforms a central process often allocates dma-buf
-> > > > > memory on behalf of client applications. Without a way to
-> > > > > attribute the charge to the requesting client's cgroup, the
-> > > > > cost lands on the allocator, making per-cgroup memory limits
-> > > > > ineffective for the actual consumers.
-> > > > >
-> > > > > Add charge_pid_fd to struct dma_heap_allocation_data. When set to
-> > > > > a valid pidfd, DMA_HEAP_IOCTL_ALLOC resolves the target task's
-> > > > > memcg and charges the buffer there via mem_cgroup_charge_dmabuf()
-> > > > > inside dma_heap_buffer_alloc(). Without charge_pid_fd, and with
-> > > > > the mem_accounting module parameter enabled, the buffer is charge=
-d
-> > > > > to the allocator's own cgroup.
-> > > > >
-> > > > > Additionally, commit 3c227be90659 ("dma-buf: system_heap: account=
- for
-> > > > > system heap allocation in memcg") adds __GFP_ACCOUNT to system-he=
-ap
-> > > > > page allocations. Keeping __GFP_ACCOUNT would charge the same pag=
-es
-> > > > > twice (once to kmem, once to MEMCG_DMABUF), thus remove it and ro=
-ute
-> > > > > all accounting through a single MEMCG_DMABUF path.
-> > > > >
-> > > > > Usage examples:
-> > > > >
-> > > > >   1. Central allocator charging to a client at allocation time.
-> > > > >      The allocator knows the client's PID (e.g., from binder's
-> > > > >      sender_pid) and uses pidfd to attribute the charge:
-> > > > >
-> > > > >        pid_t client_pid =3D txn->sender_pid;
-> > > > >        int pidfd =3D pidfd_open(client_pid, 0);
-> > > > >
-> > > > >        struct dma_heap_allocation_data alloc =3D {
-> > > > >            .len             =3D buffer_size,
-> > > > >            .fd_flags        =3D O_RDWR | O_CLOEXEC,
-> > > > >            .charge_pid_fd   =3D pidfd,
-> > > > >        };
-> > > > >        ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc);
-> > > > >        close(pidfd);
-> > > > >        /* alloc.fd is now charged to client's cgroup */
-> > > > >
-> > > > >   2. Default allocation (no pidfd, mem_accounting=3D1).
-> > > > >      When charge_pid_fd is not set and the mem_accounting module
-> > > > >      parameter is enabled, the buffer is charged to the allocator=
-'s
-> > > > >      own cgroup:
-> > > > >
-> > > > >        struct dma_heap_allocation_data alloc =3D {
-> > > > >            .len      =3D buffer_size,
-> > > > >            .fd_flags =3D O_RDWR | O_CLOEXEC,
-> > > > >        };
-> > > > >        ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc);
-> > > > >        /* charged to current process's cgroup */
-> > > > >
-> > > > > Current limitations:
-> > > > >
-> > > > >  - Single-owner model: a dma-buf carries one memcg charge regardl=
-ess of
-> > > > >    how many processes share it. Means only the first owner (and e=
-xporter)
-> > > > >    of the shared buffer bears the charge.
-> > > > >  - Only memcg accounting supported. While this makes sense for sy=
-stem
-> > > > >    heap buffers, other heaps (e.g., CMA heaps) will require selec=
-tively
-> > > > >    charging also for the dmem controller.
-> > > >
-> > > > Well that doesn't looks soo bad, it at least seems to tackle the pr=
-oblem at hand for Android and some of other embedded use cases.
-> > >
-> > > Yeah I think this might work. I know of 3 cases, and it trivially
-> > > solves the first two. The third requires some work on our end to
-> > > extend our userspace interfaces to include the pidfd but it seems
-> > > doable. I'm checking with our graphics folks.
-> > >
-> > > 1) Direct allocation from user (e.g. app -> allocation ioctl on
-> > > /dev/dma_heap/foo)
-> > > No changes required to userspace. mem_accounting=3D1 charges the app.
-> > >
-> > > 2) Single hop remote allocation (e.g. app -> AHardwareBuffer_allocate
-> > > -> gralloc)
-> > > gralloc has the caller's pid as described in the commit message. Open
-> > > a pidfd and pass it in the dma_heap_allocation_data.
-> > >
-> > > 3) Double hop remote allocation (e.g. app -> dequeueBuffer ->
-> > > SurfaceFlinger -> gralloc)
-> > > In this case gralloc knows SurfaceFlinger's pid, but not the app's. S=
-o
-> > > we need to add the app's pidfd to the SurfaceFlinger -> gralloc
-> > > interface, or transfer the memcg charge from SurfaceFlinger to the ap=
-p
-> > > after the allocation.
-> > > It'd be nice to avoid the charge transfer option entirely, but if we
-> > > need it that doesn't seem so bad in this case because it's a bulk
-> > > charge for the entire dmabuf rather than per-page. So the exporter
-> > > doesn't need to get involved (we wouldn't need a new dma_buf_op) and
-> > > we wouldn't have to worry about looping and locking for each page.
-> > >
-> >
-> > Hi T.J.,
-> >
-> > Your description of the three different cases sounds very interesting.
-> > It helps me understand how difficult it can be to correctly charge
-> > dma-buf in the current user scenarios.
-> >
-> > I=E2=80=99m wondering where I can find Android userspace code that tran=
-sfers
-> > the PID of RPC callers. Do we have any existing sample code in Android
-> > for this?
->
-> Hi Barry,
->
-> In Java android.os.Binder.getCallingPid() will provide it. Here
+On Tue, May 19, 2026 at 01:37:55AM +0530, Souradipto Das wrote:
+> Remove the explicit call to drm_connector_unregister() inside the
+> fsl_dcu_drm_connector_destroy() callback.
+> 
+> During driver unload, the DRM core automatically unregisters all
+> connectors via drm_dev_unregister() -> drm_modeset_unregister_all().
+> Later, when the connector reference count drops to zero during
+> drm_mode_config_cleanup(), the core calls drm_connector_free(),
+> which invokes the driver's .destroy callback.
+> 
+> Calling drm_connector_unregister() inside the destructor is
+> redundant as the userspace sysfs interfaces have already been
+> cleaned up.
+> 
+> Signed-off-by: Souradipto Das <souradiptodas6@gmail.com>
+> ---
+>  drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
 
-... let me try again
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Here are some examples from the framework code:
 
-https://cs.android.com/search?q=3DgetCallingPid%20f:ActivityManager&sq=3D&s=
-s=3Dandroid%2Fplatform%2Fsuperproject
-
-In native code we have AIBinder_getCallingPid and
-android::IPCThreadState::self()->getCallingPid() (or
-android::hardware::IPCThreadState::self()->getCallingPid() for HIDL)
-
-https://cs.android.com/search?q=3DgetCallingPid%20l:cpp%20-f:prebuilt&ss=3D=
-android%2Fplatform%2Fsuperproject
+-- 
+With best wishes
+Dmitry
