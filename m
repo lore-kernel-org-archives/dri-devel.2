@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 998F4CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:14:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3385CD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:14:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B2F710E9A6;
-	Mon, 18 May 2026 18:14:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 415FB10E9A8;
+	Mon, 18 May 2026 18:14:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="EY/BwkiJ";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="hyUFtzyz";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86D7610E9A6
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:13:46 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49EA610E9AB
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:14:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779128025; bh=3cI+jdj9ZYte4FwNaqyzMzzwM5GJ7XpjpxmuDl+jgno=;
- b=EY/BwkiJbWIIDrzUkWE575YdPe1vf0p36lGWxDJ89bbmFT/gw0iN7NyslXNI1W0Ker2SA/Zg+
- BT6o9nN8MtLW/n90jfjF16sU/C9e7UDp3gLSyP2ZYoRp4tBIx+nfQBVc+yWeRdr6tF7ji9+cDUm
- 2vpFVxCeMWBkOmeK2am3fvkTtAsgnwq5v0ul5+blF2UDHFbR8rLNA5D7WU4Y/U6WxKkCzqKshta
- /PQbSm/LJS9ylCUYuD9v+TSLsLFWm5ZX3RA0JQeix7HigBZ06a+cQfm4K3gHEnHPdOTFjfYcYvj
- QuNSN+bJi0holLSBbjGSUwIeAwgVELwN5LTWKJ7/UbyQ==
-X-Forward-Email-ID: 6a0b5461b84dbc72d2274f23
+ t=1779128091; bh=+tNbdHFGwve4PQpiDKk/njnhtvjRkwYwD94Sgvq2l/k=;
+ b=hyUFtzyzErcB7zcnwKwe5Xr+ZR7/V7KeERo5KAOjJXj3YD60EZwP36AIk0JD0DMOMWJXY89/P
+ N0mMSMGU6qw+gzEpGt+74s61AWtoz+Ua4L9iOV3gxoBM8eAtDLr5peO4kIxDqxXDZckRJZbvIAr
+ 2Xa4pHXp0TQnKaJ/au6fv5z28XbYAjhhvHJ7m3zdzZn272YZZiA4tbBgGCUy9feryUPzmtSzqud
+ L4WIQoD59tkT3Z+mz6xpF11jNQFBPeWEi4i65BDfGAZV3TeZ7HKbyB14swqNb9iBcMM1WDmI+jZ
+ qoBykplpZiNbpmgb0Gq2+VsrwDrHPClFu8VdoB6yNNtw==
+X-Forward-Email-ID: 6a0b5489b84dbc72d2275016
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 149.28.215.223
+ 121.127.44.73
 X-Forward-Email-Version: 2.8.12
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -53,10 +53,10 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v7 14/23] drm: bridge: dw_hdmi: Use display_info is_hdmi and
- has_audio
-Date: Mon, 18 May 2026 18:01:50 +0000
-Message-ID: <20260518180206.2480119-15-jonas@kwiboo.se>
+Subject: [PATCH v7 23/23] drm: bridge: dw_hdmi: Merge top and bottom half IRQ
+ handlers
+Date: Mon, 18 May 2026 18:01:59 +0000
+Message-ID: <20260518180206.2480119-24-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518180206.2480119-1-jonas@kwiboo.se>
 References: <20260518180206.2480119-1-jonas@kwiboo.se>
@@ -77,127 +77,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_edid_connector_update() is being called from bridge connector funcs
-and from detect and force funcs for dw-hdmi connector.
+The bottom half IRQ handler only modify delay of or queue a delayed work
+used for HPD handling. The mod_delayed_work() called is documented as
+being safe to call from any context including IRQ handler.
 
-Change to use is_hdmi and has_audio from display_info directly instead
-of keeping our own state in sink_is_hdmi and sink_has_audio.
+Merge top and bottom half IRQ handlers to simplify IRQ handling now that
+HPD event is handled using a delayed work.
 
-Also remove the old and unused edid struct member and related define.
-
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v7: No change, re-order patch
-v6: Collect t-b tag
+v7: No change
+v6: Collect r-b tag
 v5: No change
-v4: Collect r-b tag
-v3: No change
-v2: Collect r-b tag
+v4: New patch
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 32 ++++-------------------
- 1 file changed, 5 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 34 ++++++++---------------
+ 1 file changed, 11 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index a4ecf830103d..0e84dff72470 100644
+index c596534510da..99dd62b6becf 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -46,8 +46,6 @@
- #define DDC_CI_ADDR		0x37
- #define DDC_SEGMENT_ADDR	0x30
+@@ -2993,30 +2993,18 @@ static irqreturn_t dw_hdmi_hardirq(int irq, void *dev_id)
+ 	if (hdmi->i2c)
+ 		ret = dw_hdmi_i2c_irq(hdmi);
  
--#define HDMI_EDID_LEN		512
--
- /* DW-HDMI Controller >= 0x200a are at least compliant with SCDC version 1 */
- #define SCDC_MIN_SOURCE_VERSION	0x1
- 
-@@ -147,8 +145,6 @@ struct dw_hdmi {
- 
- 	int vic;
- 
--	u8 edid[HDMI_EDID_LEN];
--
- 	struct {
- 		const struct dw_hdmi_phy_ops *ops;
- 		const char *name;
-@@ -158,8 +154,6 @@ struct dw_hdmi {
- 
- 	struct i2c_adapter *ddc;
- 	void __iomem *regs;
--	bool sink_is_hdmi;
--	bool sink_has_audio;
- 
- 	struct pinctrl *pinctrl;
- 	struct pinctrl_state *default_state;
-@@ -2056,7 +2050,7 @@ static void hdmi_av_composer(struct dw_hdmi *hdmi,
- 		HDMI_FC_INVIDCONF_IN_I_P_INTERLACED :
- 		HDMI_FC_INVIDCONF_IN_I_P_PROGRESSIVE;
- 
--	inv_val |= hdmi->sink_is_hdmi ?
-+	inv_val |= display->is_hdmi ?
- 		HDMI_FC_INVIDCONF_DVI_MODEZ_HDMI_MODE :
- 		HDMI_FC_INVIDCONF_DVI_MODEZ_DVI_MODE;
- 
-@@ -2292,7 +2286,7 @@ static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
- 	if (hdmi->hdmi_data.enc_out_bus_format == MEDIA_BUS_FMT_FIXED)
- 		hdmi->hdmi_data.enc_out_bus_format = MEDIA_BUS_FMT_RGB888_1X24;
- 
--	hdmi->hdmi_data.rgb_limited_range = hdmi->sink_is_hdmi &&
-+	hdmi->hdmi_data.rgb_limited_range = display->is_hdmi &&
- 		drm_default_rgb_quant_range(mode) ==
- 		HDMI_QUANTIZATION_RANGE_LIMITED;
- 
-@@ -2312,7 +2306,7 @@ static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
- 	/* HDMI Initialization Step B.3 */
- 	dw_hdmi_enable_video_path(hdmi);
- 
--	if (hdmi->sink_has_audio) {
-+	if (display->has_audio) {
- 		dev_dbg(hdmi->dev, "sink has audio support\n");
- 
- 		/* HDMI Initialization Step E - Configure audio */
-@@ -2321,7 +2315,7 @@ static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
- 	}
- 
- 	/* not for DVI mode */
--	if (hdmi->sink_is_hdmi) {
-+	if (display->is_hdmi) {
- 		dev_dbg(hdmi->dev, "%s HDMI mode\n", __func__);
- 
- 		/* HDMI Initialization Step F - Configure AVI InfoFrame */
-@@ -2435,29 +2429,13 @@ static const struct drm_edid *dw_hdmi_edid_read(struct dw_hdmi *hdmi,
- 						struct drm_connector *connector)
- {
- 	const struct drm_edid *drm_edid;
--	const struct edid *edid;
- 
- 	if (!hdmi->ddc)
- 		return NULL;
- 
- 	drm_edid = drm_edid_read_ddc(connector, hdmi->ddc);
--	if (!drm_edid) {
-+	if (!drm_edid)
- 		dev_dbg(hdmi->dev, "failed to get edid\n");
--		return NULL;
+-	intr_stat = hdmi_readb(hdmi, HDMI_IH_PHY_STAT0);
+-	if (intr_stat) {
+-		hdmi_writeb(hdmi, ~0, HDMI_IH_MUTE_PHY_STAT0);
+-		return IRQ_WAKE_THREAD;
 -	}
 -
--	/*
--	 * FIXME: This should use connector->display_info.is_hdmi and
--	 * connector->display_info.has_audio from a path that has read the EDID
--	 * and called drm_edid_connector_update().
--	 */
--	edid = drm_edid_raw(drm_edid);
+-	return ret;
+-}
 -
--	dev_dbg(hdmi->dev, "got edid: width[%d] x height[%d]\n",
--		edid->width_cm, edid->height_cm);
+-static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+-{
+-	struct dw_hdmi *hdmi = dev_id;
+-	u8 intr_stat;
 -
--	hdmi->sink_is_hdmi = drm_detect_hdmi_monitor(edid);
--	hdmi->sink_has_audio = drm_detect_monitor_audio(edid);
+ 	/*
+ 	 * Interrupt generation is accomplished in the following way:
+ 	 *   interrupt = (mask == 0) && (polarity == status)
+ 	 * All interrupts are forwarded to the Interrupt Handler sticky bit
+ 	 * register ih_phy_stat0 and muted using the register ih_mute_phy_stat0.
+ 	 */
+-	intr_stat = hdmi_readb(hdmi, HDMI_IH_PHY_STAT0);
+-	if (intr_stat & HDMI_IH_PHY_STAT0_HPD) {
++	intr_stat = hdmi_readb(hdmi, HDMI_IH_PHY_STAT0) & HDMI_IH_PHY_STAT0_HPD;
++	if (intr_stat) {
+ 		enum drm_connector_status status;
  
- 	return drm_edid;
++		hdmi_writeb(hdmi, ~0, HDMI_IH_MUTE_PHY_STAT0);
++
+ 		/* Set HPD interrupt polarity based on current HPD status. */
+ 		status = dw_hdmi_phy_read_hpd(hdmi, hdmi->phy.data);
+ 		hdmi_modb(hdmi, status == connector_status_connected ?
+@@ -3028,12 +3016,13 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+ 
+ 		mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+ 				 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
++
++		hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
++		hdmi_writeb(hdmi, ~HDMI_IH_PHY_STAT0_HPD, HDMI_IH_MUTE_PHY_STAT0);
++		ret = IRQ_HANDLED;
+ 	}
+ 
+-	hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
+-	hdmi_writeb(hdmi, ~HDMI_IH_PHY_STAT0_HPD, HDMI_IH_MUTE_PHY_STAT0);
+-
+-	return IRQ_HANDLED;
++	return ret;
  }
+ 
+ static void dw_hdmi_hpd_work(struct work_struct *work)
+@@ -3343,9 +3332,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+ 	INIT_DELAYED_WORK(&hdmi->hpd_work, dw_hdmi_hpd_work);
+ 	disable_delayed_work(&hdmi->hpd_work);
+ 
+-	ret = devm_request_threaded_irq(dev, irq, dw_hdmi_hardirq,
+-					dw_hdmi_irq, IRQF_SHARED,
+-					dev_name(dev), hdmi);
++	ret = devm_request_irq(dev, irq, dw_hdmi_hardirq, IRQF_SHARED,
++			       dev_name(dev), hdmi);
+ 	if (ret)
+ 		goto err_res;
+ 
 -- 
 2.54.0
 
