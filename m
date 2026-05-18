@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20823CD4F52
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 09:11:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 622DECD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 09:13:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 891BC10E371;
-	Mon, 18 May 2026 09:11:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7FD710E4AE;
+	Mon, 18 May 2026 09:13:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZOC6Opvb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U9QdLm8x";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2769910E371
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:11:24 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-488a88aeec9so23978015e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 02:11:24 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44CE210E4AE
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:13:10 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-488b0046078so17753285e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 02:13:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779095482; x=1779700282; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=RUPmegXaiRoLRWLvDg/ljmtDOi29ffNPo2bGfVCm61A=;
- b=ZOC6Opvb5j948x3M/H4Y3DcmV916S31rt92JzA3Sh7g+azrwOnbRyBFdbt2sbKSSAb
- s900uYICdhMhnO/8vWRGDBPMZ7PQ/XVgArKV9bPZRJ0L9X+lt1H4waKN5YSDTf/kKg1g
- 9n/T5Xey2JZFcaH9WL7txhRVXdvuJ45uzpnn7lPB6VI+hg5b9Jz5xiEA+JcnOUvjkDcc
- sbdrXiE7fuKsAPzW2iKbBfD1IPLA7+6/ay0cRYtc8ZGf2bfPAXMLBL7BNnspNof5/l2x
- dznxkv2+tS+x/d+EFpyhP8zZO5jx4qOg26iQ63LTpmszhnZPTBiDthqKSyKFKHLSc5dF
- RS+A==
+ d=gmail.com; s=20251104; t=1779095589; x=1779700389; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xG/69Jp5I3ufceWw4+S4Fo/It8aPbBbD9UGvG/3mKFY=;
+ b=U9QdLm8xTxWEn6b1avuO++JG7gtRfPyxiffCQsG9N2b5/rjboBzWXrCGi3NNRhCY41
+ hHSH8qwZAiFWEQYMfAYvPIWvv0wIShJGQrBCvwF7NbHNYiqpDYfmv93aRIZnq81L62Cc
+ jrR2oGUYtXJWedL1z/CQqbtpXXKbmruTa7wQBxHyh/P4ROW7NjspggoFBbOpWDyLGB+L
+ pSrt6JGKDivd/Lefwy/BDIwPNHUcy6NgSMOhTf0VO7kFSZXLjuIkkgwxT/DvamE1hMlq
+ cO4brAW+e7SxtjtJ8CVxYjCccRuhK4KU+BUATcIP3uXq72FuBjmXHbF2LjeWWYmSNZ87
+ DDRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779095482; x=1779700282;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RUPmegXaiRoLRWLvDg/ljmtDOi29ffNPo2bGfVCm61A=;
- b=JDRDZvWrXXfViKjQUrbTSSDEXR2PkJ2xegJTaVzrSJ2r5Hk/OcQeH7OGNpa34fQCUU
- 2uj73kcLGUFF8icNm8yCYTw8z3tWyUIRUpupRfVCw8rCOk8hcsAzoaaQG7PEPo64glcp
- y5OyDHokpf7IzicIk/GH+M9tBQGMhHvYUaJeHDeWLunAmlxqhsdTchTXj39s823jGxQM
- zxCzR456wVpMQev4LWXID96pg80DqVpQacGwKZQF8G7ZIqA9HJa8T4BxY9XfhaDEiMW0
- RKHTpnRmEbP6tUtZs29KwIi2fyq7Zy8af+ladlJb3qcRcucRY99s04Ng+LfZP3Nf5VJ3
- 2lQg==
+ d=1e100.net; s=20251104; t=1779095589; x=1779700389;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xG/69Jp5I3ufceWw4+S4Fo/It8aPbBbD9UGvG/3mKFY=;
+ b=DTl0j5Qu3gEok9qNKifcBgTmFzMa96ixem+siVN/PwKHseBHvmEJgkicxxI9Fryaab
+ oR4e1bnXt1hZgqFlGjZMKfofn8IDrKqBFHgDkamWz86HlMn1db8CcjUGzdlIK/qB8asD
+ tHV25XojRSCzndWeeXOiXngui+oYb/l7txNaOS2eAl2VW11a6ZjZotUnz8YaAljJKfN7
+ RFu0KDi3dIPgF9KpX2KxcGLaVeiLBsCcxwK787Zv7OeZlDN5DdqPGR+6YCly8ZLfJHv4
+ gzhUKAxJOLV1diTk9huK+RuBKqiKIZQMkytOasfg2QJUWfilwb1eIx8FaR4zHfCq1lUg
+ /87A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ83VQKMuP1C0cH0MST8P5ZXspRTmdg2zMSSPjGV5WDP2B3WiEVueFx0vSWLD7/T2ZkNDh5FoxPoUAo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyLEIT3xW8jloYxrOqAqQ6KYMPbvwG+mjwJkfkaH2Qwj7NVENjE
- oeZOGm+5bbJQTyBjKfpHBoL/FptleOYzFQWgZNroKqFVAjIEbYVC6Mqu
-X-Gm-Gg: Acq92OGYAwAA9IOSxUndPuuCi0DsoC4QQYTkhqyEePSYzQuaDSebrdfvFNuhmvMXoBq
- gvX9TFe+MCbNQRqDIYwg2S5UpY0jtgFh3W9txJ+rqCaYG87neqG/Zy8qavys0rU8d+JD2WjeYCQ
- 3XLfgsV361MDDOm7w17dxF1e9m/Qgrz+sRAGwq1a/8B2MfHlpoD646sieJ2ZV/YzGmk3SY3rIgp
- 6cvYZrBno4Em7uq9zdMN5KtXjJMf2sFpjqVK5k0KEKd5lrjew+W++w2f9+9QpSpNXCC8PlTzpy8
- kJ/ocQC2d0wOjuk+9uBxKXeBaon9HmHhkeNPD6nKgTYzzrYlfSuIvy4jnt8XRLsrBfEP6U0CGJN
- hyC9bLcq35QY0PyZN0nADHvRDHlEGCUMDF+w4MPSStsh9y+I5A/r+/XeHxScXWKkvEGveUuAoIw
- EShhpEkKYYZ4/h3Fs3mTOfPXKfAbGpYxvJeqgjWeh4V63iY2T0AA4L6Y7begYR5u1JAlAmCqyIT
- Ai2JN/E/tUVyqyO1+cxmokluofdmw3QoKuqzl7P7ZneFTtCLIR9IstgEJQ=
-X-Received: by 2002:a05:600d:10:b0:48a:568f:ae6d with SMTP id
- 5b1f17b1804b1-48fe60e7d79mr178172895e9.8.1779095482306; 
- Mon, 18 May 2026 02:11:22 -0700 (PDT)
+ AFNElJ/s8yuPdw4rahd7Hi/sTTHL3OKQSlUUq3QvMF09P2d+WkcWsdri93fizkzhYR8/5etRnJgm3DwU6N0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxctyeR7nLVyEOZxT/+/yzvkOp9dL8M4kuiajI0WjFaNdLlyN0/
+ CWoXbrUP5CFTcDZK2rY0cguBhuFaDJR7ZnQa5aDUsH+HXE95vzTrXC/C
+X-Gm-Gg: Acq92OE5080YoNWQ8VF9B/Zr+tOIMVOaeRgNxjlikRKgVzlxY749o9qaZwY18xwJ4LH
+ uS7Qi+Kz3KhSh5zDrPSm3ApFfqUNkFXOmkpZIER+twFjLWlNekL2SIjMacPoAjxJ3SBhocCyF0Q
+ S/qYGVVoyyHElhLkK7YHoUAgaYhgXG6TWaBGwVqaxmIc6QJp7zK/uLF8gCW0pYFEyBmOjzZ1mBZ
+ eiJYji76duksSVeiDuuhD6S4cQOy8tF5kkA63Rw0c/sF0T6FMPVN97Tp8agKUcEDB4kEG9PiNc+
+ zr7nOqF4CluCU1O2r3T/KxeftV2w3mAa8rkH1wuVON21ESG8wNmQO8YvQ9usvtLqTiih65lPg54
+ byzPjtCrQKdWV/DhVBIR0AZBlxA9WosoIe0a0fGZesw5UxhuRGO9hpBYb7KadUO2vkxuPPgjQWV
+ ww++axwWM6CdWj/ztNnaEyw0fKBzRUJs2PFyeYu453//mpjM9O8pv09C2cgvq2ibUTlqXunKZuQ
+ IjduY0S214JUXBlMl1QgXfT9/++15iiegLCobmdNDVREpZOept9uFWTi6M=
+X-Received: by 2002:a05:600c:1d0d:b0:489:1ff1:74df with SMTP id
+ 5b1f17b1804b1-48fe5fcdf50mr205316035e9.1.1779095588623; 
+ Mon, 18 May 2026 02:13:08 -0700 (PDT)
 Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
  ([2620:10d:c092:600::1:6e9b]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48febe79ce3sm80272945e9.31.2026.05.18.02.11.20
+ ffacd0b85a97d-45da0fe13a7sm36837416f8f.29.2026.05.18.02.13.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 May 2026 02:11:21 -0700 (PDT)
-Message-ID: <d262dbc0-48c1-4994-917a-1f975c60b2af@gmail.com>
-Date: Mon, 18 May 2026 10:11:19 +0100
+ Mon, 18 May 2026 02:13:07 -0700 (PDT)
+Message-ID: <88576019-44fc-4614-9e89-a17478dbf340@gmail.com>
+Date: Mon, 18 May 2026 10:13:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Pavel Begunkov <asml.silence@gmail.com>
-Subject: Re: [PATCH v3 04/10] block: introduce dma map backed bio type
+Subject: Re: [PATCH v3 06/10] block: forward create_dmabuf_token to drivers
 To: Christoph Hellwig <hch@lst.de>
 Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
  Sagi Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -85,10 +85,11 @@ Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
  William Power <william.power@intel.com>, Phil Cayton
  <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
 References: <cover.1777475843.git.asml.silence@gmail.com>
- <646ecd6fde8d9e146cb051efb514deb27ce3883e.1777475843.git.asml.silence@gmail.com>
- <20260513083937.GD6461@lst.de>
+ <559756c5e22dcfa183080a979de039910d1b896d.1777475843.git.asml.silence@gmail.com>
+ <20260513082553.GB6461@lst.de>
 Content-Language: en-US
-In-Reply-To: <20260513083937.GD6461@lst.de>
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260513082553.GB6461@lst.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,17 +107,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/13/26 09:39, Christoph Hellwig wrote:
->> +	union {
->> +		struct bio_vec		*bi_io_vec;
->> +		/* Driver specific dma map, present only with BIO_DMABUF_MAP */
->> +		struct io_dmabuf_map	*dmabuf_map;
->> +	};
+On 5/13/26 09:25, Christoph Hellwig wrote:
+> On Wed, Apr 29, 2026 at 04:25:52PM +0100, Pavel Begunkov wrote:
+>> Add a trivial implementation of the create_dmabuf_token call for
+>> block devices that forwards the call to a new blk-mq callback if it's
+>> available.
 > 
-> ... and please add the bi_ prefix we're using for all (well except for
-> one oddity) fields in struct bio.
+> This should go into block_device_operations as there is nothing blk-mq
+> specific about this.  I.e. even if this patchset doesn't handle stacking
+> drivers yet, it should be easy enough to add them in the future.
 
-Ok, going to add
+Ok
 
 -- 
 Pavel Begunkov
