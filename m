@@ -4,115 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E5D5CD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 23:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42AC8CD343F
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 23:51:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5E9A10E9DF;
-	Mon, 18 May 2026 23:39:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0D7F10E26C;
+	Mon, 18 May 2026 23:51:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="SjloN+ya";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J6EqbYcL";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 035B410E9DF
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 23:39:31 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-488940ccfa6so885e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:39:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779147569; cv=none;
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F8DC10E26C
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 23:51:00 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-7bdc947aaa3so21863417b3.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:51:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779148259; cv=none;
  d=google.com; s=arc-20240605;
- b=LTpS7lwbuM8qqyp1odoSDJMpsUlYhtuUZBOAUrI5grSbWXFCnoPVedCVLMyCkM/B0Q
- lytk5hMCLZkgxF7vAFJkkIVOoplhs6oQGsWXnaDZUC2j5XA0k8f703to5AYS3DfsF6cU
- Jnso93DAaii/6leYlKYw20sq5iJaRYYU1K4T8gcN4Nsul8wGuuo7i1E8PqfEJcaFuiwq
- fCa62wLq1Z8kL3FTGbEsBenpqFjC21gu1lHPm8tDBt7KYzIMdGMjNDmuS6Ns8/BJGWVo
- oiqIkEMU2XBfd1VVTB9dAzj6LwoIenAQ0lx9VsP6xCIB/NLfedv+4mjXpqPhh9e0JShb
- 9xKQ==
+ b=ILsYnr53Js1nPzki59ILH20cyL8QWqdQMNzlecf6V3FE4hmRQ8Thc2BZ3p+9kdbVA9
+ cF4CA2EGTDrBPQ9NK76db7QQzvj28aVo/Q9QhxCdrBowCQAztITeYlOeF9ICKrTur1d9
+ oUMq2Q+E8HKQM+86+43yn3wuOBa1KX1pm7x6zxizJ4/Ryhjo1xeWHKyytfnje/m5SKLD
+ BxhGZd1U+u79sc9+Cab/13TaRXSfDa/IQOKkXLQr/5SSpGGqHyF/6vJz0HpYsQuehGTr
+ RCd4dt0VLIGkP8RmvaAtpR7x+Sad0GdsQHtPtGTQZVCZAqn6KhnmEBCG86aTiGv+Z3+r
+ vsyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=itOYKoJgfjMZD3HtReaYbMSuntrxVom1KXxY5d6gQNg=;
- fh=IWT+aHwOHdURW7UnkRaRNEkPpavzu4jS7Jd1u81IgE0=;
- b=F86FWhjWWo1pgusNrAAblddw5Ypr7ayNknvp1I2dZVDFXlDo9bL+FUaLq1DczH0TnW
- ggSZoTFf18wiBRkPrfzFnIFvyy5NlBb37k+VXnI+Kj4JFlA5eygVs+OhCMO5daQun+TO
- 8W+tqmkvNAsrflDM1jnLS5ZHtCBAJGVg83ja22VJy8FPOQ1pdJVjrqy9eD5fWudOi451
- x5NxmCwJHOlV8g6LAWs1G9N4iAvra2rw8nTmcG60aqVWcX+cRU70g6XWd9tH2Ldpcp+e
- DsciqLtyPmxTQodqeHcpsbgDmHldbe4bEfwAsX3vbIvujy1bUju+2829qNvIM+wV7h7/
- PAZA==; darn=lists.freedesktop.org
+ bh=IeeTUYaRZ5BMifrp/CORM7G6Oak23mAzpXgU06USVUU=;
+ fh=kcLiayVtGr9f76BqWD1KOp5omsINyoTzkzwELy2OYOE=;
+ b=H4rVNEYuXUsSu8vo/lrHb78346JlU/a/wbiofWOfE9HOVjfqC1TBGjmNXrmn6dUysI
+ 5IGmo9I7tiH3Ud0fbTZ4tas1sbejJ6Bie7fEqBDKbzGtJ0WoBI7mWZxcu4FQsm6v0G89
+ j3HMbeUCXF0XArMZDQC5M07J7rCasX8biAc1UY/1PSiUUAcVc6X7ATnQGp/pdgQNGZT7
+ C3YByideKGlsJEO7NFjSpEclyUihjYZ+XPjQiN8T2RaQTzfyiMSqZbd/kpIuoLvDaHDD
+ meu3aWpuU4eQJBj658XrVvvTTR6Ck/HkQ7t8R/wlvltpStoVcs1zw18JWiC+fPMANHab
+ NTug==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1779147569; x=1779752369;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1779148259; x=1779753059; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=itOYKoJgfjMZD3HtReaYbMSuntrxVom1KXxY5d6gQNg=;
- b=SjloN+yactRvg+MTXYZRz6Cn756wKBuk3jkXfb/Pu36iLrbJegXH5D3f51iMLBwCJn
- m4dNEw2lZCTJSr4isUJ3BNhbwkGuWS9nYAP/IQpniAIvmI/ulzbGEXICSqmprFbZz2xh
- lhpO6LpuVuGROPs6e+cGeMATKaU8CRULbxOHaRGcxR0yAt3rUN5nA2cWm3mrqdvuTcqB
- xMdpEbdZ5qFKRK2KIBayWb9POKzbaqXR9muIuD5b9NGfuYonuTWcs8MMaz+5K5VgSuAe
- T0aFnCnuacMBl2gXmilYvmtNRzyJssKqX7ZXdNpeGEjr9ay9qMID5EcVVwDIdfuX4t3u
- I9hQ==
+ bh=IeeTUYaRZ5BMifrp/CORM7G6Oak23mAzpXgU06USVUU=;
+ b=J6EqbYcLh2qy5clULh87BycN6i+QU6l/dkwZ4hNhFc4YEMRxPT9RZI9a3ds+AWnkRC
+ BzwYo5QG07lv7zyVzOD3N8moyzYjGzzuNHxE1HPmxJuQ39WnVDGVmfiVHBuH3/b0xJOb
+ rst8s+Z2C2GsWhjjNyFytPuGY4NnJ3+AkS8xH53hMY1tiBrDq6DRMrBhEOPZfhwtUk8J
+ xl1nPyzKj6Xe+lLzypQNeDYp7kJAz3e3YYKNrP0/4YbptL3+jaB5szTQ8bmzxizlFwCk
+ cAVVsWA7PGFGVWEZwBjtoxMXyVB/t9WHWCikXR4byKFwtycZceVmOY4So4c8uK+EqKCE
+ 0Z3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779147569; x=1779752369;
+ d=1e100.net; s=20251104; t=1779148259; x=1779753059;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=itOYKoJgfjMZD3HtReaYbMSuntrxVom1KXxY5d6gQNg=;
- b=ZON4CEyDofyOAXAK8cdbHihs23z331XsqeFXdZstodjQtu0qpg/H0Noajxs6dkSYyr
- bFTDjJeNOiR+xR6gTdSyikVV45g4e2aEVSAjePNx4nMxHc6QUN1ttW1JMVk2GvVuoi3p
- QyXLbdAxx/K3fZXi2Mxj1oMFc7a0t3wk9nMFZTWxR+142aFTrgGV2aToHd+hNImuApI9
- BCSncnMojekRU2UI8TCq4jYwCZeFZIuKLV5DWAx3rxtu+sxt3sbDVyKgK90vRdlzL7ZT
- MkFtZ0wiXdMfpYg7PCZwRiqDxWPKrSWcN7xb88agth0k07F3m961U0MF7WiUsz6yrYsP
- jt2g==
+ bh=IeeTUYaRZ5BMifrp/CORM7G6Oak23mAzpXgU06USVUU=;
+ b=OrjLUUWgNq51/C3BzlDmdv2pShxe0TgySeURKcrws38GqvTtJVyvsoRNhfFTj8W2v6
+ yJn8Rpz0CyBaboUaCdm6NtviKQtSqK3m5OjLkD0bDt/T5fuoN88UfUrTUBEfNbzwV4yM
+ QJikSUkrsMBfZLGERAGOvN0JG/Prqkkhh6vVz3SYTz2g22LY80OkUB4ND0EGu4xJFppY
+ Y28pDORlFZ5TDjrwpo+NTTDzZ/4oVXDrd6bHdtw4V0vst/YlRMEVdO1IVz1Oe4y8yASp
+ SzyrN3KLYeJlli1+mXkRxg/wldBMo1J6WXcB9WHGQ4/Vi9pfSX/mEqWu50tdBREx3zei
+ MJtQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9TiUM3p6D/V64Oas4Mo4J2sEVvA8rHx4AArGKF1eS7WXy8/vFFKE58KmtPUVZr12FV1uTUHC5DJz0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyrQLswWUjbLZk1ZHsqNy3DyQS23+KjV2z0jnZH2AFDAsrCRDaw
- xMywp9KsGp77+tQJXUrmCnnxAG0y4fTM1rkQDfYNvZZjBtxFFaLPVKQIP2Ri6rniqG3dvGhLcDK
- SfbRRZo7jHWAyv1lAcJCMdvAHHduaCqa5+Np/BurY
-X-Gm-Gg: Acq92OENSGKgdjy6d/gQPwNLLXwMko5TDycpxGCLadJBMFBq25X6umpYiGwuYAP7nX7
- wUimnq3ISLMTe/C+jLZxkkxlcbZsPPG2J7fOm60ibpSbIG+hioAxOD22z6PSTNp0vuTvkuzzf59
- k+GcgjGxrciWjNkFGD0xufDk+oalntNls0oVCHBLnJiZ7hHOiE4nwucJjuJeqohYuw2TamcvQ2B
- kqzIyZ7Otde/ylxaEoOpS0bulBy4oKtStaOJat3+t1piUZWF58qDgRjeeJ41EQ+TbBt7+Vchc5u
- iEAxgKNnVvxOuuKc1YhvsSVrHPH9FnWx72jMZgCO269iWD9K
-X-Received: by 2002:a05:600c:828f:b0:485:1a54:9407 with SMTP id
- 5b1f17b1804b1-48ffa06d607mr3320695e9.0.1779147569161; Mon, 18 May 2026
- 16:39:29 -0700 (PDT)
+ AFNElJ+B/huKZa6dB0ls2o1NePj6EBkV6lPbfUPPvxNQ9IqrdIA9AFTlOjQXS5y1jS0J99xP88xwd7KS2g8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzsj1nAW5Clm2Wr5qhpLaDdYClPOgFMMQS+/4S4c+RRncMqVeXL
+ jpToYGQIFVlNIxMc2AXTK2r0zAXonSQA4NF3ft7UKm2fx11vTaOQgIWvSwE62i0BBwTJ4JOZ0ER
+ nejq34QcaPIU5UDN+LStSKlCJxPoDLqDf8s5a
+X-Gm-Gg: Acq92OFQ5ecU/hjIWpAE3EJNdhAxQu6QHnu8wjCzt/QeW71Fy/9mDPMnaU6/235Xqyh
+ DdPIcwl8qoD4IHYeJGVt2TVLkqXBXNvdb5oRoXoT4qjjkzfhKLXItvC3q5zEa1AzokpNtdjECNi
+ haTI7RMu30WQsv7SeYJfEmzdewUyxWpLr2YUZW3PRvtFc3zIs5xKYVNbEjboBF8N1Ji47YOB2eV
+ 0bOutFbnw7SjUsATEwA00Cwi9fVxxm0Rukaj7Ei1gs0uTjSP7ZD11gaVg/dABw6dlFrMR/rxcMt
+ HHJA37Z2eMSuZ8oOo4KCiMORMSjmYGQ8fg3QS0EMQEvibdlyF7SWVlcdiCjVlwYsCtvlT9mp
+X-Received: by 2002:a05:690c:c244:b0:7b4:657d:bd5d with SMTP id
+ 00721157ae682-7c95bf10a2cmr197794877b3.30.1779148259100; Mon, 18 May 2026
+ 16:50:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com>
- <20260512-v2_20230123_tjmercier_google_com-v1-2-6326701c3691@redhat.com>
- <CAGsJ_4xfznffbjOaNKwnN6oZk_H6pqOzYqd1zx4Q9XrocdzV8A@mail.gmail.com>
- <CADSE00LjJcL8P5M-UPEpzZijU70uEmUirnin29N8YR5W5D-oFg@mail.gmail.com>
- <CAGsJ_4xwJ7SAhKPJyRtMTw6psTO7H1EcFFpDw0po1W8PX4FE8g@mail.gmail.com>
-In-Reply-To: <CAGsJ_4xwJ7SAhKPJyRtMTw6psTO7H1EcFFpDw0po1W8PX4FE8g@mail.gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Mon, 18 May 2026 16:39:14 -0700
-X-Gm-Features: AVHnY4JenMsTlW8PdrNyXvGhnvZE3E4HsfXXDBDrw2kB1e9N8h1WWqyjOLM9WZU
-Message-ID: <CABdmKX2+PqZJc588dL7Yp7hYDnfXw7LRCKfLJ6n5=faKBvWBWg@mail.gmail.com>
-Subject: Re: [PATCH RFC 2/5] dma-heap: charge dma-buf memory via explicit memcg
-To: Barry Song <baohua@kernel.org>
-Cc: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>, 
- Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+References: <20260513-panthor-guard-refactor-v1-0-f2d8c15a97ce@collabora.com>
+ <20260513-panthor-guard-refactor-v1-1-f2d8c15a97ce@collabora.com>
+ <5ab2d07c-74a4-4a2c-b145-6ed7b0060944@arm.com>
+ <20260518105721.42ffa64c@fedora>
+In-Reply-To: <20260518105721.42ffa64c@fedora>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Mon, 18 May 2026 16:50:48 -0700
+X-Gm-Features: AVHnY4Kh2f1AVPZetJ2ndlIB4ihBeeqmA3WYM7Ew2lGnTHy97cgp6M33GrZdWXw
+Message-ID: <CAPaKu7RRcGQSivs8n6RhOO5XeBSoLG6YF1GRR6Cysv_yDpd2=w@mail.gmail.com>
+Subject: Re: [Linaro-mm-sig] Re: [PATCH 1/6] drm/panthor: Driver-wide
+ xxx_[un]lock -> [scoped_]guard replacement
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
  Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, Christian Brauner <brauner@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Ondrej Mosnacek <omosnace@redhat.com>, Shuah Khan <shuah@kernel.org>,
- cgroups@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, 
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, mripard@kernel.org, echanude@redhat.com
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -130,88 +116,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2026 at 3:43=E2=80=AFPM Barry Song <baohua@kernel.org> wrot=
-e:
+On Mon, May 18, 2026 at 1:57=E2=80=AFAM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
 >
-> On Mon, May 18, 2026 at 8:16=E2=80=AFPM Albert Esteve <aesteve@redhat.com=
-> wrote:
-> >
-> > On Sat, May 16, 2026 at 9:37=E2=80=AFAM Barry Song <baohua@kernel.org> =
-wrote:
-> > >
-> > > On Tue, May 12, 2026 at 5:18=E2=80=AFPM Albert Esteve <aesteve@redhat=
-.com> wrote:
-> > > >
-> > > > On embedded platforms a central process often allocates dma-buf
-> > > > memory on behalf of client applications. Without a way to
-> > > > attribute the charge to the requesting client's cgroup, the
-> > > > cost lands on the allocator, making per-cgroup memory limits
-> > > > ineffective for the actual consumers.
-> > > >
-> > > > Add charge_pid_fd to struct dma_heap_allocation_data. When set to
-> > > > a valid pidfd, DMA_HEAP_IOCTL_ALLOC resolves the target task's
-> > > > memcg and charges the buffer there via mem_cgroup_charge_dmabuf()
-> > > > inside dma_heap_buffer_alloc(). Without charge_pid_fd, and with
-> > > > the mem_accounting module parameter enabled, the buffer is charged
-> > > > to the allocator's own cgroup.
-> > > >
-> > > > Additionally, commit 3c227be90659 ("dma-buf: system_heap: account f=
-or
-> > > > system heap allocation in memcg") adds __GFP_ACCOUNT to system-heap
-> > > > page allocations. Keeping __GFP_ACCOUNT would charge the same pages
-> > > > twice (once to kmem, once to MEMCG_DMABUF), thus remove it and rout=
-e
-> > > > all accounting through a single MEMCG_DMABUF path.
-> > > >
-> > > [...]
-> > >
-> > > > -               if (mem_accounting)
-> > > > -                       flags |=3D __GFP_ACCOUNT;
-> > >
-> > > Hi Albert,
-> > >
-> > > would it be better to move this and its description to patch 1? It
-> > > looks like patch 1 already introduces the double accounting changes,
-> > > and patch 2 is mainly just supporting remote charging.
-> >
-> > Hi Barry,
-> >
-> > Thanks for looking into this series! Yes, in my head I was trying to
-> > keep patch 1, which was taken from a previous, different series, and
-> > then diverge from it starting with patch 2. This would clarify the
-> > difference between the two. But I can see it just added some confusion
-> > (for example, patch 1 charges on dma_buf_export() and then it is moved
-> > to dma_heap_buffer_alloc() in patch 2). I will reorganize it better
-> > for the next version, including your suggestion.
+> On Thu, 14 May 2026 14:16:37 +0100
+> Steven Price <steven.price@arm.com> wrote:
 >
-> Yep, I understand the situation now. I also understand
-> that you were referring to T.J.'s patch, which caused
-> some back-and-forth confusion for readers when reading
-> patches 1 and 2.
+> > On 13/05/2026 17:58, Boris Brezillon wrote:
+> > > Right now panthor is mixed bag of manual locks and guards. Let's
+> > > make that more consitent and thus encourage new submissions to go
+> > > for guards.
+> >
+> > I'm fine with encouraging guards for future code - but I'm a little war=
+y
+> > of a big change like this - it's hard to review it and check that
+> > everything works the same.
+>
+> I can try to split that up, but even after the split, it will still be
+> a pain to review.
+Splitting up a bit can be helpful. If we did introduce errors
+unintentionally, at least we could bisect and there would be less code
+to look through.
 
-Albert, please don't feel obligated to keep my patch intact if
-integrating it into other patches simplifies the series.
+That said, for changes like these, AI should be very effective at
+catching errors.
 
-> > > Also, mem_accounting is only used by system_heap.c; has this patchset
-> > > also eliminated its need?
+>
+> > And it's a little dubious that the mechanical
+> > refactoring produces more readable code in some cases.
+>
+> I agree, though the mix of guard()s and manual locks makes things even
+> harder to reason about, especially when they appear in the same
+> function/block. The very reason I ended up sending this series is
+> because, as part of the IRQ refactor, I decided to be a good citizen
+> and use guards when I could, and I realized how bad the partial
+> transition was in term of ergonomics: not only you have to think about
+> whether the function/block scope is what you want (that's basically
+> what guard provides, unless you used explicit scoped_guard()), but you
+> also have to think about the interactions with your other manual locks.
+>
+> TLDR; I'd rather switch over to guards entirely, or go back to manual
+> locks, but the mix we have right now is far from ideal.
+>
 > >
-> > No, mem_accounting is still handled in this patch for the general case
-> > where no `charge_pid_fd` is used. See dma_heap_buffer_alloc() code:
+> > That said I asked my friendly AI bot...
 > >
-> > +       if (memcg)
-> > +               css_get(&memcg->css);
-> > +       else if (mem_accounting)
-> > +               memcg =3D get_mem_cgroup_from_mm(current->mm);
+> > [...]
+> >
+> > > @@ -3142,48 +3126,44 @@ panthor_mmu_reclaim_priv_bos(struct panthor_d=
+evice *ptdev,
+> > >     LIST_HEAD(remaining_vms);
+> > >     LIST_HEAD(vms);
+> > >
+> > > -   mutex_lock(&ptdev->reclaim.lock);
+> > > -   list_splice_init(&ptdev->reclaim.vms, &vms);
+> > > +   scoped_guard(mutex, &ptdev->reclaim.lock)
+> > > +           list_splice_init(&ptdev->reclaim.vms, &vms);
+> > >
+> > >     while (freed < nr_to_scan) {
+> > >             struct panthor_vm *vm;
+> > >
+> > > -           vm =3D list_first_entry_or_null(&vms, typeof(*vm),
+> > > -                                         reclaim.lru_node);
+> > > -           if (!vm)
+> > > -                   break;
+> > > -
+> > > -           if (!kref_get_unless_zero(&vm->base.kref)) {
+> > > -                   list_del_init(&vm->reclaim.lru_node);
+> > > -                   continue;
+> > > +           scoped_guard(mutex, &ptdev->reclaim.lock) {
+> > > +                   vm =3D list_first_entry_or_null(&vms, typeof(*vm)=
+,
+> > > +                                                 reclaim.lru_node);
+> > > +                   if (vm && !kref_get_unless_zero(&vm->base.kref)) =
+{
+> > > +                           list_del_init(&vm->reclaim.lru_node);
+> > > +                           vm =3D NULL;
+> > > +                   }
+> > >             }
+> > >
+> > > -           mutex_unlock(&ptdev->reclaim.lock);
+> > > +           if (!vm)
+> > > +                   break;
+> >
+> > ... and it said the above has changed behaviour.
+> >
+> > In the !kref_get_unless_zero() case you now assign vm =3D NULL which th=
+en
+> > leads to the 'break' case above. Previously we 'continue'd.
 >
-> I see. What feels a bit odd to me is that mem_accounting
-> could either be dropped (with unconditional charging), or
-> it should cover both remote and local charge cases.
->
-> I don=E2=80=99t have a strong opinion here=E2=80=94it just feels a bit
-> strange, since its description is quite generic for memcg:
->
-> "Enable cgroup-based memory accounting for dma-buf heap
-> allocations (default=3Dfalse)."
->
-> Best Regards
-> Barry
+> Oops, that one wasn't intended, indeed.
+> _______________________________________________
+> Linaro-mm-sig mailing list -- linaro-mm-sig@lists.linaro.org
+> To unsubscribe send an email to linaro-mm-sig-leave@lists.linaro.org
