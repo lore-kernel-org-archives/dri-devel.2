@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C109CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:14:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 998F4CD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:14:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A05B10E9A4;
-	Mon, 18 May 2026 18:14:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B2F710E9A6;
+	Mon, 18 May 2026 18:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="PDz0D1nm";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="EY/BwkiJ";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F3A510E9A5
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:13:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86D7610E9A6
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:13:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779128025; bh=1SwUqaE6mORlk0iEp6kMdcbakTgSMLCePrjjya+/Sfw=;
- b=PDz0D1nm5NtUbfcXBh/cWIhn2n+V+pEbRnCT3PODqyhkhJz8ofpg9sbmTytZsJqS0R6WHeZ9M
- F4bLmw2lLNTu7S0n8rJV67KpICORGLor5xgkj8HAWGLjZcg8FRQ0uQKix3NfW46Yb9O5ZT+CsjN
- gl+m+k7PvD7c3ifLnR1Ybow1JBg0xX5k3qXQOiu1lg4hwxlGUtUUDXrgojSgPlnpMP0s98vktkU
- oGyEufMWewlV0oExbM+lc9tH3jaoXUUdRNDWRnkt8AagRek0VCpfy3Nbd0uNxH87unTYt+Epma/
- j2KEGrKX926P9smYa12QM6UifaSVgA8V50+Etj255UUQ==
-X-Forward-Email-ID: 6a0b5443b84dbc72d2274e51
+ t=1779128025; bh=3cI+jdj9ZYte4FwNaqyzMzzwM5GJ7XpjpxmuDl+jgno=;
+ b=EY/BwkiJbWIIDrzUkWE575YdPe1vf0p36lGWxDJ89bbmFT/gw0iN7NyslXNI1W0Ker2SA/Zg+
+ BT6o9nN8MtLW/n90jfjF16sU/C9e7UDp3gLSyP2ZYoRp4tBIx+nfQBVc+yWeRdr6tF7ji9+cDUm
+ 2vpFVxCeMWBkOmeK2am3fvkTtAsgnwq5v0ul5+blF2UDHFbR8rLNA5D7WU4Y/U6WxKkCzqKshta
+ /PQbSm/LJS9ylCUYuD9v+TSLsLFWm5ZX3RA0JQeix7HigBZ06a+cQfm4K3gHEnHPdOTFjfYcYvj
+ QuNSN+bJi0holLSBbjGSUwIeAwgVELwN5LTWKJ7/UbyQ==
+X-Forward-Email-ID: 6a0b5461b84dbc72d2274f23
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  149.28.215.223
 X-Forward-Email-Version: 2.8.12
@@ -53,10 +53,10 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v7 07/23] drm: bridge: dw_hdmi: Fold poweron and setup
- functions
-Date: Mon, 18 May 2026 18:01:43 +0000
-Message-ID: <20260518180206.2480119-8-jonas@kwiboo.se>
+Subject: [PATCH v7 14/23] drm: bridge: dw_hdmi: Use display_info is_hdmi and
+ has_audio
+Date: Mon, 18 May 2026 18:01:50 +0000
+Message-ID: <20260518180206.2480119-15-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518180206.2480119-1-jonas@kwiboo.se>
 References: <20260518180206.2480119-1-jonas@kwiboo.se>
@@ -77,78 +77,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fold the poweron and setup functions into one function and use the
-adjusted_mode directly from the new crtc_state to remove the need of
-storing previous_mode.
+drm_edid_connector_update() is being called from bridge connector funcs
+and from detect and force funcs for dw-hdmi connector.
+
+Change to use is_hdmi and has_audio from display_info directly instead
+of keeping our own state in sink_is_hdmi and sink_has_audio.
+
+Also remove the old and unused edid struct member and related define.
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v7: No change
+v7: No change, re-order patch
 v6: Collect t-b tag
-v5: No change, rebase on next-20260508
-v4: No change
-v3: Collect r-b tag
-v2: No change
+v5: No change
+v4: Collect r-b tag
+v3: No change
+v2: Collect r-b tag
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 32 ++++-------------------
+ 1 file changed, 5 insertions(+), 27 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 7a9b4a7e9cbf..161ab16fdd78 100644
+index a4ecf830103d..0e84dff72470 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2254,9 +2254,9 @@ static void hdmi_disable_overflow_interrupts(struct dw_hdmi *hdmi)
- 		    HDMI_IH_MUTE_FC_STAT2);
- }
+@@ -46,8 +46,6 @@
+ #define DDC_CI_ADDR		0x37
+ #define DDC_SEGMENT_ADDR	0x30
  
--static int dw_hdmi_setup(struct dw_hdmi *hdmi,
--			 const struct drm_connector *connector,
--			 const struct drm_display_mode *mode)
-+static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
-+			   const struct drm_connector *connector,
-+			   const struct drm_display_mode *mode)
- {
- 	const struct drm_display_info *display = &connector->display_info;
- 	int ret;
-@@ -2396,15 +2396,6 @@ static void initialize_hdmi_ih_mutes(struct dw_hdmi *hdmi)
- 	hdmi_writeb(hdmi, ih_mute, HDMI_IH_MUTE);
- }
- 
--static void dw_hdmi_poweron(struct dw_hdmi *hdmi)
--{
--	/*
--	 * The curr_conn field is guaranteed to be valid here, as this function
--	 * is only be called when !hdmi->disabled.
--	 */
--	dw_hdmi_setup(hdmi, hdmi->curr_conn, &hdmi->previous_mode);
--}
+-#define HDMI_EDID_LEN		512
 -
- static void dw_hdmi_poweroff(struct dw_hdmi *hdmi)
- {
- 	if (hdmi->phy.enabled) {
-@@ -2982,15 +2973,19 @@ static void dw_hdmi_bridge_atomic_enable(struct drm_bridge *bridge,
- 					 struct drm_atomic_commit *state)
- {
- 	struct dw_hdmi *hdmi = bridge->driver_private;
-+	const struct drm_display_mode *mode;
- 	struct drm_connector *connector;
-+	struct drm_crtc *crtc;
+ /* DW-HDMI Controller >= 0x200a are at least compliant with SCDC version 1 */
+ #define SCDC_MIN_SOURCE_VERSION	0x1
  
- 	connector = drm_atomic_get_new_connector_for_encoder(state,
- 							     bridge->encoder);
-+	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
-+	mode = &drm_atomic_get_new_crtc_state(state, crtc)->adjusted_mode;
+@@ -147,8 +145,6 @@ struct dw_hdmi {
  
- 	mutex_lock(&hdmi->mutex);
- 	hdmi->disabled = false;
- 	hdmi->curr_conn = connector;
--	dw_hdmi_poweron(hdmi);
-+	dw_hdmi_poweron(hdmi, connector, mode);
- 	dw_hdmi_update_phy_mask(hdmi);
- 	handle_plugged_change(hdmi, true);
- 	mutex_unlock(&hdmi->mutex);
+ 	int vic;
+ 
+-	u8 edid[HDMI_EDID_LEN];
+-
+ 	struct {
+ 		const struct dw_hdmi_phy_ops *ops;
+ 		const char *name;
+@@ -158,8 +154,6 @@ struct dw_hdmi {
+ 
+ 	struct i2c_adapter *ddc;
+ 	void __iomem *regs;
+-	bool sink_is_hdmi;
+-	bool sink_has_audio;
+ 
+ 	struct pinctrl *pinctrl;
+ 	struct pinctrl_state *default_state;
+@@ -2056,7 +2050,7 @@ static void hdmi_av_composer(struct dw_hdmi *hdmi,
+ 		HDMI_FC_INVIDCONF_IN_I_P_INTERLACED :
+ 		HDMI_FC_INVIDCONF_IN_I_P_PROGRESSIVE;
+ 
+-	inv_val |= hdmi->sink_is_hdmi ?
++	inv_val |= display->is_hdmi ?
+ 		HDMI_FC_INVIDCONF_DVI_MODEZ_HDMI_MODE :
+ 		HDMI_FC_INVIDCONF_DVI_MODEZ_DVI_MODE;
+ 
+@@ -2292,7 +2286,7 @@ static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
+ 	if (hdmi->hdmi_data.enc_out_bus_format == MEDIA_BUS_FMT_FIXED)
+ 		hdmi->hdmi_data.enc_out_bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+ 
+-	hdmi->hdmi_data.rgb_limited_range = hdmi->sink_is_hdmi &&
++	hdmi->hdmi_data.rgb_limited_range = display->is_hdmi &&
+ 		drm_default_rgb_quant_range(mode) ==
+ 		HDMI_QUANTIZATION_RANGE_LIMITED;
+ 
+@@ -2312,7 +2306,7 @@ static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
+ 	/* HDMI Initialization Step B.3 */
+ 	dw_hdmi_enable_video_path(hdmi);
+ 
+-	if (hdmi->sink_has_audio) {
++	if (display->has_audio) {
+ 		dev_dbg(hdmi->dev, "sink has audio support\n");
+ 
+ 		/* HDMI Initialization Step E - Configure audio */
+@@ -2321,7 +2315,7 @@ static int dw_hdmi_poweron(struct dw_hdmi *hdmi,
+ 	}
+ 
+ 	/* not for DVI mode */
+-	if (hdmi->sink_is_hdmi) {
++	if (display->is_hdmi) {
+ 		dev_dbg(hdmi->dev, "%s HDMI mode\n", __func__);
+ 
+ 		/* HDMI Initialization Step F - Configure AVI InfoFrame */
+@@ -2435,29 +2429,13 @@ static const struct drm_edid *dw_hdmi_edid_read(struct dw_hdmi *hdmi,
+ 						struct drm_connector *connector)
+ {
+ 	const struct drm_edid *drm_edid;
+-	const struct edid *edid;
+ 
+ 	if (!hdmi->ddc)
+ 		return NULL;
+ 
+ 	drm_edid = drm_edid_read_ddc(connector, hdmi->ddc);
+-	if (!drm_edid) {
++	if (!drm_edid)
+ 		dev_dbg(hdmi->dev, "failed to get edid\n");
+-		return NULL;
+-	}
+-
+-	/*
+-	 * FIXME: This should use connector->display_info.is_hdmi and
+-	 * connector->display_info.has_audio from a path that has read the EDID
+-	 * and called drm_edid_connector_update().
+-	 */
+-	edid = drm_edid_raw(drm_edid);
+-
+-	dev_dbg(hdmi->dev, "got edid: width[%d] x height[%d]\n",
+-		edid->width_cm, edid->height_cm);
+-
+-	hdmi->sink_is_hdmi = drm_detect_hdmi_monitor(edid);
+-	hdmi->sink_has_audio = drm_detect_monitor_audio(edid);
+ 
+ 	return drm_edid;
+ }
 -- 
 2.54.0
 
