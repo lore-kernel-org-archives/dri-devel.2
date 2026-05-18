@@ -4,186 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32519CD4F3C
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:11:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1EC7CD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:13:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE6810E03A;
-	Tue, 19 May 2026 07:11:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE4110E366;
+	Tue, 19 May 2026 07:13:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="hA4UQkaK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FsM0tYTd";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A3610E03A
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:11:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1779174681; x=1779779481; i=deller@gmx.de;
- bh=sjN4qrmiu1bglWGSsI9NyPKGX/0wNg2Vet3nC5b3oBo=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=hA4UQkaKAIiPJDkYM2tL0/HLJCM25X96CSFc6LWCjIgNvoNJpit9sfqO7DGTaqgz
- VPW+/W1/keBz2jf/Reir08UUkX35nAlP1o814WPsn+dCnQG/z8QizN/tUEDpJV9tH
- yDlTmCADfCV5NmKvdZdi9tgjKC/8Y0EpVHVJYpk4p2dC/IxEFYiGvhek2+iA7Irj2
- Die54ZaYpe7omjxW2qhRhV2+Ivk1yfbxVXudq46424npyL0H7+I+HseC1AVlSls4i
- zXEmsfzT1d3kvz+KW4EkWa8DB5VPs3fCkZJ6WLpUEBk60vfI9QqIwj/8WFLe+PrGV
- y/dfzyQWZ0lDtMa8/w==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MwQXN-1xFPMC19m9-010KBI; Tue, 19
- May 2026 09:11:21 +0200
-Message-ID: <6e6afdae-0da8-4665-a450-6431c3b3de2f@gmx.de>
-Date: Tue, 19 May 2026 09:11:14 +0200
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
+ [209.85.128.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D79A10E593
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 15:32:27 +0000 (UTC)
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-7bdaa68cf81so17556247b3.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 08:32:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779118346; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Mrft9XycyMoxWP40M5pvoyB0CddAHGLDbs0Q5Fh120Le8QKg58UX1qzvDPTDU3IkTS
+ eaQpfmiG1FYoEszzbGyuTF6m9JnIIilqCS/EEOC4hDkgw7QRh/ilEoHubgk1q2K9flE3
+ PS3il02+4YYilpLK0/imx/kuQYSfHqoJCQ91C1OrjV7tGeGM8VxP49JtmC4yGE/lM0VG
+ uij2/zkkDpU7lRibNL9TcNKyftcaJfqsZSNJOSERTz1IxFKSkWT0coyyTSB2cJ3vYk/y
+ ZjU3q3ORbHMhGshaNMOBzJcMQdlcOMr24wCwRyvCHCNel6QsrQ/tMkABZ0cz1yJPkQQ6
+ f5LA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=jAobYI2Elfv1JM9JrAZc5dFbU3SUriC72Zl5ToKxafU=;
+ fh=CjuDPUYbo5y3oxEYpXv6gBjlRiE82BOvY0XwqmL7Yr8=;
+ b=OGDu+yvbFBcq4YswygH4RAFyvGmlmyfS4cSrbRwThY7PTRsZky0jw6x82BWAJX1rZm
+ 7bPDfupvn3P6QRelnbrQp+xqodA/fb4yAyqT2i9fYI1N1yfzYR1aL5ucQqbOwXFHxxFb
+ dOY4KVw3imtw1P4Td63jTfoiMa7dZ+rvsWfACd5cRkPWorBoZWla+i2aoboKd7UV1lMS
+ TOQv/xJLcjJvcbcNcv3QvCFO0t8+RNvaDdozMhItw7HZ60tl5GHg5WQgS/EIxsdin4JS
+ e+A12nsb1+L6d8qwcEzH+JPI3JjpUA03bToTZDJ/fqK8wNjbjcn3PO1T7BoRuMHiT7vx
+ +EQA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779118346; x=1779723146; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=jAobYI2Elfv1JM9JrAZc5dFbU3SUriC72Zl5ToKxafU=;
+ b=FsM0tYTdAC6ec2rPLIuByARQJkf/ui0TAsjTW5KJG/pUTqUpU9StuVczVA8DXo2wJt
+ x48jpZ8nvp31XbUFB2vdc79jYnetph+SxXRYEUta74KMgOpEPr8IXBOsYNlNeOBbBk02
+ IxHsb+0DTTG2iooDeqQDp3pQDFQl7A0PaQESRaTGjxI4b0b0aqmeIYm4vtm0ymIjzYjz
+ Pn/ndRzmaWrnxAUjD3r1h3Erq62H7czXXOnL2JV7AC+JsLgxJ/qN5/nJwmlX1S+l3VXc
+ A+hE6p0K9wTcG6OJYR8y/gZDjsuIoO2dsH63agY/fFO2KXzGKA3nLx8K1+R+mi26JZLh
+ Hn3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779118346; x=1779723146;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jAobYI2Elfv1JM9JrAZc5dFbU3SUriC72Zl5ToKxafU=;
+ b=kZ4T8rkWuZYzO2pQoYksECemvPgZtYQegvNbqZus0lA941gO4K7UQZg6f56JSEsYaY
+ +0hRASOTuEUNfkB3Hw5B2UkIC33y2m5OcsMEl+ZZNWuzdlHYxyFecwRVItGC06yOyiMU
+ opSs/dfkR94Blb5DZMH5RMNstLmBXzSBTsBRpE3OE6JH7CUI4MY+6lh/BNEY96eC9Bk7
+ 2/xYt3+TaK9B1Rv2Cva4koqV7mmGuvM+nSi1DBbsvL1eFkI8k44r5g68Csxntak/9tkM
+ 3E++4qbqhuo1HzS0+E8LURP0cBZN9r28o5VD1033hiri20CLdgf5p4OGN21U6R57gpF2
+ UVsg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9Yp20C+pETaojXnyCAsQLdtonTBPboUaQyOG5bggWv2mAjr93ABo44zFxQ8iW3ocXZYXHBLH9BYlg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyGBxniYbV+BH0kwbEbG2zjHjVGZRs+aoEKsevoTWO1cO8y+alD
+ qdF5PO0Qy4A2zPpe9TYNU3eSklrTV/oGfXMoJEKfmfHdgLuO8qMS5F3TRmed+m+SdWRDDjgH3RZ
+ JpgcPnofdAX8oVyCtiyCva+3jObo/4f0=
+X-Gm-Gg: Acq92OFN9/KI0gGV5TnhAegpEcgsp5V9nPmk+uybRLkaDrFqQCfpnvEUvRvswsJEuIw
+ pWaShmt8bef779EhrIa5mFcEec3OMcGw1C4wqUorcPAWnIUwkDSJnoxETSodS/ilGYKzAGOCZ5R
+ 1WtZRLtscvVCVRHTi/nSnlGL6eI6+HYl3bMjg4GdoONKzsLsIB053tB77ZNrqfVV2nV1pCgpX0W
+ YX/sDARVeomddcBHk5klWN+H0oZAeUeeJeq2x4+sANGoPg93506bHwj1morq8gDaXX4EzLaRG/s
+ /ovLBTwqf8EE0egVx/CgRY/QI2dQE+BfGuiyNciZJGYw2NTdN90MZFagABtzbe/23CL0+mTF
+X-Received: by 2002:a05:690c:8d0c:b0:79a:7ff5:93ee with SMTP id
+ 00721157ae682-7c95a37c569mr162101727b3.22.1779118346187; Mon, 18 May 2026
+ 08:32:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/14] fbdev: fix various memory leaks
-To: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sebastian Siewior <bigeasy@linutronix.de>,
- Florian Tobias Schandinat <FlorianSchandinat@gmx.de>,
- Ondrej Zary <linux@rainbow-software.org>, Antonino Daplas
- <adaplas@gmail.com>, Paul Mundt <lethal@linux-sh.org>,
- Krzysztof Helt <krzysztof.h1@wp.pl>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Michal Januszewski <spock@gentoo.org>, Heiko Schocher <hs@denx.de>,
- Peter Jones <pjones@redhat.com>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:I+nuZNHtkyT0KGRnNoW0hv+cck4+dSR0JeC+FXKXX/pnlOdWP3q
- zfPEipLnWcaRYk/86Hp0tWyLzCKdScumWP150LynM4yizZqneKU1PMh8nI/8HznSc/KnSTg
- sQLHsOZcmfgOy3/8RYfTFpYfx3MCYosU3kpq24v8wgDpCprqsm6oUKKG0xaSnHedDe8kKhe
- ihPEObBprZ3cU6eriduyQ==
-UI-OutboundReport: notjunk:1;M01:P0:5w3QRt1/Z2c=;tHCPKBrlfEF0+EySYESy9S0Ppkv
- hlKP/FCC2+OvVRudddeVuk49/mHd5T2QJCf9dGeWD1pHfDdC1xBpYu7JETgCmzht60vnoqkJX
- dQwnCD6iU+aI0ttkWgi2BXcpfVKAPHFPWEMWGApkdhyOlpSt0XKGVVrPgGFiB/LPi2uIN9SmA
- /XqbEDXjdaZhisNyUpE7Tr33334+yLiw2UHr7x9bCRhG1GoVNfm6yqFcuatidxgjOkBNFXboJ
- giqmwXzAfiGwQXMXHvtbKUrNTDqJfsznD1ff3ifKLwzEDyMnSEXudvucyUPzbburaT5PDJcHR
- BSOKvh/PNAwN+kmrk+yVsHJSk/1z6ZIGsDhDKfSbfz2mVApVz3S1Omdduj0RdlTJx0ckciVE8
- IGONds/jviiQ20jHJP2RzOD0NL0dpUaP8uGWHpzlbI513h+k95GRyQFYVwRh+7deZADvPBPv3
- uw/mocEe4ZG2FV/FS+cfNnKGQKjzI3ABMYAN6CTqQr9LyJZBQmgtUkopJTgcAlH46rhwSjilq
- +IVejoc0CyxLLmaa0oNUDM7AKDgmefuh2as8w983ZVpqb3YSGHkB4a6dYiucD8ERQ9GwdG3T8
- /1wT32DVF8IdUTM1Vf7DEV3vwHAfjL9yNwuaq6H0Rwq3C6CClsCQ04wqtBXrZ+Eto8t3XPYth
- q0nefgAhNHCIZ9kSr2jaoFZ0+nSRCrFvyt9JwOPJqctUkJc4tMQ5j9ZQ93l9NJHr5HYevqsmU
- y+g9YgTnXztonwb9F4W5hXHgE0OxoR3ByDWfxxt4QYbFW7OmiCWmzOL9Ezhunf6AJFpXMrMge
- /OWGsE8TJFuhDhWx0zkZZTt1rCu2/s4h0bogHmm2lyIwJnOKZCYVJnamZUYWd/GRUnEF1Fe3B
- eLaJEOZCDPieOq3dbA73WasiINYfpJYivg/weyzkbfan1UtYZVPgPjxH9mX9iUtf/9b2+iWJw
- JBrAunpnnp9M/pryvGgdsaoE8Xctz2uZLemRdiQOVafwQX4AGxMkGMUncc6E7E2jLeSpVzRta
- GQlyReHan9CHX8QXCfuzU5m0QhNNbiURGsVwFs8oB4ue3Pw9VMXtns+OIM0aokyJaKDsR9OQq
- yb2mbJNoRH58r7qNz9Gmyxad15WwaTlTMaoB5KDUKVVKFO1eS7ChPaVeSLhguwRyHY8eBlVlS
- pq3sFHiRX3Da7qIMtmXcmsPCUSdDnKou2424sVoooFiBh/ot+fQEyYI7NhHg1Ennkm+CUV1NM
- P41BsCdR6WiI0+mjtK+3jPIjtuJ0TeV933rwB8OAQKbhDvVnAqjUkOWNRvkLnN4E7V/bM5oPJ
- NKiGeDSdiZquTBuQo8I2cQzneASYyQmxWq/BD4itHEX7w1sB6S41Pwq16GRD6renYzYhU8Gn2
- MI06JqXiol2G26cRYtUC8fM7lTN9BC+mqAI9V7Kzys4Ut5DUp1UfHIQq5L93izy5dy5IMV9cj
- veRVJpz2o2Jag5x8KTNcpQYaQ72fOCsIy3hQYw9edP9eoYYqT1gd55kbMtHalu76F1CZgbYM2
- VZWoLvUR77PeweNzgff7FCOpOLe2E1cbQvvxscfVT+/1nIIvU2bn6YKnkiEFfjf700FTlIx5/
- sNantD0sc5QVTIvu+EFcTr/lSfZoqfWiHFbwfvG9R/mefj2vM69SQWDi1w4+6Ir+6TI3wNDJg
- B1rgQKdJrP3gdxjJeW5m8x8fB0KUFUE6GbI86DoHC1d4EvXMAwKE6AWtkwi072IMT68Z3spIK
- TJaEGfLiwX0cfVHqGw71bbYJpCFXeiJMZScdy1+huy0HpxDHDiqwqu1LXtEt43/8kZMfyJ5pN
- q3+8KeluE/IOMH7KxnyvK9OZ+urWBIMDE7jjarm/Ie8/fZZ/DZHwOYR4GH62BPo6LPB7XCdNM
- SBlfMxBiHnwfe/qY7deUlN17w7Kl1IMzipxrhQXMu2D0JxQOgD92yWXmEUY7TMh8miieu+OTw
- EQjAUtBCj9h6rgnRSDItts7hXjKU4bP7t5GOQn7UjFAKcaNUAIKSRQ7BA2owX0eZRe589xIR3
- 7sj0LbKO+Z1zZRQR3x33mj+e7rtiT4QPCMCFH/B8jcE7go8UeoSwg7o4C8Tu70E1OCfOaLmnw
- IXs2cARGaZY40rgqRacE645T6iRxvpBeAeN1U4UF4UP0xsrSAEe1Bmd9sp0aDQ1cS2PI1VNUk
- 1yH93IgDJ68fNQd2bowO7Uab136BWQ/6pn3B0Vj9115umL5lVwfxUbqknQR45giyIeyyAWV8y
- zM5O79bcw9eBbDEBZIQbsrQkBRuERc9xRYeuQK3gJhIaJyg3QR1e+7wuvcviqmuXWukkZg0Mo
- TgmZVc48JbtTZ44ZXeul4eC9+dRNcQZz/6wPg5AOSoJ3tTvh86EtGmF4rxMD0vum18k7qzyIV
- TLPnhEg/jnOUgyfqRr4Yt1tZCneg6Q3Y+znYFJiF0InQO+7ZcJLzqywfQXzO6Kx82CUFLmNo9
- hQC1zCDRZeXTssWII9sk4QT3f0o6AaHb/WDpkpYgpqykZXPzN/koZX8OS4KQvj3nMLWwwjHff
- OSXRp0DNzF9pr3UpcYpmoUUYoTr4Bwc3Bh0DfQwQSn70wfum+ZKho9e9u0WvNXqYSN9dhy3VB
- sUbt+qbGrFetiavshRQY/LRUAXiDFHAdOiHpkO6ogd8ikqf3XacdxIQD7pJ6YkKlJKZbRCp7z
- z0uyBU8qxICwgOYFGLBrgKzhAx4XN/j+ZPI3Z7f7B2jJZVygIGRzD4z8AcpnSDFq/xemZX31/
- qlqUIqF8nhGNkEtlLwx3iyKKCuNl8ocz+WjM3HCnAV+bEVdhvAzm9AkZ3JzQp1rASBGxBCfu5
- SiIiLRrSR1Gw8jP8q/OpT9ObVr/u5em5uCUFmV8gjgT0OvlKsp9VSwdPLaAGHx1Z8nXDLfsd1
- GwksxKKjWXrWfdDvGHBM/GgOezNGzJHL6JQnIUOd+saj/THPsUa4UZ5VWFnf3fJAZlC0pRaX5
- SIdaUVmYfClNPZ++EK6QFIBgOEvFRWzjIgKUaKtLvJGlvwQo83C3dVa5EEh/dHcP/llQP5Mwt
- JW4h3QWrOvqVtISLpmSoMcAouD6HU9YZfKII8zginqUwotjB3qNGqWEzYOi5fzScmN3vCeGOT
- iXwAYQ6GvLELvl7cgA/4StBGEMNw1eXj3fUG9ij0I48DGlJ42w3ck36ywXf6GKowyEhrbgN+n
- tJa6QR22vrwg2SgdM1P9R8i4XVLK3UQCOo5kELRXr/598c4sgS35R8HrrvApIEez1UuYxINyN
- eErMEUSR9gGW/gOgeS6ANK4ev6LVPR0vfDnVY9lG9Xuu6G7ft3Mb9Z1HWkX7a2nnbbduFFHZf
- bOweeAPSfpfGX3RTWjAopqK0KJwO5zyDdwEoOvila4HokeyTxARZch35cHygAEX3K0y7XmprO
- DmTIigy4LXoo6R+uZvBFBndLRaww79aXee2+ajE/6MaZXhUZAE+hGRT3j+ltk4zdEndlJzjHM
- n2hYYTpgGJRwhc5+qRNAqlMwTH10Bx5AxbG34F+O3InzuoalEAMNJ5vu3FleBFbCgsxQb4OYf
- cNcErk1zUSSb0ZNJtQOGOITBazT0jtnrGJeDW/8wpDkHNv68jlLH87BcxK0mFku7YsJv3dk3v
- sFid7uIZ5tEBqvVyu1Za8Npb12iyd+mlt5uqzeM33xNCMppYjhnH+ZNt8LA4yU/pLM5HUR4gW
- bag6gLvBlIiDjUEiNRq5JUmOLjlQwCBsCYNuTwGmOA2VKX7TIzdMYB3EZGwQd8bSuk4E4cclv
- 00ue2SHhLY+pmYHJXMuoE2rhwOJKufGf68Spb93KndF+ImcGJSasG8KCyXGJ6IuzyoLHBZ1V/
- zKNPRXVChrETJP28K5UwjeSIZ2d2bID0U+1++AF7mQZp7pmTzg5E/XaBG3bHJlWdN+YZMCCtd
- UUV1QGrL9wKI+uKl2UVs/9EtQ1WUJWPZFiOxFvH+wEgJ+hfYFbBNb2bK8A2ChzAHA6XnNb7kO
- oEoUSgffTQXsEzokj3/37jo+0kCN+jTQTrcTLsYvDLqvd9l79sTo835DhejlNYBfnnAx2zCpb
- W7cvLBvt97AR48g3apkkaeHseKFoDBrLiFzrpPe4cch+YNXQD3tbosNv1bfmlRpNbZwgOUEih
- dwHleSUqvBcUEiDnUXUS3bc264bj/z5YJ62K574+rPqUgJJNDdWyjWL4nFIc8REQOnZJ5Pz+d
- rggSifS2a6Uvng7apbni97k1I3+frgKH0foawMr5oCH4iZL5IHqzLRJDbnv+eas9GB3nZwxZV
- RhC3R2a1XLP5zfkVnGcBDXBiKWuqw6/SJLpuiqlCsgcavmY/e4wzQYZlNXDm6ylBDHLf5FYJa
- iu3tf4CLTFC91+fJpU6elEEQgLbnoquIXfhxQ5Sr9x4RU6JFMrREUSLPDNo70k2u6D6lGZEDp
- w1NuJGandZ+rA8/+sIAVYWqFJplTNI7FuFtoLrz3Sj5Sllp4DdNZCMSaPh+aBg04As9+9itGQ
- StyAlcyZ5n4hd6Q81XZLoaUYh/FpvW6Bpk6xHNk20yQR9syXP48cpW7fM8uvuOzPQ0ydEq1vM
- XcL4Wq67hALk2Jb9mvx2tazo7kMK9GGZuWB4U4kJXXT8Gl0KZPDGXHm1ltvRxW+5bS/YtTbU2
- o8DE8fgr4Mk5r/WnBNy0r8bLbRW4ak8hlMgur67Z0Bkl64WBI1Ol1tLMAUanBdkC3aqr6EBnS
- DoCEqe/9ql7c7VwohWhrGUdSgpeLXSLl3IblByu49MuROUXv9wzpopFdOzRNZkBf97rAOfgtz
- 5RLZ22GgtnYLt13vRoj34WCp89J2Qr51fnx+LlCKKnjZdF4FIbvXpPFQzl8W9Y+bOs02RYD2X
- IV1/gnNQnCgnf1yF0LcDpUlYgXR/lluro9tJIuN9W8zZxiCuhziQkue9NqBXgkCOQDQDrMVjC
- xg6x3bwTCnD7fsUV+zGsORFDdT4W7xF6Gy7Rv/pADrxSRNibXLwotp+1mDge8CqXNeKNgX+Rt
- rgoAQ3jRiZTnMu3+ZVEEJdO5CMAuiv+sd9+nesLHjAkCmAYg5UJjaYljTVK/v8KCvrV7uNpUN
- Cpen59LAzNhp7g55wyjAJnSr1O5cbdh8V4sFkiTRl6GA7kVJuRBG2HbYPqWDs9nkFhwVbUeuD
- d1fwE74ZOyD0iXQEsB3CqHWeDfbxptGG1Y3hGPTVKBm7C9ziqoDnd+wdVFKdMpVohieAJGAln
- nEgt8zksVZiMXP9Aq66Tk+/Xz86oIjTDJ5p9ufjnFf8ircsfvz9Pm/UJZJytgGV5/JulKvS3+
- H5NfvTvwum4kRY+HHxBSyhhlZG3I4s+vtJ04v13FEF4XAwMrRoBiD/1o39iAtrhnfOi6WHeDj
- 4PW50OE+UGzlWPZwqsDA6K8TD9oBoqUD9SFbgc6TQyH8aRIzVYHTjQnX9j2smuBDuoh1RHJVL
- M10kR/N/gm1Y/rleZp793IMW/3LmB/u5u8oYAp56jfY4MvOWFW/zlY1TH6B7XusoGI0nJF5ES
- wGEyYxToGfCjAIf9z7LR7oAjhO1BNsZSmvngbZpKhovvWmRW1q7tC3YsTtWqENYcU8zHHjMSu
- /rzvAQ==
+From: D D <dhabal123@gmail.com>
+Date: Mon, 18 May 2026 21:02:18 +0530
+X-Gm-Features: AVHnY4K9ElAWlWdHbVAK9Rwhr2p0P34Bpg62xJReYqrfhXCv-jSv8_pbSS-q8lE
+Message-ID: <CA+g3TbsDGcsmdPn-p70OO3DwS2Fsq0NN9v1FVYqSa13JCPvFXQ@mail.gmail.com>
+Subject: [PATCH] accel/ethosu: fix integer overflow in cmd_to_addr() address
+ computation
+To: security@kernel.org
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000009b8c206521945a4"
+X-Mailman-Approved-At: Tue, 19 May 2026 07:13:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -199,83 +100,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/14/26 10:24, Abdun Nihaal wrote:
-> This patchset fixes some memory leak issues present in fbdev drivers.
->=20
-> Since commit 56c134f7f1b5 ("fbdev: Track deferred-I/O pages in pageref s=
-truct")
-> fb_deferred_io_init() allocated memory for pagerefs and returned an
-> error code, but the existing drivers which call fb_deferred_io_init()
-> were not updated to do cleanup. The first three commits address this.
-> - fbdev: hecubafb: fix potential memory leak in hecubafb_probe()
-> - fbdev: broadsheetfb: fix potential memory leak in broadsheetfb_probe()
-> - fbdev: metronomefb: fix potential memory leak in metronomefb_probe()
->=20
-> Probe functions that call fb_add_videomode() or fb_videomode_to_modelist=
-()
-> sometimes did not call fb_destry_modelist() to free the allocated
-> memory. The following patches address this issue.
-> - fbdev: radeon: fix potential memory leak in radeonfb_pci_register()
-> - fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()
-> - fbdev: i740fb: fix potential memory leak in i740fb_probe()
-> - fbdev: nvidia: fix potential memory leak in nvidiafb_probe()
-> - fbdev: s3fb: fix potential memory leak in s3_pci_probe()
-> - fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()
-> - fbdev: tridentfb: fix potential memory leak in trident_pci_probe()
-> - fbdev: uvesafb: fix potential memory leak in uvesafb_probe()
->=20
-> Since commit 73ce73c30ba9 ("fbdev: Transfer video=3D option strings to c=
-aller; clarify ownership")
-> the fb_get_options() function transfers ownership of the memory
-> allocated for options, and so the caller is expected to free it. The
-> following two patches address this issue.
-> - fbdev: efifb: fix memory leak in efifb_probe()
-> - fbdev: vesafb: fix memory leak in vesafb_probe()
->=20
-> The following commit fixes a simple memory leak.
-> - fbdev: sm501fb: fix potential memory leak in sm501fb_probe()
->=20
-> All the patches were only compile tested.
-> The issues were found using static analysis.
->=20
-> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-> ---
-> Abdun Nihaal (14):
->        fbdev: hecubafb: fix potential memory leak in hecubafb_probe()
->        fbdev: broadsheetfb: fix potential memory leak in broadsheetfb_pr=
-obe()
->        fbdev: metronomefb: fix potential memory leak in metronomefb_prob=
-e()
->        fbdev: radeon: fix potential memory leak in radeonfb_pci_register=
-()
->        fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()
->        fbdev: i740fb: fix potential memory leak in i740fb_probe()
->        fbdev: nvidia: fix potential memory leak in nvidiafb_probe()
->        fbdev: s3fb: fix potential memory leak in s3_pci_probe()
->        fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()
->        fbdev: tridentfb: fix potential memory leak in trident_pci_probe(=
-)
->        fbdev: uvesafb: fix potential memory leak in uvesafb_probe()
->        fbdev: efifb: fix memory leak in efifb_probe()
->        fbdev: vesafb: fix memory leak in vesafb_probe()
->        fbdev: sm501fb: fix potential memory leak in sm501fb_probe()
->=20
->   drivers/video/fbdev/aty/radeon_base.c | 1 +
->   drivers/video/fbdev/broadsheetfb.c    | 8 ++++++--
->   drivers/video/fbdev/carminefb.c       | 1 +
->   drivers/video/fbdev/efifb.c           | 1 +
->   drivers/video/fbdev/hecubafb.c        | 6 +++++-
->   drivers/video/fbdev/i740fb.c          | 1 +
->   drivers/video/fbdev/metronomefb.c     | 8 ++++++--
->   drivers/video/fbdev/nvidia/nvidia.c   | 1 +
->   drivers/video/fbdev/s3fb.c            | 1 +
->   drivers/video/fbdev/sm501fb.c         | 3 +++
->   drivers/video/fbdev/tdfxfb.c          | 1 +
->   drivers/video/fbdev/tridentfb.c       | 1 +
->   drivers/video/fbdev/uvesafb.c         | 4 ++--
->   drivers/video/fbdev/vesafb.c          | 1 +
->   14 files changed, 31 insertions(+), 7 deletions(-)
-I applied the whole series to the fbdev git tree.
-Thanks a lot !
+--00000000000009b8c206521945a4
+Content-Type: text/plain; charset="UTF-8"
 
-Helge
+In cmd_to_addr(), the expression (cmd[0] & 0xff0000) << 16 performs the
+left-shift in 32-bit arithmetic because cmd[0] is u32 and the intermediate
+result of the AND is also u32. The meaningful bits (positions 16-23) need
+to land in positions 32-39 of the result, but these positions exceed the
+32-bit width, so they are silently discarded before the cast to u64.
+
+This causes cmd_to_addr() to always return an address with a zeroed upper
+half, producing an incorrect DMA address for the Ethos-U NPU. The device
+may then read from or write to the wrong physical memory region, leading
+to kernel memory corruption or information disclosure.
+
+Fix by casting to u64 before the shift so the operation is performed in
+64-bit arithmetic and no bits are lost.
+
+Found by manual source code audit of Linux kernel v6.19
+(drivers/accel/ethosu/ethosu_gem.c, line 157).
+Affected versions: v6.19+ (since initial Ethos-U driver merge).
+
+Signed-off-by: Dhabaleshwar Das (dhabal123@gmail.com)
+---
+ drivers/accel/ethosu/ethosu_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/accel/ethosu/ethosu_gem.c
+b/drivers/accel/ethosu/ethosu_gem.c
+index abcdef1..1234567 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -155,7 +155,7 @@ static u64 cmd_to_addr(u32 *cmd)
+ static u64 cmd_to_addr(u32 *cmd)
+ {
+- return ((u64)((cmd[0] & 0xff0000) << 16)) | cmd[1];
++ return (((u64)(cmd[0] & 0xff0000)) << 16) | cmd[1];
+ }
+
+--00000000000009b8c206521945a4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">In cmd_to_addr(), the expression (cmd[0] &amp; 0xff0000) &=
+lt;&lt; 16 performs the<br>left-shift in 32-bit arithmetic because cmd[0] i=
+s u32 and the intermediate<br>result of the AND is also u32. The meaningful=
+ bits (positions 16-23) need<br>to land in positions 32-39 of the result, b=
+ut these positions exceed the<br>32-bit width, so they are silently discard=
+ed before the cast to u64.<br><br>This causes cmd_to_addr() to always retur=
+n an address with a zeroed upper<br>half, producing an incorrect DMA addres=
+s for the Ethos-U NPU. The device<br>may then read from or write to the wro=
+ng physical memory region, leading<br>to kernel memory corruption or inform=
+ation disclosure.<br><br>Fix by casting to u64 before the shift so the oper=
+ation is performed in<br>64-bit arithmetic and no bits are lost.<br><br>Fou=
+nd by manual source code audit of Linux kernel v6.19<br>(drivers/accel/etho=
+su/ethosu_gem.c, line 157).<br>Affected versions: v6.19+ (since initial Eth=
+os-U driver merge).<br><br>Signed-off-by: Dhabaleshwar Das (<a href=3D"mail=
+to:dhabal123@gmail.com">dhabal123@gmail.com</a>)<br>---<br>=C2=A0drivers/ac=
+cel/ethosu/ethosu_gem.c | 2 +-<br>=C2=A01 file changed, 1 insertion(+), 1 d=
+eletion(-)<br><br>diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/=
+accel/ethosu/ethosu_gem.c<br>index abcdef1..1234567 100644<br>--- a/drivers=
+/accel/ethosu/ethosu_gem.c<br>+++ b/drivers/accel/ethosu/ethosu_gem.c<br>@@=
+ -155,7 +155,7 @@ static u64 cmd_to_addr(u32 *cmd)<br>=C2=A0static u64 cmd_=
+to_addr(u32 *cmd)<br>=C2=A0{<br>-	return ((u64)((cmd[0] &amp; 0xff0000) &lt=
+;&lt; 16)) | cmd[1];<br>+	return (((u64)(cmd[0] &amp; 0xff0000)) &lt;&lt; 1=
+6) | cmd[1];<br>=C2=A0}</div>
+
+--00000000000009b8c206521945a4--
