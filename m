@@ -4,61 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BC74CD4F50
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 13:39:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F48FCD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 13:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D48D310E309;
-	Mon, 18 May 2026 13:39:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97CF310E0CD;
+	Mon, 18 May 2026 13:45:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ALSgzLJ+";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CPpkdV/k";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D54910E309
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 13:39:36 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E0188601E7
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 13:39:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9632CC2BCB8
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 13:39:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779111574;
- bh=1bjO3PVxRe3/4rE7yd1mVAeSvqZ+cwGYwn1Xps2SaBU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ALSgzLJ+v19bLSdcNKMsCGKuAGvNKVRKUMYWuPu0UdOUU5W345v7Yr14ulqs35hGc
- n2ZJ5WDz8pG+BIkECrdpiSG9RFfWLMszctVHVy2dEdv5UrQnUWYXaoOm7Soxr1PBGj
- f0J7stzkruGxfHyU5OKRzqfZkrNes6nAqrlGxuPojNajQyJq0nntx1Gvtr1Sng7Ztu
- G+iJir9ntiF9wrKvY+QOS7OhWaARdqM+Zgy1Rq4un3e6N/W8KPYuXEHFEjJCHRsWv3
- kRJkiNwIDaODDOlqJbg3gDg6Oec8rbQ853N2Z0W64FeYuTGI0Q1WFOokqu2bkvE4/Y
- Uo3xjmfbgXSJg==
-Received: by mail-dl1-f49.google.com with SMTP id
- a92af1059eb24-133466cf955so9059585c88.0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 06:39:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9gUsy+0qrKrlnAi9n0rZwtGgBtGSESm5K60AR2Y6XDQgTOhF6dGwzoNnQ+BUK9NSE059ho3JENq0A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyIADmbWINqchrQVYAUW1VVWuyOboJr3/OjAFYHd2VdDDPtjXaC
- LWsdHstH1Bhm0AWFMQi2qG5suivcCKKQgJ0f/1sYiHcts4adwwZXK9rXlLL674o7W9tqPKj14/f
- yfpVy7DIXaHJ8SHItMxl/iTr9Gc5vBw==
-X-Received: by 2002:a05:7022:f9d:b0:119:e56b:958a with SMTP id
- a92af1059eb24-1350451e343mr6439973c88.15.1779111573911; Mon, 18 May 2026
- 06:39:33 -0700 (PDT)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF3610E0CD
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 13:45:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779111921;
+ bh=3fXGzUFVcsGwRV30ExI0hcHMvtmIxeOvqjIIjwODIwI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=CPpkdV/kE+otX3aHzBhIWCNLFoQN7pvKPnk3ASp+IJpKVnG2LjLQ8eDAMMcfg6Tem
+ cSzalqlWvBFSdKDjcTOGTpNDBLJhhNZi/ssV2EkzrJbhvQAcPB2aDgOP63zMzEsE3O
+ xCRPz1PJkXLq5XzCaaIFIKffLNP9VlG27O5u0ND5YKQVFHFMsvMZ1AujfYXFZom5X+
+ SuIa9mhfWlDdRWd7U3plYZmSMjlPILd/YFL/cY/ME3aQInRaStdk9+CAkd4jmWSXkY
+ myalBE63bacXEeHoIHGbWglcGQtXI5dSStXkQQWHRB2PP7LQ0KUFUn56zwbvsmqy0C
+ AGx97Av5kyCzA==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 50C5C17E0234;
+ Mon, 18 May 2026 15:45:21 +0200 (CEST)
+Date: Mon, 18 May 2026 15:45:16 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Chia-I Wu <olvaffe@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 06/11] drm/panthor: Prepare the scheduler logic for
+ FW events in IRQ context
+Message-ID: <20260518154516.65ba8592@fedora>
+In-Reply-To: <CAPaKu7SJbeRwN7_S5_ciC6sSf_MM_4s7-iJS8aqh=ispBZBf2w@mail.gmail.com>
+References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
+ <20260512-panthor-signal-from-irq-v2-6-95c614a739cb@collabora.com>
+ <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
+ <20260513102941.7321cbc3@fedora>
+ <CAPaKu7SJbeRwN7_S5_ciC6sSf_MM_4s7-iJS8aqh=ispBZBf2w@mail.gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-References: <20260420052008.5417-1-abhiraj21put@gmail.com>
-In-Reply-To: <20260420052008.5417-1-abhiraj21put@gmail.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Mon, 18 May 2026 13:39:21 +0000
-X-Gmail-Original-Message-ID: <CAAOTY_9LTmas78sFvwAnkxcXt0jqXaxZ1oa0jj_+xhL-o1Ei4g@mail.gmail.com>
-X-Gm-Features: AVHnY4JN47eeSY49tByNRVwfGLFjrAA9LUtPn9wmQMHba45G9quErL5vSBBoobM
-Message-ID: <CAAOTY_9LTmas78sFvwAnkxcXt0jqXaxZ1oa0jj_+xhL-o1Ei4g@mail.gmail.com>
-Subject: Re: [PATCH] drm/mediatek: Convert legacy DRM logging to drm_* helpers
- in mtk_dsi.c
-To: Abhishek Rajput <abhiraj21put@gmail.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
- simona@ffwll.ch, matthias.bgg@gmail.com, 
- angelogioacchino.delregno@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,194 +70,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi, Abhishek:
+On Wed, 13 May 2026 10:47:28 -0700
+Chia-I Wu <olvaffe@gmail.com> wrote:
 
-Abhishek Rajput <abhiraj21put@gmail.com> =E6=96=BC 2026=E5=B9=B44=E6=9C=882=
-0=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8A=E5=8D=885:20=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> Replace DRM_INFO(), DRM_WARN() and DRM_ERROR() calls in
-> drivers/gpu/drm/mediatek/mtk_dsi.c with the corresponding
-> drm_info(), drm_warn() and drm_err() helpers.
->
-> The drm_*() logging helpers take a struct drm_device * argument,
-> allowing the DRM core to prefix log messages with the correct device
-> name and instance. This is required to correctly distinguish log
-> messages on systems with multiple GPUs.
->
-> This change aligns the radeon driver with the DRM TODO item:
-> "Convert logging to drm_* functions with drm_device parameter".
+> > >
+> > > Multiple things happen in this commit. I try to identify things that
+> > > can be separate commits. If this does not make sense, feel free to
+> > > ignore.
+> > >  
+> > > >         /** @tiler_oom_work: Work used to process tiler OOM events happening on this group. */
+> > > >         struct work_struct tiler_oom_work;
+> > > >  
+> >
+> > [...]
+> >  
+> > > >  /**
+> > > >   * panthor_sched_report_fw_events() - Report FW events to the scheduler.
+> > > >   * @ptdev: Device.
+> > > > @@ -1902,8 +1953,19 @@ void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)  
+> > > This can be renamed to panthor_sched_handle_fw_events.  
+> >
+> > It's not quite handling events though. For most of them, it's really
+> > just deferring the processing to work items, SYNC_UPDATE is the
+> > exception.  
+> panthor_sched_report_fw_events no longer just queues
+> process_fw_events_work. It processes fw events immediately. If
+> "handle" is not the right verb, perhaps we can go with "process".
 
-Applied to mediatek-drm-next [1], thanks.
+I guess "demux" would be more accurate, but do we need to rename this
+function in the first place? I mean, panthor_sched_report_fw_events()
+doesn't imply that events are processed/handled, it just reflects the
+fact FW events are reported to the scheduler. Up to the scheduler to
+do what it wants with this piece of information (process some of them
+immediately, defer the processing for others, etc).
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
-log/?h=3Dmediatek-drm-next
+> 
+> 
+> >  
+> > >  
+> > > >         if (!ptdev->scheduler)
+> > > >                 return;
+> > > >
+> > > > -       atomic_or(events, &ptdev->scheduler->fw_events);
+> > > > -       sched_queue_work(ptdev->scheduler, fw_events);
+> > > > +       guard(spinlock_irqsave)(&ptdev->scheduler->events_lock);
+> > > > +
+> > > > +       if (events & JOB_INT_GLOBAL_IF) {
+> > > > +               sched_process_global_irq_locked(ptdev);
+> > > > +               events &= ~JOB_INT_GLOBAL_IF;
+> > > > +       }
+> > > > +
+> > > > +       while (events) {
+> > > > +               u32 csg_id = ffs(events) - 1;
+> > > > +
+> > > > +               sched_process_csg_irq_locked(ptdev, csg_id);
+> > > > +               events &= ~BIT(csg_id);
+> > > > +       }  
+> > > This handles all fw events in the irq context. Are there concerns that
+> > > it may take too long? I might be wrong, but it seems possible to
+> > > handle only CSG_SYNC_UPDATE and defer the rest as before.  
+> >
+> > I started with just the SYNC_UPDATE processing done in the hard-irq
+> > context, but after auditing the other stuff done in the handler, I
+> > realized it's basically just deferring all actual processing to work
+> > items. Yes, there's the overhead of demuxing the events from the
+> > ack/req regs, but part of this is already done to get to SYNC_UPDATE
+> > anyway, so at this point we're probably better off demuxing everything
+> > and scheduling works for all kind of events.
+> >
+> > I also compared the perfs between the two approaches (though I didn't
+> > do as much testing as I did with the new version, so I might have
+> > missed something), and it didn't seem to matter at all, because the
+> > interrupts we receive the most are SYNC_UPDATE and IDLE events, and
+> > those are at the same level.  
+> Looking at ftrace irq events, when there is one active csg,
+> panthor-job takes 6us (median) / 17us (95%) / 27us (slowest).
+> 
+> I don't have a good sense if that's considered normal in hardirq. But
+> if that is ever an issue, and if the majority of the time is spent in
+> CSG_SYNC_UPDATE anyway, we can always revert the last patch to move
+> processing to threaded handler.
 
-Regards,
-Chun-Kuang.
-
->
-> Signed-off-by: Abhishek Rajput <abhiraj21put@gmail.com>
->
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index 0e2bcd5f67b7..a67ad575f5f0 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -510,6 +510,7 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(str=
-uct mtk_dsi *dsi)
->         u32 delta;
->         struct mtk_phy_timing *timing =3D &dsi->phy_timing;
->         struct videomode *vm =3D &dsi->vm;
-> +       struct drm_device *drm =3D dsi->bridge.dev;
->
->         if (dsi->format =3D=3D MIPI_DSI_FMT_RGB565)
->                 dsi_tmp_buf_bpp =3D 2;
-> @@ -543,7 +544,7 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(str=
-uct mtk_dsi *dsi)
->                                              horizontal_backporch_byte /
->                                              horizontal_front_back_byte;
->         } else {
-> -               DRM_WARN("HFP + HBP less than d-phy, FPS will under 60Hz\=
-n");
-> +               drm_warn(drm, "HFP + HBP less than d-phy, FPS will under =
-60Hz\n");
->         }
->
->         if ((dsi->mode_flags & MIPI_DSI_HS_PKT_END_ALIGNED) &&
-> @@ -623,12 +624,13 @@ static s32 mtk_dsi_wait_for_irq_done(struct mtk_dsi=
- *dsi, u32 irq_flag,
->  {
->         s32 ret =3D 0;
->         unsigned long jiffies =3D msecs_to_jiffies(timeout);
-> +       struct drm_device *drm =3D dsi->bridge.dev;
->
->         ret =3D wait_event_interruptible_timeout(dsi->irq_wait_queue,
->                                                dsi->irq_data & irq_flag,
->                                                jiffies);
->         if (ret =3D=3D 0) {
-> -               DRM_WARN("Wait DSI IRQ(0x%08x) Timeout\n", irq_flag);
-> +               drm_warn(drm, "Wait DSI IRQ(0x%08x) Timeout\n", irq_flag)=
-;
->
->                 mtk_dsi_enable(dsi);
->                 mtk_dsi_reset_engine(dsi);
-> @@ -663,9 +665,10 @@ static s32 mtk_dsi_switch_to_cmd_mode(struct mtk_dsi=
- *dsi, u8 irq_flag, u32 t)
->  {
->         mtk_dsi_irq_data_clear(dsi, irq_flag);
->         mtk_dsi_set_cmd_mode(dsi);
-> +       struct drm_device *drm =3D dsi->bridge.dev;
->
->         if (!mtk_dsi_wait_for_irq_done(dsi, irq_flag, t)) {
-> -               DRM_ERROR("failed to switch cmd mode\n");
-> +               drm_err(drm, "failed to switch cmd mode\n");
->                 return -ETIME;
->         } else {
->                 return 0;
-> @@ -849,11 +852,12 @@ static void mtk_dsi_bridge_atomic_pre_enable(struct=
- drm_bridge *bridge,
->                                              struct drm_atomic_state *sta=
-te)
->  {
->         struct mtk_dsi *dsi =3D bridge_to_dsi(bridge);
-> +       struct drm_device *drm =3D bridge->dev;
->         int ret;
->
->         ret =3D mtk_dsi_poweron(dsi);
->         if (ret < 0)
-> -               DRM_ERROR("failed to power on dsi\n");
-> +               drm_err(drm, "failed to power on dsi\n");
->  }
->
->  static void mtk_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge=
-,
-> @@ -916,7 +920,7 @@ static int mtk_dsi_encoder_init(struct drm_device *dr=
-m, struct mtk_dsi *dsi)
->         ret =3D drm_simple_encoder_init(drm, &dsi->encoder,
->                                       DRM_MODE_ENCODER_DSI);
->         if (ret) {
-> -               DRM_ERROR("Failed to encoder init to drm\n");
-> +               drm_err(drm, "Failed to encoder init to drm\n");
->                 return ret;
->         }
->
-> @@ -932,7 +936,7 @@ static int mtk_dsi_encoder_init(struct drm_device *dr=
-m, struct mtk_dsi *dsi)
->
->         dsi->connector =3D drm_bridge_connector_init(drm, &dsi->encoder);
->         if (IS_ERR(dsi->connector)) {
-> -               DRM_ERROR("Unable to create bridge connector\n");
-> +               drm_err(drm, "Unable to create bridge connector\n");
->                 ret =3D PTR_ERR(dsi->connector);
->                 goto err_cleanup_encoder;
->         }
-> @@ -985,6 +989,7 @@ static int mtk_dsi_host_attach(struct mipi_dsi_host *=
-host,
->  {
->         struct mtk_dsi *dsi =3D host_to_dsi(host);
->         struct device *dev =3D host->dev;
-> +       struct drm_device *drm =3D dsi->bridge.dev;
->         int ret;
->
->         dsi->lanes =3D device->lanes;
-> @@ -1012,7 +1017,7 @@ static int mtk_dsi_host_attach(struct mipi_dsi_host=
- *host,
->
->         ret =3D component_add(host->dev, &mtk_dsi_component_ops);
->         if (ret) {
-> -               DRM_ERROR("failed to add dsi_host component: %d\n", ret);
-> +               drm_err(drm, "failed to add dsi_host component: %d\n", re=
-t);
->                 drm_bridge_remove(&dsi->bridge);
->                 return ret;
->         }
-> @@ -1034,11 +1039,12 @@ static void mtk_dsi_wait_for_idle(struct mtk_dsi =
-*dsi)
->  {
->         int ret;
->         u32 val;
-> +       struct drm_device *drm =3D dsi->bridge.dev;
->
->         ret =3D readl_poll_timeout(dsi->regs + DSI_INTSTA, val, !(val & D=
-SI_BUSY),
->                                  4, 2000000);
->         if (ret) {
-> -               DRM_WARN("polling dsi wait not busy timeout!\n");
-> +               drm_warn(drm, "polling dsi wait not busy timeout!\n");
->
->                 mtk_dsi_enable(dsi);
->                 mtk_dsi_reset_engine(dsi);
-> @@ -1123,6 +1129,7 @@ static ssize_t mtk_dsi_host_transfer(struct mipi_ds=
-i_host *host,
->                                      const struct mipi_dsi_msg *msg)
->  {
->         struct mtk_dsi *dsi =3D host_to_dsi(host);
-> +       struct drm_device *drm =3D dsi->bridge.dev;
->         ssize_t recv_cnt;
->         u8 read_data[16];
->         void *src_addr;
-> @@ -1153,7 +1160,7 @@ static ssize_t mtk_dsi_host_transfer(struct mipi_ds=
-i_host *host,
->         }
->
->         if (!msg->rx_buf) {
-> -               DRM_ERROR("dsi receive buffer size may be NULL\n");
-> +               drm_err(drm, "dsi receive buffer size may be NULL\n");
->                 ret =3D -EINVAL;
->                 goto restore_dsi_mode;
->         }
-> @@ -1177,7 +1184,7 @@ static ssize_t mtk_dsi_host_transfer(struct mipi_ds=
-i_host *host,
->         if (recv_cnt)
->                 memcpy(msg->rx_buf, src_addr, recv_cnt);
->
-> -       DRM_INFO("dsi get %zd byte data from the panel address(0x%x)\n",
-> +       drm_info(drm, "dsi get %zd byte data from the panel address(0x%x)=
-\n",
->                  recv_cnt, *((u8 *)(msg->tx_buf)));
->
->  restore_dsi_mode:
-> --
-> 2.43.0
->
+Actually, the threaded -> hard transition (patch 9) is where the perf
+gain is.
