@@ -4,83 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A137CD4F4A
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9A0CCD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 14:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFAF510E84F;
-	Mon, 18 May 2026 14:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5694010E857;
+	Mon, 18 May 2026 14:00:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="N5j4/Y6R";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="juYYUSdY";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0338810E84F
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 14:00:30 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-488ab2db91aso24155335e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:00:29 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C40210E86A
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 14:00:50 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-48896199cbaso18142775e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:00:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1779112828; x=1779717628; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1779112849; x=1779717649; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=xSzdDCalKroiZkrBK5EAjSSCAceaufgt8kCZ3umG54s=;
- b=N5j4/Y6RJ2Y/CCBZspIxnA5YUdvEY+V2yVMDcnl2I6zrpKSLGgByrsmJQOBbYh7vNL
- 2zSF6WKhf9s6onwZ97HNXuAP7wSjbh+Fdk0Upxb/kgJkrIMJ766HyXaDnz1jUFjKmlzT
- rYLzD/RWSLgJxmVL9w51SFjh7mL0pYc++2Rx/cBO9TH7116/PlIaFIeV3/KTpfTFJfnl
- beO/LN1rFAq5qpMo49nqbYGEgT+OCyAhVuCOu5PMoLVpusXO7sUXyGCdR1c0RSDKd8/f
- dwTQoCF0lHZJ0Gvk0bld6JxOlBm7o+XaKPqC3LUZXfnsB9/AqI4kv4apP8XdH7FgJYFP
- 4D7g==
+ :reply-to; bh=/9RfURwu1IqM95+26wfOLt80mxZnfDTRrUVwQvAEzdo=;
+ b=juYYUSdYSX30SygUIlEXcIhkysMDYBqI9WB97xFjMkuQNUse/KH5s6nfvfAhI51bJT
+ tV5YpRL7SvJYzQLkKGxZCxhxKou2C5l+R2/d3PyMnwwHURsPWu4P1kNDxyxmJJm4LTtZ
+ 6FgtfsqZEowuuWIbdxKRXb10K2EHmJdzO/Dh6yl9a4tabn94+XOKZtB2y8rAX9QHH5Nv
+ 7NpFFfpE+NMykvau4ZVIdXFl8MXJSyKxKqXWBysUG8IPtqAk4HaabsXmTW67BgM3yfm8
+ 7FL8VIlIQLPLXw8N5Q36dEwtEi1I6vYP/wYD5QA0D9LUBDa4pWE4i8IyoynmOxuSNs0R
+ fP/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779112828; x=1779717628;
+ d=1e100.net; s=20251104; t=1779112849; x=1779717649;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xSzdDCalKroiZkrBK5EAjSSCAceaufgt8kCZ3umG54s=;
- b=bheZk/QJg7cFSQti9JDiq3zFVyWQx+BJuirKLmUiPZKXfa0w26UN2XszCYYsAplVBX
- iNc16AGYXQPjHqgQ5D2Nqm+9UYZ5FpE4JeY4Oh9YL7fyBKuoCXG1QuLIwYqpvnOnUbH3
- 47Jk3edykRWHW4ob3TIP9SJqtWz2VMcyzyWuGcusOp59ISZRQYMsZgYEjW1fRP7pIwx/
- brnfywxHVUL7ruihMZpJb+5LZ15EcHrdHy5w2UQk01pd0begQJj187Ky/IN5ahDet1Nl
- C1gVhPT9vHlkAnYwYDva1dfAwp7EvCgaqdqcjFWGt91sDbwEuq7zYIFWVGq7vLnDwDO0
- t5hg==
-X-Gm-Message-State: AOJu0YwT/cGd/67gUxFLw7Ls0Kt8XW5mXhXBB2AFAkkizxTlcVEJLkjN
- lrr4pCg5l6K6/smp1uMo+ss76uJC0m3oRrWptJnqsxvXeJ9SNAHzG2kRK6FWfTzgxzg=
-X-Gm-Gg: Acq92OG7sCbrM3g5uqPqBIelgPYvlokzehLod8tsY55eU+HaFGmG1wvOcPKmrC+hjcu
- SB9+8dsoMDwmKHzHZlv12XzV1qhTC1f5uLnP/fE/pLnUQ8ThhT6+xpjOPntmG/gmhHtNue6UvH1
- XHE8ILZ8oJG2LrXT9gTrFiy/sVhsG9Ut3IBncKVU+jVbFhskzNCrrUl/QGjgIjv7HixrSxHcjq5
- 7XkVmQWVLQUxj71Pi2nrFM5GgiKLDDLiZYtugOrwM6otyZvlKJlu+gOAWN300T61xgp4JHsI6aP
- 2+KATuOEgb/LxGUaW+WOCLUHHkUNi2KEXx+MpWQbfDr9jrUPywrm24+jUxL38JgfFTqe4i8cZgY
- R/2VOr7u5FkC++oYpwNYOnuu+xko6+BMBVwF4OHI/zeUgtCqlNn0AV6D0lkYHDigiSKoup2rPbJ
- ScRoKPnR31B2QqZf/PZXw16blc/JWGv9grQss80uoWfPrmdbnfS1Cf8IYOZEgx86zr3QAq2Cthe
- cCB4Pc=
-X-Received: by 2002:a05:600d:8:b0:48f:e6b9:c740 with SMTP id
- 5b1f17b1804b1-48fe6b9c811mr201655935e9.30.1779112828111; 
- Mon, 18 May 2026 07:00:28 -0700 (PDT)
+ bh=/9RfURwu1IqM95+26wfOLt80mxZnfDTRrUVwQvAEzdo=;
+ b=qUdvk7qdfc+n5R2DRYctCtYkkv4Oq9EdlaJKDKh2eBYlDXhKWrp3V/rG+cmDUa11ms
+ NaEeT9a4feChMnHd4xtrK74LEaordGO1Vng0EhnOmB6wJ49tCJtyW2+OtFaCF9TWVwMk
+ R/EXCI0qBZQgp7oesqN8y/i68QBjKlGYm7KmwSY1fITicQtElI0KNeq5EpPzWQ9/lG+k
+ WjhKTylzNyMG7NdcHya41AsO8XSSpVk57CsYZM0ariVg0OrEJnjXLUrKe1Wp8NHoRZZM
+ 5d53DUAxlh3zL8hPN4xUVpCQu0G/fUMF3lLvkCIDeSmMdP/CFBPSBMs0e+w04DHZu26i
+ x+HA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+wNIQYU+0l+ZMx2zP3bK+YTaGOp2Rkhqye+XHq6zeW0mCjB9wM/iZ1PFqaUB9F1rrFWjBLjG4Z73c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwUFBixkB+DjmHfKBm6LHh7ekh6uwcgwQCf3Z6n/cZw+qI1wil8
+ njJx9HJdwCCKxcKLXWn276g/X3iAJdPPhbQ8pkhedMDNwG5067mRTiDuqjzH7dVNF/dwBfZSAUh
+ iCOsm
+X-Gm-Gg: Acq92OGyHB1OH8pYM4P4yl2RV6+6n5Btz1nVxHdkPjwHmmmbEmvCkpwtDvXvS3SLZVG
+ qFfPo/bs54aX/b3si0vrVPrF11X2TfAtTOPjiKUJeSrnUADwU0ERsfQdKR3W4fLqfGnbqkESN3t
+ Ggk4OYzNtZ3Lit4rBjviUlUOCpePHuPqkDrsCvgjP9od4YrJDUtvIQqk1odtOS+GmpKkuu1UxYo
+ TZry7b6XzWcULsNtp5KUiZl52AY5qTKhA4Jx+cRI2gzY7/LT6JGF3tvsl4Ql6czdyLU96Vs89rB
+ Qcgo4xa3GaJ96vHNrk+g4B4SXc5NxHOQX6OM4oY+F1VR6hg7pv/qL4uqxICf5Tez3PGPLt5/OOn
+ AEnS/SLZKdL3ydZtWLNabj6s6QdYUFUAFlUbRvrU717ICg/pxMJMaB1/5AioQntMsJFxIFfXTsC
+ E6IV75ouQL0/KAMn0CtBibCCGGUMxMhfMWK6V0Ex6OSM64BxG6NnmyXapHOzJc1SrnAIHu+NrRS
+ sNal4U=
+X-Received: by 2002:a05:600c:491e:b0:48e:978f:c45a with SMTP id
+ 5b1f17b1804b1-48fed455991mr135326915e9.19.1779112848462; 
+ Mon, 18 May 2026 07:00:48 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:1029:e3c5:362e:1250?
  ([2a01:e0a:106d:1080:1029:e3c5:362e:1250])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45d9ed2f738sm36982077f8f.16.2026.05.18.07.00.27
+ 5b1f17b1804b1-48fe537ccf5sm252594685e9.14.2026.05.18.07.00.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 May 2026 07:00:27 -0700 (PDT)
-Message-ID: <4d7d7ab9-5c68-4edd-a6ce-cee7b7726ca0@linaro.org>
-Date: Mon, 18 May 2026 16:00:26 +0200
+ Mon, 18 May 2026 07:00:47 -0700 (PDT)
+Message-ID: <1a24fdd5-24d9-4d3b-82a6-21c9c7b9fff0@linaro.org>
+Date: Mon, 18 May 2026 16:00:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/2] drm/panel: simple: add NEC NL6448BC33-70C
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add AM-1280800W8TZQW-T00H
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-kernel@vger.kernel.org
-References: <20260515-v7-1-topic-panel-simple-nl6448bc33-v2-0-74ab0baa1817@pengutronix.de>
- <20260515-v7-1-topic-panel-simple-nl6448bc33-v2-2-74ab0baa1817@pengutronix.de>
+Cc: Michael Trimarchi <michael@amarulasolutions.com>,
+ David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+References: <20260515064721.1750990-1-dario.binacchi@amarulasolutions.com>
+ <20260515064721.1750990-2-dario.binacchi@amarulasolutions.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -107,7 +107,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260515-v7-1-topic-panel-simple-nl6448bc33-v2-2-74ab0baa1817@pengutronix.de>
+In-Reply-To: <20260515064721.1750990-2-dario.binacchi@amarulasolutions.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -126,62 +126,63 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/15/26 13:46, Steffen Trumtrar wrote:
-> Add NEC NL6448BC33-70C 10.4" 640x480 LCD module support.
+On 5/15/26 08:47, Dario Binacchi wrote:
+> Add Ampire, AM-1280800W8TZQW-T00H 10.1" TFT LCD panel timings.
 > 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> Co-developed-by: Michael Trimarchi <michael@amarulasolutions.com>
+> Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 > ---
->   drivers/gpu/drm/panel/panel-simple.c | 29 +++++++++++++++++++++++++++++
->   1 file changed, 29 insertions(+)
+> 
+>   drivers/gpu/drm/panel/panel-simple.c | 28 ++++++++++++++++++++++++++++
+>   1 file changed, 28 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index 236bd56208ccf..dca6cbc41bd9f 100644
+> index 236bd56208cc..99deab68a2fb 100644
 > --- a/drivers/gpu/drm/panel/panel-simple.c
 > +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -3659,6 +3659,32 @@ static const struct panel_desc nec_nl4827hc19_05b = {
->   	.bus_flags = DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,
->   };
+> @@ -794,6 +794,31 @@ static void panel_simple_remove(struct device *dev)
+>   		put_device(&panel->ddc->dev);
+>   }
 >   
-> +static const struct drm_display_mode nec_nl6448bc33_70c_mode = {
-> +	.clock = 25175,
-> +	.hdisplay = 640,
-> +	.hsync_start = 640 + 16,
-> +	.hsync_end = 640 + 16 + 48,
-> +	.htotal = 640 + 16 + 48 + 96,
-> +	.vdisplay = 480,
-> +	.vsync_start = 480 + 2,
-> +	.vsync_end = 480 + 2 + 31,
-> +	.vtotal = 480 + 2 + 31 + 31,
-> +	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
+> +static const struct drm_display_mode ampire_am_1280800w8tzqw_t00h_mode = {
+> +	.clock = 72400,
+> +	.hdisplay = 1280,
+> +	.hsync_start = 1280 + 40,
+> +	.hsync_end = 1280 + 40 + 80,
+> +	.htotal = 1280 + 40 + 80 + 40,
+> +	.vdisplay = 800,
+> +	.vsync_start = 800 + 10,
+> +	.vsync_end = 800 + 10 + 18,
+> +	.vtotal = 800 + 10 + 18 + 10,
 > +};
 > +
-> +static const struct panel_desc nec_nl6448bc33_70c = {
-> +	.modes = &nec_nl6448bc33_70c_mode,
+> +static const struct panel_desc ampire_am_1280800w8tzqw_t00h = {
+> +	.modes = &ampire_am_1280800w8tzqw_t00h_mode,
 > +	.num_modes = 1,
-> +	.bpc = 6,
+> +	.bpc = 8,
 > +	.size = {
-> +		.width = 211,
-> +		.height = 158,
+> +		.width = 217,
+> +		.height = 136,
 > +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB666_1X18,
-> +	.bus_flags = DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,
+> +	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
+> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
 > +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 > +};
 > +
->   static const struct drm_display_mode netron_dy_e231732_mode = {
->   	.clock = 66000,
->   	.hdisplay = 1024,
-> @@ -5520,6 +5546,9 @@ static const struct of_device_id platform_of_match[] = {
->   	}, {
->   		.compatible = "nec,nl4827hc19-05b",
->   		.data = &nec_nl4827hc19_05b,
+>   static const struct drm_display_mode ampire_am_1280800n3tzqw_t00h_mode = {
+>   	.clock = 71100,
+>   	.hdisplay = 1280,
+> @@ -5193,6 +5218,9 @@ static const struct of_device_id platform_of_match[] = {
+>   	{
+>   		.compatible = "ampire,am-1280800n3tzqw-t00h",
+>   		.data = &ampire_am_1280800n3tzqw_t00h,
 > +	}, {
-> +		.compatible = "nec,nl6448bc33-70c",
-> +		.data = &nec_nl6448bc33_70c,
+> +		.compatible = "ampire,am-1280800w8tzqw-t00h",
+> +		.data = &ampire_am_1280800w8tzqw_t00h,
 >   	}, {
->   		.compatible = "netron-dy,e231732",
->   		.data = &netron_dy_e231732,
-> 
+>   		.compatible = "ampire,am-480272h3tmqw-t01h",
+>   		.data = &ampire_am_480272h3tmqw_t01h,
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
