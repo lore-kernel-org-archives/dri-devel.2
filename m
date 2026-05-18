@@ -4,146 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7621FCD4F49
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 16:37:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE0C4CD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 16:55:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3F5910E8F6;
-	Mon, 18 May 2026 16:37:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04AAD10E110;
+	Mon, 18 May 2026 16:55:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FKfWG0lX";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JosH13EE";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="XN8JeS87";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9FA410E327
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:37:04 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64IEnGEh2975394
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:37:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- z6bl1rogyLjzkYkDgztN3fk05kEH9UeuqTmadnwHZ50=; b=FKfWG0lX3m885V/j
- XA03cSmyeynZpezhjq1eXzi0ZABTxe2hEl3o2x2xyFl6ZDMlUYsJKY+mLusApkPw
- v1rUJPtDQnGVTibeVJpICr/XpE8GW1Pi2pT/Jn8jEt2P3+HOu0RWqzrqlfXsBgSZ
- cqLWWtNMtf6W1J6NprDX0KyK71gkVhUTipkfccCdOpWsWIOb2PnEmYT3rRcDI8/u
- dUkfQPnjYZs3hKnBYlH9yjJFCvP8Yd3xsQlXagDV6Vu3O8eC8xpcqjfA85WiGGkh
- 0jLwQG/R75KFBEgXgq67Eib7P43f8w32UMlxPD33BBs9OKi4+6S0B8azyppGZW/2
- g2bB6g==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e84v48djn-1
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D3C010E110
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:55:00 +0000 (UTC)
+Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64I1nN6C1953892
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:55:00 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=ZLY9yfLbRBjpxy+2SZZ2QJ1skamsrrS9MpjOO7Diwus=; b=XN8JeS877jEd
+ EB+ZxD27YIsRCiVSeSY3lAZcZeFfFdxQF+qfF4CTddtmCk+K2U3049kfL4nFlmH7
+ SL3cBbF1DhT0/mKioDrKiQNuR8X/wF49z9HY/X3ZO25Px96ZXMmw7UGd0yozk487
+ BHNo/ja8XUZxE3NcwBWwhA5pmfG/2rItk5Uheyxl/ozsVbHucAmJ+60On9h5ljfT
+ gsTgOrcXmoUn6KVcUVg0XrKksIyHrs9ANc/am9s32d/a/zIvHdMsuKPx/fJ1J80A
+ 0nwLeVfHhVfOp9GSZfmcFsGcbp6H2Lm7tfODKhxJrvgT4pMpk4jYBf7t481ofi8A
+ u89jy8cs2A==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4e7a7dxqw2-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:37:04 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50faf575af4so72414511cf.0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:37:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779122223; x=1779727023;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=z6bl1rogyLjzkYkDgztN3fk05kEH9UeuqTmadnwHZ50=;
- b=JosH13EEv2Y2HvnvLk+K7g6M3Nxc/RUQmD1B0m3P7WGXfGEW9iuOCMdevpR338tKne
- sbPoW3BCqTj4c0C9SROAzSei/WTOO+cbPyM3qkepPVPsx7vOZdrA3Ol2EF5cVDb20aPi
- 4HsAZ/qDC4ixecipi/R0JxGFm4bAdzyQRsaHFWeJE3ucwgrzy1gz6j22NN58q8dgMFgt
- HFyzRO5HwugES3/8hBjFXiEveTrS6/aipG1tgeSqmkoFt/iuaQslW+/NDf192O2Dv/yB
- DECbDDH2QGiPeL6t3ADxE3EVTHfGbfnDQuBnesD685XwcAok9Dspyv0wph49SsIgWRWZ
- 7bjQ==
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:54:59 -0700 (PDT)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-2ef62078ee7so3480961eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:54:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779122223; x=1779727023;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=z6bl1rogyLjzkYkDgztN3fk05kEH9UeuqTmadnwHZ50=;
- b=D1PBZkpIzbIx5M8KY+Mg2pztRDuRWpMrNTLm/rLspOiiBqTnm9iB9V+4A1cBzhFyvC
- fSIW9Xzxk1/4HDmnR+FrKuJgykNm/f2v9GEYvLYGKIAY02S/clxxBhY5lxXtCkEt825o
- UKoWTovJr6D8XpuO9i9Y9vowz6XjkImqKuvMeAqRqMc6VghjfCVNLMNfqRhfPv+R9JdR
- ERXafP3qBUEQYjHePZdWII9P7GQ8OiMpOZA2zruMMvNlPUTnmNuc1UDike4liOT4UN90
- eynUVpAJEO0GCtlwzgJZn5EXSM8gSip1QWR7wfScINnB5VFA1Tl8xFufeI4QI8fvhSkw
- ZlVg==
+ d=1e100.net; s=20251104; t=1779123299; x=1779728099;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZLY9yfLbRBjpxy+2SZZ2QJ1skamsrrS9MpjOO7Diwus=;
+ b=aU5Rbj6J/8edsPob0UCfYJpFxSwS0S4aqUpeu4no161N8bBZlakrC/3hssnORypBKM
+ +GEiTIWbZbDIUQKO1WfxSeLCW5aeFFyVAATafAI7uza7m81LzHFlcrjXzJ5SC1X287I7
+ VFL2FD1vlMy6LZ5iRT+06w1jxMCT0guhZy2XC7EvyhFxlklA0xRho2AbZ6nU4Y8fah5N
+ pTHVWoIUVef/wLRdkBZ8S9VS0Z9yOmuo8F5y7O388UTdjcCYTBZh/2NcvxfNb3PgTsHa
+ 1i+gtD+uRrfgQG7PdIgI3zqsysXlAWjVupLPMdADAzfT/hSBqDPQVb2fysx2aSb1HWny
+ Fung==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9baqFJPskGh44DhF2JENbsFWWpe4jQTKIu3h8AJRKR2acsqKtGCOlzJgn9lAwGn1j0seKVkcWNNpQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxj6vKdNv4VW5MLo7PdipbzTvQWHHVikispL6SAkXZct8z5tUB8
- RY7LSHPZSCd68fZsB6sZOq3ZoXAWSmPtcnv+5N35kxb84Jxgnq37++k/juJsmGSGdD1Hjjlbkkr
- /5zUN2LnQ1rIizyB/rtOALNmspDe+ewV7wT3D6A3gMGFqwETRgFlbndrmMSlJuWw36t5mH5Q=
-X-Gm-Gg: Acq92OEwx9wa7JCuLWYCN9y1+L4Zrz6QCy9tC0rrnC61Q1picoVqWei5+eHNDnfpHyu
- 9ZORydqbvC74USCLRjIGOldgjeTlZ+zbmonSsYR0JLil2IsE17oq8Z0tCCeuvxC+Gt8tDD6gYGJ
- AZZ2nH2wHb+EGmmnQwgxpKgIsHFErwoN3/+wENDLcURbquYLNjJLvm51I/+DVvl0yenN90n1sAJ
- lUvQWyJeo6jcwxs7N+NqHkTRHscac10brivCGX0SB/Ncbqea5iHYNqvqjVSnW3VsOz8rBeSr+kK
- DxlkUvNDiHDTdW9wGHeeMVxGrenNTyOeX0iWSeYDEOYUsSnasqbrZrfUk76JENoAiylYDtoQzNN
- ZKl3r3k1TczG4xv3Vhmp6DdfunAbB6Gz0d+OjXBOmGa5gL277YYj3k2DwBGUi5LN2At6qIGzjvO
- 1O1x+2GyokpFAJVDOWPyzkqUh2/acYvNIaf1o=
-X-Received: by 2002:ac8:5cc5:0:b0:50e:601a:217f with SMTP id
- d75a77b69052e-5165a076dcamr221804651cf.25.1779122223044; 
- Mon, 18 May 2026 09:37:03 -0700 (PDT)
-X-Received: by 2002:ac8:5cc5:0:b0:50e:601a:217f with SMTP id
- d75a77b69052e-5165a076dcamr221803841cf.25.1779122222344; 
- Mon, 18 May 2026 09:37:02 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3958878a128sm14023331fa.28.2026.05.18.09.37.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 May 2026 09:37:01 -0700 (PDT)
-Date: Mon, 18 May 2026 19:36:59 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v3 31/38] drm/msm/dp: add HPD callback for dp MST
-Message-ID: <djigwx5k7j2rkaoq7g6paor6l6i25srvq7chjqqnjlbs3shcco@x5drauwxzngp>
-References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-31-01faacfcdedd@oss.qualcomm.com>
- <pc4brjias4ixewzlsvnlhqhlz774z4p6aq7j4kldu5ze2e35sh@tsm2mtrkk3zi>
- <b5b3b1b8-ed48-429c-a87f-0278a6632313@oss.qualcomm.com>
- <tlt2ffn2xz3mpeoojcciieh35zc6pyowlkcjtxkkrnaj32enne@mbcrdrnkmaoz>
- <07ff4730-2efd-4e9d-b632-9fbb517179f9@oss.qualcomm.com>
- <vdjgzhx4xkvid2ukp7j3yir3n4tr423riyzvyzkrh2ssiub5at@pj6wfcy4jz5q>
- <4b18f14f-d485-4b9c-a75c-ead6f7c80f95@oss.qualcomm.com>
- <k6y3e4fqfwkevvvv3zmzmovsrz4i6qkxs3duhz7khsggxwwa77@uogtrpuaxhnc>
- <d4c5d26c-47f1-4e42-9852-d407982cb4f6@oss.qualcomm.com>
+ AFNElJ8axSQlDBdJf49yJTKuswCa5HJmwz031L5cK0QoEYupEM8q//nVRlw4CpPo26VNW8UCI+5tcttLXIk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwUu0zHdE8XpEXqbnc2W7X/IzZsG+hjJwb8ixM8AYjJcBYGi9ih
+ Uh8Y5sGXsBhZSXyRgObNxdke7hpQd4C7yfumTO8z42NQkChmONWVuWxAqHgBbQ1d0+8yXxnUTF1
+ A6wrlPmHrS1BWlMSbxkM9Vj4twhfd8VKZkWX7oC2OSefJckKPdMa5q6iXehNZNJSxFHpZ
+X-Gm-Gg: Acq92OE0C4Oj4TSLOqZupGWpqAyl4OfjYjlT8bDapGoeD/U1sJh6z7zb6Er0XaEJH8P
+ +b2MSAGQbOchgduwZf6IaqPUmUvaGhv/Al924dZXMs405nvssspzfqcjZJOD9709/PaGhKykWr7
+ DVzI9bRwujzKeruF+KhOZJQs35/joM1xhYABWNvIy1RwfeG0uQ53g/QG2un/5FZtvY0ToKXsJgk
+ TtC44hnYfWsro4bgL33iGnRVzotdqnNLF8MjNV1kkObDqHbtuTbhWa+r7Gmvwy11oI2VSo096mK
+ QlWGHvEn48JxYMX23gZ584wth29V8P6aKjs9YtqVv+WpY6qWMuoIALZUhE1rhu2efWl1eNz3Q74
+ dB/bQiaI4/AxAim/xLwmh4DKsoqYBow==
+X-Received: by 2002:a05:693c:2c8e:b0:2ee:f85:ec3c with SMTP id
+ 5a478bee46e88-303986b0490mr6401865eec.30.1779123298672; 
+ Mon, 18 May 2026 09:54:58 -0700 (PDT)
+X-Received: by 2002:a05:693c:2c8e:b0:2ee:f85:ec3c with SMTP id
+ 5a478bee46e88-303986b0490mr6401843eec.30.1779123298106; 
+ Mon, 18 May 2026 09:54:58 -0700 (PDT)
+Received: from [10.0.40.30] ([51.52.155.79]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30296dcb6adsm15797561eec.15.2026.05.18.09.54.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 May 2026 09:54:57 -0700 (PDT)
+Message-ID: <e90b20b7-3189-4395-b2a8-6391b5958936@meta.com>
+Date: Mon, 18 May 2026 17:54:52 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d4c5d26c-47f1-4e42-9852-d407982cb4f6@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=VJPtWdPX c=1 sm=1 tr=0 ts=6a0b4030 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=e5mUnYsNAAAA:8
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=-gHNLQfvCd7OBxZQGsYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22 a=Vxmtnl_E_bksehYqCbjh:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: l3ciji3u8Y8LhfeniG1MuTqg4cF3io_f
-X-Proofpoint-GUID: l3ciji3u8Y8LhfeniG1MuTqg4cF3io_f
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDE2NCBTYWx0ZWRfX9BV1XCryEpvm
- JGs2wzAA4yHseUnMwxE34oH7ndpuuL9DZDUy5gJLgpe6OTxpsM4ol5jjIDyEh9wREnt3nWvvDVJ
- oBA2fOAD3xXNtJ0OHWkIXETyP2V2O/g/CfELAx3edI04Ry5lhUhUW62PMY8zv4GaGCa+zqVU5vH
- 5KxLBhvz0aehOHcOacBpnHkc1QYV3LY36u7YDbz5ak9NN24NQ34rjXCjGyIrfI7ZweY37bzFw0u
- PLDRt29AR3RAjIqd56X8dmYDic98EX3MY8pNQdIV4ihCm7brrhzP0JNJ3YNQsl3sisiq4JAajZA
- FicrO/xsaL0zmKF4GFjWFhEkutB7vf3SsOcRdI73S+v2evOOj/RZN0E4nSTMOLiGWxEwUEbnCUi
- Hqf2u8Ovfh5NbA3PC0fMHETdmdivygpv6Nyl5wz0wlMpKKMeEY4DOJWdbYeK90gPTrbC4+2hA/T
- ZEbxX29XjlTI4lizMHQ==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/9] vfio/pci: Clean up BAR zap and revocation
+Content-Language: en-GB
+To: Leon Romanovsky <leon@kernel.org>, Alex Williamson <alex@shazbot.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org
+References: <20260416131815.2729131-1-mattev@meta.com>
+ <20260416131815.2729131-7-mattev@meta.com>
+ <20260501171919.42659174@shazbot.org> <20260505105822.GC11063@unreal>
+From: Matt Evans <mattev@meta.com>
+In-Reply-To: <20260505105822.GC11063@unreal>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: AR9dMJGEENLZ-OLC-tloPIzbYBC6xvkZ
+X-Proofpoint-GUID: AR9dMJGEENLZ-OLC-tloPIzbYBC6xvkZ
+X-Authority-Analysis: v=2.4 cv=c+6bhx9l c=1 sm=1 tr=0 ts=6a0b4463 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=2UbFsIa4v//lIgRL4kGwwA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=GbPsI2Ihf5RTnMjR_gZv:22 a=VabnemYjAAAA:8
+ a=GEBLkO6eNKYXaKtmIbgA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
+ a=PxkB5W3o20Ba91AHUih5:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDE2NiBTYWx0ZWRfX6WxoK+P/XWQo
+ 3r+d3EWNDacttLJEWxJIkV2q9hZxJEugI+1IVs1YkikZC7Ri7iuq3cQOxaAyzdSAcLRipeLY7VF
+ t9f7Y6pQQtoDLfQE7bl/8X9foX/ZrsUBxKruHCCaNASevL18AumCqC2TYMQlKFuEzDvFpxyaZW5
+ J4yPWbA0R1GjSkBKYeNnTmcIblSr9hNjm19ZCjEfV6UBSjHmcGeYCm+PVJEv21PLY5Gy0fT4kF7
+ UPZ1SCSxbhc3yZolnlDl9sFUOq77L4EswbMUiRcTG/gWvOH2JX4lpE8bXSRKOI+1/2YfTsiOhDj
+ hQp0xWWF3JdF+zYzQFTYqs9KmNhe6AaBHfcKIjxrDMOAR0ATB91IzLxypE0M2T/RJ5xYJn9Iy3N
+ Ap4ExCosZlPYSnmSzxkZjj02+UCgPsVmrPudzG6O/soP1jenOiuFUfuEpn7fXDiF8tNa31sWBT/
+ nu3dqd72d4GSbuq7jNw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-18_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 bulkscore=0
- spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180164
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,172 +132,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 14, 2026 at 03:12:17PM +0800, Yongxing Mou wrote:
-> 
-> 
-> On 4/19/2026 8:29 AM, Dmitry Baryshkov wrote:
-> > On Wed, Apr 15, 2026 at 06:32:29PM +0800, Yongxing Mou wrote:
-> > > 
-> > > 
-> > > On 4/15/2026 2:43 AM, Dmitry Baryshkov wrote:
-> > > > On Tue, Apr 14, 2026 at 05:51:51PM +0800, Yongxing Mou wrote:
-> > > > > 
-> > > > > 
-> > > > > On 3/25/2026 3:30 AM, Dmitry Baryshkov wrote:
-> > > > > > On Tue, Mar 24, 2026 at 09:04:24PM +0800, Yongxing Mou wrote:
-> > > > > > > 
-> > > > > > > 
-> > > > > > > On 8/27/2025 2:40 AM, Dmitry Baryshkov wrote:
-> > > > > > > > On Mon, Aug 25, 2025 at 10:16:17PM +0800, Yongxing Mou wrote:
-> > > > > > > > > From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > > > > > > > 
-> > > > > > > > > Add HPD callback for the MST module which shall be invoked from the
-> > > > > > > > > dp_display's HPD handler to perform MST specific operations in case
-> > > > > > > > > of HPD. In MST case, route the HPD messages to MST module.
-> > > > > > > > > 
-> > > > > > > > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > > > > > > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> > > > > > > > > ---
-> > > > > > > > >      drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++++++---
-> > > > > > > > >      drivers/gpu/drm/msm/dp/dp_mst_drm.c | 34 ++++++++++++++++++++++++++++++++++
-> > > > > > > > >      drivers/gpu/drm/msm/dp/dp_mst_drm.h |  2 ++
-> > > > > > > > >      3 files changed, 48 insertions(+), 3 deletions(-)
-> > > > > > > > > 
-> > > > > > > > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > > > > > > index abcab3ed43b6da5ef898355cf9b7561cd9fe0404..59720e1ad4b1193e33a4fc6aad0c401eaf9cbec8 100644
-> > > > > > > > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > > > > > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > > > > > > @@ -500,9 +500,16 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
-> > > > > > > > >      static int msm_dp_display_usbpd_attention_cb(struct device *dev)
-> > > > > > > > >      {
-> > > > > > > > > -	int rc = 0;
-> > > > > > > > > -	u32 sink_request;
-> > > > > > > > >      	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
-> > > > > > > > > +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
-> > > > > > > > > +	u32 sink_request;
-> > > > > > > > > +	int rc = 0;
-> > > > > > > > > +
-> > > > > > > > > +	if (msm_dp_display->mst_active) {
-> > > > > > > > > +		if (msm_dp_aux_is_link_connected(dp->aux) != ISR_DISCONNECTED)
-> > > > > > > > > +			msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
-> > > > > > > > > +		return 0;
-> > > > > > > > > +	}
-> > > > > > > > >      	/* check for any test request issued by sink */
-> > > > > > > > >      	rc = msm_dp_link_process_request(dp->link);
-> > > > > > > > > @@ -1129,8 +1136,10 @@ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)
-> > > > > > > > >      	if (hpd_isr_status & DP_DP_HPD_UNPLUG_INT_MASK)
-> > > > > > > > >      		msm_dp_display_send_hpd_notification(dp, false);
-> > > > > > > > > -	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK)
-> > > > > > > > > +	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK) {
-> > > > > > > > >      		msm_dp_display_send_hpd_notification(dp, true);
-> > > > > > > > > +		msm_dp_irq_hpd_handle(dp, 0);
-> > > > > > > > 
-> > > > > > > > Why is it a part of this patch?? It has nothing to do with MST.
-> > > > > > > > 
-> > > > > > > Emm ... maybe here we can directly call msm_dp_mst_display_hpd_irq..
-> > > > > > > I tried an alternative approach by calling the MST IRQ handler from
-> > > > > > > msm_dp_bridge_hpd_notify(). I expected that when hpd_isr_status ==
-> > > > > > > DP_DP_IRQ_HPD_INT_MASK, the hpd_link_status read in
-> > > > > > > msm_dp_bridge_hpd_notify() would be ISR_IRQ_HPD_PULSE_COUNT. That way, we
-> > > > > > > could handle both SST and MST interrupt paths in msm_dp_irq_hpd_handle().
-> > > > > > > However, hpd_link_status only reports ISR_CONNECTED. So I had to move the
-> > > > > > > MST IRQ handling into the IRQ thread. Do you have any suggestions on this?
-> > > > > > 
-> > > > > > When are the link status bits updated? Please remember, we need to
-> > > > > > support all three cases:
-> > > > > > 
-> > > > > > - Native DP, native DP HPD pin handling
-> > > > > > - Native DP, DP HPD pin not handled by the controller
-> > > > > > - DP AltMode, DP HPD pin not used at all
-> > > > > > 
-> > > > > > In the second and the third cases we will not be getting the IRQs.
-> > > > > > Instead one of the next bridges (connector, EC, AltMode, etc.) will send
-> > > > > > the HPD event, which lands in the .hpd_notify() callback.
-> > > > > > 
-> > > > > I added some logs and did some testing. I think
-> > > > > msm_dp_aux_is_link_connected() only shows the current HPD state. Since IRQ
-> > > > > HPD Pulse Count is very short, by the time we read REG_DP_DP_HPD_INT_STATUS
-> > > > > in the IRQ flow, the HPD state machine has usually already finished pulse
-> > > > > classification and returned to Connected.
-> > > > 
-> > > > But the IRQ should be sticky and it should be readable from the status
-> > > > bits.
-> > > > 
-> > > Yes... I’m not sure how this is handled on other platforms, but on LeMans
-> > > can not get IRQ status from msm_dp_aux_is_link_connected().
-> > 
-> > Can we clarify that somehow? Maybe with the hardware team if it is
-> > uncear from the HPG?
-> > 
-> > > > Note, in the USB-C AltMode case the HPD machine is not used at all.
-> > > > 
-> > > > > 
-> > > > > Because of that, the condition hpd_link_status == ISR_IRQ_HPD_PULSE_COUNT
-> > > > > will usually not be hit.
-> > > > > 
-> > > > > do you have any suggestion that in how to distinguish between an IRQ event
-> > > > > and a plug event in .hpd_notify() better? We probably don’t want to
-> > > > > introduce another state machine.
-> > > > 
-> > > > Then, I assume, currently there is no way to actually distinguish those.
-> > > > The easiest way to handle the replug would be to store the current
-> > > > "connected" status and verify if we are receiving "connected" while
-> > > > being connected or if it is a disconnected -> connected change.
-> > > > 
-> > > Emm.. Currently, regardless of whether it is the native DP HPD (on LeMans)
-> > > or DP over Type‑C Alt Mode(test on Hamoa), a single plug event always
-> > > results in two or more identical .hpd_notify() callbacks.
-> > 
-> > Could you please check, why? On Hamoa it might be because of the LTTPRs.
-> > 
-> > > In other words, after the transition from disconnected → connected is
-> > > completed, there is still one more .hpd_notify() with connected → connected.
-> > > So it still can store "connected" to distinguish between an IRQ event and a
-> > > plug event from .hpd_notify()?
-> > 
-> > I've sent a series, which explicitly tracks the IRQ events. Hope that
-> > helps.
-> > 
-> Very thanks for sending the HPD IRQ series
-> https://patchwork.freedesktop.org/series/151522/. it very helpful for TYPE-C
-> MST.
-> 
-> I’ve been testing it locally based on HPD refator series, and TYPE-C basic
-> plug case works on my side (although with some local modify, maybe now it is
-> workaround). At least the IRQ is being delivered correctly now and the
-> simplest case works. It still need to do some additional testing.
-> 
-> There is a small question:
-> When do you plan to merge the HPD refactor series?
+Hi Leon, Alex,
 
-Would you or your colleagues review it? Or at least T-B it?
-
-> and could you please
-> rebase the irq series patch to HPD refactor series ?
-
-Once it is merged.
-
-> so that i can keep MST
-> depend on those 2 series.
-> > Thoug storing of the "connected" state should help us to identify the
-> > long HPD pulse (wich should be treated as unplug & replug).
-> > 
-> > > This is my current understanding. If this is incorrect, please feel free to
-> > > correct me. Thanks.
-> > > As an additional note, msm_dp_hpd_plug_handle runs through its full flow
-> > > twice for a single plug event. Also, the behavior I described above does not
-> > > include any MST-specific filtering codes.
-> > > > For a longer term (and granted that HDMI also has a notion of HPD pulse
-> > > > events) we might want to extend the DRM HPD API to pass through the "IRQ
-> > > > pulse" events as is (instead of converting those to
-> > > > connected-whilec-connected events).
-> > > > 
-> > > > Let me sketch a draft for that.
-> > > > 
-> > > 
-> > 
+On 05/05/2026 11:58, Leon Romanovsky wrote:
 > 
+> On Fri, May 01, 2026 at 05:19:19PM -0600, Alex Williamson wrote:
+>> On Thu, 16 Apr 2026 06:17:49 -0700
+>> Matt Evans <mattev@meta.com> wrote:
+>>
+>>> Previously, vfio_pci_zap_bars() (and the wrapper
+>>> vfio_pci_zap_and_down_write_memory_lock()) calls were paired with
+>>> calls of vfio_pci_dma_buf_move().
+>>>
+>>> This commit replaces them a unified new function,
+>>> vfio_pci_zap_revoke_bars() containing both the vfio_pci_dma_buf_move()
+>>> and the unmap_mapping_range(), making it harder for callers to omit
+>>> one.  It adds a wrapper, vfio_pci_lock_zap_revoke_bars(), which takes
+>>> the write memory_lock before zapping, and adds a new
+>>> vfio_pci_unrevoke_bars() for the re-enable path.
+>>>
+>>> However, as of "vfio/pci: Convert BAR mmap() to use a DMABUF" the
+>>> unmap_mapping_range() to zap is entirely redundant for plain vfio-pci,
+>>> since the DMABUFs used for BAR mappings already zap PTEs when the
+>>> vfio_pci_dma_buf_move() occurs.
+>>>
+>>> One exception remains as a FIXME: in nvgrace-gpu, some BAR VMAs
+>>> conditionally use custom vm_ops, which have not moved to be backed by
+>>> DMABUFs.  If these BARs are mmap()ed, the vdev enables the existing
+>>> behaviour of unmap_mapping_range() for the device fd address space.
+>>
+>> What's the plan here?  Is this a temporary FIXME or a place to prove
+>> that dmabuf for mmap works beyond the core use case?
 
--- 
-With best wishes
-Dmitry
+The larger picture is that I havne't converted the nvgrace-gpu driver to 
+use DMABUFs for its custom mmap/fault handler code.  (It's not 
+straightforward to test, so I don't want to hack that.)
+
+This FIXME is added to vfio_pci_zap_revoke_bars(), saying that for this 
+specific sub-driver (or any others that do custom mmap) they still need 
+to flag so that this wrapper still performs the unmap_mapping_range().
+
+>>> Signed-off-by: Matt Evans <mattev@meta.com>
+>>> ---
+>>>   drivers/vfio/pci/nvgrace-gpu/main.c |  5 +++
+>>>   drivers/vfio/pci/vfio_pci_config.c  | 30 ++++++--------
+>>>   drivers/vfio/pci/vfio_pci_core.c    | 62 +++++++++++++++++++----------
+>>>   drivers/vfio/pci/vfio_pci_priv.h    |  3 +-
+>>>   include/linux/vfio_pci_core.h       |  1 +
+>>>   5 files changed, 62 insertions(+), 39 deletions(-)
+>>>
+>> ...
+>>> @@ -1229,7 +1228,7 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+>>>   	if (!vdev->reset_works)
+>>>   		return -EINVAL;
+>>>   
+>>> -	vfio_pci_zap_and_down_write_memory_lock(vdev);
+>>> +	vfio_pci_lock_zap_revoke_bars(vdev);
+>>>   
+>>>   	/*
+>>>   	 * This function can be invoked while the power state is non-D0. If
+>>> @@ -1242,10 +1241,9 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+>>>   	 */
+>>>   	vfio_pci_set_power_state(vdev, PCI_D0);
+>>>   
+>>> -	vfio_pci_dma_buf_move(vdev, true);
+>>
+>> This seems subtle enough to be troublesome.  I wonder if Leon didn't
+>> intentionally place the dmabuf revoke after the device is in D0 to
+>> allow the driver to interact with the device.
+> 
+> My intention was to place vfio_pci_dma_buf_move() as close as possible to
+> pci_try_reset_function(), so the device is known to be fully operational
+> at that point. It looks like calling it after the transition to D0 is the
+> right ordering.
+
+Thanks for that, I had missed that need to have D0 at the time of the 
+revoke.
+
+Getting the lock in the existing place (before D0 set) but doing a 
+separate vfio_zap_revoke_bars() here (replacing the bare move) seems 
+right, though for the sub-drivers which still need the zap (nvgace-gpu) 
+then the unmap_mapping_range() would happen after the D0 now.  I believe 
+this is OK, but I wanted to flag that difference.
+
+Many thanks,
+
+
+Matt
+
