@@ -4,141 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47072CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B062BCD4F48
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:16:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C7CF10E69A;
-	Mon, 18 May 2026 07:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F152010E0A4;
+	Mon, 18 May 2026 07:16:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="WhkzT/hM";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Ro/navyn";
 	dkim-atps=neutral
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011069.outbound.protection.outlook.com [52.101.125.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4E9310E69A
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:12:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CC4nL/oDkbJ19mmzZ3rJ6/qS7jHzi34nL+mjKBGEmaTFte+HSWqOANoafbAYw+DLq56T1hi+oxKj7ouZUkdJhKg+UgDS2Wpg0MnmavVZz8yvXUZ0yWRt/9rsJaH12jpaWapghJACBN64pTkfS+86sV3fuaSU8a3onTaSIPXxu+2Ao/bYUoVJ1WufewdQiAtwFwJylmJYuVxLlMz3V4gpKU5nU+B5NZ+bmTAvxErpP5JwmDrLeYyBiGiPgeHFemqPCX57qmwuzcYpvqAK1deuGY6H3VLqmgjDxx1C3xVwb5YpUvvPia0NnSBohCLWN1V/lZ91wYnQoW0JloH/TEvZrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1nn0uwvpiszuvDjaBxSeyc92kjMjyYCw5dns5ZuxxP0=;
- b=U/8Scawm1e5WepgOMBlWLnvBOBOk3vZ1hdIZR1IGrwzvKlVm9lx83TtXQVreVOxY5eL8tss4aYJLkVTXiTxbvrtDxel7yKzA3RgdwGAC1KXrvh4JjUfUXbi5l+1irMloTLt8KernTZIwWkG276oIVI6oHxans3m2Ic0gBxhDYbxgoY7e5tyiKRRVo7n26oCaWWj0LEQwgvyi2EmxVIxpQE5LVNld6XkCnHuiTMzwr23Nn9D33muDBf+0BqdCLK6X+YYYOqzswisw1O+zj8hqcR9sh9mWnUKc1dHlcPfitq4QFnIYwToJhLLe3d3HFgtYHnoiaX+m/y0PP0SNos0ZJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1nn0uwvpiszuvDjaBxSeyc92kjMjyYCw5dns5ZuxxP0=;
- b=WhkzT/hMUOIcJMjGzWy3ZJyvgvHv+a4/OGFeH/YJog3D1o/PnfPZTEq3ukdDh9O4j6SVkseXCLE12eiqBwIWbvoOXwFrB+0S1UnEfycOGJhKS58G5L9OeZbynoiBXNGhX6B144F0s861ROritT9ZTfRElC03Boa3rplEU12ZXz0=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS7PR01MB11516.jpnprd01.prod.outlook.com (2603:1096:604:246::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 07:12:41 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0025.022; Mon, 18 May 2026
- 07:12:35 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-CC: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, Maarten
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6259D10E0A4
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779088614;
+ bh=KqXz31fFcllBghfI8pU+i0+gahHJxk311r9iPzSXzpE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Ro/navyn0/DVaD7IcAs2bwN9U0+qbMBiTf0oUjhMcD0ROwgB/USIvQN1YZMsz174L
+ qBnN+vWuGWz1lVeR2jYgmElu1mjPxSMMGXIGAjsej3MU7FVBjkaUWJZstMBCZOlCyO
+ Lv4cAJJONcuvfiREYLHFMuSa+lE3sWIqJRj8ubGV6P0FReLdNK4Fk54j0akWhe7mYb
+ Ym19npygDaWlq5bpJbStix+kkZv9vaF6FznF0nLYxsVhvf2siW6oSF6AwFgJReakda
+ iiCScxbzTpDsRQNchfi+ZPOY5WefpAq+Cs+QuebRutmtjhkxc98uX1vYr3I/U2XKv+
+ 5Ebczo3CckW+Q==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BDEFE17E04E2;
+ Mon, 18 May 2026 09:16:53 +0200 (CEST)
+Date: Mon, 18 May 2026 09:16:50 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Chia-I Wu <olvaffe@gmail.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, Marcin =?UTF-8?B?xZpsdXNhcno=?=
+ <marcin.slusarz@arm.com>, Ketil Johnsen <ketil.johnsen@arm.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
  Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Geert
- Uytterhoeven <geert+renesas@glider.be>, magnus.damm <magnus.damm@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Fabrizio
- Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
- <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to
- per-output clock limits
-Thread-Topic: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to
- per-output clock limits
-Thread-Index: AQHc4h12S/BvNeveSEeUROA0xwu+DrYShyGggAAsoACAALE5kA==
-Date: Mon, 18 May 2026 07:12:35 +0000
-Message-ID: <TY3PR01MB11346178F22560ED8A8A38DBD86032@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260512144104.761531-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <TY3PR01MB11346174DD5FFD70AB39F570086022@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <CA+V-a8v_gmPEcWgFsC3Kv4X_M_qzbVHeEY=EmzdYxzy+PkyB-Q@mail.gmail.com>
-In-Reply-To: <CA+V-a8v_gmPEcWgFsC3Kv4X_M_qzbVHeEY=EmzdYxzy+PkyB-Q@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS7PR01MB11516:EE_
-x-ms-office365-filtering-correlation-id: 8b8fe104-9072-47ed-9bff-08deb4acd642
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|11063799003|18002099003|4143699003|56012099003|3023799003|22082099003|38070700021;
-x-microsoft-antispam-message-info: AffH8fe7ksqqYCEm8BHZOnvClyIIHw6HjHb8/ls8wgOPjQAc3VeK0ws01F7V/DfLTmql7luWQvi8fgRqpLrCUVuO7GGWzrpvzwOjDtofrUBL8gvyLDFWPXit4BakTKTPqiZ8cSj/IGRS0CjZ40cFB611e0UorVQRDU+mRrFr5yKWHaW0NrZaI2etjINvFBGzPRsrVlvx/dBdEIsa5AET8lWbJe2h4q1F/Y+jkygEVRwDSTazYp+cDO8wl3j28haAed3CWGghuvntak3hIGBbXK4nrh+h+5ZlscwZZxOoJhw3kAINxBssov9IF2/4lMfdXuiVZjw3WiD0xfzd5shxkiT9CdiVRWSK7EIrST3OQy18YwvN2OtYdaNaKdp8urbdXKXwZdX4MVz2IQNqkhWdxk03d7cUlvgG9VX36cuRkXD0ztnraIBml6213GfU/BkWDM2z8am+tt5fA29Zt+ls+TupbAync5tjmzh0plU6M3vXzFx1v7MdG4PvyXxTlM4KJc/d0lrk+KQO3p3swTv/Mg55zN5HvlsCl8u7yqgqpcuxD7ZJMewSodoA7tnC0Y2wKihO2NYJeFhiLXJcccVCoPjF8QOxsNVdlhRle94awQLv5ymcns7ArLm07eb3AVzjHraFxMLdZslbieUwUCOxNPkzhmrxaUpwif3D8fr3Tluk1qMJklnuxGKrQC3P66CPjWC254CGW0Se8/oPwgXgful4VWeWPSf7RYDSOye7RQoAs+GZeqyF2SoVwlPcwoMZ
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(11063799003)(18002099003)(4143699003)(56012099003)(3023799003)(22082099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MjZ5K1ZpMitKSVEwUW05TE5ocFVQVHVjREZrcjc2Y2FXQmxUVXFmVk03STBn?=
- =?utf-8?B?NjJqSzR5bjYwVUNtTldJQnJsRjhHQm1WMktYa3l2cVBDNGh3UHd6bDhmc0dk?=
- =?utf-8?B?ZGNnTkZLQUxCcTNSUzJhQTFoOHg2WEdwcVBXdjRtLzB1YTA2SmpsanRLTUIv?=
- =?utf-8?B?ODM1YkdOTDAxMnBoZ0dSOUtKMjB5K3ljalNYQk5vSnBpVlFBSWJhTUNiZ1Ar?=
- =?utf-8?B?M0dIenhrcHorMmc2SFN3cWZVbXJuRFNma3Nac3BDMnN5b0xBOGUyTTQrZ2t5?=
- =?utf-8?B?Q3RMZytuWEdJdW81MHRjRUxyQU5qRnhzOHFLUkcrWFB6QTkxdGZXNVovSUVT?=
- =?utf-8?B?VkhZMGNZRFljVHF4WjA4Z0c3NmdpTVV0Tm5CeERmUitLdW94L2hlRGl3V3dH?=
- =?utf-8?B?NmpwcDcvNjdjRDhJNkhFckpubHN1My9scThNeFVEbzlQdUhZNUVFeW9YNUpr?=
- =?utf-8?B?b1dCRTk3Y2JkV3JWdHdwZkEwdUtrcWZWNjdFYytKeStzMEwvZm1Idmg1T0p4?=
- =?utf-8?B?bm9qZkZSTFlTTVpCdlZCT0dFd1l0d3ptWmdEenpYVmlEZlNTK0Q0aVUvMWhR?=
- =?utf-8?B?aEQwd2ErbnFDelM3Qi9BZnUzWUNqQlptUFhqSzgrL2V3V2xlSWVzU0sxeVhX?=
- =?utf-8?B?ZWEycTB5cHJ1ZU5QSXRZTG9JNUpsbHhTN3lrRlZkai9iRllGTGFEeXY0alFm?=
- =?utf-8?B?SzF4cU52Z2xhcnRYbStOTEpzQ1RGdis3L3RuR3cxUTY4REJBcGMxVFdKRTVJ?=
- =?utf-8?B?LzJ5WU5CK3c3TG1yKzZLWWtlbExDMituQ0FnVENRcjk3dFpLNHVxQThDdm1U?=
- =?utf-8?B?cGpqN25vdXBNZ0puemRXd2VSQUtJUlpJVWdRaXAwNDJncnZpVmZvcjlTbHRx?=
- =?utf-8?B?aTFIU3pvTXhOdGhLRytEVUx0KzlwdmFkbDZ4WGJuSUhaL1ErMHNGL3NZZWkr?=
- =?utf-8?B?SmNGSmxwRHJCZHZmd3ZjWDIyUnhyNUl6MTk5Y2h6TGp1YTRFSzdqaGVyUkJ5?=
- =?utf-8?B?RUx1RnU0SUg0SWhlaHNnV2JOUEVTRTZYQVo1Ynh0UjZTYWNnWVJJQ2laaUdT?=
- =?utf-8?B?d3ZJQ0dMWGJvMWJWeit6dFRtTlFwWGQ1WHBPVTFMTHNGcEMxdW9lR2lMd0F0?=
- =?utf-8?B?eEswa3ZiekV6UmhCR3JTMjVSa1Erall1ZGxVUk1HeGhEV09rZ3dYOUN2eWZQ?=
- =?utf-8?B?bTY1WVJVT0E1VXBOeWNBbmwxaXBqYmRQM0pOWTBPak9MeTBYeTFZclFZcWYr?=
- =?utf-8?B?emJvWUNIMXprZkVTaWEyNGlHNE1hdjZMNHZWSkhwUmJFamdoZEVmcUl2R0l1?=
- =?utf-8?B?MWVIMzVxNVFLejRoWUJVVkZtZjc2b1VKMkRpTlc5c1VUYTdHYk1xODJJZGVH?=
- =?utf-8?B?ZmFPQ3dDK01kRUtwY2p1VTFqU2QxSFZrRTVtYnpnRmtFbFIxSFBXU2RLb2xW?=
- =?utf-8?B?TC95NFJYVXNZWHQwVDVMOHhxczdmMXVHV081RDhWNlo3U3JkdExwUnkvRjRX?=
- =?utf-8?B?WExwQ3Era2NZMWkzY3I0L3JDSW0rZ2RPazZ6Vzh3OER6bmRFVWkzaUE5cVlr?=
- =?utf-8?B?M05GMXd5SEpaU1ZJUWVKbHpEZlpieDRJOERSTkZWSXhla2o4eDMrRHFrUDRm?=
- =?utf-8?B?TjhzQkZWSW1sUVlwcGhqRUFCdU1vbDVPZ0toWTFXVGtQaW54RWozK3dhWkpT?=
- =?utf-8?B?M1YvOXBOWXlhMTB1NVhaVHFoR2UvKzBFS215aFV2NlFZTWRRK3JpNXlYVEgv?=
- =?utf-8?B?SnBRd3VMTEx6NHd4QngvZjN0bVZCRmZMNUlBYjFXR3FNM0tYUm9mL2FaTFdC?=
- =?utf-8?B?SW1jcmh1Rit3dWd6V2x5OW9lTDA2bTgrc3A3c0RtOTN5RHMweWlRUDA4NVNt?=
- =?utf-8?B?WkZpYTV6TCtCVEtVbTluU2ZXd1J5bkl4VWdQNGd0OEc0ZkhWbW9wS2F4MXFO?=
- =?utf-8?B?YndSeVJnekxWYXV6QTYxREk1SXJRVVNNbm92Nkg3aE8wUlY4Zzh3WkdpdFpM?=
- =?utf-8?B?NEtCSnBxVnVXeitKWXBBcmpUazlFNmplRVRteGJlY1VWbkdOZy9BU0RqZHRL?=
- =?utf-8?B?WEt6aUVKV2s1c0lIUU80VzhJazM4R2tvWGx0aUdwbWRDbE1yd1FROE9PMW9J?=
- =?utf-8?B?TUttaU93NS9aeWtBaVlLZ3A4SUM4WEEyUVllL0FjeElkYVRjV3dJUmFuK2xW?=
- =?utf-8?B?UzI3Vkw0T0FONzF6Z1R4MlNxNEgrY3ZtdGhhKytpMS9mRGVCT0JMSFpkYS9G?=
- =?utf-8?B?d1FTRytCcHFKenpFTUovWmQ3TlVDcld0QnRzZzlhcWE2SDB4cm1jRDZCZThW?=
- =?utf-8?B?MUVMNFdqbVdqbitsclJrdVljbFJLcndyeWlNWVZXU0JaNFRFQVFxZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Price
+ <steven.price@arm.com>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Florent Tomasin <florent.tomasin@arm.com>, nd@arm.com
+Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
+ allocation in panthor
+Message-ID: <20260518091650.5a7a4f4a@fedora>
+In-Reply-To: <CAPaKu7QC7FdjL6m_OSb+E5aYKs6bmT-9DAHc5PC=XctCmRph2Q@mail.gmail.com>
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+ <20260505140516.1372388-5-ketil.johnsen@arm.com>
+ <20260505181523.49a3d85c@fedora> <afxVIuVVPisBQ9p_@e129842.arm.com>
+ <20260507135356.5428d50d@fedora> <agMvb_jeRsO7tSS-@e142607>
+ <20260512161111.0cb7000e@fedora> <agNJasayW8VCHTiU@e142607>
+ <CAPaKu7QC7FdjL6m_OSb+E5aYKs6bmT-9DAHc5PC=XctCmRph2Q@mail.gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b8fe104-9072-47ed-9bff-08deb4acd642
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 07:12:35.4978 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: x90y6JbViPFDEPJCr3FzgfRfeIqKnqWbX3DQrAhQmZ5zlDQhACIUzM8EFCJi6sE7t6tunyaMGM5LbLwkOFkmISFvlQHO9OvBsWvMHYD9+AQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB11516
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,107 +84,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgUHJhYmhha2FyLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IExh
-ZCwgUHJhYmhha2FyIDxwcmFiaGFrYXIuY3NlbmdnQGdtYWlsLmNvbT4NCj4gU2VudDogMTcgTWF5
-IDIwMjYgMjE6MzANCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2MyA0LzVdIGRybTogcmVuZXNhczog
-cnotZHU6IE1vdmUgbW9kZV92YWxpZCBsb2dpYyB0byBwZXItb3V0cHV0IGNsb2NrIGxpbWl0cw0K
-PiANCj4gSGkgQmlqdSwNCj4gDQo+IFRoYW5rIHlvdSBmb3IgdGhlIHJldmlldy4NCj4gDQo+IE9u
-IFN1biwgTWF5IDE3LCAyMDI2IGF0IDY6NTnigK9QTSBCaWp1IERhcyA8YmlqdS5kYXMuanpAYnAu
-cmVuZXNhcy5jb20+IHdyb3RlOg0KPiA+DQo+ID4gSGkgUHJhYmhha2FyLA0KPiA+DQo+ID4gVGhh
-bmtzIGZvciB0aGUgcGF0Y2guDQo+ID4NCj4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
-DQo+ID4gPiBGcm9tOiBQcmFiaGFrYXIgPHByYWJoYWthci5jc2VuZ2dAZ21haWwuY29tPg0KPiA+
-ID4gU2VudDogMTIgTWF5IDIwMjYgMTU6NDENCj4gPiA+IFN1YmplY3Q6IFtQQVRDSCB2MyA0LzVd
-IGRybTogcmVuZXNhczogcnotZHU6IE1vdmUgbW9kZV92YWxpZCBsb2dpYw0KPiA+ID4gdG8gcGVy
-LW91dHB1dCBjbG9jayBsaW1pdHMNCj4gPiA+DQo+ID4gPiBGcm9tOiBMYWQgUHJhYmhha2FyIDxw
-cmFiaGFrYXIubWFoYWRldi1sYWQucmpAYnAucmVuZXNhcy5jb20+DQo+ID4gPg0KPiA+ID4gTW92
-ZSBwaXhlbCBjbG9jayB2YWxpZGF0aW9uIGZyb20gYSBmaXhlZCBlbmNvZGVyIGNoZWNrIHRvIHBl
-ci1vdXRwdXQNCj4gPiA+IGNvbnN0cmFpbnRzIHN0b3JlZCBpbiByemcybF9kdV9vdXRwdXRfcm91
-dGluZy4NCj4gPiA+DQo+ID4gPiBQcmV2aW91c2x5LCByemcybF9kdV9lbmNvZGVyX21vZGVfdmFs
-aWQoKSBhcHBsaWVkIGEgaGFyZC1jb2RlZCA4My41DQo+ID4gPiBNSHogdXBwZXIgbGltaXQgc3Bl
-Y2lmaWNhbGx5IGZvciBEUEFEMC4gVGhpcyBhcHByb2FjaCBjYW5ub3Qgc2NhbGUNCj4gPiA+IGFj
-cm9zcyB0aGUgUlogRFUgZmFtaWx5IGJlY2F1c2UgcGl4ZWwgY2xvY2sgbGltaXRzIHZhcnkgcGVy
-IFNvQyBhbmQgcGVyIG91dHB1dCBpbnRlcmZhY2UuDQo+ID4gPg0KPiA+ID4gQWRkIG1vZGVfY2xv
-Y2tfbWluIGFuZCBtb2RlX2Nsb2NrX21heCBmaWVsZHMgdG8NCj4gPiA+IHJ6ZzJsX2R1X291dHB1
-dF9yb3V0aW5nIHNvIHRoYXQgY2xvY2sgY29uc3RyYWludHMgYXJlIGV4cHJlc3NlZCBhdA0KPiA+
-ID4gdGhlIGdyYW51bGFyaXR5IG9mIGluZGl2aWR1YWwgb3V0cHV0IGludGVyZmFjZXMgcmF0aGVy
-IHRoYW4gZ2xvYmFsbHkNCj4gPiA+IHBlciBTb0MuIFVwZGF0ZQ0KPiA+ID4gcnpnMmxfZHVfZW5j
-b2Rlcl9tb2RlX3ZhbGlkKCkgdG8gbG9vayB1cCB0aGUgcm91dGluZyBlbnRyeSBmb3IgdGhlDQo+
-ID4gPiBhY3RpdmUgb3V0cHV0IGFuZCByZXR1cm4gTU9ERV9DTE9DS19MT1cgb3IgTU9ERV9DTE9D
-S19ISUdIIHdoZW4gdGhlDQo+ID4gPiBwaXhlbCBjbG9jayBmYWxscyBvdXRzaWRlIHRoZSBkZWNs
-YXJlZCByYW5nZS4gQSB2YWx1ZSBvZiAwIGZvciBlaXRoZXIgZmllbGQgbWVhbnMgbm8gYm91bmQg
-aXMNCj4gZW5mb3JjZWQgaW4gdGhhdCBkaXJlY3Rpb24uDQo+ID4gPg0KPiA+ID4gU2V0IHRoZSBE
-UEFEMCBwaXhlbCBjbG9jayBsaW1pdHMgZm9yIFJaL0cyVUwgKFI5QTA3RzA0M1UpIHRvIDIwLjg3
-NSBNSHogbWluaW11bSBhbmQgODMuNSBNSHoNCj4gbWF4aW11bS4NCj4gPiA+IFJaL0cyTCBhbmQg
-UlovRzJMQyAoUjlBMDdHMDQ0KSBzaGFyZSB0aGUgc2FtZSBEUEFEMCBwaXhlbCBjbG9jayBsaW1p
-dHMuDQo+ID4gPg0KPiA+ID4gU2lnbmVkLW9mZi1ieTogTGFkIFByYWJoYWthcg0KPiA+ID4gPHBy
-YWJoYWthci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4NCj4gPiA+IC0tLQ0KPiA+ID4g
-djItPnYzOg0KPiA+ID4gLSBNb3ZlZCBjbG9jayBsaW1pdHMgZnJvbSBkZXZpY2VfaW5mbyB0byBv
-dXRwdXRfcm91dGluZyB0byBhbGxvdw0KPiA+ID4gICBwZXItb3V0cHV0IGNvbnN0cmFpbnRzLg0K
-PiA+ID4gLSBVcGRhdGVkIGNvbW1pdCBtZXNzYWdlIHRvIHJlZmxlY3QgdGhlIGNoYW5nZSBpbiBh
-cHByb2FjaC4NCj4gPiA+DQo+ID4gPiB2MS0+djI6DQo+ID4gPiAtIERyb3BwZWQgc3RvcmluZyBp
-bmZvIHBvaW50ZXIgaW4gc3RydWN0IHJ6ZzJsX2R1X2VuY29kZXIgYXMgaXQncyBub3QgbmVlZGVk
-Lg0KPiA+ID4gLS0tDQo+ID4gPiAgZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxf
-ZHVfZHJ2LmMgICAgIHwgNCArKysrDQo+ID4gPiAgZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnot
-ZHUvcnpnMmxfZHVfZHJ2LmggICAgIHwgNCArKysrDQo+ID4gPiAgZHJpdmVycy9ncHUvZHJtL3Jl
-bmVzYXMvcnotZHUvcnpnMmxfZHVfZW5jb2Rlci5jIHwgNiArKysrKy0NCj4gPiA+ICAzIGZpbGVz
-IGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gPiA+DQo+ID4gPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxfZHVfZHJ2LmMN
-Cj4gPiA+IGIvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotIGR1L3J6ZzJsX2R1X2Rydi5jIGlu
-ZGV4DQo+ID4gPiAwZmVmMzNhNWEwODkuLmQxYmMyMDVlYjVmOCAxMDA2NDQNCj4gPiA+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzJsX2R1X2Rydi5jDQo+ID4gPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yei1kdS9yemcybF9kdV9kcnYuYw0KPiA+ID4gQEAg
-LTMzLDYgKzMzLDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCByemcybF9kdV9kZXZpY2VfaW5mbyBy
-emcybF9kdV9yOWEwN2cwNDN1X2luZm8gPSB7DQo+ID4gPiAgICAgICAgICAgICAgIFtSWkcyTF9E
-VV9PVVRQVVRfRFBBRDBdID0gew0KPiA+ID4gICAgICAgICAgICAgICAgICAgICAgIC5wb3NzaWJs
-ZV9vdXRwdXRzID0gQklUKDApLA0KPiA+ID4gICAgICAgICAgICAgICAgICAgICAgIC5wb3J0ID0g
-MCwNCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAubW9kZV9jbG9ja19taW4gPSAyMDg3NSwN
-Cj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAubW9kZV9jbG9ja19tYXggPSA4MzUwMCwNCj4g
-PiA+ICAgICAgICAgICAgICAgfSwNCj4gPiA+ICAgICAgIH0sDQo+ID4gPiAgfTsNCj4gPiA+IEBA
-IC00Nyw2ICs0OSw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcnpnMmxfZHVfZGV2aWNlX2luZm8g
-cnpnMmxfZHVfcjlhMDdnMDQ0X2luZm8gPSB7DQo+ID4gPiAgICAgICAgICAgICAgIFtSWkcyTF9E
-VV9PVVRQVVRfRFBBRDBdID0gew0KPiA+ID4gICAgICAgICAgICAgICAgICAgICAgIC5wb3NzaWJs
-ZV9vdXRwdXRzID0gQklUKDApLA0KPiA+ID4gICAgICAgICAgICAgICAgICAgICAgIC5wb3J0ID0g
-MSwNCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAubW9kZV9jbG9ja19taW4gPSAyMDg3NSwN
-Cj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAubW9kZV9jbG9ja19tYXggPSA4MzUwMCwNCj4g
-PiA+ICAgICAgICAgICAgICAgfQ0KPiA+ID4gICAgICAgfQ0KPiA+ID4gIH07DQo+ID4gPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxfZHVfZHJ2LmgNCj4g
-PiA+IGIvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotIGR1L3J6ZzJsX2R1X2Rydi5oIGluZGV4
-DQo+ID4gPiA1ODgwNmMyYThmMmIuLjMwN2FlNzBkZDM4MiAxMDA2NDQNCj4gPiA+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzJsX2R1X2Rydi5oDQo+ID4gPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yei1kdS9yemcybF9kdV9kcnYuaA0KPiA+ID4gQEAgLTMw
-LDYgKzMwLDggQEAgZW51bSByemcybF9kdV9vdXRwdXQgew0KPiA+ID4gICAqIHN0cnVjdCByemcy
-bF9kdV9vdXRwdXRfcm91dGluZyAtIE91dHB1dCByb3V0aW5nIHNwZWNpZmljYXRpb24NCj4gPiA+
-ICAgKiBAcG9zc2libGVfb3V0cHV0czogYml0bWFzayBvZiBwb3NzaWJsZSBvdXRwdXRzDQo+ID4g
-PiAgICogQHBvcnQ6IGRldmljZSB0cmVlIHBvcnQgbnVtYmVyIGNvcnJlc3BvbmRpbmcgdG8gdGhp
-cyBvdXRwdXQNCj4gPiA+IHJvdXRlDQo+ID4gPiArICogQG1vZGVfY2xvY2tfbWluOiBtaW5pbXVt
-IHBpeGVsIGNsb2NrIGluIGtIeg0KPiA+ID4gKyAqIEBtb2RlX2Nsb2NrX21heDogbWF4aW11bSBw
-aXhlbCBjbG9jayBpbiBrSHoNCj4gPiA+ICAgKg0KPiA+ID4gICAqIFRoZSBEVSBoYXMgMiBwb3Nz
-aWJsZSBvdXRwdXRzIChEUEFEMCwgRFNJMCkuIE91dHB1dCByb3V0aW5nIGRhdGENCj4gPiA+ICAg
-KiBzcGVjaWZ5IHRoZSB2YWxpZCBTb0Mgb3V0cHV0cywgd2hpY2ggQ1JUQyBjYW4gZHJpdmUgdGhl
-IG91dHB1dCwNCj4gPiA+IGFuZCB0aGUgdHlwZSBAQCAtMzgsNiArNDAsOCBAQCBlbnVtIHJ6ZzJs
-X2R1X291dHB1dCB7ICBzdHJ1Y3QgcnpnMmxfZHVfb3V0cHV0X3JvdXRpbmcgew0KPiA+ID4gICAg
-ICAgdW5zaWduZWQgaW50IHBvc3NpYmxlX291dHB1dHM7DQo+ID4gPiAgICAgICB1bnNpZ25lZCBp
-bnQgcG9ydDsNCj4gPiA+ICsgICAgIGludCBtb2RlX2Nsb2NrX21pbjsNCj4gPiA+ICsgICAgIGlu
-dCBtb2RlX2Nsb2NrX21heDsNCj4gPiA+ICB9Ow0KPiA+ID4NCj4gPiA+ICAvKg0KPiA+ID4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzJsX2R1X2VuY29kZXIu
-Yw0KPiA+ID4gYi9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yei0gZHUvcnpnMmxfZHVfZW5jb2Rl
-ci5jIGluZGV4DQo+ID4gPiAwZTU2N2I1N2E0MDguLjRhZjJhZTA5ZmYzOSAxMDA2NDQNCj4gPiA+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzJsX2R1X2VuY29kZXIuYw0K
-PiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxfZHVfZW5jb2Rl
-ci5jDQo+ID4gPiBAQCAtNTAsOCArNTAsMTIgQEAgcnpnMmxfZHVfZW5jb2Rlcl9tb2RlX3ZhbGlk
-KHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwNCj4gPiA+ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgY29uc3Qgc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUpICB7DQo+ID4gPiAgICAg
-ICBzdHJ1Y3QgcnpnMmxfZHVfZW5jb2RlciAqcmVuYyA9IHRvX3J6ZzJsX2VuY29kZXIoZW5jb2Rl
-cik7DQo+ID4gPiArICAgICBzdHJ1Y3QgcnpnMmxfZHVfZGV2aWNlICpyY2R1ID0gdG9fcnpnMmxf
-ZHVfZGV2aWNlKHJlbmMtPmJhc2UuZGV2KTsNCj4gPiA+ICsgICAgIGNvbnN0IHN0cnVjdCByemcy
-bF9kdV9vdXRwdXRfcm91dGluZyAqcm91dGUgPQ0KPiA+ID4gKyZyY2R1LT5pbmZvLT5yb3V0ZXNb
-cmVuYy0+b3V0cHV0XTsNCj4gPiA+DQo+ID4gPiAtICAgICBpZiAocmVuYy0+b3V0cHV0ID09IFJa
-RzJMX0RVX09VVFBVVF9EUEFEMCAmJiBtb2RlLT5jbG9jayA+IDgzNTAwKQ0KPiA+DQo+ID4gUGxl
-YXNlIHJldGFpbiB0aGUgY2hlY2sgZm9yIERQQUQgb3V0cHV0LCB0byBhdm9pZCBjaGVja2luZyB0
-aGUgc2FtZSBmb3IgRFNJIGFuZCBMVkRTLg0KPiA+DQo+IFRoaXMgcGF0Y2ggY2hlY2tzIG9ubHkg
-Zm9yIHBhZHMgdGhhdCBoYXZlIGFkZGVkIGNvbnN0cmFpbnRzLg0KDQpJdCB3aWxsIGxlYWQgdG8g
-dHdvIGNoZWNrcyByb3V0ZS0+bW9kZV9jbG9ja19taW4gYW5kIHJvdXRlLT5tb2RlX2Nsb2NrX21h
-eC4NCg0KV2hlcmVhcyBieSBjaGVja2luZw0KDQppZiAocmVuYy0+b3V0cHV0ICE9IFJaRzJMX0RV
-X09VVFBVVF9EUEFEMCkgaXMgYSBzaW5nbGUgY2hlY2sgYW5kIGl0IGlzIG1lYW50IA0KZm9yIHNr
-aXBwaW5nIERTSSBhbmQgTFZEUyBhcyB0aGUgcmVzcGVjdGl2ZSBlbmNvZGVyIGRyaXZlcnMgZG8g
-aGF2ZSBtb2RlX3ZhbGlkKCkuDQoNCkNoZWVycywNCkJpanUNCg==
+On Wed, 13 May 2026 12:31:32 -0700
+Chia-I Wu <olvaffe@gmail.com> wrote:
+
+> On Tue, May 12, 2026 at 8:39=E2=80=AFAM Liviu Dudau <liviu.dudau@arm.com>=
+ wrote:
+> >
+> > On Tue, May 12, 2026 at 04:11:11PM +0200, Boris Brezillon wrote: =20
+> > > On Tue, 12 May 2026 14:47:27 +0100
+> > > Liviu Dudau <liviu.dudau@arm.com> wrote:
+> > > =20
+> > > > On Thu, May 07, 2026 at 01:53:56PM +0200, Boris Brezillon wrote: =20
+> > > > > On Thu, 7 May 2026 11:02:26 +0200
+> > > > > Marcin =C5=9Alusarz <marcin.slusarz@arm.com> wrote:
+> > > > > =20
+> > > > > > On Tue, May 05, 2026 at 06:15:23PM +0200, Boris Brezillon wrote=
+: =20
+> > > > > > > > @@ -277,9 +286,21 @@ int panthor_device_init(struct panthor=
+_device *ptdev)
+> > > > > > > >                     return ret;
+> > > > > > > >     }
+> > > > > > > >
+> > > > > > > > +   /* If a protected heap name is specified but not found,=
+ defer the probe until created */
+> > > > > > > > +   if (protected_heap_name && strlen(protected_heap_name))=
+ { =20
+> > > > > > >
+> > > > > > > Do we really need this strlen() > 0? Won't dma_heap_find() fa=
+il is the
+> > > > > > > name is "" already? =20
+> > > > > >
+> > > > > > If dma_heap_find() will fail, then the whole probe with fail to=
+o.
+> > > > > > This check prevents that. =20
+> > > > >
+> > > > > Yeah, that's also a questionable design choice. I mean, we can
+> > > > > currently probe and boot the FW even though we never setup the
+> > > > > protected FW sections, so why should we defer the probe here? Can=
+'t we
+> > > > > just retry the next time a group with the protected bit is create=
+d and
+> > > > > fail if we can find a protected heap? =20
+> > > >
+> > > > The problem we have with the current firmware is that it does a num=
+ber of setup steps at "boot"
+> > > > time only. One of the steps is preparing its internal structures fo=
+r when it enters protected
+> > > > mode and it stores them in the buffer passed in at firmware loading=
+. We cannot later run the
+> > > > process when we have a group with protected mode set. =20
+> > >
+> > > No, but we can force a full/slow reset and have that thing
+> > > re-initialized, can't we? I mean, that's basically what we do when a
+> > > fast reset fails: we re-initialize all the sections and reset again, =
+at
+> > > which point the FW should start from a fresh state, and be able to
+> > > properly initialize the protected-related stuff if protected sections
+> > > are populated. Am I missing something? =20
+> >
+> > Right, we can do that. For some reason I keep associating the reset wit=
+h the
+> > error handling and not with "normal" operations. =20
+> I kind of hope we end up with either
+>=20
+>  - panthor knows the exact heap to use and fails with EPROBE_DEFER if
+> the heap is missing, or
+>  - panthor gets a dma-buf from userspace and does the full reset
+>    - userspace also needs to provide a dma-buf for each protected
+> group for the suspend buffer
+>=20
+> than something in-between. The latter is more ad-hoc and basically
+> kicks the issue to the userspace.
+
+Indeed, the second option is more ad-hoc, but when you think about it,
+userspace has to have this knowledge, because it needs to know the
+dma-heap to use for buffer allocation that cross a device boundary
+anyway. Think about frames produced by a video decoder, and composited
+by the GPU into a protected scanout buffer that's passed to the KMS
+device. Why would the GPU driver be source of truth when it comes to
+choosing the heap to use to allocate protected buffers for the video
+decoder or those used for the display?
+
+>=20
+> For the former, expressing the relation in DT seems to be the best,
+> but only if possible :-). Otherwise, a kconfig option (instead of
+> module param) should be easier to work with.
+>=20
+> Looking at the userspace implementation, can we also have an panthor
+> ioctl to return the heap to userspace?
+
+Yes, it's something we can add, but again, I'm questioning the
+usefulness of this: how can we ensure the heap used by panthor to
+allocate its protected FW buffers is suitable for scanout buffers
+(buffers that can be used by display drivers). There needs to be a glue
+leaving in usersland and taking the decision, and I'm not too sure
+trusting any of the component in the chain (vdec, gpu, display) is the
+right thing to do.
