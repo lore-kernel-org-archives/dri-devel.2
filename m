@@ -4,73 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D17CD4F52
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 11:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AECCCD4F3C
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 11:58:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307F810E2FE;
-	Mon, 18 May 2026 11:58:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DAC810E30E;
+	Mon, 18 May 2026 11:58:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="JzALU++K";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4e+ldNJN";
 	dkim-atps=neutral
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D768410E2FE
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 11:58:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779105489; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=IPkBQcOo5XFdejmJPG8InUSZQTBcbyzcNQZ1YvrvESMAwa1i0QvINOhHgv9vbPX3LrJ+n+scQFYzELVet96hYIXqGe2VGO81NmhEQLqoAuIyRJPyl0YNK838A1OEyMmhugGqYJVRbAQHYkmvlDUAbEwo3328+foUSA5x+cO68PQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779105489;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=xjoH0EPjo8/NO/3DivGdW8xWQO4fJdSYvzOExA8pRko=; 
- b=M/CD1+yDUMCIY3m9DmVym6VCYbVZtcN7xaV18lj0iP+Rtu+v1rnmT0p2pOAGYwIhD+CUTK6eJ6rXEU1mXg1aYwM4iR76U5jQW3Wp57m5u+4EhIQrk3k6jUaanTLEwv71UROlDc/a/kXh8KMHJZGIqPDPOggaVgPJ/dWlYSFuDeg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779105489; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Date:Date:From:From:To:To:CC:Subject:Subject:In-Reply-To:References:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
- bh=xjoH0EPjo8/NO/3DivGdW8xWQO4fJdSYvzOExA8pRko=;
- b=JzALU++KhOmnXGWFxVeL2M+gb6owfyGwdVllnBd7sh5or7TtbDoh23ZitayFoHZj
- dDIWAmmlcgYouA9L+Y+rEVYzUI767VlMBOY+8J7xm9c9XRgAThrRFm7NFgKQUvJFvKi
- yxveIGbT2XAf/dXOHUeEnJfG27lz8rFxwIDexq9ZdN69GGd9Ad1Kn4TVWKpoSsGvQDA
- +KQdb1tQGJzB83HXyySSpDJB3I3DD1qnaNNuwu5zCGI0pRsYWwHm9mHetbZofktzzG0
- owL5y/ArBJYw7Go9f3C3v7kmXHsVdGULCg8Ho58oK9H5sjiS4O18jc/S2P7Wc09rEHQ
- xH12JleKnQ==
-Received: by mx.zohomail.com with SMTPS id 177910548572495.00359433048015;
- Mon, 18 May 2026 04:58:05 -0700 (PDT)
-Date: Mon, 18 May 2026 19:57:33 +0800
-From: Icenowy Zheng <uwu@icenowy.me>
-To: dri-devel@lists.freedesktop.org, Joey Lu <a0987203069@gmail.com>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-CC: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_2/2=5D_drm/verisilicon=3A_add_support_fo?=
- =?US-ASCII?Q?r_Nuvoton_MA35D1_DCUltra_Lite_display_controller?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <520e1683-6d5c-4e1f-8811-0ef78cf8d605@gmail.com>
-References: <20260511075142.54752-1-a0987203069@gmail.com>
- <20260511075142.54752-3-a0987203069@gmail.com>
- <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
- <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
- <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
- <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
- <4bf6efbb222ebc4d770ad613d17c6185e7cb2fda.camel@iscas.ac.cn>
- <1d04dd6d-f245-4b83-96b0-c5491fad8093@gmail.com>
- <76a9e9b676509e85484a1eb31c723b46c7e21a19.camel@iscas.ac.cn>
- <1a42a168-1dbb-467e-9053-b5585a737f71@gmail.com>
- <1c4d8611411e2d14699ac0b9aeb5b2377feedc8a.camel@iscas.ac.cn>
- <520e1683-6d5c-4e1f-8811-0ef78cf8d605@gmail.com>
-Message-ID: <A8EFEF67-21EB-405B-91BA-293A7D0DE564@icenowy.me>
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010042.outbound.protection.outlook.com [52.101.46.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40FDA10E30E;
+ Mon, 18 May 2026 11:58:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d0Jx5wzDq3Lyr7jmOEWWMNisk48o1AvVdNKGOdyuCEz0Q/zP2K7b4Ly1Kf1uB26mE949g3zcdVL190qu2ffmg2rEOPhW6QlP6hYGx1NYJXp9YFALQHzs4NMy6xqU6VYsGkkPOfN+DiGOlQsqhwwQKWzKE/xlYvsOhDPlnSAANbTJQ6yaM/z+CYK9n/loF7gAWkHA2Db08jgSwwEBEYE/5K/cE3G6rDs9OuhiJcGwSZnCLgwnV/KLtYX7zUqCT7hkjHnbmINDmDYuFm9W4PPOQuniz4SNnzxm2/JJjFWyz2kowMP/3R2D2D60lZwhuY04OWPFurItFU2shppDBEJBzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o/wxmq+4Qvp7ufsZ9FjX+jEXRqx7RKPZMk16j/OF3nA=;
+ b=BEYVA3JpDfZUn3XXIr+hD2vGiZc83DL7tIfg3Vm7agxs+ukEziFy0DHyVWJATB8E7BxzJVmC7OOZwwIsoO3j2L2K5LTXTDokSXB77AVaF4MFSy40d3d9IRTaPADTKFGc8ob7WeeLHfG1pu+xpbyvaofKhq7TXbU95UAkDtplj9irKljm1sVFHyKw37sp5QB+7qwX+CSVTk8+0EMH4ZrVNopb3PuOZVrlRT9KTHktqnKzVJiqiAhUVsBsOeTiDqT/gMcP2h54/oJ1WMoO17vpj0FfvOuLQmWtxAl+PL77Zm1FVeFkbBfjaDmOHqldbAgDeD9eUyu4dA7zT1xtNlGFbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o/wxmq+4Qvp7ufsZ9FjX+jEXRqx7RKPZMk16j/OF3nA=;
+ b=4e+ldNJNIM/70iaS5dqkhWAXrAtm7ynh7qKWc6+suudExwPfotwlX296qOtPh3JNFW9w2WCMFdcCvhHVSk6dSX6X3PeAP0CgBVHb7VTjNOofKzwwqO+kTJ1D+DiYunl1C5vkjPzTqII5GgATymJPS4L+YEUJyveiv/BN+qk3JSg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LVUPR12MB999160.namprd12.prod.outlook.com (2603:10b6:408:3a4::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Mon, 18 May
+ 2026 11:58:44 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 11:58:43 +0000
+Message-ID: <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
+Date: Mon, 18 May 2026 13:58:37 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
+To: Julian Orth <ju.orth@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
+References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0068.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LVUPR12MB999160:EE_
+X-MS-Office365-Filtering-Correlation-Id: cdae05e7-a15a-424d-e73a-08deb4d4cf41
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|366016|3023799003|11063799003|56012099003|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info: 20fTFCzOVW1xoiFKGKsPTRF2OzUf6aMwahZJ1CQKOIS3P2yJLbpIJNhYBB9ZdvhSe5qmD2najRGMgaVmynjZAnyJd8Dg+mAydf3w21bNri92rmXgMvX1YGlP58Ysnw+X4OcuAC26ahZQRHMwIlTvU3IWreWAxUgncUM31Q1DvrT/Md73QMm4qzkPTydaxhPQpNiCXiGp4LUx8IN01an3GT+URoku58R79gQJ1IUUjs+neUx+zvvDxunLSZtRYVXKu+bQIL/G1zIJNr0M2GNB8nkt+XF2QHRDyMVr629nqqZx3qSLL6Ts50+mCHCp7VfUxYcy95I9SyQPnG9n1g+FVEPJ8y/65LwYv+g9apUbckHZUttx1QpQeUruaC/bNhxrFKTtVVVkyIv/UN9iFPJO3OyzTvmcxoHgVnMxUV6C8bjTa9uVym1ajduxNf6uFZx/qkk6MGi6GXHn9egDMWLMLt0f8fLEuDDnm2KtRUHrdOeul984+/sCRAz5eKGH0XKR0DNRlAQwK/e9pSA1rrPcT4u9PYhPtvqLM45v1MWv3cIsS9ZrZIVf83/ABmiKYuvsqGhKx/lH4BqWO17fpbqbPl8baSQWS1cMRF/XwnJKhgE76sPZom1tnEND5J6rS5CrQh/Y6CuWlB9r/unEExQk6WWxfiYX6kivhBpdI9GP5N1JYqvRdGkka0wivN+0IKJYPCKN6FRUEEoQjtL/cj2/C46hkjrkixKRgqMgtStN4/DPX9eAYSkOZkfjVNPCRr7m
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(3023799003)(11063799003)(56012099003)(18002099003)(22082099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aStzSUlYMU5XVmpKR1o5Y3FzRjdiNFhLME5ka1FCNHBZcmZaOWRua3hJcVlP?=
+ =?utf-8?B?MmtuWkZOYnFydXNOcDFqK1YyRW94VEgwSU1IemFvVmViL01sbnF4S0M2Mmx4?=
+ =?utf-8?B?U09zQVc0a09hd1l0QnZ1Yisrenh6ckRtOTQzSG05RS9ua3NUTjZMVVU5UTly?=
+ =?utf-8?B?bm5UM1g0YVp3U0NrZEtaS3k2V3B2Zk5OdHlrbHpiYjl4WlY1ZDFMdjVKQTJJ?=
+ =?utf-8?B?Q2psN3hTYVFadzVhS1c0bUt1ZTlyd2xKWnoxQ0ZUMXl2MWlwUktkMjVJbUtW?=
+ =?utf-8?B?TUJPcnFqK09LM001Yk5weGRMMVU5ZCt3a3RuTmpJRkdGaUxNRThTMDFqV2hO?=
+ =?utf-8?B?MnJBTkNKYXJDQ1FDY2VhM0kwTzFwczVFYjlPcFlLRkZxSnlyaFErNEdDMzlQ?=
+ =?utf-8?B?Y2VOd2NHcW1Ea0JzbXZkcHIyU2thRzdCQTBsb0FkYUk4OWY3Ry9LOS9zenlN?=
+ =?utf-8?B?dzQyMkJQV1B3b3RLVHBJY3ZkVmFpZFE1MksxaTNxMWVVRFVlcFc5WmtpaGV6?=
+ =?utf-8?B?RXFnM25aNXlKcGFxQmZVQkFoN1BxZkZ6b2p5Uk9vMktRUjA3ODlMK2VTYnUv?=
+ =?utf-8?B?S281eE5pUkVVWEpkUlZva2hwS3ltWDdSckpvZXNUdEFRVno4SzNOSUg4Tkdw?=
+ =?utf-8?B?aThaZmFRY09mVHJ2aGpCamZGeW1BL1o2cUpBNy9xUW80Z2JvSktxdFE2Zmpy?=
+ =?utf-8?B?Q1Q3QnJvRzdYcFFPTW5tR1hjbzdWUk5QQmpXZ01TeUYvV2lxZmc0blg5NFNt?=
+ =?utf-8?B?VEc4RFM1VURxN1U5MHNJRkRNUUVRdG5KYkxuZ3hBT29aMmJWTGxCUktGR2lT?=
+ =?utf-8?B?bEdmS2xCc21pRlNBRTJHRWo1OGtsVGo0U0F3SnFrWmloR1lTZC9tTXRvbjUy?=
+ =?utf-8?B?cTFHOWpQaVhrTE03djZXbUFIU0wxZ1Nya2lscWdXQkhVZW9SamJCNUVrcFU1?=
+ =?utf-8?B?YzhmS2t1RE43akEzS0NXWXRmSmlEam50cWtkcnhXamlmRHFBRnY3RS9pYTh5?=
+ =?utf-8?B?djZGY2Y0YU9oV2tSb0EvSnlZSUJqL2JwNWJUZW5FYTZxUWxaV0lqOElrNXNZ?=
+ =?utf-8?B?QTVXYnk5dVRPN0tncEl3VmdEbjBrd3QxT2JLMVE4blA1MTVqdFAreldRQThv?=
+ =?utf-8?B?QWIwdWx2L2M1SU5oQm9EZzN4empBM0Jzbnh2N00yeW9CQmVBMUpUZnA4bEEv?=
+ =?utf-8?B?NWVOTUJnMGtVMXhtd2pnVlBBd0xyQmxMb29ocytVUGw5aENTN2RnMHZjVldy?=
+ =?utf-8?B?bERFU0tVQVh3UFNmVDAxMkdVNm5JSHI1L0huY2JKZjE2MG9VMi9QUHdJaG05?=
+ =?utf-8?B?NHhvK0lKME0xbHVjN3VLVFRrMzd0QUY2eFZNbkhUd1I0V0lvNENPaXRqeUxB?=
+ =?utf-8?B?cEMzZXB6SHVaTjRSTHRIVVlOU2JZU2dtNWgvT3FPeUdZS3NBaUJlSEV4eGpQ?=
+ =?utf-8?B?N2dKL1J1WlgrVU81cmhNMEpDaGpoVDBIMDI5aVhYMHdkMlVLT09RL29LWmE1?=
+ =?utf-8?B?NmlwWG05WUhjMVBsNXF6ZlMxUldRZXorcjd1WG5JaVg3d1lCTnJEN1ArQmdm?=
+ =?utf-8?B?U3hjYzRKNXZ0dzl0Zmo5YzYyZk11ejkzVDVtTmxiaEhOUkFYM1F0OHc5WHQv?=
+ =?utf-8?B?UmtTOWwrb0VGUis3V25TNHlIdk1ZTy9RQ05DS2N2aGhISUdNRHlkWjRTTllU?=
+ =?utf-8?B?eitkZXkzOXVxZVhvUnZNN0lPWVRHUWNudi9nTExhVTIyaUZGbGN2NFF2Y2pC?=
+ =?utf-8?B?aEpqdXprSVJHMTFUZ09MeWx0NWRYRFZmTHNYUHUwRWNKMnNRb2t4OVhOZGxM?=
+ =?utf-8?B?L3lOUnhhQ2U3RUNnUEtjZHE3VnREZ0VWVkNkU2RYTGxXbGtidVBCd2xmdEdT?=
+ =?utf-8?B?aXl4bFRuMmdVRnRzMmRpTGhTWEk3bVZSU2xIOTFjak5jN05VWEtEK0FWQTRE?=
+ =?utf-8?B?WTFVOVdvMVBHVGhpUERCSUp2Wi9QL25ZeVVIOHdPei9IQnE4RGloTStIYUhx?=
+ =?utf-8?B?N1JjMk5HeFRNblBLZ0I4d05MU3lUR3NOQXF3MmNJTHZveGN2d0piTWZlejlu?=
+ =?utf-8?B?Y2krYk5lSDgrV3ltZDU3dW5EcEMrb09tK2djd0VwNlVNV0N0MHRnVGQ1SkZV?=
+ =?utf-8?B?Y3lMb0Vuc2NvTDlRc0c5RzEzMzl3SkdvOHZSVGg1aUpodlhRbGhYNjJBZFd1?=
+ =?utf-8?B?eHpaa05oS2J2dFZwYWpPem9RakowRlN5dHFLSjhzeFVaWml5RUY1SmVNVGRn?=
+ =?utf-8?B?WEZTMk1NWDd0OFR2amJFMXdOUFozbVppNWErck1nQWg3T0F0TCtLUmNEa0g0?=
+ =?utf-8?Q?o1z+p8c0BsiS7DCnRv?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdae05e7-a15a-424d-e73a-08deb4d4cf41
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 11:58:43.7473 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w6iXGI6582ldThXYz2ub6jKt+47WO/6aBi0YhHFo/scZRHuRC4/cATUvQMeRwGxo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999160
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,263 +142,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 5/16/26 13:06, Julian Orth wrote:
+> This series adds a new device /dev/syncobj that can be used to create
+> and manipulate DRM syncobjs. Previously, these operations required the
+> use of a DRM device and the device needed to support the DRIVER_SYNCOBJ
+> and DRIVER_SYNCOBJ_TIMELINE features.
+> 
+> There are several issues with the existing API:
+> 
+> - Syncobjs are the only explicit sync mechanism available on wayland.
+>   Most compositors do not use GPU waits. Instead, they use the
+>   DRM_IOCTL_SYNCOBJ_EVENTFD ioctl to perform a CPU wait. Being tied to
+>   DRM devices means that compositors cannot consistently offer this
+>   feature even though no device-specific logic is involved.
 
+Well the drm_syncobj is a container for device specific dma fences.
 
-=E4=BA=8E 2026=E5=B9=B45=E6=9C=8815=E6=97=A5 GMT+08:00 17:08:25=EF=BC=8CJo=
-ey Lu <a0987203069@gmail=2Ecom> =E5=86=99=E9=81=93=EF=BC=9A
->
->On 5/15/2026 4:38 PM, Icenowy Zheng wrote:
->> =E5=9C=A8 2026-05-15=E4=BA=94=E7=9A=84 14:25 +0800=EF=BC=8CJoey Lu=E5=
-=86=99=E9=81=93=EF=BC=9A
->>> On 5/12/2026 9:12 PM, Icenowy Zheng wrote:
->>>> =E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 18:59 +0800=EF=BC=8CJoey Lu=E5=
-=86=99=E9=81=93=EF=BC=9A
->>>>> On 5/12/2026 6:01 PM, Icenowy Zheng wrote:
->>>>>> =E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 17:06 +0800=EF=BC=8CJoey Lu=
-=E5=86=99=E9=81=93=EF=BC=9A
->>>>>>=20
->>>>>> =3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->>>>>>>>>>> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge=2Ec
->>>>>>>>>>> b/drivers/gpu/drm/verisilicon/vs_bridge=2Ec
->>>>>>>>>>> index 7a93049368db=2E=2E225af322de32 100644
->>>>>>>>>>> --- a/drivers/gpu/drm/verisilicon/vs_bridge=2Ec
->>>>>>>>>>> +++ b/drivers/gpu/drm/verisilicon/vs_bridge=2Ec
->>>>>>>>>>> @@ -164,13 +164,16 @@ static void
->>>>>>>>>>> vs_bridge_enable_common(struct
->>>>>>>>>>> vs_crtc *crtc,
->>>>>>>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_CLK_E
->>>>>>>>>>> N);
->>>>>>>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	regmap_set_bits(dc->regs,
->>>>>>>>>>> VSDC_DISP_PANEL_CONFIG(output),
->>>>>>>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_RUNNI
->>>>>>>>>>> NG);
->>>>>>>>>>> -	regmap_clear_bits(dc->regs,
->>>>>>>>>>> VSDC_DISP_PANEL_START,
->>>>>>>>>>> -		=09
->>>>>>>>>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
->>>>>>>>>>> -	regmap_set_bits(dc->regs,
->>>>>>>>>>> VSDC_DISP_PANEL_START,
->>>>>>>>>>> -
->>>>>>>>>>> 			VSDC_DISP_PANEL_START_RUNNIN
->>>>>>>>>>> G(ou
->>>>>>>>>>> tput));
->>>>>>>>>>>       -	regmap_set_bits(dc->regs,
->>>>>>>>>>> VSDC_DISP_PANEL_CONFIG_EX(crtc-
->>>>>>>>>>>> id),
->>>>>>>>>>> -
->>>>>>>>>>> 			VSDC_DISP_PANEL_CONFIG_EX_CO
->>>>>>>>>>> MMIT);
->>>>>>>>>>> +	if (dc->info->has_config_ex) {
->>>>>>>>>>> +		regmap_clear_bits(dc->regs,
->>>>>>>>>>> VSDC_DISP_PANEL_START,
->>>>>>>>>>> +			=09
->>>>>>>>>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
->>>>>>>>>>> +		regmap_set_bits(dc->regs,
->>>>>>>>>>> VSDC_DISP_PANEL_START,
->>>>>>>>>>> +				VSDC_DISP_PANEL_STAR
->>>>>>>>>>> T_RU
->>>>>>>>>>> NNIN
->>>>>>>>>>> G(ou
->>>>>>>>>>> tput
->>>>>>>>>>> ));
->>>>>>>>>>> +
->>>>>>>>>>> +		regmap_set_bits(dc->regs,
->>>>>>>>>>> VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
->>>>>>>>>>> +				VSDC_DISP_PANEL_CONF
->>>>>>>>>>> IG_E
->>>>>>>>>>> X_CO
->>>>>>>>>>> MMIT
->>>>>>>>>>> );
->>>>>>>>>> Should the commit operation happen on
->>>>>>>>>> DC8000/DCUltraLite
->>>>>>>>>> too?
->>>>>>>>>> (By
->>>>>>>>>> writing to DcregFrameBufferConfig0=2EVALID)=2E
->>>>>>>>>>=20
->>>>>>>>>> Many registers written has "Note: This field is double
->>>>>>>>>> buffered" in
->>>>>>>>>> the
->>>>>>>>>> DCUltraLite documentation=2E
->>>>>>>>>>=20
->>>>>>>>>> I suggest create a static function for commit -- write
->>>>>>>>>> to
->>>>>>>>>> the
->>>>>>>>>> corresponding commit bit on DC8200, and write to
->>>>>>>>>> DcregFrameBufferConfig0=2EVALID on DC8000/DCUltraLite=2E
->>>>>>>>> [a] There is no commit operation for DCUltra Lite=2E
->>>>>>>>> I'll not add a `VSDC_FB_CONFIG_VALID` macro=2E VALID
->>>>>>>>> (BIT(3))
->>>>>>>>> is a
->>>>>>>>> hardware-managed double-buffer status bit: hardware
->>>>>>>>> writes
->>>>>>>>> 1=3DPENDING
->>>>>>>>> when a new register set is ready and clears to 0=3DWORKING
->>>>>>>>> after
->>>>>>>>> the
->>>>>>>>> VBLANK copy=2E Software must never write it, and there is
->>>>>>>>> no
->>>>>>>>> polling
->>>>>>>>> use
->>>>>>>> It seems to be writable and controls whether register
->>>>>>>> buffering
->>>>>>>> is
->>>>>>>> enabled, see [1]=2E
->>>>>>>>=20
->>>>>>>> The description of this bit in MA35D1 TRM says "This
->>>>>>>> ensures a
->>>>>>>> frame
->>>>>>>> will always start with a valid working set if this register
->>>>>>>> is
->>>>>>>> programmed last, which reduces the need for SW to wait for
->>>>>>>> the
->>>>>>>> start of
->>>>>>>> a VBLANK signal in order to ensure all states are loaded
->>>>>>>> before
->>>>>>>> the
->>>>>>>> next VBLANK", which indicates some kind of "committing
->>>>>>>> write",
->>>>>>>> although
->>>>>>>> the code at [1] seems to indicate that double buffering is
->>>>>>>> only
->>>>>>>> enabled
->>>>>>>> when bit is cleared=2E
->>>>>>>>=20
->>>>>>>> Anyway this bit should be programmable, and "Software must
->>>>>>>> never
->>>>>>>> write
->>>>>>>> it" contradicts with the MA35D1 TRM=2E
->>>>>>>>=20
->>>>>>>> Thanks,
->>>>>>>> Icenowy
->>>>>>>>=20
->>>>>>>> [1]
->>>>>>>> https://github=2Ecom/rockos-riscv/rockos-kernel/blob/rockos-v6=2E=
-6=2Ey/drivers/gpu/drm/eswin/es_dc_hw=2Ec#L993
->>>>>>> Thank you for the correction=2E I'll add
->>>>>>> `#define VSDC_FB_CONFIG_VALID BIT(3)` to
->>>>>>> vs_primary_plane_regs=2Eh
->>>>>>> and
->>>>>>> write it in `vs_primary_plane_commit()` for non-config_ex
->>>>>>> variants=2E
->>>>>>>>> case in the driver that requires a named constant=2E For
->>>>>>>>> non-
->>>>>>>>> config_ex
->>>>>>>>> variants, `vs_primary_plane_commit()` performs no commit
->>>>>>>>> operation =E2=80=94
->>>>>>>>> `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
->>>>>>>>> `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET`
->>>>>>>>> (BIT(4))
->>>>>>>>> is
->>>>>>>>> set/cleared in the bridge enable/disable paths=2E
->>>>>> Well according to the driver code for DC8000 from Eswin, and
->>>>>> the
->>>>>> bit
->>>>>> named "VALID", maybe it should be cleared before programming
->>>>>> the
->>>>>> registers, and set after programming registers, to make the
->>>>>> process
->>>>>> of
->>>>>> programming registers atomic from the perspective of the
->>>>>> display
->>>>>> controller=2E
->>>>>>=20
->>>>>> Anyway this should require testing on real hardware to verify=2E
->>>>>>=20
->>>>>> By the way, I see multiple peripheral drivers for MA35D1 get
->>>>>> applied in
->>>>>> the torvalds tree, but the device tree is still only a
->>>>>> skeleton;
->>>>>> when
->>>>>> will the device tree be updated?
->>>>>>=20
->>>>>> Thanks,
->>>>>> Icenowy
->>>>> Thanks for pointing this out=2E=C2=A0I=E2=80=99ll perform tests on r=
-eal hardware
->>>>> since
->>>>> I haven=E2=80=99t used this bit before=2E
->>>>>=20
->>>>> As for the device tree,=C2=A0we plan to update it comprehensively
->>>>> after
->>>>> completing several major IPs, with the goal of releasing the
->>>>> update
->>>>> later this year=2E
->>>> Well I bought a MA35D1 board (MYIR MYB-LMA35 + RGB LCD) earlier
->>>> this
->>>> year (and this is where I got the MA35D1 identification register
->>>> values)=2E Hope I can have a chance to test this driver by myself=2E
->>>>=20
->>>> As MMC, Ethernet and USB support is all applied, maybe it's already
->>>> worthy to update the device tree ;-)
->>>>=20
->>>> Thanks,
->>>> Icenowy
->>> Yes you can!
->>>=20
->>> I have performed hardware validation on the MA35D1 and found that
->>> this
->>> bit acts as a manual latch for the shadow registers rather than an
->>> auto-clearing trigger, which clarifies the slightly ambiguous
->>> description in the TRM=2E
->>>=20
->>> Following your suggestion, I will align the implementation with
->>> ESWIN's
->>> DC8000 logic: setting the VALID bit at atomic_begin and clearing it
->> Ah do you mean clearing it at begin and setting it at flush?
->>=20
->> In the Eswin driver (which seems to be based on reference code by
->> Verisilicon, I saw similar driver code for DC8200),
->> dc_hw_enable_shadow_register() clears VALID bit when enable is true,
->> and all register setting sequences calls that function with enable =3D
->> true before setting and enable =3D false after setting=2E
->>=20
->> In addition, considering this bit is called "VALID" instead of
->> "INVALID", I think it represents that the DC will apply the new setting
->> when it's set and keep the current setting when it's cleared, so I
->> think it should be cleared before modeset sequence and be set after
->> modeset sequence=2E
->>=20
->> Thanks,
->> Icenowy
->Thanks for pointing that out=2E To clarify, the TRM defines the states fo=
-r this bit as:
->1: PENDING (Shadow registers are locked; incoming CPU writes are held in =
-the shadow buffer)=2E
->0: WORKING (Shadow registers are unfrozen/live; configuration is committe=
-d)=2E
+What could be possible instead is to pass an eventfd into Wayland, but that is something userspace needs to decide.
 
-This sounds reasonable, thanks for the clarification=2E
+> - llvmpipe currently cannot offer syncobj interop because it does not
+>   have access to a DRM device. This means that applications using
+>   llvmpipe cannot present images before they have finished rendering,
+>   despite llvmpipe using threaded rendering.
 
-Sorry for me to be too lazy to verify it in HW=2E
+Yeah, but that is completely intentional. You *CAN'T* use a dma_fence as completion event for llvmpipe rendering. See the kernel documentation on that.
 
-Thanks,
-Icenowy
+What could be possible is to use the drm_syncobjs functionality to wait before signal, but that has different semantics.
 
->
->Regarding the Eswin reference, `dc_hw_enable_shadow_register(hw, false)` =
-actually writes a 1 to isolate the registers during a batch update, and the=
-n transitions back to true (0) to flush them out=2E
->My hardware test confirms this sequence:
->
->- atomic_begin: We set VALID =3D 1=2E This safely freezes the current sca=
-nout configuration so we can update multiple registers (like frame addresse=
-s and pitches) without mid-frame tearing=2E
->- atomic_update: We write the new register values safely into the frozen =
-shadow space=2E
->- atomic_flush: We clear VALID =3D 0=2E This releases the shadow lock, tr=
-iggering the hardware to latch the whole batch atomically=2E
->
->If we reverse this logic=E2=80=94leaving the bit at 1 after the flush =E2=
-=80=94 the hardware remains permanently stuck in the PENDING state, waiting=
- to be unfrozen, which starves the display engine and results in the blank =
-screen behavior I observed=2E
->>> at
->>> atomic_flush=2E My tests confirm this allows the hardware to latch the
->>> plane configuration correctly while avoiding the blank screen issues
->>> observed with other configurations=2E
->>>=20
->>> I am preparing the v2 patchset with this change, along with the
->>> requested commit splits, and will submit it shortly=2E=F0=9F=99=82
->>>=20
->>>>>>>> =3D=3D=3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->>>>>>>>=20
+Regards,
+Christian.
+
+> - Clients that do not use the Vulkan WSI need to manually probe /dev/dri
+>   for devices that support the syncobj ioctls in order to use the
+>   wayland syncobj protocol.
+> - Similarly, clients that want to use screen capture have no equivalent
+>   to the WSI and are therefore forced into that path.
+> - Having to keep a DRM device open has potentially negative interactions
+>   with GPU hotplug.
+> - Having to translate between syncobj FDs and handles is troublesome in
+>   the compositor usecase since syncobjs come and go frequently and need
+>   to be cleaned up when clients disconnect.
+> 
+> /dev/syncobj solves these issues by providing all syncobj ioctls under a
+> consistent path that is not tied to any DRM device. It also operates
+> directly on file descriptors instead of syncobj handles.
+> 
+> The series starts with a number of small refactorings in drm_syncobj.c
+> to make its functionality available outside of the file and without the
+> need for drm_file/handle pairs.
+> 
+> The last commit adds the /dev/syncobj module. I've added it as a misc
+> device but maybe this should instead live somewhere under gpu/drm.
+> 
+> An application using the new interface can be found at [1].
+> 
+> [1]: https://github.com/mahkoh/jay/pull/947
+> 
+> ---
+> Julian Orth (12):
+>       drm/syncobj: add drm_syncobj_from_fd
+>       drm/syncobj: add drm_syncobj_fence_lookup
+>       drm/syncobj: make drm_syncobj_array_wait_timeout public
+>       drm/syncobj: add drm_syncobj_register_eventfd
+>       drm/syncobj: have transfer functions accept drm_syncobj directly
+>       drm/syncobj: add drm_syncobj_transfer
+>       drm/syncobj: add drm_syncobj_timeline_signal
+>       drm/syncobj: add drm_syncobj_query
+>       drm/syncobj: fix resource leak in drm_syncobj_import_sync_file_fence
+>       drm/syncobj: add drm_syncobj_import_sync_file
+>       drm/syncobj: add drm_syncobj_export_sync_file
+>       misc/syncobj: add new device
+> 
+>  Documentation/userspace-api/ioctl/ioctl-number.rst |   1 +
+>  drivers/gpu/drm/drm_syncobj.c                      | 374 ++++++++++++++-----
+>  drivers/misc/Kconfig                               |  10 +
+>  drivers/misc/Makefile                              |   1 +
+>  drivers/misc/syncobj.c                             | 404 +++++++++++++++++++++
+>  include/drm/drm_syncobj.h                          |  21 ++
+>  include/uapi/linux/syncobj.h                       |  75 ++++
+>  7 files changed, 795 insertions(+), 91 deletions(-)
+> ---
+> base-commit: 6916d5703ddf9a38f1f6c2cc793381a24ee914c6
+> change-id: 20260516-jorth-syncobj-d4d374c8c61b
+> 
+> Best regards,
+> --  
+> Julian Orth <ju.orth@gmail.com>
+> 
+
