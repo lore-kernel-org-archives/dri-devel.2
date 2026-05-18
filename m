@@ -4,151 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB48FCD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 13:46:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8627CD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 13:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A2A10E5AE;
-	Mon, 18 May 2026 13:46:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1655D10E307;
+	Mon, 18 May 2026 13:50:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BnYS7rU3";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gsqpkk2J";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yW/CSf4y";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7C6B10E5AE
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 13:46:16 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64IAolrC2082390
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 13:46:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=dxfhEg8QEY/Fwu3v3gUctioan1qabjbHVVxxH9aJwkA=; b=Bn
- YS7rU3q4PcCR8njXHqZ1p0V86V+Xx+f7z7Fsl5ZbMU10XkS0JK8+36HP7sEktqrw
- IimnN5lQ3H4fztquVb6SlxYSNqylAJ6zoGxHH7zz4KuHIYGUOzFfDPDQ6+i+7Dhj
- 8DEx7er7E54rWS63+SOj5qhSUYE7AXPJwkfNM9mLmRP29Dyekd0r66Or8fE1vfGT
- g3PnLShMeeCAdq1RHitfFXSfMA/CdwWfkPYP/6Z1tswlXhh0JIyefqbGzzLNaHGA
- x0iI3MNTf9u9wrFS+kGBQh7Bgr6olP7c9TrfH4BE/m11WbdoL3J1ctypDPAF5fpM
- 1VVLxlvsI28AV04+L4dg==
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e81ch8p55-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 13:46:15 +0000 (GMT)
-Received: by mail-oa1-f69.google.com with SMTP id
- 586e51a60fabf-40f25e55f20so3726592fac.0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 06:46:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779111975; cv=none;
- d=google.com; s=arc-20240605;
- b=faAJIoEWwZp6bqUF6ZFmZqS/aMifZDLOy17BKx9EQn8PKTK4b95tOAQcJQBl4UX8zA
- ssHAaU/ZOmUV5tP734bKpPFNpiDg0+N1nGw42L0UPyAzoHrE5PR/NfgMIUYuUM8a5juB
- s2dyyiN0Z0cBnd+zBUDaLxkJoR+HxnoHWAgZY9S6avcE2vddVd7HiSyl5eCyucuuMONE
- bzONW1ZCLJZA6SIuOlZ8OTqO/R3O/9/0QfAxO3whuqvI/jC8pU9zcws98v8ObUFVJlZ2
- Xp2E81jEA3bajW3Zeh8c9CvFUXgQOWeESm0IqNZlqx0DaTLPP/F3AOqh0v/bo8T/VXKK
- 7JJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=dxfhEg8QEY/Fwu3v3gUctioan1qabjbHVVxxH9aJwkA=;
- fh=IeKSm0kmMtkKl0UhDXQOwcSJ+xbDQ33fmtaNU+UDMro=;
- b=E8F33+1gHwFYLJuLVQqgt0PICMxU2C25V0TuLZ3AXA0UTurNxXkWCnFOL/LdrJvkZR
- tIV2ivwXoHxQ4vwyukN39ayr88SsheWqh9K55gtBaj6IeRLUUfAkE6OfyLvFST9+3v5k
- B4iqDVzinGDJxOZ1MgfpAUAqYsRHEBQ0OP4mzlsTfK5JQw9k9UoMUUdOW7tt5FIe+wxk
- uB8/gBHTjmVuxWQqWwAXlRbDCtQGp6M72DkUcCUX5J9s4CZvX81+oqPi13iCUHbhoOAT
- +FfBsWz22Nf61xt3mKKe0ly06WHx/Haff/sebTprRXuKpsoomBAoQ9z12vWeKZx+ZXH1
- H25w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23B6F10E307
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 13:50:44 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-453903ee4adso1993458f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 06:50:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779111975; x=1779716775;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=dxfhEg8QEY/Fwu3v3gUctioan1qabjbHVVxxH9aJwkA=;
- b=Gsqpkk2JHQp93NCNpGQoRKOUm6ToN2Kx1Y+LhvLa+VuDZxcyCv/SI1PN1H8S/byQpk
- WQwkR1F/tfTqIe5tXo8OuiiwDIm6yEsywFfXg91Z+nsb59+REidPYYKEA19XeKjPHh/g
- rVohK9edb6/KIyis5FThvMnI3HYP9icaUpoyuu3jdZghELxFvcfudepf+Gloz7pmsje9
- cAlPbzTnC+hLhW4eIkg2jTgnZSHRyCWtgLF2/CtJFFu99BUg4K7obcHTkK8UDPqp53CY
- xVWi73siq4kuZeJRZH65mOMLIlImE9GENd340ZuatpFE24XjaJ1Jlsrz3cQrYDajn9Ou
- YGmA==
+ d=linaro.org; s=google; t=1779112243; x=1779717043; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=/bHSg+CsXEQuQyIGygKlX3vGV6VbhcTXpINe47Kmze4=;
+ b=yW/CSf4yPbfOkIl3N0VWF9JdJKuapisyItjKqEjmo0qXODQUpYXN9zpKFKjKihmh1b
+ VDUEZvb+sfE3AuU34WndWCAHsV0nMmJua6kIqQOiUMjB5W6XNzlkzsP6AE/ZO92+esc9
+ 07EocXzjpWVYz7teYe/td5QWtS8f6LgHj5I4TgbnEWTlkyLxcNTsZx5n7ntM7O/be1FB
+ pbwLdf4MUYml/2A6SJQFvSQy865Iy048WGZXxvj3+OYUhu0TVJ1rT9U0hYoAeDzrOhb1
+ zIR7jCA+Ol6aFJ/9X2WG4ULkOvCKq04h6IIAZCABOesOPFSJ7jUSB7QLDMLXqBCUDL/7
+ exmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779111975; x=1779716775;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dxfhEg8QEY/Fwu3v3gUctioan1qabjbHVVxxH9aJwkA=;
- b=BQYNUJWJLItjjkXEO8eCDBeb++K6kMbz8a8dtUreFbJt7IrstYJqBfoWhOSs8fLt3w
- KOMIDKGbrmtZ27sXuHWv4rvMBJbwMf7U+mr/MSFTIAtHbNEPWzt0HlElaMUGHT4ivZOj
- cfWAdsNKrwqhtSXJMi//+lrsql9qC0ehzIAEHGd7nkr+0edXzffs/YJI2SF6Vh5DeG8D
- z+PXpyW76qoxrV8S95cSgBGeHxENnpSIeDH6y67RHsOdUsQLflLUkcMS4rCTb+L4k31U
- GF1Fs0RDgA6tSRprrL5FB3aPHA/+3O9qAU7NQp4/PnLpZRDL2LsSak9diQUhQD4IKS45
- kuIg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+lLr3cqssM+jG72P32hZ2C0hFGiReHvgjeQJQutaPi8+ijaQwvNelS7RXyjVv3dYoVLbYi8JFpN7s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzEUyNfAOB3AZQ//38BkXqaFLzjWQ9MdTtBHxwPci0tZ7hXaWed
- 1BeSMXjyZ/XF8Xck943EzU28UxOiJq9DW9kw0lY/HP1BzZ7ul8lglccW33TNAK4smtFMjaYN2Im
- YwIoq73QP8e2zA0Uwr3BKCrH1RZ4zK7zIdnM7FLY5B7+a5CUhd+YLuB4qdRJlnx0vSRhIlmywjc
- uniKs4eN2C2pIqMfTpYjpHY15zGHrxbXJm16RTjtBD+tXIww==
-X-Gm-Gg: Acq92OGNfT8UKhE2ZpW0pNWxf9tKMoYyrD1eXfHvwWRYpcDQNEniHbgexltUEspy3ep
- toLQu9Q0NePhKgB/yfLOi8EhiAdCaENx5VNDTaDICezMBReDDPdKQWF2E5eIpJXqjVbWl2I7gkb
- RHCXnCF7qiWUV585bIqNxDZyle5QzW5cQB5FDBSt2PKiaCKpUd2XFr3hRh0a9spgQPjH8TBhBlI
- w1bIjeHlm6gFDFkSoAEGHlZnnxar42ZauRRCw==
-X-Received: by 2002:a05:6808:e407:b0:479:eb19:6e6b with SMTP id
- 5614622812f47-482e5609a80mr7140913b6e.15.1779111974842; 
- Mon, 18 May 2026 06:46:14 -0700 (PDT)
-X-Received: by 2002:a05:6808:e407:b0:479:eb19:6e6b with SMTP id
- 5614622812f47-482e5609a80mr7140893b6e.15.1779111974260; Mon, 18 May 2026
- 06:46:14 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1779112243; x=1779717043;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/bHSg+CsXEQuQyIGygKlX3vGV6VbhcTXpINe47Kmze4=;
+ b=J5mejaD1aWRLgoo74ucqQ6/ini+z7sJUSKWzt9gf1pILI469KH3PGg4RWn3PxIf1Cq
+ /U6pMhghRSXFF8bV1UQgE5/DoDHP8UOOMpF+oXSP/hjz8bN26gq+CAVohcPbmNSUAax4
+ 3V27157ob2fdNwUGwHN79DuHg8zpFB/74CqMF1ib1Pk43wrxpKzRzeHK3NOkGlmaSRds
+ 5YRbh9PcJEzl3TwiJ7ZgLbylgG1zryE3T6UBu22NT128iKsLR5IQ/aSZGwNtoqy3UQn1
+ /VWVyuEAyH5Iu917Gg4wd5Dq0j6xBowO7cV1tv854KxS+UzM5u4Tey2h6VpnGKI5bwxi
+ TbXg==
+X-Gm-Message-State: AOJu0YxaVm6z/mVWghgf9FqH15rjrhCCiBxfRY4f0BqgNhX1/3RJCUI1
+ 166Gn7CfkGDB0CkwwThmISC0U04y16qAJ1gZE7APcR4ktjtvYy4i9bjR2tr4/fHubHI=
+X-Gm-Gg: Acq92OHPfjPBkBWimXle9C7JeQF8XRdk3uv2xQFVYXWkJ2cFeg6GtsivGs5k8pYfG1m
+ wIbtcezAc4C9fwy/odMiWjugwLlhBUIEBloPamAvT6CHDzS7ORc4m++nxnxnoRQjBdwS9Z18Ev6
+ ch1Oea5bnQs9w3rsqrh/wc+sO7SJI9AlC4yatVKrRbxUYiPeIHoWxik1C5xnc4nPVLNnAKKoNLs
+ 4XxXzjjqBtbu0oYt2o4er8x4lXjVlr2XDgDjBPz52VoULZbQrcf7W5d2QPpLEmPaKmkWKkFuX3x
+ hKSVmsWqbnsNWj+o+qxNKt45pmd8+L6/qudEUSuDgxbn1hHZertfZxafUIiYRR243iJXf6vZEAY
+ uQwkGkVuIrHDC6fCbspq20Y2IMgimQfiZ3kTc/dXbVhZnUxdb6HvRpWygU5qxfWVwsr7FbnZq3a
+ hE4OEeFCilhB5VUMRBN2CTFF+gJheAuY/7NGp9yYu/jwZw+2JKtMIFpv4pXL9koYbiS8X5LrxlB
+ O8bSiZe2tAX99ENhg==
+X-Received: by 2002:a05:6000:2283:b0:439:c18f:5aaf with SMTP id
+ ffacd0b85a97d-45e5c595637mr24189566f8f.34.1779112242262; 
+ Mon, 18 May 2026 06:50:42 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:1029:e3c5:362e:1250?
+ ([2a01:e0a:106d:1080:1029:e3c5:362e:1250])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45d9ec3b18fsm34800203f8f.11.2026.05.18.06.50.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 May 2026 06:50:41 -0700 (PDT)
+Message-ID: <2c522467-98df-4467-af43-83af4286c86b@linaro.org>
+Date: Mon, 18 May 2026 15:50:40 +0200
 MIME-Version: 1.0
-References: <20260514134052.361771-1-robin.clark@oss.qualcomm.com>
- <20260514134052.361771-14-robin.clark@oss.qualcomm.com>
- <836c9b33-4215-4e20-96d8-a8dc29ac6dde@oss.qualcomm.com>
-In-Reply-To: <836c9b33-4215-4e20-96d8-a8dc29ac6dde@oss.qualcomm.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 18 May 2026 06:46:03 -0700
-X-Gm-Features: AVHnY4Kx6Z34rmVOGqn4E3nAuvg8tVMVODwKTTweDpCUiwHCp600_xIUyUY2Gdc
-Message-ID: <CACSVV02DsSv7T4nDhmLSbNYigGNz4r1jmx3T=uXyg__=2CvE-Q@mail.gmail.com>
-Subject: Re: [PATCH v6 13/16] drm/msm: Add PERFCNTR_CONFIG ioctl
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] drm/panel: add Ilitek ILI7807S panel driver
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=a4MAM0SF c=1 sm=1 tr=0 ts=6a0b1827 cx=c_pps
- a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=6gC5UxSr3Lh0YhTRHQ4A:9 a=QEXdDO2ut3YA:10 a=y8BKWJGFn5sdPF1Y92-H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDEzNCBTYWx0ZWRfX8NwzsdKhIbv9
- XtCj0+X3hSx7IoXXa6MRyrU2BtLPNXgntqBUT8wzvlkwO5DM4I3btvYtq+AOru6Dlojt22oW96X
- 9KOIr5FMSBhOicCwU/2WSonvYLTS72jHrRLCR4gguWuXDFdUOcoM6t5wda7ChaHn7fStBw7NWgm
- H5b3epIzps4x9xmZAODiitjUulys21H26nDMOSDdb/1SL2vJ0uDEcxTKjM1fYW9UGEJpLIXMWfo
- 6j9KLzkxwWeqvdHI5nj3cWojxFbRRRtTmg4NyEVcKqqENHrs9UZo73bP1GwqjT380b6mPs9dJ11
- 0TTfCjgP2b5pSjGcu7uTrQH8/9Ucl3mYznkGPDVKghZF50PM4rPqMouC+COdAVKY8krg2AcskLb
- 8dXv5rcSTQoEmfQ4F/J/As7TIHTorF9S1i67bQUwmr4ntTSc4UmgOrP07uot8hvHaV0EH7zhmHQ
- ROQ5ntHrGT1havFqJMQ==
-X-Proofpoint-ORIG-GUID: NYKN6xO4P_QLlNqfgtw3hBhJxTssaKG_
-X-Proofpoint-GUID: NYKN6xO4P_QLlNqfgtw3hBhJxTssaKG_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_03,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- impostorscore=0 suspectscore=0 spamscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180134
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>, quic_rajeevny@quicinc.com,
+ quic_vproddut@quicinc.com
+References: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
+ <20260518-ili7807s-panel-v1-2-d7b048163b1c@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260518-ili7807s-panel-v1-2-d7b048163b1c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,343 +123,422 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, May 17, 2026 at 3:54=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualcom=
-m.com> wrote:
->
-> On 5/14/2026 7:10 PM, Rob Clark wrote:
-> > Add new UABI and implementation of PERFCNTR_CONFIG ioctl.
-> >
-> > A bit more work is required to configure the pwrup_reglist for the GMU
-> > to restore SELect regs on exist of IFPC, before we can stop disabling
-> > IFPC while global counter collection.  This will follow in a later
-> > commit, but will be transparent to userspace.
-> >
-> > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> > Reviewed-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-> > ---
-> >  drivers/gpu/drm/msm/msm_drv.c      |   1 +
-> >  drivers/gpu/drm/msm/msm_drv.h      |   2 +
-> >  drivers/gpu/drm/msm/msm_gpu.h      |   3 +
-> >  drivers/gpu/drm/msm/msm_perfcntr.c | 516 +++++++++++++++++++++++++++++
-> >  drivers/gpu/drm/msm/msm_perfcntr.h |  51 +++
-> >  include/uapi/drm/msm_drm.h         |  48 +++
-> >  6 files changed, 621 insertions(+)
-> >
+Hi,
 
-[snip]
+On 5/18/26 13:04, Arpit Saini wrote:
+> Add a DRM panel driver for the DLC DLC0697 1080x1920@60Hz MIPI DSI
+> panel based on the Ilitek ILI7807S display controller.
+> 
+> Backlight brightness is controlled by sending DCS commands
+> directly over DSI using mipi_dsi_dcs.
+> 
+> The panel operates in video burst mode with four data lanes using
+> RGB888 pixel format.
+> 
+> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/panel/Kconfig                 |  12 +
+>   drivers/gpu/drm/panel/Makefile                |   1 +
+>   drivers/gpu/drm/panel/panel-ilitek-ili7807s.c | 328 ++++++++++++++++++++++++++
+>   3 files changed, 341 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 307152ad7759..226e4923aa3a 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -228,6 +228,18 @@ config DRM_PANEL_HYDIS_HV101HD1
+>   
+>   	  If M is selected the module will be called panel-hydis-hv101hd1
+>   
+> +config DRM_PANEL_ILITEK_ILI7807S
+> +	tristate "Ilitek ILI7807S-based panels"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	help
+> +	  Say Y if you want to enable support for panels based on the
+> +	  Ilitek ILI7807S display controller, such as the DLC DLC0697
+> +	  1080x1920 MIPI DSI panel.
+> +
+> +	  If M is selected the module will be called panel-ilitek-ili7807s.
+> +
+>   config DRM_PANEL_ILITEK_IL9322
+>   	tristate "Ilitek ILI9322 320x240 QVGA panels"
+>   	depends on OF && SPI
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+> index aeffaa95666d..13bd324e17a8 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -23,6 +23,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-himax-hx83112a.o
+>   obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112B) += panel-himax-hx83112b.o
+>   obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
+>   obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
+> +obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) += panel-ilitek-ili7807s.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
+> new file mode 100644
+> index 000000000000..09288b602a94
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
+> @@ -0,0 +1,328 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +#include <drm/drm_probe_helper.h>
+> +
+> +struct panel_desc {
+> +	const struct drm_display_mode *mode;
+> +	unsigned int lanes;
+> +	enum mipi_dsi_pixel_format format;
+> +	unsigned long mode_flags;
+> +	void (*init)(struct mipi_dsi_multi_context *dsi_ctx);
+> +};
+> +
+> +struct ili7807s {
+> +	struct drm_panel panel;
+> +	struct mipi_dsi_device *dsi;
+> +	const struct panel_desc *desc;
+> +
+> +	struct regulator_bulk_data *supplies;
+> +	struct gpio_desc *reset_gpio;
+> +	struct gpio_desc *backlight_en_gpio;
+> +};
+> +
+> +static const struct regulator_bulk_data ili7807s_supplies[] = {
+> +	{ .supply = "vddi" },
+> +	{ .supply = "avdd" },
+> +	{ .supply = "avee" },
+> +};
+> +
+> +static inline struct ili7807s *to_ili7807s(struct drm_panel *panel)
+> +{
+> +	return container_of(panel, struct ili7807s, panel);
+> +}
+> +
+> +static void ili7807s_reset(struct ili7807s *ctx)
+> +{
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	usleep_range(10000, 11000);
+> +}
+> +
+> +static void dlc0697_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
+> +{
+> +	mipi_dsi_dcs_soft_reset_multi(dsi_ctx);
+> +	mipi_dsi_msleep(dsi_ctx, 120);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x78, 0x07, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5e, 0x09, 0x99);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x3f, 0xff);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
+> +	mipi_dsi_msleep(dsi_ctx, 120);
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
+> +	mipi_dsi_msleep(dsi_ctx, 20);
+> +}
+> +
+> +static int ili7807s_on(struct ili7807s *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	ctx->desc->init(&dsi_ctx);
+> +
+> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int ili7807s_off(struct ili7807s *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 20);
+> +
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int ili7807s_enable(struct drm_panel *panel)
+> +{
+> +	struct ili7807s *ctx = to_ili7807s(panel);
+> +
+> +	if (ctx->backlight_en_gpio)
 
-> > diff --git a/drivers/gpu/drm/msm/msm_perfcntr.c b/drivers/gpu/drm/msm/m=
-sm_perfcntr.c
-> > index 04407260a4e1..d6716ce0657a 100644
-> > --- a/drivers/gpu/drm/msm/msm_perfcntr.c
-> > +++ b/drivers/gpu/drm/msm/msm_perfcntr.c
+Drop the check, if backlight_en_gpio is NULL (since optional), set_value will be a no-op.
 
-[snip]
+> +		gpiod_set_value_cansleep(ctx->backlight_en_gpio, 1);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ili7807s_disable(struct drm_panel *panel)
+> +{
+> +	struct ili7807s *ctx = to_ili7807s(panel);
+> +
+> +	if (ctx->backlight_en_gpio)
 
-> > +static ssize_t
-> > +msm_perfcntrs_stream_read(struct file *file, char __user *buf,
-> > +                       size_t count, loff_t *ppos)
-> > +{
-> > +     struct msm_perfcntr_stream *stream =3D file->private_data;
-> > +     int ret;
-> > +
-> > +     if (!(file->f_flags & O_NONBLOCK)) {
-> > +             ret =3D wait_event_interruptible(stream->poll_wq,
-> > +                                            fifo_count(stream) > 0);
-> > +             if (ret)
-> > +                     return ret;
-> > +     }
-> > +
-> > +     guard(mutex)(&stream->read_lock);
-> > +
-> > +     struct circ_buf *fifo =3D &stream->fifo;
-> > +     const char *fptr =3D &fifo->buf[fifo->tail];
-> > +
-> > +     /*
-> > +      * Note that smp_load_acquire() is not strictly required
-> > +      * as CIRC_CNT_TO_END() does not access the head more than
-> > +      * once.
-> > +      */
-> > +     count =3D min_t(size_t, count, fifo_count_to_end(stream));
->
-> We need smp_load_acquire() to ensure all prior writes from the producer
-> side are visible before the 'head' is read.
+Ditto
 
-circular-buffer.rst documents the case that smp_load_acquired() is not
-needed.  Maybe that is assuming TSO?  But I think even without TSO
-address and data dependencies should be maintained, so this should
-still be true on arm64?
+> +		gpiod_set_value_cansleep(ctx->backlight_en_gpio, 0);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ili7807s_prepare(struct drm_panel *panel)
+> +{
+> +	struct ili7807s *ctx = to_ili7807s(panel);
+> +	int ret;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
+> +	if (ret < 0) {
+> +		dev_err(ctx->panel.dev, "failed to enable regulators: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	msleep(20);
+> +
+> +	ili7807s_reset(ctx);
+> +
+> +	ret = ili7807s_on(ctx);
+> +	if (ret < 0) {
+> +		dev_err(ctx->panel.dev, "failed to initialise panel: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	return 0;
+> +
+> +err:
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +
+> +	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
+> +	return ret;
+> +}
+> +
+> +static int ili7807s_unprepare(struct drm_panel *panel)
+> +{
+> +	struct ili7807s *ctx = to_ili7807s(panel);
+> +	int ret;
+> +
+> +	ret = ili7807s_off(ctx);
+> +	if (ret < 0)
+> +		dev_err(ctx->panel.dev, "failed to disable panel: %d\n", ret);
+> +
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +
+> +	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ili7807s_get_modes(struct drm_panel *panel,
+> +			      struct drm_connector *connector)
+> +{
+> +	struct ili7807s *ctx = to_ili7807s(panel);
+> +
+> +	return drm_connector_helper_get_modes_fixed(connector, ctx->desc->mode);
+> +}
+> +
+> +static const struct drm_panel_funcs ili7807s_panel_funcs = {
+> +	.prepare   = ili7807s_prepare,
+> +	.unprepare = ili7807s_unprepare,
+> +	.enable    = ili7807s_enable,
+> +	.disable   = ili7807s_disable,
+> +	.get_modes = ili7807s_get_modes,
+> +};
+> +
+> +static int ili7807s_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
+> +	u16 brightness = backlight_get_brightness(bl);
+> +	int ret;
+> +
+> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
 
-We've been using the same in a couple other places in msm, fwiw.
+Add back MIPI_DSI_MODE_LPM before checking ret like :
 
-> > +     if (copy_to_user(buf, fptr, count))
-> > +             return -EFAULT;
-> > +
-> > +     smp_store_release(&fifo->tail, (fifo->tail + count) & (stream->fi=
-fo_size - 1));
-> > +     *ppos +=3D count;
-> > +
-> > +     return count;
-> > +}
 
-[snip]
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++	if (ret < 0)
++		return ret;
 
-> > +int
-> > +msm_ioctl_perfcntr_config(struct drm_device *dev, void *data, struct d=
-rm_file *file)
-> > +{
-> > +     struct msm_drm_private *priv =3D dev->dev_private;
-> > +     const struct drm_msm_perfcntr_config *args =3D data;
-> > +     struct msm_context *ctx =3D file->driver_priv;
-> > +     struct msm_gpu *gpu =3D priv->gpu;
-> > +     int stream_fd =3D 0;
-> > +
-> > +     if (!gpu || !gpu->num_perfcntr_groups)
-> > +             return -ENXIO;
-> > +
-> > +     struct msm_perfcntr_state *perfcntrs =3D gpu->perfcntrs;
-> > +
-> > +     /*
-> > +      * Validate args that don't require locks/power first:
-> > +      */
-> > +
-> > +     if (args->flags & ~MSM_PERFCNTR_FLAGS)
-> > +             return UERR(EINVAL, dev, "invalid flags");
-> > +
-> > +     if (args->nr_groups && !args->group_stride)
-> > +             return UERR(EINVAL, dev, "invalid group_stride");
-> > +
-> > +     if (args->flags & MSM_PERFCNTR_STREAM) {
-> > +             if (!perfmon_capable())
-> > +                     return UERR(EPERM, dev, "invalid permissions");
-> > +             if (!args->nr_groups)
-> > +                     return UERR(EINVAL, dev, "invalid nr_groups");
-> > +             if (!args->period)
-> > +                     return UERR(EINVAL, dev, "invalid sampling period=
-");
-> > +     } else {
-> > +             if (args->period)
-> > +                     return UERR(EINVAL, dev, "sampling period not all=
-owed");
-> > +             if (args->bufsz_shift)
-> > +                     return UERR(EINVAL, dev, "sample buf size not all=
-owed");
-> > +     }
-> > +
-> > +     if (args->nr_groups && !args->groups)
-> > +             return UERR(EINVAL, dev, "no groups");
-> > +
-> > +     /*
-> > +      * To avoid iterating over the groups multiple times, allocate an=
-d setup
-> > +      * both a ctx and global stream object.  Only one of the two will=
- be
-> > +      * kept in the end.
-> > +      */
-> > +
-> > +     struct msm_perfcntr_context_state *perfctx __free(kfree) =3D kzal=
-loc(
-> > +             struct_size(perfctx, reserved_counters, gpu->num_perfcntr=
-_groups),
-> > +             GFP_KERNEL);
-> > +     if (!perfctx)
-> > +             return -ENOMEM;
-> > +
-> > +     struct msm_perfcntr_stream *stream __free(kfree) =3D
-> > +                     kzalloc(sizeof(*stream), GFP_KERNEL);
->
-> How about using GFP_KERNEL_ACCOUNT everywhere in the ioctl path to
-> account the allocated memory to the process?
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct backlight_ops ili7807s_bl_ops = {
+> +	.update_status = ili7807s_bl_update_status,
+> +};
+> +
+> +static struct backlight_device *ili7807s_create_backlight(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	const struct backlight_properties props = {
+> +		.type           = BACKLIGHT_RAW,
+> +		.brightness     = 0x3fff,
+> +		.max_brightness = 0x3fff,
+> +	};
+> +
+> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
+> +					      &ili7807s_bl_ops, &props);
+> +}
+> +
+> +static const struct drm_display_mode dlc0697_mode = {
+> +	.clock = 131911,
+> +
+> +	.hdisplay    = 1080,
+> +	.hsync_start = 1080 + 18,
+> +	.hsync_end   = 1080 + 18 + 2,
+> +	.htotal      = 1080 + 18 + 2 + 16,
+> +
+> +	.vdisplay    = 1920,
+> +	.vsync_start = 1920 + 26,
+> +	.vsync_end   = 1920 + 26 + 4,
+> +	.vtotal      = 1920 + 26 + 4 + 20,
+> +
+> +	.width_mm  = 0,
+> +	.height_mm = 0,
+> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +};
+> +
+> +static const struct panel_desc dlc0697_desc = {
+> +	.mode       = &dlc0697_mode,
+> +	.lanes      = 4,
+> +	.format     = MIPI_DSI_FMT_RGB888,
+> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST,
+> +	.init       = dlc0697_init_sequence,
+> +};
+> +
+> +static int ili7807s_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	const struct panel_desc *desc;
+> +	struct ili7807s *ctx;
+> +	int ret;
+> +
+> +	ctx = devm_drm_panel_alloc(dev, struct ili7807s, panel,
+> +				   &ili7807s_panel_funcs,
+> +				   DRM_MODE_CONNECTOR_DSI);
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+> +
+> +	desc = of_device_get_match_data(dev);
+> +	ctx->desc = desc;
+> +
+> +	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ili7807s_supplies),
+> +					    ili7807s_supplies, &ctx->supplies);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
+> +
+> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "failed to get reset gpio\n");
+> +
+> +	ctx->backlight_en_gpio = devm_gpiod_get_optional(dev, "backlight-en",
+> +							 GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->backlight_en_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->backlight_en_gpio),
+> +				     "failed to get backlight-en gpio\n");
+> +
+> +	ctx->dsi = dsi;
+> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +
+> +	dsi->lanes      = desc->lanes;
+> +	dsi->format     = desc->format;
+> +	dsi->mode_flags = desc->mode_flags;
+> +
+> +	ctx->panel.prepare_prev_first = true;
+> +
+> +	ctx->panel.backlight = ili7807s_create_backlight(dsi);
+> +	if (IS_ERR(ctx->panel.backlight))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+> +				     "failed to create backlight\n");
+> +
+> +	drm_panel_add(&ctx->panel);
 
-Maybe the circular buffer itself should be?  But the size is bounded,
-and I don't see much other use in drm..
+Switch to devm_drm_panel_add()
 
-> > +     if (!stream)
-> > +             return -ENOMEM;
-> > +
-> > +     uint32_t *group_idx __free(kfree) =3D
-> > +             kcalloc(args->nr_groups, sizeof(uint32_t), GFP_KERNEL);
-> > +     if (!group_idx)
-> > +             return -ENOMEM;
-> > +
-> > +     stream->gpu =3D gpu;
-> > +     stream->sample_period_ns =3D args->period;
-> > +     stream->nr_groups =3D args->nr_groups;
-> > +     stream->fifo_size =3D 1 << args->bufsz_shift;
-> > +
-> > +     mutex_init(&stream->read_lock);
-> > +
-> > +     guard(mutex)(&gpu->perfcntr_lock);
-> > +
-> > +     if (args->flags & MSM_PERFCNTR_STREAM) {
-> > +             if (perfcntrs->stream)
-> > +                     return UERR(EBUSY, dev, "perfcntr stream already =
-open");
-> > +     }
-> > +
-> > +     size_t bufsz =3D 16;  /* header size includes seqno and 64b times=
-tamp: */
-> > +     int ret =3D 0;
-> > +
-> > +     for (unsigned i =3D 0; i < args->nr_groups; i++) {
-> > +             struct drm_msm_perfcntr_group g =3D {0};
-> > +             void __user *userptr =3D
-> > +                     u64_to_user_ptr(args->groups + (i * args->group_s=
-tride));
-> > +
-> > +             if (copy_from_user(&g, userptr, args->group_stride))
->
-> use copy_struct_from_user?
+> +
+> +	ret = devm_mipi_dsi_attach(dev, dsi);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to attach dsi\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static void ili7807s_remove(struct mipi_dsi_device *dsi)
+> +{
+> +	struct ili7807s *ctx = mipi_dsi_get_drvdata(dsi);
+> +
+> +	drm_panel_remove(&ctx->panel);
+> +}
 
-I think this would cause a new userspace on old kernel to fail,
-instead of simply ignoring new fields added at the end of the struct.
-Which for better or worse is different from how drm_ioctl() works.
+And drop remove
 
->
-> > +                     return -EFAULT;
-> > +
-> > +             if (g.pad)
-> > +                     return UERR(EINVAL, dev, "groups[%d]: invalid pad=
-", i);
-> > +
-> > +             int idx =3D get_group_idx(gpu, g.group_name, sizeof(g.gro=
-up_name));
-> > +
-> > +             if (idx < 0)
-> > +                     return UERR(EINVAL, dev, "groups[%d]: unknown gro=
-up", i);
-> > +
-> > +             if (g.nr_countables > gpu->perfcntr_groups[idx].num_count=
-ers)
-> > +                     return UERR(EINVAL, dev, "groups[%d]: too many co=
-unters", i);
-> > +
-> > +             if (args->flags & MSM_PERFCNTR_STREAM) {
-> > +                     if (g.nr_countables && !g.countables)
-> > +                             return UERR(EINVAL, dev, "groups[%d]: no =
-countables", i);
-> > +             } else {
-> > +                     if (g.countables)
-> > +                             return UERR(EINVAL, dev, "groups[%d]: cou=
-ntables should be NULL", i);
-> > +             }
-> > +
-> > +             int avail_counters =3D get_available_counters(gpu, idx, a=
-rgs->flags);
-> > +             if (g.nr_countables > avail_counters) {
-> > +                     /*
-> > +                      * Defer error return until we process all groups=
-, in
-> > +                      * case there are other E2BIG groups:
-> > +                      */
-> > +                     ret =3D UERR(E2BIG, dev, "groups[%d]: too few cou=
-nters available", i);
-> > +
-> > +                     if (args->flags & MSM_PERFCNTR_UPDATE) {
-> > +                             /* Let userspace know how many counters a=
-re actually avail: */
-> > +                             g.nr_countables =3D avail_counters;
-> > +                             if (copy_to_user(userptr, &g, args->group=
-_stride))
-> > +                                     return -EFAULT;
-> > +                     }
-> > +             }
-> > +
-> > +             group_idx[i] =3D idx;
-> > +             perfctx->reserved_counters[idx] =3D g.nr_countables;
-> > +
-> > +             if (args->flags & MSM_PERFCNTR_STREAM) {
-> > +                     perfcntrs->groups[idx]->allocated_counters =3D g.=
-nr_countables;
-> > +
-> > +                     size_t sz =3D sizeof(uint32_t) * g.nr_countables;
-> > +                     void __user *userptr =3D u64_to_user_ptr(g.counta=
-bles);
-> > +
-> > +                     if (copy_from_user(perfcntrs->groups[idx]->counta=
-bles, userptr, sz))
-> > +                             return -EFAULT;
-> > +
-> > +                     /* Samples are 64b per countable: */
-> > +                     bufsz +=3D 2 * sz;
-> > +             }
-> > +     }
-> > +
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     if (args->flags & MSM_PERFCNTR_STREAM) {
-> > +             /*
-> > +              * Validate requested buffer size is large enough for at =
-least
-> > +              * a single sample period.
-> > +              *
-> > +              * Note the circ_buf implementation needs to be 1 byte la=
-rger
-> > +              * than max it can hold (see CIRC_SPACE()).
-> > +              */
-> > +             if (stream->fifo_size <=3D bufsz)
-> > +                     return UERR(EINVAL, dev, "required buffer size: %=
-zu", bufsz);
-> > +
-> > +             if (stream->fifo_size > SZ_128M)
-> > +                     return UERR(EINVAL, dev, "buffer size too big (>1=
-28M): %zu", bufsz);
-> > +
-> > +             /* There aren't enough counters to hit this limit: */
-> > +             WARN_ON(bufsz > SZ_128M);
-> > +
-> > +             stream->period_size =3D bufsz;
-> > +
-> > +             void *buf __free(kfree) =3D
-> > +                     kmalloc(1 << args->bufsz_shift, GFP_KERNEL);
-> > +             if (!buf)
-> > +                     return -ENOMEM;
-> > +
-> > +             stream_fd =3D anon_inode_getfd("[msm_perfcntrs]", &stream=
-_fops, stream, 0);
->
-> This call makes the fd visible to the userspace immediately. So better
-> to move it after all initializations. Ie, after
-> msm_perfcntr_resume_locked().
+> +
+> +static const struct of_device_id ili7807s_of_match[] = {
+> +	{ .compatible = "dlc,dlc0697", .data = &dlc0697_desc },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ili7807s_of_match);
+> +
+> +static struct mipi_dsi_driver ili7807s_dsi_driver = {
+> +	.probe  = ili7807s_probe,
+> +	.remove = ili7807s_remove,
+> +	.driver = {
+> +		.name           = "panel-ilitek-ili7807s",
+> +		.of_match_table = ili7807s_of_match,
+> +	},
+> +};
+> +module_mipi_dsi_driver(ili7807s_dsi_driver);
+> +
+> +MODULE_AUTHOR("Arpit Saini <arpit.saini@oss.qualcomm.com>");
+> +MODULE_DESCRIPTION("Panel driver for Ilitek ILI7807S LCD DSI panel");
+> +MODULE_LICENSE("GPL");
+> 
 
-Hmm, but this doesn't play too nicely with cleanup.h stuff, because
-the no_free_ptr() stuff must come after the last point of failure.
-
-But I think instead we can use get_unused_fd_flags() + fd_install() to
-defer exposing the fd.. I'll try this.
-
-BR,
--R
-
->
-> > +             if (stream_fd < 0)
-> > +                     return stream_fd;
-> > +
-> > +             INIT_WORK(&stream->sel_work, sel_worker);
-> > +             kthread_init_work(&stream->sample_work, sample_worker);
-> > +             init_waitqueue_head(&stream->poll_wq);
-> > +             hrtimer_setup(&stream->sample_timer, sample_timer,
-> > +                           CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-> > +
-> > +             stream->sel_fence =3D ++perfcntrs->sel_seqno;
-> > +             stream->group_idx =3D no_free_ptr(group_idx);
-> > +             stream->fifo.buf =3D no_free_ptr(buf);
-> > +             perfcntrs->stream =3D no_free_ptr(stream);
-> > +
-> > +             msm_perfcntr_resume_locked(perfcntrs->stream);
-> > +     } else {
-> > +             kfree(ctx->perfctx);
-> > +             ctx->perfctx =3D no_free_ptr(perfctx);
-> > +     }
-> > +
-> > +     return stream_fd;
-> > +}
-> > +
-> >  /**
-> >   * msm_perfcntr_group_idx - map idx of perfcntr group to group_idx
-> >   * @stream: The global perfcntr stream
+Thanks,
+Neil
