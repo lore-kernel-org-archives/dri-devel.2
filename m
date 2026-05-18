@@ -4,60 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D929CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:54:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5016FCD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71A6310E36D;
-	Tue, 19 May 2026 07:54:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7CEF10EAED;
+	Tue, 19 May 2026 07:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="SxO7UfFG";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DTGxDZan";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2959810E36D
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:54:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779177238;
- bh=vClakjfLpeKfPX+t8Mbbx6mqbu6pS2+qipfmFfQCr24=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=SxO7UfFGDPEbOKZwrvX5FjF0/PigBaYrTj1DWHrAWDvIjZrYI+kHn1wDG8rWxwV+P
- K0pnfdS54BTnddZvYQOUx7btRCfqyyVStrssqUV/3j0AKy7R87L0f3yALTqo/Uv20u
- R2bGgFT9m2De0tiRXqt8wHbAnQlaEAp/2F2CJIDHDpZwGA8ZTgS3lUMO8Ox3nnzDCX
- aVA4e4moOtBzQf9mb7KvEEf0NLla7lmbaQ1/if7iBEbC9poMIrUMtX2TroYHSCHzHt
- erYaZ0fucP93SCsOmTSm441BH3Fa1TAv7RCDwlRiryEeXKh0sHPUQjxaQYPXe3P0Qv
- RzOV4O9UWiBWw==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5DDBF17E02A3;
- Tue, 19 May 2026 09:53:58 +0200 (CEST)
-Date: Tue, 19 May 2026 09:53:54 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Chia-I Wu <olvaffe@gmail.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 06/11] drm/panthor: Prepare the scheduler logic for
- FW events in IRQ context
-Message-ID: <20260519095354.123f8b61@fedora>
-In-Reply-To: <CAPaKu7RL5Hs2jXcj_v0F99xsM1Vo-U5iTzBvQ3Sev=dRiwBcuw@mail.gmail.com>
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-6-95c614a739cb@collabora.com>
- <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
- <20260513102941.7321cbc3@fedora>
- <CAPaKu7SJbeRwN7_S5_ciC6sSf_MM_4s7-iJS8aqh=ispBZBf2w@mail.gmail.com>
- <20260518154516.65ba8592@fedora>
- <CAPaKu7RL5Hs2jXcj_v0F99xsM1Vo-U5iTzBvQ3Sev=dRiwBcuw@mail.gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C756A10EA18
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:54:21 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 611834E42CF0;
+ Tue, 19 May 2026 07:54:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 22CBE606E9;
+ Tue, 19 May 2026 07:54:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id E4A1711AF8B49; 
+ Tue, 19 May 2026 09:54:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1779177258; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=Z4KnRYZbP+JppkyB6UHdCEixFKEe8lfBspS/MMvjMwc=;
+ b=DTGxDZanSusl2R3sUqE3bN+Ehf8q0haUVgOYOc4Gk1igIrFedIqbwNaCBSCQEhBOnD9Moz
+ lt1L717qNYWu/BANBxN6i3b+/HdJlRHHvO9/zCE77Tl1W0vxOlf6Dt00bbku9mewWw+EmT
+ Z66UPE4QUFyBVeBnfklE+Oa+zTGJZwjfF4hMAlu+UgNievdl5lMgncjj0tZdTdCr8cIYZ/
+ FOi9GSIO0j/8nS1rjU4zeRZUud7Gm+s737qGJ9zxda4GQcc/TnM1FKD8ISVMK9BWxmiASE
+ GFnNEnGfgSeb7LUV5YAtKvDtkqzlgSrbvvswG8aKFJsyVCqXXfrg4YYS3fAamQ==
+Message-ID: <1b19a798-bc7d-4f51-9e32-ac4b05b30648@bootlin.com>
+Date: Mon, 18 May 2026 10:52:01 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 04/11] drm/hisilicon/kirin: switch to
+ of_drm_get_bridge_by_endpoint()
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260511-drm-bridge-alloc-getput-panel_or_bridge-v6-0-f61c9e498b3f@bootlin.com>
+ <20260511-drm-bridge-alloc-getput-panel_or_bridge-v6-4-f61c9e498b3f@bootlin.com>
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260511-drm-bridge-alloc-getput-panel_or_bridge-v6-4-f61c9e498b3f@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,62 +82,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 18 May 2026 16:33:20 -0700
-Chia-I Wu <olvaffe@gmail.com> wrote:
 
 
-> > >
-> > >  
-> > > >  
-> > > > >  
-> > > > > >         if (!ptdev->scheduler)
-> > > > > >                 return;
-> > > > > >
-> > > > > > -       atomic_or(events, &ptdev->scheduler->fw_events);
-> > > > > > -       sched_queue_work(ptdev->scheduler, fw_events);
-> > > > > > +       guard(spinlock_irqsave)(&ptdev->scheduler->events_lock);
-> > > > > > +
-> > > > > > +       if (events & JOB_INT_GLOBAL_IF) {
-> > > > > > +               sched_process_global_irq_locked(ptdev);
-> > > > > > +               events &= ~JOB_INT_GLOBAL_IF;
-> > > > > > +       }
-> > > > > > +
-> > > > > > +       while (events) {
-> > > > > > +               u32 csg_id = ffs(events) - 1;
-> > > > > > +
-> > > > > > +               sched_process_csg_irq_locked(ptdev, csg_id);
-> > > > > > +               events &= ~BIT(csg_id);
-> > > > > > +       }  
-> > > > > This handles all fw events in the irq context. Are there concerns that
-> > > > > it may take too long? I might be wrong, but it seems possible to
-> > > > > handle only CSG_SYNC_UPDATE and defer the rest as before.  
-> > > >
-> > > > I started with just the SYNC_UPDATE processing done in the hard-irq
-> > > > context, but after auditing the other stuff done in the handler, I
-> > > > realized it's basically just deferring all actual processing to work
-> > > > items. Yes, there's the overhead of demuxing the events from the
-> > > > ack/req regs, but part of this is already done to get to SYNC_UPDATE
-> > > > anyway, so at this point we're probably better off demuxing everything
-> > > > and scheduling works for all kind of events.
-> > > >
-> > > > I also compared the perfs between the two approaches (though I didn't
-> > > > do as much testing as I did with the new version, so I might have
-> > > > missed something), and it didn't seem to matter at all, because the
-> > > > interrupts we receive the most are SYNC_UPDATE and IDLE events, and
-> > > > those are at the same level.  
-> > > Looking at ftrace irq events, when there is one active csg,
-> > > panthor-job takes 6us (median) / 17us (95%) / 27us (slowest).
-> > >
-> > > I don't have a good sense if that's considered normal in hardirq. But
-> > > if that is ever an issue, and if the majority of the time is spent in
-> > > CSG_SYNC_UPDATE anyway, we can always revert the last patch to move
-> > > processing to threaded handler.  
-> >
-> > Actually, the threaded -> hard transition (patch 9) is where the perf
-> > gain is.  
-> hardirq is even more timely for sure. For our use case, the threaded
-> handler is RT and is also good enough.
+On 5/11/26 18:40, Luca Ceresoli wrote:
+> This driver calls drm_of_find_panel_or_bridge() with a NULL pointer in the
+> @panel parameter, thus using a reduced feature set of that function.
+> Replace this call with the simpler of_drm_get_bridge_by_endpoint().
+> 
+> Since of_drm_get_bridge_by_endpoint() increases the refcount of the
+> returned bridge, ensure it is put on removal. Here the bridge pointer is
+> only stored in a temporary variable, so a cleanup action is enough.
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Yeah, true. I forgot you were forcing RT priority on threaded handlers.
-Anyway, let's stick to hardirqs for now, and revisit it if it proves to
-be too much work done in irq context.
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+
+> ---
+>   drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c | 9 ++++-----
+>   1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+> index e80debdc4176..ab3cd309505a 100644
+> --- a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+> +++ b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+> @@ -778,17 +778,16 @@ static int dsi_host_init(struct device *dev, struct dw_dsi *dsi)
+>   static int dsi_bridge_init(struct drm_device *dev, struct dw_dsi *dsi)
+>   {
+>   	struct drm_encoder *encoder = &dsi->encoder;
+> -	struct drm_bridge *bridge;
+> +	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
+>   	struct device_node *np = dsi->dev->of_node;
+> -	int ret;
+>   
+>   	/*
+>   	 * Get the endpoint node. In our case, dsi has one output port1
+>   	 * to which the external HDMI bridge is connected.
+>   	 */
+> -	ret = drm_of_find_panel_or_bridge(np, 1, 0, NULL, &bridge);
+> -	if (ret)
+> -		return ret;
+> +	bridge = of_drm_get_bridge_by_endpoint(np, 1, 0);
+> +	if (IS_ERR(bridge))
+> +		return PTR_ERR(bridge);
+>   
+>   	/* associate the bridge to dsi encoder */
+>   	return drm_bridge_attach(encoder, bridge, NULL, 0);
+> 
+
