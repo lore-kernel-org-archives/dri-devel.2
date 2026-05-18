@@ -4,94 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D82D4CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 10:14:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4FDBCD4F55
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 10:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E853810E5C0;
-	Mon, 18 May 2026 10:14:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04E6010E78D;
+	Mon, 18 May 2026 10:27:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="msBnqz5n";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jtK7WLRU";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 177D410E5C0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 10:14:14 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-488b0e1b870so31091745e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 03:14:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779099252; x=1779704052; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=HqBDj90Kc3B5RL3RITDRmt05U20tIBaa43CY99Xd9RQ=;
- b=msBnqz5nQj75WfrWP7xtCxwQlxfKPjcM462LYX9r31HLB9aqcZ8cm/71qS34j47Zsc
- hhIZezunllxWDfWtvD8nA3vWPJAb6kD5TxtDf/ESFo9zO9jStViN432NEqT2uP5CzN7T
- dchH6Zrq6G/r6mtSLFey+Tf3zH09YToHDG9/t1diKbEr+P5qZV95Wu1ZMTyv2yRukuzD
- Pf9hKXu7eAVwkkXw/ko094FkKk+7Y+bXMUYTpQdMa5m3ZJkoxf700ZHdgNNoXg4f0k88
- 3FCpn/o5TdBZTpqL8PwhSu6X89ONQpqjP3BTcXmXtSSywkh9jkkTLrVkHcWS/Fa6DYX3
- CflQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779099252; x=1779704052;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=HqBDj90Kc3B5RL3RITDRmt05U20tIBaa43CY99Xd9RQ=;
- b=fqkzc0Gn9Sh6FB0m5dXoNAHNtrL/AX/gTu4KTBlWY4OT1Yd09ORmWUhpa8U2LkhOL+
- +tyj9taj95XVWsQrC5bvEt5ENuaZCAqkT/GDnIJLdDCqJ2/fkFR7NyvbyY2EHAQG+c7+
- ZqgILhlGqmrnb986hOT1irEZgb8LUu2q6JRWMdMJFIOpECim52lKoSVHtQv7Jbk1Ip98
- eqWrXKM8gh1e7IiNTEtInJg/y9+hqmB0wQNBImPsYpsBGoYoLtjP7HW9mf4n4Q3+Bb1M
- rkK3lAPfyufFDZ1aLQSiMuKQVAqUBcQ5BcKORAXCKQHvjEd39qFJnNXjHxP6dKV0DGU3
- Gfxg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/LhnysgpMLWRZKhISA1giPnuWGlV+5MPvkwv9ZTOyV8AD+oB67Y8e02xXQX6+UstlCrjK5MA4j1eQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwA2YCijuIWpvU3W3GrLSM2Uxr32djfbtkxBFIqRwVbV3ly2KIT
- JRw/YuAs2nNOmoCEZWu3DyHotymijonNFUpV+jRODpxTKBsgmhDW1Vhj
-X-Gm-Gg: Acq92OGVAuaHIidgAFxYio2/HRExcNWRdegKC0Q6XcQOHO6pU0LMW7HmVcu9QXzsP3Y
- TxNlwagmp7+NI2Wzoxyt4B7gzjiWd5tDYuRdk5UWRnkbYFw1h1OTY4fj1tvNQVPX25yMcssvNbr
- XiCdbZWfr3Nv0j0/I78xN5OLBvy+qJBu6BXjA1CF+ivSMin5pCgIP+oQfNmLdIEOdpyKlqrcKAf
- img4NsKywcX0H0LWDSKIzohMm19yRncRDpgNOByKvdHuG6XCPaFWaOoSSK+G8Y6LwH7uaQA2JDL
- x/fQkMVe40CozxfhA+TlXOyIBTXFly0QD61hmg4FutSX4nj/vP7KY0cjv3L6Sbkb/9pdPf5+c35
- 1p50FPtlr3hdf0tneYjL9v3empRjLTdVr0p6/NINALyembfM9q85sYjAvJY7NDP0Ts1aA5xJahr
- SwetXWm4IRCOk1fAiyuwm3bfcdXGmsDALa2RaO3JhvTu72lT3McI7ntwjJGl3T00HEbmnmLuRwm
- hvDd0w0zCqYgFoC1blc1lJU/SNVq8Jd3bscncCBw4i2KtpiVpSZ1O5BzSA=
-X-Received: by 2002:a05:600c:3b12:b0:488:b14f:b8ed with SMTP id
- 5b1f17b1804b1-48fe59ab80emr218398395e9.0.1779099252361; 
- Mon, 18 May 2026 03:14:12 -0700 (PDT)
-Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
- ([2620:10d:c092:600::1:6e9b]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da0fe0f72sm38877974f8f.25.2026.05.18.03.14.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 May 2026 03:14:11 -0700 (PDT)
-Message-ID: <ebf41920-5852-428f-b98a-e0f44c8f3315@gmail.com>
-Date: Mon, 18 May 2026 11:14:09 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A55310E028;
+ Mon, 18 May 2026 10:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779100018; x=1810636018;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=R6QdQq9ZMrOvYLXJRddgkXpxL9n0sG0DU0SFfG5vqkw=;
+ b=jtK7WLRUaH8EZxo3IY9Cu/2jPQ2FfnUdY4rYI52EXDjdHerJtfh/wnH8
+ WF0eQq/JtOA7cCP1tYXLx8230le5mmywd+rCW7ovGpuDqlXdVfdHpiFbP
+ 9LFNwgsvF8fT3OUa90+Of1ZkZROQPDx012Cuc6ORrXLPT7eFlsDIchZqA
+ Zoh45qHFu6+qLMgFxsv2g9KgF1AihYXVETo4V2C9xyT5zqYSfoF7o2DhM
+ FymNFerRQXkv7D883gwQpg6Dj9O3aSagQAX+BurR2UpbbxDZXw27cbmbA
+ vH5FpUhhgW3jGamk2B5SW8WvccoRTKeH9HunOnUQPEk0UZKpaS3kyZgjm w==;
+X-CSE-ConnectionGUID: ZcMyZYrxTrGZmBqH2G7m1g==
+X-CSE-MsgGUID: /30eEH1sTHiS9ewdwpoOuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11789"; a="67477741"
+X-IronPort-AV: E=Sophos;i="6.23,241,1770624000"; d="scan'208";a="67477741"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2026 03:26:58 -0700
+X-CSE-ConnectionGUID: pbiSeRX4RlCFPNAOBGtjFg==
+X-CSE-MsgGUID: 8tVA6qnWSoCW2F8L473fiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,241,1770624000"; d="scan'208";a="236759499"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.21])
+ ([10.245.244.21])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2026 03:26:56 -0700
+Message-ID: <fef9056c-460e-4a49-bed8-f2882109e886@linux.intel.com>
+Date: Mon, 18 May 2026 12:26:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/10] lib: add dmabuf token infrastructure
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Sagi Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <c61e6d928f86f4cb253ae350272e6039faefd3a6.1777475843.git.asml.silence@gmail.com>
- <20260513082431.GA6461@lst.de>
+Subject: Re: [PATCH] drm/intel/display: Add support for pipe background color
+ (v4)
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Maarten Lankhorst <dev@lankhorst.se>, intel-xe@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+ Chandra Konduru <chandra.konduru@intel.com>,
+ dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>
+References: <20260505200133.636584-2-dev@lankhorst.se>
+ <a734e41d-3665-402b-a56a-43fd4f8819ff@intel.com>
 Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260513082431.GA6461@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <a734e41d-3665-402b-a56a-43fd4f8819ff@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,46 +75,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/13/26 09:24, Christoph Hellwig wrote:
-> Naming and placement:
+Hello,
+
+Den 2026-05-18 kl. 11:30, skrev Borah, Chaitanya Kumar:
 > 
-> This is about dma-buf based I/O.  So I'd expect it to be named dma-buf-io
-> and no io-dmabuf, and live in drivers/dma-buf and not the unrelated lib/.
-> But I'd like to hear from the dma-buf maintainers about that.
+> 
+> On 5/6/2026 1:31 AM, Maarten Lankhorst wrote:
+>> Gen9 platforms allow CRTC's to be programmed with a background/canvas
+>> color below the programmable planes.  Let's expose this as a property to
+>> allow userspace to program a desired value.
+>>
+>> This patch is based on earlier work by Chandra Konduru and Matt Roper.
+>> Between 2018 and now, intel/display has changed so much that another
+>> rewrite was necessary.
+>>
+>> v2:
+>>   - Set initial background color (black) via proper helper function (Bob)
+>>   - Fix debugfs output
+>>   - General rebasing
+>> v3 (Maarten):
+>>   - Rebase on top of recent changes.
+>> v4 (Maarten):
+>>   - Complete rewrite based on the solution that went upstream, and
+>>     on the new intel color management features.
+>>
+>> Cc: Chandra Konduru <chandra.konduru@intel.com>
+>> Cc: dri-devel@lists.freedesktop.org
+>> Co-developed-by: Matt Roper <matthew.d.roper@intel.com>
+>> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> ---
+>> Corresponding IGT: https://patchwork.freedesktop.org/series/166016/
+>>
+>>   drivers/gpu/drm/i915/display/intel_color.c    | 47 ++++++++++++-------
+>>   drivers/gpu/drm/i915/display/intel_color.h    |  3 ++
+>>   drivers/gpu/drm/i915/display/intel_crtc.c     |  4 ++
+>>   drivers/gpu/drm/i915/display/intel_display.c  |  5 ++
+>>   .../drm/i915/display/intel_display_debugfs.c  |  6 +++
+>>   .../drm/i915/display/intel_display_types.h    |  1 +
+>>   .../drm/i915/display/intel_modeset_setup.c    |  2 +
+>>   7 files changed, 52 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+>> index 0531c60e5e5d5..2365cf06cd514 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_color.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_color.c
+>> @@ -1102,19 +1102,37 @@ static void skl_get_config(struct intel_crtc_state *crtc_state)
+>>   {
+>>       struct intel_display *display = to_intel_display(crtc_state);
+>>       struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+>> +    u32 color;
+>>         crtc_state->gamma_mode = hsw_read_gamma_mode(crtc);
+>>       crtc_state->csc_mode = ilk_read_csc_mode(crtc);
+>>   +    color = intel_de_read(display, SKL_BOTTOM_COLOR(crtc->pipe));
+>>       if (DISPLAY_VER(display) < 35) {
+>> -        u32 tmp = intel_de_read(display, SKL_BOTTOM_COLOR(crtc->pipe));
+>> -
+>> -        if (tmp & SKL_BOTTOM_COLOR_GAMMA_ENABLE)
+>> +        if (color & SKL_BOTTOM_COLOR_GAMMA_ENABLE)
+>>               crtc_state->gamma_enable = true;
+>>   -        if (tmp & SKL_BOTTOM_COLOR_CSC_ENABLE)
+>> +        if (color & SKL_BOTTOM_COLOR_CSC_ENABLE)
+>>               crtc_state->csc_enable = true;
+>>       }
+>> +
+>> +    crtc_state->hw.background_color = color & GENMASK(29, 0);
+>> +}
+>> +
+>> +u32 intel_color_hw_background_color(u64 drm_background_color)
+>> +{
+>> +    return (DRM_ARGB64_GETR_BPC(drm_background_color, 10) << 20) |
+>> +           (DRM_ARGB64_GETG_BPC(drm_background_color, 10) << 10) |
+>> +           (DRM_ARGB64_GETB_BPC(drm_background_color, 10));
+>> +}
+>> +
+>> +u64 intel_color_drm_background_color(u32 hw_background_color)
+>> +{
+>> +    uint16_t r = (hw_background_color >> 20) & 0x3ff;
+>> +    uint16_t g = (hw_background_color >> 10) & 0x3ff;
+>> +    uint16_t b = hw_background_color & 0x3ff;
+>> +
+>> +    return DRM_ARGB64_PREP_BPC(0x3ff, r, g, b, 10);
+>>   }
+> 
+> nit:
+> Better names?
+> 
+> intel_color_background_color_drm_to_hw
+> intel_color_background_color_hw_to_drm
+> 
+> Stick to kernel types u16?
+> 
+>>     static void skl_color_commit_arm(struct intel_dsb *dsb,
+>> @@ -1123,16 +1141,11 @@ static void skl_color_commit_arm(struct intel_dsb *dsb,
+>>       struct intel_display *display = to_intel_display(crtc_state);
+>>       struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+>>       enum pipe pipe = crtc->pipe;
+>> -    u32 val = 0;
+>> +    u32 val = crtc_state->hw.background_color;
+>>         if (crtc_state->has_psr)
+>>           ilk_load_csc_matrix(dsb, crtc_state);
+>>   -    /*
+>> -     * We don't (yet) allow userspace to control the pipe background color,
+>> -     * so force it to black, but apply pipe gamma and CSC appropriately
+>> -     * so that its handling will match how we program our planes.
+>> -     */
+>>       if (crtc_state->gamma_enable)
+>>           val |= SKL_BOTTOM_COLOR_GAMMA_ENABLE;
+>>       if (crtc_state->csc_enable)
+>> @@ -1151,11 +1164,7 @@ static void icl_color_commit_arm(struct intel_dsb *dsb,
+>>       struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+>>       enum pipe pipe = crtc->pipe;
+>>   -    /*
+>> -     * We don't (yet) allow userspace to control the pipe background color,
+>> -     * so force it to black.
+>> -     */
+>> -    intel_de_write_dsb(display, dsb, SKL_BOTTOM_COLOR(pipe), 0);
+>> +    intel_de_write_dsb(display, dsb, SKL_BOTTOM_COLOR(pipe), crtc_state->hw.background_color);
+>>         intel_de_write_dsb(display, dsb, GAMMA_MODE(crtc->pipe), crtc_state->gamma_mode);
+>>   @@ -2107,9 +2116,15 @@ int intel_color_check(struct intel_atomic_state *state,
+>>        * May need to update pipe gamma enable bits
+>>        * when C8 planes are getting enabled/disabled.
+>>        */
+>> -    if (!old_crtc_state->c8_planes != !new_crtc_state->c8_planes)
+>> +    if (!old_crtc_state->c8_planes != !new_crtc_state->c8_planes ||
+>> +        old_crtc_state->hw.background_color != new_crtc_state->hw.background_color)
+>>           new_crtc_state->uapi.color_mgmt_changed = true;
+>>   +    if (DRM_ARGB64_GETA(new_crtc_state->uapi.background_color) != 0xffff) {
+>> +        drm_dbg_kms(display->drm, "New background not completely opaque\n");
+>> +        return -EINVAL;
+>> +    }
+>> +
+> 
+> can be within a old != new check, not to invoke it unconditionally.
+The check we have above checks hw.background_color old vs new, the value programmed
+into the hardware without alpha component.
 
-Looking at what Ming is saying, it'd make more sense to keep some of the
-parts like iterator and the file op more flexible and not automatically
-imply dma-buf even if it's the main and for now the only medium. I.e.
-ublk/fuse can use a similar interface for mapping buffers to the server
-even without dma mappings.
+This check is about uapi.background_color which does have the alpha component.
 
-I don't know how the API should look like, maybe passing memfd, and dma-buf
-supports mmap, but I think it's better to call the op something like
-"register_buffer" instead and keep all it in lib/ for the same reasons.
+I can put it in a new vs old check, but it would have to be a separate one and
+there is no benefit to having 2 comparisons vs 1.
 
-> Config option:  as this unconditionally when DMA_SHARED_BUFFER is enabled,
-> why does it need a separate config option?
 
-More clearly marking relevant code, easier to make optional if needed,
-and gives some introspection via /proc/config.
+> 
+>>       if (!intel_crtc_needs_color_update(new_crtc_state))
+>>           return 0;
+>>   diff --git a/drivers/gpu/drm/i915/display/intel_color.h b/drivers/gpu/drm/i915/display/intel_color.h
+>> index c21b9bdf7bb8a..f2cbce57b63d7 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_color.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_color.h
+>> @@ -47,4 +47,7 @@ void intel_color_plane_program_pipeline(struct intel_dsb *dsb,
+>>   void intel_color_plane_commit_arm(struct intel_dsb *dsb,
+>>                     const struct intel_plane_state *plane_state);
+>>   bool intel_color_crtc_has_3dlut(struct intel_display *display, enum pipe pipe);
+>> +u32 intel_color_hw_background_color(u64 drm_background_color);
+>> +u64 intel_color_drm_background_color(u32 hw_background_color);
+>> +
+>>   #endif /* __INTEL_COLOR_H__ */
+>> diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+>> index 03de219f7a645..b7600cecafc85 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_crtc.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+>> @@ -7,6 +7,7 @@
+>>   #include <linux/slab.h>
+>>     #include <drm/drm_atomic_helper.h>
+>> +#include <drm/drm_blend.h>
+>>   #include <drm/drm_fourcc.h>
+>>   #include <drm/drm_plane.h>
+>>   #include <drm/drm_print.h>
+>> @@ -405,6 +406,9 @@ static int __intel_crtc_init(struct intel_display *display, enum pipe pipe)
+>>                           BIT(DRM_SCALING_FILTER_DEFAULT) |
+>>                           BIT(DRM_SCALING_FILTER_NEAREST_NEIGHBOR));
+>>   +    if (DISPLAY_VER(display) >= 9)
+>> +        drm_crtc_attach_background_color_property(&crtc->base);
+>> +
+>>       intel_color_crtc_init(crtc);
+>>       intel_drrs_crtc_init(crtc);
+>>       intel_crtc_crc_init(crtc);
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+>> index 2fa10f8582794..306908f20b5a0 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+>> @@ -4505,6 +4505,8 @@ intel_crtc_copy_uapi_to_hw_state_nomodeset(struct intel_atomic_state *state,
+>>                     crtc_state->uapi.gamma_lut);
+>>       drm_property_replace_blob(&crtc_state->hw.ctm,
+>>                     crtc_state->uapi.ctm);
+>> +    crtc_state->hw.background_color =
+>> +        intel_color_hw_background_color(crtc_state->uapi.background_color);
+>>   }
+>>     static void
+>> @@ -4544,6 +4546,7 @@ copy_joiner_crtc_state_nomodeset(struct intel_atomic_state *state,
+>>                     primary_crtc_state->hw.gamma_lut);
+>>       drm_property_replace_blob(&secondary_crtc_state->hw.ctm,
+>>                     primary_crtc_state->hw.ctm);
+>> +    secondary_crtc_state->hw.background_color = primary_crtc_state->hw.background_color;
+>>         secondary_crtc_state->uapi.color_mgmt_changed = primary_crtc_state->uapi.color_mgmt_changed;
+>>   }
+>> @@ -5356,6 +5359,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+>>           else
+>>               PIPE_CONF_CHECK_X(csc_mode);
+>>           PIPE_CONF_CHECK_BOOL(gamma_enable);
+>> +
+>> +        PIPE_CONF_CHECK_X(hw.background_color);
+>>           PIPE_CONF_CHECK_BOOL(csc_enable);
+>>           PIPE_CONF_CHECK_BOOL(wgc_enable);
+>>   diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+>> index 81bef000a4e3e..336ef29d0c5b5 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+>> @@ -572,6 +572,12 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+>>         intel_scaler_info(m, crtc);
+>>   +    if (DISPLAY_VER(display) >= 9) {
+>> +        u32 background = crtc_state->hw.background_color;
+>> +
+>> +        seq_printf(m, "\tbackground color (10bpc XRGB210101010): %08x\n", background);
+> 
+> Typo: XRGB2101010
+> 
+> ==
+> Chaitanya
+> 
+Oops, missed that one!
 
-> Interface:  io_dmabuf_token_create / ->create_dmabuf_token filling
-> in a structure allocated by the caller feels odd.
+Kind regards,
+~Maarten Lankhorst
 
-It's minimising pointer chasing. "token" is mainly used by io_uring in
-the hot path, and io_uring just keeps it as a part of a larger struct.
-For the same reasons "map" is allocated by the driver.
-
-I can add an extra parameter to io_dmabuf_token_create() for how
-many extra bytes to allocate for the caller's use, if that makes
-things any better for you, but it was easier to just pass an
-already allocated struct.
-
-   My gut feeling
-> would be to move most of io_dmabuf_token_create into a helper called
-> by ->create_dmabuf_token so that the token is allocated in the
-> driver data structure and returned from create_dmabuf_token.
-
--- 
-Pavel Begunkov
+>> +    }
+>> +
+>>       if (crtc_state->joiner_pipes)
+>>           seq_printf(m, "\tLinked to 0x%x pipes as a %s\n",
+>>                  crtc_state->joiner_pipes,
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+>> index c819167618502..aa07be41648c4 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+>> @@ -1034,6 +1034,7 @@ struct intel_crtc_state {
+>>           /* logical state of LUTs */
+>>           struct drm_property_blob *degamma_lut, *gamma_lut, *ctm;
+>>           struct drm_display_mode mode, pipe_mode, adjusted_mode;
+>> +        u32 background_color;
+>>           enum drm_scaling_filter scaling_filter;
+>>           u8 sharpness_strength;
+>>       } hw;
+>> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+>> index 4c646b1bd0ee0..d3b2433eae791 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+>> @@ -334,6 +334,8 @@ static void intel_crtc_copy_hw_to_uapi_state(struct intel_crtc_state *crtc_state
+>>       crtc_state->uapi.adjusted_mode = crtc_state->hw.adjusted_mode;
+>>       crtc_state->uapi.scaling_filter = crtc_state->hw.scaling_filter;
+>>       crtc_state->uapi.sharpness_strength = crtc_state->hw.sharpness_strength;
+>> +    crtc_state->uapi.background_color =
+>> +        intel_color_drm_background_color(crtc_state->hw.background_color);
+>>         if (DISPLAY_INFO(display)->color.degamma_lut_size) {
+>>           /* assume 1:1 mapping */
+> 
 
