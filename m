@@ -4,144 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDA7ACD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 16:36:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7621FCD4F49
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 16:37:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC2B10E5DB;
-	Mon, 18 May 2026 16:36:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3F5910E8F6;
+	Mon, 18 May 2026 16:37:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OlJ9MC1i";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jt37auVm";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FKfWG0lX";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JosH13EE";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D212D10E5DB
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:36:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9FA410E327
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:37:04 +0000 (UTC)
 Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64IEnX4A2975772
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:36:02 GMT
+ 64IEnGEh2975394
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:37:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=fMHaYLlIWH4bkOXc2c6LHvGX6/Fg7TqcuV/WmKlcnTg=; b=Ol
- J9MC1idfoToplDgkxeYhRWzyN/WKwd72Oyha3dtzxfhqgfn7r2HfsCRm8+W+daVI
- VHN9EkAL/5T6NSOPThHid0mxw9nLn32xiilbhR6YRulaupc3BniLHTQA1vWPEDWC
- b7UU9UbjHUoCADIB8Jwv8rfVNLfwxU8zKTU7tr/EislZ/fHeX510bqyfbThurn+w
- hXahX2rs7KJaFftHBre0ULgNK146twpp4Trkl1b3egcf5n3XVpPiL8781zzbwTlq
- SxZkSmQ0lud4IU3K/sdx4xHUWIRwggOHV18crg45mPZULNVy92KDEB24i67R5d/N
- +r0xTd6B9BS479Krspow==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e84v48dfj-1
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ z6bl1rogyLjzkYkDgztN3fk05kEH9UeuqTmadnwHZ50=; b=FKfWG0lX3m885V/j
+ XA03cSmyeynZpezhjq1eXzi0ZABTxe2hEl3o2x2xyFl6ZDMlUYsJKY+mLusApkPw
+ v1rUJPtDQnGVTibeVJpICr/XpE8GW1Pi2pT/Jn8jEt2P3+HOu0RWqzrqlfXsBgSZ
+ cqLWWtNMtf6W1J6NprDX0KyK71gkVhUTipkfccCdOpWsWIOb2PnEmYT3rRcDI8/u
+ dUkfQPnjYZs3hKnBYlH9yjJFCvP8Yd3xsQlXagDV6Vu3O8eC8xpcqjfA85WiGGkh
+ 0jLwQG/R75KFBEgXgq67Eib7P43f8w32UMlxPD33BBs9OKi4+6S0B8azyppGZW/2
+ g2bB6g==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e84v48djn-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:36:02 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-482c48d6e6aso4850778b6e.0
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:36:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779122161; cv=none;
- d=google.com; s=arc-20240605;
- b=LBGQUOeAx/kuY8yd7s0lxiGNhFwA2mfOJH/Bt2CSEsnt/KG3w4Zvh2AMXdH6WpeA+F
- e/CDjQTDUlmLYhufnCXzMXDhvXqm7Q31IExqGI7AaHc3cJAwUJPScWIp5tMt36amKpJm
- /hgg7SXyrMdSX3xGKBRO18+wFPDnexrNB9Ij1A4ehBXlbkFGRj/nqgBG1NWVcfsbIfOW
- PWti3Oo6PpxtUSDFBef0WvbavMzwLkVFvWZxfi1ZJMBiwqcVgu2WOMQEn2nRkJ669Kws
- KngubQTanepO44zNSg7PVJHY5SlZlwG00kDXrAfirJzvCjsuAa1EjAwMPHzNVzquY5q1
- oHZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=fMHaYLlIWH4bkOXc2c6LHvGX6/Fg7TqcuV/WmKlcnTg=;
- fh=8wQgUiAin97coTPer45uteZW8gQ1x3r2mST0ER0+CPs=;
- b=YHw9LJI36YvCPBgRAXgS7MID7Z/3v9bCOhSpZlKSBLB13e9SlwVR3egYVG7ZFOtCUd
- gZXcJhwHLqaHz8rLkNmcdjXHrzjhU2V3hNjlUyHnaJc3dsqjHYc5XPej2PChgPe815hS
- 3UA0PJO3PAOd+rrQl+ipcXhuiN17t9Z5CpgPFooXF7gFDufgn5iFB61CuZqRHMk3BrKb
- 891WOMzDJE38b++bQlCZoMvRhr3FSEAAUlJAlw26t/s1Q0dHNNrvh7zXLny03j1Lqgni
- i4VJUeUf4Sctvah+Qa59iUexLgVuXUrbzCFDhaZqhlWx4GxyM+TZ8q/HaCba5tyyuVMY
- VbbA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 16:37:04 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50faf575af4so72414511cf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 09:37:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779122161; x=1779726961;
+ d=oss.qualcomm.com; s=google; t=1779122223; x=1779727023;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=fMHaYLlIWH4bkOXc2c6LHvGX6/Fg7TqcuV/WmKlcnTg=;
- b=jt37auVmZzpGPkIEHpyAhSxL858CqAwysMgtP3GgktNTGszkN9x/cMqn/AtYeifLHa
- OKI7Y+mhmiM9WZOkIEN6wuvH/mzWqS9kbTC4TW2FhSmnwyKkHa5b+PWkeC7NV8wNrfCm
- 51+yhOqVJrtnjQiGd8kH2hPuYuQG2ycq7nsQwquQhg6GT/s+0sV+rU8rcyuDzvRKCK9B
- FlxBzWA9Y7reOkum7LCllYxjL1S/PulCJeD3otWCAM3UK/Ac8sDLRG3eyfY/Wlt5POoD
- Y/phVNC5DnF5qHoDklUeqrJ9hkzvhEu0n8BDXLaX47BrK4prjuAv1NMS09Yo/kqLJ9Dy
- jktA==
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=z6bl1rogyLjzkYkDgztN3fk05kEH9UeuqTmadnwHZ50=;
+ b=JosH13EEv2Y2HvnvLk+K7g6M3Nxc/RUQmD1B0m3P7WGXfGEW9iuOCMdevpR338tKne
+ sbPoW3BCqTj4c0C9SROAzSei/WTOO+cbPyM3qkepPVPsx7vOZdrA3Ol2EF5cVDb20aPi
+ 4HsAZ/qDC4ixecipi/R0JxGFm4bAdzyQRsaHFWeJE3ucwgrzy1gz6j22NN58q8dgMFgt
+ HFyzRO5HwugES3/8hBjFXiEveTrS6/aipG1tgeSqmkoFt/iuaQslW+/NDf192O2Dv/yB
+ DECbDDH2QGiPeL6t3ADxE3EVTHfGbfnDQuBnesD685XwcAok9Dspyv0wph49SsIgWRWZ
+ 7bjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779122161; x=1779726961;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1779122223; x=1779727023;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fMHaYLlIWH4bkOXc2c6LHvGX6/Fg7TqcuV/WmKlcnTg=;
- b=qlcD6wZT35qg97seqZUeW7YToMGKV6UBBYwuxNNpjCpis84UutcRJ56Ryxz2yiZx7+
- CiDyU4IQWWW94KGEd6vABEEHsDGi1PSQSu7FDZUClkaTpw+GzwB7gFDLXQqJNm7V6N7f
- AFP9jjH3+pUaOUV+5LVHLSd3SR60zXNYjJ1J6x0jHeBgoyaH0XnmOKHIte55B8j4Ny23
- MDpOjyaNEvnKp0eHzvl3o67FID+mq0MLsl/tlV5LzlWUp1mAK7i6HiJ2U21Ig0tMnh7h
- BKxR4/tLCwgWciAKd/z0+vvjFun9mXfAqYO6XrUq/NlJTmi13HqDYLXlREjRuC0olizO
- nEHQ==
+ bh=z6bl1rogyLjzkYkDgztN3fk05kEH9UeuqTmadnwHZ50=;
+ b=D1PBZkpIzbIx5M8KY+Mg2pztRDuRWpMrNTLm/rLspOiiBqTnm9iB9V+4A1cBzhFyvC
+ fSIW9Xzxk1/4HDmnR+FrKuJgykNm/f2v9GEYvLYGKIAY02S/clxxBhY5lxXtCkEt825o
+ UKoWTovJr6D8XpuO9i9Y9vowz6XjkImqKuvMeAqRqMc6VghjfCVNLMNfqRhfPv+R9JdR
+ ERXafP3qBUEQYjHePZdWII9P7GQ8OiMpOZA2zruMMvNlPUTnmNuc1UDike4liOT4UN90
+ eynUVpAJEO0GCtlwzgJZn5EXSM8gSip1QWR7wfScINnB5VFA1Tl8xFufeI4QI8fvhSkw
+ ZlVg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/Tjft9yg82UTBhHorl9a1aAaE7HC58NgxDNPs67Zk/+dOnYw5Xza+NYATOBN623e4SeNNBx1iRcSw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyG8tr2HYsmDa20BkXryPubM/xAG/SqgnLrNb43hIZEshbdgBwZ
- gLL6UOo6U+XB51zTpbm+VEAPZ58mVVLgcJ/payXS9oH2LRJd5jEWHVOxsaK6ctl5+jVADHk/f9K
- ips0iGV05rPOZjpiyiu+QApe2zuHiJiCyb5X5uqQkF6zJAYNWfWHoP5cbv40N5pGx4myOvZ6wM5
- 9qGLyaL1TZha62NhT0W3Xw/zzh2d3gUp4JWcrvcf1L0f/prg==
-X-Gm-Gg: Acq92OH7b3NwzIeKNfqHG7/Tbmc/KJ7js+M8Ol8V5IVEK5+6Diq7A6WvldWZzwg98Ae
- TBkAcr2lIcldv0g7oF+G7AiG75ZAe1QkO+DyPM6lri4ZsiGbx/VIqOt8GXHwPdmlWlQKTV+B07L
- HHVvdAZcakeQFgPW2ZRgeVhT+LcEoqDUc4fNRCC1WGg5NIpT1QkC8oeF7/0UvOdhReEOFF9lyD+
- RaX4rBkH57OdBZcLj7rSdAr10niRPIjTMwwTA==
-X-Received: by 2002:a05:6808:1a07:b0:479:eb19:6e69 with SMTP id
- 5614622812f47-482e55afc8dmr10176728b6e.6.1779122161295; 
- Mon, 18 May 2026 09:36:01 -0700 (PDT)
-X-Received: by 2002:a05:6808:1a07:b0:479:eb19:6e69 with SMTP id
- 5614622812f47-482e55afc8dmr10176698b6e.6.1779122160739; Mon, 18 May 2026
- 09:36:00 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260514134052.361771-1-robin.clark@oss.qualcomm.com>
- <20260514134052.361771-14-robin.clark@oss.qualcomm.com>
- <836c9b33-4215-4e20-96d8-a8dc29ac6dde@oss.qualcomm.com>
- <CACSVV02DsSv7T4nDhmLSbNYigGNz4r1jmx3T=uXyg__=2CvE-Q@mail.gmail.com>
-In-Reply-To: <CACSVV02DsSv7T4nDhmLSbNYigGNz4r1jmx3T=uXyg__=2CvE-Q@mail.gmail.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 18 May 2026 09:35:49 -0700
-X-Gm-Features: AVHnY4Ibv5YCsZv7nnVEfMUb1bLEhV8RNCxoVyk5jxUc5scYh9H_dXVrl3yMZPc
-Message-ID: <CACSVV03f3GAjekAaL6kT9bD3B9suQ4DkQQqVNr97x=OMgqa=fg@mail.gmail.com>
-Subject: Re: [PATCH v6 13/16] drm/msm: Add PERFCNTR_CONFIG ioctl
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ AFNElJ9baqFJPskGh44DhF2JENbsFWWpe4jQTKIu3h8AJRKR2acsqKtGCOlzJgn9lAwGn1j0seKVkcWNNpQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxj6vKdNv4VW5MLo7PdipbzTvQWHHVikispL6SAkXZct8z5tUB8
+ RY7LSHPZSCd68fZsB6sZOq3ZoXAWSmPtcnv+5N35kxb84Jxgnq37++k/juJsmGSGdD1Hjjlbkkr
+ /5zUN2LnQ1rIizyB/rtOALNmspDe+ewV7wT3D6A3gMGFqwETRgFlbndrmMSlJuWw36t5mH5Q=
+X-Gm-Gg: Acq92OEwx9wa7JCuLWYCN9y1+L4Zrz6QCy9tC0rrnC61Q1picoVqWei5+eHNDnfpHyu
+ 9ZORydqbvC74USCLRjIGOldgjeTlZ+zbmonSsYR0JLil2IsE17oq8Z0tCCeuvxC+Gt8tDD6gYGJ
+ AZZ2nH2wHb+EGmmnQwgxpKgIsHFErwoN3/+wENDLcURbquYLNjJLvm51I/+DVvl0yenN90n1sAJ
+ lUvQWyJeo6jcwxs7N+NqHkTRHscac10brivCGX0SB/Ncbqea5iHYNqvqjVSnW3VsOz8rBeSr+kK
+ DxlkUvNDiHDTdW9wGHeeMVxGrenNTyOeX0iWSeYDEOYUsSnasqbrZrfUk76JENoAiylYDtoQzNN
+ ZKl3r3k1TczG4xv3Vhmp6DdfunAbB6Gz0d+OjXBOmGa5gL277YYj3k2DwBGUi5LN2At6qIGzjvO
+ 1O1x+2GyokpFAJVDOWPyzkqUh2/acYvNIaf1o=
+X-Received: by 2002:ac8:5cc5:0:b0:50e:601a:217f with SMTP id
+ d75a77b69052e-5165a076dcamr221804651cf.25.1779122223044; 
+ Mon, 18 May 2026 09:37:03 -0700 (PDT)
+X-Received: by 2002:ac8:5cc5:0:b0:50e:601a:217f with SMTP id
+ d75a77b69052e-5165a076dcamr221803841cf.25.1779122222344; 
+ Mon, 18 May 2026 09:37:02 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3958878a128sm14023331fa.28.2026.05.18.09.37.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2026 09:37:01 -0700 (PDT)
+Date: Mon, 18 May 2026 19:36:59 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=VJPtWdPX c=1 sm=1 tr=0 ts=6a0b3ff2 cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=M8SrLyCKTCxg5gAENbMA:9 a=QEXdDO2ut3YA:10 a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-ORIG-GUID: Zx_rF7E_KeQfRShzTfDm4jDMuDir0OeT
-X-Proofpoint-GUID: Zx_rF7E_KeQfRShzTfDm4jDMuDir0OeT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDE2MyBTYWx0ZWRfX16DQPrAtVJjL
- DSv9ecDAcFO6id2/tmnwa84OdluQL5sEFEBK1aZ0EkKS1DeaBOagHzYeBdq7fw/5cZGaGmPlN2I
- pBsbEFn230l2AdW826ncSL+4hTU9WHAnY4Q87llRDEArbehqTwmLx3V2szcXRRdKtuQiMwjbNXP
- aEubobYEMOvhXMXRZ2wxBtduSIvjuidEknxYc6cFrmcEOFDOGcnrcTAFGmgU5lAYgxAaI/iheAU
- gmG2NTmSo/kESCB0Unn5YIKe4d6RNJJw33bus87p1sDOOU+BKb9DxliJWEL0T3YllNhj6OcMbXE
- cwSqpAehsM3YgofRaC68/6zrNrnwfkQEmN5MHsE1F6fkNa8o/prFVGXoZWBC9Gt8ekiiq0AvkPx
- UGJUauuLEV79q11yQbjxU6uBDnK4rUKhcVW2uE6Z2h2mh0R3jNNPKIQm53j1Tbbpi4n/H6F+Bkj
- qHSRPSO1Rsket435//w==
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Subject: Re: [PATCH v3 31/38] drm/msm/dp: add HPD callback for dp MST
+Message-ID: <djigwx5k7j2rkaoq7g6paor6l6i25srvq7chjqqnjlbs3shcco@x5drauwxzngp>
+References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-31-01faacfcdedd@oss.qualcomm.com>
+ <pc4brjias4ixewzlsvnlhqhlz774z4p6aq7j4kldu5ze2e35sh@tsm2mtrkk3zi>
+ <b5b3b1b8-ed48-429c-a87f-0278a6632313@oss.qualcomm.com>
+ <tlt2ffn2xz3mpeoojcciieh35zc6pyowlkcjtxkkrnaj32enne@mbcrdrnkmaoz>
+ <07ff4730-2efd-4e9d-b632-9fbb517179f9@oss.qualcomm.com>
+ <vdjgzhx4xkvid2ukp7j3yir3n4tr423riyzvyzkrh2ssiub5at@pj6wfcy4jz5q>
+ <4b18f14f-d485-4b9c-a75c-ead6f7c80f95@oss.qualcomm.com>
+ <k6y3e4fqfwkevvvv3zmzmovsrz4i6qkxs3duhz7khsggxwwa77@uogtrpuaxhnc>
+ <d4c5d26c-47f1-4e42-9852-d407982cb4f6@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d4c5d26c-47f1-4e42-9852-d407982cb4f6@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=VJPtWdPX c=1 sm=1 tr=0 ts=6a0b4030 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=e5mUnYsNAAAA:8
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=-gHNLQfvCd7OBxZQGsYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22 a=Vxmtnl_E_bksehYqCbjh:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: l3ciji3u8Y8LhfeniG1MuTqg4cF3io_f
+X-Proofpoint-GUID: l3ciji3u8Y8LhfeniG1MuTqg4cF3io_f
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDE2NCBTYWx0ZWRfX9BV1XCryEpvm
+ JGs2wzAA4yHseUnMwxE34oH7ndpuuL9DZDUy5gJLgpe6OTxpsM4ol5jjIDyEh9wREnt3nWvvDVJ
+ oBA2fOAD3xXNtJ0OHWkIXETyP2V2O/g/CfELAx3edI04Ry5lhUhUW62PMY8zv4GaGCa+zqVU5vH
+ 5KxLBhvz0aehOHcOacBpnHkc1QYV3LY36u7YDbz5ak9NN24NQ34rjXCjGyIrfI7ZweY37bzFw0u
+ PLDRt29AR3RAjIqd56X8dmYDic98EX3MY8pNQdIV4ihCm7brrhzP0JNJ3YNQsl3sisiq4JAajZA
+ FicrO/xsaL0zmKF4GFjWFhEkutB7vf3SsOcRdI73S+v2evOOj/RZN0E4nSTMOLiGWxEwUEbnCUi
+ Hqf2u8Ovfh5NbA3PC0fMHETdmdivygpv6Nyl5wz0wlMpKKMeEY4DOJWdbYeK90gPTrbC4+2hA/T
+ ZEbxX29XjlTI4lizMHQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-18_03,2026-05-18_01,2025-10-01_01
@@ -149,7 +143,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 bulkscore=0
  spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180163
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180164
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,358 +156,175 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2026 at 6:46=E2=80=AFAM Rob Clark <rob.clark@oss.qualcomm.c=
-om> wrote:
->
-> On Sun, May 17, 2026 at 3:54=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualc=
-omm.com> wrote:
-> >
-> > On 5/14/2026 7:10 PM, Rob Clark wrote:
-> > > Add new UABI and implementation of PERFCNTR_CONFIG ioctl.
-> > >
-> > > A bit more work is required to configure the pwrup_reglist for the GM=
-U
-> > > to restore SELect regs on exist of IFPC, before we can stop disabling
-> > > IFPC while global counter collection.  This will follow in a later
-> > > commit, but will be transparent to userspace.
-> > >
-> > > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> > > Reviewed-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/msm/msm_drv.c      |   1 +
-> > >  drivers/gpu/drm/msm/msm_drv.h      |   2 +
-> > >  drivers/gpu/drm/msm/msm_gpu.h      |   3 +
-> > >  drivers/gpu/drm/msm/msm_perfcntr.c | 516 +++++++++++++++++++++++++++=
-++
-> > >  drivers/gpu/drm/msm/msm_perfcntr.h |  51 +++
-> > >  include/uapi/drm/msm_drm.h         |  48 +++
-> > >  6 files changed, 621 insertions(+)
-> > >
->
-> [snip]
->
-> > > diff --git a/drivers/gpu/drm/msm/msm_perfcntr.c b/drivers/gpu/drm/msm=
-/msm_perfcntr.c
-> > > index 04407260a4e1..d6716ce0657a 100644
-> > > --- a/drivers/gpu/drm/msm/msm_perfcntr.c
-> > > +++ b/drivers/gpu/drm/msm/msm_perfcntr.c
->
-> [snip]
->
-> > > +static ssize_t
-> > > +msm_perfcntrs_stream_read(struct file *file, char __user *buf,
-> > > +                       size_t count, loff_t *ppos)
-> > > +{
-> > > +     struct msm_perfcntr_stream *stream =3D file->private_data;
-> > > +     int ret;
-> > > +
-> > > +     if (!(file->f_flags & O_NONBLOCK)) {
-> > > +             ret =3D wait_event_interruptible(stream->poll_wq,
-> > > +                                            fifo_count(stream) > 0);
-> > > +             if (ret)
-> > > +                     return ret;
-> > > +     }
-> > > +
-> > > +     guard(mutex)(&stream->read_lock);
-> > > +
-> > > +     struct circ_buf *fifo =3D &stream->fifo;
-> > > +     const char *fptr =3D &fifo->buf[fifo->tail];
-> > > +
-> > > +     /*
-> > > +      * Note that smp_load_acquire() is not strictly required
-> > > +      * as CIRC_CNT_TO_END() does not access the head more than
-> > > +      * once.
-> > > +      */
-> > > +     count =3D min_t(size_t, count, fifo_count_to_end(stream));
-> >
-> > We need smp_load_acquire() to ensure all prior writes from the producer
-> > side are visible before the 'head' is read.
->
-> circular-buffer.rst documents the case that smp_load_acquired() is not
-> needed.  Maybe that is assuming TSO?  But I think even without TSO
-> address and data dependencies should be maintained, so this should
-> still be true on arm64?
+On Thu, May 14, 2026 at 03:12:17PM +0800, Yongxing Mou wrote:
+> 
+> 
+> On 4/19/2026 8:29 AM, Dmitry Baryshkov wrote:
+> > On Wed, Apr 15, 2026 at 06:32:29PM +0800, Yongxing Mou wrote:
+> > > 
+> > > 
+> > > On 4/15/2026 2:43 AM, Dmitry Baryshkov wrote:
+> > > > On Tue, Apr 14, 2026 at 05:51:51PM +0800, Yongxing Mou wrote:
+> > > > > 
+> > > > > 
+> > > > > On 3/25/2026 3:30 AM, Dmitry Baryshkov wrote:
+> > > > > > On Tue, Mar 24, 2026 at 09:04:24PM +0800, Yongxing Mou wrote:
+> > > > > > > 
+> > > > > > > 
+> > > > > > > On 8/27/2025 2:40 AM, Dmitry Baryshkov wrote:
+> > > > > > > > On Mon, Aug 25, 2025 at 10:16:17PM +0800, Yongxing Mou wrote:
+> > > > > > > > > From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > > > > > > > 
+> > > > > > > > > Add HPD callback for the MST module which shall be invoked from the
+> > > > > > > > > dp_display's HPD handler to perform MST specific operations in case
+> > > > > > > > > of HPD. In MST case, route the HPD messages to MST module.
+> > > > > > > > > 
+> > > > > > > > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > > > > > > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > > > > > > > > ---
+> > > > > > > > >      drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++++++---
+> > > > > > > > >      drivers/gpu/drm/msm/dp/dp_mst_drm.c | 34 ++++++++++++++++++++++++++++++++++
+> > > > > > > > >      drivers/gpu/drm/msm/dp/dp_mst_drm.h |  2 ++
+> > > > > > > > >      3 files changed, 48 insertions(+), 3 deletions(-)
+> > > > > > > > > 
+> > > > > > > > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > > > > > index abcab3ed43b6da5ef898355cf9b7561cd9fe0404..59720e1ad4b1193e33a4fc6aad0c401eaf9cbec8 100644
+> > > > > > > > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > > > > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > > > > > @@ -500,9 +500,16 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
+> > > > > > > > >      static int msm_dp_display_usbpd_attention_cb(struct device *dev)
+> > > > > > > > >      {
+> > > > > > > > > -	int rc = 0;
+> > > > > > > > > -	u32 sink_request;
+> > > > > > > > >      	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
+> > > > > > > > > +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+> > > > > > > > > +	u32 sink_request;
+> > > > > > > > > +	int rc = 0;
+> > > > > > > > > +
+> > > > > > > > > +	if (msm_dp_display->mst_active) {
+> > > > > > > > > +		if (msm_dp_aux_is_link_connected(dp->aux) != ISR_DISCONNECTED)
+> > > > > > > > > +			msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
+> > > > > > > > > +		return 0;
+> > > > > > > > > +	}
+> > > > > > > > >      	/* check for any test request issued by sink */
+> > > > > > > > >      	rc = msm_dp_link_process_request(dp->link);
+> > > > > > > > > @@ -1129,8 +1136,10 @@ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)
+> > > > > > > > >      	if (hpd_isr_status & DP_DP_HPD_UNPLUG_INT_MASK)
+> > > > > > > > >      		msm_dp_display_send_hpd_notification(dp, false);
+> > > > > > > > > -	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK)
+> > > > > > > > > +	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK) {
+> > > > > > > > >      		msm_dp_display_send_hpd_notification(dp, true);
+> > > > > > > > > +		msm_dp_irq_hpd_handle(dp, 0);
+> > > > > > > > 
+> > > > > > > > Why is it a part of this patch?? It has nothing to do with MST.
+> > > > > > > > 
+> > > > > > > Emm ... maybe here we can directly call msm_dp_mst_display_hpd_irq..
+> > > > > > > I tried an alternative approach by calling the MST IRQ handler from
+> > > > > > > msm_dp_bridge_hpd_notify(). I expected that when hpd_isr_status ==
+> > > > > > > DP_DP_IRQ_HPD_INT_MASK, the hpd_link_status read in
+> > > > > > > msm_dp_bridge_hpd_notify() would be ISR_IRQ_HPD_PULSE_COUNT. That way, we
+> > > > > > > could handle both SST and MST interrupt paths in msm_dp_irq_hpd_handle().
+> > > > > > > However, hpd_link_status only reports ISR_CONNECTED. So I had to move the
+> > > > > > > MST IRQ handling into the IRQ thread. Do you have any suggestions on this?
+> > > > > > 
+> > > > > > When are the link status bits updated? Please remember, we need to
+> > > > > > support all three cases:
+> > > > > > 
+> > > > > > - Native DP, native DP HPD pin handling
+> > > > > > - Native DP, DP HPD pin not handled by the controller
+> > > > > > - DP AltMode, DP HPD pin not used at all
+> > > > > > 
+> > > > > > In the second and the third cases we will not be getting the IRQs.
+> > > > > > Instead one of the next bridges (connector, EC, AltMode, etc.) will send
+> > > > > > the HPD event, which lands in the .hpd_notify() callback.
+> > > > > > 
+> > > > > I added some logs and did some testing. I think
+> > > > > msm_dp_aux_is_link_connected() only shows the current HPD state. Since IRQ
+> > > > > HPD Pulse Count is very short, by the time we read REG_DP_DP_HPD_INT_STATUS
+> > > > > in the IRQ flow, the HPD state machine has usually already finished pulse
+> > > > > classification and returned to Connected.
+> > > > 
+> > > > But the IRQ should be sticky and it should be readable from the status
+> > > > bits.
+> > > > 
+> > > Yes... I’m not sure how this is handled on other platforms, but on LeMans
+> > > can not get IRQ status from msm_dp_aux_is_link_connected().
+> > 
+> > Can we clarify that somehow? Maybe with the hardware team if it is
+> > uncear from the HPG?
+> > 
+> > > > Note, in the USB-C AltMode case the HPD machine is not used at all.
+> > > > 
+> > > > > 
+> > > > > Because of that, the condition hpd_link_status == ISR_IRQ_HPD_PULSE_COUNT
+> > > > > will usually not be hit.
+> > > > > 
+> > > > > do you have any suggestion that in how to distinguish between an IRQ event
+> > > > > and a plug event in .hpd_notify() better? We probably don’t want to
+> > > > > introduce another state machine.
+> > > > 
+> > > > Then, I assume, currently there is no way to actually distinguish those.
+> > > > The easiest way to handle the replug would be to store the current
+> > > > "connected" status and verify if we are receiving "connected" while
+> > > > being connected or if it is a disconnected -> connected change.
+> > > > 
+> > > Emm.. Currently, regardless of whether it is the native DP HPD (on LeMans)
+> > > or DP over Type‑C Alt Mode(test on Hamoa), a single plug event always
+> > > results in two or more identical .hpd_notify() callbacks.
+> > 
+> > Could you please check, why? On Hamoa it might be because of the LTTPRs.
+> > 
+> > > In other words, after the transition from disconnected → connected is
+> > > completed, there is still one more .hpd_notify() with connected → connected.
+> > > So it still can store "connected" to distinguish between an IRQ event and a
+> > > plug event from .hpd_notify()?
+> > 
+> > I've sent a series, which explicitly tracks the IRQ events. Hope that
+> > helps.
+> > 
+> Very thanks for sending the HPD IRQ series
+> https://patchwork.freedesktop.org/series/151522/. it very helpful for TYPE-C
+> MST.
+> 
+> I’ve been testing it locally based on HPD refator series, and TYPE-C basic
+> plug case works on my side (although with some local modify, maybe now it is
+> workaround). At least the IRQ is being delivered correctly now and the
+> simplest case works. It still need to do some additional testing.
+> 
+> There is a small question:
+> When do you plan to merge the HPD refactor series?
 
-Ok, I think ordering is only maintained within a single core.  So
-probably the circular-buffer.rst docs are making too stong of an
-assumption about x86/TSO..
+Would you or your colleagues review it? Or at least T-B it?
 
-> We've been using the same in a couple other places in msm, fwiw.
->
-> > > +     if (copy_to_user(buf, fptr, count))
-> > > +             return -EFAULT;
-> > > +
-> > > +     smp_store_release(&fifo->tail, (fifo->tail + count) & (stream->=
-fifo_size - 1));
-> > > +     *ppos +=3D count;
-> > > +
-> > > +     return count;
-> > > +}
->
-> [snip]
->
-> > > +int
-> > > +msm_ioctl_perfcntr_config(struct drm_device *dev, void *data, struct=
- drm_file *file)
-> > > +{
-> > > +     struct msm_drm_private *priv =3D dev->dev_private;
-> > > +     const struct drm_msm_perfcntr_config *args =3D data;
-> > > +     struct msm_context *ctx =3D file->driver_priv;
-> > > +     struct msm_gpu *gpu =3D priv->gpu;
-> > > +     int stream_fd =3D 0;
-> > > +
-> > > +     if (!gpu || !gpu->num_perfcntr_groups)
-> > > +             return -ENXIO;
-> > > +
-> > > +     struct msm_perfcntr_state *perfcntrs =3D gpu->perfcntrs;
-> > > +
-> > > +     /*
-> > > +      * Validate args that don't require locks/power first:
-> > > +      */
-> > > +
-> > > +     if (args->flags & ~MSM_PERFCNTR_FLAGS)
-> > > +             return UERR(EINVAL, dev, "invalid flags");
-> > > +
-> > > +     if (args->nr_groups && !args->group_stride)
-> > > +             return UERR(EINVAL, dev, "invalid group_stride");
-> > > +
-> > > +     if (args->flags & MSM_PERFCNTR_STREAM) {
-> > > +             if (!perfmon_capable())
-> > > +                     return UERR(EPERM, dev, "invalid permissions");
-> > > +             if (!args->nr_groups)
-> > > +                     return UERR(EINVAL, dev, "invalid nr_groups");
-> > > +             if (!args->period)
-> > > +                     return UERR(EINVAL, dev, "invalid sampling peri=
-od");
-> > > +     } else {
-> > > +             if (args->period)
-> > > +                     return UERR(EINVAL, dev, "sampling period not a=
-llowed");
-> > > +             if (args->bufsz_shift)
-> > > +                     return UERR(EINVAL, dev, "sample buf size not a=
-llowed");
-> > > +     }
-> > > +
-> > > +     if (args->nr_groups && !args->groups)
-> > > +             return UERR(EINVAL, dev, "no groups");
-> > > +
-> > > +     /*
-> > > +      * To avoid iterating over the groups multiple times, allocate =
-and setup
-> > > +      * both a ctx and global stream object.  Only one of the two wi=
-ll be
-> > > +      * kept in the end.
-> > > +      */
-> > > +
-> > > +     struct msm_perfcntr_context_state *perfctx __free(kfree) =3D kz=
-alloc(
-> > > +             struct_size(perfctx, reserved_counters, gpu->num_perfcn=
-tr_groups),
-> > > +             GFP_KERNEL);
-> > > +     if (!perfctx)
-> > > +             return -ENOMEM;
-> > > +
-> > > +     struct msm_perfcntr_stream *stream __free(kfree) =3D
-> > > +                     kzalloc(sizeof(*stream), GFP_KERNEL);
-> >
-> > How about using GFP_KERNEL_ACCOUNT everywhere in the ioctl path to
-> > account the allocated memory to the process?
->
-> Maybe the circular buffer itself should be?  But the size is bounded,
-> and I don't see much other use in drm..
->
-> > > +     if (!stream)
-> > > +             return -ENOMEM;
-> > > +
-> > > +     uint32_t *group_idx __free(kfree) =3D
-> > > +             kcalloc(args->nr_groups, sizeof(uint32_t), GFP_KERNEL);
-> > > +     if (!group_idx)
-> > > +             return -ENOMEM;
-> > > +
-> > > +     stream->gpu =3D gpu;
-> > > +     stream->sample_period_ns =3D args->period;
-> > > +     stream->nr_groups =3D args->nr_groups;
-> > > +     stream->fifo_size =3D 1 << args->bufsz_shift;
-> > > +
-> > > +     mutex_init(&stream->read_lock);
-> > > +
-> > > +     guard(mutex)(&gpu->perfcntr_lock);
-> > > +
-> > > +     if (args->flags & MSM_PERFCNTR_STREAM) {
-> > > +             if (perfcntrs->stream)
-> > > +                     return UERR(EBUSY, dev, "perfcntr stream alread=
-y open");
-> > > +     }
-> > > +
-> > > +     size_t bufsz =3D 16;  /* header size includes seqno and 64b tim=
-estamp: */
-> > > +     int ret =3D 0;
-> > > +
-> > > +     for (unsigned i =3D 0; i < args->nr_groups; i++) {
-> > > +             struct drm_msm_perfcntr_group g =3D {0};
-> > > +             void __user *userptr =3D
-> > > +                     u64_to_user_ptr(args->groups + (i * args->group=
-_stride));
-> > > +
-> > > +             if (copy_from_user(&g, userptr, args->group_stride))
-> >
-> > use copy_struct_from_user?
->
-> I think this would cause a new userspace on old kernel to fail,
-> instead of simply ignoring new fields added at the end of the struct.
-> Which for better or worse is different from how drm_ioctl() works.
->
-> >
-> > > +                     return -EFAULT;
-> > > +
-> > > +             if (g.pad)
-> > > +                     return UERR(EINVAL, dev, "groups[%d]: invalid p=
-ad", i);
-> > > +
-> > > +             int idx =3D get_group_idx(gpu, g.group_name, sizeof(g.g=
-roup_name));
-> > > +
-> > > +             if (idx < 0)
-> > > +                     return UERR(EINVAL, dev, "groups[%d]: unknown g=
-roup", i);
-> > > +
-> > > +             if (g.nr_countables > gpu->perfcntr_groups[idx].num_cou=
-nters)
-> > > +                     return UERR(EINVAL, dev, "groups[%d]: too many =
-counters", i);
-> > > +
-> > > +             if (args->flags & MSM_PERFCNTR_STREAM) {
-> > > +                     if (g.nr_countables && !g.countables)
-> > > +                             return UERR(EINVAL, dev, "groups[%d]: n=
-o countables", i);
-> > > +             } else {
-> > > +                     if (g.countables)
-> > > +                             return UERR(EINVAL, dev, "groups[%d]: c=
-ountables should be NULL", i);
-> > > +             }
-> > > +
-> > > +             int avail_counters =3D get_available_counters(gpu, idx,=
- args->flags);
-> > > +             if (g.nr_countables > avail_counters) {
-> > > +                     /*
-> > > +                      * Defer error return until we process all grou=
-ps, in
-> > > +                      * case there are other E2BIG groups:
-> > > +                      */
-> > > +                     ret =3D UERR(E2BIG, dev, "groups[%d]: too few c=
-ounters available", i);
-> > > +
-> > > +                     if (args->flags & MSM_PERFCNTR_UPDATE) {
-> > > +                             /* Let userspace know how many counters=
- are actually avail: */
-> > > +                             g.nr_countables =3D avail_counters;
-> > > +                             if (copy_to_user(userptr, &g, args->gro=
-up_stride))
-> > > +                                     return -EFAULT;
-> > > +                     }
-> > > +             }
-> > > +
-> > > +             group_idx[i] =3D idx;
-> > > +             perfctx->reserved_counters[idx] =3D g.nr_countables;
-> > > +
-> > > +             if (args->flags & MSM_PERFCNTR_STREAM) {
-> > > +                     perfcntrs->groups[idx]->allocated_counters =3D =
-g.nr_countables;
-> > > +
-> > > +                     size_t sz =3D sizeof(uint32_t) * g.nr_countable=
-s;
-> > > +                     void __user *userptr =3D u64_to_user_ptr(g.coun=
-tables);
-> > > +
-> > > +                     if (copy_from_user(perfcntrs->groups[idx]->coun=
-tables, userptr, sz))
-> > > +                             return -EFAULT;
-> > > +
-> > > +                     /* Samples are 64b per countable: */
-> > > +                     bufsz +=3D 2 * sz;
-> > > +             }
-> > > +     }
-> > > +
-> > > +     if (ret)
-> > > +             return ret;
-> > > +
-> > > +     if (args->flags & MSM_PERFCNTR_STREAM) {
-> > > +             /*
-> > > +              * Validate requested buffer size is large enough for a=
-t least
-> > > +              * a single sample period.
-> > > +              *
-> > > +              * Note the circ_buf implementation needs to be 1 byte =
-larger
-> > > +              * than max it can hold (see CIRC_SPACE()).
-> > > +              */
-> > > +             if (stream->fifo_size <=3D bufsz)
-> > > +                     return UERR(EINVAL, dev, "required buffer size:=
- %zu", bufsz);
-> > > +
-> > > +             if (stream->fifo_size > SZ_128M)
-> > > +                     return UERR(EINVAL, dev, "buffer size too big (=
->128M): %zu", bufsz);
-> > > +
-> > > +             /* There aren't enough counters to hit this limit: */
-> > > +             WARN_ON(bufsz > SZ_128M);
-> > > +
-> > > +             stream->period_size =3D bufsz;
-> > > +
-> > > +             void *buf __free(kfree) =3D
-> > > +                     kmalloc(1 << args->bufsz_shift, GFP_KERNEL);
-> > > +             if (!buf)
-> > > +                     return -ENOMEM;
-> > > +
-> > > +             stream_fd =3D anon_inode_getfd("[msm_perfcntrs]", &stre=
-am_fops, stream, 0);
-> >
-> > This call makes the fd visible to the userspace immediately. So better
-> > to move it after all initializations. Ie, after
-> > msm_perfcntr_resume_locked().
->
-> Hmm, but this doesn't play too nicely with cleanup.h stuff, because
-> the no_free_ptr() stuff must come after the last point of failure.
->
-> But I think instead we can use get_unused_fd_flags() + fd_install() to
-> defer exposing the fd.. I'll try this.
+> and could you please
+> rebase the irq series patch to HPD refactor series ?
 
-Turns out FD_PREPARE()/fd_publish() work well for this
+Once it is merged.
 
-BR,
--R
+> so that i can keep MST
+> depend on those 2 series.
+> > Thoug storing of the "connected" state should help us to identify the
+> > long HPD pulse (wich should be treated as unplug & replug).
+> > 
+> > > This is my current understanding. If this is incorrect, please feel free to
+> > > correct me. Thanks.
+> > > As an additional note, msm_dp_hpd_plug_handle runs through its full flow
+> > > twice for a single plug event. Also, the behavior I described above does not
+> > > include any MST-specific filtering codes.
+> > > > For a longer term (and granted that HDMI also has a notion of HPD pulse
+> > > > events) we might want to extend the DRM HPD API to pass through the "IRQ
+> > > > pulse" events as is (instead of converting those to
+> > > > connected-whilec-connected events).
+> > > > 
+> > > > Let me sketch a draft for that.
+> > > > 
+> > > 
+> > 
+> 
 
-> BR,
-> -R
->
-> >
-> > > +             if (stream_fd < 0)
-> > > +                     return stream_fd;
-> > > +
-> > > +             INIT_WORK(&stream->sel_work, sel_worker);
-> > > +             kthread_init_work(&stream->sample_work, sample_worker);
-> > > +             init_waitqueue_head(&stream->poll_wq);
-> > > +             hrtimer_setup(&stream->sample_timer, sample_timer,
-> > > +                           CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-> > > +
-> > > +             stream->sel_fence =3D ++perfcntrs->sel_seqno;
-> > > +             stream->group_idx =3D no_free_ptr(group_idx);
-> > > +             stream->fifo.buf =3D no_free_ptr(buf);
-> > > +             perfcntrs->stream =3D no_free_ptr(stream);
-> > > +
-> > > +             msm_perfcntr_resume_locked(perfcntrs->stream);
-> > > +     } else {
-> > > +             kfree(ctx->perfctx);
-> > > +             ctx->perfctx =3D no_free_ptr(perfctx);
-> > > +     }
-> > > +
-> > > +     return stream_fd;
-> > > +}
-> > > +
-> > >  /**
-> > >   * msm_perfcntr_group_idx - map idx of perfcntr group to group_idx
-> > >   * @stream: The global perfcntr stream
+-- 
+With best wishes
+Dmitry
