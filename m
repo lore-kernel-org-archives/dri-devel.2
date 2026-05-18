@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A1B8CD4F51
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B237CD4F54
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 07:48:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB53110E581;
-	Mon, 18 May 2026 07:48:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4AD010E6F0;
+	Mon, 18 May 2026 07:48:04 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C3AD10E581
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:47:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96E0110E581
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 07:47:58 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=ratatoskr.trumtrar.info)
  by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1wOsha-0001Wi-Na; Mon, 18 May 2026 09:47:50 +0200
+ id 1wOshb-0001Wi-91; Mon, 18 May 2026 09:47:51 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Mon, 18 May 2026 09:47:45 +0200
-Subject: [PATCH v3 1/2] dt-bindings: display: simple: Add NEC
- NL6448BC33-70C panel
+Date: Mon, 18 May 2026 09:47:46 +0200
+Subject: [PATCH v3 2/2] drm/panel: simple: add NEC NL6448BC33-70C
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-1-21ea14a6e835@pengutronix.de>
+Message-Id: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-2-21ea14a6e835@pengutronix.de>
 References: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-0-21ea14a6e835@pengutronix.de>
 In-Reply-To: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-0-21ea14a6e835@pengutronix.de>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -37,16 +36,15 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>, 
  Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
- Conor Dooley <conor.dooley@microchip.com>
+ linux-kernel@vger.kernel.org, Steffen Trumtrar <s.trumtrar@pengutronix.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1043;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1734;
  i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=L7ViCIJqSTOsvx0ja6YkbtMh40A/P80lYbjqblDJskA=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQxbXEZWTp/wr7U5s8H51YsMCsypn80z7hyqPObmVJVu3W
- Aa9XeneUcrCIMbFICumyKKysIJP1OODZ+Q0ES6YOaxMIEMYuDgFYCLx1Qz/E4OXhnoXqz8X0XBj
- TvxkdT7uyvHoIp206HXxxwMXJq0sYmT4s7ZFsfZI2+5Ur6j1dsymwgbzZU2dMpUUJu7xu1H9w4o
- fAA==
+ bh=PXlPK/z/WiNO414FMLo6oHl5jn6KF92WVH5j+46oWDo=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQxbXERXmbwqP0niuTuc7rnh1wVtfB7YrD5xNj345teanT
+ ZdCt+zujlIWBjEuBlkxRRaVhRV8oh4fPCOniXDBzGFlAhnCwMUpABOZFsbIcMzbf/aEK46/ygML
+ PhdKzWa9k9pbbTR5ltmMwPKuOw3hlgz/DL5lC0XJpk/fmb87OE4/6nH97gLOljPm1ooxT3+J/u9
+ gAgA=
 X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
  fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
@@ -69,27 +67,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the NEC LCD Technologies,Ltd. NL6448BC33-70C 10.4" 640x480 LCD panel.
+Add NEC NL6448BC33-70C 10.4" 640x480 LCD module support.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/panel/panel-simple.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-index 3e41ed0ef5d51..96d218f78b0be 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-@@ -232,6 +232,8 @@ properties:
-       - nec,nl12880bc20-05
-         # NEC LCD Technologies,Ltd. WQVGA TFT LCD panel
-       - nec,nl4827hc19-05b
-+        # NEC LCD Technologies,Ltd. VGA TFT LCD panel
-+      - nec,nl6448bc33-70c
-         # Netron-DY E231732 7.0" WSVGA TFT LCD panel
-       - netron-dy,e231732
-         # Newhaven Display International 480 x 272 TFT LCD panel
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index 236bd56208ccf..0bf50b1ed69e6 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -3659,6 +3659,32 @@ static const struct panel_desc nec_nl4827hc19_05b = {
+ 	.bus_flags = DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,
+ };
+ 
++static const struct drm_display_mode nec_nl6448bc33_70c_mode = {
++	.clock = 25175,
++	.hdisplay = 640,
++	.hsync_start = 640 + 16,
++	.hsync_end = 640 + 16 + 48,
++	.htotal = 640 + 16 + 48 + 96,
++	.vdisplay = 480,
++	.vsync_start = 480 + 2,
++	.vsync_end = 480 + 2 + 31,
++	.vtotal = 480 + 2 + 31 + 31,
++	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
++};
++
++static const struct panel_desc nec_nl6448bc33_70c = {
++	.modes = &nec_nl6448bc33_70c_mode,
++	.num_modes = 1,
++	.bpc = 6,
++	.size = {
++		.width = 211,
++		.height = 158,
++	},
++	.bus_format = MEDIA_BUS_FMT_RGB666_1X7X3_SPWG,
++	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
++	.connector_type = DRM_MODE_CONNECTOR_LVDS,
++};
++
+ static const struct drm_display_mode netron_dy_e231732_mode = {
+ 	.clock = 66000,
+ 	.hdisplay = 1024,
+@@ -5520,6 +5546,9 @@ static const struct of_device_id platform_of_match[] = {
+ 	}, {
+ 		.compatible = "nec,nl4827hc19-05b",
+ 		.data = &nec_nl4827hc19_05b,
++	}, {
++		.compatible = "nec,nl6448bc33-70c",
++		.data = &nec_nl6448bc33_70c,
+ 	}, {
+ 		.compatible = "netron-dy,e231732",
+ 		.data = &netron_dy_e231732,
 
 -- 
 2.53.0
