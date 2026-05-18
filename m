@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B08ECD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:03:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91FBCCD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:03:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A58210E97D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7348C10E97F;
 	Mon, 18 May 2026 18:03:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kKkdwkKO";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="dERgIHb7";
 	dkim-atps=neutral
 Received: from BN8PR05CU002.outbound.protection.outlook.com
  (mail-eastus2azon11011027.outbound.protection.outlook.com [52.101.57.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07EA810E978
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:03:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA88810E978
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:03:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UGu6cAEmHGdkan+QDaDEvLzKgKg0YE27XQjblatQytD4hDYlzodLuQgitRnCyLlS3gb06cfn1Me/4eZ/eAUsivT++EASJMHrXnG3i/dbqCJiXIL6OvTn6LgU8bBuq97tj1eOLGApgSMBq8K1gsSVhZfN/oybiQXeIw6U55/c5BTTmtPj1FdJbZmTDqhqfQwh6IsLrDazR80HE+ean6XeFdhb+ArfP/fi0V42WUvXlLVDg9eXULnHvXLTOphhDs7qykJMWVD4vEoIBVJF2cavXx9gQIaAiCz2b4xfD9HZcWlKJZJ9q5kQbz/58Y1PwfVn+Rpt+O2ce8HOWP4j/mQZHQ==
+ b=U4JQnMcJ8ShQxmTuh8Pd6c+SbTqtaPAjMbSNy4MuRMLieglsgCPOyG511a1zTIuGr6U83eY45cKrsEJTeju6PNWO6tqR1cVNAxoHSXu503shq9v5o+S3tRQKIsCj08pyV1bgarR+6VMJ7iHylhWP35CRLmtKUg9Zt9rQ7hBfBzmXHZWooQIm8OVCMAs5NW8F8CccJNCT5orr4VAL4JbH/3HYKMVNUd/YsGRYVJlfhyFYSdWqkENLtp+/YpRvcZowMg2FjwU5WFs0tfnImHZ9FQdb5P+3fsBT01j/EM79bab0Ja8yH+2qyX8Wo7ZMTVzI/3IOnghTM4YDjLJXL3mlyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MB5cqp0BbG0vPpl+RsAq+hf4ZZJwVTffKHqN9/J3kfA=;
- b=TxvPgHHNuUKKcSRXpyOE0U2UiM/dqe4gnOB4IVQ5pCFQAx1Ti37vwvIlTBYG27zasXxPCJGt1FhbDL0oCxQimJFxCLrg4D5jzTrR103TSy2a+3iQ4VUtRY+GwOtG8k3164KpEMhEptcsNT538AiuNMGRMkCS1f0lugdb4TFwYTkEvdV7hikZLr1SSSpK27D43Mr6G5MwLCUCb2DQaUSw44BJQqN4eyzHSnxgZ8g5X0a1V2hGyg5bZpz9yVf9SlJZUlLCq5wq0xWjJk7b5eQzS9REAiStDLmu/HxAi29RAdz8b92pHzvm0NwAbhKpE8u5sBAW4QlEmmnji+wmRNROLA==
+ bh=pYpNt8B/QpjJy0kxD96rJBPekJhaixqpFKeUv9opSII=;
+ b=Ss0N+0nOmjtIW+CB6oL40lc1vUh1paMPT/KZW+c4sWVNlom297m9V2dSMiEwKJK073L7j/1NwJbKzKHYB+IHxMHMrH+rjdjKlYTIqD3vwKkwbxgMl6oNzI77jMh/OnnQ5NBqM8mZtNrTmXzZ+aeyAEinFhuO7m+gS2+9vAM5UvvnSVBf12DUglvg/R74x75a4muHlSHTwgbgQ+5IzJkvpyaTy/uHR4GwkuRcAbgG1e6Xf7XuO+M5NI5H7KwS20n4h5Bvee2wqfLOkGGceBFunNAKT7B0MkvKsEjr09TnJ7CUnT7XYG3lR2PwOhlH+vsrzTluT2Sw89gwfqGywKmjnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MB5cqp0BbG0vPpl+RsAq+hf4ZZJwVTffKHqN9/J3kfA=;
- b=kKkdwkKOQRYQ5yP5B9kevSaJSNoIQ9KBSfLSzlj6xJy0kkyzsM7tFVaPy/QTVsWgzftbvLeQ5NBzCkQgH+VkxmpEleQfR5KtT0QrIOt01P3Hrq7RmQJJdEvW27j8bC/tudlYTlxL2k78f2jJ3CEOf9U4iep4I99xqM+iy50ax2dacaVQqA2SlsABx2OY/Pbe2HPSWiTRVfran8xiUAFP/0CQGgIP0nxVK01nkLzcKQmNTV0m8vCbYPGAj1l+cEOJrug51khz6lWCw21vGje/wQUpnhlOsDrcj6jDxLuh5f3z6dBi22dyYtUB3IUfMsDJgqN4BT+DbhzVUl3A+gTmmw==
+ bh=pYpNt8B/QpjJy0kxD96rJBPekJhaixqpFKeUv9opSII=;
+ b=dERgIHb7vyMrkyp2G/Go+qzj0AAlXqXCvsKj+M0QJPdDzCyQ9JxEn8Akbsvh/pWJf9HzsIKPc0mR9e80QnqNhevqV5K0MIp6EAeqsV3eV10RQNTrp4GKaOskjXO+KB+bsWDHfd+QPGqfsk0QOZoJ5vrqvo/xgBsRQn7FXq4k7WBXBpG9sV2c9o3m+eNYaj78bEBqhnFMn/uqBQjkx/8aO4tLiEsD6LepPQMA03yaEGjWxjDNHadCN/1mYHNfv8cnyagHzWErhv989Qy+4Yo+u2/GQ6tVEB7UaSVvT859N+m+geYcsHRcLfpAXMRYF7OZvG6ylmmoCbN4UfhMgOJ6/A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
  SJ0PR12MB8114.namprd12.prod.outlook.com (2603:10b6:a03:4e8::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 18:03:49 +0000
+ 2026 18:03:47 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%6]) with mapi id 15.21.0025.012; Mon, 18 May 2026
- 18:03:49 +0000
+ 18:03:47 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -61,70 +61,70 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  alexeyi@nvidia.com, Eliot Courtney <ecourtney@nvidia.com>,
  joel@joelfernandes.org, linux-doc@vger.kernel.org,
  Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v1 02/12] rust: bitfield: support cast+shift accessor syntax
-Date: Mon, 18 May 2026 14:03:32 -0400
-Message-Id: <20260518180342.2387845-3-joelagnelf@nvidia.com>
+Subject: [PATCH v1 01/12] rust: pci: add resource_flags accessor
+Date: Mon, 18 May 2026 14:03:31 -0400
+Message-Id: <20260518180342.2387845-2-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260518180342.2387845-1-joelagnelf@nvidia.com>
 References: <20260518180342.2387845-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BL1PR13CA0174.namprd13.prod.outlook.com
- (2603:10b6:208:2bd::29) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN2PR20CA0051.namprd20.prod.outlook.com
+ (2603:10b6:208:235::20) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SJ0PR12MB8114:EE_
-X-MS-Office365-Filtering-Correlation-Id: e464f98b-0079-41d0-6794-08deb507cfcc
+X-MS-Office365-Filtering-Correlation-Id: 2601a36f-deb6-46b8-13a1-08deb507cede
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|366016|376014|1800799024|7416014|22082099003|56012099003|18002099003|11063799003;
-X-Microsoft-Antispam-Message-Info: YjV8PPQV+J4oecZToTQLxEpd7bMV91a43TzQucIdR9wYeuyEybC5ygEHeogFL/doxUcu5UYxb4y6fAc8AKHhrDBlpFUvY7Jm6yPQS1fujl4BTHV8DJ1sClnKtq+fZvpzsErDKg6ArMoaj8W45UkOjy5IdTtS+5gLWj5Be4tpEUIOsf3vjk2qThFEqb3tD9E2/oh9tqbusZ6EwgaCp1dh7fam3W3j/YjST6+sbGnb9HxgqBj0nwmG1ikmkXE4emn83J/TTop6WkExsuU3fbSzU2zy2qhLA2qw3Njmz8rtbmr6njBQak9cAG6QMKJlgn7urvHn9etwaBjOLuunzG+Dei7I+pFmhDgoFT3/GN/INoGa6rLPWJP0bPsEPfg7scxIg66LaOVPqa3APCp6/kO6eJYFqb7criRoyTADbJtMaa6yzFPqx9HlP0ghZPK5jfR5aWSddS9WGEeLROkKi6/jaVvOG3Jq1WEA7Dq7L2cSrsHwakw6xLZ9RaYu7zFrcZztjX+Fa/k6LoaKcVlDTpt8yfHl7g578DstqLqkJvtj+xVs3O+9x3qQmV1KlbfqHdvQdlGI83bj6J7HxxwHbbfMKNpspI8klJJanWJZ8QI8krFNcXz8fA78M5pJsbzUSCeViv5rKL+T2V/9Mdbahs9GqZD/C5QebS9JfvZaNopGxmaLkimjb6UUrM+yd7dFdEzZ
+X-Microsoft-Antispam-Message-Info: umy1JQZp6gf2UH+Dye22Pvd/vTyc/OJxKYDen4HRiemZnPRK0qNvZloBn+5BDrZXD6rgSxeJLq3+tgRnjs6s+TWt2dSzMvyZHc8nafRkt5cYjXB0L14aS4u67vQR7VvWuc4LdYswz+u84YptW/W0Jz5dD2HuCURpR61EiC+sftgNwnBGRrQddDGIo+KQ/M9RHmbl12OkLJtVid3+/pOtVUeD98IBbdN1/dA1WWcJFrOpI1ruBJ9n/gVh8EQHY6UXxVcL0UzEKM6VRnuRzzuv3ZdSH5Eyx+1bF0DF/pXx/yYx3avLwceM38LdgI9Bi7+okV81DLEWOkzNJTUvYfxifG8S//vdRhL7XXz5GER1VuQM9EAuBRQb4FqIHf1UM1GxNUFv3YNFIjmV1inuJR6c3jgQnTc340CopRQSZQaPIzM8UgxH/ade7wRVHayfBa+5tFgZSmimhsiz8boxiBdDneXsasxKQA7QkhP3EPDuVtRA4toemoOAptAB8paXLNloB5nIJTPj9pfYdhOuVYzbUVpwiioR2uqpIgu2XCv6QiEOAzWMbu50dlf80Sbxpaa8VcLeWd9oH0Wl9ZmuziPzIhIWSEafHID41yTIzOi7RHyM1rjFesdbIHT6HGz2bbbQS8sPxGBku8vkJcfcWlemp+tqFEOX7MntXBXXFqz0kLliAMBrjQaS1pYb5+2FxJSx
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(376014)(1800799024)(7416014)(22082099003)(56012099003)(18002099003)(11063799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?re8wvH1BJZtK9BSf8das5r6YGSkelI2jPtGraOO8ysz8+uxUYwmGMxERUmf+?=
- =?us-ascii?Q?VyvEaxuo7I5ju3g9hZAT1NSYPpq7WncgLJlSv3t8yE5OAu9bLVnSM+yzt318?=
- =?us-ascii?Q?M5AP+++OQRG4nt/2Nq9K0FfOC74FV0L/igsc8Mib6TyxzZK1DHvajjreuXkC?=
- =?us-ascii?Q?7PIQEKvvJtYUA530DFrjyBjp7h9QJkhtnJs+T08ZIwrwADKb/3KwBamBmabp?=
- =?us-ascii?Q?kPwVU0Y47i23lb6KPr6cNd3rR5qhweB+p0rR9pMeIVoGisYNZu74mA7JW42j?=
- =?us-ascii?Q?YCYWVKbkiIl0F04ajLkKndtwU+v8AkW0AzjD3H4BcFpfvfLXDFPywckGcam5?=
- =?us-ascii?Q?2f74TqBoRo4H5RLEztCklWPNWCPvteNcBwRqdSIx/fNdToIrvBkuCj51TiSb?=
- =?us-ascii?Q?yX3YVUGyoMNfUuJVjc3d4h5xJF0YnEG1LEeJcEOvLL++VY0VRh04N1X+GUEF?=
- =?us-ascii?Q?1aHJX5Cz/7TPoXk0v8wTwkGSn/NE+lKp0r7twitigK5V/vtT/rLOd0Pt6mZL?=
- =?us-ascii?Q?5fed4Ci0OU3TVf/iFbEamr4jlSdNxCKw5eN1Qb+qUzMKvjtnJib+cSY8rQKr?=
- =?us-ascii?Q?5+/aNRYJhr2WPs3/t9xXv7BUzDRPfKFhX2dI7YG6Xubskoi8PCNslSR9l0eD?=
- =?us-ascii?Q?qmzZ1IVOv8E6/N0GmWxVMw7bsGdYzhPknValqgt4pLQdfzpQ8chLB+zc43Ti?=
- =?us-ascii?Q?0LQt+Xj6CTp+yXejBSMMRIA6Ve0Ki9l2CzpMtAXx2Ndy5BwtLhLarVPQdtZR?=
- =?us-ascii?Q?cEpLgp5+Lb115ACMR+qr+HhWveDxENkWfLKOPcH4WHOHz+dWYvpUPi9CgpXU?=
- =?us-ascii?Q?KPNxjboHJDEf24ByjFfzvOoUaHjCvaMYu9RPQiBP9SwRAz+SvnvN1qx60eDZ?=
- =?us-ascii?Q?eNzzmwoNs9i+MSUoaFrFUgT4Z1nbmUKvlmSMt9GKaD81CgnFgINNa69UrhE/?=
- =?us-ascii?Q?WJfXQLk0J2Ki4hf5TfVU36L9Y46jJGmNOHBDLg8W7ZGGruGDoMfW2ZiyjexX?=
- =?us-ascii?Q?slolAJH1upXGzIRxns2hwNN9Hh1ej6FCEnzi40LtzpJPF9KM/7t+yDxhZIWy?=
- =?us-ascii?Q?CiyrEwo7b0jku0Jcsw0NoQdneDsfSgTXD5B9/lDjCTp0l7nN++nAhSdBmdJF?=
- =?us-ascii?Q?F0SxSP3Pee7RkpH/rp79pIak/VDXWcptGGW53fJtcGKU+BRea2hJPtK5sicL?=
- =?us-ascii?Q?Ke1xrlFwgO3uBwyX+Yo3SNEXpbZGBV04x9hXB/K0kryEgco/Ndd3jH1D02D0?=
- =?us-ascii?Q?Ahl9qH999tQIo7wz356hpZx1xRNnZC+ZEUIPNEi3+73UEems10Tnh+kVHsJs?=
- =?us-ascii?Q?kTPzb0joedo1ay0jW9pDddqGh87jMR/RFY/WD+orCXtHeXfySmYrqdTAeVwt?=
- =?us-ascii?Q?w/r0rM3/6yTIE4h6rp5DsnfZixXiaafG3KG9w9P6crYeE6T+zB8ReOvNx1gi?=
- =?us-ascii?Q?mHmN3JLMeZ4vMca8IN2eZInMoH+4lSKbN6ewgkBtnbSDZnT+QkB1wZJELcdT?=
- =?us-ascii?Q?8NFSPOVYcVOIHuh3viCFknLckgTdHondHFyuJ7m9S4b8r5IcRcezLMw2kD52?=
- =?us-ascii?Q?ZVbIGTRSZllLq9+sKjxSneZxh3tIN6loBKt5XrYzdN+ZXo//JSQ+sp9To7yH?=
- =?us-ascii?Q?kdIw8zIqEFAGwshshw3jGCL2zOV+m+ik2jwHz1imsPPBijtcpNFnjClu9Bp8?=
- =?us-ascii?Q?i0qzYukZf2kr9xIF22BXczLRIaKVJfh5wwWEXguHStsWcACM5jc44GJeAnqg?=
- =?us-ascii?Q?6Nmv79Lylw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hnTwYI4Bqxlj97NgoKC6MNjxjUiEWAuGfdHsrvvre5YaIF4Am1YqPv9+hMM6?=
+ =?us-ascii?Q?fQxVDJTF91kdCRHBvhU7FyLUDZjCS1jAOPz6ECLznS06hfu7rea8xLtllGIq?=
+ =?us-ascii?Q?NCN/vi1iL/Awg/U75EL+pXA8jX5fHrxrU7GmwSDJ8k0NDFJ8UKDIenuVOV0a?=
+ =?us-ascii?Q?tUh2J51ZlHtDQT3NEr4emUC6VNI8uVrI0HMsyUOgQouxJ8HPXl8ZXpK6Ps3c?=
+ =?us-ascii?Q?3CkBVub6VI44V4ynfZ3Wqr6myHYGrFUGXy9Hl2ESYzVuQx372xFTbr6ALQVf?=
+ =?us-ascii?Q?1TsYSxr0KPjiFXsDio05xN8A4fi1Cg7Tq8uKrSDjwMfWstFAaewmPwgC1YBG?=
+ =?us-ascii?Q?I+3OGvsEMRm9KyEEZogTooo9O/HlOX9jg+TbqX6qS8ZPLF7wUplY/fV4Ediw?=
+ =?us-ascii?Q?g4SRYBWLexwxEY20VP7ZWTcxEY9KNQoo4z3erHv0QP7kLCB65ZqnkKhJmy4e?=
+ =?us-ascii?Q?meO1JWYv+3AO/IUXV6cqFoDnp5Ak/bgxtZX2Adayd2N3DP3VXnbKFT37ARLN?=
+ =?us-ascii?Q?4qxzVLv6vQF93KhIQLig6dpRcc0MFf6UaT8S+KcWise9d7uMko/9SiKceZIH?=
+ =?us-ascii?Q?r+aYj2T9PKpSMNvtT7H6C18ObDdKSPZCutRIgDXwcyv33R0KWGSFKWe6Xc2Z?=
+ =?us-ascii?Q?XusJyYk2NbHg+RIIp17+SsbwoLkShky1Tch2vIe55al0+UmvcDRmRjHsorCi?=
+ =?us-ascii?Q?RYMalOuVc5ihZLtg0vGkfb0CBhaEao+jsPJPR0g4Andhx0CYmlEXNjT1HDak?=
+ =?us-ascii?Q?/+hNtvQ2jo5sPWOIVsJEXsYmPOu9O5Zc006GSR//CA/+/mFAd2u/VryWzueU?=
+ =?us-ascii?Q?hthQqWYDxiGcP0o/NHlOYxz53QmsIaDRk3pBqJD1+3rBYUhL7+o47tiH14Vb?=
+ =?us-ascii?Q?FyfppLcPm/wqXQHaLby/3ZtxXwM0lMXLDZbGgT0hxSPc8m2816wbjMcrifh7?=
+ =?us-ascii?Q?SLJKMstmTEye53jcM+Hxh8DaKSVT2ly5rOU9vRksiwVAvbN3hpTiO++f7dfY?=
+ =?us-ascii?Q?w6/0AYtxKPVEgZ1mAxrn6zflhGlY/A5VIB/zW50bj9IsoglP7MoJRWwRB6B0?=
+ =?us-ascii?Q?1hx/q1uIJLM6tA7u0QyzpLaxJ+8qTnmWwCpg7DuLc8kJ2Ls6zqjw4DkDa5MC?=
+ =?us-ascii?Q?5JL60DHudd58d26UqQL2STBzqf5NrReoa66llmjeBeB+le7um4LlS2IAsqb/?=
+ =?us-ascii?Q?d/5TN5g2P0+r+dFYBxao9x2prEYtMiugwvDFu5/AaqEGmLlh4Zgk6+5Sc6Qk?=
+ =?us-ascii?Q?psiSR69vGCrNLJRU7LtW4Z/kG1Uh7IjYdWKycX5IXrdDh+/uIiwk+OhTpKPu?=
+ =?us-ascii?Q?KPEL4OGY1X22mgUBLBuub63gffhmRPjoF5u++aAxfGtMkgz7Uwg717NGH9eY?=
+ =?us-ascii?Q?LqfsmGhCwyTX41VjnGZv8QoJ1nKU9snS/CmK8CRgeq8s9D/cByPcVmF3k5IY?=
+ =?us-ascii?Q?UDxONZyhvM9DDTLfiiHCMpOX5T2S8V7p1BTHguG0pirGELoWWxPBAC9q/ype?=
+ =?us-ascii?Q?4lxW5lngAh/W4MgGSF/XU0M3OTyWuBeLNKplFbeTbmWOjVvQgRaRfupZORbf?=
+ =?us-ascii?Q?PMBopqr7eo8Ev0Jzah1mPADRcFXaeOU5OfSB0CRijXyt6fXtTtrCX9IhZu4A?=
+ =?us-ascii?Q?QIXtc8dq3Yv83rDpJWjl8i7MLd6GukR5ZUMF8TGrKNIblsHI4t5Bd7KVE4XM?=
+ =?us-ascii?Q?XLZwjVb2ZlxDAs68DvdKhrQ1d9JeuCu2WwYubSUq390d6Wl5vSCOEDRuo6Tf?=
+ =?us-ascii?Q?0qIuEGwzFw=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e464f98b-0079-41d0-6794-08deb507cfcc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2601a36f-deb6-46b8-13a1-08deb507cede
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 18:03:49.0351 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 18:03:47.5564 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VMWdTCKTFT0I+eFgiz3IfNPIcM5FuVAgeISx1wUzMG7FlGLJDr2nPHbJfsV41qShNSXAkjFNWwHHhuHoSPwGDQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: EfIrUKY94kimbQRWVeXUWn/YTIbUDMSmMnqF1xkROdYyTGhGuSGXS41ujJaW1pdatzbyHDBQXgMeD4+Y2uTwDA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8114
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,151 +141,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The `bitfield!` macro previously generated accessors that returned the
-field's value as a `Bounded<$storage, N>` for its raw N-bit width. For
-fields whose logical interpretation is a wider value built by widening
-the storage type and shifting left (e.g., a 24-bit register field that
-stores bits 16..40 of a 40-bit address), callers had to chain
-`cast::<TargetType>()` and `shl::<SHIFT, RES>()` (or worse, raw shift
-operators) at every read site, and the inverse for writes.
+Add a `Device::resource_flags()` method to the PCI Rust abstraction,
+wrapping the C-side static inline `pci_resource_flags()`.
 
-Add a new field declaration shape:
+The flags returned correspond to the `IORESOURCE` bitmask carried by a
+PCI BAR's `struct resource`.
 
-  $hi:$lo $field as Bounded<$target, $res> shl $shift;
-
-The macro generates:
-
-  - A getter `$field(self) -> Bounded<$target, $res>` that extracts the
-    raw N-bit field, widens it to $target, and shifts left by $shift.
-  - A setter `with_$field(self, value: Bounded<$target, $res>) -> Self`
-    that shifts right by $shift, narrows to the storage type, and writes.
-
-Add a KUnit test mirroring nova-core driver's PRAMIN window register
-pattern as well which is the usecase for it.
+The immediate motivation is BAR layout discovery on NVIDIA GPUs: a
+64-bit BAR consumes two consecutive Linux PCI resource slots (the lower
+32 bits at index N and the upper 32 bits at index N+1, with the latter
+having no flags or size of its own).
 
 Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- rust/kernel/bitfield.rs | 67 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 67 insertions(+)
+ rust/helpers/pci.c         |  6 ++++++
+ rust/kernel/io/resource.rs |  8 ++++++++
+ rust/kernel/pci.rs         | 14 ++++++++++++++
+ 3 files changed, 28 insertions(+)
 
-diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
-index 9ab8dafff36c..1c1fc86441f2 100644
---- a/rust/kernel/bitfield.rs
-+++ b/rust/kernel/bitfield.rs
-@@ -57,6 +57,8 @@
- //!         hi:lo field_2 => ConvertedType;
- //!         // `field_3` documentation.
- //!         hi:lo field_3 ?=> ConvertedType;
-+//!         // `field_4` documentation.
-+//!         hi:lo field_4 as Bounded<TargetType, RES> shl SHIFT;
- //!         ...
- //!     }
- //! }
-@@ -66,6 +68,8 @@
- //! - `hi:lo`: Bit range (inclusive), where `hi >= lo`.
- //! - `=> Type`: Optional infallible conversion (see [below](#infallible-conversion-)).
- //! - `?=> Type`: Optional fallible conversion (see [below](#fallible-conversion-)).
-+//! - `as Bounded<T, RES> shl SHIFT`: Optional cast-and-shift accessor (see
-+//!   [below](#cast-and-shift-accessors-as-bounded-t-res-shl-shift)).
- //! - Documentation strings and attributes are optional.
- //!
- //! # Generated code
-@@ -299,6 +303,7 @@ fn from(val: $storage) -> $name {
-         $($(#[doc = $doc:expr])* $hi:literal:$lo:literal $field:ident
-             $(?=> $try_into_type:ty)?
-             $(=> $into_type:ty)?
-+            $(as Bounded<$target:ty, $res:literal> shl $shift:literal)?
-         ;
-         )*
-     }
-@@ -311,6 +316,7 @@ impl $name {
-             @public_field_accessors $(#[doc = $doc])* $vis $name $storage : $hi:$lo $field
-             $(?=> $try_into_type)?
-             $(=> $into_type)?
-+            $(as Bounded<$target, $res> shl $shift)?
-         );
-         )*
-         }
-@@ -475,6 +481,43 @@ const fn [<__with_ $field>](
-         );
-     };
+diff --git a/rust/helpers/pci.c b/rust/helpers/pci.c
+index e44905317d75..51148987618a 100644
+--- a/rust/helpers/pci.c
++++ b/rust/helpers/pci.c
+@@ -19,6 +19,12 @@ __rust_helper resource_size_t rust_helper_pci_resource_len(struct pci_dev *pdev,
+ 	return pci_resource_len(pdev, bar);
+ }
  
-+    // Public accessors for fields cast to a wider type and left-shifted, exposing them as
-+    // `Bounded<$target, $res>` where `$res == ($hi + 1 - $lo) + $shift`.
-+    (
-+        @public_field_accessors $(#[doc = $doc:expr])* $vis:vis $name:ident $storage:ty :
-+            $hi:literal:$lo:literal $field:ident
-+            as Bounded<$target:ty, $res:literal> shl $shift:literal
-+    ) => {
-+        ::kernel::macros::paste!(
++__rust_helper unsigned long rust_helper_pci_resource_flags(const struct pci_dev *pdev,
++							   int bar)
++{
++	return pci_resource_flags(pdev, bar);
++}
 +
-+        $(#[doc = $doc])*
-+        #[doc = "Returns the value of this field, cast to the target type and shifted left."]
-+        #[inline(always)]
-+        $vis fn $field(self) -> ::kernel::num::Bounded<$target, $res> {
-+            $crate::const_assert!($res == ($hi + 1 - $lo) + $shift);
-+
-+            self.[<__ $field>]()
-+                .cast::<$target>()
-+                .shl::<$shift, $res>()
-+        }
-+
-+        $(#[doc = $doc])*
-+        #[doc = "Sets this field from a target-typed, pre-shifted `Bounded` value."]
-+        #[inline(always)]
-+        $vis fn [<with_ $field>](
-+            self,
-+            value: ::kernel::num::Bounded<$target, $res>,
-+        ) -> Self {
-+            $crate::const_assert!($res == ($hi + 1 - $lo) + $shift);
-+
-+            self.[<__with_ $field>](
-+                value.shr::<$shift, { $hi + 1 - $lo }>().cast::<$storage>()
-+            )
-+        }
-+
-+        );
-+    };
-+
-     // `Debug` implementation.
-     (@debug $name:ident { $($field:ident;)* }) => {
-         impl ::kernel::fmt::Debug for $name {
-@@ -582,6 +625,15 @@ struct TestStatusRegister(u8) {
-         }
-     }
+ __rust_helper bool rust_helper_dev_is_pci(const struct device *dev)
+ {
+ 	return dev_is_pci(dev);
+diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
+index b7ac9faf141d..78f353d1605b 100644
+--- a/rust/kernel/io/resource.rs
++++ b/rust/kernel/io/resource.rs
+@@ -226,10 +226,18 @@ impl Flags {
+     /// Resource represents a memory region that must be ioremaped using `ioremap_np`.
+     pub const IORESOURCE_MEM_NONPOSTED: Flags = Flags::new(bindings::IORESOURCE_MEM_NONPOSTED);
  
-+    // Mirrors the PRAMIN window register pattern: a 24-bit field in a `u32` storage that
-+    // represents bits 16..40 of a 40-bit address. The accessor exposes it as the full
-+    // 40-bit `Bounded<u64, 40>`.
-+    bitfield! {
-+        struct TestWindowReg(u32) {
-+            23:0      window_base as Bounded<u64, 40> shl 16;
-+        }
-+    }
++    /// Memory region uses a 64-bit address (consumes two consecutive PCI resource slots).
++    pub const IORESOURCE_MEM_64: Flags = Flags::new(bindings::IORESOURCE_MEM_64);
 +
-     #[test]
-     fn test_single_bits() {
-         let mut pte = TestPageTableEntry::zeroed();
-@@ -806,4 +858,19 @@ fn test_u8_bitfield() {
-         assert_eq!(status4.reserved(), 0xF);
-         assert_eq!(status4.full_byte(), 0xFF);
+     // Always inline to optimize out error path of `build_assert`.
+     #[inline(always)]
+     const fn new(value: u32) -> Self {
+         crate::build_assert!(value as u64 <= c_ulong::MAX as u64);
+         Flags(value as c_ulong)
      }
 +
-+    #[test]
-+    fn test_cast_shift_accessor() {
-+        // Set a value via the pre-shifted setter and read it back via the getter.
-+        let addr = Bounded::<u64, 40>::new::<0x12_3456_0000>();
-+        let reg = TestWindowReg::zeroed().with_window_base(addr);
-+        assert_eq!(reg.window_base().get(), 0x12_3456_0000u64);
-+        assert_eq!(u32::from(reg), 0x0012_3456u32);
-+
-+        // Setting and reading the largest 40-bit aligned value.
-+        let max_addr = Bounded::<u64, 40>::new::<0xFF_FFFF_0000>();
-+        let reg = TestWindowReg::zeroed().with_window_base(max_addr);
-+        assert_eq!(reg.window_base().get(), 0xFF_FFFF_0000u64);
-+        assert_eq!(u32::from(reg), 0x00FF_FFFFu32);
++    /// Wrap a raw `c_ulong` value returned by a C API into [`Flags`].
++    pub(crate) const fn from_raw(value: c_ulong) -> Self {
++        Flags(value)
 +    }
  }
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index af74ddff6114..d76a1377195e 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -17,6 +17,7 @@
+         from_result,
+         to_result, //
+     },
++    io::resource,
+     prelude::*,
+     str::CStr,
+     types::Opaque,
+@@ -437,6 +438,19 @@ pub fn resource_len(&self, bar: u32) -> Result<bindings::resource_size_t> {
+         Ok(unsafe { bindings::pci_resource_len(self.as_raw(), bar.try_into()?) })
+     }
+ 
++    /// Returns the resource flags (`IORESOURCE_*`) of the given PCI BAR.
++    pub fn resource_flags(&self, bar: u32) -> Result<resource::Flags> {
++        if !Bar::index_is_valid(bar) {
++            return Err(EINVAL);
++        }
++
++        // SAFETY:
++        // - `bar` is a valid bar number, as guaranteed by the above call to `Bar::index_is_valid`,
++        // - by its type invariant `self.as_raw` is always a valid pointer to a `struct pci_dev`.
++        let raw = unsafe { bindings::pci_resource_flags(self.as_raw(), bar.try_into()?) };
++        Ok(resource::Flags::from_raw(raw))
++    }
++
+     /// Returns the PCI class as a `Class` struct.
+     #[inline]
+     pub fn pci_class(&self) -> Class {
 -- 
 2.34.1
 
