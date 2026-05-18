@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3385CD4F3C
-	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:14:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAED3CD4F4A
+	for <dri-devel@archiver.kernel.org>; Mon, 18 May 2026 18:14:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 415FB10E9A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED7DB10E9AB;
 	Mon, 18 May 2026 18:14:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="hyUFtzyz";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="zX+XI5c1";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49EA610E9AB
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:14:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E7FF10E9A8
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 18:14:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1779128091; bh=+tNbdHFGwve4PQpiDKk/njnhtvjRkwYwD94Sgvq2l/k=;
- b=hyUFtzyzErcB7zcnwKwe5Xr+ZR7/V7KeERo5KAOjJXj3YD60EZwP36AIk0JD0DMOMWJXY89/P
- N0mMSMGU6qw+gzEpGt+74s61AWtoz+Ua4L9iOV3gxoBM8eAtDLr5peO4kIxDqxXDZckRJZbvIAr
- 2Xa4pHXp0TQnKaJ/au6fv5z28XbYAjhhvHJ7m3zdzZn272YZZiA4tbBgGCUy9feryUPzmtSzqud
- L4WIQoD59tkT3Z+mz6xpF11jNQFBPeWEi4i65BDfGAZV3TeZ7HKbyB14swqNb9iBcMM1WDmI+jZ
- qoBykplpZiNbpmgb0Gq2+VsrwDrHPClFu8VdoB6yNNtw==
-X-Forward-Email-ID: 6a0b5489b84dbc72d2275016
+ t=1779128091; bh=Ry3rWikgNkPVoNnWVwwoiFSRnwKwUJAQoPLjpbMoazU=;
+ b=zX+XI5c1I/191xBN3xZu0bCD5t6S7gHLcrBe3deGzhJjuNKDycuq0zQoaVdUAWICi1spY+F1N
+ mfw17bcahTLiEL6nG6Kk3DnRvqVmP3zjHLCo8Ge4xR8SnBX3Ucs5kGQLupauLxhDzWPkB3DNY1/
+ T44gE8JUXCZ8jU0v6MWH0hywkQwhwjzlCiNxpRMJKoynzrRvF24jfZE3B+Lm/NQ+Jcd2nt1X6iw
+ O2XLClPf+gzbNauFJmj+KRYKo3sD2fn5+GLcwN5SS0DVtyKDDKMz+iYEQpjLhK1hGBIRxhVMqgY
+ H6UzpqL71yWOqZSkdzV1gJYN0nGb8DOrFeLLfstNqNsw==
+X-Forward-Email-ID: 6a0b547fb84dbc72d2274fe0
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  121.127.44.73
 X-Forward-Email-Version: 2.8.12
@@ -42,7 +42,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
+ Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
  Christian Hewitt <christianshewitt@gmail.com>,
@@ -53,10 +55,10 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v7 23/23] drm: bridge: dw_hdmi: Merge top and bottom half IRQ
- handlers
-Date: Mon, 18 May 2026 18:01:59 +0000
-Message-ID: <20260518180206.2480119-24-jonas@kwiboo.se>
+Subject: [PATCH v7 21/23] drm: bridge: dw_hdmi: Remove the empty
+ dw_hdmi_setup_rx_sense()
+Date: Mon, 18 May 2026 18:01:57 +0000
+Message-ID: <20260518180206.2480119-22-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518180206.2480119-1-jonas@kwiboo.se>
 References: <20260518180206.2480119-1-jonas@kwiboo.se>
@@ -77,93 +79,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The bottom half IRQ handler only modify delay of or queue a delayed work
-used for HPD handling. The mod_delayed_work() called is documented as
-being safe to call from any context including IRQ handler.
-
-Merge top and bottom half IRQ handlers to simplify IRQ handling now that
-HPD event is handled using a delayed work.
+The dw_hdmi_setup_rx_sense() helper is empty and no longer needed after
+recent RXSENSE and HPD rework, remove it.
 
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
 v7: No change
-v6: Collect r-b tag
+v6: Collect t-b tag
 v5: No change
 v4: New patch
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 34 ++++++++---------------
- 1 file changed, 11 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 5 -----
+ drivers/gpu/drm/meson/meson_dw_hdmi.c     | 3 ---
+ include/drm/bridge/dw_hdmi.h              | 2 --
+ 3 files changed, 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index c596534510da..99dd62b6becf 100644
+index 2e09bff5faf7..42d630efb875 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2993,30 +2993,18 @@ static irqreturn_t dw_hdmi_hardirq(int irq, void *dev_id)
- 	if (hdmi->i2c)
- 		ret = dw_hdmi_i2c_irq(hdmi);
- 
--	intr_stat = hdmi_readb(hdmi, HDMI_IH_PHY_STAT0);
--	if (intr_stat) {
--		hdmi_writeb(hdmi, ~0, HDMI_IH_MUTE_PHY_STAT0);
--		return IRQ_WAKE_THREAD;
--	}
--
--	return ret;
--}
--
--static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
--{
--	struct dw_hdmi *hdmi = dev_id;
--	u8 intr_stat;
--
- 	/*
- 	 * Interrupt generation is accomplished in the following way:
- 	 *   interrupt = (mask == 0) && (polarity == status)
- 	 * All interrupts are forwarded to the Interrupt Handler sticky bit
- 	 * register ih_phy_stat0 and muted using the register ih_mute_phy_stat0.
- 	 */
--	intr_stat = hdmi_readb(hdmi, HDMI_IH_PHY_STAT0);
--	if (intr_stat & HDMI_IH_PHY_STAT0_HPD) {
-+	intr_stat = hdmi_readb(hdmi, HDMI_IH_PHY_STAT0) & HDMI_IH_PHY_STAT0_HPD;
-+	if (intr_stat) {
- 		enum drm_connector_status status;
- 
-+		hdmi_writeb(hdmi, ~0, HDMI_IH_MUTE_PHY_STAT0);
-+
- 		/* Set HPD interrupt polarity based on current HPD status. */
- 		status = dw_hdmi_phy_read_hpd(hdmi, hdmi->phy.data);
- 		hdmi_modb(hdmi, status == connector_status_connected ?
-@@ -3028,12 +3016,13 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
- 
- 		mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
- 				 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
-+
-+		hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
-+		hdmi_writeb(hdmi, ~HDMI_IH_PHY_STAT0_HPD, HDMI_IH_MUTE_PHY_STAT0);
-+		ret = IRQ_HANDLED;
- 	}
- 
--	hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
--	hdmi_writeb(hdmi, ~HDMI_IH_PHY_STAT0_HPD, HDMI_IH_MUTE_PHY_STAT0);
--
--	return IRQ_HANDLED;
-+	return ret;
+@@ -3009,11 +3009,6 @@ static irqreturn_t dw_hdmi_hardirq(int irq, void *dev_id)
+ 	return ret;
  }
  
- static void dw_hdmi_hpd_work(struct work_struct *work)
-@@ -3343,9 +3332,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
- 	INIT_DELAYED_WORK(&hdmi->hpd_work, dw_hdmi_hpd_work);
- 	disable_delayed_work(&hdmi->hpd_work);
+-void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense)
+-{
+-}
+-EXPORT_SYMBOL_GPL(dw_hdmi_setup_rx_sense);
+-
+ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+ {
+ 	struct dw_hdmi *hdmi = dev_id;
+diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+index fef1702acb14..2a8756da569b 100644
+--- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+@@ -524,9 +524,6 @@ static irqreturn_t dw_hdmi_top_thread_irq(int irq, void *dev_id)
+ 		if (stat & HDMITX_TOP_INTR_HPD_RISE)
+ 			hpd_connected = true;
  
--	ret = devm_request_threaded_irq(dev, irq, dw_hdmi_hardirq,
--					dw_hdmi_irq, IRQF_SHARED,
--					dev_name(dev), hdmi);
-+	ret = devm_request_irq(dev, irq, dw_hdmi_hardirq, IRQF_SHARED,
-+			       dev_name(dev), hdmi);
- 	if (ret)
- 		goto err_res;
+-		dw_hdmi_setup_rx_sense(dw_hdmi->hdmi, hpd_connected,
+-				       hpd_connected);
+-
+ 		drm_helper_hpd_irq_event(dw_hdmi->bridge->dev);
+ 		drm_bridge_hpd_notify(dw_hdmi->bridge,
+ 				      hpd_connected ? connector_status_connected
+diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
+index 8500dd4f99d8..a612b9fa6dbb 100644
+--- a/include/drm/bridge/dw_hdmi.h
++++ b/include/drm/bridge/dw_hdmi.h
+@@ -186,8 +186,6 @@ struct dw_hdmi *dw_hdmi_bind(struct platform_device *pdev,
  
+ void dw_hdmi_resume(struct dw_hdmi *hdmi);
+ 
+-void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense);
+-
+ int dw_hdmi_set_plugged_cb(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn,
+ 			   struct device *codec_dev);
+ void dw_hdmi_set_sample_non_pcm(struct dw_hdmi *hdmi, unsigned int non_pcm);
 -- 
 2.54.0
 
