@@ -4,58 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3244CD4F52
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 08:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 534B8CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 08:48:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51A0210E384;
-	Tue, 19 May 2026 08:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99B6710E059;
+	Tue, 19 May 2026 08:48:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="z9ishCiy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BZuWcgRx";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93DBC10E257
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 08:45:09 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 0EFAB1A3621;
- Tue, 19 May 2026 08:45:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CCFAA606E9;
- Tue, 19 May 2026 08:45:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 2116511AF8B70; 
- Tue, 19 May 2026 10:45:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1779180306; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=JWHCHEcz5tAU0rcu+nUNJLEsb84bX0BSdluBtZFXTzI=;
- b=z9ishCiyREuR8OqkTa/ky1lbGbcOBWCZVgSXg5d+XsDDT5K+Jw/+ijU2Q+N+Avd8kvKMve
- 05u2nFC45DjTKlu6JC7AH+AZg6cgkZAjtPnjU7AtVNlVE95tgkYZhVDExz6UaeBDo8IA5J
- NXgz1R2lMfgcuJhyoiq25Qj1+MQzVyZ95lxiNUUQmmx2i6aUZZDLf5IIH3Kj41Y1YbkFFN
- 4H5Eg+KqDN5ORoVaBj/Ne45MWmn/CVQCQWGo32WUGcxnluYNqpmldgaDvVQ82qZ/J5g2Ez
- npGcy7XlRXfVbFnlD6+0+qI+kRLaaW/o/sOLp032IhTXeBNEIh5Ye/BoswptkA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Jagan Teki <jagan@amarulasolutions.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Marek Vasut <marex@denx.de>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: stable@vger.kernel.org
-In-Reply-To: <20260430194944.78119-1-osama.abdelkader@gmail.com>
-References: <20260430194944.78119-1-osama.abdelkader@gmail.com>
-Subject: Re: (subset) [PATCH v4 1/2] drm/bridge: chipone-icn6211: use
- devm_drm_bridge_add in i2c probe
-Message-Id: <177918030157.161420.8280837915282020004.b4-ty@b4>
-Date: Tue, 19 May 2026 10:45:01 +0200
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6559D10E059
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 08:48:47 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-36974217d4eso1854747a91.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 01:48:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779180527; x=1779785327; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+nVOhHDA00f0iZbJ+o5TUqj1fifKESVdZYkDcrWTV8Q=;
+ b=BZuWcgRxaoLbFjpQ8B+ZObu7iAUDfe7XLbCTs2Jh7Eo6F7HZZ4iIRtGCTDTFlA5TWS
+ pb2Pk1uWptL+efI71fcK99S13t8+0NVzaoRaecJvn6VnDWnd2q9Wt+sh6H0LWn6NA49o
+ GcTdZRNlOEfNKBy6xCHslCozhKioGa4LQPsmKV2eXVsJJNkk4WT0eXGaKZ8+iIt/h21i
+ CR5NFAzU/VeqBnjcrSOvYc9HoB5y6L8fSgee6+xOhwxRahnC5H5E8wMe3JIWbJ6Gap72
+ dRNNrG1+btBl2zdkiEIZzgcEZiUJA2heTy04T4Xjx3HfPUV1eqKdE+bTYnhKJNGBICaS
+ PS1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779180527; x=1779785327;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+nVOhHDA00f0iZbJ+o5TUqj1fifKESVdZYkDcrWTV8Q=;
+ b=s/83R2M1SBQeZY6MSgijOaxJZdRqoXx+4OZE8bXtYlevp9+TI0OnwSPen5P17gCEjP
+ ksnZECbL48K5gEuMLkm3tu0Vc8oKp02WlZehDVxFL2JFVY3/zHzzuI6qfI6wmrrm707M
+ +hOHMVpcQEY51aaLCkzVFg/2zuAHq2rHlg51vM8uzWRJNKsV6MdxbI7VUv0RSUBPpwkX
+ +5IVt4sen4y/z5AbnVFu2LCzY78HxZdbCUXlddzH8TdCkZ1IgY/hs/RXsY9vObvlx4Wv
+ HdItLzhPhIw6QyVCKOEB1Si5Xx2fgC92zp7HWZkkBY9X1T7ntYrS7hPOhUj0tY/0rIwo
+ hGgQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8rwayOUwlbzDkeI7rF885Si1DAnQrQLdBHO92cLRnOGoTWuyjrEOvK3qbAspcxXsnt2+TF1TN90G0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvFurGVA4o4YkmWVORAP9rgIJAJmKzda1FjMPrrpVdz/LzE/LJ
+ 4TALR9sZCKHTSufe1ojvVNnbGmgbD7Mi+PD3hPUbLcrCWYv6vtQFtCAB
+X-Gm-Gg: Acq92OFVY88EYpk+FR9rqqRdjYu956FUhUX+wViyw/jpkfultehMQ9Lzr+XerCmsgN6
+ gVo7vxPMk5zvblbKxs9wQgMdQtac5tYLBMUTmfS/asv4JP5DXWyKUo1gEDGLksV/SMiLvqqUy7+
+ Qpti438MByKf2WfY0eeOTRiLkIu/aahoP/8zRGqrutHRsvrE0Vt75g1j3IKeYQ3hzudq9MZPjoc
+ geYwxT44H++P+ZNgnGEty13jmxVcR7/6Nqesyu89YAWY90ooIg/8H4VOxqfsSG0J8sCBWLXgEpo
+ K7AXSQ/2Qpmq8JzZag0K5M/+Xtll5lCVsZKAQfJlB+d/+PLAY9RsXBHt5lDWSK8p82Hw1QxdfeT
+ szFyLwljiaZyhFPzFTEhZWx0t7RgEL/WSoFNLAJimTuklujqAuw2RVZFZg7lvQk2ZHiH+I2WTCL
+ TvPOHXxHrpWBcdDNFBN0Cq5FvseOmE/Ies0rLfmz1g47Q8k+3t54lAHcqLGg==
+X-Received: by 2002:a17:90b:2d4b:b0:35a:189b:43db with SMTP id
+ 98e67ed59e1d1-369518b20ecmr15266950a91.4.1779180526826; 
+ Tue, 19 May 2026 01:48:46 -0700 (PDT)
+Received: from [172.16.20.13] ([136.226.252.245])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-369517d8570sm14173902a91.14.2026.05.19.01.48.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 May 2026 01:48:46 -0700 (PDT)
+Message-ID: <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
+Date: Tue, 19 May 2026 14:18:38 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
+ stable LVDS output
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ marex@denx.de, valentin@compulab.co.il, philippe.schenker@toradex.com,
+ alexander.stein@ew.tq-group.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260412053811.662461-1-tessolveupstream@gmail.com>
+ <20260412053811.662461-2-tessolveupstream@gmail.com>
+ <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
+ <c4c33f14-0da0-447a-ab82-2e2f65c09c07@gmail.com>
+ <7056b23b-ed81-4d79-b782-5cfcb0102ef7@gmail.com>
+ <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
+ <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
+Content-Language: en-US
+From: tessolveupstream@gmail.com
+In-Reply-To: <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,19 +105,64 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Thu, 30 Apr 2026 21:49:42 +0200, Osama Abdelkader wrote:
-> Use devm_drm_bridge_add() so the bridge is released if probe
-> fails after registration, and drop drm_bridge_remove() in chipone_i2c_probe.
 
-Applied, thanks!
+On 24-04-2026 13:55, Luca Ceresoli wrote:
+> Hello,
+> 
+> On Thu Apr 23, 2026 at 11:16 AM CEST, tessolveupstream wrote:
+> 
+>>> I had reached out to TI for clarification and any related documentation
+>>> updates, but I have not received any response so far.Given this, it is
+>>> uncertain whether we will be able to obtain further details or official
+>>> confirmation from TI in the near term.
+>>>
+>>> I would appreciate your guidance on how you would prefer us to proceed
+>>> from here.
+>>
+>> I followed up with TI, and they pointed us to the relevant sections in the
+>> SN65DSI83/84/86 datasheets covering DSI video transmission specifications.
+> 
+> Thanks for keeping on! I'm also trying to get info from TI, I'm keeping you
+> up to date if that will happen.
+> 
+>>> https://www.ti.com/lit/ds/symlink/sn65dsi84.pdf?ts=1776924088430&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FSN65DSI84
+>>
+>> As per datasheet Section 7.4.7, the device operates in DSI video mode with
+>> fixed horizontal timing, where HBP, and HFP are explicitly defined and expected
+>> to be present as part of the video line structure. The timing description in
+>> this section assumes standard non‑burst video transmission with all horizontal
+>> blanking intervals accounted for.
+>>
+>> The datasheet does not document support for DSI video burst mode,
+> 
+> This sentence seems incorrect. Section 7.4.7 starts with this sentence:
+> "The SN65DSI84 supports burst video mode and non-burst video mode ...".
+> 
+> Even though asa matter of fact it looks like many users have issues that
+> get solved by disabling burst mode.
+> 
+>> nor does it
+>> mention support for omitting horizontal front or back porch intervals. In
+>> particular, there is no indication that the device can operate with collapsed
+>> or suppressed horizontal blanking, as enabled by MIPI_DSI_MODE_VIDEO_BURST,
+>> MIPI_DSI_MODE_VIDEO_NO_HFP, or MIPI_DSI_MODE_VIDEO_NO_HBP.
+> 
+> This is correct.
+> 
+> We can still try to get TI feedback, but it that won't happen in, say, a
+> few weeks then I think we should apply this patch.
+>
 
-[2/2] drm/bridge: chipone-icn6211: use devm_drm_bridge_add in dsi probe
-      commit: b11a6cea91f2cec688936d591548bc5c1540c648
-
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+We have not received any further updates from TI regarding this issue, and 
+at this point, we are not sure if we will get additional feedback from them.
+As you had mentioned earlier that the patch could be considered after 
+waiting for some time, could you please let us know how we can proceed 
+further from here?
+ 
+> Luca
+> 
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
 
