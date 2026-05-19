@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0A66CD4F57
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 09:09:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7FB4CD4F57
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 09:09:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46BA110E382;
-	Tue, 19 May 2026 09:09:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E19510EB9C;
+	Tue, 19 May 2026 09:09:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="m6Rdkkap";
+	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="Eyq/xzcW";
 	dkim-atps=neutral
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D446F10EB9C
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:09:40 +0000 (UTC)
+ [68.232.153.233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F8BD10EB9C
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:09:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1779181780; x=1810717780;
+ t=1779181784; x=1810717784;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Tm9q+vgC/TE0/J5bF1BfNmg6fL5/6NXJsdwhZrhCZDU=;
- b=m6RdkkapVVLiCxnaU+wmJ2vH0cKEdnDDlaigwCraYTuhzgpJMqO8TdQ2
- sCxCo2uQUymSA1G4KbhL5TgNFWu3ggfzJre29O/Pu/5U3BPzlCr5SEUdr
- 0bvKDS8tw8th/35skQVjWChlGrU8Vxtmo1ImIu2UASZEVNV5XLTU40UxI
- aX3wcFD4qJV4gvVmLoHBfwr9ee4MG7ndthO6JelciAydYcNezOzxpEY+N
- IqJ3qYmJmLt0QZvCmVu+JZuIiiF4VXXcKN4ZZQ/QYKvm5kTo4b2hQWpyB
- Mo4I8RUidImH0pJPh0aDRSpHJ9BIYssxZjjC2KhGv+kaIrMiC1RxWf/IW Q==;
-X-CSE-ConnectionGUID: 0bjdnIJPTk6rZW7FT7klOA==
-X-CSE-MsgGUID: iDGxftsOQZGzJhzB6fhTbA==
-X-IronPort-AV: E=Sophos;i="6.23,243,1770620400"; d="scan'208";a="56939638"
+ bh=P/zUb7eaSuLgJ0Ygkd5vRer8oBCsuAGF59nPqYYO8LU=;
+ b=Eyq/xzcWCFDyfOLVrjbbFkrS82dFkArfymJffCB9jwiw/HbT0oMbqU89
+ FlpfKlAib/+4iDMUGRQLVUYEk+tOarvuAlpI8XM044TdsCH2oNgDjFgc6
+ u3ZGcmGFduqIYHIfF3+3y5ENa1L7rQ2S6mWi4DBHg+H4GU3b0nG9yhNj0
+ 0eoqLr0gIJPgYvM8f2rJbh6iTryF9xBDGbpKzvV60QPBAEysAtGpL5/Vm
+ KDDjD8IYY3529ugcLAdynHZ3I+uyU12ij0qEBVCwkZNyjJxGSV1vE73bT
+ a+oFak5P3LRDhxKixXtmi8MjTsYAq3QJNTqPHBnfH2LooDoEAC/JQZpyl A==;
+X-CSE-ConnectionGUID: hIctYe0PSYiry4BydksWDA==
+X-CSE-MsgGUID: bHtQrq2rRLSqU9npjMTmkA==
+X-IronPort-AV: E=Sophos;i="6.23,243,1770620400"; d="scan'208";a="66488501"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 19 May 2026 02:02:33 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2026 02:02:38 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 19 May 2026 02:02:33 -0700
+ 15.2.2562.37; Tue, 19 May 2026 02:02:38 -0700
 Received: from che-lt-i67131.microchip.com (10.10.85.11) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 19 May 2026 02:02:28 -0700
+ 15.1.2507.58 via Frontend Transport; Tue, 19 May 2026 02:02:33 -0700
 From: Manikandan Muralidharan <manikandan.m@microchip.com>
 To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
  <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
@@ -50,9 +50,9 @@ To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
  <dri-devel@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-kernel@vger.kernel.org>
 CC: <manikandan.m@microchip.com>
-Subject: [PATCH 7/8] drm: atmel-hlcdc: add and configure LVDS PLL clock support
-Date: Tue, 19 May 2026 14:31:34 +0530
-Message-ID: <20260519090135.1188405-8-manikandan.m@microchip.com>
+Subject: [PATCH 8/8] drm: atmel-hlcdc: add LVDS output mode support
+Date: Tue, 19 May 2026 14:31:35 +0530
+Message-ID: <20260519090135.1188405-9-manikandan.m@microchip.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260519090135.1188405-1-manikandan.m@microchip.com>
 References: <20260519090135.1188405-1-manikandan.m@microchip.com>
@@ -74,123 +74,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Set the LVDS PLL rate to 7x the pixel clock.
-set ATMEL_XLCDC_CLKBYP for the LVDS path, leaving clock
-lifecycle management to the atomic callbacks and fallback to
-sys_clk for non-LVDS displays with proper error handling.
+Introduce atmel_xlcdc_connector_output_lvds() to map LVDS bus
+formats to the appropriate output mode, and wire it into
+atmel_hlcdc_connector_output_mode() for LVDS encoder types.
 
 Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 ---
- .../gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c    | 45 +++++++++++++++++--
- 1 file changed, 42 insertions(+), 3 deletions(-)
+ .../gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c    | 44 +++++++++++++++++--
+ 1 file changed, 41 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c
-index f837684654ea..73a8650bc9b7 100644
+index 73a8650bc9b7..9f46c368835e 100644
 --- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c
 +++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c
-@@ -26,6 +26,8 @@
- 
- #include "atmel_hlcdc_dc.h"
- 
-+#define ATMEL_LVDS_PLL_MULT	7
-+
- /**
-  * struct atmel_hlcdc_crtc_state - Atmel HLCDC CRTC state structure
-  *
-@@ -66,6 +68,14 @@ drm_crtc_to_atmel_hlcdc_crtc(struct drm_crtc *crtc)
- 	return container_of(crtc, struct atmel_hlcdc_crtc, base);
+@@ -407,6 +407,42 @@ static int atmel_xlcdc_connector_output_dsi(struct drm_encoder *encoder,
+ 	return supported_fmts;
  }
  
-+static void atmel_hlcdc_crtc_disable_clock(struct atmel_hlcdc_crtc *crtc)
++static int atmel_xlcdc_connector_output_lvds(struct drm_encoder *encoder,
++					     struct drm_display_info *info)
 +{
-+	if (crtc->dc->hlcdc->lvds_pll_clk)
-+		clk_disable_unprepare(crtc->dc->hlcdc->lvds_pll_clk);
-+	else
-+		clk_disable_unprepare(crtc->dc->hlcdc->sys_clk);
++	int j;
++	unsigned int supported_fmts = 0;
++
++	switch (atmel_hlcdc_encoder_get_bus_fmt(encoder)) {
++	case 0:
++		break;
++	case MEDIA_BUS_FMT_RGB666_1X7X3_SPWG:
++	case MEDIA_BUS_FMT_RGB666_1X18:
++		return ATMEL_HLCDC_RGB666_OUTPUT;
++	case MEDIA_BUS_FMT_RGB888_1X7X4_SPWG:
++	case MEDIA_BUS_FMT_RGB888_1X7X4_JEIDA:
++		return ATMEL_HLCDC_RGB888_OUTPUT;
++	default:
++		return -EINVAL;
++	}
++
++	for (j = 0; j < info->num_bus_formats; j++) {
++		switch (info->bus_formats[j]) {
++		case MEDIA_BUS_FMT_RGB666_1X7X3_SPWG:
++		case MEDIA_BUS_FMT_RGB666_1X18:
++			supported_fmts |= ATMEL_HLCDC_RGB666_OUTPUT;
++			break;
++		case MEDIA_BUS_FMT_RGB888_1X7X4_SPWG:
++		case MEDIA_BUS_FMT_RGB888_1X7X4_JEIDA:
++			supported_fmts |= ATMEL_HLCDC_RGB888_OUTPUT;
++			break;
++		default:
++			break;
++		}
++	}
++	return supported_fmts;
 +}
 +
- static int atmel_hlcdc_crtc_setup_clock(struct atmel_hlcdc_crtc *crtc,
- 					unsigned long mode_rate,
- 					unsigned int *cfg,
-@@ -74,6 +84,12 @@ static int atmel_hlcdc_crtc_setup_clock(struct atmel_hlcdc_crtc *crtc,
- 	unsigned long prate;
- 	int div, ret;
- 
-+	if (crtc->dc->hlcdc->lvds_pll_clk) {
-+		*cfg |= ATMEL_XLCDC_CLKBYP;
-+		*mask |= ATMEL_XLCDC_CLKBYP;
-+		return clk_prepare_enable(crtc->dc->hlcdc->lvds_pll_clk);
-+	}
-+
- 	ret = clk_prepare_enable(crtc->dc->hlcdc->sys_clk);
- 	if (ret)
- 		return ret;
-@@ -198,7 +214,7 @@ static void atmel_hlcdc_crtc_mode_set_nofb(struct drm_crtc *c)
- 			   ATMEL_XLCDC_DPI : ATMEL_HLCDC_MODE_MASK),
- 			   cfg);
- 
--	clk_disable_unprepare(crtc->dc->hlcdc->sys_clk);
-+	atmel_hlcdc_crtc_disable_clock(crtc);
- }
- 
- static enum drm_mode_status
-@@ -254,7 +270,8 @@ static void atmel_hlcdc_crtc_atomic_disable(struct drm_crtc *c,
- 				    10, 1000))
- 		drm_warn(dev, "Atmel LCDC status register CLKSTS timeout\n");
- 
--	clk_disable_unprepare(crtc->dc->hlcdc->sys_clk);
-+	atmel_hlcdc_crtc_disable_clock(crtc);
-+
- 	pinctrl_pm_select_sleep_state(dev->dev);
- 
- 	pm_runtime_allow(dev->dev);
-@@ -267,15 +284,33 @@ static void atmel_hlcdc_crtc_atomic_enable(struct drm_crtc *c,
+ static int atmel_hlcdc_connector_output_mode(struct drm_connector_state *state)
  {
- 	struct drm_device *dev = c->dev;
- 	struct atmel_hlcdc_crtc *crtc = drm_crtc_to_atmel_hlcdc_crtc(c);
-+	struct drm_display_mode *adj = &c->state->adjusted_mode;
- 	struct regmap *regmap = crtc->dc->hlcdc->regmap;
- 	unsigned int status;
-+	int ret;
+ 	struct drm_connector *connector = state->connector;
+@@ -419,12 +455,14 @@ static int atmel_hlcdc_connector_output_mode(struct drm_connector_state *state)
+ 	if (!encoder)
+ 		encoder = connector->encoder;
+ 	/*
+-	 * atmel-hlcdc to support DSI formats with DSI video pipeline
+-	 * when DRM_MODE_ENCODER_DSI type is set by
+-	 * connector driver component.
++	 * Select the output format based on the encoder type.
++	 * DSI and LVDS encoders have dedicated format handlers,
++	 * while other encoder types fall through to the generic path
+ 	 */
+ 	if (encoder->encoder_type == DRM_MODE_ENCODER_DSI)
+ 		return atmel_xlcdc_connector_output_dsi(encoder, info);
++	if (encoder->encoder_type == DRM_MODE_ENCODER_LVDS)
++		return atmel_xlcdc_connector_output_lvds(encoder, info);
  
- 	pm_runtime_get_sync(dev->dev);
- 
- 	pm_runtime_forbid(dev->dev);
- 
- 	pinctrl_pm_select_default_state(dev->dev);
--	clk_prepare_enable(crtc->dc->hlcdc->sys_clk);
-+
-+	/*
-+	 * Set LVDS PLL clock rate (7x pixel clock) if available
-+	 */
-+	if (crtc->dc->hlcdc->lvds_pll_clk) {
-+		ret = clk_set_rate(crtc->dc->hlcdc->lvds_pll_clk,
-+				   adj->clock * 1000 * ATMEL_LVDS_PLL_MULT);
-+		if (ret) {
-+			drm_err(dev, "Failed to set LVDS PLL clk rate: %d\n", ret);
-+			goto err_clk;
-+		}
-+		ret = clk_prepare_enable(crtc->dc->hlcdc->lvds_pll_clk);
-+	} else {
-+		ret = clk_prepare_enable(crtc->dc->hlcdc->sys_clk);
-+	}
-+	if (ret)
-+		goto err_clk;
- 
- 	regmap_write(regmap, ATMEL_HLCDC_EN, ATMEL_HLCDC_PIXEL_CLK);
- 	if (regmap_read_poll_timeout(regmap, ATMEL_HLCDC_SR, status,
-@@ -310,7 +345,11 @@ static void atmel_hlcdc_crtc_atomic_enable(struct drm_crtc *c,
- 	}
- 
- 	pm_runtime_put_sync(dev->dev);
-+	return;
- 
-+err_clk:
-+	pm_runtime_allow(dev->dev);
-+	pm_runtime_put_sync(dev->dev);
- }
- 
- #define ATMEL_HLCDC_RGB444_OUTPUT		BIT(0)
+ 	switch (atmel_hlcdc_encoder_get_bus_fmt(encoder)) {
+ 	case 0:
 -- 
 2.25.1
 
