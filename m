@@ -4,80 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66CFACD4F54
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:13:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7F3FCD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:13:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 535B910EAA8;
-	Tue, 19 May 2026 07:13:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BD3C10EAB9;
+	Tue, 19 May 2026 07:13:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="M7Kg9NpC";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rs4vg9pW";
 	dkim-atps=neutral
-X-Greylist: delayed 474 seconds by postgrey-1.36 at gabe;
- Mon, 18 May 2026 10:26:44 UTC
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586A310E028
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 10:26:44 +0000 (UTC)
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
- by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20260518101848epoutp0307e767857beb2dadcb673d6d1844cec7~woZhXyA1g1360113601epoutp03g
- for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 10:18:48 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
- 20260518101848epoutp0307e767857beb2dadcb673d6d1844cec7~woZhXyA1g1360113601epoutp03g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1779099528;
- bh=AC3DsS6WkhVfH7c3CTSyK//O8EcqzwniBI6lGRkZZsU=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=M7Kg9NpCTyjhzTAkh1MwSRgs5/P7S501/GIoFtAn6lEi40YFO6YeTmJvjiBJsYfuT
- cyGRuQdbiPFba9oGrBcUKjerwuYQBcoLaAKH26vVLRH2+t5m+eIiZ77C2OnKt0eZbY
- Zgrmscd2h/eSY58icf0lFirCCxs7zerVsiW7C4F0=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
- epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
- 20260518101847epcas5p20c363dbebbd73fd72a0354d8a15e55fd~woZg4Vhra2884028840epcas5p2m;
- Mon, 18 May 2026 10:18:47 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.89]) by
- epsnrtp01.localdomain (Postfix) with ESMTP id 4gJv0Q6lJTz6B9m5; Mon, 18 May
- 2026 10:18:46 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
- 20260518101846epcas5p3ae97aef88bd9239a92120368958a4a6e~woZfgA5GW2694926949epcas5p3z;
- Mon, 18 May 2026 10:18:46 +0000 (GMT)
-Received: from [107.122.10.194] (unknown [107.122.10.194]) by
- epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260518101843epsmtip16d0504c0f9985d04573419140d5cc9af~woZcw0Yjg1875218752epsmtip1S;
- Mon, 18 May 2026 10:18:43 +0000 (GMT)
-Message-ID: <f9e04625-50c6-4fa9-8b12-76496e29f10c@samsung.com>
-Date: Mon, 18 May 2026 15:48:37 +0530
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11DEA10EA59
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 05:52:02 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-834f1075805so2407186b3a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 22:52:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779169921; x=1779774721; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uErCr9zi75Tnls+mLi86yEzEO9RwxFHR5lw/x24Nf98=;
+ b=Rs4vg9pWKCyITB1qJr9yBgh8E1qVxA/2od/pKrvBuv2t53ftqY0l0dXbYUsfIVGzIx
+ 53lAi70fE1lfVJ73eWrECBIQZip8xyaEedo/ae/iY/Q08uVFop9LOqYKrcJxQTKJNlSO
+ P7jAedMmOQ9EORlxxwDYPf/e1Ge/YIlfDqsGxj3sT2VFApcE/1+TOIxd7Zasu43wxtey
+ GE2cd7UylkXpG6Q6d8spCFWEaQ8yjA922W3lXRhykmdzrGYaAiSMbO+tQbmHTTbnK0xz
+ IZIvzD1jtPKgR3RBKD9KSevIy838wrkZZk5NrZZuAzVO6U9P2PDGw3pVJT0xDQzrniV/
+ kFyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779169921; x=1779774721;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=uErCr9zi75Tnls+mLi86yEzEO9RwxFHR5lw/x24Nf98=;
+ b=sMPTXLATU3QmMCTD1PRr/+onO6AbzIwynv+Weu/8/oUE4BSx9gygAh0Sd1Td5MM03b
+ SaUHZXbad+oOx/wgJOUOlMDa/prkU0pOoJA9ZfuRi1/Tlbuf9ChKpYtf/e0yc3L4HTxO
+ 47NsF9z2pI/70NklkNsTFD3HrgGJaHLBj8nvaaLiFul4d/7yZTSd6jAijByOdNEIfA2r
+ tKqeF15UQMPxoTh6sR87mshEE5vz7wWoe2FmumWFgzbgW63HEcAIay2vOVClfVIyHSLB
+ eQ+g+T7cqGTgwx2yV/rXI35mVniwTKoC6coj2ejs+VqPDVVLZutLTMlCul+TW7GvCRkC
+ 7/0w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9+yi3QmJoy3xO4h9wM0/X7wq6EtRFkM2i28Ekdu2Q4T1PYHc14urSXfSJHiBJ67Mhset+fekvIM8M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcTA24QhlSeLWAaYXAprEYmoU6Sxm2x/TfKSx1c4bJPj5euA0k
+ tQCY3+HrjHp3OME0Q13Qgzie/X5tjSSDhSkkJAKFJsY3ltxNQzld+8E8
+X-Gm-Gg: Acq92OHds6WgDWIyMwGY//iWDoRUozbmNExRYM2w4UttVPz79w42bVcLVNSj7H6Bp64
+ iLjJJJTSu/tMtp/N3noLPF6VgnQ+/KZrkinS6XGhnhmK9aOuvv75G54jfsMgPlPIamnQGBb9M7M
+ ID7Sx+Fei5SQrb/aHC5lyyiuIlALMEzg6NbqKtlsxzOxWbvh4yDrqXl4k7cmxr2KhpYL1wH9nQG
+ 2zC5HYCT8bAZjtp+dYGHm82galEXaQ0KkeU903Uy9EWDz/8rveq1n0VJopsxt0VAmBEK9fkCv5V
+ b1laCQATI9SUOK2WfpUiQtDDsZygHctE+4PeM2h9wEuXN4T78eVe1bG/inAkrms5dydS4LKuh21
+ QJpvF/6jGrxvKkWKkML7+Yp+PPCLAz3PF8zbyxg9AFJH6kXMbFVSPDEjsANX7tr0kj2not3GGAh
+ +Negd4AVt40R1d+pp8W9XTSQuknn5ID3MhbrXEgd7jMeIYh48IGhgB4dHIcZWjTFjNRob1NdJWN
+ p1q6/eZJ3pK
+X-Received: by 2002:a05:6a00:299a:b0:83b:c487:43d2 with SMTP id
+ d2e1a72fcca58-83f33df451fmr18417039b3a.36.1779169921605; 
+ Mon, 18 May 2026 22:52:01 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-83f8b9c2ea5sm2641252b3a.13.2026.05.18.22.51.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2026 22:52:01 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v2 1/4] dt-bindings: display: verisilicon,
+ dc: generalize for  single-output variants
+Date: Tue, 19 May 2026 13:51:06 +0800
+Message-ID: <20260519055114.1886525-2-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260519055114.1886525-1-a0987203069@gmail.com>
+References: <20260519055114.1886525-1-a0987203069@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/10] nvme-pci: implement dma_token backed requests
-To: Pavel Begunkov <asml.silence@gmail.com>, Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Sagi
- Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, Nitesh
- Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Jason
- Gunthorpe <jgg@nvidia.com>
-Content-Language: en-US
-From: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>
-In-Reply-To: <50ed7240-d8d3-4816-bcc9-ce8adbbbf841@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260518101846epcas5p3ae97aef88bd9239a92120368958a4a6e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260518092930epcas5p30d3b49f26efa5969ddcdb15351a886f3
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <5cecb1157ab784f9f303a91449fdf11b03aa6002.1777475843.git.asml.silence@gmail.com>
- <20260513083817.GC6461@lst.de>
- <CGME20260518092930epcas5p30d3b49f26efa5969ddcdb15351a886f3@epcas5p3.samsung.com>
- <50ed7240-d8d3-4816-bcc9-ce8adbbbf841@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 19 May 2026 07:13:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,257 +96,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/18/2026 2:59 PM, Pavel Begunkov wrote:
->> FYI, I really want SGL support before this get merged, but ignoring that
->> for now:
-> 
-> I was hoping to let Samsung guys to send a follow up they already have,
-> but I'll ask them to have about taking it into this patch set.
+The existing schema assumes a fixed clock/reset topology and dual-output
+port structure matching the DC8200 IP block.  This prevents reuse for
+single-output variants such as the Verisilicon DCU Lite used in the
+Nuvoton MA35D1 SoC.
 
-I had done patches on top of v3 adding SGL support and PRP list reuse
-optimization for the dmabuf path.
-Branch: https://github.com/SamsungDS/linux/commits/rw-dmabuf-v3-nvme-opt/
+Rework the schema so that variant-specific constraints are expressed
+via allOf/if-then-else:
 
-Also pasting the SGL patch here for quick reference:
+- The thead,th1520-dc8200 compatible keeps its existing five-clock,
+  three-reset, dual-port requirements.
 
-Subject: [PATCH 1/2] nvme-pci: add sgl support for dmabuf path
+- A standalone verisilicon,dc compatible covers IPs whose identity is
+  discovered entirely through hardware registers; these have flexible
+  clock and reset counts, a single 'port' property, and no 'ports'
+  requirement.
 
-Handle dmabuf-backed requests through the SGL setup path too.
-Use the cached dmabuf sg_table and keep PRP fallback where allowed.
+Changes to the base schema:
+- Replace the fixed clock/reset items lists with minItems/maxItems
+  ranges; variant sub-schemas tighten the constraints via if-then-else.
+- Add a 'port' property (graph.yaml single-port alias) alongside the
+  existing 'ports', for single-output variants.
+- Drop the unconditional 'ports' requirement; each if-branch enforces
+  its own port topology.
+- Tighten additionalProperties to unevaluatedProperties to allow
+  per-variant schemas to add their own constraints cleanly.
+- Fix a stray space in the port@0 description.
+- Add a DT example for the generic verisilicon,dc compatible
+  (Nuvoton MA35D1 DCU Lite).
 
-Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
 ---
-  drivers/nvme/host/pci.c | 194 +++++++++++++++++++++++++++++++++++++++-
-  1 file changed, 193 insertions(+), 1 deletion(-)
+ .../bindings/display/verisilicon,dc.yaml      | 135 ++++++++++++++----
+ 1 file changed, 108 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-index 0a49c94dd675..31e37ab8769b 100644
---- a/drivers/nvme/host/pci.c
-+++ b/drivers/nvme/host/pci.c
-@@ -1270,6 +1270,14 @@ static void nvme_pci_sgl_set_data(struct 
-nvme_sgl_desc *sge,
-         sge->type = NVME_SGL_FMT_DATA_DESC << 4;
-  }
-
-+static void nvme_pci_sgl_set_data_addr(struct nvme_sgl_desc *sge,
-+               dma_addr_t addr, u32 len)
-+{
-+       sge->addr = cpu_to_le64(addr);
-+       sge->length = cpu_to_le32(len);
-+       sge->type = NVME_SGL_FMT_DATA_DESC << 4;
-+}
+diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+index 9dc35ab973f2..3a814c2e083e 100644
+--- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
++++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+@@ -14,10 +14,12 @@ properties:
+     pattern: "^display@[0-9a-f]+$"
+ 
+   compatible:
+-    items:
+-      - enum:
+-          - thead,th1520-dc8200
+-      - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
++    oneOf:
++      - items:
++          - enum:
++              - thead,th1520-dc8200
++          - const: verisilicon,dc
++      - const: verisilicon,dc  # DC IPs have discoverable ID/revision registers
+ 
+   reg:
+     maxItems: 1
+@@ -26,32 +28,24 @@ properties:
+     maxItems: 1
+ 
+   clocks:
+-    items:
+-      - description: DC Core clock
+-      - description: DMA AXI bus clock
+-      - description: Configuration AHB bus clock
+-      - description: Pixel clock of output 0
+-      - description: Pixel clock of output 1
++    minItems: 2
++    maxItems: 5
+ 
+   clock-names:
+-    items:
+-      - const: core
+-      - const: axi
+-      - const: ahb
+-      - const: pix0
+-      - const: pix1
++    minItems: 2
++    maxItems: 5
+ 
+   resets:
+-    items:
+-      - description: DC Core reset
+-      - description: DMA AXI bus reset
+-      - description: Configuration AHB bus reset
++    minItems: 1
++    maxItems: 3
+ 
+   reset-names:
+-    items:
+-      - const: core
+-      - const: axi
+-      - const: ahb
++    minItems: 1
++    maxItems: 3
 +
-  static void nvme_pci_sgl_set_seg(struct nvme_sgl_desc *sge,
-                 dma_addr_t dma_addr, int entries)
-  {
-@@ -1321,6 +1329,176 @@ static blk_status_t 
-nvme_pci_setup_data_sgl(struct request *req,
-         return iter->status;
-  }
-
-+static unsigned int nvme_pci_dmabuf_sgl_nents(struct request *req,
-+               dma_addr_t *first_dma, u32 *first_len)
-+{
-+       struct bio *bio = req->bio;
-+       struct nvme_dmabuf_map *map;
-+       struct scatterlist *sg;
-+       unsigned long tmp;
-+       size_t offset = bio->bi_iter.bi_bvec_done;
-+       size_t remaining = blk_rq_payload_bytes(req);
-+       dma_addr_t last_end = 0;
-+       unsigned int nents = 0;
-+       dma_addr_t dma = 0;
-+       u32 len = 0;
-+       bool have = false;
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    description: Single video output port for single-output variants.
+ 
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+@@ -59,7 +53,7 @@ properties:
+     properties:
+       port@0:
+         $ref: /schemas/graph.yaml#/properties/port
+-        description: The first output channel , endpoint 0 should be
++        description: The first output channel, endpoint 0 should be
+           used for DPI format output and endpoint 1 should be used
+           for DP format output.
+ 
+@@ -75,9 +69,75 @@ required:
+   - interrupts
+   - clocks
+   - clock-names
+-  - ports
+ 
+-additionalProperties: false
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: thead,th1520-dc8200
++    then:
++      properties:
++        clocks:
++          items:
++            - description: DC Core clock
++            - description: DMA AXI bus clock
++            - description: Configuration AHB bus clock
++            - description: Pixel clock of output 0
++            - description: Pixel clock of output 1
 +
-+       map = container_of(bio->dmabuf_map, struct nvme_dmabuf_map, base);
++        clock-names:
++          items:
++            - const: core
++            - const: axi
++            - const: ahb
++            - const: pix0
++            - const: pix1
 +
-+       for_each_sgtable_dma_sg(map->sgt, sg, tmp) {
-+               size_t sg_len = sg_dma_len(sg);
-+               dma_addr_t addr = sg_dma_address(sg);
++        resets:
++          items:
++            - description: DC Core reset
++            - description: DMA AXI bus reset
++            - description: Configuration AHB bus reset
 +
-+               if (!remaining)
-+                       break;
-+               if (offset >= sg_len) {
-+                       offset -= sg_len;
-+                       continue;
-+               }
++        reset-names:
++          items:
++            - const: core
++            - const: axi
++            - const: ahb
 +
-+               addr += offset;
-+               sg_len -= offset;
-+               offset = 0;
++      required:
++        - ports
 +
-+               while (sg_len && remaining) {
-+                       u32 chunk = min_t(size_t, remaining, sg_len);
++    else:
++      properties:
++        clocks:
++          items:
++            - description: Bus clock that gates register access
++            - description: Pixel clock divider for display timing
 +
-+                       if (!have || last_end != addr) {
-+                               nents++;
-+                               if (nents == 1) {
-+                                       dma = addr;
-+                                       len = chunk;
-+                               }
-+                       } else if (nents == 1) {
-+                               len += chunk;
-+                       }
++        clock-names:
++          items:
++            - const: core
++            - const: pix0
 +
-+                       have = true;
-+                       last_end = addr + chunk;
-+                       addr += chunk;
-+                       sg_len -= chunk;
-+                       remaining -= chunk;
-+               }
-+       }
++        resets:
++          maxItems: 1
++          description:
++            Reset line for the display controller.
 +
-+       if (unlikely(remaining))
-+               return 0;
++        reset-names:
++          items:
++            - const: core
 +
-+       *first_dma = dma;
-+       *first_len = len;
-+       return nents;
-+}
++      required:
++        - port
 +
-+static unsigned int nvme_pci_dmabuf_avg_seg_size(struct request *req)
-+{
-+       dma_addr_t first_dma;
-+       u32 first_len;
-+       unsigned int nseg;
++      not:
++        required:
++          - ports
 +
-+       nseg = nvme_pci_dmabuf_sgl_nents(req, &first_dma, &first_len);
-+       if (!nseg)
-+               return 0;
-+       return DIV_ROUND_UP(blk_rq_payload_bytes(req), nseg);
-+}
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+@@ -120,3 +180,24 @@ examples:
+         };
+       };
+     };
 +
-+static blk_status_t nvme_rq_setup_dmabuf_sgl(struct request *req,
-+                                            struct nvme_queue *nvmeq)
-+{
-+       struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
-+       struct bio *bio = req->bio;
-+       struct nvme_dmabuf_map *map;
-+       size_t length = blk_rq_payload_bytes(req);
-+       struct nvme_sgl_desc *sg_list = NULL;
-+       dma_addr_t sgl_dma = 0, first_dma, last_end = 0;
-+       unsigned int entries, mapped = 0;
-+       unsigned long tmp;
-+       struct scatterlist *sg;
-+       size_t offset, remaining;
-+       u32 first_len;
-+       bool have = false;
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
 +
-+       map = container_of(bio->dmabuf_map, struct nvme_dmabuf_map, base);
++    display@40260000 {
++        compatible = "verisilicon,dc";
++        reg = <0x40260000 0x20000>;
++        interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clk DCU_GATE>, <&clk DCUP_DIV>;
++        clock-names = "core", "pix0";
++        resets = <&sys MA35D1_RESET_DISP>;
++        reset-names = "core";
 +
-+       entries = nvme_pci_dmabuf_sgl_nents(req, &first_dma, &first_len);
-+       if (!entries)
-+               return BLK_STS_IOERR;
-+       if (entries > NVME_MAX_SEGS)
-+               return BLK_STS_AGAIN;
-+
-+       iod->cmd.common.flags = NVME_CMD_SGL_METABUF;
-+       iod->total_len = length;
-+
-+       nvme_sync_dma(nvmeq->dev, req, false);
-+
-+       if (entries == 1) {
-+               nvme_pci_sgl_set_data_addr(&iod->cmd.common.dptr.sgl, 
-first_dma,
-+                                          first_len);
-+               return BLK_STS_OK;
-+       }
-+
-+       if (entries <= NVME_SMALL_POOL_SIZE / sizeof(*sg_list))
-+               iod->flags |= IOD_SMALL_DESCRIPTOR;
-+
-+       sg_list = dma_pool_alloc(nvme_dma_pool(nvmeq, iod), GFP_ATOMIC,
-+                                &sgl_dma);
-+       if (!sg_list)
-+               return BLK_STS_RESOURCE;
-+       iod->descriptors[iod->nr_descriptors++] = sg_list;
-+
-+       offset = bio->bi_iter.bi_bvec_done;
-+       remaining = length;
-+
-+       for_each_sgtable_dma_sg(map->sgt, sg, tmp) {
-+               size_t sg_len = sg_dma_len(sg);
-+               dma_addr_t addr = sg_dma_address(sg);
-+
-+               if (!remaining)
-+                       break;
-+               if (offset >= sg_len) {
-+                       offset -= sg_len;
-+                       continue;
-+               }
-+
-+               addr += offset;
-+               sg_len -= offset;
-+               offset = 0;
-+
-+               while (sg_len && remaining) {
-+                       u32 chunk = min_t(size_t, remaining, sg_len);
-+
-+                       if (have && last_end == addr) {
-+                               u32 old = le32_to_cpu(sg_list[mapped - 
-1].length);
-+
-+                               sg_list[mapped - 1].length =
-+                                       cpu_to_le32(old + chunk);
-+                       } else {
-+                               if (WARN_ON_ONCE(mapped == entries))
-+                                       goto err_free;
-+ 
-nvme_pci_sgl_set_data_addr(&sg_list[mapped++],
-+                                                          addr, chunk);
-+                       }
-+
-+                       have = true;
-+                       last_end = addr + chunk;
-+                       addr += chunk;
-+                       sg_len -= chunk;
-+                       remaining -= chunk;
-+               }
-+       }
-+
-+       if (unlikely(remaining))
-+               goto err_free;
-+
-+       nvme_pci_sgl_set_seg(&iod->cmd.common.dptr.sgl, sgl_dma, mapped);
-+       return BLK_STS_OK;
-+
-+err_free:
-+       iod->nr_descriptors--;
-+       dma_pool_free(nvme_dma_pool(nvmeq, iod), sg_list, sgl_dma);
-+       return BLK_STS_IOERR;
-+}
-+
-  static blk_status_t nvme_pci_setup_data_simple(struct request *req,
-                 enum nvme_use_sgl use_sgl)
-  {
-@@ -1369,8 +1547,22 @@ static blk_status_t nvme_map_data(struct request 
-*req)
-         struct blk_dma_iter iter;
-         blk_status_t ret;
-
--       if (nvme_rq_is_dmabuf_attached(req))
-+       if (nvme_rq_is_dmabuf_attached(req)) {
-+               if (use_sgl == SGL_FORCED) {
-+                       ret = nvme_rq_setup_dmabuf_sgl(req, nvmeq);
-+                       /* Regular path doesn't fall back if SGLs are 
-forced. */
-+                       return ret == BLK_STS_AGAIN ? BLK_STS_IOERR : ret;
-+               }
-+
-+               if (use_sgl == SGL_SUPPORTED && sgl_threshold &&
-+                   nvme_pci_dmabuf_avg_seg_size(req) >= sgl_threshold) {
-+                       ret = nvme_rq_setup_dmabuf_sgl(req, nvmeq);
-+                       if (ret != BLK_STS_AGAIN)
-+                               return ret;
-+               }
-+
-                 return nvme_rq_setup_dmabuf_map(req, nvmeq);
-+       }
-
-         /*
-          * Try to skip the DMA iterator for single segment requests, as 
-that
---
++        port {
++            dpi_out: endpoint {
++                remote-endpoint = <&panel_in>;
++            };
++        };
++    };
+-- 
 2.43.0
 
