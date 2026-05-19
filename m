@@ -4,56 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74D54CD4F54
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:38:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7164ACD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5F7310EAA1;
-	Tue, 19 May 2026 06:38:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA0DC10EAA3;
+	Tue, 19 May 2026 06:39:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YL27wRlQ";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="uc9ya3nl";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF45710EAA0
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:38:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 21A3460052;
- Tue, 19 May 2026 06:38:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2782BC2BCB3;
- Tue, 19 May 2026 06:38:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779172707;
- bh=cjYVbPJQCGhm17FuSh8gv8edfxPU3cXLLZYrNXSnF3o=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
- b=YL27wRlQWuRGTjLPbFmIwp65kOtw/48RGsAWfmBZzvFHgtx9fGauj2FzjYQEv4Lc9
- T1vK6/kpRGSyvmYiL1h8RzPxBTPaofkURJrt/wi9Z+kxZ8uo/f8Db8qpsqmeK66NVW
- FuBsRENvddT7ULqmvMWCWpVpLDCRUT/1RefPk4CfJw89JPoD7qtOSqxRx02xu/YfjF
- NyC2lHHO9qxm01QZb20IkIT1H+Qi/RPpwRcKM8oKOAzGlW9s1mHDId/dz3DK5FdxIT
- CPkkPSsq08y8HBc1IInhFG+4u2y6VqgxoL1Aw0Yt0Q+Viq/iW1Ha/rfv7c9aGjMfNc
- ZJhG1edm+zKZA==
-Message-ID: <0133e67b-0c85-4805-87a6-7fe30f9856f2@kernel.org>
-Date: Tue, 19 May 2026 08:38:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH 06/13] drm/meson: encoder_hdmi: Use bridge connector CEC
- notifier
-To: Jonas Karlman <jonas@kwiboo.se>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Heiko Stuebner <heiko@sntech.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org
-References: <20260518194744.2483580-1-jonas@kwiboo.se>
- <20260518194744.2483580-7-jonas@kwiboo.se>
-Content-Language: en-US, nl
-In-Reply-To: <20260518194744.2483580-7-jonas@kwiboo.se>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011060.outbound.protection.outlook.com [40.107.208.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0031710EAAC
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:39:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CzDXbJpI57AES/x83Kb5i9fw4g+A1evsiw54uEkkge1R7qm823SrulS8vHOXNRvpek+c6mVSUn+N/m4mG7XlDbu9a0hm+2Xx3MZSDh/Xpy2CwwteG/rgdsUf6GFMsIU1nwSE068NEsY/FhQvwNu47H4U666NP0g1vLCwWl+YNyWW5GI47UZaGYO5BSiPvx3LgBQ7kbNZw/NZ5D1++QooAI4LW+RZLuxDjbgkLAtpdaIFR7mfx/k7ezwV2ouU0EDDzbvuy0bO6Ew/jYA3dpDLkfJg8c35xqdjrmVDN3SLt1RB3SLdI2bidH8D4BF0NKGzgRdEnnBQ2Oxu6YgkvjJTdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hCTbWn3bTrfzQM5De2libsnQzr5noXoJVjbNGvf++N8=;
+ b=dk+uiIlGXqxNXdTWi9VYkUY8xXLwWSyfMj3cmIy9YlBsWepXJ0inuP2pTD7WJVadsy1Rmj0qpk2ZO20TASMkcj3XOvWXXSPDIWUEI/BmUErDzjPRHD+bePIJK+Zf060/7dlGBbluJr5izruG1H6w/NqL/XkkcQKUSyStsh3qg0MM+hsDhEeysel5kOrNjuhyMY+Q0hlVsgmaM99jVd0ugYJgyYEsweQQt24BrebBCX3xHnSNE/UK7ir4N5ZM6+Zl+E0j5dQMYcXxgNuP9ib71j1HTgQXTKd86oWc1h4tO+C/evkaV5Ptt6wUc7zNvDgg5G7saQd1eBmtIOC4zDCbyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hCTbWn3bTrfzQM5De2libsnQzr5noXoJVjbNGvf++N8=;
+ b=uc9ya3nlLjrL9QuMTiMGLcitvT54L98vl8djRNQv++GYHNWZzoHlUr31dMfW2wK6SJMomPLbOlmBCknmP5tyAZ/ruMGBnzzOYgEuRhdvvbG2TilY78i22MRGHBsII8RMj2zZ4o44UCNzmHLqtwMmwPsK1nGA84GdnTP8brf0kc/X95XBXu6hoFoakpyCZ4yZtmRDF9ORbxdlnKMeF308gGvOQdJphFOIhQpKkBiU/q9BmxCwU/6MuID2JJwCh2L9e4v+AYoN54rx+a0kpahcM0qx6Wt07HgwBByoa2xY3fJZbOz8jceb2J07bJwUfO1L69Q2AXAwyX+hyBE6re0MSw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by BL3PR12MB6380.namprd12.prod.outlook.com (2603:10b6:208:38d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Tue, 19 May
+ 2026 06:39:10 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 06:39:10 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Tue, 19 May 2026 15:39:06 +0900
+Message-Id: <DIMG3O986H3J.2HSGP992ETOY9@nvidia.com>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v3 20/27] rust: io: make IoMem and ExclusiveIoMem
+ lifetime-parameterized
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
+ <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260517000149.3226762-1-dakr@kernel.org>
+ <20260517000149.3226762-21-dakr@kernel.org>
+In-Reply-To: <20260517000149.3226762-21-dakr@kernel.org>
+X-ClientProxiedBy: TY4P286CA0040.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b2::19) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|BL3PR12MB6380:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcf46193-0417-4286-67fe-08deb5715584
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|1800799024|7416014|376014|921020|22082099003|56012099003|18002099003|4143699003|11063799003;
+X-Microsoft-Antispam-Message-Info: 9bzhW6q66RA7QEvHOr6gWEvCutvvFTTue3O0YYc3qS2WMPr7Rjbb7ZgR8UlsNIGx70fbwgYf3WMN6ku0byxaI8SEy/GtXF/BnJKKSZwg0ZnnYEerh/t26n+lPVdz4919/d9l0En79mf3xA/PXJSCOmJmPc98wbV5wgZSJL7xkUOKtwV7BlpA5/9Qd8MT6E7pIMXH8RgdxPIREOeorP5nGubCgFmTVFNLG663Np3yR0DtNdp7J4gRTv4i/KOsJWANykVYlWIDzZTwqhTd2gb9+XJx+4SCYt3YNUVI688pQ+VBYHOb6D5zH9hM3fliBBLy+/zESNzpApb/B7/mM2A0owNqlxnh8dM2Pd2FrJYjAAudHvuuc9mYvKpkQeMl4xYRgmMPrvoZXMFzLkc+CmIh5tXF1Nhqz0A6drmYXxmYH7AnVl7vLZtOIm6pmWP2O6dGCp4IsZ+g05N4Qk29JYYrziLg6K7W809F4ZPlHa1taKxcn8co0izq4+SXlGRjz3nyBlsleWioJg28dmlnLBu5vGL96u3y11lwhHCiFlhcTKPZv6ar8kpiPcuwxSUZNshGeIxIIDPgawd8y52rq95mUGMw8eYkP7IWJ3fIEL94OjuxE4sWUagetyCwQC6mpFfDxj0zJ621P30yMhi+vBTj+YaOUl45AqJFrXXShdaBDU250AgGLs38wycjxK3dtAKJaojdlyzXIWLpRiXQFV1zbnqTrp0XzXkzqf43d7VbO8I=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(376014)(921020)(22082099003)(56012099003)(18002099003)(4143699003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eitWUWJEUWZhNnlabW92NlhzUFJFdmV5dmRoNHFoRzRFZ1Z2OUUxSWdxaWM3?=
+ =?utf-8?B?U0lxU05YQjhnNkloTFNka2ZTVjcwTWVXYkJUWVpacW92SW5kT0NDZ2RHVDZw?=
+ =?utf-8?B?VisraFU0bk5YRjZZa3c4bzVWRU91d2l3TGRFbWtYTXVXYWlndWlDeUZtUkYv?=
+ =?utf-8?B?UXJkaWhqcWhVaE1kamE2L3Zram1wajlqRHlQSnpkTkRucFZNTXV6VUd1Wkxl?=
+ =?utf-8?B?YjRCOUswdDNrcU5yRUJNZFZaUzZBQStrSjhIb3ZVUHlWNFBhajZEVlV6d0c2?=
+ =?utf-8?B?VzhERGI5dmh2YjRkSjBiMWdMTjIrRmYwR0xBMktxYmNwS0hKSDUzRStmMEdR?=
+ =?utf-8?B?QUdrMWFRUjJDY0Z3VTdBRUhDcVZEMVM4dEpkR0lmRFh3OEtnWDNiVnZMOURT?=
+ =?utf-8?B?UzJpM3BtWTVkMTcvUXBSZjVCbXp4LzRnUVRoajVhWVBUNE16R1ZpNS8vYUt2?=
+ =?utf-8?B?M0dxd0tGcWYySkwxa1IrRUt2eitTenZBWm5YeXR3OUU2eUQxejFkRkdFdFlH?=
+ =?utf-8?B?NnQyUC9ya1ZoQUcvRHlWc2huRVlhVWJDUFgzK0hrNUVtMjA4YjFIMWJldTJF?=
+ =?utf-8?B?dUxjSi8vRXdaeThwbUxmc2Y4ZDZNZHppWjhzQkJESHBKMHczcUQxaUJ0aFEx?=
+ =?utf-8?B?dFQ4WUpqckVkWVJ5bWgvV2EyTE0xUVFRNEc3VkwyVjhVYUw5R3JnTWVuMVBO?=
+ =?utf-8?B?L245aEdHMmdXYURpYlBORzJsNVVpSkxHeFFheDFMczBwWWRnTmVFc3pKa3pa?=
+ =?utf-8?B?WmhqeEtsUStPeGxha3FpN1R1T096NkhTME5ObGtWTnE1SmdMTmx5ZlZiZGh0?=
+ =?utf-8?B?bWJvUEp2Vk5TbSsyaUZET0lhV2hoc2Y4YWFwVFFWUjZTUFVnbksyQ3dEdjll?=
+ =?utf-8?B?MmxPTVRlNUNvQ2haczkyVnhqQVI2UHFqWkVXZFZQNXlPTkNIOEFyUGFkZU5V?=
+ =?utf-8?B?cGVIMk1YVUJaK2Q4cDdYZDFyWUF5SjdpLzFNemhzTGxwblphYjkxVmtmZnN6?=
+ =?utf-8?B?b1M3VGtNUmtHUEVWZFhqZXRqVUllY244QW1iOEwxdjl4MVFiMHlGaXBmYldO?=
+ =?utf-8?B?MGVnY0g5NWRtQURWdUlvMjMvWW4wYUxoVzZ3K21ub0FmN0hvTVptN0lnQkFq?=
+ =?utf-8?B?YWlxTEx4V0NjeUFIVVExeExaSThVSkpIRjliVlpHdHNPa0VGenk5VnBTazJk?=
+ =?utf-8?B?eXBFaGVKV0lWdCtZUnBGK29ZbTJJMXZLK1ZNZWZYb1Z1bGtyYTBIOTB3dUEy?=
+ =?utf-8?B?bndEUlVWUm95UDUvTXhLWnB3YXkycWhUUkhSWm9HRzlwZGREL2VpVGx1N00w?=
+ =?utf-8?B?RTIxQmV6TTdISEg4QWlEcmxET0x0QU92aHFMWnArcXlSNElxY1AvWGZ4MlMw?=
+ =?utf-8?B?MU5qcXV4K2svNnYzWkxLSGhTeHpaMzZLZ0dycDREcmZ1YlozYjVHTVdQc3lz?=
+ =?utf-8?B?VXRJTCtHeU1ZenVKMzRzZjdHY0JvSHQ3YStTejliM1gvMzM3c1Q4b1lYMzFq?=
+ =?utf-8?B?QUMxc0NTcDMvMVhTbUNZd3I1RHRWbGpxM3cyaDZsRG9xS2ljSkN4QWUwTUZR?=
+ =?utf-8?B?NlJzQ2NIZFpBK2l1Z3hybjYrZEovc3hkUTFpbnd3bCtqVlJFblZNQmwwQmdq?=
+ =?utf-8?B?eDF2Y1MxMDRveU1DMnl4SFRKZ0djaExpMGhqOTFZY2NxR3ZDdlhLNWM0MW9h?=
+ =?utf-8?B?c28vU0dVSnVKREJ1ZkltanppTWtYZHlhVHA4YVZMQlJVR2JlWVJZUEg4YUI5?=
+ =?utf-8?B?N1NpTFpZeEdTdWlxcEhBM3QwS0JMSWJBL3hQcndWMTQ2VlhWZkNZUTVZZGwx?=
+ =?utf-8?B?VUVPcENHMTR1TFd2VGFXd0ZjaU1QTDRxZFdvby9jN0t3UXRzbEtYZ3k2Skwx?=
+ =?utf-8?B?azhyM3FoOC84YkJrWTJjZFpVanM1QTBzeERTbjNmZjlPdHNISHNaT1Uwc3VB?=
+ =?utf-8?B?Sm1Sc3QzU1hObDRLUTVBUjZ3WkJoZU1kWkZKaE9PdUh3SnVSV2tDdVNvM2pD?=
+ =?utf-8?B?ZXFpWXJiazJvL1F3TExIL0dKS1diUlBPcGNheThCSVptMjNTaFpGWExVUDZs?=
+ =?utf-8?B?Z0NOZmhKamw4ZzZxYk92cStuSUJsREkvWUQ1b1NvUGRqMVppV3BuWGlsS1Uz?=
+ =?utf-8?B?T09nUTlUUS91c1JaUVBZcjZtYXhIRnloTW5pTlY3MVQ5a3lBZzFWN25uM1NC?=
+ =?utf-8?B?N3c3TittbHN3REU2SFZyQkJxbTYxa1dSSmFsdkxXSEYwaDVqQUUrSERIN21m?=
+ =?utf-8?B?RUZvOWJyckx5dEd1OHRWR1pxRWN6eUtQTHVMSUhVcUxNdGQwRmkyUUQxdEE0?=
+ =?utf-8?B?NmxoN2l0RC83TlFTTXhJSmFpVm9OTVBLQjJaNGtqcS9mb25PdTBpdzYvbnA3?=
+ =?utf-8?Q?CJHUGXblAD177BsdK0pJGay3EdzGM64P2JQndfSm4FR8M?=
+X-MS-Exchange-AntiSpam-MessageData-1: r8waLiJ6BvcqVg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcf46193-0417-4286-67fe-08deb5715584
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 06:39:10.7471 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y1nQ6fYyt+i9hvh0wF8rzeGIY0sdpwYOuHmhpLf1b7+pwsthg0BKyQc/bM5Cqnrv0bJBDgB76yqAGLPybJB/Wg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6380
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,199 +150,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 18/05/2026 21:47, Jonas Karlman wrote:
-> The dw-hdmi bridge detect() func now updates EDID and CEC phys addr for
-> the connector and any registered generic CEC notifier.
-> 
-> Replace the open-coded CEC notifier handling with use of the bridge CEC
-> notifier op.
-> 
-> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
-
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-
-Regards,
-
-	Hans
-
+On Sun May 17, 2026 at 9:01 AM JST, Danilo Krummrich wrote:
+> Add a lifetime parameter to IoMem<'bound, SIZE> and
+> ExclusiveIoMem<'bound, SIZE>, storing a &'bound Device<Bound> reference
+> to tie the mapping to the device's lifetime.
+>
+> This mirrors the pci::Bar<'bound, SIZE> design and enables drivers to
+> hold I/O memory mappings directly in their HRT private data, tied to the
+> device lifetime.
+>
+> IoRequest::iomap_* methods now return the mapping directly instead of
+> wrapping it in Devres. Callers that need device-managed revocation can
+> call the new into_devres() method.
+>
+> Acked-by: Uwe Kleine-K=C3=B6nig <ukleinek@kernel.org>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 > ---
->  drivers/gpu/drm/meson/Kconfig              |  1 +
->  drivers/gpu/drm/meson/meson_encoder_hdmi.c | 85 +++++-----------------
->  2 files changed, 19 insertions(+), 67 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/meson/Kconfig b/drivers/gpu/drm/meson/Kconfig
-> index 417f79829cf8..0dc5ca21e4fc 100644
-> --- a/drivers/gpu/drm/meson/Kconfig
-> +++ b/drivers/gpu/drm/meson/Kconfig
-> @@ -13,6 +13,7 @@ config DRM_MESON
->  	select REGMAP_MMIO
->  	select MESON_CANVAS
->  	select CEC_CORE if CEC_NOTIFIER
-> +	select DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER if CEC_NOTIFIER
->  
->  config DRM_MESON_DW_HDMI
->  	tristate "HDMI Synopsys Controller support for Amlogic Meson Display"
-> diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-> index 1b9a1d9ed3d3..45104ef35344 100644
-> --- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-> +++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-> @@ -16,8 +16,6 @@
->  #include <linux/regulator/consumer.h>
->  #include <linux/reset.h>
->  
-> -#include <media/cec-notifier.h>
-> -
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_bridge.h>
->  #include <drm/drm_bridge_connector.h>
-> @@ -41,7 +39,6 @@ struct meson_encoder_hdmi {
->  	struct drm_connector *connector;
->  	struct meson_drm *priv;
->  	unsigned long output_bus_fmt;
-> -	struct cec_notifier *cec_notifier;
->  };
->  
->  #define bridge_to_meson_encoder_hdmi(x) \
-> @@ -57,14 +54,6 @@ static int meson_encoder_hdmi_attach(struct drm_bridge *bridge,
->  				 &encoder_hdmi->bridge, flags);
->  }
->  
-> -static void meson_encoder_hdmi_detach(struct drm_bridge *bridge)
-> -{
-> -	struct meson_encoder_hdmi *encoder_hdmi = bridge_to_meson_encoder_hdmi(bridge);
-> -
-> -	cec_notifier_conn_unregister(encoder_hdmi->cec_notifier);
-> -	encoder_hdmi->cec_notifier = NULL;
-> -}
-> -
->  static void meson_encoder_hdmi_set_vclk(struct meson_encoder_hdmi *encoder_hdmi,
->  					const struct drm_display_mode *mode)
->  {
-> @@ -321,27 +310,9 @@ static int meson_encoder_hdmi_atomic_check(struct drm_bridge *bridge,
->  	return 0;
->  }
->  
-> -static void meson_encoder_hdmi_hpd_notify(struct drm_bridge *bridge,
-> -					  struct drm_connector *connector,
-> -					  enum drm_connector_status status)
-> -{
-> -	struct meson_encoder_hdmi *encoder_hdmi = bridge_to_meson_encoder_hdmi(bridge);
-> -
-> -	if (!encoder_hdmi->cec_notifier)
-> -		return;
-> -
-> -	if (status == connector_status_connected)
-> -		cec_notifier_set_phys_addr(encoder_hdmi->cec_notifier,
-> -					   connector->display_info.source_physical_address);
-> -	else
-> -		cec_notifier_phys_addr_invalidate(encoder_hdmi->cec_notifier);
-> -}
-> -
->  static const struct drm_bridge_funcs meson_encoder_hdmi_bridge_funcs = {
->  	.attach = meson_encoder_hdmi_attach,
-> -	.detach = meson_encoder_hdmi_detach,
->  	.mode_valid = meson_encoder_hdmi_mode_valid,
-> -	.hpd_notify = meson_encoder_hdmi_hpd_notify,
->  	.atomic_enable = meson_encoder_hdmi_atomic_enable,
->  	.atomic_disable = meson_encoder_hdmi_atomic_disable,
->  	.atomic_get_input_bus_fmts = meson_encoder_hdmi_get_inp_bus_fmts,
-> @@ -374,9 +345,9 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
->  
->  	meson_encoder_hdmi->bridge.next_bridge = of_drm_find_and_get_bridge(remote);
->  	if (!meson_encoder_hdmi->bridge.next_bridge) {
-> -		ret = dev_err_probe(priv->dev, -EPROBE_DEFER,
-> -				    "Failed to find HDMI transceiver bridge\n");
-> -		goto err_put_node;
-> +		of_node_put(remote);
-> +		return dev_err_probe(priv->dev, -EPROBE_DEFER,
-> +				     "Failed to find HDMI transceiver bridge\n");
->  	}
->  
->  	/* HDMI Encoder Bridge */
-> @@ -384,6 +355,13 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
->  	meson_encoder_hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
->  	meson_encoder_hdmi->bridge.interlace_allowed = true;
->  
-> +	pdev = of_find_device_by_node(remote);
-> +	of_node_put(remote);
-> +	if (pdev) {
-> +		meson_encoder_hdmi->bridge.ops |= DRM_BRIDGE_OP_HDMI_CEC_NOTIFIER;
-> +		meson_encoder_hdmi->bridge.hdmi_cec_dev = &pdev->dev;
-> +	}
-> +
->  	drm_bridge_add(&meson_encoder_hdmi->bridge);
->  
->  	meson_encoder_hdmi->priv = priv;
-> @@ -391,30 +369,24 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
->  	/* Encoder */
->  	ret = drm_simple_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
->  				      DRM_MODE_ENCODER_TMDS);
-> -	if (ret) {
-> -		dev_err_probe(priv->dev, ret, "Failed to init HDMI encoder\n");
-> -		goto err_put_node;
-> -	}
-> +	if (ret)
-> +		return dev_err_probe(priv->dev, ret, "Failed to init HDMI encoder\n");
->  
->  	meson_encoder_hdmi->encoder.possible_crtcs = BIT(0);
->  
->  	/* Attach HDMI Encoder Bridge to Encoder */
->  	ret = drm_bridge_attach(&meson_encoder_hdmi->encoder, &meson_encoder_hdmi->bridge, NULL,
->  				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-> -	if (ret) {
-> -		dev_err_probe(priv->dev, ret, "Failed to attach bridge\n");
-> -		goto err_put_node;
-> -	}
-> +	if (ret)
-> +		return dev_err_probe(priv->dev, ret, "Failed to attach bridge\n");
->  
->  	/* Initialize & attach Bridge Connector */
->  	meson_encoder_hdmi->connector = drm_bridge_connector_init(priv->drm,
->  							&meson_encoder_hdmi->encoder);
-> -	if (IS_ERR(meson_encoder_hdmi->connector)) {
-> -		ret = dev_err_probe(priv->dev,
-> -				    PTR_ERR(meson_encoder_hdmi->connector),
-> -				    "Unable to create HDMI bridge connector\n");
-> -		goto err_put_node;
-> -	}
-> +	if (IS_ERR(meson_encoder_hdmi->connector))
-> +		return dev_err_probe(priv->dev,
-> +				     PTR_ERR(meson_encoder_hdmi->connector),
-> +				     "Unable to create HDMI bridge connector\n");
->  
->  	/*
->  	 * We should have now in place:
-> @@ -437,32 +409,11 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
->  	/* Handle this here until handled by drm_bridge_connector_init() */
->  	meson_encoder_hdmi->connector->ycbcr_420_allowed = true;
->  
-> -	pdev = of_find_device_by_node(remote);
-> -	of_node_put(remote);
-> -	if (pdev) {
-> -		struct cec_connector_info conn_info;
-> -		struct cec_notifier *notifier;
-> -
-> -		cec_fill_conn_info_from_drm(&conn_info, meson_encoder_hdmi->connector);
-> -
-> -		notifier = cec_notifier_conn_register(&pdev->dev, NULL, &conn_info);
-> -		if (!notifier) {
-> -			put_device(&pdev->dev);
-> -			return -ENOMEM;
-> -		}
-> -
-> -		meson_encoder_hdmi->cec_notifier = notifier;
-> -	}
-> -
->  	priv->encoders[MESON_ENC_HDMI] = meson_encoder_hdmi;
->  
->  	dev_dbg(priv->dev, "HDMI encoder initialized\n");
->  
->  	return 0;
-> -
-> -err_put_node:
-> -	of_node_put(remote);
-> -	return ret;
->  }
->  
->  void meson_encoder_hdmi_remove(struct meson_drm *priv)
 
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
