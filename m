@@ -4,82 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD150CD4F5B
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:16:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EA7BCD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:24:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC50B10E3C6;
-	Tue, 19 May 2026 16:16:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECE0E10EDAD;
+	Tue, 19 May 2026 16:24:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gQ60T8Ek";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="OJUX/sMs";
 	dkim-atps=neutral
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D60E10E5F0
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:16:01 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-393925cb1baso44890181fa.0
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:16:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779207360; x=1779812160; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0uDjM1EcMOi30GaXc68xaMNS0uV90e3QyVWS7Pj4PBk=;
- b=gQ60T8EkpEGfSP690ZVxHIpt5B5wue3fDarFlxPOKE57cxfxQTXoTJZY0F4NA0APdK
- ckVIzkeZ5iiXuIxauH0fEXZPQEbG7u2JdRAY5mm0UNSSsL46sKNxDP1ty70JssNDaW4n
- PszHfNLQEyzhMkQcMIW54k9kvcDNp7HJtoE1aiZ7zL7NdAHYXNuK4T3dxjRmzmGDYIiH
- 0Qw0VBHb4NvN+UGSnSGvR8XSw9cPPdoQ0k0nZpSAFbOgvL7pmY3chCn+CrWQ82ZfXasa
- 3ZG/h85lglMtXazNANI4qW4FArkPO92Xpmeoci9/S9I7ZiQtE8NkmVq/V3TEB1UXzXG9
- yZXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779207360; x=1779812160;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=0uDjM1EcMOi30GaXc68xaMNS0uV90e3QyVWS7Pj4PBk=;
- b=CkvH+uheqRZ4f1sSLQBhCZJF94f3sC3UP9YNUCL5LCvYFczY8ujXjq3BqJ+QU5ilPl
- 2PK9Y3bp0oV59+kiBpX30kTsbJAKYSX3ghwJddGJ4n0ZYnUyLbJSj7r5VPoEhIEW43Jq
- c6WeIH0EVm+xoUFoAYkgquMCT51Em6/fWTiFI4z0cODIUG9ZHfttqU7fu9YKJQZOF/iT
- iIBKWLue6UsNBYFa+VfLSAIPJAAgOL0MHwPiQmHcJauWA0H93P2JmvtsJcDEOPxWNGsf
- 3Mky1JMKxp98HNyIYCs5CkdZ1dIni/pejdu3SZ5xyzPFmU3kYRmCahc8i34N7DGAJjPA
- kA2w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/DlRCu1PaGK7c+CRhQwNShSL/8YqgGLB1Z76lzhhpL5Z1o+QBuNDDTIRaP/o0T1F022+JtfZmuQsk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwxUGLqY4KPkWVkaGYJ8OHiV7i6z3m1cukQJEk35zoYlvbAp6E3
- P74SQ8gCqOu2dxtiU+NU0fd/r8hkMewy7MtIzkravUi1E1FY03CGekDCrSCh5HeMVkgITUVZ
-X-Gm-Gg: Acq92OH5RLPw9PSZvoGKnfnKI32er5mB7qy9819y8bZfEpXdzQu+uJfErZKThuDf0sT
- tC5xSjJeWczu2+0Rc2gUwp/7sZAkuWNzGJneFkVkVyEgzqaQdc6EKPnFrL+veGYVGHkmlbJVKX/
- 4pSEpvR+BmYNFS1EC4tnV+ClsHStn4lJYognHVO3IIDhuay7LmP6bdCTh8V7sDHlccrF1aQHr41
- C2x69dRruwpeTbmhuf0lgaPLcu2+RCnQ2Ryoa6GZyuD5IO5B0RHfRjwiZNTfGc0q1GiGyOcSN8A
- lX5TCHmDEFSNqvFmXvaYl5cV+xG6+d1eroaEcXXNyae6T1LV7r1lvJp2zf/7QmdUYn1tX3kwt/b
- ejg+yN3SCBGoZFDw89iEHdvKltUXCzsYBB2GiI23ufHyd+bf6s+T5Zp5sEQrkUltQH1MsBujc8E
- nf3wXii+/cvLtiqmokvQwX3f1xqhTMT0DwjM6zbA6vkC4=
-X-Received: by 2002:a05:651c:1543:b0:393:77ef:9079 with SMTP id
- 38308e7fff4ca-39561f57db0mr66667601fa.28.1779207359359; 
- Tue, 19 May 2026 09:15:59 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-395882c41c1sm20823091fa.12.2026.05.19.09.15.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 09:15:57 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: [PATCH v2] drm/amdgpu: fix recursive ww_mutex acquire in
- amdgpu_devcoredump_format
-Date: Tue, 19 May 2026 21:15:40 +0500
-Message-ID: <20260519161541.19994-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
-References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
-MIME-Version: 1.0
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020130.outbound.protection.outlook.com [52.101.196.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D4EC10EDAD
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:24:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CUW/L1l48koEHgXdEa4Io0kOB61/D22HWzEj3bF0qi/C22/ohJQeRoMyQFJwg3Bqriz43L7SujrxY65WACKYBpEvoe+PYG1bD0x5MLnDKtSQ7vqcUA/dfBr+NNTOB21+x3/nBpZbU8qht0nuNaJhD2512Q34DeWT2NYq3fk0+3NtNsbuHqwpcbR+4DrD+G3uebM7JwpFjJV1QbrponBQGBnisnCsinTJl6oNwjgI/U5Ff3csuKbTTP51g8wVghLwIJoAy+Q0ra8jCsYaCReqk6GkdsvAUCHyJRqpwmJbtbX5h0wPoesP3wfIsdNYMkoMAk5qwxmG82aeAPhYPY/8bA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4n0Ppc59UVLV2lOxTeMwlmuzWjJzB4g59Q378/lIuo8=;
+ b=DAWuvwf56xRdktGxgPm6b1R2LO1RO2ypqaRriCRDdrmeH7GUbo+xyq9PtlMj7HE5ZZLVKkFECOQNG/dTo40Td5E7v3U+8l3NZy77YXVBxYse/evmR4/0YKQCEGoUZZVeOPp2k2HTn5T7sQ8XrKL/T/4mUE3mUQACh1G/npTfuSX7uUk3NY7wD2FvhQVevb56DbI+q/G8X4IHRS68Iq6ElxX1rcKQg16Tqjh9NHN9OKzU6YpcVeXyMyKXL3A+avPcyV9TLarEuB/8eCC3g8NJrwTld6kyBpK0MxtPCRR9mVEwbVKd0vEODKq7EeVbB0QPil+1msDaYWOsfMJyrFsF8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4n0Ppc59UVLV2lOxTeMwlmuzWjJzB4g59Q378/lIuo8=;
+ b=OJUX/sMsuVRSAw1aqp3B5Rgv1gw0w1FK+uab6Z42VIDrQQC28J/mX2uxqyss3UTzQ67PcymuNRZA7S2I62Z7h0mhHlNf+WmbHgp0LovxRm5gVR//fMyBb27ISPiGBnE2KFD5wiKism34JNYYW/X4T8yy1Ud75YXkCl0CpXKVSpw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO4P265MB7048.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.25; Tue, 19 May
+ 2026 16:24:30 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 16:24:30 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 19 May 2026 17:24:29 +0100
+Message-Id: <DIMSJVKTYX6D.AEN6OPPC2898@garyguo.net>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v3 19/27] rust: pci: make Bar lifetime-parameterized
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
+ <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
+X-Mailer: aerc 0.21.0
+References: <20260517000149.3226762-1-dakr@kernel.org>
+ <20260517000149.3226762-20-dakr@kernel.org>
+In-Reply-To: <20260517000149.3226762-20-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0044.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:152::13) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB7048:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20d6c432-af9b-449e-d4c3-08deb5c31a8e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|7416014|376014|366016|921020|4143699003|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Ccq8SqHCmTAieOshrmp603RjehDjXS/CrSqqvGNAOAHg+Sk49TCjdQHiNHCP65HQa/23lUEfUrH8sPWsorNY2f/33LtzO7I0r3GMImcgt9w8eA0xkF6PRPD1AkFfguPrjUzczbpKKzhK09JLxQo1QxjImzqPRZvrbRffkbxH+R9un+Mw4LMe9Ql3427MI1zB6mZcXOyeDO70L/yrzgb8tM//mhl2JELFcUjfkex4a6RIWMtiP+Ml0XRKtXucHiWVn/BseEqPREXe+jQJ1Wakyppo+FecdcVDCLb7toJS3JLI49j4b5SjM1byaLCvOt88ais+IT6SldBJIenFcz/em5oDav1QgHzEZso+D5GyZA8xHL84LLedzRad2nz2CikeQyon2dfRJW4OJMEK9CU9/C0wvGyHhTzb5QJLL6CN8eoB6a6Kv+b9yltXm5O52tRzl9QpOAFtPw5lB4EMUdstalooJ0qv/xsd+Iq0oOllntJW3uMedsiL5Z9I9A9O64kfLpHv/gWxzkciS2jOwIKGZvma6lCOdKd7dwlNOtok5fKGlIcpsw70WO1TvmoHcg9P+jVWalP3Uyn+wtY3IRosvMYQUcdrSjLbbiQRfu1S7C9BhDnIR9dq+8BsK4YOlhojQc9CjqjC+JTn7xdsSi/6i6n+N2sl/N2yxAx1MCrzlaQcKh4WR2oelFl+WaXfhtSyGwAk7mfgdpW2bK0xXQZ3Q//FecZPE+16Nn0kXV69hdc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(7416014)(376014)(366016)(921020)(4143699003)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Vm4xWEdOaUk5YlFPMjNXd3RocmZQclVIOUQ1TXZxRGgvdXozb2M4UHI4S2g0?=
+ =?utf-8?B?Mmp2VGtUME10a3FrVVJGcW1jVFBocVVvODZoNzJwdVBNa2x6c3RlZ21rYVg0?=
+ =?utf-8?B?NlFKRjNRQU5PZzVJSnhxT1hMcG16ajBGVUZSRTN6WnAySlR6N215ZHVGRk5P?=
+ =?utf-8?B?cDlBcVdjSDkxM2pwdmdUR1dQNkxJZ2Y1OW1CWW9FTmxRMisxMENvQ3IyMlQ4?=
+ =?utf-8?B?a210SWJCYlU5U2hwdFZjcCtIUHBjMDhaaUlPMTljSy9QV2hyR012R0RNeWZ3?=
+ =?utf-8?B?dXAvZDJqY3loVGpRY3ZUbHlWZFNQQ0hzTU5LdVBrM01lbU1zVHFaVk9COTVn?=
+ =?utf-8?B?WTY1T2FHbGpyRS9lYmJJeklYbTA3eTk1eXpqaEIvNC8rK0NJNVVpVVE0MG10?=
+ =?utf-8?B?Q0VWMUZ4NVp0clFKYUlZT1dHaVQ5Vi9uYkU5bm9mL3JrNndRTDBwMWNqTnBF?=
+ =?utf-8?B?WWcrWW9ISG52b0ZTSFVGWDZNN2Evd0ZjUngwVmR4Q3VHUDNTL1RybTF2UTVO?=
+ =?utf-8?B?bEhBWHZrTVUvOVA1c2NHMmhQVk91NmllMmhOWCsxNFhMZU1ZVGNtTzFYSVMy?=
+ =?utf-8?B?QlNBV205OU5hL0xxQmRiNFhxQ25IdHJEUS9wM05FU2h5SVFaVzlHK005YjhV?=
+ =?utf-8?B?bDhud1RBZHFORFRwamhsYXdleHlxcjNjZ3pYa2wxU211bXpvb3R2SjdMR2Ra?=
+ =?utf-8?B?cTRXekZHbU5GVDB5c25jbUFPNG83ektQR3YrdjRjMi9XU2FYZWxqeEhRTmJH?=
+ =?utf-8?B?VFFRbW1GSVR2cThHTlZLNmhudTlwbW5hbndUMC9YeGE0aVBGc2tWZWRNZWlS?=
+ =?utf-8?B?T0dnb2RSdis4dWJxenlqek1iRVFOZmlwMWZ2Y1FmMDBTbDF6MzR3dEdpRlNE?=
+ =?utf-8?B?ajB5UkxLUG9QdFJ1Zjk4U0lTbXQwQS9MR09LT3hWSnlkZkYyMXMrZmxrT1Z2?=
+ =?utf-8?B?Vzhmc2N6dythZTFpRFcrMGtqeEd2S1pEWXJVUnp3WmJXcWZZQ0E3Zm9McDRz?=
+ =?utf-8?B?R29pcENWbEpyMmFBV1ZoSnE2d2hBQzRMQWoweEJEUU9yejdDTmw4cjVsYlc2?=
+ =?utf-8?B?RUQrR3ZpKzBYd0JmM1RpREhlcGN1NmpsdW5Cb09BT3gvcnZnWEY0bGhLMXhv?=
+ =?utf-8?B?M3NlWlJuaklUeXYrUUg2Sll2TGZMYXZtSUlDTVRkdWl6UjdEMVM2LzNhMElI?=
+ =?utf-8?B?QjRUcTluaWx6aTVsTDlYL09xeHMxaXoyYmR5Z1d4VnoySU5DWU5USFI3RlNK?=
+ =?utf-8?B?NjI5VkMvWXNvdm5xUFI1cnVPYUVKN0lxM2tMWDVyNk9vMWllS210R00zczVh?=
+ =?utf-8?B?RVVNWG52dWVxNXNVSVFDNjZyVTdzTks3L1JEcDA0NzJkNkwxRjN2QzV4WjNH?=
+ =?utf-8?B?YzErZTJvdlMzb0NZWjdUanJtTkM2dityTDVYQ0Z4WXQwbGVRbjNWbTlBMXps?=
+ =?utf-8?B?WEg3MHc5V2xrMmJjR0s2bnl3MkRiUndrcUUvUEZ2OFQ5d0xFMC8vWlRyWkVr?=
+ =?utf-8?B?K0VhSSszcFJISzllLzdxaWJKTG8rbEd2bStoZGtKalZUN1JpTDNQcHJxSFJ4?=
+ =?utf-8?B?UjQvNmRKWis4VyttZGllMVV1QWxPcExEV3gxMXYyWnNXcUxiaVZRcnBDMm13?=
+ =?utf-8?B?N3BWcFVSMjA2QnhpQzdYcFRPWUh5N1ErbEVYVDBmcHBFbFlKcVk2NGI3OXA3?=
+ =?utf-8?B?NjBPUmpyODM5a2ZQTmJocDJQbjh2bE5IbTA1QmpmWU9aNUc3aFlIQnhaQUdu?=
+ =?utf-8?B?L0pQcFBkZXA4NkZPKzN1K0dIVHdyODEvSHVOMCtGRk1zWjZXK3BZMiszSlVa?=
+ =?utf-8?B?TTUwNU92ZUREZm9CSVV3Ymd0aHdjVHJXYzlPbkgvYlU3YUp3eENxdGhKM1BU?=
+ =?utf-8?B?SFlpVnFYdC9Gd2krTTE3cmJFZkN4Nm5iTWNHaWJlM2lSa1kxSkNLUUgwak1R?=
+ =?utf-8?B?bEQwa0ZYa3E2dWJFSG5pYndpY2FCYVFSWTluTGVzNEdvUkFWS05la01sRDYr?=
+ =?utf-8?B?RStSbDQ1SmVNdHVoY3NNcTdKbXA3ZHFDOEViTWhxenVOL3J1NlowMUYzZWE1?=
+ =?utf-8?B?bXB5TDJ1amJRVENmNWdkamhDOURxT0lDaVVkZnBxNzNqdDhtZ3FTUGZKM2w5?=
+ =?utf-8?B?clJFeUZmZUsrZjM4UTJPVGNHbUJSNXRQa3FCdWhlaXJiMEg1OTViRXpvUmlG?=
+ =?utf-8?B?cWhTYkdtMXVnWkNoeDg5WmI3RmswK09PVU9ZMWRaTWM2aHVaeDRtc1ZYZFJT?=
+ =?utf-8?B?anNUSmdiWGNxVXY5Qm92eHJldkVZL25ianMzeDdaQjhoTDhJVnYwVlVpQWJR?=
+ =?utf-8?B?QSt0KzhVaHBKT2grSlpRcmdvdENtazhaVEY1cjh5dFNQWkdrR1NzZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20d6c432-af9b-449e-d4c3-08deb5c31a8e
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 16:24:30.3107 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QiktDB/k5TkULECU9WY9BMHAL7dVdV8wIYiORfUYgBbUyZAkToziXsFmiOFdidv/AuAEhxYLJTZFznagZ0AWhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB7048
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,349 +147,379 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When dumping IB contents from a hung job, amdgpu_devcoredump_format()
-acquires the VM root PD's reservation lock via amdgpu_vm_lock_by_pasid()
-and then, for each IB referenced by the job, calls amdgpu_bo_reserve()
-on the BO that backs the IB.  Both reservations are taken on
-reservation_ww_class_mutex objects but neither uses a ww_acquire_ctx,
-which trips lockdep:
-
-  WARNING: possible recursive locking detected
-  --------------------------------------------
-  kworker/u128:0 is trying to acquire lock:
-  ffff88838b16e1f0 (reservation_ww_class_mutex){+.+.}-{4:4},
-    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
-
-  but task is already holding lock:
-  ffff8882f82681f0 (reservation_ww_class_mutex){+.+.}-{4:4},
-    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
-
-   Possible unsafe locking scenario:
-         CPU0
-         ----
-    lock(reservation_ww_class_mutex);
-    lock(reservation_ww_class_mutex);
-
-   *** DEADLOCK ***
-   May be due to missing lock nesting notation
-
-  Workqueue: events_unbound amdgpu_devcoredump_deferred_work [amdgpu]
-  Call Trace:
-   __ww_mutex_lock.constprop.0
-   ww_mutex_lock
-   amdgpu_bo_reserve
-   amdgpu_devcoredump_format+0x1594 [amdgpu]
-   amdgpu_devcoredump_deferred_work+0xea [amdgpu]
-
-The two reservations are on different BOs in the captured trace, so the
-splat is a lockdep-correctness warning, not an observed deadlock.  It
-becomes a real self-deadlock whenever the IB BO shares its dma_resv
-with the root PD (the always-valid case, see
-amdgpu_vm_is_bo_always_valid()): amdgpu_bo_reserve(abo) re-acquires the
-same ww_mutex without a ticket and blocks forever.
-
-Fix it in two steps:
-
-1. Collect per-IB BO references under the root PD's reservation, then
-   release the root before locking the IB BOs.  The walk over the VM
-   mapping tree must remain under the root lock (mappings can be torn
-   down without it), but the actual content copies do not.
-
-2. Lock all the IB BOs together using drm_exec(9) with a single
-   ww_acquire_ctx.  DRM_EXEC_IGNORE_DUPLICATES handles the case where
-   IB BOs share a dma_resv (e.g. always-valid BOs).  Each lock attempt
-   is now a top-level acquire under one ticket, with retry-on-
-   contention handled by drm_exec; the recursive ww_mutex condition
-   is gone.
-
-The collect/lock/release logic is factored out into three small helpers
-(amdgpu_devcoredump_{collect,lock,release}_ib_refs) to keep the main
-function readable and within the kernel coding style indentation
-guideline.
-
-This also fixes a BO refcount leak in the original code: when
-amdgpu_bo_reserve() failed, control jumped to free_ib_content without
-running amdgpu_bo_unref().  In the new structure the per-IB BO refs
-are released unconditionally in the cleanup helper.
-
-Reproducer (~150 LoC libdrm_amdgpu): submit a single GFX IB containing
-PACKET3_INDIRECT_BUFFER chained at GPU VA 0 and wait for the fence.
-The TDR fires within ~10 s and the deferred coredump worker produces
-the splat above on every invocation.
-
-v2: switch from per-IB amdgpu_bo_reserve() to drm_exec for the IB BO
-    locking as suggested by Christian König; the snapshot approach
-    for collecting BO references under the root PD's reservation is
-    retained.
-
-Fixes: 7b15fc2d1f1a ("drm/amdgpu: dump job ibs in the devcoredump")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 187 ++++++++++++++----
- 1 file changed, 148 insertions(+), 39 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index d386bc775d03..9ac958cf09fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -24,6 +24,7 @@
- 
- #include <generated/utsrelease.h>
- #include <linux/devcoredump.h>
-+#include <drm/drm_exec.h>
- #include "amdgpu_dev_coredump.h"
- #include "atom.h"
- 
-@@ -207,6 +208,108 @@ static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
- 	}
- }
- 
-+struct amdgpu_devcoredump_ib_ref {
-+	struct amdgpu_bo	*bo;
-+	u64			offset;
-+};
-+
-+/*
-+ * Walk the VM's mapping tree under the root PD's reservation to obtain the BO
-+ * that backs each IB and pin it with a refcount. The root PD reservation is
-+ * dropped before this function returns; the caller can then lock each IB BO
-+ * via drm_exec without nesting reservations on reservation_ww_class_mutex.
-+ *
-+ * Returns an array of num_ibs entries (each ib_refs[i].bo may be NULL if its
-+ * mapping was not found), or NULL on allocation failure / VM lookup failure.
-+ * The caller must release the BO refs and free the array via
-+ * amdgpu_devcoredump_release_ib_refs().
-+ */
-+static struct amdgpu_devcoredump_ib_ref *
-+amdgpu_devcoredump_collect_ib_refs(struct amdgpu_device *adev,
-+				   struct amdgpu_coredump_info *coredump)
-+{
-+	struct amdgpu_devcoredump_ib_ref *ib_refs;
-+	struct amdgpu_bo_va_mapping *mapping;
-+	struct amdgpu_bo *root;
-+	struct amdgpu_vm *vm;
-+	u64 va_start;
-+
-+	ib_refs = kcalloc(coredump->num_ibs, sizeof(*ib_refs), GFP_KERNEL);
-+	if (!ib_refs)
-+		return NULL;
-+
-+	vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
-+	if (!vm) {
-+		kfree(ib_refs);
-+		return NULL;
-+	}
-+
-+	for (int i = 0; i < coredump->num_ibs; i++) {
-+		va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
-+		mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
-+		if (!mapping)
-+			continue;
-+
-+		ib_refs[i].bo = amdgpu_bo_ref(mapping->bo_va->base.bo);
-+		ib_refs[i].offset = va_start -
-+				    mapping->start * AMDGPU_GPU_PAGE_SIZE;
-+	}
-+
-+	amdgpu_bo_unreserve(root);
-+	amdgpu_bo_unref(&root);
-+
-+	return ib_refs;
-+}
-+
-+static void
-+amdgpu_devcoredump_release_ib_refs(struct amdgpu_devcoredump_ib_ref *ib_refs,
-+				   int num_ibs)
-+{
-+	if (!ib_refs)
-+		return;
-+
-+	for (int i = 0; i < num_ibs; i++)
-+		if (ib_refs[i].bo)
-+			amdgpu_bo_unref(&ib_refs[i].bo);
-+	kfree(ib_refs);
-+}
-+
-+/*
-+ * Lock all collected IB BOs together using a single drm_exec ticket. This
-+ * eliminates the nested ww_mutex acquire that lockdep flags as recursive
-+ * locking (and that becomes a real self-deadlock for IB BOs sharing their
-+ * dma_resv with the root PD).
-+ *
-+ * Returns 0 if drm_exec was initialised and the BOs are locked; the caller
-+ * must call drm_exec_fini() on success. Returns non-zero on failure, in which
-+ * case drm_exec is already torn down.
-+ */
-+static int
-+amdgpu_devcoredump_lock_ib_refs(struct drm_exec *exec,
-+				struct amdgpu_devcoredump_ib_ref *ib_refs,
-+				int num_ibs)
-+{
-+	int r = 0;
-+
-+	drm_exec_init(exec, DRM_EXEC_IGNORE_DUPLICATES, num_ibs);
-+	drm_exec_until_all_locked(exec) {
-+		r = 0;
-+		for (int i = 0; i < num_ibs; i++) {
-+			if (!ib_refs[i].bo)
-+				continue;
-+			r = drm_exec_lock_obj(exec, &ib_refs[i].bo->tbo.base);
-+			drm_exec_retry_on_contention(exec);
-+			if (r)
-+				break;
-+		}
-+		if (r)
-+			break;
-+	}
-+	if (r)
-+		drm_exec_fini(exec);
-+	return r;
-+}
-+
- static ssize_t
- amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_info *coredump)
+On Sun May 17, 2026 at 1:01 AM BST, Danilo Krummrich wrote:
+> Convert pci::Bar<SIZE> to pci::Bar<'bound, SIZE>, storing &'bound
+> Device<Bound> to tie the BAR mapping lifetime to the device.
+>
+> iomap_region_sized() now returns Result<Bar<'bound, SIZE>> directly inste=
+ad
+> of impl PinInit<Devres<Bar<SIZE>>, Error>.
+>
+> Add Bar::into_devres() to consume the bar and register it as a
+> device-managed resource, returning Devres<Bar<'static, SIZE>>. The
+> lifetime is erased to 'static because Devres guarantees the bar does not
+> actually outlive the device -- access is revoked on unbind.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/gpu/nova-core/driver.rs |  7 ++--
+>  rust/kernel/devres.rs           |  2 +-
+>  rust/kernel/pci/io.rs           | 68 +++++++++++++++++----------------
+>  samples/rust/rust_driver_pci.rs |  5 ++-
+>  4 files changed, 44 insertions(+), 38 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
+er.rs
+> index ab0d7f2b516c..3f6d8cedf5ab 100644
+> --- a/drivers/gpu/nova-core/driver.rs
+> +++ b/drivers/gpu/nova-core/driver.rs
+> @@ -47,7 +47,7 @@ pub(crate) struct NovaCore {
+>  // DMA addresses. These systems should be quite rare.
+>  const GPU_DMA_BITS: u32 =3D 47;
+> =20
+> -pub(crate) type Bar0 =3D pci::Bar<BAR0_SIZE>;
+> +pub(crate) type Bar0 =3D pci::Bar<'static, BAR0_SIZE>;
+> =20
+>  kernel::pci_device_table!(
+>      PCI_TABLE,
+> @@ -94,8 +94,9 @@ fn probe<'bound>(
+>              // other threads of execution.
+>              unsafe { pdev.dma_set_mask_and_coherent(DmaMask::new::<GPU_D=
+MA_BITS>())? };
+> =20
+> -            let bar =3D Arc::pin_init(
+> -                pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0=
+"),
+> +            let bar =3D Arc::new(
+> +                pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0=
+")?
+> +                    .into_devres()?,
+>                  GFP_KERNEL,
+>              )?;
+> =20
+> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+> index 9e5f93aed20c..ec63317665f4 100644
+> --- a/rust/kernel/devres.rs
+> +++ b/rust/kernel/devres.rs
+> @@ -304,7 +304,7 @@ pub fn device(&self) -> &Device {
+>      ///     pci, //
+>      /// };
+>      ///
+> -    /// fn from_core(dev: &pci::Device<Core>, devres: Devres<pci::Bar<0x=
+4>>) -> Result {
+> +    /// fn from_core(dev: &pci::Device<Core>, devres: Devres<pci::Bar<'_=
+, 0x4>>) -> Result {
+>      ///     let bar =3D devres.access(dev.as_ref())?;
+>      ///
+>      ///     let _ =3D bar.read32(0x0);
+> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+> index ae78676c927f..5668394a155b 100644
+> --- a/rust/kernel/pci/io.rs
+> +++ b/rust/kernel/pci/io.rs
+> @@ -14,8 +14,7 @@
+>          Mmio,
+>          MmioRaw, //
+>      },
+> -    prelude::*,
+> -    sync::aref::ARef, //
+> +    prelude::*, //
+>  };
+>  use core::{
+>      marker::PhantomData,
+> @@ -78,15 +77,15 @@ impl ConfigSpaceKind for Extended {
+>  /// The generic parameter `S` indicates the maximum size of the configur=
+ation space.
+>  /// Use [`Normal`] for 256-byte legacy configuration space or [`Extended=
+`] for
+>  /// 4096-byte PCIe extended configuration space (default).
+> -pub struct ConfigSpace<'a, S: ConfigSpaceKind =3D Extended> {
+> -    pub(crate) pdev: &'a Device<device::Bound>,
+> +pub struct ConfigSpace<'bound, S: ConfigSpaceKind =3D Extended> {
+> +    pub(crate) pdev: &'bound Device<device::Bound>,
+>      _marker: PhantomData<S>,
+>  }
+> =20
+>  /// Implements [`IoCapable`] on [`ConfigSpace`] for `$ty` using `$read_f=
+n` and `$write_fn`.
+>  macro_rules! impl_config_space_io_capable {
+>      ($ty:ty, $read_fn:ident, $write_fn:ident) =3D> {
+> -        impl<'a, S: ConfigSpaceKind> IoCapable<$ty> for ConfigSpace<'a, =
+S> {
+> +        impl<'bound, S: ConfigSpaceKind> IoCapable<$ty> for ConfigSpace<=
+'bound, S> {
+>              unsafe fn io_read(&self, address: usize) -> $ty {
+>                  let mut val: $ty =3D 0;
+> =20
+> @@ -119,7 +118,7 @@ unsafe fn io_write(&self, value: $ty, address: usize)=
  {
-@@ -214,13 +317,9 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 	struct drm_printer p;
- 	struct drm_print_iterator iter;
- 	struct amdgpu_vm_fault_info *fault_info;
--	struct amdgpu_bo_va_mapping *mapping;
- 	struct amdgpu_ip_block *ip_block;
- 	struct amdgpu_res_cursor cursor;
--	struct amdgpu_bo *abo, *root;
--	uint64_t va_start, offset;
- 	struct amdgpu_ring *ring;
--	struct amdgpu_vm *vm;
- 	u32 *ib_content;
- 	uint8_t *kptr;
- 	int ver, i, j, r;
-@@ -343,43 +442,52 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
- 
- 	if (coredump->num_ibs) {
--		/* Don't try to lookup the VM or map the BOs when calculating the
--		 * size required to store the devcoredump.
-+		struct amdgpu_devcoredump_ib_ref *ib_refs = NULL;
-+		struct drm_exec exec;
-+		bool ibs_locked = false;
-+
-+		/*
-+		 * Collect the BO that backs each IB under the root PD's
-+		 * reservation, drop the root reservation, then lock all the
-+		 * IB BOs together in one drm_exec ticket. This avoids nesting
-+		 * amdgpu_bo_reserve() inside the root PD's reservation, which
-+		 * would be a recursive reservation_ww_class_mutex acquire
-+		 * without a ww_acquire_ctx (lockdep splat, and a real
-+		 * self-deadlock for always-valid BOs that share their dma_resv
-+		 * with the root PD).
-+		 *
-+		 * Skip lookup/locking entirely on the sizing pass: it does not
-+		 * write IB content, and the size estimate doesn't depend on
-+		 * whether the BOs are reachable.
- 		 */
--		if (sizing_pass)
--			vm = NULL;
--		else
--			vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
-+		if (!sizing_pass) {
-+			ib_refs = amdgpu_devcoredump_collect_ib_refs(adev, coredump);
-+			if (ib_refs) {
-+				r = amdgpu_devcoredump_lock_ib_refs(&exec, ib_refs,
-+								    coredump->num_ibs);
-+				if (!r)
-+					ibs_locked = true;
-+			}
-+		}
-+
-+		for (int i = 0; i < coredump->num_ibs; i++) {
-+			struct amdgpu_bo *abo = ibs_locked ? ib_refs[i].bo : NULL;
-+			u64 offset = ibs_locked ? ib_refs[i].offset : 0;
-+			bool emit_content = sizing_pass;
- 
--		for (int i = 0; i < coredump->num_ibs && (sizing_pass || vm); i++) {
- 			ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
- 						    GFP_KERNEL);
- 			if (!ib_content)
- 				continue;
- 
--			/* vm=NULL can only happen when 'sizing_pass' is true. Skip to the
--			 * drm_printf() calls (ib_content doesn't need to be initialized
--			 * as its content won't be written anywhere).
--			 */
--			if (!vm)
-+			if (!abo)
- 				goto output_ib_content;
- 
--			va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
--			mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
--			if (!mapping)
--				goto free_ib_content;
--
--			offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
--			abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
--			r = amdgpu_bo_reserve(abo, false);
--			if (r)
--				goto free_ib_content;
--
- 			if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
- 				off = 0;
- 
- 				if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
--					goto unreserve_abo;
-+					goto output_ib_content;
- 
- 				amdgpu_res_first(abo->tbo.resource, offset,
- 						 coredump->ibs[i].ib_size_dw * 4,
-@@ -391,12 +499,13 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 					off += cursor.size;
- 					amdgpu_res_next(&cursor, cursor.size);
- 				}
-+				emit_content = true;
- 			} else {
- 				r = ttm_bo_kmap(&abo->tbo, 0,
- 						PFN_UP(abo->tbo.base.size),
- 						&abo->kmap);
- 				if (r)
--					goto unreserve_abo;
-+					goto output_ib_content;
- 
- 				kptr = amdgpu_bo_kptr(abo);
- 				kptr += offset;
-@@ -404,23 +513,23 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 				       coredump->ibs[i].ib_size_dw * 4);
- 
- 				amdgpu_bo_kunmap(abo);
-+				emit_content = true;
- 			}
- 
- output_ib_content:
- 			drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
- 				   i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
--			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
--				drm_printf(&p, "0x%08x\n", ib_content[j]);
--unreserve_abo:
--			if (vm)
--				amdgpu_bo_unreserve(abo);
--free_ib_content:
-+			if (emit_content) {
-+				for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
-+					drm_printf(&p, "0x%08x\n", ib_content[j]);
-+			}
- 			kvfree(ib_content);
- 		}
--		if (vm) {
--			amdgpu_bo_unreserve(root);
--			amdgpu_bo_unref(&root);
--		}
-+
-+		if (ibs_locked)
-+			drm_exec_fini(&exec);
-+
-+		amdgpu_devcoredump_release_ib_refs(ib_refs, coredump->num_ibs);
- 	}
- 
- 	return count - iter.remain;
--- 
-2.54.0
+>  impl_config_space_io_capable!(u16, pci_read_config_word, pci_write_confi=
+g_word);
+>  impl_config_space_io_capable!(u32, pci_read_config_dword, pci_write_conf=
+ig_dword);
+> =20
+> -impl<'a, S: ConfigSpaceKind> Io for ConfigSpace<'a, S> {
+> +impl<'bound, S: ConfigSpaceKind> Io for ConfigSpace<'bound, S> {
+>      /// Returns the base address of the I/O region. It is always 0 for c=
+onfiguration space.
+>      #[inline]
+>      fn addr(&self) -> usize {
+> @@ -133,7 +132,7 @@ fn maxsize(&self) -> usize {
+>      }
+>  }
+> =20
+> -impl<'a, S: ConfigSpaceKind> IoKnownSize for ConfigSpace<'a, S> {
+> +impl<'bound, S: ConfigSpaceKind> IoKnownSize for ConfigSpace<'bound, S> =
+{
+>      const MIN_SIZE: usize =3D S::SIZE;
+>  }
+> =20
+> @@ -146,14 +145,14 @@ impl<'a, S: ConfigSpaceKind> IoKnownSize for Config=
+Space<'a, S> {
+>  ///
+>  /// `Bar` always holds an `IoRaw` instance that holds a valid pointer to=
+ the start of the I/O
+>  /// memory mapped PCI BAR and its size.
+> -pub struct Bar<const SIZE: usize =3D 0> {
+> -    pdev: ARef<Device>,
+> +pub struct Bar<'bound, const SIZE: usize =3D 0> {
+> +    pdev: &'bound Device<device::Bound>,
+
+I think there's probably no need to name this `'bound`. From an individual
+resource's perspective, there is no need to ensure that the lifetime is liv=
+ing
+as long as a bound device.
+
+It is perfectly fine to temporarily obtain a `Bar` and just destroy it befo=
+re
+device is unbound. So in some sense, this is
+
+    struct Bar<'a, const SIZE: usize> where 'bound: 'a
+
+and this bound is implied by the `&'a Device<device::Bound>` type.
+
+For interfaces which currently require invariance (e.g. `Driver::Data<'boun=
+d>`),
+the name change is more important because the API does require a matching
+lifetime (and also DevResLt).
+
+>      io: MmioRaw<SIZE>,
+>      num: i32,
+>  }
+> =20
+> -impl<const SIZE: usize> Bar<SIZE> {
+> -    pub(super) fn new(pdev: &Device, num: u32, name: &CStr) -> Result<Se=
+lf> {
+> +impl<'bound, const SIZE: usize> Bar<'bound, SIZE> {
+> +    pub(super) fn new(pdev: &'bound Device<device::Bound>, num: u32, nam=
+e: &CStr) -> Result<Self> {
+>          let len =3D pdev.resource_len(num)?;
+>          if len =3D=3D 0 {
+>              return Err(ENOMEM);
+> @@ -196,11 +195,7 @@ pub(super) fn new(pdev: &Device, num: u32, name: &CS=
+tr) -> Result<Self> {
+>              }
+>          };
+> =20
+> -        Ok(Bar {
+> -            pdev: pdev.into(),
+> -            io,
+> -            num,
+> -        })
+> +        Ok(Bar { pdev, io, num })
+>      }
+> =20
+>      /// # Safety
+> @@ -219,11 +214,24 @@ unsafe fn do_release(pdev: &Device, ioptr: usize, n=
+um: i32) {
+> =20
+>      fn release(&self) {
+>          // SAFETY: The safety requirements are guaranteed by the type in=
+variant of `self.pdev`.
+> -        unsafe { Self::do_release(&self.pdev, self.io.addr(), self.num) =
+};
+> +        unsafe { Self::do_release(self.pdev, self.io.addr(), self.num) }=
+;
+> +    }
+> +
+> +    /// Consume the `Bar` and register it as a device-managed resource.
+> +    ///
+> +    /// The returned `Devres<Bar<'static, SIZE>>` can outlive the origin=
+al lifetime `'bound`. Access
+> +    /// to the BAR is revoked when the device is unbound.
+> +    pub fn into_devres(self) -> Result<Devres<Bar<'static, SIZE>>> {
+> +        // SAFETY: Casting to `'static` is sound because `Devres` guaran=
+tees the `Bar` does not
+> +        // actually outlive the device -- access is revoked and the reso=
+urce is released when the
+> +        // device is unbound.
+> +        let bar: Bar<'static, SIZE> =3D unsafe { core::mem::transmute(se=
+lf) };
+> +        let pdev =3D bar.pdev;
+> +        Devres::new(pdev.as_ref(), bar)
+
+One thing to note (which kinda motivates to suggest `'bound` might not be a=
+ good
+name) is that while this is sound for `Bar`, this logic isn't true in gener=
+al
+for things that with the same shape as `Bar`.
+
+For example, say if we have
+
+    struct MyResource<'bound> {
+        dev: &'bound Device<Bound>,
+        data: &'bound [u8],
+    }
+
+then it's not okay to turn this into `DevRes<MyResource<'static>>` (or
+`DevResLt<ForLt!(MyResource<'_>)>`, because the user can shorten the lifeti=
+me on
+`&Device<Bound>`:
+
+    fn bad_fn<'bound>(dev: &'bound Device<Bound>) -> DevRes<MyResource<'sta=
+tic>> {
+        let local =3D [0; 64];
+        // Basically `MyResource<'local>`.
+        let my_resource =3D MyResource {
+            dev,
+            data: &local,
+        };
+        my_resource.into_devres()
+    }
+
+Now this is obviously bad because the resource now outlives `local` despite=
+ that
+it shouldn't. The `'bound` lifetime becomes the the confusion factor here.
+
+If this is just `&'a`, then you need to actually justify why the `into_devr=
+es()`
+is fine, which you still can for `Bar` not for `MyResource`.
+
+(This also means that sound and generic API of `DevResLt` would need either=
+ an
+API with invariant lifetime, or with callback API. So something like
+
+    struct BoundDevice<'bound>(&'bound Device<Bound>, PhantomData<fn(&'boun=
+d ())-> &'bound ()>);
+
+    impl BoundDevice<'bound> {
+        fn into_devres<F: ForLt>(&self, value: F::Of<'bound>) -> DevResLt<F=
+>;
+    }
+
+Or
+
+    impl Device<Bound> {
+        fn new_devres<F: ForLt>(&self, f: impl for<'bound> FnOnce(&'bound D=
+evice<Bound>) -> F::Of<'bound>) -> DevResLt<F>;
+    }
+
+Either way, I think we probably want to limit `'bound` to cases where it's
+actually `'bound` and not some possibly shortened lifetime.
+
+Best,
+Gary
+
+>      }
+>  }
+> =20
+> -impl Bar {
+> +impl Bar<'_> {
+>      #[inline]
+>      pub(super) fn index_is_valid(index: u32) -> bool {
+>          // A `struct pci_dev` owns an array of resources with at most `P=
+CI_NUM_RESOURCES` entries.
+> @@ -231,13 +239,13 @@ pub(super) fn index_is_valid(index: u32) -> bool {
+>      }
+>  }
+> =20
+> -impl<const SIZE: usize> Drop for Bar<SIZE> {
+> +impl<const SIZE: usize> Drop for Bar<'_, SIZE> {
+>      fn drop(&mut self) {
+>          self.release();
+>      }
+>  }
+> =20
+> -impl<const SIZE: usize> Deref for Bar<SIZE> {
+> +impl<const SIZE: usize> Deref for Bar<'_, SIZE> {
+>      type Target =3D Mmio<SIZE>;
+> =20
+>      fn deref(&self) -> &Self::Target {
+> @@ -249,20 +257,16 @@ fn deref(&self) -> &Self::Target {
+>  impl Device<device::Bound> {
+>      /// Maps an entire PCI BAR after performing a region-request on it. =
+I/O operation bound checks
+>      /// can be performed on compile time for offsets (plus the requested=
+ type size) < SIZE.
+> -    pub fn iomap_region_sized<'a, const SIZE: usize>(
+> -        &'a self,
+> +    pub fn iomap_region_sized<'bound, const SIZE: usize>(
+> +        &'bound self,
+>          bar: u32,
+> -        name: &'a CStr,
+> -    ) -> impl PinInit<Devres<Bar<SIZE>>, Error> + 'a {
+> -        Devres::new(self.as_ref(), Bar::<SIZE>::new(self, bar, name))
+> +        name: &CStr,
+> +    ) -> Result<Bar<'bound, SIZE>> {
+> +        Bar::new(self, bar, name)
+>      }
+> =20
+>      /// Maps an entire PCI BAR after performing a region-request on it.
+> -    pub fn iomap_region<'a>(
+> -        &'a self,
+> -        bar: u32,
+> -        name: &'a CStr,
+> -    ) -> impl PinInit<Devres<Bar>, Error> + 'a {
+> +    pub fn iomap_region<'bound>(&'bound self, bar: u32, name: &CStr) -> =
+Result<Bar<'bound>> {
+>          self.iomap_region_sized::<0>(bar, name)
+>      }
+> =20
+> @@ -282,7 +286,7 @@ pub fn cfg_size(&self) -> ConfigSpaceSize {
+>      }
+> =20
+>      /// Return an initialized normal (256-byte) config space object.
+> -    pub fn config_space<'a>(&'a self) -> ConfigSpace<'a, Normal> {
+> +    pub fn config_space<'bound>(&'bound self) -> ConfigSpace<'bound, Nor=
+mal> {
+>          ConfigSpace {
+>              pdev: self,
+>              _marker: PhantomData,
+> @@ -290,7 +294,7 @@ pub fn config_space<'a>(&'a self) -> ConfigSpace<'a, =
+Normal> {
+>      }
+> =20
+>      /// Return an initialized extended (4096-byte) config space object.
+> -    pub fn config_space_extended<'a>(&'a self) -> Result<ConfigSpace<'a,=
+ Extended>> {
+> +    pub fn config_space_extended<'bound>(&'bound self) -> Result<ConfigS=
+pace<'bound, Extended>> {
+>          if self.cfg_size() !=3D ConfigSpaceSize::Extended {
+>              return Err(EINVAL);
+>          }
+> diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_p=
+ci.rs
+> index 30b9311812f3..7791363df0a0 100644
+> --- a/samples/rust/rust_driver_pci.rs
+> +++ b/samples/rust/rust_driver_pci.rs
+> @@ -45,7 +45,7 @@ mod regs {
+>      pub(super) const END: usize =3D 0x10;
+>  }
+> =20
+> -type Bar0 =3D pci::Bar<{ regs::END }>;
+> +type Bar0 =3D pci::Bar<'static, { regs::END }>;
+> =20
+>  #[derive(Copy, Clone, Debug)]
+>  struct TestIndex(u8);
+> @@ -161,7 +161,8 @@ fn probe<'bound>(
+>              pdev.set_master();
+> =20
+>              Ok(try_pin_init!(Self {
+> -                bar <- pdev.iomap_region_sized::<{ regs::END }>(0, c"rus=
+t_driver_pci"),
+> +                bar: pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_=
+driver_pci")?
+> +                    .into_devres()?,
+>                  index: *info,
+>                  _: {
+>                      let bar =3D bar.access(pdev.as_ref())?;
 
