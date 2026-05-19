@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1469CD4F5B
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:26:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92956CD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA50F10EA96;
-	Tue, 19 May 2026 06:26:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E970510EA97;
+	Tue, 19 May 2026 06:26:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="ipKMJaJa";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="P8rM12T0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6EF510EA96
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E34210EA92
  for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:26:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BE8B0445CC;
+ by sea.source.kernel.org (Postfix) with ESMTP id 9936644569;
  Tue, 19 May 2026 06:26:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4D76AC2BCFF;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1A978C2BCC6;
  Tue, 19 May 2026 06:26:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1779171977; bh=8USOvLfbex0ZVgy7EUn6ZRwamRf3sFF+arQNn23gw0Y=;
+ t=1779171977; bh=vfc7PEfuAeEjqo+PGe1GnSXUHGllBagvhexmLDwXXe8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ipKMJaJauk0fA5+yufFLxdJClTPJfZfZxoDxqZwFf6hBI4zENeBWpI6ilS2oXy27R
- wSz+LAQ4MZPMrTl+6P5kM4uyLAh6cVckALnNqF5sy/Ro6OioOWXO7JDRNSYvC2TRcQ
- r3wRYNmvyIclj616YQzw6ViydDsB7rSNZPl+46mQ=
+ b=P8rM12T04+ZuBv6GHundGYtIAaOiFQVmUSH7xably5MuOZQ8r7iLOc9QKjSDnaqHj
+ ffhhMsqcDAfQUTpMlh75x4ZMxFrqOtbIE6ktVNGwnd8YqYIC9l66CN/lrR07iXbABi
+ n7Q3gj5LIToe4RvmN8BIkAX2EuqEmobGxso5P/M8=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3AE31CD4F3C;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 095DCCD4851;
  Tue, 19 May 2026 06:26:17 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Tue, 19 May 2026 14:26:17 +0800
-Subject: [PATCH 5/8] gpu: tyr: implement `ThisModule`
+Date: Tue, 19 May 2026 14:26:14 +0800
+Subject: [PATCH 2/8] rust: driver: make `DriverModule` struct pub(crate) in
+ `module_driver!`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-fix-fops-owner-v1-5-2ded9830da14@linux.dev>
+Message-Id: <20260519-fix-fops-owner-v1-2-2ded9830da14@linux.dev>
 References: <20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev>
 In-Reply-To: <20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -57,11 +58,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
  Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171975; l=715;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171975; l=796;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=8USOvLfbex0ZVgy7EUn6ZRwamRf3sFF+arQNn23gw0Y=;
- b=zqldcEI8ohWRFr4EEnWSghpngHLbAEk1qK0dxWah7adUt1/qhUvOGbxqOWwslwUBJfq1ViYr4
- Ltl2orxZ0wnDbBTHDTDRkA7cUUqEUeDZ15HlrrYpscZIzaFcy+sIqdO
+ bh=vfc7PEfuAeEjqo+PGe1GnSXUHGllBagvhexmLDwXXe8=;
+ b=iHl0SVhJNpVhuwZ7fh48egK9TuW+0iU+YW7qNL4AsNI9HBq33i2CD/EuLLetzk/gmObncqGZY
+ c1YeH3GB4bhDdkz58UDUJs4GIxBetIU7CQNTcDd16LTUVxnj/j/Y7aw
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -81,26 +82,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Set `ThisModule = super::DriverModule` to provide the correct module
-pointer for file operations ownership.
+Expose the generated `DriverModule` struct as `pub(crate)` so that
+driver implementations can reference it via `super::DriverModule`
+for the `ThisModule` associated type.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/gpu/drm/tyr/driver.rs | 1 +
- 1 file changed, 1 insertion(+)
+ rust/kernel/driver.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 279710b36a104..9eb4561ab831d 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -176,6 +176,7 @@ impl drm::Driver for TyrDrmDriver {
-     type Data = TyrDrmDeviceData;
-     type File = TyrDrmFileData;
-     type Object = drm::gem::Object<TyrObject>;
-+    type ThisModule = super::DriverModule;
+diff --git a/rust/kernel/driver.rs b/rust/kernel/driver.rs
+index 36de8098754d0..9c7c69c4d2af0 100644
+--- a/rust/kernel/driver.rs
++++ b/rust/kernel/driver.rs
+@@ -253,7 +253,7 @@ macro_rules! module_driver {
+         type Ops<$gen_type> = $driver_ops;
  
-     const INFO: drm::DriverInfo = INFO;
- 
+         #[$crate::prelude::pin_data]
+-        struct DriverModule {
++        pub(crate) struct DriverModule {
+             #[pin]
+             _driver: $crate::driver::Registration<Ops<$type>>,
+         }
 
 -- 
 2.43.0
