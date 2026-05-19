@@ -4,62 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8404BCD4F57
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 565FECD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C41AF10E3CE;
-	Tue, 19 May 2026 11:43:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F23510E15C;
+	Tue, 19 May 2026 11:46:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Qh9AamLj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eepcU3Gh";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7060D10E3CE
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:43:34 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 0D5A3C5EF23;
- Tue, 19 May 2026 11:44:25 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AC4E55FFC8;
- Tue, 19 May 2026 11:43:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4F660107E8D01; 
- Tue, 19 May 2026 13:43:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1779191010; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=o8CSK94nGvC+BLSkTIRhi64XQs2+aXkEqcBe5xOhX9w=;
- b=Qh9AamLja30jeTpXTfW8ZQlc7z9+8l9SA2OBLD1beXTXIjSiOxqK6XiVc6dzY9DUx9nPyB
- femGoD1Elg3BGycFwHYJraBUOy/ceZsw5k9K+TxcabA2TViIRI6SbNIVtFGUqOUc5B/ZUR
- 9LNKHvbdpjMVOka8At1cZ8oViUFH6R/YsRowiJI2LQYYnl29FWmRWZsiftvwtuaRkJHhXB
- eJVeD0XNE2mfWF1zdoK4fnNddP5jnN4MIiR9cy8VEZFDtqzsZbRmWaIebUXLR0dFQUQ+AT
- Z7DMldpxc0rqtiZ97TV140K4RhR/v0RF41WhsSGzlqFShLmGMpVPLZAHY+bpOg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 19 May 2026 13:43:24 +0200
-Message-Id: <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
-Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags
- for stable LVDS output
-Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <marex@denx.de>, <valentin@compulab.co.il>,
- <philippe.schenker@toradex.com>, <alexander.stein@ew.tq-group.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: <tessolveupstream@gmail.com>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260412053811.662461-1-tessolveupstream@gmail.com>
- <20260412053811.662461-2-tessolveupstream@gmail.com>
- <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
- <c4c33f14-0da0-447a-ab82-2e2f65c09c07@gmail.com>
- <7056b23b-ed81-4d79-b782-5cfcb0102ef7@gmail.com>
- <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
- <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
- <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
-In-Reply-To: <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2385710E15C
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:46:28 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2b9ec9443c2so22399475ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 04:46:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779191188; x=1779795988; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ta61K0Pmld/CsWKgzlq6xjmWULCR3bAZMfwfucx3DEM=;
+ b=eepcU3Gh3PM8WQgoaQsPYI2Y1vvZhJVdcaOOyvMzhjgGGzs+ECwCOTa7WrXnjI7hW1
+ Z9FU0bQkrxKIYlJ7eYF7nxYxTeXpZ2bMg1qifO4IzSTNxutwE74OVW4FQCs3y3neW23R
+ 5hPeP8Ex/s3EYIWzMAtTMQ+17f6dpsLghDJuq8hilMO0fdUoIwTJ/U39fwh2rJ+Tek9t
+ CTGQYWcCf1w7bHoRLTK5Mm8w4QcF9OdaEmEq+s8oS99LPYq407hSbYgJ/9KQm2Hm5Yb6
+ HsevKEhppfXjh0KYPJhRpYL6HGxSSPZNTEqhRCaaehBps4L5MvXlmV7Geh515vaeJcYo
+ 2AZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779191188; x=1779795988;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ta61K0Pmld/CsWKgzlq6xjmWULCR3bAZMfwfucx3DEM=;
+ b=gEqaQQ01B5JulkbkIvWMAbeYeqm4HEfhW8dODbqG1Mkw5Yh/k7WiAkcCX+9LEXAcfL
+ ju5Lj71SALiZeMPcjKP/2Y3hEpxJ1Ylp+4R4aDkXl4XrkF/CY+IPZLNXKwKVv0d5kN/a
+ S6glIXclA2HOusoOh5Zbjl5MvM75c9bksBmXZvpmZ1hZss+voyVXCe1MkPDncgCI/Obr
+ RhKWsjHMig0lrftTbKZwVj5ZMnkrhkvVWQvS8mEjvcOViX5NNsfyxh8G2TCf4aq3NFxW
+ lu/k0oWFNTVTfKDhFw0gDdMOmMVl8FBEA7IqnxVimR7n6W2n4+Zo3nacp26C2/DWZqBI
+ +NIw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/yYE8E4A4u2lGrHLquLDctZ28dihyWRI63aGgLSgeJgT9s0faMlY4T4JeKyIVTg+6ERV1oO6nvdtI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxi+lNS46Dn+jYYqTvO6GlKCdV2uyao2YA1aeO240KCfvOO/coc
+ Uy5zpPMx0m2296WSR5qlAisi2KSiUlFZSLj4FoEES5us8dsQnozSvMGP
+X-Gm-Gg: Acq92OHpBRpj0Wy+WVJjJwA+KpL9aNWIPoKacZzZAgDHEwbgjMSLnu89twunJ32+OO8
+ Gv2CvLt+dgt6DKrtgiyW3J2C6sH3QNr6fXZ/zqmaGohj6uLqR/fDVTWFj93YCGqB1XXJypflbJu
+ 7iWfiRKaTFpYHDKLzwypEdijMOZaAlWLH6nY/R2+fh/XxZ1c4MJi4skJGGB15+tUgdATQn+BapJ
+ mR8j/HnTrGOy6wjuWutnzTt4VPBhArekKu4R3bxQpMkI69KCKmpDPnhjJYCoo/jjcxQLtxn+rbM
+ zEELLdeobbs2bjX8nbZ8XblGeAcNXQn5J4nxLn0Lo/ULcKpVHhEAgFsuUo35roR0RSZJkknhPEu
+ eEoGv0C8o8XQrNUSxhil93qt871mpaX5x4yG4p9RygNEzXo2MLnVTAoubfTkIWYADmI8ufT6MQm
+ iQi8N3g9WlxwdH0xP3aqWeUWQEkA5I0gTjbW/zRkn4eVe+bCYFGUk/SA==
+X-Received: by 2002:a17:903:1cc:b0:2bd:2c3a:2a36 with SMTP id
+ d9443c01a7336-2bd523168b6mr203103925ad.0.1779191187600; 
+ Tue, 19 May 2026 04:46:27 -0700 (PDT)
+Received: from souradipto-das-Latitude-3460..
+ ([2405:201:8011:1c:c7a5:efe1:9ef6:7b2e])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2bd5cfe4935sm193368545ad.42.2026.05.19.04.46.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 May 2026 04:46:26 -0700 (PDT)
+From: Souradipto Das <souradiptodas6@gmail.com>
+To: Stefan Agner <stefan@agner.ch>,
+	Alison Wang <alison.wang@nxp.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Souradipto Das <souradiptodas6@gmail.com>
+Subject: [PATCH] drm/fsl-dcu: Remove redundant connector registration
+Date: Tue, 19 May 2026 17:16:11 +0530
+Message-ID: <20260519114611.11388-1-souradiptodas6@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,101 +91,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+Remove the explicit calls to drm_connector_register() and
+drm_connector_unregister() from the parallel RGB setup track.
 
-On Tue May 19, 2026 at 10:48 AM CEST, tessolveupstream wrote:
->
->
-> On 24-04-2026 13:55, Luca Ceresoli wrote:
->> Hello,
->>
->> On Thu Apr 23, 2026 at 11:16 AM CEST, tessolveupstream wrote:
->>
->>>> I had reached out to TI for clarification and any related documentatio=
-n
->>>> updates, but I have not received any response so far.Given this, it is
->>>> uncertain whether we will be able to obtain further details or officia=
-l
->>>> confirmation from TI in the near term.
->>>>
->>>> I would appreciate your guidance on how you would prefer us to proceed
->>>> from here.
->>>
->>> I followed up with TI, and they pointed us to the relevant sections in =
-the
->>> SN65DSI83/84/86 datasheets covering DSI video transmission specificatio=
-ns.
->>
->> Thanks for keeping on! I'm also trying to get info from TI, I'm keeping =
-you
->> up to date if that will happen.
->>
->>>> https://www.ti.com/lit/ds/symlink/sn65dsi84.pdf?ts=3D1776924088430&ref=
-_url=3Dhttps%253A%252F%252Fwww.ti.com%252Fproduct%252FSN65DSI84
->>>
->>> As per datasheet Section 7.4.7, the device operates in DSI video mode w=
-ith
->>> fixed horizontal timing, where HBP, and HFP are explicitly defined and =
-expected
->>> to be present as part of the video line structure. The timing descripti=
-on in
->>> this section assumes standard non=E2=80=91burst video transmission with=
- all horizontal
->>> blanking intervals accounted for.
->>>
->>> The datasheet does not document support for DSI video burst mode,
->>
->> This sentence seems incorrect. Section 7.4.7 starts with this sentence:
->> "The SN65DSI84 supports burst video mode and non-burst video mode ...".
->>
->> Even though asa matter of fact it looks like many users have issues that
->> get solved by disabling burst mode.
->>
->>> nor does it
->>> mention support for omitting horizontal front or back porch intervals. =
-In
->>> particular, there is no indication that the device can operate with col=
-lapsed
->>> or suppressed horizontal blanking, as enabled by MIPI_DSI_MODE_VIDEO_BU=
-RST,
->>> MIPI_DSI_MODE_VIDEO_NO_HFP, or MIPI_DSI_MODE_VIDEO_NO_HBP.
->>
->> This is correct.
->>
->> We can still try to get TI feedback, but it that won't happen in, say, a
->> few weeks then I think we should apply this patch.
->>
->
-> We have not received any further updates from TI regarding this issue, an=
-d
-> at this point, we are not sure if we will get additional feedback from th=
-em.
-> As you had mentioned earlier that the patch could be considered after
-> waiting for some time, could you please let us know how we can proceed
-> further from here?
+For standard drivers, these operations are redundant as they are already
+handled automatically under the hood by drm_dev_register() and
+drm_dev_unregister() during the master device probe lifecycle.
+Collapsing these calls simplifies the error unwinding path down to a
+single internal memory cleanup step, as stated on the gpu todo list.
 
-I am getting some feedback from TI, but it is taking some time.
+Signed-off-by: Souradipto Das <souradiptodas6@gmail.com>
+---
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-For the time being I think it is clear that HBP and HFP are required, and
-so removing the MIPI_DSI_MODE_VIDEO_NO_HFP and MIPI_DSI_MODE_VIDEO_NO_HBP
-in your patch seems to be fully correct, even though this had no effect on
-the panel I tested.
+diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
+index 84eff7519e32..5b457c16966a 100644
+--- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
++++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
+@@ -92,18 +92,12 @@ static int fsl_dcu_attach_panel(struct fsl_dcu_drm_device *fsl_dev,
+ 		return ret;
+ 
+ 	drm_connector_helper_add(connector, &connector_helper_funcs);
+-	ret = drm_connector_register(connector);
+-	if (ret < 0)
+-		goto err_cleanup;
+-
+ 	ret = drm_connector_attach_encoder(connector, encoder);
+ 	if (ret < 0)
+-		goto err_sysfs;
++		goto err_cleanup;
+ 
+ 	return 0;
+ 
+-err_sysfs:
+-	drm_connector_unregister(connector);
+ err_cleanup:
+ 	drm_connector_cleanup(connector);
+ 	return ret;
+-- 
+2.43.0
 
-I'm still trying to get some better info to ensure that switching from
-burst mode to non-burst mode is not expected to have side effects.
-
-For thi reason, I think it would be great if you could send a new version
-with two separate patches: the first one enabling HFP and HBP and which can
-be applied right away, the second to disable burst mode for which I'd wait
-a bit longer for TI feedback. You can keep the Tested-by lines.
-
-I understand this is painful and taking time, but it's important to ensure
-as much as possible that the change won't introduce regressions on existing
-hardware.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
