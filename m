@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D1EFCD4F58
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB7AECD4851
 	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:16:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E75510EA74;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1928110EA72;
 	Tue, 19 May 2026 06:16:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dM+67nbK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HdtvzWU3";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69BB310EA69
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3DAF10EA64
  for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:15:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C18F041667;
- Tue, 19 May 2026 06:15:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9BC17C2BCFC;
+ by sea.source.kernel.org (Postfix) with ESMTP id 0AF84445ED;
+ Tue, 19 May 2026 06:15:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DE6AFC2BCB3;
  Tue, 19 May 2026 06:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1779171355;
- bh=e49TK3ill7V7hqHLhxxkGRtFxrkkY1TR/o579YNjvCA=;
+ bh=TNokpRpTG+3gI2q+POIo3ibcCSAOFF+PoAZfYfV7jE8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=dM+67nbK4Lk8GwAQ+NvEhwSyjnLb/trdXfOpjkJcJRwYD89sdYyboAVxRT7ilPkAP
- jvaxCwMXELMykUbtQc7L+TKxO9s97vXXmvCZgKclCVvuUWVtr5td7pH/OZktbQhUDF
- cLD7gb6eIEkL7QvR2+zJkSHyi/K/A+n/KAJHSuxlE4dq7q55oynP3f61dhMFgt1nDq
- +HDI0bCjN4syJLfWOYPJCvUiEAu1OrQquq731hRQtjDryIUTsqomDg8tbYo/yVef7H
- M7h4peSok/KV+C8N9ERes3F353xC3BHgtwyKJCTJmM+xmaehYSwglWCNMuLl1RZAPa
- mmdu57QuzVrhw==
+ b=HdtvzWU3Sbe5rbTYSBe32vPDbAA0mFajoPFwMugI++gHIU38ZxixCxd/UWXbX9j50
+ /vtD/f6t2/OkJqcAWwG7eBnzA3QkVGuuB4OCJX3pkXFu7AFFhbifMkV+v99C8xFcKn
+ 1w5baN/tSupz2UtdSLPDWVam84tTq1GkZCfxXHrbdF/EupNYErvHzH7kUDP1VZJzuo
+ XxlgyjE7rNo3Mk27tuLuyt/udc5gj4dJaeAKJnqyodmLtOqSLZ3ZAoELhFDzfm4LIY
+ MTBHJ41+D1TzkmW5PSiolrq53PeijIoASKM5sHBbgKV5hZ6x60g6u68NkL/VpiVmfm
+ dhBPaJT0rlXwg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 903BACD4F5B;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D70CFCD4F5B;
  Tue, 19 May 2026 06:15:55 +0000 (UTC)
 From: Ekansh Gupta via B4 Relay
  <devnull+ekansh.gupta.oss.qualcomm.com@kernel.org>
-Date: Tue, 19 May 2026 11:45:56 +0530
-Subject: [PATCH 06/15] accel/qda: Create compute context bank devices on
- QDA compute bus
+Date: Tue, 19 May 2026 11:46:00 +0530
+Subject: [PATCH 10/15] accel/qda: Add GEM_CREATE and GEM_MMAP_OFFSET IOCTLs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-qda-series-v1-6-b2d984c297f8@oss.qualcomm.com>
+Message-Id: <20260519-qda-series-v1-10-b2d984c297f8@oss.qualcomm.com>
 References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
 In-Reply-To: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
 To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
@@ -63,11 +62,11 @@ Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
  linaro-mm-sig@lists.linaro.org, 
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=8231;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=6304;
  i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=3I06hSOd7I3lRUuOUUqgE3GVbxVU5M5YFC8tG+HE2aY=;
- b=d64VSPmj+U1yd0Gk06eOZgBwLISh+mXUxPKg3PockAAx7PmK/vc6TTJYZuX+PYpi7CFUN5Hz8
- XjDWoYe0/FODYXhDi8biJaWokaRH+e3XnvuFQZ7jcqzq5bYt3nBpfVK
+ bh=pBfyH+kW8lztOnF6gzWzKMphw0VyvnLIiifmSXvlor4=;
+ b=DTRjUkRF9MFrez4Yl2sKiZLIErX/Qcl75LFFQwkSWSfMjxV6yGe97d089iHoKI14WFFG0oOV9
+ qzOmjQcQ4GmBC4IELwIX14y8ZrVfapzoAMb+ywogpA9nxSRxup6TBg8
 X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
  pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
 X-Endpoint-Received: by B4 Relay for ekansh.gupta@oss.qualcomm.com/20260223
@@ -91,275 +90,189 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-Introduce the CB (compute context bank) device management layer for the
-QDA driver. Each DSP domain node in the device tree may contain child
-nodes with compatible "qcom,fastrpc-compute-cb", each representing one
-IOMMU context bank. The driver enumerates those child nodes during
-RPMsg probe and creates a corresponding device on the qda-compute-cb
-bus for each one.
+Expose two new DRM IOCTLs that allow user-space to allocate DMA-backed
+GEM buffer objects and retrieve their mmap offsets.
 
-The CB devices are created via create_qda_cb_device(), which registers
-them on the qda-compute-cb bus so that the IOMMU subsystem assigns each
-device its own IOMMU domain, enabling per-session address space
-isolation for DSP buffer mapping.
+DRM_IOCTL_QDA_GEM_CREATE (drm_qda_gem_create)
+  Allocates a DMA-coherent GEM buffer of the requested size. The
+  memory manager assigns an IOMMU context bank to the calling process
+  on first use and performs the DMA allocation against that bank.
+  Returns a GEM handle that identifies the buffer for subsequent
+  operations.
 
-The new qda_cb.c file provides two functions:
+DRM_IOCTL_QDA_GEM_MMAP_OFFSET (drm_qda_gem_mmap_offset)
+  Returns the mmap offset for an existing GEM handle. The offset can
+  be passed directly to mmap() to map the buffer into user-space.
+  Imported DMA-BUF objects are rejected by drm_gem_dumb_map_offset().
 
-  qda_create_cb_device()
-    Reads the "reg" property from the DT child node to obtain the
-    stream ID, constructs a unique device name of the form
-    "qda-cb-<dsp>-<sid>", and registers the device on the compute bus.
-    A qda_cb_dev entry is allocated and appended to qdev->cb_devs so
-    that the list can be walked during teardown.
-
-  qda_destroy_cb_device()
-    Removes the device from its IOMMU group before calling
-    device_unregister(), ensuring the IOMMU domain is released cleanly.
-
-CB devices are populated before the DRM device is registered and
-destroyed before it is unplugged, so no DRM operation can race with
-CB teardown. On probe failure after population, qda_cb_unpopulate()
-is called to clean up any CBs that were successfully created before
-the error.
+DRIVER_GEM is added to driver_features now that GEM IOCTLs are
+present.
 
 Assisted-by: Claude:claude-4-6-sonnet
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 ---
- drivers/accel/qda/Makefile    |  1 +
- drivers/accel/qda/qda_cb.c    | 99 +++++++++++++++++++++++++++++++++++++++++++
- drivers/accel/qda/qda_cb.h    | 32 ++++++++++++++
- drivers/accel/qda/qda_drv.c   |  1 +
- drivers/accel/qda/qda_drv.h   |  3 ++
- drivers/accel/qda/qda_rpmsg.c | 12 +++++-
- 6 files changed, 147 insertions(+), 1 deletion(-)
+ drivers/accel/qda/qda_drv.c   |  4 +++-
+ drivers/accel/qda/qda_ioctl.c | 50 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_ioctl.h |  2 ++
+ include/uapi/drm/qda_accel.h  | 36 +++++++++++++++++++++++++++++++
+ 4 files changed, 91 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
-index 424176f652a5..143c9e4e789e 100644
---- a/drivers/accel/qda/Makefile
-+++ b/drivers/accel/qda/Makefile
-@@ -6,6 +6,7 @@
- obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
- 
- qda-y := \
-+	qda_cb.o \
- 	qda_drv.o \
- 	qda_rpmsg.o
- 
-diff --git a/drivers/accel/qda/qda_cb.c b/drivers/accel/qda/qda_cb.c
-new file mode 100644
-index 000000000000..77caf8438c67
---- /dev/null
-+++ b/drivers/accel/qda/qda_cb.c
-@@ -0,0 +1,99 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+#include <linux/dma-mapping.h>
-+#include <linux/device.h>
-+#include <linux/of.h>
-+#include <linux/iommu.h>
-+#include <linux/qda_compute_bus.h>
-+#include <linux/slab.h>
-+#include <drm/drm_print.h>
-+#include "qda_drv.h"
-+#include "qda_cb.h"
-+
-+int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node)
-+{
-+	struct device *cb_dev;
-+	u32 sid = 0;
-+	char name[64];
-+	struct qda_cb_dev *entry;
-+
-+	drm_dbg_driver(&qdev->drm_dev, "Creating CB device for node: %s\n", cb_node->name);
-+
-+	of_property_read_u32(cb_node, "reg", &sid);
-+
-+	snprintf(name, sizeof(name), "qda-cb-%s-%u", qdev->dsp_name, sid);
-+
-+	cb_dev = create_qda_cb_device(qdev->dev, name, DMA_BIT_MASK(32), cb_node);
-+	if (IS_ERR(cb_dev)) {
-+		drm_err(&qdev->drm_dev, "Failed to create CB device for SID %u: %ld\n",
-+			sid, PTR_ERR(cb_dev));
-+		return PTR_ERR(cb_dev);
-+	}
-+
-+	entry = kzalloc_obj(*entry);
-+	if (!entry) {
-+		device_unregister(cb_dev);
-+		return -ENOMEM;
-+	}
-+
-+	entry->dev = cb_dev;
-+	list_add_tail(&entry->node, &qdev->cb_devs);
-+
-+	drm_dbg_driver(&qdev->drm_dev, "Successfully created CB device for SID %u\n", sid);
-+	return 0;
-+}
-+
-+void qda_cb_unpopulate(struct qda_dev *qdev)
-+{
-+	struct qda_cb_dev *entry, *tmp;
-+
-+	list_for_each_entry_safe(entry, tmp, &qdev->cb_devs, node) {
-+		list_del(&entry->node);
-+		qda_destroy_cb_device(entry->dev);
-+		kfree(entry);
-+	}
-+}
-+
-+int qda_cb_populate(struct qda_dev *qdev, struct device_node *parent_node)
-+{
-+	struct device_node *child;
-+	int count = 0, success = 0;
-+
-+	for_each_child_of_node(parent_node, child) {
-+		if (of_device_is_compatible(child, "qcom,fastrpc-compute-cb")) {
-+			count++;
-+			if (qda_create_cb_device(qdev, child) == 0) {
-+				success++;
-+				dev_dbg(qdev->dev, "Created CB device for node: %s\n",
-+					child->name);
-+			} else {
-+				dev_err(qdev->dev, "Failed to create CB device for: %s\n",
-+					child->name);
-+			}
-+		}
-+	}
-+	if (count == 0)
-+		return 0;
-+	return success > 0 ? 0 : -ENODEV;
-+}
-+
-+void qda_destroy_cb_device(struct device *cb_dev)
-+{
-+	struct iommu_group *group;
-+
-+	if (!cb_dev) {
-+		pr_debug("qda: NULL CB device passed to destroy\n");
-+		return;
-+	}
-+
-+	dev_dbg(cb_dev, "Destroying CB device %s\n", dev_name(cb_dev));
-+
-+	group = iommu_group_get(cb_dev);
-+	if (group) {
-+		dev_dbg(cb_dev, "Removing %s from IOMMU group\n", dev_name(cb_dev));
-+		iommu_group_remove_device(cb_dev);
-+		iommu_group_put(group);
-+	}
-+
-+	device_unregister(cb_dev);
-+}
-diff --git a/drivers/accel/qda/qda_cb.h b/drivers/accel/qda/qda_cb.h
-new file mode 100644
-index 000000000000..bd83d64fa425
---- /dev/null
-+++ b/drivers/accel/qda/qda_cb.h
-@@ -0,0 +1,32 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef __QDA_CB_H__
-+#define __QDA_CB_H__
-+
-+#include <linux/device.h>
-+#include <linux/list.h>
-+#include <linux/of.h>
-+#include "qda_drv.h"
-+
-+struct qda_cb_dev {
-+	struct list_head node;
-+	struct device *dev;
-+};
-+
-+/*
-+ * Compute bus (CB) device management
-+ */
-+int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node);
-+void qda_destroy_cb_device(struct device *cb_dev);
-+
-+/*
-+ * Transport-agnostic CB device population/teardown.
-+ * Called by any transport layer (RPMsg, etc.) during probe/remove.
-+ */
-+int qda_cb_populate(struct qda_dev *qdev, struct device_node *parent_node);
-+void qda_cb_unpopulate(struct qda_dev *qdev);
-+
-+#endif /* __QDA_CB_H__ */
 diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-index 1c1bab68d445..6c20d6a2fc47 100644
+index 1b534fea50c8..c9b9e56dcb28 100644
 --- a/drivers/accel/qda/qda_drv.c
 +++ b/drivers/accel/qda/qda_drv.c
-@@ -53,6 +53,7 @@ struct qda_dev *qda_alloc_device(struct device *dev)
- 	if (IS_ERR(qdev))
- 		return ERR_CAST(qdev);
+@@ -53,10 +53,12 @@ DEFINE_DRM_ACCEL_FOPS(qda_accel_fops);
  
-+	INIT_LIST_HEAD(&qdev->cb_devs);
- 	return qdev;
- }
- 
-diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
-index 7ba2ef19a411..2715f378775d 100644
---- a/drivers/accel/qda/qda_drv.h
-+++ b/drivers/accel/qda/qda_drv.h
-@@ -7,6 +7,7 @@
- #define __QDA_DRV_H__
- 
- #include <linux/device.h>
-+#include <linux/list.h>
- #include <linux/rpmsg.h>
- #include <linux/types.h>
- #include <drm/drm_device.h>
-@@ -37,6 +38,8 @@ struct qda_dev {
- 	struct rpmsg_device *rpdev;
- 	/** @dev: Underlying Linux device */
- 	struct device *dev;
-+	/** @cb_devs: Compute context-bank (CB) child devices */
-+	struct list_head cb_devs;
- 	/** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
- 	const char *dsp_name;
+ static const struct drm_ioctl_desc qda_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(QDA_QUERY, qda_ioctl_query, 0),
++	DRM_IOCTL_DEF_DRV(QDA_GEM_CREATE, qda_ioctl_gem_create, 0),
++	DRM_IOCTL_DEF_DRV(QDA_GEM_MMAP_OFFSET, qda_ioctl_gem_mmap_offset, 0),
  };
-diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
-index 6eaf1b145f8a..afd9e851d00e 100644
---- a/drivers/accel/qda/qda_rpmsg.c
-+++ b/drivers/accel/qda/qda_rpmsg.c
-@@ -5,6 +5,7 @@
- #include <linux/rpmsg.h>
- #include <drm/drm_print.h>
  
-+#include "qda_cb.h"
+ static const struct drm_driver qda_drm_driver = {
+-	.driver_features = DRIVER_COMPUTE_ACCEL,
++	.driver_features = DRIVER_GEM | DRIVER_COMPUTE_ACCEL,
+ 	.fops = &qda_accel_fops,
+ 	.open = qda_open,
+ 	.postclose = qda_postclose,
+diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
+index 761d3567c33f..1769c85a3e98 100644
+--- a/drivers/accel/qda/qda_ioctl.c
++++ b/drivers/accel/qda/qda_ioctl.c
+@@ -3,6 +3,7 @@
+ #include <drm/drm_ioctl.h>
+ #include <drm/qda_accel.h>
  #include "qda_drv.h"
- #include "qda_rpmsg.h"
++#include "qda_gem.h"
+ #include "qda_ioctl.h"
  
-@@ -34,6 +35,7 @@ static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
- {
- 	struct qda_dev *qdev = dev_get_drvdata(&rpdev->dev);
+ /**
+@@ -24,3 +25,52 @@ int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_pr
  
-+	qda_cb_unpopulate(qdev);
- 	drm_dev_unplug(&qdev->drm_dev);
- 	qdev->rpdev = NULL;
- 	qda_unregister_device(qdev);
-@@ -59,9 +61,17 @@ static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
- 	}
- 	qdev->dsp_name = label;
- 
-+	ret = qda_cb_populate(qdev, rpdev->dev.of_node);
-+	if (ret) {
-+		dev_err(qdev->dev, "Failed to populate child devices: %d\n", ret);
-+		return ret;
-+	}
-+
- 	ret = qda_register_device(qdev);
--	if (ret)
-+	if (ret) {
-+		qda_cb_unpopulate(qdev);
- 		return ret;
-+	}
- 
- 	drm_info(&qdev->drm_dev, "QDA RPMsg probe complete for %s\n", qdev->dsp_name);
  	return 0;
+ }
++
++/**
++ * qda_ioctl_gem_create() - Create a GEM buffer object
++ * @dev: DRM device structure
++ * @data: User-space data (struct drm_qda_gem_create)
++ * @file_priv: DRM file private data
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int qda_ioctl_gem_create(struct drm_device *dev, void *data, struct drm_file *file_priv)
++{
++	struct drm_qda_gem_create *args = data;
++	struct drm_gem_object *gem_obj;
++	struct qda_dev *qdev;
++
++	if (args->pad)
++		return -EINVAL;
++
++	qdev = qda_dev_from_drm(dev);
++	if (!qdev->iommu_mgr)
++		return -ENODEV;
++
++	gem_obj = qda_gem_create_object(dev, qdev->iommu_mgr, args->size, file_priv);
++	if (IS_ERR(gem_obj))
++		return PTR_ERR(gem_obj);
++
++	return qda_gem_create_handle(file_priv, gem_obj, &args->handle);
++}
++
++/**
++ * qda_ioctl_gem_mmap_offset() - Get the mmap offset for a GEM object
++ * @dev: DRM device structure
++ * @data: User-space data (struct drm_qda_gem_mmap_offset)
++ * @file_priv: DRM file private data
++ *
++ * Uses drm_gem_dumb_map_offset() which rejects imported dma-buf objects
++ * (mmap of imported objects is not allowed).
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_file *file_priv)
++{
++	struct drm_qda_gem_mmap_offset *args = data;
++
++	if (args->pad)
++		return -EINVAL;
++
++	return drm_gem_dumb_map_offset(file_priv, dev, args->handle, &args->offset);
++}
+diff --git a/drivers/accel/qda/qda_ioctl.h b/drivers/accel/qda/qda_ioctl.h
+index b8fd536a111f..d1cbbfb6d965 100644
+--- a/drivers/accel/qda/qda_ioctl.h
++++ b/drivers/accel/qda/qda_ioctl.h
+@@ -9,5 +9,7 @@
+ #include "qda_drv.h"
+ 
+ int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_priv);
++int qda_ioctl_gem_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
++int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_file *file_priv);
+ 
+ #endif /* __QDA_IOCTL_H__ */
+diff --git a/include/uapi/drm/qda_accel.h b/include/uapi/drm/qda_accel.h
+index 1971a4263065..319e21aae0d6 100644
+--- a/include/uapi/drm/qda_accel.h
++++ b/include/uapi/drm/qda_accel.h
+@@ -19,6 +19,8 @@ extern "C" {
+  * They are used with DRM_COMMAND_BASE to create the full IOCTL numbers.
+  */
+ #define DRM_QDA_QUERY		0x00
++#define DRM_QDA_GEM_CREATE		0x01
++#define DRM_QDA_GEM_MMAP_OFFSET	0x02
+ 
+ /*
+  * QDA IOCTL definitions
+@@ -29,6 +31,10 @@ extern "C" {
+  */
+ #define DRM_IOCTL_QDA_QUERY		DRM_IOR(DRM_COMMAND_BASE + DRM_QDA_QUERY, \
+ 					 struct drm_qda_query)
++#define DRM_IOCTL_QDA_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_GEM_CREATE, \
++					  struct drm_qda_gem_create)
++#define DRM_IOCTL_QDA_GEM_MMAP_OFFSET	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_GEM_MMAP_OFFSET, \
++					  struct drm_qda_gem_mmap_offset)
+ 
+ /**
+  * struct drm_qda_query - Device information query structure
+@@ -42,6 +48,36 @@ struct drm_qda_query {
+ 	__u8 dsp_name[16];
+ };
+ 
++/**
++ * struct drm_qda_gem_create - GEM buffer object creation parameters
++ * @size: Size of the GEM object to create in bytes (input)
++ * @handle: Allocated GEM handle (output)
++ *
++ * This structure is used with DRM_IOCTL_QDA_GEM_CREATE to allocate
++ * a new GEM buffer object.
++ */
++struct drm_qda_gem_create {
++	__u64 size;
++	__u32 handle;
++	__u32 pad;
++};
++
++/**
++ * struct drm_qda_gem_mmap_offset - GEM object mmap offset query
++ * @offset: mmap offset for the GEM object (output)
++ * @handle: GEM handle (input)
++ * @pad: Padding for 64-bit alignment
++ *
++ * This structure is used with DRM_IOCTL_QDA_GEM_MMAP_OFFSET to retrieve
++ * the mmap offset that can be used with mmap() to map the GEM object into
++ * user space.
++ */
++struct drm_qda_gem_mmap_offset {
++	__u64 offset;
++	__u32 handle;
++	__u32 pad;
++};
++
+ #if defined(__cplusplus)
+ }
+ #endif
 
 -- 
 2.34.1
