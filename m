@@ -4,54 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 283B8CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:44:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74DDACD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:46:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37AE78825B;
-	Tue, 19 May 2026 07:44:28 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9687D10EAF0
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:44:25 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
- by APP-01 (Coremail) with SMTP id qwCowADXQ2_QFAxqX3u+EA--.2222S2;
- Tue, 19 May 2026 15:44:17 +0800 (CST)
-Message-ID: <4d3c239ff1c560791668e571c5e6ab58c08ea002.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 4/4] drm/verisilicon: add Nuvoton MA35D1 DCU Lite
- display controller support
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 19 May 2026 15:44:16 +0800
-In-Reply-To: <20260519055114.1886525-5-a0987203069@gmail.com>
-References: <20260519055114.1886525-1-a0987203069@gmail.com>
- <20260519055114.1886525-5-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id D67BC10E388;
+	Tue, 19 May 2026 07:46:46 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RvzUVnQQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ftyrj105";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC00D10E26E
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:46:44 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64J4sZvU254356
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:46:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ s3Ktydrxz2XY64OjZbaLiYF5XalxcbVEevSUnzyHj3c=; b=RvzUVnQQSENSFGGj
+ Si3ojI0ppIXc7v9diNm4HpSes+8oXDv1hfEFv25MLDKFFSm8j9E3vXFjPHDpk0Ox
+ tKUge0RcMXILXR3UhkByiPyiU+5aLQqhe3ITWdZIfQstkw9wlNF6akETOVQ5/vND
+ sLhoF5C/BF0fnMNa9ALJmcTkaBJtoAyDYUfuL4oF8tDeyw6GFYJKuHlv2Xa56GxY
+ 2v7EnKeIH9bRMg+Uy1Pu7wkbhpyNdWxZ7X6za2lCPhKYP5FU/Qjv9AFjVwbBKpzH
+ PItYx88ogM1w9BuhKz9BMm7yDi2okItYS5AeapfLQtJyD9jVhlgih+CxrSOqMxz9
+ jqwVxQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8h87rpbs-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:46:43 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2bc6899bfb1so32861805ad.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 00:46:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779176803; x=1779781603;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=s3Ktydrxz2XY64OjZbaLiYF5XalxcbVEevSUnzyHj3c=;
+ b=ftyrj105OxGDelcIitT7i5I9uuhVuQF//0Frl49yTVMH6iWVhTOIGeCzZTrmcHxrlN
+ wsvh7JJHW4DRrQi0JCCHijukuaDHPk0uZOKmv9erFduU6OUMgAbti6WY5jCPmQ7F/b6j
+ +vRWzMdqOupus2ClfjKP02l7Wb+MdPc+4KeawRdX+i5dJTaPdjlElwuVQT+kxcmzrOEc
+ qHO5vKHy52K0d4q67cQGD8kWUa1W0aa64HfveXKeVzO3zu96Mm2btEZFo8okPoz024iF
+ EEQ+S7vh74FG81Jsto6bNZOWX7lZC7Fn5hm77MFaTsNBdsX68kTzLYh9iW/F/dECanLO
+ 9BiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779176803; x=1779781603;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=s3Ktydrxz2XY64OjZbaLiYF5XalxcbVEevSUnzyHj3c=;
+ b=mtanjcwF+7MJrNS5WippBwrZywyZsNeFyqFLTqPrPPuJnka6F/2RkbySwf4XZ3NaOx
+ 447NW/5gE2q8rPkUKAXcE3TktM7LyYG9ko62CRGKds3xBMPtZpEfjt886hhJ5n+lzTor
+ 9CWAPcNQdc6N7drkhsfSwLewVO9gBMZ/XENXpXA1v1+DEQ6zEDWL5bGFZ17+ipkoRV2n
+ 7JDFwmO3SA3ClBQK3uOqjGNIeDaP1WBDSfaJ5mKIIO6+iMMwi+DaOplWJ3Xg609xq4m2
+ zMvFSzjGbsP9+uq+nBNg+Qr9lM15BIX+iJLhbXtLmGh5Ehrx7XZtmq03X8Ww4WnZ6GYr
+ N2nw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+3mEd5QaLZnd8sgmT5LO8m1KC8tvoGxrbdq+dpTEA9snWGKaJDow6keQcE41is45+a6+MOKtReIfw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+RPsohFekS4lkWBZnrDS3VNx1LCSCxJqZirlAp002oNowmnZZ
+ wbgJSKLJUWGX2fnhBv+MO/5ZKJuiCcQzVfysxhJAEAfE9jfD6DQJe0mYGoCv8IyPxrqGy0asM0s
+ u0r+goUPBjyZUTExwi2nElOcCAE/Nz1guEjzUApbeARSy4WeLOrf2L2NQSB1WyUQeXBFXJGM=
+X-Gm-Gg: Acq92OHLR7OKDZIks98jmTI+FQWuB7bXcsEHgmuPK+wb9wCoLcs0GBFdcjMosoWV99F
+ mnftCjgx19hECgl2wGJdEjWB3toeEhIG4z8OgBm944/MzrWimqtAsMKucJ/SbxudkGQMIDf5/vC
+ FdvLj7Zu1hhpRTAjyxVjpTnKLpbQOV85PzBxBL8bmrG4rpUcoimSx7uxYY/9AbiuNGjRQqFbUiZ
+ /9E59ac1kM34vK0ty9KKJiZQR9Y57lYzOCBJy4NPcnn7iLdQbSnr/QyFV1j8G1lMGIvYB9TFYpr
+ J+yAtvy91BRISU7eIKOEf4Y/xsK8pNBk9wLTEsQRBnPyPmdPf23ziTIg4QZvWNbkkTm8Db0mo0M
+ RRc3wNnaxXIUy8mygcH1veOIrI9Tofwg5iXg3rCWjuQkf1GkP67x03Wn55BK7PrBPVM7Ewafzj5
+ JgR0NkmFs0UEJUOi2LcQ==
+X-Received: by 2002:a17:903:2410:b0:2ad:9b86:ddc2 with SMTP id
+ d9443c01a7336-2bd7e88f047mr200097935ad.22.1779176802775; 
+ Tue, 19 May 2026 00:46:42 -0700 (PDT)
+X-Received: by 2002:a17:903:2410:b0:2ad:9b86:ddc2 with SMTP id
+ d9443c01a7336-2bd7e88f047mr200097455ad.22.1779176802305; 
+ Tue, 19 May 2026 00:46:42 -0700 (PDT)
+Received: from [10.133.33.114] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2bd5c0600a4sm164839885ad.30.2026.05.19.00.46.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 May 2026 00:46:41 -0700 (PDT)
+Message-ID: <57f574d3-7000-42c8-a5b7-88f1a73efd50@oss.qualcomm.com>
+Date: Tue, 19 May 2026 15:46:36 +0800
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowADXQ2_QFAxqX3u+EA--.2222S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtr15KrWkGFWxuw45WFyrCrg_yoW3tw4xpF
- Wvyay8ur4rAa4I9r9rJFy0yF98Cw1xt3yfW3y7W3s093s0yFyUWFW0kFy8XFWDXr97AryI
- qrsY9w47CrW7AFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxUqVcEUUUUU
-X-Originating-IP: [112.94.102.150]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 05/39] drm/msm/dp: splite msm_dp_ctrl_config_ctrl()
+ into link parts and stream parts
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
+ <20260410-msm-dp-mst-v4-5-b20518dea8de@oss.qualcomm.com>
+ <omw63f7fbqiuw2t266dq5drk7rz2kohydpvbbhcrbfiehb7lzh@aucqhfaliams>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <omw63f7fbqiuw2t266dq5drk7rz2kohydpvbbhcrbfiehb7lzh@aucqhfaliams>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 6OUWj-ImPmnIDrICJoi7NST94HAGgQTN
+X-Proofpoint-ORIG-GUID: 6OUWj-ImPmnIDrICJoi7NST94HAGgQTN
+X-Authority-Analysis: v=2.4 cv=a9sAM0SF c=1 sm=1 tr=0 ts=6a0c1563 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=POr7qE6iPcSwGRG4OQYA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA3NiBTYWx0ZWRfX5lAPGUOhvuEk
+ EkXCR7AooChdnmIC7h3+lmaJIdlwOY9J9hr1VvEuc4urSXBYvbTwZJFO+E5JtZ+/jNfUwSx1wGz
+ NBOWO9ZfbihlOy+fRwJx2MrvNHwcXBg5V838qnFYyU42Anuk04QyXJuxNyQdHASMCSSw0BftFc/
+ R9Nnheg5C6A85edPlG3TJgn5tS5O/35lBR9UmDDjhrpk/IwkCysVE+/f4Kz8zT8gDi36qDEjpm9
+ HjCIgpcHxCgCjoPwGwGz2jPYogVRz3rrXCjpH3913gBm3kHtrgqbE4hmbXpiAwsVS3jxCuoEfg7
+ qI5jhEupmNZLvfNZk1S80oMzlxF2vsQZoUJOiDPbdLqbfgzJnVMGzoUP/1TwgiPk2vSlOg2Js+6
+ V7v2Dg9aWfNEW4DgV7obCtHK8BxOfkm0/g5kQbsChvgfUfkkjXyAO9QMwEMPJeaIH8kOJ61AbNe
+ 1qstvodBD2YjFZtF9Vw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190076
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,259 +150,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-05-19=E4=BA=8C=E7=9A=84 13:51 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> The Nuvoton MA35D1 SoC integrates a Verisilicon DCU Lite display
-> controller.=C2=A0 While its register layout is broadly similar to the
-> DC8200,
-> several differences require dedicated hardware ops:
->=20
-> 1. No CONFIG_EX commit path: framebuffer updates use enable (bit 0)
-> and
-> =C2=A0=C2=A0 reset (bit 4) bits in FB_CONFIG instead of the DC8200 stagin=
-g
-> registers
-> =C2=A0=C2=A0 (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG=
-,
-> =C2=A0=C2=A0 PANEL_CONFIG_EX).
->=20
-> 2. No PANEL_START register: panel output starts when
-> =C2=A0=C2=A0 PANEL_CONFIG.RUNNING is set; no multi-display sync start reg=
-ister
-> =C2=A0=C2=A0 is used.
->=20
-> 3. Different IRQ registers: DCU Lite uses DISP_IRQ_STA (0x147C) /
-> =C2=A0=C2=A0 DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
-> =C2=A0=C2=A0 TOP_IRQ_EN (0x0014).
->=20
-> 4. Per-frame commit cycle: DCU Lite requires the VALID bit in
-> FB_CONFIG
-> =C2=A0=C2=A0 to be set at the start of each atomic commit (crtc_begin) an=
-d
-> cleared
-> =C2=A0=C2=A0 after (crtc_flush).
->=20
-> 5. Simpler clock topology: only "core" (bus gate) and "pix0" (pixel
-> =C2=A0=C2=A0 divider) clocks; no axi or ahb clocks.=C2=A0 Make axi_clk an=
-d ahb_clk
-> =C2=A0=C2=A0 optional (devm_clk_get_optional_enabled) so DCU Lite nodes w=
-ithout
-> =C2=A0=C2=A0 those clocks are handled gracefully.
->=20
-> Add vs_dcu_lite.c implementing the vs_dc_funcs vtable for the above
-> differences.=C2=A0 After chip identity detection, vs_dc_probe() now
-> selects
-> vs_dcu_lite_funcs when the identified model is VSDC_MODEL_DCU_LITE
-> (model register reads 0, revision 0x5560, customer_id 0x305).
->=20
-> Extend Kconfig to allow building on ARCH_MA35 platforms.
->=20
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-|=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 9 ++-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dcu_lite.c | 78
-> +++++++++++++++++++++++
-> =C2=A05 files changed, 87 insertions(+), 5 deletions(-)
-> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dcu_lite.c
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/Kconfig
-> b/drivers/gpu/drm/verisilicon/Kconfig
-> index 7cce86ec8603..295d246eb4b4 100644
-> --- a/drivers/gpu/drm/verisilicon/Kconfig
-> +++ b/drivers/gpu/drm/verisilicon/Kconfig
-> @@ -2,7 +2,7 @@
-> =C2=A0config DRM_VERISILICON_DC
-> =C2=A0	tristate "DRM Support for Verisilicon DC-series display
-> controllers"
-> =C2=A0	depends on DRM && COMMON_CLK
-> -	depends on RISCV || COMPILE_TEST
-> +	depends on RISCV || ARCH_MA35 || COMPILE_TEST
-> =C2=A0	select DRM_BRIDGE_CONNECTOR
-> =C2=A0	select DRM_CLIENT_SELECTION
-> =C2=A0	select DRM_DISPLAY_HELPER
-> diff --git a/drivers/gpu/drm/verisilicon/Makefile
-> b/drivers/gpu/drm/verisilicon/Makefile
-> index f4fbd9f7d6a2..bf88f627e65c 100644
-> --- a/drivers/gpu/drm/verisilicon/Makefile
-> +++ b/drivers/gpu/drm/verisilicon/Makefile
-> @@ -1,5 +1,5 @@
-> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
-> =C2=A0
-> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
-> vs_drm.o vs_hwdb.o vs_plane.o vs_primary_plane.o
-> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
-> vs_dcu_lite.o vs_drm.o vs_hwdb.o vs_plane.o vs_primary_plane.o
-> =C2=A0
-> =C2=A0obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
-> b/drivers/gpu/drm/verisilicon/vs_dc.c
-> index c94957024189..77bc63c629f7 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device
-> *pdev)
-> =C2=A0		return PTR_ERR(dc->core_clk);
-> =C2=A0	}
-> =C2=A0
-> -	dc->axi_clk =3D devm_clk_get_enabled(dev, "axi");
-> +	dc->axi_clk =3D devm_clk_get_optional_enabled(dev, "axi");
-> =C2=A0	if (IS_ERR(dc->axi_clk)) {
-> =C2=A0		dev_err(dev, "can't get axi clock\n");
-> =C2=A0		return PTR_ERR(dc->axi_clk);
-> =C2=A0	}
-> =C2=A0
-> -	dc->ahb_clk =3D devm_clk_get_enabled(dev, "ahb");
-> +	dc->ahb_clk =3D devm_clk_get_optional_enabled(dev, "ahb");
-> =C2=A0	if (IS_ERR(dc->ahb_clk)) {
-> =C2=A0		dev_err(dev, "can't get ahb clock\n");
-> =C2=A0		return PTR_ERR(dc->ahb_clk);
-> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device
-> *pdev)
-> =C2=A0	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
-> >identity.model,
-> =C2=A0		 dc->identity.revision, dc->identity.customer_id);
-> =C2=A0
-> -	dc->funcs =3D &vs_dc8200_funcs;
-> +	if (dc->identity.model =3D=3D VSDC_MODEL_DC8200)
 
-Don't do that. The model value is only for matching hardware values,
-not for detecting what's present. Don't forget that DC8000 has a model
-value of 0x8000, but behaves similarly with DCUltraLite with a model
-value of 0x0.
 
-I suggest adding another field for assigning helper functions.
-
-My suggestion is here:
-
-```
-enum vs_dc_generation {
-	VSDC_GEN_DC8000,
-	VSDC_GEN_DC8200
-};
-```
-
-Thanks,
-Icenowy
-
-> +		dc->funcs =3D &vs_dc8200_funcs;
-> +	else
-> +		dc->funcs =3D &vs_dcu_lite_funcs;
-> =C2=A0
-> =C2=A0	if (port_count > dc->identity.display_count) {
-> =C2=A0		dev_err(dev, "too many downstream ports than HW
-> capability\n");
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
-> b/drivers/gpu/drm/verisilicon/vs_dc.h
-> index 45172c1a525c..d77d4a1babdf 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
-> @@ -66,5 +66,6 @@ struct vs_dc {
-> =C2=A0};
-> =C2=A0
-> =C2=A0extern const struct vs_dc_funcs vs_dc8200_funcs;
-> +extern const struct vs_dc_funcs vs_dcu_lite_funcs;
-> =C2=A0
-> =C2=A0#endif /* _VS_DC_H_ */
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-> b/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-> new file mode 100644
-> index 000000000000..11ef57d5ebaa
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-> @@ -0,0 +1,78 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
-> + */
-> +
-> +#include <linux/regmap.h>
-> +
-> +#include "vs_crtc_regs.h"
-> +#include "vs_dc.h"
-> +#include "vs_primary_plane_regs.h"
-> +
-> +static void vs_dcu_lite_bridge_enable(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_RESET);
-> +}
-> +
-> +static void vs_dcu_lite_bridge_disable(struct vs_dc *dc, unsigned
-> int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			=C2=A0 VSDC_FB_CONFIG_RESET);
-> +}
-> +
-> +static void vs_dcu_lite_crtc_begin(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_VALID);
-> +}
-> +
-> +static void vs_dcu_lite_crtc_flush(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			=C2=A0 VSDC_FB_CONFIG_VALID);
-> +}
-> +
-> +static void vs_dcu_lite_crtc_enable(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_ENABLE);
-> +}
-> +
-> +static void vs_dcu_lite_crtc_disable(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			=C2=A0 VSDC_FB_CONFIG_ENABLE);
-> +}
-> +
-> +static void vs_dcu_lite_enable_vblank(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
-> +			VSDC_DISP_IRQ_VSYNC(output));
-> +}
-> +
-> +static void vs_dcu_lite_disable_vblank(struct vs_dc *dc, unsigned
-> int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
-> +			=C2=A0 VSDC_DISP_IRQ_VSYNC(output));
-> +}
-> +
-> +static u32 vs_dcu_lite_irq_handler(struct vs_dc *dc)
-> +{
-> +	u32 irqs;
-> +
-> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
-> +	return irqs;
-> +}
-> +
-> +const struct vs_dc_funcs vs_dcu_lite_funcs =3D {
-> +	.bridge_enable		=3D vs_dcu_lite_bridge_enable,
-> +	.bridge_disable		=3D
-> vs_dcu_lite_bridge_disable,
-> +	.crtc_begin		=3D vs_dcu_lite_crtc_begin,
-> +	.crtc_flush		=3D vs_dcu_lite_crtc_flush,
-> +	.crtc_enable		=3D vs_dcu_lite_crtc_enable,
-> +	.crtc_disable		=3D vs_dcu_lite_crtc_disable,
-> +	.enable_vblank		=3D vs_dcu_lite_enable_vblank,
-> +	.disable_vblank		=3D
-> vs_dcu_lite_disable_vblank,
-> +	.irq_handler		=3D vs_dcu_lite_irq_handler,
-> +};
+On 4/12/2026 1:34 AM, Dmitry Baryshkov wrote:
+> On Fri, Apr 10, 2026 at 05:33:40PM +0800, Yongxing Mou wrote:
+>> The DP_CONFIGURATION_CTRL register contains both link-level and
+>> stream-specific fields. Currently, msm_dp_ctrl_config_ctrl() configures
+>> all of them together. Separates the configuration into link parts and
+>> streams part for support MST.
+>>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 43 ++++++++++++++++++++++++++--------------
+>>   1 file changed, 28 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index 476346e3ac19..85315467b5d0 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -388,26 +388,41 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   	drm_dbg_dp(ctrl->drm_dev, "mainlink off\n");
+>>   }
+>>   
+>> -static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
+>> +static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
+>> +					    struct msm_dp_panel *msm_dp_panel)
+>>   {
+>>   	u32 config = 0, tbd;
+>> +
+>> +	config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
+>> +
+>> +	if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
+>> +		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
+>> +
+>> +	tbd = msm_dp_link_get_test_bits_depth(ctrl->link,
+>> +					      msm_dp_panel->msm_dp_mode.bpp);
+>> +
+>> +	config |= tbd << DP_CONFIGURATION_CTRL_BPC_SHIFT;
+>> +
+>> +	if (msm_dp_panel->psr_cap.version)
+>> +		config |= DP_CONFIGURATION_CTRL_SEND_VSC;
+>> +
+>> +	drm_dbg_dp(ctrl->drm_dev, "stream DP_CONFIGURATION_CTRL=0x%x\n", config);
+>> +
+>> +	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
+> 
+> You have an RMW cycle here. Please document what prevents it from racing
+> with the concurrent msm_dp_ctrl_config_ctrl_link().
+> 
+Here protected by mst_lock in MST case. Will add a comment.
+>> +}
+>> +
+>> +static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctrl)
+>> +{
+>> +	u32 config = 0;
+>>   	const u8 *dpcd = ctrl->panel->dpcd;
+>>   
+>>   	/* Default-> LSCLK DIV: 1/4 LCLK  */
+>>   	config |= (2 << DP_CONFIGURATION_CTRL_LSCLK_DIV_SHIFT);
+>>   
+>> -	if (ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
+>> -		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
+>> -
+>>   	/* Scrambler reset enable */
+>>   	if (drm_dp_alternate_scrambler_reset_cap(dpcd))
+>>   		config |= DP_CONFIGURATION_CTRL_ASSR;
+>>   
+>> -	tbd = msm_dp_link_get_test_bits_depth(ctrl->link,
+>> -			ctrl->panel->msm_dp_mode.bpp);
+>> -
+>> -	config |= tbd << DP_CONFIGURATION_CTRL_BPC_SHIFT;
+>> -
+>>   	/* Num of Lanes */
+>>   	config |= ((ctrl->link->link_params.num_lanes - 1)
+>>   			<< DP_CONFIGURATION_CTRL_NUM_OF_LANES_SHIFT);
+>> @@ -421,10 +436,7 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
+>>   	config |= DP_CONFIGURATION_CTRL_STATIC_DYNAMIC_CN;
+>>   	config |= DP_CONFIGURATION_CTRL_SYNC_ASYNC_CLK;
+>>   
+>> -	if (ctrl->panel->psr_cap.version)
+>> -		config |= DP_CONFIGURATION_CTRL_SEND_VSC;
+>> -
+>> -	drm_dbg_dp(ctrl->drm_dev, "DP_CONFIGURATION_CTRL=0x%x\n", config);
+>> +	drm_dbg_dp(ctrl->drm_dev, "link DP_CONFIGURATION_CTRL=0x%x\n", config);
+>>   
+>>   	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
+>>   }
+>> @@ -450,7 +462,8 @@ static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl
+>>   	msm_dp_ctrl_lane_mapping(ctrl);
+>>   	msm_dp_setup_peripheral_flush(ctrl);
+>>   
+>> -	msm_dp_ctrl_config_ctrl(ctrl);
+>> +	msm_dp_ctrl_config_ctrl_link(ctrl);
+>> +	msm_dp_ctrl_config_ctrl_streams(ctrl, ctrl->panel);
+>>   
+>>   	test_bits_depth = msm_dp_link_get_test_bits_depth(ctrl->link, ctrl->panel->msm_dp_mode.bpp);
+>>   	colorimetry_cfg = msm_dp_link_get_colorimetry_config(ctrl->link);
+>> @@ -1628,7 +1641,7 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
+>>   	u8 assr;
+>>   	struct msm_dp_link_info link_info = {0};
+>>   
+>> -	msm_dp_ctrl_config_ctrl(ctrl);
+>> +	msm_dp_ctrl_config_ctrl_link(ctrl);
+>>   
+>>   	link_info.num_lanes = ctrl->link->link_params.num_lanes;
+>>   	link_info.rate = ctrl->link->link_params.rate;
+>>
+>> -- 
+>> 2.43.0
+>>
+> 
 
