@@ -4,135 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07FE0CD5BA4
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 12:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D6D7CD5BA4
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 12:51:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B78010ECA3;
-	Tue, 19 May 2026 12:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 588EC10ECB2;
+	Tue, 19 May 2026 12:51:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="rKjTFYk1";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H+urp8KG";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022112.outbound.protection.outlook.com [52.101.101.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48D0B10ECA3
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 12:47:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rxlCrhMYXAE45+YPvXNJ2mVu3kTQDsWP48JOC5ccWng9YQ8gChMu3t3TkcDK/QCD71iUMX/wO4ehv1d9UJX9MBSwV3HaQ6PvyJNZsxTGE9xxA46u3L8hcyaqNXRtfOnxBqnZ8/dGyYMC0NU52pfI3qmSsLuwTruy1ei4/sji0Rv65kHicS+AoRsyRS9LMC9oNSpTTpWJvxJmViTvfP3K3bsoRljZEG4oaw3sxEpz4/48IW3D8EhuZ2n8PGF1Hz95z8ctADZniZNdutupYkgoJe13Xt5ZqJUXd+PI81igdev+iV41GqtWwLzLovICnIWMwOXoJym+QeDbJN3Rked7HA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ld/otdAD4WsAh1XYxTXsHMScyFQMkq/DJK9eg01P2wk=;
- b=eDr2Fy57DjTqjk8kVO/cLnnVzA6CHd4trt5RbJrL94vXpvh3VxdXPDV2o43FBX6ElkxpRGd9S0OqvfkUT+7Ua5A4kudZqLDt2lx2/uLHDgtMWo4eTf8mTjoWknQ2FMpWAWHuxhN44NMrLNRWn1+MqfH61oG7IRpClnUjYvq9RLXSpOVyUN5/D6mRL6MtYWkqL+36U2SHQWFZXq9kdFVrG3NW1vT8pW7ac2Kj8qVtw3Qpw4TIFzB4FmDU1AvoL8pyLQdaL4nK7ClJGrtqo6TvXKDQLSpyIZJ6PVll/NAYl3/WhGrkw4JocRHoBxQAYC1lo3YC6c3/n5tZO6CkGM2GXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ld/otdAD4WsAh1XYxTXsHMScyFQMkq/DJK9eg01P2wk=;
- b=rKjTFYk1VhLK4arScsDjW1ZBdnLvjii6br3WQ9SHUVuWCvJ9Ay1795V3B/QOEl39bc+m7/Mh8uqrJCm0vjIEgl77CPiGHCSp9sRy8hX4/eS5tdgsBHRLOS/UeB8HRtJBB20sgvsn26CCNDj3nTLkQNC8b8MqNpxmKYK9XvBgqlg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LOAP265MB8966.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:498::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Tue, 19 May
- 2026 12:47:36 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 12:47:36 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 19 May 2026 13:47:35 +0100
-Message-Id: <DIMNXSX1MADQ.2FKCD6LOB1SP2@garyguo.net>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 04/27] rust: driver core: drop drvdata before devres
- release
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
- <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
-X-Mailer: aerc 0.21.0
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-5-dakr@kernel.org>
-In-Reply-To: <20260517000149.3226762-5-dakr@kernel.org>
-X-ClientProxiedBy: LO4P123CA0361.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18e::6) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40AFA10ECB2;
+ Tue, 19 May 2026 12:51:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=cfUHy9KSo8K972nVD6fnaOvu27yUkn04KTC6aSFDpbo=; b=H+urp8KG8Q/OPKqF+nLtNhza5C
+ /4xTlP81WkV4MSgkRaKRBRXtQTFSfrFpQx6+Wbj7ZiZpvVnsRhOdWWuT1p0mvMPxu8SF98ENe6bBh
+ CXdFXCy8IXVezv4WDsVhd7B1grFT4FnkiVPwfkJcYyeLwLFRgTf5BAiB61M0xvqpyyF9uKVghtWk0
+ SeAhNJrB9a9bvhcDXZQ9Jkg5YjFqArMR0XqooE6niuxXVPzUZ+byVxMBrjUCm0QI3Xq7qhDH9p9yf
+ 6PKJhvcolbMcWBRdoQnXdg52KT9XMlzhc5dSAnNqY4PF2ieAQ28lBB+2Fwhev4LuHAzvkcqYcZqMt
+ 3hqmf+4g==;
+Received: from [79.117.146.159] (helo=[192.168.1.135])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wPJuU-003B6b-VR; Tue, 19 May 2026 14:50:59 +0200
+Message-ID: <9e288357-01b1-40b3-a83d-744168a60e90@igalia.com>
+Date: Tue, 19 May 2026 14:50:56 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOAP265MB8966:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ade7bcf-fd42-4386-8ab5-08deb5a4cd7c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|10070799003|56012099003|18002099003|22082099003|921020|4143699003;
-X-Microsoft-Antispam-Message-Info: ajyzLDqN185pVN9YK23OGfKfRDBpa7aseeYRJz0+SGVTnULNpfRnaf544PV1g9E2tjJwKH7ahgOePJqx8jY8de24zFhMk7cUBczvBOME0+NXfEYMVQKs9t+3gSLzyPHG9w3xinhCFj9X33f5R+hHAXL6Kk2YAITgWNSJCgtzs/PKpwvRNVm2u9mUqvayrAfUOnN+YqORxzVTrch31DRdVoVPg4NFJMcaq7FLCY694IpkktHUHjocZy37a4/fV/i2lYB7ciFv3Mp1nNumke31F7GJSDrGyvNbyHfjehfTLy6vwPlJPaT7I3vh6rEV3bE1jTG0hNmDIq/FxIZo94RdEvMnN5lba9ke7bHHU8PArxIuVA7eqJgmBVOJ71sZtUIP33mPk9TINWtkGJ7OQfq0JKSR9tIia6zYveFO1z6osRz+IYJWzO0am9InFAWyYHuHXl9hQapkTUUJfRibLxWj7Z/ekoJu7DkmcRctoIsx3/L4DXqpWI5nGMqSWJjZbdhRV8OLBKK3tKmSaYmvCzDiaLwI/tdlwOI0SVLQZHpXarIpennCWiTfkQaL6vGE2eEj5A6/VoTrKKrAvPrViCmtGBS1PVM4oYx1uXxOEmUL+R05vZMT+5y03Y4nKmzhTbI+UbFZurMO7ETBbDlxNZ5832mwq5KOqyWqsY1qLkSSPyMJkPXmUzJiKTEYfiwF6CJTaUUt9+gwpUoCWmQap0IxB4EZZZzhYi4MNFIOdl8dHuc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(10070799003)(56012099003)(18002099003)(22082099003)(921020)(4143699003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDlBMWxXdTVTMTIxcUt0anpzbmpHRlhqb29La010MmZEbVlGZmc2Qm9VMExt?=
- =?utf-8?B?allCeEJaVW5TRXhwa0xxa3RxeFBiUnFzbHNWZGYwMkNudUNyQWtpY1MxSERs?=
- =?utf-8?B?eDBrdnJUS3ZqYlpQOW1LWjQyMWtBdkN1bXFCeWFPak9tMU56ZVRSVUp1YlVw?=
- =?utf-8?B?UjRPaGVxQlYrRlEyRmFZQThDaE9HYmFucW1SWkljL3RTT0tBQU14RTQ5NFA3?=
- =?utf-8?B?QW92MWZIeXJzcVh6c1IvK0ZDcUdTSVcxYXNaMnI5Yi81ZU9pQ3dadzY0WDgr?=
- =?utf-8?B?akpaUVIzQjlKQzIyb1FaT3YwcVo2K0xhblJGak0yZGprUUhxNFkyYTd4b1hW?=
- =?utf-8?B?WGprdDdJaTlXR2lRNXdXclZaVjBMOHIzY2c0Qm90eFZ3S094ZDRxTk9tRU9t?=
- =?utf-8?B?eHZFNTNNQk41bm1zb1VKRWtnVU95MDlobWdVRmlxM0ZjdWRGZ1gwM2pvb0xT?=
- =?utf-8?B?bGFQcTg5M1NNNTVDWDl4cGs4TmFFNndUWEQ3SU8rdU41VU9kSHAvWXI4MHo3?=
- =?utf-8?B?S3BqUmRMOVd4bXB2d0psd3FpTjc1NXhybU00YnliTmJWUkZVam9TRWJLbHJL?=
- =?utf-8?B?QkY2YjVLeG1pblk1bUU4WndqWFZnRTVSU3FWTXVtcnkzU1FwQ3JLcmllSW9k?=
- =?utf-8?B?UHh3UGMra0srVXU2S3ZUbnFwTDNvK3hseFl3NXhsTm9VUVBaM2hpbWFaRzdJ?=
- =?utf-8?B?WHFNUWEvQTRkbG1tUnRwUm9UK09lemdBcFNLbk9DWGlYVWhXM1h0MmRTK1Rj?=
- =?utf-8?B?VDJNNXVtczZBMHgzN0tpeWZUeEl6VnVxdDFjQ1AyQlphdWJxOGR3Z0FtOXNl?=
- =?utf-8?B?SzI3K2pCS0l0QkhKdm41Y2NTNWV6aFVCMU5DOHVGTkxLQW1TeGNrTEMrZHV2?=
- =?utf-8?B?OXRjUHh1N01aTHRNUnk4ZGFBcldBaHVnTUdXSlZnS2VPV1FvVTl3RThEN1pT?=
- =?utf-8?B?eXpyaTFFdHVsYU1BazdzM0g5REpGQ2xRVnFCUE1YYndZN25nQ1o0VEdLL2pJ?=
- =?utf-8?B?cmplaTZiTlpjNi9IVG5jWEtMdWVCRVRWbFZicnhaNVMwTW0wajBMNldaK0dH?=
- =?utf-8?B?LzFJa0RoSFpyekYreDJuYzJjU2t1TUtXOStOZTU5VXJGcHBIS1F4Sm9MZjFR?=
- =?utf-8?B?ZDNhRm8wU2tEWWkzYlBLWHR2TjdTdm14d0FLUFVBd2lQdjF3T1krVHlDSjUz?=
- =?utf-8?B?TWIyM2Z4RElMUkhPZm1tVjNnSmFsTSt6cGtlRkdyN0w3QXA3dDhtR2E5ZzFi?=
- =?utf-8?B?NUZLUzNtQWUvdnBiNHlsY2JUeHZCMWlwc0h4Uk0vYktoT3ZkcGpyVjQrYlpn?=
- =?utf-8?B?eE5hMk9xUFNpMTBzYXVvV0VWM1RDVUxiRmF0NjQ4US93MjFQSUxyVTlpSUpD?=
- =?utf-8?B?ZXpmN1FDd1lLTW1ZVCt0dHZkWGQxcmhCc0hWZVdqRW5xMTBXY28wMG42bzlJ?=
- =?utf-8?B?Qk54RVVCdTB2cUYwL0tHYmtHbTM2QTJlc0pLaktzMy9vUGU3SnVTNlBWRW5k?=
- =?utf-8?B?Mm9lcU0ra3dheVRBclQwbTA2UnA3YXJrVkoyTFg5MDJsKzZyQnp5d3UvWTVH?=
- =?utf-8?B?bkw2NnUvUVgxUERyZ2hsYy9MdmJrMzBycGpVZjZPV1RXUnJKMjhVSFllUndZ?=
- =?utf-8?B?RjEvbkhxNXVFNmZGYTNJKzJESnVzbTlPRnBiR3ByTzkvZ2xDVmNjMnp2dHNI?=
- =?utf-8?B?dGhuYXE4THA5RHRaVzRya0RwaXpFVUJiMHBVSHp6OFRlYThrWk43eU5LY1Az?=
- =?utf-8?B?SnRTSE1PN1gvNzFFalNZWFhyTUdJWWU4NWZuOU5CdE9Pbno4cys3aWpMd25r?=
- =?utf-8?B?NU5RNTlQZ0g5aG8zOHdtUm1RR01WaWduaFJsdi9YM05EcWd2eGpSMjFNQzJW?=
- =?utf-8?B?OEhKUTg0aEdYNHBSeHFkRG92cXBtbm1oZUlBUVk4V29pUXNXOUJiL3dnbGJz?=
- =?utf-8?B?T28vdDdXZ28xT0JnOXBqZWhNSmtFWk82NnBBd1dBb1lxTmxTcVRYUnNWTW52?=
- =?utf-8?B?T2hDczI0Uk04TEN2bWV1emxwQ1hLeEFtVVpQOUdLek1URTRyZlByY1RUNzlU?=
- =?utf-8?B?eWxLQ2V5RGUvQWIrUGFUNVhyc1RLVm1VWXVacHgvcFRlUzNSUTc1cUNnVFZu?=
- =?utf-8?B?UnhtaWdqbGc0Unl4bFVsclJYT1FwUFE3R3MveEswdDZxdTlJMVVhdHB1TWkr?=
- =?utf-8?B?cmVlUUc4VnVDSWFGYmR6cVVVbzFucS9VZEY3NDE4L2xDZy9FNFpENUg0YjJm?=
- =?utf-8?B?Q3ppRkZicHJROGNHTUNjSVNMdHU5SFlWY25zWXo0bTNVcWIwUkN0U3g2b0p1?=
- =?utf-8?B?WVR5UTlxUHBrcnRBb0FuVHdWTkpYbHErZU1SMTByeE90eVc0amVpQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ade7bcf-fd42-4386-8ab5-08deb5a4cd7c
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 12:47:36.0485 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 71c9eThv4YUR8YNs3YTNwfxBPw0h/bgryHy38Vwt5H5xYfWARNkJP4+M7QAI7W4AOb07DIXov0CKanhRD1TBHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOAP265MB8966
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/6] drm/atomic: don't set colorop properties of
+ inactive color pipelines
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
+ Uma Shankar <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260506192633.16066-1-mwen@igalia.com>
+ <20260506192633.16066-3-mwen@igalia.com>
+ <cd1d9fd2-8026-44ad-a0d3-d317dc1fb28d@intel.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <cd1d9fd2-8026-44ad-a0d3-d317dc1fb28d@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,31 +78,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun May 17, 2026 at 1:00 AM BST, Danilo Krummrich wrote:
-> Move the post_unbind_rust callback before devres_release_all() in
-> device_unbind_cleanup().
->=20
-> With drvdata() removed, the driver's bus device private data is only
-> accessible by the owning driver itself. It is hence safe to drop the
-> driver's bus device private data before devres actions are released.
->=20
-> This reordering is the key enabler for Higher-Ranked Lifetime Types
-> (HRT) in Rust device drivers -- it allows driver structs to hold direct
-> references to devres-managed resources, because the bus device private
-> data (and with it all such references) is guaranteed to be dropped while
-> the underlying devres resources are still alive.
->=20
-> Without this change, devres resources would be freed first, leaving the
-> driver's bus device private data with dangling references during its
-> destructor.
->=20
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
 
-> ---
->  drivers/base/dd.c             | 2 +-
->  include/linux/device/driver.h | 4 ++--
->  rust/kernel/driver.rs         | 4 ++--
->  3 files changed, 5 insertions(+), 5 deletions(-)
+On 18/05/2026 13:42, Borah, Chaitanya Kumar wrote:
+>
+>
+> On 5/7/2026 12:53 AM, Melissa Wen wrote:
+>> Reject attempts to change property values of a colorop that is not
+>> part of an active plane color pipeline.
+>>
+>> Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic_uapi.c | 34 ++++++++++++++++++++++++++-----
+>>   1 file changed, 29 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
+>> b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index 5bd5bf6661df..bff8d58f8f12 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -1275,15 +1275,38 @@ int drm_atomic_set_property(struct 
+>> drm_atomic_state *state,
+>>           break;
+>>       }
+>>       case DRM_MODE_OBJECT_COLOROP: {
+>> -        struct drm_colorop *colorop = obj_to_colorop(obj);
+>> -        struct drm_colorop_state *colorop_state;
+>> +        struct drm_colorop *active_colorop, *colorop = 
+>> obj_to_colorop(obj);
+>> +        struct drm_colorop_state *colorop_state = NULL;
+>> +        struct drm_plane_state *plane_state;
+>>   -        colorop_state = drm_atomic_get_colorop_state(state, colorop);
+>> -        if (IS_ERR(colorop_state)) {
+>> -            ret = PTR_ERR(colorop_state);
+>> +        plane_state = drm_atomic_get_plane_state(state, 
+>> colorop->plane);
+>> +        if (IS_ERR(plane_state)) {
+>> +            ret = PTR_ERR(plane_state);
+>>               break;
+>>           }
+>
+> Hmmm, this creates a dependency on the call order of 
+> drm_atomic_set_property() for color pipeline and the color op. :(
+
+I can move this check to drm_atomic_check_only(). This approach will 
+create colorop states that will be rejected in the end, but at least it 
+won't be affected by the call order.
+
+Lemme prepare a series with this alternative approach.
+
+Thanks for your reviews!
+
+Melissa
+
+>
+> Not sure if there is a good way to solve this.
+>
+>>   +        /* Check if the colorop obj is part of an active color 
+>> pipeline */
+>> +        for (active_colorop = plane_state->color_pipeline;
+>> +             active_colorop;
+>> +             active_colorop = active_colorop->next) {
+>> +            if (active_colorop == colorop) {
+>> +                colorop_state = drm_atomic_get_colorop_state(state, 
+>> colorop);
+>> +                if (IS_ERR(colorop_state)) {
+>> +                    ret = PTR_ERR(colorop_state);
+>> +                    goto err;
+>> +                }
+>> +                break;
+>> +            }
+>> +        }
+>> +
+>> +        if (!colorop_state) {
+>> +            drm_dbg_atomic(prop->dev,
+>> +                       "[COLOROP:%d:%d] not part of the active 
+>> pipeline\n",
+>> +                    obj->id, colorop->type);
+>> +            ret = -EINVAL;
+>> +            goto err;
+>> +        }
+>> +
+>>           ret = drm_atomic_colorop_set_property(colorop, colorop_state,
+>>                                 file_priv, prop, prop_value);
+>>           break;
+>> @@ -1294,6 +1317,7 @@ int drm_atomic_set_property(struct 
+>> drm_atomic_state *state,
+>>           break;
+>>       }
+>>   +err:
+>>       drm_property_change_valid_put(prop, ref);
+>>       return ret;
+>>   }
+>
 
