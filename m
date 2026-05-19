@@ -4,69 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56782CD4F57
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61D43CD4F57
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:20:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACA7F10EC4E;
-	Tue, 19 May 2026 11:09:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC4E710E192;
+	Tue, 19 May 2026 11:20:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lPPJ03+b";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="z5Xi8g7I";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007CA10EC4E
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:09:02 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 382FC4E42CEF;
- Tue, 19 May 2026 11:09:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D99A0606E9;
- Tue, 19 May 2026 11:09:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 115D5107E8B31; 
- Tue, 19 May 2026 13:08:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1779188939; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=rZpvAdTidzv5frFA2Fh59VQYe4hvOqmAQpFG53pkriM=;
- b=lPPJ03+beU7EqTBcCvAJlMCYn4/SnelIvqTJz0zwMbjb08bZHBlSuK8JTIQ4+0DVnfCr46
- yvyCl6mMLegw+jVfHXVbvNa7IiW1FgaGBLE6+7zJBeOKrD8zGLYlVYy7AkT6JFsJApPs0K
- 9+v70l4hOu8w7CIXxQAVLnQ5+UfxFJ1bk9goDmnsWq9qc5fPFXtpkC8eW+6ODZzAcp5ns5
- 7ya1T7M3Ozz4N7mOGMzhYeQY5GBha93i11thrrL6mpl2VY23vJON/iwSxeqjperT0VmeCM
- i8QrljjzudkimZwllny+bcsjBmbZZpiea83vxwFXZHwRP4smcr6j/dExBvVBig==
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020128.outbound.protection.outlook.com [52.101.195.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DB9110E192
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:20:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e//CzmeX/xPBmKf6gK7lvEt4cQ/BmuSS1fwgsI3qs1WuN7SNVfiQ5ara0Kvo+xd4RZ5TzpQH44a9Kxpf4kUtLEhOs5NV9GJHX0Pa7z8ILntdhgoAQqWOqZYdXpSuFiOLrIwN7a+v7+PnYlcbqkQaq167/+lyDLX3sOd4pUATWa69ZcNGVzDSgvFLlw9oiTS+RkKuduxEW6ShjdqV98JjbjDPY+E5FrcOkW6ZnRdnbOt9PYHRw/dw0U2RX69sss7pPnLlpj26pekXgITE1hw940KlLUrvxoz1QWI3cLhDRhwvdZuLEPzqGWHHVwkHrrS5CRtvwiEqWD47SPtyilX9Jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fxPMee/SGVaiWmNzeai7MUqcogkpCcnitnX0HQY1AKA=;
+ b=iBGOAU0ccAJZP4f/VdDFaBMPxmYXxDSu0tZsGrXHSHWx/zFuX9jigaCj3kMs6xOXX2uT1YWCrVmPNY0+TSyvkn82TsUlfk84iXoo9cOXzqrVjWkzrygVcvJd8zVmKqZDBFxE60gOfd6y+ugipeMWUavEHg9uPht6jVx+w4AjLyHVglkUEPLaralU7LX60QMAzAXt01zelZVD/S8ps1TnhzxI0jqp5ZwASDVop+U6MSLeIs306og/zZnuvccY4G8GCAwR546w+akR2XF4j2rdW9mOkd5JoBl+fQBEkfPD790A5hxLDCCgGzLFTP/PLiyY33zdlrPA2fZhTSadnRkL7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fxPMee/SGVaiWmNzeai7MUqcogkpCcnitnX0HQY1AKA=;
+ b=z5Xi8g7Iaav7LH/txM9UwNP8gXEjcA4PH86tPNEaIP4LFiNNMDewiA7CXRJXgojHB8pJEh5zastmcTciyfIMQmFMfvSOoOwPeMr5NeFKNCtCusbV/+GnMbnTA+QrV3WPrsHFPGLKLcbaGosVLW1ce36dyzDmtWa/DFIhzym39r0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO0P265MB7271.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:368::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Tue, 19 May
+ 2026 11:20:15 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 11:20:15 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 19 May 2026 12:20:15 +0100
+Message-Id: <DIMM2XJHLR16.1K52AYHT02CM@garyguo.net>
+Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
+ <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
+ <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <igor.korotin@linux.dev>, <daniel.almeida@collabora.com>,
+ <pcolberg@redhat.com>, <driver-core@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-pm@vger.kernel.org>,
+ <linux-pwm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v3 17/27] rust: auxiliary: generalize Registration over
+ ForLt
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0
+References: <20260517000149.3226762-1-dakr@kernel.org>
+ <20260517000149.3226762-18-dakr@kernel.org>
+ <DIMHR3ZPEL92.2HVZ0FGPM54MF@nvidia.com>
+ <DIML7JNOV84D.1CK4G9MBZQJ3T@kernel.org>
+In-Reply-To: <DIML7JNOV84D.1CK4G9MBZQJ3T@kernel.org>
+X-ClientProxiedBy: LO4P302CA0038.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:317::6) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 05/12] drm/bridge: synopsys: dw-dp: Add follow-up
- bridge support
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260501-synopsys-dw-dp-improvements-v2-5-d7e7f6bac77f@collabora.com>
-References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
- <20260501-synopsys-dw-dp-improvements-v2-5-d7e7f6bac77f@collabora.com>
-Date: Tue, 19 May 2026 13:08:43 +0200
-Message-Id: <177918892313.537125.10814687633426590148.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB7271:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f176137-c7dc-49d1-489b-08deb59899fd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|10070799003|366016|56012099003|22082099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info: roniEgcIEIIZBnJdis8kHkUeQepU9Uv3EjYGnOEk8nDpwjgTiMpDpDQseILRgPqTXjZF/Q+bQ12oyUwd0BVlmpErbJN7ePJRjrSSWaRFdBHOgXh9WtClnPl64VIDqSwq+byb9b7JEsyx3SvFxTfEg1VzjoCOc9f0O1Jw1muZZBmXzvKUwJCO3+k2RfSGqyA6nInzdp5hZqFC9vc/dHt0p7m2EnUNHNIhnLIp2yYvSQmUOf5L1Vk383ofiJavL/fnuELudNe87mEDGG5QbeX03upt7XLTtZ84q8FRCspW5B7dH4hr1+pwz6DMtsXzWR2jK2xLVjLbLRxIkpH64+fMJx9Fu5oXlIgOldNnL6ItHOOSk1/ZH6N7TdoCdKgDpCha5q5HYs6MKN+viHavn8EPRonTLo2pgIBuD17G5Ek87lQqX63/SWvgWP+CBqHI4j0xWwtUEig1wnCGNjjx42lVN8ykdm35e9CqUnPFmJkDFQ9aDN/JaF0GwqvfvHUeB7ZsarP2KcEtaL+wX1M/UFv5tBkac/3feIh01Y0P62V6GExUOHHzLhMHh+mSXVyU9fzY9+XQvcdSAbBv8RATSNqbjNeTlIR+M9GPhPQvy7J70mBfvFoZ3JhOtjecm51v57u5gW2NwVb98yXVEPZEodGMZb3Zfa2KuP7WS26Aho7P4EUEDqiImUVD6Cb6Km6evhzI
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(56012099003)(22082099003)(18002099003)(4143699003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?azVOL3pseFBJclJZRG5OR2duZFhNdGQ3ZzJQZWl2bEk5dXp1eDh4QTI5RURv?=
+ =?utf-8?B?ZWxDZExRRnd4QzJ2VEZvdGFuTE1OYmRmNWRncWFBVzZGank2RElERzVVanV5?=
+ =?utf-8?B?VHhWNUpUMzVsMlJDcmpkSm84a3hnU3NoTW5ZdFRhazg4Y2dMTnJ4SFlYQkpM?=
+ =?utf-8?B?UkdHbjBUYmNONThSblhGZzZ1UXhwd0Q0eUUzdTE4Y3gvbC9rbWVBL0ttVm9v?=
+ =?utf-8?B?aXFBOXJVVitlY2dJR1BHMW82OTZxWFh5a01nM1o0b0hUMzNxTEJvREo1MU9o?=
+ =?utf-8?B?YmRITk4zNFMzZi9wYlB5dFdYUk1DUUQ1a2lDVVloNnFabkRUY3Y0Vy9GS3Vy?=
+ =?utf-8?B?UWNzUmRTYlpxbWMvdkRjeS9La1ZqRjBQWHZtTHpzQ2JCQ2Y0eUJWQTFoVUNU?=
+ =?utf-8?B?L1YyZU9tSmxhYnRQREE4MjN0dDVFVDkvanFJTWdUM2hOY0h1WmNNMjNEN1Rl?=
+ =?utf-8?B?bDVxWVZ5UDBvTEIwSW9JQWZTZ29vSGZqOW0wbGZFYmpjamd3NjJMMDdDbndx?=
+ =?utf-8?B?NHdPTGp0UHczMEd5ZEJMR1RaS09aVHBNd1M1SjN4MmVObGw5U1BibjQwRUtB?=
+ =?utf-8?B?TStNQUNyNWpDOWZDKzArdVdXUTV6bHlzQXNPOE5JRFBiMVRHYWVEZ0pxWnhS?=
+ =?utf-8?B?SjVWMlRUR0pzVkJMRFJMblJIa2tWMGMzYUprSHdDMnJGSHNVK3grYnY5dlVT?=
+ =?utf-8?B?Q0pHOG4wejUvOGZQektWVkFsRDNFeGxRYTFiM1hSUEZZYk5MSElUWktMQnFl?=
+ =?utf-8?B?alB0OGk1cTJFQnNiWW11c1dzS3ByTXNHcTR3c2o0dDJ3RU1qblNVZHVBOWpD?=
+ =?utf-8?B?bGlDZ0d2T1pMaVR3SGh4cTNtQVRRMnFVQjBWcHQ3aU5HdStYTGt3NTl3NUhZ?=
+ =?utf-8?B?RjFwcFVSWC9FRjdSazRqSGdydzNPbG5pcDZMZGxLbWhFM1ZWTzNVOGFBeVR2?=
+ =?utf-8?B?ZTR3TEdCaVcyU1k5cG1VZ29VVFptb1pPY1dhT2pYNUdYSDNpSkRGOFVzZ1Zw?=
+ =?utf-8?B?d3o4V2ZndEptVUtmbXFnY05ma21JOEcyMFZrYzczckZEUzFuanRCcW5ydlhH?=
+ =?utf-8?B?d1pKNGV0eG5yRTVWS0pCVVVkZkIvcHllM3ByOUFoelRJMFFGbWRGM3BPM21M?=
+ =?utf-8?B?MkJkZFV4T1RCZUtZeUduL2ZBMEJPQzJOZjBJb1gxN2FpRThUTjQ1NG9BcG5N?=
+ =?utf-8?B?SmU4UW5tS253ckYrT3NjYjBHWWIzY1V5RTVpbllhWjI5K285aHlHVVQ1aStH?=
+ =?utf-8?B?eTMzVCtHRjQ4L0ZwTmU0N01pb0FpT1BHQWpNU1FyS1Q1UWM3cEZpdHlyLysx?=
+ =?utf-8?B?bXorNzhTMlRqR0U5c0FCUHhaRjdtb1ZZdFFoajEwSVBuS3JQNllTQmhDN0dO?=
+ =?utf-8?B?cVlUaEdlb0t1YmRxN3V1aDdPd0tuWEhUalVuQ0xia2FVRXdxQ29GZW5xOGUv?=
+ =?utf-8?B?OW1lOTJrSzNpVGhRYXA5TzBqRGcweTNwOWpyYVEzYUo3dGRLTmRiN3o3SzBC?=
+ =?utf-8?B?NDErai9oWjFXMzJnbVZhRUhuRURlbnFUc0RJcFZObHZFWTI5bXdCbWJtcVJa?=
+ =?utf-8?B?aUxINGhGaTRBeWhZREY4Rk8yK3Z4eFRYem5ESnBlYmRKcFR4L3hWUk44eGh1?=
+ =?utf-8?B?dFFmVzMwQ0g1UjFhV1JMSFpHV2hoa2dsMnNMTmtaTFI3Q1AwRi9RUklFN2E1?=
+ =?utf-8?B?SVltUU5tUWg2bStuSmM3ZjBBSWp6dHV4aCtYcHR1YkpwNjBXemJJcW9IRmxI?=
+ =?utf-8?B?UEdOd094TmxFS0IwOG1rR04rb2llY3dtaHJFeGd2VCtaQWdxWG9YRUJvMVZj?=
+ =?utf-8?B?U3pHdkV5bDV6UXk4UmJ5SVEvaCtuSFlxSHQzczIyZmYyVlQxVW5WWU5MbVgy?=
+ =?utf-8?B?dm5RaGF5a1AvWnlMcDVSVGNpU1Q1NUQ1WnREREJzNzlZVW4vVmFndzdqR0xI?=
+ =?utf-8?B?dXkxRFRsaGdTUVhWWGkwS2dyU3NRUWdXRTd6MThsbWNFU1pWckw3VkJodkVJ?=
+ =?utf-8?B?SVVESGU0M3I0cXMvK091T1k4Q2V2NkdlakhpUWk1eGRpZVFHWTB6Zk5wclh2?=
+ =?utf-8?B?NCtaUjNxVFBXWTFmdUVvUms4U05iRDhxTHlPYUQ0NHlOdXhoViszajdETnlt?=
+ =?utf-8?B?N1lhL3plbWpjb3BqU0ZSUlBJekx3SW9IcEVSSFpDVWx1MnlGYkFMN1J2OEtS?=
+ =?utf-8?B?SWI3dDB2QU1zREUwVndQSzFmTFR5N3B6cnY2ZEZiR3VuTlJCZjA4SjhVeDdB?=
+ =?utf-8?B?N3J2SWJBWUdHaE1JMEU0NksycWNpbVBtRmlCQ2pXMGxnZVRsNGV2TWNiWHdU?=
+ =?utf-8?B?Q0dDMUN5RE1PRDJGSEREb0phZUlnRCtXaUx6ZjdCNUdTaEJ6NTBhQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f176137-c7dc-49d1-489b-08deb59899fd
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 11:20:15.7492 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +k72u75BhtMkDBTs990jaz6RLIWH9pFzSL/ptNh4uK2ntLcBMhRlLSCLeI2CxJuz/zfdsJqP5gFp0ZMAPYz0lA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB7271
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +152,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 01 May 2026 00:20:32 +0200, Sebastian Reichel <sebastian.reichel@collabora.com> wrote:
+On Tue May 19, 2026 at 11:39 AM BST, Danilo Krummrich wrote:
+> On Tue May 19, 2026 at 9:56 AM CEST, Eliot Courtney wrote:
+>> For example, in the next patch on the sample aux driver you can do:
+>>
+>> ```
+>> let data =3D adev.registration_data::<ForLt!(for<'a> Data<'static>)>()?;
+>> let pdev: &'static pci::Device<Bound> =3D data.parent;
+>> ```
+>>
+>> and mint a 'static reference to a bound device, which seems unsound to
+>> me.
+>
+> Good catch, I applied the fix.
+>
+> Additionally, we could probably reject unused lifetime binders in the For=
+Lt!()
+> macro, which doesn't help when used with a type alias, but may be a good
+> defensive measure anyway.
 
-Hello Sebastian,
+That won't work, `ForLt!(T)` is basically not using the lifetime binder, an=
+d you
+do need that to work.
+
+Best,
+Gary
 
 >
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> index fc4ddb7792d7..ccc55e40e81c 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -2064,6 +2064,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
->  		goto unregister_aux;
->  	}
->  
-> +	next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
-
-devm_drm_of_get_bridge() looks for either a panel or a bridge. Is it
-possible to have a panel connected here?
-
-If it isn't, then using of_drm_get_bridge_by_endpoint() which has just been
-merged [0] would be much simpler and cleaner.
-
-[0] https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/03d1078112fddd706b2c1e4a7d98cf18700eb5df
-
-Luca
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+>> What about requiring all device ids declared to be supported by an aux
+>> bus driver to have the same rust registration data type?
+>
+> Please see [1] and [2].
+>
+> Thanks,
+> Danilo
+>
+> [1] https://lore.kernel.org/driver-core/DIFBME3GXDC0.14UHJTPD6TTAE@kernel=
+.org/
+> [2] https://lore.kernel.org/driver-core/DIFXM2N21Q5J.2RIYLU11C5FR6@kernel=
+.org/
 
