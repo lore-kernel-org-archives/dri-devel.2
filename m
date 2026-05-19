@@ -4,90 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 534B8CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 08:48:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDA2BCD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 08:49:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99B6710E059;
-	Tue, 19 May 2026 08:48:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B03D10E257;
+	Tue, 19 May 2026 08:49:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BZuWcgRx";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="UHWhEtQu";
 	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6559D10E059
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 08:48:47 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-36974217d4eso1854747a91.2
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 01:48:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779180527; x=1779785327; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+nVOhHDA00f0iZbJ+o5TUqj1fifKESVdZYkDcrWTV8Q=;
- b=BZuWcgRxaoLbFjpQ8B+ZObu7iAUDfe7XLbCTs2Jh7Eo6F7HZZ4iIRtGCTDTFlA5TWS
- pb2Pk1uWptL+efI71fcK99S13t8+0NVzaoRaecJvn6VnDWnd2q9Wt+sh6H0LWn6NA49o
- GcTdZRNlOEfNKBy6xCHslCozhKioGa4LQPsmKV2eXVsJJNkk4WT0eXGaKZ8+iIt/h21i
- CR5NFAzU/VeqBnjcrSOvYc9HoB5y6L8fSgee6+xOhwxRahnC5H5E8wMe3JIWbJ6Gap72
- dRNNrG1+btBl2zdkiEIZzgcEZiUJA2heTy04T4Xjx3HfPUV1eqKdE+bTYnhKJNGBICaS
- PS1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779180527; x=1779785327;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+nVOhHDA00f0iZbJ+o5TUqj1fifKESVdZYkDcrWTV8Q=;
- b=s/83R2M1SBQeZY6MSgijOaxJZdRqoXx+4OZE8bXtYlevp9+TI0OnwSPen5P17gCEjP
- ksnZECbL48K5gEuMLkm3tu0Vc8oKp02WlZehDVxFL2JFVY3/zHzzuI6qfI6wmrrm707M
- +hOHMVpcQEY51aaLCkzVFg/2zuAHq2rHlg51vM8uzWRJNKsV6MdxbI7VUv0RSUBPpwkX
- +5IVt4sen4y/z5AbnVFu2LCzY78HxZdbCUXlddzH8TdCkZ1IgY/hs/RXsY9vObvlx4Wv
- HdItLzhPhIw6QyVCKOEB1Si5Xx2fgC92zp7HWZkkBY9X1T7ntYrS7hPOhUj0tY/0rIwo
- hGgQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8rwayOUwlbzDkeI7rF885Si1DAnQrQLdBHO92cLRnOGoTWuyjrEOvK3qbAspcxXsnt2+TF1TN90G0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwvFurGVA4o4YkmWVORAP9rgIJAJmKzda1FjMPrrpVdz/LzE/LJ
- 4TALR9sZCKHTSufe1ojvVNnbGmgbD7Mi+PD3hPUbLcrCWYv6vtQFtCAB
-X-Gm-Gg: Acq92OFVY88EYpk+FR9rqqRdjYu956FUhUX+wViyw/jpkfultehMQ9Lzr+XerCmsgN6
- gVo7vxPMk5zvblbKxs9wQgMdQtac5tYLBMUTmfS/asv4JP5DXWyKUo1gEDGLksV/SMiLvqqUy7+
- Qpti438MByKf2WfY0eeOTRiLkIu/aahoP/8zRGqrutHRsvrE0Vt75g1j3IKeYQ3hzudq9MZPjoc
- geYwxT44H++P+ZNgnGEty13jmxVcR7/6Nqesyu89YAWY90ooIg/8H4VOxqfsSG0J8sCBWLXgEpo
- K7AXSQ/2Qpmq8JzZag0K5M/+Xtll5lCVsZKAQfJlB+d/+PLAY9RsXBHt5lDWSK8p82Hw1QxdfeT
- szFyLwljiaZyhFPzFTEhZWx0t7RgEL/WSoFNLAJimTuklujqAuw2RVZFZg7lvQk2ZHiH+I2WTCL
- TvPOHXxHrpWBcdDNFBN0Cq5FvseOmE/Ies0rLfmz1g47Q8k+3t54lAHcqLGg==
-X-Received: by 2002:a17:90b:2d4b:b0:35a:189b:43db with SMTP id
- 98e67ed59e1d1-369518b20ecmr15266950a91.4.1779180526826; 
- Tue, 19 May 2026 01:48:46 -0700 (PDT)
-Received: from [172.16.20.13] ([136.226.252.245])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-369517d8570sm14173902a91.14.2026.05.19.01.48.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 May 2026 01:48:46 -0700 (PDT)
-Message-ID: <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
-Date: Tue, 19 May 2026 14:18:38 +0530
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6381E10E257
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 08:49:44 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 61AF234FC;
+ Tue, 19 May 2026 01:49:38 -0700 (PDT)
+Received: from [10.57.24.124] (unknown [10.57.24.124])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5E89C3F85F;
+ Tue, 19 May 2026 01:49:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1779180583; bh=2ItcKLOHuYuo+5+zg3nAK5dtbbWOEusz4M2dKNduT5Y=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=UHWhEtQu0+j3+QsOWr2nLpXICsL3AQVNq2V7x/fb/XyRGPAKRbuSINGm0ljae0+i8
+ 9z42OdtXMowoLE3td48keL3MFMfcrE2qLP+5ACkvZROnd4D2JJ9PLo2A8+sjpZLK8t
+ k19/XatDyTfkXHKjdvr06k8CRJ9nVozmozjNf8GY=
+Message-ID: <8f0b1750-a853-4895-9672-73a75f6dbd84@arm.com>
+Date: Tue, 19 May 2026 10:49:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
- stable LVDS output
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- marex@denx.de, valentin@compulab.co.il, philippe.schenker@toradex.com,
- alexander.stein@ew.tq-group.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260412053811.662461-1-tessolveupstream@gmail.com>
- <20260412053811.662461-2-tessolveupstream@gmail.com>
- <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
- <c4c33f14-0da0-447a-ab82-2e2f65c09c07@gmail.com>
- <7056b23b-ed81-4d79-b782-5cfcb0102ef7@gmail.com>
- <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
- <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
+Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
+ allocation in panthor
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Chia-I Wu <olvaffe@gmail.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?Q?Marcin_=C5=9Alusarz?=
+ <marcin.slusarz@arm.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Steven Price <steven.price@arm.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, Florent Tomasin
+ <florent.tomasin@arm.com>, nd@arm.com
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+ <20260505140516.1372388-5-ketil.johnsen@arm.com>
+ <20260505181523.49a3d85c@fedora> <afxVIuVVPisBQ9p_@e129842.arm.com>
+ <20260507135356.5428d50d@fedora> <agMvb_jeRsO7tSS-@e142607>
+ <20260512161111.0cb7000e@fedora> <agNJasayW8VCHTiU@e142607>
+ <CAPaKu7QC7FdjL6m_OSb+E5aYKs6bmT-9DAHc5PC=XctCmRph2Q@mail.gmail.com>
+ <20260518091650.5a7a4f4a@fedora>
+ <CAPaKu7R9ET767qc3eppBUfG2RAeyrg7E-gE0turgp-u_FU4+Vg@mail.gmail.com>
+ <20260519093955.448ff899@fedora>
 Content-Language: en-US
-From: tessolveupstream@gmail.com
-In-Reply-To: <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
+From: Ketil Johnsen <ketil.johnsen@arm.com>
+In-Reply-To: <20260519093955.448ff899@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,65 +85,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 24-04-2026 13:55, Luca Ceresoli wrote:
-> Hello,
+On 19/05/2026 09:39, Boris Brezillon wrote:
+> On Mon, 18 May 2026 17:36:40 -0700
+> Chia-I Wu <olvaffe@gmail.com> wrote:
 > 
-> On Thu Apr 23, 2026 at 11:16 AM CEST, tessolveupstream wrote:
-> 
->>> I had reached out to TI for clarification and any related documentation
->>> updates, but I have not received any response so far.Given this, it is
->>> uncertain whether we will be able to obtain further details or official
->>> confirmation from TI in the near term.
+>> On Mon, May 18, 2026 at 12:16 AM Boris Brezillon
+>> <boris.brezillon@collabora.com> wrote:
 >>>
->>> I would appreciate your guidance on how you would prefer us to proceed
->>> from here.
+>>> On Wed, 13 May 2026 12:31:32 -0700
+>>> Chia-I Wu <olvaffe@gmail.com> wrote:
+>>>   
+>>>> On Tue, May 12, 2026 at 8:39 AM Liviu Dudau <liviu.dudau@arm.com> wrote:
+>>>>>
+>>>>> On Tue, May 12, 2026 at 04:11:11PM +0200, Boris Brezillon wrote:
+>>>>>> On Tue, 12 May 2026 14:47:27 +0100
+>>>>>> Liviu Dudau <liviu.dudau@arm.com> wrote:
+>>>>>>   
+>>>>>>> On Thu, May 07, 2026 at 01:53:56PM +0200, Boris Brezillon wrote:
+>>>>>>>> On Thu, 7 May 2026 11:02:26 +0200
+>>>>>>>> Marcin Ślusarz <marcin.slusarz@arm.com> wrote:
+>>>>>>>>   
+>>>>>>>>> On Tue, May 05, 2026 at 06:15:23PM +0200, Boris Brezillon wrote:
+>>>>>>>>>>> @@ -277,9 +286,21 @@ int panthor_device_init(struct panthor_device *ptdev)
+>>>>>>>>>>>                      return ret;
+>>>>>>>>>>>      }
+>>>>>>>>>>>
+>>>>>>>>>>> +   /* If a protected heap name is specified but not found, defer the probe until created */
+>>>>>>>>>>> +   if (protected_heap_name && strlen(protected_heap_name)) {
+>>>>>>>>>>
+>>>>>>>>>> Do we really need this strlen() > 0? Won't dma_heap_find() fail is the
+>>>>>>>>>> name is "" already?
+>>>>>>>>>
+>>>>>>>>> If dma_heap_find() will fail, then the whole probe with fail too.
+>>>>>>>>> This check prevents that.
+>>>>>>>>
+>>>>>>>> Yeah, that's also a questionable design choice. I mean, we can
+>>>>>>>> currently probe and boot the FW even though we never setup the
+>>>>>>>> protected FW sections, so why should we defer the probe here? Can't we
+>>>>>>>> just retry the next time a group with the protected bit is created and
+>>>>>>>> fail if we can find a protected heap?
+>>>>>>>
+>>>>>>> The problem we have with the current firmware is that it does a number of setup steps at "boot"
+>>>>>>> time only. One of the steps is preparing its internal structures for when it enters protected
+>>>>>>> mode and it stores them in the buffer passed in at firmware loading. We cannot later run the
+>>>>>>> process when we have a group with protected mode set.
+>>>>>>
+>>>>>> No, but we can force a full/slow reset and have that thing
+>>>>>> re-initialized, can't we? I mean, that's basically what we do when a
+>>>>>> fast reset fails: we re-initialize all the sections and reset again, at
+>>>>>> which point the FW should start from a fresh state, and be able to
+>>>>>> properly initialize the protected-related stuff if protected sections
+>>>>>> are populated. Am I missing something?
+>>>>>
+>>>>> Right, we can do that. For some reason I keep associating the reset with the
+>>>>> error handling and not with "normal" operations.
+>>>> I kind of hope we end up with either
+>>>>
+>>>>   - panthor knows the exact heap to use and fails with EPROBE_DEFER if
+>>>> the heap is missing, or
+>>>>   - panthor gets a dma-buf from userspace and does the full reset
+>>>>     - userspace also needs to provide a dma-buf for each protected
+>>>> group for the suspend buffer
+>>>>
+>>>> than something in-between. The latter is more ad-hoc and basically
+>>>> kicks the issue to the userspace.
+>>>
+>>> Indeed, the second option is more ad-hoc, but when you think about it,
+>>> userspace has to have this knowledge, because it needs to know the
+>>> dma-heap to use for buffer allocation that cross a device boundary
+>>> anyway. Think about frames produced by a video decoder, and composited
+>>> by the GPU into a protected scanout buffer that's passed to the KMS
+>>> device. Why would the GPU driver be source of truth when it comes to
+>>> choosing the heap to use to allocate protected buffers for the video
+>>> decoder or those used for the display?
+>> I don't think the GPU driver is ever the source of truth. If the
+>> system integrator wants to specify the source of truth (SoT) from
+>> kernel space, they should use the device tree (or module params /
+>> config options). If they want to specify the SoT in userspace, then we
+>> don't really care how it is done other than providing an ioctl.
+>> Panthor is always on the receiving end.
+> 
+> Okay, we're on the same page then.
+> 
 >>
->> I followed up with TI, and they pointed us to the relevant sections in the
->> SN65DSI83/84/86 datasheets covering DSI video transmission specifications.
+>> If we don't want to delay this functionality, but it takes time to
+>> converge on SoT, maybe a solution that is not a long-term promise can
+>> work? Of the options on the table (dt, module params, kconfig options,
+>> ioctls), a kconfig option, potentially marked as experimental, seems
+>> like a good candidate.
 > 
-> Thanks for keeping on! I'm also trying to get info from TI, I'm keeping you
-> up to date if that will happen.
+> If Panthor is only a consumer, I actually think it'd be easier to just
+> let userspace pass the protected FW section as an imported buffer
+> through an ioctl for now. It means we don't need any of the
+> modifications to the dma_heap API in this series, and userspace is free
+> to choose its SoT (efuse, DT, ...) and pass the info back to mesa/GBM
+> somehow (envvar, driconf, ...). The only thing we need to ensure is if
+> lazy protected FW section allocation is going to work, but given the
+> current code purely and simply ignores those sections, and the FW is
+> still able to boot and act properly (at least on v10-v13), I'm pretty
+> confident this is okay, unless there's some trick the MCU can do to
+> detect that the protected section isn't mapped (which I doubt, because
+> the MCU doesn't know it lives behind an MMU).
 > 
->>> https://www.ti.com/lit/ds/symlink/sn65dsi84.pdf?ts=1776924088430&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FSN65DSI84
->>
->> As per datasheet Section 7.4.7, the device operates in DSI video mode with
->> fixed horizontal timing, where HBP, and HFP are explicitly defined and expected
->> to be present as part of the video line structure. The timing description in
->> this section assumes standard non‑burst video transmission with all horizontal
->> blanking intervals accounted for.
->>
->> The datasheet does not document support for DSI video burst mode,
+> Of course, once we have a consensus on how to describe this in the DT,
+> we can switch Panthor over to "protected dma_heap selection through DT",
+> and reflect that through the ioctl that exposes whether protected
+> support is ready or not (would be a DEV_QUERY), such that userspace can
+> skip this "PROTM initialization" step.
 > 
-> This sentence seems incorrect. Section 7.4.7 starts with this sentence:
-> "The SN65DSI84 supports burst video mode and non-burst video mode ...".
-> 
-> Even though asa matter of fact it looks like many users have issues that
-> get solved by disabling burst mode.
-> 
->> nor does it
->> mention support for omitting horizontal front or back porch intervals. In
->> particular, there is no indication that the device can operate with collapsed
->> or suppressed horizontal blanking, as enabled by MIPI_DSI_MODE_VIDEO_BURST,
->> MIPI_DSI_MODE_VIDEO_NO_HFP, or MIPI_DSI_MODE_VIDEO_NO_HBP.
-> 
-> This is correct.
-> 
-> We can still try to get TI feedback, but it that won't happen in, say, a
-> few weeks then I think we should apply this patch.
->
+> We're talking about an extra ioctl to set those buffers, and a
+> DEV_QUERY to query the state (ready or not), the size of the global
+> protected buffer (protected FW section) and the size of the protected
+> suspend buffer. The protected suspend buffer would be allocated and
+> passed at group creation time (extra arg passed to the existing
+> GROUP_CREATE ioctl). So, overall, I don't consider it a huge liability
+> in term of maintenance cost.
 
-We have not received any further updates from TI regarding this issue, and 
-at this point, we are not sure if we will get additional feedback from them.
-As you had mentioned earlier that the patch could be considered after 
-waiting for some time, could you please let us know how we can proceed 
-further from here?
- 
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+If we can avoid the dma-heap changes, then that would surely help!
+I can try to implement this in the next version unless someone finds a 
+reason why it is a bad idea.
 
+>>>> For the former, expressing the relation in DT seems to be the best,
+>>>> but only if possible :-). Otherwise, a kconfig option (instead of
+>>>> module param) should be easier to work with.
+>>>>
+>>>> Looking at the userspace implementation, can we also have an panthor
+>>>> ioctl to return the heap to userspace?
+>>>
+>>> Yes, it's something we can add, but again, I'm questioning the
+>>> usefulness of this: how can we ensure the heap used by panthor to
+>>> allocate its protected FW buffers is suitable for scanout buffers
+>>> (buffers that can be used by display drivers). There needs to be a glue
+>>> leaving in usersland and taking the decision, and I'm not too sure
+>>> trusting any of the component in the chain (vdec, gpu, display) is the
+>>> right thing to do.
+>> The heap returned by panthor is only for panfrost/panvk. It says
+>> nothing about compatibility with other components on the system.
+> 
+> Okay, if it's used only for internal buffers, I guess that's fine.
+
+--
+Ketil
