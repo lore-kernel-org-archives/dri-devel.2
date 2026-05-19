@@ -4,135 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 758FBCD4F3C
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD35CCD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:47:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F62C10EDB3;
-	Tue, 19 May 2026 16:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16A7A10E205;
+	Tue, 19 May 2026 16:47:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="JjCjye7N";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WqAV1/vU";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021093.outbound.protection.outlook.com [52.101.95.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4262C10E205
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:45:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bgzdPssUKb32pAEF2kumPc+WfEWUJ7bACp/6bAwwtcxz/hCLRHMehIgS41P143QHmkebuuKm2UZxoorGblU229ue7FOEFrm+EonCxaPy1zgnnHiRxfx+VTCvFjoyxz2mCSoSlZbBNno1tOn5tafSFIbIw+fMqSjHSUHuXgL7uLi6SPmmJIL50G7DH8REae76adTA2s/bQtDoP5W1V7HFEQyXc0vtVlBs1Vo5L2ZNdsXijB5Pb/r35+4zTZx+UFkSWu1JnAlnrfQAYctWei+yjF9wRxH/9pfqTlLumIk2CKIbVt0wj+iHMD3usxJl2OM4D2vuf6iSMv3OOBWGHfoBGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RRWpgY4gV8Z8iG0eG+sEUmLFzWOT4hZs6o2O31bFlS0=;
- b=V2r97yT1ycGza6vtBiLRg+xQr77DoC0tzzWeoQw+U06JycUcT/o3HWFG77e75f+qAPDqPsnF+xO62f2K5D5HJnrk4ZBGbGqNSMW0HedMZhlunGf+OeVM1NZkUKoC5k7CHM16lzCa1mcJC3tHjs4oPXJPOmXETysYRVS5aKfyaMlt8yy8Z+8hKMKv81SxqF3D4eXQZ2qz2Etg6PvgUsA1Wf98Rv1b9rFpa2I7jd00LAzXY6BzueTt5+KLcaVxagavvDVCuf5CJv5bzjcwV9HJlfnmNtI+vZJI5JTQLe0a99G3vZQy+eIZPfU92hL7ZwO4QjPQggu9M8vGZNQtKJWqPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RRWpgY4gV8Z8iG0eG+sEUmLFzWOT4hZs6o2O31bFlS0=;
- b=JjCjye7NOBMHME4w7OGhAIvCUQtkDZnFK3Z8AlhGKqOdHvULnNDCpFYKlTOC8FcUckuF4YHZx3xMbd2e60Zpfehgyly45DRKDjk72BwIpGuI24DeLQHCjirO6Ry4Nkyxa2g5D8gG2/Bkr94/Zz1wpathXgvlBpSkN4/2pPBO1h8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CW1P265MB9261.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:271::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
- 2026 16:45:04 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 16:45:04 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 19 May 2026 17:45:03 +0100
-Message-Id: <DIMSZMCNTRA0.29WGE6IL25A6Q@garyguo.net>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 17/27] rust: auxiliary: generalize Registration over
- ForLt
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
- <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
-X-Mailer: aerc 0.21.0
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-18-dakr@kernel.org>
-In-Reply-To: <20260517000149.3226762-18-dakr@kernel.org>
-X-ClientProxiedBy: LO4P265CA0269.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:37a::9) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 402C810E205
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:47:24 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 171CB444E9;
+ Tue, 19 May 2026 16:47:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFFB4C2BCB3;
+ Tue, 19 May 2026 16:47:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1779209244;
+ bh=wtsvs+5IaNBl2MEy4x4JHMc9B3fizNNrV8z58n7rl3Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WqAV1/vUS+qzidkcmOrFrxDBIjC1CilEtL+cxPm9lawvbyeBb6HyNrQVnHEOVcRO7
+ rqgQak6iN7cLfYL7IZIagj2/u0KIgR8pWXqmX2aadlCeNI27TrvlcLk4uwY6HNF8Jg
+ vYKFvr8xivTgaR0M/iebob0DyCqwwOdF90luF6xvRS3aWKbSBJK7w0AsOhfo9srFWY
+ DwICPR6YaNW3MsUbVmqQvx23Oy7kN0gGBLIuiomaOMZd4XLflzdJNEt6S9dAVE2Yeq
+ dSBmJJLNzhy2vi0Y/hd7hiMgNGFA3XpfycvSG6sSjvuyKyFVkm73C/a3Xoig6mh+RC
+ 6AmzOFJrfOffw==
+Date: Tue, 19 May 2026 17:47:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
+ yclu4@nuvoton.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: verisilicon, dc: generalize
+ for  single-output variants
+Message-ID: <20260519-fretful-blush-1aac18fa1360@spud>
+References: <20260519055114.1886525-1-a0987203069@gmail.com>
+ <20260519055114.1886525-2-a0987203069@gmail.com>
+ <a66cc60fe163167e30e42f0b4be996cae1170a5e.camel@iscas.ac.cn>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB9261:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07c454a3-7630-460b-8599-08deb5c5f9fb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|10070799003|921020|18002099003|56012099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info: 0kRtVNrgVZWzOCp6ef8C0fffSE82V5+dpYYHxMFY9ottTdLD/Mg5JeS6KGLqZ5p31IlYiOCtxrDiHN3wIpmcVhYo3nL2oQzBQTmj4KXvV3Z5Dp/eeLRh/jgVkkVR7IQSHN1X5JemVBdNAX3Qy0QunhUY6Exj3DrnyfLVo7M76lHx/6LcOUtuhiojYKwE9177vqcwoqwwj/VSVcZyQgTfhMD/2nJEs58eBZOTW8NQQO1WTnrclF+aOrf4VAQVnH9RU+ydOn50V8Tq6SGRzeuR4TW6qOHDRowvi1ezgyC+YYb378XX305go535H1Ovd/QoMp9lPylZfRW8SxnZY6kRrJ4e9UuYMHucJfVFDn6x0LqJlY71gmeY9fczM85cyvI71mYqaSIShSj+TqsGOORfF/QLXjbH01VkCOfUZMqaEhwAvYZvlk7mTtqlTa8NnsMTUbkMFxa0sjQJqR4mQTzveSgZ3RU01wS99OQvjtAb7x+PpFi9WzXqmSmOsK5rqD9lwTWSK5XqtU/B8SA6NrsjdAIawswlXVUIvNa5DGAQvkFtnMqx5qcvO7+D0SDf+XxEXeXGr5N8GvACY6PnRzzoDz8bVASkP3lrQuv0MV579JD0CQ9yvnimLkv8mdJbymIJO88FYchd6sEZhVvpu14yEv5xQ+bEWXQb7uP6hVXYu+nnELLv6H8B63ia3RflNMkEEfaabp0xHNJjyQBhnxUcBgFfV+rzkDH/+k2ofZN9LVPboE+kxNOte3jck9yCAaqb
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(921020)(18002099003)(56012099003)(22082099003)(4143699003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SVh3YXdpeWpsd1Q1R1pBcVVmM0dKSmNQNEQ4bndHdWtJSGladEQyOTRBcy9F?=
- =?utf-8?B?Y2VpcWtKanpSVFlBTE5ERHBuMEE0YjExbVpuMnNvYWpRY2lKKzdsVW8vZDhF?=
- =?utf-8?B?amJuWWZPZjVFZkFodVlTN2NxbUJpOWM1cVE3UTFIK3VERlFHRVp5c3VIbytO?=
- =?utf-8?B?QXhLdlc0Y2Q4a1phb0hMTG5Kb0p6RzJhYTZKWXFlK1F0ZEd0NHhjUjB0d2xn?=
- =?utf-8?B?SnpMYThaQ3RSYlBjSFpLUGg5MXk4dFVHa0sxd29LbXBIajFQOW9xVHB2ZFBl?=
- =?utf-8?B?dkxHeFhnNnNFeVk4ejdWeWVHSHhLNmI1V1FIVXhmS0xkMFA3QkJMMjBHeWJt?=
- =?utf-8?B?ajRGaDBQd2FrY2E1bnNrVytFZDEzUUdIQmZpRzA5WUJ3S2pveWg4SWxQbG1G?=
- =?utf-8?B?aWhiQnV1M1g3SnRVN1dlWHdpenJYcUkyaElLSzROT0NFaUhzbUQzV0lXb0ZL?=
- =?utf-8?B?a3QwNVJQam0wNHZQMWs0QmdaWGxIenVnYUl6ZDc2a1lzUkNJYm40cTN0b0R5?=
- =?utf-8?B?ek1NNkJNSVAwWGN4a3l0OGp2bThxNmdNcndITzQ4VTJ2c2R0NXBqU292ekE0?=
- =?utf-8?B?Um1qYVpCQUEvTHhWSitQb2ZUdlRkTURTN0ZuSE10dWE0V0pLcG0zNW9ZM0Jp?=
- =?utf-8?B?MVRzR1ZJNXArNVk4YlVBYVFHaXEzWTNaelUrb3Q1MXphZXd4dXM2enVLQlFI?=
- =?utf-8?B?aWw5TmJtYkkrQm5Mak0yOXZuVmxnbjJhYVhJOEt0T3J2aHNZdHhqUjFsb1k2?=
- =?utf-8?B?aWZXM1lsQ3B2SFhDTU1sR3dWbVFaYmpZSHhWMkdjdDB3L1Jrd3JERWRjOVJG?=
- =?utf-8?B?dlpkRjNpRVFaOCtvTjNHbm01elpMSGo5SjJCaFllN3ZQaTZXbHpzMEhpUFVD?=
- =?utf-8?B?aWVLWmQzR3RrQ3pOa1M2N09lcFdhdi9ZbmlIVUVwVzlmdzVZcjN3ODh3d2E5?=
- =?utf-8?B?NEI4L1VJcTJHQmlRbHV5SjJrYi9XL0dkVmJvQUZ0dWc5eU1YOHhqRmVTQzlE?=
- =?utf-8?B?N21PTlp4Q0UzU1FLQm45ZnFTQU05MlBSbkhOLzg2MjMzbWw3VlVOMHVrZTRK?=
- =?utf-8?B?NG9QOUcvQWQrYnZwb2lKQmRwakdkcFAzeHRQWVl5VDdzYnN2QmFhTDE0cTA1?=
- =?utf-8?B?cCt4YlJna216MktyY0xyTWs2TVpaeFg2bWlzU0dnSlJ2Szc1Zm4xSXh1NFcx?=
- =?utf-8?B?Z290V2xNZm11WGdLY2hlcWVPTHIzZnlDeFZjSnNWR2Nyd0xaZUlaamdVS3Fj?=
- =?utf-8?B?UlRrdUZEQ3hnay9ROU5lSGx1SjFXK3I0Z2F1bVJqRDR0bkZlSU5xNWFhZFhn?=
- =?utf-8?B?TTVxaWtnbERBUFd5VkNjdFNtZDBxTE44Y1VHWUxxUzhPTTBGbGJONlBOYkZM?=
- =?utf-8?B?MGU4MTlINm9SUnZqL0ZSMzdKQlRLc2d5bVZHbm8ydTl2VytTYTMxTjRWcjBO?=
- =?utf-8?B?aUp5NC9hMktJTzNLbGZkRTlUS0k0ckNSQm05dE1hUlF2L1BnMjFpN0xkS0pq?=
- =?utf-8?B?VXExMitqR2dXSE5zNTg5T3hhTFd6dEl6d3ZiNTVDb0pZeFhEN01YYmhHOW5J?=
- =?utf-8?B?cERSanpnTUZlOW9KZjBRNENRV252MkdEaStHSkJFajNBZzJTQWVBOFBYQmtv?=
- =?utf-8?B?Z1l5WDAzOCs2NitjNzgwQ2c2ZFlHKzI1c2ZFVEdjeEFqR3pTVWNQY3JpR1h4?=
- =?utf-8?B?TTJDNWFRTENuNWxORlIvNmgrRW9MRUR0a2gvUU5XWFIrK0k2ck53OVMrMnNz?=
- =?utf-8?B?azFZQWFPdHZqb3VjSFF4WnNYU2tJdkJSSnc1ZzQ0L0xOTkp1cTV1YjdyUktJ?=
- =?utf-8?B?Qy8yZXlzOUNsUG9XdHhTOWh0VG5CVXNSYjRKSEtMU051VFBEMVNLZmcrNEhu?=
- =?utf-8?B?N0tQVEhkdjN4T1RNazJ5NURRb1kyMFpUcVVHaDEwK1dNUkdTMU9mYUUyRXMv?=
- =?utf-8?B?MmtEQ25QTGJtbHA5NmJOUWlYdjZtaThqSU1ueHRIc09lcklhc3A1MldPMjh0?=
- =?utf-8?B?YzdRMjFpZmNSSHBucmhiZzNha0FTVVFwTnJUdG1KQVRLcWc4YXJVbnI0Yjc1?=
- =?utf-8?B?VzlkOFpxYWtNZGVuYVdkUWFVdWtLNFlQYnBweTJsbFVJU1JnRTM4V3dza1Jw?=
- =?utf-8?B?WTJrR3pudk92OXFPVFhHaHpqWS9BUzJOQ3JwaDh0alIweFhBUGlZYmxJQk1T?=
- =?utf-8?B?aHFkYldKVDFmdWlSbjByRUpiRlh6QXBvUWhLNFNFNWFVVktyczd6cm9JRDRl?=
- =?utf-8?B?eXh5QWc3VDRpb1J4SGVzOXV1SUZEa3UzYkhqVnpmK0F6RmxsUURlVUg3SzNT?=
- =?utf-8?B?bU9WLzRkVVBjZFRrczFFUTNzZHJ2VnpVeEhNSzJDL2RVbUNpWTV3dz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07c454a3-7630-460b-8599-08deb5c5f9fb
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 16:45:04.1208 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EUWvC2ZmH411jHMcGT3kDJDAypGP3emodkIt33fJvUpJrNIqAoHb0gg0f5PNkj7zb/BoXtQexjtm+6mNpE5J6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9261
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="f26V0jFOIw6+Q/+q"
+Content-Disposition: inline
+In-Reply-To: <a66cc60fe163167e30e42f0b4be996cae1170a5e.camel@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,120 +66,336 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun May 17, 2026 at 1:01 AM BST, Danilo Krummrich wrote:
-> Generalize Registration<T> to Registration<F: ForLt> and
-> Device::registration_data<F: ForLt>() to return Pin<&F::Of<'_>>.
->
-> The stored 'static lifetime is shortened to the borrow lifetime of &self
-> via ForLt::cast_ref; ForLt's covariance guarantee makes this sound.
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
->  drivers/gpu/nova-core/driver.rs       |  4 +-
->  rust/kernel/auxiliary.rs              | 68 +++++++++++++++++----------
->  samples/rust/rust_driver_auxiliary.rs |  8 ++--
->  3 files changed, 52 insertions(+), 28 deletions(-)
->
-> [snip]
->
-> @@ -389,43 +399,51 @@ struct RegistrationData<T> {
->  /// This type represents the registration of a [`struct auxiliary_device=
-`]. When its parent device
->  /// is unbound, the corresponding auxiliary device will be unregistered =
-from the system.
->  ///
-> -/// The type parameter `T` is the type of the registration data owned by=
- the registering (parent)
-> -/// driver. It can be accessed by the auxiliary driver through
-> -/// [`Device::registration_data()`].
-> +/// The type parameter `F` is a [`ForLt`](trait@ForLt) encoding of the r=
-egistration
-> +/// data type. For non-lifetime-parameterized types, use [`ForLt!(T)`](m=
-acro@ForLt).
-> +/// The data can be accessed by the auxiliary driver through [`Device::r=
-egistration_data()`].
->  ///
->  /// # Invariants
->  ///
->  /// `self.adev` always holds a valid pointer to an initialized and regis=
-tered
->  /// [`struct auxiliary_device`] whose `registration_data_rust` field poi=
-nts to a
-> -/// valid `Pin<KBox<RegistrationData<T>>>`.
-> -pub struct Registration<T: 'static> {
-> +/// valid `Pin<KBox<RegistrationData<F::Of<'static>>>>`.
-> +pub struct Registration<F: ForLt> {
->      adev: NonNull<bindings::auxiliary_device>,
-> -    _data: PhantomData<T>,
-> +    _data: PhantomData<F>,
->  }
-> =20
-> -impl<T: Send + Sync + 'static> Registration<T> {
-> +impl<F: ForLt> Registration<F>
-> +where
-> +    for<'a> F::Of<'a>: Send + Sync,
-> +{
->      /// Create and register a new auxiliary device with the given regist=
-ration data.
->      ///
->      /// The `data` is owned by the registration and can be accessed thro=
-ugh the auxiliary device
->      /// via [`Device::registration_data()`].
-> -    pub fn new<E>(
-> -        parent: &device::Device<device::Bound>,
-> +    pub fn new<'bound, E>(
-> +        parent: &'bound device::Device<device::Bound>,
->          name: &CStr,
->          id: u32,
->          modname: &CStr,
-> -        data: impl PinInit<T, E>,
-> +        data: impl PinInit<F::Of<'bound>, E>,
->      ) -> Result<Devres<Self>>
 
-I think this is unsound for the reason that I gave in another email
-https://lore.kernel.org/rust-for-linux/DIMSJVKTYX6D.AEN6OPPC2898@garyguo.ne=
-t/.
+--f26V0jFOIw6+Q/+q
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Best,
-Gary
+On Tue, May 19, 2026 at 03:26:58PM +0800, Icenowy Zheng wrote:
+> =E5=9C=A8 2026-05-19=E4=BA=8C=E7=9A=84 13:51 +0800=EF=BC=8CJoey Lu=E5=86=
+=99=E9=81=93=EF=BC=9A
+> > The existing schema assumes a fixed clock/reset topology and dual-
+> > output
+> > port structure matching the DC8200 IP block.=C2=A0 This prevents reuse =
+for
+> > single-output variants such as the Verisilicon DCU Lite used in the
+> > Nuvoton MA35D1 SoC.
+> >=20
+> > Rework the schema so that variant-specific constraints are expressed
+> > via allOf/if-then-else:
+> >=20
+> > - The thead,th1520-dc8200 compatible keeps its existing five-clock,
+> > =C2=A0 three-reset, dual-port requirements.
+> >=20
+> > - A standalone verisilicon,dc compatible covers IPs whose identity is
+> > =C2=A0 discovered entirely through hardware registers; these have flexi=
+ble
+> > =C2=A0 clock and reset counts, a single 'port' property, and no 'ports'
+> > =C2=A0 requirement.
+> >=20
+> > Changes to the base schema:
+> > - Replace the fixed clock/reset items lists with minItems/maxItems
+> > =C2=A0 ranges; variant sub-schemas tighten the constraints via if-then-
+> > else.
+> > - Add a 'port' property (graph.yaml single-port alias) alongside the
+> > =C2=A0 existing 'ports', for single-output variants.
+> > - Drop the unconditional 'ports' requirement; each if-branch enforces
+> > =C2=A0 its own port topology.
+> > - Tighten additionalProperties to unevaluatedProperties to allow
+> > =C2=A0 per-variant schemas to add their own constraints cleanly.
+> > - Fix a stray space in the port@0 description.
+> > - Add a DT example for the generic verisilicon,dc compatible
+> > =C2=A0 (Nuvoton MA35D1 DCU Lite).
+> >=20
+> > Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> > ---
+> > =C2=A0.../bindings/display/verisilicon,dc.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 135 ++++++++++++++--
+> > --
+> > =C2=A01 file changed, 108 insertions(+), 27 deletions(-)
+> >=20
+> > diff --git
+> > a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > index 9dc35ab973f2..3a814c2e083e 100644
+> > --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > @@ -14,10 +14,12 @@ properties:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 pattern: "^display@[0-9a-f]+$"
+> > =C2=A0
+> > =C2=A0=C2=A0 compatible:
+> > -=C2=A0=C2=A0=C2=A0 items:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th1520-=
+dc8200
+>=20
+> You should add a fallback compatible here for your SoC, in case its
+> integration gets something quirky; this compatible is usually not
+> consumed by the driver (see how thead,th1520-dc8200 exists in the
+> binding but not the driver).
 
->      where
->          Error: From<E>,
->      {
->          let data =3D KBox::pin_init::<Error>(
->              try_pin_init!(RegistrationData {
-> -                type_id: TypeId::of::<T>(),
-> +                type_id: TypeId::of::<F::Of<'static>>(),
->                  data <- data,
->              }),
->              GFP_KERNEL,
->          )?;
-> =20
-> +        // SAFETY: Lifetimes are erased and do not affect layout, so Reg=
-istrationData<F::Of<'bound>>
-> +        // and RegistrationData<F::Of<'static>> have identical represent=
-ation.
-> +        let data: Pin<KBox<RegistrationData<F::Of<'static>>>> =3D
-> +            unsafe { core::mem::transmute(data) };
-> +
->          let boxed: KBox<Opaque<bindings::auxiliary_device>> =3D KBox::ze=
-roed(GFP_KERNEL)?;
->          let adev =3D boxed.get();
-> =20
-> @@ -455,7 +473,9 @@ pub fn new<E>(
->          if ret !=3D 0 {
->              // SAFETY: `registration_data` was set above via `into_forei=
-gn()`.
->              drop(unsafe {
-> -                Pin::<KBox<RegistrationData<T>>>::from_foreign((*adev).r=
-egistration_data_rust)
-> +                Pin::<KBox<RegistrationData<F::Of<'static>>>>::from_fore=
-ign(
-> +                    (*adev).registration_data_rust,
-> +                )
->              });
-> =20
->              // SAFETY: `adev` is guaranteed to be a valid pointer to a
-> @@ -478,7 +498,7 @@ pub fn new<E>(
->      }
->  }
+s/fallback compatible/soc-specific compatible/, but yes.
+NAK to what's been done here, especially after the discussions on
+earlier versions of this verisilicon binding.
+pw-bot: changes-requested
+
+>=20
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc # DC IPs have d=
+iscoverable ID/revision
+> > registers
+> > +=C2=A0=C2=A0=C2=A0 oneOf:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 - thead,th1520-dc8200
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisi=
+licon,dc
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc=C2=A0 # DC IPs =
+have discoverable
+> > ID/revision registers
+> > =C2=A0
+> > =C2=A0=C2=A0 reg:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > @@ -26,32 +28,24 @@ properties:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > =C2=A0
+> > =C2=A0=C2=A0 clocks:
+> > -=C2=A0=C2=A0=C2=A0 items:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core clock
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus clock
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bus cl=
+ock
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of output 0
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of output 1
+> > +=C2=A0=C2=A0=C2=A0 minItems: 2
+> > +=C2=A0=C2=A0=C2=A0 maxItems: 5
+> > =C2=A0
+> > =C2=A0=C2=A0 clock-names:
+> > -=C2=A0=C2=A0=C2=A0 items:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix0
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix1
+> > +=C2=A0=C2=A0=C2=A0 minItems: 2
+> > +=C2=A0=C2=A0=C2=A0 maxItems: 5
+> > =C2=A0
+> > =C2=A0=C2=A0 resets:
+> > -=C2=A0=C2=A0=C2=A0 items:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core reset
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus reset
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bus re=
+set
+> > +=C2=A0=C2=A0=C2=A0 minItems: 1
+> > +=C2=A0=C2=A0=C2=A0 maxItems: 3
+> > =C2=A0
+> > =C2=A0=C2=A0 reset-names:
+> > -=C2=A0=C2=A0=C2=A0 items:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
+> > +=C2=A0=C2=A0=C2=A0 minItems: 1
+> > +=C2=A0=C2=A0=C2=A0 maxItems: 3
+> > +
+> > +=C2=A0 port:
+> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/port
+> > +=C2=A0=C2=A0=C2=A0 description: Single video output port for single-ou=
+tput
+> > variants.
+>=20
+> Maybe the endpoint numbering rule needs a move to here? (I am not very
+> sure).
+>=20
+> > =C2=A0
+> > =C2=A0=C2=A0 ports:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/ports
+> > @@ -59,7 +53,7 @@ properties:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port@0:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.y=
+aml#/properties/port
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first outp=
+ut channel , endpoint 0 should be
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first outp=
+ut channel, endpoint 0 should be
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 used for D=
+PI format output and endpoint 1 should be used
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for DP for=
+mat output.
+> > =C2=A0
+> > @@ -75,9 +69,75 @@ required:
+> > =C2=A0=C2=A0 - interrupts
+> > =C2=A0=C2=A0 - clocks
+> > =C2=A0=C2=A0 - clock-names
+> > -=C2=A0 - ports
+> > =C2=A0
+> > -additionalProperties: false
+> > +allOf:
+> > +=C2=A0 - if:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 con=
+st: thead,th1520-dc8200
+> > +=C2=A0=C2=A0=C2=A0 then:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: DC Core clock
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: DMA AXI bus clock
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: Configuration AHB bus clock
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: Pixel clock of output 0
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: Pixel clock of output 1
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: core
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: axi
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: ahb
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: pix0
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: pix1
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: DC Core reset
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: DMA AXI bus reset
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: Configuration AHB bus reset
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: core
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: axi
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: ahb
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ports
+> > +
+> > +=C2=A0=C2=A0=C2=A0 else:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: Bus clock that gates register access
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: Pixel clock divider for display timing
+>=20
+> Please don't make compatible-specific description strings for
+> individual compatibles, and keep these descriptions outside of the if.
+> The compatible-specific part should be used to specify what's required
+> for the specific SoC, for dt validation purpose.
+>=20
+> BTW if the clock is both the working clock and bus clock for the
+> controller, I suggest listing it twice, except if the IP core is
+> provided without a dedicated core clock (in the case I suggest to use
+> "bus" only).
+
+I agree. If the same clock is provided to two+ ports on the IP, that
+should still be two+ clocks in the devicetree.
+
+>=20
+> Here's an example for "listing it twice":
+> ```
+> clocks =3D <&clk DCU_GATE>, <&clk DCU_GATE>, <&clk DCUP_DIV>;
+> clock-names =3D "core", "bus", "pix0";
+> ```
+>=20
+> Well nonetheless the name "core" does not match the description "Bus
+> clock that gates register access".
+>=20
+> Thanks,
+> Icenowy
+>=20
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: core
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: pix0
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Res=
+et line for the display controller.
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
+onst: core
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - port
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 not:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ports
+> > +
+> > +unevaluatedProperties: false
+> > =C2=A0
+> > =C2=A0examples:
+> > =C2=A0=C2=A0 - |
+> > @@ -120,3 +180,24 @@ examples:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > =C2=A0=C2=A0=C2=A0=C2=A0 };
+> > +
+> > +=C2=A0 - |
+> > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/interrupt-controller/arm-gic.=
+h>
+> > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
+> > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
+> > +
+> > +=C2=A0=C2=A0=C2=A0 display@40260000 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible =3D "verisilicon=
+,dc";
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg =3D <0x40260000 0x20000=
+>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 interrupts =3D <GIC_SPI 20 =
+IRQ_TYPE_LEVEL_HIGH>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks =3D <&clk DCU_GATE>,=
+ <&clk DCUP_DIV>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names =3D "core", "pi=
+x0";
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets =3D <&sys MA35D1_RES=
+ET_DISP>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names =3D "core";
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dpi=
+_out: endpoint {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 remote-endpoint =3D <&panel_in>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > +=C2=A0=C2=A0=C2=A0 };
+
+--f26V0jFOIw6+Q/+q
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagyUFgAKCRB4tDGHoIJi
+0sbiAPwJC8osMDE74fZTkyhgPXzZeXZJdccgsP75N5NjzLdv5wEAgd75XJxx7BeV
+SgKcLb/YWHbIxZ+4xA0QzhhyhYQfTAI=
+=e1q6
+-----END PGP SIGNATURE-----
+
+--f26V0jFOIw6+Q/+q--
