@@ -4,69 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38B57CD4F58
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:26:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1D30CD4F58
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 354AE10EA99;
-	Tue, 19 May 2026 06:26:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F0310EA9B;
+	Tue, 19 May 2026 06:26:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="pqFk2zvo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RMYwvy8s";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F28D010EA89
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:26:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68D3210EA9A
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:26:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DDBAA445E9;
- Tue, 19 May 2026 06:26:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 66C95C4AF48;
- Tue, 19 May 2026 06:26:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1779171977; bh=w1EoH2KiN5QmfxawPU8PJaSlqVT8J3DiMsT2xzxxCS8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=pqFk2zvot/fGkAa2B95CruvT+F/m81RwHSe5EFDIyzYIQvyOEqVbEJlOVZidiGESB
- vzU6SsE1rDpeMtDRYXXBQYMDkHBWWc3PxtyOyf4C3nQLXUx4SOn996Ls4qBm5ECLmw
- z+p7x59zc2QfRifwq1u0QGQTVt1UcL9yY44xKpWQ=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 5C6ACCD4F5E;
- Tue, 19 May 2026 06:26:17 +0000 (UTC)
-From: Alvin Sun <alvin.sun@linux.dev>
-Date: Tue, 19 May 2026 14:26:19 +0800
-Subject: [PATCH 7/8] rust: miscdevice: add `ThisModule` associated type to
- `MiscDevice` trait
+ by sea.source.kernel.org (Postfix) with ESMTP id 4F4D9419B3;
+ Tue, 19 May 2026 06:26:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B113EC2BCB3;
+ Tue, 19 May 2026 06:26:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1779171995;
+ bh=yJz6kF6yktan0ZdR7DH+L3nJHkS+Y3Esdo9Gtwg26cs=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+ b=RMYwvy8swROQke8N0e2TqBc8zOrlDQamtQotEeY22Yxc/3y01vQGPf/8K1sRcQ1O9
+ zCXlNCRrIFhHtpkoIqGbK3rFW+2+i4DgJrTFPz/XO4x3vydkAIdE2r8Bw/gsynHxIF
+ YwFVxFW+ihtt16oIxRWxKz3EYin8UM9HjgojFrrHN141ADIDksoyiLOhKDfviuAvg3
+ dk5X8uP6OLohZAOUKx1nwUn9k/ONp80UEeC8cC0Qaj2zi8XzqfkPPFUxfgBTaqzZF2
+ 2TecOurQSqX8f6CWSLUshdHyN4esSuCMtzKu33JVQ7be92+Lx1C7JgamB+j7eDA+U3
+ C+eJab4uVXeuw==
+Message-ID: <758d577f-cd03-4c41-a9f6-9d8ef909fd9a@kernel.org>
+Date: Tue, 19 May 2026 08:26:28 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v7 12/23] drm: bridge: dw_hdmi: Extract
+ dw_hdmi_connector_status_update()
+To: Jonas Karlman <jonas@kwiboo.se>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260518180206.2480119-1-jonas@kwiboo.se>
+ <20260518180206.2480119-13-jonas@kwiboo.se>
+Content-Language: en-US, nl
+In-Reply-To: <20260518180206.2480119-13-jonas@kwiboo.se>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-fix-fops-owner-v1-7-2ded9830da14@linux.dev>
-References: <20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev>
-In-Reply-To: <20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Arnd Bergmann <arnd@arndb.de>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-modules@vger.kernel.org, driver-core@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
- Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171975; l=1248;
- i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=w1EoH2KiN5QmfxawPU8PJaSlqVT8J3DiMsT2xzxxCS8=;
- b=2boe+1XQRLD4hO3skU1aJJQcbDXlgDARy7PBUJ88luhYe/WLmSsDSDrEExQl2YbOWZ2Tl8h0e
- pmNkBMmnQSyAdamOhFMpfzrTeCuM7HWH36VOSdl/5OJbzmR7hEcHgBQ
-X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
- auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,47 +77,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a `ThisModule` associated type bound by `ModuleMetadata` to the
-`MiscDevice` trait, and use it to set the miscdevice fops owner field
-instead of defaulting to null.
+On 18/05/2026 20:01, Jonas Karlman wrote:
+> Move connector EDID update and CEC phys addr handling to a helper
+> function as a preparation before moving EDID refresh from get_modes
+> funcs to detect/force funcs.
+> 
+> Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64, Quartz64-B
+> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- rust/kernel/miscdevice.rs | 5 +++++
- 1 file changed, 5 insertions(+)
+Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-diff --git a/rust/kernel/miscdevice.rs b/rust/kernel/miscdevice.rs
-index 05a6b6b9770f2..007caaae62697 100644
---- a/rust/kernel/miscdevice.rs
-+++ b/rust/kernel/miscdevice.rs
-@@ -38,6 +38,7 @@
-         ForeignOwnable,
-         Opaque, //
-     },
-+    ModuleMetadata, //
- };
- use core::{
-     marker::PhantomData,
-@@ -137,6 +138,9 @@ pub trait MiscDevice: Sized {
-     /// What kind of pointer should `Self` be wrapped in.
-     type Ptr: ForeignOwnable + Send + Sync;
- 
-+    /// The module implementing this driver.
-+    type ThisModule: ModuleMetadata;
-+
-     /// Called when the misc device is opened.
-     ///
-     /// The returned pointer will be stored as the private data for the file.
-@@ -441,6 +445,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
-         } else {
-             None
-         },
-+        owner: <T::ThisModule as ModuleMetadata>::MODULE_PTR,
-         ..pin_init::zeroed()
-     };
- 
+Regards,
 
--- 
-2.43.0
+	Hans
 
+> ---
+> v7: No change
+> v6: Pass struct dw_hdmi as a parameter, to allow calls from bridge funcs,
+>     Collect t-b tag
+> v5: No change
+> v4: Collect r-b tag
+> v3: New patch
+> ---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 27 ++++++++++++++---------
+>  1 file changed, 17 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index 0dd4c823c60a..a056e147731b 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -2466,6 +2466,21 @@ static const struct drm_edid *dw_hdmi_edid_read(struct dw_hdmi *hdmi,
+>   * DRM Connector Operations
+>   */
+>  
+> +static void
+> +dw_hdmi_connector_status_update(struct dw_hdmi *hdmi,
+> +				struct drm_connector *connector,
+> +				enum drm_connector_status status)
+> +{
+> +	const struct drm_edid *drm_edid;
+> +
+> +	drm_edid = dw_hdmi_edid_read(hdmi, connector);
+> +	drm_edid_connector_update(connector, drm_edid);
+> +	drm_edid_free(drm_edid);
+> +
+> +	cec_notifier_set_phys_addr(hdmi->cec_notifier,
+> +				   connector->display_info.source_physical_address);
+> +}
+> +
+>  static enum drm_connector_status
+>  dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+>  {
+> @@ -2485,18 +2500,10 @@ static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
+>  {
+>  	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
+>  					     connector);
+> -	const struct drm_edid *drm_edid;
+> -	int ret;
+>  
+> -	drm_edid = dw_hdmi_edid_read(hdmi, connector);
+> +	dw_hdmi_connector_status_update(hdmi, connector, connector->status);
+>  
+> -	drm_edid_connector_update(connector, drm_edid);
+> -	cec_notifier_set_phys_addr(hdmi->cec_notifier,
+> -				   connector->display_info.source_physical_address);
+> -	ret = drm_edid_connector_add_modes(connector);
+> -	drm_edid_free(drm_edid);
+> -
+> -	return ret;
+> +	return drm_edid_connector_add_modes(connector);
+>  }
+>  
+>  static int dw_hdmi_connector_atomic_check(struct drm_connector *connector,
 
