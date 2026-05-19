@@ -4,80 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D181CD4F54
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 20:25:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2067CD4F54
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 20:45:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA7CD10EE3D;
-	Tue, 19 May 2026 20:25:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCE9B10E5EA;
+	Tue, 19 May 2026 20:45:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="DRJlbMFv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bvfsOnsX";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 207F510E3F0
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 20:25:31 +0000 (UTC)
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64JDZsQN2072234
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 13:25:30 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=MxjwXfxDRwobAObXxPBfEEGagVfEEnNzW9JEFBwDEdI=; b=DRJlbMFvLJFV
- tlaDL+Q5oLiDEMY6Z0HWSolbt0kAKc5j/d59esGDPsrQkrXw937gHTYWaxW2YhW7
- w6K7OGorHs5RiE2KkHgTd5QdYoZVStew/VJo2lRx0EIMcyVRIbutaM0o9thdsi6N
- 3702sWO++KSO9hx1l3BGxrtZ6JIp4mFd9GYLIY1y0JkI4gpt+QXqepARMGp8h+yX
- YJG2EHU6rPDqs5fyVenW1ZThq4DuBx668EL69vnzW1cjl92jnJakgZA0Qxt9uNna
- c/HIAwg8WWKFMzIYI6zai7tWTydGnaRqIlAFENqOvlNGfm2k0ntsrqsMza1UugsW
- oJqiYamp/A==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4e8rvvaw4g-4
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 13:25:30 -0700 (PDT)
-Received: from twshared17152.01.snb2.facebook.com (2620:10d:c0a8:fe::f072) by
- mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.37; Tue, 19 May 2026 20:25:27 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id 059D32F3ADAA4; Tue, 19 May 2026 13:14:04 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
- Romanovsky <leon@kernel.org>
-CC: Bjorn Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
- <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
- <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v4 1/3] vfio: add dma-buf get_tph callback and DMA_BUF_TPH
- feature
-Date: Tue, 19 May 2026 13:13:49 -0700
-Message-ID: <20260519201401.1558410-2-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260519201401.1558410-1-zhipingz@meta.com>
-References: <20260519201401.1558410-1-zhipingz@meta.com>
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8127810E5EA
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 20:45:40 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-7cb343d343fso35415057b3.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 13:45:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779223539; cv=none;
+ d=google.com; s=arc-20240605;
+ b=XnLt1up31lsQvI27NTkXSvELgwh6KFNhB4E9gRN9fP5SyT7l8TA1tClCjxDtQCwEix
+ SqzmlSlltyjMEjChFuAwBfoqRrGryK3LGy647bGXvcsDJG41/rHz4RRlrBOAP8DK8qWB
+ bDMu6jyNBY6RrH/qrgX6FV+HhfRi6dlLXJ6G/v9/NQGLveb0ib9gEzyhJKf3C8WouYYc
+ X56rxZfg1ikR5DWh+2hm7Avs3MCobElSbAyapDah7DGAMeO9xSI44kTnsAYtlnhZiI/M
+ OlenmG0iBeyJlTH5DW/ZPKs/X/CB+q3Ui87+76jjUT+mgAQeJCFX9syO0HVwUaZRaq2g
+ Zptw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=bU5IcyZ0sUG4w6bjmWzNsv142TlY2wP3ViXDEampQMA=;
+ fh=lGyRNCio8bgMjzG5DUWPMflq9DfrkNO6iGCZVwolrCs=;
+ b=C1qZd2LLDjYgFfDDyHNZaW1f8YD+GJwK4liP2zm+PDvFZRLt7KmZd4Keo45GQ9Mejw
+ GQGKwbfO8lqG6lCKSMKP09icAhrhFNghSDjkzs8E0HzKEF4dIRI4mtRyVDxIdu/oRXMh
+ KF72FdZUdGMxiMhFSFs2mAuTfZWj+cNTwwwlljJpWWnUkbprEUaNK731c16mRprUqTtE
+ 58rKmPeXHxeX3CGhi3gWEwawRM5af3SgvXoFaWNb93pWI9O7lJwjjrNZtmP7EtyuqDvK
+ UOLBTcWNdUDX5X5s0Vd2oA7pU/Qidv4tYy9yTx66K04pqdPamISeslKhgzPmcCzARCop
+ Hzlw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779223539; x=1779828339; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bU5IcyZ0sUG4w6bjmWzNsv142TlY2wP3ViXDEampQMA=;
+ b=bvfsOnsXaaJVIE5tOW1CjkeDJ2m3K7U6x78YjP+gOlzqLNInAdO5GSArmHevmBtWxf
+ 5d0skBNr/4z3cpVPLxvdmmBi9/fMqb8KCKi0UbvgQ+ovOsESbbQEk0sFF2OMjxSW5r/r
+ U/hzYaRGna3Gip+OMqMqu6Y97V5sCrC9RytZCQmSvCk/4lkBual1kVVsnTw24KlONPFZ
+ mnR8vENui4uux6XKaYGkFfNfZNSS/gveMUv4gGN5OBZBPhx3xFqSAo1UT7Guwf/1rbFJ
+ glieLIa4B9GNUlTsYJcL7mlWQVK6hi9552OpmWHT55pVaydB50AQNBoFd397+tCi9/s3
+ NJzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779223539; x=1779828339;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=bU5IcyZ0sUG4w6bjmWzNsv142TlY2wP3ViXDEampQMA=;
+ b=Wy0xld3ZAHQsTMWaHpvNHM5cFv08+n/f9XKMNumrrtu2WnWsqmc2nQulB1sJ2bNNxx
+ K/npccrLCl3QK64ObS1ntfXx8R2tGbu+wJWqsBYDmfJTSjsZOUxVxDOGwmvfl4mU4cmZ
+ ZswhzR54EGDfPq5CyK4rchAGvVoNM4ISz7eVL+WhxlMVBoXl2fzTHGejP6ncU4mWp495
+ WYhHZrzeIb5aGqNWtn/R35ELTCYjlWIWwdfFtq1tzOUkvzuomErGZgvudCatzngFWXzs
+ JRAauJtDVYaw/WE8LyWJ9k36WxZ5JJDv0UJrRrp7QIkmywm5oO3iQIadqxJPISy5/ZQ7
+ LSBw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9Y5gOUgOPUewKoAQgUZ0XtA3xGwai8y+NTJ3lEnAqsfM5qijuNskJbmW6Hm/TWOeTUm+C9m0fZ4MY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6FJ5b6SLeOLC3rWK/dePsjG2rV7YP6ZKTBaYThnvZKUUtqsIB
+ wM7fIW2uXR/OdpE2GcoIWF9kJ9osPdiQXm0j9cNjFaEethy8ZYM9ZlAEQ1BnpPk30aIQ+P6w6Rj
+ SU5Fw/SkaIg5DI+1hSK53WsatSYbIR9Q=
+X-Gm-Gg: Acq92OEc8e8I3mLnjx0USyXZXzmMKi5f4ZFlV11rBG1oIDt7dBh3an/fUHRCmprBD/p
+ /ljGxCA+XWbKceAJGaUP1fWTCtn1ChhrZBazIuht4Yy99Wa8XGDrFOUBLaXC73fRx612Donvm++
+ 9njPnm6BEqgJfqp6NnH8ff53OarLn8BYSOwQGc8kyhFU8hMIcrQcGkX546PRLB7ijTayoUuMyuV
+ nKl90WGQ2d4nhmL/jYmtO5jGrj+Q9l7/dlV1WBvHbRBhuzqRv/R6ZlboJyxePogctkLTsYmmQM2
+ E6bn4K1B4kmf9A48sgCjgSDLwzkhFx6DBNaUvufhuzEpY88DWjdPpVHMx18PPkkGv1nzNpvE
+X-Received: by 2002:a05:690c:9b07:b0:7d0:6155:480d with SMTP id
+ 00721157ae682-7d061555a2amr16377187b3.5.1779223539141; Tue, 19 May 2026
+ 13:45:39 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
+ <20260512-panthor-signal-from-irq-v2-6-95c614a739cb@collabora.com>
+ <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
+ <20260513102941.7321cbc3@fedora>
+ <CAPaKu7SJbeRwN7_S5_ciC6sSf_MM_4s7-iJS8aqh=ispBZBf2w@mail.gmail.com>
+ <20260518154516.65ba8592@fedora>
+ <CAPaKu7RL5Hs2jXcj_v0F99xsM1Vo-U5iTzBvQ3Sev=dRiwBcuw@mail.gmail.com>
+ <20260519095354.123f8b61@fedora>
+ <CAPaKu7Se1jLiZ+6VNY=Ykf+nkMzu-q2r3UOdQ9Qf2DzpGNiCCQ@mail.gmail.com>
+ <20260519202629.76bcc3a3@fedora>
+In-Reply-To: <20260519202629.76bcc3a3@fedora>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Tue, 19 May 2026 13:45:28 -0700
+X-Gm-Features: AVHnY4IIAFiq3WaQCxo6ED_kTKqmca1JmV_wzlkYKj6GbdDmQ9qWjZcc-AK6c0s
+Message-ID: <CAPaKu7TUmZcAJLmub0Xu-wsFOGeQp0zwrhXKLavBo9E=83kSdA@mail.gmail.com>
+Subject: Re: [PATCH v2 06/11] drm/panthor: Prepare the scheduler logic for FW
+ events in IRQ context
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDIwNCBTYWx0ZWRfX+HJWro4NBahC
- F7Z/8HyUFO7KroW2xYyOU8iLea4GF01eLouyfLP48y/l0jwcIX8z2OQavZn6B8WTc6JnyKJLZif
- 4JR7xxugmslc6NcBnvmaQUrTTEq7IHboQru+RmqXseU8cm1I7wZPcyaWrSwJ40e23KotPe+CDE8
- rYdM+qPlIjJiXqbBy1HX5vC8P3Y+Y9IALvbrXNf2L6TN2Yv+rAAPvRF+GoZMfV5h/QnLxPrWnph
- rGu+moA6r3nye1aYZIr2YrOrbR2SY4MJYfi8pHYNhL0qV9J5HcEvF/6kjokcS/lqBwB/y2R91v6
- meZOV901W/9JaKMuXPAVGhI7TjX3nbRvebJAkhxD4Arc4QgTHQouHNoIz8eBFGF5++BCcNI9aGj
- 4jcTHbEvlXGlvG+SEvklttQj4es4St4ZJSMFdko6bX/HyRedpg2jnk61nPsduLwxzJbAAWve06p
- cznYY6BVN/Yj6kyKeug==
-X-Authority-Analysis: v=2.4 cv=KfHidwYD c=1 sm=1 tr=0 ts=6a0cc73a cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=wpfVPzegXHpEFt3DAXn9:22 a=VabnemYjAAAA:8 a=0PJ4RWdglIPwOLgPEPEA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: lYYTKWSXo5o6vyYXk9lIwzoNHoJ2xEgQ
-X-Proofpoint-GUID: lYYTKWSXo5o6vyYXk9lIwzoNHoJ2xEgQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-19_05,2026-05-18_01,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,367 +119,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a dma-buf get_tph callback for exporters to return TPH
-(TLP Processing Hints) metadata, and add VFIO_DEVICE_FEATURE_DMA_BUF_TPH
-so userspace can attach that metadata to a VFIO-exported dma-buf.
-
-8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
-uAPI carries both with explicit validity flags so importers get the
-value matching their requested width. SET is write-once per dma-buf;
-the existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI is unchanged.
-
-Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
----
- drivers/vfio/pci/vfio_pci_core.c   |   3 +
- drivers/vfio/pci/vfio_pci_dmabuf.c | 134 +++++++++++++++++++++++++++--
- drivers/vfio/pci/vfio_pci_priv.h   |  12 +++
- include/linux/dma-buf.h            |  21 +++++
- include/uapi/linux/vfio.h          |  35 ++++++++
- 5 files changed, 198 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci=
-_core.c
-index 3f8d093aacf8..94aa6dd95701 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1534,6 +1534,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device =
-*device, u32 flags,
- 		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
- 	case VFIO_DEVICE_FEATURE_DMA_BUF:
- 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
-+	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
-+		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
-+							 argsz);
- 	default:
- 		return -ENOTTY;
- 	}
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
-ci_dmabuf.c
-index f87fd32e4a01..be1c65385670 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -19,7 +19,24 @@ struct vfio_pci_dma_buf {
- 	u32 nr_ranges;
- 	struct kref kref;
- 	struct completion comp;
--	u8 revoked : 1;
-+	/*
-+	 * TPH metadata published by VFIO_DEVICE_FEATURE_DMA_BUF_TPH and
-+	 * consumed by the @get_tph dma-buf callback.
-+	 *
-+	 * @tph_flags is the publish/consume gate: writers populate
-+	 * @steering_tag, @steering_tag_ext and @ph first, then store
-+	 * @tph_flags with smp_store_release(); readers do
-+	 * smp_load_acquire(&tph_flags) before accessing the value fields.
-+	 * @tph_flags =3D=3D 0 means "TPH not set". Writers publish a non-zero
-+	 * value only once per dma-buf and serialize via vdev->memory_lock;
-+	 * readers stay lockless to avoid AB-BA against the dma_resv_lock held
-+	 * by importers.
-+	 */
-+	u32 tph_flags;
-+	u16 steering_tag_ext;
-+	u8 steering_tag;
-+	u8 ph;
-+	bool revoked;
- };
-=20
- static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
-@@ -69,6 +86,36 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attach=
-ment,
- 	return ret;
- }
-=20
-+static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steerin=
-g_tag,
-+				    u8 *ph, u8 st_width)
-+{
-+	struct vfio_pci_dma_buf *priv =3D dmabuf->priv;
-+	u32 flags;
-+
-+	/* Pair with the smp_store_release() in VFIO_DEVICE_FEATURE_DMA_BUF_TPH=
-. */
-+	flags =3D smp_load_acquire(&priv->tph_flags);
-+	if (!flags)
-+		return -EOPNOTSUPP;
-+
-+	switch (st_width) {
-+	case 8:
-+		if (!(flags & VFIO_DMA_BUF_TPH_ST))
-+			return -EOPNOTSUPP;
-+		*steering_tag =3D priv->steering_tag;
-+		break;
-+	case 16:
-+		if (!(flags & VFIO_DMA_BUF_TPH_ST_EXT))
-+			return -EOPNOTSUPP;
-+		*steering_tag =3D priv->steering_tag_ext;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	*ph =3D priv->ph;
-+	return 0;
-+}
-+
- static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment=
-,
- 				   struct sg_table *sgt,
- 				   enum dma_data_direction dir)
-@@ -84,16 +131,17 @@ static void vfio_pci_dma_buf_unmap(struct dma_buf_at=
-tachment *attachment,
- static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
- {
- 	struct vfio_pci_dma_buf *priv =3D dmabuf->priv;
-+	struct vfio_pci_core_device *vdev =3D READ_ONCE(priv->vdev);
-=20
- 	/*
- 	 * Either this or vfio_pci_dma_buf_cleanup() will remove from the list.
- 	 * The refcount prevents both.
- 	 */
--	if (priv->vdev) {
--		down_write(&priv->vdev->memory_lock);
-+	if (vdev) {
-+		down_write(&vdev->memory_lock);
- 		list_del_init(&priv->dmabufs_elm);
--		up_write(&priv->vdev->memory_lock);
--		vfio_device_put_registration(&priv->vdev->vdev);
-+		up_write(&vdev->memory_lock);
-+		vfio_device_put_registration(&vdev->vdev);
- 	}
- 	kfree(priv->phys_vec);
- 	kfree(priv);
-@@ -101,6 +149,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf *=
-dmabuf)
-=20
- static const struct dma_buf_ops vfio_pci_dmabuf_ops =3D {
- 	.attach =3D vfio_pci_dma_buf_attach,
-+	.get_tph =3D vfio_pci_dma_buf_get_tph,
- 	.map_dma_buf =3D vfio_pci_dma_buf_map,
- 	.unmap_dma_buf =3D vfio_pci_dma_buf_unmap,
- 	.release =3D vfio_pci_dma_buf_release,
-@@ -269,7 +318,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_cor=
-e_device *vdev, u32 flags,
- 		goto err_free_priv;
- 	}
-=20
--	priv->vdev =3D vdev;
-+	WRITE_ONCE(priv->vdev, vdev);
- 	priv->nr_ranges =3D get_dma_buf.nr_ranges;
- 	priv->size =3D length;
- 	ret =3D vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
-@@ -331,6 +380,77 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_co=
-re_device *vdev, u32 flags,
- 	return ret;
- }
-=20
-+int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-+				      u32 flags,
-+				      struct vfio_device_feature_dma_buf_tph __user *arg,
-+				      size_t argsz)
-+{
-+	struct vfio_device_feature_dma_buf_tph set_tph;
-+	struct vfio_pci_dma_buf *priv;
-+	struct dma_buf *dmabuf;
-+	int ret;
-+
-+	ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
-+				 sizeof(set_tph));
-+	if (ret !=3D 1)
-+		return ret;
-+
-+	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
-+		return -EFAULT;
-+
-+	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
-+		return -EINVAL;
-+
-+	if (!set_tph.flags)
-+		return -EINVAL;
-+
-+	/* PCIe TLP Processing Hint is a 2-bit field. */
-+	if (set_tph.ph & ~0x3)
-+		return -EINVAL;
-+
-+	dmabuf =3D dma_buf_get(set_tph.dmabuf_fd);
-+	if (IS_ERR(dmabuf))
-+		return PTR_ERR(dmabuf);
-+
-+	if (dmabuf->ops !=3D &vfio_pci_dmabuf_ops) {
-+		ret =3D -EINVAL;
-+		goto out_put;
-+	}
-+
-+	priv =3D dmabuf->priv;
-+	down_write(&vdev->memory_lock);
-+	if (READ_ONCE(priv->vdev) !=3D vdev) {
-+		ret =3D -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	/*
-+	 * TPH metadata is write-once per dma-buf so that lockless readers only
-+	 * have to observe a single release-published transition from 0 -> flag=
-s.
-+	 */
-+	if (READ_ONCE(priv->tph_flags)) {
-+		ret =3D -EBUSY;
-+		goto out_unlock;
-+	}
-+
-+	priv->steering_tag =3D set_tph.steering_tag;
-+	priv->steering_tag_ext =3D set_tph.steering_tag_ext;
-+	priv->ph =3D set_tph.ph;
-+	/*
-+	 * Publish the TPH values before the gate flag, so that lockless
-+	 * readers in vfio_pci_dma_buf_get_tph() see fully-initialized
-+	 * fields once they observe a non-zero tph_flags.
-+	 */
-+	smp_store_release(&priv->tph_flags, set_tph.flags);
-+	ret =3D 0;
-+
-+out_unlock:
-+	up_write(&vdev->memory_lock);
-+out_put:
-+	dma_buf_put(dmabuf);
-+	return ret;
-+}
-+
- void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revok=
-ed)
- {
- 	struct vfio_pci_dma_buf *priv;
-@@ -388,7 +508,7 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_de=
-vice *vdev)
-=20
- 		dma_resv_lock(priv->dmabuf->resv, NULL);
- 		list_del_init(&priv->dmabufs_elm);
--		priv->vdev =3D NULL;
-+		WRITE_ONCE(priv->vdev, NULL);
- 		priv->revoked =3D true;
- 		dma_buf_invalidate_mappings(priv->dmabuf);
- 		dma_resv_wait_timeout(priv->dmabuf->resv,
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci=
-_priv.h
-index fca9d0dfac90..c58f369be4b3 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *p=
-dev)
- int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32=
- flags,
- 				  struct vfio_device_feature_dma_buf __user *arg,
- 				  size_t argsz);
-+int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-+				      u32 flags,
-+				      struct vfio_device_feature_dma_buf_tph __user *arg,
-+				      size_t argsz);
- void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
- void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revok=
-ed);
- #else
-@@ -128,6 +132,14 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_d=
-evice *vdev, u32 flags,
- {
- 	return -ENOTTY;
- }
-+
-+static inline int
-+vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32=
- flags,
-+				  struct vfio_device_feature_dma_buf_tph __user *arg,
-+				  size_t argsz)
-+{
-+	return -ENOTTY;
-+}
- static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device =
-*vdev)
- {
- }
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d1203da56fc5..49eb6ad644a2 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -113,6 +113,27 @@ struct dma_buf_ops {
- 	 */
- 	void (*unpin)(struct dma_buf_attachment *attach);
-=20
-+	/**
-+	 * @get_tph:
-+	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
-+	 * @steering_tag: Returns the raw TPH steering tag for @st_width
-+	 * @ph: Returns the TPH processing hint (2-bit value)
-+	 * @st_width: Consumer's supported steering tag width in bits (8 or 16)
-+	 *
-+	 * Return the TPH (TLP Processing Hints) metadata associated with this
-+	 * DMA buffer for the requested steering-tag width. 8-bit ST and 16-bit
-+	 * Extended ST are distinct namespaces in the PCIe TPH ST table and may
-+	 * both be present with different values, so the exporter must select t=
-he
-+	 * value that matches @st_width and must not substitute one for the oth=
-er.
-+	 *
-+	 * Return 0 on success, -EOPNOTSUPP if no metadata is available for the
-+	 * requested width, or -EINVAL if @st_width is not 8 or 16.
-+	 *
-+	 * This callback is optional.
-+	 */
-+	int (*get_tph)(struct dma_buf *dmabuf, u16 *steering_tag, u8 *ph,
-+		       u8 st_width);
-+
- 	/**
- 	 * @map_dma_buf:
- 	 *
-diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-index 5de618a3a5ee..a9cb6cbc6ade 100644
---- a/include/uapi/linux/vfio.h
-+++ b/include/uapi/linux/vfio.h
-@@ -1534,6 +1534,41 @@ struct vfio_device_feature_dma_buf {
-  */
- #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
-=20
-+/**
-+ * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) met=
-adata
-+ * with a vfio-exported dma-buf. The dma-buf must have been created by
-+ * VFIO_DEVICE_FEATURE_DMA_BUF on this device.
-+ *
-+ * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA_=
-BUF.
-+ *
-+ * 8-bit ST (steering_tag) and 16-bit Extended ST (steering_tag_ext) are
-+ * distinct namespaces in the PCIe TPH ST table and may both be present =
-with
-+ * different values. Userspace should populate the value(s) it has from =
+On Tue, May 19, 2026 at 11:26=E2=80=AFAM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
+>
+> On Tue, 19 May 2026 10:16:26 -0700
+> Chia-I Wu <olvaffe@gmail.com> wrote:
+>
+> > On Tue, May 19, 2026 at 12:53=E2=80=AFAM Boris Brezillon
+> > <boris.brezillon@collabora.com> wrote:
+> > >
+> > > On Mon, 18 May 2026 16:33:20 -0700
+> > > Chia-I Wu <olvaffe@gmail.com> wrote:
+> > >
+> > >
+> > > > > >
+> > > > > >
+> > > > > > >
+> > > > > > > >
+> > > > > > > > >         if (!ptdev->scheduler)
+> > > > > > > > >                 return;
+> > > > > > > > >
+> > > > > > > > > -       atomic_or(events, &ptdev->scheduler->fw_events);
+> > > > > > > > > -       sched_queue_work(ptdev->scheduler, fw_events);
+> > > > > > > > > +       guard(spinlock_irqsave)(&ptdev->scheduler->events=
+_lock);
+> > > > > > > > > +
+> > > > > > > > > +       if (events & JOB_INT_GLOBAL_IF) {
+> > > > > > > > > +               sched_process_global_irq_locked(ptdev);
+> > > > > > > > > +               events &=3D ~JOB_INT_GLOBAL_IF;
+> > > > > > > > > +       }
+> > > > > > > > > +
+> > > > > > > > > +       while (events) {
+> > > > > > > > > +               u32 csg_id =3D ffs(events) - 1;
+> > > > > > > > > +
+> > > > > > > > > +               sched_process_csg_irq_locked(ptdev, csg_i=
+d);
+> > > > > > > > > +               events &=3D ~BIT(csg_id);
+> > > > > > > > > +       }
+> > > > > > > > This handles all fw events in the irq context. Are there co=
+ncerns that
+> > > > > > > > it may take too long? I might be wrong, but it seems possib=
+le to
+> > > > > > > > handle only CSG_SYNC_UPDATE and defer the rest as before.
+> > > > > > >
+> > > > > > > I started with just the SYNC_UPDATE processing done in the ha=
+rd-irq
+> > > > > > > context, but after auditing the other stuff done in the handl=
+er, I
+> > > > > > > realized it's basically just deferring all actual processing =
+to work
+> > > > > > > items. Yes, there's the overhead of demuxing the events from =
 the
-+ * firmware ST table for this device and set the matching VFIO_DMA_BUF_T=
-PH_ST /
-+ * VFIO_DMA_BUF_TPH_ST_EXT bit in @flags. An importer requests a specifi=
-c
-+ * width and receives the matching value; if the requested width is not
-+ * present, the importer is told TPH is unavailable for this dma-buf.
-+ *
-+ * ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
-+ *
-+ * The user must set TPH on the dma-buf before the importer consumes it.
-+ * TPH metadata is write-once per dma-buf; a second SET returns -EBUSY.
-+ *
-+ * Return: 0 on success, -errno on failure.
-+ */
-+#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
-+
-+#define VFIO_DMA_BUF_TPH_ST		(1 << 0)  /* steering_tag valid */
-+#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)  /* steering_tag_ext valid */
-+
-+struct vfio_device_feature_dma_buf_tph {
-+	__s32	dmabuf_fd;
-+	__u32	flags;
-+	__u8	steering_tag;
-+	__u8	ph;
-+	__u16	steering_tag_ext;
-+};
-+
- /* -------- API for Type1 VFIO IOMMU -------- */
-=20
- /**
---=20
-2.53.0-Meta
+> > > > > > > ack/req regs, but part of this is already done to get to SYNC=
+_UPDATE
+> > > > > > > anyway, so at this point we're probably better off demuxing e=
+verything
+> > > > > > > and scheduling works for all kind of events.
+> > > > > > >
+> > > > > > > I also compared the perfs between the two approaches (though =
+I didn't
+> > > > > > > do as much testing as I did with the new version, so I might =
+have
+> > > > > > > missed something), and it didn't seem to matter at all, becau=
+se the
+> > > > > > > interrupts we receive the most are SYNC_UPDATE and IDLE event=
+s, and
+> > > > > > > those are at the same level.
+> > > > > > Looking at ftrace irq events, when there is one active csg,
+> > > > > > panthor-job takes 6us (median) / 17us (95%) / 27us (slowest).
+> > > > > >
+> > > > > > I don't have a good sense if that's considered normal in hardir=
+q. But
+> > > > > > if that is ever an issue, and if the majority of the time is sp=
+ent in
+> > > > > > CSG_SYNC_UPDATE anyway, we can always revert the last patch to =
+move
+> > > > > > processing to threaded handler.
+> > > > >
+> > > > > Actually, the threaded -> hard transition (patch 9) is where the =
+perf
+> > > > > gain is.
+> > > > hardirq is even more timely for sure. For our use case, the threade=
+d
+> > > > handler is RT and is also good enough.
+> > >
+> > > Yeah, true. I forgot you were forcing RT priority on threaded handler=
+s.
+> > > Anyway, let's stick to hardirqs for now, and revisit it if it proves =
+to
+> > > be too much work done in irq context.
+> > Just want to clarify that irq_thread calls sched_set_fifo to make the
+> > task RT. The behavior is universal and is not specific to any
+> > downstream kernel.
+>
+> Hm, interesting. In my testing, any of the changes before patch 9
+> didn't make a huge difference in term of perf, patch 9 is where the perf
+> gains happen. For the record, patch 6 is where we get rid of the
+> threaded -> work round-trip for job completion/fence signaling, and it
+> didn't seem to reflect in the benchmark results, but I'll do another
+> round of tests before posting v3, just to confirm.
+We care the most about signaling latency for this series. I collected
+some numbers with baseline, with this series, and with patch 9
+reverted at https://gitlab.freedesktop.org/panfrost/linux/-/work_items/85#n=
+ote_3481308.
+Reposting the numbers here for reference
+
+|                    | baseline | entire series | patch 9 reverted |
+| -                  | -        | -             | -                |
+| frag job median    | 2.8ms    | 2.2ms         | 2.2ms            |
+| frag job 95%       | 4.5ms    | 2.8ms         | 2.8ms            |
+| frag job 99%       | 4.9ms    | 2.8ms         | 2.8ms            |
+| panthor-job median | 0.8us    | 6.2us         | 0.9us            |
+| panthor-job 95%    | 1.5us    | 16.6us        | 1.5us            |
+| panthor-job 99%    | 1.6us    | 28.0us        | 1.8us            |
