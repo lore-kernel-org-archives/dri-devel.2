@@ -4,64 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B53ECD5BA3
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 10:40:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E99CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 10:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7829310EC4A;
-	Tue, 19 May 2026 10:40:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6497310E118;
+	Tue, 19 May 2026 10:50:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Z4gYPq7Q";
+	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="C7bnrvjd";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0363310EC49
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 10:40:49 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id DEB454E42CF5;
- Tue, 19 May 2026 10:40:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B1F81606E9;
- Tue, 19 May 2026 10:40:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 765BF107E8B03; 
- Tue, 19 May 2026 12:40:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1779187246; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=a85Cizij9kXPn9Kt9sHvek1PwQkqP3FwMIAwRQz/a8o=;
- b=Z4gYPq7Q2NDsQG86vprBtBK5lBZtFpPE0bbnPnYGs+sZFFnP+Mx3El6bvsqAlrqEDPrXvG
- Bc6deDtultuXkpkS+kJUU8sSQq/k+pG0sItxEciHnatzT1rMygUpHH1JVeKOaP0J1Wexc/
- g/d4eNtw/H9oBJkG//mVXKZR/uVaCRtS8RAQ6qfLnFu5XaZyAtgT35XTgHuW9ibLocjq8R
- pLWk+i1KMpk9BL78GCZHLpZLA92njKTPr83cHZVLYHUtWgj2WPuCeG7b3LNkUMTb54/Jok
- 3p/XrWjvtJaaf8BMe3w6qRFOoMGtCEbNgAY6cjGIIP5pqupG/gqzbwNnvMRT4A==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 19 May 2026 12:37:54 +0200
-Subject: [PATCH 37/37] drm/mxsfb/lcdif: enable bridge hotplug
+Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com
+ [115.124.28.147])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64B4210E118
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 10:50:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
+ t=1779187824; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ bh=qBPKpuGwEAmvGHlNO+PYv2MyhMAJnas1EMsdzzZYq70=;
+ b=C7bnrvjd8QGx6W8RcORv1ALzFUXrkRbKrFBQxaiIEtfAHtnYimWeIvcJSOkuhP7NUQ90KYMM8X1obuZzZzWMrm9QZKNRr4uKwfkro0YhLw35lGQ0BsDOxR71+wM9wsbhO9n2BPn3Iboe7HweLO7W/gBaPasRkKmzhKMZg+GBrdPQIObj6rDW2Pu+iPlqtKQaDrKpLo/m9HfxM5avGVpDuloK0wGNpEhQPHF97sFmVLjTq9I2KemAwOcwN+xzqup5ir8FBYiZOZjnK19xNXON9Boa7yVGRISHXYjnCyVLXBYclOK1/1vPn6ZMhL0/89/hH+AbtUxOziN6xPPLH2ko/w==
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.0745027|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.00529429-0.000123757-0.994582;
+ FP=7568574292335255672|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam033032062159;
+ MF=syyang@lontium.com; NM=1; PH=DS; RN=21; RT=21; SR=0;
+ TI=SMTPD_---.hb62l9F_1779187821; 
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
+ fp:SMTPD_---.hb62l9F_1779187821 cluster:ay29) by smtp.aliyun-inc.com;
+ Tue, 19 May 2026 18:50:23 +0800
+From: syyang@lontium.com
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
+ xbpeng@lontium.com, Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v9 0/2] Add Lontium LT7911EXC eDP to MIPI DSI bridge
+Date: Tue, 19 May 2026 18:50:17 +0800
+Message-Id: <20260519105019.22622-1-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-drm-bridge-hotplug-v1-37-45e2bdb3dfb4@bootlin.com>
-References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
-In-Reply-To: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,41 +60,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Switch to the new drmm_bridge_connector_init() so the drm_bridge_connector
-will handle bridge hotplugging.
+From: Sunyun Yang <syyang@lontium.com>
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+The LT7911EXC is an I2C-controlled bridge that receives eDP1.4
+and output mipi dsi. This series introduces:
+
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
+
+Signed-off-by: Sunyun Yang<syyang@lontium.com>
 ---
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Change in v9:
+- dt-binding:
+- drm/bridge:
+ 1. DSI transfer callback returns success for reads without populating                        [sashiko-bot]
+    the receive buffer, leaking uninitialized memory. - fixed it by 
+    implementing  a strict whitelist mechanism.
+ 2. DSI transfer callback polls for eDP video readiness before the 
+    upstream encoder is enabled, guaranteeing a timeout. - removed
+ 3. The driver attempts I2C transfers while the hardware is held in
+    physical reset. - fixed
+ 4. Missing DRM_MIPI_DSI Kconfig dependency causes linker errors. - fixed
+ 5. request_firmware is called while holding the hardware lock and
+    halting the MCU, risking a system pipeline stall. - fixed
+ 6. Sleeping functions are called from atomic context in the DRM bridge callbacks. - fixed
+ 7. lt7911exc_dsi_host_transfer bypasses the required MCU hardware halt sequence. - fixed by 
+    internal firmware controls the panel initialization sequence and handles all MIPI
+    DSI command transmission.
+- Link to v8: https://lore.kernel.org/lkml/20260515080934.9870-1-syyang@lontium.com/
 
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index e2173c4d6fc2..0a7c197dbc1e 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -58,7 +58,7 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 		struct of_endpoint of_ep;
- 		struct drm_bridge *bridge;
- 		struct drm_encoder *encoder;
--		struct drm_connector *connector;
-+		struct drm_bridge_connector *bridge_connector;
- 		int ret;
- 
- 		if (!of_device_is_available(remote))
-@@ -94,9 +94,9 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 					     "Failed to attach bridge for endpoint%u\n",
- 					     of_ep.id);
- 
--		connector = drm_bridge_connector_init(lcdif->drm, encoder);
--		if (IS_ERR(connector))
--			return dev_err_probe(dev, PTR_ERR(connector),
-+		bridge_connector = drmm_bridge_connector_init(lcdif->drm, encoder);
-+		if (IS_ERR(bridge_connector))
-+			return dev_err_probe(dev, PTR_ERR(bridge_connector),
- 					     "Failed to init bridge_connector for endpoint%u\n",
- 					     of_ep.id);
- 	}
+Change in v8:
+- dt-binding:
+- drm/bridge:
+ 1. Protect firmware upgrade and DRM bridge callback paths with ocm_lock.          [sashiko-bot]
+ 2. Remove the hardware reset from the remove callback, and ensure that
+    all hardware reset operations are protected by ocm_lock.
+ 3. crc reconstruction explicitly casts each byte to u32 before shifting
+ 4. The display configuration is handled by the firmware, and the MIPI
+    DSI host registration issue has been fixed.
+ 5. The batch register read/write operations have already been updated
+    to include return value checking.
+ 6. The dev_err_probe() used outside of probe context has been fixed.
+- Link to v7: https://lore.kernel.org/lkml/20260512064013.40066-1-syyang@lontium.com/
+
+Change in v7:
+- dt-binding:
+ 1. fix commit message typos(Receiver、signal)                            [sashiko-bot]
+ 2. remove the ambiguity caused by "signal/dual".
+- drm/bridge:
+ 1. using devm_regulator_get_enable avoids power leaks.                   [sashiko-bot]
+ 2. set reset gpio is low after cutting off power in lt7911exc_remove function, avoid backpowering.
+ 3. synchronous request_firmware() call cause a permanent probe failure if the driver is built-in,
+    probe executes before the root filesystem is mounted, which would cause this to fail with -ENOENT,
+    we have removed this functionality. Use trigger to upgrade.
+ 4. add `depends on I2C` and `select REGMAP_I2C` in Kconfig.
+ 5. add return value of `devm_drm_bridge_add()` in `probe()`.
+ 6. add directly header files (linux/slab.h, linux/delay.h, linux/regulator/consumer.h)
+- Link to v6: https://lore.kernel.org/lkml/20260508134702.4713-1-syyang@lontium.com/
+
+Change in v6:
+- dt-binding:
+- drm/bridge:
+ 1. use #define FW_FILE  "Lontium/lt7911exc_fw.bin" to match linux-firmware
+- Link to v5: https://lore.kernel.org/lkml/20260506013153.2240-1-syyang@lontium.com/
+
+Change in v5:
+- dt-binding:
+- drm/bridge:
+ 1. Change "mipi" to "mipi dsi" in the commit message.     [Dmitry]
+ 2. Change "eDP/MIPI" to "eDP/MIPI DSI" in Kconfig.
+- Link to v4: https://lore.kernel.org/lkml/20260430094612.3408174-1-syyang@lontium.com/
+
+Change in v4:
+- dt-binding:
+ 1. Fix the missing spaces on the "subject".             [Krzysztof]
+ 2. Fix the error descriptions for port@0 and port@1.
+- drm/bridge:
+- Link to v3: https://lore.kernel.org/lkml/20260429040541.3404116-1-syyang@lontium.com/
+
+Change in v3:
+- dt-binding:
+- drm/bridge:
+ 1. already submit lt7911exc_fw.bin to linux-firmware.  [Dmitry]
+ 2. remove lt7911exc_remove function.
+ 3. drop  the "lontium, "  in lt7911exc_i2c_table.
+- Link to v2: https://lore.kernel.org/lkml/20260428063224.3316655-1-syyang@lontium.com/
+
+Change in v2:
+- dt-binding:
+ 1. reset pins use active low.                        [Dmitry]
+- drm/bridge:
+ 1. use atomic_* callbacks.                           [Quentin]
+ 2. fix the incorrect formatting and spaces.
+ 3. add the required header files.                    [Dmitry]
+ 4. remove "enabled" flag.
+ 5. remove *fw from the lt7911exc struct.
+ 6. .max_register and .range_max use actual range.
+ 7. regulator use bulk interface.
+ 8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
+ 9. Replace GPL v2 with GPL.
+- Link to v1: https://lore.kernel.org/lkml/20260420023354.1192642-1-syyang@lontium.com/
+
+---
+Sunyun Yang (2):
+  dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+  drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+
+ .../display/bridge/lontium,lt7911exc.yaml     |  89 +++
+ drivers/gpu/drm/bridge/Kconfig                |  16 +
+ drivers/gpu/drm/bridge/Makefile               |   1 +
+ drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 657 ++++++++++++++++++
+ 4 files changed, 763 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
 
 -- 
-2.54.0
+2.34.1
 
