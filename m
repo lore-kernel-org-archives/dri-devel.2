@@ -4,49 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ED3BCD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 10:50:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42A94CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:07:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC1DB10E398;
-	Tue, 19 May 2026 10:50:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD4A010EC49;
+	Tue, 19 May 2026 11:07:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="r0kGYBVM";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Xc5vHpur";
 	dkim-atps=neutral
-Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com
- [115.124.28.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 954B910E2EE
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 10:50:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1779187827; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=iN4PKsza+Xa9DpiCWMM/RMWKTImur1ze1Ufb0D4krNQ=;
- b=r0kGYBVMAVvw33yPDWz2dv7ztZT+XQE1vDNDuyzkel+QCUJ9QGki4fVbzXnBTss6Wt+O/UUlb7znXcs7WhLRzx95jqvD5vFZqYZfIAugF7deVjkp0q4PcYsuhoJnVLiZ3HWSRKiGY2evuywJHWpVlTPCOjW7o1or/93428XTXp6zOfldNAMaJkr0iQfpgNoNIo5a0MmUtyeEjDP7sy2ccRO6tNfZXc9BB7otbGHnbf64+lxDWERohdxBKHkaDkZH9j5plfW0yZIlbgfk09LY/DLQfP5UkQ9Nb2DA1nGPR0imZkr0xB7xD1Asyelbf4Fi5Zs8/zCEoRdGTRD55YyM5g==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436259|-1; CH=green;
- DM=|CONTINUE|false|; DS=CONTINUE|ham_alarm|0.00515167-0.000353307-0.994495;
- FP=18328311670539642618|0|0|0|0|-1|-1|-1;
- HT=maildocker-contentspam033023018039; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=21; RT=21; SR=0; TI=SMTPD_---.hb62lCy_1779187825; 
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hb62lCy_1779187825 cluster:ay29) by smtp.aliyun-inc.com;
- Tue, 19 May 2026 18:50:26 +0800
-From: syyang@lontium.com
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
- xbpeng@lontium.com, Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v9 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI
- bridge
-Date: Tue, 19 May 2026 18:50:19 +0800
-Message-Id: <20260519105019.22622-3-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260519105019.22622-1-syyang@lontium.com>
-References: <20260519105019.22622-1-syyang@lontium.com>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012053.outbound.protection.outlook.com
+ [40.93.195.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 881EF10EC4E
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:07:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZNuKwOLYEqE/XgSbXTqpSka/fk0qjpRRw6/mWX+Fkhk+x0+ZXtESCco8sytbxdR5UQZlmpVxOPZ/o/IwF9WcVdyaOg25opmKV1E2B+7a2pPMF/IoojRtivOovk6Rr6TUKRh4nYhJJ3j5SOCeOmsgIIkK4aLs8A0nRNemkDq6zqavuTH7QV0771TsyOmgOAp53XO4FH3C1xjGc/CqzlZRm3u4MYyloJBkidXs5IM1NnliipjHBMgJLVz0WjK9OrDdwBtJDuvIBT1L4n4Fgvk72RPYimn94xhiYBq3bxSeHGc1iC4z+nFgEumGN0qBQijtTPKVjtenFimlEWnd3BqseQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Pb+aLTAg8dWuBoxqMGDtopRs7U86s8IvFuClWGKIkpM=;
+ b=UGzKP/HpYc1U9PNChzDfQx/afPGWGt7aU6a9kuT5eJ17u4vcEnytLbaAeIqrLJuiYKgTe9FHicM+NUBaG3cPQzaoq6teEBNBGNDbc50OcDriv2+kFPKh8EXW08IZaH8j1q02xOflDBBiDapwmlTb5CptE2PfhkDekZ0zlYmES4caAYX7LOVgZjYTs7Y3CP/eDonvvlCjcbu+yaNSksSdjwoDaTmMTHkVSYpqFNgbQcEJfli17qOlvmsEYAI8SbmCJw+vHkid4QfObdjOWfN0DwZnF0dbSUbCaWPMTb33G2NeSzxdXW9LhC9xcZ+YTJHde0SLNAkwAk6LVlj6z64XIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pb+aLTAg8dWuBoxqMGDtopRs7U86s8IvFuClWGKIkpM=;
+ b=Xc5vHpurI/INECYpDXsHWpTPIQSaKNFG7vbbcadGCDtm9EN/vcgBLnZmSrzV+17OoPeqE6e3ID9MlzD2Oby48zOjHO2Bd4hj9jsJrj2fDYpnKhPXxAeRkTPWA851sZ+JgRhl/imHFOivp3N/s2NwJe7AtGWu5YlV8GavEiPcuVpjg3PBmxHZgWNR8FfXtDlxZENyljpFQIG21CnRV+kKFEr6AvG31+nmR3YGd7lQeWN2czuNx+mKDiIOlzZ1XT62DBgjDSm0LfynHnZmfZL/dJ562zv08EdFuyiCrGW29cmwIiIant3FOmH9cnqdurOe6lMWO7fubswCqGB8J2AYxg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN2PR12MB3997.namprd12.prod.outlook.com (2603:10b6:208:161::11)
+ by CY3PR12MB9608.namprd12.prod.outlook.com (2603:10b6:930:102::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
+ 2026 11:07:13 +0000
+Received: from MN2PR12MB3997.namprd12.prod.outlook.com
+ ([fe80::73c6:e479:9b75:b2cf]) by MN2PR12MB3997.namprd12.prod.outlook.com
+ ([fe80::73c6:e479:9b75:b2cf%3]) with mapi id 15.21.0025.020; Tue, 19 May 2026
+ 11:07:13 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 19 May 2026 20:07:06 +0900
+Message-Id: <DIMLSVG1IO07.28UMFL4GTCQG4@nvidia.com>
+Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <aliceryhl@google.com>, <david.m.ertman@intel.com>, <ira.weiny@intel.com>,
+ <leon@kernel.org>, <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v3 16/27] rust: types: add `ForLt` trait for
+ higher-ranked lifetime support
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+References: <20260517000149.3226762-1-dakr@kernel.org>
+ <20260517000149.3226762-17-dakr@kernel.org>
+In-Reply-To: <20260517000149.3226762-17-dakr@kernel.org>
+X-ClientProxiedBy: TY6P286CA0039.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b7::7) To MN2PR12MB3997.namprd12.prod.outlook.com
+ (2603:10b6:208:161::11)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3997:EE_|CY3PR12MB9608:EE_
+X-MS-Office365-Filtering-Correlation-Id: e951cd35-d309-424d-b7ab-08deb596c5cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|1800799024|7416014|376014|11063799006|56012099003|22082099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info: JX9SKSgkXkn3dHIO1wIOLjzM4WCgmUf+0sY1IJVJ6qduMYH+a2LIxYEf4fm0/nyoXOXB3VdM5JcV/U5ht+54KdGqgID2B/arE6Rdpwi4hUkQEcQnceL/oOff4gan/D26RLoz8I5hJGLFmaOi59BYZHigXEly2H3yoPACos+nDhR90UMFhVXcMn9vLI/GWwQPogb3SC+EN9RdgqArvQkbLnCyVdXk+yp2Ufno6xrbCjZyGnL1BlkVn03sWDl+iYqBDHSOKm4NlDBZy7lYSZw6//4qh4G2FX0XMAxTmrYUAWUpuuB97Y3hk+mgkhnwa+gci5QUt+EvKgmcmn3diT5y8pL4qPBTGVS/4JhEPnmEgN/UBZttYZ01h1It4LxwZ1mBicBV/HH+duokhXZ6C8F8WWUtOdhCY1d4vYTdLTVI+9pr2/fZ2gvSJ03XeAwqX/h/YWPndzeJFfBEVPdObSBEJM/DTo7shQw5qORbAAMu7tXJPdZqfvJ+ZogQN78J64Gk/jY7VQ592/KiWz17eZVv7sbA+xHFSNReRyd67Vdj/tHTvoDHXk/ifkwxYwduRhd0bkgWtdpu9YsE3DLuXpR7Ph5nyPHC7iVBYVJOHO4PCeBVB896h05xKTd+TBDDYxWfYj/YJwuvcjSZIR3zASeokA0Hoh2xA/r3ThriQKmvP0L7opXM3r3ufbM/Du6Yjn7g
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(376014)(11063799006)(56012099003)(22082099003)(18002099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUpLblM3b3h5Y0FNT2R1OEhRcmtLVFp3WE02WE52bHplS0xpK1VyRTRCL2la?=
+ =?utf-8?B?dHhCZWc1Z3Q1S3JlQkxPbGNBbW1BZS9idWJuemVWMmFFMG02M0VLQWlCNjVx?=
+ =?utf-8?B?LzZVU2ZiOU8zMHpmZ3QyUnJhcGwzRHpPN1pMR2o2SkYyYjBmY01wL1JkYm9C?=
+ =?utf-8?B?dVBqU2Q1WktNVVRqcDdDOE13NzhMSXd3ajV5ZTlId3M2NkN4WWUyL2xhREdW?=
+ =?utf-8?B?bjRxeVdsMHpia3NpTzUyK1hOeWliSXExVUwzUUx2R05pWE9OL0ErMTdJWGdR?=
+ =?utf-8?B?OEozU3ppanlRSnVoYU04Q2FLUm8zNjZ0NU9uSGNsMysvVTFmYjd3dkVJMzF3?=
+ =?utf-8?B?SERFRzBJNXZUQlZyQVYzVG02YVBhNVlqYjdMRDZpVzk5M2hXR0hNOHpvbGg4?=
+ =?utf-8?B?ZysvSkdvRk45MWNvOG9VRmsyN211MUMwMXkrVzM0S1RLZEIxZlh3THhpRHZB?=
+ =?utf-8?B?M2hCZjlrUURodC9Vc3VrNmJDRVRiaERkMzNIS09OejlqVzFDUHg0MGhNc2pm?=
+ =?utf-8?B?b2xVaGkzYXEvK0pEYU82akNqY2plZFZSa3hlNTcvazBLcmpkdVloY2R0MGpK?=
+ =?utf-8?B?TWFoeGFoMm4zeDdPd1hLdlhmc3ZJcGgzTTU4SzlBQ2F6bDNEaHNVZGVacmFj?=
+ =?utf-8?B?d1dSUEpIVmMyQW1ZcG5RSkVTaWdVemN5SHE3eHdqRHdnSHBpL0lxK1d4cUw1?=
+ =?utf-8?B?SkIvV0hDR1RrUGd2eGpYMFRMTkJPbGM4UkJTK1RHOUZlbFUycW56TWFCSitH?=
+ =?utf-8?B?ZXZWN3ZJSEQ0U1BEazVqWXZGUytLQjBwM2dUU01QL0kxM1M5UFNRZ1VVZGR6?=
+ =?utf-8?B?N3MwZHBTMXZqeldLdlZuVUlNYXczTm04enR4MzJzNlRTMlV6enhWY2c1d0Jv?=
+ =?utf-8?B?Zks0NjNVVGJjVzFJWXZpS2U4QndCS3BndlRYdmk4ZGZ0cXl2N1Q3OEVsSHlO?=
+ =?utf-8?B?R1hnaTZBbEh2RkZiWi92Y3ZlTWs2OWJzSDhSTjRrNTB5ZTBFd082Y05HUTN1?=
+ =?utf-8?B?Zkp6aGxqZlhJeU9sa0VFd0RqZ0hZREVPci9qaFJZbXFrVW9sWDhZRmlQekNT?=
+ =?utf-8?B?Q282WENycHdFSzc0bjNEMmRGblVGVWhTcktjc08vdVJsZlNEMGJCMzgzVDVT?=
+ =?utf-8?B?SURrdElFNStmbnlxSElNaDNoNWdxcHlmRmlHQ0RPaXQxMUEvQzlVem9TSHVX?=
+ =?utf-8?B?ZHI2dHFZMWxZcGM5M0dKY0Uzck1mV1d3KzJyUU85dHdBMlpqaC9kNW8rd2ZK?=
+ =?utf-8?B?a1VWby96VmdNcnh4dWlIOXhlUjBMSGVsZ2xQMS9aNFdsdk1ISjVoM1E5RGcw?=
+ =?utf-8?B?MjcwUFVPSzc5ZkxjeDQ5SkdEOVRIN284d1ZheFZHc2tsZk5wQjI5M3hsdllY?=
+ =?utf-8?B?dkJXY1ppblcvT1ptRmNKTmx4Zm1NbFJ4eWM2OXdKRU1UWjdZM3ZPTzBEVS83?=
+ =?utf-8?B?V2pWdDcxK2hidlRaUmtzWGRhcWFrL2V6bHNoNTBNMzdVTkw3aXdMWnF0ZC9t?=
+ =?utf-8?B?NHRNc1FBd2gyVG5FYjlYV2tmeGkrNmZwUFN5T0gzTzlqNGdjbEZ6K0k5Rk03?=
+ =?utf-8?B?MXEvb2dnUzFCcDlheFBQSTlaUnF3RVVlUGJXMkIzK3Y2NC9KRXZBaDhQSmF0?=
+ =?utf-8?B?N3pYS3MrL1hYeTJYUzl5QnBUWS9Id2Q4L1dHbUhydTZXL2lXN2FGdEllMHJu?=
+ =?utf-8?B?c2xqU2IwTkRGSm9oZHBlTmVoMU8xYTZST25nZFhDOVFpQWIwRW5YZFEvS1JT?=
+ =?utf-8?B?aG8wNFVVU2RGYlhHTGEvQUNKRkh0cFlHcG5QRHNNNXplQkZHdHB4bnJ4YXcz?=
+ =?utf-8?B?ZmQrL2VXa1ZDT2Q1OE5TOVFETUo2QTQ1RFluL2R3SzVacFFVZTgzcW9xamxp?=
+ =?utf-8?B?NmJwQlc2WTlLem9hL2JpelM0VXRWRkpFSGRheC8yZUVkMlRQcU1UNWhDeGpi?=
+ =?utf-8?B?Y2trSlNPUEZHa1crTmlYTS9ndnR4LzE5WDZuNTN3NGtUZFZ6M1o0cXNqa2Nr?=
+ =?utf-8?B?bWxiTGV3czBqUUt6a0dCeEpnNWJnNXBoSThnbXZSdXBiMiszZGYwb0V1c3VX?=
+ =?utf-8?B?K3ZZRjM5TGNkUDhTdTV0eE4vSzNLcVFWaTVLVFZrOEZWMUpkY0N4aFNYN0dX?=
+ =?utf-8?B?YTFBTnF2UXFleXBBRnFsMGRCKzlodXpRcXpVR0dITUpxSnRZVDgrTTcwd1I5?=
+ =?utf-8?B?UXVZOFVPbVV2TjZpVWNSRERPODlva2hidVVsLzRLYmJ5M3U3aWxtcnlObVVF?=
+ =?utf-8?B?TVdQTVFGQXNNT09ESm51cGRBbHlXWHByVTRIZmVIRVM2YWs0ditnUU84Sjlr?=
+ =?utf-8?B?dGFTY2RqeFFUVmVwd1NHRFR2VGg4bTBYSjZMRENnK1ErTUJZUnBsUWM4TDZR?=
+ =?utf-8?Q?FDdzuig/OFRPleiuuiEOjjNMRvJUGoHr0/A6tRDxprkpS?=
+X-MS-Exchange-AntiSpam-MessageData-1: MfJbaInp8V31jQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e951cd35-d309-424d-b7ab-08deb596c5cc
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3997.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 11:07:13.0707 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G7Kln3/L9kzQKAxgzHML5RyXS+ubEcN9a9w3wsGZDEz5ofrVlC7frGC1yNhBRZ62G4UO/czLk0OfsFrB6WIdPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9608
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,732 +150,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunyun Yang <syyang@lontium.com>
+On Sun May 17, 2026 at 9:01 AM JST, Danilo Krummrich wrote:
+<snip>
+> +/// This is intended to be an "unsafe-to-refer-to" type.
+> +///
+> +/// Must only be used by the `ForLt!` macro.
+> +///
+> +/// `T` is the magic `dyn for<'a> WithLt<'a, TypeThatUse<'a>>` generated=
+ by macro.
+> +///
+> +/// `WF` is a type that the macro can use to assert some specific type i=
+s well-formed.
+> +///
+> +/// `N` is to provide the macro a place to emit arbitrary items, in case=
+ it needs to prove
+> +/// additional properties.
+> +#[doc(hidden)]
+> +pub struct UnsafeForLtImpl<T: ?Sized, WF, const N: usize>(PhantomData<(W=
+F, T)>);
 
-Add support for the Lontium LT7911EXC bridge chip, which converts
-eDP input to MIPI DSI output using an internal firmware-controlled
-pipeline.
+Although the documentation makes it clear this should never be
+referenced directly, doing so is still possible, which creates a
+loophole for breaking covariance using only safe code.
 
-The driver provides:
-- DRM bridge integration for eDP-to-DSI routing
-- MIPI DSI host interface for downstream panel attachment
-- Firmware upgrade mechanism over I2C (erase/program/verify)
-- GPIO-based reset and regulator management
+For instance (untested, and based on my limited understanding of the
+patch):
 
-Display timing and DSI packet generation are handled by the chip
-firmware and are not configured by the driver.
+  type Bad =3D UnsafeForLtImpl<
+      dyn for<'a> WithLt<'a, Of =3D Cell<&'a u8>>,
+      (),
+      0,
+  >;
 
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/bridge/Kconfig             |  16 +
- drivers/gpu/drm/bridge/Makefile            |   1 +
- drivers/gpu/drm/bridge/lontium-lt7911exc.c | 657 +++++++++++++++++++++
- 3 files changed, 674 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+The blanket `ForLt` implementation applies, and now we can store a
+shorter-lived reference into the `Cell` and potentially observe it after
+its lifetime.
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c3209b0f4678..013e431e8871 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -132,6 +132,22 @@ config DRM_ITE_IT6505
- 	help
- 	  ITE IT6505 DisplayPort bridge chip driver.
- 
-+config DRM_LONTIUM_LT7911EXC
-+	tristate "Lontium eDP/MIPI DSI bridge"
-+	depends on OF
-+	depends on I2C
-+	select CRC32
-+	select DRM_PANEL
-+	select DRM_MIPI_DSI
-+	select DRM_KMS_HELPER
-+	select FW_LOADER
-+	select REGMAP_I2C
-+	help
-+	  DRM driver for the Lontium LT7911EXC bridge
-+	  chip.The LT7911EXC converts eDP input to MIPI
-+	  DSI output.
-+	  Please say Y if you have such hardware.
-+
- config DRM_LONTIUM_LT8912B
- 	tristate "Lontium LT8912B DSI/HDMI bridge"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index beab5b695a6e..70ddca75dd3a 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -13,6 +13,7 @@ obj-$(CONFIG_DRM_I2C_NXP_TDA998X) += tda998x.o
- obj-$(CONFIG_DRM_INNO_HDMI) += inno-hdmi.o
- obj-$(CONFIG_DRM_ITE_IT6263) += ite-it6263.o
- obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
-+obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) += lontium-lt7911exc.o
- obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
- obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
-diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-new file mode 100644
-index 000000000000..e94188e7987a
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-@@ -0,0 +1,657 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Lontium Semiconductor, Inc.
-+ */
-+
-+#include <linux/crc32.h>
-+#include <linux/delay.h>
-+#include <linux/firmware.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of_graph.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/slab.h>
-+
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_of.h>
-+#include <video/mipi_display.h>
-+
-+#define FW_SIZE (64 * 1024)
-+#define LT_PAGE_SIZE 32
-+#define FW_FILE  "Lontium/lt7911exc_fw.bin"
-+#define LT7911EXC_PAGE_CONTROL 0xff
-+
-+struct lt7911exc_dsi_output {
-+	struct mipi_dsi_device *dev;
-+	struct drm_panel *panel;
-+	struct drm_bridge *bridge;
-+	};
-+
-+struct lt7911exc {
-+	struct device *dev;
-+	struct i2c_client *client;
-+	struct drm_bridge bridge;
-+	struct work_struct work;
-+	struct mipi_dsi_host dsi_host;
-+	struct lt7911exc_dsi_output output;
-+
-+	struct regmap *regmap;
-+	/* Prevents concurrent register accesses by multiple read/write operations in the driver */
-+	struct mutex ocm_lock;
-+	struct gpio_desc *reset_gpio;
-+	int fw_version;
-+	bool upgrade;
-+};
-+
-+static const struct regmap_range_cfg lt7911exc_ranges[] = {
-+	{
-+		.name = "register_range",
-+		.range_min =  0,
-+		.range_max = 0xe8ff,
-+		.selector_reg = LT7911EXC_PAGE_CONTROL,
-+		.selector_mask = 0xff,
-+		.selector_shift = 0,
-+		.window_start = 0,
-+		.window_len = 0x100,
-+	},
-+};
-+
-+static const struct regmap_config lt7911exc_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0xe8ff,
-+	.ranges = lt7911exc_ranges,
-+	.num_ranges = ARRAY_SIZE(lt7911exc_ranges),
-+};
-+
-+static u32 cal_crc32_custom(const u8 *data, u64 length)
-+{
-+	u32 crc = 0xffffffff;
-+	u8 buf[4];
-+	u64 i;
-+
-+	if (!length || (length & 3))
-+		return 0;
-+
-+	for (i = 0; i < length; i += 4) {
-+		buf[0] = data[i + 3];
-+		buf[1] = data[i + 2];
-+		buf[2] = data[i + 1];
-+		buf[3] = data[i + 0];
-+		crc = crc32_be(crc, buf, 4);
-+	}
-+
-+	return crc;
-+}
-+
-+static inline struct lt7911exc *bridge_to_lt7911exc(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct lt7911exc, bridge);
-+}
-+
-+static inline struct lt7911exc *dsi_host_to_lt7911exc(struct mipi_dsi_host *host)
-+{
-+	return container_of(host, struct lt7911exc, dsi_host);
-+}
-+
-+/*
-+ * Purpose of this function is rest gpio: high -> low -> high
-+ * This clears the previous configuration in the chip,
-+ * and finally remains high to allow the firmware to run again.
-+ */
-+static void lt7911exc_reset(struct lt7911exc *lt7911exc)
-+{
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-+	msleep(400);
-+
-+	dev_dbg(lt7911exc->dev, "lt7911exc reset.\n");
-+}
-+
-+static int lt7911exc_hw_mcu_halt(struct lt7911exc *lt7911exc)
-+{
-+	return regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+}
-+
-+static int lt7911exc_hw_mcu_run(struct lt7911exc *lt7911exc)
-+{
-+	return regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
-+}
-+
-+static int lt7911exc_regulator_enable(struct lt7911exc *lt7911exc)
-+{
-+	int ret;
-+
-+	ret = devm_regulator_get_enable(lt7911exc->dev, "vcc");
-+	if (ret < 0)
-+		return dev_err_probe(lt7911exc->dev, ret, "failed to enable vcc regulator\n");
-+
-+	usleep_range(5000, 10000);
-+
-+	ret = devm_regulator_get_enable(lt7911exc->dev, "vdd");
-+	if (ret < 0)
-+		return dev_err_probe(lt7911exc->dev, ret, "failed to enable vdd regulator\n");
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_read_version(struct lt7911exc *lt7911exc)
-+{
-+	u8 buf[3];
-+	int ret;
-+
-+	/* no need to halt MCU for this register access */
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0xe081, buf, ARRAY_SIZE(buf));
-+	if (ret)
-+		return ret;
-+
-+	return (buf[0] << 16) | (buf[1] << 8) | buf[2];
-+}
-+
-+static int lt7911exc_block_erase(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	const u32 addr = 0x00;
-+	int ret;
-+
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe054, 0x01),
-+		REG_SEQ0(0xe055, 0x06),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe051, 0x00),
-+		REG_SEQ0(0xe054, 0x05),
-+		REG_SEQ0(0xe055, 0xd8),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe050, 0x00),
-+	};
-+
-+	ret = regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+	if (ret)
-+		return ret;
-+
-+	msleep(200);
-+	dev_dbg(dev, "erase flash done.\n");
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_prog_init(struct lt7911exc *lt7911exc, u64 addr)
-+{
-+	int ret;
-+
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe05f, 0x01),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+	};
-+
-+	ret = regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_write_data(struct lt7911exc *lt7911exc, const struct firmware *fw, u64 addr)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	int ret;
-+	int page = 0, num = 0, page_len = 0;
-+	u64 size, offset;
-+	const u8 *data;
-+
-+	data = fw->data;
-+	size = fw->size;
-+	page = (size + LT_PAGE_SIZE - 1) / LT_PAGE_SIZE;
-+	if (page * LT_PAGE_SIZE > FW_SIZE) {
-+		dev_err(dev, "firmware size out of range\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(dev, "%u pages, total size %llu byte\n", page, size);
-+
-+	for (num = 0; num < page; num++) {
-+		offset = num * LT_PAGE_SIZE;
-+		page_len = (offset + LT_PAGE_SIZE <= size) ? LT_PAGE_SIZE : (size - offset);
-+		ret = lt7911exc_prog_init(lt7911exc, addr);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, &data[offset], page_len);
-+		if (ret) {
-+			dev_err(dev, "write error at page %d\n", num);
-+			return ret;
-+		}
-+
-+		if (page_len < LT_PAGE_SIZE) {
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+			//hardware requires delay
-+			usleep_range(1000, 2000);
-+		}
-+
-+		regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+		addr += LT_PAGE_SIZE;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_write_crc(struct lt7911exc *lt7911exc, u32 crc32, u64 addr)
-+{
-+	u8 crc[4];
-+	int ret;
-+
-+	crc[0] = crc32 & 0xff;
-+	crc[1] = (crc32 >> 8) & 0xff;
-+	crc[2] = (crc32 >> 16) & 0xff;
-+	crc[3] = (crc32 >> 24) & 0xff;
-+
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe05a, (addr >> 16) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05b, (addr >> 8) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05c, addr & 0xff);
-+
-+	ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, crc, 4);
-+	if (ret)
-+		return ret;
-+
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	usleep_range(1000, 2000);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_upgrade_result(struct lt7911exc *lt7911exc, u32 crc32)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	u32 read_hw_crc = 0;
-+	u8 crc_tmp[4];
-+	int ret;
-+
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x60);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x40);
-+	msleep(150);
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0x22, crc_tmp, ARRAY_SIZE(crc_tmp));
-+	if (ret) {
-+		dev_err(lt7911exc->dev, "Failed to read CRC: %d\n", ret);
-+		return ret;
-+	}
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
-+
-+	read_hw_crc = ((u32)crc_tmp[0] << 24) | ((u32)crc_tmp[1] << 16) |
-+				((u32)crc_tmp[2] << 8) | ((u32)crc_tmp[3]);
-+
-+	if (read_hw_crc != crc32) {
-+		dev_err(dev, "lt7911exc firmware upgrade failed, expected CRC=0x%08x, read CRC=0x%08x\n",
-+			crc32, read_hw_crc);
-+		return -EIO;
-+	}
-+
-+	dev_dbg(dev, "lt7911exc firmware upgrade success, CRC=0x%08x\n", read_hw_crc);
-+	return 0;
-+}
-+
-+static void lt7911exc_firmware_upgrade_work(struct work_struct *work)
-+{
-+	struct lt7911exc *lt7911exc = container_of(work, struct lt7911exc, work);
-+	struct device *dev = lt7911exc->dev;
-+	const struct firmware *fw;
-+	u8 *buffer;
-+	size_t total_size = FW_SIZE - 4;
-+	u32 crc32;
-+	int ret;
-+
-+	ret = request_firmware(&fw, FW_FILE, dev);
-+	if (ret) {
-+		dev_err(dev, "failed to load '%s'\n", FW_FILE);
-+		goto out_status_only;
-+	}
-+
-+	if (fw->size > total_size) {
-+		dev_err(dev, "firmware too large (%zu > %zu)\n", fw->size, total_size);
-+		goto out_release_fw;
-+	}
-+
-+	buffer = kmalloc(total_size, GFP_KERNEL);
-+	if (!buffer) {
-+		ret = -ENOMEM;
-+		goto out_release_fw;
-+	}
-+
-+	memset(buffer, 0xff, total_size);
-+	memcpy(buffer, fw->data, fw->size);
-+	crc32 = cal_crc32_custom(buffer, total_size);
-+	kfree(buffer);
-+
-+	mutex_lock(&lt7911exc->ocm_lock);
-+
-+	lt7911exc_reset(lt7911exc);
-+
-+	lt7911exc_hw_mcu_halt(lt7911exc);
-+	ret = lt7911exc_block_erase(lt7911exc);
-+	if (ret) {
-+		dev_err(dev, "failed to block erase.\n");
-+		goto out_unlock;
-+	}
-+
-+	ret = lt7911exc_write_data(lt7911exc, fw, 0);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware data\n");
-+		goto out_unlock;
-+	}
-+
-+	ret = lt7911exc_write_crc(lt7911exc, crc32, FW_SIZE - 4);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware crc\n");
-+		goto out_unlock;
-+	}
-+
-+	lt7911exc_reset(lt7911exc);
-+	ret = lt7911exc_upgrade_result(lt7911exc, crc32);
-+	if (ret)
-+		dev_err(dev, "firmware verification failed\n");
-+
-+out_unlock:
-+	lt7911exc_hw_mcu_run(lt7911exc);
-+	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
-+	lt7911exc->upgrade = false;
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+
-+out_release_fw:
-+	release_firmware(fw);
-+	return;
-+
-+out_status_only:
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	lt7911exc->upgrade = false;
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+}
-+
-+static void lt7911exc_atomic_pre_enable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+
-+	if (lt7911exc->upgrade)
-+		return;
-+
-+	//enable mipi stream
-+	regmap_write(lt7911exc->regmap, 0xe0b0, 0x01);
-+}
-+
-+static void lt7911exc_atomic_post_disable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+
-+	if (lt7911exc->upgrade)
-+		return;
-+
-+	//disable mipi stream
-+	regmap_write(lt7911exc->regmap, 0xe0b0, 0x00);
-+}
-+
-+static int lt7911exc_bridge_attach(struct drm_bridge *bridge,
-+				   struct drm_encoder *encoder,
-+				   enum drm_bridge_attach_flags flags)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+
-+	if (!lt7911exc->output.bridge) {
-+		dev_warn(lt7911exc->dev, "Next bridge/panel not attached yet, deferring\n");
-+		return -EPROBE_DEFER;
-+	}
-+
-+	return drm_bridge_attach(encoder, lt7911exc->output.bridge, bridge, flags);
-+}
-+
-+static const struct drm_bridge_funcs lt7911exc_bridge_funcs = {
-+	.attach = lt7911exc_bridge_attach,
-+	.atomic_pre_enable = lt7911exc_atomic_pre_enable,
-+	.atomic_post_disable = lt7911exc_atomic_post_disable,
-+	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+};
-+
-+static int lt7911exc_dsi_host_attach(struct mipi_dsi_host *host, struct mipi_dsi_device *dev)
-+{
-+	struct lt7911exc *lt7911exc = dsi_host_to_lt7911exc(host);
-+	struct drm_bridge *bridge;
-+	struct drm_panel *panel;
-+	int ret;
-+
-+	ret = drm_of_find_panel_or_bridge(host->dev->of_node, 1, 0, &panel, &bridge);
-+	if (ret)
-+		return ret;
-+
-+	if (panel) {
-+		bridge = drm_panel_bridge_add_typed(panel, DRM_MODE_CONNECTOR_DSI);
-+		if (IS_ERR(bridge))
-+			return PTR_ERR(bridge);
-+	}
-+	lt7911exc->output.dev = dev;
-+	lt7911exc->output.bridge = bridge;
-+	lt7911exc->output.panel = panel;
-+
-+	drm_bridge_add(&lt7911exc->bridge);
-+	return 0;
-+}
-+
-+static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struct mipi_dsi_device *dev)
-+{
-+	struct lt7911exc *lt7911exc = dsi_host_to_lt7911exc(host);
-+
-+	drm_bridge_remove(&lt7911exc->bridge);
-+	if (lt7911exc->output.panel)
-+		drm_panel_bridge_remove(lt7911exc->output.bridge);
-+
-+	return 0;
-+}
-+
-+/*
-+ * The internal firmware controls the panel initialization
-+ * sequence and handles all MIPI DSI command transmission.
-+ */
-+static ssize_t lt7911exc_dsi_host_transfer(struct mipi_dsi_host *host,
-+					   const struct mipi_dsi_msg *msg)
-+{
-+	struct lt7911exc *lt7911exc = dsi_host_to_lt7911exc(host);
-+
-+	if (msg->rx_len) {
-+		dev_warn(lt7911exc->dev, "MIPI DSI read is not supported\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	switch (msg->type) {
-+	case MIPI_DSI_DCS_SHORT_WRITE:
-+	case MIPI_DSI_DCS_SHORT_WRITE_PARAM:
-+	case MIPI_DSI_DCS_LONG_WRITE:
-+	case MIPI_DSI_GENERIC_SHORT_WRITE_0_PARAM:
-+	case MIPI_DSI_GENERIC_SHORT_WRITE_1_PARAM:
-+	case MIPI_DSI_GENERIC_SHORT_WRITE_2_PARAM:
-+	case MIPI_DSI_GENERIC_LONG_WRITE:
-+	break;
-+	default:
-+	return -EOPNOTSUPP;
-+	}
-+
-+	if (lt7911exc->upgrade)
-+		return -EBUSY;
-+
-+	return msg->tx_len;
-+}
-+
-+static const struct mipi_dsi_host_ops lt7911exc_dsi_host_ops = {
-+	.attach = lt7911exc_dsi_host_attach,
-+	.detach = lt7911exc_dsi_host_detach,
-+	.transfer = lt7911exc_dsi_host_transfer,
-+};
-+
-+static ssize_t lt7911exc_firmware_store(struct device *dev, struct device_attribute *attr,
-+					const char *buf, size_t len)
-+{
-+	struct lt7911exc *lt7911exc = dev_get_drvdata(dev);
-+
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	if (lt7911exc->upgrade) {
-+		mutex_unlock(&lt7911exc->ocm_lock);
-+		return -EBUSY;
-+	}
-+
-+	lt7911exc->upgrade = true;
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+
-+	schedule_work(&lt7911exc->work);
-+
-+	return len;
-+}
-+
-+static ssize_t lt7911exc_firmware_show(struct device *dev, struct device_attribute *attr, char *buf)
-+{
-+	struct lt7911exc *lt7911exc = dev_get_drvdata(dev);
-+
-+	return sysfs_emit(buf, "0x%04x\n", lt7911exc->fw_version);
-+}
-+
-+static DEVICE_ATTR_RW(lt7911exc_firmware);
-+
-+static struct attribute *lt7911exc_attrs[] = {
-+	&dev_attr_lt7911exc_firmware.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group lt7911exc_attr_group = {
-+	.attrs = lt7911exc_attrs,
-+};
-+
-+static const struct attribute_group *lt7911exc_attr_groups[] = {
-+	&lt7911exc_attr_group,
-+	NULL,
-+};
-+
-+static int lt7911exc_probe(struct i2c_client *client)
-+{
-+	struct lt7911exc *lt7911exc;
-+	struct device *dev = &client->dev;
-+	struct device_node *np = dev->of_node;
-+	int ret;
-+
-+	if (!np)
-+		return -ENODEV;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return dev_err_probe(dev, -ENODEV, "device doesn't support I2C\n");
-+
-+	lt7911exc = devm_drm_bridge_alloc(dev, struct lt7911exc, bridge, &lt7911exc_bridge_funcs);
-+	if (IS_ERR(lt7911exc))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc), "drm bridge alloc failed.\n");
-+
-+	dev_set_drvdata(dev, lt7911exc);
-+
-+	lt7911exc->client = client;
-+	lt7911exc->dev = dev;
-+	lt7911exc->upgrade = false;
-+
-+	ret = devm_mutex_init(dev, &lt7911exc->ocm_lock);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to init mutex\n");
-+
-+	lt7911exc->regmap = devm_regmap_init_i2c(client, &lt7911exc_regmap_config);
-+	if (IS_ERR(lt7911exc->regmap))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc->regmap), "regmap i2c init failed\n");
-+
-+	/*
-+	 * reset GPIO is defined as active low in device tree.
-+	 * gpiod_set_value_cansleep() uses logical value:
-+	 * 1 -> asserted (active)  -> physical low  -> reset enabled -> chip stop
-+	 * 0 -> deasserted (inactive) -> physical high -> reset released -> chip run
-+	 */
-+	lt7911exc->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(lt7911exc->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc->reset_gpio),
-+				     "failed to acquire reset gpio\n");
-+
-+	ret = lt7911exc_regulator_enable(lt7911exc);
-+	if (ret)
-+		return ret;
-+
-+	lt7911exc_reset(lt7911exc);
-+
-+	mutex_lock(&lt7911exc->ocm_lock);
-+
-+	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
-+
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+
-+	if (lt7911exc->fw_version < 0)
-+		return dev_err_probe(dev, lt7911exc->fw_version, "failed read version of chip\n");
-+
-+	lt7911exc->dsi_host.dev = dev;
-+	lt7911exc->dsi_host.ops = &lt7911exc_dsi_host_ops;
-+	lt7911exc->bridge.of_node = np;
-+
-+	INIT_WORK(&lt7911exc->work, lt7911exc_firmware_upgrade_work);
-+
-+	i2c_set_clientdata(client, lt7911exc);
-+
-+	return mipi_dsi_host_register(&lt7911exc->dsi_host);
-+}
-+
-+static void lt7911exc_remove(struct i2c_client *client)
-+{
-+	struct lt7911exc *lt7911exc = i2c_get_clientdata(client);
-+
-+	mipi_dsi_host_unregister(&lt7911exc->dsi_host);
-+	cancel_work_sync(&lt7911exc->work);
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+}
-+
-+static const struct i2c_device_id lt7911exc_i2c_table[] = {
-+	{"lt7911exc"},
-+	{/* sentinel */}
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, lt7911exc_i2c_table);
-+
-+static const struct of_device_id lt7911exc_devices[] = {
-+	{.compatible = "lontium,lt7911exc"},
-+	{/* sentinel */}
-+};
-+MODULE_DEVICE_TABLE(of, lt7911exc_devices);
-+
-+static struct i2c_driver lt7911exc_driver = {
-+	.id_table	= lt7911exc_i2c_table,
-+	.probe		= lt7911exc_probe,
-+	.remove		= lt7911exc_remove,
-+	.driver		= {
-+		.name	= "lt7911exc",
-+		.of_match_table = lt7911exc_devices,
-+		.dev_groups = lt7911exc_attr_groups,
-+	},
-+};
-+module_i2c_driver(lt7911exc_driver);
-+
-+MODULE_AUTHOR("SunYun Yang <syyang@lontium.com>");
-+MODULE_DESCRIPTION("Lontium LT7911EXC EDP to MIPI DSI bridge driver");
-+MODULE_LICENSE("GPL");
-+MODULE_FIRMWARE(FW_FILE);
--- 
-2.34.1
+This could be worked around by defining the type implementing `ForLt`
+locally, at the cost of ergonomics since the `ForLt` type would be
+declared separately:
 
+  // Defines `DataLt` and implements `ForLt` on it after emitting
+  // covariance proof.
+  define_for_lt!(DataLt =3D for<'a> Data<'a>);
+
+  ...
+
+  something: Devres<auxiliary::Registration<DataLt>>
+
+I'm not claiming this is better; but imho the tradeoff is worth
+considering.
