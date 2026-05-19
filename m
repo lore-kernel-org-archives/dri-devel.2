@@ -4,137 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72BF3CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F4C4CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:29:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4EE910EC64;
-	Tue, 19 May 2026 11:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1F2E10E37F;
+	Tue, 19 May 2026 11:29:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="vhXGq64S";
+	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="TuR/+cE0";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020119.outbound.protection.outlook.com [52.101.196.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8819110EC64
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:23:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ikX7xW1zp8BzTrwM6AQIvgvUXsZimRAk32KDLXafpPg94Ruvczg8Os1ZereWbL1oGN7uF6kC1PR6OIfWSXNd3a/LQfTk82GPtzOab3MN7QkBTDU9jli8/Urxbydh20FsLrUf/CfdWGmxzTbcYRHh8uQivKdmju7eITvva/jNwrlSctkSi8rZJzmTAcgJifVkQmgjD5b4ZZcmgepqmHg5ga9NZVXEKaoGhkkUDyoZEifMdzp5RWTwo1Dhky07uq2VEDy2UE68Lm/0cBCQDTJ0fAmMY/r9GhW9CHPJgQJ4KP+48NdbZIWQa0t8gSdKkOmJklsoq/5ktCzDQhonn9QyZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/0ClQbf4EhqKfAyf5q+MFVDd0yVSuqfJWtrgeB1aDLw=;
- b=UbcmCrWRjaXnngqd94mY4mukZ/Lw+WCWqIWccOCydtJbFsNvG9Sk1H7rjX2PTeUSPmmYHGXMk35YiXyxEXEW1Qsy5MbfTGaOG2R/0gm9Zb3sCPJxdtrcQ1EqLKXJfDvBZTPWLm9ZeDi3zKfrDV211BDYsdFBlOj9Y5Kr/0e2h7089iBLCWEB0TeNwWJqL4sK3Zo8tgX5cAR+rpelX7E7np+dKJiG5wKrIC7awkOcVNi46k9OPOqwOmwQiZeV5b6sKRdt2x9oqUJecf9IvdWLz/ZGtpO+cXoqTEwbnvsyJz8YprMJOuuga5PJq1lKAgecSpcU1ewcfLECfW39VZbJAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/0ClQbf4EhqKfAyf5q+MFVDd0yVSuqfJWtrgeB1aDLw=;
- b=vhXGq64SAdShFGjq3/7aDeDzk5sOZLBDZNpj1MdCDjRjXH8jV/68H6YZdPhPwZ25pT0w47I5ObTFffIdOUXXnh9Raw7ZgnHVWcH3NcjRUp6HvIOX3GyWezdzAZmH+WBQT7jAOVv4GMkux5OfKkzHM9xcmZJ/B144uvn8Qr+mVCc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWLP265MB6402.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1e2::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Tue, 19 May
- 2026 11:23:47 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 11:23:47 +0000
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
+ [136.143.188.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B05210E37F
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:29:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779190186; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=dyeKZ0M1kWsWaYXB/7WcHP+gyv7GguWHBp54aZ+mK4IpW6TjJHj4DZuG2nl2K7ROR2tgMm95hl04wVFOqaFtdi78Y+TJ3z7U5Udoh1k3tI9hKZABK3VeA3XX9WEGDEnt/W/ocOBze36ZnCk9L6zur9o6CKiyAKbHU56VDf3sans=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779190186;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=a21y7ylbJXMSnfljwvz1osdThtDDH25yBXqtvFOA67k=; 
+ b=ZH47nl5zor2lKb6QwkJ1AVcjSAflDN947dg4QcS6NttsKv5/10qK+Pv2SQossIAQBrfoq8+cEOIfDX6Z3/GMfZk0wa5k2bJx1mJDPlxMElTc0XPzTnfKDA2imU+dnOw5McQAO0y4PmHBWwgklxj8LvFTo9ObTKU8Y03iXqnZUO0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779190186; 
+ s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=a21y7ylbJXMSnfljwvz1osdThtDDH25yBXqtvFOA67k=;
+ b=TuR/+cE02QEEbcM2MyCuO/oYImS84pmWGp1CI+a69QZtUkOqgwI8cdqUs2i6T83e
+ bgvW0oXoxxMNLLxFg2sno4K19S8YrGn9i/RnwyueH453T0a2ks/VB55w9/ET3h6T0sV
+ xacsp0Wdao7+0YWWl7zq2t+Gt02ttTNQnbspoh8ZtErNcwpNf9wwCGUWunAEVApiKwx
+ o6iHedJeUfnuRbrpazlbQ0vWsvHsZiy7NLp9OKrQ5oYJAMOyt8DSHP9CDVlhwG2tGsG
+ 3rg1yVjEs/v5yMtOP5Q8SEt2oPGYbxjX5mebf30JPOeBmr2FsgxFVRWsAEGGlQ2DcdF
+ iSnBp80deg==
+Received: by mx.zohomail.com with SMTPS id 1779190183865602.4770060891767;
+ Tue, 19 May 2026 04:29:43 -0700 (PDT)
+Message-ID: <7b49ae842c07a0437e6851aae944003785ef31a3.camel@icenowy.me>
+Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
+ for vblank
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Jani Nikula <jani.nikula@linux.intel.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Date: Tue, 19 May 2026 19:29:33 +0800
+In-Reply-To: <889a09d63c62d88a85d8a31a85feb8bbc178534c@intel.com>
+References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
+ <889a09d63c62d88a85d8a31a85feb8bbc178534c@intel.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 19 May 2026 12:23:46 +0100
-Message-Id: <DIMM5MOLDRKQ.2N90XJ1U3US6U@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <igor.korotin@linux.dev>, <daniel.almeida@collabora.com>,
- <pcolberg@redhat.com>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 16/27] rust: types: add `ForLt` trait for
- higher-ranked lifetime support
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-17-dakr@kernel.org>
- <DIMFBTLBNISD.W92F9DWEFSX@nvidia.com>
-In-Reply-To: <DIMFBTLBNISD.W92F9DWEFSX@nvidia.com>
-X-ClientProxiedBy: LO4P302CA0011.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:2c2::7) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB6402:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad7767c7-ebd5-44e3-2bdf-08deb5991812
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|10070799003|1800799024|22082099003|18002099003|56012099003|921020|4143699003|3023799003;
-X-Microsoft-Antispam-Message-Info: aJTeiSVH9odlAV89SU2/Twm6X/b/fwUW9obMZLkZxLSdAl2GuCSvZzP8WDWB3WSGloNefbIKYf4zM4YTjd6ATbo1H9giKJ6CeNf0AuaDoiUaFtWnNz/ELeq0gkfEcKIWTXUSfjGDJHPlXrtsW6iKwCMsqZJH1UE9U6BXYGngwiM4TLsEMyj8+2Izcu5hNw+Via7tJKRHwK2+9McoKhtSkshTqufZRakXpMUKre8CYe+QC05dIYcNQBTqrmHV49hHqU8RDRDIt+O7g6ZA1Nt2e3dKaZRCqwEVib4hKrBo2+GgIBtZP3GmP5LToGcD3HgEmuWKqu6icNV3PU5RZi4sGBYY2iiuxtaiQOX8MINBWlv8Ju8UIScPbELlKKqiMj2wqyx8vhHdAX+HtjfO9zVvmXOm0Y97vp2e6Eb2VvLyBYkAWklkgEkLx6c7UUPAmP943n/chshdXm06SxcxGRtZJSjXecx0Qtmiw332S4/6y6H7Q1c+PMs35D7Xk93c6Ci6M4tdvjfkDAkjE9hNm17Wg8Y7Nu3WenujDVR26kO1Q58C1m3znj4cRxwj5e82xubBYnTU4QxLJ/nrvE9La7OEE+XkNZYk6URgLj6WbrqhRa7MPd4a7AORGThdtt5xgzzpgdCdkI0ywRi26uyE1XXtY2FUZFp5q1kO9wjr5NIjokDoM+qR+YeRzjUGX67o2vBJcIvbq3HN37LMnMuy8OZ3KNsoH16jgNqCkM6GO9fXr+s=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(10070799003)(1800799024)(22082099003)(18002099003)(56012099003)(921020)(4143699003)(3023799003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ay92QzRuTmtDMHBKL0RDZTFhUUdtWXlLb051dzNIRzBKYjNPT3hvTzRVUkF1?=
- =?utf-8?B?V3g4SnFCYUs0TGp3d0dMblhnbW1TenErRE9rdWpCMXBtY0RieXBua3pHZUJ6?=
- =?utf-8?B?cWF5dVYrd3VQSkhZSzl6ay9qQUNmQWFxU2EvMktaSXdHd1RNdVhyRTNxUzU5?=
- =?utf-8?B?UzdEdythTGorWDUzb21yc2U4NGp6UnZCS0NnZXg0RUhGalFCTUo3QzVOZ0dX?=
- =?utf-8?B?OCtqaVR0OHdFOHplbEhhd1NkalNVTm9HNHlJNHY2eEdOYnNJa242Tnk1VU9v?=
- =?utf-8?B?Mnh3RmNuZVJjZmIzTzZKYjZrdk16QUFBTVZYL2R2SW5CMnJyYlVXazljTHJi?=
- =?utf-8?B?disxOFIzWWN5czZnUDFDblpoYzNYSFI2Um0xSWY0blZpM1g3SUR1amI1VmRo?=
- =?utf-8?B?bTE0V2V2bGVPOXJ5ZkIzaE5jZnZLN1Nkc0g2Y2oxYmJGUDRrUkVXRmtnUElP?=
- =?utf-8?B?UFlGRXFXZjRPYW0xckhGVUR1U0YyVWlPS2xRY1E5ZU9MY0dCMXhHcE9ybVBX?=
- =?utf-8?B?RXlhYk1OaEtXcWdHd2JiTnBnR1ZHeTdKMzJENjI4R1paNDVNL3lXY0E2bEZH?=
- =?utf-8?B?N29YZlYxb3JINENkNzQ0R0k3emFFbm9rOFYxcjVudHNJQVRRcU1UTGdzOFE2?=
- =?utf-8?B?OFBWWHNHejJrNXprMmo3QldNaFIvZ1ZZVmNnV2pjYkx2QmV0clVZM0tWNTYr?=
- =?utf-8?B?UGMyV2xtUVNTTS80enZkWWs3NkptMXJZZWxZOHJiV0IyVm4xNE5nd0JmV2xl?=
- =?utf-8?B?cUh3dElqNVpuSFFtTjdBTkNpbnBEL2JUYW9PTEt6YUtsSWNHRjJVVE5lZnlv?=
- =?utf-8?B?VjhQOUpURmxXTDI2VnNhQWUxV0dmOXR6aENnUDNEd1J6UWhoazhYeDhVMXdR?=
- =?utf-8?B?SnNha0FOZ0pDTmlxOXUzVnFhSjh3MWk1OUdUcUNFUzgvWW9mZVA2WUJUd09L?=
- =?utf-8?B?RC8xSzlrYkdlTGUrem9qU3VFTzFsQjRVLy8xV0lvNGh1d3hVN0ZiS3BRZjdw?=
- =?utf-8?B?eWFNV3BwMDZlVlBzNkN6aUwvalNkYUo4WkNsWGt5eTlHL3FQL1NuQytKcWgr?=
- =?utf-8?B?dEtUMTgvMG1WVkRweWU0NFJOSWlpZUxTd2pDTHdPSUh6a05Wb2ttVFNKWHZD?=
- =?utf-8?B?Q21UQzBVUmdQNi9IbFpuRFJKRlhyVlZJcDVuTGJDTlNpR3NHZm9XckdIQnpD?=
- =?utf-8?B?RFNmTTRoeUdjVmhZTHlIRkVvb0x0cFJsQlRzcDMzRFhIRDdxdXprQkVYUHNi?=
- =?utf-8?B?N1FGZUs1eWIzdjhxcjlUTUhFTUYxT0E1cDhQQnU4WXUrU3h3ZU1RY2RENlVw?=
- =?utf-8?B?Y0phckFNT0N1N09Zb0djYm1LeFBkWmd3MlBiZzVyOGdkUS9rVTQyWVgyRTUr?=
- =?utf-8?B?dnBubnZGWjdkN2lJdWkxK2tRQzVtRkJsSDBKQ3ZyTzBaa1crRHZpZXc2amFl?=
- =?utf-8?B?cmtXby9wTnliY0lKYUw0akZpMjEwRXBPQnJ2WlAxQW92Um9samxEWlZiM1Ro?=
- =?utf-8?B?RUZRdDlzZk1YcXZIWU0wVG9YYUVTN0g4R0VrTlpzNkZKOXQ5cmxBK3J3bWVk?=
- =?utf-8?B?dTl5WlI5aVl2VmQ3cVZ5cW94U0t5clA0eXBOUWtBV21MU3pSenBJNUFuZDZD?=
- =?utf-8?B?SklRMkZBN2RyZjB3QXZuS1JuSXFnekYybjFvendoQ0hGcGRSM3c2bEptTXhM?=
- =?utf-8?B?NVpacHZURUZOWjlYZ0dtUXBhZEV0aDdnU0NPMUJVZjJnZGMrU2RUSTV1ekhQ?=
- =?utf-8?B?OHE1M0pGME4xTG9FT1EvZDhsbmQzbmp3UDBOcldZTVlldmxiRFR0REE2WkJy?=
- =?utf-8?B?L0hjNEwyYjMrZjJ4Y3BHdmQyYWtGK3FMeE5scnZtdWU5b3VoZ2JtZmgwOTF1?=
- =?utf-8?B?U0QydzFsVWErdUc3ekxiVnVFV3VTM0x6ZnZva0dnclZWRytRNWI3aG5Na2RS?=
- =?utf-8?B?UEFUNXdjV29Mck9iK3FrYkYwOXI0VjRVMDNzdCswY2FoWVJVQ1VhWlFZU0Ri?=
- =?utf-8?B?aDd5NHA1SkNLRnV6aWJYN3VHTzh6K1k4cll4Rmk5dlRUMHNVS0k3QStTaEFv?=
- =?utf-8?B?dHREek1oVVpMU1AreitqU0FUZy9GbnpSV2lYMU5MRktnZE5wbWQ5U1BrY2k4?=
- =?utf-8?B?cUNOMzU0S2JxZzFDOUZqd09xa2lydmxiWUROQ1ZQam0zL0o0TURQREpYWjl0?=
- =?utf-8?B?aFRKcGJ4aDcvOUxoaCszNlp6UGVUUHFYTE1Ja1AzVGhHN0Rqbk11cUtXaVBB?=
- =?utf-8?B?MjVGNHNyMStzM0VJMHN1NnJwZTdHbHg0RVR1SndGaUcyaFVjYVV4dFlzYkp0?=
- =?utf-8?B?R0tOeGk0S2thbTNDZ3AwUVZjZ3YxK0ZqSFNzT0I5TFRmQjdLRnc2Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad7767c7-ebd5-44e3-2bdf-08deb5991812
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 11:23:47.2495 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YD+gPXS7nmqVqnCJxqifjwTFynG4pHoj3/nkJJV/lK370ht/pZWzGap2fCjmXaDZAG2zJoa20sLDedBI6kh94A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6402
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,227 +75,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue May 19, 2026 at 7:02 AM BST, Eliot Courtney wrote:
-> On Sun May 17, 2026 at 9:01 AM JST, Danilo Krummrich wrote:
->> From: Gary Guo <gary@garyguo.net>
->>
->> There are a few cases, e.g. when dealing with data referencing each othe=
-r,
->> one might want to write code that are generic over lifetimes. For exampl=
-e,
->> if you want take a function that takes `&'a Foo` and gives `Bar<'a>`, yo=
-u
->> can write:
->>
->>     f: impl for<'a> FnOnce(&'a Foo) -> Bar<'a>,
->>
->> However, it becomes tricky when you want that function to not have a fix=
-ed
->> `Bar`, but have it be generic again. In this case, one needs something t=
-hat
->> is generic over types that are themselves generic over lifetimes.
->>
->> `ForLt` provides such support. It provides a trait `ForLt` which describ=
-es
->> a type generic over lifetime. One may use `ForLt::Of<'a>` to get an
->> instance of a type for a specific lifetime.
->>
->> For the case of cross referencing, one would almost always want the
->> lifetime to be covariant. Therefore this is also made a requirement for =
-the
->> `ForLt` trait, so functions with `ForLt` trait bound can assume covarian=
-ce.
->>
->> A macro `ForLt!()` is provided to be able to obtain a type that implemen=
-ts
->> `ForLt`. For example, `ForLt!(for<'a> Bar<'a>)` would yield a type that
->> `<TheType as ForLt>::Of<'a>` is `Bar<'a>`. This also works with lifetime
->> elision, e.g. `ForLt!(Bar<'_>)` or for types without lifetime at all, e.=
-g.
->> `ForLt!(u32)`.
->>
->> The API design draws inspiration from the higher-kinded-types [1] crate,
->> however different design decision has been taken (e.g. covariance
->> requirement) and the implementation is independent.
->>
->> License headers use "Apache-2.0 OR MIT" because I anticipate this to be
->> used in pin-init crate too which is licensed as such.
->>
->> Link: https://docs.rs/higher-kinded-types/ [1]
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
->> ---
->
->> +trait TypeExt {
->> +    fn expand_elided_lifetime(&self, explicit_lt: &Lifetime) -> Type;
->> +    fn replace_lifetime(&self, src: &Lifetime, dst: &Lifetime) -> Type;
->> +    fn has_lifetime(&self, lt: &Lifetime) -> bool;
->> +}
->> +
->> +impl TypeExt for Type {
->> +    fn expand_elided_lifetime(&self, explicit_lt: &Lifetime) -> Type {
->> +        struct ElidedLifetimeExpander<'a>(&'a Lifetime);
->> +
->> +        impl VisitMut for ElidedLifetimeExpander<'_> {
->> +            fn visit_lifetime_mut(&mut self, lifetime: &mut Lifetime) {
->> +                // Expand explicit `'_`
->> +                if lifetime.ident =3D=3D "_" {
->> +                    *lifetime =3D self.0.clone();
->> +                }
->> +            }
->> +
->> +            fn visit_type_reference_mut(&mut self, reference: &mut syn:=
-:TypeReference) {
->> +                syn::visit_mut::visit_type_reference_mut(self, referenc=
-e);
->> +
->> +                if reference.lifetime.is_none() {
->> +                    reference.lifetime =3D Some(self.0.clone());
->> +                }
->> +            }
->> +        }
->> +
->> +        let mut ret =3D self.clone();
->> +        ElidedLifetimeExpander(explicit_lt).visit_type_mut(&mut ret);
->> +        ret
->> +    }
->> +
->> +    fn replace_lifetime(&self, src: &Lifetime, dst: &Lifetime) -> Type =
-{
->> +        struct LifetimeReplacer<'a>(&'a Lifetime, &'a Lifetime);
->> +
->> +        impl VisitMut for LifetimeReplacer<'_> {
->> +            fn visit_lifetime_mut(&mut self, lifetime: &mut Lifetime) {
->> +                if lifetime.ident =3D=3D self.0.ident {
->> +                    *lifetime =3D self.1.clone();
->> +                }
->> +            }
->> +        }
->> +
->> +        let mut ret =3D self.clone();
->> +        LifetimeReplacer(src, dst).visit_type_mut(&mut ret);
->> +        ret
->> +    }
->> +
->> +    fn has_lifetime(&self, lt: &Lifetime) -> bool {
->> +        struct HasLifetime<'a>(&'a Lifetime, bool);
->> +
->> +        impl Visit<'_> for HasLifetime<'_> {
->> +            fn visit_lifetime(&mut self, lifetime: &Lifetime) {
->> +                if lifetime.ident =3D=3D self.0.ident {
->> +                    self.1 =3D true;
->> +                }
->> +            }
->> +        }
->> +
->> +        let mut visitor =3D HasLifetime(lt, false);
->> +        visitor.visit_type(self);
->> +        visitor.1
->> +    }
->> +}
->> +
->> +struct Prover<'a>(&'a Lifetime, Vec<&'a Type>);
->> +
->> +impl<'a> Prover<'a> {
->> +    /// Prove that `ty` is covariant over `'lt`.
->> +    ///
->> +    /// This also needs to prove that it'll be wellformed for any insta=
-nce of `'lt`.
->> +    /// It can be assumed that `ty` will be wellformed if `'lt` is subs=
-tituted to `'static`.
->> +    fn prove(&mut self, ty: &'a Type) {
->> +        match ty {
->> +            Type::Paren(ty) =3D> self.prove(&ty.elem),
->> +            Type::Group(ty) =3D> self.prove(&ty.elem),
->> +
->> +            // No lifetime involved
->> +            Type::Never(_) =3D> {}
->> +
->> +            // `[T; N]` and `[T]` is covariant over `T`.
->> +            Type::Array(ty) =3D> self.prove(&ty.elem),
->> +            Type::Slice(ty) =3D> self.prove(&ty.elem),
->> +
->> +            Type::Tuple(ty) =3D> {
->> +                for elem in &ty.elems {
->> +                    self.prove(elem);
->> +                }
->> +            }
->> +
->> +            // `*const T` is covariant over `T`
->> +            Type::Ptr(ty) if ty.const_token.is_some() =3D> self.prove(&=
-ty.elem),
->> +
->> +            // `&T` is covariant over `T` and lifetime.
->> +            //
->> +            // Note that if we encounter `&'other_lt T`, then we still =
-need to make sure the type
->> +            // is wellformed if `T` involves `&'lt`, so we defer to the=
- compiler.
->> +            //
->> +            // This is to block cases like `ForLt!(for<'a> &'static &'a=
- u32)`, as the presence of
->> +            // the type implies `'a: 'static` but this is unsound.
->> +            Type::Reference(ty)
->> +                if ty.mutability.is_none() && ty.lifetime.as_ref() =3D=
-=3D Some(self.0) =3D>
->> +            {
->> +                self.prove(&ty.elem)
->> +            }
->> +
->> +            // `&[mut] T` is covariant over lifetime.
->> +            // In case we have `&[mut] NoLifetime`, we don't need to do=
- additional checks.
->> +            Type::Reference(ty) if !ty.elem.has_lifetime(self.0) =3D> (=
-),
->> +
->> +            // No mention of lifetime at all, no need to perform compil=
-er check.
->> +            ty if !ty.has_lifetime(self.0) =3D> (),
->
-> This treats macros as not having a lifetime, but it allows this which is
-> not covariant for 'a IIUC:
+=E5=9C=A8 2026-05-19=E4=BA=8C=E7=9A=84 12:41 +0300=EF=BC=8CJani Nikula=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On Tue, 19 May 2026, Icenowy Zheng <zhengxingda@iscas.ac.cn> wrote:
+> > Currently the implementaion of drm_client_modeset_wait_for_vblank()
+> > assumes drm_vblank_get() will fail when the CRTC isn't active.
+> > However
+> > it seems that this is not true, and running fbcon on a device with
+> > the
+> > first CRTC inactive will lead to kernel warning in some cases
+> > (which
+> > could be reproduced with the loongson driver).
+> >=20
+> > Change the implementation to add a check for the active state
+> > (atomic) /
+> > enabled state (non-atomic) before calling drm_vblank_get(). As the
+> > assumption of drm_vblank_get() failing for inactive CRTC isn't met,
+> > the
+> > error status of drm_vblank_get() can now be exported too.
+> >=20
+> > Cc: stable@vger.kernel.org
+> > Fixes: d8c4bddcd8bc ("drm/fb-helper: Synchronize dirty worker with
+> > vblank")
+> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > ---
+> > =C2=A0drivers/gpu/drm/drm_client_modeset.c | 13 +++++++++++--
+> > =C2=A01 file changed, 11 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/drm_client_modeset.c
+> > b/drivers/gpu/drm/drm_client_modeset.c
+> > index bb49b8361271a..1b03bf351256e 100644
+> > --- a/drivers/gpu/drm/drm_client_modeset.c
+> > +++ b/drivers/gpu/drm/drm_client_modeset.c
+> > @@ -1310,7 +1310,7 @@ int drm_client_modeset_wait_for_vblank(struct
+> > drm_client_dev *client, unsigned i
+> > =C2=A0{
+> > =C2=A0	struct drm_device *dev =3D client->dev;
+> > =C2=A0	struct drm_crtc *crtc;
+> > -	int ret;
+> > +	int ret =3D 0;
+> > =C2=A0
+> > =C2=A0	/*
+> > =C2=A0	 * Rate-limit update frequency to vblank. If there's a DRM
+> > master
+> > @@ -1326,15 +1326,24 @@ int
+> > drm_client_modeset_wait_for_vblank(struct drm_client_dev *client,
+> > unsigned i
+> > =C2=A0	 * Only wait for a vblank event if the CRTC is enabled,
+> > otherwise
+> > =C2=A0	 * just don't do anything, not even report an error.
+> > =C2=A0	 */
+>=20
+> I'll dodge the question whether the change below is right or not, but
+> for sure the comment above needs to be amended to match the change.
 
-Good catch. I shall require treat macro as having lifetimes. I thought abou=
-t
-this case when implementing self-referential lifetime in pin-init but didn'=
-t
-remember to retrospectively apply it here.
+If the change is right, it perfectly matches what the comment above is
+saying -- it's the current behavior that does not match the comment.
 
->
-> ```
-> trait Trait {}
->
-> macro_rules! asdf {
->   () =3D> { dyn Trait };
-> }
->
-> type NotCovariant =3D ForLt!(for<'a> &'a mut asdf!());
-> ```
->
-> And you can get rid of the macro too:
->
-> ```
-> type NotCovariant =3D ForLt!(for<'a> &'a mut dyn Trait);
-> ```
->
-> These are not covariant because dyn Trait has an elided +'a lifetime.
->
-> I feel that the syntactic checking is kinda difficult to get right since
-> it would need to handle all ways lifetimes can be elided now and in the
-> future.
->
-> Would it be that bad to always emit the proofs?
+Thanks,
+Icenowy
 
-The proofs are items inside a constant block, and thus they cannot refer to
-generic parameters at all. Therefore, omitting proofs are important to make=
- the
-macro work for obvious cases inside generic context. One use case is
-
-impl<T> Foo<T> {
-    /* use ForLt!(T) here */
-}
-
-Best,
-Gary
-
+>=20
+> (Please wait for other review comments before sending another version
+> with the comment changed.)
+>=20
+> BR,
+> Jani.
+>=20
+> > +	if (drm_drv_uses_atomic_modeset(dev)) {
+> > +		if (!crtc->state || !crtc->state->active)
+> > +			goto out;
+> > +	} else {
+> > +		if (!crtc->enabled)
+> > +			goto out;
+> > +	}
+> > +
+> > =C2=A0	ret =3D drm_crtc_vblank_get(crtc);
+> > =C2=A0	if (!ret) {
+> > =C2=A0		drm_crtc_wait_one_vblank(crtc);
+> > =C2=A0		drm_crtc_vblank_put(crtc);
+> > =C2=A0	}
+> > =C2=A0
+> > +out:
+> > =C2=A0	drm_master_internal_release(dev);
+> > =C2=A0
+> > -	return 0;
+> > +	return ret;
+> > =C2=A0}
+> > =C2=A0EXPORT_SYMBOL(drm_client_modeset_wait_for_vblank);
