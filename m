@@ -4,78 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 565FECD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:46:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 531F2CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:48:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F23510E15C;
-	Tue, 19 May 2026 11:46:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B81DC10E3D7;
+	Tue, 19 May 2026 11:48:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eepcU3Gh";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="XVVsmSWj";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2385710E15C
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:46:28 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2b9ec9443c2so22399475ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 04:46:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779191188; x=1779795988; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ta61K0Pmld/CsWKgzlq6xjmWULCR3bAZMfwfucx3DEM=;
- b=eepcU3Gh3PM8WQgoaQsPYI2Y1vvZhJVdcaOOyvMzhjgGGzs+ECwCOTa7WrXnjI7hW1
- Z9FU0bQkrxKIYlJ7eYF7nxYxTeXpZ2bMg1qifO4IzSTNxutwE74OVW4FQCs3y3neW23R
- 5hPeP8Ex/s3EYIWzMAtTMQ+17f6dpsLghDJuq8hilMO0fdUoIwTJ/U39fwh2rJ+Tek9t
- CTGQYWcCf1w7bHoRLTK5Mm8w4QcF9OdaEmEq+s8oS99LPYq407hSbYgJ/9KQm2Hm5Yb6
- HsevKEhppfXjh0KYPJhRpYL6HGxSSPZNTEqhRCaaehBps4L5MvXlmV7Geh515vaeJcYo
- 2AZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779191188; x=1779795988;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ta61K0Pmld/CsWKgzlq6xjmWULCR3bAZMfwfucx3DEM=;
- b=gEqaQQ01B5JulkbkIvWMAbeYeqm4HEfhW8dODbqG1Mkw5Yh/k7WiAkcCX+9LEXAcfL
- ju5Lj71SALiZeMPcjKP/2Y3hEpxJ1Ylp+4R4aDkXl4XrkF/CY+IPZLNXKwKVv0d5kN/a
- S6glIXclA2HOusoOh5Zbjl5MvM75c9bksBmXZvpmZ1hZss+voyVXCe1MkPDncgCI/Obr
- RhKWsjHMig0lrftTbKZwVj5ZMnkrhkvVWQvS8mEjvcOViX5NNsfyxh8G2TCf4aq3NFxW
- lu/k0oWFNTVTfKDhFw0gDdMOmMVl8FBEA7IqnxVimR7n6W2n4+Zo3nacp26C2/DWZqBI
- +NIw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/yYE8E4A4u2lGrHLquLDctZ28dihyWRI63aGgLSgeJgT9s0faMlY4T4JeKyIVTg+6ERV1oO6nvdtI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxi+lNS46Dn+jYYqTvO6GlKCdV2uyao2YA1aeO240KCfvOO/coc
- Uy5zpPMx0m2296WSR5qlAisi2KSiUlFZSLj4FoEES5us8dsQnozSvMGP
-X-Gm-Gg: Acq92OHpBRpj0Wy+WVJjJwA+KpL9aNWIPoKacZzZAgDHEwbgjMSLnu89twunJ32+OO8
- Gv2CvLt+dgt6DKrtgiyW3J2C6sH3QNr6fXZ/zqmaGohj6uLqR/fDVTWFj93YCGqB1XXJypflbJu
- 7iWfiRKaTFpYHDKLzwypEdijMOZaAlWLH6nY/R2+fh/XxZ1c4MJi4skJGGB15+tUgdATQn+BapJ
- mR8j/HnTrGOy6wjuWutnzTt4VPBhArekKu4R3bxQpMkI69KCKmpDPnhjJYCoo/jjcxQLtxn+rbM
- zEELLdeobbs2bjX8nbZ8XblGeAcNXQn5J4nxLn0Lo/ULcKpVHhEAgFsuUo35roR0RSZJkknhPEu
- eEoGv0C8o8XQrNUSxhil93qt871mpaX5x4yG4p9RygNEzXo2MLnVTAoubfTkIWYADmI8ufT6MQm
- iQi8N3g9WlxwdH0xP3aqWeUWQEkA5I0gTjbW/zRkn4eVe+bCYFGUk/SA==
-X-Received: by 2002:a17:903:1cc:b0:2bd:2c3a:2a36 with SMTP id
- d9443c01a7336-2bd523168b6mr203103925ad.0.1779191187600; 
- Tue, 19 May 2026 04:46:27 -0700 (PDT)
-Received: from souradipto-das-Latitude-3460..
- ([2405:201:8011:1c:c7a5:efe1:9ef6:7b2e])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bd5cfe4935sm193368545ad.42.2026.05.19.04.46.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 04:46:26 -0700 (PDT)
-From: Souradipto Das <souradiptodas6@gmail.com>
-To: Stefan Agner <stefan@agner.ch>,
-	Alison Wang <alison.wang@nxp.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Souradipto Das <souradiptodas6@gmail.com>
-Subject: [PATCH] drm/fsl-dcu: Remove redundant connector registration
-Date: Tue, 19 May 2026 17:16:11 +0530
-Message-ID: <20260519114611.11388-1-souradiptodas6@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020120.outbound.protection.outlook.com [52.101.195.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A567A10E3D7
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:48:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZgLHGOGQTXw638e5hv77DeNbXCfgl/z6v/zV6LcHXXCFs8EtUNlB3Q6BLjuryTYOIxZhzn07Dv6G6opclo9qG/jOLt/9KSGyuFO/JRisdIUrhW4hgSsVswntp/Lm5NDBno5VKfwLoSmVK0ykHx7I3TkGnivoQG+ntpdP12vK9DjUX5voh2e8OkiVNhHx/tBZiYDP3Evbo+ygrVjxdnU6jAo4jNCSCS0DQzNYjJGKMoUlhLi/BGnKbp41r9H6aY25qlrd4O07TpnR2AAZnucCFb1ZX/YLX8QN3uvSjFziFSjlMmTMRyq2WD/ZejviJjtZLojRxtNTCHnI2E0nDrW25Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y6T5lL8JTzdJeb4fj4D6r7tvvGz5qf4M+xdIRqyR2hw=;
+ b=bvggFx3T5uKK+0fKbH757F84jFvkQeW9PPiNT0bXz7ZiYVDUjjanzOkbxfmc6M/PDKoqjlLRufRVZzUN8GaVfTEh2USLdPkMaptAGqLB7JOcQN1ogdP1LFIrJdR++1IcLCn5vMlNbtbz0p6389rGTknTU7yipGO/bRXQiGL5X9hh2RnpDz5hqs3HLgMv3Bgpkvo3QHaDDeTntHaEcTd+1+tfqPJjpQ203uP4Ntj5n+Os2IeJgDZRxd3t13aMUzOey2KdJ6i/Fzz1fik65TmYDCQzf51xb5htm8ng1JP62eArYA4T3W+rlK60vbE68xXbTtpuyo5vbj0vG67p+2oY5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y6T5lL8JTzdJeb4fj4D6r7tvvGz5qf4M+xdIRqyR2hw=;
+ b=XVVsmSWjq0gk7cazCFI+Pk8BEw3Ia6O4yaX1Ete8Udp74NwYmDNts3+6yD6ggrMAIH1loJ34wTiFVxdFFFsPYEvCagxd9tFGSVW/wUe2rKjt7BYkw2XEmTpWDcuN0/Hv7R/UUu3uAmoPgvqirse3MIfVupL60OBGYdU9knvMgPI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO6P265MB6297.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2b1::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Tue, 19 May
+ 2026 11:48:01 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 11:48:01 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 19 May 2026 12:48:00 +0100
+Message-Id: <DIMMO6Q6WKOY.1DKWK8IBAP0W9@garyguo.net>
+Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
+ <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
+ <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <igor.korotin@linux.dev>, <daniel.almeida@collabora.com>,
+ <pcolberg@redhat.com>, <driver-core@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-pm@vger.kernel.org>,
+ <linux-pwm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v3 10/27] rust: pci: make Driver trait
+ lifetime-parameterized
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0
+References: <20260517000149.3226762-1-dakr@kernel.org>
+ <20260517000149.3226762-11-dakr@kernel.org>
+ <DIMDU2XL6PKO.RUXA0XPFT94R@nvidia.com>
+ <DIML7T3R6BXP.2WSFVG2VY63LP@kernel.org>
+In-Reply-To: <DIML7T3R6BXP.2WSFVG2VY63LP@kernel.org>
+X-ClientProxiedBy: LO4P123CA0064.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:153::15) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO6P265MB6297:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6cd3acbb-0da3-441e-87f6-08deb59c7acf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|366016|7416014|376014|22082099003|56012099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info: ceE7NKAcVgaQP39bnGp9erNm9XtMn4qliEw5BZr18LaVZRHlk7SPj2H9/O/6lTfuEm/mDfZwdNfsTn6unC70gnkT1srSZSzWO+rFWUPhketob3AgvhoxWiQuhlDDvlOrPVBRa7EOWNVBvPpRk7JdPkt70Nb1Ez6UVhFdcmi9TA2Na8bjxo48ENIwE1L45fJGwPrIQYOPCVKOU3tpJrFmXJZbXWrNLiJbExFOrb18muL4g+XTcZtby4sIWNXGBFQaQa7DQXOduVPDiim5Ov0DdAtQGA38SsAt4Pov3NDcDjUwUue60Ma8X5ve6wvBN0SjLv/JP0+5MfZ8N5ymhTieUHNeqrrqqNw2bYQQdYptoeQ8Bi19rxU5cjOPoCrV6Y772/ef9MxK2r4XGuVzfIfVlfmSZAzo+oEtkVNSjsGJ84fw0/4fHjLOk8RgDtiyZAKazC57j7E1fRJtCt5gixno9jKQG64LngmRNTv7B81LDDJt9mBmi75yq1L/D50/6rCu7iCImjuUaFVOcOcsONBU8kzeQXcI4gG3OJFq0+DxYiCaWekWcQ1rnPY3GQr08QQLpGrozcWBGAq97FGc+qm8TSP0r8VuGI9BMucSSQC80+wzhbbU2f4STOxED+kFPRxTG8aXmQWQCuk4a6ioTawWEYHw1TdSDORaUnLUsOEQ0lxm4yxxiXmrhrUO1Kj8SBYV
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(366016)(7416014)(376014)(22082099003)(56012099003)(18002099003)(4143699003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEViU3E1R0RMUjBtYXlEanFMN1BvajgvZ3dBaFdBUkljZzc2TTVZd0RkMm1q?=
+ =?utf-8?B?QWp5SWlBaEU5Z0dOQzFNc3hNd2lLVmtNVndtamF6dUNQbURXVE00VDRzb1RM?=
+ =?utf-8?B?S2lpbklBaFo3ZHI2eGphc21WV2hXSVdDYVd6bjY5RTN6OWlPN3RHK2NvRC9u?=
+ =?utf-8?B?Yy9EclpvL0RoU0FpOFljRFlQR3NyS3pZOWFDRHZSSitySmk4WFlMMVhSRzhF?=
+ =?utf-8?B?RXZpZUVOa0l6UGt4VVBsY2lWRE1zaWMzK3lyWVpIR1BPeG1aK3QxNk5ZSWJB?=
+ =?utf-8?B?aVpNMjEvMEFVbVZDb0p4b0NNVHJsbk1zbHJESG56dGRFdGIra0tqMk9RVFVO?=
+ =?utf-8?B?b1VHeUJtc3ljclJybm1BdEpVeXNQV1l4ck42SCtNU0lwNUY4U3N4dVcvZFFX?=
+ =?utf-8?B?NlBmT0taNEJqK0NuY0tlcFZUUlFKK2kzSDdNNmszWmUzNkZYby9IUjN5aGVI?=
+ =?utf-8?B?cE85UmdWR0t4NnJXMS91NUxvelRFVExjRTNnN01Hazc0aDFMc1BpT1RVV0ZY?=
+ =?utf-8?B?ZFRTdmRqTlIzdDl5RXZtQlk4S0t4NFJGd0k2VDkrTFpvZVZuNDV2aDZBQUU4?=
+ =?utf-8?B?VzlOb1lSMXdaUUR5cEZvZDNEOEJKdEN1M21Ma2NCcUFSL2NrenN6R003WHN2?=
+ =?utf-8?B?UEU4UHJuQzA4MnR4VERHZDVBanpFcXpkbHN5RlAzZVlpaGU1SGd6ZnRza2tr?=
+ =?utf-8?B?dzdFcXVhSGVONjg4aFA2Tml5aGxxSmtDanZoQ0JHU3llTm56ZUU2ZWc2aWlF?=
+ =?utf-8?B?dEsxNGxBSTlyS09pMTNYYU1xWS85RWUzVllSRlQ3RVhSK2dXdWpYd3BVc3R2?=
+ =?utf-8?B?VWx5MlFLb0JnUThmVlNjSHFaYVZNWjZPVzh2WVBxSThLdHNHemFJQUNETko0?=
+ =?utf-8?B?NWl1dkc1MkdiQ0U5MlV0UmZ3TmlCSUtHeTFBMEFQa05TTjZKQjZualN3Tklw?=
+ =?utf-8?B?cysySHhrN3Z1SUlVcVNwM3NhWFNydDRFMW1CZFg1T3NSRStuOUM5Q3lpSzJm?=
+ =?utf-8?B?OGVXWkJONlhDRHBoVFBOcmJ3NTN4Mk1oRlMxS3lHL3JhNnNmQnYwUCthdW9v?=
+ =?utf-8?B?cVVXeENXcEFrd0NoSGV6VS83bGNacVcvY2xQbk5ieDNia1ZiQzNWVFpaQUgy?=
+ =?utf-8?B?cGRxcmJQdUIxOVpCU09aL09oazN3aDVQRVREUnRQWlJXRkpJMG02NkZrQ0xF?=
+ =?utf-8?B?cUNpcVhqdnFwMExpMU94cEpYTkwxOTdWaEVHaXlzS01RaDZOak1lb0pxTWQr?=
+ =?utf-8?B?eU9RTDUzeUpDQU5rcFI5ekVmK0tPYTNOUnp1T3lvQUJGM3NIc3dXY2VTU2N1?=
+ =?utf-8?B?Zm9ENSt5T2JsUDNraGlKOFZrOUFzczRVejhUUElaMGpBbFJ3ZVg5YW9ka3FM?=
+ =?utf-8?B?Q1pOZDY0TWFTR2pSeVVvSFpnYzd5MktSSnY4SFhsZFl5Qy9MSmdqeEU5Zk9P?=
+ =?utf-8?B?aWZ1ZUFZUEhlMU1La2lLVW5lN0p6NHB6RThHTEZDcFJIS24wQmMwUUw0czRE?=
+ =?utf-8?B?WlpTV3JNNWdFc3Njdlcxd1pML0dGNllxMnFQNlNGVE5ObDlydS90UDR4aS9N?=
+ =?utf-8?B?bHlXWXI5VUU0VG1UdGxpSzlha1VwVFJseXkvVkg2Tmt3WGRaQUdzWG84dnpL?=
+ =?utf-8?B?VnVCYXpkQUxqc25pZi9SYTZpMEVBa0FRakRDRXdnMHdlbHl0MXJGcjZGbmVh?=
+ =?utf-8?B?eU1saFVnalJnemx6bGFQNVNOdkpzd3ltWVNseGZPRFBpeHhlMDBIenRzVzRS?=
+ =?utf-8?B?TExoem85Tk00ZEhNQlBYclBlYmI3RDNGeTVkelErdG1SaTk4YWRicENzL3h4?=
+ =?utf-8?B?alFZRjlaUUNySEc0U2dwU3E5VTBYRUovSXFhQWNuQjFIaGVpN216WlhmS3Zl?=
+ =?utf-8?B?dnpDc0dnbVlXS1ppdGlwcTlPY3BpNmFydk51dnRIOHVkREN0RVRxbWhWRVR0?=
+ =?utf-8?B?amc3RWVJWUdML1dpd3BoMXphaWZQakxLaXBPY1pVY1BWYzRhSFIrZVdlbGhC?=
+ =?utf-8?B?RmFmUm9SaVRvS0JEL0ZHVnJBVDVIMEVQMFYrbFdla1lkKzQ2UVNqaExyQm5V?=
+ =?utf-8?B?WktnVDJxeHByTEtCNGxHKzN5WnVKLzJZR3crcHljaW52NkZlbjRxL2tHeHdr?=
+ =?utf-8?B?M3A1WVk3ckE2cWFGUm12blM3RE85alVHTGwyems1elFoNGptWWZtZ0pwVnBh?=
+ =?utf-8?B?ZW1IV0NtZzF0NTRsSGFhSXo0VFdIaEUzQ2krY2d2UjEvZFRMZlVHUmF5UmdZ?=
+ =?utf-8?B?bDlveFN3VGg4MXJrb3hoNUJ5S20yaDFBcDBEK0RPSm9IMm5IL2pUL3Ewd1Rn?=
+ =?utf-8?B?b2Z2aHFEWmJvOEVPMnZZclRtbUZOaXRnU29vSHIvM09KKzYvRjVMdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cd3acbb-0da3-441e-87f6-08deb59c7acf
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 11:48:01.4048 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ziz1OKOstm45iUbpul9eid+u3jW4Cz9DrMcNfmUNr8uGxLyAGorehzOPWBv3EtTW1a3JiDTP+e5eqnXSMucHng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6297
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,44 +152,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Remove the explicit calls to drm_connector_register() and
-drm_connector_unregister() from the parallel RGB setup track.
+On Tue May 19, 2026 at 11:39 AM BST, Danilo Krummrich wrote:
+> On Tue May 19, 2026 at 6:52 AM CEST, Eliot Courtney wrote:
+>> Is this really sound without a covariance proof? For example, with this
+>> version you could stash a Cell<Option<&'bound pci::Device<Bound>> (even
+>> with Gary's suggested Core<'_> change) and then observe that reference
+>> on Drop of Data, which seems unsound to me.
+>
+> The Core<'_> change seems unrelated, Core is not Sync, so you can't store=
+ it in
+> the first place.
+>
+> Otherwise, I don't see how one can exploit this. The formal invariance of
+> Cell<Option<&'bound pci::Device<Bound>> is not practically exploitable be=
+cause
+> the framework controls what lifetimes are available and everything reacha=
+ble
+> through 'bound outlives the data; something that is shorter lived than 'b=
+ound
+> can't be stored either.
 
-For standard drivers, these operations are redundant as they are already
-handled automatically under the hood by drm_dev_register() and
-drm_dev_unregister() during the master device probe lifecycle.
-Collapsing these calls simplifies the error unwinding path down to a
-single internal memory cleanup step, as stated on the gpu todo list.
+The current code is problematic as the `unbind` callback have
+`Pin<&'bound Self::Data<'bound>>`. I think we've discussed this last week a=
+nd
+the conclusion is that this isn't sound, and the callback should have
+`Pin<&Self::Data<'bound>>` instead (the outer lifetime should be
+callback-scoped)`. Did you forget to make the change?
 
-Signed-off-by: Souradipto Das <souradiptodas6@gmail.com>
----
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+>
+> Bringing back ForLt for this reason seems undesirable, as it has a real d=
+esign
+> cost.
 
-diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
-index 84eff7519e32..5b457c16966a 100644
---- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
-+++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
-@@ -92,18 +92,12 @@ static int fsl_dcu_attach_panel(struct fsl_dcu_drm_device *fsl_dev,
- 		return ret;
- 
- 	drm_connector_helper_add(connector, &connector_helper_funcs);
--	ret = drm_connector_register(connector);
--	if (ret < 0)
--		goto err_cleanup;
--
- 	ret = drm_connector_attach_encoder(connector, encoder);
- 	if (ret < 0)
--		goto err_sysfs;
-+		goto err_cleanup;
- 
- 	return 0;
- 
--err_sysfs:
--	drm_connector_unregister(connector);
- err_cleanup:
- 	drm_connector_cleanup(connector);
- 	return ret;
--- 
-2.43.0
+If we have the `#[variance_check]` macro (like I mentioned in another threa=
+d),
+we could use that to check instead, but it'll still be unsound if lifetime =
+of
+driver data escapes to devres due to destruction order.
 
+Best,
+Gary
