@@ -4,74 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59E25CD4F3C
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 17:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42F04CD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 17:16:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5A710EDEC;
-	Tue, 19 May 2026 17:09:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9488010E3BF;
+	Tue, 19 May 2026 17:16:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="ULomDrS9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b9FUDoJ+";
 	dkim-atps=neutral
-Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6076610EDEC
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 17:09:09 +0000 (UTC)
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com
- [74.125.224.46]) (Authenticated sender: zamundaaa)
- by letterbox.kde.org (Postfix) with ESMTPSA id EDFFB32B256
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 18:09:07 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
- t=1779210548; bh=AlJ1/t/6JcBQn3xvZ12SbKOodlIQ8ueQNBgDtOCG+Xk=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ULomDrS9UqUbxh3IzJyvC4+q/VmRHFROIzfDMEyYaPejcn1rB1NEXGg3KBPnjmAEh
- iAPC/67qui6nmReo5x4MtCM9fnKz+0kMn4dTCuab25hyJJLy1Q9YTn4uW9hEH03S0g
- N1PfoTIr+iaK05XtPwZUOcd8Trz0rhKcZeeMgbhaWTAkM17z8cWoZ1kwXBXXdDd/9T
- 3/iUa7kTM03makIM4O9+zXpGE3wRZFda52gjJGeBD+ck/25Vqhy9I9SqPXGq6wBaf1
- YkIRxjUw+J/Rz1TYDm3b+nP5PfQrVVIiQNgSwROSkJLhq1zjzkrOxqJLR1vGXyFmZe
- OatGh1T1ZXZrA==
-Received: by mail-yx1-f46.google.com with SMTP id
- 956f58d0204a3-65890a6ca20so4292084d50.0
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 10:09:07 -0700 (PDT)
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
+ [209.85.128.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 490F810E3BF
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 17:16:39 +0000 (UTC)
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-7cb345cb5bfso27573457b3.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 10:16:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779210998; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Vhm6Zpoolrv4RWe0lEv+kGoswXTKmASs9jNzp3SrzwCM2owzwRRfb1B6Z8d7vamvVZ
+ /FR3dMJdU1yaWygictezKqu5xZa8BHp85YMzGGBHqGBK/cVSihL30cMdyuQGhy42/7q6
+ knkTSIlXS6mfjyDVoVaic3J1n1ztjyr2qWhUu3eYf2SoimdzqMkQgLzQgLorXV1N5Yy+
+ 0/xYzA/seSfkoJwTKBOD6UWmMPz2CE9dbajGBw06UZLAhkrbPV6OfWMu8XAU0v/qHnF2
+ 5aFD4bDtXCmQCaZ8hemQeqp9j0vGzzVoBsLOxbj6B82NprWz76aXrz0AanlixAjcbdTj
+ YoGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=pHmPXA9ApACBU8ebt0yfK2wXBnpmikH2aI+26huFIS4=;
+ fh=UsOCl1aBYONm559CECMvI3RrXbfRHVXSISol2HpH2e8=;
+ b=MhJn3XtU3zQutpaRCtFHaBpWDvsFLltsMygsGMTA7ZkabpGrTnW3tXCmWB/LSKpeTw
+ eEPmy7J9mD2HFZy+x4qGJ8PI+NsjQm0ZkDEyJ65NTDmD8RsUY2lylA5QBuPd8j8y2HKx
+ 2rSovwXS7EBHvdMTD8M+WL03ipjCRSvJOMIKTd0Qg+l31HGaQtxWjUQ27j8lbcgTVOIp
+ mssQXLNpalx5HCaWOnjVaK+Ni1SxsNy7OaaIBPyArM1xL9H+s9Ty4+kuiBrsBUIzU1qB
+ DV9niP2sofv79UIee3vZrcDIaW5sPkN2WdZ6Mw2pkHRaNZHecCt204rJMcAcPVkM1BWm
+ Lzfw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779210998; x=1779815798; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pHmPXA9ApACBU8ebt0yfK2wXBnpmikH2aI+26huFIS4=;
+ b=b9FUDoJ+95cjdrnolrlcWL7ImfS+G77XGAftB8NwEDaA4J3ADZTdQBBVg+ka4N+o5Y
+ yXxgLX2JMHuWZaTHhge9T0yj83750h9sFRD6CmDLP71UjXMhEWMwI0JUYexlE0gPOTDx
+ MAouQEhVtM/xQ5P/qcOhdsFWsQC57uKTDabe5nd7OYF1P7SceFiDlAhs3agYjGXSEZQS
+ emBTpq2naiaOg+WFo9iJ4MN31slH3C0cBfDHAhMlZVTpMqf/alv+dCiHwvUf+QDZWQfI
+ elbCJ5GBtAecV1YFRe5WD//Kdbhjn2+IFM11V3ZB5doA5xkrBwxneV4RmOzZvhHmggjU
+ 09kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779210998; x=1779815798;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=pHmPXA9ApACBU8ebt0yfK2wXBnpmikH2aI+26huFIS4=;
+ b=hIrsX4RVS3wbWPuKWx7+sshk7g8wDDIQFKXIzUzu1GhGzdXi9ZivhYwEKw3U58k2n9
+ NAEAADcq6cEkZm3unOZ3eE7ygFvAnaDKb34RhlgQznjg7P1nrcW8ipwNvo+0QVSuA3vs
+ ZB6AvWXKYGoHdJ5S3Nzn6lK/vdebvkWiTphKE3AlZymA3bpsMGUo+CDZmTf+k+7Gb2tU
+ UGQi5a58OpZaMfEeDjsFYLTq/BZNSYb1gh6TXIApPBW0c1bwGOduRswAVEh3nq8Qwac/
+ 8jcE4mhhtrqTD9eat1Y8tOGtof9+g9qybpnC6Ox5VczeGtcnuNEYkYn493kiT99I1gO/
+ 0dQA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/JEinba5pfRecqzyoulXihttKICepMGkSnQCYyKHs4qCCwhl0fUbIoxS1ebL5jS4ElFv8eeCgYodU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yym60z0WAqXRyiknA4ji5ukWHTYUfcDAXn+xR9VEN34NyCUCKxa
- DTshhrPxo+jikLsB1J69m7S81gBYYpsJnbH6fbB9p/uS6dLiPDK+bncV5qx09tO4NjXqgMSIw3b
- J++WXKmSFC0xrxFQiqVXFT4m/GS5Lg0w=
-X-Received: by 2002:a53:c041:0:20b0:658:509a:754f with SMTP id
- 956f58d0204a3-65e226bb1acmr16811065d50.18.1779210546198; Tue, 19 May 2026
- 10:09:06 -0700 (PDT)
+ AFNElJ/39CWfxfnrH6oGnQBYKQ7xAKRc6INttY7a1eLRldjkhhobN2J3BDpy0DWN8g/nrpbyYifWAPh0LmE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyxuxOD9BHQOj5dxTtkG0YuPiPUdvYXKVUHeIU02v5YmGlYxsPr
+ k4NcrZFWVbpC50hD68vHmoWkBqCyuWcZ6z1IjLUK5Q5z8diRaoLxuNNuTp0yV2ZI3Go53ARTtCE
+ abcbz4RH0c9TxmCVeyTK1CrXwUYkBD1s=
+X-Gm-Gg: Acq92OGlhmDo0aethXS4JzAfCfdnwx+3a7ubDziMTCP3E3rUk3scBGtaBWOHeXhM56D
+ nITHFjlL706vIP42VyBAJYC8bT2Rr+maISbS9eP31tMuhoSEWex9BQO7GCJSxly+V7FOef5UAcF
+ qqiFPPwjgMgZLntOiIdXaT1y04fMRY1A7YGLdAUXR5awIFhytvR/M1yV4qX4mfE1O3WzMHNFI5C
+ zXH1G7ldEIdNy1pk+k2l/y5ooocrohlbJGWXt/crXWhyrlpzFPVNgiZ3U8pQSt1AJfDYsW4jzKR
+ B/8YVBaJRXlCOPv5uqUd6qTEphEh9QeXyPpl5gOXiqfyGc0zjQVbt2mC7x2etNIMWbml/m1z
+X-Received: by 2002:a05:690c:7681:b0:7b4:2bbb:441e with SMTP id
+ 00721157ae682-7c95a07f293mr209868297b3.22.1779210998144; Tue, 19 May 2026
+ 10:16:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
- <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
- <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
- <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
- <CAHijbEWqc2+kSkk3i_LxB2PQ6XwUetw1UkdUdXJfdv3zgKd1kA@mail.gmail.com>
- <38551bfe-75e1-4978-b57d-adc43cebc85e@amd.com>
- <CAHijbEWHp960qvZFoK7+9ppHAqkAR7=UQhtMUccqWzGd_pFPQA@mail.gmail.com>
- <5ee6d5af-ac48-41d7-a19f-e08a3c5b7d19@amd.com>
- <CAFZQkGwmeipZnvmBkcE7KhvUSMkSE=fzLBZtiMyhv3mM04Vudg@mail.gmail.com>
- <dff60378-4e47-4753-8878-feec6e1c2690@amd.com>
-In-Reply-To: <dff60378-4e47-4753-8878-feec6e1c2690@amd.com>
-From: Xaver Hugl <xaver.hugl@kde.org>
-Date: Tue, 19 May 2026 19:08:54 +0200
-X-Gmail-Original-Message-ID: <CAFZQkGz=UJqaJ_eTwKBy1pAg5xL+PLibh7W1vYf7JD7Jrx-LZQ@mail.gmail.com>
-X-Gm-Features: AVHnY4K_IfI4nF31sGUOpZQLLhRb2Bvzlif26PEgJHTzyC-9E6RsTuVsRZfgh_U
-Message-ID: <CAFZQkGz=UJqaJ_eTwKBy1pAg5xL+PLibh7W1vYf7JD7Jrx-LZQ@mail.gmail.com>
-Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Julian Orth <ju.orth@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
+ <20260512-panthor-signal-from-irq-v2-6-95c614a739cb@collabora.com>
+ <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
+ <20260513102941.7321cbc3@fedora>
+ <CAPaKu7SJbeRwN7_S5_ciC6sSf_MM_4s7-iJS8aqh=ispBZBf2w@mail.gmail.com>
+ <20260518154516.65ba8592@fedora>
+ <CAPaKu7RL5Hs2jXcj_v0F99xsM1Vo-U5iTzBvQ3Sev=dRiwBcuw@mail.gmail.com>
+ <20260519095354.123f8b61@fedora>
+In-Reply-To: <20260519095354.123f8b61@fedora>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Tue, 19 May 2026 10:16:26 -0700
+X-Gm-Features: AVHnY4I4cs-fZwnFRtplBoNkxaj6Ov5dVvLImyGZokcBXzQgzRhH4pjZ1aTGr7M
+Message-ID: <CAPaKu7Se1jLiZ+6VNY=Ykf+nkMzu-q2r3UOdQ9Qf2DzpGNiCCQ@mail.gmail.com>
+Subject: Re: [PATCH v2 06/11] drm/panthor: Prepare the scheduler logic for FW
+ events in IRQ context
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
- wayland-devel@lists.freedesktop.org, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,51 +117,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> > The part where we get this independent of attached hardware is quite
-> > important for us though, since we can't just ignore explicit sync once
-> > the device we previously imported the syncobj into is disconnected.
+On Tue, May 19, 2026 at 12:53=E2=80=AFAM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
 >
-> Can you elaborate more on this?
-
-In Wayland, the client is allowed to attach dmabuf and syncobj
-independently, they don't have to be from the same device (and the
-compositor wouldn't be able to verify the opposite anyways). The
-compositor will usually import both into the same drm device, but
-especially with compositors that render on multiple devices, that's
-not necessarily the case either.
-
-If for example we had a system with one internal GPU and one external
-GPU, the client renders on the internal GPU and the compositor uses
-the external one. Now when the user yanks the USB C cable, afaiu
-- the buffers from the client stay valid
-- the syncobj stays valid on the client side
-- the syncobj becomes invalid on the compositor side
-
-"invalid" there means either
-- the acquire point of the client is marked as signaled, before
-rendering on the client side is completed
-- the acquire point of the client is never signaled. Since the
-compositor waits for the acquire point, the Wayland surface is stuck
-forever
-
-Afaik the latter is currently the case. The former wouldn't be much
-better though, not when it's preventable.
-
-This is admittedly an edge case, but GPU hotunplug is something we try
-to support as well as possible in Plasma, and all the edge cases cause
-a lot of problems in combination and are a lot of headaches to handle
-(or really work around) in the compositor.
-Another edge case is when the client asks the compositor to import the
-syncobj, which can fail when a hotunplug is in process, and ends up
-disconnecting the client for no fault of either client or compositor.
-
-> >>> 3. It removes the need to translate between syncobjs fds and handles.
-> >>
-> >> That's a pretty big no-go as well. The differentiation between FDs and handles is completely intentional.
-> > Could you expand on why it's needed? For compositors, the handle is
-> > just an intermediary thing when translating between file descriptors.
+> On Mon, 18 May 2026 16:33:20 -0700
+> Chia-I Wu <olvaffe@gmail.com> wrote:
 >
-> Well what we could do is to add an IOCTL to directly attach an syncobj file descriptor to an eventfd.
-That would be nice.
-
-- Xaver
+>
+> > > >
+> > > >
+> > > > >
+> > > > > >
+> > > > > > >         if (!ptdev->scheduler)
+> > > > > > >                 return;
+> > > > > > >
+> > > > > > > -       atomic_or(events, &ptdev->scheduler->fw_events);
+> > > > > > > -       sched_queue_work(ptdev->scheduler, fw_events);
+> > > > > > > +       guard(spinlock_irqsave)(&ptdev->scheduler->events_loc=
+k);
+> > > > > > > +
+> > > > > > > +       if (events & JOB_INT_GLOBAL_IF) {
+> > > > > > > +               sched_process_global_irq_locked(ptdev);
+> > > > > > > +               events &=3D ~JOB_INT_GLOBAL_IF;
+> > > > > > > +       }
+> > > > > > > +
+> > > > > > > +       while (events) {
+> > > > > > > +               u32 csg_id =3D ffs(events) - 1;
+> > > > > > > +
+> > > > > > > +               sched_process_csg_irq_locked(ptdev, csg_id);
+> > > > > > > +               events &=3D ~BIT(csg_id);
+> > > > > > > +       }
+> > > > > > This handles all fw events in the irq context. Are there concer=
+ns that
+> > > > > > it may take too long? I might be wrong, but it seems possible t=
+o
+> > > > > > handle only CSG_SYNC_UPDATE and defer the rest as before.
+> > > > >
+> > > > > I started with just the SYNC_UPDATE processing done in the hard-i=
+rq
+> > > > > context, but after auditing the other stuff done in the handler, =
+I
+> > > > > realized it's basically just deferring all actual processing to w=
+ork
+> > > > > items. Yes, there's the overhead of demuxing the events from the
+> > > > > ack/req regs, but part of this is already done to get to SYNC_UPD=
+ATE
+> > > > > anyway, so at this point we're probably better off demuxing every=
+thing
+> > > > > and scheduling works for all kind of events.
+> > > > >
+> > > > > I also compared the perfs between the two approaches (though I di=
+dn't
+> > > > > do as much testing as I did with the new version, so I might have
+> > > > > missed something), and it didn't seem to matter at all, because t=
+he
+> > > > > interrupts we receive the most are SYNC_UPDATE and IDLE events, a=
+nd
+> > > > > those are at the same level.
+> > > > Looking at ftrace irq events, when there is one active csg,
+> > > > panthor-job takes 6us (median) / 17us (95%) / 27us (slowest).
+> > > >
+> > > > I don't have a good sense if that's considered normal in hardirq. B=
+ut
+> > > > if that is ever an issue, and if the majority of the time is spent =
+in
+> > > > CSG_SYNC_UPDATE anyway, we can always revert the last patch to move
+> > > > processing to threaded handler.
+> > >
+> > > Actually, the threaded -> hard transition (patch 9) is where the perf
+> > > gain is.
+> > hardirq is even more timely for sure. For our use case, the threaded
+> > handler is RT and is also good enough.
+>
+> Yeah, true. I forgot you were forcing RT priority on threaded handlers.
+> Anyway, let's stick to hardirqs for now, and revisit it if it proves to
+> be too much work done in irq context.
+Just want to clarify that irq_thread calls sched_set_fifo to make the
+task RT. The behavior is universal and is not specific to any
+downstream kernel.
