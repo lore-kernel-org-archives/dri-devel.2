@@ -4,62 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE037CD4F5B
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 09:42:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF140CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 09:43:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06B2110E399;
-	Tue, 19 May 2026 09:42:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F94510E3A8;
+	Tue, 19 May 2026 09:43:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X6Hi3zFe";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="TtLgIlST";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14C3010E399
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:42:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779183723; x=1810719723;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Hhfs4nT6HC6MjT0jJEYdGh2bUJavvEbTjP0QQhz4c6M=;
- b=X6Hi3zFeU/Am/NWwqBcc+w2F8Ir2BcZCBf2trSeMxXq0bMMnLKML5MHr
- 7rWOSLQVKvNvXulsEHAjxR+jk9rorVEy6BPOeTmscn1aLSCJ0S1bxY/av
- xMXftqXLxzEIaEg3ovKE31JfF6JrnchtyfioB7gept5a+5UduDSOIo/jb
- wWkxsydbcXwCfecNY8scDeykLchf3bSy5/pHwIv0XI9pP3m3N4AFGMF6R
- 6B8msPdIR98Gmyvoqie/hX8ATH5hbJ3BuvzeW4XHOK5IKNvRZ7rPILiZ4
- IJ10DvRkx8HjvJmbFKZlkx8Dq1avxYBurfi/29CeM99ntti2B+TigCIRU w==;
-X-CSE-ConnectionGUID: qE+jVuVcTpyU7uJc8KzVag==
-X-CSE-MsgGUID: IHMh0GCZTTenS0tQv3qo8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="80107818"
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="80107818"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2026 02:42:03 -0700
-X-CSE-ConnectionGUID: E06rSB3EQfKvvVdX2MGUQA==
-X-CSE-MsgGUID: 6zvRwQlASeG1cDcXcrC1Zg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="233340391"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.218])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2026 02:41:59 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Icenowy
- Zheng <uwu@icenowy.me>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
- for vblank
-In-Reply-To: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
-Date: Tue, 19 May 2026 12:41:56 +0300
-Message-ID: <889a09d63c62d88a85d8a31a85feb8bbc178534c@intel.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C35CB10E3A8
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:43:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779183801;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5x571feKyCrxAyf039bp6xhn3Td73dplWB4PHAo5Mng=;
+ b=TtLgIlSTk0kRO9ZPvkrLDs9bgs97tSEGLHjqELywBE1r1nxKee7tyjOPXl+NA1uniPtiD2
+ 4n4OEGVnU3vAUFTvOKNO/5yAU3aUkfLHlQsMYidVeWmo7s8vS+gNudIRuY14GHNXKGmwL3
+ NXmtRi3LU5+Fy0wTn6VTMlQMNF1t7Pg=
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
+ [74.125.224.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-606-D21lStv0MMKpgETls2WkvA-1; Tue, 19 May 2026 05:43:20 -0400
+X-MC-Unique: D21lStv0MMKpgETls2WkvA-1
+X-Mimecast-MFC-AGG-ID: D21lStv0MMKpgETls2WkvA_1779183800
+Received: by mail-yx1-f72.google.com with SMTP id
+ 956f58d0204a3-65d8659ae23so9369283d50.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 02:43:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779183800; x=1779788600;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=5x571feKyCrxAyf039bp6xhn3Td73dplWB4PHAo5Mng=;
+ b=ldFHNh7ER+os9Bj8rRDQIU73ntE80zZynJVGD41KFhu663b1oCU8BurCEp/M/IG8Ah
+ UvNfcLxtTZmuHhmGSSu+TVprRqBSV91rgQ2BJr/r+RbmfN/comPQrUl+1tT/aW7u53xK
+ bHcXGLFHJwisSlMbxrxcZeoDc0vENoaKjVLaWe3eEMYdByCMTLImwQ4NRG7jNH3NmcxO
+ VPBnkz2wVjryTwk35+Zgw1BODo0SUYBJeOBnA5yz2jrd7/8hPVkhaP1fwJ5Q+N09xPGp
+ /A15a9PpyYE24tzkkRRanchvraWYxU7AeoWlWknSIg+bLkPngt55P/pdVbJfTxMTz0kK
+ 8fAQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/NCTNExc5StRg4VA3q3kWd3hOgwgUd8vYtQ70UJYWHvvMDzWk6hLyXHiiK6Itgotes0NAAsWS9D58=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBcGFgai5lwf7GDAQE5msNS/H46J9+6GonUDI44M/vKvnbqba8
+ ZFsRDoEu0xVy0US2lM6+8kFosF2RDAiAhlt6ry2rteNKvew7XnwAW8e0JJ5CrNFoSK75yETKCU9
+ sBBR4jTxPPdHMwhCWHHdrdzbS5ra6T6XnzlmSShiVR4lwwo3rJaSvySsW9hmdQEnGTcpuuSNmEN
+ Uabr0gSOc3LIVLNXmxSYyHgGyJWlfiLl60gQWwgfjVrjfv
+X-Gm-Gg: Acq92OH5vs+u+IEHZgsScqPHmGMvTGcG0oQjMlGZ1vpxIMOs9xv9FXikkxdhKIL7LsA
+ goDAq/No+DouPexeX0b5IQPJAIG06FQ89Sr2TSSgy4PUeHwIxL3eRJV0CBrAUaO8ycM0FozzACC
+ hH6OVDQhtMFHEEsbsG9OQvdsuV/mWqsJu4QBSHSWX9AF52IESuArUfqWohcB0441wFDpdmeXLqB
+ Pwv9A==
+X-Received: by 2002:a05:690c:6e81:b0:7bd:a63d:fe69 with SMTP id
+ 00721157ae682-7c7e6586abemr212584717b3.9.1779183799593; 
+ Tue, 19 May 2026 02:43:19 -0700 (PDT)
+X-Received: by 2002:a05:690c:6e81:b0:7bd:a63d:fe69 with SMTP id
+ 00721157ae682-7c7e6586abemr212584217b3.9.1779183799106; Tue, 19 May 2026
+ 02:43:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com>
+ <20260512-v2_20230123_tjmercier_google_com-v1-2-6326701c3691@redhat.com>
+ <CAGsJ_4xfznffbjOaNKwnN6oZk_H6pqOzYqd1zx4Q9XrocdzV8A@mail.gmail.com>
+ <CADSE00LjJcL8P5M-UPEpzZijU70uEmUirnin29N8YR5W5D-oFg@mail.gmail.com>
+ <CAGsJ_4xwJ7SAhKPJyRtMTw6psTO7H1EcFFpDw0po1W8PX4FE8g@mail.gmail.com>
+In-Reply-To: <CAGsJ_4xwJ7SAhKPJyRtMTw6psTO7H1EcFFpDw0po1W8PX4FE8g@mail.gmail.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Tue, 19 May 2026 11:43:06 +0200
+X-Gm-Features: AVHnY4K6WRueJTIRx5g-aAlFuFoKaIp0iRf0U18smAauuYj52IGoBPbNpAKamXc
+Message-ID: <CADSE00L00D7yi_DevNsZ8_=VXBVD2eO5FbcM+sv1ZdwgjaiRmg@mail.gmail.com>
+Subject: Re: [PATCH RFC 2/5] dma-heap: charge dma-buf memory via explicit memcg
+To: Barry Song <baohua@kernel.org>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+ Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, 
+ Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org,
+ linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, mripard@kernel.org, 
+ echanude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Gt41i9HDnE_HawKT2i1P5ran565cHrfIuQYKAFpIqVQ_1779183800
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,73 +118,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 19 May 2026, Icenowy Zheng <zhengxingda@iscas.ac.cn> wrote:
-> Currently the implementaion of drm_client_modeset_wait_for_vblank()
-> assumes drm_vblank_get() will fail when the CRTC isn't active. However
-> it seems that this is not true, and running fbcon on a device with the
-> first CRTC inactive will lead to kernel warning in some cases (which
-> could be reproduced with the loongson driver).
+On Tue, May 19, 2026 at 12:43=E2=80=AFAM Barry Song <baohua@kernel.org> wro=
+te:
 >
-> Change the implementation to add a check for the active state (atomic) /
-> enabled state (non-atomic) before calling drm_vblank_get(). As the
-> assumption of drm_vblank_get() failing for inactive CRTC isn't met, the
-> error status of drm_vblank_get() can now be exported too.
+> On Mon, May 18, 2026 at 8:16=E2=80=AFPM Albert Esteve <aesteve@redhat.com=
+> wrote:
+> >
+> > On Sat, May 16, 2026 at 9:37=E2=80=AFAM Barry Song <baohua@kernel.org> =
+wrote:
+> > >
+> > > On Tue, May 12, 2026 at 5:18=E2=80=AFPM Albert Esteve <aesteve@redhat=
+.com> wrote:
+> > > >
+> > > > On embedded platforms a central process often allocates dma-buf
+> > > > memory on behalf of client applications. Without a way to
+> > > > attribute the charge to the requesting client's cgroup, the
+> > > > cost lands on the allocator, making per-cgroup memory limits
+> > > > ineffective for the actual consumers.
+> > > >
+> > > > Add charge_pid_fd to struct dma_heap_allocation_data. When set to
+> > > > a valid pidfd, DMA_HEAP_IOCTL_ALLOC resolves the target task's
+> > > > memcg and charges the buffer there via mem_cgroup_charge_dmabuf()
+> > > > inside dma_heap_buffer_alloc(). Without charge_pid_fd, and with
+> > > > the mem_accounting module parameter enabled, the buffer is charged
+> > > > to the allocator's own cgroup.
+> > > >
+> > > > Additionally, commit 3c227be90659 ("dma-buf: system_heap: account f=
+or
+> > > > system heap allocation in memcg") adds __GFP_ACCOUNT to system-heap
+> > > > page allocations. Keeping __GFP_ACCOUNT would charge the same pages
+> > > > twice (once to kmem, once to MEMCG_DMABUF), thus remove it and rout=
+e
+> > > > all accounting through a single MEMCG_DMABUF path.
+> > > >
+> > > [...]
+> > >
+> > > > -               if (mem_accounting)
+> > > > -                       flags |=3D __GFP_ACCOUNT;
+> > >
+> > > Hi Albert,
+> > >
+> > > would it be better to move this and its description to patch 1? It
+> > > looks like patch 1 already introduces the double accounting changes,
+> > > and patch 2 is mainly just supporting remote charging.
+> >
+> > Hi Barry,
+> >
+> > Thanks for looking into this series! Yes, in my head I was trying to
+> > keep patch 1, which was taken from a previous, different series, and
+> > then diverge from it starting with patch 2. This would clarify the
+> > difference between the two. But I can see it just added some confusion
+> > (for example, patch 1 charges on dma_buf_export() and then it is moved
+> > to dma_heap_buffer_alloc() in patch 2). I will reorganize it better
+> > for the next version, including your suggestion.
 >
-> Cc: stable@vger.kernel.org
-> Fixes: d8c4bddcd8bc ("drm/fb-helper: Synchronize dirty worker with vblank")
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->  drivers/gpu/drm/drm_client_modeset.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
+> Yep, I understand the situation now. I also understand
+> that you were referring to T.J.'s patch, which caused
+> some back-and-forth confusion for readers when reading
+> patches 1 and 2.
 >
-> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-> index bb49b8361271a..1b03bf351256e 100644
-> --- a/drivers/gpu/drm/drm_client_modeset.c
-> +++ b/drivers/gpu/drm/drm_client_modeset.c
-> @@ -1310,7 +1310,7 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
->  {
->  	struct drm_device *dev = client->dev;
->  	struct drm_crtc *crtc;
-> -	int ret;
-> +	int ret = 0;
->  
->  	/*
->  	 * Rate-limit update frequency to vblank. If there's a DRM master
-> @@ -1326,15 +1326,24 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
->  	 * Only wait for a vblank event if the CRTC is enabled, otherwise
->  	 * just don't do anything, not even report an error.
->  	 */
+> >
+> > >
+> > > Also, mem_accounting is only used by system_heap.c; has this patchset
+> > > also eliminated its need?
+> >
+> > No, mem_accounting is still handled in this patch for the general case
+> > where no `charge_pid_fd` is used. See dma_heap_buffer_alloc() code:
+> >
+> > +       if (memcg)
+> > +               css_get(&memcg->css);
+> > +       else if (mem_accounting)
+> > +               memcg =3D get_mem_cgroup_from_mm(current->mm);
+>
+> I see. What feels a bit odd to me is that mem_accounting
+> could either be dropped (with unconditional charging), or
+> it should cover both remote and local charge cases.
 
-I'll dodge the question whether the change below is right or not, but
-for sure the comment above needs to be amended to match the change.
+Good point. If I understand correctly, looking at patch [1] that
+introduced the flag, the shared buffer caveats mentioned there are not
+yet covered by this approach, so the flag should stay. I will make it
+consistent and cover both remote and local charge cases.
 
-(Please wait for other review comments before sending another version
-with the comment changed.)
+[1] https://lore.kernel.org/all/20260116-dmabuf-heap-system-memcg-v3-1-ecc6=
+b62cc446@redhat.com/
 
-BR,
-Jani.
+>
+> I don=E2=80=99t have a strong opinion here=E2=80=94it just feels a bit
+> strange, since its description is quite generic for memcg:
+>
+> "Enable cgroup-based memory accounting for dma-buf heap
+> allocations (default=3Dfalse)."
+>
+> Best Regards
+> Barry
+>
 
-> +	if (drm_drv_uses_atomic_modeset(dev)) {
-> +		if (!crtc->state || !crtc->state->active)
-> +			goto out;
-> +	} else {
-> +		if (!crtc->enabled)
-> +			goto out;
-> +	}
-> +
->  	ret = drm_crtc_vblank_get(crtc);
->  	if (!ret) {
->  		drm_crtc_wait_one_vblank(crtc);
->  		drm_crtc_vblank_put(crtc);
->  	}
->  
-> +out:
->  	drm_master_internal_release(dev);
->  
-> -	return 0;
-> +	return ret;
->  }
->  EXPORT_SYMBOL(drm_client_modeset_wait_for_vblank);
-
--- 
-Jani Nikula, Intel
