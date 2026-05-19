@@ -4,137 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42A94CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:07:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56782CD4F57
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 11:09:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD4A010EC49;
-	Tue, 19 May 2026 11:07:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA7F10EC4E;
+	Tue, 19 May 2026 11:09:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Xc5vHpur";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lPPJ03+b";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012053.outbound.protection.outlook.com
- [40.93.195.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 881EF10EC4E
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:07:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZNuKwOLYEqE/XgSbXTqpSka/fk0qjpRRw6/mWX+Fkhk+x0+ZXtESCco8sytbxdR5UQZlmpVxOPZ/o/IwF9WcVdyaOg25opmKV1E2B+7a2pPMF/IoojRtivOovk6Rr6TUKRh4nYhJJ3j5SOCeOmsgIIkK4aLs8A0nRNemkDq6zqavuTH7QV0771TsyOmgOAp53XO4FH3C1xjGc/CqzlZRm3u4MYyloJBkidXs5IM1NnliipjHBMgJLVz0WjK9OrDdwBtJDuvIBT1L4n4Fgvk72RPYimn94xhiYBq3bxSeHGc1iC4z+nFgEumGN0qBQijtTPKVjtenFimlEWnd3BqseQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pb+aLTAg8dWuBoxqMGDtopRs7U86s8IvFuClWGKIkpM=;
- b=UGzKP/HpYc1U9PNChzDfQx/afPGWGt7aU6a9kuT5eJ17u4vcEnytLbaAeIqrLJuiYKgTe9FHicM+NUBaG3cPQzaoq6teEBNBGNDbc50OcDriv2+kFPKh8EXW08IZaH8j1q02xOflDBBiDapwmlTb5CptE2PfhkDekZ0zlYmES4caAYX7LOVgZjYTs7Y3CP/eDonvvlCjcbu+yaNSksSdjwoDaTmMTHkVSYpqFNgbQcEJfli17qOlvmsEYAI8SbmCJw+vHkid4QfObdjOWfN0DwZnF0dbSUbCaWPMTb33G2NeSzxdXW9LhC9xcZ+YTJHde0SLNAkwAk6LVlj6z64XIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pb+aLTAg8dWuBoxqMGDtopRs7U86s8IvFuClWGKIkpM=;
- b=Xc5vHpurI/INECYpDXsHWpTPIQSaKNFG7vbbcadGCDtm9EN/vcgBLnZmSrzV+17OoPeqE6e3ID9MlzD2Oby48zOjHO2Bd4hj9jsJrj2fDYpnKhPXxAeRkTPWA851sZ+JgRhl/imHFOivp3N/s2NwJe7AtGWu5YlV8GavEiPcuVpjg3PBmxHZgWNR8FfXtDlxZENyljpFQIG21CnRV+kKFEr6AvG31+nmR3YGd7lQeWN2czuNx+mKDiIOlzZ1XT62DBgjDSm0LfynHnZmfZL/dJ562zv08EdFuyiCrGW29cmwIiIant3FOmH9cnqdurOe6lMWO7fubswCqGB8J2AYxg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN2PR12MB3997.namprd12.prod.outlook.com (2603:10b6:208:161::11)
- by CY3PR12MB9608.namprd12.prod.outlook.com (2603:10b6:930:102::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
- 2026 11:07:13 +0000
-Received: from MN2PR12MB3997.namprd12.prod.outlook.com
- ([fe80::73c6:e479:9b75:b2cf]) by MN2PR12MB3997.namprd12.prod.outlook.com
- ([fe80::73c6:e479:9b75:b2cf%3]) with mapi id 15.21.0025.020; Tue, 19 May 2026
- 11:07:13 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 19 May 2026 20:07:06 +0900
-Message-Id: <DIMLSVG1IO07.28UMFL4GTCQG4@nvidia.com>
-Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <aliceryhl@google.com>, <david.m.ertman@intel.com>, <ira.weiny@intel.com>,
- <leon@kernel.org>, <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 16/27] rust: types: add `ForLt` trait for
- higher-ranked lifetime support
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-17-dakr@kernel.org>
-In-Reply-To: <20260517000149.3226762-17-dakr@kernel.org>
-X-ClientProxiedBy: TY6P286CA0039.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:3b7::7) To MN2PR12MB3997.namprd12.prod.outlook.com
- (2603:10b6:208:161::11)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 007CA10EC4E
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 11:09:02 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 382FC4E42CEF;
+ Tue, 19 May 2026 11:09:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D99A0606E9;
+ Tue, 19 May 2026 11:09:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 115D5107E8B31; 
+ Tue, 19 May 2026 13:08:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1779188939; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=rZpvAdTidzv5frFA2Fh59VQYe4hvOqmAQpFG53pkriM=;
+ b=lPPJ03+beU7EqTBcCvAJlMCYn4/SnelIvqTJz0zwMbjb08bZHBlSuK8JTIQ4+0DVnfCr46
+ yvyCl6mMLegw+jVfHXVbvNa7IiW1FgaGBLE6+7zJBeOKrD8zGLYlVYy7AkT6JFsJApPs0K
+ 9+v70l4hOu8w7CIXxQAVLnQ5+UfxFJ1bk9goDmnsWq9qc5fPFXtpkC8eW+6ODZzAcp5ns5
+ 7ya1T7M3Ozz4N7mOGMzhYeQY5GBha93i11thrrL6mpl2VY23vJON/iwSxeqjperT0VmeCM
+ i8QrljjzudkimZwllny+bcsjBmbZZpiea83vxwFXZHwRP4smcr6j/dExBvVBig==
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3997:EE_|CY3PR12MB9608:EE_
-X-MS-Office365-Filtering-Correlation-Id: e951cd35-d309-424d-b7ab-08deb596c5cc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|10070799003|1800799024|7416014|376014|11063799006|56012099003|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info: JX9SKSgkXkn3dHIO1wIOLjzM4WCgmUf+0sY1IJVJ6qduMYH+a2LIxYEf4fm0/nyoXOXB3VdM5JcV/U5ht+54KdGqgID2B/arE6Rdpwi4hUkQEcQnceL/oOff4gan/D26RLoz8I5hJGLFmaOi59BYZHigXEly2H3yoPACos+nDhR90UMFhVXcMn9vLI/GWwQPogb3SC+EN9RdgqArvQkbLnCyVdXk+yp2Ufno6xrbCjZyGnL1BlkVn03sWDl+iYqBDHSOKm4NlDBZy7lYSZw6//4qh4G2FX0XMAxTmrYUAWUpuuB97Y3hk+mgkhnwa+gci5QUt+EvKgmcmn3diT5y8pL4qPBTGVS/4JhEPnmEgN/UBZttYZ01h1It4LxwZ1mBicBV/HH+duokhXZ6C8F8WWUtOdhCY1d4vYTdLTVI+9pr2/fZ2gvSJ03XeAwqX/h/YWPndzeJFfBEVPdObSBEJM/DTo7shQw5qORbAAMu7tXJPdZqfvJ+ZogQN78J64Gk/jY7VQ592/KiWz17eZVv7sbA+xHFSNReRyd67Vdj/tHTvoDHXk/ifkwxYwduRhd0bkgWtdpu9YsE3DLuXpR7Ph5nyPHC7iVBYVJOHO4PCeBVB896h05xKTd+TBDDYxWfYj/YJwuvcjSZIR3zASeokA0Hoh2xA/r3ThriQKmvP0L7opXM3r3ufbM/Du6Yjn7g
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(376014)(11063799006)(56012099003)(22082099003)(18002099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUpLblM3b3h5Y0FNT2R1OEhRcmtLVFp3WE02WE52bHplS0xpK1VyRTRCL2la?=
- =?utf-8?B?dHhCZWc1Z3Q1S3JlQkxPbGNBbW1BZS9idWJuemVWMmFFMG02M0VLQWlCNjVx?=
- =?utf-8?B?LzZVU2ZiOU8zMHpmZ3QyUnJhcGwzRHpPN1pMR2o2SkYyYjBmY01wL1JkYm9C?=
- =?utf-8?B?dVBqU2Q1WktNVVRqcDdDOE13NzhMSXd3ajV5ZTlId3M2NkN4WWUyL2xhREdW?=
- =?utf-8?B?bjRxeVdsMHpia3NpTzUyK1hOeWliSXExVUwzUUx2R05pWE9OL0ErMTdJWGdR?=
- =?utf-8?B?OEozU3ppanlRSnVoYU04Q2FLUm8zNjZ0NU9uSGNsMysvVTFmYjd3dkVJMzF3?=
- =?utf-8?B?SERFRzBJNXZUQlZyQVYzVG02YVBhNVlqYjdMRDZpVzk5M2hXR0hNOHpvbGg4?=
- =?utf-8?B?ZysvSkdvRk45MWNvOG9VRmsyN211MUMwMXkrVzM0S1RLZEIxZlh3THhpRHZB?=
- =?utf-8?B?M2hCZjlrUURodC9Vc3VrNmJDRVRiaERkMzNIS09OejlqVzFDUHg0MGhNc2pm?=
- =?utf-8?B?b2xVaGkzYXEvK0pEYU82akNqY2plZFZSa3hlNTcvazBLcmpkdVloY2R0MGpK?=
- =?utf-8?B?TWFoeGFoMm4zeDdPd1hLdlhmc3ZJcGgzTTU4SzlBQ2F6bDNEaHNVZGVacmFj?=
- =?utf-8?B?d1dSUEpIVmMyQW1ZcG5RSkVTaWdVemN5SHE3eHdqRHdnSHBpL0lxK1d4cUw1?=
- =?utf-8?B?SkIvV0hDR1RrUGd2eGpYMFRMTkJPbGM4UkJTK1RHOUZlbFUycW56TWFCSitH?=
- =?utf-8?B?ZXZWN3ZJSEQ0U1BEazVqWXZGUytLQjBwM2dUU01QL0kxM1M5UFNRZ1VVZGR6?=
- =?utf-8?B?N3MwZHBTMXZqeldLdlZuVUlNYXczTm04enR4MzJzNlRTMlV6enhWY2c1d0Jv?=
- =?utf-8?B?Zks0NjNVVGJjVzFJWXZpS2U4QndCS3BndlRYdmk4ZGZ0cXl2N1Q3OEVsSHlO?=
- =?utf-8?B?R1hnaTZBbEh2RkZiWi92Y3ZlTWs2OWJzSDhSTjRrNTB5ZTBFd082Y05HUTN1?=
- =?utf-8?B?Zkp6aGxqZlhJeU9sa0VFd0RqZ0hZREVPci9qaFJZbXFrVW9sWDhZRmlQekNT?=
- =?utf-8?B?Q282WENycHdFSzc0bjNEMmRGblVGVWhTcktjc08vdVJsZlNEMGJCMzgzVDVT?=
- =?utf-8?B?SURrdElFNStmbnlxSElNaDNoNWdxcHlmRmlHQ0RPaXQxMUEvQzlVem9TSHVX?=
- =?utf-8?B?ZHI2dHFZMWxZcGM5M0dKY0Uzck1mV1d3KzJyUU85dHdBMlpqaC9kNW8rd2ZK?=
- =?utf-8?B?a1VWby96VmdNcnh4dWlIOXhlUjBMSGVsZ2xQMS9aNFdsdk1ISjVoM1E5RGcw?=
- =?utf-8?B?MjcwUFVPSzc5ZkxjeDQ5SkdEOVRIN284d1ZheFZHc2tsZk5wQjI5M3hsdllY?=
- =?utf-8?B?dkJXY1ppblcvT1ptRmNKTmx4Zm1NbFJ4eWM2OXdKRU1UWjdZM3ZPTzBEVS83?=
- =?utf-8?B?V2pWdDcxK2hidlRaUmtzWGRhcWFrL2V6bHNoNTBNMzdVTkw3aXdMWnF0ZC9t?=
- =?utf-8?B?NHRNc1FBd2gyVG5FYjlYV2tmeGkrNmZwUFN5T0gzTzlqNGdjbEZ6K0k5Rk03?=
- =?utf-8?B?MXEvb2dnUzFCcDlheFBQSTlaUnF3RVVlUGJXMkIzK3Y2NC9KRXZBaDhQSmF0?=
- =?utf-8?B?N3pYS3MrL1hYeTJYUzl5QnBUWS9Id2Q4L1dHbUhydTZXL2lXN2FGdEllMHJu?=
- =?utf-8?B?c2xqU2IwTkRGSm9oZHBlTmVoMU8xYTZST25nZFhDOVFpQWIwRW5YZFEvS1JT?=
- =?utf-8?B?aG8wNFVVU2RGYlhHTGEvQUNKRkh0cFlHcG5QRHNNNXplQkZHdHB4bnJ4YXcz?=
- =?utf-8?B?ZmQrL2VXa1ZDT2Q1OE5TOVFETUo2QTQ1RFluL2R3SzVacFFVZTgzcW9xamxp?=
- =?utf-8?B?NmJwQlc2WTlLem9hL2JpelM0VXRWRkpFSGRheC8yZUVkMlRQcU1UNWhDeGpi?=
- =?utf-8?B?Y2trSlNPUEZHa1crTmlYTS9ndnR4LzE5WDZuNTN3NGtUZFZ6M1o0cXNqa2Nr?=
- =?utf-8?B?bWxiTGV3czBqUUt6a0dCeEpnNWJnNXBoSThnbXZSdXBiMiszZGYwb0V1c3VX?=
- =?utf-8?B?K3ZZRjM5TGNkUDhTdTV0eE4vSzNLcVFWaTVLVFZrOEZWMUpkY0N4aFNYN0dX?=
- =?utf-8?B?YTFBTnF2UXFleXBBRnFsMGRCKzlodXpRcXpVR0dITUpxSnRZVDgrTTcwd1I5?=
- =?utf-8?B?UXVZOFVPbVV2TjZpVWNSRERPODlva2hidVVsLzRLYmJ5M3U3aWxtcnlObVVF?=
- =?utf-8?B?TVdQTVFGQXNNT09ESm51cGRBbHlXWHByVTRIZmVIRVM2YWs0ditnUU84Sjlr?=
- =?utf-8?B?dGFTY2RqeFFUVmVwd1NHRFR2VGg4bTBYSjZMRENnK1ErTUJZUnBsUWM4TDZR?=
- =?utf-8?Q?FDdzuig/OFRPleiuuiEOjjNMRvJUGoHr0/A6tRDxprkpS?=
-X-MS-Exchange-AntiSpam-MessageData-1: MfJbaInp8V31jQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e951cd35-d309-424d-b7ab-08deb596c5cc
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 11:07:13.0707 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G7Kln3/L9kzQKAxgzHML5RyXS+ubEcN9a9w3wsGZDEz5ofrVlC7frGC1yNhBRZ62G4UO/czLk0OfsFrB6WIdPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9608
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 05/12] drm/bridge: synopsys: dw-dp: Add follow-up
+ bridge support
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260501-synopsys-dw-dp-improvements-v2-5-d7e7f6bac77f@collabora.com>
+References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
+ <20260501-synopsys-dw-dp-improvements-v2-5-d7e7f6bac77f@collabora.com>
+Date: Tue, 19 May 2026 13:08:43 +0200
+Message-Id: <177918892313.537125.10814687633426590148.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,53 +82,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun May 17, 2026 at 9:01 AM JST, Danilo Krummrich wrote:
-<snip>
-> +/// This is intended to be an "unsafe-to-refer-to" type.
-> +///
-> +/// Must only be used by the `ForLt!` macro.
-> +///
-> +/// `T` is the magic `dyn for<'a> WithLt<'a, TypeThatUse<'a>>` generated=
- by macro.
-> +///
-> +/// `WF` is a type that the macro can use to assert some specific type i=
-s well-formed.
-> +///
-> +/// `N` is to provide the macro a place to emit arbitrary items, in case=
- it needs to prove
-> +/// additional properties.
-> +#[doc(hidden)]
-> +pub struct UnsafeForLtImpl<T: ?Sized, WF, const N: usize>(PhantomData<(W=
-F, T)>);
+On Fri, 01 May 2026 00:20:32 +0200, Sebastian Reichel <sebastian.reichel@collabora.com> wrote:
 
-Although the documentation makes it clear this should never be
-referenced directly, doing so is still possible, which creates a
-loophole for breaking covariance using only safe code.
+Hello Sebastian,
 
-For instance (untested, and based on my limited understanding of the
-patch):
+>
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> index fc4ddb7792d7..ccc55e40e81c 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -2064,6 +2064,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+>  		goto unregister_aux;
+>  	}
+>  
+> +	next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
 
-  type Bad =3D UnsafeForLtImpl<
-      dyn for<'a> WithLt<'a, Of =3D Cell<&'a u8>>,
-      (),
-      0,
-  >;
+devm_drm_of_get_bridge() looks for either a panel or a bridge. Is it
+possible to have a panel connected here?
 
-The blanket `ForLt` implementation applies, and now we can store a
-shorter-lived reference into the `Cell` and potentially observe it after
-its lifetime.
+If it isn't, then using of_drm_get_bridge_by_endpoint() which has just been
+merged [0] would be much simpler and cleaner.
 
-This could be worked around by defining the type implementing `ForLt`
-locally, at the cost of ergonomics since the `ForLt` type would be
-declared separately:
+[0] https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/03d1078112fddd706b2c1e4a7d98cf18700eb5df
 
-  // Defines `DataLt` and implements `ForLt` on it after emitting
-  // covariance proof.
-  define_for_lt!(DataLt =3D for<'a> Data<'a>);
+Luca
 
-  ...
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-  something: Devres<auxiliary::Registration<DataLt>>
-
-I'm not claiming this is better; but imho the tradeoff is worth
-considering.
