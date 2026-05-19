@@ -4,60 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63100CD5BA6
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 12:29:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AC8ECD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 12:32:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C639010ECA0;
-	Tue, 19 May 2026 12:29:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B8B710ECA6;
+	Tue, 19 May 2026 12:32:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="njoWijeb";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="bD4LrUFU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4E8D10EC9B;
- Tue, 19 May 2026 12:29:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779193745; x=1810729745;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=AwAwKzubBSQb3qB1gIbTDjmSxSJX43XcSCWGkaoDirQ=;
- b=njoWijebYRw3O/8VNfaPLqI0ZwqaId0uc1DBsIjgt9eml0stv0kn5E5j
- CKtMJMm5H3yszPoc52unJvN3H58+S0gQUhxlgTkxAI2yXyQ4uv/GUqNnV
- 5kWpNljQQXMJu5h7NdbaOLJHnKUaEuSgoB1RWvi7hdCfwtWKQzrQk0BMg
- CoLl//Y23h0/mE6Kpc1/mInE2d6Pg4RkVq/4DB89YE/k11kv8GhuW/MQw
- jeyTt1oxG21iVd68YF80ZpGoXVDgXDWXUOhjHn3KXNQxxDX7fRdhJn1CF
- Vhc1PXp6AAuPO6i2oxvs5ec46ytPDGmHvnhykefPTEooM0UVDLI5mxGmo w==;
-X-CSE-ConnectionGUID: RbTPLNRIS2mo4MmCzPMlGw==
-X-CSE-MsgGUID: +yvMk238S3K92fmamS8lSg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="79919448"
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="79919448"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2026 05:29:05 -0700
-X-CSE-ConnectionGUID: 4ZNmBVmuQH2pTU06DWFcaA==
-X-CSE-MsgGUID: cXk92Ra2Sc+e+lyGGDXpJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="263261600"
-Received: from tejasupa-desk.iind.intel.com (HELO tejasupa-desk)
- ([10.190.239.37])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2026 05:29:03 -0700
-From: Tejas Upadhyay <tejas.upadhyay@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: matthew.auld@intel.com, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, himal.prasad.ghimiray@intel.com,
- Tejas Upadhyay <tejas.upadhyay@intel.com>,
- Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH V10 08/10] gpu/buddy: Add routine to dump allocated buddy
- blocks
-Date: Tue, 19 May 2026 17:58:23 +0530
-Message-ID: <20260519122817.45770-20-tejas.upadhyay@intel.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260519122817.45770-12-tejas.upadhyay@intel.com>
-References: <20260519122817.45770-12-tejas.upadhyay@intel.com>
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF92F10ECB9
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 12:32:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1779193935; x=1779798735; i=markus.elfring@web.de;
+ bh=a3i+o0McdYohTrVqOh3i5ioTr30WGEXz7x2q0R/6iQE=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=bD4LrUFUa99UynQkR+0Haqdgw0dWp3RyKBUH8A/LzhDoAUbsOc0oiwArzrbVbhah
+ 7OBGANqlIn6A0KGyV8mrfvU7c+dSaCpFjCIfumRmndbP0A4TNlg8rbZZWaCEQBLjx
+ VlbX9r2+JkHZbLYXNCe2JG4DZbOCbYkUA1yqxwpCwZJWjoXWgg2TKid5sBs3yD9Bp
+ KKbJvHzSy/Omsw2bJUsBq0wBRvwZG4hipgRxmYRJJH4dknj4rtWzdnL7J+VsXzkLo
+ NaO+L+IvZfx+0lqG48vC8FDSCacJqYh4i9KNMzBeVjVKNImsmrR8jrhAAzv9wXdWl
+ nHMJHfqEMikaFW+mqA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MzTLI-1xKZ0Z263E-014uRG; Tue, 19
+ May 2026 14:32:15 +0200
+Message-ID: <056ecc87-c4ba-47cb-9aa2-5e3211da195c@web.de>
+Date: Tue, 19 May 2026 14:32:11 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/15] accel/qda: Add DMA-backed GEM objects and memory
+ manager integration
+To: Matthew Wilcox <willy@infradead.org>, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, =?UTF-8?B?SsO2cmcgUsO2ZGVs?=
+ <joro@8bytes.org>, Jonathan Corbet <corbet@lwn.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Shuah Khan <skhan@linuxfoundation.org>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bharath Kumar <quic_bkumar@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Will Deacon <will@kernel.org>
+References: <20260519-qda-series-v1-9-b2d984c297f8@oss.qualcomm.com>
+ <5e0d72fa-929a-4905-9066-6648892bef4a@web.de>
+ <agxXc8ttEzBFOlE2@casper.infradead.org>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <agxXc8ttEzBFOlE2@casper.infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:ZCsSJd3hlZA0+s6pw9oSu6hy//TO5pI7XEUP2fNCggWZexrtIeC
+ ztmJ2lavQ+zqx4kDCnaiWe2OloINiorh0ir6/HZHLmgzLjBnCWEje6lfH+2omUmIOxImtZ8
+ oLJlyHHg7CSgf/fhhMzkYHPKesSLEMCEIdiyA3HuaBGm5L1K3/RB4gTtpny+qFIEcIc+nrw
+ qec8gi9RND1ONV1qQOX+w==
+UI-OutboundReport: notjunk:1;M01:P0:vJshWSmoSHA=;XWZhCWYeZiiacMBiBDZaL9WPur4
+ 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
+ b9UjQg==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,108 +164,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-To implement the ability to see allocated blocks under a specific VRAM
-instance in the drm driver, new api is introduced. While existing structs
-often show the free block list, this addition provides a comprehensive view
-of all currently resident VRAM allocations.
+> Feel free to ignore everything Markus says.
 
-Dump will look like,
+Will any contributors care more for linked information sources
+(in constructive ways)?
 
-[  +0.000003] xe 0000:03:00.0: [drm] 0x00000002f8000000-0x00000002f8800000: 8388608
-[  +0.000005] xe 0000:03:00.0: [drm] 0x00000002f8800000-0x00000002f8840000: 262144
-[  +0.000004] xe 0000:03:00.0: [drm] 0x00000002f8840000-0x00000002f8860000: 131072
-[  +0.000004] xe 0000:03:00.0: [drm] 0x00000002f8860000-0x00000002f8870000: 65536
-[  +0.000005] xe 0000:03:00.0: [drm] 0x00000002f9000000-0x00000002f9800000: 8388608
-[  +0.000004] xe 0000:03:00.0: [drm] 0x00000002f9800000-0x00000002f9880000: 524288
-[  +0.000005] xe 0000:03:00.0: [drm] 0x00000002f9880000-0x00000002f9884000: 16384
-[  +0.000004] xe 0000:03:00.0: [drm] 0x00000002f9900000-0x00000002f9980000: 524288
-[  +0.000005] xe 0000:03:00.0: [drm] 0x00000002f9980000-0x00000002f9988000: 32768
-[  +0.000004] xe 0000:03:00.0: [drm] 0x00000002f9988000-0x00000002f998c000: 16384
-
-v2(MattB):
-- Add lockdep assert
-
-Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
-Cc: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-Cc: dri-devel@lists.freedesktop.org
----
- drivers/gpu/buddy.c       | 43 +++++++++++++++++++++++++++++++++++++++
- include/linux/gpu_buddy.h |  1 +
- 2 files changed, 44 insertions(+)
-
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index 9de9872294a6..fcea0d96d8cf 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -10,6 +10,7 @@
- #include <linux/sizes.h>
- 
- #include <linux/gpu_buddy.h>
-+#include <drm/drm_print.h>
- 
- /**
-  * gpu_buddy_assert - assert a condition in the buddy allocator
-@@ -1294,6 +1295,48 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
- }
- EXPORT_SYMBOL(gpu_buddy_block_trim);
- 
-+/**
-+ * gpu_buddy_dump_allocated_blocks - print all allocated blocks in drm buddy
-+ *
-+ * @mm: DRM buddy manager to look into
-+ *
-+ * Looks into buddy manager for each block and their status and if allocated
-+ * print allocated block range and size
-+ *
-+ * Returns:
-+ * void
-+ */
-+void gpu_buddy_dump_allocated_blocks(struct gpu_buddy *mm)
-+{
-+	struct gpu_buddy_block *block;
-+	LIST_HEAD(dfs);
-+	int i;
-+
-+	gpu_buddy_driver_lock_held(mm);
-+
-+	for (i = 0; i < mm->n_roots; ++i)
-+		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
-+
-+	do {
-+		block = list_first_entry_or_null(&dfs,
-+						 struct gpu_buddy_block,
-+						 tmp_link);
-+		if (!block)
-+			break;
-+
-+		list_del(&block->tmp_link);
-+
-+		if (gpu_buddy_block_is_allocated(block))
-+			gpu_buddy_block_print(mm, block);
-+
-+		if (gpu_buddy_block_is_split(block)) {
-+			list_add(&block->right->tmp_link, &dfs);
-+			list_add(&block->left->tmp_link, &dfs);
-+		}
-+	} while (1);
-+}
-+EXPORT_SYMBOL(gpu_buddy_dump_allocated_blocks);
-+
- static struct gpu_buddy_block *
- __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
- 			 u64 start, u64 end,
-diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-index e7e22fa05ee2..aaebdceb1c44 100644
---- a/include/linux/gpu_buddy.h
-+++ b/include/linux/gpu_buddy.h
-@@ -267,6 +267,7 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
- 			 u64 *start,
- 			 u64 new_size,
- 			 struct list_head *blocks);
-+void gpu_buddy_dump_allocated_blocks(struct gpu_buddy *mm);
- 
- void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear);
- 
--- 
-2.52.0
-
+Regards,
+Markus
