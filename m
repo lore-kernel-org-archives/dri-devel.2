@@ -4,69 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8F83CD4F5B
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 15:30:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E7FBCD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 15:31:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F61310E5CF;
-	Tue, 19 May 2026 15:30:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE5E10E166;
+	Tue, 19 May 2026 15:31:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="aIM7oERC";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="aDPUmUeu";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37DC210E5CF
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 15:30:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-e1b5cab7be; t=1779204619;
- bh=UysSrWx2IaBnmq7p+RKc3cNjOUxboHqJt85KySMdL0U=;
- b=aIM7oERCarIdwvrQ+3pvSP3goxBlXAdBKo/8Ar8wRRnvT4B2rN/BGRKPeQmdjQOwkxhulXbf+
- Ah7y2A9a7mgZgm2DkM8tU/o4gvSxldaS+eoutPBGXG2vOc2QE/K86iFPFdh9bMbp1MsXQt704hz
- MkMtUS7KeDHY7GmJGFAdBPVEcBmGMRI5LX8GPPiH8H5rxRRn819E8/d2VeRRPBoSJAFwnRlOADq
- N3E3v0hPj5qKlDqNi9TkXJC2FcM1aEUdRdh3SuxjJX1pUYFK6OhPut4MzcXPRBKNSWpbyqpt/0C
- Go2Q4lNydZ7OR9ysnaJ5LqCgBe9HDyN6dq2MK8P0EB4g==
-X-Forward-Email-ID: 6a0c7f56b6cbacb3a8d0c696
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.8.12
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <e90eddfc-2f57-418a-ae05-43a411d72b99@kwiboo.se>
-Date: Tue, 19 May 2026 17:18:40 +0200
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14EAB10E38B
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 15:31:55 +0000 (UTC)
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com
+ [74.125.224.45]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 42F3432B113
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:31:53 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1779204713; bh=oT6uiKktMScgUXFbTJP5r3yFWiKp5GOGABsHC9u3r+8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=aDPUmUeuxJlqZqy46DQkbghe5oLt/7qJ+U9GC1GMXypZ4yMWs9Fc4jxvYNVfhGdBF
+ GiwjepgbzFtOFe1fGLLFCTve/IeCL90e/o7L6U2kzLlFasvIE7sL3BuotnzQMBiW1L
+ cUsIWE9SouMzKLLH2Mz7X55nD6k5l2ea9nJZ/3Yz5/5TdzbAJi15YigNk9pY+3A2sl
+ +ogiM5tf+SpGRtPtfkREMVLa36lsfwTps1or6J7NydftbNZbbmBsKbKllLY3os9Tn+
+ 2rFAgvBSGUwHo1N6IwZ1eK0796dXyEKE96czATup9FCe9DXyesJ9N5Czw87WJMO8Yz
+ jPyos493GO4Kg==
+Received: by mail-yx1-f45.google.com with SMTP id
+ 956f58d0204a3-65c7efdb7d8so3893419d50.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 08:31:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/0oU3IR3Z3qJ4bXWRS4T9eqQoLw7n/f2h3oZqrYdSo1tDsssE5KALpITAcT8rHt2l0734bSmiXPJ8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzlKtOtYPuspt8JJtHPwi9C+Iwzc4hoQfYLG7lFMlzj1Ve4z1Mf
+ DysjsTxF88xUDAfQP8jXEhGA6j6TTuzJU6H++fiJhglpu/yVf+f0dvhZbEyZGzmGa8km9kqkHTo
+ PKY5zRiegs/wgmEDZNyheZ3CYU/r3CuE=
+X-Received: by 2002:a53:acce:0:20b0:65d:f5e7:72bc with SMTP id
+ 956f58d0204a3-65e2276b844mr16430681d50.22.1779204711899; Tue, 19 May 2026
+ 08:31:51 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/23] drm: bridge: dw_hdmi: Hold bridge ref until
- connector cleanup
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
+References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
+ <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
+ <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
+ <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
+ <CAHijbEWqc2+kSkk3i_LxB2PQ6XwUetw1UkdUdXJfdv3zgKd1kA@mail.gmail.com>
+ <38551bfe-75e1-4978-b57d-adc43cebc85e@amd.com>
+ <CAHijbEWHp960qvZFoK7+9ppHAqkAR7=UQhtMUccqWzGd_pFPQA@mail.gmail.com>
+ <5ee6d5af-ac48-41d7-a19f-e08a3c5b7d19@amd.com>
+In-Reply-To: <5ee6d5af-ac48-41d7-a19f-e08a3c5b7d19@amd.com>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Tue, 19 May 2026 17:31:40 +0200
+X-Gmail-Original-Message-ID: <CAFZQkGwmeipZnvmBkcE7KhvUSMkSE=fzLBZtiMyhv3mM04Vudg@mail.gmail.com>
+X-Gm-Features: AVHnY4InFcbGFBQwqAypjrf9D3aYMpjvgQB5CvHgiLxe84oabRYNffn3PUsURt4
+Message-ID: <CAFZQkGwmeipZnvmBkcE7KhvUSMkSE=fzLBZtiMyhv3mM04Vudg@mail.gmail.com>
+Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Julian Orth <ju.orth@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Liu Ying <victor.liu@nxp.com>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Chen-Yu Tsai <wens@kernel.org>, Christian Hewitt
- <christianshewitt@gmail.com>, Diederik de Haas <diederik@cknow-tech.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260518180206.2480119-1-jonas@kwiboo.se>
- <20260518180206.2480119-5-jonas@kwiboo.se>
- <177919241969.545972.18169905222569864569.b4-review@b4>
-Content-Language: en-US
-From: Jonas Karlman <jonas@kwiboo.se>
-In-Reply-To: <177919241969.545972.18169905222569864569.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
+ wayland-devel@lists.freedesktop.org, 
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,60 +86,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Luca,
+Am Di., 19. Mai 2026 um 15:29 Uhr schrieb Christian K=C3=B6nig
+<christian.koenig@amd.com>:
+> > 1. This series makes the ability to manipulate syncobjs available
+> > independently of attached hardware.
+> > 2. It makes it available under a consistent path /dev/syncobj.
+>
+> Exactly that is a big no-go. This has to be under /dev/dri.
+FWIW udmabuf is also under /dev directly, but I don't think any
+compositor developer would complain about a different path.
+What are the rules for that? Could this simply be put in /dev/dri/syncobj?
 
-On 5/19/2026 2:06 PM, Luca Ceresoli wrote:
-> On Mon, 18 May 2026 18:01:40 +0000, Jonas Karlman <jonas@kwiboo.se> wrote:
-> 
-> Hello Jonas,
-> 
->>
->> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
->> index b7bfc0e9a6b2..9d795c550f8a 100644
->> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
->> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
->> @@ -2600,10 +2609,14 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
->>  
->>  	drm_connector_helper_add(connector, &dw_hdmi_connector_helper_funcs);
->>  
->> -	drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
->> -				    &dw_hdmi_connector_funcs,
->> -				    DRM_MODE_CONNECTOR_HDMIA,
->> -				    hdmi->ddc);
->> +	ret = drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
->> +					  &dw_hdmi_connector_funcs,
->> +					  DRM_MODE_CONNECTOR_HDMIA,
->> +					  hdmi->ddc);
->> +	if (ret)
->> +		return ret;
->> +
->> +	drm_bridge_get(&hdmi->bridge);
-> 
-> I'm not fully following the code paths, but both the report and the fix
-> make sense to me. Only I'd move the drm_bridge_get() before
-> drm_connector_init_with_ddc(), to avoid a short window where no reference
-> is held and the bridge might be destroyed before drm_bridge_get() is
-> called. I'm not sure this can happen, but it's better to write the code in
-> a way that clearly makes it impossible.
+The part where we get this independent of attached hardware is quite
+important for us though, since we can't just ignore explicit sync once
+the device we previously imported the syncobj into is disconnected.
+Buffers can be from any device or allocated in system memory and
+access should be synchronized properly in all cases.
 
-dw_hdmi_connector_create() is only called from dw_hdmi_bridge_attach()
-so the bridge should already have a ref for the lifetime of this call.
+How exactly it's made available isn't all that critical.
 
-I explicitly chose the placement after drm_connector_init_with_ddc()
-to ensure ref count is correctly balanced without having to add a
-drm_bridge_put() call in any error path. I.e. connector destroy() is
-only called when drm_connector_init_with_ddc() succeeds.
+> > 3. It removes the need to translate between syncobjs fds and handles.
+>
+> That's a pretty big no-go as well. The differentiation between FDs and ha=
+ndles is completely intentional.
+Could you expand on why it's needed? For compositors, the handle is
+just an intermediary thing when translating between file descriptors.
 
-This code/call is also planned to be removed in a future series, so I do
-not think moving drm_bridge_get() is necessary unless you think we need
-to protect against possible bad behavior from DRM core?
+FTR for me at least, this part would be merely nice to have, since it
+slightly reduces the amount of ioctls a compositor needs to call, but
+it's not important.
 
-Regards,
-Jonas
+> >> What about using VGEM for this?
+> >
+> > If the vgem render node were made available unconditionally under,
+>
+> Software rendering is a complete corner case, I don't think that this wil=
+l be enabled by default.
+That simply makes vgem unsuitable for solving the problems we face in
+compositors.
 
-> 
-> Otherwise looks good.
-> 
-> Luca
-> 
-
+- Xaver
