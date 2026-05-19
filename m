@@ -4,66 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E76B2CD4F3C
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 15:23:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8F83CD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 15:30:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5293610ED69;
-	Tue, 19 May 2026 15:23:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F61310E5CF;
+	Tue, 19 May 2026 15:30:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eXmF0fTI";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="aIM7oERC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C69010ED69;
- Tue, 19 May 2026 15:23:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4AA094156E;
- Tue, 19 May 2026 15:23:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C271C2BCB3;
- Tue, 19 May 2026 15:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779204207;
- bh=9t2LcnoGG/k1YKOm6YjM1CNX5Tv3sp5Ya2M6JAEa0UI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eXmF0fTIIuet4DYdesw2f7JeMrsmA3kwSf5TpMxAWx+l4Ch3NsSx16Du5Ga0klbNR
- e9ia0iLH+q6P55dDzZGzylYD+W6lV8mwKnZzyG+0/rbHjo8ZTy6TjXttm+HhJf4JqL
- KQWmGfkGmjNlUW9+V01HA6SNvo1Bu82JdfXJTKYv0LfcDTtbpRAFrXlm2D/GqOE9YQ
- N+2GvsHkCrpaiNE1Syam7c2CO0oy3ICX5Fr6vpYpmBJI7IcavSdB9JRTADZAgV+daI
- cP5ni4Clh3zxm2K6WsY52SRCLgXAagD3JBIvNERJ/5u96P7q3w6/lDX4/dc06W8Nw9
- V31yHYHhrCkGQ==
-From: Will Deacon <will@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: catalin.marinas@arm.com, kernel-team@android.com,
- Will Deacon <will@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/6] Devicetree support for Glymur GPU
-Date: Tue, 19 May 2026 16:22:50 +0100
-Message-ID: <177919251300.824194.8161105120233128741.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260513-glymur-gpu-dt-v4-0-f83832c3bc9a@oss.qualcomm.com>
-References: <20260513-glymur-gpu-dt-v4-0-f83832c3bc9a@oss.qualcomm.com>
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37DC210E5CF
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 15:30:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1779204619;
+ bh=UysSrWx2IaBnmq7p+RKc3cNjOUxboHqJt85KySMdL0U=;
+ b=aIM7oERCarIdwvrQ+3pvSP3goxBlXAdBKo/8Ar8wRRnvT4B2rN/BGRKPeQmdjQOwkxhulXbf+
+ Ah7y2A9a7mgZgm2DkM8tU/o4gvSxldaS+eoutPBGXG2vOc2QE/K86iFPFdh9bMbp1MsXQt704hz
+ MkMtUS7KeDHY7GmJGFAdBPVEcBmGMRI5LX8GPPiH8H5rxRRn819E8/d2VeRRPBoSJAFwnRlOADq
+ N3E3v0hPj5qKlDqNi9TkXJC2FcM1aEUdRdh3SuxjJX1pUYFK6OhPut4MzcXPRBKNSWpbyqpt/0C
+ Go2Q4lNydZ7OR9ysnaJ5LqCgBe9HDyN6dq2MK8P0EB4g==
+X-Forward-Email-ID: 6a0c7f56b6cbacb3a8d0c696
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.8.12
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <e90eddfc-2f57-418a-ae05-43a411d72b99@kwiboo.se>
+Date: Tue, 19 May 2026 17:18:40 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 04/23] drm: bridge: dw_hdmi: Hold bridge ref until
+ connector cleanup
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Liu Ying <victor.liu@nxp.com>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Christian Hewitt
+ <christianshewitt@gmail.com>, Diederik de Haas <diederik@cknow-tech.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260518180206.2480119-1-jonas@kwiboo.se>
+ <20260518180206.2480119-5-jonas@kwiboo.se>
+ <177919241969.545972.18169905222569864569.b4-review@b4>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <177919241969.545972.18169905222569864569.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,26 +82,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 13 May 2026 00:51:17 +0530, Akhil P Oommen wrote:
-> This series adds the necessary Device Tree bits to enable GPU support
-> on the Glymur-based CRD devices. The Adreno X2-85 GPU present in Glymur
-> chipsets is based on the new Adreno A8x family of GPUs. It features a new
-> slice architecture with 4 slices, significantly higher bandwidth
-> throughput compared to mobile counterparts, raytracing support, and the
-> highest GPU Fmax seen so far on an Adreno GPU (1850 Mhz), among other
-> improvements.
+Hello Luca,
+
+On 5/19/2026 2:06 PM, Luca Ceresoli wrote:
+> On Mon, 18 May 2026 18:01:40 +0000, Jonas Karlman <jonas@kwiboo.se> wrote:
 > 
-> [...]
+> Hello Jonas,
+> 
+>>
+>> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+>> index b7bfc0e9a6b2..9d795c550f8a 100644
+>> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+>> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+>> @@ -2600,10 +2609,14 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+>>  
+>>  	drm_connector_helper_add(connector, &dw_hdmi_connector_helper_funcs);
+>>  
+>> -	drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
+>> -				    &dw_hdmi_connector_funcs,
+>> -				    DRM_MODE_CONNECTOR_HDMIA,
+>> -				    hdmi->ddc);
+>> +	ret = drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
+>> +					  &dw_hdmi_connector_funcs,
+>> +					  DRM_MODE_CONNECTOR_HDMIA,
+>> +					  hdmi->ddc);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	drm_bridge_get(&hdmi->bridge);
+> 
+> I'm not fully following the code paths, but both the report and the fix
+> make sense to me. Only I'd move the drm_bridge_get() before
+> drm_connector_init_with_ddc(), to avoid a short window where no reference
+> is held and the bridge might be destroyed before drm_bridge_get() is
+> called. I'm not sure this can happen, but it's better to write the code in
+> a way that clearly makes it impossible.
 
-Applied SMMU bindings update to iommu (arm/smmu/bindings), thanks!
+dw_hdmi_connector_create() is only called from dw_hdmi_bridge_attach()
+so the bridge should already have a ref for the lifetime of this call.
 
-[3/6] dt-bindings: arm-smmu: Update the description for Glymur GPU SMMU
-      https://git.kernel.org/iommu/c/23bc2dd17b20
+I explicitly chose the placement after drm_connector_init_with_ddc()
+to ensure ref count is correctly balanced without having to add a
+drm_bridge_put() call in any error path. I.e. connector destroy() is
+only called when drm_connector_init_with_ddc() succeeds.
 
-Cheers,
--- 
-Will
+This code/call is also planned to be removed in a future series, so I do
+not think moving drm_bridge_get() is necessary unless you think we need
+to protect against possible bad behavior from DRM core?
 
-https://fixes.arm64.dev
-https://next.arm64.dev
-https://will.arm64.dev
+Regards,
+Jonas
+
+> 
+> Otherwise looks good.
+> 
+> Luca
+> 
+
