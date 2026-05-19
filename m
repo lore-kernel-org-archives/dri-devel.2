@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15546CD4F54
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:16:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C5EACD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:16:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 051D910EA6F;
-	Tue, 19 May 2026 06:16:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD6210EA6D;
+	Tue, 19 May 2026 06:16:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NByfPXYd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mNSYL8iS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3B7210EA6C
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:15:56 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA2A410EA64
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:15:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3AD0C60223;
- Tue, 19 May 2026 06:15:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 00062C2BCFB;
+ by sea.source.kernel.org (Postfix) with ESMTP id A3238445BA;
+ Tue, 19 May 2026 06:15:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 655DAC2BCFB;
  Tue, 19 May 2026 06:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779171356;
- bh=+ogeYzT4GycqyufwWxDOEkVKWahvcJRqU2rYDiNrTwA=;
+ s=k20201202; t=1779171355;
+ bh=TS9Zx94HUE7toyHkXp6okRZvrYsKEOqiWiOe5T4qfiA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=NByfPXYdAug/Mtv2pQ1j7c8I0KYk09ue/aVNoy7peJNvprV5ac8hCldTJx0SrqReH
- +B7mB/DKEe842BaFJPQUll9icvZZtjipq6TazHp976TXqkK42nO4XczX8q6tAIniyu
- wrFFZXeM2eSIcGM2qbWmrvgIzbTnT5k786IFqzS0UktbZDLJsglZ/LKy+6DwPA5RjI
- 7qz6EAv6KRMet0rhD7Szk2P6e4W+fgFoTdpdcU5MZw/5OkuNrj1JkHpvICe8+hUNyI
- GN+P18oq26WYAmQx9DwFMVY13KZyG2hvlHjqBiKxGEOFeXnGkIMJGoQHDHGAT6PS2i
- u5FjMCfUIcQ4w==
+ b=mNSYL8iSHlJfLzTGP14TTq+1een9RAwtVG6sjjxCg9ol4Q4vb/w6Sfc5jV3OEIQ9j
+ tD6ZTs6z95IFT7SwxY6blqslo9HZuV1DYQZtg9kt55AIeP5bi5fBze/teUS/ChTDdS
+ 96FX9LQtDRjNPpaT+H6ful9FGFJoVr8a7RRE8hCC7ClEYpsI+DNtgShUaoUH+gEXV+
+ uH/PlGgbMBxRm5orOpVuycPbAufMfWGEb2rUZouTtQZLppljiikrEKZCO+EDIdtWLS
+ FV+KLwKJq4UUboNzfe5IxafXpr15WcmaQVKiO9+0kWJyImH2oDUFf7nAno4FE4TOu5
+ O8ZblAHXd+Xzw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E94E8CD4F54;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 5C282CD4F54;
  Tue, 19 May 2026 06:15:55 +0000 (UTC)
 From: Ekansh Gupta via B4 Relay
  <devnull+ekansh.gupta.oss.qualcomm.com@kernel.org>
-Date: Tue, 19 May 2026 11:46:01 +0530
-Subject: [PATCH 11/15] accel/qda: Add PRIME DMA-BUF import support
+Date: Tue, 19 May 2026 11:45:53 +0530
+Subject: [PATCH 03/15] accel/qda: Add initial QDA DRM accelerator driver
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-qda-series-v1-11-b2d984c297f8@oss.qualcomm.com>
+Message-Id: <20260519-qda-series-v1-3-b2d984c297f8@oss.qualcomm.com>
 References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
 In-Reply-To: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
 To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
@@ -62,11 +62,11 @@ Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
  linaro-mm-sig@lists.linaro.org, 
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=16695;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=11746;
  i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=mu9PjNV0z7QAKMC/qEzN0L/zfmcB/ZH6GtgEUyJLIyo=;
- b=4DdUZx9jbG60Uzoeq6zS6DO5QoImGGQxnHDKiJKN5PB0OjsoufNqTvO+CHafEMmW/tW+rhIia
- hkwY/7q8ZKvBOmigeUdxHL5DUIzQ8nWorJbx3PddLlFMI0EA0Gv41s9
+ bh=Xz5iWY7BeXgDD47yqqDoSnINiMtsSocL1wFqa3U3gXo=;
+ b=evSgHotAPQ+Tnx97m7CWpFAnRyCTDDEkJq/R711YGhmkvQTb2zNhmSoeBqy0t7x2GKJVHQccr
+ LtTu4OZ8S7uBGJyT309lqz7+7mwwq2mDpiPndEyGCUjAmE6phKzM0+6
 X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
  pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
 X-Endpoint-Received: by B4 Relay for ekansh.gupta@oss.qualcomm.com/20260223
@@ -90,501 +90,407 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-Allow user-space to import DMA-BUF file descriptors from other
-subsystems (GPU, camera, video) into the QDA driver via the standard
-DRM PRIME interface.
+Add the foundational driver files for the Qualcomm DSP Accelerator
+(QDA), a DRM accel driver for Qualcomm DSPs. The driver integrates
+with the DRM accel subsystem (drivers/accel/) and provides:
 
-qda_prime.c
-  Implements qda_gem_prime_import(), which is set as the driver's
-  .gem_prime_import callback. On import it:
-  1. Short-circuits self-import: if the dma_buf was exported by this
-     device and is not itself an import, the existing GEM object is
-     returned with an incremented reference count.
-  2. Attaches to the dma_buf and maps it with DMA_BIDIRECTIONAL via
-     dma_buf_map_attachment_unlocked(), obtaining an sg_table whose
-     DMA addresses are IOMMU virtual addresses in the CB device's
-     address space.
-  3. Calls qda_memory_manager_alloc() to record the IOMMU mapping and
-     encode the SID in the upper 32 bits of the DMA address, matching
-     the convention used for natively allocated buffers.
+  - A standard /dev/accel/accel* character device node via DRM.
+  - GEM-based buffer management with DMA-BUF import/export (PRIME).
+  - IOMMU context bank management for per-session memory isolation.
+  - Standard DRM IOCTLs for device management and job submission.
 
-  qda_prime_fd_to_handle() wraps drm_gem_prime_fd_to_handle() under
-  qdev->import_lock, storing the calling file_priv in
-  qdev->current_import_file_priv so that qda_gem_prime_import() can
-  retrieve it (the .gem_prime_import callback does not receive
-  file_priv directly).
+qda_drv.c / qda_drv.h: Core DRM driver registration. Defines the
+drm_driver ops table, per-file private state (qda_file_priv), and the
+main device structure (qda_dev) which embeds drm_device.
 
-qda_gem.c
-  qda_gem_free_object() is extended to handle the imported-buffer
-  teardown path: unmap the sg_table, detach from the dma_buf, and
-  release the dma_buf reference.
-  qda_gem_mmap_obj() rejects mmap requests on imported objects.
-
-qda_memory_manager.c
-  qda_memory_manager_map_imported() records the IOMMU-mapped DMA
-  address from the first sg entry (the IOMMU maps the buffer as a
-  contiguous range) and encodes the SID prefix.
-  qda_memory_manager_free() skips the DMA free path for imported
-  buffers since the memory is owned by the exporter.
+qda_rpmsg.c / qda_rpmsg.h: RPMsg transport layer. Registers an
+rpmsg_driver matching the "qcom,fastrpc" compatible string. On probe
+it allocates a qda_dev, reads the DSP domain name from the "label" DT
+property, and registers the DRM device.
 
 Assisted-by: Claude:claude-4-6-sonnet
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 ---
- drivers/accel/qda/Makefile             |   1 +
- drivers/accel/qda/qda_drv.c            |  12 ++-
- drivers/accel/qda/qda_drv.h            |   4 +
- drivers/accel/qda/qda_gem.c            |  25 ++++-
- drivers/accel/qda/qda_gem.h            |   8 ++
- drivers/accel/qda/qda_memory_manager.c |  47 ++++++++-
- drivers/accel/qda/qda_prime.c          | 184 +++++++++++++++++++++++++++++++++
- drivers/accel/qda/qda_prime.h          |  18 ++++
- 8 files changed, 295 insertions(+), 4 deletions(-)
+ drivers/accel/Kconfig         |  1 +
+ drivers/accel/Makefile        |  1 +
+ drivers/accel/qda/Kconfig     | 30 +++++++++++++
+ drivers/accel/qda/Makefile    | 10 +++++
+ drivers/accel/qda/qda_drv.c   | 97 ++++++++++++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_drv.h   | 62 +++++++++++++++++++++++++++
+ drivers/accel/qda/qda_rpmsg.c | 99 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_rpmsg.h | 13 ++++++
+ 8 files changed, 313 insertions(+)
 
-diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
-index a46ddceecfc5..fb092e56d7f3 100644
---- a/drivers/accel/qda/Makefile
-+++ b/drivers/accel/qda/Makefile
-@@ -12,6 +12,7 @@ qda-y := \
- 	qda_ioctl.o \
- 	qda_memory_dma.o \
- 	qda_memory_manager.o \
-+	qda_prime.o \
- 	qda_rpmsg.o
+diff --git a/drivers/accel/Kconfig b/drivers/accel/Kconfig
+index bdf48ccafcf2..74ac0f71bc9d 100644
+--- a/drivers/accel/Kconfig
++++ b/drivers/accel/Kconfig
+@@ -29,6 +29,7 @@ source "drivers/accel/ethosu/Kconfig"
+ source "drivers/accel/habanalabs/Kconfig"
+ source "drivers/accel/ivpu/Kconfig"
+ source "drivers/accel/qaic/Kconfig"
++source "drivers/accel/qda/Kconfig"
+ source "drivers/accel/rocket/Kconfig"
  
- obj-$(CONFIG_DRM_ACCEL_QDA_COMPUTE_BUS) += qda_compute_bus.o
-diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-index c9b9e56dcb28..ef8bd573b836 100644
---- a/drivers/accel/qda/qda_drv.c
-+++ b/drivers/accel/qda/qda_drv.c
-@@ -7,10 +7,12 @@
- #include <drm/drm_file.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_ioctl.h>
-+#include <drm/drm_prime.h>
- #include <drm/drm_print.h>
- #include <drm/qda_accel.h>
- 
- #include "qda_drv.h"
-+#include "qda_prime.h"
- #include "qda_ioctl.h"
- #include "qda_rpmsg.h"
- 
-@@ -64,6 +66,8 @@ static const struct drm_driver qda_drm_driver = {
- 	.postclose = qda_postclose,
- 	.ioctls = qda_ioctls,
- 	.num_ioctls = ARRAY_SIZE(qda_ioctls),
-+	.gem_prime_import = qda_gem_prime_import,
-+	.prime_fd_to_handle = qda_prime_fd_to_handle,
- 	.name = QDA_DRIVER_NAME,
- 	.desc = "Qualcomm DSP Accelerator Driver",
- };
-@@ -100,6 +104,7 @@ static int init_memory_manager(struct qda_dev *qdev)
- 
- void qda_deinit_device(struct qda_dev *qdev)
- {
-+	mutex_destroy(&qdev->import_lock);
- 	cleanup_memory_manager(qdev);
- }
- 
-@@ -107,9 +112,14 @@ int qda_init_device(struct qda_dev *qdev)
- {
- 	int ret;
- 
-+	mutex_init(&qdev->import_lock);
-+	qdev->current_import_file_priv = NULL;
-+
- 	ret = init_memory_manager(qdev);
--	if (ret)
-+	if (ret) {
- 		drm_err(&qdev->drm_dev, "Failed to initialize memory manager: %d\n", ret);
-+		mutex_destroy(&qdev->import_lock);
-+	}
- 
- 	return ret;
- }
-diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
-index 8a7d647ac8fc..96ce4135e2d9 100644
---- a/drivers/accel/qda/qda_drv.h
-+++ b/drivers/accel/qda/qda_drv.h
-@@ -47,6 +47,10 @@ struct qda_dev {
- 	struct list_head cb_devs;
- 	/** @iommu_mgr: IOMMU/memory manager instance */
- 	struct qda_memory_manager *iommu_mgr;
-+	/** @import_lock: Lock protecting prime import context */
-+	struct mutex import_lock;
-+	/** @current_import_file_priv: Current file_priv during prime import */
-+	struct drm_file *current_import_file_priv;
- 	/** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
- 	const char *dsp_name;
- };
-diff --git a/drivers/accel/qda/qda_gem.c b/drivers/accel/qda/qda_gem.c
-index 568b3c2e64b7..9e1ac7582d0c 100644
---- a/drivers/accel/qda/qda_gem.c
-+++ b/drivers/accel/qda/qda_gem.c
-@@ -9,6 +9,7 @@
- #include "qda_gem.h"
- #include "qda_memory_manager.h"
- #include "qda_memory_dma.h"
-+#include "qda_prime.h"
- 
- static void setup_vma_flags(struct vm_area_struct *vma)
- {
-@@ -25,8 +26,20 @@ void qda_gem_free_object(struct drm_gem_object *gem_obj)
- 	struct qda_gem_obj *qda_gem_obj = to_qda_gem_obj(gem_obj);
- 	struct qda_dev *qdev = qda_dev_from_drm(gem_obj->dev);
- 
--	if (qda_gem_obj->virt && qdev->iommu_mgr)
--		qda_memory_manager_free(qdev->iommu_mgr, qda_gem_obj);
-+	if (qda_gem_obj->is_imported) {
-+		if (qda_gem_obj->attachment && qda_gem_obj->sgt)
-+			dma_buf_unmap_attachment_unlocked(qda_gem_obj->attachment,
-+							  qda_gem_obj->sgt, DMA_BIDIRECTIONAL);
-+		if (qda_gem_obj->attachment)
-+			dma_buf_detach(qda_gem_obj->dma_buf, qda_gem_obj->attachment);
-+		if (qda_gem_obj->dma_buf)
-+			dma_buf_put(qda_gem_obj->dma_buf);
-+		if (qda_gem_obj->iommu_dev && qdev->iommu_mgr)
-+			qda_memory_manager_free(qdev->iommu_mgr, qda_gem_obj);
-+	} else {
-+		if (qda_gem_obj->virt && qdev->iommu_mgr)
-+			qda_memory_manager_free(qdev->iommu_mgr, qda_gem_obj);
-+	}
- 
- 	drm_gem_object_release(gem_obj);
- 	kfree(qda_gem_obj);
-@@ -44,6 +57,10 @@ int qda_gem_mmap_obj(struct drm_gem_object *drm_obj, struct vm_area_struct *vma)
- 	struct qda_gem_obj *qda_gem_obj = to_qda_gem_obj(drm_obj);
- 	int ret;
- 
-+	/* Imported dma-buf objects must be mmap'd through the exporter, not the importer */
-+	if (qda_gem_obj->is_imported)
-+		return -EINVAL;
-+
- 	/* Reset vm_pgoff for DMA mmap */
- 	vma->vm_pgoff = 0;
- 
-@@ -143,6 +160,10 @@ struct drm_gem_object *qda_gem_create_object(struct drm_device *drm_dev,
- 	qda_gem_obj = qda_gem_alloc_object(drm_dev, aligned_size);
- 	if (IS_ERR(qda_gem_obj))
- 		return ERR_CAST(qda_gem_obj);
-+	qda_gem_obj->is_imported = false;
-+	qda_gem_obj->dma_buf = NULL;
-+	qda_gem_obj->attachment = NULL;
-+	qda_gem_obj->sgt = NULL;
- 
- 	ret = qda_memory_manager_alloc(iommu_mgr, qda_gem_obj, file_priv);
- 	if (ret) {
-diff --git a/drivers/accel/qda/qda_gem.h b/drivers/accel/qda/qda_gem.h
-index bb18f8155aa4..0878f57715f6 100644
---- a/drivers/accel/qda/qda_gem.h
-+++ b/drivers/accel/qda/qda_gem.h
-@@ -22,12 +22,20 @@ struct qda_gem_obj {
- 	struct drm_gem_object base;
- 	/** @iommu_dev: IOMMU context bank device that performed the allocation */
- 	struct qda_iommu_device *iommu_dev;
-+	/** @dma_buf: Reference to imported dma_buf */
-+	struct dma_buf *dma_buf;
-+	/** @attachment: DMA buf attachment */
-+	struct dma_buf_attachment *attachment;
-+	/** @sgt: Scatter-gather table */
-+	struct sg_table *sgt;
- 	/** @virt: Kernel virtual address of the allocated DMA memory */
- 	void *virt;
- 	/** @dma_addr: DMA address (with SID encoded in upper 32 bits) */
- 	dma_addr_t dma_addr;
- 	/** @size: Size of the buffer in bytes */
- 	size_t size;
-+	/** @is_imported: True if buffer is imported, false if allocated */
-+	bool is_imported;
- };
- 
- /**
-diff --git a/drivers/accel/qda/qda_memory_manager.c b/drivers/accel/qda/qda_memory_manager.c
-index 82111275f420..d2aa0e0e65f5 100644
---- a/drivers/accel/qda/qda_memory_manager.c
-+++ b/drivers/accel/qda/qda_memory_manager.c
-@@ -202,6 +202,41 @@ static struct qda_iommu_device *get_or_assign_iommu_device(struct qda_memory_man
- 	return NULL;
- }
- 
-+static int qda_memory_manager_map_imported(struct qda_memory_manager *mem_mgr,
-+					   struct qda_gem_obj *gem_obj,
-+					   struct qda_iommu_device *iommu_dev)
-+{
-+	struct scatterlist *sg;
-+	dma_addr_t dma_addr;
-+
-+	if (!gem_obj->is_imported || !gem_obj->sgt || !iommu_dev) {
-+		drm_err(gem_obj->base.dev, "Invalid parameters for imported buffer mapping\n");
-+		return -EINVAL;
-+	}
-+
-+	sg = gem_obj->sgt->sgl;
-+	if (!sg) {
-+		drm_err(gem_obj->base.dev, "Invalid scatter-gather list for imported buffer\n");
-+		return -EINVAL;
-+	}
-+
-+	gem_obj->iommu_dev = iommu_dev;
-+
-+	/*
-+	 * After dma_buf_map_attachment_unlocked(), sg_dma_address() returns the
-+	 * IOMMU virtual address, not the physical address. The IOMMU maps the
-+	 * entire buffer as a contiguous range in the IOMMU address space even if
-+	 * the underlying physical memory is non-contiguous. Therefore the first
-+	 * sg entry's DMA address is the start of the complete contiguous
-+	 * IOMMU-mapped range and is sufficient to describe the buffer to the DSP.
-+	 */
-+	dma_addr = sg_dma_address(sg);
-+	dma_addr += ((u64)iommu_dev->sid << 32);
-+	gem_obj->dma_addr = dma_addr;
-+
-+	return 0;
-+}
-+
- /**
-  * qda_memory_manager_alloc() - Allocate memory for a GEM object
-  * @mem_mgr: Pointer to memory manager
-@@ -237,7 +272,11 @@ int qda_memory_manager_alloc(struct qda_memory_manager *mem_mgr, struct qda_gem_
- 		return -ENOMEM;
- 	}
- 
--	ret = qda_dma_alloc(selected_dev, gem_obj, size);
-+	if (gem_obj->is_imported)
-+		ret = qda_memory_manager_map_imported(mem_mgr, gem_obj, selected_dev);
-+	else
-+		ret = qda_dma_alloc(selected_dev, gem_obj, size);
-+
- 	if (ret) {
- 		drm_err(gem_obj->base.dev, "Allocation failed: size=%zu, device_id=%u, ret=%d\n",
- 			size, selected_dev->id, ret);
-@@ -262,6 +301,12 @@ void qda_memory_manager_free(struct qda_memory_manager *mem_mgr, struct qda_gem_
- 		return;
- 	}
- 
-+	if (gem_obj->is_imported) {
-+		drm_dbg_driver(gem_obj->base.dev,
-+			       "Freed imported buffer tracking (no DMA free needed)\n");
-+		return;
-+	}
-+
- 	qda_dma_free(gem_obj);
- }
- 
-diff --git a/drivers/accel/qda/qda_prime.c b/drivers/accel/qda/qda_prime.c
+ endif
+diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
+index 1d3a7251b950..58c08dd5f389 100644
+--- a/drivers/accel/Makefile
++++ b/drivers/accel/Makefile
+@@ -5,4 +5,5 @@ obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
+ obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
+ obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
+ obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
++obj-$(CONFIG_DRM_ACCEL_QDA)		+= qda/
+ obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
+\ No newline at end of file
+diff --git a/drivers/accel/qda/Kconfig b/drivers/accel/qda/Kconfig
 new file mode 100644
-index 000000000000..acb0ac8c40fd
+index 000000000000..484d21ff1b55
 --- /dev/null
-+++ b/drivers/accel/qda/qda_prime.c
-@@ -0,0 +1,184 @@
++++ b/drivers/accel/qda/Kconfig
+@@ -0,0 +1,30 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Qualcomm DSP accelerator driver
++#
++
++config DRM_ACCEL_QDA
++	tristate "Qualcomm DSP accelerator"
++	depends on DRM_ACCEL
++	depends on ARCH_QCOM || COMPILE_TEST
++	depends on RPMSG
++	help
++	  Enables the DRM-based accelerator driver for Qualcomm's Hexagon DSPs.
++	  This driver provides a standardized interface for offloading computational
++	  tasks to the DSP, including audio processing, sensor offload, computer
++	  vision, and AI inference workloads.
++
++	  The driver supports all DSP domains (ADSP, CDSP, SDSP, GDSP) and
++	  implements the FastRPC protocol for communication between the application
++	  processor and DSP. It integrates with the Linux kernel's Compute
++	  Accelerators subsystem (drivers/accel/) and provides a modern alternative
++	  to the legacy FastRPC driver found in drivers/misc/.
++
++	  Key features include DMA-BUF interoperability for seamless buffer sharing
++	  with other multimedia subsystems, IOMMU-based memory isolation, and
++	  standard DRM IOCTLs for device management and job submission.
++
++	  If unsure, say N.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called qda.
+diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
+new file mode 100644
+index 000000000000..dbe809067a8b
+--- /dev/null
++++ b/drivers/accel/qda/Makefile
+@@ -0,0 +1,10 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Makefile for Qualcomm DSP accelerator driver
++#
++
++obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
++
++qda-y := \
++	qda_drv.o \
++	qda_rpmsg.o
+diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
+new file mode 100644
+index 000000000000..1c1bab68d445
+--- /dev/null
++++ b/drivers/accel/qda/qda_drv.c
+@@ -0,0 +1,97 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+#include <drm/drm_gem.h>
-+#include <drm/drm_prime.h>
-+#include <drm/drm_print.h>
++#include <linux/module.h>
 +#include <linux/slab.h>
-+#include <linux/dma-mapping.h>
++#include <drm/drm_accel.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_file.h>
++#include <drm/drm_gem.h>
++#include <drm/drm_ioctl.h>
++#include <drm/drm_print.h>
++
 +#include "qda_drv.h"
-+#include "qda_gem.h"
-+#include "qda_prime.h"
-+#include "qda_memory_manager.h"
++#include "qda_rpmsg.h"
 +
-+static struct drm_gem_object *check_own_buffer(struct drm_device *dev, struct dma_buf *dma_buf)
++static int qda_open(struct drm_device *dev, struct drm_file *file)
 +{
-+	struct drm_gem_object *existing_gem;
-+
-+	/* Only safe to access priv if this dma-buf was exported by this device */
-+	if (!drm_gem_is_prime_exported_dma_buf(dev, dma_buf))
-+		return NULL;
-+
-+	existing_gem = dma_buf->priv;
-+	if (existing_gem->dev != dev)
-+		return NULL;
-+
-+	if (to_qda_gem_obj(existing_gem)->is_imported)
-+		return NULL;
-+
-+	drm_gem_object_get(existing_gem);
-+	return existing_gem;
-+}
-+
-+static struct qda_iommu_device *get_iommu_device_for_import(struct qda_dev *qdev,
-+							    struct drm_file **file_priv_out)
-+{
-+	struct drm_file *file_priv;
 +	struct qda_file_priv *qda_file_priv;
-+	struct qda_iommu_device *iommu_dev = NULL;
-+	int ret;
 +
-+	file_priv = qdev->current_import_file_priv;
-+	*file_priv_out = file_priv;
++	qda_file_priv = kzalloc_obj(*qda_file_priv);
++	if (!qda_file_priv)
++		return -ENOMEM;
 +
-+	if (!file_priv || !file_priv->driver_priv)
-+		return NULL;
-+
-+	qda_file_priv = (struct qda_file_priv *)file_priv->driver_priv;
-+	iommu_dev = qda_file_priv->assigned_iommu_dev;
-+
-+	if (!iommu_dev) {
-+		ret = qda_memory_manager_assign_device(qdev->iommu_mgr, file_priv);
-+		if (ret) {
-+			drm_err(&qdev->drm_dev, "Failed to assign IOMMU device: %d\n", ret);
-+			return NULL;
-+		}
-+
-+		iommu_dev = qda_file_priv->assigned_iommu_dev;
-+	}
-+
-+	return iommu_dev;
-+}
-+
-+static int setup_dma_buf_mapping(struct qda_gem_obj *qda_gem_obj, struct dma_buf *dma_buf,
-+				 struct device *attach_dev, struct qda_dev *qdev)
-+{
-+	struct dma_buf_attachment *attachment;
-+	struct sg_table *sgt;
-+	int ret;
-+
-+	attachment = dma_buf_attach(dma_buf, attach_dev);
-+	if (IS_ERR(attachment)) {
-+		ret = PTR_ERR(attachment);
-+		drm_err(&qdev->drm_dev, "Failed to attach dma_buf: %d\n", ret);
-+		return ret;
-+	}
-+	qda_gem_obj->attachment = attachment;
-+
-+	sgt = dma_buf_map_attachment_unlocked(attachment, DMA_BIDIRECTIONAL);
-+	if (IS_ERR(sgt)) {
-+		ret = PTR_ERR(sgt);
-+		drm_err(&qdev->drm_dev, "Failed to map dma_buf attachment: %d\n", ret);
-+		dma_buf_detach(dma_buf, attachment);
-+		return ret;
-+	}
-+	qda_gem_obj->sgt = sgt;
++	qda_file_priv->qda_dev = qda_dev_from_drm(dev);
++	file->driver_priv = qda_file_priv;
 +
 +	return 0;
 +}
 +
-+/**
-+ * qda_gem_prime_import() - Import a DMA-BUF as a GEM object
-+ * @dev: DRM device structure
-+ * @dma_buf: DMA-BUF to import
-+ *
-+ * Return: Pointer to the imported GEM object on success, ERR_PTR on failure
-+ */
-+struct drm_gem_object *qda_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf)
++static void qda_postclose(struct drm_device *dev, struct drm_file *file)
 +{
-+	struct qda_dev *qdev = qda_dev_from_drm(dev);
-+	struct qda_gem_obj *qda_gem_obj;
-+	struct drm_file *file_priv;
-+	struct qda_iommu_device *iommu_dev;
-+	struct drm_gem_object *existing_gem;
-+	size_t aligned_size;
-+	int ret;
++	struct qda_file_priv *qda_file_priv = file->driver_priv;
 +
-+	if (!qdev->iommu_mgr) {
-+		drm_err(dev, "Invalid iommu_mgr\n");
-+		return ERR_PTR(-ENODEV);
-+	}
-+
-+	existing_gem = check_own_buffer(dev, dma_buf);
-+	if (existing_gem)
-+		return existing_gem;
-+
-+	iommu_dev = get_iommu_device_for_import(qdev, &file_priv);
-+	if (!iommu_dev || !iommu_dev->dev) {
-+		drm_err(dev, "No IOMMU device assigned for prime import\n");
-+		return ERR_PTR(-ENODEV);
-+	}
-+
-+	drm_dbg_driver(dev, "Using IOMMU device %u for prime import\n", iommu_dev->id);
-+
-+	aligned_size = PAGE_ALIGN(dma_buf->size);
-+	qda_gem_obj = qda_gem_alloc_object(dev, aligned_size);
-+	if (IS_ERR(qda_gem_obj))
-+		return ERR_CAST(qda_gem_obj);
-+
-+	qda_gem_obj->is_imported = true;
-+	qda_gem_obj->dma_buf = dma_buf;
-+	qda_gem_obj->virt = NULL;
-+	qda_gem_obj->iommu_dev = iommu_dev;
-+
-+	get_dma_buf(dma_buf);
-+
-+	ret = setup_dma_buf_mapping(qda_gem_obj, dma_buf, iommu_dev->dev, qdev);
-+	if (ret)
-+		goto err_put_dma_buf;
-+
-+	ret = qda_memory_manager_alloc(qdev->iommu_mgr, qda_gem_obj, file_priv);
-+	if (ret) {
-+		drm_err(dev, "Failed to allocate IOMMU mapping: %d\n", ret);
-+		goto err_unmap;
-+	}
-+
-+	drm_dbg_driver(dev, "Prime import completed successfully size=%zu\n", aligned_size);
-+	return &qda_gem_obj->base;
-+
-+err_unmap:
-+	dma_buf_unmap_attachment_unlocked(qda_gem_obj->attachment,
-+					  qda_gem_obj->sgt, DMA_BIDIRECTIONAL);
-+	dma_buf_detach(dma_buf, qda_gem_obj->attachment);
-+err_put_dma_buf:
-+	dma_buf_put(dma_buf);
-+	qda_gem_cleanup_object(qda_gem_obj);
-+	return ERR_PTR(ret);
++	kfree(qda_file_priv);
++	file->driver_priv = NULL;
 +}
 +
-+/**
-+ * qda_prime_fd_to_handle() - Convert a PRIME fd to a GEM handle
-+ * @dev: DRM device structure
-+ * @file_priv: DRM file private data
-+ * @prime_fd: File descriptor of the PRIME buffer
-+ * @handle: Output GEM handle
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int qda_prime_fd_to_handle(struct drm_device *dev, struct drm_file *file_priv,
-+			   int prime_fd, u32 *handle)
++DEFINE_DRM_ACCEL_FOPS(qda_accel_fops);
++
++static const struct drm_driver qda_drm_driver = {
++	.driver_features = DRIVER_COMPUTE_ACCEL,
++	.fops = &qda_accel_fops,
++	.open = qda_open,
++	.postclose = qda_postclose,
++	.name = QDA_DRIVER_NAME,
++	.desc = "Qualcomm DSP Accelerator Driver",
++};
++
++struct qda_dev *qda_alloc_device(struct device *dev)
 +{
-+	struct qda_dev *qdev = qda_dev_from_drm(dev);
++	struct qda_dev *qdev;
++
++	qdev = devm_drm_dev_alloc(dev, &qda_drm_driver, struct qda_dev, drm_dev);
++	if (IS_ERR(qdev))
++		return ERR_CAST(qdev);
++
++	return qdev;
++}
++
++void qda_unregister_device(struct qda_dev *qdev)
++{
++	drm_dev_unregister(&qdev->drm_dev);
++}
++
++int qda_register_device(struct qda_dev *qdev)
++{
 +	int ret;
 +
-+	mutex_lock(&qdev->import_lock);
-+	qdev->current_import_file_priv = file_priv;
-+
-+	ret = drm_gem_prime_fd_to_handle(dev, file_priv, prime_fd, handle);
-+
-+	qdev->current_import_file_priv = NULL;
-+	mutex_unlock(&qdev->import_lock);
++	ret = drm_dev_register(&qdev->drm_dev, 0);
++	if (ret)
++		drm_err(&qdev->drm_dev, "Failed to register DRM device: %d\n", ret);
 +
 +	return ret;
 +}
 +
-+MODULE_IMPORT_NS("DMA_BUF");
-diff --git a/drivers/accel/qda/qda_prime.h b/drivers/accel/qda/qda_prime.h
++static int __init qda_core_init(void)
++{
++	int ret;
++
++	ret = qda_rpmsg_register();
++	if (ret)
++		return ret;
++
++	pr_info("qda: QDA driver initialization complete\n");
++	return 0;
++}
++
++static void __exit qda_core_exit(void)
++{
++	qda_rpmsg_unregister();
++}
++
++module_init(qda_core_init);
++module_exit(qda_core_exit);
++
++MODULE_AUTHOR("Qualcomm AI Infra Team");
++MODULE_DESCRIPTION("Qualcomm DSP Accelerator Driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
 new file mode 100644
-index 000000000000..9b3850d54fa7
+index 000000000000..7ba2ef19a411
 --- /dev/null
-+++ b/drivers/accel/qda/qda_prime.h
-@@ -0,0 +1,18 @@
++++ b/drivers/accel/qda/qda_drv.h
+@@ -0,0 +1,62 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#ifndef __QDA_PRIME_H__
-+#define __QDA_PRIME_H__
++#ifndef __QDA_DRV_H__
++#define __QDA_DRV_H__
 +
++#include <linux/device.h>
++#include <linux/rpmsg.h>
++#include <linux/types.h>
 +#include <drm/drm_device.h>
++#include <drm/drm_drv.h>
 +#include <drm/drm_file.h>
-+#include <drm/drm_gem.h>
-+#include <linux/dma-buf.h>
 +
-+struct drm_gem_object *qda_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf);
-+int qda_prime_fd_to_handle(struct drm_device *dev, struct drm_file *file_priv,
-+			   int prime_fd, u32 *handle);
++/* Driver identification */
++#define QDA_DRIVER_NAME "qda"
 +
-+#endif /* __QDA_PRIME_H__ */
++/**
++ * struct qda_file_priv - Per-process private data for DRM file
++ */
++struct qda_file_priv {
++	/** @qda_dev: Back-pointer to device structure */
++	struct qda_dev *qda_dev;
++};
++
++/**
++ * struct qda_dev - Main device structure for QDA driver
++ *
++ * The DRM device is embedded as the first member so that container_of()
++ * can recover the qda_dev from any drm_device pointer.
++ */
++struct qda_dev {
++	/** @drm_dev: Embedded DRM device; recover via qda_dev_from_drm() */
++	struct drm_device drm_dev;
++	/** @rpdev: RPMsg device for communication with the remote processor */
++	struct rpmsg_device *rpdev;
++	/** @dev: Underlying Linux device */
++	struct device *dev;
++	/** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
++	const char *dsp_name;
++};
++
++/**
++ * qda_dev_from_drm - Recover qda_dev from an embedded drm_device pointer
++ * @dev: Pointer to the embedded drm_device
++ *
++ * Return: Pointer to the enclosing qda_dev.
++ */
++static inline struct qda_dev *qda_dev_from_drm(struct drm_device *dev)
++{
++	return container_of(dev, struct qda_dev, drm_dev);
++}
++
++/* Device allocation (uses devm_drm_dev_alloc internally) */
++struct qda_dev *qda_alloc_device(struct device *dev);
++
++/* Core device lifecycle */
++int qda_register_device(struct qda_dev *qdev);
++void qda_unregister_device(struct qda_dev *qdev);
++
++#endif /* __QDA_DRV_H__ */
+diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
+new file mode 100644
+index 000000000000..6eaf1b145f8a
+--- /dev/null
++++ b/drivers/accel/qda/qda_rpmsg.c
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/rpmsg.h>
++#include <drm/drm_print.h>
++
++#include "qda_drv.h"
++#include "qda_rpmsg.h"
++
++static struct qda_dev *alloc_and_init_qdev(struct rpmsg_device *rpdev)
++{
++	struct qda_dev *qdev;
++
++	qdev = qda_alloc_device(&rpdev->dev);
++	if (IS_ERR(qdev))
++		return qdev;
++
++	qdev->dev = &rpdev->dev;
++	qdev->rpdev = rpdev;
++	dev_set_drvdata(&rpdev->dev, qdev);
++
++	return qdev;
++}
++
++static int qda_rpmsg_cb(struct rpmsg_device *rpdev, void *data, int len,
++			void *priv, u32 src)
++{
++	/* Placeholder: responses will be dispatched here */
++	return 0;
++}
++
++static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
++{
++	struct qda_dev *qdev = dev_get_drvdata(&rpdev->dev);
++
++	drm_dev_unplug(&qdev->drm_dev);
++	qdev->rpdev = NULL;
++	qda_unregister_device(qdev);
++	dev_info(qdev->dev, "RPMsg device removed\n");
++}
++
++static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
++{
++	struct qda_dev *qdev;
++	const char *label;
++	int ret;
++
++	dev_dbg(&rpdev->dev, "QDA RPMsg probe starting\n");
++
++	qdev = alloc_and_init_qdev(rpdev);
++	if (IS_ERR(qdev))
++		return PTR_ERR(qdev);
++
++	ret = of_property_read_string(rpdev->dev.of_node, "label", &label);
++	if (ret) {
++		dev_err(qdev->dev, "Missing 'label' property in DT node: %d\n", ret);
++		return ret;
++	}
++	qdev->dsp_name = label;
++
++	ret = qda_register_device(qdev);
++	if (ret)
++		return ret;
++
++	drm_info(&qdev->drm_dev, "QDA RPMsg probe complete for %s\n", qdev->dsp_name);
++	return 0;
++}
++
++static const struct of_device_id qda_rpmsg_id_table[] = {
++	{ .compatible = "qcom,fastrpc" },
++	{},
++};
++MODULE_DEVICE_TABLE(of, qda_rpmsg_id_table);
++
++static struct rpmsg_driver qda_rpmsg_driver = {
++	.probe = qda_rpmsg_probe,
++	.remove = qda_rpmsg_remove,
++	.callback = qda_rpmsg_cb,
++	.drv = {
++		.name = "qcom,fastrpc",
++		.of_match_table = qda_rpmsg_id_table,
++	},
++};
++
++int qda_rpmsg_register(void)
++{
++	int ret = register_rpmsg_driver(&qda_rpmsg_driver);
++
++	if (ret)
++		pr_err("qda: Failed to register RPMsg driver: %d\n", ret);
++
++	return ret;
++}
++
++void qda_rpmsg_unregister(void)
++{
++	unregister_rpmsg_driver(&qda_rpmsg_driver);
++}
+diff --git a/drivers/accel/qda/qda_rpmsg.h b/drivers/accel/qda/qda_rpmsg.h
+new file mode 100644
+index 000000000000..5229d834b34b
+--- /dev/null
++++ b/drivers/accel/qda/qda_rpmsg.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef __QDA_RPMSG_H__
++#define __QDA_RPMSG_H__
++
++/* RPMsg transport layer registration */
++int qda_rpmsg_register(void);
++void qda_rpmsg_unregister(void);
++
++#endif /* __QDA_RPMSG_H__ */
 
 -- 
 2.34.1
