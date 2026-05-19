@@ -4,164 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 643B9CD4F5B
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 18:28:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B357ACD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 18:33:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DCC810E1BE;
-	Tue, 19 May 2026 18:28:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11DCF10EE24;
+	Tue, 19 May 2026 18:33:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WE2CiEYn";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="LcLVJd94";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D757410E1BE
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 18:28:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779215333; x=1810751333;
- h=from:to:subject:date:message-id:references:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=37s1FTX9BmWydsHyCcaoT0jErWDcDL/N78GZILFXw0I=;
- b=WE2CiEYnfnXHBBQDYZCEmhNmBGj9xHpEP3H8ZvUyiy9JWpF1rf5LskDE
- 9WZxXwEElZZJVMh2xHmDVMhaZai/2WzUYy96CzyLBOPw+yWifvfU8D06v
- wDagZHV0UdZ+CYFLWLkoqaLGhICAhSFoRr5FuMgC5KkunqSC8rqCjRw7N
- tZ9pudBWuSfbgaEsimtk8V8HGVD2y55nlawvzZHuGSkqH5TE3lMXCiL9i
- 4oeMr2gIADnZi+V+hIrfj3RURqYJE3Qq5IhISdv50agDX/DB/yF9ELMmQ
- YwScloNFlTm8PBZPgjid1mJ0GTELba6YLvX39vS84IMf6vEw8jhQ2xtUd g==;
-X-CSE-ConnectionGUID: mtTNsZtfRc6ABgQ0mPqpcw==
-X-CSE-MsgGUID: PAw+HyeFSiKJMsDV7z4kQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="80135336"
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="80135336"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2026 11:28:52 -0700
-X-CSE-ConnectionGUID: kRbm7EFuQJyaw9+TPqmwZQ==
-X-CSE-MsgGUID: lwT2wWOUQd6WxJBmJn/3JA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="244844841"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2026 11:28:52 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 19 May 2026 11:28:52 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 19 May 2026 11:28:52 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.34) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 19 May 2026 11:28:50 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazolkn19012055.outbound.protection.outlook.com
+ [52.103.20.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97DE710EE24
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 18:33:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dEwpGdLdbAXL0Ptk1L7+0W6egqbU2aMwN2jFwvILb0Wcn744xfu1vZ/Mw4pxv5tNDWAyzPCnPQy+c8g+y+KutBCeeG9oUbKVYRp4eeMVylujYweOqdaV29G6TZAmCZ64aDRBOc5l1ryXsRxhNblQ3lphFhYajXF787+Q9YffO1JJDJ6RM6eXpJuJMD1L8oVl0HD6O1hKMJGfR/0XN8jHACuKUAmA443rhIM6yvHCPP9TZz/JPqIFnkTWoldYfmHRZ+SJmCYNFsb+tHwwgdStjyGbRxN0cfe2P0wfn0t2VWMF1OBneQT2Hu8GBzZia43JXDlVlYqabtv3RJhQjxAy/w==
+ b=chEhtWcMQhAfBIQ4XGIl/pXCkJueP2iUM/GLi3Hogsbp1Oevpqm5y7vCAtWQ2Y3I3JRRlwAvbQ5BpNx+BT/Sjs4/ld52LdYfnyMXXrfBT1Ylym8kF4LWKxahswnp/RevY3rrwVcRwK5a4svb8qVGSFWp0fNEaEcNSYYm2dvbDe73Ve4TuV38qHkasdrnFKAxUA8U5K3F9GM4bYdiEYlJaWiaBgxmlbj0Vk7OyaeYfPEZIIeRUSsISZ22JGnQM3d1ySLy8JdUavjHfv2blQwKwyEDtsGagInieyBgmkhe6TbZOkzzfuxELDkm36zCFIbwnozIlUSOkRwSzxLk+n+5nA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=37s1FTX9BmWydsHyCcaoT0jErWDcDL/N78GZILFXw0I=;
- b=QnQMIf8pTtm1rWkDmamZyLtTWnJ5MB0tLDN3KqtdghxbzAbv5jEukGCKxQ1HNatFY1W+gl9mUbkopCME1KXggBK166xHzFZU/PfbjO46diYFuCn1hMSQhiixUg0OfrPRD37H6FnTBeoyOxkz0eIdHFvovicBSFzG06vq6dhQsJzDpFgUg5fGYvz0KfShopQm5mjWCKkuF2Mcc4mASS/5pxaZ/S6XW6YvyMJlFg7a3QCrGJ49KdsJZVH3seEDtOtDNAZfjj2CgfGlIKyrikUmiaNMjL45jKOS6uTpEXlHYDA+kdNu99QjkS+MnLjRMs1k1eLRlNaJWzBCH8ooFOzfSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH0PR11MB5112.namprd11.prod.outlook.com (2603:10b6:510:3b::18)
- by PH8PR11MB9771.namprd11.prod.outlook.com (2603:10b6:510:3a4::11)
+ bh=IZXITpIZL2U7MVxRMiM4UBnBUVtQrNypxPrB+iiAYds=;
+ b=IFdWYrzmFaoseStYYM9UJvFF33BPlj/NT3mVEStwqV3yl3UEUIhMOPx/rjs7bzfexUAokjmAc2JeiBmuciCUDb9MMcDFF/eSbc503v/CMQ8gvkaRNqnwYyeeR8+IdEa7Tc9Cq7Po8QbnHrLMOEZYgt1EaeBc/idfaKQUQsARctISxUBj8frOr3+zl5HJp0zCrdgVcnR63pjxIcbZR9QobvLtkjvUIGHw6uY3ossgnQY8HokqImmGA4PdNOGBlN3K/5KphT60ln7CWtqsamGqhppY+QRv7B0QJ0TmAV+qg8iVFpNKQkBL+LTd4fepd6/L5fDIzmHMNAq2fFBvDxu7GA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IZXITpIZL2U7MVxRMiM4UBnBUVtQrNypxPrB+iiAYds=;
+ b=LcLVJd94948HToPrO+eYQyz3+jQ8ZrbfHqL4QGT3rul2VD6yCLUtUuwQXDNDrW+hmusIdNQcLxzmyFVu3U4wjCvIq/ghwt73zOUpUZxcDZp1KsIKty8CTCsD8CKpWUsIZVFQYwbkPEpPANZuf8POoq5pb83gHuO4y1bHS5qrkcjSVBfqDJbGAb4HM5ro5jhA0f/RVyxgI0RCbgdDY229zzpOLql+XR7J8b03k6GqWBnjkcZ+V2XsTgFixoWM7dXKjtiWIXcje+oDObOP5ozR9n7wmyo3Yjx9joijX0cC47tEHnM+awjLm3HGPF/TuYEFGl5TNFUMTKMrzCaaVm6AqA==
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by SJ0PR02MB7358.namprd02.prod.outlook.com (2603:10b6:a03:2a1::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.14; Tue, 19 May
- 2026 18:28:49 +0000
-Received: from PH0PR11MB5112.namprd11.prod.outlook.com
- ([fe80::4307:5ef8:b6f9:44c5]) by PH0PR11MB5112.namprd11.prod.outlook.com
- ([fe80::4307:5ef8:b6f9:44c5%6]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 18:28:49 +0000
-From: "Kim, Dongwon" <dongwon.kim@intel.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Tue, 19 May
+ 2026 18:33:17 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6%5]) with mapi id 15.21.0025.022; Tue, 19 May 2026
+ 18:33:17 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Berkant Koc <me@berkoc.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
+CC: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "airlied@redhat.com" <airlied@redhat.com>, "kraxel@redhat.com"
- <kraxel@redhat.com>
-Subject: RE: [PATCH v8 2/3] drm/virtio: Add support for saving and restoring
- virtio_gpu_objects
-Thread-Topic: [PATCH v8 2/3] drm/virtio: Add support for saving and restoring
- virtio_gpu_objects
-Thread-Index: AQHc5ib5WXECW3MZUkCvzhm+J7MqIbYUfjSwgABc6ACAANDVoA==
-Date: Tue, 19 May 2026 18:28:49 +0000
-Message-ID: <PH0PR11MB511260F7209810CD9569E696FA002@PH0PR11MB5112.namprd11.prod.outlook.com>
-References: <20260429204729.993669-1-dongwon.kim@intel.com>
- <20260429204729.993669-3-dongwon.kim@intel.com>
- <4ec04daf-9665-4b15-9e62-b83eb9aaa7c9@collabora.com>
- <PH0PR11MB5112A54866C6888080137302FA002@PH0PR11MB5112.namprd11.prod.outlook.com>
- <8ff5d9cd-62bc-4136-af00-96acd3a2c07f@collabora.com>
-In-Reply-To: <8ff5d9cd-62bc-4136-af00-96acd3a2c07f@collabora.com>
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "K. Y.
+ Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
+ Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Deepak Rawat <drawat.floss@gmail.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: RE: [PATCH v2 1/2] drm/hyperv: validate resolution_count and harden
+ VSP request paths
+Thread-Topic: [PATCH v2 1/2] drm/hyperv: validate resolution_count and harden
+ VSP request paths
+Thread-Index: AQIUBwkfFERYES9mX2x90t/+K692oQKhdNWNAcc+V8YCFxepWgHIRczZtWTtIvA=
+Date: Tue, 19 May 2026 18:33:17 +0000
+Message-ID: <SN6PR02MB4157D595B990A321BFA85B40D4002@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260517-drm-hyperv-cover@berkoc.com>
+ <20260517-drm-hyperv-patch1@berkoc.com>
+ <20260517134926.B4179C2BCB0@smtp.kernel.org>
+ <20260517-drm-hyperv-cover-v2@berkoc.com>
+ <20260517-drm-hyperv-patch1-v2@berkoc.com>
+In-Reply-To: <20260517-drm-hyperv-patch1-v2@berkoc.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR11MB5112:EE_|PH8PR11MB9771:EE_
-x-ms-office365-filtering-correlation-id: a149e189-b205-490a-a175-08deb5d4787e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|SJ0PR02MB7358:EE_
+x-ms-office365-filtering-correlation-id: 1ba2a0e4-7bf9-4e58-c1d7-08deb5d51839
+x-ms-exchange-slblob-mailprops: AZnQBsB9XmprXCmKzjWdGU57vAD/nj2c6Sd3NQd1pBVcKon3Egb/IOTAiFnyPk1gR9zWBmwMnUKoxt6XrSOXP3ubj86o0Sth+7tGa8irCVzpg6Zuzkv3ld/DoR12eAiNTDJGndzbhVEqE7wA/L3xadtRJxHdR/72QPYcuhm67mNHiGcF3IFHfcCi9YEIg7aQgkzdJtu4D0m7bnIAoCyy82zsQ8HLGLkFdJdYjiureQhnL/jHl8l0nSUTN63yUYj3rugfa1JmcmJ/IShr7wrW1RXn+6DLJjFBwnlhMbuQvhBchsor7c2MDaOQ8nKY8k7CzEb8mOui7T9M5Twzwubb4T7D5WkZWUhe9sositZ4qzy6dOkXrjxGV1Ho/Oh7MJjemzJHo2ZEWcZnH3QqPaLcu/88dW7qIYeh3StB+v2X5Bs4vIp7/IVCl5QJGgO1MA5MqkURrGveTnS8P+O1IMJ89oHm+Mi4VnZe+uKpVRyPDWjPx5cwVTAyVu+qIVTkyA/6YZNpluUcQzjwwRDRfxuUQY/uuV1kj6JZ6yon3aqAT1/4ae509SCDSxNN+UnlWXnxvdIPPL79Vj8DAqCcecVdl2RhjeGl1pigo/4oD+BTsq9uUj41U9lkO8Bkf9P2myk3Uv9I8+/iRxii68k40zwBY8duaFOkXLOKncA7Tqn0JGLk5vvBlHyy8fxafGIsIAsWS+dzPXGBE2IGmSJG7wn1J2vB00nEECZ5LkycQp5lkDigw5lPWvZVn2pOwjS4mpZecY2NmyZSWkg=
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|11063799006|4143699003|56012099003|22082099003|5023799004|38070700021;
-x-microsoft-antispam-message-info: F2pWWQHOc2iKmcwQi9sURX/J73YCNil8vZb2Tyfep3oV0j5xJbP+JVDuZoAs/rYbsX4VpNK+qBqTj1JwkluDpNzDi/cYAoaM9eUeUkso7Qo8W65F/iqLFjGvE+QWZNMREIBevAJnCwwGkSZP5y5TOxGaROLjARxfPm0NGIrCy2o/FW0RE4WjFUP9ZLCf9vU1y+pOYXKUdxruj6COjlQiRp1OXDFxqUBCuojpepaRnL69IDud3hcefg9mepMTKu38t5aWC52Avgp2fA8gVPuwRdfEb+DfBDd/ytI+as6iJC1QkG2OcRI7i3W5P1+JQLwd5ZsMljynZVDzpXrEpP221JJppdC7Rs+4wf2Ca0JnV4EIJSmxY1EGJNQrk4ao3ZRA02/lDauSC/PUixhNopfupovQox9Dwf/YJWRL+pCrpJsAksdKA+KtuOvQEP1rhnAQKDC9RGCmf7n8LwOB9Jt+00vbQBduHeirlfX5MGK9RZC8v/E1HH9fR0xDJCDCluHmVOiKX4TckrvVo+kr7Am2zS6eZbbj4FSNxVtjl9m5xUFsBrhve0mp+18heBqJFpqU/n8F49QArd1sSiv2VKFSp0aVtkJ6eYHGTWonwlICiw0WlaZpUyw9DgjA/zfuWGmANzTdNS5VAclWDTNj/hQ2wx6Rn4XONzdjJMLTl7P57kCslSZh25rrrAj77+5QBxQrot9FZjWelB3tb8pKH8rCkAlF7PGwVqBSXMXU0fJ/lihSfksDTf2+biuZmV1plOJR
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB5112.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(11063799006)(4143699003)(56012099003)(22082099003)(5023799004)(38070700021);
- DIR:OUT; SFP:1101; 
+ ARA:14566002|31061999003|19101099003|55001999006|51005399006|37011999003|13091999003|12121999013|41001999006|8060799015|8062599012|19110799012|15080799012|40105399003|3412199025|440099028|102099032|1710799026;
+x-microsoft-antispam-message-info: =?us-ascii?Q?tpv3EzKt0lPOclZh/iaM6dC/qyy/07Wbvg1Yi9itrSoNsu+cINPkbnSNulzT?=
+ =?us-ascii?Q?jBY3WYOpihljQn57J0CfOdpu5GgE1nASqGlkvSkGC+YCP/30vo5OpMUSAgPy?=
+ =?us-ascii?Q?bRaFJSvQ+SRcVSuOQC0HqlzKVFTni9BN3IeqL2k2Y3QcJTzxi50a2hMPgP0b?=
+ =?us-ascii?Q?RWOTBur2cq/e8Lk2mZSyDyilqyQqrsaA975S0Io+6PBBXdsp/a/KrfOQxFna?=
+ =?us-ascii?Q?YYwnJOuRIePDoEXzxCz7y2taQpVtYZohxF3p87lsUSY/nAZ4v4lFpN1jXk9s?=
+ =?us-ascii?Q?anK+/OXZ21Euz5NRuJDQKUcc7AL+JsfRVZ1Rdxx7xx5WraURA2U5/OyQrjk8?=
+ =?us-ascii?Q?GMqcrQMCRbI7GnVh9kPbPRjHRNg09NX+4rYPw04OhZbCt1eAFJftOWak10eQ?=
+ =?us-ascii?Q?4uITjvpq4abBivMLJXO9olV6gwF0B9snpqNhsvZuxxw7vaEDckP8litj3P1A?=
+ =?us-ascii?Q?qeqeMkYMSddL+V8RWgfLHvohQ8XBDUbLJUMkZU0K8tgcK8LLvpZEQ4vWIqWg?=
+ =?us-ascii?Q?1GFKyp0SC2Px9p5L61xTY8HhXaO8YD3w1vmXTLgc5y0483E1O3qTQIwlTJ/9?=
+ =?us-ascii?Q?ZmfqWpCH7kskkImKp83mw90ld0w/vFksSMKy7W4seBvGbf954vXAQJYZjxVC?=
+ =?us-ascii?Q?P+5WP2kX7ISfZUYCjWAPF9BUmYxPSBYlgqsRWIole3JaXEzyl6Z7JfM6BER2?=
+ =?us-ascii?Q?ChAVi4mLtu6c5hmW4xK6ioSNokFSjkgD4Q3Vo+4+RUAgQ814ifV0030iuT1q?=
+ =?us-ascii?Q?h1WVtO+yKpHaVyvd1jw8x4xHkq7a7VZbgrsn5aIo8maRdHUtEW8DRt2q7Y+G?=
+ =?us-ascii?Q?GFfc/wVqFymBB0uOC+SNigSlH6b4lY6sJEH50datLX2Cbmgf4V1gqdhtIitE?=
+ =?us-ascii?Q?nUz3nop1nQcBaYH3F+dTU9lwzZCVuQKGSTFxOlz6HhDqD9di63iMAESj3nct?=
+ =?us-ascii?Q?5iYcyiAGoXLyJSoxab0W3qNqN0eBe8/dUbBZ4Y1RMrMBP2UxatwUW2h9Hp4Q?=
+ =?us-ascii?Q?bYcHjwoQWhD3u2yAcUGAOTjYev4erM39wsSyNppFzLAaMcN7hocFOW2O101j?=
+ =?us-ascii?Q?+FTIMgelLSWbCAsNVZfF51TsOuQp/VXQtL+8hZ1sCBVpdF/tRPLpWIqfSzaq?=
+ =?us-ascii?Q?Bqw7fT9LxYw2?=
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VklCTmYwQmVRWHNBTUUwY3RXM1pMY3pqUlVDZWVxeFNNcEI5OWtyU0l3dWZv?=
- =?utf-8?B?amN5ZlBVNFZmc3hVWGJVdzhWL2xYWkg1VWt5MVoyNW8vTFVJb1RZQUJlN0Rx?=
- =?utf-8?B?NzUxekVJanlkR09mZ1JwZG94amlSdm1TajVpbnB3dDB5cVNHbEZ0SktnZVBq?=
- =?utf-8?B?LzBZeE8vN0dWdHFtWUpjREtDdEdnelVpRlVGZTh3cGlDWGpiTFVTSVBTZ3dx?=
- =?utf-8?B?VEN0bmo3M2tGclh2S2gyUGo3ZTQyZVEzclgyZ0xaaHZtZUpXOS80dXFWa0xR?=
- =?utf-8?B?dG9HUmE2ZExpdi9vcFBxdU1QcVE1Umw4VitEanEvNmlqYnFFNFpLdDVYamNj?=
- =?utf-8?B?SUl6eDB2N3BkR3RIN3lIVmNBNTZ0bzVwVnZ1RURDbExuTGFDZXVidzJYWkpm?=
- =?utf-8?B?amdNRDIxT1M0SkFESUhXNFFDL1o2ZE9uWFRSMXZhTDRSeHNCZGJJZHNDcVpK?=
- =?utf-8?B?bkxNSmc1M0xSc2FZblVPRDZ1VmRLYnZ5U1A5QTFGbHpXL2V4ZzJIOHhjZnB0?=
- =?utf-8?B?WXJ6aW9KcnJuVGJkd1ZpWkJHM1U2MDVOdDNCNDNJTGtGR3hTcmZmenJNUWo1?=
- =?utf-8?B?UEQzK2krWVd2b3pWSllndVpubG5SZHZJQVRVTTErdFJYeEtuTTAwKzF3MnVy?=
- =?utf-8?B?YUcyZjZsckkwaGJ4RnhVakNKZk5RZjh2cENDbFBNQTJ5VnBNa3Z1RjE5Qllx?=
- =?utf-8?B?aEs0c1hYSTM3bDZzaWxYbEdEaTZrd2twL2ROb0s0SzRPQzdKMDFhbk0yR0Zk?=
- =?utf-8?B?Yk0yTmF4cExGcFNrVFo0aVcyNXR1VzRkUE5TdkdIRWdwY3ExdFQwUTRzdk94?=
- =?utf-8?B?WHZ0V0NWNFQ5VVZiemZmNCtoVW9wVGhwclFNLzBYemV5L0prTjJtM05FUjFR?=
- =?utf-8?B?M3EyZHlFL2tUWjdjaldld1gyNmx6SWlLbmo1MzVxYzNzNzFFaWdwQW0wc3FI?=
- =?utf-8?B?Z0tJSFhzOVNxMy9abkMvRjJtUnBOYW9nL1BhZUV6bTJqRGtQTXdtbCt3U2Jk?=
- =?utf-8?B?Tm54bnJ2allncEFvTS92dmtHM3VYUEZieTZjK0lxQ3YzR1J1QXRGdVRBMHdI?=
- =?utf-8?B?QnVxK0FsYUVSbjRjT3ZTYkJ4RmNLOVV4d2NXWmswWFNqSnRkMjU0ZVR6ODc2?=
- =?utf-8?B?Zk04Slg3ZHUrY1dJNDB0UGdhdXpETXFTQkM5WTlCU3pIT2w4QW54T291MGxo?=
- =?utf-8?B?K0g4aDZpLzRvcHA3dTdQRFJYU2tjMUNmRkMvL0k4RVhLdE14NkVIaEdNa2pY?=
- =?utf-8?B?SmQ1YnMxR0pQdzRrRmttQkFqV29XZzNibDVLLzFFMTc5U0s5VVBoaTQ2QVo2?=
- =?utf-8?B?TnNXQy9BKzI0OVJ5M2hpRWFxZ3VPdk9oOWJualBIdnpCcE9IOFRpNkxpUGpS?=
- =?utf-8?B?ZlFTUStYWVp5enNjWHRRRSs4cHlhYjV5M2tIWWxhN1VoczRRSXVuVHI0T0hp?=
- =?utf-8?B?ZC84NmEwWEdYc1VtSDdCb0lESGo5UVlVYVNEdi9KeXpobzl3djJiWnZnci9J?=
- =?utf-8?B?SUpSd3VtU1BZZHhYNjZmMHpxSGMvQ0F0UWpvOXkwUm15MDB1RFVwS0JHNGx4?=
- =?utf-8?B?NGFDcmN3UGUvMGJzNmNjUjd6NEJUZGk5cUxCeTc5ZVZNclRwayt0VWdMTDBw?=
- =?utf-8?B?L0R2Z1BCQnY3NFNKamlBOW1ueWVkZ1Uvc0IrNWR1bld6RldxNklOQXl1VkJ0?=
- =?utf-8?B?RlBOdUNrdkNBV3dJdlFVK1BzMHF2K0xxRy9nSDUzMFFyYUVjTHdXT1Z4Z0ha?=
- =?utf-8?B?Y2o3ZUlJRVVBTTZCYVhwUmFQczVnUVJlTUZrN1hyS3laRzlocVZtVXdlVnFq?=
- =?utf-8?B?T2ozK1hhcjRlQWxFeTVDTHQvRGMrOTJzbC9EUmxsalBScGhTYTFlajE5TC9Z?=
- =?utf-8?B?czVsVTB0UG1VeUY4NWhjYlZhV25HK0ZFT0FLTTBkMkdHYnhEc1Z6YjZlL3Ry?=
- =?utf-8?B?aWVlYTVHN3NUN1JQeU4yMWdZYWlwVmVUTFZHclc3MGtOb0ZaWnNVcGJTYVNk?=
- =?utf-8?B?VGZIbFVjdXMvdUZhNHZJMk9zNStVanBkKzdJUEEyeW9FN2J4WXNkVSt1OGFJ?=
- =?utf-8?B?aURoazlXa3VLTzRMUllnYWFYSDhTMVlXdWZPMzl2a1BXSUdvWnN3WEJ4RmRt?=
- =?utf-8?B?K0VJK2cxVWF4N0FXVXFDYm5wT3lBMDlSWktJUUg4U1hXeWM3bkNiQmhnd0ts?=
- =?utf-8?B?M3kySCtydHdVRE1IQTNzVlV4enpxcUpnNHlVTGNVRnZUN2J3TlNicXgzQlAv?=
- =?utf-8?B?c2s0QmxTVWJUajI1d0hyWURqcFY3b3duVzBxSlFFRDRacmtSTVNXYVdXQnpp?=
- =?utf-8?B?cHRueVk2cnN3ZHBaQ3d6emhDOE01SWNGTFJIYzJLb05iVjF3QVJuQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?pcZc9GlmAK/gOGIXT/SNET9fV1X2mga/ZYr34CarWsMqTRdGbNrAvhJfyR+a?=
+ =?us-ascii?Q?SRDgZ5j4f0AGJEY701TDiARc5Cr6FENKOYBj1wjsMraV5MjOle7YjhsTNxRh?=
+ =?us-ascii?Q?g5k+6Q0RuBx1mzsKkNmsat/q0gCl9BT0go2+3ySLftTNwOuo9IeDarnshSlp?=
+ =?us-ascii?Q?ml1LlqOfcA+9b3KK57azHEQckLJrESqj3kC//1JDjakMmIfDPBhPwQvE1ykW?=
+ =?us-ascii?Q?keiD6yvBoavFLegIxy2utnotj9W9tPgi9dvpdG6gIENKHfhy4eFuiBZq80ir?=
+ =?us-ascii?Q?r+tNtsaHBQJxKOpo5Z4mFlhC37SksCWR/jVWsEf0Z454Edvj0ENa0pikYZTd?=
+ =?us-ascii?Q?SXbMMzZF94dXAa9AgIVZ+RKX9tRG+cZqdI4KEaHdj+OvNgpsr9xnNRyLjjr9?=
+ =?us-ascii?Q?PitDCYA8QSQZFBTxjdV48oOCDNhC8mgvHnMJao/cnTyDaWR8Lx868qYAjFZE?=
+ =?us-ascii?Q?dDGISTxgG72qqdgxuADZblWMM/Y2mI1xmu7456B84cEcv20a2BfK6CgfEBGA?=
+ =?us-ascii?Q?+NfDtXtY5YGdq+vZzS42SttAi1ElmJszO0A7tIEe0ePogIGHA6TvNtKzsBXw?=
+ =?us-ascii?Q?k8Q1oPAycjzNMjLNHVCAQlzJUqFJ2wmT/dtnsBvtlm7kcZtPnqRywNuw2dl4?=
+ =?us-ascii?Q?KEaOqhRrwh8xN5syvSntl8gEqngbheShtBSOxMKjicNsFpb1mPJh2nF+lECC?=
+ =?us-ascii?Q?0lh5rs3TqHivtrHpclX8Avs3VK7KLPUEF/jieaYqFfKzfIs4pEj5/Xt0Fhki?=
+ =?us-ascii?Q?NK4TuaVDqay4y3KwsXo9aBU0sE6reo1JXZq5nEYt2DzqlcM6SH2U2zPmo+nk?=
+ =?us-ascii?Q?NonjNv5ME5RhmtbQT9XV3F5glhpMHlwfm6MTiRWui/nxQSvxNWqsGPfa4AxL?=
+ =?us-ascii?Q?96IcqwCKkSn/J3XOzrvNL94NvJ9T2MfJGsnO2ktlm65ty8Hw2zQcB+NtWCs8?=
+ =?us-ascii?Q?uwEK7EMgxRtzUBp4/yjCS85WySLGuJRy2ckli8Ymh8NhimCeX/raLMEf2kl2?=
+ =?us-ascii?Q?dFwbXYuxe9GJ4dVc8cUlgRbDCCPBZFNw7PyWmpO/lpCp9jNB6OUAsQ2EnF6+?=
+ =?us-ascii?Q?hEw4/DRiKwbskwn+Ck74WBrAMugCiuEiOWVDBnZNdH6a8DAMB8Fbf6d/QKZQ?=
+ =?us-ascii?Q?5QSr8dMLjW7iZcOR+gmAKPT8c4o7EMMrKZZBYebZ6oYDfRJt4rnwYZloGTcy?=
+ =?us-ascii?Q?63DY2YZFkPhDXeINCY4lqGaKdfxVddxUPb+cgnuCHCuy/zo9LvhPNl2Oo/t3?=
+ =?us-ascii?Q?LL/OWd+F1DY4zPLjzg2xpQbaK/7R40Pn2jTO+6yc1GPkNtUu95g3Xg7HU/J6?=
+ =?us-ascii?Q?bSTcJPpgw0YwhY2a7wE2aFr4ZlmYedUh7AXIaDv1WZazAD0FZIju7AHabsyR?=
+ =?us-ascii?Q?oAn0N0Y=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: kZx69ERh2cWnnFBT8YlUk6BPaVYumPXPLPU6haqH9vnxzzIJFni9SzPkCRdh1HIiLKi3f2gvgkdIQUqXYdDJuZmpMtojQfUTS2emdjqkRohD2k9NIAMYwcIK8xJrKiWo8GoloF53YSBnskFPVvCjblj/dVFaMbxkahATQdredGdMsdxFn0i2AFDXHROtxqUxbzejkRr7aJg+5rjrGsdu1nBUIedQx0iYXUtnoQjJp0P8yfi9sxSMTAsoUahGVUAecUNsUZuA3AuH8wNtT4rmFVHLy3tehILjr22WZJJaf9ey7VVZj49nT5rZBO5ZLX/vmKojCiMrjUsCeL0xnFalZA==
+X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5112.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a149e189-b205-490a-a175-08deb5d4787e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 18:28:49.1932 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ba2a0e4-7bf9-4e58-c1d7-08deb5d51839
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 18:33:17.1710 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qR5cu+YKwW/9plRfULiH4e6G0iYTjpH1fIUwPI5MLYEbwzW6TsyjMMZq05H/Mm8+/Yd+py0rOJ98eUPbB9OOgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB9771
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB7358
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,27 +148,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgRG1pdHJ5LA0KDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjggMi8zXSBkcm0vdmlydGlvOiBB
-ZGQgc3VwcG9ydCBmb3Igc2F2aW5nIGFuZCByZXN0b3JpbmcNCj4gdmlydGlvX2dwdV9vYmplY3Rz
-DQo+IA0KPiBPbiA1LzE5LzI2IDAzOjIzLCBLaW0sIERvbmd3b24gd3JvdGU6DQo+ID4+IENhbiB2
-aXJ0aW9fZ3B1X3JlbW92ZV9mcm9tX3Jlc3RvcmVfbGlzdCgpIGJlIG1vdmVkIHRvDQo+ID4+IHZp
-cnRpb19ncHVfY21kX3VucmVmX3Jlc291cmNlKCk/DQo+ID4gWWVzLCB0ZWNobmljYWxseSBpdCBj
-YW4gYmUgZG9uZSBhbmQgd2UgY2FuIHJlbW92ZSBzb21lIHJlZHVuZGFuY3kgYnV0DQo+ID4gZG9u
-J3QgeW91IHRoaW5rIGFkZGluZyBpdCBvciByZW1vdmluZyBpdCBmcm9tIHRoZSBsaXN0IHdvdWxk
-IGJlIGJldHRlcg0KPiA+IHRvIGJlIGhhbmRsZWQgb3V0c2lkZSBvZiB2cSBmdW5jdGlvbnMgKHZp
-cnRncHVfdnEuYykgd2hlcmUgYWN0dWFsDQo+ID4gY29tbXVuaWNhdGlvbiBtZXNzYWdlcyBhcmUg
-cHJvY2Vzc2VkPw0KPiANCj4gY21kX3VucmVmKCkgaW5kZWVkIGlzbid0IGEgZ29vZCBmaXQNCj4g
-DQo+IENvdWxkIHlvdSBwbGVhc2UgY2hlY2sgaWYgbGlzdCBub2RlIGNhbiBub3cgYmUgcmVtb3Zl
-ZCBmcm9tDQo+IHZpcnRpb19ncHVfY2xlYW51cF9vYmplY3QoKT8gSUlSQywgdGhlcmUgd2FzIGEg
-cHJvYmxlbSB3aXRoIHRoYXQgaW4gb2xkZXIgcGF0Y2gNCj4gdmVyc2lvbnMuDQoNClllcywgeW91
-IGFyZSB0YWxraW5nIGFib3V0IHBhdGNoIHY3IHdoZXJlIHJlbW92YWwgb2YgdGhlIG5vZGUgd2Fz
-IGRvbmUgaW4gdmlydGlvX2dwdV9jbGVhbnVwX29iamVjdCgpLg0KWW91IGFjdHVhbGx5IG1lbnRp
-b25lZCB0aGlzIGF0IHRoYXQgdGltZSwNCg0KIiBBbHNvLCBsb29rcyB3cm9uZyB0byBkZWxldGUg
-b2JqZWN0J3Mgbm9kZSBmcm9tIHRoZSBsaXN0IGJ5IHRoZQ0KdmlydGlvX2dwdV9jbGVhbnVwX29i
-amVjdCgpIHRoYXQgaXMgaW52b2tlZCBmcm9tIGNtZC1jb21wbGV0aW9uIGNhbGxiYWNrLiBZb3Ug
-Y2FsbGluZyB2aXJ0aW9fZ3B1X29iamVjdF91bnJlZl9hbGwoKSB0aGF0IHdhbGtzIHVwIG9ial9y
-ZXN0b3JlX2xpc3Qgd2hpbGUgb2JqIGFscmVhZHkgbWF5IGJlIGluIHByb2Nlc3Mgb2YgYXN5bmMg
-dW5yZWYnaW5nPyINCg0KWW91ciBjb25jZXJuIHdhcyB2YWxpZCBzbyBJIG1vdmVkIG5vZGUgcmVt
-b3ZhbCByaWdodCBiZWZvcmUgY21kIHVucmVmIGNhbGwgaW4gdjggKHRoZSBsYXRlc3Qgc28gZmFy
-KS4NCg0KVGhhbmtzLA0KRFcNCg0KPiANCj4gLS0NCj4gQmVzdCByZWdhcmRzLA0KPiBEbWl0cnkN
-Cg==
+From: Berkant Koc <me@berkoc.com> Sent: Sunday, May 17, 2026 7:25 AM
+>=20
+> The synthetic video device parses a SYNTHVID_RESOLUTION_RESPONSE that
+> contains a u8 resolution_count and a u8 default_resolution_index. The
+> existing check rejects resolution_count =3D=3D 0 and an index greater or
+> equal to resolution_count, but does not bound resolution_count itself
+> against the fixed supported_resolution[SYNTHVID_MAX_RESOLUTION_COUNT]
+> array. A host that returns resolution_count > 64 together with an
+> in-range default_resolution_index causes the subsequent loop to read
+> past the array. Reject any resolution_count that exceeds the array
+> bound, folded into the existing zero-check so a single log entry
+> remains per failure.
+
+I think this is a good fix, but let me provide some background. A core
+assumption has been that the Hyper-V host is not malicious, and data from
+the host can be trusted to be well-formed and valid. Linux code interacting
+with the host does *not* take a paranoid approach and does *not* validate
+every value received from the host. Existing validation is ad hoc and
+probably not comprehensive.
+
+A few years ago with the introduction of Confidential Computing and
+"CoCo VMs" in in Linux, the assumption changed. (Hyper-V calls these
+"Confidential VMs", or sometimes "Isolated VMs" -- unfortunately, the
+terminology is a bit scattered.) The host is treated as potentially malicio=
+us
+and Linux code was hardened against bad values passed from the host. But
+not all drivers for Hyper-V synthetic devices were hardened because CoCo VM=
+s
+on Hyper-V don't allow all the possible synthetic devices. The Hyper-V synt=
+hetic
+frame buffer is one such disallowed device, so the Hyper-V DRM driver was n=
+ot
+hardened. The allowed devices can be seen in the vmbus_devs[] array
+where .allowed_in_isolation is "true".
+
+All that said, I'm in favor of adding hardening, even if it is done pieceme=
+al.
+There won't likely be a comprehensive effort to harden the Hyper-V DRM
+driver unless the frame buffer device becomes available in a CoCo VM.
+
+>=20
+> When that bounds check (or any later failure in
+> hyperv_get_supported_resolution()) returns an error, the caller in
+> hyperv_connect_vsp() previously logged a warning and continued without
+> populating hv->screen_width_max / hv->screen_height_max / preferred_*.
+> hyperv_mode_config_init() then set dev->mode_config.max_width and
+> max_height to 0, which makes drm_internal_framebuffer_create() reject
+> every userspace framebuffer with -EINVAL. Populate the fields with the
+> WIN8 defaults that the pre-WIN10 branch already uses so a failed
+> resolution probe degrades to a usable display instead of disabling it.
+
+Yes, this also makes sense.
+
+>=20
+> The driver also issues three sequential VSP requests (negotiate
+> version, update VRAM location, get supported resolution) that share a
+> single hv->wait completion. None of the call sites call
+> reinit_completion() between requests. If wait_for_completion_timeout()
+> returns 0 but a delayed response later triggers complete(&hv->wait) in
+> the receive callback, the next request's wait can consume that stale
+> completion, return immediately, and parse stale data out of
+> hv->init_buf. Call reinit_completion() before each send so every
+> request waits for its own response.
+
+This change should probably be a separate patch, as it's not really
+related to the bounds checking issue. You could even argue that the
+bounds check and using the default size values in case of an error
+should be separate patches, but it's a judgment call and I could go
+either way. Combining the first two works for me, though someone
+else might disagree.
+
+All that notwithstanding, I don't think your fix is needed in its current
+form. If wait_for_completion_timeout() times out in "negotiate version"
+or "update VRAM location", the code returns -ETIMEDOUT. The caller
+then bails out and does not send the next message in the sequence.
+Eventually hyperv_vmbus_probe() fails and the struct hyperv_drm_device
+memory is freed. A similar thing could happen with hyperv_vmbus_resume().
+The memory isn't freed, but if the resume fails and is tried again later, i=
+t
+should be with a fresh copy of the saved memory image. In that case, the
+completion should be clean for the retry.
+
+The problem case is "get supported resolution", which would leave the
+completion in a pending state if it times out. This could later affect
+hyperv_vmbus_resume().  I could see reinit'ing the completion in
+hyperv_vmbus_resume() to handle this case.
+
+But double-check my thinking on all this. Maybe I'm missing something.
+
+One other comment:  In my view, your commit message is a bit too
+detailed. A commit message should focus on "why" the change, and
+less on the details of the implementation. Explaining the failure case
+is fine, but don't recapitulate code that is straightforward and obvious.
+
+>=20
+> Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic vid=
+eo device")
+> Cc: stable@vger.kernel.org # 5.14+
+> Signed-off-by: Berkant Koc <me@berkoc.com>
+> ---
+>  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 17 ++++++++++++++---
+>  1 file changed, 14 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> index 051ecc526832..3b5065fe06e4 100644
+> --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> @@ -223,6 +223,7 @@ static int hyperv_negotiate_version(struct hv_device =
+*hdev, u32 ver)
+>  	msg->vid_hdr.size =3D sizeof(struct synthvid_msg_hdr) +
+>  		sizeof(struct synthvid_version_req);
+>  	msg->ver_req.version =3D ver;
+> +	reinit_completion(&hv->wait);
+>  	hyperv_sendpacket(hdev, msg);
+>=20
+>  	t =3D wait_for_completion_timeout(&hv->wait, VMBUS_VSP_TIMEOUT);
+> @@ -257,6 +258,7 @@ int hyperv_update_vram_location(struct hv_device *hde=
+v, phys_addr_t vram_pp)
+>  	msg->vram.user_ctx =3D vram_pp;
+>  	msg->vram.vram_gpa =3D vram_pp;
+>  	msg->vram.is_vram_gpa_specified =3D 1;
+> +	reinit_completion(&hv->wait);
+>  	hyperv_sendpacket(hdev, msg);
+>=20
+>  	t =3D wait_for_completion_timeout(&hv->wait, VMBUS_VSP_TIMEOUT);
+> @@ -383,6 +385,7 @@ static int hyperv_get_supported_resolution(struct hv_=
+device *hdev)
+>  		sizeof(struct synthvid_supported_resolution_req);
+>  	msg->resolution_req.maximum_resolution_count =3D
+>  		SYNTHVID_MAX_RESOLUTION_COUNT;
+> +	reinit_completion(&hv->wait);
+>  	hyperv_sendpacket(hdev, msg);
+>=20
+>  	t =3D wait_for_completion_timeout(&hv->wait, VMBUS_VSP_TIMEOUT);
+> @@ -391,8 +394,11 @@ static int hyperv_get_supported_resolution(struct hv=
+_device *hdev)
+>  		return -ETIMEDOUT;
+>  	}
+>=20
+> -	if (msg->resolution_resp.resolution_count =3D=3D 0) {
+> -		drm_err(dev, "No supported resolutions\n");
+> +	if (msg->resolution_resp.resolution_count =3D=3D 0 ||
+> +	    msg->resolution_resp.resolution_count >
+> +	    SYNTHVID_MAX_RESOLUTION_COUNT) {
+> +		drm_err(dev, "Invalid resolution count: %d\n",
+> +			msg->resolution_resp.resolution_count);
+>  		return -ENODEV;
+>  	}
+>=20
+> @@ -506,8 +512,13 @@ int hyperv_connect_vsp(struct hv_device *hdev)
+>=20
+>  	if (hyperv_version_ge(hv->synthvid_version, SYNTHVID_VERSION_WIN10)) {
+>  		ret =3D hyperv_get_supported_resolution(hdev);
+> -		if (ret)
+> +		if (ret) {
+>  			drm_err(dev, "Failed to get supported resolution from host, use defau=
+lt\n");
+> +			hv->screen_width_max =3D SYNTHVID_WIDTH_WIN8;
+> +			hv->screen_height_max =3D SYNTHVID_HEIGHT_WIN8;
+> +			hv->preferred_width =3D SYNTHVID_WIDTH_WIN8;
+> +			hv->preferred_height =3D SYNTHVID_HEIGHT_WIN8;
+> +		}
+>  	} else {
+>  		hv->screen_width_max =3D SYNTHVID_WIDTH_WIN8;
+>  		hv->screen_height_max =3D SYNTHVID_HEIGHT_WIN8;
+
+Is there a separate problem here in that preferred_width and preferred_heig=
+ht
+are not set in the pre-WIN10 case? I'm not familiar enough with DRM driver =
+code
+to know how these preferred values are used. It looks inconsistent to have =
+the
+two fallback cases be different.
+
+Also, having to duplicate the fallback code is distasteful. Instead of havi=
+ng an
+"else" clause, maybe have a follow-up test for screen_width_max (or any of =
+the
+values) being zero as an indicator that they haven't been set, and apply th=
+e defaults in
+that case?
+
+Michael
