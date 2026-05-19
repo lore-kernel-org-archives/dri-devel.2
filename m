@@ -4,88 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 087D0CD4F5E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02FE5CD5BAB
 	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 07:13:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BFC910EF2B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CEBA10EF2E;
 	Wed, 20 May 2026 07:13:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lai7+177";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Xu9JdgiK";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD77910E625
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 03:06:12 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-36936dcf19dso1997223a91.0
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 20:06:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779246372; x=1779851172; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=nIAQ9DaAotLVRz2iB1AFoG5yBrv9qo1aI5uct5Q5rhg=;
- b=lai7+177wmRLzx1wdAMH1m8jl1A8VE7YSUU76JTabm1n8TvrMYSSRZslAcRuRq/OW2
- z4FKlfIrzWOhASM1jtfVQw3Y0pTTSV+P9JQJ4KfSrlv/ASNIOIc3wNSvmwN+tgIKqefy
- LOQ4R33QPb362c0Tms7qR5KOP7W7yKKwO/gQA2helgEOqwgTYnib6q/ddIimQfPYFAbm
- 3jmMBdiJQn54EhKy2yql9l7A0QpRNTQYioDnIFsFpmzvliSsDuU2NXc9Yd3PbR/f3Yzi
- gmE9srCObuosYjAgd58zX3a2+rAhEoGxAdGpITYvjlUCn2rb3ZpQA55smdJTR/n7iXqt
- Brmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779246372; x=1779851172;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nIAQ9DaAotLVRz2iB1AFoG5yBrv9qo1aI5uct5Q5rhg=;
- b=oRK2RA7O4LwBZSEpo8+3LxmHBOuQufFBnpEu63MD9+ZPvPmVyONnGDAoX/IFBQCv4z
- 9w71/ZNAx/iVIQ43MqMB15EFSklIC6V3l3GIlGX9ZPnp35gTsi66b2Zjswh9Susk5Fnm
- oSqwGu5BANY43gya8r7Py+ZclMvSG9JtHPgVGW9ff/3o2iBEIzlPjUDr0wbOpl97gJ8i
- tG/hxPpXvTgJiUnZWlTdSLVuCuIgYwmUwSUmrtOJmYh9eCre2wevLcUMurFEOWUfxEAQ
- 1C9P3i8IAgHVWl2kVMpWbKw70AW8k2I2/DHNpKZsdMgYtRdyaJ5ikMYMPth+TkMQs0uC
- 4mWA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+CCEmQewP8ZQy9HwJpYRRxJ9q6WS3YGWB4QYO1ZdvVbODwHFpBjGvg3a38UMXf5RuCJD0sxP9aOQk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNGibjd/EndoyF4ZMPtGIu3eJ5C3dIE2uLzut7DMIMFeTIjDvL
- pXsqHZdbTo0+RcofUmHx/0Qn8zDdnvhOialGVzC2XTjsajU2LO4qT4Yf
-X-Gm-Gg: Acq92OGY3ApYoVeASDyxCIeF4fOPRLTetKRrnmZhKe5p31hlk/O07P88CwDXJxtuScN
- iKi4A5ToxAfIZ0iIpyW/XCaoVFjnEZbiarEMh8ogYq495DQWqS8NAB/XthHeNlBpske3KDFPt90
- GJV9+4QkuMglTqC9u5gv8r+5lSTy4jfHPUnT79gq2M0OOkuFs4CvzZQvFfHTC9PskjngIOxf8E/
- zJxM9CM5L/Nc2itHaHJ9Q3LBskjNTcnkYEB4SHg8Bf4KvVkJeb5jq28LZXVabvzpgZIE8lwwECR
- QpadmQNox7Nfhq6T6QszKpuj2i3LJXVeVRT9bBmTb6qZxaC1mDHXMJ/y8vvO0zkiEaCMtPpTiyv
- LmXR5mj7o/qarHCZG346gm/QWou1KOQ5MX94vExTgBSDuRgXMWD0zL+Zq7K/ZuoTCgxzj4BHjcE
- RyUULIHe/7f6oX9Myhu25Dm+wBkMoWImKkYCI/TRh7qLqeH7BoWFippj2MSZeizPYW9DBVMgJaE
- MKhxV0S6crC6k4=
-X-Received: by 2002:a17:90b:1fce:b0:368:5367:d679 with SMTP id
- 98e67ed59e1d1-369519cb5d1mr21310800a91.9.1779246371983; 
- Tue, 19 May 2026 20:06:11 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-369514361b6sm15491821a91.12.2026.05.19.20.06.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 May 2026 20:06:11 -0700 (PDT)
-Message-ID: <a112cb8b-21fb-4c33-89a3-14a4feb5e3f9@gmail.com>
-Date: Wed, 20 May 2026 11:06:05 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: verisilicon, dc: generalize
- for single-output variants
-To: Conor Dooley <conor@kernel.org>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, ychuang3@nuvoton.com,
- schung@nuvoton.com, yclu4@nuvoton.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260519055114.1886525-1-a0987203069@gmail.com>
- <20260519055114.1886525-2-a0987203069@gmail.com>
- <a66cc60fe163167e30e42f0b4be996cae1170a5e.camel@iscas.ac.cn>
- <20260519-fretful-blush-1aac18fa1360@spud>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20260519-fretful-blush-1aac18fa1360@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013016.outbound.protection.outlook.com
+ [40.107.162.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBAF610ED69
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 15:22:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LN3LQTvu14FCbhlYoGeJZEkR/v84UJpaZ59wuOtN9TmiI8FVeaAm6x0BsOI83Vvi8dMrLkhCZ8cJufVsQOR33Riw6mU5fkGgyv9eHYkc96Cgwc3gLzbL6bVA3DD1UsrL2hfbXL1reL1pVoTkF1dtfuKb4eFjwLeIyEIQgU38G4S1x5YanKRKRVl37++vkQMughIj6qd2R/vXLmG2NgtHoSs/Qnq3xYsLxfUL/RyDd2RMrb7uXzdbIDa/9FuvxiEmdzd/Fvkedj39UUGmF2o0AWSRvWq8VXFotkTHnuHsInvwkTAdH4WCnNWNSXyMY6yHLTqj7KkMhpwcW93z/3F8kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N4XCGrrXjQqg8YuImuqKz2THBt+Kl+10S20qTfl+JZY=;
+ b=AauGLQZhVuU9EXgk+OMMOK+QTY//Wz3Fjj4NC+0xSx8MrmODiQi7LoXobJ3KIOE/LgwEksyemrQU3mq4wgHuPyDtL4lT6sY+gLGmaZ1MhyZ+qA/pScxVCGaTlJfum0/v9VPi+XAwtAvJziVXh35E9FXG5J5BEjMxSxqtFQWY6GX639XGpzufveTkuZ902b0UQQlVKdKeufP4JBp2KzVDQMmnRKfY2zVdgBJdkoZo+qKg4DyW67gyvbdrppM7exFVL9ZWqEVUvo/c2O9LjB/0CPOj1ksH+seRpHporSMwJSA2XK8PrDzFSH5GvSB2NSI2gWs4Fm+1vPSM6gmHi5FncQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N4XCGrrXjQqg8YuImuqKz2THBt+Kl+10S20qTfl+JZY=;
+ b=Xu9JdgiKPC7a1uBS2UcaYQTS/nUcDc+AZwVBM+cUXvhOE9mH0rxkd3n5LtcpheBB3QViXjhtP1s9mFWbjuG+4jrAc1FVYJWPWD3/dWQW9HWus8rPOF50aTM1nY8uQ5WPtgy9hGcXDcG0hnnd5a3i1dvJxx6G8jGlx4p90HOJRM0kET8lPsonKQvSdQ1LopcWiOpkMOwu9Z9LBRxKiXUdwn24sv0bxUKuvXCyoRnmpITR0NoBCn/evj44kk3A8llaqBEzMDbdktCYcehHko07zhoclapChjnECkmQYUn9IobjzbFQbk2sZDtzOdive3O/bdDAuEDN73e+8DDeWwYaVg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB7618.eurprd04.prod.outlook.com (2603:10a6:20b:2dc::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Tue, 19 May
+ 2026 15:22:16 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 15:22:16 +0000
+From: Frank.Li@oss.nxp.com
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Maud Spierings <maudspierings@gocontroll.com>
+Cc: Frank Li <Frank.Li@nxp.com>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: (subset) [PATCH v8 0/4] backlight: add new max25014 backlight
+ driver
+Date: Tue, 19 May 2026 11:22:08 -0400
+Message-ID: <177920411775.2493788.16026675003480715688.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260407-max25014-v8-0-14eac7ed673a@gocontroll.com>
+References: <20260407-max25014-v8-0-14eac7ed673a@gocontroll.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH0P220CA0022.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:d3::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB7618:EE_
+X-MS-Office365-Filtering-Correlation-Id: b97b2140-4ba3-4dc0-5a93-08deb5ba68a4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|19092799006|366016|376014|7416014|22082099003|18002099003|56012099003|11063799006|921020;
+X-Microsoft-Antispam-Message-Info: ycoqj1wxUpEjZt9JljCoRRcsPsjp+I1MV25wOdlQ14AUWBJJmZJFMKCSba2b8++kYbpYmEy8Ilpdfy6fPPtE66HuPnYDHT08PUlB92jhbIJQQ48+fPSNs71/BU3mGXzh/6wHw4d7hl2tCon4YqXIlVTiyooZvX80+lBjPqs79tyHuE9nl5j5c71yUI+1J0gasSAOif5hLJaBIEpWIEOjK9Xu65U/KnlQ3mTsrzKJbMzuDOl6F0wRSNAn9yn19p9pEp9HHnkASlHLKcqQxrUyU5GTKgjfIcBPpK7jB6vdmW34IuWIntqw8sbLk1VX9WF46GqMH5qSrJ+DqeYR2sjAJAGMr94nJ4ySCSJsgWvUaJ9++9E98tF7XKda8aWHvq/kmu8kywNtgQo0De7EmHwNd3wkZZA+LM8FgAPc09mH1T208qUmq05DuY2XnFQP1IL+h5UOVvv9Xw1j1+8Q3r8krSvJ2H0FbHnfDF5F9ISbF1nh5TeM85ih1Je1ZDwpcx6APy4Ms6i1vmB7AMTYhHTQuIuWJi6edsmno5WkKcXXs7Cw5PxsgwkI3fENbGByfRWtaFoZNrlgqTKoIZ2JQ+GOtpCuFOEic9eMNIe+yPuxQWqMv0JAWnevt/tQDqwGuddvrcGGxJN0Qe6ArlIp0XJGhJD/eYegvKxhMRUbY1OA3UGpnIVOl25u3cOUxFkPDW6n1N0dmyKWhTx0fhtMl0X2Y1kc4PigrULJUW4a+UHU4Hg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(19092799006)(366016)(376014)(7416014)(22082099003)(18002099003)(56012099003)(11063799006)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUZVUzZ4OVlPQkRLNG1KQ2FpWTM1ZHdWblRva1ovK2tjREtwWFV4b3NVMk9S?=
+ =?utf-8?B?S09GQk9jZnRTN25rczg0RnkzSFBJYlVacEw5NTMvbElXWjN6Tmp2bnh6cS9v?=
+ =?utf-8?B?ZE52VjlKQ1BRb3dSQ256bWJ2TmpJSWVwYURxY2RoYStad3VwZzRRUThUWisy?=
+ =?utf-8?B?RTJxU2lsOXRWSW5FZGxmWi9aYW9BUC9rZkVTZkZDb0duYjRLcDlCRVhFL1V3?=
+ =?utf-8?B?ZzhjL3VJTGFIb2dqUlF1LzdHbzYxNFQrb0RqVC9Ucm95RVBjUTJ6YXh6UjNn?=
+ =?utf-8?B?a0hkQXUrWVgzbGJtMkxkcGQxZzVGTXpnR1JwTVVCRGx6VVFiMWZoQThhTkc1?=
+ =?utf-8?B?TmZaUzhnamt4NVRER2xQMWo0b0NNQ0lsdTNzeXcxa2NWQWxLWjRxU25PZXlQ?=
+ =?utf-8?B?c3VJTS92U0ljYXVYaHQycVprampWNTBEM2gzOFhHMlBSVG9EWDlSd2tyQTNJ?=
+ =?utf-8?B?b3pnV2cyT09jdWkxU0xHV2JnWlNkdFdSYkNOZHkrcW90eE9tYjQvV2liSU9U?=
+ =?utf-8?B?Y215VGtFTHg1OWJsZFhOMVNYckdkUGVlL2VQNzlLU1paZ3dVSFRCSDBlMzdw?=
+ =?utf-8?B?bjRxWDNuaHJrRnhnaVZlNTlHYTRJYUkvbXpWNTVoYW9oRDc5M3RNZ1JEM3Zu?=
+ =?utf-8?B?Z042YXB5UHhzcmpPR2tUV0NoZTJhM1AxQzMvL1dtZUJHdGlTbCt2dmFEdlR1?=
+ =?utf-8?B?amNCaHJWUXlBVDEwTEhnZnQrTlVtY2UyOStqbFRXc1VETW5sMU5DdHBQb1Uz?=
+ =?utf-8?B?eE4zZU5TendGaGZiUUw3VTVwaGRoSEJsSUZSczNaL1RFMXd0L3BaS2JMc0Fa?=
+ =?utf-8?B?RSttSTFBemJNbkFDMkt5eURUaGxhRDl6OThITUlmeW55Um9HbWQzSFk5eUsy?=
+ =?utf-8?B?RFkzTE1JbkZBaFp1MDNDUzhDSFRjTlJkWEppSHllanZ2dklHeHFMQ3k0R3dB?=
+ =?utf-8?B?aUlWbmRTWEFrckxZQjllUnpqQWlmdkFjNkxBRUY2bjhJMVVIUUlTeFZ0R0VG?=
+ =?utf-8?B?bnNHbnZRL0pwM2wwOTY2aGhhTFhKYkNKSXB5UVB5M090a3BsOU9xdUVPVCty?=
+ =?utf-8?B?dUNxald4L0hpaUgxekN3a0VLRFV0TlFvZVJBMUQ2anJuS3pwZDRtaExwZ1Bv?=
+ =?utf-8?B?STRSNzNES2xyRlBMbURBS3dQdHMzbzZXZ1ljMldxUU1MdTVBK1R6bFV1ME15?=
+ =?utf-8?B?UWpBaEkwMjJubkxhZHpwRzY3K1dVWHpLYnlJOXJ5NFRzSzJzWmZuaUJWcVVW?=
+ =?utf-8?B?Z1pzbVBibFNZK1lGWWEvMVlPSHVPcCt4c29jMGpUZURTMCtnM1VLTHF0bHZJ?=
+ =?utf-8?B?Tyt5WDJpVlJlN0VDY0dvTHQzd3ZVVGE1a290VHVzRkY4Qm04R1E5U3U4QVQz?=
+ =?utf-8?B?K3dnZ0U3N2lIbVBNMk5NNlRLclNnbXFCazZQYUtyaUtrb29qT3hxaW9CZDVo?=
+ =?utf-8?B?TGRhOWMwZkNydklxMjg3SVV0SmJZWFRKdk9MckVsU1FCcUtQVFNzcEpwVndV?=
+ =?utf-8?B?NUZjUkJCWG90VWRBZGFtWEFEWlF0bkxJanBFcXlqdFViWkY3alFYYkR0UWRN?=
+ =?utf-8?B?Q0cvNEozS3V4QUJnZkl0Ynh2SDJkWkpZVnR4aXhaM2xGakE3em15RjJkWFJ0?=
+ =?utf-8?B?V0tuWG1wbkVNN2Y5Zi9UU1BHQ1lOWS9nV3hTb0hOSk5TeFZHT2hKUmcwcU1B?=
+ =?utf-8?B?WXE5VTNNWXhmTERiK3NWOEdtYk9wSTFIVkFJRmhtenp1S0h1MEFiQXY5UFEv?=
+ =?utf-8?B?UlRoZEVjbW5mdnd0b1R6Zm15cGl6U2lwaVpES2o5cXRMakZxS0kxdktJanEx?=
+ =?utf-8?B?OXJOdUg3dHd0K0JlOEVSQi9tVXBVdmp2M054QStLaCtMMVRXdDAzaWxLamtO?=
+ =?utf-8?B?bEp3L1RVT0VsSWNPYWEwOUdQaTIrd1VkNy9EbkptdDkzbFRTdGhmUHBkS3Jj?=
+ =?utf-8?B?THVKa1EzV3FCMUZKc2gxdURrc0VmK0U1UnpQcHJkYXlQY1h5c05qT2FGUWcx?=
+ =?utf-8?B?YXpjSFNaa2RVVVlzK1FTOWZhUXpBM2RBbUczUGRnUXpFNnRPL1ViUXIzQ25K?=
+ =?utf-8?B?NlRrWU5sZnBMVXZMaUY5UDJoeFd3MGZxUlZJKzd4SjA1d1dMdlBCeU5CQkZB?=
+ =?utf-8?B?UU9xOEdFQzhNSjN5U2F3NzBOUFBHbENLWXFzdTdhSytXWUFCdi9mNUtVSWFY?=
+ =?utf-8?B?bjZwLy9FbGN3bStJQ1loWkFMMWRUSUEzUHlmZFpjMDNHYjd6WEwzYU9qVzN4?=
+ =?utf-8?B?Y3ZrYndMK21BK1cyMUxpS013eVJocjN5Q0RqR2g3Mlpyc3oyc0N1SWoxeE9H?=
+ =?utf-8?B?Ni9LVmNUWVRuV2hTVWNLd1ErVE9MQ0JzckNSc3BoVENhMk04UmVYem9Bci9S?=
+ =?utf-8?Q?3hoUYrYxccMJw32zYCpgzwP5Ho/PUps6ag46l?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b97b2140-4ba3-4dc0-5a93-08deb5ba68a4
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 15:22:15.9154 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zgj5tSa9MWblnYRe4LsVF7dP+NI6Cq5lWF3dAxFWriEkNT9UzQE/yx3uf/BOo3RohKiL0oauY3a5x7DfRdkPTD2003IIcCy9uO50Npe6Qt7JZO4+1CwJao9ZC/A5GyK5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7618
 X-Mailman-Approved-At: Wed, 20 May 2026 07:13:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,280 +149,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/20/2026 12:47 AM, Conor Dooley wrote:
-> On Tue, May 19, 2026 at 03:26:58PM +0800, Icenowy Zheng wrote:
->> 在 2026-05-19二的 13:51 +0800，Joey Lu写道：
->>> The existing schema assumes a fixed clock/reset topology and dual-
->>> output
->>> port structure matching the DC8200 IP block.  This prevents reuse for
->>> single-output variants such as the Verisilicon DCU Lite used in the
->>> Nuvoton MA35D1 SoC.
->>>
->>> Rework the schema so that variant-specific constraints are expressed
->>> via allOf/if-then-else:
->>>
->>> - The thead,th1520-dc8200 compatible keeps its existing five-clock,
->>>    three-reset, dual-port requirements.
->>>
->>> - A standalone verisilicon,dc compatible covers IPs whose identity is
->>>    discovered entirely through hardware registers; these have flexible
->>>    clock and reset counts, a single 'port' property, and no 'ports'
->>>    requirement.
->>>
->>> Changes to the base schema:
->>> - Replace the fixed clock/reset items lists with minItems/maxItems
->>>    ranges; variant sub-schemas tighten the constraints via if-then-
->>> else.
->>> - Add a 'port' property (graph.yaml single-port alias) alongside the
->>>    existing 'ports', for single-output variants.
->>> - Drop the unconditional 'ports' requirement; each if-branch enforces
->>>    its own port topology.
->>> - Tighten additionalProperties to unevaluatedProperties to allow
->>>    per-variant schemas to add their own constraints cleanly.
->>> - Fix a stray space in the port@0 description.
->>> - Add a DT example for the generic verisilicon,dc compatible
->>>    (Nuvoton MA35D1 DCU Lite).
->>>
->>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->>> ---
->>>   .../bindings/display/verisilicon,dc.yaml      | 135 ++++++++++++++--
->>> --
->>>   1 file changed, 108 insertions(+), 27 deletions(-)
->>>
->>> diff --git
->>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->>> index 9dc35ab973f2..3a814c2e083e 100644
->>> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->>> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->>> @@ -14,10 +14,12 @@ properties:
->>>       pattern: "^display@[0-9a-f]+$"
->>>   
->>>     compatible:
->>> -    items:
->>> -      - enum:
->>> -          - thead,th1520-dc8200
->> You should add a fallback compatible here for your SoC, in case its
->> integration gets something quirky; this compatible is usually not
->> consumed by the driver (see how thead,th1520-dc8200 exists in the
->> binding but not the driver).
-> s/fallback compatible/soc-specific compatible/, but yes.
-> NAK to what's been done here, especially after the discussions on
-> earlier versions of this verisilicon binding.
-> pw-bot: changes-requested
-Understood. I will add `nuvoton,ma35d1-dcu` as the SoC-specific 
-compatible string paired with `verisilicon,dc` as the generic fallback, 
-matching the pattern used for `thead,th1520-dc8200`. The standalone 
-`verisilicon,dc` compatible will be removed from the binding. The driver 
-match table is not changed since hardware detection is done via ID 
-registers.
->>> -      - const: verisilicon,dc # DC IPs have discoverable ID/revision
->>> registers
->>> +    oneOf:
->>> +      - items:
->>> +          - enum:
->>> +              - thead,th1520-dc8200
->>> +          - const: verisilicon,dc
->>> +      - const: verisilicon,dc  # DC IPs have discoverable
->>> ID/revision registers
->>>   
->>>     reg:
->>>       maxItems: 1
->>> @@ -26,32 +28,24 @@ properties:
->>>       maxItems: 1
->>>   
->>>     clocks:
->>> -    items:
->>> -      - description: DC Core clock
->>> -      - description: DMA AXI bus clock
->>> -      - description: Configuration AHB bus clock
->>> -      - description: Pixel clock of output 0
->>> -      - description: Pixel clock of output 1
->>> +    minItems: 2
->>> +    maxItems: 5
->>>   
->>>     clock-names:
->>> -    items:
->>> -      - const: core
->>> -      - const: axi
->>> -      - const: ahb
->>> -      - const: pix0
->>> -      - const: pix1
->>> +    minItems: 2
->>> +    maxItems: 5
->>>   
->>>     resets:
->>> -    items:
->>> -      - description: DC Core reset
->>> -      - description: DMA AXI bus reset
->>> -      - description: Configuration AHB bus reset
->>> +    minItems: 1
->>> +    maxItems: 3
->>>   
->>>     reset-names:
->>> -    items:
->>> -      - const: core
->>> -      - const: axi
->>> -      - const: ahb
->>> +    minItems: 1
->>> +    maxItems: 3
->>> +
->>> +  port:
->>> +    $ref: /schemas/graph.yaml#/properties/port
->>> +    description: Single video output port for single-output
->>> variants.
->> Maybe the endpoint numbering rule needs a move to here? (I am not very
->> sure).
-I will add a description to the `port` property noting that endpoint 0 
-is used for DPI output, which is the only output type for DCUltraLite.
->>>   
->>>     ports:
->>>       $ref: /schemas/graph.yaml#/properties/ports
->>> @@ -59,7 +53,7 @@ properties:
->>>       properties:
->>>         port@0:
->>>           $ref: /schemas/graph.yaml#/properties/port
->>> -        description: The first output channel , endpoint 0 should be
->>> +        description: The first output channel, endpoint 0 should be
->>>             used for DPI format output and endpoint 1 should be used
->>>             for DP format output.
->>>   
->>> @@ -75,9 +69,75 @@ required:
->>>     - interrupts
->>>     - clocks
->>>     - clock-names
->>> -  - ports
->>>   
->>> -additionalProperties: false
->>> +allOf:
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: thead,th1520-dc8200
->>> +    then:
->>> +      properties:
->>> +        clocks:
->>> +          items:
->>> +            - description: DC Core clock
->>> +            - description: DMA AXI bus clock
->>> +            - description: Configuration AHB bus clock
->>> +            - description: Pixel clock of output 0
->>> +            - description: Pixel clock of output 1
->>> +
->>> +        clock-names:
->>> +          items:
->>> +            - const: core
->>> +            - const: axi
->>> +            - const: ahb
->>> +            - const: pix0
->>> +            - const: pix1
->>> +
->>> +        resets:
->>> +          items:
->>> +            - description: DC Core reset
->>> +            - description: DMA AXI bus reset
->>> +            - description: Configuration AHB bus reset
->>> +
->>> +        reset-names:
->>> +          items:
->>> +            - const: core
->>> +            - const: axi
->>> +            - const: ahb
->>> +
->>> +      required:
->>> +        - ports
->>> +
->>> +    else:
->>> +      properties:
->>> +        clocks:
->>> +          items:
->>> +            - description: Bus clock that gates register access
->>> +            - description: Pixel clock divider for display timing
->> Please don't make compatible-specific description strings for
->> individual compatibles, and keep these descriptions outside of the if.
->> The compatible-specific part should be used to specify what's required
->> for the specific SoC, for dt validation purpose.
->>
->> BTW if the clock is both the working clock and bus clock for the
->> controller, I suggest listing it twice, except if the IP core is
->> provided without a dedicated core clock (in the case I suggest to use
->> "bus" only).
-> I agree. If the same clock is provided to two+ ports on the IP, that
-> should still be two+ clocks in the devicetree.
->
->> Here's an example for "listing it twice":
->> ```
->> clocks = <&clk DCU_GATE>, <&clk DCU_GATE>, <&clk DCUP_DIV>;
->> clock-names = "core", "bus", "pix0";
->> ```
->>
->> Well nonetheless the name "core" does not match the description "Bus
->> clock that gates register access".
->>
->> Thanks,
->> Icenowy
+From: Frank Li <Frank.Li@nxp.com>
 
-Understood. I will remove all description strings from the if/else 
-branches; the if/then clauses will only constrain clock-names and 
-reset-names items (name values only, no descriptions). Regarding clock 
-naming: DCU_GATE on MA35D1 is a peripheral gate clock without a separate 
-dedicated core working clock, so I will keep "core" as the name and drop 
-the misleading description "Bus clock that gates register access". The 
-description mismatch was entirely in the if/else strings which are now 
-removed.
 
-Thanks.
+On Tue, 07 Apr 2026 16:41:41 +0200, Maud Spierings wrote:
+> The Maxim MAX25014 is an automotive grade backlight driver IC. Its
+> datasheet can be found at [1].
+> 
+> With its integrated boost controller, it can power 4 channels (led
+> strings) and has a number of different modes using pwm and or i2c.
+> Currently implemented is only i2c control.
+> 
+> [...]
 
->>
->>> +
->>> +        clock-names:
->>> +          items:
->>> +            - const: core
->>> +            - const: pix0
->>> +
->>> +        resets:
->>> +          maxItems: 1
->>> +          description:
->>> +            Reset line for the display controller.
->>> +
->>> +        reset-names:
->>> +          items:
->>> +            - const: core
->>> +
->>> +      required:
->>> +        - port
->>> +
->>> +      not:
->>> +        required:
->>> +          - ports
->>> +
->>> +unevaluatedProperties: false
->>>   
->>>   examples:
->>>     - |
->>> @@ -120,3 +180,24 @@ examples:
->>>           };
->>>         };
->>>       };
->>> +
->>> +  - |
->>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
->>> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
->>> +
->>> +    display@40260000 {
->>> +        compatible = "verisilicon,dc";
->>> +        reg = <0x40260000 0x20000>;
->>> +        interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
->>> +        clocks = <&clk DCU_GATE>, <&clk DCUP_DIV>;
->>> +        clock-names = "core", "pix0";
->>> +        resets = <&sys MA35D1_RESET_DISP>;
->>> +        reset-names = "core";
->>> +
->>> +        port {
->>> +            dpi_out: endpoint {
->>> +                remote-endpoint = <&panel_in>;
->>> +            };
->>> +        };
->>> +    };
+Applied, thanks!
+
+[3/4] arm64: dts: freescale: moduline-display-av101hdt-a10: add backlight
+      commit: 10fd5ba8fae66d60c65ec4bdb51fbbe5e34d9d83
+[4/4] arm64: dts: freescale: moduline-display-av123z7m-n17: add backlight
+      commit: 159746425710c94befb317132816f5eece4ea25d
+
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
