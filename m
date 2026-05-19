@@ -4,81 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68660CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 07:13:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1F01CD5BAB
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 07:13:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FEDC10EF3A;
-	Wed, 20 May 2026 07:13:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 539B110EF3E;
+	Wed, 20 May 2026 07:13:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XMlWCcI5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m8VVvCFn";
 	dkim-atps=neutral
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD9910E0A6
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 06:07:30 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-304106b1204so942663eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 23:07:30 -0700 (PDT)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCB0610EB1A
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 08:23:12 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-c82de129a40so1283684a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 01:23:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779257249; x=1779862049; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=FkbUxOw9XQFqUtX2Z9eJ32TNe+t+n97l8FjGhNB6Arg=;
- b=XMlWCcI5tQQnL6TCcXJq6l4yIYZ2bEHFL26pbn4ufYpEjLdlB7jKiAogF4HexKdjYc
- w/qHa1olShE64cHYHcVIBLJAj4cOBYwBOMKetfe1IcylQMQnQ614WokHWpmM650wTWUN
- aiwFcMtdEKQzuU+FHfyNQwlAKpITbC0hJs1lPTANl8NfLGciXNGcAJtYbcQ3d1V93p+x
- 0LIDiagO9KGcXko9tib5idKPkenXTZyIuOiMLSOGyIcCy98LqrH+a6pQ4FRgY7hdYNpP
- ppwTaGhKPgjo4KBNXxOPEvUtwigx59/uLFxBKaQvzkLx7pp/luTs7goBq6ziecbheVVO
- K2fg==
+ d=gmail.com; s=20251104; t=1779178992; x=1779783792; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Cw+HXkNbB/u5QBrnahLqduKfToHyIm0xf5S3V5dfPlI=;
+ b=m8VVvCFngKRJJhMQhRftuUUP3zD/xgs8sKvtub/U0g8W0fx3i3fKGvISfvb30IDd7V
+ bzKC4uj4cuwZLT9PSA54IRkc8EkUjOmG+orn/ndFLVQUrXtYpE58XDa0qCIGrxDFh1V+
+ c5h2FBhPOQ6i1nbjOx3jFMPKz/7TE4afGys0OUYgzuRiStnRCP/YnStrhOvxICVd1AgK
+ 4pQEcwex5KNAN3H2JZt5TzwfK+C+sm85MoWZurGwV/JP7UTehTqWZ7CP/NzBjxenbhY1
+ LJmW2ZpuktjQikAPYj3+FZtoF29EeLye6DNa2YuZn1rbDbriLWSOI/neIwajCsp550Xa
+ x2+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779257249; x=1779862049;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1779178992; x=1779783792;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FkbUxOw9XQFqUtX2Z9eJ32TNe+t+n97l8FjGhNB6Arg=;
- b=K50Nh0X+zkMJ79a3oMPe9RbJSCkZn91Wiq7x9pXzbJey6u8HKf/hqSGMZALLejKfxZ
- TVoOubGEVJRMrcAUm71thLrr6rBBUEhei9xnF/UC5gI3Mhxq5jmPXdCidzzmkyykTQSA
- ki5q8L1a/3mRXtioKl2BDqlweiTAQXfxF1HNEMntntovGEt76UtwR4zJ2U92AUA+6jQ+
- 3Jnzh8OC5LEYPUYALLk9qLfNEoOtEnlQErPfJ6SbJVTXK0jTKShO6/MpKjxXMycjesoB
- O6FBAbg9wH5ORpy74eiknj6dj5VC4cXJUpyDhiZRGSvmv7yykQAVjZVpJWXOvCU9DXNp
- qftw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ99/RGn8pwp9iFLA6q6V3+zW4c+DLQDzhavzMYWb3azm0k78lmN3YVu8l5reu/T9kISKTufCNxXfAA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxz+c4bNtL5yWUY9rx1TgsXTxJ77fDMWF4xTAif8tKGJLDnulko
- vbHdkiSghO3ZUYzis0WRxdOsyXs0U9kqBlVGP4MzVxatJlznsrP/5Ui3
-X-Gm-Gg: Acq92OFImkM4y7isAZbgW/tqHkQ23AzEHy90u2VUImz9tDg5ueADiJtaaGBulj8WV+5
- 1JZxeGfxyjYXDB6Un8W49Oonko/9jooU/k8mdyWWTrXK4IjL+vmUNEVjiwPVbydbDCnFxzOLGPm
- RMlRPgvbCGZ3Ef8/scNGeCpvQ4j4TMvzNNa/Gp/mSPeUwf4Ams8HVodlI4PtPm/WYC1rZD6XSzG
- QqR29x3x0JOKdMFb1QO2Tw3Pq9cclL6j0QnV+LHLOyA4KbYXBxm8VWNtV21UBtR1h8PI0Rg1CY3
- 2roFr203bnnDiDH+3KA9mrM1R36pqhWLJPdEvlF6n0lGKAD7mIHDVdKB9OomPD1DtciUmAmO/2v
- UDBqv9obRuHEJCt5DzxUqWp9cVudiPo9WiWBzis66mTQ4BuQEGPaVNNfUcU9i/yQHE2ulFaS7Ba
- bA7poJ0lQIANg/981W4rk2MgLN7B7P3vGG6yw6ILmG5A==
-X-Received: by 2002:a05:7301:600c:b0:2dd:6937:79d5 with SMTP id
- 5a478bee46e88-303982b788dmr10220464eec.8.1779257249365; 
- Tue, 19 May 2026 23:07:29 -0700 (PDT)
-Received: from wujing.localdomain ([74.48.213.230])
+ bh=Cw+HXkNbB/u5QBrnahLqduKfToHyIm0xf5S3V5dfPlI=;
+ b=rHl/ms/uCMLQgdSDsQYQZYRmoqUM9+kBQp66UChlTRJY8wpA7iRsdk2Q20RqgUgyra
+ fDMK8D3BzC+OEcFzuJ4yA9MqgXYZyRy88DYvZmfMHajZ7iyDLKiWlft0J5scRWZzTJ+s
+ wHjQZstnOBw1TtF+D55nsDrFkpniwAmTFkZED1t7YsfyvwKPQalpYUUBypWfT25HYAkS
+ 3jzldxoNbiF+RNAR39C9rPqnIcgjXJtsumynnu+nNmNAPqWze/Z/3bfLwT77kEZFBgcT
+ nF9ezsTZfWNFUjFRNGJ+WnGWPenAQmuwOwFFK1zbilUNspPlt1iS6NNG8OOhUxoHjjr3
+ OANQ==
+X-Gm-Message-State: AOJu0Yzg3ljeNMH/cYOqDLVi2u2W0I8s3RXHQD6OOwCM/qdJ3qu3SoQe
+ YZb1c0Wonvhdu6dhpfF8q3ePwLascdKocLBmoudRE3AGcBb4dX6JkmM/
+X-Gm-Gg: Acq92OE1B4sqD9ecG9XxCT8elTQE5wgiKNnsSa8aeLyxJlSAY7ZO2H3OTKKxfL/fFiI
+ ELYxORzlBk+FC5kZ87kltSw0cIPgOdb9nQnAd6F1iZzLBJXPXBPZfWtPKYBg4bOep6y2R0ey7ub
+ 9/TF1hNIWL3gbJ5iOa80BQyBZkrXik2KqRzQUnfpc/WU3q7B/h3p/264ZVKOCL9WlqdQ5Vjnivg
+ Ww/sS2FFdj9H6yNNZjgD83zHXvZsRUgzCdFgvpkW9Zgxx6yRKENgIFGobh0oVjAToTW9QyQg8ve
+ 10s+HwU6DU66O2GnEt4apSshw9+hppfiV+HQAiir+kWKfxlCSdPoR+a/eZlAsC80M+Zp2iZq07s
+ u2zirqdy5lHobdYWLYBdUr21938l1p8kppOXpNEYd/F2woMs1yl1DOjFOUwJXgAaH7Ww0AvABB1
+ jqfeFRCl5iNA6rK6GE5lSZcuRnH7iJuTwW0HzrugyWBxgiy3AsBUcTbk7qDv24/XzBPrpYXRpNj
+ 6czvZV8HMYeyPU=
+X-Received: by 2002:a17:90b:4b8c:b0:359:87a8:e65c with SMTP id
+ 98e67ed59e1d1-36951b8280dmr18284305a91.17.1779178992328; 
+ Tue, 19 May 2026 01:23:12 -0700 (PDT)
+Received: from deepanshu-kernel-hacker..
+ ([2405:201:682f:383f:d693:97f:df7:b062])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30294500a97sm20885330eec.9.2026.05.19.23.07.26
+ 98e67ed59e1d1-3695126feabsm13019156a91.6.2026.05.19.01.23.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 23:07:29 -0700 (PDT)
-From: Qiliang Yuan <realwujing@gmail.com>
-Date: Wed, 20 May 2026 14:07:20 +0800
-Subject: [PATCH] cgroup/dmem: implement dmem.high soft limit and throttling
+ Tue, 19 May 2026 01:23:11 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: airlied@redhat.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
+ gurchetansingh@chromium.org, olvaffe@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, Deepanshu Kartikey <kartikey406@gmail.com>,
+ syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Subject: [PATCH v4] drm/virtio: use uninterruptible resv lock for plane updates
+Date: Tue, 19 May 2026 13:52:47 +0530
+Message-ID: <20260519082247.34470-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-feature-dmem-high-v1-1-97ca0cb7f95a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBvIfiy7SrSQnHIWVmhFIN49a
- fkt3osQyDMFGIsInh4OfOwZoixgsXrfCNlkQ13VsuqEwpX0dXtC48ih5c2ikEr1oh3M0gyQu9P
- Tyu//nOaUPnDDIj9jAAAA
-X-Change-ID: 20260519-feature-dmem-high-16997148dc38
-To: Maarten Lankhorst <dev@lankhorst.se>, 
- Maxime Ripard <mripard@kernel.org>, Natalie Vock <natalie.vock@gmx.de>, 
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Qiliang Yuan <realwujing@gmail.com>
-X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Wed, 20 May 2026 07:13:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,238 +93,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce the "high" soft limit for the dmem cgroup v2 controller.
-When a cgroup's device memory usage exceeds its high limit, tasks
-belonging to that cgroup are throttled by being forced into a sleep
-before returning to user space, instead of being failed outright
-as with the "max" limit.
+virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush() lock
+the framebuffer BO's dma_resv via virtio_gpu_array_lock_resv() and
+ignore its return value. The function can fail with -EINTR from
+dma_resv_lock_interruptible() (signal during lock wait) or with
+-ENOMEM from dma_resv_reserve_fences() (fence slot allocation),
+leaving the resv lock not held. The queue path then walks the object
+array and calls dma_resv_add_fence(), which requires the lock held;
+with lockdep enabled this trips dma_resv_assert_held():
 
-Key changes:
-- Add high counter configuration to dmem_cgroup_pool.
-- Add over-high check in the try_charge path and set TIF_NOTIFY_RESUME.
-- Inject the dmem throttling handler into resume_user_mode_work.
-- Implement the handler to perform a 100ms interruptible sleep for
-  over-limit tasks.
+  WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
+  Call Trace:
+   virtio_gpu_array_add_fence
+   virtio_gpu_queue_ctrl_sgs
+   virtio_gpu_queue_fenced_ctrl_buffer
+   virtio_gpu_cursor_plane_update
+   drm_atomic_helper_commit_planes
+   drm_atomic_helper_commit_tail
+   commit_tail
+   drm_atomic_helper_commit
+   drm_atomic_commit
+   drm_atomic_helper_update_plane
+   __setplane_atomic
+   drm_mode_cursor_universal
+   drm_mode_cursor_common
+   drm_mode_cursor_ioctl
+   drm_ioctl
+   __x64_sys_ioctl
 
-This mechanism provides smoother over-subscription support for device
-memory resources.
+Beyond the WARN, mutating the dma_resv fence list without the lock
+races with concurrent readers/writers and can corrupt the list.
 
-Signed-off-by: Qiliang Yuan <realwujing@gmail.com>
+Both call sites run inside the .atomic_update plane callback, which
+DRM atomic helpers do not allow to fail (by the time it runs, the
+commit has been signed off to userspace and there is no clean
+rollback path). Moving the lock acquisition to .prepare_fb was
+rejected because the broader lock scope deadlocks against other BO
+locking paths in the same atomic commit.
+
+Introduce virtio_gpu_lock_one_resv_uninterruptible() that uses
+dma_resv_lock() instead of dma_resv_lock_interruptible(). This
+eliminates the -EINTR failure mode -- the realistic syzbot trigger
+-- without extending the lock hold across the commit. The helper
+locks a single BO and rejects nents > 1 with -EINVAL; both fix
+sites lock exactly one BO.
+
+Use it from virtio_gpu_cursor_plane_update() and
+virtio_gpu_resource_flush(); check the return value to handle the
+remaining -ENOMEM case from dma_resv_reserve_fences() by freeing
+the objs and skipping the plane update for that frame. The
+framebuffer BOs touched here are not shared with other contexts
+and lock contention is expected to be brief, so the loss of
+signal-interruptibility is acceptable.
+
+Other callers of virtio_gpu_array_lock_resv() (the ioctl paths)
+continue to use the interruptible variant.
+
+The bug was reported by syzbot, triggered via fault injection
+(fail_nth) on the DRM_IOCTL_MODE_CURSOR path, which forces the
+-ENOMEM branch in dma_resv_reserve_fences().
+
+Reported-by: syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=72bd3dd3a5d5f39a0271
+Fixes: 5cfd31c5b3a3 ("drm/virtio: fix virtio_gpu_cursor_plane_update().")
+Cc: stable@vger.kernel.org
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 ---
-This series introduces the "high" soft limit and associated task
-throttling mechanism to the dmem cgroup v2 controller.
-
-The device memory (VRAM) management currently only supports hard limits
-(max), which leads to immediate allocation failures when reached. This
-can be disruptive for GPU-bound AI workloads. By introducing a soft
-limit, we allow cgroups to exceed their quota temporarily while
-applying backpressure via task throttling before the process returns
-to user space.
-
-The mechanism is inspired by the memory cgroup's high limit:
-- When usage > high, the task is marked with TIF_NOTIFY_RESUME.
-- Upon returning to user space, it triggers a 100ms sleep.
-- This provides a smoother over-subscription model for GPU resources.
-
-Qiliang Yuan (1):
-
-cgroup/dmem: implement dmem.high soft limit and throttling
+v4: Rename the helper to virtio_gpu_lock_one_resv_uninterruptible()
+    and reject objs->nents > 1 with -EINVAL. The v3 helper's
+    multi-object branch used drm_gem_lock_reservations(), which is
+    interruptible, contradicting the "uninterruptible" name; both
+    fix sites lock a single BO so the multi-object path is dropped.
+    (Dmitry Osipenko)
+v3: Drop the prepare_fb/cleanup_fb approach from v2 (it deadlocked
+    against virtio_gpu_resource_flush(), which also locks the BO in
+    the same atomic commit). Instead add an uninterruptible variant
+    of the resv lock helper and use it in both
+    virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush().
+    (Dmitry Osipenko)
+v2: Move resv lock acquisition from .atomic_update (which must not
+    fail) to .prepare_fb (which may), per maintainer review of v1.
+    The v1 approach of silently skipping the cursor update on lock
+    failure violated the atomic-commit contract with userspace.
 ---
-To: Maarten Lankhorst <dev@lankhorst.se>
-To: Maxime Ripard <mripard@kernel.org>
-To: Natalie Vock <natalie.vock@gmx.de>
-To: Tejun Heo <tj@kernel.org>
-To: Johannes Weiner <hannes@cmpxchg.org>
-To: Michal Koutný <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- include/linux/cgroup_dmem.h      | 10 +++++++
- include/linux/resume_user_mode.h |  2 ++
- kernel/cgroup/dmem.c             | 60 +++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 71 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/virtio/virtgpu_drv.h   |  1 +
+ drivers/gpu/drm/virtio/virtgpu_gem.c   | 17 +++++++++++++++++
+ drivers/gpu/drm/virtio/virtgpu_plane.c | 10 ++++++++--
+ 3 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-index dd4869f1d736e..d58972de7c910 100644
---- a/include/linux/cgroup_dmem.h
-+++ b/include/linux/cgroup_dmem.h
-@@ -21,6 +21,13 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
- 			   struct dmem_cgroup_pool_state **ret_pool,
- 			   struct dmem_cgroup_pool_state **ret_limit_pool);
- void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size);
-+void __dmem_cgroup_handle_over_high(void);
-+
-+static inline void dmem_cgroup_handle_over_high(void)
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index f17660a71a3e..2f3531950aa4 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -317,6 +317,7 @@ virtio_gpu_array_from_handles(struct drm_file *drm_file, u32 *handles, u32 nents
+ void virtio_gpu_array_add_obj(struct virtio_gpu_object_array *objs,
+ 			      struct drm_gem_object *obj);
+ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs);
++int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs);
+ void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs);
+ void virtio_gpu_array_add_fence(struct virtio_gpu_object_array *objs,
+ 				struct dma_fence *fence);
+diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+index f22dc5c21cd4..435d37d36034 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_gem.c
++++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+@@ -238,6 +238,23 @@ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs)
+ 	return ret;
+ }
+ 
++int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs)
 +{
-+	__dmem_cgroup_handle_over_high();
-+}
++	int ret;
 +
- bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
- 				      struct dmem_cgroup_pool_state *test_pool,
- 				      bool ignore_low, bool *ret_hit_low);
-@@ -51,6 +58,9 @@ static inline int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64
- static inline void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size)
- { }
- 
-+static inline void dmem_cgroup_handle_over_high(void)
-+{ }
++	if (objs->nents != 1)
++		return -EINVAL;
 +
- static inline
- bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
- 				      struct dmem_cgroup_pool_state *test_pool,
-diff --git a/include/linux/resume_user_mode.h b/include/linux/resume_user_mode.h
-index bf92227c78d0d..afcab20998c41 100644
---- a/include/linux/resume_user_mode.h
-+++ b/include/linux/resume_user_mode.h
-@@ -8,6 +8,7 @@
- #include <linux/memcontrol.h>
- #include <linux/rseq.h>
- #include <linux/blk-cgroup.h>
-+#include <linux/cgroup_dmem.h>
- 
- /**
-  * set_notify_resume - cause resume_user_mode_work() to be called
-@@ -58,6 +59,7 @@ static inline void resume_user_mode_work(struct pt_regs *regs)
- 
- 	mem_cgroup_handle_over_high(GFP_KERNEL);
- 	blkcg_maybe_throttle_current();
-+	dmem_cgroup_handle_over_high();
- 
- 	rseq_handle_slowpath(regs);
- }
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 4753a67d0f0f2..f77c692b887b1 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -15,6 +15,7 @@
- #include <linux/page_counter.h>
- #include <linux/parser.h>
- #include <linux/refcount.h>
-+#include <linux/resume_user_mode.h>
- #include <linux/rculist.h>
- #include <linux/slab.h>
- 
-@@ -156,6 +157,12 @@ set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
- 	page_counter_set_low(&pool->cnt, val);
- }
- 
-+static void
-+set_resource_high(struct dmem_cgroup_pool_state *pool, u64 val)
-+{
-+	page_counter_set_high(&pool->cnt, val);
-+}
++	dma_resv_lock(objs->objs[0]->resv, NULL);
 +
- static void
- set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
- {
-@@ -167,6 +174,11 @@ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
- 	return pool ? READ_ONCE(pool->cnt.low) : 0;
- }
- 
-+static u64 get_resource_high(struct dmem_cgroup_pool_state *pool)
-+{
-+	return pool ? READ_ONCE(pool->cnt.high) : 0;
-+}
-+
- static u64 get_resource_min(struct dmem_cgroup_pool_state *pool)
- {
- 	return pool ? READ_ONCE(pool->cnt.min) : 0;
-@@ -186,6 +198,7 @@ static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
- {
- 	set_resource_min(rpool, 0);
- 	set_resource_low(rpool, 0);
-+	set_resource_high(rpool, PAGE_COUNTER_MAX);
- 	set_resource_max(rpool, PAGE_COUNTER_MAX);
- }
- 
-@@ -685,6 +698,9 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
- 		goto err;
- 	}
- 
-+	if (page_counter_read(&pool->cnt) > READ_ONCE(pool->cnt.high))
-+		set_notify_resume(current);
-+
- 	/* On success, reference from get_current_dmemcs is transferred to *ret_pool */
- 	*ret_pool = pool;
- 	return 0;
-@@ -835,13 +851,24 @@ static ssize_t dmem_cgroup_region_low_write(struct kernfs_open_file *of,
- 	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_low);
- }
- 
-+static int dmem_cgroup_region_high_show(struct seq_file *sf, void *v)
-+{
-+	return dmemcg_limit_show(sf, v, get_resource_high);
-+}
-+
-+static ssize_t dmem_cgroup_region_high_write(struct kernfs_open_file *of,
-+					  char *buf, size_t nbytes, loff_t off)
-+{
-+	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_high);
-+}
-+
- static int dmem_cgroup_region_max_show(struct seq_file *sf, void *v)
- {
- 	return dmemcg_limit_show(sf, v, get_resource_max);
- }
- 
- static ssize_t dmem_cgroup_region_max_write(struct kernfs_open_file *of,
--				      char *buf, size_t nbytes, loff_t off)
-+					  char *buf, size_t nbytes, loff_t off)
- {
- 	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_max);
- }
-@@ -868,6 +895,12 @@ static struct cftype files[] = {
- 		.seq_show = dmem_cgroup_region_low_show,
- 		.flags = CFTYPE_NOT_ON_ROOT,
- 	},
-+	{
-+		.name = "high",
-+		.write = dmem_cgroup_region_high_write,
-+		.seq_show = dmem_cgroup_region_high_show,
-+		.flags = CFTYPE_NOT_ON_ROOT,
-+	},
- 	{
- 		.name = "max",
- 		.write = dmem_cgroup_region_max_write,
-@@ -877,6 +910,31 @@ static struct cftype files[] = {
- 	{ } /* Zero entry terminates. */
- };
- 
-+void __dmem_cgroup_handle_over_high(void)
-+{
-+	struct dmemcg_state *dmemcs;
-+	struct dmem_cgroup_pool_state *pool;
-+
-+	dmemcs = css_to_dmemcs(task_get_css(current, dmem_cgrp_id));
-+	if (!dmemcs)
-+		return;
-+
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(pool, &dmemcs->pools, css_node) {
-+		unsigned long usage, high;
-+
-+		usage = page_counter_read(&pool->cnt);
-+		high = READ_ONCE(pool->cnt.high);
-+
-+		if (usage > high)
-+			schedule_timeout_killable(HZ / 10);
++	ret = dma_resv_reserve_fences(objs->objs[0]->resv, 1);
++	if (ret) {
++		virtio_gpu_array_unlock_resv(objs);
++		return ret;
 +	}
-+	rcu_read_unlock();
-+
-+	css_put(&dmemcs->css);
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(__dmem_cgroup_handle_over_high);
 +
- struct cgroup_subsys dmem_cgrp_subsys = {
- 	.css_alloc	= dmemcs_alloc,
- 	.css_free	= dmemcs_free,
-
----
-base-commit: ab5fce87a778cb780a05984a2ca448f2b41aafbf
-change-id: 20260519-feature-dmem-high-16997148dc38
-
-Best regards,
+ void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs)
+ {
+ 	if (objs->nents == 1) {
+diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+index a126d1b25f46..652352424744 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_plane.c
++++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+@@ -215,7 +215,10 @@ static void virtio_gpu_resource_flush(struct drm_plane *plane,
+ 		if (!objs)
+ 			return;
+ 		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+-		virtio_gpu_array_lock_resv(objs);
++		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
++			virtio_gpu_array_put_free(objs);
++			return;
++		}
+ 		virtio_gpu_cmd_resource_flush(vgdev, bo->hw_res_handle, x, y,
+ 					      width, height, objs,
+ 					      vgplane_st->fence);
+@@ -459,7 +462,10 @@ static void virtio_gpu_cursor_plane_update(struct drm_plane *plane,
+ 		if (!objs)
+ 			return;
+ 		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+-		virtio_gpu_array_lock_resv(objs);
++		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
++			virtio_gpu_array_put_free(objs);
++			return;
++		}
+ 		virtio_gpu_cmd_transfer_to_host_2d
+ 			(vgdev, 0,
+ 			 plane->state->crtc_w,
 -- 
-Qiliang Yuan <realwujing@gmail.com>
+2.43.0
 
