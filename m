@@ -4,101 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE67ECD4F5E
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:00:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2409DCD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:01:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F57D10ECFE;
-	Tue, 19 May 2026 16:00:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9098810E3D6;
+	Tue, 19 May 2026 16:01:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="HGTwsbgu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A/apEJ2Q";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8964410ECFE
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:00:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779206436;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lxAuh/+LJ+cDVuOYgE+wIRcTwCiP9gqh5qSpye35R00=;
- b=HGTwsbguor4WkEnlLMfbkkPdkKv/AsHFhJutainvFAR6CPxvfb0r6l2m9XIzPVMtcaHkjL
- 52SgFEE4HOzcIRP6qDW3CLDBT22DAZBKvuaEeZay8RiFSSCQ6eoTWGxCz2flIGaY6pUo1m
- HIsZILFztz1Xa3ZlMY1ByRB901p52ew=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-411-t7hVlLAeMvmMGUHnngnVvA-1; Tue, 19 May 2026 12:00:35 -0400
-X-MC-Unique: t7hVlLAeMvmMGUHnngnVvA-1
-X-Mimecast-MFC-AGG-ID: t7hVlLAeMvmMGUHnngnVvA_1779206435
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-8b49260e3d5so19948976d6.2
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:00:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779206435; x=1779811235;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=lxAuh/+LJ+cDVuOYgE+wIRcTwCiP9gqh5qSpye35R00=;
- b=guks5UjaFx1J/Ut66M4UXcaavN1F829SexLRj2TpZasUG31JhuMaZQOPOBPWtCirR9
- bYs0FDMkM+7HceIx6VcLSBdDky/OR0iet0/lV1o04JurqWthALzwDOhuV2nf3I5IEOp2
- 6UwGdyvW1I0HkW7BYBxpwmHNwxelLdRyqIYlh77Eu4v08xFEduGv5Vov+0waM+cF11aK
- isp4w+4HXA+SYbYXGaJAf4u3RUcAVrPyBnRat4pvnmEES4ENbPdaL1Qb+J9+xwad1JUu
- cT82Rmc/vwSsqXWt3PSYdD6G7OyzP07wOV2fygSVTzQ984YSvNThVda6bmoKU0n/5bXX
- IyYQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8Es2Aryw6mhWJDVUtNbrng070IOdkbfbb0/HzljFyRULRO0mM9ZHjBclTr8LdFvTvnZq3gUnHVFpE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwW9PDBst2rvhQ87eZTlbOdyKj6yUXjLVHnBDm2yKeLYUesn/hG
- TcvTHiqCcpyzkf4lrMBZ7fWZLmypUxdjNS94HWXdFVMSlz1zXgkkaeLSuJ1PIsrV4nMrrZHGcjx
- dHEx1aCe8sitnJmWjdMxReSBQf9Fqc0JD8bwYuaJ8tjhcg49QBc0EEa8i3WIMPC784IzXEQ==
-X-Gm-Gg: Acq92OGHwYyeKPRhRbUd/JiK/ElkPmPoKMAMKRZSovhCGVDicBH8KjtCuNGkTSn8IgS
- H0n1Pn5elInPL587jNScHSJgjcEddgu2UEaZcgifIRco5Tu0aAFb5nizwjWfOt3NmkyNP1qLmV0
- pFzjZGKZ9nSfsuooqdo8CkDwB05koD2w3bW3BYuUOi5dc3C5ZRJpVt4z9daPHWmpjNp1YHvmp53
- rUM7budsUsphXifNqb1FQkQR5BW/xicNRuo6JWnQk0PrcdxIWHHjFC3vDIAdEkQ5ldc9Th9tO4P
- 4AK9AqBJt4H/ZDMTBZ+Xk7/EqGchPXbexErh30ksy56Tyr5QofrG2fCAwLxerfwtAcGrokOovD7
- siFmeRpalQrKWbIXRoYDdxLtLUiIn01uHdT+KkCurf/xWU0ytd5CUPPvQi/Va0A72N6OgVwGX8u
- vP
-X-Received: by 2002:a0c:ea52:0:b0:8c9:c38a:20e1 with SMTP id
- 6a1803df08f44-8ca0f5ab3bemr240747516d6.10.1779206434547; 
- Tue, 19 May 2026 09:00:34 -0700 (PDT)
-X-Received: by 2002:a0c:ea52:0:b0:8c9:c38a:20e1 with SMTP id
- 6a1803df08f44-8ca0f5ab3bemr240746326d6.10.1779206433782; 
- Tue, 19 May 2026 09:00:33 -0700 (PDT)
-Received: from localhost (pool-100-17-21-205.bstnma.fios.verizon.net.
- [100.17.21.205]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ca36095326sm95016266d6.14.2026.05.19.09.00.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 09:00:33 -0700 (PDT)
-From: Eric Chanudet <echanude@redhat.com>
-Date: Tue, 19 May 2026 11:59:02 -0400
-Subject: [PATCH v2 2/2] cgroup/dmem: add dmem.memcg control file for
- double-charging to memcg
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011009.outbound.protection.outlook.com [40.107.208.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C47D410E3D6;
+ Tue, 19 May 2026 16:01:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iS9S8ia92Ce/udbv2pAgh+YFUkLBoZ8ZmmkM17s5+a4CKx8JfilAj1vDHt3GOD1BdVNWc1BolV3gl6fhN1asXvdz/ttTo28s4CzWLctP5+6SWPd2BdeIvPkGZQV4qkzY69v2UDyuMBL7rnjH/EuXlsPULasU5M/eEL0owxfwsghZvYBFoGMFCaY+qFG+WwPATeieF1+a9umVc87r7/rzTyq8UHmhZygyRHK2LoNAU4ZYECXS79vtZarVeLJif2AUqKSoCxAtBlO/O5TAkdLH5vyv18nFpjT9KIiYvYjkD5v7HdY2oXhnxGSHllR3tGK3N76VC/z0Yfuw3hLKTzbfew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yJBAZMonto8kFM+S2DQQvr9Q5kCNnJ/IZCt8qwLLwLk=;
+ b=KWNGZSHbM9q7POwxZMn/ZXKf5KUsAWfZUUeCN07XOpLQimyy4FzcKc6cMw2jRVpCgdZzIRP+Mu/V3FiZtnC/gpulFEFRnIhWAjAJYCPEj6aL5hQxFAadFZvjEV+LWHti5Ib10yDBMEVpXJWFVX99lD4xTMD/bR8Bs8qoiOE+PYT5N6EIcVH9NmIOiIW9Ol7DyxiFPNZaSHraFPgPmH1oyRtZNgwRMrIXrHh/EwYJ5P9LqoUP7VysiZmyTCdfqTTpJr4AS5Lu2OCttQ/jy/WxOEUVVIL4L8hQZ7tcncAz4GoplSuiRevM6jOwJieGUdLiRBaU3B1Fja/YQmJqnnUhvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yJBAZMonto8kFM+S2DQQvr9Q5kCNnJ/IZCt8qwLLwLk=;
+ b=A/apEJ2QkcaqwKAZrGgPbjWS+3p5IlZfubJGRU5gfu0fYXjhpRefPhajPyMML2aEpXG4ETePEVCdKn+mRg9PnYLHM/yZXgukadWzG/8I1UeqYIO665BsTLbSmrTu+J+TpV4+i3EM6cDqrpQqP5YnRldeBBEXywfoD559albXPxs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA1PR12MB9529.namprd12.prod.outlook.com (2603:10b6:208:592::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.19; Tue, 19 May
+ 2026 16:01:04 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Tue, 19 May 2026
+ 16:01:04 +0000
+Message-ID: <dff60378-4e47-4753-8878-feec6e1c2690@amd.com>
+Date: Tue, 19 May 2026 18:00:57 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
+To: Xaver Hugl <xaver.hugl@kde.org>
+Cc: Julian Orth <ju.orth@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
+ <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
+ <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
+ <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
+ <CAHijbEWqc2+kSkk3i_LxB2PQ6XwUetw1UkdUdXJfdv3zgKd1kA@mail.gmail.com>
+ <38551bfe-75e1-4978-b57d-adc43cebc85e@amd.com>
+ <CAHijbEWHp960qvZFoK7+9ppHAqkAR7=UQhtMUccqWzGd_pFPQA@mail.gmail.com>
+ <5ee6d5af-ac48-41d7-a19f-e08a3c5b7d19@amd.com>
+ <CAFZQkGwmeipZnvmBkcE7KhvUSMkSE=fzLBZtiMyhv3mM04Vudg@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CAFZQkGwmeipZnvmBkcE7KhvUSMkSE=fzLBZtiMyhv3mM04Vudg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0268.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e8::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Message-Id: <20260519-cgroup-dmem-memcg-double-charge-v2-2-db4d1407062b@redhat.com>
-References: <20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com>
-In-Reply-To: <20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com>
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
- Natalie Vock <natalie.vock@gmx.de>, Tejun Heo <tj@kernel.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: cgroups@vger.kernel.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- "T.J. Mercier" <tjmercier@google.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Maxime Ripard <mripard@redhat.com>, Albert Esteve <aesteve@redhat.com>, 
- Dave Airlie <airlied@gmail.com>, linux-doc@vger.kernel.org, 
- Eric Chanudet <echanude@redhat.com>
-X-Mailer: b4 0.14.2
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: hAcqbAwueWQMY_kz-n3MMw1zotRb0Jm3otuY9lohRMU_1779206435
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB9529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 237c7ba7-b248-4dc6-7eba-08deb5bfd437
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|22082099003|56012099003|18002099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: ZOAjKR5rYMflddddzYJ9bdsebehaBLqcfOYfkzxzarKJ5yr8ppEH7cuMfY9PHMEeyigrzdatr3Pfin1jxDpbyO8rgUGU8OT1crCB8MF9EDm5S/dRwdRnTTebxUrjykrhL34gTk6JXpK8+teCEFVHPx3ECFp7Rdkllnfcfd740+SMMI6WyhKVbKY/6IZzi7WfCVVaigM5VPYzpeNqLFB5C2VKr668NJltH2rtivl2uZbNIDpPdo4BRTqGifF1ZOFk2uRWyHdfdY6Oru5mIVhldy+jY7dG7+pS+yFTu1wI1SvjRhbyQPx5DMxPE5ZbeqZJv8onsAWC9FeZMotU1hTC+B/K69vZtpPYABVs0rPMwOasJLKTXYDNrhdY5JsTGgbTQswdJhGbLvyKadEbeP2c0cBuhoEhFq2EZ0xiap65tEcWArYQhZi2hYPNMM/jXDEJbmADRwiSEfsPzE7yxDgZO+5h6O6azpdNSdsF5GOK0TTNkrobojr0uZ3jGx06dKA62Mdt15fxYDwlMFELtsJaW7Y5b6GxStV514qGbM+4McMPGexcmZ9aRToqkDlLbQjQLtgI48K/9srTSbMpB4AqZddEuzDh+r2RfSJfhNpv41xlIjbU9Yp/ZMFKQEIJmcfgT5UC6Qq/8MO8AUZyID1OU+30fAlaFWnRVIT6g7E4gx+g2GZC5PzcTjLlWKk8pI62
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(22082099003)(56012099003)(18002099003)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QldpbGMzVk1tMTJCQkxseGdneE5sb1dHNVlWem9ZTk92Wk9IaXdhL2p5a2ox?=
+ =?utf-8?B?T293d0ZYZVpQNTFIdDhlQndlMzNYZHNZcnhXeHhBSFpUZkMrRG53Qk1Hd1Vm?=
+ =?utf-8?B?ZG8rS3N0TGVsTXcyVVpXUm9KeWhjRWE5ajBLT2ZWQUl4OFZGVG1nSWx5WE9G?=
+ =?utf-8?B?ak4wcDJuUFBzNmhITUszS01jWEZZTDl6SWZVcVg2Y0laTnhka2NrQ0JEd1Fh?=
+ =?utf-8?B?dGNwVGxxdk94YVQra3p2SUZLeW5YV252WHREc0NDU2RsREJVaWZGSzBicVJz?=
+ =?utf-8?B?cm5KaWkxUEhYQ2c2NHRIN1Eyb3hsQXhsTHo2blFzeVBLc1BaOXBlMEhtcmV4?=
+ =?utf-8?B?b3p4Ym9SY1JJK3JDYURSYzY2ZkFIeDF4akZ5ekhXN1dQV20xN2M5VFBnZW9Q?=
+ =?utf-8?B?TitzOEIydFg3OWN2dFFSeE11QzJBU0dQYlJtNHFQZ3hNbDFMTlhqdUhOMkRt?=
+ =?utf-8?B?TmFvRG5KMnk5V1pBU3VWdkRCdlM2RUtHM0RRcWs4a3hxWlpjUEpUSnZ2TC9t?=
+ =?utf-8?B?bHkzZHJxM1E3N1BkNzNWdlA2bzRweW4rdTFmemhnZ0NuOWh6Ymk5WXBiSUph?=
+ =?utf-8?B?ZE13Ukk0Q0g2UUxyaHVzTUtGSW1zUG9hUG1BVGR3MS8weTlwOHhSZG5tZE9Z?=
+ =?utf-8?B?ZEV4M2V4NzdTOFdFSVRWZENqRDNicm8zWnFrcDhmRUxuSThuUmhrdzQ3a1hh?=
+ =?utf-8?B?NDJmd25vaWg1c3ZSTit2Vmc3REwzSkIrK0JpSS9jV2Z1dm1TOWNpTERWbldG?=
+ =?utf-8?B?WGpkNmFIV21kRjVGYVdGcjJUVmxNbWlDK3ZvOFZGK2NDeWlVN2hONFhVTG1X?=
+ =?utf-8?B?Mm13TG9QWEo4UE4zbWVjalRLUXR6akkweG9OMWZralBOL1lKclRyamkxOW1q?=
+ =?utf-8?B?aFhHMHVZRlAwYWM0SnpoZnMzZVY0Y1NFa0xIcGU1MTNKOUoxb0RTTDZZRVVn?=
+ =?utf-8?B?Yk9zWFJiNmRMamFrY2FxZitjTWVSOXBFTWZ2Y2pBZ2pTaTJXWmUrTjJCZ1pp?=
+ =?utf-8?B?NERQNjNpdG9TKzk4Z3pXZmRkUlM1OWVaUEp6R1lYNXoyVVRKUEJjSkl4TzIy?=
+ =?utf-8?B?bUdzelh5RXcxTm04TWU1T3NiNTFoNEQ3NWZRUlFnc0hKM3g3ekpiYytzZE16?=
+ =?utf-8?B?YWl0R09BbDMvdlJXaFZBKzFRZXJoVkswNlpNOTY1dnB0NzBDTllPWkhoQTl6?=
+ =?utf-8?B?WEtCQTRPdEZIY29sQTBlYTJqZlpmbUZVcVN4MFdFZ2NCMGZoR29aVThxY1lS?=
+ =?utf-8?B?Tm9TQmhRMGZJa1gvNG9RSzJBVWxCcUpMLzhPOWxrWHoxeEo5M3RtWjZlei9y?=
+ =?utf-8?B?R2E0WDJlVXNOOTZXMi9hcHIvMXkxZWJVbUxPWjhjYlBCWmZlL1lYb2JpaTZo?=
+ =?utf-8?B?NXRxTDRtRFhuNUdpbERRb2E3Q1d1RFB4TCtlOXZWWG9SaXJ0c2VmalZRSm1K?=
+ =?utf-8?B?UUlFSE54V29hbU9qOS9sQWFQbWpCK09rWXVFQUVLUWpKeUtSSzhudWtSWkcv?=
+ =?utf-8?B?NENtajBhaGNJQkR5RVRyZEJaTEgxNXNORmZrbkM0d1FyTlZtaldKZHNselJn?=
+ =?utf-8?B?K1ZsRXV3amdGbys4UjIzZHZGUzN5UklDelZzbjkwUnRhdzA3YkE1MkRaeStn?=
+ =?utf-8?B?KzBqSjJLMnNMUWZOTmpSVzR5blptR1V0QW90dFNmNDdLTnQ1Qm9LSzcxcGMy?=
+ =?utf-8?B?TFVKTVYvckJpbU5kS3dPVGViZXF0azRjWUdBeEdxTWkzTVhoRGxUY0FPTzlS?=
+ =?utf-8?B?SEZ5VVcycXI1OHc3NXpQU1o3TEF0MnJoUWxmdjJ2R1JoalZWYWdaSE5mYjN6?=
+ =?utf-8?B?dVI4Uk8wcUwreWVnZktuVDN3aVJwSzU1NHN2UDhUM2hyVldNTFZpa0lqNll6?=
+ =?utf-8?B?alN5b3ZwMDd2ZXIvQ3h0YzVHMVk4RVhMUzdPUXAxcmRvcjQ0K3IwUlVBY1o5?=
+ =?utf-8?B?bHhrNmMwSWhabU1sUlFldjl1QU96Y0dzUFhSOVhGRVpiNnp0cWkwMm9SYzA4?=
+ =?utf-8?B?SE5SK2Y3cnRGYm1qbWRJZ3BvS3lZTUtaSkJnMnpQYWJEczVmbzhWN2xaT2J5?=
+ =?utf-8?B?bkhGT1ZxOTMzM1FBWG9XbCtHUlY5VHN1cjVqZ3BMTlk4QksxTUM2dmFiYW1L?=
+ =?utf-8?B?aWRDSmJ3WGREUTlBWlNWUExuRm5aMWhUcGZTeUVvYmpHQU9xNlkxa3REUEsr?=
+ =?utf-8?B?dHpFRitKRlgySHFsM25ka0tvSEw3YkpXcFhhZTJra3E3SjNHTU1GZElhMHdq?=
+ =?utf-8?B?eHlYR1BZSHpZbDNidU5HWGVzZVc2UVRFNGFKL3hPZ0hQOXl1dDVkY1plcm8v?=
+ =?utf-8?Q?Z/YG7ESBqYwUe3wcc4?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 237c7ba7-b248-4dc6-7eba-08deb5bfd437
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 16:01:04.2813 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /MCQR0oYk7unyi/NOgZJRZlkqp62PzzOK39PJzrB7+4w0ZR+bvVqN7bw9lIpGu8A
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9529
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,298 +152,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a root-only cgroupfs file "dmem.memcg" that lets an administrator
-configure whether allocations in a dmem region should also be charged to
-the memory controller.
+On 5/19/26 17:31, Xaver Hugl wrote:
+> Am Di., 19. Mai 2026 um 15:29 Uhr schrieb Christian König
+> <christian.koenig@amd.com>:
+>>> 1. This series makes the ability to manipulate syncobjs available
+>>> independently of attached hardware.
+>>> 2. It makes it available under a consistent path /dev/syncobj.
+>>
+>> Exactly that is a big no-go. This has to be under /dev/dri.
+> FWIW udmabuf is also under /dev directly, but I don't think any
+> compositor developer would complain about a different path.
+> What are the rules for that? Could this simply be put in /dev/dri/syncobj?
 
-To handle inheritance, dmem adds a depends_on the memory controller,
-unless MEMCG isn't configured in.
+The syncobj are actually the DRM specific way of doing things. The general kernel wide way is to use sync files (see drivers/dma-buf/sync_file.c).
 
-Double-charging is disabled by default. Once a charge is attempted, the
-setting is locked to prevent inconsistent accounting by a small 4-state
-machine (off, on, locked off, locked on).
+But there has already been tons of problems with those sync files. E.g. they doesn't support your use case at all since they don't have wait before submit behavior.
 
-The memcg to charge is derived from the pool's cgroup, since the pool
-holds a reference to the dmem cgroup state that keeps the cgroup alive
-until it gets uncharged.
+So there are already ways to do this, but the Linux kernel so far told everybody that this is forbidden. The DRM syncobj wait before signal functionality is much better, but then basically the second try to do this.
 
-Signed-off-by: Eric Chanudet <echanude@redhat.com>
----
- Documentation/admin-guide/cgroup-v2.rst |  23 +++++
- kernel/cgroup/dmem.c                    | 158 +++++++++++++++++++++++++++++++-
- 2 files changed, 178 insertions(+), 3 deletions(-)
+> The part where we get this independent of attached hardware is quite
+> important for us though, since we can't just ignore explicit sync once
+> the device we previously imported the syncobj into is disconnected.
 
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 6efd0095ed995b1550317662bc1b56c7a7f3db23..1d2fa55ddf0faa17baa916a8914d3033e8e42359 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2828,6 +2828,29 @@ DMEM Interface Files
- 	  drm/0000:03:00.0/vram0 12550144
- 	  drm/0000:03:00.0/stolen 8650752
- 
-+  dmem.memcg
-+	A readwrite nested-keyed file that exists only on the root
-+	cgroup. It configures whether allocations in a dmem region
-+	should also be charged to the memory controller.
-+
-+	Upon the first charge to a region, its setting can no longer be changed
-+	and is reported as "[true|false] (locked)".
-+
-+	Charges to the memory controller are visible in ``memory.stat`` as the
-+	``dmem`` entry, reported in bytes.
-+
-+	An example read output follows::
-+
-+	  drm/0000:03:00.0/vram0 false
-+	  drm/0000:03:00.0/stolen false (locked)
-+
-+	Writing uses the same nested-keyed format::
-+
-+	  echo "drm/0000:03:00.0/vram0 true" > dmem.memcg
-+
-+	This file is only available when the kernel is built with
-+	``CONFIG_MEMCG``.
-+
- HugeTLB
- -------
- 
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 1ab1fb47f2711ecc60dd13e611a8a4920b48f3e9..e07b20b8025c528f190f84c76b088cb8a32a7f5e 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -17,6 +17,14 @@
- #include <linux/refcount.h>
- #include <linux/rculist.h>
- #include <linux/slab.h>
-+#include <linux/memcontrol.h>
-+
-+enum dmem_memcg_status {
-+	DMEM_MEMCG_OFF,
-+	DMEM_MEMCG_ON,
-+	DMEM_MEMCG_LOCKED_OFF,
-+	DMEM_MEMCG_LOCKED_ON,
-+};
- 
- struct dmem_cgroup_region {
- 	/**
-@@ -51,6 +59,14 @@ struct dmem_cgroup_region {
- 	 * No new pools should be added to the region afterwards.
- 	 */
- 	bool unregistered;
-+
-+	/**
-+	 * @memcg_status: Whether allocation in this region should charge memcg.
-+	 * DMEM_MEMCG_OFF/DMEM_MEMCG_ON or
-+	 * DMEM_MEMCG_LOCKED_OFF/DMEM_MEMCG_LOCKED_ON, frozen after first allocation.
-+	 * Transitions to a locked state are one-way.
-+	 */
-+	atomic_t memcg_status;
- };
- 
- struct dmemcg_state {
-@@ -609,6 +625,34 @@ get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
- 	return pool;
- }
- 
-+static bool apply_memcg_charge(atomic_t *status)
-+{
-+	int state = atomic_read(status);
-+
-+	for (;;) {
-+		switch (state) {
-+		case DMEM_MEMCG_OFF:
-+			state = atomic_cmpxchg(status, DMEM_MEMCG_OFF,
-+					       DMEM_MEMCG_LOCKED_OFF);
-+			if (state != DMEM_MEMCG_OFF)
-+				continue;
-+			return false;
-+		case DMEM_MEMCG_LOCKED_OFF:
-+			return false;
-+		case DMEM_MEMCG_ON:
-+			state = atomic_cmpxchg(status, DMEM_MEMCG_ON,
-+					       DMEM_MEMCG_LOCKED_ON);
-+			if (state != DMEM_MEMCG_ON)
-+				continue;
-+			return true;
-+		case DMEM_MEMCG_LOCKED_ON:
-+			return true;
-+		}
-+		WARN_ONCE(1, "Invalid memcg_status (%#x).\n", state);
-+		return false;
-+	}
-+}
-+
- /**
-  * dmem_cgroup_uncharge() - Uncharge a pool.
-  * @pool: Pool to uncharge.
-@@ -624,6 +668,12 @@ void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size)
- 		return;
- 
- 	page_counter_uncharge(&pool->cnt, size);
-+
-+	if (atomic_read(&pool->region->memcg_status) == DMEM_MEMCG_LOCKED_ON &&
-+	    !WARN_ON_ONCE(size > (u64)UINT_MAX << PAGE_SHIFT))
-+		mem_cgroup_dmem_uncharge(pool->cs->css.cgroup,
-+					 PAGE_ALIGN(size) >> PAGE_SHIFT);
-+
- 	css_put(&pool->cs->css);
- 	dmemcg_pool_put(pool);
- }
-@@ -655,6 +705,8 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
- 	struct dmemcg_state *cg;
- 	struct dmem_cgroup_pool_state *pool;
- 	struct page_counter *fail;
-+	unsigned long nr_pages = PAGE_ALIGN(size) >> PAGE_SHIFT;
-+	bool charge_memcg;
- 	int ret;
- 
- 	*ret_pool = NULL;
-@@ -670,7 +722,28 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
- 	pool = get_cg_pool_unlocked(cg, region);
- 	if (IS_ERR(pool)) {
- 		ret = PTR_ERR(pool);
--		goto err;
-+		goto err_css_put;
-+	}
-+
-+	charge_memcg = apply_memcg_charge(&region->memcg_status);
-+	if (charge_memcg) {
-+		/* mem_cgroup_dmem_charge limitation from try_charge_memcg */
-+		if (size > (u64)UINT_MAX << PAGE_SHIFT) {
-+			ret = -EINVAL;
-+			dmemcg_pool_put(pool);
-+			goto err_css_put;
-+		}
-+
-+		if (!mem_cgroup_dmem_charge(pool->cs->css.cgroup, nr_pages,
-+					    GFP_KERNEL)) {
-+			/*
-+			 * No dmem_cgroup_state_evict_valuable() could help,
-+			 * there's no ret_limit_pool to return.
-+			 */
-+			ret = -ENOMEM;
-+			dmemcg_pool_put(pool);
-+			goto err_css_put;
-+		}
- 	}
- 
- 	if (!page_counter_try_charge(&pool->cnt, size, &fail)) {
-@@ -681,14 +754,17 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
- 		}
- 		dmemcg_pool_put(pool);
- 		ret = -EAGAIN;
--		goto err;
-+		goto err_uncharge_memcg;
- 	}
- 
- 	/* On success, reference from get_current_dmemcs is transferred to *ret_pool */
- 	*ret_pool = pool;
- 	return 0;
- 
--err:
-+err_uncharge_memcg:
-+	if (charge_memcg)
-+		mem_cgroup_dmem_uncharge(pool->cs->css.cgroup, nr_pages);
-+err_css_put:
- 	css_put(&cg->css);
- 	return ret;
- }
-@@ -845,6 +921,71 @@ static ssize_t dmem_cgroup_region_max_write(struct kernfs_open_file *of,
- 	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_max);
- }
- 
-+#ifdef CONFIG_MEMCG
-+static int dmem_cgroup_memcg_show(struct seq_file *sf, void *v)
-+{
-+	struct dmem_cgroup_region *region;
-+
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(region, &dmem_cgroup_regions, region_node) {
-+		int state = atomic_read(&region->memcg_status);
-+
-+		seq_printf(sf, "%s %s\n", region->name,
-+			   state == DMEM_MEMCG_ON ? "true" :
-+			   state == DMEM_MEMCG_OFF ? "false" :
-+			   state == DMEM_MEMCG_LOCKED_ON ? "true (locked)" :
-+			   state == DMEM_MEMCG_LOCKED_OFF ? "false (locked)" :
-+			   "(invalid)");
-+	}
-+	rcu_read_unlock();
-+	return 0;
-+}
-+
-+static ssize_t dmem_cgroup_memcg_write(struct kernfs_open_file *of, char *buf,
-+				       size_t nbytes, loff_t off)
-+{
-+	while (buf) {
-+		struct dmem_cgroup_region *region;
-+		char *options, *name;
-+		bool flag;
-+
-+		options = buf;
-+		buf = strchr(buf, '\n');
-+		if (buf)
-+			*buf++ = '\0';
-+
-+		options = strstrip(options);
-+		if (!options[0])
-+			continue;
-+
-+		name = strsep(&options, " \t");
-+		if (!name[0])
-+			continue;
-+
-+		if (!options || !options[0])
-+			return -EINVAL;
-+
-+		if (kstrtobool(options, &flag))
-+			return -EINVAL;
-+
-+		rcu_read_lock();
-+		region = dmemcg_get_region_by_name(name);
-+		rcu_read_unlock();
-+		if (!region)
-+			return -ENODEV;
-+
-+		atomic_cmpxchg(&region->memcg_status,
-+			       flag ? DMEM_MEMCG_OFF : DMEM_MEMCG_ON,
-+			       flag ? DMEM_MEMCG_ON : DMEM_MEMCG_OFF);
-+		/* Continue if a region is already locked. */
-+
-+		kref_put(&region->ref, dmemcg_free_region);
-+	}
-+
-+	return nbytes;
-+}
-+#endif
-+
- static struct cftype files[] = {
- 	{
- 		.name = "capacity",
-@@ -873,6 +1014,14 @@ static struct cftype files[] = {
- 		.seq_show = dmem_cgroup_region_max_show,
- 		.flags = CFTYPE_NOT_ON_ROOT,
- 	},
-+#ifdef CONFIG_MEMCG
-+	{
-+		.name = "memcg",
-+		.write = dmem_cgroup_memcg_write,
-+		.seq_show = dmem_cgroup_memcg_show,
-+		.flags = CFTYPE_ONLY_ON_ROOT,
-+	},
-+#endif
- 	{ } /* Zero entry terminates. */
- };
- 
-@@ -882,4 +1031,7 @@ struct cgroup_subsys dmem_cgrp_subsys = {
- 	.css_offline	= dmemcs_offline,
- 	.legacy_cftypes	= files,
- 	.dfl_cftypes	= files,
-+#ifdef CONFIG_MEMCG
-+	.depends_on	= 1 << memory_cgrp_id,
-+#endif
- };
+Can you elaborate more on this?
 
--- 
-2.52.0
+> Buffers can be from any device or allocated in system memory and
+> access should be synchronized properly in all cases.
+> 
+> How exactly it's made available isn't all that critical.
+> 
+>>> 3. It removes the need to translate between syncobjs fds and handles.
+>>
+>> That's a pretty big no-go as well. The differentiation between FDs and handles is completely intentional.
+> Could you expand on why it's needed? For compositors, the handle is
+> just an intermediary thing when translating between file descriptors.
+
+Well what we could do is to add an IOCTL to directly attach an syncobj file descriptor to an eventfd.
+
+> FTR for me at least, this part would be merely nice to have, since it
+> slightly reduces the amount of ioctls a compositor needs to call, but
+> it's not important.
+> 
+>>>> What about using VGEM for this?
+>>>
+>>> If the vgem render node were made available unconditionally under,
+>>
+>> Software rendering is a complete corner case, I don't think that this will be enabled by default.
+> That simply makes vgem unsuitable for solving the problems we face in
+> compositors.
+
+Thinking more about it vgem also has the same issues as sync file mentioned above. So that is really also not doable.
+
+Maybe Simona or David have another idea.
+
+Regards,
+Christian.
+
+> 
+> - Xaver
 
