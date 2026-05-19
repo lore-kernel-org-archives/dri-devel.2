@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D27BCCD4F5B
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:04:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A610ACD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:08:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2745410EDB2;
-	Tue, 19 May 2026 16:04:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17F0410E3C4;
+	Tue, 19 May 2026 16:08:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gr1/KBlm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jcc7OVoE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E25F410EDB2
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:04:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3175810E3C4
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:08:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BD45A408BD;
- Tue, 19 May 2026 16:04:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3C6C2BCC6;
- Tue, 19 May 2026 16:04:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A81060207;
+ Tue, 19 May 2026 16:08:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99D66C2BCB3;
+ Tue, 19 May 2026 16:08:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779206653;
- bh=ESxNT0QNiRL0PPOO61nmNN7xTNyJHHAm0tK5nlkrSdA=;
+ s=k20201202; t=1779206906;
+ bh=JMaW4hqrbwsNQNbegT85fZ2gaCvhjDdo60FQavqvwXc=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=gr1/KBlm2AihnXMxWmqJrx+ZdXpck1sa0lBCICgT5EKNxxTwR14PR3vTcs18OYJmj
- JhdoiBY5PFRAAyq8LJL2PPc+HKQZTCTB2MC+b+LxMUR6FvIa0nE5E1h3CPl9bMcFZy
- B1DMLTalmzfUY5EaPW2SvwPM3ouE/vQX3CONmhS32Uoh3PW/xHMNONJ+eriunkDea3
- Z3YnBCO8bWaaqFBH69cJ5famwMeveF2BCvBDQJGsGcOBzQVIvWvEmW4Si/gmvUPOwM
- dxoGGjfqWM9SY37JzcZm8rAq/SYEsWUmDs8gR+aL44LMlzr4zOVsvvlJv0eUtpekG/
- FzRrUOglD0zAw==
+ b=Jcc7OVoE3JRnYMPKGDgL13sAzYMamlppzuKhImtT2XkXF0Tg2Bo15E+lBJPGiMemu
+ b/K1uvbyFruTC0SmamOWRLmzIaUQBAAG1sWjjYxYWBdTkqtxS4h9ePVRDY2fh3z4I7
+ cXZaOdk3+i7TVEb9R+6vKR5vZsMycXkBlyF64KzWL959fxCupb+aL3Jw3Utbz+UuuE
+ wxc/htWIIy67A8e1Ym+KHfUZjDBpjYGbUUAD6wL8bUZ5wdTPiqIvV0M6O7dANppS3b
+ 75epNqq6FrOD5ztTgqMdD/ikNuJw0U/yqgpQyKqEpPeXrSQ++36W19vdK26lgTcjpU
+ DM8NTcmSDgsNw==
 From: Srinivas Kandagatla <srini@kernel.org>
-To: robh@kernel.org, amahesh@qti.qualcomm.com, krzk+dt@kernel.org, 
- conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org, 
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+To: Amol Maheshwari <amahesh@qti.qualcomm.com>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Thierry Escande <thierry.escande@linaro.org>, 
+ Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260325035338.1393287-1-sibi.sankar@oss.qualcomm.com>
-References: <20260325035338.1393287-1-sibi.sankar@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH V6 0/5] Enable ADSP and CDSP for Glymur SoC
-Message-Id: <177920665154.52067.7621121229285353762.b4-ty@kernel.org>
-Date: Tue, 19 May 2026 17:04:11 +0100
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260504171701.18164-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260504171701.18164-1-mukesh.ojha@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/2] misc: fastrpc: Fix NULL pointer dereference in
+ rpmsg callback
+Message-Id: <177920690436.52506.3867617056043903009.b4-ty@kernel.org>
+Date: Tue, 19 May 2026 17:08:24 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -61,23 +64,29 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Wed, 25 Mar 2026 09:23:33 +0530, Sibi Sankar wrote:
-> From: Sibi Sankar <quic_sibis@quicinc.com>
+On Mon, 04 May 2026 22:47:00 +0530, Mukesh Ojha wrote:
+> A NULL pointer dereference was observed on Hawi at boot when the DSP
+> sends a glink message before fastrpc_rpmsg_probe() has completed
+> initialization:
 > 
-> Qualcomm Glymur SoC variants predominantly boot Linux at EL2. This means
-> that the firmware streams of the remote processors are managed in kernel
-> and not in Gunyah hypervisor. Given that the Peripheral Image Loader for
-> Qualcomm SoCs now support running Linux Host at EL2 [1], this series
-> documents and enables ADSP and CDSP on Qualcomm Glymur SoCs with its
-> fastrpc nodes. A few variants of the SoC are expected to run Linux at EL1
-> hence the iommus properties are left optional.
+>   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000178
+>   pc : _raw_spin_lock_irqsave+0x34/0x8c
+>   lr : fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
+>   ...
+>   Call trace:
+>    _raw_spin_lock_irqsave+0x34/0x8c (P)
+>    fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
+>    qcom_glink_native_rx+0x538/0x6a4
+>    qcom_glink_smem_intr+0x14/0x24 [qcom_glink_smem]
 > 
 > [...]
 
 Applied, thanks!
 
-[3/5] arm64: dts: qcom: glymur-crd: Enable ADSP and CDSP
-      commit: a24bbef55c3d9a515b05cd168b80115673576104
+[1/2] misc: fastrpc: Fix NULL pointer dereference in rpmsg callback
+      commit: 4d24965e0ae82ae4b49c4d739d030ee23a1779d4
+[2/2] misc: fastrpc: Move prints outside spinlock in fastrpc_cb_probe
+      commit: 8d712bcdd1ef73bf790f01039508fb4e9c076bb1
 
 Best regards,
 -- 
