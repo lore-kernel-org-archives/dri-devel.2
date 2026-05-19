@@ -4,100 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 120C9CD4F5B
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47928CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:56:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBD110EA18;
-	Tue, 19 May 2026 07:55:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A534610EAF0;
+	Tue, 19 May 2026 07:56:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QnkEWy68";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="K8d/my81";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C333E10EA18
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:55:36 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4891c00e7aeso22860955e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 00:55:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779177335; x=1779782135; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=a/lqih5w8kOsHKdyaSXO9SGORGhwE1abTlQDwvsKNOc=;
- b=QnkEWy68+DGNZJ+aHsREDmpp4BxU4EAxHeFc3G/kxFe0HNWvFYLRY30jZxhhNVRi7V
- YUhbtjdBw//taJYa8Xyo8Je1YHVZwsZPiezdC0nJ0Xn6Zx5O1+yVOVg4/2rArblLZs+Q
- 9i5HrVbU69xoS8BjOfJ+bHw9WAOHsGwqn02svgZ8VrwJsiBLLa8b8IBQIOl6dEcoGOx3
- iO+IntYQkCLnv2/NJvw7Ksa723ufq7yFbl30+f9rYUbZ+Mz+6LRrAhbCatqe2qyLuHqT
- 5vT/GfRAGxO+pZcFcM6O28gTW14n21Yp1/IUAo3/+rtd6ytpvj4kXvt3ClcoRLM6Y0El
- Y+ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779177335; x=1779782135;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=a/lqih5w8kOsHKdyaSXO9SGORGhwE1abTlQDwvsKNOc=;
- b=gFRZyP6ksqx73LjIUbMWtrHLM60Y1mGV+YLXoEdZjdRTJPbBGIcm5iz/ax614v30Jo
- lOwUVorO55qIW71t7Znml+u5GvzJWBccLgAwcolY/IcGgocWRdFH9gL2hociQF18UG2i
- Cno6VoKkZ3a42e1cvljVo2DTIhJ0KQPRFI5ydENg/OsPqMPOBstrAGNekfphaZTLRWIl
- zDFJDtUywitTWntR5svckDANxpFcbMK0O50UxX3N9/bjqAzEjBnILW8ucxgPdTliFIcF
- obbAW9eAdJdaDYcHgZA1730TPjnRH/JxCUBx2JB/spQxVJqYPcWhG/q2A6Bg1Y3dm1kI
- 2mdw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8GQW1A/qtr/VllKloI9+F6pCf+VMVzc9Cmz5Pt4TpfmrNRSiAh1V9jeR4tQoiC/rRKX2ojtGGKinw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyOOBun/S2hrcDITrf33SV4Fz5IB5VRI3sNhaIZlsghsGfh2NsQ
- D/hBZ9Jri8KpSRqXc8kICN2fsh6kts9U3VPolOywL/XHgHSh9xhLgrMd
-X-Gm-Gg: Acq92OGx4mZeUey10yxOYW0lyYUhn5IcVDAY0RwuaShAVRmHfkY559esU4UvZvH0wS9
- wLNReRD3F/vxmWGoefUqxjfSVJHZTXrte6meM5/cWeQeAAjkgS0jWvTaGVX9gTy6VPqoXE2ibp+
- se+om0XZR+e9zFITv6JUCv5pUEvnlKG95QmDr/llkJFLptH53vE+weiaBna8N3SW4Q0fLFLM1Gz
- oVp+cQpC6kVR0OSFkwdq47P9qv2OX/MH59eJM83nqHGJzZ3RcmV6/Zud0vil5NhVIQhvOsrJaQX
- oIixyF6jQXwm+xVY5T75JIAPS57H6fF8shPMj/qBVSHiNeqoQa0iev7F8e15BFk6Km5I2W7UhT5
- ZRC85PY6LnzYR0sM2D3opOpGNvZ7+DiKXK9N5PIcerrlbzzH9M79OLPmX1ZaFTXMno6kz1apNWF
- BsAhAYV2C8av7mTfthtQGdXNybWMS++ei5G1aFqWOEsBdI5atERmEC7OcbW8zqbDc8XDhJ0AIWq
- 5AadZbgOwOOR6ouWVzw+yXEJ53OspDveztz7sEfwj5CLkxKiErz9hzqt+y+Qi9fhYYfSpn5qGSP
- fQ==
-X-Received: by 2002:a05:600c:470e:b0:489:201c:dc46 with SMTP id
- 5b1f17b1804b1-48fe60ea590mr265981195e9.12.1779177335066; 
- Tue, 19 May 2026 00:55:35 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c?
- ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe4c88e5asm329088665e9.6.2026.05.19.00.55.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 May 2026 00:55:34 -0700 (PDT)
-Message-ID: <9933142a-4ce2-4219-9574-73da30edd74e@gmail.com>
-Date: Tue, 19 May 2026 08:55:32 +0100
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010067.outbound.protection.outlook.com
+ [40.93.198.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A79B10EAF0
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:56:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qA3yqXoiwmpwJrlSptTohBx/RbWV45IZqaulsbaQ4daEeXrA/wR2GfNRlixLugxcnA6T+uVUdq6Cqjnc5BYQxjIZRGuSGI8Yj6gZeHvCxof3RDt0fTaYtZhSq/XEowbVD/gC/lEdg+6kmlf0AGcv6aB1+sozocdzVhBmPkNH9JMBoEqUsAU7MajP561a3TRc0lGvs+nzdmwiXEZURpGzABkCxxya+fjl9cwIQw+qki3VDwxcvS6j8EIe9xYU/LL7WQIyBy0rOlfwBz50A5S93Tf68Jb6S/gJDewXAFfkJx0WMVuqQcH5KCx8y4cklwRH6ZNzyvvCcQH/ZjmSBppsrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xgxJ4IwLzaTyszhQpN8IhZmLl8MUpEf1tZISNg6rVPc=;
+ b=hxGahSKxC8UxHbcwOzoVufnJuQG697FfvkgMFzlBfNTZX5lOLjZ5/CS+unblm6jjhr3dzJY1YfZHgjKr32mqy+cGNQ8yJHV/aaOjlOjSzn0Pa3pTmSt9nWihCDxWaMPWfjrpW33ruDJ/dsFQ9C+9W981ocYIbM2f+iRJGIwb1Djppmr+cX5OVYgHwKQcHR6jNWp5MKHbhcLwg2fAZpAYJPVLVORHmwNE+7ByK+iaaNs3zdabHfXYmbbh04VxmeWa2EO90jfIg0QppItDbMz8EIhv3hEtsjnS2XjRjAfd3mOGlanb5WUAdoG4KY6n5hpWhrD20CloLm7vLbMjWhsxAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xgxJ4IwLzaTyszhQpN8IhZmLl8MUpEf1tZISNg6rVPc=;
+ b=K8d/my81Jx6D2vNrf2lfae1fg40tnORpu+ZxFgRg77eGKdhRKKRBp0UeQL8R4FqKN9QtFNI46Yex/xczkNG84v9a+DUDxpxIGMHxJT+XnETXYSSpN/y52lmYjge2J41SXmmADsEY9lX+TryzHa9GQrThBAiPSg2ptShZjxhCPcXtHXZlQH9zhOyvZ9lI7sS2JdwMmFLfpzWkJxxYG8vuBnVQkTLlDbgcbchtwIsS1sOrer8gzDJ5gPu8K7Kq1h9IAah5hBUgBzeR5nNYzTkZjFS910fFrmEYsZ08rIRSyFVfOUNUk/xCO3AOXPg1I5RbFJo0KaLCrrkvvmVqez9xaQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by CYXPR12MB9428.namprd12.prod.outlook.com (2603:10b6:930:d5::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Tue, 19 May
+ 2026 07:56:49 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 07:56:49 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 19 May 2026 16:56:44 +0900
+Message-Id: <DIMHR3ZPEL92.2HVZ0FGPM54MF@nvidia.com>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v3 17/27] rust: auxiliary: generalize Registration over
+ ForLt
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
+ <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260517000149.3226762-1-dakr@kernel.org>
+ <20260517000149.3226762-18-dakr@kernel.org>
+In-Reply-To: <20260517000149.3226762-18-dakr@kernel.org>
+X-ClientProxiedBy: TYCP286CA0113.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::10) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/10] lib: add dmabuf token infrastructure
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Sagi Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <c61e6d928f86f4cb253ae350272e6039faefd3a6.1777475843.git.asml.silence@gmail.com>
- <20260513082431.GA6461@lst.de>
- <ebf41920-5852-428f-b98a-e0f44c8f3315@gmail.com>
- <20260518125326.GA5754@lst.de>
- <ea47051e-697f-4017-a514-be6ef7c110e9@gmail.com>
- <20260519065653.GB8173@lst.de>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260519065653.GB8173@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|CYXPR12MB9428:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ac30055-e64e-40f7-e598-08deb57c2e1f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|376014|1800799024|7416014|18002099003|22082099003|3023799003|4143699003|921020|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info: QccTMzLd6GA+tNH5ycDTllH4+AXow1QdMm5KD8nkR+K1vetg7vGJ7DnhGrVmziABtbivPdmTlouLOitug3Rv6yfdrrFSaVYCtwmW3yr+QdPMzMK8hgVvPL76hQu4egUHw2umLWAhH87ZnB/c+lkoTyZ2RbSG7u66Xhq/HBM4wQcnWdXirr2IuYvxXfMHswAoL6991gKhncirgbUkljMtVbhKRpNfE+lb93ljeP6EFrCYCJWMPQAFuzJ0Fj/UeYbv1sAyqfakEKm2+zX/cy34h0HjrE1lVp00G6AmMIrndrAIIUgpJUuKiqOebelRwoqu7M2T0eQLTQaElse//8MOy763eZBxt3ljzckEdY5Z874VKc9AOPaHQwYogPM8r0CQ2V/JO2ZIPhJTswudLX9pSrHcntTU+Ao5F7x4/ttK/BoESO5JM8vVlONpdAUhHt72NvZX2Xob5KC7/7R7YJOy52QdeRt2kDhjePmSf017Hg+UWlDi9yfP2ExWtvgI6FumUbkRoo3h7AISZZLgKYKxs7huuGavK/Px6v3uzaw/xMPQEhIfFQGP2oqOHPPDGPcKcdGfgjgurnhB9DTGlYHP2UAE4ewi14vSGAxBTSYQEPKk3xTiNWesf2OovZCt0PG5nPswKzjHet8HsttdkX/LD38B4V+n9Qy3b5/+BvIJ79Z6QKmRz1MmFAPm4PvpCOEJ10nCv9UQ98Vkp+/rULcaI7nQcWvEyDeVyAqw9GBzT5I=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(7416014)(18002099003)(22082099003)(3023799003)(4143699003)(921020)(56012099003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3d3VHIyNnprSERnK2ZPMEpFRFFQNTlaSG9vWWdPMXpNMTdzQkJ3U1JKY3RE?=
+ =?utf-8?B?VFdqekhyRFp5M2pIOWh2YVo0Qk11TEdnV2x1TG4wNERWTjJITHFXcEI4NzRM?=
+ =?utf-8?B?aVFZQktrVmkwMDVRZHZsOWd6Wlc4TTlCS3hKdmpBWE1TOGxIMTFyVlZtc2hY?=
+ =?utf-8?B?V3M2SDVjWjBWZ0FHSzFsd01kallTVTkvRUZReHYwOTRoZlRzeG5VTUNVeW9x?=
+ =?utf-8?B?TjQ4QTN3U0Qyb2RFSCt0eUFBL1k4dlo2d3BHYXR4UXJqYVl5bTIyb3lVTVRu?=
+ =?utf-8?B?Y2g2NVhzS1JqZFlOeG9IcGJtakR4RUdXWk5DSlArb2RiTFcrUHZkenk3Tytq?=
+ =?utf-8?B?OTZkb1pvalBCM0lFd2hYVGU5ZE1IdjZRMk92WmNLT1h1OFRXV1p4MjQveFRH?=
+ =?utf-8?B?WkRHMElodlcrNnRJaFZFbndWRU1kR2pSTlE2YkRraGRsb3JlRHRhK3RkUXcw?=
+ =?utf-8?B?ekxGSTd0QVp3Q1FPdGhzckNzUHYwSGxGYU43ZEJ3dkJuSEhNK1NWckNwTFdy?=
+ =?utf-8?B?Yy9rZktaY0tjaW5CZkhBbXFxQXEvdzMvMGZkNmxTNnJjcmZ6YXNDUmJ6a0s5?=
+ =?utf-8?B?Umpsd0pHbkdzSFRZbThRbzM1eFhXTUdGUHE4ZGZwL2JzTnR1WUJvaWx1cXZP?=
+ =?utf-8?B?aHBHWThoVFVldzVEV2x4aGEwaGpGcldKOGVoWllqUDhMNFRNcWp2OVEydEQ3?=
+ =?utf-8?B?OFc0WWtxRnZzVG1tSDFhLzlpSm1DaWFLZ2hLeHQxbjhRTm1OdUljZ0FzKzlJ?=
+ =?utf-8?B?UVhyQTh3RlFyeDJETVZ0TjNxalh6enEwamNqTE1VR3lSckRramZiQWhCSVhB?=
+ =?utf-8?B?eGFaYjNlNjdLcUlnbGozZ3ExbzUyUk1IcEhIb2EvSnYxU0oyMDF6N0pFL2Y3?=
+ =?utf-8?B?VWhzTWZCWWxIbUQ4T1JoWXVOajdWeWx5RXRkNmhJallBdWZCY1BHbWpvbVU2?=
+ =?utf-8?B?ODhaTFdJWjJhZXI3QjZ2eTRjUGF1Y2QxdzNGMnZxbzBoVk94T3ljWGI0WmU4?=
+ =?utf-8?B?RmNrb2VRd0h0WmIyUnBwVk5UZ3BTZjZwcGhpMW5ubmZtZXdqd3MxR3BRd3Bl?=
+ =?utf-8?B?UGZGdE0xTnp2UFNaaXl6UlMwODk0aVZka2c0OVkrQTMxVkpqYnArYzRsc2Jy?=
+ =?utf-8?B?WnBFVy9vMXNiSXpmQk90Q2dNYnl0M2l3T1BKNzFBdW9SUHI0ZXVxcFFOZzFV?=
+ =?utf-8?B?UGdzejhEc3E4eUdXbXZVZ1BqVUx6NXhKUEpKNjdTV1VmbHhKZEJVQWsrdzFx?=
+ =?utf-8?B?VnVPNmIwMDRZaDVjWmNMbHl6eW1IbjRNaWE5TUR1Mlg0ZngyWmtZVTRybGov?=
+ =?utf-8?B?a1RSaUxYYjFCeGdiYVNBUXN2Yko0TkU2Q1g2dW1Tc1RyUWZQdXU1TFBoeXBq?=
+ =?utf-8?B?ZzFHMUZEZ1RjOEJoK2tuNGlsYUk3VE00eTZIODRwdkE4NUZEeklVaFZKL2Rj?=
+ =?utf-8?B?NzdtMmYrZDB4bEZGZDJjaitxazdDOUtKN3l3ZzF3UmFpQncvU2JMdkdsSE9n?=
+ =?utf-8?B?TTRQVVZXVzJad1NWWHhJS3BTeFJxU0N1OE00dzNTcWU4V0YwcmNod2dpT1Uw?=
+ =?utf-8?B?Y0dMa0VGMjB3VmdLU0JwdGlkeHdwcnM1RENjZjJMd01LZ2tlVU9Hc2R1TERj?=
+ =?utf-8?B?aGkrNWRWTnBmdXVQU2gxODQ2ZFFVRFhpTUozTGpxZ01rSXk0YjdHSEluZEZa?=
+ =?utf-8?B?clZIVEM1V0Nobmw1MDRBUk45QW1sd3VBL09naERycUU3ZVRyQ2pWM01WSnFk?=
+ =?utf-8?B?ZWFxNS9IL1Zab0Y4aWNscVNIaWVmME1reE56SDkrbFozMnB0YmRuR1Z0aXZK?=
+ =?utf-8?B?VG1ZYWdoRk5LMGVIOWNWUnVOcTN0T0NpZGpMTjZYd2hhMVY4amRLSTV1V0c2?=
+ =?utf-8?B?SU9MeTV6c3Mra3dlMDlCd3NaSko1R3hHR0lxRUJES1g3Z0tQZ2ZUYlBkd3NZ?=
+ =?utf-8?B?azQxVEhFSzUySnNwR1hxMWhvWkd5T1gvYnVUYWZFOVI0YWZnTjRqOUZOUjFO?=
+ =?utf-8?B?cjVFSTFSa214UEZWTzdBY2VZZlVFYVEzQVFDVGQxdE5CRzNkT0Nsb1BSNlNv?=
+ =?utf-8?B?SVFrZ0gwVXJ3S2JMZzJUaXYyMldHTGlSTVg2ekQ0S3pOUnltNXlyeGQ3V1Ew?=
+ =?utf-8?B?TUJUaWNHMmo0MlpIZFgrZFNJaFc3czR5OWFUZWoxcHJrd2tYeHY5ZldKQXBp?=
+ =?utf-8?B?ZmRDYUZreWtjQmdNeHYwUDdhUzdFOStkNHhYclovSTZnNVRpRGVZT3VsdVcv?=
+ =?utf-8?B?eTR4d2NJZzl5bEp0SzlOYXdFbzJTYWhkVTl0VElmUjVhaWNYU01KMlhoZGxv?=
+ =?utf-8?B?a3JMcU5wRlFKalkyMHFxNnNRd3lJcEtXN2QrQ3plQW9VWG01M0xTL1F1clls?=
+ =?utf-8?Q?U0jeTM+jkoIWdiG43pIoOsmD15gGaS/V6hss8/oDVC3LE?=
+X-MS-Exchange-AntiSpam-MessageData-1: auFU/Y0FqoTg9Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ac30055-e64e-40f7-e598-08deb57c2e1f
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 07:56:49.1098 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DLw25qw/t1HCLBu4EMNVBMYkzeqzLNi0c9oRne5+LV9GHebhEoOysyCEN1W3o4EJ6rD/TfbK2lbzeYeoMKgDeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9428
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,56 +151,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/19/26 07:56, Christoph Hellwig wrote:
-> On Mon, May 18, 2026 at 03:23:53PM +0100, Pavel Begunkov wrote:
->> To be fair, it's not that dma-buf specific. This lib/ code only
->> does some resv locking, fence waiting and queuing fences,
-> 
-> But all the dma resv/fence stuff is pretty tied into the dma-buf
-> ecosystem.  I don't think it would really apply to something not
-> doing DMA at all.
+On Sun May 17, 2026 at 9:01 AM JST, Danilo Krummrich wrote:
+> Generalize Registration<T> to Registration<F: ForLt> and
+> Device::registration_data<F: ForLt>() to return Pin<&F::Of<'_>>.
+>
+> The stored 'static lifetime is shortened to the borrow lifetime of &self
+> via ForLt::cast_ref; ForLt's covariance guarantee makes this sound.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/gpu/nova-core/driver.rs       |  4 +-
+>  rust/kernel/auxiliary.rs              | 68 +++++++++++++++++----------
+>  samples/rust/rust_driver_auxiliary.rs |  8 ++--
+>  3 files changed, 52 insertions(+), 28 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
+er.rs
+> index fe4eafe1ebf0..ab0d7f2b516c 100644
+> --- a/drivers/gpu/nova-core/driver.rs
+> +++ b/drivers/gpu/nova-core/driver.rs
+> @@ -21,6 +21,7 @@
+>          },
+>          Arc,
+>      },
+> +    types::ForLt,
+>  };
+> =20
+>  use crate::gpu::Gpu;
+> @@ -32,7 +33,8 @@
+>  pub(crate) struct NovaCore {
+>      #[pin]
+>      pub(crate) gpu: Gpu,
+> -    _reg: Devres<auxiliary::Registration<()>>,
+> +    #[allow(clippy::type_complexity)]
+> +    _reg: Devres<auxiliary::Registration<ForLt!(())>>,
+>  }
+> =20
+>  const BAR0_SIZE: usize =3D SZ_16M;
+> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
+> index 3f1e2966c03a..db3d56106ea2 100644
+> --- a/rust/kernel/auxiliary.rs
+> +++ b/rust/kernel/auxiliary.rs
+> @@ -20,6 +20,7 @@
+>      },
+>      prelude::*,
+>      types::{
+> +        ForLt,
+>          ForeignOwnable,
+>          Opaque, //
+>      },
+> @@ -271,12 +272,16 @@ pub fn parent(&self) -> &device::Device<device::Bou=
+nd> {
+> =20
+>      /// Returns a pinned reference to the registration data set by the r=
+egistering (parent) driver.
+>      ///
+> -    /// Returns [`EINVAL`] if `T` does not match the type used by the pa=
+rent driver when calling
+> +    /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The=
+ returned
+> +    /// reference has its lifetime shortened from `'static` to `&self`'s=
+ borrow lifetime via
+> +    /// [`ForLt::cast_ref`].
+> +    ///
+> +    /// Returns [`EINVAL`] if `F` does not match the type used by the pa=
+rent driver when calling
+>      /// [`Registration::new()`].
+>      ///
+>      /// Returns [`ENOENT`] if no registration data has been set, e.g. wh=
+en the device was
+>      /// registered by a C driver.
+> -    pub fn registration_data<T: 'static>(&self) -> Result<Pin<&T>> {
+> +    pub fn registration_data<F: ForLt>(&self) -> Result<Pin<&F::Of<'_>>>=
+ {
+>          // SAFETY: By the type invariant, `self.as_raw()` is a valid `st=
+ruct auxiliary_device`.
+>          let ptr =3D unsafe { (*self.as_raw()).registration_data_rust };
+>          if ptr.is_null() {
+> @@ -289,18 +294,23 @@ pub fn registration_data<T: 'static>(&self) -> Resu=
+lt<Pin<&T>> {
+> =20
+>          // SAFETY: `ptr` is non-null and was set via `into_foreign()` in=
+ `Registration::new()`;
+>          // `RegistrationData` is `#[repr(C)]` with `type_id` at offset 0=
+, so reading a `TypeId`
+> -        // at the start of the allocation is valid regardless of `T`.
+> +        // at the start of the allocation is valid regardless of `F`.
+>          let type_id =3D unsafe { ptr.cast::<TypeId>().read() };
+> -        if type_id !=3D TypeId::of::<T>() {
+> +        if type_id !=3D TypeId::of::<F::Of<'static>>() {
+>              return Err(EINVAL);
+>          }
 
-The point is that those can be separated to reuse the rest.
-  >> otherwise
->> all the attaching is done by the driver behind callbacks. Switching
->> it to some memfd could be pretty simple. But The main thing it'd
->> need to share is iterator handling like forwarding in the block
->> layer, and it should be fine as it's already passed as a completely
->> opaque object with no knowledge about pages / dma / etc. for the
->> middle layers.
-> 
-> But none of that really sits in the current lib/ code anyway?
+This seems a little dangerous to me, since the caller can specify the
+ForLt type which means it can rewrite the lifetime of the ForLt encoded
+type to be whatever it wants. The runtime check here only looks at the
+typeid of the encoded type but can't check the mapping from forlt::of
+given lifetime to actual underlying type lifetime instantiation.
+For example, in the next patch on the sample aux driver you can do:
 
-It's about naming. E.g. passing a DMABUF_ITER that doesn't have a
-dma-buf would be confusing, and then it'll need renaming at all
-layers to support the use case.
+```
+let data =3D adev.registration_data::<ForLt!(for<'a> Data<'static>)>()?;
+let pdev: &'static pci::Device<Bound> =3D data.parent;
+```
 
->>> lib/ is most certainly the wrong place for something that absolutely
->>> is not library functionality but directly interacts with a few
->>> subsystems.
->>
->> It only interacts with dma-buf, and even for dma-buf attachments
->> are created by the driver. Block, nvme, io_uring are users, either
->> using the helpers or implementing callbacks.
->>
->> Ok. Let's assume for the argument's sake it's not dma-buf
->> specific, if not lib/, where would you put it? I was also
->> assuming that dma-buf being under drivers/ is rather a relic
->> of the past rather than the desired location, hmm?
-> 
-> drivers/dma-buf is a pretty natural place for it, I could not thing
+and mint a 'static reference to a bound device, which seems unsound to
+me. So maybe this needs to store the typeid of F instead? so that it can
+store the actual mapping from forlt lifetime to underlying type
+lifetimes.
 
-_If_ there is no dma mappings, drivers/dma-buf would definitely
-be an awkward spot. Just trying to understand your criteria for
-placement, let's say of a generic buffer registration code assuming
-there is no dma-buf involved at all. Again, just a hypothetical.
-
-> where else you'd place dma-buffers.  I'm not sure how hmm has anything
-> to do with it.
-
-Looks there is some confusion. It's was meant as an interjection
-with an open question, I didn't mention the HMM subsystem.
-
--- 
-Pavel Begunkov
+Overall I feel it's unfortunate to have this be a runtime check though.
+What about requiring all device ids declared to be supported by an aux
+bus driver to have the same rust registration data type? Not sure how
+common it is to want to have the same aux bus driver support a very
+hetereogenous set of aux bus devices though. I think getting rid of the
+runtime check was discussed on the other patch series adding the rust
+sideband registration data on the C side, but if there's not much real
+use case for hetereogenous registration data types in a single aux bus
+driver then it might be worth the added safety. WDYT?
 
