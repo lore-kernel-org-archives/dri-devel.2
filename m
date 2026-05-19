@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 912C9CD4F3C
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4C0CCD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:02:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F21B810ECC8;
-	Tue, 19 May 2026 16:02:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E6A810ED9E;
+	Tue, 19 May 2026 16:02:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lckpbld1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GwrYU15d";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B77210EDB6
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:02:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE42810EDB6
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:02:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 18819403B4;
+ by tor.source.kernel.org (Postfix) with ESMTP id 2ED2360215;
+ Tue, 19 May 2026 16:02:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61C6AC2BCB8;
  Tue, 19 May 2026 16:02:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BA56C2BCB3;
- Tue, 19 May 2026 16:01:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779206521;
- bh=QnU/9Obgk3bCr6ljz4AYAVYwV5j66hhtuadJ9EszmvE=;
+ s=k20201202; t=1779206522;
+ bh=H6jZ26cdR6c1FE51+ZuaH/BzQgAqaYpLufrEPC0KbOk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Lckpbld1bDdtrIq5eU2rk8nak/U2Esue5D5EgI68H6zFGgmA9drg/CO8Kkb2oCbeX
- 8ziZk9ez4kjKSD5L6sPwTwtGvUlYs1zRx18nWM+TllBIF02pt7ej+h0lKSyXDJO7Sk
- xGEJbh2Nv1OJwifdTMmiAOOIfhDh1xF2I15+kognSuOpZqj4PqlL/PkVzHOsEUk+/q
- nXtfxGbCbI05jynrWK4BhauwuJlRnCQCIiYC6hPCa5zvN5BMVgCvUo9jkuIMWpGNop
- DVweRQe1G3R/WwSJPoKzHSLzgyzhCW5hNvPE4JzKeJOBUNg+TlQbbiQMQ0HvJr6Ebq
- LRDabTd/mpQaw==
+ b=GwrYU15dST8GtVPgjFaJ/IZ4FBZrSitau+ioN9iJ2dk1L9AYdwUb9uBYR+wlun/6r
+ xKAjq0WLhsZug2aqjVO7YE4QF/sgUmAFGyD9X2/UEwzvwTe+U3D3dQaaQGWnq35/wv
+ HdPNFVQHfnsrB4HsmdCKZeHUFKwAku8NviQcRh4CkXa7IpQeN431nrA+T2LWniQcis
+ P2peDayiGnVDTY0qXEAKxAma899THBPeEH6Mh825RI1hcaLNkGfE7Q2YNr8FGwix1k
+ O0SsWEc5f+lCWwLbfrZJxHK8MxT0Wnyh1T9JKAogtzL8y+NDOarmgqNj02Mug32hPa
+ 9RYC81IKEqOSQ==
 From: Srinivas Kandagatla <srini@kernel.org>
-To: linux-arm-msm@vger.kernel.org, 
- Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com, 
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, 
- dri-devel@lists.freedesktop.org, arnd@arndb.de, 
- ekansh.gupta@oss.qualcomm.com, stable@kernel.org
-In-Reply-To: <20260518203507.3754994-1-anandu.e@oss.qualcomm.com>
-References: <20260518203507.3754994-1-anandu.e@oss.qualcomm.com>
-Subject: Re: [PATCH v4] misc: fastrpc: fix use-after-free of fastrpc_user
- in workqueue context
-Message-Id: <177920651904.51472.16101417820040799306.b4-ty@kernel.org>
-Date: Tue, 19 May 2026 17:01:59 +0100
+To: Amol Maheshwari <amahesh@qti.qualcomm.com>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Junrui Luo <moonafterrain@outlook.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Yuhao Jiang <danisjiang@gmail.com>
+In-Reply-To: <SYBPR01MB78819393A1F4FA658B2AB076AF042@SYBPR01MB7881.ausprd01.prod.outlook.com>
+References: <SYBPR01MB78819393A1F4FA658B2AB076AF042@SYBPR01MB7881.ausprd01.prod.outlook.com>
+Subject: Re: [PATCH] misc: fastrpc: fix DMA address corruption due to
+ find_vma misuse
+Message-Id: <177920652114.51472.15795921379739203667.b4-ty@kernel.org>
+Date: Tue, 19 May 2026 17:02:01 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -63,23 +64,21 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Tue, 19 May 2026 02:05:07 +0530, Anandu Krishnan E wrote:
-> There is a race between fastrpc_device_release() and the workqueue
-> that processes DSP responses. When the user closes the file descriptor,
-> fastrpc_device_release() frees the fastrpc_user structure. Concurrently,
-> an in-flight DSP invocation can complete and fastrpc_rpmsg_callback()
-> schedules context cleanup via schedule_work(&ctx->put_work). If the
-> workqueue runs fastrpc_context_free() in parallel with or after
-> fastrpc_device_release() has freed the user structure, it dereferences
-> the freed fastrpc_user. Depending on the state of the context at the
-> time of the race, any one of the following accesses can be hit:
+On Fri, 15 May 2026 17:16:03 +0800, Junrui Luo wrote:
+> fastrpc_get_args() uses find_vma() to look up the VMA for a user-provided
+> pointer and compute a DMA address offset. When the address falls in a gap
+> before the returned VMA, (ptr & PAGE_MASK) - vma->vm_start underflows,
+> corrupting the DMA address sent to the DSP.
+> 
+> Replace find_vma() with vma_lookup(), which returns NULL when the address
+> is not contained within any VMA.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] misc: fastrpc: fix use-after-free of fastrpc_user in workqueue context
-      commit: b01bf21ae7e7c4c7cd4f1c8419bafc1e04c008e4
+[1/1] misc: fastrpc: fix DMA address corruption due to find_vma misuse
+      commit: 03f669db42e9804f8e6f1e41dbe6dc1f22b7757c
 
 Best regards,
 -- 
