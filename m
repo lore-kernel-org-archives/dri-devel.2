@@ -4,134 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45204CD4F52
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 08:18:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E518FCD4F57
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 08:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A732C10E38D;
-	Tue, 19 May 2026 08:18:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49FA910EB17;
+	Tue, 19 May 2026 08:22:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lNstWQIk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="En9+xbes";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012039.outbound.protection.outlook.com
- [40.107.200.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC47710E38D;
- Tue, 19 May 2026 08:18:12 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010043.outbound.protection.outlook.com
+ [40.93.198.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A4B010EB17;
+ Tue, 19 May 2026 08:22:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CMuJLh1Kav/tq8EcRofSd5DBDWg96Tm4b9DnKHbGcUf+nXoO1Bg4ZjalDuT/dcP6R7mxSt0j47CTuOhl4nqTA1CbPsbfuafTCYhG4XoXZCheHRfiQ979+J3W7gjCdyeasVWMo0PKsexM0OIgbdwGtgVC5xkCitDfH9ipXrN6RRdL5rinFkKRKeOYcK3DFazVBbh5KIobsM2iFp5x3+WFSio9l3PTmEeaZMxv3uZNpMbmJg6X+rwLEYFoBVERt0ipumHz+wCJGB1Ap35T33d+H0olpuFDqm2fDGYQJBjLJPtu8NWCRoLlWl66c/6rC9jb9xalxY4wrFg1UqAVIL6TNg==
+ b=W9Vpc6YXcRyu+c2nKAdx7T9Kt55UFOaYXjMLsBnCmyEvL7lcYu/vZaZofvlJZQIucNalDhZAULPSRJ5apgpauXW6KzGNcJidkudnoo7aeqO2CkgOfg7bhCU+vR9TPxOOcvNhjPer0HsCughAN3R20x4kv3NYycl89gDzlCgQ60/trJlPIUbdyKtFdSc2gPDI1UMzdwzMkS7Rprwru5k7d4w8eAe3FZOEIfyVT62xfOr4AH5/GKhzaRsCY6BPGRl4WMbS0Q6WbYd7VB820f1pf7nwJMW9BsAxLkxMhLtwxDDDc179+bIEChHL9s+dlfVJXu9bKORYf7r7Qjhs2XuRqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gdt2ufe5Nf4Xh1pVLZNJdJbP8FvV0ky+yp6pl2On0Xw=;
- b=eetHJ0UbttrHloj6JFdoLXWiV6wmonKpnNByjUxJKv4k95oagBnCpEy+wS00eYXuaxadSDjLC4pxNFMQS1DDjWC+TIMWINkVQv1thZfbcp24Yn1RNQTTecEUxaqe5suo9+YnmBsPSP0gsi1/q9YR0R9cY8vmDYsz7LgjawKCLFisOgJ1Ey0T9LRa7XMW0YA/+jevyz6IKpyN0EIQkZjvJhtty/AOVfRPbDH+0Wd1ZUJHQoPSRHZplb85pJfZ4EV+1aIT1LeTc8GFS9sDBUjz2weuqCYDNOFvWGwIyaylVXSLRIIiZSizO5Mh1B96Q5sa5E6uP6j/N/mUdHXZGenlzA==
+ bh=NKh+7P0HDQ0PfuWo+GKupzSirfilj/v6ccO+J+nfnsA=;
+ b=VPvTiIl3ubzudDifD32s0+HiTGMxWDWLaLuexmzPvNuOoGPORXNG02Igj/932IJ/GkI2ToTLU8+GTT8BBi4H2HHugu2h0ZhQSwSREv9gu2EpGMqnzb6T70Cb7hvCgYf1/MtXMRQnYHuYWi7lxXae+JkNRqL0pnp14Z8EvBgDVEDp0j8Oir/iPYy6Ds3fQDD5DpI0GVjw3fhjEqDSSzc2RQtZnW/7Wybvnxyy1GKgz9m6TUdrhGej8irX0sU44UWVcD1+JdhzWdhLbf6gy2DVVptVYfPbcEpIbTEoy8jgrcalG+0kp8D/146QcvKs8xHODzMw17BN9x+DNKp7ue6Bsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gdt2ufe5Nf4Xh1pVLZNJdJbP8FvV0ky+yp6pl2On0Xw=;
- b=lNstWQIkh3aRn5maMLmdcxDQDlsvft+98atXjH5f76WkYzRkAIPKcjWp501iUOZ75WeAt2tGAIZYb6xUgqN5LBAaVB5QpmsObqLH11G/W9FiYEKLvkWmMoZ0A64K2rNiXESjLwrC/9snSimRfA5jcWABIFDq6SfZ/Lvi4+s4lq8=
+ bh=NKh+7P0HDQ0PfuWo+GKupzSirfilj/v6ccO+J+nfnsA=;
+ b=En9+xbesejnE2BiE3I/ax+I77UELq3QcRXbQ8hyBYt9VMdQLxal/KFI4dRKzrf+P1Z23Q6UOIkT9s2Eho/wlbDKbsGaYmyjBt/aKpfDoo/ETQUypf8Mb+OhargQTCs68A7AwsA0nh7bep4jCKhMpj/RwE2BZBDVeYnh4tSRA10U=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by BY5PR12MB4195.namprd12.prod.outlook.com (2603:10b6:a03:200::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
- 2026 08:18:09 +0000
+ 2026 08:22:09 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Tue, 19 May 2026
- 08:18:09 +0000
-Message-ID: <38551bfe-75e1-4978-b57d-adc43cebc85e@amd.com>
-Date: Tue, 19 May 2026 10:18:02 +0200
+ 08:22:09 +0000
+Message-ID: <7e7d3966-313f-4d73-96ff-facb667b8836@amd.com>
+Date: Tue, 19 May 2026 10:22:02 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
-To: Julian Orth <ju.orth@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Subject: Re: [PATCH 09/12] drm/syncobj: fix resource leak in
+ drm_syncobj_import_sync_file_fence
+To: Julian Orth <ju.orth@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
  Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
 References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
- <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
- <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
- <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
- <CAHijbEWqc2+kSkk3i_LxB2PQ6XwUetw1UkdUdXJfdv3zgKd1kA@mail.gmail.com>
+ <20260516-jorth-syncobj-v1-9-88ede9d98a81@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAHijbEWqc2+kSkk3i_LxB2PQ6XwUetw1UkdUdXJfdv3zgKd1kA@mail.gmail.com>
+In-Reply-To: <20260516-jorth-syncobj-v1-9-88ede9d98a81@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0704.namprd03.prod.outlook.com
- (2603:10b6:408:ef::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN1PR10CA0012.namprd10.prod.outlook.com
+ (2603:10b6:408:e0::17) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4195:EE_
-X-MS-Office365-Filtering-Correlation-Id: 516690f0-9c46-4857-911b-08deb57f294e
+X-MS-Office365-Filtering-Correlation-Id: d2935b3e-f06b-487a-3cb5-08deb57fb83d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|56012099003|22082099003|18002099003|3023799003|11063799003|4143699003;
-X-Microsoft-Antispam-Message-Info: CFPTJzkcLhe7SvmUVZG3AATO29fXnhMroJayWC8s+mOtDeMtBpZingtX3Z7N8GD16qade60lT4TGb/xLnJ9XxgMYEkFmcGK9pD+D8qPEVusIFOKKZWfJHUWvHhALIfjI1Vnym0Kc8p380d4OGKUm0Mm8w2vUIaWJatDFq+CuprqwLX5CNgs/ogwKYhtj+VmgJ0hi+j3GhaxZT1fLspgwRwSUlU1H4DgxlbJqQF5JGzu70VsVhaa4imRMqmS1s0kYz+9VAy4AHkNxrYIPOjddbkBsHWDpDeYi4bxWQVf1ftMuZWyMyAFo0R5rGCITXL7rpJOYnmE7TSaH/hm0crhfnZR4rqc63aX8YfbSE8OJFM9hKwuMRwJD4V3MXN5nd6gF/ULr2uUvtXrBR3+YR9sxGEcAGB1is3U5kQDv3R12aOhIkSPo49LrAfXHPW311CD8mgn1HB6juRQP7KDg26JisVE5z88xrlSRZ7mbPRbMfODOaoS7PQnx8e35zPERh+16Ggi0zemb1FFV8lfth+4Jbgtsw31hwg3sz1Iog694HZ5w5i94UcR6SnIF7FqjSH5hXhNG3anvqlqVltE6LYiJ1WwvfUJEMu27U4N5Gs0gjX0/5ToTAUKBuNnN2AsrMbfd/EPPi107BkTiAYMJOGtyVOze5S/xlkZykuRVTgeg2NN6VWisq0KSXpIncW1HSsARL04Ayt/e5ganhXCrCZc6vw==
+ ARA:13230040|7416014|376014|1800799024|366016|921020|4143699003|11063799005|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: DgRYlf4Ri0aqLZXDhkeGAQgsyq3g8ub8qCvn35vL9RIdrJgAtVxuw2CBvnTBprS/p0fV1yPphi0Uo5bOArD1xYveYJ00rb1XqEeWKLahNxN/ZuFYATEzlK6Gri7SsQE9oUJ8tFpF1OOCwk4yY+z8eT16epqSlAK+0YjOd47B0IVswcoHf2gdRLgfigj3qOUUCUvZju3O22WGQUq1057wOaBJFyS7Ajb6xZt+5JJbB25fneitZI7cISHHQUvrS+45V9fV9KBvit1KjRhUTnlIIRdaJQze0G/yXZ97aBifvv6nWXe5cB15KFB0kqg+hH9+nG1K0sAQN/9vAkKmo8jOzgK6+LoNTdD/ZmpXbD0uzFKp2SaEgL51d0o2ghWAnbcAJsaOehMx64VqFRjJtieESeXpKvf5X4ErRxSTo1QNW5om8FWt0rHej+PHdkR1BxOtIFoB7nMSbIY9p2pZyKCufh1gneOR+nTY5CZh/TK8Z4jUqYDb0GCsEOaKBov2dV529ptHPqmPdAq4EO03dpvvjpi1k09R5uX0JO9Ittx2V1vIG+uaSxW8v2kXGbJGE9VZjM/bZ1mWXYdZykGNUzxY3DF2GWdziAYI+JhVDqjeotEH7c3F5o+qg5DKLAowpOdMYvV0cndHrOGdIRYwth1/+poewv1dOtPxpIdnvZRfzjijE7kemtjbdi3+E6cjqMzuwFL7cfpv957XyNnqo8RbHAMKLvPVOdDpGm+HcXvC/lM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(56012099003)(22082099003)(18002099003)(3023799003)(11063799003)(4143699003);
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(921020)(4143699003)(11063799005)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?andXVXp2cFc0WnpCMU00OFdQNC9ldjVMSTF5NVYrN3cyaFAvVVMvZ0dnSjl3?=
- =?utf-8?B?S1hBdnEvRFk5MTBqYWFsd3A1dERUK2ZaeWtJTG5DL0RVWGNMWkVXZXUvcklp?=
- =?utf-8?B?dm5pNTVoTm1URUd5SnFxT3JveHRnSmZ4eEdmTkExMWpBSnJMdjdzaDZoMWVv?=
- =?utf-8?B?Z2JlRDZkMXorM29iUUpiYVFrcHQxeVlpVHRscXdxNHZmbEFFR3lLYTRoaG93?=
- =?utf-8?B?TmlRN3R6ZFJIOUN0cDV0K3FXSkdJTUo2NTU1bnQvd0c5SENsT0RkWTJRcEtK?=
- =?utf-8?B?d01ZYTVNMExmbFhNUVh0RXpVUTZtRkM5R2N2NGZJaGpKWUNrenVnRm5qR1Nh?=
- =?utf-8?B?ak4vV2VKVGtqdCtXTXFFTVM3N2JZVEVzMjdoNGpkcURMZCtzbCtLaitHdmRQ?=
- =?utf-8?B?KzR5L2dtYnVrYy9lQjllS2R4aE02L3R6VklHWjE3dVNnQldDM21xRDRXYVJ2?=
- =?utf-8?B?NnEzZFZBcFpSVEk0RmY5OXJiNVd3WER0M1VETWljSkU2QXVQTmZoVk9aOGFS?=
- =?utf-8?B?NitHT3poSHNZRCtlVzB0TXlJTnVHdjQrRnA2aGhrQkdBc2s4d1c3NTB5bDcv?=
- =?utf-8?B?alhjQWZZem5qOHpyUFFmcFdLbTJPdStDZGZPQmlkWHlML1d3SEFReTRnS1pl?=
- =?utf-8?B?YTlMcDgrOXJjQlBsU3JzVzdiZVh3bHdRK2JZejMzT3dlNk9IQW5BOURoYy96?=
- =?utf-8?B?ZnBKemZ6aTBvOXhTMnVYejhQODZpQUFNM0ptSWE5Q1ZPTFduVTl0S3g3OTR2?=
- =?utf-8?B?MHRtb2ZXTHdWRXRXbzJXdko4TnBxaWtiOHQ5ejRiNnYzSm1GcDlCazdCRVhQ?=
- =?utf-8?B?d3BvK0M3L3lxNkVlMXRjQm13YXVGOTk2UlhSZlo0aXNCeWVKeGxBcTR2cmNy?=
- =?utf-8?B?QVdmc3RiSjFKdWgwS0hNRU9rR2VoSGVWemxYUWlVYVBLM3NQWjNyc0F4STBK?=
- =?utf-8?B?Nk5SSWF4R3NHNEJPcjNqRFVPeVdWT3dnVmhtS3llTTJLNjJwM3VITndoTjJz?=
- =?utf-8?B?WkNBenp4S1BBRU5TS3Y2ekswb0pkeTIvNHRJTks4Q0Z0ZGRmWXNxclZjZXFS?=
- =?utf-8?B?eTFzeHJqcUVXUVpibHB2cUpCMHBnWHcwVEc0dTgvZUtzR0I1bm42UEM0K1lm?=
- =?utf-8?B?c2dvZlp5b05ocm5KL2ZOMnVhbDVFUmZJZjlBTW40Zmp5blN2WFJBejZRNzhn?=
- =?utf-8?B?cGNiMFRheFBZbzJHMlQybFlXM0dUTDdPT2ZyUldoMFByVCszNTNhQmlmTHA1?=
- =?utf-8?B?anN5WTh3dmJveDJkeEJtSm92aE1uMHNWaGRlYUZOS2J6a3RJSW5wUkUyckZX?=
- =?utf-8?B?YjZpNEhPR3hjMUN4NXlFc0hUcEhybGFaaVFvQjJHWXJQNVNkN1VZRmg4SlpS?=
- =?utf-8?B?L04xVlJkSWxDYTFBeEptM0l4K3p3QXlkdU9kbE1MV0ZZU3ZOWndFOHh3bXM2?=
- =?utf-8?B?ZmsxK2NIQUp4dmZsTXU4Zk5jM3V0LytwWjN5VEE4eWhsa2lzbWFoMXZ1QVIv?=
- =?utf-8?B?QXNQRU1vWHl3Z3UxcFdaQXQzQzN3enRrdnlYeEpIanZId0dmRHA2b1BHUEY4?=
- =?utf-8?B?NlE5ZjdlNlNndEppcGR6TDFwU2Z0WGg2S0hhVEllOWx3ajVqYm1MSnNYb2cv?=
- =?utf-8?B?UGhwd3NuVUpLdkhtTkhTUFh0VlVVcjQxTjNDZEJrZGdYTDZFSlM4TEZma2M2?=
- =?utf-8?B?VWhaVWtSbi9IZkpsRU1IbExmR21oamNPYmlyWmthTGlWMjE5dlR4SmdFOHpZ?=
- =?utf-8?B?T3FxTXkrSkxJbXA2SGxmamlEZmtUZkNhQ1JaRjBwU3pyV1BPUExjM1l1RG9D?=
- =?utf-8?B?dzVYeGwzaXJYWmhnL01oSDhXSVZubTRPT0lNSk5jV2xDdUFQcWlaeks1STFN?=
- =?utf-8?B?Y082U004cnB0NWRsQlpvSXBITkJWZ2U4TUFhZ1JUcHJteUpoNVZrcm5VL2xZ?=
- =?utf-8?B?TVBPNE5zSFVqWDAvaG8vWlNreThQZ0E1YlM3eFNpSVNyYWk2Q2kxNWhiUG5u?=
- =?utf-8?B?VXIwMWpwemVGL0M4Tm9hZVlZSTVaaVNzWjhIc2JhbE1NSTNVME1mVk5vNmU4?=
- =?utf-8?B?MzVUMmF0cUErM3JhZ2dUVnEzMU1aOURPa3NMcUlORkxPZzlXaUJKZHpHcXBw?=
- =?utf-8?B?akhLZlFROS9ocVBUem9RVlVrV1Ixd2RidXphVXFJZTlyaHNsbkFIM1VEVzZk?=
- =?utf-8?B?N3dLMnN4WjAvZ2k5aFI4VTdsT1VFdUdZbFhSUWh4VVNHZXgxZ3FkZlliWlFu?=
- =?utf-8?B?YXl3KzZudk9teGdQVUJtNkkyZnhzaFAxYVJTTHplQlVRTnRlWGREZGw2NzY5?=
- =?utf-8?Q?c6wtNeuk9Ae0NQPLP6?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VWE3STZDUTUxWmV6dC84V3BDTksrMHdiVlZKcHNIZFhWZDM1K2hVMzh4c0ts?=
+ =?utf-8?B?cGE5TGVYYXhOT2hZVmZSenoySWVlNmR2akxPMENQQ0JXalRyeGY1MXpydmVG?=
+ =?utf-8?B?UEx6NTc5cUoxS1BmTnpxUjhMb3FBZm5ia25mWWwxemg0Q0hkUCtQY0E1SHhH?=
+ =?utf-8?B?eTEwamlBNE9YNEt3Q2RKMjhCNE5CaFpGb1JQTXMxeDVHMzlWeFZYV2NuU2J6?=
+ =?utf-8?B?QStramtzNTEyNzMwZ2hSejJuSU9MeFJuMGw5T1VZNHV5TXN1RWVFaU5hYnVw?=
+ =?utf-8?B?VkY5UVpZRWNoK1N1WFpZeW90T1IvQTVQMzk1UmJ6K2RDbUlNM3Z3VFJOUUM1?=
+ =?utf-8?B?Wlg0ekhXNXJCWlNOZ3phVThZZm1pdW5IZEdwdXhRZ3B5blNkemNBVGhIOGdT?=
+ =?utf-8?B?RWlxUEpqaWpoL1ZtSjY4RXJjNDZnYVNuTzFpdklETkFONERJdmxCQ0F1eUxo?=
+ =?utf-8?B?ZWdpTzFxZXFVTkNUb25PVDRGbThyR0FDbUlQVHN2ZXJlRVcxVWtOS0pyZCt6?=
+ =?utf-8?B?NlQrOTM3N25hQmZsTVBBL09wSVlCdnB0WWk0MUZ6WnZFTG92V0IrQjF2WXlG?=
+ =?utf-8?B?S3VmUzJDT1JPVUh0VGt2aHE3QmJIRSsvRm1ONTN4OFlkaldmeC9aWS9pOHdJ?=
+ =?utf-8?B?Z0JDTkEzMDRpQkh1ai9tekk4emJqN0s3TzlOalhBSytORUxzSFpSMnp1bzN1?=
+ =?utf-8?B?cHpTZDU1ekZKZG0xVmxGTWpNTU9SRFNuR2owSkNpOXNEYVNXK0trcXhMZXVw?=
+ =?utf-8?B?bTZOZjFrRisycW1MQlU1R1FxVW9mVHZmT3Y2aVZxeXpTWVc2SXRXVWJ2bjdQ?=
+ =?utf-8?B?am5ub1l3WnVOT0tEYW82UENUMi9LRWhRVVVaZkxNUjNUZ3lPT0ZGT1lFVXlR?=
+ =?utf-8?B?Ykd2Tml1czlPUWZTcDFPM0dudm1EbjFnc0JQTE56TkdxWWE4T0lNbTBVaklp?=
+ =?utf-8?B?a2N2bnBJRnVvenFWRThIN1V6c1M1M2Y1RjZZQnpRdFNHTDhNbGN5dThtUjdM?=
+ =?utf-8?B?cXdwTGorelc3b0N0NjhmQVRYNjZaS2s1dURseEhBcURRRUVFUG14WkVRSGpl?=
+ =?utf-8?B?VCtkajZZV2pyWGRZS3BHZzJaUWtsa2VNRzlaOU43VTZyanhmdHMvTHpqWGNr?=
+ =?utf-8?B?YkpuKzEzV2tSK0JuZ1RranNaUHZBSkxaRHlIMmJra3dEbm1KMUdkVE9LcW9P?=
+ =?utf-8?B?L0NxMngySE9VWjNyTkpEM0Ywc1dML2t3OXVDV2tKSVpTM1RPVVM0UVl6RSs0?=
+ =?utf-8?B?WEppc0pCOXg2UWVLNTJyYWRUTWpsYVF0TDRGOThhRllUYlFRMHpZRnJsWDlB?=
+ =?utf-8?B?VCtJOFlvUDhENEJFbVZ2RXJDS0tndXFiOUJYQThiQlhVSjBiNXhraG44dHJ1?=
+ =?utf-8?B?Nlh2T0doZ2dFUDEwNzBJRk5nbmFiVmZwd3NmcW9PcktVR2hLTXU1U01keThR?=
+ =?utf-8?B?dWJiTjhkN3JOZ2UzNC9MT1E3Q1NhRVhxbVJ5YTZRMmtkakR3SkgyaHprdEZT?=
+ =?utf-8?B?emo4d0pZQVFtZFBhWHR2UG9BVnhWV2JvL0prcldZc0YzVG5wUnVLK1Ird0FM?=
+ =?utf-8?B?b3NFRS85UGNQWHVRWlFOM2hIbUZmUVpUbkF3U0dBNmx3dGpXcjZaRTFkZG5w?=
+ =?utf-8?B?ZEhOSHpFbVI5emhnU2p2WnRhR0FrYTQ5dXpLd1NYRGo4c3duajhxQmJtN2dn?=
+ =?utf-8?B?S1ZBMmxuZFlIamxWS25PckxyV21KTE5tZW5zd2ZhZ0xkaHlueGNVMHhQM1BB?=
+ =?utf-8?B?Z1pSaG1vVWRPTHBSUjg3eWVkeWhxUTY0b1Jsb3daSlRtVVh4SWxXNTY3aU0w?=
+ =?utf-8?B?ejV4cDFpMmY0Wk9UdXV2K2lSTkk2U2NYUVJEQkpSTXQ0SU5qcG5NUE5EQjI0?=
+ =?utf-8?B?U0VucXRvSHZhMU1lZE9URjZxQmdzWnZvUE5QVEF2RFFqU3ZBMytVTHV3RFRK?=
+ =?utf-8?B?b1dGTG56ajFOV2RxRmpVciswaSs3RWwwTTExcnRqdDVvY25ndkRuT01FalNT?=
+ =?utf-8?B?djBkaVhoWGhXVjdiQURNbURlN1lWTUJ3aWNyYW9STnhlRGo0MklZRkx4REJ2?=
+ =?utf-8?B?VFMxU05Ld1hsYStVR3dObFVFR2ZZemNiWjdSN014Vzk2dXQ1ZXQzSDZ4aGdh?=
+ =?utf-8?B?T2prdmZBVFBlMlg4ZTFZdjY2cm5Kd2U0Zjk2VkNDNWhhR3RlWm51SmVxS1Ju?=
+ =?utf-8?B?NEZhZXJCVWZsM0xkck91MEdpQmFSeGdxcjhFdm9ydVg2UFh6WERzOHcvK2ZM?=
+ =?utf-8?B?VkZ0OHR0eWU1eWZrWWg4cURRT1pGaEg1a3kyQXhNTXpYWUVtVG9qQTdKRVFm?=
+ =?utf-8?Q?7DkKfxcS+VeV2i9C1E?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 516690f0-9c46-4857-911b-08deb57f294e
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2935b3e-f06b-487a-3cb5-08deb57fb83d
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 08:18:09.3016 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 08:22:09.1971 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tr7OtFUqQHK8vI/daEkTbxnZS3gxADwqoZAsy1yJIMIY/7X1ipcVIC6XRUbM4oud
+X-MS-Exchange-CrossTenant-UserPrincipalName: Nn+CKF/xwVmCbrZwuxfYM3eEaUf+SXo6WYHgV+BiGBeZ/PGWImh7CK0isijEdkwB
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4195
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -148,52 +145,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/18/26 14:58, Julian Orth wrote:
-> On Mon, May 18, 2026 at 2:41 PM Christian König
-> <christian.koenig@amd.com> wrote:
-...
->> It could be that we have eventfd integration for that as well now, but in that case you could give the compositor an eventfd instead of a drm_syncobj fd in the first place.
-> 
-> Yes, all compositors use the DRM_IOCTL_SYNCOBJ_EVENTFD ioctl to wait
-> async for the timeline point to materialize and/or be signaled. The
-> wayland protocol was the motivation for that ioctl.
-> 
->>
->> So as far as I can see using drm_syncobj for software rendering really doesn't make sense, eventfd is a much better fit for that use case.
-> 
-> Using eventfd has some disadvantages:
-> 
-> - We've just added syncobj support to vulkan:
-> https://github.com/KhronosGroup/Vulkan-Docs/issues/2473#issuecomment-4446117280.
-> For eventfd we would not only have to add yet another extension, that
-> would realistically only be exposed by llvmpipe, but also every
-> compositor and every client would have to support both extensions.
-> - Similarly, a new wayland protocol would need to be designed to
-> support sync over eventfd.
-> - Eventfd does not support timeline semantics. Meaning that you would
-> have to send two eventfds over the wire for each commit, one for the
-> acquire point and one for the release point. Whereas with syncobj you
-> only need to send two integers per commit.
-> 
-> I don't see the advantage when drm_syncobj already does everything we need.
-> 
-> You seem to believe that compositors would not be ready for this and
-> from that perspective I can understand your apprehension. But I can
-> assure you that compositors are already fully set up to support all of
-> the usecases I've described: The wayland protocol requires the
-> compositor to support wait before signal.
-Yeah that's much better than I thought it would be.
+On 5/16/26 13:06, Julian Orth wrote:
+> Previously, if dma_fence_chain_alloc() failed, the syncobj and fence
+> would be leaked.
 
-And that eventfds don't support timeline points is indeed a pretty good argument.
+Since it is a bug fix that patch should be send out separately from the patch set.
 
-But I still don't see much justification for creating a /dev/syncobj device, this is clearly something DRM specific.
+> 
+> Signed-off-by: Julian Orth <ju.orth@gmail.com>
+> ---
+>  drivers/gpu/drm/drm_syncobj.c | 17 +++++++++++------
+>  1 file changed, 11 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index 9b7ecc2978f5..1da96e23dfc0 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -767,30 +767,35 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
+>  {
+>  	struct dma_fence *fence = sync_file_get_fence(fd);
+>  	struct drm_syncobj *syncobj;
+> +	int ret = 0;
 
-What about using VGEM for this?
+Please don't initialize local return variables, initialize them when you know that the function is successful.
 
 Regards,
 Christian.
 
+>  
+>  	if (!fence)
+>  		return -EINVAL;
+>  
+>  	syncobj = drm_syncobj_find(file_private, handle);
+>  	if (!syncobj) {
+> -		dma_fence_put(fence);
+> -		return -ENOENT;
+> +		ret = -ENOENT;
+> +		goto err_syncobj;
+>  	}
+>  
+>  	if (point) {
+>  		struct dma_fence_chain *chain = dma_fence_chain_alloc();
+>  
+> -		if (!chain)
+> -			return -ENOMEM;
+> +		if (!chain) {
+> +			ret = -ENOMEM;
+> +			goto err;
+> +		}
+>  
+>  		drm_syncobj_add_point(syncobj, chain, fence, point);
+>  	} else {
+>  		drm_syncobj_replace_fence(syncobj, fence);
+>  	}
+>  
+> -	dma_fence_put(fence);
+> +err:
+>  	drm_syncobj_put(syncobj);
+> -	return 0;
+> +err_syncobj:
+> +	dma_fence_put(fence);
+> +	return ret;
+>  }
+>  
+>  static int drm_syncobj_export_sync_file(struct drm_file *file_private,
 > 
->>
->> Regards,
->> Christian.
+
