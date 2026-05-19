@@ -4,132 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED4DCD4F5B
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 18:33:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9667CD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 18:51:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE7010EE33;
-	Tue, 19 May 2026 18:33:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 278B910E365;
+	Tue, 19 May 2026 18:51:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="dQ3eFEtw";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="KDOpuBl+";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azolkn19011090.outbound.protection.outlook.com [52.103.23.90])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C79C10EE32
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 18:33:27 +0000 (UTC)
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010050.outbound.protection.outlook.com [52.101.84.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D70310E365
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 18:51:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CxL99iIr3zeic4t9wI40wQkabpKOeWN4R73cdr8G3eNOPXiklfDCcTPXawcHGS8sfZoG/acAMNgpu6eamRXVd7mkU5dD9vLUWh4GrHtz3lLU76RB4AAerdastR2eHizrkD8hJJ5t1hQpsSv705E6Tzd8jZDmbKxWQrBMDucqck7MhhhavwdLBQCJH4uHgfvp7Sc37aXAY/4v1EfwntZd8HwUo7qn+PdXG0dHmgbYJlGYCoqfn8vzbhpFIc5w1FRB5pCE5MZ/HPTcfX+CqkYMaUmSq3ICNoD6whmf4GEFgEoHVee+41RgAPOYuODfi6iQ6vYW/CTZ5abnDQwcAicZTg==
+ b=k6tVEKXWI+uPxh+k3R+2zEwMxTF9B9Xm5AF4UepUndeSUDyn+yScWE+r0HOwEfmqoeTp/yJCkwXG5oaiyeoAhCh/zyhn2335pkZkA2kI6etkLKmv7leoOzbtry3EycHD+2I7d+RyaBJ/mJtYGy5DwaGUGMBpradaBbRYW6xo5IAZo0UXDtkD+W4l5A0aCB4/tucjS2I5GTh7Frs/iS2EbRUCfnQVslZbZZQAquJVzRaZnV0ba0qka0pQX1zVqMB8iA4ttvGckQZy+AfdKfduHme4OZ4vOShMFl1Wo08K0uh6BIjOISck3HAIyqqSaMBT9mbgjbG3X7cRzCw/9GcNww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nKuHF4ip8RHjSdkqj/5FB8VjRCOJYFUMvxY31lZT6WM=;
- b=A1NiyLK60yTSAaHnCyP/5o+2A0v/p0AnM9qGGWvE0KlepCz0P+jh0ItxWuRC/wTXMuNLIaEfFa0/lm1eENJyM/vVO3TopNOWAfeHOY98AyRN4bNRm+ZmJAf6UVTfZyu8fsANw3vzP/am5kMlwuMa7zfnU7PiCJryvuVXjZz2DVgOlQU4wNlwTCc9wdONoSp/OTHqpJqp32G4pp9Ge4nFPd0REJxQucpvia6z5lmLaK+DQ5gUZgJGZQTC024QQDW+Igoos94xxhasZjtvy5Qu87I7bP4dTlkxy3AZY5nee5i7KroMDGJClNZBhTCCXEpE6C55RI0+Tsf/y9iD72CL8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ bh=RG+w0Sh0jGSY0NwHVymM0myYS3jECGNtpBjp+YTpxio=;
+ b=NoX4X3HdrtQAIKt6FBNKawjhCJPTen8dIp5UA6jSouj63Sf099F6XRUdWyr7O2v7U9IgImaNiqkd4KKDWegxWn3QJG5Q+amY/cKyuHsvw44G7qUX7CA+hF8X6tDLcY00m9hEZWC59pYwwmkrDJCeVTdFYBB9K9de+wyXJX8CYLqWvDw6ifym4RUHPElI8QK/KLYz7mnrhiBFJ1aDSC7ovkGsUNjepfxDea6ezGkMowJqIt0ovv7spCkUh82ivLcJgnqnBFdr+4RijSm2im07jFUNB8kG4+fkLdyWSuU4fOB0EtuTQS7FJedWkpNZRHbyltoVFxs336c/4PwyI+bizg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nKuHF4ip8RHjSdkqj/5FB8VjRCOJYFUMvxY31lZT6WM=;
- b=dQ3eFEtwh54YOZMm+ForR5wzFMNxhNn6yffQ3Qs1cirJc3PjkB4fSdLVC8UOcBsDD0ulu2sYfgpIQMWFFycbRFjQUcS4wPrU30e66FfiWOgrf4w34vSJAP59rdI7jkLXlte7mKferhvSwv4TmS0keF8FScdxHL8sMPBXei/D/T2Ji9sCp1D+GelNzbbfNhlDY8sTaiPVOmrd178xs8nQH1sc/3NDVURGxJgxvB09En4tvrRFeTCtJjBKao3mufZzO158d0Nt7u1Gszi9plfrZfJpdzQ+oGGep7k5o69HOc/3sRT8FglqtTlLOEC15xaNO0RvQ7eaMDFhxAlLKLlXpg==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by IA3PR02MB10626.namprd02.prod.outlook.com (2603:10b6:208:513::9)
+ bh=RG+w0Sh0jGSY0NwHVymM0myYS3jECGNtpBjp+YTpxio=;
+ b=KDOpuBl+B1NI17KRx1sO8GLSryQR5v7dhMR2+JKSTViwrd9pdCu1sz5PJleOQtSQjXz8JBCwlNeYVpTAnTdGgaQuuAFPP58PS0FyiPHnpIV0zqjizI652yyJ/gUZe1L3vjDT1Mh+Bj+Xdf5OBwnm8vm/sr7sgkvH/sjRM1nyg4FcpHi8lcJ9uanSx/HC7swDZTeoJzPTluCmB7vi+5MKeG/tTcOgPxzVLIlIG2HKXTbdpsJihF8ZetAd/ecWaEuOoDQqz+NNgUOhtLk3pXIO/mdEzdLSd41mQTs7nW6L0UXQZZqPCF/sAgFthQpNj57PJ7te/EFaJB9NfeMzpBfi2Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by PA1PR04MB10227.eurprd04.prod.outlook.com (2603:10a6:102:456::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
- 2026 18:33:23 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%5]) with mapi id 15.21.0025.022; Tue, 19 May 2026
- 18:33:22 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Berkant Koc <me@berkoc.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
-CC: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
- Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>, Thomas
- Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Deepak Rawat <drawat.floss@gmail.com>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>
-Subject: RE: [PATCH v2 2/2] drm/hyperv: validate VMBus packet size in receive
- callback
-Thread-Topic: [PATCH v2 2/2] drm/hyperv: validate VMBus packet size in receive
- callback
-Thread-Index: AQIUBwkfFERYES9mX2x90t/+K692oQIfeugFAhcXqVoCpbX6hLVwf9cw
-Date: Tue, 19 May 2026 18:33:22 +0000
-Message-ID: <SN6PR02MB415761EE7992EAFA14F2201BD4002@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20260517-drm-hyperv-cover@berkoc.com>
- <20260517-drm-hyperv-patch2@berkoc.com>
- <20260517-drm-hyperv-cover-v2@berkoc.com>
- <20260517-drm-hyperv-patch2-v2@berkoc.com>
-In-Reply-To: <20260517-drm-hyperv-patch2-v2@berkoc.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|IA3PR02MB10626:EE_
-x-ms-office365-filtering-correlation-id: f696a60a-6c8b-4cc2-ea88-08deb5d51b8f
-x-microsoft-antispam: BCL:0;
- ARA:14566002|41001999006|31061999003|51005399006|37011999003|55001999006|19101099003|12121999013|19110799012|8062599012|8060799015|15080799012|13091999003|40105399003|3412199025|440099028|102099032|1710799026;
-x-microsoft-antispam-message-info: =?us-ascii?Q?aKfOYCFT610DXS9TrOY+oo3qRQbIhWvzW5wq2JndZ/9I2pLfGCIxr1XLjPf1?=
- =?us-ascii?Q?fj0ivQTdXhYpZ+5JqidluPOlkzIx1e53b/YhAog/tDGkb0UJ2Gvc3KMdTmeh?=
- =?us-ascii?Q?Aisd2nQ8ULwkS4BqVdrb/nzGV1mxIKU7vS3Ys1JayXhpQpmP3XC1CR089dxu?=
- =?us-ascii?Q?EdYhD+xA44SgqGFE+k4OhoFbImHKRhrC/CWT0MR+avfXQEi/zveOhapazs6f?=
- =?us-ascii?Q?c5mWmsA8w+aqAXHkO5CHYV5ECWM+AuicyyNWcHrD6P/KbuAhLuo3qWNSPPOk?=
- =?us-ascii?Q?Opj4DtehsWEh0BON05R7boEcWhdQqerhHdx53nx100mlu0fvSoGAsDZJAWR/?=
- =?us-ascii?Q?NicaVhyZqToKIzZ40/VpmlXxwDTey+LpmgL9AVSckWkK/7pZi/+mnHq8knYK?=
- =?us-ascii?Q?mjhl07EgDshZmQXVgYUz4gDyVQHA3U1uD0xb+de9Am8U/ttFQtdkInFhkTd5?=
- =?us-ascii?Q?ghyYZXqtmHZGc+dUKgzIBB3aB7t3pFuts73++2urTKKIbyGt3dDut9dSpy/Y?=
- =?us-ascii?Q?FR0OA1omAFycPU1aycFgHKxxT//oUGBiP6hi8aYGFT5l2DmgdrEsn/gvrH10?=
- =?us-ascii?Q?q6LHUMtFo0SRGboBQU0X/0TJKgigfAQ7/lYLd1T+lgiTLJCuc2vwB9GRHIdS?=
- =?us-ascii?Q?qD/v4kA32k85BAvuWjxS4sQjZzriNE5yLYgR2b6F7/yPZ7U6y3eEVaxMhYr4?=
- =?us-ascii?Q?MPg64K9iWT/yjdGizUUX93WD15vZIM/wS3M/vuX1hVEjiYhF5IDoEGfd6xy0?=
- =?us-ascii?Q?kBZDwK8BCHh5j8berG0FGUcxUUkGT6gJWIiMq5hQgO3nuxxDcUzvckKLa1Vo?=
- =?us-ascii?Q?MggLce6ng57SVkLvSTZ9XwEwXsf+hkWHLqO34cHs19d8lJKzvyT2CwH0Mipt?=
- =?us-ascii?Q?cQ7ej5aqeiFwmsM31tEsWVn4VuEoTDy4DCRIAnBhMFVKpaL5YDBH2mjQqNXa?=
- =?us-ascii?Q?4BFJXCgp6NKFZEUFXwE0xu6odJ0g4FQquAZLmW6cSfBs0Aw/f22THmccXrfm?=
- =?us-ascii?Q?8PdF9Hv+RIU6Tn1UUm9l9JqbmjpJlmfpgYH6eJZm66zs40+9rt36Fj9ZjGNz?=
- =?us-ascii?Q?AAg7RhKLc7YkErmbkS5y10oiZMcjn9il/vD8HPP3Ms160CnK/2KNnyUNafCy?=
- =?us-ascii?Q?V4BvwT4rP8Ml?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bvfQ6xjloi+xGAEUyqVdRqyhR/W6+DDQOyx7Be6nA/xMjhE71t8ZH7twcZli?=
- =?us-ascii?Q?n4XzZB9HJIuENT3SPNEYGC3a77NzCxWz0s/7aLfc1TzjVsEaqDPWStneaqZm?=
- =?us-ascii?Q?xwqj8Am7mK55kGZls/aRPE8uPFtbA4U5jG21/Nf4wU9G5zwYKzmQAd8ZQog9?=
- =?us-ascii?Q?qcRMksylQ2UWsDTcsw1gHujW5dxImntPHJBf2i5o0ndr4NZLXLtoutCohVt9?=
- =?us-ascii?Q?cbzx8VhNGUZWLJLaT3swU4Sc5XRli0vZWImQAqPWus4k4zYcyKDLVRjhtwfe?=
- =?us-ascii?Q?nV4sI9JAZfIdM6QHlLtFL6H2EuAFRS9sgk+MobtYGymzAKgGBB1WSaMFoROE?=
- =?us-ascii?Q?rt7Ig1rVumKmlwPrZaqxG5H4tHEmW86pnTUh0Vz+Age7djnW8xVtTHHmfBxF?=
- =?us-ascii?Q?LLFwJaLo7wwvadCxWiSR5mbli8jBqNS88vgRIw1Ep5dxfLI8HdvZGlM86eay?=
- =?us-ascii?Q?ulGillT7OICetYJPk2Jbovs7SeD2uqnzhbN7pxyPK8YTMInEBswhBbl+1xx+?=
- =?us-ascii?Q?bWjh95s++LSfEeisMcq0Rp4nPn/DExtV4suqIpMGi1ZviS92FPSd9GHiiLzj?=
- =?us-ascii?Q?QtI+uq0VXFKmEyYwqX2P4wZd3KIYQx2ULdWrKaH46rnSVMNewxphZeYxUukp?=
- =?us-ascii?Q?lFKAVcsNqokc2v7UlgQEkl1FxYtjBhb4EmL0YwedvahflMF8mQURsH2KZbRh?=
- =?us-ascii?Q?MZLKk6MJQ5fQTBPfBUPkSy9AkfAfYDuhuwjcPYhLef2vTPEQXXE5jXC64kzx?=
- =?us-ascii?Q?9LfJNUVvIW5tJQJnjputbMoy7J7ZXOyfUV6a3bZyEzWAAvvsdO1SFMDeuP2L?=
- =?us-ascii?Q?np7lhz5u+/Fjfo+bTxEzAv49Txz0+oeREEHGyl5OcIy4zwsS3beceKIFq5b1?=
- =?us-ascii?Q?7lFoI9OxAwuK1LAwUkYtp89cXAcyJGnNAWVO+N3n7cppJuibXOMGwQEyS9/i?=
- =?us-ascii?Q?nh2a53ufJcc3gUo9IQzbyLDpXyQiJi2mnQSxFUssspbEU+TYGl/RGqkWDIg0?=
- =?us-ascii?Q?PXwEMGHugk/+/r+h5tlOkLs8+0Lv6DctJykr/xq5AK9o6TkhrW/MVdSRPtQ7?=
- =?us-ascii?Q?TD2gMBFhHLx2QRv0Fy256l4wYVms5bhZ/Pb/oSkm8/eepchS07fpZKB7JfA3?=
- =?us-ascii?Q?z4P5/h5m8ZXQizSI94N1x5NpgNBZ6dy8UoObHSgRBPL7OQvn54VDE7quj3r3?=
- =?us-ascii?Q?TjXMRwjKGY3I750Pgv9akTXvD7TAEraszvbnZHxR8k+UyYrwhAmdfdju4dEO?=
- =?us-ascii?Q?fEo4pPeHju4WmqvBqlfhf67fw9joghleB008D31UPQtfhW2Fq4ycSvlC9BLL?=
- =?us-ascii?Q?SFn5C+1+l2s4zLwjMXeEhNnobZVExzas+9IUnHxpogj8r31s5lPaCAeojqwG?=
- =?us-ascii?Q?qDuN25k=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Tue, 19 May
+ 2026 18:51:36 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0048.013; Tue, 19 May 2026
+ 18:51:36 +0000
+Date: Tue, 19 May 2026 14:51:26 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Maud Spierings <maudspierings@gocontroll.com>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: (subset) [PATCH v8 1/4] dt-bindings: backlight: Add max25014
+ support
+Message-ID: <agyxLnTYstqRwGva@lizhi-Precision-Tower-5810>
+References: <20260407-max25014-v8-1-14eac7ed673a@gocontroll.com>
+ <177755722019.2606736.10749503716773482329.b4-ty@b4>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <177755722019.2606736.10749503716773482329.b4-ty@b4>
+X-ClientProxiedBy: PH1PEPF00013300.namprd07.prod.outlook.com
+ (2603:10b6:518:1::e) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PA1PR04MB10227:EE_
+X-MS-Office365-Filtering-Correlation-Id: c65f4ea5-7fbb-4f5d-25d0-08deb5d7a75b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|52116014|366016|19092799006|1800799024|11063799006|4143699003|18002099003|22082099003|56012099003|38350700014;
+X-Microsoft-Antispam-Message-Info: txdydq61eEsV5hk5ibCe4j+t0HRs7Ld6exxIw0WP4R3A0J8i0lVvpWwmdl3o02eNJB0J/0v1MMt8Jl2kbeL6it3E8wQIzHE4EGicC3VFu0hgmh54WW+pU67PfwaYW6T3lbIfBwSnTjnhfgj83NQQErv4h/ug/+ifJ1dwH1N5s9zk5uc/RFayFmsJ/9t6SjZs6vyjwGOFuTaOJ5EXPIl2JfSkTdpnPdwqfLu0CBGUIQ+vvzs/RBe8Pswesoq5j764JjlOOOZ42/23NKM7YQyHHmdPbXfLKUxSaRElSXgD6jMan7k0pK+EjpEvYLHgpVLkiG7YRjgxJ9nLatx4r8FdW+azkSzhbb0W3LCSDbmrUIAcSETsd7OfjI4gqfYt8jW064d6gU3iWiY6PS+epvLftUByY/iTeZfURv6UCsrXqnGywvCD8tJPlE1gudGvg1fsS4x8sJLSNkbE/neZGWLz/P9Am/O+LHd3YdDh35MhP6ALqPQEUnR1Mi4W2VNPsrIgTOmOuMP1VYAMvCwi/Jyn+p/OyYkm9tn1WiE0HKB8xXbvjY3+pa/Ncxhc2xhndX9caKW7c5adx5TOIA575EqXqWVD99GY8Dm2H8Y6WIuIK28bpg19kNCYNWWmoqvKwq9QYzF+BdZc+qixb9AJ9FuxvJL8/ogJX0U3IhJYtS6QcGeDATG8oSHLrQ1lbq5BPVyR+ZXFRG+HKfeKeOlH5EixB6XwJn2iGVk7LgTBPQQEudf8Fz4m8qDAacLJpJ9u1Jhg
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PA4PR04MB9366.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(52116014)(366016)(19092799006)(1800799024)(11063799006)(4143699003)(18002099003)(22082099003)(56012099003)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Vk53WHcrNlFXNHd3ekcrMHozems4emNEKzY2QjdweEx2OG9XcWdhUUZHTktz?=
+ =?utf-8?B?Q29aU3pYU3FzK1dHWm4wa2grRkJVQ2NLRWRsTXZBT0pJV2pNSm05aG1md1JI?=
+ =?utf-8?B?L2tYTDhRTXJVc0RUZldVZDNVbHJxSndyS3I5SVdDVTNabzZvVzFtUUZjZ0c3?=
+ =?utf-8?B?ZnJPbXp6cFBaWDJoT2FUcCtrKzZ5S0FhQ0ZLQkwvK0tUak1GQ0RpQ3kyeFdm?=
+ =?utf-8?B?bkM1S2EvUWhiNTZnUnRJUnhQSVNZdjhPN083K0E2aktBYmFkbjY5N3RMd0w4?=
+ =?utf-8?B?Q0UzKzdYWXdPMEgxakdUSjcydHA1bVpZcFhCVmkzRWVpUTZJT2pObGwrWkNp?=
+ =?utf-8?B?ZjdlT0czd2FYL1NPUTY2MVY0cS93alFqSXRsbXIvTFVFLzRnaW9SditWNEhX?=
+ =?utf-8?B?cmdHaTRiZ1dIdFBVRXR4a04zR3JEeFVmRlJ1MHM1S3JQSUZBYWl1M21tQnky?=
+ =?utf-8?B?RE12dlpFQktUVy9iV3p0bWpranp6bkZNYWFKczNKTkQ3aVgrNXZlZHR5blN4?=
+ =?utf-8?B?SGNJUCszaU1mb0ZKNW8wKzZnT3p2Vmc1MDIzaW55RGVteXJDZXlrRUVGZG15?=
+ =?utf-8?B?d0pWemNxQWFYVXNWbDVIY1pLTFVDM292RFFMdzViR2JVRDBGU1pxMlFiTEVT?=
+ =?utf-8?B?Y2g4Q2Z0eGROWjZwR0dYMEN4OVBoR0RwL01ESHNBV1JYRTI3SlR4ZDEyaFdX?=
+ =?utf-8?B?MXUzU3Q1RGVTMHhNZ3RxOEp6eTFJa0pQV3hla0ViVTNPeW1oVFlqeVk5V1V1?=
+ =?utf-8?B?TnlpT0Z2UENYZ1BZZjVHYVpKVUZHUkVqSUJRdEphZ1c1UUxmQjgxL1dia2xN?=
+ =?utf-8?B?Wis5czhuTVBmQmtQTjlxVXdHTjludHcveEMyZkdveVVJbSsyNFZOUzJPVGhx?=
+ =?utf-8?B?QWt5MEZCTnVWNnhLK2xObFIrbkdLbk8xUHQ4TnZoL29xSDYxdFp1alpTOVRI?=
+ =?utf-8?B?a0czUU5XR3IyaDhQNTFReUNkdzZOdFh5ZG5BZ1RuenN0dXB0eGQzanZZVENv?=
+ =?utf-8?B?VEdNMjdjVWd6OEl4ZzZLYm00VURHR1dlOXZod2dLUmxkYkhycXVDQnJoLzJj?=
+ =?utf-8?B?blR1eDV6VHlKTUtNOEhVUkhLYkI5QjFMQ3VQajB1M0xrN1ViQnBPcWtWZjRX?=
+ =?utf-8?B?Q29wRFc0bkN2QTlINFpSZUg2VTNVeVV4U1kzMURYQ3VCYWNvYlUxOFFacXBL?=
+ =?utf-8?B?UWZWZlRKaDFManVlZjMwWjRXTmZGTmhia1hiWmJzSnBHdUZTR2xYbXZ5USsw?=
+ =?utf-8?B?cUp1ZktvVXY2MlcwQ05OdVRKcHBFN0krN3pLUlVGaEtBNDFhT1Q3N3Y0aVBp?=
+ =?utf-8?B?ZWl4QVhwcmNlWXVLK2E2T0ZEaTAzUnUwbGxwdTdYa05tWWhFZTZjamJEL2Q3?=
+ =?utf-8?B?VnVqcExpM2dDd3d5REc2SHNwWmlodXQzcFNSK0h5TnNrTVd2eGYydWFpTzFY?=
+ =?utf-8?B?OFlDdnZuMXE3L3NwTXpPMGowejNWT2dpTWNXUnVyYStIbnBuMitoOHVlNk1w?=
+ =?utf-8?B?anA3R3BZZTNiS0ZYWU9UVjFrdjYxY29MeHIyVUdZVyt5UHk4eTdMVEVDVHJ1?=
+ =?utf-8?B?dm04aTVVTGUxL1lwT3NXcVNqbitLVEdSUDRJd1FaRjVIMldGVGl5NE9WQnN5?=
+ =?utf-8?B?bGhvZFBoR1lOdVFsbWxnbXpTajA0Rm5BeVZORmcvWmtrTUxSZUZ1dDZXdHRT?=
+ =?utf-8?B?a1J4OWN2MUNOeE1uNFFWalNPOG93VkZZeTdyTjZSaEF6UU9maVRqMVBXTFB6?=
+ =?utf-8?B?bWVESTFRbzk0RG10V0NNSlMwVG5BSGRYb1hNbS9sOUxNZHV2amtod3NMYTJ1?=
+ =?utf-8?B?Z2FjVisxNTFWQVFoNXRSbzh1NXBtRjBpR3Q3K1FrR0Zobys3ZlgzUG92VU5u?=
+ =?utf-8?B?WWZ1alVQbHRBaXJGbWo1MHpQV0ZlbEl1NlZ6WVpxSFliZ1hBd2IxaDF6SHRX?=
+ =?utf-8?B?amoxaUY0TDh1cWVpVEhQMkhoWU12WDVHK2hHWmhFL1FuSkxlWmZnM2Z2eU1B?=
+ =?utf-8?B?d2dZM2ZWSlNoZ2pWaHAyLzR1N2p1U0NUbGQrS3JIc2I0RytsMXhSOHBvZjFJ?=
+ =?utf-8?B?amFSUmFZUWZHVTF4SjUvUndzaU1YYVJtSENhUmo0VjRyb3ZwaWFvNzBUSkJ5?=
+ =?utf-8?B?YStEc1Rvd2xadFVyRUNoWkRoN3k3YkNqcXFaSTlWd2FwRnQwUlY5U3J5cUxR?=
+ =?utf-8?B?RGRGMnhIaTc0R01RdVR5U3RObHQxNWJ5c0E3Q0JNUUZVL1BPSWZYQmpwUTBK?=
+ =?utf-8?B?U3ZQLzF4S21DUmFvdWU2anZPQWRhUmZtSjVxREhVbExOTWtraHJmWUJMcFV3?=
+ =?utf-8?Q?ea8M4jfWBrrNVK4XQy?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c65f4ea5-7fbb-4f5d-25d0-08deb5d7a75b
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: f696a60a-6c8b-4cc2-ea88-08deb5d51b8f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 18:33:22.7919 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR02MB10626
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 18:51:36.5393 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xYTg0m7T95SJBtPSYq4D6dN/sQdawbvCcd/kUs5vbNLnQAgeHoa4lcgY/tJIay5y2THonXi0WW5PzDO7AJHidw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10227
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,132 +147,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Berkant Koc <me@berkoc.com> Sent: Sunday, May 17, 2026 7:25 AM
->=20
-> hyperv_receive() reads bytes_recvd from vmbus_recvpacket() but does not
-> forward that value to hyperv_receive_sub(). The sub-handler reads
-> msg->vid_hdr.type and msg->feature_chg.is_dirt_needed without knowing
-> how many bytes the host actually wrote, so a short packet leaves the
-> parser reading bytes that the host did not write in this packet.
+On Thu, Apr 30, 2026 at 02:53:40PM +0100, Lee Jones wrote:
+> On Tue, 07 Apr 2026 16:41:42 +0200, Maud Spierings wrote:
+> > The Maxim MAX25014 is a 4-channel automotive grade backlight driver IC
+> > with integrated boost controller.
+>
+> Applied, thanks!
+>
+> [1/4] dt-bindings: backlight: Add max25014 support
+>       commit: 5fcbbedec9dfce78044eee922bf2030e1bd03faa
 
-This is a valid concern. Similar patterns have hopefully been fixed in othe=
-r
-drivers that were hardened for CoCo VMs.
+Lee Jones:
 
-> The unconditional memcpy(hv->init_buf, msg, VMBUS_MAX_PACKET_SIZE) on the
-> wait-completion path also copies the full 16 KiB recv_buf regardless
-> of bytes_recvd, including any residue from the prior message.
+	I have not seen it in linux-next. Anything wrong?
 
-Does copying the full 16 KiB break anything? Or are you flagging as just
-wasteful activity? This gets to what I previously mentioned about commit
-messages -- explain "why".  Being wasteful is a valid reason, but it can be
-helpful to future readers to be explicit about the "why".
+Frank
 
->=20
-> Pass bytes_recvd into hyperv_receive_sub() and reject any packet shorter
-> than the pipe + synthvid header. The dirt-feature branch additionally
-> requires the feature_change payload size before reading is_dirt_needed.
-> The init_buf copy now uses bytes_recvd as the length argument, which
-> keeps it bounded by VMBUS_MAX_PACKET_SIZE through the new upper check.
->=20
-> Unchanged from v1.
-
-Version related comments should go below the "---" following the Signed-off
-line. They will be visible in the patch emails, but won't get put into the
-git log when the patch is finally accepted. The Linux kernel doesn't want
-to clutter the git log with intermediate version information that accumulat=
-es
-as the patch is reviewed and revised.
-
->=20
-> Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic vid=
-eo device")
-> Cc: stable@vger.kernel.org # 5.14+
-> Signed-off-by: Berkant Koc <me@berkoc.com>
-> ---
->  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> index 3b5065fe06e4..cdab4895dd40 100644
-> --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> @@ -423,26 +423,35 @@ static int hyperv_get_supported_resolution(struct h=
-v_device *hdev)
->  	return 0;
->  }
->=20
-> -static void hyperv_receive_sub(struct hv_device *hdev)
-> +static void hyperv_receive_sub(struct hv_device *hdev, u32 bytes_recvd)
->  {
->  	struct hyperv_drm_device *hv =3D hv_get_drvdata(hdev);
->  	struct synthvid_msg *msg;
-> +	size_t hdr_size;
->=20
->  	if (!hv)
->  		return;
->=20
-> +	hdr_size =3D sizeof(struct pipe_msg_hdr) +
-> +		   sizeof(struct synthvid_msg_hdr);
-> +	if (bytes_recvd < hdr_size || bytes_recvd > VMBUS_MAX_PACKET_SIZE)
-
-The check against VMBUS_MAX_PACKET_SIZE shouldn't be needed.
-vmbus_recvpacket() takes VMBUS_MAX_PACKET_SIZE as the max
-receive size and won't return a bytes_recvd value that is larger.
-
-> +		return;
-
-In similar cases in other drivers that have been hardened for CoCo VMs, the
-code outputs a rate limited error message. That should be done here so the
-bad received message isn't just ignored. See hv_kvp_onchannelcallback() for
-example.
-
-> +
->  	msg =3D (struct synthvid_msg *)hv->recv_buf;
->=20
->  	/* Complete the wait event */
->  	if (msg->vid_hdr.type =3D=3D SYNTHVID_VERSION_RESPONSE ||
->  	    msg->vid_hdr.type =3D=3D SYNTHVID_RESOLUTION_RESPONSE ||
->  	    msg->vid_hdr.type =3D=3D SYNTHVID_VRAM_LOCATION_ACK) {
-> -		memcpy(hv->init_buf, msg, VMBUS_MAX_PACKET_SIZE);
-> +		memcpy(hv->init_buf, msg, bytes_recvd);
-
-Additional logic is needed here. Each of the three message types
-in the "if" statement has data beyond just the header. Before doing
-the memcpy() and complete(), the code should validate that the msg
-is big enough to contain that expected data.  I.e., it needs to do the
-same as you have done for SYNTHVID_FEATURE_CHANGE.
-Otherwise, the code that wakes up from the completion
-will think that it has valid data to work with, and it may not.
-
-Of course, the problem already exists in the upstream code. But if you
-are going to make changes to fix the problem, the fix should fully
-handle situation and not just be a partial fix.
-
->  		complete(&hv->wait);
->  		return;
->  	}
->=20
->  	if (msg->vid_hdr.type =3D=3D SYNTHVID_FEATURE_CHANGE) {
-> +		if (bytes_recvd < hdr_size +
-> +		    sizeof(struct synthvid_feature_change))
-> +			return;
-
-Same here.  Output a rate limited error message.
-
->  		hv->dirt_needed =3D msg->feature_chg.is_dirt_needed;
->  		if (hv->dirt_needed)
->  			hyperv_hide_hw_ptr(hv->hdev);
-> @@ -469,7 +478,7 @@ static void hyperv_receive(void *ctx)
->  				       &bytes_recvd, &req_id);
->  		if (bytes_recvd > 0 &&
->  		    recv_buf->pipe_hdr.type =3D=3D PIPE_MSG_DATA)
-> -			hyperv_receive_sub(hdev);
-> +			hyperv_receive_sub(hdev, bytes_recvd);
->  	} while (bytes_recvd > 0 && ret =3D=3D 0);
->  }
->=20
+>
 > --
-> 2.47.3
->=20
+> Lee Jones [李琼斯]
+>
