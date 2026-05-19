@@ -4,61 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0E0BCD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 08:56:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED41ECD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 09:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AE9310E3C3;
-	Tue, 19 May 2026 08:56:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8A810EB70;
+	Tue, 19 May 2026 09:02:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="aDUTRtO+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y1X9EXRT";
 	dkim-atps=neutral
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
- [136.143.188.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF02310E3C3
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 08:56:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779180957; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=KBv78Z9Q4uNMQIqTapgip9tHSxW9ohBzDJw/dkyZF1J1UpuYBJL+FDKRnPVTzTYzK7cwehTqa/TAgE2WwT+KG+YvyEkhm63aX4sMXgU5/T9XeBw9B5Jh6g8MrjyoERApm2ETNK/8eqym5H6bUTj9o8tIMBRVrxTSRjut2V+5K+s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779180957;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=dpB5NciRt73piPYGVxD0DLmGGkRppeM+/INGsHC7UAE=; 
- b=oFrtisNKJ/7rGEzXzM/Mk5MFxcmaqxraWSuScR6RWdZzZ1xaFAp/yGvsCsCHZ6olqSjkHjcdzH6BQ9uDs5CJKAsZCaVjQvMKPslEHBvNKxtsHI91ok26TEJZEKeyp3cfozR5MFNVYKcK53AeAvfPPdahYoXaZE3MHiCiqGNUhdQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779180957; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=dpB5NciRt73piPYGVxD0DLmGGkRppeM+/INGsHC7UAE=;
- b=aDUTRtO+0VgcOyT8Em6cfDjjV6A2Xkk72plF0raj0DOQuqVRRNuFxHaGV7oVwJf6
- MLtcQldvX5zOGeJovMpfQwXkQebdLT9uDdaqidl6cpdAymgnqkq+JKWd52F/NCs60CV
- ofiJJ7i0vFPvGkiD7cTljm8y3iJvi1eTh6BjiettTAkHG/2vqCZJTpKsvnZZe7/ewal
- m8lWWSnSTEbjE8bOcgWTR9X+5iMMD7361E7V0m+UWvvsG5Q6aMSN/pu7epq7v9k264e
- giZfDsXnrSEe2ZcYsXR75eKvUoWwAc8M2Ec2+oNmj0xdsvAZo6R45QrexB9KQJr3UqT
- 2XBuFEhXpw==
-Received: by mx.zohomail.com with SMTPS id 1779180956161190.65978070500103;
- Tue, 19 May 2026 01:55:56 -0700 (PDT)
-Message-ID: <d12e6d716bc988f028eeaaaed329442965b4431f.camel@icenowy.me>
-Subject: Re: [PATCH v3 2/2] drm: verisilicon: add support for cursor planes
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Han Gao
- <rabenda.cn@gmail.com>
-Date: Tue, 19 May 2026 16:55:51 +0800
-In-Reply-To: <49290671-92ee-4fbc-aef9-972ac976cf42@suse.de>
-References: <20260506175610.2542888-1-zhengxingda@iscas.ac.cn>
- <20260506175610.2542888-3-zhengxingda@iscas.ac.cn>
- <49290671-92ee-4fbc-aef9-972ac976cf42@suse.de>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7392810EB70;
+ Tue, 19 May 2026 09:02:02 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 29D69441CA;
+ Tue, 19 May 2026 09:02:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84CDCC2BCC6;
+ Tue, 19 May 2026 09:02:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1779181322;
+ bh=DBIFCH1cyjEz//oJo5SEbw9KVoeReft6owR9CiWCBWE=;
+ h=From:Subject:Date:To:Cc:From;
+ b=Y1X9EXRTahEPgr2zSuhJs9c17S5jYxTLLiGu+iOrdX8ZfEte1822QcrrYUayj4jBP
+ vmZs+qmfMCAZ3YKmfj3FzC/fKpdiial856eoB4PQqTDX/HBEKSDSLcws3SMP45rfze
+ 11vPAcbRahaj3sVLg+7mqxcLf2ruQOb0fqnwA+eGFDykY40Ssn6mm4ILJssu7bzI7p
+ hxua60gVxA9j8n90NXdtpoC5XwfMm3YvRhiKPXUkUCGMIQSgYHOeTap1EJ2VdoIoth
+ zIbumNIHUcKfxeTOs+oAeQ9VvtDpFsBxgZTJZP07GfaEHIXyEEAxAWgoc6VoNqtWvT
+ iBJr/twufoIEw==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v5 00/19] drm/atomic: Rework initial state allocation
+Date: Tue, 19 May 2026 11:01:42 +0200
+Message-Id: <20260519-drm-mode-config-init-v5-0-388b03321e38@kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Oy07DMBAF0F+JvGaQx488uuI/EIvaHqcWxCl2i
+ Iqq/DtOuiioCss7o3tmrixTCpTZobqyRHPIYYwl6KeK2dMx9gTBlcwEFzWXyMGlAYbREdgx+tB
+ DiGECJPRamEZpx1mpnhP5cNnY17dbTvT5VfTpNmTmmFdiGMJ0qDYzZAuRLhOsp4BrQMXW7inka
+ Uzf24czbuX/n5kRyoYa2TW2JbT+5Z1SpI/nMfWbOItfithTRFFsLT2iVNTU9kGRd0UJtaPIorS
+ mbl3nDHeteVDUXdEodhRVFN2h885aNL77oyzL8gOBd07SxwEAAA==
+X-Change-ID: 20260310-drm-mode-config-init-1e1f52b745d0
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>, 
+ Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5807; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=DBIFCH1cyjEz//oJo5SEbw9KVoeReft6owR9CiWCBWE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFk8aj+Xs5/e6KAh99ytpPtUhZ/FhBs7mU/XZCpdnHZwd
+ XK7sfz8jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR5caMdYrv1m3rFszsrchY
+ uPJ1ZHDKYZWS03EeNVsPO995yl/BlRRtNZtr9edeo72zch3nM8T8Z6wzfBaoYbPE/Vnijy9iWTs
+ vnxFufHP/RMrmH+diLZ5pK07SPRfgqdShm/1hDXtXoolnYDwA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,525 +95,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-05-07=E5=9B=9B=E7=9A=84 08:07 +0200=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> Hi
->=20
-> Am 06.05.26 um 19:56 schrieb Icenowy Zheng:
-> > Verisilicon display controllers support hardware cursors per output
-> > port.
-> >=20
-> > Add support for them as cursor planes.
-> >=20
-> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->=20
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->=20
-> You should get commit access to drm-misc, if you haven't already.
->=20
-> https://drm.pages.freedesktop.org/maintainer-tools/committer/commit-acces=
-s.html
+Hi,
 
-I raised a request at [1].
+This series started from my work on the hardware state readout[1], and
+more specifically a discussion with Thomas[2].
 
-It looks like the auto labelling/assigning in the template doesn't work
-(they just disappeared after submitting the issue).
+This series expands the work that has been merged recently to make
+drm_private_obj and drm_private_state allocation a bit more consistent
+and ended up creating a new atomic_create_state callback to allocate a
+new state with no side effect.
 
-[1] https://gitlab.freedesktop.org/drm/misc/kernel/-/work_items/88
+The first patches document the existing behaviour and fix a few
+cleanups and typos.
 
-Thanks,
-Icenowy
+Then, __drm_*_state_reset() helpers are renamed to
+__drm_*_state_init() to clarify that they initialize rather than
+reset state, and we add the new atomic_create_state callback to
+every other DRM object (planes, CRTCs, connectors, colorops).
 
->=20
-> Best regards
-> Thomas
->=20
-> > ---
-> > Changes in v3:
-> > - Moved the validity check for max_cursor_size to
-> > =C2=A0=C2=A0 vs_cursor_plane_init().
-> > - Removed NULL check for new_plane_state->fb because
-> > =C2=A0=C2=A0 drm_atomic_helper_check_plane_state() will set visibility =
-to
-> > false in
-> > =C2=A0=C2=A0 such case.
-> > Changes in v2:
-> > - Use is_power_of_two instead of switch to validate cursor size.
-> > - Remove unneeded format check.
-> > - Skip the whole validity check if the plane is invisible
-> > (previously
-> > =C2=A0=C2=A0 it's only skipped when the plane is not bound to CRTC).
-> > - Explicitly set modifiers list (linear only).
-> >=20
-> > =C2=A0 drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> > =C2=A0 drivers/gpu/drm/verisilicon/vs_crtc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 11 +-
-> > =C2=A0 drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 272
-> > ++++++++++++++++++
-> > =C2=A0 .../drm/verisilicon/vs_cursor_plane_regs.h=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 44 +++
-> > =C2=A0 drivers/gpu/drm/verisilicon/vs_plane.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> > =C2=A0 5 files changed, 328 insertions(+), 3 deletions(-)
-> > =C2=A0 create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > =C2=A0 create mode 100644
-> > drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
-> >=20
-> > diff --git a/drivers/gpu/drm/verisilicon/Makefile
-> > b/drivers/gpu/drm/verisilicon/Makefile
-> > index fd8d805fbcde1..426f4bcaa834d 100644
-> > --- a/drivers/gpu/drm/verisilicon/Makefile
-> > +++ b/drivers/gpu/drm/verisilicon/Makefile
-> > @@ -1,5 +1,6 @@
-> > =C2=A0 # SPDX-License-Identifier: GPL-2.0-only
-> > =C2=A0=20
-> > -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_drm.o
-> > vs_hwdb.o vs_plane.o vs_primary_plane.o
-> > +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_drm.o
-> > vs_hwdb.o \
-> > +	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
-> > =C2=A0=20
-> > =C2=A0 obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> > b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> > index f494017130006..5c9714a3e69a7 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> > +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> > @@ -159,7 +159,7 @@ struct vs_crtc *vs_crtc_init(struct drm_device
-> > *drm_dev, struct vs_dc *dc,
-> > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int output)
-> > =C2=A0 {
-> > =C2=A0=C2=A0	struct vs_crtc *vcrtc;
-> > -	struct drm_plane *primary;
-> > +	struct drm_plane *primary, *cursor;
-> > =C2=A0=C2=A0	int ret;
-> > =C2=A0=20
-> > =C2=A0=C2=A0	vcrtc =3D drmm_kzalloc(drm_dev, sizeof(*vcrtc), GFP_KERNEL=
-);
-> > @@ -175,9 +175,16 @@ struct vs_crtc *vs_crtc_init(struct drm_device
-> > *drm_dev, struct vs_dc *dc,
-> > =C2=A0=C2=A0		return ERR_PTR(PTR_ERR(primary));
-> > =C2=A0=C2=A0	}
-> > =C2=A0=20
-> > +	/* Create our cursor plane */
-> > +	cursor =3D vs_cursor_plane_init(drm_dev, dc);
-> > +	if (IS_ERR(cursor)) {
-> > +		drm_err(drm_dev, "Couldn't create the cursor
-> > plane\n");
-> > +		return ERR_CAST(cursor);
-> > +	}
-> > +
-> > =C2=A0=C2=A0	ret =3D drmm_crtc_init_with_planes(drm_dev, &vcrtc->base,
-> > =C2=A0=C2=A0					 primary,
-> > -					 NULL,
-> > +					 cursor,
-> > =C2=A0=C2=A0					 &vs_crtc_funcs,
-> > =C2=A0=C2=A0					 NULL);
-> > =C2=A0=C2=A0	if (ret) {
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > new file mode 100644
-> > index 0000000000000..acb9854fa67ed
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > @@ -0,0 +1,272 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +/*
-> > + * Copyright (C) 2026 Institute of Software, Chinese Academy of
-> > Sciences (ISCAS)
-> > + *
-> > + * Authors:
-> > + * Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > + */
-> > +
-> > +#include <linux/log2.h>
-> > +#include <linux/regmap.h>
-> > +
-> > +#include <drm/drm_atomic.h>
-> > +#include <drm/drm_atomic_helper.h>
-> > +#include <drm/drm_crtc.h>
-> > +#include <drm/drm_fourcc.h>
-> > +#include <drm/drm_framebuffer.h>
-> > +#include <drm/drm_gem_atomic_helper.h>
-> > +#include <drm/drm_modeset_helper_vtables.h>
-> > +#include <drm/drm_plane.h>
-> > +#include <drm/drm_print.h>
-> > +
-> > +#include "vs_crtc.h"
-> > +#include "vs_plane.h"
-> > +#include "vs_dc.h"
-> > +#include "vs_hwdb.h"
-> > +#include "vs_cursor_plane_regs.h"
-> > +
-> > +#define VSDC_MIN_CURSOR_SIZE 32
-> > +#define VSDC_MAX_CURSOR_SIZE 256
-> > +
-> > +#define VSDC_CURSOR_LOCATION_MAX_POSITIVE BIT_MASK(15)
-> > +#define VSDC_CURSOR_LOCATION_MAX_NEGATIVE BIT_MASK(5)
-> > +
-> > +static bool vs_cursor_plane_check_coord(int32_t coord)
-> > +{
-> > +	if (coord >=3D 0)
-> > +		return coord <=3D VSDC_CURSOR_LOCATION_MAX_POSITIVE;
-> > +	else
-> > +		return (-coord) <=3D
-> > VSDC_CURSOR_LOCATION_MAX_NEGATIVE;
-> > +}
-> > +
-> > +static int vs_cursor_plane_atomic_check(struct drm_plane *plane,
-> > +					struct drm_atomic_state
-> > *state)
-> > +{
-> > +	struct drm_plane_state *new_plane_state =3D
-> > drm_atomic_get_new_plane_state(state,
-> > +							=09
-> > 		 plane);
-> > +	struct drm_crtc *crtc =3D new_plane_state->crtc;
-> > +	struct drm_framebuffer *fb =3D new_plane_state->fb;
-> > +	struct drm_crtc_state *crtc_state =3D NULL;
-> > +	struct vs_crtc *vcrtc;
-> > +	struct vs_dc *dc;
-> > +	int ret;
-> > +
-> > +	if (crtc)
-> > +		crtc_state =3D drm_atomic_get_new_crtc_state(state,
-> > crtc);
-> > +
-> > +	ret =3D drm_atomic_helper_check_plane_state(new_plane_state,
-> > +						=C2=A0 crtc_state,
-> > +						=C2=A0
-> > DRM_PLANE_NO_SCALING,
-> > +						=C2=A0
-> > DRM_PLANE_NO_SCALING,
-> > +						=C2=A0 true, true);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	if (!new_plane_state->visible)
-> > +		return 0; /* Skip validity check */
-> > +
-> > +	vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> > +	dc =3D vcrtc->dc;
-> > +
-> > +	/* Only certain PoT square sizes is supported. */
-> > +	if (!is_power_of_2(new_plane_state->crtc_w) ||
-> > +	=C2=A0=C2=A0=C2=A0 new_plane_state->crtc_w < VSDC_MIN_CURSOR_SIZE ||
-> > +	=C2=A0=C2=A0=C2=A0 new_plane_state->crtc_w > dc-
-> > >identity.max_cursor_size)
-> > +		return -EINVAL;
-> > +
-> > +	if (new_plane_state->crtc_w !=3D new_plane_state->crtc_h)
-> > +		return -EINVAL;
-> > +
-> > +	/* Check if the cursor is inside the register fields'
-> > range */
-> > +	if (!vs_cursor_plane_check_coord(new_plane_state->crtc_x)
-> > ||
-> > +	=C2=A0=C2=A0=C2=A0 !vs_cursor_plane_check_coord(new_plane_state->crtc=
-_y))
-> > +		return -EINVAL;
-> > +
-> > +	/* Extra line padding isn't supported */
-> > +	if (fb->pitches[0] !=3D
-> > +	=C2=A0=C2=A0=C2=A0 drm_format_info_min_pitch(fb->format, 0,
-> > new_plane_state->crtc_w))
-> > +		return -EINVAL;
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static void vs_cursor_plane_commit(struct vs_dc *dc, unsigned int
-> > output)
-> > +{
-> > +	regmap_set_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> > +			VSDC_CURSOR_CONFIG_COMMIT |
-> > +			VSDC_CURSOR_CONFIG_IMG_UPDATE);
-> > +}
-> > +
-> > +static void vs_cursor_plane_atomic_enable(struct drm_plane *plane,
-> > +					=C2=A0=C2=A0 struct drm_atomic_state
-> > *atomic_state)
-> > +{
-> > +	struct drm_plane_state *state =3D
-> > drm_atomic_get_new_plane_state(atomic_state,
-> > +								=C2=A0=C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0 plane);
-> > +	struct drm_crtc *crtc =3D state->crtc;
-> > +	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> > +	unsigned int output =3D vcrtc->id;
-> > +	struct vs_dc *dc =3D vcrtc->dc;
-> > +
-> > +	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_MASK,
-> > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_ARGB8888);
-> > +
-> > +	vs_cursor_plane_commit(dc, output);
-> > +}
-> > +
-> > +static void vs_cursor_plane_atomic_disable(struct drm_plane
-> > *plane,
-> > +					=C2=A0=C2=A0=C2=A0 struct
-> > drm_atomic_state *atomic_state)
-> > +{
-> > +	struct drm_plane_state *state =3D
-> > drm_atomic_get_old_plane_state(atomic_state,
-> > +								=C2=A0=C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0 plane);
-> > +	struct drm_crtc *crtc =3D state->crtc;
-> > +	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> > +	unsigned int output =3D vcrtc->id;
-> > +	struct vs_dc *dc =3D vcrtc->dc;
-> > +
-> > +	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_MASK,
-> > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_OFF);
-> > +
-> > +	vs_cursor_plane_commit(dc, output);
-> > +}
-> > +
-> > +static void vs_cursor_plane_atomic_update(struct drm_plane *plane,
-> > +					=C2=A0=C2=A0 struct drm_atomic_state
-> > *atomic_state)
-> > +{
-> > +	struct drm_plane_state *state =3D
-> > drm_atomic_get_new_plane_state(atomic_state,
-> > +								=C2=A0=C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0 plane);
-> > +	struct drm_framebuffer *fb =3D state->fb;
-> > +	struct drm_crtc *crtc =3D state->crtc;
-> > +	struct vs_dc *dc;
-> > +	struct vs_crtc *vcrtc;
-> > +	unsigned int output;
-> > +	dma_addr_t dma_addr;
-> > +
-> > +	if (!state->visible) {
-> > +		vs_cursor_plane_atomic_disable(plane,
-> > atomic_state);
-> > +		return;
-> > +	}
-> > +
-> > +	vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> > +	output =3D vcrtc->id;
-> > +	dc =3D vcrtc->dc;
-> > +
-> > +	/* Other sizes should be rejected by atomic_check */
-> > +	switch (state->crtc_w) {
-> > +	case 32:
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_CONFIG(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_SIZE_MASK,
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_SIZE_32);
-> > +		break;
-> > +	case 64:
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_CONFIG(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_SIZE_MASK,
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_SIZE_64);
-> > +		break;
-> > +	case 128:
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_CONFIG(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_SIZE_MASK,
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_SIZE_128);
-> > +		break;
-> > +	case 256:
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_CONFIG(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_SIZE_MASK,
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_SIZE_256);
-> > +		break;
-> > +	}
-> > +
-> > +	dma_addr =3D vs_fb_get_dma_addr(fb, &state->src);
-> > +
-> > +	regmap_write(dc->regs, VSDC_CURSOR_ADDRESS(output),
-> > +		=C2=A0=C2=A0=C2=A0=C2=A0 lower_32_bits(dma_addr));
-> > +
-> > +	/*
-> > +	 * The X_OFF and Y_OFF fields define which point does the
-> > LOCATION
-> > +	 * register represent in the cursor image, and LOCATION
-> > register
-> > +	 * values are unsigned. To for positive left-top=C2=A0
-> > coordinates the
-> > +	 * offset is set to 0 and the location is set to the
-> > coordinate, for
-> > +	 * negative coordinates the location is set to 0 and the
-> > offset
-> > +	 * is set to the opposite number of the coordinate to
-> > offset the
-> > +	 * cursor image partly off-screen.
-> > +	 */
-> > +	if (state->crtc_x >=3D 0) {
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_CONFIG(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_X_OFF_MASK,
-> > 0);
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_LOCATION(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_LOCATION_X_MASK,
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_LOCATION_X(state-
-> > >crtc_x));
-> > +	} else {
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_CONFIG(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_X_OFF_MASK,
-> > +				=C2=A0=C2=A0 -state->crtc_x);
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_LOCATION(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_LOCATION_X_MASK,
-> > 0);
-> > +	}
-> > +
-> > +	if (state->crtc_y >=3D 0) {
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_CONFIG(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_Y_OFF_MASK,
-> > 0);
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_LOCATION(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_LOCATION_Y_MASK,
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_LOCATION_Y(state-
-> > >crtc_y));
-> > +	} else {
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_CONFIG(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_Y_OFF_MASK,
-> > +				=C2=A0=C2=A0 -state->crtc_y);
-> > +		regmap_update_bits(dc->regs,
-> > VSDC_CURSOR_LOCATION(output),
-> > +				=C2=A0=C2=A0 VSDC_CURSOR_LOCATION_Y_MASK,
-> > 0);
-> > +	}
-> > +
-> > +	vs_cursor_plane_commit(dc, output);
-> > +}
-> > +
-> > +static const struct drm_plane_helper_funcs
-> > vs_cursor_plane_helper_funcs =3D {
-> > +	.atomic_check	=3D vs_cursor_plane_atomic_check,
-> > +	.atomic_update	=3D vs_cursor_plane_atomic_update,
-> > +	.atomic_enable	=3D vs_cursor_plane_atomic_enable,
-> > +	.atomic_disable	=3D vs_cursor_plane_atomic_disable,
-> > +};
-> > +
-> > +static const struct drm_plane_funcs vs_cursor_plane_funcs =3D {
-> > +	.atomic_destroy_state	=3D
-> > drm_atomic_helper_plane_destroy_state,
-> > +	.atomic_duplicate_state	=3D
-> > drm_atomic_helper_plane_duplicate_state,
-> > +	.disable_plane		=3D drm_atomic_helper_disable_plane,
-> > +	.reset			=3D drm_atomic_helper_plane_reset,
-> > +	.update_plane		=3D drm_atomic_helper_update_plane,
-> > +};
-> > +
-> > +static const u32 vs_cursor_plane_formats[] =3D {
-> > +	DRM_FORMAT_ARGB8888,
-> > +};
-> > +
-> > +static const u64 vs_cursor_plane_modifiers[] =3D {
-> > +	DRM_FORMAT_MOD_LINEAR,
-> > +	DRM_FORMAT_MOD_INVALID, /* sentinel */
-> > +};
-> > +
-> > +struct drm_plane *vs_cursor_plane_init(struct drm_device *drm_dev,
-> > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct vs_dc *dc)
-> > +{
-> > +	int32_t max_cursor_size =3D dc->identity.max_cursor_size;
-> > +	struct drm_plane *plane;
-> > +
-> > +	if (drm_WARN_ON_ONCE(drm_dev, max_cursor_size <
-> > VSDC_MIN_CURSOR_SIZE ||
-> > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max_cursor_size >
-> > VSDC_MAX_CURSOR_SIZE))
-> > +		return ERR_PTR(-EINVAL);
-> > +
-> > +	plane =3D drmm_universal_plane_alloc(drm_dev, struct
-> > drm_plane, dev, 0,
-> > +					=C2=A0=C2=A0 &vs_cursor_plane_funcs,
-> > +					=C2=A0=C2=A0
-> > vs_cursor_plane_formats,
-> > +					=C2=A0=C2=A0
-> > ARRAY_SIZE(vs_cursor_plane_formats),
-> > +					=C2=A0=C2=A0
-> > vs_cursor_plane_modifiers,
-> > +					=C2=A0=C2=A0 DRM_PLANE_TYPE_CURSOR,
-> > +					=C2=A0=C2=A0 NULL);
-> > +
-> > +	if (IS_ERR(plane))
-> > +		return plane;
-> > +
-> > +	drm_plane_helper_add(plane,
-> > &vs_cursor_plane_helper_funcs);
-> > +
-> > +	return plane;
-> > +}
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
-> > b/drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
-> > new file mode 100644
-> > index 0000000000000..99693f2c95b94
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
-> > @@ -0,0 +1,44 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> > +/*
-> > + * Copyright (C) 2025 Icenowy Zheng <uwu@icenowy.me>
-> > + *
-> > + * Based on vs_dc_hw.h, which is:
-> > + *=C2=A0=C2=A0 Copyright (C) 2023 VeriSilicon Holdings Co., Ltd.
-> > + */
-> > +
-> > +#ifndef _VS_CURSOR_PLANE_REGS_H_
-> > +#define _VS_CURSOR_PLANE_REGS_H_
-> > +
-> > +#include <linux/bits.h>
-> > +
-> > +#define VSDC_CURSOR_CONFIG(n)		(0x1468 + 0x1080 * (n))
-> > +#define VSDC_CURSOR_CONFIG_FMT_MASK	GENMASK(1, 0)
-> > +#define VSDC_CURSOR_CONFIG_FMT_ARGB8888	(0x2 << 0)
-> > +#define VSDC_CURSOR_CONFIG_FMT_OFF	(0x0 << 0)
-> > +#define VSDC_CURSOR_CONFIG_IMG_UPDATE	BIT(2)
-> > +#define VSDC_CURSOR_CONFIG_COMMIT	BIT(3)
-> > +#define VSDC_CURSOR_CONFIG_SIZE_MASK	GENMASK(7, 5)
-> > +#define VSDC_CURSOR_CONFIG_SIZE_32	(0x0 << 5)
-> > +#define VSDC_CURSOR_CONFIG_SIZE_64	(0x1 << 5)
-> > +#define VSDC_CURSOR_CONFIG_SIZE_128	(0x2 << 5)
-> > +#define VSDC_CURSOR_CONFIG_SIZE_256	(0x3 << 5)
-> > +#define VSDC_CURSOR_CONFIG_Y_OFF_MASK	GENMASK(12, 8)
-> > +#define VSDC_CURSOR_CONFIG_Y_OFF(v)	((v) << 8)
-> > +#define VSDC_CURSOR_CONFIG_X_OFF_MASK	GENMASK(20, 16)
-> > +#define VSDC_CURSOR_CONFIG_X_OFF(v)	((v) << 16)
-> > +
-> > +#define VSDC_CURSOR_ADDRESS(n)		(0x146C + 0x1080 * (n))
-> > +
-> > +#define VSDC_CURSOR_LOCATION(n)		(0x1470 + 0x1080 *
-> > (n))
-> > +#define VSDC_CURSOR_LOCATION_X_MASK	GENMASK(14, 0)
-> > +#define VSDC_CURSOR_LOCATION_X(v)	((v) << 0)
-> > +#define VSDC_CURSOR_LOCATION_Y_MASK	GENMASK(30, 16)
-> > +#define VSDC_CURSOR_LOCATION_Y(v)	((v) << 16)
-> > +
-> > +#define VSDC_CURSOR_BACKGROUND(n)	(0x1474 + 0x1080 * (n))
-> > +#define VSDC_CURSOR_BACKGRUOND_DEFAULT	0x00FFFFFF
-> > +
-> > +#define VSDC_CURSOR_FOREGROUND(n)	(0x1478 + 0x1080 * (n))
-> > +#define VSDC_CURSOR_FOREGRUOND_DEFAULT	0x00AAAAAA
-> > +
-> > +#endif /* _VS_CURSOR_PLANE_REGS_H_ */
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_plane.h
-> > b/drivers/gpu/drm/verisilicon/vs_plane.h
-> > index 41875ea3d66a5..60b5b3a1bc22a 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_plane.h
-> > +++ b/drivers/gpu/drm/verisilicon/vs_plane.h
-> > @@ -68,5 +68,6 @@ dma_addr_t vs_fb_get_dma_addr(struct
-> > drm_framebuffer *fb,
-> > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct drm_rect *sr=
-c_rect);
-> > =C2=A0=20
-> > =C2=A0 struct drm_plane *vs_primary_plane_init(struct drm_device *dev,
-> > struct vs_dc *dc);
-> > +struct drm_plane *vs_cursor_plane_init(struct drm_device *dev,
-> > struct vs_dc *dc);
-> > =C2=A0=20
-> > =C2=A0 #endif /* _VS_PLANE_H_ */
+Next, we leverage those new callbacks to create a new helper,
+drm_mode_config_create_initial_state(), to create the initial state
+for all the objects of a driver, and update the driver skeleton to
+recommend it.
+
+Finally, we convert the tidss driver and the bridge_connector to the
+new pattern.
+
+This was tested on a TI SK-AM62, with the tidss driver.
+
+Let me know what you think,
+Maxime
+
+1: https://lore.kernel.org/dri-devel/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org/
+2: https://lore.kernel.org/dri-devel/5920ffe5-b6b1-484b-b320-332b9eb9db82@suse.de/
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v5:
+- Address sashiko reviews
+- Improve the docs
+- Fix drmm_connector_hdmi_init
+- Drop drm/tidss: Switch to drm_mode_config_create_initial_state since
+  not all possible bridges would have been converted to create_state 
+- Link to v4: https://lore.kernel.org/r/20260512-drm-mode-config-init-v4-0-591dfdcc1bf9@kernel.org
+
+Changes in v4:
+- Rebased on current drm-misc-next
+- Update drm_atomic_state to drm_atomic_commit
+- Various doc impromvements
+- Don't call drm_crtc_vblank_reset in create_state
+- Prevent mem leak if states already have a state when
+  drm_mode_config_reset or _create_initial_state are called
+- Link to v3: https://lore.kernel.org/r/20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org
+
+Changes in v3:
+- Reintroduce state documentation that was dropped by accident
+- Change name to drm_mode_config_create_initial_state()
+- Don't call drm_mode_config_create_initial_state() in drm_dev_register
+  anymore
+- Drop __drm_atomic_helper_*_create_state
+- Improve documentation and commit messages where necessary
+- Collected tags
+- Link to v2: https://lore.kernel.org/r/20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org
+
+Changes in v2:
+- Change the _state_reset function names to _state_init
+- Change the colorop too
+- Various doc improvements
+- Link to v1: https://lore.kernel.org/r/20260310-drm-mode-config-init-v1-0-de7397c8e1cf@kernel.org
+
+---
+Maxime Ripard (19):
+      drm/atomic: Document atomic commit lifetime
+      drm/colorop: Fix typos in the doc
+      drm/atomic: Drop drm_private_obj.state assignment from create_state
+      drm/atomic: Expand atomic_create_state expectations for drm_private_obj
+      drm/mode-config: Document drm_private_obj exclusion from drm_mode_config_reset()
+      drm/colorop: Rename __drm_colorop_state_reset()
+      drm/colorop: Create drm_atomic_helper_colorop_create_state()
+      drm/atomic-state-helper: Fix __drm_atomic_helper_plane_reset() doc typo
+      drm/atomic-state-helper: Rename __drm_atomic_helper_plane_state_reset()
+      drm/plane: Add new atomic_create_state callback
+      drm/atomic-state-helper: Rename __drm_atomic_helper_crtc_state_reset()
+      drm/crtc: Add new atomic_create_state callback
+      drm/atomic-state-helper: Rename __drm_atomic_helper_connector_state_reset()
+      drm/hdmi: Rename __drm_atomic_helper_connector_hdmi_reset()
+      drm/connector: Add new atomic_create_state callback
+      drm/mode-config: Create drm_mode_config_create_initial_state()
+      drm/drv: Switch skeleton to drm_mode_config_create_initial_state()
+      drm/tidss: Convert to atomic_create_state
+      drm/bridge_connector: Convert to atomic_create_state
+
+ Documentation/gpu/drm-kms.rst                      |   6 +
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  17 +-
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  15 +-
+ drivers/gpu/drm/drm_atomic.c                       |  67 ++++++++
+ drivers/gpu/drm/drm_atomic_state_helper.c          | 114 ++++++++++---
+ drivers/gpu/drm/drm_colorop.c                      |  41 ++++-
+ drivers/gpu/drm/drm_connector.c                    |  10 +-
+ drivers/gpu/drm/drm_drv.c                          |   4 +-
+ drivers/gpu/drm/drm_mode_config.c                  | 189 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_crtc.c          |   2 +-
+ drivers/gpu/drm/i915/display/intel_plane.c         |   2 +-
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |   2 +-
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c |   2 +-
+ drivers/gpu/drm/tidss/tidss_crtc.c                 |  17 +-
+ drivers/gpu/drm/tidss/tidss_plane.c                |   2 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     |   2 +-
+ include/drm/display/drm_hdmi_state_helper.h        |   4 +-
+ include/drm/drm_atomic.h                           |   5 +-
+ include/drm/drm_atomic_state_helper.h              |  12 +-
+ include/drm/drm_colorop.h                          |   2 +
+ include/drm/drm_connector.h                        |  16 ++
+ include/drm/drm_crtc.h                             |  16 ++
+ include/drm/drm_mode_config.h                      |   1 +
+ include/drm/drm_plane.h                            |  16 ++
+ 24 files changed, 496 insertions(+), 68 deletions(-)
+---
+base-commit: 69c95e4c529297c25503e60acba757fba24fdc95
+change-id: 20260310-drm-mode-config-init-1e1f52b745d0
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
