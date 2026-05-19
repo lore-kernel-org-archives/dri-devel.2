@@ -4,136 +4,186 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29630CD4F54
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:56:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32519CD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:11:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A86E10E370;
-	Tue, 19 May 2026 06:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE6810E03A;
+	Tue, 19 May 2026 07:11:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U/PHLc9g";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="hA4UQkaK";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010018.outbound.protection.outlook.com [52.101.56.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3306610E370
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:56:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YdokSt1yZsGJFDYcMB33owMvD7MuiRXIgiIpZLVMf1DatzA5gOulV0gWG6bDQa/nJBDWYrPOfm7Vgzj6ac7VdAcjI5CXMryW2Ikj1NdrqH+PHE684L4xcuKB9GWpOc9dxnHAWA7hv9YUaNcTZd7k9YlKcZVAJ8Epi9lHf+eYO/qqr6goJksdXYngfeL6Eq5M7gYXB8WiEMRieKmf9xWO3jLQiZpyvQLkWxFHLjihdbP2aYAfhZz794vp6P5itZDYGzrCw1UdykhAiiqUzIHtZcJp3oJtz7L6wp5aVQeKSAO+PhDz1Gh3ow2p5jWGayF7kXq/ghv1onHb1SYgtkkevg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2dPTcpgYP58Fn8g8lsr/QkbegNZcqXAY6L0txl+Xr5M=;
- b=vYw9JR3JhYi5E7oEvx6KvpiXbMbkiG5rpfsnIr+oUc6pwD5fj7GTacxiEIumRlk836LszsXn6qb/MR0jUCSfalOYqY3W+xCjdphS9fHmeGac2vIx5+RuvyujZ1mDeqjEl9o4Vib9YmXAKgGIGQrielGaorM1W+lxSgHS3C2z7GsS4Ej5qKrBKsSvjSyuOW8TTTi5Z6QdbmGOfTDxyRfNxQF8D/0TIyRASqKw/ZbYrCPfrv8iBuMnef8piB5fwPy4Wbrj7Yt+JUnQ9MN2lOnBy0S0lVzar2VpQ2o0e2ZdxY34+blnRspLdq+y+am0GI9p/5lfpzJk+oktr4RKy07e9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2dPTcpgYP58Fn8g8lsr/QkbegNZcqXAY6L0txl+Xr5M=;
- b=U/PHLc9gmjqVmto244VF3xtAPM4lMSFaTk22BUiUAitrv635uUGaFpVsrKN2qOS+W+0dmPMcXEtTVSr7+f7NvZG3YVoW4YH5nx0qi4aTjta8g9pJGFQfOcjrrMcFGIjzZdz/VxZ/mTMkpH7HcdJTk7yOUZPa4kE+Dsp3O6G9XdM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8459.namprd12.prod.outlook.com (2603:10b6:610:139::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Tue, 19 May
- 2026 06:55:59 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Tue, 19 May 2026
- 06:55:59 +0000
-Message-ID: <3dddb7e8-5837-4038-9823-ce419cb49ec2@amd.com>
-Date: Tue, 19 May 2026 08:55:51 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/15] accel/qda: Add PRIME DMA-BUF import support
-To: ekansh.gupta@oss.qualcomm.com, Oded Gabbay <ogabbay@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>, srini@kernel.org,
- dmitry.baryshkov@oss.qualcomm.com, andersson@kernel.org,
- konradybcio@kernel.org, robin.clark@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
- <20260519-qda-series-v1-11-b2d984c297f8@oss.qualcomm.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260519-qda-series-v1-11-b2d984c297f8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0159.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2A3610E03A
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1779174681; x=1779779481; i=deller@gmx.de;
+ bh=sjN4qrmiu1bglWGSsI9NyPKGX/0wNg2Vet3nC5b3oBo=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=hA4UQkaKAIiPJDkYM2tL0/HLJCM25X96CSFc6LWCjIgNvoNJpit9sfqO7DGTaqgz
+ VPW+/W1/keBz2jf/Reir08UUkX35nAlP1o814WPsn+dCnQG/z8QizN/tUEDpJV9tH
+ yDlTmCADfCV5NmKvdZdi9tgjKC/8Y0EpVHVJYpk4p2dC/IxEFYiGvhek2+iA7Irj2
+ Die54ZaYpe7omjxW2qhRhV2+Ivk1yfbxVXudq46424npyL0H7+I+HseC1AVlSls4i
+ zXEmsfzT1d3kvz+KW4EkWa8DB5VPs3fCkZJ6WLpUEBk60vfI9QqIwj/8WFLe+PrGV
+ y/dfzyQWZ0lDtMa8/w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MwQXN-1xFPMC19m9-010KBI; Tue, 19
+ May 2026 09:11:21 +0200
+Message-ID: <6e6afdae-0da8-4665-a450-6431c3b3de2f@gmx.de>
+Date: Tue, 19 May 2026 09:11:14 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8459:EE_
-X-MS-Office365-Filtering-Correlation-Id: d67e8fb8-5c69-4d94-9f89-08deb573aeb4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|3023799003|11063799003|56012099003|22082099003|921020|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info: cJn2LctKy85V/PUuu2UThq8KGOGt5ovmONaHgkEFOCM94SC91z9jxsVQTLwzh8UsBDPMGkGQx8AV9w6YyztlgPH+a1Fe0Pd4dNSRQyRpBlZ5l+9W98FlRV7gkhpQDyiAxuJIZ2a2NOEJPjyvpcZX7egtAaoy/9YCaqR1l1a0CcWlpu+/ghWTlJhcR+3FUopDr/RTdkuP6PCIfa7WtCsk7FB7uzp9ueJ/I1o4Ioz7eQdt/qDxlJZiwOav/q/5CL0fE8c9k5sj59kXfaLvcJN0nsDwoJc5ucIk8vxIK3BL55DVmGvAA1E87qA4aOi5U6d3KKidiT/fPFTf+KWBI6+uLlgucy67PkJlStNA13yctCKHbXJXqQY9MNJg7L0TZOHKSXlFyhQvU3QFd3ALH9J2ut5xGSNGfGXOPVaLN4Hhwgnj/8Vmb5xHwdRGcYKn29gdoIOumbfJh3sWsWE8l3T3IY0DDU9SMNRR6E8ncweDrKK++hWEUjo4vjfBvv/xXBvGNdDL6igBX+MkFbKy7TEa42AMG5d+gE5EvGvlhgpa+h3mRQClMyX+DHqJxJzBUnUG5KTeuoTkMV2qxB6QItD00Sh7kdfQYaK9eNs32iLkD9GHtzsGFFKRHx7bWptVMUOR5V0MwRauCnb7FcWOD+yQ1cs/ILqEPYdXeeoscjubYHcuEXXQrVzWM8WzdZIL1s/wwanedpimJP9tdjMStEPo1UJiG2DxtJL55LvFgD0RahQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(3023799003)(11063799003)(56012099003)(22082099003)(921020)(18002099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qy9IeUtrRWtia0ZMS0tFdFNyZXBQSGFFRnZlWFBWSFpkaVpLa0N5MzlsKzFj?=
- =?utf-8?B?UWxXS21KWUZuVm5YQzlTbWpVUGZ4NU1hSGlSKzhHM2w0R05Ta25ReXFNTE1i?=
- =?utf-8?B?d1RTSXlDR0U5NlJpeUdGQjJ3SHd5OGJnaGxibUZ5RkR1amgyK2dSQmliSnE2?=
- =?utf-8?B?SGJGUU5vZW1yaUxidUtMdVZIdFZnc3JqODlva1FNekxGY1k2QmxDU2VDdXV4?=
- =?utf-8?B?Z1FQWG5zQndxMEdjS2NYWnFzb3BMQ09IZ244UER4ZGtYT0RCallwM1hYUW9i?=
- =?utf-8?B?NzBqaER6ZjJSNnZvbUxhV0gvU08wQjNSR2J1cklmN1h5SE8vbFBaTXRMSitq?=
- =?utf-8?B?bHFxcUdYRUJSWVl5emcxVkt2azVaNDI1ZjRWbzgwSGFpZ2pXZEd0UGZ2UC9D?=
- =?utf-8?B?VDJOSDJzY202dmtoTDQ3amNabFpTTm1LNHRDS0tUbVovNmlNbXhvWUxNSzNV?=
- =?utf-8?B?U2RkMnl2bW1oSzlMOG1YNk9ycHE5ZFJwME9uR1lTMlp6VUVkc2ZkV2tTNm9M?=
- =?utf-8?B?eHlPNEYrWU1PZEhNc1VMK0hSRWxGNStCYmsrQUJpbFZYMGhqWlMxaTk3cnox?=
- =?utf-8?B?b2YwZ0Y3ZFFzNGpBZTR5TTZDa05scTJPVURzSmhEODhLdWxhSXRvLzI5dE1a?=
- =?utf-8?B?MXhUVUdXWUhyL092WitPWWtXMFA0S09YMCtjZUM5R1JhUGxZWEpONUFjQXdL?=
- =?utf-8?B?cWxUUlpFQnN0NW5tMEx4aU4ySElVUkVXQU1NdytFSDRpK0N1RWk3RC9kcTBM?=
- =?utf-8?B?TGRNbC8yYm1QbUVLRExpWVhPQWZaQS8xOXZTVEhBYkpYTVQyajNUbFVIb0Nn?=
- =?utf-8?B?eCtBQjhHZXY0clk3M2N0L1pZNTZ2USttWStYY3M2bXNNSlU2emxBNlFZZGl5?=
- =?utf-8?B?bFc5N2UxenFCVWJ0VGl3bUZOY1R1ZVZoTitTL0FhYTBzT0VOWEFyaStyRFdY?=
- =?utf-8?B?cWJLUnVNMEZtTWxUOFEvei9ZQTRLeGdtYzEzS3ArU3NYSmZscEh2cUZNbk1T?=
- =?utf-8?B?cm5TNHRIdWxFKzVmWlVSUkNLaXExdldQWVE2dE5lL1NteWVid1Q3QlBFRWRH?=
- =?utf-8?B?OFI5NUdsRXNUMUd5UThZNkdzcG1nZ09nS3pZczhyWXlpeVJNMmdRRnRtaGJh?=
- =?utf-8?B?bFRYc29KRHFoTEN4K3JwSUFDS0lPZ09odHQ0cGZQb0h2YUNtVDVFbUZPakxN?=
- =?utf-8?B?Nmx2bnZVcDhDdERMSFZwc3FydXRHZWdRck1icU5CZjBXMGl2aFR1MlZhaDNK?=
- =?utf-8?B?aGQ0cEdyNXZQOVhtVHQyUExuYkJqdTRiK3dkVWZYZGFqMzBqalNGRHh0VFN6?=
- =?utf-8?B?RmVjRlYrY2ZEWk55M3ViNVJESFhmUHA1bXdWYlhZUlhQYUFnY0lmS3ZrUGNm?=
- =?utf-8?B?MGVaWEVRQUo1OExZemtCajczWkNLNzc2bjl1OGRVcWxPaDlETDhxWkI2RlNE?=
- =?utf-8?B?WUw5U1pVa0xuWEhmVWtuOTlOQ3ZzeWFnK0VCUzhXSGdtWkdxYU9TeGYxWXZq?=
- =?utf-8?B?N1lTMkNqSzFWNzA4Qm52UHFUWVkxL1NUOVAvN2VBbDRkMWtUaU41MmcvYXNq?=
- =?utf-8?B?RjJ6NS9rZ3dUcUtrTlVwS0hUdVRCVTc0dnFGcmxlbG1uYjk1cHRiYXk3YTk2?=
- =?utf-8?B?YkY1NmhWSC9lQkxqalZ2Y2gvUUREVnZSZ044Y2w3MXdjOFcxbytiZFVLYXVG?=
- =?utf-8?B?U1BscmNyVzl1aW90WVhYNzBhSXVXekQzNXhWNml2M3ZPK0RzeUpZL0VMOXda?=
- =?utf-8?B?YVcvOEs3Z2IxS01wSm5lRWk1TnhRcExMTGt0bTJMK1owS0FoLytzdzJnenJS?=
- =?utf-8?B?QmQ5TXd4TGgwejU3RkVTc0EyRU9VVUlXd2JYYzl3QytyU0o1Q2RKK1VTOE1v?=
- =?utf-8?B?R3NUV1NRNUE5MHlkRytNVnF6bjh2Qjl1QWI3blg4TmlEWE16Sk10Z294VVA1?=
- =?utf-8?B?YzVlYzFqR3lBMkdJcURncnJUS0VhYytCRklTc0JrWTc0WjVDaDhKd004VnZp?=
- =?utf-8?B?M2lGZEpLbEdrMG9pZXNGRURvMUpjR1diSHBFN01Lb01DOHhLcEl0SXh5bnF5?=
- =?utf-8?B?V1NZdUxtbTIwbzgzYStIK0VVV093aGhkV2Q5VzB4SGlJSGMzQ09SZm04MHZk?=
- =?utf-8?B?Rk96Z2FpSWxSU2F2OEk0QmdnQk0xRytMTjBzZFpsUFJDUldVM0xJYWRkYUFu?=
- =?utf-8?B?TitodnlSb2RJUlhFZUdDZXJWWWw3YTNOT2tEekh4N0YzV1MyL1pLbVkwSjdK?=
- =?utf-8?B?Q1g1R0s1dGFkKy9CNDF6RWp3ZW91V2swWlRlMlhXRWs2cXhsdnlWaWlBR0Ur?=
- =?utf-8?Q?gzUTTB0HiX3NAN/wd9?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d67e8fb8-5c69-4d94-9f89-08deb573aeb4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 06:55:59.1429 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8ujcqz4Ew1bmxbZkYnpykleJNnr+qHe+rUftvl5nIRSXnaZX0JS5jcUQeD4hf/U3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8459
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/14] fbdev: fix various memory leaks
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sebastian Siewior <bigeasy@linutronix.de>,
+ Florian Tobias Schandinat <FlorianSchandinat@gmx.de>,
+ Ondrej Zary <linux@rainbow-software.org>, Antonino Daplas
+ <adaplas@gmail.com>, Paul Mundt <lethal@linux-sh.org>,
+ Krzysztof Helt <krzysztof.h1@wp.pl>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Michal Januszewski <spock@gentoo.org>, Heiko Schocher <hs@denx.de>,
+ Peter Jones <pjones@redhat.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20260514-fbdev-v1-0-b3a2474fa720@cse.iitm.ac.in>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:I+nuZNHtkyT0KGRnNoW0hv+cck4+dSR0JeC+FXKXX/pnlOdWP3q
+ zfPEipLnWcaRYk/86Hp0tWyLzCKdScumWP150LynM4yizZqneKU1PMh8nI/8HznSc/KnSTg
+ sQLHsOZcmfgOy3/8RYfTFpYfx3MCYosU3kpq24v8wgDpCprqsm6oUKKG0xaSnHedDe8kKhe
+ ihPEObBprZ3cU6eriduyQ==
+UI-OutboundReport: notjunk:1;M01:P0:5w3QRt1/Z2c=;tHCPKBrlfEF0+EySYESy9S0Ppkv
+ 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
+ /rzvAQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,518 +199,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/19/26 08:16, Ekansh Gupta via B4 Relay wrote:
-> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> 
-> Allow user-space to import DMA-BUF file descriptors from other
-> subsystems (GPU, camera, video) into the QDA driver via the standard
-> DRM PRIME interface.
-> 
-> qda_prime.c
->   Implements qda_gem_prime_import(), which is set as the driver's
->   .gem_prime_import callback. On import it:
->   1. Short-circuits self-import: if the dma_buf was exported by this
->      device and is not itself an import, the existing GEM object is
->      returned with an incremented reference count.
->   2. Attaches to the dma_buf and maps it with DMA_BIDIRECTIONAL via
->      dma_buf_map_attachment_unlocked(), obtaining an sg_table whose
->      DMA addresses are IOMMU virtual addresses in the CB device's
->      address space.
->   3. Calls qda_memory_manager_alloc() to record the IOMMU mapping and
->      encode the SID in the upper 32 bits of the DMA address, matching
->      the convention used for natively allocated buffers.
-> 
->   qda_prime_fd_to_handle() wraps drm_gem_prime_fd_to_handle() under
->   qdev->import_lock, storing the calling file_priv in
->   qdev->current_import_file_priv so that qda_gem_prime_import() can
->   retrieve it (the .gem_prime_import callback does not receive
->   file_priv directly).
-> 
-> qda_gem.c
->   qda_gem_free_object() is extended to handle the imported-buffer
->   teardown path: unmap the sg_table, detach from the dma_buf, and
->   release the dma_buf reference.
->   qda_gem_mmap_obj() rejects mmap requests on imported objects.
-> 
-> qda_memory_manager.c
->   qda_memory_manager_map_imported() records the IOMMU-mapped DMA
->   address from the first sg entry (the IOMMU maps the buffer as a
->   contiguous range) and encodes the SID prefix.
-
-No it doesn't.
-
->   qda_memory_manager_free() skips the DMA free path for imported
->   buffers since the memory is owned by the exporter.
-> 
-> Assisted-by: Claude:claude-4-6-sonnet
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+On 5/14/26 10:24, Abdun Nihaal wrote:
+> This patchset fixes some memory leak issues present in fbdev drivers.
+>=20
+> Since commit 56c134f7f1b5 ("fbdev: Track deferred-I/O pages in pageref s=
+truct")
+> fb_deferred_io_init() allocated memory for pagerefs and returned an
+> error code, but the existing drivers which call fb_deferred_io_init()
+> were not updated to do cleanup. The first three commits address this.
+> - fbdev: hecubafb: fix potential memory leak in hecubafb_probe()
+> - fbdev: broadsheetfb: fix potential memory leak in broadsheetfb_probe()
+> - fbdev: metronomefb: fix potential memory leak in metronomefb_probe()
+>=20
+> Probe functions that call fb_add_videomode() or fb_videomode_to_modelist=
+()
+> sometimes did not call fb_destry_modelist() to free the allocated
+> memory. The following patches address this issue.
+> - fbdev: radeon: fix potential memory leak in radeonfb_pci_register()
+> - fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()
+> - fbdev: i740fb: fix potential memory leak in i740fb_probe()
+> - fbdev: nvidia: fix potential memory leak in nvidiafb_probe()
+> - fbdev: s3fb: fix potential memory leak in s3_pci_probe()
+> - fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()
+> - fbdev: tridentfb: fix potential memory leak in trident_pci_probe()
+> - fbdev: uvesafb: fix potential memory leak in uvesafb_probe()
+>=20
+> Since commit 73ce73c30ba9 ("fbdev: Transfer video=3D option strings to c=
+aller; clarify ownership")
+> the fb_get_options() function transfers ownership of the memory
+> allocated for options, and so the caller is expected to free it. The
+> following two patches address this issue.
+> - fbdev: efifb: fix memory leak in efifb_probe()
+> - fbdev: vesafb: fix memory leak in vesafb_probe()
+>=20
+> The following commit fixes a simple memory leak.
+> - fbdev: sm501fb: fix potential memory leak in sm501fb_probe()
+>=20
+> All the patches were only compile tested.
+> The issues were found using static analysis.
+>=20
+> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
 > ---
->  drivers/accel/qda/Makefile             |   1 +
->  drivers/accel/qda/qda_drv.c            |  12 ++-
->  drivers/accel/qda/qda_drv.h            |   4 +
->  drivers/accel/qda/qda_gem.c            |  25 ++++-
->  drivers/accel/qda/qda_gem.h            |   8 ++
->  drivers/accel/qda/qda_memory_manager.c |  47 ++++++++-
->  drivers/accel/qda/qda_prime.c          | 184 +++++++++++++++++++++++++++++++++
->  drivers/accel/qda/qda_prime.h          |  18 ++++
->  8 files changed, 295 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
-> index a46ddceecfc5..fb092e56d7f3 100644
-> --- a/drivers/accel/qda/Makefile
-> +++ b/drivers/accel/qda/Makefile
-> @@ -12,6 +12,7 @@ qda-y := \
->         qda_ioctl.o \
->         qda_memory_dma.o \
->         qda_memory_manager.o \
-> +       qda_prime.o \
->         qda_rpmsg.o
-> 
->  obj-$(CONFIG_DRM_ACCEL_QDA_COMPUTE_BUS) += qda_compute_bus.o
-> diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-> index c9b9e56dcb28..ef8bd573b836 100644
-> --- a/drivers/accel/qda/qda_drv.c
-> +++ b/drivers/accel/qda/qda_drv.c
-> @@ -7,10 +7,12 @@
->  #include <drm/drm_file.h>
->  #include <drm/drm_gem.h>
->  #include <drm/drm_ioctl.h>
-> +#include <drm/drm_prime.h>
->  #include <drm/drm_print.h>
->  #include <drm/qda_accel.h>
-> 
->  #include "qda_drv.h"
-> +#include "qda_prime.h"
->  #include "qda_ioctl.h"
->  #include "qda_rpmsg.h"
-> 
-> @@ -64,6 +66,8 @@ static const struct drm_driver qda_drm_driver = {
->         .postclose = qda_postclose,
->         .ioctls = qda_ioctls,
->         .num_ioctls = ARRAY_SIZE(qda_ioctls),
-> +       .gem_prime_import = qda_gem_prime_import,
-> +       .prime_fd_to_handle = qda_prime_fd_to_handle,
->         .name = QDA_DRIVER_NAME,
->         .desc = "Qualcomm DSP Accelerator Driver",
->  };
-> @@ -100,6 +104,7 @@ static int init_memory_manager(struct qda_dev *qdev)
-> 
->  void qda_deinit_device(struct qda_dev *qdev)
->  {
-> +       mutex_destroy(&qdev->import_lock);
->         cleanup_memory_manager(qdev);
->  }
-> 
-> @@ -107,9 +112,14 @@ int qda_init_device(struct qda_dev *qdev)
->  {
->         int ret;
-> 
-> +       mutex_init(&qdev->import_lock);
-> +       qdev->current_import_file_priv = NULL;
-> +
->         ret = init_memory_manager(qdev);
-> -       if (ret)
-> +       if (ret) {
->                 drm_err(&qdev->drm_dev, "Failed to initialize memory manager: %d\n", ret);
-> +               mutex_destroy(&qdev->import_lock);
-> +       }
-> 
->         return ret;
->  }
-> diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
-> index 8a7d647ac8fc..96ce4135e2d9 100644
-> --- a/drivers/accel/qda/qda_drv.h
-> +++ b/drivers/accel/qda/qda_drv.h
-> @@ -47,6 +47,10 @@ struct qda_dev {
->         struct list_head cb_devs;
->         /** @iommu_mgr: IOMMU/memory manager instance */
->         struct qda_memory_manager *iommu_mgr;
-> +       /** @import_lock: Lock protecting prime import context */
-> +       struct mutex import_lock;
-> +       /** @current_import_file_priv: Current file_priv during prime import */
-> +       struct drm_file *current_import_file_priv;
->         /** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
->         const char *dsp_name;
->  };
-> diff --git a/drivers/accel/qda/qda_gem.c b/drivers/accel/qda/qda_gem.c
-> index 568b3c2e64b7..9e1ac7582d0c 100644
-> --- a/drivers/accel/qda/qda_gem.c
-> +++ b/drivers/accel/qda/qda_gem.c
-> @@ -9,6 +9,7 @@
->  #include "qda_gem.h"
->  #include "qda_memory_manager.h"
->  #include "qda_memory_dma.h"
-> +#include "qda_prime.h"
-> 
->  static void setup_vma_flags(struct vm_area_struct *vma)
->  {
-> @@ -25,8 +26,20 @@ void qda_gem_free_object(struct drm_gem_object *gem_obj)
->         struct qda_gem_obj *qda_gem_obj = to_qda_gem_obj(gem_obj);
->         struct qda_dev *qdev = qda_dev_from_drm(gem_obj->dev);
-> 
-> -       if (qda_gem_obj->virt && qdev->iommu_mgr)
-> -               qda_memory_manager_free(qdev->iommu_mgr, qda_gem_obj);
-> +       if (qda_gem_obj->is_imported) {
-> +               if (qda_gem_obj->attachment && qda_gem_obj->sgt)
-> +                       dma_buf_unmap_attachment_unlocked(qda_gem_obj->attachment,
-> +                                                         qda_gem_obj->sgt, DMA_BIDIRECTIONAL);
-> +               if (qda_gem_obj->attachment)
-> +                       dma_buf_detach(qda_gem_obj->dma_buf, qda_gem_obj->attachment);
-> +               if (qda_gem_obj->dma_buf)
-> +                       dma_buf_put(qda_gem_obj->dma_buf);
-> +               if (qda_gem_obj->iommu_dev && qdev->iommu_mgr)
-> +                       qda_memory_manager_free(qdev->iommu_mgr, qda_gem_obj);
-> +       } else {
-> +               if (qda_gem_obj->virt && qdev->iommu_mgr)
-> +                       qda_memory_manager_free(qdev->iommu_mgr, qda_gem_obj);
-> +       }
-> 
->         drm_gem_object_release(gem_obj);
->         kfree(qda_gem_obj);
-> @@ -44,6 +57,10 @@ int qda_gem_mmap_obj(struct drm_gem_object *drm_obj, struct vm_area_struct *vma)
->         struct qda_gem_obj *qda_gem_obj = to_qda_gem_obj(drm_obj);
->         int ret;
-> 
-> +       /* Imported dma-buf objects must be mmap'd through the exporter, not the importer */
-> +       if (qda_gem_obj->is_imported)
-> +               return -EINVAL;
-> +
->         /* Reset vm_pgoff for DMA mmap */
->         vma->vm_pgoff = 0;
-> 
-> @@ -143,6 +160,10 @@ struct drm_gem_object *qda_gem_create_object(struct drm_device *drm_dev,
->         qda_gem_obj = qda_gem_alloc_object(drm_dev, aligned_size);
->         if (IS_ERR(qda_gem_obj))
->                 return ERR_CAST(qda_gem_obj);
-> +       qda_gem_obj->is_imported = false;
-> +       qda_gem_obj->dma_buf = NULL;
-> +       qda_gem_obj->attachment = NULL;
-> +       qda_gem_obj->sgt = NULL;
-> 
->         ret = qda_memory_manager_alloc(iommu_mgr, qda_gem_obj, file_priv);
->         if (ret) {
-> diff --git a/drivers/accel/qda/qda_gem.h b/drivers/accel/qda/qda_gem.h
-> index bb18f8155aa4..0878f57715f6 100644
-> --- a/drivers/accel/qda/qda_gem.h
-> +++ b/drivers/accel/qda/qda_gem.h
-> @@ -22,12 +22,20 @@ struct qda_gem_obj {
->         struct drm_gem_object base;
->         /** @iommu_dev: IOMMU context bank device that performed the allocation */
->         struct qda_iommu_device *iommu_dev;
-> +       /** @dma_buf: Reference to imported dma_buf */
-> +       struct dma_buf *dma_buf;
-> +       /** @attachment: DMA buf attachment */
-> +       struct dma_buf_attachment *attachment;
-> +       /** @sgt: Scatter-gather table */
-> +       struct sg_table *sgt;
->         /** @virt: Kernel virtual address of the allocated DMA memory */
->         void *virt;
->         /** @dma_addr: DMA address (with SID encoded in upper 32 bits) */
->         dma_addr_t dma_addr;
->         /** @size: Size of the buffer in bytes */
->         size_t size;
-> +       /** @is_imported: True if buffer is imported, false if allocated */
-> +       bool is_imported;
->  };
-> 
->  /**
-> diff --git a/drivers/accel/qda/qda_memory_manager.c b/drivers/accel/qda/qda_memory_manager.c
-> index 82111275f420..d2aa0e0e65f5 100644
-> --- a/drivers/accel/qda/qda_memory_manager.c
-> +++ b/drivers/accel/qda/qda_memory_manager.c
-> @@ -202,6 +202,41 @@ static struct qda_iommu_device *get_or_assign_iommu_device(struct qda_memory_man
->         return NULL;
->  }
-> 
-> +static int qda_memory_manager_map_imported(struct qda_memory_manager *mem_mgr,
-> +                                          struct qda_gem_obj *gem_obj,
-> +                                          struct qda_iommu_device *iommu_dev)
-> +{
-> +       struct scatterlist *sg;
-> +       dma_addr_t dma_addr;
-> +
-> +       if (!gem_obj->is_imported || !gem_obj->sgt || !iommu_dev) {
-> +               drm_err(gem_obj->base.dev, "Invalid parameters for imported buffer mapping\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       sg = gem_obj->sgt->sgl;
-> +       if (!sg) {
-> +               drm_err(gem_obj->base.dev, "Invalid scatter-gather list for imported buffer\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       gem_obj->iommu_dev = iommu_dev;
-> +
-> +       /*
-> +        * After dma_buf_map_attachment_unlocked(), sg_dma_address() returns the
-> +        * IOMMU virtual address, not the physical address. The IOMMU maps the
-> +        * entire buffer as a contiguous range in the IOMMU address space even if
-> +        * the underlying physical memory is non-contiguous. Therefore the first
-> +        * sg entry's DMA address is the start of the complete contiguous
-> +        * IOMMU-mapped range and is sufficient to describe the buffer to the DSP.
-> +        */
-> +       dma_addr = sg_dma_address(sg);
-> +       dma_addr += ((u64)iommu_dev->sid << 32);
-> +       gem_obj->dma_addr = dma_addr;
+> Abdun Nihaal (14):
+>        fbdev: hecubafb: fix potential memory leak in hecubafb_probe()
+>        fbdev: broadsheetfb: fix potential memory leak in broadsheetfb_pr=
+obe()
+>        fbdev: metronomefb: fix potential memory leak in metronomefb_prob=
+e()
+>        fbdev: radeon: fix potential memory leak in radeonfb_pci_register=
+()
+>        fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()
+>        fbdev: i740fb: fix potential memory leak in i740fb_probe()
+>        fbdev: nvidia: fix potential memory leak in nvidiafb_probe()
+>        fbdev: s3fb: fix potential memory leak in s3_pci_probe()
+>        fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()
+>        fbdev: tridentfb: fix potential memory leak in trident_pci_probe(=
+)
+>        fbdev: uvesafb: fix potential memory leak in uvesafb_probe()
+>        fbdev: efifb: fix memory leak in efifb_probe()
+>        fbdev: vesafb: fix memory leak in vesafb_probe()
+>        fbdev: sm501fb: fix potential memory leak in sm501fb_probe()
+>=20
+>   drivers/video/fbdev/aty/radeon_base.c | 1 +
+>   drivers/video/fbdev/broadsheetfb.c    | 8 ++++++--
+>   drivers/video/fbdev/carminefb.c       | 1 +
+>   drivers/video/fbdev/efifb.c           | 1 +
+>   drivers/video/fbdev/hecubafb.c        | 6 +++++-
+>   drivers/video/fbdev/i740fb.c          | 1 +
+>   drivers/video/fbdev/metronomefb.c     | 8 ++++++--
+>   drivers/video/fbdev/nvidia/nvidia.c   | 1 +
+>   drivers/video/fbdev/s3fb.c            | 1 +
+>   drivers/video/fbdev/sm501fb.c         | 3 +++
+>   drivers/video/fbdev/tdfxfb.c          | 1 +
+>   drivers/video/fbdev/tridentfb.c       | 1 +
+>   drivers/video/fbdev/uvesafb.c         | 4 ++--
+>   drivers/video/fbdev/vesafb.c          | 1 +
+>   14 files changed, 31 insertions(+), 7 deletions(-)
+I applied the whole series to the fbdev git tree.
+Thanks a lot !
 
-That handling here is completely broken since it assumes that the exporter maps the buffer as contigious range.
-
-But that's in no way guaranteed.
-
-Regards,
-Christian.
-
-> +
-> +       return 0;
-> +}
-> +
->  /**
->   * qda_memory_manager_alloc() - Allocate memory for a GEM object
->   * @mem_mgr: Pointer to memory manager
-> @@ -237,7 +272,11 @@ int qda_memory_manager_alloc(struct qda_memory_manager *mem_mgr, struct qda_gem_
->                 return -ENOMEM;
->         }
-> 
-> -       ret = qda_dma_alloc(selected_dev, gem_obj, size);
-> +       if (gem_obj->is_imported)
-> +               ret = qda_memory_manager_map_imported(mem_mgr, gem_obj, selected_dev);
-> +       else
-> +               ret = qda_dma_alloc(selected_dev, gem_obj, size);
-> +
->         if (ret) {
->                 drm_err(gem_obj->base.dev, "Allocation failed: size=%zu, device_id=%u, ret=%d\n",
->                         size, selected_dev->id, ret);
-> @@ -262,6 +301,12 @@ void qda_memory_manager_free(struct qda_memory_manager *mem_mgr, struct qda_gem_
->                 return;
->         }
-> 
-> +       if (gem_obj->is_imported) {
-> +               drm_dbg_driver(gem_obj->base.dev,
-> +                              "Freed imported buffer tracking (no DMA free needed)\n");
-> +               return;
-> +       }
-> +
->         qda_dma_free(gem_obj);
->  }
-> 
-> diff --git a/drivers/accel/qda/qda_prime.c b/drivers/accel/qda/qda_prime.c
-> new file mode 100644
-> index 000000000000..acb0ac8c40fd
-> --- /dev/null
-> +++ b/drivers/accel/qda/qda_prime.c
-> @@ -0,0 +1,184 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> +#include <drm/drm_gem.h>
-> +#include <drm/drm_prime.h>
-> +#include <drm/drm_print.h>
-> +#include <linux/slab.h>
-> +#include <linux/dma-mapping.h>
-> +#include "qda_drv.h"
-> +#include "qda_gem.h"
-> +#include "qda_prime.h"
-> +#include "qda_memory_manager.h"
-> +
-> +static struct drm_gem_object *check_own_buffer(struct drm_device *dev, struct dma_buf *dma_buf)
-> +{
-> +       struct drm_gem_object *existing_gem;
-> +
-> +       /* Only safe to access priv if this dma-buf was exported by this device */
-> +       if (!drm_gem_is_prime_exported_dma_buf(dev, dma_buf))
-> +               return NULL;
-> +
-> +       existing_gem = dma_buf->priv;
-> +       if (existing_gem->dev != dev)
-> +               return NULL;
-> +
-> +       if (to_qda_gem_obj(existing_gem)->is_imported)
-> +               return NULL;
-> +
-> +       drm_gem_object_get(existing_gem);
-> +       return existing_gem;
-> +}
-> +
-> +static struct qda_iommu_device *get_iommu_device_for_import(struct qda_dev *qdev,
-> +                                                           struct drm_file **file_priv_out)
-> +{
-> +       struct drm_file *file_priv;
-> +       struct qda_file_priv *qda_file_priv;
-> +       struct qda_iommu_device *iommu_dev = NULL;
-> +       int ret;
-> +
-> +       file_priv = qdev->current_import_file_priv;
-> +       *file_priv_out = file_priv;
-> +
-> +       if (!file_priv || !file_priv->driver_priv)
-> +               return NULL;
-> +
-> +       qda_file_priv = (struct qda_file_priv *)file_priv->driver_priv;
-> +       iommu_dev = qda_file_priv->assigned_iommu_dev;
-> +
-> +       if (!iommu_dev) {
-> +               ret = qda_memory_manager_assign_device(qdev->iommu_mgr, file_priv);
-> +               if (ret) {
-> +                       drm_err(&qdev->drm_dev, "Failed to assign IOMMU device: %d\n", ret);
-> +                       return NULL;
-> +               }
-> +
-> +               iommu_dev = qda_file_priv->assigned_iommu_dev;
-> +       }
-> +
-> +       return iommu_dev;
-> +}
-> +
-> +static int setup_dma_buf_mapping(struct qda_gem_obj *qda_gem_obj, struct dma_buf *dma_buf,
-> +                                struct device *attach_dev, struct qda_dev *qdev)
-> +{
-> +       struct dma_buf_attachment *attachment;
-> +       struct sg_table *sgt;
-> +       int ret;
-> +
-> +       attachment = dma_buf_attach(dma_buf, attach_dev);
-> +       if (IS_ERR(attachment)) {
-> +               ret = PTR_ERR(attachment);
-> +               drm_err(&qdev->drm_dev, "Failed to attach dma_buf: %d\n", ret);
-> +               return ret;
-> +       }
-> +       qda_gem_obj->attachment = attachment;
-> +
-> +       sgt = dma_buf_map_attachment_unlocked(attachment, DMA_BIDIRECTIONAL);
-> +       if (IS_ERR(sgt)) {
-> +               ret = PTR_ERR(sgt);
-> +               drm_err(&qdev->drm_dev, "Failed to map dma_buf attachment: %d\n", ret);
-> +               dma_buf_detach(dma_buf, attachment);
-> +               return ret;
-> +       }
-> +       qda_gem_obj->sgt = sgt;
-> +
-> +       return 0;
-> +}
-> +
-> +/**
-> + * qda_gem_prime_import() - Import a DMA-BUF as a GEM object
-> + * @dev: DRM device structure
-> + * @dma_buf: DMA-BUF to import
-> + *
-> + * Return: Pointer to the imported GEM object on success, ERR_PTR on failure
-> + */
-> +struct drm_gem_object *qda_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf)
-> +{
-> +       struct qda_dev *qdev = qda_dev_from_drm(dev);
-> +       struct qda_gem_obj *qda_gem_obj;
-> +       struct drm_file *file_priv;
-> +       struct qda_iommu_device *iommu_dev;
-> +       struct drm_gem_object *existing_gem;
-> +       size_t aligned_size;
-> +       int ret;
-> +
-> +       if (!qdev->iommu_mgr) {
-> +               drm_err(dev, "Invalid iommu_mgr\n");
-> +               return ERR_PTR(-ENODEV);
-> +       }
-> +
-> +       existing_gem = check_own_buffer(dev, dma_buf);
-> +       if (existing_gem)
-> +               return existing_gem;
-> +
-> +       iommu_dev = get_iommu_device_for_import(qdev, &file_priv);
-> +       if (!iommu_dev || !iommu_dev->dev) {
-> +               drm_err(dev, "No IOMMU device assigned for prime import\n");
-> +               return ERR_PTR(-ENODEV);
-> +       }
-> +
-> +       drm_dbg_driver(dev, "Using IOMMU device %u for prime import\n", iommu_dev->id);
-> +
-> +       aligned_size = PAGE_ALIGN(dma_buf->size);
-> +       qda_gem_obj = qda_gem_alloc_object(dev, aligned_size);
-> +       if (IS_ERR(qda_gem_obj))
-> +               return ERR_CAST(qda_gem_obj);
-> +
-> +       qda_gem_obj->is_imported = true;
-> +       qda_gem_obj->dma_buf = dma_buf;
-> +       qda_gem_obj->virt = NULL;
-> +       qda_gem_obj->iommu_dev = iommu_dev;
-> +
-> +       get_dma_buf(dma_buf);
-> +
-> +       ret = setup_dma_buf_mapping(qda_gem_obj, dma_buf, iommu_dev->dev, qdev);
-> +       if (ret)
-> +               goto err_put_dma_buf;
-> +
-> +       ret = qda_memory_manager_alloc(qdev->iommu_mgr, qda_gem_obj, file_priv);
-> +       if (ret) {
-> +               drm_err(dev, "Failed to allocate IOMMU mapping: %d\n", ret);
-> +               goto err_unmap;
-> +       }
-> +
-> +       drm_dbg_driver(dev, "Prime import completed successfully size=%zu\n", aligned_size);
-> +       return &qda_gem_obj->base;
-> +
-> +err_unmap:
-> +       dma_buf_unmap_attachment_unlocked(qda_gem_obj->attachment,
-> +                                         qda_gem_obj->sgt, DMA_BIDIRECTIONAL);
-> +       dma_buf_detach(dma_buf, qda_gem_obj->attachment);
-> +err_put_dma_buf:
-> +       dma_buf_put(dma_buf);
-> +       qda_gem_cleanup_object(qda_gem_obj);
-> +       return ERR_PTR(ret);
-> +}
-> +
-> +/**
-> + * qda_prime_fd_to_handle() - Convert a PRIME fd to a GEM handle
-> + * @dev: DRM device structure
-> + * @file_priv: DRM file private data
-> + * @prime_fd: File descriptor of the PRIME buffer
-> + * @handle: Output GEM handle
-> + *
-> + * Return: 0 on success, negative error code on failure
-> + */
-> +int qda_prime_fd_to_handle(struct drm_device *dev, struct drm_file *file_priv,
-> +                          int prime_fd, u32 *handle)
-> +{
-> +       struct qda_dev *qdev = qda_dev_from_drm(dev);
-> +       int ret;
-> +
-> +       mutex_lock(&qdev->import_lock);
-> +       qdev->current_import_file_priv = file_priv;
-> +
-> +       ret = drm_gem_prime_fd_to_handle(dev, file_priv, prime_fd, handle);
-> +
-> +       qdev->current_import_file_priv = NULL;
-> +       mutex_unlock(&qdev->import_lock);
-> +
-> +       return ret;
-> +}
-> +
-> +MODULE_IMPORT_NS("DMA_BUF");
-> diff --git a/drivers/accel/qda/qda_prime.h b/drivers/accel/qda/qda_prime.h
-> new file mode 100644
-> index 000000000000..9b3850d54fa7
-> --- /dev/null
-> +++ b/drivers/accel/qda/qda_prime.h
-> @@ -0,0 +1,18 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef __QDA_PRIME_H__
-> +#define __QDA_PRIME_H__
-> +
-> +#include <drm/drm_device.h>
-> +#include <drm/drm_file.h>
-> +#include <drm/drm_gem.h>
-> +#include <linux/dma-buf.h>
-> +
-> +struct drm_gem_object *qda_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf);
-> +int qda_prime_fd_to_handle(struct drm_device *dev, struct drm_file *file_priv,
-> +                          int prime_fd, u32 *handle);
-> +
-> +#endif /* __QDA_PRIME_H__ */
-> 
-> --
-> 2.34.1
-> 
-> 
-
+Helge
