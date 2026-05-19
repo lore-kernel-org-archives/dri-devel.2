@@ -4,137 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97153CD4F3C
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 04:52:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90715CD4F3C
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 05:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7D7D10E0C2;
-	Tue, 19 May 2026 04:52:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5B2C10E368;
+	Tue, 19 May 2026 05:08:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="XekseiGb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TQ3BUhE+";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012032.outbound.protection.outlook.com [52.101.43.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AADFB10E0C2
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 04:52:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mBs08zXrRtw7+39zahp21Pg/C/oQoK5TOfmR2X1FEGhd6egVnp62a3trdQLF+aUX/Zjqi/QzP0I8Xx0KwqSvf/sm5F/rVramhmLv1cEuxTk5ggau0ulg0fsTbMEBgGCrip2K7zuwwfekQxiUw1A6t05j43MOwoMVJF0wBZi2jD/wN6/6cvE3goOTZWBNNjG6Z5k21x1JtVL0EwC7lRbZZBzW6lOGB5VkEgIw07J7qzgkY8wpBuQsi9l34/Ku0SJbwmdmc0qwE5JhZlLpZVDCfR318EkAFARkZjIXS3Hk7aJv04m+21Y9rRehkW+0JcnJRFkeifVF9jQsagiDciCiWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G+VVLerT+G5Gy4z561KGf3VfM/y2mOERHPPN8/x5yZw=;
- b=fg3jmVA+1HYhnapxDfJv0UzpTL69VM82DgMR7cp5E7Dtw+tVad7oh2OQc7808IfgozsN7g7k3lHLBOoYpn7464JNbGVqwKYEjStZXJcFjPrYO2VDbX/NvCUf03L5fZRG/M23LQXqBa8td5fjUvdVI1y/YG6udSQ0Fg5LG7NEdwAD40Hmtz42ZMa0RJGO9nBXscvh60fcVcMPpv0FsnGGfCSIQ5b03Vj+p3mB1hahHumNEVxg0tu7BODHgfYkZpMpcGUVgFh6Thy5Hh4r7z2+3BSHVoaODg+9EKWZJ1baY1hceZBIhQC56/0tkfYg9sDPAHc9Z5NM3rw1MKui8uux6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G+VVLerT+G5Gy4z561KGf3VfM/y2mOERHPPN8/x5yZw=;
- b=XekseiGbT2Bt9KZiAcUk6TMUUNrc/WDt5k1U8rwHFUL85PGk+zrVgX5s8r0NSpkQzwZhtwVf/9EdrgzIAP0I0dpr3SIANFeqh9g/kx0SGbXwS/CRzH2rT/Dub4LvnKs5lHDDryh/8bOuYDNc6l17tJczI3ow+dM/BQh+hSUQ3jz1sqOX8HLqD2IfjJ4WR0oVFOc/K1FGGReu1rCorEMxVS5cPVUOAuhBcQd96gXag9/P9Ig9ILztICa2rvCnP9a2nGpODK+c/nYBFoWYM/TOvAUdAXqz1KCgwtCRB+kV+kCfUws9AFjnNilx2Ea0Os6+ssS/BeubccYmJ4F2Iyzi7Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by CH3PR12MB9344.namprd12.prod.outlook.com (2603:10b6:610:1c8::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.18; Tue, 19 May
- 2026 04:52:36 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 04:52:36 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 19 May 2026 13:52:32 +0900
-Message-Id: <DIMDU2XL6PKO.RUXA0XPFT94R@nvidia.com>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 10/27] rust: pci: make Driver trait
- lifetime-parameterized
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
- <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-11-dakr@kernel.org>
-In-Reply-To: <20260517000149.3226762-11-dakr@kernel.org>
-X-ClientProxiedBy: TYCP286CA0095.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b4::18) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ECE810E121
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 05:08:55 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5a8891f0c51so3444168e87.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 18 May 2026 22:08:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779167333; cv=none;
+ d=google.com; s=arc-20240605;
+ b=EYwtmuQU/uc48xYdOpPd1k2b9jvkdmSjMkkA8uo2kaFT3jNVjRUIupjmLHKM4l/5XH
+ et6W21wnE+MW9MUL0YSQH645aNSJL+9XVyGGyMVLt/Vqt/sQIWKm8984ooJLjPn/UqrP
+ efegNCTOrLHj9jF7XXFrr+z1vz1fK9Bfj19ZUiFWsrDPAAktRmOYneafdz/Q5pg2BG+l
+ j0MWkFP8SQlKR4ifVxHtbuq8RDnvUwGl2lrTtW1ucnwSF5p90AiM1D/vIEpySYbLrBKh
+ 41RQsfSBQxXpVis8G34K5URtgIiyrDB1hZVjbzRQHCWK1s0yjag0JmdBUZpBTjWJqnjK
+ LIJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=GfH0ZIrAufFfH/0V6M3CDoj9GxmN6MFg7zrk0ckrxM0=;
+ fh=QDCetI3bS3veEQbGqeZbnDw3PxQzDfOSAqPRZCT+3gU=;
+ b=kCKLJRK4TG58bj2lC78HsyIYmAn/CFg5VsW+HE6jm49kMOSl2dCThvuZrcPoPuMhTz
+ gI3aobWZ8yqel7CXOESHB9d5pX4E/pZh5tH5C/l34tqb0jenRs7+NzIIFawZiP9qM6JH
+ PphABPlPFadRg11nYw7u+sRDEngP8KSdls9SfKjhmkeOxtbKziIs6mFRpM43dhJbRMwB
+ prEYhOJN+OiHnHMsLcuKqEdRI+ZxALn8iS5CRjIeKByZc21GBkqSaKelerKriHKIQFZJ
+ xbbqGxtxFbCVOgew3aYzkBBEyZ9citrBiUsjNscGM802mUCQbJpFwFefI6036rpvx2WT
+ trNA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779167333; x=1779772133; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GfH0ZIrAufFfH/0V6M3CDoj9GxmN6MFg7zrk0ckrxM0=;
+ b=TQ3BUhE+GnQcA5f3TpqWoGfleuwFbnNAS3ylx43Cp75obreVJj9SBvB6P5ERnv5eGT
+ ZMoGxvGSZW9pPAvi1QPUQMh4toxOTOIFyspx6D4cn3iMI2a56WWRochvJnQPoKLufT/x
+ tXeoxTzXodLZgai87o5q3JXagpxnkIWSkV8nutI+0Jxilsgbmd1FJiBnglrJAwSPzlek
+ uyHECEdM8FHzUiC7RIGA1efZIASSXpoQzDwsffKGyx8HwFCOTT6auotoNLbl2suJiu9T
+ 9GXWb2EebPyO1TAfRyp/MabHCYHPBaDmpnOAXUcS08Sz9jYkCU5hgDrnOw7RtDuRUBfA
+ LThQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779167333; x=1779772133;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=GfH0ZIrAufFfH/0V6M3CDoj9GxmN6MFg7zrk0ckrxM0=;
+ b=Ay1vWC/8NQL/yUMDR95E5T9UOdx57jqLdAf0PpXHLGAh5J1cb+FWVTIsY2Nb0v5F2N
+ Mp18+tJ9Rkhx5Upl5TaFgFY/1zdYRcK23rusr1XA8OBVoyP0cp3D8B7HdP1PlWPeXpts
+ /YWeS1b98vrJzraX9F9fBr0rBxb2pIpyOAFPvLyP871wdMAsTU9c30qztxmeO2oOpbXg
+ rYbICCDW0LOUif/tI3iQ2qCGdkd0qDGk9s9ozdW6S1BexTabti69rBJ7erGkHSi9lLiU
+ rBvcJmJq2f+jcbuD/2RBQbbLdDcmI35xu7Voed6HuAkLNDzMQwm3AlesZStxubqCzJsa
+ lAVQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+fy8q4oZoxByPOjdJSQWfb+y87UHi3IOcNDRgf7XUaR2vYBiSbBJK6az668xItXMOvoyEBnH8rARk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzPtyiSc665a6wG3ODyv4pr+Z33VIv9+sStrohNR3rHLpLaOo3M
+ 8fgyNfSZr7o8m6PRlOjLbCHs94FXqGJqCvlnx1I1CrEeEOD48bvF25IqqqJMJbpuT1eHj6rCOFi
+ kQlWCJTNAlO6ggLvytYjJhFyo3J73D+Y=
+X-Gm-Gg: Acq92OGRkOvm4c3FgqCpl44M5Eqi8TAI5brjx12tyXZdSMQN2dtBBhlTJoL8GxkzocL
+ QnJGI3NdXW9H+mawtAx4J4Yq03RHE93uyV9dEkmJdZeL+qkqpZp3xmGDOy675Etk7cE1Qggp55/
+ wA/XP4E/9lTQQBccQhK+8jrSZJPOYepe/IZfSBKJOs97sFNPuReUosEVsTw33eLqn++1IPU3PjZ
+ tEjfuR76s/AI1Xj0lLYbGcW11u23UC+bLmOuayPZ3Mz3e62LhBNZ5iQzgIrtJrIXkcpldhnzb52
+ pU4SIulVM2vtqu38oeQaSQjDjGdVpGOCtV+HXvjbFDJBQjlWbKUTtgD6xPDYPAMpJV2s
+X-Received: by 2002:a05:6512:1589:b0:5aa:b6a:738d with SMTP id
+ 2adb3069b0e04-5aa0e746c6amr5303590e87.43.1779167333119; Mon, 18 May 2026
+ 22:08:53 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|CH3PR12MB9344:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac6b8dac-9f77-427a-7056-08deb5627272
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|10070799003|11063799003|4143699003|56012099003|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: VkNDKxjDMQXNYT5cCHtM7JEpdAlXJdA9gQTddaPx68r3xR01EWdxcMIuiCnsGjFui/xka7EFAaovdGD83UawLYDzgrBkZSz4Z0QC0qdHUNE9XBAS36FhDM6oEc31Um3Eu2qfFw6qtBfq4vgU0CNx9u9/RhONFXuOkfKTEiZ4fLFq8XRbghoGYaDp07N9hVdtzyVQbQNAhyqR+7/QJtOspxDsn1nJTC5rl9UWXgMtHzxC/lW2JyRiQdx5yT5pwmGEx2n1YNOAxuO/iMpqA99nxnFVeT7F8k6Q3rtZykIQR7g2AdOLUq7YX7VQtu+537Y7/yRJzQJEsBJoW/ixjuK285BLgCMOIQe2GLXbn8eNmQKibmQghDAugcq4X+z+4lpKImT3vHB6eoCL1vv+qh9MxjPr1Gb6ruB4qwKXB8OfSfKhxtVhZ3jPJH0hSCNW8C6o3cvCB/ZX0HwNz/9tjCePWTU8sA7ga2bUShNFXy1c1UNEG2ZAuvbY7wTHRhHWPfUxnzZj2EGI0GpRrLXd3kcA3GzsXmSbdlwCrfski/32LZx+hAGBsleBQdS0oAdKUy3dbouzforYYJLUsdyH3ks866ig0PJR4+Ru3KbPgod9KOTziGxDhpEwff7a1Tb1MsIxrFiRK4ZFzamZEPti+z3Zas/vmVC1G4tv0/ir8BDcWTQQZMTzfOBMcllFB2ndxkI+wmotHh15AiAAfUVaJ+trqU7O/RwtkETXwbEy/+QCrL4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(10070799003)(11063799003)(4143699003)(56012099003)(22082099003)(18002099003)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDN0dGxaTFdkb1NQVmlvK1R0aThHYTNhbVlxNnQxemdiNW5pS3h6OFZXWUNa?=
- =?utf-8?B?aFJKa2dMRFB4N1phc3RNMWdmbWlCVGtxL2RxVEl2Zkd3RW03LzM3QWxVMllM?=
- =?utf-8?B?SmtpR1ZqWXZIcWorM2JPRitZVE16Ry9HdnRrNG5GeDNIeFdYeUtXN0RlOGtU?=
- =?utf-8?B?L1FPSmszeTcyVndhc3FIWFQ1R1ZSL1ByUHVHaE5kV25hMWlLMWk2SmpEc1Mw?=
- =?utf-8?B?WWxzMi84dUY1eVZaakRwNGlVSVV5cjM5NitGd2VQTGpIS2tUYlNxNkVUbXNo?=
- =?utf-8?B?YVRlOXdYK2VqcDNXdUFVSUVZSmJFY3B3MUEwY3l1T1N4dUdCbnFQK0pLQVp2?=
- =?utf-8?B?NlFFU0p0RFNqT0h0T0d0WWI5YUc5Z3JDUVF0dVdzV04wODZZVnpNMW5aWEdz?=
- =?utf-8?B?ZjJYV0FLdXphbXVQQ0pleDhKZktlZjBRSDhZKzh4VVpKRHA5Rm5yS0tTS0lL?=
- =?utf-8?B?NWs3S2NIYzdHUitNSzN1YVFPT1g1a0lhWFhxeHJOaW41QjBOcGVhV1pqRlZL?=
- =?utf-8?B?V2M1WTFqMkVrQ1NyZC9lWHM2VHJwb3JpeSsxcTY4WE5UaW52MnNZbkMwTGho?=
- =?utf-8?B?OWxuQW5QV1pRWXBVb2xwRWhPbmZqZG1xOVRyd2hldTFvd2lHZFhTQkdzV2RR?=
- =?utf-8?B?b3VPRDlOWmZKVTY0YnlKcTlBVVhDNWpwUURHMnhsZUwyUXFNRkV2cDA2VlRS?=
- =?utf-8?B?Nk1tclBCcnRQelhKcGU2Y1I1RkpoUDVFenRhVXdPcXpkaW5wSVlYY2Q4Rjls?=
- =?utf-8?B?NnUyV0svU3NQcitnWXpLaG5ZeW9CQlRxNDczN2VlMmtBdDE3c21qVG0rK1dy?=
- =?utf-8?B?MUk4TUY3VFN4VW5QRXd6ZjdmNkZpSkxZYlRuVkFLMndrUGNMY1JucjRBWStV?=
- =?utf-8?B?bmRQdmRaUFRTbjEyY2p1VnBsR2hmWXJCUWpzUFA1NEtPak5aZ2VhZ1JFSzhP?=
- =?utf-8?B?WUdMVlQ5bU5hbXhhdk00YmVlSlc4U25uYWR4aHM1VktrM2hVUkp6YjRuMk9r?=
- =?utf-8?B?UmdQY2NPQTQzRVpibmwxU1ZmcGNrVU1kaHlIRnc3NE5pYkRXUENwYm02a0Jh?=
- =?utf-8?B?Ukd2Sk5aZ2NpZXVFdjdQak03NmFmSzdmdWxJYkFhUW5qSTh4NmRZTGd2akJN?=
- =?utf-8?B?TUJRT1o3RDUwLzNKT1FCYzBvYWFhSlIvRUI1ZXBta2o2NHhhV2tqc1lrcFBP?=
- =?utf-8?B?MGdnMkRKWFAxU0hpSitwTVRHcHVycjFaVFJ3VUNSWUJKNU5pb3piaTlacHJt?=
- =?utf-8?B?QjI4TFFXWXl1UFBxekJWNjRhQzNoUC96THJoVkZYKzg4RTBrT3dSR1BmRTJI?=
- =?utf-8?B?YUw1aGF4Ni9XOUxJTDZNVXJOL25UK3JnanUwQWo4TDJoY3daR2JQSzRBcnkx?=
- =?utf-8?B?UVhIVGdDeG41YU1VUlZLQzdJNHBXTVI2dEFlNUNXVERRYS9ldFFYNWtCQ0JK?=
- =?utf-8?B?cVRjWFowMWhyOUk2YW1URHVCb0ZhVjYwMU9zTUZLY09EY2RpUHdKVldTVnNV?=
- =?utf-8?B?RkFTc2NqL1ZWYkJrZnlPcnloWVI3cmxCcXNvaUNsb3hQb1llYUdUcXJYT3Az?=
- =?utf-8?B?TVBZZXZXUWRzaXB4N2FXOHZhSWpkTmhUVmp0c09qSzhtN25JRnNLZzZ4aTZU?=
- =?utf-8?B?L1FXREF4WnNTVTN2cUQ0aWc0c2creW9SQy85d01LaDlDR0RTbnA1eGF3MVQ0?=
- =?utf-8?B?am5EK3pHS2ZHRkV2QzlTb3FYcFkwZXYvakNDTk9RT05PVXJaOXdmM1hYTWty?=
- =?utf-8?B?bUZXa1Y2MHVNaTRBV0JpK05mSFpuMVM2ajlUWm03cW5OWUpOcjV0bzk3UUNp?=
- =?utf-8?B?cE0vOGFxZUxCUCtYS2xUSWFPQXRBcnNadUhkNDVVdXU2dnp5bXp0N2JDQjM0?=
- =?utf-8?B?ejR4QWVCbmRYMkV4ZTJyTllGcTY5enpJOGY3aTRsN09jK2tDcC83WVNPMW0x?=
- =?utf-8?B?aGtLdHdkRTBUSzFYUFVHbk15dDZnR3o3K2d6SzFCRm1Hc3V3bTd1alNFemFI?=
- =?utf-8?B?MGNPaVV4T1d5SGU4d1I5c2dWTjFyN3RlbXVkd1pEcmM3bENibXZaRm9oOUtP?=
- =?utf-8?B?MzVwOEJnZDhLbDl6dVM3dk5GVTRGVERNVVluQWZ1a3VaQmJlVjZEa0IxSDJn?=
- =?utf-8?B?d3I3bmMvZHpQalhTUi9aRnRyaEdOWE53S20vU3NmNWtRSk1RcjFBNHMranFn?=
- =?utf-8?B?N1lUN1VKcFdzNGhjNDYvQ1pHZ3d4aVRtRHRhb3ZZT3cwR3lFZGwraWNvVzdX?=
- =?utf-8?B?d3FaVEZlaCtPbFVCbEtHeHFCWitxV2NUamZGbEhQNHA1VmgzbnJ2Um9EYkpS?=
- =?utf-8?B?TzlvVStLTUx5RG5STktQaWZVeWlyMDIzbm1ONUJ3RjhrOXdNYy9lRDVya3Fr?=
- =?utf-8?Q?j2vCxj1Tz/J08YUmoIBO0LWELPyZqUdZCptwzgReUc/yJ?=
-X-MS-Exchange-AntiSpam-MessageData-1: +cEQDwiI+F6xyQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac6b8dac-9f77-427a-7056-08deb5627272
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 04:52:36.6722 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fhwAbl8FwbRGo/PnRF3WDI9aKM0SBw7VAlFz+zhTXIlmSHeOKCdUInkh+DpsNQhFrmakqThMMIJQmb+sX5xarA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9344
+References: <20260514-icna35xx-v3-0-c304f04c32c4@gmail.com>
+ <20260514-icna35xx-v3-2-c304f04c32c4@gmail.com>
+ <6dd8f137-a4df-4602-9536-b73abff5e7d1@linaro.org>
+In-Reply-To: <6dd8f137-a4df-4602-9536-b73abff5e7d1@linaro.org>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Tue, 19 May 2026 00:08:41 -0500
+X-Gm-Features: AVHnY4LeYs98GBQqXFX7bSUsEAgNAPvBFfMuu-9EA7zAyAEFhRR8OktHYCDne-A
+Message-ID: <CALHNRZ9rKs2cXHgyH15qc0=Tz_+tg9rp_c5gCJs00t8H4Ke71w@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/panel: Add panel driver for Chipone ICNA35XX
+ based panels
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,24 +114,798 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun May 17, 2026 at 9:00 AM JST, Danilo Krummrich wrote:
-> Add a 'bound lifetime to the associated Data, changing type Data to type
-> Data<'bound>.
+On Mon, May 18, 2026 at 9:29=E2=80=AFAM Neil Armstrong
+<neil.armstrong@linaro.org> wrote:
 >
-> This allows the driver's bus device private data to capture the device /
-> driver bound lifetime; device resources can be stored directly by
-> reference rather than requiring Devres.
+> Hi,
 >
-> The probe() and unbind() callbacks thus gain a 'bound lifetime parameter
-> on the methods themselves; avoiding a global lifetime on the trait impl.
+> On 5/14/26 23:29, Aaron Kling via B4 Relay wrote:
+> > From: Teguh Sobirin <teguh@sobir.in>
+> >
+> > This adds support for the ICNA3512 and ICNA3520 DDICs used in both the
+> > AYN Odin 2 Portal and Ayaneo Pocket DS top panel respectively and for
+> > for both the AYN Odin 3 and the AYN Thor top panel respectively.
+> >
+> > These all have unique compatibles because the panels themselves are
+> > likely unique hardware with only the ddic's and thus api and driver
+> > handling shared.
+> >
+> > Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> > Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> >   drivers/gpu/drm/panel/Kconfig                  |  11 +
+> >   drivers/gpu/drm/panel/Makefile                 |   1 +
+> >   drivers/gpu/drm/panel/panel-chipone-icna35xx.c | 619 ++++++++++++++++=
++++++++++
+> >   3 files changed, 631 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kcon=
+fig
+> > index 7450b27622a233..1368b5a0b6c912 100644
+> > --- a/drivers/gpu/drm/panel/Kconfig
+> > +++ b/drivers/gpu/drm/panel/Kconfig
+> > @@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
+> >         Say Y here if you want to support for BOE TV101WUM-LL2
+> >         WUXGA PANEL DSI Video Mode panel
+> >
+> > +config DRM_PANEL_CHIPONE_ICNA35XX
+> > +     tristate "Chipone ICNA35XX panel driver"
+> > +     depends on OF
+> > +     depends on DRM_MIPI_DSI
+> > +     depends on BACKLIGHT_CLASS_DEVICE
+> > +     select DRM_DISPLAY_HELPER
+> > +     help
+> > +       Say Y here if you want to enable support for the panels built
+> > +       around the Chipone ICNA3512 and ICNA3520 display controllers,
+> > +       such as some Tianma panels used in AYN Odin2 Portal and Thor.
+> > +
+> >   config DRM_PANEL_CHIPWEALTH_CH13726A
+> >       tristate "CHIPWEALTH CH13726A-based DSI panel"
+> >       depends on OF
+> > diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Mak=
+efile
+> > index c2c5cf81711633..d39a8f82fa8c06 100644
+> > --- a/drivers/gpu/drm/panel/Makefile
+> > +++ b/drivers/gpu/drm/panel/Makefile
+> > @@ -9,6 +9,7 @@ obj-$(CONFIG_DRM_PANEL_BOE_TD4320) +=3D panel-boe-td432=
+0.o
+> >   obj-$(CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A) +=3D panel-boe-th101m=
+b31ig002-28a.o
+> >   obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_LL2) +=3D panel-boe-tv101wum-ll2.=
+o
+> >   obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_NL6) +=3D panel-boe-tv101wum-nl6.=
+o
+> > +obj-$(CONFIG_DRM_PANEL_CHIPONE_ICNA35XX) +=3D panel-chipone-icna35xx.o
+> >   obj-$(CONFIG_DRM_PANEL_CHIPWEALTH_CH13726A) +=3D panel-chipwealth-ch1=
+3726a.o
+> >   obj-$(CONFIG_DRM_PANEL_DSI_CM) +=3D panel-dsi-cm.o
+> >   obj-$(CONFIG_DRM_PANEL_LVDS) +=3D panel-lvds.o
+> > diff --git a/drivers/gpu/drm/panel/panel-chipone-icna35xx.c b/drivers/g=
+pu/drm/panel/panel-chipone-icna35xx.c
+> > new file mode 100644
+> > index 00000000000000..958f205a7f4f93
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/panel/panel-chipone-icna35xx.c
+> > @@ -0,0 +1,619 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Chipone ICNA35XX Driver IC panels driver
+> > + *
+> > + * Copyright (c) 2025 Teguh Sobirin <teguh@sobir.in>
+> > + */
+> > +
+> > +#include <linux/backlight.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/gpio/consumer.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/of_graph.h>
+> > +#include <linux/regulator/consumer.h>
+> > +
+> > +#include <video/mipi_display.h>
+> > +
+> > +#include <drm/display/drm_dsc.h>
+> > +#include <drm/display/drm_dsc_helper.h>
+> > +#include <drm/drm_connector.h>
+> > +#include <drm/drm_crtc.h>
+> > +#include <drm/drm_mipi_dsi.h>
+> > +#include <drm/drm_modes.h>
+> > +#include <drm/drm_panel.h>
+> > +
+> > +struct panel_info {
+> > +     struct drm_panel panel;
+> > +     struct drm_connector *connector;
+> > +     struct mipi_dsi_device *dsi;
+> > +     struct panel_desc *desc;
+> > +     enum drm_panel_orientation orientation;
+> > +
+> > +     struct gpio_desc *reset_gpio;
+> > +     struct regulator_bulk_data *supplies;
+> > +};
+> > +
+> > +struct panel_desc {
+> > +     unsigned int width_mm;
+> > +     unsigned int height_mm;
+> > +
+> > +     unsigned int bpc;
+> > +     unsigned int lanes;
+> > +     unsigned long mode_flags;
+> > +     enum mipi_dsi_pixel_format format;
+> > +
+> > +     const struct drm_display_mode *modes;
+> > +     unsigned int num_modes;
+> > +     int (*init_sequence)(struct panel_info *pinfo);
+> > +
+> > +     struct drm_dsc_config dsc;
+> > +};
+> > +
+> > +static const struct regulator_bulk_data panel_supplies[] =3D {
+> > +     { .supply =3D "vdd" },
+> > +     { .supply =3D "vddio" },
+> > +     { .supply =3D "vci" },
+> > +     { .supply =3D "disp" },
+> > +     { .supply =3D "blvdd" },
+> > +};
+> > +
+> > +static inline struct panel_info *to_panel_info(struct drm_panel *panel=
+)
+> > +{
+> > +     return container_of(panel, struct panel_info, panel);
+> > +}
+> > +
+> > +static int icna35xx_get_current_mode(struct panel_info *pinfo)
+> > +{
+> > +     struct drm_connector *connector =3D pinfo->connector;
+> > +     struct drm_crtc_state *crtc_state;
+> > +     int i;
+> > +
+> > +     /* Return the default (first) mode if no info available yet */
+> > +     if (!connector->state || !connector->state->crtc)
+> > +             return 0;
+> > +
+> > +     crtc_state =3D connector->state->crtc->state;
+> > +
+> > +     for (i =3D 0; i < pinfo->desc->num_modes; i++) {
+> > +             if (drm_mode_match(&crtc_state->mode,
+> > +                                &pinfo->desc->modes[i],
+> > +                                DRM_MODE_MATCH_TIMINGS | DRM_MODE_MATC=
+H_CLOCK))
+> > +                     return i;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
 >
-> Existing drivers set type Data<'bound> =3D Self, preserving the current
-> behavior.
+> I'm uncertain about that, I think you should stick to a single mode for
+> now until we properly add the atomic panel API variant.
 >
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
+> Please see https://lore.kernel.org/all/20260425001130.233935-1-val@packet=
+t.cool/
+> for a first version of that, but it may need more work to make it right.
 
-Is this really sound without a covariance proof? For example, with this
-version you could stash a Cell<Option<&'bound pci::Device<Bound>> (even
-with Gary's suggested Core<'_> change) and then observe that reference
-on Drop of Data, which seems unsound to me.
+Losing the extra modes feels ugh, when they work as expected, but ack.
+I hope the new handling doesn't get stuck in limbo for too long.
+
+> > +
+> > +static int icna3512_init_sequence(struct panel_info *pinfo)
+> > +{
+> > +     struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D pinfo->dsi }=
+;
+> > +     struct drm_dsc_picture_parameter_set pps;
+> > +
+> > +     int cur_mode =3D icna35xx_get_current_mode(pinfo);
+> > +     int cur_vrefresh =3D drm_mode_vrefresh(&pinfo->desc->modes[cur_mo=
+de]);
+> > +
+> > +     pinfo->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> > +
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9C, 0xA5, 0xA5);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xFD, 0x5A, 0x5A);
+> > +
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x53, 0xE0);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x35, 0x00);
+> > +
+> > +     mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> > +
+> > +     mipi_dsi_msleep(&dsi_ctx, 120);
+> > +
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x0F);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xCE, 0x22);
+> > +
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x01);
+> > +     if (cur_vrefresh =3D=3D 165) {
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x48, 0x20);
+> > +     } else if (cur_vrefresh =3D=3D 144) {
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB3,
+> > +                     0x00, 0xE0, 0xA0, 0x10, 0xC8, 0x00, 0x02, 0x83,
+> > +                     0x00, 0x10, 0x14, 0x00, 0x00, 0xC3, 0x00, 0x10,
+> > +                     0x14, 0x00, 0x00, 0xE0, 0x00, 0x10, 0x14, 0x00,
+> > +                     0x00, 0xE0, 0xA0, 0x10, 0xC8, 0x22, 0x18, 0x18,
+> > +                     0x18, 0x18, 0x18);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x07);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB5,
+> > +                     0x04, 0x0A, 0x08, 0x0A, 0x04, 0x00, 0xC4);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xD9,
+> > +                     0x66, 0xE4, 0xE4, 0x66, 0xE4, 0xE4, 0x00, 0xC4,
+> > +                     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xCE,
+> > +                     0x01, 0x01, 0x01, 0x01, 0x04, 0x07, 0xA4);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x48, 0x30);
+> > +     } else if (cur_vrefresh =3D=3D 120) {
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB3,
+> > +                     0x00, 0xE0, 0xA0, 0x10, 0xC8, 0x00, 0x02, 0x83,
+> > +                     0x00, 0x10, 0x14, 0x00, 0x00, 0xC3, 0x00, 0x10,
+> > +                     0x14, 0x00, 0x00, 0xE0, 0x10, 0x10, 0x9C, 0x00,
+> > +                     0x00, 0xE0, 0xA0, 0x10, 0xC8, 0x22, 0x18, 0x18,
+> > +                     0x18, 0x18, 0x18);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x07);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB5,
+> > +                     0x04, 0x0C, 0x08, 0x0C, 0x04, 0x00, 0xC4);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xD9,
+> > +                     0x88, 0x40, 0x40, 0x88, 0x40, 0x40, 0x00, 0xEB,
+> > +                     0x11, 0xFF);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xCE,
+> > +                     0x01, 0x01, 0x01, 0x01, 0x04, 0x09, 0x2C);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x48, 0x30);
+> > +     } else if (cur_vrefresh =3D=3D 90) {
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB3,
+> > +                     0x00, 0xE0, 0x40, 0x10, 0xA8, 0x00);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x07);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB2,
+> > +                     0x04, 0x10, 0x08, 0x0C, 0x04, 0x00, 0xC4);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xD3,
+> > +                     0x55, 0x80, 0x80, 0x55, 0x80, 0xB0, 0x00, 0x9C,
+> > +                     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xCB,
+> > +                     0x01, 0x01, 0x01, 0x01, 0x04, 0x06, 0x1C);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x48, 0x00);
+> > +     } else {
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB3,
+> > +                     0x00, 0xE0, 0xA0, 0x10, 0xC8, 0x00);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x07);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB2,
+> > +                     0x04, 0x18, 0x08, 0x0C, 0x02, 0x00, 0xC4);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xD3,
+> > +                     0x88, 0x4A, 0x4A, 0x88, 0x4A, 0x4A, 0x00, 0xEB,
+> > +                     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xCB,
+> > +                     0x01, 0x01, 0x01, 0x01, 0x04, 0x2C);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x48, 0x00);
+> > +     }
+> > +
+> > +     drm_dsc_pps_payload_pack(&pps, &pinfo->desc->dsc);
+> > +     mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+> > +
+> > +     mipi_dsi_msleep(&dsi_ctx, 20);
+> > +
+> > +     mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> > +
+> > +     return dsi_ctx.accum_err;
+> > +}
+> > +
+> > +static int icna3520_init_sequence(struct panel_info *pinfo)
+> > +{
+> > +     struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D pinfo->dsi }=
+;
+> > +     struct drm_dsc_picture_parameter_set pps;
+> > +
+> > +     int cur_mode =3D icna35xx_get_current_mode(pinfo);
+> > +     int cur_vrefresh =3D drm_mode_vrefresh(&pinfo->desc->modes[cur_mo=
+de]);
+> > +
+> > +     pinfo->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> > +
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9C, 0xA5, 0xA5);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xFD, 0x5A, 0x5A);
+> > +
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x53, 0xE0);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x35, 0x00);
+> > +
+> > +     mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> > +
+> > +     mipi_dsi_msleep(&dsi_ctx, 120);
+> > +
+> > +     if (cur_vrefresh =3D=3D 120) {
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x48, 0x00);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x00);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB3,
+> > +                     0x00, 0xD8, 0x00, 0x1C, 0x00, 0x4C);
+> > +     } else {
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x48, 0x10);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x00);
+> > +             mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB3,
+> > +                     0x00, 0xDB, 0x00, 0x1C, 0x00, 0x1C, 0x00, 0x00,
+> > +                     0xDB, 0x00, 0x1C, 0x07, 0xD6, 0x00);
+> > +     }
+> > +
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x01);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB2, 0x00);
+> > +
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9F, 0x0D);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB2, 0x27);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB6, 0x03);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xBB, 0x01);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xB2, 0x24);
+> > +
+> > +     drm_dsc_pps_payload_pack(&pps, &pinfo->desc->dsc);
+> > +     mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+> > +
+> > +     mipi_dsi_msleep(&dsi_ctx, 20);
+> > +
+> > +     mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> > +
+> > +     return dsi_ctx.accum_err;
+> > +}
+> > +
+> > +static const struct drm_display_mode odin2portal_modes[] =3D {
+> > +     {
+> > +             /* 165Hz */
+> > +             .clock =3D (1080 + 98 + 1 + 23) * (1920 + 20 + 1 + 15) * =
+165 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 98,
+> > +             .hsync_end =3D 1080 + 98 + 1,
+> > +             .htotal =3D 1080 + 98 + 1 + 23,
+> > +             .vdisplay =3D 1920,
+> > +             .vsync_start =3D 1920 + 20,
+> > +             .vsync_end =3D 1920 + 20 + 1,
+> > +             .vtotal =3D 1920 + 20 + 1 + 15,
+> > +     },
+> > +     {
+> > +             /* 144Hz */
+> > +             .clock =3D (1080 + 156 + 1 + 23) * (1920 + 20 + 1 + 15) *=
+ 144 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 156,
+> > +             .hsync_end =3D 1080 + 156 + 1,
+> > +             .htotal =3D 1080 + 156 + 1 + 23,
+> > +             .vdisplay =3D 1920,
+> > +             .vsync_start =3D 1920 + 20,
+> > +             .vsync_end =3D 1920 + 20 + 1,
+> > +             .vtotal =3D 1920 + 20 + 1 + 15,
+> > +     },
+> > +     {
+> > +             /* 120Hz */
+> > +             .clock =3D (1080 + 156 + 1 + 23) * (1920 + 412 + 1 + 15) =
+* 120 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 156,
+> > +             .hsync_end =3D 1080 + 156 + 1,
+> > +             .htotal =3D 1080 + 156 + 1 + 23,
+> > +             .vdisplay =3D 1920,
+> > +             .vsync_start =3D 1920 + 412,
+> > +             .vsync_end =3D 1920 + 412 + 1,
+> > +             .vtotal =3D 1920 + 412 + 1 + 15,
+> > +     },
+> > +     {
+> > +             /* 90Hz */
+> > +             .clock =3D (1080 + 156 + 1 + 23) * (1920 + 1192 + 1 + 15)=
+ * 90 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 156,
+> > +             .hsync_end =3D 1080 + 156 + 1,
+> > +             .htotal =3D 1080 + 156 + 1 + 23,
+> > +             .vdisplay =3D 1920,
+> > +             .vsync_start =3D 1920 + 1192,
+> > +             .vsync_end =3D 1920 + 1192 + 1,
+> > +             .vtotal =3D 1920 + 1192 + 1 + 15,
+> > +     },
+> > +     {
+> > +             /* 60Hz */
+> > +             .clock =3D (1080 + 156 + 1 + 23) * (1920 + 2760 + 1 + 15)=
+ * 60 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 156,
+> > +             .hsync_end =3D 1080 + 156 + 1,
+> > +             .htotal =3D 1080 + 156 + 1 + 23,
+> > +             .vdisplay =3D 1920,
+> > +             .vsync_start =3D 1920 + 2760,
+> > +             .vsync_end =3D 1920 + 2760 + 1,
+> > +             .vtotal =3D 1920 + 2760 + 1 + 15,
+> > +     }
+> > +};
+> > +
+> > +static const struct drm_display_mode thor_top_modes[] =3D {
+> > +     {
+> > +             /* 120Hz */
+> > +             .clock =3D (1080 + 24 + 1 + 24) * (1920 + 28 + 1 + 28) * =
+120 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 24,
+> > +             .hsync_end =3D 1080 + 24 + 1,
+> > +             .htotal =3D 1080 + 24 + 1 + 24,
+> > +             .vdisplay =3D 1920,
+> > +             .vsync_start =3D 1920 + 28,
+> > +             .vsync_end =3D 1920 + 28 + 1,
+> > +             .vtotal =3D 1920 + 28 + 1 + 28,
+> > +     },
+> > +     {
+> > +             /* 60Hz */
+> > +             .clock =3D (1080 + 24 + 1 + 24) * (1920 + 2006 + 1 + 28) =
+* 60 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 24,
+> > +             .hsync_end =3D 1080 + 24 + 1,
+> > +             .htotal =3D 1080 + 24 + 1 + 24,
+> > +             .vdisplay =3D 1920,
+> > +             .vsync_start =3D 1920 + 2006,
+> > +             .vsync_end =3D 1920 + 2006 + 1,
+> > +             .vtotal =3D 1920 + 2006 + 1 + 28,
+> > +     }
+> > +};
+> > +
+> > +static struct panel_desc odin2portal_desc =3D {
+> > +     .modes =3D odin2portal_modes,
+> > +     .num_modes =3D ARRAY_SIZE(odin2portal_modes),
+> > +     .width_mm =3D 160,
+> > +     .height_mm =3D 89,
+> > +     .bpc =3D 8,
+> > +     .lanes =3D 4,
+> > +     .format =3D MIPI_DSI_FMT_RGB888,
+> > +     .mode_flags =3D MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_=
+CONTINUOUS |
+> > +                     MIPI_DSI_MODE_LPM,
+> > +     .init_sequence =3D icna3512_init_sequence,
+> > +     .dsc =3D {
+> > +             .dsc_version_major =3D 0x1,
+> > +             .dsc_version_minor =3D 0x1,
+> > +             .slice_height =3D 20,
+> > +             .slice_width =3D 540,
+> > +             .slice_count =3D 2,
+> > +             .bits_per_component =3D 8,
+> > +             .bits_per_pixel =3D 8 << 4,
+> > +             .block_pred_enable =3D true,
+> > +     },
+> > +};
+> > +
+> > +static struct panel_desc thor_top_desc =3D {
+> > +     .modes =3D thor_top_modes,
+> > +     .num_modes =3D ARRAY_SIZE(thor_top_modes),
+> > +     .width_mm =3D 136,
+> > +     .height_mm =3D 68,
+> > +     .bpc =3D 8,
+> > +     .lanes =3D 4,
+> > +     .format =3D MIPI_DSI_FMT_RGB888,
+> > +     .mode_flags =3D  MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON=
+_CONTINUOUS |
+> > +                     MIPI_DSI_MODE_LPM,
+> > +     .init_sequence =3D icna3520_init_sequence,
+> > +     .dsc =3D {
+> > +             .dsc_version_major =3D 0x1,
+> > +             .dsc_version_minor =3D 0x1,
+> > +             .slice_height =3D 12,
+> > +             .slice_width =3D 540,
+> > +             .slice_count =3D 2,
+> > +             .bits_per_component =3D 8,
+> > +             .bits_per_pixel =3D 8 << 4,
+> > +             .block_pred_enable =3D true,
+> > +     },
+> > +};
+> > +
+> > +static void icna35xx_reset(struct panel_info *pinfo)
+> > +{
+> > +     gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
+> > +     usleep_range(20000, 21000);
+> > +     gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
+> > +     usleep_range(20000, 21000);
+> > +     gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
+> > +     usleep_range(20000, 21000);
+> > +}
+> > +
+> > +static int icna35xx_prepare(struct drm_panel *panel)
+> > +{
+> > +     struct panel_info *pinfo =3D to_panel_info(panel);
+> > +     int ret;
+> > +
+> > +     ret =3D regulator_bulk_enable(ARRAY_SIZE(panel_supplies), pinfo->=
+supplies);
+> > +     if (ret < 0) {
+> > +             dev_err(panel->dev, "failed to enable regulators: %d\n", =
+ret);
+> > +             return ret;
+> > +     }
+> > +
+> > +     icna35xx_reset(pinfo);
+> > +
+> > +     ret =3D pinfo->desc->init_sequence(pinfo);
+> > +     if (ret < 0) {
+> > +             regulator_bulk_disable(ARRAY_SIZE(panel_supplies), pinfo-=
+>supplies);
+> > +             dev_err(panel->dev, "failed to initialize panel: %d\n", r=
+et);
+> > +             return ret;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int icna35xx_disable(struct drm_panel *panel)
+> > +{
+> > +     struct panel_info *pinfo =3D to_panel_info(panel);
+> > +     struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D pinfo->dsi }=
+;
+> > +
+> > +     pinfo->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> > +
+> > +     mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> > +     mipi_dsi_msleep(&dsi_ctx, 50);
+> > +     mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> > +     mipi_dsi_msleep(&dsi_ctx, 120);
+> > +
+> > +     return dsi_ctx.accum_err;
+> > +}
+> > +
+> > +static int icna35xx_unprepare(struct drm_panel *panel)
+> > +{
+> > +     struct panel_info *pinfo =3D to_panel_info(panel);
+> > +
+> > +     gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
+> > +     regulator_bulk_disable(ARRAY_SIZE(panel_supplies), pinfo->supplie=
+s);
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static void icna35xx_remove(struct mipi_dsi_device *dsi)
+> > +{
+> > +     struct panel_info *pinfo =3D mipi_dsi_get_drvdata(dsi);
+> > +     int ret;
+> > +
+> > +     ret =3D mipi_dsi_detach(pinfo->dsi);
+> > +     if (ret < 0)
+> > +             dev_err(&dsi->dev, "failed to detach from DSI host: %d\n"=
+, ret);
+> > +
+> > +     drm_panel_remove(&pinfo->panel);
+> > +}
+>
+> Weird place for remove, anyway you can drop this when using the devm_ pro=
+be calls.
+
+Ack
+
+>
+> > +
+> > +static int icna35xx_get_modes(struct drm_panel *panel,
+> > +                            struct drm_connector *connector)
+> > +{
+> > +     struct panel_info *pinfo =3D to_panel_info(panel);
+> > +     int i;
+> > +
+> > +     for (i =3D 0; i < pinfo->desc->num_modes; i++) {
+> > +             const struct drm_display_mode *m =3D &pinfo->desc->modes[=
+i];
+> > +             struct drm_display_mode *mode;
+> > +
+> > +             mode =3D drm_mode_duplicate(connector->dev, m);
+> > +             if (!mode) {
+> > +                     dev_err(panel->dev, "failed to add mode %ux%u@%u\=
+n",
+> > +                             m->hdisplay, m->vdisplay, drm_mode_vrefre=
+sh(m));
+> > +                     return -ENOMEM;
+> > +             }
+> > +
+> > +             mode->type =3D DRM_MODE_TYPE_DRIVER;
+> > +             if (i =3D=3D 0)
+> > +                     mode->type |=3D DRM_MODE_TYPE_PREFERRED;
+> > +
+> > +             drm_mode_set_name(mode);
+> > +             drm_mode_probed_add(connector, mode);
+> > +     }
+> > +
+> > +     connector->display_info.width_mm =3D pinfo->desc->width_mm;
+> > +     connector->display_info.height_mm =3D pinfo->desc->height_mm;
+> > +     connector->display_info.bpc =3D pinfo->desc->bpc;
+> > +     pinfo->connector =3D connector;
+> > +
+> > +     return pinfo->desc->num_modes;
+> > +}
+> > +
+> > +static enum drm_panel_orientation icna35xx_get_orientation(struct drm_=
+panel *panel)
+> > +{
+> > +     struct panel_info *pinfo =3D to_panel_info(panel);
+> > +
+> > +     return pinfo->orientation;
+> > +}
+> > +
+> > +static const struct drm_panel_funcs icna35xx_panel_funcs =3D {
+> > +     .disable =3D icna35xx_disable,
+> > +     .prepare =3D icna35xx_prepare,
+> > +     .unprepare =3D icna35xx_unprepare,
+> > +     .get_modes =3D icna35xx_get_modes,
+> > +     .get_orientation =3D icna35xx_get_orientation,
+> > +};
+> > +
+> > +static int icna35xx_bl_update_status(struct backlight_device *bl)
+> > +{
+> > +     struct mipi_dsi_device *dsi =3D bl_get_data(bl);
+> > +     u16 brightness =3D backlight_get_brightness(bl);
+> > +     int ret;
+> > +
+> > +     dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> > +
+> > +     ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness=
+);
+> > +     if (ret < 0)
+> > +             return ret;
+> > +
+> > +     dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+>
+> Add back MIPI_DSI_MODE_LPM even in dsi command error.
+
+Ack
+
+>
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int icna35xx_bl_get_brightness(struct backlight_device *bl)
+> > +{
+> > +     struct mipi_dsi_device *dsi =3D bl_get_data(bl);
+> > +     u16 brightness;
+> > +     int ret;
+> > +
+> > +     dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> > +
+> > +     ret =3D mipi_dsi_dcs_get_display_brightness_large(dsi, &brightnes=
+s);
+> > +     if (ret < 0)
+> > +             return ret;
+> > +
+> > +     dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+>
+> Add back MIPI_DSI_MODE_LPM even in dsi command error.
+
+Ack
+
+>
+> > +
+> > +     return brightness;
+> > +}
+> > +
+> > +static const struct backlight_ops icna35xx_bl_ops =3D {
+> > +     .update_status =3D icna35xx_bl_update_status,
+> > +     .get_brightness =3D icna35xx_bl_get_brightness,
+> > +};
+> > +
+> > +static struct backlight_device *icna35xx_create_backlight(struct mipi_=
+dsi_device *dsi)
+> > +{
+> > +     struct device *dev =3D &dsi->dev;
+> > +     const struct backlight_properties props =3D {
+> > +             .type =3D BACKLIGHT_RAW,
+> > +             .brightness =3D 4096,
+> > +             .max_brightness =3D 4096,
+> > +     };
+> > +
+> > +     return devm_backlight_device_register(dev, dev_name(dev), dev, ds=
+i,
+> > +                                           &icna35xx_bl_ops, &props);
+> > +}
+> > +
+> > +static int icna35xx_probe(struct mipi_dsi_device *dsi)
+> > +{
+> > +     struct device *dev =3D &dsi->dev;
+> > +     struct panel_info *pinfo;
+> > +     int ret;
+> > +
+> > +     pinfo =3D devm_drm_panel_alloc(dev, __typeof(*pinfo), panel,
+> > +                                  &icna35xx_panel_funcs,
+> > +                                  DRM_MODE_CONNECTOR_DSI);
+> > +     if (IS_ERR(pinfo))
+> > +             return PTR_ERR(pinfo);
+> > +
+> > +     ret =3D devm_regulator_bulk_get_const(dev, ARRAY_SIZE(panel_suppl=
+ies),
+> > +     panel_supplies, &pinfo->supplies);
+>
+> Align correctly this second line.
+
+Oops, ack.
+
+>
+> > +     if (ret < 0)
+> > +             return dev_err_probe(dev, ret, "Failed to get regulators\=
+n");
+> > +
+> > +     pinfo->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW)=
+;
+> > +     if (IS_ERR(pinfo->reset_gpio))
+> > +             return dev_err_probe(dev, PTR_ERR(pinfo->reset_gpio), "fa=
+iled to get reset gpio\n");
+> > +
+> > +     pinfo->desc =3D (struct panel_desc *)of_device_get_match_data(dev=
+);
+> > +     if (!pinfo->desc)
+> > +             return -ENODEV;
+> > +
+> > +     pinfo->dsi =3D dsi;
+> > +     mipi_dsi_set_drvdata(dsi, pinfo);
+> > +
+> > +     ret =3D of_drm_get_panel_orientation(dev->of_node, &pinfo->orient=
+ation);
+> > +     if (ret < 0) {
+> > +             dev_err(dev, "%pOF: failed to get orientation %d\n", dev-=
+>of_node, ret);
+> > +             return ret;
+> > +     }
+> > +
+> > +     pinfo->panel.prepare_prev_first =3D true;
+> > +
+> > +     pinfo->panel.backlight =3D icna35xx_create_backlight(dsi);
+> > +     if (IS_ERR(pinfo->panel.backlight))
+> > +             return dev_err_probe(dev, PTR_ERR(pinfo->panel.backlight)=
+,
+> > +                                  "Failed to create backlight\n");
+> > +
+> > +     drm_panel_add(&pinfo->panel);
+>
+> devm_drm_panel_add()
+
+Oh, that's new. Ack.
+
+> > +
+> > +     pinfo->dsi->lanes =3D pinfo->desc->lanes;
+> > +     pinfo->dsi->format =3D pinfo->desc->format;
+> > +     pinfo->dsi->mode_flags =3D pinfo->desc->mode_flags;
+> > +     pinfo->dsi->dsc =3D &pinfo->desc->dsc;
+> > +
+> > +     ret =3D mipi_dsi_attach(pinfo->dsi);
+>
+> devm_mipi_dsi_attach()
+
+Ack
+
+> > +     if (ret < 0) {
+> > +             dev_err_probe(dev, ret, "Failed to attach to DSI host\n")=
+;
+> > +             drm_panel_remove(&pinfo->panel);
+> > +             return ret;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static const struct of_device_id icna35xx_of_match[] =3D {
+> > +     { .compatible =3D "ayaneo,pocketds-panel-top", .data =3D &odin2po=
+rtal_desc },
+> > +     { .compatible =3D "ayntec,odin2portal-panel", .data =3D &odin2por=
+tal_desc },
+> > +     { .compatible =3D "ayntec,odin3-panel", .data =3D &thor_top_desc =
+},
+> > +     { .compatible =3D "ayntec,thor-panel-top", .data =3D &thor_top_de=
+sc },
+> > +     { /* sentinel */ }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, icna35xx_of_match);
+> > +
+> > +static struct mipi_dsi_driver icna35xx_driver =3D {
+> > +     .probe =3D icna35xx_probe,
+> > +     .remove =3D icna35xx_remove,
+>
+> Drop
+
+Ack
+
+>
+> > +     .driver =3D {
+> > +             .name =3D "panel-chipone-icna35xx",
+> > +             .of_match_table =3D icna35xx_of_match,
+> > +     },
+> > +};
+> > +module_mipi_dsi_driver(icna35xx_driver);
+> > +
+> > +MODULE_AUTHOR("Teguh Sobirin <teguh@sobir.in>");
+> > +MODULE_DESCRIPTION("DRM driver for Chipone ICNA35XX based MIPI DSI pan=
+els");
+> > +MODULE_LICENSE("GPL");
+> >
+>
+> Thanks,
+> Neil
+
+Aaron
