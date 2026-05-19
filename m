@@ -4,74 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49072CD5BAE
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 07:13:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83921CD5BAC
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 07:13:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CED1510EF37;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B40B110EF31;
 	Wed, 20 May 2026 07:13:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="boFELgrf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="anxTFeYw";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F56910E0ED
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 19:41:18 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-83f674f978fso1234179b3a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 12:41:18 -0700 (PDT)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C8DD10E603
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 20:32:42 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5a8d1f43432so7430600e87.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 13:32:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779219678; x=1779824478; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779222760; x=1779827560; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=5zkIDXNPi64nFlT7okV3y3GeLL/YTDVtR8pIYeqBjA4=;
- b=boFELgrfqRLBHlIMN1+Kg/IhAWhA3z/5jxlrd7qUk6ov/AfztWEXcUKMzbOcV1eEao
- 7X6XSkhBH1iEuE1g8W406Mj1evuTRz9fQ9fmYe3RksNJPH9nVn12wDkFIoOm0ODXQkRH
- xFlQGSmdxJa+AgERdAARfYw4QzuRLT7OzrALDppp3dXLY7BxCOTswE+2LAyU/elvUbyN
- YAU1vJMaU7zf91LLSYVq5we4XpwoL8ESeWBiesFy0beqNx3TX+cZY/eosvAgYKgZKgVq
- I0nqJ4rt6iYMpfHo24IJthSGwmIPXPlBxiR+UPSPCf6z+ZCc/V0kG8s1KIk4yswz8oiS
- gKzg==
+ bh=X/ikCjUtr9BLtmgftFXqw6yHcczZAk5L2NhLLXZIjFQ=;
+ b=anxTFeYwk0bhvqbZkAv9NEOozy36No4CSvoWtpc7XsJDXbmBL7CRbk0g08Y1h+5Psf
+ 9yEiTh7VVxClydbPQXqpeR2SJUJUVA7U1rqJjJoepAYVVOrE30sQkfAHAYDgidV3Csd0
+ PvNokh1DYO01uudlj7/rlq/Bga+GiQuZDywUVxCiqR1od0E36xgmnruTRm4xAWVTXVLr
+ Hk4Ig0faP2TxWm6X2h1cHedstfnl331Th+o1FVyxird9zEYdDNNYyKrQCHCOIEE6RnbW
+ 5igXI7xtf1wsvVM0EWYPyzGBy3VfBmE5fgBdxb9KXLJA1bepJbuvhU0ZPj2h2szIfLI8
+ IrOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779219678; x=1779824478;
+ d=1e100.net; s=20251104; t=1779222760; x=1779827560;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5zkIDXNPi64nFlT7okV3y3GeLL/YTDVtR8pIYeqBjA4=;
- b=axXOQb3eO/ECS9PcNWgxjt+A+X1j6cGLhJzUaryuI+PLaGH0qx5vLNkefX/nf4loq2
- h/UyBI0NMGk8TIVhEZFt+x2RFYREdw4CB9kyqMfLTUWX1Hu83kBHk1v2uTsZX9v+sjei
- W1kBTjkDGxahUOzGx0AohiFqL728p3cdxxohz21ehxK2GEzy6Z3np8cvZ/NHdB5jWAt8
- S4uLs5WsdkhApr6OCNM+PrlOG6yXocNOKcYZrYMRvQuVWdHx4X40ajw1vl5+3rDafCEg
- dHiKeGed6C/9+p1mEqCuMZsZaDf23Ix9cAt3fAhq7UfnKCSmT+X+zVUF4ZsLYM86hOgZ
- UOPw==
+ bh=X/ikCjUtr9BLtmgftFXqw6yHcczZAk5L2NhLLXZIjFQ=;
+ b=SiwQxRNFCnt5z+0WBHxOew5PW2GZlKg1G1ix8BRrnqQRwFnT1Q0JFagF3EC8HMUg7K
+ ShSHssKKMNgzCjI9uP4DbrXL0kmWjUqTmAFoTicx5PnvtGAK4IigbDT8G3lgGQm3ePR8
+ HcTz5+rlQ+QYvEBBGUmJ3GEe8GY5X1qpg+iSY/Oe5m5TVGw0dfdW6VJOTibAPt4MkNug
+ znT6YUCNXAz3FuHqvFKYvmMGGeGfKGY8YsiV2w9AS1lqaigmDN5ZLfWvZvv10h/yf7lN
+ NpT+uGvjQSKRmzUiChJdDiJgv14qMDis9pzvdZEw0PDn6HD5L7O435u8HAswcisjIDbi
+ o7zg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8Iu+KcwN7AoqCSQ3TnCRVdwo5CV61P0sRaxgRsDQxl5BThUvMkSxqX72zW07h5sMAbsWqn3yvSUzo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMyZgM3uMALEZvn8L6EvbPsq1bhZ7Lp4d3WfkdlJ33AnGZU9J3
- RUebhJFjm05GJhs96x5zUbOAZGA0wgX8hEX77rcdssozj8NZVEJYEcQF
-X-Gm-Gg: Acq92OEAh+vgWqRJHZqsXQCpPshfkgoDUvCJweCqDD1VULzlNuE+7GHyTJ7UN/E9+hb
- t7IHo01kmLvLKiS80Bfvobia2ju/QAQRJEUoXPlg9PfIyqBwMfJt4zu/lEcHa3s+on9BsIsx47L
- qkAKf4fARN7QBbvSBZyhNMP+CbBbgDs/sirRMNYZhqWHy9Xv28Ga14TBTxDVOlZtL1+HoIsj9pw
- D2LW4NMhKMJYqplkoGTYk9B02Ett9pqZZHdr488F3IeOt2dsoIjkCHlfiSeyjU0QneNdeJeoYVS
- ZlWEP1KpT4967OiIelfwtUxhpi0w+U2uwalUfT2bBRDXnNI94H3zbeY/GKigleOc3s2xbcOE6Bc
- fXDFHeeFWDr+muVq4J2ydg0Yn2IA5e5inpiCDBhy7hlsaZtNjRzIVXZYeaaRyxH1kQgG7WtxGWE
- 7+9JN/lbySyV2VwBb4+Ql/nJwMkd3j64hamqGwc5QISnQbRhcR
-X-Received: by 2002:a05:6a00:90aa:b0:829:8c08:d1f4 with SMTP id
- d2e1a72fcca58-83f33ccd856mr21588284b3a.39.1779219677970; 
- Tue, 19 May 2026 12:41:17 -0700 (PDT)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+ AFNElJ9cvA9q7wWN49R28jmnlpShzEQcneZBNvmpeiZcnifYhbAICAVqpsIGlFrq3RqshSfA06dAwPf9C+Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxAtNzSKOkMd2x6/honNpVhu2LDg3M8IH2mDUTDbhm/MTxwhTT9
+ NdjKi1M0iBXAGQIm2M2QUDoO7OyXccrH3cfTNwASlVjVlOFAV68T1VA/
+X-Gm-Gg: Acq92OECNpRxBLbRnuCZvTco/K6X6JOiidZEN6hWoY7cI6zSYPNFB8cg1mNswQ8qoWt
+ riLnZNyR1I/IHXGWk2cX5+oMUwN2x3UCpPDAID4jQcMIT01AjrFXRocmM3MoCeKEPjaB+J6qbBz
+ aQYFF+Uulp/ypADqx2ywnfGLpajvhgsNUocVd3P/3k6Nr/hHK2zCcbMACKxi1jsAgcEodzhulsd
+ KfqZKVZzZ1jv5twAmu6XayoHN4XQlkjREkaFm1hrGFYE9PEiUnhlee0q6R4Gd9vTfYduRsVJMFv
+ YkCSrTdAZ+131zr8T/dtXFucwMd4hroGE2F60RtasGhkLsUrLPw3bx+maRJ4skT+aEX22fG/ktw
+ i+gHqNZS6PIsuAqlxvFVKH42+IZCyMWXlzWSOi7PegNnLfaKzovmPiPV1Pqp0YD0czs3OQtrYjZ
+ wEiWKjsgeqo/Ak0zyhsw7FtlGcwCl8YkxuYPWkUUNj8l3qq1vD1qv7n5jp
+X-Received: by 2002:a05:6512:244:b0:5aa:126b:4504 with SMTP id
+ 2adb3069b0e04-5aa126b454bmr5249173e87.23.1779222760285; 
+ Tue, 19 May 2026 13:32:40 -0700 (PDT)
+Received: from Shofiq.home (87-92-218-151.rev.dnainternet.fi. [87.92.218.151])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83f19c5ceb3sm18604410b3a.34.2026.05.19.12.41.15
+ 2adb3069b0e04-5a9164c5a36sm4413800e87.60.2026.05.19.13.32.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 12:41:17 -0700 (PDT)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: drm/amdgpu: dead empty checks on e->list in ring_mux ib_mark_offset
- and end_ib?
-Date: Wed, 20 May 2026 03:41:13 +0800
-Message-Id: <20260519194113.2411822-1-maoyixie.tju@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Tue, 19 May 2026 13:32:38 -0700 (PDT)
+From: Md Shofiqul Islam <shofiqtest@gmail.com>
+To: mamin506@gmail.com
+Cc: lizhi.hou@amd.com, dri-devel@lists.freedesktop.org,
+ Md Shofiqul Islam <shofiqtest@gmail.com>
+Subject: [PATCH] drm/accel/amdxdna: add debugfs support
+Date: Tue, 19 May 2026 23:32:36 +0300
+Message-ID: <20260519203236.252068-1-shofiqtest@gmail.com>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 20 May 2026 07:13:27 +0000
@@ -90,54 +87,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi all,
+Expose driver state through debugfs to aid debugging and development.
+Three read-only entries are created under /sys/kernel/debug/accel/<N>/:
 
-While auditing list_last_entry callsites, I noticed two places in
-drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c where the developer
-wrote a NULL check for an empty list but used the unsafe API. The
-check is dead code. I would appreciate it if you could take a
-look and let me know whether these are worth fixing.
+ - fw_version:  firmware version as major.minor.sub.build
+ - device_info: device VBNV string and device type identifier
+ - clients:     per-fd info (pid, heap usage, total BO usage)
 
-The two sites are amdgpu_ring_mux_ib_mark_offset() and
-amdgpu_ring_mux_end_ib() (linux-7.1-rc1, around lines 497 and
-530):
+Resolves the TODO item in drivers/accel/amdxdna/TODO.
 
-    chunk = list_last_entry(&e->list, struct amdgpu_mux_chunk, entry);
-    if (!chunk) {
-            DRM_ERROR("cannot find chunk!\n");
-            return;
-    }
+Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
+---
+ drivers/accel/amdxdna/Makefile          |  1 +
+ drivers/accel/amdxdna/amdxdna_debugfs.c | 63 +++++++++++++++++++++++++
+ drivers/accel/amdxdna/amdxdna_debugfs.h | 17 +++++++
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |  3 ++
+ 4 files changed, 84 insertions(+)
+ create mode 100644 drivers/accel/amdxdna/amdxdna_debugfs.c
+ create mode 100644 drivers/accel/amdxdna/amdxdna_debugfs.h
 
-list_last_entry() returns container_of(&e->list, struct
-amdgpu_mux_chunk, entry) when e->list is empty, never NULL. The
-"cannot find chunk!" error path is dead code.
+diff --git a/drivers/accel/amdxdna/Makefile b/drivers/accel/amdxdna/Makefile
+index cf9bf19de..01a809d88 100644
+--- a/drivers/accel/amdxdna/Makefile
++++ b/drivers/accel/amdxdna/Makefile
+@@ -10,6 +10,7 @@ amdxdna-y := \
+ 	aie2_smu.o \
+ 	aie2_solver.o \
+ 	amdxdna_ctx.o \
++	amdxdna_debugfs.o \
+ 	amdxdna_gem.o \
+ 	amdxdna_iommu.o \
+ 	amdxdna_mailbox.o \
+diff --git a/drivers/accel/amdxdna/amdxdna_debugfs.c b/drivers/accel/amdxdna/amdxdna_debugfs.c
+new file mode 100644
+index 000000000..6806698c3
+--- /dev/null
++++ b/drivers/accel/amdxdna/amdxdna_debugfs.c
+@@ -0,0 +1,63 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2024, Advanced Micro Devices, Inc.
++ */
++
++#include <drm/drm_debugfs.h>
++#include <drm/drm_device.h>
++
++#include "amdxdna_debugfs.h"
++#include "amdxdna_pci_drv.h"
++
++static inline struct amdxdna_dev *seq_to_xdna(struct seq_file *s)
++{
++	struct drm_debugfs_entry *entry = s->private;
++
++	return to_xdna_dev(entry->dev);
++}
++
++static int fw_version_show(struct seq_file *s, void *v)
++{
++	struct amdxdna_dev *xdna = seq_to_xdna(s);
++
++	seq_printf(s, "%d.%d.%d.%d\n",
++		   xdna->fw_ver.major, xdna->fw_ver.minor,
++		   xdna->fw_ver.sub, xdna->fw_ver.build);
++	return 0;
++}
++
++static int device_info_show(struct seq_file *s, void *v)
++{
++	struct amdxdna_dev *xdna = seq_to_xdna(s);
++
++	seq_printf(s, "vbnv:        %s\n", xdna->dev_info->vbnv);
++	seq_printf(s, "device_type: %d\n", xdna->dev_info->device_type);
++	return 0;
++}
++
++static int clients_show(struct seq_file *s, void *v)
++{
++	struct amdxdna_dev *xdna = seq_to_xdna(s);
++	struct amdxdna_client *client;
++
++	mutex_lock(&xdna->dev_lock);
++	list_for_each_entry(client, &xdna->client_list, node)
++		seq_printf(s, "pid %d heap_usage %zu total_bo_usage %zu\n",
++			   client->pid, client->heap_usage,
++			   client->total_bo_usage);
++	mutex_unlock(&xdna->dev_lock);
++
++	return 0;
++}
++
++static const struct drm_debugfs_info amdxdna_debugfs_list[] = {
++	{ "fw_version",  fw_version_show,  0 },
++	{ "device_info", device_info_show, 0 },
++	{ "clients",     clients_show,     0 },
++};
++
++void amdxdna_debugfs_init(struct amdxdna_dev *xdna)
++{
++	drm_debugfs_add_files(&xdna->ddev, amdxdna_debugfs_list,
++			      ARRAY_SIZE(amdxdna_debugfs_list));
++}
+diff --git a/drivers/accel/amdxdna/amdxdna_debugfs.h b/drivers/accel/amdxdna/amdxdna_debugfs.h
+new file mode 100644
+index 000000000..e742a81fe
+--- /dev/null
++++ b/drivers/accel/amdxdna/amdxdna_debugfs.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2024, Advanced Micro Devices, Inc.
++ */
++
++#ifndef _AMDXDNA_DEBUGFS_H_
++#define _AMDXDNA_DEBUGFS_H_
++
++struct amdxdna_dev;
++
++#ifdef CONFIG_DEBUG_FS
++void amdxdna_debugfs_init(struct amdxdna_dev *xdna);
++#else
++static inline void amdxdna_debugfs_init(struct amdxdna_dev *xdna) {}
++#endif
++
++#endif /* _AMDXDNA_DEBUGFS_H_ */
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index b50a7d1f8..19866dbed 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -15,6 +15,7 @@
+ #include <linux/pci.h>
+ 
+ #include "amdxdna_ctx.h"
++#include "amdxdna_debugfs.h"
+ #include "amdxdna_gem.h"
+ #include "amdxdna_pci_drv.h"
+ #include "amdxdna_pm.h"
+@@ -319,6 +320,8 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		goto failed_sysfs_fini;
+ 	}
+ 
++	amdxdna_debugfs_init(xdna);
++
+ 	return 0;
+ 
+ failed_sysfs_fini:
+-- 
+2.51.1
 
-With an empty e->list, the fall through pointer aliases &e->list
-inside struct amdgpu_mux_entry. The writes that follow then
-corrupt fields of the mux_entry at the corresponding offsets.
-mark_offset writes cntl_offset, de_offset and ce_offset. end_ib
-writes end and sync_seq.
-
-e->list is empty if a software ring submits an IB mark or IB end
-before any chunk is queued for that ring. This can happen on a
-fresh start_ib path, or after end_ib drops the last chunk.
-
-A candidate fix is a one liner per site. Switch to
-list_last_entry_or_null so the existing error path runs.
-
-Similar dead empty checks after list_first_entry / list_last_entry
-have been cleaned up in the same shape, for example commit
-fbb8bc408027 (net: qed: Remove redundant NULL checks after
-list_first_entry), commit c708d3fad421 (crypto: atmel: use
-list_first_entry_or_null to simplify find_dev) and commit
-10379171f346 (ksmbd: use list_first_entry_or_null for
-opinfo_get_list). The qed commit message describes the exact
-shape we observe here. These two sites appear to be missed by
-those cleanups.
-
-If this is intentional or already known, please disregard.
-Otherwise I am happy to send a [PATCH] or to leave the fix to you.
-
-Thanks,
-Maoyi Xie
-https://maoyixie.com/
