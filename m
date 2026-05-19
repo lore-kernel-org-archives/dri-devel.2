@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 446F3CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 09:09:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EDD7CD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 09:09:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA1E10EBD1;
-	Tue, 19 May 2026 09:09:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA5C910EB6F;
+	Tue, 19 May 2026 09:09:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="qnYyWbnt";
+	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="QeXNYocg";
 	dkim-atps=neutral
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FCD610EBD1
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:09:24 +0000 (UTC)
+ [68.232.153.233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B30410EBA3
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1779181764; x=1810717764;
+ t=1779181769; x=1810717769;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=GN9Elk55Ckw9oiHQjukAbkq2ymh10RJ8TnEXN6zUYIA=;
- b=qnYyWbntEyyINWPElwGMgCaxLHZHZaHcF0JdqOAZDfbpFDqwHKO+A/Q5
- 5VO1Hv8IGXTFPjrMjN04e41svl0XIiTW65C7vIej4QDs3xTkyNOKEnJ3t
- LtTzJpSGjdECqaANuADZs3Lo4pbZ5h2sOe3sYwE1G1RrEhLMpQ6Wc3FBD
- 2mFjalFLCGB2yoKo8GNdTnCMsBmEqtJupmw/LF12lUY3/EFdwwQOYUxav
- tIvbRxZ9XOHJkG4n2y1/2dpjXi9tk1VT6kY6HhYr2R1w2ilH9QdUaegXl
- JpJnNb3Xh7bpNdQ3fXZ6eCZpOzwJd3IMnkYD8ZvEYNb+Q45mrOkZcfSGS Q==;
-X-CSE-ConnectionGUID: cRB7afV+QCu/Kd7rCmC/lA==
-X-CSE-MsgGUID: VBVl8s9QTi+FiNqzdZOfJg==
-X-IronPort-AV: E=Sophos;i="6.23,243,1770620400"; d="scan'208";a="224955560"
+ bh=FGxZyUqCZ0jZxo+9CRdWfsvZXgcZ2nFVcizJ+OoI7P0=;
+ b=QeXNYocga3H2SWRFZqKrEirFjWAgjwSmkox3B4N/UueHARvUuMNCJeNZ
+ SWGb6NwZZRkh7eScvYBpneHbFCVvUeVUfXr09Fv5BxGd3aQ1pQr7+ETUW
+ MKMaYEMMkQBiTQ3fUWTFuWENmfc4n1Zeq4ZHW41z9haT6EBIlyA9FKw5b
+ 4NbXGmYHdVUPcakecApmMe5dYtVA+WnjEgOtiVYXFQtbCQ4uRu1gM8vKd
+ 8UbQmYUFczcknZH/PxvBAV7znTkHhU4LADAsPrGtTXbAPLVTYJWdfLaIt
+ nj+WnBVkkuSNrf5WvmU84CAY66+q/8KUGItwGJtN9O+VO+6xal3ANWKrB Q==;
+X-CSE-ConnectionGUID: h8SKNaLgSjKCVDhFiSGa1A==
+X-CSE-MsgGUID: eP4Ycsd8QwuNwr7YuOvjRA==
+X-IronPort-AV: E=Sophos;i="6.23,243,1770620400"; d="scan'208";a="66488484"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 19 May 2026 02:02:16 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2026 02:02:23 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 19 May 2026 02:02:17 -0700
+ 15.2.2562.37; Tue, 19 May 2026 02:02:23 -0700
 Received: from che-lt-i67131.microchip.com (10.10.85.11) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 19 May 2026 02:02:12 -0700
+ 15.1.2507.58 via Frontend Transport; Tue, 19 May 2026 02:02:17 -0700
 From: Manikandan Muralidharan <manikandan.m@microchip.com>
 To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
  <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
@@ -50,10 +50,10 @@ To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
  <dri-devel@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-kernel@vger.kernel.org>
 CC: <manikandan.m@microchip.com>
-Subject: [PATCH 4/8] drm: atmel-hlcdc: define ATMEL_HLCDC_CLKDIV_MAX and fix
- divider fallback
-Date: Tue, 19 May 2026 14:31:31 +0530
-Message-ID: <20260519090135.1188405-5-manikandan.m@microchip.com>
+Subject: [PATCH 5/8] drm: atmel-hlcdc: extract clock setup into a dedicated
+ helper
+Date: Tue, 19 May 2026 14:31:32 +0530
+Message-ID: <20260519090135.1188405-6-manikandan.m@microchip.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260519090135.1188405-1-manikandan.m@microchip.com>
 References: <20260519090135.1188405-1-manikandan.m@microchip.com>
@@ -75,49 +75,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce ATMEL_HLCDC_CLKDIV_MAX to replace the raw mask.In the divider
-overflow fallback, restrict the clock source switch and halved rate
-retry to SoCs that support the 2x system clock path.
+Factor clock enable, rate calculation, and divider selection out of
+atmel_hlcdc_crtc_mode_set_nofb() into a new
+atmel_hlcdc_crtc_setup_clock() helper, preparing for the addition
+of LVDS and XLCDC clock bypass support.
 
 Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 ---
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c | 9 +++++----
- include/linux/mfd/atmel-hlcdc.h                | 1 +
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ .../gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c    | 66 +++++++++++--------
+ 1 file changed, 39 insertions(+), 27 deletions(-)
 
 diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c
-index f30138da1ed8..c7e77bb2941a 100644
+index c7e77bb2941a..6da428361c19 100644
 --- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c
 +++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c
-@@ -117,11 +117,12 @@ static void atmel_hlcdc_crtc_mode_set_nofb(struct drm_crtc *c)
- 		div = 2;
- 	} else if (ATMEL_HLCDC_CLKDIV(div) & ~ATMEL_HLCDC_CLKDIV_MASK) {
- 		/* The divider ended up too big, try a lower base rate. */
--		cfg &= ~ATMEL_HLCDC_CLKSEL;
--		prate /= 2;
--		div = DIV_ROUND_CLOSEST(prate, mode_rate);
+@@ -66,6 +66,42 @@ drm_crtc_to_atmel_hlcdc_crtc(struct drm_crtc *crtc)
+ 	return container_of(crtc, struct atmel_hlcdc_crtc, base);
+ }
+ 
++static int atmel_hlcdc_crtc_setup_clock(struct atmel_hlcdc_crtc *crtc,
++					unsigned long mode_rate,
++					unsigned int *cfg,
++					unsigned int *mask)
++{
++	unsigned long prate;
++	int div, ret;
++
++	ret = clk_prepare_enable(crtc->dc->hlcdc->sys_clk);
++	if (ret)
++		return ret;
++
++	prate = clk_get_rate(crtc->dc->hlcdc->sys_clk);
++	if (!crtc->dc->desc->fixed_clksrc) {
++		prate *= 2;
++		*cfg |= ATMEL_HLCDC_CLKSEL;
++		*mask |= ATMEL_HLCDC_CLKSEL;
++	}
++
++	div = DIV_ROUND_CLOSEST(prate, mode_rate);
++	if (div < 2) {
++		div = 2;
++	} else if (ATMEL_HLCDC_CLKDIV(div) & ~ATMEL_HLCDC_CLKDIV_MASK) {
++		/* The divider ended up too big, try a lower base rate. */
 +		if (!crtc->dc->desc->fixed_clksrc) {
-+			cfg &= ~ATMEL_HLCDC_CLKSEL;
++			*cfg &= ~ATMEL_HLCDC_CLKSEL;
 +			div = DIV_ROUND_CLOSEST(prate >> 1, mode_rate);
 +		}
- 		if (ATMEL_HLCDC_CLKDIV(div) & ~ATMEL_HLCDC_CLKDIV_MASK)
--			div = ATMEL_HLCDC_CLKDIV_MASK;
++		if (ATMEL_HLCDC_CLKDIV(div) & ~ATMEL_HLCDC_CLKDIV_MASK)
 +			div = ATMEL_HLCDC_CLKDIV_MAX;
++	}
++
++	*cfg |= ATMEL_HLCDC_CLKDIV(div);
++	return 0;
++}
++
+ static void atmel_hlcdc_crtc_mode_set_nofb(struct drm_crtc *c)
+ {
+ 	struct atmel_hlcdc_crtc *crtc = drm_crtc_to_atmel_hlcdc_crtc(c);
+@@ -76,12 +112,10 @@ static void atmel_hlcdc_crtc_mode_set_nofb(struct drm_crtc *c)
+ 	struct atmel_hlcdc_crtc_state *state;
+ 	struct drm_device *ddev = c->dev;
+ 	struct drm_connector_list_iter iter;
+-	unsigned long mode_rate;
+ 	struct videomode vm;
+-	unsigned long prate;
+ 	unsigned int mask = ATMEL_HLCDC_CLKDIV_MASK | ATMEL_HLCDC_CLKPOL;
+ 	unsigned int cfg = 0;
+-	int div, ret;
++	int ret;
+ 
+ 	/* get encoder from crtc */
+ 	drm_for_each_encoder(en_iter, ddev) {
+@@ -100,33 +134,11 @@ static void atmel_hlcdc_crtc_mode_set_nofb(struct drm_crtc *c)
+ 		drm_connector_list_iter_end(&iter);
  	}
  
- 	cfg |= ATMEL_HLCDC_CLKDIV(div);
-diff --git a/include/linux/mfd/atmel-hlcdc.h b/include/linux/mfd/atmel-hlcdc.h
-index 07c2081867fd..8e86219293b7 100644
---- a/include/linux/mfd/atmel-hlcdc.h
-+++ b/include/linux/mfd/atmel-hlcdc.h
-@@ -50,6 +50,7 @@
- #define ATMEL_HLCDC_CLKDIV_SHFT		16
- #define ATMEL_HLCDC_CLKDIV_MASK		GENMASK(23, 16)
- #define ATMEL_HLCDC_CLKDIV(div)		((div - 2) << ATMEL_HLCDC_CLKDIV_SHFT)
-+#define ATMEL_HLCDC_CLKDIV_MAX		((ATMEL_HLCDC_CLKDIV_MASK >> ATMEL_HLCDC_CLKDIV_SHFT) + 2)
+-	ret = clk_prepare_enable(crtc->dc->hlcdc->sys_clk);
++	ret = atmel_hlcdc_crtc_setup_clock(crtc, adj->crtc_clock * 1000,
++					   &cfg, &mask);
+ 	if (ret)
+ 		return;
  
- #define ATMEL_HLCDC_PIXEL_CLK		BIT(0)
- #define ATMEL_HLCDC_SYNC		BIT(1)
+-	prate = clk_get_rate(crtc->dc->hlcdc->sys_clk);
+-	mode_rate = adj->crtc_clock * 1000;
+-	if (!crtc->dc->desc->fixed_clksrc) {
+-		prate *= 2;
+-		cfg |= ATMEL_HLCDC_CLKSEL;
+-		mask |= ATMEL_HLCDC_CLKSEL;
+-	}
+-
+-	div = DIV_ROUND_CLOSEST(prate, mode_rate);
+-	if (div < 2) {
+-		div = 2;
+-	} else if (ATMEL_HLCDC_CLKDIV(div) & ~ATMEL_HLCDC_CLKDIV_MASK) {
+-		/* The divider ended up too big, try a lower base rate. */
+-		if (!crtc->dc->desc->fixed_clksrc) {
+-			cfg &= ~ATMEL_HLCDC_CLKSEL;
+-			div = DIV_ROUND_CLOSEST(prate >> 1, mode_rate);
+-		}
+-		if (ATMEL_HLCDC_CLKDIV(div) & ~ATMEL_HLCDC_CLKDIV_MASK)
+-			div = ATMEL_HLCDC_CLKDIV_MAX;
+-	}
+-
+-	cfg |= ATMEL_HLCDC_CLKDIV(div);
+-
+ 	if (connector &&
+ 	    connector->display_info.bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
+ 		cfg |= ATMEL_HLCDC_CLKPOL;
 -- 
 2.25.1
 
