@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 072DBCD4F3C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 209F9CD4F5E
 	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 16:08:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 575D410EDD3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54D0610EDE0;
 	Tue, 19 May 2026 16:08:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YJKfjuki";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ILF/6Zua";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB37610EDC8
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:08:46 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-43fe608cb92so2376928f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:08:46 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDF2510EDC1
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 16:08:49 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-48896199cbaso30778185e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:08:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779206925; x=1779811725; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779206928; x=1779811728; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UOkRbl/Z3KIo8IHWL0YYZ2T30bRveRdlbF9KAPZu9kI=;
- b=YJKfjukiQGIQBY6WItOr6MtekYAmXanWyeFvyzNRr9hAZMU5kI42f/So26oQZ28HAI
- 9GXkRkV6elV9u62zT+XtXIa/KfCOuRqC3EmJO6k+cGvPV+1K7FmKmY2DnRDMG020afC6
- akl+6QllbaU0xIrDbO0tNJow6npGijqslBfw8PXFnnTZbb85peRVR4/6+FwleTirYcsG
- 3tEYZxd++wg5ihadkNDZag0I8NatdGvp2mHxnfpLMB0S+JzhRBSh6/9gU5UWDP8W2WTS
- xjgjUc5017sSL0wCuqImKZ3rC0EdFyT9Ye2CHGRRhjNqnn++wzCucUXVSVPC3r2vetoT
- 2aaw==
+ bh=JPi1O/9kVNRbabQOXnYQalc7uFGr2pxzXb6VmowUh3M=;
+ b=ILF/6ZuaZV85M9qSObB5rq2oqd6RLIGqmYR80l1m4adldBF4APaKMXKQBUUJZt300c
+ 9n5K15coxf2GY41tOZU7Sf45GovUq6V5f3iaCf66gZN96Fxc0Yy0J4LbYQpRnr9MUwIf
+ jdzGOlhHsqXpZ0IHI3GQkvikSeUOR5kppYYlLrZa4UASE09rsZHCEJ+IUcYkOX2SXUon
+ 0RPi/CNoR3t7WngE29mRv59d/wwVgvqdC27ZRjQp0ANEPbq7et77CHtXFZMGaNUqHLFs
+ KdXp4pf6Xq31Z3UwnZpWd3R8D7SX3qTBEbg9AWNLtuCocTlnmLPUP0zY5pZrAkM0macE
+ 2vsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779206925; x=1779811725;
+ d=1e100.net; s=20251104; t=1779206928; x=1779811728;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=UOkRbl/Z3KIo8IHWL0YYZ2T30bRveRdlbF9KAPZu9kI=;
- b=dv7ANIP8vD5v2gI0XXGM1sM8VG5n2XNEcRSHjWJh4s7vtAIMNMkk+tcB2SQpWmZXbc
- tbJRzkDAQH82rd30k57X1ri1wdqWwhL0YmBZdays65YR3n410H+Vjj13xH3ewIYRBT7V
- 4xYzXDgILPUpS1qkQBbDppa1KAuW0YUooIAybnpfrB+3sKltBuC3NjHmUG/tN8uC91+c
- XCzCvk8q4gLUBa1NibuhwH0tSlRRbwBUy8m7e75rP8rhHogMAGpzhCoALvrYha+bEhKd
- EagllP1uHWsGOSWEVYCgvdmKx3Wt1d9xnDr68UZ09CLP9Pn7X6e0sN07J1DWR//JQgLd
- YJUA==
-X-Gm-Message-State: AOJu0Yz4TMtIhNAtR7uyljVxoknMpvyHp0xlZRrUyIRelqo+65Kn+p1l
- 0aCSnd4cKK4zXrYZD0y+SnxUnf6Z7QuxcSqg9BXOsteHXjmfNfZcxgFz
-X-Gm-Gg: Acq92OHedI0+8FfFsNDVHI5tpY7Z177v2sfUC2Xq3vFZx6M2pS79kdYPEuDsbIQwxyu
- eQm+uM9HX6t751HdfxXtWWIBGwuFjsGWGAlvFQCQGJBUyHZLgneue0T5SSH7Kd6guWOuT0y7aCc
- AITJfy8Q8OkMsk+fTZZhyaJzbFtcJfRbjJxm8LvbUn9bUUWSrAA6xCF1bgNHa3IYAfEtZJb0Dyh
- H1Mn55Ta7MhBRN6CGqvtkN3AadJ7A93HQhHlyEAY6FfLd3UGLP4rKMCLeFTTk6bbar+/3/q818e
- FI5XlK40cckWoNuA99bdDd1v8FsyvPwXPDdpWldEZohm2xJHVSmQKjcT4kr1s4NTK+DxLN4nZ9n
- Vzpkj6PfmrVrHldt+k38AVlW5OSSMc4Ea9YjevBJ11Mj9wy3lOr6a2s37G2vba2RYA1YZWbQghJ
- L9FHLaeGEIXJLjxxHPUQj++a/RLAsQU8bqhGhj1V/q9hT7wYvOC+6YiOnVOcgB2lNVGQ+K8sZdi
- KLp6TKZaBAmrEbieS4BUTfLOz3JMZwooySz/g==
-X-Received: by 2002:a05:600c:34cd:b0:488:936a:6220 with SMTP id
- 5b1f17b1804b1-48fe61f2c03mr344635125e9.21.1779206925142; 
- Tue, 19 May 2026 09:08:45 -0700 (PDT)
+ bh=JPi1O/9kVNRbabQOXnYQalc7uFGr2pxzXb6VmowUh3M=;
+ b=Dv4o9Kbg1Yeibi5shCprJZ5ePG3N2gLQFejnGSQpYSTAbw67mvjA1zQWHEE6kRbGzn
+ xec15TmxdHy0cwGtoj/kBU130veQXJwnu/CKSs2hbAo8jEai6e5p62da4iZMzGQupDLv
+ /Ypumhyc7/3pRL0z1kpdywlOfLpvpX+dTnLGNb6zXw1PeX/5JhqWlQGNheiR8vc5+Kjn
+ NXZ/oqAWyfUygJui4+f61fi84zQDjttwwodSbmt//z7Gg6rWbE1o8wH5PwqdRLrORzly
+ M+juaUE3neg/jsiqElvXx3wadWJMK6rPig1SMHymJVbnFI8G6s3hq0yBHLG6lVozS37b
+ 1mKg==
+X-Gm-Message-State: AOJu0YycSRlhOOlv91GJB57zZeqcaJw3o9Yw6SCEDVqTFKj0EzGvzqlF
+ axKGOyEDvCwTaZQP5RxbsTXxpnsetLgUEG52rRsA+Qukk/rWYMe+Q1YV
+X-Gm-Gg: Acq92OFIgWZ0gNzBnyVGTt2tbUmnDQNdydACcBzx6ZAYlapiXh0lZU2rJ/2WO1xxfeW
+ hH4tTHgHhzg8VBgRuDuY6P4wuUmf1MbZ8SW6HQ52P9015kwI2fx8KYNqWHrMLajm8ICWXUtYbmH
+ QhqT6kV9so8YOdqaEdEcHKLmEYaFBLgEyv0CJnJF1ZInhpIYt/gqTMDozkagZir7hPpfkf0HKM3
+ Xt6btiNraq4uQjiIKuGJHeO4oJDbMhZGsOjTfF9FlUaDhBotnG8MN9OZvL0i5xO0N7s6Vsp8hhA
+ hRA1lLUL7nrk0IrULv/UvQQz+W55iiNYNsB+dfuOBIJSW4yj1RBpF9ZNECv1cDmSzIyfEGyClXr
+ X9DsCCoLS3VyCjEIIrVAb3pT6iZAkGwt4w1ZZg2GKLysRnxZVZY7xVcK7Mb9wgqEkIcaipWX9t7
+ oOMYg9XWq3osgLpLBvwci5JXSPdgagm10iDHa952HN00x9KS6LGUy8WAV+LceNLDwiqN+Otjf1a
+ mJY7fVhNWmBmvGBt6mVCmrGb5aYtRmwilM8Kg==
+X-Received: by 2002:a05:600c:4692:b0:48a:906b:14ca with SMTP id
+ 5b1f17b1804b1-48fe632579dmr319854455e9.20.1779206928193; 
+ Tue, 19 May 2026 09:08:48 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:3f5e:825d:a98f:fd29])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe5ab527asm372645305e9.11.2026.05.19.09.08.44
+ 5b1f17b1804b1-48fe5ab527asm372645305e9.11.2026.05.19.09.08.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 09:08:44 -0700 (PDT)
+ Tue, 19 May 2026 09:08:47 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Biju Das <biju.das.jz@bp.renesas.com>,
@@ -78,10 +78,9 @@ Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
  Prabhakar <prabhakar.csengg@gmail.com>,
  Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v4 2/5] dt-bindings: display: renesas,
- rzg2l-du: Add RZ/T2H and RZ/N2H support
-Date: Tue, 19 May 2026 17:08:22 +0100
-Message-ID: <20260519160825.4082566-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v4 5/5] drm: renesas: rz-du: Add support for RZ/T2H SoC
+Date: Tue, 19 May 2026 17:08:25 +0100
+Message-ID: <20260519160825.4082566-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260519160825.4082566-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260519160825.4082566-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -104,94 +103,125 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Document the Display Unit (DU) support for the RZ/T2H and RZ/N2H SoCs.
-
-The DU block on RZ/T2H is functionally equivalent to the RZ/G2UL DU and
-supports the DPI interface, but includes SoC-specific register differences
-and has no reset control. Add a dedicated compatible string to represent
-this variant and update the allOf constraints accordingly.
-
-As the DU implementation on RZ/N2H matches RZ/T2H, describe it using an
-RZ/N2H specific compatible string with the RZ/T2H compatible as fallback.
+The RZ/T2H (R9A09G077) SoC includes a DU with a DPI interface,
+supporting resolutions up to WXGA with two RPFs for layer blending.
+Unlike earlier RZ/G2L SoCs, RZ/T2H requires explicit assertion of a
+DPI output-enable signal (DU_MCR0_DPI_EN) during CRTC startup.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 ---
 v3->v4:
-- Added RB tag from Rob.
+- Dropped per pad limits
 
 v2->v3:
-- No change
+- Moved clock limits from device_info to output_routing to allow
+  per-output constraints.
 
 v1->v2:
-- Dropped the "port" property in favor of "ports" with a single port@0
-  child, to align with the existing RZ/G2L bindings and simplify the
-  device tree structure.
-- Updated the commit message to reflect the change from "port" to "ports".
-- Dropped RB tag from Rob due to above changes.
+- Added Reviewed-by tag from Laurent Pinchart.
 ---
- .../bindings/display/renesas,rzg2l-du.yaml    | 20 +++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  7 ++++++-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 14 ++++++++++++++
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  | 10 ++++++++++
+ 3 files changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-index 5add3b832eab..7c84a9ecc7a7 100644
---- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-+++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-@@ -21,6 +21,7 @@ properties:
-           - renesas,r9a07g043u-du # RZ/G2UL
-           - renesas,r9a07g044-du # RZ/G2{L,LC}
-           - renesas,r9a09g057-du # RZ/V2H(P)
-+          - renesas,r9a09g077-du # RZ/T2H
-       - items:
-           - enum:
-               - renesas,r9a07g054-du    # RZ/V2L
-@@ -28,6 +29,9 @@ properties:
-       - items:
-           - const: renesas,r9a09g056-du # RZ/V2N
-           - const: renesas,r9a09g057-du # RZ/V2H(P) fallback
-+      - items:
-+          - const: renesas,r9a09g087-du # RZ/N2H
-+          - const: renesas,r9a09g077-du # RZ/T2H fallback
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+index 48065f4952a3..d0f01aa642a7 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+@@ -28,6 +28,7 @@
+ #include "rzg2l_du_vsp.h"
  
-   reg:
-     maxItems: 1
-@@ -83,7 +87,6 @@ required:
-   - interrupts
-   - clocks
-   - clock-names
--  - resets
-   - power-domains
-   - ports
-   - renesas,vsps
-@@ -95,7 +98,9 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: renesas,r9a07g043u-du
-+            enum:
-+              - renesas,r9a07g043u-du
-+              - renesas,r9a09g077-du
-     then:
-       properties:
-         ports:
-@@ -138,6 +143,17 @@ allOf:
+ #define DU_MCR0			0x00
++#define DU_MCR0_DPI_EN		BIT(0)
+ #define DU_MCR0_DI_EN		BIT(8)
  
-           required:
-             - port@0
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,r9a09g077-du
-+    then:
-+      properties:
-+        resets: false
-+    else:
-+      required:
-+        - resets
+ #define DU_DITR0		0x10
+@@ -217,8 +218,12 @@ static void rzg2l_du_crtc_put(struct rzg2l_du_crtc *rcrtc)
+ static void rzg2l_du_start_stop(struct rzg2l_du_crtc *rcrtc, bool start)
+ {
+ 	struct rzg2l_du_device *rcdu = rcrtc->dev;
++	u32 val = DU_MCR0_DI_EN;
  
- examples:
-   # RZ/G2L DU
+-	writel(start ? DU_MCR0_DI_EN : 0, rcdu->mmio + DU_MCR0);
++	if (start && rzg2l_du_has(rcdu, RZG2L_DU_FEATURE_DPIO_OE))
++		val |= DU_MCR0_DPI_EN;
++
++	writel(start ? val : 0, rcdu->mmio + DU_MCR0);
+ }
+ 
+ static void rzg2l_du_crtc_start(struct rzg2l_du_crtc *rcrtc)
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+index 1e4b9f38c55b..3d13f61d3c97 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+@@ -65,10 +65,24 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
+ 	},
+ };
+ 
++static const struct rzg2l_du_device_info rzg2l_du_r9a09g077_info = {
++	.channels_mask = BIT(0),
++	.routes = {
++		[RZG2L_DU_OUTPUT_DPAD0] = {
++			.possible_outputs = BIT(0),
++			.port = 0,
++		},
++	},
++	.features = RZG2L_DU_FEATURE_DPIO_OE,
++	.mode_clock_min = 5000,
++	.mode_clock_max = 100000,
++};
++
+ static const struct of_device_id rzg2l_du_of_table[] = {
+ 	{ .compatible = "renesas,r9a07g043u-du", .data = &rzg2l_du_r9a07g043u_info },
+ 	{ .compatible = "renesas,r9a07g044-du", .data = &rzg2l_du_r9a07g044_info },
+ 	{ .compatible = "renesas,r9a09g057-du", .data = &rzg2l_du_r9a09g057_info },
++	{ .compatible = "renesas,r9a09g077-du", .data = &rzg2l_du_r9a09g077_info },
+ 	{ /* sentinel */ }
+ };
+ 
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+index 885558eb9547..baf076d69cda 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+@@ -20,6 +20,8 @@
+ struct device;
+ struct drm_property;
+ 
++#define RZG2L_DU_FEATURE_DPIO_OE	BIT(0)	/* Has DPIO output enable control */
++
+ enum rzg2l_du_output {
+ 	RZG2L_DU_OUTPUT_DSI0,
+ 	RZG2L_DU_OUTPUT_DPAD0,
+@@ -46,12 +48,14 @@ struct rzg2l_du_output_routing {
+  * @routes: array of CRTC to output routes, indexed by output (RZG2L_DU_OUTPUT_*)
+  * @mode_clock_min: minimum pixel clock in kHz
+  * @mode_clock_max: maximum pixel clock in kHz
++ * @features: device features (RZG2L_DU_FEATURE_*)
+  */
+ struct rzg2l_du_device_info {
+ 	unsigned int channels_mask;
+ 	struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
+ 	u32 mode_clock_min;
+ 	u32 mode_clock_max;
++	unsigned int features;
+ };
+ 
+ #define RZG2L_DU_MAX_CRTCS		1
+@@ -77,6 +81,12 @@ static inline struct rzg2l_du_device *to_rzg2l_du_device(struct drm_device *dev)
+ 	return container_of(dev, struct rzg2l_du_device, ddev);
+ }
+ 
++static inline bool rzg2l_du_has(struct rzg2l_du_device *rcdu,
++				unsigned int feature)
++{
++	return rcdu->info->features & feature;
++}
++
+ const char *rzg2l_du_output_name(enum rzg2l_du_output output);
+ 
+ #endif /* __RZG2L_DU_DRV_H__ */
 -- 
 2.54.0
 
