@@ -4,60 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E25DECD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 10:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26FCECD4F57
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 10:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5566B10E38A;
-	Tue, 19 May 2026 10:00:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA2E10EC05;
+	Tue, 19 May 2026 10:32:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uazA7qn3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BXSF9Nqv";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2587610E38A
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:59:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3524310EC05
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 10:32:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4BEA660129;
- Tue, 19 May 2026 09:59:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E2AC2BCC6;
- Tue, 19 May 2026 09:59:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D9C4F43F1E;
+ Tue, 19 May 2026 10:32:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D53C2BCB3;
+ Tue, 19 May 2026 10:32:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779184798;
- bh=Z0vKOc7r2kW2KPOzWgaoABhrSGC1H7vmq3e+2RoG+fU=;
+ s=k20201202; t=1779186768;
+ bh=jSyJNicMC5VYbDSkFlXbaNoXQqirR+ROzcl62pQ/Qgk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uazA7qn39Omh173quvgScKbx7HCKeRL5BymeukmCnA2ZOHIFCW/MgtzRgHnrHVrbd
- qfQ5XibtlS9lWsn8JHXxV9Qi0VGwv4ZDTjjJfmmpvqpPeHYCcCyu5atvr/7ZjHTR7+
- Vql7GU3IIDUO3yVHftc8PmZ5D3Nkiu2cZak8x7rP71GIlwypGcAMfKRmyW4hpzJ4Vp
- s8WhQEx86QlmYKnW52dSCN1l4aXGhnDJziAmG99IpDBrraDENYAihAtv7UXTE5ipp9
- ASX5F+OrGZ8e5ytGfKWmvXUjN/6kdJvoCdUMg4qvfD78Fj5+Nx9zROKvAftMrl59U/
- NtMVqdyPR7SCQ==
-Date: Tue, 19 May 2026 11:59:55 +0200
+ b=BXSF9NqvfHsj1gioynRfekK/yxQutw6jAnWaxblyYMTSys/OFXrvCcyjjwsybtwrw
+ 94qM3/X6+AltqdtJU9TUktoS4Fy9BYDZNGmafkamyL1mRhVZZFh7VzDf21lXSAlBy7
+ 75pDLOgbKgztrBMugPA/GAQMfBYgNr6CMifgZrZ7StWWZCba//3kfdeFWkOvkaiJBN
+ y28sufZvQ7qCf3WeKS4m6uzd5Kzbs0gqtSmOYKupsxOpgmC00qku1PJRxLbOK2umx/
+ z0mugUBdGJBd0cRpXE7ZPg0VQTO2kQf8ZEFUpBukOKwXGigDZeTVL1f3QuQ3yYRvH5
+ mlu9amSEA5ERA==
+Date: Tue, 19 May 2026 12:32:46 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Frank Li <Frank.Li@nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- "open list:DRM DRIVERS FOR FREESCALE IMX 5/6"
- <dri-devel@lists.freedesktop.org>, 
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, 
- "open list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE" <imx@lists.linux.dev>, 
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/1] dt-bindings: display: imx: Add television encoder
- (TVE) for imx53
-Message-ID: <20260519-azure-mackerel-of-judgment-dcab1b@quoll>
-References: <20260512223137.1190096-1-Frank.Li@nxp.com>
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>, quic_rajeevny@quicinc.com,
+ quic_vproddut@quicinc.com
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add Ilitek ILI7807S
+ panel controller
+Message-ID: <20260519-curly-courageous-sturgeon-2facfe@quoll>
+References: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
+ <20260518-ili7807s-panel-v1-1-d7b048163b1c@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260512223137.1190096-1-Frank.Li@nxp.com>
+In-Reply-To: <20260518-ili7807s-panel-v1-1-d7b048163b1c@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,30 +68,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 12, 2026 at 06:31:35PM -0400, Frank Li wrote:
-> +  ddc-i2c-bus:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to the I2C bus used for DDC (Display Data Channel) communication
-> +      to read EDID information from the connected display.
+On Mon, May 18, 2026 at 04:34:12PM +0530, Arpit Saini wrote:
+> ILI7807S is a DSI display controller used to drive MIPI-DSI panels.
+> The DLC DLC0697 1080x1920 LCD panel is based on this controller.
+> 
+> The panel requires a reset GPIO, backlight enable GPIO, I/O voltage
+
+If panel requires it, so should the binding.
+
+...
+
+> +  reg:
+> +    maxItems: 1
+> +    description: DSI virtual channel
 > +
-> +  dac-supply:
-> +    description:
-> +      Regulator supply for the TVE DAC (Digital-to-Analog Converter).
+> +  reset-gpios: true
 > +
-> +  fsl,tve-mode:
+> +  backlight-en-gpios:
+> +    description: Backlight enable GPIO (active high)
 
-This should be a required property, based on current driver code.
+What is the name of the pin in ili7807s device?
 
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      TVE output mode selection.
-> +    enum:
-> +      - ntsc
-> +      - pal
-> +      - vga
+> +
+> +  vddi-supply:
+> +    description: I/O voltage supply (1.8V)
+> +
+> +  avdd-supply:
+> +    description: Positive LCD bias supply (AVDD), typically +5.5V
+> +      (range 4.5V to 6.3V)
+> +
+> +  avee-supply:
+> +    description: Negative LCD bias supply (AVEE), typically -5.5V
+> +      (range -6.3V to -4.5V)
+> +
+> +  port: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reset-gpios
+> +  - vddi-supply
+> +  - avdd-supply
+> +  - avee-supply
+> +  - port
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    dsi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        panel@0 {
+> +            compatible = "dlc,dlc0697", "ilitek,ili7807s";
+> +            reg = <0>;
+> +
+> +            reset-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
+> +            backlight-en-gpios = <&tlmm 91 GPIO_ACTIVE_HIGH>;
+> +
+> +            vddi-supply = <&pm4125_l15>;
+> +            avdd-supply = <&avdd>;
+> +            avee-supply = <&avee>;
+> +
+> +            port {
+> +                panel_in: endpoint {
+> +                    remote-endpoint = <&dsi0_out>;
+> +                };
+> +            };
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 26060e51c067..529aed669401 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7941,6 +7941,13 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/display/bridge/chipone,icn6211.yaml
+>  F:	drivers/gpu/drm/bridge/chipone-icn6211.c
+>  
+> +DRM DRIVER FOR ILITEK ILI7807S DSI PANEL
+> +M:	Arpit Saini <arpit.saini@oss.qualcomm.com>
+> +S:	Maintained
+> +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Drop, unless you handle patches for this driver.
+
+> +F:	Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+> +F:	drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
+
+Drop, no such file at this point.
 
 Best regards,
 Krzysztof
