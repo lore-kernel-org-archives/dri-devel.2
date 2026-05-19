@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6871DCD4F57
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 10:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34337CD4F57
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 10:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C14C710EC2D;
-	Tue, 19 May 2026 10:39:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F8BF10EC34;
+	Tue, 19 May 2026 10:39:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="IIQiFWvN";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ViIgPYrO";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3032910EC34
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 10:39:30 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57DFB10EC34
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 10:39:34 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 1910DC2B9DB;
- Tue, 19 May 2026 10:40:22 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 482381A3628;
+ Tue, 19 May 2026 10:39:33 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E2635606E9;
- Tue, 19 May 2026 10:39:28 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 1B9D4606E9;
+ Tue, 19 May 2026 10:39:33 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id AA268107E8AE0; 
- Tue, 19 May 2026 12:39:23 +0200 (CEST)
+ with ESMTPSA id E1F01107E8AE5; 
+ Tue, 19 May 2026 12:39:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1779187167; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1779187171; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=viok0NZbuZ8e/hD57hUPyDwRDr0DwR3pZjydZmRPEJY=;
- b=IIQiFWvNhiB4jeRRZP+AbU7H+nswsdO7rN2CHIxfxHWCb9p85Lo2MX8g+God7kNUYM6QqT
- eex8Oq4KVgVP9LWOyYMRfAtUclVVk/qVJRvY9MlyVUrWnVDpqNLn9ZoIzsPdubT6m+0ozZ
- 72wGxTOzSj0HhmcJw6q+bYhj9qV0r8yqb9QAIoHN1Rna7oNG1nd+FO2saAWOQOkmOho3+g
- zwELy0KhvMn3tJ2XTIYYkEZUzYpm0NUYi7oP4qnhOdKczQfLRT9egTI3gpnAuqPFfgDPdT
- W50AuSHxDuUytCTc5ai93A0f25XxPAXswScof0rdzd2njB/4mGJhmR/wMJ/YZA==
+ bh=X+JiQ9ah3Zg0b42ga8MWBRYlO8NHJoM8q4bf6PzICZs=;
+ b=ViIgPYrOdMaIUxl4rsKNrq8C+yslUUqrVKwjWnKL2ohmjs+1qBBlpZl2gzAKMY9GcKoCrm
+ jP//QcpyRsQDZHyFNRiwjAn+7nIRRnvPYWGLlz+0auQ4bh2z/FTrY2943moaikGI+FGIuA
+ Lz+qmrdRIBvZbN4Jf8WGuWadl65302xV1NR6+fHDwxgGwy06B0r1VG9H+vflq9oxZfW8WH
+ 2HDF3kw3WtXvoYtyG+WiSLj9myhaxrBzHXXsjz9rOvI9pjZIeZmUy3W+49mlXfMHv5lZVa
+ LIlKglv0v+lO5V4pkypRNrb6UyeMfbYAnaAP5IroqO3guOkc1rFtatTIx2R1zQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 19 May 2026 12:37:36 +0200
-Subject: [PATCH 19/37] drm/bridge: samsung-dsim: move drm_bridge_add() call
- to probe
+Date: Tue, 19 May 2026 12:37:37 +0200
+Subject: [PATCH 20/37] drm/bridge: samsung-dsim: attach: return
+ -EPROBE_DEFER is next bridge not yet available
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-drm-bridge-hotplug-v1-19-45e2bdb3dfb4@bootlin.com>
+Message-Id: <20260519-drm-bridge-hotplug-v1-20-45e2bdb3dfb4@bootlin.com>
 References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
 In-Reply-To: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -78,97 +78,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This bridge driver calls drm_bridge_add() in the DSI host .attach callback
-instead of in the probe function.
+When samsung_dsim_attach() is called but the next_bridge is not (yet)
+known, it calls drm_bridge_attach() unconditionally. In turn
+drm_bridge_attach() will return -EINVAL because the bridge pointer in
+NULL. -EINVAL is propagated transparently to the caller, resulting in the
+whole attach operation to fail.
 
-This works for current use cases but is problematic for supporting hotplug
-of DRM bridges. The problematic case is when this DSI host is always
-present while its DSI device is hot-pluggable. In such case with the
-current code the DRM card will not be populated until after the DSI device
-attaches to the host, which could happen a very long time after booting, or
-even not happen at all.
+This is fine for current use cases, but not when introducing for bridge
+hotplug, which implies the next bridge could be hot-plugged later on.
 
-The reason is that the previous pipeline component (the encoder in this
-case) when probing cannot find the samsung-dsim bridge. What happens is:
-
- [1 and 2 can happen in any order, same result]
- 1) samsung-dsim probes (does not drm_bridge_add() itself)
- 2) The lcdif starts probing multiple times, but
-    lcdif_probe
-    -> lcdif_load
-       -> lcdif_attach_bridge
-          -> devm_drm_of_get_bridge() returns -EPROBE_DEFER because
-             the samsung-dsim is not in the global bridge_list
-             (deferred probe pending: imx-lcdif: Cannot connect bridge)
-
-The samsung-dsim will not drm_bridge_add() itself until a DSI device will
-try to mipi_dsi_attach() to the DSI Host, which can happen arbitratily late
-on hot-pluggable hardware.
-
-As a preliminary step to supporting hotplug move drm_bridge_add() at probe
-time, so that the samsung-dsim DSI host bridge is available during boot,
-even without a connected DSI device. This results in:
-
- 1) samsung-dsim probes (and adds to drm_bridge_add() itself)
- 2) The lcdif starts probing multiple times, but
-    lcdif_probe
-    -> lcdif_load
-       -> lcdif_attach_bridge
-          -> devm_drm_of_get_bridge() --> OK, returns samsung-dsim ptr
+In preparation to support bridge hotplug, consider the absence of a
+next_bridge an -EPROBE_DEFER, not a hard error.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/samsung-dsim.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/bridge/samsung-dsim.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
-index 2af287221e22..cefb20ec68ad 100644
+index cefb20ec68ad..3c70a45c5dce 100644
 --- a/drivers/gpu/drm/bridge/samsung-dsim.c
 +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-@@ -1980,8 +1980,6 @@ static int samsung_dsim_host_attach(struct mipi_dsi_host *host,
- 		     mipi_dsi_pixel_format_to_bpp(device->format),
- 		     device->mode_flags);
- 
--	drm_bridge_add(&dsi->bridge);
--
- 	/*
- 	 * This is a temporary solution and should be made by more generic way.
- 	 *
-@@ -2014,7 +2012,6 @@ static int samsung_dsim_host_attach(struct mipi_dsi_host *host,
- 	if (!(device->mode_flags & MIPI_DSI_MODE_VIDEO))
- 		samsung_dsim_unregister_te_irq(dsi);
- err_remove_panel_bridge:
--	drm_bridge_remove(&dsi->bridge);
- 	if (dsi->panel_bridge_added) {
- 		drm_panel_bridge_remove(next_bridge);
- 		dsi->panel_bridge_added = false;
-@@ -2040,8 +2037,6 @@ static int samsung_dsim_host_detach(struct mipi_dsi_host *host,
- 
- 	samsung_dsim_unregister_te_irq(dsi);
- 
--	drm_bridge_remove(&dsi->bridge);
--
- 	return 0;
- }
- 
-@@ -2242,6 +2237,8 @@ int samsung_dsim_probe(struct platform_device *pdev)
- 			goto err_disable_runtime;
- 	}
- 
-+	drm_bridge_add(&dsi->bridge);
-+
- 	return 0;
- 
- err_disable_runtime:
-@@ -2255,6 +2252,8 @@ void samsung_dsim_remove(struct platform_device *pdev)
+@@ -1828,6 +1828,9 @@ static int samsung_dsim_attach(struct drm_bridge *bridge,
  {
- 	struct samsung_dsim *dsi = platform_get_drvdata(pdev);
+ 	struct samsung_dsim *dsi = bridge_to_dsi(bridge);
  
-+	drm_bridge_remove(&dsi->bridge);
++	if (!dsi->bridge.next_bridge)
++		return -EPROBE_DEFER;
 +
- 	pm_runtime_disable(&pdev->dev);
- 
- 	if (dsi->plat_data->host_ops && dsi->plat_data->host_ops->unregister_host)
+ 	return drm_bridge_attach(encoder, dsi->bridge.next_bridge, bridge,
+ 				 flags);
+ }
 
 -- 
 2.54.0
