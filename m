@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789C7CD4F57
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E001ACD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 07:34:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4E0610EADC;
-	Tue, 19 May 2026 07:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5247410E9EB;
+	Tue, 19 May 2026 07:34:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JQXQrG1R";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Cx96On0v";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 192AD10EADC
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:33:25 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-449de065cb3so3025421f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 00:33:24 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9B9610E9EB
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 07:34:35 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-488b0e1b870so47082965e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 00:34:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1779176003; x=1779780803; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1779176074; x=1779780874; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=CptfMWX/OnKpQAZK1ljSyYDr+otcGVWKuHyIusA7+I4=;
- b=JQXQrG1RN9Z211jWLHmxWGVwp4l68b9/BQot6vhwlOwb5yhtWEEnmHSw5x4+JwuM1i
- d8qtsknW6TcBQ1TegsCpfvGDpWfgFMHMoeCbsFfMlwBB9AndbLc0zLxcettb5L7+aMYw
- zjFYYeXl6dAmghN0CsYfZZHQ5Z5FO46xFFCt2/9Xyv+a1UjV9FrTZYE1p8+yEYRjVNTa
- eIMGNo5vU/0zHHdrnuDJUx0pS2PDrpUvbSo0gduwXLaZ6/t9xBIy5pCr6xuV/5BCpEqg
- 34pQd5bfEzKbKFHy6yKPUHiPGVoxlXjdbgxSXy+DBCoDTbSPdvYZYxjLtPyyX7ULDscf
- itgg==
+ :reply-to; bh=NkpJii8tv30gQeyVix9/XICxyBov61uU4hi0wKikcJ8=;
+ b=Cx96On0v5CANJm+bI/wce1yxhqU7z6J4dqwb4xBttNOtTv1gfyXGjx30YekfkotvgD
+ yKC0ius2sgelc9jIK1Bpdv6nWZy1OaNLoEdtbDGJpbY7II2eWTTPkP9M73DewmlyOeqv
+ YIjFBTCMYg0U14UhaspI3LS4BNBH0WO55yGkIBqnGpxnQJnxNSZSiPYsO6M7/D0QPyDV
+ wPcWZsWTr2TBQF8hX8pWChUEn3BDTmDvXU/ZQHgDFOzKfxgbtvsOA76FgIKZMt1gpxcj
+ IxPaVe8Hms3wYzBH8NzmbrfYyabRSuulltbnSG+wr9TWW9diD8pJJcgvZRfmCQNR+cHP
+ Eg1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779176003; x=1779780803;
+ d=1e100.net; s=20251104; t=1779176074; x=1779780874;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=CptfMWX/OnKpQAZK1ljSyYDr+otcGVWKuHyIusA7+I4=;
- b=f5v1wPkbQTbF6KXcLpkDy/LYpe0iVUotOI7yZPUaxVf68aCzqgsH61WiBfq/qwBzPI
- oCFMCqR5YiIcRARBOq5BuCIyGpPlKMqmu1DZS/y2kZBaRdixSC1lE8B+CG1kij0ZX9rV
- UyxAR0KIc6opY7/+neeKKgelgqXex3HuTc5GBJQPwz1uJzvy68gTP/9iSV3ziJZSNIMh
- zSNPnHBFLJAwrOrMPoYkJlBU5JdcXKtZlTXu1zQLn/Fhg2SsW9VDJhk2y9m/nLOWTkPW
- PUtyDXg7i5puff1a64XBIRTf0PnXBWDGmEeWNbxzwIRQF62XI9iyCO6qiIfdKs/7ZABK
- u8CA==
-X-Gm-Message-State: AOJu0YxBf+MdGdsEQm8k2jz9B5PjdT9ekhuiyTVnNevlhiLQVUSNGmJ6
- nrdddjx2QCYoxycgOo1MYSHXU4/IozK6fd2p9xTV2go9CJCEYwanu6CSHSiA1MNZTTY=
-X-Gm-Gg: Acq92OGWhb/23Qbpt9W4D7rrf6LzrDYcGon/WwTVMlf1A4SBri9MLYDgVy1pQ0Je9+O
- SLEHJCwKp/Am4Bm6HPLB5/HYe1X0EBZ1sTQhWAAcIIAY30T0y13qV8hKiZZJyXqLprqziAkrCQ8
- O2XKK8RTfT+jDY5T4RWA8SBUQ4NvLS2toYznjfOoCZK3kr/kzL2B8vFmvmxtO/33ywIJOcm/D+C
- e+Cki+yIaza430z1kk0f4OiXoB15+TgD90b91FTLIGMwGuyY1mJccog8QFsqtmi9Qx9Y4jdIdcM
- fdr+2A2Xi2VcFrlUVXVJebuzfkq9xgtx2pf4PIg9xLEOoXXpmBYC4PYoitMCl895lVKX6pjYvut
- MvjIwzusD+jFkj9wfYtt4Ok6PAxNQOs21+a/Yx5m7XSZKyjnZRvveq7ePA9gsSX4FIVSLLOnjB/
- LwfBXbVPsSn0TjA1iXFhzlywytn1qnt6wyunJ9wOfRP/hp+AZaioXS6BvDlzLhSurC9WOSP/G90
- Jtb
-X-Received: by 2002:a05:600c:a406:b0:48a:9540:1a3a with SMTP id
- 5b1f17b1804b1-48fe60e56abmr233108995e9.8.1779176003502; 
- Tue, 19 May 2026 00:33:23 -0700 (PDT)
+ bh=NkpJii8tv30gQeyVix9/XICxyBov61uU4hi0wKikcJ8=;
+ b=JM88AwMnAwd553M1ZTz0mvdFlromciofShxnCoMxJA5lIhVyjorrHmpBTO/h5Xh3zv
+ TWyrMQegPziwSsAUV9N9Bth1hnsFdOxw0+cackFyFcpPCOLIvPZyoJPtQwNzzIpy2mjC
+ 89At582lmKSEQEIfxhyQRDzx1zCBbtXFU5LUqRdYVOS9FmVFjnO4Z+HriQtsXVNnwqZ6
+ XLK2sl6ErLgrKwQyyMdGZiIW1H8nZsvBz3pqZtZ7HT09aj0BVAeMgNFGNT8BB9w18bgY
+ 7CWr4VXMc1fWy2qZV/waG0xf6PiT6PXUXYbyY2CG934/DbPQ+deUkC2z1DpvuGQ+injD
+ o8/g==
+X-Gm-Message-State: AOJu0YzxJKtUEwwD9CiYLS/MbsAakAblQD7PXBmPVT4rbZPaE/OxZhlD
+ iVz2TAaZmnt32j1rw9bx9oNnfjJDLubMBq4csXC227hhWydjerQHAhGdq8hgHcckShw=
+X-Gm-Gg: Acq92OFb62DTmoRHT1qRAsAwkh7e2FgSEj0mbbsD8uLTMAuUQrZQjssbS4qB4MXzbRu
+ Pbz6s545Qzh+WFd9kkPLtK6HRwxrW/QcYmsEA9UOfmtPNRYh1bPyoGZYuLFuQlRsxpZXhxsue9P
+ kpayA+vLoXybiDihvfQqMQ1pTH0iZ0qKwHqcu5Y3sSHdi1CQWyUePr0D1OhDJxKHFcv8PvIEb4f
+ wn1K4HEGDmrIUfBzpqapnhGXLv5OWHoEh2Eifgk/ahiHrw9SOGslmFMNuXNzkFHozIE8KRA5lx0
+ ZHEncgoNJIv51V4iZnWTMETvoLByzSElz9sgCTZqGjXmZvy3K7qQ/uOlBGtGuuJo/q3DXzFLarg
+ xm7We9h3p5jREEezL6nLia3+zPBVOGJP+5zb/q3TjV2B+ZJ7E23uWKrY3ttS/gAo4zDfiTU7Chi
+ XG3Y6pUlwYXi4rBT7LubbfMF1ZijqpjvmCV/Ic7eieFDswEgQUZTIAisR3KS8ljRxRzGcOT5H25
+ kxDur6yVf02QGE=
+X-Received: by 2002:a05:600c:4692:b0:485:4eaf:eb53 with SMTP id
+ 5b1f17b1804b1-48fe632661bmr293018735e9.19.1779176074203; 
+ Tue, 19 May 2026 00:34:34 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:1d4b:274c:94d:a69f?
  ([2a01:e0a:106d:1080:1d4b:274c:94d:a69f])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe537ccf5sm301918365e9.14.2026.05.19.00.33.22
+ ffacd0b85a97d-45da0a17a22sm43795418f8f.22.2026.05.19.00.34.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 May 2026 00:33:23 -0700 (PDT)
-Message-ID: <59760925-a19d-460e-afc9-015dd210f193@linaro.org>
-Date: Tue, 19 May 2026 09:33:22 +0200
+ Tue, 19 May 2026 00:34:33 -0700 (PDT)
+Message-ID: <c5b417b6-1430-4a4e-a0ea-207221a4d344@linaro.org>
+Date: Tue, 19 May 2026 09:34:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 09/13] drm/meson: dw-hdmi: Use devm_clk_get_enabled()
- helper
+Subject: Re: [PATCH 10/13] drm/meson: dw-hdmi: Use dev_err_probe() to report
+ errors
 To: Jonas Karlman <jonas@kwiboo.se>, Kevin Hilman <khilman@baylibre.com>,
  Heiko Stuebner <heiko@sntech.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -81,7 +81,7 @@ Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org
 References: <20260518194744.2483580-1-jonas@kwiboo.se>
- <20260518194744.2483580-10-jonas@kwiboo.se>
+ <20260518194744.2483580-11-jonas@kwiboo.se>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -108,7 +108,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260518194744.2483580-10-jonas@kwiboo.se>
+In-Reply-To: <20260518194744.2483580-11-jonas@kwiboo.se>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -128,89 +128,135 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 5/18/26 21:47, Jonas Karlman wrote:
-> Change to use the devm_clk_get_enabled() helper instead of using an
-> open-coded variant.
+> Change to use dev_err_probe() to report bind() errors consistently.
 > 
 > Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 > ---
->   drivers/gpu/drm/meson/meson_dw_hdmi.c | 48 +++++++++------------------
->   1 file changed, 16 insertions(+), 32 deletions(-)
+>   drivers/gpu/drm/meson/meson_dw_hdmi.c | 65 +++++++++++++--------------
+>   1 file changed, 30 insertions(+), 35 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-> index fcd2426af9fc..d0cf2042d41c 100644
+> index d0cf2042d41c..1dd59196ff7f 100644
 > --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
 > +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-> @@ -634,29 +634,6 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
+> @@ -650,10 +650,9 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+>   	DRM_DEBUG_DRIVER("\n");
 >   
->   }
->   
-> -static void meson_disable_clk(void *data)
-> -{
-> -	clk_disable_unprepare(data);
-> -}
-> -
-> -static int meson_enable_clk(struct device *dev, char *name)
-> -{
-> -	struct clk *clk;
-> -	int ret;
-> -
-> -	clk = devm_clk_get(dev, name);
-> -	if (IS_ERR(clk)) {
-> -		dev_err(dev, "Unable to get %s pclk\n", name);
-> -		return PTR_ERR(clk);
+>   	match = of_device_get_match_data(dev);
+> -	if (!match) {
+> -		dev_err(dev, "failed to get match data\n");
+> -		return -ENODEV;
 > -	}
-> -
-> -	ret = clk_prepare_enable(clk);
-> -	if (!ret)
-> -		ret = devm_add_action_or_reset(dev, meson_disable_clk, clk);
-> -
-> -	return ret;
-> -}
-> -
->   static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
->   				void *data)
->   {
-> @@ -666,6 +643,7 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
->   	struct drm_device *drm = data;
->   	struct meson_drm *priv = drm->dev_private;
->   	struct dw_hdmi_plat_data *dw_plat_data;
-> +	struct clk *clk;
->   	int irq;
->   	int ret;
+> +	if (!match)
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "Failed to get match data\n");
 >   
-> @@ -716,17 +694,23 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+>   	meson_dw_hdmi = devm_kzalloc(dev, sizeof(*meson_dw_hdmi),
+>   				     GFP_KERNEL);
+> @@ -667,50 +666,45 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+>   
+>   	ret = devm_regulator_get_enable_optional(dev, "hdmi");
+>   	if (ret < 0 && ret != -ENODEV)
+> -		return ret;
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to get/enable hdmi regulator\n");
+>   
+>   	meson_dw_hdmi->hdmitx_apb = devm_reset_control_get_exclusive(dev,
+>   						"hdmitx_apb");
+> -	if (IS_ERR(meson_dw_hdmi->hdmitx_apb)) {
+> -		dev_err(dev, "Failed to get hdmitx_apb reset\n");
+> -		return PTR_ERR(meson_dw_hdmi->hdmitx_apb);
+> -	}
+> +	if (IS_ERR(meson_dw_hdmi->hdmitx_apb))
+> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->hdmitx_apb),
+> +				     "Failed to get hdmitx_apb reset\n");
+>   
+>   	meson_dw_hdmi->hdmitx_ctrl = devm_reset_control_get_exclusive(dev,
+>   						"hdmitx");
+> -	if (IS_ERR(meson_dw_hdmi->hdmitx_ctrl)) {
+> -		dev_err(dev, "Failed to get hdmitx reset\n");
+> -		return PTR_ERR(meson_dw_hdmi->hdmitx_ctrl);
+> -	}
+> +	if (IS_ERR(meson_dw_hdmi->hdmitx_ctrl))
+> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->hdmitx_ctrl),
+> +				     "Failed to get hdmitx reset\n");
+>   
+>   	meson_dw_hdmi->hdmitx_phy = devm_reset_control_get_exclusive(dev,
+>   						"hdmitx_phy");
+> -	if (IS_ERR(meson_dw_hdmi->hdmitx_phy)) {
+> -		dev_err(dev, "Failed to get hdmitx_phy reset\n");
+> -		return PTR_ERR(meson_dw_hdmi->hdmitx_phy);
+> -	}
+> +	if (IS_ERR(meson_dw_hdmi->hdmitx_phy))
+> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->hdmitx_phy),
+> +				     "Failed to get hdmitx_phy reset\n");
+>   
+>   	meson_dw_hdmi->hdmitx = devm_platform_ioremap_resource(pdev, 0);
 >   	if (IS_ERR(meson_dw_hdmi->hdmitx))
 >   		return PTR_ERR(meson_dw_hdmi->hdmitx);
 >   
-> -	ret = meson_enable_clk(dev, "isfr");
-> -	if (ret)
-> -		return ret;
-> +	clk = devm_clk_get_enabled(dev, "isfr");
-> +	if (IS_ERR(clk)) {
-> +		dev_err(dev, "Unable to get isfr pclk\n");
-> +		return PTR_ERR(clk);
-> +	}
+>   	clk = devm_clk_get_enabled(dev, "isfr");
+> -	if (IS_ERR(clk)) {
+> -		dev_err(dev, "Unable to get isfr pclk\n");
+> -		return PTR_ERR(clk);
+> -	}
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk),
+> +				     "Failed to get isfr pclk\n");
 >   
-> -	ret = meson_enable_clk(dev, "iahb");
-> -	if (ret)
-> -		return ret;
-> +	clk = devm_clk_get_enabled(dev, "iahb");
-> +	if (IS_ERR(clk)) {
-> +		dev_err(dev, "Unable to get iahb pclk\n");
-> +		return PTR_ERR(clk);
-> +	}
+>   	clk = devm_clk_get_enabled(dev, "iahb");
+> -	if (IS_ERR(clk)) {
+> -		dev_err(dev, "Unable to get iahb pclk\n");
+> -		return PTR_ERR(clk);
+> -	}
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk),
+> +				     "Failed to get iahb pclk\n");
 >   
-> -	ret = meson_enable_clk(dev, "venci");
-> -	if (ret)
-> -		return ret;
-> +	clk = devm_clk_get_enabled(dev, "venci");
-> +	if (IS_ERR(clk)) {
-> +		dev_err(dev, "Unable to get venci pclk\n");
-> +		return PTR_ERR(clk);
-> +	}
+>   	clk = devm_clk_get_enabled(dev, "venci");
+> -	if (IS_ERR(clk)) {
+> -		dev_err(dev, "Unable to get venci pclk\n");
+> -		return PTR_ERR(clk);
+> -	}
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk),
+> +				     "Failed to get venci pclk\n");
 >   
 >   	dw_plat_data->regm = devm_regmap_init(dev, NULL, meson_dw_hdmi,
 >   					      &meson_dw_hdmi_regmap_config);
+> @@ -724,10 +718,9 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+>   	ret = devm_request_threaded_irq(dev, irq, dw_hdmi_top_irq,
+>   					dw_hdmi_top_thread_irq, IRQF_SHARED,
+>   					"dw_hdmi_top_irq", meson_dw_hdmi);
+> -	if (ret) {
+> -		dev_err(dev, "Failed to request hdmi top irq\n");
+> -		return ret;
+> -	}
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to request hdmi top irq\n");
+>   
+>   	meson_dw_hdmi_init(meson_dw_hdmi);
+>   
+> @@ -752,14 +745,16 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+>   	meson_dw_hdmi->hdmi = dw_hdmi_probe(pdev, &meson_dw_hdmi->dw_plat_data);
+>   	if (IS_ERR(meson_dw_hdmi->hdmi)) {
+>   		devm_free_irq(dev, irq, meson_dw_hdmi);
+> -		return PTR_ERR(meson_dw_hdmi->hdmi);
+> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->hdmi),
+> +				     "Failed to probe dw-hdmi bridge\n");
+>   	}
+>   
+>   	meson_dw_hdmi->bridge = of_drm_find_and_get_bridge(dev->of_node);
+>   	if (!meson_dw_hdmi->bridge) {
+>   		devm_free_irq(dev, irq, meson_dw_hdmi);
+>   		dw_hdmi_remove(meson_dw_hdmi->hdmi);
+> -		return -ENODEV;
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "Failed to find dw-hdmi bridge\n");
+>   	}
+>   
+>   	DRM_DEBUG_DRIVER("HDMI controller initialized\n");
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
