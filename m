@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE45FCD4F5B
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 21:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73ECCCD5BAB
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 21:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1550110EE7D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E45410EE89;
 	Tue, 19 May 2026 21:11:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Czw4fA3N";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OKuD5zxU";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16BCA10EE4F;
- Tue, 19 May 2026 21:11:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E73210E3EB;
+ Tue, 19 May 2026 21:11:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=vW8EALGYTy/WpC33rrQSfEN/yWS4dck6KWQC4Mwe7uo=; b=Czw4fA3NgOjBqRQSNAbGgYcM4l
- HrZkTaHE6GDNQkTYn5izs52y/Kuy+sZ/wJo+3GTIALvmAty3KS+NkTdVuho6IpHL4CrcJ1Bse1gLA
- 3EPZir0l/AqFn/WgaPTamyGhQJQUJY5QFxhhGBdESXF7IyENICiwMcRE3bB9p3qP6VwrDCrC9e9QV
- CiKQleuZNHk9/PFYe96E5QxzlOPyPvs8EJalH7DXeRJ5/TIEWWfA2yHGFo+nUmWfIiZzyImI+qQEH
- i3NKu86G/JFkcukQ6Hy/xc2KM+8n9Pip7UqbaC1NcNCMNAY/qxxzDtNiJ6nkDkANvzBJqNNEi7Vtt
- D7pdaLEQ==;
+ bh=bTFNlB2lEIz390/U2GSGLhZNHA23YFC+d55K4R2kv+A=; b=OKuD5zxUjmAdgz51Pg+aKaDqWQ
+ +yCcn51wtmv1P285dqFEx97ix+33OCjw20DnviyM/s2dRK1k27m6dcwBml+rV+q+htXz4xzl5h5Xa
+ ZFzP404UbRsTVkIpK6M0qQcS8UrOIRjEKlfqPziw/d5BqwIM1AkIg3lBVY1EL6/qFflMIaO2KHPVu
+ SXo9St2Z6RVBlCE1UO32QEV3W0fCkyTSKK7yK2+ggoiJFzvVraxMqYWgmFBDOCb6nNRA7R2WtC8u+
+ ggVGUflYE+RuekRg2xwY7DAL6X0vZcW0RZ110Gd/l2f7qKmICgJxM8UBo41HlrZqUDtnrHCGXuNvm
+ Z768QwrA==;
 Received: from [79.117.146.159] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wPRit-003Ppa-VU; Tue, 19 May 2026 23:11:32 +0200
+ id 1wPRio-003Ppa-QN; Tue, 19 May 2026 23:11:26 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -52,10 +52,10 @@ Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v6 6/6] drm/amd/display: use plane color_mgmt_changed to track
- colorop changes
-Date: Tue, 19 May 2026 23:09:09 +0200
-Message-ID: <20260519211111.228303-7-mwen@igalia.com>
+Subject: [PATCH v6 3/6] drm/colorop: Remove read-only comments from
+ interpolation fields
+Date: Tue, 19 May 2026 23:09:06 +0200
+Message-ID: <20260519211111.228303-4-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260519211111.228303-1-mwen@igalia.com>
 References: <20260519211111.228303-1-mwen@igalia.com>
@@ -76,42 +76,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Ensure the driver tracks changes in any colorop property of a plane
-color pipeline by using the same mechanism of CRTC color management and
-update plane color blocks when any colorop property changes. It fixes an
-issue observed on gamescope settings for night mode which is done via
-shaper/3D-LUT updates.
+From: Alex Hung <alex.hung@amd.com>
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+The lut1d_interpolation and lut3d_interpolation fields and their
+associated properties were marked as read-only, but userspace
+can set them via drm_atomic_colorop_set_property().
+
+Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ include/drm/drm_colorop.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d590f0df6abd..36425d9c2a67 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10198,7 +10198,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 			continue;
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index c873199c60da..53a2148082d5 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -309,7 +309,6 @@ struct drm_colorop {
+ 	/**
+ 	 * @lut1d_interpolation:
+ 	 *
+-	 * Read-only
+ 	 * Interpolation for DRM_COLOROP_1D_LUT
+ 	 */
+ 	enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
+@@ -317,7 +316,6 @@ struct drm_colorop {
+ 	/**
+ 	 * @lut3d_interpolation:
+ 	 *
+-	 * Read-only
+ 	 * Interpolation for DRM_COLOROP_3D_LUT
+ 	 */
+ 	enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
+@@ -325,7 +323,7 @@ struct drm_colorop {
+ 	/**
+ 	 * @lut1d_interpolation_property:
+ 	 *
+-	 * Read-only property for DRM_COLOROP_1D_LUT interpolation
++	 * Property for DRM_COLOROP_1D_LUT interpolation
+ 	 */
+ 	struct drm_property *lut1d_interpolation_property;
  
- 		bundle->surface_updates[planes_count].surface = dc_plane;
--		if (new_pcrtc_state->color_mgmt_changed) {
-+		if (new_pcrtc_state->color_mgmt_changed || new_plane_state->color_mgmt_changed) {
- 			bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
- 			bundle->surface_updates[planes_count].in_transfer_func = &dc_plane->in_transfer_func;
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
-@@ -12024,6 +12024,10 @@ static bool should_reset_plane(struct drm_atomic_commit *state,
- 	if (new_crtc_state->color_mgmt_changed)
- 		return true;
+@@ -353,7 +351,7 @@ struct drm_colorop {
+ 	/**
+ 	 * @lut3d_interpolation_property:
+ 	 *
+-	 * Read-only property for DRM_COLOROP_3D_LUT interpolation
++	 * Property for DRM_COLOROP_3D_LUT interpolation
+ 	 */
+ 	struct drm_property *lut3d_interpolation_property;
  
-+	/* Plane color pipeline or its colorop changes. */
-+	if (new_plane_state->color_mgmt_changed)
-+		return true;
-+
- 	/*
- 	 * On zpos change, planes need to be reordered by removing and re-adding
- 	 * them one by one to the dc state, in order of descending zpos.
 -- 
 2.53.0
 
