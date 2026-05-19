@@ -4,61 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF4A4CD4F54
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 20:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0C7FCD5BA4
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 20:25:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4688310E3DB;
-	Tue, 19 May 2026 20:24:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1153810E3E8;
+	Tue, 19 May 2026 20:25:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="lQU5s627";
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="JNdw+/PN";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="MtUMjghr";
 	dkim-atps=neutral
-Received: from mail-01.1984.is (mail-01.1984.is [185.112.145.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96F2710E3DB
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 20:24:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=berkoc.com; 
- s=1984;
- h=Cc:To:Subject:Date:From:References:In-Reply-To:Message-ID:Sender:
- Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=n0hpJfmBe+H1vhGzZwAnLsdgzvMg34OBTLVh3I+WBVU=; b=lQU5s627l2jAAMyXO3W5Yvco2b
- tAZljt+EuNm8zeVkV15tQjkWGoauFs7bByYaw1PmYJeRl21FWcZ9WOR4MhbxCJVzB60/CtKWHPgdQ
- q2A4WgsaUpAav2EUOFACFlPkAhqX0RRpXLqhiX601iewe51uoCsPd/C5YG1adBBZvn5beRFk3s6wB
- bYAtXoytEBq4YW8SFnNv7GuYUqgOza7fB22E1wQE5yB1FXQ/8kpBTrY4XjMqOF70HSqUXnHol4cGa
- zfybHyGl6jtHdW21i2kz3him9q8oQucIQR0zP0t1aFL0oBftd3RrcDcf0lFEF/ttNqfwZ7I2AOcmi
- luKn/uew==;
-Received: from localhost by mail-01.1984.is with utf8esmtp (Exim 4.96)
- (envelope-from <me@berkoc.com>) id 1wPQz2-006CJx-0X;
- Tue, 19 May 2026 20:24:09 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berkoc.com;
- i=@berkoc.com; q=dns/txt; s=me; t=1779222239; h=message-id : date :
- subject : cc : to : from : sender : reply-to;
- bh=n0hpJfmBe+H1vhGzZwAnLsdgzvMg34OBTLVh3I+WBVU=;
- b=JNdw+/PNzJ60beL8UK21YlQ5IBCyDM2h/8sXeCtJ/UDJBS781DJZ9uELgIyHny83bTNL6
- ytln+pTuStkL5d3T/Up80F8mQa+WpcG+NCzDH1yXdf9AtfXXh5mDwEmC6wgbgSMs8eGUZLp
- PDulYk/N0wqA4XQPboG19SPyE6Fxv9YTZAsyvp4a1pdCbJNscDcVn3HR28Rm7qw27thb8+R
- 1Q29wiHhsDruFMBHIsXydn4qQOR/E0vR+tIIMXGW9t0oA2ix31sUYZD14U7pL8TMC+jX5mG
- WAsYecRJhWdZ2m0zbKiJgWRvz8tOKAdeLHrsKfxG8rj/e0o1PSz5FSKWTZ3A==
-Message-ID: <e6e63276cca2901641ab39029e4fd3d621b1ee92.1779221799.git.me@berkoc.com>
-In-Reply-To: <cover.1779221339.git.me@berkoc.com>
-References: <cover.1779221339.git.me@berkoc.com>
-From: Berkant Koc <me@berkoc.com>
-Date: Tue, 19 May 2026 22:08:53 +0200
-Subject: [PATCH v3 2/2] drm/hyperv: validate VMBus packet size in receive
- callback
-To: Saurabh Sengar <ssengar@linux.microsoft.com>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, K. Y. Srinivasan <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Michael Kelley <mhklinux@outlook.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Deepak Rawat <drawat.floss@gmail.com>
-X-Authenticated-User: me@berkoc.com
-X-Sender-Address: me@berkoc.com
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44CC910E3F0
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 20:25:26 +0000 (UTC)
+Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64JKJIMJ3374386
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 13:25:25 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=rbYQZfT6xz9UhXToVb8wAi/NM8rY7U8L5aP4mxh8ef0=; b=MtUMjghr/Ra4
+ BYZTh/gh7rLL8iSFD01ZRiUU0lM5+FjgixhztW4Lq8CLxVsfHyAbgZXmqPoc/Eca
+ QbiImoM326mVvAGWiAhiBM9z6T5HCYc32EocwLvtbpUrBniLkIvkd9hQDUri+xqs
+ X+tSgcvBEajUxSI5QMD+jWSJs1priMPz+Zo5bcr5U1VyFW9QwlUho4RI7hpWli5B
+ /JpNdlj7+DQWXo9dy3AZra2abYTIklgyDEAveiW9wPtxitLiSQ1XISWlrj2WLHU8
+ nAduPhDSyH4CkKQ9RpiJZ3lsAbaRjNj3ojPjfM7GQh+K/A+kBJvtb7Xy1FhS+SUa
+ amxjUSKHrg==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4e8xsxr15e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 13:25:25 -0700 (PDT)
+Received: from twshared132777.16.frc2.facebook.com (2620:10d:c0a8:1c::1b) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.37; Tue, 19 May 2026 20:25:24 +0000
+Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
+ id 3130E2F3ADAE5; Tue, 19 May 2026 13:14:06 -0700 (PDT)
+From: Zhiping Zhang <zhipingz@meta.com>
+To: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
+ Romanovsky <leon@kernel.org>
+CC: Bjorn Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
+ <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
+ <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
+Subject: [PATCH v4 2/3] PCI/TPH: expose the enabled TPH requester type
+Date: Tue, 19 May 2026 13:13:50 -0700
+Message-ID: <20260519201401.1558410-3-zhipingz@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260519201401.1558410-1-zhipingz@meta.com>
+References: <20260519201401.1558410-1-zhipingz@meta.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDIwNCBTYWx0ZWRfXwjzJxoPK8+be
+ LNiqYrKMG2Z9aweS27dd1s7eci6Gui6cJ9ICxX0chcm3ARItpiMfv8FT3b0dV8EegpvxGngKZmX
+ D4zmIJeTOvKSH3aAHKeeALy+Pb42uox0RLI4epRrgEeGkeGph+LLgXzaUXuDi61YV6atXD5GDaL
+ H2I0XmX7QV0qhdKT5YzIYzPxAWGxHrebJY4E8fgjcRM99r8Deq7YOdYX2Cb8VkkIzi54LKiDovJ
+ 4rqmUOaYrOUpEQ4ZK3paFQ+u9l+joxJRwGiyPKmyLOUaz3XxosvwcwGO7K9vCqS1qOyAXwct30w
+ HfKrJnuft2o/ch/k9lpb25L7AavMRn4t/of9mATzwNXmRvbJ2yfAF/3ycuGu74qt0YEKUaE/k/B
+ qZR9Ymq8C9dFSQ3s6yt4eD09C4cdv27xCM5n057BruL6/aMaWK/hw/WLkMG6gsPuGRx9MRmOuld
+ IuIJsOsF2/XtDqugSFA==
+X-Proofpoint-GUID: 5tIqBrH77kHMwQDhqMPjomDDPd9e2jJc
+X-Proofpoint-ORIG-GUID: 5tIqBrH77kHMwQDhqMPjomDDPd9e2jJc
+X-Authority-Analysis: v=2.4 cv=BLyDalQG c=1 sm=1 tr=0 ts=6a0cc735 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=_1IyUuN4QrATX339ibzo:22 a=VabnemYjAAAA:8 a=YRoFvhOfcVPyCIBj9wAA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_05,2026-05-18_01,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,112 +91,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-hyperv_receive_sub() reads msg->vid_hdr.type and dispatches into one
-of four message-type branches without knowing how many bytes the host
-wrote into hv->recv_buf. The completion path then runs
-memcpy(hv->init_buf, msg, VMBUS_MAX_PACKET_SIZE), so the consumer
-that wakes on wait_for_completion_timeout() can read up to 16 KiB of
-residue from a prior message as if it were the response payload.
+Add pcie_tph_enabled_req_type() so drivers can query the enabled TPH
+requester mode without reaching into pci_dev internals. A
+!CONFIG_PCIE_TPH stub returns PCI_TPH_REQ_DISABLE so callers need no
+ifdef.
 
-Pass bytes_recvd into hyperv_receive_sub() and reject any packet that
-does not cover the pipe + synthvid header. For each of the three
-completion-driving types (SYNTHVID_VERSION_RESPONSE,
-SYNTHVID_RESOLUTION_RESPONSE, SYNTHVID_VRAM_LOCATION_ACK) also
-require the type-specific payload before memcpy/complete, and apply
-the same rule to SYNTHVID_FEATURE_CHANGE before reading is_dirt_needed.
-The memcpy then uses bytes_recvd, which is bounded by
-VMBUS_MAX_PACKET_SIZE through the call to vmbus_recvpacket().
-
-Rejected packets are reported via drm_err_ratelimited() rather than
-silently dropped, matching the CoCo-hardened pattern in
-hv_kvp_onchannelcallback().
-
-Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic video device")
-Cc: stable@vger.kernel.org # 5.14+
-Signed-off-by: Berkant Koc <me@berkoc.com>
-Assisted-by: Claude:claude-opus-4-7 berkoc-pipeline
+Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
 ---
- drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 42 +++++++++++++++++++++--
- 1 file changed, 39 insertions(+), 3 deletions(-)
+ drivers/pci/tph.c       | 12 ++++++++++++
+ include/linux/pci-tph.h |  2 ++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-index c3d0ff229..12d3feb4f 100644
---- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-+++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-@@ -420,26 +420,62 @@ static int hyperv_get_supported_resolution(struct hv_device *hdev)
- 	return 0;
+diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
+index 91145e8d9d95..6c4492075ae9 100644
+--- a/drivers/pci/tph.c
++++ b/drivers/pci/tph.c
+@@ -174,6 +174,18 @@ u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev)
  }
- 
--static void hyperv_receive_sub(struct hv_device *hdev)
-+static void hyperv_receive_sub(struct hv_device *hdev, u32 bytes_recvd)
- {
- 	struct hyperv_drm_device *hv = hv_get_drvdata(hdev);
- 	struct synthvid_msg *msg;
-+	size_t hdr_size;
- 
- 	if (!hv)
- 		return;
- 
-+	hdr_size = sizeof(struct pipe_msg_hdr) +
-+		   sizeof(struct synthvid_msg_hdr);
-+	if (bytes_recvd < hdr_size) {
-+		drm_err_ratelimited(&hv->dev,
-+				    "synthvid packet too small for header: %u\n",
-+				    bytes_recvd);
-+		return;
-+	}
+ EXPORT_SYMBOL(pcie_tph_get_st_table_loc);
+=20
++/**
++ * pcie_tph_enabled_req_type - Return the device's enabled TPH requester=
+ type
++ * @pdev: PCI device to query
++ *
++ * Return: PCI_TPH_REQ_DISABLE, PCI_TPH_REQ_TPH_ONLY or PCI_TPH_REQ_EXT_=
+TPH.
++ */
++u8 pcie_tph_enabled_req_type(struct pci_dev *pdev)
++{
++	return pdev->tph_req_type;
++}
++EXPORT_SYMBOL(pcie_tph_enabled_req_type);
 +
- 	msg = (struct synthvid_msg *)hv->recv_buf;
- 
- 	/* Complete the wait event */
- 	if (msg->vid_hdr.type == SYNTHVID_VERSION_RESPONSE ||
- 	    msg->vid_hdr.type == SYNTHVID_RESOLUTION_RESPONSE ||
- 	    msg->vid_hdr.type == SYNTHVID_VRAM_LOCATION_ACK) {
--		memcpy(hv->init_buf, msg, VMBUS_MAX_PACKET_SIZE);
-+		size_t need = hdr_size;
-+
-+		switch (msg->vid_hdr.type) {
-+		case SYNTHVID_VERSION_RESPONSE:
-+			need += sizeof(struct synthvid_version_resp);
-+			break;
-+		case SYNTHVID_RESOLUTION_RESPONSE:
-+			need += sizeof(struct synthvid_supported_resolution_resp);
-+			break;
-+		case SYNTHVID_VRAM_LOCATION_ACK:
-+			need += sizeof(struct synthvid_vram_location_ack);
-+			break;
-+		}
-+		if (bytes_recvd < need) {
-+			drm_err_ratelimited(&hv->dev,
-+					    "synthvid packet too small for type %u: %u < %zu\n",
-+					    msg->vid_hdr.type, bytes_recvd, need);
-+			return;
-+		}
-+		memcpy(hv->init_buf, msg, bytes_recvd);
- 		complete(&hv->wait);
- 		return;
- 	}
- 
- 	if (msg->vid_hdr.type == SYNTHVID_FEATURE_CHANGE) {
-+		if (bytes_recvd < hdr_size +
-+		    sizeof(struct synthvid_feature_change)) {
-+			drm_err_ratelimited(&hv->dev,
-+					    "synthvid feature change packet too small: %u\n",
-+					    bytes_recvd);
-+			return;
-+		}
- 		hv->dirt_needed = msg->feature_chg.is_dirt_needed;
- 		if (hv->dirt_needed)
- 			hyperv_hide_hw_ptr(hv->hdev);
-@@ -466,7 +502,7 @@ static void hyperv_receive(void *ctx)
- 				       &bytes_recvd, &req_id);
- 		if (bytes_recvd > 0 &&
- 		    recv_buf->pipe_hdr.type == PIPE_MSG_DATA)
--			hyperv_receive_sub(hdev);
-+			hyperv_receive_sub(hdev, bytes_recvd);
- 	} while (bytes_recvd > 0 && ret == 0);
- }
- 
--- 
-2.47.3
-
+ /*
+  * Return the size of ST table. If ST table is not in TPH Requester Exte=
+nded
+  * Capability space, return 0. Otherwise return the ST Table Size + 1.
+diff --git a/include/linux/pci-tph.h b/include/linux/pci-tph.h
+index be68cd17f2f8..fe572737b409 100644
+--- a/include/linux/pci-tph.h
++++ b/include/linux/pci-tph.h
+@@ -30,6 +30,7 @@ void pcie_disable_tph(struct pci_dev *pdev);
+ int pcie_enable_tph(struct pci_dev *pdev, int mode);
+ u16 pcie_tph_get_st_table_size(struct pci_dev *pdev);
+ u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev);
++u8 pcie_tph_enabled_req_type(struct pci_dev *pdev);
+ #else
+ static inline int pcie_tph_set_st_entry(struct pci_dev *pdev,
+ 					unsigned int index, u16 tag)
+@@ -41,6 +42,7 @@ static inline int pcie_tph_get_cpu_st(struct pci_dev *d=
+ev,
+ static inline void pcie_disable_tph(struct pci_dev *pdev) { }
+ static inline int pcie_enable_tph(struct pci_dev *pdev, int mode)
+ { return -EINVAL; }
++static inline u8 pcie_tph_enabled_req_type(struct pci_dev *pdev) { retur=
+n 0; }
+ #endif
+=20
+ #endif /* LINUX_PCI_TPH_H */
+--=20
+2.53.0-Meta
