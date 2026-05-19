@@ -4,51 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD283CD4851
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 09:24:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5A7FCD4F5B
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 09:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CF4310EBCC;
-	Tue, 19 May 2026 09:24:36 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2856510EBDA
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:24:34 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
- by APP-01 (Coremail) with SMTP id qwCowAAnzGdFLAxqTtTAEA--.55S2;
- Tue, 19 May 2026 17:24:22 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Icenowy Zheng <uwu@icenowy.me>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/client: check whether CRTC is active before waiting for
- vblank
-Date: Tue, 19 May 2026 17:24:20 +0800
-Message-ID: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19A5310E3A6;
+	Tue, 19 May 2026 09:37:33 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="WZo9Xvhj";
+	dkim-atps=neutral
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BFBA10E3A6
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 09:37:32 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 9A230C2B9DB;
+ Tue, 19 May 2026 09:38:23 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 578AB606E9;
+ Tue, 19 May 2026 09:37:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id C0770107E89DF; 
+ Tue, 19 May 2026 11:37:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1779183448; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=SjpGKGMwhhYWC4bhK9Q7/5ATQeU5Nc+8MUNjg9tvLOo=;
+ b=WZo9Xvhj0ZgMzYD4mB+BuQSkBsZboG5CVc1aJewjda3gQ2ii7Qv/qmKWcm8OTtOvvcLKDh
+ 9HYKHw8bqquvHKQuPjdUD2TGHjZzoGSz8hsGjMNH9Bq71S/Tcm+U7jeDkb7cXtMwb0dANL
+ WyDgwgC49G/+EINQgjeE8bPxifoZUjz5rhA++q/kJufzQtv0LJz0kRBXXEED1iSttNKGjj
+ JUjhBbbivPxFAmuAT2ZZ3zxH2F1iqAmysvw66T7zFBItivUWxEJIMaxI34B8sDcAwQRH0H
+ +6+cFqaQzJckGhn0U86wdZtkKrMRsHvGAfugiEU1QEb4tFDyY5HCTrfzyTnsLA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Michal Simek <michal.simek@amd.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260511-drm-bridge-alloc-getput-panel_or_bridge-v6-0-f61c9e498b3f@bootlin.com>
+References: <20260511-drm-bridge-alloc-getput-panel_or_bridge-v6-0-f61c9e498b3f@bootlin.com>
+Subject: Re: [PATCH v6 00/11] drm/bridge: handle refcounting for
+ bridge-only callers of drm_of_find_panel_or_bridge()
+Message-Id: <177918343743.380323.7834378536206184727.b4-ty@b4>
+Date: Tue, 19 May 2026 11:37:17 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowAAnzGdFLAxqTtTAEA--.55S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF1rXry3JFWkCw4rXFyfXrb_yoW8ur17pF
- 43GryYyFWktFZxKanrZa4xZF1FgayrJFWxGry7Kwnxu3Z0vwnFyryFyr9FgFW7Jr9xXay7
- Xr4UtFy5uF1UCF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
- AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
- 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
- IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
- IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
- C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
-X-Originating-IP: [112.94.102.150]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,63 +85,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently the implementaion of drm_client_modeset_wait_for_vblank()
-assumes drm_vblank_get() will fail when the CRTC isn't active. However
-it seems that this is not true, and running fbcon on a device with the
-first CRTC inactive will lead to kernel warning in some cases (which
-could be reproduced with the loongson driver).
 
-Change the implementation to add a check for the active state (atomic) /
-enabled state (non-atomic) before calling drm_vblank_get(). As the
-assumption of drm_vblank_get() failing for inactive CRTC isn't met, the
-error status of drm_vblank_get() can now be exported too.
+On Mon, 11 May 2026 18:40:04 +0200, Luca Ceresoli wrote:
+> This series converts all the bridge-only callers of the deprecated
+> drm_of_find_panel_or_bridge() API to a new, simpler API that handles bridge
+> refcounting.
+> 
+> All patches acked/reviewed except patches 3 and 4.
+> 
+> == Series description
+> 
+> [...]
 
-Cc: stable@vger.kernel.org
-Fixes: d8c4bddcd8bc ("drm/fb-helper: Synchronize dirty worker with vblank")
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/drm_client_modeset.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+Applied, thanks!
 
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index bb49b8361271a..1b03bf351256e 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -1310,7 +1310,7 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
- {
- 	struct drm_device *dev = client->dev;
- 	struct drm_crtc *crtc;
--	int ret;
-+	int ret = 0;
- 
- 	/*
- 	 * Rate-limit update frequency to vblank. If there's a DRM master
-@@ -1326,15 +1326,24 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
- 	 * Only wait for a vblank event if the CRTC is enabled, otherwise
- 	 * just don't do anything, not even report an error.
- 	 */
-+	if (drm_drv_uses_atomic_modeset(dev)) {
-+		if (!crtc->state || !crtc->state->active)
-+			goto out;
-+	} else {
-+		if (!crtc->enabled)
-+			goto out;
-+	}
-+
- 	ret = drm_crtc_vblank_get(crtc);
- 	if (!ret) {
- 		drm_crtc_wait_one_vblank(crtc);
- 		drm_crtc_vblank_put(crtc);
- 	}
- 
-+out:
- 	drm_master_internal_release(dev);
- 
--	return 0;
-+	return ret;
- }
- EXPORT_SYMBOL(drm_client_modeset_wait_for_vblank);
- 
+[01/11] drm/bridge: drm_bridge_put(): ignore ERR_PTR
+        commit: 55bb2b137b6d72b3281f70045d9ee5a087df0aa4
+[02/11] drm/bridge: add of_drm_get_bridge_by_endpoint()
+        commit: 03d1078112fddd706b2c1e4a7d98cf18700eb5df
+[03/11] drm/msm/hdmi: switch to of_drm_get_bridge_by_endpoint()
+        commit: 5e6016294c16f8975391497037b207ad5d2a71eb
+[04/11] drm/hisilicon/kirin: switch to of_drm_get_bridge_by_endpoint()
+        commit: f85a3590e31ac7d78dbb62ed617d50954f5ffde6
+[05/11] drm/bridge: chrontel-ch7033: switch to of_drm_get_bridge_by_endpoint()
+        commit: 7783fc059457c41f641b490e6d0d23c33c8fa89b
+[06/11] drm/bridge: lontium-lt9611uxc: switch to of_drm_get_bridge_by_endpoint()
+        commit: 91b42aa55c7777545e528bbd991fadea5c561d46
+[07/11] drm/bridge: lt9611: switch to of_drm_get_bridge_by_endpoint()
+        commit: cd9517f6e2093a4579f8a37ca66214eb34e9cd04
+[08/11] drm/bridge: adv7511: switch to of_drm_get_bridge_by_endpoint()
+        commit: f08eff4ad2873960d03a3834c04b86bfa4cfcdcb
+[09/11] drm/bridge: lt8713sx: switch to of_drm_get_bridge_by_endpoint()
+        commit: 898a5e07f7e39d771910fcd9ba73ba6e533f9283
+[10/11] drm: zynqmp_dp: switch to of_drm_get_bridge_by_endpoint()
+        commit: 62f1a79e1b004b250e68e10c32a29fd954fc9725
+[11/11] drm: of: forbid bridge-only calls to drm_of_find_panel_or_bridge()
+        commit: 0d5da248ea2d7802a5055ab6762340ac870bd0ee
+
+Best regards,
 -- 
-2.52.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
 
