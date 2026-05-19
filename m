@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 896DDCD4F3C
-	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D9B5CD4851
+	for <dri-devel@archiver.kernel.org>; Tue, 19 May 2026 06:16:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E830510EA64;
-	Tue, 19 May 2026 06:16:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF54810EA69;
+	Tue, 19 May 2026 06:16:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rtH7gXJR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I4bgV5Pv";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B59610EA6D
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:15:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B03B310EA64
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 06:15:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4419744604;
- Tue, 19 May 2026 06:15:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 24DDEC32781;
- Tue, 19 May 2026 06:15:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 92FFB44564;
+ Tue, 19 May 2026 06:15:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 56691C2BCC9;
+ Tue, 19 May 2026 06:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779171356;
- bh=2x0ezV+sn7dzDHiVkyxYzn8bOlucXgMKLmSOh1D1K40=;
+ s=k20201202; t=1779171355;
+ bh=mdXXJsYtrnTb9N9Ay69WkcSD3SkVwc38t7VVVW8Qa2U=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=rtH7gXJRMV2lQVK8jg3IeHApNSHwT6HXZFPAHKEccroHrQEeoAjfZ/eiRqUjZR3E+
- S21BZpUl2nLqDBVqijpexl3y5F+bEc20mcu3nbgWWAVcc7ocooj3S1/aCCUyYsXqXS
- +Ee4pggATFovE9Nr0MVncsE8BTYZbqMLt8hQ49f8MDCHT4q4pOhdm6ZTZ2TrRWc3Wk
- F1t6CaX9rbog6upU8fRT5pMKRbsDd2c+RrPuWloWIBs64LL3TYt7okClEZqRk2ROuF
- CbWhBylhOMGnKFcyIIh8x+X4KZ2Yztq6GY1j/oohd2rgXXUksrwZqhaZyJTv3pN8RJ
- SNCBBq3OClpIw==
+ b=I4bgV5PvLDlI5sYqhGNs4Y6JimoHwURg8tosaFVYlmB1m5vzoWJzC74x7gq8vIX2f
+ QGcHob4hOXwnQKh150Qg9uXWBCsr27C5B0vbc305wZTNyyWPsmOB2lsx58+BopGsR+
+ Tiefxmsros/10ei+Iptzn8INWHLOyx6Rak7df1r41TfHHt06IgtduKqmJGph0/BY5k
+ /oNZasTvjIERI+dpyalTY4tjipqIB7QN/vOe5S55P7P68p4nSowMiuXBvw3VHwBlU5
+ YxT1nOvnH0lNARNhk5i7adkar+qb+FR6uCbN4Lu2teoso8AO3nZOyDCRisdwiBEqtt
+ LgqHv4CpUs6nA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1D2F9CD4F54;
- Tue, 19 May 2026 06:15:56 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 498FCCD4F58;
+ Tue, 19 May 2026 06:15:55 +0000 (UTC)
 From: Ekansh Gupta via B4 Relay
  <devnull+ekansh.gupta.oss.qualcomm.com@kernel.org>
-Date: Tue, 19 May 2026 11:46:03 +0530
-Subject: [PATCH 13/15] accel/qda: Add DSP process creation and release
+Date: Tue, 19 May 2026 11:45:52 +0530
+Subject: [PATCH 02/15] accel/qda: Add QDA driver documentation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-qda-series-v1-13-b2d984c297f8@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260519-qda-series-v1-2-b2d984c297f8@oss.qualcomm.com>
 References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
 In-Reply-To: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
 To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
@@ -62,11 +62,11 @@ Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
  linaro-mm-sig@lists.linaro.org, 
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=17202;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=8323;
  i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=6sIWlJTbKDkpmsM/KuGNbGF7X0bHhf13ZgQKEfZrOjk=;
- b=u9wyNS+28yILoi49rqUKoR6MP0Gx0FxBOOZWDaW2tP0s/nNkaiIlyvpqbxkRyJz+6sEA/yT+x
- BqclLupr7fbD+ox5SpAfuLJMNixCPa7P9fWNzK3x+rqEjADHkRKo0te
+ bh=6Ut+34eLykJ4L+9Idk831LtrZQVaIxX8yeHZTndv5yk=;
+ b=ChlRG44v0dkte4eiD2TLJwERl6p5fUYBHWR57I8uXa8FgTV4quP09FaShlwYSDX68z86XtQtJ
+ brBZ02MCA/8C2OXr7jzkQ67XRyf0yy4V83vbZKtPUXAaSt01JnuxBIA
 X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
  pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
 X-Endpoint-Received: by B4 Relay for ekansh.gupta@oss.qualcomm.com/20260223
@@ -90,483 +90,209 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-Implement the REMOTE_SESSION_CREATE and INIT_RELEASE FastRPC
-operations, which establish and tear down a user process on the
-DSP.
+Add documentation for the Qualcomm DSP Accelerator (QDA) driver under
+Documentation/accel/qda/. The documentation covers the driver
+architecture, GEM-based buffer management, IOMMU context bank
+isolation, and the RPMsg transport layer.
 
-DRM_IOCTL_QDA_REMOTE_SESSION_CREATE (drm_qda_init_create)
-  Creates a new process on the DSP by sending an INIT_CREATE message
-  via the FastRPC INIT_HANDLE. The caller provides an ELF file (via
-  DMA-BUF fd or direct pointer) and optional process attributes. A
-  4 MB GEM buffer is allocated per session to hold the DSP process
-  image; this buffer is stored in qda_file_priv and reused for the
-  lifetime of the session.
+The user-space API section describes the DRM IOCTLs for session
+management, GEM buffer allocation, and remote procedure invocation via
+the FastRPC protocol, along with a typical application lifecycle
+example. Sections for dynamic debug and basic testing are also
+included.
 
-  If attrs is non-zero, INIT_CREATE_ATTR is used instead of
-  INIT_CREATE to pass the extended attribute and signature fields.
-
-INIT_RELEASE
-  Sends a release message to the DSP when the DRM file is closed
-  (qda_postclose via qda_release_dsp_process), freeing the remote
-  process and its resources. The release is skipped if the device
-  has already been unplugged.
-
-qda_fastrpc.c
-  fastrpc_prepare_args_init_create() marshals the six-argument
-  create-process payload: the inbuf descriptor, process name,
-  ELF file, physical pages, attrs, and siglen.
-  fastrpc_prepare_args_release_process() marshals the single-
-  argument release payload (remote_session_id).
-
-qda_drv.c
-  qda_postclose() is extended to call qda_release_dsp_process()
-  under drm_dev_enter() so the release message is only sent while
-  the device is still accessible.
+Wire the new documentation into the Compute Accelerators index at
+Documentation/accel/index.rst.
 
 Assisted-by: Claude:claude-4-6-sonnet
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 ---
- drivers/accel/qda/qda_drv.c     |   8 +++
- drivers/accel/qda/qda_drv.h     |   5 ++
- drivers/accel/qda/qda_fastrpc.c | 140 ++++++++++++++++++++++++++++++++++++++++
- drivers/accel/qda/qda_fastrpc.h |  39 +++++++++--
- drivers/accel/qda/qda_ioctl.c   |  52 +++++++++++++++
- drivers/accel/qda/qda_ioctl.h   |   1 +
- include/uapi/drm/qda_accel.h    |  32 ++++++++-
- 7 files changed, 270 insertions(+), 7 deletions(-)
+ Documentation/accel/index.rst     |   1 +
+ Documentation/accel/qda/index.rst |  13 ++++
+ Documentation/accel/qda/qda.rst   | 146 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 160 insertions(+)
 
-diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-index 704c7d3127d2..4eaba9b050c0 100644
---- a/drivers/accel/qda/qda_drv.c
-+++ b/drivers/accel/qda/qda_drv.c
-@@ -36,6 +36,13 @@ static int qda_open(struct drm_device *dev, struct drm_file *file)
- static void qda_postclose(struct drm_device *dev, struct drm_file *file)
- {
- 	struct qda_file_priv *qda_file_priv = file->driver_priv;
-+	int idx;
+diff --git a/Documentation/accel/index.rst b/Documentation/accel/index.rst
+index cbc7d4c3876a..5901ea7f784c 100644
+--- a/Documentation/accel/index.rst
++++ b/Documentation/accel/index.rst
+@@ -10,4 +10,5 @@ Compute Accelerators
+    introduction
+    amdxdna/index
+    qaic/index
++   qda/index
+    rocket/index
+diff --git a/Documentation/accel/qda/index.rst b/Documentation/accel/qda/index.rst
+new file mode 100644
+index 000000000000..013400cf9c25
+--- /dev/null
++++ b/Documentation/accel/qda/index.rst
+@@ -0,0 +1,13 @@
++.. SPDX-License-Identifier: GPL-2.0-only
 +
-+	/* Only send the DSP release message while the device is accessible */
-+	if (drm_dev_enter(dev, &idx)) {
-+		qda_release_dsp_process(qda_file_priv->qda_dev, file);
-+		drm_dev_exit(idx);
-+	}
- 
- 	if (qda_file_priv->assigned_iommu_dev) {
- 		struct qda_iommu_device *iommu_dev = qda_file_priv->assigned_iommu_dev;
-@@ -59,6 +66,7 @@ static const struct drm_ioctl_desc qda_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(QDA_QUERY, qda_ioctl_query, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_GEM_CREATE, qda_ioctl_gem_create, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_GEM_MMAP_OFFSET, qda_ioctl_gem_mmap_offset, 0),
-+	DRM_IOCTL_DEF_DRV(QDA_REMOTE_SESSION_CREATE, qda_ioctl_init_create, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_REMOTE_INVOKE, qda_ioctl_invoke, 0),
- };
- 
-diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
-index 420cccff42bf..4b4639961d95 100644
---- a/drivers/accel/qda/qda_drv.h
-+++ b/drivers/accel/qda/qda_drv.h
-@@ -28,6 +28,8 @@ struct qda_file_priv {
- 	struct qda_dev *qda_dev;
- 	/** @assigned_iommu_dev: IOMMU device assigned to this process */
- 	struct qda_iommu_device *assigned_iommu_dev;
-+	/** @init_mem_gem_obj: GEM object for PD initialization memory */
-+	struct qda_gem_obj *init_mem_gem_obj;
- 	/** @pid: Process ID for tracking */
- 	pid_t pid;
- 	/** @remote_session_id: Unique session identifier */
-@@ -83,4 +85,7 @@ void qda_deinit_device(struct qda_dev *qdev);
- int qda_register_device(struct qda_dev *qdev);
- void qda_unregister_device(struct qda_dev *qdev);
- 
-+/* DSP process / protection domain management */
-+int qda_release_dsp_process(struct qda_dev *qdev, struct drm_file *file_priv);
++==================================
++accel/qda Qualcomm DSP Accelerator
++==================================
 +
- #endif /* __QDA_DRV_H__ */
-diff --git a/drivers/accel/qda/qda_fastrpc.c b/drivers/accel/qda/qda_fastrpc.c
-index 0ec37175a098..305915022b91 100644
---- a/drivers/accel/qda/qda_fastrpc.c
-+++ b/drivers/accel/qda/qda_fastrpc.c
-@@ -524,6 +524,138 @@ int qda_fastrpc_invoke_unpack(struct fastrpc_invoke_context *ctx,
- 	return err;
- }
- 
-+static void setup_create_process_args(struct drm_qda_fastrpc_invoke_args *args,
-+				      struct fastrpc_create_process_inbuf *inbuf,
-+				      struct drm_qda_init_create *init,
-+				      struct fastrpc_phy_page *pages)
-+{
-+	args[0].ptr = (u64)(uintptr_t)inbuf;
-+	args[0].length = sizeof(*inbuf);
-+	args[0].fd = -1;
++The QDA driver provides a DRM accel based interface for Qualcomm DSP offload.
++It uses the FastRPC protocol and integrates with DRM and GEM infrastructure
++for device and buffer management.
 +
-+	args[1].ptr = (u64)(uintptr_t)current->comm;
-+	args[1].length = inbuf->namelen;
-+	args[1].fd = -1;
++.. toctree::
 +
-+	args[2].ptr = (u64)init->file;
-+	args[2].length = inbuf->filelen;
-+	args[2].fd = init->filefd;	/* DMA-BUF fd forwarded to DSP */
++   qda
+diff --git a/Documentation/accel/qda/qda.rst b/Documentation/accel/qda/qda.rst
+new file mode 100644
+index 000000000000..9f49af6e6acc
+--- /dev/null
++++ b/Documentation/accel/qda/qda.rst
+@@ -0,0 +1,146 @@
++.. SPDX-License-Identifier: GPL-2.0-only
 +
-+	args[3].ptr = (u64)(uintptr_t)pages;
-+	args[3].length = 1 * sizeof(*pages);
-+	args[3].fd = -1;
++=====================================
++Qualcomm DSP Accelerator (QDA) Driver
++=====================================
 +
-+	args[4].ptr = (u64)(uintptr_t)&inbuf->attrs;
-+	args[4].length = sizeof(inbuf->attrs);
-+	args[4].fd = -1;
++Introduction
++============
 +
-+	args[5].ptr = (u64)(uintptr_t)&inbuf->siglen;
-+	args[5].length = sizeof(inbuf->siglen);
-+	args[5].fd = -1;
-+}
++The QDA driver is a DRM accel driver for Qualcomm's DSPs. It provides a
++DRM accel based interface for Qualcomm DSP offload, supporting workloads
++such as AI inference, computer vision, audio processing, and sensor offload
++on Qualcomm SoCs. It uses the FastRPC protocol and integrates with DRM and
++GEM infrastructure for device and buffer management.
 +
-+static void setup_single_arg(struct drm_qda_fastrpc_invoke_args *args, const void *ptr, size_t size)
-+{
-+	args[0].ptr = (u64)(uintptr_t)ptr;
-+	args[0].length = size;
-+	args[0].fd = -1;
-+}
++Key Features
++============
 +
-+static int fastrpc_prepare_args_release_process(struct fastrpc_invoke_context *ctx)
-+{
-+	struct drm_qda_fastrpc_invoke_args *args;
++*   **DRM accel Interface**: Exposes a standard character device node
++    (e.g., ``/dev/accel/accel0``) via the DRM accel subsystem.
++*   **FastRPC Protocol**: Implements the FastRPC protocol for communication
++    between the application processor and the DSP.
++*   **GEM Buffer Management**: Uses the DRM GEM interface for buffer
++    allocation, lifecycle management, and DMA-BUF import/export.
++*   **IOMMU Isolation**: Uses IOMMU context banks to enforce memory isolation
++    between different DSP user sessions.
++*   **Modular Design**: Clean separation between the core DRM logic, the
++    memory manager, and the RPMsg-based transport layer.
 +
-+	args = kzalloc_obj(*args);
-+	if (!args)
-+		return -ENOMEM;
++Architecture
++============
 +
-+	setup_single_arg(args, &ctx->remote_session_id, sizeof(ctx->remote_session_id));
-+	ctx->sc = FASTRPC_SCALARS(FASTRPC_RMID_INIT_RELEASE, 1, 0);
-+	ctx->args = args;
-+	ctx->handle = FASTRPC_INIT_HANDLE;
++The QDA driver consists of several functional blocks:
 +
-+	return 0;
-+}
++1.  **Core Driver (``qda_drv``)**: Manages device registration, file operations,
++    and DRM accel integration.
++2.  **Memory Manager (``qda_memory_manager``)**: A flexible memory management
++    layer that handles IOMMU context banks. It supports pluggable backends
++    (such as DMA-coherent) to adapt to different SoC memory architectures.
++3.  **GEM Subsystem**: Implements the DRM GEM interface for buffer management:
 +
-+static int fastrpc_prepare_args_init_create(struct fastrpc_invoke_context *ctx,
-+					    char __user *argp)
-+{
-+	struct drm_qda_init_create init;
-+	struct drm_qda_fastrpc_invoke_args *args;
-+	struct fastrpc_create_process_inbuf *inbuf;
-+	int err;
-+	u32 sc;
++    * **``qda_gem``**: Core GEM object management, including allocation, mmap
++      operations, and buffer lifecycle management.
++    * **``qda_prime``**: PRIME import functionality for DMA-BUF interoperability
++      with other kernel subsystems.
 +
-+	args = kcalloc(FASTRPC_CREATE_PROCESS_NARGS, sizeof(*args), GFP_KERNEL);
-+	if (!args)
-+		return -ENOMEM;
++4.  **Transport Layer (``qda_rpmsg``)**: Abstraction over the RPMsg framework
++    to handle low-level message passing with the DSP firmware.
++5.  **Compute Bus (``qda_compute_bus``)**: A custom virtual bus used to
++    enumerate and manage the specific compute context banks defined in the
++    device tree. The bus was introduced because IOMMU context banks (CBs) are
++    synthetic constructs — not real platform devices — making a platform driver
++    an incorrect abstraction for them. The earlier platform-driver approach also
++    had a race condition: device nodes were created before the RPMsg channel
++    resources were fully initialized, and because ``probe`` runs asynchronously,
++    applications could open a CB device and attempt to start a session before
++    the underlying transport was ready. The compute bus makes CB lifetime
++    explicitly subordinate to the parent QDA device, closing that window.
++6.  **FastRPC Core (``qda_fastrpc``)**: Implements the protocol logic for
++    marshalling arguments and handling remote invocations.
 +
-+	ctx->input_pages = kcalloc(1, sizeof(*ctx->input_pages), GFP_KERNEL);
-+	if (!ctx->input_pages) {
-+		err = -ENOMEM;
-+		goto err_free_args;
-+	}
++User-Space API
++==============
 +
-+	ctx->inbuf = kcalloc(1, sizeof(*inbuf), GFP_KERNEL);
-+	if (!ctx->inbuf) {
-+		err = -ENOMEM;
-+		goto err_free_input_pages;
-+	}
-+	inbuf = ctx->inbuf;
++The driver exposes a set of DRM-compliant IOCTLs:
 +
-+	memcpy(&init, argp, sizeof(init));
++*   ``DRM_IOCTL_QDA_QUERY``: Query DSP type (e.g., "cdsp", "adsp")
++    and capabilities.
++*   ``DRM_IOCTL_QDA_REMOTE_SESSION_CREATE``: Initialize a new process context
++    on the DSP.
++*   ``DRM_IOCTL_QDA_REMOTE_INVOKE``: Submit a remote method invocation (the
++    primary execution unit).
++*   ``DRM_IOCTL_QDA_GEM_CREATE``: Allocate a GEM buffer object for DSP usage.
++*   ``DRM_IOCTL_QDA_GEM_MMAP_OFFSET``: Retrieve mmap offsets for memory mapping.
++*   ``DRM_IOCTL_QDA_REMOTE_MAP`` / ``DRM_IOCTL_QDA_REMOTE_MUNMAP``: Map or unmap
++    buffers into the DSP's virtual address space. Each accepts a ``request``
++    field selecting between a legacy operation (``QDA_MAP_REQUEST_LEGACY`` /
++    ``QDA_MUNMAP_REQUEST_LEGACY``) and an attribute-based operation
++    (``QDA_MAP_REQUEST_ATTR`` / ``QDA_MUNMAP_REQUEST_ATTR``).
 +
-+	if (init.filelen > FASTRPC_INIT_FILELEN_MAX) {
-+		err = -EINVAL;
-+		goto err_free_inbuf;
-+	}
++Usage Example
++=============
 +
-+	/*
-+	 * Validate that the DMA-BUF fd is importable.  The fd itself is kept
-+	 * in init.filefd and forwarded to the DSP via setup_create_process_args().
-+	 */
-+	if (init.filelen && init.filefd > 0) {
-+		struct drm_gem_object *file_gem_obj;
++A typical lifecycle for a user-space application:
 +
-+		err = get_gem_obj_from_dmabuf_fd(ctx, init.filefd, &file_gem_obj);
-+		if (err) {
-+			err = -EINVAL;
-+			goto err_free_inbuf;
-+		}
-+		drm_gem_object_put(file_gem_obj);
-+	}
++1.  **Discovery**: Open ``/dev/accel/accel*`` and use
++    ``DRM_IOCTL_QDA_QUERY`` to identify the DSP domain served by that
++    device node.
++2.  **Initialization**: Call ``DRM_IOCTL_QDA_REMOTE_SESSION_CREATE`` to
++    establish a session and create a process context on the DSP.
++3.  **Memory**: Allocate buffers via ``DRM_IOCTL_QDA_GEM_CREATE`` or import
++    DMA-BUFs (PRIME fd) from other drivers using ``DRM_IOCTL_PRIME_FD_TO_HANDLE``.
++4.  **Execution**: Use ``DRM_IOCTL_QDA_REMOTE_INVOKE`` to pass arguments and
++    execute functions on the DSP.
++5.  **Cleanup**: Close file descriptors to automatically release resources and
++    detach the session.
 +
-+	inbuf->remote_session_id = ctx->remote_session_id;
-+	inbuf->namelen = strlen(current->comm) + 1;
-+	inbuf->filelen = init.filelen;
-+	inbuf->pageslen = 1;
-+	inbuf->attrs = init.attrs;
-+	inbuf->siglen = init.siglen;
++Internal Implementation
++=======================
 +
-+	setup_pages_from_gem_obj(ctx->init_mem_gem_obj, &ctx->input_pages[0]);
++Memory Management
++-----------------
++The driver's memory manager creates virtual "IOMMU devices" that map to
++hardware context banks. This allows the driver to manage multiple isolated
++address spaces. The implementation uses a DMA-coherent backend to ensure data consistency
++between the CPU and DSP without manual cache maintenance in most cases.
 +
-+	setup_create_process_args(args, inbuf, &init, ctx->input_pages);
++Debugging
++=========
++The driver includes extensive dynamic debug support. Enable it via the
++kernel's dynamic debug control:
 +
-+	sc = FASTRPC_SCALARS(FASTRPC_RMID_INIT_CREATE, 4, 0);
-+	if (init.attrs)
-+		sc = FASTRPC_SCALARS(FASTRPC_RMID_INIT_CREATE_ATTR, 4, 0);
-+	ctx->sc = sc;
-+	ctx->args = args;
-+	ctx->handle = FASTRPC_INIT_HANDLE;
++.. code-block:: bash
 +
-+	return 0;
++    echo "file drivers/accel/qda/* +p" > /sys/kernel/debug/dynamic_debug/control
 +
-+err_free_inbuf:
-+	kfree(ctx->inbuf);
-+	ctx->inbuf = NULL;
-+err_free_input_pages:
-+	kfree(ctx->input_pages);
-+	ctx->input_pages = NULL;
-+err_free_args:
-+	kfree(args);
-+	return err;
-+}
++Testing
++=======
++The QDA driver can be exercised using the ``fastrpc_test`` utility from the
++FastRPC userspace library. Run the test application:
 +
- static int fastrpc_prepare_args_invoke(struct fastrpc_invoke_context *ctx, char __user *argp)
- {
- 	struct drm_qda_invoke_args invoke_args;
-@@ -568,6 +700,14 @@ int qda_fastrpc_prepare_args(struct fastrpc_invoke_context *ctx, char __user *ar
- 	int err;
- 
- 	switch (ctx->type) {
-+	case FASTRPC_RMID_INIT_RELEASE:
-+		err = fastrpc_prepare_args_release_process(ctx);
-+		break;
-+	case FASTRPC_RMID_INIT_CREATE:
-+	case FASTRPC_RMID_INIT_CREATE_ATTR:
-+		ctx->pd = QDA_USER_PD;
-+		err = fastrpc_prepare_args_init_create(ctx, argp);
-+		break;
- 	case FASTRPC_RMID_INVOKE_DYNAMIC:
- 		err = fastrpc_prepare_args_invoke(ctx, argp);
- 		break;
-diff --git a/drivers/accel/qda/qda_fastrpc.h b/drivers/accel/qda/qda_fastrpc.h
-index ce77baeccfba..1c1236f9525e 100644
---- a/drivers/accel/qda/qda_fastrpc.h
-+++ b/drivers/accel/qda/qda_fastrpc.h
-@@ -127,6 +127,27 @@ struct fastrpc_invoke_buf {
- 	u32 pgidx;
- };
- 
-+/**
-+ * struct fastrpc_create_process_inbuf - Input buffer for process creation
-+ *
-+ * This structure defines the input buffer format for creating a new
-+ * process on the remote DSP.
-+ */
-+struct fastrpc_create_process_inbuf {
-+	/** @remote_session_id: Client identifier for the session */
-+	int remote_session_id;
-+	/** @namelen: Length of the process name string including NUL terminator */
-+	u32 namelen;
-+	/** @filelen: Length of the ELF shell file in bytes */
-+	u32 filelen;
-+	/** @pageslen: Number of physical page descriptors */
-+	u32 pageslen;
-+	/** @attrs: Process attribute flags */
-+	u32 attrs;
-+	/** @siglen: Length of the signature data in bytes */
-+	u32 siglen;
-+};
++.. code-block:: bash
 +
- /**
-  * struct fastrpc_msg - FastRPC wire message for remote invocations
-  *
-@@ -153,10 +174,6 @@ struct fastrpc_msg {
- 
- /**
-  * struct qda_msg - FastRPC message with kernel-internal bookkeeping
-- *
-- * The wire-format portion is kept in the embedded @fastrpc member (must
-- * be first) so that &qda_msg->fastrpc can be passed directly to
-- * rpmsg_send() without a copy.
-  */
- struct qda_msg {
- 	/**
-@@ -245,7 +262,7 @@ struct fastrpc_invoke_context {
- 	struct qda_gem_obj *msg_gem_obj;
- 	/** @file_priv: DRM file private data */
- 	struct drm_file *file_priv;
--	/** @init_mem_gem_obj: GEM object for protection domain init memory */
-+	/** @init_mem_gem_obj: GEM object for PD initialization memory */
- 	struct qda_gem_obj *init_mem_gem_obj;
- 	/** @req: Pointer to kernel-internal request buffer */
- 	void *req;
-@@ -256,11 +273,23 @@ struct fastrpc_invoke_context {
- };
- 
- /* Remote Method ID table - identifies initialization and control operations */
-+#define FASTRPC_RMID_INIT_RELEASE	1	/* Release DSP process */
-+#define FASTRPC_RMID_INIT_CREATE	6	/* Create DSP process */
-+#define FASTRPC_RMID_INIT_CREATE_ATTR	7	/* Create DSP process with attributes */
- #define FASTRPC_RMID_INVOKE_DYNAMIC	0xFFFFFFFF	/* Dynamic method invocation */
- 
- /* Common handle for initialization operations */
- #define FASTRPC_INIT_HANDLE		0x1
- 
-+/* Protection Domain (PD) identifiers */
-+#define QDA_ROOT_PD		(0)
-+#define QDA_USER_PD		(1)
++    fastrpc_test -d 3 -U 1 -t linux -a v68
 +
-+/* Number of arguments for process creation */
-+#define FASTRPC_CREATE_PROCESS_NARGS	6
-+/* Maximum initialization file size (4 MB) */
-+#define FASTRPC_INIT_FILELEN_MAX	(4 * 1024 * 1024)
++**Options**
 +
- void qda_fastrpc_context_free(struct kref *ref);
- struct fastrpc_invoke_context *qda_fastrpc_context_alloc(void);
- int qda_fastrpc_prepare_args(struct fastrpc_invoke_context *ctx, char __user *argp);
-diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
-index c81268c20b04..33f0a798ad13 100644
---- a/drivers/accel/qda/qda_ioctl.c
-+++ b/drivers/accel/qda/qda_ioctl.c
-@@ -109,6 +109,7 @@ static int fastrpc_invoke(int type, struct drm_device *dev, void *data,
- 	struct drm_gem_object *gem_obj;
- 	int err;
- 	size_t hdr_size;
-+	size_t initmem_size = FASTRPC_INIT_FILELEN_MAX;
- 
- 	ctx = qda_fastrpc_context_alloc();
- 	if (IS_ERR(ctx))
-@@ -124,6 +125,27 @@ static int fastrpc_invoke(int type, struct drm_device *dev, void *data,
- 	ctx->file_priv = file_priv;
- 	ctx->remote_session_id = qda_file_priv->remote_session_id;
- 
-+	if (type == FASTRPC_RMID_INIT_CREATE) {
-+		struct drm_gem_object *initmem_gem_obj;
++``-d domain``
++    Select the DSP domain to run on:
 +
-+		if (qda_file_priv->init_mem_gem_obj) {
-+			drm_gem_object_put(&qda_file_priv->init_mem_gem_obj->base);
-+			qda_file_priv->init_mem_gem_obj = NULL;
-+		}
++    * ``0`` — ADSP
++    * ``1`` — MDSP
++    * ``2`` — SDSP
++    * ``3`` — CDSP *(default on targets with CDSP)*
 +
-+		initmem_gem_obj = qda_gem_create_object(dev, qdev->iommu_mgr,
-+							initmem_size, file_priv);
-+		if (IS_ERR(initmem_gem_obj)) {
-+			err = PTR_ERR(initmem_gem_obj);
-+			goto err_context_free;
-+		}
++``-U unsigned_PD``
++    Select signed or unsigned protection domain:
 +
-+		ctx->init_mem_gem_obj = to_qda_gem_obj(initmem_gem_obj);
-+		qda_file_priv->init_mem_gem_obj = ctx->init_mem_gem_obj;
-+	} else if (type == FASTRPC_RMID_INIT_RELEASE) {
-+		ctx->init_mem_gem_obj = qda_file_priv->init_mem_gem_obj;
-+	}
++    * ``0`` — signed PD
++    * ``1`` — unsigned PD *(default)*
 +
- 	err = qda_fastrpc_prepare_args(ctx, (char __user *)data);
- 	if (err)
- 		goto err_context_free;
-@@ -161,11 +183,41 @@ static int fastrpc_invoke(int type, struct drm_device *dev, void *data,
- 	return 0;
- 
- err_context_free:
-+	if (type == FASTRPC_RMID_INIT_RELEASE && !err && qda_file_priv->init_mem_gem_obj) {
-+		drm_gem_object_put(&qda_file_priv->init_mem_gem_obj->base);
-+		qda_file_priv->init_mem_gem_obj = NULL;
-+	}
++``-t target``
++    Target platform: ``android`` or ``linux`` *(default: linux)*
 +
- 	fastrpc_context_put_id(ctx, qdev);
- 	kref_put(&ctx->refcount, qda_fastrpc_context_free);
- 	return err;
- }
- 
-+/**
-+ * qda_ioctl_init_create() - Create a DSP process
-+ * @dev: DRM device structure
-+ * @data: User-space data (struct drm_qda_init_create)
-+ * @file_priv: DRM file private data
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int qda_ioctl_init_create(struct drm_device *dev, void *data, struct drm_file *file_priv)
-+{
-+	return fastrpc_invoke(FASTRPC_RMID_INIT_CREATE, dev, data, file_priv);
-+}
-+
-+/**
-+ * qda_release_dsp_process() - Release DSP process resources for a file
-+ * @qdev: QDA device structure
-+ * @file_priv: DRM file private data
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int qda_release_dsp_process(struct qda_dev *qdev, struct drm_file *file_priv)
-+{
-+	return fastrpc_invoke(FASTRPC_RMID_INIT_RELEASE, &qdev->drm_dev, NULL, file_priv);
-+}
-+
- /**
-  * qda_ioctl_invoke() - Perform a dynamic FastRPC method invocation
-  * @dev: DRM device structure
-diff --git a/drivers/accel/qda/qda_ioctl.h b/drivers/accel/qda/qda_ioctl.h
-index 3bb9cfd98370..192565434363 100644
---- a/drivers/accel/qda/qda_ioctl.h
-+++ b/drivers/accel/qda/qda_ioctl.h
-@@ -9,6 +9,7 @@
- #include "qda_drv.h"
- 
- int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_priv);
-+int qda_ioctl_init_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_gem_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_invoke(struct drm_device *dev, void *data, struct drm_file *file_priv);
-diff --git a/include/uapi/drm/qda_accel.h b/include/uapi/drm/qda_accel.h
-index 72512213741f..711e2523a570 100644
---- a/include/uapi/drm/qda_accel.h
-+++ b/include/uapi/drm/qda_accel.h
-@@ -21,8 +21,9 @@ extern "C" {
- #define DRM_QDA_QUERY		0x00
- #define DRM_QDA_GEM_CREATE		0x01
- #define DRM_QDA_GEM_MMAP_OFFSET	0x02
--/* Command numbers 0x03-0x06 reserved for INIT_ATTACH, INIT_CREATE, MAP, MUNMAP */
--#define DRM_QDA_REMOTE_INVOKE		0x07
-+/* Command number 0x03 reserved for INIT_ATTACH; 0x05-0x06 reserved for MAP, MUNMAP */
-+#define DRM_QDA_REMOTE_SESSION_CREATE		0x04
-+#define DRM_QDA_REMOTE_INVOKE			0x07
- 
- /*
-  * QDA IOCTL definitions
-@@ -37,6 +38,9 @@ extern "C" {
- 					  struct drm_qda_gem_create)
- #define DRM_IOCTL_QDA_GEM_MMAP_OFFSET	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_GEM_MMAP_OFFSET, \
- 					  struct drm_qda_gem_mmap_offset)
-+#define DRM_IOCTL_QDA_REMOTE_SESSION_CREATE					\
-+	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_SESSION_CREATE,		\
-+		 struct drm_qda_init_create)
- #define DRM_IOCTL_QDA_REMOTE_INVOKE	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_INVOKE, \
- 					  struct drm_qda_invoke_args)
- 
-@@ -99,6 +103,30 @@ struct drm_qda_fastrpc_invoke_args {
- 	__u32 attr;
- };
- 
-+/**
-+ * struct drm_qda_init_create - Accelerator process initialization parameters
-+ * @filelen: Length of the ELF file in bytes
-+ * @filefd: DMA-BUF file descriptor containing the ELF file
-+ * @attrs: Process attributes flags
-+ * @siglen: Length of signature data in bytes
-+ * @file: Pointer to ELF file data if not using filefd
-+ *
-+ * This structure is used with DRM_IOCTL_QDA_INIT_CREATE to initialize
-+ * a new process on the accelerator. The process code is provided either
-+ * via a file descriptor (filefd, typically a GEM object) or a direct
-+ * pointer (file). Set file to 0 if using filefd.
-+ *
-+ * The attrs field contains bit flags for debug mode, privileged execution,
-+ * and other process attributes.
-+ */
-+struct drm_qda_init_create {
-+	__u32 filelen;
-+	__s32 filefd;
-+	__u32 attrs;
-+	__u32 siglen;
-+	__u64 file;
-+};
-+
- /**
-  * struct drm_qda_invoke_args - Dynamic FastRPC invocation parameters
-  * @handle: Remote handle to invoke on the DSP
++``-a arch_version``
++    DSP architecture version, e.g. ``v68``, ``v75`` *(default: v68)*
 
 -- 
 2.34.1
