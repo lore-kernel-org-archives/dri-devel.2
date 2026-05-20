@@ -4,137 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 485A2CD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6612CCD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:44:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D83410F098;
-	Wed, 20 May 2026 14:39:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9977110F094;
+	Wed, 20 May 2026 14:44:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XRRu2pFL";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zhf3v/vI";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Jk+SBRmX";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB1FF10F094
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:39:18 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64K9nmhc447958
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:39:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=CB8T1emnrevojF2cKkmEFlZH
- 3rH2mv4BWl9K76S5teM=; b=XRRu2pFLvV1i1L8d9IFf4YSdLLM7DnYroN6S1FbE
- ekhxTz9y9+dkXOqZUw9c0D09oWGluUQR6WGUaa+4Gj8JJmD7HmopXYXqk2cxtFw7
- 8klkfTI6OARW2LX+f20pga9a3HLhbiBxjYC2cnGqfkPM1iSzii2pslpji/gkf1vJ
- FoAJFYJahHb9FMydcPvUrSI/qD/vsvjaIrxbcKgZ+9+BeKWXZfbEE1y86ROOVNer
- nq3K8N7EGokJSVAKk2WedRvTEDAcsAbW7v9JonoMKPUnmVBr+N22q1KWXSOMue2q
- H8LMfEUncVb90kpUK+OxDGOVgM/Gk0xr8ObDg0FTKuGs3A==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9anrh2hk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:39:17 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id
- a1e0cc1a2514c-95d1b7487caso9849200241.2
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 07:39:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779287957; x=1779892757;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=CB8T1emnrevojF2cKkmEFlZH3rH2mv4BWl9K76S5teM=;
- b=Zhf3v/vILopkASMJqP688d8UsJJJpfKoj9mLtmKCqmHah9aLCi1F7XNjDeLfdn9zwz
- MmuoAjuI7VEZgz88TDC5oofctBA0vbnpI6lEJxgw5MG0oYtrpbGEi44491eueZwEkSWn
- 4uKyujFMYQP1hls4fQT4JJ22/5GOsUxED0EXEJ13WP/J95tvyvFXnZjBWnXWM7XcclUX
- PdgCcqImUnpjic2wkyx9Qcol8pa+sMkIuRs3TQLAtAp6WjM9wBWc7IVHCqbzFSwWmNXJ
- fHznVwfXG/15vG5becIrwtvdBolF1rdisj27t6HXEZkGZMyx3Z2t1n/p6c0dxISYnEPC
- QxuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779287957; x=1779892757;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CB8T1emnrevojF2cKkmEFlZH3rH2mv4BWl9K76S5teM=;
- b=BW+KpFFAR5/rU5d4RPOKzEfbVduSfzlbvA2Rdg6oZrdBxeyDwgVaNdZdIHGDYO9ZTx
- KQ6fJplvH2bQL0kE9OXj2heWsL1VnOqG/J0AGOX/5NjvwJReHUG5rbuWfs4+2idOpQmY
- YBtFIwronZxh/Dd441D9cCjGI4sf1d/Sqei5IqYA04YexN9ljNkSLGwoOwUKQadwePGZ
- 1xr7dcrrCg6TYcL4SEH9ilAX2ezj5qI73ZAQ+uZJ+II8MeJdqIUe5L5HQAKqNzLLQLWa
- M4ImZNqn03xpKeV9fkBdKqtcN5XQuRS7nM198AYd8YioIEWFnACReb4xOIJNu/9hAPJZ
- y+WA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/nN4WnsCZddQqhy2lmrZMrTTb5p1MkP8Pg1WZcIObDJlH7/gDOQClmrVmrQ+vdjAJ5nvmfYKgO/nY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzv/DYxlOTXRO45U1tjB+GfDvMIu6p6PFf2diSSW0IweYY4zIRU
- vs0hevrZJTXk86JA5Sox5aAC9FHqd0Z5dPXet5drq0uVtG3Utgvl8lAgBx4Z9BVMjW8zncda5Tm
- hc0YKRUDnHEo4GKpJlH5R7mAapvRUXJUWF0fVduIwcFcK2ArjuHTv/EJlqPEV1u3hB4trhtI=
-X-Gm-Gg: Acq92OGczlzVYVyFyO3uTgduot0spMEvqF6MjyCXPFIiYfczse925iUBknHAzoSj7Wn
- eJGeT+PcKHM9XxDRS8cHEDMkLZ7vuXDs6ffw/o85UYRXVXpa4G0YDttIzrnhqG6XACpAGLVEfpS
- 0m/OQeh0Z3M6hxiYS2wmODRoFGXQEz83q/ONGB1YUnvwGUCYaKLc8ycofp/XFNJQEH3x7KDp8u5
- E4WrgQzqebdwPjYidckPcFwl5slgejOHmWleiFWmhzU16R3wSlCWxl9jw07/RhJzRdVFTWF8AJh
- ysDmDz7lCZrr2fa/zgx/i5PtFwByyCK0XhBb4t1GpQgT6K5jFW4uSdnWRdjv/nQnj5/NtJmNUdx
- 325sr/9q19E7vXVbRXP5tp0W9JWbUFyZAbfzt2UClBldEltW8f0iMQA8tG3RGp1HX55qDBZIf3v
- E6mXke+LyTHRRxAQzmFjLkpAP4P9rskLw/I70=
-X-Received: by 2002:a05:6122:e149:b0:56b:9b7b:83e7 with SMTP id
- 71dfb90a1353d-5760bfc839dmr14426077e0c.7.1779287957251; 
- Wed, 20 May 2026 07:39:17 -0700 (PDT)
-X-Received: by 2002:a05:6122:e149:b0:56b:9b7b:83e7 with SMTP id
- 71dfb90a1353d-5760bfc839dmr14426011e0c.7.1779287956748; 
- Wed, 20 May 2026 07:39:16 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a90f10c8b2sm4997493e87.17.2026.05.20.07.39.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 07:39:15 -0700 (PDT)
-Date: Wed, 20 May 2026 17:39:13 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 19/29] drm/msm/adreno: use version ranges in A8xx UBWC
- code
-Message-ID: <osxjtbbpymn32jp4ntntzucelpzmyo6wqe7xy3kpvmekq2khln@thtrwk3z4vvh>
-References: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
- <20260507-ubwc-rework-v4-19-c19593d20c1d@oss.qualcomm.com>
- <28dd74fb-ebdc-438c-8624-6b8fa0657e40@oss.qualcomm.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9F8310F094
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:44:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779288257;
+ bh=QmwuzewkVbLg4n5w3vw+KAhs4FYKjhey77KymFbvj/g=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Jk+SBRmXKrd5OZNxuf19CskKl3KYqJdl/mLtKpaGjYrK/gml8sp9nI1RH+M1kmaxt
+ +VfYm2nX0mJNN1yMviCUr5zKJidA5IV+XQAJTIbzQYt9/UMAwJJ9pPm7qn+s9LqljO
+ 8dgatVbHLFFjvwosMj8910BF8Msh2clj/owUkeguYt9aATO80hvY9rmR2pN86BaVZu
+ R97cdl9yI+ex4sbdhs8BF6dO1nriOvZPCz1yoCto1uUxXrJxcm8yPVRGCr7nHT5/GL
+ g5o87/Uox7PVLEd+hJZIWCn+HfuQmiDc4nJQG6oJUC7X94bTP80DerMvkGdpHk9OaF
+ IPeQVHQrRfb8g==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B5C1917E0504;
+ Wed, 20 May 2026 16:44:16 +0200 (CEST)
+Date: Wed, 20 May 2026 16:44:12 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Igor Torrente <igor.torrente@collabora.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, loic.molinari@collabora.com,
+ willy@infradead.org, frank.binns@imgtec.com, matt.coster@imgtec.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+Subject: Re: [PATCH v3 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Message-ID: <20260520164412.3a73d85a@fedora>
+In-Reply-To: <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
+References: <20260209133241.238813-1-tzimmermann@suse.de>
+ <20260209133241.238813-6-tzimmermann@suse.de>
+ <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <28dd74fb-ebdc-438c-8624-6b8fa0657e40@oss.qualcomm.com>
-X-Proofpoint-GUID: 6X6rUdyZ4FiFn8C9mNYIBnfhkNXPYZQ-
-X-Proofpoint-ORIG-GUID: 6X6rUdyZ4FiFn8C9mNYIBnfhkNXPYZQ-
-X-Authority-Analysis: v=2.4 cv=UuJT8ewB c=1 sm=1 tr=0 ts=6a0dc795 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=KmzWl_YmvbXQvTfoh20A:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE0MiBTYWx0ZWRfX11wQQNgbmylU
- r2Enu9rD5/6JUebCNicOHkz7q1EXRY8Zf4l1zyAHzqnDu2/2x5UVUzJYTHTPAxvgSUXcMc5K5ZG
- EIAlFj82XZlGgkBSG+5Emp18coCfwKS+HxvEAHjgKyIHk4A4XE7vupGx1iJHh1N2zyYbvywDL1G
- LJ1tkmzQgPA0vj4g3mGixvvSfDaq2RycEmve0iItRxrmwb5nor1QSwV73PwS0J1DdoNTRRw3WXK
- pojELgRpr2uEx+eTOTawO6dBDbeynZX2a1eC9iSuiaxl3tBzWyso/nWaN48o9qyouPClBy5M5sO
- AsRNtjuaN4at0eyQ6F05bhB2EXiRJwxlWQlforSAO2w2ofq4R5GTbNgJgqHQK74dWq+0M8iDi20
- HirXGJW/793OVSB8tQu4r4+2qf7J0laNUS7+FmetWtquJzwOzYJ7tRC4txvTy2wlg413YXKVutl
- zfbu+q2ujo8VJOME+kg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605200142
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,52 +67,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 08, 2026 at 12:06:09PM +0200, Konrad Dybcio wrote:
-> On 5/7/26 3:03 PM, Dmitry Baryshkov wrote:
-> > In order to simplify handling of UBWC minor revisions (like 3.1 or 4.3)
-> > use version ranges instead of a case switch.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >  drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 32 +++++++++++++++-----------------
-> >  1 file changed, 15 insertions(+), 17 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> > index 5c73a9ebb22b..29d559fe4683 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> > @@ -286,26 +286,24 @@ static void a8xx_set_ubwc_config(struct msm_gpu *gpu)
-> >  	u32 hbb, hbb_hi, hbb_lo, mode;
-> >  	u8 uavflagprd_inv = 2;
-> >  
-> > -	switch (ubwc_version) {
-> > -	case UBWC_6_0:
-> > +	if (ubwc_version > UBWC_6_0)
-> > +		dev_err(&gpu->pdev->dev, "Unknown UBWC version: 0x%x\n", ubwc_version);
-> > +
-> > +	if (ubwc_version == UBWC_6_0)
-> >  		yuvnotcomptofc = true;
-> > -		rgb565_predicator = true;
-> > -		break;
-> > -	case UBWC_5_0:
-> > -		rgb565_predicator = true;
-> > -		break;
-> > -	case UBWC_4_0:
-> > -		rgb565_predicator = true;
-> > -		fp16compoptdis = true;
-> > +
-> > +	if (ubwc_version < UBWC_5_0 &&
-> > +	    ubwc_version >= UBWC_4_0)
-> >  		rgba8888_lossless = true;
-> > -		break;
-> > -	case UBWC_3_0:
-> > +
-> > +	if (ubwc_version < UBWC_4_3)
-> 
-> < 4.3 specifically, or if (4.x)?
+On Wed, 20 May 2026 10:11:03 -0300
+Igor Torrente <igor.torrente@collabora.com> wrote:
 
-4.3 as far as I know.
+> On 2/9/26 10:27, Thomas Zimmermann wrote:
+> > Invoke folio_mark_accessed() in mmap page faults to add the folio to
+> > the memory manager's LRU list. Userspace invokes mmap to get the memory
+> > for software rendering. Compositors do the same when creating the final
+> > on-screen image, so keeping the pages in LRU makes sense. Avoids paging
+> > out graphics buffers when under memory pressure.
+> >
+> > In pfn_mkwrite, further invoke the folio_mark_dirty() to add the folio
+> > for writeback should the underlying file be paged out from system memor=
+y.
+> > This rarely happens in practice, yet it would corrupt the buffer conten=
+t.
+> >
+> > This has little effect on a system's hardware-accelerated rendering, wh=
+ich
+> > only mmaps for an initial setup of textures, meshes, shaders, etc.
+> >
+> > v3:
+> > - rewrite for VM_PFNMAP
+> > v2:
+> > - adapt to changes in drm_gem_shmem_try_mmap_pmd()
+> >
+> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> =20
+>=20
+> Hi Thomas,
+>=20
+> I have and Radxa ROCK 5B+ with Mali-G610 GPU and I'm developing the VDRM=
+=20
+> (native context) driver
+> for panthor.ko.
+>=20
+> Recently I update my kernel from 7.0 to the 7.1-rc3, and qemu started=20
+> freezing with KVM error below
+> when running any graphical application with Venus or Panthor VDRM. For=20
+> some reason Virgl is not affected.
+>=20
+> ```
+> error: kvm run failed Bad address
+> PC=3D0000ffffb4a86d70 X00=3D0000ffffb4be5000 X01=3D0000ffffb2279bb0
+> X02=3D0000000000000600 X03=3D0000ffffb4be5000 X04=3D0000ffffb227a1b0
+> X05=3D0000ffffb4be5600 X06=3D0000000000000001 X07=3D0000aaaaf384fd80
+> X08=3Ddcc58d0daf897753 X09=3D0000000000000002 X10=3D0000ffffb4b96758
+> X11=3D000000002533f84b X12=3D0000000000001060 X13=3D0000000000000000
+> X14=3D0000000000000000 X15=3D0000000000000010 X16=3D0000ffffb3880128
+> X17=3D0000ffffb4a86c80 X18=3D0000000000000000 X19=3D0000aaaaf384f8a0
+> X20=3D0000aaaaf37cec80 X21=3D0000aaaaf37c7210 X22=3D0000aaaaf37c9550
+> X23=3D0000aaaaf37c74e0 X24=3D0000ffffb3b47fc8 X25=3D0000ffffb3b47fc8
+> X26=3D0000ffffb3b43c78 X27=3D0000aaaaf37e1840 X28=3D0000aaaaf37cee50
+> X29=3D0000ffffecbf1a60 X30=3D0000ffffb364b530=C2=A0 SP=3D0000ffffecbf1a60
+> PSTATE=3D0000000020001000 --C- EL0t
+> ```
+>=20
+> After bisecting I reach to your commit.
+>=20
+> ```
+> 28e3918179aa75cfd4490b3b0281496ed91d829a=C2=A0 drm/gem-shmem:
+> Track folio accessed/dirty status in mmap
+> ```
+>=20
+> It still reproducible in the 7.1-rc4 (ab5fce87a778).
+>=20
+> Appling the following patch (Boris suggestion) fixes the issue for me.
+>=20
+> ```
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c=20
+> b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 545933c7f712..1e036f69c1ce 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -696,7 +696,7 @@ const struct vm_operations_struct=20
+> drm_gem_shmem_vm_ops =3D {
+>  =C2=A0#endif
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 .open =3D drm_gem_shmem_vm_open,
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 .close =3D drm_gem_shmem_vm_close,
+> -=C2=A0 =C2=A0 =C2=A0 =C2=A0.pfn_mkwrite =3D drm_gem_shmem_pfn_mkwrite,
+> +//=C2=A0 =C2=A0 =C2=A0.pfn_mkwrite =3D drm_gem_shmem_pfn_mkwrite,
+>  =C2=A0};
+>  =C2=A0EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
+> ```
+>=20
+> I'm not familiar with the drm_gem, code so I don't any more insightful=20
+> information
+> to share.=C2=A0 But hopefully we can find a better fix for this.
 
--- 
-With best wishes
-Dmitry
+Hm, given how close we are from the end of the release cycle, it might
+be safer to revert those .pfn_mkwrite changes and consider them again
+once all the details have been sorted out (it's the second time around
+we hit issues on this patch, and the lack of reviews from MM devs is
+scaring me bit to be honest).
+
+Thomas, any opinion?
+
