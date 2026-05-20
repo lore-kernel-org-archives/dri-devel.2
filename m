@@ -4,179 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C44DCD5BA4
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:51:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21070CD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 19:38:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B52510F140;
-	Wed, 20 May 2026 18:51:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F84E10E15E;
+	Wed, 20 May 2026 19:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="r7zWBCeK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MyKqtiok";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YL5HqWV5";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27EF610F140
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:51:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1779303083; x=1779907883; i=deller@gmx.de;
- bh=G6xkkVjlI6ZoUREp2X+ZLC+Szjc4sFX7UNAAEsOkTGc=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=r7zWBCeKGp+39WUCmnUZfw/M3F+gfZyuy9/ng3aY/KBqYtloV5JZrEl6EPhldXER
- YtgVUylC2N+LTUse2Kz7FwNOctisUjQ4RDUoz3sM5T2rV5iouKcuuxC+LO3n8QKK8
- bhqOLnmJT/XPY2qLYWByvmrK/fOU/nkkPofR234vSB1aFLP0+rKkGTUx4h12xAz82
- 706pvAZmnbnFZJ04DZxPQHht7g/nvezSNn2kO+v314kGGU+KLUnImCxkv74Blu3PR
- 03DniOFeBL/BAMg5oHvw6jkFDWXOoQwcn63gJCnY4cNq5AQI6oD1FE4LX8nXunmlN
- I70xAASbk2hp84+1bw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MGyxX-1wckR60HOV-00BhCl; Wed, 20
- May 2026 20:51:23 +0200
-Message-ID: <0ce59eaf-1124-48c5-b812-c8e6b58e01d0@gmx.de>
-Date: Wed, 20 May 2026 20:51:21 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C376810E15E
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:38:21 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64KDXbLf1797936
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:38:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 5LFMGD840PvGCPwkDPrhg8qGWW+uSOyb0Wppoq8dMT0=; b=MyKqtiok2N+ELTCL
+ /G41MzOXI5sSKnKAYPPi9+YEzNMQC6FtVm2VIwSGycBLu4m7SjicOj1IuDOIrbyD
+ QRbjYWeqOJtbIZGoaKlrKSqEIYQ+v2tN0Cg9rTRzHKz8ndTRxmQ6Rk0rI0uYIcdi
+ H9zTeayd3WGe2hzxdv3fnxadwWvWCKjC1q7kJEX2sZwVQJCnIjA/gh5thdHWl2YM
+ rLATqRcQtaRJlc9pUD+Pm3K+erSBRM2zoEjJBNJJW7tdOETVMMPrMIOO3mO/NFTy
+ GYZm8rduLfpyO2P4yjWRjr9CWXHjJwdRMGg6mOJgCpgjxiTxJPs4i+YN+2bTH+CQ
+ kY4DXA==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9dxu1ghn-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:38:21 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-c70f19f0f37so2760638a12.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 12:38:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779305900; x=1779910700;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=5LFMGD840PvGCPwkDPrhg8qGWW+uSOyb0Wppoq8dMT0=;
+ b=YL5HqWV5ZGIHOfN1dx9TIHe1Q2wDrmDVeOtn1gsP0wGZckUeKZT3aQGNWzzVhjIFjE
+ 2oXGlYPvyH/px503BqGmr52oZAX0esKd/1W2nN/PIQyryPpDBQ4REXSIsr3nQZ4zKUYZ
+ /iS9JSLRPwCcumry+ujG2SzS1NbToMWYmztUcxisjMaqh5ahI8/d2x5TikV+rx4mX/l9
+ yDSMyPz1/qsXmdoP0r049FUS1jacEkQaU1H1hE6jgFT5lX1+NPWFoWwPRWkCitK1Bz0S
+ 0SnrOMgL25BDfAOpb/Bk2ppJa26kNw6WQf/c7ZrLw/oQ+olZUS2QnLPbFWE1IYDgqG8z
+ 9PfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779305900; x=1779910700;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5LFMGD840PvGCPwkDPrhg8qGWW+uSOyb0Wppoq8dMT0=;
+ b=h6GIHkPh7OSM7Nn8WvZR5omJNDkh06YW1yNIOJ11tmCzt/KP78ScfFSUU0fgJjAyDY
+ CYQtncrS+SUdNxyHNc3Pko7w+mZiB3RIeztI5Xkh3lDnglLezJRAr1bSPs+xCiA+S9Be
+ jmUP55Nfn6m2JApr/xTZ9i8SG99htzD55G1CQ5lQBRR97TLNYG9cRlKi0ly6/Y2rgCBg
+ wNYbnmMWnrrl/Y6tL6BNIxP8EjYI5nnTyrilv0PS8+Zltd2a1SirPR8Flt+A8ZHTuLP+
+ eZSKEAHY+srTWVu5zc5t7qBAwIWMG3AikP+MIMO6cL3yr+fP7eW86lm/OOQ1cnOggUSp
+ V/jg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+aUZveS0AwsIXRVEO+OAwN4LV6ZI7v03f9+a4kzT0M52jTcgDesA0Osnf1vSbLB3JDFPFltfw7/KE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0Kx9NAZet1K5AkprqYqgNEyY8Ixab9Mt2NQd9dzbegFmKLC8A
+ ZiZG9tk7/Rc2MyNBeCbG9xnyjg20d25Q8W/MT0x2DClZuyOvkpBwhEJZJEFaxTINB+BcA/4Ek0t
+ vv6/0TlWFOoYrAm8nGn3Ps4GbyVUo5U7ezqjQoEPxgr1yc/4EcaNozoNC4+K7K5mAqhBsyN8=
+X-Gm-Gg: Acq92OHe3aajKj/Twvinbm7vGVQIbxReFBS3RNoTPwZOb5KGOSHrOHd4IJZbWN7C+4q
+ OkimwsFeJEe++txaGf+YBpiHZTd6f543yyLAGk0/xPxcypbUTTskcvylwa9aLLydfvBiEYFZDEH
+ AIfg+QbxagIg54tLR3i+ihpbS8YREGyJT9iLc5r4cWm8GACeDoQzUlCALGgbzZ2umU+xK4LaqDq
+ 0HspEFmrWm/jwpz5lMwmFxKa7Xrwr//DtVn1utmfoGHCmn9ZjW57o5TZYtbDRTQnHfLktwejaW9
+ kDPvd7tI7NM8/i2rqgV/wVQhzegw3Z2eoaICJowDUXDzqDM3W9gvb4Bji4PG8Pbt/lcbRfQywuH
+ YOKB661n0pgtWxNFp8uSzALJIfz7yp2ezHq2ehYFkcWI7aZ9EGYu4R5IfKaC4ZIsd2UMF2lgTif
+ 6n360WJH51
+X-Received: by 2002:a05:6a00:a10:b0:835:36f5:17c9 with SMTP id
+ d2e1a72fcca58-8414864d999mr613731b3a.2.1779305900543; 
+ Wed, 20 May 2026 12:38:20 -0700 (PDT)
+X-Received: by 2002:a05:6a00:a10:b0:835:36f5:17c9 with SMTP id
+ d2e1a72fcca58-8414864d999mr613692b3a.2.1779305900001; 
+ Wed, 20 May 2026 12:38:20 -0700 (PDT)
+Received: from ?IPV6:2401:4900:9074:ce4a:59fb:b330:7e10:e1ac?
+ ([2401:4900:9074:ce4a:59fb:b330:7e10:e1ac])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-83f19f7ccc7sm26114065b3a.58.2026.05.20.12.38.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 May 2026 12:38:19 -0700 (PDT)
+Message-ID: <01b424f6-6617-442a-a77f-9b7a8472c447@oss.qualcomm.com>
+Date: Thu, 21 May 2026 01:08:06 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] fbdev: Wrap user-invoked calls to fb_set_var() in
- helper
-To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
- airlied@gmail.com, lukas@wunner.de, maddy@linux.ibm.com, mpe@ellerman.id.au,
- npiggin@gmail.com, chleroy@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-References: <20260520160744.130841-1-tzimmermann@suse.de>
- <20260520160744.130841-2-tzimmermann@suse.de>
+Subject: Re: [PATCH RFC v6 0/7] Add support for Adreno 810 GPU
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Alexander Koskovich <akoskovich@pm.me>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Luca Weiss
+ <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
+ <3dc009dc-8f36-4735-b849-d952fb626cf4@oss.qualcomm.com>
+ <3vzdlxnee4w6mur5qiyk2rhewlugswxarhevv7l4zo47qnnqah@45oxl7rjqawv>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260520160744.130841-2-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:jm03I80AqYIndy30iKmD9r+Zdl1AZUWrFuuaTiPwTD5+T9Gv6Fp
- /bgCo74En7A+U1Usqe61DP4SHiqLU5GSdGdPJpFdscsyY0a7H0bwughL+L7yshfQhbzXL4k
- v9bYMVNzG6Y9PoDfQyGPAZp3ptZ80KHOPO29ALVLOqE4eQBhrOklUJHZtgKuhxZjp+s1gRs
- XbX9Nta0usANYD4JkI3Ww==
-UI-OutboundReport: notjunk:1;M01:P0:pXlyvPsMoGE=;nHBJTa4rgW/xeZm6vwWWsDE2bpl
- 7E3b7AZB1C39nhXTp65VHDOMPQ367SQG2bnR3mS5YDA/jVeGtI11rlR6/yUMvh7OYUJSqbA1S
- R7go4nX+7PcOpiI2gjzri+s5QQdFZA4p5k73e3QaDUO1lZB3rbyuJ3k8hKXLjAYJ2QyrCphYS
- 8EE5AJwsP+HEt9L8bVSv2WdohtqZ+LepGGFPDcz+DU/DJx51/xWXU4yg2FSkY24XpodtLLfJh
- zCUDpYWcPpgdttjFoAfsm7FFIFZohkUCOazaSGV9FpC//mVaRSKb6LuTz1/d6cQr+RuSd5w4+
- IU1P4gYyaj3pys4UaTxyrPx497z/wJom0hjS9poUpAbIft4oXd4366ExEFQ6ufW0a7q5V5Kjn
- 7vlWILmf88pjcFj7utYbBwRYz1GcY6Hblr+ISHS3L97ZwQLOEd4+rJ+A/1xS89Up8BF9GM9IO
- 4vT+9MjoC9U2Pw6xrHDlURNy3VnvCJkp8X6aepSexrdv2o8E76KZcZI9DYYoihtP1P2LMv57p
- BvMB18gWeqNXBYi1mrFqPKAmiIhfpwT7RMWd95iz6L9Suj4Eb3BAWI17IyZS8LVTKFGb3Vnr3
- VplIElgFf1UAfeGASHZwOfR+yxqz6kKNj8/TUuk8GEcxg8OKgsTAY0NIUanc1ppBEKoYWC3EN
- jJggArR7xtaIdwlc6UGD8wvtcJfsxdkEn5cmpGDN5a9j/sR3SpKSoBEFUeb3oOrIE5ZHqYSmx
- zvAKitNXKBFJ6EULMaNHn0PpRAOuZowRwxVQXfHauJJN5xBMdVTuZOrAS1tskEoVPiAQ7A3fl
- OBvqAAILwQot22TsT/uIoxI9Th6co//K7giAnpAOGl/kZkOdC92cmqKR0Pu+jsqO8c1CCEYRI
- xhqrfCD6+i4OFUFOjEb39d1oID5dHMfGrzXBvRzfNeVmpC2kSZakw81RAkrHLA+IzoDXflHIs
- 3ZwUiRWpeDVaRF0jtHVQyGyr0TzousO3xql4OqYx8z4lE3dREMQeXWIqmqZ/HOr9n3+U4832s
- tPUvITJ9YCFr3z45Z8zJrGIBlZQj0oR/0ktkldle+ae3blQrTQ0jAUq835/ReAYJjG4Xm/aUN
- UuocPDYsClYQGAybDCSUTITl512z8W9kaNpMfD74pN0WhJNsqfaSYhd0ANfJVmQj/rqpstqna
- tMMpG9zFA4oPZtDQd0VUE3GcV0JgZWcrXr7KvSglaQPhbsTPNa9nygJgAJbaJINhTNASfjonF
- AXBlp/tBOXSVy58TsX6HmoAV1YDuwAgHNRRFfyA0A8FawY+7xYoo9T78lLpDIsuKMWy9VpJRZ
- QGWluwxbg1xbpQV2CCzwPFLz1CacrH+qZgIe0QgoG5DarAknBBnK14fekeJyKxEbPbom4DRBU
- ODGGj/E1WvNoO3HL/qI3MSYMQRVxGjCkTdtMnsaErCmZuubmCYBGdGVqRk+y8mYmuoYwgmmM2
- MgO7vhVuuEyESfm2xPH7/4QyY4duDvvqalYDIeegDsTwksetDi2gYnhPxKcRNSKyOuepaIwHn
- BiLBHLZGmSVRoF93pwRxxYC6cBrpU/EnbcMqgD8mSSnzGYNB1PA9jcjLL6pbzizSa2u4iSW1V
- Kvpb6Hdl+lK2pA+mAN2MAjLvKUP0ZW9b8V68Pd0mzDOMaBtoKgF/xBD39p7iydZcj4gAINxKT
- Kuw9QeWW9iDHtUIW+y2Ttr+eVIu+k758TnzXkoDqro2/K9KvPniIzk4pqVWFhxhOQgikx1+DT
- eXW95qtXHN5zQNqSybvSn1QCGE+Iv3bDgDB468e3QdGBfYaZAERNIHKxmMNBKWkWCUDNdMi1Z
- XgTBxTsfmfQjvb+sYikmWWcGh0ulboXfqMv1O0XL8zYVevqWqn3h1AN1RuC6xemlNOJQB2GuU
- GhgFB5gJl5svFWGpPeCGWxucoZ5rAGvLJu811QisUL0JEb5zEcFjl3zmBkVxWGX2Bwbp1/Oub
- RdGRyHIUT7z24gaI7Jgb4imh7evAuQHh1qlhkrlQ7b3z63LWirZGJ9CL3gV6P/lAOMZ/TcXHl
- wEMiGlAhHMcxhBcQx0VnTF/ukbFwbtOzKIICKITQ8Vvs5cWacpzivqfoLqu9vWsovT/oGOU00
- LL9vogcecoujGDSHfHeKYKGc81RC35WaQ1Ud32gS57rR3cEYKPhYyfyMiUgJdGUqA8TyAfO6O
- i3EcVkhsxcXfSmVJ/pQCuMx1alXrqoifCVBpiijBbaqcZfz6O6ZSLEc8DHiTS4zsWysXzGQle
- dXo4uolr6d89PoM66+dF37ssQlYv6m4A7iAFFyQti23pjrZYFiDNV5PTxeblgIqEj6qq9yn1n
- 1WL2nBgV8MoE2pFACbdSkX915x4Bd/9LN5FptC8sqgMLt+7wi1HJLlp7WPqqbDH1ksb+9AsTO
- zOVkajYEyi22rFxUL6jB0qKCXL+oD3nyyMQJJuCMMG+WJ2/jgtOKJs4+eO1TldztCDRosd9AM
- eIdf0/sgVq0gm5Vay+6KsUoWRenSgzmIOsUkeZnMkYlQq49PLDKzdr4PedPKl+YoRlwfDXr31
- vU7X8DK/1LfJbCvYgfpqWqymzPLa9p475+OSpD43K+3bdcR/5e29EzS3mqTqtEXa1vCL+jIVa
- d6baxnjJ1jFOrAnCOtn8YdDWehyVOcF31V/3IvWokrBaACRIT1GfdgcvY6tIPkpPW73lSNQTU
- 47a60dQYol6H6LCXoaDAAfzWEXiP0mRDQ0kCjMkPmSV6rvscogVFTpEXDmN1AKvf6sfIPf0S/
- wnEs3ZZFLEdnDHtqyVTLffgnox+rKQJmdQ1qV8y+FpT9+AC3oOm2N7mhwcE6tBCE05veYa385
- SqN6Zc5ie0W/Vx/ugrfBrGiI3hXat+7fmYWcCsVlvZw9/IdluhKzjLwgI+D1y4iShaJZGr+Y7
- No7ou6ExlOoGvLRx+1UNXmUzDrqxAamda291rSePvVwkD3cDCersd5Klc0ZtKYq5zB29LfjMr
- CLLXxXb3onRdpaOE1iT46r95hBEREBEECApktS0+Ok3nBWOxneHHWEy5FfUM0lJbSkXgdQCOC
- EqCRv/biUyhbhcNmbl8hu6+rMw08IB4n/0QFLL0qT/CvNzrHWw72X7fhnCMWg/5mA7I85hJEW
- AuermkWSL7b5a3qoLJ784aQmDJr5NdWF8P44QX1Cj9PX3rDQqV7rNsoac6kWTyqlvRX2h+JA3
- nwkIGNP0zUhePzZTVgisr7WDDCoDtTYazaPwwDln4f2gsuY0fxVq262gXSBTHtwBTk/wuyYYs
- Jv5wI37fyZv4vP1yjABY7qR9RLIkXWi7Tay3WCWoXjUGjv+jH6Q6yUg8Qz8ku5dHwoPRKbdBr
- OuYqHZ3qDD19hdGs2dUir89RHlgE1WU+jDhQ/rYD5gc7z6xsQEthiaTHedC34wg3nYXnCXVVa
- ohUfbsMZfNhAngHrKpOzQwYcB6ApVnjnlzVCh5uHTZ/khHBCk9SVDY0Fsi71id3+aBOSPPVJh
- Fu3VKYtezDLBb27p766Iu1KMm3LrOQr8blQ7FPRUYM6mEzIfasP77j/MXJmsl+kO+M+qxxptv
- zLjVEHv1KJTNsgg1taPKWlFwuyyxd4TXq87lLYdgrzXTJgrndD20eY2RfxeA2SpBmQi+//My+
- 5bBR0MF0lYCacnozCeTU663EnvLOxTSz60uLgsUv2ENTMV/mupm8au9GELlMtf/AM64fpjpH5
- p8xCnUcI/lS3dHrK9mFzzRB8wqVefLZRmwlNdbpmlnoqqS4B8Hkaj/YwccIOgxicGC9fC4Tqb
- yjDLEQNSa+7HjFj8yMBO+B2tGp1z9Xab9ESPpwfWqiKwFAGtXQJGsmDrwKYLbcDIWRqNpnfPm
- pDkrZ4qe4HjIsbXPYHoXatK/sYEbvunwUiIeRCSwnL8QxI3geBSblpnXGObpQiA40PSI6lKaA
- ShdSoTicl1caHlK5q/Nx/+grPijYFYY4yI0A35OsqtKjhvhzdY2GZo/ivXTOt1LvF65p9s5/z
- +nzrUKKq3LYqrqia8VHRX6cCJpFoUKTRyQf8oiisEhBjYJlrjiVXGuDmNCqm9pq/js3TaJ5sG
- ylWejyZwSebW14pi0upE8+x+nGZq7Y+7E4zI5XgYtwYV6wZwacGZ7aL8qITBcLdWd4YHdy6qg
- 0b9GEFmDFMiykZBkAQTGI3O8zO36FLXnF+adR7EPPrQvZuIFMop01f6srvlFzJWUayWtJEyhH
- Typh9ON2Yt743hCk7cixj1+d+EzlOWVGjhh5QzG6QxQCxmtPwGDsaI/N/NHkUOHbv2UX7dmF8
- X7UELPzTGfeFpSrbmRqNDQjUc2Y622Z1dwp+rTDDHb3tHQqMAF3UaJvM877bUhrf3cv/rRSwK
- gqQ4tuA2pMuetqgJsk5gc+MrrArUTeE0sE26buumNIApg9TeZo/9FAdyWsBaYZZKX0mgGT0zS
- tLSv2ihf0mVamHDhi3/otMpOuejSKDmzaFcwmIhYOizV29Hl3xlsT/7jh1rtqXFIflFMPQ9vI
- ghRRI4JRGSX9urulqGNnXyMCK/NStk9gReAkVJsR22VZPzPzcwC/GFToV3q1ktYA0ZMyPfYgH
- Kw9hDqkwzVE1OpVs3xkwdnHd5Icq1FC2Co72+z5t8owdRAhbI+pBNLIcEs4UGFzKQlWyxvL4d
- g7cASQzVJ/ATSeVjcvnSCowvjM2GeroW2cvn1dQl+hyX0l1Dd2jQB5yWyk89iZPo3E14yadIY
- Sp/xoKM04l0FwiiYFB7J4JW3Th8nGgTEL8zo9WIIF+KTeF+pXnkgfTeWDtAA1RwczOw/eSCFv
- 3moiGDZSPTT/t1aMBNmqL7ssXESX0ASQTLva3g+Ploxp6ROmPQi7cn1nHwCWaE0gDp1apZmuJ
- M2mMPtbm5Esb8uKI7+xM/lvEdjc4F1/Bl/jUX1H/e0UrLC1P8XShdOtL1Qo/ajKn9sRbqpKfX
- PfgpnOzc0g4I8WoqhnadfpRW2Yxx5ValEjuX3XXIMp+Tm7Cp+MzWFrUNRs2iXvHMCLBXUq9NR
- XfE9MR53tCH6MzGJ/AK/3wUBlqLViuXjRYHgkXDY09KE97zbDh8OAfgvdvR8eXC/X4DOC9DT6
- wPhuKnPxBHt+thPi4Aq6mvkkrIMj1oQuUXXscdxkXzh9cvSsKA1XwNO/EFbYcpCeY4TIoblDn
- celqnQEoK36k501EaMn6MTU03UheEtmrWOvwbHKgYqse+tEXCRLjlrZx65ckVRmjtEV/yaPFA
- hb4OKsRL0BHHmTmOR0LhumSB5y9Yr1FBq/Zu9rt6CgcXpYYlFC9/ndS1fqgyOxUTX8aG5tb9k
- fN0jqHz3WzM6+53Y15Bgk4HHscmxG/M9BKg7FF93iw9GNojeJU+rY2ZsaEXkz4uCV0DrpNP8B
- 2NJU5yVDRtw7dROut4cufeLyWuLiI6l0L+V94hMfcvWT7P7PZENFVsE6me9ZYViu2FgBTXuQH
- 1StG7GkLv27UNPmEFHneRW78dQG9waFDRLIj/ZDcQfqVq0+OokDje5gKK1fjZBmvZCEl6SFZZ
- o7ui/ACAIsdRVH5JFrC+x29PHgVOOysv+u++KQ5ELyh2K5M7vB95oXYTWg7cYHSt9MsHN4nOz
- CqEsHg==
+In-Reply-To: <3vzdlxnee4w6mur5qiyk2rhewlugswxarhevv7l4zo47qnnqah@45oxl7rjqawv>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE5MiBTYWx0ZWRfX7yYQ6/ReXnKw
+ gb1peBjpLn+wuFNXTqrryBe71cdEmoy3nk2O+HinDr124qP8hO9N1BYQ5pGTgvzzoeZr5NjtTQU
+ 2dNMu3doQ6RGre7/YMP1VhSmxa17zZ6STlCjxmcVG2c4HZv4DvRjAE4nvUMZSusXkdm373qNjBp
+ GZUHkV+BcIUN5RldckY91IcrgMawsHzWCJAKVXXgYXresI4W9m61q0t3HrN++P7yfXZ+2X6MS4W
+ HwJb8lMeRsDVVtsdIsNdKiaJ1QMRhxkAFWIn3sNCztI070sQJ5kAgF6n27nU5wG5jkTESfJTGDC
+ /Di4+i/oQ0+XXzgtym6LC9DA1iapR+LbqeqYJZl2GfJF0YptXWH6Os9k8jySeORN+giEW+EQTmu
+ 1tNyfEKsEj2qS8Q/bHbJI0vXhSSc2Rqf1409XTXSk2vyk2VmWWLjPTR/UutTs8ZwHOqjjoohVPW
+ Md33XtdgEow8mwW26vw==
+X-Authority-Analysis: v=2.4 cv=Zckt8MVA c=1 sm=1 tr=0 ts=6a0e0dad cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=6H0WHjuAAAAA:8 a=vrFTKMbr3VGxMADgOxUA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-GUID: Fm06-_eMDr3QEABmymiADpMfnFQ3sRjU
+X-Proofpoint-ORIG-GUID: Fm06-_eMDr3QEABmymiADpMfnFQ3sRjU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200192
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -192,47 +159,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/20/26 18:00, Thomas Zimmermann wrote:
-> Handle fbcon during display updates in fb_set_var_from_user(). Check
-> with fbcon if the mode change is possible, update hardware state and
-> finally update fbcon. Update all callers.
->=20
-> Only the FBIOPUT_VSCREENINFO ioctl currently does all steps. Other
-> mode-changes callers in sysfs and driver code are missing fbcon-related
-> steps.
->=20
-> With the new helper, ps3fb and sh_mobile_lcdcfb no longer maintain
-> fbcon state themselves.
->=20
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->   drivers/video/fbdev/core/fb_chrdev.c   |  6 +-----
->   drivers/video/fbdev/core/fbcon.c       |  2 --
->   drivers/video/fbdev/core/fbmem.c       | 13 +++++++++++++
->   drivers/video/fbdev/core/fbsysfs.c     |  4 +---
->   drivers/video/fbdev/ps3fb.c            |  5 +----
->   drivers/video/fbdev/sh_mobile_lcdcfb.c |  5 +----
->   include/linux/fb.h                     |  2 ++
->   7 files changed, 19 insertions(+), 18 deletions(-)
->=20
->...
-> diff --git a/include/linux/fb.h b/include/linux/fb.h
-> index 5178a33c752c..88680a7cabd5 100644
-> --- a/include/linux/fb.h
-> +++ b/include/linux/fb.h
-> @@ -533,6 +533,8 @@ extern int fb_set_var(struct fb_info *info, struct f=
-b_var_screeninfo *var);
->   extern int fb_pan_display(struct fb_info *info, struct fb_var_screenin=
-fo *var);
->   extern int fb_blank(struct fb_info *info, int blank);
->  =20
-> +int fb_set_var_from_user(struct fb_info *info, struct fb_var_screeninfo=
- *var);
-> +
+On 5/17/2026 11:54 PM, Dmitry Baryshkov wrote:
+> On Sat, May 16, 2026 at 03:52:08AM +0530, Akhil P Oommen wrote:
+>> On 5/15/2026 10:38 AM, Alexander Koskovich wrote:
+>>> Adreno 810 is present in the Milos SoC and is the first GPU to be released in
+>>> the A8x family.
+>>>
+>>> This series is marked as RFC because it depends on a few other in review
+>>> series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2], and devicetree
+>>> support for Glymur [3] (for a8xx RSCC offset fix and X2-185 bindings change).
+>>>
+>>> Also depends on the GXCLKCTL block for Milos [4], but this is no longer in
+>>> review and has been applied.
+>>>
+>>> [1]: https://lore.kernel.org/linux-arm-msm/20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com
+>>> [2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017cc642db@pm.me
+>>> [3]: https://lore.kernel.org/linux-arm-msm/20260513-glymur-gpu-dt-v4-0-f83832c3bc9a@oss.qualcomm.com
+>>> [4]: https://lore.kernel.org/linux-arm-msm/20260417-milos-gxclkctl-v3-0-08f5988c43a2@fairphone.com
+>>>
+>>> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+>>
+>> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>>
+>> For the rest of the patches that doesn't have my R-b tag in this series.
+> 
+> Unfortunately patchwork doesn't capture tags from the responses to the
+> cover letter. I'd kindly ask to spam the list with individual r-b's.
+> 
+> 
 
-"extern" int fb_set_var_from_user(...) ?
+There will be another rev to remove the RFC tag which will hopefully
+have my R-b tag. ;)
 
-Other than that the series is a nice cleanup!
-
-Thanks!
-Helge
+-Akhil
