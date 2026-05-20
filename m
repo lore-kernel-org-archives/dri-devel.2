@@ -4,141 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75B70CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 08:08:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BD10CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 08:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC69810EF67;
-	Wed, 20 May 2026 08:08:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 788A110EF49;
+	Wed, 20 May 2026 08:09:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="s49wCWXn";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mLcu2kK1";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010024.outbound.protection.outlook.com [52.101.56.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17E7210EF67;
- Wed, 20 May 2026 08:08:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LkF5v82AwC2ZI+4LSSdjfQ6bVYzy5npAqa44zu9OB2sauwTHf36sE2qEoixqSoc52AvKIUYP19Rixo7xU/lUaxNaJm8Amvvi+tzGiq2/a7qR+xCwJj/x30Gai3Sswp/h+EHdop3QU3bNtLZ28XPh/TRoMkllgRN0prPkWthb/dLQm/IUbtDXgqwdcsbjVG7FftUjNemTTfj8VxM1/1Dt8DIZyCQMH6meraOjg0XTiWpK6Q5vvy9+H8At/5JDhFcI6ADV0QaIr5FB4ddc/6F/AWQhrmh9q1/E+j2BaGdDtEt1iDggUkN7lbaGcZKO7Zx0IQM49fEGWr9GJfW3OiLbvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5hBKWRv5jWQdOJicL3isVkToHsvYSbC9+TaQJw5Fow8=;
- b=d9+AlxA2Fmp75ReGFNlf5TF2lEJsiIRZyflguIWdnTfgdHqgAcUktguEKfQhThxt3sJKGXPxu/NcUapA1RtnJBarLbSWw6YHa62fVfhAizCqhHKngDrAY/jTTen013WWlcY1YBT4r+7lVWA6Wkyeq+6kCr9BsGbp4Z8Q7ksBEC9FLgFDraTng6VvRSl/rfLTlnw+HtMUYV/tcrmoT5NZvol+eSx9Ms4jzQHc2EodDtzOCiq2ItFHm+lLRSt5007OLpR91Hd8c4HgyupfGTmxibTr7DjoA9psl8Fk1jTfCuT6vypKq7PkEl2afWbsnovNYI7n8lreG/IrRQEJzEbthA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5hBKWRv5jWQdOJicL3isVkToHsvYSbC9+TaQJw5Fow8=;
- b=s49wCWXnOF2uFF5iSN4VnN4Y51oJjbVav7AH6/PUYhtjXb618Nh5P/oFc0aOBjhRwZqseRszyTrJu/StVz0vIH8uuWpGg+DBT31SbFOx53xltR/M5jlqMdFRpM9IoL8srIWtYvxxI8jB5rdRKdRLpPOK8NxDhuF9PfLcNpb7d9U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB7250.namprd12.prod.outlook.com (2603:10b6:806:2aa::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.16; Wed, 20 May
- 2026 08:08:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Wed, 20 May 2026
- 08:08:35 +0000
-Message-ID: <53edf0b5-e733-4b96-87d7-3307275500c0@amd.com>
-Date: Wed, 20 May 2026 10:08:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
-To: Xaver Hugl <xaver.hugl@kde.org>
-Cc: Julian Orth <ju.orth@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
- <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
- <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
- <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
- <CAHijbEWqc2+kSkk3i_LxB2PQ6XwUetw1UkdUdXJfdv3zgKd1kA@mail.gmail.com>
- <38551bfe-75e1-4978-b57d-adc43cebc85e@amd.com>
- <CAHijbEWHp960qvZFoK7+9ppHAqkAR7=UQhtMUccqWzGd_pFPQA@mail.gmail.com>
- <5ee6d5af-ac48-41d7-a19f-e08a3c5b7d19@amd.com>
- <CAFZQkGwmeipZnvmBkcE7KhvUSMkSE=fzLBZtiMyhv3mM04Vudg@mail.gmail.com>
- <dff60378-4e47-4753-8878-feec6e1c2690@amd.com>
- <CAFZQkGz=UJqaJ_eTwKBy1pAg5xL+PLibh7W1vYf7JD7Jrx-LZQ@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAFZQkGz=UJqaJ_eTwKBy1pAg5xL+PLibh7W1vYf7JD7Jrx-LZQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0047.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FEE710EF5C
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:09:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779264590;
+ bh=3Pzi6mPyzYIlsvz4GOUuBtF694sERXtAIfdszm4jzSk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=mLcu2kK1RtEOq8Got2e7o1hhRTYxbBF2QKSHXM9a95UHccAPFqPTFnFL1q+7Gl5j8
+ IS70kuiwj8nujHZK5SzPScEnmSHneGTpNhad5gI4nlA+RSZmZ8RInr0pfCT79dVRbx
+ hevhjawnRiKsKn0UUR+lckyb0gWeI2uHpVQVYebA/PyQjqqJMSop5I15T97FG3UiKQ
+ 5F8TuW2C2c5k+yYb/hkePSBL1zcAwlQRQ6HM92wx2tFFWBdXVAuOrlQHdOy1nEzZt8
+ MtBAkUawpqTo8R8DgCWtExtkVQNVImgKEJ+kKw/3d08c9daSZ2q8z51fQqx7ILd1AE
+ 7QAVlDmE4lp2Q==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A083E17E0504;
+ Wed, 20 May 2026 10:09:49 +0200 (CEST)
+Date: Wed, 20 May 2026 10:09:46 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Chia-I Wu <olvaffe@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 06/11] drm/panthor: Prepare the scheduler logic for
+ FW events in IRQ context
+Message-ID: <20260520100946.398c5282@fedora>
+In-Reply-To: <CAPaKu7ToQmHHhTyb-az_b7EG2iRpc23=AJOYQ5P=HgrG29bS1A@mail.gmail.com>
+References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
+ <20260512-panthor-signal-from-irq-v2-6-95c614a739cb@collabora.com>
+ <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
+ <20260513102941.7321cbc3@fedora>
+ <CAPaKu7SJbeRwN7_S5_ciC6sSf_MM_4s7-iJS8aqh=ispBZBf2w@mail.gmail.com>
+ <20260518154516.65ba8592@fedora>
+ <CAPaKu7RL5Hs2jXcj_v0F99xsM1Vo-U5iTzBvQ3Sev=dRiwBcuw@mail.gmail.com>
+ <20260519095354.123f8b61@fedora>
+ <CAPaKu7Se1jLiZ+6VNY=Ykf+nkMzu-q2r3UOdQ9Qf2DzpGNiCCQ@mail.gmail.com>
+ <20260519202629.76bcc3a3@fedora>
+ <CAPaKu7TUmZcAJLmub0Xu-wsFOGeQp0zwrhXKLavBo9E=83kSdA@mail.gmail.com>
+ <CAPaKu7ToQmHHhTyb-az_b7EG2iRpc23=AJOYQ5P=HgrG29bS1A@mail.gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7250:EE_
-X-MS-Office365-Filtering-Correlation-Id: a483ca7e-240c-48a3-96f7-08deb646fdad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|22082099003|18002099003|56012099003|5023799004|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: jlM1i0cTZqoehDVivXSEqJLoRlGUL6vTk03BFIGFSA8QwAK7HrT3eyytastgRgCsJy7CxaVQCubFAOTvBynvfUllzu4fBRdhwOCWrIq3okEsCA6E40u6SnQ1nzAys/36xDrEME2iSgpZeEXZYwQYGYWWwEsamLpTCLenKXreU0JVTj3qp1vCxAKOFRlEhXgId0b6pGiw7wDBb9pHCAV0kmyYE+6UrUuzt1wHXu6x8m1R1VdnP/V6lad07KswLslhmXRebzdxrbglG8Y3FbOLNdPg8vKpooe9d0KeDy2X9ickPo3zE6Jjwc/0YhaOcaErHkKhejkfYfLEYkvpKUqdgSkLyhCRXHG0vJP4jWOlsLx4jibr0LyfLhn93A/hAkuEP2JINjFmU330Wv4bNqbjhRXs9ytulnayzXmcNwaYW4ekY5QZJ9Tvs+7srz3bLNbNnSxtHYxe9ccKq0WVZJtfgExjgtjOI1sLsFPxGzfAtqSHso8lFDDPkTG3Ksg1kbpVtSqbWgfFZsglk9l3zr/5MXzknLGtK1PsfEYmUF7z43WT7n0/ZIm6jWho1f2YyyJpSp1RLn7UJqS/b0XlrdYQ/4+DQC/mcmFd4I4mcmDoLF+IqqmUAJ1eycAMKukmau4/SEhmnA5Iyd8KEXS9q47kLtYNWrh+CnDSlqjTHagzjSd/5wYiKXDe0YNW/jpjPFNd
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(22082099003)(18002099003)(56012099003)(5023799004)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZzFTQVMxZjBLQ25yeGw0MEpHeE05c2t4UGc4Tk9qaEEyTFB3ZUNuUU53c3FX?=
- =?utf-8?B?ZGJ1TmVzOGF1Rkl3RVRVc0VFR1NnYWpzWWt3dEdzeFNBcHFOY1UrWFlsaFpy?=
- =?utf-8?B?WkFrV0tKNERETUtXb1RhZzVQaSttaWZaUlA1bWpDY0t3VnRtZW5ha3FqbVBB?=
- =?utf-8?B?REwwU1VkWDI1RmpqS1VicUZnb3pyUUxPYXgrNGFma2dzeTFtMW5jT3NCdkRZ?=
- =?utf-8?B?OEp0djAxMkNHMmFPT093ZkNkNjFFdVpWUlZqSStScDNVRy8vTFVBdEllaUlS?=
- =?utf-8?B?MlBzYkF5dDhkZlo1R0UxWFhqR3puRDNRcXBBNzgwZmhGR3EvZ2ZYcXo1Nlhr?=
- =?utf-8?B?b2pSb0F3YXNIMlNLWHJlV0FrYlk3TmxDSXFEMkp5RWdNYzgzbWplTlZoM1FG?=
- =?utf-8?B?aHI4SHd2eUlhN3cvNk05bFloeVlraUg4YmlFcTJlRmdwQWlsSk9YZ1J1Tmh2?=
- =?utf-8?B?UTVJa21rellPUlVoQTZyRlJBQWdmek82S3UrY3VwSHJ2NzZ1QVl6czJqZmhY?=
- =?utf-8?B?NDh4blZvVU5QQy9rT2RBYjBvLzV1bGtGN0c1TmFScUp3LzRoYkt4TzcvS2VZ?=
- =?utf-8?B?S3F6cFFESCs4TlVEYUNEMlo5ZFl0NWFSdGlQOGNuZHl4ZmtYR2VEOEtZd1BJ?=
- =?utf-8?B?RnViSFpEcDFJQ1Y5Tk1HOXhkbHVjVGdUYXkwRzRtandPakRYa2Nld1JTTVN4?=
- =?utf-8?B?L0NVNTZsZWFhTjVFZlU3VWJkVXJVOUdDMjdJMlhhS1BxeE5IL0dVeTMyVmJM?=
- =?utf-8?B?MWNHT0dFSnRSN3NIMW1nR3VqUlRIVCsxbGw2eGhoZmR2RU1DNm44K0ZYN3Bs?=
- =?utf-8?B?ekNIaVN6WmkyOEM4UFArTDJuQUJhaUtwN1dOK1hlMjhiZXB5Y29HdDFnUHJt?=
- =?utf-8?B?djIxQnNSZHdzR05KdHZYdG5GWHZPVkpMZTVoRnpJR21mK2R1c2g5b29UMGJJ?=
- =?utf-8?B?QTRjNGVOR3RsOFN6cXpoZXVQOXJiTSsrOHZScnZqOUdlWUJBL0JvRkNaS2E1?=
- =?utf-8?B?ZFdVQlRudDE0U1JOMXFCOTZDQXFQTU1OZVpHWmRTQi9zcW96bVk5WndUbVps?=
- =?utf-8?B?QnV6YXo2TXhtZ3NZS2FKZHNKbStNVUJKUTFzdVRPZlJNSXlhWmVhcEh5b1V2?=
- =?utf-8?B?dkw0WEkvYWd2U3ZqVTlhbmdxa2JobUozNmVhczFBUThnZVNUZ2hDUG9uNEVE?=
- =?utf-8?B?NlJRNnRwYy9RK05mLzIxRFhiLzFBWlJoR24xL0xsNGs4MFFaL2M1cXNLbDNH?=
- =?utf-8?B?NXdIVFRZVW9ndFo3TWxaTU8xcGN1RzdrVGRGc3lNQ3ZtVWV5OUR1UUJiRExP?=
- =?utf-8?B?bXlJUCtMaVFmME5lTm5rSmRJQTJLMnJ6SjNGRVJYRDhXdElwRzcxRTFoT1Nq?=
- =?utf-8?B?NDRQOFg5OTBVVmw4My9YZkFtVEsyQ2I2eGpMbHpJS3JUcTc1WnVvMVJNNUZv?=
- =?utf-8?B?UTdtcUVGUnVzUlhieUZTZkVOOC9sQm9hWnY2ZURtTVZNS1RaQVVnMTc5SnhS?=
- =?utf-8?B?SVdkdjhEVTl5K1JyWjY0cXNwenVhS29zU3BCR3lSNFBWUk0zaDZYVXltOXJk?=
- =?utf-8?B?aEIxMDhGV2dESlVJcVJQSm9VNCtUVG8zUE5JRFhQK3RXYlBhVDJDN3dTSk44?=
- =?utf-8?B?L2ViTzUyRitMQjdVTm9DTFpDaFEwUjJnaVJpUlhtNnE5UkVaNDZSKy9JZDds?=
- =?utf-8?B?OWpaZ3VEd3hYSzdyMnBKMzdkRlBNeXhja0RmTnF1cFYvdlNMcXh4OE52SU04?=
- =?utf-8?B?bjdWaHhCMGdNY21rcW5wbjBWTVNtMFc0aGJna0JlZDA3R0VBYm5tb0JXN3Nj?=
- =?utf-8?B?RkloUmRPeFF6ZjBZU3lpTTFwNjE2RHVwUE0wOXlSV3VMSi9xRmVRT3pXU2tC?=
- =?utf-8?B?M2dnZzQwNVR0OWpSR1ZpRDUvTEN1OGg1L3lqQVFRVXBCU3pIZWcxYUlqVHpQ?=
- =?utf-8?B?bFU2ajdzWlo2Nm1NaFJDY1lmQjk0aWQ2YWlTQjNPcVJXaHZsUTZEVFBoZHgz?=
- =?utf-8?B?YzdkRFJmNzBCMncrcUNzbTJUSVFCd3p5eWErWlFocGQreHM3dHF0RVh5ZXdi?=
- =?utf-8?B?aG5scWg2emNjVUh2VjVSVUtXM0V5cTNOR2drazhnd1pRaEpKQlErRnNldGta?=
- =?utf-8?B?ek5yMTlveGV0U004bzIvR2FtWk90Q0NzMEFwc0psd29uVXE3QzR5eGxrU05Q?=
- =?utf-8?B?ZC9BS1Q3NDBPSEozL25pYkEzb2xmQkNhL1JZVTdHcklzNy9vd3lsL2EwQW56?=
- =?utf-8?B?U2ViMHZjRkxrcC9YWW1VWGU1YVJGQ3JJUHRWZFFwQkVEMWo0ck1pQmM3a1FS?=
- =?utf-8?Q?fgsWnUMPb/Uahuk4FN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a483ca7e-240c-48a3-96f7-08deb646fdad
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 08:08:35.4429 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UbmXOW76spdaq0TAJiFJDp2MdM8gy5Bjyigf3mi9MQ3QP03IJ1srZgHMB7irmCgB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7250
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,98 +78,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/19/26 19:08, Xaver Hugl wrote:
->>> The part where we get this independent of attached hardware is quite
->>> important for us though, since we can't just ignore explicit sync once
->>> the device we previously imported the syncobj into is disconnected.
->>
->> Can you elaborate more on this?
-> 
-> In Wayland, the client is allowed to attach dmabuf and syncobj
-> independently, they don't have to be from the same device (and the
-> compositor wouldn't be able to verify the opposite anyways). The
-> compositor will usually import both into the same drm device, but
-> especially with compositors that render on multiple devices, that's
-> not necessarily the case either.
-> 
-> If for example we had a system with one internal GPU and one external
-> GPU, the client renders on the internal GPU and the compositor uses
-> the external one. Now when the user yanks the USB C cable, afaiu
+On Tue, 19 May 2026 14:04:47 -0700
+Chia-I Wu <olvaffe@gmail.com> wrote:
 
-Well I would say the other way around is a pretty common use case.
+> On Tue, May 19, 2026 at 1:45=E2=80=AFPM Chia-I Wu <olvaffe@gmail.com> wro=
+te:
+> >
+> > On Tue, May 19, 2026 at 11:26=E2=80=AFAM Boris Brezillon
+> > <boris.brezillon@collabora.com> wrote: =20
+> > >
+> > > On Tue, 19 May 2026 10:16:26 -0700
+> > > Chia-I Wu <olvaffe@gmail.com> wrote:
+> > > =20
+> > > > On Tue, May 19, 2026 at 12:53=E2=80=AFAM Boris Brezillon
+> > > > <boris.brezillon@collabora.com> wrote: =20
+> > > > >
+> > > > > On Mon, 18 May 2026 16:33:20 -0700
+> > > > > Chia-I Wu <olvaffe@gmail.com> wrote:
+> > > > >
+> > > > > =20
+> > > > > > > >
+> > > > > > > > =20
+> > > > > > > > > =20
+> > > > > > > > > > =20
+> > > > > > > > > > >         if (!ptdev->scheduler)
+> > > > > > > > > > >                 return;
+> > > > > > > > > > >
+> > > > > > > > > > > -       atomic_or(events, &ptdev->scheduler->fw_event=
+s);
+> > > > > > > > > > > -       sched_queue_work(ptdev->scheduler, fw_events);
+> > > > > > > > > > > +       guard(spinlock_irqsave)(&ptdev->scheduler->ev=
+ents_lock);
+> > > > > > > > > > > +
+> > > > > > > > > > > +       if (events & JOB_INT_GLOBAL_IF) {
+> > > > > > > > > > > +               sched_process_global_irq_locked(ptdev=
+);
+> > > > > > > > > > > +               events &=3D ~JOB_INT_GLOBAL_IF;
+> > > > > > > > > > > +       }
+> > > > > > > > > > > +
+> > > > > > > > > > > +       while (events) {
+> > > > > > > > > > > +               u32 csg_id =3D ffs(events) - 1;
+> > > > > > > > > > > +
+> > > > > > > > > > > +               sched_process_csg_irq_locked(ptdev, c=
+sg_id);
+> > > > > > > > > > > +               events &=3D ~BIT(csg_id);
+> > > > > > > > > > > +       } =20
+> > > > > > > > > > This handles all fw events in the irq context. Are ther=
+e concerns that
+> > > > > > > > > > it may take too long? I might be wrong, but it seems po=
+ssible to
+> > > > > > > > > > handle only CSG_SYNC_UPDATE and defer the rest as befor=
+e. =20
+> > > > > > > > >
+> > > > > > > > > I started with just the SYNC_UPDATE processing done in th=
+e hard-irq
+> > > > > > > > > context, but after auditing the other stuff done in the h=
+andler, I
+> > > > > > > > > realized it's basically just deferring all actual process=
+ing to work
+> > > > > > > > > items. Yes, there's the overhead of demuxing the events f=
+rom the
+> > > > > > > > > ack/req regs, but part of this is already done to get to =
+SYNC_UPDATE
+> > > > > > > > > anyway, so at this point we're probably better off demuxi=
+ng everything
+> > > > > > > > > and scheduling works for all kind of events.
+> > > > > > > > >
+> > > > > > > > > I also compared the perfs between the two approaches (tho=
+ugh I didn't
+> > > > > > > > > do as much testing as I did with the new version, so I mi=
+ght have
+> > > > > > > > > missed something), and it didn't seem to matter at all, b=
+ecause the
+> > > > > > > > > interrupts we receive the most are SYNC_UPDATE and IDLE e=
+vents, and
+> > > > > > > > > those are at the same level. =20
+> > > > > > > > Looking at ftrace irq events, when there is one active csg,
+> > > > > > > > panthor-job takes 6us (median) / 17us (95%) / 27us (slowest=
+).
+> > > > > > > >
+> > > > > > > > I don't have a good sense if that's considered normal in ha=
+rdirq. But
+> > > > > > > > if that is ever an issue, and if the majority of the time i=
+s spent in
+> > > > > > > > CSG_SYNC_UPDATE anyway, we can always revert the last patch=
+ to move
+> > > > > > > > processing to threaded handler. =20
+> > > > > > >
+> > > > > > > Actually, the threaded -> hard transition (patch 9) is where =
+the perf
+> > > > > > > gain is. =20
+> > > > > > hardirq is even more timely for sure. For our use case, the thr=
+eaded
+> > > > > > handler is RT and is also good enough. =20
+> > > > >
+> > > > > Yeah, true. I forgot you were forcing RT priority on threaded han=
+dlers.
+> > > > > Anyway, let's stick to hardirqs for now, and revisit it if it pro=
+ves to
+> > > > > be too much work done in irq context. =20
+> > > > Just want to clarify that irq_thread calls sched_set_fifo to make t=
+he
+> > > > task RT. The behavior is universal and is not specific to any
+> > > > downstream kernel. =20
 
-In other words the compositors uses the internal GPU for composing and displaying the picture. And the client uses the external GPU for fast rendering.
+There's a difference in what RT means depending on whether the system
+is configured with PREEMPT or PREEMPT_RT though. But I assume you're
+using PREEMPT not PREEMPT_RT.
 
-> - the buffers from the client stay valid
+> > >
+> > > Hm, interesting. In my testing, any of the changes before patch 9
+> > > didn't make a huge difference in term of perf, patch 9 is where the p=
+erf
+> > > gains happen. For the record, patch 6 is where we get rid of the
+> > > threaded -> work round-trip for job completion/fence signaling, and it
+> > > didn't seem to reflect in the benchmark results, but I'll do another
+> > > round of tests before posting v3, just to confirm. =20
+> > We care the most about signaling latency for this series.
 
-Buffers from the hot plugged GPU don't stay valid. Accessing CPU mappings either result in a SIGBUS or are redirected to a dummy page.
+Yes, I know. It's just that it also seemed to help the throughput, which
+I initially checked to make sure we were not regressing perfs
+significantly by interrupting the system aggressively. I guess the
+reason for that is that, by reducing the latency, we also unleash the
+job submitter (if you get signaled early, and jobs tend to be
+serialized because of deps, you can submit more).
 
-DMA operations to hot plugged buffers from other GPUs (or rather more general other devices) are waited on before the underlying resource is removed (e.g. system memory or PCIe address space or whatever is backing that).
+> > I collected
+> > some numbers with baseline, with this series, and with patch 9
+> > reverted at https://gitlab.freedesktop.org/panfrost/linux/-/work_items/=
+85#note_3481308.
+> > Reposting the numbers here for reference
+> >
+> > |                    | baseline | entire series | patch 9 reverted |
+> > | -                  | -        | -             | -                |
+> > | frag job median    | 2.8ms    | 2.2ms         | 2.2ms            |
+> > | frag job 95%       | 4.5ms    | 2.8ms         | 2.8ms            |
+> > | frag job 99%       | 4.9ms    | 2.8ms         | 2.8ms            |
+> > | panthor-job median | 0.8us    | 6.2us         | 0.9us            |
+> > | panthor-job 95%    | 1.5us    | 16.6us        | 1.5us            |
+> > | panthor-job 99%    | 1.6us    | 28.0us        | 1.8us            | =20
+>=20
+> panthor-job rows are the durations of the raw irq handlers, collected
+> from irq/irq_handler_{entry,exit}.
+>=20
+> frag job rows are the durations from frag jobs, collected from
+> gpu_scheduler/drm_sched_job_{run,done}.
+>=20
+> The fence signaling paths of them are
+>=20
+>  - baseline: raw handler -> rt threaded handler -> wq job -> wq job ->
+> fence signal
+>  - entire series: raw handler -> fence signal
+>  - patch 9 reverted: raw handler -> rt threaded handler -> fence signal
 
-But no new DMA operations are usually permitted to start.
+Just did another set of throughput tests, and I confirm the gains are
+noticeable only with patch 9 applied (that's on rk3588, which embeds a
+G610, so not the exact same setup). As an example, on
+gfxbench/gl_manhattan, I get the following score bump 2391 -> 2457.
 
-> - the syncobj stays valid on the client side
-> - the syncobj becomes invalid on the compositor side
+Now I need to set things up to measure latency like you did and make
+sure I'm observing the same thing: threaded handlers providing roughly
+the same latency as hardirq handlers. If not it probably has to do with
+some config options that differ and change the preemptability of the
+system.
 
-Nope that's not correct. The syncobj itself stays valid even if you completely hot plug the device.
-
-It can just be that the fences inside the syncobj are terminated with an error.
-
-> "invalid" there means either
-> - the acquire point of the client is marked as signaled, before
-> rendering on the client side is completed
-> - the acquire point of the client is never signaled. Since the
-> compositor waits for the acquire point, the Wayland surface is stuck
-> forever
-
-Both of those would be a *massive* violation of documented kernel rules for hot-plugging which could lead to random data corruption and/or deadlocks.
-
-If you see any HW driver showing behavior like that please open up a bug report and ping the relevant maintainers immediately.
-
-When a hotplug happens all operations of the device should return an -ENODEV error, even when exposed to other devices/application through syncobj or syncfile.
-
-One problem is that only syncfile allows for querying such error codes at the moment, we have patches pending to add that to syncobj as well but we lack a compositor with support for that as userspace client.
-
-> Afaik the latter is currently the case. The former wouldn't be much
-> better though, not when it's preventable.
-> 
-> This is admittedly an edge case, but GPU hotunplug is something we try
-> to support as well as possible in Plasma, and all the edge cases cause
-> a lot of problems in combination and are a lot of headaches to handle
-> (or really work around) in the compositor.
-
-Well exactly that design is used in the Tesla 3 infotainment system for example.
-
-So GPU hotplug is actually a pretty common use case.
-
-> Another edge case is when the client asks the compositor to import the
-> syncobj, which can fail when a hotunplug is in process, and ends up
-> disconnecting the client for no fault of either client or compositor.
-
-Well the question here is if the device the compositor is using or the client is using is gone?
-
-If the client device is hot removed the compositor should be perfectly capable to import the syncobj.
-
-If the compositor device is gone then you don't have a device to display anything any more, so generating the next frame doesn't seem to make sense either.
-
-What could be is that you want the compositor to be kept alive even when the display device is gone to switch over to vkms or whatever so that a VNC session or other remote desktop still works.
-
->>>>> 3. It removes the need to translate between syncobjs fds and handles.
->>>>
->>>> That's a pretty big no-go as well. The differentiation between FDs and handles is completely intentional.
->>> Could you expand on why it's needed? For compositors, the handle is
->>> just an intermediary thing when translating between file descriptors.
->>
->> Well what we could do is to add an IOCTL to directly attach an syncobj file descriptor to an eventfd.
-> That would be nice.
-
-Take a look at drm_syncobj_file_fops and how drm_syncobj_add_eventfd() is used. Adding that functionality shouldn't be more than a typing exercise.
-
-Do I see it right that this would already solve most problems in the compositor side?
-
-Regards,
-Christian.
-
-> 
-> - Xaver
-
+I'll hold off on the submission of v3 until this is done, because if
+threaded handlers are roughly as efficient as hardirq ones, we probably
+want to stick to threaded handlers.
