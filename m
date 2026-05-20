@@ -4,57 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3664CCD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:34:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92A44CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:37:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81F2010F077;
-	Wed, 20 May 2026 14:34:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E827610F085;
+	Wed, 20 May 2026 14:37:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dlYlcTir";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lKMIEs4i";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0961F10F077
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:34:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779287643;
- bh=Z9ehc0o77iczHKPKhQAgq61UC0W4OHTwJYBEEbgaOZY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=dlYlcTirU16xr9XsNcZlpLFhI/q5XMHMhPDfN2v03pnhK2jIRBfcKjq7IXM5HeZdH
- GaR6jyTa4PcZlQFJYhP1QjHOBeBEZ3MtX/9Ng2yafYGn15d1weGxTnjyejesEUUryK
- 0rJDhXFC45q3rklsB4baroEXtxDZ0Y1vRVutSVQ0onPD0KZKOMhrbZ/mDObKMbsENu
- d1X5ngskFfCTiV1Zhq646Hf/xzFrJMfT9b4n9G5z2M8R+yhZSWye4/E5/S7oT8yVbs
- 33f0Vs9d8FMWHtM7sa7WvN1+g+cdkd3o703XJljEeoqJD9p1pvgRXl2di1SQL8Aj11
- wZWOjgJOdJvXQ==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1BF0517E0411;
- Wed, 20 May 2026 16:34:03 +0200 (CEST)
-Date: Wed, 20 May 2026 16:33:51 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Tvrtko Ursulin
- <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] drm/panthor: Implement evicted status for GEM
- objects
-Message-ID: <20260520163351.702034ce@fedora>
-In-Reply-To: <20260520-panthor-bo-reclaim-observability-v4-2-a47ab61cb80d@collabora.com>
-References: <20260520-panthor-bo-reclaim-observability-v4-0-a47ab61cb80d@collabora.com>
- <20260520-panthor-bo-reclaim-observability-v4-2-a47ab61cb80d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D15C810F085
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:37:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 01E4960008;
+ Wed, 20 May 2026 14:37:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6451F000E9;
+ Wed, 20 May 2026 14:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1779287852;
+ bh=Xvne2QFrGMT67HLsEBwrqQtIanzuJIgnsF8ubzLBWGY=;
+ h=Subject:To:Cc:From:Date;
+ b=lKMIEs4ik2y0CkYSyoUiBpsLc+Z52qhxKIp2I+psCuVrF7lq2KtebGc5GCwX/S/qE
+ ezlSI1xb+q5d1kLZHOAz9J9knTdolx8eJsrcnD9cPtBmbADXPNmOc8AwS495IgLV8M
+ 9s3pXnRHDjQdsKunaLIHvD3lBa1Y8IsVBekT9Z+Q=
+Subject: FAILED: patch "[PATCH] drm/ttm: Fix ttm_bo_swapout() infinite LRU
+ walk on swapout" failed to apply to 6.18-stable tree
+To: thomas.hellstrom@linux.intel.com, boqun@kernel.org,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ jkataria@netflix.com, matthew.brost@intel.com, stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 20 May 2026 16:37:35 +0200
+Message-ID: <2026052035-sweat-creed-1388@gregkh>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,154 +54,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 20 May 2026 15:04:49 +0200
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
 
-> For fdinfo to be able to fill its evicted counter with data, panthor
-> needs to keep track of whether a GEM object has ever been reclaimed.
-> Just checking whether the pages are resident isn't enough, as newly
-> allocated objects also won't be resident.
-> 
-> Do this with a new atomic_t member on panthor_gem_object. It's increased
-> when an object gets evicted by the shrinker, and saturates at INT_MAX.
-> This means that once an object has been evicted at least once, its
-> reclaim counter will never return to 0.
-> 
-> Due to this, it's possible to distinguish evicted non-resident pages
-> from newly allocated non-resident pages by checking whether
-> reclaimed_count is != 0
-> 
-> Use this new member to then set the appropriate DRM_GEM_OBJECT_EVICTED
-> status flag for fdinfo.
-> 
-> Also add a new column and status flag to the panthor gems debugfs: the
-> column is the number of times an object has been evicted, whereas the
-> flag indicates whether it currently is evicted.
-> 
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_gem.c | 18 ++++++++++++++----
->  drivers/gpu/drm/panthor/panthor_gem.h | 10 ++++++++++
->  2 files changed, 24 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index 13295d7a593d..068aa935c8fc 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -687,6 +687,8 @@ static void panthor_gem_evict_locked(struct panthor_gem_object *bo)
->  	if (drm_WARN_ON_ONCE(bo->base.dev, !bo->backing.pages))
->  		return;
->  
-> +	atomic_add_unless(&bo->reclaimed_count, 1, INT_MAX);
-> +
->  	panthor_gem_dev_map_cleanup_locked(bo);
->  	panthor_gem_backing_cleanup_locked(bo);
->  	panthor_gem_update_reclaim_state_locked(bo, NULL);
-> @@ -788,6 +790,8 @@ static enum drm_gem_object_status panthor_gem_status(struct drm_gem_object *obj)
->  
->  	if (drm_gem_is_imported(&bo->base) || bo->backing.pages)
->  		res |= DRM_GEM_OBJECT_RESIDENT;
-> +	else if (atomic_read(&bo->reclaimed_count))
-> +		res |= DRM_GEM_OBJECT_EVICTED;
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Could we drop that change so we can at least have patch 2 and 3 merged
-while the discussion on the fdinfo semantics is going on?
+To reproduce the conflict and resubmit, you may use the following commands:
 
->  
->  	return res;
->  }
-> @@ -1595,6 +1599,7 @@ static void panthor_gem_debugfs_print_flag_names(struct seq_file *m)
->  	static const char * const gem_state_flags_names[] = {
->  		[PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT] = "imported",
->  		[PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT] = "exported",
-> +		[PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT] = "evicted",
->  	};
->  
->  	static const char * const gem_usage_flags_names[] = {
-> @@ -1625,6 +1630,7 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
->  {
->  	enum panthor_gem_reclaim_state reclaim_state = bo->reclaim_state;
->  	unsigned int refcount = kref_read(&bo->base.refcount);
-> +	int reclaimed_count = atomic_read(&bo->reclaimed_count);
->  	char creator_info[32] = {};
->  	size_t resident_size;
->  	u32 gem_usage_flags = bo->debugfs.flags;
-> @@ -1638,16 +1644,20 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
->  
->  	snprintf(creator_info, sizeof(creator_info),
->  		 "%s/%d", bo->debugfs.creator.process_name, bo->debugfs.creator.tgid);
-> -	seq_printf(m, "%-32s%-16d%-16d%-16zd%-16zd0x%-16lx",
-> +	seq_printf(m, "%-32s%-16d%-16d%-11d%-16zd%-16zd0x%-16lx",
->  		   creator_info,
->  		   bo->base.name,
->  		   refcount,
-> +		   reclaimed_count,
->  		   bo->base.size,
->  		   resident_size,
->  		   drm_vma_node_start(&bo->base.vma_node));
->  
->  	if (drm_gem_is_imported(&bo->base))
->  		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED;
-> +	else if (!resident_size && reclaimed_count)
-> +		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED;
-> +
->  	if (bo->base.dma_buf)
->  		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED;
->  
-> @@ -1671,8 +1681,8 @@ static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
->  
->  	panthor_gem_debugfs_print_flag_names(m);
->  
-> -	seq_puts(m, "created-by                      global-name     refcount        size            resident-size   file-offset       state      usage       label\n");
-> -	seq_puts(m, "----------------------------------------------------------------------------------------------------------------------------------------------\n");
-> +	seq_puts(m, "created-by                      global-name     refcount        evictions  size            resident-size   file-offset       state      usage       label\n");
-> +	seq_puts(m, "---------------------------------------------------------------------------------------------------------------------------------------------------------\n");
->  
->  	scoped_guard(mutex, &ptdev->gems.lock) {
->  		list_for_each_entry(bo, &ptdev->gems.node, debugfs.node) {
-> @@ -1680,7 +1690,7 @@ static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
->  		}
->  	}
->  
-> -	seq_puts(m, "==============================================================================================================================================\n");
-> +	seq_puts(m, "=========================================================================================================================================================\n");
->  	seq_printf(m, "Total size: %zd, Total resident: %zd, Total reclaimable: %zd\n",
->  		   totals.size, totals.resident, totals.reclaimable);
->  }
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-> index ae0491d0b121..56d63137b4eb 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.h
-> @@ -19,12 +19,16 @@ struct panthor_vm;
->  enum panthor_debugfs_gem_state_flags {
->  	PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT = 0,
->  	PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT = 1,
-> +	PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT = 2,
->  
->  	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED: GEM BO is PRIME imported. */
->  	PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT),
->  
->  	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED: GEM BO is PRIME exported. */
->  	PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT),
-> +
-> +	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED: GEM BO is evicted to swap. */
-> +	PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT),
->  };
->  
->  enum panthor_debugfs_gem_usage_flags {
-> @@ -172,6 +176,12 @@ struct panthor_gem_object {
->  	/** @reclaim_state: Cached reclaim state */
->  	enum panthor_gem_reclaim_state reclaim_state;
->  
-> +	/**
-> +	 * @reclaimed_count: How many times object has been evicted to swap.
-> +	 * The count saturates at %INT_MAX and will never wrap around to 0.
-> +	 */
-> +	atomic_t reclaimed_count;
-> +
->  	/**
->  	 * @exclusive_vm_root_gem: Root GEM of the exclusive VM this GEM object
->  	 * is attached to.
-> 
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x b2ed01e7ad3de80333e9b962a44024b094bc0b2b
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026052035-sweat-creed-1388@gregkh' --subject-prefix 'PATCH 6.18.y' HEAD^..
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From b2ed01e7ad3de80333e9b962a44024b094bc0b2b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Tue, 28 Apr 2026 11:44:42 +0200
+Subject: [PATCH] drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout
+ failure
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+When ttm_tt_swapout() fails, the current code calls
+ttm_resource_add_bulk_move() followed by ttm_resource_move_to_lru_tail()
+to restore the resource's bulk_move membership.
+
+However, ttm_resource_move_to_lru_tail() places the resource at the tail
+of the LRU list which, relative to the walk cursor's hitch node (placed
+immediately after the resource when it was yielded), puts the resource
+*in front of the* the hitch. The next list_for_each_entry_continue() from
+the hitch finds the same resource again, causing an infinite loop.
+
+Fix by deferring del_bulk_move to the success path only.
+
+On the success path, TTM_TT_FLAG_SWAPPED has just been set by
+ttm_tt_swapout() but the resource is still tracked in the bulk_move range,
+so ttm_resource_del_bulk_move()'s !ttm_resource_unevictable() guard would
+incorrectly skip the removal. Introduce
+ttm_resource_del_bulk_move_unevictable() which bypasses that guard.
+
+Reported-by: Jatin Kataria <jkataria@netflix.com>
+Fixes: fc5d96670eb2 ("drm/ttm: Move swapped objects off the manager's LRU list")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: <dri-devel@lists.freedesktop.org>
+Cc: <stable@vger.kernel.org> # v6.13+
+Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Tested-by: Boqun Feng <boqun@kernel.org>
+Link: https://patch.msgid.link/20260428094442.16985-1-thomas.hellstrom@linux.intel.com
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index d85f0a37ac35..293401705542 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -1177,17 +1177,13 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+ 		bdev->funcs->swap_notify(bo);
+ 
+ 	if (ttm_tt_is_populated(tt)) {
+-		spin_lock(&bdev->lru_lock);
+-		ttm_resource_del_bulk_move(bo->resource, bo);
+-		spin_unlock(&bdev->lru_lock);
+-
+ 		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
+-
+-		spin_lock(&bdev->lru_lock);
+-		if (ret)
+-			ttm_resource_add_bulk_move(bo->resource, bo);
+-		ttm_resource_move_to_lru_tail(bo->resource);
+-		spin_unlock(&bdev->lru_lock);
++		if (!ret) {
++			spin_lock(&bdev->lru_lock);
++			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
++			ttm_resource_move_to_lru_tail(bo->resource);
++			spin_unlock(&bdev->lru_lock);
++		}
+ 	}
+ 
+ out:
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 9f36631d48b6..0e5f1582f13d 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -292,6 +292,19 @@ void ttm_resource_del_bulk_move(struct ttm_resource *res,
+ 		ttm_lru_bulk_move_del(bo->bulk_move, res);
+ }
+ 
++/*
++ * Remove a resource from its bulk_move, bypassing the unevictable check.
++ * Use only when the resource is known to still be tracked in the range despite
++ * the BO having just become unevictable; asserts that this is the case.
++ */
++void ttm_resource_del_bulk_move_unevictable(struct ttm_resource *res,
++					    struct ttm_buffer_object *bo)
++{
++	WARN_ON_ONCE(!ttm_resource_unevictable(res, bo));
++	if (bo->bulk_move)
++		ttm_lru_bulk_move_del(bo->bulk_move, res);
++}
++
+ /* Move a resource to the LRU or bulk tail */
+ void ttm_resource_move_to_lru_tail(struct ttm_resource *res)
+ {
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+index 33e80f30b8b8..a5d386583fb6 100644
+--- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -448,6 +448,8 @@ void ttm_resource_add_bulk_move(struct ttm_resource *res,
+ 				struct ttm_buffer_object *bo);
+ void ttm_resource_del_bulk_move(struct ttm_resource *res,
+ 				struct ttm_buffer_object *bo);
++void ttm_resource_del_bulk_move_unevictable(struct ttm_resource *res,
++					    struct ttm_buffer_object *bo);
+ void ttm_resource_move_to_lru_tail(struct ttm_resource *res);
+ 
+ void ttm_resource_init(struct ttm_buffer_object *bo,
 
