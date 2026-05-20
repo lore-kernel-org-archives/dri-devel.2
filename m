@@ -4,44 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0D11CD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 15:03:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B3A6CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 15:04:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF9F10E45A;
-	Wed, 20 May 2026 15:03:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7F6A10F0A8;
+	Wed, 20 May 2026 15:04:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iq4ngIZp";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="dFcv12YC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16F3910E45A
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 15:03:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A902F43868;
- Wed, 20 May 2026 15:03:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E661F000E9;
- Wed, 20 May 2026 15:03:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1779289422;
- bh=lO8x7RnncaVkRbVScg3ppxqy9zBkcPiQlu8UGuYmw9U=;
- h=Subject:To:Cc:From:Date;
- b=iq4ngIZp5EI2T2Tc+VMHGzENIPqjtqpKWSjhfFygM1dKlEnNIiS6z/6srQ8SSe2T4
- jMitqbZIHX9qaaAm7Ll9TKzJHXnJYKNzSA/ITTjx0ZW//ywQ8MINz6Rz+r0q2mTUs0
- XHW/tXCE31wTOu+DYD6pkznA8jRBQGCTtXh9Fdw4=
-Subject: Patch "drm/ttm: Convert -EAGAIN from dmem_cgroup_try_charge to
- -ENOSPC" has been added to the 6.18-stable tree
-To: christian.koenig@amd.com, dev@lankhorst.se, dev@lankhrost.se,
- dri-devel@lists.freedesktop.org, friedrich.vock@gmx.de,
- gregkh@linuxfoundation.org, mripard@kernel.org,
- thomas.hellstrom@linux.intel.com, tj@kernel.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 20 May 2026 17:01:24 +0200
-Message-ID: <2026052024-placard-copper-7e32@gregkh>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB1EE10F0A8
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 15:04:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779289462; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=H4H9wEPzL9F9DtuKYxJuHWRJCQZJ+AAQw8eTXUTgsdbgqWtPrLXuthO8YzeD7hBaiEIkya9PIMfxVfyKL4Wb03QL8904gzYW8epPtVniRJVqom0HlZ117Rmj+V7oOxuZc+FYgW5GzSJKQFfOXBLA1dktMobMc/9jIOUCO/7nSuU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779289462;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=aAAzUd7Ncpn7EM5gP2WjySDMAYuUVcl4Vo7wSz2utqs=; 
+ b=QNgx0gDg6ZY+o9niXoiW2GvJ7eGduzuJno2L/zBG95jaT8yIPmFS3Aj0cMu0y39yN9IgdGC+yLEgCmKrr+1ncQS58oFau0e6SxvOIMOO1IiSIvG3Ls4Z42sRcoXNC3q3eRrzWbjtLbhSEqS09p0hl4je0el9gC5P1AEixMT52Zg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779289462; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=aAAzUd7Ncpn7EM5gP2WjySDMAYuUVcl4Vo7wSz2utqs=;
+ b=dFcv12YC0WznA1JT+JNTOS5TAFX6vTuko9xjGSV+lXFs0GA2SxRRu7hj3KVE9qqj
+ GuGFs78IcujNEp8CelYiL56dllabikrYRboVcEnFZ2WYppQlVWzO1NjQyrDDugJU2GG
+ b+Dep1367e1TNtswNSddn/u0Fn08057sudkdzdTM=
+Received: by mx.zohomail.com with SMTPS id 1779289460798445.48512037796513;
+ Wed, 20 May 2026 08:04:20 -0700 (PDT)
+Message-ID: <43ecdd2f-5faf-432a-a814-77190b3ef239@collabora.com>
+Date: Wed, 20 May 2026 18:04:14 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm/virtio: use uninterruptible resv lock for plane
+ updates
+To: Deepanshu Kartikey <kartikey406@gmail.com>, airlied@redhat.com,
+ kraxel@redhat.com, gurchetansingh@chromium.org, olvaffe@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org,
+ syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20260519082247.34470-1-kartikey406@gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260519082247.34470-1-kartikey406@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,93 +73,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 5/19/26 11:22, Deepanshu Kartikey wrote:
+> virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush() lock
+> the framebuffer BO's dma_resv via virtio_gpu_array_lock_resv() and
+> ignore its return value. The function can fail with -EINTR from
+> dma_resv_lock_interruptible() (signal during lock wait) or with
+> -ENOMEM from dma_resv_reserve_fences() (fence slot allocation),
+> leaving the resv lock not held. The queue path then walks the object
+> array and calls dma_resv_add_fence(), which requires the lock held;
+> with lockdep enabled this trips dma_resv_assert_held():
+> 
+>   WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
+>   Call Trace:
+>    virtio_gpu_array_add_fence
+>    virtio_gpu_queue_ctrl_sgs
+>    virtio_gpu_queue_fenced_ctrl_buffer
+>    virtio_gpu_cursor_plane_update
+>    drm_atomic_helper_commit_planes
+>    drm_atomic_helper_commit_tail
+>    commit_tail
+>    drm_atomic_helper_commit
+>    drm_atomic_commit
+>    drm_atomic_helper_update_plane
+>    __setplane_atomic
+>    drm_mode_cursor_universal
+>    drm_mode_cursor_common
+>    drm_mode_cursor_ioctl
+>    drm_ioctl
+>    __x64_sys_ioctl
+> 
+> Beyond the WARN, mutating the dma_resv fence list without the lock
+> races with concurrent readers/writers and can corrupt the list.
+> 
+> Both call sites run inside the .atomic_update plane callback, which
+> DRM atomic helpers do not allow to fail (by the time it runs, the
+> commit has been signed off to userspace and there is no clean
+> rollback path). Moving the lock acquisition to .prepare_fb was
+> rejected because the broader lock scope deadlocks against other BO
+> locking paths in the same atomic commit.
+> 
+> Introduce virtio_gpu_lock_one_resv_uninterruptible() that uses
+> dma_resv_lock() instead of dma_resv_lock_interruptible(). This
+> eliminates the -EINTR failure mode -- the realistic syzbot trigger
+> -- without extending the lock hold across the commit. The helper
+> locks a single BO and rejects nents > 1 with -EINVAL; both fix
+> sites lock exactly one BO.
+> 
+> Use it from virtio_gpu_cursor_plane_update() and
+> virtio_gpu_resource_flush(); check the return value to handle the
+> remaining -ENOMEM case from dma_resv_reserve_fences() by freeing
+> the objs and skipping the plane update for that frame. The
+> framebuffer BOs touched here are not shared with other contexts
+> and lock contention is expected to be brief, so the loss of
+> signal-interruptibility is acceptable.
+> 
+> Other callers of virtio_gpu_array_lock_resv() (the ioctl paths)
+> continue to use the interruptible variant.
+> 
+> The bug was reported by syzbot, triggered via fault injection
+> (fail_nth) on the DRM_IOCTL_MODE_CURSOR path, which forces the
+> -ENOMEM branch in dma_resv_reserve_fences().
+> 
+> Reported-by: syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=72bd3dd3a5d5f39a0271
+> Fixes: 5cfd31c5b3a3 ("drm/virtio: fix virtio_gpu_cursor_plane_update().")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> ---
+> v4: Rename the helper to virtio_gpu_lock_one_resv_uninterruptible()
+>     and reject objs->nents > 1 with -EINVAL. The v3 helper's
+>     multi-object branch used drm_gem_lock_reservations(), which is
+>     interruptible, contradicting the "uninterruptible" name; both
+>     fix sites lock a single BO so the multi-object path is dropped.
+>     (Dmitry Osipenko)
+> v3: Drop the prepare_fb/cleanup_fb approach from v2 (it deadlocked
+>     against virtio_gpu_resource_flush(), which also locks the BO in
+>     the same atomic commit). Instead add an uninterruptible variant
+>     of the resv lock helper and use it in both
+>     virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush().
+>     (Dmitry Osipenko)
+> v2: Move resv lock acquisition from .atomic_update (which must not
+>     fail) to .prepare_fb (which may), per maintainer review of v1.
+>     The v1 approach of silently skipping the cursor update on lock
+>     failure violated the atomic-commit contract with userspace.
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_drv.h   |  1 +
+>  drivers/gpu/drm/virtio/virtgpu_gem.c   | 17 +++++++++++++++++
+>  drivers/gpu/drm/virtio/virtgpu_plane.c | 10 ++++++++--
+>  3 files changed, 26 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+> index f17660a71a3e..2f3531950aa4 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+> @@ -317,6 +317,7 @@ virtio_gpu_array_from_handles(struct drm_file *drm_file, u32 *handles, u32 nents
+>  void virtio_gpu_array_add_obj(struct virtio_gpu_object_array *objs,
+>  			      struct drm_gem_object *obj);
+>  int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs);
+> +int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs);
+>  void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs);
+>  void virtio_gpu_array_add_fence(struct virtio_gpu_object_array *objs,
+>  				struct dma_fence *fence);
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+> index f22dc5c21cd4..435d37d36034 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_gem.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+> @@ -238,6 +238,23 @@ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs)
+>  	return ret;
+>  }
+>  
+> +int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs)
+> +{
+> +	int ret;
+> +
+> +	if (objs->nents != 1)
+> +		return -EINVAL;
+> +
+> +	dma_resv_lock(objs->objs[0]->resv, NULL);
+> +
+> +	ret = dma_resv_reserve_fences(objs->objs[0]->resv, 1);
+> +	if (ret) {
+> +		virtio_gpu_array_unlock_resv(objs);
+> +		return ret;
+> +	}
+> +	return 0;
+> +}
+> +
+>  void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs)
+>  {
+>  	if (objs->nents == 1) {
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+> index a126d1b25f46..652352424744 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+> @@ -215,7 +215,10 @@ static void virtio_gpu_resource_flush(struct drm_plane *plane,
+>  		if (!objs)
+>  			return;
+>  		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+> -		virtio_gpu_array_lock_resv(objs);
+> +		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
+> +			virtio_gpu_array_put_free(objs);
+> +			return;
+> +		}
+>  		virtio_gpu_cmd_resource_flush(vgdev, bo->hw_res_handle, x, y,
+>  					      width, height, objs,
+>  					      vgplane_st->fence);
+> @@ -459,7 +462,10 @@ static void virtio_gpu_cursor_plane_update(struct drm_plane *plane,
+>  		if (!objs)
+>  			return;
+>  		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+> -		virtio_gpu_array_lock_resv(objs);
+> +		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
+> +			virtio_gpu_array_put_free(objs);
+> +			return;
+> +		}
+>  		virtio_gpu_cmd_transfer_to_host_2d
+>  			(vgdev, 0,
+>  			 plane->state->crtc_w,
 
-This is a note to let you know that I've just added the patch titled
+Applied to misc-next, thanks
 
-    drm/ttm: Convert -EAGAIN from dmem_cgroup_try_charge to -ENOSPC
-
-to the 6.18-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-ttm-convert-eagain-from-dmem_cgroup_try_charge-to-enospc.patch
-and it can be found in the queue-6.18 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From 591711b32681a04b57d00c2a404658f8419a081c Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Fri, 8 May 2026 18:09:20 +0200
-Subject: drm/ttm: Convert -EAGAIN from dmem_cgroup_try_charge to -ENOSPC
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-commit 591711b32681a04b57d00c2a404658f8419a081c upstream.
-
-dmem_cgroup_try_charge() returns -EAGAIN when the cgroup limit is
-hit and the charge fails. TTM has no concept of -EAGAIN from resource
-allocation; -ENOSPC is the canonical error meaning "no space, try
-eviction". Convert at the source in ttm_resource_alloc() so no caller
-needs to handle an unexpected error code, and clean up the now-redundant
--EAGAIN check in ttm_bo_alloc_resource().
-
-Without this, -EAGAIN escaping ttm_resource_alloc() during an eviction
-walk causes the walk to terminate early instead of continuing to the
-next candidate.
-
-Cc: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.14+
-Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Maarten Lankhorst <dev@lankhrost.se>
-Link: https://patch.msgid.link/20260508160920.230339-1-thomas.hellstrom@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ttm/ttm_bo.c       |    2 +-
- drivers/gpu/drm/ttm/ttm_resource.c |    5 ++++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
-
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -739,7 +739,7 @@ static int ttm_bo_alloc_resource(struct
- 		may_evict = (force_space && place->mem_type != TTM_PL_SYSTEM);
- 		ret = ttm_resource_alloc(bo, place, res, force_space ? &limit_pool : NULL);
- 		if (ret) {
--			if (ret != -ENOSPC && ret != -EAGAIN) {
-+			if (ret != -ENOSPC) {
- 				dmem_cgroup_pool_state_put(limit_pool);
- 				return ret;
- 			}
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -384,8 +384,11 @@ int ttm_resource_alloc(struct ttm_buffer
- 
- 	if (man->cg) {
- 		ret = dmem_cgroup_try_charge(man->cg, bo->base.size, &pool, ret_limit_pool);
--		if (ret)
-+		if (ret) {
-+			if (ret == -EAGAIN)
-+				ret = -ENOSPC;
- 			return ret;
-+		}
- 	}
- 
- 	ret = man->func->alloc(man, bo, place, res_ptr);
-
-
-Patches currently in stable-queue which might be from thomas.hellstrom@linux.intel.com are
-
-queue-6.18/drm-xe-dma-buf-fix-uaf-with-retry-loop.patch
-queue-6.18/drm-xe-dma-buf-handle-empty-bo-and-uaf-races.patch
-queue-6.18/drm-ttm-convert-eagain-from-dmem_cgroup_try_charge-to-enospc.patch
+-- 
+Best regards,
+Dmitry
