@@ -4,147 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D482CD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15FA7CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6C0810E158;
-	Wed, 20 May 2026 13:41:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 644AD10E433;
+	Wed, 20 May 2026 13:47:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TyOcFmXu";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FRkkdYaW";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ir/IJhuK";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DcJXj8Wv";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC36610F074
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:41:35 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 274DC10E12E
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:47:36 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64K7NfJP2065138
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:41:35 GMT
+ 64K9lfbx266975
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:47:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- dVfCWmu9NnLwt3W1x+6m7XcP0Pmlw7T2tdZJKqO170Y=; b=TyOcFmXuYAaJKYq7
- Nc33wRmi0pLyZeGFKkhtc+r9Zjjy3XQf0DrYorpagNjGGAzWsxIePB3LUq+PO4nn
- g3TlvTkK9SCQC9sR9Ul21euyJs6Q6WP2+zV7j7rZL0Melw/v8bVG5QMIWsG8jwh2
- RAKIRfcoEaRvvz4LXASoaEuHnHAIck2xbYDKg9bpNi9LP2wg6KGVoZ73+LMnudxI
- fcRlg7XWwIYBqdVG0xmHy5Hhtnbmzv3g4x6+wIL0wogc3lRgWl8kKuqk0CpTLRi9
- XL/M8BhPSZwkcqssXvY5qeiym1W66nhpPgjlvVUaoFKxDOdVdNG+I0ZmBZT8EI89
- LTzldg==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
- [209.85.222.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3t4w9y-1
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=AEzwBHnh7dJ0KK/LA0YzrTOcEY0xRPMkPj2SAzGe+44=; b=ir
+ /IJhuKDN+Now3D4qwWWFp8btkEtnv+wemcd0iV3tYc0v5PP8bGe5mctmzqGBuFZS
+ WPShQ9xKaqIA/amgP1PHlPVKYYD8RzlMeV8jxTBE6uhniUQIb4sh5z4MRM9iV2JV
+ 5j18Yoi99ipYoiJfoFa8TAsV4XrZbSkj/+F5h/+XPfa9TykZiit4qrsXpsH24q2S
+ V0HjcDBsBXDGftInozahGXqZdaSCq9KmHwGuB481pMLRQff+7M1qSpcn5d6U2QdD
+ Yp46XmvY0pk9FNiimZXF6DGwLbqscqnF3aOqXo1IcaW5a4Kbjixg7/a5i50k59GA
+ iaDMTE8SewsHkBAFi73Q==
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
+ [209.85.160.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9amxrubj-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:41:34 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id
- a1e0cc1a2514c-956732444ffso9273000241.1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 06:41:34 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:47:35 +0000 (GMT)
+Received: by mail-oa1-f70.google.com with SMTP id
+ 586e51a60fabf-439bb670a3cso4933110fac.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 06:47:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779284854; cv=none;
+ d=google.com; s=arc-20240605;
+ b=cd0L0fxnwPQr+XHOzj/7MjbKQ1vaOj00okFja9KDUGla16gcsSrHCujGeV4kuypbR4
+ +Nlw6UAUlK5yfUt+GVB1XkxjSXAzm0Zfhsj5reraH8fXmmEQFcoJyP3vITX2rFU8T4Da
+ XNpx56li67fvqdLRGxr+B0v96InDd4a6D2H3WYvcEcXwqf6LWtX9O6+hGFn9PFSEECNP
+ 7jVrSQCUAY9tMc+CiwqHK/76se0yi/B6ilto/aFTQCnXANCM6B+QWpgLRI3k3jqCrsyp
+ e0L8xTHUwgNdsbtsqEBh4I86lJiPuhjCUG6uA1F6Se21X/aZSkPiLuohRYTM0fM11p3T
+ M7Sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=AEzwBHnh7dJ0KK/LA0YzrTOcEY0xRPMkPj2SAzGe+44=;
+ fh=IhZBpqhs02T9C6tsEHw57E5t1cuw3Y4rox2QWdt5RVs=;
+ b=LYdJfXuq7RSm8gaprfd5bIaKhgdqx093xfbBGGnkqrs9XFBFhP+ZDe6BR+umxll9G2
+ gSdTHBwY6ckgkK02nhkW0HAb19oKgyfiHiw/c1CaRGs0se5UveRGhPBEatcOraHsCNqF
+ LKt3QY2xL/rCLKMc/vMHCYCv8tZrtjNLWvZOCxmnYkF2Ee73UbPOKUz/XwCzjZm3KG/i
+ 4hoh8sW4VBzHBfQTqD/Wa7BKzWAkqEBMbYJhxdfiQ0DPb2jI3TR8m9qy03i6/vYWa459
+ 4HfEipjt8DUDkndLAlYdnvtBJSYpBUIzlHuWxvBglGgOoAT51083XyEYd3SOwm0Tk0Jr
+ 4Mtw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779284494; x=1779889294;
+ d=oss.qualcomm.com; s=google; t=1779284854; x=1779889654;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dVfCWmu9NnLwt3W1x+6m7XcP0Pmlw7T2tdZJKqO170Y=;
- b=FRkkdYaW/JRNlzds9eYpgSjdGMc3uhk6jcEsaX9Q6cxZ0fJ8PONhqA1OKuClnrKw7u
- Gt1R4f4FQm+Jh99c/D7xARGG9lhDb5j/45q0O6Bdu+l1AG7kQhri1jeQKsslMP5Vr754
- paYGjniRhtMmAlEGUxEabfkT7yPkbu+rr831hi0wtwZ/5/uvL2xN4oM1XCV9rpTULg7V
- 2b0xIwiKiOoF9t5poyhAdCVGmzDoSr6nyDwWv8YpmozCc07dZw8Y4hXUr8Gsn8S9ooF0
- l0Rcz0ADfcsH+eFhcOCqTR0nhD91TnQa0BtUu3puop1zoq2+/YfcvReG84WKFN8T4Awx
- cwAg==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=AEzwBHnh7dJ0KK/LA0YzrTOcEY0xRPMkPj2SAzGe+44=;
+ b=DcJXj8WvCBONkrEQVx8m7ZjGqyGpmMpbCebl4cVn2jqvJnszRIX5Qbl98D/jTwoNkL
+ AslBoe4PJIfgeM88sxtlLyXRHMXmC7TjyilNGpYiVWcu34TwZH98AzuP9pnQCsliJf4K
+ yDHIEFif8pPgxkdBwqoJ1ftVJ5CmpPdWUfVZdoKXlwMmk2vr5R/5iq8z/dGKkogFeHkQ
+ 7YZUbfTjlWwV5SQsH0nToo0DlW8TI0mAUSTOWbD5LQMenIuLxoIyqfArVeObFAIWeNKQ
+ whvbFyawGzM3YrZsBuc+l0IBF4ben+ED2RHSSGnAGPnsD5CnxTFT6BsendhMFYV8zgNm
+ 1cpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779284494; x=1779889294;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=dVfCWmu9NnLwt3W1x+6m7XcP0Pmlw7T2tdZJKqO170Y=;
- b=K2BeXpEEg/AXZsCsoknLKxPMFs8Qtw3c25tSkBjKpM6P1Emuu2d5flNBHHvM68LnPw
- qkDdOOQyuViGQW2kGi4lI+UsBrfpEd0xBt6EYHMuKmgfAsA2Tgpe7kPmUWjFSgsrmcNz
- d9ejC6CL2IxZSUvfo8O8itb0pi265XIkr8OusmHcpVORwhblQF7whBOZWf6lhDnRFV6F
- jvFQv810R+Vcz7wYiioIdRcHf5rGfuzn7VWh7jUED2EkFSfX7qepraZfsylWknoIOsJA
- 0rKbo+RZZLiPuR3D9O/4An6PtiwvBmB2JU1wax0TwZdxMPLuovkVT8GXT9jy5ZUbv1BF
- MDVA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ97Cc0DrxmaPOy/4DfsxD7bdD+Pq172HTuoOlalcr+ZVfIAYFOZcbXCgiBAzJb8bhkveeNRTjRapXo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyFL0JUrz52s/ry2QC9gb+o2Sc95FT4fDQgtjlXjvoEjuMl1cd9
- FQ/T4MI4tYWm6JuPUFFHBizTjHLBVnJJGYczALHUGTlZJ1/wi5YBXXTEYyIDm8CgJYf8Sv2+pup
- UApVii6ZKevVUkOv7tjiui6At+4WQjGyz6ZzxiaZfJQ9Il3l7d52iuR2yJdrpUDNf9WjVvsQ=
-X-Gm-Gg: Acq92OHBpu17FINKBLAeRM1gtgITAGEfiHa040VyMNTv0tbj+ibHCAxoyWZtNYy/U7G
- YwA21RULTAayJcj9cfRW6R0tiUnAiwNaocphipfBxhmX/wKMFUg+5rHEb++d70Phit3NkDOsbhG
- Ck0l8g6a3WFj3MUwlbV7lYpjiirleseIWzhkpHybKzr7tVFWJ19+/BNTvZBzsK263v8CBWHRulA
- z/GLTSuADif2Fr7C8n8UYRjTjRZMz77K+GjFg3AetoXcNJwSBPKiZ+CgxF9HLFeEQRbFiXWoTbT
- galIehCyQwwfu9pgBGv6iY4DXRAItlX+LJVS/UGB4DDV3Gfec2yE03XHJ7lv0bZSF/PMzZ09H3G
- 8oQ5MONsekga70JHeba4QODTE+jcmffAa9fCaWFMkgU3d5AW9YUvQ+AGUrE2qEpaShLsxi2MB3D
- btZgh2NHyGn1LZJFXZOXC5C2qqeEyIZW8U16Q=
-X-Received: by 2002:a05:6102:568d:b0:631:44d9:2ca2 with SMTP id
- ada2fe7eead31-63a3ffa2650mr14672523137.30.1779284494163; 
- Wed, 20 May 2026 06:41:34 -0700 (PDT)
-X-Received: by 2002:a05:6102:568d:b0:631:44d9:2ca2 with SMTP id
- ada2fe7eead31-63a3ffa2650mr14672480137.30.1779284493670; 
- Wed, 20 May 2026 06:41:33 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a9164bc3fcsm4997008e87.48.2026.05.20.06.41.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 06:41:32 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
+ d=1e100.net; s=20251104; t=1779284854; x=1779889654;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=AEzwBHnh7dJ0KK/LA0YzrTOcEY0xRPMkPj2SAzGe+44=;
+ b=PQaV7Qy+kE7azmLLdamW+zqoUHc316ZAWIRjQdV3G1I3EYBJFK2yt7H7mlhtCycgbO
+ G4aI94xJW8LD+vAqJufYyaXnfCiWjYzj4ZXsjWTy/GyngXNtt3Vk3dKy3ph+4YYCE2gD
+ vr96qbAj3bcH2y4KVuqrXLRWnQ8GwGNh5thG2sUaGeCjfInWUYFj15uwsdbcLHyXBu+9
+ E+kBdrENWXkjLQO28AGdjIem7YgY7bL/WZtclFdU0oaa6WO6h8cxZVNnLfexTQ07F4ht
+ yEQAPIPQqj8/B3fkY0cATdYJHzkwxE/vUsICJNr8fZIOUpjnTwBPCrBsTbzdI/L9khYH
+ eT3w==
+X-Gm-Message-State: AOJu0YwKj8pilFcnYfPDVfl0oxRPnfLE2nboxYej2lLTauIsJJaV9P+j
+ eDVBjVB4sVFnSDi8LWcKclqePG1kiyOUEu4FSRyeysC+D9ovlEIEsf02/SV2CjWLENsT0YNp3NZ
+ x27tuBgI9NKja28OG8f1nUd1kKE7T0Wtbz9xt4ou6dRI54nsvZRmowCcxAgUq4DbeObajeUFYsn
+ O9jQh6wklQLfkkdaGb4NIR2zDMb7NRgBOoQAGXFitqHwNPAg==
+X-Gm-Gg: Acq92OES1EZmLj+FJYQ6fmymC+yHHigXDxktPD5eYBUb3bWV3KZK222RiZ6GfgYz79v
+ kxFE+qyWm275oMZKQFdMek5VsAe1gI6hylSn1tvYIwdQYhD/ozft8Bu4IB6HDGxJNc1dyYCgfyb
+ 3ULgVgj7KO1QDvATpIZPnAmxryiXmHz85PpxsUflQUJGkEVjlF9zrvcOaHm1AYr7dGBH/amVjtW
+ XO5e3yTTzLTpuyVZYMS1zlQd5EeVAE+UURacqaSHiWJ4oip
+X-Received: by 2002:a05:6870:2c41:b0:439:f46f:c3e6 with SMTP id
+ 586e51a60fabf-43a2de0c518mr15920035fac.36.1779284854603; 
+ Wed, 20 May 2026 06:47:34 -0700 (PDT)
+X-Received: by 2002:a05:6870:2c41:b0:439:f46f:c3e6 with SMTP id
+ 586e51a60fabf-43a2de0c518mr15919994fac.36.1779284854130; Wed, 20 May 2026
+ 06:47:34 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260518190735.16236-1-robin.clark@oss.qualcomm.com>
+ <20260518190735.16236-6-robin.clark@oss.qualcomm.com>
+ <b4787a2b-c1db-4c0c-8c58-fe60fed83cfb@oss.qualcomm.com>
+ <CACSVV01srddm1569SStsdBg_L_JG79sPgORokNUw8odgyix=pA@mail.gmail.com>
+In-Reply-To: <CACSVV01srddm1569SStsdBg_L_JG79sPgORokNUw8odgyix=pA@mail.gmail.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Wed, 20 May 2026 06:47:22 -0700
+X-Gm-Features: AVHnY4L2W2iyJl0xEtVcL3iOFbzIH1hsMF3IpZHMa3awxKpfgFecbH9ma0VO5qg
+Message-ID: <CACSVV01UwdB+O6=h-3vVmeiyBFMYCT6HTrcF+Pc8CwSpTSFcaw@mail.gmail.com>
+Subject: Re: [PATCH v7 05/16] drm/msm/registers: Add perfcntr json
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Anna Maniscalco <anna.maniscalco2000@gmail.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Marek <jonathan@marek.ca>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Alexander Koskovich <akoskovich@pm.me>,
- Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/9] MDSS / DPU bringup for Milos
-Date: Wed, 20 May 2026 16:41:30 +0300
-Message-ID: <177928444229.2567181.2193286518117779172.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
-References: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: UqgFFP0BfwhUTyiaNbhiMgnHMZvj4Zps
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDEzMyBTYWx0ZWRfX7nGIrWZoT23n
- VbJGTew65quvIK1qki+IXQRryvn7o7Mnrh8/81PSBeMB35idGXcWyMiKnmVvhhH4vWays8kS+f/
- /bxZ02N5sFblSpbtwBcOP1RtUk6dQGiwtowJongYlA/F+/LkNoWKPiqIZmOUD06f8KxuP83dPVJ
- VDFv4FgLAyZrDNGWImvdgg9zVeeVPu3rfJ8cCvZ8zPx8FW6uVftqVnWduv6/Mx3kYqVfx1/O96k
- 0/MLRfreFHCMu30tXQ+yfvKjz4poF2HvPL/Chda6yeEiQVZcXLQ6Bexop5RjUwRCYhmL1MoCevI
- RVYCFNt1nF5/PsmPTiJDFAkVsatpVAfcrsDZIg6sz15ElpoDiwk1bdaSbZdxh2YaPDxhoH4Jy5v
- RPNwxrr+3KUAFW90C2zmxZqrun8V8estOoqhhOsF6e3Vdd5PaVWFjTfO77P3ZfUsUrpqNwxVcdL
- PwdJXRWENSA3RevECRA==
-X-Proofpoint-ORIG-GUID: UqgFFP0BfwhUTyiaNbhiMgnHMZvj4Zps
-X-Authority-Analysis: v=2.4 cv=C4LZDwP+ c=1 sm=1 tr=0 ts=6a0dba0e cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=e5mUnYsNAAAA:8
- a=dydZwlHECne5IGhmaagA:9 a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
- a=Vxmtnl_E_bksehYqCbjh:22
+ Konrad Dybcio <konradybcio@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: 2KaSqGyAfTZXA6EJwj3Nme5F4OvOJQPO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDEzNCBTYWx0ZWRfX5HKIfpc4k2NP
+ 45PCYfhXECXbSSkgr+Sb/Sm7L4aUGQm6ZSwBAXVe21XhBPt4q69ULIyxmneCqMyZYIrAgthuOXJ
+ 73tJJxw4eq6q8LtPvUdb4KN1l75VQz74w2tZ/m0CQ1rVHEBlnHoxZ9A8x2JskMjpFzrwxfZL1ll
+ d/7XL13UH8OvvyTAt91S4/UH/as8IwNUqOLPsfnbkFj7wM1z5Q9VS9cZBLp1MYweiloMOFm+XJI
+ 2oI3L/F+X1LEX6xj8dmzyroITIzLj4SqX9+QpVou5ZqIX80s9yuLdNKfVcJZ/Kpg7deUzoZA2Ia
+ 2DKjg5eLNVYWejqXDL9Mec4Nd8d7VGgCDAddP1ZA2D01zslcZrWCCYOqZR7Skd1fRFiDa7Av/G6
+ 29EEggH+fCBoctL0KhewgaAyndDV4GhlJQWTkALpwUfzGQ7kXZrry9jblL2MADZg3gXXPycmRu6
+ Z2yIDQ3tDlkYXUnvWqg==
+X-Authority-Analysis: v=2.4 cv=TO11jVla c=1 sm=1 tr=0 ts=6a0dbb77 cx=c_pps
+ a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
+ a=BJRrLYK1mc_FFp4VC2gA:9 a=8f1wxSZkJpRnjI3K:21 a=QEXdDO2ut3YA:10
+ a=1zu1i0D7hVQfj8NKfPKu:22
+X-Proofpoint-ORIG-GUID: 2KaSqGyAfTZXA6EJwj3Nme5F4OvOJQPO
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 spamscore=0 phishscore=0 priorityscore=1501
- adultscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200133
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 spamscore=0 adultscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605200134
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,45 +161,321 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 01 May 2026 09:14:42 +0200, Luca Weiss wrote:
-> This series adds display support for the Milos SoC.
-> 
-> This is tested on the Fairphone (Gen. 6) using the SM7635 SoC (8bit DSC
-> cmd mode), and the Nothing Phone (3a) has also been reported to work by
-> Alexander Koskovich.
-> 
-> The panel driver for Fairphone (Gen. 6) and devicetree enablement will
-> be sent later.
-> 
-> [...]
+On Wed, May 20, 2026 at 5:30=E2=80=AFAM Rob Clark <rob.clark@oss.qualcomm.c=
+om> wrote:
+>
+> On Wed, May 20, 2026 at 1:36=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualc=
+omm.com> wrote:
+> >
+> > On 5/19/2026 12:36 AM, Rob Clark wrote:
+> > > Pull in perfcntr json and wire up generation of perfcntr tables.
+> > >
+> > > Sync from mesa commit d2c4653ee953 ("freedreno/registers: Add gen8 pe=
+rfcntrs")
+> > >
+> > > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > > Reviewed-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> > > ---
+> > >  drivers/gpu/drm/msm/Makefile                  |  25 +-
+> > >  drivers/gpu/drm/msm/msm_perfcntr.h            |  48 ++++
+> > >  .../msm/registers/adreno/a2xx_perfcntrs.json  | 109 ++++++++
+> > >  .../msm/registers/adreno/a5xx_perfcntrs.json  | 128 ++++++++++
+> > >  .../msm/registers/adreno/a6xx_perfcntrs.json  | 105 ++++++++
+> > >  .../msm/registers/adreno/a7xx_perfcntrs.json  | 228 ++++++++++++++++=
++
+> > >  .../msm/registers/adreno/a8xx_perfcntrs.json  | 240 ++++++++++++++++=
+++
+> > >  7 files changed, 882 insertions(+), 1 deletion(-)
+> > >  create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.h
+> > >  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a2xx_perfcnt=
+rs.json
+> > >  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a5xx_perfcnt=
+rs.json
+> > >  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcnt=
+rs.json
+> > >  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcnt=
+rs.json
+> > >  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcnt=
+rs.json
+> > >
+> >
+> > << snip >>
+> >
+> > > diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json=
+ b/drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
+> > > new file mode 100644
+> > > index 000000000000..8bb31820479e
+> > > --- /dev/null
+> > > +++ b/drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
+> > > @@ -0,0 +1,105 @@
+> > > +{
+> >
+> > RBBM and CMP groups are missing here.
+>
+> Yes, so far we only support the counters that mesa has been using.
+> There are some missing.  Although RBBM and CMP look straightforward to
+> add.
 
-Applied to msm-next, thanks!
+Oh, actually, it looks like we need to use RBBM_PERFCTR_LOAD_VALUE on
+a6xx gen1/gen2.  So I'll leave out RBBM until we have a way of dealing
+with mid-gen counter changes.  But adding CMP looks doable.
 
-[1/9] dt-bindings: display: msm-dsi-phy-7nm: document the Milos DSI PHY
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/6a64e18774bc
-[2/9] dt-bindings: display: msm-dsi-controller-main: document the Milos DSI Controller
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/fd2ce4931c78
-[3/9] dt-bindings: display: msm: document the Milos DPU
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/5354032dc203
-[4/9] dt-bindings: display: msm: document the Milos Mobile Display Subsystem
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/f5d66543884f
-[5/9] soc: qcom: ubwc: Add config for Milos
-      (no commit info)
-[6/9] drm/msm/dsi: add support for DSI-PHY on Milos
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/bdb927095689
-[7/9] drm/msm: mdss: Add Milos support
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/88210726c65e
-[8/9] drm/msm/dpu: Add Milos support
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/a48fe7aa0a2d
-[9/9] arm64: dts: qcom: milos: Add display (MDSS)
-      (no commit info)
+BR,
+-R
 
-Best regards,
--- 
-With best wishes
-Dmitry
-
-
+>
+> > > +    "chip": "A6XX",
+> > > +    "groups": [
+> > > +        {
+> > > +            "name": "CP",
+> > > +            "num": 14,
+> > > +            "reserved": [ 0 ],
+> > > +            "select": "CP_PERFCTR_CP_SEL",
+> > > +            "counter": "RBBM_PERFCTR_CP",
+> > > +            "countable_type": "a6xx_cp_perfcounter_select"
+> >
+> > << snip >>
+> >
+> > > diff --git a/drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json=
+ b/drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
+> > > new file mode 100644
+> > > index 000000000000..e60aab1862ec
+> > > --- /dev/null
+> > > +++ b/drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
+> > > @@ -0,0 +1,228 @@
+> > > +{
+> > > +    "chip": "A7XX",
+> > > +    "groups": [
+> > > +        {
+> > > +            "name": "CP",
+> > > +            "num": 14,
+> > > +            "reserved": [ 0 ],
+> > > +            "select": "CP_PERFCTR_CP_SEL",
+> > > +            "counter": "RBBM_PERFCTR_CP",
+> > > +            "countable_type": "a7xx_cp_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "RBBM",
+> > > +            "num": 4,
+> > > +            "select": "RBBM_PERFCTR_RBBM_SEL",
+> > > +            "counter": "RBBM_PERFCTR_RBBM",
+> > > +            "countable_type": "a7xx_rbbm_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "PC",
+> > > +            "pipe": "BR",
+> > > +            "num": 8,
+> > > +            "select": "PC_PERFCTR_PC_SEL",
+> > > +            "counter": "RBBM_PERFCTR_PC",
+> > > +            "countable_type": "a7xx_pc_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "VFD",
+> > > +            "pipe": "BR",
+> > > +            "num": 8,
+> > > +            "select": "VFD_PERFCTR_VFD_SEL",
+> > > +            "counter": "RBBM_PERFCTR_VFD",
+> > > +            "countable_type": "a7xx_vfd_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "HLSQ",
+> > > +            "pipe": "BR",
+> > > +            "num": 6,
+> > > +            "select": "SP_PERFCTR_HLSQ_SEL",
+> > > +            "counter": "RBBM_PERFCTR_HLSQ",
+> > > +            "countable_type": "a7xx_hlsq_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "VPC",
+> > > +            "pipe": "BR",
+> > > +            "num": 6,
+> > > +            "select": "VPC_PERFCTR_VPC_SEL",
+> > > +            "counter": "RBBM_PERFCTR_VPC",
+> > > +            "countable_type": "a7xx_vpc_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "TSE",
+> > > +            "pipe": "BR",
+> > > +            "num": 4,
+> > > +            "select": "GRAS_PERFCTR_TSE_SEL",
+> > > +            "counter": "RBBM_PERFCTR_TSE",
+> > > +            "countable_type": "a7xx_tse_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "RAS",
+> > > +            "pipe": "BR",
+> > > +            "num": 4,
+> > > +            "select": "GRAS_PERFCTR_RAS_SEL",
+> > > +            "counter": "RBBM_PERFCTR_RAS",
+> > > +            "countable_type": "a7xx_ras_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "UCHE",
+> > > +            "num": 12,
+> >
+> > A740 and newer has 24 counters
+>
+> We don't yet have a way of dealing with mid-gen changes like this..  I
+> have some ideas, but nothing implemented yet.  The same situation
+> comes up for a8xx, where some new counter groups are added.
+>
+> > > +            "select": "UCHE_PERFCTR_UCHE_SEL",
+> > > +            "counter": "RBBM_PERFCTR_UCHE",
+> > > +            "countable_type": "a7xx_uche_perfcounter_select"
+> > > +        },
+> >
+> > << snip >>
+> >
+> > > diff --git a/drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json=
+ b/drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
+> > > new file mode 100644
+> > > index 000000000000..503b113df397
+> > > --- /dev/null
+> > > +++ b/drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
+> > > @@ -0,0 +1,240 @@
+> > > +{
+> > > +    "chip": "A8XX",
+> > > +    "groups": [
+> > > +        {
+> > > +            "name": "CP",
+> > > +            "num": 14,
+> > > +            "reserved": [ 0 ],
+> > > +            "select": "CP_PERFCTR_CP_SEL",
+> > > +            "counter": "RBBM_PERFCTR_CP",
+> > > +            "countable_type": "a8xx_cp_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "RBBM",
+> > > +            "num": 4,
+> > > +            "select": "RBBM_PERFCTR_RBBM_SEL",
+> > > +            "slice_select": [ "RBBM_SLICE_PERFCTR_RBBM_SEL" ],
+> > > +            "counter": "RBBM_PERFCTR_RBBM",
+> > > +            "countable_type": "a8xx_rbbm_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "PC",
+> > > +            "pipe": "BR",
+> > > +            "num": 8,
+> > > +            "select": "PC_PERFCTR_PC_SEL",
+> > > +            "slice_select": [ "PC_SLICE_PERFCTR_PC_SEL" ],
+> > > +            "counter": "RBBM_PERFCTR_PC",
+> > > +            "countable_type": "a8xx_pc_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "VFD",
+> > > +            "pipe": "BR",
+> > > +            "num": 8,
+> > > +            "select": "VFD_PERFCTR_VFD_SEL",
+> > > +            "counter": "RBBM_PERFCTR_VFD",
+> > > +            "countable_type": "a8xx_vfd_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "HLSQ",
+> > > +            "pipe": "BR",
+> > > +            "num": 6,
+> > > +            "select": "SP_PERFCTR_HLSQ_SEL",
+> > > +            "slice_select": [ "SP_PERFCTR_HLSQ_SEL_2" ],
+> > > +            "counter": "RBBM_PERFCTR_HLSQ",
+> > > +            "countable_type": "a8xx_hlsq_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "VPC",
+> > > +            "pipe": "BR",
+> > > +            "num": 6,
+> > > +            "select": "VPC_PERFCTR_VPC_SEL",
+> > > +            "slice_select": [ "VPC_PERFCTR_VPC_SEL_1", "VPC_PERFCTR_=
+VPC_SEL_2" ],
+> > > +            "counter": "RBBM_PERFCTR_VPC",
+> > > +            "countable_type": "a8xx_vpc_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "TSE",
+> > > +            "pipe": "BR",
+> > > +            "num": 4,
+> > > +            "select": "GRAS_PERFCTR_TSE_SEL",
+> > > +            "slice_select": [ "GRAS_PERFCTR_TSEFE_SEL" ],
+> > > +            "counter": "RBBM_PERFCTR_TSE",
+> > > +            "countable_type": "a8xx_tse_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "RAS",
+> > > +            "pipe": "BR",
+> > > +            "num": 4,
+> > > +            "select": "GRAS_PERFCTR_RAS_SEL",
+> > > +            "counter": "RBBM_PERFCTR_RAS",
+> > > +            "countable_type": "a8xx_ras_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "UCHE",
+> > > +            "num": 12,
+> >
+> > "num": 24,
+>
+> ack
+>
+> >
+> > > +            "select": "UCHE_PERFCTR_UCHE_SEL",
+> > > +            "counter": "RBBM_PERFCTR_UCHE",
+> > > +            "countable_type": "a8xx_uche_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "TP",
+> > > +            "pipe": "BR",
+> > > +            "num": 12,
+> > > +            "select": "TPL1_PERFCTR_TP_SEL",
+> > > +            "counter": "RBBM_PERFCTR_TP",
+> > > +            "countable_type": "a8xx_tp_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "SP",
+> > > +            "pipe": "BR",
+> > > +            "num": 24,
+> > > +            "select": "SP_PERFCTR_SP_SEL",
+> > > +            "counter": "RBBM_PERFCTR_SP",
+> > > +            "countable_type": "a8xx_sp_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "RB",
+> > > +            "pipe": "BR",
+> > > +            "num": 8,
+> > > +            "select": "RB_PERFCTR_RB_SEL",
+> > > +            "counter": "RBBM_PERFCTR_RB",
+> > > +            "countable_type": "a8xx_rb_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "VSC",
+> > > +            "num": 2,
+> > > +            "select": "VSC_PERFCTR_VSC_SEL",
+> > > +            "counter": "RBBM_PERFCTR_VSC",
+> > > +            "countable_type": "a8xx_vsc_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "CCU",
+> > > +            "pipe": "BR",
+> > > +            "num": 5,
+> > > +            "select": "RB_PERFCTR_CCU_SEL",
+> > > +            "counter": "RBBM_PERFCTR_CCU",
+> > > +            "countable_type": "a8xx_ccu_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "LRZ",
+> > > +            "pipe": "BR",
+> > > +            "num": 4,
+> > > +            "select": "GRAS_PERFCTR_LRZ_SEL",
+> > > +            "counter": "RBBM_PERFCTR_LRZ",
+> > > +            "countable_type": "a8xx_lrz_perfcounter_select"
+> > > +        },
+> > > +        {
+> > > +            "name": "CMP",
+> >
+> > "pipe": "BR",
+>
+> ack
+>
+> BR,
+> -R
