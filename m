@@ -4,99 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA6D9CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 23:33:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E23CD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 23:37:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 248B310E201;
-	Wed, 20 May 2026 23:33:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11D0410E434;
+	Wed, 20 May 2026 23:37:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="b86xySVW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WnTJZ59T";
 	dkim-atps=neutral
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com
- [209.85.215.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D55C210E201
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 23:33:25 +0000 (UTC)
-Received: by mail-pg1-f226.google.com with SMTP id
- 41be03b00d2f7-c8016d642b2so2762034a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:33:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779320005; x=1779924805;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ws3LZIDjvhIy+vm9ZGYJAb+eJeCjXTtC/dRKNnpJpyg=;
- b=HHjZc8bj50BxeAk6OW5yMUm66h7ipo8GFaecOfOzah88kfBGCrpYxoRPGrXx2H+jb/
- NdHbauMVRWpEK2UjaeWogTQGapMcosWHzUUVieC8+TnCUYkT6tzJOPSpcxeGZWq/WbDw
- gGuzaQ5UlChUHOwLrInSFqiawBocvwR8VNW+r6mmV3W9x14kuioNAp3ITHtp0UETIZj3
- aNMIAP+ozZLMQXEO2cGozD4M7FJ9wmHvgP32UxbVfqA6i1JhSn/oc5gzPGClz1ihDc0D
- DH6dUxwMQ1VikDPYUmAzRhkOPhDC7taf2/AV0mZEBdwdd8Dzkk2E3RCLFGAL5LPk3K8j
- /Uow==
-X-Gm-Message-State: AOJu0Yx7GvFHO8ESXJLjDK3srdefco4hYBSACoEKJ0L28IlQl6YAf+0S
- Yjp1HGhhcANTZfJQROpIwNb4F4p20IpIlGz9gw6cDqLFHxYf6GERF24WBQ2pozHHlN98NTGpfhm
- ySRTW6bQpC10VB8VGunuzmeaefpHb7CQtqdvteTxskzOPZI6pz5IqbZwuS6aAJgEnrwt+635j/V
- 1e2rbqWV4A6b9U9r8oNimBwDYbMKICQl38O3Rm7oiB3/v/XkXZjaiRy4+f6vX7z8j75i5ZKiTSm
- 3TTtjah7CgKwKp0zjpn0qqpdM+X
-X-Gm-Gg: Acq92OGq3AAfcl12sPQGYYj5HR/PnMIgFKFj3tUxB78pbXt1KOECYh1ZvUBceGeetf6
- vPBl19rllms0716+mlVmEsbLTvPC3On31G0OAJSgRF4oj8Yb5hEKS+2inPX9mAscG27BON+eeES
- 8M6sdJlFTn7aoXYoJVJWZg11yDR0xG5SLhgacFSYzVxGj8GZMz5xctG/mMI3GkgpV+4+zy2z1p9
- fYd4BphiLn8ALobMOQBUl8bQ7b4xY/OgPOdhQ3uhYWYZjLNLG4TCbPRrjeTQPStM/TaLUZustYI
- 8JZd4SWq79Big7VBYc9dAK+cC+b1Zz8r6HdB2OrQJELZL6v20av+vuW8do5Yk1sQxpdseJHxwsU
- iRc1HHiVvfuz+kYUnLzei8mDMVy9qDKot34QWGE0G4Jr8GZr4+hSs/xJy47xeCBXufaOSPxZFkB
- o9vIwlvU+7TGTIG59RwT4UbBELEdwwjQ47vX6NcSdjxKSkXD/Ajcj2WVDDc9Hkh8SS
-X-Received: by 2002:a17:903:2391:b0:2bd:2c3a:2a36 with SMTP id
- d9443c01a7336-2bea1fd2efdmr4383665ad.0.1779320005062; 
- Wed, 20 May 2026 16:33:25 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-117.dlp.protect.broadcom.com. [144.49.247.117])
- by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2bd5cfe2d89sm16767875ad.41.2026.05.20.16.33.24
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 20 May 2026 16:33:25 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-2bda35eab74so4415173eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:33:24 -0700 (PDT)
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
+ [209.85.219.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 909CD10E434
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 23:37:34 +0000 (UTC)
+Received: by mail-qv1-f44.google.com with SMTP id
+ 6a1803df08f44-8b74b460d77so71167216d6.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:37:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779320253; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Dt3MylmwGZVi6mxBSQHJXE2mkivZt5QQXqrMicTrj+5FY363SQfaeGm7wZT3HEc4/I
+ tG9XCxBEq8alwpCfxJY4v2HydBPwZ7C4S4tu/qxZmeeMwqAx9w/6CYq/FEXvE1drnN1h
+ SeidgijnlSyHsdyuugS7NJEGnuAFrBMvAtM2GVYMMMORLl1UGqZt069aeF6dZ7Uj8ebB
+ ZuFH2l4LRba9iuXHikfuSXOWfSv7lBlBaG9HFUkgqevXU9f1V2d9HeOX1/JYJa2DCPuC
+ A71V/BfHWwzN43+F2F6zUFCJmFpw6wVU18J9DmFfciUKfwY1OsXsbd4Uh94H/szC2RH2
+ wSRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=Sp6SIKeuA2uB6yGcJDbhDcgvTpERKEz2fYzJCywaX1U=;
+ fh=P+BOdEQr09lbY+JcSV33bdOg94/tK36ypxNHveRDYKw=;
+ b=cIkjy5xS16cZSFDv+EiuT4vS/IucZdIuDQLN8tluSBk4Ft4kW39gbmeEFx20h4fi7l
+ izKefviKls22At/f6bJSWXiZk5Pqp2bXw9wZHdL5c8ZBoloq8hnwVIKfPxEAIob3VwKm
+ j1+eCbc7cdGIUezD7kvsGwKNksJzYU6jt+rTtrNcsT7oE/Te9hVuSv4XFLHjPhUAN2hV
+ nbGvosxrbFJ1genUUnQFO1vyBkeDofbYwdSREZeAwb/X4tgleSX/iLV/GzA6PwtVBXNw
+ IVs3NWKkDxP7Heei07qcwtGKd31eZPAqyxI9+EDkGES5+w6/ti/CbEurnAjaOI00zonA
+ uloQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1779320003; x=1779924803;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ws3LZIDjvhIy+vm9ZGYJAb+eJeCjXTtC/dRKNnpJpyg=;
- b=b86xySVWmb+hRTsFT0y6dH+ALq4mytPqMPCJjd7lSsbno/+pzQRUgvAZ3K825r/8Ck
- kdiO24JhgHUn8Ik8o6ZJkXyOI/X7dUdZtw2yF6Nqpwo2HKB0EPHI96IS3YrQwIvOnRhv
- ZgF5xEu8+uS6E+KW1kFJ9PcRUU1T+T+cqoLkc=
-X-Received: by 2002:a05:7300:7493:b0:2ed:e16:6b37 with SMTP id
- 5a478bee46e88-30432187993mr211310eec.15.1779320003245; 
- Wed, 20 May 2026 16:33:23 -0700 (PDT)
-X-Received: by 2002:a05:7300:7493:b0:2ed:e16:6b37 with SMTP id
- 5a478bee46e88-30432187993mr211296eec.15.1779320002698; 
- Wed, 20 May 2026 16:33:22 -0700 (PDT)
-Received: from [10.211.247.102] ([192.19.50.250])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3041ab8282bsm2612361eec.31.2026.05.20.16.33.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 May 2026 16:33:22 -0700 (PDT)
-Message-ID: <0c4e205a-31fe-486b-810c-0222927a1025@broadcom.com>
-Date: Wed, 20 May 2026 16:36:54 -0700
+ d=gmail.com; s=20251104; t=1779320253; x=1779925053; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Sp6SIKeuA2uB6yGcJDbhDcgvTpERKEz2fYzJCywaX1U=;
+ b=WnTJZ59T0O7ODnO4gk64Izk/gXA7KMHXmw2r42BtAWOE5kUJYb1d3j9TN7+a50w3iO
+ vERbzJ3FEXgZ9yYhYmwlY61chDrlFh0rMOKfx30K69qXbTlvl+LVtIGyCL6o9lEfM+m3
+ bzlruLvACLsXVV5kWbYrh+PBLfHhtxI6JLoFiPm/SAg4mRnAbGyLjXW+J+bri5MkvM38
+ BnwXlZWLFVYIJaK2BcV53LqRHe5lNUvJmuizNLl9HeI2Ni7ysr4ooAIQ1alUW7y9BmlB
+ 5bJ36lP/XmB83uhZPN9b4HDsm0v0mDeOYd6m1hqECiAtAknvi6c+Eh+0OUyQOjx1j1sk
+ Gynw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779320253; x=1779925053;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Sp6SIKeuA2uB6yGcJDbhDcgvTpERKEz2fYzJCywaX1U=;
+ b=XfJvnF+PD8G9wvnfjeg4GkjGLz1shE4/5R2i722DQupTn3snUDcjrEm4m3sm5r8CIB
+ cn6PE7IA8CE9TQROKP8Qjv1AhjOLb7j2Dg7AW1+cb9rYXzV22eWdxuf9GEKDo0x7uKb/
+ vaEqvDlFX/xdCSeQ69bHqG++jdMKMfUL+1KG7lgQGgG5Y6r4DGXDQzUtrKD/4EUfsVpE
+ TlGb23cz/flzq95GPbqdf7z0TGnzPqLFIEniLn6UfAnoVlTsXH8e55ggiMRF96vmZeJO
+ 15TjiU77nlEtZHtegZNs/jCoZK64DgzmRVQP9BgNA1qY8XEjcldEHnqoeqLI79yQzP2A
+ aq7g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+BArsRwpQoI1/comytFfVLbcA48Ml9llUM6IZ57vBB5OU6Osw3wm6oQBb5U/LFyV7j/hWGUfptAdQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzu9/jjfTTH4sLITe6JUggkrbGfdS5kFYOSTk0Ajw+MkDCWeaFz
+ BvhYzfw21H831JvF8YAP79XtX8p3xxHzNj7r+KIVhuZXHF7/3NktgEMQKpRfqxliHycliu6kr1h
+ kr7SWr/kBQLnCD/dbtPlcJhW+28xj0us=
+X-Gm-Gg: Acq92OEjIR0ehpCA7xUmy6T4vLjBZXht1g3t3P3Qiaq77/YWgHtrVLONUZn4ogAZuvT
+ pf+IAIKl83DsYa9tCBKLwpAlrrmbUgZX/EoXpbkkrgze9mdTBbA03jxnOj85AcK5Fqss8KmiOzK
+ KTTxPSKzI2BCiyBSku4tiUlYa4TCuvWTWHJAJvE5RKiBDopqDmieuAVI/jBlDrbkWzSDO3ChwEV
+ SOdWbPgnNwyG4D5qchSkpKkV+eFCxgXUmi8sFcCjMFMignbwJfJZHGI2JoTJaXAR7yvKl9lrYES
+ HoBVsaUQDTcO8cJlh4bWK8zRQiVtCqyN5+eFuRF5zQk6m4IYITIdKwJo9xCLjjnUwnw/r2Da4/Z
+ 0ottQ840/C/IF
+X-Received: by 2002:a05:6214:c26:b0:899:f24d:1245 with SMTP id
+ 6a1803df08f44-8cc6e67627emr9539666d6.43.1779320253600; Wed, 20 May 2026
+ 16:37:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] drm/vmwgfx: Change ttm refs for dumb buffers.
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com,
- ian.forbes@broadcom.com
-References: <20260514224819.3631763-1-maaz.mombasawala@broadcom.com>
- <20260514224819.3631763-5-maaz.mombasawala@broadcom.com>
- <CABQX2QN4yojsoZ9pkzw1y5a_PEaxa_nfur0V2qaKyiezTgYZHg@mail.gmail.com>
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Content-Language: en-US
-In-Reply-To: <CABQX2QN4yojsoZ9pkzw1y5a_PEaxa_nfur0V2qaKyiezTgYZHg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
+In-Reply-To: <20260511235637.3468558-1-laurent.pinchart+renesas@ideasonboard.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Thu, 21 May 2026 09:37:21 +1000
+X-Gm-Features: AVHnY4Ie1EkZP4MVWC5BJhOzB-LRjbEQVuRJFLZbvO9ezWJOak9jMyGsYRj-ryY
+Message-ID: <CAPM=9tx7aP08jEtHN5KOhekfky8Qn9U5LZqUybude3D3OVZsTg@mail.gmail.com>
+Subject: Re: [PATCH 00/11] media: renesas: vsp1: Modernize the driver
+To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Simona Vetter <simona@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,29 +107,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/14/26 10:49 PM, Zack Rusin wrote:
+On Tue, 12 May 2026 at 09:56, Laurent Pinchart
+<laurent.pinchart+renesas@ideasonboard.com> wrote:
+>
+> Hello,
+>
+> This patch series modernizes the VSP1 driver by using scoped guards and
+> moving loop index variable declarations to the loop statements.
+>
+> Patches 01/11 and 02/11 prepare for the introduction of scoped guards by
+> splitting a large function to lower the indentation level. As the
+> function is called by DRM clients (R-Car DU and RZ DU drivers), an
+> inline compatibility wrapper is introduced. The clients are then updated
+> in patches 03/11 and 04/11, and the compatibility wrapper removed in
+> 11/11.
+>
+> Patches 05/11 to 08/11 then introduce guards and scoped guards for
+> mutexes and spin locks. There isn't much to say about this, the changes
+> are pretty boring, but generate a nice reduction of 148 lines. I advise
+> reviewers to apply the changes and use 'git show -b', as a large part of
+> the modified lines in 06/11 and 08/11 are just indentation changes due
+> to scoped guards.
+>
+> Patch 09/11 continues with the introduction of a helper macro to
+> simplifying iteration over format arrays, which occurs 6 times in the
+> driver. Patch 10/11 ends the modernization effort with declaring index
+> variables in for loop statements to avoid using index variables outside
+> of the loop unintentionally.
+>
+> Patch 03/11 and 04/11 touch the DRM subsystem and depend on 02/11. They
+> could be delayed by one kernel release (in which case 11/11 would need
+> to be delayed by two releases), but I would prefer merging them through
+> the media tree if possible if there's no objection from the DRM
+> maintainers. I don't expect conflicting changes in the R-Car DU driver
+> for v7.2. Dave, Sima, could you give your ack for this ?
 
-> That still doesn't look correct. dumb buffers own the resource and
-> should drop it themselves. What you did is made arg.rep.handle stay in
-> tdev->idr and now both the tfile and dumb_buffer own the surface.
-> Whichever one is destroyed first will make the other UAF on that
-> surface.
-> 
+Acked-by: Dave Airlie <airlied@redhat.com>
 
-So the tdev->idr still needs to have the handle for the surface ref ioctl
-to work on a dumb buffer.
-Instead of having a ref object, we could increment a refcount for the ttm
-base object directly, and then release it on dumb buffer destroy.This way
-the tfile does not hold a reference to the dumb surface.
-
-> For all the commits in that series that are fixes please find a proper
-> Fixes commit. And if you want to land this through drm-misc-fixes then
-> you'll need to remove the last one from the series because I don't
-> think we should land general cleanups through fixes.
-> 
-> z
-
-Sounds good.
-
--- 
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Dave.
