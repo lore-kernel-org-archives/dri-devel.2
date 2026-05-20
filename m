@@ -4,135 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC3DBCD5BA4
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:42:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D326CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:46:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0863010F03C;
-	Wed, 20 May 2026 11:42:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF58710F037;
+	Wed, 20 May 2026 11:46:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PIVDtecw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CUNjW+Xn";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012071.outbound.protection.outlook.com [52.101.53.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 656FD10F037;
- Wed, 20 May 2026 11:42:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YbndcyMei3l4iJe3ysxj61M3UIZgRLGTqYxUrJsfJXGHdkLf/uNkLuUQUbGv01a5lPILAJIjFXmWMMWc+D0xxnyhHTiGl3uwJvGbnzpXRSRRZStSFH+ZkgA1jEActRA0D8kVSd4K+MT3xbRIZmD1a+0pT6G9U9Jd41pkzRi0DX6uVPkXdj0Vc2gvgaN2COicZLkqcc9TgZmkOgWap4EIgCkqCutOArL4Q1Ee1iGBdVwy5vQhSYAWJ7Dn3dlDRgmgYdS/uPtVblohSXjJ4VbGw3+kngh8yVsXblLxOBHoZIb03FjVVV4YDCUeuWViK+kMDkEBs5fhLHdphDaPqOCmCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5FFNdUib/HWpjohmLS+BRIEQ7mt5V9GeLarYVeWaSlQ=;
- b=J8pDQ9uS1CpMK9o1KNMJIkpAQFJd2nTLsmg5f+fxrBGT/+m17JlgQEip+h753vv+w8mD5ims2AmmdVQOl43aVYjmbHdmI0TMsSkE5J1jtXJ78TDE/7txfYTJCumoOBUKqyRJ2DhkaS0Mf4cigxNmbjKaVywwRaZJZAjDuOV4mhcUiIYZg0717so28fvxrvarVZM9sMtXTa71ZSrGy1T0tAWbKVef2p84R4KQ9cB3faj8VZqEMVq7mrgTwRg2cIsUgrj1Z0PjAwgLJ5pR1lOhkUw33D/7DHEgtG61PEZ0CmGhX+78MTmplfLGPbzdjAx9BWZXbh2aZtfWFrALLHcDBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5FFNdUib/HWpjohmLS+BRIEQ7mt5V9GeLarYVeWaSlQ=;
- b=PIVDtecwo1+mjhBnPQN+YxTSHMzRdF4y/LtK2P+oXh3xvRFXm6karP7/9B/nX2R5wgZyr6YPW0vBSIGuy4hgx9Kd+dzo8K5iHTS1E2xh8KpalWTbaVvjKZNzHaThNWFfgkNL5vKWNrHjyiC9nbRL1QXGPpUFTZGXogRlFvwlx0Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB5831.namprd12.prod.outlook.com (2603:10b6:510:1d6::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 11:42:19 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Wed, 20 May 2026
- 11:42:19 +0000
-Message-ID: <d61822b9-af27-429d-9fab-7153fde8c4cd@amd.com>
-Date: Wed, 20 May 2026 13:42:11 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] drm/exec, drm/xe, drm/amdgpu: Add an accessor for
- struct drm_exec::ticket
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Alice Ryhl <aliceryhl@google.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
- <20260520101616.41284-5-thomas.hellstrom@linux.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260520101616.41284-5-thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1P223CA0035.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:5b6::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
+ [74.125.224.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FB6C10F037
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 11:46:14 +0000 (UTC)
+Received: by mail-yx1-f49.google.com with SMTP id
+ 956f58d0204a3-65c5361142fso4643794d50.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 04:46:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779277573; cv=none;
+ d=google.com; s=arc-20240605;
+ b=ExdYLLmKa0UmeHJrMVO9WjNTJEDfEd537Y0Tq78uxsOBXpysQJwMX/r+seAnsPOD5r
+ wwblx3jzSRijeQovOWoYLljT+hSllOooUPAB9anNin8RCX/orJYn+UlPUCMQazwMwzAN
+ LAL7q9RP2/bY3d341MloJKaAezBQUuT8o4D/B86gta23AxM5ZrAU7F9C+04UzT3Jtftv
+ mrON5UI0c9WblJwKsm05ppMvINZmhVPWEKC1yFJp3yfMxM/J40fxcTT5phgww7am0I8f
+ YerQAy/aEclTv+4lfTByIhEIikM8qxvoeR2UeDHdRXOVHgwdqkxo9SP32JDEth54osKK
+ JQsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=mwQC2VpgPcAOO/eSiXMuOlKGLERJ6tVL0QZy3DdZeqg=;
+ fh=A/gFn5Yvc6wLdmF1YmKhJuAWSViQkJeS4/0hEtsaQz4=;
+ b=FQHx0Dumuel6Yds52vkZcfnkiowy89XP1nyRtnfOXPocSP8AnjxqR4Db39Rhj49Vcz
+ 0ZAh+oLq145yONp5X4cCLJ1CXaEtaOrQpG1uK8/xUmH0GChqlW5RVTY2oopVhgejPb3w
+ Hh/wqHWie5DuUT98UHPjWGCPBIo9LRQaZe9C95tToVt8Rrd+AyNVC3FfwtJ67waOPNeG
+ Cvhz39oIWTJNlEzo8xqTdWcSHNhoIutQz+L4th8PdoBEo1md7MHl/loCukGcO1MdurJS
+ QvJkNGuruH2n7S5XxZniIpznqd22HH4aYdAGQ7ngubSsUjA7SbhyZXEl5skM8hkh6w8N
+ 6U8Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779277573; x=1779882373; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mwQC2VpgPcAOO/eSiXMuOlKGLERJ6tVL0QZy3DdZeqg=;
+ b=CUNjW+XnEBgVVfQvAKPOxvedXFtFePG3MBZtTQYyLzXPtzNhuTjH3c4hreo5dMMbx8
+ yMoQzt6WzpFJ2i1bzdz2CAG1m6P4ApSlgyjopV/n0k0cDluULzZ3ikGJXYY7ZyliMVtr
+ j8SnMf9Ukd6NP+bIJXV2t/MwKTzjCeFssRCvcAnWo9B+6HCKBWqTQ4/6oByPqc4Hs3a0
+ Nf4r3w8BzWaW6QiHOE3qWt3uSoc8PT/JRpHpEwSGMZHXEEMH+rm5vhXGMp0/d8TYgpU1
+ uwLAtNCa+jN71xmtxCZUce+XjEcNxwTTSk7DA0ygTc/jNXnpI2cs5frzbQyWR73Ob8dl
+ b2Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779277573; x=1779882373;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mwQC2VpgPcAOO/eSiXMuOlKGLERJ6tVL0QZy3DdZeqg=;
+ b=n6ZgN1GTxTy5CqbC9r9sEq/rcgVcrEYf0HEHbU4I2rvVd1goCs6GYpvqfIG9MBu7lY
+ 2/wlMyvivu1ozOYlGpQyoZs5DLuxpkV5zEibShY1Pg5SM2xoWXMsUazPnQd2hKuqdgFO
+ SYKH9mA3FFkBZ0KidEA/He/jQSJK/XNY2Vb8xlLCFdIeaDaH0b+0gdB5lJhxU2bWeHlp
+ JaghPp8O0tUsIdJzdv86QW+2FCD9yJilcgb1vUj9kE0Mhdcq/1j1Qsw6JTnx0aJ1ZDuh
+ /1qU9kqpK0y8GWDxeD9OzI4TgfS8DvmIWzEurCWHsB7QgZoWJtzcAB+avWiuFM/SBzSP
+ XYJQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+Y3NO0PRGeD3PqQSQ7T4hR8lukNFjxw46m3c+0eATuJCFLDuWkVkzd9vHFSWWz2MXWtvbbyX9xPCQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy8MwBr1QmZAzHh55OpqQN0/q3QVJWJyYgu/aa/SAi17Tcf24Th
+ rvO9/s8SVfIdXBjFQCaZyoOwIimKPFruAT1SD+pNZzw/v4N4EQ0wHeYVRjTXG+/hbMofERe/6Dv
+ 1LGuY2hU66VlxXWQbuaER/iq99JqZ2kk=
+X-Gm-Gg: Acq92OFjvLleYfoThLw9oMkb34rZaNX4Pc093bRfPZZseNaKdnAB6Kk00KijgiLNo6f
+ Sx7lzCYqFtbXTdr4d2JpWVfvNbQYBdwLlQIJKrg9ovBIeTJ3OO0uaRJmrtdcP5+rRwUhcSbVbhA
+ l/2GYtH9ZAJ9jdJ0OuRHoFu3cDx9YXYjBugM0+yYzF8qFS8p3P9FqhZIQmxAClcdNJhfQZyYc82
+ iT9KPjpUQ/HltODFZQRb36VnnG5RmCmA16boBbAkgtm7nqHXV7ttEKqE1r0o2CbuxCIUaTiBm1w
+ opY8EJKEPWqG/u7x42ZEg1qHYfVtUQKO3hr9WYpZFx5tXfjq
+X-Received: by 2002:a05:690e:1487:b0:65e:4b06:f89b with SMTP id
+ 956f58d0204a3-65e4b06fd2cmr14416343d50.51.1779277572905; Wed, 20 May 2026
+ 04:46:12 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5831:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c28852b-2d92-40e7-8c31-08deb664d96c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|56012099003|22082099003|18002099003|11063799006|4143699003|3023799007;
-X-Microsoft-Antispam-Message-Info: Gjm/LW8TnfqXB/C6AFpSC/p4kDK0cQ+40EqmqvDMBb1ORnHNeRhWBh6OHXfYXBft2h8bifh8Se/yVQ+TXNJY9MmBXSoilHP1j2JtCFNo8w/UFIoVtbl8UAY/2l6nsLoN5i2h6BgHiKqcKf4LXSN98oO+JHYM1L6uFBaax0/GAP6kizs9z7AomQ6OyEPQCU/aZFfg9UxOwKiXKkQ8e8ffxykcsT2/2ox8NrX34cYXB9gd+OMavIBM15Z5lj/RqStS4V9OiGWAxFHJPUMuOiuVk8NDYuzxotKomOwFrF6+lOFV+QXLi0c4duxEhwdnclcIitrSChAZ0ss8UFfPuwnRRn7wnLLmsuFr+3guZDTsY9gwGB9mTdEQOPIH5q8ZB77LWmCYwPmrIVMAUqEQbhSURR/9nEytepssBCHkdVdDVGP+3hu6sbtBVenCpMrIhud+6yByHBubdMbW20ppwmsJtPgKHGWNzZjYME7MITylq42rTx2LiMjVgBBRvhiYIqtdxRChOy1uWTvNRJpYG5SZgxfSwyUYv8skNQ0+9S2b0AxnOBUMDSXIw7NtPWVg/ncryvcUDE+v0uwXaSGvHEH8V5T/m5fuFHFlfrP6jEQ3u4qA0nODsbG7fR+KkSd3hk6FS6sWpDlG9odHi7/pb+H5uZsscN9oLlj49CYOKn291xxmfA15tJ6QwLsJxz0jvTLo
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(56012099003)(22082099003)(18002099003)(11063799006)(4143699003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDI4YVZlVVUxRzY3Ny9WNXJRRy9nZEl1Ujd5WHpWdm1zSkRHZDluU2dqQnQ3?=
- =?utf-8?B?Mmg2VDFOUWI4Q3lueU9HamJhcGs3dmJWTFJxQUlaa1ErUUMzYmxkQVgxWTJk?=
- =?utf-8?B?VG1uem03NWFseS95Tyt6WitrMHZHakVRUEhtWlIreWg3a1hkVVZDWnl0WCs0?=
- =?utf-8?B?UFdOYTRMRnk1bzNEc3R5QjQwSHJzZFlVb1BFQ2kxVmpySXRvK3dyMmhRSGVO?=
- =?utf-8?B?SVQvQ2kyOFN3MTU3aGhnTFBnMXZLWTR5cEt0TFc2czFRUzk5NVZMbHZoMTAv?=
- =?utf-8?B?SnZXcWNBYUJzK0ZJRmpPVkd6SW15VW10cVJWcXNuU2liRnp1UzdSVFlPQnR4?=
- =?utf-8?B?V1NDbFZkR0hmbUVBVlpka3Jybm5SMGxoRHIxSEFxS1ZsVGVyZUYxOU9Zb2Na?=
- =?utf-8?B?OE85aXE5c1JsNnZNNmJNam01cm55TE9hOU9GZTZheWZrelRGaFNKOEg1T0g5?=
- =?utf-8?B?RENMNVVKRStuUnlVbCtOa1owNmMvN3VTa2pMZkFUcjB3b3g4SzJ1K2YyR0w0?=
- =?utf-8?B?VkJ3ZDR4ajBOYWNFRHovRE96VmlHZ3djTjcwNy9obXp4bUhMRDhKV0V4SVR6?=
- =?utf-8?B?Q0FCSWpwUTl3c255ZHlEcFRra1ZtOEVJSmFqTXdmb3dSSHoyVG5TbjhFNTZB?=
- =?utf-8?B?ajByb3RsOWEvQXpXWHVtYUlrL3dML0hIRUxZOUFUNFlNdFBmZzlRaVlmWTBM?=
- =?utf-8?B?S2xaRFB6SVNWMjlzS09DRndqZ0ZkdGJyWDhpZGFIdDN2dVk3YTlvbmVSQ2FG?=
- =?utf-8?B?bWxONmRveThCcEtza3QvU3BMOFVJOGZyeEFCekFJSVVUVE11R1NaV2lnRUh3?=
- =?utf-8?B?RFZ5OU9pTkpzcGYrNU12VE9FSysydHordWwzL080cEkzQmJtK2RwTDFSNTdD?=
- =?utf-8?B?eWJ4akN6ZkFzM0sxTDBuOWFWNFNWQ29yc25RcGxGSUlJbmw2VHFsdFhFSEtZ?=
- =?utf-8?B?YTA0aWNoTzN6alBDSU5uVUZKVHRjWXN2VkxoNjNGOFkrWWVFZlZLMW5zWSth?=
- =?utf-8?B?S1gzS0s3dGhIbXRWKzJ0Q2R0VmJLeUc3N0N4dVA0dEhrMXZrcitIWER2RjRo?=
- =?utf-8?B?WDNHeEZsdEN3S3JzTWJJMUNBaVpEeW5FU3JUVDdDT05VUXQweVcxaUpRTjdV?=
- =?utf-8?B?YU9ERk1DOERFaW5QL2tkS011V29rd3RZcEt2UCtiaUwzeExLTkhYMVgzZnc0?=
- =?utf-8?B?NlVDYkJObGV6TTdJbTlFZnlKZDFUbzFGQzI3d0xRWVlLZnZsNERsRHJxMXRs?=
- =?utf-8?B?cmpLOEE0MkZBNmpISEQzTTZwUUlvL1VtMG5SYWNIWkpOU2hqbDdrV1p2WFVX?=
- =?utf-8?B?NnU5OG1yc3F1cDB6YkIrcTNHMS91dHdzR2VLVkR5cWJ4UitxUHVCZlZ6RVl2?=
- =?utf-8?B?MEJZYU5jSUx0bHBYWmszbkVVTHZUMUZZSDM2d3lIWmR3cHp4ZnBaNU0yMUVQ?=
- =?utf-8?B?VitoMjZNL1pqdnE2OURnUzAxdDlxQUZUYlZoMWNiVlFBL21EMkRrQXlzd0JY?=
- =?utf-8?B?UUgyU05jT0VqUUlta1lpUUVaYWJxV1FkbFMwS1JLdkxQVXowNTdjYUNWY0Jz?=
- =?utf-8?B?M1VxUjVsdHpZSlNEN0ovbmJuSjVLTjM3MkxyU1BveUw2ZitERzhPemFqeDJL?=
- =?utf-8?B?dm1NbDFJTVoybExKM2ZyVUVvTVJXSW9GMk5odDFqYzBWVG5UbFdaVmVmZkZn?=
- =?utf-8?B?QllqaDJJMVlvQXYyUGsvRm5KclRsUFM5bURmL0xLeE5zMUdzZjF1K0QrLzdr?=
- =?utf-8?B?Zi94ZUhXOGwzUFlGUjNpczl2V3dXeXVDcEx4a2M0MjRacjV3aEZ5T1FmdFFX?=
- =?utf-8?B?amZSUGpBZGVOUHdQMWV2Z2lXTmRTS1h0ZHl6cWNQN1FGM3pSRkxnZm1JU1pY?=
- =?utf-8?B?NWxrK0FWNklzbmQ5SnpzSVZoT0xzcnFSUnYwSTRxc2lqVTE1aVQ5UkJOaTZX?=
- =?utf-8?B?Z1Z5WGtmQ3hkd1kvUkl4eUozYytJMHFvdWhIOHJjcmk1cUtMamkwUjhqK1dQ?=
- =?utf-8?B?V3g1RmtiVkZ2aUxVMVJWWHJLTTBwZzIzVGE5ODU2eHJUVHd2cUdJQ292YlJq?=
- =?utf-8?B?aXRIek1VY0QwOXFMZmYzOTFkbjJMZlVNZlFFaEJJODJScjlzVDNEZ3BOZ1do?=
- =?utf-8?B?WXVpa3dhSGF3cnFKTmY3dVRhMVlhbERzZnI2M1d1SE1ZQ0ozaXZ2WDRHaGZ1?=
- =?utf-8?B?TU9FTTFnWTg1NVRXN3NjL0NqSmQveDFub0NqdFplQmdqVkFUeVF3RytqZWdt?=
- =?utf-8?B?R1RpVTNtaHdubG45RmVsQUY2TjVSMEtQUEN5emZNVGYzRC92TTkwdnMxa0Fl?=
- =?utf-8?Q?O8Pbehpc0ZP2KcsVXN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c28852b-2d92-40e7-8c31-08deb664d96c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 11:42:19.5571 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wzgEGvf5G6+v+eDDzWkavvxWyd2JcqbL+X2eZ1zhUMa2/LK/Z/IVOKUMkujLsNjV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5831
+References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
+ <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
+ <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
+ <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
+ <CAHijbEWqc2+kSkk3i_LxB2PQ6XwUetw1UkdUdXJfdv3zgKd1kA@mail.gmail.com>
+ <38551bfe-75e1-4978-b57d-adc43cebc85e@amd.com>
+ <CAHijbEWHp960qvZFoK7+9ppHAqkAR7=UQhtMUccqWzGd_pFPQA@mail.gmail.com>
+ <5ee6d5af-ac48-41d7-a19f-e08a3c5b7d19@amd.com>
+ <CAFZQkGwmeipZnvmBkcE7KhvUSMkSE=fzLBZtiMyhv3mM04Vudg@mail.gmail.com>
+ <dff60378-4e47-4753-8878-feec6e1c2690@amd.com>
+ <385a4d4f-fe22-41a7-8d4b-4dc6bc9930d3@mailbox.org>
+ <1e94106a-f72e-447e-9885-2d2cc8f8e722@amd.com>
+In-Reply-To: <1e94106a-f72e-447e-9885-2d2cc8f8e722@amd.com>
+From: Julian Orth <ju.orth@gmail.com>
+Date: Wed, 20 May 2026 13:46:00 +0200
+X-Gm-Features: AVHnY4JZYLaQrAuUqg_r9R4xrt_7B8lof_FLZgmpinm1lpd54PV11HWLkp9qJk4
+Message-ID: <CAHijbEWSnwm5_uTAbRDYOkMFwu+X3_xGHxjHyK-XeaO15KTGOQ@mail.gmail.com>
+Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
+ wayland-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,124 +126,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/20/26 12:16, Thomas Hellström wrote:
-> Drivers were accessing this drm_exec member directly.
-> While that may seem harmless, it will require action if
-> the drm_exec utility is made a subclass of a dma-resv transaction
-> utility as outlined in the cover-letter.
-> 
-> Provide an accessor, drm_exec_ticket() to avoid that.
-> 
-> v2:
-> - Fix amdgpu compile error (Intel CI)
-> - Update the commit message.
-> 
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+On Wed, May 20, 2026 at 1:21=E2=80=AFPM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 5/20/26 10:13, Michel D=C3=A4nzer wrote:
+> > On 5/19/26 18:00, Christian K=C3=B6nig wrote:
+> >> On 5/19/26 17:31, Xaver Hugl wrote:
+> >>> Am Di., 19. Mai 2026 um 15:29 Uhr schrieb Christian K=C3=B6nig
+> >>> <christian.koenig@amd.com>:
+> >>>>> 1. This series makes the ability to manipulate syncobjs available
+> >>>>> independently of attached hardware.
+> >>>>> 2. It makes it available under a consistent path /dev/syncobj.
+> >>>>
+> >>>> Exactly that is a big no-go. This has to be under /dev/dri.
+> >>> FWIW udmabuf is also under /dev directly, but I don't think any
+> >>> compositor developer would complain about a different path.
+> >>> What are the rules for that? Could this simply be put in /dev/dri/syn=
+cobj?
+> >>
+> >> The syncobj are actually the DRM specific way of doing things. The gen=
+eral kernel wide way is to use sync files (see drivers/dma-buf/sync_file.c)=
+.
+> >>
+> >> But there has already been tons of problems with those sync files. E.g=
+. they doesn't support your use case at all since they don't have wait befo=
+re submit behavior.
+> >>
+> >> So there are already ways to do this, but the Linux kernel so far told=
+ everybody that this is forbidden. The DRM syncobj wait before signal funct=
+ionality is much better, but then basically the second try to do this.
+> >
+> > I'm not quite sure what you're getting at here, just to be clear though=
+:
+> >
+> > While the syncobj Wayland protocol extension supports wait-before-submi=
+t behaviour at the Wayland protocol level, it doesn't need or cause wait-be=
+fore-submit behaviour for DMA fences in the kernel. The usual rules apply t=
+o fences attached to syncobj timeline points. The wait-before-submit behavi=
+our at the Wayland protocol level comes from allowing submit before a fence=
+ is attached to the acquire timeline point.
+>
+> Yeah I know. I'm one of the people who came up with the idea of doing wai=
+t before signal this way in the drm_syncobj.
+>
+> What I wanted to say is that a lot of people used the dma_fence to implem=
+ent wait before signal before and got a bloody nose from that.
+>
+> > (It took me a while to realize this distinction, before which I mistake=
+nly thought the kernel's DMA fence rules would prohibit wait-before-submit =
+behaviour at the Wayland protocol level as well)
+>
+> This is what surprised me.
+>
+> The drm_syncobj implementation solved the wait before signal for the kern=
+el, but my last feedback was that we basically just moved the issue to user=
+space and Wayland compositors would have quite some overhead to implement i=
+t correctly.
+>
+> That compositors now use eventfd to simplify that was news to me but make=
+s totally sense in hindsight.
+>
+> But anyway, we need to somehow simplify the drm_syncobj -> eventfd usage =
+in the compositor.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+That is not the only usage in the compositor. Compositors use all of
+the following operations on syncobjs:
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  4 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  6 +++---
->  drivers/gpu/drm/xe/xe_validation.c               |  4 ++--
->  include/drm/drm_exec.h                           | 11 +++++++++++
->  4 files changed, 18 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 72a5a29e63f6..d54794e5b18b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -2999,7 +2999,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
->  	/* Validate PDs, PTs and evicted DMABuf imports last. Otherwise BO
->  	 * validations above would invalidate DMABuf imports again.
->  	 */
-> -	ret = process_validate_vms(process_info, &exec.ticket);
-> +	ret = process_validate_vms(process_info, drm_exec_ticket(&exec));
->  	if (ret) {
->  		pr_debug("Validating VMs failed, ret: %d\n", ret);
->  		goto validate_map_fail;
-> @@ -3040,7 +3040,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
->  			goto validate_map_fail;
->  		}
->  
-> -		ret = amdgpu_vm_handle_moved(adev, peer_vm, &exec.ticket);
-> +		ret = amdgpu_vm_handle_moved(adev, peer_vm, drm_exec_ticket(&exec));
->  		if (ret) {
->  			dev_dbg(adev->dev,
->  				"Memory eviction: handle moved failed, pid %8d. Try again.\n",
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 97a851ae7bd8..6ada57abce9d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1157,7 +1157,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
->  			return r;
->  	}
->  
-> -	r = amdgpu_vm_handle_moved(adev, vm, &p->exec.ticket);
-> +	r = amdgpu_vm_handle_moved(adev, vm, drm_exec_ticket(&p->exec));
->  	if (r)
->  		return r;
->  
-> @@ -1359,7 +1359,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->  	cs->out.handle = seq;
->  	leader->uf_sequence = seq;
->  
-> -	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->exec.ticket);
-> +	amdgpu_vm_bo_trace_cs(&fpriv->vm, drm_exec_ticket(&p->exec));
->  	for (i = 0; i < p->gang_size; ++i) {
->  		amdgpu_job_free_resources(p->jobs[i]);
->  		trace_amdgpu_cs_ioctl(p->jobs[i]);
-> @@ -1794,7 +1794,7 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
->  	*map = mapping;
->  
->  	/* Double check that the BO is reserved by this CS */
-> -	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != &parser->exec.ticket)
-> +	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != drm_exec_ticket(&parser->exec))
->  		return -EINVAL;
->  
->  	/* Make sure VRAM is allocated contigiously */
-> diff --git a/drivers/gpu/drm/xe/xe_validation.c b/drivers/gpu/drm/xe/xe_validation.c
-> index a611438eaafe..8dff4d0ec895 100644
-> --- a/drivers/gpu/drm/xe/xe_validation.c
-> +++ b/drivers/gpu/drm/xe/xe_validation.c
-> @@ -156,7 +156,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
->  
->  #ifdef CONFIG_DEBUG_WW_MUTEX_SLOWPATH
->  /*
-> - * This abuses both drm_exec and ww_mutex internals and should be
-> + * This abuses ww_mutex internals and should be
->   * replaced by checking for -EDEADLK when we can make TTM
->   * stop converting -EDEADLK to -ENOMEM.
->   * An alternative is to not have exhaustive eviction with
-> @@ -164,7 +164,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
->   */
->  static bool xe_validation_contention_injected(struct drm_exec *exec)
->  {
-> -	return !!exec->ticket.contending_lock;
-> +	return !!drm_exec_ticket(exec)->contending_lock;
->  }
->  
->  #else
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index 99c7e1bb3c5b..8725ba92ff91 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -161,6 +161,17 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
->  		goto *__drm_exec_retry_ptr;			\
->  	} while (0)
->  
-> +/**
-> + * drm_exec_ticket - return the ww_acquire_ctx for this exec context
-> + * @exec: drm_exec object
-> + *
-> + * Return: Pointer to the ww_acquire_ctx embedded in @exec.
-> + */
-> +static inline struct ww_acquire_ctx *drm_exec_ticket(struct drm_exec *exec)
-> +{
-> +	return &exec->ticket;
-> +}
-> +
->  void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
->  void drm_exec_fini(struct drm_exec *exec);
->  bool drm_exec_cleanup(struct drm_exec *exec);
+- creating syncobjs
+- waiting for points synchronously
+- signaling points without a sync file
+- querying points
+- transferring sync files between points
+- exporting sync files
+- importing sync files
 
+Which you can see by looking at the userspace code linked in the cover
+letter. Bypassing the handle in one ioctl would gain compositors
+nothing since they would still have to convert to handles and manage
+their lifetime for all other ioctls.
+
+> That requirement is perfectly justified and avoiding importing the drm_sy=
+ncobj fd into any DRM driver should actually be really easy to implement.
+
+That is what this series does.
+
+>
+> Regards,
+> Christian.
