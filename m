@@ -4,93 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71001CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:05:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86885CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:06:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D30B310EFAA;
-	Wed, 20 May 2026 09:05:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E859510E10C;
+	Wed, 20 May 2026 09:06:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LgZa74D3";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="gD/VLnWt";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF41510EFA6
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:04:59 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-c736261ee8dso2079028a12.1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 02:04:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779267899; x=1779872699; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8EtUeRP6UrxzDImfBuIvH2E943h47a6fmSVUaNC6rbY=;
- b=LgZa74D3xjVlOfFG5fIm3qAHKRhi6wjFNDhruqDI7Ke/Defl7PAvIwoQ3X2xJv0k+/
- vkwFIROr3rxawvDyE2SVOMUGaBjNFuPFDmBKvhNlnw5HBQsfedJLPbhKnQFZEle3DneD
- BPBn61M+fa1XTTwVdVzn+uIymoeZsQly8V8uE9zGJcxRzufXE6lm4vZMrnXyEMRSKVe6
- 8ChSZBvOkKGvu4cThgDiQP9WwTCHMHXQs+x3uDWEdm8Y/ZdUDh+2YozEy00YwLMHYjGJ
- kfSg08kqG4wD8WEp+C30O3ljWEjm7P014tHmTctILqenOGYYLLzBWmjdDLL0MYtYcvk7
- sqBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779267899; x=1779872699;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8EtUeRP6UrxzDImfBuIvH2E943h47a6fmSVUaNC6rbY=;
- b=ogtX1AmE3uPDwhUdSPm0H1IGFOXyjEIUhydAdBMET7trG4++HTktgOOIOwL+LFblaG
- vW10glUni757SW3vAfsyAW1Arlf/gfZgvGIbes8k4klVC4Aqp/Qx1v+6nFQAOXZSXyzS
- yYZXT6IEGqns3dY5T56brLhx7zQGKrVrTDZjhkfsZVRwSgyhmwJiaMtSxSrHpgZRWSHB
- LOaq1zIpgr/8RiA8p+f6yO6xx5ud0HXzVGfxN/PFfA2Aq3QNHeQ3XnBC7NsSKHR4Kdil
- V0TukAKlOu2zbea4PeQLS2sEO19IpVdpnX4tgb24Kv/CqrianqP46dY862vkfBj7+h3E
- e+xw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9lWIyBj+/8l8+REUyWmC//g/hw1igqYMEhQBK09KJcYSwbcO01tgVfJjGI87beKnbQgXFmVfI0Ywc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxk/qxdwvBGJdEuUxcnjZ/aCsmuIOv9x4KPqMBYXHtPalPPjnXz
- mVtRav3aM34Ub/WcM+HGT4FrBVX03qhNemxPlSVmGWPNUzGdjY7evXv5
-X-Gm-Gg: Acq92OG7LPwqzk6vB8Fv0sW5GtHwjzjjhME7rU+r6ZvbR7wY1sbnkWsux7qRbtT3fHy
- bRUw1EReuX8SFyGJ2XEpLzAVj6ViUUXe0SEVsd2RxjDjXaHwby7bapX7Rjm84wsfpprPI+YBSE+
- lcM7md8Ga7xBGToje1139yt2t1e7F7k7aZnWOFY9F+zLLej7RC6Kpeev5l5+oWsQwIk2LAsgmJD
- FhVLdiwOFljAqIzmxiEVNkBCHwH0zOIwd+zyKhWVwSWlPOYfAYzjqo7NpCvrm5dBwRS1odIkLLO
- hiP0WHiaNw/780yAWXtiv/t0/a3oUkJDxYK3ZJnLwgaEej/LXU1oV+sE7x4AfwAHRUM58clJxnD
- jbZIuXpSJFqckjUW/kRgJbooF0m68WD5apm7EI+Gyf1glvk55UxnKMA6tlUm/NV3HKAiaQptJUh
- NMKdzZ8JiBOL768Kwi6CfkEHRroN32umLuC7F/7oSOI5MKtcA=
-X-Received: by 2002:a17:903:2f4c:b0:2bd:3c1a:473e with SMTP id
- d9443c01a7336-2bd7e8a3c71mr273153295ad.14.1779267899117; 
- Wed, 20 May 2026 02:04:59 -0700 (PDT)
-Received: from [172.16.20.13] ([136.226.252.245])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bd5d11d659sm211023765ad.73.2026.05.20.02.04.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 May 2026 02:04:58 -0700 (PDT)
-Message-ID: <1716be56-ac43-440b-a5df-58cbf571ba95@gmail.com>
-Date: Wed, 20 May 2026 14:34:49 +0530
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D34E210E10C
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:06:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1779267944; x=1779872744; i=markus.elfring@web.de;
+ bh=OPswkR9zpEjEMxTngQB+ClVh+MwqnUdMDnFhkMHFVeY=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=gD/VLnWttQjqgR48Kqu4vAs+yVW48jSOT4cRiYKJE4sabdF8rTORuv/PmimBsHK4
+ vrRl6wjOHOt2jm+ifvvHPEvOHwmEKSO1jBAJa75i7J3ajmTArtAan1xwDyBdz6l8L
+ KldCsd80zG77t+RibuS+JM2Lwb0GsvEVpw03wrpoxfBj8+PdzEeqzkePkxznI0yAZ
+ Ed9I5nQlzSRXQQ9rUmcWkP2ypaEVX2Kcr/qSnt/DyRkdM2bw/oVRkSMvJZ+qofDzj
+ IlGd+nFzG/6spCpmBJYmLcJ+m7jjAcBAkliUV6y3XKtWB8CtfV+xBS0bdD6gFakSX
+ n3aoVZ3YrLarQl5hjQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MKuKF-1wdZkj2odZ-00Nv0h; Wed, 20
+ May 2026 11:05:44 +0200
+Message-ID: <6ccfe40e-fe4b-4a05-9ab1-82cdfcaa0811@web.de>
+Date: Wed, 20 May 2026 11:05:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
- stable LVDS output
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- marex@denx.de, valentin@compulab.co.il, philippe.schenker@toradex.com,
- alexander.stein@ew.tq-group.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260412053811.662461-1-tessolveupstream@gmail.com>
- <20260412053811.662461-2-tessolveupstream@gmail.com>
- <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
- <c4c33f14-0da0-447a-ab82-2e2f65c09c07@gmail.com>
- <7056b23b-ed81-4d79-b782-5cfcb0102ef7@gmail.com>
- <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
- <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
- <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
- <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
-Content-Language: en-US
-From: tessolveupstream@gmail.com
-In-Reply-To: <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
+Subject: Re: [PATCH v2] drm/loongson: fix pci_dev refcount leak in
+ lsdc_get_dedicated_vram()
+To: Lu Yao <yaolu@kylinos.cn>, dri-devel@lists.freedesktop.org
+Cc: LKML <linux-kernel@vger.kernel.org>, Huacai Chen <chenhuacai@kernel.org>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>,
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Xi Ruoyao <xry111@xry111.site>
+References: <8ba844ab-9851-4045-a4e8-a96e6d1511e2@web.de>
+ <20260520014721.32696-1-yaolu@kylinos.cn>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260520014721.32696-1-yaolu@kylinos.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:B9GGLD8FanBL1jfXYkMD4ceR3T34Z2QkSI5IpwLGQ4skrQ7o1JK
+ 6CRsR54XHB1qFptooNcQJ6Ob4IQmodzvcSLkqk1sCgkrCSMAvFJaBRUmTp4/ZQ+qv2drUo+
+ Na9tF0zSB/l3whbAMqXWPE1B8x2L2F9fb55mjkNvUQwYGSiaV9f9ckULISbpr7gLlKU+APG
+ gaiQ2B8AwdRc96yZuFfFg==
+UI-OutboundReport: notjunk:1;M01:P0:nLovPW5Bxfg=;FRkFTw8xxVPmvdEKRTiSCb/PLqO
+ 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
+ CgJ93M1ruoAS1cMd7Y2mjq0k1cj+FEn8vvoM=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,122 +148,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+> Need to call pci_dev_put() after pci_get_domain_bus_and_slot().
+
+Can development interests occasionally grow also for further patch requirements?
+
+* Usage of imperative mood
+
+* Reference counting
+
+* Completion of exception handling
+
+* Related tags
+  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/stable-kernel-rules.rst?h=v7.1-rc4#n34
 
 
-On 19-05-2026 17:13, Luca Ceresoli wrote:
-> Hello,
-> 
-> On Tue May 19, 2026 at 10:48 AM CEST, tessolveupstream wrote:
->>
->>
->> On 24-04-2026 13:55, Luca Ceresoli wrote:
->>> Hello,
->>>
->>> On Thu Apr 23, 2026 at 11:16 AM CEST, tessolveupstream wrote:
->>>
->>>>> I had reached out to TI for clarification and any related documentation
->>>>> updates, but I have not received any response so far.Given this, it is
->>>>> uncertain whether we will be able to obtain further details or official
->>>>> confirmation from TI in the near term.
->>>>>
->>>>> I would appreciate your guidance on how you would prefer us to proceed
->>>>> from here.
->>>>
->>>> I followed up with TI, and they pointed us to the relevant sections in the
->>>> SN65DSI83/84/86 datasheets covering DSI video transmission specifications.
->>>
->>> Thanks for keeping on! I'm also trying to get info from TI, I'm keeping you
->>> up to date if that will happen.
->>>
->>>>> https://www.ti.com/lit/ds/symlink/sn65dsi84.pdf?ts=1776924088430&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FSN65DSI84
->>>>
->>>> As per datasheet Section 7.4.7, the device operates in DSI video mode with
->>>> fixed horizontal timing, where HBP, and HFP are explicitly defined and expected
->>>> to be present as part of the video line structure. The timing description in
->>>> this section assumes standard non‑burst video transmission with all horizontal
->>>> blanking intervals accounted for.
->>>>
->>>> The datasheet does not document support for DSI video burst mode,
->>>
->>> This sentence seems incorrect. Section 7.4.7 starts with this sentence:
->>> "The SN65DSI84 supports burst video mode and non-burst video mode ...".
->>>
->>> Even though asa matter of fact it looks like many users have issues that
->>> get solved by disabling burst mode.
->>>
->>>> nor does it
->>>> mention support for omitting horizontal front or back porch intervals. In
->>>> particular, there is no indication that the device can operate with collapsed
->>>> or suppressed horizontal blanking, as enabled by MIPI_DSI_MODE_VIDEO_BURST,
->>>> MIPI_DSI_MODE_VIDEO_NO_HFP, or MIPI_DSI_MODE_VIDEO_NO_HBP.
->>>
->>> This is correct.
->>>
->>> We can still try to get TI feedback, but it that won't happen in, say, a
->>> few weeks then I think we should apply this patch.
->>>
->>
->> We have not received any further updates from TI regarding this issue, and
->> at this point, we are not sure if we will get additional feedback from them.
->> As you had mentioned earlier that the patch could be considered after
->> waiting for some time, could you please let us know how we can proceed
->> further from here?
-> 
-> I am getting some feedback from TI, but it is taking some time.
-> 
-> For the time being I think it is clear that HBP and HFP are required, and
-> so removing the MIPI_DSI_MODE_VIDEO_NO_HFP and MIPI_DSI_MODE_VIDEO_NO_HBP
-> in your patch seems to be fully correct, even though this had no effect on
-> the panel I tested.
-> 
-> I'm still trying to get some better info to ensure that switching from
-> burst mode to non-burst mode is not expected to have side effects.
-> 
-> For thi reason, I think it would be great if you could send a new version
-> with two separate patches: the first one enabling HFP and HBP and which can
-> be applied right away, the second to disable burst mode for which I'd wait
-> a bit longer for TI feedback. You can keep the Tested-by lines.
-> 
-
-Thanks for the clarification. I just wanted to confirm my understanding 
-regarding the patch split you suggested.
-
-From your comments, my understanding is that the first patch would only 
-enable HFP and HBP by removing MIPI_DSI_MODE_VIDEO_NO_HFP and 
-MIPI_DSI_MODE_VIDEO_NO_HBP, while keeping burst mode enabled, so the mode 
-flags would become:
-
-dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST | 
-          MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
-
-Then, the second patch would only disable burst mode, resulting in:
-
-dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA | 
-          MIPI_DSI_MODE_NO_EOT_PACKET;
-
-Could you please confirm whether my understanding is correct?
-
-Also, from our testing, when using:
-
-dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST | 
-          MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
-
-we are not able to get display output. I just wanted to mention this 
-observation in case it is relevant to the patch split discussion.
-
-Additionally, regarding the Tested-by tags you mentioned earlier, 
-should I carry them forward to both patches, or would you prefer them 
-only on the applicable patch?
-
-
-> I understand this is painful and taking time, but it's important to ensure
-> as much as possible that the change won't introduce regressions on existing
-> hardware.
-> 
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
-
+Regards,
+Markus
