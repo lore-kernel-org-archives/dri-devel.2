@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DD10CD5BAA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F9ACD5BA4
 	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:38:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FD2610F13A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C263210F138;
 	Wed, 20 May 2026 18:38:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UTUpNffR";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bY2quIi/";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9499710F113
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACBC910F119
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779302316;
- bh=Vinl3H8Sv0aiM6aJ68yze1Wzhzorcj3ktQ602i1XvWM=;
+ s=mail; t=1779302322;
+ bh=uZe9IQRi0ANcc0QeZ98Gz54zfT2EANyU1q5JBI5gvwg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=UTUpNffRRth/UkSEmZ/7D9lYEtMHkbsy2yZQPKxqjUR53PPmf569XB8J+D8Pzddw7
- UWA7cmRSUeLQPi+nkJe1mXxZaL3j7Zp4/SCz9yINQvAn5NP7fFi+WO6arwyQbjM5/K
- /7r3etbd3hfzIm8lAF2NCFclMks+MtA1V5+8gZQoOJ2hABDIHwu1YRGjBgu/AbMRDi
- fmI9NEfKUTLunkFipC5NzvF/FvfYyOl7ct1rhm7IheDUmRhg0U7zPGnEJCALex53Ga
- 1NRc/sidb+/Fmnyals0eWxYR3F/Jxebp5JPd7zb6Ij67QfDo81I0QMbAf97cKR1W+j
- t6EDEjdZUTpYw==
+ b=bY2quIi/5Gcb3Oxmc+j6AmD4ej3uoYcgYMaTb3f3seeegCeKjdXuiwmnBHBi27ZyA
+ /S+V03VxcDdVRz+MjRmCTf+4Lqc/JpopsQq3hN0EvrvtyHouAIJ9xpw5r0JM/5qCdl
+ DxykHGgbelkX6O6G1DJdSU7VXQ9V3R/jHYRwm+JUCsAzDJN3jnpzPJdYVPZ7mfz/bY
+ UFFQeNE1svC14eoCTobP7T4Or8kCxc3Dc/x5cxYIkhNj/zIspZLyFCjAlLnzZtVDiT
+ fQS94XTSRCNfWVtxvI67ZDxIhgg8KLxNNSHsp/d9SleEVlt2LO9UDHWiSz98ktVyjd
+ bYypUeDElbyng==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3F6A017E0566;
- Wed, 20 May 2026 20:38:36 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5851917E1553;
+ Wed, 20 May 2026 20:38:42 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 20 May 2026 21:38:18 +0300
-Subject: [PATCH v6 07/22] drm/bridge: Add HDMI 2.0 scrambler bridge
- operation and callbacks
+Date: Wed, 20 May 2026 21:38:26 +0300
+Subject: [PATCH v6 15/22] drm/rockchip: dw_hdmi_qp: Add missing newlines in
+ dev_err_probe() messages
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-dw-hdmi-qp-scramb-v6-7-24b74603b782@collabora.com>
+Message-Id: <20260520-dw-hdmi-qp-scramb-v6-15-24b74603b782@collabora.com>
 References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -74,62 +74,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add DRM_BRIDGE_OP_HDMI_SCRAMBLER bridge operation flag and the
-corresponding .hdmi_scrambler_{enable|disable}() bridge funcs callbacks.
+Add the missing trailing newlines to a couple of dev_err_probe() calls
+in dw_hdmi_qp_rockchip_bind().
 
-Bridge drivers set DRM_BRIDGE_OP_HDMI_SCRAMBLER to advertise that they
-implement source-side scrambling control, which the bridge connector
-layer uses to wire up the connector's scrambler callbacks.
-
+Fixes: b6736a4ea3fa ("drm/rockchip: dw_hdmi_qp: Improve error handling with dev_err_probe()")
+Fixes: e1f7b7cbd74c ("drm/rockchip: dw_hdmi_qp: Switch to drmm_encoder_init()")
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- include/drm/drm_bridge.h | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 4ba3a5deef9a..a0fcbbc7086e 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -667,6 +667,26 @@ struct drm_bridge_funcs {
- 				     const struct drm_display_mode *mode,
- 				     unsigned long long tmds_rate);
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index f35484715c2d..296f9a3ba66a 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -589,14 +589,14 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_funcs);
+ 	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
+ 	if (ret)
+-		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
++		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
  
-+	/**
-+	 * @hdmi_scrambler_enable:
-+	 *
-+	 * Enable HDMI 2.0 SCDC scrambling and high TMDS clock ratio.
-+	 *
-+	 * This callback is optional but it must be implemented by bridges that
-+	 * set the DRM_BRIDGE_OP_HDMI_SCRAMBLER flag in their &drm_bridge->ops.
-+	 */
-+	int (*hdmi_scrambler_enable)(struct drm_bridge *bridge);
-+
-+	/**
-+	 * @hdmi_scrambler_disable:
-+	 *
-+	 * Disable HDMI 2.0 SCDC scrambling and high TMDS clock ratio.
-+	 *
-+	 * This callback is optional but it must be implemented by bridges that
-+	 * set the DRM_BRIDGE_OP_HDMI_SCRAMBLER flag in their &drm_bridge->ops.
-+	 */
-+	int (*hdmi_scrambler_disable)(struct drm_bridge *bridge);
-+
- 	/**
- 	 * @hdmi_clear_avi_infoframe:
- 	 *
-@@ -1092,6 +1112,12 @@ enum drm_bridge_ops {
- 	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
- 	 */
- 	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME = BIT(10),
-+	/**
-+	 * @DRM_BRIDGE_OP_HDMI_SCRAMBLER: The bridge supports
-+	 * &drm_bridge_funcs->hdmi_scrambler_enable and
-+	 * &drm_bridge_funcs->hdmi_scrambler_disable callbacks.
-+	 */
-+	DRM_BRIDGE_OP_HDMI_SCRAMBLER = BIT(11),
- };
+ 	platform_set_drvdata(pdev, hdmi);
  
- /**
+ 	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
+ 	if (IS_ERR(hdmi->hdmi))
+ 		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
+-				     "Failed to bind dw-hdmi-qp");
++				     "Failed to bind dw-hdmi-qp\n");
+ 
+ 	connector = drm_bridge_connector_init(drm, encoder);
+ 	if (IS_ERR(connector))
 
 -- 
 2.53.0
