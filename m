@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32109CD5BAA
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A921FCD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2482F10F051;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D91C810F0D7;
 	Wed, 20 May 2026 16:40:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="edaATBZ6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G5wA2z0r";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8139510E1F6
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:40:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 283A610EEA3
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:40:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3A3FF445CD;
+ by sea.source.kernel.org (Postfix) with ESMTP id A7D26445CB;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 04D6BC2BCB8;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7F103C2BCFC;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1779295242;
- bh=knTtz4F+48wvyzMOyCiKlq4avjtUX4KrcQGtpNh5T3Y=;
+ bh=xEDVCdkua/7iBsfv2z75bWb1evX4JvLZuoi6otdCeQY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=edaATBZ6OF6uEmcJOlTD8c7N+6lNTTzYAOtKsht+4ZOTSbI2BKwWBHwfNtAB/z5qL
- 2/+xHtvs+pvvQ6Z8RJhEcv7g0bCPNPZVsCfRPABuMxwFIninrTrKETBGaDflxPtLtG
- xho8L4rmkJYL0XX+EqROL5apprqISl/AcmJkBj7xdd/FAj4hcJBVVScgFcooNilpJw
- eg6X321mCZiQUNeANtO2RjRH4k2TUewPryyE2S2nnuZ3xfQhSGMcEC2mXtKCxuTFR9
- F1k02R8EIUUr5txXjMmgOWu266UtaEfn36LKmUFlPsnvG2hBQdDRlrneEOJ+LKVtTg
- SNtB38nA7bWmA==
+ b=G5wA2z0rJweQK5zrc5Se1Sa6RzlOwp/uFy7jdlMULH/6pW5ii4YHl7hMQMLeB3tGh
+ 2vm8fe1G22CwWgzwpoddsTZxTlxjpCSCqxILcYNwtxdIu7RDAJrOYYLlgoFEt0zmO8
+ SdtW3rIFzIMD1Fl1Ax07uKuLvRGTX/mEp0vtgVjBcweFBH5I6J5xARGUNFjz58kjFs
+ qV4TzRYZkCHHPqhOkYVlUafTXfN8FEMG2Fykro69xNfuXMXrFB32zPph4KKcdWGq28
+ Q19UxCHdn5OK/3TaRhP1CLCqFIAF6yfcCkcMsE0Icx2bt/OL2Kz7Ql4ix4kcwZUSei
+ fRyK7oPZxPa+g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E705DCD4F3D;
- Wed, 20 May 2026 16:40:41 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 72931CD4F3D;
+ Wed, 20 May 2026 16:40:42 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?=
  <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Wed, 20 May 2026 18:40:07 +0200
-Subject: [PATCH 03/11] arm64: dts: qcom: sc8280xp-arcata: Enable the eDP
- display
+Date: Wed, 20 May 2026 18:40:14 +0200
+Subject: [PATCH 10/11] arm64: dts: qcom: sc8280xp-arcata: Switch to uefi
+ rtc offset
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-3-9df52552bf87@gmail.com>
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-10-9df52552bf87@gmail.com>
 References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 To: Douglas Anderson <dianders@chromium.org>, 
@@ -58,13 +58,14 @@ To: Douglas Anderson <dianders@chromium.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
+ Johan Hovold <johan@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=5543;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1302;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=ldc0TLCvhrzO6UcurjPbFyDeI/OxIDyYi6mefy873oA=;
- b=P74/w6D9vJWdNC8SZSxpTKm3NCYK6eA8VtY7KbSZ1H1bYHK9Ot79FUFIq0bevBtlsETm8/Ghr
- eB6Rk8sWlM3AqLIbTAgQYK+8i78M9/ltYac3FTrlo8W4oRQb+Zt/qz6
+ bh=U33Edd1LJ3viLModpsBHxlsQb9yGXvyVVmxT4ozJBOg=;
+ b=asv2ZIpTTgM/SJ1GCriLiQm1TaOlO+NniVF0jnu8gepeegudJvUl5sTQf3BFgvV5YhTt5uqmi
+ WZO21yXZaRZBRVHWnIDLaoAMxtkMj03jiaiKyGyO87HeWLxRhE3HADp
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -89,202 +90,47 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Add the vreg_edp_3p3, edp_reg_en and mdss0_dp3 nodes to enable the
-Surface Pro 9 5G eDP-based LCD display (LG LP129WT232166).
+Align with the reference implementation from the ThinkPad X13s:
 
-The enable GPIO 36 was found by decompiling AeoB dumps [1]:
+Switch to using the Qualcomm specific UEFI variable that is used by the
+UEFI firmware (and Windows) to store the RTC offset.
 
-                Package ()
-                {
-                    "CLOCK",
-                    Package ()
-                    {
-                        "gcc_edp3_phy_clkref_en",
-                        0x0000000000000001,
-                    },
-                },
-                Package ()
-                {
-                    "FOOTSWITCH",
-                    Package ()
-                    {
-                        "mdss_0_disp_cc_mdss_core_gdsc",
-                        0x0000000000000001,
-                        0x0000000000000001,
-                    },
-                },
-                Package ()
-                {
-                    "PSTATE_ADJUST",
-                    Package ()
-                    {
-                        0x0000000000000002,
-                        0x0000000000000000,
-                    },
-                },
-                Package ()
-                {
-                    "PSTATE_ADJUST",
-                    Package ()
-                    {
-                        0x0000000000000003,
-                        0x0000000000000001,
-                    },
-                },
-                Package ()
-                {
-                    "PMICVREGVOTE",
-                    Package ()
-                    {
-                        "PPP_RESOURCE_ID_LDO3_B",
-                        0x0000000000000001,
-                        0x0000000000124F80,
-                        0x0000000000000001,
-                        0x0000000000000007,
-                        0x0000000000000000,
-                        "HLOS_DRV",
-                        "REQUIRED",
-                    },
-                },
-                Package ()
-                {
-                    "PMICVREGVOTE",
-                    Package ()
-                    {
-                        "PPP_RESOURCE_ID_LDO6_B",
-                        0x0000000000000001,
-                        0x00000000000D6D80,
-                        0x0000000000000001,
-                        0x0000000000000007,
-                        0x0000000000000000,
-                        "HLOS_DRV",
-                        "REQUIRED",
-                    },
-                },
-                Package ()
-                {
-                    "TLMMGPIO",
-                    Package ()
-                    {
-                        0x0000000000000024,  <== GPIO 36
-                        0x0000000000000001,
-                        0x0000000000000000,
-                        0x0000000000000001,
-                        0x0000000000000000,
-                        0x0000000000000000,
-                    },
-                },
+Use the new 'qcom,uefi-rtc-info' property to indicate that the offset is
+stored in a UEFI variable so that the OS can determine whether to wait
+for it to become available.
 
-[1] https://github.com/alexVinarskis/qcom-aeob-dumps/blob/master/microsoft-surface-pro-9-5G-1996/qcdxkmext8280_ARC_part2.json#L156-L168
-
+Cc: Johan Hovold <johan@kernel.org>
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 64 ++++++++++++++++++++--
- 1 file changed, 59 insertions(+), 5 deletions(-)
+ arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index 14287092fb07ea15e527fd318f7ea2155448b26c..7f1cc1899002529b7ac7340974c99f6ed493d410 100644
+index 52d8e9527bd26f97305905650e2486a59e6d7157..ae0a054f2f9d90c9341766528d6be0b9561a530f 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -137,6 +137,22 @@ pmic_glink_con1_sbu: endpoint {
- 		};
- 	};
+@@ -749,20 +749,11 @@ &pmk8280_pon_resin {
+ };
  
-+	vreg_edp_3p3: regulator-edp-3p3 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_EDP_3P3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 36 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&edp_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
- 	vreg_edp_bl: regulator-edp-bl {
- 		compatible = "regulator-fixed";
+ &pmk8280_rtc {
+-	nvmem-cells = <&rtc_offset>;
+-	nvmem-cell-names = "offset";
++	qcom,uefi-rtc-info;
  
-@@ -361,7 +377,6 @@ vreg_l6b: ldo6 {
- 			regulator-max-microvolt = <880000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 			regulator-boot-on;
--			regulator-always-on;	// FIXME: VDD_A_EDP_0_0P9
- 		};
- 	};
- 
-@@ -465,10 +480,6 @@ &dispcc0 {
  	status = "okay";
  };
  
--&dispcc1 {
+-&pmk8280_sdam_6 {
 -	status = "okay";
+-
+-	rtc_offset: rtc-offset@bc {
+-		reg = <0xbc 0x4>;
+-	};
 -};
 -
- &gpi_dma0 {
+ &qup0 {
  	status = "okay";
  };
-@@ -511,6 +522,42 @@ &mdss0_dp1_out {
- 	remote-endpoint = <&usb_1_qmpphy_dp_in>;
- };
- 
-+&mdss0_dp3 {
-+	compatible = "qcom,sc8280xp-edp";
-+	/delete-property/ #sound-dai-cells;
-+
-+	data-lanes = <0 1 2 3>;
-+
-+	status = "okay";
-+
-+	aux-bus {
-+		panel {
-+			compatible = "edp-panel";
-+
-+			backlight = <&backlight>;
-+			power-supply = <&vreg_edp_3p3>;
-+
-+			port {
-+				edp_panel_in: endpoint {
-+					remote-endpoint = <&mdss0_dp3_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&mdss0_dp3_out {
-+	remote-endpoint = <&edp_panel_in>;
-+};
-+
-+&mdss0_dp3_phy {
-+	compatible = "qcom,sc8280xp-edp-phy";
-+	vdda-phy-supply = <&vreg_l6b>;
-+	vdda-pll-supply = <&vreg_l3b>;
-+
-+	status = "okay";
-+};
-+
- &pcie2a {
- 	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
- 	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-@@ -932,6 +979,13 @@ hstp-sw-ctrl-pins {
- 		};
- 	};
- 
-+	edp_reg_en: edp-reg-en-state {
-+		pins = "gpio36";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	nvme_reg_en: nvme-reg-en-state {
- 		pins = "gpio135";
- 		function = "gpio";
 
 -- 
 2.47.3
