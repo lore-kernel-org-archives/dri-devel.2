@@ -4,61 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C24DCD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:25:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05E90CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D365710E951;
-	Wed, 20 May 2026 11:25:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 418A510EDD8;
+	Wed, 20 May 2026 11:29:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="V7k+tR30";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HmTPCI7O";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A522010E40E
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 11:25:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779276340;
- bh=BsmiFAr8kKAYh7+xmxZmdGPjjZIZ9TigBFfIKYDWbI8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=V7k+tR30G5GkycSThJH6a3X3xjRUcOedA1yq54F/8ZaA5CXP8psA27vZwDT0TxhBo
- kFdDOs/wz9U++Rvk0O0lEUverP1IKK0pCyumegJ75iFM3p/pHOT83MbX5cxejxlK2J
- ONNyaQhgCG7QFqu9pb0iQGqoRSi284q81BLjWbLElUb7oOPeotBAWEZ6Hx5VN1rtow
- nJ+4S70u6Biezh0/KQvhXmPrm3pvuNhc9Gu0anaZUbdbXOTelce6uhhjWnkuOXWZV9
- YWlN2ClZ7S+i1eW6VELh6+yA6EDxn0CPy+6Rp4rOVT3/ZPz2TWxwRJEKfb8mmTdFsH
- L+R0DA/ic1Zmw==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 81AD517E040C;
- Wed, 20 May 2026 13:25:39 +0200 (CEST)
-Date: Wed, 20 May 2026 13:25:37 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>,
- <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <daniel.almeida@collabora.com>, <acourbot@nvidia.com>,
- <apopple@nvidia.com>, <ecourtney@nvidia.com>, <lyude@redhat.com>,
- <ojeda@kernel.org>, <boqun@kernel.org>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <tmgross@umich.edu>, <driver-core@lists.linux.dev>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 0/6] rust: drm: Higher-Ranked Lifetime private data
-Message-ID: <20260520132537.5843f8a4@fedora>
-In-Reply-To: <DING6NMJ97JA.5HC3ONKUPMW5@kernel.org>
-References: <20260506221027.858481-1-dakr@kernel.org>
- <DICCEKZ3HU84.34ES3SW3D1FNI@kernel.org> <agYbppHWXk_hW99M@um790>
- <DIIMVPTLV3O5.3Q3DHU66WQZUA@kernel.org>
- <20260519205947.3c9d99b3@fedora>
- <DIMWGLNJ922I.3PCET9O1J83TS@kernel.org>
- <20260520083813.7addec83@fedora>
- <DING6NMJ97JA.5HC3ONKUPMW5@kernel.org>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90E0410EDD8
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 11:29:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 45CE9435D1;
+ Wed, 20 May 2026 11:29:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E585F1F000E9;
+ Wed, 20 May 2026 11:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779276570;
+ bh=qvoG4aNz4WjwJv+2yN4cJ2o3T9asOyX6Zi51zffP2Kg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=HmTPCI7OdHOccAFE8nIsgJQVTZZmw015qWpJZXOxZSBmBr17yApZjWlKB/MMpaosl
+ wt0qhZkAQ7d8L06PcrnSyEocMNDYhKTHAtMbHMEHvbjBGqS7wgt+8XLBynYTuJkPX+
+ QRI9Md1HezBxCtoJntdxZxqRLR4AGXDKK1G7vp6mGZxz0w6HF9olIe3WGOaIoa/GmF
+ jN04P3X4kRM8pa/E0uGeiBsl4k9uVJDHVUCIx+USD+88EgN7xCjM7ykYfqT6RqPKf6
+ 2omsaZPt11n2eKLR9QHCn4BaJQQJXRfpPanK8pXnWiHcUavXlW2DTwI4dI5XFbDLfR
+ rMhHAeKRnkZDw==
+Message-ID: <f097c75a-0c33-499b-9910-b23182d4472b@kernel.org>
+Date: Wed, 20 May 2026 13:29:24 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V6 5/5] arm64: dts: qcom: glymur-crd: add Audio sound card
+ node
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, robh@kernel.org,
+ srini@kernel.org, amahesh@qti.qualcomm.com, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260325035338.1393287-1-sibi.sankar@oss.qualcomm.com>
+ <20260325035338.1393287-6-sibi.sankar@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260325035338.1393287-6-sibi.sankar@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,106 +108,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 20 May 2026 12:55:40 +0200
-"Danilo Krummrich" <dakr@kernel.org> wrote:
+On 25/03/2026 04:53, Sibi Sankar wrote:
+> From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> 
+> Add the sound card of Glymur-crd board with the routing for speakers.
+> 
+> Add device nodes for the sound support with WSA884x smart speakers
+> and playback via speakers and recording via DMIC microphones.
+> 
+> Co-developed-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 110 +++++++++++++++++++++++
+>  1 file changed, 110 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> index 690b90e3d6ce..88a5c63e8ac2 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> @@ -118,6 +118,54 @@ vreg_wwan: regulator-wwan {
+>  		pinctrl-0 = <&wwan_reg_en>;
+>  		pinctrl-names = "default";
+>  	};
+> +
+> +	sound {
+> +		compatible = "qcom,glymur-sndcard";
+> +		model = "glymur-crd";
 
-> On Wed May 20, 2026 at 8:38 AM CEST, Boris Brezillon wrote:
-> > So, GEM allocation and GPUVM are required are required early on, and
-> > both want a drm::Device of some sort (Unregistered or Registered). So
-> > the question is, are you happy with having [1] applied before/after
-> > your patchset to address this chicken-and-egg issue I mentioned,  
-> 
-> Yes, this is exactly what I had in mind for all of my replies, but I think I
-> only implied my key point rather than making it explicit, so let me do that now.
-> 
-> What I'm saying is that we now have all DRM ioctls behind the SRCU guard, which
-> means that the drm::Registration data is always available from DRM ioctls.
-> 
-> Now, with this precondition, the real question is whether there are any
-> resources left that should be bound to the lifetime of the DRM device itself,
-> which I don't think is the case.
-> 
-> After device unbind nothing is able to call back into the driver anymore, so
-> there is no reason to keep the corresponding data alive within the driver's
-> private data.
-> 
-> There may be resources that are kept alive through a separate reference count
-> while userspace still has open file descriptors, but they are separate reference
-> counts and should be independent from the driver's private data.
-> 
-> IWO, the fact that we guard the ioctls makes the whole class of problems go away
-> that we inherit from having to keep the driver's private data alive until after
-> remvoe() -- the DRM device private data becomes obsolete and we should probably
-> evene remove it.
-> 
-> Instead, we should use the drm::Registration private data for everything.
-> 
-> With this, your chicken-and-egg issue is already solved; the DRM device is
-> available, you can populate all the resources you need (GEM, GPUVM, etc.) and
-> then pass it into drm::Registration::new().
+That's not the name which was already used in Audioreach topology and
+maybe other places.
 
-Okay, it starts to click. So ioctls get passed the drm::Registration,
-which has both a device and some driver specific data (I guess it's
-even hidden behind the File abstraction). During early probe, we'd still
-be able to pass an Unregistered variant of the device, and then our
-current TyrDrmDeviceData would be attached to the Registration object
-when Registration::new_foreign_owned() is called.
+While it is fine to use whatever case you wish, please also fix that
+users of this name.
 
-This probably imply changing the places where we currently access our
-TyrDrmDeviceData through the drm::Device, but hopefully there's not
-many of those cases.
-
-> 
-> In terms of making any of the resources you store in the drm::Registration data
-> available in the bus device private data, it becomes the same pattern as for
-> everything else, i.e. you need shared ownership.
-
-Yep, that we can solve.
-
-> 
-> So, let's say you need IoMem<'bound> in both the drm::Registration data and in
-> the bus device private data, then you currently need Arc<IoMem<'bound>> in both
-> of them, which is fine, but I think we can do better.
-> 
-> Eventually, once we have landed the series I currently have in flight and once
-> Gary finished his self-referencial support in pin-init, I think we can even
-> avoid the reference count. Here is an example.
-> 
-> 	struct TyrPlatformDriverData<'bound> {
-> 	    _device: ARef<TyrDrmDevice>,
-> 	    _reg: drm::Registration<'bound, TyrDrmData<'_>>,
-> 	    iomem: IoMem<'bound>,
-> 	}
-> 
-> 	struct TyrDrmData<'bound> {
-> 	    iomem: &'bound IoMem<'bound>,
-> 	}
-> 
-> 	fn probe() -> ... {
-> 	    try_pin_init!(TyrPlatformDriverData {
-> 	        _device: ...,
-> 		iomem <- ...,
-> 		_reg <- drm::Registration::new(..., TyrDrmData { iomem: &iomem }),
-> 	    })
-> 	}
-> 
-> I don't know how the pin-init self-referencial stuff will exactly turn out, but
-> this is pretty much what I hope we can evolve this into.
-
-Yep, makes sense.
-
-> 
-> (And sorry again, now that I spelled this all out, having that left implicit in
-> my first reply was obviously unreasonable. :)
-
-No worries, that's the usual back-and-forth happening during reviews,
-and it's all fine.
-
-> 
-> > or are you proposing something else (Option<Subcomponent> so that we start
-> > with all sub-components set to None and progressively populate those, which I
-> > remember Daniel was strongly opposed to)?  
-> 
-> No, I am strongly opposed to do that (as well).
-
-Got it.
+Best regards,
+Krzysztof
