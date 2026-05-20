@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C9EFCD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:54:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4893BCD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:54:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EEF610ECE1;
-	Wed, 20 May 2026 14:54:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEE2E10E533;
+	Wed, 20 May 2026 14:54:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e/MZXe3e";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QeKk2iq2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CBB210E533
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:54:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51A4F10F0D6
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:54:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8E29B60018;
- Wed, 20 May 2026 14:54:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40DC1F000E9;
- Wed, 20 May 2026 14:54:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 06960440DC;
+ Wed, 20 May 2026 14:54:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6969F1F000E9;
+ Wed, 20 May 2026 14:54:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1779288879;
- bh=QJ7qWMuBiVgJnps/Xiln3eM8VZrMXV4ZpHo/gEVfgXg=;
+ s=korg; t=1779288881;
+ bh=//ozQH9VnfjGGhd+riUfR1jE608ak+No9+/yeuqqSGc=;
  h=Subject:To:Cc:From:Date;
- b=e/MZXe3ejPGIX3J3ivcSuErVNRsn5p1eJelnrVnzatt8vAQZFT5W8BnRI0H2UBSEa
- dJvz3M77fLsok1bfOiPThgaT/CHp7qUVStf9TVCts85sWSb7jJm66nxQZnBU5E2Hu1
- 59SWvG+6JGKPsKLvF7A8mR5sur563ailt+1ukZy0=
-Subject: Patch "drm/ttm: Convert -EAGAIN from dmem_cgroup_try_charge to
- -ENOSPC" has been added to the 7.0-stable tree
-To: christian.koenig@amd.com, dev@lankhorst.se, dev@lankhrost.se,
- dri-devel@lists.freedesktop.org, friedrich.vock@gmx.de,
- gregkh@linuxfoundation.org, mripard@kernel.org,
- thomas.hellstrom@linux.intel.com, tj@kernel.org
+ b=QeKk2iq2or1umg4dajo2k7EjvmJvTqAJAzrXAamePeNDtgup2/SHlhyO1TIVYHS7i
+ MpVdaZPyLbL3S94zfJW2+BQbA1FQisVzc+hBIhdc3rgKPFv1e1+KbF7pCR8SC38/XQ
+ cHLoRoCywSY6ue3xTmvnzgnB27CNlLcULQJ4HvPk=
+Subject: Patch "drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup
+ failure" has been added to the 7.0-stable tree
+To: airlied@redhat.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ matthew.auld@intel.com, matthew.brost@intel.com, ray.huang@amd.com,
+ thomas.hellstrom@linux.intel.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 20 May 2026 16:54:22 +0200
-Message-ID: <2026052022-slingshot-constrain-7c4a@gregkh>
+Message-ID: <2026052022-carless-bully-b327@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -60,86 +60,80 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 This is a note to let you know that I've just added the patch titled
 
-    drm/ttm: Convert -EAGAIN from dmem_cgroup_try_charge to -ENOSPC
+    drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup failure
 
 to the 7.0-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     drm-ttm-convert-eagain-from-dmem_cgroup_try_charge-to-enospc.patch
+     drm-ttm-fix-ttm_bo_shrink-infinite-lru-walk-on-backup-failure.patch
 and it can be found in the queue-7.0 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From 591711b32681a04b57d00c2a404658f8419a081c Mon Sep 17 00:00:00 2001
+From 1d59f36e95f7f7134db0e313c9d787cb0adb2153 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Fri, 8 May 2026 18:09:20 +0200
-Subject: drm/ttm: Convert -EAGAIN from dmem_cgroup_try_charge to -ENOSPC
+Date: Mon, 11 May 2026 18:24:43 +0200
+Subject: drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup failure
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-commit 591711b32681a04b57d00c2a404658f8419a081c upstream.
+commit 1d59f36e95f7f7134db0e313c9d787cb0adb2153 upstream.
 
-dmem_cgroup_try_charge() returns -EAGAIN when the cgroup limit is
-hit and the charge fails. TTM has no concept of -EAGAIN from resource
-allocation; -ENOSPC is the canonical error meaning "no space, try
-eviction". Convert at the source in ttm_resource_alloc() so no caller
-needs to handle an unexpected error code, and clean up the now-redundant
--EAGAIN check in ttm_bo_alloc_resource().
+Apply the same fix as b2ed01e7ad ("drm/ttm: Fix ttm_bo_swapout()
+infinite LRU walk on swapout failure") to the ttm_bo_shrink() path.
 
-Without this, -EAGAIN escaping ttm_resource_alloc() during an eviction
-walk causes the walk to terminate early instead of continuing to the
-next candidate.
+Move del_bulk_move from before the backup to after success only,
+using ttm_resource_del_bulk_move_unevictable() since the resource
+is now unevictable once fully backed up.
 
-Cc: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Christian Koenig <christian.koenig@amd.com>
+Fixes: 70d645deac98 ("drm/ttm: Add helpers for shrinking")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Dave Airlie <airlied@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.14+
-Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+Cc: stable@vger.kernel.org # v6.15+
+Assisted-by: GitHub_Copilot:claude-opus-4.6
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Link: https://patch.msgid.link/20260511162443.24352-1-thomas.hellstrom@linux.intel.com
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Maarten Lankhorst <dev@lankhrost.se>
-Link: https://patch.msgid.link/20260508160920.230339-1-thomas.hellstrom@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c       |    2 +-
- drivers/gpu/drm/ttm/ttm_resource.c |    5 ++++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo_util.c |   11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -740,7 +740,7 @@ static int ttm_bo_alloc_resource(struct
- 		may_evict = (force_space && place->mem_type != TTM_PL_SYSTEM);
- 		ret = ttm_resource_alloc(bo, place, res, force_space ? &limit_pool : NULL);
- 		if (ret) {
--			if (ret != -ENOSPC && ret != -EAGAIN) {
-+			if (ret != -ENOSPC) {
- 				dmem_cgroup_pool_state_put(limit_pool);
- 				return ret;
- 			}
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -398,8 +398,11 @@ int ttm_resource_alloc(struct ttm_buffer
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -1112,19 +1112,14 @@ long ttm_bo_shrink(struct ttm_operation_
+ 	if (lret < 0)
+ 		return lret;
  
- 	if (man->cg) {
- 		ret = dmem_cgroup_try_charge(man->cg, bo->base.size, &pool, ret_limit_pool);
--		if (ret)
-+		if (ret) {
-+			if (ret == -EAGAIN)
-+				ret = -ENOSPC;
- 			return ret;
-+		}
+-	if (bo->bulk_move) {
+-		spin_lock(&bdev->lru_lock);
+-		ttm_resource_del_bulk_move(bo->resource, bo);
+-		spin_unlock(&bdev->lru_lock);
+-	}
+-
+ 	lret = ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
+ 			     {.purge = flags.purge,
+ 			      .writeback = flags.writeback});
+ 
+-	if (lret <= 0 && bo->bulk_move) {
++	if (lret > 0) {
+ 		spin_lock(&bdev->lru_lock);
+-		ttm_resource_add_bulk_move(bo->resource, bo);
++		ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
++		ttm_resource_move_to_lru_tail(bo->resource);
+ 		spin_unlock(&bdev->lru_lock);
  	}
  
- 	ret = man->func->alloc(man, bo, place, res_ptr);
 
 
 Patches currently in stable-queue which might be from thomas.hellstrom@linux.intel.com are
