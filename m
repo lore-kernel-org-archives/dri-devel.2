@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A81FCD5BAC
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59CA7CD5BA4
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:41:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86D8E10F0D9;
-	Wed, 20 May 2026 16:40:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A361010F05F;
+	Wed, 20 May 2026 16:41:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="chXvXKf/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dfeDeNt+";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1087E10E206
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7EC10E377
  for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:40:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 89DC960215;
+ by tor.source.kernel.org (Postfix) with ESMTP id EB8B3601FE;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 49AABC32782;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D6F1C2BCF6;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1779295242;
- bh=yjbTv7IE3rnG+foAIeVCcQYWym1cEuH3YQsEYTkU92o=;
+ bh=Mu9cAq/bK2HeYMImJlap8nXy6uvMFEKZPyKWOMasao4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=chXvXKf/C7UETP35+/ZNkk75kc604OtSLqgxuB+GL4ZCZIgdRDIfv2qbiDSsLJdpn
- rMQC2P0pf+1147LdfuwPexomC2QYmBPQ1cIX4ScZ+XCagyZO40frvn8UCay/4gJK2G
- /N31KsBxSbYybvuoKDqIR+T3H2o05F1r97tTJs4pXM+DRhqWPXJrJhiOfxU4zD3/vJ
- laSW8CvrTIUHP9lDBhSAPfANHGadZkGni36xZj3pGUxC41uUB8vPJMwwEGWOTXKTHg
- S9FqHwODbgtfxLQx4yXlwK0glhbZr78tCKnOv3Wpxwt/Gun5ouKl2+ezLgxvTUXXpP
- muR2icHa886Hw==
+ b=dfeDeNt+x4sgDIbwsODNMrUukL9VYJOD7OSkZU225gb0lmTd1f20xN3ers3UuwnnG
+ hf4L7WaLJalGZjpa7SXxOvD9IVtZUY8TesWl20G2HOapKI3a5Ud/b/SFYNHpwPWtJs
+ hgZWhb0s7lutPkFmeW5WEFXZYPJ3RdmxbNKIMs8kzo6uRmV4I4utaQf8D4eCusA7lF
+ JGIMCOVfpYWqgRT4HOY8K0/0cufs/er0TJBK5inlDaov7jFlFaSL/hmx5lg4G+MAsn
+ LyaXnh4+vOAwefuYCu8CWprv1yIE0cetRxl5n1Zo+w+MGBTTOHXg0O+1OjiwE4jqEz
+ 4EYhsldpgKy7g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3F081CD5BAA;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 840BECD5BA4;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?=
  <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Wed, 20 May 2026 18:40:11 +0200
-Subject: [PATCH 07/11] arm64: dts: qcom: sc8280xp-arcata: Add volume
- up/down GPIO keys
+Date: Wed, 20 May 2026 18:40:15 +0200
+Subject: [PATCH 11/11] arm64: dts: qcom: sc8280xp-arcata: Drop duplicate
+ DMIC supplies
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-7-9df52552bf87@gmail.com>
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-11-9df52552bf87@gmail.com>
 References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 To: Douglas Anderson <dianders@chromium.org>, 
@@ -58,13 +58,14 @@ To: Douglas Anderson <dianders@chromium.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=2039;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1355;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=CfiRUKjuOkBz4gm02vzH1uF4ZTJ7kW7Ou28mRmrz7TE=;
- b=Y/MRBh06KA8oGhSHijX6zyf2PvGCEcP/zUixmH66wBm/zVVlyf3jKtq9AuHmwqKrgUOUPewvp
- eYV7SvmddAzCbGlo9tR7NQNdmx6UsFCbWIHFlviE3I7VXNzzRbZc4/D
+ bh=zKav9HnHTj8DgP+Z9y+E814drSGNPU5bW2do5oedD5A=;
+ b=jd63XVNVGo/QGrpVcEm+/DDF4Q/3SVr5c2azDz7Dhq8sS+H+BzUrp5rqDGwTydj26e1IU4R6W
+ aMgOb7aIf4zD9WFH9SSEPHvEOAEo9UHNfDMJOBHTLhsuIHiZdo0YfNQ
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -89,81 +90,38 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Configure gpio6 to serve as volume down and gpio9 as volume up to enable
-the volume up/down keys located at the top of the screen.
+Align with the reference implementation from the ThinkPad X13s.
 
+The audio-routing setup specifies two power supplies for each DMIC,
+but only one of them can be active at the same time.
+
+Drop the redundant routes to the pull-up "VA MIC BIASn" supplies as
+done in commit a2e617f4e698 ("arm64: dts: qcom: sc8280xp-x13s: Drop
+duplicate DMIC supplies").
+
+There is no functional difference except that we skip briefly switching
+to pull-up mode when shutting down the microphone.
+
+Cc: Stephan Gerhold <stephan.gerhold@linaro.org>
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 42 ++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+ arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index 2a6f0c9de7c85a4f0659237846b0430a0b021a40..a300069b5960dbba28601c418951869c94b63938 100644
+index ae0a054f2f9d90c9341766528d6be0b9561a530f..f938e68c69ea9276ca89d75b659dbea6a7a832f7 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -6,6 +6,7 @@
- /dts-v1/;
+@@ -793,9 +793,6 @@ &sound {
+ 			"VA DMIC0", "MIC BIAS1",
+ 			"VA DMIC1", "MIC BIAS1",
+ 			"VA DMIC2", "MIC BIAS3",
+-			"VA DMIC0", "VA MIC BIAS1",
+-			"VA DMIC1", "VA MIC BIAS1",
+-			"VA DMIC2", "VA MIC BIAS3",
+ 			"TX SWR_ADC1", "ADC2_OUTPUT";
  
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "sc8280xp.dtsi"
-@@ -56,6 +57,31 @@ backlight: backlight {
- 		pinctrl-names = "default";
- 	};
- 
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&vol_down_n>, <&vol_up_n>;
-+		pinctrl-names = "default";
-+
-+		key-vol-down {
-+			label = "Volume Down";
-+			gpios = <&pmc8280_1_gpios 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
-+		key-vol-up {
-+			label = "Volume Up";
-+			gpios = <&pmc8280_1_gpios 9 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
-+
- 	pmic-glink {
- 		compatible = "qcom,sc8280xp-pmic-glink", "qcom,pmic-glink";
- 
-@@ -939,6 +965,22 @@ edp_bl_en: edp-bl-en-state {
- 		pins = "gpio8";
- 		function = "normal";
- 	};
-+
-+	vol_down_n: vol-down-n-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
-+
-+	vol_up_n: vol-up-n-state {
-+		pins = "gpio9";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
- };
- 
- &pmc8280_2_gpios {
+ 	wcd-playback-dai-link {
 
 -- 
 2.47.3
