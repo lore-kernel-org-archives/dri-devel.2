@@ -4,61 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6B00CD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 15:05:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5623CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 15:17:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1785A10F0B6;
-	Wed, 20 May 2026 15:05:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3F2110E18E;
+	Wed, 20 May 2026 15:17:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="Zmy8qXKk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DZ++54/7";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B93C610F0B6
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 15:05:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779289529; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=nGR376jrROr2uJ3rjtw59qHCZlWNLP46lVPOEnEKxeJPEsqHsGZZ2IKLEREWOuvGB8F0pnswnEuCQjBlvEWhr8SIxTZ4XZif+G47yj8OEcWqXehH9n8XgLSh9zfLKoJdPTV9Kobxy0s/8uk7eBbbr9S6Zgwk1TvPLEtaXG3FEME=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779289529;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=3BKtKUyHQJrtpBvB7G1utzo2T87gBxc/CZcvP9tnSew=; 
- b=l+WctTFeivg9Y4j5ZBqBXseb/DWHnso/VqS0x6GKcKy4MVWC5bLVSku2jaJgybRufy1xeOnX0EiFmt6BVy+NKWYam1apqyKP+yO24MVJhnjw/h6cLa9nX+Q+m7EL8CroK6tvRYlco1a91fvxF1mhmxDfEh8Q+MlKl2EZGHkXDhc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779289529; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
- bh=3BKtKUyHQJrtpBvB7G1utzo2T87gBxc/CZcvP9tnSew=;
- b=Zmy8qXKkpCT6s3JGHDxzj+1l/QqHWebiz/x/WBD7DBxbvYllcIXDx+qlVN51x8Rv
- 4gnSuZUTmcAZAdIY7FQ6BnYbbRHmTd+QY8qLiihnhGQgRHCOQQw99rWSSuYXUAgmIkF
- 2bLgeXr0d+Dx0sV/bgWx9a31KOh5P7zWj12i0gtE=
-Received: by mx.zohomail.com with SMTPS id 1779289505758769.0851870406319;
- Wed, 20 May 2026 08:05:05 -0700 (PDT)
-Message-ID: <fb0ef5b4-33ed-4b67-bcc1-1c4df22dd73d@collabora.com>
-Date: Wed, 20 May 2026 18:05:00 +0300
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F9A10E18E
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 15:17:49 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-5a887ebb416so6122712e87.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:17:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779290267; x=1779895067; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ircF4PWSycvWSmAyVL8auld82Bsa3FQOWa7WNmN+a+A=;
+ b=DZ++54/7DHhSq5NGsUH9H2iJzjv+Me2uCFsdcdWKDTFIaVh7ZzoF3DSPKmoen1STym
+ qD0uWcJrLfpJswAKj43MMCjH+ViEUA0WydgvBO3tBCg+xYFVrrRqwnW6uTwxILZqazIt
+ VpKRTC3u4na7gocOAqbeAO9073ytMmnFp57LXmz6wUpwTA/1fDNI0hIM5ciYuX/wL94y
+ ojTR67mMYjWwVcgNMSBE5afGubGGEWPiU50jJQke34iHxgV/VQsAYUjl2O8tp2GWjcPj
+ Sl4b+gXALBvPj+rrZFfNrSoFUhwyVgHY3OSxl0PxMut9MURqOXcCfNLl7TparmZVFRwI
+ HZCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779290267; x=1779895067;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ircF4PWSycvWSmAyVL8auld82Bsa3FQOWa7WNmN+a+A=;
+ b=NQt/yt+14U0C31Ccb/nLjGd2q6AUl2LoHAikcIDSx0f9OMKDKyEPtmNV6VVSbQC2Mc
+ 3PoM2eU6GVAsFbB/IHHO2khN13ze62YaHabXXKirHj4wsZbjo3Kw8W0AiIo1gZriq2py
+ f12q79N+090zCEy4YxGIaFuP3pQNwg3/4HbdorhS0454Z4aniOnscxTwOxkv3hVHzOLW
+ Lrx05jFlkEF1s8BoRzfuHPNCIMtDxraX7fmTQ2gRBdJDSz6bnsEvLtytTi7bAlxAoOtU
+ 3i2PIQm34R3KtTD+ENMwsn2jyFsOj+GM3/hDvaqqhXKTS5izRSV5la26QEk6Gqe2V+R1
+ n5yA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8GVsechXCrb4VkdkNd8GnHi/z95tEQKoi1NDFeU6VhlGUW6EPBKaddMpZMcqZkoAFgmii/l1H9VcM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwwzghsvP16y4XNdt2DzWKg1VDRvkgOxExkkbwiEiGUllMVA6vZ
+ xUmKTcj8AGHfk7ru58WOkWlv4xXOKLGqSb6kv2+bNgmN2N9cVaDSJmr4
+X-Gm-Gg: Acq92OFZAWM1gv37amj+QxBc4bAdIK3+U4Pr3afpf5VxKjKGPziygxO0XiitzhDWI9w
+ Z9iymNM5FlCRy/IgKJmLKyYGD0LsuU9l9aqEP+tFDdmbBMj8fnsVwhEpKC/gAn3e/ybarkxfO9/
+ Ng9B+wxn3DNFOuLSQk7tlT+KmFwFPv4n+aRAKF2nlksuDbYQ9I1pWu6pX60QgbVxTRhHD6cVRA0
+ GSyMf5JgLKCudpWmIfbzEvlguYRW7Ml4vSY7AoGpWOZ3fIIAT00EM39H2dzwJvq3df2aflktu8s
+ HT6VyqeqAas/9VQKHIEMjLN80/zCHzPpgCkAJ8LBJXHvLaPgaL3FGb9nMkOqEnRNM1ACxaxSZG1
+ eC8mE1wu8YMaIpZjqAGudGPMmAno6a+KWOT5GRzPrH01ZfEPiRsbgN8fSU84tvlBAUCF/3arCA/
+ Nv7beg+1YVjXlooSXt6F4GHsPfTbEZw+Ze
+X-Received: by 2002:a05:6512:1252:b0:5a4:1672:59d0 with SMTP id
+ 2adb3069b0e04-5aa0e7278f0mr9211402e87.19.1779290267082; 
+ Wed, 20 May 2026 08:17:47 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a90f10c8b2sm5022470e87.17.2026.05.20.08.17.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 May 2026 08:17:46 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v3 0/2] drm/amdgpu: fix recursive ww_mutex in devcoredump IB
+ dump
+Date: Wed, 20 May 2026 20:17:38 +0500
+Message-ID: <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
+References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] drm/virtio: introduce F_BLOB_ALIGNMENT support
-To: Sergio Lopez <slp@redhat.com>, Chia-I Wu <olvaffe@gmail.com>,
- Jason Wang <jasowang@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Gerd Hoffmann <kraxel@redhat.com>, virtualization@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-References: <20260428194450.518296-1-slp@redhat.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260428194450.518296-1-slp@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,53 +96,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/28/26 22:44, Sergio Lopez wrote:
-> There's an increasing number of machines supporting multiple page sizes
-> and on these machines the host and a guest can be running, each one,
-> with a different page size.
-> 
-> For what pertains to virtio-gpu, this is not a problem if the page size
-> of the guest happens to be bigger or equal than the host, but will
-> potentially lead to failures in memory allocations and/or mappings
-> otherwise.
-> 
-> To deal with this, the virtio-spec was extended to introduce with the
-> VIRTIO_GPU_F_BLOB_ALIGNMENT feature [1]. If this feature is negotiated,
-> we must use the "blob_alignment" field in the config to ensure every
-> CREATE_BLOB and MAP_BLOB is properly aligned before sending it to the
-> device.
-> 
-> We also introduce the VIRTGPU_PARAM_BLOB_ALIGNMENT parameter to allow
-> userspace to query the alignment restrictions for blobs.
-> 
-> This supersedes "drm/virtio: introduce the HOST_PAGE_SIZE feature" [2].
-> 
-> [1] https://github.com/oasis-tcs/virtio-spec/commit/f9abfd55cb663837dda1153b826216dcf4d25b84
-> [2] https://lkml.org/lkml/2024/7/23/438
-> 
-> Changes in v2:
-> - Rebased.
-> - Moved blob size alignment validation to verify_blob(), rejecting
-> misaligned sizes early in the ioctl path instead of checking in
-> virtio_gpu_cmd_resource_create_blob() and virtio_gpu_cmd_map()
-> (Dmitry Osipenko).
-> 
-> Sergio Lopez (3):
->   drm/virtio: support VIRTIO_GPU_F_BLOB_ALIGNMENT
->   drm/virtio: honor blob_alignment requirements
->   drm/virtio: add VIRTGPU_PARAM_BLOB_ALIGNMENT to params
-> 
->  drivers/gpu/drm/virtio/virtgpu_drv.c   |  1 +
->  drivers/gpu/drm/virtio/virtgpu_drv.h   |  2 ++
->  drivers/gpu/drm/virtio/virtgpu_ioctl.c | 10 ++++++++++
->  drivers/gpu/drm/virtio/virtgpu_kms.c   | 14 +++++++++++---
->  include/uapi/drm/virtgpu_drm.h         |  1 +
->  include/uapi/linux/virtio_gpu.h        |  9 +++++++++
->  6 files changed, 34 insertions(+), 3 deletions(-)
-> 
+This series fixes a lockdep "possible recursive locking" splat in
+amdgpu_devcoredump_format() that fires on every GPU timeout once a job
+with a PASID context is involved. With amdgpu.gpu_recovery=0 the timeout
+handler refires every ~2 s, so the splat repeats until it drowns the
+kernel ring buffer. It is also a real self-deadlock for IB BOs that
+share their dma_resv with the root PD (the always-valid case).
+ 
+The root cause: amdgpu_devcoredump_format() holds the VM root PD's
+reservation and then reserves each IB BO on top of it, nesting two
+reservation_ww_class_mutex acquires without a ww_acquire_ctx.
+ 
+v1 fixed this with a snapshot helper that collected BO references under
+the root reservation and reserved them one by one afterwards. Christian
+pointed out that drm_exec already solves exactly this — lock everything
+in one ww ticket — and suggested teaching amdgpu_vm_lock_by_pasid()
+to take a drm_exec context. This v3 follows that approach.
+ 
+Because amdgpu_vm_lock_by_pasid() has a second caller in the page-fault
+path, the series is split so each patch builds and works on its own:
+ 
+  1/2  Convert amdgpu_vm_lock_by_pasid() to take a drm_exec context and
+       lock the root PD via amdgpu_vm_lock_pd(). Updates the existing
+       caller, amdgpu_vm_handle_fault(). Pure refactor, no functional
+       change to the page-fault path.
+ 
+  2/2  Use the new signature in amdgpu_devcoredump_format(): lock the
+       root PD and every IB BO together in one drm_exec ticket. The
+       per-IB amdgpu_bo_reserve() nesting is gone, along with a BO
+       refcount leak on the old reserve-failure path. This is the
+       actual bug fix and carries the Fixes: tag.
+ 
+Tested on Linux 7.1-rc4 + this series, Radeon RX 7900 XTX (gfx1100),
+KASAN + PROVE_LOCKING enabled, using a small libdrm_amdgpu reproducer
+that submits a GFX IB chained at GPU VA 0 and waits for the hang. Before
+the series the splat fires on every TDR; after it the dmesg is clean
+across repeated timeouts and the devcoredump output is unchanged.
+ 
+v1: https://lore.kernel.org/amd-gfx/20260429143743.50743-1-mikhail.v.gavrilov@gmail.com/
+v2: https://lore.kernel.org/amd-gfx/20260519161541.19994-1-mikhail.v.gavrilov@gmail.com/
+ 
+Changes since v2:
+- Reworked along the lines Christian suggested: instead of a private
+  snapshot helper and a separate drm_exec pass, amdgpu_vm_lock_by_pasid()
+  now takes a drm_exec context directly (patch 1), and the devcoredump
+  code locks the root PD and all IB BOs in a single ticket (patch 2).
+- Dropped the amdgpu_devcoredump_ib_ref struct and the three
+  collect/lock/release helpers from v2 entirely.
+ 
+Changes since v1:
+- Switched from per-IB amdgpu_bo_reserve() to drm_exec.
+- Dropped the Cc: stable tag: the regression only landed in 7.1-rc1, so
+  the fix reaches 7.1 via drm-fixes without a stable backport.
 
-Applied to misc-next, thanks
+Mikhail Gavrilov (2):
+  drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to drm_exec
+  drm/amdgpu: fix recursive ww_mutex acquire in
+    amdgpu_devcoredump_format
+
+ .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 103 ++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  72 ++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   3 +-
+ 3 files changed, 122 insertions(+), 56 deletions(-)
 
 -- 
-Best regards,
-Dmitry
+2.54.0
+
