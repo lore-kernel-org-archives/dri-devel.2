@@ -4,87 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFA86CD5BAC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68660CD4F54
 	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 07:13:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5ADB10EF3B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FEDC10EF3A;
 	Wed, 20 May 2026 07:13:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AJ6+B79i";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XMlWCcI5";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE69D10E625
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 03:08:40 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2b9fcf7c91bso44963995ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 20:08:40 -0700 (PDT)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD9910E0A6
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 06:07:30 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-304106b1204so942663eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 23:07:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779246520; x=1779851320; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7ogsLHdMRBDNhx86JrEpkhkME96SjA8tuF11+cYpwtQ=;
- b=AJ6+B79i9QKMjHCmuhAJ96S7hd27nDPihpOIJQXbRfHd0a+IJwdk5YfvD2Kz4LSvom
- Kv37bmXfhkDGqOOvqo3IJtVlFNttFw2Lj/dpLI8G1jtbhFYk7DWG5pvQf80BqAeCiwv9
- U+qa4Lpq8wPZFV6BpAEs0Nj46weJOk51Oxqep+ahxLgMmesZN5p1c9dZVUdR9v7rxtyP
- ofy+dxV8f0Wry/rfpIlqCcLSa1H8EXsjoNUPlkBLnjK7zi83aj5pDd2uHFrfq5QbhzDY
- mTuxaHJD7R58JKVFNHpPHhc3syhlPLdU75y0Z1+YAY7ourlp28RkJtKBVgYxvFms7TO/
- rRZg==
+ d=gmail.com; s=20251104; t=1779257249; x=1779862049; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=FkbUxOw9XQFqUtX2Z9eJ32TNe+t+n97l8FjGhNB6Arg=;
+ b=XMlWCcI5tQQnL6TCcXJq6l4yIYZ2bEHFL26pbn4ufYpEjLdlB7jKiAogF4HexKdjYc
+ w/qHa1olShE64cHYHcVIBLJAj4cOBYwBOMKetfe1IcylQMQnQ614WokHWpmM650wTWUN
+ aiwFcMtdEKQzuU+FHfyNQwlAKpITbC0hJs1lPTANl8NfLGciXNGcAJtYbcQ3d1V93p+x
+ 0LIDiagO9KGcXko9tib5idKPkenXTZyIuOiMLSOGyIcCy98LqrH+a6pQ4FRgY7hdYNpP
+ ppwTaGhKPgjo4KBNXxOPEvUtwigx59/uLFxBKaQvzkLx7pp/luTs7goBq6ziecbheVVO
+ K2fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779246520; x=1779851320;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7ogsLHdMRBDNhx86JrEpkhkME96SjA8tuF11+cYpwtQ=;
- b=IoCuLmubVHIY41GOtDeIfr1tSrs4CQWGfSnvaRQsX/3Yy+m+xTIlwRRpOMfd1YDTn8
- l1gE+i7l+YVHwn3ZQ87HYcw+bqXJmR9AUNQZwRNbX7TGHDeOUS25RbPyfc/W7YzCsz3H
- EoLxXUMqDB2+yUX92wwaDO4OTEjEw67tXsneCyhpXQPyNmyMNhP3R2XGEVO5WvWUqEo2
- dDIudaKpy12+RPPMKhNal3BNrL/OLh01Toe7XHj9s0MIlSTEGAdxHCURs/eWez/TvIzj
- hw6nBOdwuKkc7UEwwIE/Qk+Gzv2n7u+j/ynmLkWrzqnj84Pw3z2idrkVnuN8IuGytfOf
- YR6Q==
+ d=1e100.net; s=20251104; t=1779257249; x=1779862049;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FkbUxOw9XQFqUtX2Z9eJ32TNe+t+n97l8FjGhNB6Arg=;
+ b=K50Nh0X+zkMJ79a3oMPe9RbJSCkZn91Wiq7x9pXzbJey6u8HKf/hqSGMZALLejKfxZ
+ TVoOubGEVJRMrcAUm71thLrr6rBBUEhei9xnF/UC5gI3Mhxq5jmPXdCidzzmkyykTQSA
+ ki5q8L1a/3mRXtioKl2BDqlweiTAQXfxF1HNEMntntovGEt76UtwR4zJ2U92AUA+6jQ+
+ 3Jnzh8OC5LEYPUYALLk9qLfNEoOtEnlQErPfJ6SbJVTXK0jTKShO6/MpKjxXMycjesoB
+ O6FBAbg9wH5ORpy74eiknj6dj5VC4cXJUpyDhiZRGSvmv7yykQAVjZVpJWXOvCU9DXNp
+ qftw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+CRIg6lTatWYuk/jFnrJbTizLLozRwVB5kBmB6n9oDo+k5DDiJnYzd2xjbXXaZTKg6Yn8nyIXB/ys=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwkxuAF+7PWaG4Iala19R1uKGi/hcmHDCkZTPDWNxRGS/Vp9ZfC
- 63wfsrIC/j43jxQNhHKGTmv9UZJrIK20LFlTwtSwaAM96QRaUDDpAYRB
-X-Gm-Gg: Acq92OFRfHVapB4f1kG4romgWVWp85z+H/LYvyF55TB4dXAnE0tQauVvy3onbPd2Fmq
- fa652ZjE3N30gxfPH5doEgeZz8aL/caidd2Z9p4hxmK9O4nDVgXizFl6r6JoBlqxuybbAqD7+v5
- vS4RtFLy6/7SdzVEaH/Ed2a/hcgEtfMCheR8ZuzK5Q/OLwnJ0zt4Pz7w5JonmZ+egyD4pcRp9ZA
- l721CHPJGMspZOwOXUvheeRZOqRo+d24ZjT3IAF3sCSMQkDCC3bIsmn5xSzzkB6Z4uQHTewXGK3
- VXFijgWUIY7IcxYA0nYNhUg5aBO/6W2S3i6j7VtdUc26ofwpLEjMcq1nq8KUbn+UY7T8Z+vjGXN
- S4KmndtdtPxvZEYJF3LxPuTB23juXVDAW0HICDI8RUREL0JqltHYb53rZRnik3PIN3VB5aetbTd
- yWmaN/UVVlO8atONqoNqHnpShiBUx1KHPkeZbneLXPRXm6aNtAtrg293w9TgpkFaTVZCgVFHjSZ
- 6LyAGZi49ZttFk=
-X-Received: by 2002:a17:903:22cb:b0:2b4:63c8:ce18 with SMTP id
- d9443c01a7336-2bd7e83176fmr241246245ad.12.1779246520280; 
- Tue, 19 May 2026 20:08:40 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bd5c26355csm202030405ad.35.2026.05.19.20.08.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 May 2026 20:08:39 -0700 (PDT)
-Message-ID: <c85299a1-1ea6-4c6c-ba77-ce46969b8c39@gmail.com>
-Date: Wed, 20 May 2026 11:08:35 +0800
+ AFNElJ99/RGn8pwp9iFLA6q6V3+zW4c+DLQDzhavzMYWb3azm0k78lmN3YVu8l5reu/T9kISKTufCNxXfAA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxz+c4bNtL5yWUY9rx1TgsXTxJ77fDMWF4xTAif8tKGJLDnulko
+ vbHdkiSghO3ZUYzis0WRxdOsyXs0U9kqBlVGP4MzVxatJlznsrP/5Ui3
+X-Gm-Gg: Acq92OFImkM4y7isAZbgW/tqHkQ23AzEHy90u2VUImz9tDg5ueADiJtaaGBulj8WV+5
+ 1JZxeGfxyjYXDB6Un8W49Oonko/9jooU/k8mdyWWTrXK4IjL+vmUNEVjiwPVbydbDCnFxzOLGPm
+ RMlRPgvbCGZ3Ef8/scNGeCpvQ4j4TMvzNNa/Gp/mSPeUwf4Ams8HVodlI4PtPm/WYC1rZD6XSzG
+ QqR29x3x0JOKdMFb1QO2Tw3Pq9cclL6j0QnV+LHLOyA4KbYXBxm8VWNtV21UBtR1h8PI0Rg1CY3
+ 2roFr203bnnDiDH+3KA9mrM1R36pqhWLJPdEvlF6n0lGKAD7mIHDVdKB9OomPD1DtciUmAmO/2v
+ UDBqv9obRuHEJCt5DzxUqWp9cVudiPo9WiWBzis66mTQ4BuQEGPaVNNfUcU9i/yQHE2ulFaS7Ba
+ bA7poJ0lQIANg/981W4rk2MgLN7B7P3vGG6yw6ILmG5A==
+X-Received: by 2002:a05:7301:600c:b0:2dd:6937:79d5 with SMTP id
+ 5a478bee46e88-303982b788dmr10220464eec.8.1779257249365; 
+ Tue, 19 May 2026 23:07:29 -0700 (PDT)
+Received: from wujing.localdomain ([74.48.213.230])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30294500a97sm20885330eec.9.2026.05.19.23.07.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 May 2026 23:07:29 -0700 (PDT)
+From: Qiliang Yuan <realwujing@gmail.com>
+Date: Wed, 20 May 2026 14:07:20 +0800
+Subject: [PATCH] cgroup/dmem: implement dmem.high soft limit and throttling
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] drm/verisilicon: add model ID constants and DCU
- Lite chip identity
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260519055114.1886525-1-a0987203069@gmail.com>
- <20260519055114.1886525-3-a0987203069@gmail.com>
- <5b7b28558aece1d99e93c1d69ce2c381929813a2.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <5b7b28558aece1d99e93c1d69ce2c381929813a2.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260520-feature-dmem-high-v1-1-97ca0cb7f95a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBvIfiy7SrSQnHIWVmhFIN49a
+ fkt3osQyDMFGIsInh4OfOwZoixgsXrfCNlkQ13VsuqEwpX0dXtC48ih5c2ikEr1oh3M0gyQu9P
+ Tyu//nOaUPnDDIj9jAAAA
+X-Change-ID: 20260519-feature-dmem-high-16997148dc38
+To: Maarten Lankhorst <dev@lankhorst.se>, 
+ Maxime Ripard <mripard@kernel.org>, Natalie Vock <natalie.vock@gmx.de>, 
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <realwujing@gmail.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Wed, 20 May 2026 07:13:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,165 +95,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/19/2026 3:37 PM, Icenowy Zheng wrote:
-> 在 2026-05-19二的 13:51 +0800，Joey Lu写道：
->> Introduce symbolic constants VSDC_MODEL_DC8200 and
->> VSDC_MODEL_DCU_LITE
->> to replace magic numbers in the hardware database and probe path.
->>
->> Register the DCU Lite chip identity (model 0x0, revision 0x5560,
->> customer_id 0x305) in vs_chip_identities[], making the existing
->> vs_fill_chip_identity() path able to recognise Nuvoton MA35D1
->> hardware
->> purely through register reads.
-> The HWDB change should be added in the end of the series, making it a
-> gate to the newly added changes that is finally opened when
-> everything's ready.
->
->> Also add three register-level macros for forthcoming DCU Lite
->> support:
->> - VSDC_DISP_IRQ_VSYNC(n) in vs_crtc_regs.h, for per-output VSYNC IRQ
->>    bits used by the DCU Lite IRQ enable/status registers.
->> - VSDC_FB_CONFIG_ENABLE, VSDC_FB_CONFIG_VALID and
->> VSDC_FB_CONFIG_RESET
->>    in vs_primary_plane_regs.h, for the framebuffer enable and
->>    commit-cycle bits used by the DCU Lite plane update path.
-> Maybe you can split the register change
-Understood. I will split the register macro additions into a separate 
-patch: one for the new vs_crtc_regs.h IRQ macro and one for the 
-vs_primary_plane_regs.h FB_CONFIG bits, keeping them independent of the 
-HWDB identity change.
->> No behaviour change for existing DC8200 platforms.
->>
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> ---
->>   drivers/gpu/drm/verisilicon/vs_crtc_regs.h       |  1 +
->>   drivers/gpu/drm/verisilicon/vs_hwdb.c            | 16 ++++++++++++--
->> --
->>   drivers/gpu/drm/verisilicon/vs_hwdb.h            |  3 +++
->>   .../gpu/drm/verisilicon/vs_primary_plane_regs.h  |  3 +++
->>   4 files changed, 19 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
->> b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
->> index c7930e817635..d4da22b08cd5 100644
->> --- a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
->> +++ b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
->> @@ -54,6 +54,7 @@
->>   #define VSDC_DISP_GAMMA_DATA(n)			(0x1460 +
->> 0x4 * (n))
->>   
->>   #define VSDC_DISP_IRQ_STA			0x147C
->> +#define VSDC_DISP_IRQ_VSYNC(n)			BIT(n)
->>   
->>   #define VSDC_DISP_IRQ_EN			0x1480
->>   
->> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
->> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
->> index 09336af0900a..a25c4b16181d 100644
->> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
->> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
->> @@ -90,7 +90,7 @@ static const struct vs_formats
->> vs_formats_with_yuv444 = {
->>   
->>   static struct vs_chip_identity vs_chip_identities[] = {
->>   	{
->> -		.model = 0x8200,
->> +		.model = VSDC_MODEL_DC8200,
-> I don't think such a macro is needed.
-Understood. I will remove `VSDC_MODEL_DC8200` and use the literal 
-`0x8200` directly in vs_hwdb.c with a comment.
->>   		.revision = 0x5720,
->>   		.customer_id = ~0U,
->>   
->> @@ -98,7 +98,7 @@ static struct vs_chip_identity vs_chip_identities[]
->> = {
->>   		.formats = &vs_formats_no_yuv444,
->>   	},
->>   	{
->> -		.model = 0x8200,
->> +		.model = VSDC_MODEL_DC8200,
->>   		.revision = 0x5721,
->>   		.customer_id = 0x30B,
->>   
->> @@ -106,7 +106,7 @@ static struct vs_chip_identity
->> vs_chip_identities[] = {
->>   		.formats = &vs_formats_no_yuv444,
->>   	},
->>   	{
->> -		.model = 0x8200,
->> +		.model = VSDC_MODEL_DC8200,
->>   		.revision = 0x5720,
->>   		.customer_id = 0x310,
->>   
->> @@ -114,13 +114,21 @@ static struct vs_chip_identity
->> vs_chip_identities[] = {
->>   		.formats = &vs_formats_with_yuv444,
->>   	},
->>   	{
->> -		.model = 0x8200,
->> +		.model = VSDC_MODEL_DC8200,
->>   		.revision = 0x5720,
->>   		.customer_id = 0x311,
->>   
->>   		.display_count = 2,
->>   		.formats = &vs_formats_no_yuv444,
->>   	},
->> +	{
->> +		.model = VSDC_MODEL_DCU_LITE,
-> The number is 0x0 and the whole public name of this IP is
-> "DCUltraLite", w/o any numbers.
->
-> I suggest leave it at 0x0 and add a comment saying this is DCUltraLite
-> -- Verisilicon people are abusing suffix for their IP names now.
-Understood. I will remove the `VSDC_MODEL_DCU_LITE` macro and use `0x0` 
-directly with a `/* DCUltraLite */` comment in vs_hwdb.c.
->> +		.revision = 0x5560,
->> +		.customer_id = 0x305,
->> +
->> +		.display_count = 1,
->> +		.formats = &vs_formats_no_yuv444,
->> +	},
->>   };
->>   
->>   int vs_fill_chip_identity(struct regmap *regs,
->> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h
->> b/drivers/gpu/drm/verisilicon/vs_hwdb.h
->> index 92192e4fa086..cca126bd2da5 100644
->> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
->> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
->> @@ -9,6 +9,9 @@
->>   #include <linux/regmap.h>
->>   #include <linux/types.h>
->>   
->> +#define VSDC_MODEL_DC8200 0x8200
->> +#define VSDC_MODEL_DCU_LITE 0x0
->> +
->>   struct vs_formats {
->>   	const u32 *array;
->>   	unsigned int num;
->> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
->> b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
->> index cbb125c46b39..67d4b00f294e 100644
->> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
->> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
->> @@ -16,6 +16,9 @@
->>   #define VSDC_FB_STRIDE(n)			(0x1408 + 0x4 * (n))
->>   
->>   #define VSDC_FB_CONFIG(n)			(0x1518 + 0x4 * (n))
->> +#define VSDC_FB_CONFIG_ENABLE			BIT(0)
->> +#define VSDC_FB_CONFIG_VALID			BIT(3)
->> +#define VSDC_FB_CONFIG_RESET			BIT(4)
-> Should the new IRQ register to be added here too?
->
-> Thanks,
-> Icenowy
-`VSDC_DISP_IRQ_VSYNC(n)` is a bit-mask for the IRQ status/enable 
-registers (`VSDC_DISP_IRQ_STA` / `VSDC_DISP_IRQ_EN`) which already live 
-in vs_crtc_regs.h. Keeping it there alongside the register addresses it 
-operates on is cleaner than splitting the IRQ definitions across two 
-headers.
->>   #define VSDC_FB_CONFIG_CLEAR_EN			BIT(8)
->>   #define VSDC_FB_CONFIG_ROT_MASK			GENMASK(13,
->> 11)
->>   #define VSDC_FB_CONFIG_ROT(v)			((v) << 11)
+Introduce the "high" soft limit for the dmem cgroup v2 controller.
+When a cgroup's device memory usage exceeds its high limit, tasks
+belonging to that cgroup are throttled by being forced into a sleep
+before returning to user space, instead of being failed outright
+as with the "max" limit.
+
+Key changes:
+- Add high counter configuration to dmem_cgroup_pool.
+- Add over-high check in the try_charge path and set TIF_NOTIFY_RESUME.
+- Inject the dmem throttling handler into resume_user_mode_work.
+- Implement the handler to perform a 100ms interruptible sleep for
+  over-limit tasks.
+
+This mechanism provides smoother over-subscription support for device
+memory resources.
+
+Signed-off-by: Qiliang Yuan <realwujing@gmail.com>
+---
+This series introduces the "high" soft limit and associated task
+throttling mechanism to the dmem cgroup v2 controller.
+
+The device memory (VRAM) management currently only supports hard limits
+(max), which leads to immediate allocation failures when reached. This
+can be disruptive for GPU-bound AI workloads. By introducing a soft
+limit, we allow cgroups to exceed their quota temporarily while
+applying backpressure via task throttling before the process returns
+to user space.
+
+The mechanism is inspired by the memory cgroup's high limit:
+- When usage > high, the task is marked with TIF_NOTIFY_RESUME.
+- Upon returning to user space, it triggers a 100ms sleep.
+- This provides a smoother over-subscription model for GPU resources.
+
+Qiliang Yuan (1):
+
+cgroup/dmem: implement dmem.high soft limit and throttling
+---
+To: Maarten Lankhorst <dev@lankhorst.se>
+To: Maxime Ripard <mripard@kernel.org>
+To: Natalie Vock <natalie.vock@gmx.de>
+To: Tejun Heo <tj@kernel.org>
+To: Johannes Weiner <hannes@cmpxchg.org>
+To: Michal Koutný <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ include/linux/cgroup_dmem.h      | 10 +++++++
+ include/linux/resume_user_mode.h |  2 ++
+ kernel/cgroup/dmem.c             | 60 +++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 71 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+index dd4869f1d736e..d58972de7c910 100644
+--- a/include/linux/cgroup_dmem.h
++++ b/include/linux/cgroup_dmem.h
+@@ -21,6 +21,13 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
+ 			   struct dmem_cgroup_pool_state **ret_pool,
+ 			   struct dmem_cgroup_pool_state **ret_limit_pool);
+ void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size);
++void __dmem_cgroup_handle_over_high(void);
++
++static inline void dmem_cgroup_handle_over_high(void)
++{
++	__dmem_cgroup_handle_over_high();
++}
++
+ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 				      struct dmem_cgroup_pool_state *test_pool,
+ 				      bool ignore_low, bool *ret_hit_low);
+@@ -51,6 +58,9 @@ static inline int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64
+ static inline void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size)
+ { }
+ 
++static inline void dmem_cgroup_handle_over_high(void)
++{ }
++
+ static inline
+ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 				      struct dmem_cgroup_pool_state *test_pool,
+diff --git a/include/linux/resume_user_mode.h b/include/linux/resume_user_mode.h
+index bf92227c78d0d..afcab20998c41 100644
+--- a/include/linux/resume_user_mode.h
++++ b/include/linux/resume_user_mode.h
+@@ -8,6 +8,7 @@
+ #include <linux/memcontrol.h>
+ #include <linux/rseq.h>
+ #include <linux/blk-cgroup.h>
++#include <linux/cgroup_dmem.h>
+ 
+ /**
+  * set_notify_resume - cause resume_user_mode_work() to be called
+@@ -58,6 +59,7 @@ static inline void resume_user_mode_work(struct pt_regs *regs)
+ 
+ 	mem_cgroup_handle_over_high(GFP_KERNEL);
+ 	blkcg_maybe_throttle_current();
++	dmem_cgroup_handle_over_high();
+ 
+ 	rseq_handle_slowpath(regs);
+ }
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index 4753a67d0f0f2..f77c692b887b1 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -15,6 +15,7 @@
+ #include <linux/page_counter.h>
+ #include <linux/parser.h>
+ #include <linux/refcount.h>
++#include <linux/resume_user_mode.h>
+ #include <linux/rculist.h>
+ #include <linux/slab.h>
+ 
+@@ -156,6 +157,12 @@ set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
+ 	page_counter_set_low(&pool->cnt, val);
+ }
+ 
++static void
++set_resource_high(struct dmem_cgroup_pool_state *pool, u64 val)
++{
++	page_counter_set_high(&pool->cnt, val);
++}
++
+ static void
+ set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
+ {
+@@ -167,6 +174,11 @@ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+ 	return pool ? READ_ONCE(pool->cnt.low) : 0;
+ }
+ 
++static u64 get_resource_high(struct dmem_cgroup_pool_state *pool)
++{
++	return pool ? READ_ONCE(pool->cnt.high) : 0;
++}
++
+ static u64 get_resource_min(struct dmem_cgroup_pool_state *pool)
+ {
+ 	return pool ? READ_ONCE(pool->cnt.min) : 0;
+@@ -186,6 +198,7 @@ static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
+ {
+ 	set_resource_min(rpool, 0);
+ 	set_resource_low(rpool, 0);
++	set_resource_high(rpool, PAGE_COUNTER_MAX);
+ 	set_resource_max(rpool, PAGE_COUNTER_MAX);
+ }
+ 
+@@ -685,6 +698,9 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
+ 		goto err;
+ 	}
+ 
++	if (page_counter_read(&pool->cnt) > READ_ONCE(pool->cnt.high))
++		set_notify_resume(current);
++
+ 	/* On success, reference from get_current_dmemcs is transferred to *ret_pool */
+ 	*ret_pool = pool;
+ 	return 0;
+@@ -835,13 +851,24 @@ static ssize_t dmem_cgroup_region_low_write(struct kernfs_open_file *of,
+ 	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_low);
+ }
+ 
++static int dmem_cgroup_region_high_show(struct seq_file *sf, void *v)
++{
++	return dmemcg_limit_show(sf, v, get_resource_high);
++}
++
++static ssize_t dmem_cgroup_region_high_write(struct kernfs_open_file *of,
++					  char *buf, size_t nbytes, loff_t off)
++{
++	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_high);
++}
++
+ static int dmem_cgroup_region_max_show(struct seq_file *sf, void *v)
+ {
+ 	return dmemcg_limit_show(sf, v, get_resource_max);
+ }
+ 
+ static ssize_t dmem_cgroup_region_max_write(struct kernfs_open_file *of,
+-				      char *buf, size_t nbytes, loff_t off)
++					  char *buf, size_t nbytes, loff_t off)
+ {
+ 	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_max);
+ }
+@@ -868,6 +895,12 @@ static struct cftype files[] = {
+ 		.seq_show = dmem_cgroup_region_low_show,
+ 		.flags = CFTYPE_NOT_ON_ROOT,
+ 	},
++	{
++		.name = "high",
++		.write = dmem_cgroup_region_high_write,
++		.seq_show = dmem_cgroup_region_high_show,
++		.flags = CFTYPE_NOT_ON_ROOT,
++	},
+ 	{
+ 		.name = "max",
+ 		.write = dmem_cgroup_region_max_write,
+@@ -877,6 +910,31 @@ static struct cftype files[] = {
+ 	{ } /* Zero entry terminates. */
+ };
+ 
++void __dmem_cgroup_handle_over_high(void)
++{
++	struct dmemcg_state *dmemcs;
++	struct dmem_cgroup_pool_state *pool;
++
++	dmemcs = css_to_dmemcs(task_get_css(current, dmem_cgrp_id));
++	if (!dmemcs)
++		return;
++
++	rcu_read_lock();
++	list_for_each_entry_rcu(pool, &dmemcs->pools, css_node) {
++		unsigned long usage, high;
++
++		usage = page_counter_read(&pool->cnt);
++		high = READ_ONCE(pool->cnt.high);
++
++		if (usage > high)
++			schedule_timeout_killable(HZ / 10);
++	}
++	rcu_read_unlock();
++
++	css_put(&dmemcs->css);
++}
++EXPORT_SYMBOL_GPL(__dmem_cgroup_handle_over_high);
++
+ struct cgroup_subsys dmem_cgrp_subsys = {
+ 	.css_alloc	= dmemcs_alloc,
+ 	.css_free	= dmemcs_free,
+
+---
+base-commit: ab5fce87a778cb780a05984a2ca448f2b41aafbf
+change-id: 20260519-feature-dmem-high-16997148dc38
+
+Best regards,
+-- 
+Qiliang Yuan <realwujing@gmail.com>
+
