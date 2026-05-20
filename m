@@ -4,102 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 829C3CD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:19:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09A6CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:23:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD5A010E8F3;
-	Wed, 20 May 2026 13:19:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9ED10EC24;
+	Wed, 20 May 2026 13:23:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ehSkrEv3";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="bm2qlhQQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="hQroMKRY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F115010E135
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:19:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BE617443A3;
- Wed, 20 May 2026 13:19:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F0B1F000E9;
- Wed, 20 May 2026 13:19:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779283179;
- bh=GG83Da2bZfgnrhBfPbuMwe1laETea54AdqfsrALLjx8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=ehSkrEv3h0lHTtwa42RC1cX1jWDUGpWRAyZ47a8t2mvFRkeVvtt+cwg1yRD071ZSV
- blvW8JitKGjmFB/jNVGy50oEaefDn7ETCH/6yjkS3PtKQnaMJoKLXL/AzO9tsCZhO4
- 4V+h4KKo6F5JKcqhUhEHtb/h3W4c8xVjIaknH5KRyaZnHAcU+Bw/uLl2PBPyV9OQ2U
- xqryTIPMJxeEbvBv1FRHMlPeEW390+LtRjrj0ypr0lLyv9TTNvVj7WSoJYBgW85g3b
- O7lXwJelaFxOko0iVihHSHDTShVg6v1Qhk17Wmd3Qa+xlu2EKfZUTIabtsWvC280qB
- Ah3Dt2l5uu4ng==
-Message-ID: <d8faa1aa-e752-4d67-b6a3-20883ceb6eb0@kernel.org>
-Date: Wed, 20 May 2026 15:19:34 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add Ilitek ILI7807S
- panel controller
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
- dmitry.baryshkov@oss.qualcomm.com
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
+Received: from mail-01.1984.is (mail-01.1984.is [185.112.145.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47ED310EC24
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:23:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=berkoc.com; 
+ s=1984;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=TpHuoAiInQYxT4YJJ3nssWVAmB6TOOeSDac13iJxzn0=; b=bm2qlhQQTMezAyjtR8gRC95HTt
+ IRnRWM4RblahYeWhH28JMXRi5XNstVjAyfmAw1tC1vA2U/yOtCHA31AtXzXVrYva4y9Zu6/JCW4fX
+ XV6tZsLO7z0/esu9bWRoYAhJnNQo+NzGGqEA3STGv9Hlmgo6J/6URUAI0lA6pqUxLdT5fU8cVauy6
+ xPxK0xEDMp2ozYGG7nMrxGuC6Y32blEha3jy8r9UhAinYw1GxaFCCg6bEMXc1fNVREXqc9ji+z8b8
+ 9DCihz3QL1MOfejh83wxVL5mg7NWVq0/w6jMSJCUF0tqpUVOAYSRWcibumaVnDgBmcK7D4MuGo2Cq
+ NxOHsOBg==;
+Received: from localhost by mail-01.1984.is with utf8esmtp (Exim 4.96)
+ (envelope-from <me@berkoc.com>) id 1wPgto-008r7y-0r;
+ Wed, 20 May 2026 13:23:49 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berkoc.com;
+ i=@berkoc.com; q=dns/txt; s=me; t=1779283418; h=message-id : date :
+ subject : cc : to : from : sender : reply-to;
+ bh=TpHuoAiInQYxT4YJJ3nssWVAmB6TOOeSDac13iJxzn0=;
+ b=hQroMKRYqDHDZIIhVsEmRbGcCbeW8eX/4NKZvhEfOt7XTPQ76sQcek/kK6SZGYj+p3sUz
+ j2ljWPFCDbD2NzTYNMmWBZZtYs3Pa652otjW2D0E07Z1cwWnG7B+Jz1S2lbFAGUMEzCeztX
+ +jtI49ZhLTcq0QLlErVthy0ojs73rtHBV1RZGWEUosd+zh/ft0pXeD0F1rZmOqVL3R902tT
+ qpxoXvRt+Dlp+8DSgfLBRHvd7yA3XmcEF/Q2JiI+HlMeNu5NGUQZ/orka2PrGRn8nko0gLv
+ /++lnTEpxw5yj80V8Axh/l56wR2LOtLGMB803YxaEg/0razwgaAH8trU1rnQ==
+From: Berkant Koc <me@berkoc.com>
+To: Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, K. Y. Srinivasan <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Michael Kelley <mhklinux@outlook.com>, Thomas Zimmermann <tzimmermann@suse.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org,
- Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>, rajeevny@qti.qualcomm.com
-References: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
- <20260518-ili7807s-panel-v1-1-d7b048163b1c@oss.qualcomm.com>
- <20260519-curly-courageous-sturgeon-2facfe@quoll>
- <dd065ccd-d7cb-45b5-8733-64b4f6571b3d@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <dd065ccd-d7cb-45b5-8733-64b4f6571b3d@oss.qualcomm.com>
+ Maxime Ripard <mripard@kernel.org>, Deepak Rawat <drawat.floss@gmail.com>,
+ sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH v3 2/2] drm/hyperv: validate VMBus packet size in receive
+ callback
+Date: Wed, 20 May 2026 15:23:38 +0200
+Message-ID: <177928341826.371979.14701698047864220449@berkoc.com>
+In-Reply-To: <20260519213450.50E611F000E9@smtp.kernel.org>
+References: <e6e63276cca2901641ab39029e4fd3d621b1ee92.1779221799.git.me@berkoc.com>
+ <20260519213450.50E611F000E9@smtp.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Authenticated-User: me@berkoc.com
+X-Sender-Address: me@berkoc.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,41 +78,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 20/05/2026 14:40, Arpit Saini wrote:
-> Hi Krzysztof , Dmitry
-> 
-> On 5/19/2026 4:02 PM, Krzysztof Kozlowski wrote:
->> On Mon, May 18, 2026 at 04:34:12PM +0530, Arpit Saini wrote:
->>> ILI7807S is a DSI display controller used to drive MIPI-DSI panels.
->>> The DLC DLC0697 1080x1920 LCD panel is based on this controller.
->>>
->>> The panel requires a reset GPIO, backlight enable GPIO, I/O voltage
->>
->> If panel requires it, so should the binding.
->>
-> Ack, I will update.
->> ...
->>
->>> +  reg:
->>> +    maxItems: 1
->>> +    description: DSI virtual channel
->>> +
->>> +  reset-gpios: true
->>> +
->>> +  backlight-en-gpios:
->>> +    description: Backlight enable GPIO (active high)
->>
->> What is the name of the pin in ili7807s device?
->>
-> Display daughter card has WLED driver as well as LCD bias driver.
-> 
-> The WLED driver's Enable is coming from WLED_P1_EN and PWM is coming 
-> from LCD_CABC output of the panel.
+sashiko-bot@kernel.org wrote:
+> - [Critical] Using `bytes_recvd` for `memcpy()` without checking
+>   `vmbus_recvpacket()` return value leads to a massive heap buffer
+>   overflow.
 
-WLED driver is not ili7807s. LCD bias driver also sounds like something
-else than ili7807s.
+This one is bounded on this channel. hyperv_connect_vsp() calls
+vmbus_open() without setting max_pkt_size, so the inbound ring uses
+VMBUS_DEFAULT_MAX_PKT_SIZE (4096) and hv_pkt_iter_first() clamps the
+packet length to pkt_buffer_size. bytes_recvd therefore cannot exceed
+4096, well under the 16 KiB recv_buf and init_buf, and
+vmbus_recvpacket() does not return -ENOBUFS here, so the memcpy length
+stays bounded.
 
-So my question stays.
+I will still gate the dispatch on a successful vmbus_recvpacket()
+return in the next revision, as defense in depth, so the bound is
+local instead of relying on the ring clamp.
 
-Best regards,
-Krzysztof
+> - [High] Strict sizeof() validation incorrectly rejects
+>   dynamically-sized SYNTHVID_RESOLUTION_RESPONSE packets.
+
+Agreed. The response carries resolution_count entries, not the full
+SYNTHVID_MAX_RESOLUTION_COUNT array, so checking against
+sizeof(struct synthvid_supported_resolution_resp) is too strict. The
+next revision validates the fixed prefix, reads and bounds
+resolution_count, then requires only the count-sized array.
+
+> - [High] Concurrent lockless write to `hv->init_buf` from VMBus
+>   callback allows a malicious host to overwrite data while the guest
+>   is validating it.
+> - [High] Missing `reinit_completion()` before reusing the shared
+>   `hv->wait` completion object.
+
+Both pre-existing. On v2 Michael Kelley suggested splitting the
+completion reinit into a separate patch on the resume path. The
+init_buf reuse sits in the same area, so I plan to send the reinit and
+the related response-type handling as a separate follow-up rather than
+fold them into this size-validation change.
+
+Thanks for the review.
+
+Berkant
