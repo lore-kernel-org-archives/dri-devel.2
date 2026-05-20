@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEC90CD5BB4
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:39:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05DC6CD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:39:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19A7610F141;
-	Wed, 20 May 2026 18:39:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47C7710F142;
+	Wed, 20 May 2026 18:39:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JVFjJSeo";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="A9hUC+Zr";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C048B10F119
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E63510F133
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779302325;
- bh=equcMxzWcJstN1bNv/FIKCDiolbRap3E7iZIA4ACfEE=;
+ s=mail; t=1779302327;
+ bh=9Dzv5QZZTewYw4HMaE8rAMe+B3WVA6il2PiXX6JKcOw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=JVFjJSeosRY/oISZ5z9PpA+BAMO2awxTNm0+X8gj6PwXc+nRoZaYC/MO7bS1Wx66p
- PmIvMbXe+ofu9vFkntY9DsXKBbUushgoo8QMPdKxn/VqKix81E6njWreZAzXo9u+8g
- ofbWbKDi66bTxAoKWkxl7PajWa0m3BRWGPd35/uFiSzkBvUpUIZrcgz9lKDo8YPVDz
- 9D/gR0RxHMb++8zQ27bE1NU5LIZIj2PTOamk+LCpdDyWreKZNWCiFDpAI/QqKTtnVO
- kSM8Thw82SQ2is7SYOUjLvnPN8cfkZVCULxi7qii1OYDls/NLI2JVDcDHFbxb0cX6t
- 6w5ry1wjaj+2Q==
+ b=A9hUC+Zr0sqfbI+9NFOr0ezHn2236wtA5Cx/3XzRvY0ds2JOT3Xqm19Zr/n9e4Kzx
+ n31hcjz6m1vMRwAYp6AhSJ3R+ZoJabPFxv2XA+2VBCncXtWmUqXHoXxYZx1j4dG3JE
+ 0nFWyZQa5blCyWUccug8Y5k1dq0CGtrB7XFXOvzksDNFaH1fNK8w+qrBAt9jTtvKGR
+ l8UqCg7q2or9idP8qSFrgXZAKHiwmU7ONoRPBaVjzVtWJIPBMlxHTbgRngC6DhV8ry
+ lizrbYEXbQnm5F+GrfikYKTLeZOIPCNH4qnZDlboAaKcyWUdFvLudZ152C39tfDmBn
+ ndptsREh8x4cA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 6BDED17E157E;
- Wed, 20 May 2026 20:38:45 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id ECFD617E1584;
+ Wed, 20 May 2026 20:38:46 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 20 May 2026 21:38:30 +0300
-Subject: [PATCH v6 19/22] drm/rockchip: dw_hdmi_qp: Mask HPD IRQ in
- rk3576_io_init()
+Date: Wed, 20 May 2026 21:38:32 +0300
+Subject: [PATCH v6 21/22] drm/rockchip: dw_hdmi_qp: Switch to
+ dw_hdmi_qp_hpd_notify()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-dw-hdmi-qp-scramb-v6-19-24b74603b782@collabora.com>
+Message-Id: <20260520-dw-hdmi-qp-scramb-v6-21-24b74603b782@collabora.com>
 References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -74,28 +74,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mask the RK3576 HPD interrupt in io_init() so it starts disabled,
-matching the RK3588 behavior.  This prevents spurious interrupts before
-the bridge framework enables HPD via the .hpd_enable() callback.
+Switch from drm_helper_hpd_irq_event(), which polls all connectors, to
+the recently introduced dw_hdmi_qp_hpd_notify() helper, which runs the
+detect cycle only on the affected connector.
+
+This avoids unnecessary work and redundant detect calls on unrelated
+connectors.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 27342094958c..62ea5c7cbbe6 100644
+index b9e0ea56efd8..666631fc9162 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -346,7 +346,7 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip_hdmi_qp *hdmi)
+@@ -23,7 +23,6 @@
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_probe_helper.h>
  
- 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON14, val);
+ #include "rockchip_drm_drv.h"
  
--	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
-+	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
- 	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
+@@ -273,14 +272,8 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
+ 	struct rockchip_hdmi_qp *hdmi = container_of(work,
+ 						     struct rockchip_hdmi_qp,
+ 						     hpd_work.work);
+-	struct drm_device *drm = hdmi->encoder.encoder.dev;
+-	bool changed;
+ 
+-	if (drm) {
+-		changed = drm_helper_hpd_irq_event(drm);
+-		if (changed)
+-			dev_dbg(hdmi->dev, "connector status changed\n");
+-	}
++	dw_hdmi_qp_hpd_notify(hdmi->hdmi);
  }
  
+ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
+@@ -645,8 +638,7 @@ static int __maybe_unused dw_hdmi_qp_rockchip_resume(struct device *dev)
+ 
+ 	dw_hdmi_qp_resume(dev, hdmi->hdmi);
+ 
+-	if (hdmi->encoder.encoder.dev)
+-		drm_helper_hpd_irq_event(hdmi->encoder.encoder.dev);
++	dw_hdmi_qp_hpd_notify(hdmi->hdmi);
+ 
+ 	return 0;
+ }
 
 -- 
 2.53.0
