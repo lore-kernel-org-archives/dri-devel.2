@@ -4,137 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB1BACD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:34:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FA7BCD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2185310E00F;
-	Wed, 20 May 2026 09:34:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CED5910EF7C;
+	Wed, 20 May 2026 09:34:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="SxcSqpdP";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="r1xI+CFL";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020122.outbound.protection.outlook.com [52.101.196.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF61D10E00F
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:34:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jpADTVA74BEL3eu9bacwgSrJjIy6OEguFEyzL6EJQ9eTlJJvMX0PXj+3RSHPiwB+EoZ4sLdKvJ/IUbeNouOrWGFskKKHNTKv+Se7JqaKqTSZBx0Cf97W68/C96U8pMD4PT5VT8ky2xb0kSz8meax7oRkNjzi0u5/Avi01gg5L3kpbzZPP0iuSNaFwtpc5JeTRvUQxO5Hl6go8m2H31kdtf83lyaOxTVUtFfAwuQS0X9ShryooApzI34dEzcd0PFkndKYjEeZFUNt9W3vK5RbkoFQ1iQ8snm3V3RWL+xTKmQk/EMzc+oIgEZZsZjbH6jpHWlet78vZRz74ArBgmQpaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jLGcgB8nBpYfFOUPbPBvDqqhdb2KEo5KI2QMkoeuniA=;
- b=zHWduLrPepC4u0vtFLcX+ZR2bfbO9/TqGTin8HM4sBsf3oU39iGz7yIT3pfy68i/Cf4LlrKP8iO2aoPVpv+1ywEpC740Lj07kQsvpJvDNjgMxjzCgldsVzJNV9cQOg1NoiR5tvUcrgTRXp0qWVS12+4x9Wl6x3LidluNv6gaT2NSu8JCTiT2/YSfPzBXqB5XGU/3N2COoRLLrwHrPB+bbYuxee0LsHIDA/LQO92jm5q6AT8etefKacft+s0SP95gDpRWhw1FGEMlJljd0XFuSF83nRqvpdTY/sQ8Ni3It1eRAJZAKzU5P6JmpX48vsxIPvzzzcD+Zh3Fjx1/yHiYCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jLGcgB8nBpYfFOUPbPBvDqqhdb2KEo5KI2QMkoeuniA=;
- b=SxcSqpdP/WzEBBSBwVMTI/YQYfQPlXF5mC9H1BELmHfrTAwcY3oMGPryrr5v5aex5mMqCd7O7LVLL+iRhvoePXIn6KaRX3I20M1CVxH9Zlio9BM19d1Zla1S+AZTIH5ZRkdQwUzNLUPloL6V1p1kKO3CI4i/usctaubVtrlkFXU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by LO0P265MB6962.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2eb::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 09:34:06 +0000
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0048.016; Wed, 20 May 2026
- 09:34:06 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 20 May 2026 10:34:05 +0100
-Message-Id: <DINEG6ZL6D2Y.239EMAC9FOLWU@garyguo.net>
-Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 17/27] rust: auxiliary: generalize Registration over
- ForLt
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-18-dakr@kernel.org>
- <DIMSZMCNTRA0.29WGE6IL25A6Q@garyguo.net>
- <DIN2Y5PNWGVO.EOA9SQPOFYX2@kernel.org>
-In-Reply-To: <DIN2Y5PNWGVO.EOA9SQPOFYX2@kernel.org>
-X-ClientProxiedBy: LO2P265CA0456.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:e::36) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:27c::13)
+Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com
+ [95.215.58.183])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB5910EF7C
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:34:16 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1779269653;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=RgSHSo63XGsI81rqdim48acMrzkXEHA1gcLJIOQtYkA=;
+ b=r1xI+CFL111AHTa3IFIDDskr/Q0vOZCwkuI8GCQxCxaHfe+m4scCGC8sF9/mUhiDPWOrTg
+ ovSoz7w8QRbzmLvop4+h1ByHSSznlTLHh5hMquEWzHjcWG5Q9RcnDUcLC2+uuc+6cP7Mpz
+ 30ps6/vfVEwQgLkCFvKUeaxfPmDLi5Y=
+From: Marco Pagani <marco.pagani@linux.dev>
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Marco Pagani <marco.pagani@linux.dev>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v4] drm/sched: Add test suite for concurrent job submissions
+Date: Wed, 20 May 2026 11:33:49 +0200
+Message-ID: <20260520093350.1036001-1-marco.pagani@linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO0P265MB6962:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a7847a1-b809-4f45-271c-08deb652f000
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|10070799003|4143699003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: bA9WX60J4RtWPChaIAPWiEoJtiLWeO/xM4WLMppPnBBUA4Fn88P3ZYIO67S72rXlCRp2YO7eNDMDemM0Vtj7zbjehsbNF6PylzfbOrNOItfvH2RjNeJrxB4Q4X2qyjBcZEueur0zlFkvhKgzQ8VxbXdllqJ8gVyDYjwLkXc0ntllX/PKxPCY/rfdPWu1oZw+m0Vf1vpruFD3nrhE/+H1OQDJ9bH9hKN96u4sr9qHpm2Vudvy8e6uodM0DhAhLSZC6C4FB0yTGPhZ97LMYHwYPnQtddD7fodD72xvK27+fhtyOKF4k0UwMR6v/ejOpxbOJLeRiOmPfMEi86w9VPjOTacd5JyjEWUGjHl+LAfrXgQmWfGlQiqURaV2KUctbT/Q3UD3vbkP5/por/OWc3r/+p+/cIyyGW0PznE/A0Tps3+QG0ldLt4jev3XhPFtioRuTirPCyBsYGbEEniIZWgCgdXDLEFPFBtt/+FS5r9ws/SDRM2Vi2arn2x4nJZg/IfLRvfxMn/Fm5zn/+6vZhp0gdKWKWVb6/g0667ZARbU+RTOYhQ213/stU4EEqoGnid48yT7vZGeu1bIBtMDqb5V5hn7o7h9UeuchLJOu+WC/7ARf/9JVSxqUnICxDDNORS6w1vZkSgZCPpubFH23nuKwRTIv3oxhVqcuB8VAjRMxAu59k3zn8u79vXTs0c1QLpq
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(10070799003)(4143699003)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V1lLam4zcGFYZUlyRTdPaUdEUFZWcFRtVzZrZDRUdHJUZVJvZlFDcjlqQVh5?=
- =?utf-8?B?QVkzRnNoc21qNTNtYjRkVTFVVHpIQzlvM2Eyd096UXE4WDJZb3dScElLRXlG?=
- =?utf-8?B?ak92VGRhait3VFcxOTVuT01jWnBqT0o2Q3hESEFIcmw5M0R0M2xpL1VGK1dv?=
- =?utf-8?B?UHVaZGFXVkVFbkpERDJzODhrN1ZlNXZjd0w1Y0pjWU5GZEE3TnRhaDM0SEVo?=
- =?utf-8?B?NmNWZm4rTVNCTno2L0ZXU3ZTcnBsMHQ0MkRTdHZKNkJWcmZ4Njhxd1grUjBE?=
- =?utf-8?B?eFpQR2tQc2ZCWTFPRDQweXBvZlFsbHRGdExKYkpSWUoxSmd0UVFubTZ6cmho?=
- =?utf-8?B?TzZpSVkxcnYxSkFpNzdCUVk5ZGxOUVIrZFJiSVl4dm1scCtwSStwZXcxdW9D?=
- =?utf-8?B?a0pza0tQYy80RUJXTW9BelRnaFNWYnE3M1VDK1RYVUt1bW5TQjNvVWlwMGFX?=
- =?utf-8?B?QVc1OGNxQ1pLMXVuV3JaT3VOL3JtV2gzdnJDc0pUb0lzdkdNUEhwQUpCWmlU?=
- =?utf-8?B?cFBrcExkdTVpQm11cWtnZ0FtVHhWNGlJUGtuNDBKOVAyc2ViQ1lTOTFuTThK?=
- =?utf-8?B?Nnd5cTJxSzl3ci9FeXpYb2w5aTBYV21mRlArUU5nYlpGcmlhVm1ZZWdSZWxw?=
- =?utf-8?B?THJIQk1IOTVibngvSlppMFNYV0k5TVYxWWtwV0NjOCt0b3ZwaUV3UE1FT0Zs?=
- =?utf-8?B?cTNMRTBmTzNFeStiOHRNQ1FtUEloK3pBUTRMRWtINmFnM2FCeUFyUmNGbklL?=
- =?utf-8?B?aUV3R01sZmY1U3d1TWNOUmgzNG9lYlk4dlRDYjBGQmdqcHpRMFdZYTFpWmg1?=
- =?utf-8?B?SWlJK1RGQVU0WnVDZDNEN0FFbVU1UDdBbzdJU1lRYlRCSGJjY3pHcTl1ZEU2?=
- =?utf-8?B?c0Z1NzBpN1ZrcmZibW9UeTZUSFc5ZW1hUGh3am9iODRJSnFrdkI1MFozeE15?=
- =?utf-8?B?Ync4RXRyMWozZ2srS3c3Mk8wdVJTOEd3NTg2a3Iwdzlzci85Z3diV0FjcG9X?=
- =?utf-8?B?RzdaSzYwdmVldVlVMDJMYnBORk1GNjFkV1FBTGx2ZGhCTmhmQkJ3L3g4eEZX?=
- =?utf-8?B?LzBZaS9MekRBbkJIQVZoTzRqWmFZZTd4NkpzQUlYNnY5YkVmaklVUmFlWVRa?=
- =?utf-8?B?d25oWjIwSGVmTnV6VERUQW44T0RXa1gwY0wzV2tONFM0SWVFakx5Y0l4bUtx?=
- =?utf-8?B?ZGRyWDRybEUrNThRQysvRUpMbUlXOEl0c0hpOVFlelZTa1RPcTgxcTR1cVVG?=
- =?utf-8?B?RE8wem1CSTl4ejFEWGtHejhuVjIzQk1Uc0duUFdKZlNZeFVhSFpUNVJ2UDBo?=
- =?utf-8?B?aXROQXpXcFc4ZVBIcjhXd2Y3WVlHellJbzBhb0RlZzl5ak1Bd0xLR0MyQ0xU?=
- =?utf-8?B?M05nWENjSmt3eEdndEpINE5rMUNCbFd2ODRtckUrRDZrM0pUQjNqNmswQUhz?=
- =?utf-8?B?U3dFT0JFamV1ajdNZ0tDVGdJMHFlK0dONDYvMjZLL0x2RzM1ZDcvOUhLM0Ex?=
- =?utf-8?B?Z2U0a0lRQ3lHTmpIZUVoYU1TUVp2SVJlMEdaMWZEMVp0SVJrd04wenlpb1lp?=
- =?utf-8?B?N2RqNjFZbjhrazhsWnJsUmxQMC9tcDlqaGEzY2pBRGREL0JFVjNWSFZkcEpr?=
- =?utf-8?B?ZXY4aW9FMVJtbm9xV2VoaU1uaWZ3ZTMvSVpMaE9jVjdReVF2TEZrUkkySzFR?=
- =?utf-8?B?NENONWxrQnkybXVSSy9qQzhvMnNyU24wbDZQaU1FWWN6VWhWRjhxVnNtSnBu?=
- =?utf-8?B?WWZKRVhMZi82TXlJbmdpemlvNFZmNUZOTk52Y0wzSXB2UDhQRUw1Z0krZUMv?=
- =?utf-8?B?TDQ0VVd2R1FwQTQxdDRLTENKU3JoVGhIdnBBTW9pN09xaXBBbGRsWmJFN3pX?=
- =?utf-8?B?U2syb3lpVGNVcmVRV3JQZjFhS2xGL0VZc0FNV28xTnBiR0N1SXdWQis4NGd1?=
- =?utf-8?B?eEVORUVtZ1dyTmlqUS9Ib1c3SjlsTVlzUHFnays0K2FKam9zK1Q5Q3JDRC9O?=
- =?utf-8?B?ZzY2eHREQmZWaVVIdjBTaHQrTk9SYmE0YitNQittWnFWTHU1Q0JkR3FGQUdk?=
- =?utf-8?B?cXl1NDUyYzlkUitaZ2J2WDdCZGtTYW1WS2F2MnpNbEE4TEQwbCtzaHFxVFY2?=
- =?utf-8?B?aTNlZzF1VEo3amJkY2dXTEN3UFlERXpXQTRzRlEvQW5yYWtoU2F6dnAyM3U5?=
- =?utf-8?B?NGRDR3hKd1NIaHRiMlc0OUdRM1M1d1FWNzZESGJYb09ZMDZwUnBQd2k3VHNn?=
- =?utf-8?B?RzVvZWhWQzNHUlJISzNNSzFBQzlSNStFVTdUNVlaUTlXT2tNa0lrRjBoYWQw?=
- =?utf-8?B?SkV2eWJORGVKU0p5OTZVWElDWmJ6b0VxUFNVd2pvWWVQdU5sajEvdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a7847a1-b809-4f45-271c-08deb652f000
-X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 09:34:06.4913 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4IGzCMP1aXvzAn5V+384ZJAeVTBOp5/IUXG4zApM9J7oB29oP2nHuZ80hImyqSoTSmuexerbBtalBH5Ady9TZw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6962
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,251 +59,412 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed May 20, 2026 at 1:33 AM BST, Danilo Krummrich wrote:
-> On Tue May 19, 2026 at 6:45 PM CEST, Gary Guo wrote:
->> On Sun May 17, 2026 at 1:01 AM BST, Danilo Krummrich wrote:
->>> +    pub fn new<'bound, E>(
->>> +        parent: &'bound device::Device<device::Bound>,
->>>          name: &CStr,
->>>          id: u32,
->>>          modname: &CStr,
->>> -        data: impl PinInit<T, E>,
->>> +        data: impl PinInit<F::Of<'bound>, E>,
->>>      ) -> Result<Devres<Self>>
->>
->> I think this is unsound for the reason that I gave in another email
->> https://lore.kernel.org/rust-for-linux/DIMSJVKTYX6D.AEN6OPPC2898@garyguo=
-.net/.
->
-> Indeed, this has to be fixed. I looked into the options brought up in the=
- linked
-> reply, i.e. the "new type" approach and the "closure" approach. And after
-> playing around with both of them, I'm not really satisfied with either of=
- those.
->
-> The "new type" one is simple and works, but has the disadvantage that, we=
-ll, we
-> need a new type and update all callsites where we would ever want to crea=
-te
-> registrations (mainly probe though).
->
-> The "closure" one on the other hand creates a little bit of an odd API an=
-d by
-> its nature does not allow to move pre-existing resources into the closure=
-, which
-> is a major limitation (maybe there is some way, but if so I didn't find i=
-t).
->
-> I instead went with something else: Currently we return a
-> Devres<auxiliary::Registration<_>>. However, since we're moving to lifeti=
-mes
-> anyway, we can just return an auxiliary::Registration<'bound, _> instead,=
- which
-> makes the return type invariant over 'bound, which makes the problem go a=
-way
-> naturally.
->
-> Please find the diff below for reference.
->
-> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-> index 5acece8e369a..c784426b8092 100644
-> --- a/rust/kernel/auxiliary.rs
-> +++ b/rust/kernel/auxiliary.rs
-> @@ -12,7 +12,7 @@
->          RawDeviceId,
->          RawDeviceIdIndex, //
->      },
-> -    devres::Devres,
-> +
->      driver,
->      error::{
->          from_result,
-> @@ -408,12 +408,12 @@ struct RegistrationData<T> {
->  /// `self.adev` always holds a valid pointer to an initialized and regis=
-tered
->  /// [`struct auxiliary_device`] whose `registration_data_rust` field poi=
-nts to a
->  /// valid `Pin<KBox<RegistrationData<F::Of<'static>>>>`.
-> -pub struct Registration<F: ForLt + 'static> {
-> +pub struct Registration<'bound, F: ForLt + 'static> {
->      adev: NonNull<bindings::auxiliary_device>,
-> -    _data: PhantomData<F>,
-> +    _phantom: PhantomData<(fn(&'bound ()) -> &'bound (), F)>,
+Add a new test suite to simulate concurrent job submissions to the DRM
+scheduler, as this functionality is not covered by current test suites.
 
-The type itself may be invariant over the lifetime, but it would still acce=
-pt a
-shorter lifetime (which again, is a case where I think having 'bound become=
-s a
-factor for confusion).
+The new test suite includes two initial test cases: (i) a test case for
+parallel job submission and (ii) a test case for interleaved job
+submission and completion. In the first test case, worker threads
+concurrently submit jobs to the scheduler, and then the timeline is
+manually advanced to complete them in bulk. In the second test case,
+worker threads concurrently submit sequences of jobs of different
+durations to the mock scheduler using a sliding window to better model
+real-world workloads. The timeline is advanced automatically by the
+finishing jobs, interleaving submission with completion.
 
-You can still pass in a shortened lifetime to `Registration::new` and then =
-leak
-a registration (yes, Leakpocalypse strikes again), so the invariance here i=
-sn't
-actually serving purpose.
+Signed-off-by: Marco Pagani <marco.pagani@linux.dev>
+---
+Changes in v4:
+- Changed teardown order to prevent a use-after-free (reported by Philipp)
+---
+ drivers/gpu/drm/scheduler/tests/tests_basic.c | 359 ++++++++++++++++++
+ 1 file changed, 359 insertions(+)
 
-    fn bad_fn(dev: &device::Device<device::Bound>, buf: &[u8]) {
-        forget(Box::pin_init(Registration::new(dev, c"foo", 0, c"bar", buf)=
-))
-    }
-
-Best,
-Gary
-
->  }
-> =20
-> -impl<F: ForLt> Registration<F>
-> +impl<'bound, F: ForLt> Registration<'bound, F>
->  where
->      for<'a> F::Of<'a>: Send + Sync,
->  {
-> @@ -421,13 +421,13 @@ impl<F: ForLt> Registration<F>
->      ///
->      /// The `data` is owned by the registration and can be accessed thro=
-ugh the auxiliary device
->      /// via [`Device::registration_data()`].
-> -    pub fn new<'bound, E>(
-> +    pub fn new<E>(
->          parent: &'bound device::Device<device::Bound>,
->          name: &CStr,
->          id: u32,
->          modname: &CStr,
->          data: impl PinInit<F::Of<'bound>, E>,
-> -    ) -> Result<Devres<Self>>
-> +    ) -> Result<Self>
->      where
->          Error: From<E>,
->      {
-> @@ -439,8 +439,10 @@ pub fn new<'bound, E>(
->              GFP_KERNEL,
->          )?;
-> =20
-> -        // SAFETY: Lifetimes are erased and do not affect layout, so Reg=
-istrationData<F::Of<'bound>>
-> -        // and RegistrationData<F::Of<'static>> have identical represent=
-ation.
-> +        // SAFETY: `'bound` is invariant (via `Registration`'s `PhantomD=
-ata`), guaranteeing it
-> +        // represents the full binding scope. Lifetimes do not affect la=
-yout, so
-> +        // RegistrationData<F::Of<'bound>> and RegistrationData<F::Of<'s=
-tatic>> have identical
-> +        // representation.
->          let data: Pin<KBox<RegistrationData<F::Of<'static>>>> =3D
->              unsafe { core::mem::transmute(data) };
-> =20
-> @@ -487,18 +489,16 @@ pub fn new<'bound, E>(
-> =20
->          // INVARIANT: The device will remain registered until `auxiliary=
-_device_delete()` is
->          // called, which happens in `Self::drop()`.
-> -        let reg =3D Self {
-> +        Ok(Self {
->              // SAFETY: `adev` is guaranteed to be non-null, since the `K=
-Box` was allocated
->              // successfully.
->              adev: unsafe { NonNull::new_unchecked(adev) },
-> -            _data: PhantomData,
-> -        };
-> -
-> -        Devres::new::<core::convert::Infallible>(parent, reg)
-> +            _phantom: PhantomData,
-> +        })
->      }
->  }
-> =20
-> -impl<F: ForLt> Drop for Registration<F> {
-> +impl<F: ForLt> Drop for Registration<'_, F> {
->      fn drop(&mut self) {
->          // SAFETY: By the type invariant of `Self`, `self.adev.as_ptr()`=
- is a valid registered
->          // `struct auxiliary_device`.
-> @@ -520,7 +520,7 @@ fn drop(&mut self) {
->  }
-> =20
->  // SAFETY: A `Registration` of a `struct auxiliary_device` can be releas=
-ed from any thread.
-> -unsafe impl<F: ForLt> Send for Registration<F> where for<'a> F::Of<'a>: =
-Send {}
-> +unsafe impl<F: ForLt> Send for Registration<'_, F> where for<'a> F::Of<'=
-a>: Send {}
-> =20
->  // SAFETY: `Registration` does not expose any methods or fields that nee=
-d synchronization.
-> -unsafe impl<F: ForLt> Sync for Registration<F> where for<'a> F::Of<'a>: =
-Send {}
-> +unsafe impl<F: ForLt> Sync for Registration<'_, F> where for<'a> F::Of<'=
-a>: Send {}
-> diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_dr=
-iver_auxiliary.rs
-> index 84d18bbfafc5..efb4d97b416b 100644
-> --- a/samples/rust/rust_driver_auxiliary.rs
-> +++ b/samples/rust/rust_driver_auxiliary.rs
-> @@ -10,7 +10,6 @@
->          Bound,
->          Core, //
->      },
-> -    devres::Devres,
->      driver,
->      pci,
->      prelude::*,
-> @@ -58,29 +57,29 @@ struct Data<'bound> {
->  }
-> =20
->  #[allow(clippy::type_complexity)]
-> -struct ParentDriver {
-> -    _reg0: Devres<auxiliary::Registration<ForLt!(Data<'_>)>>,
-> -    _reg1: Devres<auxiliary::Registration<ForLt!(Data<'_>)>>,
-> +struct ParentDriver<'bound> {
-> +    _reg0: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
-> +    _reg1: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
->  }
-> =20
->  kernel::pci_device_table!(
->      PCI_TABLE,
->      MODULE_PCI_TABLE,
-> -    <ParentDriver as pci::Driver>::IdInfo,
-> +    <ParentDriver<'_> as pci::Driver>::IdInfo,
->      [(pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5), ())]
->  );
-> =20
-> -impl pci::Driver for ParentDriver {
-> +impl pci::Driver for ParentDriver<'_> {
->      type IdInfo =3D ();
-> -    type Data<'bound> =3D Self;
-> +    type Data<'bound> =3D ParentDriver<'bound>;
-> =20
->      const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-> =20
->      fn probe<'bound>(
->          pdev: &'bound pci::Device<Core>,
->          _info: &'bound Self::IdInfo,
-> -    ) -> impl PinInit<Self, Error> + 'bound {
-> -        Ok(Self {
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-> +        Ok(ParentDriver {
->              _reg0: auxiliary::Registration::new(
->                  pdev.as_ref(),
->                  AUXILIARY_NAME,
-> @@ -105,7 +104,7 @@ fn probe<'bound>(
->      }
->  }
-> =20
-> -impl ParentDriver {
-> +impl ParentDriver<'_> {
->      fn connect(adev: &auxiliary::Device<Bound>) -> Result {
->          let data =3D adev.registration_data::<ForLt!(Data<'_>)>()?;
->          let pdev =3D data.parent;
-> @@ -131,7 +130,7 @@ fn connect(adev: &auxiliary::Device<Bound>) -> Result=
- {
->  #[pin_data]
->  struct SampleModule {
->      #[pin]
-> -    _pci_driver: driver::Registration<pci::Adapter<ParentDriver>>,
-> +    _pci_driver: driver::Registration<pci::Adapter<ParentDriver<'static>=
->>,
->      #[pin]
->      _aux_driver: driver::Registration<auxiliary::Adapter<AuxiliaryDriver=
->>,
->  }
+diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
+index a5a5a35a87b0..da5c4952780f 100644
+--- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
++++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
+@@ -1,7 +1,11 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (c) 2025 Valve Corporation */
+ 
++#include <linux/completion.h>
+ #include <linux/delay.h>
++#include <linux/minmax.h>
++#include <linux/time.h>
++#include <linux/workqueue.h>
+ 
+ #include "sched_tests.h"
+ 
+@@ -235,6 +239,360 @@ static void drm_sched_basic_cancel(struct kunit *test)
+ 	KUNIT_ASSERT_EQ(test, job->hw_fence.error, -ECANCELED);
+ }
+ 
++struct sched_concurrent_context {
++	struct drm_mock_scheduler *sched;
++	struct workqueue_struct *sub_wq;
++	struct kunit *test;
++	struct completion wait_go;
++};
++
++KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_fini_wrap, drm_mock_sched_fini,
++			    struct drm_mock_scheduler *);
++
++KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_entity_free_wrap, drm_mock_sched_entity_free,
++			    struct drm_mock_sched_entity *);
++
++static void complete_destroy_workqueue(void *context)
++{
++	struct sched_concurrent_context *ctx = context;
++
++	complete_all(&ctx->wait_go);
++
++	destroy_workqueue(ctx->sub_wq);
++}
++
++static int drm_sched_concurrent_init(struct kunit *test)
++{
++	struct sched_concurrent_context *ctx;
++	int ret;
++
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++
++	init_completion(&ctx->wait_go);
++
++	ctx->sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
++
++	ret = kunit_add_action_or_reset(test, drm_mock_sched_fini_wrap, ctx->sched);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	/* Use an unbounded workqueue to maximize job submission concurrency */
++	ctx->sub_wq = alloc_workqueue("drm-sched-submitters-wq", WQ_UNBOUND,
++				      WQ_UNBOUND_MAX_ACTIVE);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->sub_wq);
++
++	ret = kunit_add_action_or_reset(test, complete_destroy_workqueue, ctx);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ctx->test = test;
++	test->priv = ctx;
++
++	return 0;
++}
++
++struct drm_sched_parallel_params {
++	const char *description;
++	unsigned int num_jobs;
++	unsigned int num_workers;
++};
++
++static const struct drm_sched_parallel_params drm_sched_parallel_cases[] = {
++	{
++		.description = "Parallel submission of multiple jobs per worker",
++		.num_jobs = 8,
++		.num_workers = 16,
++	},
++};
++
++static void
++drm_sched_parallel_desc(const struct drm_sched_parallel_params *params, char *desc)
++{
++	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(drm_sched_parallel, drm_sched_parallel_cases, drm_sched_parallel_desc);
++
++struct parallel_worker {
++	struct work_struct work;
++	struct sched_concurrent_context *ctx;
++	struct drm_mock_sched_entity *entity;
++	struct drm_mock_sched_job **jobs;
++	unsigned int id;
++};
++
++static void drm_sched_parallel_worker(struct work_struct *work)
++{
++	const struct drm_sched_parallel_params *params;
++	struct sched_concurrent_context *test_ctx;
++	struct parallel_worker *worker;
++	unsigned int i;
++
++	worker = container_of(work, struct parallel_worker, work);
++	test_ctx = worker->ctx;
++	params = test_ctx->test->param_value;
++
++	wait_for_completion(&test_ctx->wait_go);
++
++	kunit_info(test_ctx->test, "Parallel worker %u submitting %u jobs started\n",
++		   worker->id, params->num_jobs);
++
++	for (i = 0; i < params->num_jobs; i++)
++		drm_mock_sched_job_submit(worker->jobs[i]);
++}
++
++/*
++ * Spawns workers that submit a sequence of jobs to the mock scheduler.
++ * Once all jobs are submitted, the timeline is manually advanced.
++ */
++static void drm_sched_parallel_submit_test(struct kunit *test)
++{
++	struct sched_concurrent_context *ctx = test->priv;
++	const struct drm_sched_parallel_params *params = test->param_value;
++	struct parallel_worker *workers, *worker;
++	struct drm_mock_sched_job *job;
++	unsigned int i, j, completed_jobs, total_jobs;
++	bool done;
++	int ret;
++
++	KUNIT_ASSERT_GT(test, params->num_workers, 0);
++	KUNIT_ASSERT_GT(test, params->num_jobs, 0);
++
++	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
++				GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, workers);
++
++	/*
++	 * Init workers only after all jobs and entities have been successfully
++	 * allocated. In this way, the cleanup logic for when an assertion fail
++	 * can be simplified.
++	 */
++	for (i = 0; i < params->num_workers; i++) {
++		worker = &workers[i];
++		worker->id = i;
++		worker->ctx = ctx;
++		worker->entity = drm_mock_sched_entity_new(test,
++							   DRM_SCHED_PRIORITY_NORMAL,
++							   ctx->sched);
++
++		worker->jobs = kunit_kcalloc(test, params->num_jobs,
++					     sizeof(*worker->jobs), GFP_KERNEL);
++		KUNIT_ASSERT_NOT_NULL(test, worker->jobs);
++
++		for (j = 0; j < params->num_jobs; j++) {
++			job = drm_mock_sched_job_new(test, worker->entity);
++			worker->jobs[j] = job;
++		}
++
++		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
++						worker->entity);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++	}
++
++	for (i = 0; i < params->num_workers; i++) {
++		worker = &workers[i];
++		INIT_WORK(&worker->work, drm_sched_parallel_worker);
++		queue_work(ctx->sub_wq, &worker->work);
++	}
++
++	complete_all(&ctx->wait_go);
++	flush_workqueue(ctx->sub_wq);
++
++	for (i = 0; i < params->num_workers; i++) {
++		worker = &workers[i];
++		for (j = 0; j < params->num_jobs; j++) {
++			job = worker->jobs[j];
++			done = drm_mock_sched_job_wait_scheduled(job, HZ);
++			KUNIT_EXPECT_TRUE(test, done);
++		}
++	}
++
++	total_jobs = params->num_workers * params->num_jobs;
++	completed_jobs = drm_mock_sched_advance(ctx->sched, total_jobs);
++	KUNIT_EXPECT_EQ(test, completed_jobs, total_jobs);
++
++	for (i = 0; i < params->num_workers; i++) {
++		worker = &workers[i];
++		for (j = 0; j < params->num_jobs; j++) {
++			job = worker->jobs[j];
++			done = drm_mock_sched_job_wait_finished(job, HZ);
++			KUNIT_EXPECT_TRUE(test, done);
++		}
++	}
++}
++
++struct drm_sched_interleaved_params {
++	const char *description;
++	unsigned int test_duration_ms;
++	unsigned int job_base_duration_us;
++	unsigned int num_workers;
++	unsigned int num_in_flight_jobs;
++};
++
++static const struct drm_sched_interleaved_params drm_sched_interleaved_cases[] = {
++	{
++		.description = "Interleaved submission of multiple jobs per worker",
++		.test_duration_ms = 1000,
++		.job_base_duration_us = 100,
++		.num_workers = 16,
++		.num_in_flight_jobs = 8,
++	},
++};
++
++static void
++drm_sched_interleaved_desc(const struct drm_sched_interleaved_params *params, char *desc)
++{
++	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(drm_sched_interleaved, drm_sched_interleaved_cases,
++		  drm_sched_interleaved_desc);
++
++struct interleaved_worker {
++	struct work_struct work;
++	struct sched_concurrent_context *ctx;
++	struct drm_mock_sched_entity *entity;
++	struct drm_mock_sched_job **jobs;
++	unsigned int id;
++	unsigned int job_count;
++	unsigned int job_duration_us;
++};
++
++static void drm_sched_interleaved_worker(struct work_struct *work)
++{
++	struct sched_concurrent_context *test_ctx;
++	const struct drm_sched_interleaved_params *params;
++	struct interleaved_worker *worker;
++	unsigned int i, j, max_in_flight_job;
++	unsigned long timeout;
++	bool done;
++
++	worker = container_of(work, struct interleaved_worker, work);
++	test_ctx = worker->ctx;
++	params = test_ctx->test->param_value;
++
++	wait_for_completion(&test_ctx->wait_go);
++
++	kunit_info(test_ctx->test, "Worker %u submitting %u jobs of %u us started\n",
++		   worker->id, worker->job_count, worker->job_duration_us);
++
++	timeout = msecs_to_jiffies(params->test_duration_ms * 2);
++
++	/* Fill the submission window */
++	max_in_flight_job = min(worker->job_count, params->num_in_flight_jobs);
++	for (i = 0; i < max_in_flight_job; i++)
++		drm_mock_sched_job_submit(worker->jobs[i]);
++
++	/* Keep the window full by submitting a new job at once until done */
++	for (i = 0; i < worker->job_count; i++) {
++		done = drm_mock_sched_job_wait_finished(worker->jobs[i], timeout);
++		if (!done)
++			kunit_info(test_ctx->test, "Job %u of worker %u timed out\n",
++				   i, worker->id);
++
++		j = i + max_in_flight_job;
++		if (j < worker->job_count)
++			drm_mock_sched_job_submit(worker->jobs[j]);
++	}
++}
++
++/*
++ * Spawns workers that submit a sequence of jobs to the mock scheduler. Job
++ * durations are chosen as multiples of a base duration value specified as
++ * a test parameter. Since the scheduler serializes jobs from all workers,
++ * the total test duration budget is divided into equal shares among workers.
++ * These shares are then used to compute the number of jobs that each worker
++ * can submit.
++ */
++static void drm_sched_interleaved_submit_test(struct kunit *test)
++{
++	const struct drm_sched_interleaved_params *params = test->param_value;
++	struct sched_concurrent_context *ctx = test->priv;
++	struct interleaved_worker *workers, *worker;
++	struct drm_mock_sched_job *job;
++	unsigned int worker_share_us;
++	unsigned int i, j;
++	bool done;
++	int ret;
++
++	KUNIT_ASSERT_GT(test, params->num_workers, 0);
++	KUNIT_ASSERT_GT(test, params->job_base_duration_us, 0);
++
++	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
++				GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, workers);
++
++	/* Divide the available test time into equal shares among the workers */
++	worker_share_us = (params->test_duration_ms * USEC_PER_MSEC) /
++			  params->num_workers;
++
++	/*
++	 * Init workers only after all jobs and entities have been successfully
++	 * allocated. In this way, the cleanup logic for when an assertion fails
++	 * can be simplified.
++	 */
++	for (i = 0; i < params->num_workers; i++) {
++		worker = &workers[i];
++		worker->id = i;
++		worker->ctx = ctx;
++
++		worker->job_duration_us = params->job_base_duration_us * (i + 1);
++		worker->job_count = worker_share_us / worker->job_duration_us;
++		worker->job_count = max(1U, worker->job_count);
++
++		worker->entity = drm_mock_sched_entity_new(test,
++							   DRM_SCHED_PRIORITY_NORMAL,
++							   ctx->sched);
++
++		worker->jobs = kunit_kcalloc(test, worker->job_count,
++					     sizeof(*worker->jobs), GFP_KERNEL);
++		KUNIT_ASSERT_NOT_NULL(test, worker->jobs);
++
++		for (j = 0; j < worker->job_count; j++) {
++			job = drm_mock_sched_job_new(test, worker->entity);
++			drm_mock_sched_job_set_duration_us(job, worker->job_duration_us);
++
++			worker->jobs[j] = job;
++		}
++
++		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
++						worker->entity);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++	}
++
++	for (i = 0; i < params->num_workers; i++) {
++		worker = &workers[i];
++		INIT_WORK(&worker->work, drm_sched_interleaved_worker);
++		queue_work(ctx->sub_wq, &worker->work);
++	}
++
++	complete_all(&ctx->wait_go);
++	flush_workqueue(ctx->sub_wq);
++
++	for (i = 0; i < params->num_workers; i++) {
++		worker = &workers[i];
++		for (j = 0; j < worker->job_count; j++) {
++			job = worker->jobs[j];
++			done = drm_mock_sched_job_is_finished(job);
++			KUNIT_EXPECT_TRUE(test, done);
++		}
++	}
++}
++
++static struct kunit_case drm_sched_concurrent_tests[] = {
++	KUNIT_CASE_PARAM(drm_sched_parallel_submit_test, drm_sched_parallel_gen_params),
++	KUNIT_CASE_PARAM(drm_sched_interleaved_submit_test, drm_sched_interleaved_gen_params),
++	{}
++};
++
++static struct kunit_suite drm_sched_concurrent = {
++	.name = "drm_sched_concurrent_tests",
++	.init = drm_sched_concurrent_init,
++	.test_cases = drm_sched_concurrent_tests,
++	.attr = {
++		.speed = KUNIT_SPEED_SLOW,
++	},
++};
++
+ static struct kunit_case drm_sched_cancel_tests[] = {
+ 	KUNIT_CASE(drm_sched_basic_cancel),
+ 	{}
+@@ -556,6 +914,7 @@ static struct kunit_suite drm_sched_credits = {
+ };
+ 
+ kunit_test_suites(&drm_sched_basic,
++		  &drm_sched_concurrent,
+ 		  &drm_sched_timeout,
+ 		  &drm_sched_cancel,
+ 		  &drm_sched_priority,
+-- 
+2.54.0
 
