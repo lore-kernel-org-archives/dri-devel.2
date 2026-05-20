@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 694EACD5BAA
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:25:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A446CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:25:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6570910F0F6;
-	Wed, 20 May 2026 16:25:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58FE610F0FB;
+	Wed, 20 May 2026 16:25:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cMfwhwjR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="La4BkLU6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kQ4W+raY";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OeSZOlNq";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EED910F0E1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:47 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41A5C10F0F6
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:42 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64KCe3Vu316534
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:46 GMT
+ 64KFMOhE4115217
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=eQpOa6u5peh
- EXhgKaP9zGHIawzycu5fhkque6ul5cd8=; b=cMfwhwjRkFIzTCngjoAnymda0Gr
- sAoBfkm0HJbsaUbondGJvFfKNb4isg5rDuy57U2KtaliDP4XkvorUYj7fdQERptA
- mRgRaXdgBqa43cUS6OxjciKaPJucXPC1x7YeNjULOkpRvflVM6A9x2Pf3k1snUR1
- OqTh3Y4XDIfGrptAxiD697Rqm4QyhtAg3LY5RoDVAvQIxzwHFDX7709vO9Hu8Ngv
- ti5eC2IUIcSC9sgTF4gXmVCPO1NJiLXBn0Sr2eqx1ucvCsquZANL9j5UkqglYyPV
- 5+CbTN2fSYs3pM4ySDv9VZN95M5oIRw2n3c7ItSXEMoJydODKTGEFa7astg==
+ :mime-version:references:subject:to; s=qcppdkim1; bh=ScHhidnB094
+ qXmqcj2I9GQS4JCvqHfks8d61PZbHe84=; b=kQ4W+raYwanWTNXYUy+4w+R+/6G
+ 1JlIJcqlsLhQinFRAxnJofbf3KoXV8jTrhKDq57cZrOLRKJUDd32Mq2vQBw6nPlb
+ luxbSBbUzgQgIDpoYhHg2ZhbJVD4EIHQ4fzzP/m5bUVHtwE+uMiCskHl1gflT2lz
+ UpTrh1TpS1Z3JhgTV4/raPf+av5bmNbR+l5t0qIJSeWw3nLQhyT2cevGd4I5tSWM
+ Zi1bMr8Ml70Ml0sDGQUeH6+rTO6nVtUqotxoHi1KeUWH4aq2NS24HfME0cAYmjqs
+ 44Km3s5CC3KNQvrQnCmwZsSqHlazyu6QjodWdkcYhq6Frf89RVRtbYNsdzw==
 Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
  [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9d5qrxux-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e99w0hrdp-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:46 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:41 +0000 (GMT)
 Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-36642d2f4deso10959843a91.3
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:25:46 -0700 (PDT)
+ 98e67ed59e1d1-36603ad6709so4357196a91.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:25:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779294345; x=1779899145;
+ d=oss.qualcomm.com; s=google; t=1779294340; x=1779899140;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=eQpOa6u5pehEXhgKaP9zGHIawzycu5fhkque6ul5cd8=;
- b=La4BkLU6RKMG8OzqoV2T4qML/fugGY/BVFCiQCm3XY1EmibabQHdMimXjw/VZnIzMB
- 5Va4saSa70j0lrhkp17Aufc0ibsnkZxZBp+hBnbURxxp15O5qaXQVNGKvx/EB27fUOt7
- C/akm1jJqIe8/cikmilOh1JtX7/uAaL7qoqS+fV2jc0XwXEciQZop3i12ctdT0F+YOFd
- NsREnYEs+xorAWeuQOa2dOPxhx47KhhOMquZsTHfHgyU4By3fYYA24jBoY6K+8XWjvbI
- GJcY28BUkqJ9EoBpaCFnGh4CUNAzz5bPnTFAq/U91kK7qpHavCU92JPbeEJgGW2tYl4S
- Mb/A==
+ bh=ScHhidnB094qXmqcj2I9GQS4JCvqHfks8d61PZbHe84=;
+ b=OeSZOlNqzF6cT/VDgj/pk2/JZ3f1SGltWx766Zdn2579XZXkpkKFowVwF5pbsSgJ7w
+ KLY9fIivoRy3zYXe9xGc91X+Sc/urr1BsWw5nNX9CLICDl2SV27foSPPJaFTEotwIxZ8
+ jT+0DjTqyjaI2wr22qMwmfi7ezcWHf771QIm3K26dROvgg+cHXLSdKcVK2uJDK8VRAQ9
+ r/+sOVmx6mDZDWCgNrOkyFG0OZRYPnUljgxcK14jfI1Js7IKWfllGYiiNYiuWg1vdCCz
+ 8kCPnIcZtQC1N/35jdTY17ITnDUXod+z0jPNv58CByl/5G4VLbXIVQd7yt/7fNFF6ifs
+ zN0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779294345; x=1779899145;
+ d=1e100.net; s=20251104; t=1779294340; x=1779899140;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=eQpOa6u5pehEXhgKaP9zGHIawzycu5fhkque6ul5cd8=;
- b=V4sSDmMptaIV+GMxVn0qtCqfZvx9qOTPQGyljyBgaPxnaPLefXTH1MRPJSWFOPBKO3
- olhBKAfFuUxRDETab5wl/wm1jieI5sO/w4jsHePvH/H5p9JxG9Lk3/4CaSsA6/gL0dq8
- Dl8UIJoGdvyMtYjnAti+9BeOwC2ZyfkTPcUWn2UMWNL1YyxpINwWkNCs6YqJwv4Y8ibR
- fGfP0n2ZzSQ8ueXR9CSYhdNI1ko8SspWc29iHfGAfGDwhCUm7GEh6vKN8TMCn6cjVDPT
- rwqQaToxVR+AV0pOU5MaCT8qy4MbsSC9gzcEzvi33ainA7dWzWPCIPEoR6Gkw/7K0o8x
- zSXw==
-X-Gm-Message-State: AOJu0YyA8lee51o4sSgA+bL+7bvW1/vKmjlxpHyKrZohCjLNL2Xb41MR
- Ot1Df26qkQoU7jTdi00z+bh+k1T42XKK8f1LHjUFtEhUcUjnwGhFV+ub6k0d9h6MZcqisc4DPlI
- Bk3R9WQp6cn3j0GnHlDB6m1l2Lj64q8+JfN7UOKQWW5G+6NHPAfMwAgEiyO9p+vdkAFR9Dhhmsh
- CC1VA=
-X-Gm-Gg: Acq92OFGNjgaGwycXdIV7WxYVr8pXWk+OZEVHzevx2pqWxFch829PPV/vmiWZaHoxfU
- UlElqK61MhPOkDWCyDOLxYLAlHdRuHTso+MUvyiOk8NYanzEWp5OM87SszjjvsXSN4AZ3Idq+TW
- icDiIlPQh95lJohDg7ODH6BfciOtXMUtxdlR7/7LMkyw0JGvqA4Y96rOrghc+1JfjTCp8znfuhO
- C4uR/DKBVRS/mup0M6xjHSwbmC8suVn8PFm/BHkLJHgxsGf+k0DCHOHYIAJYybI/4W9l3503wfe
- BTqJDPARMih2WI4EHlHvgveS4gmd3lotM/kVOl29qCAxCb8Dw3osicJx7281IvScDyJ8W3GESFU
- NvCacWBFRw1gtKkBRgaVK6+oxNJDgAxSUp7RTBvMu9fg=
-X-Received: by 2002:a17:90b:56cf:b0:369:a74b:28cc with SMTP id
- 98e67ed59e1d1-369a75a769dmr17241208a91.18.1779294345504; 
- Wed, 20 May 2026 09:25:45 -0700 (PDT)
-X-Received: by 2002:a17:90b:56cf:b0:369:a74b:28cc with SMTP id
- 98e67ed59e1d1-369a75a769dmr17241183a91.18.1779294345021; 
- Wed, 20 May 2026 09:25:45 -0700 (PDT)
+ bh=ScHhidnB094qXmqcj2I9GQS4JCvqHfks8d61PZbHe84=;
+ b=XhSssOCysGCTFzy9jMHmC1ZNOGSWKb7JR4g0Q8xuH0ILJnOCqknPCSrJitx/kk9r7c
+ VuxoCkrcWy9KZK/uEob9MlbAs+a8Ko3+4Yf5QeUw/8ARAzuiFAJNXB62BcXgUZXB8hhf
+ GRyKlfWjNFRvznAnLcv1igQKiUr3lm3Y/OzYDLEPRGwO6SmxApKimnCqa0lVAzqe9ZRB
+ EsKfYL28xHWqD6RsoSMWrGcoKEECBTETOco/X9dJhwmmqLIpiviQkGosNYgAusNdISew
+ M3MIWmzbRSDGbt/H7V5UhTrzlLqVSx9jOeBioK9ee3TzTaJrGN9oV0QSDpwLaGY5s7n+
+ X9ow==
+X-Gm-Message-State: AOJu0YxMO0l9bD+r4g0QCsSPkVPXmr4FHHcnkGIt2irlTS+V/bKUiRE6
+ NZSvvd8RmWU6lCinHwEVr2BFo6eW2v+lFGcoEXm4MTJygrLZR50rK44tCxS4xNHTCxY8nLFfD6C
+ QLOOsIlAiRIddjlfxPLykkLKgv0J+liNOJOeLAR/AMXk+406vGhZxG3kuZclpP9w8JVGDhmPVvk
+ tTLzk=
+X-Gm-Gg: Acq92OGlup812cht/h7y39rMf95zO9zXpEEagEm13IeWyDnbgBQnl+koexGGDvGpTfD
+ r94GSmwV676UNZ8xfE7+0kif/pH62FTxuNh4xOFHYCQiMW9OMSEQTIz4OoKUEyTvsy+QtBo5pKc
+ dDFbfpiMW7W3qZBoiSt/Cp/+AmMDcQJqPNtOPNJN2GGoHTq7PhjDZzzN89KRf8g57NAQNSW4AD/
+ FlIMQTWAMn7jxYAyydJZHRhY1KRlFV3Jsk3MD729bkrfyUXxMK+fiDBrbJZYZ+L25JevTjEWmjo
+ uIt3KTfUEBWxQ8huyHHL8paNzo8493RdjwN2CjdAbgZaCCLTjGzIddLK2+aPXw+sm2Sz5s04P6P
+ 1OWb3blyWU8K6D660v8c/zQHsXK2kuCav
+X-Received: by 2002:a17:90b:258b:b0:369:e4d4:7460 with SMTP id
+ 98e67ed59e1d1-369e4d47b07mr11747231a91.21.1779294340079; 
+ Wed, 20 May 2026 09:25:40 -0700 (PDT)
+X-Received: by 2002:a17:90b:258b:b0:369:e4d4:7460 with SMTP id
+ 98e67ed59e1d1-369e4d47b07mr11747189a91.21.1779294339543; 
+ Wed, 20 May 2026 09:25:39 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-369703bcc91sm7801065a91.3.2026.05.20.09.25.44
+ 98e67ed59e1d1-36a3cb3ba0dsm100763a91.1.2026.05.20.09.25.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 09:25:44 -0700 (PDT)
+ Wed, 20 May 2026 09:25:38 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -97,35 +97,35 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v8 15/16] drm/msm/a6xx: Append SEL regs to dyn pwrup reglist
-Date: Wed, 20 May 2026 09:24:02 -0700
-Message-ID: <20260520162454.18391-16-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v8 12/16] drm/msm/a8xx: Add perfcntr flush sequence
+Date: Wed, 20 May 2026 09:23:59 -0700
+Message-ID: <20260520162454.18391-13-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260520162454.18391-1-robin.clark@oss.qualcomm.com>
 References: <20260520162454.18391-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE1OSBTYWx0ZWRfX1jVC8w3BQsx0
- mh1wJLgCk5sSLCN+Cw1GBJUYchmr73MTpzWye4x3ukLhGiXw2wz7nswh3qiabTwjIBkBJJKy5vH
- sX+H/02YjTqDO+9vvcusGoF16CumvVan2AwrekWH2Lu0inx537U7hzWwVZJrG7sO/lUZO4i7Y3s
- i7aHH4K5xfjuoLLmeNT5MSQbNb1bBXSQMBiJftXPFvgCq5Bu+mszAk0GuVbfz8Sm9uFPDugp/TM
- sRch8Fp1HpzqAHu0cGxiuAG464J7kXV0kL132ps69rFNcWHbC9hn8vvlc2nl7t1RcmFzSgFS6Wx
- M6Q8QZv3IZtYbAzoqbT2uoYbPKssURmjZ7+pUswvikD94110GnhI9KxOZU9cImnIcHFikkLAkM+
- KEyYyc5a4nlaDRGgIWa4fuD0Cka4sqRVJqLwCt/mn/4hDS6foACzyM7NFp8NtKm1Y8+qKY+t//x
- tWK6IunZyLBJs+WBwSQ==
-X-Authority-Analysis: v=2.4 cv=QshuG1yd c=1 sm=1 tr=0 ts=6a0de08a cx=c_pps
+X-Proofpoint-ORIG-GUID: RDBeqLjCSPfxsBUhB6W1abPelqIK29CK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE1OSBTYWx0ZWRfX5AirbfNX/adL
+ Lfg0e45faG92sQG12XEXcRVpvaeHgg2Tm8eOi7nJWfEJE++kFtkuD4AhS1okF3nZPOY8XsNeA2P
+ rI55lii334z27DhS/CjxoN8OgmNak/8Szgs6I9qt4Gbb3HUEKL4eZaO6bEItKZ9U2aZzu7kjsYY
+ K1Nr/x+LLjt7T+uoxfqxmTYaAwzuttF2q8p/sK4rrS8IjRiv3sgpaGHIUBJv1jngIiA8LiMC+0R
+ pvwvF5/zAvVUSSn/Sxgv+CItoaJf5Yj/n8mCXloV90yCEsZNVizFegVcH9eok3rYp+4P4fhtoe7
+ et8QoRs+KmGIGV6djCs0OKqo9rUzbe0N6FNciLbhcIeUEYmQNb0FcaNLUbIgqfPEh4nnJZf+yro
+ iFE9+QQ+0IYTbRHJw7xGzOd4SFAYKURh7gF2rfGeBUX1j4qJMbFR8nEDebPYZtW3Z3dJuRuHKSY
+ 1a/6oDQSJrhSXEZgj7A==
+X-Authority-Analysis: v=2.4 cv=RZigzVtv c=1 sm=1 tr=0 ts=6a0de085 cx=c_pps
  a=RP+M6JBNLl+fLTcSJhASfg==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=gjKahejJLxXXi_JFjLAA:9 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: ciowT5xdinS8O4sewkxoWPRVFgGDIYyE
-X-Proofpoint-ORIG-GUID: ciowT5xdinS8O4sewkxoWPRVFgGDIYyE
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
+ a=W-43u8CF5Pkpiqpb4b0A:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: RDBeqLjCSPfxsBUhB6W1abPelqIK29CK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 phishscore=0 spamscore=0
- suspectscore=0 bulkscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200159
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -143,192 +143,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is needed so that SEL reg values are restored on exit from IFPC.
+With the slice architecture, we need to flush the slice and unslice
+counters to perf RAM before reading counters.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 Reviewed-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 82 +++++++++++++++++++++++++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h | 11 +++-
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c |  1 +
- 3 files changed, 87 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  1 +
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 20 ++++++++++++++++++++
+ 3 files changed, 22 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 61c6b0e781ce..c697a4bdf203 100644
+index 30df9bfa9ef8..a329d20033d7 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -946,6 +946,7 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
- 			  A7XX_CP_APERTURE_CNTL_HOST_PIPE(PIPE_NONE));
- 	}
- 	lock->dynamic_list_len = dyn_pwrup_reglist_count;
-+	a6xx_gpu->dynamic_sel_reglist_offset = dyn_pwrup_reglist_count;
- }
- 
- static int a7xx_preempt_start(struct msm_gpu *gpu)
-@@ -2535,11 +2536,60 @@ static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	return progress;
- }
- 
-+static void
-+perfcntr_select(struct msm_ringbuffer *ring, enum adreno_pipe pipe,
-+		uint32_t regidx, uint32_t *countables, uint32_t nr,
-+		uint32_t **reglist)
-+{
-+	OUT_PKT4(ring, regidx, nr);
-+	for (unsigned i = 0; i < nr; i++)
-+		OUT_RING(ring, countables[i]);
-+
-+	if (!*reglist)
-+		return;
-+
-+	for (unsigned i = 0; i < nr; i++) {
-+		/*
-+		 * Bitfield is in same position on a7xx, but only 2 bits..
-+		 * which is sufficient for NONE/BR/BV:
-+		 */
-+		*(*reglist)++ = A8XX_CP_APERTURE_CNTL_HOST_PIPEID(pipe);
-+		*(*reglist)++ = regidx + i;
-+		*(*reglist)++ = countables[i];
-+	}
-+}
-+
- static void
- a6xx_perfcntr_configure(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 			const struct msm_perfcntr_stream *stream)
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
- 	enum adreno_pipe pipe = PIPE_NONE;
-+	uint32_t *reglist = NULL;
-+	uint32_t *reglist_sel_start;
-+
-+	if (to_adreno_gpu(gpu)->info->family >= ADRENO_7XX_GEN1) {
-+		WARN_ON(!a6xx_gpu->pwrup_reglist_emitted);
-+
-+		struct cpu_gpu_lock *lock = a6xx_gpu->pwrup_reglist_ptr;
-+		int off = (2 * lock->ifpc_list_len) +
-+			  (2 * lock->preemption_list_len) +
-+			  (3 * a6xx_gpu->dynamic_sel_reglist_offset);
-+
-+		reglist = (uint32_t *)&lock->regs[0];
-+		reglist += off;
-+		reglist_sel_start = reglist;
-+
-+		/* Clear any previously configured SEL reg entries: */
-+		lock->dynamic_list_len = a6xx_gpu->dynamic_sel_reglist_offset;
-+
-+		/*
-+		 * Ensure CP sees the dynamic_list_len update before we
-+		 * start modifying the SEL entries:
-+		 */
-+		dma_wmb();
-+	}
- 
- 	for (unsigned i = 0; i < stream->nr_groups; i++) {
- 		unsigned group_idx = msm_perfcntr_group_idx(stream, i);
-@@ -2567,17 +2617,15 @@ a6xx_perfcntr_configure(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 
- 		const struct msm_perfcntr_counter *counter = &group->counters[base];
- 		unsigned nr = group_state->allocated_counters;
--		OUT_PKT4(ring, counter->select_reg, nr);
--		for (unsigned c = 0; c < nr; c++)
--			OUT_RING(ring, group_state->countables[c]);
-+		perfcntr_select(ring, pipe, counter->select_reg,
-+				group_state->countables, nr, &reglist);
- 
- 		for (unsigned s = 0; s < ARRAY_SIZE(counter->slice_select_regs); s++) {
- 			if (!counter->slice_select_regs[s])
- 				break;
- 
--			OUT_PKT4(ring, counter->slice_select_regs[s], nr);
--			for (unsigned c = 0; c < nr; c++)
--				OUT_RING(ring, group_state->countables[c]);
-+			perfcntr_select(ring, pipe, counter->slice_select_regs[s],
-+					group_state->countables, nr, &reglist);
- 		}
- 	}
- 
-@@ -2591,6 +2639,28 @@ a6xx_perfcntr_configure(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 	OUT_RING(ring, upper_32_bits(rbmemptr(ring, perfcntr_fence)));
- 	OUT_RING(ring, stream->sel_fence);
- 
-+	/*
-+	 * Update the pwrup reglist size before flushing.  Kgsl does a shared-
-+	 * memory spinlock dance with SQE to avoid racing with IFPC exit.  But
-+	 * we can skip that since the ringbuffer programming will be executed
-+	 * by SQE after dynamic reglist size is updated.  So even if we lose
-+	 * the race, the register programming in the rb will overwrite/correct
-+	 * the SEL regs restored by SQE on IFPC exit, before sampling begins.
-+	 */
-+	if (reglist) {
-+		struct cpu_gpu_lock *lock = a6xx_gpu->pwrup_reglist_ptr;
-+		unsigned nr_regs = (reglist - reglist_sel_start) / 3;
-+
-+		/*
-+		 * Ensure CP sees updates to the pwrup_reglist before it
-+		 * sees the new (increased) length:
-+		 */
-+		dma_wmb();
-+
-+		/* Update dynamic reglist len to include new SEL reg programming: */
-+		lock->dynamic_list_len = a6xx_gpu->dynamic_sel_reglist_offset + nr_regs;
-+	}
-+
- 	a6xx_flush_yield(gpu, ring);
- 
- 	/* Check to see if we need to start preemption */
+@@ -2921,6 +2921,7 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
+ 		.progress = a8xx_progress,
+ 		.sysprof_setup = a6xx_gmu_sysprof_setup,
+ 		.perfcntr_configure = a6xx_perfcntr_configure,
++		.perfcntr_flush = a8xx_perfcntr_flush,
+ 	},
+ 	.init = a6xx_gpu_init,
+ 	.get_timestamp = a8xx_gmu_get_timestamp,
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-index 3491a24a9320..f3cc9478b079 100644
+index 99c3e55f5ca8..3491a24a9320 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-@@ -21,17 +21,19 @@ struct cpu_gpu_lock {
- 	uint32_t cpu_req;
- 	uint32_t turn;
- 	union {
-+		/* a6xx: */
- 		struct {
- 			uint16_t list_length;
- 			uint16_t list_offset;
- 		};
-+		/* a7xx+: */
- 		struct {
- 			uint8_t ifpc_list_len;
- 			uint8_t preemption_list_len;
- 			uint16_t dynamic_list_len;
- 		};
- 	};
--	uint64_t regs[62];
-+	uint64_t regs[];
- };
- 
- /**
-@@ -100,6 +102,13 @@ struct a6xx_gpu {
- 	uint64_t pwrup_reglist_iova;
- 	bool pwrup_reglist_emitted;
- 
-+	/*
-+	 * Offset of start of SEL regs appended to pwrup_reglist.  This
-+	 * is equal to lock->dynamic_list_len if no SEL regs are appended
-+	 * to the end of the dynamic reglist.
-+	 */
-+	uint16_t dynamic_sel_reglist_offset;
-+
- 	bool has_whereami;
- 
- 	void __iomem *llc_mmio;
+@@ -334,5 +334,6 @@ void a8xx_preempt_hw_init(struct msm_gpu *gpu);
+ void a8xx_preempt_trigger(struct msm_gpu *gpu);
+ void a8xx_preempt_irq(struct msm_gpu *gpu);
+ bool a8xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
++void a8xx_perfcntr_flush(struct msm_gpu *gpu);
+ void a8xx_recover(struct msm_gpu *gpu);
+ #endif /* __A6XX_GPU_H__ */
 diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index 6c040f718176..2ce7c6ac4521 100644
+index 124d315b2469..6c040f718176 100644
 --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -468,6 +468,7 @@ static void a8xx_patch_pwrup_reglist(struct msm_gpu *gpu)
- 	}
- 
- 	lock->dynamic_list_len = dyn_pwrup_reglist_count;
-+	a6xx_gpu->dynamic_sel_reglist_offset = dyn_pwrup_reglist_count;
- 
- done:
- 	a8xx_aperture_clear(gpu);
+@@ -1345,3 +1345,23 @@ bool a8xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+ {
+ 	return true;
+ }
++
++void a8xx_perfcntr_flush(struct msm_gpu *gpu)
++{
++	u32 val;
++
++	/*
++	 * Flush delta counters (both perf counters and pipe stats) present in
++	 * RBBM_S and RBBM_US to perf RAM logic to get the latest data.
++	 */
++	gpu_write(gpu, REG_A8XX_RBBM_PERFCTR_FLUSH_HOST_CMD, BIT(0));
++	gpu_write(gpu, REG_A8XX_RBBM_SLICE_PERFCTR_FLUSH_HOST_CMD, BIT(0));
++
++	/* Ensure all writes are posted before polling status register */
++	wmb();
++
++	if (gpu_poll_timeout(gpu, REG_A8XX_RBBM_PERFCTR_FLUSH_HOST_STATUS, val,
++			     val & BIT(0), 100, 100 * 1000)) {
++		dev_err(&gpu->pdev->dev, "Perfcounter flush timed out: status=0x%08x\n", val);
++	}
++}
 -- 
 2.54.0
 
