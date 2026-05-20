@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E476CD5BA4
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:06:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D730CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:10:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5D9B10E602;
-	Wed, 20 May 2026 11:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85A9010E664;
+	Wed, 20 May 2026 11:10:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="h34rCyzW";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="c9zO4kaB";
 	dkim-atps=neutral
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE9710E0F1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 11:06:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BC7A10E664
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 11:10:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
  s=gloria202408;
  h=Content-Type:Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=4DQ+Z2QTK6zf/R0PR67dSNm2gN4T+XP+6ofTVJ0EgWM=; b=h34rCyzWSizvdmYrJY3LtxwPYf
- 6pcft3/GMrE2vVjZLMAslEGwIUN3u9xI8wipRucHSb8LfUZBTGbVxC+YnMgxGQb8avEKbPxDPH0WU
- 4DI2wOdWO+b3zzpMwLI9maETh439DnARe1LRJv19uMYYyL2k6scDPI8YaLz4sx22kHRmlgVorC80t
- dTyKbHJi/jngreltubMgNqJRiVmbHrLT+ML6vdMantBMP1cHBQedw0fegH+4LCRk15gk5UtF4ttCk
- E/B6meFzp2AgJDqNyRQteeKEB7Ye6ZoP2Iz/wuZ4lrk9Ct1LoIEv+EdMflwG0h69/gZy4uk6CqAUU
- /epKFH4A==;
+ bh=urNxKPGArF5/uTgaPa+k4PcGuCAQEVtkDFM7il0mF14=; b=c9zO4kaBgtHWE3EXKJ7sC33Ape
+ m4r4WQipdjvV3iIwLY1TcpQ/3SywEXsmlz9NgdprgAJuiVgln3Jy2il1xoPrrPLIacyWwOuzSIdEC
+ RS2uhyuw9P2DY264i7zglkCbxfJ7Afw8dsYB65aZuetdY0UfXriEM8YOuI1CoeC+3G47WGF7E0IQN
+ Fv84/KypCryGkVYuyixbU8Yw3ZQE5bp66AiyfHMwJvXNmrkRdGJSVfxoNCtT3STcQDnYu/F2qWvAr
+ Uug6x0hVPZTeRpEaZ0sBdK6eJQN7CC8AyC8yleUjnUto4JGDSc77qZwRwRWBHVqvNfGf3xop+uC2x
+ Y0z9JN2g==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -51,13 +51,13 @@ Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  dri-devel@lists.freedesktop.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: Re: [PATCH v15 9/9] arm64: dts: rockchip: rk3399-evb-ind: Add support
- for DisplayPort
-Date: Wed, 20 May 2026 13:06:16 +0200
-Message-ID: <4056242.GUh0CODmnK@phil>
-In-Reply-To: <20260304094152.92-10-kernel@airkyi.com>
+Subject: Re: [PATCH v15 6/9] drm/rockchip: cdn-dp: Support handle lane info
+ without extcon
+Date: Wed, 20 May 2026 13:10:19 +0200
+Message-ID: <8662323.tM3a2QDmDi@phil>
+In-Reply-To: <20260304094152.92-7-kernel@airkyi.com>
 References: <20260304094152.92-1-kernel@airkyi.com>
- <20260304094152.92-10-kernel@airkyi.com>
+ <20260304094152.92-7-kernel@airkyi.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -76,26 +76,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Mittwoch, 4. M=C3=A4rz 2026, 10:41:52 Mitteleurop=C3=A4ische Sommerzeit =
+Am Mittwoch, 4. M=C3=A4rz 2026, 10:41:49 Mitteleurop=C3=A4ische Sommerzeit =
 schrieb Chaoyi Chen:
 > From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 >=20
-> The RK3399 EVB IND board has a Type-C interface DisplayPort.
-> It use fusb302 chip as Type-C controller.
+> This patch add support for get PHY lane info without help of extcon.
 >=20
-> fusb302 chip ---> USB/DP PHY0 <----> CDN-DP controller
+> There is no extcon needed if the Type-C controller is present. In this
+> case, the lane info can be get from PHY instead of extcon.
+>=20
+> The extcon device should still be supported if Type-C controller is
+> not present.
 >=20
 > Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-Apart from what I replied to the cover-letter, it might be
-nice to split this into
-=2D patch adding the fusb and general type-c parts
-=2D patch adding the dp altmode
-
-To make each part a bit shorter.
-
-
-Heiko
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
 
 
