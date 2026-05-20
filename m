@@ -4,145 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 390CDCD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:24:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E761CD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:27:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9149D10ED01;
-	Wed, 20 May 2026 14:24:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1B4110F099;
+	Wed, 20 May 2026 14:27:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="YzD/PpBO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nH4BkxUo";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dA29dCqB";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azolkn19010022.outbound.protection.outlook.com [52.103.23.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11AB210ED01
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:24:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NxJ6vdh9gTmSaspVzRNbfmhpNWLUPjcbO5yFCpP5zbHhI+7yKxN96DyIfOAvcRvRaWfiDhzwH9ZH319PAwWpqf7pf3tLP8vxcaL+1mArakgM2qSTqiDLf2lrQnOEy7VPNpDYH+Z9uK+LLHAqqYbGnHW8OjIln4UjFgsQG3Ibb9Z9xJF44jL2ZxP2dUbDKbAmyy1lffgjlxktOCexgRt6cvaleKQ7FI6t94wRQTK5KJUVMdIocl8Z5Ogjfw3OFrBYb/ihMBPDkTEvCRDj8o3lYWojUV8BcJtDY/WYKT4QWJPsb9rCF1o/+2XIubZb8acveSAA2l0pq1wlf9X5HAvaLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I9trZLp3OJkIKoceb44VwXqqO4Suf+MVGbZDNhTiVos=;
- b=Iykx+mBJq87eMUOS3miL154Y/In3Bkrp5sTCHXZvR1VyOjIfnYanS1tpXjzzWm51PM4Y5ZdkdIal18m5O+4VvvQYSZ6IwoyR+JiMCp93XdxCLuGpK3XbZGc2Aahmp2GaFzKOuY68l8TtDGfufQ3r2cFGmKgvDtKPPXNVyqAC0SF73oehkuOtGw5PJKtwbvjEogdlid1yvW2c+bw0gCx1P9MH3OEfdTR/3Mk40vf8iR1Ihrzt9Mx23C6N2Ucxydvoc8Si4VLuck5v+9ha2CqB6DFsOYS+0d3WnkuYo+8LpwRSJ0LHIv1NG5EUoUK42muAuMw2WKqm7P/AV9eVRUYOOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I9trZLp3OJkIKoceb44VwXqqO4Suf+MVGbZDNhTiVos=;
- b=YzD/PpBO3KS65l4qFzsBE2RXW5VF3Wb2kUZ3VXBRjEj7nt6jur4w3zVbj95vxsFD0O/DBH1AZQ89aF66Wp9QLl0MLRYjduP+BjSjMlkXMlRtBV8v3eoJx2cmLiC65y0Zx8pwzKjxhS7bE/gR8VnMSx8h10XDTsPkQC8RwEfrEkm/reig7U52IYbogF1ZOSxdzPlPSq2eirM6LwCLIkBS60CwhDGuT9lvy0wm5wradHeDLk5NottlKGQRCwCgbfhzqj6d5OccwrcnvSCQy6DLPd6PjZXpJ33ADKIQ5qeeRHDwzaactHJ0fc4m44+dx42D4qgHT77hbcB3JrTHC1d2KQ==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by PH7PR02MB9338.namprd02.prod.outlook.com (2603:10b6:510:272::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 14:24:38 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%5]) with mapi id 15.21.0048.013; Wed, 20 May 2026
- 14:24:38 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Berkant Koc <me@berkoc.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
-CC: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
- Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>, Thomas
- Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Deepak Rawat <drawat.floss@gmail.com>, "sashiko-reviews@lists.linux.dev"
- <sashiko-reviews@lists.linux.dev>
-Subject: RE: [PATCH v3 2/2] drm/hyperv: validate VMBus packet size in receive
- callback
-Thread-Topic: [PATCH v3 2/2] drm/hyperv: validate VMBus packet size in receive
- callback
-Thread-Index: AQHc5816N8UGGzrbNEC1JOxCe/0MVrYW6ED9gAAQ6pA=
-Date: Wed, 20 May 2026 14:24:38 +0000
-Message-ID: <SN6PR02MB415704E5C04B753EF40E5F48D4012@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <e6e63276cca2901641ab39029e4fd3d621b1ee92.1779221799.git.me@berkoc.com>
- <20260519213450.50E611F000E9@smtp.kernel.org>
- <177928341826.371979.14701698047864220449@berkoc.com>
-In-Reply-To: <177928341826.371979.14701698047864220449@berkoc.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|PH7PR02MB9338:EE_
-x-ms-office365-filtering-correlation-id: e7dea795-4d1e-46ce-6344-08deb67b8694
-x-microsoft-antispam: BCL:0;
- ARA:14566002|12121999013|13091999003|41001999006|8062599012|19110799012|15080799012|8060799015|31061999003|37011999003|51005399006|19101099003|10035399007|440099028|3412199025|4302099013|102099032|1602099012|40105399003|1710799026;
-x-microsoft-antispam-message-info: =?utf-8?B?Rmg3cmkwV1NiQXg2ejV1WkIvMHRRNHBienNuZ21XSCt5QlFSdFNTR1NFMkV3?=
- =?utf-8?B?OWREV0hUNGdqTnJpQkFZOXB3bFZtejhyQndNUHhyWHR4NGQ0WFlNSFQrQWtH?=
- =?utf-8?B?TmhYT1pxb3diS3NOQnJOYXE5MU8rVHE0M3JTazZvdmFORndOdnFvNzFFVkFh?=
- =?utf-8?B?T25IbElQY2NmZTQzalV2N2M2NFZReWZnTVk5MWFQTzVMMmRxVDkvQnRrUUZG?=
- =?utf-8?B?TC9tbUsxTGNtYlVPVC9VcjNTTUlkc1NaeXRlWjc4UGhpYmNRN202U1NhanhZ?=
- =?utf-8?B?TlNSVVJoNXo1bnNsT24ySWxWa1FhcG02WTNKV0ZPMnVVUlpIcFdBd3BlU1hI?=
- =?utf-8?B?YlpoSGFwRVdUOFF5N3VRZ0xHSlV6UTVPL2tqS1Y0b0MrVGdwbzR1NVQwZHJl?=
- =?utf-8?B?WUJsTTRYTGdQdjNLaU1hR0hxTElpd0NKeDJLMm41cGk2NHJjNG1hRHR2MjJq?=
- =?utf-8?B?QlpTdVZBdEFrdkM5bzdPSnBOMkl3TmJ1em5WeEE2azF5UEZKYmppcUxLdUdQ?=
- =?utf-8?B?eTNEQm1tWWpodi9ybkhtWkd1VDRBSVJPNDRoMkJCYzZXa0RyZGY5OG9ITng0?=
- =?utf-8?B?MDRKNko5SkpwSnpMZW5GUEd5dGNoVG5hdDE2VXNoZXVaaWJ2a1hEL3ZYRm40?=
- =?utf-8?B?ajNRWmhVSWxhbjRTckxBWDhZbjRzWFhYWmdHMk1TV2E2OFlyMW9LZEp3TTQ3?=
- =?utf-8?B?NHZMOFE4Nm44VHZIOEJnc052TEI3YWxBWGh6QitsSFhrcVAxakU1MVpSM2Vz?=
- =?utf-8?B?ZjhYQmh4UFhOcTJpb0cxamMwajVockdha1FCUzNjWFZVc3RrVEN2MTd4MkhY?=
- =?utf-8?B?SERMOGpweVVmUzQzenZKZ2p1ZzI2T0JPN0g5aDE4SkFCVjIxSEJSc3VwSXQz?=
- =?utf-8?B?dmdlQjErVnpJczBKWkd3TUpmK0Z1MTFZYTh1bXFUcndjNDRDb3VwMXQxd0dL?=
- =?utf-8?B?WXdUaEwzYlRrcTNJWFZvbnhWd0NGeHFwOFFsbERwNkhSNmc3eVhnT1ZYMW91?=
- =?utf-8?B?RTNDc0VTcGp6YWNDZ2FWRmk4bWlraXcwQkQ5ZHhaZzVqaWhsVnEzNmM0MU5M?=
- =?utf-8?B?dms2emJSNWZ3ZTNsRUhjVk5uZHdWM0swUG56MDRHc1NoQjBoT3RuVnBRZVhI?=
- =?utf-8?B?SnZsWUkzazlTRUhqdHprZ24wWEJWZUtYR011VTVVU0w0ak1wY1p4cHRhV1V1?=
- =?utf-8?B?SFhxV3E1eFpqNGFpaVlYK3k5TUhIVG5VWTVqWWVHYlVrNVRRR2VvQjhsSU9w?=
- =?utf-8?B?TlFtNFpPUVRNcGhGbEE3UDVWR1VTNm8wOHhZcHU2VmR2OXBpVU10ZVhoWDdO?=
- =?utf-8?B?QkR5MzRGY2hvOVhTRVBCQVZpS1BHOFJzZjgyeUUvNnhvc1BXUVVtb3E0UHZD?=
- =?utf-8?B?NTA0cktNMlJjeXZpNkdUd1o0SmYwUkpldWIzNTRMakJLU2l1blRGWXBmSjZX?=
- =?utf-8?B?K3N0MUJsZ3V1U0JNMjJHenVhOEp4NE5BcDR3SVdzVXJ3bHdCekpRbGc3dmlj?=
- =?utf-8?B?THZoUlZOZlRoMHlwWkdqaDFRa205N3V0aERlUmlzamtsQkU1S2lNQjcyRDh3?=
- =?utf-8?Q?d3mQJdOs8ljWs04nGk8bdWMXVJjv57Nd2rAHego/J3Oc6m?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Q0s4ZFVRcGRiQyt4bEFlQS9PTWJlSmpvQzJsYXNKZGVkdVlZMkJGa3Mrdzdo?=
- =?utf-8?B?TVNrS3o5NHZabEVobkt3R1VDS09ucmxsek13bmV1TU1NQVFzQzlaUmdxWUR4?=
- =?utf-8?B?dk9RMU5JU0h4N0MvV3d5TVFhVTNyNkQ4V3ozQzlod2FZUW94WExXRUFlR3ZR?=
- =?utf-8?B?d0JjNmtZSG1RYmJUdG92SldoanR2NWpYay9Makl2ZHQ5djNmWFQzcjdOKzBQ?=
- =?utf-8?B?SlJsZkg0aVFlV0Y2Z2RiLy9zUktlWXp4aHFucnBzc1BxSFFJWjQrOFo5SU5a?=
- =?utf-8?B?dnBDcWpobmtGWlU2Mk8yTHlOYmpBVllROGxibVI4Rk4rak4rMWE2ak5NZ2xr?=
- =?utf-8?B?TklKUURVVGFKS2tEak9PanlyNVdWNG5BVGoyaXpvNVN1UUNYeVJIQkx1dVFy?=
- =?utf-8?B?eEsvQTZXZmMzeFhjY0daWWRHbFAzSk1Yc0Vra3ZFZzhMcitUTnpCcWJtbE5h?=
- =?utf-8?B?Rm9xaXNkNXQxMVhJRzZOTG1yNEhPT090eUZTVEM3Vis5YmtlaHpsNDZ6dDJ2?=
- =?utf-8?B?SGJHb2loWE12a0xEZnAxdGtCNWExQkFicFl2RVhwVDdTUDN1UW9uQ1Frdjdp?=
- =?utf-8?B?N21odi9Ca3kxcGxPVnppQnU5U0UvQ0VXblU3MU00Vk5uZWlDdkFYemV3UWJB?=
- =?utf-8?B?SXhKRlBWdzlJUzVCTkhKcGZQeDBxOWpsUGNGcnlrSlMwdG1yVlJtY0QxYjg5?=
- =?utf-8?B?MDNIUTFaWXJGdkt4N2o3N3cwd2tiRGg3aWNiaHBTbHlxOGNnZHNXZ0hPTUQy?=
- =?utf-8?B?Y0picVk2V09obys2MzkvSStySjVvaTFuN2l1V1Yza1ArY2xyK3dpNjcvL2ZS?=
- =?utf-8?B?M2xxZmJrM0RTQWJvRlh3RDBRWEZyUzRVQnJCYzM0ZGRQMTRSYVJvY3VIVlpT?=
- =?utf-8?B?eUhUOFl3b1l5WUI3YllsT1gydFZqaGNRbDh3N0hVMnk2TXZKNTNCc1g1bUQy?=
- =?utf-8?B?dmJaL0p0KzA5alQ2eDV5UW1tSkVBSTJ3Z3BNK0dMM21YWVFHa3k2VVpVZkl4?=
- =?utf-8?B?bXprNVd2VVBIdGVOcFJHcmpBa0tNY0dJMTFxK3JTcmE0TGtIekVqUGh0N0dG?=
- =?utf-8?B?cldJWjZ0R3BXVEJvZjlZK2RwR3A1RnZLTjU2OUxpVCszSmtiM1RoTGQxanpZ?=
- =?utf-8?B?akpHUENrNzE1WG5Sa0dGWnN1SHpYd0NLRnFkMHBOTDlRQU9USEt4eHdKRUdF?=
- =?utf-8?B?NFBWZVA5VWQzWERyeDIrVHpmdi9PVzVrUGg1UXdHV3E3T1B6aUd3WkFEM28v?=
- =?utf-8?B?NkN6ZE9zaGNhSzZoNExxMmZmZ3lkNTdBUmlVT0VlVzIvWk9iR29HMnIrdk1m?=
- =?utf-8?B?bHUyZG9mYWUyaTlWVW11NUtlM1ZLYVpqb2o5bGRTWkhSTUwvQjE4NmlGSzFx?=
- =?utf-8?B?SytnQ0hEMWtZN1VCOTlUK0JrZVV2aTkrdEJIb1BUTzdSNm9jMTlWVzBVQWk0?=
- =?utf-8?B?ZWNVK1pxKzMyWDFRZ3VLck5OMWk4ZEtydk95WmVFR1dwTW0zdm1OYmlwcWRV?=
- =?utf-8?B?OEthQkdETDlyQWtvY0xUd1hvVS8vY1NhWklQN0FFZ1pzcGFxK2tBY1V2NlJB?=
- =?utf-8?B?MW1lZnVqY1FHcUI5SklpbHgrVVZUa0IzSTlFTGFvdXNQbDBSYnlXWjJKQTEr?=
- =?utf-8?B?bWlRYmZLQmFqZ0RyRFFROXVoTHU0MXBycUpvcCt2QldJb2tRd3Q4U3VxeXM2?=
- =?utf-8?B?eUxuNVB2aUc0dklhWUNtNTJtazQxQ1JjeThIME5NS0p4eWZVVi9QMjdrVEZO?=
- =?utf-8?B?MzVqdmFVRDZzcWI3OU9NN1NiYmN3cFlnSnFVZ2duRHhiNXc4S0RBaERYRThl?=
- =?utf-8?Q?YotjaHPleCbb1SML7ncFVn1V0dFoO/ZaOmQG8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF6CF10F093
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:27:00 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64KCeWTq317544
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:27:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=UVWE9cDv8dNKqJnEWb+COja9
+ 5369BrxIeUqGSeAbb1c=; b=nH4BkxUogTtNIAEqilLYHObEFJgMG/D/I6AWiKcL
+ gT9NyuhjEGPJjace/hLozjlYcZwbwfFRV91CP0BVqIhyrSuMqAPCIZbA8DN4DmFf
+ hPCU2ZDE10kkQJphfYXUm2hHwGa0fgb01ylh3m5ByFd7fO3pbFGfwg78Ei/yjEPx
+ bEy7uXL7yQ4/2MmkCCp9OZCLGZw87F4k1zqBS7hN6HbS4XmsbpRN3vEAxPERoMfh
+ kyFhQpagYlYoilMeAjBUkXjdv1eabc16L2No76klbeHFWzEMgpHjLZS52rLeiT3E
+ 83xZGGdUeH7D6rq+10rqZtA2QQj2bvO/QF2MgSdMzvgCqA==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
+ [209.85.221.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9d5qrd37-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:26:59 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id
+ 71dfb90a1353d-575346e50c4so7009180e0c.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 07:26:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779287219; x=1779892019;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=UVWE9cDv8dNKqJnEWb+COja95369BrxIeUqGSeAbb1c=;
+ b=dA29dCqBC8eMR6E0ZlabP0WONDkiLmOiIBb67caUltGxZrhLiAVFKAGsb71ooIz4kW
+ dT/T1U+jnJ+t0m3MiP4gK0RD0MM/4mU9/G272nvkqT5zIGw5LXoMdqhYN/kLZaFhudVZ
+ I0F3F2h8lje5nkkTxOlgprOTxRZsV12rcpafTdwxkodM1lWoCX/7tGdt4DdNouXSAIJl
+ UpBew7fZ2/94B2HBFB6KrZqQfbo9yVHvIG3AB6KwYsRboBbw8FwiuJJWiF+wH5e/qYpq
+ 23697mkqC+p+h1ulPMXf3NudAG26/G5XC2ivdOO+S582L0fLpvIc8nSAgLQBiRdxJ9gY
+ JESw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779287219; x=1779892019;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UVWE9cDv8dNKqJnEWb+COja95369BrxIeUqGSeAbb1c=;
+ b=RVEIq9qvUaObXACrsQS7R1Ul2RMqaJIvMKcknDA+RUhpMdNCDJhYGb19+h5s4nrANu
+ gP+kWIoEe+mmTulyHXPJlqnor7mfma+1Q7s+N6PQClplCCLXWqZEbLqLVrRf8Rlaq2MV
+ ACWNSstSWPLiwkZGVXnyV26kc94Q23UP1DvUy0ZGvVwlBeA1RSozz0KBmyiKKDFsQ7nT
+ Of5U1if/xcQXQ9OgyBqyE3nzCfms/Tal0o0CFi/+INHJpwE9rXhCrVPD/QXBbhsdOFjo
+ IAc37rh1WD/OLSbF3JKNeDiXaUc7+txmQ9+fpsQsrSAcKVjzCVPPMFKJDPCoYGCMwC+M
+ fTbA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ97JnCpyhBE8LrQBsFTig6eKYwO8OaLrKEXweETyqaY/1rqcejyWmlM/MY3KJxZVA/b+OkoTXqFCsM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLRJ7D0W5eGYkgZcmD+8Pmy/0jZgTFQD0sTeuWtfd3VnyTREDm
+ CFdsrYIwP2ZkLN62pdYobclozUPFOkgHvTSG2QiMCLqelIU1+1IkiU7WMfVqfEaZYSk6MdgVDRT
+ vptXGeLAe4qGiLVloS73zcG9dXWDthH4EPTjc0Uduc1+J0AJX70lM5tQcICPacEzXlVBBbw8=
+X-Gm-Gg: Acq92OFH4w4QWBj9+c/F5F5sq2oRoao65OyRS49WZFKKN6mKbYp/BNRYonHhmRkdSob
+ cQPp75r8v5qMWmhNzJ/EFBaQ85jq/6fq2MKinkhLXGTf1ItOnWWdaW+o5sw6qQhiVYPh4Bs3XXt
+ lRYQRwWcNPc0lsFmpgpiqUUDLt5+FitzxE0/y663w8lUW7w4J9Sn9WH359xybfzuaKUWsBXKoMK
+ Ppn3fVSl3n1zoVHvxGkRY2cPUPhOUxf8Sl7+05pu+4uZyfwqVeqXj+4GN6L48ba6Pgaq6T1NFJg
+ B5zZWjkS6BCZlJ0tkyYlHeiNFyzG9ouutVoOKSU3hzso96lEnjicbG2tGyQ8wuZtpDyHzcMyi6p
+ Hrax7Wr990ooKQIsj7K2ccezYYybRdLODn5FpDXPBUO0vWE1ISxufNvwwMO6Q15boh6Al0lrQB5
+ cLhGKkmFwRqmpmofMw9mG4QTXBVWN4raHwp4U=
+X-Received: by 2002:a05:6122:4d0d:b0:56e:e80c:bb25 with SMTP id
+ 71dfb90a1353d-5760c0a673cmr14617904e0c.13.1779287219080; 
+ Wed, 20 May 2026 07:26:59 -0700 (PDT)
+X-Received: by 2002:a05:6122:4d0d:b0:56e:e80c:bb25 with SMTP id
+ 71dfb90a1353d-5760c0a673cmr14617821e0c.13.1779287218313; 
+ Wed, 20 May 2026 07:26:58 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a9164c5a28sm4950743e87.61.2026.05.20.07.26.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 May 2026 07:26:57 -0700 (PDT)
+Date: Wed, 20 May 2026 17:26:55 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: ekansh.gupta@oss.qualcomm.com
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>, srini@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org,
+ robin.clark@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH 07/15] accel/qda: Add memory manager for CB devices
+Message-ID: <sbktzorprxvo5625zkqwjgsaj723xtbsgzyypbnbgdbbxdgnnh@do5rprsx4oxr>
+References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
+ <20260519-qda-series-v1-7-b2d984c297f8@oss.qualcomm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7dea795-4d1e-46ce-6344-08deb67b8694
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2026 14:24:38.8029 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR02MB9338
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260519-qda-series-v1-7-b2d984c297f8@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE0MSBTYWx0ZWRfX4paJW/WibpRe
+ nE8YTxFd+AADjmywatLyv+x1f13pLjG6eEPOdAQzKsKzso+KeBdaFvTdAI7zB5Y3mNwI419YsYf
+ gFtbDCw52EUSUfHqYiTc4DPYrgqyuLjixOemz5MUuoi7JGhM4xSijLS/mAOWYNnAsz1H43gXTK/
+ 5kQEZZikzHH4ratvuXjIzXyknsIg1YOn/VqPTgH0aXvogPic9Qona+3eQGGhHp7gLL8j8h7yGNu
+ GMrIEl+9cHW7/v5Mi9n5hQyU0XKUIMlenrmyIyGiS5vPlZADMhvZiKIDZhRUjUAAcoQjQuz/ZYH
+ enZblbwpEwH64NIJXSWqERU4IctMvxco6VnsSrdBrkDUrngm8Sq5HSaCZHIqha7WRc1FhcY0ZVp
+ y8QrzBrqL8DhXoayhx1Ts61EfN6KMxssj4HtyQ+H5q5/xlkoAqW36UdPt+t81hz37hDqvqtzy/D
+ ATMkG+VrQO9hKASUcug==
+X-Authority-Analysis: v=2.4 cv=QshuG1yd c=1 sm=1 tr=0 ts=6a0dc4b3 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=U7MGAyCTa2LO6tN26UQA:9 a=CjuIK1q_8ugA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-GUID: br9arWBtbqlgPD_rOMbOm2jBrmFYG_m4
+X-Proofpoint-ORIG-GUID: br9arWBtbqlgPD_rOMbOm2jBrmFYG_m4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 phishscore=0 spamscore=0
+ suspectscore=0 bulkscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200141
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,77 +152,262 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-RnJvbTogQmVya2FudCBLb2MgPG1lQGJlcmtvYy5jb20+IFNlbnQ6IFdlZG5lc2RheSwgTWF5IDIw
-LCAyMDI2IDY6MjQgQU0NCj4gDQo+IHNhc2hpa28tYm90QGtlcm5lbC5vcmcgd3JvdGU6DQo+ID4g
-LSBbQ3JpdGljYWxdIFVzaW5nIGBieXRlc19yZWN2ZGAgZm9yIGBtZW1jcHkoKWAgd2l0aG91dCBj
-aGVja2luZw0KPiA+ICAgYHZtYnVzX3JlY3ZwYWNrZXQoKWAgcmV0dXJuIHZhbHVlIGxlYWRzIHRv
-IGEgbWFzc2l2ZSBoZWFwIGJ1ZmZlcg0KPiA+ICAgb3ZlcmZsb3cuDQo+IA0KPiBUaGlzIG9uZSBp
-cyBib3VuZGVkIG9uIHRoaXMgY2hhbm5lbC4gaHlwZXJ2X2Nvbm5lY3RfdnNwKCkgY2FsbHMNCj4g
-dm1idXNfb3BlbigpIHdpdGhvdXQgc2V0dGluZyBtYXhfcGt0X3NpemUsIHNvIHRoZSBpbmJvdW5k
-IHJpbmcgdXNlcw0KPiBWTUJVU19ERUZBVUxUX01BWF9QS1RfU0laRSAoNDA5NikgYW5kIGh2X3Br
-dF9pdGVyX2ZpcnN0KCkgY2xhbXBzIHRoZQ0KPiBwYWNrZXQgbGVuZ3RoIHRvIHBrdF9idWZmZXJf
-c2l6ZS4gYnl0ZXNfcmVjdmQgdGhlcmVmb3JlIGNhbm5vdCBleGNlZWQNCj4gNDA5Niwgd2VsbCB1
-bmRlciB0aGUgMTYgS2lCIHJlY3ZfYnVmIGFuZCBpbml0X2J1ZiwgYW5kDQo+IHZtYnVzX3JlY3Zw
-YWNrZXQoKSBkb2VzIG5vdCByZXR1cm4gLUVOT0JVRlMgaGVyZSwgc28gdGhlIG1lbWNweSBsZW5n
-dGgNCj4gc3RheXMgYm91bmRlZC4NCg0KQWN0dWFsbHksIHRoZSBiZWhhdmlvciBvZiB2bWJ1c19y
-ZWN2cGFja2V0KCkgaXMgbW9yZSBzdWJ0bGUsDQphbmQgdGhlIHByb2JsZW0gcG9pbnRlZCBvdXQg
-YnkgU2FzaGlrbyBBSSBpcyByZWFsLiBJIGhhZCBmb3Jnb3R0ZW4NCmFib3V0IHRoaXMgc3VidGxl
-IGJlaGF2aW9yIGluIG15IGZpcnN0IHJlcGx5IHRvIHlvdSBvbiB0aGlzIHRvcGljLiA6LSgNCg0K
-VGhlIGluY29taW5nIG1lc3NhZ2UgZnJvbSBIeXBlci1WIGhhcyBhIGxlbmd0aCBlbmNvZGVkIGlu
-IGl0Lg0KaHZfcmluZ2J1ZmZlcl9yZWFkKCkgZ2V0cyB0aGF0IG1lc3NhZ2UgbGVuZ3RoLCBhbmQg
-aWYgaXQgaXMgbGFyZ2VyDQp0aGFuIHRoZSBidWZsZW5fcGFyYW1ldGVyLCAtRU5PQlVGUyBpcyBy
-ZXR1cm5lZC4gQnV0IHRoZQ0KcmV0dXJuZWQgYnVmZmVyX2FjdHVhbF9sZW4gaXMgYWxzbyBzZXQg
-dG8gdGhlIGluY29taW5nIG1lc3NhZ2UNCmxlbmd0aCBwcm92aWRlZCBieSBIeXBlci1WLiBUaGlz
-IGFsbG93cyB0aGUgY2FsbGVyIHRvIHJlYWxpemUNCml0IGRpZG4ndCBwcm92aWRlIGVub3VnaCBi
-dWZmZXIgc3BhY2UsIGFuZCBhbHNvIHRlbGxzIGl0IGhvdyBtdWNoDQpidWZmZXIgc3BhY2UgaXMg
-bmVlZGVkLiBodl9wY2lfb25jaGFubmVsY2FsbGJhY2soKSB1c2VzDQp0aGlzIGZ1bmN0aW9uYWxp
-dHkgdG8gcmV0cnkgdGhlIHJlY2VpdmUgb3BlcmF0aW9uIHdpdGggYSBsYXJnZXINCmJ1ZmZlci4g
-SSB0aGluayBhbGwgdGhlIG90aGVyIGNhbGxlcnMganVzdCB0cmVhdCAtRU5PQlVGUyBhcyBhDQpm
-YXRhbCBlcnJvciwgd2hpY2ggaXMgYWxzbyBmaW5lLg0KDQo+IA0KPiBJIHdpbGwgc3RpbGwgZ2F0
-ZSB0aGUgZGlzcGF0Y2ggb24gYSBzdWNjZXNzZnVsIHZtYnVzX3JlY3ZwYWNrZXQoKQ0KPiByZXR1
-cm4gaW4gdGhlIG5leHQgcmV2aXNpb24sIGFzIGRlZmVuc2UgaW4gZGVwdGgsIHNvIHRoZSBib3Vu
-ZCBpcw0KPiBsb2NhbCBpbnN0ZWFkIG9mIHJlbHlpbmcgb24gdGhlIHJpbmcgY2xhbXAuDQoNCklu
-ZGVlZCwgdGhlIGVycm9yIGNoZWNrIGlzIG5lZWRlZCwgYW5kIGl0J3Mgbm90IGp1c3QgZGVmZW5z
-ZSBpbiBkZXB0aC4NCg0KPiANCj4gPiAtIFtIaWdoXSBTdHJpY3Qgc2l6ZW9mKCkgdmFsaWRhdGlv
-biBpbmNvcnJlY3RseSByZWplY3RzDQo+ID4gICBkeW5hbWljYWxseS1zaXplZCBTWU5USFZJRF9S
-RVNPTFVUSU9OX1JFU1BPTlNFIHBhY2tldHMuDQo+IA0KPiBBZ3JlZWQuIFRoZSByZXNwb25zZSBj
-YXJyaWVzIHJlc29sdXRpb25fY291bnQgZW50cmllcywgbm90IHRoZSBmdWxsDQo+IFNZTlRIVklE
-X01BWF9SRVNPTFVUSU9OX0NPVU5UIGFycmF5LCBzbyBjaGVja2luZyBhZ2FpbnN0DQo+IHNpemVv
-ZihzdHJ1Y3Qgc3ludGh2aWRfc3VwcG9ydGVkX3Jlc29sdXRpb25fcmVzcCkgaXMgdG9vIHN0cmlj
-dC4gVGhlDQo+IG5leHQgcmV2aXNpb24gdmFsaWRhdGVzIHRoZSBmaXhlZCBwcmVmaXgsIHJlYWRz
-IGFuZCBib3VuZHMNCj4gcmVzb2x1dGlvbl9jb3VudCwgdGhlbiByZXF1aXJlcyBvbmx5IHRoZSBj
-b3VudC1zaXplZCBhcnJheS4NCg0KT0ssIGdvb2QuDQoNCj4gDQo+ID4gLSBbSGlnaF0gQ29uY3Vy
-cmVudCBsb2NrbGVzcyB3cml0ZSB0byBgaHYtPmluaXRfYnVmYCBmcm9tIFZNQnVzDQo+ID4gICBj
-YWxsYmFjayBhbGxvd3MgYSBtYWxpY2lvdXMgaG9zdCB0byBvdmVyd3JpdGUgZGF0YSB3aGlsZSB0
-aGUgZ3Vlc3QNCj4gPiAgIGlzIHZhbGlkYXRpbmcgaXQuDQoNCkkgZG9uJ3QgdGhpbmsgdGhpcyBh
-Y3R1YWxseSBoYXBwZW5zLiBJbiBodl9wa3RfaXRlcl9maXJzdCgpLCB0aGUgbWVzc2FnZQ0KaXMg
-Y29waWVkIG91dCBvZiB0aGUgcmluZyBidWZmZXIgaW50byBhIHRlbXBvcmFyeSBidWZmZXIgdGhh
-dCBpcyBub3QNCmV4cGxpY2l0bHkgc2hhcmVkIHdpdGggdGhlIGhvc3QuIFRoaXMgdGVtcG9yYXJ5
-IGNvcHkgcHJldmVudHMgYQ0KbWFsaWNpb3VzIGhvc3QgZnJvbSBtb2RpZnlpbmcgdGhlIGRhdGEg
-d2hpbGUgdGhlIGd1ZXN0IGlzIHZhbGlkYXRpbmcgaXQuDQoNCj4gPiAtIFtIaWdoXSBNaXNzaW5n
-IGByZWluaXRfY29tcGxldGlvbigpYCBiZWZvcmUgcmV1c2luZyB0aGUgc2hhcmVkDQo+ID4gICBg
-aHYtPndhaXRgIGNvbXBsZXRpb24gb2JqZWN0Lg0KPiANCj4gQm90aCBwcmUtZXhpc3RpbmcuIE9u
-IHYyIE1pY2hhZWwgS2VsbGV5IHN1Z2dlc3RlZCBzcGxpdHRpbmcgdGhlDQo+IGNvbXBsZXRpb24g
-cmVpbml0IGludG8gYSBzZXBhcmF0ZSBwYXRjaCBvbiB0aGUgcmVzdW1lIHBhdGguIFRoZQ0KPiBp
-bml0X2J1ZiByZXVzZSBzaXRzIGluIHRoZSBzYW1lIGFyZWEsIHNvIEkgcGxhbiB0byBzZW5kIHRo
-ZSByZWluaXQgYW5kDQo+IHRoZSByZWxhdGVkIHJlc3BvbnNlLXR5cGUgaGFuZGxpbmcgYXMgYSBz
-ZXBhcmF0ZSBmb2xsb3ctdXAgcmF0aGVyIHRoYW4NCj4gZm9sZCB0aGVtIGludG8gdGhpcyBzaXpl
-LXZhbGlkYXRpb24gY2hhbmdlLg0KDQpIYW5kbGluZyBhIHRpbWVvdXQsIGFuZCB0aGVuIHRoZSBo
-b3N0IHByb3ZpZGluZyBhIGJlbGF0ZWQgcmVzcG9uc2UNCmlzIGEgcmVhbGx5IG1lc3N5IHByb2Js
-ZW0uIFRoZXJlJ3Mgc29tZSBtZWNoYW5pc20gdXNpbmcgcmVxdWVzdCBJRHMNCmluIGh2X3Jpbmdi
-dWZmZXJfd3JpdGUoKSBhbmQgdm1idXNfc2VuZHBhY2tldF9nZXRpZCgpIHRvIGhlbHAgbWF0Y2gN
-CnVwIHJlcXVlc3RzIGFuZCByZXNwb25zZXMsIGJ1dCBteSByZWNvbGxlY3Rpb24gaXMgdGhhdCBl
-dmVuIHRoaXMNCmV4dHJhIG1hY2hpbmVyeSBpcyBub3QgMTAwJSBmb29scHJvb2YuIFlvdSBtYXkg
-b3IgbWF5IG5vdCB3YW50DQp0byBnbyBkb3duIHRoZSBwYXRoIG9mIHRyeWluZyB0byBmaXggaXQu
-IDotKQ0KCQ0KQSBwcm9jZXNzIGNvbW1lbnQ6ICBUaGUgZW1haWxzIGZvciB2MiBhbmQgdjMgb2Yg
-eW91ciBwYXRjaCBzZXQNCmFyZSBiZWluZyB0aHJlYWRlZCBpbiBhbiB1bmV4cGVjdGVkIHdheS4g
-VGhleSBhcmUgc2hvd2luZyB1cA0KYXMgcmVwbGllcyB1bmRlciB0aGUgb3JpZ2luYWwgdjEuIFNl
-ZSBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1oeXBlcnYvLg0KVGhlIHByZWZlcnJlZCBh
-cHByb2FjaCBpcyBmb3IgZWFjaCB2ZXJzaW9uIHRvIHN0YXJ0IGEgbmV3IGVtYWlsDQp0aHJlYWQu
-IFRoZSBjb3ZlciBsZXR0ZXIgc2hvdWxkIHN0YXJ0IHRoZSBuZXcgdGhyZWFkLCBhbmQgdGhlDQpw
-YXRjaGVzIHNob3VsZCBzaG93IHVwIGFzIHRocmVhZGVkIHVuZGVyIHRoZSBjb3ZlciBsZXR0ZXIu
-DQoNCkFsc28sIGRvbid0IHBvc3QgYSBuZXcgdmVyc2lvbiBtb3JlIGZyZXF1ZW50bHkgdGhhbiBl
-dmVyeQ0KMjQgaG91cnMgYXQgYSBtaW5pbXVtLCBhbmQgdGhlcmUncyBubyBwcm9ibGVtIHdpdGgg
-d2FpdGluZw0KMiB0byAzIGRheXMuIFRoZSBpZGVhIGlzIHRvIGdpdmUgcGVvcGxlIGEgY2hhbmNl
-IHRvIHJldmlldyBhbmQNCnByb3ZpZGUgY29tbWVudHMgc28gdGhhdCB5b3UgY2FuIGJhdGNoIGFu
-eSBjaGFuZ2VzIGluDQpyZXNwb25zZSB0byB0aGUgZmVlZGJhY2suDQoNCk1pY2hhZWwNCg==
+On Tue, May 19, 2026 at 11:45:57AM +0530, Ekansh Gupta via B4 Relay wrote:
+> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> 
+> Introduce the QDA memory manager (qda_memory_manager) to track and
+> manage the IOMMU devices that back each compute context bank (CB).
+> 
+> Each CB device registered on the qda-compute-cb bus is assigned a
+> unique ID via an XArray and wrapped in a qda_iommu_device descriptor
+
+Why do you need an XArray? The number of devices is (more or less)
+fixed. You can use a normal array, allocated in the probe function after
+counting OF children nodes.
+
+> that records the device pointer and its stream ID. This registry
+> allows the driver to look up the correct IOMMU domain for a given
+> session when mapping DSP buffers.
+> 
+> The memory manager is initialised in qda_init_device() before CB
+> devices are populated and torn down in qda_deinit_device() after they
+> are destroyed, ensuring no dangling references remain in the XArray.
+> 
+> qda_cb.c is extended with qda_cb_setup_device(), which is called
+> immediately after a CB device is registered on the bus. It allocates
+> a qda_iommu_device, registers it with the memory manager, and stores
+> it as the CB device's driver data so that qda_destroy_cb_device() can
+> retrieve and unregister it during teardown.
+> 
+> Assisted-by: Claude:claude-4-6-sonnet
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> ---
+>  drivers/accel/qda/Makefile             |   1 +
+>  drivers/accel/qda/qda_cb.c             |  47 ++++++++++++++
+>  drivers/accel/qda/qda_drv.c            |  34 ++++++++++
+>  drivers/accel/qda/qda_drv.h            |   5 ++
+>  drivers/accel/qda/qda_memory_manager.c | 111 +++++++++++++++++++++++++++++++++
+>  drivers/accel/qda/qda_memory_manager.h |  49 +++++++++++++++
+>  drivers/accel/qda/qda_rpmsg.c          |   7 +++
+>  7 files changed, 254 insertions(+)
+> 
+> diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
+> index 143c9e4e789e..701fad5ffb50 100644
+> --- a/drivers/accel/qda/Makefile
+> +++ b/drivers/accel/qda/Makefile
+> @@ -8,6 +8,7 @@ obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
+>  qda-y := \
+>  	qda_cb.o \
+>  	qda_drv.o \
+> +	qda_memory_manager.o \
+>  	qda_rpmsg.o
+>  
+>  obj-$(CONFIG_DRM_ACCEL_QDA_COMPUTE_BUS) += qda_compute_bus.o
+> diff --git a/drivers/accel/qda/qda_cb.c b/drivers/accel/qda/qda_cb.c
+> index 77caf8438c67..6d540bb0ec7b 100644
+> --- a/drivers/accel/qda/qda_cb.c
+> +++ b/drivers/accel/qda/qda_cb.c
+> @@ -8,11 +8,42 @@
+>  #include <linux/slab.h>
+>  #include <drm/drm_print.h>
+>  #include "qda_drv.h"
+> +#include "qda_memory_manager.h"
+>  #include "qda_cb.h"
+>  
+> +static int qda_cb_setup_device(struct qda_dev *qdev, struct device *cb_dev, u32 sid)
+> +{
+> +	struct qda_iommu_device *iommu_dev;
+> +	int rc;
+> +
+> +	drm_dbg_driver(&qdev->drm_dev, "Setting up CB device %s\n", dev_name(cb_dev));
+> +
+> +	iommu_dev = kzalloc_obj(*iommu_dev);
+> +	if (!iommu_dev)
+> +		return -ENOMEM;
+> +
+> +	iommu_dev->dev = cb_dev;
+> +	iommu_dev->qdev = qdev;
+> +	iommu_dev->sid = sid;
+> +
+> +	rc = qda_memory_manager_register_device(qdev->iommu_mgr, iommu_dev);
+> +	if (rc) {
+> +		drm_err(&qdev->drm_dev, "Failed to register IOMMU device: %d\n", rc);
+> +		kfree(iommu_dev);
+> +		return rc;
+> +	}
+> +
+> +	dev_set_drvdata(cb_dev, iommu_dev);
+> +
+> +	drm_dbg_driver(&qdev->drm_dev, "CB device setup complete - SID: %u\n", sid);
+> +
+> +	return 0;
+> +}
+> +
+>  int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node)
+>  {
+>  	struct device *cb_dev;
+> +	int ret;
+>  	u32 sid = 0;
+>  	char name[64];
+>  	struct qda_cb_dev *entry;
+> @@ -30,6 +61,13 @@ int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node)
+>  		return PTR_ERR(cb_dev);
+>  	}
+>  
+> +	ret = qda_cb_setup_device(qdev, cb_dev, sid);
+> +	if (ret) {
+> +		drm_err(&qdev->drm_dev, "CB device setup failed: %d\n", ret);
+> +		device_unregister(cb_dev);
+> +		return ret;
+> +	}
+> +
+>  	entry = kzalloc_obj(*entry);
+>  	if (!entry) {
+>  		device_unregister(cb_dev);
+> @@ -80,6 +118,7 @@ int qda_cb_populate(struct qda_dev *qdev, struct device_node *parent_node)
+>  void qda_destroy_cb_device(struct device *cb_dev)
+>  {
+>  	struct iommu_group *group;
+> +	struct qda_iommu_device *iommu_dev;
+>  
+>  	if (!cb_dev) {
+>  		pr_debug("qda: NULL CB device passed to destroy\n");
+> @@ -88,6 +127,14 @@ void qda_destroy_cb_device(struct device *cb_dev)
+>  
+>  	dev_dbg(cb_dev, "Destroying CB device %s\n", dev_name(cb_dev));
+>  
+> +	iommu_dev = dev_get_drvdata(cb_dev);
+> +	if (iommu_dev && iommu_dev->qdev && iommu_dev->qdev->iommu_mgr) {
+> +		dev_dbg(cb_dev, "Unregistering IOMMU device for %s\n",
+> +			dev_name(cb_dev));
+> +		qda_memory_manager_unregister_device(iommu_dev->qdev->iommu_mgr,
+> +						     iommu_dev);
+> +	}
+> +
+>  	group = iommu_group_get(cb_dev);
+>  	if (group) {
+>  		dev_dbg(cb_dev, "Removing %s from IOMMU group\n", dev_name(cb_dev));
+> diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
+> index 6c20d6a2fc47..0ad5d9873d7e 100644
+> --- a/drivers/accel/qda/qda_drv.c
+> +++ b/drivers/accel/qda/qda_drv.c
+> @@ -57,6 +57,40 @@ struct qda_dev *qda_alloc_device(struct device *dev)
+>  	return qdev;
+>  }
+>  
+> +static void cleanup_memory_manager(struct qda_dev *qdev)
+
+Prefixes...
+
+> +{
+> +	if (qdev->iommu_mgr) {
+> +		qda_memory_manager_exit(qdev->iommu_mgr);
+> +		kfree(qdev->iommu_mgr);
+> +		qdev->iommu_mgr = NULL;
+> +	}
+> +}
+> +
+> +static int init_memory_manager(struct qda_dev *qdev)
+> +{
+> +	qdev->iommu_mgr = kzalloc_obj(*qdev->iommu_mgr);
+> +	if (!qdev->iommu_mgr)
+> +		return -ENOMEM;
+> +
+> +	return qda_memory_manager_init(qdev->iommu_mgr);
+> +}
+> +
+> +void qda_deinit_device(struct qda_dev *qdev)
+> +{
+> +	cleanup_memory_manager(qdev);
+
+Ugh, inline all your one-line wrappers.
+
+> +}
+> +
+> +int qda_init_device(struct qda_dev *qdev)
+> +{
+> +	int ret;
+> +
+> +	ret = init_memory_manager(qdev);
+> +	if (ret)
+> +		drm_err(&qdev->drm_dev, "Failed to initialize memory manager: %d\n", ret);
+> +
+> +	return ret;
+> +}
+> +
+>  void qda_unregister_device(struct qda_dev *qdev)
+>  {
+>  	drm_dev_unregister(&qdev->drm_dev);
+> diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
+> index 2715f378775d..eb089e586b17 100644
+> --- a/drivers/accel/qda/qda_drv.h
+> +++ b/drivers/accel/qda/qda_drv.h
+> @@ -13,6 +13,7 @@
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_file.h>
+> +#include "qda_memory_manager.h"
+>  
+>  /* Driver identification */
+>  #define QDA_DRIVER_NAME "qda"
+> @@ -40,6 +41,8 @@ struct qda_dev {
+>  	struct device *dev;
+>  	/** @cb_devs: Compute context-bank (CB) child devices */
+>  	struct list_head cb_devs;
+> +	/** @iommu_mgr: IOMMU/memory manager instance */
+> +	struct qda_memory_manager *iommu_mgr;
+>  	/** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
+>  	const char *dsp_name;
+>  };
+> @@ -59,6 +62,8 @@ static inline struct qda_dev *qda_dev_from_drm(struct drm_device *dev)
+>  struct qda_dev *qda_alloc_device(struct device *dev);
+>  
+>  /* Core device lifecycle */
+> +int qda_init_device(struct qda_dev *qdev);
+> +void qda_deinit_device(struct qda_dev *qdev);
+>  int qda_register_device(struct qda_dev *qdev);
+>  void qda_unregister_device(struct qda_dev *qdev);
+>  
+> diff --git a/drivers/accel/qda/qda_memory_manager.c b/drivers/accel/qda/qda_memory_manager.c
+> new file mode 100644
+> index 000000000000..00a9c0ae4224
+> --- /dev/null
+> +++ b/drivers/accel/qda/qda_memory_manager.c
+> @@ -0,0 +1,111 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> +
+> +#include <linux/refcount.h>
+> +#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/xarray.h>
+> +#include <drm/drm_file.h>
+> +#include "qda_drv.h"
+> +#include "qda_memory_manager.h"
+> +
+> +static void cleanup_all_memory_devices(struct qda_memory_manager *mem_mgr)
+> +{
+> +	unsigned long index;
+> +	void *entry;
+> +
+> +	pr_debug("qda: Starting cleanup of all memory devices\n");
+
+pr_debug is a third way to debug. Stop it, please.
+
+> +
+> +	xa_for_each(&mem_mgr->device_xa, index, entry) {
+> +		struct qda_iommu_device *iommu_dev = entry;
+> +
+> +		pr_debug("qda: Cleaning up device id=%lu\n", index);
+> +
+> +		xa_erase(&mem_mgr->device_xa, index);
+> +		kfree(iommu_dev);
+> +	}
+> +
+> +	pr_debug("qda: Completed cleanup of all memory devices\n");
+> +}
+> +
+
+-- 
+With best wishes
+Dmitry
