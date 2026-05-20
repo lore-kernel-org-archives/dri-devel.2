@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05DC6CD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8762BCD5BA4
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C7710F142;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3FFF10F143;
 	Wed, 20 May 2026 18:39:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="A9hUC+Zr";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="IlPnSplw";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E63510F133
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3872C10F13C
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1779302327;
- bh=9Dzv5QZZTewYw4HMaE8rAMe+B3WVA6il2PiXX6JKcOw=;
+ bh=gfw+VOnsxyeQOB9qQkKs2AR4t78caZyAmSm1XPJ+q0U=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=A9hUC+Zr0sqfbI+9NFOr0ezHn2236wtA5Cx/3XzRvY0ds2JOT3Xqm19Zr/n9e4Kzx
- n31hcjz6m1vMRwAYp6AhSJ3R+ZoJabPFxv2XA+2VBCncXtWmUqXHoXxYZx1j4dG3JE
- 0nFWyZQa5blCyWUccug8Y5k1dq0CGtrB7XFXOvzksDNFaH1fNK8w+qrBAt9jTtvKGR
- l8UqCg7q2or9idP8qSFrgXZAKHiwmU7ONoRPBaVjzVtWJIPBMlxHTbgRngC6DhV8ry
- lizrbYEXbQnm5F+GrfikYKTLeZOIPCNH4qnZDlboAaKcyWUdFvLudZ152C39tfDmBn
- ndptsREh8x4cA==
+ b=IlPnSplwEZ8eLtoVLTzEWvtpRgb1peF7OcTqACYlOOsXbEZUXlYDhRitRt0m6ioVK
+ 2bB5gohIKOH3hHdFXtClB+zWT98elyOfLncOds5/1jd6TnqPwVUmjhdce6FWHyW1t2
+ PfbRqOPGEUA7ZmqgTs/hYo6EvWNiy1ObgCF5uC+BDAAY1utnQoueg7YNX6bYH0196S
+ 01WiPxBADSzLyIT7mnzJvroKX3Hv8F+LsAR1yCZ41wWuXmICZo2J1lEDKDC9y05u+h
+ 1Nci5rMagryw6kY3vVF20JG8uQlC119E+pIa5w9XIZnbkNSHKLjmy5X4VRsCihSX1n
+ YrZtePcwEnlpg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id ECFD617E1584;
- Wed, 20 May 2026 20:38:46 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id AEFAE17E1591;
+ Wed, 20 May 2026 20:38:47 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 20 May 2026 21:38:32 +0300
-Subject: [PATCH v6 21/22] drm/rockchip: dw_hdmi_qp: Switch to
- dw_hdmi_qp_hpd_notify()
+Date: Wed, 20 May 2026 21:38:33 +0300
+Subject: [PATCH v6 22/22] drm/bridge: dw-hdmi-qp: Remove obsolete
+ .setup_hpd() phy op
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-dw-hdmi-qp-scramb-v6-21-24b74603b782@collabora.com>
+Message-Id: <20260520-dw-hdmi-qp-scramb-v6-22-24b74603b782@collabora.com>
 References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -74,56 +74,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Switch from drm_helper_hpd_irq_event(), which polls all connectors, to
-the recently introduced dw_hdmi_qp_hpd_notify() helper, which runs the
-detect cycle only on the affected connector.
-
-This avoids unnecessary work and redundant detect calls on unrelated
-connectors.
+With the completed transition to .{enable|disable}_hpd() phy ops,
+.setup_hpd() became obsolete and unused.  Drop it.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 3 ---
+ include/drm/bridge/dw_hdmi_qp.h              | 1 -
+ 2 files changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index b9e0ea56efd8..666631fc9162 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -23,7 +23,6 @@
- #include <drm/drm_bridge_connector.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_of.h>
--#include <drm/drm_probe_helper.h>
- 
- #include "rockchip_drm_drv.h"
- 
-@@ -273,14 +272,8 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
- 	struct rockchip_hdmi_qp *hdmi = container_of(work,
- 						     struct rockchip_hdmi_qp,
- 						     hpd_work.work);
--	struct drm_device *drm = hdmi->encoder.encoder.dev;
--	bool changed;
- 
--	if (drm) {
--		changed = drm_helper_hpd_irq_event(drm);
--		if (changed)
--			dev_dbg(hdmi->dev, "connector status changed\n");
--	}
-+	dw_hdmi_qp_hpd_notify(hdmi->hdmi);
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index ed0c68d6c6fd..f626cf4bdda9 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -1316,9 +1316,6 @@ static void dw_hdmi_qp_init_hw(struct dw_hdmi_qp *hdmi)
+ 	/* Clear DONE and ERROR interrupts */
+ 	dw_hdmi_qp_write(hdmi, I2CM_OP_DONE_CLEAR | I2CM_NACK_RCVD_CLEAR,
+ 			 MAINUNIT_1_INT_CLEAR);
+-
+-	if (hdmi->phy.ops->setup_hpd)
+-		hdmi->phy.ops->setup_hpd(hdmi, hdmi->phy.data);
  }
  
- static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
-@@ -645,8 +638,7 @@ static int __maybe_unused dw_hdmi_qp_rockchip_resume(struct device *dev)
- 
- 	dw_hdmi_qp_resume(dev, hdmi->hdmi);
- 
--	if (hdmi->encoder.encoder.dev)
--		drm_helper_hpd_irq_event(hdmi->encoder.encoder.dev);
-+	dw_hdmi_qp_hpd_notify(hdmi->hdmi);
- 
- 	return 0;
- }
+ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
+index b4fb1c578a5b..ad33f9cafdeb 100644
+--- a/include/drm/bridge/dw_hdmi_qp.h
++++ b/include/drm/bridge/dw_hdmi_qp.h
+@@ -16,7 +16,6 @@ struct dw_hdmi_qp_phy_ops {
+ 	int (*init)(struct dw_hdmi_qp *hdmi, void *data);
+ 	void (*disable)(struct dw_hdmi_qp *hdmi, void *data);
+ 	enum drm_connector_status (*read_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+-	void (*setup_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ 	void (*enable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ 	void (*disable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ };
 
 -- 
 2.53.0
