@@ -4,46 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FA7BCD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:34:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AB03CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:38:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CED5910EF7C;
-	Wed, 20 May 2026 09:34:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FA9110EFCB;
+	Wed, 20 May 2026 09:38:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="r1xI+CFL";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="uw4VFx5I";
 	dkim-atps=neutral
-Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com
- [95.215.58.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB5910EF7C
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:34:16 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1779269653;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=RgSHSo63XGsI81rqdim48acMrzkXEHA1gcLJIOQtYkA=;
- b=r1xI+CFL111AHTa3IFIDDskr/Q0vOZCwkuI8GCQxCxaHfe+m4scCGC8sF9/mUhiDPWOrTg
- ovSoz7w8QRbzmLvop4+h1ByHSSznlTLHh5hMquEWzHjcWG5Q9RcnDUcLC2+uuc+6cP7Mpz
- 30ps6/vfVEwQgLkCFvKUeaxfPmDLi5Y=
-From: Marco Pagani <marco.pagani@linux.dev>
-To: Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Marco Pagani <marco.pagani@linux.dev>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4] drm/sched: Add test suite for concurrent job submissions
-Date: Wed, 20 May 2026 11:33:49 +0200
-Message-ID: <20260520093350.1036001-1-marco.pagani@linux.dev>
+X-Greylist: delayed 65952 seconds by postgrey-1.36 at gabe;
+ Wed, 20 May 2026 09:38:24 UTC
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBBA610E0CF
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:38:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1779269904;
+ bh=j4o1v6ER7nCE4/2KsRiGeQnk/i44U1HKfe8zXxUu+Hs=;
+ b=uw4VFx5IyAv73sWspQ3BB/K6TNpqwq4pjC+orP9391LEvixTHk70PwRLyrFmoyzQRys044PIR
+ F/5aa8ZwxkQxAfcgdURzQNlVvgDYESjUA2gN5CH9S0NjAMF4hiFRfEEZpzlNS41zhblYVCPgAI+
+ f7CTvnJ1KxmrlgQRSc4A0vbetJapFabSuvc4jGbY5SsGvk+ZEIsH+r9R5hiRIKC5X53vGNbRikt
+ j9+gCAmHneIHeK4qSq4dclyrVnw2oXiLxMcPs1BmbjJ+8g3o3iT4QEGaefgkGKhY5DGxM4Zv/eD
+ 54SB0kFqboSRR+3ZCOQKYzR876MYMMKp8T2iUapTIuWg==
+X-Forward-Email-ID: 6a0d810b40ac652fcd447b18
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.8.15
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <81944af1-c9e3-4a45-ad42-3426dcab0777@kwiboo.se>
+Date: Wed, 20 May 2026 11:38:14 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/bridge: dw-hdmi-qp: compute audio CTS from N when
+ not in TMDS table
+To: Simon Wright <simon@symple.nz>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Algea Cao <algea.cao@rock-chips.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <00a34a82-213b-4b03-801c-3c10b163d643@symple.nz>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <00a34a82-213b-4b03-801c-3c10b163d643@symple.nz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,412 +76,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a new test suite to simulate concurrent job submissions to the DRM
-scheduler, as this functionality is not covered by current test suites.
+Hi Simon,
 
-The new test suite includes two initial test cases: (i) a test case for
-parallel job submission and (ii) a test case for interleaved job
-submission and completion. In the first test case, worker threads
-concurrently submit jobs to the scheduler, and then the timeline is
-manually advanced to complete them in bulk. In the second test case,
-worker threads concurrently submit sequences of jobs of different
-durations to the mock scheduler using a sliding window to better model
-real-world workloads. The timeline is advanced automatically by the
-finishing jobs, interleaving submission with completion.
+On 5/20/2026 11:10 AM, Simon Wright wrote:
+> dw_hdmi_qp_find_cts() returns 0 for any TMDS character rate not
+> present in common_tmds_cts_table[], which terminates at 148.5 MHz.
+> In that case dw_hdmi_qp_set_sample_rate() calls dw_hdmi_qp_set_cts_n()
+> with cts == 0, which leaves AUDPKT_ACR_CTS_OVR_EN clear and falls
+> back to the controller's internal CTS auto-measurement.
+> 
+> On at least the RK3576 hdptx integration, the auto-measure path
+> produces incorrect ACR timing on the wire at TMDS rates above the
+> table's coverage.  Strict HDMI sinks that cross-check the ACR CTS
+> against the AVI/GCP and the actual TMDS clock then mute audio.
+> 
+> The issue is reproducible at any rate not present in the table, and
+> is not specific to HDMI 2.x: 1920x1080@60 with 10-bit deep colour
+> (185.625 MHz, HDMI 1.4) is affected, as is 3840x2160@60 8-bit
+> (594 MHz, HDMI 2.0).
+> 
+> The driver already has the symmetric machinery for the N-table-miss
+> case: dw_hdmi_qp_compute_n() falls back to a dynamic search via
+> dw_hdmi_qp_audio_math_diff() ((pixel_clk * n) / (128 * freq)) when
+> no table entry matches.  The CTS path lacks the equivalent fallback.
+> 
+> Compute CTS inline in dw_hdmi_qp_set_sample_rate() from N per the
+> HDMI spec (CTS = TMDS * N / (128 * Fs)) when find_cts() returns 0.
+> The standard override path then supplies the correct value on the
+> wire instead of falling through to auto-measure.
+> 
+> The legacy DesignWare HDMI driver (drivers/gpu/drm/bridge/synopsys/
+> dw-hdmi.c, hdmi_set_clk_regenerator()) computes CTS from N via the
+> same formula when AHB or GP audio is active, so the pattern is
+> already established within the family.
+> 
+> Tested on R76S (RK3576) on Armbian-edge mainline 7.0.1 with Cristian
+> Ciocaltea's hdptx-clk-fixes v1 series applied, against four sinks
+> at four TMDS rates spanning HDMI 1.4 and HDMI 2.0:
+> 
+>   TMDS         Mode                In table?  G3     C4     TCL    Kogan
+>   148.5 MHz    1080p60  8-bit      yes        audio  audio  audio  audio
+>   185.625 MHz  1080p60 10-bit      no         audio  audio  audio  audio
+>   297 MHz      3840p30  8-bit      no         audio  audio  audio  audio
+>   594 MHz      3840p60  8-bit      no         audio  N/A    audio  audio
+> 
+> Without this fix, all four sinks mute audio at the rates marked "no"
+> above.  With the fix, audio plays cleanly.  The 148.5 MHz row is a
+> regression check confirming the in-table path is unchanged.
+> 
+> The LG C4 OLED's CTA-861 SVDs do not advertise 3840x2160@60 over
+> TMDS (it is signalled FRL-only in this model's EDID), so that
+> specific case is untestable on the C4 over the TMDS path.  The
+> same audio-path code is exercised on the C4 at 297 MHz and behaves
+> identically to the G3.
+> 
+> More-permissive sinks (older HDMI 2.0 TVs tested informally) play
+> audio at all rates with or without the fix because they do not
+> strictly cross-check ACR CTS against the TMDS clock.
+> 
+> Reported-by: Simon Wright <simon@symple.nz>
+> Closes: https://lore.kernel.org/linux-rockchip/ME3P282MB21960D9D68BFF520316BDFCEA83E2@ME3P282MB2196.AUSP282.PROD.OUTLOOK.COM/
+> Suggested-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> Tested-by: Simon Wright <simon@symple.nz>
+> Assisted-by: Claude:claude-opus-4-7
+> Signed-off-by: Simon Wright <simon@symple.nz>
+> ---
+> Changes in v2:
+>   - Resend after v1 was mailer-mangled and unapplyable (reported by
+>     Luca Ceresoli).
+>   - Body split into shorter paragraphs for readability per Luca's
+>     review.
+>   - Original LG G3 report (linux-rockchip 070633) moved from inline
+>     prose to a Closes: trailer paired with Reported-by:, per
+>     Documentation/process/submitting-patches.rst.
+>   - Add Assisted-by: trailer per
+>     Documentation/process/coding-assistants.rst.
+>   - No code or test-result changes.
+> 
+> v1: https://lore.kernel.org/linux-rockchip/92aa4191-2a2a-41e3-badb-c0a5b1fbb957@symple.nz/
+> 
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> index 0dbb1274360..b7203787057 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> @@ -461,6 +461,23 @@ static void dw_hdmi_qp_set_sample_rate(struct dw_hdmi_qp *hdmi, unsigned long lo
+>  	n = dw_hdmi_qp_find_n(hdmi, tmds_char_rate, sample_rate);
+>  	cts = dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate);
+>  
+> +	/*
+> +	 * When no CTS table entry exists for the given TMDS rate, compute
+> +	 * CTS from N rather than letting the hardware auto-measure.  The
+> +	 * auto-CTS circuit produces incorrect audio timing at out-of-table
+> +	 * rates (e.g. 185.625 MHz, 297 MHz, 594 MHz), causing strict HDMI
+> +	 * sinks to mute audio.  Computed CTS = (TMDS * N) / (128 * Fs) per
+> +	 * HDMI spec; the standard override path then supplies it on the
+> +	 * wire.  Mirrors hdmi_set_clk_regenerator() in the legacy dw-hdmi
+> +	 * driver.
+> +	 */
+> +	if (!cts && n) {
+> +		u64 computed = (u64)tmds_char_rate * n;
+> +
+> +		do_div(computed, 128ULL * sample_rate);
+> +		cts = (unsigned int)computed;
+> +	}
 
-Signed-off-by: Marco Pagani <marco.pagani@linux.dev>
----
-Changes in v4:
-- Changed teardown order to prevent a use-after-free (reported by Philipp)
----
- drivers/gpu/drm/scheduler/tests/tests_basic.c | 359 ++++++++++++++++++
- 1 file changed, 359 insertions(+)
+Could this function instead be converted to use the helper
+drm_hdmi_acr_get_n_cts() to lookup/calculate the n and cts value?
 
-diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-index a5a5a35a87b0..da5c4952780f 100644
---- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
-+++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-@@ -1,7 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright (c) 2025 Valve Corporation */
- 
-+#include <linux/completion.h>
- #include <linux/delay.h>
-+#include <linux/minmax.h>
-+#include <linux/time.h>
-+#include <linux/workqueue.h>
- 
- #include "sched_tests.h"
- 
-@@ -235,6 +239,360 @@ static void drm_sched_basic_cancel(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, job->hw_fence.error, -ECANCELED);
- }
- 
-+struct sched_concurrent_context {
-+	struct drm_mock_scheduler *sched;
-+	struct workqueue_struct *sub_wq;
-+	struct kunit *test;
-+	struct completion wait_go;
-+};
-+
-+KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_fini_wrap, drm_mock_sched_fini,
-+			    struct drm_mock_scheduler *);
-+
-+KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_entity_free_wrap, drm_mock_sched_entity_free,
-+			    struct drm_mock_sched_entity *);
-+
-+static void complete_destroy_workqueue(void *context)
-+{
-+	struct sched_concurrent_context *ctx = context;
-+
-+	complete_all(&ctx->wait_go);
-+
-+	destroy_workqueue(ctx->sub_wq);
-+}
-+
-+static int drm_sched_concurrent_init(struct kunit *test)
-+{
-+	struct sched_concurrent_context *ctx;
-+	int ret;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
-+
-+	init_completion(&ctx->wait_go);
-+
-+	ctx->sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
-+
-+	ret = kunit_add_action_or_reset(test, drm_mock_sched_fini_wrap, ctx->sched);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	/* Use an unbounded workqueue to maximize job submission concurrency */
-+	ctx->sub_wq = alloc_workqueue("drm-sched-submitters-wq", WQ_UNBOUND,
-+				      WQ_UNBOUND_MAX_ACTIVE);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->sub_wq);
-+
-+	ret = kunit_add_action_or_reset(test, complete_destroy_workqueue, ctx);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ctx->test = test;
-+	test->priv = ctx;
-+
-+	return 0;
-+}
-+
-+struct drm_sched_parallel_params {
-+	const char *description;
-+	unsigned int num_jobs;
-+	unsigned int num_workers;
-+};
-+
-+static const struct drm_sched_parallel_params drm_sched_parallel_cases[] = {
-+	{
-+		.description = "Parallel submission of multiple jobs per worker",
-+		.num_jobs = 8,
-+		.num_workers = 16,
-+	},
-+};
-+
-+static void
-+drm_sched_parallel_desc(const struct drm_sched_parallel_params *params, char *desc)
-+{
-+	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(drm_sched_parallel, drm_sched_parallel_cases, drm_sched_parallel_desc);
-+
-+struct parallel_worker {
-+	struct work_struct work;
-+	struct sched_concurrent_context *ctx;
-+	struct drm_mock_sched_entity *entity;
-+	struct drm_mock_sched_job **jobs;
-+	unsigned int id;
-+};
-+
-+static void drm_sched_parallel_worker(struct work_struct *work)
-+{
-+	const struct drm_sched_parallel_params *params;
-+	struct sched_concurrent_context *test_ctx;
-+	struct parallel_worker *worker;
-+	unsigned int i;
-+
-+	worker = container_of(work, struct parallel_worker, work);
-+	test_ctx = worker->ctx;
-+	params = test_ctx->test->param_value;
-+
-+	wait_for_completion(&test_ctx->wait_go);
-+
-+	kunit_info(test_ctx->test, "Parallel worker %u submitting %u jobs started\n",
-+		   worker->id, params->num_jobs);
-+
-+	for (i = 0; i < params->num_jobs; i++)
-+		drm_mock_sched_job_submit(worker->jobs[i]);
-+}
-+
-+/*
-+ * Spawns workers that submit a sequence of jobs to the mock scheduler.
-+ * Once all jobs are submitted, the timeline is manually advanced.
-+ */
-+static void drm_sched_parallel_submit_test(struct kunit *test)
-+{
-+	struct sched_concurrent_context *ctx = test->priv;
-+	const struct drm_sched_parallel_params *params = test->param_value;
-+	struct parallel_worker *workers, *worker;
-+	struct drm_mock_sched_job *job;
-+	unsigned int i, j, completed_jobs, total_jobs;
-+	bool done;
-+	int ret;
-+
-+	KUNIT_ASSERT_GT(test, params->num_workers, 0);
-+	KUNIT_ASSERT_GT(test, params->num_jobs, 0);
-+
-+	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
-+				GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, workers);
-+
-+	/*
-+	 * Init workers only after all jobs and entities have been successfully
-+	 * allocated. In this way, the cleanup logic for when an assertion fail
-+	 * can be simplified.
-+	 */
-+	for (i = 0; i < params->num_workers; i++) {
-+		worker = &workers[i];
-+		worker->id = i;
-+		worker->ctx = ctx;
-+		worker->entity = drm_mock_sched_entity_new(test,
-+							   DRM_SCHED_PRIORITY_NORMAL,
-+							   ctx->sched);
-+
-+		worker->jobs = kunit_kcalloc(test, params->num_jobs,
-+					     sizeof(*worker->jobs), GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, worker->jobs);
-+
-+		for (j = 0; j < params->num_jobs; j++) {
-+			job = drm_mock_sched_job_new(test, worker->entity);
-+			worker->jobs[j] = job;
-+		}
-+
-+		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
-+						worker->entity);
-+		KUNIT_ASSERT_EQ(test, ret, 0);
-+	}
-+
-+	for (i = 0; i < params->num_workers; i++) {
-+		worker = &workers[i];
-+		INIT_WORK(&worker->work, drm_sched_parallel_worker);
-+		queue_work(ctx->sub_wq, &worker->work);
-+	}
-+
-+	complete_all(&ctx->wait_go);
-+	flush_workqueue(ctx->sub_wq);
-+
-+	for (i = 0; i < params->num_workers; i++) {
-+		worker = &workers[i];
-+		for (j = 0; j < params->num_jobs; j++) {
-+			job = worker->jobs[j];
-+			done = drm_mock_sched_job_wait_scheduled(job, HZ);
-+			KUNIT_EXPECT_TRUE(test, done);
-+		}
-+	}
-+
-+	total_jobs = params->num_workers * params->num_jobs;
-+	completed_jobs = drm_mock_sched_advance(ctx->sched, total_jobs);
-+	KUNIT_EXPECT_EQ(test, completed_jobs, total_jobs);
-+
-+	for (i = 0; i < params->num_workers; i++) {
-+		worker = &workers[i];
-+		for (j = 0; j < params->num_jobs; j++) {
-+			job = worker->jobs[j];
-+			done = drm_mock_sched_job_wait_finished(job, HZ);
-+			KUNIT_EXPECT_TRUE(test, done);
-+		}
-+	}
-+}
-+
-+struct drm_sched_interleaved_params {
-+	const char *description;
-+	unsigned int test_duration_ms;
-+	unsigned int job_base_duration_us;
-+	unsigned int num_workers;
-+	unsigned int num_in_flight_jobs;
-+};
-+
-+static const struct drm_sched_interleaved_params drm_sched_interleaved_cases[] = {
-+	{
-+		.description = "Interleaved submission of multiple jobs per worker",
-+		.test_duration_ms = 1000,
-+		.job_base_duration_us = 100,
-+		.num_workers = 16,
-+		.num_in_flight_jobs = 8,
-+	},
-+};
-+
-+static void
-+drm_sched_interleaved_desc(const struct drm_sched_interleaved_params *params, char *desc)
-+{
-+	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(drm_sched_interleaved, drm_sched_interleaved_cases,
-+		  drm_sched_interleaved_desc);
-+
-+struct interleaved_worker {
-+	struct work_struct work;
-+	struct sched_concurrent_context *ctx;
-+	struct drm_mock_sched_entity *entity;
-+	struct drm_mock_sched_job **jobs;
-+	unsigned int id;
-+	unsigned int job_count;
-+	unsigned int job_duration_us;
-+};
-+
-+static void drm_sched_interleaved_worker(struct work_struct *work)
-+{
-+	struct sched_concurrent_context *test_ctx;
-+	const struct drm_sched_interleaved_params *params;
-+	struct interleaved_worker *worker;
-+	unsigned int i, j, max_in_flight_job;
-+	unsigned long timeout;
-+	bool done;
-+
-+	worker = container_of(work, struct interleaved_worker, work);
-+	test_ctx = worker->ctx;
-+	params = test_ctx->test->param_value;
-+
-+	wait_for_completion(&test_ctx->wait_go);
-+
-+	kunit_info(test_ctx->test, "Worker %u submitting %u jobs of %u us started\n",
-+		   worker->id, worker->job_count, worker->job_duration_us);
-+
-+	timeout = msecs_to_jiffies(params->test_duration_ms * 2);
-+
-+	/* Fill the submission window */
-+	max_in_flight_job = min(worker->job_count, params->num_in_flight_jobs);
-+	for (i = 0; i < max_in_flight_job; i++)
-+		drm_mock_sched_job_submit(worker->jobs[i]);
-+
-+	/* Keep the window full by submitting a new job at once until done */
-+	for (i = 0; i < worker->job_count; i++) {
-+		done = drm_mock_sched_job_wait_finished(worker->jobs[i], timeout);
-+		if (!done)
-+			kunit_info(test_ctx->test, "Job %u of worker %u timed out\n",
-+				   i, worker->id);
-+
-+		j = i + max_in_flight_job;
-+		if (j < worker->job_count)
-+			drm_mock_sched_job_submit(worker->jobs[j]);
-+	}
-+}
-+
-+/*
-+ * Spawns workers that submit a sequence of jobs to the mock scheduler. Job
-+ * durations are chosen as multiples of a base duration value specified as
-+ * a test parameter. Since the scheduler serializes jobs from all workers,
-+ * the total test duration budget is divided into equal shares among workers.
-+ * These shares are then used to compute the number of jobs that each worker
-+ * can submit.
-+ */
-+static void drm_sched_interleaved_submit_test(struct kunit *test)
-+{
-+	const struct drm_sched_interleaved_params *params = test->param_value;
-+	struct sched_concurrent_context *ctx = test->priv;
-+	struct interleaved_worker *workers, *worker;
-+	struct drm_mock_sched_job *job;
-+	unsigned int worker_share_us;
-+	unsigned int i, j;
-+	bool done;
-+	int ret;
-+
-+	KUNIT_ASSERT_GT(test, params->num_workers, 0);
-+	KUNIT_ASSERT_GT(test, params->job_base_duration_us, 0);
-+
-+	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
-+				GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, workers);
-+
-+	/* Divide the available test time into equal shares among the workers */
-+	worker_share_us = (params->test_duration_ms * USEC_PER_MSEC) /
-+			  params->num_workers;
-+
-+	/*
-+	 * Init workers only after all jobs and entities have been successfully
-+	 * allocated. In this way, the cleanup logic for when an assertion fails
-+	 * can be simplified.
-+	 */
-+	for (i = 0; i < params->num_workers; i++) {
-+		worker = &workers[i];
-+		worker->id = i;
-+		worker->ctx = ctx;
-+
-+		worker->job_duration_us = params->job_base_duration_us * (i + 1);
-+		worker->job_count = worker_share_us / worker->job_duration_us;
-+		worker->job_count = max(1U, worker->job_count);
-+
-+		worker->entity = drm_mock_sched_entity_new(test,
-+							   DRM_SCHED_PRIORITY_NORMAL,
-+							   ctx->sched);
-+
-+		worker->jobs = kunit_kcalloc(test, worker->job_count,
-+					     sizeof(*worker->jobs), GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, worker->jobs);
-+
-+		for (j = 0; j < worker->job_count; j++) {
-+			job = drm_mock_sched_job_new(test, worker->entity);
-+			drm_mock_sched_job_set_duration_us(job, worker->job_duration_us);
-+
-+			worker->jobs[j] = job;
-+		}
-+
-+		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
-+						worker->entity);
-+		KUNIT_ASSERT_EQ(test, ret, 0);
-+	}
-+
-+	for (i = 0; i < params->num_workers; i++) {
-+		worker = &workers[i];
-+		INIT_WORK(&worker->work, drm_sched_interleaved_worker);
-+		queue_work(ctx->sub_wq, &worker->work);
-+	}
-+
-+	complete_all(&ctx->wait_go);
-+	flush_workqueue(ctx->sub_wq);
-+
-+	for (i = 0; i < params->num_workers; i++) {
-+		worker = &workers[i];
-+		for (j = 0; j < worker->job_count; j++) {
-+			job = worker->jobs[j];
-+			done = drm_mock_sched_job_is_finished(job);
-+			KUNIT_EXPECT_TRUE(test, done);
-+		}
-+	}
-+}
-+
-+static struct kunit_case drm_sched_concurrent_tests[] = {
-+	KUNIT_CASE_PARAM(drm_sched_parallel_submit_test, drm_sched_parallel_gen_params),
-+	KUNIT_CASE_PARAM(drm_sched_interleaved_submit_test, drm_sched_interleaved_gen_params),
-+	{}
-+};
-+
-+static struct kunit_suite drm_sched_concurrent = {
-+	.name = "drm_sched_concurrent_tests",
-+	.init = drm_sched_concurrent_init,
-+	.test_cases = drm_sched_concurrent_tests,
-+	.attr = {
-+		.speed = KUNIT_SPEED_SLOW,
-+	},
-+};
-+
- static struct kunit_case drm_sched_cancel_tests[] = {
- 	KUNIT_CASE(drm_sched_basic_cancel),
- 	{}
-@@ -556,6 +914,7 @@ static struct kunit_suite drm_sched_credits = {
- };
- 
- kunit_test_suites(&drm_sched_basic,
-+		  &drm_sched_concurrent,
- 		  &drm_sched_timeout,
- 		  &drm_sched_cancel,
- 		  &drm_sched_priority,
--- 
-2.54.0
+At first glance it looks to produce same/similar values as this driver
+tries to do open-coded.
+
+Regards,
+Jonas
+
+> +
+>  	dw_hdmi_qp_set_cts_n(hdmi, cts, n);
+>  }
+>  
+> 
+> base-commit: c1079aebb4de218caa86c44f9a53700d1a582683
 
