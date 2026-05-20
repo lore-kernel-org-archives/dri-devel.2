@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 022F0CD5BAE
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:38:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F455CD5BAA
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02B7E10F120;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09F2D10F128;
 	Wed, 20 May 2026 18:38:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EHNR9Wik";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bOTrab0t";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 961BD10F119
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB5F610F119
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779302320;
- bh=TwCBu/zIC/MtkR5qkQ0r8suaoCIhNg0oubAnmts1YcA=;
+ s=mail; t=1779302321;
+ bh=PEemA0WqVIoGoj8101WfnirTaDx5o3iLNMAMLvYhVdM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=EHNR9WikfmSUvqsNEvPfIPuy8BViX3qtXCeR3SM0D3mlEd2gtLfuWIviLjGYn67uM
- M1HqU4o3l9cYXtzwf2Xmm0SpkZlbNec4qcnqWvIw7dvFwLeZHuVinokKx4HfuNjmCK
- Romg2NcICX2zOMk+LPQKygCe2wUy5IIIelJFsUDOZYRJP01bNN06Z0isvzNeqhoUS6
- 3CcfgDFgTatXmdYaCjnyGVre2g0h+1xTDI/+eRMM15+Wtzhf6NTzjjSf1RJbqRwD5M
- YI18xP0giJEEkHUAhI2CcMaxfbQod6HO6Dbjet5MSZxh3lF2TS9F43+LchiIrIbn/W
- R+OZDgihAvIDg==
+ b=bOTrab0tw2qVYqDV74j15s/lk/v+liWC4KXy0cSJGeOruqzoGD3+tZpZay/2FK/sZ
+ 38O0BvNQOI1pZkXywV2Wczu1pIaE2MXUVHOspfvmEv/gorJMtKKXFjKQRpWdZSlv+/
+ 58M8pHWUpkdKNWandprIxZxRv2ZL2EtgHapaYoIpQQkICZfufGY3La1nj7JVfsHCbT
+ GiZke9Ytlxxw/PjY1HbkWQtpSsCXOVxE1aWsZrbahkvOzfAmvv8wBztsYvsiR+TYY0
+ vEk31trLsio6cPBYCIQTacQyL/5jfwmG6/1kORYdBpkeahbx+cNX0wRZ0NggAJyuLB
+ mYCRXP6UxsGdA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1BC3217E1528;
- Wed, 20 May 2026 20:38:40 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 97C7B17E1544;
+ Wed, 20 May 2026 20:38:41 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 20 May 2026 21:38:23 +0300
-Subject: [PATCH v6 12/22] drm/bridge: dw-hdmi-qp: Provide
- .{enable|disable}_hpd() PHY ops
+Date: Wed, 20 May 2026 21:38:25 +0300
+Subject: [PATCH v6 14/22] drm/bridge: dw-hdmi-qp: Provide
+ dw_hdmi_qp_hpd_notify() helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-dw-hdmi-qp-scramb-v6-12-24b74603b782@collabora.com>
+Message-Id: <20260520-dw-hdmi-qp-scramb-v6-14-24b74603b782@collabora.com>
 References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -74,69 +74,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement the .hpd_enable() and .hpd_disable() bridge callbacks and
-extend dw_hdmi_qp_phy_ops with corresponding hooks.
-
-This enables the DRM core to control when HPD interrupts are armed,
-which is needed to prevent premature interrupt delivery before the
-connector is fully initialized, and to properly quiesce HPD during
-suspend.
+Export dw_hdmi_qp_hpd_notify() for platform drivers to report hot-plug
+detection events.  Unlike drm_helper_hpd_irq_event() which polls all
+connectors, this helper targets only the affected connector and ensures
+.detect_ctx() is invoked on reconnection events to trigger SCDC state
+recovery.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 18 ++++++++++++++++++
- include/drm/bridge/dw_hdmi_qp.h              |  2 ++
- 2 files changed, 20 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 31 ++++++++++++++++++++++++++++
+ include/drm/bridge/dw_hdmi_qp.h              |  1 +
+ 2 files changed, 32 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 59da91eca929..efa798aa23ac 100644
+index 001916a98da8..ed0c68d6c6fd 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -1191,6 +1191,22 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
- #define dw_hdmi_qp_cec_transmit NULL
- #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
+@@ -29,6 +29,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
  
-+static void dw_hdmi_qp_bridge_hpd_enable(struct drm_bridge *bridge)
+ #include <media/cec.h>
+ 
+@@ -1431,6 +1432,36 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ }
+ EXPORT_SYMBOL_GPL(dw_hdmi_qp_bind);
+ 
++/**
++ * dw_hdmi_qp_hpd_notify() - Notify a hot-plug detection event
++ * @hdmi: pointer to the DW HDMI QP controller
++ *
++ * Platform drivers should call this from their HPD interrupt handler
++ * or work function to notify the bridge of a connection status change.
++ * The bridge's .read_hpd() phy_ops callback is used to read the current
++ * connection status.
++ */
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi)
 +{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++	enum drm_connector_status status;
 +
-+	if (hdmi->phy.ops->enable_hpd)
-+		hdmi->phy.ops->enable_hpd(hdmi, hdmi->phy.data);
++	status = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
++	dev_dbg(hdmi->dev, "%s status=%d\n", __func__, status);
++
++	/*
++	 * When the display pipeline has been already active, switch to
++	 * drm_connector_helper_hpd_irq_event() to ensure .detect_ctx()
++	 * gets invoked, i.e. via drm_helper_probe_detect(), because
++	 * drm_bridge_hpd_notify() defers to a delayed hotplug path in
++	 * this case.
++	 */
++	if (hdmi->curr_conn && status == connector_status_connected)
++		drm_connector_helper_hpd_irq_event(hdmi->curr_conn);
++	else
++		drm_bridge_hpd_notify(&hdmi->bridge, status);
 +}
++EXPORT_SYMBOL_GPL(dw_hdmi_qp_hpd_notify);
 +
-+static void dw_hdmi_qp_bridge_hpd_disable(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-+
-+	if (hdmi->phy.ops->disable_hpd)
-+		hdmi->phy.ops->disable_hpd(hdmi, hdmi->phy.data);
-+}
-+
- static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-@@ -1198,6 +1214,8 @@ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
- 	.atomic_enable = dw_hdmi_qp_bridge_atomic_enable,
- 	.atomic_disable = dw_hdmi_qp_bridge_atomic_disable,
- 	.detect = dw_hdmi_qp_bridge_detect,
-+	.hpd_enable = dw_hdmi_qp_bridge_hpd_enable,
-+	.hpd_disable = dw_hdmi_qp_bridge_hpd_disable,
- 	.edid_read = dw_hdmi_qp_bridge_edid_read,
- 	.hdmi_tmds_char_rate_valid = dw_hdmi_qp_bridge_tmds_char_rate_valid,
- 	.hdmi_clear_avi_infoframe = dw_hdmi_qp_bridge_clear_avi_infoframe,
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi)
+ {
+ 	disable_irq(hdmi->main_irq);
 diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
-index 6ea9c561cfef..b80fceffc315 100644
+index b80fceffc315..b4fb1c578a5b 100644
 --- a/include/drm/bridge/dw_hdmi_qp.h
 +++ b/include/drm/bridge/dw_hdmi_qp.h
-@@ -17,6 +17,8 @@ struct dw_hdmi_qp_phy_ops {
- 	void (*disable)(struct dw_hdmi_qp *hdmi, void *data);
- 	enum drm_connector_status (*read_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- 	void (*setup_hpd)(struct dw_hdmi_qp *hdmi, void *data);
-+	void (*enable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
-+	void (*disable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- };
- 
- struct dw_hdmi_qp_plat_data {
+@@ -36,6 +36,7 @@ struct dw_hdmi_qp_plat_data {
+ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ 				   struct drm_encoder *encoder,
+ 				   const struct dw_hdmi_qp_plat_data *plat_data);
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_resume(struct device *dev, struct dw_hdmi_qp *hdmi);
+ #endif /* __DW_HDMI_QP__ */
 
 -- 
 2.53.0
