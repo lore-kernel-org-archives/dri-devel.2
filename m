@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60BCECD5BAF
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A81FCD5BAC
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4EAA10F0DE;
-	Wed, 20 May 2026 16:40:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86D8E10F0D9;
+	Wed, 20 May 2026 16:40:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bM2vWTiB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="chXvXKf/";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E627B10E1F6
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:40:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1087E10E206
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:40:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1AB5760120;
+ by tor.source.kernel.org (Postfix) with ESMTP id 89DC960215;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B3C15C2BCB0;
- Wed, 20 May 2026 16:40:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 49AABC32782;
+ Wed, 20 May 2026 16:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779295241;
- bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=bM2vWTiB3uWVR0vB6KYNd9Ft82YThNYWg+mwz5z6zUdP6SltRenR20T2V/wUx9APL
- DdTSYki+5OMp46KbFrx6w06L2eMbD7hZQmOWk5omXPnoej+wLtGfTSCoYbWjmC2e77
- iGkd6gL7g+tcSS+lloy8ckbvdOSqj1V9fVyjmhoIQWUOyv0NK0PIjFqT0j1jadHuGa
- z1H4k17qaQTKvi4HIte71E/JID6isEidTVy/pMcchBMRVFIqCiQKhO1KArKkwRbDjo
- 9GcIoykYJsSDIoR7Rg8OnOcbt8EgseFMfG36QMq9S09niQX3HSvI2isVrMZshdfuAz
- r91eRTjqQermg==
+ s=k20201202; t=1779295242;
+ bh=yjbTv7IE3rnG+foAIeVCcQYWym1cEuH3YQsEYTkU92o=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=chXvXKf/C7UETP35+/ZNkk75kc604OtSLqgxuB+GL4ZCZIgdRDIfv2qbiDSsLJdpn
+ rMQC2P0pf+1147LdfuwPexomC2QYmBPQ1cIX4ScZ+XCagyZO40frvn8UCay/4gJK2G
+ /N31KsBxSbYybvuoKDqIR+T3H2o05F1r97tTJs4pXM+DRhqWPXJrJhiOfxU4zD3/vJ
+ laSW8CvrTIUHP9lDBhSAPfANHGadZkGni36xZj3pGUxC41uUB8vPJMwwEGWOTXKTHg
+ S9FqHwODbgtfxLQx4yXlwK0glhbZr78tCKnOv3Wpxwt/Gun5ouKl2+ezLgxvTUXXpP
+ muR2icHa886Hw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id A5F73CD5BA4;
- Wed, 20 May 2026 16:40:41 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 3F081CD5BAA;
+ Wed, 20 May 2026 16:40:42 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?=
  <devnull+jerome.debretagne.gmail.com@kernel.org>
-Subject: [PATCH 00/11] Microsoft Surface Pro 9 5G update
-Date: Wed, 20 May 2026 18:40:04 +0200
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
+Date: Wed, 20 May 2026 18:40:11 +0200
+Subject: [PATCH 07/11] arm64: dts: qcom: sc8280xp-arcata: Add volume
+ up/down GPIO keys
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAOTjDWoC/x3MwQ6CMAyA4VchPVtTF2HiqxgP2+igl0FaJCSEd
- 3d6/A7/f4CxChs8mwOUNzGZS8Xt0kCaQhkZZagGR66j1hHaR3NIjLb02I6YZ8XC+4r+0fsUI+W
- 7S1DrRTnL/j+/3tUxGGPUUNL0+23+SnCeX4YdOrKAAAAA
-X-Change-ID: 20260520-surface-sp9-5g-for-next-7897cbb0f42c
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-7-9df52552bf87@gmail.com>
+References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
+In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 To: Douglas Anderson <dianders@chromium.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -59,16 +58,13 @@ To: Douglas Anderson <dianders@chromium.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>, 
- Bartosz Golaszewski <brgl@kernel.org>, Johan Hovold <johan@kernel.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1578;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=2039;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
- b=TxYunP+RMjqX6ztukqcbFSA9ok7XwP4bO3nlR9H9+xVWj1Xay+n9Ee8UnjAKgLVtfFf5+ndDL
- lfsAqQJ15CeBEwbFacPNIhbr5cf+0/QkZR0U+O/1CQ1wqrd3TNeUcLZ
+ bh=CfiRUKjuOkBz4gm02vzH1uF4ZTJ7kW7Ou28mRmrz7TE=;
+ b=Y/MRBh06KA8oGhSHijX6zyf2PvGCEcP/zUixmH66wBm/zVVlyf3jKtq9AuHmwqKrgUOUPewvp
+ eYV7SvmddAzCbGlo9tR7NQNdmx6UsFCbWIHFlviE3I7VXNzzRbZc4/D
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -91,38 +87,85 @@ Reply-To: jerome.debretagne@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series updates the support for the Microsoft Surface 9 5G
-(Arcata), bringing it more up-to-date and aligned with the other
-sc8280xp models such as the Lenovo ThinkPad X13s.
+From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-As highlights, it finally enables the built-in screen, it fixes
-Display Port alt mode on the top left-side USB-C port, it enables
-the volume up/down keys and the lid switch.
+Configure gpio6 to serve as volume down and gpio9 as volume up to enable
+the volume up/down keys located at the top of the screen.
 
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
-Jérôme de Bretagne (11):
-      drm/panel: edp: Add LG LP129WT232166 panel
-      arm64: dts: qcom: sc8280xp-arcata: Enable backlight
-      arm64: dts: qcom: sc8280xp-arcata: Enable the eDP display
-      arm64: dts: qcom: sc8280xp-arcata: add USB-C orientation GPIOs
-      arm64: dts: qcom: sc8280xp-arcata: Fix top USB-C DP alt mode
-      arm64: dts: qcom: sc8280xp-arcata: Enable 4-lane DP support
-      arm64: dts: qcom: sc8280xp-arcata: Add volume up/down GPIO keys
-      arm64: dts: qcom: sc8280xp-arcata: Add lid switch
-      arm64: dts: qcom: sc8280xp-arcata: model the PMU of the on-board wcn6855
-      arm64: dts: qcom: sc8280xp-arcata: Switch to uefi rtc offset
-      arm64: dts: qcom: sc8280xp-arcata: Drop duplicate DMIC supplies
+ .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 42 ++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 301 ++++++++++++++++++---
- drivers/gpu/drm/panel/panel-edp.c                  |   1 +
- 2 files changed, 266 insertions(+), 36 deletions(-)
----
-base-commit: 028ef9c96e96197026887c0f092424679298aae8
-change-id: 20260520-surface-sp9-5g-for-next-7897cbb0f42c
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+index 2a6f0c9de7c85a4f0659237846b0430a0b021a40..a300069b5960dbba28601c418951869c94b63938 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+@@ -6,6 +6,7 @@
+ /dts-v1/;
+ 
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ 
+ #include "sc8280xp.dtsi"
+@@ -56,6 +57,31 @@ backlight: backlight {
+ 		pinctrl-names = "default";
+ 	};
+ 
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-0 = <&vol_down_n>, <&vol_up_n>;
++		pinctrl-names = "default";
++
++		key-vol-down {
++			label = "Volume Down";
++			gpios = <&pmc8280_1_gpios 6 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEDOWN>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
++
++		key-vol-up {
++			label = "Volume Up";
++			gpios = <&pmc8280_1_gpios 9 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
++	};
++
+ 	pmic-glink {
+ 		compatible = "qcom,sc8280xp-pmic-glink", "qcom,pmic-glink";
+ 
+@@ -939,6 +965,22 @@ edp_bl_en: edp-bl-en-state {
+ 		pins = "gpio8";
+ 		function = "normal";
+ 	};
++
++	vol_down_n: vol-down-n-state {
++		pins = "gpio6";
++		function = "normal";
++		power-source = <1>;
++		input-enable;
++		bias-pull-up;
++	};
++
++	vol_up_n: vol-up-n-state {
++		pins = "gpio9";
++		function = "normal";
++		power-source = <1>;
++		input-enable;
++		bias-pull-up;
++	};
+ };
+ 
+ &pmc8280_2_gpios {
 
-Best regards,
 -- 
-Jérôme de Bretagne <jerome.debretagne@gmail.com>
+2.47.3
 
 
