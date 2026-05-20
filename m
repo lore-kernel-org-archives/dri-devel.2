@@ -4,54 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6612CCD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:44:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54F34CD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:44:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9977110F094;
-	Wed, 20 May 2026 14:44:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABC5E10F097;
+	Wed, 20 May 2026 14:44:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Jk+SBRmX";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="BAU8yEMe";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9F8310F094
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:44:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779288257;
- bh=QmwuzewkVbLg4n5w3vw+KAhs4FYKjhey77KymFbvj/g=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Jk+SBRmXKrd5OZNxuf19CskKl3KYqJdl/mLtKpaGjYrK/gml8sp9nI1RH+M1kmaxt
- +VfYm2nX0mJNN1yMviCUr5zKJidA5IV+XQAJTIbzQYt9/UMAwJJ9pPm7qn+s9LqljO
- 8dgatVbHLFFjvwosMj8910BF8Msh2clj/owUkeguYt9aATO80hvY9rmR2pN86BaVZu
- R97cdl9yI+ex4sbdhs8BF6dO1nriOvZPCz1yoCto1uUxXrJxcm8yPVRGCr7nHT5/GL
- g5o87/Uox7PVLEd+hJZIWCn+HfuQmiDc4nJQG6oJUC7X94bTP80DerMvkGdpHk9OaF
- IPeQVHQrRfb8g==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B5C1917E0504;
- Wed, 20 May 2026 16:44:16 +0200 (CEST)
-Date: Wed, 20 May 2026 16:44:12 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Igor Torrente <igor.torrente@collabora.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, loic.molinari@collabora.com,
- willy@infradead.org, frank.binns@imgtec.com, matt.coster@imgtec.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-Subject: Re: [PATCH v3 5/6] drm/gem-shmem: Track folio accessed/dirty status
- in mmap
-Message-ID: <20260520164412.3a73d85a@fedora>
-In-Reply-To: <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
-References: <20260209133241.238813-1-tzimmermann@suse.de>
- <20260209133241.238813-6-tzimmermann@suse.de>
- <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C742010ECE1
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:44:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779288271;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rBONYP+S2lSO7lzzc2ExLTPJBMyi8jCEBbTq/shG5lA=;
+ b=BAU8yEMee8EfuxHZBiukSHtw3QCdWy5qL6yVYJwddHynV2UNS1Z0l0RfSjDAEUh77qvTQR
+ p/chhOje3G0Mn3rl+27y4KVze6nKCFU0Q2g4tdshAx8O7pbL9NN55XM4IiNjx0DUAj8t1P
+ qNI6pq/Slq7t95ssY8SJ0ehsMBMUeeQ=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-639-t_G0SQhYOlqgfs-ay98AOA-1; Wed, 20 May 2026 10:44:30 -0400
+X-MC-Unique: t_G0SQhYOlqgfs-ay98AOA-1
+X-Mimecast-MFC-AGG-ID: t_G0SQhYOlqgfs-ay98AOA_1779288269
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-44f1b4d0fb0so3034291f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 07:44:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779288269; x=1779893069;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rBONYP+S2lSO7lzzc2ExLTPJBMyi8jCEBbTq/shG5lA=;
+ b=AMAZyfHkOxAu83yyrg2eZOc5U0Jf41dPriySKG6H5QaQgl3kBVEINED5o2pVtC2MFr
+ S+eYFs+CrN7GNjVgJMLmV7NlA8dSVuyyx9t4kp4O5L6Wh4FhaGF2lzOaAwyVTJ8XjWsH
+ DVZSi7/KO5ORCEA8v/PzyX4g4sSoi2k6lFXckJX4/B/5mWKr8Re7fgXqzdQTCnvyRAMz
+ aX/3bFGds96jcWrh+70Sd0bJmAYckXZFGXdfaMyxecGIwxlte0TzTW2gUXALS728GikH
+ fUQ3yy/dDUIpxMtluq28Pd1atsJ+Ct6aYUGR/jJWfFVZswIoq96HU38Eg5xNyWiissKy
+ Bi1A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9e48DDmGAsu807bv0Jot38vw34FCg2B5/vE+RNHqwyQ8DU9bXmHCwWr0debdouqgKpPa+VzFVykck=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwS60q6rIMA2DpMZZ+2IqBHyrMRdDUBR7BKcET4GIjNVFO3hOoi
+ SALdP9iag27E3+0Lvmp608eI8D1HyuB/tRhlwCdLduLfX07LV8X/SOwybXiHod6sFIih7fmvJId
+ vTMNr22nao0Aghqh/Yb0r/bzUfGsorLhgsnH1sZuyo86ruXYpBvo1WeLD3CoOshG53HEBog==
+X-Gm-Gg: Acq92OH6eq6vbm67OdXOJXk9OsHMDYoKc2ohtafwx+vSA8WKvL5whp23xyIe0iHvm5u
+ MyDkYWogTB76DBMmNFaUnatVqWW7zhZBVK/r1BfC/F3o7Fq2cB6pm7VGE1shDqUkl+Pqo9rTZjM
+ UfpabKKNra43AVYWdUYNG6X8W7jabIl81jlGdf1uoLAuAqH3uqWXie2HsP9CPRLog/DsNHA2iRG
+ Y6xnTFvwRw5MPwf1CCezzmxv4+aaztVqeIQxNtgjt4Bzg9bdhMR8Lvj+H2UQh872zi5slrO5WNM
+ MUkLe1FXL5pNorwzeEZ4X7VxipZ6aOj+I4k9dPb91J3kw0VUsoZGas/rBX2OXyJHAFCHESnNJVd
+ ip1eA4wERYECTv4A61U35D03/kmXt0/eg7OGx6y3Yx/xZ8+AcGA67owhS9w==
+X-Received: by 2002:a5d:64e4:0:b0:43e:b0f8:66f1 with SMTP id
+ ffacd0b85a97d-45e5c5aebdcmr40650619f8f.43.1779288269059; 
+ Wed, 20 May 2026 07:44:29 -0700 (PDT)
+X-Received: by 2002:a5d:64e4:0:b0:43e:b0f8:66f1 with SMTP id
+ ffacd0b85a97d-45e5c5aebdcmr40650545f8f.43.1779288268562; 
+ Wed, 20 May 2026 07:44:28 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45da15a666fsm55752127f8f.36.2026.05.20.07.44.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 May 2026 07:44:27 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Brian Masney <bmasney@redhat.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Chris Morgan <macromorgan@hotmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Stone <daniels@collabora.com>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Liu Ying <victor.liu@nxp.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Sean Paul <sean@poorly.run>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-sunxi@lists.linux.dev
+Subject: [PATCH v2 0/8] hdmi: Add common TMDS character rate constants
+Date: Wed, 20 May 2026 16:43:36 +0200
+Message-ID: <20260520144424.1633354-1-javierm@redhat.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: ltGlt3kXxXXAkYMWFD5ADjyNxe7EUFe8AGz8PMgohiI_1779288269
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,99 +122,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 20 May 2026 10:11:03 -0300
-Igor Torrente <igor.torrente@collabora.com> wrote:
+Several DRM drivers define their own local macros or use magic numbers for
+the standard HDMI TMDS character rate limits. Maxime Ripard suggested that
+instead these common rate constants could be included to a shared header.
 
-> On 2/9/26 10:27, Thomas Zimmermann wrote:
-> > Invoke folio_mark_accessed() in mmap page faults to add the folio to
-> > the memory manager's LRU list. Userspace invokes mmap to get the memory
-> > for software rendering. Compositors do the same when creating the final
-> > on-screen image, so keeping the pages in LRU makes sense. Avoids paging
-> > out graphics buffers when under memory pressure.
-> >
-> > In pfn_mkwrite, further invoke the folio_mark_dirty() to add the folio
-> > for writeback should the underlying file be paged out from system memor=
-y.
-> > This rarely happens in practice, yet it would corrupt the buffer conten=
-t.
-> >
-> > This has little effect on a system's hardware-accelerated rendering, wh=
-ich
-> > only mmaps for an initial setup of textures, meshes, shaders, etc.
-> >
-> > v3:
-> > - rewrite for VM_PFNMAP
-> > v2:
-> > - adapt to changes in drm_gem_shmem_try_mmap_pmd()
-> >
-> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> =20
->=20
-> Hi Thomas,
->=20
-> I have and Radxa ROCK 5B+ with Mali-G610 GPU and I'm developing the VDRM=
-=20
-> (native context) driver
-> for panthor.ko.
->=20
-> Recently I update my kernel from 7.0 to the 7.1-rc3, and qemu started=20
-> freezing with KVM error below
-> when running any graphical application with Venus or Panthor VDRM. For=20
-> some reason Virgl is not affected.
->=20
-> ```
-> error: kvm run failed Bad address
-> PC=3D0000ffffb4a86d70 X00=3D0000ffffb4be5000 X01=3D0000ffffb2279bb0
-> X02=3D0000000000000600 X03=3D0000ffffb4be5000 X04=3D0000ffffb227a1b0
-> X05=3D0000ffffb4be5600 X06=3D0000000000000001 X07=3D0000aaaaf384fd80
-> X08=3Ddcc58d0daf897753 X09=3D0000000000000002 X10=3D0000ffffb4b96758
-> X11=3D000000002533f84b X12=3D0000000000001060 X13=3D0000000000000000
-> X14=3D0000000000000000 X15=3D0000000000000010 X16=3D0000ffffb3880128
-> X17=3D0000ffffb4a86c80 X18=3D0000000000000000 X19=3D0000aaaaf384f8a0
-> X20=3D0000aaaaf37cec80 X21=3D0000aaaaf37c7210 X22=3D0000aaaaf37c9550
-> X23=3D0000aaaaf37c74e0 X24=3D0000ffffb3b47fc8 X25=3D0000ffffb3b47fc8
-> X26=3D0000ffffb3b43c78 X27=3D0000aaaaf37e1840 X28=3D0000aaaaf37cee50
-> X29=3D0000ffffecbf1a60 X30=3D0000ffffb364b530=C2=A0 SP=3D0000ffffecbf1a60
-> PSTATE=3D0000000020001000 --C- EL0t
-> ```
->=20
-> After bisecting I reach to your commit.
->=20
-> ```
-> 28e3918179aa75cfd4490b3b0281496ed91d829a=C2=A0 drm/gem-shmem:
-> Track folio accessed/dirty status in mmap
-> ```
->=20
-> It still reproducible in the 7.1-rc4 (ab5fce87a778).
->=20
-> Appling the following patch (Boris suggestion) fixes the issue for me.
->=20
-> ```
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c=20
-> b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 545933c7f712..1e036f69c1ce 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -696,7 +696,7 @@ const struct vm_operations_struct=20
-> drm_gem_shmem_vm_ops =3D {
->  =C2=A0#endif
->  =C2=A0 =C2=A0 =C2=A0 =C2=A0 .open =3D drm_gem_shmem_vm_open,
->  =C2=A0 =C2=A0 =C2=A0 =C2=A0 .close =3D drm_gem_shmem_vm_close,
-> -=C2=A0 =C2=A0 =C2=A0 =C2=A0.pfn_mkwrite =3D drm_gem_shmem_pfn_mkwrite,
-> +//=C2=A0 =C2=A0 =C2=A0.pfn_mkwrite =3D drm_gem_shmem_pfn_mkwrite,
->  =C2=A0};
->  =C2=A0EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
-> ```
->=20
-> I'm not familiar with the drm_gem, code so I don't any more insightful=20
-> information
-> to share.=C2=A0 But hopefully we can find a better fix for this.
+This series introduces these constants to the <linux/hdmi.h> header and
+replaces the local defined constants or magic numbers in drivers.
 
-Hm, given how close we are from the end of the release cycle, it might
-be safer to revert those .pfn_mkwrite changes and consider them again
-once all the details have been sorted out (it's the second time around
-we hit issues on this patch, and the lack of reviews from MM devs is
-scaring me bit to be honest).
+I split the changes as one patch per driver, so that these can be reviewed
+individually and merged at their own pace.
 
-Thomas, any opinion?
+This is a version 2 that addresses issues pointed out by Maxime Ripard and
+Dmitry Baryshkov.
+
+Changes in v2:
+- Change naming convention to HDMI_$SPEC_TMDS_CHAR_RATE_MAX_HZ (Maxime).
+- Define the constants in <linux/hdmi.h> (Dmitry).
+
+Javier Martinez Canillas (8):
+  video/hdmi: Add common TMDS character rate constants
+  drm/bridge: dw-hdmi: Use the common TMDS char rate constant
+  drm/bridge: dw-hdmi-qp: Use the common TMDS char rate constant
+  drm/bridge: inno-hdmi: Use the common TMDS char rate constant
+  drm/sti: hdmi: Use the common TMDS char rate constants
+  drm/sun4i: hdmi: Use the common TMDS char rate constant
+  drm/msm/hdmi: Use the common TMDS char rate constants in 8996 PHY
+  drm/msm/hdmi: Use the common TMDS char rate constants in 8998 PHY
+
+ drivers/gpu/drm/bridge/inno-hdmi.c           |  4 +---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c |  6 ++----
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c    | 10 ++++------
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c     |  6 ++----
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c     |  6 ++----
+ drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c   |  6 ++++--
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c       |  4 ++--
+ include/linux/hdmi.h                         |  6 ++++++
+ 8 files changed, 23 insertions(+), 25 deletions(-)
+
+-- 
+2.54.0
+
+base-commit: 88658ff0e4e7f46dbf8179af1280f2cb295fb0cb
+branch: add-common-tmds-rates-v2
 
