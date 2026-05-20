@@ -4,78 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50EB3CD5BAE
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 15:27:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55C58CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 15:43:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9004B10F0C3;
-	Wed, 20 May 2026 15:27:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A355C10F0DC;
+	Wed, 20 May 2026 15:43:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="T419hTEV";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HoeYbLia";
 	dkim-atps=neutral
-Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E533910F0C3
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 15:27:33 +0000 (UTC)
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
- [74.125.224.52]) (Authenticated sender: zamundaaa)
- by letterbox.kde.org (Postfix) with ESMTPSA id BAF2232BAFD
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:27:32 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
- t=1779290852; bh=gcOIwOeeWzpvsrYJGYkpmTBiDOCGGGdp9mfugdpA+HY=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=T419hTEVZCJohJJRY3tDRT94FAIrYPv48owA0ZwRJgpDxJ1GkS5YE5qsTj7HlWxqG
- 3V0OQc9p8tVe1bzlkJw3wH9CgwBa4Tq6Qt2swVgcATaH/NH/QqycIMymlsurhx5jJp
- xoG7LB7vXJ2K1lJ6Rkao4L9H+YB3Mn93NyiK+FCSPeWNK8iY/Z1JHqT3ZpAHZcXfaK
- qRrsxp2MMtDMY+IW84d/Pr+INHZmye7hTxOVzdVNAtQRhU01gdhn40M1qUTchoyBzi
- mlCfRZVWAkqKhESz66+ZAA+K/TFRvVH3AtGOREFlYIHVplh2s/Xja6CMu+wBIRuke7
- /nTJQ/XCRtuog==
-Received: by mail-yx1-f52.google.com with SMTP id
- 956f58d0204a3-654672a6d68so5041532d50.0
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:27:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/xRbefv0dn80IHl1naKFpHEC5akw4A49Zvl90AydKaRJvVKJDrqOxXc6Y4nLtWhag2DaYnVEgUB3Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwoCOLvn55MZ5lbjMrLMGc733uo/vpntKrpKjKQxRN/BmZlhTsm
- tpPoI7eGrgHfmmkoNgIuquqswEBKBrHVr75CY3RAQjRtRIiYw9ixJUJOrXZU8AVN8GM1YsNzyWi
- Z5Sq5RjnmERSH9C5yoohhM4miNmWjV7U=
-X-Received: by 2002:a05:690e:151b:b0:65d:8f98:6bb4 with SMTP id
- 956f58d0204a3-65e2272ee9bmr21554674d50.29.1779290850965; Wed, 20 May 2026
- 08:27:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
- <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
- <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
- <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
- <CAHijbEWqc2+kSkk3i_LxB2PQ6XwUetw1UkdUdXJfdv3zgKd1kA@mail.gmail.com>
- <38551bfe-75e1-4978-b57d-adc43cebc85e@amd.com>
- <CAHijbEWHp960qvZFoK7+9ppHAqkAR7=UQhtMUccqWzGd_pFPQA@mail.gmail.com>
- <5ee6d5af-ac48-41d7-a19f-e08a3c5b7d19@amd.com>
- <CAFZQkGwmeipZnvmBkcE7KhvUSMkSE=fzLBZtiMyhv3mM04Vudg@mail.gmail.com>
- <dff60378-4e47-4753-8878-feec6e1c2690@amd.com>
- <CAFZQkGz=UJqaJ_eTwKBy1pAg5xL+PLibh7W1vYf7JD7Jrx-LZQ@mail.gmail.com>
- <53edf0b5-e733-4b96-87d7-3307275500c0@amd.com>
- <CAFZQkGxpPm081Fz8UtDuBA1PKD42+9YDA+cc6fbSpfawXwu9+g@mail.gmail.com>
- <c9fbfdaf-2a58-4423-8dc5-6e29a88f6293@amd.com>
-In-Reply-To: <c9fbfdaf-2a58-4423-8dc5-6e29a88f6293@amd.com>
-From: Xaver Hugl <xaver.hugl@kde.org>
-Date: Wed, 20 May 2026 17:27:20 +0200
-X-Gmail-Original-Message-ID: <CAFZQkGyK-ZV-2QuC21sbGu2BELbAicN7EqCAY=bo+WsKXcA+Yg@mail.gmail.com>
-X-Gm-Features: AVHnY4KO7S743c3zkoDggQQ_Kb7Ge56iO-xUbB5sb3ZY8i7QvLODzDohK8-8SEc
-Message-ID: <CAFZQkGyK-ZV-2QuC21sbGu2BELbAicN7EqCAY=bo+WsKXcA+Yg@mail.gmail.com>
-Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Julian Orth <ju.orth@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C63C10F0DC
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 15:43:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779291809;
+ bh=MgOPJ3g4k/Sd1Uy5PB5GjtzudKeuPuMOgaOEFszVSoU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=HoeYbLiaMxFVE1idvpGrN7Pl5Scv047VDtJDyth+rQH170g8+897HpqgoRONj3hUc
+ ec2Q5jzx1oLZdluOD2yzRr6DeU6MEuxVi+RCcFXaEfh4FBiPYmeSOKRN2JtJp10oJ0
+ 0Vdm3vv70MyVmYLM0oIB1ZMDryeU9QabLz8bUSALuUPE89BXanfOlc6CtI8TifSrfs
+ R9lYbqAkEmr4MlAURCJYuq+lV0GJ90zGx+GIoStWI/Rz6VhNrqtdIxVH6ZMG5MUIWi
+ FrY0fMTzpQosmcJat7OYMNVNq2ExzrKhJIVyDf2bYhx3XTaa791wATB90+5fyTKyzo
+ faSLEFj7+LvDA==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 773BE17E124B;
+ Wed, 20 May 2026 17:43:28 +0200 (CEST)
+Date: Wed, 20 May 2026 17:43:24 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: Chia-I Wu <olvaffe@gmail.com>, Liviu Dudau <liviu.dudau@arm.com>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
- wayland-devel@lists.freedesktop.org, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
+ Simona Vetter <simona@ffwll.ch>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/6] drm/panthor: Driver-wide xxx_[un]lock ->
+ [scoped_]guard replacement
+Message-ID: <20260520174324.1dfafa0c@fedora>
+In-Reply-To: <6923c228-b81e-4d02-b59c-a21b2212318e@arm.com>
+References: <20260513-panthor-guard-refactor-v1-0-f2d8c15a97ce@collabora.com>
+ <20260513-panthor-guard-refactor-v1-1-f2d8c15a97ce@collabora.com>
+ <5ab2d07c-74a4-4a2c-b145-6ed7b0060944@arm.com>
+ <CAPaKu7S9WMbJERrWa=bj5qyQg72no9MPex6S1MY6t8nXoMbB-Q@mail.gmail.com>
+ <20260518104356.71827224@fedora>
+ <6923c228-b81e-4d02-b59c-a21b2212318e@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,51 +74,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> In general the answer is yes, userspace needs to take care of inserting fences when wait before signal is used and the work can not be submitted to the HW for some reason.
->
-> Currently we only have an IOCTL to insert the signaled dummy fence at some timeline sequence, but it should be trivial as well to insert a signaled fence with an error code.
->
-> But the compositor needs to be able to handle that case anyway, because it can be that a malicious or just buggy client just never inserts the fence.
->
-> So that a device is hot plugged is not different to just a client not inserting the fence in the first place.
-A buggy client can always freeze its own surface, it doesn't need
-handling beyond cleaning up properly when the client disconnects.
-The hotplug case is different, since currently a well-behaved client
-can only attempt to signal the point in the syncobj... but the drm
-device is gone, so the ioctl will fail and the client's surface is
-frozen, even though it did everything right.
+On Wed, 20 May 2026 16:26:42 +0100
+Steven Price <steven.price@arm.com> wrote:
 
-So afaict, whatever new ioctl is added for this will need to be
-independent of the drm device, or be special cased not to fail when
-the device is removed.
+> On 18/05/2026 09:43, Boris Brezillon wrote:
+> > On Thu, 14 May 2026 10:09:10 -0700
+> > Chia-I Wu <olvaffe@gmail.com> wrote:
+> >  =20
+> >> On Thu, May 14, 2026 at 6:24=E2=80=AFAM Steven Price <steven.price@arm=
+.com> wrote: =20
+> >>>
+> >>> On 13/05/2026 17:58, Boris Brezillon wrote:   =20
+> >>>> Right now panthor is mixed bag of manual locks and guards. Let's
+> >>>> make that more consitent and thus encourage new submissions to go
+> >>>> for guards.   =20
+> >>>
+> >>> I'm fine with encouraging guards for future code - but I'm a little w=
+ary
+> >>> of a big change like this - it's hard to review it and check that
+> >>> everything works the same. And it's a little dubious that the mechani=
+cal
+> >>> refactoring produces more readable code in some cases.   =20
+> >> I agree with Steven in general, although I am in favor of landing now
+> >> that you've gone through the trouble. =20
+> >=20
+> > Honestly, I agree with you. The only reason I went for it is
+> > because the mix we have right now is pretty confusing. This has to do
+> > with the fact the scopes are often loosely defined unless you used
+> > scoped_guard(), so it's pretty easy to mess up the lock/unlock
+> > ordering. For instance,
+> >=20
+> > 	mutex_lock(locka);
+> > 	guard(lockb);
+> > 	mutex_unlock(locka);
+> >=20
+> > 	...
+> >=20
+> > once expanded, turns into inconsistent locked sections, where the inner
+> > lock (lockb) is released after the outer one (locka). =20
+>=20
+> I think that's a good argument for getting all the guard forms available
+> before tackling the conversion.
 
-> >> One problem is that only syncfile allows for querying such error codes at the moment, we have patches pending to add that to syncobj as well but we lack a compositor with support for that as userspace client.
-> > As long as the error case can be detected with an eventfd,
->
-> Yeah that's the problem. The eventfd only tells you if the operation is completed (or at least has materialized).
->
-> To query the error you would need to ask the underlying syncobj or syncfile directly.
-Issuing an additional ioctl after the eventfd fired for this rare case
-wouldn't be particularly nice, but also not difficult. If we'd get
-that with the eventfd directly, that would be much better though.
+Yep, makes sense. The reason I didn't go for that in v1 is because I
+wasn't sure how well the new guard definition would be received. Now
+that we know there's a general consensus to define those, I'll re-order
+the patches accordingly.
 
-> Ah! I think I got the problem now. You basically want to avoid importing the syncobj because when the wrong device goes away you are busted.
-Exactly.
+> Mostly I feel like it would be benefit
+> from being split up into multiple patches (maybe one per file?) so that
+> there are smaller units to review.
 
-> The reason we didn't considered having the IOCTLs on the FD is because if you don't import them and instead keep them around you can run out file descriptors quite quickly.
->
-> When you have an use case where you receive an FD from the client and do a one shot conversion to an eventfd that will probably work, but for keeping them in the long run you need some kind of container for the syncobjs, don't you?
-Compositors always run with vastly increased fd limits since they have
-to handle a lot of fds for dmabufs alone, so keeping the fd around
-wouldn't be an issue for us.
+Sure, I can do that.
 
-> > A device-independent way to create and use syncobj would still be
-> > useful to us though, both to simplify the compositor and to improve
-> > the software rendering use cases.
->
-> Yeah not sure how to cleanly do that. We could have a dummy /dev/dri/rendersync or something like that, but that would be quite a hack.
-I think for userspace it would be less of a hack than searching for a
-random drm node that can import it. I'd gladly take another solution
-as well though, if there is one.
+>=20
+> >>
+> >> I also have mixed feelings about some of the non-scoped guards. Their
+> >> scopes are extended slightly than before, supposedly to avoid adding
+> >> another level of indentation. But other than slightly slower, =20
+> >=20
+> > I tried to used scoped_guard()s every where the extra non-guarded
+> > section could be CPU heavy (the only bits left are some very simple
+> > bit/arithmetic ops, and a couple queue_work() IIRC).
+> >  =20
+> >> it also
+> >> becomes less clear what exactly do the guards protect. =20
+> >=20
+> > I know, and I have pretty much the same feeling, but we've crossed that
+> > bridge when we started accepting non-scoped guard()s, unfortunately. =20
+>=20
+> The problem with scoped guards is the extra level of indentation.
 
-- Xaver
+Yep.
+
+> Personally I find a mixture of all three is appropriate depending on the
+> case.
+>=20
+> E.g.
+>=20
+> int small_simple_function() {
+> 	if (simple_condition)
+> 		return early;
+>=20
+> 	guard(lock);
+>=20
+> 	if (condition_that_needs_lock)
+> 		return early;
+> 	/* more work */
+> 	return late;
+> }
+>=20
+> Here it's easy to reason because the lock is just held for the duration
+> of the function after the initial early-out condition is checked.
+>=20
+> int short_lock() {
+> 	/* bunch of work */
+>=20
+> 	scoped_guard(lock) {
+> 		tmp =3D read_value();
+> 		if (tmp =3D=3D 42)
+> 			return -ESOLONGANDTHANKSFORALLTHEFISH;
+> 		tmp++;
+> 		write_value(tmp);
+> 	}
+>=20
+> 	/* more work */
+> }
+>=20
+> Here there's a small section of code which is working on the lock, so it
+> makes sense to indent it to show the boundaries of it. The other nice
+> thing is that the error return handles the locks for us.
+>=20
+> int old_fashioned() {
+> 	if (lock_required)
+> 		mutex_lock(lock);
+>=20
+> 	/* some work */
+>=20
+> 	if (lock_required)
+> 		mutex_unlock(lock);
+> }
+>=20
+> Generally a pattern to be avoided if possible,
+
+Yeah, honestly I try my best to never end up with that sort of
+conditional locks.
+
+> but IMHO this is much
+> better than the equivalent of:
+>=20
+> int dodgy_function() {
+> 	/* some work */
+> }
+>=20
+> int outer_function() {
+> 	if (lock_required) {
+> 		scoped_guard(lock)
+> 			dodgy_function();
+> 	} else {
+> 		dodgy_function();
+> 	}
+> }
+
+If I were to choose, I'd probably go for this version, but luckily we
+don't seem to have this conditional-locking pattern in panthor.
