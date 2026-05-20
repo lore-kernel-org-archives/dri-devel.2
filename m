@@ -4,72 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ECB6CD4F5B
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 01:18:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C957ACD4F5B
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 01:47:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD28E10E11E;
-	Wed, 20 May 2026 01:18:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="gwTF78PP";
-	dkim-atps=neutral
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Wed, 20 May 2026 01:18:52 UTC
-Received: from mail-m822136204.xmail.ntesmail.com
- (mail-m822136204.xmail.ntesmail.com [8.221.36.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12A6E10E11E
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 01:18:51 +0000 (UTC)
-Received: from [172.16.12.51] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3f0f4bf32;
- Wed, 20 May 2026 09:13:41 +0800 (GMT+08:00)
-Message-ID: <c0bc4796-afe5-40ff-8816-9605a6114d23@rock-chips.com>
-Date: Wed, 20 May 2026 09:13:25 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19AB610E163;
+	Wed, 20 May 2026 01:47:47 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 026D510E163
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 01:47:43 +0000 (UTC)
+X-UUID: e0843fc253ed11f1aa26b74ffac11d73-20260520
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:395ef9e4-cb0c-460b-a3da-f4422ea9e294, IP:0,
+ U
+ RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:20
+X-CID-META: VersionHash:e7bac3a, CLOUDID:69424478833ffb5d2a7003aa9d5efd97,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|123|850|865|898,TC:nil,Content
+ :0|15|50,EDM:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL
+ :0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: e0843fc253ed11f1aa26b74ffac11d73-20260520
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1082806814; Wed, 20 May 2026 09:47:36 +0800
+From: yaolu@kylinos.cn
+To: markus.elfring@web.de
+Cc: chenhuacai@kernel.org, dri-devel@lists.freedesktop.org, jeffbai@aosc.io,
+ linux-kernel@vger.kernel.org, lvjianmin@loongson.cn, wuqianhai@loongson.cn,
+ xry111@xry111.site, yaolu@kylinos.cn, zhengxingda@iscas.ac.cn
+Subject: [PATCH v2] drm/loongson: fix pci_dev refcount leak in
+ lsdc_get_dedicated_vram()
+Date: Wed, 20 May 2026 09:47:21 +0800
+Message-Id: <20260520014721.32696-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <8ba844ab-9851-4045-a4e8-a96e6d1511e2@web.de>
+References: <8ba844ab-9851-4045-a4e8-a96e6d1511e2@web.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 0/9] Add Type-C DP support for RK3399 EVB IND board
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Chaoyi Chen <kernel@airkyi.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Peter Chen <hzpeterchen@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Frank Wang <frank.wang@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
- Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
- Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org
-References: <20260304094152.92-1-kernel@airkyi.com> <agxo8ic94e81nQRx@kuha>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <agxo8ic94e81nQRx@kuha>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e42f214cf03abkunmde1056153a93c
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQkoaVhhOGE9LGE9LQ01JTFYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=gwTF78PPuLUm1sysWyZUVBaAIEKd3WixyNY3bmjSc5enP6t3T7LjW1vDPot1Ro5hpeJzDUUuaKmRf3Cz6DX9uu/L1JxbBv2q7RmlverbAPspYQqTopSj5X3/+EdlkoFK2PHIs+UdzLX137UjUapaHB2spXQq0d9N+RLByQu9LFk=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=Puww1BH0j/oGm+Paq7ifcsE10dx5Hg0yZyciu4GUl4o=;
- h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,34 +62,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Heikki,
+From: Lu Yao <yaolu@kylinos.cn>
 
-On 5/19/2026 9:43 PM, Heikki Krogerus wrote:
-> Hi,
-> 
-> On Wed, Mar 04, 2026 at 05:41:43PM +0800, Chaoyi Chen wrote:
->> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->>
->> This series focuses on adding Type-C DP support for USBDP PHY and DP
->> driver. The USBDP PHY and DP will perceive the changes in cable status
->> based on the USB PD and Type-C state machines provided by TCPM. Before
->> this, the USBDP PHY and DP controller of RK3399 sensed cable state
->> changes through extcon, and devices such as the RK3399 Gru-Chromebook
->> rely on them. This series should not break them.
-> 
-> What's the status with this series?
-> Are these inteded to go via the DRM tree?
-> 
-> thanks,
-> 
+Need to call pci_dev_put() after pci_get_domain_bus_and_slot().
 
-Thank you very much for your continued attention to this series.
-The maintainers seem quite busy... Despite there being no further review
-comments, this series have yet to be merged into the DRM tree. 
+Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+---
+v1->v2: add fixes tag and parentheses to function names suggested by
+Markus.
+  Link: https://lore.kernel.org/dri-devel/8ba844ab-9851-4045-a4e8-a96e6d1511e2@web.de/#R
 
-And some of my other patches are in the same situation. 
-Do you happen to know what the next steps should be? Thank you.
+ drivers/gpu/drm/loongson/lsdc_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+
+diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
+index 34405073c4d4..6cd21480c979 100644
+--- a/drivers/gpu/drm/loongson/lsdc_drv.c
++++ b/drivers/gpu/drm/loongson/lsdc_drv.c
+@@ -183,6 +183,7 @@ static int lsdc_get_dedicated_vram(struct lsdc_device *ldev,
+ 	ldev->vram_size = size;
+ 	ldev->gpu = pdev_gpu;
+ 
++	pci_dev_put(pdev_gpu);
+ 	drm_info(ddev, "Dedicated vram start: 0x%llx, size: %uMiB\n",
+ 		 (u64)base, (u32)(size >> 20));
+ 
 -- 
-Best, 
-Chaoyi
+2.25.1
+
