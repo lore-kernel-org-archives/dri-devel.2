@@ -4,58 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 471DBCD4F5B
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 00:33:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6623FCD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 00:59:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33B5B10E3F9;
-	Wed, 20 May 2026 00:33:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7332B10E41C;
+	Wed, 20 May 2026 00:59:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iCfsZD5U";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="F1aOlAQi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACAF010E3AD
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 00:33:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D60AA6022A;
- Wed, 20 May 2026 00:33:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83C811F000E9;
- Wed, 20 May 2026 00:33:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779237207;
- bh=ZzHrNkgMnwZb5toan8EJ7cKAzy++f8P3bWuOPXwNdLc=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=iCfsZD5UVLC8YOrIZt6D2el8PjgY7fqCISb1ZJ1D8YfLs3bsx1tYKOt465Rdxrsth
- /+PDkgynUPq+P1/DSrwj1aA8eomSIra0MfC2KoUSGvzSnc4E8v+OrWexFInWN6wPOO
- Qcl3/8YtZk+m2yP6NPTnO1fgUPlMV64LPdCqKot+8ouX5pO8Sy8FtNXWk+iV78ceFr
- HL4ZfyF/1E8k8nF65hCLTmpt4UuTt/adQ4+jhupKUUxjtjN7Xs+RyghrHaYlpJBURJ
- gHFU50g3AFNAtkHCXiz8ROGOXRs5617Onrg+Jid73uF94qtoz0WNEwBUk5C0QWtjnF
- MbdpbBLz20IVA==
-Mime-Version: 1.0
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012008.outbound.protection.outlook.com [40.107.209.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB44D10E41C
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 00:59:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YdHqiPdMwn2N/bVOfOHCsXvajlaVOozQ1namFppXNGztRuZCNHyHst7mmUMxfVm++CoIC7cFLKlqW+lFSxdyLRcBMtLZ962eiHrr0TUPTcHeFd0wHLmnsbOp7JDB6LyPeQhIdizBUPOntHtI5uHR15a3tJhNVGMjIhVdShzboTsDcokDAEdmZzG8B2oYqZP+Lw2U/zxbxSUjmbknnJwii91/pWfydJXV3yJv7nNA4wrOYUFE4DjkrnwnchQ1yNV5SNcRd+QWMjweSsYvkRoJFeV/4WUYOyNw5wTWuQXQhhxPpqz25ScUva6mI2+iisv23nATOZQcJRzd57jrwwGDng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ClQeoI90PslEu0zX49LnFjHqyRd8ZBJxVmd39c4p34=;
+ b=KmgEBJGrL9LLzFKPgI+Ar7+0KLwHkOgAGw/VSAC+F5bCtwuqWS+33j7TZhAy0vJ6jnMXTtuyW7AMRLC9iiHmhTk1SlmkSaxelzxagS+/aIfH6wPLDoDTZcpbcBS5V6pzYBkYmxFJwPCfiuIdkjfCMVL2eiWfNAhFX0WSs8tG6V8JPv2EBSfzo6PCXdZQEYsTs0B4ibTXQpoBbrMnHpjS1WJGamZSnX/x3FayXMtfe6DIKBASl0tNWXfB7OKwYlIR/GkHg7gwWuS1t4G6/O1ybZfavRjbswIjbQJQs6VdkgfFLlXAS858evc4Kl+pWc9F5mZsIMtvyQ/GUAnTKUeieA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0ClQeoI90PslEu0zX49LnFjHqyRd8ZBJxVmd39c4p34=;
+ b=F1aOlAQifkeGKhQVFuTV6Wr4HjVBb8PvAZFS1sqb3nNd9URrMxJPuULgr27QPtBWLnh4m/md/klI+EGXr6PXX1wGQR7CDUwRurJb8L4SF0+sFdkcLDX/CZ62oIiOIWUxybZl7WGN6xPlpKHoXDEq8r8Ng19uPJhQsQesGWQnwNICyH51r/aMerJWqdMgfHyg0Ot1sdz0LnX8GX3xb9/aISqwNOmQjLvkZAroer4v9vfK/VFst8i1G+YqG+z4s5ImQt2uWuGIeUZro1kabkrLEZiR3QzUZM7OJbnDrvOx3HtvX9jdpwjXkrS3Zn4/kA14sMkeEyGwteKrd/g6WIrZCQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by MN2PR12MB4285.namprd12.prod.outlook.com (2603:10b6:208:1d7::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 00:59:19 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0048.013; Wed, 20 May 2026
+ 00:59:18 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 20 May 2026 02:33:19 +0200
-Message-Id: <DIN2Y5PNWGVO.EOA9SQPOFYX2@kernel.org>
-Subject: Re: [PATCH v3 17/27] rust: auxiliary: generalize Registration over
- ForLt
-Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-18-dakr@kernel.org>
- <DIMSZMCNTRA0.29WGE6IL25A6Q@garyguo.net>
-In-Reply-To: <DIMSZMCNTRA0.29WGE6IL25A6Q@garyguo.net>
+Date: Wed, 20 May 2026 09:59:14 +0900
+Message-Id: <DIN3HZV9YVU9.87C4SH46QXUH@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Antonin Malzieu Ridolfi" <dev@nanonej.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>
+Subject: Re: [PATCH] Nova: Move register definition into module using it
+References: <20260516161258.455442-1-dev@nanonej.com>
+In-Reply-To: <20260516161258.455442-1-dev@nanonej.com>
+X-ClientProxiedBy: OSTPR01CA0044.jpnprd01.prod.outlook.com
+ (2603:1096:604:21b::7) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MN2PR12MB4285:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf672ba1-540d-449a-80ce-08deb60b0535
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|10070799003|366016|11063799006|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Xnotjj1Laj7ToKbJyFJS0LL7oV5WxqKqEVrO02quifm1c/UzhxBN/tAq6aoXp66QjGHp5g7Wp1tD5LPupi7iI1E/LlMgLWgYFp3vaVWrKCUfugxssgurI9eENPfL3MpmG1xF7q/zlSsvvcvoNImT29iroxB6E7S+gh73v8y1Te9U8sfqP4qotbtzX46H2EtvfAkuKh9izFdAkKdUPl7AWsq/vFlL6NI5XxxBcRnIKHrfKFEznrH6C77imPSm67ncv1+lO7Cl77Gx/CY7WfjdmqZVCimHRCwAFuS/j+HNnn2Qay4/h88ra4aqo6TGBHyFyNhyUblEuLzIs837ny5AfbLqnKAsf5Sb29sOaN75DFrMzWTjSeb7v4xTOofY+Su1EmazIIFvsa8az1aHgwHeWhpnBlVKCEqkQa3hdlzPTDq33YAGbYvsZc0XjMqs/HwB1GmtOvg4ISHyHdk2BoLr+rMb3AvrY8AbylvYW5dLHoxatgSMDN/wttfkOzjO8lw0DCzGgz4ou3IHCDTXaz71/bYh1xR1UheURskp7kgRY9Bu0uFYlvjLeOoI3A+DTzGT8XmNjkn4MMr4+6WTmyGjqxf03xMMPCyUHXZ4K+depmBqS51gqIiIf0QnQcPUoi2Dm7ul9gnr9XNKpgjNfAS45QAj5u1dd14hlJ0yZsaane98bLNkSnZGXVeyE9k0nqqr
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(10070799003)(366016)(11063799006)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGxnekVVenVGTlJIQUs0eXRoU0tEZFM1bTRKaWtDTDFsY01jN3FIeFcwdzRn?=
+ =?utf-8?B?L2tXMnpQT2dMdVVaNk1iYnA0VFlmQVE3NkRNSWxBWTdZYXhNZHViU1d6MnBo?=
+ =?utf-8?B?aXpuUHIwYXRTUkduaWF0b3pNdGJkcDFMUzlmdmc2YVorRTJsWjA4anNPTlJJ?=
+ =?utf-8?B?RDI0WktIUjJQV0JWK0lMZTAwaWF3Y2toNW9kUXRjK1hqbE4rMHZEY0RYeHRW?=
+ =?utf-8?B?OVJNOTIwUWYwSmdEYW9OaVRzbEdDRkxBSnM2ZUxaWitmQW5icGVraktJdUhB?=
+ =?utf-8?B?TFNld25FM3phNURzeVdBbkJ3RWY3bDNsMnY5RW5HUk8xeFRxcUcrSkpVSG1K?=
+ =?utf-8?B?N2VWZkwvMUI2eHhGVzlMdkw0bjh2OVBFV0w4SklhNkd6NEZ6dEpyclZSVnYy?=
+ =?utf-8?B?c0VBcERxeGFYQmw0Nng4MUU2QXlDeS8rQ296WmJkNkU0cXJvSzVYQ1JwM1lo?=
+ =?utf-8?B?YnphWXd1MFBwZXFxVGpkSllnRlFTajZhVGQzS1VrUnRjKzBVZWtlR1EzU05G?=
+ =?utf-8?B?SWZ3aEwzaWJNRDFwbUtOSkhMbHdZUVkzODllZkd6cTA5QnRTanhvODNyc0pp?=
+ =?utf-8?B?ZDNuVGFJcE8xbUJwRm1FSU1kakZjY0ZLeWU1S3IzY1pERUcvVi9QNlJ4WE15?=
+ =?utf-8?B?WU11VEFGQzRHL0pVbDZhc3FaR09vdlpJNVM2TXJyUjh0K2YrdUxDWUJDcHpa?=
+ =?utf-8?B?TjFEM0xxMUxkb1FBbXVQdUFJakFydTBzZTZPYm1sKzBOMUExbXB5cXJrSjdp?=
+ =?utf-8?B?M044VjFCazJ1SW5UOTZsbnhna29VdDMvZVEzakkrd2ZLcmJlWEtkYWd3NnN4?=
+ =?utf-8?B?SU0ySW9oYnB6b0QzNFA0NWlFcWJqRm52YldaRkUwaDE1em5wZWs5MmF3MFhy?=
+ =?utf-8?B?aUZ4VDZzV1orY2ZIakh3V0xySlljVDkrYm9hOVhLVS9GY2JXTDJmUnlZZFFv?=
+ =?utf-8?B?OEdlRkljUGh4MDRWaHRiTTVHOVd6d3laaDBnUEp2S3c2Vk5QRERUMmtoWEhP?=
+ =?utf-8?B?SVlvR3prT1V0VjRLMW9CWWRFOVZrOTAyekhWYUtpYjhVNkVJa01pd2t0MTFN?=
+ =?utf-8?B?VHpNYnh4RUVpY04zOHhoOUZqTHNNd0ZrR05SM1V4dnNveVViWXVRLzdrNUFj?=
+ =?utf-8?B?aWV1RHZwS0VFMkxGY1dWTXZpa3ZWWWhrbUNLa1V1dWZmdmpKN1c2eXZGaXdu?=
+ =?utf-8?B?S2t5bHlCcGJIMHBYUVhkbCtGRnpHeDhqMTBZMmxTb0JRQ3RGNlRWanlkNDVB?=
+ =?utf-8?B?K2RMb1ZrN0JJbDRpOWpDUytRUTNtY3pCNlV1RURTTXBKcUtmdXJGQm9OYkVz?=
+ =?utf-8?B?YjE2Rm1ZQ05FSWxDa203MUZnenFsREcyYnE3NURvODJQZVlRMHI2K1Z5aGZD?=
+ =?utf-8?B?M2ZSR3JSaFVvb085TzJzOTIwL0VOV3lRT3M1dThZcUR0cWRhTjU3ZktaSVRE?=
+ =?utf-8?B?ZkVreVNRR2lSbXR3RmpmZmo3b3hvRjlaTFQ2OVdnM2hNbVhBZ2NLcHMwTjg5?=
+ =?utf-8?B?cUZMbE4rdkE4YTNha1E4QlJ1S1RXOXVUQTh4cURpb0hxZlc3VnVXckpQRC93?=
+ =?utf-8?B?MzlLaWhmUzF0cndVVGRkcjVTS2hrU2hteThmamx0anVMbVpUL2pWWHVVc0F6?=
+ =?utf-8?B?OWtpczdnNzdnVTByUVhxeDhUbUJ1bDB5SDNWOTl0ak5ucDBqRGUveWdsb1B4?=
+ =?utf-8?B?ZDRjcnVCQzhBSDBLSWdudXloSEI5WklNS0cwcHRvTlFycUpvK0JBTGpJQllV?=
+ =?utf-8?B?a1duNnJweW1iR0psZjJnU0xRQkRkTjhRclVlS2RjQ1AvdXRDeGRzQktDNjd6?=
+ =?utf-8?B?dlFSZUZhZkxKOEtMbjZqM2szdFF0WXRSY1pCWEU1ZUZqYzhoQ1RzQWo3WE81?=
+ =?utf-8?B?R3ZSZ1RsTjA4QlRlQkt5YzZVWGtEdSs1QWxjbTlwWmZrYnBOSlRKN2ZhVmgw?=
+ =?utf-8?B?MGh1OFkwUS94ajN5SzRMU3RTYSs2QzVIdUwwVzBaZGMvYXdlTTdlYXl3Mmll?=
+ =?utf-8?B?Qm93NFV2M3BBUXJTR1VDOVJKUWJKREw4R0NrSHZpUUlzTTRCY0ZRTnphbDF1?=
+ =?utf-8?B?Z3Z1UTlNRjFGbXlSOUs3K1JFSEhxUUVld25GenYvb3FXeEJ2enpFeFkwMVIy?=
+ =?utf-8?B?TzZnc1VBTUxyOUZlYUtmS0JzeE5LSlJMQ0hQOGEwMDNnbjNRR3BaNFZ6Q0ZZ?=
+ =?utf-8?B?UDlZM0ZoV3oyUmZ0UjBtbWIvbUhjb2s4RWZBWWpTeFNYc3VQSEQ2Mzdjanpl?=
+ =?utf-8?B?TkRTVC9MOHJiVW44Rk9kZjY4cnlKUTlralJaUE4zZE1lVGVvaGNsQjRMalVU?=
+ =?utf-8?B?Z2FmRG9iaDBNQzkyY1NVdEZFdldtQmhJK2poMmdqNlo1QTNreWVSaVRsOE5D?=
+ =?utf-8?Q?eizT5Zb59ZivoeADNm6581bKOV3WoS73yvFlSm/MS6ck8?=
+X-MS-Exchange-AntiSpam-MessageData-1: cINKeIfeZUv97g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf672ba1-540d-449a-80ce-08deb60b0535
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 00:59:18.7099 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9b3z4P9m+RTd9mbueozv5GAnmbwsefPgZZjsFmUyBBd77y5XlFMVZt8D3pf056ITr+WYS1zA8uZSJ6RPPJl+og==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4285
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,226 +139,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue May 19, 2026 at 6:45 PM CEST, Gary Guo wrote:
-> On Sun May 17, 2026 at 1:01 AM BST, Danilo Krummrich wrote:
->> +    pub fn new<'bound, E>(
->> +        parent: &'bound device::Device<device::Bound>,
->>          name: &CStr,
->>          id: u32,
->>          modname: &CStr,
->> -        data: impl PinInit<T, E>,
->> +        data: impl PinInit<F::Of<'bound>, E>,
->>      ) -> Result<Devres<Self>>
+Hi Antonin, thanks for this first patch!
+
+Note about the subject: if you look at patches under
+`drivers/gpu/nova-core`, you will notice that they all use the same
+prefix (`gpu: nova-core:`). Here since you touch the `gsp` module,
+you'll want to refine it further to `gpu: nova-core: gsp:`.
+
+On Sun May 17, 2026 at 1:14 AM JST, Antonin Malzieu Ridolfi wrote:
+> First babystep to split the register definitions grouped in nova root
+> register file to the module which actually use them.
+
+nit: "first babystep" is irrelevant for the git history, we prefer to
+keep the log strictly factual. If you want to add side-comments, you can
+do so after the `---` marker - these won't be picked up when the patch
+is applied.
+
 >
-> I think this is unsound for the reason that I gave in another email
-> https://lore.kernel.org/rust-for-linux/DIMSJVKTYX6D.AEN6OPPC2898@garyguo.=
-net/.
+> Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
+> ---
+>  drivers/gpu/nova-core/gsp.rs      |  1 +
+>  drivers/gpu/nova-core/gsp/cmdq.rs |  3 ++-
+>  drivers/gpu/nova-core/gsp/regs.rs | 11 +++++++++++
+>  drivers/gpu/nova-core/regs.rs     |  8 --------
+>  4 files changed, 14 insertions(+), 9 deletions(-)
+>  create mode 100644 drivers/gpu/nova-core/gsp/regs.rs
 
-Indeed, this has to be fixed. I looked into the options brought up in the l=
-inked
-reply, i.e. the "new type" approach and the "closure" approach. And after
-playing around with both of them, I'm not really satisfied with either of t=
-hose.
+The patch in itself looks exactly like expected. The reduced visibility
+is definitely nice.
 
-The "new type" one is simple and works, but has the disadvantage that, well=
-, we
-need a new type and update all callsites where we would ever want to create
-registrations (mainly probe though).
-
-The "closure" one on the other hand creates a little bit of an odd API and =
-by
-its nature does not allow to move pre-existing resources into the closure, =
-which
-is a major limitation (maybe there is some way, but if so I didn't find it)=
-.
-
-I instead went with something else: Currently we return a
-Devres<auxiliary::Registration<_>>. However, since we're moving to lifetime=
-s
-anyway, we can just return an auxiliary::Registration<'bound, _> instead, w=
-hich
-makes the return type invariant over 'bound, which makes the problem go awa=
-y
-naturally.
-
-Please find the diff below for reference.
-
-diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-index 5acece8e369a..c784426b8092 100644
---- a/rust/kernel/auxiliary.rs
-+++ b/rust/kernel/auxiliary.rs
-@@ -12,7 +12,7 @@
-         RawDeviceId,
-         RawDeviceIdIndex, //
-     },
--    devres::Devres,
-+
-     driver,
-     error::{
-         from_result,
-@@ -408,12 +408,12 @@ struct RegistrationData<T> {
- /// `self.adev` always holds a valid pointer to an initialized and registe=
-red
- /// [`struct auxiliary_device`] whose `registration_data_rust` field point=
-s to a
- /// valid `Pin<KBox<RegistrationData<F::Of<'static>>>>`.
--pub struct Registration<F: ForLt + 'static> {
-+pub struct Registration<'bound, F: ForLt + 'static> {
-     adev: NonNull<bindings::auxiliary_device>,
--    _data: PhantomData<F>,
-+    _phantom: PhantomData<(fn(&'bound ()) -> &'bound (), F)>,
- }
-=20
--impl<F: ForLt> Registration<F>
-+impl<'bound, F: ForLt> Registration<'bound, F>
- where
-     for<'a> F::Of<'a>: Send + Sync,
- {
-@@ -421,13 +421,13 @@ impl<F: ForLt> Registration<F>
-     ///
-     /// The `data` is owned by the registration and can be accessed throug=
-h the auxiliary device
-     /// via [`Device::registration_data()`].
--    pub fn new<'bound, E>(
-+    pub fn new<E>(
-         parent: &'bound device::Device<device::Bound>,
-         name: &CStr,
-         id: u32,
-         modname: &CStr,
-         data: impl PinInit<F::Of<'bound>, E>,
--    ) -> Result<Devres<Self>>
-+    ) -> Result<Self>
-     where
-         Error: From<E>,
-     {
-@@ -439,8 +439,10 @@ pub fn new<'bound, E>(
-             GFP_KERNEL,
-         )?;
-=20
--        // SAFETY: Lifetimes are erased and do not affect layout, so Regis=
-trationData<F::Of<'bound>>
--        // and RegistrationData<F::Of<'static>> have identical representat=
-ion.
-+        // SAFETY: `'bound` is invariant (via `Registration`'s `PhantomDat=
-a`), guaranteeing it
-+        // represents the full binding scope. Lifetimes do not affect layo=
-ut, so
-+        // RegistrationData<F::Of<'bound>> and RegistrationData<F::Of<'sta=
-tic>> have identical
-+        // representation.
-         let data: Pin<KBox<RegistrationData<F::Of<'static>>>> =3D
-             unsafe { core::mem::transmute(data) };
-=20
-@@ -487,18 +489,16 @@ pub fn new<'bound, E>(
-=20
-         // INVARIANT: The device will remain registered until `auxiliary_d=
-evice_delete()` is
-         // called, which happens in `Self::drop()`.
--        let reg =3D Self {
-+        Ok(Self {
-             // SAFETY: `adev` is guaranteed to be non-null, since the `KBo=
-x` was allocated
-             // successfully.
-             adev: unsafe { NonNull::new_unchecked(adev) },
--            _data: PhantomData,
--        };
--
--        Devres::new::<core::convert::Infallible>(parent, reg)
-+            _phantom: PhantomData,
-+        })
-     }
- }
-=20
--impl<F: ForLt> Drop for Registration<F> {
-+impl<F: ForLt> Drop for Registration<'_, F> {
-     fn drop(&mut self) {
-         // SAFETY: By the type invariant of `Self`, `self.adev.as_ptr()` i=
-s a valid registered
-         // `struct auxiliary_device`.
-@@ -520,7 +520,7 @@ fn drop(&mut self) {
- }
-=20
- // SAFETY: A `Registration` of a `struct auxiliary_device` can be released=
- from any thread.
--unsafe impl<F: ForLt> Send for Registration<F> where for<'a> F::Of<'a>: Se=
-nd {}
-+unsafe impl<F: ForLt> Send for Registration<'_, F> where for<'a> F::Of<'a>=
-: Send {}
-=20
- // SAFETY: `Registration` does not expose any methods or fields that need =
-synchronization.
--unsafe impl<F: ForLt> Sync for Registration<F> where for<'a> F::Of<'a>: Se=
-nd {}
-+unsafe impl<F: ForLt> Sync for Registration<'_, F> where for<'a> F::Of<'a>=
-: Send {}
-diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_driv=
-er_auxiliary.rs
-index 84d18bbfafc5..efb4d97b416b 100644
---- a/samples/rust/rust_driver_auxiliary.rs
-+++ b/samples/rust/rust_driver_auxiliary.rs
-@@ -10,7 +10,6 @@
-         Bound,
-         Core, //
-     },
--    devres::Devres,
-     driver,
-     pci,
-     prelude::*,
-@@ -58,29 +57,29 @@ struct Data<'bound> {
- }
-=20
- #[allow(clippy::type_complexity)]
--struct ParentDriver {
--    _reg0: Devres<auxiliary::Registration<ForLt!(Data<'_>)>>,
--    _reg1: Devres<auxiliary::Registration<ForLt!(Data<'_>)>>,
-+struct ParentDriver<'bound> {
-+    _reg0: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
-+    _reg1: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
- }
-=20
- kernel::pci_device_table!(
-     PCI_TABLE,
-     MODULE_PCI_TABLE,
--    <ParentDriver as pci::Driver>::IdInfo,
-+    <ParentDriver<'_> as pci::Driver>::IdInfo,
-     [(pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5), ())]
- );
-=20
--impl pci::Driver for ParentDriver {
-+impl pci::Driver for ParentDriver<'_> {
-     type IdInfo =3D ();
--    type Data<'bound> =3D Self;
-+    type Data<'bound> =3D ParentDriver<'bound>;
-=20
-     const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-=20
-     fn probe<'bound>(
-         pdev: &'bound pci::Device<Core>,
-         _info: &'bound Self::IdInfo,
--    ) -> impl PinInit<Self, Error> + 'bound {
--        Ok(Self {
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+        Ok(ParentDriver {
-             _reg0: auxiliary::Registration::new(
-                 pdev.as_ref(),
-                 AUXILIARY_NAME,
-@@ -105,7 +104,7 @@ fn probe<'bound>(
-     }
- }
-=20
--impl ParentDriver {
-+impl ParentDriver<'_> {
-     fn connect(adev: &auxiliary::Device<Bound>) -> Result {
-         let data =3D adev.registration_data::<ForLt!(Data<'_>)>()?;
-         let pdev =3D data.parent;
-@@ -131,7 +130,7 @@ fn connect(adev: &auxiliary::Device<Bound>) -> Result {
- #[pin_data]
- struct SampleModule {
-     #[pin]
--    _pci_driver: driver::Registration<pci::Adapter<ParentDriver>>,
-+    _pci_driver: driver::Registration<pci::Adapter<ParentDriver<'static>>>=
-,
-     #[pin]
-     _aux_driver: driver::Registration<auxiliary::Adapter<AuxiliaryDriver>>=
-,
- }
+I suppose you will want to send a v2 addressing this feedback; feel free
+to include one or more extra obvious modules as additional patches if
+you feel like it. This is the kind of rework that can be merged quickly.
