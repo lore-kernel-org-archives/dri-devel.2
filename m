@@ -4,80 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1F01CD5BAB
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 07:13:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5031FCD4F5E
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 07:22:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 539B110EF3E;
-	Wed, 20 May 2026 07:13:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A220E10E08D;
+	Wed, 20 May 2026 07:22:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m8VVvCFn";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="EMVF/5TY";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCB0610EB1A
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 08:23:12 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-c82de129a40so1283684a12.1
- for <dri-devel@lists.freedesktop.org>; Tue, 19 May 2026 01:23:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779178992; x=1779783792; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Cw+HXkNbB/u5QBrnahLqduKfToHyIm0xf5S3V5dfPlI=;
- b=m8VVvCFngKRJJhMQhRftuUUP3zD/xgs8sKvtub/U0g8W0fx3i3fKGvISfvb30IDd7V
- bzKC4uj4cuwZLT9PSA54IRkc8EkUjOmG+orn/ndFLVQUrXtYpE58XDa0qCIGrxDFh1V+
- c5h2FBhPOQ6i1nbjOx3jFMPKz/7TE4afGys0OUYgzuRiStnRCP/YnStrhOvxICVd1AgK
- 4pQEcwex5KNAN3H2JZt5TzwfK+C+sm85MoWZurGwV/JP7UTehTqWZ7CP/NzBjxenbhY1
- LJmW2ZpuktjQikAPYj3+FZtoF29EeLye6DNa2YuZn1rbDbriLWSOI/neIwajCsp550Xa
- x2+Q==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E726810E08D
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 07:22:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779261739;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Xx2spnpzWhoLag/qhNvFLWpyojrRWUzv888prY2ah/g=;
+ b=EMVF/5TY9Z+ov2XErYebG2/YTaGwrc1Nd9r8MMGS/RN6tuGHGOMovsMGKyogf7ENieQ7i7
+ /iE0y6TGN+fmY3TzxArCSnMOx91cdYhNPW8is5IspVIEagpFM8eOe3U1ifHLN8cTwBNTaC
+ ECRRBG/vA+ROaOP3EiSTcN87Kbfv7Sk=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-640-C0ICbGcxMpewwPamQHi4OQ-1; Wed, 20 May 2026 03:22:17 -0400
+X-MC-Unique: C0ICbGcxMpewwPamQHi4OQ-1
+X-Mimecast-MFC-AGG-ID: C0ICbGcxMpewwPamQHi4OQ_1779261737
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-7cfea0b5b7cso24461947b3.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 00:22:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779178992; x=1779783792;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Cw+HXkNbB/u5QBrnahLqduKfToHyIm0xf5S3V5dfPlI=;
- b=rHl/ms/uCMLQgdSDsQYQZYRmoqUM9+kBQp66UChlTRJY8wpA7iRsdk2Q20RqgUgyra
- fDMK8D3BzC+OEcFzuJ4yA9MqgXYZyRy88DYvZmfMHajZ7iyDLKiWlft0J5scRWZzTJ+s
- wHjQZstnOBw1TtF+D55nsDrFkpniwAmTFkZED1t7YsfyvwKPQalpYUUBypWfT25HYAkS
- 3jzldxoNbiF+RNAR39C9rPqnIcgjXJtsumynnu+nNmNAPqWze/Z/3bfLwT77kEZFBgcT
- nF9ezsTZfWNFUjFRNGJ+WnGWPenAQmuwOwFFK1zbilUNspPlt1iS6NNG8OOhUxoHjjr3
- OANQ==
-X-Gm-Message-State: AOJu0Yzg3ljeNMH/cYOqDLVi2u2W0I8s3RXHQD6OOwCM/qdJ3qu3SoQe
- YZb1c0Wonvhdu6dhpfF8q3ePwLascdKocLBmoudRE3AGcBb4dX6JkmM/
-X-Gm-Gg: Acq92OE1B4sqD9ecG9XxCT8elTQE5wgiKNnsSa8aeLyxJlSAY7ZO2H3OTKKxfL/fFiI
- ELYxORzlBk+FC5kZ87kltSw0cIPgOdb9nQnAd6F1iZzLBJXPXBPZfWtPKYBg4bOep6y2R0ey7ub
- 9/TF1hNIWL3gbJ5iOa80BQyBZkrXik2KqRzQUnfpc/WU3q7B/h3p/264ZVKOCL9WlqdQ5Vjnivg
- Ww/sS2FFdj9H6yNNZjgD83zHXvZsRUgzCdFgvpkW9Zgxx6yRKENgIFGobh0oVjAToTW9QyQg8ve
- 10s+HwU6DU66O2GnEt4apSshw9+hppfiV+HQAiir+kWKfxlCSdPoR+a/eZlAsC80M+Zp2iZq07s
- u2zirqdy5lHobdYWLYBdUr21938l1p8kppOXpNEYd/F2woMs1yl1DOjFOUwJXgAaH7Ww0AvABB1
- jqfeFRCl5iNA6rK6GE5lSZcuRnH7iJuTwW0HzrugyWBxgiy3AsBUcTbk7qDv24/XzBPrpYXRpNj
- 6czvZV8HMYeyPU=
-X-Received: by 2002:a17:90b:4b8c:b0:359:87a8:e65c with SMTP id
- 98e67ed59e1d1-36951b8280dmr18284305a91.17.1779178992328; 
- Tue, 19 May 2026 01:23:12 -0700 (PDT)
-Received: from deepanshu-kernel-hacker..
- ([2405:201:682f:383f:d693:97f:df7:b062])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3695126feabsm13019156a91.6.2026.05.19.01.23.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 01:23:11 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: airlied@redhat.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
- gurchetansingh@chromium.org, olvaffe@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, Deepanshu Kartikey <kartikey406@gmail.com>,
- syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com,
- stable@vger.kernel.org
-Subject: [PATCH v4] drm/virtio: use uninterruptible resv lock for plane updates
-Date: Tue, 19 May 2026 13:52:47 +0530
-Message-ID: <20260519082247.34470-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ d=1e100.net; s=20251104; t=1779261737; x=1779866537;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Xx2spnpzWhoLag/qhNvFLWpyojrRWUzv888prY2ah/g=;
+ b=PgmP6Xph0K+0qgB9UcsVGxx2IuUqXgH/vXnH9Fuf76vHYScz6BfKskNqlbBjuf0E6D
+ ggnidPFU/38eq7A9IqGPCcN+bbvUUpJ0Z1+Ah3i1aRlSEu6Crj5TjIETQ+0Nv62K9NjB
+ lmmJqm2kEDJ+5P6kqM3GMhxfiwGPNXx68wIVaTU/vM2JmX5K6H4Io6mRE4Ah2g5ePxxK
+ ByS0uqH5XPPEVGrSeDHgHYSzey636jVWRh6JrcBFSeXA37MqESKk4AzHy96e06AYpCHY
+ qBGKB1VvLE/wMmAj5SCUx4dHvEyQN76Tqc6e7nZ4JKlX9bv/pfgrcDoxG3XybprTryjY
+ 5ZQA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/DZD4nBAblhL6NlGYkDfaJDKoH2y22aqZkQGICENL05kd16VgDYjqWgOBGidPuhodivR1UVow4YxE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+/bwucrskOLvBIlXOXBmv7XdW3OiZqx2yeemZjfKoMbW1HFKq
+ S4T1ijpxidblmDWvyQQRzTc5lhxaMB8jw1DEQkTnieta87flvAN9FxcodRT3VQtYsOFMwh/tOyP
+ lzM9rxNtrmDUC1ele1uJ8OWj+A3ns4TAu3I3vzCweeE5VxfeT3IA9KmyCZjtsvB/z1yzUzpnG56
+ vsmMGtth6KYsU8IjI+vyyToBdksRhUpEYZtACu4cUBST+J
+X-Gm-Gg: Acq92OFLqD+4SW1C585qSj1BIa4EGX62/oNYK0soNcVhXx/ozhUkxD5Kd0WglL5SmeQ
+ zIOc/rEI2I6DDaTimNuCWMbtUiBiCnEGENydqFeg42Q2KdZZL9jeuB8KjHnC6eHD9/PrcscAIZT
+ ICfZcYf3JVgYs2BY37JiJ+gutzW+tMMfDwb+Y0GgZIovUUhK6oNLRttZ2cL79fItBVinklhKuPx
+ 0Io1Q==
+X-Received: by 2002:a05:690c:84:b0:7b5:88ec:91b0 with SMTP id
+ 00721157ae682-7c95d1d9e08mr253826657b3.48.1779261736931; 
+ Wed, 20 May 2026 00:22:16 -0700 (PDT)
+X-Received: by 2002:a05:690c:84:b0:7b5:88ec:91b0 with SMTP id
+ 00721157ae682-7c95d1d9e08mr253826267b3.48.1779261736472; Wed, 20 May 2026
+ 00:22:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 20 May 2026 07:13:27 +0000
+References: <20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com>
+ <20260519-cgroup-dmem-memcg-double-charge-v2-1-db4d1407062b@redhat.com>
+In-Reply-To: <20260519-cgroup-dmem-memcg-double-charge-v2-1-db4d1407062b@redhat.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Wed, 20 May 2026 09:22:02 +0200
+X-Gm-Features: AVHnY4KBhaLJ6-NKlQm0NilZQ57LVIjKu_pC_jcyJuZg3rPObvW4KXxjSx93n3c
+Message-ID: <CADSE00L4R6PGtP6yGTZ6Ym=tvOZEYHRbuEtEu0BKX294HN6qXQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] mm/memcontrol: add dmem charge/uncharge functions
+To: Eric Chanudet <echanude@redhat.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Natalie Vock <natalie.vock@gmx.de>, Tejun Heo <tj@kernel.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ cgroups@vger.kernel.org, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, "T.J. Mercier" <tjmercier@google.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Maxime Ripard <mripard@redhat.com>, Dave Airlie <airlied@gmail.com>,
+ linux-doc@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Z6YaQoaPngU41ik3EfZXi9_xT8muoEh6DKfOCPlcVR8_1779261737
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,162 +107,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush() lock
-the framebuffer BO's dma_resv via virtio_gpu_array_lock_resv() and
-ignore its return value. The function can fail with -EINTR from
-dma_resv_lock_interruptible() (signal during lock wait) or with
--ENOMEM from dma_resv_reserve_fences() (fence slot allocation),
-leaving the resv lock not held. The queue path then walks the object
-array and calls dma_resv_add_fence(), which requires the lock held;
-with lockdep enabled this trips dma_resv_assert_held():
+On Tue, May 19, 2026 at 6:01=E2=80=AFPM Eric Chanudet <echanude@redhat.com>=
+ wrote:
+>
+> Add mem_cgroup_dmem_charge() and mem_cgroup_dmem_uncharge() to allow
+> dmem pool allocations to optionally be double-charged against the memory
+> controller. Take the struct cgroup from the dmem pool's css as there is
+> no convenient object exported to represent these allocations. These will
+> resolve the effective memory css from that cgroup and perform the
+> charge.
+>
+> Introduce a MEMCG_DMEM stat counter to memory.stat to make the cgroup's
+> dmem charge visible.
+>
+> Signed-off-by: Eric Chanudet <echanude@redhat.com>
 
-  WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
-  Call Trace:
-   virtio_gpu_array_add_fence
-   virtio_gpu_queue_ctrl_sgs
-   virtio_gpu_queue_fenced_ctrl_buffer
-   virtio_gpu_cursor_plane_update
-   drm_atomic_helper_commit_planes
-   drm_atomic_helper_commit_tail
-   commit_tail
-   drm_atomic_helper_commit
-   drm_atomic_commit
-   drm_atomic_helper_update_plane
-   __setplane_atomic
-   drm_mode_cursor_universal
-   drm_mode_cursor_common
-   drm_mode_cursor_ioctl
-   drm_ioctl
-   __x64_sys_ioctl
+Reviewed-by: Albert Esteve <aesteve@redhat.com>
 
-Beyond the WARN, mutating the dma_resv fence list without the lock
-races with concurrent readers/writers and can corrupt the list.
-
-Both call sites run inside the .atomic_update plane callback, which
-DRM atomic helpers do not allow to fail (by the time it runs, the
-commit has been signed off to userspace and there is no clean
-rollback path). Moving the lock acquisition to .prepare_fb was
-rejected because the broader lock scope deadlocks against other BO
-locking paths in the same atomic commit.
-
-Introduce virtio_gpu_lock_one_resv_uninterruptible() that uses
-dma_resv_lock() instead of dma_resv_lock_interruptible(). This
-eliminates the -EINTR failure mode -- the realistic syzbot trigger
--- without extending the lock hold across the commit. The helper
-locks a single BO and rejects nents > 1 with -EINVAL; both fix
-sites lock exactly one BO.
-
-Use it from virtio_gpu_cursor_plane_update() and
-virtio_gpu_resource_flush(); check the return value to handle the
-remaining -ENOMEM case from dma_resv_reserve_fences() by freeing
-the objs and skipping the plane update for that frame. The
-framebuffer BOs touched here are not shared with other contexts
-and lock contention is expected to be brief, so the loss of
-signal-interruptibility is acceptable.
-
-Other callers of virtio_gpu_array_lock_resv() (the ioctl paths)
-continue to use the interruptible variant.
-
-The bug was reported by syzbot, triggered via fault injection
-(fail_nth) on the DRM_IOCTL_MODE_CURSOR path, which forces the
--ENOMEM branch in dma_resv_reserve_fences().
-
-Reported-by: syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=72bd3dd3a5d5f39a0271
-Fixes: 5cfd31c5b3a3 ("drm/virtio: fix virtio_gpu_cursor_plane_update().")
-Cc: stable@vger.kernel.org
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
-v4: Rename the helper to virtio_gpu_lock_one_resv_uninterruptible()
-    and reject objs->nents > 1 with -EINVAL. The v3 helper's
-    multi-object branch used drm_gem_lock_reservations(), which is
-    interruptible, contradicting the "uninterruptible" name; both
-    fix sites lock a single BO so the multi-object path is dropped.
-    (Dmitry Osipenko)
-v3: Drop the prepare_fb/cleanup_fb approach from v2 (it deadlocked
-    against virtio_gpu_resource_flush(), which also locks the BO in
-    the same atomic commit). Instead add an uninterruptible variant
-    of the resv lock helper and use it in both
-    virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush().
-    (Dmitry Osipenko)
-v2: Move resv lock acquisition from .atomic_update (which must not
-    fail) to .prepare_fb (which may), per maintainer review of v1.
-    The v1 approach of silently skipping the cursor update on lock
-    failure violated the atomic-commit contract with userspace.
----
- drivers/gpu/drm/virtio/virtgpu_drv.h   |  1 +
- drivers/gpu/drm/virtio/virtgpu_gem.c   | 17 +++++++++++++++++
- drivers/gpu/drm/virtio/virtgpu_plane.c | 10 ++++++++--
- 3 files changed, 26 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index f17660a71a3e..2f3531950aa4 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -317,6 +317,7 @@ virtio_gpu_array_from_handles(struct drm_file *drm_file, u32 *handles, u32 nents
- void virtio_gpu_array_add_obj(struct virtio_gpu_object_array *objs,
- 			      struct drm_gem_object *obj);
- int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs);
-+int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs);
- void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs);
- void virtio_gpu_array_add_fence(struct virtio_gpu_object_array *objs,
- 				struct dma_fence *fence);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
-index f22dc5c21cd4..435d37d36034 100644
---- a/drivers/gpu/drm/virtio/virtgpu_gem.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
-@@ -238,6 +238,23 @@ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs)
- 	return ret;
- }
- 
-+int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs)
-+{
-+	int ret;
-+
-+	if (objs->nents != 1)
-+		return -EINVAL;
-+
-+	dma_resv_lock(objs->objs[0]->resv, NULL);
-+
-+	ret = dma_resv_reserve_fences(objs->objs[0]->resv, 1);
-+	if (ret) {
-+		virtio_gpu_array_unlock_resv(objs);
-+		return ret;
-+	}
-+	return 0;
-+}
-+
- void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs)
- {
- 	if (objs->nents == 1) {
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index a126d1b25f46..652352424744 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -215,7 +215,10 @@ static void virtio_gpu_resource_flush(struct drm_plane *plane,
- 		if (!objs)
- 			return;
- 		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
--		virtio_gpu_array_lock_resv(objs);
-+		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
-+			virtio_gpu_array_put_free(objs);
-+			return;
-+		}
- 		virtio_gpu_cmd_resource_flush(vgdev, bo->hw_res_handle, x, y,
- 					      width, height, objs,
- 					      vgplane_st->fence);
-@@ -459,7 +462,10 @@ static void virtio_gpu_cursor_plane_update(struct drm_plane *plane,
- 		if (!objs)
- 			return;
- 		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
--		virtio_gpu_array_lock_resv(objs);
-+		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
-+			virtio_gpu_array_put_free(objs);
-+			return;
-+		}
- 		virtio_gpu_cmd_transfer_to_host_2d
- 			(vgdev, 0,
- 			 plane->state->crtc_w,
--- 
-2.43.0
+> ---
+>  include/linux/memcontrol.h | 16 ++++++++++++
+>  mm/memcontrol.c            | 65 ++++++++++++++++++++++++++++++++++++++++=
+++++++
+>  2 files changed, 81 insertions(+)
+>
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index dc3fa687759b45748b2acee6d7f43da325eb50c1..8e1d49b87fb64e6114f3eb920=
+293e14920290fe7 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -39,6 +39,7 @@ enum memcg_stat_item {
+>         MEMCG_ZSWAP_B,
+>         MEMCG_ZSWAPPED,
+>         MEMCG_ZSWAP_INCOMP,
+> +       MEMCG_DMEM,
+>         MEMCG_NR_STAT,
+>  };
+>
+> @@ -1872,6 +1873,21 @@ static inline bool mem_cgroup_zswap_writeback_enab=
+led(struct mem_cgroup *memcg)
+>  }
+>  #endif
+>
+> +#if defined(CONFIG_MEMCG) && defined(CONFIG_CGROUP_DMEM)
+> +bool mem_cgroup_dmem_charge(struct cgroup *cgrp, unsigned int nr_pages,
+> +                           gfp_t gfp_mask);
+> +void mem_cgroup_dmem_uncharge(struct cgroup *cgrp, unsigned int nr_pages=
+);
+> +#else
+> +static inline bool mem_cgroup_dmem_charge(struct cgroup *cgrp,
+> +                                         unsigned int nr_pages, gfp_t gf=
+p_mask)
+> +{
+> +       return true;
+> +}
+> +static inline void mem_cgroup_dmem_uncharge(struct cgroup *cgrp,
+> +                                           unsigned int nr_pages)
+> +{
+> +}
+> +#endif
+>
+>  /* Cgroup v1-related declarations */
+>
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index c03d4787d466803db49cdaa90e6d6ba426b7afe2..91a7ac16b6eac2d6c3700b688=
+5a068bf8b640706 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -433,6 +433,7 @@ static const unsigned int memcg_stat_items[] =3D {
+>         MEMCG_ZSWAP_B,
+>         MEMCG_ZSWAPPED,
+>         MEMCG_ZSWAP_INCOMP,
+> +       MEMCG_DMEM,
+>  };
+>
+>  #define NR_MEMCG_NODE_STAT_ITEMS ARRAY_SIZE(memcg_node_stat_items)
+> @@ -1606,6 +1607,9 @@ static const struct memory_stat memory_stats[] =3D =
+{
+>  #ifdef CONFIG_NUMA_BALANCING
+>         { "pgpromote_success",          PGPROMOTE_SUCCESS       },
+>  #endif
+> +#ifdef CONFIG_CGROUP_DMEM
+> +       { "dmem",                       MEMCG_DMEM              },
+> +#endif
+>  };
+>
+>  /* The actual unit of the state item, not the same as the output unit */
+> @@ -5909,6 +5913,67 @@ static struct cftype zswap_files[] =3D {
+>  };
+>  #endif /* CONFIG_ZSWAP */
+>
+> +#ifdef CONFIG_CGROUP_DMEM
+> +/**
+> + * mem_cgroup_dmem_charge - charge memcg for a dmem pool allocation
+> + * @cgrp: cgroup of the dmem pool
+> + * @nr_pages: number of pages to charge
+> + * @gfp_mask: reclaim mode
+> + *
+> + * Charges @nr_pages to @memcg. Returns %true if the charge fit within
+> + * @memcg's configured limit, %false if it doesn't.
+> + */
+> +bool mem_cgroup_dmem_charge(struct cgroup *cgrp, unsigned int nr_pages,
+> +                           gfp_t gfp_mask)
+> +{
+> +       struct cgroup_subsys_state *mem_css;
+> +       struct mem_cgroup *memcg;
+> +
+> +       /* CGROUP_DMEM and MEMCG guarantees this cannot be NULL. */
+> +       mem_css =3D cgroup_get_e_css(cgrp, &memory_cgrp_subsys);
+> +
+> +       /* Use the memcg, if any, of the dmem cgroup. */
+> +       memcg =3D mem_cgroup_from_css(mem_css);
+> +       if (!memcg || mem_cgroup_is_root(memcg)) {
+> +               css_put(mem_css);
+> +               return false;
+> +       }
+> +
+> +       if (try_charge_memcg(memcg, gfp_mask, nr_pages)) {
+> +               css_put(mem_css);
+> +               return false;
+> +       }
+> +
+> +       mod_memcg_state(memcg, MEMCG_DMEM, nr_pages);
+> +       css_put(mem_css);
+> +       return true;
+> +}
+> +
+> +/**
+> + * mem_cgroup_dmem_uncharge - uncharge memcg from a dmem pool allocation
+> + * @cgrp: cgroup of the dmem pool
+> + * @nr_pages: number of pages to uncharge
+> + */
+> +void mem_cgroup_dmem_uncharge(struct cgroup *cgrp, unsigned int nr_pages=
+)
+> +{
+> +       struct cgroup_subsys_state *mem_css;
+> +       struct mem_cgroup *memcg;
+> +
+> +       /* CGROUP_DMEM and MEMCG guarantees this cannot be NULL. */
+> +       mem_css =3D cgroup_get_e_css(cgrp, &memory_cgrp_subsys);
+> +
+> +       memcg =3D mem_cgroup_from_css(mem_css);
+> +       if (!memcg || mem_cgroup_is_root(memcg)) {
+> +               css_put(mem_css);
+> +               return;
+> +       }
+> +
+> +       mod_memcg_state(memcg, MEMCG_DMEM, -nr_pages);
+> +       refill_stock(memcg, nr_pages);
+> +       css_put(mem_css);
+> +}
+> +#endif /* CONFIG_CGROUP_DMEM */
+> +
+>  static int __init mem_cgroup_swap_init(void)
+>  {
+>         if (mem_cgroup_disabled())
+>
+> --
+> 2.52.0
+>
 
