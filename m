@@ -4,72 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43E30CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 10:17:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDAB3CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 10:21:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B973310EFEC;
-	Wed, 20 May 2026 10:17:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4656D10EFE3;
+	Wed, 20 May 2026 10:21:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bJOIRG8W";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="X0qpEo8i";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fDETJSfz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09C0410EFFF;
- Wed, 20 May 2026 10:17:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779272252; x=1810808252;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=eOlOBfiJj7Bv4YUhSkUqIibhF6y3L5ddhXYlMCE6R8o=;
- b=bJOIRG8WzNO3cRYvlbNdteikVPajoVrLDBPkeSuj1YrpVmxNrLv6z+QM
- 4bFS62mcfpUrL2I3357u77ad3vCU8QNeBp0Ydo/a2luv4/LJuAK/8/KgD
- gHUuRkSFaz9lvWkGn2owzo9JbkCLKTOSoUt+oRanCSRbnjNdED+etQj6j
- ydK2gYjUL2anzFboaIaC2I3awXhTLScPQ1QeKaEdYkwWhyrFUdmd+dHjw
- tHbnQ+dRqQG6kYXNI6Alo63d5MSR1kswWgfZ0JvmbVA7G01AXdTXAuNPU
- JQdLOxUWggK5zcchkX+Hb2ubDp3V97LfiNqrTmhpK9S5nK7BoJ0E8OlIY Q==;
-X-CSE-ConnectionGUID: kFjYHq6bTBeBu/j6WGYh6A==
-X-CSE-MsgGUID: 1mYaSfHlSres+npb58NSNQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="102843317"
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="102843317"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:17:31 -0700
-X-CSE-ConnectionGUID: c+w11R1bT82yxF92bdIqGQ==
-X-CSE-MsgGUID: suprNGISQamG4TXx5V+Cyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="244114163"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO fedora) ([10.245.245.175])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:17:27 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Alice Ryhl <aliceryhl@google.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC7310EFE3
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 10:20:59 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64K9oLoL1177853
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 10:20:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=kGu9iTGWx42JekHQzxcy0M/x
+ 7MV9NKa3kYQaa8egCrE=; b=X0qpEo8iPd60v6e9nMb4T9d3vvZ2mIYPU+sug4pL
+ mqlJf60SlpSafzM1rb9GwxxSTBG0KFu/CmJ6LFLrZ95swt6EKhWMA4zrzxcDalsn
+ guqwfNY5XVn1f+H4ElLPGfaJ1ef4WY15XVpnRkxqMFfF+5E2Zy6ebsWJ3pMpwQLh
+ oanVfrK5FvQM2Ou2cZT6vETEVMLC0ll6byAMb4dd2PzNATDSZ3bxeo7IUsfD1/Pl
+ MLBus55N+vG0sVhwPfRgMXz/YsqjQKdl/V391b1m8foPRnXHDRv8titlsdqYZ6DI
+ s4Z9RO664BF8CVRwkYKNNAisBJ2bg5Zw7chaKHGFrPVlzw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ap6r3p2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 10:20:58 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-51494d74d4bso125746651cf.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 03:20:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779272457; x=1779877257;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=kGu9iTGWx42JekHQzxcy0M/x7MV9NKa3kYQaa8egCrE=;
+ b=fDETJSfzVX2WiNQP34rxHju3GPnPY1p7JTpvaBEk2xMEL01JtINLp5IGCe19af0ePl
+ 1VOUc0f+15waRE6WfI3dkeuOFUJVYMolI3nhAgVaTXEyYJ9tj0IxB0C3ZKZph/wvRwXP
+ sQ7uT1f3Ixdu2a6St+2yzRKaXEIt+Gj+KndMFrwvLJSHImXEFuc/BcOI8fEUMnmU0md7
+ tDxp3WIgbmQM1AaP3B7sMQjovehI8FhIF0ig+Z6u5BozlYYDyYoiJ0K8ERs8PwAI83oD
+ 6bnkaZhUgl0XMCUV6qKt8zZ0V4yI9ba3GToI4u2cVm1pJwOvV6MlfL7MWGmDb5QyBa9Z
+ ujSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779272457; x=1779877257;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=kGu9iTGWx42JekHQzxcy0M/x7MV9NKa3kYQaa8egCrE=;
+ b=JfQJznmkgFkdd60oyrqhPBBYtAVXlnFhfF+WsXoDv6uvdaPLYOhadnfvJJMyprYPzD
+ vKC0+VsSGPrKEUbvy3qFze08KbIgZqV+vFX8Bud1j/a186UJKjhZOjbMdV2mh+IU0Bah
+ CRq6rvurq+gpIt4XBQ5AQc0yxTncfAkvKD64sDsSif5p9Ss41tnb60R+VC1aURn/+M5e
+ vMjcJ6GMaGSpcUCTRUExkrgF7UUefeE3r85/E5YEMWUBpc+3tF6Y4UuTb/oW5/38gfm/
+ IcU+IOVGigK9Cr6/tvPy9RMUWQO2UYfj8wdDXHe35hrAxbKbIL0gjRzRUrdUdGs7zviE
+ TGtA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8X1t+3Mnta5Xb8R9MV1ILudaTYVyb9/AyaNM//mooQ/c1++OjjsZ/IcVq21YOh/so+5Ht67f4bVOY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfrwA/dOmiwyP6VKA1emIIHiEFkmKcs5RY/hRC6u1KGcHA+ArI
+ ONu50r0ukIZ2UT3K+gPhTBjXQzUEIv1hfClctO4PtoCfOraH0MDYleyE1e2qO1Zavcj/eezepXB
+ ceDctjSCaeTETq9w1KOeLRpsrDvteQSJnpitkQltnNnS3pLH3WMD2WyaocFY5dYAl00xPiL0=
+X-Gm-Gg: Acq92OHZk3ZWlQII5xhG2yWWqAuaLfgl8pCX0mOAuHJeftlzwk2EdcjD3929WiS/QbQ
+ uKg/3ImRO8W23896Yi3wuauW4Ek8+E2OSmAXqWWylCu343vtumnYv0twC60kftZRJm6Dcn0Eycx
+ qhumCvhpLOcosjXKseD9t1826QXvbh75XjthtnYHF1CENWzzAL1j8UVi6GkRmHQvH8w8Kp/JAUg
+ NnctEdqu4SzSTrPQsyUYDqIYODEA8LaJhuAkil9qANFZI+C6LiJUk1jmWlOL6OTFdin+ahnWc1X
+ Fc7Uvb9qFctoRi8QcoM7G4D+BHK96zZ5ej/DSNjjHMEusO+1ngVlrWT0D+6eyRvfyRS+bfAegVW
+ eijmXZ1rzNT6GE6HxzYLkLNO79kKjMcmvN560bWgyYxePoSc+uGV2c7FYJ2F8rWoTC9y4RL2/0y
+ 3WtYL7XVXgi4hP9TVmMS6f5bWahgl8WdosooY=
+X-Received: by 2002:a05:622a:198d:b0:516:9b05:acbd with SMTP id
+ d75a77b69052e-5169b05adb8mr130033381cf.16.1779272457478; 
+ Wed, 20 May 2026 03:20:57 -0700 (PDT)
+X-Received: by 2002:a05:622a:198d:b0:516:9b05:acbd with SMTP id
+ d75a77b69052e-5169b05adb8mr130033031cf.16.1779272456990; 
+ Wed, 20 May 2026 03:20:56 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a90f10c5e5sm4824045e87.3.2026.05.20.03.20.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 May 2026 03:20:55 -0700 (PDT)
+Date: Wed, 20 May 2026 13:20:54 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [PATCH v2 4/4] drm/exec, drm/xe,
- drm/amdgpu: Add an accessor for struct drm_exec::ticket
-Date: Wed, 20 May 2026 12:16:16 +0200
-Message-ID: <20260520101616.41284-5-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
-References: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 05/39] drm/msm/dp: splite msm_dp_ctrl_config_ctrl()
+ into link parts and stream parts
+Message-ID: <q7fz2sr27esg444at45m57auwivfcmffjk7ij665de7vsyxtc2@2ww3plm2hqna>
+References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
+ <20260410-msm-dp-mst-v4-5-b20518dea8de@oss.qualcomm.com>
+ <omw63f7fbqiuw2t266dq5drk7rz2kohydpvbbhcrbfiehb7lzh@aucqhfaliams>
+ <57f574d3-7000-42c8-a5b7-88f1a73efd50@oss.qualcomm.com>
+ <etjni6nlx5a6xd4oqb6ow5ihxdl5zcdtcofmo74pbdt7lilnxd@q2zqgiqycjt3>
+ <c1eb178a-4cde-4a4a-bfd9-e3b0ce4b52da@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c1eb178a-4cde-4a4a-bfd9-e3b0ce4b52da@oss.qualcomm.com>
+X-Proofpoint-GUID: u-1uaOhW4s4-chlxEdpPVdiQvA9ELDw4
+X-Proofpoint-ORIG-GUID: u-1uaOhW4s4-chlxEdpPVdiQvA9ELDw4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA5OCBTYWx0ZWRfX3TSXfo7Y/1Dm
+ PpOSxqZxifeUQBR9sZhGp18bMPqs7gkvSJ/0NnJv/MljDdBMZfRRqM0n82OHFtkd+oPvF92DgdK
+ Ykl74hwe0W70FAg3hVoukcTA3ZxgYsNXhJE4eZMz63EG1yZmXQbPVf+xWz7imyEgQVKia1ijKzp
+ cevriEmPfUh6aowN27pcsRdOv6VtSCLgAi9RCIHYTutGgEE9voSL6idFQMuWBEfZhMmkJb2+BUU
+ ilTzrEEQt2D4hzKQ2SVynwSaPgy+4OzLePjixkry/+SkgK/GXN95RYJloAu81/6z3xn1rC2PRP2
+ q+dhT9jHJj5JDTx/vJY4Qlto47Nqb6yAiQFSm/82tho8srPwGiddXMFcAhGXNlzW7BFoZScOnV2
+ NvL1hlb3Ve+uC6wFoJSr8H9Ab+J5Ebzhlhej/zvTaj5YqIUWSaxjCcN/9gnhs7A4znpdwcz+4b0
+ L+vfNj+dx2cMSIGEKWw==
+X-Authority-Analysis: v=2.4 cv=FesHAp+6 c=1 sm=1 tr=0 ts=6a0d8b0a cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=OFC9lnTRAqHNnf6JCLsA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200098
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,122 +149,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Drivers were accessing this drm_exec member directly.
-While that may seem harmless, it will require action if
-the drm_exec utility is made a subclass of a dma-resv transaction
-utility as outlined in the cover-letter.
+On Wed, May 20, 2026 at 06:16:05PM +0800, Yongxing Mou wrote:
+> 
+> 
+> On 5/20/2026 5:23 PM, Dmitry Baryshkov wrote:
+> > On Tue, May 19, 2026 at 03:46:36PM +0800, Yongxing Mou wrote:
+> > > 
+> > > 
+> > > On 4/12/2026 1:34 AM, Dmitry Baryshkov wrote:
+> > > > On Fri, Apr 10, 2026 at 05:33:40PM +0800, Yongxing Mou wrote:
+> > > > > The DP_CONFIGURATION_CTRL register contains both link-level and
+> > > > > stream-specific fields. Currently, msm_dp_ctrl_config_ctrl() configures
+> > > > > all of them together. Separates the configuration into link parts and
+> > > > > streams part for support MST.
+> > > > > 
+> > > > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > > > > ---
+> > > > >    drivers/gpu/drm/msm/dp/dp_ctrl.c | 43 ++++++++++++++++++++++++++--------------
+> > > > >    1 file changed, 28 insertions(+), 15 deletions(-)
+> > > > > 
+> > > > > diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> > > > > index 476346e3ac19..85315467b5d0 100644
+> > > > > --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> > > > > +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> > > > > @@ -388,26 +388,41 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl)
+> > > > >    	drm_dbg_dp(ctrl->drm_dev, "mainlink off\n");
+> > > > >    }
+> > > > > -static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
+> > > > > +static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
+> > > > > +					    struct msm_dp_panel *msm_dp_panel)
+> > > > >    {
+> > > > >    	u32 config = 0, tbd;
+> > > > > +
+> > > > > +	config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
+> > > > > +
+> > > > > +	if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
+> > > > > +		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
+> > > > > +
+> > > > > +	tbd = msm_dp_link_get_test_bits_depth(ctrl->link,
+> > > > > +					      msm_dp_panel->msm_dp_mode.bpp);
+> > > > > +
+> > > > > +	config |= tbd << DP_CONFIGURATION_CTRL_BPC_SHIFT;
+> > > > > +
+> > > > > +	if (msm_dp_panel->psr_cap.version)
+> > > > > +		config |= DP_CONFIGURATION_CTRL_SEND_VSC;
+> > > > > +
+> > > > > +	drm_dbg_dp(ctrl->drm_dev, "stream DP_CONFIGURATION_CTRL=0x%x\n", config);
+> > > > > +
+> > > > > +	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
+> > > > 
+> > > > You have an RMW cycle here. Please document what prevents it from racing
+> > > > with the concurrent msm_dp_ctrl_config_ctrl_link().
+> > > > 
+> > > Here protected by mst_lock in MST case. Will add a comment.
+> > 
+> > And in SST case?
+> > 
+> Emm, do you think this comments fine?
+> 
+>   /*
+>    * RMW: in SST, config_ctrl_link and config_ctrl_streams are called
+>    * sequentially on the same thread. In MST, caller holds mst_lock.
+>    */
 
-Provide an accessor, drm_exec_ticket() to avoid that.
+LGTM
 
-v2:
-- Fix amdgpu compile error (Intel CI)
-- Update the commit message.
-
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  6 +++---
- drivers/gpu/drm/xe/xe_validation.c               |  4 ++--
- include/drm/drm_exec.h                           | 11 +++++++++++
- 4 files changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 72a5a29e63f6..d54794e5b18b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2999,7 +2999,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 	/* Validate PDs, PTs and evicted DMABuf imports last. Otherwise BO
- 	 * validations above would invalidate DMABuf imports again.
- 	 */
--	ret = process_validate_vms(process_info, &exec.ticket);
-+	ret = process_validate_vms(process_info, drm_exec_ticket(&exec));
- 	if (ret) {
- 		pr_debug("Validating VMs failed, ret: %d\n", ret);
- 		goto validate_map_fail;
-@@ -3040,7 +3040,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 			goto validate_map_fail;
- 		}
- 
--		ret = amdgpu_vm_handle_moved(adev, peer_vm, &exec.ticket);
-+		ret = amdgpu_vm_handle_moved(adev, peer_vm, drm_exec_ticket(&exec));
- 		if (ret) {
- 			dev_dbg(adev->dev,
- 				"Memory eviction: handle moved failed, pid %8d. Try again.\n",
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 97a851ae7bd8..6ada57abce9d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1157,7 +1157,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
- 			return r;
- 	}
- 
--	r = amdgpu_vm_handle_moved(adev, vm, &p->exec.ticket);
-+	r = amdgpu_vm_handle_moved(adev, vm, drm_exec_ticket(&p->exec));
- 	if (r)
- 		return r;
- 
-@@ -1359,7 +1359,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 	cs->out.handle = seq;
- 	leader->uf_sequence = seq;
- 
--	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->exec.ticket);
-+	amdgpu_vm_bo_trace_cs(&fpriv->vm, drm_exec_ticket(&p->exec));
- 	for (i = 0; i < p->gang_size; ++i) {
- 		amdgpu_job_free_resources(p->jobs[i]);
- 		trace_amdgpu_cs_ioctl(p->jobs[i]);
-@@ -1794,7 +1794,7 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
- 	*map = mapping;
- 
- 	/* Double check that the BO is reserved by this CS */
--	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != &parser->exec.ticket)
-+	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != drm_exec_ticket(&parser->exec))
- 		return -EINVAL;
- 
- 	/* Make sure VRAM is allocated contigiously */
-diff --git a/drivers/gpu/drm/xe/xe_validation.c b/drivers/gpu/drm/xe/xe_validation.c
-index a611438eaafe..8dff4d0ec895 100644
---- a/drivers/gpu/drm/xe/xe_validation.c
-+++ b/drivers/gpu/drm/xe/xe_validation.c
-@@ -156,7 +156,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
- 
- #ifdef CONFIG_DEBUG_WW_MUTEX_SLOWPATH
- /*
-- * This abuses both drm_exec and ww_mutex internals and should be
-+ * This abuses ww_mutex internals and should be
-  * replaced by checking for -EDEADLK when we can make TTM
-  * stop converting -EDEADLK to -ENOMEM.
-  * An alternative is to not have exhaustive eviction with
-@@ -164,7 +164,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
-  */
- static bool xe_validation_contention_injected(struct drm_exec *exec)
- {
--	return !!exec->ticket.contending_lock;
-+	return !!drm_exec_ticket(exec)->contending_lock;
- }
- 
- #else
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index 99c7e1bb3c5b..8725ba92ff91 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -161,6 +161,17 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
- 		goto *__drm_exec_retry_ptr;			\
- 	} while (0)
- 
-+/**
-+ * drm_exec_ticket - return the ww_acquire_ctx for this exec context
-+ * @exec: drm_exec object
-+ *
-+ * Return: Pointer to the ww_acquire_ctx embedded in @exec.
-+ */
-+static inline struct ww_acquire_ctx *drm_exec_ticket(struct drm_exec *exec)
-+{
-+	return &exec->ticket;
-+}
-+
- void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
- void drm_exec_fini(struct drm_exec *exec);
- bool drm_exec_cleanup(struct drm_exec *exec);
 -- 
-2.54.0
-
+With best wishes
+Dmitry
