@@ -4,58 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B756CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:47:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED4F3CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 12:05:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D64310E10D;
-	Wed, 20 May 2026 11:47:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bOFCMVGJ";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67A7810E10D
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 11:47:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B7546600CB;
- Wed, 20 May 2026 11:47:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C29D1F000E9;
- Wed, 20 May 2026 11:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779277672;
- bh=u0lWDGQPsgD8Yt+SND0PZatIJxC14109hDfaKdLRGZc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bOFCMVGJXFHkVeFNfzqsvgVmMLrcUtaCiVj1Y7yJ1pOPV9H/G+h2qeXk6km5b7MpQ
- v2n5pWvHXYW+qs78HBeFlxsLKMtZJs+42RdZcHqWzkc/0v3Pf8lO9qOl5rc49Gxl3I
- ROZYhYEySzTKD4OERMpijGA8BoMH9dFv9cbZYRRQagM3LC9foWUzqYNDTiJBPRmRX+
- ctetoItSkshyFzA3B21q2QfjUSeMpgY5yfinoqAxG3ELfqo5Y8ZTPQQwuGpIcvHPOm
- apuh7k1/sh7QNvdzuV8NtzaPloSps9JQZPHRF/5Va0X/GL2Sjsmg7eDtGRlpCSq86q
- PGuISNquSI0FQ==
-Date: Wed, 20 May 2026 12:47:45 +0100
-From: Lee Jones <lee@kernel.org>
-To: Frank Li <Frank.li@nxp.com>
-Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Maud Spierings <maudspierings@gocontroll.com>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: (subset) [PATCH v8 1/4] dt-bindings: backlight: Add max25014
- support
-Message-ID: <20260520114745.GX305027@google.com>
-References: <20260407-max25014-v8-1-14eac7ed673a@gocontroll.com>
- <177755722019.2606736.10749503716773482329.b4-ty@b4>
- <agyxLnTYstqRwGva@lizhi-Precision-Tower-5810>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5258310E11C;
+	Wed, 20 May 2026 12:05:35 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90B0A10E11C
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 12:05:33 +0000 (UTC)
+X-UUID: 2f298910544411f1aa26b74ffac11d73-20260520
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:9b2a9711-6ccc-4660-8dcb-f774cd3c5ab6, IP:0,
+ U
+ RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:0
+X-CID-META: VersionHash:e7bac3a, CLOUDID:86bdcbeb20b570dcd5575306646e0b3a,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|123|850|865|898,TC:nil,Content
+ :0|15|50,EDM:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL
+ :0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2f298910544411f1aa26b74ffac11d73-20260520
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1881316677; Wed, 20 May 2026 20:05:25 +0800
+From: yaolu@kylinos.cn
+To: xry111@xry111.site
+Cc: chenhuacai@kernel.org, dri-devel@lists.freedesktop.org, jeffbai@aosc.io,
+ linux-kernel@vger.kernel.org, lvjianmin@loongson.cn, markus.elfring@web.de,
+ wuqianhai@loongson.cn, yaolu@kylinos.cn, zhengxingda@iscas.ac.cn
+Subject: [PATCH v3] drm/loongson: rm unused member lsdc_device->gpu
+Date: Wed, 20 May 2026 20:05:20 +0800
+Message-Id: <20260520120520.293729-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <788292607f1d81531f27b6fb616debc2d0ec1da1.camel@xry111.site>
+References: <788292607f1d81531f27b6fb616debc2d0ec1da1.camel@xry111.site>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <agyxLnTYstqRwGva@lizhi-Precision-Tower-5810>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,25 +61,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 19 May 2026, Frank Li wrote:
+From: Lu Yao <yaolu@kylinos.cn>
 
-> On Thu, Apr 30, 2026 at 02:53:40PM +0100, Lee Jones wrote:
-> > On Tue, 07 Apr 2026 16:41:42 +0200, Maud Spierings wrote:
-> > > The Maxim MAX25014 is a 4-channel automotive grade backlight driver IC
-> > > with integrated boost controller.
-> >
-> > Applied, thanks!
-> >
-> > [1/4] dt-bindings: backlight: Add max25014 support
-> >       commit: 5fcbbedec9dfce78044eee922bf2030e1bd03faa
-> 
-> Lee Jones:
-> 
-> 	I have not seen it in linux-next. Anything wrong?
+lsdc_device->gpu never be used.
+And there has a pci_dev refcount leak in lsdc_get_dedicated_vram() for
+calling pci_get_domain_bus_and_slot().
 
-I don't know why Backlight hasn't been added to Linux Next.
+Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+---
+v2->v3: rm lsdc_device->gpu for it don't be used suggested by Xi Ruoyao
+  Link: https://lore.kernel.org/all/788292607f1d81531f27b6fb616debc2d0ec1da1.camel@xry111.site
 
-Rest assured, it's applied to the Backlight tree.
+v1->v2: add fixes tag and parentheses to function names suggested by
+Markus.
+  Link: https://lore.kernel.org/dri-devel/8ba844ab-9851-4045-a4e8-a96e6d1511e2@web.de
 
+ drivers/gpu/drm/loongson/lsdc_drv.c | 2 +-
+ drivers/gpu/drm/loongson/lsdc_drv.h | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
+index 34405073c4d4..99b8f0cda7ad 100644
+--- a/drivers/gpu/drm/loongson/lsdc_drv.c
++++ b/drivers/gpu/drm/loongson/lsdc_drv.c
+@@ -181,8 +181,8 @@ static int lsdc_get_dedicated_vram(struct lsdc_device *ldev,
+ 
+ 	ldev->vram_base = base;
+ 	ldev->vram_size = size;
+-	ldev->gpu = pdev_gpu;
+ 
++	pci_dev_put(pdev_gpu);
+ 	drm_info(ddev, "Dedicated vram start: 0x%llx, size: %uMiB\n",
+ 		 (u64)base, (u32)(size >> 20));
+ 
+diff --git a/drivers/gpu/drm/loongson/lsdc_drv.h b/drivers/gpu/drm/loongson/lsdc_drv.h
+index fbf2d760ef27..208bbcf689bf 100644
+--- a/drivers/gpu/drm/loongson/lsdc_drv.h
++++ b/drivers/gpu/drm/loongson/lsdc_drv.h
+@@ -269,7 +269,6 @@ struct lsdc_device {
+ 	/* @descp: features description of the DC variant */
+ 	const struct lsdc_desc *descp;
+ 	struct pci_dev *dc;
+-	struct pci_dev *gpu;
+ 
+ 	struct loongson_gfxpll *gfxpll;
+ 
 -- 
-Lee Jones
+2.25.1
+
