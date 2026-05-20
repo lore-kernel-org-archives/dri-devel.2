@@ -4,48 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED4F3CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 12:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A47CCD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 12:17:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5258310E11C;
-	Wed, 20 May 2026 12:05:35 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90B0A10E11C
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 12:05:33 +0000 (UTC)
-X-UUID: 2f298910544411f1aa26b74ffac11d73-20260520
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:9b2a9711-6ccc-4660-8dcb-f774cd3c5ab6, IP:0,
- U
- RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-META: VersionHash:e7bac3a, CLOUDID:86bdcbeb20b570dcd5575306646e0b3a,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|123|850|865|898,TC:nil,Content
- :0|15|50,EDM:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL
- :0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2f298910544411f1aa26b74ffac11d73-20260520
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1881316677; Wed, 20 May 2026 20:05:25 +0800
-From: yaolu@kylinos.cn
-To: xry111@xry111.site
-Cc: chenhuacai@kernel.org, dri-devel@lists.freedesktop.org, jeffbai@aosc.io,
- linux-kernel@vger.kernel.org, lvjianmin@loongson.cn, markus.elfring@web.de,
- wuqianhai@loongson.cn, yaolu@kylinos.cn, zhengxingda@iscas.ac.cn
-Subject: [PATCH v3] drm/loongson: rm unused member lsdc_device->gpu
-Date: Wed, 20 May 2026 20:05:20 +0800
-Message-Id: <20260520120520.293729-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <788292607f1d81531f27b6fb616debc2d0ec1da1.camel@xry111.site>
-References: <788292607f1d81531f27b6fb616debc2d0ec1da1.camel@xry111.site>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6638A10E0FB;
+	Wed, 20 May 2026 12:17:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Vprp3n1L";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 832FC10E0FB
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 12:17:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779279457;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BOsyqvSnsbEyyVQ8FQKJCi5HxKx1SaIi9DZWf/ykA20=;
+ b=Vprp3n1LLYJ2/NxbajbHih/2x/hpO3f8ImC+fnhgPH6CbhHYScJbByIqtWsvNiWDL8dfDq
+ swxmED9Ub9KQg3Gr5gZhKbzUm53rz0CEKVojoE4IUj45qVDIuSAYxsvM+uRtKk77ztOSBb
+ NUyX9wxFrT6X8nm0ECQYAsbPraFhFGQ=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-192--TtGpv24OWeQHHGeu8Kqxw-1; Wed, 20 May 2026 08:17:36 -0400
+X-MC-Unique: -TtGpv24OWeQHHGeu8Kqxw-1
+X-Mimecast-MFC-AGG-ID: -TtGpv24OWeQHHGeu8Kqxw_1779279455
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-449dcfe8005so3793769f8f.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 05:17:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779279455; x=1779884255;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BOsyqvSnsbEyyVQ8FQKJCi5HxKx1SaIi9DZWf/ykA20=;
+ b=Z4WbgN60b+tyB4QvT1H4ZW++swOOoTxS8pgvyzgmXHnCRX6WwaCS2s8x2ahc/AF7bH
+ t1nGr+W83s5CmWebC5wrLq6w1ppJbK9hH1oA7Wuy6GsSDFgpXjjko6wpfUmRRvXU9vX7
+ hx+vbfrF4RqDaDRCu1pN9+3enEvtXFEfo+YAEnYkAq4maEYCRYVuH6DgnuSs/EdIZM6F
+ tYhzYag1dWesm7SReRB/pn+i2yL826+rLI8plyFWuN6A3noc0sgZPgZSPbI1xbqIOVRQ
+ UCIce7AH9XpgVa6r2YunrcAu+G5ohWKPqDSJa5PW5KpAvTD9XLUDDe+7vRe73ICSoGqF
+ iGbA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ90xBE5gckkOXvmveiTY9sBmAAUSCokdRlR9QKrDrnYJk//6HhJ1nhTP10tkZYJU3xZyJV6fxsUq9k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxG9fXJuh+L8utZNedFAVMJiQq5MVSLYhzL/tbfbX3pS5DV8ZNv
+ GGBalRdHyhNGOR+nTLyoi/JXoE7ppnYZ4XVcQnM1YJwaHGtyNRnIqdVcaHGZqEMitklX6bvb+Kc
+ hVcPb303SaSBuQHnG9gXijyelIsH+t4hTFg7XnT2D7ImpWv7cIfCg01m+WCKiBgYGO3hljg==
+X-Gm-Gg: Acq92OFYRYccLPgSEP4xBsrY20/fy4fOft/d2dgOMG+P+KhpsZIBJse2u3Uw85+VbSD
+ Qs5U9M6vLJ+jgcieCcH7uJk93yJP8tw+vjJuDITUutKC5VhdOlZIsk0de7QVtd5CfEt3FRawCSb
+ 21ejM83+fCtyohfF/AwvGKcMT8d4DD1wGg7UgdGRf++WE+fq5URlfUJHJDzFPm8BA/Yp5vysQzf
+ rvavUG6X/L9hOvLYsgpSIb3dgt3I5sYz3bSxXF14Xpju1BVpxvlR7rr0ampCNhrZLsuKp8Nuwt2
+ 5NvJQT37I/TLEP2ZL45E/ZQIsFx3baoCSqxp1d9aOerqTnMicklKd4kHULDwTeY37VhpPZojBsA
+ 6xi/OATSzK9xD5CjSdiwJMV+yy8WF2A9brlby3SNir9/ecWTnKHEIrlvVMm2jmGuWDeJK5JSQ/a
+ NyeS5g
+X-Received: by 2002:a05:6000:22c5:b0:43d:7d24:b510 with SMTP id
+ ffacd0b85a97d-45e5c5fd8demr39330709f8f.22.1779279454860; 
+ Wed, 20 May 2026 05:17:34 -0700 (PDT)
+X-Received: by 2002:a05:6000:22c5:b0:43d:7d24:b510 with SMTP id
+ ffacd0b85a97d-45e5c5fd8demr39330657f8f.22.1779279454336; 
+ Wed, 20 May 2026 05:17:34 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45e7c22d8b7sm24543112f8f.6.2026.05.20.05.17.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 May 2026 05:17:33 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, David
+ Airlie <airlied@gmail.com>, Jani Nikula <jani.nikula@intel.com>, Nicolas
+ Frattaroli <nicolas.frattaroli@collabora.com>, Simona Vetter
+ <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/8] drm/display: hdmi: Add common TMDS character rate
+ constants
+In-Reply-To: <62ruh7xc5bgv2iifshhnd746nfghzczblsgxrumchuak564zvt@nligwnzsw6pz>
+References: <20260519144712.1418302-1-javierm@redhat.com>
+ <20260519144712.1418302-2-javierm@redhat.com>
+ <62ruh7xc5bgv2iifshhnd746nfghzczblsgxrumchuak564zvt@nligwnzsw6pz>
+Date: Wed, 20 May 2026 14:17:32 +0200
+Message-ID: <87wlwywa03.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 8ViEb0ymnuCaTS_CgPIOHvCPW4DS1Y2lugrM_p6ahmU_1779279455
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +103,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Lu Yao <yaolu@kylinos.cn>
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> writes:
 
-lsdc_device->gpu never be used.
-And there has a pci_dev refcount leak in lsdc_get_dedicated_vram() for
-calling pci_get_domain_bus_and_slot().
+Hello Dmitry,
 
-Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
----
-v2->v3: rm lsdc_device->gpu for it don't be used suggested by Xi Ruoyao
-  Link: https://lore.kernel.org/all/788292607f1d81531f27b6fb616debc2d0ec1da1.camel@xry111.site
+> On Tue, May 19, 2026 at 04:46:57PM +0200, Javier Martinez Canillas wrote:
+>> Several DRM drivers already define their own constants for minimum and
+>> maximum TMDS character rates.
+>> 
+>> By defining common rate constants in a shared header, drivers can just use
+>> them instead of having driver local define macros or use magic numbers.
+>> 
+>> The values defined in the <drm/display/drm_hdmi_helper.h> header correspond
+>> to maximum TMDS character rates defined by each HDMI specification version:
+>> 
+>>   - DRM_HDMI_TMDS_CHAR_RATE_MIN:    25 MHz (minimum for all versions)
+>>   - DRM_HDMI_TMDS_CHAR_RATE_MAX_1_0: 165 MHz (HDMI 1.0 maximum)
+>>   - DRM_HDMI_TMDS_CHAR_RATE_MAX_1_3: 340 MHz (HDMI 1.3 maximum)
+>>   - DRM_HDMI_TMDS_CHAR_RATE_MAX_2_0: 600 MHz (HDMI 2.0 maximum)
+>
+> These values are also used by the HDMI PHY drivers. Would it make sense
+> to define them in <linux/hdmi.h> instead?
+>
 
-v1->v2: add fixes tag and parentheses to function names suggested by
-Markus.
-  Link: https://lore.kernel.org/dri-devel/8ba844ab-9851-4045-a4e8-a96e6d1511e2@web.de
+Yes, I think you are correct.
 
- drivers/gpu/drm/loongson/lsdc_drv.c | 2 +-
- drivers/gpu/drm/loongson/lsdc_drv.h | 1 -
- 2 files changed, 1 insertion(+), 2 deletions(-)
+In fact I spotted more HDMI PHY drivers that could also use these defined
+constants but just included the most obvious ones in this patch series.
 
-diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
-index 34405073c4d4..99b8f0cda7ad 100644
---- a/drivers/gpu/drm/loongson/lsdc_drv.c
-+++ b/drivers/gpu/drm/loongson/lsdc_drv.c
-@@ -181,8 +181,8 @@ static int lsdc_get_dedicated_vram(struct lsdc_device *ldev,
- 
- 	ldev->vram_base = base;
- 	ldev->vram_size = size;
--	ldev->gpu = pdev_gpu;
- 
-+	pci_dev_put(pdev_gpu);
- 	drm_info(ddev, "Dedicated vram start: 0x%llx, size: %uMiB\n",
- 		 (u64)base, (u32)(size >> 20));
- 
-diff --git a/drivers/gpu/drm/loongson/lsdc_drv.h b/drivers/gpu/drm/loongson/lsdc_drv.h
-index fbf2d760ef27..208bbcf689bf 100644
---- a/drivers/gpu/drm/loongson/lsdc_drv.h
-+++ b/drivers/gpu/drm/loongson/lsdc_drv.h
-@@ -269,7 +269,6 @@ struct lsdc_device {
- 	/* @descp: features description of the DC variant */
- 	const struct lsdc_desc *descp;
- 	struct pci_dev *dc;
--	struct pci_dev *gpu;
- 
- 	struct loongson_gfxpll *gfxpll;
- 
 -- 
-2.25.1
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
