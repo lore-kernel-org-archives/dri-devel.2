@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBAB3CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 02:14:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95162CD5BA6
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 02:14:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EBBA10EEC2;
-	Wed, 20 May 2026 02:14:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 059E910EEBB;
+	Wed, 20 May 2026 02:14:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ucwSWx6y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oNv/5z/a";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010016.outbound.protection.outlook.com
- [52.101.193.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 567A710E60F;
- Wed, 20 May 2026 02:14:46 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013007.outbound.protection.outlook.com
+ [40.93.201.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43DD310EEC4;
+ Wed, 20 May 2026 02:14:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PWY1IcZLf1umGGlksKSE9F0ppnndd8MvzRHV4tIDYp1Ysdz+iSEUjCgjogg5rLmu4JUAqr5t8V7dbu/rR2vRQEV5rELdZXvyEtDpREgruEASFPoDZP9h4uUsJOJm9IThtH0w+QFX3uj9CN0iiJbL3NZI1gmt5DK6NgnLMoL1RQD62UkWKrHyX2NLFdJWBETEDzbquCIJSf1KxGseAXN7BsyGWQk6dhzQ7EpcXWygp58I9SoJiBn0ytYuUYFfAT0By8kB1vqOvVU5EAowp0RGjEXe2VPMPRKMBcZEg8QaAG79DuPhXvxf6fFNRPyVcCFT/8kNoZ5/NZFF3EXgkLJkzw==
+ b=iWKC662uHooFr8UU1a6f6ValqsI8y9DBDlZIQGJAQRPAZnO8/s2jCjgHBMZyp4fr2Iads8krlr/qc0odfr3LgRGotFjf9nkS77Ek7q2gySnq362FjsaKLsYiJdcFrFPc3dgMdaHbqvQi0fr+Iq7MD7nEonI7GEi1IJjybOCER/NQJC3f1ePpVA45CCC7wQ6XPd4V+rVkP9+PfjCS7iHvDmqBZywEiYqITazJzzDBaypbT5cyLWS+WY69L1032vav8pJxiXpCPNLNLpyXxFDpyIsXDMbiWm5viFT1xhTmplV4atAqIcxrMewQNFEs8Y5biMZGdX5ZqYIHwAiNOrjASQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vY4HVfwrsMKAw1aWhz/bns3o1/sZN2nzy/+Zz35KnW4=;
- b=B2ha3w/Hzy4nlISjzD7mVBuRndZk++KNhGQaKVqByo9MWxblqqR++xOWJVSQ4yPgjJ5EsGfyBiPKpr66OMT4MSrEw4IIGr7jgDs3LO0Q8DtOAnlnF5K2m6CyyMQVYv7cgbEZCgDn59WCMO6duZ0wqIzk/YfCaCu+BRxo7xeeYBX+svD1AY2CCm5oZ2veI4fEf2cjy6k9zldZ2p9au/rojaFnoshl0UmlVAje2k7Z4GRsJy4WAeSovfelLERa72V6u9P7dDU2Tpbvg1aMPEcryzIY0dbO/6gTC0AD01oZ9eCUZR8ifr25+JeDL69W2aCB7YAYNUodS9l0+w9meowfIQ==
+ bh=QIz/bXTlTPvuGXKeM3Aqhpg0dvDDQVGLg5ZI+AWyGhc=;
+ b=oAtQmep+rAQXUzIuYaeK6iPyz0WnsVFRqlJ04ajN0NRNQmcSmjsP2sF0hyOY7RG5fVq+OAMBcKo2MhF+JkhlYuPDh/Qv4N+DPORv+zN9sHzKiIL7MVE1cqK0sKeNMLFe7MhLLur3jQZGmL2a4GRlcyynzXS0W5X087WHyMeqqmOngbM3yaTkxtPZ7PyJr0OTE1hghn4CXILfoqniBPGBcjB8DgKtj7iiGzmq5frDzwHlNQ1Kyw9UyGWhINutN2/nAxXsNkxs0FcxTn55ifLy45wUG6ilririJ2f8bCQB5S18/4B6f6yKiZLUmMsm05Lo6H8uV3ntKhXnPJ7PSjCQYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vY4HVfwrsMKAw1aWhz/bns3o1/sZN2nzy/+Zz35KnW4=;
- b=ucwSWx6ySKNWV7QORvhzNlGRk4Nz9U+XbUJ0XD1DUUM0jxHrquAhcyfck11iukc3z51hF22mbY5e5p9rmjs/VhdKendibseyHPJSFZNW4o2oQ5QkCHswB/ma8KelJbHfX0Nyw6Id3yRZD/axXMgUAejA7lb2HHT7W7r/cZg21NE=
-Received: from DM6PR08CA0065.namprd08.prod.outlook.com (2603:10b6:5:1e0::39)
- by SJ0PR12MB6965.namprd12.prod.outlook.com (2603:10b6:a03:448::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 02:14:41 +0000
-Received: from DS1PEPF00017093.namprd03.prod.outlook.com
- (2603:10b6:5:1e0:cafe::54) by DM6PR08CA0065.outlook.office365.com
- (2603:10b6:5:1e0::39) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.14 via Frontend Transport; Wed, 20
- May 2026 02:14:41 +0000
+ bh=QIz/bXTlTPvuGXKeM3Aqhpg0dvDDQVGLg5ZI+AWyGhc=;
+ b=oNv/5z/assSXQROwLE9OD9bB7AawkMvpsSbwCxK+7O0QypTRXvxjAd631q8B8qQUpPkMhUKf4ikmuXYq6iqfo0mWEIrOOy57oFLdyDdj0emnCV15o2ov31v1zpebkKwm76+aFmMkQOOdI1fYwjSkegiOLFQCmi3+Xmt2Tmg48jg=
+Received: from DS7P220CA0054.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:224::28) by
+ DS0PR12MB6584.namprd12.prod.outlook.com (2603:10b6:8:d0::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.23; Wed, 20 May 2026 02:14:46 +0000
+Received: from DS1PEPF00017090.namprd03.prod.outlook.com
+ (2603:10b6:8:224:cafe::74) by DS7P220CA0054.outlook.office365.com
+ (2603:10b6:8:224::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
+ May 2026 02:14:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,29 +49,30 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- DS1PEPF00017093.mail.protection.outlook.com (10.167.17.136) with Microsoft
+ DS1PEPF00017090.mail.protection.outlook.com (10.167.17.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 02:14:40 +0000
+ 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 02:14:46 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 19 May
- 2026 21:14:40 -0500
+ 2026 21:14:45 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 19 May
- 2026 21:14:39 -0500
+ 2026 21:14:45 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 19 May 2026 21:14:37 -0500
+ Transport; Tue, 19 May 2026 21:14:42 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, "Ray
  Wu" <Ray.Wu@amd.com>, Limonciello Mario <Mario.Limonciello@amd.com>, "Jani
  Nikula" <jani.nikula@intel.com>, Chenyu Chen <chen-yu.chen@amd.com>, "Mario
  Limonciello" <superm1@kernel.org>
-Subject: [PATCH v2 1/3] drm/edid: extract section header processing into helper
-Date: Wed, 20 May 2026 10:13:51 +0800
-Message-ID: <20260520021432.1301326-2-chen-yu.chen@amd.com>
+Subject: [PATCH v2 3/3] drm/amd/display: use DisplayID panel type in
+ dm_set_panel_type
+Date: Wed, 20 May 2026 10:13:53 +0800
+Message-ID: <20260520021432.1301326-4-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260520021432.1301326-1-chen-yu.chen@amd.com>
 References: <20260520021432.1301326-1-chen-yu.chen@amd.com>
@@ -80,29 +81,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017093:EE_|SJ0PR12MB6965:EE_
-X-MS-Office365-Filtering-Correlation-Id: 825ca1f1-cc0f-4da4-77e2-08deb6158ce9
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017090:EE_|DS0PR12MB6584:EE_
+X-MS-Office365-Filtering-Correlation-Id: 491e17a5-13e0-46a1-2602-08deb6159045
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: rVvVuhNiCeE99DhHB4yr9UYP3LdSVPyZtw3PerVEWpzk27NSE135LsHnErlnEKh50zd/kWr6HFq9VvEi1el13f3vFeQgC8b1IZbeAXSU1tHMEnSmtIsw0cQ4evP9vIcn12LMjxLvI1RIcLlfZhNojpVYxKX7qp1xBTNUYylBDtpy0te/LT5Hu1Zpkevd48BVhYU7rVQHxZDPQbaHkCqNctoxw/ukciB5L7MifDg81hxqZRGK1L6fJVoJCduLw+z9X0ZIhmUtgBjHBhtT4D+Tg5n3qCbVfSHlCpeHozqZxIJGPwXHQ7NVb7+tY499UlbCDa1SuPaqGS8ERG17meDYh31zjRfygdBjyfhbxWOga9+i50ImnPGfQZa7WcgKq7+SP11R7qfZ3etc0XqeV179gn6XsMdNwrrj2UHpOT4K+f9CX1Up/wkK24BwwcAv/4erTHYBxhvheUxb8N+EQhS6L4fk8reB/fh5g+nbQJQvYqPe5OEs/z1x444mFtr9b5XmqcQuCm4//7VkObsUOUHPJZkuIZ1/GzaROgp+o8dLn34LgZxICwsoW8S673GwbHTl9sFaA+/qzkkorRcz4Urucg27HIOK5SvH+xYmpIj2A5wWAcpkxfet4zpwPFIzdWlopMyPu5HIGkptVHkRaA6rsV0u2tzdnq+M1owOJpR7DDWZCvOapQd1fY4BWYJQXt2cIZEsQ+Y4D+uEIAZ4YfYqgVS/ltQRNNYZXtKgAAwQeRs=
+ ARA:13230040|82310400026|376014|1800799024|36860700016|56012099003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: PdzSV9xJfuNclfIzE/UzKtj/BJyNZsaFTgYcMYByyBdhENqb1aqMyMRGPS7E5PxFm0hOHq2pnyCVxSluQY0Pclj5cPEPuIFLVb3uR46N0sWYNLHRYY4wfBRnjq+E8GFoHiIieO0CodhcNeQ9KUq23gKIgEgwSEyhw9NW9g37CKulD+H4sqCn9D6Knkdi4BLgTb52IZE3BKfZV0mG2WSJ2LjlW/EV3YiXclgnLR/jo+6Wp0JX13iN/bGfWCJOmwSJPugka35QGlyQ+0sLVASQQprddVy3GJ56pQRW8Nw3Utj0XIFwnK2IXfgxB9qs9tlhXr/F1uSxqMN+JAqKzJn8fSFVEA4N8sbIex+Nmdr/cYMIYVvcYsza5417cv+IjNOVSUszc+omwF8sj+2FoALn7UEj99P3uPhHLHpOe6AssfThMYqib4P83VGbvEmiK2Gb7HekXe4X9klbdHKVURzkR5bPa0WimEJsMz8fffz/a4OeotHW6tY0ock9B3SDkWbj29IJM5WcncrcziYEoopF0nY3FZEvRZf8u6QTkDROwaX51SfrGqxnWdHVwhtf4GJYK9462mX2X3iKIb3v23lGjw7aftDso8ZOGU/B162re8ObMbSu40aBwfnF7EoqCykrjEyR2atc2qKgxx5p89sBLf1FZ0vv0WXlNpSNYsR4WZuV3vGOvflsDk9I1/IZNb5ttQfQuSsItBrIwmbSasm6OagVMtuDK7SAn+WwuJSWQ3w=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(22082099003)(18002099003)(11063799006);
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(56012099003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: GrQVhFdG4cadW0yolplVTrNyjscB2IUjYeJkWUyulSulAOcpyleWabU8XMM1c7Ned8XJRjJjLHTJOaWWB+boorQRtK2gk1vZoyWIW/DPWaks/feacNiZk66ySccVzjUDAXLhqcuXa7wzl0CU26D+Zse646LvoOS8u+m+3UAEJHj6iSMg0slUkqnO3myjnSUlwbCYsSO2D38Km9C9CtUHxDKChW87AKof9Fw9UtpuHXSibIWvych3Rvbwrf7wE8B+jFB0bLlQfxXkb/NSaxgMmkPG4i25x3OA9rfQNFdA5ph5mgdLIZ9sBVTIRo7GyQr2aQc/0wGAjxwNZ3JURwMM68KZoXg2W2lcUdxaY4NMRkupIwlFRjkWdO7xp4ZG7ngA/WIJu5Hn/kSxSpoJCQhhl+jxSmnXBTpwtZpX1zf7vSxH/BBMoj2fjJGvwn+nYr1M
+X-MS-Exchange-AntiSpam-MessageData-0: m1GnDzAH4VttdrkGJOlVAa/3abk5rMlDh8cLFPIWrp9i+jAX0qTs3OKSUhgRDA5FPYW0rnFp5BDq5wZmbLCZHdVM2zDuKRREjUZeKdYHdx3pumtfvT1wmcK5HiT3sdeE4Vmk2ioJdmeN39MeMQREhyy7/57+H1uglue1opnlCWmGwoeijz3nLBwVPPCK+eF1joX3//7zBw7Nr1RYqge777aT+jL8ralOzD0Y81vrFplaz6CuEBEBmgDHC1wcVMtPVSOkEZVz7CAoK59ps/MruZhr5XHUTiWJUXA7gVVvJfhZm+rNotlA3qii+gvO6FYD3Jj6DurfeKtHzfMgt/fRzIuNr3VLHNzSNrAbp+TgyQ+mLktfxT2BIbllwQ3yMuWcHsbA0ShOJhCvV4tjoHHHBjcCsmcCaHE7zrYnxC/ROe6DKLEcaD5MkGCb3a8sQlo7
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 02:14:40.7078 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 825ca1f1-cc0f-4da4-77e2-08deb6158ce9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 02:14:46.3517 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 491e17a5-13e0-46a1-2602-08deb6159045
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017093.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017090.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6965
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6584
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,82 +119,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Extract the DisplayID section header logging and non_desktop
-detection from update_displayid_info() into a dedicated helper,
-drm_displayid_process_section_header(). Remove the break so the
-iterator walks through all data blocks, preparing for future
-patches that will parse additional block types within the loop.
-
-The helper is called only once for the base section via a
-header_processed flag. Since version and primary_use are only
-captured from the base section, and extension sections carry a
-primary use of zero per spec, the non_desktop logic is unaffected.
-
-No functional change.
+Wire up the newly parsed did_panel_type from drm_display_info into
+amdgpu_dm's panel type detection path. When neither the AMD VSDB
+nor DPCD determines the panel type, fall back to the DisplayID
+Display Device Technology field to set PANEL_TYPE_LCD or
+PANEL_TYPE_OLED accordingly.
 
 Assisted-by: Copilot:Claude-Opus-4.6
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
- drivers/gpu/drm/drm_edid.c | 37 +++++++++++++++++++++----------------
- 1 file changed, 21 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 8031f021d4d0..04878478ab78 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6715,30 +6715,35 @@ static void drm_reset_display_info(struct drm_connector *connector)
- 	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
- }
- 
-+static void drm_displayid_process_section_header(struct drm_connector *connector,
-+				  const struct displayid_iter *iter)
-+{
-+	struct drm_display_info *info = &connector->display_info;
-+
-+	drm_dbg_kms(connector->dev,
-+			"[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
-+			connector->base.id, connector->name,
-+			displayid_version(iter),
-+			displayid_primary_use(iter));
-+	if (displayid_version(iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
-+		(displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
-+			displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
-+		info->non_desktop = true;
-+}
-+
- static void update_displayid_info(struct drm_connector *connector,
- 				  const struct drm_edid *drm_edid)
- {
--	struct drm_display_info *info = &connector->display_info;
- 	const struct displayid_block *block;
- 	struct displayid_iter iter;
-+	bool header_processed = false;
- 
- 	displayid_iter_edid_begin(drm_edid, &iter);
- 	displayid_iter_for_each(block, &iter) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
--			    connector->base.id, connector->name,
--			    displayid_version(&iter),
--			    displayid_primary_use(&iter));
--		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
--		    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
--		     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
--			info->non_desktop = true;
--
--		/*
--		 * We're only interested in the base section here, no need to
--		 * iterate further.
--		 */
--		break;
-+		if (!header_processed) {
-+			drm_displayid_process_section_header(connector, &iter);
-+			header_processed = true;
-+		}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e42a5eecdf46..353a4982333d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3944,11 +3944,13 @@ static void dm_set_panel_type(struct amdgpu_dm_connector *aconnector)
+ 			link->panel_type = PANEL_TYPE_OLED;
  	}
- 	displayid_iter_end(&iter);
- }
+ 
+-	/*
+-	 * TODO: get panel type from DID2 that has device technology field
+-	 * to specify if it's OLED or not. But we need to wait for DID2
+-	 * support in DC and EDID parser to be able to use it here.
+-	 */
++	/* If VSDB and DPCD didn't determine panel type, check DID */
++	if (link->panel_type == PANEL_TYPE_NONE) {
++		if (display_info->did_panel_type == DRM_MODE_PANEL_TYPE_LCD)
++			link->panel_type = PANEL_TYPE_LCD;
++		else if (display_info->did_panel_type == DRM_MODE_PANEL_TYPE_OLED)
++			link->panel_type = PANEL_TYPE_OLED;
++	}
+ 
+ 	if (link->panel_type == PANEL_TYPE_NONE) {
+ 		struct drm_amd_vsdb_info *vsdb = &display_info->amd_vsdb;
 -- 
 2.43.0
 
