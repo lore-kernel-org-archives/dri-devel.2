@@ -4,63 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7640CD4F5E
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 07:51:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2741CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 08:07:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B4C210E038;
-	Wed, 20 May 2026 07:51:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1257D10E099;
+	Wed, 20 May 2026 08:07:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CJp1K6J7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jbrjWaJo";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0E5310E038
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 07:51:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779263504; x=1810799504;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=2pdK7yMl0Eu0KFZCN1GWHW+vyDl/j8o2jsVU8JerzZg=;
- b=CJp1K6J7TR4DM899l41mcBpZWtZS068lxtAcvj6H432hZl9CeDUjfKNZ
- eHDEMSrnGkALsq5FMTFj4QDEr2kjcVaMht8uJa64aNycSa6J08ad9o06E
- t4zfgBYLi2/TlKMOZRc1qvMvy3vhq0yRiqiKL3Htjcm53Ao5ddjOrcihq
- gIuzn9m+V7EyuMfeQsXA8i9oVv+6lEaGUK/+Exy8weutG6pAbMsN4hBU5
- gPl1wg4uOF2MkKxZYen17lFUoexjU9sC+kiVfHCije0/EKJ0bXeNnLIrA
- vB40Ashj8g5T98EoEElcQE3V1LPVSgvnrG7dHvSiSHc6Kw5wKhxa1O917 Q==;
-X-CSE-ConnectionGUID: qA5OxaASQfmE4seSRhBxRQ==
-X-CSE-MsgGUID: WSGdisK5Tli98n/CcQ8Q8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="84037256"
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="84037256"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 00:51:44 -0700
-X-CSE-ConnectionGUID: EyTDGv4fQs+JFOdnTTFM0Q==
-X-CSE-MsgGUID: 1xOQ8bmQTF20w+BNoD4pmQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="240321993"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.148])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 00:51:41 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Javier Martinez Canillas <javierm@redhat.com>, linux-kernel@vger.kernel.org
-Cc: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Nicolas Frattaroli
- <nicolas.frattaroli@collabora.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/8] drm/display: hdmi: Add common TMDS character rate
- constants
-In-Reply-To: <875x4iy1em.fsf@ocarina.mail-host-address-is-not-set>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260519144712.1418302-1-javierm@redhat.com>
- <20260519144712.1418302-2-javierm@redhat.com>
- <78506dc5f7ff02a2bdd05de1170a1cb3e33e1abe@intel.com>
- <875x4iy1em.fsf@ocarina.mail-host-address-is-not-set>
-Date: Wed, 20 May 2026 10:51:37 +0300
-Message-ID: <b67b6e84021fd6d629e43132ccecae152af9bfaf@intel.com>
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2BF110E099
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:07:21 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ 46e09a7af769-7de46b8e432so4638299a34.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 01:07:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779264441; cv=none;
+ d=google.com; s=arc-20240605;
+ b=SqxAvU1BiJG3irACpzdmvCmjL74y5BnqERxko2QtjVB2CWIt1G7q4zhG/gwKIPwLti
+ iUhuFPSzSrSx2Kg3HCRYWHDUauXDFF0++LqqJu1JlxcuAoFOjFRnkqHZrgtTFDqp+Zhw
+ E3xDED3ZMhR26zJ7E3EkgD2phfATwkY/D/AmzcoLgVHDbLQN0skcoDewzXGY/K0NA8Yd
+ dnmAKch57KcNGsh+MGpJvywNG0fipgTixs+KXTmpFD9PFKja7G5Lv+elUE7FD/x4/vf4
+ mvdSEorXfWosXNglyp5MlHzxhbHQP8GATsRbeV3VnMxsIi4BhQTaq63ZY6VwntwfWlhc
+ 6Hfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Ytey4qORX2TbyVZpIBqgx3oRXsMx32wxQcpaf7l+9+M=;
+ fh=p85yQhIr2lM9GB5CxdQo/fnb1Xp3/loNCxrLRkqVZHA=;
+ b=VGutwQHcI4pjzQ2T21Lt5SQll0w0ueexA5l+FLAUMc/mPUlwv165t9h9Dft4m21Hin
+ kbqKcfUs1E5uoIrFZWIRs53XECMbeDh0jwG+BxwEsyiH0Fm+VxIuJf6E6FesCHaQxkKK
+ 1vpDtMw1i9sLKcdXUZ3oQMPkzis/nXfzVrDihx8apCB+Mq98PhaJBXMf/aOslnOnwHJ9
+ hzXZCu3REu/B35JtNXUMzIEpvYswwbI0u5wkMmhZt7Q1wCcWe3y5YRZUtj69y/js9RTP
+ dw+fCIEONUHjIrPnWO7BptHk7Vz6mhuz48Z9qSRZ1xm7EM/KIH3utMYwsxJRyWjWv2cL
+ z3Vw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779264441; x=1779869241; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ytey4qORX2TbyVZpIBqgx3oRXsMx32wxQcpaf7l+9+M=;
+ b=jbrjWaJoxGzpQfQHkJGH8PnjwM4tP6vqjfT67A4BuASLJ1NzASjXg5hxosvQ1y3lAP
+ 75oPDXESBc5gEEBD2Oa2YDVjl/bv/1R9JI32F0/BXlm83gFB24Y6rGAsb5Ux9E+c/voC
+ SRaU/9rZ6TntxwB0xL39DOrJHAUUMJqVA+nCUddE8zHRG+PvbV6TjrZe6LyYiDiRCr3J
+ UNT8OwVZyPD9U3k3LfadOg/Ook96PWeh98lSMqnqy+47dmfTBx7MU+HtMYnzcBlrkT7T
+ f1my/qY5FXD5NRgzOS2jNtED5YbIRIcwx/zZOAKRmNip9JNp/ShHQMgn8rhMjPieyPnA
+ 9TRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779264441; x=1779869241;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Ytey4qORX2TbyVZpIBqgx3oRXsMx32wxQcpaf7l+9+M=;
+ b=Uw/NzZRonalzy1M/X3ijJgT5UA61kvN9uC7Fs1Gtl/4q9PeNskrikxu5EWm/f2WYYx
+ WZNoqdZOKB2+Y6cvw8L4fVP4X0V3TA6MrrrHMmBqVSZLMFNEVQtqAzbBijbnGXhFQmKM
+ NGGJ8YIc4JmqG+x6LjrzeOXXEsE914dDq6oQFyMnAVkt2KcmLy6Q5CJUyk+Uk1nzs43r
+ jXyPHqT7zowya0P8jm+Yt1HJYZvLaybBE80sc0YGnSkub6d6n3MPXfHVc8swT1n/otCI
+ u4IWlFnUs08W0VPanrTJVvCUuaA+NOm3Cwc5tIoIt50DyDvOr/i0iLBZK3VXYLJWUmQ3
+ sIag==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+TwsdBT2qYbVPwTmfUj+2J8Mk0uXFh4KnxvEe4kUfGZlDOBS6KmotKjTEOc2M1rxnmHztsSXccyyg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyO4WLMzE0F7z+jOxBjZ75cej7yYpEK5dd9SGJAhj8bXVHp30F+
+ Qs8sXyBSZBmeP5D5MgpMgdHo2hHdb5A4ubCBJFE2lT4HwgsP6zF+tPDTyCJR1b+7HDHp4qHIk3t
+ +9wVSWVHu1CUMB+GGZ+Tutj20k55aKos=
+X-Gm-Gg: Acq92OGeJni/od0cyrokx3BU95t7BHzV30aH3pHK9siwors97c7wwrw2i7So/fOiWvz
+ GBVMHrNatMIWFLKWunSseRf2H20Kyd/C/cSnXqymKFbM56gU3bSzopeSO90XqKgACEc3EGIfxvk
+ vaR6orP0wtGU0OUwjVlHOsR83T/InnbI8et1yOe5OPdbvDFIkNgYmsonSpKt7MjAB1dvF5GUsO6
+ HR4ZV3CHlJipsA7ZuP/+jR9cjMBzJT6M9dxZcer6QeDmr0v4+MJW6EySgQm7RflcNJtnQRGeU2a
+ qGSA1UhuWQ==
+X-Received: by 2002:a05:6830:928:b0:7dc:e08d:d9ec with SMTP id
+ 46e09a7af769-7e4f2b24e30mr16828017a34.15.1779264440957; Wed, 20 May 2026
+ 01:07:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
+ <20260519161541.19994-1-mikhail.v.gavrilov@gmail.com>
+ <45bbcc75-f852-46c2-bcff-8cacb9413376@amd.com>
+In-Reply-To: <45bbcc75-f852-46c2-bcff-8cacb9413376@amd.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Wed, 20 May 2026 13:07:09 +0500
+X-Gm-Features: AVHnY4LjCbKcTkLs9-x5er23_LG6HLKFdPJe4uy4QSmttSvQ2RTUpYxe2TP8aBU
+Message-ID: <CABXGCsPRY+jk_ArYMOXqNTw31W95FBgNzqFq0_pvi3paYR=KDQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: fix recursive ww_mutex acquire in
+ amdgpu_devcoredump_format
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,66 +112,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 20 May 2026, Javier Martinez Canillas <javierm@redhat.com> wrote:
-> Jani Nikula <jani.nikula@intel.com> writes:
+On Wed, May 20, 2026 at 12:08=E2=80=AFPM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> Hello Jani,
+> That whole infrastructure is superflous. You just need to modify amdgpu_v=
+m_lock_by_pasid() to take a drm_exec object to lock the root BO.
 >
->> On Tue, 19 May 2026, Javier Martinez Canillas <javierm@redhat.com> wrote:
->
-> [...]
->
->>>  
->>> +/* HDMI spec TMDS character rate limits (in Hz) */
->>> +#define DRM_HDMI_TMDS_CHAR_RATE_MIN	25000000
->>> +#define DRM_HDMI_TMDS_CHAR_RATE_MAX_1_0	165000000
->>> +#define DRM_HDMI_TMDS_CHAR_RATE_MAX_1_3	340000000
->>> +#define DRM_HDMI_TMDS_CHAR_RATE_MAX_2_0	600000000
->>
->> Usually everything in DRM is in kHz, and Hz is the exception.
->>
->
-> That is correct but in this case these constants are to be used with the
-> HDMI helpers. Both struct drm_connector_hdmi_state.tmds_char_rate and
-> the struct drm_bridge_funcs.hdmi_tmds_char_rate_valid() callback expect
-> the TMDS char rate to be defined in Hz.
 
-I guess I'm surprised those things were defined in terms of Hz then.
+Christian, modifying amdgpu_vm_lock_by_pasid() to take a drm_exec turns
+out to also require converting its other caller, amdgpu_vm_handle_fault(),
+to drm_exec =E2=80=94 most of the diff is that conversion, not the helper i=
+tself.
 
-> If we define these in kHz, it means that drivers will have to * 1000 at
-> every call site.
+I can:
+ (a) convert both in a 2-patch series (handle_fault becomes
+     drm_exec_init + drm_exec_until_all_locked + drm_exec_fini, ~30 lines),
+     or
+ (b) keep the loop inside amdgpu_vm_lock_by_pasid() so handle_fault stays
+     a one-liner =E2=80=94 but then the devcoredump caller can't add the IB=
+ BOs
+     to the same ticket, which is the whole point.
 
-Yeah, not ideal.
+(a) seems unavoidable if we want one helper. Is that what you had in mind,
+or did you intend something lighter =E2=80=94 e.g. a separate
+amdgpu_vm_lock_by_pasid_exec() leaving handle_fault untouched?
 
->> I'm also not sure the 1_0, 1_3, and 2_0 really help anyone reading the
->> code. I won't remember what they mean in Hz or kHz, and I'll have to
->> look them up every single time.
->>
->
-> I discussed this with Maxime before posting the patches since I wondered
-> the same. He suggested that the max TMDS character rate was linked to the
-> HDMI spec versions and that it would be more readable to name it using
-> the spec version rather than the resolution.
-
-Frankly I've never thought of the limits in terms of the spec versions,
-but maybe it's just me. *shrug*
-
-BR,
-Jani.
-
->
-> The other naming I suggested was:
->
-> /* HDMI spec TMDS character rate limits (in Hz) */
-> #define DRM_HDMI_TMDS_CHAR_RATE_MIN		 25000000
-> #define DRM_HDMI_TMDS_CHAR_RATE_74_25MHZ	 74250000
-> #define DRM_HDMI_TMDS_CHAR_RATE_148_5MHZ	148500000
-> #define DRM_HDMI_TMDS_CHAR_RATE_297MHZ		297000000
-> #define DRM_HDMI_TMDS_CHAR_RATE_MAX_1_4		340000000
->
->> BR,
->> Jani.
->>
-
--- 
-Jani Nikula, Intel
+--=20
+Best Regards,
+Mike Gavrilov.
