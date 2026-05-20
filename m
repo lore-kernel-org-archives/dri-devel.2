@@ -4,138 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98363CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 03:52:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A74D5CD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 04:07:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 026F010E02B;
-	Wed, 20 May 2026 03:52:42 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="puO2318v";
-	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011008.outbound.protection.outlook.com
- [40.93.194.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED9610E02B
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 03:52:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h3Qq/Qh0U4IW54RmJxv7/B6ocwhnL/yQ5QAeY1BghYC0YCLugeoC/KDiJwCyGvSZc+Ze1OpVdpor/7erpmXu6YJVit1CLzXmOCiPLqNRJc2MXYZ1lmCwOBDrIG+rQh2Awg5zb0yh+2ATM/QvtRWTs1DHje3ESHwEKobDZJ8R6ZGJQeTnqB6ZUzO0+Si+4RBhCyx3cnFLCt1lHcnOr6xm0nzcAnxFIXAs2mhVrRCb3pVUHsBvzt9AWX+0xFHl2AxY0Ubtt5s27XMvBqQmmKMlh5YW9okJ3bzRayoFmATcRdUxc8J/0Ke096D8aHk8kJ7UZle9cdd1YJGz7jY/w8/FxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jYdC4W5pOb6de2OnN2VcYAtP9CS+gRIJ5ahHxt5F+qQ=;
- b=UXh2nVVLupbGy12CGdSPhH36TVDkfsje/d+DD13aJGU5FI4DIZaU6Pzrmtr5OoEEKjJM7ne78CJ1NUyjJTFDOUh32a8XuyTWllaaWMDjQQukDeWskdLEykkN0plAfodF03VPEporYI5uQJceZayOEwYPXruY/Vg5QY7upTl7k8tGYeTcIoLx/ao2rr3NIn5Olwm9X07WCSk1NEFaonbCmzKw1/97uAALrZOfPxS0suQrnZG/gquRCbISojdTInW5oxH0dDO36pUKuDcKKGeJCgcE1q5LjrT9XqVqajWxouwsI34pQNR8/duwmgC/atdWZ46NXQaEE7fOssi8veJCnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jYdC4W5pOb6de2OnN2VcYAtP9CS+gRIJ5ahHxt5F+qQ=;
- b=puO2318vaf3GZrnKpmvx9TJUbdm2qxIB+YsObfA16Cc+cyEDlN9QcBFJOM55NqSdGj1D+kNkjvKS0vJhZtpivpHZqBvtDBjRsWl4N1zKbLL7Su+uPmy31uWLME/q40HKLPXyTdjOuAHu0fbUKdVOcl45ny+Z9e1Z0zYS3Wi9Kq8bzr0FiSl/V6sI4HgqJWQE/ppvDfFByaKK+K50spXAmMEwpdXdateMee8sGApPJflI5UpbvZzs6TPDABqcDko3Mi5dSR1KjxjuX633X9ks392V3hyj4QcUmTIAoQp6wCmBQivwie3t1c/GokJ4DVyJIiNYURNLociQZlp2PpGo/Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by MN2PR12MB4174.namprd12.prod.outlook.com (2603:10b6:208:15f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 03:52:35 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0048.013; Wed, 20 May 2026
- 03:52:34 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CFDA10E02F;
+	Wed, 20 May 2026 04:07:16 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2981710E02F
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 04:07:14 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.115])
+ by APP-03 (Coremail) with SMTP id rQCowABXddxrMw1q8pmgEQ--.8708S2;
+ Wed, 20 May 2026 12:07:08 +0800 (CST)
+Message-ID: <47a06094541da642cabcb6b7d2f92d5125d365ea.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: verisilicon, dc:
+ generalize for single-output variants
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, Conor Dooley <conor@kernel.org>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
+ krzk+dt@kernel.org, 	conor+dt@kernel.org, ychuang3@nuvoton.com,
+ schung@nuvoton.com, yclu4@nuvoton.com, 	dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 20 May 2026 12:07:06 +0800
+In-Reply-To: <a112cb8b-21fb-4c33-89a3-14a4feb5e3f9@gmail.com>
+References: <20260519055114.1886525-1-a0987203069@gmail.com>
+ <20260519055114.1886525-2-a0987203069@gmail.com>
+ <a66cc60fe163167e30e42f0b4be996cae1170a5e.camel@iscas.ac.cn>
+ <20260519-fretful-blush-1aac18fa1360@spud>
+ <a112cb8b-21fb-4c33-89a3-14a4feb5e3f9@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 20 May 2026 12:52:30 +0900
-Message-Id: <DIN76NTFEU1N.1RT6G4IFD62RG@nvidia.com>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
- <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <linux-kbuild@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH 2/7] scripts: modpost: increase buf_printf's buffer size
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-References: <20260430-nova-exports-v1-0-7ca31664e983@nvidia.com>
- <20260430-nova-exports-v1-2-7ca31664e983@nvidia.com>
- <DI7CZA3ISGOE.1CP5YEM3NNSH6@garyguo.net>
- <DIN5QTIGKQ80.11TOOMMQOBGI@nvidia.com>
-In-Reply-To: <DIN5QTIGKQ80.11TOOMMQOBGI@nvidia.com>
-X-ClientProxiedBy: OS3P301CA0002.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:604:21d::7) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MN2PR12MB4174:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f6c622d-ec9b-44da-098a-08deb62339c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|7416014|376014|366016|4143699003|22082099003|18002099003|56012099003|11063799006|3023799007;
-X-Microsoft-Antispam-Message-Info: 8mCkHSEKfy+6cl2gJScKFwjf36Q8UMnwJsSPwi3p/Jr0I4NmwQrWwvNtSDsxNJO93oFrD7jP282sBK0v3lCyoGroyXNo4+KqRYMsDxSFsEJREY87ueLlr3fCLXBoII2X1GN5VO37nD8cnLbx6M284Sit/mA2gv/iKpxwn/aK8h1IV+M/8vmS/NK2mXSGAAVFvYdnEBfzccy8RIUF7Ev4eX2oIEhjeM29kXkhRHRGCK9u9SjziV0Yc1+Da46a7nF8TY0219dKKQnkPyKwQuHYLQ7TO/1o/Sv1VyVaOtwkK16JkqVNcayEZcwgnhdMrnDz5dFRIfqZr6EscxWrEtvEJLgnOCVAlQ+Gb5X53jmCRRH40tUNz94ylyhbL+5uQa6yTbAE23ZpMxhGH9nqg8ronthxZZ8KdlPu34PuecBbusnAdFt7LKnzrcNzd//ugOHlRHwvVFtNTfWaZohDbMRpbJDztbuKgtNRPFxGCS6Tot+pLxp9a0nZKq5diMdxGOjCfri8l6Eu7F31WX8gnnRoR0h6FSRIbcWNg+j254uxPXCRz26fu6SPjtOva7Ke86FK7S0TbNEbRwP2Nwi8/xSGmZi88VIQgFE/5Fc1RYvDIWghdqVq6DuUMR+YhF8IIA+aJzsSTudpEvbdQSOZ9ZGKk1iL50iRgKACe9dP4qDpgF75TV9cyhsZdYFN+7Anw11S
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(7416014)(376014)(366016)(4143699003)(22082099003)(18002099003)(56012099003)(11063799006)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXRFZGpNK1UxdDh1ZXE1TjFQb3ZjbUx3TWF1amkybDQyMThjMG9SSlI2Qzlk?=
- =?utf-8?B?d2hQSG5ud2ZVQVFxU3Y4OWdwcE0yMVBwQnRJclpmaXc5cHI0RnVZUDZOUkNL?=
- =?utf-8?B?VG1aQUpSMVNoVTBmWG5YNUpQYXZrVXQrZWo1VTNnLzFqVkNEQ2VjVUJ3QW1w?=
- =?utf-8?B?TUNqeWRvWUlVV2YvWXBJaXBLaFM0ZlhCOU50akkzblVjZE92UHpyRlV3ZW5j?=
- =?utf-8?B?YnhHZGtyaDdoclZZWDk1LzBmSVhQdFIrZVltM2Y2ZkpNN0sxcTlKZGNzWlB3?=
- =?utf-8?B?YVhSUy9Pek04dG5RcU0yT1l0Y0pMT2xqZzlKLzdsNnZGQzVxVmdONWdhR3My?=
- =?utf-8?B?MWR0WG1qWnJaM281eVpCcWlydktYSVdUZ1RJSXJJMTRDZS9kc04zdHlwWDF5?=
- =?utf-8?B?UWw0WFdkVlRXU0lhMHA2RSsyZTR1VEJ1dkVlR2ZFdkZORkNNT08xM3BramZr?=
- =?utf-8?B?UzhCMExvZ3hmeXFxZWUwU3hQdHRqbWY0bWdXVSt0UFE5RDVmWmY4OFAxUnl4?=
- =?utf-8?B?NldzVUJhUUlRRjJhc2N4b09IQm9Uc21vWnJUeHA1MXFQMVFPU3MwOEZLTW8w?=
- =?utf-8?B?cTNnZ0VSSUI1YzlTTkIzNWYzb3FRRWRwc0RVYlhwRi9QdDFTbFNGdzZjenND?=
- =?utf-8?B?UVBjeEhqSGxNQjlUTE9MbVdoZXc3d2dwWmFaWGpicWtZQ3VZcWFDaVhrR05q?=
- =?utf-8?B?SEdhYW01L1NCaUhlU1dYQytXVlc2MFd5Z0JCR083dEwzeWgxWUsvdEdxMWhD?=
- =?utf-8?B?cjhqWlBIcmk2L0VkRFJqRFFQMVlWTVhwNTV4Rnc0SjVmTndtS3lWaVNpWnhN?=
- =?utf-8?B?TFA0b0pEM214QWlGNU9rclVUQVhPQ3FkNzB4bUJQZDE2RExFckRaRFF0dXRq?=
- =?utf-8?B?S3F0a1I5djRUMzNPM2J4NjEwdjVZb3VNdEwrZVF0Zm9IWXFud3ZQcGkxT1I1?=
- =?utf-8?B?MEdwa1NJVTZTQXRpa053M2ZkRnRhcU5ZU0VKOWc5WXZncThkcVpIVWx2a3Fs?=
- =?utf-8?B?LytGbWNISW5kQkxRN2IxeER0TWJic2ZrMGgwR28zeVJrTk9SZ1lnblozYkNS?=
- =?utf-8?B?Qm5MeDljWW8rTGN5anNtQ2hjS0pjNUFQbFcvQW9EWWJjbGVCWWJnMTFGN2tO?=
- =?utf-8?B?bVpsQVJDNzhnVWdBdW1wWnM3TDcvMjRkQ2xWM3RRU0sySTg4UE5NdjNOcDdv?=
- =?utf-8?B?SEdjaEYwVDViR0dDMW5aKzZpYXRNZHJWejY1ZjdBY2hmMGpTTTMxU0pFWjYv?=
- =?utf-8?B?SWRuSW1vcnltVUh1d3prWklPTjdxMkErbVhLWE1EODdKOGhBTDk3VDlIdlJl?=
- =?utf-8?B?c1FmV0grTVJoc1BRelFOUkdZVnlLVnlDNVllL0hrQU9wdC9EV2hvUnJCOHBv?=
- =?utf-8?B?RCs1S3ZOOHBEaDVJZ1FsQkFBeXNiQkk3M05aSW50R2kxYkZOUlBLbHRPekN2?=
- =?utf-8?B?UzYxQVNSZVBRSy9YNXFEY1lwZFgzaVdtMnZEWEFpd3R2M0JzQ1FlbitRdHpv?=
- =?utf-8?B?dTlxQzlQdnNmdVlkVVlScVk0MllRdEdsRmJrelRSQkloR2hLR0NGalFqelp3?=
- =?utf-8?B?eGIzRWpRN2pNeFBuZ01nK3pnRVgxRXNkVDZDTHlocnNFZEpwb21sWXhsVU1o?=
- =?utf-8?B?eGljdkx0MGZHK2hVUVAzWFk0VUJiMm5kR1JlYVBlcDJreWhpcTREZXMyUmdW?=
- =?utf-8?B?V2VzSjNBOVEvdUF1djk3YkpHbWZhTWhUaUhSb1h5VHBFUGtCNUVCN2tVV2Z6?=
- =?utf-8?B?STA5dkNjbHhhVkUyN3NESUlnWTE0TnRoSlVsOE1RWXRFVE9tV2xjRWoxOGh6?=
- =?utf-8?B?Q3lWQTNaK3hOMnpna2VQNnZwZGRsMFVCMFpEZHBZNnI1RDBHbmJBbFB6MWxP?=
- =?utf-8?B?Zi9aNW1iNmZxS09EMDdxRHQzbEtzYmg0UEt2RHlGTjlxV2l5clExTCswZDNC?=
- =?utf-8?B?Ym1GeWhNVVgyZ01tUkI3ZnppTHdPbjNySUpXN0ZKdFBHVHdRd1lXay95ZTg3?=
- =?utf-8?B?YlZMeUVYRDlTSytuZFlKRzM4QTJXU0ZwbjlTU2NsWHpzUFg1dnFKM0hrcVA4?=
- =?utf-8?B?RGZkQ0J5elNJSmFsUWtDWlJDZ2w5bFdwMWg5V0VuZVZsdjJ2Q2QyZkZJT3N6?=
- =?utf-8?B?S3VCN281MEVnWWM1bWdOVndoME95UWtKaFZlRHBUZGdVMXJaWUhxY1FaOHJG?=
- =?utf-8?B?eVdESjNSK0VXYUt5bUlPbS84VUN6N1dkM1Q5MDZBbmx6SjdwOTRNemhsRitE?=
- =?utf-8?B?N2dFSWFlMW10VVJJbzVjaUJramNmNUU1RU5uRS9WWFMyVGRFai92NUhYVWhY?=
- =?utf-8?B?dlkzSHZmeXZLcFZOTi9RcUQxWEFIV2N3enRodGdSZmVucW9nRHZEQWRpUy8w?=
- =?utf-8?Q?9vKDzWK9lUSnEPvX5AJXU0nKPilVHSTAMk5isMVzx032b?=
-X-MS-Exchange-AntiSpam-MessageData-1: CweFtapr6K2mwQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f6c622d-ec9b-44da-098a-08deb62339c6
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 03:52:34.8796 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kC9Rl3s5fB3lxkcCS+Oead/ezBFaAQB5FBU4zoU0grxUTHq5Se5b0SmIgbbeHgycHQ1LUFIxmH1ZLa4aMXdDVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4174
+X-CM-TRANSID: rQCowABXddxrMw1q8pmgEQ--.8708S2
+X-Coremail-Antispam: 1UD129KBjvAXoW3Zr45Wry5Aw4ruw1rXrykAFb_yoW8Jry8Jo
+ W7Kr1fJr15Xr1UWryUJw4DGr13tw18JrnrtryUGry7Ar1Iy3WUA3y8AryUtay7Gr18GF1U
+ J34UJ34UAFyUZF1fn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+ AaLaJ3UjIYCTnIWjp_UUUYa7k0a2IF6w4kM7kC6x804xWl14x267AKxVW5JVWrJwAFc2x0
+ x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj4
+ 1l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0
+ I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+ UI43ZEXa7IUYsSdPUUUUU==
+X-Originating-IP: [112.94.100.115]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,183 +71,408 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed May 20, 2026 at 11:44 AM JST, Alexandre Courbot wrote:
-> Hi Gary,
->
-> On Fri May 1, 2026 at 10:02 PM JST, Gary Guo wrote:
->> On Thu Apr 30, 2026 at 3:55 PM BST, Alexandre Courbot wrote:
->>> Rust tends to produce long symbol names; when trying to export symbols
->>> from nova-core for nova-drm to link to, the 500 bytes of the internal
->>> buffer used for symbol name formatting are not enough, making modpost
->>> fail.
->>>
->>> Fix this by increasing the size of the buffer used to format the symbol=
-s
->>> to 1024 bytes. It is a stack buffer, but modpost is a user-space progra=
-m
->>> so that shouldn't be a problem.
->>
->> I think we should make sure all constants related to symbol names match.
->> KSYM_NAME_LEN is 512 so this should just be that.
->
-> Do you mean we should use `KSYM_NAME_LEN` for the size of `tmp`? The
-> formatted strings can be longer than the symbol name alone (see the
-> example below which wraps it into `KSYMTAB_FUNC()`), so this should
-> probably be `KSYM_NAME_LEN + something` if we align to it.
->
->>
->> The only case that I've been hit with very long symbol names so far is d=
-oc tests.
->> Can you provide an example of the case where you're hit with very long s=
-ymbol
->> names in Nova? In many cases they're just functions that are supposed to=
- be
->> inlined but isn't.
->
-> Here is an example string that doesn't make it, it doesn't seem related
-> to doctests but also doesn't occur on all configs:
->
-> ERROR: modpost: buf_printf output was truncated for string
-> KSYMTAB_FUNC(_RINvXs5_NtNtCs1EKtwoKEMO2_6kernel5alloc4kboxINtB6_3BoxINtNt=
-NtCs1peUGmbrgHn_4core3mem12maybe_uninit11MaybeUninitINtNtBa_9auxiliary16Reg=
-istrationDataNtNtCs6wA3Ay79aUn_9nova_core6driver7AuxDataEENtNtB8_9allocator=
-7KmallocEINtCsfxcgfq7FLKi_8pin_init12InPlaceWriteB1L_E14write_pin_initNtNtB=
-a_5error5ErrorINtNtB3x_10___internal11InitClosureNCINvYIBH_B1L_B34_EINtNtBa=
-_4init11InPlaceInitB1L_E8pin_initB4t_IB4N_NCINvMsd_B1O_INtB1O_12Registratio=
-nINtNtNtBa_5types6for_lt15UnsafeForLtImplDG_INtB72_:
-> 608 bytes needed, 500 available
+=E5=9C=A8 2026-05-20=E4=B8=89=E7=9A=84 11:06 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+> On 5/20/2026 12:47 AM, Conor Dooley wrote:
+> > On Tue, May 19, 2026 at 03:26:58PM +0800, Icenowy Zheng wrote:
+> > > =E5=9C=A8 2026-05-19=E4=BA=8C=E7=9A=84 13:51 +0800=EF=BC=8CJoey Lu=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > > > The existing schema assumes a fixed clock/reset topology and
+> > > > dual-
+> > > > output
+> > > > port structure matching the DC8200 IP block.=C2=A0 This prevents
+> > > > reuse for
+> > > > single-output variants such as the Verisilicon DCU Lite used in
+> > > > the
+> > > > Nuvoton MA35D1 SoC.
+> > > >=20
+> > > > Rework the schema so that variant-specific constraints are
+> > > > expressed
+> > > > via allOf/if-then-else:
+> > > >=20
+> > > > - The thead,th1520-dc8200 compatible keeps its existing five-
+> > > > clock,
+> > > > =C2=A0=C2=A0 three-reset, dual-port requirements.
+> > > >=20
+> > > > - A standalone verisilicon,dc compatible covers IPs whose
+> > > > identity is
+> > > > =C2=A0=C2=A0 discovered entirely through hardware registers; these =
+have
+> > > > flexible
+> > > > =C2=A0=C2=A0 clock and reset counts, a single 'port' property, and =
+no
+> > > > 'ports'
+> > > > =C2=A0=C2=A0 requirement.
+> > > >=20
+> > > > Changes to the base schema:
+> > > > - Replace the fixed clock/reset items lists with
+> > > > minItems/maxItems
+> > > > =C2=A0=C2=A0 ranges; variant sub-schemas tighten the constraints vi=
+a if-
+> > > > then-
+> > > > else.
+> > > > - Add a 'port' property (graph.yaml single-port alias)
+> > > > alongside the
+> > > > =C2=A0=C2=A0 existing 'ports', for single-output variants.
+> > > > - Drop the unconditional 'ports' requirement; each if-branch
+> > > > enforces
+> > > > =C2=A0=C2=A0 its own port topology.
+> > > > - Tighten additionalProperties to unevaluatedProperties to
+> > > > allow
+> > > > =C2=A0=C2=A0 per-variant schemas to add their own constraints clean=
+ly.
+> > > > - Fix a stray space in the port@0 description.
+> > > > - Add a DT example for the generic verisilicon,dc compatible
+> > > > =C2=A0=C2=A0 (Nuvoton MA35D1 DCU Lite).
+> > > >=20
+> > > > Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> > > > ---
+> > > > =C2=A0=C2=A0.../bindings/display/verisilicon,dc.yaml=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 135
+> > > > ++++++++++++++--
+> > > > --
+> > > > =C2=A0=C2=A01 file changed, 108 insertions(+), 27 deletions(-)
+> > > >=20
+> > > > diff --git
+> > > > a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > > > b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > > > index 9dc35ab973f2..3a814c2e083e 100644
+> > > > ---
+> > > > a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > > > +++
+> > > > b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > > > @@ -14,10 +14,12 @@ properties:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pattern: "^display@[0-9a-f]+$"
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0=C2=A0 compatible:
+> > > > -=C2=A0=C2=A0=C2=A0 items:
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th1=
+520-dc8200
+> > > You should add a fallback compatible here for your SoC, in case
+> > > its
+> > > integration gets something quirky; this compatible is usually not
+> > > consumed by the driver (see how thead,th1520-dc8200 exists in the
+> > > binding but not the driver).
+> > s/fallback compatible/soc-specific compatible/, but yes.
+> > NAK to what's been done here, especially after the discussions on
+> > earlier versions of this verisilicon binding.
+> > pw-bot: changes-requested
+> Understood. I will add `nuvoton,ma35d1-dcu` as the SoC-specific=20
+> compatible string paired with `verisilicon,dc` as the generic
+> fallback,=20
+> matching the pattern used for `thead,th1520-dc8200`. The standalone=20
+> `verisilicon,dc` compatible will be removed from the binding. The
+> driver=20
 
-So if I add the inlines in the diff thereafter, these errors are gone,
-without even increasing `SZ`.
+No, please don't remove compatible strings from existing binding, and
+the generic compatible is still used for driver binding.
 
-The module also appears to be smaller:
+The SoC-specific compatible is informative here, it needs to exist, but
+it doesn't supersede "verisilicon,dc" .
 
-    $ size /tmp/nova_core_base.o /tmp/nova_core_inline.o
-      text	   data	    bss	    dec	    hex	filename
-    103856	    736	    288	 104880	  199b0	/tmp/nova_core_base.o
-    102718	    736	    288	 103742	  1953e	/tmp/nova_core_inline.o
+In addition, the SoC-specific compatible is also used for verification
+of the SoC device tree, which is the reason if clauses exist with
+compatible match and additional constraints (e.g. for the nuvoton DCU
+it's invalid to have a 2nd output port).
 
-Here is the diff. I can try to fine-tune the places we inline, but they
-all look sensible to me.
+> match table is not changed since hardware detection is done via ID=20
+> registers.
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc # DC IPs ha=
+ve discoverable
+> > > > ID/revision
+> > > > registers
+> > > > +=C2=A0=C2=A0=C2=A0 oneOf:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - items:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 - thead,th1520-dc8200
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ve=
+risilicon,dc
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc=C2=A0 # DC =
+IPs have discoverable
+> > > > ID/revision registers
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0=C2=A0 reg:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > > > @@ -26,32 +28,24 @@ properties:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0=C2=A0 clocks:
+> > > > -=C2=A0=C2=A0=C2=A0 items:
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core clock
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus clock
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bu=
+s clock
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of outpu=
+t 0
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of outpu=
+t 1
+> > > > +=C2=A0=C2=A0=C2=A0 minItems: 2
+> > > > +=C2=A0=C2=A0=C2=A0 maxItems: 5
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0=C2=A0 clock-names:
+> > > > -=C2=A0=C2=A0=C2=A0 items:
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix0
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix1
+> > > > +=C2=A0=C2=A0=C2=A0 minItems: 2
+> > > > +=C2=A0=C2=A0=C2=A0 maxItems: 5
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0=C2=A0 resets:
+> > > > -=C2=A0=C2=A0=C2=A0 items:
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core reset
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus reset
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bu=
+s reset
+> > > > +=C2=A0=C2=A0=C2=A0 minItems: 1
+> > > > +=C2=A0=C2=A0=C2=A0 maxItems: 3
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0=C2=A0 reset-names:
+> > > > -=C2=A0=C2=A0=C2=A0 items:
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
+> > > > +=C2=A0=C2=A0=C2=A0 minItems: 1
+> > > > +=C2=A0=C2=A0=C2=A0 maxItems: 3
+> > > > +
+> > > > +=C2=A0 port:
+> > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/port
+> > > > +=C2=A0=C2=A0=C2=A0 description: Single video output port for singl=
+e-output
+> > > > variants.
+> > > Maybe the endpoint numbering rule needs a move to here? (I am not
+> > > very
+> > > sure).
+> I will add a description to the `port` property noting that endpoint
+> 0=20
+> is used for DPI output, which is the only output type for
+> DCUltraLite.
 
-diff --git a/rust/kernel/alloc/kbox.rs b/rust/kernel/alloc/kbox.rs
-index 2f8c16473c2c..592fffc72e52 100644
---- a/rust/kernel/alloc/kbox.rs
-+++ b/rust/kernel/alloc/kbox.rs
-@@ -433,6 +433,7 @@ impl<T, A> InPlaceWrite<T> for Box<MaybeUninit<T>, A>
- {
-     type Initialized =3D Box<T, A>;
-=20
-+    #[inline(always)]
-     fn write_init<E>(mut self, init: impl Init<T, E>) -> Result<Self::Init=
-ialized, E> {
-         let slot =3D self.as_mut_ptr();
-         // SAFETY: When init errors/panics, slot will get deallocated but =
-not dropped,
-@@ -442,6 +443,7 @@ fn write_init<E>(mut self, init: impl Init<T, E>) -> Re=
-sult<Self::Initialized, E
-         Ok(unsafe { Box::assume_init(self) })
-     }
-=20
-+    #[inline(always)]
-     fn write_pin_init<E>(mut self, init: impl PinInit<T, E>) -> Result<Pin=
-<Self::Initialized>, E> {
-         let slot =3D self.as_mut_ptr();
-         // SAFETY: When init errors/panics, slot will get deallocated but =
-not dropped,
-diff --git a/rust/kernel/init.rs b/rust/kernel/init.rs
-index 7a0d4559d7b5..36d4bf1959fb 100644
---- a/rust/kernel/init.rs
-+++ b/rust/kernel/init.rs
-@@ -151,6 +151,7 @@ fn try_pin_init<E>(init: impl PinInit<T, E>, flags: Fla=
-gs) -> Result<Self::Pinne
-     /// type.
-     ///
-     /// If `T: !Unpin` it will not be able to move afterwards.
-+    #[inline(always)]
-     fn pin_init<E>(init: impl PinInit<T, E>, flags: Flags) -> error::Resul=
-t<Self::PinnedSelf>
-     where
-         Error: From<E>,
-diff --git a/rust/kernel/sync/arc.rs b/rust/kernel/sync/arc.rs
-index 18d6c0d62ce0..973f15165606 100644
---- a/rust/kernel/sync/arc.rs
-+++ b/rust/kernel/sync/arc.rs
-@@ -712,6 +712,7 @@ fn try_init<E>(init: impl Init<T, E>, flags: Flags) -> =
-Result<Self, E>
- impl<T> InPlaceWrite<T> for UniqueArc<MaybeUninit<T>> {
-     type Initialized =3D UniqueArc<T>;
-=20
-+    #[inline(always)]
-     fn write_init<E>(mut self, init: impl Init<T, E>) -> Result<Self::Init=
-ialized, E> {
-         let slot =3D self.as_mut_ptr();
-         // SAFETY: When init errors/panics, slot will get deallocated but =
-not dropped,
-@@ -721,6 +722,7 @@ fn write_init<E>(mut self, init: impl Init<T, E>) -> Re=
-sult<Self::Initialized, E
-         Ok(unsafe { self.assume_init() })
-     }
-=20
-+    #[inline(always)]
-     fn write_pin_init<E>(mut self, init: impl PinInit<T, E>) -> Result<Pin=
-<Self::Initialized>, E> {
-         let slot =3D self.as_mut_ptr();
-         // SAFETY: When init errors/panics, slot will get deallocated but =
-not dropped,
-diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
-index ac316fd7b538..381a06ee0d59 100644
---- a/rust/kernel/types.rs
-+++ b/rust/kernel/types.rs
-@@ -367,6 +367,7 @@ pub const fn zeroed() -> Self {
-     /// This function is safe, because the `T` inside of an `Opaque` is al=
-lowed to be
-     /// uninitialized. Additionally, access to the inner `T` requires `uns=
-afe`, so the caller needs
-     /// to verify at that point that the inner value is valid.
-+    #[inline(always)]
-     pub fn ffi_init(init_func: impl FnOnce(*mut T)) -> impl PinInit<Self> =
-{
-         // SAFETY: We contain a `MaybeUninit`, so it is OK for the `init_f=
-unc` to not fully
-         // initialize the `T`.
-@@ -386,6 +387,7 @@ pub fn ffi_init(init_func: impl FnOnce(*mut T)) -> impl=
- PinInit<Self> {
-     /// This function is safe, because the `T` inside of an `Opaque` is al=
-lowed to be
-     /// uninitialized. Additionally, access to the inner `T` requires `uns=
-afe`, so the caller needs
-     /// to verify at that point that the inner value is valid.
-+    #[inline(always)]
-     pub fn try_ffi_init<E>(
-         init_func: impl FnOnce(*mut T) -> Result<(), E>,
-     ) -> impl PinInit<Self, E> {
-@@ -417,6 +419,7 @@ pub const fn cast_from(this: *const T) -> *const Self {
-=20
- impl<T> Wrapper<T> for Opaque<T> {
-     /// Create an opaque pin-initializer from the given pin-initializer.
-+    #[inline(always)]
-     fn pin_init<E>(slot: impl PinInit<T, E>) -> impl PinInit<Self, E> {
-         Self::try_ffi_init(|ptr: *mut T| {
-             // SAFETY:
-diff --git a/rust/pin-init/internal/src/pin_data.rs b/rust/pin-init/interna=
-l/src/pin_data.rs
-index 7d871236b49c..945254740f61 100644
---- a/rust/pin-init/internal/src/pin_data.rs
-+++ b/rust/pin-init/internal/src/pin_data.rs
-@@ -395,6 +395,7 @@ fn handle_field(
-             ///   to deallocate.
-             #pin_safety
-             #(#attrs)*
-+            #[inline(always)]
-             #vis unsafe fn #ident<E>(
-                 self,
-                 slot: *mut #ty,
-@@ -409,6 +410,7 @@ fn handle_field(
-             ///
-             #[doc =3D #slot_safety]
-             #(#attrs)*
-+            #[inline(always)]
-             #vis unsafe fn #project_ident<'__slot>(
-                 self,
-                 slot: &'__slot mut #ty,
+Please note that DC8000 exists, which is single-port but supports both
+DPI and DP.
+
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0=C2=A0 ports:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/propertie=
+s/ports
+> > > > @@ -59,7 +53,7 @@ properties:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port@0:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schem=
+as/graph.yaml#/properties/port
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first =
+output channel , endpoint 0
+> > > > should be
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first =
+output channel, endpoint 0
+> > > > should be
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+used for DPI format output and endpoint 1 should be
+> > > > used
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+for DP format output.
+> > > > =C2=A0=20
+> > > > @@ -75,9 +69,75 @@ required:
+> > > > =C2=A0=C2=A0=C2=A0 - interrupts
+> > > > =C2=A0=C2=A0=C2=A0 - clocks
+> > > > =C2=A0=C2=A0=C2=A0 - clock-names
+> > > > -=C2=A0 - ports
+> > > > =C2=A0=20
+> > > > -additionalProperties: false
+> > > > +allOf:
+> > > > +=C2=A0 - if:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ const: thead,th1520-dc8200
+> > > > +=C2=A0=C2=A0=C2=A0 then:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: DC Core clock
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: DMA AXI bus clock
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: Configuration AHB bus clock
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: Pixel clock of output 0
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: Pixel clock of output 1
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: core
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: axi
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: ahb
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: pix0
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: pix1
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: DC Core reset
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: DMA AXI bus reset
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: Configuration AHB bus reset
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: core
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: axi
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: ahb
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ports
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 else:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: Bus clock that gates register
+> > > > access
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: Pixel clock divider for display
+> > > > timing
+> > > Please don't make compatible-specific description strings for
+> > > individual compatibles, and keep these descriptions outside of
+> > > the if.
+> > > The compatible-specific part should be used to specify what's
+> > > required
+> > > for the specific SoC, for dt validation purpose.
+> > >=20
+> > > BTW if the clock is both the working clock and bus clock for the
+> > > controller, I suggest listing it twice, except if the IP core is
+> > > provided without a dedicated core clock (in the case I suggest to
+> > > use
+> > > "bus" only).
+> > I agree. If the same clock is provided to two+ ports on the IP,
+> > that
+> > should still be two+ clocks in the devicetree.
+> >=20
+> > > Here's an example for "listing it twice":
+> > > ```
+> > > clocks =3D <&clk DCU_GATE>, <&clk DCU_GATE>, <&clk DCUP_DIV>;
+> > > clock-names =3D "core", "bus", "pix0";
+> > > ```
+> > >=20
+> > > Well nonetheless the name "core" does not match the description
+> > > "Bus
+> > > clock that gates register access".
+> > >=20
+> > > Thanks,
+> > > Icenowy
+>=20
+> Understood. I will remove all description strings from the if/else=20
+> branches; the if/then clauses will only constrain clock-names and=20
+> reset-names items (name values only, no descriptions). Regarding
+> clock=20
+
+Well I think a required properties list is also needed in the if/then
+clause, to prevent DT's from lacking properties.
+
+> naming: DCU_GATE on MA35D1 is a peripheral gate clock without a
+> separate=20
+> dedicated core working clock, so I will keep "core" as the name and
+
+Do you mean there's no seperate dedicated bus clock? I find that in the
+clock driver dcu_gate has no parent as bus clocks -- its parent is
+dcu_mux, and dcu_mux's 2 parents are both pll ("epll_div2" and
+"syspll").
+
+Thanks,
+Icenowy
+
+> drop=20
+> the misleading description "Bus clock that gates register access".
+> The=20
+> description mismatch was entirely in the if/else strings which are
+> now=20
+> removed.
+>=20
+> Thanks.
+>=20
+> > >=20
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: core
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: pix0
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description=
+:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ Reset line for the display controller.
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - const: core
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - port
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 not:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ports
+> > > > +
+> > > > +unevaluatedProperties: false
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0examples:
+> > > > =C2=A0=C2=A0=C2=A0 - |
+> > > > @@ -120,3 +180,24 @@ examples:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > > > +
+> > > > +=C2=A0 - |
+> > > > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/interrupt-controller/arm-=
+gic.h>
+> > > > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/clock/nuvoton,ma35d1-clk.=
+h>
+> > > > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/reset/nuvoton,ma35d1-rese=
+t.h>
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 display@40260000 {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible =3D "verisil=
+icon,dc";
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg =3D <0x40260000 0x2=
+0000>;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 interrupts =3D <GIC_SPI=
+ 20 IRQ_TYPE_LEVEL_HIGH>;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks =3D <&clk DCU_GA=
+TE>, <&clk DCUP_DIV>;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names =3D "core",=
+ "pix0";
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets =3D <&sys MA35D1=
+_RESET_DISP>;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names =3D "core";
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ dpi_out: endpoint {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 remote-endpoint =3D <&panel_in>;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ };
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > > > +=C2=A0=C2=A0=C2=A0 };
+
