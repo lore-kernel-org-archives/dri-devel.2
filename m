@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A921FCD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E458CCD5BA4
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D91C810F0D7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B907310F0D5;
 	Wed, 20 May 2026 16:40:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G5wA2z0r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TD9ubfH7";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 283A610EEA3
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1104110E377
  for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:40:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A7D26445CB;
+ by sea.source.kernel.org (Postfix) with ESMTP id 925814460A;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7F103C2BCFC;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6B279C2BCFF;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1779295242;
- bh=xEDVCdkua/7iBsfv2z75bWb1evX4JvLZuoi6otdCeQY=;
+ bh=XHL+uzlHZ4LxG/n67415x9LvixS8mbl6LlbwUbFs2rs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=G5wA2z0rJweQK5zrc5Se1Sa6RzlOwp/uFy7jdlMULH/6pW5ii4YHl7hMQMLeB3tGh
- 2vm8fe1G22CwWgzwpoddsTZxTlxjpCSCqxILcYNwtxdIu7RDAJrOYYLlgoFEt0zmO8
- SdtW3rIFzIMD1Fl1Ax07uKuLvRGTX/mEp0vtgVjBcweFBH5I6J5xARGUNFjz58kjFs
- qV4TzRYZkCHHPqhOkYVlUafTXfN8FEMG2Fykro69xNfuXMXrFB32zPph4KKcdWGq28
- Q19UxCHdn5OK/3TaRhP1CLCqFIAF6yfcCkcMsE0Icx2bt/OL2Kz7Ql4ix4kcwZUSei
- fRyK7oPZxPa+g==
+ b=TD9ubfH7vk30RBTe4LVvL9h0PFgqp5trnWVN01S/AmXemYyuHQMtM3F2ncA+x44B8
+ gZ5y64j0wTkkd2WyMhF9Emuzqa8RXHJIEEgQmD9dHHuRMc2xPnZlqI1osGuCiHNuYu
+ X4AVin3gfKCIN20KYf0l/M+QfTKxrmOB7XCaNLhZQRjnzl9igfCUbYn6s6SiF8doDZ
+ eJBPEdB22D24rXRrvn5bXyHi5+vVed5Ugt3jbLAnRRAJtldqfTL4/eNK2AVns7UNcL
+ AAFK241N3QbbNLUbObLpxYn/8CA4iOAtPlDLzT3Mw2rPLn0ri+7TW+zbU61SOTq4P6
+ 67A31sVVmelNw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 72931CD4F3D;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 61AB1CD5BAB;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?=
  <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Wed, 20 May 2026 18:40:14 +0200
-Subject: [PATCH 10/11] arm64: dts: qcom: sc8280xp-arcata: Switch to uefi
- rtc offset
+Date: Wed, 20 May 2026 18:40:13 +0200
+Subject: [PATCH 09/11] arm64: dts: qcom: sc8280xp-arcata: model the PMU of
+ the on-board wcn6855
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-10-9df52552bf87@gmail.com>
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-9-9df52552bf87@gmail.com>
 References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 To: Douglas Anderson <dianders@chromium.org>, 
@@ -59,13 +59,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, 
  =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Johan Hovold <johan@kernel.org>
+ Bartosz Golaszewski <brgl@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1302;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=4908;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=U33Edd1LJ3viLModpsBHxlsQb9yGXvyVVmxT4ozJBOg=;
- b=asv2ZIpTTgM/SJ1GCriLiQm1TaOlO+NniVF0jnu8gepeegudJvUl5sTQf3BFgvV5YhTt5uqmi
- WZO21yXZaRZBRVHWnIDLaoAMxtkMj03jiaiKyGyO87HeWLxRhE3HADp
+ bh=K8dOu1Fg7LfOFi3E/eQZcIGRKm5mbKQExrj/mmutPxM=;
+ b=co+/t3hfIQarZQinpUw9xtZOrViQ0DLsT6wLzty+axZgfVMxK6xUj0MlsADizOKIzXoAVPo2D
+ YkrKnWbflOHBRT35zT+a9pZHUyHtCISp+ntdqG+Bl2KuJEZmAc0IZCo
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -90,46 +90,174 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Align with the reference implementation from the ThinkPad X13s:
+Align the Surface Pro 9 5G with the other sc8280xp-based models as done in
+this patch series [1] from Bartosz.
 
-Switch to using the Qualcomm specific UEFI variable that is used by the
-UEFI firmware (and Windows) to store the RTC offset.
+Add a node for the PMU of the WCN6855 and rework the inputs of the wifi
+and bluetooth nodes to consume the PMU's outputs.
 
-Use the new 'qcom,uefi-rtc-info' property to indicate that the offset is
-stored in a UEFI variable so that the OS can determine whether to wait
-for it to become available.
+With this we can drop the regulator-always-on properties from vreg_s11b
+and vreg_s12b as they will now be enabled by the power sequencing
+driver.
 
-Cc: Johan Hovold <johan@kernel.org>
+Use the fixed BT vddrfa1p7-supply supply name to align with bindings.
+
+[1] https://lore.kernel.org/all/20241018-sc8280xp-pwrseq-v6-0-8da8310d9564@linaro.org/
+
+Cc: Bartosz Golaszewski <brgl@kernel.org>
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
+ .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 103 ++++++++++++++++++---
+ 1 file changed, 89 insertions(+), 14 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index 52d8e9527bd26f97305905650e2486a59e6d7157..ae0a054f2f9d90c9341766528d6be0b9561a530f 100644
+index 4daff3a0ecf48ad2081a2fe98910adf0debef88f..52d8e9527bd26f97305905650e2486a59e6d7157 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -749,20 +749,11 @@ &pmk8280_pon_resin {
+@@ -357,6 +357,70 @@ usb1_sbu_mux: endpoint {
+ 			};
+ 		};
+ 	};
++
++	wcn6855-pmu {
++		compatible = "qcom,wcn6855-pmu";
++
++		pinctrl-0 = <&bt_default>, <&wlan_en>;
++		pinctrl-names = "default";
++
++		wlan-enable-gpios = <&tlmm 134 GPIO_ACTIVE_HIGH>;
++		bt-enable-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
++		swctrl-gpios = <&tlmm 132 GPIO_ACTIVE_HIGH>;
++
++		vddio-supply = <&vreg_s10b>;
++		vddaon-supply = <&vreg_s12b>;
++		vddpmu-supply = <&vreg_s12b>;
++		vddpmumx-supply = <&vreg_s12b>;
++		vddpmucx-supply = <&vreg_s12b>;
++		vddrfa0p95-supply = <&vreg_s12b>;
++		vddrfa1p3-supply = <&vreg_s11b>;
++		vddrfa1p9-supply = <&vreg_s1c>;
++		vddpcie1p3-supply = <&vreg_s11b>;
++		vddpcie1p9-supply = <&vreg_s1c>;
++
++		regulators {
++			vreg_pmu_rfa_cmn_0p8: ldo0 {
++				regulator-name = "vreg_pmu_rfa_cmn_0p8";
++			};
++
++			vreg_pmu_aon_0p8: ldo1 {
++				regulator-name = "vreg_pmu_aon_0p8";
++			};
++
++			vreg_pmu_wlcx_0p8: ldo2 {
++				regulator-name = "vreg_pmu_wlcx_0p8";
++			};
++
++			vreg_pmu_wlmx_0p8: ldo3 {
++				regulator-name = "vreg_pmu_wlmx_0p8";
++			};
++
++			vreg_pmu_btcmx_0p8: ldo4 {
++				regulator-name = "vreg_pmu_btcmx_0p8";
++			};
++
++			vreg_pmu_pcie_1p8: ldo5 {
++				regulator-name = "vreg_pmu_pcie_1p8";
++			};
++
++			vreg_pmu_pcie_0p9: ldo6 {
++				regulator-name = "vreg_pmu_pcie_0p9";
++			};
++
++			vreg_pmu_rfa_0p8: ldo7 {
++				regulator-name = "vreg_pmu_rfa_0p8";
++			};
++
++			vreg_pmu_rfa_1p2: ldo8 {
++				regulator-name = "vreg_pmu_rfa_1p2";
++			};
++
++			vreg_pmu_rfa_1p7: ldo9 {
++				regulator-name = "vreg_pmu_rfa_1p7";
++			};
++		};
++	};
  };
  
- &pmk8280_rtc {
--	nvmem-cells = <&rtc_offset>;
--	nvmem-cell-names = "offset";
-+	qcom,uefi-rtc-info;
+ &apps_rsc {
+@@ -383,7 +447,6 @@ vreg_s11b: smps11 {
+ 			regulator-min-microvolt = <1272000>;
+ 			regulator-max-microvolt = <1272000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-			regulator-always-on;
+ 		};
  
- 	status = "okay";
+ 		vreg_s12b: smps12 {
+@@ -391,7 +454,6 @@ vreg_s12b: smps12 {
+ 			regulator-min-microvolt = <984000>;
+ 			regulator-max-microvolt = <984000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-			regulator-always-on;
+ 		};
+ 
+ 		vreg_l3b: ldo3 {
+@@ -653,6 +715,16 @@ wifi@0 {
+ 		compatible = "pci17cb,1103";
+ 		reg = <0x10000 0x0 0x0 0x0 0x0>;
+ 
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn_0p8>;
++		vddaon-supply = <&vreg_pmu_aon_0p8>;
++		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
++		vddwlmx-supply = <&vreg_pmu_wlmx_0p8>;
++		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
++		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p8-supply = <&vreg_pmu_rfa_1p7>;
++
+ 		qcom,calibration-variant = "MS_SP9_5G";
+ 	};
+ };
+@@ -837,20 +909,16 @@ &uart2 {
+ 	bluetooth {
+ 		compatible = "qcom,wcn6855-bt";
+ 
+-		vddio-supply = <&vreg_s10b>;
+-		vddbtcxmx-supply = <&vreg_s12b>;
+-		vddrfacmn-supply = <&vreg_s12b>;
+-		vddrfa0p8-supply = <&vreg_s12b>;
+-		vddrfa1p2-supply = <&vreg_s11b>;
+-		vddrfa1p7-supply = <&vreg_s1c>;
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn_0p8>;
++		vddaon-supply = <&vreg_pmu_aon_0p8>;
++		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
++		vddwlmx-supply = <&vreg_pmu_wlmx_0p8>;
++		vddbtcmx-supply = <&vreg_pmu_btcmx_0p8>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
+ 
+ 		max-speed = <3200000>;
+-
+-		enable-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
+-		swctrl-gpios = <&tlmm 132 GPIO_ACTIVE_HIGH>;
+-
+-		pinctrl-0 = <&bt_default>;
+-		pinctrl-names = "default";
+ 	};
  };
  
--&pmk8280_sdam_6 {
--	status = "okay";
--
--	rtc_offset: rtc-offset@bc {
--		reg = <0xbc 0x4>;
--	};
--};
--
- &qup0 {
- 	status = "okay";
+@@ -1201,4 +1269,11 @@ reset-pins {
+ 			bias-disable;
+ 		};
+ 	};
++
++	wlan_en: wlan-en-state {
++		pins = "gpio134";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-down;
++	};
  };
 
 -- 
