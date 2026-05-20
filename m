@@ -4,90 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B6E5CD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 22:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 816B5CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 22:36:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5EB10E24E;
-	Wed, 20 May 2026 22:26:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF6210E140;
+	Wed, 20 May 2026 22:36:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pnnCukyt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Fie+nJZ0";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C875110E24E
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 22:26:27 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-452169ae568so3459866f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 15:26:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779315986; x=1779920786; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=YG82xVAXQwQE8PumNL8zBtus2ibRKhYEPkSULunC6/w=;
- b=pnnCukytOy41y/mbtm83ar2/a3+nzJ+zJbkjCyq+58XXpnULc6YCPqHIyNs4MngmF8
- Y/ckHb8h35OfEZqflGKx8WtAmGhgZR73fxlNutvatUI7B77u1KaQlWYBuKvuANKHvYtZ
- Y+OknrZu2eJmiii9cNKzOwAcU4S4EqVBByd7NRf2Dpj6TjMnQNQxibjw0NMXDV+lgiG0
- ZXsmnYU64sFKH8QTjEYceK2UAZ3ZMOWQpAhPO8uvDPx7BxKxyDEn88hzYgkm2r2/9o+o
- qI7e9RIZLDK3WH4hgbWLPFQLeK3KqdHbqVaf5QScab6jpop3RLV+uZzKYU7pLlfsopDh
- 8FxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779315986; x=1779920786;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=YG82xVAXQwQE8PumNL8zBtus2ibRKhYEPkSULunC6/w=;
- b=fAvSrZPXFlXebVvJWdr8PifYYHEOGEQ8VmpxyhKjXKQbJhT386rMvtrryJlg4ZuWam
- tbQqHW3MhHmobCBjfyvUQzyr0/k2N+Q3p3p9Hh3044Y3r0KJr+K1CYYQXgZ+ByLw5xEj
- VdLWyFUuWgtf6BglRVjKwq6NiOggv2tX7QFpHYxg5S9S9psDPbSfBl8VQwoakgngdF8q
- 9sajCJzCbI0hYwGD+QdZfj17DW1R/t5awp3WaVX+nZSy0uK4MjO6QfM68FRubZfQmgac
- 5bs3SwvMR3NurPbJmhfHlIY2c2yImsIyMpTkSJg9wRR/vQxiYRZR6vz4ftYeDfmdUErz
- FV1g==
-X-Gm-Message-State: AOJu0YwNawEu9/V+SvH5pHFqSfhrbyWbNBWGkohssHW4RdConp4ETjyj
- LLEWIoDrg8p6S/Y8/dGClDLOppnxU7Y4fcHeyTypSWwNQLKSy5Ifjnc=
-X-Gm-Gg: Acq92OFXIoPKguYDoqBSSYHMnh6tKnYugSYNkSxdmFT/cP0HfIdzJcuQBtAFpoO6Wjm
- q/ZQq9CQRFsRk4+zr3XaJ8dnTGVaEKanpu/uk8Xi3T/4tu9wibO+3cup8hhgM7JW8h06E+8jBiB
- Xl6G+PU7wGdMWdCuHNrorDP4/k74qhAmLRXvFoTQWY3EYcEc5zUXrVpU+wIK7+E8xvi1PBxxsqE
- 9E1mNEwomRt+iz4SwbwfeK8hPiyljm8IlO9pDiBWXAxvUg1D5TgwHkTPiEbiGiDngy1fetZkA7+
- NjtQm8bbBQt0WOaxCYa60nlfTKfyqKchYt5Kpc7cxKuSmprtb5m6W6+b0Y77QbakbkqJnonhz9e
- E61kVX1xGR310iFjQG6ahVbuwND/ajdzDB3fE9etbgZxOishYuFUMDZQmNJTiGl4f5jzi+9SWd9
- USSA6yIaNUedtdcBZzQtNzci+HHuhZhuDRWVbZNDsCJS/dw0oD4OjL9vBidMOWjVsMOJlsCwyZw
- mEctaJLtMkBmTa+nWxPrc10gV9JW/Q59hag/MZ5MCNe8hcsQb83oE8b0Wd02BLxvp2h8g==
-X-Received: by 2002:a5d:584c:0:b0:452:c246:ab69 with SMTP id
- ffacd0b85a97d-45ea38c687bmr331364f8f.13.1779315985965; 
- Wed, 20 May 2026 15:26:25 -0700 (PDT)
-Received: from ?IPV6:2a01:cb08:52d:7400:bbd7:ca83:de4a:f625?
- (2a01cb08052d7400bbd7ca83de4af625.ipv6.abo.wanadoo.fr.
- [2a01:cb08:52d:7400:bbd7:ca83:de4a:f625])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da0fe1a41sm61784681f8f.31.2026.05.20.15.26.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 May 2026 15:26:25 -0700 (PDT)
-Message-ID: <f5f70aa2-a1b8-40e0-838f-6709e6e08a5a@gmail.com>
-Date: Thu, 21 May 2026 00:26:24 +0200
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010000.outbound.protection.outlook.com [52.101.56.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 130F710E140
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 22:36:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jQp+UVa87NuuBYqOWNYR1pDDRXK305QmmYBoWwrEVLOU0UdzLlvxjI7Ag3a842LCIhEIPgYHT0EYpupN2OBYO2ftKloWxeh2C7aooWYU4uOmOwivS/xeh3ygdloWbgpwrK2RDBvY4NbM8Th3+O6Oo4a0IiagVt1J7wnN2U2//TDKim42srJ7BSLyk/dDcAg1h6HJGkFgnXfGOW5ZdnUHpzBq0NyMwFIpSA9GU+K5FHkZb1HDIQBXihezKnwO3txILTTKL2ysrchkKnA2/LrypKAhaIcy+cH96pPq2lM7d1RhKXrxZ5emvpMAK2WnIEHAHd7tESYzNKg7kx3YV+dnzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gigPQCDikk8n1x4wKIPhPdsRKQUfyvvMjl4QALLx1WU=;
+ b=gr9v4ox9AomX/cJu8gqX2JrKzeu5+gedUC1wK82B13SI3WlE9lw+ttvwYsTZPaebUBOhIWq4i/u0mqc0LEX49yDZW+3Y/AGNjSQP9LxaNDNUv/yO++kUNU1ltWtP+v44158ctgUCsEbyA/599G89kTXfCh7odHkrBWP7KPFW8YS56Kp1sXbQTyqSvLBQiwLrcAsjbpYsoJiJYWgw5Gz8fpoTyeZEexCWLgBATInDhap3JyA70YClEfQ13nfNcbt+im+nRi8tGVcj3fnHrU2/Ug1ofrOqeTsR7U45EM7mcB5hF09Sc2I2Vzmgn1uzVPv1VETIRQC0tvX2JSIzekGqYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gigPQCDikk8n1x4wKIPhPdsRKQUfyvvMjl4QALLx1WU=;
+ b=Fie+nJZ0FtMly+U6f5HzXwHTtKtoBhUCHEwdyN+I1mJo9Bu56hTNZcdrdx5Y2BFN8jh//8uqzsV9nkRrZNKah4DS+WM87CY8FaA2Y/hxKkI2TKaQ193WyRA1CeNRSAGQpQxke3rkkYoSqEZHNFr7EYRcjzdaktv/px9Ybxghwrg=
+Received: from SJ0PR13CA0179.namprd13.prod.outlook.com (2603:10b6:a03:2c7::34)
+ by CH3PR12MB8259.namprd12.prod.outlook.com (2603:10b6:610:124::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 22:36:05 +0000
+Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c7:cafe::5f) by SJ0PR13CA0179.outlook.office365.com
+ (2603:10b6:a03:2c7::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.15 via Frontend Transport; Wed, 20
+ May 2026 22:36:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 22:36:05 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Wed, 20 May
+ 2026 17:36:04 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 May
+ 2026 17:36:04 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 20 May 2026 17:36:04 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Block running when IOMMU is off
+Date: Wed, 20 May 2026 15:35:31 -0700
+Message-ID: <20260520223531.1403302-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/11] arm64: dts: qcom: sc8280xp-arcata: Enable backlight
-To: Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
- <20260520-surface-sp9-5g-for-next-v1-2-9df52552bf87@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
-In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-2-9df52552bf87@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: lizhi.hou@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|CH3PR12MB8259:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a3c19d8-fd07-42f1-ee78-08deb6c02dc5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|11063799006|13003099007|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: PSWqju4fm8AAIuRT02fve2/YEKMev0JPfimEu1D/mwQt2lTiWr+7uzQnglU6sfnWYHi6IwsVXbLVgReXiePRsMWgvBK4W/z9cHbhgJ9o+k7PpgkBeKKoKcPiHsPTqJfQpUKIwLOTHnKdMfRsEZx6MsmMRaUFr5htms7VltcSEN4r8NcqeidX2f9iOkTiltzt663tVrxc/Bo1m0jyxJkdOS/gFA5F6zGxLjBHB3oexMq4CPkG9gswp19WWnSoASLofwoWN5PV8cxbV9ZcQRCHCpnB9t9v+x6oF6cnvaAv6fMinKX6Nc+q4IqUjeDUHpLkNhMX1q089pnEyaL0/f9Lw3zB+u41Z56rfpLohI9vz00cY/rbBp7yaFIW3fpvNFzuHB5Njc4x4jNQ9quT5zNtppMh6oWuuJ0YRiJpm5W1eyjqpocFWXPK/h3CdIM7ntqAiQa72vY/juWyF4KabQGa9LATAf+Plla7QsTavJLWGURCFNTX7nw7jwXMJvcbuZ8CXagg6r9Z77D6X4eylpMgyZI+c3kDib5agFJg8agv94u/b6upfI4NudDzO/TqI/1vdw/tamm6CJg+436HcpBprPOASXX4N1yxwt3+EH2aGFZ/IpKZ5qPhs8ITXi5Xri1uUC5faiYcldz6OLdhs9EUpKnZcchdDpu34zyGaDigdArZLOa+5UkettzSGoQ8CbHZ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(11063799006)(13003099007)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Lx0VAzmHwBDIuP0bicu6MDTNU6raLcDdA7SUDuXQn6lNdbPq1ezM9YED0pSqogXsTaL88GeQ0plJkblzdNbEQdu4U0aMUbcJ191ydwO19xUBsxYcx9ou9HtwNSchiO+YG+QoQFB2u/4qgTzbGKj5yhXpNwLqi5UpLfZLFSP1DVpDamMhfxN7Nwsc4y6iPh+moyc76fMOqC5AsaTFEK8yUbtxod6aFL5z4lCnVoLLpvDLXWZ3csVqVezgheVNiC8kHkA2yzGrTKdzYsDnpaQFoXizhgqnBt9UhniNs0XRBhvbXWcGqZGduosGX/9dGx3yEPA9NZGKpmlFoMeF4FfklklFUMWc1g9Qnvs8epacnH+U1FdQ8c08yyk/d6j9nysIbDTW4h6JV4WwDRasRkYImcO+zsL7P54kT+NvlUXPvSu5uoiATFtaHnRR0wIcXrhu
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 22:36:05.0334 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a3c19d8-fd07-42f1-ee78-08deb6c02dc5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075ED.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8259
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,124 +117,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/20/26 18:40, Jérôme de Bretagne via B4 Relay wrote:
-> From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
-> 
-> Add backlight nodes and enable backlight so that it can be controlled
-> with the corresponding buttons found on Surface Pro Type Cover keyboards.
-> 
-> The nodes are almost identical to the ones from the ThinkPad X13s with
-> a different enable GPIO for the vreg_edp_bl node.
-> 
-> The difference was found by looking at the output of /sys/kernel/debug/gpio
-> on the ThinkPad X13s to see the properties of its enable gpio9:
-> 
->    gpiochip1: GPIOs 742-751, parent: platform/c440000.spmi:pmic@1:gpio@8800, c440000.spmi:pmic@1:gpio@8800:
->     ...
->     gpio9 : out  high normal  vin-1 pull-down 10uA              push-pull  medium  atest-1 dtest-0
->     ...
-> 
-> The same gpio9 on the Surface Pro 9 5G has different properties:
-> 
->    gpiochip0: 10 GPIOs, parent: platform/c440000.spmi:pmic@1:gpio@8800, c440000.spmi:pmic@1:gpio@8800:
->     ...
->     gpio9 : in   high normal  vin-1 pull-up 30uA                push-pull  low     atest-1 dtest-0
->     ...
-> 
-> Looking for a match on the Surface Pro 9 5G pointed to this only one:
-> 
->    gpiochip2: 10 GPIOs, parent: platform/c440000.spmi:pmic@3:gpio@8800, c440000.spmi:pmic@3:gpio@8800:
->     ...
->     gpio6 : out  high normal  vin-1 pull-down 10uA              push-pull  medium  atest-1 dtest-0
->     ...
-> 
-> Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
-> ---
->   .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 49 ++++++++++++++++++++++
->   1 file changed, 49 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> index f2b4470d4407fb5b6a3dbac8bc972c010c31bd06..14287092fb07ea15e527fd318f7ea2155448b26c 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> @@ -46,6 +46,16 @@ wcd938x: audio-codec {
->   		#sound-dai-cells = <1>;
->   	};
->   
-> +	backlight: backlight {
-> +		compatible = "pwm-backlight";
-> +		pwms = <&pmc8280c_lpg 3 1000000>;
-> +		enable-gpios = <&pmc8280_1_gpios 8 GPIO_ACTIVE_HIGH>;
-> +		power-supply = <&vreg_edp_bl>;
-> +
-> +		pinctrl-0 = <&edp_bl_en>, <&edp_bl_pwm>;
-> +		pinctrl-names = "default";
-> +	};
-> +
+The AIE2 device firmware requires IOMMU on.
 
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5319
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/aie2_pci.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Investigating the feedback I got from an AI bot review [1], I plan to 
-update this patch in v2. Let me know what you think.
-
-I was skeptical at first but upon review I've tried the following patch:
-
-
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts 
-b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index f938e68c69ea..82e0a01276a8 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -198,7 +198,7 @@ vreg_edp_bl: regulator-edp-bl {
-                 regulator-min-microvolt = <3600000>;
-                 regulator-max-microvolt = <3600000>;
-
--               gpio = <&pmc8280c_gpios 6 GPIO_ACTIVE_HIGH>;
-+               gpio = <&pmc8280_2_gpios 6 GPIO_ACTIVE_HIGH>;
-                 enable-active-high;
-
-                 pinctrl-0 = <&edp_bl_reg_en>;
-@@ -1050,6 +1050,11 @@ vol_up_n: vol-up-n-state {
-  };
-
-  &pmc8280_2_gpios {
-+       edp_bl_reg_en: edp-bl-reg-en-state {
-+               pins = "gpio6";
-+               function = "normal";
-+       };
+diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
+index c4d345d4c76b..22f66c7f534d 100644
+--- a/drivers/accel/amdxdna/aie2_pci.c
++++ b/drivers/accel/amdxdna/aie2_pci.c
+@@ -490,6 +490,11 @@ static int aie2_init(struct amdxdna_dev *xdna)
+ 		return -EINVAL;
+ 	}
+ 
++	if (!xdna->group) {
++		XDNA_ERR(xdna, "Running without IOMMU not supported");
++		return -EINVAL;
++	}
 +
-         wwan_sw_en: wwan-sw-en-state {
-                 pins = "gpio1";
-                 function = "normal";
-@@ -1061,11 +1066,6 @@ edp_bl_pwm: edp-bl-pwm-state {
-                 pins = "gpio8";
-                 function = "func1";
-         };
--
--       edp_bl_reg_en: edp-bl-reg-en-state {
--               pins = "gpio6";
--               function = "normal";
--       };
-  };
-
-  &pmr735a_gpios {
-
-
-
-and ... backlight still works! It can also be enabled/disabled with:
-    /sys/class/backlight/backlight/bl_power
-as expected.
-
-I have no clue why both gpio6 on pmc8280_2 and gpio6 on pmc8280c can 
-enable and disable the backlight. Is it a common scenario?
-
-Anyway, if I follow my own investigation fully based on the X13s 
-reference and the properties of its backlight enable GPIO, I should 
-switch to pmc8280_2 to use the better match.
-
-I will update this patch in v2.
-
-Jérôme
-
-
-[1] https://lore.kernel.org/all/20260520165709.E485C1F00893@smtp.kernel.org/
+ 	ndev = drmm_kzalloc(&xdna->ddev, sizeof(*ndev), GFP_KERNEL);
+ 	if (!ndev)
+ 		return -ENOMEM;
+-- 
+2.34.1
 
