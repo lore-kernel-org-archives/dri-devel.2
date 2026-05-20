@@ -4,94 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 923FECD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:44:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B2A7CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA2B210F09B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2C6510F09D;
 	Wed, 20 May 2026 14:44:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="cGZdDXqT";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="M2uJ7Ytb";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B0FC10F08A
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:44:43 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89F9F10F09B
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:44:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779288282;
+ s=mimecast20190719; t=1779288283;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=DzTvpH43hpdC78r5E1lFxVLsz0tO9A+WLlws2ErA588=;
- b=cGZdDXqTCBnAomE19Oja8/pYnHpS5FV22JHLlkAwgDVvtd0Nq7tKft8zaYmcH+mcEk0/3Y
- n6z/B9HIeaxJcX0bEcTijav3SHFCW5tZ7RiLw/tWbmctgpeYUJLS80GLBg6hVw413IdfC9
- j37RjA8Cjt8iYum5LKGM3Wok4FvY6Iw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=cJ50i4VAT7koucsYp09rCZ4i+eT1/vUOKhdV9aKMINU=;
+ b=M2uJ7YtbhFlpIOgFnhSjh+I2pvqSK62nUVw8wkvMBmYKJ6Yp9g0/EReeR/UP1L9JoClDvY
+ uvuf7mGH6IE4f/MIT1WGMhuzEoiyiuhgckGz7sjWr9/fnu3nKXRQO+BEklOje9GJ4BkSnb
+ ux+qpUVEWIyNDdB7xhvPPrF6XQvPHxo=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-538-R4OfAQyvMuGU0yoOaPcJ_A-1; Wed, 20 May 2026 10:44:40 -0400
-X-MC-Unique: R4OfAQyvMuGU0yoOaPcJ_A-1
-X-Mimecast-MFC-AGG-ID: R4OfAQyvMuGU0yoOaPcJ_A_1779288279
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-48a589c7879so39085865e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 07:44:39 -0700 (PDT)
+ us-mta-453-BCaZbhOLOd-bL6ZemSXiJw-1; Wed, 20 May 2026 10:44:42 -0400
+X-MC-Unique: BCaZbhOLOd-bL6ZemSXiJw-1
+X-Mimecast-MFC-AGG-ID: BCaZbhOLOd-bL6ZemSXiJw_1779288281
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-48fda34ed0aso19705745e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 07:44:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779288279; x=1779893079;
+ d=1e100.net; s=20251104; t=1779288281; x=1779893081;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=DzTvpH43hpdC78r5E1lFxVLsz0tO9A+WLlws2ErA588=;
- b=L+PRuD1yH+d1sTeuCKkHGXNveuoiZ9nBgtZ9kfTsyu3EDSp6cBuLptIn9uW7Q3Uua3
- HkYHY2XlQ8kALqjWAFjIFmicyitPlDNp1+NkdhMlvxNaPo37Wbq2guwa1KmExnYWBNJR
- BKxWTW9I7vWf0JkCso09M0K7N3D421SUXev4DFHw7tbWcgV59sF8lNC05zsc2S5dnYT0
- mWySVrXpGfWsgGQKokd+Lh4IVhZy5XAxKjLLfZdRJNTg2z+6d5Z4MABqJ/IQR/ZxpkVS
- DcoWk3XVla1+Qzhx7amscQ8FFLs/hY2gWiH/joyrZKMc+r6DpEOdXTHqzq6AwPaICY8P
- U39Q==
+ bh=cJ50i4VAT7koucsYp09rCZ4i+eT1/vUOKhdV9aKMINU=;
+ b=dNdi+p3jOFUxN17UaLwgfZvSDUgRtoHQ1FtkO/eqOwqarYZwPFJ0wi6MsrozZeMGSt
+ 64K2Fm8XycSc9JRbjgh6lzNtxsmIAd6X9KruYYdjxjjLpQhFhzjBabq1I2Tj61Y92Wkt
+ 0eeLdwrE7X40N/CUWTRMJA1NjQViQh3jkBcDeSIsM4IRewPgFnZ/JRxFld6CWDaD6IKx
+ yFHRCwVzDBzhACrM1HulWj+IWFJ98s/L++oK10ngpVkhJXWDp9oIiUboW30rz/uqHJ9q
+ Sjw5fPa7CuUtLQVbS3546zYV6+nFCnAKEdF0ZrJnUzP8QbAX29n+MUlPWVUbRKigvhce
+ UFog==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/Fwd71d/tS44+PcIxpNfXcpuqLKLy7V6lRkPU7Yip7RWJiv3YWqiaQ21dsVElEDV0GY5OeGoRxJbY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxM52Mu6A1J0830FP1vXxrwm2CV5b3QSlFnyPP/PLU24SOx0wRj
- msg0sO3HCn845mdu18z1SBE4ko8PZkn5ZEgDFf1se1ZO5LWMMsDijQC9Z94fEeCPz3dYsUuX+kG
- CB6xeCeMAhsdhtTUusE/lnqByMLvCyDvHiVJZsJ20WU7/n22keaQznWT91mekfnqlsJYZeA==
-X-Gm-Gg: Acq92OHvxtZlnMen61nj3BCee/5Hozkm+teZfO4d4Icwu1VL5Blo+NcRrHhDQCQZcXX
- QonCakQFDTeh0NcWu+ZJSNl3HA7BTX50v7gLZntUg5QOXs3x62hAvzVJ5+domyaggCV/Z1rId2V
- Ksz8Pc4y5fRICfnzN9kXZAJg/likwdMLSXny3W4Ky5Th+jeL6wH0EebcHjNFPqa5rVN7ZObUewL
- /g22XS9OFgk5ESNtxq5sxM1s4EUzIKpg7dR1cHGSyNrMDvGaSPEXhzyZHNivDrrflzji3+4vO2K
- MyYg1j+pdp/JOyAUdmBV1zzJjkfZYQnTl3Qa8QUbwhQDcT+PUvwTau2WyapclnF+5VcQmxyjIFl
- G0QxnaT/TB/1wc4kCUGwnH5i2XC0em67leXVNWcQ1JH9vz2k=
-X-Received: by 2002:a05:600c:3222:b0:48a:5236:7f38 with SMTP id
- 5b1f17b1804b1-48fd6367eb8mr270547715e9.14.1779288278842; 
- Wed, 20 May 2026 07:44:38 -0700 (PDT)
-X-Received: by 2002:a05:600c:3222:b0:48a:5236:7f38 with SMTP id
- 5b1f17b1804b1-48fd6367eb8mr270547505e9.14.1779288278432; 
- Wed, 20 May 2026 07:44:38 -0700 (PDT)
+ AFNElJ8IQpk17JZD/snAqN1A3lfAai7UoH7fvFSks+tIWzVFBxJSeu+/Euh7R0WSAC0YmclkVs/CpTTx9go=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQe2tm/BEiPUziTOg69E53UMDW/TNrtOgpnBwML9BUmseTIA25
+ rGLwHUsMGA70WpCnNGvlEf1FnbGWkV3HRJZnCF+KMVGjPCs0pL2Ujqui/3nh6KCUKne+HkjDbh+
+ BeZopLEl2+mM+r0b9kmGMx8THwS4ZvxTGrCa8c8ojLmKji58EZdrXxlPaqiiMATK6K70u5Q==
+X-Gm-Gg: Acq92OFIvKEvor7N+/DSHaN2PMu5FhBpK1WK2w3K0fsojU9frn4ngzTocwF12iW6ET6
+ cCOUJ6ZG1nwdxRfaMeG2rfzZBkWEh9vWnqkNtGvd1tRstO0mVR64uMPWKON5hb/8+efimDnpxZb
+ mEjhyWk4umRpLEc1iTua530bOdpjbszXAPejvw3j4mU17rmxMfkOY/NGyzbUB971gJ7bHDZZyqn
+ NBGJyzD43FI76Po7Slmjc1N6jFN1uA+kTZ6H7h4vbtpCmQovHtWrVbkcdB3TUznsW6YP2BIHe61
+ qF2oLWCo0LXmN+0UIvYeIBRf1HP3QWOttuhqdWEQZj9xuujOa25fLsz95sl8ZZUJOnweJC/N+Jo
+ mVGNRGw5trYZg8x2gmGdmPmTU4XCQ02q21vyVCBwx1k5zVsk=
+X-Received: by 2002:a05:600c:a30a:b0:48a:568f:ae8a with SMTP id
+ 5b1f17b1804b1-48fe5fda35fmr290658995e9.8.1779288281007; 
+ Wed, 20 May 2026 07:44:41 -0700 (PDT)
+X-Received: by 2002:a05:600c:a30a:b0:48a:568f:ae8a with SMTP id
+ 5b1f17b1804b1-48fe5fda35fmr290658585e9.8.1779288280584; 
+ Wed, 20 May 2026 07:44:40 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45d9e768c4fsm55177883f8f.8.2026.05.20.07.44.37
+ 5b1f17b1804b1-48fe57944c1sm439641105e9.7.2026.05.20.07.44.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 07:44:37 -0700 (PDT)
+ Wed, 20 May 2026 07:44:39 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: Javier Martinez Canillas <javierm@redhat.com>,
- Maxime Ripard <mripard@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Alain Volmat <alain.volmat@foss.st.com>, David Airlie <airlied@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 4/8] drm/bridge: inno-hdmi: Use the common TMDS char rate
- constant
-Date: Wed, 20 May 2026 16:43:40 +0200
-Message-ID: <20260520144424.1633354-5-javierm@redhat.com>
+Subject: [PATCH v2 5/8] drm/sti: hdmi: Use the common TMDS char rate constants
+Date: Wed, 20 May 2026 16:43:41 +0200
+Message-ID: <20260520144424.1633354-6-javierm@redhat.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260520144424.1633354-1-javierm@redhat.com>
 References: <20260520144424.1633354-1-javierm@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 2o9tdDNFmktSZ2LThI0-Cd8r6RuaMjjGL3BJnI5QjBE_1779288279
+X-Mimecast-MFC-PROC-ID: 3Tlw780VyDihU7f5qV_F3Esv1VB8gFDNH4G0n3DffQw_1779288281
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -110,41 +105,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the driver local INNO_HDMI_MIN_TMDS_CLOCK define with the shared
-constant defined in the <linux/hdmi.h> header.
+Replace the 340000000 and 165000000 magic numbers with the shared
+constants defined in the <linux/hdmi.h> header.
 
 Suggested-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 ---
 
 (no changes since v1)
 
- drivers/gpu/drm/bridge/inno-hdmi.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-index 1091af29ad8f..5fa533a4eb34 100644
---- a/drivers/gpu/drm/bridge/inno-hdmi.c
-+++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-@@ -31,8 +31,6 @@
- #include <drm/display/drm_hdmi_helper.h>
- #include <drm/display/drm_hdmi_state_helper.h>
+diff --git a/drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c b/drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c
+index d25ecd4f4b67..4fe0c54a096f 100644
+--- a/drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c
++++ b/drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c
+@@ -4,6 +4,8 @@
+  * Author: Vincent Abriou <vincent.abriou@st.com> for STMicroelectronics.
+  */
  
--#define INNO_HDMI_MIN_TMDS_CLOCK  25000000U
--
- #define DDC_SEGMENT_ADDR		0x30
++#include <linux/hdmi.h>
++
+ #include <drm/drm_print.h>
  
- #define HDMI_SCL_RATE			(100 * 1000)
-@@ -820,7 +818,7 @@ static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridg
+ #include "sti_hdmi_tx3g4c28phy.h"
+@@ -102,7 +104,7 @@ static bool sti_hdmi_tx3g4c28phy_start(struct sti_hdmi *hdmi)
+ 	tmdsck = ckpxpll;
+ 	pllctrl |= 40 << PLL_CFG_NDIV_SHIFT;
  
- 	mpixelclk = mode->clock * 1000;
+-	if (tmdsck > 340000000) {
++	if (tmdsck > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ) {
+ 		DRM_ERROR("output TMDS clock (%d) out of range\n", tmdsck);
+ 		goto err;
+ 	}
+@@ -135,7 +137,7 @@ static bool sti_hdmi_tx3g4c28phy_start(struct sti_hdmi *hdmi)
+ 	       HDMI_SRZ_CFG_EN_BIASRES_DETECTION |
+ 	       HDMI_SRZ_CFG_EN_SINK_TERM_DETECTION);
  
--	if (mpixelclk < INNO_HDMI_MIN_TMDS_CLOCK)
-+	if (mpixelclk < HDMI_TMDS_CHAR_RATE_MIN_HZ)
- 		return MODE_CLOCK_LOW;
+-	if (tmdsck > 165000000)
++	if (tmdsck > HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ)
+ 		val |= HDMI_SRZ_CFG_EN_SRC_TERMINATION;
  
- 	if (inno_hdmi_find_phy_config(hdmi, mpixelclk) < 0)
+ 	/*
 -- 
 2.54.0
 
