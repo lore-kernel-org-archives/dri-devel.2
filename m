@@ -4,65 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09A6CD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95AF1CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:24:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9ED10EC24;
-	Wed, 20 May 2026 13:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0A0610E14B;
+	Wed, 20 May 2026 13:24:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="bm2qlhQQ";
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="hQroMKRY";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OnSPk9B0";
 	dkim-atps=neutral
-Received: from mail-01.1984.is (mail-01.1984.is [185.112.145.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47ED310EC24
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:23:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=berkoc.com; 
- s=1984;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=TpHuoAiInQYxT4YJJ3nssWVAmB6TOOeSDac13iJxzn0=; b=bm2qlhQQTMezAyjtR8gRC95HTt
- IRnRWM4RblahYeWhH28JMXRi5XNstVjAyfmAw1tC1vA2U/yOtCHA31AtXzXVrYva4y9Zu6/JCW4fX
- XV6tZsLO7z0/esu9bWRoYAhJnNQo+NzGGqEA3STGv9Hlmgo6J/6URUAI0lA6pqUxLdT5fU8cVauy6
- xPxK0xEDMp2ozYGG7nMrxGuC6Y32blEha3jy8r9UhAinYw1GxaFCCg6bEMXc1fNVREXqc9ji+z8b8
- 9DCihz3QL1MOfejh83wxVL5mg7NWVq0/w6jMSJCUF0tqpUVOAYSRWcibumaVnDgBmcK7D4MuGo2Cq
- NxOHsOBg==;
-Received: from localhost by mail-01.1984.is with utf8esmtp (Exim 4.96)
- (envelope-from <me@berkoc.com>) id 1wPgto-008r7y-0r;
- Wed, 20 May 2026 13:23:49 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berkoc.com;
- i=@berkoc.com; q=dns/txt; s=me; t=1779283418; h=message-id : date :
- subject : cc : to : from : sender : reply-to;
- bh=TpHuoAiInQYxT4YJJ3nssWVAmB6TOOeSDac13iJxzn0=;
- b=hQroMKRYqDHDZIIhVsEmRbGcCbeW8eX/4NKZvhEfOt7XTPQ76sQcek/kK6SZGYj+p3sUz
- j2ljWPFCDbD2NzTYNMmWBZZtYs3Pa652otjW2D0E07Z1cwWnG7B+Jz1S2lbFAGUMEzCeztX
- +jtI49ZhLTcq0QLlErVthy0ojs73rtHBV1RZGWEUosd+zh/ft0pXeD0F1rZmOqVL3R902tT
- qpxoXvRt+Dlp+8DSgfLBRHvd7yA3XmcEF/Q2JiI+HlMeNu5NGUQZ/orka2PrGRn8nko0gLv
- /++lnTEpxw5yj80V8Axh/l56wR2LOtLGMB803YxaEg/0razwgaAH8trU1rnQ==
-From: Berkant Koc <me@berkoc.com>
-To: Saurabh Sengar <ssengar@linux.microsoft.com>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, K. Y. Srinivasan <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Michael Kelley <mhklinux@outlook.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Deepak Rawat <drawat.floss@gmail.com>,
- sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v3 2/2] drm/hyperv: validate VMBus packet size in receive
- callback
-Date: Wed, 20 May 2026 15:23:38 +0200
-Message-ID: <177928341826.371979.14701698047864220449@berkoc.com>
-In-Reply-To: <20260519213450.50E611F000E9@smtp.kernel.org>
-References: <e6e63276cca2901641ab39029e4fd3d621b1ee92.1779221799.git.me@berkoc.com>
- <20260519213450.50E611F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6133510E14B
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:24:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779283471;
+ bh=iANpU2wer4BKKpe+gZCpKE13Eip1fp/I6bIamcuEfrY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=OnSPk9B0L48bFnguwZmP4eGBMhFwba3shYWNjKcW6TwFfRjxpqTKVRjPBkfaz8gFI
+ 1kQgx0a74gMyhJi4XG3h/a9b/dCdZqgYf2NghwmQgUkVOcvW1OS1GI4UEZP1fp/a9x
+ /b178LQ9OmIMk1RURdknuGUdQn/+FgJwQslNM5bbznOxPlCnZd8OC001qcFx7SpUMO
+ JeleuE9w1KX9BGEMMnux0a+ekI+NTw8SigHEHsruMJZ3hazELgwtRinFtPKZgCZf+u
+ LrKuL888HzQ8MCwgMtopWfLLL/iEOriJjlMigE7IlAPfPRWzfO5H0AngiFgiS/V2Wy
+ dC9vv4t8nV22w==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B8E017E02A3;
+ Wed, 20 May 2026 15:24:30 +0200 (CEST)
+Date: Wed, 20 May 2026 15:24:26 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel@collabora.com,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] drm/panthor: Implement evicted status for GEM
+ objects
+Message-ID: <20260520152426.4c5fef6c@fedora>
+In-Reply-To: <20260520-panthor-bo-reclaim-observability-v4-2-a47ab61cb80d@collabora.com>
+References: <20260520-panthor-bo-reclaim-observability-v4-0-a47ab61cb80d@collabora.com>
+ <20260520-panthor-bo-reclaim-observability-v4-2-a47ab61cb80d@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authenticated-User: me@berkoc.com
-X-Sender-Address: me@berkoc.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,44 +70,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-sashiko-bot@kernel.org wrote:
-> - [Critical] Using `bytes_recvd` for `memcpy()` without checking
->   `vmbus_recvpacket()` return value leads to a massive heap buffer
->   overflow.
+On Wed, 20 May 2026 15:04:49 +0200
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
 
-This one is bounded on this channel. hyperv_connect_vsp() calls
-vmbus_open() without setting max_pkt_size, so the inbound ring uses
-VMBUS_DEFAULT_MAX_PKT_SIZE (4096) and hv_pkt_iter_first() clamps the
-packet length to pkt_buffer_size. bytes_recvd therefore cannot exceed
-4096, well under the 16 KiB recv_buf and init_buf, and
-vmbus_recvpacket() does not return -ENOBUFS here, so the memcpy length
-stays bounded.
+> For fdinfo to be able to fill its evicted counter with data, panthor
+> needs to keep track of whether a GEM object has ever been reclaimed.
+> Just checking whether the pages are resident isn't enough, as newly
+> allocated objects also won't be resident.
+> 
+> Do this with a new atomic_t member on panthor_gem_object. It's increased
+> when an object gets evicted by the shrinker, and saturates at INT_MAX.
+> This means that once an object has been evicted at least once, its
+> reclaim counter will never return to 0.
+> 
+> Due to this, it's possible to distinguish evicted non-resident pages
+> from newly allocated non-resident pages by checking whether
+> reclaimed_count is != 0
+> 
+> Use this new member to then set the appropriate DRM_GEM_OBJECT_EVICTED
+> status flag for fdinfo.
+> 
+> Also add a new column and status flag to the panthor gems debugfs: the
+> column is the number of times an object has been evicted, whereas the
+> flag indicates whether it currently is evicted.
+> 
+> Reviewed-by: Steven Price <steven.price@arm.com>
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-I will still gate the dispatch on a successful vmbus_recvpacket()
-return in the next revision, as defense in depth, so the bound is
-local instead of relying on the ring clamp.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-> - [High] Strict sizeof() validation incorrectly rejects
->   dynamically-sized SYNTHVID_RESOLUTION_RESPONSE packets.
+> ---
+>  drivers/gpu/drm/panthor/panthor_gem.c | 18 ++++++++++++++----
+>  drivers/gpu/drm/panthor/panthor_gem.h | 10 ++++++++++
+>  2 files changed, 24 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index 13295d7a593d..068aa935c8fc 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -687,6 +687,8 @@ static void panthor_gem_evict_locked(struct panthor_gem_object *bo)
+>  	if (drm_WARN_ON_ONCE(bo->base.dev, !bo->backing.pages))
+>  		return;
+>  
+> +	atomic_add_unless(&bo->reclaimed_count, 1, INT_MAX);
+> +
+>  	panthor_gem_dev_map_cleanup_locked(bo);
+>  	panthor_gem_backing_cleanup_locked(bo);
+>  	panthor_gem_update_reclaim_state_locked(bo, NULL);
+> @@ -788,6 +790,8 @@ static enum drm_gem_object_status panthor_gem_status(struct drm_gem_object *obj)
+>  
+>  	if (drm_gem_is_imported(&bo->base) || bo->backing.pages)
+>  		res |= DRM_GEM_OBJECT_RESIDENT;
+> +	else if (atomic_read(&bo->reclaimed_count))
+> +		res |= DRM_GEM_OBJECT_EVICTED;
+>  
+>  	return res;
+>  }
+> @@ -1595,6 +1599,7 @@ static void panthor_gem_debugfs_print_flag_names(struct seq_file *m)
+>  	static const char * const gem_state_flags_names[] = {
+>  		[PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT] = "imported",
+>  		[PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT] = "exported",
+> +		[PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT] = "evicted",
+>  	};
+>  
+>  	static const char * const gem_usage_flags_names[] = {
+> @@ -1625,6 +1630,7 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
+>  {
+>  	enum panthor_gem_reclaim_state reclaim_state = bo->reclaim_state;
+>  	unsigned int refcount = kref_read(&bo->base.refcount);
+> +	int reclaimed_count = atomic_read(&bo->reclaimed_count);
+>  	char creator_info[32] = {};
+>  	size_t resident_size;
+>  	u32 gem_usage_flags = bo->debugfs.flags;
+> @@ -1638,16 +1644,20 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
+>  
+>  	snprintf(creator_info, sizeof(creator_info),
+>  		 "%s/%d", bo->debugfs.creator.process_name, bo->debugfs.creator.tgid);
+> -	seq_printf(m, "%-32s%-16d%-16d%-16zd%-16zd0x%-16lx",
+> +	seq_printf(m, "%-32s%-16d%-16d%-11d%-16zd%-16zd0x%-16lx",
+>  		   creator_info,
+>  		   bo->base.name,
+>  		   refcount,
+> +		   reclaimed_count,
+>  		   bo->base.size,
+>  		   resident_size,
+>  		   drm_vma_node_start(&bo->base.vma_node));
+>  
+>  	if (drm_gem_is_imported(&bo->base))
+>  		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED;
+> +	else if (!resident_size && reclaimed_count)
+> +		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED;
+> +
+>  	if (bo->base.dma_buf)
+>  		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED;
+>  
+> @@ -1671,8 +1681,8 @@ static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
+>  
+>  	panthor_gem_debugfs_print_flag_names(m);
+>  
+> -	seq_puts(m, "created-by                      global-name     refcount        size            resident-size   file-offset       state      usage       label\n");
+> -	seq_puts(m, "----------------------------------------------------------------------------------------------------------------------------------------------\n");
+> +	seq_puts(m, "created-by                      global-name     refcount        evictions  size            resident-size   file-offset       state      usage       label\n");
+> +	seq_puts(m, "---------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+>  
+>  	scoped_guard(mutex, &ptdev->gems.lock) {
+>  		list_for_each_entry(bo, &ptdev->gems.node, debugfs.node) {
+> @@ -1680,7 +1690,7 @@ static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
+>  		}
+>  	}
+>  
+> -	seq_puts(m, "==============================================================================================================================================\n");
+> +	seq_puts(m, "=========================================================================================================================================================\n");
+>  	seq_printf(m, "Total size: %zd, Total resident: %zd, Total reclaimable: %zd\n",
+>  		   totals.size, totals.resident, totals.reclaimable);
+>  }
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
+> index ae0491d0b121..56d63137b4eb 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.h
+> @@ -19,12 +19,16 @@ struct panthor_vm;
+>  enum panthor_debugfs_gem_state_flags {
+>  	PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT = 0,
+>  	PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT = 1,
+> +	PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT = 2,
+>  
+>  	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED: GEM BO is PRIME imported. */
+>  	PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT),
+>  
+>  	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED: GEM BO is PRIME exported. */
+>  	PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT),
+> +
+> +	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED: GEM BO is evicted to swap. */
+> +	PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT),
+>  };
+>  
+>  enum panthor_debugfs_gem_usage_flags {
+> @@ -172,6 +176,12 @@ struct panthor_gem_object {
+>  	/** @reclaim_state: Cached reclaim state */
+>  	enum panthor_gem_reclaim_state reclaim_state;
+>  
+> +	/**
+> +	 * @reclaimed_count: How many times object has been evicted to swap.
+> +	 * The count saturates at %INT_MAX and will never wrap around to 0.
+> +	 */
+> +	atomic_t reclaimed_count;
+> +
+>  	/**
+>  	 * @exclusive_vm_root_gem: Root GEM of the exclusive VM this GEM object
+>  	 * is attached to.
+> 
 
-Agreed. The response carries resolution_count entries, not the full
-SYNTHVID_MAX_RESOLUTION_COUNT array, so checking against
-sizeof(struct synthvid_supported_resolution_resp) is too strict. The
-next revision validates the fixed prefix, reads and bounds
-resolution_count, then requires only the count-sized array.
-
-> - [High] Concurrent lockless write to `hv->init_buf` from VMBus
->   callback allows a malicious host to overwrite data while the guest
->   is validating it.
-> - [High] Missing `reinit_completion()` before reusing the shared
->   `hv->wait` completion object.
-
-Both pre-existing. On v2 Michael Kelley suggested splitting the
-completion reinit into a separate patch on the resume path. The
-init_buf reuse sits in the same area, so I plan to send the reinit and
-the related response-type handling as a separate follow-up rather than
-fold them into this size-validation change.
-
-Thanks for the review.
-
-Berkant
