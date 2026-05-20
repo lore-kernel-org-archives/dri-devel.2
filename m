@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 601F7CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 10:17:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43E30CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 10:17:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B70AF10EFE8;
-	Wed, 20 May 2026 10:17:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B973310EFEC;
+	Wed, 20 May 2026 10:17:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lEOzUTDE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bJOIRG8W";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0108A10EFF7;
- Wed, 20 May 2026 10:17:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09C0410EFFF;
+ Wed, 20 May 2026 10:17:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779272247; x=1810808247;
+ t=1779272252; x=1810808252;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7GOI7TU6+aMlsbqiB2OTjv7RLHlkrx7pg0DKAoEBQbo=;
- b=lEOzUTDEf0RBQJ/AH6/DU9TfGLhAhDH+K/8LF5t/JVxvrm4cED9tPKMy
- l4V+EpOU9JR76595F5c0YBeLREG7uU7Kj5QvpJ54gDPAASKCJ4HxaACr1
- Eizgce5ASk/0lOYuDja29JFRiYV8tXelWSBD2rKl7JFm9zN4b+2Rfy3WW
- IXons5MaV55esY76fPNNt+vu5HoPOzSkTOqI8E3ARGsqyHoHHQjKFdhKD
- br8/BZ+wSGehqu4cgSBV5HEE8JlpzL+un0RVsKautRT5NihDHCwO+4t5J
- Iw5NbUUOIKpb3OkBXKsHvKCTKZG+Wz0l5OzdNiYVjLrhkX7xoV/aJ+PbU Q==;
-X-CSE-ConnectionGUID: cMq42SlyTvW2NpITz793Nw==
-X-CSE-MsgGUID: Bccf3vgITj2LN+mTyLvk1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="102843304"
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="102843304"
+ bh=eOlOBfiJj7Bv4YUhSkUqIibhF6y3L5ddhXYlMCE6R8o=;
+ b=bJOIRG8WzNO3cRYvlbNdteikVPajoVrLDBPkeSuj1YrpVmxNrLv6z+QM
+ 4bFS62mcfpUrL2I3357u77ad3vCU8QNeBp0Ydo/a2luv4/LJuAK/8/KgD
+ gHUuRkSFaz9lvWkGn2owzo9JbkCLKTOSoUt+oRanCSRbnjNdED+etQj6j
+ ydK2gYjUL2anzFboaIaC2I3awXhTLScPQ1QeKaEdYkwWhyrFUdmd+dHjw
+ tHbnQ+dRqQG6kYXNI6Alo63d5MSR1kswWgfZ0JvmbVA7G01AXdTXAuNPU
+ JQdLOxUWggK5zcchkX+Hb2ubDp3V97LfiNqrTmhpK9S5nK7BoJ0E8OlIY Q==;
+X-CSE-ConnectionGUID: kFjYHq6bTBeBu/j6WGYh6A==
+X-CSE-MsgGUID: 1mYaSfHlSres+npb58NSNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="102843317"
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="102843317"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:17:26 -0700
-X-CSE-ConnectionGUID: 1wFTdLPSRou64nosWEr3wQ==
-X-CSE-MsgGUID: 884+k//wTpqUw+cqruxgHw==
+ 20 May 2026 03:17:31 -0700
+X-CSE-ConnectionGUID: c+w11R1bT82yxF92bdIqGQ==
+X-CSE-MsgGUID: suprNGISQamG4TXx5V+Cyw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="244114106"
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="244114163"
 Received: from vpanait-mobl.ger.corp.intel.com (HELO fedora) ([10.245.245.175])
  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:17:22 -0700
+ 20 May 2026 03:17:27 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -60,10 +60,10 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [PATCH v2 3/4] drm/exec,
- drm/xe: Avoid abusing the drm_exec retry pointer
-Date: Wed, 20 May 2026 12:16:15 +0200
-Message-ID: <20260520101616.41284-4-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v2 4/4] drm/exec, drm/xe,
+ drm/amdgpu: Add an accessor for struct drm_exec::ticket
+Date: Wed, 20 May 2026 12:16:16 +0200
+Message-ID: <20260520101616.41284-5-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
 References: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
@@ -85,87 +85,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The xe driver was using the drm_exec retry pointer directly to
-restart the locking loop after out-of-memory errors. This is
-relying on undocumented behaviour.
+Drivers were accessing this drm_exec member directly.
+While that may seem harmless, it will require action if
+the drm_exec utility is made a subclass of a dma-resv transaction
+utility as outlined in the cover-letter.
 
-Instead add a drm_exec_retry() macro that can be used in this
-situation, and that also warns if the struct drm_exec is
-not newly (re-)initialized.
-
-Use that macro in xe.
+Provide an accessor, drm_exec_ticket() to avoid that.
 
 v2:
-- Only allow if the drm_exec context is newly initialized.
-  (Christian)
+- Fix amdgpu compile error (Intel CI)
+- Update the commit message.
 
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/drm_exec.c         |  3 ---
- drivers/gpu/drm/xe/xe_validation.h |  2 +-
- include/drm/drm_exec.h             | 19 +++++++++++++++++++
- 3 files changed, 20 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  6 +++---
+ drivers/gpu/drm/xe/xe_validation.c               |  4 ++--
+ include/drm/drm_exec.h                           | 11 +++++++++++
+ 4 files changed, 18 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-index 746210f3f6c2..7988f5e7d56a 100644
---- a/drivers/gpu/drm/drm_exec.c
-+++ b/drivers/gpu/drm/drm_exec.c
-@@ -48,9 +48,6 @@
-  * See struct dma_exec for more details.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 72a5a29e63f6..d54794e5b18b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2999,7 +2999,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
+ 	/* Validate PDs, PTs and evicted DMABuf imports last. Otherwise BO
+ 	 * validations above would invalidate DMABuf imports again.
+ 	 */
+-	ret = process_validate_vms(process_info, &exec.ticket);
++	ret = process_validate_vms(process_info, drm_exec_ticket(&exec));
+ 	if (ret) {
+ 		pr_debug("Validating VMs failed, ret: %d\n", ret);
+ 		goto validate_map_fail;
+@@ -3040,7 +3040,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
+ 			goto validate_map_fail;
+ 		}
+ 
+-		ret = amdgpu_vm_handle_moved(adev, peer_vm, &exec.ticket);
++		ret = amdgpu_vm_handle_moved(adev, peer_vm, drm_exec_ticket(&exec));
+ 		if (ret) {
+ 			dev_dbg(adev->dev,
+ 				"Memory eviction: handle moved failed, pid %8d. Try again.\n",
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 97a851ae7bd8..6ada57abce9d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1157,7 +1157,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 			return r;
+ 	}
+ 
+-	r = amdgpu_vm_handle_moved(adev, vm, &p->exec.ticket);
++	r = amdgpu_vm_handle_moved(adev, vm, drm_exec_ticket(&p->exec));
+ 	if (r)
+ 		return r;
+ 
+@@ -1359,7 +1359,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 	cs->out.handle = seq;
+ 	leader->uf_sequence = seq;
+ 
+-	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->exec.ticket);
++	amdgpu_vm_bo_trace_cs(&fpriv->vm, drm_exec_ticket(&p->exec));
+ 	for (i = 0; i < p->gang_size; ++i) {
+ 		amdgpu_job_free_resources(p->jobs[i]);
+ 		trace_amdgpu_cs_ioctl(p->jobs[i]);
+@@ -1794,7 +1794,7 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
+ 	*map = mapping;
+ 
+ 	/* Double check that the BO is reserved by this CS */
+-	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != &parser->exec.ticket)
++	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != drm_exec_ticket(&parser->exec))
+ 		return -EINVAL;
+ 
+ 	/* Make sure VRAM is allocated contigiously */
+diff --git a/drivers/gpu/drm/xe/xe_validation.c b/drivers/gpu/drm/xe/xe_validation.c
+index a611438eaafe..8dff4d0ec895 100644
+--- a/drivers/gpu/drm/xe/xe_validation.c
++++ b/drivers/gpu/drm/xe/xe_validation.c
+@@ -156,7 +156,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
+ 
+ #ifdef CONFIG_DEBUG_WW_MUTEX_SLOWPATH
+ /*
+- * This abuses both drm_exec and ww_mutex internals and should be
++ * This abuses ww_mutex internals and should be
+  * replaced by checking for -EDEADLK when we can make TTM
+  * stop converting -EDEADLK to -ENOMEM.
+  * An alternative is to not have exhaustive eviction with
+@@ -164,7 +164,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
   */
- 
--/* Dummy value used to initially enter the retry loop */
--#define DRM_EXEC_DUMMY ((void *)~0)
--
- /* Unlock all objects and drop references */
- static void drm_exec_unlock_all(struct drm_exec *exec)
+ static bool xe_validation_contention_injected(struct drm_exec *exec)
  {
-diff --git a/drivers/gpu/drm/xe/xe_validation.h b/drivers/gpu/drm/xe/xe_validation.h
-index a30e732c4d51..4cd955ce6cd2 100644
---- a/drivers/gpu/drm/xe/xe_validation.h
-+++ b/drivers/gpu/drm/xe/xe_validation.h
-@@ -146,7 +146,7 @@ bool xe_validation_should_retry(struct xe_validation_ctx *ctx, int *ret);
- #define xe_validation_retry_on_oom(_ctx, _ret)				\
- 	do {								\
- 		if (xe_validation_should_retry(_ctx, _ret))		\
--			goto *__drm_exec_retry_ptr;			\
-+			drm_exec_retry((_ctx)->exec);			\
- 	} while (0)
- 
- /**
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index 18f84faabbb9..99c7e1bb3c5b 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -9,6 +9,12 @@
- #define DRM_EXEC_INTERRUPTIBLE_WAIT	BIT(0)
- #define DRM_EXEC_IGNORE_DUPLICATES	BIT(1)
- 
-+/*
-+ * Dummy value used to initially enter the retry loop.
-+ * internal use only.
-+ */
-+#define DRM_EXEC_DUMMY ((void *)~0)
-+
- struct drm_gem_object;
- 
- /**
-@@ -142,6 +148,19 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
- 	return !!exec->contended;
+-	return !!exec->ticket.contending_lock;
++	return !!drm_exec_ticket(exec)->contending_lock;
  }
  
+ #else
+diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+index 99c7e1bb3c5b..8725ba92ff91 100644
+--- a/include/drm/drm_exec.h
++++ b/include/drm/drm_exec.h
+@@ -161,6 +161,17 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
+ 		goto *__drm_exec_retry_ptr;			\
+ 	} while (0)
+ 
 +/**
-+ * drm_exec_retry() - Unconditionally restart the loop to grab all locks.
++ * drm_exec_ticket - return the ww_acquire_ctx for this exec context
 + * @exec: drm_exec object
 + *
-+ * Unconditionally retry the loop to lock all objects. For consistency,
-+ * the exec object needs to be newly initialized.
++ * Return: Pointer to the ww_acquire_ctx embedded in @exec.
 + */
-+#define drm_exec_retry(_exec)					\
-+	do {							\
-+		WARN_ON((_exec)->contended != DRM_EXEC_DUMMY);	\
-+		goto *__drm_exec_retry_ptr;			\
-+	} while (0)
++static inline struct ww_acquire_ctx *drm_exec_ticket(struct drm_exec *exec)
++{
++	return &exec->ticket;
++}
 +
  void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
  void drm_exec_fini(struct drm_exec *exec);
