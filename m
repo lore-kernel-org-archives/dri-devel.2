@@ -4,87 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5E32CD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:28:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59505CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:31:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5515710EE65;
-	Wed, 20 May 2026 13:28:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B437810E128;
+	Wed, 20 May 2026 13:31:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="YyNUzjZt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jght+Hfs";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AE7710EE65
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:28:32 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-488ff90d6c7so37876685e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 06:28:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1779283711; x=1779888511;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=YdRArgXhGEk4i+GZe+h4MUY32Lfiq4WFd9PhB4MWWT4=;
- b=YyNUzjZtgyhms7bp6MYXB/Vpt41qWprf8/xhISiYM2XOvx9gG+q4f/u3qO8CpJeOb6
- M7hPI6Jhhx+YZ9bWnx4GunNMjObog1vEBeBFEuD+b9L81LtjrZJUYDpuwuQsur93vY4T
- 6rkXr9WvGDkLcqFap1Dv+3q89FG4JC0MrkriBBE8HA1IZXTTlW3cOvo8UgWkcd26asVR
- Hsv9bilmwiFQNclerwy/MBE7q5hj2D8dEU9ttGZ5XG4BbzoJ2HPab5rrS0QPNVqtRqjc
- OZcqWZzDj+m64a5bYEEmfqELDzCHx4/52y/XcTDs7HAVbl7UVZelCkKbQZyX4AIH4psr
- oTOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779283711; x=1779888511;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YdRArgXhGEk4i+GZe+h4MUY32Lfiq4WFd9PhB4MWWT4=;
- b=kefBYstFZG/Ed58aQcPZf0vz8s4s/O48j+vRw/4r8DGfweCvNEmH7yuEaNcLSVc7gp
- WVHSw+A2BjFUHAIOV86SSKKDhwpT3IjAI7GzHs+cW2TMX9w1D/SK9+tAtmXK3iGqRcdu
- LHHTTzEYI3czZvKCKaUli2SjZkOMUuTUXj3S1Ru7oY4qCdQQXHUxWxX2nVx263RmRcZu
- k8S/ff5J7Or2TKo1E+RAAAftGNW+TqIYPDSWj75iNLl9xqPwIWl+rqGfe0TfHMoMgzF9
- E55Bmlwj116+7mhzZ8JH3larFav5Cui2KB0sFlRsb3phG6Udp1EuVwCeQSY8TjvPwLkn
- PYIQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8ZBDyPFchM/INXSxCP/eG4qAwv6X+kJXi1tHMiTIaxk7bvd6Tb4r9aDfRYLWxQz97ih4gUbs26uEU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8ncP+6pSLJ3/25ffVvUm/BZ6PhROXcFaQXBee/HyahNODXgc8
- H0/cmS6WW1aVcGQb8B9fOITqtmewgb7ieB/H1tuhzQX+zpegSktaE8LE9Za/EiLGCSo=
-X-Gm-Gg: Acq92OHYBPd4BT/pD5pbUub9u7Jf2AlcU1OH6BuxnrN1Vm5s1hmbLZ2nPc2lxrR9e6o
- prf9pmMXD2KZPv1Qv53YiaVmb5+PVpc/4mUBYobiz/J9WgqJm7bkrWJ/YzpZ7f61P+k02Ivv3w7
- pFtXzcqLYgjU9UUwpGNPzCmaNomWQVxLo+gDbdpzFzPM0nSnIwrt2dJI6yiVzqi3KAsOIBqa+LV
- GXOWjj3IJbwSlFh+uvjHNTGYsqe9KKBc1E+t5fYerwaQ0tF5fEpzUOJmVD8k3U4k/F/DnYC1uto
- 3I5cboGwPV9xfKo/PoqxOJ691wudNkvKVlJtsrDUzS03aUuxsAml0+5Kuersoi3HPXzVT0Hfa7H
- 2bVQjcb5AaZYSFgEW+Z645r4BKFm1vMiz2PItWelxHQM15pdF3bWIAQYZR7MTyZFQ/FgtzAsLmX
- sLcG/pYN56bAGQh5x2jiOxtjfNBNIgC/Lvz9Boalt4X9OLzY5lJosH2jPbM8NdTOPBR/LHyYnKP
- dlV9A==
-X-Received: by 2002:a05:600c:5296:b0:48a:65ad:1881 with SMTP id
- 5b1f17b1804b1-48fe60ed846mr375342815e9.13.1779283710913; 
- Wed, 20 May 2026 06:28:30 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db00000000000000081d.dip0.t-ipconnect.de.
- [2003:f6:5f47:db00::81d]) by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-48fe4c8344asm671573025e9.1.2026.05.20.06.28.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 06:28:30 -0700 (PDT)
-Date: Wed, 20 May 2026 15:28:28 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Helge Deller <deller@gmx.de>
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
- Russell King <linux@armlinux.org.uk>, Andres Salomon <dilinger@queued.net>, 
- Antonino Daplas <adaplas@gmail.com>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-geode@lists.infradead.org, Markus Schneider-Pargmann <msp@baylibre.com>
-Subject: Re: [PATCH] fbdev: Consistently define pci_device_ids using named
- initializers
-Message-ID: <ag22VfyB51APLhQL@monoceros>
-References: <20260430111637.211336-2-u.kleine-koenig@baylibre.com>
- <ag1xQVCCzXkc_Ucu@monoceros>
- <6f1e1da5-a086-4261-aacb-f1117e22146b@gmx.de>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A59510E128;
+ Wed, 20 May 2026 13:31:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779283862; x=1810819862;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=QZYoI+VQgQ2Nuf+G4GfEMCrOLYQjkwJ7NXjD7ev4TWo=;
+ b=jght+HfsWFU6Txu05IlmgCBg7N5H4YJGUWmIB757QNA/YK+C0gFjwRJZ
+ ncZTHJqR3rvqulMfoswi3aAzLsgjkZTgGf6Bvj6R77YMljZgPbhePW2Ul
+ y5eVV1ryMHHKs0YYVtkSzL5I6cfmb/O0SLBuxObTTqhDt1emExxCICMYL
+ YCpdByO8g+aShenjkvEPNFW5iDG9hwrWrD88d+al60lGQzcRQWFhylvA+
+ n5AwqBUcdIFFiFUWz7s7yMi8fN4IKwJ9CbJAwDsrMYW1DxjGdrt1DwlT3
+ JjpZqx15wgv5RMkjomf6SCBAAWH3pQIfEEZcFxfI8rBZIqbhUox1YACuY g==;
+X-CSE-ConnectionGUID: yR6jcgKqTV6sLOcbxuXlBg==
+X-CSE-MsgGUID: 46SrWJ2XQ22FbmuX/JpJMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11792"; a="102859133"
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="102859133"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2026 06:31:02 -0700
+X-CSE-ConnectionGUID: WdO4FvWuRgKrtTgCvGISHQ==
+X-CSE-MsgGUID: IuQ6JddYQz6Sh8lRhPG17w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="244177950"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.148])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2026 06:30:58 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Chenyu Chen <chen-yu.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Ray
+ Wu <Ray.Wu@amd.com>, Limonciello Mario <Mario.Limonciello@amd.com>, Chenyu
+ Chen <chen-yu.chen@amd.com>, Mario Limonciello <superm1@kernel.org>
+Subject: Re: [PATCH v2 2/3] drm/edid: parse panel type from DisplayID 2.x
+ Display Parameters
+In-Reply-To: <20260520021432.1301326-3-chen-yu.chen@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260520021432.1301326-1-chen-yu.chen@amd.com>
+ <20260520021432.1301326-3-chen-yu.chen@amd.com>
+Date: Wed, 20 May 2026 16:30:55 +0300
+Message-ID: <4ca47af4a86601462cf5c0e723b2055005118762@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="2ur6redof34jxgqs"
-Content-Disposition: inline
-In-Reply-To: <6f1e1da5-a086-4261-aacb-f1117e22146b@gmx.de>
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,52 +74,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, 20 May 2026, Chenyu Chen <chen-yu.chen@amd.com> wrote:
+> Parse the Display Parameters Data Block (tag 0x21) defined in
+> DisplayID v2.1a Section 4.2.6. Extract the Display Device Technology
+> field from payload byte 27 bits [6:4], which indicates whether the
+> panel uses LCD (001b) or OLED (010b) technology.
+>
+> Add a did_panel_type field to struct drm_display_info and populate it
+> during DisplayID iteration so downstream drivers can use it for
+> panel-type-dependent behavior. Add DRM_MODE_PANEL_TYPE_LCD to the
+> UAPI constants for use as an internal communication value between
+> DRM core and drivers.
+>
+> Assisted-by: Copilot:Claude-Opus-4.6
+> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>  drivers/gpu/drm/drm_displayid_internal.h | 25 ++++++++++++++
+>  drivers/gpu/drm/drm_edid.c               | 44 ++++++++++++++++++++++++
+>  include/drm/drm_connector.h              |  6 ++++
+>  include/uapi/drm/drm_mode.h              |  1 +
+>  4 files changed, 76 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+> index 5b1b32f73516..e0f7c54d2987 100644
+> --- a/drivers/gpu/drm/drm_displayid_internal.h
+> +++ b/drivers/gpu/drm/drm_displayid_internal.h
+> @@ -142,6 +142,31 @@ struct displayid_formula_timing_block {
+>  	struct displayid_formula_timings_9 timings[];
+>  } __packed;
+>  
+> +/*
+> + * DisplayID v2.x Display Parameters Data Block (tag 0x21).
+> + *
+> + * Per VESA DisplayID v2.1a, Section 4.2.6, Table 4-14:
+> + * Offset 0x1E (payload byte 27) contains Native Color Depth and
+> + * Display Device Technology fields.
+> + *   bits [2:0] = Native Color Depth
+> + *   bit  [3]   = RESERVED
+> + *   bits [6:4] = Display Device Technology
+> + *     000b = not specified, 001b = LCD, 010b = OLED, others reserved
+> + *   bit  [7]   = Display Device Theme Preference
+> + */
 
---2ur6redof34jxgqs
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] fbdev: Consistently define pci_device_ids using named
- initializers
-MIME-Version: 1.0
+Please drop the comment...
 
-On Wed, May 20, 2026 at 12:11:16PM +0200, Helge Deller wrote:
-> On 5/20/26 10:46, Uwe Kleine-K=F6nig (The Capable Hub) wrote:
-> > Would you mind squashing that into the patch you already applied, maybe
-> > adding:
-> >=20
-> > 	While touching all these arrays, unify usage of whitespace and
-> > 	comma in a few drivers.
-> >=20
-> > to the commit log? I can also send a v2 of the patch with these changes
-> > included if that's easier for you.
-> >=20
-> > Otherwise I will put sending these modifications separately on my todo
-> > list.
->=20
-> No need to resend anything. I'll clean it up manually during the next few=
- hours....
+> +#define DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH	GENMASK(6, 4)
+> +
+> +struct displayid_display_params_block {
+> +	struct displayid_block base;
+> +	u8 payload[27];
+> +	u8 device_tech_byte; /* bits [6:4] = Display Device Technology */
+> +	u8 reserved;
 
-Looking at commit bca0e1973086919ae2dcd7b72e4ef5ee48858df5 in your
-branch, the result looks fine. Thanks for cleaning up after me, very
-appreciated.
+...and actually define the information here.
 
-Best regards
-Uwe
+Sure, you're only interested in one thing, but don't leave the rest for
+someone who comes after you, since you clearly have access to the spec,
+and whoever reviews this also needs to have access to the spec.
 
---2ur6redof34jxgqs
-Content-Type: application/pgp-signature; name="signature.asc"
+> +} __packed;
+> +
+> +#define DISPLAYID_DISPLAY_PARAMS_MIN_LEN	\
+> +	(sizeof(struct displayid_display_params_block) -	\
+> +	 sizeof(struct displayid_block))
 
------BEGIN PGP SIGNATURE-----
+Is this helpful? Do you suggest we should add the define for all of the
+blocks? What about when there's a minimum, and you can optionally have
+more?
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmoNtvoACgkQj4D7WH0S
-/k6hDQf/QmYRiZj4xogmbV9WDEP+x/E2ECzORIkyZD+45qdJTmD/Blz8kOhzvJz0
-/EkAqyoqAlLkC772ihHZUjPshnDK3USSHcNOIxLqUoSOA9jN8NA9NfadZVMPllqC
-Hvu7al1cPZOEt9hMTsqK1udc8XPdKkVsyfoStLkG56POcb+uKORAcrRsGjHoWxhR
-x/6/r27m1hhMM1FdD+eHuN1lDOCB/tGLO1mTIqMxKiJBboBiOFrumDEz90TEpLMv
-akJ6g/RxEAsQsJFGu5sj0H+FtLWoawj4QLxljR32XLO6Sn5ZUn4qcLJyr3+fXHF4
-oBKqDxZM6lVNp2fpiG4EFeEQ+rISLw==
-=dV9W
------END PGP SIGNATURE-----
+> +
+>  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+>  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
+>  
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 04878478ab78..d1de1a398677 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -6713,6 +6713,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
+>  
+>  	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
+>  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
+> +
+> +	info->did_panel_type = DRM_MODE_PANEL_TYPE_UNKNOWN;
+>  }
+>  
+>  static void drm_displayid_process_section_header(struct drm_connector *connector,
+> @@ -6731,6 +6733,44 @@ static void drm_displayid_process_section_header(struct drm_connector *connector
+>  		info->non_desktop = true;
+>  }
+>  
+> +static void
+> +drm_displayid_parse_display_params(struct drm_connector *connector,
+> +				   const struct displayid_block *block)
+> +{
+> +	struct drm_display_info *info = &connector->display_info;
+> +	const struct displayid_display_params_block *params =
+> +		(const struct displayid_display_params_block *)block;
+> +
 
---2ur6redof34jxgqs--
+Superfluous blank line.
+
+> +	u8 tech;
+> +
+> +	if (block->num_bytes < DISPLAYID_DISPLAY_PARAMS_MIN_LEN) {
+> +		drm_dbg_kms(connector->dev,
+> +			    "[CONNECTOR:%d:%s] DisplayID Display Parameters block too short (%u < %zu)\n",
+> +			    connector->base.id, connector->name,
+> +			    block->num_bytes,
+> +			    DISPLAYID_DISPLAY_PARAMS_MIN_LEN);
+> +		return;
+> +	}
+> +
+> +	tech = FIELD_GET(DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH,
+> +			 params->device_tech_byte);
+> +
+> +	drm_dbg_kms(connector->dev,
+> +		    "[CONNECTOR:%d:%s] DisplayID Display Parameters: device technology %u\n",
+> +		    connector->base.id, connector->name, tech);
+
+It would be more useful to print LCD or OLED, not the number.
+
+> +
+> +	switch (tech) {
+> +	case 1: /* LCD */
+> +		info->did_panel_type = DRM_MODE_PANEL_TYPE_LCD;
+> +		break;
+> +	case 2: /* OLED */
+
+The comments above are useless.
+
+> +		info->did_panel_type = DRM_MODE_PANEL_TYPE_OLED;
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +}
+> +
+>  static void update_displayid_info(struct drm_connector *connector,
+>  				  const struct drm_edid *drm_edid)
+>  {
+> @@ -6744,6 +6784,10 @@ static void update_displayid_info(struct drm_connector *connector,
+>  			drm_displayid_process_section_header(connector, &iter);
+>  			header_processed = true;
+>  		}
+> +
+> +		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+> +		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS)
+> +			drm_displayid_parse_display_params(connector, block);
+>  	}
+>  	displayid_iter_end(&iter);
+>  }
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index c398dbc68bbc..b95aec34ddb7 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -899,6 +899,12 @@ struct drm_display_info {
+>  	 * @amd_vsdb: AMD-specific VSDB information.
+>  	 */
+>  	struct drm_amd_vsdb_info amd_vsdb;
+> +
+> +	/**
+> +	 * @did_panel_type: Panel type from DisplayID Display Parameters
+> +	 * Data Block (tag 0x21). Uses DRM_MODE_PANEL_TYPE_* constants.
+> +	 */
+> +	u8 did_panel_type;
+
+What does the did_ prefix give us?
+
+>  };
+>  
+>  int drm_display_info_set_bus_formats(struct drm_display_info *info,
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index 3693d82b5279..d7ca1040b92e 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -169,6 +169,7 @@ extern "C" {
+>  /* Panel type property */
+>  #define DRM_MODE_PANEL_TYPE_UNKNOWN	0
+>  #define DRM_MODE_PANEL_TYPE_OLED	1
+> +#define DRM_MODE_PANEL_TYPE_LCD		2
+
+This is a UABI header.
+
+Should we add this to the panel type property too?
+
+
+BR,
+Jani.
+
+
+>  
+>  /*
+>   * DRM_MODE_ROTATE_<degrees>
+
+-- 
+Jani Nikula, Intel
