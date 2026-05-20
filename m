@@ -4,158 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15031CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:52:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5675CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:52:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E7EE10E407;
-	Wed, 20 May 2026 09:52:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54A3710E41D;
+	Wed, 20 May 2026 09:52:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X9CPWfNU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HlrnIGVf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA18A10EFF4;
- Wed, 20 May 2026 09:52:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779270722; x=1810806722;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=+AdlEkOfFhO1RrNiuo78/KgU4H13S9YvQKifuMQZebM=;
- b=X9CPWfNUGx0fFTn0Gaa5ul/DHRRzqlVvi6wKKImzqm7ybQMo3EVZLC2A
- frWZ1hl2ocT161xEOSLmHgi1hymCs6aBVIGNrEWjGJdQP6NGp/Dbyb8Pm
- lFoeMEEf6BNypbqfUsg1jkRM8uPLUCFKgJuS3sSnYbHa4dgFd2hzzfmDk
- 4rx3BayTaoYomVTtH+BRPj/+Gl6SGhHvZf218lzGKochiqYARUOlqV2Yd
- kFUVBcajAP9uMzg2CJKwTXuI6X1tBLcjzK4JD1H8YtXKFhArA/ff9W1uI
- 9jmmMnjv9q9ybUeDzeHDrr/4mcf6TYA0hW2LcBg1tjMVHFTKyL0HsPY55 Q==;
-X-CSE-ConnectionGUID: gEdpr8XiToaEA39rtjzFoQ==
-X-CSE-MsgGUID: +eetCnXGTVSUB4OsuMvMLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="90462113"
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="90462113"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 02:52:02 -0700
-X-CSE-ConnectionGUID: FoIPoZzkR7W5tVnEXUSnLw==
-X-CSE-MsgGUID: hjwLSkdPSEaOt2Gn2ZdrFA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="241928112"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 02:52:01 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 20 May 2026 02:52:00 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 20 May 2026 02:52:00 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.26) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 20 May 2026 02:52:00 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kaMFlqlE6yqbKJy7FPKD+vUH4o0xzUMH58FY9hItQRqXaVJOGe48Vcb1050zeLZLPKb50HgvbnAS33Dgo0vpMxve8UgS0+CoYkSCOP2W77a0ZujUbs8ni2UIGRBUKraVW1ZbcmotSUGFnd0VpWDVIbkNBd6mO4b0CtBNE0nQi6ENjYZ9zmGgBqPWiFbccKQ8a4wWj0a6ORCANy5aBNQ48xCkwxk3H4H3tBBmUZDEgtlMq+9GOvxOHEw0uhqNLolkIHDvn80uOx3Le59pk19K/6X2uwymyiSKo8VwW11eTCWd1+VTV9Hm9C3KVSJLte6mO/jtZZo1xyBGtaNn/bnMSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ii4pDwzkFXnVWewUqBnrMnf0MTDTMidfZRg2kZM8dBs=;
- b=itWfM6BznHV5jZT3CJk8cD3eBlSPNBa/F4eRaHR/5PcvMhQUgEpBqW66FHzem/SVKKgPpNaZ0eDGF1iYq3LYNuVhfILEILQ4aw1Ad19G1sg+L/D22Ozduhxn0YmqKTfm4yUar6e88F1cjLduhjfm3BW2KthkcHM1odKsYmwG28WBl4b+ck4UQMXsC0sJwPnDYWKLBcRxluof+yFa/9VZix+WDiwwR9oC0eBvqryPVz2+hFeU5B+VlBS5SZVTiC+tIJkSMeKtuXzQ+y/YTbGK8b5jq4PZ12U+kdvOqkroBWKjPXLrFKxbk/nBj/gf9JDPedBGJ3UEUPnX4qKH3nmYHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- SJ0PR11MB4974.namprd11.prod.outlook.com (2603:10b6:a03:2d6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 09:51:58 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%6]) with mapi id 15.21.0048.013; Wed, 20 May 2026
- 09:51:58 +0000
-Message-ID: <ef067007-b928-4130-8e25-1c4f5afb5833@intel.com>
-Date: Wed, 20 May 2026 15:21:49 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] drm/xe/drm_ras: Make counter allocation drm managed
-To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
-CC: <rodrigo.vivi@intel.com>, <maarten@lankhorst.se>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <kuba@kernel.org>
-References: <20260514202839.1888688-1-raag.jadav@intel.com>
- <20260514202839.1888688-3-raag.jadav@intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <20260514202839.1888688-3-raag.jadav@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0242.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:223::9) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B79E610E41D
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:52:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EB67A60120;
+ Wed, 20 May 2026 09:52:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792091F000E9;
+ Wed, 20 May 2026 09:52:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779270746;
+ bh=SJETYFJkSCdwSSOgdJEmuUJWgEdHp6U1AWVfwQxLLkc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HlrnIGVf6XsyMNZ/pPtkBiKeJMERcmBZFAMvEwErzc7/2e9rwW2EZ/YTNAmeIpAs+
+ +y3bziJlpZAlBql2M61qmmo3Q9pJyFFHSfAohmYGwr299Yo6WZP5lXQGoHS+W3on/b
+ gkWpV2sNBl2v5PicyBPWBGU5WAUgXgV7BYYOzv6YhpE2PVoPVFvP92jJ2kPaHrQFL+
+ Cmx7x86DbVP27txLoxmcqX9nngTEs+JwBbkPTxF4VotikOsesmld0FX9O+u+Ok00Dv
+ wAz/3gOQ6hr8o8w3VsHKN3feg1NKZ0Zdm5xuzPz5m6J/m+LLbOAXEJX8KvjayaW/Us
+ YFHdiIuz3AWKQ==
+Date: Tue, 19 May 2026 23:52:25 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Qiliang Yuan <realwujing@gmail.com>
+Cc: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cgroup/dmem: implement dmem.high soft limit and throttling
+Message-ID: <ag2EWbmlWhK2a3zz@slm.duckdns.org>
+References: <20260520-feature-dmem-high-v1-1-97ca0cb7f95a@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|SJ0PR11MB4974:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2009b65-a13f-415e-4902-08deb6556ed7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|4143699003|18002099003|22082099003|56012099003|11063799006;
-X-Microsoft-Antispam-Message-Info: wUnnkVUd6+auz66BZA4a2W+ThKKGL4v6Kg0mCqzDBXq1HW218nMGFoEGIWg87uqr5x9J/ByNZ2yZucQcbYdvZpySsjLv5+cpHFJV56Sqd8OVyiZFQRaQdRD74tkRjTgsrRYSp3n9ahdJCeQbNVAR01gASLD+PyW2rEUwhqXQm7pTnsYEEmnODsMG41i+jt5zvKXuLLTzWkEmG+yvoolu+l5a7+SI03CA7MGoKRII31a0HDwqjPQILlN/raKb5cYvjU4vhtkoq0Sx3HrKimJgq0GG12nIWJt+zUbtX4l2RZXFrr0ZCYGuaw4AYLbYMEctUSta0ItcwUy7MlI/sehXuSygFVUMZQ114CeaA37Uko5ZF0lr0TO/9IAv122d9To1HD+EtAJldA5c6D3PQ7+4v2l0S7e0FRRN+E4r68iIvbDfuQNHNdEnokgjEoBZttMm7hn/+36+RP3uHWkyjwvwsVFSqokeJmTZIoA0l+OOacCtbmxdIeCVGjSJINCkKagerj1rgwhzoiedK5CriFgPJV7fJEfvJS8vTqFOgcECqrME9ok9qYEE2PKXQ14TF7Ebsrjg3lQ8rF6UkqKF7aIhB7xIs+4dKOmcf6zuS6Pf0gXG5vjMB688d3w3QW3Vkrw3G0ZX0AhT2ofOvCTOC6TgNg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(4143699003)(18002099003)(22082099003)(56012099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVBvdVhlVXVLSEdma2hEcHU4ZkhEYk5GY09GT1BCSHBMMDc2dkdtaGsxZm4y?=
- =?utf-8?B?Y0toTU9rdTJNSFIzY3g2SCtsSzdwL0c0V09NaGkwRFVDNDJBTlNFSUN1cGlu?=
- =?utf-8?B?QkxOQjU3T01CUFIrTVRPVkNRQ0UzSWRVRnNNcC9pZDJ4V3lPUUkxa0I0RUhO?=
- =?utf-8?B?YUNYOW8va0V4dFA5Ly8yQ0xzZFZOanNZbHVTQ2NvM2dJWHIzQmM0MGpGVUFm?=
- =?utf-8?B?TmRhYzNuT2ZrbEpYUVRIQTRrK2tpeEptbnFVR0ozSE5RM0l1bmpSZXlFNWFZ?=
- =?utf-8?B?YmJoNWRiWmZsMmQxUE8veEYzWWE5eXRKQ0x1bDFlMHk4aXd4ajdNSUd1eUR3?=
- =?utf-8?B?d0Iwc242L2thZXRob2pHZWMxbWRIa0s5MDJJVkZUbjJUVkk0WithY2JYUzRD?=
- =?utf-8?B?cXZFMDBOZlRFM0RRa2ZaR2Zzb29zdk5Bang1bFVaZlpMUVlROFhiLzZCd21G?=
- =?utf-8?B?Q2RQR0xCTEZ5UTNPYSs4MmpNZlRSQ0dMdFd0aTV0MEVBMkpTMys0RGRDbDRZ?=
- =?utf-8?B?WVFQbENNRU5hQUd5bnZhTXBQQWpOaDIwMTJ4QWd5bXhmanRIbzJsUnRvK3Bo?=
- =?utf-8?B?T2JsbnBLeU5JVTNLRVp1OWlCY21UalVMVFJ4bGZIaFd1bDEvbEV5WVprQWht?=
- =?utf-8?B?RkRPRnZXeGh4d0haU2Q5NytzUjJRcU1NRmx0VEJocjFteTRGOXkrVmM0NGhE?=
- =?utf-8?B?b2NWK1I2VkZ4Nis3TzRBc0Q2c3ZsZU8yaWwrK25VSkpQYTFvb2RndktieGND?=
- =?utf-8?B?OWNtdDNFSndXMnRxTHFZQlpURXQ5c0RIeVVkNlJGNnlZTUlzUkgrOEpaQUZp?=
- =?utf-8?B?MjZSY1JXb3JFc0huSnZKczc2YmtTT2RWcERBZFp6aDFFT0p4aGlOR3ZwQ2xY?=
- =?utf-8?B?YW9lbHF1M041eng3Q2xNb2tHemtBc3U3NitJdDUxVkdjWDZNMFJNVXdMTDJh?=
- =?utf-8?B?WGRHMkFtaGorUUd5V21vUEZ4aWg1M1o0UllPdXhUaWpnRHdZTEJ3R3Myamwz?=
- =?utf-8?B?OVVJT2d3M3FTdE9wWGR3UWpKOVBIUCtUZ0pwT1I2RHA1R3MyNXhGamdZR3Fh?=
- =?utf-8?B?a1B2WkpUMXY0US90amo5MHh3OStUTXY1a1ZMdEovUU9TSHVRZDJMWjk1dCs4?=
- =?utf-8?B?TzlrVE9zcFJkd1phZklMUmdWM2xjUk81YlpTUlAxQnBlR0QwM1RJUHNML085?=
- =?utf-8?B?SXFKMGs1dVJtdm9LUzFsQ1cvbjZxSEo4SXFpSEUybjNmc21iemQrWnNIQmRF?=
- =?utf-8?B?UzFwZnFKSmwxTis4TTdTTklkak5iSmEwenF1cksrQnQ3REZ2R0FjV29xcWpr?=
- =?utf-8?B?SkoxVkRkc3hkd09td0lEVE5jaWRxSWhqWGdSVFJKYUtEdTZlUUc1ck82MW5v?=
- =?utf-8?B?VnBLSmdhQm52L0VDUExFbVkxcDBFREtxMURWejJ6YlFhelhqbE1wV0tGaHBB?=
- =?utf-8?B?ZHlQcTVaeE83SFBIczh3UEdxY0Z2VE5MbEhsMUZLdFJJZzE2SjZYNjRrSzR2?=
- =?utf-8?B?eVpPdzBQRmdpeUhleFpmR2ZhMzdRZ2lBMVhhWFlOMnhhL3Z0VnQrWGFjTlF1?=
- =?utf-8?B?NTdUOE1BNEszajlQVEFXYm1kN2h5QmFBNUZ1TmdOQzMzeGNSdW5XSEgrT1Bt?=
- =?utf-8?B?ZlRENjd1K2Z4Z3FwRjN5enlPNVNWeFJpb1c2YmpuSElQMXpJR3Y1VytaUjVy?=
- =?utf-8?B?dWhSdStERCtGWW5mQlVKRzIzaythb0U4WFNOb2ZpUVhnZmpVM0VuRDI0RTdq?=
- =?utf-8?B?QnVIRmR1SUluamY2elNEalcwa3laWk9GTk1HbVRvdWFMU3VZT0l0OVNlQitI?=
- =?utf-8?B?bjJpMTUxRzlBRzlsbHFDa0dBTXdBZGpTR2lDNnhPRm5mQ2V1SDNiSGFkZ0Iz?=
- =?utf-8?B?NHJ1amJkVnRKN0dOb2ZVblM2clBQakpEZjNFTWxyKzBsTUEwUGZyb2Ftb1FQ?=
- =?utf-8?B?M1JiSkpnckY4ZmFmMEdia1RYcWRjUnFaMVBJbTBzaHJ1c1laRWFSb2FxMlhh?=
- =?utf-8?B?KzgzMzFFSktHTjBZclJiYkNqcmsxSTVzVXhScU1ORnBDU040eVFuejBQQ2c0?=
- =?utf-8?B?RDQ4L0wzTDVtcDcvSW4xWjdqZFdLT2lUN210ZVJLakxGcVR0U2Fla3Z6eThJ?=
- =?utf-8?B?RFB6cVRESzVmTHVVNUR6Nzkzbk1QYmxGcjM4SEdLaUVVc1BQVjQ1OGJRYzIv?=
- =?utf-8?B?dEI2dHBUQks2RkNyQ2NDWFpHS0Jkc0loRStNc2tzYlZKc0F3WlIycitBSEwy?=
- =?utf-8?B?T2h2ZnFFajlJcDZwV3luRFdSSnErTFVPRS8yQjJQSTVzVlJXTDkwRU5MTE9q?=
- =?utf-8?B?VDNrQXk0b2VsaEpHK2FOZldycWhIMnFJWVdKTEw4REorUFF4NHJSdz09?=
-X-Exchange-RoutingPolicyChecked: HJ+ke+5kmvHZtGpP/uNwgjRBA0GimZqSIRFAuxZcCow04xcXIhwT6CTD6jzw3atNYp9Ac/Zn3E29OCY6op2pgNEsCTDWMrUUZWWBy9Lk+EH7FK0i2whSiyi1rTsKw47qMpAiuAbglM6zrYpGyYaEEoqycQnzdvSBTyDJCt8ukRVd/ltc4mFSrDWN2WP2Ryi/M2ruLLBcW3mS5Z969QKsfaUAEcrv1miQBHunOmb/286way8W3hJzYCh+VTYEjtZBxHQU5EkzBihg0ckQcAg/pN2qoKL7aT2v2KWMTaZIZNAOyZWzBFCRTLSEFC144fCn0emawDghosQeakbffJh9sQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2009b65-a13f-415e-4902-08deb6556ed7
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 09:51:58.2906 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8zT1hW1RqJS64Okz80lTeCEB5J83OFblbsTAWYnwfMPG3FO4NPEiUbCamC8KLAJapuUXhwp6T/PAm/gHg15cSA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4974
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520-feature-dmem-high-v1-1-97ca0cb7f95a@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,52 +60,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hello,
 
-On 5/15/2026 1:58 AM, Raag Jadav wrote:
-> cleanup_node_param() is not registered in case of counter allocation
-> failure, which results in stale memory of previous node that isn't
-> cleaned up on unwind. Fix this using drm managed allocation, which is
-> guaranteed to be cleaned up on unwind.
->
-> Fixes: b40db12b542f ("drm/xe/xe_drm_ras: Add support for XE DRM RAS")
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-> ---
->   drivers/gpu/drm/xe/xe_drm_ras.c | 5 +----
->   1 file changed, 1 insertion(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
-> index c21c8b428de6..89640ffb1c33 100644
-> --- a/drivers/gpu/drm/xe/xe_drm_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_drm_ras.c
-> @@ -80,7 +80,7 @@ static struct xe_drm_ras_counter *allocate_and_copy_counters(struct xe_device *x
->   	struct xe_drm_ras_counter *counter;
->   	int i;
->   
-> -	counter = kcalloc(DRM_XE_RAS_ERR_COMP_MAX, sizeof(*counter), GFP_KERNEL);
-> +	counter = drmm_kcalloc(&xe->drm, DRM_XE_RAS_ERR_COMP_MAX, sizeof(*counter), GFP_KERNEL);
->   	if (!counter)
->   		return ERR_PTR(-ENOMEM);
+On Wed, May 20, 2026 at 02:07:20PM +0800, Qiliang Yuan wrote:
+...
+> This series introduces the "high" soft limit and associated task
+> throttling mechanism to the dmem cgroup v2 controller.
+> 
+> The device memory (VRAM) management currently only supports hard limits
+> (max), which leads to immediate allocation failures when reached. This
+> can be disruptive for GPU-bound AI workloads. By introducing a soft
+> limit, we allow cgroups to exceed their quota temporarily while
+> applying backpressure via task throttling before the process returns
+> to user space.
+> 
+> The mechanism is inspired by the memory cgroup's high limit:
+> - When usage > high, the task is marked with TIF_NOTIFY_RESUME.
+> - Upon returning to user space, it triggers a 100ms sleep.
+> - This provides a smoother over-subscription model for GPU resources.
 
-The intention was to clean up nodes  if there is a failure, to prevent 
-memory
-from  persisting throughout the drm device lifecycle. We actually 
-discussed this offline  afair.
+I'm not sure about complicating dmem control model without implementing
+reclaim. What are we slowing them down for if the only recovery action is
+killing them?
 
-So there was a change from from v5 to v6 in the initial patch [v6,2/5] 
-drm/xe/xe_drm_ras: Add support for XE DRM RAS - Patchwork 
-<https://patchwork.freedesktop.org/patch/704873/?series=155188&rev=6>
+Thanks.
 
-Thanks
-Riana
-
->   
-> @@ -135,9 +135,6 @@ static void cleanup_node_param(struct xe_drm_ras *ras, const enum drm_xe_ras_err
->   {
->   	struct drm_ras_node *node = &ras->node[severity];
->   
-> -	kfree(ras->info[severity]);
-> -	ras->info[severity] = NULL;
-> -
->   	kfree(node->device_name);
->   	node->device_name = NULL;
->   }
+-- 
+tejun
