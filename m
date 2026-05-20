@@ -4,64 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FB15CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 08:13:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC2ACD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 08:13:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD17010EF60;
-	Wed, 20 May 2026 08:13:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9096710EF5C;
+	Wed, 20 May 2026 08:13:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="Uh3wbPHC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MYEcv73G";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA23110EF60
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:13:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779264795; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=fhoFZAGE734g7YrwnK69+Fp+SlBP+e532/rwFxqqOg8FV5tdEIfaFORTiqM7n7YHad3es+GlWxlzsGHFrGKmdpYlnHvbmI07PynfxC0MmNg3KoTVLwV5hv//8Qm7A/9yCp5Bqp5lY06N0LRgOXEXr1Tm2J2d+40YejVZHso/9qc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779264795;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=1DaCzDhRImq3pbfy2r8JVXerCF/X/rQL52mfTWicG4k=; 
- b=K3aH/+VmSSz2zNU3CCHPtj8w3HqysMSbIPKHzatggDefM46va4bIfeUqv9Yi8u7NpUttUonl5naq6Pn/swZE223u1Adj+zj2Zvh30+EWyGv6ZzG7yNetKASukVSTLQVsaovI58YmPid6/GP6ZYkLAv9PWmFKpTYTPnzTcqVhyL4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779264795; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=1DaCzDhRImq3pbfy2r8JVXerCF/X/rQL52mfTWicG4k=;
- b=Uh3wbPHCLetqao1sJ7Ww936T/0G+TEuQ9eZT1Mp+poKOwsOIjUnwdOOdRXAk4InP
- Uaty3nP1NfXa2mETMeGvPFJJqqvNUqPmcIWGCohU4EwEQ1nDdkykQdd/R7m2KjrSQ51
- g2CJSVyOSfXMx1O01zyUaaPNsikI0NgfwcNfxCrI=
-Received: by mx.zohomail.com with SMTPS id 1779264793673372.72174741381184;
- Wed, 20 May 2026 01:13:13 -0700 (PDT)
-Message-ID: <f37bdc63-3575-49e5-aa5b-7b93428b293d@collabora.com>
-Date: Wed, 20 May 2026 11:12:53 +0300
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC0E10EF5C
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:13:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D656D43598;
+ Wed, 20 May 2026 08:13:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47FD91F00893;
+ Wed, 20 May 2026 08:13:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779264809;
+ bh=ofj1QBLosAJ6MjG9bGbKS/xmNiUDX078zVrBGdg2mdY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=MYEcv73GahqqzMnESiREFw0ujv+pJ3yLcU6ZX98LRTq7pXGnV+1HkEM3Yhp4JALJo
+ AmFuAQgObMR0S/MMrB/pn+/Z9/g9BLBQVmlMuX8f43eo6q4T0gbSHEZQhGN2DRgoPt
+ 2WnAiDwWQIcb6rMfplggsPhfkgq7DvWl3wSldXHLXFrlhuagLozVRC5JtkFP0ygLDF
+ KD0aqPiJRTrQU1tkX9PTNZSz1+TxP6Jhc6rZv58gEDuYfWrTxFE1saga42OFxP7rEH
+ UoY5Gq0ILtBrlAJCNVVMGWtanj8pGxNKljRrM8S8LJhQX+hLaV9KEAT9I255u1j7zM
+ Ceb5yiLNTGchw==
+Date: Wed, 20 May 2026 10:13:26 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Jani Nikula <jani.nikula@intel.com>, linux-kernel@vger.kernel.org, 
+ David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/8] drm/display: hdmi: Add common TMDS character rate
+ constants
+Message-ID: <20260520-yellow-panther-of-dew-de32eb@penduick>
+References: <20260519144712.1418302-1-javierm@redhat.com>
+ <20260519144712.1418302-2-javierm@redhat.com>
+ <78506dc5f7ff02a2bdd05de1170a1cb3e33e1abe@intel.com>
+ <875x4iy1em.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/virtio: use uninterruptible resv lock for plane
- updates
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Deepanshu Kartikey <kartikey406@gmail.com>, airlied@redhat.com,
- kraxel@redhat.com, gurchetansingh@chromium.org, olvaffe@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- simona@ffwll.ch, sumit.semwal@linaro.org
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org,
- syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20260519082247.34470-1-kartikey406@gmail.com>
- <2e23513c-9d59-4891-acfe-9f1fbcbce778@amd.com>
- <f6bcef23-5510-4aad-bf6a-4e1ecfc8d474@collabora.com>
- <a0f2cfd5-d4df-4e50-a52b-d5befbc2e481@amd.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <a0f2cfd5-d4df-4e50-a52b-d5befbc2e481@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="pqsdc74wx5gmougt"
+Content-Disposition: inline
+In-Reply-To: <875x4iy1em.fsf@ocarina.mail-host-address-is-not-set>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,69 +65,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/20/26 10:05, Christian König wrote:
-> On 5/20/26 08:50, Dmitry Osipenko wrote:
->> On 5/19/26 11:27, Christian König wrote:
->>> On 5/19/26 10:22, Deepanshu Kartikey wrote:
->>>> virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush() lock
->>>> the framebuffer BO's dma_resv via virtio_gpu_array_lock_resv() and
->>>> ignore its return value. The function can fail with -EINTR from
->>>> dma_resv_lock_interruptible() (signal during lock wait) or with
->>>> -ENOMEM from dma_resv_reserve_fences() (fence slot allocation),
->>>> leaving the resv lock not held. The queue path then walks the object
->>>> array and calls dma_resv_add_fence(), which requires the lock held;
->>>> with lockdep enabled this trips dma_resv_assert_held():
->>>>
->>>>   WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
->>>>   Call Trace:
->>>>    virtio_gpu_array_add_fence
->>>>    virtio_gpu_queue_ctrl_sgs
->>>>    virtio_gpu_queue_fenced_ctrl_buffer
->>>>    virtio_gpu_cursor_plane_update
->>>>    drm_atomic_helper_commit_planes
->>>>    drm_atomic_helper_commit_tail
->>>>    commit_tail
->>>>    drm_atomic_helper_commit
->>>>    drm_atomic_commit
->>>>    drm_atomic_helper_update_plane
->>>>    __setplane_atomic
->>>>    drm_mode_cursor_universal
->>>>    drm_mode_cursor_common
->>>>    drm_mode_cursor_ioctl
->>>>    drm_ioctl
->>>>    __x64_sys_ioctl
->>>>
->>>> Beyond the WARN, mutating the dma_resv fence list without the lock
->>>> races with concurrent readers/writers and can corrupt the list.
->>>
->>> Well why are you trying to add a fence on an atomic mode set in the first place?
->>>
->>> That is usually an illegal operation here.
->> That is pre-existing in the driver. It performs draw operation and in
->> some cases waits for the completion during atomic. Whether all that
->> syncing is correct is hard to say immediately as some of it may be
->> historical edge cases.
-> 
-> I'm not not so deeply in the atomic mode setting stuff but it strongly sounds like that this is seriously broken.
-> 
-> The background is that the atomic mode set framework allows an output dma_fence which is signaled when the commit is finished.
-> 
-> So when you allocate a fence slot and add a new fence to finish the atomic commit it is trivially possible that this cycles back and waits for the atomic commit to finish. In other words you have a deadlock.
-> 
-> You probably need specially crafted userspace with the right timing to trigger that, but such issues are usually a rather big no-no and need to be fixed in the long term.
-> 
-> Try to add dma_fence_begin_signaling() and dma_fence_end_signaling() annotation and enable lockdep, the tool should be able to point out if and what exactly goes wrong.
-> 
-> The usual fix is to prepare everything before commit_tail is called (alloc memory, create, reserve slot, add dma_fence etc....) and then just send out the prepared commands later on.
 
-We tried with moving resv alloc to prepare_fb() in a previous patch
-version, it resulted in a non-trivial deadlocks. The goal of this patch
-is to fix immediate problem with a minimal code change.
+--pqsdc74wx5gmougt
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/8] drm/display: hdmi: Add common TMDS character rate
+ constants
+MIME-Version: 1.0
 
-What you're saying is correct, but it may require a rather big
-refactoring of the code. In general, everything works okay today, so not
-really an urgent problem.
+On Wed, May 20, 2026 at 09:40:17AM +0200, Javier Martinez Canillas wrote:
+> Jani Nikula <jani.nikula@intel.com> writes:
+>=20
+> Hello Jani,
+>=20
+> > On Tue, 19 May 2026, Javier Martinez Canillas <javierm@redhat.com> wrot=
+e:
+>=20
+> [...]
+>=20
+> >> =20
+> >> +/* HDMI spec TMDS character rate limits (in Hz) */
+> >> +#define DRM_HDMI_TMDS_CHAR_RATE_MIN	25000000
+> >> +#define DRM_HDMI_TMDS_CHAR_RATE_MAX_1_0	165000000
+> >> +#define DRM_HDMI_TMDS_CHAR_RATE_MAX_1_3	340000000
+> >> +#define DRM_HDMI_TMDS_CHAR_RATE_MAX_2_0	600000000
+> >
+> > Usually everything in DRM is in kHz, and Hz is the exception.
+> >
+>=20
+> That is correct but in this case these constants are to be used with the
+> HDMI helpers. Both struct drm_connector_hdmi_state.tmds_char_rate and
+> the struct drm_bridge_funcs.hdmi_tmds_char_rate_valid() callback expect
+> the TMDS char rate to be defined in Hz.
+>=20
+> If we define these in kHz, it means that drivers will have to * 1000 at
+> every call site.
 
--- 
-Best regards,
-Dmitry
+As long as the unit is obvious from the name, I think we'll be fine, and
+we can even have both Hz and kHz defines if we want to.
+
+> > I'm also not sure the 1_0, 1_3, and 2_0 really help anyone reading the
+> > code. I won't remember what they mean in Hz or kHz, and I'll have to
+> > look them up every single time.
+> >
+>=20
+> I discussed this with Maxime before posting the patches since I wondered
+> the same. He suggested that the max TMDS character rate was linked to the
+> HDMI spec versions and that it would be more readable to name it using
+> the spec version rather than the resolution.
+
+As usual, it's both the spec and hardware capabilities. But some like
+the HDMI 1.3/1.4 max is used to know where to setup the scrambler for
+example, and is used everywhere.
+
+I still think it has value, but we don't have to force anyone to use
+them either.
+
+I'd prefer to use the DRM_HDMI_$SPEC_TMDS_CHAR_RATE_MAX_HZ though
+
+> The other naming I suggested was:
+>=20
+> /* HDMI spec TMDS character rate limits (in Hz) */
+> #define DRM_HDMI_TMDS_CHAR_RATE_MIN		 25000000
+> #define DRM_HDMI_TMDS_CHAR_RATE_74_25MHZ	 74250000
+> #define DRM_HDMI_TMDS_CHAR_RATE_148_5MHZ	148500000
+> #define DRM_HDMI_TMDS_CHAR_RATE_297MHZ		297000000
+> #define DRM_HDMI_TMDS_CHAR_RATE_MAX_1_4		340000000
+
+Honestly, I'm not sure if it's worth defining if we'll have the
+frequency in the define name.
+
+Maxime
+
+--pqsdc74wx5gmougt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCag1tHQAKCRAnX84Zoj2+
+dgqzAX45V1iYWii1/7p9SWRWf9JOO0p1K1RfgdEb4sSgVZUQhsxsK/OXiZgqOO2A
+rgzcYI8BgMNoa9IpQdq0m01WRFLURicJVBGtAQUxVsg56qKscPzmjnkID61PVqqY
+SCUG0N0G2Q==
+=+4dU
+-----END PGP SIGNATURE-----
+
+--pqsdc74wx5gmougt--
