@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E458CCD5BA4
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60BCECD5BAF
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B907310F0D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4EAA10F0DE;
 	Wed, 20 May 2026 16:40:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TD9ubfH7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bM2vWTiB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1104110E377
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:40:43 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E627B10E1F6
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:40:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 925814460A;
+ by tor.source.kernel.org (Postfix) with ESMTP id 1AB5760120;
  Wed, 20 May 2026 16:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6B279C2BCFF;
- Wed, 20 May 2026 16:40:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B3C15C2BCB0;
+ Wed, 20 May 2026 16:40:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779295242;
- bh=XHL+uzlHZ4LxG/n67415x9LvixS8mbl6LlbwUbFs2rs=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=TD9ubfH7vk30RBTe4LVvL9h0PFgqp5trnWVN01S/AmXemYyuHQMtM3F2ncA+x44B8
- gZ5y64j0wTkkd2WyMhF9Emuzqa8RXHJIEEgQmD9dHHuRMc2xPnZlqI1osGuCiHNuYu
- X4AVin3gfKCIN20KYf0l/M+QfTKxrmOB7XCaNLhZQRjnzl9igfCUbYn6s6SiF8doDZ
- eJBPEdB22D24rXRrvn5bXyHi5+vVed5Ugt3jbLAnRRAJtldqfTL4/eNK2AVns7UNcL
- AAFK241N3QbbNLUbObLpxYn/8CA4iOAtPlDLzT3Mw2rPLn0ri+7TW+zbU61SOTq4P6
- 67A31sVVmelNw==
+ s=k20201202; t=1779295241;
+ bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=bM2vWTiB3uWVR0vB6KYNd9Ft82YThNYWg+mwz5z6zUdP6SltRenR20T2V/wUx9APL
+ DdTSYki+5OMp46KbFrx6w06L2eMbD7hZQmOWk5omXPnoej+wLtGfTSCoYbWjmC2e77
+ iGkd6gL7g+tcSS+lloy8ckbvdOSqj1V9fVyjmhoIQWUOyv0NK0PIjFqT0j1jadHuGa
+ z1H4k17qaQTKvi4HIte71E/JID6isEidTVy/pMcchBMRVFIqCiQKhO1KArKkwRbDjo
+ 9GcIoykYJsSDIoR7Rg8OnOcbt8EgseFMfG36QMq9S09niQX3HSvI2isVrMZshdfuAz
+ r91eRTjqQermg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 61AB1CD5BAB;
- Wed, 20 May 2026 16:40:42 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id A5F73CD5BA4;
+ Wed, 20 May 2026 16:40:41 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?=
  <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Wed, 20 May 2026 18:40:13 +0200
-Subject: [PATCH 09/11] arm64: dts: qcom: sc8280xp-arcata: model the PMU of
- the on-board wcn6855
+Subject: [PATCH 00/11] Microsoft Surface Pro 9 5G update
+Date: Wed, 20 May 2026 18:40:04 +0200
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-9-9df52552bf87@gmail.com>
-References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
-In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAOTjDWoC/x3MwQ6CMAyA4VchPVtTF2HiqxgP2+igl0FaJCSEd
+ 3d6/A7/f4CxChs8mwOUNzGZS8Xt0kCaQhkZZagGR66j1hHaR3NIjLb02I6YZ8XC+4r+0fsUI+W
+ 7S1DrRTnL/j+/3tUxGGPUUNL0+23+SnCeX4YdOrKAAAAA
+X-Change-ID: 20260520-surface-sp9-5g-for-next-7897cbb0f42c
 To: Douglas Anderson <dianders@chromium.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -59,13 +60,15 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, 
  =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Bartosz Golaszewski <brgl@kernel.org>
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Johan Hovold <johan@kernel.org>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=4908;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1578;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=K8dOu1Fg7LfOFi3E/eQZcIGRKm5mbKQExrj/mmutPxM=;
- b=co+/t3hfIQarZQinpUw9xtZOrViQ0DLsT6wLzty+axZgfVMxK6xUj0MlsADizOKIzXoAVPo2D
- YkrKnWbflOHBRT35zT+a9pZHUyHtCISp+ntdqG+Bl2KuJEZmAc0IZCo
+ bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
+ b=TxYunP+RMjqX6ztukqcbFSA9ok7XwP4bO3nlR9H9+xVWj1Xay+n9Ee8UnjAKgLVtfFf5+ndDL
+ lfsAqQJ15CeBEwbFacPNIhbr5cf+0/QkZR0U+O/1CQ1wqrd3TNeUcLZ
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -88,179 +91,38 @@ Reply-To: jerome.debretagne@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+This series updates the support for the Microsoft Surface 9 5G
+(Arcata), bringing it more up-to-date and aligned with the other
+sc8280xp models such as the Lenovo ThinkPad X13s.
 
-Align the Surface Pro 9 5G with the other sc8280xp-based models as done in
-this patch series [1] from Bartosz.
+As highlights, it finally enables the built-in screen, it fixes
+Display Port alt mode on the top left-side USB-C port, it enables
+the volume up/down keys and the lid switch.
 
-Add a node for the PMU of the WCN6855 and rework the inputs of the wifi
-and bluetooth nodes to consume the PMU's outputs.
-
-With this we can drop the regulator-always-on properties from vreg_s11b
-and vreg_s12b as they will now be enabled by the power sequencing
-driver.
-
-Use the fixed BT vddrfa1p7-supply supply name to align with bindings.
-
-[1] https://lore.kernel.org/all/20241018-sc8280xp-pwrseq-v6-0-8da8310d9564@linaro.org/
-
-Cc: Bartosz Golaszewski <brgl@kernel.org>
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 103 ++++++++++++++++++---
- 1 file changed, 89 insertions(+), 14 deletions(-)
+Jérôme de Bretagne (11):
+      drm/panel: edp: Add LG LP129WT232166 panel
+      arm64: dts: qcom: sc8280xp-arcata: Enable backlight
+      arm64: dts: qcom: sc8280xp-arcata: Enable the eDP display
+      arm64: dts: qcom: sc8280xp-arcata: add USB-C orientation GPIOs
+      arm64: dts: qcom: sc8280xp-arcata: Fix top USB-C DP alt mode
+      arm64: dts: qcom: sc8280xp-arcata: Enable 4-lane DP support
+      arm64: dts: qcom: sc8280xp-arcata: Add volume up/down GPIO keys
+      arm64: dts: qcom: sc8280xp-arcata: Add lid switch
+      arm64: dts: qcom: sc8280xp-arcata: model the PMU of the on-board wcn6855
+      arm64: dts: qcom: sc8280xp-arcata: Switch to uefi rtc offset
+      arm64: dts: qcom: sc8280xp-arcata: Drop duplicate DMIC supplies
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index 4daff3a0ecf48ad2081a2fe98910adf0debef88f..52d8e9527bd26f97305905650e2486a59e6d7157 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -357,6 +357,70 @@ usb1_sbu_mux: endpoint {
- 			};
- 		};
- 	};
-+
-+	wcn6855-pmu {
-+		compatible = "qcom,wcn6855-pmu";
-+
-+		pinctrl-0 = <&bt_default>, <&wlan_en>;
-+		pinctrl-names = "default";
-+
-+		wlan-enable-gpios = <&tlmm 134 GPIO_ACTIVE_HIGH>;
-+		bt-enable-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
-+		swctrl-gpios = <&tlmm 132 GPIO_ACTIVE_HIGH>;
-+
-+		vddio-supply = <&vreg_s10b>;
-+		vddaon-supply = <&vreg_s12b>;
-+		vddpmu-supply = <&vreg_s12b>;
-+		vddpmumx-supply = <&vreg_s12b>;
-+		vddpmucx-supply = <&vreg_s12b>;
-+		vddrfa0p95-supply = <&vreg_s12b>;
-+		vddrfa1p3-supply = <&vreg_s11b>;
-+		vddrfa1p9-supply = <&vreg_s1c>;
-+		vddpcie1p3-supply = <&vreg_s11b>;
-+		vddpcie1p9-supply = <&vreg_s1c>;
-+
-+		regulators {
-+			vreg_pmu_rfa_cmn_0p8: ldo0 {
-+				regulator-name = "vreg_pmu_rfa_cmn_0p8";
-+			};
-+
-+			vreg_pmu_aon_0p8: ldo1 {
-+				regulator-name = "vreg_pmu_aon_0p8";
-+			};
-+
-+			vreg_pmu_wlcx_0p8: ldo2 {
-+				regulator-name = "vreg_pmu_wlcx_0p8";
-+			};
-+
-+			vreg_pmu_wlmx_0p8: ldo3 {
-+				regulator-name = "vreg_pmu_wlmx_0p8";
-+			};
-+
-+			vreg_pmu_btcmx_0p8: ldo4 {
-+				regulator-name = "vreg_pmu_btcmx_0p8";
-+			};
-+
-+			vreg_pmu_pcie_1p8: ldo5 {
-+				regulator-name = "vreg_pmu_pcie_1p8";
-+			};
-+
-+			vreg_pmu_pcie_0p9: ldo6 {
-+				regulator-name = "vreg_pmu_pcie_0p9";
-+			};
-+
-+			vreg_pmu_rfa_0p8: ldo7 {
-+				regulator-name = "vreg_pmu_rfa_0p8";
-+			};
-+
-+			vreg_pmu_rfa_1p2: ldo8 {
-+				regulator-name = "vreg_pmu_rfa_1p2";
-+			};
-+
-+			vreg_pmu_rfa_1p7: ldo9 {
-+				regulator-name = "vreg_pmu_rfa_1p7";
-+			};
-+		};
-+	};
- };
- 
- &apps_rsc {
-@@ -383,7 +447,6 @@ vreg_s11b: smps11 {
- 			regulator-min-microvolt = <1272000>;
- 			regulator-max-microvolt = <1272000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
--			regulator-always-on;
- 		};
- 
- 		vreg_s12b: smps12 {
-@@ -391,7 +454,6 @@ vreg_s12b: smps12 {
- 			regulator-min-microvolt = <984000>;
- 			regulator-max-microvolt = <984000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
--			regulator-always-on;
- 		};
- 
- 		vreg_l3b: ldo3 {
-@@ -653,6 +715,16 @@ wifi@0 {
- 		compatible = "pci17cb,1103";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
- 
-+		vddrfacmn-supply = <&vreg_pmu_rfa_cmn_0p8>;
-+		vddaon-supply = <&vreg_pmu_aon_0p8>;
-+		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-+		vddwlmx-supply = <&vreg_pmu_wlmx_0p8>;
-+		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
-+		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
-+		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-+		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p8-supply = <&vreg_pmu_rfa_1p7>;
-+
- 		qcom,calibration-variant = "MS_SP9_5G";
- 	};
- };
-@@ -837,20 +909,16 @@ &uart2 {
- 	bluetooth {
- 		compatible = "qcom,wcn6855-bt";
- 
--		vddio-supply = <&vreg_s10b>;
--		vddbtcxmx-supply = <&vreg_s12b>;
--		vddrfacmn-supply = <&vreg_s12b>;
--		vddrfa0p8-supply = <&vreg_s12b>;
--		vddrfa1p2-supply = <&vreg_s11b>;
--		vddrfa1p7-supply = <&vreg_s1c>;
-+		vddrfacmn-supply = <&vreg_pmu_rfa_cmn_0p8>;
-+		vddaon-supply = <&vreg_pmu_aon_0p8>;
-+		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-+		vddwlmx-supply = <&vreg_pmu_wlmx_0p8>;
-+		vddbtcmx-supply = <&vreg_pmu_btcmx_0p8>;
-+		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-+		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
- 
- 		max-speed = <3200000>;
--
--		enable-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
--		swctrl-gpios = <&tlmm 132 GPIO_ACTIVE_HIGH>;
--
--		pinctrl-0 = <&bt_default>;
--		pinctrl-names = "default";
- 	};
- };
- 
-@@ -1201,4 +1269,11 @@ reset-pins {
- 			bias-disable;
- 		};
- 	};
-+
-+	wlan_en: wlan-en-state {
-+		pins = "gpio134";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-down;
-+	};
- };
+ .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 301 ++++++++++++++++++---
+ drivers/gpu/drm/panel/panel-edp.c                  |   1 +
+ 2 files changed, 266 insertions(+), 36 deletions(-)
+---
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
+change-id: 20260520-surface-sp9-5g-for-next-7897cbb0f42c
 
+Best regards,
 -- 
-2.47.3
+Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
 
