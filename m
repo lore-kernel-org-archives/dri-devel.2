@@ -4,131 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7334ACD5BA4
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:01:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B17E6CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:03:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0EA210E41B;
-	Wed, 20 May 2026 11:01:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01C4F10E4F8;
+	Wed, 20 May 2026 11:03:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N/VSuZot";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="RYBTev16";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013031.outbound.protection.outlook.com
- [40.93.196.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B96410E41B;
- Wed, 20 May 2026 11:01:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uk54t6ZZQ+h6g+icAlCGilAwl2GtejVizwlpfwQgcm6EyfyRXp4bqcRZCrUxrKXh+6GD16l3n32nlI0WHnmtjzOSZSUkjteRWrOquVapd5XUbzN+RhDLzduN1VlPgFstkoQ17v7HDzL5It63voLIJWEet4Rfy+ThKPXidKl6AvfLbdCh+3ulnFSLawThQqE8Hsa5lZVR/s7U0sedTCQxy00eZuMEvMySSiRTyWq08ajlKScKFJR6PHQzHbkv++fBnbbqCu4qj9jOHsx+9l5g9FukdjHXJY7TBhz20N0hapOXoSym4muKGRG+2ulvV5xouGj3AEtOHc6/4oCAh7tJHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cE9syY8pECyheGWS6oDJjf+otkW4VIL4d5jEgVMVBMA=;
- b=m+bJsD7+hIyQ9lkThbaMHN8m8NRYmRj4c2bruYZ0MvHRgJBmS4FjFNtT+Kj1eXGsa0RjLFo1FpRL91OcrTzYLVpXyF8nVf895UpExGURMELUjVZiaIeoKS3x0jsU3xfAH2yvmMfHmvFQELH5VH+Gz9Od9M7SRg8ltRATJhmjtMYyncJAAp7UzqSD1olxwVCilN7E72cID4zh+zCcZJRq0X+AOAcGkoEg7r/VscF+q/SShzz9xyhlPnq5GHITOpt1Yo7sPP20k+QfEZUKIuoVHZgqmRbmjwyoCc5HnovqDuyOMgik8568Mv60SqbvJlFLXj1b3FPxjhNF9LJSncS1gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cE9syY8pECyheGWS6oDJjf+otkW4VIL4d5jEgVMVBMA=;
- b=N/VSuZotZzbjfzX2neiLKp47z5nf5QcgoAqSyV/z4B5wU6Zmp8/eB7eNBYsMczrbriyvd2FVFD2kGht4B9TxWKoX/yExmBGyeYIWyDkScoBZq/4o6tx5LlpFW8TlsT9AbyST9uUCpsB58nAHBEq6K5t53sxSwf9dPrErS3JDNnU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB8441.namprd12.prod.outlook.com (2603:10b6:8:123::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.22; Wed, 20 May
- 2026 11:01:16 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Wed, 20 May 2026
- 11:01:16 +0000
-Message-ID: <5970c2a0-365d-4cef-97af-644159ea2779@amd.com>
-Date: Wed, 20 May 2026 13:01:09 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: fix recursive ww_mutex acquire in
- amdgpu_devcoredump_format
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB9B10E4F8
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 11:03:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=0pSVK+9EQxqVMM7Yjv49ZmJRac0skbNKar4/N2MFVSo=; b=RYBTev16Cq3YvXNlWCcs0wFF69
+ eDsv+adZLd1yT5ULefQtKo+X44tNcAfUl7t5o/+u1cHreJ/abr4bRZAV5wiboCua7jRg8cb4PKW8+
+ iV8dK9Iwn/0DzGNqFo9QYDao4UtZXXZN4gEdvRcrawQmjOn4gaeea5dZino47REa62XIqncgRRbG4
+ WHmyxcV/KDsnFDUSbfsKoZ3kLMCN6lQS9L3ky99UPpD9mHwBimd7B0+XIZPHeACsIgJ/cfmCa5MJ6
+ rVJ/9tdrUlRY+PFZTbKHebAYyizsnFaclzUbWe2lc3+DVt34ghHvhSYC3+iRF3wrpIix+IcQ+vHFc
+ 9xKGG2CQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Chaoyi Chen <kernel@airkyi.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Chen <hzpeterchen@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Yubing Zhang <yubing.zhang@rock-chips.com>,
+ Frank Wang <frank.wang@rock-chips.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
- <20260519161541.19994-1-mikhail.v.gavrilov@gmail.com>
- <45bbcc75-f852-46c2-bcff-8cacb9413376@amd.com>
- <CABXGCsPRY+jk_ArYMOXqNTw31W95FBgNzqFq0_pvi3paYR=KDQ@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CABXGCsPRY+jk_ArYMOXqNTw31W95FBgNzqFq0_pvi3paYR=KDQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR06CA0003.namprd06.prod.outlook.com
- (2603:10b6:208:23d::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
+ Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
+ Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v15 0/9] Add Type-C DP support for RK3399 EVB IND board
+Date: Wed, 20 May 2026 13:03:00 +0200
+Message-ID: <4958503.687JKscXgg@phil>
+In-Reply-To: <c0bc4796-afe5-40ff-8816-9605a6114d23@rock-chips.com>
+References: <20260304094152.92-1-kernel@airkyi.com> <agxo8ic94e81nQRx@kuha>
+ <c0bc4796-afe5-40ff-8816-9605a6114d23@rock-chips.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8441:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d376aa3-eb9f-45b3-e4bc-08deb65f1d5c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|18002099003|11063799006|4143699003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 86CI8u23YSr+bBkCaUBeBtX3f80NQgOpFoKs8DcrkwwHTG05JnhWZmX6lSMOSX8OWJ1z1z/gVKLkRS0ImZFq3zPMVVtYphuFOJBMugmkUnEEhM8jQD6BVXWpkxU18sKByhKKyARwQQgENM9X1qgySSKyAoGs1kStzUkQtVdXWm1139/8l10QIVhwQJ0ZnJ2R/GO30yK67jPvegXc4R3nSti1YctniHK7LpWBYMCjx0GA0vaqe5sh0ksoZDAKPbOtUy6sJno20Mtxiy58CoIKnvC34vHqRWAgyXLYtNN3tQeaXggiC/+atTnFljs+08MgIjg2XbwcUxd7qOtaMhhXD7nPMMbK6bk4dSm1FzAImXzBEcJZWZ9ciPPrsC0dFgjuYf16q/sZ12vt3JDiQ2mQzqJBqLvp0INE4UZnVoXSzx0gKf1rQrDdyaH8tSQ0m8Po8eTlWLZYdmIvlFQUzC+caqOWmiNtW0lpZ5hjHxhTqh97ZQp3JLXYsHbaut7Z6uiAKkdIKWvnvoLVvMpap7XuogGIbIQzjkryItFBxWCe39oHCJBL84Nhc6/eSTEIXAQCn69Kg2Rgzyp+5MmibPYf8hcNOw4h16Lu0rtBsV8/RPPsMWSbdeDp9+KWFxBXdk/8JYcmdtw1WsxwHPa1rnbWDe1CI0pkCuVTWaUjU8WC7FPWt8AEPzvfbuP2gZoDK42B
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(11063799006)(4143699003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzBOSG90YlNrcDkveGJ2VFR0UWlaWTExTUxpR3Z4OXdhaTd5enVFNzZDTmJr?=
- =?utf-8?B?c2JnWlcwWGF1L25KdU9jajBFUkFBNHlQd0tlOVd5THZKcTF2RUtzTmRIejQr?=
- =?utf-8?B?VFZvNERDVElVWXM5cjR3UnY2aWdUY2tmc3dpSUY5NDc2RGk4YUdEN3pWSG5z?=
- =?utf-8?B?WmpERk16eUtEdDJuSG1jcXJyMlY5T2s4VnZCbzZTalpqRGZyZ3BUSzJ6YWZu?=
- =?utf-8?B?Y3lHaml4MUwreVlKTnpRbkREbFlkeTVubE5uTGFoTjZSQlJ6S2IrUTNRczZm?=
- =?utf-8?B?U0hyc0xhN1k2elo3WTVaSVFRdHRTdkRKbldqdlR2NDJDaEc2QWdxazUxS3dG?=
- =?utf-8?B?MEdGQlpRN1FqTHcwS1hVcVE0SkZjUDhUbjcwdEJSSnJCakRQUTBYSDVlL3pO?=
- =?utf-8?B?RzQvL0ZTWG42aGgwQnhvZWpXZjRLSVRvYmZvOFFJRmRJSlI4NzFock1ITXZh?=
- =?utf-8?B?aUNaYmJDUmRFZ3hGQzE2MERvTHIrYklYRVpqS2tmTGFKNzd0blA0VWl3SHVJ?=
- =?utf-8?B?K2hVOWlZZHN2RHpuUVhxQ20rZ09HZVZsMlVETXRGSC9xU0NIV2w3Umdja05M?=
- =?utf-8?B?TFJ1Vkx2Rmh4akR4QjllM2lCenkvcnJYeEI3dE1uaW1HUUU0QSt5a01XbktB?=
- =?utf-8?B?WEJFMGJhNjUxL2VHWEtFYkptZk9MOFJDTUVWNTdCWTZFdC94aUFhRXlpd05Q?=
- =?utf-8?B?dDN0Z3p2OHNuMnIzRnhMNHU5OVozVFM5ZVQyVnFBdC9aOVZUeTcvZDJsV1R6?=
- =?utf-8?B?UHM5UndsSDlGd3VuTm5FdlNpQlJ5Y3c2UnNNNU5yZjV0cnN1aVNubk9INTJY?=
- =?utf-8?B?L3F2UkU5d1FNWndYOEcxd1h5elhYT0dBUUkxVDMwaXVwTWdMQVF5eDVRNFZv?=
- =?utf-8?B?RXZpeDNlTUtkcFRLbWhMYk84SDhIWnhOU0VaN1BnREJCTjU2TFJKbXNxbUN1?=
- =?utf-8?B?YXh5dU9UWXhtWkN3WmpYbjBMVlpDMHlpMy9xYk9ZWThmMmQvdWRUT21QUUZ4?=
- =?utf-8?B?UURsc3NTK3p2Nk9MQjNTTjNCTGY3N1NRTi8wOXpMdUNjcjZwSURaVFdKUElv?=
- =?utf-8?B?NzZvZGY5czVVTVllTU4zYndUU0NEeDA1S3N4TFFGbDQrL1c5S3R5YkpvZFNJ?=
- =?utf-8?B?NlRRODB0dFpxMURMZXlQUHZ0eXIrTVN0Wm5yb3BVbUhoVHZ5VFhNNEpQdkNP?=
- =?utf-8?B?MkZIZytubzR2QjcydFpoZzc3SGVkbkF5MDRUOXVqUmc3S2l0RkZTNjFUcnU4?=
- =?utf-8?B?VXE1SlQrZmhqTWdEajkzZnhHT3FrUmM1Zmx4S1BTRHR3bEpTWVNLNGQ1cVhJ?=
- =?utf-8?B?QS9wbTlNYy8ybHpGUGdvdzJyQVFGRnpMTGRtKzNYTmVKN2UrZEhJQUtCS3FE?=
- =?utf-8?B?V29vSllSeGVrZGkvS2NHZmluUTZva1ltcnVzSk10MVhuckRtL1B4VHBONEtN?=
- =?utf-8?B?ZnJoNDNDOVNxN1dCcm9MM2Q5NngyamtoczlSaXVaY1FKMjFhcjlyVDFDNFdp?=
- =?utf-8?B?ZjV2YWQvSDdwK0VRUUtOZkJJZ0NIczVOOWIrNEEyaVkvdzc0Q1hMYjU0WTlL?=
- =?utf-8?B?QkhtLytBMDlseVNmdXgvUTBITWtPTXE5a3I2MlR5UUlQUzVqS0d1dzJKTFVp?=
- =?utf-8?B?OG5rUCtvZmJzcFBYNXhHR21yczZIdXJ6SU9BUk9JWk40L3BiUktSTW1YUmpJ?=
- =?utf-8?B?N2pEMlRCZHJwUWF4L0tJRlVaY3ZnREtSaTlNK0w3dVFlUjB1a0FwajBuVHdz?=
- =?utf-8?B?c3l2YkxVQzloZktiVE05NzZrTzh6bkxWZDQ3MmhLdEJFZ1JOdWp0M3ZDK0s4?=
- =?utf-8?B?YnpXbGg3RkEyS2o4VUY4ZXJxRXQvUUtUQlJaZzhFNHJIbHl1L2RLd2p4dUlN?=
- =?utf-8?B?eXdiNTVESjMwdUxzOEppeHlMdFkyNTJwTktvSiswaGtmRjNGek5DamJ0c2cx?=
- =?utf-8?B?WEhzNVBsOGN1UGdzK3FCUXBSU05hVEpjY1NWWjJPVCtUam5mbHlnQW5Ud1o2?=
- =?utf-8?B?bFV4ZHRSQW04cVhGSFhWbWhaTHN1OFpVZW5XYXFQTGgrUzlkaW9WZ3Y2cUYw?=
- =?utf-8?B?eHVYK1I3N1FuSFNJR1VxZ2t2S1hwaC9ralBIbW1oYXZMa0lhNWRrWWZQNGtP?=
- =?utf-8?B?eDAzR3l4QjNSZTVTOHYvdW83bklucnN1SXF5Z3pWeTFZeVJlZnpLTjZWa3ZF?=
- =?utf-8?B?S0xzaVczVnNxL3AraUV1ZHVJQnE0Q0N4L2h6R0RlcEtpN3JqN1ZCUjZQUjE3?=
- =?utf-8?B?ZWNvYXBoblhTS04zVmQ5MzVZSnNpcjVFaVZxQWUxL2RIT245V28zRm9MWTNn?=
- =?utf-8?Q?pc2oyFlFyr/ygGkzmJ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d376aa3-eb9f-45b3-e4bc-08deb65f1d5c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 11:01:16.5045 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OZuIYcAcYD4MTrRrHawjK9+n3Zbxf2Zpmn2u6k9gg8d8xGPNTuCxBA/UrQ90vnEM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8441
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,33 +76,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/20/26 10:07, Mikhail Gavrilov wrote:
-> On Wed, May 20, 2026 at 12:08 PM Christian König
-> <christian.koenig@amd.com> wrote:
->>
->> That whole infrastructure is superflous. You just need to modify amdgpu_vm_lock_by_pasid() to take a drm_exec object to lock the root BO.
->>
-> 
-> Christian, modifying amdgpu_vm_lock_by_pasid() to take a drm_exec turns
-> out to also require converting its other caller, amdgpu_vm_handle_fault(),
-> to drm_exec — most of the diff is that conversion, not the helper itself.
-> 
-> I can:
->  (a) convert both in a 2-patch series (handle_fault becomes
->      drm_exec_init + drm_exec_until_all_locked + drm_exec_fini, ~30 lines),
->      or
->  (b) keep the loop inside amdgpu_vm_lock_by_pasid() so handle_fault stays
->      a one-liner — but then the devcoredump caller can't add the IB BOs
->      to the same ticket, which is the whole point.
-> 
-> (a) seems unavoidable if we want one helper. Is that what you had in mind,
-> or did you intend something lighter — e.g. a separate
-> amdgpu_vm_lock_by_pasid_exec() leaving handle_fault untouched?
-> 
+Hi,
 
-Just make that two patches, first switching over amdgpu_vm_lock_by_pasid() to using drm_exec() on both use cases.
+Am Mittwoch, 20. Mai 2026, 03:13:25 Mitteleurop=C3=A4ische Sommerzeit schri=
+eb Chaoyi Chen:
+> Hello Heikki,
+>=20
+> On 5/19/2026 9:43 PM, Heikki Krogerus wrote:
+> > Hi,
+> >=20
+> > On Wed, Mar 04, 2026 at 05:41:43PM +0800, Chaoyi Chen wrote:
+> >> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> >>
+> >> This series focuses on adding Type-C DP support for USBDP PHY and DP
+> >> driver. The USBDP PHY and DP will perceive the changes in cable status
+> >> based on the USB PD and Type-C state machines provided by TCPM. Before
+> >> this, the USBDP PHY and DP controller of RK3399 sensed cable state
+> >> changes through extcon, and devices such as the RK3399 Gru-Chromebook
+> >> rely on them. This series should not break them.
+> >=20
+> > What's the status with this series?
+> > Are these inteded to go via the DRM tree?
+> >=20
+> > thanks,
+> >=20
+>=20
+> Thank you very much for your continued attention to this series.
+> The maintainers seem quite busy... Despite there being no further review
+> comments, this series have yet to be merged into the DRM tree.=20
+>=20
+> And some of my other patches are in the same situation.=20
+> Do you happen to know what the next steps should be? Thank you.
 
-And then changing the one for device core dumping to lock all BOs at once.
+=46or this series, I would think it'd be best to split it a bit.
 
-Thanks,
-Christian.
+=2D Make patches 1, 2, 5-7 its own series
+  * patch 5 _should_ be included here, needs an Ack from the phy-maintainer
+    to go through the drm-tree. It does look independent from the other
+    phy changes (code changes themself), but needs the function from patch =
+2.
+
+=2D Make patches 3+4 its own series, so that phy maintainers notice
+  The code-changes themself seem independent of the rest
+  * Reference the drm-series and explicity note that the phy-patch in it
+    needs an Ack from the phy maintainer to through the drm-tree
+    Hopefully helps to get that
+  * patch 1 has a Reviewed-by from the type-c side, but needs someone
+    knowing drm-bridge internals to agree
+
+=2D Makes patches 8+9 its own series, reference both series from above
+  as dependencies.
+
+
+That would be my take here, to have the right maintainers notice they
+should do something.
+
+
+Heiko
+
+
