@@ -4,97 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F667CD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3B4BCD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 14:51:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0592110F0A6;
-	Wed, 20 May 2026 14:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE6EF10E156;
+	Wed, 20 May 2026 14:51:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="f+rOP3SH";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ub3/C+ZJ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BRCjqZ65";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F28E110F0A5
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779288293;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kn/KwXlRjqhIt+wQ6tJp71uiYnDltrIKBv46ZENJaNM=;
- b=f+rOP3SHCaTDiAQEcQ9fLOIQzr0QtXrHJm06S6XDcvl2QE4vsAxzRMsmrRQXISvH9F0K1/
- HkIA4SOTEuvVY7zKrxTcK+qaNL4Hg055fcHNwqezziChKGlH49bOX/JXwNfv0KcwGf9ZJy
- wZ9P43tomDcgtwGoEWJ/PyTsYbxaoVg=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-612-5rm-7fV_MLaRH6a-8u7bAA-1; Wed, 20 May 2026 10:44:49 -0400
-X-MC-Unique: 5rm-7fV_MLaRH6a-8u7bAA-1
-X-Mimecast-MFC-AGG-ID: 5rm-7fV_MLaRH6a-8u7bAA_1779288288
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-48fd3dbd16aso41511945e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 07:44:49 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D63310E3CF
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:51:27 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64K9oTVl1178134
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:51:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ DhLMvVZQbF3J03WMc2id/1RoXxcDZvjE9wQx5sGd7p4=; b=Ub3/C+ZJfbhY6/ls
+ axipwBKPQAqBpSWIq2w4QYZ90cJmsVCNNS+ZnQGHWwVP/oL7qg+0MwMBMCuIy1oA
+ sMuUSl4hCKbD/cm9MIfN48FtHxKNbP44NLlimQXKdQLI2lW37540TpgxPSJG8Q0Z
+ mDWacPbAGEUJYxlNG7vn1wmtCgIOp9ie/L69an/+CnDaErie0LMz+dlBZ4FG59qL
+ ZMcswYya54H7DpVXBTHzLLSmOXUjEmvB/8CZ31zanZnGxMyjI1T/jwFb0QvzZu6K
+ TuJ/SPVXi6CkS0x7CPQUEXmjw4DAuZFTrJppFQIVHWUM6DbLXZx/+yJJFcTIo4ku
+ 71al1g==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
+ [209.85.221.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ap6s3hb-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 14:51:26 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id
+ 71dfb90a1353d-575242b4308so12862925e0c.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 07:51:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779288686; x=1779893486;
+ darn=lists.freedesktop.org; 
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=DhLMvVZQbF3J03WMc2id/1RoXxcDZvjE9wQx5sGd7p4=;
+ b=BRCjqZ65vciWIEAgqrfpZNUElHm3QM4gkkCEmuA+H5xX/hqgGkUjmmdpRRrVpWuwp7
+ wFtj4sibXlGNc1gmv2Ga0Y5LBdInvtZWkVNo36n7EtR6HVF1lah84u/fBdJYloB++Jrt
+ B15FZScd/qhCpSMPogT6vdHhSPyENgb7VVvlfAYCIe2L+zo9DjRtl2fehaBtXOPjg9Yb
+ U6GFkaOe6ul53ztxHBlYWWWe1RHdy1+X3ChNbNDDtp3GLYNZAFUZiAIKyHZg2ZSbfZOA
+ tCIWTCqWmhMW251S+vbiNjVU8++W4pkm4HHroa4nXOuotp8NSk5mGrXiyma4IDSRbmJQ
+ vl3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779288288; x=1779893088;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=kn/KwXlRjqhIt+wQ6tJp71uiYnDltrIKBv46ZENJaNM=;
- b=epxtOzOFlRccQ/usYO9DSSekDG5zqHfDjD6MP9Op4syxN35bKYQIVTwWGugNQ4dSGz
- ICKd00Mf/ew+hkPP1uPEa8B6kDK0pEBoImn7g1fmNKqleFa0tTL0wuY9C9/OQE3kZTD/
- LsMXoN2r+8yQTGMCR/VxGM+9YwEXmdykcZHB0PzIZq4qxSOYspASWL6jOfps4wuGe2R1
- 3mvt7nmaPAvQPNBbzyJknA8PtbavDTmg6D4zgZtvgb2byfkjvcH2w6Gw5X7VhLEUDcSj
- HR6TGxp4UBacmNflZe3agDWX5buN5XtmO33FyX6dhC37A/Asu3KGmlCFzHLAxWpLEWTQ
- 97Zg==
+ d=1e100.net; s=20251104; t=1779288686; x=1779893486;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=DhLMvVZQbF3J03WMc2id/1RoXxcDZvjE9wQx5sGd7p4=;
+ b=JloczzApHN4Q9PhYBBt9mbN5KkLsTs1RnYXzCQoEB4xlYe0VEt0h893UtleVoL7Ebk
+ CQFKnbOlL8RXzy6OQpu0J2Z5vJWrC2rcraejReBUEQHt8lfoiZ6fcksJnYbxgh8RZCja
+ NaT0V0/GgHjhid166aSLcRJ/CT88PeL0TOwrZQt10qQaFVFflNdfOhG/TY4b8arK8aH7
+ zDQthkUmqjawPiC1gPZmVEzdhn/kvZ78ZAveiNIvqK67wDVPKwm71NVugMcuMpz+Pev+
+ vE9EpL/hrDieiIEw7rOfKE1xUyZEuGnJEbX4qooDawiFFHV/LeyoxpK/Zf3T2OGof/ph
+ 50Ew==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/N80Evb5VK2MYMNHzUwJpdlH8KiIVmlrg2L3uj/rg4fjqgyqYYDLv+FcfrMp5AIJNOjEdwF9vMbEc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJPDwdlFpztLIh6az7dn6CMjv7nhm6wVqlIYGkJ2OBeXeeNWeG
- kkqt8uXZbLqmMJKK19Dy+jo7bpwxXwII0Q0axcLvTQg8M5pywkEBbCylsT9UR4TgbdlOt1cHjTk
- ZRPcOdR/Qe369j+tjH6BAhZWZbJwcQe6L8lXHPdTH+/azVUeLAi/IoIWUJHanHBHHF6R/dA==
-X-Gm-Gg: Acq92OEH24YbHLxH6bl9HB2rtlDYWTCD/AubQnIHi5RiK0J7xpIzuq/icxqTAwW3rXW
- e4wcrUuc2ME+tnAwrVwnaPCG03yy6+95qAQeW0p6/amw7FuALeD5dgukO7RmxQ4Xw/Q3dWGPwip
- sptGEw/CoM+E08+b82HfvIBXksM2VLq5tYAtvvRz9l7qcJnL3or2xeAqyAKuOitgSn2v0EucS09
- cSKJVy5V+ifeL5kSf1sl2CBuchcPOAsSWFjevGtFRLL9ld+Gqob9tfyAVXP9Crf6z5uyA4torl7
- UIMOkQa9iXkg62gZtE8lqHAg5mp5R4xwEKb/vq6f0VviHHj39qfWdOl4qdgWbLCqzky4I2qJ+Mp
- UUP5WsVuNEX25TAH/ZLY0mPguYFw5OPkAIOUGNJnzybaMyfbhAKsZXJy0lQ==
-X-Received: by 2002:a05:600d:8496:10b0:48f:eb8b:997e with SMTP id
- 5b1f17b1804b1-48feb8b9ab1mr239050535e9.26.1779288287904; 
- Wed, 20 May 2026 07:44:47 -0700 (PDT)
-X-Received: by 2002:a05:600d:8496:10b0:48f:eb8b:997e with SMTP id
- 5b1f17b1804b1-48feb8b9ab1mr239050115e9.26.1779288287373; 
- Wed, 20 May 2026 07:44:47 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ AFNElJ9ixrlAisIPqK/ekta7iOMFERfu+u2TAK2VV7POzqMmmc3+qfgruKX+ZyfJnX5t4B61zt6nyw9fVJ4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzhRjLB1w0mIiky/54G2jgyZrE0D/3U0Ssd3odSTpunXaF4jPwM
+ 0TFJO1+Y27WUxcjGTGoOJ5JwW1TpFNWQVhp67/GOqs2JAilFzZ1ngX1RuQhqKZ68+evPjzG81HH
+ kWLk+J++qv9NPBnp73DtGQc1omsY1e0GGjXJ3JdaAOI4j9VGRRbI5z/zZV1jxcE+4KJOXDTM=
+X-Gm-Gg: Acq92OGsFkGUgmTszbwzELYkARBNhsBblozvDqWYZTTch3R+xs/f09whVbHtoFJYcjD
+ lPIfb+/RLuknd7YyjvshZliE8FQngJ/IvtX9SMCA+2WUhHw4faXOnzO+v2v0jYnX9dwJBipR9i1
+ WlCRyDiRBxSQFGFRAaMrmMEIHRMMy/Kbne9yhjWZoha2Rk2L5UqznJubJYCbIznKFj6y34kdDpg
+ W+GWcuhl1No9REzT4hFladC4DAP3hr0Sn4ElGfj3Lvfpeizou7n0jXO54ZRnfLUHUeQWPVVugVb
+ UIS7Nuev00Va+fceLjl5bXPk83YpIe7E9PeBZaTJqFdP+/E7WCG+UQbnz7tRJrZk5F4LoLmJH5Q
+ B3HiqJNPiV4qxJXMnypGp0thONnOKaYqDkYGWpxlr/O2+hmEq7wUGWYp/esfYYLBD/cIhCBEu3O
+ N9w1H+1mP6cSzPGaM49OmLvDyIDqvO3ChXpaQ=
+X-Received: by 2002:a05:6122:179b:b0:575:2ac3:4166 with SMTP id
+ 71dfb90a1353d-5760be898a1mr14028610e0c.6.1779288685688; 
+ Wed, 20 May 2026 07:51:25 -0700 (PDT)
+X-Received: by 2002:a05:6122:179b:b0:575:2ac3:4166 with SMTP id
+ 71dfb90a1353d-5760be898a1mr14028558e0c.6.1779288685286; 
+ Wed, 20 May 2026 07:51:25 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe4c88495sm394075225e9.4.2026.05.20.07.44.46
+ 2adb3069b0e04-5a90f10c78csm5128907e87.14.2026.05.20.07.51.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 07:44:46 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- Maxime Ripard <mripard@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Brian Masney <bmasney@redhat.com>,
- David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
-Subject: [PATCH v2 8/8] drm/msm/hdmi: Use the common TMDS char rate constants
- in 8998 PHY
-Date: Wed, 20 May 2026 16:43:44 +0200
-Message-ID: <20260520144424.1633354-9-javierm@redhat.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520144424.1633354-1-javierm@redhat.com>
-References: <20260520144424.1633354-1-javierm@redhat.com>
+ Wed, 20 May 2026 07:51:24 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Wed, 20 May 2026 17:51:08 +0300
+Subject: [PATCH v5 01/28] soc: qcom: ubwc: define UBWC 3.1
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: yezqKGXz_qNe0HOhS8EjqMrjPUSEB49JkcZ4PAfEYS8_1779288288
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260520-ubwc-rework-v5-1-72f2749bc807@oss.qualcomm.com>
+References: <20260520-ubwc-rework-v5-0-72f2749bc807@oss.qualcomm.com>
+In-Reply-To: <20260520-ubwc-rework-v5-0-72f2749bc807@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=914;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=0jnnTKmBVzx8ajx5YR0+k88TfAux9nzkeECglU8qUoc=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqDcplYiehb7WoqTeu02NUv4h10NpVZjPhbe8EM
+ 6ruVayulkOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCag3KZQAKCRCLPIo+Aiko
+ 1RJcB/9RW/moB8fe/PV5gy+RL/l4+HEVXkDKQX4mRW/3S8f2W4iEYaITIEeOIFX1mfQ/czZfVhq
+ H/yFBOSA1NV7X0xsN4oNLJuQzeBfr5CmzLayhVuy6lWQNUAVMM/B+drkm2Ddym3f4evfcU6SddU
+ q34oAMPW3lb3Z6WvwpL+MHx4YL+AqlwZiNwmtQG6rFG7WntaNnZw0+sjYVulRaoGY333QxXffHo
+ GNW78p7+v/GOJ3EMWMrnf/nsyaQRWV74UKqoBSch56VyDNDE7HthLnoYpCgCQP2o8CGDGxGQV7j
+ OIdSB+bWJqvQNCmcrUkWpY34g4F5XoA4u00BaoblFCJiK5qG
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: cyYNeW9V9-lTwP3l7MtTZkVgLY6jj9hh
+X-Proofpoint-ORIG-GUID: cyYNeW9V9-lTwP3l7MtTZkVgLY6jj9hh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE0NCBTYWx0ZWRfX//vudXp3wuhQ
+ DnEAPbnI2PCTWeZgcRADjKZBo6zZ8ZjpEwFGzlpKQSMZ1jzI45Rdo+32JpN27LGd+FFVyAq5LBM
+ uTh07xo7OcA5fxnlVoj5pgehYLGoeNxGtC1nrBtIbbiHaHF8k8vnVPZjhqghEc2pycd0CIyJR/O
+ S/b6sAze9Lb5+T4z2rw2TWKUjPvyoIZcURF39Qq8W5jt6tNwFn9thFBHs9nHWHw/MWYc+LswbYZ
+ wXx0vzH4ru+LCO+og0xVumTo+XCIJTlFtE8G+DZboGpN37vGwd37YKGCSoD0CvH8KCr+lT7h0VO
+ Jlc0a7axBS29XdyxM2GQa8oM6YH7zizjLwceNzlsjj/cDRl6RKTy+rC5uc4asc/3P03F9tACqPc
+ BhqsrlAu/ktdiiDeVfZFqU52Rqzjt0XFuV3HygcFfH2GARkgZUHmShs95nUl2qNXs+PGVbgM/nO
+ 7M+Gvu+v3m6/2N8NvDA==
+X-Authority-Analysis: v=2.4 cv=FesHAp+6 c=1 sm=1 tr=0 ts=6a0dca6e cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=o8D1m1ilSIXDguKSM1sA:9 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200144
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,43 +160,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the driver local defines with the shared constants defined in the
-<linux/hdmi.h> header for the minimum and maximum TMDS character rates.
+Follow the comment for the macrotile_mode and introduce separate
+revision for UBWC 3.0 + 8-channel macrotiling mode. It is not used by
+the database (since the drivers are not yet changed to handle it yet).
 
-Suggested-by: Maxime Ripard <mripard@kernel.org>
-Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
+ include/linux/soc/qcom/ubwc.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-(no changes since v1)
+diff --git a/include/linux/soc/qcom/ubwc.h b/include/linux/soc/qcom/ubwc.h
+index f5d0e2341261..319caed88775 100644
+--- a/include/linux/soc/qcom/ubwc.h
++++ b/include/linux/soc/qcom/ubwc.h
+@@ -50,6 +50,7 @@ struct qcom_ubwc_cfg_data {
+ #define UBWC_1_0 0x10000000
+ #define UBWC_2_0 0x20000000
+ #define UBWC_3_0 0x30000000
++#define UBWC_3_1 0x30010000 /* UBWC 3.0 + Macrotile mode */
+ #define UBWC_4_0 0x40000000
+ #define UBWC_4_3 0x40030000
+ #define UBWC_5_0 0x50000000
 
- drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-index a86ff3706369..05c3ffad858d 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-@@ -12,9 +12,6 @@
- #define HDMI_VCO_MAX_FREQ			12000000000UL
- #define HDMI_VCO_MIN_FREQ			8000000000UL
- 
--#define HDMI_PCLK_MAX_FREQ			600000000
--#define HDMI_PCLK_MIN_FREQ			25000000
--
- #define HDMI_HIGH_FREQ_BIT_CLK_THRESHOLD	3400000000UL
- #define HDMI_DIG_FREQ_BIT_CLK_THRESHOLD		1500000000UL
- #define HDMI_MID_FREQ_BIT_CLK_THRESHOLD		750000000UL
-@@ -649,7 +646,8 @@ static int hdmi_8998_pll_prepare(struct clk_hw *hw)
- static int hdmi_8998_pll_determine_rate(struct clk_hw *hw,
- 					struct clk_rate_request *req)
- {
--	req->rate = clamp_t(unsigned long, req->rate, HDMI_PCLK_MIN_FREQ, HDMI_PCLK_MAX_FREQ);
-+	req->rate = clamp_t(unsigned long, req->rate, HDMI_TMDS_CHAR_RATE_MIN_HZ,
-+			    HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ);
- 
- 	return 0;
- }
 -- 
-2.54.0
+2.47.3
 
