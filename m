@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DD67CD5BAA
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F9FCD5BA4
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:38:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6D5610E437;
-	Wed, 20 May 2026 18:38:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAF7310F115;
+	Wed, 20 May 2026 18:38:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NbMqhrLH";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MWk9NuHF";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D6F410E437
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 251F410E437
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779302312;
- bh=rf4Hd8Z282ofbw33s/zydaHP4qp8sYgew1OU7iRNARw=;
+ s=mail; t=1779302314;
+ bh=PMazGqrcLk62NiMiM9e91vC9gW9B5kWfiknu5e2hMqQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NbMqhrLH+bn3MOqxqb3LuFw0kr3PUO+7LszEG/Sq5FZwRF5ZFcXwJmzHDV5CbXnu9
- nMfQjtHgchXbyp/7PYK4pNpEUg+G7A1E0GpzlN9n+gqdvfU3jliOiSULVy2fTDzWub
- feU1QugeiWYaXYnPuO2t32Spwg58H027hnOucJWAwtoOgJwtqCWVE47K13miSg08Tl
- ccgjxh054rywLQHF3cc7j/G2qsgq2Hr2ZJPLcxQMnz41IseLTNAJ9Hqthx+pqgw9LS
- NG7/S2lONXjz0lYiNGRWgDql46uLl2BnNTxn3Lxm3kSz+NNUWyFiaaGP4q51Xluc/z
- uDxE/PB/6JA2Q==
+ b=MWk9NuHFft+ssCnRSNfAq9lIBXdSiTZj8eyoUn1w2i16+mCvg+qB1GdU5jg34Gak9
+ 4Xn1HUmKXzeLkyRygE2iGwYXPCCSYG4wkLCuSD40w+aZtM+6StO/GDAhOKpKoR8NtK
+ whN0sfmD7mMyDqIlfUQWaQKoh4xajv6w7d7AW2dmEBysqMUycGxVnHzFwEdmhVYPwp
+ VSok+yeSBU54gG9r6Glv/wjqgkY4srQu9WS5PpvsgDm2+4KTk9le+bkSmfPhrS/EWY
+ nqSthg2/bTB8kH+H9Ue6DGfU5b5MEc+Bi98+7BCnyfOFoWMjeZsnD3w58zOY0qep3Z
+ rrSitDbXy4QYQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 8D8BD17E141E;
- Wed, 20 May 2026 20:38:32 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C0CE517E1454;
+ Wed, 20 May 2026 20:38:34 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 20 May 2026 21:38:13 +0300
-Subject: [PATCH v6 02/22] drm/connector: Add HDMI 2.0 scrambler infrastructure
+Date: Wed, 20 May 2026 21:38:16 +0300
+Subject: [PATCH v6 05/22] drm/display: hdmi_state_helper: Add ctx-aware
+ hotplug helper for SCDC sync
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-dw-hdmi-qp-scramb-v6-2-24b74603b782@collabora.com>
+Message-Id: <20260520-dw-hdmi-qp-scramb-v6-5-24b74603b782@collabora.com>
 References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -73,134 +74,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the connector-level infrastructure to support HDMI 2.0 scrambling:
+Introduce drm_atomic_helper_connector_hdmi_hotplug_ctx(), a variant of
+drm_atomic_helper_connector_hdmi_hotplug() that accepts a
+drm_modeset_acquire_ctx.
 
-- .scrambler_src_{enable|disable}() callbacks in
-  drm_connector_hdmi_funcs for source-side scrambling control
-- A delayed work item (scdc_work) with an associated callback (scdc_cb)
-  for periodic monitoring of sink-side scrambling status
-- A scrambler_enabled flag to track whether scrambling is currently
-  active
-
-These are intended to be used by SCDC scrambling helpers to coordinate
-scrambling setup and teardown between the source driver and the DRM
-core.
+This enables SCDC status synchronization on hotplug events, which
+requires lock acquisition context for performing the CRTC reset
+triggered by drm_scdc_sync_status().
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 14 +++++++++++
- include/drm/drm_connector.h     | 52 +++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 66 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 36 ++++++++++++++++++++-----
+ include/drm/display/drm_hdmi_state_helper.h     |  4 +++
+ 2 files changed, 33 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 3fa4d2082cd7..91e58362fbc0 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -220,6 +220,19 @@ void drm_connector_free_work_fn(struct work_struct *work)
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index 4867edbf2622..26c491047a6a 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -12,6 +12,7 @@
+ #include <drm/display/drm_hdmi_cec_helper.h>
+ #include <drm/display/drm_hdmi_helper.h>
+ #include <drm/display/drm_hdmi_state_helper.h>
++#include <drm/display/drm_scdc_helper.h>
+ 
+ /**
+  * DOC: hdmi helpers
+@@ -1149,18 +1150,20 @@ drm_atomic_helper_connector_hdmi_clear_audio_infoframe(struct drm_connector *con
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_clear_audio_infoframe);
+ 
+-static void
++static int
+ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+-					enum drm_connector_status status)
++					enum drm_connector_status status,
++					struct drm_modeset_acquire_ctx *ctx)
+ {
+ 	const struct drm_edid *drm_edid;
++	int ret = 0;
+ 
+ 	if (status == connector_status_disconnected) {
+-		// TODO: also handle scramber, HDMI sink disconnected.
++		drm_scdc_sync_status(connector, false, ctx);
+ 		drm_connector_hdmi_audio_plugged_notify(connector, false);
+ 		drm_edid_connector_update(connector, NULL);
+ 		drm_connector_cec_phys_addr_invalidate(connector);
+-		return;
++		return 0;
  	}
+ 
+ 	if (connector->hdmi.funcs->read_edid)
+@@ -1173,10 +1176,12 @@ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+ 	drm_edid_free(drm_edid);
+ 
+ 	if (status == connector_status_connected) {
+-		// TODO: also handle scramber, HDMI sink is now connected.
++		ret = drm_scdc_sync_status(connector, true, ctx);
+ 		drm_connector_hdmi_audio_plugged_notify(connector, true);
+ 		drm_connector_cec_phys_addr_set(connector);
+ 	}
++
++	return ret;
  }
  
-+static void drm_connector_hdmi_scdc_work(struct work_struct *work)
+ /**
+@@ -1190,10 +1195,27 @@ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+ void drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
+ 					      enum drm_connector_status status)
+ {
+-	drm_atomic_helper_connector_hdmi_update(connector, status);
++	drm_atomic_helper_connector_hdmi_update(connector, status, NULL);
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug);
+ 
++/**
++ * drm_atomic_helper_connector_hdmi_hotplug_ctx - Handle the hotplug event for the HDMI connector
++ * @connector: A pointer to the HDMI connector
++ * @status: Connection status
++ * @ctx: Lock acquisition context to be used for resetting CRTC
++ *
++ * This function should be called as a part of the .detect() / .detect_ctx()
++ * callbacks for all status changes.
++ */
++int drm_atomic_helper_connector_hdmi_hotplug_ctx(struct drm_connector *connector,
++						 enum drm_connector_status status,
++						 struct drm_modeset_acquire_ctx *ctx)
 +{
-+	struct drm_connector *connector;
-+	struct drm_connector_hdmi *hdmi;
-+
-+	hdmi = container_of(to_delayed_work(work), struct drm_connector_hdmi,
-+			    scdc_work);
-+	connector = container_of(hdmi, struct drm_connector, hdmi);
-+
-+	if (hdmi->scdc_cb)
-+		hdmi->scdc_cb(connector);
++	return drm_atomic_helper_connector_hdmi_update(connector, status, ctx);
 +}
++EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug_ctx);
 +
- static int drm_connector_init_only(struct drm_device *dev,
- 				   struct drm_connector *connector,
- 				   const struct drm_connector_funcs *funcs,
-@@ -285,6 +298,7 @@ static int drm_connector_init_only(struct drm_device *dev,
- 	mutex_init(&connector->edid_override_mutex);
- 	mutex_init(&connector->hdmi.infoframes.lock);
- 	mutex_init(&connector->hdmi_audio.lock);
-+	INIT_DELAYED_WORK(&connector->hdmi.scdc_work, drm_connector_hdmi_scdc_work);
- 	connector->edid_blob_ptr = NULL;
- 	connector->epoch_counter = 0;
- 	connector->tile_blob_ptr = NULL;
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 5ad62c207d00..49eaa30b1329 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -28,6 +28,7 @@
- #include <linux/ctype.h>
- #include <linux/hdmi.h>
- #include <linux/notifier.h>
-+#include <linux/workqueue.h>
- #include <drm/drm_mode_object.h>
- #include <drm/drm_util.h>
- #include <drm/drm_property.h>
-@@ -1358,6 +1359,36 @@ struct drm_connector_hdmi_funcs {
- 	 */
- 	const struct drm_edid *(*read_edid)(struct drm_connector *connector);
+ /**
+  * drm_atomic_helper_connector_hdmi_force - HDMI Connector implementation of the force callback
+  * @connector: A pointer to the HDMI connector
+@@ -1205,6 +1227,6 @@ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug);
+  */
+ void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector)
+ {
+-	drm_atomic_helper_connector_hdmi_update(connector, connector->status);
++	drm_atomic_helper_connector_hdmi_update(connector, connector->status, NULL);
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_force);
+diff --git a/include/drm/display/drm_hdmi_state_helper.h b/include/drm/display/drm_hdmi_state_helper.h
+index 0adc30c55ec9..a572fe2bf9aa 100644
+--- a/include/drm/display/drm_hdmi_state_helper.h
++++ b/include/drm/display/drm_hdmi_state_helper.h
+@@ -7,6 +7,7 @@ struct drm_atomic_commit;
+ struct drm_connector;
+ struct drm_connector_state;
+ struct drm_display_mode;
++struct drm_modeset_acquire_ctx;
+ struct hdmi_audio_infoframe;
  
-+	/**
-+	 * @scrambler_src_enable:
-+	 *
-+	 * This callback is invoked through @drm_scdc_start_scrambling during
-+	 * a commit to setup SCDC scrambling and high TMDS clock ratio on
-+	 * source side.
-+	 *
-+	 * The @scrambler_src_enable callback is mandatory if HDMI 2.0 is
-+	 * to be supported.
-+	 *
-+	 * Returns:
-+	 * 0 on success, a negative error code otherwise
-+	 */
-+	int (*scrambler_src_enable)(struct drm_connector *connector);
-+
-+	/**
-+	 * @scrambler_src_disable:
-+	 *
-+	 * This callback is invoked through @drm_scdc_stop_scrambling during
-+	 * a commit to disable SCDC scrambling and high TMDS clock ratio on
-+	 * source side.
-+	 *
-+	 * The @scrambler_src_disable callback is mandatory if HDMI 2.0 is
-+	 * to be supported.
-+	 *
-+	 * Returns:
-+	 * 0 on success, a negative error code otherwise
-+	 */
-+	int (*scrambler_src_disable)(struct drm_connector *connector);
-+
- 	/**
- 	 * @avi:
- 	 *
-@@ -1944,6 +1975,27 @@ struct drm_connector_hdmi {
- 	 */
- 	unsigned long supported_formats;
+ enum drm_connector_status;
+@@ -24,6 +25,9 @@ int drm_atomic_helper_connector_hdmi_update_infoframes(struct drm_connector *con
+ 						       struct drm_atomic_commit *state);
+ void drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
+ 					      enum drm_connector_status status);
++int drm_atomic_helper_connector_hdmi_hotplug_ctx(struct drm_connector *connector,
++						 enum drm_connector_status status,
++						 struct drm_modeset_acquire_ctx *ctx);
+ void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector);
  
-+	/**
-+	 * @scrambler_enabled: Tracks whether HDMI 2.0 scrambler is currently enabled.
-+	 */
-+	bool scrambler_enabled;
-+
-+	/**
-+	 * @scdc_work: Work item currently used to monitor sink-side scrambling
-+	 * status and retry setup if the sink resets it.
-+	 */
-+	struct delayed_work scdc_work;
-+
-+	/** @scdc_cb: Callback to be invoked as part of @scdc_work.
-+	 *
-+	 * Currently used to monitor sink-side scrambling status and retry
-+	 * setup if the sink resets it.
-+	 *
-+	 * This is assigned by the framework when making use of
-+	 * drm_scdc_start_scrambling() helper.
-+	 */
-+	void (*scdc_cb)(struct drm_connector *connector);
-+
- 	/**
- 	 * @funcs: HDMI connector Control Functions
- 	 */
+ enum drm_mode_status
 
 -- 
 2.53.0
