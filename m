@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAABACD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:06:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0137CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 13:10:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28F9310E636;
-	Wed, 20 May 2026 13:06:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1A210E632;
+	Wed, 20 May 2026 13:10:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="QJnZbjHR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oIe0SWWu";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F07A10EC21
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 13:06:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779282334; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=m3EMSwy3hSG11zvKoGUa5VtCwBhBtp0/qi8DiDM28PEnXHzSWGUs+ffOkR3d38qj/hr6wT5t/7fOWlzSQitNbLvk9bMy/oRcNdyiluAOZaiOGoPF7qbiG7f7YaLzTMzA4fpzKyVR4U9n8UaMqWNytRZ3mOrHY7fzBbtmSrJPJTs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779282334;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=31m7nkmQYDUOGoFy9g3jc9NCzZLMGg3gT01Xnk9NImU=; 
- b=mOKUX14oU36Wrnlnuxg6rLtcCmEHPK6sPGz5hfLQe4izt5TRGjf/JufD+NBD2Sg4jfXbQhF+rBIsCm7uiJcYf53RlCb5GQvoHye9jd17w8y/gbMPP231iZew3UQesazWnfy/Do8P434yI/jlJrcuUwJzv2UK4dC0GACKijcYLyE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779282334; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=31m7nkmQYDUOGoFy9g3jc9NCzZLMGg3gT01Xnk9NImU=;
- b=QJnZbjHRh77umjzDUihSVj9GSlI81hfjWkgSJOJ7SfZ/LVCApNVKcpIkH/Ap8+Fo
- iB1ErZIFoOrlJ9YdtuSI6kYeitdPjk0UrJWeouXi6YIKL+GP2OLyfUWoSO9oVuT/cFz
- tVhSF8D1hwghYkuuiUabeiz7jw7wTeTD7RiTYxIQ=
-Received: by mx.zohomail.com with SMTPS id 177928233219299.95530128510529;
- Wed, 20 May 2026 06:05:32 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 20 May 2026 15:04:48 +0200
-Subject: [PATCH v4 1/3] drm/fdinfo: Add "evicted" memory accounting
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FD1F10E632;
+ Wed, 20 May 2026 13:10:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779282626; x=1810818626;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=CbXmx3WjavP5kcQTkedrx5HHgI1eIETQcIYgrhmAYQo=;
+ b=oIe0SWWuNjrCte/gRGnwZlK+YvSy/akwRVwzxWkhp0psa+bS6JT4ai4B
+ U1lAvYYwxXnavsgKNHh08DsugQRvdjqOT5FlYAAx3Am/vzN1Xk55mvZ3T
+ uqeIj0/jCOYa+5/Mbic6r92pdhMWxOOBCx74baByMbBut5FEwS6nbOj5D
+ RvFGXa22sPgtX2++4zuCMj29Z+P8otVLCIqdwOvyf1wB2WoYdNKO7CKAj
+ DmbLMlqhE2HZuF1zX03ex0tG1kccKuaK5XKA6oNHcZXXF5zbVgvyrINvH
+ nHeDauV4UbDGN15EM1G7Dqa7aqUaIKcAnG0roAlcWWf1CfMCMwQ0YvsYG g==;
+X-CSE-ConnectionGUID: HouFfHUPSmaEJVzVy8hRHQ==
+X-CSE-MsgGUID: KTsxXvaxToem5Bj9cNeg1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11792"; a="67707244"
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="67707244"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2026 06:10:26 -0700
+X-CSE-ConnectionGUID: shJXQyHSQVGAtZP3+q1NSQ==
+X-CSE-MsgGUID: MUs3v0JHSfWXemzAWlO4Hw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="245158844"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.148])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2026 06:10:22 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Chenyu Chen <chen-yu.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Ray
+ Wu <Ray.Wu@amd.com>, Limonciello Mario <Mario.Limonciello@amd.com>, Chenyu
+ Chen <chen-yu.chen@amd.com>, Mario Limonciello <superm1@kernel.org>
+Subject: Re: [PATCH v2 1/3] drm/edid: extract section header processing into
+ helper
+In-Reply-To: <20260520021432.1301326-2-chen-yu.chen@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260520021432.1301326-1-chen-yu.chen@amd.com>
+ <20260520021432.1301326-2-chen-yu.chen@amd.com>
+Date: Wed, 20 May 2026 16:10:19 +0300
+Message-ID: <636d8a5c5d0b626852cee0446c2ebdaadff346c1@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-panthor-bo-reclaim-observability-v4-1-a47ab61cb80d@collabora.com>
-References: <20260520-panthor-bo-reclaim-observability-v4-0-a47ab61cb80d@collabora.com>
-In-Reply-To: <20260520-panthor-bo-reclaim-observability-v4-0-a47ab61cb80d@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,118 +74,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, there's no way to know for certain how much GPU memory was
-swapped out. The difference between total and resident memory would
-include newly allocated pages, which are not resident, but also aren't
-swapped out.
+On Wed, 20 May 2026, Chenyu Chen <chen-yu.chen@amd.com> wrote:
+> Extract the DisplayID section header logging and non_desktop
+> detection from update_displayid_info() into a dedicated helper,
+> drm_displayid_process_section_header(). Remove the break so the
+> iterator walks through all data blocks, preparing for future
+> patches that will parse additional block types within the loop.
+>
+> The helper is called only once for the base section via a
+> header_processed flag. Since version and primary_use are only
+> captured from the base section, and extension sections carry a
+> primary use of zero per spec, the non_desktop logic is unaffected.
+>
+> No functional change.
+>
+> Assisted-by: Copilot:Claude-Opus-4.6
+> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>  drivers/gpu/drm/drm_edid.c | 37 +++++++++++++++++++++----------------
+>  1 file changed, 21 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 8031f021d4d0..04878478ab78 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -6715,30 +6715,35 @@ static void drm_reset_display_info(struct drm_connector *connector)
+>  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
+>  }
+>  
+> +static void drm_displayid_process_section_header(struct drm_connector *connector,
+> +				  const struct displayid_iter *iter)
 
-Add a new drm_gem_object_status so drivers can signal when an object has
-been evicted to swap, and add a new "evicted" counter to
-drm_memory_stats.
+The name's a bit grandiose, yet loses the bit about "base section" which
+was the crucial part in the comment that gets removed below.
 
-Due to how the supported_flags bitmask is determined, the "evicted"
-count won't be printed to fdinfo if there's no swapped out pages.
+> +{
+> +	struct drm_display_info *info = &connector->display_info;
+> +
+> +	drm_dbg_kms(connector->dev,
+> +			"[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
+> +			connector->base.id, connector->name,
+> +			displayid_version(iter),
+> +			displayid_primary_use(iter));
+> +	if (displayid_version(iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+> +		(displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
+> +			displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
+> +		info->non_desktop = true;
+> +}
 
-Reviewed-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- Documentation/gpu/drm-usage-stats.rst | 6 ++++++
- drivers/gpu/drm/drm_file.c            | 8 ++++++++
- include/drm/drm_file.h                | 2 ++
- include/drm/drm_gem.h                 | 2 ++
- 4 files changed, 18 insertions(+)
+The indent is all wrong in this function.
 
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index 70b7cfcc194f..ac1dbf52d96d 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -202,6 +202,12 @@ One practical example of this could be the presence of unsignaled fences in a
- GEM buffer reservation object. Therefore, the active category is a subset of the
- resident category.
- 
-+- drm-evicted-<region>: <uint> [KiB|MiB]
-+
-+The total size of buffers that have been evicted and are no longer pinned by the
-+device. Only present if there are buffers that are currently evicted, and if the
-+driver implements reporting of this type of memory.
-+
- Implementation Details
- ======================
- 
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index ec820686b302..5078172976c0 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -868,6 +868,7 @@ int drm_memory_stats_is_zero(const struct drm_memory_stats *stats)
- 		stats->private == 0 &&
- 		stats->resident == 0 &&
- 		stats->purgeable == 0 &&
-+		stats->evicted == 0 &&
- 		stats->active == 0);
- }
- EXPORT_SYMBOL(drm_memory_stats_is_zero);
-@@ -901,6 +902,10 @@ void drm_print_memory_stats(struct drm_printer *p,
- 	if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
- 		drm_fdinfo_print_size(p, prefix, "purgeable", region,
- 				      stats->purgeable);
-+
-+	if (supported_status & DRM_GEM_OBJECT_EVICTED)
-+		drm_fdinfo_print_size(p, prefix, "evicted", region,
-+				      stats->evicted);
- }
- EXPORT_SYMBOL(drm_print_memory_stats);
- 
-@@ -954,6 +959,9 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
- 
- 		if (s & DRM_GEM_OBJECT_PURGEABLE)
- 			status.purgeable += add_size;
-+
-+		if (s & DRM_GEM_OBJECT_EVICTED)
-+			status.evicted += add_size;
- 	}
- 	spin_unlock(&file->table_lock);
- 
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 6ee70ad65e1f..7e4cb45a52c3 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -500,6 +500,7 @@ void drm_send_event_timestamp_locked(struct drm_device *dev,
-  * @resident: Total size of GEM objects backing pages
-  * @purgeable: Total size of GEM objects that can be purged (resident and not active)
-  * @active: Total size of GEM objects active on one or more engines
-+ * @evicted: Total size of GEM objects that have been evicted
-  *
-  * Used by drm_print_memory_stats()
-  */
-@@ -509,6 +510,7 @@ struct drm_memory_stats {
- 	u64 resident;
- 	u64 purgeable;
- 	u64 active;
-+	u64 evicted;
- };
- 
- enum drm_gem_object_status;
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 86f5846154f7..799588a2762a 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -53,6 +53,7 @@ struct drm_gem_object;
-  * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
-  * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
-  * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active submission
-+ * @DRM_GEM_OBJECT_EVICTED: object is evicted and no longer pinned by driver
-  *
-  * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
-  * and drm_show_fdinfo().  Note that an object can report DRM_GEM_OBJECT_PURGEABLE
-@@ -67,6 +68,7 @@ enum drm_gem_object_status {
- 	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
- 	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
- 	DRM_GEM_OBJECT_ACTIVE    = BIT(2),
-+	DRM_GEM_OBJECT_EVICTED   = BIT(3),
- };
- 
- /**
+> +
+>  static void update_displayid_info(struct drm_connector *connector,
+>  				  const struct drm_edid *drm_edid)
+>  {
+> -	struct drm_display_info *info = &connector->display_info;
+>  	const struct displayid_block *block;
+>  	struct displayid_iter iter;
+> +	bool header_processed = false;
+>  
+>  	displayid_iter_edid_begin(drm_edid, &iter);
+>  	displayid_iter_for_each(block, &iter) {
+> -		drm_dbg_kms(connector->dev,
+> -			    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
+> -			    connector->base.id, connector->name,
+> -			    displayid_version(&iter),
+> -			    displayid_primary_use(&iter));
+> -		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+> -		    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
+> -		     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
+> -			info->non_desktop = true;
+> -
+> -		/*
+> -		 * We're only interested in the base section here, no need to
+> -		 * iterate further.
+> -		 */
+> -		break;
+> +		if (!header_processed) {
+> +			drm_displayid_process_section_header(connector, &iter);
+> +			header_processed = true;
+
+Every DisplayID Section has a header. Every DisplayID Data Block within
+a DisplayID Section has a header. This is about handling the information
+in the Base Section header only. IMO header_processed is misleading.
+
+BR,
+Jani.
+
+> +		}
+>  	}
+>  	displayid_iter_end(&iter);
+>  }
 
 -- 
-2.54.0
-
+Jani Nikula, Intel
