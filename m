@@ -4,126 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701EECD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:25:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9787DCD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6D8C10E415;
-	Wed, 20 May 2026 16:25:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D677010EB1D;
+	Wed, 20 May 2026 16:25:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KDU+Oz7Z";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M2ayk5ZO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Jj9HbAUm";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kqi4yVY3";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F5ED10E429
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C211B10E7B8
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:14 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64KGASrd446929
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:10 GMT
+ 64KGLQfk446688
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=xWvFKbWyubO7b4hnhrQE5blwoWWt0CB31mv
- OpMNc7G8=; b=KDU+Oz7ZoFOt/qPmVBLUi2HhXPkfwrXDwMiRhpsvtwgoq9KIMKe
- cOLJjUeTdH4BV9KsmmL9oSLud9cy281PkG5opaopSIQb+SQKZR/MfLGDrXEJ8Wo8
- 6eUIlo5D6AwsnFvKDn5hnFH+TtLnJlxnBneY7BQWzUpBpsW1BkNg9pg3JtSJ1EYE
- D871KDmZWUEaSXusedQvJSRkIiQQefdQCKx+iwGfWwvQbsBpg4+R3ntTH2/Ff7hX
- Cg2HJlgjHYSfPdCaxFpu0m2Yv0AX3BuNf98JUkQGOcghg5F7rmOMgiQAZZX7+O1H
- +hxZ+/DTAsibgwVUPAFk09d8xmEzHA66epw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9anrhj1v-1
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=rIZeePmgZG3
+ CJ4or0446JStMniwHZJ9VKj0ljLl99G8=; b=Jj9HbAUmdvpsPniGdwUtxKYSRER
+ ZEE8jbiwd1gH09trbEn+eh4E6x1sRDd1O1m3v/3HUjBT1YsQ7Aey4k+/t+WWd3Dk
+ 8AZf3R6TEKw3j/BK0aa0z8yXUn+TEadViNmYpnjjZomgO3B3xedJtym+60eNhZFe
+ onfMc3stLXxW4Zmdkyn8dYDNaZxMUC9OA+0XV+3XBvj+TEDMTyhgc1cKEDHdE+qp
+ g1mI5dRUWovnRptcoS0J8QWIIdYUIubI+vHU9+sEZAeCBgU+KRkcBjuLBgDrufVt
+ 5OngGTqHfZZT5pypOuEscrOekPf3ob6qOjoLeCmMuIwPwdvY2YR/SxUGxNA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9anrhj2e-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:10 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-368edd5fec4so5648191a91.0
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:25:10 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:25:13 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-83836443305so2599367b3a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:25:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779294309; x=1779899109;
+ d=oss.qualcomm.com; s=google; t=1779294313; x=1779899113;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xWvFKbWyubO7b4hnhrQE5blwoWWt0CB31mvOpMNc7G8=;
- b=M2ayk5ZODBCfgsvNvq8yfnNcRHAiHbDJKjCwFjAHESAIG0fcpwaumXm6qyUImFO2Om
- hAhYzcDgjB3mR5WKQpwMnCP3MKIcj3IXsVzzpu+xVAYcMVFqKQZVp5aKd9O/u00zYhdA
- h2JfspeQicySRxXe6MD4WDBsaO/ukCHk3EhOoGeWheYRAkKGwa9HyJomxNqF5Xm5a31f
- 3NmyG+kRt43FUc1OPQuE1RJ0AYZjnL7q6vEyb9oc1cDSflBqpqDiiRhTl2KL1a4xKCKC
- WZPZSlI9v6mQR4Cav59SFDeQkLL6vmnChGzowFG6uRmiOTuB5jtMtmMpMTA9S+zjo2Xp
- jd/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779294309; x=1779899109;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xWvFKbWyubO7b4hnhrQE5blwoWWt0CB31mvOpMNc7G8=;
- b=a5t9mYLq+lP/kAuCih8igbrjOdNJxtSX7iz7Ar4JtsswV5S6S8UnHYkDsgnyZ1wykn
- l2fr88/VVBQecyNoh0dXTW+QIYzfmKnpCHx4LQmT6Lw5+JWITb+fN9GsLV0Wz03GtWNV
- b1c4Srj2T1z1BN3gt+HY5JcjrVyGSqLAR9frR9kUZDm9dCloV84JkAfS7IMCBTT3QdGA
- TSY0kJxMTk4wTC74QMXUmftWO0iHfuGVC7fhDGNjUmUaWpX6/CuC+kqMepEhcXs02HVk
- uDg1uCHhaTe0kIAdMoAJPFFhDCqqtCyxUB/gU4Gb40RCieuOPKFefiEOsiFo9uhdlKY7
- NWmQ==
-X-Gm-Message-State: AOJu0YygGW0KROgA52kwiJ7Xk8pkldr00uFW16RVa7RFJHnnvgZDYhA1
- saQxLbajkh4VvaZxrbCBFq+KG9cWOC6dmUlYGXg0rq2Z5deY4ZoeJao0iUz9koYMy8y0SLdjr1n
- 3bciQbzrcAMy/90OHAwxXlkcUWv1q4sZPR255kiPrdRGRgf7BoqULW66egHSvWjPZ8SIp4xlGDH
- f1XC8=
-X-Gm-Gg: Acq92OEFeH598g9ZP235kYyWy8PiwVUjNyBiRT3QZtzhey1LMl+xS9GLdSNdjkFw9Ru
- lVDQLUKB/inDiYoXtVBA78emRrF1iJkyTHFULYjrHgH6d01iawl/eN0QXN9F8tc6o6FczekAZBL
- uocLRvm9ElfRuSbCXWT9Ckai++cLsnIgi32013zwJKdiZCSJRL9gIYvJBnlyXumjhBSjr3FU/s2
- fVtaS//UU3grqlRY+X00IGM3S/bIY8zcyzsf0ZEbQBJcLhCV2PrA2rpMaU2c0QynlS7+hq8k17f
- yZTeVVJyQgM6IZVoM834NtQvdqom/GO2pLdvacmFqg+dKC4ppVfFEyubER3ZLQGq1L41h5Fj3lf
- m3dYj+zemjsQV1i7kZWhTKIaSx79UNpjK
-X-Received: by 2002:a17:90b:3a83:b0:35f:b3fe:18dc with SMTP id
- 98e67ed59e1d1-36951b782c8mr23220845a91.19.1779294309315; 
- Wed, 20 May 2026 09:25:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:3a83:b0:35f:b3fe:18dc with SMTP id
- 98e67ed59e1d1-36951b782c8mr23220809a91.19.1779294308642; 
- Wed, 20 May 2026 09:25:08 -0700 (PDT)
+ bh=rIZeePmgZG3CJ4or0446JStMniwHZJ9VKj0ljLl99G8=;
+ b=kqi4yVY3CZUFeceg5aKH5dI9vrEQ2SN1rw7yz97N/8a9fJvqorasp41SgISADFvRCw
+ F1H5KZ9+fTagzz+Ry6q9wCs0n3/0FTm4anOoMZIeFBpQyOSd8EduiKpZ1bm87PmxbtU6
+ M2xGUVPH/lQ7z1mg17xcCfk3QUNgOKOyk6kk5+Y6MNYk0huLY49Dlvydc8I6f1WUlRMS
+ RCXKq4PzYkoKkaomBWZT37WekuBHxqqR0T8xAQg7mCEGSjxi/7f2ur/NcqnU6Ls/XOC5
+ XAM5aU5MTyssaCpyBkBwC0AOhukImg02tprWym3oIGtBfhQWSuCAGkdsV1iVF6woMH55
+ vgcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779294313; x=1779899113;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=rIZeePmgZG3CJ4or0446JStMniwHZJ9VKj0ljLl99G8=;
+ b=M3+6VbDjt7tbRASU2vFr4ui/tOzzK7Ndl+oKtq9f+q2aWmcSDHc+KaXDEogBRiBlYB
+ 4x4NzW3XXGbDLKpuvHFfnz7e3yZitcA8f7IigVu0BXOg5PdllBfPgouNlHMl0RHdVJlu
+ PIbx/5r32Zrn3XashnZ+oXJIgEATSte7aaMCrL46kI2quHsP5ULPEOHHKFLNXg8pAgVH
+ gAId3RGg8X4zALeZkFpE2goHXniR2eeH3LwKlEU6Z9K+i9K38BSKexfWxb0BbczTrALT
+ 76fslRNWRdRNePsts1lBOHODkZzjfjuTVAAzt6i4G/7Y1TB5Z7+MGHZmBwvMOWyWq8YE
+ OofA==
+X-Gm-Message-State: AOJu0Yx4KDiZv1jKRxf4Zkd427gNcoLr69Qf4Ex2IbI33Vd8WK74vSUN
+ r80rN8Y4/u9rxmoxmlZV6m4uwYzEQ3O7Yo4xbl1AQv0ThNsYLFg52GTZoK9y5quKHAOViOeV+wF
+ pmVqX4+lESyCFifm5WSEdM1G/oSYXTxZocvMIxXautYJ1eTk83bXVL/wHej5T5ee/YMJVi3FRx8
+ ywKMo=
+X-Gm-Gg: Acq92OFz5QWQpGDQeSjVtGW7byDDKyqEAzioTgepAjGjkYY7697gIWEfgMI4bVQCKWJ
+ /2+wuad5yCE8ha3GydYloDsVXMMDvul08lM6f1HAHt0Q/Svm/7/6Z/Uqo0hcPGnha3x0ATOvtTs
+ X8SLgUh7PL9ieL+8bSI/MvWDD03w0iGsYoXUw6fJeKcVaKW9oS4rPotOc1goGHIJI2klRV+E4q7
+ mROnhxsllQTTNpldtAZujAgXWU2dUYl5u2yn3G9QiVeSY7tqs+/4N81rG4Dd33YtfOfWMw8tWGJ
+ psESiQBzCG/kLED5C1ijENS4Cy//ck0J0OLiEooLymR+5I3shU+oUzlvU5uopo5Z/VOGCC0WRhY
+ RVOC5yBfpxQKLzhAT5+rSFKrCwavuL7fr
+X-Received: by 2002:a05:6a00:94f8:b0:83d:6c12:a632 with SMTP id
+ d2e1a72fcca58-83f33db80b8mr23313274b3a.50.1779294312616; 
+ Wed, 20 May 2026 09:25:12 -0700 (PDT)
+X-Received: by 2002:a05:6a00:94f8:b0:83d:6c12:a632 with SMTP id
+ d2e1a72fcca58-83f33db80b8mr23313233b3a.50.1779294311975; 
+ Wed, 20 May 2026 09:25:11 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-369e383b31bsm3781877a91.2.2026.05.20.09.25.07
+ d2e1a72fcca58-83f19661261sm27508299b3a.3.2026.05.20.09.25.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 09:25:07 -0700 (PDT)
+ Wed, 20 May 2026 09:25:11 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bill Wendling <morbo@google.com>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Anna Maniscalco <anna.maniscalco2000@gmail.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Justin Stitt <justinstitt@google.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- linux-kernel@vger.kernel.org (open list),
- llvm@lists.linux.dev (open list:CLANG/LLVM BUILD
- SUPPORT:Keyword:\b(?i:clang|llvm)\b), 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v8 00/16] drm/msm: Add PERFCNTR_CONFIG ioctl
-Date: Wed, 20 May 2026 09:23:47 -0700
-Message-ID: <20260520162454.18391-1-robin.clark@oss.qualcomm.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v8 01/16] drm/msm: Remove obsolete perf infrastructure
+Date: Wed, 20 May 2026 09:23:48 -0700
+Message-ID: <20260520162454.18391-2-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260520162454.18391-1-robin.clark@oss.qualcomm.com>
+References: <20260520162454.18391-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: AfBC0EEn1br03legXJKXgl-NXIIYzpKX
-X-Proofpoint-ORIG-GUID: AfBC0EEn1br03legXJKXgl-NXIIYzpKX
-X-Authority-Analysis: v=2.4 cv=UuJT8ewB c=1 sm=1 tr=0 ts=6a0de066 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
+X-Proofpoint-GUID: Pv_VzZ-pTHAE54pN9Q2EMleoYNz00QWz
+X-Proofpoint-ORIG-GUID: Pv_VzZ-pTHAE54pN9Q2EMleoYNz00QWz
+X-Authority-Analysis: v=2.4 cv=UuJT8ewB c=1 sm=1 tr=0 ts=6a0de069 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=y2SdjSjt7DsdxN5ViJQA:9 a=uKXjsCUrEbL0IQVhDsJ9:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE1OSBTYWx0ZWRfX6kgJrGvo2F+H
- Hpompe6iqt1SYr5q/tBVDUOAuwTJaHX1N9tpEv+x/vgR4NrSeSR6aKQmjqGz1s2VnS1UHaPQFnP
- CQ+McFs5aVaMrrSEQ8jJieQRMlORaN77262keAaBz++/LEFt+xMY8f2fLEBQcVoBwa0+/nTwqfX
- Wi7+MNKwE89tABccFRaZbUOc/Nys/0/AZ57ZMXSLp0I8nshmSsQnYz8XEMv/n36UI4cQzUw7elV
- qm+nTxYSh7vIsD68m/Lmbzgmb1Lo0Jfc3Y2OQsQiSEXTLjhw2VcsdwAFnQrCuvdzmgni8k9aSx6
- 6e/4XSUoBnAEAMvdp4OF1CuN0MI302clmvt3Ag7Xvq8PJ3iY1FFzkL2P3sXRBcF/ESS+ytIt1W6
- Kp8f0XH7HwdN0PbrSoZX6/C8fvy2a73V1zQwI6gp9GP1qmMOoFVqtDt5nnF5XTDC1gxKKQACf5T
- 7A+/CQxXhunUESRdp7Q==
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
+ a=istQItjhLDCz62CzcYoA:9 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE1OSBTYWx0ZWRfX5EgImwTeHAuT
+ nFMfZeorLVVjKFi8HBx63JFZ3MbPQv5Rb1IIx3dk0Ljh+MRIsQcGWYWgr5OiaAR1qMQs+oJkhbT
+ gUC7FATPcz6TlUfvJb6HWgVoxWH8zQFCebZ68l+5kAsO5esNPAjCYRltQnE6Mqd6yUQ6xoL6ZIP
+ zzimkA49DFnj6Ze3w1XbNbsRUcYAjM9s9o2FJbW6CO9Q+bxQKjwkwnxWsar2VgntPnIaduaymiU
+ y5EejqRDZPQhFF7/zCDy9ieRmeuUx/2z/ZWLX+1MqZTIDsiezY00PtSd6hXKBpf/882wDGUGEm3
+ tZf6Wa6dnUAVrH1XVnLOL9Kuv7VF9JnxtT1OzRD6XcjyeuNA5cexNJ2iiIfSrVIDMF7YQrqOmsC
+ 24RNDdaH9vRzrH6k1PYY0ySCKUK1Xfq2AcTos2gjhXbIeRmeYrGF+/dlAb2EYqbZrk3zSuKKUHG
+ AXK/m+2gj42fkX49ciQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
@@ -148,157 +145,639 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a new PERFCNTR_CONFIG ioctl, serving two functions:
+Outside of a3xx, this was never really used.  And it low-key gets in the
+way of the new perfcntr support (or at least it is confusing to have two
+things called "perf").  So lets remove it.
 
-1. Global counter collection (restricted to perfmon_capable()) using the
-   MSM_PERFCNTR_STREAM flag.  Global counter sampling is, global, across
-   contexts.  Only a single global counter stream is allowed at a time.
-2. Reserve counters for local counter collection.  Local counter
-   collection is local to a cmdstream (GEM_SUBMIT), and as such is
-   allowed in all processes without additional privileges.
+This drops the "perf" debugfs file.  But these days, nvtop is a better
+option.  (Plus perfetto for newer gens.)
 
-The kernel enforces that counters assigned for global counter collection
-do not conflict with counters reserved for local counter collection, and
-visa versa.  Since local counter collection is scoped to a single cmd-
-stream, multiple UMD processes can overlap in their reserved counters.
-But cannot conflict with global counter usage.
-
-In the case of local counter collection, the UMD is still responsible
-for programming the corresponding SELect registers, and sampling the
-counter values, from it's cmdstream.  But by performing the reservation
-step, the UMD protects itself from the kernel trying to use the same
-SEL/counter regs for global counter collection.
-
-For global counter collection, the kernel programs SEL regs, and sets up
-a timer for counter sampling.  Userspace reads out the sampled values
-from the returned perfcntr stream fd.  Releasing the global perfcntr
-stream is simply a matter of close()ing the fd.
-
-The final two patches wire up the needed support for global counter
-stream collection while IFPC is active, and drops disabling of IFPC.
-
-The mesa side of this is at:
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/41158
-
-igt test at:
-https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/perfcntrs
-
-wiki page about the design:
-https://gitlab.freedesktop.org/drm/msm/-/wikis/adreno:-perfcounter-UABI
-
-Changes in v8:
-- json fixes [Akhil]
-- Use dma_wmb() [Akhil]
-- Use kzalloc_obj() where possible
-- Link to v7: https://lore.kernel.org/all/20260518190735.16236-1-robin.clark@oss.qualcomm.com
-
-Changes in v7:
-- Use smp_load_acquire() for fifo_count_to_end() [Akhil]
-- Defer installing stream_fd until end [Akhil]
-- Link to v6: https://lore.kernel.org/all/20260514134052.361771-1-robin.clark@oss.qualcomm.com/
-
-Changes in v6:
-- Reword comment [Anna]
-- Link to v5: https://lore.kernel.org/all/20260511130017.96867-1-robin.clark@oss.qualcomm.com/
-
-Changes in v5:
-- Drop unnecessary runpm in ioctl path
-- Link to v4: https://lore.kernel.org/all/20260506171127.133572-1-robin.clark@oss.qualcomm.com
-
-Changes in v4:
-- Fix null ptr deref on older gens without perfcntr support [Claude]
-- Add upper limit to userspace controlled FIFO size [Claude]
-- Fix nr_regs calculation [Claude]
-- Link to v3: https://lore.kernel.org/all/20260504190751.61052-1-robin.clark@oss.qualcomm.com/
-
-Changes in v3:
-- Fix loop counter issue spotted by Claude review
-- Add MSM_PERFCNTR_UPDATE flag to ask kernel to return the actual # of
-  available counters in case of -E2BIG
-- Proper barriers for modifying pwrup_Link
-- Link to v2: https://lore.kernel.org/all/20260424151140.104093-1-robin.clark@oss.qualcomm.com
-
-Changes in v2:
-- Rework makefile magic based on Dmitry's suggestion, and add a2xx/a5xx
-  perfcntr tables (although only a6xx+ is supported at this point)
-- Fix compile error for compilers that are picky about a struct that
-  only contains a flex array
-- Drop a6xx_idle() under gpu->lock in a6xx_perfcntr_configure(), replace
-  with perfcntr_fence that sel_worker can check
-- Add a7xx+ pwrup_reglist support for restoring SELect regs on exit from
-  IFPC.  (a6xx doesn't support IFPC, and the pwrup_reglist works a bit
-  differently)
-- Stop disabling IFPC when global counter stream is active.
-- Link to v1: https://lore.kernel.org/all/20260420222621.417276-1-robin.clark@oss.qualcomm.com/
-
-Rob Clark (16):
-  drm/msm: Remove obsolete perf infrastructure
-  drm/msm: Allow CAP_PERFMON for setting SYSPROF
-  drm/msm/adreno: Sync registers from mesa
-  drm/msm/registers: Sync gen_header.py from mesa
-  drm/msm/registers: Add perfcntr json
-  drm/msm: Add a6xx+ perfcntr tables
-  drm/msm: Add sysprof accessors
-  drm/msm/a6xx: Add yield & flush helper
-  drm/msm: Add per-context perfcntr state
-  drm/msm: Add basic perfcntr infrastructure
-  drm/msm/a6xx+: Add support to configure perfcntrs
-  drm/msm/a8xx: Add perfcntr flush sequence
-  drm/msm: Add PERFCNTR_CONFIG ioctl
-  drm/msm/a6xx: Increase pwrup_reglist size
-  drm/msm/a6xx: Append SEL regs to dyn pwrup reglist
-  drm/msm/a6xx: Allow IFPC with perfcntr stream
-
- drivers/gpu/drm/msm/Makefile                  |   27 +-
- drivers/gpu/drm/msm/adreno/a2xx_gpu.c         |    7 -
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c         |   16 -
- drivers/gpu/drm/msm/adreno/a4xx_gpu.c         |    3 -
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   16 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   10 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  217 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   15 +-
- drivers/gpu/drm/msm/adreno/a6xx_preempt.c     |    2 +-
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c         |   33 +-
- drivers/gpu/drm/msm/adreno/a8xx_preempt.c     |    2 +-
- drivers/gpu/drm/msm/adreno/adreno_device.c    |    8 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c       |    7 +-
- drivers/gpu/drm/msm/msm_debugfs.c             |    6 -
- drivers/gpu/drm/msm/msm_drv.c                 |    2 +-
- drivers/gpu/drm/msm/msm_drv.h                 |   13 +-
- drivers/gpu/drm/msm/msm_gpu.c                 |  119 +-
- drivers/gpu/drm/msm/msm_gpu.h                 |  104 +-
- drivers/gpu/drm/msm/msm_perf.c                |  235 --
- drivers/gpu/drm/msm/msm_perfcntr.c            |  647 +++++
- drivers/gpu/drm/msm/msm_perfcntr.h            |  155 ++
- drivers/gpu/drm/msm/msm_ringbuffer.h          |    2 +
- drivers/gpu/drm/msm/msm_submitqueue.c         |    3 +-
- .../msm/registers/adreno/a2xx_perfcntrs.json  |  109 +
- drivers/gpu/drm/msm/registers/adreno/a3xx.xml |    8 +-
- drivers/gpu/drm/msm/registers/adreno/a5xx.xml |  141 +-
- .../msm/registers/adreno/a5xx_perfcntrs.json  |  128 +
- drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 1300 ++++++-----
- .../msm/registers/adreno/a6xx_descriptors.xml |   71 +-
- .../drm/msm/registers/adreno/a6xx_enums.xml   |    3 +
- .../msm/registers/adreno/a6xx_perfcntrs.json  |  112 +
- .../msm/registers/adreno/a7xx_perfcntrs.json  |  228 ++
- .../msm/registers/adreno/a8xx_descriptors.xml |   96 +-
- .../msm/registers/adreno/a8xx_perfcntrs.json  |  240 ++
- .../msm/registers/adreno/a8xx_perfcntrs.xml   | 1929 +++++++++++++++
- .../msm/registers/adreno/adreno_common.xml    |   42 +
- .../drm/msm/registers/adreno/adreno_pm4.xml   |   50 +-
- drivers/gpu/drm/msm/registers/gen_header.py   | 2079 +++++++++--------
- include/uapi/drm/msm_drm.h                    |   48 +
- 39 files changed, 6021 insertions(+), 2212 deletions(-)
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/Makefile          |   1 -
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c |   7 -
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c |  16 --
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c |   3 -
+ drivers/gpu/drm/msm/msm_debugfs.c     |   6 -
+ drivers/gpu/drm/msm/msm_drv.c         |   1 -
+ drivers/gpu/drm/msm/msm_drv.h         |   5 -
+ drivers/gpu/drm/msm/msm_gpu.c         | 107 ------------
+ drivers/gpu/drm/msm/msm_gpu.h         |  31 ----
+ drivers/gpu/drm/msm/msm_perf.c        | 235 --------------------------
+ 10 files changed, 412 deletions(-)
  delete mode 100644 drivers/gpu/drm/msm/msm_perf.c
- create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.c
- create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.h
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.xml
 
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index ba45e99be05b..ce00cfb0a875 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -122,7 +122,6 @@ msm-y += \
+ 	msm_gpu_devfreq.o \
+ 	msm_io_utils.o \
+ 	msm_iommu.o \
+-	msm_perf.o \
+ 	msm_rd.o \
+ 	msm_ringbuffer.o \
+ 	msm_submitqueue.o \
+diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+index d5a5fa9e2cf8..df4cded9143f 100644
+--- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+@@ -489,10 +489,6 @@ static u32 a2xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+ 	return ring->memptrs->rptr;
+ }
+ 
+-static const struct msm_gpu_perfcntr perfcntrs[] = {
+-/* TODO */
+-};
+-
+ static struct msm_gpu *a2xx_gpu_init(struct drm_device *dev)
+ {
+ 	struct a2xx_gpu *a2xx_gpu = NULL;
+@@ -518,9 +514,6 @@ static struct msm_gpu *a2xx_gpu_init(struct drm_device *dev)
+ 	adreno_gpu = &a2xx_gpu->base;
+ 	gpu = &adreno_gpu->base;
+ 
+-	gpu->perfcntrs = perfcntrs;
+-	gpu->num_perfcntrs = ARRAY_SIZE(perfcntrs);
+-
+ 	ret = adreno_gpu_init(dev, pdev, adreno_gpu, config->info->funcs, 1);
+ 	if (ret)
+ 		goto fail;
+diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+index 018183e0ac3f..c17e9777beae 100644
+--- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+@@ -266,12 +266,6 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
+ 	/* Turn on performance counters: */
+ 	gpu_write(gpu, REG_A3XX_RBBM_PERFCTR_CTL, 0x01);
+ 
+-	/* Enable the perfcntrs that we use.. */
+-	for (i = 0; i < gpu->num_perfcntrs; i++) {
+-		const struct msm_gpu_perfcntr *perfcntr = &gpu->perfcntrs[i];
+-		gpu_write(gpu, perfcntr->select_reg, perfcntr->select_val);
+-	}
+-
+ 	gpu_write(gpu, REG_A3XX_RBBM_INT_0_MASK, A3XX_INT0_MASK);
+ 
+ 	ret = adreno_hw_init(gpu);
+@@ -508,13 +502,6 @@ static u32 a3xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+ 	return ring->memptrs->rptr;
+ }
+ 
+-static const struct msm_gpu_perfcntr perfcntrs[] = {
+-	{ REG_A3XX_SP_PERFCOUNTER6_SELECT, REG_A3XX_RBBM_PERFCTR_SP_6_LO,
+-			SP_ALU_ACTIVE_CYCLES, "ALUACTIVE" },
+-	{ REG_A3XX_SP_PERFCOUNTER7_SELECT, REG_A3XX_RBBM_PERFCTR_SP_7_LO,
+-			SP_FS_FULL_ALU_INSTRUCTIONS, "ALUFULL" },
+-};
+-
+ static struct msm_gpu *a3xx_gpu_init(struct drm_device *dev)
+ {
+ 	struct a3xx_gpu *a3xx_gpu = NULL;
+@@ -542,9 +529,6 @@ static struct msm_gpu *a3xx_gpu_init(struct drm_device *dev)
+ 	adreno_gpu = &a3xx_gpu->base;
+ 	gpu = &adreno_gpu->base;
+ 
+-	gpu->perfcntrs = perfcntrs;
+-	gpu->num_perfcntrs = ARRAY_SIZE(perfcntrs);
+-
+ 	adreno_gpu->registers = a3xx_registers;
+ 
+ 	ret = adreno_gpu_init(dev, pdev, adreno_gpu, config->info->funcs, 1);
+diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+index e6ab731f8e9a..6392126f48f2 100644
+--- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+@@ -652,9 +652,6 @@ static struct msm_gpu *a4xx_gpu_init(struct drm_device *dev)
+ 	adreno_gpu = &a4xx_gpu->base;
+ 	gpu = &adreno_gpu->base;
+ 
+-	gpu->perfcntrs = NULL;
+-	gpu->num_perfcntrs = 0;
+-
+ 	ret = adreno_gpu_init(dev, pdev, adreno_gpu, config->info->funcs, 1);
+ 	if (ret)
+ 		goto fail;
+diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
+index 1059a9b29d6a..f12701e286ec 100644
+--- a/drivers/gpu/drm/msm/msm_debugfs.c
++++ b/drivers/gpu/drm/msm/msm_debugfs.c
+@@ -344,12 +344,6 @@ static int late_init_minor(struct drm_minor *minor)
+ 		return ret;
+ 	}
+ 
+-	ret = msm_perf_debugfs_init(minor);
+-	if (ret) {
+-		DRM_DEV_ERROR(dev->dev, "could not install perf debugfs\n");
+-		return ret;
+-	}
+-
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index edc3b4af14f4..3066547f319b 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -87,7 +87,6 @@ static int msm_drm_uninit(struct device *dev, const struct component_ops *gpu_op
+ 
+ 	msm_gem_shrinker_cleanup(ddev);
+ 
+-	msm_perf_debugfs_cleanup(priv);
+ 	msm_rd_debugfs_cleanup(priv);
+ 
+ 	if (priv->kms)
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 6d847d593f1a..e53e4f220bed 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -45,7 +45,6 @@ struct msm_gpu;
+ struct msm_mmu;
+ struct msm_mdss;
+ struct msm_rd_state;
+-struct msm_perf_state;
+ struct msm_gem_submit;
+ struct msm_fence_context;
+ struct msm_disp_state;
+@@ -89,7 +88,6 @@ struct msm_drm_private {
+ 
+ 	struct msm_rd_state *rd;       /* debugfs to dump all submits */
+ 	struct msm_rd_state *hangrd;   /* debugfs to dump hanging submits */
+-	struct msm_perf_state *perf;
+ 
+ 	/**
+ 	 * total_mem: Total/global amount of memory backing GEM objects.
+@@ -442,8 +440,6 @@ void msm_rd_debugfs_cleanup(struct msm_drm_private *priv);
+ __printf(3, 4)
+ void msm_rd_dump_submit(struct msm_rd_state *rd, struct msm_gem_submit *submit,
+ 		const char *fmt, ...);
+-int msm_perf_debugfs_init(struct drm_minor *minor);
+-void msm_perf_debugfs_cleanup(struct msm_drm_private *priv);
+ #else
+ static inline int msm_debugfs_late_init(struct drm_device *dev) { return 0; }
+ __printf(3, 4)
+@@ -451,7 +447,6 @@ static inline void msm_rd_dump_submit(struct msm_rd_state *rd,
+ 			struct msm_gem_submit *submit,
+ 			const char *fmt, ...) {}
+ static inline void msm_rd_debugfs_cleanup(struct msm_drm_private *priv) {}
+-static inline void msm_perf_debugfs_cleanup(struct msm_drm_private *priv) {}
+ #endif
+ 
+ struct clk *msm_clk_get(struct platform_device *pdev, const char *name);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index cf244fd529aa..1bac70473f80 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -699,104 +699,6 @@ void msm_gpu_sysrq_kill(struct msm_gpu *gpu)
+ 	}
+ }
+ 
+-/*
+- * Performance Counters:
+- */
+-
+-/* called under perf_lock */
+-static int update_hw_cntrs(struct msm_gpu *gpu, uint32_t ncntrs, uint32_t *cntrs)
+-{
+-	uint32_t current_cntrs[ARRAY_SIZE(gpu->last_cntrs)];
+-	int i, n = min(ncntrs, gpu->num_perfcntrs);
+-
+-	/* read current values: */
+-	for (i = 0; i < gpu->num_perfcntrs; i++)
+-		current_cntrs[i] = gpu_read(gpu, gpu->perfcntrs[i].sample_reg);
+-
+-	/* update cntrs: */
+-	for (i = 0; i < n; i++)
+-		cntrs[i] = current_cntrs[i] - gpu->last_cntrs[i];
+-
+-	/* save current values: */
+-	for (i = 0; i < gpu->num_perfcntrs; i++)
+-		gpu->last_cntrs[i] = current_cntrs[i];
+-
+-	return n;
+-}
+-
+-static void update_sw_cntrs(struct msm_gpu *gpu)
+-{
+-	ktime_t time;
+-	uint32_t elapsed;
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&gpu->perf_lock, flags);
+-	if (!gpu->perfcntr_active)
+-		goto out;
+-
+-	time = ktime_get();
+-	elapsed = ktime_to_us(ktime_sub(time, gpu->last_sample.time));
+-
+-	gpu->totaltime += elapsed;
+-	if (gpu->last_sample.active)
+-		gpu->activetime += elapsed;
+-
+-	gpu->last_sample.active = msm_gpu_active(gpu);
+-	gpu->last_sample.time = time;
+-
+-out:
+-	spin_unlock_irqrestore(&gpu->perf_lock, flags);
+-}
+-
+-void msm_gpu_perfcntr_start(struct msm_gpu *gpu)
+-{
+-	unsigned long flags;
+-
+-	pm_runtime_get_sync(&gpu->pdev->dev);
+-
+-	spin_lock_irqsave(&gpu->perf_lock, flags);
+-	/* we could dynamically enable/disable perfcntr registers too.. */
+-	gpu->last_sample.active = msm_gpu_active(gpu);
+-	gpu->last_sample.time = ktime_get();
+-	gpu->activetime = gpu->totaltime = 0;
+-	gpu->perfcntr_active = true;
+-	update_hw_cntrs(gpu, 0, NULL);
+-	spin_unlock_irqrestore(&gpu->perf_lock, flags);
+-}
+-
+-void msm_gpu_perfcntr_stop(struct msm_gpu *gpu)
+-{
+-	gpu->perfcntr_active = false;
+-	pm_runtime_put_sync(&gpu->pdev->dev);
+-}
+-
+-/* returns -errno or # of cntrs sampled */
+-int msm_gpu_perfcntr_sample(struct msm_gpu *gpu, uint32_t *activetime,
+-		uint32_t *totaltime, uint32_t ncntrs, uint32_t *cntrs)
+-{
+-	unsigned long flags;
+-	int ret;
+-
+-	spin_lock_irqsave(&gpu->perf_lock, flags);
+-
+-	if (!gpu->perfcntr_active) {
+-		ret = -EINVAL;
+-		goto out;
+-	}
+-
+-	*activetime = gpu->activetime;
+-	*totaltime = gpu->totaltime;
+-
+-	gpu->activetime = gpu->totaltime = 0;
+-
+-	ret = update_hw_cntrs(gpu, ncntrs, cntrs);
+-
+-out:
+-	spin_unlock_irqrestore(&gpu->perf_lock, flags);
+-
+-	return ret;
+-}
+-
+ /*
+  * Cmdstream submission/retirement:
+  */
+@@ -899,7 +801,6 @@ void msm_gpu_retire(struct msm_gpu *gpu)
+ 		msm_update_fence(gpu->rb[i]->fctx, gpu->rb[i]->memptrs->fence);
+ 
+ 	kthread_queue_work(gpu->worker, &gpu->retire_work);
+-	update_sw_cntrs(gpu);
+ }
+ 
+ /* add bo's to gpu's ring, and kick gpu: */
+@@ -916,8 +817,6 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+ 
+ 	submit->seqno = submit->hw_fence->seqno;
+ 
+-	update_sw_cntrs(gpu);
+-
+ 	/*
+ 	 * ring->submits holds a ref to the submit, to deal with the case
+ 	 * that a submit completes before msm_ioctl_gem_submit() returns.
+@@ -1009,9 +908,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	void *memptrs;
+ 	uint64_t memptrs_iova;
+ 
+-	if (WARN_ON(gpu->num_perfcntrs > ARRAY_SIZE(gpu->last_cntrs)))
+-		gpu->num_perfcntrs = ARRAY_SIZE(gpu->last_cntrs);
+-
+ 	gpu->dev = drm;
+ 	gpu->funcs = funcs;
+ 	gpu->name = name;
+@@ -1043,9 +939,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	timer_setup(&gpu->hangcheck_timer, hangcheck_handler, 0);
+ 
+-	spin_lock_init(&gpu->perf_lock);
+-
+-
+ 	/* Map registers: */
+ 	gpu->mmio = msm_ioremap(pdev, config->ioname);
+ 	if (IS_ERR(gpu->mmio)) {
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 07abbe33d992..78e1478669be 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -22,7 +22,6 @@
+ 
+ struct msm_gem_submit;
+ struct msm_gem_vm_log_entry;
+-struct msm_gpu_perfcntr;
+ struct msm_gpu_state;
+ struct msm_context;
+ 
+@@ -168,18 +167,6 @@ struct msm_gpu {
+ 
+ 	struct adreno_smmu_priv adreno_smmu;
+ 
+-	/* performance counters (hw & sw): */
+-	spinlock_t perf_lock;
+-	bool perfcntr_active;
+-	struct {
+-		bool active;
+-		ktime_t time;
+-	} last_sample;
+-	uint32_t totaltime, activetime;    /* sw counters */
+-	uint32_t last_cntrs[5];            /* hw counters */
+-	const struct msm_gpu_perfcntr *perfcntrs;
+-	uint32_t num_perfcntrs;
+-
+ 	struct msm_ringbuffer *rb[MSM_GPU_MAX_RINGS];
+ 	int nr_rings;
+ 
+@@ -320,19 +307,6 @@ static inline bool msm_gpu_active(struct msm_gpu *gpu)
+ 	return false;
+ }
+ 
+-/* Perf-Counters:
+- * The select_reg and select_val are just there for the benefit of the child
+- * class that actually enables the perf counter..  but msm_gpu base class
+- * will handle sampling/displaying the counters.
+- */
+-
+-struct msm_gpu_perfcntr {
+-	uint32_t select_reg;
+-	uint32_t sample_reg;
+-	uint32_t select_val;
+-	const char *name;
+-};
+-
+ /*
+  * The number of priority levels provided by drm gpu scheduler.  The
+  * DRM_SCHED_PRIORITY_KERNEL priority level is treated specially in some
+@@ -689,11 +663,6 @@ void msm_devfreq_idle(struct msm_gpu *gpu);
+ 
+ int msm_gpu_hw_init(struct msm_gpu *gpu);
+ 
+-void msm_gpu_perfcntr_start(struct msm_gpu *gpu);
+-void msm_gpu_perfcntr_stop(struct msm_gpu *gpu);
+-int msm_gpu_perfcntr_sample(struct msm_gpu *gpu, uint32_t *activetime,
+-		uint32_t *totaltime, uint32_t ncntrs, uint32_t *cntrs);
+-
+ void msm_gpu_retire(struct msm_gpu *gpu);
+ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit);
+ void msm_gpu_sysrq_kill(struct msm_gpu *gpu);
+diff --git a/drivers/gpu/drm/msm/msm_perf.c b/drivers/gpu/drm/msm/msm_perf.c
+deleted file mode 100644
+index 7768bde6745f..000000000000
+--- a/drivers/gpu/drm/msm/msm_perf.c
++++ /dev/null
+@@ -1,235 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * Copyright (C) 2013 Red Hat
+- * Author: Rob Clark <robdclark@gmail.com>
+- */
+-
+-/* For profiling, userspace can:
+- *
+- *   tail -f /sys/kernel/debug/dri/<minor>/gpu
+- *
+- * This will enable performance counters/profiling to track the busy time
+- * and any gpu specific performance counters that are supported.
+- */
+-
+-#ifdef CONFIG_DEBUG_FS
+-
+-#include <linux/debugfs.h>
+-#include <linux/uaccess.h>
+-
+-#include <drm/drm_file.h>
+-
+-#include "msm_drv.h"
+-#include "msm_gpu.h"
+-
+-struct msm_perf_state {
+-	struct drm_device *dev;
+-
+-	bool open;
+-	int cnt;
+-	struct mutex read_lock;
+-
+-	char buf[256];
+-	int buftot, bufpos;
+-
+-	unsigned long next_jiffies;
+-};
+-
+-#define SAMPLE_TIME (HZ/4)
+-
+-/* wait for next sample time: */
+-static int wait_sample(struct msm_perf_state *perf)
+-{
+-	unsigned long start_jiffies = jiffies;
+-
+-	if (time_after(perf->next_jiffies, start_jiffies)) {
+-		unsigned long remaining_jiffies =
+-			perf->next_jiffies - start_jiffies;
+-		int ret = schedule_timeout_interruptible(remaining_jiffies);
+-		if (ret > 0) {
+-			/* interrupted */
+-			return -ERESTARTSYS;
+-		}
+-	}
+-	perf->next_jiffies += SAMPLE_TIME;
+-	return 0;
+-}
+-
+-static int refill_buf(struct msm_perf_state *perf)
+-{
+-	struct msm_drm_private *priv = perf->dev->dev_private;
+-	struct msm_gpu *gpu = priv->gpu;
+-	char *ptr = perf->buf;
+-	int rem = sizeof(perf->buf);
+-	int i, n;
+-
+-	if ((perf->cnt++ % 32) == 0) {
+-		/* Header line: */
+-		n = scnprintf(ptr, rem, "%%BUSY");
+-		ptr += n;
+-		rem -= n;
+-
+-		for (i = 0; i < gpu->num_perfcntrs; i++) {
+-			const struct msm_gpu_perfcntr *perfcntr = &gpu->perfcntrs[i];
+-			n = scnprintf(ptr, rem, "\t%s", perfcntr->name);
+-			ptr += n;
+-			rem -= n;
+-		}
+-	} else {
+-		/* Sample line: */
+-		uint32_t activetime = 0, totaltime = 0;
+-		uint32_t cntrs[5];
+-		uint32_t val;
+-		int ret;
+-
+-		/* sleep until next sample time: */
+-		ret = wait_sample(perf);
+-		if (ret)
+-			return ret;
+-
+-		ret = msm_gpu_perfcntr_sample(gpu, &activetime, &totaltime,
+-				ARRAY_SIZE(cntrs), cntrs);
+-		if (ret < 0)
+-			return ret;
+-
+-		val = totaltime ? 1000 * activetime / totaltime : 0;
+-		n = scnprintf(ptr, rem, "%3d.%d%%", val / 10, val % 10);
+-		ptr += n;
+-		rem -= n;
+-
+-		for (i = 0; i < ret; i++) {
+-			/* cycle counters (I think).. convert to MHz.. */
+-			val = cntrs[i] / 10000;
+-			n = scnprintf(ptr, rem, "\t%5d.%02d",
+-					val / 100, val % 100);
+-			ptr += n;
+-			rem -= n;
+-		}
+-	}
+-
+-	n = scnprintf(ptr, rem, "\n");
+-	ptr += n;
+-	rem -= n;
+-
+-	perf->bufpos = 0;
+-	perf->buftot = ptr - perf->buf;
+-
+-	return 0;
+-}
+-
+-static ssize_t perf_read(struct file *file, char __user *buf,
+-		size_t sz, loff_t *ppos)
+-{
+-	struct msm_perf_state *perf = file->private_data;
+-	int n = 0, ret = 0;
+-
+-	mutex_lock(&perf->read_lock);
+-
+-	if (perf->bufpos >= perf->buftot) {
+-		ret = refill_buf(perf);
+-		if (ret)
+-			goto out;
+-	}
+-
+-	n = min((int)sz, perf->buftot - perf->bufpos);
+-	if (copy_to_user(buf, &perf->buf[perf->bufpos], n)) {
+-		ret = -EFAULT;
+-		goto out;
+-	}
+-
+-	perf->bufpos += n;
+-	*ppos += n;
+-
+-out:
+-	mutex_unlock(&perf->read_lock);
+-	if (ret)
+-		return ret;
+-	return n;
+-}
+-
+-static int perf_open(struct inode *inode, struct file *file)
+-{
+-	struct msm_perf_state *perf = inode->i_private;
+-	struct drm_device *dev = perf->dev;
+-	struct msm_drm_private *priv = dev->dev_private;
+-	struct msm_gpu *gpu = priv->gpu;
+-	int ret = 0;
+-
+-	if (!gpu)
+-		return -ENODEV;
+-
+-	mutex_lock(&gpu->lock);
+-
+-	if (perf->open) {
+-		ret = -EBUSY;
+-		goto out;
+-	}
+-
+-	file->private_data = perf;
+-	perf->open = true;
+-	perf->cnt = 0;
+-	perf->buftot = 0;
+-	perf->bufpos = 0;
+-	msm_gpu_perfcntr_start(gpu);
+-	perf->next_jiffies = jiffies + SAMPLE_TIME;
+-
+-out:
+-	mutex_unlock(&gpu->lock);
+-	return ret;
+-}
+-
+-static int perf_release(struct inode *inode, struct file *file)
+-{
+-	struct msm_perf_state *perf = inode->i_private;
+-	struct msm_drm_private *priv = perf->dev->dev_private;
+-	msm_gpu_perfcntr_stop(priv->gpu);
+-	perf->open = false;
+-	return 0;
+-}
+-
+-
+-static const struct file_operations perf_debugfs_fops = {
+-	.owner = THIS_MODULE,
+-	.open = perf_open,
+-	.read = perf_read,
+-	.release = perf_release,
+-};
+-
+-int msm_perf_debugfs_init(struct drm_minor *minor)
+-{
+-	struct msm_drm_private *priv = minor->dev->dev_private;
+-	struct msm_perf_state *perf;
+-
+-	/* only create on first minor: */
+-	if (priv->perf)
+-		return 0;
+-
+-	perf = kzalloc_obj(*perf);
+-	if (!perf)
+-		return -ENOMEM;
+-
+-	perf->dev = minor->dev;
+-
+-	mutex_init(&perf->read_lock);
+-	priv->perf = perf;
+-
+-	debugfs_create_file("perf", S_IFREG | S_IRUGO, minor->debugfs_root,
+-			    perf, &perf_debugfs_fops);
+-	return 0;
+-}
+-
+-void msm_perf_debugfs_cleanup(struct msm_drm_private *priv)
+-{
+-	struct msm_perf_state *perf = priv->perf;
+-
+-	if (!perf)
+-		return;
+-
+-	priv->perf = NULL;
+-
+-	mutex_destroy(&perf->read_lock);
+-
+-	kfree(perf);
+-}
+-
+-#endif
 -- 
 2.54.0
 
