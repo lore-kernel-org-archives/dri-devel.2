@@ -4,65 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 846F0CD5BA4
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 10:47:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9704FCD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 10:55:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9237710E0F3;
-	Wed, 20 May 2026 10:47:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2AB810E224;
+	Wed, 20 May 2026 10:55:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nkfqvHA+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JixfUDNQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E6E310E0AD;
- Wed, 20 May 2026 10:47:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779274045; x=1810810045;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=NTgvPjhiKspj+D9RnFquYPNFWhEnUeUjx20h+WwV/f4=;
- b=nkfqvHA+rpszeNjUKHuWiUQxvEbebPe7d8XBvQEGkCl70AWDNtg47Gm7
- jGoj6pez9Hv7EleFKlI5s4qQEyNxtwlBE0OggHPjU9WpuEXpwBbTmImDF
- Yzf4qy1L9C0GGylGZgLDoxMFNkZjE4XpRh1MrP+2SRalYhKXhm0QEmIMK
- t0/7TcKk8rWBG9+4r7kUQsRgH0IzNWu5yIR3/X+GqZRmvCVg46AGZFZKw
- oxbGk+/TUKSffPnoJ27e1oulsRW+msQzDXKcvndFYXyLxeNzYRRe5GcJw
- kp6bdRzhuHw7a/Ad5W3IqOF9IEuE/bkc1yR9OiyQ6fpxMVR7GIrnlX59D g==;
-X-CSE-ConnectionGUID: vjr3Tx7nSTmI3HZR+yLHDg==
-X-CSE-MsgGUID: o2rMOYW/SyK4SurL14f0kA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="80285847"
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="80285847"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:47:25 -0700
-X-CSE-ConnectionGUID: 24HCvk+IRAGnSo3Cu2V3Yw==
-X-CSE-MsgGUID: xqn//TLZRUaqqiuJmJ6Xew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="263927334"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:47:22 -0700
-Date: Wed, 20 May 2026 12:47:19 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: "Mallesh, Koujalagi" <mallesh.koujalagi@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com, andrealmeid@igalia.com,
- christian.koenig@amd.com, airlied@gmail.com, simona.vetter@ffwll.ch,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, anshuman.gupta@intel.com,
- badal.nilawar@intel.com, riana.tauro@intel.com,
- karthik.poosa@intel.com, sk.anirban@intel.com
-Subject: Re: [PATCH v5 3/5] drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET
- recovery method
-Message-ID: <ag2RNz2n81uUQJE0@black.igk.intel.com>
-References: <20260512132614.1793083-7-mallesh.koujalagi@intel.com>
- <20260512132614.1793083-10-mallesh.koujalagi@intel.com>
- <agWM41MpCMqDt4mb@black.igk.intel.com>
- <d3ef7dd8-afa8-4e2a-a691-b2c2ab9a88fd@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d3ef7dd8-afa8-4e2a-a691-b2c2ab9a88fd@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 906FE10E224
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 10:55:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 46421416F0;
+ Wed, 20 May 2026 10:55:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2F031F00893;
+ Wed, 20 May 2026 10:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779274546;
+ bh=BH/ZeiiMJHVcYtkkFaqQ7tq3WQRwma5rKgra7kq7jcU=;
+ h=Date:Cc:To:From:Subject:References:In-Reply-To;
+ b=JixfUDNQCOhWwN3XTzbdXz/kX13AdJ5UXDldA0Fa0SH7EdeDdcfroHhX5hZCCvvpM
+ y9x+O1csq6Qq0MLKrrH/gmod2bd17A4cQfrvmqlkojbZidDWrzq0omFNVvqQ1ADOGt
+ vrsxAALMcLsnoznq2c2KEmzbHwt5Cti7ZCjXeaRapPA/7UluRx2GOPKBVg7jB9c55d
+ 7Al4/qu+Sx887Z7JJ28NQ1UfV5zOlsS3QFidsvf0d5ZMa517BQAB28rDYSV8idgLeA
+ O0uKgB2mXo/4Nl8n2BJfEg/WOvgqlVUNi0n7tAyHW4N49Ekfjd7w3DSVUdN4HrXUWx
+ m7N2WT5e8g3jQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 20 May 2026 12:55:40 +0200
+Message-Id: <DING6NMJ97JA.5HC3ONKUPMW5@kernel.org>
+Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>,
+ <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <daniel.almeida@collabora.com>, <acourbot@nvidia.com>,
+ <apopple@nvidia.com>, <ecourtney@nvidia.com>, <lyude@redhat.com>,
+ <ojeda@kernel.org>, <boqun@kernel.org>, <gary@garyguo.net>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <tmgross@umich.edu>, <driver-core@lists.linux.dev>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+To: "Boris Brezillon" <boris.brezillon@collabora.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH 0/6] rust: drm: Higher-Ranked Lifetime private data
+References: <20260506221027.858481-1-dakr@kernel.org>
+ <DICCEKZ3HU84.34ES3SW3D1FNI@kernel.org> <agYbppHWXk_hW99M@um790>
+ <DIIMVPTLV3O5.3Q3DHU66WQZUA@kernel.org> <20260519205947.3c9d99b3@fedora>
+ <DIMWGLNJ922I.3PCET9O1J83TS@kernel.org> <20260520083813.7addec83@fedora>
+In-Reply-To: <20260520083813.7addec83@fedora>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,30 +67,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 20, 2026 at 03:20:51PM +0530, Mallesh, Koujalagi wrote:
-> On 14-05-2026 02:20 pm, Raag Jadav wrote:
-> > On Tue, May 12, 2026 at 06:56:18PM +0530, Mallesh Koujalagi wrote:
-> > > When ``WEDGED=cold-reset`` is sent, it indicates that the device has
-> > > encountered an error condition that cannot be resolved through other
-> > > recovery methods such as driver rebind or bus reset, and requires a
-> > > complete device power cycle to restore functionality.
+On Wed May 20, 2026 at 8:38 AM CEST, Boris Brezillon wrote:
+> So, GEM allocation and GPUVM are required are required early on, and
+> both want a drm::Device of some sort (Unregistered or Registered). So
+> the question is, are you happy with having [1] applied before/after
+> your patchset to address this chicken-and-egg issue I mentioned,
 
-...
+Yes, this is exactly what I had in mind for all of my replies, but I think =
+I
+only implied my key point rather than making it explicit, so let me do that=
+ now.
 
-> > > +	# Power cycle slot
-> > > +	echo 0 > /sys/bus/pci/slots/$SLOT/power
-> > > +	sleep 2
-> > Is this tested on actual machine? Is there an explanation for the amount
-> > of sleep needed that serves all cases generically?
-> 
-> Honestly acknowledges! point, the original sleeps  were guesses and there is
-> not a
-> 
-> single value that's correct across all the platforms (it's depends on the
-> slot controller,
-> 
-> downstream link etc.). I'll remove both sleeps in next version.
+What I'm saying is that we now have all DRM ioctls behind the SRCU guard, w=
+hich
+means that the drm::Registration data is always available from DRM ioctls.
 
-Rather, explain it with a small comment here.
+Now, with this precondition, the real question is whether there are any
+resources left that should be bound to the lifetime of the DRM device itsel=
+f,
+which I don't think is the case.
 
-Raag
+After device unbind nothing is able to call back into the driver anymore, s=
+o
+there is no reason to keep the corresponding data alive within the driver's
+private data.
+
+There may be resources that are kept alive through a separate reference cou=
+nt
+while userspace still has open file descriptors, but they are separate refe=
+rence
+counts and should be independent from the driver's private data.
+
+IWO, the fact that we guard the ioctls makes the whole class of problems go=
+ away
+that we inherit from having to keep the driver's private data alive until a=
+fter
+remvoe() -- the DRM device private data becomes obsolete and we should prob=
+ably
+evene remove it.
+
+Instead, we should use the drm::Registration private data for everything.
+
+With this, your chicken-and-egg issue is already solved; the DRM device is
+available, you can populate all the resources you need (GEM, GPUVM, etc.) a=
+nd
+then pass it into drm::Registration::new().
+
+In terms of making any of the resources you store in the drm::Registration =
+data
+available in the bus device private data, it becomes the same pattern as fo=
+r
+everything else, i.e. you need shared ownership.
+
+So, let's say you need IoMem<'bound> in both the drm::Registration data and=
+ in
+the bus device private data, then you currently need Arc<IoMem<'bound>> in =
+both
+of them, which is fine, but I think we can do better.
+
+Eventually, once we have landed the series I currently have in flight and o=
+nce
+Gary finished his self-referencial support in pin-init, I think we can even
+avoid the reference count. Here is an example.
+
+	struct TyrPlatformDriverData<'bound> {
+	    _device: ARef<TyrDrmDevice>,
+	    _reg: drm::Registration<'bound, TyrDrmData<'_>>,
+	    iomem: IoMem<'bound>,
+	}
+
+	struct TyrDrmData<'bound> {
+	    iomem: &'bound IoMem<'bound>,
+	}
+
+	fn probe() -> ... {
+	    try_pin_init!(TyrPlatformDriverData {
+	        _device: ...,
+		iomem <- ...,
+		_reg <- drm::Registration::new(..., TyrDrmData { iomem: &iomem }),
+	    })
+	}
+
+I don't know how the pin-init self-referencial stuff will exactly turn out,=
+ but
+this is pretty much what I hope we can evolve this into.
+
+(And sorry again, now that I spelled this all out, having that left implici=
+t in
+my first reply was obviously unreasonable. :)
+
+> or are you proposing something else (Option<Subcomponent> so that we star=
+t
+> with all sub-components set to None and progressively populate those, whi=
+ch I
+> remember Daniel was strongly opposed to)?
+
+No, I am strongly opposed to do that (as well).
