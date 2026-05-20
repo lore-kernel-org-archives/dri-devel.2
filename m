@@ -4,104 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 816B5CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 22:36:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3325CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 22:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF6210E140;
-	Wed, 20 May 2026 22:36:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C13E610E181;
+	Wed, 20 May 2026 22:51:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Fie+nJZ0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pAgwiZym";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010000.outbound.protection.outlook.com [52.101.56.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 130F710E140
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 22:36:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jQp+UVa87NuuBYqOWNYR1pDDRXK305QmmYBoWwrEVLOU0UdzLlvxjI7Ag3a842LCIhEIPgYHT0EYpupN2OBYO2ftKloWxeh2C7aooWYU4uOmOwivS/xeh3ygdloWbgpwrK2RDBvY4NbM8Th3+O6Oo4a0IiagVt1J7wnN2U2//TDKim42srJ7BSLyk/dDcAg1h6HJGkFgnXfGOW5ZdnUHpzBq0NyMwFIpSA9GU+K5FHkZb1HDIQBXihezKnwO3txILTTKL2ysrchkKnA2/LrypKAhaIcy+cH96pPq2lM7d1RhKXrxZ5emvpMAK2WnIEHAHd7tESYzNKg7kx3YV+dnzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gigPQCDikk8n1x4wKIPhPdsRKQUfyvvMjl4QALLx1WU=;
- b=gr9v4ox9AomX/cJu8gqX2JrKzeu5+gedUC1wK82B13SI3WlE9lw+ttvwYsTZPaebUBOhIWq4i/u0mqc0LEX49yDZW+3Y/AGNjSQP9LxaNDNUv/yO++kUNU1ltWtP+v44158ctgUCsEbyA/599G89kTXfCh7odHkrBWP7KPFW8YS56Kp1sXbQTyqSvLBQiwLrcAsjbpYsoJiJYWgw5Gz8fpoTyeZEexCWLgBATInDhap3JyA70YClEfQ13nfNcbt+im+nRi8tGVcj3fnHrU2/Ug1ofrOqeTsR7U45EM7mcB5hF09Sc2I2Vzmgn1uzVPv1VETIRQC0tvX2JSIzekGqYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gigPQCDikk8n1x4wKIPhPdsRKQUfyvvMjl4QALLx1WU=;
- b=Fie+nJZ0FtMly+U6f5HzXwHTtKtoBhUCHEwdyN+I1mJo9Bu56hTNZcdrdx5Y2BFN8jh//8uqzsV9nkRrZNKah4DS+WM87CY8FaA2Y/hxKkI2TKaQ193WyRA1CeNRSAGQpQxke3rkkYoSqEZHNFr7EYRcjzdaktv/px9Ybxghwrg=
-Received: from SJ0PR13CA0179.namprd13.prod.outlook.com (2603:10b6:a03:2c7::34)
- by CH3PR12MB8259.namprd12.prod.outlook.com (2603:10b6:610:124::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 22:36:05 +0000
-Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
- (2603:10b6:a03:2c7:cafe::5f) by SJ0PR13CA0179.outlook.office365.com
- (2603:10b6:a03:2c7::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.15 via Frontend Transport; Wed, 20
- May 2026 22:36:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 22:36:05 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Wed, 20 May
- 2026 17:36:04 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 May
- 2026 17:36:04 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 20 May 2026 17:36:04 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <karol.wachowski@linux.intel.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <max.zhen@amd.com>, <sonal.santan@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Block running when IOMMU is off
-Date: Wed, 20 May 2026 15:35:31 -0700
-Message-ID: <20260520223531.1403302-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF1C310E181;
+ Wed, 20 May 2026 22:51:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=HsjhAy2BBtCFA/egDCdJZk4pjYZbxFSYZKXDkZ+Avwo=; b=pAgwiZymOW8GGrLLojHhetbVx0
+ 9TrKs9vM0v6AmUOGFF9kTLwGkbQ/WntzQL2Sj0b7582rF4a4DMqcybT4HUbo4l4rKRyqkxpCx4H/e
+ o1Z4MDHncvmdjtf+fvVmlVAJ4gNVGT2Q/PtvPUOqX4J6E0C9rvamZCWWq/Rzj8l2qU7wrfxT7Rkj4
+ iEQgN5cRzQaPAArG92EKxbyOWFD4IBrKs+vQ4yLdziplGub28uNWH2zOi1fq/2WLfzZDFmtFPb/4z
+ VCWOXI0i0O92YxbT0DmOHLG4oKNKWiGJ3fQdBFOulCCk2bIG40O5m42OD9JBUlNlvsdvIRP50KAki
+ hzS4+nFw==;
+Received: from d209-89-236-181.abhsia.telus.net ([209.89.236.181]
+ helo=atmagalia) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wPpk9-0043dh-8d; Thu, 21 May 2026 00:50:25 +0200
+Date: Wed, 20 May 2026 16:50:14 -0600
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Cc: John Harrison <John.Harrison@igalia.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, "Kandpal,
+ Suraj" <suraj.kandpal@intel.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 0/8] drm: writeback: clean up writeback connector
+ initialization
+Message-ID: <ag44Kk4h188WGhcN@atmagalia>
+References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
+ <177894506978.2448625.17152574519326512949.b4-ty@b4>
+ <8fc45730-b2e3-4ba8-b80a-9b30557e810b@Igalia.com>
+ <wcgvogluzfrjk6rlomswkmqceilbbichxsgx3aqzpoawe7jzgw@uiy3ogtswflk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: lizhi.hou@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|CH3PR12MB8259:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a3c19d8-fd07-42f1-ee78-08deb6c02dc5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700016|11063799006|13003099007|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: PSWqju4fm8AAIuRT02fve2/YEKMev0JPfimEu1D/mwQt2lTiWr+7uzQnglU6sfnWYHi6IwsVXbLVgReXiePRsMWgvBK4W/z9cHbhgJ9o+k7PpgkBeKKoKcPiHsPTqJfQpUKIwLOTHnKdMfRsEZx6MsmMRaUFr5htms7VltcSEN4r8NcqeidX2f9iOkTiltzt663tVrxc/Bo1m0jyxJkdOS/gFA5F6zGxLjBHB3oexMq4CPkG9gswp19WWnSoASLofwoWN5PV8cxbV9ZcQRCHCpnB9t9v+x6oF6cnvaAv6fMinKX6Nc+q4IqUjeDUHpLkNhMX1q089pnEyaL0/f9Lw3zB+u41Z56rfpLohI9vz00cY/rbBp7yaFIW3fpvNFzuHB5Njc4x4jNQ9quT5zNtppMh6oWuuJ0YRiJpm5W1eyjqpocFWXPK/h3CdIM7ntqAiQa72vY/juWyF4KabQGa9LATAf+Plla7QsTavJLWGURCFNTX7nw7jwXMJvcbuZ8CXagg6r9Z77D6X4eylpMgyZI+c3kDib5agFJg8agv94u/b6upfI4NudDzO/TqI/1vdw/tamm6CJg+436HcpBprPOASXX4N1yxwt3+EH2aGFZ/IpKZ5qPhs8ITXi5Xri1uUC5faiYcldz6OLdhs9EUpKnZcchdDpu34zyGaDigdArZLOa+5UkettzSGoQ8CbHZ
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(11063799006)(13003099007)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Lx0VAzmHwBDIuP0bicu6MDTNU6raLcDdA7SUDuXQn6lNdbPq1ezM9YED0pSqogXsTaL88GeQ0plJkblzdNbEQdu4U0aMUbcJ191ydwO19xUBsxYcx9ou9HtwNSchiO+YG+QoQFB2u/4qgTzbGKj5yhXpNwLqi5UpLfZLFSP1DVpDamMhfxN7Nwsc4y6iPh+moyc76fMOqC5AsaTFEK8yUbtxod6aFL5z4lCnVoLLpvDLXWZ3csVqVezgheVNiC8kHkA2yzGrTKdzYsDnpaQFoXizhgqnBt9UhniNs0XRBhvbXWcGqZGduosGX/9dGx3yEPA9NZGKpmlFoMeF4FfklklFUMWc1g9Qnvs8epacnH+U1FdQ8c08yyk/d6j9nysIbDTW4h6JV4WwDRasRkYImcO+zsL7P54kT+NvlUXPvSu5uoiATFtaHnRR0wIcXrhu
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 22:36:05.0334 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a3c19d8-fd07-42f1-ee78-08deb6c02dc5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075ED.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8259
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <wcgvogluzfrjk6rlomswkmqceilbbichxsgx3aqzpoawe7jzgw@uiy3ogtswflk>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,30 +89,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The AIE2 device firmware requires IOMMU on.
+On 05/20, Dmitry Baryshkov wrote:
+> On Tue, May 19, 2026 at 09:59:00AM -0700, John Harrison wrote:
+> > On 5/16/26 08:25, Dmitry Baryshkov wrote:
+> > > On Tue, 05 May 2026 03:24:57 +0300, Dmitry Baryshkov wrote:
+> > > > Drivers using drm_writeback_connector_init() / _with_encoder() don't
+> > > > perform cleanup in a manner similar to drmm_writeback_connector_init()
+> > > > (see drm_writeback_connector_cleanup()). Migrate all existing drivers
+> > > > to use drmm_writeback_connector_init(), drop
+> > > > drm_writeback_connector_init() and drm_writeback_connector::encoder
+> > > > (it's unused afterwards).
+> > > > 
+> > > > [...]
+> > > Applied to msm-fixes, thanks!
+> > > 
+> > > [1/8] drm/msm/dpu: don't mix devm and drmm functions
+> > >        https://gitlab.freedesktop.org/lumag/msm/-/commit/c0c70a11365c
+> > > 
+> > > Best regards,
+> > That is only the first patch of the series, yes?
+> 
+> Yes, correct.
+> 
+> > 
+> > What is happening with the rest? Can they all be merged to drm-next now? As
+> > I understand it, only the first patch was still being discussed, the others
+> > have all been reviewed some time ago.
+> 
+> At least we need an ack from the AMD maintainers. I can pick up patches
+> 3-6 to drm-misc-next, but it doesn't really help because the rest of the
+> patches are blocked by the AMD change.
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5319
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/aie2_pci.c | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-index c4d345d4c76b..22f66c7f534d 100644
---- a/drivers/accel/amdxdna/aie2_pci.c
-+++ b/drivers/accel/amdxdna/aie2_pci.c
-@@ -490,6 +490,11 @@ static int aie2_init(struct amdxdna_dev *xdna)
- 		return -EINVAL;
- 	}
- 
-+	if (!xdna->group) {
-+		XDNA_ERR(xdna, "Running without IOMMU not supported");
-+		return -EINVAL;
-+	}
-+
- 	ndev = drmm_kzalloc(&xdna->ddev, sizeof(*ndev), GFP_KERNEL);
- 	if (!ndev)
- 		return -ENOMEM;
+Hi Alex, Harry,
+
+Could we have your acked-by for this series? I tested it with a DCN
+4.0.1 and the kms_writeback test; everything looks fine. This series
+should not cause regressions because the AMD modifications are
+restricted to the writeback functions; if you want to be sure and cover
+more hardware, it can be useful to run it through AMD CI (you just need
+to make a few minor adjustments when applying it to the
+amd-staging-drm-next).
+
+Anyway, this series was
+
+Tested-by: Rodrigo Siqueira <siqueira@igalia.com>
+
+Thanks
+
+> 
+> -- 
+> With best wishes
+> Dmitry
+
 -- 
-2.34.1
-
+Rodrigo Siqueira
