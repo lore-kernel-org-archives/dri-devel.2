@@ -4,146 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21070CD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 19:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2B5CD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 19:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F84E10E15E;
-	Wed, 20 May 2026 19:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A11EE10F14E;
+	Wed, 20 May 2026 19:39:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MyKqtiok";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YL5HqWV5";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="dMfkET/J";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C376810E15E
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:38:21 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64KDXbLf1797936
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:38:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5LFMGD840PvGCPwkDPrhg8qGWW+uSOyb0Wppoq8dMT0=; b=MyKqtiok2N+ELTCL
- /G41MzOXI5sSKnKAYPPi9+YEzNMQC6FtVm2VIwSGycBLu4m7SjicOj1IuDOIrbyD
- QRbjYWeqOJtbIZGoaKlrKSqEIYQ+v2tN0Cg9rTRzHKz8ndTRxmQ6Rk0rI0uYIcdi
- H9zTeayd3WGe2hzxdv3fnxadwWvWCKjC1q7kJEX2sZwVQJCnIjA/gh5thdHWl2YM
- rLATqRcQtaRJlc9pUD+Pm3K+erSBRM2zoEjJBNJJW7tdOETVMMPrMIOO3mO/NFTy
- GYZm8rduLfpyO2P4yjWRjr9CWXHjJwdRMGg6mOJgCpgjxiTxJPs4i+YN+2bTH+CQ
- kY4DXA==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9dxu1ghn-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:38:21 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-c70f19f0f37so2760638a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 12:38:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779305900; x=1779910700;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=5LFMGD840PvGCPwkDPrhg8qGWW+uSOyb0Wppoq8dMT0=;
- b=YL5HqWV5ZGIHOfN1dx9TIHe1Q2wDrmDVeOtn1gsP0wGZckUeKZT3aQGNWzzVhjIFjE
- 2oXGlYPvyH/px503BqGmr52oZAX0esKd/1W2nN/PIQyryPpDBQ4REXSIsr3nQZ4zKUYZ
- /iS9JSLRPwCcumry+ujG2SzS1NbToMWYmztUcxisjMaqh5ahI8/d2x5TikV+rx4mX/l9
- yDSMyPz1/qsXmdoP0r049FUS1jacEkQaU1H1hE6jgFT5lX1+NPWFoWwPRWkCitK1Bz0S
- 0SnrOMgL25BDfAOpb/Bk2ppJa26kNw6WQf/c7ZrLw/oQ+olZUS2QnLPbFWE1IYDgqG8z
- 9PfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779305900; x=1779910700;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=5LFMGD840PvGCPwkDPrhg8qGWW+uSOyb0Wppoq8dMT0=;
- b=h6GIHkPh7OSM7Nn8WvZR5omJNDkh06YW1yNIOJ11tmCzt/KP78ScfFSUU0fgJjAyDY
- CYQtncrS+SUdNxyHNc3Pko7w+mZiB3RIeztI5Xkh3lDnglLezJRAr1bSPs+xCiA+S9Be
- jmUP55Nfn6m2JApr/xTZ9i8SG99htzD55G1CQ5lQBRR97TLNYG9cRlKi0ly6/Y2rgCBg
- wNYbnmMWnrrl/Y6tL6BNIxP8EjYI5nnTyrilv0PS8+Zltd2a1SirPR8Flt+A8ZHTuLP+
- eZSKEAHY+srTWVu5zc5t7qBAwIWMG3AikP+MIMO6cL3yr+fP7eW86lm/OOQ1cnOggUSp
- V/jg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+aUZveS0AwsIXRVEO+OAwN4LV6ZI7v03f9+a4kzT0M52jTcgDesA0Osnf1vSbLB3JDFPFltfw7/KE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0Kx9NAZet1K5AkprqYqgNEyY8Ixab9Mt2NQd9dzbegFmKLC8A
- ZiZG9tk7/Rc2MyNBeCbG9xnyjg20d25Q8W/MT0x2DClZuyOvkpBwhEJZJEFaxTINB+BcA/4Ek0t
- vv6/0TlWFOoYrAm8nGn3Ps4GbyVUo5U7ezqjQoEPxgr1yc/4EcaNozoNC4+K7K5mAqhBsyN8=
-X-Gm-Gg: Acq92OHe3aajKj/Twvinbm7vGVQIbxReFBS3RNoTPwZOb5KGOSHrOHd4IJZbWN7C+4q
- OkimwsFeJEe++txaGf+YBpiHZTd6f543yyLAGk0/xPxcypbUTTskcvylwa9aLLydfvBiEYFZDEH
- AIfg+QbxagIg54tLR3i+ihpbS8YREGyJT9iLc5r4cWm8GACeDoQzUlCALGgbzZ2umU+xK4LaqDq
- 0HspEFmrWm/jwpz5lMwmFxKa7Xrwr//DtVn1utmfoGHCmn9ZjW57o5TZYtbDRTQnHfLktwejaW9
- kDPvd7tI7NM8/i2rqgV/wVQhzegw3Z2eoaICJowDUXDzqDM3W9gvb4Bji4PG8Pbt/lcbRfQywuH
- YOKB661n0pgtWxNFp8uSzALJIfz7yp2ezHq2ehYFkcWI7aZ9EGYu4R5IfKaC4ZIsd2UMF2lgTif
- 6n360WJH51
-X-Received: by 2002:a05:6a00:a10:b0:835:36f5:17c9 with SMTP id
- d2e1a72fcca58-8414864d999mr613731b3a.2.1779305900543; 
- Wed, 20 May 2026 12:38:20 -0700 (PDT)
-X-Received: by 2002:a05:6a00:a10:b0:835:36f5:17c9 with SMTP id
- d2e1a72fcca58-8414864d999mr613692b3a.2.1779305900001; 
- Wed, 20 May 2026 12:38:20 -0700 (PDT)
-Received: from ?IPV6:2401:4900:9074:ce4a:59fb:b330:7e10:e1ac?
- ([2401:4900:9074:ce4a:59fb:b330:7e10:e1ac])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83f19f7ccc7sm26114065b3a.58.2026.05.20.12.38.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 May 2026 12:38:19 -0700 (PDT)
-Message-ID: <01b424f6-6617-442a-a77f-9b7a8472c447@oss.qualcomm.com>
-Date: Thu, 21 May 2026 01:08:06 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 0/7] Add support for Adreno 810 GPU
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Alexander Koskovich <akoskovich@pm.me>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F393110E615
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:39:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779305929; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=j7WkbUzZxmK80/mpBtA/BGjr8nZm2Ri8U0HaFIy+AEPIFTv7pRE3tzHTZb34JC7ZtzoGLM58zxT9ntF0whAjsMmw3vNqPUc4zs8qGxd/UoOz3XI0mYaw6Y8cGdchenUbRNMtchmKhhGMixMI5q26daUq6dq/Th43e8WivJxY0kA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779305929;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=WozJt0Sg1lqTUay3cOfibv54xoEopg26MgfL9FMGpwo=; 
+ b=kPv5hxmp4JznmV7jlWqG/f89rAmWAGegRQ36mypuHKO7yd3xLvNMeA8hxj3fagg1lDYeYDYDhNegjvyjSkgBwuDIACFKN6ppRvnAnw6JhnNjkT8Lgu3mksfBfDpL6ecP30mxVBQxlsVmGdD4UcOrXk69TJr9r9czVLvLrgVufmw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779305929; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=WozJt0Sg1lqTUay3cOfibv54xoEopg26MgfL9FMGpwo=;
+ b=dMfkET/JG4ZbtfaHpqg1InqY4oXWpN/PQqrJ/F3L/SDb62IbMs/KJfg4oWf5Pey1
+ LYR5oQceEGZiDaKN9uW3bBUEL45OZMvqzmOqzInbA2rH+5aRu0SyUy7v/b1wVdm91NW
+ d+1lqCQEzh5Qe3DXMOOAqD9eSLIvwfx0XT2UnZ9Y=
+Received: by mx.zohomail.com with SMTPS id 1779305926725287.99990591929713;
+ Wed, 20 May 2026 12:38:46 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Luca Weiss
- <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
- <3dc009dc-8f36-4735-b849-d952fb626cf4@oss.qualcomm.com>
- <3vzdlxnee4w6mur5qiyk2rhewlugswxarhevv7l4zo47qnnqah@45oxl7rjqawv>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <3vzdlxnee4w6mur5qiyk2rhewlugswxarhevv7l4zo47qnnqah@45oxl7rjqawv>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE5MiBTYWx0ZWRfX7yYQ6/ReXnKw
- gb1peBjpLn+wuFNXTqrryBe71cdEmoy3nk2O+HinDr124qP8hO9N1BYQ5pGTgvzzoeZr5NjtTQU
- 2dNMu3doQ6RGre7/YMP1VhSmxa17zZ6STlCjxmcVG2c4HZv4DvRjAE4nvUMZSusXkdm373qNjBp
- GZUHkV+BcIUN5RldckY91IcrgMawsHzWCJAKVXXgYXresI4W9m61q0t3HrN++P7yfXZ+2X6MS4W
- HwJb8lMeRsDVVtsdIsNdKiaJ1QMRhxkAFWIn3sNCztI070sQJ5kAgF6n27nU5wG5jkTESfJTGDC
- /Di4+i/oQ0+XXzgtym6LC9DA1iapR+LbqeqYJZl2GfJF0YptXWH6Os9k8jySeORN+giEW+EQTmu
- 1tNyfEKsEj2qS8Q/bHbJI0vXhSSc2Rqf1409XTXSk2vyk2VmWWLjPTR/UutTs8ZwHOqjjoohVPW
- Md33XtdgEow8mwW26vw==
-X-Authority-Analysis: v=2.4 cv=Zckt8MVA c=1 sm=1 tr=0 ts=6a0e0dad cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=6H0WHjuAAAAA:8 a=vrFTKMbr3VGxMADgOxUA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-GUID: Fm06-_eMDr3QEABmymiADpMfnFQ3sRjU
-X-Proofpoint-ORIG-GUID: Fm06-_eMDr3QEABmymiADpMfnFQ3sRjU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200192
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] drm/fdinfo: Add "evicted" memory accounting
+Date: Wed, 20 May 2026 21:38:41 +0200
+Message-ID: <J0t78_M-TDCxz-OeUDvFdA@collabora.com>
+In-Reply-To: <7c7242b8-eb22-41b1-8f04-f7abda62bb28@ursulin.net>
+References: <20260520-panthor-bo-reclaim-observability-v4-0-a47ab61cb80d@collabora.com>
+ <20260520-panthor-bo-reclaim-observability-v4-1-a47ab61cb80d@collabora.com>
+ <7c7242b8-eb22-41b1-8f04-f7abda62bb28@ursulin.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,36 +72,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/17/2026 11:54 PM, Dmitry Baryshkov wrote:
-> On Sat, May 16, 2026 at 03:52:08AM +0530, Akhil P Oommen wrote:
->> On 5/15/2026 10:38 AM, Alexander Koskovich wrote:
->>> Adreno 810 is present in the Milos SoC and is the first GPU to be released in
->>> the A8x family.
->>>
->>> This series is marked as RFC because it depends on a few other in review
->>> series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2], and devicetree
->>> support for Glymur [3] (for a8xx RSCC offset fix and X2-185 bindings change).
->>>
->>> Also depends on the GXCLKCTL block for Milos [4], but this is no longer in
->>> review and has been applied.
->>>
->>> [1]: https://lore.kernel.org/linux-arm-msm/20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com
->>> [2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017cc642db@pm.me
->>> [3]: https://lore.kernel.org/linux-arm-msm/20260513-glymur-gpu-dt-v4-0-f83832c3bc9a@oss.qualcomm.com
->>> [4]: https://lore.kernel.org/linux-arm-msm/20260417-milos-gxclkctl-v3-0-08f5988c43a2@fairphone.com
->>>
->>> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
->>
->> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>
->> For the rest of the patches that doesn't have my R-b tag in this series.
+Hello Tvrtko,
+
+On Wednesday, 20 May 2026 16:19:12 Central European Summer Time Tvrtko Ursulin wrote:
 > 
-> Unfortunately patchwork doesn't capture tags from the responses to the
-> cover letter. I'd kindly ask to spam the list with individual r-b's.
+> On 20/05/2026 14:04, Nicolas Frattaroli wrote:
+> > Currently, there's no way to know for certain how much GPU memory was
+> > swapped out. The difference between total and resident memory would
+> > include newly allocated pages, which are not resident, but also aren't
+> > swapped out.
+> > 
+> > Add a new drm_gem_object_status so drivers can signal when an object has
+> > been evicted to swap, and add a new "evicted" counter to
+> > drm_memory_stats.
+> > 
+> > Due to how the supported_flags bitmask is determined, the "evicted"
+> > count won't be printed to fdinfo if there's no swapped out pages.
+> > 
+> > Reviewed-by: Steven Price <steven.price@arm.com>
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >   Documentation/gpu/drm-usage-stats.rst | 6 ++++++
+> >   drivers/gpu/drm/drm_file.c            | 8 ++++++++
+> >   include/drm/drm_file.h                | 2 ++
+> >   include/drm/drm_gem.h                 | 2 ++
+> >   4 files changed, 18 insertions(+)
+> > 
+> > diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+> > index 70b7cfcc194f..ac1dbf52d96d 100644
+> > --- a/Documentation/gpu/drm-usage-stats.rst
+> > +++ b/Documentation/gpu/drm-usage-stats.rst
+> > @@ -202,6 +202,12 @@ One practical example of this could be the presence of unsignaled fences in a
+> >   GEM buffer reservation object. Therefore, the active category is a subset of the
+> >   resident category.
+> >   
+> > +- drm-evicted-<region>: <uint> [KiB|MiB]
+> > +
+> > +The total size of buffers that have been evicted and are no longer pinned by the
+> > +device. Only present if there are buffers that are currently evicted, and if the
+> > +driver implements reporting of this type of memory.
+> 
+> The semantics as tricky to make work in an obvious way.
+> 
+> On one hand the text above is almost exactly the semantics of 'total' - 
+> 'resident'. Almost meaning it was resident at some point, but isn't any 
+> more. Whereas raw 'total' - 'resident' can also mean it never has been 
+> instantiated.
+
+Yes, that is the difference. You cannot tell them apart otherwise.
+
+> You could even have a "workaround" where you report a 'swap' memory 
+> region and then don't need to add anything new to the spec.
+
+I get the idea that technically, swap is its own memory region, but
+evicted is counting memory that panthor knows is currently evicted,
+not necessarily memory that is in swap. Counting pages that would
+*actually* be in swap would probably involve breaking several
+abstractions that shouldn't be broken.
+
+> 
+> Next problem - on paper evicted could be useful to replace driver legacy 
+> keys such as 'amd-evicted-ram'. But that "evicted" is defined as "not in 
+> a the preferred placement". While your evicted is more like "no current 
+> placement" (as in, no GPU accessible backing storage).
+> 
+> Is it possible to find a definition of this new category which makes 
+> sense for different GPUs/drivers, be it integrated or discrete.
+
+Sure, we can make this definition as loose as you need it to be to use
+it in a different driver. I think the difference between "not in a
+preferred placement" and "no current placement (but had a placement in
+the past)" is not a big one for the users of this information; the goal
+is to see how much of the GPU memory of a process has been made non-
+resident by a shrinker.
+
+> Or would simply going for 'drm-total-swap:' (or resident?) work for 
+> panthor? Advantage being it would also work unambiguously for discrete 
+> drivers.
+
+Panthor itself doesn't really know whether something is in swap or
+has just been made non-resident by the drm shrinker. It could be
+somewhere between swap and resident, as Steven Price pointed out.
+
+> 
+> Like the ones which support multiple TTM placements, for example VRAM + 
+> SYSTEM and then next step is swapping out so an extreme example on a 
+> 16GiB GPU + 16GiB RAM machine with a 32GiB gfx workload could be like:
+> 
+> drm-total-vram:		32GiB
+> drm-resident-vram:	16GiB
+> drm-resident-system:	15GiB
+> drm-total-swap:		1GiB
+> 
+> Does this look clear enough? Whereas with the "evicted" category it 
+> would be:
+> 
+> drm-total-vram:		32GiB
+> drm-resident-vram:	16GiB
+> drm-evicted-vram:	16GiB # portion which got demoted to system RAM
+> drm-resident-system:	15GiB
+> drm-evicted-system:	1GiB  # portion which got demoted to swap
+> 
+> Where drm-evicted-vram is redundant to "total - resident". And it is 
+> overloaded semantics as it where does evicted go depending on the 
+> GPU/driver/region.
+
+"drm-evicted-vram" is only redundant to "total - resident" if objects
+that have never been packed by any pages aren't counted in total. This
+is not the case, so I'm trying to fix it by adding evicted to it for
+pages that were backed at some stage, but now aren't backed anymore.
+
+I think "evicted" solves this problem generally in your second example,
+without me having to worry about whether a page is in swap or AMD's
+memory model.
+
+So, to summarise:
+- Panthor does not know how much of the memory that was reclaimed by the
+  shrinker is actually in swap space, so "drm-total-swap" wouldn't work
+  here.
+- "total - resident" measures the wrong thing. Objects that have never
+  been backed are not evicted.
+- I am completely fine with AMD not using this fdinfo memory type due
+  to having more complex eviction handling, but I don't see why it
+  could not be used in this form.
+
+> 
+> Thoughts, opinions?
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+> > +
+> >   Implementation Details
+> >   ======================
+> >   
+> > diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> > index ec820686b302..5078172976c0 100644
+> > --- a/drivers/gpu/drm/drm_file.c
+> > +++ b/drivers/gpu/drm/drm_file.c
+> > @@ -868,6 +868,7 @@ int drm_memory_stats_is_zero(const struct drm_memory_stats *stats)
+> >   		stats->private == 0 &&
+> >   		stats->resident == 0 &&
+> >   		stats->purgeable == 0 &&
+> > +		stats->evicted == 0 &&
+> >   		stats->active == 0);
+> >   }
+> >   EXPORT_SYMBOL(drm_memory_stats_is_zero);
+> > @@ -901,6 +902,10 @@ void drm_print_memory_stats(struct drm_printer *p,
+> >   	if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
+> >   		drm_fdinfo_print_size(p, prefix, "purgeable", region,
+> >   				      stats->purgeable);
+> > +
+> > +	if (supported_status & DRM_GEM_OBJECT_EVICTED)
+> > +		drm_fdinfo_print_size(p, prefix, "evicted", region,
+> > +				      stats->evicted);
+> >   }
+> >   EXPORT_SYMBOL(drm_print_memory_stats);
+> >   
+> > @@ -954,6 +959,9 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+> >   
+> >   		if (s & DRM_GEM_OBJECT_PURGEABLE)
+> >   			status.purgeable += add_size;
+> > +
+> > +		if (s & DRM_GEM_OBJECT_EVICTED)
+> > +			status.evicted += add_size;
+> >   	}
+> >   	spin_unlock(&file->table_lock);
+> >   
+> > diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> > index 6ee70ad65e1f..7e4cb45a52c3 100644
+> > --- a/include/drm/drm_file.h
+> > +++ b/include/drm/drm_file.h
+> > @@ -500,6 +500,7 @@ void drm_send_event_timestamp_locked(struct drm_device *dev,
+> >    * @resident: Total size of GEM objects backing pages
+> >    * @purgeable: Total size of GEM objects that can be purged (resident and not active)
+> >    * @active: Total size of GEM objects active on one or more engines
+> > + * @evicted: Total size of GEM objects that have been evicted
+> >    *
+> >    * Used by drm_print_memory_stats()
+> >    */
+> > @@ -509,6 +510,7 @@ struct drm_memory_stats {
+> >   	u64 resident;
+> >   	u64 purgeable;
+> >   	u64 active;
+> > +	u64 evicted;
+> >   };
+> >   
+> >   enum drm_gem_object_status;
+> > diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> > index 86f5846154f7..799588a2762a 100644
+> > --- a/include/drm/drm_gem.h
+> > +++ b/include/drm/drm_gem.h
+> > @@ -53,6 +53,7 @@ struct drm_gem_object;
+> >    * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
+> >    * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
+> >    * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active submission
+> > + * @DRM_GEM_OBJECT_EVICTED: object is evicted and no longer pinned by driver
+> >    *
+> >    * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
+> >    * and drm_show_fdinfo().  Note that an object can report DRM_GEM_OBJECT_PURGEABLE
+> > @@ -67,6 +68,7 @@ enum drm_gem_object_status {
+> >   	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
+> >   	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
+> >   	DRM_GEM_OBJECT_ACTIVE    = BIT(2),
+> > +	DRM_GEM_OBJECT_EVICTED   = BIT(3),
+> >   };
+> >   
+> >   /**
+> > 
 > 
 > 
 
-There will be another rev to remove the RFC tag which will hopefully
-have my R-b tag. ;)
 
--Akhil
+
+
