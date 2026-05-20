@@ -4,60 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5654CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 06:38:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEE3CCD4F5E
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 06:46:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD9C10E033;
-	Wed, 20 May 2026 06:38:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D9DC10EEFF;
+	Wed, 20 May 2026 06:46:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="najsP0gI";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MPo/MyjF";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2828310E033
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 06:38:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779259099;
- bh=5/0w95zT8qqc5wrj4w7eoqfoe/TewRnWkweqFYLCcvU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=najsP0gIbKnp9RTVVKkSEUmm0+NaIs7t7Va0y1UgYoLC/+/Ukj/MN2cnMT7DXz0d5
- 4vN0GdbUza8rXpkdH7CKb93SoK2a6wAiIKtguyywDBWpEit3IsBdjEZzjoOrBiGDST
- 3ZX5FBS/Ls5pl6IRN9HoXq5GMmOmOq7TxBLRQdDrzV5JrNfnYEJqKAPgywVfXyDBQq
- Y90Tg3hR9eOms5ILHB2YtKGCTLfGITliI2ffF1vERRNXIj78aoVkNSwfIaXDH5WIlv
- YgAevaWQdqM/IY/v+5QfRPzwesoAJa5MF+F/Afsvn0iLdmoIWN8y7kHz8WnJr0dnd3
- WaH/avzLxzX5g==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A2F0717E0698;
- Wed, 20 May 2026 08:38:18 +0200 (CEST)
-Date: Wed, 20 May 2026 08:38:13 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>,
- <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <daniel.almeida@collabora.com>, <acourbot@nvidia.com>,
- <apopple@nvidia.com>, <ecourtney@nvidia.com>, <lyude@redhat.com>,
- <ojeda@kernel.org>, <boqun@kernel.org>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <tmgross@umich.edu>, <driver-core@lists.linux.dev>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 0/6] rust: drm: Higher-Ranked Lifetime private data
-Message-ID: <20260520083813.7addec83@fedora>
-In-Reply-To: <DIMWGLNJ922I.3PCET9O1J83TS@kernel.org>
-References: <20260506221027.858481-1-dakr@kernel.org>
- <DICCEKZ3HU84.34ES3SW3D1FNI@kernel.org> <agYbppHWXk_hW99M@um790>
- <DIIMVPTLV3O5.3Q3DHU66WQZUA@kernel.org>
- <20260519205947.3c9d99b3@fedora>
- <DIMWGLNJ922I.3PCET9O1J83TS@kernel.org>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 079C210EEFF
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 06:46:07 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 72426C2B9FA;
+ Wed, 20 May 2026 06:46:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id AC8436070E;
+ Wed, 20 May 2026 06:46:04 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 7F087107E8EB1; 
+ Wed, 20 May 2026 08:45:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1779259562; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=dKcYje4RS7cFmYoZ2tIYKDA+VMl5+PAkjiozJ5zsCH4=;
+ b=MPo/MyjFKZ6BLm7Xiy+fB0ERKTpIT0x6QG+V098ck6ZrRqCxnovmlWjPKem/Awa8nRtVV+
+ I7TOtCWoxJEkX1bOZTr8+JUy26Fm7leRcwuQQFlxzJWJZbVOgmhNoDitsYwqnkKJqipDxb
+ wiKdpc1Vmww38H2Xkj5bjaekS8bK8sdcWHRGOCiVYkeTHonfCOH8g8BKk+x2s8TPSUrDGA
+ FEczjeTg5EUO/2/MDs29H+6Jq/BSFK9aNLeTpyFGmiUK4/rB4fFd68inDJvxE0BjyFkUBt
+ q8c4k1nLmHbvNtJbKPg0Ce8TtFJzhug7firDgpkrVHalWizJUAcg2FPap/P3VA==
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v7 04/23] drm: bridge: dw_hdmi: Hold bridge ref until
+ connector cleanup
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, Liu Ying <victor.liu@nxp.com>, 
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, 
+ Christian Hewitt <christianshewitt@gmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <e90eddfc-2f57-418a-ae05-43a411d72b99@kwiboo.se>
+References: <20260518180206.2480119-1-jonas@kwiboo.se>
+ <20260518180206.2480119-5-jonas@kwiboo.se>
+ <177919241969.545972.18169905222569864569.b4-review@b4>
+ <e90eddfc-2f57-418a-ae05-43a411d72b99@kwiboo.se>
+Date: Wed, 20 May 2026 08:45:49 +0200
+Message-Id: <177925954999.1337464.14745526881417951688.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,54 +85,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 19 May 2026 21:28:17 +0200
-"Danilo Krummrich" <dakr@kernel.org> wrote:
+Hello Jonas,
 
-> On Tue May 19, 2026 at 8:59 PM CEST, Boris Brezillon wrote:
-> > On Thu, 14 May 2026 21:07:11 +0200
-> > "Danilo Krummrich" <dakr@kernel.org> wrote:
-> >  
-> >> On Thu May 14, 2026 at 8:59 PM CEST, Deborah Brouwer wrote:  
-> >> > let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, data)?;    
-> >> 
-> >> You shouldn't need this anymore as the drm::Registration itself has private data
-> >> now that is bound to the lifetime of the underlying bus device, which should be
-> >> the correct lifetime for juggling the GPU page tables.  
+On 2026-05-19 17:18 +0200, Jonas Karlman wrote:
+> Hello Luca,
+>
+> On 5/19/2026 2:06 PM, Luca Ceresoli wrote:
+> > On Mon, 18 May 2026 18:01:40 +0000, Jonas Karlman <jonas@kwiboo.se> wrote:
 > >
-> > The problem we have is that, to initialize some of the sub-components
-> > of the driver, we need to be able to allocate GEM objects before the DRM
-> > device is exposed (registered), and because the data we want to attach
-> > to the final registration contains these sub-components, we need to
-> > defer the data assignment to the registration step (which was allowed
-> > by [1], but apparently this was dropped from the latest version of
-> > the series for some reason).  
-> 
-> I'm perfectly aware, what I'm saying above is that you probably want to store
-> those GEM objects (that you can create with the previously allocated
-> drm::Device) in the drm::Registration data. This fulfills this requirement *and*
-> ties the lifetime of those GEM objects to the lifetime of the underlying bus
-> device being bound to the driver, which is exactly what you want for GEM objects
-> that contain the device page tables.
+> > Hello Jonas,
+> >
+> >>
+> >> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> >> index b7bfc0e9a6b2..9d795c550f8a 100644
+> >> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> >> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> >> @@ -2600,10 +2609,14 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+> >>
+> >>  	drm_connector_helper_add(connector, &dw_hdmi_connector_helper_funcs);
+> >>
+> >> -	drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
+> >> -				    &dw_hdmi_connector_funcs,
+> >> -				    DRM_MODE_CONNECTOR_HDMIA,
+> >> -				    hdmi->ddc);
+> >> +	ret = drm_connector_init_with_ddc(hdmi->bridge.dev, connector,
+> >> +					  &dw_hdmi_connector_funcs,
+> >> +					  DRM_MODE_CONNECTOR_HDMIA,
+> >> +					  hdmi->ddc);
+> >> +	if (ret)
+> >> +		return ret;
+> >> +
+> >> +	drm_bridge_get(&hdmi->bridge);
+> >
+> > I'm not fully following the code paths, but both the report and the fix
+> > make sense to me. Only I'd move the drm_bridge_get() before
+> > drm_connector_init_with_ddc(), to avoid a short window where no reference
+> > is held and the bridge might be destroyed before drm_bridge_get() is
+> > called. I'm not sure this can happen, but it's better to write the code in
+> > a way that clearly makes it impossible.
+>
+> dw_hdmi_connector_create() is only called from dw_hdmi_bridge_attach()
+> so the bridge should already have a ref for the lifetime of this call.
 
-Yeah, I don't think the problem Deborah was mentioning was about not
-being able to allocate GEMs early on, or making sure those GEMs don't
-outlive the bus-device. Oh, and BTW, we don't use GEMs for the page
-tables themselves, those still go through regular page allocation and
-are entirely handled by the io-pgtable-arm.c logic. We need early GEM
-allocation to populate FW sections, and to map those to the VM attached
-to the FW we need GPUVM too (because the FW also lives behind the GPU
-MMU and has its own page table that's populated by the driver).
+Ah, that's true. So the patch is correct.
 
-What I think Deborah was pointing out is the chicken-and-egg issue,
-where the registration data is only fully populated after all
-sub-components of the drivers have been initialized, and one of these
-sub-components (the FW) needs to allocate GEMs and map them to its VM.
-So, GEM allocation and GPUVM are required are required early on, and
-both want a drm::Device of some sort (Unregistered or Registered). So
-the question is, are you happy with having [1] applied before/after
-your patchset to address this chicken-and-egg issue I mentioned, or are
-you proposing something else (Option<Subcomponent> so that we start
-with all sub-components set to None and progressively populate those,
-which I remember Daniel was strongly opposed to)?
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-[1]https://lore.kernel.org/dri-devel/20260320233645.950190-4-lyude@redhat.com/  
+In case you send a new iteration, please add this extra explanation to the
+commit message, similar to the above paragraph.
+
+> I explicitly chose the placement after drm_connector_init_with_ddc()
+> to ensure ref count is correctly balanced without having to add a
+> drm_bridge_put() call in any error path. I.e. connector destroy() is
+> only called when drm_connector_init_with_ddc() succeeds.
+>
+> This code/call is also planned to be removed in a future series,
+
+In order to remove the !DRM_BRIDGE_ATTACH_NO_CONNECTOR case? That would be
+welcome!
+
+Luca
+
