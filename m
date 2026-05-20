@@ -4,68 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08DFFCD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:29:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F7FCD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 16:40:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2392A10EF9C;
-	Wed, 20 May 2026 16:28:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 824D210EEA3;
+	Wed, 20 May 2026 16:40:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bp5FUk2K";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SsiHupVj";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4B210EEA3;
- Wed, 20 May 2026 16:28:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A542160018;
- Wed, 20 May 2026 16:28:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CACA1F00893;
- Wed, 20 May 2026 16:28:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779294536;
- bh=ZwZzDwBPCLRG9PXoPEmqDXTwIe8HtG/ZkyvqpQ/vJjI=;
- h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=Bp5FUk2KQIbt0M3E/b0CPnjzwUNs8EBJdsRSekRvptNtrj2u2Q6r85nZBPtg7YRn6
- JA2G47fw1QCrApRZngK4nI7hSlYcb7WJKH5BGk4P879upoScY0lHEpsvl1PAxQZsB2
- hk3AWu9VmwY6rnKvdiK1GRHfEDwgccv7DyovfW419RUHt4+t00g4M4HXclIrOPSoOW
- QoyXh9ektqGLBtQJwjOYRI7p5/3qdNyGFFOjy/EZUmEOt1KF9RhhPTAEhJgtQEGerM
- 18IFFGCRrLTktduM0EllzAaMmtb8H/T3fXGgTrESz1TOZ0w3xBHnL834O94HavrBnN
- KFxMy+Dqta4Eg==
-Message-ID: <c78d360919f00e3b6d3fbd56d035488e@kernel.org>
-Date: Wed, 20 May 2026 16:28:52 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Javier Martinez Canillas" <javierm@redhat.com>
-Subject: Re: [PATCH v2 0/8] hdmi: Add common TMDS character rate constants
-In-Reply-To: <20260520144424.1633354-1-javierm@redhat.com>
-References: <20260520144424.1633354-1-javierm@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, "Abhinav
- Kumar" <abhinav.kumar@linux.dev>, "Alain Volmat" <alain.volmat@foss.st.com>,
- "Andrzej
- Hajda" <andrzej.hajda@intel.com>, "Andy Yan" <andy.yan@rock-chips.com>, "Brian
- Masney" <bmasney@redhat.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Chris
- Morgan" <macromorgan@hotmail.com>,
- "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>, "Daniel
- Stone" <daniels@collabora.com>, "David Airlie" <airlied@gmail.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
- "Dmitry Baryshkov" <lumag@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, "Jani Nikula" <jani.nikula@intel.com>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Jonas
- Karlman" <jonas@kwiboo.se>, "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>,
- "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu Ying" <victor.liu@nxp.com>,
- "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Marijn
- Suijten" <marijn.suijten@somainline.org>, "Maxime Ripard" <mripard@kernel.org>,
- "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Raphael Gallais-Pou" <rgallaispou@gmail.com>, "Rob
- Clark" <robin.clark@oss.qualcomm.com>, "Robert Foss" <rfoss@kernel.org>,
- "Samuel
- Holland" <samuel@sholland.org>, "Sean Paul" <sean@poorly.run>, "Shengjiu
- Wang" <shengjiu.wang@nxp.com>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
- Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: quoted-printable
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8E910E206
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 16:40:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7FAB2445FD;
+ Wed, 20 May 2026 16:40:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5CF49C2BCB4;
+ Wed, 20 May 2026 16:40:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1779295242;
+ bh=G7HxiM6tVHMRA1+SUDkrf/cDunwAcZHJbVy1FJcDaBs=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=SsiHupVjJo9Ps48QsvW/PQvk/eAYIKe589CRtEep7PkhnsBEHJfsadgOzZ6z27abX
+ lqn1HZZoew+jYCBV53QWZdGx5/o4s4DXpe2Jsmvix6zUcqprFvYhjm4X97KidIY3Co
+ 1q4G+n2GIrPd1TDeaDeWycVuYjL1quTHsc70HGrrE7Ce5sCuO+HgsX5W2HL7AlA9H4
+ D4+OLrBnGyPUCys25snvgivi+JFgosTjYRneOI3vTfNpHMkvYT7WX8pazGetLDmVmj
+ jG3f0nSIVAnZJ/V6GBkWCPt4KB8uk/y756nr4pg7vRB2LQyVgz90hXnRfyN9pcmTcc
+ h7PD4SxFpDkTw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 50AEECD4F3C;
+ Wed, 20 May 2026 16:40:42 +0000 (UTC)
+From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?=
+ <devnull+jerome.debretagne.gmail.com@kernel.org>
+Date: Wed, 20 May 2026 18:40:12 +0200
+Subject: [PATCH 08/11] arm64: dts: qcom: sc8280xp-arcata: Add lid switch
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-8-9df52552bf87@gmail.com>
+References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
+In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
+To: Douglas Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1758;
+ i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
+ bh=GHQeiThCwLf6jCuaGumAVOSJSuFkPcBJgAyN9IpZc40=;
+ b=TFq+TLgkt9rh2mmnQxevAtdFZW/mL6bEj3bCiaQuvnsozIHkbcz0PNr48IunEMKbZPEb4babO
+ Rh0qYueURAZD0ClBY6MYkYiNZDPJfD5h1ABfmEBMd1FYvX2voBDBNqM
+X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
+ pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
+X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
+ with auth_id=785
+X-Original-From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?=
+ <jerome.debretagne@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,19 +82,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: jerome.debretagne@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 20 May 2026 16:43:36 +0200, Javier Martinez Canillas wrote:
-> Several DRM drivers define their own local macros or use magic numbers for
-> the standard HDMI TMDS character rate limits. Maxime Ripard suggested that
-> instead these common rate constants could be included to a shared header.
->=20
-> This series introduces these constants to the <linux/hdmi.h> header and
->=20
-> [ ... ]
+From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Enable the lid switch for the Microsoft Surface Pro 9 5G using
+GPIO pin 180.
 
-Thanks!
-Maxime
+Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+---
+ .../arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+index a300069b5960dbba28601c418951869c94b63938..4daff3a0ecf48ad2081a2fe98910adf0debef88f 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+@@ -7,6 +7,7 @@
+ 
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/input/gpio-keys.h>
++#include <dt-bindings/input/input.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ 
+ #include "sc8280xp.dtsi"
+@@ -60,7 +61,7 @@ backlight: backlight {
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
+ 
+-		pinctrl-0 = <&vol_down_n>, <&vol_up_n>;
++		pinctrl-0 = <&hall_int_n_default>, <&vol_down_n>, <&vol_up_n>;
+ 		pinctrl-names = "default";
+ 
+ 		key-vol-down {
+@@ -80,6 +81,15 @@ key-vol-up {
+ 			linux,can-disable;
+ 			wakeup-source;
+ 		};
++
++		switch-lid {
++			label = "lid";
++			gpios = <&tlmm 180 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			wakeup-source;
++			wakeup-event-action = <EV_ACT_DEASSERTED>;
++		};
+ 	};
+ 
+ 	pmic-glink {
+@@ -1032,6 +1042,13 @@ edp_reg_en: edp-reg-en-state {
+ 		bias-disable;
+ 	};
+ 
++	hall_int_n_default: hall-int-n-state {
++		pins = "gpio180";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
+ 	nvme_reg_en: nvme-reg-en-state {
+ 		pins = "gpio135";
+ 		function = "gpio";
+
+-- 
+2.47.3
+
+
