@@ -4,135 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EF7ACD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:27:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB1BACD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:34:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC23110EFC4;
-	Wed, 20 May 2026 09:27:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2185310E00F;
+	Wed, 20 May 2026 09:34:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CguKW0f1";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cP9xn0Mo";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="SxcSqpdP";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 445A710EFC1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:27:16 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64K6sv0x1237939
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:27:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=hwFSqLR4fpm13sa0D0efQGvW
- DEFilp39Rn2bMzFZjXI=; b=CguKW0f1/oa9iLjLJAnIvNnrhQ6hSHfeMxIKQ+EG
- /Wz6nw2E2WCVqC/mprBsug77BOw6k8WTP5SlSK4TMcCA5F+DaUp/sXNH3oOdWVDr
- 1xqyVTrJoOb+yj1iLjCVO+aawdVvaj4HHBERil50voclaypsElS3cHjnaVsvDWPP
- qzX5P9u06MzPF8U+58EgMJ6PGSbT+EdVFk8UOAFe67Kcn8jSIHwwKjHcM4km405f
- bgXtDBd0ICAW7VwLjH6sBHJiuLxxCE9dj3bmzsBbrADEqGvyKGJZcd3W9uaPpeIl
- j0yahgnCfxLcEuR/BmQPRmKTlG68BcxsNsQH+Mkip6MJQQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3sv45a-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:27:15 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50ea1a7a5d0so135801441cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 02:27:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779269233; x=1779874033;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=hwFSqLR4fpm13sa0D0efQGvWDEFilp39Rn2bMzFZjXI=;
- b=cP9xn0Mo5bd3/frmtvaGwjnzRRrWjOdhpVbnbAHjPSV73R0/4fPex77OegWYMCcdnT
- o/gh4NH0rrWVS5Yzi/fbQOvQiHV9dO3o/m9Bj8S2p2WoqhWnyBItKKeLRwh/Fv4g2n4m
- 46b10QHRUgCNAi7Kj1ZqEP390Fzn9EjtpadwvJZE/F4ZbEjJRZoc2M+kwRyHBb9HjaCB
- nN54x02Qh00IK+H2S0B2ZOl7H8gYGz+hSMUKfRAFvaY32pXXxfzNYTjn1AkwakQSnT7Y
- vsCOVMPih/5nj6iTES++0kR0FNtfUuSguw6GxpelFnhDT+eg3xTiwKhdBYq/gNdgxUIg
- KE7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779269233; x=1779874033;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hwFSqLR4fpm13sa0D0efQGvWDEFilp39Rn2bMzFZjXI=;
- b=QgQJ0iUAoEZsmt2iNknwxfCfKug6QO2ym7dET6+VsgjezmO6tCGxIIM6T7Qrn67ByM
- Vpf93/VlzpwOZRSpbzaJzSptAs58dUfONJrQASm6//Q+RqX3FebcUuqqbeFH5B1DUNd4
- oBjqzcNuFMz+vX5At8sLUs7bTQ7H9goL9YcCoglFGjvol5PQo1RfnEFhQuCu9oc0fwxS
- qv140ehAI5MdIncZDfpS/P+SqkPfU43Ur8HksAsBTtRh+R8KluXfKPWqiljfO9NGEgw7
- Zt4xIqeucFVNm6GH319JLhhjPC3sYK1YcZibIZFDHbim/cvl8zn+y3NBCbGuPrtR3e6w
- XRIA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8uOj80ONKJz69h5qJ80+yYLa3uqmohsl75Bgte9mRtibi8n00kMsEVtLjQiLyyUNih3h375nt3x9w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyrMJbX+oRrlXWzPyMAmKWyiN20liaB8F6G7xMmOk+Y4PPsz8Fe
- J+c7D77yKxnEr1cUGVeQVNh+xCuNlbPnBiNSZbl1xpBbBpp0klLre9hpyfVFLjUlLyPty84n7DL
- ydvvtgN7XCYwPSketk9WfYikNVdyiyfpLDIFxW1azfcX1WffXInA5FCvSZlABvWzVbhbD4X4=
-X-Gm-Gg: Acq92OH6y9cNOTdGKjMRpVnSq9aXq2iEtq1qMKGKcQEKfa1KcisRjgBGkjIV1cH0lGI
- Ye5RNpmouosNFYpxMyiiWd05iMgctGMZ8mpscla9FYVQCDRImM2ZpKDBhmTUiyHAYtIqmFw96f/
- 5dp1mNoUp99UO4+JoD3yL4gKPoEkR+0L3IbWm3qfL2rkqeiWGmQyIv3qjDHZD3HNVv0ostIBRGS
- xVdLTV2X5MwuKG8Bz2RgbcosS9zUtRi18/dcDQzUD2O16l+uTgH3mV5i22Om1AuHLtpInS2o525
- YcnB+3S0vGbTYpfwg2t1BR1IWWDmGc+FMjY5Oj9JwIHMzrfk2gCBtAtoNq0Hwm6hDovihagzPuw
- nL8acOlAeWM1ZGcgg3Q21rPvQ8M2GhapRX6VcJNdMA43UF7bKEkKeqXGTc6+2kH9wBl+VOdXb6Q
- 2+EngiuKtZ39Qao6NTi/3fxa3+WoB2egpXK+M=
-X-Received: by 2002:ac8:57cd:0:b0:50e:614c:661f with SMTP id
- d75a77b69052e-5165a040625mr318760161cf.20.1779269232530; 
- Wed, 20 May 2026 02:27:12 -0700 (PDT)
-X-Received: by 2002:ac8:57cd:0:b0:50e:614c:661f with SMTP id
- d75a77b69052e-5165a040625mr318759761cf.20.1779269231992; 
- Wed, 20 May 2026 02:27:11 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a90f10ca5esm4783245e87.16.2026.05.20.02.27.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 02:27:10 -0700 (PDT)
-Date: Wed, 20 May 2026 12:27:09 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v4 13/39] drm/msm/dp: introduce stream_id for each DP panel
-Message-ID: <qv4ytuoojd34ls3mstj7jdb6kqptooavhbnidbnvqtodwfr6kb@qfvqsgs5vqb5>
-References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
- <20260410-msm-dp-mst-v4-13-b20518dea8de@oss.qualcomm.com>
- <nzouhzeoimf32nwbm2qjecopildvmlay4t4xxshufsjaydmwlc@bnfom377r5b2>
- <a018705f-13c9-4e96-995e-b358778b0996@oss.qualcomm.com>
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020122.outbound.protection.outlook.com [52.101.196.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF61D10E00F
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:34:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jpADTVA74BEL3eu9bacwgSrJjIy6OEguFEyzL6EJQ9eTlJJvMX0PXj+3RSHPiwB+EoZ4sLdKvJ/IUbeNouOrWGFskKKHNTKv+Se7JqaKqTSZBx0Cf97W68/C96U8pMD4PT5VT8ky2xb0kSz8meax7oRkNjzi0u5/Avi01gg5L3kpbzZPP0iuSNaFwtpc5JeTRvUQxO5Hl6go8m2H31kdtf83lyaOxTVUtFfAwuQS0X9ShryooApzI34dEzcd0PFkndKYjEeZFUNt9W3vK5RbkoFQ1iQ8snm3V3RWL+xTKmQk/EMzc+oIgEZZsZjbH6jpHWlet78vZRz74ArBgmQpaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jLGcgB8nBpYfFOUPbPBvDqqhdb2KEo5KI2QMkoeuniA=;
+ b=zHWduLrPepC4u0vtFLcX+ZR2bfbO9/TqGTin8HM4sBsf3oU39iGz7yIT3pfy68i/Cf4LlrKP8iO2aoPVpv+1ywEpC740Lj07kQsvpJvDNjgMxjzCgldsVzJNV9cQOg1NoiR5tvUcrgTRXp0qWVS12+4x9Wl6x3LidluNv6gaT2NSu8JCTiT2/YSfPzBXqB5XGU/3N2COoRLLrwHrPB+bbYuxee0LsHIDA/LQO92jm5q6AT8etefKacft+s0SP95gDpRWhw1FGEMlJljd0XFuSF83nRqvpdTY/sQ8Ni3It1eRAJZAKzU5P6JmpX48vsxIPvzzzcD+Zh3Fjx1/yHiYCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jLGcgB8nBpYfFOUPbPBvDqqhdb2KEo5KI2QMkoeuniA=;
+ b=SxcSqpdP/WzEBBSBwVMTI/YQYfQPlXF5mC9H1BELmHfrTAwcY3oMGPryrr5v5aex5mMqCd7O7LVLL+iRhvoePXIn6KaRX3I20M1CVxH9Zlio9BM19d1Zla1S+AZTIH5ZRkdQwUzNLUPloL6V1p1kKO3CI4i/usctaubVtrlkFXU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
+ by LO0P265MB6962.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2eb::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 09:34:06 +0000
+Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0048.016; Wed, 20 May 2026
+ 09:34:06 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 20 May 2026 10:34:05 +0100
+Message-Id: <DINEG6ZL6D2Y.239EMAC9FOLWU@garyguo.net>
+Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
+ <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
+ <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v3 17/27] rust: auxiliary: generalize Registration over
+ ForLt
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260517000149.3226762-1-dakr@kernel.org>
+ <20260517000149.3226762-18-dakr@kernel.org>
+ <DIMSZMCNTRA0.29WGE6IL25A6Q@garyguo.net>
+ <DIN2Y5PNWGVO.EOA9SQPOFYX2@kernel.org>
+In-Reply-To: <DIN2Y5PNWGVO.EOA9SQPOFYX2@kernel.org>
+X-ClientProxiedBy: LO2P265CA0456.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:e::36) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:400:27c::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a018705f-13c9-4e96-995e-b358778b0996@oss.qualcomm.com>
-X-Proofpoint-GUID: XcIHkXms5YhvhtqWCC5EdaH6yPDazIWM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA5MCBTYWx0ZWRfX92z8sPtOC1Q1
- NwXnOIpf0i8EDg1we2BhJLSohPdiQje1s3pwh+4I5m0cN6pVZWTi/BJx/0DoQw0x/8PxKXpzgnO
- kpOBMeC9/HvfY5CervlE2V33aaH0L+zjtrkHxq/Wl5kWjn3rlS9LBD9DxslmdQrsX+erLLcerwI
- x44kLLoDn1OTou45rzRJVqc/sPTyaA/eTw+8yfZCn8kFm+3c8uuLbCpdbI16OjOkhnrcWKN5HVs
- VoXsfzf0vXn/1gNG0ZBgCq2FQm/2NKMh6gD5YZ30NfHNK/t7kaNd+SKbDRZCb00jNNKCPLrrGDD
- NtKRtAGT4Sxcv28rIiMM0Ejef5DfiV43Mp6Uvhmpt3Gfh0FErZA5borLiPh5RWk9hNfsHiB0Bxh
- NqEATYanvm5Pv1ZFqez60SYhvZ6PATiktcNQTOyFU1v4/jbjbmgplvUDRvYDqD0S0fO7+p0a/g+
- I22qedsmsK0mIKtx0lg==
-X-Proofpoint-ORIG-GUID: XcIHkXms5YhvhtqWCC5EdaH6yPDazIWM
-X-Authority-Analysis: v=2.4 cv=SNhykuvH c=1 sm=1 tr=0 ts=6a0d7e73 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=5QDKDTwAGq_DmF9AEKQA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 bulkscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 priorityscore=1501 malwarescore=0 phishscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605200090
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO0P265MB6962:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a7847a1-b809-4f45-271c-08deb652f000
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|366016|10070799003|4143699003|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: bA9WX60J4RtWPChaIAPWiEoJtiLWeO/xM4WLMppPnBBUA4Fn88P3ZYIO67S72rXlCRp2YO7eNDMDemM0Vtj7zbjehsbNF6PylzfbOrNOItfvH2RjNeJrxB4Q4X2qyjBcZEueur0zlFkvhKgzQ8VxbXdllqJ8gVyDYjwLkXc0ntllX/PKxPCY/rfdPWu1oZw+m0Vf1vpruFD3nrhE/+H1OQDJ9bH9hKN96u4sr9qHpm2Vudvy8e6uodM0DhAhLSZC6C4FB0yTGPhZ97LMYHwYPnQtddD7fodD72xvK27+fhtyOKF4k0UwMR6v/ejOpxbOJLeRiOmPfMEi86w9VPjOTacd5JyjEWUGjHl+LAfrXgQmWfGlQiqURaV2KUctbT/Q3UD3vbkP5/por/OWc3r/+p+/cIyyGW0PznE/A0Tps3+QG0ldLt4jev3XhPFtioRuTirPCyBsYGbEEniIZWgCgdXDLEFPFBtt/+FS5r9ws/SDRM2Vi2arn2x4nJZg/IfLRvfxMn/Fm5zn/+6vZhp0gdKWKWVb6/g0667ZARbU+RTOYhQ213/stU4EEqoGnid48yT7vZGeu1bIBtMDqb5V5hn7o7h9UeuchLJOu+WC/7ARf/9JVSxqUnICxDDNORS6w1vZkSgZCPpubFH23nuKwRTIv3oxhVqcuB8VAjRMxAu59k3zn8u79vXTs0c1QLpq
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(10070799003)(4143699003)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V1lLam4zcGFYZUlyRTdPaUdEUFZWcFRtVzZrZDRUdHJUZVJvZlFDcjlqQVh5?=
+ =?utf-8?B?QVkzRnNoc21qNTNtYjRkVTFVVHpIQzlvM2Eyd096UXE4WDJZb3dScElLRXlG?=
+ =?utf-8?B?ak92VGRhait3VFcxOTVuT01jWnBqT0o2Q3hESEFIcmw5M0R0M2xpL1VGK1dv?=
+ =?utf-8?B?UHVaZGFXVkVFbkpERDJzODhrN1ZlNXZjd0w1Y0pjWU5GZEE3TnRhaDM0SEVo?=
+ =?utf-8?B?NmNWZm4rTVNCTno2L0ZXU3ZTcnBsMHQ0MkRTdHZKNkJWcmZ4Njhxd1grUjBE?=
+ =?utf-8?B?eFpQR2tQc2ZCWTFPRDQweXBvZlFsbHRGdExKYkpSWUoxSmd0UVFubTZ6cmho?=
+ =?utf-8?B?TzZpSVkxcnYxSkFpNzdCUVk5ZGxOUVIrZFJiSVl4dm1scCtwSStwZXcxdW9D?=
+ =?utf-8?B?a0pza0tQYy80RUJXTW9BelRnaFNWYnE3M1VDK1RYVUt1bW5TQjNvVWlwMGFX?=
+ =?utf-8?B?QVc1OGNxQ1pLMXVuV3JaT3VOL3JtV2gzdnJDc0pUb0lzdkdNUEhwQUpCWmlU?=
+ =?utf-8?B?cFBrcExkdTVpQm11cWtnZ0FtVHhWNGlJUGtuNDBKOVAyc2ViQ1lTOTFuTThK?=
+ =?utf-8?B?Nnd5cTJxSzl3ci9FeXpYb2w5aTBYV21mRlArUU5nYlpGcmlhVm1ZZWdSZWxw?=
+ =?utf-8?B?THJIQk1IOTVibngvSlppMFNYV0k5TVYxWWtwV0NjOCt0b3ZwaUV3UE1FT0Zs?=
+ =?utf-8?B?cTNMRTBmTzNFeStiOHRNQ1FtUEloK3pBUTRMRWtINmFnM2FCeUFyUmNGbklL?=
+ =?utf-8?B?aUV3R01sZmY1U3d1TWNOUmgzNG9lYlk4dlRDYjBGQmdqcHpRMFdZYTFpWmg1?=
+ =?utf-8?B?SWlJK1RGQVU0WnVDZDNEN0FFbVU1UDdBbzdJU1lRYlRCSGJjY3pHcTl1ZEU2?=
+ =?utf-8?B?c0Z1NzBpN1ZrcmZibW9UeTZUSFc5ZW1hUGh3am9iODRJSnFrdkI1MFozeE15?=
+ =?utf-8?B?Ync4RXRyMWozZ2srS3c3Mk8wdVJTOEd3NTg2a3Iwdzlzci85Z3diV0FjcG9X?=
+ =?utf-8?B?RzdaSzYwdmVldVlVMDJMYnBORk1GNjFkV1FBTGx2ZGhCTmhmQkJ3L3g4eEZX?=
+ =?utf-8?B?LzBZaS9MekRBbkJIQVZoTzRqWmFZZTd4NkpzQUlYNnY5YkVmaklVUmFlWVRa?=
+ =?utf-8?B?d25oWjIwSGVmTnV6VERUQW44T0RXa1gwY0wzV2tONFM0SWVFakx5Y0l4bUtx?=
+ =?utf-8?B?ZGRyWDRybEUrNThRQysvRUpMbUlXOEl0c0hpOVFlelZTa1RPcTgxcTR1cVVG?=
+ =?utf-8?B?RE8wem1CSTl4ejFEWGtHejhuVjIzQk1Uc0duUFdKZlNZeFVhSFpUNVJ2UDBo?=
+ =?utf-8?B?aXROQXpXcFc4ZVBIcjhXd2Y3WVlHellJbzBhb0RlZzl5ak1Bd0xLR0MyQ0xU?=
+ =?utf-8?B?M05nWENjSmt3eEdndEpINE5rMUNCbFd2ODRtckUrRDZrM0pUQjNqNmswQUhz?=
+ =?utf-8?B?U3dFT0JFamV1ajdNZ0tDVGdJMHFlK0dONDYvMjZLL0x2RzM1ZDcvOUhLM0Ex?=
+ =?utf-8?B?Z2U0a0lRQ3lHTmpIZUVoYU1TUVp2SVJlMEdaMWZEMVp0SVJrd04wenlpb1lp?=
+ =?utf-8?B?N2RqNjFZbjhrazhsWnJsUmxQMC9tcDlqaGEzY2pBRGREL0JFVjNWSFZkcEpr?=
+ =?utf-8?B?ZXY4aW9FMVJtbm9xV2VoaU1uaWZ3ZTMvSVpMaE9jVjdReVF2TEZrUkkySzFR?=
+ =?utf-8?B?NENONWxrQnkybXVSSy9qQzhvMnNyU24wbDZQaU1FWWN6VWhWRjhxVnNtSnBu?=
+ =?utf-8?B?WWZKRVhMZi82TXlJbmdpemlvNFZmNUZOTk52Y0wzSXB2UDhQRUw1Z0krZUMv?=
+ =?utf-8?B?TDQ0VVd2R1FwQTQxdDRLTENKU3JoVGhIdnBBTW9pN09xaXBBbGRsWmJFN3pX?=
+ =?utf-8?B?U2syb3lpVGNVcmVRV3JQZjFhS2xGL0VZc0FNV28xTnBiR0N1SXdWQis4NGd1?=
+ =?utf-8?B?eEVORUVtZ1dyTmlqUS9Ib1c3SjlsTVlzUHFnays0K2FKam9zK1Q5Q3JDRC9O?=
+ =?utf-8?B?ZzY2eHREQmZWaVVIdjBTaHQrTk9SYmE0YitNQittWnFWTHU1Q0JkR3FGQUdk?=
+ =?utf-8?B?cXl1NDUyYzlkUitaZ2J2WDdCZGtTYW1WS2F2MnpNbEE4TEQwbCtzaHFxVFY2?=
+ =?utf-8?B?aTNlZzF1VEo3amJkY2dXTEN3UFlERXpXQTRzRlEvQW5yYWtoU2F6dnAyM3U5?=
+ =?utf-8?B?NGRDR3hKd1NIaHRiMlc0OUdRM1M1d1FWNzZESGJYb09ZMDZwUnBQd2k3VHNn?=
+ =?utf-8?B?RzVvZWhWQzNHUlJISzNNSzFBQzlSNStFVTdUNVlaUTlXT2tNa0lrRjBoYWQw?=
+ =?utf-8?B?SkV2eWJORGVKU0p5OTZVWElDWmJ6b0VxUFNVd2pvWWVQdU5sajEvdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a7847a1-b809-4f45-271c-08deb652f000
+X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 09:34:06.4913 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4IGzCMP1aXvzAn5V+384ZJAeVTBOp5/IUXG4zApM9J7oB29oP2nHuZ80hImyqSoTSmuexerbBtalBH5Ady9TZw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6962
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,140 +150,251 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 19, 2026 at 04:26:21PM +0800, Yongxing Mou wrote:
-> 
-> 
-> On 4/12/2026 1:55 AM, Dmitry Baryshkov wrote:
-> > On Fri, Apr 10, 2026 at 05:33:48PM +0800, Yongxing Mou wrote:
-> > > From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > 
-> > > With MST, each DP controller can handle multiple streams.
-> > > There shall be one dp_panel for each stream but the dp_display
-> > > object shall be shared among them. To represent this abstraction,
-> > > create a stream_id for each DP panel which shall be set by the
-> > > MST stream. For SST, default this to stream 0.
-> > > 
-> > > Use the stream ID to control the pixel clock of that respective
-> > > stream by extending the clock handles and state tracking of the
-> > > DP pixel clock to an array of max supported streams. The maximum
-> > > streams currently is 4.
-> > 
-> > Please mention that panels are going to be dynamically assigned to
-> > actual stream IDs.
-> > 
-> Got it. will update next patch.
-> > > 
-> > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> > > ---
-> > >   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 57 +++++++++++++++++++++++--------------
-> > >   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
-> > >   drivers/gpu/drm/msm/dp/dp_display.c | 24 ++++++++++++++--
-> > >   drivers/gpu/drm/msm/dp/dp_display.h |  2 ++
-> > >   drivers/gpu/drm/msm/dp/dp_panel.h   | 11 +++++++
-> > >   5 files changed, 71 insertions(+), 25 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> > > index 120ec00884e5..fb6396727628 100644
-> > > --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> > > +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> > > @@ -127,7 +127,7 @@ struct msm_dp_ctrl_private {
-> > >   	unsigned int num_link_clks;
-> > >   	struct clk_bulk_data *link_clks;
-> > > -	struct clk *pixel_clk;
-> > > +	struct clk *pixel_clk[DP_STREAM_MAX];
-> > >   	union phy_configure_opts phy_opts;
-> > > @@ -139,7 +139,7 @@ struct msm_dp_ctrl_private {
-> > >   	bool core_clks_on;
-> > >   	bool link_clks_on;
-> > > -	bool stream_clks_on;
-> > > +	bool stream_clks_on[DP_STREAM_MAX];
-> > >   };
-> > >   static inline u32 msm_dp_read_ahb(const struct msm_dp_ctrl_private *ctrl, u32 offset)
-> > > @@ -2176,39 +2176,40 @@ static bool msm_dp_ctrl_send_phy_test_pattern(struct msm_dp_ctrl_private *ctrl)
-> > >   	return success;
-> > >   }
-> > > -static int msm_dp_ctrl_on_pixel_clk(struct msm_dp_ctrl_private *ctrl, unsigned long pixel_rate)
-> > > +static int msm_dp_ctrl_on_pixel_clk(struct msm_dp_ctrl_private *ctrl, unsigned long pixel_rate,
-> > > +				    enum msm_dp_stream_id stream_id)
-> > >   {
-> > >   	int ret;
-> > > -	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
-> > > +	ret = clk_set_rate(ctrl->pixel_clk[stream_id], pixel_rate * 1000);
-> > >   	if (ret) {
-> > >   		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
-> > >   		return ret;
-> > >   	}
-> > > -	if (ctrl->stream_clks_on) {
-> > > +	if (ctrl->stream_clks_on[stream_id]) {
-> > >   		drm_dbg_dp(ctrl->drm_dev, "pixel clks already enabled\n");
-> > >   	} else {
-> > > -		ret = clk_prepare_enable(ctrl->pixel_clk);
-> > > +		ret = clk_prepare_enable(ctrl->pixel_clk[stream_id]);
-> > >   		if (ret) {
-> > >   			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
-> > >   			return ret;
-> > >   		}
-> > > -		ctrl->stream_clks_on = true;
-> > > +		ctrl->stream_clks_on[stream_id] = true;
-> > >   	}
-> > >   	return ret;
-> > >   }
-> > > -void msm_dp_ctrl_off_pixel_clk(struct msm_dp_ctrl *msm_dp_ctrl)
-> > > +void msm_dp_ctrl_off_pixel_clk(struct msm_dp_ctrl *msm_dp_ctrl, enum msm_dp_stream_id stream_id)
-> > >   {
-> > >   	struct msm_dp_ctrl_private *ctrl;
-> > >   	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
-> > > -	if (ctrl->stream_clks_on) {
-> > > -		clk_disable_unprepare(ctrl->pixel_clk);
-> > > -		ctrl->stream_clks_on = false;
-> > > +	if (ctrl->stream_clks_on[stream_id]) {
-> > > +		clk_disable_unprepare(ctrl->pixel_clk[stream_id]);
-> > > +		ctrl->stream_clks_on[stream_id] = false;
-> > >   	}
-> > >   }
-> > > @@ -2228,7 +2229,7 @@ static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl
-> > >   	 * running. Add the global reset just before disabling the
-> > >   	 * link clocks and core clocks.
-> > >   	 */
-> > > -	msm_dp_ctrl_off_pixel_clk(&ctrl->msm_dp_ctrl);
-> > > +	msm_dp_ctrl_off_pixel_clk(&ctrl->msm_dp_ctrl, ctrl->panel->stream_id);
-> > 
-> > Why are we using ctrl->panel again here for the stream-related
-> > functions? Didn't you got rid of its usage few patches ago?
-> > 
-> For MST path, we pass panel to the func. For SST case, we still need to pass
-> the sst panel to func, in here it is ctrl->panel.. in dp_display, it is
-> dp_display->panel.
+On Wed May 20, 2026 at 1:33 AM BST, Danilo Krummrich wrote:
+> On Tue May 19, 2026 at 6:45 PM CEST, Gary Guo wrote:
+>> On Sun May 17, 2026 at 1:01 AM BST, Danilo Krummrich wrote:
+>>> +    pub fn new<'bound, E>(
+>>> +        parent: &'bound device::Device<device::Bound>,
+>>>          name: &CStr,
+>>>          id: u32,
+>>>          modname: &CStr,
+>>> -        data: impl PinInit<T, E>,
+>>> +        data: impl PinInit<F::Of<'bound>, E>,
+>>>      ) -> Result<Devres<Self>>
+>>
+>> I think this is unsound for the reason that I gave in another email
+>> https://lore.kernel.org/rust-for-linux/DIMSJVKTYX6D.AEN6OPPC2898@garyguo=
+.net/.
+>
+> Indeed, this has to be fixed. I looked into the options brought up in the=
+ linked
+> reply, i.e. the "new type" approach and the "closure" approach. And after
+> playing around with both of them, I'm not really satisfied with either of=
+ those.
+>
+> The "new type" one is simple and works, but has the disadvantage that, we=
+ll, we
+> need a new type and update all callsites where we would ever want to crea=
+te
+> registrations (mainly probe though).
+>
+> The "closure" one on the other hand creates a little bit of an odd API an=
+d by
+> its nature does not allow to move pre-existing resources into the closure=
+, which
+> is a major limitation (maybe there is some way, but if so I didn't find i=
+t).
+>
+> I instead went with something else: Currently we return a
+> Devres<auxiliary::Registration<_>>. However, since we're moving to lifeti=
+mes
+> anyway, we can just return an auxiliary::Registration<'bound, _> instead,=
+ which
+> makes the return type invariant over 'bound, which makes the problem go a=
+way
+> naturally.
+>
+> Please find the diff below for reference.
+>
+> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
+> index 5acece8e369a..c784426b8092 100644
+> --- a/rust/kernel/auxiliary.rs
+> +++ b/rust/kernel/auxiliary.rs
+> @@ -12,7 +12,7 @@
+>          RawDeviceId,
+>          RawDeviceIdIndex, //
+>      },
+> -    devres::Devres,
+> +
+>      driver,
+>      error::{
+>          from_result,
+> @@ -408,12 +408,12 @@ struct RegistrationData<T> {
+>  /// `self.adev` always holds a valid pointer to an initialized and regis=
+tered
+>  /// [`struct auxiliary_device`] whose `registration_data_rust` field poi=
+nts to a
+>  /// valid `Pin<KBox<RegistrationData<F::Of<'static>>>>`.
+> -pub struct Registration<F: ForLt + 'static> {
+> +pub struct Registration<'bound, F: ForLt + 'static> {
+>      adev: NonNull<bindings::auxiliary_device>,
+> -    _data: PhantomData<F>,
+> +    _phantom: PhantomData<(fn(&'bound ()) -> &'bound (), F)>,
 
-This doesn't sound correct. How do we differ between MST and SST in
-dp_ctrl functions? I'd really store the panel only in
-dp_display_private, passing it as required.
+The type itself may be invariant over the lifetime, but it would still acce=
+pt a
+shorter lifetime (which again, is a case where I think having 'bound become=
+s a
+factor for confusion).
 
-> > >   	msm_dp_ctrl_off_link(&ctrl->msm_dp_ctrl);
-> > >   	ret = msm_dp_ctrl_on_link(&ctrl->msm_dp_ctrl);
-> > > @@ -2238,7 +2239,7 @@ static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl
-> > >   	}
-> > >   	pixel_rate = ctrl->panel->msm_dp_mode.drm_mode.clock;
-> > > -	ret = msm_dp_ctrl_on_pixel_clk(ctrl, pixel_rate);
-> > > +	ret = msm_dp_ctrl_on_pixel_clk(ctrl, pixel_rate, ctrl->panel->stream_id);
-> > 
-> > And here...
-> > 
-> > >   	msm_dp_ctrl_send_phy_test_pattern(ctrl);
-> > > @@ -1451,6 +1469,8 @@ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display)
-> > >   	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
-> > > +	msm_dp_display_set_stream_info(msm_dp_display, dp->panel, 0);
-> > 
-> > DP_STREAM_0
-> > 
-> > > +
-> > >   	rc = msm_dp_display_enable(dp);
-> > >   	if (rc)
-> > >   		DRM_ERROR("DP display enable failed, rc=%d\n", rc);
-> > 
-> 
+You can still pass in a shortened lifetime to `Registration::new` and then =
+leak
+a registration (yes, Leakpocalypse strikes again), so the invariance here i=
+sn't
+actually serving purpose.
 
--- 
-With best wishes
-Dmitry
+    fn bad_fn(dev: &device::Device<device::Bound>, buf: &[u8]) {
+        forget(Box::pin_init(Registration::new(dev, c"foo", 0, c"bar", buf)=
+))
+    }
+
+Best,
+Gary
+
+>  }
+> =20
+> -impl<F: ForLt> Registration<F>
+> +impl<'bound, F: ForLt> Registration<'bound, F>
+>  where
+>      for<'a> F::Of<'a>: Send + Sync,
+>  {
+> @@ -421,13 +421,13 @@ impl<F: ForLt> Registration<F>
+>      ///
+>      /// The `data` is owned by the registration and can be accessed thro=
+ugh the auxiliary device
+>      /// via [`Device::registration_data()`].
+> -    pub fn new<'bound, E>(
+> +    pub fn new<E>(
+>          parent: &'bound device::Device<device::Bound>,
+>          name: &CStr,
+>          id: u32,
+>          modname: &CStr,
+>          data: impl PinInit<F::Of<'bound>, E>,
+> -    ) -> Result<Devres<Self>>
+> +    ) -> Result<Self>
+>      where
+>          Error: From<E>,
+>      {
+> @@ -439,8 +439,10 @@ pub fn new<'bound, E>(
+>              GFP_KERNEL,
+>          )?;
+> =20
+> -        // SAFETY: Lifetimes are erased and do not affect layout, so Reg=
+istrationData<F::Of<'bound>>
+> -        // and RegistrationData<F::Of<'static>> have identical represent=
+ation.
+> +        // SAFETY: `'bound` is invariant (via `Registration`'s `PhantomD=
+ata`), guaranteeing it
+> +        // represents the full binding scope. Lifetimes do not affect la=
+yout, so
+> +        // RegistrationData<F::Of<'bound>> and RegistrationData<F::Of<'s=
+tatic>> have identical
+> +        // representation.
+>          let data: Pin<KBox<RegistrationData<F::Of<'static>>>> =3D
+>              unsafe { core::mem::transmute(data) };
+> =20
+> @@ -487,18 +489,16 @@ pub fn new<'bound, E>(
+> =20
+>          // INVARIANT: The device will remain registered until `auxiliary=
+_device_delete()` is
+>          // called, which happens in `Self::drop()`.
+> -        let reg =3D Self {
+> +        Ok(Self {
+>              // SAFETY: `adev` is guaranteed to be non-null, since the `K=
+Box` was allocated
+>              // successfully.
+>              adev: unsafe { NonNull::new_unchecked(adev) },
+> -            _data: PhantomData,
+> -        };
+> -
+> -        Devres::new::<core::convert::Infallible>(parent, reg)
+> +            _phantom: PhantomData,
+> +        })
+>      }
+>  }
+> =20
+> -impl<F: ForLt> Drop for Registration<F> {
+> +impl<F: ForLt> Drop for Registration<'_, F> {
+>      fn drop(&mut self) {
+>          // SAFETY: By the type invariant of `Self`, `self.adev.as_ptr()`=
+ is a valid registered
+>          // `struct auxiliary_device`.
+> @@ -520,7 +520,7 @@ fn drop(&mut self) {
+>  }
+> =20
+>  // SAFETY: A `Registration` of a `struct auxiliary_device` can be releas=
+ed from any thread.
+> -unsafe impl<F: ForLt> Send for Registration<F> where for<'a> F::Of<'a>: =
+Send {}
+> +unsafe impl<F: ForLt> Send for Registration<'_, F> where for<'a> F::Of<'=
+a>: Send {}
+> =20
+>  // SAFETY: `Registration` does not expose any methods or fields that nee=
+d synchronization.
+> -unsafe impl<F: ForLt> Sync for Registration<F> where for<'a> F::Of<'a>: =
+Send {}
+> +unsafe impl<F: ForLt> Sync for Registration<'_, F> where for<'a> F::Of<'=
+a>: Send {}
+> diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_dr=
+iver_auxiliary.rs
+> index 84d18bbfafc5..efb4d97b416b 100644
+> --- a/samples/rust/rust_driver_auxiliary.rs
+> +++ b/samples/rust/rust_driver_auxiliary.rs
+> @@ -10,7 +10,6 @@
+>          Bound,
+>          Core, //
+>      },
+> -    devres::Devres,
+>      driver,
+>      pci,
+>      prelude::*,
+> @@ -58,29 +57,29 @@ struct Data<'bound> {
+>  }
+> =20
+>  #[allow(clippy::type_complexity)]
+> -struct ParentDriver {
+> -    _reg0: Devres<auxiliary::Registration<ForLt!(Data<'_>)>>,
+> -    _reg1: Devres<auxiliary::Registration<ForLt!(Data<'_>)>>,
+> +struct ParentDriver<'bound> {
+> +    _reg0: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
+> +    _reg1: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
+>  }
+> =20
+>  kernel::pci_device_table!(
+>      PCI_TABLE,
+>      MODULE_PCI_TABLE,
+> -    <ParentDriver as pci::Driver>::IdInfo,
+> +    <ParentDriver<'_> as pci::Driver>::IdInfo,
+>      [(pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5), ())]
+>  );
+> =20
+> -impl pci::Driver for ParentDriver {
+> +impl pci::Driver for ParentDriver<'_> {
+>      type IdInfo =3D ();
+> -    type Data<'bound> =3D Self;
+> +    type Data<'bound> =3D ParentDriver<'bound>;
+> =20
+>      const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
+> =20
+>      fn probe<'bound>(
+>          pdev: &'bound pci::Device<Core>,
+>          _info: &'bound Self::IdInfo,
+> -    ) -> impl PinInit<Self, Error> + 'bound {
+> -        Ok(Self {
+> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+> +        Ok(ParentDriver {
+>              _reg0: auxiliary::Registration::new(
+>                  pdev.as_ref(),
+>                  AUXILIARY_NAME,
+> @@ -105,7 +104,7 @@ fn probe<'bound>(
+>      }
+>  }
+> =20
+> -impl ParentDriver {
+> +impl ParentDriver<'_> {
+>      fn connect(adev: &auxiliary::Device<Bound>) -> Result {
+>          let data =3D adev.registration_data::<ForLt!(Data<'_>)>()?;
+>          let pdev =3D data.parent;
+> @@ -131,7 +130,7 @@ fn connect(adev: &auxiliary::Device<Bound>) -> Result=
+ {
+>  #[pin_data]
+>  struct SampleModule {
+>      #[pin]
+> -    _pci_driver: driver::Registration<pci::Adapter<ParentDriver>>,
+> +    _pci_driver: driver::Registration<pci::Adapter<ParentDriver<'static>=
+>>,
+>      #[pin]
+>      _aux_driver: driver::Registration<auxiliary::Adapter<AuxiliaryDriver=
+>>,
+>  }
+
