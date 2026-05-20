@@ -4,52 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88887CD5BA4
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:20:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42020CD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:21:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D76EF10E517;
-	Wed, 20 May 2026 11:20:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD93210E620;
+	Wed, 20 May 2026 11:21:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kqu6YLE2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Sbwc6DT8";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7954510E409;
- Wed, 20 May 2026 11:20:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9FB8D60121;
- Wed, 20 May 2026 11:20:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA201F00894;
- Wed, 20 May 2026 11:20:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779276052;
- bh=UR8YaLfyNJTK2sII2DsNqJ1PeWNm2h21TvTZ8rrIw3Q=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Kqu6YLE2x1tz92HDazdRjYyh2dUd2nTtP8EBlbV6Rq0BiMCKz+Jb6P2Yjkpj4OcUk
- MWvofruGUUZIM/kTmbaV9ca8TDVMR/CuG8E4/YRYDePOhLsw7aQsAM5bAdAfC8KdT1
- HMJEBdUJU/brGl5Kf0329YdJhtV5M/k5f1M/pvA1VYHigiO/IVhxoLsc54fq3kk1rO
- u6lupFfqfezIJMuzzpZj3Y0i+HW++54oyPUUBfhbeOOwqqWMIwrjW2wOOKw19MKGRi
- cxXo4LccWs5KC8exjpBA8lF5mqoDH63lSJA/SCU09JXAShu4HqG8v7qDrO4Im5rHRe
- MFl+H0j1tALLw==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Xiang Liu <xiang.liu@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amd/ras: Fix CPER ring debugfs read
- overflow
-Date: Wed, 20 May 2026 07:19:19 -0400
-Message-ID: <20260520111944.3424570-47-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260520111944.3424570-1-sashal@kernel.org>
-References: <20260520111944.3424570-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 7.0.9
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013022.outbound.protection.outlook.com
+ [40.93.201.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DEC210E620;
+ Wed, 20 May 2026 11:21:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GAECtCPEfMJ0Xh8bjb/i883oJUbcI+RnDO83wbgy49VJ/xuMA1/o31CPzlRD1jiV12ZQeBxBIC1JgW/155svdZx5fjagrnVDDgWFsI5imTzutNjOtI2ZPcX6mpaCy2jifxTp/uhtUwZ/sPX4ViByHd7TZrBaQ27SlakpYsqF3CDvsnjDM0A7yQckakyvD8GhJ5+WIEnexQY4daivTge+qVXpn3oQixSUXxadO3Tl95IAeOTJMJ8BktX4h93MeZ3yptDuYLoWZ+RyzBqTBinFbjTeXNLb4T70FlDFBLcogGQiyfGD9cEmeXy0FU3a4roTnNtQE9ME/R/kpqlgV61Ptg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bMkdtj4/VjJmQfSS8pJtUJDtx2BMYRJ3Q2W42DaSjrQ=;
+ b=Sgk1SEYqxO03S7ASdpeODXuXMY7Z9cUaD3ec/X3YoEe0m2sPg2WOyW+WRb6LAPRWvUauXcnReQ+0kPAKZSx4MLruALwa/saCX0+DQgJEP+s6kc6x2XHCNgf21EFSapdnK6hSINgr3Fh7DK3lPrNDYXiR2ngRzcUbtqliE15bZD8lPHV+uWAGRvU6NxHpYxCmUCkwwYMxun5cWaulGGMpa4/llLvfkJftY/nwHbdMj8f0rWV6qtQI2/TiVSYrzuFuc/fc8dn3zF0dFdGNJvY1GAeHxWEhuilzGP6Cjf0EThNYZcbR9HknUygHniIiBddDUEOUgQh+K1SQHEHxPs4BuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bMkdtj4/VjJmQfSS8pJtUJDtx2BMYRJ3Q2W42DaSjrQ=;
+ b=Sbwc6DT8Brvq2BYgj2TZo4GuVbC9N7wFtywYNl9pSnDG6oYODElZKShMCSpWnSW8S/g3po7IRx5PTqh1SnUF4Pfwo55cosmq3df+YRspw9Qn+CZxHUi2jxmf5Twx6noLCLNYdS/p+2o1NEuA6NSA+77cko2qgGOEQu4fTJsLTvk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB6493.namprd12.prod.outlook.com (2603:10b6:8:b6::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 11:21:33 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Wed, 20 May 2026
+ 11:21:33 +0000
+Message-ID: <1e94106a-f72e-447e-9885-2d2cc8f8e722@amd.com>
+Date: Wed, 20 May 2026 13:21:26 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Xaver Hugl <xaver.hugl@kde.org>
+Cc: Julian Orth <ju.orth@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
+References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
+ <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
+ <CAHijbEUzWZC4GAMU6YGV42gOYkrQaMZZPiwS4Erb4H1J-fh_8Q@mail.gmail.com>
+ <69dcbcc1-da58-4d34-bfb0-5c8d33b75d59@amd.com>
+ <CAHijbEWqc2+kSkk3i_LxB2PQ6XwUetw1UkdUdXJfdv3zgKd1kA@mail.gmail.com>
+ <38551bfe-75e1-4978-b57d-adc43cebc85e@amd.com>
+ <CAHijbEWHp960qvZFoK7+9ppHAqkAR7=UQhtMUccqWzGd_pFPQA@mail.gmail.com>
+ <5ee6d5af-ac48-41d7-a19f-e08a3c5b7d19@amd.com>
+ <CAFZQkGwmeipZnvmBkcE7KhvUSMkSE=fzLBZtiMyhv3mM04Vudg@mail.gmail.com>
+ <dff60378-4e47-4753-8878-feec6e1c2690@amd.com>
+ <385a4d4f-fe22-41a7-8d4b-4dc6bc9930d3@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <385a4d4f-fe22-41a7-8d4b-4dc6bc9930d3@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0081.namprd13.prod.outlook.com
+ (2603:10b6:208:2b8::26) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6493:EE_
+X-MS-Office365-Filtering-Correlation-Id: d440df65-d31e-4e0b-0dd3-08deb661f296
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|366016|4143699003|22082099003|18002099003|56012099003|3023799007|11063799006;
+X-Microsoft-Antispam-Message-Info: ze466dad6Kfj9aK4hCsQjF2BIYDSqOtT7KzTRCYSJ6YtayLNJ2oHVjkljesBAKbGmhc2wcHBPO3QXbhrx3oEHgoddE8fhdhta6XpP4pKdan7YQUVAXPFvm4kzVkW0LClY7sKVcxN5sBAbaYdMdGxrruVi/ayTd1Jg2tHCrgECxtY/iVzVI1h7PDiTBz+rn0CMEqAFh8Zclrgg46aFWbYgQzIllBjgZh162ikncWEpskluykEyu6whLp/RaFY6YS61jMyrFBUN4ZufuPKg0hN6iT9nAzziharP14n62K5QE8HIsxYociOgoscKIX/Su5Wb83J0P5qCUmag4VMD5WpyrUI32Sw2bjJZR6mBjdkomPb6Z6nLT4Xu/iIpzS7YVkr/BrOqthj04A0nn8334CRljhzstFehEPn8c1j8dyCzaTzZ6Rg23mZmDaSWJAiq62FYeoIHGHn8/7sr/erQSpGQGb+kLZRQrTnPjEJaqCMWV0KsfBOHf6YhIuSOnzzhGY1dJGBzxhiuIL0MrCFvRptFb4g/Z/YQFdfV3eIlA5O+FUMPw58hpUqUok3rnHh4jiVCHHUNmgr4JwytbZoUusLE01jyCKN9xOIz6VUvIQPaJPhMECXrjMzStJ5P9i106RtH2hpss4bLxmdxuigftD6ouBxqiqwSDOu4osqu+Kz3y7Pn8LRaoW4wiV+Zuzbq60U
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(4143699003)(22082099003)(18002099003)(56012099003)(3023799007)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b2tDOFBTZDJaV3ptbXIxT2JiS3BSM0s0QnFPRlg0a1JpQVJGbFo4YWNhUTRS?=
+ =?utf-8?B?SDI0bUJaZmZZb0FWcnB4b3hXaDkwTWpka3NMVW1jNzhXVDdBY01HWEtPa3Zs?=
+ =?utf-8?B?Zkh4aHpKMXZvUzRna1AxMW1xOThRVjJidUdvOGdwODNuZnVyODkya2dMR2pX?=
+ =?utf-8?B?b0JucWllbm9GbGFyT2RGT0lPNUZQV0dTUHI0d1JCT2FMV2x4OE5Raks4TlUv?=
+ =?utf-8?B?NkJlWUZ0bnZnSVF5RGdZd2g2MnlNTFhoWnZhSlRLTjN3VVRQKzBrL3ZOTUU5?=
+ =?utf-8?B?OFgwRjFkcVdzaWpiTGFDY1lVQ0ExMWlsVmxJYitab3VEYzk5TlBlM0tlRCtU?=
+ =?utf-8?B?T24rcXlEcllaU0lKY1ptSncxVjFiZ1hQVWZTNjh6dFZNN1VsOFphTmxPcFpD?=
+ =?utf-8?B?VGJKOXFFZkZiU25aT0VFZGRGZUNlSVZpeUpSLzljY3l3eG8xSElIbTIxN0FG?=
+ =?utf-8?B?TWJRNmxiMkV5REJ2QnJmNmxpMzFWa3ZDai9mVHRWbjd3NmpvemMxR1dsSnp3?=
+ =?utf-8?B?NURNK0R2UUdmclVFTHIybU40aTFDZ21RTTJGakhicGhHOEgxc0pZZnZXZ0lY?=
+ =?utf-8?B?UDJSRGFLblBpYzEvLzdIZUVzTUFLWEJTazdPMm90NE9jaHFjakMxd1M2dHJh?=
+ =?utf-8?B?OGpCUTMyKzQxQnYvODAxRzZjWURKNEpHNGNkRk9kQ2pPZ0svL0E0bTBEZ0gw?=
+ =?utf-8?B?ZVhEQWFGNjRuZG9RNWNJc3RNeGtXdCtNaUxORW9XNy9ZcFJYRGpIenVDZXV2?=
+ =?utf-8?B?dXVKMWl6NW55M285SGJUYnNXL2ttV0kwYWs4cGRtUC9FMHl2WmMzeFFSbURD?=
+ =?utf-8?B?Y0RaVko4V1ZkdEZ4ODV5MGpDUGMzWENIVzA5WS9kWHUrZE9xR2dya2hMMXVr?=
+ =?utf-8?B?cGJuNFhCdFFHNDB6WUZEdHdOaG9mUlNXV2lpUnA4bnBSYWp4TWMxZHhjZStX?=
+ =?utf-8?B?YkRTZlRZbkxmRzg2djR3cVNuY3h3U0h0N0hwWngzT0lYai9YRC9sL2dsODNt?=
+ =?utf-8?B?OFRscGhkeGhZVDdGbDNMSHYxcHlHRE5UdG5WK2Q1M1ZWeFA0eUtNTDMvd0RJ?=
+ =?utf-8?B?TlloYk1XblhaT0t2N0daL2pJZXMzVThuMXIwV3laVEhSUXBqWFZ0YnRRdTB4?=
+ =?utf-8?B?QjF3WHMzd1dtbmNnQXAwcVIwc21oc1JzNnZNSGp6VTZ6VDN4V1FIZ2hTUDZ0?=
+ =?utf-8?B?eWM3QTFLNE03S0FUYWxkRUVudGRyUGlqK3hudHU1TDdUdlpnVDg0NlRTRlBC?=
+ =?utf-8?B?cHFEalhFdUhoY252aGQ3aEFJZnFRNWJ2VmxiOHBJczVmeS9yMDhpdUQyYVJs?=
+ =?utf-8?B?SkFCSmU1akJtZ3luZ24xSVB2bkZEeWhCaHppeGl2V0N2Sm5oNGNNb2FlZi8r?=
+ =?utf-8?B?QnRuY2pVZnN0ZXdKVWliUm5YSTVqZ2dVWWtadndrdEQ0WUxoMWttN29aYW9X?=
+ =?utf-8?B?dDRncXkzV3d1WVdndmVNc0VyWEZFWGxBL0h4bGIzZDUwYUhYbHNJNVlPWFA5?=
+ =?utf-8?B?MkZvYkF1Z0tDOW5tM1VqbTU0QUJpOStZVVhtVDlqdGMySlBZWENjdk9xK1Y3?=
+ =?utf-8?B?VVBOUGZWS1FwMjRQMlh3QjRVQmUzNkFKVHU0VW9ER3BTS0k4YzByQzhBdkM2?=
+ =?utf-8?B?SkhOTmJ0VzU1V0lMQVBrMDVYNW5paEwvcmcvRDA2VXNUYVlhYnlxZDdkYlY5?=
+ =?utf-8?B?a09qV0lRalVuaEF2d05lS1FWam04R3VZSXh5TGVEa2MxN3dENGlSSlZxSW52?=
+ =?utf-8?B?SlVUSkk1S1J5MktBaERtbG5KMTNKci91eUY4eS9tbmZFNnJxamRpbnBkQWd0?=
+ =?utf-8?B?NDFnVytDSUQ0RW8rZk1KNlJFa0NQVnozbnlhU2ZMeXN4Tmg2MHV3Vjhhdm5K?=
+ =?utf-8?B?cGFBUWVhMkdySExVbUtibTYvRHQzdU9MeWkxbDJaTGRtbUZwR2VBZTVFUmor?=
+ =?utf-8?B?Zm5nVWlkbjh0bmhnOU1zYmV5SFRiSURYWmVhSkQ2N0pNUDE2M1FNbG12MUdw?=
+ =?utf-8?B?c3RkWGdNcVF2a2lUSXBadVppbGc3WGhWRnF0RDZhK2NPRnlDclZTc0dHbEZF?=
+ =?utf-8?B?M05rWHB0SXBQYzBTOHBFQWUvTlA3Y2ZxNk5GM1IxU2xHaTlDTHg1Q3dUc0di?=
+ =?utf-8?B?K1dwUHU4KzZ0Q2xLUkY2U0E2VEtkdXdFbFovd0huYnFlMkw4U0o5L2w2Q0RG?=
+ =?utf-8?B?cFA1MnZzTDFsN0p0WUkvZlFUMmRMbW5ra0o1NUFjZXVnSkJHb0o3eE5DOHVP?=
+ =?utf-8?B?bkFQeEozMWFQd3A5VFJKZzN4K2NtUldKOERDaG9JaGlkNlZjeGxRYzRBREZ6?=
+ =?utf-8?Q?HuXbKv1W/n9G16YLQJ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d440df65-d31e-4e0b-0dd3-08deb661f296
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 11:21:33.2919 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lN47Jq8rGKFwoiS7EC2Y2yikhmGzK/Dhfb0305PJjzdhER7rAm8IQGsgmbqVk5QX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6493
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,281 +155,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Xiang Liu <xiang.liu@amd.com>
+On 5/20/26 10:13, Michel Dänzer wrote:
+> On 5/19/26 18:00, Christian König wrote:
+>> On 5/19/26 17:31, Xaver Hugl wrote:
+>>> Am Di., 19. Mai 2026 um 15:29 Uhr schrieb Christian König
+>>> <christian.koenig@amd.com>:
+>>>>> 1. This series makes the ability to manipulate syncobjs available
+>>>>> independently of attached hardware.
+>>>>> 2. It makes it available under a consistent path /dev/syncobj.
+>>>>
+>>>> Exactly that is a big no-go. This has to be under /dev/dri.
+>>> FWIW udmabuf is also under /dev directly, but I don't think any
+>>> compositor developer would complain about a different path.
+>>> What are the rules for that? Could this simply be put in /dev/dri/syncobj?
+>>
+>> The syncobj are actually the DRM specific way of doing things. The general kernel wide way is to use sync files (see drivers/dma-buf/sync_file.c).
+>>
+>> But there has already been tons of problems with those sync files. E.g. they doesn't support your use case at all since they don't have wait before submit behavior.
+>>
+>> So there are already ways to do this, but the Linux kernel so far told everybody that this is forbidden. The DRM syncobj wait before signal functionality is much better, but then basically the second try to do this.
+> 
+> I'm not quite sure what you're getting at here, just to be clear though:
+> 
+> While the syncobj Wayland protocol extension supports wait-before-submit behaviour at the Wayland protocol level, it doesn't need or cause wait-before-submit behaviour for DMA fences in the kernel. The usual rules apply to fences attached to syncobj timeline points. The wait-before-submit behaviour at the Wayland protocol level comes from allowing submit before a fence is attached to the acquire timeline point.
 
-[ Upstream commit 6bbede02dc62a1021aeeae87ab243bd7a93c61d2 ]
+Yeah I know. I'm one of the people who came up with the idea of doing wait before signal this way in the drm_syncobj.
 
-The legacy CPER debugfs reader can reach the payload path without a
-valid pointer snapshot. The remaining user byte count is also treated as
-the ring occupancy in dwords, so reads past the header can copy more than
-requested.
+What I wanted to say is that a lot of people used the dma_fence to implement wait before signal before and got a bloody nose from that.
 
-Take the CPER lock before sampling pointers. Resample rptr/wptr for
-payload reads, bound the payload copy by available dwords and the
-remaining user size, and advance the file position for each dword copied.
+> (It took me a while to realize this distinction, before which I mistakenly thought the kernel's DMA fence rules would prohibit wait-before-submit behaviour at the Wayland protocol level as well)
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 1e40ef87ffdc291e05ccdade8b9170cc9c1c4249)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
+This is what surprised me.
 
-LLM Generated explanations, may be completely bogus:
+The drm_syncobj implementation solved the wait before signal for the kernel, but my last feedback was that we basically just moved the issue to userspace and Wayland compositors would have quite some overhead to implement it correctly.
 
-## Phase Records
+That compositors now use eventfd to simplify that was news to me but makes totally sense in hindsight.
 
-Step 1.1 Record: Subsystem `drm/amd/ras`; action verb `Fix`; claimed
-intent is preventing CPER ring debugfs read overflow.
+But anyway, we need to somehow simplify the drm_syncobj -> eventfd usage in the compositor. That requirement is perfectly justified and avoiding importing the drm_syncobj fd into any DRM driver should actually be really easy to implement.
 
-Step 1.2 Record: Tags present: `Signed-off-by: Xiang Liu
-<xiang.liu@amd.com>`, `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`,
-`Signed-off-by: Alex Deucher <alexander.deucher@amd.com>`, and a cherry-
-pick line. No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc:
-stable`.
-
-Step 1.3 Record: Commit body describes two concrete bugs: CPER payload
-reads can proceed without a valid rptr/wptr snapshot, and byte `size` is
-treated as dword ring occupancy, allowing copies beyond the requested
-read count.
-
-Step 1.4 Record: Not hidden; this is an explicit memory-safety/user-copy
-bounds fix.
-
-Step 2.1 Record: One file changed,
-`drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c`; one function changed,
-`amdgpu_debugfs_ring_read`; roughly +13/-? surgical single-function
-change.
-
-Step 2.2 Record: Before, CPER locking and pointer sampling happened only
-when `*pos < 12`; payload-only reads used uninitialized `early[]`.
-Before, payload loop copied one dword while decrementing `size` by one,
-although `size` is bytes. After, CPER reads lock before sampling,
-resample pointers for payload, compute available dwords separately, cap
-reads by `size >> 2`, and advance `*pos`.
-
-Step 2.3 Record: Bug category is memory safety / bounds correctness plus
-synchronization. Mechanism: debugfs `read()` could return/copy more
-bytes than requested and could use invalid CPER ring pointers on reads
-starting past the header.
-
-Step 2.4 Record: Fix quality is good: small, local, no API change.
-Regression risk is low; it only changes CPER debugfs reads. Holding
-`cper.ring_lock` for payload-only reads matches the existing intent to
-serialize with `amdgpu_cper_ring_write`.
-
-Step 3.1 Record: `git blame` shows the CPER payload reader came from
-`5a1428242952f2` (`drm/amdgpu: read CPER ring via debugfs`), first
-contained by `v6.15-rc1`; the partial CPER lock came from
-`8652920d2c0024`.
-
-Step 3.2 Record: No `Fixes:` tag to follow. I inspected the introducing
-commits manually: `5a1428242952f2` added the affected CPER payload
-reader; `8652920d2c0024` added the existing CPER ring mutex but only
-around the header path.
-
-Step 3.3 Record: Related history includes `4d614ce8ffd75` adding the
-CPER ring buffer, `a6d9d192903ea` adding CPER writes, `d6f9bbce18762`
-fixing CPER ring remaining-size computation, and `93c19634f72fb` fixing
-a separate uniras CPER debugfs user-buffer overflow.
-
-Step 3.4 Record: Xiang Liu has multiple AMDGPU/RAS CPER commits in this
-area. Alex Deucher committed the patch per the commit tags and is the
-AMDGPU maintainer path in local history.
-
-Step 3.5 Record: Dependencies are the existing CPER ring/debugfs code.
-The affected code exists in this v7.0.y checkout and in tags `v6.15`
-through `v7.0`; it is absent from `v6.14` by pattern check.
-
-Step 4.1 Record: `b4 dig -c 1e40ef...` failed because the commit object
-is not present locally. Web searches did not find the exact target
-subject/body; they found related AMDGPU CPER debugfs patches and the
-uniras buffer-overflow bug report.
-
-Step 4.2 Record: `b4 dig -w` also failed for the same reason. Commit
-tags still show AMDGPU review by Tao Zhou and commit by Alex Deucher.
-
-Step 4.3 Record: No direct bug report found for this exact patch.
-Related Dan Carpenter report verified a similar CPER debugfs user-buffer
-overflow in `amdgpu_ras_cper_debugfs_read`, not this legacy reader.
-
-Step 4.4 Record: Related CPER series context verified on freedesktop
-archives: CPER debugfs read and CPER mutex patches were part of a v2
-AMDGPU CPER series.
-
-Step 4.5 Record: No stable-specific discussion found for the exact
-target terms.
-
-Step 5.1 Record: Modified function: `amdgpu_debugfs_ring_read`.
-
-Step 5.2 Record: Callers are debugfs file operations:
-`amdgpu_debugfs_ring_fops.read` and, for SR-IOV,
-`amdgpu_debugfs_virt_ring_read`, which calls `amdgpu_debugfs_ring_read`.
-
-Step 5.3 Record: Key callees are `amdgpu_ring_get_rptr`,
-`amdgpu_ring_get_wptr`, `put_user`, and CPER lock operations. CPER
-writes use `amdgpu_cper_ring_write`, which takes the same
-`cper.ring_lock`.
-
-Step 5.4 Record: Reachability is via
-`/sys/kernel/debug/dri/*/amdgpu_ring_cper`, created by
-`amdgpu_debugfs_ring_init` for registered rings. `amdgpu_ring_init`
-registers rings in `adev->rings`, and `amdgpu_debugfs_init` iterates
-those rings.
-
-Step 5.5 Record: Similar pattern found: separate uniras CPER reader
-overflow fixed by `93c19634f72fb`.
-
-Step 6.1 Record: Buggy legacy CPER debugfs reader exists in `v6.15`,
-`v6.16`, `v6.17`, `v6.18`, `v6.19`, and `v7.0`; not found in `v6.14`.
-
-Step 6.2 Record: Expected backport difficulty is low for trees
-containing the CPER reader. I could not complete a meaningful `git apply
---check` because my hand-built check patch was malformed, but the
-current file matches the relevant pre-fix logic.
-
-Step 6.3 Record: Related uniras fix exists locally, but it does not fix
-the legacy `amdgpu_debugfs_ring_read` CPER path.
-
-Step 7.1 Record: Subsystem is AMDGPU DRM/RAS driver code. Criticality is
-driver-specific, not core kernel-wide.
-
-Step 7.2 Record: Subsystem is active; local history shows multiple
-CPER/RAS changes around v6.15-v6.19.
-
-Step 8.1 Record: Affected users are AMDGPU systems with CPER ring
-enabled and debugfs CPER ring reads.
-
-Step 8.2 Record: Trigger is reading the CPER ring debugfs file,
-especially payload reads past the 12-byte header or small/count-limited
-reads. Unprivileged triggerability depends on debugfs mount permissions
-and was not verified.
-
-Step 8.3 Record: Failure mode is user-copy beyond requested read size
-and possible invalid ring indexing from missing pointer snapshot.
-Severity: HIGH for memory-safety correctness, reduced by debugfs-only
-exposure.
-
-Step 8.4 Record: Benefit is meaningful for affected AMDGPU debugfs users
-because it prevents incorrect user copies and invalid CPER ring reads.
-Risk is low: small, contained, no feature/API change.
-
-## Stable Rules
-
-1. Obviously correct and tested: mostly yes by inspection and maintainer
-   review tag; no explicit `Tested-by`.
-2. Fixes a real bug: yes, byte count vs dword count and missing pointer
-   snapshot are verified in the code.
-3. Important issue: yes, memory-safety/user-copy overflow from a
-   readable debugfs file.
-4. Small and contained: yes, one function in one driver file.
-5. No new features/APIs: yes.
-6. Can apply to stable: yes for v6.15+ trees containing the CPER debugfs
-   reader; not applicable to v6.14 and older.
-
-## Verification
-
-- Phase 1: Parsed provided commit message and tags; no `Fixes`,
-  `Reported-by`, `Link`, or stable tag present.
-- Phase 2: Compared provided diff with current
-  `amdgpu_debugfs_ring_read` implementation; verified `size` is bytes
-  and old CPER loop decrements it as dwords.
-- Phase 3: Ran `git blame` on the affected function; identified
-  `5a1428242952f2` and `8652920d2c0024`.
-- Phase 3: Ran `git show` on related commits `4d614ce8ffd75`,
-  `5a1428242952f2`, `8652920d2c0024`, `d6f9bbce18762`, `527e3d40339b`,
-  `93c19634f72fb`, and `a91d91b600479`.
-- Phase 4: Ran `b4 dig`; it failed because the target commit object is
-  unavailable in this checkout.
-- Phase 4: Web searched exact subject/body; no direct target lore found.
-  Fetched related freedesktop CPER series and Dan Carpenter uniras
-  overflow report.
-- Phase 5: Used repo search/read to trace debugfs fops, ring debugfs
-  creation, CPER writer locking, and ring registration.
-- Phase 6: Checked tags `v6.14` through `v7.0`; verified affected code
-  starts at `v6.15`.
-- Phase 8: Verified debugfs exposure through
-  `debugfs_create_file_size(..., 0444, ...)`; did not verify system
-  mount permissions, so unprivileged exploitability remains unverified.
-
-This is a small, well-scoped memory-safety fix for code present in
-stable trees starting at v6.15. It should be backported to affected
-stable trees.
-
-**YES**
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 29 +++++++++++++++++-------
- 1 file changed, 21 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 4638a686a84e7..bebd72178cc13 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -572,8 +572,9 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
- 					size_t size, loff_t *pos)
- {
- 	struct amdgpu_ring *ring = file_inode(f)->i_private;
--	uint32_t value, result, early[3];
-+	u32 value, result, early[3] = { 0 };
- 	uint64_t p;
-+	u32 avail_dw, start_dw, read_dw;
- 	loff_t i;
- 	int r;
- 
-@@ -585,10 +586,10 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
- 
- 	result = 0;
- 
--	if (*pos < 12) {
--		if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
--			mutex_lock(&ring->adev->cper.ring_lock);
-+	if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
-+		mutex_lock(&ring->adev->cper.ring_lock);
- 
-+	if (*pos < 12) {
- 		early[0] = amdgpu_ring_get_rptr(ring) & ring->buf_mask;
- 		early[1] = amdgpu_ring_get_wptr(ring) & ring->buf_mask;
- 		early[2] = ring->wptr & ring->buf_mask;
-@@ -620,13 +621,24 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
- 			*pos += 4;
- 		}
- 	} else {
-+		early[0] = amdgpu_ring_get_rptr(ring) & ring->buf_mask;
-+		early[1] = amdgpu_ring_get_wptr(ring) & ring->buf_mask;
-+
- 		p = early[0];
- 		if (early[0] <= early[1])
--			size = (early[1] - early[0]);
-+			avail_dw = early[1] - early[0];
- 		else
--			size = ring->ring_size - (early[0] - early[1]);
-+			avail_dw = ring->buf_mask + 1 - (early[0] - early[1]);
- 
--		while (size) {
-+		start_dw = (*pos > 12) ? ((*pos - 12) >> 2) : 0;
-+		if (start_dw >= avail_dw)
-+			goto out;
-+
-+		p = (p + start_dw) & ring->ptr_mask;
-+		avail_dw -= start_dw;
-+		read_dw = min_t(u32, avail_dw, size >> 2);
-+
-+		while (read_dw) {
- 			if (p == early[1])
- 				goto out;
- 
-@@ -639,9 +651,10 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
- 
- 			buf += 4;
- 			result += 4;
--			size--;
-+			read_dw--;
- 			p++;
- 			p &= ring->ptr_mask;
-+			*pos += 4;
- 		}
- 	}
- 
--- 
-2.53.0
-
+Regards,
+Christian.
