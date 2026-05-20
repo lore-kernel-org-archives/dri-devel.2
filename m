@@ -4,129 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6BCDCD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:56:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A71ECD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 09:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261FD10E0E1;
-	Wed, 20 May 2026 09:56:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C312B10EFAF;
+	Wed, 20 May 2026 09:58:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O3dSJE86";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BcTcHT8e";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="b6F1g/yX";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45A0910E0E1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:56:21 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64K7gdB0341575
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:56:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=x/vh6NtaY+3/iUioJhrCUPwI
- nd8makFBLu9msT4Nc8Y=; b=O3dSJE86rJYQbkrtjDsTmBIAzG3nrqJD/L7YGIW9
- bs6ZdKzLpld/ruIofzgcBhy1U2on5y8OIGXqUhFhuR6NNUKqasxr0Lt6t8fUHsVw
- 46CqVx50W/D1avmRcbPc75xqfJdcG0AB36s8JZYJvr4kojnmKClXBPlXRslwllh9
- hakiGkPJdlpEoEdu/FCK98U1G2bzsIhoQ6M2O0PyBfzG37bSkMPak+w540GgxUMT
- 14HSADriPY17tim88sGdvExIxeAV7HIFsVWEZqf/MIaWXh98093MCktPR8KxLmiP
- O+szvkDw6Yvq2CGoVKbHyaRndeAvv2kbZ6wyhPMUFppXNg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3vc4qt-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:56:20 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-514cbe73d00so148386211cf.1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 02:56:20 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 313EA10EFAF
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 09:58:30 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-488a88aeec9so55100345e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 02:58:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779270980; x=1779875780;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=x/vh6NtaY+3/iUioJhrCUPwInd8makFBLu9msT4Nc8Y=;
- b=BcTcHT8eUxPYD536ZjXYwEXFerFVPWGwBpBwE6ZqbF1abunLlJaY5XgeyNwM+tH1eo
- o11/gsYmOzvgzzA7/A1lzvm8APXdmGN74UXs8lKTrJr3a3NYxD66QG5zIVp+g3XJkThZ
- R/DVOiMu9UUQFOTKRMKd6iDQstRti6Fbh7u4jytWOno/Ltvkd0tGWd5QUyt1L2LLoNHn
- DYnldArS/B1c2f3Z75YjqKjGhH07RBPqWm5Mh4+ANTVLPr84YV0StUU/N2YA08DjNCVD
- ALzdyp165yQPGeyJdVMjnrsIUG1K+odgy+BH81WhgYRoeABh4oD+r+Q02kWBbRO39riV
- EPDg==
+ d=linaro.org; s=google; t=1779271109; x=1779875909; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=fdECDhsPbmxIQbhRIxq+WIlDy168HO+dUwyzYZe+8DA=;
+ b=b6F1g/yXy/VxftDyt5lg6TKrypqgNu57Ekr4BIo5w5gRbOsybKYM3oVScLf4vzMBmL
+ W9MMNZdiFo7EXcdRX5ndw8kIx+zig+6xtDAdq4PFafpfoOrJG5qxvPrFtyRyLMAyy28G
+ ywLuJK0E+wn/K3C4lzALpdgebvhw4+gxMbg5HYzNNildwLTXw/k5f7JLHITfAis2lWUS
+ pedihilcoX5K8qJ3e/cPWmORpmLJ/wJ5bUSNF1z/EQ8CZ/KaHG1cV9KtURuREHIvkYhI
+ CrCSwg7E4Bg/k6uv0/wER3Bf51faq+XjSIETQKmWcAUePTACuC43OAkIvVZHFIzwKBi6
+ uzdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779270980; x=1779875780;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20251104; t=1779271109; x=1779875909;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=x/vh6NtaY+3/iUioJhrCUPwInd8makFBLu9msT4Nc8Y=;
- b=QOFdOMzhCSt8eoStFjHYpIP7h1HF8nW9oGzJelfmstwD27u37NDhTFZrgGWmCQgK8H
- FFTNkIzb+EGwidE7/pRNHMT0O+88lazkc/8Noqvc2+ZPf7g18pucD1FX4+VRKnF9S6My
- IjdHVRSfuDbW+JM6CL7WF1pEfjIOxNRlGq/Yeef5D7yvdS2y1loeYQFC6ySTr99711nJ
- 00sTSTGojCQbD3pSfOXTrq+1SUrS5s2wA+TXleQ9/QQAMYscxgJwzKwcaUJDaOYh2+F0
- R3HwKJALn9a5gUFmcn0sxYCYOX4PTzN2peq6eCtiniW0O4bYuds5DrF/3g7Qry3HUuW5
- +Xng==
+ bh=fdECDhsPbmxIQbhRIxq+WIlDy168HO+dUwyzYZe+8DA=;
+ b=DZtA/DdQMweOQcr+/80uf0G/5JX7AfdMd0qayRMY6uBDa213qmIQB9RpUH0U8wVefU
+ OFAz2FvWcLGQRtxsP7vGop9WtBg9izxMmRFr/HythgC8hg0Rp0RYCVK5h+x1j8RoTpnl
+ q5KLADCxPbNFgJOX9isnT7iPQEfLOplIT+jyfpoAqZ2qjLown/dejR7fWpruykWHfZcx
+ GkWswfYYumEQQK/HtwaxXM/L9NtuB8fDc5q8YGnbCjCTIObk7vsGlHbbGhD7XU6pHRvR
+ NEM9k0oHcIjZMHRT5P2PLdLeBJgbteZeM1S7jF9h5vJZqhWJbKP7ChLfbRcqrubrcjoS
+ MygA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/hxeKcjizvNIBzI7LBsXTLqV5lqZ46NXMUaTouDqfoNTE+sIcuiM+YTUaclk29EFWfQNcZQOZOe0c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtXK6Q4+BPe1a5n7gVN3KrJSALzItIOO4+51SJ3TY+aZ1RK0hi
- ucvY2oOSU2CAIehqB/6GNHdXM9V/xHXcCTDagtPQx19LIM6KHz7gtLH3diu6jRuIPcDvkd6dGrn
- /XZK9Ae/imA57ko1HfjVKNKeHn+CSZxdpRJHu1HTR5gmZJ+nYQV7qH9IS3Z7cX+Um6J12Co0=
-X-Gm-Gg: Acq92OEaCqrhvMkfBuODOP7boE/hJE93lhrosJIszIp7k5Qnl3x65sJvipQoo5GpCBN
- WjLUaZmeIziM0IAbcMRfTjuu7HvlCYAuiTpDKcdJ71LHzia8qrx6hVlyhmMK6E2gY9tfADkFvw/
- ZGgsRRXlbm7DXRu77CdsKnE4ddxl7M1CMu7JE3mo1b1hmesX5Pjyk2LDXa9U+TXSwaqfmyLfhVD
- iRlgMugJZEDsr33PEQbRghMaNZF4+s7csSoGFqXD+HJMS7riJonoXCdqHb3SvIO2RaBt1jl2z5H
- l/ui0kjABVKRL6Z1F2V0K4YS+biiSdNDQuH+2cla3POiNtRpQIBrO+z0WbZlcdTo2G1YKgAE3o7
- eBGpaRTkrJ39tEuW+EeHe3menIxPUW+veOAT8DYTDL0r5T3psMCMHX3XiUj5EUbcLqILJhTtMIv
- 6j7/7xfHcScY0QVHq0qNAJkXUCpEi5G5XjMrM=
-X-Received: by 2002:ac8:57cd:0:b0:50e:614c:661f with SMTP id
- d75a77b69052e-5165a040625mr319617811cf.20.1779270979714; 
- Wed, 20 May 2026 02:56:19 -0700 (PDT)
-X-Received: by 2002:ac8:57cd:0:b0:50e:614c:661f with SMTP id
- d75a77b69052e-5165a040625mr319617631cf.20.1779270979246; 
- Wed, 20 May 2026 02:56:19 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AFNElJ825muJ6xrvYH9CPEVn8DJvb2yEkJxzZJJ2ItUGXeEfnjokzpqixtyPxcvCQFY1QIg9n3RZZQUY6VM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxwhkI/gzFp7I7dkCgLPHPds5x/cKI46mT4WTJbV7PZHfU6BbSg
+ 7nrCNfWwDxtdRqbagHwMZKZ9XxSA0vQ6EwhAXe+KLL/G5wd6sDT4zULr7QHrjq/kk6k=
+X-Gm-Gg: Acq92OGmgRmtru6RBCcbTi74/O3T10YFfj300SKf98NMuGytihHp9/03isH9nOIBVMZ
+ qb1pQvVl/uNJDtS5RcAd+tP5bV1/Czfrv35CkDP0fqx9GyQY3n8J8woYQe/gObMCh1sXqAHIF83
+ arci127IJm01EUo/zDJtiLXb1EILy420vjjbJ4bsJpXpKvqwttHCp56Ob/J7wOMao3q+uczkBAU
+ j61TbKBD1uUSc6AXBOe3ZY5UvChdCtUKqF9+mpaOAxdIXKGEVr7X62w9X6rPYUPQRNmdZCmLKzk
+ ffwLhk+rgBZa0NS4gMKHAiXOIQ67nuFcuMfoe8uEmg99Sxd0YedEvUkAzaCKfO7BQQM6Xhn54np
+ UakU0cZdfeNwIk1ULvw1eXZSgy+DOrDo3SGdLYHM8JT41fHjpRyrpSRPc4x2f871eQMkIpWICk/
+ cn7esoyOveXwQEG5cHN6xrUhCEri4WApfASqj4tiLp2fRDwVYHacR43GEIZx7TSma7aOG1gOlUg
+ VlH9BD7Yd3+jEU=
+X-Received: by 2002:a05:600c:6206:b0:489:5022:39a4 with SMTP id
+ 5b1f17b1804b1-48fe60e79fdmr368845595e9.9.1779271108519; 
+ Wed, 20 May 2026 02:58:28 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:5dda:3751:f88e:6ff?
+ ([2a01:e0a:106d:1080:5dda:3751:f88e:6ff])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a90f10c84dsm4811436e87.10.2026.05.20.02.56.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 02:56:17 -0700 (PDT)
-Date: Wed, 20 May 2026 12:56:16 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Javier Martinez Canillas <javierm@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Jani Nikula <jani.nikula@intel.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/8] drm/display: hdmi: Add common TMDS character rate
- constants
-Message-ID: <62ruh7xc5bgv2iifshhnd746nfghzczblsgxrumchuak564zvt@nligwnzsw6pz>
-References: <20260519144712.1418302-1-javierm@redhat.com>
- <20260519144712.1418302-2-javierm@redhat.com>
+ 5b1f17b1804b1-48febe83ba2sm126159225e9.35.2026.05.20.02.58.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 May 2026 02:58:28 -0700 (PDT)
+Message-ID: <e584ab2b-677d-4893-95c9-7b68165633c6@linaro.org>
+Date: Wed, 20 May 2026 11:58:26 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260519144712.1418302-2-javierm@redhat.com>
-X-Proofpoint-GUID: TsHP37PgPgd8QWbiUB9GjbgxeRAtOWcs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA5NCBTYWx0ZWRfXxYxboEJgoR6I
- kEND9ibJGe9dH42C5ADpWXifAk4FkfzPrE368haEJ7kosWkULmG064/5x96MInegXinAS/MUT+p
- eKyDvb1cfTtrFHyInbpZ+bncabZxIStJ92l3vEg9ilifm63pB88NZIuwjkvWWK7kspdq2bop9E5
- oc/5Kzf4FDYm1VP1xqkxZ8o3fcfX8iWtIrABd3ET1D7xJdJsFbAezaFKT18Jg09lPD+0LnhyyRy
- 3AsKsJcC6LiL2tkE2wFYMiRlGAVpDxEPE/S8B+TZHv51fPo1FKBoGQqqf28alr9Y1rCgR/ORjJG
- 4yC4q+Ao9p1BNgr2JeAnCQTKekTuyCPcZn8l0HsMNOsmujrAywlwEkYX2syRVaVpgrJBycY2CiD
- Y/SabNX9y7qXa50d3/UMU2LN7SvuHwcwk/Y88CooZptTR7v+W5FulUk8xJ1/v3eSWD8laFFIONJ
- Z+uFRVIvlonvULYBRPQ==
-X-Authority-Analysis: v=2.4 cv=JuPBas4C c=1 sm=1 tr=0 ts=6a0d8544 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=20KFwNOVAAAA:8 a=-TeNy3OwqtCayIha8J0A:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: TsHP37PgPgd8QWbiUB9GjbgxeRAtOWcs
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- phishscore=0 impostorscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200094
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 19/23] drm: bridge: dw_hdmi: Use delayed_work to
+ debounce hotplug event
+To: Jonas Karlman <jonas@kwiboo.se>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Robert Foss <rfoss@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260518180206.2480119-1-jonas@kwiboo.se>
+ <20260518180206.2480119-20-jonas@kwiboo.se>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260518180206.2480119-20-jonas@kwiboo.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,35 +133,247 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 19, 2026 at 04:46:57PM +0200, Javier Martinez Canillas wrote:
-> Several DRM drivers already define their own constants for minimum and
-> maximum TMDS character rates.
-> 
-> By defining common rate constants in a shared header, drivers can just use
-> them instead of having driver local define macros or use magic numbers.
-> 
-> The values defined in the <drm/display/drm_hdmi_helper.h> header correspond
-> to maximum TMDS character rates defined by each HDMI specification version:
-> 
->   - DRM_HDMI_TMDS_CHAR_RATE_MIN:    25 MHz (minimum for all versions)
->   - DRM_HDMI_TMDS_CHAR_RATE_MAX_1_0: 165 MHz (HDMI 1.0 maximum)
->   - DRM_HDMI_TMDS_CHAR_RATE_MAX_1_3: 340 MHz (HDMI 1.3 maximum)
->   - DRM_HDMI_TMDS_CHAR_RATE_MAX_2_0: 600 MHz (HDMI 2.0 maximum)
+Hi,
 
-These values are also used by the HDMI PHY drivers. Would it make sense
-to define them in <linux/hdmi.h> instead?
+On 5/18/26 20:01, Jonas Karlman wrote:
+> HDMI Specification Version 1.4b chapter 8.5 mentions:
+> 
+>    An HDMI Sink shall not assert high voltage level on its Hot Plug
+>    Detect pin when the E-EDID is not available for reading.
+> 
+>    A Source may use a high voltage level Hot Plug Detect signal to
+>    initiate the reading of E-EDID data.
+> 
+>    An HDMI Sink shall indicate any change to the contents of the E-EDID
+>    by driving a low voltage level pulse on the Hot Plug Detect pin. This
+>    pulse shall be at least 100 msec.
+> 
+> Use a delayed work to debounce reacting on HPD events to improve
+> handling of a HPD low voltage level pulse when a sink changes the EDID.
+> 
+> The delayed work is only enabled between enable_hpd()/hpd_enable() and
+> disable_hpd()/hpd_disable() calls from core, i.e. enabled after
+> attach/bind/resume and disabled before detach/unbind/suspend.
+> 
+> The 1100 msec hotplug debounce timeout was arbitrarily picked to match
+> other drivers using same const, and testing using a Raspberry Pi Monitor
+> seem to use a 200-300 msec pulse when going from standby to power on
+> state.
+
+The logic looks ok, but I'm puzzled by the 1.1 sec debounce, which after
+plugging in a monitor will only send an irq event after 1.1s which is very long.
+
+Since the spec says 100ms and the real worls values are more like 200-300ms,
+I would first reduce this to 500ms.
+
+But as I understand the code right now, on the first HPD front the irq work
+is programmed to run after the debounce time, but if it's a pulse the irq would
+also trigger on the second HPD front and then delay again the work after the
+debounce time.
+
+My understanding of a debounce was that we "ignore" the pulse by only generating
+a single irq event when the pulse is finished.
+
+The current code does that, we will only have a single irq event and the HPD
+will return as connected state, good. But this delays the irq event 1.1s _after_
+the end of the pulse, which I would expect the event to be send at tht debounce
+time after the start of the pulse.
+
+Like, program the work at the beginning of the pulse, if somehow the pulse ends before
+the debounce time, send the irq event immediately, otherwise let the debounce
+work run after the debounce time which will trigger a disconnect event.
+
+But the delay is too high, 1.1s could be a manual unplug/plug or bad connector
+with false contact on the hpd pin.
+
+I would rather reduce this to something more realistic like 500ms or less and
+try to better handle the pulse somehow. But I don't have any idea if the scheme
+I described is doable.
+
+Neil
 
 > 
-> Suggested-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 > ---
+> v7: Change to free irq before mute and clear using IH regs, also include
+>      clear of STAT0_RX_SENSE
+> v6: Change back to disable_delayed_work_sync() in hpd disable ops,
+>      Ensure HPD interrupt is masked and IRQ handler is disabled early
+>      in dw_hdmi_remove() to prevent any irq re-arming of delayed work,
+>      Drop use of suspend helper
+> v5: Change to none-sync disable_delayed_work() in hpd disable ops,
+>      Change to cancel_delayed_work_sync() in remove,
+>      Add cancel_delayed_work_sync() to new suspend helper
+> v4: Disable/mask delayed_work until enable_hpd()/hpd_enable(),
+>      Read connector status directly from HW regs in hpd_work
+> v3: New patch
+> ---
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 80 +++++++++++++++++++++--
+>   1 file changed, 75 insertions(+), 5 deletions(-)
 > 
->  include/drm/display/drm_hdmi_helper.h | 6 ++++++
->  1 file changed, 6 insertions(+)
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index 8afc9d240121..270db58a0e7c 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -50,6 +50,8 @@
+>   
+>   #define HDMI14_MAX_TMDSCLK	340000000
+>   
+> +#define HOTPLUG_DEBOUNCE_MS	1100
+> +
+>   static const u16 csc_coeff_default[3][4] = {
+>   	{ 0x2000, 0x0000, 0x0000, 0x0000 },
+>   	{ 0x0000, 0x2000, 0x0000, 0x0000 },
+> @@ -185,6 +187,7 @@ struct dw_hdmi {
+>   	hdmi_codec_plugged_cb plugged_cb;
+>   	struct device *codec_dev;
+>   	enum drm_connector_status last_connector_result;
+> +	struct delayed_work hpd_work;
+>   };
+>   
+>   const struct dw_hdmi_plat_data *dw_hdmi_to_plat_data(struct dw_hdmi *hdmi)
+> @@ -2517,6 +2520,20 @@ static void dw_hdmi_connector_force(struct drm_connector *connector)
+>   	dw_hdmi_connector_status_update(hdmi, connector, connector->status);
+>   }
+>   
+> +static void dw_hdmi_connector_enable_hpd(struct drm_connector *connector)
+> +{
+> +	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
+> +
+> +	enable_delayed_work(&hdmi->hpd_work);
+> +}
+> +
+> +static void dw_hdmi_connector_disable_hpd(struct drm_connector *connector)
+> +{
+> +	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
+> +
+> +	disable_delayed_work_sync(&hdmi->hpd_work);
+> +}
+> +
+>   static void dw_hdmi_connector_destroy(struct drm_connector *connector)
+>   {
+>   	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
+> @@ -2538,6 +2555,8 @@ static const struct drm_connector_funcs dw_hdmi_connector_funcs = {
+>   static const struct drm_connector_helper_funcs dw_hdmi_connector_helper_funcs = {
+>   	.get_modes = dw_hdmi_connector_get_modes,
+>   	.atomic_check = dw_hdmi_connector_atomic_check,
+> +	.enable_hpd = dw_hdmi_connector_enable_hpd,
+> +	.disable_hpd = dw_hdmi_connector_disable_hpd,
+>   };
+>   
+>   static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+> @@ -2968,6 +2987,20 @@ static const struct drm_edid *dw_hdmi_bridge_edid_read(struct drm_bridge *bridge
+>   	return dw_hdmi_edid_read(hdmi, connector);
+>   }
+>   
+> +static void dw_hdmi_bridge_hpd_enable(struct drm_bridge *bridge)
+> +{
+> +	struct dw_hdmi *hdmi = bridge->driver_private;
+> +
+> +	enable_delayed_work(&hdmi->hpd_work);
+> +}
+> +
+> +static void dw_hdmi_bridge_hpd_disable(struct drm_bridge *bridge)
+> +{
+> +	struct dw_hdmi *hdmi = bridge->driver_private;
+> +
+> +	disable_delayed_work_sync(&hdmi->hpd_work);
+> +}
+> +
+>   static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
+>   	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+> @@ -2981,6 +3014,8 @@ static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
+>   	.mode_valid = dw_hdmi_bridge_mode_valid,
+>   	.detect = dw_hdmi_bridge_detect,
+>   	.edid_read = dw_hdmi_bridge_edid_read,
+> +	.hpd_enable = dw_hdmi_bridge_hpd_enable,
+> +	.hpd_disable = dw_hdmi_bridge_hpd_disable,
+>   };
+>   
+>   /* -----------------------------------------------------------------------------
+> @@ -3101,8 +3136,8 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+>   			status == connector_status_connected ?
+>   			"plugin" : "plugout");
+>   
+> -		if (hdmi->bridge.dev)
+> -			drm_helper_hpd_irq_event(hdmi->bridge.dev);
+> +		mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+> +				 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
+>   	}
+>   
+>   	hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
+> @@ -3112,6 +3147,29 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+>   	return IRQ_HANDLED;
+>   }
+>   
+> +static void dw_hdmi_hpd_work(struct work_struct *work)
+> +{
+> +	struct dw_hdmi *hdmi = container_of(work, struct dw_hdmi, hpd_work.work);
+> +	struct drm_device *dev = hdmi->bridge.dev;
+> +
+> +	if (WARN_ON(!dev))
+> +		return;
+> +
+> +	/*
+> +	 * Notify the DRM core of the HPD event using drm_helper_hpd_irq_event()
+> +	 * instead of drm_bridge_hpd_notify(). This will cause the DRM function
+> +	 * check_connector_changed() to be called, which in turn calls the
+> +	 * connector detect()/force() funcs to detect any connection status or
+> +	 * epoch changes. The bridge connector detect() func also ensures that
+> +	 * any hpd_notify() funcs are called for all bridges in the chain.
+> +	 *
+> +	 * drm_bridge_hpd_notify() shares a mutex with drm_bridge_hpd_disable(),
+> +	 * and can result in a deadlock due to the disable_delayed_work_sync()
+> +	 * call to wait on work to complete in dw_hdmi_bridge_hpd_disable().
+> +	 */
+> +	drm_helper_hpd_irq_event(dev);
+> +}
+> +
+>   static const struct dw_hdmi_phy_data dw_hdmi_phys[] = {
+>   	{
+>   		.type = DW_HDMI_PHY_DWC_HDMI_TX_PHY,
+> @@ -3396,6 +3454,9 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+>   		goto err_res;
+>   	}
+>   
+> +	INIT_DELAYED_WORK(&hdmi->hpd_work, dw_hdmi_hpd_work);
+> +	disable_delayed_work(&hdmi->hpd_work);
+> +
+>   	ret = devm_request_threaded_irq(dev, irq, dw_hdmi_hardirq,
+>   					dw_hdmi_irq, IRQF_SHARED,
+>   					dev_name(dev), hdmi);
+> @@ -3532,6 +3593,18 @@ EXPORT_SYMBOL_GPL(dw_hdmi_probe);
+>   
+>   void dw_hdmi_remove(struct dw_hdmi *hdmi)
+>   {
+> +	struct platform_device *pdev = to_platform_device(hdmi->dev);
+> +	int irq = platform_get_irq(pdev, 0);
+> +
+> +	/* Free, mute and clear phy interrupts */
+> +	devm_free_irq(hdmi->dev, irq, hdmi);
+> +	hdmi_writeb(hdmi, ~0, HDMI_IH_MUTE_PHY_STAT0);
+> +	hdmi_writeb(hdmi, HDMI_IH_PHY_STAT0_HPD | HDMI_IH_PHY_STAT0_RX_SENSE,
+> +		    HDMI_IH_PHY_STAT0);
+> +
+> +	/* Cancel any pending hot plug work */
+> +	cancel_delayed_work_sync(&hdmi->hpd_work);
+> +
+>   	drm_bridge_remove(&hdmi->bridge);
+>   
+>   	if (hdmi->audio && !IS_ERR(hdmi->audio))
+> @@ -3539,9 +3612,6 @@ void dw_hdmi_remove(struct dw_hdmi *hdmi)
+>   	if (!IS_ERR(hdmi->cec))
+>   		platform_device_unregister(hdmi->cec);
+>   
+> -	/* Disable all interrupts */
+> -	hdmi_writeb(hdmi, ~0, HDMI_IH_MUTE_PHY_STAT0);
+> -
+>   	if (hdmi->i2c)
+>   		i2c_del_adapter(&hdmi->i2c->adap);
+>   	else
 
--- 
-With best wishes
-Dmitry
