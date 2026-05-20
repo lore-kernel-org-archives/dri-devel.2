@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34986CD5BAC
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:38:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A7BECD5BAC
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:39:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 188EA10F13E;
-	Wed, 20 May 2026 18:38:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFB510F12A;
+	Wed, 20 May 2026 18:39:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="AdN4NZLX";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="G1xqVO9u";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF35710E437
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B7C810F119
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779302313;
- bh=PmbgpZbPE5xAfNkRsAV4jpU2oQf+BxCJwVrQ+NHqNVE=;
+ s=mail; t=1779302317;
+ bh=6Efa10mhYY74QgNr/e6CEThORVt8xA18BjD8AhQSdBU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=AdN4NZLXPGN4LnrKEoAwY3AyK0vYPMpXilcPSQ8pFV5k4jFCmM8KSgQSFeLz8c+xl
- V5Ow3Wnm7PVVHJClqFWQt3YTPuh0ln5elJFVeOm7vBuuvFm4VdymPXgub4BC7n1yHe
- nwINVMRiuGiHbUE9fnhr1JXcQdsJHC9k2QM0336ysYaeaEI/NLNXvKbt3HHB0gbRm1
- MhI/eCm3yFasVX6ezk4sUnWsiVk++aOkSacC8AwpfmdnNx+CzqEKCPAQ5kTw9PS7wl
- 6Qr/I6vIyiOoSNVO6LYMT0l7/2RSQcwG5Y82RAVdpAJYmKrFJLFWD5Wp5RcBNlTGj+
- yBsUdOIrbaW2g==
+ b=G1xqVO9uMzbsIYCYRLUVQBc34SOwPceRSGP1U7zpkcCXhpAtHC8W5N+wWxUfRX/kO
+ tX20jnbJUr7zon5Phv9S3cA6tzj9Wm6IjiaK2svZUyctmdX/IGK+iceWSYLa/O2c5W
+ NLzOetbvoMCp0J0G4juQtU8eBl4DjW9YIaMlhBNnq4D5b0lTxZ5WkA262PL5uQmdSb
+ io5d8IO+50DFbcTtFL+fcXw3gNb76zyWnsXG2ixXxz4O3QP5Uy+EAxn3z4276HxfPg
+ c/i88d729oe7Oifao3CaHIuSZ5esBvcZbgQxVh9C0ufq1DD0szIO4n+pWCEE1Pa73Y
+ VGOxkW4zuoE/A==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4E24217E143E;
- Wed, 20 May 2026 20:38:33 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C110B17E1507;
+ Wed, 20 May 2026 20:38:37 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 20 May 2026 21:38:14 +0300
-Subject: [PATCH v6 03/22] drm/display: scdc_helper: Add macro to simplify
- debugging
+Date: Wed, 20 May 2026 21:38:20 +0300
+Subject: [PATCH v6 09/22] drm/display: bridge_connector: Switch to
+ .detect_ctx() connector helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-dw-hdmi-qp-scramb-v6-3-24b74603b782@collabora.com>
+Message-Id: <20260520-dw-hdmi-qp-scramb-v6-9-24b74603b782@collabora.com>
 References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -57,7 +57,10 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Daniel Stone <daniels@collabora.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
+ linux-rockchip@lists.infradead.org, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Maud Spierings <maud_spierings@hotmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,85 +77,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce the drm_scdc_dbg() wrapper over drm_dbg_kms() to help getting
-rid of the boilerplate around prefixing the debug messages with the
-connector information.
+Replace the .detect() connector_funcs callback with the atomic-aware
+.detect_ctx() connector_helper_funcs hook.
 
+This propagates the modeset acquire context through
+drm_atomic_helper_connector_hdmi_hotplug_ctx() to the HDMI connector
+framework, enabling SCDC state recovery via CRTC reset when the sink
+reconnects during an active display pipeline.
+
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_scdc_helper.c | 24 +++++++++---------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/display/drm_bridge_connector.c | 74 ++++++++++++++------------
+ 1 file changed, 40 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-index df878aad4a36..cb6632346aad 100644
---- a/drivers/gpu/drm/display/drm_scdc_helper.c
-+++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-@@ -55,6 +55,10 @@
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index b69785eb49e2..47bb0dcf509f 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -208,39 +208,6 @@ static void drm_bridge_connector_disable_hpd(struct drm_connector *connector)
+  * Bridge Connector Functions
+  */
  
- #define SCDC_I2C_SLAVE_ADDRESS 0x54
+-static enum drm_connector_status
+-drm_bridge_connector_detect(struct drm_connector *connector, bool force)
+-{
+-	struct drm_bridge_connector *bridge_connector =
+-		to_drm_bridge_connector(connector);
+-	struct drm_bridge *detect = bridge_connector->bridge_detect;
+-	struct drm_bridge *hdmi = bridge_connector->bridge_hdmi;
+-	enum drm_connector_status status;
+-
+-	if (detect) {
+-		status = detect->funcs->detect(detect, connector);
+-
+-		if (hdmi)
+-			drm_atomic_helper_connector_hdmi_hotplug(connector, status);
+-
+-		drm_bridge_connector_hpd_notify(connector, status);
+-	} else {
+-		switch (connector->connector_type) {
+-		case DRM_MODE_CONNECTOR_DPI:
+-		case DRM_MODE_CONNECTOR_LVDS:
+-		case DRM_MODE_CONNECTOR_DSI:
+-		case DRM_MODE_CONNECTOR_eDP:
+-			status = connector_status_connected;
+-			break;
+-		default:
+-			status = connector_status_unknown;
+-			break;
+-		}
+-	}
+-
+-	return status;
+-}
+-
+ static void drm_bridge_connector_force(struct drm_connector *connector)
+ {
+ 	struct drm_bridge_connector *bridge_connector =
+@@ -278,7 +245,6 @@ static void drm_bridge_connector_reset(struct drm_connector *connector)
  
-+#define drm_scdc_dbg(connector, fmt, ...)					\
-+	drm_dbg_kms((connector)->dev, "[CONNECTOR:%d:%s] " fmt,			\
-+		    (connector)->base.id, (connector)->name, ##__VA_ARGS__)
+ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
+ 	.reset = drm_bridge_connector_reset,
+-	.detect = drm_bridge_connector_detect,
+ 	.force = drm_bridge_connector_force,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+@@ -291,6 +257,45 @@ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
+  * Bridge Connector Helper Functions
+  */
+ 
++static int drm_bridge_connector_detect_ctx(struct drm_connector *connector,
++					   struct drm_modeset_acquire_ctx *ctx,
++					   bool force)
++{
++	struct drm_bridge_connector *bridge_connector =
++		to_drm_bridge_connector(connector);
++	struct drm_bridge *detect = bridge_connector->bridge_detect;
++	struct drm_bridge *hdmi = bridge_connector->bridge_hdmi;
++	enum drm_connector_status status;
++	int ret;
 +
- /**
-  * drm_scdc_read - read a block of data from SCDC
-  * @adapter: I2C controller
-@@ -158,9 +162,7 @@ bool drm_scdc_get_scrambling_status(struct drm_connector *connector)
++	if (detect) {
++		status = detect->funcs->detect(detect, connector);
++
++		if (hdmi) {
++			ret = drm_atomic_helper_connector_hdmi_hotplug_ctx(connector,
++									   status, ctx);
++			if (ret == -EDEADLOCK)
++				return ret;
++		}
++
++		drm_bridge_connector_hpd_notify(connector, status);
++	} else {
++		switch (connector->connector_type) {
++		case DRM_MODE_CONNECTOR_DPI:
++		case DRM_MODE_CONNECTOR_LVDS:
++		case DRM_MODE_CONNECTOR_DSI:
++		case DRM_MODE_CONNECTOR_eDP:
++			status = connector_status_connected;
++			break;
++		default:
++			status = connector_status_unknown;
++			break;
++		}
++	}
++
++	return status;
++}
++
+ static int drm_bridge_connector_get_modes_edid(struct drm_connector *connector,
+ 					       struct drm_bridge *bridge)
+ {
+@@ -382,6 +387,7 @@ static int drm_bridge_connector_atomic_check(struct drm_connector *connector,
  
- 	ret = drm_scdc_readb(connector->ddc, SCDC_SCRAMBLER_STATUS, &status);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to read scrambling status: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to read scrambling status: %d\n", ret);
- 		return false;
- 	}
- 
-@@ -188,9 +190,7 @@ bool drm_scdc_set_scrambling(struct drm_connector *connector,
- 
- 	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to read TMDS config: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
- 		return false;
- 	}
- 
-@@ -201,9 +201,7 @@ bool drm_scdc_set_scrambling(struct drm_connector *connector,
- 
- 	ret = drm_scdc_writeb(connector->ddc, SCDC_TMDS_CONFIG, config);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to enable scrambling: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to enable scrambling: %d\n", ret);
- 		return false;
- 	}
- 
-@@ -248,9 +246,7 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
- 
- 	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to read TMDS config: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
- 		return false;
- 	}
- 
-@@ -261,9 +257,7 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
- 
- 	ret = drm_scdc_writeb(connector->ddc, SCDC_TMDS_CONFIG, config);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to set TMDS clock ratio: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to set TMDS clock ratio: %d\n", ret);
- 		return false;
- 	}
- 
+ static const struct drm_connector_helper_funcs drm_bridge_connector_helper_funcs = {
+ 	.get_modes = drm_bridge_connector_get_modes,
++	.detect_ctx = drm_bridge_connector_detect_ctx,
+ 	.mode_valid = drm_bridge_connector_mode_valid,
+ 	.enable_hpd = drm_bridge_connector_enable_hpd,
+ 	.disable_hpd = drm_bridge_connector_disable_hpd,
 
 -- 
 2.53.0
