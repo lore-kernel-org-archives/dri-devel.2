@@ -4,141 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8203CD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 08:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3F3CD5BA4
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 08:46:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9934410ED09;
-	Wed, 20 May 2026 08:44:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7A7810E0A8;
+	Wed, 20 May 2026 08:46:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ftvi2/nY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i8D3joTU";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="Hrw0C5Wh";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32DE110ED09
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:44:28 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64K7KPGA1725603
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:44:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- kBZzhF2TXF0bd/pOVhe1PmA5RoJWjDzpylvaKKzcG2Y=; b=ftvi2/nY9bt9Rhg0
- sUrKexHu+roNChCbvpfL/S/roEhjHyEX+iWTS987bQ3bbD/TQfVNu6ynZykcuryz
- 9FVjTrNqvaLocmY4U4fYJwkXfE1kDzvhDApkkjUtxHC2MmUR356e1D3wrETvqcp4
- ozB/gzfTkwDG6HvswN6aEdH1C2I21hwbaS3FgWKeAP+DT/+5RMotNFD8sEOxigAj
- QoQJ/YZRah2gHtyrzzTAJhz9/yI9DXwLHfF/vYqjrfl3Fvlkr3pAGbdcChtbxrUl
- u07fTREPlD3/8sMJQFqej1seoFWNhCIncbrpwhEkl1xBGEbNFu2LINEWATAeS+vO
- 4Uz2nA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3qkvd0-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:44:27 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-365fd467cf6so3913711a91.0
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 01:44:27 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B23210E0A8
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:46:41 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-43eb05b1875so2499539f8f.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 01:46:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779266667; x=1779871467;
+ d=baylibre.com; s=google; t=1779266800; x=1779871600;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kBZzhF2TXF0bd/pOVhe1PmA5RoJWjDzpylvaKKzcG2Y=;
- b=i8D3joTUc/NIInpylKx9bmitJ4rDVvBOJImpm4Cd1PMU10SzOqdU4jsQN5BR2PsC7s
- aGwPMt/zTiWNHJ3l/WYbYUQbFxPmEv7pRYmswibQenoWlCwV5o9+Kr0RXokHl9DrVlLT
- PSgaAXOG2OqWAw4Ba6Uwokj5CRA+ktatuLQNf02403ocGMemdH+O8Tzen87Q86o++oQ2
- N5degD+hBGI/jvDYMNemTKgki8J8IX+ytdizAdHbYiVT8/48EYVQrCnrxpBr0GBGuVlL
- OtHM9vj7E5Sf4X4QOz6Iq+yCTUq60wZUJg/OrY2ORMef4J0a/VMX+Y2cZfZ1lZTueXFs
- ia4w==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=U53nOZsze2BOUUWxn8xrqWn0udiJAimX6PJ2o0xVGTg=;
+ b=Hrw0C5WhNPZANkr4YpSqQvsW3RhPfRU1Sq6fEKOWE4V2Ub/LM0LnXcEHF9KFeDasOP
+ Pq2NbE44r2QM1OFciWLKqHMYfzMqEqueiUArdacUixO8Ls//DwlgfxTwNQ6IMaeOthOa
+ 9v2XdQicSIBXVxwzRruFzSrRW5n6SuJGCJgve6BixReeGILULefx1KFwFFJjpi4wl+s/
+ tkjb6K0FwpWYxn01BGznyuJY7EKh94k3GvqWE/vLI01MYCy1Yofa+sG9kEnHQ94X3ajq
+ UwvVSrYicG6cbJl1LJLbVBWK6zrzSl8DmZCYF7wBGkOxbyumEZIKYvaS9m4Zx5RknlcP
+ sXiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779266667; x=1779871467;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kBZzhF2TXF0bd/pOVhe1PmA5RoJWjDzpylvaKKzcG2Y=;
- b=nURaPTOBxjYKnWBQd7I2VI+w8/CfGed2zV1Z8L0ku59iOwuRpks84FHdl0p022Ac18
- cMap467itc06btJWPoI5evwxEw85+Ui+a6VpR+6nX1tAvH0cYD8gKitIbnbf6uTlVxBf
- 9Trt0b9SnQpxWXAqyedca0aPruvjIDG+MkPyuMt+qqpFUx8OiNi7Nt1GzzAgoVSpp11V
- zb9pDNj9FqRRrH3nBeoKs6Z4Aks8rU5vb6yYB3e2sc9zF0bwxCt2+C5umuD0P6JfJPzl
- Fm9uqpPzPgwVhPVWeN3xdv4TaTnyjs+GIbfJA7GQwjcIh8tYXEY7+ppRutJGakZbYwZw
- ADKg==
+ d=1e100.net; s=20251104; t=1779266800; x=1779871600;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=U53nOZsze2BOUUWxn8xrqWn0udiJAimX6PJ2o0xVGTg=;
+ b=bjvpQBk5/V7pDYdVPtXWZAweAzBwc4SjxAI77bP6vMY5DObZ03DNUioSXGan/kOHtj
+ cBnKcNdMolsEb9EFH5R23JVeUQRnaWbMjrTywgLA/22NZrjnSmRqwg1ISqLMDczWEh1S
+ GYfIhYRTScFmx88KSacInPI5bpyLRxO/AO7Qjqn6+fgm+3XlrSvcj78TMJ5qjO8DUuAl
+ FoHuLXXklTXqHBYz8j1gWM9GAkXosSpFU10cUd1w/H5tcid/e+dKTj1Yb8nia9zUxBgx
+ EFdmwFDCCzgsKNSOrgIBthZlYG3KLBJzWBMv6/O1D5uGv6zNqlUI4TgXiTT1QL5RsLqN
+ slgg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+vsdGscCW4/HOeQuiOXYYe1/r9NdBE35XLMIGXRoPWM5Mdoqg6o8vR62Kh+IOLaeMpUFyH6gHDnB4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxjee3knT288I2YdkB8onAMghVDwQbVZt/ubwI7sAaXUHixv0Zv
- opp+anMHxBzw41vfqKzDJnMNTPGIrPos4BQrBpAu5qIDNAv2aeVhOjsuNyGwc+4gVwXZ5X4Mw3d
- fpauM+566U+W8KBV1fVYXMHsu6MSGdbIxaGHBYguoOEr7I++SnVNp/NGpKCO3b4PjiZlp6mJ9ry
- Js9NY=
-X-Gm-Gg: Acq92OE70cl6OS+goWtrjuoMsLsltFU2aEMRxgdsmLY49blQnSz08Euhs3m6i1Stftz
- ZBlS6Qhlm0BvBMA7Wtz+BakSG5GOghE1PTIdxOPRO8FNskibckD4QGytnwaaVa69YPB9CwjwBOg
- 0K6uGzjHb+w15s6LS3S4jR9EPnPb80YsA8m+Nvy5Tppil6tpzfj9aE3pqQTFEuzwMKBSMdOFMDy
- 3nxjiRlO0qdr9WkqRs13wdgtk+DIH/iE5z7Frj2TOsmeR5XS6RhQn6fCvjdJAr8kyR3xTWMcn+X
- FaGpXXdfeW/yOuIIzNfC0s+MQkhK3+GVek9vLvOWJ24h9ihfFbcgbNl5VnBHmzNqxHoy0Ue08o6
- ZgLslcmViM4oMabQgYTyxCHEgfqqDmqBL423nXyEuYR5+ZhW43r4D
-X-Received: by 2002:a17:90b:1d84:b0:368:433:b697 with SMTP id
- 98e67ed59e1d1-36951ca51ecmr22558350a91.19.1779266666599; 
- Wed, 20 May 2026 01:44:26 -0700 (PDT)
-X-Received: by 2002:a17:90b:1d84:b0:368:433:b697 with SMTP id
- 98e67ed59e1d1-36951ca51ecmr22558333a91.19.1779266666085; 
- Wed, 20 May 2026 01:44:26 -0700 (PDT)
-Received: from [172.20.10.3] ([27.60.134.77]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36951434eafsm16841041a91.10.2026.05.20.01.44.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 May 2026 01:44:25 -0700 (PDT)
-Message-ID: <3484614f-e36d-438a-843b-a137efe04b4e@oss.qualcomm.com>
-Date: Wed, 20 May 2026 14:14:16 +0530
+ AFNElJ9Ux9+lgjzL32sesJtsFLfBUQ+ie5GGrUw1aeLAF3zzyZd0BWW46owzeNbnIMcoEt/8P4mZoZquWIk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwHA6c1pWE4Z7x3CmP6PCEFl9sXArG/F03aTTGfsbqnhabg2hbg
+ rerKWHwzmAgCAbmCxKAe6xAwGeKAuIeTTHq8c4HzpI9EA6IJytWqqPHJdynhBcfMwKA=
+X-Gm-Gg: Acq92OERkAdXKpqJO+5Ikk1r9RJbay6Fz1jn3C4Ea71PVTlMn8CBPpUcqlH8fQRn+QH
+ O90Pq1493pv5PKt0xOTTpDC6p593UavaVYJZwnQI9amjW+akofWL1FZ/epIQXSCEpesj0e5V1Fc
+ IDIsVBCdNp3YOMlD9M7Lfhzl+rI69/WUoT07paCYfdJBAh4ZzSBoNLtSIc7yozg8vtf+Fe9JzQP
+ E1cAVZtVolFAQIFbfE9VJMVq9zIufcSdFILTHA8vSC7rJRYQC3W16Kp4fSuMDPIqXBbC7J9wTlX
+ +Q8vyEaujcYyDqtDESA3EekiO9le+8uLm6a9FwkLJWbcovss2DjMNTA4uATf5hUhcLRcnURj59z
+ gk9+lm1GTrYdKeTTcPiMpDtaW0C2hHqVQqyH9tkNEBTcMZioTGscSw/ZdqSBXBId202nww3c/sg
+ C9djrsoMbhchyXLJDy4LvbUgwkcC+mxVKvejkUhTasxhVULX07Ux00c3ZEyk2Y2wed9MKacykas
+ EBmbFSbqjAxkps=
+X-Received: by 2002:a5d:5d82:0:b0:439:c299:4d8f with SMTP id
+ ffacd0b85a97d-45e5c5cbe4bmr36382479f8f.17.1779266800378; 
+ Wed, 20 May 2026 01:46:40 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db04a02ef40d8e5825ac.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:a02e:f40d:8e58:25ac])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-45da0a19b1dsm51573666f8f.17.2026.05.20.01.46.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 May 2026 01:46:39 -0700 (PDT)
+Date: Wed, 20 May 2026 10:46:38 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Helge Deller <deller@gmx.de>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+ Russell King <linux@armlinux.org.uk>, Andres Salomon <dilinger@queued.net>, 
+ Antonino Daplas <adaplas@gmail.com>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-geode@lists.infradead.org, Markus Schneider-Pargmann <msp@baylibre.com>
+Subject: Re: [PATCH] fbdev: Consistently define pci_device_ids using named
+ initializers
+Message-ID: <ag1xQVCCzXkc_Ucu@monoceros>
+References: <20260430111637.211336-2-u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/16] drm/msm: Add PERFCNTR_CONFIG ioctl
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bill Wendling <morbo@google.com>, David Airlie <airlied@gmail.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, Justin Stitt
- <justinstitt@google.com>, Konrad Dybcio <konradybcio@kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b"
- <llvm@lists.linux.dev>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>
-References: <20260518190735.16236-1-robin.clark@oss.qualcomm.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260518190735.16236-1-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA4MyBTYWx0ZWRfX6W6cTx6ANokp
- ADm5JqC2TsJYSJ+KC+Eb9Wjgq9/JmK1HDP/zhzq3t0Q1SeCVLpbrNaLO1jnMQPRsGeRX+WqdDZC
- JIDuasQC0Y8HIcqyrZhsp/m7OD+bsvhcsJPp3r+kqeMZ7u4rb5Ape3hvvGJq4ZD8sCtyPiz79EQ
- Y1G2cfEsAhdnnKAwpIbEq7k8JcMr0Tr3/wQr3S1zAtbzIht4MkG/YU5I1Gm6LLdVChs3Ws8QNzh
- JRgJrxbAfONSbasB5zm7Zk1ledLmzK8P8j/MCLmzaJKArZCzG0Hgw6wFqN+/fCQdaCUwYbeX2DM
- FYvtQRiWCno3KAVJ6ldXYl8LqrqvQwXdNCKnyOG2a7ohnnY34/cy14VWVrNNVghb3TS8CbJR+9V
- g34jjBOqh9Kl4Fm20Ou7LxcpkrRsCh6kDZpgjLMtM44F1UaZA/ja6zz21YVM0Bne0rBgRvpc56S
- qrfwcW72kl36VH7e/qA==
-X-Authority-Analysis: v=2.4 cv=N9cZ0W9B c=1 sm=1 tr=0 ts=6a0d746b cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Q/5yxSSCruZ1lXPW2Frkag==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=BSL2Kxv7fMuy8ITjNe0A:9
- a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: qqoEAAliOibDpTSOKbvkYexG4se56NLh
-X-Proofpoint-ORIG-GUID: qqoEAAliOibDpTSOKbvkYexG4se56NLh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
- suspectscore=0 malwarescore=0 spamscore=0 phishscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605200083
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="4j765bpqgzr2splh"
+Content-Disposition: inline
+In-Reply-To: <20260430111637.211336-2-u.kleine-koenig@baylibre.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,156 +99,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/19/2026 12:36 AM, Rob Clark wrote:
-> Add a new PERFCNTR_CONFIG ioctl, serving two functions:
-> 
-> 1. Global counter collection (restricted to perfmon_capable()) using the
->    MSM_PERFCNTR_STREAM flag.  Global counter sampling is, global, across
->    contexts.  Only a single global counter stream is allowed at a time.
-> 2. Reserve counters for local counter collection.  Local counter
->    collection is local to a cmdstream (GEM_SUBMIT), and as such is
->    allowed in all processes without additional privileges.
-> 
-> The kernel enforces that counters assigned for global counter collection
-> do not conflict with counters reserved for local counter collection, and
-> visa versa.  Since local counter collection is scoped to a single cmd-
-> stream, multiple UMD processes can overlap in their reserved counters.
-> But cannot conflict with global counter usage.
-> 
-> In the case of local counter collection, the UMD is still responsible
-> for programming the corresponding SELect registers, and sampling the
-> counter values, from it's cmdstream.  But by performing the reservation
-> step, the UMD protects itself from the kernel trying to use the same
-> SEL/counter regs for global counter collection.
-> 
-> For global counter collection, the kernel programs SEL regs, and sets up
-> a timer for counter sampling.  Userspace reads out the sampled values
-> from the returned perfcntr stream fd.  Releasing the global perfcntr
-> stream is simply a matter of close()ing the fd.
-> 
-> The final two patches wire up the needed support for global counter
-> stream collection while IFPC is active, and drops disabling of IFPC.
-> 
-> The mesa side of this is at:
-> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/41158
-> 
-> igt test at:
-> https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/perfcntrs
-> 
-> wiki page about the design:
-> https://gitlab.freedesktop.org/drm/msm/-/wikis/adreno:-perfcounter-UABI
-> 
-> Changes in v7:
-> - Use smp_load_acquire() for fifo_count_to_end() [Akhil]
-> - Defer installing stream_fd until end [Akhil]
-> - Link to v6: https://lore.kernel.org/all/20260514134052.361771-1-robin.clark@oss.qualcomm.com/
-> 
-> Changes in v6:
-> - Reword comment [Anna]
-> - Link to v5: https://lore.kernel.org/all/20260511130017.96867-1-robin.clark@oss.qualcomm.com/
-> 
-> Changes in v5:
-> - Drop unnecessary runpm in ioctl path
-> - Link to v4: https://lore.kernel.org/all/20260506171127.133572-1-robin.clark@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Fix null ptr deref on older gens without perfcntr support [Claude]
-> - Add upper limit to userspace controlled FIFO size [Claude]
-> - Fix nr_regs calculation [Claude]
-> - Link to v3: https://lore.kernel.org/all/20260504190751.61052-1-robin.clark@oss.qualcomm.com/
-> 
-> Changes in v3:
-> - Fix loop counter issue spotted by Claude review
-> - Add MSM_PERFCNTR_UPDATE flag to ask kernel to return the actual # of
->   available counters in case of -E2BIG
-> - Proper barriers for modifying pwrup_Link
-> - Link to v2: https://lore.kernel.org/all/20260424151140.104093-1-robin.clark@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Rework makefile magic based on Dmitry's suggestion, and add a2xx/a5xx
->   perfcntr tables (although only a6xx+ is supported at this point)
-> - Fix compile error for compilers that are picky about a struct that
->   only contains a flex array
-> - Drop a6xx_idle() under gpu->lock in a6xx_perfcntr_configure(), replace
->   with perfcntr_fence that sel_worker can check
-> - Add a7xx+ pwrup_reglist support for restoring SELect regs on exit from
->   IFPC.  (a6xx doesn't support IFPC, and the pwrup_reglist works a bit
->   differently)
-> - Stop disabling IFPC when global counter stream is active.
-> - Link to v1: https://lore.kernel.org/all/20260420222621.417276-1-robin.clark@oss.qualcomm.com/
-> 
-> Rob Clark (16):
->   drm/msm: Remove obsolete perf infrastructure
->   drm/msm: Allow CAP_PERFMON for setting SYSPROF
->   drm/msm/adreno: Sync registers from mesa
->   drm/msm/registers: Sync gen_header.py from mesa
->   drm/msm/registers: Add perfcntr json
->   drm/msm: Add a6xx+ perfcntr tables
->   drm/msm: Add sysprof accessors
->   drm/msm/a6xx: Add yield & flush helper
->   drm/msm: Add per-context perfcntr state
->   drm/msm: Add basic perfcntr infrastructure
->   drm/msm/a6xx+: Add support to configure perfcntrs
->   drm/msm/a8xx: Add perfcntr flush sequence
->   drm/msm: Add PERFCNTR_CONFIG ioctl
->   drm/msm/a6xx: Increase pwrup_reglist size
->   drm/msm/a6xx: Append SEL regs to dyn pwrup reglist
->   drm/msm/a6xx: Allow IFPC with perfcntr stream
-> 
->  drivers/gpu/drm/msm/Makefile                  |   27 +-
->  drivers/gpu/drm/msm/adreno/a2xx_gpu.c         |    7 -
->  drivers/gpu/drm/msm/adreno/a3xx_gpu.c         |   16 -
->  drivers/gpu/drm/msm/adreno/a4xx_gpu.c         |    3 -
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   16 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   10 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  217 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   15 +-
->  drivers/gpu/drm/msm/adreno/a6xx_preempt.c     |    2 +-
->  drivers/gpu/drm/msm/adreno/a8xx_gpu.c         |   33 +-
->  drivers/gpu/drm/msm/adreno/a8xx_preempt.c     |    2 +-
->  drivers/gpu/drm/msm/adreno/adreno_device.c    |    8 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |    7 +-
->  drivers/gpu/drm/msm/msm_debugfs.c             |    6 -
->  drivers/gpu/drm/msm/msm_drv.c                 |    2 +-
->  drivers/gpu/drm/msm/msm_drv.h                 |   13 +-
->  drivers/gpu/drm/msm/msm_gpu.c                 |  119 +-
->  drivers/gpu/drm/msm/msm_gpu.h                 |  104 +-
->  drivers/gpu/drm/msm/msm_perf.c                |  235 --
->  drivers/gpu/drm/msm/msm_perfcntr.c            |  648 +++++
->  drivers/gpu/drm/msm/msm_perfcntr.h            |  155 ++
->  drivers/gpu/drm/msm/msm_ringbuffer.h          |    2 +
->  drivers/gpu/drm/msm/msm_submitqueue.c         |    3 +-
->  .../msm/registers/adreno/a2xx_perfcntrs.json  |  109 +
->  drivers/gpu/drm/msm/registers/adreno/a3xx.xml |    8 +-
->  drivers/gpu/drm/msm/registers/adreno/a5xx.xml |  141 +-
->  .../msm/registers/adreno/a5xx_perfcntrs.json  |  128 +
->  drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 1300 ++++++-----
->  .../msm/registers/adreno/a6xx_descriptors.xml |   71 +-
->  .../drm/msm/registers/adreno/a6xx_enums.xml   |    3 +
->  .../msm/registers/adreno/a6xx_perfcntrs.json  |  105 +
->  .../msm/registers/adreno/a7xx_perfcntrs.json  |  228 ++
->  .../msm/registers/adreno/a8xx_descriptors.xml |   96 +-
->  .../msm/registers/adreno/a8xx_perfcntrs.json  |  240 ++
->  .../msm/registers/adreno/a8xx_perfcntrs.xml   | 1929 +++++++++++++++
->  .../msm/registers/adreno/adreno_common.xml    |   42 +
->  .../drm/msm/registers/adreno/adreno_pm4.xml   |   50 +-
->  drivers/gpu/drm/msm/registers/gen_header.py   | 2079 +++++++++--------
->  include/uapi/drm/msm_drm.h                    |   48 +
->  39 files changed, 6015 insertions(+), 2212 deletions(-)
->  delete mode 100644 drivers/gpu/drm/msm/msm_perf.c
->  create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.c
->  create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.h
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
->  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.xml
-> 
 
-With the json fixes:
+--4j765bpqgzr2splh
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] fbdev: Consistently define pci_device_ids using named
+ initializers
+MIME-Version: 1.0
 
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Hello,
 
--Akhil.
+On Thu, Apr 30, 2026 at 01:16:36PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> diff --git a/drivers/video/fbdev/matrox/matroxfb_base.c b/drivers/video/f=
+bdev/matrox/matroxfb_base.c
+> index e1a4bc7c2318..22774eb1b14c 100644
+> --- a/drivers/video/fbdev/matrox/matroxfb_base.c
+> +++ b/drivers/video/fbdev/matrox/matroxfb_base.c
+> @@ -1642,7 +1642,7 @@ static int initMatrox2(struct matrox_fb_info *minfo=
+, struct board *b)
+>  	int err;
+> =20
+>  	static const struct pci_device_id intel_82437[] =3D {
+> -		{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_82437) },
+> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_82437) },
+>  		{ },
+>  	};
+> =20
 
+after further sharpening my tooling there is an additional change that
+IMHO should be done here:
+
+-		{ },
++		{ }
+
+and ...
+
+> diff --git a/drivers/video/fbdev/pvr2fb.c b/drivers/video/fbdev/pvr2fb.c
+> index 3f6384e631b1..06aefad75f46 100644
+> --- a/drivers/video/fbdev/pvr2fb.c
+> +++ b/drivers/video/fbdev/pvr2fb.c
+> @@ -993,9 +993,8 @@ static void pvr2fb_pci_remove(struct pci_dev *pdev)
+>  }
+> =20
+>  static const struct pci_device_id pvr2fb_pci_tbl[] =3D {
+> -	{ PCI_VENDOR_ID_NEC, PCI_DEVICE_ID_NEC_NEON250,
+> -	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+> -	{ 0, },
+> +	{ PCI_VDEVICE(NEC, PCI_DEVICE_ID_NEC_NEON250), },
+> +	{ },
+>  };
+> =20
+>  MODULE_DEVICE_TABLE(pci, pvr2fb_pci_tbl);
+
+=2E.. here:
+
+-	{ PCI_VDEVICE(NEC, PCI_DEVICE_ID_NEC_NEON250), },
++	{ PCI_VDEVICE(NEC, PCI_DEVICE_ID_NEC_NEON250) },
+-	{ },
++	{ }
+
+Would you mind squashing that into the patch you already applied, maybe
+adding:
+
+	While touching all these arrays, unify usage of whitespace and
+	comma in a few drivers.
+
+to the commit log? I can also send a v2 of the patch with these changes
+included if that's easier for you.
+
+Otherwise I will put sending these modifications separately on my todo
+list.
+
+Best regards
+Uwe
+
+--4j765bpqgzr2splh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmoNdOsACgkQj4D7WH0S
+/k7n3AgAmiu0dkGSmVN5iwDMsbx9u5oGpxoTfYsBdf+ieZ5EzDYhZzjAd5M4GNMS
+dajrNSdkatRRbEZFE3PYDscIkW69PVck72sxOJdTDyAVSPf2hgi3mbElPpXW5ZEl
+V5s0iKhXHTafmLPl+5cAsDOdMG19WulP1A3QfTepuM0kOEAKsQ4UwUV4AWlpBgH6
+GMiJdyUX4viX+gD8zOIgyKPCjqvBa8CMPkgQORFA1fuD+eEbv1Iw1b0xDr/AinyG
+8Jfn/ZzaAAnTJje43x8rP+Q5hw6uVI6bBHTrhypMFQ0C9ofIZBsv2BUyQ8Hp5i85
+TX3Z+lJoWmwknV9WI68+rtnMMOgSCg==
+=on22
+-----END PGP SIGNATURE-----
+
+--4j765bpqgzr2splh--
