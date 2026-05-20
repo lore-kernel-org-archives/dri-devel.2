@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE8FECD5BB1
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:39:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEC90CD5BB4
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 18:39:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36EC410F105;
-	Wed, 20 May 2026 18:39:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19A7610F141;
+	Wed, 20 May 2026 18:39:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Wf2xvDOx";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JVFjJSeo";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EBD610E431
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C048B10F119
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 18:38:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779302312;
- bh=q9lAjq8Od9z7GCP3fP0P3yIEdOdqbBKGEd1xHccT+5I=;
+ s=mail; t=1779302325;
+ bh=equcMxzWcJstN1bNv/FIKCDiolbRap3E7iZIA4ACfEE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Wf2xvDOxvItf3jlZ1igRBNGG9oq6tqMcROPCqFzf5MdSQj7uQd9/KO3cHwMiovH6R
- bBUwL/WJfGM5r05dklc9vRodEQIi0DiylPSX1JU8u7e9PUQLLVtC3cM65w3wNtsU7F
- 9ntlHhg4bSgYHbPzEIvQxUiLwi6IiWWjnM5ETyL+bvN9tmMD4/kV63C+/CM+bskMQx
- BexKtR1sPrETqkYe3AS8OL2x6H7TeGBzoWwR/lhhnCGNM0bfEhEbDoFWqOCNWGpLlV
- W6j3Ki+VP3FnD1DGU0TOs/uZssJdRnV6/jsNad1x0BXtCKMCXi/p38CGz2GfkFp7Om
- wa2ridcHtceXw==
+ b=JVFjJSeosRY/oISZ5z9PpA+BAMO2awxTNm0+X8gj6PwXc+nRoZaYC/MO7bS1Wx66p
+ PmIvMbXe+ofu9vFkntY9DsXKBbUushgoo8QMPdKxn/VqKix81E6njWreZAzXo9u+8g
+ ofbWbKDi66bTxAoKWkxl7PajWa0m3BRWGPd35/uFiSzkBvUpUIZrcgz9lKDo8YPVDz
+ 9D/gR0RxHMb++8zQ27bE1NU5LIZIj2PTOamk+LCpdDyWreKZNWCiFDpAI/QqKTtnVO
+ kSM8Thw82SQ2is7SYOUjLvnPN8cfkZVCULxi7qii1OYDls/NLI2JVDcDHFbxb0cX6t
+ 6w5ry1wjaj+2Q==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CDC2D17E1305;
- Wed, 20 May 2026 20:38:31 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6BDED17E157E;
+ Wed, 20 May 2026 20:38:45 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 20 May 2026 21:38:12 +0300
-Subject: [PATCH v6 01/22] drm/fb-helper: Remove unused local variable in
- hotplug_event()
+Date: Wed, 20 May 2026 21:38:30 +0300
+Subject: [PATCH v6 19/22] drm/rockchip: dw_hdmi_qp: Mask HPD IRQ in
+ rk3576_io_init()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-dw-hdmi-qp-scramb-v6-1-24b74603b782@collabora.com>
+Message-Id: <20260520-dw-hdmi-qp-scramb-v6-19-24b74603b782@collabora.com>
 References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -74,49 +74,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Remove the 'err' local variable in drm_fb_helper_hotplug_event() which
-only stores a return value that is never used beyond the immediate
-return statement.  This simplifies the code without behavior changes.
+Mask the RK3576 HPD interrupt in io_init() so it starts disabled,
+matching the RK3588 behavior.  This prevents spurious interrupts before
+the bridge framework enables HPD via the .hpd_enable() callback.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 38d25dce7f33..d8fb90160b90 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1744,21 +1744,17 @@ EXPORT_SYMBOL(drm_fb_helper_initial_config);
-  */
- int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper)
- {
--	int err = 0;
--
- 	if (!drm_fbdev_emulation || !fb_helper)
- 		return 0;
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 27342094958c..62ea5c7cbbe6 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -346,7 +346,7 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip_hdmi_qp *hdmi)
  
- 	mutex_lock(&fb_helper->lock);
--	if (fb_helper->deferred_setup) {
--		err = __drm_fb_helper_initial_config_and_unlock(fb_helper);
--		return err;
--	}
-+	if (fb_helper->deferred_setup)
-+		return __drm_fb_helper_initial_config_and_unlock(fb_helper);
+ 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON14, val);
  
- 	if (!fb_helper->fb || !drm_master_internal_acquire(fb_helper->dev)) {
- 		fb_helper->delayed_hotplug = true;
- 		mutex_unlock(&fb_helper->lock);
--		return err;
-+		return 0;
- 	}
- 
- 	drm_master_internal_release(fb_helper->dev);
-@@ -1802,4 +1798,3 @@ bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
- 	return gem == obj;
+-	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
++	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
+ 	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
  }
- EXPORT_SYMBOL_GPL(drm_fb_helper_gem_is_fb);
--
+ 
 
 -- 
 2.53.0
