@@ -4,86 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3F3CD5BA4
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 08:46:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D877DCD4F3C
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 08:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7A7810E0A8;
-	Wed, 20 May 2026 08:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B174510EF79;
+	Wed, 20 May 2026 08:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="Hrw0C5Wh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1ngouSCY";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B23210E0A8
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:46:41 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-43eb05b1875so2499539f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 01:46:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1779266800; x=1779871600;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=U53nOZsze2BOUUWxn8xrqWn0udiJAimX6PJ2o0xVGTg=;
- b=Hrw0C5WhNPZANkr4YpSqQvsW3RhPfRU1Sq6fEKOWE4V2Ub/LM0LnXcEHF9KFeDasOP
- Pq2NbE44r2QM1OFciWLKqHMYfzMqEqueiUArdacUixO8Ls//DwlgfxTwNQ6IMaeOthOa
- 9v2XdQicSIBXVxwzRruFzSrRW5n6SuJGCJgve6BixReeGILULefx1KFwFFJjpi4wl+s/
- tkjb6K0FwpWYxn01BGznyuJY7EKh94k3GvqWE/vLI01MYCy1Yofa+sG9kEnHQ94X3ajq
- UwvVSrYicG6cbJl1LJLbVBWK6zrzSl8DmZCYF7wBGkOxbyumEZIKYvaS9m4Zx5RknlcP
- sXiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779266800; x=1779871600;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=U53nOZsze2BOUUWxn8xrqWn0udiJAimX6PJ2o0xVGTg=;
- b=bjvpQBk5/V7pDYdVPtXWZAweAzBwc4SjxAI77bP6vMY5DObZ03DNUioSXGan/kOHtj
- cBnKcNdMolsEb9EFH5R23JVeUQRnaWbMjrTywgLA/22NZrjnSmRqwg1ISqLMDczWEh1S
- GYfIhYRTScFmx88KSacInPI5bpyLRxO/AO7Qjqn6+fgm+3XlrSvcj78TMJ5qjO8DUuAl
- FoHuLXXklTXqHBYz8j1gWM9GAkXosSpFU10cUd1w/H5tcid/e+dKTj1Yb8nia9zUxBgx
- EFdmwFDCCzgsKNSOrgIBthZlYG3KLBJzWBMv6/O1D5uGv6zNqlUI4TgXiTT1QL5RsLqN
- slgg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9Ux9+lgjzL32sesJtsFLfBUQ+ie5GGrUw1aeLAF3zzyZd0BWW46owzeNbnIMcoEt/8P4mZoZquWIk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwHA6c1pWE4Z7x3CmP6PCEFl9sXArG/F03aTTGfsbqnhabg2hbg
- rerKWHwzmAgCAbmCxKAe6xAwGeKAuIeTTHq8c4HzpI9EA6IJytWqqPHJdynhBcfMwKA=
-X-Gm-Gg: Acq92OERkAdXKpqJO+5Ikk1r9RJbay6Fz1jn3C4Ea71PVTlMn8CBPpUcqlH8fQRn+QH
- O90Pq1493pv5PKt0xOTTpDC6p593UavaVYJZwnQI9amjW+akofWL1FZ/epIQXSCEpesj0e5V1Fc
- IDIsVBCdNp3YOMlD9M7Lfhzl+rI69/WUoT07paCYfdJBAh4ZzSBoNLtSIc7yozg8vtf+Fe9JzQP
- E1cAVZtVolFAQIFbfE9VJMVq9zIufcSdFILTHA8vSC7rJRYQC3W16Kp4fSuMDPIqXBbC7J9wTlX
- +Q8vyEaujcYyDqtDESA3EekiO9le+8uLm6a9FwkLJWbcovss2DjMNTA4uATf5hUhcLRcnURj59z
- gk9+lm1GTrYdKeTTcPiMpDtaW0C2hHqVQqyH9tkNEBTcMZioTGscSw/ZdqSBXBId202nww3c/sg
- C9djrsoMbhchyXLJDy4LvbUgwkcC+mxVKvejkUhTasxhVULX07Ux00c3ZEyk2Y2wed9MKacykas
- EBmbFSbqjAxkps=
-X-Received: by 2002:a5d:5d82:0:b0:439:c299:4d8f with SMTP id
- ffacd0b85a97d-45e5c5cbe4bmr36382479f8f.17.1779266800378; 
- Wed, 20 May 2026 01:46:40 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db04a02ef40d8e5825ac.dip0.t-ipconnect.de.
- [2003:f6:5f47:db04:a02e:f40d:8e58:25ac])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-45da0a19b1dsm51573666f8f.17.2026.05.20.01.46.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 01:46:39 -0700 (PDT)
-Date: Wed, 20 May 2026 10:46:38 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Helge Deller <deller@gmx.de>
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
- Russell King <linux@armlinux.org.uk>, Andres Salomon <dilinger@queued.net>, 
- Antonino Daplas <adaplas@gmail.com>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-geode@lists.infradead.org, Markus Schneider-Pargmann <msp@baylibre.com>
-Subject: Re: [PATCH] fbdev: Consistently define pci_device_ids using named
- initializers
-Message-ID: <ag1xQVCCzXkc_Ucu@monoceros>
-References: <20260430111637.211336-2-u.kleine-koenig@baylibre.com>
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010022.outbound.protection.outlook.com
+ [52.101.193.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F22D510EFA6;
+ Wed, 20 May 2026 08:54:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d4PzcPrv4Lks5iaZEln6Tq2JLlaCqPpLGp4XrN6F1CbTMNaPEuYzozIodiYkSFuj0kNnc0zExKMcbKG1U4pkPoAIIrX3t+emg5CG+CntnKRTst4GQEtrvxHnes2VlM3w5SwTLrJwn7nVMg0dm8WAZrP6FHUQtfJ5gMs61z0Uk0ljLAAlTi5MgshwHTe4S6SZIhbvkwC281ETfslgHWpBjwqJ5NLxcQYByS+3nfanVvCT015dYb1GDvtL3/yxSwt8WeIYWKswv/Qks9i/rMAVqmEkkEZlA/GoQcZCMyDWfn8jzZbOL+AoFJfhlblSKbg+u5LsixO+6euqX5VSEP2t5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NVbDmARiNE1/vTFulBFQs8YvkZ9d5bchnmlj0CYvtYc=;
+ b=CVoTZdCV8Sx6wMYEvTGXExLkZ8DwfFq2CfayL3yvBJB7O58hc+dtSLmREWJ4OoucC+eCSZcnWz0507S1kz5c7iOTpqzPeFYd2z2En9fVTsBZXzEpiqyYb1Pj+3NCowT54ySzrD8cljJc0dMxooUSoIZVaC9j1lBUQIn6+72fnzNRxWcEUPliC3yPz+/Bnfu9cq/IslzZDt/o+6M6nw45vn2tAggqP4CNAc3YUDxnm4Qv4rYGkDlQ/aOr05SGcmCRZT4S1c5TMtXMN4y/y60xLgb0mIg9GkR++XVzIWS8qq3kAX+plGQeKl1Oj000vXy0lP1neuA8Gy7D8+bJJJtNiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NVbDmARiNE1/vTFulBFQs8YvkZ9d5bchnmlj0CYvtYc=;
+ b=1ngouSCYk0A78F+EbaunUqOdIMJvr3ZW1QJpcifz7GYiYTsNZrei/Iw/i124GGKyMA0E9w/A9HuqQZS0DGVRHlznzIFIYZ2OYWNpuJHzvAM3fnGsIszr3eWGJS6dMldl61DqWdKXd5kHph+VvXce1P3GT9XdnL+HIORbZjORWvA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from EAYPR12MB999132.namprd12.prod.outlook.com
+ (2603:10b6:303:2c2::11) by CH3PR12MB7596.namprd12.prod.outlook.com
+ (2603:10b6:610:14b::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 08:54:16 +0000
+Received: from EAYPR12MB999132.namprd12.prod.outlook.com
+ ([fe80::7798:60c4:e3f0:d3f8]) by EAYPR12MB999132.namprd12.prod.outlook.com
+ ([fe80::7798:60c4:e3f0:d3f8%4]) with mapi id 15.20.9891.021; Wed, 20 May 2026
+ 08:54:15 +0000
+Message-ID: <835d204d-0c2a-4a81-8c60-9d047809f6ef@amd.com>
+Date: Wed, 20 May 2026 14:24:08 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V10 03/10] drm/gpu: Add gpu_buddy_allocated_addr_to_block
+ helper
+To: Tejas Upadhyay <tejas.upadhyay@intel.com>, intel-xe@lists.freedesktop.org
+Cc: matthew.auld@intel.com, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, himal.prasad.ghimiray@intel.com,
+ dri-devel@lists.freedesktop.org
+References: <20260519122817.45770-12-tejas.upadhyay@intel.com>
+ <20260519122817.45770-15-tejas.upadhyay@intel.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20260519122817.45770-15-tejas.upadhyay@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0064.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b7::11) To EAYPR12MB999132.namprd12.prod.outlook.com
+ (2603:10b6:303:2c2::11)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4j765bpqgzr2splh"
-Content-Disposition: inline
-In-Reply-To: <20260430111637.211336-2-u.kleine-koenig@baylibre.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: EAYPR12MB999132:EE_|CH3PR12MB7596:EE_
+X-MS-Office365-Filtering-Correlation-Id: e30d6e08-37f7-4bc2-719e-08deb64d5e23
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|22082099003|18002099003|56012099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: IpgDGpFtQ0MbLbDdnDwvRlqgEnGMLOo97qWb/bghC6t7HDGlzwAtbi5q8L6X+Xl6RmSYPGq8KwKaa/TExBbLDZKv7eyhWstSIQ4h5bkUoZe2i1cqRhx4PsuD1VKoZz8q9ZMhYvsytKGhALznwrwlkyg5PeMlrGp2XULf7eiRRj5XNyqSYshM7Kuw5NILtaeRQsmHu/rd1Z9Hb4RGalwUuyk8ZK/kh3w7sCWdQf9PWcGDCJFT7VE9W9U9UOXHBAkbbBWd9gDAnwmgcIkPq9GChDpzb92TckXYGXMz/iZaWDANG1aHDSf3PZgEuru4jndSnLag5N7+qC+31DZMlnADOyXSBAzdta5svY4stMYtF27ojtjJZvvrSvXF1i7LzSdgnQc1/NYflW5C2FL9aOR44bowJ8hqHwnjGFtXXGsgr4Hz2jDuFxq0xkfObfBJLvgxdlNlpjjo/vpt9eUB8HXpgNYkgFU8TKIzLjsGlyzv3z0Ex709APfVbgay+F2tqjtkYOLgQc3dcJ9H/JyOSQYH6m1sqnQwxnfMmj0MXH8e4BJpMnfHqcZYco11KBcMPS5pxn6cFPAtmSeEUpUuLltDynAZ76YxuE7aix1dX24vYnuWOI1jS8OJQxHBciMfEuPkqz78q1rchF0A/HTWVoLGjAnj30csR4C8IRTT0o+JfUJbESYE23HNX5/9V/txoSZc
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:EAYPR12MB999132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099003)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTg1eU9RdFR0aDVLSEp2MmF3bEdNNEJSditITjU0NVEwNW43N2RmSDNyZjlq?=
+ =?utf-8?B?cGJvbW9zT0xZOG9oU0FEaDlUU3JWMlcrb1Z6YmVoSTZnRVhsRXV0c3pjYnBV?=
+ =?utf-8?B?cll2b2Q3aEc1dW9kMnlNYnpxY3dZcnpDQW9ZaTBRQVgxZnY2dEx4ekJLV3Fi?=
+ =?utf-8?B?V1NCYjg2ZjNmS1ZDeDVDQVNtdGhnRzBPZjQ4V1prdVN1RkUyODFvSjBGQTc3?=
+ =?utf-8?B?R20vMnR3T2pRemxGL0hXSlFNNlVkYTVjUkdCSGt3cHV3M1VTbUdBQXcyUEEy?=
+ =?utf-8?B?bDVQd1VWSHEraUxpRzVEQWV0VEtmWW83ZnQyVGxjejl5UTExbEV3U0NGeGlH?=
+ =?utf-8?B?OGZYM1pDMFRKS3ZucEloRXUrVmhJWWtnNno2dlF0elhGaERZd09PTWhwS093?=
+ =?utf-8?B?MVVJeEt6R20xaTZQN05FTmc2eUhGa1JjRCs4RW1oNTdsdDhVdFVHZG5janZC?=
+ =?utf-8?B?OXNxbFVlQkRUbTQ5TzcvRG1LWmcxaUpmTStheG9VNHd1MDdCY2h0M1RUcDdt?=
+ =?utf-8?B?c1BMaWEwTEUwRHk4SlBhcnJnMFZ6emJiUGZkbWRRU002OVh5M1pPRTFnVUdw?=
+ =?utf-8?B?bGdSdDYxVzhqbC9XMWt3WWljcURzL3hQUDROd3BweGRoVGgvUXk3d2pWOWpH?=
+ =?utf-8?B?RDAybWptQk9xSDA4ZFhmZ2czdWxyS2RQVXJ5QmFKL01CNTB5S3kwRUU1MmZm?=
+ =?utf-8?B?Tk1vV2RMTjBsQ2NCREZTTmdYOHFRV3R0cnhBanRWdlFkWVJYM3FqcjZsSlFQ?=
+ =?utf-8?B?VUJJQmo1QkFQcWNCenFBZkdyV3hkNE1VZnRLSUoyanYwWlNLYWtNd0o0R09P?=
+ =?utf-8?B?N0EwQlZoZ3BDNE1OYTZHNW5GUFZsNHBQWXJwV3MvdEg4MzY4RHFUSnMyVWVV?=
+ =?utf-8?B?K1ErM29qbk1VY0xUZTRKU3RVbUN0SjNYRG1sb25CSVNOZG5QK0QwTStXY2hn?=
+ =?utf-8?B?M0tBOEhNMXZzRXVLeURHWituc2JhaE1rOUdNam9uSFlyV2taYmRXZ3dIRDFx?=
+ =?utf-8?B?V05Pdk1YZGhGTWx6cFQwdStCZU1IZzlIMXNoaEpRYy9jNGkyOS82K1N6TjNJ?=
+ =?utf-8?B?MHIvWVBMTlNGSlJucjFmOXdSME9CM2xqb1Y2TmZQc29BRE12TU1iRDdPdUFo?=
+ =?utf-8?B?VUk5RG1taUZyRGJqQTdTSTFBcytvYjBONkVtSXp2SStGYkFYeGVlM3Z0Qm5V?=
+ =?utf-8?B?RXd1MlVURnlQajQ0M0s0Vy9VbHRlSUJIZEt6N0NVQ1oySW50SlNWWmxremd0?=
+ =?utf-8?B?TU5rZzJvSFRKejk4S0p4ZHdSUGNFZlpBZlpWVlJxaUF2dFN4WEY1OGc4akVj?=
+ =?utf-8?B?cWJjeWtTNDdMam5qaWVzUmRteEsxNCtKenBHbXZzVDA3VUZYRFJDS0FxcmFL?=
+ =?utf-8?B?NXJhSHlBOFhFbFkrWnVjamlYTlR6OTVGV1dKWWowYU14azVwSk9LRDNDRlpQ?=
+ =?utf-8?B?R214eUtZMzVXM0JSWVBrM0VTUDVGUWcxMTF0RXRWZ2dEcmIyTWFqNkU1U0pt?=
+ =?utf-8?B?V2x0MVF2UUE0YS9Cd3g4d1NZVElHR0d1Ky93MXZHOG5hR1JhZC9XRVdJY00r?=
+ =?utf-8?B?OUN3Q1Mvc2ZtenZFa05FMkp6eTUwQ3pPVUk1MTFkZm1yWityK2NWRjlWNmZO?=
+ =?utf-8?B?T1k4Y0g5ZTUxdWEyMWl4ZFJvM3ZJVUU3aHd4Rkd6eVplRDVrVEdGR0taalJC?=
+ =?utf-8?B?T0ZiRVFjRkRhRTBZSFRwN3JibHdpd2lPSy8xWE9wc2dTdGNQYzM3TjFhanN4?=
+ =?utf-8?B?MHFWWU9pZXMvSEdVLytXa25sUkNHdUxlVVFQcjdvbVk0RTZ0dXBMak9jT0FE?=
+ =?utf-8?B?SENWTFdHQTFhYVFxcERSQTFOWTVzU2RXMnNLMWxOT2trTjU0WFdHWWtFY1dx?=
+ =?utf-8?B?N0ViUmlUeFR6UXpaRlo5V3lyU0hKYWliTjdydDB4R1R6OWZKeTlKUGI2aG9B?=
+ =?utf-8?B?eW0wUWNxYlZla2QrblVnVWpJZkwwWnhPaEpiME1RdlptQk05QVh3a1B1ZzFU?=
+ =?utf-8?B?ZE5oRGhwV0lDRXpBV2x1NFl0eDUvZm1ZaVNWeFBLWGs4MzhRQ0JQd29kd3lt?=
+ =?utf-8?B?RjhTdWJKaGE0UDIyb1FaMUdISWFqWFlYTHpGSVM2a1lHZzBHTVRBUXo2N2p5?=
+ =?utf-8?B?UkpJcUZFV0RHanZyTHZDWCs0TDdKSUpJYTBNTDBIMjdjN0tQM0dUL0I3YVJX?=
+ =?utf-8?B?K1BHSFFHVThJQVZYU2dJY0xPazAzWGRQaC93dXh2bGRCeW1JZ2xiT0lrUVR1?=
+ =?utf-8?B?TURKRERpTE13d09zNkRtUUFud2daMVlYNHZ5MGdFKzZKZ0dhcFl6ZWJUTlpi?=
+ =?utf-8?B?NEtXTUFkWHpTSGQvelJXeDZEaitiaysyVTI4L2d1L3ZVVE9SRUZMUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e30d6e08-37f7-4bc2-719e-08deb64d5e23
+X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999132.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 08:54:15.5517 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NxmmKrhLBqNo+asMIj0GeBMrRSx+TFvf9ZvdvXQZU5nLXRDOdIFnWdWOp0Zkj0/9v5zbJ1R0PNUgcxiaxQy2yw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7596
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,94 +140,104 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---4j765bpqgzr2splh
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] fbdev: Consistently define pci_device_ids using named
- initializers
-MIME-Version: 1.0
 
-Hello,
+On 5/19/2026 5:58 PM, Tejas Upadhyay wrote:
+> Add helper with primary purpose is to efficiently trace a specific
+> physical memory address back to its corresponding TTM buffer object.
+>
+> v2:
+> - %s/gpu_buddy_addr_to_block/gpu_buddy_allocated_addr_to_block(MattA)
+> - remove clear->avail and split nodes check(MattA)
+> - Adapt lockdep(MattB)
+>
+> Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+> Cc: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+> Cc: dri-devel@lists.freedesktop.org
+> ---
+>   drivers/gpu/buddy.c       | 53 +++++++++++++++++++++++++++++++++++++++
+>   include/linux/gpu_buddy.h |  2 ++
+>   2 files changed, 55 insertions(+)
+>
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index eb1457376307..9de9872294a6 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -594,6 +594,59 @@ void gpu_buddy_free_block(struct gpu_buddy *mm,
+>   }
+>   EXPORT_SYMBOL(gpu_buddy_free_block);
+>   
+> +/**
+> + * gpu_buddy_allocated_addr_to_block - given relative address find the allocated block
+> + *
+> + * @mm: GPU buddy manager
+> + * @addr: Relative address
+> + *
+> + * Returns:
+> + * gpu_buddy_block on success, NULL or error code on failure
+> + */
+> +struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr)
+> +{
+> +	struct gpu_buddy_block *block;
+> +	LIST_HEAD(dfs);
+> +	u64 end;
+> +	int i;
+> +
+> +	gpu_buddy_driver_lock_held(mm);
+> +
+> +	end = addr + SZ_4K - 1;
+> +	for (i = 0; i < mm->n_roots; ++i)
+> +		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+> +
+> +	do {
+> +		u64 block_start;
+> +		u64 block_end;
+> +
+> +		block = list_first_entry_or_null(&dfs,
+> +						 struct gpu_buddy_block,
+> +						 tmp_link);
+> +		if (!block)
+> +			break;
+> +
+> +		list_del(&block->tmp_link);
+> +
+> +		block_start = gpu_buddy_block_offset(block);
+> +		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
+> +
+> +		if (!overlaps(addr, end, block_start, block_end))
+> +			continue;
+> +
+> +		if (gpu_buddy_block_is_allocated(block))
+> +			return block;
+> +		else if (gpu_buddy_block_is_free(block))
+> +			return NULL;
+> +
+> +		list_add(&block->right->tmp_link, &dfs);
+> +		list_add(&block->left->tmp_link, &dfs);
+> +	} while (1);
+> +
+> +	return ERR_PTR(-ENXIO);
+> +}
+> +EXPORT_SYMBOL(gpu_buddy_allocated_addr_to_block);
+> +
+>   static void __gpu_buddy_free_list(struct gpu_buddy *mm,
+>   				  struct list_head *objects,
+>   				  bool mark_clear,
+> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+> index 71941a039648..e7e22fa05ee2 100644
+> --- a/include/linux/gpu_buddy.h
+> +++ b/include/linux/gpu_buddy.h
+> @@ -272,6 +272,8 @@ void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear);
+>   
+>   void gpu_buddy_free_block(struct gpu_buddy *mm, struct gpu_buddy_block *block);
+>   
+> +struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr);
+Could you please clarify where we plan to use this helper function in 
+the code path? I do not see any callers added in the current patch series.
 
-On Thu, Apr 30, 2026 at 01:16:36PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> diff --git a/drivers/video/fbdev/matrox/matroxfb_base.c b/drivers/video/f=
-bdev/matrox/matroxfb_base.c
-> index e1a4bc7c2318..22774eb1b14c 100644
-> --- a/drivers/video/fbdev/matrox/matroxfb_base.c
-> +++ b/drivers/video/fbdev/matrox/matroxfb_base.c
-> @@ -1642,7 +1642,7 @@ static int initMatrox2(struct matrox_fb_info *minfo=
-, struct board *b)
->  	int err;
-> =20
->  	static const struct pci_device_id intel_82437[] =3D {
-> -		{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_82437) },
-> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_82437) },
->  		{ },
->  	};
-> =20
+Regards,
+Arun.
+> +
+>   void gpu_buddy_free_list(struct gpu_buddy *mm,
+>   			 struct list_head *objects,
+>   			 unsigned int flags);
 
-after further sharpening my tooling there is an additional change that
-IMHO should be done here:
-
--		{ },
-+		{ }
-
-and ...
-
-> diff --git a/drivers/video/fbdev/pvr2fb.c b/drivers/video/fbdev/pvr2fb.c
-> index 3f6384e631b1..06aefad75f46 100644
-> --- a/drivers/video/fbdev/pvr2fb.c
-> +++ b/drivers/video/fbdev/pvr2fb.c
-> @@ -993,9 +993,8 @@ static void pvr2fb_pci_remove(struct pci_dev *pdev)
->  }
-> =20
->  static const struct pci_device_id pvr2fb_pci_tbl[] =3D {
-> -	{ PCI_VENDOR_ID_NEC, PCI_DEVICE_ID_NEC_NEON250,
-> -	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
-> -	{ 0, },
-> +	{ PCI_VDEVICE(NEC, PCI_DEVICE_ID_NEC_NEON250), },
-> +	{ },
->  };
-> =20
->  MODULE_DEVICE_TABLE(pci, pvr2fb_pci_tbl);
-
-=2E.. here:
-
--	{ PCI_VDEVICE(NEC, PCI_DEVICE_ID_NEC_NEON250), },
-+	{ PCI_VDEVICE(NEC, PCI_DEVICE_ID_NEC_NEON250) },
--	{ },
-+	{ }
-
-Would you mind squashing that into the patch you already applied, maybe
-adding:
-
-	While touching all these arrays, unify usage of whitespace and
-	comma in a few drivers.
-
-to the commit log? I can also send a v2 of the patch with these changes
-included if that's easier for you.
-
-Otherwise I will put sending these modifications separately on my todo
-list.
-
-Best regards
-Uwe
-
---4j765bpqgzr2splh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmoNdOsACgkQj4D7WH0S
-/k7n3AgAmiu0dkGSmVN5iwDMsbx9u5oGpxoTfYsBdf+ieZ5EzDYhZzjAd5M4GNMS
-dajrNSdkatRRbEZFE3PYDscIkW69PVck72sxOJdTDyAVSPf2hgi3mbElPpXW5ZEl
-V5s0iKhXHTafmLPl+5cAsDOdMG19WulP1A3QfTepuM0kOEAKsQ4UwUV4AWlpBgH6
-GMiJdyUX4viX+gD8zOIgyKPCjqvBa8CMPkgQORFA1fuD+eEbv1Iw1b0xDr/AinyG
-8Jfn/ZzaAAnTJje43x8rP+Q5hw6uVI6bBHTrhypMFQ0C9ofIZBsv2BUyQ8Hp5i85
-TX3Z+lJoWmwknV9WI68+rtnMMOgSCg==
-=on22
------END PGP SIGNATURE-----
-
---4j765bpqgzr2splh--
