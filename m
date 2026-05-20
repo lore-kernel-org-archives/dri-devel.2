@@ -4,50 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97223CD4F3D
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 17:16:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3B8FCD5BA4
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 17:41:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0224510E351;
-	Wed, 20 May 2026 17:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22FC210E0C9;
+	Wed, 20 May 2026 17:41:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XVVMpajV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y+/3D0lw";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nkw4oKuQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 259D910E351
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 17:16:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0D1CC43D3E;
- Wed, 20 May 2026 17:16:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776A71F000E9;
- Wed, 20 May 2026 17:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1779297372;
- bh=bgGVpeLlJ+jliefKfgZQg2Oex7JOn0MccuDksjXuGm0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=XVVMpajVBFGyYjAkdVtQUB56kloCFhyAuHwAnxsWDTRVy32SqTdcQ0w4I+arHnSpJ
- YDnlPvvnLOZRhhfYndfUAX0DLdCeZ09KeMxpYC7mFeNR6efCpd5hSpN0D1UN3Cy4NR
- O5hXoxnljpoKq2Ds82kWJevkK9W8NT0zFKBOsE6g=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Dave Airlie <airlied@redhat.com>,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH 7.0 1132/1146] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk
- on backup failure
-Date: Wed, 20 May 2026 18:23:02 +0200
-Message-ID: <20260520162213.869468449@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520162148.390695140@linuxfoundation.org>
-References: <20260520162148.390695140@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A16610E0C9
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 17:41:03 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64KDXb8I1797936
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 17:41:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=LkDwhjRfxWJPLR8+hbCIDbOf
+ AQBV6HIAU4DHZ3gBD8k=; b=Y+/3D0lwa10eWIev1kQU0iZiOL+cZlfcwvbeJtqO
+ f5IEOeMiJ8UGDO69hJxdjnNTQTWWibJleV07IvsnDHEENehSC/elCmOSoIbh+mVZ
+ oQU6WHLQYx5SHbY/WQtCA9PrCNisFWiqGfShGZTHWVikPFevzmGCuGUz5gOGsYvL
+ 2rDjnCQfpAOyE5VnQsc/pu4WlyuzbJPbcidBaVcWAAkyx4Au+QChOOfvN1Ezmttr
+ zJx+3OVYNHaUf6Oaa29uURXQ47F1nTy+raQ/RHDfLAcsRcfE9g2OU/Ct6k2KbcRT
+ feQ8rGa1hqu8HCapAjydQwkpHhAGDsH6VGGuilfSEZF/sw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9dxu1390-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 17:41:02 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-50d8e8c47a3so11783151cf.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 10:41:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779298861; x=1779903661;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LkDwhjRfxWJPLR8+hbCIDbOfAQBV6HIAU4DHZ3gBD8k=;
+ b=Nkw4oKuQBkd9IgPebTtskbd0aol3MxWjIeLv3kAPmMzkqhLLD9lVcucw0Ev7+FUjTw
+ bM8UcRBzpRTXrWU0udcvvX9upIkWYV0GHxwUDIFGFGZvZXZ4FodkYch7nLLRXEcYh7m6
+ wjTlRM0lH5Dx/z6xFOcgDOQf3dM2pOIJpsMIrb1qODq3u6ZdLNKcAStLe/4H9MAOO0DT
+ aM/layo/EotuTyDbxOKNIWi10PVE7zEKJHd+Zd0RvnUnqX6SN40/HfgJhzoX0J5C9abi
+ RiNIgHIMplY68balH/lNRGQShzvcwZDNRDWbEBKR9JzudchMlaTsxLy4o0o6uvF6GZJh
+ z8GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779298861; x=1779903661;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LkDwhjRfxWJPLR8+hbCIDbOfAQBV6HIAU4DHZ3gBD8k=;
+ b=QyrM8hd3mVCEpdiYa5k7buO6ZRU5I7u1Ki/oO2DUxibxu0MiMAczcT4Bn/Vh1lmN4F
+ XDssfu1mgxed5SjkxFZlhq1+rpFesOufaCi47orKvOTghEQz9zcm/i+b37SaZjCUaKmK
+ yBaTdjAPQAPdYW17wnH92IE/hImJL6FbF7CV0l9TosbfXuoOn0trhR8U465GSaI+nm+U
+ yCW4JtVUyjwR01g5TtI80IetJGSmQhd27zVlfgPmAecg7xdgF4als+hUx2gKZ9OucUO4
+ wqPE4Tdq9VqhmY3MyqFIWkD1X9OnB0Akme86OsvDlo1/DTk92OKvBzGYA9YOGSpQpMpP
+ WQIw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8Hs7atMlNmo8TS4MSd8ynaOPOj8vQmxlAq2S5M0C/lfXItYzfx6pgPVAFJxXhrd7OQYn7bEcwOLt4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvGSZsyYlyfRcYRg9+T43LYZRlNu+DTyaQsgWTTKuRWaOJoQC2
+ Zx2rTjW3SO3bwyfKO0eNREl9J93QIZyKzInZO9/EfPRyw6y9W5TY0cNtE9Y9nNuzBNKiMVWgPZI
+ lftPkD0r8vv6Xj29bSNXq3s0tqv/qsc/3o06u1c3fZOTzW/vrHY/XmgJ2WgT0Fxiymf8jGik=
+X-Gm-Gg: Acq92OGjJYUVe1zglOyiYYphuq40eVVx9U6UYZp1GwnGHeiKqAZ3Kw2i/ZJlycc4PKB
+ FRXsxadC5i0xlw6sX54Wl0FfvlLs3TC+YAIVftdP0TTj4QAboqyVlMJFdWezcmAeYcew4fVj1Nf
+ XunJbacMZnTWh5xEwgLxTvX47Al8OskF/h53aEYr3KEgduyziKnclHFKw/SVxsV1yruMB2gBBwp
+ vyZnIVXPTL72PfPKfxRUoU15Q3f+n0evd2EJNIghdsKPIvR+Hg3R6NRhIUfR8FgIe2PB9xFYCxy
+ d1DqPS5sPyxQA2EIfbx3hfKz2FmucxzpakLEljcoDX+2eNlWqJ6uVX5W/A0u6azX8eEOxeSz0z+
+ mvYakszVlR+FK7irNzZ9OzKPtK1U2grIPYn6RJprND9L+wTpad/LnfMKDJn28DUhzgX85T1uU3+
+ xC7Xz0Rp875vSuEeWBWyZbHnQGiURB7u0DW4Q=
+X-Received: by 2002:a05:622a:2606:b0:50d:e1c8:5ed with SMTP id
+ d75a77b69052e-5165a23c962mr336465811cf.52.1779298861467; 
+ Wed, 20 May 2026 10:41:01 -0700 (PDT)
+X-Received: by 2002:a05:622a:2606:b0:50d:e1c8:5ed with SMTP id
+ d75a77b69052e-5165a23c962mr336465221cf.52.1779298860965; 
+ Wed, 20 May 2026 10:41:00 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a9164bc3fcsm5152568e87.48.2026.05.20.10.40.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 May 2026 10:40:59 -0700 (PDT)
+Date: Wed, 20 May 2026 20:40:58 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Jun Nie <jun.nie@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v20] drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI
+ case
+Message-ID: <a2gwkgdnbwp2wfunhmdhm5mwqolzm6fgb4ex6khkzy2jh356tp@dcauzez4445x>
+References: <20260415-msm-next-quad-pipe-split-v20-1-bc1fdf140b81@linaro.org>
+ <177928444226.2567181.13284983255649878415.b4-ty@b4>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <177928444226.2567181.13284983255649878415.b4-ty@b4>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE3MSBTYWx0ZWRfX944X9fCgYzwW
+ co/+1d7fpkueyDqdr3pT7mqW35NM9oN4AF/V9TooOgtWi9sq/6zu72rFMe0gBP0K6I185NzbJoi
+ XHTMr5kUvKMrX0Y/RK7BX1rP7hlOf2IFs9q6FuMb5lMkJ2INxg5noxs+69lflE1YmTATbk5W6F4
+ lTj1UxgiKP9s6dWsRrr/3Aa9lnu3U36qwf/B+y0VhPENGAqvTCP6qZd+oHAKTJ8sNqn1kQ8nRmR
+ 48vQnGcuDX+nST5b8j+a8o3PXU7shWLPWnApFr9Z9otH8lWa3tCCyRHwc+rWj32IxQqo2VGbKEx
+ tkqsvmbFgNKxe18TIM2Ef4O6dSd77bpYSNnJ5e0ctFtN5egbwucuRqytJcWFyeew9bTmdunW9se
+ CUSQLNIYydCjxsrbN6gDUggyI47U60ASv8QSCh+XuKqAPxhQutzU0sqv+YokCntzURKyi/hGCis
+ 3S+rjKqSLJBI+A9Bj6w==
+X-Authority-Analysis: v=2.4 cv=Zckt8MVA c=1 sm=1 tr=0 ts=6a0df22e cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=e5mUnYsNAAAA:8
+ a=3dF5T0QglEsbpJvugt0A:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: u-rE4MyTQ_9ztILNwaaU_mqThsFnNqMp
+X-Proofpoint-ORIG-GUID: u-rE4MyTQ_9ztILNwaaU_mqThsFnNqMp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200171
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,62 +145,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-7.0-stable review patch.  If anyone has any objections, please let me know.
+On Wed, May 20, 2026 at 04:41:29PM +0300, Dmitry Baryshkov wrote:
+> On Wed, 15 Apr 2026 11:15:11 +0800, Jun Nie wrote:
+> > To support high-resolution cases that exceed the width constrain
+> > or scenarios that surpass the maximum MDP clock rate, additional
+> > pipes are necessary to enable parallel data processing within
+> > the width constraints and MDP clock rate.
+> > 
+> > Expand pipe array size to 4. Request 4 mixers and 4 DSCs for
+> > high-resolution cases where dual interfaces are enabled for virtual
+> > plane case. More use cases can be incorporated later if quad-pipe
+> > capabilities are required.
+> > 
+> > [...]
+> 
+> Applied to msm-next, thanks!
+> 
+> [1/1] drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI case
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/218eb06a72bf
 
-------------------
+And I'm going to drop it again.
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+I tested on the SDM845, it tried enabling QUAD_PIPE for the follwing
+mode, which then broke the display.
 
-commit 1d59f36e95f7f7134db0e313c9d787cb0adb2153 upstream.
+        mode: "3840x2160": 30 297000 3840 4016 4104 4400 2160 2168 2178 2250 0x40 0x5
 
-Apply the same fix as b2ed01e7ad ("drm/ttm: Fix ttm_bo_swapout()
-infinite LRU walk on swapout failure") to the ttm_bo_shrink() path.
-
-Move del_bulk_move from before the backup to after success only,
-using ttm_resource_del_bulk_move_unevictable() since the resource
-is now unevictable once fully backed up.
-
-Fixes: 70d645deac98 ("drm/ttm: Add helpers for shrinking")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org # v6.15+
-Assisted-by: GitHub_Copilot:claude-opus-4.6
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260511162443.24352-1-thomas.hellstrom@linux.intel.com
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ttm/ttm_bo_util.c |   11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
-
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -1112,19 +1112,14 @@ long ttm_bo_shrink(struct ttm_operation_
- 	if (lret < 0)
- 		return lret;
- 
--	if (bo->bulk_move) {
--		spin_lock(&bdev->lru_lock);
--		ttm_resource_del_bulk_move(bo->resource, bo);
--		spin_unlock(&bdev->lru_lock);
--	}
--
- 	lret = ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
- 			     {.purge = flags.purge,
- 			      .writeback = flags.writeback});
- 
--	if (lret <= 0 && bo->bulk_move) {
-+	if (lret > 0) {
- 		spin_lock(&bdev->lru_lock);
--		ttm_resource_add_bulk_move(bo->resource, bo);
-+		ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
-+		ttm_resource_move_to_lru_tail(bo->resource);
- 		spin_unlock(&bdev->lru_lock);
- 	}
- 
-
-
+-- 
+With best wishes
+Dmitry
