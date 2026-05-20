@@ -4,83 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FDCACD5BAA
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 15:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAE2BCD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 15:18:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0D2910F0B7;
-	Wed, 20 May 2026 15:17:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EA3B10F0B8;
+	Wed, 20 May 2026 15:18:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KPKUFZ/o";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="hWyY5U2U";
 	dkim-atps=neutral
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1AFE10F0B5
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 15:17:51 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5aa0cf8bca3so5026821e87.0
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 08:17:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779290270; x=1779895070; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fyVPZSX7MwDddJkv/HM4B88jEPRd96zpfMtgKanmjaM=;
- b=KPKUFZ/oHCFtv82AIe7G1SlLbMjiYUaPOq9HMHEg7vMCUoIZAMPZ8UqVI5kgxNbiXs
- dvSk5h65TxpHR3F9TKBvrYKYl2Htn8BQDr1tZWpfiHTr7ztKfLGyJ6aN1qN+f0l5F54C
- 7jHk8L0557SMjZJFoLYJ/i+hhv7fkE4vkYqsIfYylcU/VzowJvu5tKN49dIO+SKeGOJd
- ncRwHHlWRjO+FYdHbV4HyPN08ByO94/dXyaU2F+nV4gzr19Pej33Tbw1bxC5A5VnbHAR
- dM2/aktWvPenEwngCFTT9u//1m6UNVtzXTEmh+W/dQWp3kjd2jWZKg4A74MEhpCg7I4c
- QK7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779290270; x=1779895070;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=fyVPZSX7MwDddJkv/HM4B88jEPRd96zpfMtgKanmjaM=;
- b=PMSlJ9QYFIeyCtAffPqGYii8Ti36BBDHsgwqWepRGYXM9Do4iOt7GDS1hvp/kOIXfn
- /E8B2AAh5JDEEP0zgAMMTjznkQKHztQVJyrHHfIaGk5R/+1Cm41oOB2Ov4C8kM32A65e
- 8GCRyWSUZ1xQEzxDVire5Ef5DpvwL1R5J0a71NViNxsx4E59wc1pl2wJ/an72HuzrTnm
- /obhr5A0832VD8E3HHrXXBJgGj+7jvgKX4IKCVsiTE+VnOW9N9f/KyIfYTHIlGEysZ++
- 69TMvdQ26LOpHxQiLyfzyl/MZYWMWj88z2mcXLQlEOLFGC2/xUs8zQeShEhitr88T9iM
- jadw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ96xZpl1kREOKOTvB7shBQVjO4k8HVVnQKmXQXq8xQEh7JsqGKR8me/ydL+gxUWLaLHEQo50LJw5WY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxBccUsyNoBEsvJ3WAhYMRWCLWomPVTl/nD/0yvwS30sPprAQ2d
- wAwZkDPI1yvbHc98jXTavmik9Wa87rP+OMXzlymKDZK05jTvzOAWgLiv
-X-Gm-Gg: Acq92OFSYOfbABKSPgSNp75As1RzVVfYI2zdyvYSc4/gz0YBGUYRK8PjTefBGBW6HRL
- c2Si2x6PjXl/qNekNDkK436ITDPNPBkANkeDqKZGv4Nl/gIRuA7aYnQTeUfrJRjgQCx5vAA/SjT
- C3GRpt9aT4282/Fhmf8HEhyoMWd8U8UqkgJEtw8U7LsTxV1I0w4Dhh9iFlQ/516KTyB2FMXVZBP
- F3QMX4bjT8jjjVOBn5YuBTASLfvdJtbRV4vN6jM2pMYsk1q1bsDMqr7nCC6XpkvoCW1jXQmWtzH
- 7RwgGWyqaajI8/Ql1M1vMitxRv7ugkgzXZthg8Y84KlxTYBh0CCPrcPToyLLSDFzgPg2spIusQh
- U9DXp9u7L11JOCuWTNoDzKIg3JbGUJ2d3YB/GKleGUUjBQG9Q8kvy1CtTJgNYfxp1QOmeoSFkKs
- 1bPYAFfKpvpgRZSIFh1yz76auxJ6/jd1pS
-X-Received: by 2002:a05:6512:1053:b0:5a3:ffed:8440 with SMTP id
- 2adb3069b0e04-5aa0e73d549mr8445759e87.12.1779290269709; 
- Wed, 20 May 2026 08:17:49 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a90f10c8b2sm5022470e87.17.2026.05.20.08.17.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 08:17:49 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v3 1/2] drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to
- drm_exec
-Date: Wed, 20 May 2026 20:17:39 +0500
-Message-ID: <20260520151741.50575-2-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
-References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
- <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E16BF10F0B8
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 15:18:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779290292; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=DPRjwcSgU9NAVK3t6ludoB8Fls1PIsK60Ck1S6Ap3ODgBnm5sGrRIMXN40JKZBXPvLcYec7RJ4obTnn6CLzBWHyAvaHn0C11trK7PSCpgkKWOTG9ntSWfdxCbRjaUcr4FDiBHzyGzjN6JdFBFmOS+qUX/4QtUsrn465rk41SAyQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779290292;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=1x0FyOWivNSIA+YkZsdTIQiJF2Ucpta4cBeqHywF/cU=; 
+ b=cKykkgi12BHITTf3cmtblCq9A1PtSiPBmGC7d6qJKKQ18zKc053waEwbsO0h3sBaiJ99hcj1oFt1BVBMl6bx9T6bj6mZVkUEhR31j3muX/EsqzbfNtBB8DN8rpgUbJse7ri8a4uZ4ipdLzPkodtTUgyb/KvkOMzYrbQdqXVUCJI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779290292; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=1x0FyOWivNSIA+YkZsdTIQiJF2Ucpta4cBeqHywF/cU=;
+ b=hWyY5U2U9APDrOH/pIPFEvRW1dBjtgOXeO+Sg1GfhhWD8+ox0YEyaMGKIoWdiCuu
+ tTGicufnczt0iKCBwUgMmZW2AhJ1Y9QyK+R2CN6dwzO/sTi+FN4SDqFmcEy/xVhbZk1
+ hqTfPl5B56mtrSyS68pfcWFgc4TKBk1dYzeUL50Y=
+Received: by mx.zohomail.com with SMTPS id 1779290290871362.15164197070646;
+ Wed, 20 May 2026 08:18:10 -0700 (PDT)
+Message-ID: <ca7407f6-217b-4b78-9a98-e3c28756e565@collabora.com>
+Date: Wed, 20 May 2026 18:18:05 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm/virtio: use uninterruptible resv lock for plane
+ updates
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: Deepanshu Kartikey <kartikey406@gmail.com>, airlied@redhat.com,
+ kraxel@redhat.com, gurchetansingh@chromium.org, olvaffe@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org,
+ syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20260519082247.34470-1-kartikey406@gmail.com>
+ <43ecdd2f-5faf-432a-a814-77190b3ef239@collabora.com>
+Content-Language: en-US
+In-Reply-To: <43ecdd2f-5faf-432a-a814-77190b3ef239@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,180 +74,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdgpu_vm_lock_by_pasid() looks up a VM by PASID and reserves its root
-PD with a bare amdgpu_bo_reserve(), returning the still-reserved root to
-the caller. A caller that then needs to reserve further BOs (for example
-the devcoredump IB dump) ends up nesting reservation_ww_class_mutex
-acquires without a ww_acquire_ctx, which lockdep flags as recursive
-locking.
+On 5/20/26 18:04, Dmitry Osipenko wrote:
+> On 5/19/26 11:22, Deepanshu Kartikey wrote:
+>> virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush() lock
+>> the framebuffer BO's dma_resv via virtio_gpu_array_lock_resv() and
+>> ignore its return value. The function can fail with -EINTR from
+>> dma_resv_lock_interruptible() (signal during lock wait) or with
+>> -ENOMEM from dma_resv_reserve_fences() (fence slot allocation),
+>> leaving the resv lock not held. The queue path then walks the object
+>> array and calls dma_resv_add_fence(), which requires the lock held;
+>> with lockdep enabled this trips dma_resv_assert_held():
+>>
+>>   WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
+>>   Call Trace:
+>>    virtio_gpu_array_add_fence
+>>    virtio_gpu_queue_ctrl_sgs
+>>    virtio_gpu_queue_fenced_ctrl_buffer
+>>    virtio_gpu_cursor_plane_update
+>>    drm_atomic_helper_commit_planes
+>>    drm_atomic_helper_commit_tail
+>>    commit_tail
+>>    drm_atomic_helper_commit
+>>    drm_atomic_commit
+>>    drm_atomic_helper_update_plane
+>>    __setplane_atomic
+>>    drm_mode_cursor_universal
+>>    drm_mode_cursor_common
+>>    drm_mode_cursor_ioctl
+>>    drm_ioctl
+>>    __x64_sys_ioctl
+>>
+>> Beyond the WARN, mutating the dma_resv fence list without the lock
+>> races with concurrent readers/writers and can corrupt the list.
+>>
+>> Both call sites run inside the .atomic_update plane callback, which
+>> DRM atomic helpers do not allow to fail (by the time it runs, the
+>> commit has been signed off to userspace and there is no clean
+>> rollback path). Moving the lock acquisition to .prepare_fb was
+>> rejected because the broader lock scope deadlocks against other BO
+>> locking paths in the same atomic commit.
+>>
+>> Introduce virtio_gpu_lock_one_resv_uninterruptible() that uses
+>> dma_resv_lock() instead of dma_resv_lock_interruptible(). This
+>> eliminates the -EINTR failure mode -- the realistic syzbot trigger
+>> -- without extending the lock hold across the commit. The helper
+>> locks a single BO and rejects nents > 1 with -EINVAL; both fix
+>> sites lock exactly one BO.
+>>
+>> Use it from virtio_gpu_cursor_plane_update() and
+>> virtio_gpu_resource_flush(); check the return value to handle the
+>> remaining -ENOMEM case from dma_resv_reserve_fences() by freeing
+>> the objs and skipping the plane update for that frame. The
+>> framebuffer BOs touched here are not shared with other contexts
+>> and lock contention is expected to be brief, so the loss of
+>> signal-interruptibility is acceptable.
+>>
+>> Other callers of virtio_gpu_array_lock_resv() (the ioctl paths)
+>> continue to use the interruptible variant.
+>>
+>> The bug was reported by syzbot, triggered via fault injection
+>> (fail_nth) on the DRM_IOCTL_MODE_CURSOR path, which forces the
+>> -ENOMEM branch in dma_resv_reserve_fences().
+>>
+>> Reported-by: syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=72bd3dd3a5d5f39a0271
+>> Fixes: 5cfd31c5b3a3 ("drm/virtio: fix virtio_gpu_cursor_plane_update().")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+>> ---
+>> v4: Rename the helper to virtio_gpu_lock_one_resv_uninterruptible()
+>>     and reject objs->nents > 1 with -EINVAL. The v3 helper's
+>>     multi-object branch used drm_gem_lock_reservations(), which is
+>>     interruptible, contradicting the "uninterruptible" name; both
+>>     fix sites lock a single BO so the multi-object path is dropped.
+>>     (Dmitry Osipenko)
+>> v3: Drop the prepare_fb/cleanup_fb approach from v2 (it deadlocked
+>>     against virtio_gpu_resource_flush(), which also locks the BO in
+>>     the same atomic commit). Instead add an uninterruptible variant
+>>     of the resv lock helper and use it in both
+>>     virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush().
+>>     (Dmitry Osipenko)
+>> v2: Move resv lock acquisition from .atomic_update (which must not
+>>     fail) to .prepare_fb (which may), per maintainer review of v1.
+>>     The v1 approach of silently skipping the cursor update on lock
+>>     failure violated the atomic-commit contract with userspace.
+>> ---
+>>  drivers/gpu/drm/virtio/virtgpu_drv.h   |  1 +
+>>  drivers/gpu/drm/virtio/virtgpu_gem.c   | 17 +++++++++++++++++
+>>  drivers/gpu/drm/virtio/virtgpu_plane.c | 10 ++++++++--
+>>  3 files changed, 26 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+>> index f17660a71a3e..2f3531950aa4 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+>> @@ -317,6 +317,7 @@ virtio_gpu_array_from_handles(struct drm_file *drm_file, u32 *handles, u32 nents
+>>  void virtio_gpu_array_add_obj(struct virtio_gpu_object_array *objs,
+>>  			      struct drm_gem_object *obj);
+>>  int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs);
+>> +int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs);
+>>  void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs);
+>>  void virtio_gpu_array_add_fence(struct virtio_gpu_object_array *objs,
+>>  				struct dma_fence *fence);
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+>> index f22dc5c21cd4..435d37d36034 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_gem.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+>> @@ -238,6 +238,23 @@ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs)
+>>  	return ret;
+>>  }
+>>  
+>> +int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs)
+>> +{
+>> +	int ret;
+>> +
+>> +	if (objs->nents != 1)
+>> +		return -EINVAL;
+>> +
+>> +	dma_resv_lock(objs->objs[0]->resv, NULL);
+>> +
+>> +	ret = dma_resv_reserve_fences(objs->objs[0]->resv, 1);
+>> +	if (ret) {
+>> +		virtio_gpu_array_unlock_resv(objs);
+>> +		return ret;
+>> +	}
+>> +	return 0;
+>> +}
+>> +
+>>  void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs)
+>>  {
+>>  	if (objs->nents == 1) {
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+>> index a126d1b25f46..652352424744 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+>> @@ -215,7 +215,10 @@ static void virtio_gpu_resource_flush(struct drm_plane *plane,
+>>  		if (!objs)
+>>  			return;
+>>  		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+>> -		virtio_gpu_array_lock_resv(objs);
+>> +		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
+>> +			virtio_gpu_array_put_free(objs);
+>> +			return;
+>> +		}
+>>  		virtio_gpu_cmd_resource_flush(vgdev, bo->hw_res_handle, x, y,
+>>  					      width, height, objs,
+>>  					      vgplane_st->fence);
+>> @@ -459,7 +462,10 @@ static void virtio_gpu_cursor_plane_update(struct drm_plane *plane,
+>>  		if (!objs)
+>>  			return;
+>>  		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+>> -		virtio_gpu_array_lock_resv(objs);
+>> +		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
+>> +			virtio_gpu_array_put_free(objs);
+>> +			return;
+>> +		}
+>>  		virtio_gpu_cmd_transfer_to_host_2d
+>>  			(vgdev, 0,
+>>  			 plane->state->crtc_w,
+> 
+> Applied to misc-next, thanks
 
-Convert the helper to take a drm_exec context and lock the root PD via
-amdgpu_vm_lock_pd() instead. Callers now run it inside a
-drm_exec_until_all_locked() loop and can lock additional BOs in the same
-ww ticket, so there is no nested ww_mutex acquire.
+Realized patche should go to -fixes, applied to misc-fixes too
 
-The only existing caller, amdgpu_vm_handle_fault(), is updated
-accordingly. Its is_compute_context path, which previously dropped the
-root reservation around svm_range_restore_pages() and re-took it, now
-finalises the drm_exec context and re-initialises a fresh one; behaviour
-is otherwise unchanged.
-
-No functional change intended for the page-fault path.
-
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 72 ++++++++++++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  3 +-
- 2 files changed, 51 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 9ba9de16a27a..3a22670b733f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2950,14 +2950,22 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- }
- 
- /**
-- * amdgpu_vm_lock_by_pasid - return an amdgpu_vm and its root bo from a pasid, if possible.
-+ * amdgpu_vm_lock_by_pasid - look up a VM by PASID and lock its root PD
-  * @adev: amdgpu device pointer
-- * @root: root BO of the VM
-+ * @root: out: reference to the VM's root BO, dropped by the caller
-  * @pasid: PASID of the VM
-- * The caller needs to unreserve and unref the root bo on success.
-+ * @exec: drm_exec context to lock the root PD in
-+ *
-+ * Must be called from within a drm_exec_until_all_locked() loop; the caller
-+ * runs drm_exec_retry_on_contention() afterwards and drops the *root
-+ * reference once the drm_exec context is finalised.
-+ *
-+ * Return: the VM on success, or NULL if the PASID has no VM, the VM is being
-+ * torn down, or locking the root PD failed.
-  */
- struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
--					  struct amdgpu_bo **root, u32 pasid)
-+					  struct amdgpu_bo **root, u32 pasid,
-+					  struct drm_exec *exec)
- {
- 	unsigned long irqflags;
- 	struct amdgpu_vm *vm;
-@@ -2971,9 +2979,11 @@ struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
- 	if (!*root)
- 		return NULL;
- 
--	r = amdgpu_bo_reserve(*root, true);
--	if (r)
--		goto error_unref;
-+	r = amdgpu_vm_lock_pd(vm, exec, 0);
-+	if (r) {
-+		amdgpu_bo_unref(root);
-+		return NULL;
-+	}
- 
- 	/* Double check that the VM still exists */
- 	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
-@@ -2981,16 +2991,12 @@ struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
- 	if (vm && vm->root.bo != *root)
- 		vm = NULL;
- 	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
--	if (!vm)
--		goto error_unlock;
-+	if (!vm) {
-+		amdgpu_bo_unref(root);
-+		return NULL;
-+	}
- 
- 	return vm;
--error_unlock:
--	amdgpu_bo_unreserve(*root);
--
--error_unref:
--	amdgpu_bo_unref(root);
--	return NULL;
- }
- 
- /**
-@@ -3013,20 +3019,32 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- {
- 	bool is_compute_context = false;
- 	struct amdgpu_bo *root;
-+	struct drm_exec exec;
- 	uint64_t value, flags;
- 	struct amdgpu_vm *vm;
- 	int r;
- 
--	vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
--	if (!vm)
-+	drm_exec_init(&exec, 0, 0);
-+	drm_exec_until_all_locked(&exec) {
-+		vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid, &exec);
-+		drm_exec_retry_on_contention(&exec);
-+		if (!vm)
-+			break;
-+	}
-+	if (!vm) {
-+		drm_exec_fini(&exec);
- 		return false;
-+	}
- 
- 	is_compute_context = vm->is_compute_context;
- 
- 	if (is_compute_context) {
--		/* Unreserve root since svm_range_restore_pages might try to reserve it. */
--		/* TODO: rework svm_range_restore_pages so that this isn't necessary. */
--		amdgpu_bo_unreserve(root);
-+		/* Release the root PD lock since svm_range_restore_pages
-+		 * might try to take it.
-+		 * TODO: rework svm_range_restore_pages so that this isn't
-+		 * necessary.
-+		 */
-+		drm_exec_fini(&exec);
- 
- 		if (!svm_range_restore_pages(adev, pasid, vmid,
- 					     node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
-@@ -3036,9 +3054,17 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 		amdgpu_bo_unref(&root);
- 
- 		/* Re-acquire the VM lock, could be that the VM was freed in between. */
--		vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
--		if (!vm)
-+		drm_exec_init(&exec, 0, 0);
-+		drm_exec_until_all_locked(&exec) {
-+			vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid, &exec);
-+			drm_exec_retry_on_contention(&exec);
-+			if (!vm)
-+				break;
-+		}
-+		if (!vm) {
-+			drm_exec_fini(&exec);
- 			return false;
-+		}
- 	}
- 
- 	addr /= AMDGPU_GPU_PAGE_SIZE;
-@@ -3076,7 +3102,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	r = amdgpu_vm_update_pdes(adev, vm, true);
- 
- error_unlock:
--	amdgpu_bo_unreserve(root);
-+	drm_exec_fini(&exec);
- 	if (r < 0)
- 		dev_err(adev->dev, "Can't handle page fault (%d)\n", r);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index d083d7aab75c..af292c2fc521 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -593,7 +593,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 			    bool write_fault);
- 
- struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
--					  struct amdgpu_bo **root, u32 pasid);
-+					  struct amdgpu_bo **root, u32 pasid,
-+					  struct drm_exec *exec);
- 
- void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
- 
 -- 
-2.54.0
-
+Best regards,
+Dmitry
