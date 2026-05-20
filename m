@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA66CD4F3C
-	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:19:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E02CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 20 May 2026 11:20:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41B4C10E126;
-	Wed, 20 May 2026 11:19:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1547A10E150;
+	Wed, 20 May 2026 11:20:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T1CKjdrB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JodNbaba";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DE8610E126
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 11:19:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B065310E150
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 11:20:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 53ED141A12;
- Wed, 20 May 2026 11:19:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBF3F1F00893;
- Wed, 20 May 2026 11:19:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 96D6340824;
+ Wed, 20 May 2026 11:20:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33D9A1F000E9;
+ Wed, 20 May 2026 11:20:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779275992;
- bh=nPgcOEOH3FWn/QWW6rJHvWeVUMHCsPNHcUfOAvcXkmc=;
+ s=k20260515; t=1779276046;
+ bh=t9GJjxz7MXEZbqV6+5d9dAOL2Akoh9f4mOaXvcGs6WQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=T1CKjdrBfEctzDWIN2DCA1s5d78Nh3QouL68n7qOw8aZUPgHbikOF9elmBcnSB/vF
- viJL6P2Pup4Jymbh39qaQtaNjHYk5UMUA6QqiKGn4HWSyrtvWpRbGHjZM8cCzlyCnq
- dpyL3/ehJc8dGkErkZu+3k+cU1UhvVALnf2J5NXjMlEHOHv+OYJdFjfiuMDr3xXhI1
- 1HE9gZdxrRW2FVN9YLk9R/j0bIBdtA74cqx5PR0lW2evN3fXoPVRHKmnoeIuXte+ZN
- TlGYS8WAigzDP5q9v5HQOWvk2ty7oY7fxaGKYaN3abGH761JqHGoARBmMmLkGhRIrF
- fzG86/xAsXCBQ==
+ b=JodNbabahQ4KYNtVtaEeBI4WLvAJ/LGW2bWd64MPM8do1ht2NHdkP6+pUwVEkSnGc
+ 4x4wkRN+xAdjUVeK+rOhWvKzJqngVW8TN6jq5mN8OfujT12OtLkPxPOv4RLRBTl2Bz
+ ZDDe5ePuZWLHr063elD3jN+l1gZjzuprCfnfLLoVcVGIUKKHvxhwRdnexsrAKLzoZ2
+ PQwapcqW/eEBrp4VlGnOtABMC5rvTDsghWaKGxZjK18fR1vPntGb02pxyp0jzNHaCm
+ 3anYNVPhLafF/SJQaT8/PhHre5wsRmiIiQNShU6dQ/E+XXabMYjlp8nB/3wz6+Ptlh
+ +4iRUfbEyw9RQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Christian Van <cvan20191@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Sasha Levin <sashal@kernel.org>, jagan@amarulasolutions.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Helge Deller <deller@gmx.de>,
+ Sasha Levin <sashal@kernel.org>, Frank.Li@nxp.com,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-5.10] drm/panel: feiyang-fy07024di26a30d: return
- display-on error
-Date: Wed, 20 May 2026 07:18:37 -0400
-Message-ID: <20260520111944.3424570-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-5.10] fbdev: ipu-v3: clean up kernel-doc warnings
+Date: Wed, 20 May 2026 07:19:15 -0400
+Message-ID: <20260520111944.3424570-43-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260520111944.3424570-1-sashal@kernel.org>
 References: <20260520111944.3424570-1-sashal@kernel.org>
@@ -67,280 +66,330 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Christian Van <cvan20191@gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
 
-[ Upstream commit c67e8787f6743101c90c7a9c4bb7cf6f1f739f83 ]
+[ Upstream commit f1fb23a0a0fcbdb66672da51d7d63a259f6396ca ]
 
-mipi_dsi_dcs_set_display_on() returns an error code, but feiyang_enable()
-currently ignores it and always reports success.
+Correct all kernel-doc warnings:
+- fix a typedef kernel-doc comment
+- mark a list_head as private
+- use Returns: for function return values
 
-Return the DCS command result so callers can observe enable failures.
+Warning: include/video/imx-ipu-image-convert.h:31 struct member 'list' not
+ described in 'ipu_image_convert_run'
+Warning: include/video/imx-ipu-image-convert.h:40 function parameter
+ 'ipu_image_convert_cb_t' not described in 'void'
+Warning: include/video/imx-ipu-image-convert.h:40 expecting prototype for
+ ipu_image_convert_cb_t(). Prototype was for void() instead
+Warning: include/video/imx-ipu-image-convert.h:66 No description found for
+ return value of 'ipu_image_convert_verify'
+Warning: include/video/imx-ipu-image-convert.h:90 No description found for
+ return value of 'ipu_image_convert_prepare'
+Warning: include/video/imx-ipu-image-convert.h:125 No description found for
+ return value of 'ipu_image_convert_queue'
+Warning: include/video/imx-ipu-image-convert.h:163 No description found for
+ return value of 'ipu_image_convert'
 
-Signed-off-by: Christian Van <cvan20191@gmail.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Link: https://patch.msgid.link/20260425053948.117714-1-cvan20191@gmail.com
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Signed-off-by: Helge Deller <deller@gmx.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
-Step 1.1 Record: subsystem `drm/panel`, action verb `return`, summary:
-`feiyang-fy07024di26a30d` should propagate the MIPI DSI display-on
-command error instead of reporting success.
+Step 1.1 Record: subsystem `fbdev: ipu-v3`; action verb `clean up`;
+intent is to correct kernel-doc warnings in `include/video/imx-ipu-
+image-convert.h`.
 
-Step 1.2 Record: tags verified:
-- `Signed-off-by: Christian Van <cvan20191@gmail.com>`
-- `Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>`
-- `Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>`
-- `Link:
-  https://patch.msgid.link/20260425053948.117714-1-cvan20191@gmail.com`
-No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc: stable`, syzbot, or
-sanitizer tags were present.
+Step 1.2 Record: tags in committed message are `Signed-off-by: Randy
+Dunlap <rdunlap@infradead.org>`, `Reviewed-by: Philipp Zabel
+<p.zabel@pengutronix.de>`, and `Signed-off-by: Helge Deller
+<deller@gmx.de>`. No `Fixes:`, `Reported-by:`, `Tested-by:`, `Acked-
+by:`, `Link:`, or `Cc: stable@vger.kernel.org` tag is present in the
+committed message.
 
-Step 1.3 Record: the body says `mipi_dsi_dcs_set_display_on()` returns
-an error but `feiyang_enable()` ignores it and always returns success.
-Verified in `drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c`.
-Symptom: DRM panel core cannot observe a failed display-on command and
-may continue the enable sequence as if the panel enabled successfully.
-No user report, stack trace, or affected-version statement was found.
+Step 1.3 Record: the described problem is seven kernel-doc warnings: one
+undocumented/private list member, malformed typedef documentation, and
+missing `Returns:` sections. The visible symptom is documentation
+tooling warnings, not a runtime crash, hang, data corruption, or
+security issue. No affected kernel version is stated. Root cause is
+incorrect kernel-doc comment syntax.
 
-Step 1.4 Record: yes, this is a hidden bug fix: it fixes ignored error
-handling in a panel enable path. It is not cleanup or refactoring.
+Step 1.4 Record: this is not a hidden runtime bug fix. The body and diff
+both show a documentation/comment-only cleanup.
 
 ## Phase 2: Diff Analysis
-Step 2.1 Record: one file changed, `drivers/gpu/drm/panel/panel-feiyang-
-fy07024di26a30d.c`; 1 insertion, 3 deletions. Modified function:
-`feiyang_enable()`. Scope: single-file surgical driver fix.
+Step 2.1 Record: one file changed: `include/video/imx-ipu-image-
+convert.h`, 11 insertions and 5 deletions. Modified documentation covers
+`struct ipu_image_convert_run`, `ipu_image_convert_cb_t`,
+`ipu_image_convert_verify()`, `ipu_image_convert_prepare()`,
+`ipu_image_convert_queue()`, and `ipu_image_convert()`. Scope is single-
+file, header-only, surgical.
 
-Step 2.2 Record: before, `feiyang_enable()` called
-`mipi_dsi_dcs_set_display_on(ctx->dsi)` and always returned `0`. After,
-it returns the DCS command result directly. Affected path: normal panel
-enable path, after the 200 ms enable delay.
+Step 2.2 Record: hunk behavior:
+- `struct ipu_image_convert_run`: before, `list` was documented neither
+  as a member nor private; after, `/* private: */` tells kernel-doc to
+  ignore it as an API member.
+- `ipu_image_convert_cb_t`: before, kernel-doc treated the typedef
+  comment as a function prototype mismatch; after, it is marked as a
+  typedef comment.
+- Return docs: before, several returns were plain prose or missing;
+  after, they use kernel-doc `Returns:` syntax.
+- `ipu_image_convert_prepare()`: before, the V4L2 usage note followed
+  the return prose; after, the return section is last and formatted for
+  kernel-doc.
 
-Step 2.3 Record: bug category is logic/error-propagation correctness.
-The broken mechanism was an ignored negative return from
-`mipi_dsi_dcs_set_display_on()`. Verified that
-`mipi_dsi_dcs_set_display_on()` returns `0` on success or a negative
-error code on failure.
+Step 2.3 Record: bug category is documentation/kernel-doc warning
+cleanup. No error-path, synchronization, refcount, memory-safety,
+initialization, type, logic, or hardware workaround change exists.
 
-Step 2.4 Record: fix quality is high: minimal, obviously correct, no new
-API, no locking, no data structure change. Regression risk is very low;
-the only behavior change is that a real display-on failure prevents
-`drm_panel_enable()` from marking the panel enabled and enabling
-backlight/followers.
+Step 2.4 Record: fix quality is high for the stated documentation issue:
+small, obviously correct kernel-doc syntax changes. Runtime regression
+risk is effectively zero because no C declarations, types, function
+bodies, data layout, or APIs are changed. Documentation rendering risk
+is very low.
 
 ## Phase 3: Git History Investigation
-Step 3.1 Record: `git blame` shows the ignored return was introduced
-with the original driver commit
-`69dc678abc2b9d36ff005413ca6e9edabe4c369a` (`drm/panel: Add Feiyang
-FY07024DI26A30-D MIPI-DSI LCD panel`), first contained in `v5.2-rc1`.
+Step 3.1 Record: `git blame` shows the affected header comments and
+declarations came from `cd98e85a6b786d` by Steve Longerbeam, dated
+2016-09-17. `git describe --contains cd98e85a6b786d` reports it as
+present by `v4.9-rc1~41^2~24^2`.
 
-Step 3.2 Record: no `Fixes:` tag was present, so there was no tag to
-follow. I inspected the original driver commit anyway; it added the
-driver and already ignored this display-on return.
+Step 3.2 Record: no `Fixes:` tag is present, so there is no tagged
+introducing commit to follow. Blame identifies `cd98e85a6b786d` as the
+source of the documented preimage; `git show` confirms that commit added
+queued IPU image conversion support and the API documentation.
 
-Step 3.3 Record: recent file history shows mostly unrelated panel API
-conversions and cleanup. The candidate patch is standalone and only
-needs the existing `feiyang_enable()` and
-`mipi_dsi_dcs_set_display_on()` code.
+Step 3.3 Record: recent local history for the file shows `96e9d754b35e8`
+removing unused `ipu_image_convert_*` functions, `c942fddf8793b` adding
+SPDX boilerplate conversion, and `cd98e85a6b786d` adding the header/API.
+No prerequisite commit is needed for this documentation-only patch.
 
-Step 3.4 Record: no other `Christian Van` commits under
-`drivers/gpu/drm/panel` were found in checked `master` or `graphics-
-next`. Neil Armstrong is listed as DRM panel maintainer in `MAINTAINERS`
-and reviewed/applied the patch.
+Step 3.4 Record: `git log --author='Randy Dunlap'` under fbdev/include
+areas shows Randy has related cleanup/documentation work such as `fbdev:
+hgafb: fix kernel-doc comments` and `fbdev: fbmon: fix function name in
+kernel-doc`. The patch was reviewed by Philipp Zabel and committed by
+Helge Deller, verified from the commit and lore thread.
 
-Step 3.5 Record: no dependencies found. The patch applies directly to
-`v5.10`, `v5.15`, `v6.1`, `v6.6`, `v6.12`, `v6.19`, and `v7.0`; `v5.4`
-contains the buggy code but needs a trivial context backport.
+Step 3.5 Record: no dependencies found. The diff changes only comments
+and applies locally with `git apply --check`.
 
 ## Phase 4: Mailing List And External Research
-Step 4.1 Record: `b4 dig -c c67e8787f6743101c90c7a9c4bb7cf6f1f739f83`
-found the original submission at
-`https://patch.msgid.link/20260425053948.117714-1-cvan20191@gmail.com`.
-`b4 dig -a` found only v1, so the committed version is the only revision
-found.
+Step 4.1 Record: `b4 dig -c f1fb23a0a0fcbdb66672da51d7d63a259f6396ca`
+failed to find a lore match by patch-id, author/subject, or in-body
+From. External fetch found the v3 discussion at
+`https://yhbt.net/lore/dri-
+devel/20260427183236.656902-1-rdunlap@infradead.org/T/`. The v3 thread
+has Helge Deller replying “applied to fbdev git tree.” Web search/fetch
+also found v2 and a v2 ping. No NAKs or objections were found.
 
-Step 4.2 Record: `b4 dig -w` showed the original recipients included
-Christian Van, Jagan Teki, Neil Armstrong, Jessica Zhang, Maarten
-Lankhorst, Maxime Ripard, Thomas Zimmermann, David Airlie, Simona
-Vetter, `dri-devel`, and `linux-kernel`. Neil Armstrong reviewed it and
-later applied it to `drm-misc-fixes`.
+Step 4.2 Record: `b4 dig -w` also failed for the same reason. The v3
+lore mirror shows recipients included `dri-devel`, Philipp Zabel, DRM
+maintainers, `imx`, `linux-arm-kernel`, Helge Deller, and `linux-fbdev`.
 
-Step 4.3 Record: no `Reported-by` or bug-report link exists. WebFetch
-for lore URLs was blocked by Anubis, but `b4 mbox` fetched the thread
-successfully. The thread contained Neil’s `Reviewed-by` reply and an
-applied notice.
+Step 4.3 Record: no `Reported-by:` or bug-report `Link:` tags exist. No
+external crash/security bug report applies.
 
-Step 4.4 Record: no multi-patch series found; this is a standalone
-1-patch series.
+Step 4.4 Record: this is a standalone one-patch documentation cleanup.
+v2 added the reviewed-by and updated Cc list; v3 rebased and resent.
 
-Step 4.5 Record: WebFetch searches of `lore.kernel.org/stable` were
-blocked by Anubis. Local pending/stable candidate branches searched did
-not show this patch already present.
+Step 4.5 Record: direct `lore.kernel.org/stable` fetch was blocked by
+Anubis. Web search for the exact subject plus `stable` found patch-
+thread results but no stable-specific discussion or stable nomination.
 
 ## Phase 5: Code Semantic Analysis
-Step 5.1 Record: modified function: `feiyang_enable()`.
+Step 5.1 Record: modified documented symbols are
+`ipu_image_convert_run`, `ipu_image_convert_cb_t`,
+`ipu_image_convert_verify()`, `ipu_image_convert_prepare()`,
+`ipu_image_convert_queue()`, and `ipu_image_convert()`.
 
-Step 5.2 Record: `feiyang_enable()` is installed as `.enable` in
-`feiyang_funcs`. `drm_panel_enable()` calls
-`panel->funcs->enable(panel)` and checks negative returns. Multiple DRM
-bridge/host drivers call `drm_panel_enable()`.
+Step 5.2 Record: `rg` found callers in `drivers/staging/media/imx/imx-
+media-csc-scaler.c` for `ipu_image_convert_abort()`,
+`ipu_image_convert_queue()`, `ipu_image_convert_adjust()`,
+`ipu_image_convert_unprepare()`, and `ipu_image_convert_prepare()`.
+Runtime callers are unaffected because only comments changed.
 
-Step 5.3 Record: key callees are `msleep(200)` and
-`mipi_dsi_dcs_set_display_on(ctx->dsi)`. The latter calls
-`mipi_dsi_dcs_write()` and returns a negative error on write failure.
+Step 5.3 Record: reading `drivers/gpu/ipu-v3/ipu-image-convert.c`
+confirms the documented functions perform image format
+adjustment/verification, context allocation, queueing, abort/unprepare,
+and single conversion setup. None of those function bodies are touched.
 
-Step 5.4 Record: reachable through DRM panel enable paths during display
-modeset/enable for systems using this panel. This is driver/hardware-
-specific, not universal. No in-tree DTS user of
-`feiyang,fy07024di26a30d` was found beyond the binding example and
-driver match table.
+Step 5.4 Record: runtime path is reachable through IPU image conversion
+users, but the patch changes no runtime path. The affected path for the
+fix is kernel-doc/documentation generation.
 
-Step 5.5 Record: many other panel drivers already check and return or
-handle `mipi_dsi_dcs_set_display_on()` errors, confirming this driver
-was an outlier.
+Step 5.5 Record: no related same-header kernel-doc fix was found by `git
+log --grep='kernel-doc' -- include/video/imx-ipu-image-convert.h`.
 
-## Phase 6: Cross-Referencing And Stable Tree Analysis
-Step 6.1 Record: buggy code exists in `v5.4`, `v5.10`, `v5.15`, `v6.1`,
-`v6.6`, `v6.12`, `v6.19`, and `v7.0`. The driver was introduced for
-`v5.2-rc1`, so all active stable trees at or after that point likely
-contain it.
+## Phase 6: Stable Tree Analysis
+Step 6.1 Record: version tags `v5.10`, `v5.15`, `v6.1`, `v6.6`, `v6.12`,
+`v6.15`, `v6.16`, and `v6.17` all contain `include/video/imx-ipu-image-
+convert.h` with the old kernel-doc text. The API was introduced before
+`v4.9-rc1`, so active stable trees checked contain the documentation
+issue.
 
-Step 6.2 Record: expected backport difficulty is clean for `v5.10+`
-based on apply checks. `v5.4` failed direct apply due to context drift
-but contains the same ignored call and should need only a trivial one-
-function backport.
+Step 6.2 Record: expected backport difficulty is clean or minor. `git
+apply --check` succeeds against the current local tree, and the checked
+stable tags contain representative preimage lines. Full per-stable
+worktree application was not run.
 
-Step 6.3 Record: no related stable-side fix for this same issue was
-found in the checked stable/pending branches.
+Step 6.3 Record: no related stable fix for this header was found in
+local `git log --grep` searches.
 
-## Phase 7: Subsystem And Maintainer Context
-Step 7.1 Record: subsystem is DRM panel driver, criticality
-`PERIPHERAL`/driver-specific. It affects users of Feiyang
-FY07024DI26A30-D MIPI-DSI panels.
+## Phase 7: Subsystem Context
+Step 7.1 Record: subsystem is fbdev/gpu IPU-v3 image conversion
+documentation in an include header. Runtime criticality is
+peripheral/driver-specific; documentation-build criticality is low.
 
-Step 7.2 Record: DRM panel is maintained and active. The file has had
-several API-conversion commits since introduction, but this fix is not
-dependent on those conversions for `v5.10+`.
+Step 7.2 Record: local subsystem history shows ongoing cleanup/removal
+activity in `drivers/gpu/ipu-v3` and the header, including unused-
+function removals and treewide cleanup. This patch is not part of a
+required functional series.
 
-## Phase 8: Impact And Risk Assessment
-Step 8.1 Record: affected population is driver-specific/config-specific:
-kernels with `CONFIG_DRM_PANEL_FEIYANG_FY07024DI26A30D` and hardware
-described with `feiyang,fy07024di26a30d`.
+## Phase 8: Impact And Risk
+Step 8.1 Record: affected population is kernel documentation builders,
+maintainers, and users consuming generated kernel-doc. Runtime users of
+IPU-v3 are not affected by behavior.
 
-Step 8.2 Record: trigger is a failure of the DSI `SET_DISPLAY_ON`
-command during panel enable. I did not verify a specific real-world
-reporter, so frequency is unverified. It is not shown to be
-unprivileged-user-triggerable.
+Step 8.2 Record: trigger is running kernel-doc/documentation tooling
+over this header. It is not triggered by boot, device probe, syscalls,
+or ordinary runtime use. Unprivileged runtime trigger does not apply.
 
-Step 8.3 Record: failure mode is user-visible display enable
-misreporting: before the patch, the panel core could treat the panel as
-enabled despite the failed display-on command. Severity: `MEDIUM` for
-affected hardware, because it can leave display/backlight state wrong,
-but no crash, memory corruption, deadlock, or security issue was
-verified.
+Step 8.3 Record: failure mode is documentation warnings only. Severity
+is LOW. I did not verify any configuration where these warnings are
+fatal, so that does not drive the decision.
 
-Step 8.4 Record: benefit is moderate for affected hardware; risk is very
-low because the patch only returns an existing error code from a
-function that already has an `int` return type.
+Step 8.4 Record: benefit is low but real under the documentation-fix
+exception: it makes stable documentation builds cleaner. Risk is
+extremely low because only comments change. Risk/benefit is favorable if
+stable accepts documentation corrections.
 
 ## Phase 9: Final Synthesis
-Step 9.1 Record:
-Evidence for backporting: real ignored-error bug; affects display enable
-correctness; original buggy code dates to `v5.2-rc1`; one-line surgical
-fix; maintainer reviewed/applied to `drm-misc-fixes`; clean apply to
-`v5.10+`; no new API or feature.
-Evidence against backporting: no user report, crash, security issue,
-data corruption, syzbot report, or `Fixes:` tag; affected population is
-limited to one panel driver; `v5.4` needs a trivial manual backport.
-Unresolved: actual field frequency of DSI display-on failures was not
-verified.
+Step 9.1 Record: evidence for backporting: pure documentation
+correction, explicitly fixes listed kernel-doc warnings, tiny single-
+file patch, reviewed by Philipp Zabel, applied by Helge Deller, old text
+exists in active stable tags checked, and documentation/comment fixes
+are an allowed stable exception. Evidence against: no runtime bug, no
+crash/security/data-corruption impact, no stable nomination found, and
+b4 could not match the thread. Unresolved: direct stable-lore search was
+blocked; full apply checks on every stable branch were not run.
 
 Step 9.2 Record:
-1. Obviously correct and tested? Correct by inspection; reviewed by DRM
-   panel maintainer. No explicit `Tested-by`.
-2. Fixes a real bug? Yes, ignored negative return from a hardware
-   command.
-3. Important issue? Moderate: display enable state correctness for
-   affected hardware, not a critical kernel-wide failure.
-4. Small and contained? Yes, one function, one file, 1 insertion/3
-   deletions.
-5. No new features/APIs? Yes.
-6. Can apply to stable? Yes for `v5.10+`; trivial backport needed for
-   `v5.4`.
+1. Obviously correct and tested? Mostly yes for documentation syntax;
+   reviewed and applied, but no `Tested-by`.
+2. Fixes a real bug that affects users? Yes, a real kernel-doc warning
+   issue; not a runtime bug.
+3. Important issue? No runtime severity; LOW documentation-build
+   severity.
+4. Small and contained? Yes, 11 additions and 5 deletions in one header.
+5. No new features or APIs? Yes, comments only.
+6. Can apply to stable trees? Likely yes; local apply check passed and
+   stable tags checked contain the preimage.
 
-Step 9.3 Record: no automatic exception category applies; this is not a
-device ID, quirk, DT, build, or documentation patch.
+Step 9.3 Record: exception category applies: documentation/comment fix.
+This is the main reason to accept despite lack of runtime impact.
 
-Step 9.4 Record: I recommend backporting. Although the impact is driver-
-specific and not a crash-class bug, the fix is a genuine hardware enable
-error propagation fix, very small, maintainer-reviewed, and low risk.
-Stable users with this panel should not have the panel core mark the
-panel enabled after the display-on command failed.
+Step 9.4 Decision: backporting is appropriate under the stable
+documentation-fix exception. It is not a stability/security fix, but it
+is a correct, reviewed, zero-runtime-risk cleanup of real kernel-doc
+warnings in code present across active stable trees.
 
 ## Verification
-- Phase 1: Parsed commit `c67e8787f6743101c90c7a9c4bb7cf6f1f739f83` with
-  `git show`; confirmed subject, body, trailers, and diff.
-- Phase 2: Read `panel-feiyang-fy07024di26a30d.c`; confirmed old
-  `feiyang_enable()` ignored `mipi_dsi_dcs_set_display_on()` and
-  returned `0`.
-- Phase 2: Read `drm_mipi_dsi.c`; confirmed
-  `mipi_dsi_dcs_set_display_on()` returns a negative error on failure.
-- Phase 3: Ran `git blame -L 94,104`; confirmed buggy lines came from
-  `69dc678abc2b9d`.
-- Phase 3: Ran `git describe --contains 69dc678abc2b9d`; confirmed first
-  containing version `v5.2-rc1`.
-- Phase 3: Inspected original commit `69dc678abc2b9d`; confirmed the
-  ignored return existed from driver introduction.
-- Phase 4: Ran `b4 dig -c`, `b4 dig -a`, and `b4 dig -w`; confirmed one
-  v1 patch, original lore URL, and recipient list.
-- Phase 4: Ran `b4 mbox`; confirmed Neil Armstrong reviewed and applied
-  it to `drm-misc-fixes`.
-- Phase 4: WebFetch lore and stable searches were blocked by Anubis;
-  this limitation did not drive the final decision.
-- Phase 5: Read `drm_panel.c`; confirmed `drm_panel_enable()` checks
-  negative `.enable` return and skips enabled/backlight/follower path on
-  failure.
-- Phase 5: Searched for `feiyang_enable`; confirmed it is used via
-  `.enable = feiyang_enable`.
-- Phase 5: Searched panel drivers for `mipi_dsi_dcs_set_display_on()`;
-  confirmed many peers handle its return.
-- Phase 6: Used `git grep` against stable tags; confirmed the ignored
-  call exists in `v5.4`, `v5.10`, `v5.15`, `v6.1`, `v6.6`, `v6.19`, and
-  `v7.0`.
-- Phase 6: Apply-checked the patch in detached worktrees; clean for
-  `v5.10`, `v5.15`, `v6.1`, `v6.6`, `v6.12`, `v6.19`, and `v7.0`; failed
-  direct apply on `v5.4` due to context only.
-- Phase 7: Checked `MAINTAINERS`; confirmed Neil Armstrong maintains DRM
-  panel drivers.
-- Phase 8: Checked Kconfig and compatible strings; confirmed impact is
-  limited to the Feiyang panel driver/config and no in-tree board DTS
-  use was found.
-- UNVERIFIED: no actual user report or frequency of display-on command
-  failures was found.
+- Phase 1: fetched and inspected committed metadata for
+  `f1fb23a0a0fcbdb66672da51d7d63a259f6396ca`; confirmed tags and
+  message.
+- Phase 2: `git show --stat --patch` confirmed one header, 11
+  insertions, 5 deletions, comments only.
+- Phase 3: `git blame` confirmed changed comment preimage from
+  `cd98e85a6b786d`; `git describe --contains` placed it before
+  `v4.9-rc1`; `git show cd98e85a6b786d` confirmed original API addition.
+- Phase 3: `git log` on the header/subsystem found no prerequisite
+  functional series.
+- Phase 4: `b4 dig`, `b4 dig -a`, and `b4 dig -w` all failed to match;
+  recorded as a tool limitation/failure.
+- Phase 4: WebFetch of the v3 lore mirror confirmed the patch thread and
+  Helge Deller’s applied reply; Spinics fetch confirmed v2 and a later
+  ping.
+- Phase 5: `rg` found runtime users; `ReadFile` of implementation
+  confirmed function bodies exist but are not changed.
+- Phase 6: tag checks confirmed the header and old doc text in `v5.10`,
+  `v5.15`, `v6.1`, `v6.6`, `v6.12`, `v6.15`, `v6.16`, and `v6.17`; `git
+  apply --check` succeeded locally.
+- Phase 8: severity/risk assessment is derived from the verified
+  comments-only diff.
+- UNVERIFIED: direct `lore.kernel.org/stable` search content was blocked
+  by Anubis; no actual `make htmldocs` run was performed; full patch
+  application against every individual stable branch was not performed.
 
 **YES**
 
- drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ include/video/imx-ipu-image-convert.h | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-index 4f8d6d8c07e4d..dbdb7e3cb7b62 100644
---- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-+++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-@@ -98,9 +98,7 @@ static int feiyang_enable(struct drm_panel *panel)
- 	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
- 	msleep(200);
+diff --git a/include/video/imx-ipu-image-convert.h b/include/video/imx-ipu-image-convert.h
+index 003b3927ede5c..6b77968a6a150 100644
+--- a/include/video/imx-ipu-image-convert.h
++++ b/include/video/imx-ipu-image-convert.h
+@@ -27,12 +27,13 @@ struct ipu_image_convert_run {
  
--	mipi_dsi_dcs_set_display_on(ctx->dsi);
--
--	return 0;
-+	return mipi_dsi_dcs_set_display_on(ctx->dsi);
- }
+ 	int status;
  
- static int feiyang_disable(struct drm_panel *panel)
++	/* private: */
+ 	/* internal to image converter, callers don't touch */
+ 	struct list_head list;
+ };
+ 
+ /**
+- * ipu_image_convert_cb_t - conversion callback function prototype
++ * typedef ipu_image_convert_cb_t - conversion callback function prototype
+  *
+  * @run:	the completed conversion run pointer
+  * @ctx:	a private context pointer for the callback
+@@ -60,7 +61,7 @@ void ipu_image_convert_adjust(struct ipu_image *in, struct ipu_image *out,
+  * @out:	output image format
+  * @rot_mode:	rotation mode
+  *
+- * Returns 0 if the formats and rotation mode meet IPU restrictions,
++ * Returns: 0 if the formats and rotation mode meet IPU restrictions,
+  * -EINVAL otherwise.
+  */
+ int ipu_image_convert_verify(struct ipu_image *in, struct ipu_image *out,
+@@ -77,11 +78,11 @@ int ipu_image_convert_verify(struct ipu_image *in, struct ipu_image *out,
+  * @complete:	run completion callback
+  * @complete_context:	a context pointer for the completion callback
+  *
+- * Returns an opaque conversion context pointer on success, error pointer
++ * In V4L2, drivers should call ipu_image_convert_prepare() at streamon.
++ *
++ * Returns: an opaque conversion context pointer on success, error pointer
+  * on failure. The input/output formats and rotation mode must already meet
+  * IPU retrictions.
+- *
+- * In V4L2, drivers should call ipu_image_convert_prepare() at streamon.
+  */
+ struct ipu_image_convert_ctx *
+ ipu_image_convert_prepare(struct ipu_soc *ipu, enum ipu_ic_task ic_task,
+@@ -122,6 +123,8 @@ void ipu_image_convert_unprepare(struct ipu_image_convert_ctx *ctx);
+  * In V4L2, drivers should call ipu_image_convert_queue() while
+  * streaming to queue the conversion of a received input buffer.
+  * For example mem2mem devices this would be called in .device_run.
++ *
++ * Returns: 0 on success or -errno on error.
+  */
+ int ipu_image_convert_queue(struct ipu_image_convert_run *run);
+ 
+@@ -155,6 +158,9 @@ void ipu_image_convert_abort(struct ipu_image_convert_ctx *ctx);
+  * On successful return the caller can queue more run requests if needed, using
+  * the prepared context in run->ctx. The caller is responsible for unpreparing
+  * the context when no more conversion requests are needed.
++ *
++ * Returns: pointer to the created &struct ipu_image_convert_run that has
++ * been queued on success; an ERR_PTR(errno) on error.
+  */
+ struct ipu_image_convert_run *
+ ipu_image_convert(struct ipu_soc *ipu, enum ipu_ic_task ic_task,
 -- 
 2.53.0
 
