@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC785CD4F3D
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 19:02:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E855CCD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 19:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3154710E53B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 353E210E54A;
 	Thu, 21 May 2026 19:02:58 +0000 (UTC)
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD08910E53B
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B79D210E532
  for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 19:02:56 +0000 (UTC)
-Received: by mail-ot1-f72.google.com with SMTP id
- 46e09a7af769-7e56806cfecso7986146a34.0
+Received: by mail-ot1-f69.google.com with SMTP id
+ 46e09a7af769-7dcc8f071b3so16983043a34.2
  for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 12:02:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20251104; t=1779390176; x=1779994976;
@@ -22,26 +22,26 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  :date:mime-version:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
  bh=0krv0nUw1/ioDEFf9ZMQESopIiNp/OLFryuhF9m9kKI=;
- b=Yzxh4TF9PEB6sweMKUVQCVVS54++tOaWkw5/1fwrLRY1GWmYqbTYFtdPh8apVB/HcX
- DmmlPCySgnLSR8GwLdVR9JhqjDHIUbQrXSExBv1B6bIDbfWVQpdTS5mfP/5QDCjXXc2v
- EDJUv+QZCQPlJNAdSUMu3qKKqUNEttFipt4M9RUHXVO/NlkcmvQCn+GU6qD5ycR356Uk
- b4FT0dRH6mE7qGP77peBtPkoDu8sUw3Y3MKpCejMglX2Aw3vBHR1C7mRg9rnRdvF9XdB
- KQHN8uga6KrFyXW0C/f/t5eKqGY6BSMH0wlYt84BI/az9SZHwcnLsi1ViNgJsNo+rwln
- a8ZQ==
+ b=L1p2XLfIs/EPaH9nE4Gp0NuU6YVt7dIXROo46sIOBtb+5R32IZDRlxyicLODrzJEf8
+ zdTsbr+7m6Db7+qQcFMhzZqqKKrDM3Q7fO8gm+y/Ubw7TrfPwaMDkXj0g6DYCw7zM1//
+ cjwZV/mXG8svUvVtNgZtot9vvL+g3NfN13QcCixLHH03hNxTeN1wp63O7KUAVAJ65eXg
+ sRm7Quz3OPvLWTlFztAqX+eIhFQoisf3hhWdiZAkTZviVYFcnOwyCYS48oOY81hgzURJ
+ mLbn+5GwP9VjlV++yLYLSDGB4jiSGCej7gIKOtOiIfEiwyolg1Lg0qUIDGaMWbCwv9Qb
+ svMA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ95qeHjG990Dl9DA1WGzw8Fc40tla9lpCsi1CmCR5FAIHNJdyOl9R9yYajc7suHIuQUYwXonVQSogY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxXBVz+3IHiDB5DJg++DygkJfFQUGLJIa3gb6sRRZunNxfKGqVJ
- rRFoj9pX6gCFIN78s0s25PCcVUehCOl/EVMCVR9nELRjeWT3WQ468QNdST69dwJmQY9j5XGUXNa
- CC8l+xWn3jtvk/7XzpdBejjQUVYy1mad5LdIISOZcjUkt4r9Di0BTW6Vil1w=
+ AFNElJ8hlMa36/bn/d+61KBKZI5tUbrPnwz8LSm3ZYx49eyFh1OyoKIkqhW7wUpCKLNFDADxwJ91izafKy0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxomceI8WAaHNeHfoAz9XnOclq3FtJplyWykMaB3qyM2qeXpY3C
+ 3jUuDz47Lc3nmoRaaQURb6cieQcihxucFVLd5zQJuUAX1nfPIRXjioOSDRGOgTGpgrO0htpRr7C
+ mI+4/liI2PRzq9F4YpubQ/MpQOxG6wnXNjDu6+j3OfsjyIDmtcPxxnNlAg7E=
 MIME-Version: 1.0
-X-Received: by 2002:a05:6830:6d0c:b0:7dc:d99c:c441 with SMTP id
- 46e09a7af769-7e5fedc8241mr302592a34.8.1779390176127; Thu, 21 May 2026
+X-Received: by 2002:a05:6830:2404:b0:7e3:9d19:1e47 with SMTP id
+ 46e09a7af769-7e5fef3460dmr257848a34.25.1779390176067; Thu, 21 May 2026
  12:02:56 -0700 (PDT)
 Date: Thu, 21 May 2026 12:02:56 -0700
 In-Reply-To: <4bc3709f-21bc-49f5-8fcf-972dec1397f7@collabora.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a0f56e0.050a0220.3a257.0000.GAE@google.com>
+Message-ID: <6a0f56e0.050a0220.31b25.0001.GAE@google.com>
 Subject: Re: [PATCH v2] drm/virtio: abort virtqueue wait on device removal to
  avoid hung task
 From: syzbot <syzbot@syzkaller.appspotmail.com>
