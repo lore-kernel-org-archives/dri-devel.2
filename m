@@ -4,93 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53DDBCD5BA4
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:54:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E7A1CD5BA4
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:57:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB5B10F2C3;
-	Thu, 21 May 2026 08:54:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEDA10E161;
+	Thu, 21 May 2026 08:57:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="d/GKHuJO";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iJfsScIp";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FYdEKVtb";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GsJJIvrj";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF0FE10E483
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:54:39 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A773410E161
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:57:09 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64L7PXT7119026
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:54:39 GMT
+ 64L7cbn4963772
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:57:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7KneU25sMeS+sXuch2Vow90gK/BMf+EqfUeuRaPhtrQ=; b=d/GKHuJOcJy9aAq9
- FBVantGqilVVHL0saJSTV+k7LN6lLwK0JOU2gZ96QsgGhWEBN6oMGy6vBZMyxY1J
- /PTZUiZzJ+f4D0/au4+EWasMAfdEecBwmflhz+unCszt10qRkwtLjvUAYiZp/0lm
- e5NpYJOe4ZE7Z41RTsD7hP/7sqFRrqLzuvIvKA1lM95f3efj5IpfoZxWEKI0ZrN/
- 7OGR6p9TvR9hIjgn/1jMD0LRl0YxALRAYT+0tdRYwsoCGCwKov6pFFoc4M2eKJvw
- 7Q3L4cmF8qWXqvx+Ff65XBrmfEZynlT6lKdsf0HAPJcW7MSnDsiux1PcLVz0f1i3
- D7EpGA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ee8c3pe-1
+ UZn92Brk23c+Rkdb8x9LPoHnZ0R8K9ZZhsAXkeEy4co=; b=FYdEKVtbXg2Je2Gf
+ 1yLwj+HJ0mafhil1Y7DCB2h1IUkmqIkGt8Y7/jVhsIIACHQHAVDb1CPIda/OMQMI
+ 4Nuo18tWRrHVRw4icS9pud0lMfL0KoiIgQylHgVqZtb9aMji+iJOftYyE0tOMWJB
+ YfcL/BhLg6EVr8ovb3BG6+FCWgmCej2FMeNCsr/uiJtEmnuC8rs3DSMXmPt/JI4g
+ UxOZIawvcRKNamIpJIY0MhPfyS9aJGtzmlL8U2xpXs2AFPIO/IA80kNf8mzp7X7f
+ e9Krffrb4wSx0iMbxd5dg/BZOYQz0NUEicbNDG4kkEfQQ9H+wbuwWCiqI7GKNEIN
+ A+reDQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ejh400t-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:54:39 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-90cced2eecaso130414285a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 01:54:39 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:57:08 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-90fef17f6f5so152549885a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 01:57:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779353678; x=1779958478;
+ d=oss.qualcomm.com; s=google; t=1779353828; x=1779958628;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7KneU25sMeS+sXuch2Vow90gK/BMf+EqfUeuRaPhtrQ=;
- b=iJfsScIpHm/398h18phSB1iqce8ml8lRTOSjuzRAPt8aMBX+qCpHrYxJ0Yi7s2oFw5
- PkDxk3Zr1Z3L69amLzeFQMdwZiAwEA1MXsec7x6cKRLljj33liRNIQWOGHSLwGNw3H0j
- xmIYHnhidujZqF5hbwFsbKDsTBUpm7XopNcqmhW4mHi2wAebuPP1/WquV1r0RTad30tZ
- qJTiFjaowfZftI1EheavCqDZpx96GWh/Mmi2ZPd8VFHDO1uIguRuTdhcEIhL4JD4L4iR
- ykpnc/wnjcB+pcXE6Af6wvcz7bDTiCYCbVhUnS5vjxbLAY/HDm3CpCOvfpxRkyw9ste0
- OEIA==
+ bh=UZn92Brk23c+Rkdb8x9LPoHnZ0R8K9ZZhsAXkeEy4co=;
+ b=GsJJIvrjh+uBnefg7UyLqZt/3aeDKZswW0xbw8+8fHMYm8GmMlitbBx8pYbp1ZUBvf
+ 2e0fdcpkxLPF3SMidX+sBSngZ3+9FUIL3wyQweUG7oMolfG8Jl9PBo30g+vZ2zTgEKOr
+ 2gGVSM9ulnaonPZrxsOVUo6sve3Ubfs4V5OvSeJxKvJmBSPQ0vLO9DqCSu1r+I5ieSZZ
+ 8HR+KkoRYZaK5InVNIhs0CjmAuX0r+GzmSi9N/W/NBPAfwlckEdeCEqRlxELKhHIHJ/j
+ cR9Kx8a1lFMlyaDHdhnL4awxSJ5EwqAIkGDzxvMfkSgeXyMcg3CNvIaNj7ZEI8RUbopV
+ nk8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779353678; x=1779958478;
+ d=1e100.net; s=20251104; t=1779353828; x=1779958628;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=7KneU25sMeS+sXuch2Vow90gK/BMf+EqfUeuRaPhtrQ=;
- b=DK6JzHQcve7D4mAG+cqy5fq8Xa2pIsn5XyLnT3VeqVUQ67ocIxGKoXrcpKrox4whm8
- nuAjt/nPMZpofYzZTH+RttF9tJ/sYkR8DWfETewTMDQTqQC5mOtYVMH7MpkmUgNLNgaa
- sOfT4GeKSVPj6n5R8AmmCE2mPGzdRpPuwVPJEgo3SedMu+oFCo7uqWSq6sgSfzFOqhSr
- nd78zmOZn2edMbgxALuZsyLfdujFMGtKS7ImnBjnUkmi2LlZcs8RRmSGZ9x5ArFFQX8I
- 78y9Hf+EHPBag22bS7G68nqYW0pkBYgJejSLwBn+ORoW4mEiBsr2dIvD9dB8KR1Uon85
- twEw==
-X-Gm-Message-State: AOJu0YyPAMchM8rpAej6Vg5mzmSHBHTAfj0Cm6457BiL/J2jLy8AVZ7Q
- qiFdyFjlGww4cXWFOvYTUlsKdNnEUe+8+qxYHw58OJ/sxEeEsL5FIailYRMV5LiOn/B+zk/W+VP
- 27MjIDmwc1qAzokuqLT740f15IOQaRvohJOAgwR9kmixh99LhXwcUSoUJuZGj8IYhXRun038=
-X-Gm-Gg: Acq92OEZ4/MpCykQNc+ToxYAXQPDJzq6JvM4JRKJQtVcgpch6yUiWMJJ0m+NVWgiHUZ
- aZXk7jh9emI2nGIrzV5WQvOgRkOhu5WD6iiIAvKxAmZB3c2twwL0r7yLQdu/okpC8EyUDTaQxM0
- CCr9X6dh0InhRlqkgAiKaTz2SMV08/7t/cAarQev2WA+MOfFyefu06OBOXBF7aP4jdSKSdUq3Nf
- pvG5RC1FY/3n9CEE9wNvBHKjQkZU6EnDRUnxNXPVvefSrrWIdKCK9KBA5EN3rkPsiW0eOvoAh1h
- 91xeSolEs8LvmTAfRXSqSLvRW46NpWOhbfKpISts/JfMnRdwEldPadzwNqWpaVdktvHTXrb0Z8A
- r+nH91hidHEf+z2U4qNi1GsHhQKhg0byucRpezQfjQDPsskEnFUbgG7ZKfcU0GKINQvLlM7WjUk
- 6hNNs=
-X-Received: by 2002:a05:620a:198e:b0:902:daaf:22cd with SMTP id
- af79cd13be357-914a28e7ed6mr175366985a.0.1779353678177; 
- Thu, 21 May 2026 01:54:38 -0700 (PDT)
-X-Received: by 2002:a05:620a:198e:b0:902:daaf:22cd with SMTP id
- af79cd13be357-914a28e7ed6mr175363285a.0.1779353677649; 
- Thu, 21 May 2026 01:54:37 -0700 (PDT)
+ bh=UZn92Brk23c+Rkdb8x9LPoHnZ0R8K9ZZhsAXkeEy4co=;
+ b=ltmAyoYF+BMvYddmYpI/0y1gcZ+x66pigmdPugozX9fUnH7DOPl5Dh+imNKosYv252
+ 2vkiDNPX/9ABBDGxOvTC4aIgXycxek5QXK6QpOy6tSMLomIu5EY9T6/ojfLZ5yr1Oo2A
+ ckRbhUJZpIezkfRiGJz3jhwXuH4fo36y2T8y52hZAetI8Pys/VLePZJjCe7MrkhZB2K3
+ NjdPHPjEDHZahDb6D86cQDCLUPrH6pFzeUtzEkXhcZsQhePO5sQbIbt2BSgh/tB7qiGT
+ 2xf4wLLUuhYWjRVz+j73P1568NTevVjXz/hjoHHPX2jk4abqvIWovGkijnhk3hPVEmEM
+ piJA==
+X-Gm-Message-State: AOJu0Ywayw6AMG2qD+Fz6OiEtqixtl1o+rDNcDfyQOkt+QsYsWFCH1ns
+ SW9AzRKbsYizJB/+tPH7srjIcI0XKVCxMx0WRylW7os2ACG7fJoHaczRMLIgIGWxqMWTzksN9ka
+ Mo0/scvEoce0DTdjiIFw+KnibGi88CZIFJTk5ICb1r0Wy/MJuLwIptHB/bF7ECxxCGnx8cfA=
+X-Gm-Gg: Acq92OEF8W4JI5nEp6vKDDRS08hdqEYR7hB7YSgkQcSgTG2pLZGNCppvhwlyUHakQRp
+ ldYGMXMqrztCKyLf9BZW0AFBz9+BqzAdlZzd7T5HPCfOpyBh8WX70ne8w0Qu4nbiU9MmSyW0svf
+ ze1lRy6qHjYA+tjxX+MpcBUQXHfB+p0ZsEuKD7R8szLg5Phjre+HOI63GW/7Y/qbmXXGEL4dmMR
+ q1uplvnpQCI560/GIAOM6Uvdp/Im5JkNqOse1sjhGcXErPbk8pjY3imUlAlTnJKTE5/4q1jJGKO
+ A9QjFPdYoSzjeFYy4KDgEC+T5trvAaqjwOOeerm0hDtMtPTAYADZc6NJj1JR+Ml0Q3rSrEO2I9x
+ dgRtSayfKQh8rVtFF/NQ/wWzv4z4cS69bU3evzoG+TXLBRx0+U6fHDujUO3JGCp/wMgCHgHEU9P
+ e1pdY=
+X-Received: by 2002:a05:620a:f0e:b0:8d3:f6c2:5196 with SMTP id
+ af79cd13be357-914a2d1f98dmr155677585a.5.1779353828089; 
+ Thu, 21 May 2026 01:57:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:f0e:b0:8d3:f6c2:5196 with SMTP id
+ af79cd13be357-914a2d1f98dmr155676285a.5.1779353827601; 
+ Thu, 21 May 2026 01:57:07 -0700 (PDT)
 Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bdc8aa03d4asm17888266b.47.2026.05.21.01.54.34
+ a640c23a62f3a-bdc88371cc5sm18301666b.28.2026.05.21.01.57.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 May 2026 01:54:36 -0700 (PDT)
-Message-ID: <1182d92f-f43a-4a9e-8659-3eaa5a484c9a@oss.qualcomm.com>
-Date: Thu, 21 May 2026 10:54:34 +0200
+ Thu, 21 May 2026 01:57:06 -0700 (PDT)
+Message-ID: <50ac0298-7cb3-4692-913a-761f38da455b@oss.qualcomm.com>
+Date: Thu, 21 May 2026 10:57:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/11] arm64: dts: qcom: sc8280xp-arcata: Add lid switch
+Subject: Re: [PATCH 09/11] arm64: dts: qcom: sc8280xp-arcata: model the PMU of
+ the on-board wcn6855
 To: jerome.debretagne@gmail.com, Douglas Anderson <dianders@chromium.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -104,38 +105,40 @@ To: jerome.debretagne@gmail.com, Douglas Anderson <dianders@chromium.org>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
 References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
- <20260520-surface-sp9-5g-for-next-v1-8-9df52552bf87@gmail.com>
+ <20260520-surface-sp9-5g-for-next-v1-9-9df52552bf87@gmail.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-8-9df52552bf87@gmail.com>
+In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-9-9df52552bf87@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: QZ5FKGKq1n2fCSZqYZUgatwz22RLdgdy
-X-Authority-Analysis: v=2.4 cv=e5k2j6p/ c=1 sm=1 tr=0 ts=6a0ec84f cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Authority-Analysis: v=2.4 cv=QptuG1yd c=1 sm=1 tr=0 ts=6a0ec8e4 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=S3QPRrZGCkirkA1mjOoA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA4NiBTYWx0ZWRfX5NFBXxzjKmp4
- tGVL8gOfmxKRYgBuiZ1FOtfLxOFXNuB3POciboZN3lCt0p6U1H/98bIlm4JpqNlH8M75NcBRiD1
- e8wuoAe0NowTruJPy3i7+ifAc9omFstmCgeLG1AIrQnLN/YyCDbEz6icsu0xpOCSqvt43Q7MQl5
- f6dkjWCKCQZ2pav7TLxYbwJVSieBN6IDZxSZAlyAYWvlaTGlG7PG1GhiElKJxLUgs+XNYrYTLel
- qz3OAsoCOtEdRKJwirDyR1rKjLPCBfM0R6OG3IuK9HX/g7mzrNRpAv5F7YcKsM7BTt9s5K6JKw6
- tn9LGLdOwdk9D0acWijUFlYBOon/jIMGC2DIc4Bza+jCFi4woWuTELN7uTuIebQqtH6+wIkAtfB
- aMXsfka4G0WltbcU0bf+91aFYQghALEi8++MppHTChqjKXBJLnVfV0GJ0nMc7OUGfnrtpgY2Z7e
- kNydsSbciYodhygvO7g==
-X-Proofpoint-GUID: QZ5FKGKq1n2fCSZqYZUgatwz22RLdgdy
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
+ a=S3QPRrZGCkirkA1mjOoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA4NyBTYWx0ZWRfX2rthDMb67gT6
+ kXsuP6M80CJ689tp29FB3q7SDTUQHEGw87JRNk/3sXqQWwNg9Nzpsas6r8/uWUucFVFsLgzP8v1
+ 4hoDgMccxPY7Vcb3G9Mu79sBbK+oc8OfOBRkk0c1sYWxrfrbKIJCEoDa7tGldtlVeTjBjIK9e3a
+ SIxnUEA3z6/QnQk28bz9yCnknsp/zyXgPxp+XfnXqRB5F4IFlbkY5OfglYLBjzkMbU//B3Dw8yQ
+ wLjcukH4ganfdj+OOxgEO6TMZb2MFjuF2ZxLiicmV7fG64SRhEL9/iwDzIOJVCcrW8giRLORZwZ
+ JTila06Fbv+H4av2Bef3NbN4FyakaqAtbXNx4oRx2niJPTY9AwVnxadyysbNNnH0rVy2WpFQLNs
+ pPxUK9MCQjSpvO0zVUNuWrxV7mlQ7NBC8zKQMlaa6gw9Q3cHo0WhcLuE6E5wl8gpZUEw1CFi3g5
+ 0QG6x9WzGJLtTI+YBnA==
+X-Proofpoint-GUID: i2X-zieKlg5URpkUBJXm7oHW2tTMTONt
+X-Proofpoint-ORIG-GUID: i2X-zieKlg5URpkUBJXm7oHW2tTMTONt
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ spamscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210086
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210087
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,9 +157,21 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On 5/20/26 6:40 PM, Jérôme de Bretagne via B4 Relay wrote:
 > From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 > 
-> Enable the lid switch for the Microsoft Surface Pro 9 5G using
-> GPIO pin 180.
+> Align the Surface Pro 9 5G with the other sc8280xp-based models as done in
+> this patch series [1] from Bartosz.
 > 
+> Add a node for the PMU of the WCN6855 and rework the inputs of the wifi
+> and bluetooth nodes to consume the PMU's outputs.
+> 
+> With this we can drop the regulator-always-on properties from vreg_s11b
+> and vreg_s12b as they will now be enabled by the power sequencing
+> driver.
+> 
+> Use the fixed BT vddrfa1p7-supply supply name to align with bindings.
+> 
+> [1] https://lore.kernel.org/all/20241018-sc8280xp-pwrseq-v6-0-8da8310d9564@linaro.org/
+> 
+> Cc: Bartosz Golaszewski <brgl@kernel.org>
 > Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 > ---
 
