@@ -4,99 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B48ACD5BAC
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DE28CD4F5E
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:59:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D313510F27F;
-	Thu, 21 May 2026 09:51:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D170010E497;
+	Thu, 21 May 2026 09:59:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="IXk/f9h6";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="F1w37Lm8";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10D9010F27F
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 09:51:13 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-488b3f8fa2bso54077135e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 02:51:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1779357071; x=1779961871; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=v4gQkUqn8G/2ZssvYAdUOdDkCHargD2hgrC4y5JhqUg=;
- b=IXk/f9h6amLa0nbAf2J1LTMwOEmnP5yAC0z8UturrbuR+1zhk6UXWX/1FLRGL8+Ooa
- UVOo5CsqPUiAY+5OZhLAguuhGZ7WQx180W99QkXheKsCzsLhOjW4xAvoxQk+hAmAuZ7e
- 6dm1jAPG1a6uQP3Tx1d1z0bGu4iNdkPfaVQvY=
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E51D10E244
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 09:59:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779357585;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0nHbVXywPYI+m+RM8iHAt2Jum4qcWT4EHlZtaJMwkXs=;
+ b=F1w37Lm8o+IREg/in8sb7cU+DPvZa1LfCummFw1SR9Q+z1u00PZu4JBDpzb9D1sl+3TtxE
+ +q4/w6J12NvAj3hRMGxnjYkBO3fb2Zu2g1h6bE2ggrP8HsZn3LxRPYdjQcS07Fu5iwDIjM
+ Cj0+jzbTIfSc0zs/4rxeBvv11KM8WYo=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-665-C8OS7aSOMgOq9sB5hEuxew-1; Thu, 21 May 2026 05:59:44 -0400
+X-MC-Unique: C8OS7aSOMgOq9sB5hEuxew-1
+X-Mimecast-MFC-AGG-ID: C8OS7aSOMgOq9sB5hEuxew_1779357583
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-45e80183514so3845619f8f.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 02:59:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779357071; x=1779961871;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=v4gQkUqn8G/2ZssvYAdUOdDkCHargD2hgrC4y5JhqUg=;
- b=lVDtk2Dw5fNXcHcwK+6xaWZTmYulR2ekcJkqOVZpU/VzaYb+mgur6f7kJqPzYJk17X
- RfK7E1HaI87i3qfn5AWPMedGr9U2yV1Ipqb4GYKiGdCLGpWSwFrk/6ly+dJF9pS6CjB4
- Nj8tqNfXQZzOx27R6ZvEbDo49rzC57WemCnU7EegUK/9ul7Ou/xA2/A2J+7cZmo20FSv
- V3KkVFKpC4oecXEgqO6TpCUuIQbAppGbeD4I1k7b8/uZGKj6StNX4KP8QSpozkXIYjZb
- xaFnpEjzcM8J2U9FQ5ODabr3bXbGnTZ6UKFZcQTdg37XZR0dNHZZKtmAXfmR8I8NmJda
- SOHA==
+ d=1e100.net; s=20251104; t=1779357583; x=1779962383;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0nHbVXywPYI+m+RM8iHAt2Jum4qcWT4EHlZtaJMwkXs=;
+ b=TbrUFyTSpDGf2tu/WRS4cJ0MjW7PBWeTRM7XkChjcrAFGV57qRAZ8VGchVviLbrnoH
+ odE+dyrufuevrNCiwPPvjsE/i0JAMS1slCvY/EwsvRg6NIX8PY9YT7rPXjwRRVr3Yqcp
+ 6OeDj+yISiAyuOaAS6hf+PMMw8/92hh5wDZNciCu77iKFzVmv/AJFK4jNgeUXVynbZgx
+ tfEEa6taCXV00mULK5TOfFWEG5OqzMn242ZLM/HJm/4nfkqt7d7iYiWh6N5OoEfytu07
+ J0GrBFFy67LxCas6acY2TNwHzsY+PrbgXrTPShehIKq77LsLba4pVNmuuwm51ABXbZn/
+ 65yA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ85aZwWB3vsd1sQZMJG+mvJPBXZnWr5tUCMd1unEN4rMu1Q5T7zULqvwoZAyM0sH6FXYOen8+cBh7Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxyodE6mE0vOkWaaWF1ebnsZhM7YVbQ1NabDR/hVCkFWb9RPUuZ
- nYEKdc27Dp8bhsD4/fgxQDqROz+cCY2Y60ysE6lBJDxBfWVWcBzVexEsb3i2PRb36Wg=
-X-Gm-Gg: Acq92OFqhJiiIfn0c6vZMaHZYEEUcOA0MRiKSKjso8HNJaYg9xPjiHzAzMQOnSmJcoT
- xZPxzHYAm7KiI11ShFqscqQ7MrTYMpjbnfJ0QBfQCXyvWyAu65yZb4bHQSXS4p90rnBeiMLzpQg
- yJ6HhrPbyOLERhFzoBeo56xnIVF7afygIgFRUr3QmzLcVh0t6um+1sweCPmLg/R+9OZoPHJgeBH
- 1kVKQkXj06B8rWMEo79iFUfDzqmiRwV2WssYVaU9vH1cKCPshANJjJedzzyB6qZt9a3W4YqBiM7
- jSTgOvLwIlj0Cfw0dOQv9nx01dpviSW1M9wy6lXLU7Gt+fWDORwgAoQj04NqYV8Sm/I0zHaXm5N
- JsFG9koL6T8TYgScPYLf3cyOCXHixELIM3zXB8ZltRAsf4XDDho8f5aPrwbC+IMd0gbsVWbovxH
- icGSZbPlMG6iI2KZ3Ia0uADfrB6e2EfBg+TTNbEm0OaLVAPA==
-X-Received: by 2002:a05:600c:621a:b0:48d:50a:6ef4 with SMTP id
- 5b1f17b1804b1-490360ae7e3mr22354105e9.11.1779357071435; 
- Thu, 21 May 2026 02:51:11 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ AFNElJ+7eLIDC0xVriS3mByKA1vmoJ1/oxybfgvnm4yycf0/8BEMsdLIqRYICE8O5IuGTvLFzlIa2wusoCo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+nc1IGkCSaAhYpSBlCvS6f/g+9+x7Pt5EfiLjS1TaDB83SGeR
+ gTKdEo9OdjTUd6APOZCtN6e8gwpPLv3yV/wdnOEZQaVEjEoJnZulMJPZXOoP/06EVsPispLk7JR
+ 4y5FU+Sgwdc+bkn5mNN6HndGyFMR8oQqB6PxNgHmlz3PTBslwlG702uEhigTv2EEnfWzCTw==
+X-Gm-Gg: Acq92OGGpsey8a2DLelX9TYdoW/k8W1MiO2sgYK9pna4+uMRxI2LD3O1dPBpm5CFD/x
+ 0Qs5aPtwSUWApyob6lFsTWn8Pvwpei1zmjFaclBW0Y+S+Jm8TWc0nXM/KlR0c7EQf9/UiULVTeb
+ FJReLYX4HVE7xw+GKKvUVOR1GdoCqIwhr8TCHsFw/sjxkaIw35JmVFG1pGxM18Jw6v3T71Rln1j
+ R8KqSOpQxnajz5zGJEWgYoeskHG34ZBbvweL6XE8R87TUyIvAKJBKLovtRsxuK8G6IGu4UZBsTo
+ 6u/+gb23nwLQth4JdYSa94LTx7xbFrYi29j+DYSN8r3ASCZGSu6356LaXX8Dz0UAH3n4O1Vbgnt
+ PkjWk6Sn3htqMK6+9RKt//znPljurQtTi5ZwMYo8NyaFsNQP47q4mCqwfmQ43Er0j7rOceqlRL3
+ tafTD0
+X-Received: by 2002:a5d:588a:0:b0:43d:68ad:3b7f with SMTP id
+ ffacd0b85a97d-45ea3ae68b3mr3967861f8f.21.1779357582730; 
+ Thu, 21 May 2026 02:59:42 -0700 (PDT)
+X-Received: by 2002:a5d:588a:0:b0:43d:68ad:3b7f with SMTP id
+ ffacd0b85a97d-45ea3ae68b3mr3967757f8f.21.1779357582159; 
+ Thu, 21 May 2026 02:59:42 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49033d8e24bsm51584595e9.10.2026.05.21.02.51.10
+ ffacd0b85a97d-45eaa7d9e2bsm1634922f8f.10.2026.05.21.02.59.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 02:51:10 -0700 (PDT)
-Date: Thu, 21 May 2026 11:51:08 +0200
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 01/28] drm/atomic: Fix unused but set warning in state
- iterator macros
-Message-ID: <ag7VjBeFQ1Q7tTr9@phenom.ffwll.local>
-Mail-Followup-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org>
- <20260423-drm-state-readout-v2-1-8549f87cb978@kernel.org>
+ Thu, 21 May 2026 02:59:41 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, Alain Volmat
+ <alain.volmat@foss.st.com>, Andrzej Hajda <andrzej.hajda@intel.com>, Andy
+ Yan <andy.yan@rock-chips.com>, Brian Masney <bmasney@redhat.com>, Chen-Yu
+ Tsai <wens@kernel.org>, Chris Morgan <macromorgan@hotmail.com>, Cristian
+ Ciocaltea <cristian.ciocaltea@collabora.com>, Daniel Stone
+ <daniels@collabora.com>, David Airlie <airlied@gmail.com>, Dmitry
+ Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Jani Nikula
+ <jani.nikula@intel.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Liu Ying <victor.liu@nxp.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Maxime Ripard <mripard@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Raphael Gallais-Pou
+ <rgallaispou@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>, Robert
+ Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>, Sean Paul
+ <sean@poorly.run>, Shengjiu Wang <shengjiu.wang@nxp.com>, Simona Vetter
+ <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v2 0/8] hdmi: Add common TMDS character rate constants
+In-Reply-To: <20260520144424.1633354-1-javierm@redhat.com>
+References: <20260520144424.1633354-1-javierm@redhat.com>
+Date: Thu, 21 May 2026 11:59:40 +0200
+Message-ID: <87o6i913sj.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260423-drm-state-readout-v2-1-8549f87cb978@kernel.org>
-X-Operating-System: Linux phenom 6.19.10+deb14-amd64 
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: aivMHRbScYtaiGePnDOn2IzplNP3BOpaEJ0DrkVTCMM_1779357583
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,230 +119,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 23, 2026 at 12:18:14PM +0200, Maxime Ripard wrote:
-> A number of state iterator macros trigger a compiler warning if an
-> iterator parameter isn't used in the code block.
-> 
-> Add a similar workaround than in most other macros.
+Javier Martinez Canillas <javierm@redhat.com> writes:
 
-I'm not on top of macro-fu, so not leaning out the window and dropping an
-r-b here. But sounds reasonable.
+> Several DRM drivers define their own local macros or use magic numbers for
+> the standard HDMI TMDS character rate limits. Maxime Ripard suggested that
+> instead these common rate constants could be included to a shared header.
+>
+> This series introduces these constants to the <linux/hdmi.h> header and
+> replaces the local defined constants or magic numbers in drivers.
+>
+> I split the changes as one patch per driver, so that these can be reviewed
+> individually and merged at their own pace.
+>
+> This is a version 2 that addresses issues pointed out by Maxime Ripard and
+> Dmitry Baryshkov.
+>
+> Changes in v2:
+> - Change naming convention to HDMI_$SPEC_TMDS_CHAR_RATE_MAX_HZ (Maxime).
+> - Define the constants in <linux/hdmi.h> (Dmitry).
+>
+> Javier Martinez Canillas (8):
+>   video/hdmi: Add common TMDS character rate constants
+>   drm/bridge: dw-hdmi: Use the common TMDS char rate constant
+>   drm/bridge: dw-hdmi-qp: Use the common TMDS char rate constant
+>   drm/bridge: inno-hdmi: Use the common TMDS char rate constant
+>   drm/sti: hdmi: Use the common TMDS char rate constants
+>   drm/sun4i: hdmi: Use the common TMDS char rate constant
+>   drm/msm/hdmi: Use the common TMDS char rate constants in 8996 PHY
+>   drm/msm/hdmi: Use the common TMDS char rate constants in 8998 PHY
+>
 
-Acked-by: Simona Vetter <simona.vetter@ffwll.ch>
-
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->  include/drm/drm_atomic.h | 64 +++++++++++++++++++++++++++++++-----------------
->  1 file changed, 42 insertions(+), 22 deletions(-)
-> 
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index f03cd199aee7..b9e7281cfc97 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -946,13 +946,15 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  	for ((__i) = 0;								\
->  	     (__i) < (__state)->num_connector;					\
->  	     (__i)++)								\
->  		for_each_if ((__state)->connectors[__i].ptr &&			\
->  			     ((connector) = (__state)->connectors[__i].ptr,	\
-> -			     (void)(connector) /* Only to avoid unused-but-set-variable warning */, \
-> -			     (old_connector_state) = (__state)->connectors[__i].old_state,	\
-> -			     (new_connector_state) = (__state)->connectors[__i].new_state, 1))
-> +			      (void)(connector) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (old_connector_state) = (__state)->connectors[__i].old_state,	\
-> +			      (void)(old_connector_state) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (new_connector_state) = (__state)->connectors[__i].new_state,	\
-> +			      (void)(new_connector_state) /* Only to avoid unused-but-set-variable warning */, 1))
->  
->  /**
->   * for_each_old_connector_in_state - iterate over all connectors in an atomic update
->   * @__state: &struct drm_atomic_state pointer
->   * @connector: &struct drm_connector iteration cursor
-> @@ -968,12 +970,13 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  	for ((__i) = 0;								\
->  	     (__i) < (__state)->num_connector;					\
->  	     (__i)++)								\
->  		for_each_if ((__state)->connectors[__i].ptr &&			\
->  			     ((connector) = (__state)->connectors[__i].ptr,	\
-> -			     (void)(connector) /* Only to avoid unused-but-set-variable warning */, \
-> -			     (old_connector_state) = (__state)->connectors[__i].old_state, 1))
-> +			      (void)(connector) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (old_connector_state) = (__state)->connectors[__i].old_state, \
-> +			      (void)(old_connector_state) /* Only to avoid unused-but-set-variable warning */, 1))
->  
->  /**
->   * for_each_new_connector_in_state - iterate over all connectors in an atomic update
->   * @__state: &struct drm_atomic_state pointer
->   * @connector: &struct drm_connector iteration cursor
-> @@ -989,13 +992,13 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  	for ((__i) = 0;								\
->  	     (__i) < (__state)->num_connector;					\
->  	     (__i)++)								\
->  		for_each_if ((__state)->connectors[__i].ptr &&			\
->  			     ((connector) = (__state)->connectors[__i].ptr,	\
-> -			     (void)(connector) /* Only to avoid unused-but-set-variable warning */, \
-> -			     (new_connector_state) = (__state)->connectors[__i].new_state, \
-> -			     (void)(new_connector_state) /* Only to avoid unused-but-set-variable warning */, 1))
-> +			      (void)(connector) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (new_connector_state) = (__state)->connectors[__i].new_state, \
-> +			      (void)(new_connector_state) /* Only to avoid unused-but-set-variable warning */, 1))
->  
->  /**
->   * for_each_oldnew_crtc_in_state - iterate over all CRTCs in an atomic update
->   * @__state: &struct drm_atomic_state pointer
->   * @crtc: &struct drm_crtc iteration cursor
-> @@ -1012,14 +1015,14 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  	     (__i) < (__state)->dev->mode_config.num_crtc;		\
->  	     (__i)++)							\
->  		for_each_if ((__state)->crtcs[__i].ptr &&		\
->  			     ((crtc) = (__state)->crtcs[__i].ptr,	\
->  			      (void)(crtc) /* Only to avoid unused-but-set-variable warning */, \
-> -			     (old_crtc_state) = (__state)->crtcs[__i].old_state, \
-> -			     (void)(old_crtc_state) /* Only to avoid unused-but-set-variable warning */, \
-> -			     (new_crtc_state) = (__state)->crtcs[__i].new_state, \
-> -			     (void)(new_crtc_state) /* Only to avoid unused-but-set-variable warning */, 1))
-> +			      (old_crtc_state) = (__state)->crtcs[__i].old_state, \
-> +			      (void)(old_crtc_state) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (new_crtc_state) = (__state)->crtcs[__i].new_state, \
-> +			      (void)(new_crtc_state) /* Only to avoid unused-but-set-variable warning */, 1))
->  
->  /**
->   * for_each_old_crtc_in_state - iterate over all CRTCs in an atomic update
->   * @__state: &struct drm_atomic_state pointer
->   * @crtc: &struct drm_crtc iteration cursor
-> @@ -1035,11 +1038,12 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  	     (__i) < (__state)->dev->mode_config.num_crtc;		\
->  	     (__i)++)							\
->  		for_each_if ((__state)->crtcs[__i].ptr &&		\
->  			     ((crtc) = (__state)->crtcs[__i].ptr,	\
->  			     (void)(crtc) /* Only to avoid unused-but-set-variable warning */, \
-> -			     (old_crtc_state) = (__state)->crtcs[__i].old_state, 1))
-> +			     (old_crtc_state) = (__state)->crtcs[__i].old_state, \
-> +			     (void)(old_crtc_state) /* Only to avoid unused-but-set-variable warning */, 1))
->  
->  /**
->   * for_each_new_crtc_in_state - iterate over all CRTCs in an atomic update
->   * @__state: &struct drm_atomic_state pointer
->   * @crtc: &struct drm_crtc iteration cursor
-> @@ -1120,12 +1124,14 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  	     (__i) < (__state)->dev->mode_config.num_total_plane;	\
->  	     (__i)++)							\
->  		for_each_if ((__state)->planes[__i].ptr &&		\
->  			     ((plane) = (__state)->planes[__i].ptr,	\
->  			      (void)(plane) /* Only to avoid unused-but-set-variable warning */, \
-> -			      (old_plane_state) = (__state)->planes[__i].old_state,\
-> -			      (new_plane_state) = (__state)->planes[__i].new_state, 1))
-> +			      (old_plane_state) = (__state)->planes[__i].old_state, \
-> +			      (void)(old_plane_state) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (new_plane_state) = (__state)->planes[__i].new_state, \
-> +			      (void)(new_plane_state) /* Only to avoid unused-but-set-variable warning */, 1))
->  
->  /**
->   * for_each_oldnew_plane_in_state_reverse - iterate over all planes in an atomic
->   * update in reverse order
->   * @__state: &struct drm_atomic_state pointer
-> @@ -1142,12 +1148,15 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  	for ((__i) = ((__state)->dev->mode_config.num_total_plane - 1);	\
->  	     (__i) >= 0;						\
->  	     (__i)--)							\
->  		for_each_if ((__state)->planes[__i].ptr &&		\
->  			     ((plane) = (__state)->planes[__i].ptr,	\
-> -			      (old_plane_state) = (__state)->planes[__i].old_state,\
-> -			      (new_plane_state) = (__state)->planes[__i].new_state, 1))
-> +			      (void)(plane) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (old_plane_state) = (__state)->planes[__i].old_state, \
-> +			      (void)(old_plane_state) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (new_plane_state) = (__state)->planes[__i].new_state, \
-> +			      (void)(new_plane_state) /* Only to avoid unused-but-set-variable warning */, 1))
->  
->  /**
->   * for_each_new_plane_in_state_reverse - other than only tracking new state,
->   * it's the same as for_each_oldnew_plane_in_state_reverse
->   * @__state: &struct drm_atomic_state pointer
-> @@ -1159,11 +1168,13 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  	for ((__i) = ((__state)->dev->mode_config.num_total_plane - 1);	\
->  	     (__i) >= 0;						\
->  	     (__i)--)							\
->  		for_each_if ((__state)->planes[__i].ptr &&		\
->  			     ((plane) = (__state)->planes[__i].ptr,	\
-> -			      (new_plane_state) = (__state)->planes[__i].new_state, 1))
-> +			      (void)(plane) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (new_plane_state) = (__state)->planes[__i].new_state, \
-> +			      (void)(new_plane_state) /* Only to avoid unused-but-set-variable warning */, 1))
->  
->  /**
->   * for_each_old_plane_in_state - iterate over all planes in an atomic update
->   * @__state: &struct drm_atomic_state pointer
->   * @plane: &struct drm_plane iteration cursor
-> @@ -1178,11 +1189,14 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  	for ((__i) = 0;							\
->  	     (__i) < (__state)->dev->mode_config.num_total_plane;	\
->  	     (__i)++)							\
->  		for_each_if ((__state)->planes[__i].ptr &&		\
->  			     ((plane) = (__state)->planes[__i].ptr,	\
-> -			      (old_plane_state) = (__state)->planes[__i].old_state, 1))
-> +			      (void)(plane) /* Only to avoid unused-but-set-variable warning */, \
-> +			      (old_plane_state) = (__state)->planes[__i].old_state, \
-> +			      (void)(old_plane_state) /* Only to avoid unused-but-set-variable warning */, 1))
-> +
->  /**
->   * for_each_new_plane_in_state - iterate over all planes in an atomic update
->   * @__state: &struct drm_atomic_state pointer
->   * @plane: &struct drm_plane iteration cursor
->   * @new_plane_state: &struct drm_plane_state iteration cursor for the new state
-> @@ -1216,12 +1230,15 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->   */
->  #define for_each_oldnew_private_obj_in_state(__state, obj, old_obj_state, new_obj_state, __i) \
->  	for ((__i) = 0; \
->  	     (__i) < (__state)->num_private_objs && \
->  		     ((obj) = (__state)->private_objs[__i].ptr, \
-> +		      (void)(obj) /* Only to avoid unused-but-set-variable warning */, \
->  		      (old_obj_state) = (__state)->private_objs[__i].old_state,	\
-> -		      (new_obj_state) = (__state)->private_objs[__i].new_state, 1); \
-> +		      (void)(old_obj_state) /* Only to avoid unused-but-set-variable warning */, \
-> +		      (new_obj_state) = (__state)->private_objs[__i].new_state, \
-> +		      (void)(new_obj_state) /* Only to avoid unused-but-set-variable warning */, 1); \
->  	     (__i)++)
->  
->  /**
->   * for_each_old_private_obj_in_state - iterate over all private objects in an atomic update
->   * @__state: &struct drm_atomic_state pointer
-> @@ -1235,11 +1252,13 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->   */
->  #define for_each_old_private_obj_in_state(__state, obj, old_obj_state, __i) \
->  	for ((__i) = 0; \
->  	     (__i) < (__state)->num_private_objs && \
->  		     ((obj) = (__state)->private_objs[__i].ptr, \
-> -		      (old_obj_state) = (__state)->private_objs[__i].old_state, 1); \
-> +		      (void)(obj) /* Only to avoid unused-but-set-variable warning */, \
-> +		      (old_obj_state) = (__state)->private_objs[__i].old_state, \
-> +		      (void)(old_obj_state) /* Only to avoid unused-but-set-variable warning */, 1); \
->  	     (__i)++)
->  
->  /**
->   * for_each_new_private_obj_in_state - iterate over all private objects in an atomic update
->   * @__state: &struct drm_atomic_state pointer
-> @@ -1254,11 +1273,12 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->  #define for_each_new_private_obj_in_state(__state, obj, new_obj_state, __i) \
->  	for ((__i) = 0; \
->  	     (__i) < (__state)->num_private_objs && \
->  		     ((obj) = (__state)->private_objs[__i].ptr, \
->  		      (void)(obj) /* Only to avoid unused-but-set-variable warning */, \
-> -		      (new_obj_state) = (__state)->private_objs[__i].new_state, 1); \
-> +		      (new_obj_state) = (__state)->private_objs[__i].new_state, \
-> +		      (void)(new_obj_state) /* Only to avoid unused-but-set-variable warning */, 1); \
->  	     (__i)++)
->  
->  /**
->   * drm_atomic_crtc_needs_modeset - compute combined modeset need
->   * @state: &drm_crtc_state for the CRTC
-> 
-> -- 
-> 2.53.0
-> 
+Pushed to drm-misc (drm-misc-next). Thanks everyone for the feedback and review!
 
 -- 
-Simona Vetter
-Software Engineer
-http://blog.ffwll.ch
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
