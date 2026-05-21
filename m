@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9446DCD5BAF
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 20:46:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 779F9CD5BAB
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 20:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05DD110E250;
-	Thu, 21 May 2026 20:46:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAB3510E564;
+	Thu, 21 May 2026 20:55:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M5f5eqGv";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="I/d1xpaN";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=berkoc.com header.i=@berkoc.com header.b="j0Bb4uDn";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC46610E250;
- Thu, 21 May 2026 20:46:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 01C4C60172;
- Thu, 21 May 2026 20:46:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949791F000E9;
- Thu, 21 May 2026 20:46:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779396394;
- bh=gLygPlXA9zpesWB7c3xrHmVnj9UJD76Jx38c6ojWHvw=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject;
- b=M5f5eqGvavsSQMvYmggCSUSdS9W0sW2PKLKo3OkFyr+HqRkZTOUb3QCegTl4qsiDY
- sRYKRxn0Ppu1fVRtqgdpHK4yHqJT99NBHxkhSQpqyRQQldR0dS2/E7ISazZiRK6aYK
- SdglK6QHxhUk8ifntU6CksiYATjh6Vd9HX5xhH66egI1nWsiq3s7npcfz9vfvNJgKV
- jncxIa3thoRvmO1FpgxIUtsrFdVD0oQiqMBIxARkXTQiDAc28sguEX8PRQooHbUyod
- eC/PWaCFcuObLJmirrz7BkFnxJFy/e66sstx8u8G2ymtCCu1R26H0maGCv07SsyBzZ
- STc2KEF9caTjw==
-Date: Thu, 21 May 2026 15:46:33 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>
-To: Jun Nie <jun.nie@linaro.org>
-In-Reply-To: <20260521-sm8650-7-1-bonded-dsi-v4-4-a4dd5e0850f1@linaro.org>
-References: <20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org>
- <20260521-sm8650-7-1-bonded-dsi-v4-4-a4dd5e0850f1@linaro.org>
-Message-Id: <177939639394.2297482.6216353377976107855.robh@kernel.org>
-Subject: Re: [PATCH v4 4/5] dt-bindings: display: Add Synaptics R63455
- panel support
+Received: from mail-01.1984.is (mail-01.1984.is [185.112.145.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1146E10E564
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 20:55:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=berkoc.com; 
+ s=1984;
+ h=Subject:Date:Cc:To:From:Message-ID:Sender:Reply-To:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=6gyF0HZWcO8v8WBQPrpU9hBMFdJgjkwXswAwpoH1LRo=; b=I/d1xpaN7Ul+dre+WI2o9hsBhL
+ cLwU2D6isXRfZyRhCh9qVV/q5f1LN+NKX4HyyKjRAwQh/V0DDop2xuRVkgxI2m9Zoy/GtkhZbng2s
+ gUXHy7Oue2KDtb7McJ6coDuaFdYXmThRdbeGMvSdpgzbvoH37ZQx6c6g0UNPVMJZAPqpuZtz9aleY
+ QjnQpPu/xtP/H017TuxP9bH781wy0Nfy+pB+IsS2I2nGOAILoekS8qOUeG4/KQ1KqSOJhl60PgwGA
+ zqqJ/7RHipAEzrD1k7k3bJILemw1gXyyk+2PoaJQjo0wKZ3mPUIidLRjmm2IbRA2mV4rCdRXIuPw/
+ eGd9cKTQ==;
+Received: from localhost by mail-01.1984.is with utf8esmtp (Exim 4.96)
+ (envelope-from <me@berkoc.com>) id 1wQAQi-00DeZ4-3C;
+ Thu, 21 May 2026 20:55:45 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berkoc.com;
+ i=@berkoc.com; q=dns/txt; s=me; t=1779396933; h=message-id : date :
+ subject : cc : to : from : sender : reply-to;
+ bh=6gyF0HZWcO8v8WBQPrpU9hBMFdJgjkwXswAwpoH1LRo=;
+ b=j0Bb4uDns7zMYvdhVWX768q9/2zAbVC1+B81gj5q9WP8E1K+mB7hKs6wakh6euhee9RAw
+ RsFEmvqS0bsQXL4EM5QOhx9EI9CRxIoy1wLm3Yivyu9r75TphX5hDmYGP93tGgGV+ez5mAI
+ bPaKcrL9wN9A9KRJqbWmyUMRyvyImY/WwqHg64vkDdhvW4BEqnl4JhbKZiYFiZlAdySKWx6
+ T0s0hCnmHTv4UypKRXzZ7jcc1BODq8XrfRFBuNc/yCwWwjPbdQUIAh5583+m0S9YvmQU7KV
+ E0Zu8Q4KNoI4dv8gyKIQgNIK8bTd7IKm8o29TP+jHeBuLDm8juxZAfalvyYg==
+Message-ID: <cover.1779396074.git.me@berkoc.com>
+From: Berkant Koc <me@berkoc.com>
+To: Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, K. Y. Srinivasan <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Michael Kelley <mhklinux@outlook.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Deepak Rawat <drawat.floss@gmail.com>
+Date: Thu, 21 May 2026 22:41:14 +0200
+Subject: [PATCH v4 0/2] drm/hyperv: harden host message parsing
+X-Authenticated-User: me@berkoc.com
+X-Sender-Address: me@berkoc.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,48 +70,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Two independent issues in the synthetic video driver that both stem
+from trusting unvalidated host data.
 
-On Thu, 21 May 2026 22:46:06 +0800, Jun Nie wrote:
-> Add support for the dual-panel system found in the virtual reality device.
-> This system consists of two physical 2160x2160 panels, each connected via
-> a MIPI DSI interface. The backlight is managed through DSI link.
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> ---
->  .../bindings/display/panel/synaptics,r63455.yaml   | 125 +++++++++++++++++++++
->  1 file changed, 125 insertions(+)
-> 
+1/2 bounds resolution_count from SYNTHVID_RESOLUTION_RESPONSE against
+the supported_resolution[] array, and populates WIN8 defaults for
+hv->screen_*_max / hv->preferred_* in both the WIN10-probe-failure
+path and the pre-WIN10 path, so a failed or pre-WIN10 probe yields a
+usable display instead of having drm_internal_framebuffer_create()
+reject every userspace framebuffer with -EINVAL.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+2/2 forwards bytes_recvd from vmbus_recvpacket() into the sub-handler,
+rejects packets that do not cover the synthvid header, and requires
+the type-specific payload size before memcpy/complete or before
+reading the feature-change byte. Rejected packets are logged via
+drm_err_ratelimited() instead of being silently dropped, matching the
+CoCo-hardened pattern in hv_kvp_onchannelcallback().
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:26:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
-./Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:55:14: [error] syntax error: mapping values are not allowed here (syntax)
+1/2 is unchanged from v3 and carries Michael Kelley's Reviewed-by.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml: ignoring, error parsing file
-./Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:55:14: mapping values are not allowed here
-make[2]: *** Deleting file 'Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dts'
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:55:14: mapping values are not allowed here
-make[2]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dts] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1659: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
+Changes since v3 (per review by Michael Kelley):
 
-doc reference errors (make refcheckdocs):
+  2/2: validate SYNTHVID_RESOLUTION_RESPONSE against its actual
+       variable length. The response carries resolution_count entries,
+       not the full SYNTHVID_MAX_RESOLUTION_COUNT array, so requiring
+       sizeof(struct synthvid_supported_resolution_resp) rejected the
+       shorter responses the host legitimately sends and broke
+       resolution probing. Require the fixed prefix, read and bound
+       resolution_count, then require only the count-sized array.
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260521-sm8650-7-1-bonded-dsi-v4-4-a4dd5e0850f1@linaro.org
+  2/2: only run hyperv_receive_sub() when vmbus_recvpacket() returned
+       success. v3 dropped the bytes_recvd upper bound as redundant,
+       which holds only on a successful receive: on -ENOBUFS
+       vmbus_recvpacket() reports the required length in bytes_recvd,
+       which can exceed the 16 KiB hv->recv_buf, and the subsequent
+       memcpy(hv->init_buf, msg, bytes_recvd) would read and write
+       past both buffers. Gating on the success return restores the
+       invariant that made the bound redundant, so an oversized host
+       packet is dropped rather than copied.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+Changes since v2 (per review by Michael Kelley):
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+  1/2: dropped the reinit_completion() change; the stale completion can
+       only outlive its request in hyperv_vmbus_resume() after a
+       get_supported_resolution() timeout, which is a narrower fix that
+       belongs in a separate patch against the resume path. Pre-WIN10
+       branch now also populates hv->preferred_*. The else branch is
+       gone; a single screen_width_max == 0 check covers both the
+       pre-WIN10 case and a failed WIN10 probe.
 
-pip3 install dtschema --upgrade
+  2/2: added a per-type switch for the three completion-driving message
+       types so the wait-completion path validates payload size before
+       memcpy/complete. Every reject path emits drm_err_ratelimited()
+       rather than returning silently.
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Changes since v1:
+
+  1/2: bound resolution_count check folded into the existing zero check;
+       populate WIN8 defaults when hyperv_get_supported_resolution()
+       fails.
+  2/2: forward bytes_recvd into hyperv_receive_sub(); enforce the pipe +
+       synthvid header minimum; check synthvid_feature_change payload
+       size before reading is_dirt_needed.
+
+The shared init_buf reuse (a duplicate or late host response can
+overwrite init_buf between successive request/response cycles) and the
+related completion reinit are real but orthogonal to this size
+validation. As discussed on v2, they are queued as a separate follow-up
+against the resume/expected-type path once this series lands.
+
+This series is verified by static analysis and code inspection against
+the synthvid protocol structures and the vmbus_recvpacket() contract. I
+do not currently have a Hyper-V test environment to exercise the receive
+and resolution-probe paths at runtime, so confirmation from someone who
+can run it in a Hyper-V VM would be welcome.
+
+Both patches carry an Assisted-by: Claude:claude-opus-4-7 berkoc-pipeline
+trailer per the kernel coding-assistants policy. Code, analysis and
+review responses are mine; the model is used as a structured reviewer
+under human verification.
+
+Berkant Koc (2):
+  drm/hyperv: validate resolution_count and fix WIN8 fallback
+  drm/hyperv: validate VMBus packet size in receive callback
+
+ drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 76 ++++++++++++++++++++---
+ 1 file changed, 69 insertions(+), 7 deletions(-)
+
+
+base-commit: 4bf5d3da79c48e1df4bab82c9680c53adeff7820
+-- 
+2.47.3
 
