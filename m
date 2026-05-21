@@ -4,88 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D96CD5BAB
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 22:35:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C544ACD5BAF
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 22:35:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B03E10F41E;
-	Thu, 21 May 2026 22:35:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2244510F428;
+	Thu, 21 May 2026 22:35:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="R/Fd2kn9";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="axJqb5tK";
 	dkim-atps=neutral
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com
- [209.85.216.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1BF610F428
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 22:35:00 +0000 (UTC)
-Received: by mail-pj1-f100.google.com with SMTP id
- 98e67ed59e1d1-367c26471f5so4240625a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:35:00 -0700 (PDT)
+Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com
+ [209.85.214.225])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAE4B10F422
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 22:35:03 +0000 (UTC)
+Received: by mail-pl1-f225.google.com with SMTP id
+ d9443c01a7336-2b9fcf7c91bso71750255ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:35:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779402900; x=1780007700;
- h=content-transfer-encoding:mime-version:reply-to:message-id:date
- :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=nxePRALAuCuLKGdQGBAkFr6chHZ5b8o5iPVGAENbQcI=;
- b=pQ7HGQDHqc8c+zCfNFRv66nul5XCv2bVPYMs9rpryobGqsUyWzantxTYoSTD3jXYW/
- RXT3PyKlAkGcGyhtBn2ihXN5K7VDi4F0MtfkQnoodjlvoEK2nIyEGsq7V4ovFcyRsb/z
- Pj3AXeFGnNbY5OlhgccalvUoUSQJImiYiWZZ7CPXixTbxOJa2i4L7LgclpcozO4jpxWB
- MGQSCysw2fAPJmxr2x/8tWxPlbtRXkp732EnxPla2ZxX4OOl+cM0P255+WvIjpAhJLdw
- cybrdKe33H6xb8nscw+frY6aj3kBPQ/1HSCQrF/H8h24+ngvlN3Izkd2suTQgNeHBmef
- uKFQ==
-X-Gm-Message-State: AOJu0YwxtnNLgXPiHSAEO4fZlSzYSVgIwrq3oLLJ6kVcE283U11Vjr4A
- xgVRhurduO8sQE9kWBsGSci/OP6am2KzRQ4sBkYkWSwDwm8Aa7WlpV1ZgXexVMnpHkQ+6qM6zOK
- fUiEL4nCF0kTbfxnTqofeTpdZyp4kZuduaIcoOGAJjcYClv77n2ipKKS9ewifMMrXvt4CFHk/rA
- NKM+Y994JmNAat+u9cXeLGjgwgjHcotlfTq0lFBZwlRG0xMO17etLjr0rUPiJFgDOypzIVwa4V/
- CqW4Hj+CZA3snDOJ64hFVRklCiY
-X-Gm-Gg: Acq92OG8Ba0P2rtgIGuibYP8GV90/FdXwcwzBvltWX3Qf9aUI9uzTDGDGrMKxHqQgY4
- +tmNV/bseA/+kVOazSd1Izq34Y1t8EWHq4PsxlNniVDpNKP7LjEGIBo4eNegdPF9ucmxkFm0vn7
- AMbxplZENxVI1Gv2Yhz0KQagOS52W5evKXrnVTHxDjfbkKpNM3B7h/iAFYmOJ0ki4dA5PJd/9W8
- 9r1YQHN7yPnv0MB0QjhI9FUYQS7zly/9j2fXWFDRDXkIyukSZrVfvMQ35fKa9SpBdWG2Hd1clbg
- rfvi/b3o9xHFF/xENfJDJtbnvQ6SSsxDN2eiyiUlzzfxy11EPRpGHWzW83zFnH9C0mG0MnVETzG
- sAU8z6Xrr/H4LKwhAqgeqtAXELKU+9+IDksoLZD3cRm32kyihTMFSpmYoMwzD/Y3k53cOICjeOs
- iBXxI+EDIUszk8nfDevWsZZNkdKW22xhIvT6n/mT+JkjrJF11EiceRC4obrIyYDE5y
-X-Received: by 2002:a17:902:d48b:b0:2b9:cd2d:6f11 with SMTP id
- d9443c01a7336-2beb05992eemr8767825ad.18.1779402900134; 
- Thu, 21 May 2026 15:35:00 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1779402903; x=1780007703;
+ h=content-transfer-encoding:mime-version:reply-to:references
+ :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rZTGRhn0in/8d3GZnh1/366N/c2uQzs6YLBlEUo9ymc=;
+ b=Wn3SFut5+bNLcU2oRYLTkCNzp6BFzF2s1GZRCktMdWUYioGkd86L4CHqUAZqPrvxVf
+ cCD8n/zlmiSEH3bL9ZTL9nYmd2xBEjKe5KyxVSHcGbI0lwwEcIfymuttGwjcZlem/XW1
+ ET3J/KaK3bPINlZRHG8UoykfxdjBwSU/7ujVCqI1slZPc1dZ8wj8AOrCpMkxm9YaHrA5
+ cdJTK3fPpIfYSwwXqrxt+Ca52WWC1aREjp8a/PsCW1OomV2uRWBEGLKVLhWa63kr0jPe
+ NPF038dwSPb3XKr9PkhSQGudyMHBRJ7FoUGwoxIBcUlc8eVLADTch0uD3QA6kGVOSK6Q
+ ZjNw==
+X-Gm-Message-State: AOJu0Yx6xZMhIBAURfbKpY2Eoz+7blaHMYp7EoGFuqLlfjOB2t/Sd6tx
+ H9TLWHLhS33V+FVQ1H9/FZZe+sF5u+q0x4C3wtLLCBrww1iLGDhsjoyoRW+r+uUxoos9o+ha4dE
+ EPCt4aEXVH0p1YN12x9EQq3ujniZe9nLwnNJMKL9LA0zl+Q8xFaZ0fel6P5vI8CMP29icKMRBQW
+ 2xE3knsb2xq9M/Gswoo4PeDs3dZ8Ijf9o0mgEGVxwnlB2QdEldJrmv0DBfJGRgoUvQA8PwBFw9i
+ Xnxx+ePCLWZ3aecHrbT2AMF5M8y
+X-Gm-Gg: Acq92OHUdsDEAGgXIYY2/cpUQclp/epQEPSNSSdvmdkTP6G6VzcdKLCJ9MefpAef//u
+ oOf4tqhtvFxYL+SUpjDRvpQ+Ntg566dt/tKycWr1XV/MKNl7JXzVAKVC6TrmfLt8TLkMtfr7EVF
+ k7BZP0G8j7jFyBf7Kn3Xvkai8yvvb6rotNGwQf4A3oxu+nUK7NPkxdJJVYR5Gd/AIW48KTTwO/x
+ 9OQ3E/OwB2ehpyFzgXGPZDi0eR+V5r3haQ+i2053ztOzKvXOuxxB/MAxg3Yap7r/KBvaBfKMuY7
+ zOdvzT1IBZf/7p6adUKU7Sax4xetLU9YEeAMO5UMf7YncYes9pVcFZLkmPZs4W1NqBl8Fu9wcjB
+ 5lKOxG3rj3GshlhPlheMp9Tc0XTHVtWTVQ7Eu318IgqtzNsAg/jH7cP35TLoyun+qy1fE5/Tjri
+ vthJqykEj0enouW42k1Dd3wgekvWstpg/7QfsBYnsYF5m1xRZlwJPhVdJ0IyDhqw==
+X-Received: by 2002:a17:903:32ce:b0:2bd:eeb6:ff1b with SMTP id
+ d9443c01a7336-2beb0390f7dmr9100205ad.4.1779402903274; 
+ Thu, 21 May 2026 15:35:03 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-102.dlp.protect.broadcom.com. [144.49.247.102])
+ (address-144-49-247-18.dlp.protect.broadcom.com. [144.49.247.18])
  by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2beb1170b13sm339315ad.51.2026.05.21.15.34.59
+ d9443c01a7336-2beb1170b13sm339475ad.51.2026.05.21.15.35.03
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 21 May 2026 15:35:00 -0700 (PDT)
+ Thu, 21 May 2026 15:35:03 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
 Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-516ccfa109dso19621321cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:34:59 -0700 (PDT)
+ d75a77b69052e-516d58f74b0so3247101cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:35:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1779402899; x=1780007699;
+ d=broadcom.com; s=google; t=1779402902; x=1780007702;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:reply-to:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=nxePRALAuCuLKGdQGBAkFr6chHZ5b8o5iPVGAENbQcI=;
- b=R/Fd2kn93kJ+oVwoe9PsoN39VIFhsPB/UQlSHSFS6s1qZUmbftlfrIkIVAwwoNgIAw
- DMAfiQt83p1aXe+yRPfANrnExmdtDNQij+54UIdpi9uxZZkXjVzwYFS8cJ+vpTlSMbE7
- 8G6bfPLpdCCbJSrdNn+f6TRSf8rdHXcga55Y4=
-X-Received: by 2002:a05:622a:9:b0:50f:b9e6:e056 with SMTP id
- d75a77b69052e-516d4644e3emr20217271cf.29.1779402898879; 
- Thu, 21 May 2026 15:34:58 -0700 (PDT)
-X-Received: by 2002:a05:622a:9:b0:50f:b9e6:e056 with SMTP id
- d75a77b69052e-516d4644e3emr20216951cf.29.1779402898432; 
- Thu, 21 May 2026 15:34:58 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:reply-to:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=rZTGRhn0in/8d3GZnh1/366N/c2uQzs6YLBlEUo9ymc=;
+ b=axJqb5tKrGGEQ2w+BgmkL0ARPF9kXm3h3czcCluAxRB5HMSFI+fs4Vej5sxOhAJwBT
+ H9agShoSIVto7hNKumZbQrqtsH2Z3M0MEsg8sgmoWZ9VZLHpxjqCsbkxDJyk4bELy79g
+ GjjPdPSw16tdzkQfMG5dUDvXpzhYGNNiihFnc=
+X-Received: by 2002:a05:622a:4207:b0:516:c8d8:9a27 with SMTP id
+ d75a77b69052e-516d429354emr22309181cf.8.1779402902308; 
+ Thu, 21 May 2026 15:35:02 -0700 (PDT)
+X-Received: by 2002:a05:622a:4207:b0:516:c8d8:9a27 with SMTP id
+ d75a77b69052e-516d429354emr22308531cf.8.1779402901701; 
+ Thu, 21 May 2026 15:35:01 -0700 (PDT)
 Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
  ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-516d6438582sm3351451cf.19.2026.05.21.15.34.57
+ d75a77b69052e-516d6438582sm3351451cf.19.2026.05.21.15.35.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 15:34:57 -0700 (PDT)
+ Thu, 21 May 2026 15:35:01 -0700 (PDT)
 From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
  zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Subject: [PATCH v4 0/4] Fix some issues from igt runs.
-Date: Thu, 21 May 2026 15:37:52 -0700
-Message-ID: <20260521223756.627311-1-maaz.mombasawala@broadcom.com>
+Subject: [PATCH v4 1/4] drm/vmwgfx: Add some checks to
+ vmw_cursor_plane_atomic_update
+Date: Thu, 21 May 2026 15:37:53 -0700
+Message-ID: <20260521223756.627311-2-maaz.mombasawala@broadcom.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260521223756.627311-1-maaz.mombasawala@broadcom.com>
+References: <20260521223756.627311-1-maaz.mombasawala@broadcom.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
@@ -105,46 +110,47 @@ Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I ran igt-gpu-tools with vmwgfx and fixed some issues I found.
+In cases where old_state may not be present we hit a null dereference.
+Add a check to fix this and also do an early return if there is no
+new_state or crtc since there is nothing to do in that case.
+This fixes igt test kms_cursor_legacy@torture-bo.
 
-Changes in v4:
-- For ttm ref change, changed to incrementing the refcount on
-the ttm base object of the dumb surface instead of holding a
-ttm ref object so that it is not exposed to tfile.
-- Added Fixes messages.
-- Removed BO cleanup patch.
+Fixes: 965544150d1c ("drm/vmwgfx: Refactor cursor handling")
+Cc: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+---
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-Changes in v3:
-- Minor changes so series can apply cleanly on drm-misc-next.
-
-Changes in v2:
-- Changes based on Zack's comments.
-- For vrefresh changes, removed stdu specific checks so that test
-kms_invalid_mode@overflow-vrefresh passes with sou and ldu displays.
-For ttm ref changes, fixed a ref leak in ttm_prime_fd_to_handle()
-which fixes a memleak in test vmw_prime@tri-map-dmabuf and removed
-release callback for dumb buffer surface since the gem buffer will
-handle release of the surface.
-Added commit to remove duplicate functions in vmwgfx_bo.h.
-
-
-Maaz Mombasawala (4):
-  drm/vmwgfx: Add some checks to vmw_cursor_plane_atomic_update
-  drm/vmwgfx: Check vrefresh in drm_mode_setcrtc.
-  drm/vmwgfx: Reserve ttm object before resv usage
-  drm/vmwgfx: Change ttm refs for dumb buffers.
-
- drivers/gpu/drm/vmwgfx/ttm_object.c          |  7 +++--
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c           |  4 ++-
- drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 16 +++++++----
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h          |  1 +
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c          | 28 ++++++++++++++++++++
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h          |  9 +++++++
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c         | 12 +++------
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c      | 14 +++++++++-
- drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c         | 12 +++++++++
- 9 files changed, 85 insertions(+), 18 deletions(-)
-
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+index b010fc7ca68e..583115c94800 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+@@ -742,11 +742,17 @@ vmw_cursor_plane_atomic_update(struct drm_plane *plane,
+ 			       struct drm_atomic_commit *state)
+ {
+ 	struct vmw_bo *bo;
+-	struct drm_plane_state *new_state =
+-		drm_atomic_get_new_plane_state(state, plane);
+-	struct drm_plane_state *old_state =
+-		drm_atomic_get_old_plane_state(state, plane);
+-	struct drm_crtc *crtc = new_state->crtc ?: old_state->crtc;
++	struct drm_plane_state *new_state;
++	struct drm_plane_state *old_state;
++
++	new_state = drm_atomic_get_new_plane_state(state, plane);
++	if (!new_state)
++		return;
++	old_state = drm_atomic_get_old_plane_state(state, plane);
++	struct drm_crtc *crtc =  new_state->crtc ? new_state->crtc :
++		(old_state ? old_state->crtc : NULL);
++	if (!crtc)
++		return;
+ 	struct vmw_private *dev_priv = vmw_priv(plane->dev);
+ 	struct vmw_display_unit *du = vmw_crtc_to_du(crtc);
+ 	struct vmw_plane_state *vps = vmw_plane_state_to_vps(new_state);
 -- 
 2.54.0
 
