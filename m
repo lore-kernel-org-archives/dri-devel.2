@@ -4,135 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA265CD5BA4
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 10:53:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C8CCD4F5E
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 11:00:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23BEC10F2E0;
-	Thu, 21 May 2026 10:53:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC8F10F2ED;
+	Thu, 21 May 2026 11:00:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="YPtVUkqr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ciLZjTG4";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7204910F2E0
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 10:52:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1779360774; x=1779965574; i=natalie.vock@gmx.de;
- bh=BQVZdyNsRLh1UO3hzgkf7rJ2bJDZ9CoCemZi279WiTA=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=YPtVUkqrFPa778V+Oo7c9OOstVS3tJ9m2W3qRa1hoUrbzWedlKi95PFEyeyR5vcB
- OT3ebQqx3BP88yKiYms2j3KAl7+4XKQUgSQxp+tFD2K/2c3ipJYEm/KmkBTmEnT4a
- AFulsyyzTWAbxxp4Fv2K87mQ8ZGw96f64naNX9N2gAX+afXG3GjWpGEk5bAuP9mEr
- KaCDzzKVNZoSqkuNQphW8Up4EBVSXXHlwE/xQotZIZjqInMqGbMFrBjiwIbokGNjQ
- okDTDH/TpeG7y1YJtxHK2dyPuyWnC72UbNb+YiJrTZ2NtMWRcNWuCmqfeSZDXVQcY
- J7p3quna228wVdNW0g==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MfYLQ-1x1Imk0Lsm-00qmYS; Thu, 21
- May 2026 12:52:54 +0200
-Message-ID: <c9eeee76-25a8-482e-9ef4-74971537457f@gmx.de>
-Date: Thu, 21 May 2026 12:52:53 +0200
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A9C010E37C;
+ Thu, 21 May 2026 11:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779361243; x=1810897243;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=cTm7mYY29LnI8Xz7uhyFwyYtmSzW7AKyRnkKZBdtylk=;
+ b=ciLZjTG47evOoMQ4TXHRArl+EqONx8Zcge0goPu3G0o3RwvlcgmfF6i9
+ iuSIzKD3mzlm4qvAytskpbZChdkrCfNCN3O+sfaamxRYZjy9CQmnueUPg
+ o55VtzB906X/Tor18wQ6+7+TkRwa9n9eEa8XdoBj47H5vTPp/NFu4djfS
+ /RgfY1QXj9KjSix30BkjXH6o9Ts67O7lUiKUiFOsJU1kYwf0WuNq/Ecil
+ oqo3otYROC2Ea5ehEZY97CR29lIa83w8IQmFbKtIKTWcjMXoOPSWCcoeF
+ CYVIio5SV1l4rcxlsYRpFnkIk0H20Neg9oDxiudwZUUBwTEgT5XOQ4hFp g==;
+X-CSE-ConnectionGUID: OmJUdttvSKCWeGZLiYVxrw==
+X-CSE-MsgGUID: QuoXsdVOSmuKALuGlIxnaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11792"; a="83894859"
+X-IronPort-AV: E=Sophos;i="6.23,246,1770624000"; d="scan'208";a="83894859"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2026 04:00:42 -0700
+X-CSE-ConnectionGUID: XJbZ6/W7R8q4CjaLrfXUmw==
+X-CSE-MsgGUID: s9OxaWjEToqwdIyMXOerJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,246,1770624000"; d="scan'208";a="264303414"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2026 04:00:41 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 21 May 2026 04:00:41 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 21 May 2026 04:00:41 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.7) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 21 May 2026 04:00:41 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mcOmiGaDTK5V/1O2bz2d+ONo+yTqF/1LLeUhIhoLmu8n/lI4nueqURIKiuty1l8b/R7yKV8dZ+hLocPL78EsztYoDez9XswISq4QH8B311mUSop7ESr3sd69Diod0gI9QOqhg9h3dIxVD1a2CA4DHmiLp/EiyVzhbTVHD02gSJOa3lt7owHfZdxS97QvJ47+s7hXA4ZDKtIZhtAHLhJq6Y/ylzOCAgLIt1KKoIhsYGnbTLozdslEzde3LLceEZKMUd9Uk7qjagUis9QpxWMEvkdxbgmsvTD58c1CIcG+6BEw7OxDPO0yJGkrm3LF+n4Z988+9w1T0gg0uue9DBodpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7W3gdQDx++oywrwS9YQYM09yvz0Aye4z928LonlJcl8=;
+ b=iJOPK+IDOHiTvY9YOTYVky1FgHkIsjtTescPeXtZCG9JnP+AedUuv11vnXG7fQ4IQf4DmfBLHkUXRO6RO8BKj2ejLwd0ersl40pZaixSdIns0Ru3hNtXDiWPb32o1MRqrzgOpIrqXJeFisw/aT5Z9L4VqLTSkqq+KIENe3zThQ2ceU0pZMHmmR3E44hMTgyuiGERvVwPKFoyJYFinAWDpCoNy6va+p6tvAuOwQVJe/HVPH2Qnz0NuyaxQubVv7pUSCB052cWZixqloF/w9bcWdoKZWnWTpE8qRCop5g5FLSBKYSffATNB50iJ56Mg7HcLixmvC9KYQZPVIuJmHdE8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by DM4PR11MB6214.namprd11.prod.outlook.com (2603:10b6:8:ac::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.17; Thu, 21 May 2026 11:00:34 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.21.0048.013; Thu, 21 May 2026
+ 11:00:31 +0000
+Message-ID: <5caac879-5063-4999-941f-d062da040879@intel.com>
+Date: Thu, 21 May 2026 16:30:19 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/dmem: implement dmem.high soft limit and throttling
-To: Qiliang Yuan <realwujing@gmail.com>, Maarten Lankhorst
- <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260520-feature-dmem-high-v1-1-97ca0cb7f95a@gmail.com>
-Content-Language: en-US
-From: Natalie Vock <natalie.vock@gmx.de>
-In-Reply-To: <20260520-feature-dmem-high-v1-1-97ca0cb7f95a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:PZ4dvDT0U+l0AsA9Ag5Bmm59ckZbPykegQPAfYv1gSKHuyR52iA
- tH9nQseiGplcz/+EOQ99iUwRkHaXu9pLTbcnk/yV9+eYHFJRwk1AJ0AVZm0NhLOwJgnbOQ/
- tQccazbMy2tQPsQSRupC/mFf6nllakv7odTZ1cErkg4lnCjrrsnp7kJZqlMUgW9ZxJgc9Od
- Q0pAdcmIgepFs9/XoZcPA==
-UI-OutboundReport: notjunk:1;M01:P0:5OGF0HZOaAc=;DIGb1CRXR6ZrF56WLnZMiK1d4L3
- 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
- ptrhCA==
+Subject: Re: [PATCH v6 2/6] drm/atomic: reject colorop update from inactive
+ color pipeline
+To: Melissa Wen <mwen@igalia.com>, <airlied@gmail.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <harry.wentland@amd.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <simona@ffwll.ch>, <siqueira@igalia.com>,
+ <sunpeng.li@amd.com>, <tzimmermann@suse.de>
+CC: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>, "Uma
+ Shankar" <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>, "Pekka
+ Paalanen" <pekka.paalanen@collabora.com>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, Matthew Schwartz <matthew.schwartz@linux.dev>,
+ <amd-gfx@lists.freedesktop.org>, <kernel-dev@igalia.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, "Abhinav
+ Kumar" <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ "Sean Paul" <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+References: <20260519211111.228303-1-mwen@igalia.com>
+ <20260519211111.228303-3-mwen@igalia.com>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260519211111.228303-3-mwen@igalia.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0106.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b5::17) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|DM4PR11MB6214:EE_
+X-MS-Office365-Filtering-Correlation-Id: d053b4b9-0d11-4f06-cc17-08deb7282d18
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|22082099003|18002099003|56012099003|7136999003|921020|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: NNFDkPIWxy/fWXMzALzE/iiHMXfdTSMk/kJo+y3v0uyCoU/YuYO2mjoJV3mVbMGt56Rp/p9n0HOUIDqzwNuv561r2DedyQ2ll6pKtgBJAl63lJLW3h/8c8WakhOC5HwcuCxNPISSmfUVcl/4HCmJlhSEsL4767cFvKI1hsC2+pH20hu6X9STmRri3DWbbDvLfEycZb6E9joewDyvdSei/d7xUZYT59HXZeADdQOAdZM7vzyB9MGGa3G47BoYOv6XLKBV4fJHUxXjDw/X5JdmkLjYnhj9I4ao4r/Nz0ViX0JAtCnycUNzkZcaUrnHgdU3lQP7pLa4x8o0GsQ8zQO1IODSsdviQ62/fRH+YqoLql6d4RSE+MEkvP3+9W7udAQIAfyueCe2NkiJBYf1uawvztmo5EIFTALZ6soQKwDjmZXYaMS9EzP3cVHOwjUQjxaWVGPgL/Yce6cxA6QUyj9wLh9T57YOVjIaGXi7fspCVkHiKuQ9gfuVTeseD7R+HJyCHCaqSOQpjjKKs455nnYCNzqoxvz6aSwKwdgIGjkic/0+TvQFQSrVCb1PDYUAsCk1SMa2/8iCD2vIJb5yxBUF/6oaadG0EFwoHIus9jR5tLrSCMESxguyIBCbfD3hDEyOCMY/U2Pbx8UkcLaaspEnOIJlb+0iF1HaBOAmO7eHVpInUO35jxEVl+lGlZoSzMQa
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(22082099003)(18002099003)(56012099003)(7136999003)(921020)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZUM3QWVSRXFPbXVwR0x4UW4wb2UyTmhnY0NieHd4RkY5RTlMalllR3ZUelVu?=
+ =?utf-8?B?aUNlTm44ckRCMCtEaVVTWmphQlprS0JHcDkyeFUxYXBxeHBLNzVwRmh5ZWZU?=
+ =?utf-8?B?bnprYTZLQmRwZjRqR05kRnVFWUxQZ3QrV0p3cU5ZMVVseDR6a1hScEhZVk9W?=
+ =?utf-8?B?a3FSbFJnZnJaUHppWnhDK3dDcG5iR041STNqT0FEaHpsQ3VHT1p3dEJUWm0x?=
+ =?utf-8?B?aTZINDN6bHBicUUxc0tjZFZrYjZ6Wlpsb0F0Rzd6UnNzT29VbS9OMGc2YWpo?=
+ =?utf-8?B?d3pxNmZBUVNNaVZYM0dCaWNRYkpvRGl2WFZlMDYzMEprRjJmdTVxdU0yRlg4?=
+ =?utf-8?B?YkFVMERVN0lqNFZremxFQ3pNaFlnM3RlK0xWWStoUDZTWmVrSkJSanduUnVy?=
+ =?utf-8?B?Q3R2ZnR0Y1dsTVhQVGRhMVhMYTdzbFhXQ2hJcXdPZndld3dGbDdrOWF2aW9N?=
+ =?utf-8?B?bEJDNEQ4cGFqU0tTZE9TSWhiaG04Yys3aG1RSUsrZkphMmhIWktObndvR0FW?=
+ =?utf-8?B?S2ZabVFsZEZvKzRCemg1VDg0eFRZRnFGbU1Mc1dKa29Gd3N6b3dRSjJQM2cr?=
+ =?utf-8?B?OUl0WmpkOHpWUGFlSXdMU25PS0h3ZXFoWWpGWmJsYmx4Z1hENWJiUlUxRjFE?=
+ =?utf-8?B?NXhrbGNSVGNmSXlhRTdIdDJyNlRObFhicE00YkpaNDhmWk5BaUovc1VMVTFT?=
+ =?utf-8?B?MDZkRTdXQVF5WHJvVUM5bG9QWmpVKy9BRjd0WDVMRUZROWdNaFdUVDlPYld2?=
+ =?utf-8?B?NkRseFhuS0JWOHJpeVBDNllUVy92VlNORTJ6ZWNkdTZPQTljSDlxRFpaZWxn?=
+ =?utf-8?B?UDNkV25TY25ldFlFeGRWb01hYVhnWVBXT0gzRVdOYjF5WHIwc0tlOEc5UlZX?=
+ =?utf-8?B?WFhOR3BpT2JUUXpZaU9YRlBYUnhCNHNmYUkxTEkwZ3BJbXB3anZoUEVwMUkv?=
+ =?utf-8?B?cWdzUjgzTHl2bzVGMGVVTmZ1QjltTlZyUXdmMkFJWWtnNU4yeCtsempZcXFJ?=
+ =?utf-8?B?SEZaWHVjRHEwT2JMZC9HUmpLMGcyL0VTMFNOUjB6SFhvOTltU2kyYjc4S3Az?=
+ =?utf-8?B?K3VvYytzN013T3BEd2xqOWVGMmFMQ0M1RzZBbm1kTUhVdXRmVDR4RW4vblhk?=
+ =?utf-8?B?WjRGRWxCblVVQWdOYUhLRVcrYXdBTWhrbUY4ZDZsTXhXMFVrMzc1NE1Ldk5E?=
+ =?utf-8?B?cHRBU2RRNUNLbHJnT1F6N09pTmRKQ3BoUm5raEpIVWYzNGp1S0x0dFQ0aEov?=
+ =?utf-8?B?Lzh3Rjkzbmd5MzlFUTRpQi9jVmd3SHpJL3hIejJIb0daRkErL0NMOEppdjla?=
+ =?utf-8?B?VWcrV0RudzUvU2xwN0pnNEo2emhwdUFQM3R5RlRqK0FmN2xBdkJ4YU83Yk5X?=
+ =?utf-8?B?aWh3dFdyN0pOUkZOQ2FCU2FydjdOWjJJYVR6bzJnTlY1SFNDNG9CNWp6eWsr?=
+ =?utf-8?B?MndaOGlMNHNTTDZrNVh4SGVPWndqbTBsdFY4QUF2M2VKUXhMdWN4RmduZWV2?=
+ =?utf-8?B?RDhmbzhvd1plclhtZlg4YUFzNVM4bE5WMHhKY3Z6c09wNzFJOVhPeFVvbjNK?=
+ =?utf-8?B?VVNQM3c4M0UzRjhCVFpCTVZGTDVuWFBxSGk0YjIrV2Q2K05oaHQ3RXpJSUEy?=
+ =?utf-8?B?SFdrb3Q5Yys3TEtOZFUwY1g1VGJoQTIrMjBUdjVBbWYrMWRjRStIemJVSTFm?=
+ =?utf-8?B?QThYcDkxTWtKU2F6WERQR1doaDJnWW1rOENKZkhQOEhWYXB3Uzl2Z3ErTzdl?=
+ =?utf-8?B?OWZJRG1IK1lhQ3JDZ3FBMHZYMDR4d0d5bnUzbUdNVm5nUnhzSWY5blZpRndS?=
+ =?utf-8?B?d1hLTG00NmpPdy93WjBvNDNJSGNYUklPbWtIQnl6SmNxMjNpNm8wb2pwa0dP?=
+ =?utf-8?B?d2JkTzNaUFdETXErS2FGdHI5akwxQ1JTTGJFeGxDakFGR2dOQUIya1l6Yll0?=
+ =?utf-8?B?REo3MDYwdFJLcmw5c2FJR3VJVENyM1p6eGxxdlZzcjVKYk9ialB0ZHFkcGFE?=
+ =?utf-8?B?b29QbzBPK1p5WUZoK2ZBcHVlK3liL291WERwOUZpSmpvMjVQVVB1MWtSTXk2?=
+ =?utf-8?B?S2xSQ3l0eEovakFPdXJnNktVeHBMZVNaTjlma2phYUpCRklLc2JDQktoUWpT?=
+ =?utf-8?B?Zk5NL1k0MG1meWxsY25Td2JvS1hBaHRpbjNhRTRqZDBtNzV1Tk1BTStWUXZl?=
+ =?utf-8?B?QWd3OStzRjNsVTNwajlnbEJ5MGN6dndkUFMrVmY4alhhVVVrTERobWJ6bXE3?=
+ =?utf-8?B?SE5pajlabThweGRVckl5ZnJUMGhsMGJiMkJEKzRKRHZ2eXBKSzgxdXBMWnp6?=
+ =?utf-8?B?K2p5eS9lMktJKzNRc2NpL05iMUl6cGZMTjgxQ3EwZG9rUk1ReTE0L0JaVVpB?=
+ =?utf-8?Q?/anb1HGtLfsZi3n8=3D?=
+X-Exchange-RoutingPolicyChecked: Sxl3MLJdO7v6pEyThRlvlXh2krdmDCgtXWFVtu9MM78RDOJHTcURclvSlwzz9kHTtD2GSVDvD6+qltIcgu8yl9jC08Nj63GIFhMtnXuX5WXI+SRjEk1/2va8vgVTCv/U2gtvAfLtbd+RFpv+6eP/PwnUWvsPgA6kWqX6y2W5SwA/u4n4qFwOUTBvZP3N4x5HlmOCSevkvChzFWGv6SaJ6f3U+mpota6AqMrGyrn6PLmSfJEbODsYCkZ0UIjnQ7+Zqo9VdX8VzAlielyRx2Vq0H+/X9+i2Czl0wXTqiJSG1Kyx52SWNE8J+zbnoA2+tE32IGleY5hTPqYHYltzWyZeg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d053b4b9-0d11-4f06-cc17-08deb7282d18
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 11:00:31.8092 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AsV5GRcIk1pFjxnqyFirEW372Xl8u1xTsSPctWgbsSFu4mOkwjSLlx2VD+W0CPw3Q4k1/rzNdpJWW+rd39UcP/amkH4hPTS/TfOzHtlq29E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6214
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,46 +184,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/20/26 08:07, Qiliang Yuan wrote:
-> Introduce the "high" soft limit for the dmem cgroup v2 controller.
-> When a cgroup's device memory usage exceeds its high limit, tasks
-> belonging to that cgroup are throttled by being forced into a sleep
-> before returning to user space, instead of being failed outright
-> as with the "max" limit.
->=20
-> Key changes:
-> - Add high counter configuration to dmem_cgroup_pool.
-> - Add over-high check in the try_charge path and set TIF_NOTIFY_RESUME.
-> - Inject the dmem throttling handler into resume_user_mode_work.
-> - Implement the handler to perform a 100ms interruptible sleep for
->    over-limit tasks.
 
 
-Interesting proposal, but inserting sleeps on allocation is never a good=
-=20
-idea and doesn't work like you might think it does. In graphics driver=20
-land, lots of random things may result in buffer allocation functions=20
-being called. Whenever TTM determines some buffer needs to be physically=
-=20
-moved (most often during VRAM contention, but also as a result of=20
-pinning buffers for scanout, etc etc), dmem cgroup pools are=20
-charged/uncharged in accordance with the change in buffer residency.=20
-Sleeping in a charge/uncharge path means that in the worst case, a task=20
-will be put to sleep over and over again for exceeding its high limit=20
-just once.
+On 5/20/2026 2:39 AM, Melissa Wen wrote:
+> Only allow updates on colorops that are part of an active pipeline.
+> Check if a colorop in a new state belongs to a color pipeline which was
+> set as a plane color_pipeline property and therefore is an active color
+> pipeline. If not, reject the atomic state. Performing this check later
+> in drm_atomic_check_only() to remove the ordering dependency that would
+> exist if done at the time of colorop property setting.
+> 
+> Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>   drivers/gpu/drm/drm_atomic.c | 38 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 38 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 28831a548b0c..659cf56150e5 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -812,6 +812,33 @@ static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
+>   	return 0;
+>   }
+>   
+> +/**
+> + * drm_atomic_colorop_check - check new colorop state
+> + * @new_colorop_state: new colorop state to check
+> + *
+> + * Ensure that the colorop in @new_colorop_state belongs to an active color
+> + * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
+> + * property of a plane state.
+> + *
+> + * Returns: 0 on success, -EINVAL otherwise.
+> + */
+> +static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_state)
+> +{
+> +	struct drm_colorop *colorop, *color_pipeline;
+> +	struct drm_plane_state *new_plane_state;
+> +
+> +	new_plane_state = drm_atomic_get_new_plane_state(new_colorop_state->state,
+> +							 new_colorop_state->colorop->plane);
+> +	color_pipeline = new_plane_state ? new_plane_state->color_pipeline :
+> +			 new_colorop_state->colorop->plane->state->color_pipeline;
+> +
+> +	for (colorop = color_pipeline; colorop; colorop = colorop->next)
+> +		if (colorop == new_colorop_state->colorop)
+> +			return 0;
+> +
+> +	return -EINVAL;
+> +}
+> +
 
-Most critically, submit ioctls typically go over the task's entire=20
-working set and call ttm_bo_validate() to make sure the buffer is=20
-accessible by the GPU, since paging things in on fault is not available=20
-in many consumer GPUs. Your approach could lead to every single=20
-submission sleeping for at least 100ms, thus permanently destroying=20
-performance.
+This causes regression in our CI[1].
 
-Maarten's suggestion of preferentially evicting memory that is over the=20
-high limit sounds like a better approach.
+I looked into it and looks like the following sequence in 
+igt@kms_color_pipeline causes the error
 
-(Also, did you use AI for this? Please disclose your AI usage as per=20
-kernel guidelines if so.)
+         set_color_pipeline_bypass(plane);
+         reset_colorops(colorops);
+         igt_plane_set_fb(plane, NULL);
+         igt_display_commit_atomic(&data->display, 0, NULL);
 
-Best,
-Natalie
+So this change restricts bypassing/disabling both the pipeline and a 
+colorop within it in a single commit.
+
+Also Sashiko had the following to say
+
+"Furthermore, does this unnecessarily restrict UAPI by preventing userspace
+from configuring inactive pipelines before enabling them, or from resetting
+properties on a pipeline in the same commit that switches away from it?"
+
+So this will also fail a commit which tries to change a pipeline and 
+disable the colorops in an old pipeline.
+
+That got me thinking whether the first patch[3] in the series is also 
+correct, since it is quite similar to the change[4] I added, where 
+colorops are only added to the state when a pipeline is active. In both 
+cases, we could end up ignoring colorops that are not part of the 
+currently selected pipeline.
+
+[1] 
+https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-166922v1/shard-lnl-5/igt@kms_color_pipeline@plane-ctm3x4@pipe-a-plane-2.html
+[2] 
+https://sashiko.dev/#/patchset/20260520073827.3395745-3-chaitanya.kumar.borah%40intel.com
+[3] 
+https://lore.kernel.org/dri-devel/20260519211111.228303-2-mwen@igalia.com/
+[4] 
+https://lore.kernel.org/dri-devel/148df44d-2456-40e3-8be6-f98b89b7ee4d@amd.com/
+
+P.S. Can you please send the next version to intel-gfx and intel-xe too?
+
+==
+Chaitanya
+>   static void drm_atomic_colorop_print_state(struct drm_printer *p,
+>   					   const struct drm_colorop_state *state)
+>   {
+> @@ -1665,6 +1692,8 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+>   	struct drm_plane *plane;
+>   	struct drm_plane_state *old_plane_state;
+>   	struct drm_plane_state *new_plane_state;
+> +	struct drm_colorop *colorop;
+> +	struct drm_colorop_state *new_colorop_state;
+>   	struct drm_crtc *crtc;
+>   	struct drm_crtc_state *old_crtc_state;
+>   	struct drm_crtc_state *new_crtc_state;
+> @@ -1681,6 +1710,15 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+>   			requested_crtc |= drm_crtc_mask(crtc);
+>   	}
+>   
+> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+> +		ret = drm_atomic_colorop_check(new_colorop_state);
+> +		if (ret) {
+> +			drm_dbg_atomic(dev, "[COLOROP:%d:%d] is not part of an active color pipeline.\n",
+> +				       colorop->base.id, colorop->type);
+> +			return ret;
+> +		}
+> +	}
+> +
+>   	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
+>   		ret = drm_atomic_plane_check(old_plane_state, new_plane_state);
+>   		if (ret) {
+
