@@ -4,101 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE773CD5BA4
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:14:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1161CD5BB0
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:31:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBD5610F272;
-	Thu, 21 May 2026 08:14:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB2B910E4B5;
+	Thu, 21 May 2026 08:31:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Ymmp7XaQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K3EsxN+x";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA22210F26A
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:14:25 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-488a14c31eeso35633755e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 01:14:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1779351264; x=1779956064; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=rsEDeNSaQEUDFgXjWhjNX308xfIqd1+kVOlb/dNXQh8=;
- b=Ymmp7XaQQz967MuzQlbGWTsz3HGtLLk2S9fWHdkDG3gsdcdsYO0huowUWkdv786f1c
- M4PIZsLt2G/JoAjX8FXp8rDwByQxMUYZ8jsjw28L1dpt6+htZBUzbUKXfaduzBBhZDPL
- ch46R6qRZcjS5cniGkx95KrUy6Li1+2jhd+WAMXZZm2bFrGdq1KO5LLhZGqOF1qEQeUO
- e8AvdyVlC/yLJPxEI9nxXzP3IaRUqDRaqM7y6JEc4xCnJCrn7Ceb7/ye9wkuBj7ZA9X2
- CnU8b1uL7KmP/DI7V6iHlL/HFeiRA8ai30Vyy2ahsNSjwFOQFK4NNEO9BryHHg1xMCuV
- 7ElQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779351264; x=1779956064;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=rsEDeNSaQEUDFgXjWhjNX308xfIqd1+kVOlb/dNXQh8=;
- b=lYi7V7fx2Ei4U0Z9oDFI+wPYBNMlLmoLn8PxZKXV3RK2n2XahmVaRa/9JTypuNTx3Q
- 7j/hVX+Q0cDKjQvMxfgIHUxkapG0kzpz3lAOWdMEw727z4rkdgQI3fU3I21ASNbEiKVp
- 1IcZTgDi+nza9sRa34kwKLgppsOSQA02TdMdtmHADLrXo5EP32FylMhssBgsOrHHC1NH
- CcnB5lHPfoT6nZF1lR6o1y/Pv4z/XXLaXwzB3qqs5fsl/4cTxFTCBDHfTn5iSP592IDH
- Yj33ZcwijgcVXYxuisahxxpS4CbzCbK+1ypBjP+zuJ1RNwC6X92jOm8WnUReUAkjepgl
- wQNw==
-X-Gm-Message-State: AOJu0YxKL9d1dabfop7CkcNz4Wm3FjemuwgcOhMZs7ILJ6WhwAHVVlc8
- BRz3VukLLCvElO6jg9Qjsj/WcuBCgUPESZe3tTLBznCrTkft3E/8rAX9ociqzjDO4eA=
-X-Gm-Gg: Acq92OFEDMbb8jHaOFsA8/DIIn1vndKtuuM3dF4VchguSwwlxSwXwlbfJGEOj/Db5u3
- 8MphSHHaI+cpbKb49iNdzeQD2CmyVyQhMp8L08+Dvqs4JcLkpZmPbtQKbNgtV6SoM1tirhwWqMy
- ASpRu9C9z/G1CuHxG5gmcouuxLffUzDIovLiHjN7xRMIiGUCjaOSHuat71A1vSnPxob9xpfczV7
- dOkZYwekW87h+p1n0xJ7NMiu4ZJEir8LpYjDY7kIx5mWXsrhQcEuYNXQqTOsKKbyLdZ4iBftIlP
- aEj2SiOFI8GDGsMvTSQJpRr678Xp+vv18eM8nJC5iixDRBj8svuarais2DQ/1wPBvNAhQFUKl04
- 0U1jB1sZFIsu5A87+4bbHrv2rrJ2FhiwH3csctMajaW9iGnzFBk7LLpBCokyuMeEyXRdV0Kx8uy
- aYDDKpozAtXzgMO6ymFhNzO0O9Mh9esIqUhN/rPTPVVq9W
-X-Received: by 2002:a05:600c:468b:b0:48e:89b8:7c6d with SMTP id
- 5b1f17b1804b1-490360bfac5mr24192455e9.25.1779351264265; 
- Thu, 21 May 2026 01:14:24 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eaa7dab28sm1056384f8f.12.2026.05.21.01.14.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 01:14:23 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 21 May 2026 10:14:20 +0200
-Subject: [PATCH v5 2/2] drm: panel: add support for the Renesas R63419
- based dual-DSI video mode Display Panels
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010010.outbound.protection.outlook.com [52.101.56.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0A810E4B5;
+ Thu, 21 May 2026 08:31:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WcIWD7tZKXy1BWcx/rtufbjhWgn1omRRjol9llzKAE3Poz3PPDFaHfUeRKRYUNmUwBKbzfVMEzYewLknsCSsHnFCwXhqUiUFXnf/04tdhqo8qKsXb2e4SPUPBeoomKvDuQ2bp/XL2nMW+JGc/yl+YPVEcVwlSCGwbrvlfKQYolQU2js3s26fPR6/NXcbCPI4NDB0FCdax/8tvjQ9meU24fTxETIqA+Yzlxt0sCh7gBE3G3Q4N/pvByv3v5Y9TwPVAAHY231yk0tlEmMtyr+Cik/qtSg+Xhh5cZHGBMOwTyWD9/76E2v8yJNaHo4cOHVjsY7CWWGzs677IiJ3NTr9ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bG3K3kw4QnWqFoSztoUoN/Rir0Y60TyhhrQQ576I3YQ=;
+ b=gLrFgxS9mmCx/rA+t6cofDv21iiNjRAEUtkHDlix1UROcesBTBzISXMtS60gR8jN5lBXmVhPmjRCYDbNoKRSiSaM2jYc54y0JeiK29N+QdzChp8uwXRnqJcwSC/9e9J8bgQTzPY6z2v+jl9W4QMOyYRYs30n3/zgW8EOC+QY1O8Rqu+hoqLNzhcnuvRqkr2USNsepwSWxq3vR+9Ab81oX84Gvjj79bfrjUfTjA2PBTCqCb0CJQTta1ebzRI/28+2ydPeKb+VgkQ3SkVluz1Wi7ONwabPym12Nx1qbadEA/bmYkLMUnkG87lx6HDCwbf4NuLKwoBbkn06dqnLscF05A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bG3K3kw4QnWqFoSztoUoN/Rir0Y60TyhhrQQ576I3YQ=;
+ b=K3EsxN+xakhVLMVaFWMr6u1/K0KVo7LDTEdAQjxwG7OHuQPInhtP1KnhM/KmNzvuxPLy1SEl3gB7V7dKVIedYsLPkgYNZUL+QKD2EEtwCcCAfltzAYjuPzwJaegwI/yCr6qQwGeBjlMPNufrwhBvpHa73f+rOnS7A+rrtfSii/E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB8039.namprd12.prod.outlook.com (2603:10b6:510:26a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Thu, 21 May
+ 2026 08:31:35 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Thu, 21 May 2026
+ 08:31:35 +0000
+Message-ID: <cbf4d01a-0103-4ac9-ae6a-754619ed5cb1@amd.com>
+Date: Thu, 21 May 2026 10:31:28 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to
+ drm_exec
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
+ <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
+ <20260520151741.50575-2-mikhail.v.gavrilov@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260520151741.50575-2-mikhail.v.gavrilov@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-2-dd5700299390@linaro.org>
-References: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-0-dd5700299390@linaro.org>
-In-Reply-To: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-0-dd5700299390@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- KancyJoe <kancy2333@outlook.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13491;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=XkZiH0/+DEtp+Cy/Hhq4tA693B2noskSYYDwBUsqOHo=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqDr7cuv2P5t1uP41MMSlzW4xKKY2lXhQSGlB91oeN
- tWX6nA6JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCag6+3AAKCRB33NvayMhJ0RqjD/
- 99FJByUvJhmWzUPOmrs7S9kzdmwPwvGsy5kAihibmWb05it8Z94KAu0d4IKOk0AY6e4uyKyimvKnhi
- rz0sJTEiKm9yRuY9LZSdYP/WuWLirEJ2BdUGJDriESb7Glw3VRw+fd7e/yDTR0uKYSl4hgxtS9IPq9
- rkdAxLqv8w7/I64wZjAnQgKx7ybeTBNnDZuhq8vf9+o73HqLS6nNLAme22Hzx+PZzVbAwcmsXJALM0
- VU+MA1SrfWh/YO3KChEHHMlGefTDJp2mdGZXHNgYTGY8/uE9yxiJphoek9AMtTUwt9/E8qFBKa81+d
- iV7ToWTDYMcp0+wWsEUw65rj+NZ41mTqDHb9LfWIZy34FbSHWZDcLkzwtyJeOhIZXvCOQQwqEMBuqQ
- m7vOv/rBlQGsVgkC/SBFKD8WmJMqVjw2N/6ZYNBhFEUz0kK+k55Hi8V3Wpb5o1hDE23RUdvIyGMAkV
- L/RDbs9xb6PfpF+5KMSlm/ZRKZtqvzHe45P0ImChIG2YttgF1lQRo9Gm/hgZG5CmKlVwmsLhMog6jW
- 1GUqEvvvQVt2sRWulFOz2LptSjTWA1rM7GueNR2YxfO8Aw/httvjRP1VXdmqIt/N16lu2hdgQSsREI
- J2rJmu66260UKt6OUNs9PGrZQsielIl5RgXU6OfhiNmtea6f61QQqB8xChoQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-ClientProxiedBy: MN2PR22CA0002.namprd22.prod.outlook.com
+ (2603:10b6:208:238::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB8039:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76ca99a4-39ad-453d-1b78-08deb7135e93
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|22082099003|18002099003|56012099003|4143699003|6133799003|11063799006;
+X-Microsoft-Antispam-Message-Info: Dmu2nqqUjX+rYlkLrrYTivfH+l1cja0p+Qj0d70i9upQZdPDxB5eISCjeth/ayJuFbgTlVgXRosj7CBqXEZ9twz/UDehz6BBEnxgpQluIYn1ILJ9YsgIRFMFM13cB3xjOUifP8HNTMcTc9nH1KOxX1177flFlhPzBgUvtAPWXkvLaE6JgqiLqv8AcOQGrDy8llYyoyi2htbMrP3ADXli8vCPaMbZcHrFKhLdkzGGoEmk60GlLK7PJyRqbJdZMfafESoI0kapY/rB0vsCW+LqftNLqau9tC4/lnlfiSs0UlrWyVXkaqpjfGpz75Ec5jopnT6/h+fr7ViYm+iNH/uHY6EejRLEN+bkWwrkVoo5DvkfbTDXXQX8l6K54XLty/iWBBnJgIy9zJAHTFtD+GALsksdrkbvWyndzXE2aIacU2JW7146eR5Q/2VW1n3zpV3ZAF9vdjV0e0gCQCIbOlQe6d1L+fZRP4s/1itB6JNW0/JD3WlEue9gtZFQmhA64pJtPf+z6WuWXcNlq/8RTgDhOX4ZYQSNJhkK/bc2k9HCh0PT6mI2TWMJT9jqhNys7XRY6m5bavH4SRprtRudgwYFLL7Yc2KfwXh/UWaWftcK+ki5eRI1tTGMcIDGbRLDMUh7t/qfmDbmd8bEHxhwbSbf9gmLUcXuGnDK4cSHcmafp1/bRgiYXHqAeSWJLnwb95P3
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(56012099003)(4143699003)(6133799003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2phTW9wTzRNdUhsekRzak1mTUNUMG1FMkZtOFdjQTJqMUN1UnFIYkRFMFQ4?=
+ =?utf-8?B?SUI0UlE1WEN6MUpzaWRjRzZwVFNvRFVaUHBXanhHL3Q5c3NPbUxhUXJKL21P?=
+ =?utf-8?B?bHAyaFZvNmlnWVpHZW1JaDJBVlluL1BwZURBbE5MZ0l0UVZma2Y4VEFGUnpT?=
+ =?utf-8?B?dVpBclAyMmVnNllKSDZBMHhzYlVsSnRockt6UjNWNVZ5dnVzNCt2U0hSWk1o?=
+ =?utf-8?B?MXFMRWErbXFhMEVwTzhBaTdiUlVyV2hDbithOUVTbjAzL0hTQUc1bmlkb3Vs?=
+ =?utf-8?B?RHJuaW1XOHpQZDdqejY4S0trdGRmakZlQ3NLUlFVemlNelk2bTRuVVBHZFIr?=
+ =?utf-8?B?SzhYVzBObjROT3dvc2VwbzJEN29nVnhaeHNCeXMzME91b0thUFdzSTByUzcy?=
+ =?utf-8?B?eXVNcVFFMGt6YnlQSVlFek12bW5JNnRPS2ZCQ2N2MWZVOG9zMVgzam9mMmEr?=
+ =?utf-8?B?RVFnYk5FY1BkT0I0V2JWSUhPUUdqRGwyYVJQbjVlY0dRemlFRlJYS2ZOQlZq?=
+ =?utf-8?B?aUpNU2FScTNrYmpMaHZ6V0g2bTdvWVU5TGNxUDRrdDR6am1xUThZdm1lVUlq?=
+ =?utf-8?B?cEMzZHBkT3VOaHgwbmFBRk1ldHd3dWpCdWF1UDdhNUlqaTVTdXVENVVKWGNY?=
+ =?utf-8?B?ei8rRmlJSE1VSDRDL0VISnNGZGVxaTNGSWZnbm9xSGwzeE8yblNycGhBWTR1?=
+ =?utf-8?B?NUdHVGJ0TDVmdUdzWWU3cTgvTndGRlkvMmpzK3pwQ3FRZml2eFRiclFVVkYv?=
+ =?utf-8?B?RDlHODc4anpOdldXVS8zVTVUd2F1Z0F3aVJzMERFMVI2U0NiUWVhaUV0UTVW?=
+ =?utf-8?B?QnpobDJRNnlLMGU1YXdrb0VjV0lWM2s4QU1xb0crVW9uekRmaHBvTDBpaEJa?=
+ =?utf-8?B?YVZnMDUzZ3JpYS9ESHdDN1AzSE44bDFRcnVWcm1VY3B1dWVXRFNDVFhJZlVH?=
+ =?utf-8?B?aGk0bEJlZ2hBNGNtM3hkYVZkZ3ovVEplRVhvRTgwNlJwNjlza1lzTE1yRjhy?=
+ =?utf-8?B?VUtnUEJ5MVF5RnpnYkgzZC82WEpOTGpJMm9lQUpBMFl1aVk3S3dibllsOVRa?=
+ =?utf-8?B?ZXZpUm43RlRrZHRxL1IwMFJiR3BOaEVMUTRxcU5XWmZSZ25BMW8wL3lBbEMw?=
+ =?utf-8?B?Um1yNjN6RVVSMG9ud1czOWFTeThOcitRUWxpb3lyZTFNQy9NYzlwaUdYbjNi?=
+ =?utf-8?B?RlBCWDM5ZW5CdlUrR1hrVk14dEhkOGs0VStNSk0zT0xLQ0dMMVNBYXlDQmZT?=
+ =?utf-8?B?V1Vwcm5mU1R2VjNMM2dmWWF3ejI4eDgwSFNWV1R6a2hsWWpEeG5pZXdmb0Q5?=
+ =?utf-8?B?TGlpVHVJZmI5YXNnck9MZFJBRHF2TWxvemJGZGJZK0JtT0ZocjlUaFpmZU15?=
+ =?utf-8?B?OVFGelQ1MHpTbjZReXR0Q3R2TG5VL1RteUluOWl4OWk3bGs3WnVCRnRMYUpF?=
+ =?utf-8?B?c3k2LzM2eUJucVdjT04yUWw1MERWeHJmWGlqOU83aWl4UlNISjh6U2w0a0ph?=
+ =?utf-8?B?L004NkN3bDNpNUxKU1VpeHRNRFg2Qlo0SjhVOExIZHlrSmtTMllhbkIraHUx?=
+ =?utf-8?B?WXJOc0ptY3BWRHByRGZGQWE5S2dKdVRVZURodWxxWlhQT2U3TFA1bHRrRlNW?=
+ =?utf-8?B?NVA0QnUvTGt4R0hsK0d2c2d4NjUwb0lZQ2NUazlndC8rNm1jcmlKSmtzbTJi?=
+ =?utf-8?B?VDF2WGE3eTVlYzhpTm1xWUllM0dDV0FkVS92OTdwM1M0K1IrMDAwWi9QVmV3?=
+ =?utf-8?B?U1E5NTlsUkg0N3lIQXBBYkljUGMwajZxTHlqZGdxcUFFS1pMdUR2MGJldWI3?=
+ =?utf-8?B?RnNaMDZ1ZXA5TGFQSk11cmJEK1ZTNzEvUEo1aVdlekJ6dzBmaVlmMWN4akN4?=
+ =?utf-8?B?YXBQSkJXYlAwaSszeitZajVlRTdrbWRqc2tpblZ2Vmk0SHN1UnFtZFFCYk5z?=
+ =?utf-8?B?MnpIVjFscmMxUzJ1a1lrcGtOcDVyYms1bFpTSWdyYVZRaHZkZzBHeUxod3FV?=
+ =?utf-8?B?Um01T1ZTSW9VM3A4dXFhNTl1ZmVNa3VKNktwK0lRTTBMbzNBSThJWVZhc2JR?=
+ =?utf-8?B?MlZOZFJVT21ES2FxdTl4VkUwNzQ0RVhmcTR1VDF5bFN2eUNSeUVydlBMbGNl?=
+ =?utf-8?B?OVZpNFNUb2RiOURvejNadWoyQW1EVHV4TVpneVc1RU5meDhhUEhrRkVrZHZO?=
+ =?utf-8?B?VE5NVXQ5T3ZMazkzU1ZkL0ZkU3pmUGY1dG1pWU91dERLU2x6bnZWTkpMSklo?=
+ =?utf-8?B?bWplRlhFbUV4SlV0b0lSYkZCZzRWWWtFQmJqOGllNkRndmFaSUdWaXdGWXA0?=
+ =?utf-8?Q?kvq+EMt9FhNjqzltup?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76ca99a4-39ad-453d-1b78-08deb7135e93
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 08:31:35.4183 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hnvyqAOaEUtkPLo7e2Y98F+bX7JR/9QPUbflA1cge/OV+L7Osts5xgOOAzpjVnxG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8039
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,425 +143,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: KancyJoe <kancy2333@outlook.com>
+On 5/20/26 17:17, Mikhail Gavrilov wrote:
+> amdgpu_vm_lock_by_pasid() looks up a VM by PASID and reserves its root
+> PD with a bare amdgpu_bo_reserve(), returning the still-reserved root to
+> the caller. A caller that then needs to reserve further BOs (for example
+> the devcoredump IB dump) ends up nesting reservation_ww_class_mutex
+> acquires without a ww_acquire_ctx, which lockdep flags as recursive
+> locking.
+> 
+> Convert the helper to take a drm_exec context and lock the root PD via
+> amdgpu_vm_lock_pd() instead. Callers now run it inside a
+> drm_exec_until_all_locked() loop and can lock additional BOs in the same
+> ww ticket, so there is no nested ww_mutex acquire.
+> 
+> The only existing caller, amdgpu_vm_handle_fault(), is updated
+> accordingly. Its is_compute_context path, which previously dropped the
+> root reservation around svm_range_restore_pages() and re-took it, now
+> finalises the drm_exec context and re-initialises a fresh one; behaviour
+> is otherwise unchanged.
+> 
+> No functional change intended for the page-fault path.
+> 
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 72 ++++++++++++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  3 +-
+>  2 files changed, 51 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 9ba9de16a27a..3a22670b733f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2950,14 +2950,22 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  }
+>  
+>  /**
+> - * amdgpu_vm_lock_by_pasid - return an amdgpu_vm and its root bo from a pasid, if possible.
+> + * amdgpu_vm_lock_by_pasid - look up a VM by PASID and lock its root PD
+>   * @adev: amdgpu device pointer
+> - * @root: root BO of the VM
+> + * @root: out: reference to the VM's root BO, dropped by the caller
+>   * @pasid: PASID of the VM
+> - * The caller needs to unreserve and unref the root bo on success.
+> + * @exec: drm_exec context to lock the root PD in
+> + *
+> + * Must be called from within a drm_exec_until_all_locked() loop; the caller
+> + * runs drm_exec_retry_on_contention() afterwards and drops the *root
+> + * reference once the drm_exec context is finalised.
+> + *
+> + * Return: the VM on success, or NULL if the PASID has no VM, the VM is being
+> + * torn down, or locking the root PD failed.
+>   */
+>  struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+> -					  struct amdgpu_bo **root, u32 pasid)
+> +					  struct amdgpu_bo **root, u32 pasid,
 
-Implement support for the Renesas 63419 based dual-DSI video mode
-Display Panels found in the Ayaneo gaming handled devices.
+I think we can drop the root parameter now, the exec reference should be sufficient.
 
-Signed-off-by: KancyJoe <kancy2333@outlook.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/gpu/drm/panel/Kconfig                |  12 +
- drivers/gpu/drm/panel/Makefile               |   1 +
- drivers/gpu/drm/panel/panel-renesas-r63419.c | 364 +++++++++++++++++++++++++++
- 3 files changed, 377 insertions(+)
+> +					  struct drm_exec *exec)
+>  {
+>  	unsigned long irqflags;
+>  	struct amdgpu_vm *vm;
+> @@ -2971,9 +2979,11 @@ struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+>  	if (!*root)
+>  		return NULL;
+>  
+> -	r = amdgpu_bo_reserve(*root, true);
+> -	if (r)
+> -		goto error_unref;
+> +	r = amdgpu_vm_lock_pd(vm, exec, 0);
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7450b27622a2..7295246cfa58 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -796,6 +796,18 @@ config DRM_PANEL_RENESAS_R61307
- 	  This panel controller can be found in LG Optimus Vu P895 smartphone
- 	  in combination with LCD panel.
- 
-+config DRM_PANEL_RENESAS_R63419
-+	tristate "Renesas R63419 dual-DSI video mode panels"
-+	depends on OF && GPIOLIB
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for Ayaneo WT0600 and WT0630
-+	  1440x2560 60Hz dual-DSI video mode display panels with Renesas
-+	  R63419 IC.
-+
-+	  These panels are used in Ayaneo handheld gaming devices.
-+
- config DRM_PANEL_RENESAS_R69328
- 	tristate "Renesas R69328 720x1280 DSI video mode panel"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index c2c5cf817116..be9a6f3c9743 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -78,6 +78,7 @@ obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM68200) += panel-raydium-rm68200.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM692E5) += panel-raydium-rm692e5.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69380) += panel-raydium-rm69380.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R61307) += panel-renesas-r61307.o
-+obj-$(CONFIG_DRM_PANEL_RENESAS_R63419) += panel-renesas-r63419.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R69328) += panel-renesas-r69328.o
- obj-$(CONFIG_DRM_PANEL_RONBO_RB070D30) += panel-ronbo-rb070d30.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS581VF01) += panel-samsung-ams581vf01.o
-diff --git a/drivers/gpu/drm/panel/panel-renesas-r63419.c b/drivers/gpu/drm/panel/panel-renesas-r63419.c
-new file mode 100644
-index 000000000000..fe62b3bfba63
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-renesas-r63419.c
-@@ -0,0 +1,364 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * DRM driver for Renesas R63419 based dual-DSI video mode panels
-+ *
-+ * Copyright (c) 2025, Kancy Joe <kancy2333@outlook.com>
-+ * Copyright (C) 2026 Linaro Limited
-+ * Author: Neil Armstrong <neil.armstrong@linaro.org>
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_connector.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct renesas_r63419_panel {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi[2];
-+	const struct panel_desc *desc;
-+
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data *vdd_supplies;
-+	struct regulator_bulk_data *vcc_supplies;
-+	enum drm_panel_orientation orientation;
-+};
-+
-+/* VDDIO/VDD Supplies */
-+static const struct regulator_bulk_data renesas_r63419_vdd_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "vdd" },
-+};
-+
-+/* VSP/VSN/VCI Supplies */
-+static const struct regulator_bulk_data renesas_r63419_vcc_supplies[] = {
-+	{ .supply = "vsp" },
-+	{ .supply = "vsn" },
-+	{ .supply = "vci" },
-+};
-+
-+struct panel_desc {
-+	const struct drm_display_mode *mode;
-+	unsigned int lanes;
-+	unsigned long mode_flags;
-+	enum mipi_dsi_pixel_format format;
-+	const struct mipi_dsi_device_info dsi_info;
-+};
-+
-+static const struct drm_display_mode wt0600_mode = {
-+	/* Dual dsi */
-+	.clock = 2 * (720 + 100 + 8 + 40) * (2560 + 15 + 2 + 8) * 60 / 1000,
-+	.hdisplay = 2 * 720,
-+	.hsync_start = 2 * (720 + 100),
-+	.hsync_end = 2 * (720 + 100 + 8),
-+	.htotal = 2 * (720 + 100 + 8 + 40),
-+	.vdisplay = 2560,
-+	.vsync_start = 2560 + 15,
-+	.vsync_end = 2560 + 15 + 2,
-+	.vtotal = 2560 + 15 + 2 + 8,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+	.width_mm = 74,
-+	.height_mm = 131,
-+};
-+
-+static const struct drm_display_mode wt0630_mode = {
-+	/* Dual dsi */
-+	.clock = 2 * (720 + 100 + 8 + 40) * (2560 + 15 + 2 + 8) * 60 / 1000,
-+	.hdisplay = 2 * 720,
-+	.hsync_start = 2 * (720 + 100),
-+	.hsync_end = 2 * (720 + 100 + 8),
-+	.htotal = 2 * (720 + 100 + 8 + 40),
-+	.vdisplay = 2560,
-+	.vsync_start = 2560 + 15,
-+	.vsync_end = 2560 + 15 + 2,
-+	.vtotal = 2560 + 15 + 2 + 8,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+	.width_mm = 78,
-+	.height_mm = 140,
-+};
-+
-+static struct panel_desc wt0600_desc = {
-+	.lanes = 4,
-+	.mode = &wt0600_mode,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+};
-+
-+static struct panel_desc wt0630_desc = {
-+	.lanes = 4,
-+	.mode = &wt0630_mode,  /* wt0600 only has different screen size */
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+};
-+
-+static inline struct renesas_r63419_panel *
-+to_renesas_r63419_panel(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct renesas_r63419_panel, panel);
-+}
-+
-+/*
-+ * Helper to switch between DSI links, so we share a single dsi_ctx
-+ * for both links, so in case of an error all writes & sleep for
-+ * both links are ignored.
-+ */
-+static inline void dsi_link_switch(struct renesas_r63419_panel *ctx,
-+				   struct mipi_dsi_multi_context *dsi_ctx,
-+				   unsigned int link)
-+{
-+	dsi_ctx->dsi = ctx->dsi[link];
-+}
-+
-+static int renesas_r63419_on(struct renesas_r63419_panel *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx;
-+
-+	dsi_link_switch(ctx, &dsi_ctx, 0);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	dsi_link_switch(ctx, &dsi_ctx, 1);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 150);
-+
-+	dsi_link_switch(ctx, &dsi_ctx, 0);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	dsi_link_switch(ctx, &dsi_ctx, 1);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int renesas_r63419_disable(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx;
-+
-+	dsi_link_switch(ctx, &dsi_ctx, 0);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	dsi_link_switch(ctx, &dsi_ctx, 1);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	dsi_link_switch(ctx, &dsi_ctx, 0);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	dsi_link_switch(ctx, &dsi_ctx, 1);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int renesas_r63419_prepare(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				    ctx->vdd_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(1000, 2000);
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+				    ctx->vcc_supplies);
-+	if (ret < 0) {
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				       ctx->vdd_supplies);
-+		return ret;
-+	}
-+
-+	usleep_range(1000, 2000);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+
-+	usleep_range(3000, 4000);
-+
-+	ret = renesas_r63419_on(ctx);
-+	if (ret < 0) {
-+		dev_err(panel->dev, "Failed to initialize panel: %d\n", ret);
-+
-+		/* Power off sequence from the r63419 datasheet */
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+				       ctx->vcc_supplies);
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				       ctx->vdd_supplies);
-+
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int renesas_r63419_unprepare(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	/* Power off sequence from the r63419 datasheet */
-+	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies), ctx->vcc_supplies);
-+	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies), ctx->vdd_supplies);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+	return 0;
-+}
-+
-+static int renesas_r63419_get_modes(struct drm_panel *panel,
-+				    struct drm_connector *connector)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	const struct drm_display_mode *mode = ctx->desc->mode;
-+
-+	drm_connector_set_panel_orientation(connector, ctx->orientation);
-+
-+	return drm_connector_helper_get_modes_fixed(connector, mode);
-+}
-+
-+static enum drm_panel_orientation
-+renesas_r63419_get_orientation(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	return ctx->orientation;
-+}
-+
-+static const struct drm_panel_funcs renesas_r63419_panel_funcs = {
-+	.disable = renesas_r63419_disable,
-+	.prepare = renesas_r63419_prepare,
-+	.unprepare = renesas_r63419_unprepare,
-+	.get_modes = renesas_r63419_get_modes,
-+	.get_orientation = renesas_r63419_get_orientation,
-+};
-+
-+static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct mipi_dsi_device_info info = { };
-+	struct device *dev = &dsi->dev;
-+	struct renesas_r63419_panel *ctx;
-+	struct device_node *dsi1_node;
-+	struct mipi_dsi_host *dsi1_host;
-+	int ret, i;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct renesas_r63419_panel, panel,
-+				   &renesas_r63419_panel_funcs, DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->desc = of_device_get_match_data(dev);
-+	if (!ctx->desc)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "Failed to get panel description\n");
-+
-+	ret = devm_regulator_bulk_get_const(&dsi->dev,
-+					    ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+					    renesas_r63419_vdd_supplies, &ctx->vdd_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = devm_regulator_bulk_get_const(&dsi->dev,
-+					    ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+					    renesas_r63419_vcc_supplies, &ctx->vcc_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset gpio\n");
-+
-+	/* Get second DSI host */
-+	dsi1_node = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
-+	if (!dsi1_node)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "Failed to get remote node for second DSI\n");
-+
-+	dsi1_host = of_find_mipi_dsi_host_by_node(dsi1_node);
-+	of_node_put(dsi1_node);
-+	if (!dsi1_host)
-+		return dev_err_probe(dev, -EPROBE_DEFER,
-+				     "Failed to find second DSI host\n");
-+
-+	/* Copy current DSI info, do not provide OF node since no driver needs to be attached */
-+	strscpy(info.type, dsi->name, sizeof(info.type));
-+	info.channel = dsi->channel;
-+
-+	/* Register the second DSI device */
-+	ctx->dsi[1] = devm_mipi_dsi_device_register_full(dev, dsi1_host, &info);
-+	if (IS_ERR(ctx->dsi[1]))
-+		return dev_err_probe(dev, PTR_ERR(ctx->dsi[1]),
-+				     "Failed to register second DSI device\n");
-+
-+	ctx->dsi[0] = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	/* Get panel orientation */
-+	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-+	if (ret < 0 && ret != -ENODEV)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to get panel orientation\n");
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add panel\n");
-+
-+	/* Configure and attach both DSI devices */
-+	for (i = 0; i < ARRAY_SIZE(ctx->dsi); i++) {
-+		ctx->dsi[i]->lanes = ctx->desc->lanes;
-+		ctx->dsi[i]->format = ctx->desc->format;
-+		ctx->dsi[i]->mode_flags = ctx->desc->mode_flags;
-+
-+		ret = devm_mipi_dsi_attach(dev, ctx->dsi[i]);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to attach DSI device %d\n", i);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id renesas_r63419_of_match[] = {
-+	{
-+		.compatible = "ayaneo,wt0600-2k",
-+		.data = &wt0600_desc,
-+	},
-+	{
-+		.compatible = "ayaneo,wt0630-2k",
-+		.data = &wt0630_desc,
-+	},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, renesas_r63419_of_match);
-+
-+static struct mipi_dsi_driver renesas_r63419_driver = {
-+	.probe = renesas_r63419_probe,
-+	.driver = {
-+		.name = "panel-renesas-r63419",
-+		.of_match_table = renesas_r63419_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(renesas_r63419_driver);
-+
-+MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
-+MODULE_AUTHOR("Neil Armstrong <neil.armstrong@linaro.org>");
-+MODULE_DESCRIPTION("DRM driver for Renesas R63419 based dual-DSI video mode panels");
-+MODULE_LICENSE("GPL");
+amdgpu_vm_lock_pd() can't be used here since we can't gurantee that the VM pointer wouldn't go away.
 
--- 
-2.34.1
+Just do:
+
+r = drm_exec_lock_obj(exec, root->tbo.base);
+
+> +	if (r) {
+> +		amdgpu_bo_unref(root);
+> +		return NULL;
+> +	}
+>  
+>  	/* Double check that the VM still exists */
+>  	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+> @@ -2981,16 +2991,12 @@ struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+>  	if (vm && vm->root.bo != *root)
+>  		vm = NULL;
+>  	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+> -	if (!vm)
+> -		goto error_unlock;
+> +	if (!vm) {
+
+We should cleanup with drm_exec_unlock_obj() here, same as it was before.
+
+> +		amdgpu_bo_unref(root);
+> +		return NULL;
+> +	}
+>  
+>  	return vm;
+
+We can drop the extra reference on the root BO before returning the VM now since the drm_exec object holds one as well.
+
+Apart from that this looks like a really nice cleanup to me.
+
+Thanks,
+Christian.
+
+> -error_unlock:
+> -	amdgpu_bo_unreserve(*root);
+> -
+> -error_unref:
+> -	amdgpu_bo_unref(root);
+> -	return NULL;
+>  }
+>  
+>  /**
+> @@ -3013,20 +3019,32 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  {
+>  	bool is_compute_context = false;
+>  	struct amdgpu_bo *root;
+> +	struct drm_exec exec;
+>  	uint64_t value, flags;
+>  	struct amdgpu_vm *vm;
+>  	int r;
+>  
+> -	vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
+> -	if (!vm)
+> +	drm_exec_init(&exec, 0, 0);
+> +	drm_exec_until_all_locked(&exec) {
+> +		vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid, &exec);
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (!vm)
+> +			break;
+> +	}
+> +	if (!vm) {
+> +		drm_exec_fini(&exec);
+>  		return false;
+> +	}
+>  
+>  	is_compute_context = vm->is_compute_context;
+>  
+>  	if (is_compute_context) {
+> -		/* Unreserve root since svm_range_restore_pages might try to reserve it. */
+> -		/* TODO: rework svm_range_restore_pages so that this isn't necessary. */
+> -		amdgpu_bo_unreserve(root);
+> +		/* Release the root PD lock since svm_range_restore_pages
+> +		 * might try to take it.
+> +		 * TODO: rework svm_range_restore_pages so that this isn't
+> +		 * necessary.
+> +		 */
+> +		drm_exec_fini(&exec);
+>  
+>  		if (!svm_range_restore_pages(adev, pasid, vmid,
+>  					     node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
+> @@ -3036,9 +3054,17 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  		amdgpu_bo_unref(&root);
+>  
+>  		/* Re-acquire the VM lock, could be that the VM was freed in between. */
+> -		vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
+> -		if (!vm)
+> +		drm_exec_init(&exec, 0, 0);
+> +		drm_exec_until_all_locked(&exec) {
+> +			vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid, &exec);
+> +			drm_exec_retry_on_contention(&exec);
+> +			if (!vm)
+> +				break;
+> +		}
+> +		if (!vm) {
+> +			drm_exec_fini(&exec);
+>  			return false;
+> +		}
+>  	}
+>  
+>  	addr /= AMDGPU_GPU_PAGE_SIZE;
+> @@ -3076,7 +3102,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  	r = amdgpu_vm_update_pdes(adev, vm, true);
+>  
+>  error_unlock:
+> -	amdgpu_bo_unreserve(root);
+> +	drm_exec_fini(&exec);
+>  	if (r < 0)
+>  		dev_err(adev->dev, "Can't handle page fault (%d)\n", r);
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index d083d7aab75c..af292c2fc521 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -593,7 +593,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  			    bool write_fault);
+>  
+>  struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+> -					  struct amdgpu_bo **root, u32 pasid);
+> +					  struct amdgpu_bo **root, u32 pasid,
+> +					  struct drm_exec *exec);
+>  
+>  void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+>  
 
