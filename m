@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC4C4CD5BB5
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5734ACD5BB1
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEBE210E49E;
-	Thu, 21 May 2026 13:19:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF0F110F315;
+	Thu, 21 May 2026 13:28:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ZSi5w5iK";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kHkJGorh";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCE6210E1A6;
- Thu, 21 May 2026 13:19:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D491010F31B;
+ Thu, 21 May 2026 13:28:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,22 +22,21 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=IIpdmIOgvl0TQniaAHS+GD+OE1WeFz+0+H9K2/ObYUo=; b=ZSi5w5iKECb9ZrQYLpQ963Qtib
- 9XCeOlFYKm3qQQLC4wAgIGxChYh/0Ztvznz73ETHzIJWvRMQt4+JaxJOgd42oVuUodx4MeMXqyucW
- UUnHUxH7ACZsYGwXFWOx44JJlYqE8mx/UHjvYZ5G73+hqHdOqTrMgCQgiTdEcFlzAXedqPsb3tvCe
- tmIAFLbbRRhbf4GsMfoRltHXI8yTWJBJUp5rgaqEA+aaVGfZ1M88aZG+YJcpp/CkFiSVVgZlM4Fsi
- s6q3Ov8OvDiwlMTmH12DLyNvUs61xbnUmLsBrB1fCSFnhUD6WRj65tW783jRc5pPoQMx41DxJpGK0
- CbuCILjA==;
+ bh=1pt8cC1q/6uiiKUcEF8O51ow/PRF5dt+UW1IXwaqmeI=; b=kHkJGorhA+vU2fWMYTRysB2GW0
+ yoAQesc8hnkUV+WgFa0gcQr+nl04M4mnkBWjhsD5q9xVHPvU9i4e/IqWZcKRYjXGkSlcyKXP70anZ
+ l5EcNJg2uhbMESmQfEMhTQmKuWmWh0w+MsJ5vn2uHdppoZgtJ//q5KtjlYIkiNDQrVaQzePoQuuKn
+ y3SF8XJ2HFzuJVT+Takvl7kLO84h4DcbAoJpWduxD0b9zkPJ4jElp+LHgZA38CdvfLxUUMkN/cjWg
+ EpkN2ag7iNi8/bNcoDfSASHxTUJyUckv4aw4n89uRRd0euqCg03Ib4FsJy/vlIARFhfsonEcy1ZcR
+ vY7Gc3AA==;
 Received: from [79.117.146.159] (helo=[192.168.1.135])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wQ3IX-004MSj-DH; Thu, 21 May 2026 15:18:49 +0200
-Message-ID: <c1e5b078-2352-4569-b82e-398cb3c5f537@igalia.com>
-Date: Thu, 21 May 2026 15:18:47 +0200
+ id 1wQ3RN-004MeT-2b; Thu, 21 May 2026 15:27:57 +0200
+Message-ID: <86bb4dc7-ba05-418f-8978-4d9e8fd6a3a7@igalia.com>
+Date: Thu, 21 May 2026 15:27:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/6] drm/atomic: reject colorop update from inactive
- color pipeline
+Subject: Re: [PATCH v6 4/6] drm/colorop: make lut(1/3)d_interpolation mutable
 To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
  airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -56,11 +55,11 @@ Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 References: <20260519211111.228303-1-mwen@igalia.com>
- <20260519211111.228303-3-mwen@igalia.com>
- <5caac879-5063-4999-941f-d062da040879@intel.com>
+ <20260519211111.228303-5-mwen@igalia.com>
+ <ebee1103-c76e-46c3-9a71-84f5e84fd76c@intel.com>
 Content-Language: en-US
 From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <5caac879-5063-4999-941f-d062da040879@intel.com>
+In-Reply-To: <ebee1103-c76e-46c3-9a71-84f5e84fd76c@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,157 +79,188 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 21/05/2026 13:00, Borah, Chaitanya Kumar wrote:
+On 21/05/2026 13:17, Borah, Chaitanya Kumar wrote:
 >
 >
 > On 5/20/2026 2:39 AM, Melissa Wen wrote:
->> Only allow updates on colorops that are part of an active pipeline.
->> Check if a colorop in a new state belongs to a color pipeline which was
->> set as a plane color_pipeline property and therefore is an active color
->> pipeline. If not, reject the atomic state. Performing this check later
->> in drm_atomic_check_only() to remove the ordering dependency that would
->> exist if done at the time of colorop property setting.
+>> As it's not immutable anymore, any changes should be handled by
+>> drm_colorop_state. Move their enum and make it correctly behaves as
+>> mutable.
 >>
->> Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 >> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>
 >> ---
->>   drivers/gpu/drm/drm_atomic.c | 38 ++++++++++++++++++++++++++++++++++++
->>   1 file changed, 38 insertions(+)
+>>
+>> v6:
+>> - check drm_object_property_get_default_value() before set interp props
+>> ---
+>>   drivers/gpu/drm/drm_atomic.c      |  4 ++--
+>>   drivers/gpu/drm/drm_atomic_uapi.c |  8 ++++----
+>>   drivers/gpu/drm/drm_colorop.c     | 16 ++++++++++++++--
+>>   include/drm/drm_colorop.h         | 28 ++++++++++++++--------------
+>>   4 files changed, 34 insertions(+), 22 deletions(-)
 >>
 >> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
->> index 28831a548b0c..659cf56150e5 100644
+>> index 659cf56150e5..b26212e719b2 100644
 >> --- a/drivers/gpu/drm/drm_atomic.c
 >> +++ b/drivers/gpu/drm/drm_atomic.c
->> @@ -812,6 +812,33 @@ static int drm_atomic_plane_check(const struct 
->> drm_plane_state *old_plane_state,
->>       return 0;
->>   }
->>   +/**
->> + * drm_atomic_colorop_check - check new colorop state
->> + * @new_colorop_state: new colorop state to check
->> + *
->> + * Ensure that the colorop in @new_colorop_state belongs to an 
->> active color
->> + * pipeline, i.e. it's in the chain of colorops set to the 
->> color_pipeline
->> + * property of a plane state.
->> + *
->> + * Returns: 0 on success, -EINVAL otherwise.
->> + */
->> +static int drm_atomic_colorop_check(const struct drm_colorop_state 
->> *new_colorop_state)
->> +{
->> +    struct drm_colorop *colorop, *color_pipeline;
->> +    struct drm_plane_state *new_plane_state;
->> +
->> +    new_plane_state = 
->> drm_atomic_get_new_plane_state(new_colorop_state->state,
->> + new_colorop_state->colorop->plane);
->> +    color_pipeline = new_plane_state ? 
->> new_plane_state->color_pipeline :
->> + new_colorop_state->colorop->plane->state->color_pipeline;
->> +
->> +    for (colorop = color_pipeline; colorop; colorop = colorop->next)
->> +        if (colorop == new_colorop_state->colorop)
->> +            return 0;
->> +
->> +    return -EINVAL;
->> +}
->> +
->
-> This causes regression in our CI[1].
->
-> I looked into it and looks like the following sequence in 
-> igt@kms_color_pipeline causes the error
->
->         set_color_pipeline_bypass(plane);
->         reset_colorops(colorops);
->         igt_plane_set_fb(plane, NULL);
->         igt_display_commit_atomic(&data->display, 0, NULL);
->
-> So this change restricts bypassing/disabling both the pipeline and a 
-> colorop within it in a single commit.
-
-Oops, cc'ing everyone.
-
-"
-I wonder if userspace resetting colorops to disable a pipeline or 
-configuring colorops before enabling the color pipeline is an expected 
-behavior.
-
-For resetting properties, I think I can solve it by taking into account 
-old and new state to collect the active colorops, not only the new state.
-But if configuring colorops before activate a color pipeline is 
-expected, there is no need to have patches 1 and 2, since setting an 
-inactive colorop have to be allowed. In that case, the solution is just 
-drop both patches from the series.
-"
-
-Melissa
-
->
-> Also Sashiko had the following to say
->
-> "Furthermore, does this unnecessarily restrict UAPI by preventing 
-> userspace
-> from configuring inactive pipelines before enabling them, or from 
-> resetting
-> properties on a pipeline in the same commit that switches away from it?"
->
-> So this will also fail a commit which tries to change a pipeline and 
-> disable the colorops in an old pipeline.
->
-> That got me thinking whether the first patch[3] in the series is also 
-> correct, since it is quite similar to the change[4] I added, where 
-> colorops are only added to the state when a pipeline is active. In 
-> both cases, we could end up ignoring colorops that are not part of the 
-> currently selected pipeline.
->
-> [1] 
-> https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-166922v1/shard-lnl-5/igt@kms_color_pipeline@plane-ctm3x4@pipe-a-plane-2.html
-> [2] 
-> https://sashiko.dev/#/patchset/20260520073827.3395745-3-chaitanya.kumar.borah%40intel.com
-> [3] 
-> https://lore.kernel.org/dri-devel/20260519211111.228303-2-mwen@igalia.com/
-> [4] 
-> https://lore.kernel.org/dri-devel/148df44d-2456-40e3-8be6-f98b89b7ee4d@amd.com/
->
-> P.S. Can you please send the next version to intel-gfx and intel-xe too?
->
-> ==
-> Chaitanya
->>   static void drm_atomic_colorop_print_state(struct drm_printer *p,
->>                          const struct drm_colorop_state *state)
->>   {
->> @@ -1665,6 +1692,8 @@ int drm_atomic_check_only(struct 
->> drm_atomic_commit *state)
->>       struct drm_plane *plane;
->>       struct drm_plane_state *old_plane_state;
->>       struct drm_plane_state *new_plane_state;
->> +    struct drm_colorop *colorop;
->> +    struct drm_colorop_state *new_colorop_state;
->>       struct drm_crtc *crtc;
->>       struct drm_crtc_state *old_crtc_state;
->>       struct drm_crtc_state *new_crtc_state;
->> @@ -1681,6 +1710,15 @@ int drm_atomic_check_only(struct 
->> drm_atomic_commit *state)
->>               requested_crtc |= drm_crtc_mask(crtc);
+>> @@ -857,7 +857,7 @@ static void drm_atomic_colorop_print_state(struct 
+>> drm_printer *p,
+>>       case DRM_COLOROP_1D_LUT:
+>>           drm_printf_indent(p, 1, "size=%d\n", colorop->size);
+>>           drm_printf_indent(p, 1, "interpolation=%s\n",
+>> - 
+>> drm_get_colorop_lut1d_interpolation_name(colorop->lut1d_interpolation));
+>> + drm_get_colorop_lut1d_interpolation_name(state->lut1d_interpolation));
+>>           drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? 
+>> state->data->base.id : 0);
+>>           break;
+>>       case DRM_COLOROP_CTM_3X4:
+>> @@ -869,7 +869,7 @@ static void drm_atomic_colorop_print_state(struct 
+>> drm_printer *p,
+>>       case DRM_COLOROP_3D_LUT:
+>>           drm_printf_indent(p, 1, "size=%d\n", colorop->size);
+>>           drm_printf_indent(p, 1, "interpolation=%s\n",
+>> - 
+>> drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interpolation));
+>> + drm_get_colorop_lut3d_interpolation_name(state->lut3d_interpolation));
+>>           drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? 
+>> state->data->base.id : 0);
+>>           break;
+>>       default:
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
+>> b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index 6441b55cc274..78423905051e 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -751,13 +751,13 @@ static int 
+>> drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+>>       if (property == colorop->bypass_property) {
+>>           state->bypass = val;
+>>       } else if (property == colorop->lut1d_interpolation_property) {
+>> -        colorop->lut1d_interpolation = val;
+>> +        state->lut1d_interpolation = val;
+>>       } else if (property == colorop->curve_1d_type_property) {
+>>           state->curve_1d_type = val;
+>>       } else if (property == colorop->multiplier_property) {
+>>           state->multiplier = val;
+>>       } else if (property == colorop->lut3d_interpolation_property) {
+>> -        colorop->lut3d_interpolation = val;
+>> +        state->lut3d_interpolation = val;
+>>       } else if (property == colorop->data_property) {
+>>           return drm_atomic_color_set_data_property(colorop, state,
+>>                                 property, val);
+>> @@ -782,7 +782,7 @@ drm_atomic_colorop_get_property(struct 
+>> drm_colorop *colorop,
+>>       else if (property == colorop->bypass_property)
+>>           *val = state->bypass;
+>>       else if (property == colorop->lut1d_interpolation_property)
+>> -        *val = colorop->lut1d_interpolation;
+>> +        *val = state->lut1d_interpolation;
+>>       else if (property == colorop->curve_1d_type_property)
+>>           *val = state->curve_1d_type;
+>>       else if (property == colorop->multiplier_property)
+>> @@ -790,7 +790,7 @@ drm_atomic_colorop_get_property(struct 
+>> drm_colorop *colorop,
+>>       else if (property == colorop->size_property)
+>>           *val = colorop->size;
+>>       else if (property == colorop->lut3d_interpolation_property)
+>> -        *val = colorop->lut3d_interpolation;
+>> +        *val = state->lut3d_interpolation;
+>>       else if (property == colorop->data_property)
+>>           *val = (state->data) ? state->data->base.id : 0;
+>>       else
+>> diff --git a/drivers/gpu/drm/drm_colorop.c 
+>> b/drivers/gpu/drm/drm_colorop.c
+>> index 764d12060666..b0a9a8094dfe 100644
+>> --- a/drivers/gpu/drm/drm_colorop.c
+>> +++ b/drivers/gpu/drm/drm_colorop.c
+>> @@ -342,7 +342,6 @@ int drm_plane_colorop_curve_1d_lut_init(struct 
+>> drm_device *dev, struct drm_color
+>>         colorop->lut1d_interpolation_property = prop;
+>>       drm_object_attach_property(&colorop->base, prop, interpolation);
+>> -    colorop->lut1d_interpolation = interpolation;
+>>         /* data */
+>>       ret = drm_colorop_create_data_prop(dev, colorop);
+>> @@ -442,7 +441,6 @@ int drm_plane_colorop_3dlut_init(struct 
+>> drm_device *dev, struct drm_colorop *col
+>>         colorop->lut3d_interpolation_property = prop;
+>>       drm_object_attach_property(&colorop->base, prop, interpolation);
+>> -    colorop->lut3d_interpolation = interpolation;
+>>         /* data */
+>>       ret = drm_colorop_create_data_prop(dev, colorop);
+>> @@ -521,6 +519,20 @@ static void __drm_colorop_state_reset(struct 
+>> drm_colorop_state *colorop_state,
+>>                                  &val))
+>>               colorop_state->curve_1d_type = val;
 >>       }
->>   +    for_each_new_colorop_in_state(state, colorop, 
->> new_colorop_state, i) {
->> +        ret = drm_atomic_colorop_check(new_colorop_state);
->> +        if (ret) {
->> +            drm_dbg_atomic(dev, "[COLOROP:%d:%d] is not part of an 
->> active color pipeline.\n",
->> +                       colorop->base.id, colorop->type);
->> +            return ret;
->> +        }
+>> +
+>> +    if (colorop->lut1d_interpolation_property) {
+>> + if(!drm_object_property_get_default_value(&colorop->base,
+>> + colorop->lut1d_interpolation_property,
+>> +                              &val));
+>> +            colorop_state->lut1d_interpolation = val;
 >> +    }
 >> +
->>       for_each_oldnew_plane_in_state(state, plane, old_plane_state, 
->> new_plane_state, i) {
->>           ret = drm_atomic_plane_check(old_plane_state, 
->> new_plane_state);
->>           if (ret) {
+>> +    if (colorop->lut3d_interpolation_property) {
+>> + if(!drm_object_property_get_default_value(&colorop->base,
+>> + colorop->lut3d_interpolation_property,
+>> +                              &val);
+>> +            colorop_state->lut3d_interpolation = val;
+>> +    }
+>
+> I see you fixed the ; in the next patch, better to fix it within this 
+> patch. Also needs space between if and (.
+
+Ouch, thanks for pointing it out.
+
+>
+>>   }
+>>     /**
+>> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+>> index 53a2148082d5..d08a6a8a8392 100644
+>> --- a/include/drm/drm_colorop.h
+>> +++ b/include/drm/drm_colorop.h
+>> @@ -183,6 +183,20 @@ struct drm_colorop_state {
+>>        */
+>>       struct drm_property_blob *data;
+>>   +    /**
+>> +     * @lut1d_interpolation:
+>> +     *
+>> +     * Interpolation for DRM_COLOROP_1D_LUT
+>> +     */
+>> +    enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
+>> +
+>> +    /**
+>> +     * @lut3d_interpolation:
+>> +     *
+>> +     * Interpolation for DRM_COLOROP_3D_LUT
+>> +     */
+>> +    enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
+>> +
+>>       /** @state: backpointer to global drm_atomic_commit */
+>>       struct drm_atomic_commit *state;
+>>   };
+>> @@ -306,20 +320,6 @@ struct drm_colorop {
+>>        */
+>>       uint32_t size;
+>>   -    /**
+>> -     * @lut1d_interpolation:
+>> -     *
+>> -     * Interpolation for DRM_COLOROP_1D_LUT
+>> -     */
+>> -    enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
+>> -
+>> -    /**
+>> -     * @lut3d_interpolation:
+>> -     *
+>> -     * Interpolation for DRM_COLOROP_3D_LUT
+>> -     */
+>> -    enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
+>> -
+>>       /**
+>>        * @lut1d_interpolation_property:
+>>        *
 >
 
