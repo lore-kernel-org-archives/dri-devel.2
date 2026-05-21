@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CAB5CD5BB1
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 23:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD5FCD5BAB
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 23:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADFCA10F456;
-	Thu, 21 May 2026 23:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 322AC10F446;
+	Thu, 21 May 2026 23:39:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UlWJF3P5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Uoe2A26T";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3580310F445;
- Thu, 21 May 2026 23:35:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=kpeNCLRh+LZ1vf1oRVfGSdJI3eE0dg9QtkEXxSMU1IQ=; b=UlWJF3P5HF7dmTZGatj8DyUnBm
- lmAAL1KGmzm+qRyj1dUUaVYVELwuefXcDK7/3eNpGUJal/xgNp4VIeyccnipyN60kBMvfTSksR9kq
- +5eVyy1yxSW6axHH3BPn5msEVqVfHZsPGy9chNhoe3gqYr6oI173h2MirN87Qh+t4kdhupX2ib9q7
- segmWhnOV54c3ZUr5phmy82/v8ZCQjaE9edOSIzRMrI7YmP8yNR8IIo4W00T+jjPnEZlgg0SpcwjC
- rMu8YJSSvY9kODtjxBoj2vE5lUU49fspAztrsPTiisnORI0bUtofbNryGvMUGPNKidPzRXXtboGaR
- /haad2TQ==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wQCvd-004b7X-D0; Fri, 22 May 2026 01:35:49 +0200
-Message-ID: <fef3245f-8234-4799-ad9a-9e97fa77b826@Igalia.com>
-Date: Thu, 21 May 2026 16:35:41 -0700
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACA210F446
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 23:39:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CFDCD4071C;
+ Thu, 21 May 2026 23:39:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5080D1F000E9;
+ Thu, 21 May 2026 23:39:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779406759;
+ bh=oh6ATn0JwY4+EDxHSfHhWKPTI9yODfpqPfUosl9OAY8=;
+ h=From:To:Cc:Subject:Date;
+ b=Uoe2A26TNx5SV2ZJaH7ZPogYuwJjOK4C5jLrJPlxJ1nirNVBU+2ELtiPUa2FU+ssm
+ 4DcToCl9EApK3h4eyklEy3lOm8M+p0bIhepRDTHV+K/x+ncrzbdlGnlhEYYptJbr2a
+ bYwEe4aNSknanDN/ZGdZqpf1tjbAIIBUzPhf/AAg8QQfQoymApX2NWmS3sJzqtU79b
+ FxRAVpjuXJvC047Xk4+nDj9w+BFE1YQITCYTQ3lqMMB8eHVVQOcUzx6/X/JUSGe+An
+ AlOC9DV6ND2yfBPmeFruSUJzsP7I5oD+wKujuQ4CqnI+F+WQxgVov1kz2bbItetxLM
+ Q4NDCHWjoB1ew==
+From: Danilo Krummrich <dakr@kernel.org>
+To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
+ aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
+ leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
+ ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
+ abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu, igor.korotin@linux.dev, daniel.almeida@collabora.com,
+ pcolberg@redhat.com
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH v4 00/27] rust: device: Higher-Ranked Lifetime Types for
+ device drivers
+Date: Fri, 22 May 2026 01:34:26 +0200
+Message-ID: <20260521233501.1191842-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/7] drm: writeback: Modify drm_writeback_get_out_fence
- helper
-To: Suraj Kandpal <suraj.kandpal@intel.com>, freedreno@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel-list@raspberrypi.com,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Cc: abhinav.kumar@linux.dev, tzimmermann@suse.de,
- marijn.suijten@somainline.org, laurent.pinchart+renesas@ideasonboard.com,
- dave.stevenson@raspberrypi.com, tomi.valkeinen+renesas@ideasonboard.com,
- kieran.bingham+renesas@ideasonboard.com,
- Louis Chauvet <louis.chauvet@bootlin.com>, kernel-dev@igalia.com
-References: <20260521053708.1475129-1-suraj.kandpal@intel.com>
- <20260521053708.1475129-6-suraj.kandpal@intel.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20260521053708.1475129-6-suraj.kandpal@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,77 +68,211 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/20/26 22:37, Suraj Kandpal wrote:
-> drm_writeback_get_out_fence() does not itself need the parent
-> drm_connector object, but update it to take drm_connector for
-> consistency across the writeback interface, which is being moved
-> to use the top level drm_connector and traverse down to
-> drm_writeback_connector rather than passing in the lower level
-> object and traversing back up.
->
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Currently, Rust device drivers access device resources such as PCI BAR mappings
+and I/O memory regions through Devres<T>.
 
-Reviewed-by: John Harrison <John.Harrison@Igalia.com>
+Devres::access() provides zero-overhead access by taking a &Device<Bound>
+reference as proof that the device is still bound. Since a &Device<Bound> is
+available in almost all contexts by design, Devres is mostly a type-system level
+proof that the resource is valid, but it can also be used from scopes without
+this guarantee through its try_access() accessor.
 
-> ---
-> v3 -> v4:
-> - Update subject line for consitency (John)
-> - Update commit message across commits for consitency (John)
->
->   drivers/gpu/drm/drm_atomic_uapi.c | 4 +---
->   drivers/gpu/drm/drm_writeback.c   | 5 ++---
->   include/drm/drm_writeback.h       | 2 +-
->   3 files changed, 4 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index 7add982e3a3f..65845b096b0c 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -1450,7 +1450,6 @@ static int prepare_signaling(struct drm_device *dev,
->   	}
->   
->   	for_each_new_connector_in_state(state, conn, conn_state, i) {
-> -		struct drm_writeback_connector *wb_conn;
->   		struct drm_out_fence_state *f;
->   		struct dma_fence *fence;
->   		s32 __user *fence_ptr;
-> @@ -1472,8 +1471,7 @@ static int prepare_signaling(struct drm_device *dev,
->   		f[*num_fences].out_fence_ptr = fence_ptr;
->   		*fence_state = f;
->   
-> -		wb_conn = &conn->writeback;
-> -		fence = drm_writeback_get_out_fence(wb_conn);
-> +		fence = drm_writeback_get_out_fence(conn);
->   		if (!fence)
->   			return -ENOMEM;
->   
-> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> index f3b4371d4201..72e437f4394b 100644
-> --- a/drivers/gpu/drm/drm_writeback.c
-> +++ b/drivers/gpu/drm/drm_writeback.c
-> @@ -528,11 +528,10 @@ drm_writeback_signal_completion(struct drm_connector *connector,
->   EXPORT_SYMBOL(drm_writeback_signal_completion);
->   
->   struct dma_fence *
-> -drm_writeback_get_out_fence(struct drm_writeback_connector *wb_connector)
-> +drm_writeback_get_out_fence(struct drm_connector *connector)
->   {
->   	struct dma_fence *fence;
-> -	struct drm_connector *connector =
-> -		drm_writeback_to_connector(wb_connector);
-> +	struct drm_writeback_connector *wb_connector = &connector->writeback;
->   
->   	if (WARN_ON(connector->connector_type !=
->   		    DRM_MODE_CONNECTOR_WRITEBACK))
-> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
-> index 5e8ab51c2da4..2afa48ea7c00 100644
-> --- a/include/drm/drm_writeback.h
-> +++ b/include/drm/drm_writeback.h
-> @@ -104,5 +104,5 @@ drm_writeback_signal_completion(struct drm_connector *connector,
->   				int status);
->   
->   struct dma_fence *
-> -drm_writeback_get_out_fence(struct drm_writeback_connector *wb_connector);
-> +drm_writeback_get_out_fence(struct drm_connector *connector);
->   #endif
+This works well in general, but has a few limitations:
+
+  - Every access to a device resource goes through Devres::access(), which
+    despite zero cost, adds boilerplate to every access site.
+
+  - Destructors do not receive a &Device<Bound>, so they must use try_access(),
+    which can fail. In practice the access succeeds if teardown ordering is
+    correct, but the type system can't express this, forcing drivers to handle a
+    failure path that should never be taken.
+
+  - Sharing a resource across components (e.g. passing a BAR to a sub-component)
+    requires Arc<Devres<T>>.
+
+  - Device references must be stored as ARef<Device> rather than plain &Device
+    borrows.
+
+These limitations stem from the driver's bus device private data being 'static
+-- the driver struct cannot borrow from the device reference it receives in
+probe(), even though it structurally cannot outlive the device binding.
+
+This series introduces Higher-Ranked Lifetime Types (HRT) for Rust device
+drivers. An HRT is a type that is generic over a lifetime -- it does not have a
+fixed lifetime, but can be instantiated with any lifetime chosen by the caller.
+
+Bus driver traits use a Generic Associated Type (GAT) type Data<'bound> to
+introduce the lifetime on the private data, rather than parameterizing the
+Driver trait itself. This avoids a driver trait global lifetime and avoids the
+need for ForLt for bus device private data, making the bus implementations much
+simpler. ForLt is only needed for auxiliary registration data, where the
+lifetime is not introduced by a trait callback but must be threaded through
+Registration.
+
+With HRT, driver structs carry a lifetime parameter tied to the device binding
+scope -- the interval of a bus device being bound to a driver. Device resources
+like pci::Bar<'bound> and IoMem<'bound> are handed out with this lifetime, so
+the compiler enforces at build time that they do not escape the binding scope.
+
+Before:
+
+	struct MyDriver {
+	    pdev: ARef<pci::Device>,
+	    bar: Devres<pci::Bar<BAR_SIZE>>,
+	}
+
+	let io = self.bar.access(dev)?;
+	io.read32(OFFSET);
+
+After:
+
+	struct MyDriver<'bound> {
+	    pdev: &'bound pci::Device,
+	    bar: pci::Bar<'bound, BAR_SIZE>,
+	}
+
+	self.bar.read32(OFFSET);
+
+Lifetime-parameterized device resources can be put into a Devres at any point
+via Bar::into_devres() / IoMem::into_devres(), providing the exact same
+semantics as before. This is useful for resources shared across subsystem
+boundaries where revocation is needed.
+
+This also synergizes with the upcoming self-referential initialization support
+in pin-init, which allows one field of the driver struct to borrow another
+during initialization without unsafe code.
+
+The same pattern is applied to auxiliary device registration data as a first
+example beyond bus device private data. Registration<F: ForLt> can hold
+lifetime-parameterized data tied to the parent driver's binding scope. Since the
+auxiliary bus guarantees that the parent remains bound while the auxiliary
+device is registered, the registration data can safely borrow the parent's
+device resources.
+
+More generally, binding resource lifetimes to a registration scope applies to
+every registration that is scoped to a driver binding -- auxiliary devices,
+class devices, IRQ handlers, workqueues.
+
+A follow-up series extends this to class device registrations, starting with
+DRM, so that class device callbacks (IOCTLs, etc.) can safely access device
+resources through the separate registration data bound to the registration's
+lifetime without Devres indirection.
+
+The series contains a few driver patches for reference, indicated by the REF
+suffix.
+
+Thanks to Gary for coming up with the ForLt implementation; thanks to Alice for
+the early discussions around lifetime-parameterized private data that helped
+shape the direction of this work.
+
+Changes in v4:
+  - Use 'bound only for lifetimes that represent the full duration of a device
+    being bound to a driver
+  - Make Core and CoreInternal lifetime-parameterized
+  - Split auxiliary::Registration constructor into unsafe fn new_with_lt
+    (borrowed data) and safe fn new ('static data) to close mem::forget()
+    soundness hole
+  - Use TypeId::of::<F>() instead of TypeId::of::<F::Of<'static>>() in auxiliary
+    registration_data()
+  - Handle Type::Macro in ForLt! covariance and WF checks; proc macros cannot
+    expand macro_rules invocations, so use WithLt trait projection for lifetime
+    substitution
+  - Fix missing Send bound in type Data: Send
+
+Changes in v3:
+  - Rework all bus "make Driver trait lifetime-parameterized" patches to use a
+    GAT (type Data<'bound>); in the context of adding a 'bound lifetime, this
+    avoids a driver trait global lifetime and avoids ForLt for bus device
+    private data making the bus implementations much simpler
+
+Changes in v2:
+  - Add 'a bound to ForLt::Of<'a> and WithLt::Of, making the lifetime bound
+    inherent to the trait; remove all F::Of<'static>: 'static where clauses
+  - Drop "rust: devres: add ForLt support to Devres"; Devres itself stays
+    unchanged -- ForLt-aware access is introduced later through DevresLt in a
+    separate series
+  - Use 'bound instead of 'a; add patches to consistently use 'bound for
+    pre-existing 'a
+
+Danilo Krummrich (24):
+  rust: driver: decouple driver private data from driver type
+  rust: driver core: drop drvdata before devres release
+  rust: pci: implement Sync for Device<Bound>
+  rust: platform: implement Sync for Device<Bound>
+  rust: auxiliary: implement Sync for Device<Bound>
+  rust: usb: implement Sync for Device<Bound>
+  rust: device: implement Sync for Device<Bound>
+  rust: device: make Core and CoreInternal lifetime-parameterized
+  rust: pci: make Driver trait lifetime-parameterized
+  rust: platform: make Driver trait lifetime-parameterized
+  rust: auxiliary: make Driver trait lifetime-parameterized
+  rust: usb: make Driver trait lifetime-parameterized
+  rust: i2c: make Driver trait lifetime-parameterized
+  rust: driver: update module documentation for GAT-based Data type
+  rust: pci: make Bar lifetime-parameterized
+  rust: io: make IoMem and ExclusiveIoMem lifetime-parameterized
+  samples: rust: rust_driver_pci: use HRT lifetime for Bar
+  gpu: nova-core: separate driver type from driver data
+  rust: auxiliary: generalize Registration over ForLt
+  samples: rust: rust_driver_auxiliary: showcase lifetime-bound
+    registration data
+  gpu: nova-core: use lifetime for Bar
+  gpu: nova-core: unregister sysmem flush page from Drop
+  gpu: nova-core: replace ARef<Device> with &'bound Device in
+    SysmemFlush
+  gpu: drm: tyr: use lifetime for IoMem
+
+Gary Guo (3):
+  rust: alloc: remove `'static` bound on `ForeignOwnable`
+  rust: driver: move 'static bounds to constructor
+  rust: types: add `ForLt` trait for higher-ranked lifetime support
+
+ drivers/base/dd.c                     |   2 +-
+ drivers/cpufreq/rcpufreq_dt.rs        |   9 +-
+ drivers/gpu/drm/nova/driver.rs        |   6 +-
+ drivers/gpu/drm/tyr/driver.rs         |  23 ++-
+ drivers/gpu/drm/tyr/gpu.rs            |  62 +++---
+ drivers/gpu/drm/tyr/regs.rs           |  21 +-
+ drivers/gpu/nova-core/driver.rs       |  52 ++---
+ drivers/gpu/nova-core/fb.rs           |  31 ++-
+ drivers/gpu/nova-core/gpu.rs          |  38 ++--
+ drivers/gpu/nova-core/nova_core.rs    |   2 +-
+ drivers/pwm/pwm_th1520.rs             |  13 +-
+ include/linux/device/driver.h         |   4 +-
+ rust/Makefile                         |   1 +
+ rust/kernel/alloc/kbox.rs             |  24 ++-
+ rust/kernel/auxiliary.rs              | 142 +++++++++----
+ rust/kernel/cpufreq.rs                |   9 +-
+ rust/kernel/device.rs                 |  61 ++++--
+ rust/kernel/devres.rs                 |   2 +-
+ rust/kernel/dma.rs                    |   2 +-
+ rust/kernel/driver.rs                 |  41 ++--
+ rust/kernel/i2c.rs                    |  61 +++---
+ rust/kernel/io/mem.rs                 | 121 ++++++------
+ rust/kernel/pci.rs                    |  51 +++--
+ rust/kernel/pci/id.rs                 |   2 +-
+ rust/kernel/pci/io.rs                 |  50 ++---
+ rust/kernel/platform.rs               |  52 ++---
+ rust/kernel/types.rs                  |  12 +-
+ rust/kernel/types/for_lt.rs           | 117 +++++++++++
+ rust/kernel/usb.rs                    |  61 +++---
+ rust/macros/for_lt.rs                 | 274 ++++++++++++++++++++++++++
+ rust/macros/lib.rs                    |  12 ++
+ samples/rust/rust_debugfs.rs          |  11 +-
+ samples/rust/rust_dma.rs              |   6 +-
+ samples/rust/rust_driver_auxiliary.rs |  79 +++++---
+ samples/rust/rust_driver_i2c.rs       |  13 +-
+ samples/rust/rust_driver_pci.rs       |  90 ++++-----
+ samples/rust/rust_driver_platform.rs  |   9 +-
+ samples/rust/rust_driver_usb.rs       |  17 +-
+ samples/rust/rust_i2c_client.rs       |  14 +-
+ samples/rust/rust_soc.rs              |   9 +-
+ 40 files changed, 1095 insertions(+), 511 deletions(-)
+ create mode 100644 rust/kernel/types/for_lt.rs
+ create mode 100644 rust/macros/for_lt.rs
+
+
+base-commit: 454257f6d124a92342dcbb7710c03dd6ef96c731
+-- 
+2.54.0
 
