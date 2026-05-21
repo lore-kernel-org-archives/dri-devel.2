@@ -4,109 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFDAECD343F
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 03:43:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52874CD343F
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 04:06:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6776410F1CC;
-	Thu, 21 May 2026 03:43:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7444C10F1CE;
+	Thu, 21 May 2026 04:06:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vN60MTsI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nsFG77XR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J9wo28eP";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011042.outbound.protection.outlook.com
- [40.93.194.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 577DC10F1CC
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 03:43:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DAtVeZjK0RY0DJpySGIPOZtC1mbM7fCxClB9ChD9Or7lvjDqDWHsH97kn6mivmxOWzV31LOrjJwfNso/gCSANoA+iS3mxL1Xe3QyvLLbADLWZaYtyvxl+0CEOiOWH8l8l8aMUGs8X6uSJUUepeHPTk28kRWSS+nr2c7XMdwsMcbZe3fq7aL+POVNLSNPyYjHm4N5jBqebxVZmXGvBdNqdvilldgMytaZ6lZ7ij8uVj89xrSVKDHPoMNksSQURzhboLDKEYxzPrtRnN/qtA4cJazm8vfaUXKOWbYcAa2Z2O8K8qWzWjZ5QNn74x2oYNllS71CX9q60YaSC03AJRhC4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=65N2xu4dJeKbNwoAABLi9IR0zf9b6/6CXJqhXuUaTsA=;
- b=Fp8LjZwGYIE3E6wxNZ1jjNWnJEVwMQ+LWWQYDH3aJxkZhpJbQRykLl1kBfAbx1ZrlCm37gniVTvR94ejrnFSfZgokGY7KjBEuPuKZZu5I3oqmr825unWpzkCAQlBNV5zcp9R/WILW6DgD134RH2eOZnh1DZf3OAZkEXKCwmAlzZ0yNJXBJJZRZTBd2kMEncCvx+orl11DN3WqRHpaGStD+DcaRNkUWqIi+yNXH9rm0d2WhhSnFhdyMTq7B5jiIoSb4L29MC2xGcjEYJf/gFqTQuIQsLrgUAx3iHUAfQz7WiwKQaGBpdY3XRRrfuk0nbTGXPcZkX0M6tFpBjCY3eYzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=65N2xu4dJeKbNwoAABLi9IR0zf9b6/6CXJqhXuUaTsA=;
- b=vN60MTsI0sbtJYnV0L6aI4P6NNkyakKO268N8zv+UzqoTcxo33B/msV/rA9CsyCdu5JYfSDYPUthKDHI3Swn1QXzKsJdsnacJr0W/NByXZEbabxJFsi5SpuafxFcujaCInxlVQJvGPXGYlquslzNnc16v9nyjGNCDXpV+pKnHmA=
-Received: from PH7P221CA0090.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:328::25)
- by DS0PR12MB7583.namprd12.prod.outlook.com (2603:10b6:8:13f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.16; Thu, 21 May
- 2026 03:43:42 +0000
-Received: from CY4PEPF0000E9D3.namprd03.prod.outlook.com
- (2603:10b6:510:328:cafe::c3) by PH7P221CA0090.outlook.office365.com
- (2603:10b6:510:328::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Thu, 21
- May 2026 03:43:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000E9D3.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Thu, 21 May 2026 03:43:41 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Wed, 20 May
- 2026 22:43:41 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 May
- 2026 22:43:41 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 20 May 2026 22:43:40 -0500
-Message-ID: <88097167-1bf9-235a-36dc-467207ee63c6@amd.com>
-Date: Wed, 20 May 2026 20:43:40 -0700
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0A7210F1CE
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 04:06:44 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64KKjZEU1797936
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 04:06:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ mXPHU0FSRkb8TWkVq85RVfc/tLbj+oz0zmwBY3S5Ci0=; b=nsFG77XRomQZ5EVO
+ 3eaminfuvOUUAo1/jTAdjwaY9cyGse1+haGYj5D1vncUdyyniiYUiTZqfPORktG4
+ u7PMwA2MrBsDQxyoTGO8jkWI2nBLBN3pAYg8cP7ejmW7uFDT8mMiOXGDBo4FHa8Y
+ DWsI3yxG96s6IMO24my4r1IC+eU3cLS5VGYEABWGLjZyLtpjIRPYWWD334G80bI6
+ oOpABhIxCU/7b4otY41p8DGmhJK8+s6U85jaIfmTle8UZ9U1Ap4MsJHqmIcIbxKg
+ dOMAvZrsWFv1bY27EmSC1+r9MPR7y2bMI0cLT6R3oAZCotXfsZTdKZEnsy+Q99mU
+ YkbzFA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9dxu31bc-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 04:06:44 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2be9e0905a9so6188265ad.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 21:06:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779336403; x=1779941203;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=mXPHU0FSRkb8TWkVq85RVfc/tLbj+oz0zmwBY3S5Ci0=;
+ b=J9wo28ePngdQuccXDBOyrxZqD6+DnflMvDT1Ge8jpqGCbjK0MHDZOlW2P62oC++NcE
+ 3MQuDZot5+3cAQpoeJ3OHhBs5LYBAjEetTwT15EZQ3Bd26l58AT9UhXf4xTuL2sAlEc7
+ NVMGeC8evO09ybRCgp3kK4NPHe0BJE4mH8ke/aHy4lzyErF/k4LUBojBHD/Rwm/wyEJN
+ QN2JDKpIVGkPC3g8oXk7/nI0DTdtBTu7Fd7S6XF/QNhR7HPG7oqFq6TC5Wv3isXLL/Z+
+ QLHKPjT5mMpyLPHcSD+B0nH1YVFTK+6qY8bAASI5l4hVK/L7dUAWuGsfwqhDyTB1cRGY
+ wnyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779336403; x=1779941203;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mXPHU0FSRkb8TWkVq85RVfc/tLbj+oz0zmwBY3S5Ci0=;
+ b=E45N09+p6nyR5DKWn4uFIN5AnV8jqq2TL/XA6fjnfYY4pVsqRjZVHly8/nGTG17755
+ 9DcMQ+fl/CjZCNysvRhGL4dW5XMoGkFnh+gqGOo3OFKUwHlOwy93UJoX/9fjXLtFYh0T
+ NBZjdl0fXCBYBVicEyiQwhkUZecVf2ZWCHpiDOCcArDMy+wLUOkUqxewlQgot+77xwM0
+ KLAtkqk5CUbPl7N46UytV+wS10RJI7UfTCtcFYcfxKvpTongSJS7OcjkwVRnHnpnlX3Z
+ TJ900mD8FlNQrLpFip5/OLwaHWmimiix37H4If0Z5FhgsAfWSuUO4lqcByKU9C5koIe7
+ fi5Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9plqgly767AEq3F7ki0uWe46b0SHFR7Wd0hygEP6paYfTZSqqWP2gcZbBFKi15Ru7zXGNdfH0HPgM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyxVtwczGYddD2RaP9LRkxeYsOJbELes40uAPIvcfzIPTfKP+DJ
+ bIpMUNY3nboZ2ZxrT69Q2sF1CqcdXewvxGYSs4whwnJw8ZaXKRc6But4cGILCBwCfY8KoXUFYge
+ VTvOnwOvWVsund6MyElNdXWwsA7wE5w8RAp3/VdSmyqrXqWSttWB6UKEG8qS8mcMLx3fjx4U=
+X-Gm-Gg: Acq92OEI3YnyKcm47qG+6SrW9f5AvmQK9wmx8lY9lKqfr9zcacdmaA+Xh6fTukA8u/p
+ 5tW9up9ZCfacuU8q41V8irac1BZswfhaVlUV2HUIKNeHuF06uBRW0YoLuDX90cm6guN+mvO6u9U
+ igv6+NONisxpXwPS3BeinjpwUDXg52740bzW8qrq6KhbvYl9D+dpcG9IDNZrzhWwiybh7TZb6K/
+ JGFMqCw5UTZG7zz/w1WJc5qTOL3ZXsOGQe507s8ayKiLrFQ1pLNsEQiSuf1u8w77j5BADVEC//I
+ RntT7e3AiwjPsDCDUkJ8+8KcniPkX+CN8QY6yBRgco0Monse5QfgZFoQJp5qvK8gJ8oeNzJYUp6
+ NnfFcSjPeDorh07GSNeLKOLZ0nC0QelVYk/Mu3Mu+J+nplGHXeug=
+X-Received: by 2002:a17:903:a90:b0:2bd:ef15:9fce with SMTP id
+ d9443c01a7336-2bea3345f6bmr11166935ad.20.1779336403380; 
+ Wed, 20 May 2026 21:06:43 -0700 (PDT)
+X-Received: by 2002:a17:903:a90:b0:2bd:ef15:9fce with SMTP id
+ d9443c01a7336-2bea3345f6bmr11166445ad.20.1779336402878; 
+ Wed, 20 May 2026 21:06:42 -0700 (PDT)
+Received: from [10.206.108.31] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2bd5d125159sm224568425ad.76.2026.05.20.21.06.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 May 2026 21:06:42 -0700 (PDT)
+Message-ID: <40f5320d-4b58-4e99-b7b1-d52d09c04127@oss.qualcomm.com>
+Date: Thu, 21 May 2026 09:36:38 +0530
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Block running when IOMMU is off
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 4/4] misc: fastrpc: Add polling mode support for
+ fastRPC driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: srini@kernel.org, linux-arm-msm@vger.kernel.org,
+ gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ dri-devel@lists.freedesktop.org, arnd@arndb.de
+References: <20260520065047.3415790-1-ekansh.gupta@oss.qualcomm.com>
+ <20260520065047.3415790-5-ekansh.gupta@oss.qualcomm.com>
+ <jtqfnly2ma56gbdstyk7exk4lhw5nild57uyokkkgrtnnqqscv@xik2phrs4v6t>
 Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
-References: <20260520223531.1403302-1-lizhi.hou@amd.com>
- <c0018792-7867-4fc6-b64d-7e0fb8717f08@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <c0018792-7867-4fc6-b64d-7e0fb8717f08@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D3:EE_|DS0PR12MB7583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28e84d0c-f25d-492e-ae7a-08deb6eb26cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|13003099007|11063799006|4143699003|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: sCz1kVOYnNvNoeGGrYNRoYOfVlIHYqKVac9EtSxsx9tDx3J9ozD/zzoqmIX4HnzjmXbs8wu0S27vq1Oee6wZvK+mTpM0DmDMEKt7G0ssnHdkDQWSK70T/2EnkrJcMzYp3MPyQWXpwpXOPkRqcrwmrwYrd6t/fcwf0ICjtwyPyQvq3Y0BEV6qqKoXLTPUt8oQfObIcA+lkweptouwP8LONt50aInkABOvaBe5RECIaG1h4p5WXTFnUi1yCd/1cx4cYyUeFxVJOFKF22HgSMmyVQAmK8wlVrEGDS6ck1P3miUub3TbwAQg8oq0tyN7UNGAvb/fuK3etUueXaNK87sK8FGJ5ktWFq4uA9d2Ra9bcQTiJ8pSXTEatEzaTNNxnvr1JyhVuMga/5HUcVYB+tdG8IK3CWrzJFP1oiWx4CWD/OvLkTNsl8YjKTup3oIzTA3TdpncJco4iJ3giAjfot/lW5fbjVl4aWvbZfZ3HtZGfx5fAHN7uc5U9UfxAG7h108UGJTRuh/o9MeKDLAVimcPSCou/IoqgZqEwFwXPs3WTik0EYAMqgLjYZ6Mo5DWLb3I3Q8TXgXvTeSNtbQW8XMg8wtg6ao0VvGBu2Fv1MiRCIn6YS3hY9Ru7I+km4Zm57lYDwM+tfz8WfRRs92RkHaq5SQE+bMwrEZCHlUv/nbsMiAQaFs8ZpKO/kM77LsD+OBo
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(13003099007)(11063799006)(4143699003)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 80KmJOuk00hdIROZhN+BmXHshFk5A9/5jaBQg4o6E17SU/qPU5vH/IAwy8e9H4okF6qVIXV0uTi4jQNe3EEMlideh62IS1pbLaoluw3jV+5CvdF7my0XTZ0ORQRuGkuQnetGK1NOs3byrWd4tpB1o5Wtz6Qy/kJZLJOOapVmUU3eoadUyrhA8wmouy3wCq7/9lx23pQPN8T+dmj9eVubHmUQI9cdYztm03ujcDj/hVXllBWMhbxM3DkNl0uEeSyBUiLp6K4FmaeOExV76Wgmcl5amQ3f26gulHyRKKYxQ5uOylojFfuyCZJctC9b+YZjOwJuJHPcyAvZWgiwJPuhngw8I94gWnrgaPuOS89y0DGsM4zewT/f3cMbpEcI69w5qT8o47QnONF2IYs/NXOJReyI+eGqDicnbyxzyOFZDLhN9q4zRTOgKs0nJ5OTLtVr
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 03:43:41.7024 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28e84d0c-f25d-492e-ae7a-08deb6eb26cf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D3.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7583
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <jtqfnly2ma56gbdstyk7exk4lhw5nild57uyokkkgrtnnqqscv@xik2phrs4v6t>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDAzNiBTYWx0ZWRfXxtu3UnAoQf0e
+ ilBPeXQak5w9zdNaZdLJEvlrYKH3+0mkFMlLHRR7KJxkOxR/zZuAhg1sGLp93Ww2xiNMoU2dCiH
+ XXTwM7B/CCOfS1kaaeTUCM1uMl6rarcIq2HvtgRXoffzV8tu3J6T1kuDYZQ3GmxoZZIl5pVQb8f
+ diZnw5BAYB4ES4bz3/RrVDMxNhyHKFgabISkDnCB/2JGdOTRDYletf21Ti/23lraB/qbWUtLdvT
+ 3zlD4ODofhuqO5dhr7GYR5H9UaJti/eRG3wRa4Wy2qkoEJXG33FNvUP4eoxS74NSe3G1Yp3enq9
+ bV3UYOzgb1FrmkFNqhpesyG043A1AI6FLvmC+OLqPq1mqmSXIDWgrTTwMm0rCZLhkG2oge/Tr8X
+ 4BNsjcIGRNBnq7SL1Yq88cyjVyxnDA237wZzs4OdXWFS0mWVrfE7syaLsjfH0tQSnPjh+/M3WCN
+ tK+/LFAnY83XWeBeLnw==
+X-Authority-Analysis: v=2.4 cv=Zckt8MVA c=1 sm=1 tr=0 ts=6a0e84d4 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=G4waM6_Fef8mLlXZwtoA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: -BMjTXoAT72z4t72yIwBr_ijRAgQ5LSV
+X-Proofpoint-ORIG-GUID: -BMjTXoAT72z4t72yIwBr_ijRAgQ5LSV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210036
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,44 +145,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 5/20/26 17:57, Mario Limonciello wrote:
->
->
-> On 5/20/26 17:35, Lizhi Hou wrote:
->> The AIE2 device firmware requires IOMMU on.
+On 20-05-2026 19:06, Dmitry Baryshkov wrote:
+> On Wed, May 20, 2026 at 12:20:47PM +0530, Ekansh Gupta wrote:
+>> For any remote call to DSP, after sending an invocation message,
+>> fastRPC driver waits for glink response and during this time the
+>> CPU can go into low power modes. This adds latency to overall fastrpc
+>> call as CPU wakeup and scheduling latencies are included. Add polling
+>> mode support with which fastRPC driver will poll continuously on a
+>> memory after sending a message to remote subsystem which will eliminate
+>> CPU wakeup and scheduling latencies and reduce fastRPC overhead. In case
+>> poll timeout happens, the call will fallback to normal RPC mode.  Poll
+>> mode can be enabled by user by using FASTRPC_IOCTL_SET_OPTION ioctl
+>> request with FASTRPC_POLL_MODE request id.
 >>
->> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5319
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 >> ---
->>   drivers/accel/amdxdna/aie2_pci.c | 5 +++++
->>   1 file changed, 5 insertions(+)
+>>  drivers/misc/fastrpc.c      | 167 ++++++++++++++++++++++++++++++++++--
+>>  include/uapi/misc/fastrpc.h |  29 +++++++
+>>  2 files changed, 189 insertions(+), 7 deletions(-)
 >>
->> diff --git a/drivers/accel/amdxdna/aie2_pci.c 
->> b/drivers/accel/amdxdna/aie2_pci.c
->> index c4d345d4c76b..22f66c7f534d 100644
->> --- a/drivers/accel/amdxdna/aie2_pci.c
->> +++ b/drivers/accel/amdxdna/aie2_pci.c
->> @@ -490,6 +490,11 @@ static int aie2_init(struct amdxdna_dev *xdna)
->>           return -EINVAL;
->>       }
->>   +    if (!xdna->group) {
->> +        XDNA_ERR(xdna, "Running without IOMMU not supported");
->> +        return -EINVAL;
->> +    }
+>> @@ -1813,6 +1907,35 @@ static int fastrpc_get_info_from_kernel(struct fastrpc_ioctl_capability *cap,
+>>  	return 0;
+>>  }
+>>  
+>> +static int fastrpc_set_option(struct fastrpc_user *fl, char __user *argp)
+>> +{
+>> +	struct fastrpc_ioctl_set_option opt = {0};
+>> +	int i;
 >> +
->>       ndev = drmm_kzalloc(&xdna->ddev, sizeof(*ndev), GFP_KERNEL);
->>       if (!ndev)
->>           return -ENOMEM;
->
-> I think it would be better to change the return for amdxdna_iommu_init().
+>> +	if (!fl->cctx->poll_mode_supported)
+>> +		return -EOPNOTSUPP;
+> 
+> This is being handled too early. What if the user passes any other
+> option?
+okay, right. I was handling this with only poll mode as an option, I'll
+move this after request_id check.>
+>> +
+>> +	if (copy_from_user(&opt, argp, sizeof(opt)))
+>> +		return -EFAULT;
+>> +
+>> +	for (i = 0; i < ARRAY_SIZE(opt.reserved); i++) {
+>> +		if (opt.reserved[i] != 0)
+>> +			return -EINVAL;
+>> +	}
+>> +
+>> +	if (opt.request_id != FASTRPC_POLL_MODE)
+>> +		return -EINVAL;
+>> +
+>> +	if (opt.value == FASTRPC_POLL_MODE_ENABLE)
+>> +		fl->poll_mode = true;
+>> +	else if (opt.value == FASTRPC_POLL_MODE_DISABLE)
+>> +		fl->poll_mode = false;
+>> +	else
+>> +		return -EINVAL;
+>> +
+>> +	return 0;
+>> +}
+>> +
+> 
 
-amdxdna_iommu_init() is common code for all kinds of hardware. I would 
-keep the check only for AIE2 now, which is known to require IOMMU on.
-
-
-Lizhi
-
->
-> This has a check that lets !xdna->group pass; which can be turned into 
-> an error code instead.
