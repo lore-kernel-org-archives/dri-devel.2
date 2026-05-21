@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06F31CD5BA4
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 10:43:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DC2CD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 10:43:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F05B10F2D8;
-	Thu, 21 May 2026 10:43:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46F0B10F2DA;
+	Thu, 21 May 2026 10:43:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IbcXeYRy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="beer0ebB";
 	dkim-atps=neutral
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8343A10E17E
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 10:43:43 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-39380e79936so63205001fa.2
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 03:43:43 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DF9510F2DA
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 10:43:47 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-5a8891f0c51so6362509e87.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 03:43:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779360222; x=1779965022; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779360226; x=1779965026; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IotSskqgPt1trYIpm3eRWveVqEambqTQS5bkqN0X6AA=;
- b=IbcXeYRywC8HIe3iXinxU3/sellpxOl/ZB+L/Fng3kfNA9blglCfikxIi5hpr/umL7
- XYqc204IydXlFlh4mVuW+U+XCwpH8d9ImgiIzLp8S5yGgt57FrdL0NsLgzr/iJlM9lbq
- YBVAnPDIbHaVq/ht4l1mOQZsv0LsI3bMU4QkF3Fcv5Uzk4SFGYszJ9jadc9NryVZgszn
- MMHL0B04L6+j37aBzy3bWSdC0mV15dZCmJLmjnFbw3vdiuh+6088nfzvyJeZj1CWefsS
- /AMZl7pPNajGVkshcOZmt9Di2gAxcYRdbTiMkFjC9RrDObsHJF3zq3vRNi4p6wnJ7UWt
- YECA==
+ bh=V2MVfvQBPeY6Pwia0clIRhZPiWkl2nWuf72y0t9gH4Q=;
+ b=beer0ebBTsh18cCGqZ+LFI4XOeOxcJRwGeDboF8Kbz9T4wEnyB8miweue6duQOD7uk
+ gBR//EdSwbCH4WQug0D8FyJu5GjExwK2f1GJEaxf8osfyRRiM4yyFxEM9gzxos7GFbUW
+ yZdpwyaVsSOwmDA+DfFj8aKoRiAtCFmNGkJ/MDWOJBCnAY4DIGfJxxEhGL/Jk0ClxQFu
+ 3qc7QrWOSDJHHj1ZC90JcARx5sJeM2+P58w1MCO38kXIeD/VsX3K/zFeHEiioDps5J7/
+ ChDVahFiRgCuXIb/lhF/L0/mukjO8RN0j+IFHIl9RbNLZ5kj1yXzaLwUxn/sOSlgkqGx
+ eMaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779360222; x=1779965022;
+ d=1e100.net; s=20251104; t=1779360226; x=1779965026;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=IotSskqgPt1trYIpm3eRWveVqEambqTQS5bkqN0X6AA=;
- b=ak4kaoO2J3xHJ9PgQVeyudsOT8XJfkENhCrAfT4wn4vqPr8JUiDGRWcxcXzT0Satf9
- LQlch1uVwVbZbZhrL9bZnvLXo0V+gSpm3kqtoSYTOmb9Iu6BAS9Sb/qW0FBCJ3fBQMld
- I9SrRETxd2FSnjo1BvbfYOZPBaM58ojr6sCbXKaq8mcvHqqj0mT8moHs/6FkqLoXt9JF
- UklN1s7b2brybE7mfNva69cNsCSJdtBYjwnHF7UGgLQQhfsEaMX7eqHGh2i+M2b7Fioq
- iKZuGA0sOm5WIgwkiY7jEKR+dTrfYkQvkdRU9hB3Z18VGbf4DDUsc34at/Q3IeJCPU4E
- TXKg==
+ bh=V2MVfvQBPeY6Pwia0clIRhZPiWkl2nWuf72y0t9gH4Q=;
+ b=Tcmtrx2goMS0y+sNYgCz+7BGLYL5x+Nqo/Y/FzhDaQfTtRpVA2iXB4WgYbvyEM/SXu
+ HL41eusp1L6kHbiOWGx2GNJoZkpQ2D16HTHEMXsBZ6MhkBGkmFlHyoWmslukLPyW2fCi
+ oAf6KVgfggkape3mC62WONI8aEjUBjdDXfGK8YBd2JSjMwxCmOVQDbvbpqVjEmmTQB4y
+ eBoP/9Wr6FNwwJzugftZMfbJJPBMQBz2N2D87Rta1J4TZVKNU5QYpmQyYKw4UXmOFk7o
+ v++YFidy8Iyodygqjr1U6UP0oBlCWEpRcuQkC2T8+t2Usbq/O/rXusaDgVbalgPR+XQk
+ Q8lg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8P5KoC/LZDFU4Zcwzt2xYTQ0t+GICcwys/JjVkax25h46evnMxaQkXrvOIBHxwN3zMPQRMB7q35uU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwERpvQ4AMAd4MIttUI9obCE59j/OjjsDpmVP9z+QiP6O+Q8vmg
- DGxCJotWLAWovBQLxXPZcCNjVYXwkKVMODhewEAKsO5zYz4POw9nN6lb
-X-Gm-Gg: Acq92OEM3vgCTX1C4k55IVqVqSZVM6j6Qi84W9crC2Atm7h0UKMMT918waxHSnR+/m0
- 5shZIx84moPDMA2+7BdUE1tsUyB+G8CVA5yUTV3pwFYW8Z7J8HpqphPwC++2Z7gyMpDCk1ZpqSp
- NFDDiBaZAm/c+yF8bdu2PalxiLe203JY7/EWOfIEQqnR62/GfNT8dJC5MlRzvWfQKxmlRDEVzTY
- pmAnG/io2vZura2MFq9dAH5K3+an4ztx2estcxOjMRM1eXgxtxqjeBaWSaoa3wxxO0Dc14LOPlZ
- cFW2Sn4T0sL87kfFxDvjHLj3Peq+KjRIUf4ppGu72io7Qi0JQ9l8c3hB/+fR5XGV5HpPnIlJI2E
- pXGRAxvEtdsGUModa9o6y/ISmf2Cn2qBzqRMuKLRbSCaq2q7mewEIc3w7rPJvYb43tsOUoXVY10
- VVmscWLy7I+ZCzGQlV8kx1pvTS6btiamraluKaj2YvhhUR
-X-Received: by 2002:a2e:be89:0:b0:394:2b8a:2348 with SMTP id
- 38308e7fff4ca-395ca644e5amr9678271fa.20.1779360221305; 
- Thu, 21 May 2026 03:43:41 -0700 (PDT)
+ AFNElJ8rmYC2UjpJIZ3yLjvqAKrh9upNbH7VXIRg66wyHLrdiWwaj3iJM4269BpA50xTE/ykcaLgrTUkTZo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzGH/AC1sisIJ05mwfVEdoFWVROzm8U/2ekxsYEX1QHT0cVjkSP
+ q2lJVhOKSi5342ugHsOgCVFnuflB5xWXjZZ79tVzKVreWvepS5x32QknQ3UgYkC7ewXFOkEl
+X-Gm-Gg: Acq92OFR1CpojFCEGK7SCtNc4Kkt4LJFytdb2B0S5fv9Yy45XjG3nb5vKYaDroKVJin
+ lOkmmQc21I8ApEyDVunVs/Jpx03Iem1XzkCEySUh7h3JWdwCLEgT+tXjIe7taWgblAjjq8cUq97
+ qynh5EaMZEWLkJL3iy4zClkHScD240nogeCV6AR/ZcJjFikxMcO4nP2K+CaioSjjiXEayxOytX8
+ nxfhD+IzuMQC4gEyJNlqtzsqpT1c05NOAO03e8RjTyy9RVitmo0WDvu9Ks4xKqxg9Tlr/L9ICEm
+ xLb9XUtpRJrhncZe+Kso2+9exd4NQ032EQdlCGkz14EBlndza8c77lYHlV+LkBDxq1DLYY5j+/Q
+ Xvl3E44v9cVIz5UJs7SFSatYDLxFT1EjyIoJo6WVOdApCE6HdezqF1k8bAAKADX0iL2EfYGQYKU
+ 1VIevshFTBHQzaAJQeo9+y+Ax0GrGYqWgDuE4LsXQLFWjQ
+X-Received: by 2002:ac2:46ea:0:b0:5a8:89ad:e172 with SMTP id
+ 2adb3069b0e04-5aa2ba9afecmr629800e87.37.1779360225752; 
+ Thu, 21 May 2026 03:43:45 -0700 (PDT)
 Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-395d0b49073sm1595611fa.31.2026.05.21.03.43.39
+ 38308e7fff4ca-395d0b49073sm1595611fa.31.2026.05.21.03.43.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 03:43:40 -0700 (PDT)
+ Thu, 21 May 2026 03:43:45 -0700 (PDT)
 From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
@@ -71,13 +71,14 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org,
  Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v4 0/2] drm/amdgpu: fix recursive ww_mutex in devcoredump IB
- dump
-Date: Thu, 21 May 2026 15:43:31 +0500
-Message-ID: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v4 2/2] drm/amdgpu: fix recursive ww_mutex acquire in
+ amdgpu_devcoredump_format
+Date: Thu, 21 May 2026 15:43:33 +0500
+Message-ID: <20260521104335.28978-3-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
+In-Reply-To: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
 References: <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
+ <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -96,82 +97,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series fixes a lockdep "possible recursive locking" splat in
-amdgpu_devcoredump_format() that fires on every GPU timeout once a job
-with a PASID context is involved. With amdgpu.gpu_recovery=0 the timeout
-handler refires every ~2 s, so the splat repeats until it drowns the
-kernel ring buffer. It is also a real self-deadlock for IB BOs that
-share their dma_resv with the root PD (the always-valid case).
- 
-The root cause: amdgpu_devcoredump_format() holds the VM root PD's
-reservation and then reserves each IB BO on top of it, nesting two
-reservation_ww_class_mutex acquires without a ww_acquire_ctx.
- 
-The fix teaches amdgpu_vm_lock_by_pasid() to lock the root PD in a
-drm_exec context, so the devcoredump path can lock the root PD and all
-the IB BOs together in one ww ticket. Because amdgpu_vm_lock_by_pasid()
-has a second caller in the page-fault path, the series is split so each
-patch builds and works on its own:
- 
-  1/2  Convert amdgpu_vm_lock_by_pasid() to take a drm_exec context and
-       lock the root PD with drm_exec_lock_obj(). The drm_exec context
-       holds the root BO reference, so the root output parameter is
-       dropped. Updates the existing caller, amdgpu_vm_handle_fault().
-       Pure refactor, no functional change to the page-fault path.
- 
-  2/2  Use the new signature in amdgpu_devcoredump_format(): lock the
-       root PD and every IB BO together in one drm_exec ticket. The
-       per-IB amdgpu_bo_reserve() nesting is gone, along with a BO
-       refcount leak on the old reserve-failure path. This is the
-       actual bug fix and carries the Fixes: tag.
- 
-Tested on Linux 7.1-rc4 + this series, Radeon RX 7900 XTX (gfx1100),
-KASAN + PROVE_LOCKING enabled, using a small libdrm_amdgpu reproducer
-that submits a GFX IB chained at GPU VA 0 and waits for the hang. Before
-the series the splat fires on every TDR; after it the dmesg is clean
-across repeated timeouts and the devcoredump output is unchanged.
- 
-v1: https://lore.kernel.org/amd-gfx/20260429143743.50743-1-mikhail.v.gavrilov@gmail.com/
-v2: https://lore.kernel.org/amd-gfx/20260519161541.19994-1-mikhail.v.gavrilov@gmail.com/
-v3: https://lore.kernel.org/amd-gfx/20260520151741.50575-1-mikhail.v.gavrilov@gmail.com/
- 
-Changes since v3:
-- Lock the root PD with drm_exec_lock_obj() instead of
-  amdgpu_vm_lock_pd(): the latter dereferences the VM pointer, which is
-  not yet re-validated at that point (Christian).
-- Drop the root output parameter of amdgpu_vm_lock_by_pasid() entirely;
-  the drm_exec context already holds a reference on the locked root BO,
-  so the extra reference and the parameter are unnecessary (Christian).
-- Unlock the root BO with drm_exec_unlock_obj() on the VM-recheck-failed
-  path (Christian).
-- amdgpu_vm_handle_fault() and amdgpu_devcoredump_format() updated for
-  the simplified signature; both lose their root variable.
-- Drops the v3 kernel-doc "*root" reference, which also resolves the
-  docutils "Inline emphasis start-string without end-string" warning
-  the kernel test robot reported against v3.
- 
-Changes since v2:
-- Reworked along the lines Christian suggested: amdgpu_vm_lock_by_pasid()
-  takes a drm_exec context directly (patch 1), and the devcoredump code
-  locks the root PD and all IB BOs in a single ticket (patch 2). The
-  amdgpu_devcoredump_ib_ref struct and the three collect/lock/release
-  helpers from v2 are gone.
- 
-Changes since v1:
-- Switched from per-IB amdgpu_bo_reserve() to drm_exec.
-- Dropped the Cc: stable tag: the regression only landed in 7.1-rc1, so
-  the fix reaches 7.1 via drm-fixes without a stable backport.
+When dumping IB contents from a hung job, amdgpu_devcoredump_format()
+acquired the VM root PD's reservation via amdgpu_vm_lock_by_pasid() and
+then, for each IB, called amdgpu_bo_reserve() on the BO backing the IB.
+Both reservations are reservation_ww_class_mutex objects and neither
+used a ww_acquire_ctx, which trips lockdep:
 
-Mikhail Gavrilov (2):
-  drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to drm_exec
-  drm/amdgpu: fix recursive ww_mutex acquire in
-    amdgpu_devcoredump_format
+  WARNING: possible recursive locking detected
+  --------------------------------------------
+  kworker/u128:0 is trying to acquire lock:
+  ffff88838b16e1f0 (reservation_ww_class_mutex){+.+.}-{4:4},
+    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
 
+  but task is already holding lock:
+  ffff8882f82681f0 (reservation_ww_class_mutex){+.+.}-{4:4},
+    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
+
+   Possible unsafe locking scenario:
+         CPU0
+         ----
+    lock(reservation_ww_class_mutex);
+    lock(reservation_ww_class_mutex);
+
+   *** DEADLOCK ***
+   May be due to missing lock nesting notation
+
+  Workqueue: events_unbound amdgpu_devcoredump_deferred_work [amdgpu]
+  Call Trace:
+   __ww_mutex_lock.constprop.0
+   ww_mutex_lock
+   amdgpu_bo_reserve
+   amdgpu_devcoredump_format+0x1594 [amdgpu]
+   amdgpu_devcoredump_deferred_work+0xea [amdgpu]
+
+The two reservations are on different BOs in the captured trace, so the
+splat is a lockdep-correctness warning, not an observed deadlock. It
+becomes a real self-deadlock whenever the IB BO shares its dma_resv with
+the root PD (the always-valid case, see amdgpu_vm_is_bo_always_valid()):
+amdgpu_bo_reserve(abo) re-acquires the same ww_mutex without a ticket
+and blocks forever.
+
+With amdgpu.gpu_recovery=0 the timeout handler refires every ~2 s and
+each invocation produces this splat, drowning the kernel ring buffer.
+
+Now that amdgpu_vm_lock_by_pasid() takes a drm_exec context, lock the
+root PD and every IB BO together in a single drm_exec ticket.
+DRM_EXEC_IGNORE_DUPLICATES handles IB BOs that share a dma_resv (e.g.
+always-valid BOs, or two IBs backed by the same BO). Every lock is now
+a top-level acquire under one ww_acquire_ctx, so the recursive ww_mutex
+condition is gone, and the per-IB amdgpu_bo_reserve()/amdgpu_bo_unref()
+dance -- including a BO refcount leak on the amdgpu_bo_reserve() failure
+path -- is removed.
+
+Reproducer (~150 LoC libdrm_amdgpu): submit a single GFX IB containing
+PACKET3_INDIRECT_BUFFER chained at GPU VA 0 and wait for the fence. The
+TDR fires within ~10 s and the deferred coredump worker produces the
+splat above on every invocation; with this change applied the splat is
+gone.
+
+Fixes: 7b15fc2d1f1a ("drm/amdgpu: dump job ibs in the devcoredump")
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 105 ++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  91 +++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   2 +-
- 3 files changed, 129 insertions(+), 69 deletions(-)
+ 1 file changed, 71 insertions(+), 34 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index d386bc775d03..456ea9911d48 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -24,6 +24,7 @@
+ 
+ #include <generated/utsrelease.h>
+ #include <linux/devcoredump.h>
++#include <drm/drm_exec.h>
+ #include "amdgpu_dev_coredump.h"
+ #include "atom.h"
+ 
+@@ -214,13 +215,9 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 	struct drm_printer p;
+ 	struct drm_print_iterator iter;
+ 	struct amdgpu_vm_fault_info *fault_info;
+-	struct amdgpu_bo_va_mapping *mapping;
+ 	struct amdgpu_ip_block *ip_block;
+ 	struct amdgpu_res_cursor cursor;
+-	struct amdgpu_bo *abo, *root;
+-	uint64_t va_start, offset;
+ 	struct amdgpu_ring *ring;
+-	struct amdgpu_vm *vm;
+ 	u32 *ib_content;
+ 	uint8_t *kptr;
+ 	int ver, i, j, r;
+@@ -343,43 +340,84 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
+ 
+ 	if (coredump->num_ibs) {
+-		/* Don't try to lookup the VM or map the BOs when calculating the
+-		 * size required to store the devcoredump.
++		struct amdgpu_bo_va_mapping *mapping;
++		struct amdgpu_bo *abo;
++		struct drm_exec exec;
++		struct amdgpu_vm *vm;
++		u64 va_start, offset;
++		bool locked = false;
++
++		/*
++		 * Lock the VM root PD and every IB BO together in a single
++		 * drm_exec ticket. Reserving the IB BOs one by one while the
++		 * root PD is held would be a recursive reservation_ww_class_mutex
++		 * acquire without a ww_acquire_ctx, which trips lockdep and
++		 * self-deadlocks for IB BOs that share their dma_resv with the
++		 * root PD (always-valid BOs).
++		 *
++		 * Skip locking entirely on the sizing pass: it does not write
++		 * IB content, so the size estimate doesn't depend on whether
++		 * the BOs are reachable.
+ 		 */
+-		if (sizing_pass)
+-			vm = NULL;
+-		else
+-			vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
++		if (!sizing_pass) {
++			drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES,
++				      1 + coredump->num_ibs);
++			drm_exec_until_all_locked(&exec) {
++				vm = amdgpu_vm_lock_by_pasid(adev, coredump->pasid,
++							     &exec);
++				drm_exec_retry_on_contention(&exec);
++				if (!vm)
++					break;
++
++				for (int i = 0; i < coredump->num_ibs; i++) {
++					u64 pfn;
++
++					va_start = coredump->ibs[i].gpu_addr &
++						   AMDGPU_GMC_HOLE_MASK;
++					pfn = va_start / AMDGPU_GPU_PAGE_SIZE;
++					mapping = amdgpu_vm_bo_lookup_mapping(vm, pfn);
++					if (!mapping)
++						continue;
++
++					abo = mapping->bo_va->base.bo;
++					r = drm_exec_lock_obj(&exec, &abo->tbo.base);
++					drm_exec_retry_on_contention(&exec);
++					if (r)
++						break;
++				}
++				if (r)
++					break;
++			}
++			if (vm && !r)
++				locked = true;
++			else
++				drm_exec_fini(&exec);
++		}
++
++		for (int i = 0; i < coredump->num_ibs; i++) {
++			bool emit_content = sizing_pass;
+ 
+-		for (int i = 0; i < coredump->num_ibs && (sizing_pass || vm); i++) {
+ 			ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
+ 						    GFP_KERNEL);
+ 			if (!ib_content)
+ 				continue;
+ 
+-			/* vm=NULL can only happen when 'sizing_pass' is true. Skip to the
+-			 * drm_printf() calls (ib_content doesn't need to be initialized
+-			 * as its content won't be written anywhere).
+-			 */
+-			if (!vm)
++			if (!locked)
+ 				goto output_ib_content;
+ 
+ 			va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
+ 			mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
+ 			if (!mapping)
+-				goto free_ib_content;
++				goto output_ib_content;
+ 
+-			offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
+-			abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
+-			r = amdgpu_bo_reserve(abo, false);
+-			if (r)
+-				goto free_ib_content;
++			abo = mapping->bo_va->base.bo;
++			offset = va_start - mapping->start * AMDGPU_GPU_PAGE_SIZE;
+ 
+ 			if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
+ 				off = 0;
+ 
+ 				if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
+-					goto unreserve_abo;
++					goto output_ib_content;
+ 
+ 				amdgpu_res_first(abo->tbo.resource, offset,
+ 						 coredump->ibs[i].ib_size_dw * 4,
+@@ -391,12 +429,13 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 					off += cursor.size;
+ 					amdgpu_res_next(&cursor, cursor.size);
+ 				}
++				emit_content = true;
+ 			} else {
+ 				r = ttm_bo_kmap(&abo->tbo, 0,
+ 						PFN_UP(abo->tbo.base.size),
+ 						&abo->kmap);
+ 				if (r)
+-					goto unreserve_abo;
++					goto output_ib_content;
+ 
+ 				kptr = amdgpu_bo_kptr(abo);
+ 				kptr += offset;
+@@ -404,23 +443,21 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 				       coredump->ibs[i].ib_size_dw * 4);
+ 
+ 				amdgpu_bo_kunmap(abo);
++				emit_content = true;
+ 			}
+ 
+ output_ib_content:
+ 			drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
+ 				   i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
+-			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
+-				drm_printf(&p, "0x%08x\n", ib_content[j]);
+-unreserve_abo:
+-			if (vm)
+-				amdgpu_bo_unreserve(abo);
+-free_ib_content:
++			if (emit_content) {
++				for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
++					drm_printf(&p, "0x%08x\n", ib_content[j]);
++			}
+ 			kvfree(ib_content);
+ 		}
+-		if (vm) {
+-			amdgpu_bo_unreserve(root);
+-			amdgpu_bo_unref(&root);
+-		}
++
++		if (locked)
++			drm_exec_fini(&exec);
+ 	}
+ 
+ 	return count - iter.remain;
 -- 
 2.54.0
 
