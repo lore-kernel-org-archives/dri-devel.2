@@ -4,75 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9CD2CD4F3C
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:47:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1716FCD4F3C
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:52:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1688C10E116;
-	Thu, 21 May 2026 07:47:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6876610F23B;
+	Thu, 21 May 2026 07:52:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lnVHFdnu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VY9uYzHG";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01E8610E116;
- Thu, 21 May 2026 07:47:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F84310F23B
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:52:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 07E6160172;
- Thu, 21 May 2026 07:47:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16D8C1F00A3B;
- Thu, 21 May 2026 07:47:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 79B3460172;
+ Thu, 21 May 2026 07:52:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA61A1F000E9;
+ Thu, 21 May 2026 07:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779349652;
- bh=UczfSrk2FCod7H4rifpa1n/f+nsCfH/NDhquQgw9qmA=;
+ s=k20260515; t=1779349964;
+ bh=99oskG8ubBjeKtd2Yc7IdU7MjYpfc9O1o+mlnd5bJ64=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=lnVHFdnu4MxoKkNgwK7y8HGU3d4DYUs+ji4ZleQUFnc7lWrFEDHl1CvxyDjdXpvgT
- HlnlNlFw1CQJGU4CFlK9lKXlg2BKtXCogvJzTjYP7G3AAFoqpOzNAKV5fMtUdbFfBX
- nhAmOBBIl9WhjiX3HqlhL1J0mtoa1LPqB1stBsH9a1oNOXiK09uHryvqmCGyaZHGUp
- HxYt8eE2J1iTPLWK8onPq+B79CD00dCDAvTCQEsUzlmt28kAk9Tk82+RogLNXDjd1s
- BdKNotWIoG5SDfjfSx8/ZcBPmf/kArJ294dCiuHk4Z9UdDQdIRaH/dsTGUrYdG1RLG
- +ccFkeS4sY5Rg==
-Date: Thu, 21 May 2026 09:47:29 +0200
+ b=VY9uYzHGIt/BsHyCKP9I1NqWgX9O4iTlWhh2Rp9yo3C4d9f7BE3dbELq/xo24h8UF
+ ZdkprFalox6G3NFRy2H9iccPb2+XRJvsHF+Eswz7k8ySSbB2nibIGi6bjEEuuYFUDI
+ AJvUKOJ6RW3AIMn88VPG2ObB4uI6YYwrSKx/YLVVRIbKXyLoJShJt9i2xJyPsIfe7j
+ wyowEfKbTWlInSw2RqinKKXH8wDSDqwQ5w+mQU2UjhA0exLlbI9qbQDRHzGZujyV+1
+ wMrQo6RvEc4IsehY0JtUOuMGjHNLyl2PvipzKCMKpdw6IoFQeewU/WcbUUuH/UF5Fh
+ Nocb94U9AVTmA==
+Date: Thu, 21 May 2026 09:52:41 +0200
 From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, 
  Jernej Skrabec <jernej.skrabec@gmail.com>,
- Adrien Grassein <adrien.grassein@gmail.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Pengyu Luo <mitltlatltl@gmail.com>, Nikita Travkin <nikita@trvn.ru>, 
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, 
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH RESEND v3 1/6] drm/connector: report IRQ_HPD events to
- drm_connector_oob_hotplug_event()
-Message-ID: <20260521-funny-astonishing-mackerel-cc5a01@penduick>
-References: <20260513-hpd-irq-events-v3-0-086857017f16@oss.qualcomm.com>
- <20260513-hpd-irq-events-v3-1-086857017f16@oss.qualcomm.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Daniel Stone <daniels@collabora.com>,
+ kernel@collabora.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v6 02/22] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
+Message-ID: <20260521-sweet-devout-panther-44d73c@penduick>
+References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
+ <20260520-dw-hdmi-qp-scramb-v6-2-24b74603b782@collabora.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="uipgpe3pv2bnp7vq"
+ protocol="application/pgp-signature"; boundary="7urdiivgg5qj3q55"
 Content-Disposition: inline
-In-Reply-To: <20260513-hpd-irq-events-v3-1-086857017f16@oss.qualcomm.com>
+In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-2-24b74603b782@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,98 +73,173 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---uipgpe3pv2bnp7vq
+--7urdiivgg5qj3q55
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RESEND v3 1/6] drm/connector: report IRQ_HPD events to
- drm_connector_oob_hotplug_event()
+Subject: Re: [PATCH v6 02/22] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
 MIME-Version: 1.0
 
-On Wed, May 13, 2026 at 09:23:21PM +0300, Dmitry Baryshkov wrote:
-> The DisplayPort standard defines a special kind of events called IRQ.
-> These events are used to notify DP Source about the events on the Sink
-> side. It is extremely important for DP MST handling, where the MST
-> events are reported through this IRQ.
+Hi,
+
+Thanks for working on this!
+
+On Wed, May 20, 2026 at 09:38:13PM +0300, Cristian Ciocaltea wrote:
+> Add the connector-level infrastructure to support HDMI 2.0 scrambling:
 >=20
-> In case of the USB-C DP AltMode there is no actual HPD pulse, but the
-> events are ported through the bits in the AltMode VDOs.
+> - .scrambler_src_{enable|disable}() callbacks in
+>   drm_connector_hdmi_funcs for source-side scrambling control
+> - A delayed work item (scdc_work) with an associated callback (scdc_cb)
+>   for periodic monitoring of sink-side scrambling status
+> - A scrambler_enabled flag to track whether scrambling is currently
+>   active
 >=20
-> Extend the drm_connector_oob_hotplug_event() interface and report IRQ
-> events to the DisplayPort Sink drivers.
+> These are intended to be used by SCDC scrambling helpers to coordinate
+> scrambling setup and teardown between the source driver and the DRM
+> core.
 >=20
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 > ---
->  drivers/gpu/drm/drm_connector.c          |  5 ++++-
->  drivers/usb/typec/altmodes/displayport.c | 15 +++++++++++----
->  include/drm/drm_connector.h              | 19 ++++++++++++++++++-
->  3 files changed, 33 insertions(+), 6 deletions(-)
->=20
+>  drivers/gpu/drm/drm_connector.c | 14 +++++++++++
+>  include/drm/drm_connector.h     | 52 +++++++++++++++++++++++++++++++++++=
+++++++
+>  2 files changed, 66 insertions(+)
+
+So we would need kunit tests for this.
+
 > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
 tor.c
-> index 47dc53c4a738..edee9daccd51 100644
+> index 3fa4d2082cd7..91e58362fbc0 100644
 > --- a/drivers/gpu/drm/drm_connector.c
 > +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -3510,6 +3510,8 @@ struct drm_connector *drm_connector_find_by_fwnode(=
-struct fwnode_handle *fwnode)
->   * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to=
- connector
->   * @connector_fwnode: fwnode_handle to report the event on
->   * @status: hot plug detect logical state
-> + * @extra_status: additional information provided by the sink without ch=
-anging
-> + * the HPD state (or in addition to such a change).
->   *
->   * On some hardware a hotplug event notification may come from outside t=
-he display
->   * driver / device. An example of this is some USB Type-C setups where t=
-he hardware
-> @@ -3520,7 +3522,8 @@ struct drm_connector *drm_connector_find_by_fwnode(=
-struct fwnode_handle *fwnode)
->   * a drm_connector reference through calling drm_connector_find_by_fwnod=
-e().
->   */
->  void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwn=
-ode,
-> -				     enum drm_connector_status status)
-> +				     enum drm_connector_status status,
-> +				     enum drm_connector_status_extra extra_status)
->  {
->  	struct drm_connector *connector;
+> @@ -220,6 +220,19 @@ void drm_connector_free_work_fn(struct work_struct *=
+work)
+>  	}
+>  }
 > =20
-> diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec=
-/altmodes/displayport.c
-> index 35d9c3086990..7182a8e2e710 100644
-> --- a/drivers/usb/typec/altmodes/displayport.c
-> +++ b/drivers/usb/typec/altmodes/displayport.c
-> @@ -189,7 +189,9 @@ static int dp_altmode_status_update(struct dp_altmode=
- *dp)
->  	} else {
->  		drm_connector_oob_hotplug_event(dp->connector_fwnode,
->  						hpd ? connector_status_connected :
-> -						      connector_status_disconnected);
-> +						      connector_status_disconnected,
-> +						(hpd && irq_hpd) ? DRM_CONNECTOR_DP_IRQ_HPD :
-> +								   DRM_CONNECTOR_NO_EXTRA_STATUS);
+> +static void drm_connector_hdmi_scdc_work(struct work_struct *work)
+> +{
+> +	struct drm_connector *connector;
+> +	struct drm_connector_hdmi *hdmi;
+> +
+> +	hdmi =3D container_of(to_delayed_work(work), struct drm_connector_hdmi,
+> +			    scdc_work);
+> +	connector =3D container_of(hdmi, struct drm_connector, hdmi);
+> +
+> +	if (hdmi->scdc_cb)
+> +		hdmi->scdc_cb(connector);
+> +}
+> +
+>  static int drm_connector_init_only(struct drm_device *dev,
+>  				   struct drm_connector *connector,
+>  				   const struct drm_connector_funcs *funcs,
+> @@ -285,6 +298,7 @@ static int drm_connector_init_only(struct drm_device =
+*dev,
+>  	mutex_init(&connector->edid_override_mutex);
+>  	mutex_init(&connector->hdmi.infoframes.lock);
+>  	mutex_init(&connector->hdmi_audio.lock);
+> +	INIT_DELAYED_WORK(&connector->hdmi.scdc_work, drm_connector_hdmi_scdc_w=
+ork);
+>  	connector->edid_blob_ptr =3D NULL;
+>  	connector->epoch_counter =3D 0;
+>  	connector->tile_blob_ptr =3D NULL;
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 5ad62c207d00..49eaa30b1329 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -28,6 +28,7 @@
+>  #include <linux/ctype.h>
+>  #include <linux/hdmi.h>
+>  #include <linux/notifier.h>
+> +#include <linux/workqueue.h>
+>  #include <drm/drm_mode_object.h>
+>  #include <drm/drm_util.h>
+>  #include <drm/drm_property.h>
+> @@ -1358,6 +1359,36 @@ struct drm_connector_hdmi_funcs {
+>  	 */
+>  	const struct drm_edid *(*read_edid)(struct drm_connector *connector);
+> =20
+> +	/**
+> +	 * @scrambler_src_enable:
+> +	 *
+> +	 * This callback is invoked through @drm_scdc_start_scrambling during
+> +	 * a commit to setup SCDC scrambling and high TMDS clock ratio on
+> +	 * source side.
+> +	 *
+> +	 * The @scrambler_src_enable callback is mandatory if HDMI 2.0 is
+> +	 * to be supported.
+> +	 *
+> +	 * Returns:
+> +	 * 0 on success, a negative error code otherwise
+> +	 */
+> +	int (*scrambler_src_enable)(struct drm_connector *connector);
+> +
+> +	/**
+> +	 * @scrambler_src_disable:
+> +	 *
+> +	 * This callback is invoked through @drm_scdc_stop_scrambling during
+> +	 * a commit to disable SCDC scrambling and high TMDS clock ratio on
+> +	 * source side.
+> +	 *
+> +	 * The @scrambler_src_disable callback is mandatory if HDMI 2.0 is
+> +	 * to be supported.
+> +	 *
+> +	 * Returns:
+> +	 * 0 on success, a negative error code otherwise
+> +	 */
+> +	int (*scrambler_src_disable)(struct drm_connector *connector);
+> +
+>  	/**
+>  	 * @avi:
+>  	 *
+> @@ -1944,6 +1975,27 @@ struct drm_connector_hdmi {
+>  	 */
+>  	unsigned long supported_formats;
+> =20
+> +	/**
+> +	 * @scrambler_enabled: Tracks whether HDMI 2.0 scrambler is currently e=
+nabled.
+> +	 */
+> +	bool scrambler_enabled;
+> +
+> +	/**
+> +	 * @scdc_work: Work item currently used to monitor sink-side scrambling
+> +	 * status and retry setup if the sink resets it.
+> +	 */
+> +	struct delayed_work scdc_work;
+> +
+> +	/** @scdc_cb: Callback to be invoked as part of @scdc_work.
+> +	 *
+> +	 * Currently used to monitor sink-side scrambling status and retry
+> +	 * setup if the sink resets it.
+> +	 *
+> +	 * This is assigned by the framework when making use of
+> +	 * drm_scdc_start_scrambling() helper.
+> +	 */
+> +	void (*scdc_cb)(struct drm_connector *connector);
+> +
 
-Since the extra status itself, and what the options mean, are DP specific, =
-do we really want to
-extend drm_connector_oob_hotplug_event()? I think I'd prefer to have a DP s=
-pecific variant, with its
-own set of parameters.
+I'm really not sure what the monitor thing is about. If we have setup
+the scrambler at enable time, and we set it again on hotplugging, why
+would we need to monitor anything?
+
+Also, scrambling is only relevant for HDMI 2.0. We need a way to expose
+that somehow and make sure that HDMI 2.0 drivers actually have
+scrambling setup.
 
 Maxime
 
---uipgpe3pv2bnp7vq
+--7urdiivgg5qj3q55
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCag64iQAKCRAnX84Zoj2+
-dhJzAYClCMH5nftN7lNJDSZByXRPwo/xO31PTF3adTcKyfMtvVmon8CIoheOgyRx
-VwxpLvMBf0dr9uwFTrG2lPtQTFNmHOzXDF1ujEGuM3hWzigGtwt7xylrgcMlpE1b
-f9c6Uo1BbQ==
-=SGa3
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCag65yQAKCRAnX84Zoj2+
+dll/AX9tG3cFDmLeklMW+rTi4SvWHROIptUKpuz9LyW39s751r/XlVPbiMZzGzln
+wOcOdVgBgOFZq4n9DJJiQB+RNsx5GUFvhIPAEhol5wo1K6QtdXFp5MVvpk7rmgb8
+wlbWVhy0VA==
+=R3rI
 -----END PGP SIGNATURE-----
 
---uipgpe3pv2bnp7vq--
+--7urdiivgg5qj3q55--
