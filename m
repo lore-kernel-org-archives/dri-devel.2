@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BD45CD5BAC
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:53:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80BE3CD4F5E
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:53:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD72C10F24A;
-	Thu, 21 May 2026 07:53:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7C3610F24D;
+	Thu, 21 May 2026 07:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="pDWkfj9q";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="FWlSCKvu";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E57510F23C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A57A10F23C
  for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:52:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id EC5EE445E2;
- Thu, 21 May 2026 07:52:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C437AC4AF0F;
+ by sea.source.kernel.org (Postfix) with ESMTP id 064ED445F2;
+ Thu, 21 May 2026 07:52:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D5E8AC2BCB7;
  Thu, 21 May 2026 07:52:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1779349977; bh=ZLZg3IepeQ/FIWdBo7ULWIJqtzCz5tUnDaQV8pb6xjo=;
+ t=1779349977; bh=IhDcgM1opHQeEW8Lhx3ILcfCCuQubakT0ILbtE8LP9Q=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=pDWkfj9qzfufJelx4OK0KKcWNMMIuB1wexLtWA8zNVjVn+c5Chit3trh2ke8ypAXw
- bn7rSFJ9WjkGiQQNqUN1VAQ6eV8xPGxyrYGsCe/SOWrvjf5ia5QtVZa9H/20C3TrTo
- 6BYr/vjzzz1mO3NbW+QjYJRkfbg4xsgTwcVsTPhI=
+ b=FWlSCKvuJDPYLkC44Cysam4hJdbuocMZqt0GTqvStv4m70h6C+/l2VxwuRc99cOm7
+ VHC8kj2kO3xDN/ZulFll8h49EDtg+6b+uyq6HwoQEso3Ns7w4/kvQs94iQbncwDjV5
+ 1TRWsfVD3awlJNY6A4M4bWvwOinxzxe5dIk+8ATY=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id B7B4CCD5BAC;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id CA8D5CD4F3C;
  Thu, 21 May 2026 07:52:57 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Thu, 21 May 2026 15:52:57 +0800
-Subject: [PATCH v2 5/7] rust: miscdevice: set fops.owner from driver module
- pointer
+Date: Thu, 21 May 2026 15:52:58 +0800
+Subject: [PATCH v2 6/7] rust: configfs: use `LocalModule` for `THIS_MODULE`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-fix-fops-owner-v2-5-fd99079c5a04@linux.dev>
+Message-Id: <20260521-fix-fops-owner-v2-6-fd99079c5a04@linux.dev>
 References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
 In-Reply-To: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -61,11 +60,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
  Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779349975; l=845;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779349975; l=1996;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=ZLZg3IepeQ/FIWdBo7ULWIJqtzCz5tUnDaQV8pb6xjo=;
- b=ZPcQW+ke2M5roVi8hqjSu2tTV/KUO5SrxqOBAl4HnOX0EguwitDtpC+1e+TOpKDo8ODRgHXl6
- 2TlCA91puNbAnSKac6TUK9BwTyx90qtpGPx93nCS4GVpkfpiQPIHcmg
+ bh=IhDcgM1opHQeEW8Lhx3ILcfCCuQubakT0ILbtE8LP9Q=;
+ b=xu7fCCb/X5SIsHPhPGu9B415jM0ngv4cFvYDJedOxZLgAglNfbavmx+H5SJ/7zGEINxd+Txdg
+ uO3ilrLZMqRDD0SOxi9FUK+DUTpUcvFD0DSJIdqnk3/NIwKv7PrqhdA
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -85,34 +84,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Set the miscdevice fops owner field from the driver module pointer
-via `<T::ThisModule as ModuleMetadata>::THIS_MODULE`, instead of
-defaulting to null.
+Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
+macro with `<LocalModule as ModuleMetadata>::THIS_MODULE`, consistent
+with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/kernel/miscdevice.rs | 2 ++
- 1 file changed, 2 insertions(+)
+ rust/kernel/configfs.rs | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/rust/kernel/miscdevice.rs b/rust/kernel/miscdevice.rs
-index 83ce50def5ac9..16837c46bca49 100644
---- a/rust/kernel/miscdevice.rs
-+++ b/rust/kernel/miscdevice.rs
-@@ -30,6 +30,7 @@
-         ForeignOwnable,
-         Opaque, //
-     },
-+    ModuleMetadata, //
- };
- use core::marker::PhantomData;
+diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
+index 2339c6467325d..cc60297f11551 100644
+--- a/rust/kernel/configfs.rs
++++ b/rust/kernel/configfs.rs
+@@ -875,7 +875,7 @@ fn as_ptr(&self) -> *const bindings::config_item_type {
+ ///                 configfs::Subsystem<Configuration>,
+ ///                 Configuration
+ ///                 >::new_with_child_ctor::<N,Child>(
+-///             &THIS_MODULE,
++///             &<LocalModule as ::kernel::ModuleMetadata>::THIS_MODULE,
+ ///             &CONFIGURATION_ATTRS
+ ///         );
+ ///
+@@ -1021,7 +1021,8 @@ macro_rules! configfs_attrs {
  
-@@ -430,6 +431,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
-         } else {
-             None
-         },
-+        owner: <T::ThisModule as ModuleMetadata>::THIS_MODULE.as_ptr(),
-         ..pin_init::zeroed()
-     };
+                     static [< $data:upper _TPE >] : $crate::configfs::ItemType<$container, $data>  =
+                         $crate::configfs::ItemType::<$container, $data>::new::<N>(
+-                            &THIS_MODULE, &[<$ data:upper _ATTRS >]
++                            &<LocalModule as ::kernel::ModuleMetadata>::THIS_MODULE,
++                            &[<$ data:upper _ATTRS >]
+                         );
+                 )?
+ 
+@@ -1030,7 +1031,8 @@ macro_rules! configfs_attrs {
+                         $crate::configfs::ItemType<$container, $data>  =
+                             $crate::configfs::ItemType::<$container, $data>::
+                             new_with_child_ctor::<N, $child>(
+-                                &THIS_MODULE, &[<$ data:upper _ATTRS >]
++                                &<LocalModule as ::kernel::ModuleMetadata>::THIS_MODULE,
++                                &[<$ data:upper _ATTRS >]
+                             );
+                 )?
  
 
 -- 
