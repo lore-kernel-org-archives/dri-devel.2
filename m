@@ -4,73 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DE6BCD5BAC
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 14:46:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC42FCD4F3D
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 14:46:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C986510F35F;
-	Thu, 21 May 2026 14:46:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23C8210E1B2;
+	Thu, 21 May 2026 14:46:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yUwkDl6H";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CEEymA5K";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8442510F369
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 14:46:39 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-368f25ff4c4so3284224a91.2
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:46:39 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21A7A10F349
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 14:46:52 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-365eecc5885so5686641a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:46:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1779374799; x=1779979599; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=MYcMfa9UmKpbrcq2eKdzXRn9iD3DzK0oC+yU6GOGJbQ=;
- b=yUwkDl6HOIWoMw6upUWrtpygT2FUYWdVhOtnpaPRyWPQS/2uVCDAxRFuibMH21kx2s
- vnwidJXtRurhYwFJc5Ln0oRIyHUeH9JSMIRY9rBrH4xDuOcicXjZ0H1mTUbKbGvnIEuo
- rPwV07jhQADxssL2Uks7imp2r0iF0IzistJnMeqwS07gnaXh3h1soZ2eIokILsKm5oDs
- zmDqpeq7JBKZGiohHv/RBl/NS9mB1EbuUcXDsqLI4RgvoU9tonRRLbj+HKgRcKBTGUEx
- yG5XTwihBUs7uBuwxdOW6+L79SZJ3ZPsnbUXvZJ/+X6KDCF3RdLcdmbtrE3u1BG2A7AO
- UayA==
+ d=linaro.org; s=google; t=1779374812; x=1779979612; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=Asp0zRkS+UgWcG9vl0amstXfnHnSp8pf6SKHURGIe3E=;
+ b=CEEymA5KxeLYW3FgnkmqZrKhepUTLjmnyBzCrLALE55b8COT5DxGGBPlvkJtqiaF7z
+ AkbltNsjybf4wWo3FMPTCo+IjJRtRcIxw++5FUuJ1UDbhdbk+PohndS9UqmY4IVfoRuA
+ bLUpqjUC6r1w6h9dmxlo//rRXJXvA9kSTjxjy2Dr7tkhNRV9dUli/lrb6WjwrOQrRIKv
+ uA1mdUmYPb5DXmPbPPs/HOXCDmzbukIcYKYdaBg33uzVwgKjdYeiBQBYdV6PHpQXNASO
+ Qkr7f3y3K/XMgDAGn0sYDfgYErC1a/zv4WWjzzxQ38Yq4MMwj/fL8CPF78m2YkDKyw7H
+ tPyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779374799; x=1779979599;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MYcMfa9UmKpbrcq2eKdzXRn9iD3DzK0oC+yU6GOGJbQ=;
- b=XuDd42aIfj3YdlFXE+L4rVi5oi4eporcRQq2Ge9iVznauooZ7YOhzkjDZf/7QDitcJ
- 7LhlCVlLfDXQ5C1MohJ/RA5qK4d+SMWR3Tq7Wc56+dMDqt/hGkbKYmI8CX9g4pI3KxDO
- ksL3Bn2CfA1pp8HdwnYrR2Cj6DVnOJhIDSSZeIdCOh6Pp5yZ941rK9/gPanYNw+1+vRB
- Fz4uRACPX1l0QTvV0lF3HEG4EvXTLZIHO2iI4Nmhe2Q8BrJ1TCRVLSgoNKaBDqhMwCL0
- HiFT8K54et46/jeGw+gcC5FFAonwED68+SLKRhk2ZaQ6RnnZr8NZKgHUT/RqszmpWQdv
- MuMQ==
+ d=1e100.net; s=20251104; t=1779374812; x=1779979612;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=Asp0zRkS+UgWcG9vl0amstXfnHnSp8pf6SKHURGIe3E=;
+ b=FSYiElTtnXhp+8x8vEaDnHJTWrysrYfx9ESJXc4w5BGrgfLFkvMkleoFiDBo2vqpac
+ oJx+CM2Z+WAcogs6+f/l1e+trI3GS76yLpfYQ5WXEmzbfl1/Ckm7nCzB2zG80euKAutR
+ 2huNYs6VqsE4U/OEj5w+UjnBsCVJydsct+Nmrq+b00xKtFS/PQQvpT5A+jrkIUvphrxq
+ X27b/Yjy84IwSrsyGdh5u/7HrU/1KNe2BM9lFsMRHj7izh9poMy/W0dNG4PVH2CqL1Z2
+ PVLm0VAc6jJ2qxY7PZ1aMvO9qiRXyXVF154aBEsoqXV4kbmsVraQX3pqQzJUlYnx1aAM
+ g/zg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/AkLvrmwYz7u+7V+qSgDXQuCoKUEt4WucNqZZ3osZ7hCJ9A2IU9fDeDAv88GYP83zM3wD53TxhMnQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz/x2/p85XVk1ZJOzdhgGZ9YtYVlIfAcgkfXWe3hMzUQjFEZ5cK
- 4M38F5RHQi6zg2bD5/HvilD6yTyZLsPxl5JXPnl7ZsUOOxAHbaJRLnMdRlcJiETIOqU=
-X-Gm-Gg: Acq92OHERs7TB6dMrGXyEMzYVb2uP2iH47p7dOiLnsgxKHUo2k2DFtM0zXisrP0Dw7z
- r3rmKrzK6j1QAf6cI3NA0mflR2bmT8cKdnGQNeifh2c+5cTXXg0qgQb0esP+UlZiqFXFAYH7tMe
- R6+9WuaQWKI0oJMv+3crImr7+DlDdF3OjK4S+2AE1OHiorZ1SUV4N4VIuWirKCDv07C2aCfe0Kt
- UhJadt+7QS7elsHcZ27FuVBWrQNqpyebSZu4PuZpyBJ7DRVm8QfkukgSlzzggLi7+Y2t28X1lR7
- tQRPl8ny1P4xkYYhpTc39BZeZE82mId4BX5ax3KNLiRTAqZVoXpT0dOD0cGT0ZU61ISmkECqc/H
- W4SyR0zehauyE+UM9klqPeKMq9LCpr35xdN6f4h8ky3ZQqETYQDa+cdAlbWihM45J9nFvJlUgwH
- zcYN9e
-X-Received: by 2002:a17:90b:578e:b0:368:6a6e:94dd with SMTP id
- 98e67ed59e1d1-36a4577cf96mr3442038a91.24.1779374798897; 
- Thu, 21 May 2026 07:46:38 -0700 (PDT)
+ AFNElJ8Q2+tJmTUsyBo4ua6wRkw4AJzZccFJkrLcMGFa8XBpsNRFbtwoTasR2YVbDCvycRGYH9XYSY76ulY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwR26oiEp3aX+L4+597EVSGygRUDi60nrxQSmw4tnZ9bmSOJCRr
+ 9Jnfk3oJe0hKRNzwiNtTbMH8ejgBQTE9dy/uwSLsw0D+ywpQ/HB1ExCvM+bkVSsipw0=
+X-Gm-Gg: Acq92OG7tRZZ8laoC1oZ0yQy6mCmgsTkvXAZgEMFgR2Do8SZRa6CBllg/otcdA/Jb9U
+ 5L6iwLTMqvDeYRG49XlZYTamQ/nQ37JUVHTC/hg4zl6yQEkGXJdFVIlU24K4xfytywX3e81ZrFt
+ vqfJUccyHKKNzja64riI0uecIvKrmK+MXZbv/GxaB9ChVYt3UtgEkAc04/9IhSZEw7DcXMJqNoZ
+ 5dmLPBkpUqcwjDH8loGAM/dhBxW7pJrWdEkXSuwrS9fI4bV/QT9HqqqT9Tc4gEuGQBgtX8bX1mw
+ 0cY3TD/eC/W2yhWU0Nqwba8eAJwHmFQ6ehcsyv7UI4H+LzuXQRKDfbOisOnIz5g1V2/xg+7p8rO
+ o42DMrGKiwODM+JEBEQU0IuduERtbVChbEmg8GsnZuHwPeXb9Ab9Xce4GuhNMKLhih0Fmzw==
+X-Received: by 2002:a17:90b:4d90:b0:369:a359:b192 with SMTP id
+ 98e67ed59e1d1-36a45182255mr3160061a91.10.1779374811479; 
+ Thu, 21 May 2026 07:46:51 -0700 (PDT)
 Received: from [127.0.1.1] ([2a11:3:200::109e])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36a5bff3ef3sm476527a91.4.2026.05.21.07.46.25
+ 98e67ed59e1d1-36a5bff3ef3sm476527a91.4.2026.05.21.07.46.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 07:46:38 -0700 (PDT)
+ Thu, 21 May 2026 07:46:51 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Subject: [PATCH v4 0/5] Add support to 2 panels in bonded-DSI mode
-Date: Thu, 21 May 2026 22:46:02 +0800
-Message-Id: <20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org>
+Date: Thu, 21 May 2026 22:46:03 +0800
+Subject: [PATCH v4 1/5] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKoaD2oC/x3MQQqEMAxA0atI1gZqmTYyVxEXOknHLKxDAyIU7
- 26Z5Vv8X8GkqBi8uwpFTjU9csOr7+CzLfkrqNwM3vnogh/Q9jEGh4QDrkdmYWRTpIU4rORSHAl
- a+yuS9Pp/p/m+HxErmS1nAAAA
+Message-Id: <20260521-sm8650-7-1-bonded-dsi-v4-1-a4dd5e0850f1@linaro.org>
+References: <20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org>
+In-Reply-To: <20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
@@ -88,11 +87,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, Jun Nie <jun.nie@linaro.org>, 
  Jonathan Marek <jonathan@marek.ca>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779374785; l=2436;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779374785; l=3578;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=9/4X222Ffhg6qxLQzzfx1T7bWcnktGM6AwovaxbqqjY=;
- b=/WKxz3iXOXS5uf1GNcLWawLpDSfY6swFLXN24AUeDm+crBP+skomIhxxoU8jLwoiGj3q7hP1k
- OgvdCnEyzLnB6puoNidZaS2wb/hzD24i+mXd4X9wALv1DEvag78eMwX
+ bh=aKBFRzOSRxcJ4Txy7/kSLmugaeZPSeJFq/bdVBQc+E4=;
+ b=Wb/XYoQvQLih10uVNXcXtJ4LZNf+eFEbM7cw4pN8fli1pFCMy5LBN6yWHkEoV97Q5lKtduYI9
+ X6o8VEoodRuCd5YUgeeZytLQm70SuYHzEPnrd/eeA/zt2jfLHQfajIa
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -110,57 +109,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The 2 DSI interfaces may be connected to 2 independent panels in bonded-DSI
-mode. Horizontal timing and DSC configuration are adjusted per individual
-panel in DSI host side. Support to multiple slice per packet is added for
-the device setup to test the usage case. A panel driver is included as an
-use case example.
+Some panels require multiple slice to be sent in a single DSC packet. And
+this feature is a must for specific panels, such as Sharp ls026b3sa06. Add
+a dsc_slice_per_pkt member into struct drm_dsc_config and support the
+feature in msm mdss driver.
 
-Changes vs v3:
-- A panel driver is added as an use case example.
-- Move dsc_slice_per_pkt to struct drm_dsc_config.
-- Polish commit messages.
-- Link to v3: https://lore.kernel.org/all/20250924-dsi-dual-panel-upstream-v3-0-6927284f1098@linaro.org
-
-Changes vs v2:
-- Polish commit message to describe usage case and requirements to
-  panel driver.
-- Remove changes in device tree and add dual_panel flag in mipi_dsi_device
-  to pass information from panel to dsi host.
-- Drop the register programming to DSI_VBIF_CTRL, as no issue is seen
-  in latest test.
-- Link to v2: https://lore.kernel.org/r/20250220-dual-dsi-v2-0-6c0038d5a2ef@linaro.org
-
-Change vs v1:
-- Add device tree binding for dual panel case in handling frame width for
-  DSC to avoid breaking existing dual-DSI case.
-- Leverage Marijn's patch to configure proper slice per interface in
-  dsi_update_dsc_timing().
-- Polish commit comments.
-- Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org/
-
+Co-developed-by: Jonathan Marek <jonathan@marek.ca>
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
-Jun Nie (5):
-      drm/msm/dsi: support DSC configurations with slice_per_pkt > 1
-      drm/mipi-dsi: Add flag to support dual-panel configurations
-      drm/msm/dsi: Support dual panel use case with single CRTC
-      dt-bindings: display: Add Synaptics R63455 panel support
-      drm/panel: Add driver for Synaptics R63455 DSI panel
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 23 ++++++++---------------
+ include/drm/display/drm_dsc.h      |  7 +++++++
+ 2 files changed, 15 insertions(+), 15 deletions(-)
 
- .../bindings/display/panel/synaptics,r63455.yaml   | 125 ++++
- drivers/gpu/drm/msm/dsi/dsi_host.c                 |  33 +-
- drivers/gpu/drm/panel/Kconfig                      |   9 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-synaptics-r63455.c     | 631 +++++++++++++++++++++
- include/drm/display/drm_dsc.h                      |   7 +
- include/drm/drm_mipi_dsi.h                         |   2 +
- 7 files changed, 792 insertions(+), 16 deletions(-)
----
-base-commit: 6654f8f33aa6229a90d4401519a62a2bf96cb851
-change-id: 20260521-sm8650-7-1-bonded-dsi-7a7d5b70f687
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 53ff23f4f68ab..d14b6e41dcd90 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -166,6 +166,7 @@ struct msm_dsi_host {
+ 
+ 	struct drm_display_mode *mode;
+ 	struct drm_dsc_config *dsc;
++	unsigned int dsc_slice_per_pkt;
+ 
+ 	/* connected device info */
+ 	unsigned int channel;
+@@ -938,17 +939,10 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ 	slice_per_intf = dsc->slice_count;
+ 
+ 	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
+-	bytes_per_pkt = dsc->slice_chunk_size; /* * slice_per_pkt; */
++	bytes_per_pkt = dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt;
+ 
+ 	eol_byte_num = total_bytes_per_intf % 3;
+-
+-	/*
+-	 * Typically, pkt_per_line = slice_per_intf * slice_per_pkt.
+-	 *
+-	 * Since the current driver only supports slice_per_pkt = 1,
+-	 * pkt_per_line will be equal to slice per intf for now.
+-	 */
+-	pkt_per_line = slice_per_intf;
++	pkt_per_line = slice_per_intf / msm_host->dsc_slice_per_pkt;
+ 
+ 	if (is_cmd_mode) /* packet data type */
+ 		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
+@@ -1104,12 +1098,8 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 		else
+ 			/*
+ 			 * When DSC is enabled, WC = slice_chunk_size * slice_per_pkt + 1.
+-			 * Currently, the driver only supports default value of slice_per_pkt = 1
+-			 *
+-			 * TODO: Expand mipi_dsi_device struct to hold slice_per_pkt info
+-			 *       and adjust DSC math to account for slice_per_pkt.
+ 			 */
+-			wc = msm_host->dsc->slice_chunk_size + 1;
++			wc = msm_host->dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt + 1;
+ 
+ 		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
+ 			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+@@ -1719,8 +1709,11 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
+ 	msm_host->lanes = dsi->lanes;
+ 	msm_host->format = dsi->format;
+ 	msm_host->mode_flags = dsi->mode_flags;
+-	if (dsi->dsc)
++	if (dsi->dsc) {
+ 		msm_host->dsc = dsi->dsc;
++		/* for backwards compatibility, assume 1 if not set */
++		msm_host->dsc_slice_per_pkt = dsi->dsc->dsc_slice_per_pkt ?: 1;
++	}
+ 
+ 	if (msm_host->format == MIPI_DSI_FMT_RGB101010) {
+ 		if (!msm_dsi_host_version_geq(msm_host, MSM_DSI_VER_MAJOR_6G,
+diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_dsc.h
+index bbbe7438473d3..c522ab3d71853 100644
+--- a/include/drm/display/drm_dsc.h
++++ b/include/drm/display/drm_dsc.h
+@@ -267,6 +267,13 @@ struct drm_dsc_config {
+ 	 * Offset adjustment for second line in Native 4:2:0 mode
+ 	 */
+ 	u16 second_line_offset_adj;
++
++	/**
++	 * @dsc_slice_per_pkt:
++	 * Number of DSC slices to be sent in a single packet. This is not
++	 * part of DSC standard, and only used in some DSI panels so far.
++	 */
++	unsigned int dsc_slice_per_pkt;
+ };
+ 
+ /**
 
-Best regards,
 -- 
-Jun Nie <jun.nie@linaro.org>
+2.43.0
 
