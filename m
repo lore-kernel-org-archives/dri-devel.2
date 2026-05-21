@@ -4,95 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 144A2CD5BA4
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:48:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE678CD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:50:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 094F310F285;
-	Thu, 21 May 2026 08:48:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1BF10E47D;
+	Thu, 21 May 2026 08:50:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YSvSrWoY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RLhHpHXs";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AnMNJEvJ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="biJg+X5j";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01FB310F285
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:48:38 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 411B710E47D
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:50:13 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64L7KqAB119200
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:48:38 GMT
+ 64L2T0lP3815926
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:50:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- fPSwqpTo03Bkl0v3i4c9hpTGEzAjY7Tg79AzsZEcbAE=; b=YSvSrWoYRS8d2pDa
- zeYLe7C2ZycakQs0S4vZ842NP5K15wj5uvyeK91nQCDZ69KKlM8R7T4fc/S9jagw
- dw3VxxPt7Coq2v/m18HeCyWKI549nm3Aq34G3KnxLuPLNAWeQAhf9lKrES3RhamF
- Rk1RNBTdq4Jp3BnTv2CeCcy33P3gcg9sHdW7LgSH9U+6nWAEQat3AWY7T1UWoIqk
- 6AakZZDIoaPANRbY5ODRzb5wcwYLprRSzomYJCS0jRZ3Utm+FMjmC+cJ73Z+TjJ8
- wp6JqswWPVVqZw5RDGR+0TvJ7nKQpTNCY5JDf7GQoambvkPqjwBBiin5Beaj5lGq
- RRnuGw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ee8c2t6-1
+ vd9ZmwiYnYNdA0AM4gu3iLlxaPjUKlAA0HQGQTfbg5g=; b=AnMNJEvJYA2RJqgK
+ gu7/cUAhMobSm6IfTQYSTfSW8scWkmOt74Yh4YfFOFR7vjCR4jnCIQvfCSU6DKT2
+ 0vTcsO6cH0rgiEoNzvFOktY2YCWEDgxTNvmRHo5pjwgbexAPYFGJsyvm62H/KYRH
+ 4d6frdF1vgicruNAq219IALl83vNjuUgTL0vZrhra3O3kXFvIdwK4i6oaarT1GeN
+ PkShEION0ZZmY4C+QKpsqik3u+lW0WfmF/s7MNfnzYgc/TdOZzsTq11xP++kmPcl
+ oh8DkkzseRMqA4s7sWPZdryexClF7O6teeMQ7nbjH8DUb1KNARBsVVOV2Du4gb5z
+ X3GbBA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9saa1bcf-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:48:38 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50e62562b6aso18421391cf.2
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 01:48:38 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:50:12 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-91345d517bdso123265985a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 01:50:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779353317; x=1779958117;
+ d=oss.qualcomm.com; s=google; t=1779353412; x=1779958212;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=fPSwqpTo03Bkl0v3i4c9hpTGEzAjY7Tg79AzsZEcbAE=;
- b=RLhHpHXsRHnRWQI+D9eaBfH/HkD08wz6Aan11e13vbrddBpgamiEoNZWJZIxxzUXpL
- SA5KN/BzFzVnYln75vw/R58KeqEtZg9GoIzgC9oFjpwBeZpYei+KKCji67Us1wr0lo8I
- qXvrDt90p+cpXYkMzjRljUW7qMN+zZMd4NbVuagI8Jtvep6oH0y6FhVDhZrks+adPaL6
- 1u5xYI8n1ydLp9cVGVCdygcYUpq/m0ufBk5uV4hwCC/QFlCPvtJHi3nMSirAF+/mUOnS
- nFmW5PrfQ/WAT/+/btrfCHN7Lw+kbzTEJFD5B1kK7yCzYKTKMN02p7vR4Mr27S8RNaXc
- pejQ==
+ bh=vd9ZmwiYnYNdA0AM4gu3iLlxaPjUKlAA0HQGQTfbg5g=;
+ b=biJg+X5ju19zmgW/xJ+AL/iYJID/y/l70IHcjxHqaeR35AiJXWdpsv2Y0JH/ZVhD/Q
+ B9RFkPTe3SUQ4PSM7k4BzxwKxEXqofM06ne4xUp8IbxFBssxZf7ja9QlUMHJCkOlEoSF
+ MA8K/VYknQ0taQJwUxSauZp4PuaAb8O6nXWoCM/jJVi1Vl4pIufwkb8su1nAcVQyftVB
+ PLacde8rrp5AKM6eBLai/qiczRZ5MKD2/LUe/hhY8+Exq2qYS0b8aYr1sy2yxOP0+Ulw
+ uJcWL8f9YFitKB9WbPi/tWYiLie4bHTaqZkc1eFDoPxoKO3746OXoIE9Rix2Bat2qsvJ
+ r19A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779353317; x=1779958117;
+ d=1e100.net; s=20251104; t=1779353412; x=1779958212;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=fPSwqpTo03Bkl0v3i4c9hpTGEzAjY7Tg79AzsZEcbAE=;
- b=IKJ73XhUrDdkEGnqeIrf6F+lMut0pieDBjnkiOY6WLX4aX9h6QxoJP5zMmIvF461VN
- m3euxF1uOsYByLom6w0m7YSqsLrxBB0dfZbexnCJV1spJIN8f3iRZX1QOnjFyhO+5h0P
- TkmhOqfI89Mt/+qcOGS44DtvKtpFTifjKxBXtqGtVHdl2od2ud1qTGf4xSJKjWAKaXtx
- fRBRqfWckCebsAyloJ4u+T96GU58py0nlhmTzN0ikKimO041t/bEr446S3xFBYHFx3E9
- rhjyvtUID1aPHLXWp7hZQp3oIihWVZz8/9I985uOsQQYjrh8FrObYi7PS2FsuVqgjyvq
- ckRA==
-X-Gm-Message-State: AOJu0YxtBXxb2Ew/+xDaZEPD2zJK3qUgxMQYJ1u/LYZZpilwTkjdUp8N
- hNUahXDazfBOw3x9NxVylQQelhQRT7AXk/0lkqPBpJK74Z9+G6dwh5J4soMt6NYoIkdT5/DhoMM
- I3vFPs7qscNLF56osZEYHaM3ipgjeFXvYeQyPT91qS8Q6EVaprEPWsuO8kLL5GSd8QQs6mQ8=
-X-Gm-Gg: Acq92OHxeJfeMlrnWNsCBDuoaTz7/Bx7DWPRm4X/HQy7BXDie4l0RaQnxiy0CkcJy5r
- 11mHq27ich0vJcLarQYhcoC+erVnhBPOKY0hzXzFvOd+AFbq7bo4k7JN1r+0AZLkauPKD7hmMoM
- metUDRT/+bM9d/c8y/o1E7OzFLYULMe/f9biLTBGWNt/eaNKIR8CdP/8I4khHy9amb5W1nL5Jne
- J6EBIrx/k98irNzMKIQlmOW4f0sHrSHZbK6dCQuE0TwlNnrsxtmSVOobuCghT2em5vVDbKAGz0y
- AKZhBfsy57Rxi97aMnXzgN4wMwsr+qcFoPAkMlUZ5aIF4jRCWg/Ag7f956tdpiozaXirurSh/u/
- 7OFSJd/PY/35fY/EhBjnkVUfNTNu98traEXnsqX8McJxMiJoPFtXJRN4YJRa2PkpyqAv+t61Yp4
- I6ofyFnHkeXe6vPw==
-X-Received: by 2002:ac8:5812:0:b0:50f:b9a6:82ae with SMTP id
- d75a77b69052e-516c54382cbmr18835291cf.2.1779353317525; 
- Thu, 21 May 2026 01:48:37 -0700 (PDT)
-X-Received: by 2002:ac8:5812:0:b0:50f:b9a6:82ae with SMTP id
- d75a77b69052e-516c54382cbmr18835131cf.2.1779353316998; 
- Thu, 21 May 2026 01:48:36 -0700 (PDT)
+ bh=vd9ZmwiYnYNdA0AM4gu3iLlxaPjUKlAA0HQGQTfbg5g=;
+ b=CtjBnvBK8o3dxRdglQobp476bAkBlK+KtFyIqyNeWlptyi6TsYX4C8kKCT2eVJ+KTU
+ 7V2mltPF4mUHrXaYHEF8ECgL9Hk8YqGpuf9N+ra1Ik1nvzp/nr7nd7tMqHjHL15QWzaC
+ aSzJ8KzesWBMZ+vzK7eXoW8XA3NcNJzsNQFjrWCfT96wo3Rzbcz5j5REcg6P7qcFtCVo
+ LgfkCfg3V9zNRi4GlsJqFR+kwfiuVAqp9UNY4uYovpLq4QVJeTXe6r/okGZjksTOqnW1
+ 3jRfdjUG3aviG8+6bV2P1r0Lu0VIEozR4+GvedqBNzHsfrssBSPHMT89p9sMw501DQnE
+ r9Rw==
+X-Gm-Message-State: AOJu0YzId8AJccg0mGukmFF9dmebF4kOjxxzlmZkxH5nGaIovghGBptM
+ 3p999xBiyV6fM0NaIQr5NIJHDj/RXXjagvKIRmTxEWzuApoLo+aU8VL9BWNBF4+EHiBEswSQF3N
+ uLt5Z2lrJN17XznvLzrCf7md8ld+rYbP4udpvrV0y/DLYpHorU8nGFpXaA7h2i/jW+W8dI6I=
+X-Gm-Gg: Acq92OFlcB0v7HIn/6Q6OPLgr3cTXFB9LLYLoGirI45ewQPOplNyu36lGEjO6vKU2A/
+ qWBrWIcFy/0SL5K0kRbyuTbPJr8lR/InQsHtxYfh1mfHjmkOwB1DsJDP+uiHOfF+i63vBVFlX78
+ iwCzhAWUdt9IIXabwnkE5hiW8r/ZKwNAgq58n6+xyx5oqsGcTfpGgAuJhQkNRlJGwx+50Nlft7k
+ 2wgZ7cglhmZl9Myvem2JbWp58+PUqCKW15elzSg/YJrqsVd8KN8Uhn6g4rsrx0Vkeqxyw3M1xpj
+ 1kLTkjwMUUyelj7OHSsT095czb+90c18/TuZumu9GpEC0eRZImpVygyDNPKdcgft8RNvCxYlAGI
+ skzdlB/hVNBcX67wpEH2Bv5v+cLkXLo/vHSZchvmRGQq8U22o1Mrgf+yx508os6WmDChQ9ncA+V
+ IrsZo=
+X-Received: by 2002:a05:620a:2586:b0:908:a758:baae with SMTP id
+ af79cd13be357-914a2cf3abdmr154517685a.6.1779353411708; 
+ Thu, 21 May 2026 01:50:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:2586:b0:908:a758:baae with SMTP id
+ af79cd13be357-914a2cf3abdmr154515385a.6.1779353411301; 
+ Thu, 21 May 2026 01:50:11 -0700 (PDT)
 Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bdc87890ab5sm17545766b.4.2026.05.21.01.48.33
+ a640c23a62f3a-bdc87e77772sm17619566b.14.2026.05.21.01.50.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 May 2026 01:48:35 -0700 (PDT)
-Message-ID: <624a780c-0b22-45e3-aec5-e61c319de901@oss.qualcomm.com>
-Date: Thu, 21 May 2026 10:48:32 +0200
+ Thu, 21 May 2026 01:50:10 -0700 (PDT)
+Message-ID: <cd5a8576-2f06-4620-bbf3-43b3f84de630@oss.qualcomm.com>
+Date: Thu, 21 May 2026 10:50:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/11] arm64: dts: qcom: sc8280xp-arcata: Enable backlight
-To: =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
+Subject: Re: [PATCH 03/11] arm64: dts: qcom: sc8280xp-arcata: Enable the eDP
+ display
+To: jerome.debretagne@gmail.com, Douglas Anderson <dianders@chromium.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -107,37 +107,37 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  Krzysztof Kozlowski <krzk@kernel.org>
 References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
- <20260520-surface-sp9-5g-for-next-v1-2-9df52552bf87@gmail.com>
- <f5f70aa2-a1b8-40e0-838f-6709e6e08a5a@gmail.com>
+ <20260520-surface-sp9-5g-for-next-v1-3-9df52552bf87@gmail.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <f5f70aa2-a1b8-40e0-838f-6709e6e08a5a@gmail.com>
+In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-3-9df52552bf87@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: wE7yORRWjzYUxc4wHxe9pKLmp4UVtxv3
-X-Authority-Analysis: v=2.4 cv=e5k2j6p/ c=1 sm=1 tr=0 ts=6a0ec6e6 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA4NiBTYWx0ZWRfXzYhg4UllSyeN
+ 22OuMSxd6SZqdUNocle6IfeJj0Td23AH/G82yo7epOyyWuTeebrZNZNPezT1V5vdQwd7AU7OthW
+ hFURW/z/uYMRRJ7XnNxvjM6rFw9nL9fGl61TtmRfaOXOVwNp3zU3cfrCJQz6rDPCoOTVdlMDZiV
+ fkLOvGRLdC117WjIZe6vMwGldQlMKVk+RmcDE85+MhFj/Z+lXhW4Xnnj1nr/kzm9ntwcF2AnJSJ
+ BLkbZctOhUz1JIRHvdiB9omAP+JyZ2Ycms0nreECBmOb0Mzs/HWvjobvwt2zs02G2qJrh7F4ylW
+ b53/VOieafVyDo8pjPtZCSsp1D0SM+D98wcE3GPwwL9TGzUCGrrjl2orke6ETGn4JZoModYooVX
+ VDxMolW9cM93R1DT20z4BHGKlVYZPHtu3x88NmLRXlqWs4+WQKcVnRTjTDPjSrpkDTgNcxf8nl5
+ lV/e14eZpmdEOFey1UQ==
+X-Authority-Analysis: v=2.4 cv=Qe9WeMbv c=1 sm=1 tr=0 ts=6a0ec744 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=pGLkceISAAAA:8 a=-MGe_S8tJvSwwJYLNm8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA4NiBTYWx0ZWRfX6SS87RiNATEu
- /1QOsri59Q6nFFDp7Zuau+J2MufISNjyOL+A9RHdQAGmoFxxprZYOzBf4zJT1jADwACMmeckY21
- xPPSbJkpIyFktditBx0V/B36sENtpxMvaEgOpYleI7xhsoC/z+58EVO9b5PlKon3/YdQHb7Ttco
- 9pP5BpbDS/KVe154NNkqt1xD8v0Yjekc7XC/MSgjKtfvGmwvekj7ZZMrnMtLaeH2e+dJ0BaE7h+
- b7tFlYgm0RMHujTjvjLoyLNC9j1KxBZrz7STrUsQy0Upeyf3tLKFYMqgne989Em03gC4vMt+XhS
- WMx+c2PmkcN6c2XAqgGME7zCBijf5ezNtSa7p95yELhdmfSIKiOj3wN7Dohk0df4uNzoFhS4o0w
- R1Kt/jd+cZ8jca7fDbFAyVJmR42GCT2cXQHCae6Lfrr8Ue3VuSm0VZcV3ApKA1xT9n9VKZvKhf7
- d3XHFuoJ0b/xkG6TfUA==
-X-Proofpoint-GUID: wE7yORRWjzYUxc4wHxe9pKLmp4UVtxv3
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=pGLkceISAAAA:8 a=LJ_b16ZpFTZdMs0EjWwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: M2L_F04hhf2uNqP9-cfwwngXZUKkVmeM
+X-Proofpoint-GUID: M2L_F04hhf2uNqP9-cfwwngXZUKkVmeM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210086
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 phishscore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605210086
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,28 +153,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/21/26 12:26 AM, Jérôme de Bretagne wrote:
-> On 5/20/26 18:40, Jérôme de Bretagne via B4 Relay wrote:
->> From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
->>
->> Add backlight nodes and enable backlight so that it can be controlled
->> with the corresponding buttons found on Surface Pro Type Cover keyboards.
->>
->> The nodes are almost identical to the ones from the ThinkPad X13s with
->> a different enable GPIO for the vreg_edp_bl node.
->>
->> The difference was found by looking at the output of /sys/kernel/debug/gpio
->> on the ThinkPad X13s to see the properties of its enable gpio9:
-
-[...]
-
-> and ... backlight still works! It can also be enabled/disabled with:
->    /sys/class/backlight/backlight/bl_power
-> as expected.
+On 5/20/26 6:40 PM, Jérôme de Bretagne via B4 Relay wrote:
+> From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 > 
-> I have no clue why both gpio6 on pmc8280_2 and gpio6 on pmc8280c can enable and disable the backlight. Is it a common scenario?
+> Add the vreg_edp_3p3, edp_reg_en and mdss0_dp3 nodes to enable the
+> Surface Pro 9 5G eDP-based LCD display (LG LP129WT232166).
+> 
+> The enable GPIO 36 was found by decompiling AeoB dumps [1]:
 
-Could it be that one of them is an ENABLE_BL pin, while the other one
-enables the regulator?
+I'd like you to strip this from the commit message, as it
+doesn't add much value and makes the git log unreasonably long
+
+otherwise this lgtm
 
 Konrad
