@@ -4,131 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9CA9CD5BB1
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:15:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC4C4CD5BB5
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:19:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E3BF10E491;
-	Thu, 21 May 2026 13:15:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEBE210E49E;
+	Thu, 21 May 2026 13:19:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4m0jxaQI";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ZSi5w5iK";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013065.outbound.protection.outlook.com
- [40.93.201.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0EC010E491
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 13:15:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VEFhM1U6htEYqlf/4N8kLEupZ86XIZ8A+w/7VWkLPQvMcfk8fR5aAM4raZ7jpWHXLCECeFZuE5doWRfc0gexR2bi+YbtlSy/iiYeoHzqatKosn/eisDnsGFROCVdlB0/j03azi0nf5X46LFAXpwdLiCT1s/gs221wi7nev/bm2GmlmBFF/rtU4goKilOu07+zXwxebanUIk9g2d+05mmwe4zHp4ZQKJsDDLeDtzUNtR2GjMbpIhHC8KJHDl/ZZC/utt4+1VCnzmgcUUmRFojfg/ddr/lCQQek8S1rV38LnuAuob99OfmETYMrHNf5cnQFtdanoY0ZXcKc4kvYiMIqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y0eUWRO1OC1fxvLh1MsspTmWYN3L2CPXYktb1HDGFbw=;
- b=L1Bhvg2e8cE6e/RK1XVdBMH14SBao15xhbzzRrfyCkItCmQgSLuLdXc0+GYOYtMfpfUH5tVIWg2tBHj6y5KeszAXcCw7mmmeT/02nQr/FnGiAYSySnwl0BS9nDYxb42hhxKtchAxVdb7pAPjEkzK+B3gGPyYr9nSRWZ0+p4TX/v5WdoZUHdBb+vdXAGYZHj/oGNc1z3P9G83AlkG9mqXqkDj954Egedl/QVl71tto2f6/gWDPV1cttzWGS5Cpz6nI8i+9TgdY6hnqLeC8LCjIwRwWw2/pbUN8IVchKHBC9nfyIXkWS57JOfombuscZiKD2cB0WaYwCqmfDJ4wJTrkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y0eUWRO1OC1fxvLh1MsspTmWYN3L2CPXYktb1HDGFbw=;
- b=4m0jxaQI8QivcNu2g+nTOkJGOAM8/7Jtj/0CvTSFd1Q/VoqIfyjclxohlqQ+dNxPnh2jf6h22cGAR2pk2VOr8hhANYBtFM9GVktj8ZYhJ2WVwBef5Itjf1Ocmiu8ywpBP6UBbLW25gODIB3X+Rx+hDRd/C/eEHsxWbF9p+6OeKE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB8884.namprd12.prod.outlook.com (2603:10b6:a03:547::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Thu, 21 May
- 2026 13:14:58 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Thu, 21 May 2026
- 13:14:58 +0000
-Message-ID: <e4fe1485-3b66-4f99-ae8d-18db140d3fa6@amd.com>
-Date: Thu, 21 May 2026 15:14:51 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] dma-buf: add DMA_BUF_IOCTL_DERIVE for
- reduced-permission aliases
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Shuah Khan <shuah@kernel.org>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, mripard@kernel.org
-References: <20260521-dmabuf-limit-access-v1-0-26c01e27365a@redhat.com>
- <7b662fcd-3bcd-40a2-b014-d9ce36f6425b@amd.com>
- <CADSE00J1+V4=qFZPOL8Cr8hYw6d=hf_XcDPezjYGkcxAwLYGyw@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CADSE00J1+V4=qFZPOL8Cr8hYw6d=hf_XcDPezjYGkcxAwLYGyw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR03CA0004.namprd03.prod.outlook.com
- (2603:10b6:208:52f::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCE6210E1A6;
+ Thu, 21 May 2026 13:19:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=IIpdmIOgvl0TQniaAHS+GD+OE1WeFz+0+H9K2/ObYUo=; b=ZSi5w5iKECb9ZrQYLpQ963Qtib
+ 9XCeOlFYKm3qQQLC4wAgIGxChYh/0Ztvznz73ETHzIJWvRMQt4+JaxJOgd42oVuUodx4MeMXqyucW
+ UUnHUxH7ACZsYGwXFWOx44JJlYqE8mx/UHjvYZ5G73+hqHdOqTrMgCQgiTdEcFlzAXedqPsb3tvCe
+ tmIAFLbbRRhbf4GsMfoRltHXI8yTWJBJUp5rgaqEA+aaVGfZ1M88aZG+YJcpp/CkFiSVVgZlM4Fsi
+ s6q3Ov8OvDiwlMTmH12DLyNvUs61xbnUmLsBrB1fCSFnhUD6WRj65tW783jRc5pPoQMx41DxJpGK0
+ CbuCILjA==;
+Received: from [79.117.146.159] (helo=[192.168.1.135])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wQ3IX-004MSj-DH; Thu, 21 May 2026 15:18:49 +0200
+Message-ID: <c1e5b078-2352-4569-b82e-398cb3c5f537@igalia.com>
+Date: Thu, 21 May 2026 15:18:47 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8884:EE_
-X-MS-Office365-Filtering-Correlation-Id: b38c75c3-73f7-49cf-9089-08deb73af4db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|6133799003|18002099003|22082099003|56012099003|3023799007|11063799006|5023799004|4143699003;
-X-Microsoft-Antispam-Message-Info: cg7RC4wL3qS3mp0K5O8yCrJ7m2TmCy0fWakN77RaDswniE9GOUg9PaMzCeoa5CY6TSlXZWwwiUiAzgOvDbgXZW6P80KzsbQ1aIDjygPpLh+3EzoOFA713nlobrCYHOeuegvduRsqCJtwMtVUD4ZdCLWh+r9cCvvcxjeHdA9R7isJxHMOW2ksVZV3q0MuwDsX4psYPTEUy8+s3oJ7EscgVFgLOLNTq46aW8KuCyCEEmCOuB7+I3CxziSqPB6wSVYFRIhkgpD1bzyYafizxXJHFFgBPHRBQgLghZujBrepVqHijxHxB9FdcXb3XidBm1GBH7GvD7TE9bgYOq4bFhv0N5FQcnX58yiLQJoRKmhtKjMYYkRJLeSZHfqNYChwyOd19qT5V8kXwla/a6tuhczGARi5Bb8ePuJ5tpwsChDyGLTL4DRc2YJaLl3n6/3MKHHBGoUzDBi4EBR6qavaftYNN/WGvxjktLK7opppl1MWQbIqRA708cixJqvSTz1oEhQt4gVcdMutTmBqzZ+ov59n6+8aS0cZtaf1pQchTX1g4zLsV2wTg0B/SuzD3Mt6At7RXQbBOSQn4YsbRgfTKYJyIEqWSMhYxkmhv85M+K2f1alMxWv2Hq+j8H+p+B8urXm931EvaGAOQQ3O7MEpTRv2eVeclAS5/Jh1/O97mvi4LjFB1j2upi+XQvrsutjGJ/X5
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(6133799003)(18002099003)(22082099003)(56012099003)(3023799007)(11063799006)(5023799004)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzRRTXFqVDd3dE9NY25qRUl5cWtnK1ZVSWdZZ1E3WXpsc0xKT2xJU0tDRldn?=
- =?utf-8?B?K0ZGVkRaQ0doNHJqYTVOTGlDbnRXdEh5NDNpM2V0UEpnS1V1Y1J2eEpadXJS?=
- =?utf-8?B?VFc4VjNsbElyTnJUb3VybjFYYzliVkJUL05mZjhXcXREbHU1a3FtNlc5QXRh?=
- =?utf-8?B?YXNPWWpBSEJhWUNkN1VuR1RxN3puUnFldjl5ZmZzZzQzL2d2NG54aVRFTDNy?=
- =?utf-8?B?ZzFHbGszd2Y5VmY2MEkweHp2TjVSb3VmUUhONDI1ZzNETTZ5ekQ0MVlVVks2?=
- =?utf-8?B?MzBoejNnbmM4aHoyNXdySGlZQjQ5amRyZkxMcWVGZU5oNHdUWUdXRkZUYzNq?=
- =?utf-8?B?Y0pjUTlQblhDemF4VGptbmpyQklnNkI4d20yaUdQNFIrYkZ5S2ZvcDNDL1Jo?=
- =?utf-8?B?NWc4Njc3eDhMclI3dzVDRW05U1R4Vm12d3ZmZ29DTE9qTTllRzFtTS9UWlkw?=
- =?utf-8?B?VC8wUFJpUzdzSFJ5TGljRy82bFBIdTFsRnFSOG5uOVVaY1Ivb2xzSVlzcXpo?=
- =?utf-8?B?QWZWNkpWK0FEU1AzZDNuS21yTUVBZnlzcEEvbk1CYk4vNEpLcTNHbUwvajl5?=
- =?utf-8?B?STlVcVorMGVRYitkaHpPZXpMV1Z1KzVJUjJLcThBVytKckxnRjBSamVIS0hY?=
- =?utf-8?B?dFplblp0QjBKY2JsVll0SXRwWVY3cFpwMkF2YkltaUFYVm1MbTh3dTlaZ0ZP?=
- =?utf-8?B?UUdmay9PbXdOUzQzWnE1bGpySnhJNk5jeGFBSWxFNnpMbHprZkN1SENnMWow?=
- =?utf-8?B?akMxSlhLMzc3SjlFTjVPSGFOUisvZER1ZG5MSnRPdDEwa3dtOXU5UHoxa2lm?=
- =?utf-8?B?TTdRR0poSU51eXpCVWRLci90SHNvWWNSYlpPQW5NZVJsZmw2U0dHVFltN3gy?=
- =?utf-8?B?d1lRVGFPS2JCOVcxejVjRHN3Tk13QzhZMDNDM2g0ZU9ONlVvMmVTUGFjOFRz?=
- =?utf-8?B?c25uM3pzY1lKZkVlL2tnY0ZjeHJSOTcrZFlhc0w5SGdxUlJhejFocnBNellC?=
- =?utf-8?B?ODhTNWxDbFNiVHFoUDRlSlVsYzh3VDduNnZDNE1sOHRWc3J3VktzZ214NW9i?=
- =?utf-8?B?a0w0Znc3eXZkUlJQaGZUNzZIaXBlMlQyL0M4Q3ZjZ0dDSmhBOFRhdXZrZ3kz?=
- =?utf-8?B?dnlsMElycC9VTVlRcmlobmttQ1A0VkpFY24wTjEzT20wVnE0OUdOUVlybkZa?=
- =?utf-8?B?V09KWE40aThzbUhwNDZLOFUvWkZia0dDcXIvODEyQWZma0xYUWtMVkVTNEJl?=
- =?utf-8?B?WW05UmdhdWgzSFBSajY0NFROa1RWQXd4TFZkSVFGM2NMdnY5VSs1VXVjMG13?=
- =?utf-8?B?QWpmQ292K2FtRjNML0hOdTFPZnEzTnk3VmpsV0RCaU9UbGhDQ2ZZRjBJNkpC?=
- =?utf-8?B?Y1FHdWFlZXdSK2NvTkR5VWFhZ3QvZ2ozWGY3eEpmWk1iSnR5dGhtVXU2eWlI?=
- =?utf-8?B?MnRoMzdUVGdMeGFIMjVJRUlPNUhhRVJmM2VXY0RtUC9vWElBQThXaDVwRXFX?=
- =?utf-8?B?aTVDMnBQZjQ4NEFMTXkzL01UOE1xMTlaRVhVNVBnL3ovMmJOY0g2aHBIU2Nq?=
- =?utf-8?B?UE9BeTFUTHJ1OXExZ1NXYTdETGdUaHFhYTJRUk0zV1VHaFcyWkpnNEw1dHkz?=
- =?utf-8?B?QjlJcndBT0NVcE01QXdLK2NwWlBidFhQR1ZJa21DK2dGVkZrOXlGRU0xNVlX?=
- =?utf-8?B?NUF5MFZtQ3hwS25iVG5qeVkveVROYVJkYWtyODF6WFZZcVlSZnIvK1orVlFW?=
- =?utf-8?B?eUNuTkdvMU5yMXBhdHlwSnpoN09oNWR1TEU4MW5pZFhIbUJyc3Fic3hDVlE4?=
- =?utf-8?B?V2Nmc1lBV3JvWjhtcDZzeUNySVdaaGVvN2l5L01uYzl2elI2NWpLb2Y4YnJH?=
- =?utf-8?B?bHdHNTV6Ukc3aDNHOUhGcXQwbWdoYnYra0lybUJRa2NjZnJZcU1LQ3E5SnhL?=
- =?utf-8?B?VWVMK0V6MTFUMjczaDVIaVYycW9rYXVXdGRka0Y0Qzl1enEyR1d4bUp6ZXJX?=
- =?utf-8?B?VVJzZDVmb21qa3BWTTJ6N2t2MUIxN1NnYTRjczhJRFNqcTZEU0JGQjNCaFVn?=
- =?utf-8?B?S3J5NTFpamljMTA2V3pRREZhc2JVVmpHNXVDQ0VkWXlyY3BVUnZOeVhCWWJK?=
- =?utf-8?B?ZFF2WXNCdEVLdEsxZkwzMFJQNjNIRmw2KzFPNEMxYkQ2bkZOcTgwclhoeGtJ?=
- =?utf-8?B?RU9pZGZjWFZ6T2xjZE9tR0pVTXBHQ1ZZZUtRLzBvVWZhU0Y3K2hNb01jZFAr?=
- =?utf-8?B?b0xiMTYwTSsyZzMyaTlvOFBqc1M0dWRFak1za00xNTBXZGtXWi9wdExZYzF1?=
- =?utf-8?Q?WLoY2Pc4locIDoc8o1?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b38c75c3-73f7-49cf-9089-08deb73af4db
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 13:14:57.9852 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qRVK0i5/+7meDousmD2jW5Z1hyyIK0k1XH9+QIrTuDUXpGxDaQbNqozPKgNZayyv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8884
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/6] drm/atomic: reject colorop update from inactive
+ color pipeline
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
+ Uma Shankar <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260519211111.228303-1-mwen@igalia.com>
+ <20260519211111.228303-3-mwen@igalia.com>
+ <5caac879-5063-4999-941f-d062da040879@intel.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <5caac879-5063-4999-941f-d062da040879@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,136 +78,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/21/26 15:01, Albert Esteve wrote:
-> Hi Christian,
-> 
-> On Thu, May 21, 2026 at 2:28 PM Christian König
-> <christian.koenig@amd.com> wrote:
->>
->> On 5/21/26 11:10, Albert Esteve wrote:
->>> When sharing a dma-buf between components of different trust levels, the
->>> allocator may need to hand a consumer a read-only view of a buffer it
->>> holds with read-write access. An example is a camera pipeline where the
->>> capture component writes frames into a buffer and needs to pass a
->>> read-only handle to a downstream processing component that should not be
->>> able to modify the data.
->>>
->>> However, no such mechanism exists today. The access mode of a dma-buf
->>> file descriptor is fixed at export time, and the standard POSIX
->>> interfaces for duplicating or changing file descriptors (i.e., dup(2),
->>> dup3(2), and fcntl(F_SETFL)) cannot alter the read/write access mode of
->>> the copy.
->>>
->>> One natural candidate would be reopening via /proc/self/fd/<N> with
->>> O_RDONLY, which works for regular files. For dma-buf this would fail
->>> (that is, if we were to add a new handler for open f_op) with ENXIO
->>> because the dmabuf pseudo-filesystem carries SB_NOUSER, which prevents
->>> the VFS from opening its files through path-based resolution from
->>> userspace.
->>
->> OH MY GOD! This is the like the sixth time I had to clarify that in the last few weeks, I'm really wondering where that is suddenly coming from.
-> 
-> Sorry! I do not know where others came from. But my interest comes
-> from automotive, safety, and mixed criticality scenarios. I kind of
-> hinted at that in the opening when referring to "different trust
-> levels".
-
-AH! Yeah, automotive is most likely the common topic in all those requests.
-
->>
->> Creating the DMA-buf with O_RDONLY does *NOT* make the DMA-buf itself read only!
->>
->> That's a really common misconception. The flag only controls if mmap() can be done read/write or read-only to handle cache coherency issues.
->>
->> It is still perfectly possible for a device to write into a DMA-buf created with O_RDONLY with DMA!
->>
->> So long story short there is not such feature as a read only DMA-buf, and putting read-only pages into a DMA-buf and then expecting that nobody can write to them is an absolutely clear No-Go.
->>
->> If we would want to implement a read-only DMA-buf feature we would need to go over all the different DMA-buf importers in the kernel and add security checks.
-> 
-> This clarifies a lot. Too bad, but it makes sense. I will abandon the
-> series then.
-> 
-> Thanks for the review and the explanation!
-
-No problem, I was just really surprised that this came up once more.
-
-Just for completeness: What some exporters do is to reject read/write mmap calls with O_RDONLY and map_dma_buf() callbacks with DMA_BIDIRECTIONAL or DMA_TO_DEVICE.
-
-But as I said this is just to catch cache coherency issues and not access control.
-
-If I'm not completely mistaken some HW actually can't even guarantee read only mappings, in other words even if you say don't write to that buffer in the kernel you could submit shader or DMA commands from userspace which does exactly that and it works.
-
-So I don't really see a chance for that feature to fly as general DMA-buf thing. Maybe between two specific exporters/importers could work, but yeah...
-
-Regards,
-Christian.
 
 
-> 
-> BR,
-> Albert
-> 
+On 21/05/2026 13:00, Borah, Chaitanya Kumar wrote:
+>
+>
+> On 5/20/2026 2:39 AM, Melissa Wen wrote:
+>> Only allow updates on colorops that are part of an active pipeline.
+>> Check if a colorop in a new state belongs to a color pipeline which was
+>> set as a plane color_pipeline property and therefore is an active color
+>> pipeline. If not, reject the atomic state. Performing this check later
+>> in drm_atomic_check_only() to remove the ordering dependency that would
+>> exist if done at the time of colorop property setting.
 >>
->> Regards,
->> Christian.
+>> Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic.c | 38 ++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 38 insertions(+)
 >>
->>
->>>
->>> Alternatively, exporting the buffer twice would produce two independent
->>> dma_buf instances, which breaks fence synchronization.
->>>
->>> Therefore we add a new DMA_BUF_IOCTL_DERIVE ioctl, which produces a new
->>> file descriptor for an existing dma-buf with a caller-specified subset
->>> of the original permissions:
->>>
->>> ```
->>>   struct dma_buf_derive { __u32 flags; __s32 fd; };
->>>
->>>   struct dma_buf_derive req = { .flags = O_RDONLY | O_CLOEXEC };
->>>   ioctl(rw_fd, DMA_BUF_IOCTL_DERIVE, &req);
->>>   /* req.fd is now a read-only alias of the same buffer */
->>> ```
->>>
->>> Permission escalation is rejected with -EACCES. The new fd aliases the
->>> same struct dma_buf as the original, same dma_resv, same exporter ops,
->>> same underlying memory; so importers attaching to either fd see the same
->>> fence timeline and operate on the same object. Access control for which
->>> components may receive or pass on restricted descriptors can be layered on
->>> top via SELinux file:read and file:write permissions.
->>>
->>> A shared writable mapping (PROT_WRITE | MAP_SHARED) on the read-only fd is
->>> rejected with -EACCES in dma_buf_mmap_internal().
->>>
->>> Two small internal adjustments accompany the ioctl:
->>> - __dma_buf_list_del() is moved to dma_buf_release() so it fires exactly
->>>   once on dentry destruction rather than on every file close.
->>> - dma_buf_file_release() is updated to call dma_buf_put() only for
->>>   files that are not the primary dma-buf file.
->>>
->>> This may not be the best approach, but after considering different
->>> options and alternatives (as described above), we decided to raise the
->>> discussion upstream. Thus, we welcome any alternative proposal or ideas.
->>>
->>> The series is structured as:
->>> - Patch 1 adds the new ioctl implementation.
->>> - Patch 2 adds selftests covering the new ioctl.
->>>
->>> Signed-off-by: Albert Esteve <aesteve@redhat.com>
->>> ---
->>> Albert Esteve (2):
->>>       dma-buf: add DMA_BUF_IOCTL_DERIVE for reduced-permission aliases
->>>       selftests: dma-buf: add DERIVE ioctl tests
->>>
->>>  drivers/dma-buf/dma-buf.c                          |  58 ++++++++++-
->>>  include/uapi/linux/dma-buf.h                       |  28 +++++
->>>  tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 114 ++++++++++++++++++++-
->>>  3 files changed, 198 insertions(+), 2 deletions(-)
->>> ---
->>> base-commit: ab5fce87a778cb780a05984a2ca448f2b41aafbf
->>> change-id: 20260520-dmabuf-limit-access-73261353841a
->>>
->>> Best regards,
->>
-> 
+>> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+>> index 28831a548b0c..659cf56150e5 100644
+>> --- a/drivers/gpu/drm/drm_atomic.c
+>> +++ b/drivers/gpu/drm/drm_atomic.c
+>> @@ -812,6 +812,33 @@ static int drm_atomic_plane_check(const struct 
+>> drm_plane_state *old_plane_state,
+>>       return 0;
+>>   }
+>>   +/**
+>> + * drm_atomic_colorop_check - check new colorop state
+>> + * @new_colorop_state: new colorop state to check
+>> + *
+>> + * Ensure that the colorop in @new_colorop_state belongs to an 
+>> active color
+>> + * pipeline, i.e. it's in the chain of colorops set to the 
+>> color_pipeline
+>> + * property of a plane state.
+>> + *
+>> + * Returns: 0 on success, -EINVAL otherwise.
+>> + */
+>> +static int drm_atomic_colorop_check(const struct drm_colorop_state 
+>> *new_colorop_state)
+>> +{
+>> +    struct drm_colorop *colorop, *color_pipeline;
+>> +    struct drm_plane_state *new_plane_state;
+>> +
+>> +    new_plane_state = 
+>> drm_atomic_get_new_plane_state(new_colorop_state->state,
+>> + new_colorop_state->colorop->plane);
+>> +    color_pipeline = new_plane_state ? 
+>> new_plane_state->color_pipeline :
+>> + new_colorop_state->colorop->plane->state->color_pipeline;
+>> +
+>> +    for (colorop = color_pipeline; colorop; colorop = colorop->next)
+>> +        if (colorop == new_colorop_state->colorop)
+>> +            return 0;
+>> +
+>> +    return -EINVAL;
+>> +}
+>> +
+>
+> This causes regression in our CI[1].
+>
+> I looked into it and looks like the following sequence in 
+> igt@kms_color_pipeline causes the error
+>
+>         set_color_pipeline_bypass(plane);
+>         reset_colorops(colorops);
+>         igt_plane_set_fb(plane, NULL);
+>         igt_display_commit_atomic(&data->display, 0, NULL);
+>
+> So this change restricts bypassing/disabling both the pipeline and a 
+> colorop within it in a single commit.
+
+Oops, cc'ing everyone.
+
+"
+I wonder if userspace resetting colorops to disable a pipeline or 
+configuring colorops before enabling the color pipeline is an expected 
+behavior.
+
+For resetting properties, I think I can solve it by taking into account 
+old and new state to collect the active colorops, not only the new state.
+But if configuring colorops before activate a color pipeline is 
+expected, there is no need to have patches 1 and 2, since setting an 
+inactive colorop have to be allowed. In that case, the solution is just 
+drop both patches from the series.
+"
+
+Melissa
+
+>
+> Also Sashiko had the following to say
+>
+> "Furthermore, does this unnecessarily restrict UAPI by preventing 
+> userspace
+> from configuring inactive pipelines before enabling them, or from 
+> resetting
+> properties on a pipeline in the same commit that switches away from it?"
+>
+> So this will also fail a commit which tries to change a pipeline and 
+> disable the colorops in an old pipeline.
+>
+> That got me thinking whether the first patch[3] in the series is also 
+> correct, since it is quite similar to the change[4] I added, where 
+> colorops are only added to the state when a pipeline is active. In 
+> both cases, we could end up ignoring colorops that are not part of the 
+> currently selected pipeline.
+>
+> [1] 
+> https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-166922v1/shard-lnl-5/igt@kms_color_pipeline@plane-ctm3x4@pipe-a-plane-2.html
+> [2] 
+> https://sashiko.dev/#/patchset/20260520073827.3395745-3-chaitanya.kumar.borah%40intel.com
+> [3] 
+> https://lore.kernel.org/dri-devel/20260519211111.228303-2-mwen@igalia.com/
+> [4] 
+> https://lore.kernel.org/dri-devel/148df44d-2456-40e3-8be6-f98b89b7ee4d@amd.com/
+>
+> P.S. Can you please send the next version to intel-gfx and intel-xe too?
+>
+> ==
+> Chaitanya
+>>   static void drm_atomic_colorop_print_state(struct drm_printer *p,
+>>                          const struct drm_colorop_state *state)
+>>   {
+>> @@ -1665,6 +1692,8 @@ int drm_atomic_check_only(struct 
+>> drm_atomic_commit *state)
+>>       struct drm_plane *plane;
+>>       struct drm_plane_state *old_plane_state;
+>>       struct drm_plane_state *new_plane_state;
+>> +    struct drm_colorop *colorop;
+>> +    struct drm_colorop_state *new_colorop_state;
+>>       struct drm_crtc *crtc;
+>>       struct drm_crtc_state *old_crtc_state;
+>>       struct drm_crtc_state *new_crtc_state;
+>> @@ -1681,6 +1710,15 @@ int drm_atomic_check_only(struct 
+>> drm_atomic_commit *state)
+>>               requested_crtc |= drm_crtc_mask(crtc);
+>>       }
+>>   +    for_each_new_colorop_in_state(state, colorop, 
+>> new_colorop_state, i) {
+>> +        ret = drm_atomic_colorop_check(new_colorop_state);
+>> +        if (ret) {
+>> +            drm_dbg_atomic(dev, "[COLOROP:%d:%d] is not part of an 
+>> active color pipeline.\n",
+>> +                       colorop->base.id, colorop->type);
+>> +            return ret;
+>> +        }
+>> +    }
+>> +
+>>       for_each_oldnew_plane_in_state(state, plane, old_plane_state, 
+>> new_plane_state, i) {
+>>           ret = drm_atomic_plane_check(old_plane_state, 
+>> new_plane_state);
+>>           if (ret) {
+>
 
