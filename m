@@ -4,76 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60801CD5BAF
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 14:45:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DE6BCD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 14:46:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B16C110F346;
-	Thu, 21 May 2026 14:45:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C986510F35F;
+	Thu, 21 May 2026 14:46:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fL5+WLJl";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yUwkDl6H";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85E4E10F349
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 14:45:27 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-48ff4f8ef0dso67990495e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:45:27 -0700 (PDT)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8442510F369
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 14:46:39 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-368f25ff4c4so3284224a91.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:46:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779374726; x=1779979526; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=H2yWVwJxTaScCgj+pdDqJvd1+BNm6/dyL9FgYCmk8UQ=;
- b=fL5+WLJldpB9wXbhmidcSfD2q6/TqKbojRadFwfIZhEGPwb+r1CYPaYpUsSTnwJZiT
- cHM5cS3qCAgKozrkGorzGWl//v7feYeRYGsiyG3ztTWUTAX6Yf+LBjVKekf+VOdWnpjG
- uFZKqYMXvviTPSWCPprDNbRMuT/XzSfAipUas/V+LKgo9HtwBd/ZXQpjz4tJoScHQEeP
- weDagi6a7lsWdyAdRcxAmiqfd+lIEywqIF/XdjWs/dOZle+KtUjeGOV4SFdZui1r+K7a
- otoe3L4BK/czsxLgy+V4gNKdL9yrmp2Kh30tMxTtXo9ssrK9th8a+PZksrBTr4Tfx9BD
- Q+ag==
+ d=linaro.org; s=google; t=1779374799; x=1779979599; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MYcMfa9UmKpbrcq2eKdzXRn9iD3DzK0oC+yU6GOGJbQ=;
+ b=yUwkDl6HOIWoMw6upUWrtpygT2FUYWdVhOtnpaPRyWPQS/2uVCDAxRFuibMH21kx2s
+ vnwidJXtRurhYwFJc5Ln0oRIyHUeH9JSMIRY9rBrH4xDuOcicXjZ0H1mTUbKbGvnIEuo
+ rPwV07jhQADxssL2Uks7imp2r0iF0IzistJnMeqwS07gnaXh3h1soZ2eIokILsKm5oDs
+ zmDqpeq7JBKZGiohHv/RBl/NS9mB1EbuUcXDsqLI4RgvoU9tonRRLbj+HKgRcKBTGUEx
+ yG5XTwihBUs7uBuwxdOW6+L79SZJ3ZPsnbUXvZJ/+X6KDCF3RdLcdmbtrE3u1BG2A7AO
+ UayA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779374726; x=1779979526;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1779374799; x=1779979599;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=H2yWVwJxTaScCgj+pdDqJvd1+BNm6/dyL9FgYCmk8UQ=;
- b=qHRdKrBOqVAbu3Wo1E2sLfxnamzmaI1VluHaVc3xaSw/PJapIilF02ZaO1xv0OMFJm
- TIPOe3kqhvd7dtu5qWGlliI92tIHAhmPgz79WEC5rgl+Ual0T7avONTnaZc9k8aX1TPF
- Vf1wDDnx9ihQDZSSP5vUSxLLP7eGqzenzCZkh2M+y2fMomRn5dnTPwIcyAJA3szQZgRJ
- WyKxqRcLHIK8ZPJHAZ1C4X1KZldJb7Sn3tkE6i68U8Vz7RRnvhICkCEI/w2Z5MgYzter
- 4mT4CXXyCnF9bhDHmyw+75xto8d+cZCXiwkdqUrVlQ7db9SGcatwi9B3Mu88AdkoDp+X
- ovpw==
+ bh=MYcMfa9UmKpbrcq2eKdzXRn9iD3DzK0oC+yU6GOGJbQ=;
+ b=XuDd42aIfj3YdlFXE+L4rVi5oi4eporcRQq2Ge9iVznauooZ7YOhzkjDZf/7QDitcJ
+ 7LhlCVlLfDXQ5C1MohJ/RA5qK4d+SMWR3Tq7Wc56+dMDqt/hGkbKYmI8CX9g4pI3KxDO
+ ksL3Bn2CfA1pp8HdwnYrR2Cj6DVnOJhIDSSZeIdCOh6Pp5yZ941rK9/gPanYNw+1+vRB
+ Fz4uRACPX1l0QTvV0lF3HEG4EvXTLZIHO2iI4Nmhe2Q8BrJ1TCRVLSgoNKaBDqhMwCL0
+ HiFT8K54et46/jeGw+gcC5FFAonwED68+SLKRhk2ZaQ6RnnZr8NZKgHUT/RqszmpWQdv
+ MuMQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9SZcyiuA2liEivomFI7U6NeoLQBx4Vx6opfICr8t5ovKvMMu+1m0IzTuCsb/PVOyiyIArQux1IypM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzky2rJN6tSbFvnYBDvQxmgqPnrLcVw8IYsEcFxrx5E3INictHq
- 7adSnUzauC70VltCLbZulMpYrQ0Vyy5JmrMcS8pmyLKf6kZxp2C85C6z
-X-Gm-Gg: Acq92OGibRvzlU6wwJJyVe7wr/bseMB1UImP5vBegND6Ts92jlEuSb7KO6GPjn+wfk7
- HS/OsZAV02U2+M5zxL1K9dHsEcg1Gg/XTAcL+EqA7RL7SE7S0QsPzteDUk75sPEjW8+TvYP364O
- pvza+gKUUjJZUi02jYW5sqFoX9tIxQ7Wih6ydDeL3zVae4G9v10WMjeUT3I12bzGwvwsTsKMssc
- KDkgBMS8eA8If4LKyhnNJ1E2Gde7bePITeBBia+R7l2+ro1PyRhslpBoldpD4rilMRylMrn6W5r
- ihSbEk3z5mlr96nzHRoNubU9UMhomIMJzjhkdxcZ7U6GY72p0AtkhuLEele6KzjOE39O0/pJe9H
- CkqxxfpYrGEoBHYRpaxug9yv/1nv26WGY5NWWcwKE0IQsYWUgCNeyqZCoDmwo4cCxvoCIUbPt01
- f/XuACcmh1pDy7kBPBW212vORC166VGAL2YgPOQMjZaZFfsQDFVvgNoRw=
-X-Received: by 2002:a05:6000:2403:b0:45e:655d:6f7 with SMTP id
- ffacd0b85a97d-45ea3ae887emr5723344f8f.24.1779374725641; 
- Thu, 21 May 2026 07:45:25 -0700 (PDT)
-Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
+ AFNElJ/AkLvrmwYz7u+7V+qSgDXQuCoKUEt4WucNqZZ3osZ7hCJ9A2IU9fDeDAv88GYP83zM3wD53TxhMnQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/x2/p85XVk1ZJOzdhgGZ9YtYVlIfAcgkfXWe3hMzUQjFEZ5cK
+ 4M38F5RHQi6zg2bD5/HvilD6yTyZLsPxl5JXPnl7ZsUOOxAHbaJRLnMdRlcJiETIOqU=
+X-Gm-Gg: Acq92OHERs7TB6dMrGXyEMzYVb2uP2iH47p7dOiLnsgxKHUo2k2DFtM0zXisrP0Dw7z
+ r3rmKrzK6j1QAf6cI3NA0mflR2bmT8cKdnGQNeifh2c+5cTXXg0qgQb0esP+UlZiqFXFAYH7tMe
+ R6+9WuaQWKI0oJMv+3crImr7+DlDdF3OjK4S+2AE1OHiorZ1SUV4N4VIuWirKCDv07C2aCfe0Kt
+ UhJadt+7QS7elsHcZ27FuVBWrQNqpyebSZu4PuZpyBJ7DRVm8QfkukgSlzzggLi7+Y2t28X1lR7
+ tQRPl8ny1P4xkYYhpTc39BZeZE82mId4BX5ax3KNLiRTAqZVoXpT0dOD0cGT0ZU61ISmkECqc/H
+ W4SyR0zehauyE+UM9klqPeKMq9LCpr35xdN6f4h8ky3ZQqETYQDa+cdAlbWihM45J9nFvJlUgwH
+ zcYN9e
+X-Received: by 2002:a17:90b:578e:b0:368:6a6e:94dd with SMTP id
+ 98e67ed59e1d1-36a4577cf96mr3442038a91.24.1779374798897; 
+ Thu, 21 May 2026 07:46:38 -0700 (PDT)
+Received: from [127.0.1.1] ([2a11:3:200::109e])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eaa7da46esm3699744f8f.14.2026.05.21.07.45.24
+ 98e67ed59e1d1-36a5bff3ef3sm476527a91.4.2026.05.21.07.46.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 07:45:24 -0700 (PDT)
-From: Julian Braha <julianbraha@gmail.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH] drm/i915: use 'depends on' with visible DEBUG_OBJECTS for
- DRM_I915_DEBUG and DRM_I915_SW_FENCE_DEBUG_OBJECTS
-Date: Thu, 21 May 2026 15:45:18 +0100
-Message-ID: <20260521144518.410717-1-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Thu, 21 May 2026 07:46:38 -0700 (PDT)
+From: Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH v4 0/5] Add support to 2 panels in bonded-DSI mode
+Date: Thu, 21 May 2026 22:46:02 +0800
+Message-Id: <20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKoaD2oC/x3MQQqEMAxA0atI1gZqmTYyVxEXOknHLKxDAyIU7
+ 26Z5Vv8X8GkqBi8uwpFTjU9csOr7+CzLfkrqNwM3vnogh/Q9jEGh4QDrkdmYWRTpIU4rORSHAl
+ a+yuS9Pp/p/m+HxErmS1nAAAA
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Jun Nie <jun.nie@linaro.org>, 
+ Jonathan Marek <jonathan@marek.ca>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779374785; l=2436;
+ i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
+ bh=9/4X222Ffhg6qxLQzzfx1T7bWcnktGM6AwovaxbqqjY=;
+ b=/WKxz3iXOXS5uf1GNcLWawLpDSfY6swFLXN24AUeDm+crBP+skomIhxxoU8jLwoiGj3q7hP1k
+ OgvdCnEyzLnB6puoNidZaS2wb/hzD24i+mXd4X9wALv1DEvag78eMwX
+X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
+ pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,49 +110,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A previous version of this patch[1] accidentally introduced an unmet
-dependency bug, because DRM_I915_DEBUG selects
-DRM_I915_SW_FENCE_DEBUG_OBJECTS without also depending on DEBUG_OBJECTS.
+The 2 DSI interfaces may be connected to 2 independent panels in bonded-DSI
+mode. Horizontal timing and DSC configuration are adjusted per individual
+panel in DSI host side. Support to multiple slice per packet is added for
+the device setup to test the usage case. A panel driver is included as an
+use case example.
 
-DRM_I915_SW_FENCE_DEBUG_OBJECTS currently selects DEBUG_OBJECTS even though
-DEBUG_OBJECTS is visible to users. Other config options use 'depends on'
-for DEBUG_OBJECTS, so let's do the same here.
+Changes vs v3:
+- A panel driver is added as an use case example.
+- Move dsc_slice_per_pkt to struct drm_dsc_config.
+- Polish commit messages.
+- Link to v3: https://lore.kernel.org/all/20250924-dsi-dual-panel-upstream-v3-0-6927284f1098@linaro.org
 
-In this new version of the patch, let's also add the dependency on
-DEBUG_OBJECTS to DRM_I915_DEBUG, to prevent the unmet dependency.
+Changes vs v2:
+- Polish commit message to describe usage case and requirements to
+  panel driver.
+- Remove changes in device tree and add dual_panel flag in mipi_dsi_device
+  to pass information from panel to dsi host.
+- Drop the register programming to DSI_VBIF_CTRL, as no issue is seen
+  in latest test.
+- Link to v2: https://lore.kernel.org/r/20250220-dual-dsi-v2-0-6c0038d5a2ef@linaro.org
 
-This select-visible Kconfig misusage was detected by Kconfirm, a static
-analysis tool for Kconfig.
+Change vs v1:
+- Add device tree binding for dual panel case in handling frame width for
+  DSC to avoid breaking existing dual-DSI case.
+- Leverage Marijn's patch to configure proper slice per interface in
+  dsi_update_dsc_timing().
+- Polish commit comments.
+- Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org/
 
-Link 1:
-https://lore.kernel.org/all/20260502191932.4491-1-julianbraha@gmail.com/
-
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
- drivers/gpu/drm/i915/Kconfig.debug | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Jun Nie (5):
+      drm/msm/dsi: support DSC configurations with slice_per_pkt > 1
+      drm/mipi-dsi: Add flag to support dual-panel configurations
+      drm/msm/dsi: Support dual panel use case with single CRTC
+      dt-bindings: display: Add Synaptics R63455 panel support
+      drm/panel: Add driver for Synaptics R63455 DSI panel
 
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index 3562a02ef7ad..657cdf49181e 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -35,6 +35,7 @@ config DRM_I915_REPLAY_GPU_HANGS_API
- 
- config DRM_I915_DEBUG
- 	bool "Enable additional driver debugging"
-+	depends on DEBUG_OBJECTS
- 	depends on DRM_I915
- 	depends on EXPERT # only for developers
- 	depends on !COMPILE_TEST # never built by robots
-@@ -153,7 +154,7 @@ config DRM_I915_TRACE_GTT
- config DRM_I915_SW_FENCE_DEBUG_OBJECTS
- 	bool "Enable additional driver debugging for fence objects"
- 	depends on DRM_I915
--	select DEBUG_OBJECTS
-+	depends on DEBUG_OBJECTS
- 	default n
- 	help
- 	  Choose this option to turn on extra driver debugging that may affect
+ .../bindings/display/panel/synaptics,r63455.yaml   | 125 ++++
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  33 +-
+ drivers/gpu/drm/panel/Kconfig                      |   9 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-synaptics-r63455.c     | 631 +++++++++++++++++++++
+ include/drm/display/drm_dsc.h                      |   7 +
+ include/drm/drm_mipi_dsi.h                         |   2 +
+ 7 files changed, 792 insertions(+), 16 deletions(-)
+---
+base-commit: 6654f8f33aa6229a90d4401519a62a2bf96cb851
+change-id: 20260521-sm8650-7-1-bonded-dsi-7a7d5b70f687
+
+Best regards,
 -- 
-2.53.0
+Jun Nie <jun.nie@linaro.org>
 
