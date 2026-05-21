@@ -4,116 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37A57CD5BB4
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 14:42:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1811BCD5BB5
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 14:42:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E822B10F652;
-	Fri, 22 May 2026 14:42:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7DA810E27D;
+	Fri, 22 May 2026 14:42:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="0I4tMOaq";
+	dkim=pass (2048-bit key; unprotected) header.d=poorly.run header.i=@poorly.run header.b="OK6KrhN4";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7FB210E48F;
- Thu, 21 May 2026 09:38:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=82qSLImWzSWwJwDL4P56RDhSxB/3/+bLg3x1B6/8Vyo=; b=0I4tMOaqwxFvPcLAyXC1tGPrfE
- HXHaVV7+wYwVP4UGjSNoFDd1VfRVRwKpSUpdi+/cM0lBIFBOtW57RPkKHZJ6gSZa57lZaOJNQszdB
- j5MhP9nNF2ZBC5XTLEZLefqvWnNibulepEtkV4okP/kU2AAENM/x1cT5yntunk8HjnN93yJVk0KhD
- 4BGKyKzwZYIhS+icC3RQoCP/xlaXk2zQuPvKHmUwXbld7xPg620UPcbli2n9Nu98+Jo3ggiseSwXX
- f5u71NtNcCGIkISy1Bu3AzX1ANpj9jp2f9+W1J8qexkOfVBSIDSPhC21GfXXPezuckw1Oq9h13vk1
- Ke/2S4sA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: linux-phy@lists.infradead.org,
-	Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- =?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Andy Yan <andy.yan@rock-chips.com>, Bart Van Assche <bvanassche@acm.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Can Guo <quic_cang@quicinc.com>,
- Chanho Park <chanho61.park@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Damien Le Moal <dlemoal@kernel.org>,
- Daniel Machon <daniel.machon@microchip.com>,
- David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Dmitry Baryshkov <lumag@kernel.org>, Eric Dumazet <edumazet@google.com>,
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
- Jakub Kicinski <kuba@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- JC Kuo <jckuo@nvidia.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, Joe Perches <joe@perches.com>,
- Johan Hovold <johan+linaro@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Kevin Xie <kevin.xie@starfivetech.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Linus Walleij <linusw@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Markus Schneider-Pargmann <msp@baylibre.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Ripard <mripard@kernel.org>,
- Michael Dege <michael.dege@renesas.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Niklas Cassel <cassel@kernel.org>, Nitin Rawat <quic_nitirawa@quicinc.com>,
- Paolo Abeni <pabeni@redhat.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Peter Chen <peter.chen@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>,
- Rob Herring <robh@kernel.org>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Samuel Holland <samuel@sholland.org>, Sandy Huang <hjc@rock-chips.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Sean Paul <sean@poorly.run>,
- Sebastian Reichel <sre@kernel.org>, Shawn Guo <shawn.guo@linaro.org>,
- Shawn Lin <shawn.lin@rock-chips.com>, Simona Vetter <simona@ffwll.ch>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Vincent Mailhol <mailhol@kernel.org>, Xu Yang <xu.yang_2@nxp.com>,
- Yixun Lan <dlan@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Subject: Re: (subset) [PATCH v8 phy-next 00/31] Split Generic PHY consumer and
- provider API
-Date: Thu, 21 May 2026 11:38:18 +0200
-Message-ID: <177935628872.1653123.15514691751947313571.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260505100523.1922388-1-vladimir.oltean@nxp.com>
-References: <20260505100523.1922388-1-vladimir.oltean@nxp.com>
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 374E610F3D4
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 18:01:47 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-7bd4c61765dso62353607b3.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 11:01:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=poorly.run; s=google; t=1779386506; x=1779991306; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0j0TPpzgwk8K8QWPmCr8MZO43/oD20R506hhkUYcHEM=;
+ b=OK6KrhN4Z0FUSpUTSVvrgxIoDf7qt/vSis4pzlEbXvXB4MJ7tOLAbFTmlbivEgt7kM
+ Mz3ksPFnySsKojD2JwKrppvlSu7NXYWSDFJU1ueR+QbzBXpmVm4zoUCyfek3u0CP1+9s
+ mYbaYZUAegkVjCzsXyDiUTHu2pMOyURscgLYYH1VIAm2zc1Yu7C3dHyl/ABT3zwYdsgI
+ It0Ev3uaYA7YqbXseuytqianpRFnMKZfB3XWO48CaoaJk96rTYwgdPbrMPXbzMuF+sdH
+ SkI1Ew2sRPBqo7z7UrNeZmOv6mTezfLEYhMYIMEUDvVLtKiiUYIAqb1X3X8T+OkqXHY8
+ 3u/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779386506; x=1779991306;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0j0TPpzgwk8K8QWPmCr8MZO43/oD20R506hhkUYcHEM=;
+ b=Btrt7il82NntoF+XNqAd6noAigC9cUQBwX+VPQVYknA+a3B5r3dSbfiFIU2PVWTQub
+ MhupQNyAmtcyg/polf+CbtYeb1sCEj5mL1/OCdverwNQz3iNI0jwlnCWxmcxGCg1AyQ8
+ zIA2MZ72h5DhsgG1ar2X8INeWVRI7gq9jhB/6tI98SmTxJr1gzVCYxqzcVgI1kzeoikb
+ C141GkigaVJ/ajj/wsPBWpdOW0KBMtSVGbmFAWgvGC+QdFjd9F9brpexQ8QbwbTfWELd
+ lufG8/ZGwaPagLtIjjZ//lnwbTXaNCSizyWhaWJm2RZcl1Hwf+Cgawx3DnjJ6U1VW5Nm
+ 3KZw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+9mNVKAC3RdGMCJVHSTDeGZqWxx5EQ0l1xRgIiPagueUZCdIVS/OCbhQZm0fpzSCoiv/qMgDo5tmk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzFX+MWpb2y700eX3xtd5QFdFXq4qVOvhOA6UkfhM0r9cx0d/rN
+ KR4oSj8DmMsB2ykXOzhtKZfceVlABIUCAzFNzr0EOl1A8iQpYXUasioKlzzdnTj9+Rc=
+X-Gm-Gg: Acq92OFwti3+99PqDT1Fx1550gMQwNto91pBe7m8AykNIZsyeZ+5R5L76u8kzPT/t8M
+ EQjAy9GWU/9q4PsqRpXcDV2UsZJAKW1XtAO22ozXm0/4PizHTqjpRu2b1cd5jqwU5p1IiYpWpYb
+ vXldI0zq3CUuadc0oCuEFUuZiQs2J3rgpehUNoyWwfcJ4+AgwvDHE4uWjRtLzbMpqS0Qb9A07tK
+ 8MtqQFI4P5XwJCoHuFetmmRSCjXlSInGXaurALTerIO0/GUcbsLcgUxGBATEceq//PzfrCMxom/
+ VjlorBpqMcdBhoF2BHzQW5pEFKPtyqOrRTW2mUEZGQe8yFG6fKexWPhwFpF1Zd4KsCrYxEAWd/A
+ b/NN/z8NJBdeoZp8N2D+NHeQhMgHBCOZRDqyEvPMuWLWRw0iVPBGFBGJPf2/3XsBjkgPoOzOtIF
+ dxTT4PJNJO4QxL/OkBcWXy/3W5Vk2gBRGM/xiPyGt3ECpWPC4QJ2IMH01sColBxIVKKg==
+X-Received: by 2002:a05:690c:22c2:b0:7b9:edca:bac6 with SMTP id
+ 00721157ae682-7d3342da421mr5592967b3.15.1779386505668; 
+ Thu, 21 May 2026 11:01:45 -0700 (PDT)
+Received: from localhost (182.221.85.34.bc.googleusercontent.com.
+ [34.85.221.182]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-7d2ca76a7b1sm5987237b3.23.2026.05.21.11.01.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2026 11:01:45 -0700 (PDT)
+From: Sean Paul <sean@poorly.run>
+To: intel-gfx@lists.freedesktop.org
+Cc: Sean Paul <seanpaul@google.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/i915/color: Fix plane color pipeline programming bugs
+Date: Thu, 21 May 2026 14:00:45 -0400
+Message-ID: <20260521180143.2143262-1-sean@poorly.run>
+X-Mailer: git-send-email 2.54.0.794.g4f17f83d09-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 22 May 2026 14:41:04 +0000
+X-Mailman-Approved-At: Fri, 22 May 2026 14:41:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,27 +91,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Sean Paul <seanpaul@google.com>
 
-On Tue, 05 May 2026 13:04:52 +0300, Vladimir Oltean wrote:
-> The biggest problem requiring this split is the fact that consumer
-> drivers poke around in struct phy, accessing fields which shouldn't be
-> visible to them. Follow the example of mux, gpio, iio, spi offload,
-> pwrsec, pinctrl and regulator, which each expose separate headers for
-> consumers and providers.
-> 
-> Some off-list discussions were had with Vinod Koul regarding the 3 PHY
-> providers outside the drivers/phy/ subsystem. It was agreed that it is
-> desirable to relocate them to drivers/phy/, rather than to publish
-> phy-provider.h to include/linux/phy/ for liberal use. Only phy.h and
-> (new) phy-props.h - consumer-facing headers - stay there.
-> 
-> [...]
+Fix two bugs in the plane-level color pipeline programming:
+1. Fix a step discontinuity in the Post-CSC Gamma LUT when SDR dimming
+   is active by clamping Segment 2 to the last user-provided LUT entry
+   value instead of hardcoding it to 1.0 (1 << 24).
+2. Fix a typo in the loop condition in xelpd_program_plane_pre_csc_lut
+   for Segment 2 degamma programming, changing 'while (i++ > 130)' to
+   'while (i++ < 130)'. Also clamp Segment 2 to the last user-provided
+   LUT entry value instead of hardcoding it to 1.0 (1 << 24) to fix
+   a step discontinuity similar to the Post-CSC fix.
 
-Applied, thanks!
+Signed-off-by: Sean Paul <seanpaul@google.com>
+---
+ drivers/gpu/drm/i915/display/intel_color.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-[15/31] drm/rockchip: dw_hdmi: avoid direct dereference of phy->dev.of_node
-        commit: 9392e7340bffb406a705de755adfb44eab547d40
-
-Best regards,
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 2d318e922671..9b807b024ec3 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -3953,6 +3953,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
+ 	enum plane_id plane = to_intel_plane(state->plane)->id;
+ 	const struct drm_color_lut32 *pre_csc_lut = plane_state->hw.degamma_lut->data;
+ 	u32 i, lut_size;
++	u32 lut_val = 1 << 24;
+ 
+ 	if (icl_is_hdr_plane(display, plane)) {
+ 		lut_size = 128;
+@@ -3963,7 +3964,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
+ 
+ 		if (pre_csc_lut) {
+ 			for (i = 0; i < lut_size; i++) {
+-				u32 lut_val = drm_color_lut32_extract(pre_csc_lut[i].green, 24);
++				lut_val = drm_color_lut32_extract(pre_csc_lut[i].green, 24);
+ 
+ 				intel_de_write_dsb(display, dsb,
+ 						   PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0),
+@@ -3975,8 +3976,8 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
+ 			do {
+ 				intel_de_write_dsb(display, dsb,
+ 						   PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0),
+-						   (1 << 24));
+-			} while (i++ > 130);
++						   lut_val);
++			} while (i++ < 130);
+ 		} else {
+ 			for (i = 0; i < lut_size; i++) {
+ 				u32 v = (i * ((1 << 24) - 1)) / (lut_size - 1);
+@@ -4023,11 +4024,11 @@ xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
+ 						   lut_val);
+ 			}
+ 
+-			/* Segment 2 */
++			/* Segment 2 - clamp to the last LUT value to prevent step discontinuity */
+ 			do {
+ 				intel_de_write_dsb(display, dsb,
+ 						   PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, 0),
+-						   (1 << 24));
++						   lut_val);
+ 			} while (i++ < 34);
+ 		} else {
+ 			/*TODO: Add for segment 0 */
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Sean Paul, Software Engineer, Google / Chromium OS
+
