@@ -4,56 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26108CD5BAC
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:03:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E04DECD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:06:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8656C10E2A8;
-	Thu, 21 May 2026 09:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3472710E2BE;
+	Thu, 21 May 2026 09:06:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="R0D0zqrj";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="MeioAS9D";
 	dkim-atps=neutral
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E294E10E107;
- Thu, 21 May 2026 09:03:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1779354226; x=1779613426;
- bh=XUOs5gzGAQsfeLUsJnVftHR4Vb5FftuYeGY6rn8jz0E=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=R0D0zqrjGCyWsuQ6b9mypJwIzOF8Y0katgLZRMiayBuusZ0iwdIgcEklFemG/r6tn
- DwOpvWS+xBHsTAGXriTQVw16UnvuKxUo1fTLEQdePQaG7F1SBf79LAGCU/tVVxXVtF
- bi8B/KrAPytg3vhJ6siZDTKxsQXs+OGtQV0B+F+WLOhMy8ZVvICSJfv9X+kmL8LjIe
- hGWL6dK7LQKOXbGlMIB6Or+W/pONfjNt8mlruAF1mqxe3vFozCaMJooPFUBPuDnNs3
- 2ORvA1FpgkABj0dYfpHo8mc173r7mCmgk9GtFhsyAQDUq8CWFG21zZB7OEe4sy1HfM
- Ok79cjNyWE0zg==
-Date: Thu, 21 May 2026 09:03:40 +0000
-To: Neil Armstrong <neil.armstrong@linaro.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4961610E2BE
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 09:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=kxMOs4dXD0pN1U9+9L/WIABEp5JlmFEPKJTJy5jes9s=; b=MeioAS9DTu5IYnt6P16wWIwEbV
+ O1lzZIcq3aPJXnIb1w3JxeLGVULUrwITtkN5eTFgaXIiNsVtQ2PGhAQXAZqCU9I3+56T4jHvuVfBT
+ ywE270IiPQDw6eZMtk3jIuhz2kw5lMs9pGXGvQhp4g4ksVoitkItqRKECkoNT0vFnr8lzKonzv4Jj
+ bSPgx52zBiuRIylfVOMY6yl3/K6C+NsiZBl8NgpGlHVb0TWs836bHSvuOhDy86M0Z9mqjyHpkTKhX
+ FyM7prAKoDq7wWHD8DP+4RuUnhu3I1I54AQTxowOX1x3oNnkX0brQD37HsdY/br150JBVWumq79Sz
+ /TP49C0A==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 2/2] drm/msm/dsi: support DSC configurations with
- slice_per_pkt > 1
-Message-ID: <B1J_l5TEAq5VkrzIONy8jR64syCY4emf6nfv6_oisI08IblhzeBv7meOvwVNFxknOEtVAA9QZKkG1eUtMlsCU4vJeYit4gAWYI2J5p-U6tc=@pm.me>
-In-Reply-To: <efede04f-b2e2-4fba-8247-f92eafa2b381@linaro.org>
-References: <20260318-dsi-dsc-slice-per-pkt-v1-0-1bd66b7f9e0c@pm.me>
- <20260318-dsi-dsc-slice-per-pkt-v1-2-1bd66b7f9e0c@pm.me>
- <w74ctaczp3ty7wil2sfkztc6wvuppgpyff4tw4dze34irvfmlx@e5f36rzqmp6i>
- <efede04f-b2e2-4fba-8247-f92eafa2b381@linaro.org>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: fb4b6bed8fc43b6f3108e2d4f609f11792d1cd57
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Vinod Koul <vkoul@kernel.org>, Chaoyi Chen <kernel@airkyi.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: Re: [PATCH 3/5] phy: rockchip: phy-rockchip-typec: Add DRM AUX bridge
+Date: Thu, 21 May 2026 11:06:12 +0200
+Message-ID: <7886213.zQ0Gbyo6oJ@phil>
+In-Reply-To: <20260521032854.103-4-kernel@airkyi.com>
+References: <20260521032854.103-1-kernel@airkyi.com>
+ <20260521032854.103-4-kernel@airkyi.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,49 +65,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thursday, May 21st, 2026 at 3:50 AM, Neil Armstrong <neil.armstrong@lina=
-ro.org> wrote:
+Hi,
 
-> On 3/18/26 10:39, Dmitry Baryshkov wrote:
-> > On Wed, Mar 18, 2026 at 07:33:03AM +0000, Alexander Koskovich wrote:
-> >> Some panels support multiple slice to be sent in a single DSC packet a=
-nd
-> >> this feature is a must for specific panels, such as the JDI LPM026M648=
-C.
-> >>
-> >> Use the MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT flag to derive slice_per_p=
-kt
-> >> from slice_count, note that most panels are expected to just work with
-> >> just one slice per packet.
-> >>
-> >> This change was originally authored by Jonathan Marek:
-> >> https://lore.kernel.org/all/20231114174218.19765-3-jonathan@marek.ca
-> >
-> > This is a wrong way to give attribution. Either please retain the autho=
-r
-> > and Jonathan's SoB or use Co-developed-by and still Jonathan's SoB.
+Am Donnerstag, 21. Mai 2026, 05:28:52 Mitteleurop=C3=A4ische Sommerzeit sch=
+rieb Chaoyi Chen:
+> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 >=20
-> Please retain `Signed-off-by: Jonathan Marek <jonathan@marek.ca>` since t=
-he only
-> major difference with the original patch is moving the drm_mipi_dsi.h cha=
-nge to
-> another patch.
+> Using the DRM_AUX_BRIDGE helper to create the transparent DRM bridge
+> device.
+>=20
+> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Yeah, made sure to add his Signed-off-by to v2:
-https://lore.kernel.org/linux-arm-msm/20260318-dsi-dsc-slice-per-pkt-v2-2-0=
-a1b316f8250@pm.me
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
+
+@Vinod:
+could you give this patch an Ack to go through the DRM tree please?
+
+It is independent of any other phy changes, but needs the drm-patches 1+2
+from this series, so ideally would go through the drm tree together with
+them.
+
+Thanks a lot
+Heiko
+
+
+> ---
+>  drivers/phy/rockchip/Kconfig              |  2 ++
+>  drivers/phy/rockchip/phy-rockchip-typec.c | 13 +++++++++++--
+>  2 files changed, 13 insertions(+), 2 deletions(-)
 >=20
-> >
-> > The patch looks good to me.
-> >
-> >>
-> >> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> >> ---
-> >>   drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
-> >>   1 file changed, 10 insertions(+), 15 deletions(-)
-> >>
-> >
+> diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
+> index 14698571b607..9173d3b4fef4 100644
+> --- a/drivers/phy/rockchip/Kconfig
+> +++ b/drivers/phy/rockchip/Kconfig
+> @@ -119,6 +119,8 @@ config PHY_ROCKCHIP_SNPS_PCIE3
+>  config PHY_ROCKCHIP_TYPEC
+>  	tristate "Rockchip TYPEC PHY Driver"
+>  	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+> +	depends on DRM || DRM=3Dn
+> +	select DRM_AUX_BRIDGE if DRM_BRIDGE
+>  	select EXTCON
+>  	select GENERIC_PHY
+>  	select RESET_CONTROLLER
+> diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rock=
+chip/phy-rockchip-typec.c
+> index d9701b6106d5..48070b50416e 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-typec.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-typec.c
+> @@ -54,6 +54,7 @@
+> =20
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/phy/phy.h>
+> +#include <drm/bridge/aux-bridge.h>
+> =20
+>  #define CMN_SSM_BANDGAP			(0x21 << 2)
+>  #define CMN_SSM_BIAS			(0x22 << 2)
+> @@ -1162,16 +1163,24 @@ static int rockchip_typec_phy_probe(struct platfo=
+rm_device *pdev)
+> =20
+>  	for_each_available_child_of_node(np, child_np) {
+>  		struct phy *phy;
+> +		ret =3D 0;
+> =20
+> -		if (of_node_name_eq(child_np, "dp-port"))
+> +		if (of_node_name_eq(child_np, "dp-port")) {
+>  			phy =3D devm_phy_create(dev, child_np,
+>  					      &rockchip_dp_phy_ops);
+> -		else if (of_node_name_eq(child_np, "usb3-port"))
+> +			ret =3D drm_aux_bridge_register_from_node(dev, child_np);
+> +		} else if (of_node_name_eq(child_np, "usb3-port"))
+>  			phy =3D devm_phy_create(dev, child_np,
+>  					      &rockchip_usb3_phy_ops);
+>  		else
+>  			continue;
+> =20
+> +		if (ret) {
+> +			pm_runtime_disable(dev);
+> +			of_node_put(child_np);
+> +			return ret;
+> +		}
+> +
+>  		if (IS_ERR(phy)) {
+>  			dev_err(dev, "failed to create phy: %pOFn\n",
+>  				child_np);
 >=20
->=20
-> 
+
+
+
+
