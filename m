@@ -4,64 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80FB3CD5BB1
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 10:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5783ECD5BA4
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 10:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D856810E47A;
-	Thu, 21 May 2026 10:47:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C58F110E385;
+	Thu, 21 May 2026 10:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jNKvSuju";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="ZjKPykS4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8048310E189;
- Thu, 21 May 2026 10:47:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779360459; x=1810896459;
- h=message-id:date:mime-version:from:to:cc:subject:
- content-transfer-encoding;
- bh=CQcu6k6vkEdgr3YXaYhrf0FkDkDMgcFMPdbfJKWcpjc=;
- b=jNKvSujurYeLfckhDELeQXAWKUEKdO7ymSl9JcSA4sEOPDu+P+X5oWqj
- NCJQbbkhtwTE2EWqrk3p/QbQJpYRNJoQYnQ/FhaQ9RErJk3CC0BGXROcT
- O0TrizEPaBEa1+9h5fQftpJNnMHSHo9afbbPnmjkTz1WR9rr+lxGgigwJ
- wJwLmuwxug7C56U0QAMX22IHWZACBoETPPCxWBUTMgo2UKGh4bf1wBhsw
- OH43kpiLZr71ZOCavGy670t0R8XK9CFq3ZqCSQzi+8EpziDUoK1inpxz8
- n6x6KQJebbUDeSqScEyAgKltNxk+P41/oS72Xf9WgUrC4Ik6GW6lF8AUr A==;
-X-CSE-ConnectionGUID: huTC0HxSTyaHT5+4ALt+3w==
-X-CSE-MsgGUID: MxeXkkq/REKxoFdfv2bgpw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11792"; a="80130114"
-X-IronPort-AV: E=Sophos;i="6.23,246,1770624000"; d="scan'208";a="80130114"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2026 03:47:39 -0700
-X-CSE-ConnectionGUID: skp7MCU7SwydA3I90UgT9w==
-X-CSE-MsgGUID: 60hjv++2SJGdhFlcNfypew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,246,1770624000"; d="scan'208";a="242294964"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.113])
- ([10.245.244.113])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2026 03:47:33 -0700
-Message-ID: <f4034e3c-8290-49e1-9410-dc1f449265f4@linux.intel.com>
-Date: Thu, 21 May 2026 12:47:22 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
-Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Oded Gabbay <ogabbay@kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F03D310E385
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 10:51:10 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4903d730b1fso1243525e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 03:51:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1779360669; x=1779965469; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qrQepb21ThYa5H25zJ7qisKCLfnMdtrz9jtuaFuhKz4=;
+ b=ZjKPykS415ju4D99XG1Ivbdk7+FOsTqzhs5jouRYMEKYV3Z8by2Eb1n9rsFi4cERL6
+ xKf5k72bmc/xRuKiJez01hatLIkrOLLQ+Pn2EOQniYe7DH+q0PI7FkPLLeWY4c8WJDae
+ KxfiukyiiqZl6oS82kH/jvw2qUYOkVDQcVr1o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779360669; x=1779965469;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qrQepb21ThYa5H25zJ7qisKCLfnMdtrz9jtuaFuhKz4=;
+ b=sNidnZs3Tb1zqrTHTo4lmWCfTNOgmtp2zx8skoX3DSwH1LavIEy/03wCOtuNQO/VLK
+ eG3Nok7JKqueZPRv6uBcO4Oipd9Jr8NaMVv2kGaJjYASn1YXX9iwnSiU4hthJlYi6Hsw
+ wUzwHPvkBM6yu4LxYCWoyFJbGV09mT/2s3BFN8V8CiSW4bTZq9RNeq+AKfhONy/UAqUR
+ GgVNop/YE84RgRZUHECNinu1+kKc9clhiUudol+Pj11pw9xlGn03eavGSlwo4OlxxAHi
+ rITymEP7KW3G28Wi+iEmFY3wqojsP34tf/VgMRbRHjeojsCAn9cZVRu0KwgIMxBRKWiR
+ G8/g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8fAaDdZNhlLcC5RT8/zT40tPBLb8FEmsmXuX1hbGeobjbV+RMFikdhp9GF/3YrJdeuYdDFukfOS1E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxeReUiG6mLguHGDCp741gT38wyhZ12UVmo8adXz4BkhjtnEpOK
+ U4EyyPQidhm1wB2e13GqcoKV1PLY05IDXQyVsnmUOoDWz9qrN5BQNJzkrLSMt74NuKg=
+X-Gm-Gg: Acq92OE1S8grasR1LVL82MB3MGO1cUVcxdJp1jjiF0JRgJjgAfd0MiXw6l9plmDSZlZ
+ LJmtzNic0SefTQ+7XmIFzBpzMUlLyvfJvA0MZ+Kz6hL0DEJoI1eEvPe4rNLiyIctT0xg5QhicbQ
+ HRzABp0eA1cvfRdb/aRWEfgXX46c7rpEmNVwJ+ldG73EtxhGXLFC7Y8gR4d1vv4zcs6W1ZaaGz9
+ WzgTJsDBKxafePnsN0sM4SJTQMt//gWXDSrZ9vIIrje2nymLdcQjJ4SF7J5sz7+3osENPefVobQ
+ e8XOkaQZYR48W5y8a2Ha2ujfOljBXvDCCKTLut4AjHXBE0CMBHE77aSFj/B64ImMziux2A7PShW
+ j2zQEKrQr2sJRMrNbhuIBCTSFQuvf2LozcMuSmPThgel2WlXYCdeemSnuqtAMDzgs7Xw+Npq4EF
+ z2/r6mhRXaWiT4XLBgBHS2KqlSjgBFfHCvmd4=
+X-Received: by 2002:a05:600c:4f16:b0:48f:e230:2a26 with SMTP id
+ 5b1f17b1804b1-490360e786bmr36579265e9.33.1779360669426; 
+ Thu, 21 May 2026 03:51:09 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49035c1dad3sm20540925e9.1.2026.05.21.03.51.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2026 03:51:08 -0700 (PDT)
+Date: Thu, 21 May 2026 12:51:06 +0200
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 11/28] drm/atomic_sro: Create kernel parameter to
+ force or disable readout
+Message-ID: <ag7jmuHUd7qqzXBu@phenom.ffwll.local>
+Mail-Followup-To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Subject: [PULL] drm-misc-next
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org>
+ <20260423-drm-state-readout-v2-11-8549f87cb978@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260423-drm-state-readout-v2-11-8549f87cb978@kernel.org>
+X-Operating-System: Linux phenom 6.19.10+deb14-amd64 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,199 +112,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+On Thu, Apr 23, 2026 at 12:18:24PM +0200, Maxime Ripard wrote:
+> The hardware state readout is useful, but might need to be disabled
+> in case of bugs, or its checks relaxed during development when not
+> all hooks are implemented yet.
+> 
+> Add a module parameter to control the readout behavior: it can be
+> disabled entirely, or the checks for missing compare or readout hooks
+> can be skipped independently.
+> 
+> Suggested-by: Simona Vetter <simona@ffwll.ch>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>  drivers/gpu/drm/drm_atomic_sro.c | 36 ++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_atomic_sro.h     |  2 ++
+>  2 files changed, 38 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomic_sro.c
+> index 177b97d451f5..a46f06e75c4e 100644
+> --- a/drivers/gpu/drm/drm_atomic_sro.c
+> +++ b/drivers/gpu/drm/drm_atomic_sro.c
+> @@ -11,10 +11,46 @@
+>  #include <linux/module.h>
+>  
+>  #include "drm_internal.h"
+>  #include "drm_crtc_internal.h"
+>  
+> +enum drm_atomic_readout_status {
+> +	DRM_ATOMIC_READOUT_DISABLED = 0,
+> +	DRM_ATOMIC_READOUT_ENABLED,
+> +	DRM_ATOMIC_READOUT_SKIP_MISSING_COMPARE,
+> +	DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT,
+> +};
+> +
+> +static unsigned int atomic_readout = DRM_ATOMIC_READOUT_ENABLED;
+> +module_param_unsafe(atomic_readout, uint, 0);
 
-Here's another pull request for v7.2-rc1.
+Default is actually 0 here. I agree with the docs that it should be 1,
+since drivers have an explicit opt-in through setting the main entry point
+in drm_mode_config_funcs.
 
-Kind regards,
-~Maarten Lankhorst
+I was also pondering whether we should have a compare-only mode, but the
+issue is that once you build a driver on readout being a thing, that could
+blow up. So I think that should be left as a per-driver tunable.
 
-drm-misc-next-2026-05-21:
-drm-misc-next for v7.2-rc1:
+That's also why this must be a unsafe debug option, it might actually
+break the driver.
 
-UAPI Changes:
-- Add VIRTIO_GPU_F_BLOB_ALIGNMENT flag.
+> +MODULE_PARM_DESC(atomic_readout,
+> +		 "Enable Hardware State Readout (0 = disabled, 1 = enabled, 2 = ignore missing compares, 3 = ignore missing readouts and compares, default = 1)");
+> +
+> +/**
+> + * drm_atomic_sro_device_can_readout - check if a device supports hardware state readout
+> + * @dev: DRM device to check
+> + *
+> + * Verifies that the device is an atomic driver, that readout is
+> + * enabled, and that all KMS objects implement the relevant hooks.
+> + *
+> + * RETURNS:
+> + *
+> + * True if the device supports full hardware state readout, false
+> + * otherwise.
+> + */
+> +bool drm_atomic_sro_device_can_readout(struct drm_device *dev)
+> +{
+> +	if (!drm_core_check_feature(dev, DRIVER_ATOMIC))
 
-Cross-subsystem Changes:
-- Add common TMDS character rate constants to video/hdmi and use those
-  in bridge drivers.
+I think this should be drm_drv_uses_atomic_modeset() since it's an
+internal check, not an uapi check.
 
-Core Changes:
-- Fix leak in drm_syncobj_find_fence.
-- Fix OOB reads related to DP-MST.
-- Create drm_get_bridge_by_endpoint and convert drivers to use it in
-  preparation of hotplug.
+With the two issues addressed:
 
-Driver Changes:
-- Assorted bugfixes and cleanups to accel/ethosu, imagination, virtio,
-  rockchip.
-- Expandable device heap support to amdxdna, bridge/chipone-icn6211.
-- Add Surface Pro 12 panels.
-- Convert ite-it6211 to use drm hdmi audio helpers.
-The following changes since commit 4c26e162947f91aa78ba57dd4fddd38fc80e7d60:
+Reviewed-by: Simona Vetter <simona.vetter@ffwll.ch>
 
-  drm/virtio: Extend blob UAPI with deferred-mapping hinting (2026-05-14 00:57:34 +0300)
+> +		return false;
+> +
+> +	if (atomic_readout == DRM_ATOMIC_READOUT_DISABLED)
+> +		return false;
+> +
+> +	return true;
+> +}
+> +EXPORT_SYMBOL(drm_atomic_sro_device_can_readout);
+> +
+>  struct __drm_atomic_sro_plane {
+>  	struct drm_plane *ptr;
+>  	struct drm_plane_state *state;
+>  };
+>  
+> diff --git a/include/drm/drm_atomic_sro.h b/include/drm/drm_atomic_sro.h
+> index 5a9333a05796..6e5262384c71 100644
+> --- a/include/drm/drm_atomic_sro.h
+> +++ b/include/drm/drm_atomic_sro.h
+> @@ -13,10 +13,12 @@ struct drm_plane;
+>  struct drm_plane_state;
+>  struct drm_printer;
+>  struct drm_private_obj;
+>  struct drm_private_state;
+>  
+> +bool drm_atomic_sro_device_can_readout(struct drm_device *dev);
+> +
+>  struct drm_atomic_sro_state *drm_atomic_sro_state_alloc(struct drm_device *dev);
+>  void drm_atomic_sro_state_free(struct drm_atomic_sro_state *state);
+>  void drm_atomic_sro_state_print(const struct drm_atomic_sro_state *state,
+>  				struct drm_printer *p);
+>  
+> 
+> -- 
+> 2.53.0
+> 
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-2026-05-21
-
-for you to fetch changes up to bfb76105b864af5553263a2156eecd7f08d7810b:
-
-  drm/bridge: ite-it66121: Convert to DRM HDMI Audio Helper (2026-05-21 12:03:08 +0200)
-
-----------------------------------------------------------------
-drm-misc-next for v7.2-rc1:
-
-UAPI Changes:
-- Add VIRTIO_GPU_F_BLOB_ALIGNMENT flag.
-
-Cross-subsystem Changes:
-- Add common TMDS character rate constants to video/hdmi and use those
-  in bridge drivers.
-
-Core Changes:
-- Fix leak in drm_syncobj_find_fence.
-- Fix OOB reads related to DP-MST.
-- Create drm_get_bridge_by_endpoint and convert drivers to use it in
-  preparation of hotplug.
-
-Driver Changes:
-- Assorted bugfixes and cleanups to accel/ethosu, imagination, virtio,
-  rockchip.
-- Expandable device heap support to amdxdna, bridge/chipone-icn6211.
-- Add Surface Pro 12 panels.
-- Convert ite-it6211 to use drm hdmi audio helpers.
-
-----------------------------------------------------------------
-Alexandru Dadu (1):
-      drm/imagination: Add support for trace points
-
-Ashutosh Desai (2):
-      drm/dp/mst: fix OOB reads in remote DPCD/I2C sideband reply parsers
-      drm/dp/mst: fix OOB reads on 2-byte fields in sideband reply parsers
-
-Brajesh Gupta (4):
-      drm/imagination: Populate FW common context ID before passing to the FW
-      drm/imagination: Don't timeout job if its fence has been signaled
-      drm/imagination: Rename FW booted to FW initialised
-      drm/imagination: Access FW initialised state with READ/WRITE_ONCE
-
-Deepanshu Kartikey (1):
-      drm/virtio: use uninterruptible resv lock for plane updates
-
-Harrison Vanderbyl (1):
-      drm/panel-edp: Add panel for Surface Pro 12in
-
-Javier Martinez Canillas (9):
-      drm/imagination: Fix missing argument in pvr_power_fw_{en,dis}able()
-      video/hdmi: Add common TMDS character rate constants
-      drm/bridge: dw-hdmi: Use the common TMDS char rate constant
-      drm/bridge: dw-hdmi-qp: Use the common TMDS char rate constant
-      drm/bridge: inno-hdmi: Use the common TMDS char rate constant
-      drm/sti: hdmi: Use the common TMDS char rate constants
-      drm/sun4i: hdmi: Use the common TMDS char rate constant
-      drm/msm/hdmi: Use the common TMDS char rate constants in 8996 PHY
-      drm/msm/hdmi: Use the common TMDS char rate constants in 8998 PHY
-
-Liviu Dudau (1):
-      drm/syncobj: Fix memory leak in drm_syncobj_find_fence()
-
-Lizhi Hou (1):
-      accel/amdxdna: Add expandable device heap support
-
-Luca Ceresoli (11):
-      drm/bridge: drm_bridge_put(): ignore ERR_PTR
-      drm/bridge: add of_drm_get_bridge_by_endpoint()
-      drm/msm/hdmi: switch to of_drm_get_bridge_by_endpoint()
-      drm/hisilicon/kirin: switch to of_drm_get_bridge_by_endpoint()
-      drm/bridge: chrontel-ch7033: switch to of_drm_get_bridge_by_endpoint()
-      drm/bridge: lontium-lt9611uxc: switch to of_drm_get_bridge_by_endpoint()
-      drm/bridge: lt9611: switch to of_drm_get_bridge_by_endpoint()
-      drm/bridge: adv7511: switch to of_drm_get_bridge_by_endpoint()
-      drm/bridge: lt8713sx: switch to of_drm_get_bridge_by_endpoint()
-      drm: zynqmp_dp: switch to of_drm_get_bridge_by_endpoint()
-      drm: of: forbid bridge-only calls to drm_of_find_panel_or_bridge()
-
-Osama Abdelkader (1):
-      drm/bridge: chipone-icn6211: use devm_drm_bridge_add in dsi probe
-
-Rob Herring (Arm) (1):
-      accel: ethosu: Validate SRAM size on submit
-
-Sen Wang (1):
-      drm/bridge: ite-it66121: Convert to DRM HDMI Audio Helper
-
-Sergio Lopez (3):
-      drm/virtio: support VIRTIO_GPU_F_BLOB_ALIGNMENT
-      drm/virtio: honor blob_alignment requirements
-      drm/virtio: add VIRTGPU_PARAM_BLOB_ALIGNMENT to params
-
-Vladimir Oltean (1):
-      drm/rockchip: dw_hdmi: avoid direct dereference of phy->dev.of_node
-
- drivers/accel/amdxdna/aie2_ctx.c               |  45 +++-
- drivers/accel/amdxdna/aie2_message.c           |  52 +++-
- drivers/accel/amdxdna/aie2_msg_priv.h          |   1 +
- drivers/accel/amdxdna/aie2_pci.c               |   1 +
- drivers/accel/amdxdna/aie2_pci.h               |   8 +-
- drivers/accel/amdxdna/amdxdna_ctx.c            |  82 +++++-
- drivers/accel/amdxdna/amdxdna_ctx.h            |   2 +
- drivers/accel/amdxdna/amdxdna_gem.c            | 330 +++++++++++++++++++------
- drivers/accel/amdxdna/amdxdna_gem.h            |  16 +-
- drivers/accel/amdxdna/amdxdna_pci_drv.c        |  12 +-
- drivers/accel/amdxdna/amdxdna_pci_drv.h        |   8 +-
- drivers/accel/amdxdna/npu1_regs.c              |   1 +
- drivers/accel/amdxdna/npu4_regs.c              |   2 +
- drivers/accel/amdxdna/npu5_regs.c              |   1 +
- drivers/accel/amdxdna/npu6_regs.c              |   1 +
- drivers/accel/ethosu/ethosu_job.c              |  18 +-
- drivers/gpu/drm/bridge/adv7511/adv7511.h       |   1 -
- drivers/gpu/drm/bridge/adv7511/adv7511_drv.c   |  15 +-
- drivers/gpu/drm/bridge/chipone-icn6211.c       |  11 +-
- drivers/gpu/drm/bridge/chrontel-ch7033.c       |  28 +--
- drivers/gpu/drm/bridge/inno-hdmi.c             |   4 +-
- drivers/gpu/drm/bridge/ite-it66121.c           | 138 ++++-------
- drivers/gpu/drm/bridge/lontium-lt8713sx.c      |  10 +-
- drivers/gpu/drm/bridge/lontium-lt9611.c        |   9 +-
- drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |   9 +-
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c   |   6 +-
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c      |  10 +-
- drivers/gpu/drm/display/drm_dp_mst_topology.c  |  23 +-
- drivers/gpu/drm/drm_bridge.c                   |  45 +++-
- drivers/gpu/drm/drm_of.c                       |  26 +-
- drivers/gpu/drm/drm_syncobj.c                  |  10 +-
- drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c   |   9 +-
- drivers/gpu/drm/imagination/Makefile           |   3 +
- drivers/gpu/drm/imagination/pvr_context.c      |  32 +--
- drivers/gpu/drm/imagination/pvr_device.c       |   2 +-
- drivers/gpu/drm/imagination/pvr_drv.c          |   3 +
- drivers/gpu/drm/imagination/pvr_fw.c           |   4 +-
- drivers/gpu/drm/imagination/pvr_fw.h           |   7 +-
- drivers/gpu/drm/imagination/pvr_job.c          |   3 +
- drivers/gpu/drm/imagination/pvr_mmu.c          |   4 +-
- drivers/gpu/drm/imagination/pvr_power.c        |  10 +-
- drivers/gpu/drm/imagination/pvr_queue.c        |  12 +-
- drivers/gpu/drm/imagination/pvr_trace.h        | 113 +++++++++
- drivers/gpu/drm/imagination/pvr_trace_points.c |   7 +
- drivers/gpu/drm/msm/hdmi/hdmi.c                |  70 ++++--
- drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c       |   6 +-
- drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c       |   6 +-
- drivers/gpu/drm/panel/panel-edp.c              |   1 +
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c    |  25 +-
- drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c     |   6 +-
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c         |   4 +-
- drivers/gpu/drm/virtio/virtgpu_drv.c           |   1 +
- drivers/gpu/drm/virtio/virtgpu_drv.h           |   3 +
- drivers/gpu/drm/virtio/virtgpu_gem.c           |  17 ++
- drivers/gpu/drm/virtio/virtgpu_ioctl.c         |  10 +
- drivers/gpu/drm/virtio/virtgpu_kms.c           |  14 +-
- drivers/gpu/drm/virtio/virtgpu_plane.c         |  10 +-
- drivers/gpu/drm/xlnx/zynqmp_dp.c               |  19 +-
- include/drm/drm_bridge.h                       |   7 +
- include/linux/hdmi.h                           |   6 +
- include/uapi/drm/virtgpu_drm.h                 |   1 +
- include/uapi/linux/virtio_gpu.h                |   9 +
- 62 files changed, 976 insertions(+), 373 deletions(-)
- create mode 100644 drivers/gpu/drm/imagination/pvr_trace.h
- create mode 100644 drivers/gpu/drm/imagination/pvr_trace_points.c
+-- 
+Simona Vetter
+Software Engineer
+http://blog.ffwll.ch
