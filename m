@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02BE9CD5BB9
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 15:01:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7CC3CD5BAF
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 15:01:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB9B810F3A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEF4810F3A2;
 	Thu, 21 May 2026 15:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G/k7sVrw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FZQdl/sv";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D2BF10F389
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:01:23 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4891e5b9c1fso56026485e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:01:23 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C238110F3A4
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:01:27 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-48e8132c6d0so40916465e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:01:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779375681; x=1779980481; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779375686; x=1779980486; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=feqCuYJiSrJNV96kUr6v72Q4V4YTTvof+UmoeS01S+w=;
- b=G/k7sVrw4pvTU7m5s+XdxdoTTcg7cpKXql/Que0r1yEWQ9I7zNbuH+fJEPXm5t/FLl
- mRQEPc9g54MXl4hrP3uZydPEZ5V+QXBsh9hdc1zIWwJIwuz9oRUmGy01HHbI/YYyMZ44
- It5s/x9RI0sve6xsCKUPnxIkCZyFtU5pOhZgMf47e4W2/gVYSu9rDDdOEi/hj2jNyznq
- B0ohxgJjfehDRgjETqU72YY0r+wUsdPcnfbP+qt25s4pxM2MyMFHbCjdRDe8/ynJyF2j
- jrhWeLUq7VZsocUbb9Xai1F2V9MArreygRKPB8XWFuv84sV0CWqiBPWanh2JLH1ByzA4
- xpDg==
+ bh=bEspAflfqXVOBaHB7nYaBvfzdQiHssyglqXp6Klx3RM=;
+ b=FZQdl/svAHgnN7qkIc+JbfmO5hCaKWsQyZkHmuu2Iv0J/W6RzG4gTTgG6zNWb8aNIy
+ AFLqiSDeewuRCnwlQUhhukcz11CN2Pn4oJBa/THR9Lnigb3g0HH1SQPLn1W4RHWSVa/K
+ ViTFMBOyiaSBE6S3o7jlYpc7Tx3g7MuZN5+o277z7kutjRVX/OitnckZsiMyyHbwDrqR
+ YDVJ9YQpzl4jUfqVobgVzzEX8JrJCL6if3PrNH829VU7lP7y/tIvuvDQdnQFEyMx6eF8
+ Ntdt2VprQbA7jf98bGvAtPSGcBmJdu9hPGnMNdZit5I8ZEi/8NpIVXOwKyebqseaZFAp
+ BL2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779375681; x=1779980481;
+ d=1e100.net; s=20251104; t=1779375686; x=1779980486;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=feqCuYJiSrJNV96kUr6v72Q4V4YTTvof+UmoeS01S+w=;
- b=Kx+v5jOmtjJ8fbgou4cCg3vuuy2TaevIPJADlC2fJ0XccztOqEXcz4XUmd+IjcM6yb
- sk8at3D2jcNQzHpRPlsPPmv7zyEdIbK7Z/0pat0WwiyPHP8Xut30/xXf0xIgScfNCF7F
- KlU0fDOO99iJ1D292GLVrc6ZWx6FOLwiVJB3p3LPVFWDV6Vzi/JNBVjcAWlqhLBX/ekz
- J+NG37EFC1yBFgBMHqMfk660mO3owJV7CvA1CTWT5hyGaznlE4dOc3HdGUEVAEv9OWV7
- LqKCN1LnDZI9PMFm46M9xUcJFY1qMBa84xWWTU+0RH2173Rnad1C61sK7J4XniXqECWU
- jbkQ==
+ bh=bEspAflfqXVOBaHB7nYaBvfzdQiHssyglqXp6Klx3RM=;
+ b=PFb5nQXY0hFDimW3zL5uysA54ZaUxGMDjVQ2gjxs/duafNjjBNiTLpZELzn4PvVS2h
+ SzaY3AcOftYC3X5xbmpL0GbsXkBd0UrxmyX+8/wk9GXAl0649YoCOFq2TJbQ8aBHYouk
+ krELLJhl3KUZlvfUv9xj4dKbrf2NIR2U8HUxrItnjRIkIAcgGoSC4VZQMj65hNB8cOlD
+ l+fR/xvkVZjB+hRnRcw15w3vEN8sLbc9rB3fy++eTc/joyEl3Gn91SWfSHulr2ZG99nE
+ SewzCp7PMuNFIKkdwTcsoYD9ANwvZytqae6Sl/YLrXrJVTv3US3vGt2qA4SYBpXJjKZs
+ 6Q9A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/Mkmgej79faZJsQvUUKB69IzpXrAFLDv0Z5YpW5HbPUiR5bPurO9r+dTHTMIp4245xcvKu7snTFrI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1UZzLbpd/2LNudcjPo63dtexgGiyg3j/XSo2v8tfkQujZ7IFF
- g5UUczwL3XCXj8gdvYAD5lt/fr7TthjzLG/pOUPuJYlFkivFvlT2+TzY
-X-Gm-Gg: Acq92OHjs0TVWmGzpo2TrLkhZBuzLcwRwh06HySo6lF7e9NZwKr4dkMSG7hlrfj6u3G
- FjLkKrtVLVFG+1IUqXyRm7QHQpdWAnPuZdzAU88RaHZTbZHNVyT+ThsLIRTSl+NIaIYiOB/2J7G
- enlSb+H2QirDl6/hPqsyvJ2KWSLZZbJY8pr0S9dKznXaAAv+5I8C//jehINVWA0FS82koLwosWA
- Oabwp7171QcFwH+/Wfgh8bsKUVAhNaiUi0uowYdPOkAWl+Og7IKKR8G21Salvcxsa3UZA5YHWhb
- xf+LXvELiieS9iP6yU7sPo9SjdfkNYwjBoChbkSK20h98MihS8YAv+6HRsn0NH1ekLCfpDc/P6d
- d3tO3ZyHVMlsvzJPG3D4wg5YVQBLOMpOgartlq+eFED7WS7Bpje7YAzoejFLJm7vaGVSU4L2T62
- eVkSZsl8N4NVjFPTh41++yTwWQr1uAj79zrT6wI3B69A==
-X-Received: by 2002:a05:600c:8b45:b0:48e:635a:18d2 with SMTP id
- 5b1f17b1804b1-490360341c0mr52451515e9.2.1779375681351; 
- Thu, 21 May 2026 08:01:21 -0700 (PDT)
+ AFNElJ9b5RkCCBukn6PZ5vwg6wEhUJgodTRd6AxFOqhIQ0rdJTIj3VcP60Api0DNrBisTARQLSFY7M5PoCo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywmqk80F6IG1otmVs6dY/iMSANQuBCGC7V2tlhFcmpkN6qP/D6i
+ /nvWvbTppaNslUiiNsq389i6V7D/avBUYLPimEBN6eeeSyJbOlFjCa0D
+X-Gm-Gg: Acq92OF9Jma2E6Fg67g1UAEq11tmT0Rr9Gxd6cXMzPhprYep+AQpLtkCrUN7HILEuKo
+ zoi3Jd5c/NbtqYtm6GF/PPSUF+ZLadjZ7mhtHlP02HbLRwL2/eEIfC+M3JqqrmbCUShECNNuWG5
+ 0zenCg9I0jUj5jx/RHTykXR6NWYgODxvPO1IgjR64KvBJGzkq93ZnizJQSRklY8eQPvHNJNBgz9
+ qoAC9sbG5G9tomMI8w3/VnQBGqc3foQDnT/UTOLFNFdKLBMmDwAR2pfVcAPbQC2lJaLx35uKASy
+ WIAZ/ZNnRPpupA2tzNyW5vCE2h2H+rASlEcGI4I7mvJGDls+Sch/lt6QZEgSbIK2ML6aKEaaPnp
+ CPH76uO83ksUewnCp0S06+1C41a7w+qrllC8oUi7hOoc51zridrF+aH+83suZyGH5epLbzm1+y5
+ H57MKMTkL/V2Y/MSDhB0BWkKgMNSnByqWWaFJR6gOfhQ==
+X-Received: by 2002:a05:600c:42d1:b0:489:1ba8:5bf0 with SMTP id
+ 5b1f17b1804b1-49036089466mr28660825e9.21.1779375685813; 
+ Thu, 21 May 2026 08:01:25 -0700 (PDT)
 Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4903caede9fsm34056745e9.14.2026.05.21.08.01.18
+ 5b1f17b1804b1-4903caede9fsm34056745e9.14.2026.05.21.08.01.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 08:01:20 -0700 (PDT)
+ Thu, 21 May 2026 08:01:24 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -78,10 +78,10 @@ To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 10/15] arm64: dts: ti: k3-am62-verdin: Add Toradex OV5640
- CSI Cameras
-Date: Thu, 21 May 2026 16:00:46 +0100
-Message-ID: <20260521150038.103538-27-ivitro@gmail.com>
+Subject: [PATCH v1 12/15] arm64: dts: ti: k3-am62-verdin: Add Mezzanine with
+ Toradex Display 10.1" LVDS
+Date: Thu, 21 May 2026 16:00:48 +0100
+Message-ID: <20260521150038.103538-29-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260521150038.103538-17-ivitro@gmail.com>
 References: <20260521150038.103538-17-ivitro@gmail.com>
@@ -104,181 +104,166 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Vitor Soares <vitor.soares@toradex.com>
 
-Add device tree overlays for the Toradex OV5640 CSI Cameras on Verdin
-CSI_1. Two variants are supported: the current CSI Camera Set 5MP OV5640
-with a 27 MHz oscillator and the legacy CSI Camera Module 5MP OV5640
-with a 24 MHz oscillator.
+Add a device tree overlay enabling the Toradex Capacitive Touch Display
+10.1" LVDS on the Verdin Development Board with Verdin AM62 Mezzanine
+expansion board. The panel connects via the AM62 OLDI0 on the Mezzanine
+LVDS interface (J10). The panel is a LogicTechno LT170410-2WHC 10.1" WXGA
+IPS LCD and the touch input is provided by an Atmel MaxTouch capacitive
+touch controller.
 
-Link: https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
-Link: https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
+Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
 Assisted-by: Claude:claude-sonnet-4.6
 Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 ---
- arch/arm64/boot/dts/ti/Makefile               |  8 +++
- .../dts/ti/k3-am625-verdin-ov5640-24mhz.dtso  | 17 +++++
- .../boot/dts/ti/k3-am625-verdin-ov5640.dtsi   | 71 +++++++++++++++++++
- .../boot/dts/ti/k3-am625-verdin-ov5640.dtso   | 18 +++++
- 4 files changed, 114 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640-24mhz.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtsi
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtso
+ arch/arm64/boot/dts/ti/Makefile               |   5 +
+ ...mezzanine-panel-cap-touch-10inch-lvds.dtso | 109 ++++++++++++++++++
+ 2 files changed, 114 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 31c9bc1d48b1..60844951c9ce 100644
+index 90bb3b0522d3..371f9a043fe5 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -41,6 +41,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-ivy.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-mallow.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-yavia.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-zinnia.dtb
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-ov5640-24mhz.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-ov5640.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
-@@ -228,6 +230,10 @@ k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
+@@ -30,6 +30,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-phyboard-lyra-rdk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-can.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-nau8822-btl.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-hdmi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
+@@ -231,6 +232,9 @@ k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
  	k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
+ k3-am625-verdin-wifi-dev-mezzanine-can-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-dev-mezzanine-can.dtbo
++k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-dtbs := \
++	k3-am625-verdin-wifi-dev.dtb \
++	k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
  k3-am625-verdin-wifi-dev-nau8822-btl-dtbs := k3-am625-verdin-wifi-dev.dtb \
  	k3-am625-verdin-dev-nau8822-btl.dtbo
-+k3-am625-verdin-wifi-dev-ov5640-24mhz-dtbs := k3-am625-verdin-wifi-dev.dtb \
-+	k3-am625-verdin-ov5640-24mhz.dtbo
-+k3-am625-verdin-wifi-dev-ov5640-dtbs := k3-am625-verdin-wifi-dev.dtb \
-+	k3-am625-verdin-ov5640.dtbo
- k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := \
- 	k3-am625-verdin-wifi-dev.dtb \
- 	k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
-@@ -339,6 +345,8 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ k3-am625-verdin-wifi-dev-ov5640-24mhz-dtbs := k3-am625-verdin-wifi-dev.dtb \
+@@ -348,6 +352,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
  	k3-am625-sk-hdmi-audio.dtb \
  	k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
+ 	k3-am625-verdin-wifi-dev-mezzanine-can.dtb \
++	k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds.dtb \
  	k3-am625-verdin-wifi-dev-nau8822-btl.dtb \
-+	k3-am625-verdin-wifi-dev-ov5640-24mhz.dtb \
-+	k3-am625-verdin-wifi-dev-ov5640.dtb \
- 	k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi.dtb \
- 	k3-am625-verdin-wifi-dev-uart4-mcu.dtb \
- 	k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640-24mhz.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640-24mhz.dtso
+ 	k3-am625-verdin-wifi-dev-ov5640-24mhz.dtb \
+ 	k3-am625-verdin-wifi-dev-ov5640.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
 new file mode 100644
-index 000000000000..7089336fa5b4
+index 000000000000..9c44d39a9498
 --- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640-24mhz.dtso
-@@ -0,0 +1,17 @@
++++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
+@@ -0,0 +1,109 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +/*
 + * Copyright (c) Toradex
 + *
-+ * Toradex CSI Camera Module 5MP OV5640 on Verdin CSI_1.
++ * Toradex Capacitive Touch Display 10.1" LVDS on the Verdin AM62 Mezzanine
++ * LVDS interface (J10), used with the Verdin Development Board.
 + *
-+ * https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
++ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
++ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
 + */
 +
 +/dts-v1/;
 +/plugin/;
 +
-+#include "k3-am625-verdin-ov5640.dtsi"
-+
-+&clk_ov5640_osc {
-+	clock-frequency = <24000000>;
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtsi b/arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtsi
-new file mode 100644
-index 000000000000..eb3df9d85517
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtsi
-@@ -0,0 +1,71 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Common device tree include for Toradex OV5640 CSI camera on Verdin CSI_1.
-+ */
-+
 +#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/pwm/pwm.h>
 +
 +&{/} {
-+	clk_ov5640_osc: ov5640-xclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
++	backlight_pwm2: backlight-pwm2 {
++		compatible = "pwm-backlight";
++		brightness-levels = <0 45 63 88 119 158 203 255>;
++		default-brightness-level = <4>;
++		/* Verdin GPIO_4 (SODIMM 212) - LVDS_BKL_EN */
++		enable-gpios = <&mcu_gpio0 4 GPIO_ACTIVE_HIGH>;
++		/* Verdin PWM_2 (SODIMM 16) - LVDS_PWM */
++		pwms = <&epwm0 1 6666667 PWM_POLARITY_INVERTED>;
 +	};
 +
-+	regulator_camera: regulator-camera {
-+		compatible = "regulator-fixed";
-+		/* Verdin GPIO_8_CSI (SODIMM 222) - CAM_1_CON_PWRCTRL */
-+		gpio = <&main_gpio0 42 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-name = "V_CSI";
-+		startup-delay-us = <5000>;
-+	};
-+};
++	panel-lvds-native {
++		compatible = "logictechno,lt170410-2whc", "panel-lvds";
++		backlight = <&backlight_pwm2>;
++		data-mapping = "vesa-24";
++		height-mm = <136>;
++		width-mm = <217>;
 +
-+&csi0_port0 {
-+	status = "okay";
-+
-+	csi2rx0_in_sensor: endpoint {
-+		remote-endpoint = <&csi2_cam0>;
-+		bus-type = <4>; /* CSI2 DPHY */
-+		clock-lanes = <0>;
-+		data-lanes = <1 2>;
-+	};
-+};
-+
-+&dphy0 {
-+	status = "okay";
-+};
-+
-+&main_i2c3 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	camera@3c {
-+		compatible = "ovti,ov5640";
-+		reg = <0x3c>;
-+
-+		clocks = <&clk_ov5640_osc>;
-+		clock-names = "xclk";
-+		AVDD-supply = <&regulator_camera>;
-+		DOVDD-supply = <&regulator_camera>;
-+		DVDD-supply = <&regulator_camera>;
-+		/* Verdin GPIO_6 (SODIMM 218) - CAM_1_CON_PWRDWN */
-+		powerdown-gpios = <&main_gpio0 36 GPIO_ACTIVE_HIGH>;
-+		/* Verdin GPIO_5 (SODIMM 216) - CAM_1_CON_RST */
-+		reset-gpios = <&main_gpio0 40 GPIO_ACTIVE_LOW>;
++		panel-timing {
++			clock-frequency = <71100000>;
++			de-active = <1>;
++			hactive = <1280>;
++			hback-porch = <3 40 51>;
++			hfront-porch = <43 80 91>;
++			hsync-active = <0>;
++			hsync-len = <15 40 47>;
++			pixelclk-active = <1>; /* positive edge */
++			vactive = <800>;
++			vback-porch = <5 7 10>;
++			vfront-porch = <5 7 10>;
++			vsync-active = <0>;
++			vsync-len = <6 9 12>;
++		};
 +
 +		port {
-+			csi2_cam0: endpoint {
-+				remote-endpoint = <&csi2rx0_in_sensor>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
++			panel_lvds_native_in: endpoint {
++				remote-endpoint = <&oldi0_out>;
 +			};
 +		};
 +	};
 +};
 +
-+&ti_csi2rx0 {
++&dss {
 +	status = "okay";
 +};
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtso
-new file mode 100644
-index 000000000000..e7f02cfaa94f
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtso
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex CSI Camera Set 5MP OV5640 on Verdin CSI_1.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
-+ * https://www.toradex.com/accessories/csi-camera-ov5640
-+ */
 +
-+/dts-v1/;
-+/plugin/;
++&dss_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
 +
-+#include "k3-am625-verdin-ov5640.dtsi"
++	/* DSS VP1: internal DPI output to OLDIx */
++	port@0 {
++		reg = <0>;
 +
-+&clk_ov5640_osc {
-+	clock-frequency = <27000000>;
++		dss0_out: endpoint {
++			remote-endpoint = <&oldi0_in>;
++		};
++	};
++};
++
++/* Verdin I2C_2_DSI */
++&main_i2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	touch@4a {
++		compatible = "atmel,maxtouch";
++		reg = <0x4a>;
++		/* Verdin GPIO_3 (SODIMM 210) - LVDS_TOUCH_INT# */
++		interrupt-parent = <&mcu_gpio0>;
++		interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
++		/* Verdin GPIO_2 (SODIMM 208) - LVDS_TOUCH_RST# */
++		reset-gpios = <&mcu_gpio0 2 GPIO_ACTIVE_LOW>;
++	};
++};
++
++&oldi0 {
++	status = "okay";
++};
++
++&oldi0_port0 {
++	oldi0_in: endpoint {
++		remote-endpoint = <&dss0_out>;
++	};
++};
++
++&oldi0_port1 {
++	oldi0_out: endpoint {
++		remote-endpoint = <&panel_lvds_native_in>;
++	};
 +};
 -- 
 2.54.0
