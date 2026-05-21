@@ -4,60 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A188BCD4F3D
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 18:39:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74DAFCD5BB4
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 18:56:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 011D810E544;
-	Thu, 21 May 2026 18:39:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5977510E554;
+	Thu, 21 May 2026 18:56:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JGE2Ao2Q";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WyiW9jrJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 998A610E1F4;
- Thu, 21 May 2026 18:39:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779388789; x=1810924789;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=bTwXMIao/tsFA5KgrooYJj9HNQ35SycL8VL3vZikbAg=;
- b=JGE2Ao2QsqyctFkIA0mT+HBALAzuj7A1pQTaQiPKN7M38Ajf6w4Dw84H
- hisRmyrklLRJZB5OryqhTuqLzXyo9dzpWu2SbNwWXMGZYhjgzUpHR571f
- Yc27lBqODfDafRRc+LBZFy2SFsRzXjd9ZE4Tgq20iTexHd+UER+D9BgM9
- pTmv6dJ2X1lKjkwcBisZKKtTHFhqm3zTy8EYmeI0nLRHBcZp+afEqJo9I
- tE5aEyy9HSyU6sON/7ECDbq7Vp5mnOtrhCDeiuZDvu6J70tZ0B2CYlxTD
- hqCxNav3vUIuxFc7ISE+p0RkL5D47FePwad5WGaxULrzCpjASHkb5ZbkR w==;
-X-CSE-ConnectionGUID: cyuVBDFSTwu4xbeeeynncA==
-X-CSE-MsgGUID: PzQz/m3CTiqLl9WPugS8JQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11793"; a="83936347"
-X-IronPort-AV: E=Sophos;i="6.24,160,1774335600"; d="scan'208";a="83936347"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2026 11:39:48 -0700
-X-CSE-ConnectionGUID: FCAPMnomS3aau/68mtQHjg==
-X-CSE-MsgGUID: AeNb7/3lR82smhXLtlKvjA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,160,1774335600"; d="scan'208";a="270962271"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.174])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2026 11:39:44 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Sean Paul <sean@poorly.run>, intel-gfx@lists.freedesktop.org
-Cc: Sean Paul <seanpaul@google.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/color: Fix plane color pipeline programming bugs
-In-Reply-To: <20260521180143.2143262-1-sean@poorly.run>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260521180143.2143262-1-sean@poorly.run>
-Date: Thu, 21 May 2026 21:39:39 +0300
-Message-ID: <6d8e36e2aea806f9973b3c501aad4523f7316d6a@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8352C10E1DF;
+ Thu, 21 May 2026 18:56:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=sVjLEB7Naf89XwfAlVqfn6fiYt2mgbkC8rcKbVFM4ZQ=; b=WyiW9jrJE3IPmDbqRIByANcIDk
+ F7bPShMluB90PMXEsvGSzgYTqQdg62Gi8gibiqP9BZAAN3Fs0rRSGmU2td/yfGgC7/eQlCqFwHrS/
+ jC/kVuhnyxryPeT+ITnQu9D/gr65P0RO0Tk2Ww66iZDXCo9A4+TDXiilYxrMYMFjTN48j9V/oO/vt
+ v6CNfXBsHE2uPMii8EiiN+niyVqrFwPPlWqtibsm06ESeCeV9E+lUUBIG4N9rMq1m7nXZktWGTpON
+ ovS9a5si3THkoGFwxNCwoaK7uLdPcsxDTckPWNvy47Zli3MyjkD0xZiRkUNf5WKE83lqmKF1LY4r7
+ BSVSRpaA==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
+ helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wQ8ZZ-004V6y-8Z; Thu, 21 May 2026 20:56:45 +0200
+Message-ID: <add51789-7291-40d6-9c8a-f68f46f1f11c@Igalia.com>
+Date: Thu, 21 May 2026 11:56:38 -0700
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/7] Refactor drm_writeback_connector structure
+To: Suraj Kandpal <suraj.kandpal@intel.com>, freedreno@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, kernel-list@raspberrypi.com,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260521053708.1475129-1-suraj.kandpal@intel.com>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <20260521053708.1475129-1-suraj.kandpal@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,80 +62,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 21 May 2026, Sean Paul <sean@poorly.run> wrote:
-> From: Sean Paul <seanpaul@google.com>
+On 5/20/26 22:37, Suraj Kandpal wrote:
+> Some drivers cannot work with the current design where the connector
+> is embedded within the drm_writeback_connector such as intel and
+> some drivers that can get it working end up adding a lot of checks
+> all around the code to check if it's a writeback conenctor or not.
+> This is due to the inheritance limitation in C.
+> This series intends to solve it by moving the drm_writeback_connector
+> within the drm_connector and remove the drm_connector base which was in
+> drm_writeback_connector. This is done in union with hdmi connector
+> within drm_connector to save memory and since drm_connector cannot be
+> both hdmi and writeback it serves is well.
+> A RFC version was floated and discussion had taken place at [1] which
+> kicked of this more cleaner series.
+> We do all other required modifications that come with these changes
+> along with addition of new function which returns the drm_connector when
+> drm_writeback_connector is present.
+> This series also contains some writeback API cleanups as a consequence
+> of writeback connector moving into drm_connector
+> All drivers will be expected to allocate the drm_connector.
+> This discussion was tiggered from [2] and sits on top of Dmitry's series
+> see [3].
 >
-> Fix two bugs in the plane-level color pipeline programming:
-> 1. Fix a step discontinuity in the Post-CSC Gamma LUT when SDR dimming
->    is active by clamping Segment 2 to the last user-provided LUT entry
->    value instead of hardcoding it to 1.0 (1 << 24).
-> 2. Fix a typo in the loop condition in xelpd_program_plane_pre_csc_lut
->    for Segment 2 degamma programming, changing 'while (i++ > 130)' to
->    'while (i++ < 130)'. Also clamp Segment 2 to the last user-provided
->    LUT entry value instead of hardcoding it to 1.0 (1 << 24) to fix
->    a step discontinuity similar to the Post-CSC fix.
+> [1] https://patchwork.freedesktop.org/series/152758/
+> [2] https://patchwork.freedesktop.org/series/152106/
+> [3] https://patchwork.freedesktop.org/series/152420/
+QQ: What tree is this patch set based on? I tried to apply it locally 
+but I get conflicts no matter what baseline I use. I've tried full 
+kernel, drm-tip and drm-next. Dmitry's patch set, [3] above, applies 
+fine but I get conflicts in the rcar and mali files when trying to apply 
+this set.
 
-One fix per patch, please.
-
-For #2 there's already [1].
-
-BR,
-Jani.
-
-[1] https://lore.kernel.org/r/20260519075245.383864-1-pranay.samala@intel.com
+Thanks,
+John.
 
 >
-> Signed-off-by: Sean Paul <seanpaul@google.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_color.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-> index 2d318e922671..9b807b024ec3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color.c
-> @@ -3953,6 +3953,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
->  	enum plane_id plane = to_intel_plane(state->plane)->id;
->  	const struct drm_color_lut32 *pre_csc_lut = plane_state->hw.degamma_lut->data;
->  	u32 i, lut_size;
-> +	u32 lut_val = 1 << 24;
->  
->  	if (icl_is_hdr_plane(display, plane)) {
->  		lut_size = 128;
-> @@ -3963,7 +3964,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
->  
->  		if (pre_csc_lut) {
->  			for (i = 0; i < lut_size; i++) {
-> -				u32 lut_val = drm_color_lut32_extract(pre_csc_lut[i].green, 24);
-> +				lut_val = drm_color_lut32_extract(pre_csc_lut[i].green, 24);
->  
->  				intel_de_write_dsb(display, dsb,
->  						   PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0),
-> @@ -3975,8 +3976,8 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
->  			do {
->  				intel_de_write_dsb(display, dsb,
->  						   PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0),
-> -						   (1 << 24));
-> -			} while (i++ > 130);
-> +						   lut_val);
-> +			} while (i++ < 130);
->  		} else {
->  			for (i = 0; i < lut_size; i++) {
->  				u32 v = (i * ((1 << 24) - 1)) / (lut_size - 1);
-> @@ -4023,11 +4024,11 @@ xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
->  						   lut_val);
->  			}
->  
-> -			/* Segment 2 */
-> +			/* Segment 2 - clamp to the last LUT value to prevent step discontinuity */
->  			do {
->  				intel_de_write_dsb(display, dsb,
->  						   PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, 0),
-> -						   (1 << 24));
-> +						   lut_val);
->  			} while (i++ < 34);
->  		} else {
->  			/*TODO: Add for segment 0 */
+> Suraj Kandpal (7):
+>    drm: writeback: Refactor drm_writeback_connector structure
+>    drm: writeback: Modify writeback init helpers
+>    drm: writeback: Modify drm_writeback_queue_job helper
+>    drm: writeback: Modify drm_writeback_signal_completion helper
+>    drm: writeback: Modify drm_writeback_get_out_fence helper
+>    drm: writeback: Modify prepare_writeback_job helper
+>    drm: writeback: Modify cleanup_writeback_job helper
+>
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +--
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 12 +--
+>   .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  2 +-
+>   .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+>   .../arm/display/komeda/komeda_wb_connector.c  | 11 +--
+>   drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+>   drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+>   drivers/gpu/drm/arm/malidp_mw.c               |  7 +-
+>   drivers/gpu/drm/drm_atomic_uapi.c             |  4 +-
+>   drivers/gpu/drm/drm_writeback.c               | 50 +++++++-----
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  9 ++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 10 +--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
+>   .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  6 +-
+>   .../drm/renesas/rcar-du/rcar_du_writeback.c   | 16 ++--
+>   drivers/gpu/drm/vc4/vc4_txp.c                 |  8 +-
+>   drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
+>   drivers/gpu/drm/vkms/vkms_writeback.c         | 15 ++--
+>   include/drm/drm_connector.h                   | 69 ++++++++++++++++-
+>   include/drm/drm_modeset_helper_vtables.h      |  4 +-
+>   include/drm/drm_writeback.h                   | 76 ++-----------------
+>   22 files changed, 164 insertions(+), 163 deletions(-)
+>
 
--- 
-Jani Nikula, Intel
