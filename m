@@ -4,56 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8397CD5BAC
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:51:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCB14CD4F3D
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:56:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20E3F10F334;
-	Thu, 21 May 2026 13:51:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50BA610E4E9;
+	Thu, 21 May 2026 13:56:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="N+h+gxix";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RKNoJ0KV";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52D1C10F32F
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 13:51:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779371495; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=U5W0+Bsjg0KnBvHEztP7V9P/OOthSou6Je9hZ1clJmEgQvvT1i9xwm/iFnvEl42I3e80HjoMdTbMFmSRJ/UxOvzzuXhrGkw8A67c+hsctYnagCU8v49hExkiw37yxB71hYc/bAhQorBiX2fO9yn3omrrveKDN4xglniV1oeaTZ4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779371495;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=8cyLCrRV0YTLJMVJbdr4WO4Y8/1yfnaUZ5GcF13NkhI=; 
- b=WFob92ztGT+a+BhyftA5VY7gJE6MpnB6S9lXy8TbnfvifPnUtvT/F2KLblCc+h7WplW9ZEDXQ69wmrb5VVUcwv1cP3wP8MoGN8G8KMLnhQZ0iOZkBHMLX0wERc8Bz2tfoYDbixxVF1SIRRxmjYhN8+QEtF8075hMADEkxzq0Oik=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779371495; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=8cyLCrRV0YTLJMVJbdr4WO4Y8/1yfnaUZ5GcF13NkhI=;
- b=N+h+gxixLzZ8oPS4DHVicNCievEY+KOb60GR4jq+qMI5iOTlct9sFxZwE27SKDq2
- AhOIiOhRIw9SJm3zSSoxfACTdeHGnvIieERLpR1Dygvucw9PCXRmrCtGIR1ChfC2+Z7
- TI7pzAUryClX5ifFmYGLjyo+jzsWJXJqnDVWJ11Q=
-Received: by mx.zohomail.com with SMTPS id 1779371493370649.9004154103003;
- Thu, 21 May 2026 06:51:33 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 21 May 2026 15:51:15 +0200
-Subject: [PATCH v5 1/2] drm/panthor: Implement evicted status for GEM objects
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1EBE10E4E5
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 13:56:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6C45D43463;
+ Thu, 21 May 2026 13:56:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ADD11F000E9;
+ Thu, 21 May 2026 13:56:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779371813;
+ bh=fgDyaoAaBVlG/7hkYJNhJI1L8SvN21kpP91Qx0GqPWQ=;
+ h=From:To:Subject:Date;
+ b=RKNoJ0KVGU9UO7B23Xm8sIkN5/Y5fiZz+DIOdurPZvERBCck8y+ak3+9fuH+HS0PU
+ +C9s22ZtUliEhxbhausQ4Rem//CFD3PpoqKDQdo6zc/i+vacxfQMo0F2K0CBN6+xIy
+ PEF4kKJQPeXPchfXBOu7P+I4Vx0YGcAvUyg1nqBYgHOgM/W56v8dbs5zdvtZuqjzmT
+ jyVpypcx3+BAOemK/4ISQVZSx5NAlA8ATBDcwaBbLbRnJGbny6Pov2Y8hV/sfxT4Ru
+ pNMa+EKLdJtLxEknHQqexh8EOZszUjsxyGYenqKzOpvEeVUMFnJXhhmkfAR85PEkQ0
+ 9jxWSHjTvM2tA==
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+To: David Airlie <airlied@linux.ie>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [GIT PULL] mediatek drm fixes - 20260521
+Date: Thu, 21 May 2026 13:56:49 +0000
+Message-Id: <20260521135649.4681-1-chunkuang.hu@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-panthor-bo-reclaim-observability-v5-1-49313994da55@collabora.com>
-References: <20260521-panthor-bo-reclaim-observability-v5-0-49313994da55@collabora.com>
-In-Reply-To: <20260521-panthor-bo-reclaim-observability-v5-0-49313994da55@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,141 +55,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For fdinfo to be able to fill its evicted counter with data, panthor
-needs to keep track of whether a GEM object has ever been reclaimed.
-Just checking whether the pages are resident isn't enough, as newly
-allocated objects also won't be resident.
+Hi, Dave & Sima:
 
-Do this with a new atomic_t member on panthor_gem_object. It's increased
-when an object gets evicted by the shrinker, and saturates at INT_MAX.
-This means that once an object has been evicted at least once, its
-reclaim counter will never return to 0.
+This includes:
+1. fix sparse warnings
 
-Due to this, it's possible to distinguish evicted non-resident pages
-from newly allocated non-resident pages by checking whether
-reclaimed_count is != 0
+Regards,
+Chun-Kuang.
 
-Use this new member to then set the appropriate DRM_GEM_OBJECT_EVICTED
-status flag for fdinfo.
+The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731:
 
-Also add a new column and status flag to the panthor gems debugfs: the
-column is the number of times an object has been evicted, whereas the
-flag indicates whether it currently is evicted.
+  Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
 
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_gem.c | 16 ++++++++++++----
- drivers/gpu/drm/panthor/panthor_gem.h | 10 ++++++++++
- 2 files changed, 22 insertions(+), 4 deletions(-)
+are available in the Git repository at:
 
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 13295d7a593d..25bb62a48276 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -687,6 +687,8 @@ static void panthor_gem_evict_locked(struct panthor_gem_object *bo)
- 	if (drm_WARN_ON_ONCE(bo->base.dev, !bo->backing.pages))
- 		return;
- 
-+	atomic_add_unless(&bo->reclaimed_count, 1, INT_MAX);
-+
- 	panthor_gem_dev_map_cleanup_locked(bo);
- 	panthor_gem_backing_cleanup_locked(bo);
- 	panthor_gem_update_reclaim_state_locked(bo, NULL);
-@@ -1595,6 +1597,7 @@ static void panthor_gem_debugfs_print_flag_names(struct seq_file *m)
- 	static const char * const gem_state_flags_names[] = {
- 		[PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT] = "imported",
- 		[PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT] = "exported",
-+		[PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT] = "evicted",
- 	};
- 
- 	static const char * const gem_usage_flags_names[] = {
-@@ -1625,6 +1628,7 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
- {
- 	enum panthor_gem_reclaim_state reclaim_state = bo->reclaim_state;
- 	unsigned int refcount = kref_read(&bo->base.refcount);
-+	int reclaimed_count = atomic_read(&bo->reclaimed_count);
- 	char creator_info[32] = {};
- 	size_t resident_size;
- 	u32 gem_usage_flags = bo->debugfs.flags;
-@@ -1638,16 +1642,20 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
- 
- 	snprintf(creator_info, sizeof(creator_info),
- 		 "%s/%d", bo->debugfs.creator.process_name, bo->debugfs.creator.tgid);
--	seq_printf(m, "%-32s%-16d%-16d%-16zd%-16zd0x%-16lx",
-+	seq_printf(m, "%-32s%-16d%-16d%-11d%-16zd%-16zd0x%-16lx",
- 		   creator_info,
- 		   bo->base.name,
- 		   refcount,
-+		   reclaimed_count,
- 		   bo->base.size,
- 		   resident_size,
- 		   drm_vma_node_start(&bo->base.vma_node));
- 
- 	if (drm_gem_is_imported(&bo->base))
- 		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED;
-+	else if (!resident_size && reclaimed_count)
-+		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED;
-+
- 	if (bo->base.dma_buf)
- 		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED;
- 
-@@ -1671,8 +1679,8 @@ static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
- 
- 	panthor_gem_debugfs_print_flag_names(m);
- 
--	seq_puts(m, "created-by                      global-name     refcount        size            resident-size   file-offset       state      usage       label\n");
--	seq_puts(m, "----------------------------------------------------------------------------------------------------------------------------------------------\n");
-+	seq_puts(m, "created-by                      global-name     refcount        evictions  size            resident-size   file-offset       state      usage       label\n");
-+	seq_puts(m, "---------------------------------------------------------------------------------------------------------------------------------------------------------\n");
- 
- 	scoped_guard(mutex, &ptdev->gems.lock) {
- 		list_for_each_entry(bo, &ptdev->gems.node, debugfs.node) {
-@@ -1680,7 +1688,7 @@ static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
- 		}
- 	}
- 
--	seq_puts(m, "==============================================================================================================================================\n");
-+	seq_puts(m, "=========================================================================================================================================================\n");
- 	seq_printf(m, "Total size: %zd, Total resident: %zd, Total reclaimable: %zd\n",
- 		   totals.size, totals.resident, totals.reclaimable);
- }
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-index ae0491d0b121..56d63137b4eb 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.h
-+++ b/drivers/gpu/drm/panthor/panthor_gem.h
-@@ -19,12 +19,16 @@ struct panthor_vm;
- enum panthor_debugfs_gem_state_flags {
- 	PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT = 0,
- 	PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT = 1,
-+	PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT = 2,
- 
- 	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED: GEM BO is PRIME imported. */
- 	PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT),
- 
- 	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED: GEM BO is PRIME exported. */
- 	PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT),
-+
-+	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED: GEM BO is evicted to swap. */
-+	PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT),
- };
- 
- enum panthor_debugfs_gem_usage_flags {
-@@ -172,6 +176,12 @@ struct panthor_gem_object {
- 	/** @reclaim_state: Cached reclaim state */
- 	enum panthor_gem_reclaim_state reclaim_state;
- 
-+	/**
-+	 * @reclaimed_count: How many times object has been evicted to swap.
-+	 * The count saturates at %INT_MAX and will never wrap around to 0.
-+	 */
-+	atomic_t reclaimed_count;
-+
- 	/**
- 	 * @exclusive_vm_root_gem: Root GEM of the exclusive VM this GEM object
- 	 * is attached to.
+  https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git tags/mediatek-drm-fixes-20260521
 
--- 
-2.54.0
+for you to fetch changes up to 87ed4e845d5a90bba1a56c0a5c580a13982e8648:
 
+  drm/mediatek: mtk_hdmi_ddc: Fix non-static global variable (2026-05-18 14:21:39 +0000)
+
+----------------------------------------------------------------
+Mediatek DRM Fixes - 20260521
+
+1. fix sparse warnings
+
+----------------------------------------------------------------
+Louis-Alexis Eyraud (4):
+      drm/mediatek: mtk_hdmi_ddc_v2: Fix non-static global variable
+      drm/mediatek: mtk_hdmi_v2: Fix non-static global variable
+      drm/mediatek: mtk_cec: Fix non-static global variable
+      drm/mediatek: mtk_hdmi_ddc: Fix non-static global variable
+
+ drivers/gpu/drm/mediatek/mtk_cec.c         | 2 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c    | 2 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi_ddc_v2.c | 2 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi_v2.c     | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
