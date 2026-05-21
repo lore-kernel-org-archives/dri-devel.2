@@ -4,96 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA505CD5BAB
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 22:24:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D96CD5BAB
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 22:35:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54BF310E46A;
-	Thu, 21 May 2026 22:24:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B03E10F41E;
+	Thu, 21 May 2026 22:35:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="mqaQyKe6";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="XVeaHwM6";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="R/Fd2kn9";
 	dkim-atps=neutral
-Received: from fout-b1-smtp.messagingengine.com
- (fout-b1-smtp.messagingengine.com [202.12.124.144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AEE210E46A
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 22:24:41 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.stl.internal (Postfix) with ESMTP id 3E7251D00081;
- Thu, 21 May 2026 18:24:40 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Thu, 21 May 2026 18:24:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1779402280;
- x=1779488680; bh=7jolSoc5xzaKtei7c0bKGfi2PyAu6NwKiCmKyaxCEFc=; b=
- mqaQyKe6C3vrBTmWJGh9fVaOWbgoWASNHGrIaJln7nXei7LRICrlbItUiPYkukg1
- AAbfL4nrYtcsVrohsWB4+Ybsh8WDrmTtIz3tEL2XDIe/XUElNL4d9ap1fGF3NNXz
- 1aPOaWlnUHTK/iQt1ZEfL9DQexG1Yp/GM2ZjQ6jHEdjL66onnxRhKf//1yNBsw0N
- DdoNbmuWQP2k6sPhOlkReiwx+I0T80Vtq8fSsiKfL0/dV/CY/pgrrl8j7df03nKx
- fRWKJeDXJz62Y0GhWm1I11hzDW9+cZQ1RUozs3LUyMZj0talAcchAmsCzXX15laj
- BkffJRDPEkrhpPhjLwLDBg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1779402280; x=
- 1779488680; bh=7jolSoc5xzaKtei7c0bKGfi2PyAu6NwKiCmKyaxCEFc=; b=X
- VeaHwM6BNeAxs5ldFBJ2txxXYsugjwMeP+mZhXhROxAb61Zag7GuW6Kphmj/uhUP
- qiWW9Zn85/QCQKVRVmvK7bHyTessZ+hE9/MK7v3kjvbn6u5PIlc2xcvE4oKVWnSf
- W2/QFm6UHjRcbGHpZGPxYL0bfaTuabCle+le9sDlqc/Zcp8BViOLEall91G0xLZk
- TD5pkJaDvifoa1AeQP3SwmOCn9ZOKvDfKyMCZwXJ0R44VJmxdWJDqKnXBEm3v5bW
- 7cpG6ARCWYDzKFyXJjqQipLX2VoiRv4sXOj6CIE2HfGTB8exPTDYxUfLs8F1/F5s
- J1xsOoN2QIaNpXLAAUuLg==
-X-ME-Sender: <xms:J4YPaukgnmNTcTKoOkzYsM8x2rn5vEp8nwqga_RzF2hj0c4tQ6koXw>
- <xme:J4YParCgMRH224NeIWGrVfL4OhR5KDzj25oOxFzxc6_dmuguFwSNQc9GtgJDO9-2o
- MzfjlT09Ld6d86MGgpKSyqZ0J0gfLC39nDXBoV-QYGCEUOiM0ReYA>
-X-ME-Received: <xmr:J4YPagATKsrXswZA5KNXMLscqcNtCipUACZrGJr0JsvpY0_I0-PeY5DkPqk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddugeekjedtucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
- gurhepfffhvfevuffkjghfofggtgfgsehtjeertdertddvnecuhfhrohhmpeetlhgvgicu
- hghilhhlihgrmhhsohhnuceorghlvgigsehshhgriigsohhtrdhorhhgqeenucggtffrrg
- htthgvrhhnpedvkeefjeekvdduhfduhfetkedugfduieettedvueekvdehtedvkefgudeg
- veeuueenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grlhgvgiesshhhrgiisghothdrohhrghdpnhgspghrtghpthhtohepudefpdhmohguvgep
- shhmthhpohhuthdprhgtphhtthhopeiihhhiphhinhhgiiesmhgvthgrrdgtohhmpdhrtg
- hpthhtohepjhhgghesiihivghpvgdrtggrpdhrtghpthhtoheplhgvohhnsehkvghrnhgv
- lhdrohhrghdprhgtphhtthhopehhvghlghgrrghssehkvghrnhgvlhdrohhrghdprhgtph
- htthhopehkvhhmsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhu
- gidqrhgumhgrsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugi
- dqphgtihesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehnvghtuggvvhes
- vhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopegurhhiqdguvghvvghlsehlih
- hsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
-X-ME-Proxy: <xmx:J4YPaiFWGgOh0m_ohvj4pxxN7MaoiPkbDA2d7AdDOQG9jEfGDthQtQ>
- <xmx:J4YPan7lf-JmCAlDD58VwiWL1wTWROxTIOMOJoVbCRcagAuKJ44PvQ>
- <xmx:J4YPapRqrG0AHiU9lVPWXVGsjHb7jgK-oW2jejTixHMqwue0izHM4g>
- <xmx:J4YPai7qVXWjh-eIgNfe_XvB7Dud7ADmdVyKIx3P4tN5XynJDQkyUQ>
- <xmx:KIYPatD_uSA_QuIg5emqSgilXCTSNWmvMRjt-M012kvAZ13y2vVybVtU>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 21 May 2026 18:24:38 -0400 (EDT)
-Date: Thu, 21 May 2026 16:24:37 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Bjorn
- Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
- <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
- <yishaih@nvidia.com>, alex@shazbot.org
-Subject: Re: [PATCH v4 1/3] vfio: add dma-buf get_tph callback and
- DMA_BUF_TPH feature
-Message-ID: <20260521162437.406085db@shazbot.org>
-In-Reply-To: <20260521160412.4fa75406@shazbot.org>
-References: <20260519201401.1558410-1-zhipingz@meta.com>
- <20260519201401.1558410-2-zhipingz@meta.com>
- <20260521160412.4fa75406@shazbot.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com
+ [209.85.216.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1BF610F428
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 22:35:00 +0000 (UTC)
+Received: by mail-pj1-f100.google.com with SMTP id
+ 98e67ed59e1d1-367c26471f5so4240625a91.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:35:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779402900; x=1780007700;
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=nxePRALAuCuLKGdQGBAkFr6chHZ5b8o5iPVGAENbQcI=;
+ b=pQ7HGQDHqc8c+zCfNFRv66nul5XCv2bVPYMs9rpryobGqsUyWzantxTYoSTD3jXYW/
+ RXT3PyKlAkGcGyhtBn2ihXN5K7VDi4F0MtfkQnoodjlvoEK2nIyEGsq7V4ovFcyRsb/z
+ Pj3AXeFGnNbY5OlhgccalvUoUSQJImiYiWZZ7CPXixTbxOJa2i4L7LgclpcozO4jpxWB
+ MGQSCysw2fAPJmxr2x/8tWxPlbtRXkp732EnxPla2ZxX4OOl+cM0P255+WvIjpAhJLdw
+ cybrdKe33H6xb8nscw+frY6aj3kBPQ/1HSCQrF/H8h24+ngvlN3Izkd2suTQgNeHBmef
+ uKFQ==
+X-Gm-Message-State: AOJu0YwxtnNLgXPiHSAEO4fZlSzYSVgIwrq3oLLJ6kVcE283U11Vjr4A
+ xgVRhurduO8sQE9kWBsGSci/OP6am2KzRQ4sBkYkWSwDwm8Aa7WlpV1ZgXexVMnpHkQ+6qM6zOK
+ fUiEL4nCF0kTbfxnTqofeTpdZyp4kZuduaIcoOGAJjcYClv77n2ipKKS9ewifMMrXvt4CFHk/rA
+ NKM+Y994JmNAat+u9cXeLGjgwgjHcotlfTq0lFBZwlRG0xMO17etLjr0rUPiJFgDOypzIVwa4V/
+ CqW4Hj+CZA3snDOJ64hFVRklCiY
+X-Gm-Gg: Acq92OG8Ba0P2rtgIGuibYP8GV90/FdXwcwzBvltWX3Qf9aUI9uzTDGDGrMKxHqQgY4
+ +tmNV/bseA/+kVOazSd1Izq34Y1t8EWHq4PsxlNniVDpNKP7LjEGIBo4eNegdPF9ucmxkFm0vn7
+ AMbxplZENxVI1Gv2Yhz0KQagOS52W5evKXrnVTHxDjfbkKpNM3B7h/iAFYmOJ0ki4dA5PJd/9W8
+ 9r1YQHN7yPnv0MB0QjhI9FUYQS7zly/9j2fXWFDRDXkIyukSZrVfvMQ35fKa9SpBdWG2Hd1clbg
+ rfvi/b3o9xHFF/xENfJDJtbnvQ6SSsxDN2eiyiUlzzfxy11EPRpGHWzW83zFnH9C0mG0MnVETzG
+ sAU8z6Xrr/H4LKwhAqgeqtAXELKU+9+IDksoLZD3cRm32kyihTMFSpmYoMwzD/Y3k53cOICjeOs
+ iBXxI+EDIUszk8nfDevWsZZNkdKW22xhIvT6n/mT+JkjrJF11EiceRC4obrIyYDE5y
+X-Received: by 2002:a17:902:d48b:b0:2b9:cd2d:6f11 with SMTP id
+ d9443c01a7336-2beb05992eemr8767825ad.18.1779402900134; 
+ Thu, 21 May 2026 15:35:00 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-102.dlp.protect.broadcom.com. [144.49.247.102])
+ by smtp-relay.gmail.com with ESMTPS id
+ d9443c01a7336-2beb1170b13sm339315ad.51.2026.05.21.15.34.59
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 21 May 2026 15:35:00 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-516ccfa109dso19621321cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:34:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1779402899; x=1780007699;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=nxePRALAuCuLKGdQGBAkFr6chHZ5b8o5iPVGAENbQcI=;
+ b=R/Fd2kn93kJ+oVwoe9PsoN39VIFhsPB/UQlSHSFS6s1qZUmbftlfrIkIVAwwoNgIAw
+ DMAfiQt83p1aXe+yRPfANrnExmdtDNQij+54UIdpi9uxZZkXjVzwYFS8cJ+vpTlSMbE7
+ 8G6bfPLpdCCbJSrdNn+f6TRSf8rdHXcga55Y4=
+X-Received: by 2002:a05:622a:9:b0:50f:b9e6:e056 with SMTP id
+ d75a77b69052e-516d4644e3emr20217271cf.29.1779402898879; 
+ Thu, 21 May 2026 15:34:58 -0700 (PDT)
+X-Received: by 2002:a05:622a:9:b0:50f:b9e6:e056 with SMTP id
+ d75a77b69052e-516d4644e3emr20216951cf.29.1779402898432; 
+ Thu, 21 May 2026 15:34:58 -0700 (PDT)
+Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
+ ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-516d6438582sm3351451cf.19.2026.05.21.15.34.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2026 15:34:57 -0700 (PDT)
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+To: dri-devel@lists.freedesktop.org
+Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
+ zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Subject: [PATCH v4 0/4] Fix some issues from igt runs.
+Date: Thu, 21 May 2026 15:37:52 -0700
+Message-ID: <20260521223756.627311-1-maaz.mombasawala@broadcom.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,402 +101,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 21 May 2026 16:04:12 -0600
-Alex Williamson <alex@shazbot.org> wrote:
+I ran igt-gpu-tools with vmwgfx and fixed some issues I found.
 
-> On Tue, 19 May 2026 13:13:49 -0700
-> Zhiping Zhang <zhipingz@meta.com> wrote:
-> 
-> > Add a dma-buf get_tph callback for exporters to return TPH
-> > (TLP Processing Hints) metadata, and add VFIO_DEVICE_FEATURE_DMA_BUF_TPH
-> > so userspace can attach that metadata to a VFIO-exported dma-buf.  
-> 
-> This should be two patches, the first extending the dma-buf framework
-> for the get_tph callback for explicit approval from dma-buf maintainers
-> (who are not even copied here).  The second the vfio-pci implementation
-> of get_tph.
->  
-> > 8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
-> > uAPI carries both with explicit validity flags so importers get the
-> > value matching their requested width. SET is write-once per dma-buf;
-> > the existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI is unchanged.  
-> 
-> I didn't see what motivated this write-once change, I thought we
-> understood that it was a userspace problem that the tph values need to
-> be set before providing the dma-buf fd to the importer and that races
-> relative to that are a userspace ordering problem.  Write-once seems
-> unnecessarily restrictive and there's no justification provided here.
->  
-> > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> > ---
-> >  drivers/vfio/pci/vfio_pci_core.c   |   3 +
-> >  drivers/vfio/pci/vfio_pci_dmabuf.c | 134 +++++++++++++++++++++++++++--
-> >  drivers/vfio/pci/vfio_pci_priv.h   |  12 +++
-> >  include/linux/dma-buf.h            |  21 +++++
-> >  include/uapi/linux/vfio.h          |  35 ++++++++
-> >  5 files changed, 198 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> > index 3f8d093aacf8..94aa6dd95701 100644
-> > --- a/drivers/vfio/pci/vfio_pci_core.c
-> > +++ b/drivers/vfio/pci/vfio_pci_core.c
-> > @@ -1534,6 +1534,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
-> >  		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
-> >  	case VFIO_DEVICE_FEATURE_DMA_BUF:
-> >  		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
-> > +	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
-> > +		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
-> > +							 argsz);
-> >  	default:
-> >  		return -ENOTTY;
-> >  	}
-> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > index f87fd32e4a01..be1c65385670 100644
-> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > @@ -19,7 +19,24 @@ struct vfio_pci_dma_buf {
-> >  	u32 nr_ranges;
-> >  	struct kref kref;
-> >  	struct completion comp;
-> > -	u8 revoked : 1;
-> > +	/*
-> > +	 * TPH metadata published by VFIO_DEVICE_FEATURE_DMA_BUF_TPH and
-> > +	 * consumed by the @get_tph dma-buf callback.
-> > +	 *
-> > +	 * @tph_flags is the publish/consume gate: writers populate
-> > +	 * @steering_tag, @steering_tag_ext and @ph first, then store
-> > +	 * @tph_flags with smp_store_release(); readers do
-> > +	 * smp_load_acquire(&tph_flags) before accessing the value fields.
-> > +	 * @tph_flags == 0 means "TPH not set". Writers publish a non-zero
-> > +	 * value only once per dma-buf and serialize via vdev->memory_lock;
-> > +	 * readers stay lockless to avoid AB-BA against the dma_resv_lock held
-> > +	 * by importers.
-> > +	 */  
-> 
-> Can you outline the ABBA hazard, I'm not seeing it.  You're acquiring
-> memory_lock in the feature SET and dma_resv_lock doesn't appear to be
-> held when calling .get_tph().  There's a lot of lockless complication
-> here balanced on this claim of avoiding a hazard that doesn't appear
-> present.
-> 
-> > +	u32 tph_flags;
-> > +	u16 steering_tag_ext;
-> > +	u8 steering_tag;
-> > +	u8 ph;
-> > +	bool revoked;  
-> 
-> If we still used memory_lock for tph, these could be:
-> 
-> 	u8 tph_st_valid:1; /* memory_lock */
-> 	u8 tph_st_ext_valid:1; /* memory_lock */
-> 	u8 tph_ph:2; /* memory_lock */
-> 	u8 tph_st;
-> 	u16 tph_st_ext;
-> 	u8 revoked:1; /* dma_resv_lock */
-> 
-> The existing change of @revoked from bitfield to bool has no rationale
-> noted for it in the commit log.
+Changes in v4:
+- For ttm ref change, changed to incrementing the refcount on
+the ttm base object of the dumb surface instead of holding a
+ttm ref object so that it is not exposed to tfile.
+- Added Fixes messages.
+- Removed BO cleanup patch.
 
-On second thought, what dependency does anything here have on
-memory_lock?  I think we're jumping through hoops to avoid a lock we
-don't even need.  If we just want to serialize SET vs get_tph we could
-have a mutex on the dma-buf structure, or use RCU if we want to manage
-it locklessly and make sure get_tph always sees a fully consistent set
-of values.  Thanks,
+Changes in v3:
+- Minor changes so series can apply cleanly on drm-misc-next.
 
-Alex
+Changes in v2:
+- Changes based on Zack's comments.
+- For vrefresh changes, removed stdu specific checks so that test
+kms_invalid_mode@overflow-vrefresh passes with sou and ldu displays.
+For ttm ref changes, fixed a ref leak in ttm_prime_fd_to_handle()
+which fixes a memleak in test vmw_prime@tri-map-dmabuf and removed
+release callback for dumb buffer surface since the gem buffer will
+handle release of the surface.
+Added commit to remove duplicate functions in vmwgfx_bo.h.
 
-> >  };
-> >  
-> >  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
-> > @@ -69,6 +86,36 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
-> >  	return ret;
-> >  }
-> >  
-> > +static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steering_tag,
-> > +				    u8 *ph, u8 st_width)
-> > +{
-> > +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
-> > +	u32 flags;
-> > +
-> > +	/* Pair with the smp_store_release() in VFIO_DEVICE_FEATURE_DMA_BUF_TPH. */
-> > +	flags = smp_load_acquire(&priv->tph_flags);
-> > +	if (!flags)
-> > +		return -EOPNOTSUPP;
-> > +
-> > +	switch (st_width) {
-> > +	case 8:
-> > +		if (!(flags & VFIO_DMA_BUF_TPH_ST))
-> > +			return -EOPNOTSUPP;
-> > +		*steering_tag = priv->steering_tag;
-> > +		break;
-> > +	case 16:
-> > +		if (!(flags & VFIO_DMA_BUF_TPH_ST_EXT))
-> > +			return -EOPNOTSUPP;
-> > +		*steering_tag = priv->steering_tag_ext;
-> > +		break;
-> > +	default:
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	*ph = priv->ph;
-> > +	return 0;
-> > +}
-> > +
-> >  static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment,
-> >  				   struct sg_table *sgt,
-> >  				   enum dma_data_direction dir)
-> > @@ -84,16 +131,17 @@ static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment,
-> >  static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
-> >  {
-> >  	struct vfio_pci_dma_buf *priv = dmabuf->priv;
-> > +	struct vfio_pci_core_device *vdev = READ_ONCE(priv->vdev);
-> >  
-> >  	/*
-> >  	 * Either this or vfio_pci_dma_buf_cleanup() will remove from the list.
-> >  	 * The refcount prevents both.
-> >  	 */
-> > -	if (priv->vdev) {
-> > -		down_write(&priv->vdev->memory_lock);
-> > +	if (vdev) {
-> > +		down_write(&vdev->memory_lock);
-> >  		list_del_init(&priv->dmabufs_elm);
-> > -		up_write(&priv->vdev->memory_lock);
-> > -		vfio_device_put_registration(&priv->vdev->vdev);
-> > +		up_write(&vdev->memory_lock);
-> > +		vfio_device_put_registration(&vdev->vdev);
-> >  	}
-> >  	kfree(priv->phys_vec);
-> >  	kfree(priv);  
-> 
-> 
-> This seems unnecessary.  I think this is just because priv->vdev is now
-> (unnecessarily) set via WRITE_ONCE, right?  These are very well ordered
-> paths, prior to exposing the dma-buf, while the device is opened, during
-> release, after release. They don't seem to need the READ/WRITE_ONCE
-> treatment.  This looks like noise from trying to make it lockless.
-> 
-> 
-> > @@ -101,6 +149,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
-> >  
-> >  static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
-> >  	.attach = vfio_pci_dma_buf_attach,
-> > +	.get_tph = vfio_pci_dma_buf_get_tph,
-> >  	.map_dma_buf = vfio_pci_dma_buf_map,
-> >  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
-> >  	.release = vfio_pci_dma_buf_release,
-> > @@ -269,7 +318,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-> >  		goto err_free_priv;
-> >  	}
-> >  
-> > -	priv->vdev = vdev;
-> > +	WRITE_ONCE(priv->vdev, vdev);
-> >  	priv->nr_ranges = get_dma_buf.nr_ranges;
-> >  	priv->size = length;
-> >  	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
-> > @@ -331,6 +380,77 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-> >  	return ret;
-> >  }
-> >  
-> > +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-> > +				      u32 flags,
-> > +				      struct vfio_device_feature_dma_buf_tph __user *arg,
-> > +				      size_t argsz)
-> > +{
-> > +	struct vfio_device_feature_dma_buf_tph set_tph;
-> > +	struct vfio_pci_dma_buf *priv;
-> > +	struct dma_buf *dmabuf;
-> > +	int ret;
-> > +
-> > +	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
-> > +				 sizeof(set_tph));
-> > +	if (ret != 1)
-> > +		return ret;
-> > +
-> > +	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
-> > +		return -EFAULT;
-> > +
-> > +	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
-> > +		return -EINVAL;
-> > +
-> > +	if (!set_tph.flags)
-> > +		return -EINVAL;
-> > +
-> > +	/* PCIe TLP Processing Hint is a 2-bit field. */
-> > +	if (set_tph.ph & ~0x3)
-> > +		return -EINVAL;
-> > +
-> > +	dmabuf = dma_buf_get(set_tph.dmabuf_fd);
-> > +	if (IS_ERR(dmabuf))
-> > +		return PTR_ERR(dmabuf);
-> > +
-> > +	if (dmabuf->ops != &vfio_pci_dmabuf_ops) {
-> > +		ret = -EINVAL;
-> > +		goto out_put;
-> > +	}
-> > +
-> > +	priv = dmabuf->priv;
-> > +	down_write(&vdev->memory_lock);
-> > +	if (READ_ONCE(priv->vdev) != vdev) {
-> > +		ret = -EINVAL;
-> > +		goto out_unlock;
-> > +	}
-> > +
-> > +	/*
-> > +	 * TPH metadata is write-once per dma-buf so that lockless readers only
-> > +	 * have to observe a single release-published transition from 0 -> flags.
-> > +	 */
-> > +	if (READ_ONCE(priv->tph_flags)) {
-> > +		ret = -EBUSY;
-> > +		goto out_unlock;
-> > +	}
-> > +
-> > +	priv->steering_tag = set_tph.steering_tag;
-> > +	priv->steering_tag_ext = set_tph.steering_tag_ext;
-> > +	priv->ph = set_tph.ph;
-> > +	/*
-> > +	 * Publish the TPH values before the gate flag, so that lockless
-> > +	 * readers in vfio_pci_dma_buf_get_tph() see fully-initialized
-> > +	 * fields once they observe a non-zero tph_flags.
-> > +	 */
-> > +	smp_store_release(&priv->tph_flags, set_tph.flags);
-> > +	ret = 0;
-> > +
-> > +out_unlock:
-> > +	up_write(&vdev->memory_lock);
-> > +out_put:
-> > +	dma_buf_put(dmabuf);
-> > +	return ret;
-> > +}
-> > +
-> >  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
-> >  {
-> >  	struct vfio_pci_dma_buf *priv;
-> > @@ -388,7 +508,7 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
-> >  
-> >  		dma_resv_lock(priv->dmabuf->resv, NULL);
-> >  		list_del_init(&priv->dmabufs_elm);
-> > -		priv->vdev = NULL;
-> > +		WRITE_ONCE(priv->vdev, NULL);
-> >  		priv->revoked = true;
-> >  		dma_buf_invalidate_mappings(priv->dmabuf);
-> >  		dma_resv_wait_timeout(priv->dmabuf->resv,
-> > diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-> > index fca9d0dfac90..c58f369be4b3 100644
-> > --- a/drivers/vfio/pci/vfio_pci_priv.h
-> > +++ b/drivers/vfio/pci/vfio_pci_priv.h
-> > @@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
-> >  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-> >  				  struct vfio_device_feature_dma_buf __user *arg,
-> >  				  size_t argsz);
-> > +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-> > +				      u32 flags,
-> > +				      struct vfio_device_feature_dma_buf_tph __user *arg,
-> > +				      size_t argsz);
-> >  void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
-> >  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
-> >  #else
-> > @@ -128,6 +132,14 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-> >  {
-> >  	return -ENOTTY;
-> >  }
-> > +
-> > +static inline int
-> > +vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32 flags,
-> > +				  struct vfio_device_feature_dma_buf_tph __user *arg,
-> > +				  size_t argsz)
-> > +{
-> > +	return -ENOTTY;
-> > +}
-> >  static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
-> >  {
-> >  }
-> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> > index d1203da56fc5..49eb6ad644a2 100644
-> > --- a/include/linux/dma-buf.h
-> > +++ b/include/linux/dma-buf.h
-> > @@ -113,6 +113,27 @@ struct dma_buf_ops {
-> >  	 */
-> >  	void (*unpin)(struct dma_buf_attachment *attach);
-> >  
-> > +	/**
-> > +	 * @get_tph:
-> > +	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
-> > +	 * @steering_tag: Returns the raw TPH steering tag for @st_width
-> > +	 * @ph: Returns the TPH processing hint (2-bit value)
-> > +	 * @st_width: Consumer's supported steering tag width in bits (8 or 16)
-> > +	 *
-> > +	 * Return the TPH (TLP Processing Hints) metadata associated with this
-> > +	 * DMA buffer for the requested steering-tag width. 8-bit ST and 16-bit
-> > +	 * Extended ST are distinct namespaces in the PCIe TPH ST table and may
-> > +	 * both be present with different values, so the exporter must select the
-> > +	 * value that matches @st_width and must not substitute one for the other.
-> > +	 *
-> > +	 * Return 0 on success, -EOPNOTSUPP if no metadata is available for the
-> > +	 * requested width, or -EINVAL if @st_width is not 8 or 16.
-> > +	 *
-> > +	 * This callback is optional.
-> > +	 */
-> > +	int (*get_tph)(struct dma_buf *dmabuf, u16 *steering_tag, u8 *ph,
-> > +		       u8 st_width);
-> > +
-> >  	/**
-> >  	 * @map_dma_buf:
-> >  	 *
-> > diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-> > index 5de618a3a5ee..a9cb6cbc6ade 100644
-> > --- a/include/uapi/linux/vfio.h
-> > +++ b/include/uapi/linux/vfio.h
-> > @@ -1534,6 +1534,41 @@ struct vfio_device_feature_dma_buf {
-> >   */
-> >  #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
-> >  
-> > +/**
-> > + * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) metadata
-> > + * with a vfio-exported dma-buf. The dma-buf must have been created by
-> > + * VFIO_DEVICE_FEATURE_DMA_BUF on this device.
-> > + *
-> > + * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA_BUF.
-> > + *
-> > + * 8-bit ST (steering_tag) and 16-bit Extended ST (steering_tag_ext) are
-> > + * distinct namespaces in the PCIe TPH ST table and may both be present with
-> > + * different values. Userspace should populate the value(s) it has from the
-> > + * firmware ST table for this device and set the matching VFIO_DMA_BUF_TPH_ST /
-> > + * VFIO_DMA_BUF_TPH_ST_EXT bit in @flags. An importer requests a specific
-> > + * width and receives the matching value; if the requested width is not
-> > + * present, the importer is told TPH is unavailable for this dma-buf.
-> > + *
-> > + * ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
-> > + *
-> > + * The user must set TPH on the dma-buf before the importer consumes it.
-> > + * TPH metadata is write-once per dma-buf; a second SET returns -EBUSY.
-> > + *
-> > + * Return: 0 on success, -errno on failure.
-> > + */
-> > +#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
-> > +
-> > +#define VFIO_DMA_BUF_TPH_ST		(1 << 0)  /* steering_tag valid */
-> > +#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)  /* steering_tag_ext valid */
-> > +
-> > +struct vfio_device_feature_dma_buf_tph {
-> > +	__s32	dmabuf_fd;
-> > +	__u32	flags;
-> > +	__u8	steering_tag;
-> > +	__u8	ph;
-> > +	__u16	steering_tag_ext;
-> > +};  
-> 
-> Sure is tempting to make the ph field the first 2-bits of u8 flags.
-> Thanks,
-> 
-> Alex
-> 
-> > +
-> >  /* -------- API for Type1 VFIO IOMMU -------- */
-> >  
-> >  /**  
-> 
+
+Maaz Mombasawala (4):
+  drm/vmwgfx: Add some checks to vmw_cursor_plane_atomic_update
+  drm/vmwgfx: Check vrefresh in drm_mode_setcrtc.
+  drm/vmwgfx: Reserve ttm object before resv usage
+  drm/vmwgfx: Change ttm refs for dumb buffers.
+
+ drivers/gpu/drm/vmwgfx/ttm_object.c          |  7 +++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c           |  4 ++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 16 +++++++----
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h          |  1 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c          | 28 ++++++++++++++++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h          |  9 +++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c         | 12 +++------
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c      | 14 +++++++++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c         | 12 +++++++++
+ 9 files changed, 85 insertions(+), 18 deletions(-)
+
+-- 
+2.54.0
 
