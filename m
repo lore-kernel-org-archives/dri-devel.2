@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB763CD5BAF
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 23:41:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C43CD5BAF
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 23:41:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 489AF10F462;
-	Thu, 21 May 2026 23:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B27F10F464;
+	Thu, 21 May 2026 23:41:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KeJEoyCH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bHg2jr2c";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F422410F466
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 23:41:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37E7D10F464
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 23:41:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 77B7F60136;
+ by sea.source.kernel.org (Postfix) with ESMTP id 1FB4744144;
+ Thu, 21 May 2026 23:41:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6211F000E9;
  Thu, 21 May 2026 23:41:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF5A1F00A3C;
- Thu, 21 May 2026 23:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779406890;
- bh=YS3MIWt7wBP8jQ9SbXuqnDqrROA1jOXopyH7kmiVFAM=;
+ s=k20260515; t=1779406897;
+ bh=zQyEv5LctNSyn/SsGR1f7Ge4LhX0SjTKeMVIeRtvjcA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=KeJEoyCH9u6rLuX3kBFyOlxstdiVTi8CFJ+DideoIrB5QE04w1KBuBjQiwlt7suTX
- wI4+rgNELgACQmsSSAWm6pAv3P53pdnMzAQWM0gZnJNUhrF/moUTE0F7uxY7673keH
- 5PnJM6/MLBlXRyUYl9YxvuFmJtFhTH91zwhB7AmSGytSEpIU4dXo95r7eDGrmpxrkb
- khmGPx/4DAvXlWXMZzQ+cmx80uOpolOIRQ+B3qeQ9aPA9qfm6EWlnxboxiclAznevh
- GvuhOejpZNl7U28THr038UGzBJyi8fOgj0ZgCP8KrRCO/20FPejyHEHj1jbOLo9ebl
- GVo1KO7st9H2w==
+ b=bHg2jr2cY1Ob9lxZl3xD91EiFjr5hGao1v6PV+MRSSQHxYN1KT29eQcZ3Y1XqKTUC
+ 6vhBcBIBnDXCwJpzw8Aro+raBpSLGHJwP75OYAvxpbjTKPGH+L/pQdyIY1wNhYUHfM
+ NoXBOQPA7AEFL2paB9NMkq8crWHe8DDE119R4PjdTulQSoNu0B0I9/q/Ip96PV/D0Y
+ qen2+hxXbU6rGlPFI2beWYAWK4+BXUlNsgoYAixzEgOoYjpJgkDRsBDBlCJCwTSWve
+ NyCJGTff5873eqak1DoWV8w9SPQd/8OxATqMu30pCH98ii6LL+KRv8vzUQqYo8NpTy
+ 72Lvz4qnQG4LA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
@@ -44,11 +44,10 @@ Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>
-Subject: [PATCH v4 19/27] samples: rust: rust_driver_pci: use HRT lifetime for
- Bar
-Date: Fri, 22 May 2026 01:34:45 +0200
-Message-ID: <20260521233501.1191842-20-dakr@kernel.org>
+ Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH v4 20/27] gpu: nova-core: separate driver type from driver data
+Date: Fri, 22 May 2026 01:34:46 +0200
+Message-ID: <20260521233501.1191842-21-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260521233501.1191842-1-dakr@kernel.org>
 References: <20260521233501.1191842-1-dakr@kernel.org>
@@ -69,170 +68,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert the sample driver to SampleDriver<'bound>, taking advantage of
-the lifetime-parameterized Driver trait.
+Introduce NovaCoreDriver as the driver type implementing pci::Driver,
+keeping NovaCore as the per-device data type. This prepares for making
+NovaCore lifetime-parameterized once auxiliary::Registration requires a
+lifetime for the binding scope.
 
-The driver struct holds &'bound pci::Device directly instead of
-ARef<pci::Device>, and pci::Bar<'bound> directly instead of
-Devres<pci::Bar>. This removes PinnedDrop, pin_init_scope, and runtime
-revocation checks on BAR access.
-
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- samples/rust/rust_driver_pci.rs | 89 +++++++++++++++------------------
- 1 file changed, 40 insertions(+), 49 deletions(-)
+ drivers/gpu/nova-core/driver.rs    | 14 ++++++++------
+ drivers/gpu/nova-core/nova_core.rs |  2 +-
+ 2 files changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
-index 0353481b0690..0ae2373d74fd 100644
---- a/samples/rust/rust_driver_pci.rs
-+++ b/samples/rust/rust_driver_pci.rs
-@@ -9,7 +9,6 @@
-         Bound,
-         Core, //
-     },
--    devres::Devres,
-     io::{
-         register,
-         register::Array,
-@@ -17,8 +16,7 @@
-     },
-     num::Bounded,
-     pci,
--    prelude::*,
--    sync::aref::ARef, //
-+    prelude::*, //
- };
- 
- mod regs {
-@@ -45,7 +43,7 @@ mod regs {
-     pub(super) const END: usize = 0x10;
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 7dbec0470c26..fa898fe5c893 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -35,6 +35,8 @@ pub(crate) struct NovaCore {
+     _reg: Devres<auxiliary::Registration<()>>,
  }
  
--type Bar0 = pci::Bar<'static, { regs::END }>;
-+type Bar0<'bound> = pci::Bar<'bound, { regs::END }>;
- 
- #[derive(Copy, Clone, Debug)]
- struct TestIndex(u8);
-@@ -66,14 +64,14 @@ impl TestIndex {
-     const NO_EVENTFD: Self = Self(0);
- }
- 
--#[pin_data(PinnedDrop)]
--struct SampleDriver {
--    pdev: ARef<pci::Device>,
--    #[pin]
--    bar: Devres<Bar0>,
-+struct SampleDriverData<'bound> {
-+    pdev: &'bound pci::Device,
-+    bar: Bar0<'bound>,
-     index: TestIndex,
- }
- 
-+struct SampleDriver;
++pub(crate) struct NovaCoreDriver;
 +
+ const BAR0_SIZE: usize = SZ_16M;
+ 
+ // For now we only support Ampere which can use up to 47-bit DMA addresses.
+@@ -50,7 +52,7 @@ pub(crate) struct NovaCore {
  kernel::pci_device_table!(
      PCI_TABLE,
      MODULE_PCI_TABLE,
-@@ -84,8 +82,8 @@ struct SampleDriver {
-     )]
+-    <NovaCore as pci::Driver>::IdInfo,
++    <NovaCoreDriver as pci::Driver>::IdInfo,
+     [
+         // Modern NVIDIA GPUs will show up as either VGA or 3D controllers.
+         (
+@@ -72,15 +74,15 @@ pub(crate) struct NovaCore {
+     ]
  );
  
--impl SampleDriver {
--    fn testdev(index: &TestIndex, bar: &Bar0) -> Result<u32> {
-+impl SampleDriverData<'_> {
-+    fn testdev(index: &TestIndex, bar: &Bar0<'_>) -> Result<u32> {
-         // Select the test.
-         bar.write_reg(regs::TEST::zeroed().with_index(*index));
- 
-@@ -140,56 +138,49 @@ fn config_space(pdev: &pci::Device<Bound>) {
- 
- impl pci::Driver for SampleDriver {
-     type IdInfo = TestIndex;
+-impl pci::Driver for NovaCore {
++impl pci::Driver for NovaCoreDriver {
+     type IdInfo = ();
 -    type Data<'bound> = Self;
-+    type Data<'bound> = SampleDriverData<'bound>;
- 
++    type Data<'bound> = NovaCore;
      const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
  
      fn probe<'bound>(
          pdev: &'bound pci::Device<Core<'_>>,
-         info: &'bound Self::IdInfo,
+         _info: &'bound Self::IdInfo,
 -    ) -> impl PinInit<Self, Error> + 'bound {
--        pin_init::pin_init_scope(move || {
--            let vendor = pdev.vendor_id();
--            dev_dbg!(
--                pdev,
--                "Probe Rust PCI driver sample (PCI ID: {}, 0x{:x}).\n",
--                vendor,
--                pdev.device_id()
--            );
--
--            pdev.enable_device_mem()?;
--            pdev.set_master();
--
++    ) -> impl PinInit<NovaCore, Error> + 'bound {
+         pin_init::pin_init_scope(move || {
+             dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+ 
+@@ -98,7 +100,7 @@ fn probe<'bound>(
+                 GFP_KERNEL,
+             )?;
+ 
 -            Ok(try_pin_init!(Self {
--                bar: pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_pci")?
--                    .into_devres()?,
--                index: *info,
--                _: {
--                    let bar = bar.access(pdev.as_ref())?;
--
--                    dev_info!(
--                        pdev,
--                        "pci-testdev data-match count: {}\n",
--                        Self::testdev(info, bar)?
--                    );
--                    Self::config_space(pdev);
--                },
--                pdev: pdev.into(),
--            }))
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+        let vendor = pdev.vendor_id();
-+        dev_dbg!(
-+            pdev,
-+            "Probe Rust PCI driver sample (PCI ID: {}, 0x{:x}).\n",
-+            vendor,
-+            pdev.device_id()
-+        );
-+
-+        pdev.enable_device_mem()?;
-+        pdev.set_master();
-+
-+        let bar = pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_pci")?;
-+
-+        dev_info!(
-+            pdev,
-+            "pci-testdev data-match count: {}\n",
-+            SampleDriverData::testdev(info, &bar)?
-+        );
-+        SampleDriverData::config_space(pdev);
-+
-+        Ok(SampleDriverData {
-+            pdev,
-+            bar,
-+            index: *info,
++            Ok(try_pin_init!(NovaCore {
+                 gpu <- Gpu::new(pdev, bar.clone(), bar.access(pdev.as_ref())?),
+                 _reg: auxiliary::Registration::new(
+                     pdev.as_ref(),
+@@ -113,7 +115,7 @@ fn probe<'bound>(
          })
      }
  
--    fn unbind(pdev: &pci::Device<Core<'_>>, this: Pin<&Self>) {
--        if let Ok(bar) = this.bar.access(pdev.as_ref()) {
--            // Reset pci-testdev by writing a new test index.
--            bar.write_reg(regs::TEST::zeroed().with_index(this.index));
--        }
-+    fn unbind<'bound>(_pdev: &'bound pci::Device<Core<'_>>, this: Pin<&'bound Self::Data<'bound>>) {
-+        this.bar
-+            .write_reg(regs::TEST::zeroed().with_index(this.index));
+-    fn unbind<'bound>(pdev: &'bound pci::Device<Core<'_>>, this: Pin<&Self>) {
++    fn unbind<'bound>(pdev: &'bound pci::Device<Core<'_>>, this: Pin<&NovaCore>) {
+         this.gpu.unbind(pdev.as_ref());
      }
+ }
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 04a1fa6b25f8..073d87714d3a 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -47,7 +47,7 @@ struct NovaCoreModule {
+     // Fields are dropped in declaration order, so `_driver` is dropped first,
+     // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
+     #[pin]
+-    _driver: Registration<pci::Adapter<driver::NovaCore>>,
++    _driver: Registration<pci::Adapter<driver::NovaCoreDriver>>,
+     _debugfs_guard: DebugfsRootGuard,
  }
  
--#[pinned_drop]
--impl PinnedDrop for SampleDriver {
--    fn drop(self: Pin<&mut Self>) {
-+impl Drop for SampleDriverData<'_> {
-+    fn drop(&mut self) {
-         dev_dbg!(self.pdev, "Remove Rust PCI driver sample.\n");
-     }
- }
 -- 
 2.54.0
 
