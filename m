@@ -4,59 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1716FCD4F3C
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:52:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79C7ACD4F5E
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:53:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6876610F23B;
-	Thu, 21 May 2026 07:52:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 944D810F23C;
+	Thu, 21 May 2026 07:52:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VY9uYzHG";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Lko8sLPw";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F84310F23B
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:52:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 79B3460172;
- Thu, 21 May 2026 07:52:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA61A1F000E9;
- Thu, 21 May 2026 07:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779349964;
- bh=99oskG8ubBjeKtd2Yc7IdU7MjYpfc9O1o+mlnd5bJ64=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=VY9uYzHGIt/BsHyCKP9I1NqWgX9O4iTlWhh2Rp9yo3C4d9f7BE3dbELq/xo24h8UF
- ZdkprFalox6G3NFRy2H9iccPb2+XRJvsHF+Eswz7k8ySSbB2nibIGi6bjEEuuYFUDI
- AJvUKOJ6RW3AIMn88VPG2ObB4uI6YYwrSKx/YLVVRIbKXyLoJShJt9i2xJyPsIfe7j
- wyowEfKbTWlInSw2RqinKKXH8wDSDqwQ5w+mQU2UjhA0exLlbI9qbQDRHzGZujyV+1
- wMrQo6RvEc4IsehY0JtUOuMGjHNLyl2PvipzKCMKpdw6IoFQeewU/WcbUUuH/UF5Fh
- Nocb94U9AVTmA==
-Date: Thu, 21 May 2026 09:52:41 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Daniel Stone <daniels@collabora.com>,
- kernel@collabora.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v6 02/22] drm/connector: Add HDMI 2.0 scrambler
- infrastructure
-Message-ID: <20260521-sweet-devout-panther-44d73c@penduick>
-References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
- <20260520-dw-hdmi-qp-scramb-v6-2-24b74603b782@collabora.com>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23EF410F23F
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:52:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 09D416022E;
+ Thu, 21 May 2026 07:52:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9281CC2BCF5;
+ Thu, 21 May 2026 07:52:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+ t=1779349977; bh=igfKdO1neJGj7Xg6xYLkNhUmyQWCWGYNm1ghjHlm9Ts=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=Lko8sLPwkDsoRcgsQrusAof3Keyg2dX6AZDvrMnjoFhmHUNJwIsSRnO4rR9W464rf
+ +32O+5QWwK6iBG023IMHvPftROEIjLtG4RCWfnxWTB/D8ana6ACfhAOhb6h6DZg2Q6
+ lbz3QRKVPw5A2LH/vpbfBVwjkEzTfMqlWtQUsdkw=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 83F8FCD5BAE;
+ Thu, 21 May 2026 07:52:57 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Thu, 21 May 2026 15:52:55 +0800
+Subject: [PATCH v2 3/7] rust: doctest: add LocalModule fallback for
+ #[vtable] ThisModule
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="7urdiivgg5qj3q55"
-Content-Disposition: inline
-In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-2-24b74603b782@collabora.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260521-fix-fops-owner-v2-3-fd99079c5a04@linux.dev>
+References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
+In-Reply-To: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779349975; l=1155;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=igfKdO1neJGj7Xg6xYLkNhUmyQWCWGYNm1ghjHlm9Ts=;
+ b=Ubb5+DjFaDZl1QG6msYhLYQXO3XoE/obxTPEmhDpWHhkqkskJ/AaP5OP7ETnNf7BNSiQQMVSo
+ NiYU21Tty1pCcwjGht3L1od+nJVFQw6SQkngoRE4uCVCx9Xw4fmnGrD
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,174 +85,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Add a `LocalModule` struct with a null-pointer `ModuleMetadata` impl
+in the doctest harness, so that `crate::LocalModule` (auto-inserted
+by `#[vtable]`) resolves correctly when there is no `module!` macro.
 
---7urdiivgg5qj3q55
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 02/22] drm/connector: Add HDMI 2.0 scrambler
- infrastructure
-MIME-Version: 1.0
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ scripts/rustdoc_test_gen.rs | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-Hi,
+diff --git a/scripts/rustdoc_test_gen.rs b/scripts/rustdoc_test_gen.rs
+index ee76e96b41eea..198af4e446c8c 100644
+--- a/scripts/rustdoc_test_gen.rs
++++ b/scripts/rustdoc_test_gen.rs
+@@ -239,6 +239,22 @@ macro_rules! assert_eq {{
+ 
+ const __LOG_PREFIX: &[u8] = b"rust_doctests_kernel\0";
+ 
++/// Dummy module type for doctest context.
++struct LocalModule;
++
++use kernel::{{
++    str::CStr,
++    ModuleMetadata,
++    ThisModule, //
++}};
++use core::ptr::null_mut;
++
++impl ModuleMetadata for LocalModule {{
++    const NAME: &'static CStr = c"rust_doctests_kernel";
++    // SAFETY: `try_module_get`/`module_put` handle null module pointers gracefully.
++    const THIS_MODULE: ThisModule = unsafe {{ ThisModule::from_ptr(null_mut()) }};
++}}
++
+ {rust_tests}
+ "#
+     )
 
-Thanks for working on this!
+-- 
+2.43.0
 
-On Wed, May 20, 2026 at 09:38:13PM +0300, Cristian Ciocaltea wrote:
-> Add the connector-level infrastructure to support HDMI 2.0 scrambling:
->=20
-> - .scrambler_src_{enable|disable}() callbacks in
->   drm_connector_hdmi_funcs for source-side scrambling control
-> - A delayed work item (scdc_work) with an associated callback (scdc_cb)
->   for periodic monitoring of sink-side scrambling status
-> - A scrambler_enabled flag to track whether scrambling is currently
->   active
->=20
-> These are intended to be used by SCDC scrambling helpers to coordinate
-> scrambling setup and teardown between the source driver and the DRM
-> core.
->=20
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
->  drivers/gpu/drm/drm_connector.c | 14 +++++++++++
->  include/drm/drm_connector.h     | 52 +++++++++++++++++++++++++++++++++++=
-++++++
->  2 files changed, 66 insertions(+)
 
-So we would need kunit tests for this.
-
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 3fa4d2082cd7..91e58362fbc0 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -220,6 +220,19 @@ void drm_connector_free_work_fn(struct work_struct *=
-work)
->  	}
->  }
-> =20
-> +static void drm_connector_hdmi_scdc_work(struct work_struct *work)
-> +{
-> +	struct drm_connector *connector;
-> +	struct drm_connector_hdmi *hdmi;
-> +
-> +	hdmi =3D container_of(to_delayed_work(work), struct drm_connector_hdmi,
-> +			    scdc_work);
-> +	connector =3D container_of(hdmi, struct drm_connector, hdmi);
-> +
-> +	if (hdmi->scdc_cb)
-> +		hdmi->scdc_cb(connector);
-> +}
-> +
->  static int drm_connector_init_only(struct drm_device *dev,
->  				   struct drm_connector *connector,
->  				   const struct drm_connector_funcs *funcs,
-> @@ -285,6 +298,7 @@ static int drm_connector_init_only(struct drm_device =
-*dev,
->  	mutex_init(&connector->edid_override_mutex);
->  	mutex_init(&connector->hdmi.infoframes.lock);
->  	mutex_init(&connector->hdmi_audio.lock);
-> +	INIT_DELAYED_WORK(&connector->hdmi.scdc_work, drm_connector_hdmi_scdc_w=
-ork);
->  	connector->edid_blob_ptr =3D NULL;
->  	connector->epoch_counter =3D 0;
->  	connector->tile_blob_ptr =3D NULL;
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 5ad62c207d00..49eaa30b1329 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -28,6 +28,7 @@
->  #include <linux/ctype.h>
->  #include <linux/hdmi.h>
->  #include <linux/notifier.h>
-> +#include <linux/workqueue.h>
->  #include <drm/drm_mode_object.h>
->  #include <drm/drm_util.h>
->  #include <drm/drm_property.h>
-> @@ -1358,6 +1359,36 @@ struct drm_connector_hdmi_funcs {
->  	 */
->  	const struct drm_edid *(*read_edid)(struct drm_connector *connector);
-> =20
-> +	/**
-> +	 * @scrambler_src_enable:
-> +	 *
-> +	 * This callback is invoked through @drm_scdc_start_scrambling during
-> +	 * a commit to setup SCDC scrambling and high TMDS clock ratio on
-> +	 * source side.
-> +	 *
-> +	 * The @scrambler_src_enable callback is mandatory if HDMI 2.0 is
-> +	 * to be supported.
-> +	 *
-> +	 * Returns:
-> +	 * 0 on success, a negative error code otherwise
-> +	 */
-> +	int (*scrambler_src_enable)(struct drm_connector *connector);
-> +
-> +	/**
-> +	 * @scrambler_src_disable:
-> +	 *
-> +	 * This callback is invoked through @drm_scdc_stop_scrambling during
-> +	 * a commit to disable SCDC scrambling and high TMDS clock ratio on
-> +	 * source side.
-> +	 *
-> +	 * The @scrambler_src_disable callback is mandatory if HDMI 2.0 is
-> +	 * to be supported.
-> +	 *
-> +	 * Returns:
-> +	 * 0 on success, a negative error code otherwise
-> +	 */
-> +	int (*scrambler_src_disable)(struct drm_connector *connector);
-> +
->  	/**
->  	 * @avi:
->  	 *
-> @@ -1944,6 +1975,27 @@ struct drm_connector_hdmi {
->  	 */
->  	unsigned long supported_formats;
-> =20
-> +	/**
-> +	 * @scrambler_enabled: Tracks whether HDMI 2.0 scrambler is currently e=
-nabled.
-> +	 */
-> +	bool scrambler_enabled;
-> +
-> +	/**
-> +	 * @scdc_work: Work item currently used to monitor sink-side scrambling
-> +	 * status and retry setup if the sink resets it.
-> +	 */
-> +	struct delayed_work scdc_work;
-> +
-> +	/** @scdc_cb: Callback to be invoked as part of @scdc_work.
-> +	 *
-> +	 * Currently used to monitor sink-side scrambling status and retry
-> +	 * setup if the sink resets it.
-> +	 *
-> +	 * This is assigned by the framework when making use of
-> +	 * drm_scdc_start_scrambling() helper.
-> +	 */
-> +	void (*scdc_cb)(struct drm_connector *connector);
-> +
-
-I'm really not sure what the monitor thing is about. If we have setup
-the scrambler at enable time, and we set it again on hotplugging, why
-would we need to monitor anything?
-
-Also, scrambling is only relevant for HDMI 2.0. We need a way to expose
-that somehow and make sure that HDMI 2.0 drivers actually have
-scrambling setup.
-
-Maxime
-
---7urdiivgg5qj3q55
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCag65yQAKCRAnX84Zoj2+
-dll/AX9tG3cFDmLeklMW+rTi4SvWHROIptUKpuz9LyW39s751r/XlVPbiMZzGzln
-wOcOdVgBgOFZq4n9DJJiQB+RNsx5GUFvhIPAEhol5wo1K6QtdXFp5MVvpk7rmgb8
-wlbWVhy0VA==
-=R3rI
------END PGP SIGNATURE-----
-
---7urdiivgg5qj3q55--
