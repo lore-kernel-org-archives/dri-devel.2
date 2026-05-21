@@ -4,112 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F643CD4F3C
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:15:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 155A5CD4F3C
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:33:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC57410F231;
-	Thu, 21 May 2026 07:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E71810E465;
+	Thu, 21 May 2026 07:33:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CO4rzz9O";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="W2m8vZ1Q";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CO4rzz9O";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="W2m8vZ1Q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z6UQuBd4";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB12210E460
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:14:59 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4B5B76B251;
- Thu, 21 May 2026 07:14:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779347698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=SaSIERTp3yn7OQ9va/0lj1DC5PxkP2DR5u8ubcmHH44=;
- b=CO4rzz9ORacUxWBa+frxjJZT07Wj3zDB3smtz9Lriw11ANbEBX0LUeZcd3gZNvEmrBq++k
- M8Uc4Rd7XUHiDOXW4hDyAXlQVBlIirHqB9y+O1jOmoMDweZIiLBN/KIHlfy0VdtR+xZ0RD
- 0SfxcnstW0G1koFnuxbjhV6OHoC81GM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779347698;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=SaSIERTp3yn7OQ9va/0lj1DC5PxkP2DR5u8ubcmHH44=;
- b=W2m8vZ1QmjvcmoHZ843EmjIzpSy8355oCMZG+8D9ODreKPuojXhhyX+sj/oOYPvglmB8/H
- 3FqYUJfdunXNSRDQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CO4rzz9O;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=W2m8vZ1Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779347698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=SaSIERTp3yn7OQ9va/0lj1DC5PxkP2DR5u8ubcmHH44=;
- b=CO4rzz9ORacUxWBa+frxjJZT07Wj3zDB3smtz9Lriw11ANbEBX0LUeZcd3gZNvEmrBq++k
- M8Uc4Rd7XUHiDOXW4hDyAXlQVBlIirHqB9y+O1jOmoMDweZIiLBN/KIHlfy0VdtR+xZ0RD
- 0SfxcnstW0G1koFnuxbjhV6OHoC81GM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779347698;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=SaSIERTp3yn7OQ9va/0lj1DC5PxkP2DR5u8ubcmHH44=;
- b=W2m8vZ1QmjvcmoHZ843EmjIzpSy8355oCMZG+8D9ODreKPuojXhhyX+sj/oOYPvglmB8/H
- 3FqYUJfdunXNSRDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1ED0A593AC;
- Thu, 21 May 2026 07:14:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Y5T6BvKwDmokLQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 21 May 2026 07:14:58 +0000
-Date: Thu, 21 May 2026 09:14:56 +0200
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-fixes
-Message-ID: <20260521071456.GA14644@localhost.localdomain>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
- RCPT_COUNT_TWELVE(0.00)[16];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,localhost.localdomain:mid,gitlab.freedesktop.org:url];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 4B5B76B251
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE8D910E465;
+ Thu, 21 May 2026 07:33:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id F2CFD60172;
+ Thu, 21 May 2026 07:33:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F75E1F000E9;
+ Thu, 21 May 2026 07:33:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779348803;
+ bh=X1HXhO4MKj+KA58/sWBWrmVliwgGPmPbC6E/l69bQs0=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc;
+ b=Z6UQuBd4mCurIijfG+Mm9uAJj27UL8fCw7HyE30fF/OpSPvR8r/41XSMj3+wiLTa0
+ j2oKR9i24+JqeHqvsVN3IxQkk9zKSbYHBgbAWbqM7ZejPU9xv1YLs3LNx5COKk1BVZ
+ eJRjQihNRBaKpyUrcZMUiP8HWjVhn1KFqDowOTKLtHGC5f6ztixI8ox0Y9ZYWoxtb2
+ BCtamcSmiNevy+ZpolJpi4+49Z4Dqq7LHefTC0F3og36MybFyBDLZBPB+xr5XkUrBT
+ c6FY5A66iIvDsCefd89sZQXdoCYzdMsfkpb9p25pb86s+9T+9kQpBGQHMpBI9chUtm
+ X4V9XxziA7rRA==
+Message-ID: <6fef8c198bf06bc5ce0705f24775674e@kernel.org>
+Date: Thu, 21 May 2026 07:33:20 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Alexander Koskovich" <akoskovich@pm.me>
+Subject: Re: [PATCH 0/2] drm/msm/dsi: support multiple DSC slices per packet
+In-Reply-To: <20260318-dsi-dsc-slice-per-pkt-v1-0-1bd66b7f9e0c@pm.me>
+References: <20260318-dsi-dsc-slice-per-pkt-v1-0-1bd66b7f9e0c@pm.me>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, "Abhinav
+ Kumar" <abhinav.kumar@linux.dev>, "David Airlie" <airlied@gmail.com>, "Dmitry
+ Baryshkov" <lumag@kernel.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Marijn Suijten" <marijn.suijten@somainline.org>, "Maxime
+ Ripard" <mripard@kernel.org>, "Rob Clark" <robin.clark@oss.qualcomm.com>, "Sean
+ Paul" <sean@poorly.run>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,114 +62,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+On Wed, 18 Mar 2026 07:32:53 +0000, Alexander Koskovich wrote:
+> This series adds support for sending multiple DSC slices in a single
+> DSI packet, which is required by some panels such as the JDI LPM026M648C.
+>=20
+> The MSM DRM change was originally authored by Jonathan Marek [1], changed=
+ to
+> use an 'all slices in packet' flag which derives slice_per_pkt from slice=
+_count
+>=20
+> [ ... ]
 
-this is this weekly PR for drm-misc-fixes.
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-Best regards
-Thomas
-
-drm-misc-fixes-2026-05-21:
-Short summary of fixes pull:
-
-amdxdna:
-- remove mmap and export for ubuf
-
-bridge:
-- chipone-icn6211: managed bridge cleanup
-- lt66121: acquire reset GPIO
-- megachips: fix clean up on failed IRQ requests
-
-gem:
-- clean up LRU locking
-
-v3d:
-- fix UAF in error code paths
-- release GEM-object ref on free'd jobs
-
-virtio:
-- use uninterruptible resv locking in plane updates
-The following changes since commit 0a9c56dd387605d17dabeedd9fdd2c4c1d0bab7b:
-
-  drm/loongson: Use managed KMS polling (2026-05-15 08:50:54 +0200)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-05-21
-
-for you to fetch changes up to 9af1b6e175c82daf4b423da339a722d8e67a735a:
-
-  drm/virtio: use uninterruptible resv lock for plane updates (2026-05-20 18:12:11 +0300)
-
-----------------------------------------------------------------
-Short summary of fixes pull:
-
-amdxdna:
-- remove mmap and export for ubuf
-
-bridge:
-- chipone-icn6211: managed bridge cleanup
-- lt66121: acquire reset GPIO
-- megachips: fix clean up on failed IRQ requests
-
-gem:
-- clean up LRU locking
-
-v3d:
-- fix UAF in error code paths
-- release GEM-object ref on free'd jobs
-
-virtio:
-- use uninterruptible resv locking in plane updates
-
-----------------------------------------------------------------
-Boris Brezillon (1):
-      drm/gem: Make the GEM LRU lock part of drm_device
-
-Deepanshu Kartikey (1):
-      drm/virtio: use uninterruptible resv lock for plane updates
-
-Julien Chauveau (1):
-      drm/bridge: it66121: acquire reset GPIO in probe
-
-Lizhi Hou (1):
-      accel/amdxdna: Remove mmap and export support for ubuf
-
-Maíra Canal (2):
-      drm/v3d: Fix use-after-free of CPU job query arrays on error path
-      drm/v3d: Release indirect CSD GEM reference on CPU job free
-
-Osama Abdelkader (2):
-      drm/bridge: chipone-icn6211: use devm_drm_bridge_add in i2c probe
-      drm/bridge: megachips: remove bridge when irq request fails
-
- drivers/accel/amdxdna/amdxdna_gem.c                |  9 +++-
- drivers/accel/amdxdna/amdxdna_gem.h                |  2 +
- drivers/accel/amdxdna/amdxdna_ubuf.c               | 50 ----------------------
- drivers/gpu/drm/bridge/chipone-icn6211.c           |  4 +-
- drivers/gpu/drm/bridge/ite-it66121.c               |  5 +++
- .../drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c   | 16 ++++---
- drivers/gpu/drm/drm_drv.c                          |  2 +
- drivers/gpu/drm/drm_gem.c                          | 36 +++++++---------
- drivers/gpu/drm/msm/msm_drv.c                      | 11 +++--
- drivers/gpu/drm/msm/msm_drv.h                      |  7 ---
- drivers/gpu/drm/msm/msm_gem.c                      | 33 +++++++-------
- drivers/gpu/drm/msm/msm_gem_shrinker.c             |  4 +-
- drivers/gpu/drm/msm/msm_gem_submit.c               |  6 +--
- drivers/gpu/drm/msm/msm_gem_vma.c                  | 12 +++---
- drivers/gpu/drm/msm/msm_ringbuffer.c               |  6 +--
- drivers/gpu/drm/v3d/v3d_sched.c                    | 16 +------
- drivers/gpu/drm/v3d/v3d_submit.c                   | 22 ++++++++--
- drivers/gpu/drm/virtio/virtgpu_drv.h               |  1 +
- drivers/gpu/drm/virtio/virtgpu_gem.c               | 17 ++++++++
- drivers/gpu/drm/virtio/virtgpu_plane.c             | 10 ++++-
- include/drm/drm_device.h                           |  7 +++
- include/drm/drm_gem.h                              | 20 ++++-----
- 22 files changed, 143 insertions(+), 153 deletions(-)
-
--- 
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Thanks!
+Maxime
