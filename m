@@ -4,128 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E68C6CD5BAC
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 12:30:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83F98CD5BA4
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 12:39:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5059E10E4D3;
-	Thu, 21 May 2026 12:30:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C524D10E4D1;
+	Thu, 21 May 2026 12:39:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hPs+LI9t";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SQskeNd7";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012064.outbound.protection.outlook.com [52.101.43.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDDE110E4D1
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 12:30:31 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010003.outbound.protection.outlook.com [52.101.46.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D859F10E4D1;
+ Thu, 21 May 2026 12:39:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ax3miZOmgBILrGdhVk4AmeluNh+gD7DGHRYQQQqIyMRRcHvniYfYeZnFvykP2ofyG7UYFPy4nyWiX+M273JFlpFZohRu2466u8UhkNbHcxwC2cDU/+WYTojlPXGAEHVim2IA2fP5Z7jBX0moJRPO0NzjF45zRecQDzY89nvkImiDPplpS3xOALK7axKmk619MnedU7m3WLNoNN8kArjjSNno5Dw1FlyOYTQcRIQoiW04kuVa6spobq5fxrxrZalpu9m3WPY/CcgO/PLHmobmRdksg7Ve+vfVq4dT7UjPP06NQkqNEi7UdaZtmxgYuKdBf+rtld0L+KMZ0dSxBitDzQ==
+ b=L6t5vPrYXpJF/lM74EyuvK8p5cSb64qMDb7rM1h+yOPA8OqE7nXOTmT9TajfZA1d4SrU7U3t1BlUePMmUfWfKqMJIzxOG+Ju0fwusVeFUTXO/xcBLhwubPL+s/GCATHoTcbe/8D0u27J+z2aKmnFuQI37MJEmHgPxA33bpghTWQ2/AqVh1TotDmRMBjMPsPPNwoByQF/vnbWREgsIFUh72G4wtkkZuNy5w3dR0O5Sfi+iHLKCwG+GZjvbPpRpshXnV2OSjwDIyJ1d5uwx0akyWmo9trRYJ5kAGZfA71wdrkK6oVeUT+xPpkAVa02WzYBCdN38MR10L/W84+9GZ0wOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oLvXFcH5KavKgiiI0TyEeeIOpVLMjvyPhQ4iH2prz+U=;
- b=n3I4LPtAPgUrgWpHjy+aTJdcZdOcvGxWbh6f9KDGw+cqy5KAGeqVvgvcrqpv+AdFaG1/Q0B1dZRNPS6g6QWIioyasp2f95Z4bQTh6nz5Qpa/rcfvVJUsvfG5HzfrIcbLKwuAGADYgzuMMqLWED6lgLHUMgTeBd0W3RLC61yqLXzYQDQDjnoTHGA0mTAjBu3sel/94cTRi9jBdQMZFYrROg7GRnd3L/D8KPeItiXacyFZ58ZL69EjmfXvgZV2Tb7gqt1IdbRHwSv5ZZPb5DzQz2sz9zBvW3IVoAH/mndzH+AkLV+EfrpiRw4zKTHkqElgRRrYpf6q6zM0XB+RIzbaFg==
+ bh=qB7DG/Qoe6AxYIXu8MQKx/ll6syNJYZzRyJc7mjTS50=;
+ b=PS3HYZXYJJZ3rw58oKN4Noew1bcWmQqVRHdnivUFtS8ZGs6frN6bGGRvr09ydmkZFvdJ5e6sGsoG062amivMH58e2pxOUSftPh9Dat0R48S9XBQwV51TrbNxjCiJ87PDl/Ga82c+hzxt/dFXW/XXFcGGEP3Vq7SndnfPk03cnsagh1Dy+TtcFdHJuAbHDH8qbXDbs3FC0+qvPDvCUUmAzmQ4br5tAXJKlAsQdHWjqxQ3nrpJqIBKe/+IOM/VVOxrW1WTNutI9nzlJDOG8vR3LjraCIpuNLWCJkR75bnkKDjZA8rDA2JnX9v3lMPU/feE/JAOT2h+fOLLMvtDm2jDpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oLvXFcH5KavKgiiI0TyEeeIOpVLMjvyPhQ4iH2prz+U=;
- b=hPs+LI9tja58GfVLAdm7VmIvuH4KGYXG1mLM/bbG2BrpuZk6j3FYnX1J2jLX6q0+fLFHMQtbTYe6UPgMpHkiJBEr7FukAY4VdIo6uVDPBVcIOGlL5vruFcFNg89GAEZ10RXqOhWnmAjHeF1i6DyE01rloNFC48Pdz4+TtfTIuU4=
+ bh=qB7DG/Qoe6AxYIXu8MQKx/ll6syNJYZzRyJc7mjTS50=;
+ b=SQskeNd7kr1W7bRvvVlK1uvrNZF4qTsqXlxwagPsmY8cE5gAAbdNBEsOHoqcadtRfFfKvbObl5TPfq3WSJL1Avqeia4Et08dp4Eq3+YRydpiTFZKNoyPrcijnBlhvpyOy42826+E75ZMwe6mHqRb2F+c4q6LOJ/Te0SUpuhgv+k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB8843.namprd12.prod.outlook.com (2603:10b6:806:379::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Thu, 21 May
- 2026 12:30:25 +0000
+ by SA5PPF916D632A9.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8d6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Thu, 21 May
+ 2026 12:39:14 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Thu, 21 May 2026
- 12:30:25 +0000
-Message-ID: <bbcb0051-7969-45a5-847f-24e1c43f83dc@amd.com>
-Date: Thu, 21 May 2026 14:30:18 +0200
+ 12:39:13 +0000
+Message-ID: <24b58d4c-7fa8-4bd4-a799-701f69cfbc06@amd.com>
+Date: Thu, 21 May 2026 14:39:07 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dma-buf: add DMA_BUF_IOCTL_DERIVE for
- reduced-permission aliases
-To: Albert Esteve <aesteve@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Shuah Khan <shuah@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, mripard@kernel.org
-References: <20260521-dmabuf-limit-access-v1-0-26c01e27365a@redhat.com>
- <20260521-dmabuf-limit-access-v1-1-26c01e27365a@redhat.com>
+Subject: Re: [PATCH v4 1/2] drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to
+ drm_exec
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
+ <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
+ <20260521104335.28978-2-mikhail.v.gavrilov@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260521-dmabuf-limit-access-v1-1-26c01e27365a@redhat.com>
+In-Reply-To: <20260521104335.28978-2-mikhail.v.gavrilov@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0399.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cf::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0029.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::16) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8843:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e013e7c-e50f-41bc-7a01-08deb734bbb9
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA5PPF916D632A9:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc5ffeda-48d1-46b0-3c94-08deb735f6e6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|56012099003|18002099003|22082099003|4143699003|3023799007|6133799003|11063799006;
-X-Microsoft-Antispam-Message-Info: 8MBmF//3CuLnS8ZMWCVazGwRW3qTy2D4wNzeIg8Ytr5crbvU246wRmO2KSmkxC298troxHve7ngSl5tFm3+aOyU/iM04Qzi2G6M7uwlJN7I5M0hiq+XkTg2kP4YV3JKUSch8ha8BY7B1BT+cL8EttSc0kfFXPewAhHUiryPiMiP7eKMJUaEnSOjc4MWRSMvfCo9edWEKI9C1gO8eR/XoxowCvmpaB61JsyRvBNtNxDt3STcxls/Ee0myToXet9JEsGd1W7cq0ntpWqrel/aX1GC4xLCSLnCUtdukSF6l0jUmtbLRHA9mLrph2QUogB6NVcu/CpM07Ysh2MlWLsnZ4rxooRFyUBp0MoQwuuH8X8HakUvXg8tc1p3k/Ae8u7iRNTtAsm2xW/GmBwLvvfB/vRl4BGHdQH5roDmrglVCzdeNr2X/pMvyZAsm8YvDoiABejeHTixBQ1gaw22LqRsYeRRcnPIWIj6J1vPGkUFjSal83Xjetp12CwXZTrZvu0Wx6CT7f5EGcvesIft+2EdHFkGkRLHPE1sA1WawgaU3Zl0dbKBFrZvYwyEdJM9FdcjkzJhQs0kRhXbh81fKgfFsrxW6JCFUezlo3mOQd4OY0Dx7QPj8v/VUt8oG1Uuev5USRBe62cROx1K4tvh50fY8pRfUB61CIsy6BAeVavAtYgBr+BN2JW4dJl5sN2kmSctt
+ ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003|4143699003|11063799006|3023799007|6133799003;
+X-Microsoft-Antispam-Message-Info: 9G9gh9T4Cq47uC9APOgbqbMcND6VgSWsntlU999vAIUDtn5oRHRGRmlYGByyeh3ghcB04P/PY2BUDo5GtgxqhTTKS8mPujGiPV9bSwimT9tjNNYvceziSUk9NmNZWsxFKllm+bmFA8vbek0enCMAKbf6FyU5dSJPkIvsELlKqgr8Vb3S/QWWd3XHxHI9sfERCmfV1hd++PFg17WTgM/y6fJcmmZr2hEzekf33QhgefrZ4ZnAhEVOTN72hUhW6BAfJ+S/6LnJlGDIm8e38u+H6zisRXtIXFkQSGKxslvZ0jg6z4gUNp24+UlaeS8dJfoRi51Jyxavlc7egZiRL77SKHQPhHh/dYaS19sheRkHf1pXKzpBcfHQ5+DDPm9XFpkAOHimt3+ON+DL32eQ8K5AZrxOR5TcmZHnSnePxVXfjeq7KvDO/0kzkca71+goKCXv68OG8dB8teFT39/IU8W4q9Tnyi5c2NC8HEmtVmFUi5cAKHkhm+CG8Y9C+o1aMWR2p/Py/mDqgr+PFhlaeddLPcL5ahYRQlkuh9PSMLhb5+TehZsvPDD9c2p74bwnaatpfpOjDsZf7PiBlIw9ZP5IqhnWGJC2c1DPXCVPCPuWo7FhrsI2VgtWXfntKNCQRVIktrF5gV0wFed5BkPZQ2dDOoHc05O9wp1GeLXUX5hhtAej7wCj1xSVs84nC/65btMU
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(56012099003)(18002099003)(22082099003)(4143699003)(3023799007)(6133799003)(11063799006);
+ SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003)(4143699003)(11063799006)(3023799007)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0ZtTEtFZmtCVXpIdEtndzJ1SUpFMVB3cWN6WnA5VnRUZVJ5bERSVmo3b2k4?=
- =?utf-8?B?Qk4vdXZqYTE1Y1pkOGdJYkUrcXhZZzBMaWVKanhzSy9sdzEzc1hpYVcyc2Jx?=
- =?utf-8?B?bmlBL2hPR0Fod3BrMUF0THFYRUpTb20yS05hL1hvSlRQcjMyK3NuSHRiME8w?=
- =?utf-8?B?Sk16SXRZWi9scGRaNzh6cytvdlIrRm1nUWlOeC9PM0xpOUI5cXI2WFY5aEZx?=
- =?utf-8?B?VUMwK05kS3lsL2lqekdBV3VPVTFaM1lWRms3ZjN1WjVteHVwNGRPenZ0SGYv?=
- =?utf-8?B?dlJZQ0tveEhaQ1o1TXdpMVNKaU9NeGVzbWFWMUtOdzh1THNidmlIUjFXOVJy?=
- =?utf-8?B?c2c3U3piYW1OS2FleURYMzZhMWprOHgwRjJyRk1MS0pyN3hpc3h0RFluSG5J?=
- =?utf-8?B?R0hxTURyZzIrbC9nK0w1elh6dlI2ajA2NkUvM0YzZ3phOEZvZWFEL3RaNTNV?=
- =?utf-8?B?WWtrcE1pSC9saHVWNnoxWVdmWFN1bWh3M0N5UWpjVzVXVTdYLzljR2lDNDRv?=
- =?utf-8?B?WjhqQTBvazJuM1BFNWhJL2dSMFdxRnNwUVgrMWNzS3VUVEp0bFVjSjdCK2FB?=
- =?utf-8?B?TlA4NnZrNGtRVHBJS2J2UEE5MDJrTzVlN3F3aTJLWWlyV05adkJyaS9XYXFq?=
- =?utf-8?B?WStPVkFzcUkrTW9Zb1NPam5YU1dCaTlGYjFzbzgxRjJGSFUzZmw5TjNFZHpp?=
- =?utf-8?B?UzNtbi9kb3k4RXRhUWkyc1VvT3hRT3NVTDFNZi9INzFhQTJCQ1I3b0hSYTBO?=
- =?utf-8?B?alh0YklYS2l5Q3U0b2lXMDRrWEZmOTNLNTArK1VIZ0xEbFZWaExwVFBmNTNF?=
- =?utf-8?B?ZHdKZHhPNkJ3YzZFREJqQ09VOUxxOUtWVFBOeWRGazY0ckxIYmdTSzR2TTFU?=
- =?utf-8?B?OHFMbEFvZCt0eHpVTXh2WlNSaEcyL2Nya2VUWktkR05qZi9NVXdWam9jQW9p?=
- =?utf-8?B?ZkUzTFBkU2NLNlVHQU9yUlJ0ZFo4NWU3b1Q0Z3VlcFE1TUFXemNJTndkT0tZ?=
- =?utf-8?B?bnRNNXAyMUcrSW5ZbjRNelNVSytrNDBCRXg2RG5uQXkvOG9QUzRxRG43aTlu?=
- =?utf-8?B?SEJHb1ZqemxhNDdDZjZWL1hsR2hGVHRMalV1WnJIYS9Wbnh6ek1UNkFUd1B5?=
- =?utf-8?B?MjlHOVdxR3VyUklmRkFZVkIwZUVFaTVadHFpS21DQ1p1WGZjaklIek44U3dW?=
- =?utf-8?B?NWlIdms4WWRVQnhYeWdmN0sybXZONGFGeUZnS3NnODMwT2FCMGE4VEFDTnBG?=
- =?utf-8?B?N1Y2UlR4cmFPTno4M21JekhjdnlKMEg0Rmh4WVlNMjQxbmtIQzArTk9ib3RY?=
- =?utf-8?B?SzRwaTlEVmFjbm5nZEtxL1NnYW1zUThnZmhNMGM3TW9PZmswNC9id3AvQjg2?=
- =?utf-8?B?M3R4ZVExZUM0cWdidXhDMVlDd2xncUJBYTNQb09TQlBoZGhDc2ZYZzJBbW85?=
- =?utf-8?B?RjFZRytoRm5xU2Z2WXhMNUd5cWNjNXJQRUFMWGZCRXF3UEhsRkd6VUR2NTdJ?=
- =?utf-8?B?dzE3OFNPQ2FNblhmRUxFQm5CaUFpZUw2UDNudnpGZEt3U2dPWWFhOE52UG1X?=
- =?utf-8?B?dEE1R3hqNmN6U3ErQmlUaEg2Ni9XQ2pmdDBxTWZISnJrUVdoaWJ6NWduVVgz?=
- =?utf-8?B?WDlzcHdlVHdGdjQvYUJpcUVDR1ZTU2ZGaXhZeU0rN1p4Z3lQZUtsd3JqMCto?=
- =?utf-8?B?bDBBWHpQeGhZc3JobTd3bE54eVdQL0pzUnEwQTdXTC9PNDRrRFBzRlg4dk13?=
- =?utf-8?B?UkgrN0tWRTQ0UWJ1ZGRhMXcwejRKYms5cUV6QU40Q1pTcDBGSFpiWHo1V2E5?=
- =?utf-8?B?VFVtS1VpTk1WRGw5U0dtYWJScWo2bjEzaTMvUFUybkphVmFJYkhPTnpMVlNX?=
- =?utf-8?B?V1MrVFJqNjBrQnN3aFcvWGFGNEFWZlM2WGVmYXNiWlBGdXpTTUtFRHJZZDlh?=
- =?utf-8?B?NGVDWUpWVTVocytYSmVybTAyWS9jeHl1SjlWcVBvY1ljMHRUWi9FaDRwWUlE?=
- =?utf-8?B?elJZZTlMenRHYU01blQ1K2UxaHo4a1BkSnNlTzMvYVlncXJCc0p1OUlRVWNN?=
- =?utf-8?B?bzNUZnNqcG1qTllTbTIxMDFLQlYvemlTQTBZNjVNREt2Z0dsQzZVbGdUMW1F?=
- =?utf-8?B?UEJhUW16UWFTZ0NoM0xuSEFXMmJDTStJWTk1ZWZjczJ0bXhQQ1VBM2ZkNzcz?=
- =?utf-8?B?WXZhR0d2aEo0NnlJWlZFWFo5QW4wQmpUUG1IOHg2NGtCb29lN3dRVnVDbUdE?=
- =?utf-8?B?Mko3aXZONjFDSEF3YUNXWUNqM1R2QTJVOGxaTml0MDhRUEFVRkVKd0R4SDRM?=
- =?utf-8?Q?leCyzGrqBmUwzXT11v?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SVhOQ1BlK252andmYW1qN1dySVFqcE5DRXdpekxqMFA1T2ZSU1UxTlZHeUFs?=
+ =?utf-8?B?N3ZrbUVlVHpNalF6ZzVjUzFnWWZjNzdBUFZJbm52WERDR1JOdW1MaVFaRnVv?=
+ =?utf-8?B?N011dkxRNFZFMWRvckcxTG9UN21TbEJsVmR4VzErUDhzdGVMSW16Yk9ZcDZm?=
+ =?utf-8?B?WmhPR0E5ZEZpRmlMZnhKOU9EY2kyM1FteUdOL0FDcUI5NTFxSlNFU296eUVL?=
+ =?utf-8?B?OWtPcWlXdkpsWGlacmFweUZoZ040M2t2TXczUmZ0eXlWVmZsZHMvRk9rdG53?=
+ =?utf-8?B?NUhwOXhOTm8zWndHdUY2dlhCWHhmcDk2ZDlIbVU5b1BlVDJEWldkdlJOL1cz?=
+ =?utf-8?B?bmdrQ2doUyt1QVorMjZhMm9FUUFLbmNYZjBrbk9PMHFDQWRFOVB3cFVmQVE2?=
+ =?utf-8?B?bzZCZnhZMFJ4R2g3T2hBT0JjdzRtclpLWUJYd3R4ZWhPcEhiTGVhRkhrNzNG?=
+ =?utf-8?B?dHFCditjK0VZWkhPaHMxWmsvN2lsVk5qZXRlRFdSTExEcVY3K0F0MThSVTZm?=
+ =?utf-8?B?UGxWNUFGbGkveC9RYUNROU01VU5LNS8zc00xek5sQmV5OSszR2QxNEl2L2c0?=
+ =?utf-8?B?ZGdIaHltODh5U1hVa3JzQmRuVUcvdWkyLzVjWmw2MFVnV2c5UjlDc203cTNr?=
+ =?utf-8?B?NDVkSHlsYUMzck1iSTBiRDkzQTgvL09vV3ZFd1pDZmx1YXRudVBCRjAzSGlH?=
+ =?utf-8?B?YzVSTWpEcnF0dlVrVWJlc25tdGVxMnpyVTJyWUhCeDFjN2t3Wm5tamVRWUpY?=
+ =?utf-8?B?VTltMlZHRWhtMTVNNmhvWnVDeHVUMGZpeTBXdlMwcDh4ZWZLdHNicnk4Zmoz?=
+ =?utf-8?B?akVkU2NZTklvUHpVTTdJbm5IbEpPV20rOVJFV0dSSGJvbkdPTUZJeW1yaDNV?=
+ =?utf-8?B?KzlINmgwa0tjYThVa1VvazZLK1NPYzdndGVYU0dOWHdrUmJjZmxjaEhVK0ho?=
+ =?utf-8?B?NDZxMFBYMzZKUFE4WStEekRodTVReTdxMnlKOHhSR0Y2SVNncDdmbCtLQjJI?=
+ =?utf-8?B?UG9DZlZVRlZ1N0Fic0l0ckFvTjNoSkJPMUEwNzlVdWxCOGRhSWZpN3lVWmho?=
+ =?utf-8?B?R0F1Sllydkd1T0FlWWNiL1BGcDNCRVY5VDdpd0xCUEZYeGorRlNXbGxxY3NW?=
+ =?utf-8?B?VmhzNHg3OWRoeHZHOEk5Z0haeGlhSkdSbkJrMlc4UzRPSHFjN3hOSmh2eWN4?=
+ =?utf-8?B?L1ZNRks2VXNaOXhmQ0FBT0NmVDlJVjhFSE1BdWs0UUluOFhCS0lVc2VhT0F1?=
+ =?utf-8?B?WnlVb3pwaTRDZSt6cXJpOEZVVEgrZVhiMnV2a21wMFJFT3o1UUhBNTJrckVs?=
+ =?utf-8?B?ak03T2tYRGFpaEVzaGlZYW4rNEp5VFBXUnMxZG1IZUVDeExvdHlEOVdOUW90?=
+ =?utf-8?B?YWxLTk9IMFQrQ3ZJUUdoYkVhZzlnZVgvUmlZTGc5cE9BZ1M0MEZnWnFVbXpT?=
+ =?utf-8?B?VDJmTytYdW14aUhoZ012NXZhcTBSSjU0SURQdytUL3Q1Y1I0bWJOd1ZSTFRj?=
+ =?utf-8?B?ZllwU3ZNRTBOZ2twYjNLZFhUOGpoK2NaME80R0JKWVFCVSt1cldrSXB6MER6?=
+ =?utf-8?B?d2ZvbnJlZUN5dUJMV05IR3pId3pJRGNJdjlaN2l1Qnl5Z3NZdmRQTFphb1Vk?=
+ =?utf-8?B?Si81Y3cvQnBCV1RDTmMwbGxvZkpiUGJBd2hRYjZHV2Y0N05aVUN3RkhpSC91?=
+ =?utf-8?B?dmVzQXRIMDE5TVNGalZ3S3F3NG9icHVSQmgxLzc0Y3dsT2VMM0tLd3VHVGZR?=
+ =?utf-8?B?SVFWVlo0Unl5eUwrN0pNRnlCMFJPbzRYZW45ZmFkaEtqNU1ZTjNXbnNGbnl5?=
+ =?utf-8?B?QmpkZ1NHZWNZVGsrMVFhWU9yeVcza0g1ZDZyVlN2azJTQW4xYWY5Ly9id3Ny?=
+ =?utf-8?B?K05mdGZDVTI4TFJvNnYvOEZnYVEyZS9la1NCNjZtdG9kVWluT2FJUXNvelhN?=
+ =?utf-8?B?cnlreVRBNDkxa0tVR1pGOUUvT3AwU0gxM09rZTlHRUlzM2ZjajZjaGF5SDM0?=
+ =?utf-8?B?clE0THlXdmxUM0lHc1cvVTRkWEFyYVNFaXVKMkRmaFNEcmNIaWhFdlFmWkJV?=
+ =?utf-8?B?bEZmUEVoOTNqemZxYXhmY0ZqUVFrUkJZNXduOXkybDRNRUIwMVNKN1BoOGxR?=
+ =?utf-8?B?T2U1ZzVWZ0FpNmV1NXp1d3hPWWJYOGpQOW5pbEl3RS9WM2I4bmdTamU4bXFm?=
+ =?utf-8?B?d094NlltenZ1L2hvT1hnYWsrQjlSdEQ5WmdBZFJzM0h2MmJoc0djUEFDWTUz?=
+ =?utf-8?B?VWpMUk84NkhhaHo4NGc3NndMSkxJREhnRkZNU2JJY1RwYm5QVERhOVlyNER3?=
+ =?utf-8?Q?wMTycSXD5dJui3XH6T?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e013e7c-e50f-41bc-7a01-08deb734bbb9
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc5ffeda-48d1-46b0-3c94-08deb735f6e6
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 12:30:25.0485 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 12:39:13.8207 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fHykI5Ua+N0R7HLMRhokJTjWaOSgcVJmyQ5hBeR8AKv6+GXHXih8Aywj3Vz4usD4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8843
+X-MS-Exchange-CrossTenant-UserPrincipalName: G8y2f64Sk/eaXA8zxfuLIo1cvfU2D1Vkz1BeEa4yyxD76zrdU+udMQZN4t1OrPNS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF916D632A9
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,194 +143,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/21/26 11:10, Albert Esteve wrote:
-> When sharing a dma-buf between components of different trust levels,
-> the allocator may need to hand out a read-only view of a buffer it
-> holds with read-write access. Currently there is no mechanism to do
-> this: the file flags set at allocation time are fixed for the
-> lifetime of the dma-buf, and dup(2) and dup3(2) cannot change the
-> access mode of the new fd.
+On 5/21/26 12:43, Mikhail Gavrilov wrote:
+> amdgpu_vm_lock_by_pasid() looks up a VM by PASID and reserves its root
+> PD with a bare amdgpu_bo_reserve(), returning the still-reserved root to
+> the caller. A caller that then needs to reserve further BOs (for example
+> the devcoredump IB dump) ends up nesting reservation_ww_class_mutex
+> acquires without a ww_acquire_ctx, which lockdep flags as recursive
+> locking.
 > 
-> Add DMA_BUF_IOCTL_DERIVE, which takes a struct dma_buf_derive carrying
-> the desired access flags and returns a new file descriptor for the same
-> buffer with those flags applied. Permission escalation is rejected with
-> EACCES.
+> Convert the helper to take a drm_exec context and lock the root PD with
+> drm_exec_lock_obj(). Callers now run it inside a
+> drm_exec_until_all_locked() loop and can lock additional BOs in the same
+> ww ticket, so there is no nested ww_mutex acquire.
 > 
-> The new fd aliases the same struct dma_buf, same dma_resv, same exporter
-> ops, same underlying memory. Importers that attach to either fd operate
-> on the same object and observe the same fence timeline.
+> The drm_exec context holds its own reference on the locked root BO, so
+> the helper no longer hands a root reference back to the caller: the
+> root output parameter is dropped, and the transient reference taken
+> across the PASID lookup is released before returning.
 > 
-> To support multiple struct file instances sharing one struct dma_buf,
-> two small internal adjustments are required. First, move
-> __dma_buf_list_del() to dma_buf_release() so that list removal fires
-> exactly once when the dentry is destroyed. Second, update
-> dma_buf_file_release() to call dma_buf_put() only for the files that
-> are not primary dmabuf files, leaving the primary fd's refcount managed
-> by the normal dentry lifecycle.
+> The only existing caller, amdgpu_vm_handle_fault(), is updated
+> accordingly. Its is_compute_context path, which previously dropped the
+> root reservation around svm_range_restore_pages() and re-took it, now
+> finalises the drm_exec context and re-initialises a fresh one; behaviour
+> is otherwise unchanged.
+> 
+> No functional change intended for the page-fault path.
+> 
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 91 ++++++++++++++++----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  2 +-
+>  2 files changed, 58 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 9ba9de16a27a..591980907211 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2950,47 +2950,56 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  }
+>  
+>  /**
+> - * amdgpu_vm_lock_by_pasid - return an amdgpu_vm and its root bo from a pasid, if possible.
+> + * amdgpu_vm_lock_by_pasid - look up a VM by PASID and lock its root PD
+>   * @adev: amdgpu device pointer
+> - * @root: root BO of the VM
+>   * @pasid: PASID of the VM
+> - * The caller needs to unreserve and unref the root bo on success.
+> + * @exec: drm_exec context to lock the root PD in
+> + *
+> + * Must be called from within a drm_exec_until_all_locked() loop; the caller
+> + * runs drm_exec_retry_on_contention() afterwards. The drm_exec context holds
+> + * a reference on the root BO until it is finalised.
+> + *
+> + * Return: the VM on success, or NULL if the PASID has no VM, the VM is being
+> + * torn down, or locking the root PD failed.
+>   */
+>  struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+> -					  struct amdgpu_bo **root, u32 pasid)
+> +					  u32 pasid, struct drm_exec *exec)
+>  {
+>  	unsigned long irqflags;
+> +	struct amdgpu_bo *root;
+>  	struct amdgpu_vm *vm;
+>  	int r;
+>  
+>  	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+>  	vm = xa_load(&adev->vm_manager.pasids, pasid);
+> -	*root = vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
+> +	root = vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
+>  	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+>  
+> -	if (!*root)
+> +	if (!root)
+>  		return NULL;
+>  
+> -	r = amdgpu_bo_reserve(*root, true);
+> -	if (r)
+> -		goto error_unref;
+> +	r = drm_exec_lock_obj(exec, &root->tbo.base);
+> +	if (r) {
+> +		amdgpu_bo_unref(&root);
+> +		return NULL;
+> +	}
+>  
+>  	/* Double check that the VM still exists */
+>  	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+>  	vm = xa_load(&adev->vm_manager.pasids, pasid);
+> -	if (vm && vm->root.bo != *root)
+> +	if (vm && vm->root.bo != root)
+>  		vm = NULL;
+>  	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+> -	if (!vm)
+> -		goto error_unlock;
+> +	if (!vm) {
+> +		drm_exec_unlock_obj(exec, &root->tbo.base);
+> +		amdgpu_bo_unref(&root);
+> +		return NULL;
+> +	}
+>  
+> -	return vm;
+> -error_unlock:
+> -	amdgpu_bo_unreserve(*root);
+> +	/* The drm_exec context holds its own reference on the root BO. */
+> +	amdgpu_bo_unref(&root);
+>  
+> -error_unref:
+> -	amdgpu_bo_unref(root);
+> -	return NULL;
+> +	return vm;
+>  }
+>  
+>  /**
+> @@ -3012,33 +3021,49 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  			    uint64_t ts, bool write_fault)
+>  {
+>  	bool is_compute_context = false;
+> -	struct amdgpu_bo *root;
+> +	struct drm_exec exec;
+>  	uint64_t value, flags;
+>  	struct amdgpu_vm *vm;
+>  	int r;
+>  
+> -	vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
+> -	if (!vm)
+> +	drm_exec_init(&exec, 0, 0);
 
+Make the last parameter 1 here since we are expecting to lock 1 object.
 
-> Finally, enforce the access restriction in dma_buf_mmap_internal():
-> a shared writable mapping (MAP_SHARED + PROT_WRITE) on a read-only fd
-> is rejected with -EACCES. Without this check, O_RDONLY on a dma-buf
-> fd would be cosmetic, as the VFS does not enforce f_mode for writable
-> mmap on anonymous inodes.
+Not a must have, it will work without but it is just a little bit more optimal.
 
-Clear NAK to that since that would break the existing uAPI.
+Apart from that Reviewed-by: Christian König <christian.koenig@amd.com>.
 
-Regards,
+Thanks,
 Christian.
 
-> 
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
->  drivers/dma-buf/dma-buf.c    | 58 +++++++++++++++++++++++++++++++++++++++++++-
->  include/uapi/linux/dma-buf.h | 28 +++++++++++++++++++++
->  2 files changed, 85 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 71f37544a5c61..34a3872365730 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -180,6 +180,7 @@ static void dma_buf_release(struct dentry *dentry)
->  	 */
->  	BUG_ON(dmabuf->cb_in.active || dmabuf->cb_out.active);
->  
-> +	__dma_buf_list_del(dmabuf);
->  	dmabuf->ops->release(dmabuf);
->  
->  	if (dmabuf->resv == (struct dma_resv *)&dmabuf[1])
-> @@ -193,10 +194,13 @@ static void dma_buf_release(struct dentry *dentry)
->  
->  static int dma_buf_file_release(struct inode *inode, struct file *file)
->  {
-> +	struct dma_buf *dmabuf = file->private_data;
-> +
->  	if (!is_dma_buf_file(file))
->  		return -EINVAL;
->  
-> -	__dma_buf_list_del(file->private_data);
-> +	if (file != dmabuf->file)
-> +		dma_buf_put(dmabuf);
->  
->  	return 0;
->  }
-> @@ -232,6 +236,11 @@ static int dma_buf_mmap_internal(struct file *file, struct vm_area_struct *vma)
->  	if (!is_dma_buf_file(file))
->  		return -EINVAL;
->  
-> +	if ((vma->vm_flags & VM_WRITE) &&
-> +	    (vma->vm_flags & VM_SHARED) &&
-> +	    !(file->f_mode & FMODE_WRITE))
-> +		return -EACCES;
-> +
->  	dmabuf = file->private_data;
->  
->  	/* check if buffer supports mmap */
-> @@ -537,6 +546,50 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
->  }
->  #endif
->  
-> +static const struct file_operations dma_buf_fops;
-> +
-> +static int dma_buf_ioctl_derive(struct dma_buf *dmabuf, struct file *file,
-> +				void __user *udata)
-> +{
-> +	struct dma_buf_derive params;
-> +	struct file *new_file;
-> +	int new_fd;
-> +
-> +	if (copy_from_user(&params, udata, sizeof(params)))
-> +		return -EFAULT;
-> +
-> +	if (params.flags & ~(O_ACCMODE | O_CLOEXEC))
-> +		return -EINVAL;
-> +
-> +	/* Escalating permissions is not allowed. */
-> +	if ((params.flags & O_ACCMODE) == O_RDWR &&
-> +	    !(file->f_mode & FMODE_WRITE))
-> +		return -EACCES;
-> +
-> +	new_file = alloc_file_clone(dmabuf->file, params.flags, &dma_buf_fops);
-> +	if (IS_ERR(new_file))
-> +		return PTR_ERR(new_file);
-> +
-> +	get_dma_buf(dmabuf);
-> +	new_file->private_data = dmabuf;
-> +
-> +	new_fd = get_unused_fd_flags(params.flags & O_CLOEXEC ? O_CLOEXEC : 0);
-> +	if (new_fd < 0) {
-> +		fput(new_file);
-> +		return new_fd;
+> +	drm_exec_until_all_locked(&exec) {
+> +		vm = amdgpu_vm_lock_by_pasid(adev, pasid, &exec);
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (!vm)
+> +			break;
 > +	}
-> +
-> +	params.fd = new_fd;
-> +	if (copy_to_user(udata, &params, sizeof(params))) {
-> +		put_unused_fd(new_fd);
-> +		fput(new_file);
-> +		return -EFAULT;
+> +	if (!vm) {
+> +		drm_exec_fini(&exec);
+>  		return false;
 > +	}
-> +
-> +	fd_install(new_fd, new_file);
-> +	return 0;
-> +}
-> +
->  static long dma_buf_ioctl(struct file *file,
->  			  unsigned int cmd, unsigned long arg)
->  {
-> @@ -587,6 +640,9 @@ static long dma_buf_ioctl(struct file *file,
->  		return dma_buf_import_sync_file(dmabuf, (const void __user *)arg);
->  #endif
 >  
-> +	case DMA_BUF_IOCTL_DERIVE:
-> +		return dma_buf_ioctl_derive(dmabuf, file, (void __user *)arg);
-> +
->  	default:
->  		return -ENOTTY;
+>  	is_compute_context = vm->is_compute_context;
+>  
+>  	if (is_compute_context) {
+> -		/* Unreserve root since svm_range_restore_pages might try to reserve it. */
+> -		/* TODO: rework svm_range_restore_pages so that this isn't necessary. */
+> -		amdgpu_bo_unreserve(root);
+> +		/* Release the root PD lock since svm_range_restore_pages
+> +		 * might try to take it.
+> +		 * TODO: rework svm_range_restore_pages so that this isn't
+> +		 * necessary.
+> +		 */
+> +		drm_exec_fini(&exec);
+>  
+>  		if (!svm_range_restore_pages(adev, pasid, vmid,
+> -					     node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
+> -			amdgpu_bo_unref(&root);
+> +					     node_id, addr >> PAGE_SHIFT, ts, write_fault))
+>  			return true;
+> -		}
+> -		amdgpu_bo_unref(&root);
+>  
+>  		/* Re-acquire the VM lock, could be that the VM was freed in between. */
+> -		vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
+> -		if (!vm)
+> +		drm_exec_init(&exec, 0, 0);
+> +		drm_exec_until_all_locked(&exec) {
+> +			vm = amdgpu_vm_lock_by_pasid(adev, pasid, &exec);
+> +			drm_exec_retry_on_contention(&exec);
+> +			if (!vm)
+> +				break;
+> +		}
+> +		if (!vm) {
+> +			drm_exec_fini(&exec);
+>  			return false;
+> +		}
 >  	}
-> diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
-> index e827c9d20c5d3..d0cf616228e55 100644
-> --- a/include/uapi/linux/dma-buf.h
-> +++ b/include/uapi/linux/dma-buf.h
-> @@ -168,6 +168,33 @@ struct dma_buf_import_sync_file {
->  	__s32 fd;
->  };
 >  
-> +/**
-> + * struct dma_buf_derive - Obtain a dma-buf fd with reduced access permissions
-> + *
-> + * Userspace can perform a DMA_BUF_IOCTL_DERIVE to obtain a second file
-> + * descriptor for the same dma-buf with a subset of the calling fd's
-> + * permissions.  This allows a producer holding read-write access to hand a
-> + * read-only view to a less-privileged consumer without giving up its own
-> + * write access or allocating a separate buffer.
-> + *
-> + * Unlike first-export ioctls, the new fd is not a re-export. It shares the
-> + * same reservation object, exporter ops, and underlying memory as the
-> + * original.
-> + *
-> + * The requested permissions must not exceed those of the calling fd.
-> + */
-> +struct dma_buf_derive {
-> +	/**
-> +	 * @flags: Requested access flags.
-> +	 *
-> +	 * Accepts O_RDONLY or O_RDWR, optionally combined with O_CLOEXEC.
-> +	 * All other bits must be zero.
-> +	 */
-> +	__u32 flags;
-> +	/** @fd: Returned file descriptor with the requested permissions */
-> +	__s32 fd;
-> +};
-> +
->  #define DMA_BUF_BASE		'b'
->  #define DMA_BUF_IOCTL_SYNC	_IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
+>  	addr /= AMDGPU_GPU_PAGE_SIZE;
+> @@ -3062,7 +3087,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  		value = 0;
+>  	}
 >  
-> @@ -179,5 +206,6 @@ struct dma_buf_import_sync_file {
->  #define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
->  #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2, struct dma_buf_export_sync_file)
->  #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct dma_buf_import_sync_file)
-> +#define DMA_BUF_IOCTL_DERIVE		_IOWR(DMA_BUF_BASE, 4, struct dma_buf_derive)
+> -	r = dma_resv_reserve_fences(root->tbo.base.resv, 1);
+> +	r = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 1);
+>  	if (r) {
+>  		pr_debug("failed %d to reserve fence slot\n", r);
+>  		goto error_unlock;
+> @@ -3076,12 +3101,10 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  	r = amdgpu_vm_update_pdes(adev, vm, true);
 >  
->  #endif
-> 
+>  error_unlock:
+> -	amdgpu_bo_unreserve(root);
+> +	drm_exec_fini(&exec);
+>  	if (r < 0)
+>  		dev_err(adev->dev, "Can't handle page fault (%d)\n", r);
+>  
+> -	amdgpu_bo_unref(&root);
+> -
+>  	return false;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index d083d7aab75c..0c6e3e0368c7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -593,7 +593,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  			    bool write_fault);
+>  
+>  struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+> -					  struct amdgpu_bo **root, u32 pasid);
+> +					  u32 pasid, struct drm_exec *exec);
+>  
+>  void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+>  
 
