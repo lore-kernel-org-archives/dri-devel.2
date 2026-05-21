@@ -4,78 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4219CD5BB7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44610CD5BB6
 	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 14:42:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2975F10F644;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00AEB10F626;
 	Fri, 22 May 2026 14:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="swKXL266";
+	dkim=pass (2048-bit key; unprotected) header.d=mariushoch.de header.i=@mariushoch.de header.b="EXuGrg2m";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6612710F53F
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 10:13:34 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-c8026aa4d53so5367208a12.3
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 03:13:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779444814; x=1780049614; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6oxv8UL85VpOX5p+L7n6lxvKWMwkHziHJ65pdN0X0XU=;
- b=swKXL266Y109dGks8LC+bSo5vRNx6QJ/erhV+DMCHiCPVtM26gO7i4ZxspCsPtWpOr
- rexKZHpD8h1mUQ5uPiLwFEUGvOju7xJ7299YZNO2CAK6ebqFiISepfBz+kwRr3cOSSb/
- y+HkvTWl+TexMvIq74uen35DRZq4fDrs8mrWbj8YdiIjflRn45L1oyL1FKLbnidfkGis
- KNVGd+4nFEQjJbznun7v1eiyoBtAma8V0dmtUg9NfGrjXG++aQUmWzE3eqi9tIBUHKud
- OEIGf9AfVL59I76hfrfrv4kb/QF+ZdtPYZxQfGN9vULCbENTfDNZY1j0R6iK0BbGnb6g
- 9+Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779444814; x=1780049614;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=6oxv8UL85VpOX5p+L7n6lxvKWMwkHziHJ65pdN0X0XU=;
- b=KwSaR+qzHZ7JPDBZZ1HT9xoOfwNHwv9faY4DFhMT+iWffIm5KoQH8sbmV9Tu5GMc4g
- j5YNzQn2AVobBoam2Gx9VnKPhpFxbykSvDNG/TDxgPdaAHkwGlNzWsOLAIwTpSveQy1D
- lO0rCeXDO7cumH3i0C1eWvP1pNKYZeJirXhPebQX30P4V1314tTetOluX5yKz8BFC6Qo
- yJ/mlhYPD7+1o1ol6sRP68lfWmeWB8cdc5S/lncawcJFMj5agu1iEpJGietsNnvFV00b
- L+4Lk5eLaeEl+rCuunGxpuKxNXFl2LBTRITmLshaOP6wXLEym93cIle6pmhiJ6n5iU4x
- n8Vw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+RQzKHXBQ1iR1gYWKOtTgiGCO8JmtX82vcD7mfQ2uhInPhoQE36x0PTTCHgAR3F4b2O6ER4TJ3XKI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+GEYuMfqb5viAnq+HsEQT87UMUrXVG4TyDdpCMobW8x1PiWCk
- N0UAHI9ldbrr+neYkTACqI8gSXkJvW3UZJNeDljUG9y83Pp6M+JxfxRH
-X-Gm-Gg: Acq92OH/NLxZEz40W3nLlsWWnrvHPzDRgQ4DMf7S7pGhTqshknSbO4+J1by5CcuwNP0
- catsiw//RPKMibcN3ds88ujyw164dR6NXTUsbNSFqZNkmdj3wNEPxsFaXyVCqu5iEpFPd71jTr6
- UDrvp+4+CyEko1B/odeQN1chvE9SEZ2aslT+wi9xQJ0/fFYem7lOzgRk5TLj8kiakxNKyQa27z8
- Xm6HhrOwBP/8pCBHNWQIv1iA7GFU+N9ZXAyC0VqkacqKEDewYUlN+d4JZulSz22shcpH2wOgzV0
- +CjXmJyb5hBX9GBK6ygnIQ/Is0QMCmj+sqVot6pwjuWknkXX63Nwa46RC0fGUL2/qqIWX5gWQyc
- Uf66T184LFA02wctWrOU9leR5VSX1F0NAdwWhLAYyoMnpxwK/lMWPayYFwTJC4uYvN6DySmILaf
- 1CiKBMhrp/OI6q3U/xb9jlz5aDPbrd/4Wgo2V5meOlXCamHBR73U2FoAcU1MSOymx+uA==
-X-Received: by 2002:a05:6300:2109:b0:3b3:21f7:15db with SMTP id
- adf61e73a8af0-3b328f704bcmr3288808637.43.1779444813768; 
- Fri, 22 May 2026 03:13:33 -0700 (PDT)
-Received: from radxa (122-58-25-162-adsl.sparkbb.co.nz. [122.58.25.162])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c852054d788sm1047586a12.21.2026.05.22.03.13.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 03:13:33 -0700 (PDT)
-From: Graham O'Connor <graham.oconnor@gmail.com>
-To: linux-arm-msm@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, abhinav.kumar@linux.dev, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- neil.armstrong@linaro.org
-Subject: Re: [PATCH 0/6] arm64: qcom: Enable additional hardware on Radxa
- Dragon Q6A
-Date: Fri, 22 May 2026 22:13:23 +1200
-Message-ID: <20260522101323.31911-1-graham.oconnor@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260522060645.4399-1-graham.oconnor@gmail.com>
-References: <20260522060645.4399-1-graham.oconnor@gmail.com>
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2E6310E1C9;
+ Thu, 21 May 2026 18:27:03 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gLxhP28rTz9vLF;
+ Thu, 21 May 2026 20:27:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mariushoch.de;
+ s=MBO0001; t=1779388021;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=GYkf84zKQ1koXdJ8sJbWorRHXORylD9/JuNrnSRVhMk=;
+ b=EXuGrg2mnXNU2e83JRMVB5I2K3ncTReK933T4sXH6nAcQLJ+oDRgYS9VRO5qcCohfvUsHV
+ 9QdC39z76pint1GOoMOjOmwPjupiX6Y0aSyap+yX5LUcchK2Lx8dGBCipWJ2PkcJj81+vN
+ TBxmNdbCldjXqXxXb3+/LPpmqt7XpGpO+9k1w7p0RCnhEeCrgWpXDZlkM0rqQSRme4G5wR
+ sy+B6gohE941vLOREpIsnqZRvEVQtzy+tTko9hTLjnn6lQbmbNv8NSaB+Htf65RP+tGs+g
+ 8rCNO7jjrOHdqJpu2huEPhGKvurez37TrzVB/RvXGPKe2kuvTwus3osZZRMtOQ==
+From: Marius Hoch <mail@mariushoch.de>
+To: linux-kernel@vger.kernel.org
+Cc: Marius Hoch <mail@mariushoch.de>, stable@vger.kernel.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Joe Perches <joe@perches.com>,
+ Mika Kahola <mika.kahola@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/i915: Don't set min_cdclk in the initial crtc_state
+Date: Thu, 21 May 2026 20:07:12 +0200
+Message-ID: <20260521180722.328317-2-mail@mariushoch.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 22 May 2026 14:41:04 +0000
@@ -94,30 +65,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you to Konrad, Neil, and others for the very prompt and helpful reviews.
+Setting the min_cdclk this early means that intel_cdclk_atomic_check
+(called via intel_atomic_check) will not pick up the initial min_cdclk, as
+there is no change between the old and new atomic states. This is
+problematic, especially on Gemini Lake, where the picture gets unstable if
+the CDCLK is too low (see vlv_dsi_min_cdclk).
 
-Based on the feedback received, I think it best to withdraw this series to
-address the issues raised, most notobly:
+This was introduced in 7a8d9cfa6db0, which states that the min_cdclk must
+be set before calling intel_compute_global_watermarks. However, as the
+only place that calls intel_compute_global_watermarks is
+intel_atomic_check, right after setting the min_cdclk on new_crtc_state,
+there is no need to set the min_cdclk initially.
 
-1. The DP_TRAIN_LEVEL_MAX change (patch 3) is too broad - it affects all
-   devices using the Qualcomm MSM DP driver rather than being specific to
-   the RA620 bridge. A proper fix should be implemented at the bridge
-   level. This is going to take more investigation.
+This surfaced as a bug on my IdeaPad Duet 3 after ba91b9eecb47, leading
+to the screen output being completely garbled initially (when asking for
+the dm-crypt passphrase). It recovers after the passphrase prompt, as this
+only affects the initial state.
 
-2. The display DT nodes (patch 5) should use the radxa,ra620 compatible
-   string per the existing Radxa upstream series from Xilin Wu, and the
-   lane ordering needs correcting.
+Tested on an IdeaPad Duet 3 10IGL5-LTE (with UHD Graphics 605).
 
-3. The rpmh-rsc early return (patch 1) needs further review regarding
-   the implications of returning before full driver initialization.
+Cc: stable@vger.kernel.org
+Fixes: 7a8d9cfa6db0 ("drm/i915: Compute per-crtc min_cdclk earlier")
+Signed-off-by: Marius Hoch <mail@mariushoch.de>
+---
+ drivers/gpu/drm/i915/display/intel_modeset_setup.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-4. DTS patch label dependency issue (sorry) 
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index 4086f16a12bf..9278856375e9 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -865,11 +865,6 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
+ 				    crtc_state->plane_min_cdclk[plane->id]);
+ 		}
+ 
+-		crtc_state->min_cdclk = intel_crtc_min_cdclk(crtc_state);
+-
+-		drm_dbg_kms(display->drm, "[CRTC:%d:%s] min_cdclk %d kHz\n",
+-			    crtc->base.base.id, crtc->base.name, crtc_state->min_cdclk);
+-
+ 		intel_pmdemand_update_port_clock(display, pmdemand_state, pipe,
+ 						 crtc_state->port_clock);
+ 	}
+-- 
+2.54.0
 
-I'll integrate with the Radxa upstream effort, re-evaluate the other areas
-and resubmit corrected patches addressing these concerns at a later date.
-
-Thanks for the feedback.
-
-Cheers
-
-Graham
