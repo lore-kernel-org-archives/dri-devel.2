@@ -4,54 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 288F4CD5BB2
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7C99CD4F5E
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:10:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A2E610F260;
-	Thu, 21 May 2026 08:09:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 351E910E478;
+	Thu, 21 May 2026 08:10:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="ezoFei7n";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mlnP2rHd";
 	dkim-atps=neutral
-Received: from mail-m82249.xmail.ntesmail.com (mail-m82249.xmail.ntesmail.com
- [156.224.82.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 922EF10F260
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:09:12 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3f48aae9f;
- Thu, 21 May 2026 16:09:08 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v6 10/10] drm/rockchip: analogix_dp: Add support for RK3576
-Date: Thu, 21 May 2026 16:08:35 +0800
-Message-Id: <20260521080835.1362416-11-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260521080835.1362416-1-damon.ding@rock-chips.com>
-References: <20260521080835.1362416-1-damon.ding@rock-chips.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2B710E478
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:10:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 247144090A;
+ Thu, 21 May 2026 08:10:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F85B1F000E9;
+ Thu, 21 May 2026 08:10:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779351052;
+ bh=eysZ0brE9mz3y7rR8Bm3ba3XnNZCC556oDpeNj1X7E8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=mlnP2rHdZlypMCrRK+7hSNoTYjSXBuTGXxsQge3wdBqdzo6LSgbgjuynh8LjRUq6M
+ 1y4DsKad1xt8e3wXgljctmFP7K9dFnfx4GthOmt4iRs7JZtshGWSTPv9v+1TZ9wjMo
+ /zZW/aUnP+o8yLyFYnxkcLdD0mLjW6hciKvjvq/FWiHpTQq0zyzhkZJ+irdIwh180E
+ SI1B+vpwtI+EP2/2zyH1TLeVxkVnqh2Tv3Gp+FSQBaI9Ke8c61ofLBKJcHHC7WfHxb
+ AV3aqFWdaUYKlgHDutF4HtH85dzM4hvLJl4yEZtOfSt5VMsuAYPVlpGj6RGSDLOuPf
+ 2W3bEMBjVw3mg==
+Date: Thu, 21 May 2026 10:10:49 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Daniel Stone <daniels@collabora.com>,
+ kernel@collabora.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v6 04/22] drm/display: scdc_helper: Add HDMI 2.0
+ scrambling management helpers
+Message-ID: <20260521-chestnut-harrier-of-enhancement-2bcfa2@penduick>
+References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
+ <20260520-dw-hdmi-qp-scramb-v6-4-24b74603b782@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e4994cb4903a3kunm810e96ea5ebfd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGE5MVk9KHRhNSUpJGB0eQ1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=ezoFei7nYoGxv3lXndV56qhGj7tNKh2xwZnb2uizqTT9G67O/ccFyMoJvOCQymq5hMAdehqBZzljD/ZoS31W8BFmqHG9B4wMAq2LoYsuCeyFWRzyWy2xQNAnBl5b0JgGTVSY6B7W8oH+OY8fjM+779RxDF0pRgq0cQb3yVZhMOE=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=1rwBuI0cZbyqqOuJPZchZLjHCX6v5TeUOe9K2mvsrfM=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="aijmi3x6lmhfe6cy"
+Content-Disposition: inline
+In-Reply-To: <20260520-dw-hdmi-qp-scramb-v6-4-24b74603b782@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,61 +72,227 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-RK3576 integrates Analogix eDP 1.3 TX and Samsung combo PHY
-hardware blocks that fully match the proven RK3588 design.
 
-Add dedicated chip data table and device tree matching entry
-to bring up basic eDP functionality for the RK3576 platform.
+--aijmi3x6lmhfe6cy
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 04/22] drm/display: scdc_helper: Add HDMI 2.0
+ scrambling management helpers
+MIME-Version: 1.0
 
-Support is limited to RGB output up to 4K@60Hz for now; audio,
-PSR and other advanced eDP 1.3 features remain unvalidated.
+On Wed, May 20, 2026 at 09:38:15PM +0300, Cristian Ciocaltea wrote:
+> Add drm_scdc_start_scrambling(), drm_scdc_stop_scrambling() and
+> drm_scdc_sync_status() helpers to manage the full lifecycle of HDMI 2.0
+> SCDC scrambling on both source and sink sides.
+>=20
+> drm_scdc_start_scrambling() configures SCDC scrambling and high TMDS
+> clock ratio and starts a periodic work item that monitors the sink's
+> SCDC scrambling status, retrying setup when the sink loses state.
+>=20
+> drm_scdc_stop_scrambling() tears down scrambling on both sides and
+> cancels the monitoring work.
+>=20
+> drm_scdc_sync_status() triggers a CRTC reset on reconnection to restore
+> SCDC state lost during sink disconnects within an active display
+> pipeline.
+>=20
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  drivers/gpu/drm/display/drm_scdc_helper.c | 235 ++++++++++++++++++++++++=
++++++-
+>  include/drm/display/drm_scdc_helper.h     |   6 +-
+>  2 files changed, 236 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/=
+display/drm_scdc_helper.c
+> index cb6632346aad..5bacb886d373 100644
+> --- a/drivers/gpu/drm/display/drm_scdc_helper.c
+> +++ b/drivers/gpu/drm/display/drm_scdc_helper.c
+> @@ -21,16 +21,22 @@
+>   * DEALINGS IN THE SOFTWARE.
+>   */
+> =20
+> +#include <linux/delay.h>
+>  #include <linux/export.h>
+>  #include <linux/i2c.h>
+> +#include <linux/minmax.h>
+>  #include <linux/slab.h>
+> -#include <linux/delay.h>
+> =20
+> -#include <drm/display/drm_scdc_helper.h>
+> +#include <drm/drm_atomic.h>
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_bridge_helper.h>
+>  #include <drm/drm_connector.h>
+> +#include <drm/drm_crtc.h>
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_print.h>
+> =20
+> +#include <drm/display/drm_scdc_helper.h>
+> +
+>  /**
+>   * DOC: scdc helpers
+>   *
+> @@ -50,10 +56,14 @@
+>   * has to track the connector status changes using interrupts and
+>   * restore the SCDC status. The typical solution for this is to trigger =
+an
+>   * empty modeset in drm_connector_helper_funcs.detect_ctx(), like what v=
+c4 does
+> - * in vc4_hdmi_reset_link().
+> + * in vc4_hdmi_reset_link(). Alternatively, use the HDMI connector frame=
+work
+> + * which ensures drm_scdc_sync_status() is called in the context of
+> + * drm_atomic_helper_connector_hdmi_hotplug_ctx().
+>   */
+> =20
+> -#define SCDC_I2C_SLAVE_ADDRESS 0x54
+> +#define SCDC_I2C_SLAVE_ADDRESS		0x54
+> +#define SCDC_MAX_SOURCE_VERSION		0x1
+> +#define SCDC_STATUS_POLL_DELAY_MS	3000
+> =20
+>  #define drm_scdc_dbg(connector, fmt, ...)					\
+>  	drm_dbg_kms((connector)->dev, "[CONNECTOR:%d:%s] " fmt,			\
+> @@ -270,3 +280,220 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_=
+connector *connector,
+>  	return true;
+>  }
+>  EXPORT_SYMBOL(drm_scdc_set_high_tmds_clock_ratio);
+> +
+> +static int drm_scdc_setup_scrambler(struct drm_connector *connector)
+> +{
+> +	bool done;
+> +
+> +	done =3D drm_scdc_set_high_tmds_clock_ratio(connector, true);
+> +	if (!done)
+> +		return -EIO;
+> +
+> +	done =3D drm_scdc_set_scrambling(connector, true);
+> +	if (!done)
+> +		return -EIO;
+> +
+> +	schedule_delayed_work(&connector->hdmi.scdc_work,
+> +			      msecs_to_jiffies(SCDC_STATUS_POLL_DELAY_MS));
+> +	return 0;
+> +}
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+There's a very tight deadline in the spec to enable the scrambler
+relative to the video. Debouncing (I assume?) for three seconds break
+it. Drivers might not be able to do better, but it's really not
+something we should entertain at the framework level and we should call
+the callback straight-away.
 
----
+> +static void drm_scdc_monitor_scrambler(struct drm_connector *connector)
+> +{
+> +	if (READ_ONCE(connector->hdmi.scrambler_enabled) &&
+> +	    !drm_scdc_get_scrambling_status(connector))
+> +		drm_scdc_setup_scrambler(connector);
+> +}
+> +
+> +static int drm_scdc_reset_crtc(struct drm_connector *connector,
+> +			       struct drm_modeset_acquire_ctx *ctx)
+> +{
+> +	struct drm_crtc *crtc;
+> +	u8 config;
+> +	int ret;
+> +
+> +	if (!ctx || !connector->state)
+> +		return 0;
+> +
+> +	crtc =3D connector->state->crtc;
+> +	if (!crtc || !crtc->state || !crtc->state->active)
+> +		return 0;
+> +
+> +	ret =3D drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
+> +	if (ret) {
+> +		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	if ((config & SCDC_SCRAMBLING_ENABLE) &&
+> +	    (config & SCDC_TMDS_BIT_CLOCK_RATIO_BY_40))
+> +		return 0;
+> +
+> +	/*
+> +	 * Reset the CRTC to suspend TMDS transmission, conforming to HDMI 2.0
+> +	 * spec which requires scrambled data not to be sent before the sink is
+> +	 * configured, and TMDS clock to be suspended while changing the clock
+> +	 * ratio.  The disable/re-enable cycle triggered by the reset should
+> +	 * call drm_scdc_start_scrambling() during re-enable, properly
+> +	 * configuring the sink before data transmission resumes.
+> +	 */
+> +
+> +	drm_scdc_dbg(connector, "Resetting CRTC to restore SCDC status\n");
+> +
+> +	ret =3D drm_atomic_helper_reset_crtc(crtc, ctx);
+> +	if (ret && ret !=3D -EDEADLOCK)
+> +		drm_scdc_dbg(connector, "Failed to reset CRTC: %d\n", ret);
+> +
+> +	return ret;
+> +}
 
-Changes in v2:
-- Split out a separate patch to enable the "hclk" clock.
-- Add Reviewed-by tag.
+locking is a bit more involved than that, I'd suggest to take
+vc4_hdmi_reset_link() and turn it into a helper.
 
-Changes in v3:
-- Add Reviewed-by tag.
+> +/**
+> + * drm_scdc_start_scrambling - activate scrambling and monitor SCDC stat=
+us
+> + * @connector: connector
+> + *
+> + * Enables scrambling and high TMDS clock ratio on both source and sink =
+sides.
+> + * Additionally, use a delayed work item to monitor the scrambling statu=
+s on
+> + * the sink side and retry the operation, as some displays refuse to set=
+ the
+> + * scrambling bit right away.
+> + *
+> + * Returns:
+> + * Zero if scrambling is set successfully, an error code otherwise.
+> + */
+> +int drm_scdc_start_scrambling(struct drm_connector *connector)
+> +{
+> +	struct drm_display_info *info =3D &connector->display_info;
+> +	struct drm_connector_hdmi *hdmi =3D &connector->hdmi;
+> +	int ret;
+> +	u8 ver;
+> +
+> +	if (!hdmi->funcs ||
+> +	    !hdmi->funcs->scrambler_src_enable ||
+> +	    !hdmi->funcs->scrambler_src_disable) {
+> +		drm_scdc_dbg(connector, "Function not implemented, bailing.\n");
+> +		return -EINVAL;
+> +	}
 
-Changes in v4:
-- Modify the commit msg.
----
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+This case shouldn't be a thing. The driver must not probe if it's not set.
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index d2af5eb29dbb..d4c5dd61e95b 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
- 
-+static const struct rockchip_dp_chip_data rk3576_edp[] = {
-+	{
-+		.chip_type = RK3576_EDP,
-+		.reg = 0x27dc0000,
-+	},
-+	{ /* sentinel */ }
-+};
-+
- static const struct rockchip_dp_chip_data rk3588_edp[] = {
- 	{
- 		.edp_mode = GRF_REG_FIELD(0x0000, 0, 0),
-@@ -539,6 +547,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
- };
--- 
-2.34.1
+> +	if (!info->is_hdmi ||
+> +	    !info->hdmi.scdc.supported ||
+> +	    !info->hdmi.scdc.scrambling.supported) {
+> +		drm_scdc_dbg(connector, "Sink doesn't support scrambling.\n");
+> +		return -EINVAL;
+> +	}
 
+You should also compute whether we actually need to enable the scrambler
+here, based on the mode, format and bpc.
+
+I'd also like to see what a !bridge user of this would look like. The
+vc4 driver has all the infrastructure you need already, so converting it
+to it would be great.
+
+Maxime
+
+--aijmi3x6lmhfe6cy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCag6+CAAKCRAnX84Zoj2+
+digcAYC6mYTbuFts3kUAKfaX5VEZQlbMpu45A7Gzl+Uakxh7tLKXWhIv0/CEzDTg
+6LW9dp4BfjD9VAKlmP3xOHohqH376xkcmXLyIhTtSfuyx0rO1XxWRJNtlqsiK4YC
+tuaIPgWpGA==
+=IpgX
+-----END PGP SIGNATURE-----
+
+--aijmi3x6lmhfe6cy--
