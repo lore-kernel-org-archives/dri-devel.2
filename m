@@ -4,77 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52425CD343F
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 03:39:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFDAECD343F
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 03:43:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B464C10F1C9;
-	Thu, 21 May 2026 03:39:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6776410F1CC;
+	Thu, 21 May 2026 03:43:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="hQH5r9+f";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vN60MTsI";
 	dkim-atps=neutral
-X-Greylist: delayed 542 seconds by postgrey-1.36 at gabe;
- Thu, 21 May 2026 03:39:10 UTC
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6BE10F1C9
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 03:39:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1779334745;
- bh=dvxDCR9NEJvWoy2vX4KZL4araFw0lNuTo/DvCOAIkrU=;
- h=From:To:Subject:Date:Message-Id;
- b=hQH5r9+fT0XBBjE6G7SF685Nx+Xh6cyetCklaleK265tcElDtZvcXuSHygJCeQMlJ
- MjHVxGv2oltrKymBaCqt2zPwQPOlo5ng0S/m9f4pJEgaSeuclq3rbbIe8DFVqYIzHI
- bNOUXa4Wz5Iza/5Tep1g8Whp1NrQc9OYieeih62M=
-X-QQ-mid: zesmtpsz7t1779334159t70c25ab6
-X-QQ-Originating-IP: ADiEYj7Uo9gkcTDRzLm44seRmsr0fa8KAQZuAK83eDk=
-Received: from DESKTOP-8BT1A2O.localdomain ( [58.22.7.114])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 21 May 2026 11:29:13 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1170275653122731540
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: [PATCH 1/5] drm/bridge: Implement generic USB Type-C DP HPD bridge
-Date: Thu, 21 May 2026 11:28:50 +0800
-Message-Id: <20260521032854.103-2-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260521032854.103-1-kernel@airkyi.com>
-References: <20260521032854.103-1-kernel@airkyi.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NO0eLx0aUO/YSqzQtUTy63sGaqEINr5cyPkxOaLWSSjHeAlLajpeXlUu
- 3dd79oqC9SnBxs7z47eaiKWE9gLkemQ9qFuVB6a4PCj5WysPh4E2OP+1XYvBP8VTs7lu8Dr
- +2fBmi76kvqBTrSy/KSmPSvZBshPbfAqKtJ1J3bV6GXs/MEzYGM0pHIBYmNaaBEtMdQOt+D
- 9xiVkC3r1rTB67G/Ukm2X3todpBMjC02+GByQPdnZ0Mu55Gj7m4VAWBfeccfOr4eQWtnZLO
- CHz577w657vFQjAXjduh3PNgvT8gH4uEyM05z/1B/H+5u/SRFfFj4hl/jVy8w7KK2b9Y4bp
- h2Or+0FeK7SmxVXAdxWQvxzj5lTd2WFLPG40FIVxW5QTo8dIhG/9V81f8BqbtSQW0juFfSD
- pOoK2F7xR6l8MBUlct37Ldt/rPvZv1Ig3s9Oq0S4d492kZW4PyBH923S6eIm9PpA2LBv65t
- mZmSIcN4gJwUf4FZIaVKGqWC80iMWfXHeibs8uDx7Ygqdqc9ANMZpq1YqsNap4nhmMfxbYn
- E5KjMkGNK3+SLyTbPQLF7k9JubvRDb6AW2+bKptOEGmXi10uAN295hmZ97Te4LPfv40i1Nm
- 0VuGG9E21LbjRc+MxfTVii/SZd255o6Wg1W8ObO16pFl812ZnRH87+tYWMIebH1e+6UFTjL
- H+BpaGao5BtJoz434td//wQtW4nmBwAUnX28rGL9RVmaehdMmC53jBVyVAG1THlY4wy3NfR
- gMxnieMSQG07voW2eqBY7zRTmsWHOVBXhcA5ORE7umDsQpSC13yFvcAhrGMTOLpj4ZKAAwK
- D/OVHVsKsPZTBFCcC8UxE/LPDrXUYfzcF6gnTiEskWkwnC+nRyLI63tFeRxa9Zt76tylH+H
- G/jj8y0BFfgeL/vZoJS45WRbtgQS6B5d+s2jYi3Dn5Q3b9LBXOxxIlFKhLFnYLE9LuamuGs
- o+qi/SXsiHocKkTG1gINnDJB3GkPZsrSEx8G25lz/3vdv0wsElCS45uA6215l6ZRx9vUiVT
- 1wV3OQyuCbUOy0P0aqlVex9EKnwwBeCOGL2BtkbQzJOPQkJq7P
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011042.outbound.protection.outlook.com
+ [40.93.194.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 577DC10F1CC
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 03:43:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DAtVeZjK0RY0DJpySGIPOZtC1mbM7fCxClB9ChD9Or7lvjDqDWHsH97kn6mivmxOWzV31LOrjJwfNso/gCSANoA+iS3mxL1Xe3QyvLLbADLWZaYtyvxl+0CEOiOWH8l8l8aMUGs8X6uSJUUepeHPTk28kRWSS+nr2c7XMdwsMcbZe3fq7aL+POVNLSNPyYjHm4N5jBqebxVZmXGvBdNqdvilldgMytaZ6lZ7ij8uVj89xrSVKDHPoMNksSQURzhboLDKEYxzPrtRnN/qtA4cJazm8vfaUXKOWbYcAa2Z2O8K8qWzWjZ5QNn74x2oYNllS71CX9q60YaSC03AJRhC4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=65N2xu4dJeKbNwoAABLi9IR0zf9b6/6CXJqhXuUaTsA=;
+ b=Fp8LjZwGYIE3E6wxNZ1jjNWnJEVwMQ+LWWQYDH3aJxkZhpJbQRykLl1kBfAbx1ZrlCm37gniVTvR94ejrnFSfZgokGY7KjBEuPuKZZu5I3oqmr825unWpzkCAQlBNV5zcp9R/WILW6DgD134RH2eOZnh1DZf3OAZkEXKCwmAlzZ0yNJXBJJZRZTBd2kMEncCvx+orl11DN3WqRHpaGStD+DcaRNkUWqIi+yNXH9rm0d2WhhSnFhdyMTq7B5jiIoSb4L29MC2xGcjEYJf/gFqTQuIQsLrgUAx3iHUAfQz7WiwKQaGBpdY3XRRrfuk0nbTGXPcZkX0M6tFpBjCY3eYzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=65N2xu4dJeKbNwoAABLi9IR0zf9b6/6CXJqhXuUaTsA=;
+ b=vN60MTsI0sbtJYnV0L6aI4P6NNkyakKO268N8zv+UzqoTcxo33B/msV/rA9CsyCdu5JYfSDYPUthKDHI3Swn1QXzKsJdsnacJr0W/NByXZEbabxJFsi5SpuafxFcujaCInxlVQJvGPXGYlquslzNnc16v9nyjGNCDXpV+pKnHmA=
+Received: from PH7P221CA0090.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:328::25)
+ by DS0PR12MB7583.namprd12.prod.outlook.com (2603:10b6:8:13f::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.16; Thu, 21 May
+ 2026 03:43:42 +0000
+Received: from CY4PEPF0000E9D3.namprd03.prod.outlook.com
+ (2603:10b6:510:328:cafe::c3) by PH7P221CA0090.outlook.office365.com
+ (2603:10b6:510:328::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Thu, 21
+ May 2026 03:43:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D3.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Thu, 21 May 2026 03:43:41 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Wed, 20 May
+ 2026 22:43:41 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 May
+ 2026 22:43:41 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 20 May 2026 22:43:40 -0500
+Message-ID: <88097167-1bf9-235a-36dc-467207ee63c6@amd.com>
+Date: Wed, 20 May 2026 20:43:40 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1] accel/amdxdna: Block running when IOMMU is off
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
+References: <20260520223531.1403302-1-lizhi.hou@amd.com>
+ <c0018792-7867-4fc6-b64d-7e0fb8717f08@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <c0018792-7867-4fc6-b64d-7e0fb8717f08@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D3:EE_|DS0PR12MB7583:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28e84d0c-f25d-492e-ae7a-08deb6eb26cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700016|376014|13003099007|11063799006|4143699003|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: sCz1kVOYnNvNoeGGrYNRoYOfVlIHYqKVac9EtSxsx9tDx3J9ozD/zzoqmIX4HnzjmXbs8wu0S27vq1Oee6wZvK+mTpM0DmDMEKt7G0ssnHdkDQWSK70T/2EnkrJcMzYp3MPyQWXpwpXOPkRqcrwmrwYrd6t/fcwf0ICjtwyPyQvq3Y0BEV6qqKoXLTPUt8oQfObIcA+lkweptouwP8LONt50aInkABOvaBe5RECIaG1h4p5WXTFnUi1yCd/1cx4cYyUeFxVJOFKF22HgSMmyVQAmK8wlVrEGDS6ck1P3miUub3TbwAQg8oq0tyN7UNGAvb/fuK3etUueXaNK87sK8FGJ5ktWFq4uA9d2Ra9bcQTiJ8pSXTEatEzaTNNxnvr1JyhVuMga/5HUcVYB+tdG8IK3CWrzJFP1oiWx4CWD/OvLkTNsl8YjKTup3oIzTA3TdpncJco4iJ3giAjfot/lW5fbjVl4aWvbZfZ3HtZGfx5fAHN7uc5U9UfxAG7h108UGJTRuh/o9MeKDLAVimcPSCou/IoqgZqEwFwXPs3WTik0EYAMqgLjYZ6Mo5DWLb3I3Q8TXgXvTeSNtbQW8XMg8wtg6ao0VvGBu2Fv1MiRCIn6YS3hY9Ru7I+km4Zm57lYDwM+tfz8WfRRs92RkHaq5SQE+bMwrEZCHlUv/nbsMiAQaFs8ZpKO/kM77LsD+OBo
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(13003099007)(11063799006)(4143699003)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 80KmJOuk00hdIROZhN+BmXHshFk5A9/5jaBQg4o6E17SU/qPU5vH/IAwy8e9H4okF6qVIXV0uTi4jQNe3EEMlideh62IS1pbLaoluw3jV+5CvdF7my0XTZ0ORQRuGkuQnetGK1NOs3byrWd4tpB1o5Wtz6Qy/kJZLJOOapVmUU3eoadUyrhA8wmouy3wCq7/9lx23pQPN8T+dmj9eVubHmUQI9cdYztm03ujcDj/hVXllBWMhbxM3DkNl0uEeSyBUiLp6K4FmaeOExV76Wgmcl5amQ3f26gulHyRKKYxQ5uOylojFfuyCZJctC9b+YZjOwJuJHPcyAvZWgiwJPuhngw8I94gWnrgaPuOS89y0DGsM4zewT/f3cMbpEcI69w5qT8o47QnONF2IYs/NXOJReyI+eGqDicnbyxzyOFZDLhN9q4zRTOgKs0nJ5OTLtVr
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 03:43:41.7024 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28e84d0c-f25d-492e-ae7a-08deb6eb26cf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7583
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,126 +122,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-The HPD function of Type-C DP is implemented through
-drm_connector_oob_hotplug_event(). For embedded DP, it is required
-that the DRM connector fwnode corresponds to the Type-C port fwnode.
+On 5/20/26 17:57, Mario Limonciello wrote:
+>
+>
+> On 5/20/26 17:35, Lizhi Hou wrote:
+>> The AIE2 device firmware requires IOMMU on.
+>>
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5319
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>> ---
+>>   drivers/accel/amdxdna/aie2_pci.c | 5 +++++
+>>   1 file changed, 5 insertions(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie2_pci.c 
+>> b/drivers/accel/amdxdna/aie2_pci.c
+>> index c4d345d4c76b..22f66c7f534d 100644
+>> --- a/drivers/accel/amdxdna/aie2_pci.c
+>> +++ b/drivers/accel/amdxdna/aie2_pci.c
+>> @@ -490,6 +490,11 @@ static int aie2_init(struct amdxdna_dev *xdna)
+>>           return -EINVAL;
+>>       }
+>>   +    if (!xdna->group) {
+>> +        XDNA_ERR(xdna, "Running without IOMMU not supported");
+>> +        return -EINVAL;
+>> +    }
+>> +
+>>       ndev = drmm_kzalloc(&xdna->ddev, sizeof(*ndev), GFP_KERNEL);
+>>       if (!ndev)
+>>           return -ENOMEM;
+>
+> I think it would be better to change the return for amdxdna_iommu_init().
 
-To describe the relationship between the DP controller and the Type-C
-port device, we usually using drm_bridge to build a bridge chain.
+amdxdna_iommu_init() is common code for all kinds of hardware. I would 
+keep the check only for AIE2 now, which is known to require IOMMU on.
 
-Now several USB-C controller drivers have already implemented the DP
-HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
-HPD bridge on USB-C connector port device.
 
-But this requires the USB-C controller driver to manually register the
-HPD bridge. If the driver does not implement this feature, the bridge
-will not be create.
+Lizhi
 
-So this patch implements a generic DP HPD bridge based on
-aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
-Type-C port device containing the DP svid is registered, it will
-create an HPD bridge for it without the need for the USB-C controller
-driver to implement it.
-
-Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
----
- drivers/gpu/drm/bridge/Kconfig                | 10 ++++
- drivers/gpu/drm/bridge/Makefile               |  1 +
- .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 49 +++++++++++++++++++
- 3 files changed, 60 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
-
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c3209b0f4678..d92e93875793 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
- 	  Simple bridge that terminates the bridge chain and provides HPD
- 	  support.
- 
-+if DRM_AUX_HPD_BRIDGE
-+config DRM_AUX_HPD_TYPEC_BRIDGE
-+	tristate
-+	depends on TYPEC || !TYPEC
-+	default TYPEC
-+	help
-+	  Simple bridge that terminates the bridge chain and provides HPD
-+	  support. It build bridge on each USB-C connector device node.
-+endif
-+
- menu "Display Interface Bridges"
- 	depends on DRM && DRM_BRIDGE
- 
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index beab5b695a6e..c4761526ba0a 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_DRM_AUX_BRIDGE) += aux-bridge.o
- obj-$(CONFIG_DRM_AUX_HPD_BRIDGE) += aux-hpd-bridge.o
-+obj-$(CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE) += aux-hpd-typec-dp-bridge.o
- obj-$(CONFIG_DRM_CHIPONE_ICN6211) += chipone-icn6211.o
- obj-$(CONFIG_DRM_CHRONTEL_CH7033) += chrontel-ch7033.o
- obj-$(CONFIG_DRM_CROS_EC_ANX7688) += cros-ec-anx7688.o
-diff --git a/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
-new file mode 100644
-index 000000000000..d915e0fb0668
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
-@@ -0,0 +1,49 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+#include <linux/of.h>
-+#include <linux/usb/typec_altmode.h>
-+#include <linux/usb/typec_dp.h>
-+
-+#include <drm/bridge/aux-bridge.h>
-+
-+static int drm_typec_bus_event(struct notifier_block *nb,
-+			       unsigned long action, void *data)
-+{
-+	struct device *dev = (struct device *)data;
-+	struct typec_altmode *alt = to_typec_altmode(dev);
-+
-+	if (action != BUS_NOTIFY_ADD_DEVICE)
-+		goto done;
-+
-+	/*
-+	 * alt->dev.parent->parent : USB-C controller device
-+	 * alt->dev.parent         : USB-C connector device
-+	 */
-+	if (is_typec_port_altmode(&alt->dev) && alt->svid == USB_TYPEC_DP_SID)
-+		drm_dp_hpd_bridge_register(alt->dev.parent->parent,
-+					   to_of_node(alt->dev.parent->fwnode));
-+
-+done:
-+	return NOTIFY_OK;
-+}
-+
-+static struct notifier_block drm_typec_event_nb = {
-+	.notifier_call = drm_typec_bus_event,
-+};
-+
-+static void drm_aux_hpd_typec_dp_bridge_module_exit(void)
-+{
-+	bus_unregister_notifier(&typec_bus, &drm_typec_event_nb);
-+}
-+
-+static int __init drm_aux_hpd_typec_dp_bridge_module_init(void)
-+{
-+	bus_register_notifier(&typec_bus, &drm_typec_event_nb);
-+
-+	return 0;
-+}
-+
-+module_init(drm_aux_hpd_typec_dp_bridge_module_init);
-+module_exit(drm_aux_hpd_typec_dp_bridge_module_exit);
-+
-+MODULE_DESCRIPTION("DRM TYPEC DP HPD BRIDGE");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
-
+>
+> This has a check that lets !xdna->group pass; which can be turned into 
+> an error code instead.
