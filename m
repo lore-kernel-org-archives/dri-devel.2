@@ -4,92 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D630ECD5BAB
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 22:35:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B525CD5BAF
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 22:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4178210F42C;
-	Thu, 21 May 2026 22:35:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5B8610F427;
+	Thu, 21 May 2026 22:39:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="IyblA8D4";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="bnwNHF+4";
 	dkim-atps=neutral
-Received: from mail-ot1-f97.google.com (mail-ot1-f97.google.com
- [209.85.210.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5472E10F42B
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 22:35:14 +0000 (UTC)
-Received: by mail-ot1-f97.google.com with SMTP id
- 46e09a7af769-7de4a9cb8eeso6405019a34.0
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:35:14 -0700 (PDT)
+Received: from mail-dy1-f226.google.com (mail-dy1-f226.google.com
+ [74.125.82.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EDD510F427
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 22:39:15 +0000 (UTC)
+Received: by mail-dy1-f226.google.com with SMTP id
+ 5a478bee46e88-2f3c623322bso614929eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:39:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779402913; x=1780007713;
- h=content-transfer-encoding:mime-version:reply-to:references
- :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+6KBb7YsDxpOwC8pN59fpWQXqjc9RI4xvCFcpGCa5Z0=;
- b=QInZ2kgm2AvK4Tq9nkiyK7nPhJj43m2vy/CM6PvVUYZ6T2GP39pNmfLeb2sXJ5rPmE
- qySzzIwPwhRe1cPrqtHUhMfSsbYIOEqzU5P7NOLJj69dY47UEOohP8SPmuhbuBLADseH
- 79BzKGRv7qNa7JWyaDd7mzgxzIg20hyYoMF9RlpEElljB781linbmD9ohcLr7FpMFjUL
- 7d7cE9I4UgmP2beMS9lbx6PMpIyRCkXG/3ra8sTXv6R4t976f9RYtWlWh0aTQ++hJTwh
- dNOIpiyxKCZH3eaIgNubkAyPdwm8osItlU/MTC7/Hg9MRm37wluR6xAfQBsVKWAEJYSN
- oPIw==
-X-Gm-Message-State: AOJu0Yw17QgkTELvnc6YauBdbjUup5GhF1R2PLKshcHVK0CTrV9+9qzz
- VLtdmD26dHd0Kby3FsNDICgoQ8ThVbL/TiFVvgav8AeeB1+875YMBsRyFf+OqfORW/wr7cv7US/
- 3yz7AgxQd2IBEoH/YSVu1IQZOoVApZ9mWMQG4/p08RHudVPVdkYkNAyOrvTWAux3PBSfPzdP7Dz
- TYQW4zHotZ75dLhehOJz6hEjLTuSLenqD0RryzHTEImLhEyJURwY5zz5sd7BYf1RVcbaozGdfj9
- yg/6jdbkJAfpgQKdujj5MUg7xIW
-X-Gm-Gg: Acq92OE4ho9yr9LjtxgjIT2rVnk+XT6cgQz485z216jbKJ7uxzaSyOts7pKztxwO55i
- IBNO2Ckze7t9zln4MgWLxlhYkQG4/cjezdO1hfWLKB07QyumKZyOEJFRDanqHSPg2ZLo0Dq4eiW
- /yPNpe4q8nS7U6sTaLXwo0sJFCy77cn48Mg9K9iV41LgPkKvUyGpeoxBgaUWgK/+q5/u1T3f9aP
- OLgmC36czIi6mDtYFyycLg2lcws7A0igRu6suGPT142X90XSfiBkUFE0xBqUpcfNZEUQcMU76Xf
- fZWE5gruOfmVWXhsUFyzMGsRz5zhnHUrb3ld2lYbanjvlga5pX8oK+Wqu94UDDQsYtNP/IzFtXB
- OX8cJ9Qi6SEtFjrv5aR1sCjwasi/7gz7tog9hxbjX06f8Us5hAuRkkTGyBjd61GMQcebXUJwGVc
- QTROY3KOJie9/O8aVY0pFFO4KKoL3qfgIPQevz/dYFxKSjaDZuaY2BbF87cmWPIauE
-X-Received: by 2002:a05:6820:1c92:b0:696:70f0:7ade with SMTP id
- 006d021491bc7-69d7eaf18acmr680972eaf.8.1779402912632; 
- Thu, 21 May 2026 15:35:12 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1779403155; x=1780007955;
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=O9CpPII62OQSIBdF+4kU9DnX+BNtPMXmEbBRLIKXWiQ=;
+ b=CiT+ELFKCfgyHO1Wboxf5EEGuJo1Am0fw/eBkduV0rTRGXzduM00BXOrnZ1SQMiOyv
+ jNCbiOrP4CRvjD94oAgC6pQUykpGP0h/xffMms74/lszrOsjWcZKBKYfxbMoO7kC8NrL
+ q4FVSV06bEoICLt++7TtzCnG86uNHEeyYCK3f5eCGASayGD5XFvSyvEEmhQV11cCT4Bv
+ vtWpFlQ4RpMKSiwqBEoyzG+b7PTSUlr4vaVC3hAdHeMoxxlJDRx1sgwV8htn3+lJuX/G
+ FO4dXaLJPmIJvr/MrbrAGwn/diEFXp4E9RXDn6FVX8Ugmr6Si5/Okrb6d2s12cExYQRK
+ WXjw==
+X-Gm-Message-State: AOJu0YxBbSlPscfQBTZn7UUbsHdFPzUFndTHGBipQJkimx2CU4pt4KMe
+ 5/FPhVoj8K3+AlqjjycKCJdvNc+pxlHnhdQYTI6ZeUAaHiV3jZy+MNUtWNy18qH0LIzF+3pXmo5
+ 0O3sOCuRBy2nS188gucFnIn8wdzIze0Ryw0zKIH7ie5xpidnEk2X1kREOQjWfIf/4z75x7GubVc
+ /GUVtIZQ86jZgPFkWEdisPIHIJlRJ+X3WFzWx0LaHZ33requzDY6MzZwgDb+HG0ZGr/uR3XS844
+ X0EL4GmhIeiUHRow9xwNfPgwUkZ
+X-Gm-Gg: Acq92OHC3UBp2bMb5Vt0BUqfUIBXIeddOP+yYbDUWzIYL9iBArLYvuX30TcfJuZXZb4
+ TgHiJTzcJ+ZjFr8All+SyD0y26AkJLvVZfNxPLKP/fIj5abRhxUzWE7zlj4izQUGDn8VcgvqJ1Q
+ 9P6bzFQTFDI/tOuDdIBZyjcElxZDAk3NmIWqhBQgCyCLQF/Fx3au6gFgjvoJYwW1FBzQ0WY/7A4
+ e5AJ9CM/D2b/eRH+zDjUZ4ctomFU/ZwGhc5LK89cps8/5DugajhfbsjsgL5YK+omvWE8ZilGgC7
+ qkRswtm0h3qUa1X1PQd4S6kanZ6RRubVTVo3iiRqf8Mm5+mKaXFoKNgaX8mdSKL3yW4xvOCnUvL
+ O6uMb5ASuQjI1vpsgFEhAV5LY1AWRsuCGpf0ITWcW077+H6PxgwQHvd2HtSgfEbWaOLop7QzD8N
+ IEoUMoNcF/KizoxvEShwxK3U1T5/5ripj8JdXCZGJs7KgTxzUnIyiG8TreBIQ2GVZW
+X-Received: by 2002:a05:7300:cb86:b0:2ed:e12:3773 with SMTP id
+ 5a478bee46e88-304491faf02mr740185eec.35.1779403154491; 
+ Thu, 21 May 2026 15:39:14 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
  (address-144-49-247-102.dlp.protect.broadcom.com. [144.49.247.102])
  by smtp-relay.gmail.com with ESMTPS id
- 006d021491bc7-69d809c358esm22551eaf.14.2026.05.21.15.35.12
+ 5a478bee46e88-3044b925984sm34416eec.26.2026.05.21.15.39.14
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 21 May 2026 15:35:12 -0700 (PDT)
+ Thu, 21 May 2026 15:39:14 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-514d2b22e7fso100355911cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:35:12 -0700 (PDT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8ba9baef44cso93213346d6.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:39:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1779402912; x=1780007712;
+ d=broadcom.com; s=google; t=1779403153; x=1780007953;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:reply-to:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to;
- bh=+6KBb7YsDxpOwC8pN59fpWQXqjc9RI4xvCFcpGCa5Z0=;
- b=IyblA8D4NdG69zFwOWwttSUI6KQWc+zYuDq0kZv9iNuP9HKK43t4trreVtU9kD2ErH
- LS3JYk7Y94H1MChaXzfD88GS15zKSoTcOxe4PbsVkkhowWkT7dsLDUF8hxQhGEphLu+R
- WgDtIiTNx3ocmLu/nt+upqDRoKEhpMmCFkUxU=
-X-Received: by 2002:a05:622a:24d:b0:50b:3831:417f with SMTP id
- d75a77b69052e-516d43a52cdmr18853601cf.45.1779402911777; 
- Thu, 21 May 2026 15:35:11 -0700 (PDT)
-X-Received: by 2002:a05:622a:24d:b0:50b:3831:417f with SMTP id
- d75a77b69052e-516d43a52cdmr18853181cf.45.1779402911186; 
- Thu, 21 May 2026 15:35:11 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=O9CpPII62OQSIBdF+4kU9DnX+BNtPMXmEbBRLIKXWiQ=;
+ b=bnwNHF+4XwCusPvsEPxsRCP2+T7zQvIgb0EqwjaA3g4GZyBTfffResqoPKujJ8w+tm
+ C05vU2KS1U6HFh86XFSMm4qYYMHKTDhyGXeu+a8lWUDwndnQfYTVGQp+0b0rke02x4b1
+ +Q5oDj+rXybf1M2G2FzhMYN6GUuXkeY+ER+s0=
+X-Received: by 2002:a05:620a:1b81:b0:8eb:2aae:ef9c with SMTP id
+ af79cd13be357-914b49347d0mr191819585a.27.1779403153183; 
+ Thu, 21 May 2026 15:39:13 -0700 (PDT)
+X-Received: by 2002:a05:620a:1b81:b0:8eb:2aae:ef9c with SMTP id
+ af79cd13be357-914b49347d0mr191815085a.27.1779403152485; 
+ Thu, 21 May 2026 15:39:12 -0700 (PDT)
 Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
  ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-516d6438582sm3351451cf.19.2026.05.21.15.35.10
+ af79cd13be357-914b5ff60cbsm24805285a.30.2026.05.21.15.39.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 15:35:10 -0700 (PDT)
+ Thu, 21 May 2026 15:39:12 -0700 (PDT)
 From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
  zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Subject: [PATCH v4 4/4] drm/vmwgfx: Change ttm refs for dumb buffers.
-Date: Thu, 21 May 2026 15:37:56 -0700
-Message-ID: <20260521223756.627311-5-maaz.mombasawala@broadcom.com>
+Subject: [PATCH] drm/vmwgfx: Remove duplicates in vmwgfx_bo.h
+Date: Thu, 21 May 2026 15:41:36 -0700
+Message-ID: <20260521224137.628035-1-maaz.mombasawala@broadcom.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260521223756.627311-1-maaz.mombasawala@broadcom.com>
-References: <20260521223756.627311-1-maaz.mombasawala@broadcom.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
@@ -109,106 +105,280 @@ Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Preserve a ref to surface during dumb buffer creation. This keeps the dumb
-buffer valid for framebuffer usage and fixes all igt tests that use dumb
-buffers.
-Also fix ttm_prime_fd_to_handle(), which in the error case was leaking a
-dma_buf reference. During vmw_prime_fd_to_handle() this function
-is expected to fail for dumb buffers since the fd is for a gem object,
-the dma_buf would in turn hold a reference to the dumb buffer gem object
-and cause a memory leak.
+The vmw_user_bo_ref and vmw_user_bo_unref functions are identical to
+vmw_bo_reference and vmw_bo_unreference respectively, remove them.
 
-Fixes: f42c09e614f1 ("drm/vmwgfx: Fix dumb buffer leak")
-Cc: Ian Forbes <ian.forbes@broadcom.com>
-Cc: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 ---
- drivers/gpu/drm/vmwgfx/ttm_object.c     |  7 +++++--
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c      |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h     |  1 +
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 14 +++++++++++++-
- 4 files changed, 20 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c       |  4 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.h       | 15 ---------------
+ drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c  |  4 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h      |  1 -
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c  |  4 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c      |  4 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c  |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_prime.c    |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_resource.c | 12 ++++++------
+ drivers/gpu/drm/vmwgfx/vmwgfx_shader.c   |  4 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c  |  6 +++---
+ 11 files changed, 21 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
-index 2421b0dd057c..f9042bafdc93 100644
---- a/drivers/gpu/drm/vmwgfx/ttm_object.c
-+++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
-@@ -547,14 +547,17 @@ int ttm_prime_fd_to_handle(struct ttm_object_file *tfile,
- 	if (IS_ERR(dma_buf))
- 		return PTR_ERR(dma_buf);
- 
--	if (dma_buf->ops != &tdev->ops)
--		return -ENOSYS;
-+	if (dma_buf->ops != &tdev->ops) {
-+		ret = -ENOSYS;
-+		goto out;
-+	}
- 
- 	prime = (struct ttm_prime_object *) dma_buf->priv;
- 	base = &prime->base;
- 	*handle = base->handle;
- 	ret = ttm_ref_object_add(tfile, base, NULL, false);
- 
-+out:
- 	dma_buf_put(dma_buf);
- 
- 	return ret;
 diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 6817e0b8ce99..d1ce1a58e134 100644
+index d1ce1a58e134..a9a204234ed6 100644
 --- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
 +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -68,7 +68,7 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
- 					       0);
- 			mutex_unlock(&res->dev_priv->cmdbuf_mutex);
+@@ -539,7 +539,7 @@ static int vmw_user_bo_synccpu_release(struct drm_file *filp,
+ 		if (!(flags & drm_vmw_synccpu_allow_cs)) {
+ 			atomic_dec(&vmw_bo->cpu_writers);
  		}
--		vmw_surface_unreference(&vbo->dumb_surface);
-+		vmw_dumb_surface_unref(&vbo->dumb_surface);
+-		vmw_user_bo_unref(&vmw_bo);
++		vmw_bo_unreference(&vmw_bo);
  	}
- 	WARN_ON(!RB_EMPTY_ROOT(&vbo->res_tree));
- 	drm_gem_object_release(&vbo->tbo.base);
+ 
+ 	return ret;
+@@ -581,7 +581,7 @@ int vmw_user_bo_synccpu_ioctl(struct drm_device *dev, void *data,
+ 			return ret;
+ 
+ 		ret = vmw_user_bo_synccpu_grab(vbo, arg->flags);
+-		vmw_user_bo_unref(&vbo);
++		vmw_bo_unreference(&vbo);
+ 		if (unlikely(ret != 0)) {
+ 			if (ret == -ERESTARTSYS || ret == -EBUSY)
+ 				return -EBUSY;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.h b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.h
+index cf84a163bfcb..f3c2cfb42588 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.h
+@@ -213,21 +213,6 @@ static inline struct vmw_bo *vmw_bo_reference(struct vmw_bo *buf)
+ 	return buf;
+ }
+ 
+-static inline struct vmw_bo *vmw_user_bo_ref(struct vmw_bo *vbo)
+-{
+-	drm_gem_object_get(&vbo->tbo.base);
+-	return vbo;
+-}
+-
+-static inline void vmw_user_bo_unref(struct vmw_bo **buf)
+-{
+-	struct vmw_bo *tmp_buf = *buf;
+-
+-	*buf = NULL;
+-	if (tmp_buf)
+-		drm_gem_object_put(&tmp_buf->tbo.base);
+-}
+-
+ static inline struct vmw_bo *to_vmw_bo(struct drm_gem_object *gobj)
+ {
+ 	return container_of((gobj), struct vmw_bo, tbo.base);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c
+index 091f1039a052..9c882e746e3c 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c
+@@ -502,7 +502,7 @@ static int vmw_cotable_resize(struct vmw_resource *res, size_t new_size)
+ 
+ 	vmw_resource_mob_attach(res);
+ 	/* Let go of the old mob. */
+-	vmw_user_bo_unref(&old_buf);
++	vmw_bo_unreference(&old_buf);
+ 	res->id = vcotbl->type;
+ 
+ 	ret = dma_resv_reserve_fences(bo->base.resv, 1);
+@@ -521,7 +521,7 @@ static int vmw_cotable_resize(struct vmw_resource *res, size_t new_size)
+ out_wait:
+ 	ttm_bo_unpin(bo);
+ 	ttm_bo_unreserve(bo);
+-	vmw_user_bo_unref(&buf);
++	vmw_bo_unreference(&buf);
+ 
+ out_done:
+ 	MKS_STAT_TIME_POP(MKSSTAT_KERN_COTABLE_RESIZE);
 diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-index 38bea8abab84..cda55ee009d2 100644
+index cda55ee009d2..cd46d3995ade 100644
 --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
 +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-@@ -1186,6 +1186,7 @@ u32 vmw_lookup_surface_handle_for_buffer(struct vmw_private *vmw,
- int vmw_dumb_create(struct drm_file *file_priv,
- 		    struct drm_device *dev,
- 		    struct drm_mode_create_dumb *args);
-+void vmw_dumb_surface_unref(struct vmw_surface **dumb_surface);
+@@ -96,7 +96,6 @@ struct vmwgfx_hash_item {
  
- /*
-  * Shader management - vmwgfx_shader.c
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-index b2d3927b5567..34e55ad07ca9 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-@@ -2328,11 +2328,23 @@ int vmw_dumb_create(struct drm_file *file_priv,
- 	struct vmw_user_surface *usurf = container_of(vbo->dumb_surface,
- 						struct vmw_user_surface, srf);
- 	usurf->prime.base.refcount_release = NULL;
-+
-+	ttm_base_object_lookup_for_ref(dev_priv->tdev, arg.rep.handle);
-+
- err:
- 	if (res)
- 		vmw_resource_unreference(&res);
--
- 	ttm_ref_object_base_unref(tfile, arg.rep.handle);
+ struct vmw_res_func;
+ 
+-struct vmw_bo;
+ struct vmw_bo;
+ struct vmw_resource_dirty;
+ 
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+index e1f18020170a..f3fd45f28140 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+@@ -1148,7 +1148,7 @@ static int vmw_translate_mob_ptr(struct vmw_private *dev_priv,
+ 	vmw_bo_placement_set(vmw_bo, VMW_BO_DOMAIN_MOB, VMW_BO_DOMAIN_MOB);
+ 	ret = vmw_validation_add_bo(sw_context->ctx, vmw_bo);
+ 	tmp_bo = vmw_bo;
+-	vmw_user_bo_unref(&tmp_bo);
++	vmw_bo_unreference(&tmp_bo);
+ 	if (unlikely(ret != 0))
+ 		return ret;
+ 
+@@ -1205,7 +1205,7 @@ static int vmw_translate_guest_ptr(struct vmw_private *dev_priv,
+ 			     VMW_BO_DOMAIN_GMR | VMW_BO_DOMAIN_VRAM);
+ 	ret = vmw_validation_add_bo(sw_context->ctx, vmw_bo);
+ 	tmp_bo = vmw_bo;
+-	vmw_user_bo_unref(&tmp_bo);
++	vmw_bo_unreference(&tmp_bo);
+ 	if (unlikely(ret != 0))
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+index 4db29b645a38..6bd83e49885b 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+@@ -1968,7 +1968,7 @@ int vmw_connector_get_modes(struct drm_connector *connector)
+ struct vmw_user_object *vmw_user_object_ref(struct vmw_user_object *uo)
+ {
+ 	if (uo->buffer)
+-		vmw_user_bo_ref(uo->buffer);
++		vmw_bo_reference(uo->buffer);
+ 	else if (uo->surface)
+ 		vmw_surface_reference(uo->surface);
+ 	return uo;
+@@ -1977,7 +1977,7 @@ struct vmw_user_object *vmw_user_object_ref(struct vmw_user_object *uo)
+ void vmw_user_object_unref(struct vmw_user_object *uo)
+ {
+ 	if (uo->buffer)
+-		vmw_user_bo_unref(&uo->buffer);
++		vmw_bo_unreference(&uo->buffer);
+ 	else if (uo->surface)
+ 		vmw_surface_unreference(&uo->surface);
+ }
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c b/drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c
+index 679adf7c7183..d4a1cd50c325 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c
+@@ -451,7 +451,7 @@ int vmw_overlay_ioctl(struct drm_device *dev, void *data,
+ 
+ 	ret = vmw_overlay_update_stream(dev_priv, buf, arg, true);
+ 
+-	vmw_user_bo_unref(&buf);
++	vmw_bo_unreference(&buf);
+ 
+ out_unlock:
+ 	mutex_unlock(&overlay->mutex);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c b/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
+index 598b90ac7590..6abeb1ee1f8f 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
+@@ -117,7 +117,7 @@ int vmw_prime_handle_to_fd(struct drm_device *dev,
+ 								 handle, flags,
+ 								 prime_fd);
+ 		}
+-		vmw_user_bo_unref(&vbo);
++		vmw_bo_unreference(&vbo);
+ 	}
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
+index 388011696941..1391bed79f7b 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
+@@ -143,7 +143,7 @@ static void vmw_resource_release(struct kref *kref)
+ 		if (res->coherent)
+ 			vmw_bo_dirty_release(res->guest_memory_bo);
+ 		ttm_bo_unreserve(bo);
+-		vmw_user_bo_unref(&res->guest_memory_bo);
++		vmw_bo_unreference(&res->guest_memory_bo);
+ 	}
+ 
+ 	if (likely(res->hw_destroy != NULL)) {
+@@ -315,7 +315,7 @@ int vmw_user_object_lookup(struct vmw_private *dev_priv,
+ 							    uo->buffer,
+ 							    handle);
+ 		if (uo->surface)
+-			vmw_user_bo_unref(&uo->buffer);
++			vmw_bo_unreference(&uo->buffer);
+ 	}
+ 
+ 	return ret;
+@@ -466,11 +466,11 @@ void vmw_resource_unreserve(struct vmw_resource *res,
+ 			vmw_resource_mob_detach(res);
+ 			if (res->coherent)
+ 				vmw_bo_dirty_release(res->guest_memory_bo);
+-			vmw_user_bo_unref(&res->guest_memory_bo);
++			vmw_bo_unreference(&res->guest_memory_bo);
+ 		}
+ 
+ 		if (new_guest_memory_bo) {
+-			res->guest_memory_bo = vmw_user_bo_ref(new_guest_memory_bo);
++			res->guest_memory_bo = vmw_bo_reference(new_guest_memory_bo);
+ 
+ 			/*
+ 			 * The validation code should already have added a
+@@ -560,7 +560,7 @@ vmw_resource_check_buffer(struct ww_acquire_ctx *ticket,
+ 	drm_gem_object_put(&val_buf->bo->base);
+ 	val_buf->bo = NULL;
+ 	if (guest_memory_dirty)
+-		vmw_user_bo_unref(&res->guest_memory_bo);
++		vmw_bo_unreference(&res->guest_memory_bo);
  
  	return ret;
  }
-+
-+void vmw_dumb_surface_unref(struct vmw_surface **dumb_surface)
-+{
-+	struct vmw_user_surface *usurf = container_of(*dumb_surface,
-+						struct vmw_user_surface, srf);
-+	struct ttm_base_object *base = &usurf->prime.base;
-+
-+	ttm_base_object_unref(&base);
-+	vmw_surface_unreference(dumb_surface);
-+}
+@@ -736,7 +736,7 @@ int vmw_resource_validate(struct vmw_resource *res, bool intr,
+ 		goto out_no_validate;
+ 	else if (!res->func->needs_guest_memory && res->guest_memory_bo) {
+ 		WARN_ON_ONCE(vmw_resource_mob_attached(res));
+-		vmw_user_bo_unref(&res->guest_memory_bo);
++		vmw_bo_unreference(&res->guest_memory_bo);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c b/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
+index eca4e3e97eb4..ede4de9dc8b0 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
+@@ -180,7 +180,7 @@ static int vmw_gb_shader_init(struct vmw_private *dev_priv,
+ 
+ 	res->guest_memory_size = size;
+ 	if (byte_code) {
+-		res->guest_memory_bo = vmw_user_bo_ref(byte_code);
++		res->guest_memory_bo = vmw_bo_reference(byte_code);
+ 		res->guest_memory_offset = offset;
+ 	}
+ 	shader->size = size;
+@@ -809,7 +809,7 @@ static int vmw_shader_define(struct drm_device *dev, struct drm_file *file_priv,
+ 				    shader_type, num_input_sig,
+ 				    num_output_sig, tfile, shader_handle);
+ out_bad_arg:
+-	vmw_user_bo_unref(&buffer);
++	vmw_bo_unreference(&buffer);
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index 34e55ad07ca9..5a9c953eb73c 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -972,7 +972,7 @@ static int vmw_buffer_prime_to_surface_base(struct vmw_private *dev_priv,
+ 
+ 	*base_p = base;
+ out:
+-	vmw_user_bo_unref(&bo);
++	vmw_bo_unreference(&bo);
+ 
+ 	return ret;
+ }
+@@ -1593,12 +1593,12 @@ vmw_gb_surface_define_internal(struct drm_device *dev,
+ 		if (ret == 0) {
+ 			if (res->guest_memory_bo->is_dumb) {
+ 				VMW_DEBUG_USER("Can't backup surface with a dumb buffer.\n");
+-				vmw_user_bo_unref(&res->guest_memory_bo);
++				vmw_bo_unreference(&res->guest_memory_bo);
+ 				ret = -EINVAL;
+ 				goto out_unlock;
+ 			} else if (res->guest_memory_bo->tbo.base.size < res->guest_memory_size) {
+ 				VMW_DEBUG_USER("Surface backup buffer too small.\n");
+-				vmw_user_bo_unref(&res->guest_memory_bo);
++				vmw_bo_unreference(&res->guest_memory_bo);
+ 				ret = -EINVAL;
+ 				goto out_unlock;
+ 			} else {
 -- 
 2.54.0
 
