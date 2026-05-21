@@ -4,127 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B215CD5BA4
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 12:28:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3057CD4F5E
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 12:29:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1D2B10E4C4;
-	Thu, 21 May 2026 12:28:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 505F610E4DE;
+	Thu, 21 May 2026 12:29:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ed4Z80cl";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LK7jjMjD";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SxAkNspd";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010024.outbound.protection.outlook.com [52.101.61.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C578610E49A
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 12:28:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dhW/jRE3sh0w1M+2Qfsha97IR38fo+xWylxgYH+L3Q5UKMVqo5CFnuQSvufRJ9iZevbnB0UcVkN5rRx8+85omm07uY0cPSIj4xg7VFEq8blUUXfo0l2KS4GZfB9mCUYJZugZpykJ89t4uEY3ZxcVPQm8PbzHwVn0xgIi4Cx+ziRYJNgsgJDdZxol8JiGp0MGC+FpFwKPjRROoUJK7f2jwMQF25yMtYetPpn3XTGAcTKo4Y6/YlQLpLffWdm1ELZQvKpOZS04p8FNRm2WMEi8GrqGxaVBRnf9/xlv4pLNaEZeWxAUj1UFyiYjwTuKuytk5Tp9Cb1e9USBncKWAq8s7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JQ3P1JU7gPxNE6tmfvhoojCYlaX8q1B127RCLIlF4XU=;
- b=jMeK1RJqABPN2utw0guodp8q0oHXpG/BdSzXqa3bDhWsQo7Kp/AWzUv3SNbNo7+Xty56x7wcq7KJ4WhmUqcKw8MF11CTTE5vKJzgmqPVfZcpk8r1uwY9QHDQtVVd9DyqW90/lqohLwecuy/5Jy4pwmA/WdcCZXoNKGgbr+MF8cX7FHKxLmsjZ6uq7pTwj56Zb5gf3W7IHCzyAo67eEkId1AyRgVnVcPJSgunISK3bdVCM8FNnDGzvcy9xTvuasSjH11fBgewdFMD5lSgH8IXJi7i6b8XE38BGXUVxIEe3KMN3TzNIQOj1rgwyEMjP8raxFWjuu1KTnb1dVnEP90vtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JQ3P1JU7gPxNE6tmfvhoojCYlaX8q1B127RCLIlF4XU=;
- b=ed4Z80cl2oCXKRYW4MZFRrsUcsp4wrzpuC6Z3GX5a7mTesiyx1DCKCbTOzVLRx8GqulWx6tO5zuIKbNMr5vUw9Bt0xvObD8gexzuLzA1lXnul5b5K39xfNr72vbZ7y5xTrBpr0B7MkGS+tHzjXLK5v8fI5aESX/K6Z4yXlQvX6o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA3PR12MB8811.namprd12.prod.outlook.com (2603:10b6:806:312::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Thu, 21 May
- 2026 12:28:22 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Thu, 21 May 2026
- 12:28:21 +0000
-Message-ID: <7b662fcd-3bcd-40a2-b014-d9ce36f6425b@amd.com>
-Date: Thu, 21 May 2026 14:28:02 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] dma-buf: add DMA_BUF_IOCTL_DERIVE for
- reduced-permission aliases
-To: Albert Esteve <aesteve@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Shuah Khan <shuah@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, mripard@kernel.org
-References: <20260521-dmabuf-limit-access-v1-0-26c01e27365a@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260521-dmabuf-limit-access-v1-0-26c01e27365a@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0410.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d0::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC5E10E4D5
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 12:29:13 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64L9AL1Y3555969
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 12:29:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ M8Xi5z+FCk7PL+V8zhBB5Imo+U7JiUrOw4e7dC2VIrQ=; b=LK7jjMjDcqfftAVi
+ DdyZ5JwoTkvnNvM7R0IexhiLZ/Y0u+SzE91W9Ms7IW5kDEJkv9AsIGYbX3Fg/ejA
+ q10YVl3MsGKC/s2+UceInp35b3xQ1bMm8BtPgyD56YYkeIPu4HlkBFCd7yLbpR7W
+ Ssucl+UqyR3X9lhNtddLz+hiJ0FFapFB2Dt+XunmPzUXGNlkPOOd8Cna7sXZLCqB
+ VJACbNCSAaB5qP1KkSuKI7YPH9/OAXLTYwFVR6UMN7DcrQPWDb2F8h9feBDISxkg
+ UWXEgDAJ1JqaIOo82s9e6hWJH3BUZjYsuCVDOK+6dhSP9b4xVvt8kQAL+nuqrGDP
+ vyf1Ow==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9fb6mftw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 12:29:12 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-82f9429f49cso9125454b3a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 05:29:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779366552; x=1779971352;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=M8Xi5z+FCk7PL+V8zhBB5Imo+U7JiUrOw4e7dC2VIrQ=;
+ b=SxAkNspdyfEqEkp36Ydty640N8alSLoN0KwJiWga/afpUj2hne83AV3nQ4mztC1i6K
+ qzQPzOS2xZI4yC+9aszHD8mksgJ+/XaKWwcXUCKjhZYJCoU5oPYx21OJZdUoxLcel1v1
+ YaOxcUkXo6yQ72oT4yh3vyD1w5CUIBh8HrwTuV9rS63NOdbA7IRk3EyBMZxPGN0HDlyD
+ Ih0lnvBg8zBi2hs9Gh/EmYyr7qAsmIuvh5q147KAMZBD5b9Ujb/5DOJJYqwvPh/P8URw
+ 8wIrLlGhs152SUCz2tyYcmyxcozK8MhZKLt8t5FWCLGl7ZrRlNJJ6fRzNvYNIJY/2JDS
+ MjDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779366552; x=1779971352;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=M8Xi5z+FCk7PL+V8zhBB5Imo+U7JiUrOw4e7dC2VIrQ=;
+ b=hJT7Sp+8eEHrfIzSD6Y3rR0iv+8kB7tjKxYqlippMUvKZseBVpiTpV2VI9JyRO0h3I
+ QdB7vIWDGQS17e20mMXTAhENHCTsd6kTWBdWKPSz8gllRy6ZBYR4NwS2wwOF4We57cn/
+ izf8UJ3Ky9RSunB+2qIhNTk56uLI7yealogDtN8lQ8IYpraGgrri/pk9ng44LOQ4ZfiH
+ giQbN6pkcwqcyeQsDzRIdUKXVXFeESBT2K6k2XodCEFT0q2+TnsVD74qlh1Dkmb0Xd1E
+ k7odc08vXEHNBnB/Dndj76t1NVhnGJllxgbxs51gHGt9ZSuX9dMOKfGb3e83kbKgAT8m
+ KhZw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+bKqTNvvPKyzxf+A+WUK0egy35ZTm/jDSUR7MZGNrZpISEeVpPgzxQhTZwC6b2IipaE6a34oISUSU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YywjwTKfKqk0P1nJZ4s9iaUXyEvPTuDC4/OylnacVzhW0ZQQjNC
+ CdtJiYCmZ+ECO9x6ILSKwBm+3Psk+0Lx7BrNDU7chWNy4ehSnBd1Eg6DrMsN84TJdqrdGYjy4zq
+ jY5EuegLkaZ/ZtXxQrztS0ow7sRLxNGWKaBV/acYFP4HsrtHddOPpUTYyhzUOXwugtS7L9Lc=
+X-Gm-Gg: Acq92OGGqhXn7l9WrzLTVEMANrgc4XSqdxNqUKAZaTQVjeUUFE0KFRwGtxrFYzUIBnh
+ wVCu3KgfmR21CiNrrhZEbemyUkMLvjabrgonxeiE1kyJJi/R3zrhcKIb43ZN2zUwk0glsEkGW8l
+ aEtdQxy4CVPaQIAZMm3i1R5Ji8He54YOSlOTLymWZGLNrwkDGBq7QHXJusMLHsEfHm8SaBMsCq8
+ AScAgiVsZvXWrw2hRaxTun770DwSMpIdh+MlGBLiSiL1QUJ4+1EGSDqQc/6cEHYFaRTHNd8YB3D
+ fD7124krdYa6ODX1EU/xtDVph5H+04IlEnY15Nw5NgouHbqBVDiKyxMrUGnN1AGRtFeHXkXUKdp
+ iJvHhSgQ0Ut9QWwgPvjqu3RF5rPtkXoUq7Ok5nFLXkO7HWEaUXbHOuoRPZrA5IcYvrAgeVB5J6C
+ VD6JvVr+6tCYcFqO1AdVEW3tY288WM
+X-Received: by 2002:a05:6a00:4655:b0:82c:d7c9:5479 with SMTP id
+ d2e1a72fcca58-8414adfcf5emr2926535b3a.32.1779366551774; 
+ Thu, 21 May 2026 05:29:11 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4655:b0:82c:d7c9:5479 with SMTP id
+ d2e1a72fcca58-8414adfcf5emr2926480b3a.32.1779366551232; 
+ Thu, 21 May 2026 05:29:11 -0700 (PDT)
+Received: from [10.133.33.148] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84154e1d0a8sm1279516b3a.42.2026.05.21.05.29.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 May 2026 05:29:10 -0700 (PDT)
+Message-ID: <6a5144f5-8734-40ae-b170-eae107089a3e@oss.qualcomm.com>
+Date: Thu, 21 May 2026 20:29:05 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB8811:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87abbc02-3fe4-4fac-de82-08deb7347255
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|18002099003|22082099003|56012099003|3023799007|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: 0KiGsXu49oQkCLBhvUa0sm2/4+TlhVdev+yzycX4xY014ZqXzrNdIxPpxzwIODICBQcgaXE3SG6eMNMAtTXSSkKDuRDQdDaxoxVyjENrxlktKrEBr4x+5O2xnE2YismJ71MpcvFIjyrCSrEKE+MIY+XlS2X4z9SHbn0lfSHsCVHdX5s4lZuFg70ukxq0Ig7T8t9ErfMu0EK7PxxQ/p5y9iUNUSzc9SDyaliinyDONrO58kQ8idJXrhMx0BBHQW2OgUtsfGbXh7IyAcfOEc6PZPUx6SjcxiO+/MF/b1zNsOCfaHIlkokl02S++GzH6fScu3j7pX/UEKw0oBPbO1FwhlM/1xoE0eK7QBCXmu3xguE894cI35MDnIMXDWt1Mtmv74SNTATFgdP+gtnExkdFLio+aMRq0wseHjjYr5vwCwCPkQBgPnxYhhcMsCdnGTR0C/leH5UMhZYOeHpe+0qnkl25CFSh8e/3yC+1xWDRS4zJdniHsd1AtCa8A6y+ZdioTucS9MRi4zig+I2HGngC/FXBHemYiXVaYzFelrVI0oOvSa4zwf2Z6M5b/vOC2GIt1JwbBjBjG1jM4cDUhs2teKZnBNhtZGwPHqgRy1A2N69Rfr3qKNgxcKR0i/IgtYZsmiQQxMyzijBOFSqhXDrGD+RUK9JT+I9t78G2766n+bM3KNwr2hCTN3fpI4/Bui6u
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(56012099003)(3023799007)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHdYMkFoQkZ0MStqQThuc3Z2RFNDYjJTSVoxaEhQZm5kV21JT2c5YlpXdExo?=
- =?utf-8?B?cGdPOG01SDl3MmhFNm5BaFFkVE51QTFOUmF5Q1VsS2Vra0RxUTIwUVJPRnY5?=
- =?utf-8?B?R2c1dnU4RUZ0cktudXVweElTbk41bnQzR3ozOE45aGhKYUhOZ0drUTJubXVM?=
- =?utf-8?B?SmtEUGRTUkpOWDBONE9QZjM1UHBDMFZadWtqYWpNOWNoMEU3aitidS9ST3VB?=
- =?utf-8?B?bnRBcERxaUxQMnp1a0lsSURubjBEVWs5N3VqM0VUa0NOZ0pJeDFQZ2EzYjgr?=
- =?utf-8?B?TUJ4T3AvSUdMODZrQTJlWmFhd0lmZzI0aXpGMDViVyt6bzAxQ1Zmc3FxWkVO?=
- =?utf-8?B?RkNURGE3cmNNVDJnREo2VzNDVGRJTSs5bWI1dU8wVnpWNVZIcmgwSEZlZitQ?=
- =?utf-8?B?bGFBYUxaV0loamk4c0xram9STlNVSXVxNVBUNWM2Y1R6SmltUGRTai9wVGJ0?=
- =?utf-8?B?b0hIWHZyRlBtb0VjeVdsdFA2L0piUDlNTmUxM3FhaGFMaEVpMEFXRVZUSW00?=
- =?utf-8?B?VTVvTlBjUjNieVZrcDEzUW9jS200eENYTHhPT0ZiME9kVUpGZ3VpVDVpbnN4?=
- =?utf-8?B?YWRDZHRyTW41L3BWMzFES3oyeXQ4aTUyYWJGaXd6SkpWb056U20xQk9ydzl4?=
- =?utf-8?B?MktOU2h6dFVKeDVTUFpXVUwyWlVzb0ZwNVlXUTByRmtFS2pDeDF6TThVVGs1?=
- =?utf-8?B?KzhJMFRLZEVDQTd6MDgvSWg3S1lvb3M1Ni95QjZKSERYZUg2dGVJMmxFZ25j?=
- =?utf-8?B?dE0wSk4yVTkvOXNvUzJEZUdZSFd2WXhpQUkvN0Vidnh1eFhYNXhDWXgyaTkw?=
- =?utf-8?B?K21CeXh5SWF3Z2hqSFVzMDhwOWxyVlpjU01CaXcwbVc0VytUVEppaDk4dURV?=
- =?utf-8?B?WDcwYVVtMFhmaUk4YXk4K3FMUE1jMFMxQXVEOGlDU1M1clJHZ1o5UHI1T3VR?=
- =?utf-8?B?WTEyTXFWMkYvbFhHaDhobVNGbDNETy9oaUdxc2Z0RzN6ZzE5NTJqRjBGSExB?=
- =?utf-8?B?OUFzYzhlQStUdXVvc0M1L096cGJ1T2RUdk1rbnIrSmd5T0hpK1I1RTAwZVd6?=
- =?utf-8?B?b2VjZkFIOFZXNEIxZS96WXFhM1YyZlhvY0NIb2JvV3piS01yYjZKZDJWR0l2?=
- =?utf-8?B?dlh4bVA4YVhNVHlBSTJNWmtoYXp5YitTaWQrRCtkb2RYZE9XUW93by9XVFBR?=
- =?utf-8?B?YVovSUdIVFhUZytuWmZEMllsNVgvWmV6ZkozdEs1VkY1Q2NpN2NvZlU5ZGdQ?=
- =?utf-8?B?VFdFY2JseGdsMytCZGo0LzlnRmNrZWdyUWhMWjVqWTZvZzk0RG5YY2o1dEtY?=
- =?utf-8?B?NElsRDI5alBJZEkvNHlPeDVMaUsxcmhNMXZSTzR1cWtPeWVGU3hQUWV5YnJO?=
- =?utf-8?B?U3ZlVW9QN0tJWjczTFVrc3hDdXJlc29DNkUrdmZJUzYyaDgzbTB6cG5lZWpo?=
- =?utf-8?B?WVBKMWRUUE5RME1ORTJyQVlCZVZDZEYyOEFZYW8yQnYrVHNUTEx0TnpydTQ2?=
- =?utf-8?B?NnRHcEdhanlUdklTa2Z0NzZSNzhGM0lma2ptM013S3lEQWNUdVJaYmZjWDl1?=
- =?utf-8?B?aktHWEJuMDQ1TUM1aXZQcjJFU1QxMVlKTkIwWmo1QmpFTjk1clUySVRCV0FB?=
- =?utf-8?B?TDdGQTVkRnBodi9oRFJId2tvWk53Y1BNb1VucFZlcFZLWWhHMUsvckMyd1pE?=
- =?utf-8?B?VkZicHhkeEZrd0NiTmtPSFRuUTdHNmNZZ3lHeW8yenlsWXNETWVLc1dQSWpF?=
- =?utf-8?B?WWsxQkdUSVJadjR2Rm84SU1hOEI5d09LWlUrdVZ5THVDN1hsWVR1NUZIYWdB?=
- =?utf-8?B?TXpMb25jOVBaRndpeTRZSXBvZXdvY2VaQkE5VmZCK0lranVwN2tpM0ptbWpt?=
- =?utf-8?B?T2F3aGJUTnh2bEFhNVU5enVFYk9LcGdqQ1RUK3dPVjBWdVJ4REh0VTlxUHYw?=
- =?utf-8?B?Q1hkVXBOVzBrOXpDUmtETXhlMWlxdUdUdWNCQTJvL2EwakdUNm9JUlZua3NZ?=
- =?utf-8?B?SUlCOFdnaTVLMFVaNEtFSmpmNXAvVFkxbTZIREZsa0sxL1R2RkdveGM1RENJ?=
- =?utf-8?B?dHh6eHNrVkVXb0VmWXlWMldLK01OMVdKNWJkMUFYY3M1My9GdVBzT2FNMGVE?=
- =?utf-8?B?dHpSUkUzQWxaU1UzNVhuMS9LUzJPTzhNanVjeDE1bzJhWkJuUHJqTkNUTjBB?=
- =?utf-8?B?RUdiKy85WXh0OWNlTEZSdmEvNTR0V1NxbW1uQUVKQWNncGVSd0V1Wk5HVytr?=
- =?utf-8?B?Tm11QUpiYTRWVzNiM1VqZG9WZ1pKSHRKekhqWU9qbzN6eWFFaVV2d2hIYllP?=
- =?utf-8?Q?OACEhQB8WzVDBhjMdT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87abbc02-3fe4-4fac-de82-08deb7347255
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 12:28:21.8877 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UbypUtKrJKweMp9k0C+qqEue3j2vyYzHyW6hNHrxf969E8NigDVkRDkzOM7HivII
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8811
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 31/38] drm/msm/dp: add HPD callback for dp MST
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-31-01faacfcdedd@oss.qualcomm.com>
+ <pc4brjias4ixewzlsvnlhqhlz774z4p6aq7j4kldu5ze2e35sh@tsm2mtrkk3zi>
+ <b5b3b1b8-ed48-429c-a87f-0278a6632313@oss.qualcomm.com>
+ <tlt2ffn2xz3mpeoojcciieh35zc6pyowlkcjtxkkrnaj32enne@mbcrdrnkmaoz>
+ <07ff4730-2efd-4e9d-b632-9fbb517179f9@oss.qualcomm.com>
+ <vdjgzhx4xkvid2ukp7j3yir3n4tr423riyzvyzkrh2ssiub5at@pj6wfcy4jz5q>
+ <4b18f14f-d485-4b9c-a75c-ead6f7c80f95@oss.qualcomm.com>
+ <k6y3e4fqfwkevvvv3zmzmovsrz4i6qkxs3duhz7khsggxwwa77@uogtrpuaxhnc>
+ <d4c5d26c-47f1-4e42-9852-d407982cb4f6@oss.qualcomm.com>
+ <djigwx5k7j2rkaoq7g6paor6l6i25srvq7chjqqnjlbs3shcco@x5drauwxzngp>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <djigwx5k7j2rkaoq7g6paor6l6i25srvq7chjqqnjlbs3shcco@x5drauwxzngp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=do/rzVg4 c=1 sm=1 tr=0 ts=6a0efa98 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=L-3u8DrejJcmkFE2JFAA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: xOUsZhPw7hv-gWqpc65-Q24MStH2aUAO
+X-Proofpoint-GUID: xOUsZhPw7hv-gWqpc65-Q24MStH2aUAO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDEyNSBTYWx0ZWRfX0PW57PJaYWMI
+ 1G9C3tYOYzj9ZnvZPTdKJaBSy1O+waukNUGmTOg0mkxP48XWZDYC5GcLdEwvoEbGVH/ZIH7JLbe
+ OhZ0BdbEJ5AAK6ao2CEbqqMArDCoCe6CyqZFVkDUJf6eL5lfUNEoBx6OSGC4QVfcA0BoS2clcLn
+ OVBdrSmWORrTR06tQAc8D8qK0qhHNU0+n1mqV3+WKNfYp06t0MLOcgp3aHfi4t6pWTmmd+i9et2
+ kGx0/zMoA6b3xZ6KJ9FsWixHpJa/YR9QybFQl2tAJT16dAwJh3Wx2fzZhv1or6zPZkgLTInrGyO
+ 33kWRE10Tb2DMffsR3jgtlNk0qL03VL7TW3XbmOUy3rpErtiZEaJKpr1YUMHyjuwz+r1UXds56j
+ rE7GkxjRrvPIEtvmsYO96p7Dm7pF9Sl/ldHp55h9t8FC4DFSxUZfOJ/HGRrWz/9tX/k+IOUABAH
+ A3vN4cAMp0jfvzdFoUQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-21_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 malwarescore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210125
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,96 +159,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/21/26 11:10, Albert Esteve wrote:
-> When sharing a dma-buf between components of different trust levels, the
-> allocator may need to hand a consumer a read-only view of a buffer it
-> holds with read-write access. An example is a camera pipeline where the
-> capture component writes frames into a buffer and needs to pass a
-> read-only handle to a downstream processing component that should not be
-> able to modify the data.
-> 
-> However, no such mechanism exists today. The access mode of a dma-buf
-> file descriptor is fixed at export time, and the standard POSIX
-> interfaces for duplicating or changing file descriptors (i.e., dup(2),
-> dup3(2), and fcntl(F_SETFL)) cannot alter the read/write access mode of
-> the copy.
-> 
-> One natural candidate would be reopening via /proc/self/fd/<N> with
-> O_RDONLY, which works for regular files. For dma-buf this would fail
-> (that is, if we were to add a new handler for open f_op) with ENXIO
-> because the dmabuf pseudo-filesystem carries SB_NOUSER, which prevents
-> the VFS from opening its files through path-based resolution from
-> userspace.
-
-OH MY GOD! This is the like the sixth time I had to clarify that in the last few weeks, I'm really wondering where that is suddenly coming from.
-
-Creating the DMA-buf with O_RDONLY does *NOT* make the DMA-buf itself read only!
-
-That's a really common misconception. The flag only controls if mmap() can be done read/write or read-only to handle cache coherency issues.
-
-It is still perfectly possible for a device to write into a DMA-buf created with O_RDONLY with DMA!
-
-So long story short there is not such feature as a read only DMA-buf, and putting read-only pages into a DMA-buf and then expecting that nobody can write to them is an absolutely clear No-Go.
-
-If we would want to implement a read-only DMA-buf feature we would need to go over all the different DMA-buf importers in the kernel and add security checks.
-
-Regards,
-Christian.
 
 
+On 5/19/2026 12:36 AM, Dmitry Baryshkov wrote:
+> On Thu, May 14, 2026 at 03:12:17PM +0800, Yongxing Mou wrote:
+>>
+>>
+>> On 4/19/2026 8:29 AM, Dmitry Baryshkov wrote:
+>>> On Wed, Apr 15, 2026 at 06:32:29PM +0800, Yongxing Mou wrote:
+>>>>
+>>>>
+>>>> On 4/15/2026 2:43 AM, Dmitry Baryshkov wrote:
+>>>>> On Tue, Apr 14, 2026 at 05:51:51PM +0800, Yongxing Mou wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 3/25/2026 3:30 AM, Dmitry Baryshkov wrote:
+>>>>>>> On Tue, Mar 24, 2026 at 09:04:24PM +0800, Yongxing Mou wrote:
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> On 8/27/2025 2:40 AM, Dmitry Baryshkov wrote:
+>>>>>>>>> On Mon, Aug 25, 2025 at 10:16:17PM +0800, Yongxing Mou wrote:
+>>>>>>>>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>>>>>>>>
+>>>>>>>>>> Add HPD callback for the MST module which shall be invoked from the
+>>>>>>>>>> dp_display's HPD handler to perform MST specific operations in case
+>>>>>>>>>> of HPD. In MST case, route the HPD messages to MST module.
+>>>>>>>>>>
+>>>>>>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>>>>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>>>>>>>>>> ---
+>>>>>>>>>>       drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++++++---
+>>>>>>>>>>       drivers/gpu/drm/msm/dp/dp_mst_drm.c | 34 ++++++++++++++++++++++++++++++++++
+>>>>>>>>>>       drivers/gpu/drm/msm/dp/dp_mst_drm.h |  2 ++
+>>>>>>>>>>       3 files changed, 48 insertions(+), 3 deletions(-)
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>>>>>>>> index abcab3ed43b6da5ef898355cf9b7561cd9fe0404..59720e1ad4b1193e33a4fc6aad0c401eaf9cbec8 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>>>>>>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>>>>>>>> @@ -500,9 +500,16 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
+>>>>>>>>>>       static int msm_dp_display_usbpd_attention_cb(struct device *dev)
+>>>>>>>>>>       {
+>>>>>>>>>> -	int rc = 0;
+>>>>>>>>>> -	u32 sink_request;
+>>>>>>>>>>       	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
+>>>>>>>>>> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>>>>>>>>>> +	u32 sink_request;
+>>>>>>>>>> +	int rc = 0;
+>>>>>>>>>> +
+>>>>>>>>>> +	if (msm_dp_display->mst_active) {
+>>>>>>>>>> +		if (msm_dp_aux_is_link_connected(dp->aux) != ISR_DISCONNECTED)
+>>>>>>>>>> +			msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
+>>>>>>>>>> +		return 0;
+>>>>>>>>>> +	}
+>>>>>>>>>>       	/* check for any test request issued by sink */
+>>>>>>>>>>       	rc = msm_dp_link_process_request(dp->link);
+>>>>>>>>>> @@ -1129,8 +1136,10 @@ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)
+>>>>>>>>>>       	if (hpd_isr_status & DP_DP_HPD_UNPLUG_INT_MASK)
+>>>>>>>>>>       		msm_dp_display_send_hpd_notification(dp, false);
+>>>>>>>>>> -	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK)
+>>>>>>>>>> +	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK) {
+>>>>>>>>>>       		msm_dp_display_send_hpd_notification(dp, true);
+>>>>>>>>>> +		msm_dp_irq_hpd_handle(dp, 0);
+>>>>>>>>>
+>>>>>>>>> Why is it a part of this patch?? It has nothing to do with MST.
+>>>>>>>>>
+>>>>>>>> Emm ... maybe here we can directly call msm_dp_mst_display_hpd_irq..
+>>>>>>>> I tried an alternative approach by calling the MST IRQ handler from
+>>>>>>>> msm_dp_bridge_hpd_notify(). I expected that when hpd_isr_status ==
+>>>>>>>> DP_DP_IRQ_HPD_INT_MASK, the hpd_link_status read in
+>>>>>>>> msm_dp_bridge_hpd_notify() would be ISR_IRQ_HPD_PULSE_COUNT. That way, we
+>>>>>>>> could handle both SST and MST interrupt paths in msm_dp_irq_hpd_handle().
+>>>>>>>> However, hpd_link_status only reports ISR_CONNECTED. So I had to move the
+>>>>>>>> MST IRQ handling into the IRQ thread. Do you have any suggestions on this?
+>>>>>>>
+>>>>>>> When are the link status bits updated? Please remember, we need to
+>>>>>>> support all three cases:
+>>>>>>>
+>>>>>>> - Native DP, native DP HPD pin handling
+>>>>>>> - Native DP, DP HPD pin not handled by the controller
+>>>>>>> - DP AltMode, DP HPD pin not used at all
+>>>>>>>
+>>>>>>> In the second and the third cases we will not be getting the IRQs.
+>>>>>>> Instead one of the next bridges (connector, EC, AltMode, etc.) will send
+>>>>>>> the HPD event, which lands in the .hpd_notify() callback.
+>>>>>>>
+>>>>>> I added some logs and did some testing. I think
+>>>>>> msm_dp_aux_is_link_connected() only shows the current HPD state. Since IRQ
+>>>>>> HPD Pulse Count is very short, by the time we read REG_DP_DP_HPD_INT_STATUS
+>>>>>> in the IRQ flow, the HPD state machine has usually already finished pulse
+>>>>>> classification and returned to Connected.
+>>>>>
+>>>>> But the IRQ should be sticky and it should be readable from the status
+>>>>> bits.
+>>>>>
+>>>> Yes... I’m not sure how this is handled on other platforms, but on LeMans
+>>>> can not get IRQ status from msm_dp_aux_is_link_connected().
+>>>
+>>> Can we clarify that somehow? Maybe with the hardware team if it is
+>>> uncear from the HPG?
+>>>
+>>>>> Note, in the USB-C AltMode case the HPD machine is not used at all.
+>>>>>
+>>>>>>
+>>>>>> Because of that, the condition hpd_link_status == ISR_IRQ_HPD_PULSE_COUNT
+>>>>>> will usually not be hit.
+>>>>>>
+>>>>>> do you have any suggestion that in how to distinguish between an IRQ event
+>>>>>> and a plug event in .hpd_notify() better? We probably don’t want to
+>>>>>> introduce another state machine.
+>>>>>
+>>>>> Then, I assume, currently there is no way to actually distinguish those.
+>>>>> The easiest way to handle the replug would be to store the current
+>>>>> "connected" status and verify if we are receiving "connected" while
+>>>>> being connected or if it is a disconnected -> connected change.
+>>>>>
+>>>> Emm.. Currently, regardless of whether it is the native DP HPD (on LeMans)
+>>>> or DP over Type‑C Alt Mode(test on Hamoa), a single plug event always
+>>>> results in two or more identical .hpd_notify() callbacks.
+>>>
+>>> Could you please check, why? On Hamoa it might be because of the LTTPRs.
+>>>
+>>>> In other words, after the transition from disconnected → connected is
+>>>> completed, there is still one more .hpd_notify() with connected → connected.
+>>>> So it still can store "connected" to distinguish between an IRQ event and a
+>>>> plug event from .hpd_notify()?
+>>>
+>>> I've sent a series, which explicitly tracks the IRQ events. Hope that
+>>> helps.
+>>>
+>> Very thanks for sending the HPD IRQ series
+>> https://patchwork.freedesktop.org/series/151522/. it very helpful for TYPE-C
+>> MST.
+>>
+>> I’ve been testing it locally based on HPD refator series, and TYPE-C basic
+>> plug case works on my side (although with some local modify, maybe now it is
+>> workaround). At least the IRQ is being delivered correctly now and the
+>> simplest case works. It still need to do some additional testing.
+>>
+>> There is a small question:
+>> When do you plan to merge the HPD refactor series?
 > 
-> Alternatively, exporting the buffer twice would produce two independent
-> dma_buf instances, which breaks fence synchronization.
+> Would you or your colleagues review it? Or at least T-B it?
 > 
-> Therefore we add a new DMA_BUF_IOCTL_DERIVE ioctl, which produces a new
-> file descriptor for an existing dma-buf with a caller-specified subset
-> of the original permissions:
+  I’ve given the T-B. Could Konrad help review this series?
+>> and could you please
+>> rebase the irq series patch to HPD refactor series ?
 > 
-> ```
->   struct dma_buf_derive { __u32 flags; __s32 fd; };
+> Once it is merged.
 > 
->   struct dma_buf_derive req = { .flags = O_RDONLY | O_CLOEXEC };
->   ioctl(rw_fd, DMA_BUF_IOCTL_DERIVE, &req);
->   /* req.fd is now a read-only alias of the same buffer */
-> ```
+>> so that i can keep MST
+>> depend on those 2 series.
+>>> Thoug storing of the "connected" state should help us to identify the
+>>> long HPD pulse (wich should be treated as unplug & replug).
+>>>
+>>>> This is my current understanding. If this is incorrect, please feel free to
+>>>> correct me. Thanks.
+>>>> As an additional note, msm_dp_hpd_plug_handle runs through its full flow
+>>>> twice for a single plug event. Also, the behavior I described above does not
+>>>> include any MST-specific filtering codes.
+>>>>> For a longer term (and granted that HDMI also has a notion of HPD pulse
+>>>>> events) we might want to extend the DRM HPD API to pass through the "IRQ
+>>>>> pulse" events as is (instead of converting those to
+>>>>> connected-whilec-connected events).
+>>>>>
+>>>>> Let me sketch a draft for that.
+>>>>>
+>>>>
+>>>
+>>
 > 
-> Permission escalation is rejected with -EACCES. The new fd aliases the
-> same struct dma_buf as the original, same dma_resv, same exporter ops,
-> same underlying memory; so importers attaching to either fd see the same
-> fence timeline and operate on the same object. Access control for which
-> components may receive or pass on restricted descriptors can be layered on
-> top via SELinux file:read and file:write permissions.
-> 
-> A shared writable mapping (PROT_WRITE | MAP_SHARED) on the read-only fd is
-> rejected with -EACCES in dma_buf_mmap_internal().
-> 
-> Two small internal adjustments accompany the ioctl:
-> - __dma_buf_list_del() is moved to dma_buf_release() so it fires exactly
->   once on dentry destruction rather than on every file close.
-> - dma_buf_file_release() is updated to call dma_buf_put() only for
->   files that are not the primary dma-buf file.
-> 
-> This may not be the best approach, but after considering different
-> options and alternatives (as described above), we decided to raise the
-> discussion upstream. Thus, we welcome any alternative proposal or ideas.
-> 
-> The series is structured as:
-> - Patch 1 adds the new ioctl implementation.
-> - Patch 2 adds selftests covering the new ioctl.
-> 
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
-> Albert Esteve (2):
->       dma-buf: add DMA_BUF_IOCTL_DERIVE for reduced-permission aliases
->       selftests: dma-buf: add DERIVE ioctl tests
-> 
->  drivers/dma-buf/dma-buf.c                          |  58 ++++++++++-
->  include/uapi/linux/dma-buf.h                       |  28 +++++
->  tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 114 ++++++++++++++++++++-
->  3 files changed, 198 insertions(+), 2 deletions(-)
-> ---
-> base-commit: ab5fce87a778cb780a05984a2ca448f2b41aafbf
-> change-id: 20260520-dmabuf-limit-access-73261353841a
-> 
-> Best regards,
 
