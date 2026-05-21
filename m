@@ -4,115 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C806ACD5BB4
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 14:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D1ADCD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 14:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52DAE10F64A;
-	Fri, 22 May 2026 14:42:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0647310F659;
+	Fri, 22 May 2026 14:42:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j4CDviTd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qkfseh/S";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D08E210E510;
- Thu, 21 May 2026 13:33:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9A25643D68;
- Thu, 21 May 2026 13:33:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664AA1F00A3C;
- Thu, 21 May 2026 13:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779370406;
- bh=ezV5ICAM2va0jVjd8iAniGdLxBSb69xxnF1gv2JwpSY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=j4CDviTd6M6LDTj5r6sQRqgJ6ESa9aWMu37zRV8mtOcXrJiE1zLL6x/OVHUw7taNB
- jl6ETIYiu8JAkRBqc4Wuv2aB534ln8Hu69MX1fb2GFClu2Mmurr/zb532bCHmICyRT
- bW4gGDuRH21kbO4Mt3QzAC1BgrPy+si2Rjb35ZfN4nboZAY9y9toARiousj3e/bp3M
- OhVS9wgD8OvUpe6jIOQ+pq818okRHEEM5Lah2/H+GkNEe7+pCkBUV/HEs3jXEYS4f4
- MtCRjjIGdmkPubfqUsmmCsve0nsahQ5jfKPmPGh0P3LHoWU280OP0E1I4NEEZgAN1h
- MDV3MyE2qhaxQ==
-From: Kees Cook <kees@kernel.org>
-To: Luis Chamberlain <mcgrof@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
- stable@vger.kernel.org, Petr Pavlu <petr.pavlu@suse.com>,
- Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Corey Minyard <corey@minyard.net>, Gabriel Somlo <somlo@cmu.edu>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
- Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
- Tiwei Bie <tiwei.btw@antgroup.com>,
- Benjamin Berg <benjamin.berg@intel.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "David E. Box" <david.e.box@linux.intel.com>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
- linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
- linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arch@vger.kernel.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: [PATCH 01/11] params: bound array element output to the caller's page
- buffer
-Date: Thu, 21 May 2026 06:33:14 -0700
-Message-Id: <20260521133326.2465264-1-kees@kernel.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260521133315.work.845-kees@kernel.org>
-References: <20260521133315.work.845-kees@kernel.org>
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6259410E18C
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 11:28:25 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-13643f6d1a9so160168c88.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 04:28:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779362904; x=1779967704; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MOrMn42JIi4qVYWDtDVlJUx7fmd1ReUe1tYeo+4md7U=;
+ b=Qkfseh/S1wVnVj2RQ79tomAgQsTexxu1jv7bc4liWbcqzG9jSnvTfr6LjlK90gEcZ+
+ kmrY9Ei9yvT3ZPkRS+dLm+beDFycS+Zof4mC9Ors6Pnr/j4/wY70te9YzhRhHQAH2HqD
+ imZnRveSubIV9Oi+OB/oGfkdRPev7qXmBQbRpE4+FdzaD0tDd61dbB7zTEr9lZdQErNF
+ dj5CxevCZi3jRFgGeE3AP8CMvfeXHL97U658bqOCyXzoZ7IXM7KQk8b27q7tXccZRB8R
+ 9B527XUsL+Y96xiGIStZ4Wdath4AT/u2yKr3rdN+bVFQvvxviuAgMFj1+dNCod8s+yUW
+ n0DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779362904; x=1779967704;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=MOrMn42JIi4qVYWDtDVlJUx7fmd1ReUe1tYeo+4md7U=;
+ b=gw5o7mEwOOr6uVgO96Iv7vZR6kVHE9vVtOG3rxhtKbTZqIydSAKr6ZIpLJFhxH4ilC
+ IJUW9MoGYcmwFy3QjweHvbgDw8wRvhA8ZNb+APEJMRWEAXYt3cA+HjS5BGAUvkk1qJw2
+ N/D1r+nqcXGbogRcFmyUHrkqekH5lQrg6znQpZVfqyGjxER/Q/poXAFX1sL7z/gtH5Dz
+ xANKRi7S9eaDyjWq3eBzxQvf8Z4hAh/wRduIG5ms/M7SMASooYj5dll+wQyB3yaFZr7t
+ LjJlgQDCnABKApWDdZglvj/GE8/r2Cw5ehohmD6ljgNVsuH3pIxxOe+IvUVuZdG/eso8
+ JnxQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8uIYYJptnGizskXXE90HHMxYu4kt9TGPWmUUlXpC14gcwb8VpoQ2m2gWTFFuU7TUPBZh0bUDplcX0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxu4WVPPiV8KsydY8bB9EBccPFio9J4pDbmHuHjPFyB7Jg9dRw1
+ JroRtkl1WdvswT4ykN/WAYtTItaKkWPsA0Ty+wbf32aNnEWtF2GJqH1Z
+X-Gm-Gg: Acq92OGbvC0dGuwb46hNvtE7EzZBTpc0FGOPHBpjBWeQkCT7GhuKr9af081JwLcxgJk
+ HsY3UTsarUXpxYlaoEXzAxcgewjJ0QOhEml0AmOOQmeFPrzWE743EQjC8PP5pBpXNh+hya1uGLn
+ nG1bF1H4+Bf9jsVPqzXKmlkzjHQCVMQUTegMG6kYTEsKaRh4eqWXoNLufXFree3FJav3PufxTqR
+ NLK4mRYoMmWyQSfQklOw+MpZY50+LAKwuh1mh/f13RDTVzaaHUaSDUk9ChFRSse0IVlz7XRla9X
+ fcsPH4aUolFPsldI61IEttuR4of4KpvhQmE83oGGrXuyBAmgUTgeJO5ZmLvMjAkddwWO/jThvxr
+ MmkerSsegU5f2NF6txGvnuSKboOt77O2LvyuKpJW7rPUOTuQpIg5UQqibj5TNhh1P3NB1WnR2Ps
+ SQ6i+kGAsdzD0M+CIQsUojlrxe3TbjWBRA58uyU4Nobg==
+X-Received: by 2002:a05:7022:384b:b0:134:fea9:f106 with SMTP id
+ a92af1059eb24-13632c34f37mr1180557c88.34.1779362904342; 
+ Thu, 21 May 2026 04:28:24 -0700 (PDT)
+Received: from wujing.localdomain ([74.48.213.230])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-13652ac2afasm27839c88.14.2026.05.21.04.28.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2026 04:28:24 -0700 (PDT)
+From: Qiliang Yuan <realwujing@gmail.com>
+To: dev@lankhorst.se
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ hannes@cmpxchg.org, linux-kernel@vger.kernel.org, mkoutny@suse.com,
+ mripard@kernel.org, natalie.vock@gmx.de, tj@kernel.org
+Subject: Re: [PATCH] cgroup/dmem: implement dmem.high soft limit and throttling
+Date: Thu, 21 May 2026 19:28:19 +0800
+Message-ID: <20260521112819.62182-1-realwujing@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <63878874-39d2-43d5-9fc3-68addf9ebbdd@lankhorst.se>
+References: <63878874-39d2-43d5-9fc3-68addf9ebbdd@lankhorst.se>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2143; i=kees@kernel.org;
- h=from:subject; bh=3eO38ZdE0rbljlF5l/QfEOapKDQ3GxlJmKbxHXugskI=;
- b=owGbwMvMwCVmps19z/KJym7G02pJDFn8nAtqmS7cf3B//69jZ5rrq6va9p3fNOGM7h2Jd74Pn
- JTCV6u3dZSyMIhxMciKKbIE2bnHuXi8bQ93n6sIM4eVCWQIAxenAEzEYiojw//ne8uu9YZ9+sWp
- mJ7czDyrP2Afv+2f21+/99yL9Jp+OI2RYVNeQ9witS6BzPe55aerW/eveRmS81ixc8XMVftPpj7
- OZQAA
-X-Developer-Key: i=kees@kernel.org; a=openpgp;
- fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 22 May 2026 14:41:04 +0000
+X-Mailman-Approved-At: Fri, 22 May 2026 14:41:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,74 +90,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Hello Maarten,
 
-param_array_get() appends each element's string representation into the
-shared sysfs page buffer by passing buffer + off to the element getter.
+On Thu, May 21, 2026 at 09:45 AM Maarten Lankhorst wrote:
+> It's the approach I'm more worried about. I believe that it's
+> better if we punish exceeding their high limit by preferentially
+> evicting those.
+> 
+> It would make eviction run in 3 passes on the affected cgroup tree:
+> - Round 1: Clients above their 'high' limit
+> - Round 2: Clients above their 'low/min' limits
+> - Round 3: Clients at or below their 'low' limit
 
-That works for getters that only write a small bounded string, but
-param_get_charp() and similar helpers format against PAGE_SIZE from the
-pointer they receive. Once off is non-zero, an element getter can
-therefore write past the end of the original sysfs page buffer.
+Thank you for this concrete suggestion. This 3-pass eviction model is 
+exactly what's needed to make the dmem soft limit effective.
 
-Collect each element into a temporary PAGE_SIZE buffer first and then
-copy only the remaining space into the caller's page buffer.
+It addresses the core problem of providing a viable "recovery action" when 
+the limit is reached. By integrating these thresholds directly into the 
+TTM/dmem eviction weight calculation, we can achieve a more natural 
+over-subscription model.
 
-Cc: stable@vger.kernel.org
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Kees Cook <kees@kernel.org>
----
- kernel/params.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
+I will rework the series for v2 to incorporate this hierarchy-aware 
+eviction logic.
 
-diff --git a/kernel/params.c b/kernel/params.c
-index 74d620bc2521..752721922a15 100644
---- a/kernel/params.c
-+++ b/kernel/params.c
-@@ -475,22 +475,36 @@ static int param_array_set(const char *val, const struct kernel_param *kp)
- static int param_array_get(char *buffer, const struct kernel_param *kp)
- {
- 	int i, off, ret;
-+	char *elem_buf;
- 	const struct kparam_array *arr = kp->arr;
- 	struct kernel_param p = *kp;
- 
-+	elem_buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
-+	if (!elem_buf)
-+		return -ENOMEM;
-+
- 	for (i = off = 0; i < (arr->num ? *arr->num : arr->max); i++) {
--		/* Replace \n with comma */
--		if (i)
--			buffer[off - 1] = ',';
- 		p.arg = arr->elem + arr->elemsize * i;
- 		check_kparam_locked(p.mod);
--		ret = arr->ops->get(buffer + off, &p);
-+		ret = arr->ops->get(elem_buf, &p);
- 		if (ret < 0)
--			return ret;
-+			goto out;
-+		ret = min(ret, (int)(PAGE_SIZE - 1 - off));
-+		if (!ret)
-+			break;
-+		/* Replace the previous element's trailing newline with a comma. */
-+		if (i)
-+			buffer[off - 1] = ',';
-+		memcpy(buffer + off, elem_buf, ret);
- 		off += ret;
-+		if (off == PAGE_SIZE - 1)
-+			break;
- 	}
- 	buffer[off] = '\0';
--	return off;
-+	ret = off;
-+out:
-+	kfree(elem_buf);
-+	return ret;
- }
- 
- static void param_array_free(void *arg)
--- 
-2.34.1
-
+Kind regards,
+~Qiliang
