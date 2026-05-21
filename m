@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F13A6CD5BBB
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:33:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60FEECD4F3D
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 904B110E51A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C739610E52F;
 	Thu, 21 May 2026 13:33:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OsMbrSfw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gKeaVp4g";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D519E10E515;
- Thu, 21 May 2026 13:33:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6A1610E515;
+ Thu, 21 May 2026 13:33:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 150F360231;
- Thu, 21 May 2026 13:33:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCD6A1F00ADE;
+ by sea.source.kernel.org (Postfix) with ESMTP id DE51E4460A;
+ Thu, 21 May 2026 13:33:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93D611F01572;
  Thu, 21 May 2026 13:33:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1779370406;
- bh=D92GfeXfztwtGh+NKFXW+ejJ7GCi/ckBt7Icqwg1tfs=;
+ bh=mCDvxzUe4SUE/8My5CdCqwCgEMUsyBtFnEQMMX6d/s8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=OsMbrSfwtX1kazk5IQM74ggG4Dvao03ITo2rB7fjYJyw9ABWXfqI+9aA5qAj2SR/5
- bCJNN1CMD9hyb5ppglH/pZwAMSiek0jplgAMqEVVQL5JpcL8KAc0T0+rQaEkPfLgZJ
- h9CesS2RNlFMe0lhxQwlPJ5aoyzt8jSouyNeQ/ut9fjkrIWPM1iotTIo8B7ZH0pEOt
- PXBO5iwh3tZMUmZ6TsOUjTCKa3JTEC0MG2ngQVnXCKyNc+yajzL20Z6iBGWjesqILa
- wl9GSf1Gtg2R6s/MvPcceAUrPZB+a/bbJr58Jk3b4DpNimJFAtwQW4sG1Fmcwkxlwv
- gBE9pRr5KxqXg==
+ b=gKeaVp4g+fZOCB2d1zbjK4W3dvda303iCxWkDVj8H14UNIIGY3gLpzELeZZiKDuA0
+ 6JIfunc/nVUvSrBIfRk900oxZ2787B+gF2h77BXqscTXGWlKDLIlSThYYzXi6Zaf6k
+ rSGRMLv44XHHzSMHgbqg/hi8HytIpEFrRSPhR2+NF71x4bQnEWRMd+fmzjPChz9SHD
+ l99zEnTWxInewz9sw/ltbjS6dRQ4fdJNXiQJ67R4+Wc+4RYmFsK3aPla3MQMOLPRtt
+ Du0AZ41GslozrTV5c51WftQYxJqxNJ5tdYXIlfTZ4AdLpFEJ8Cy0CdC8iVcMT6c/cM
+ 6A9cOjvqn/5+A==
 From: Kees Cook <kees@kernel.org>
 To: Luis Chamberlain <mcgrof@kernel.org>
 Cc: Kees Cook <kees@kernel.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
@@ -94,19 +94,19 @@ Cc: Kees Cook <kees@kernel.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
  virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-arch@vger.kernel.org, netdev@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: [PATCH 05/11] moduleparam: Rename .get field to .get_str
-Date: Thu, 21 May 2026 06:33:18 -0700
-Message-Id: <20260521133326.2465264-5-kees@kernel.org>
+Subject: [PATCH 02/11] panic: Replace panic_print_get() with generic helper
+Date: Thu, 21 May 2026 06:33:15 -0700
+Message-Id: <20260521133326.2465264-2-kees@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260521133315.work.845-kees@kernel.org>
 References: <20260521133315.work.845-kees@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3072; i=kees@kernel.org;
- h=from:subject; bh=vLGSuUHmnLi1/YHHelOJK4C4TcXRiKv4YFWn5np0glM=;
- b=owGbwMvMwCVmps19z/KJym7G02pJDFn8nAsD4o0V/uTmcB53njx1B6e/bj7HRgn2VXOEOnsWp
- wZ2X7zWUcrCIMbFICumyBJk5x7n4vG2Pdx9riLMHFYmkCEMXJwCMBEONkaGy7PKr73Ur1Czz5B6
- etdJJuEbm4bhmk/7zrsdOuT8PYl9KSPDwTtq/fyyAtr+f2YaPvkpdWtWnGfLNNfmFeI5M+tXlVf
- wAAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=866; i=kees@kernel.org;
+ h=from:subject; bh=We2iaIAjr+4pDVj6nN4taHbnlsqb7PEX4Rc0M//7Kt8=;
+ b=owGbwMvMwCVmps19z/KJym7G02pJDFn8nAumTnkv6GXi6mHz69T5F/eS51xN2sf9+OYJ/5tKM
+ a7BKpWXOkpZGMS4GGTFFFmC7NzjXDzetoe7z1WEmcPKBDKEgYtTACZy9S/Db7YGn+v9lrVPV4gu
+ m3xhJm8Bs3PHO2Ofhg7+Rze8/k6O/Mzw3yuT8f9jHfbF7g9KrUVDtZlPT9yg9mVa1fd5W55tLpg
+ ayQcA
 X-Developer-Key: i=kees@kernel.org; a=openpgp;
  fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
@@ -125,86 +125,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that every kernel_param_ops initializer in the tree goes through
-DEFINE_KERNEL_PARAM_OPS, no source file outside kernel/params.c and
-include/linux/moduleparam.h references the .get field by name. Take
-advantage of that to rename the field to .get_str.
-
-The bare .get name is now free for the next commit, which adds it
-back as a struct seq_buf *-based callback.
+Since panic_print_get() just calls the ulong helper directly, there is
+no need for it to exist as a wrapper.
 
 Signed-off-by: Kees Cook <kees@kernel.org>
 ---
- include/linux/moduleparam.h | 8 ++++----
- kernel/params.c             | 6 +++---
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ kernel/panic.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/include/linux/moduleparam.h b/include/linux/moduleparam.h
-index 26bf45b36d02..f5f4148e2504 100644
---- a/include/linux/moduleparam.h
-+++ b/include/linux/moduleparam.h
-@@ -63,7 +63,7 @@ struct kernel_param_ops {
- 	/* Returns 0, or -errno.  arg is in kp->arg. */
- 	int (*set)(const char *val, const struct kernel_param *kp);
- 	/* Returns length written or -errno.  Buffer is 4k (ie. be short!) */
--	int (*get)(char *buffer, const struct kernel_param *kp);
-+	int (*get_str)(char *buffer, const struct kernel_param *kp);
- 	/* Optional function to free kp->arg when module unloaded. */
- 	void (*free)(void *arg);
- };
-@@ -82,7 +82,7 @@ struct kernel_param_ops {
- #define DEFINE_KERNEL_PARAM_OPS(_name, _set, _get)			\
- 	const struct kernel_param_ops _name = {				\
- 		.set = (_set),						\
--		.get = (_get),						\
-+		.get_str = (_get),					\
- 	}
- 
- /* As DEFINE_KERNEL_PARAM_OPS, with KERNEL_PARAM_OPS_FL_NOARG set. */
-@@ -90,14 +90,14 @@ struct kernel_param_ops {
- 	const struct kernel_param_ops _name = {				\
- 		.flags = KERNEL_PARAM_OPS_FL_NOARG,			\
- 		.set = (_set),						\
--		.get = (_get),						\
-+		.get_str = (_get),					\
- 	}
- 
- /* As DEFINE_KERNEL_PARAM_OPS, with an additional .free callback. */
- #define DEFINE_KERNEL_PARAM_OPS_FREE(_name, _set, _get, _free)		\
- 	const struct kernel_param_ops _name = {				\
- 		.set = (_set),						\
--		.get = (_get),						\
-+		.get_str = (_get),					\
- 		.free = (_free),					\
- 	}
- 
-diff --git a/kernel/params.c b/kernel/params.c
-index e19fff2926bc..6852caea1785 100644
---- a/kernel/params.c
-+++ b/kernel/params.c
-@@ -467,7 +467,7 @@ static int param_array_get(char *buffer, const struct kernel_param *kp)
- 	for (i = off = 0; i < (arr->num ? *arr->num : arr->max); i++) {
- 		p.arg = arr->elem + arr->elemsize * i;
- 		check_kparam_locked(p.mod);
--		ret = arr->ops->get(elem_buf, &p);
-+		ret = arr->ops->get_str(elem_buf, &p);
- 		if (ret < 0)
- 			goto out;
- 		ret = min(ret, (int)(PAGE_SIZE - 1 - off));
-@@ -554,11 +554,11 @@ static ssize_t param_attr_show(const struct module_attribute *mattr,
- 	int count;
- 	const struct param_attribute *attribute = to_param_attr(mattr);
- 
--	if (!attribute->param->ops->get)
-+	if (!attribute->param->ops->get_str)
- 		return -EPERM;
- 
- 	kernel_param_lock(mk->mod);
--	count = attribute->param->ops->get(buf, attribute->param);
-+	count = attribute->param->ops->get_str(buf, attribute->param);
- 	kernel_param_unlock(mk->mod);
- 	return count;
+diff --git a/kernel/panic.c b/kernel/panic.c
+index 20feada5319d..42e5ebde4585 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -1214,14 +1214,9 @@ static int panic_print_set(const char *val, const struct kernel_param *kp)
+ 	return  param_set_ulong(val, kp);
  }
+ 
+-static int panic_print_get(char *val, const struct kernel_param *kp)
+-{
+-	return  param_get_ulong(val, kp);
+-}
+-
+ static const struct kernel_param_ops panic_print_ops = {
+ 	.set	= panic_print_set,
+-	.get	= panic_print_get,
++	.get	= param_get_ulong,
+ };
+ __core_param_cb(panic_print, &panic_print_ops, &panic_print, 0644);
+ 
 -- 
 2.34.1
 
