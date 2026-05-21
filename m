@@ -4,129 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6121DCD5BB0
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 17:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1D4CCD5BAF
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 17:28:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5628010F341;
-	Thu, 21 May 2026 17:19:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1DEC10E4BD;
+	Thu, 21 May 2026 17:28:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="HFhJN2Uw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5gvzMVLu";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazolkn19012059.outbound.protection.outlook.com [52.103.2.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF65C10E1D4
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 17:19:07 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012068.outbound.protection.outlook.com
+ [40.107.200.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3433210E4BD
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 17:28:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b7wBJS6AKXKoPtVj7Y7UTBJUhjiy+ibH+Xn2EZvb2I5o9zlOBqRANUFlGS4iTwfNMJILBVMRS9n/NMSEvgsfmqtIqSoQHr7XjgJ4s1bdtw+iPCalOAHyoPjts0q4lkWmSj6UJGapsvhBOrs2a1vPzNVch8fnTuTeRqPZtqfbqi/zCnet9IVAK4PCc04CRWhWupK2YcU1Ew+i+7VRdolqGba8o1RVmr1hbYNrN/0HZe16zGIiZi/TxnkwR5md973ho2xvRn9XJPF/ev65InQhvbdc/GR/heaoU/8v7qNSFquXxkh5J6W69wWzyvtwRDWB9dudtJVlM3nw0Get3owFCQ==
+ b=E2D5OSTDu87lifPcq6tcB+YFVRUiwp7T791mjSD/aFeSMHfrd9+5VKNSXH3kiklZ14CJYotS2X5+RCLkZHNk0+74baOK0bxwFuBCFEzTG0VU7/1Y3rMQeEqdClpCIgYIYr66UBO3CEKCOGS90nLvEr4zyVL1r0ki9onfZanFw8xHVHcNeCvbCvyFT2j5yIalQ57zg1p22BoK1h0if8VxBOgtRTvgldflocKtAbNljjd2LRCj/jEsOAEWMT47HvrwuhPvEn/sd3hu37b/ljLEupCAJFW+mq5rBnDS4LtSDjEWeeaebYkq2pMUSQTxWNSSNghzyGoMZvd6VeWBN2YjbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1ypENyYp7QHoZaRZpMdt2X/LsakFgKUb3XLbJKPohns=;
- b=i3TOz9rhK5AGt82rBvHkI1o72eA+3LXnTRzEmjONkGDCpoqMxcl720m83SBCdRJn2q5irET+7WBzUIAxKHaOZE71ZiajE5QCm5I3ablayEmBYM7b7hQWr9xTStBcBHNkTRDqujc6duqRp1dQg3t4L8hQaOCQgaiMJxHSDcCy2pshBYRKU/c1FzdlC8SiMxbG7n1YF624qUFWCh6hNPVlNb2h0bK/RO0SZJn10yCMfeiUtVFZ7+CPqBLuD4eINDQxqVDdPxqfEkXnVexwRPA0oGrQusk5IPughF/azTwyp/wdpwne25jcW3Jb+YfGszFjshTVZFuT4mkb0Ok1YbNCmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ bh=vONRz7RFZXEIb3OTxBTQ5Ao3Ze2/CD6tr6O6uVot7xU=;
+ b=ng6lCG1lYEx+qd3lf6D4P6yb4S/9wjUdEk0e6l4rTY4eGw7wHe9mIOefbGKIKsGqoMcGG9td9mZ3Yre0+fUE+hSWl6heGRyCdtIulyrm/A0Y4tQd0zmg2pZFEE4U7vBgMpUEabai1Ow0V9QDjmPsDxMdYdWrOK4wP/qgVH6gu0C/qQTAlUBujZAJH+GOsfuZFsPfSo+19BCNsv3r1wL7z0LuT12ZFrLIgM3O7YVDKI1L3ytwGf7ntRBtlKJ0X9vdFETxApVka7fZvnoB1mTEpKhUlQ9g9TxtxHuALJb50/53cvHmXegF6fgkM0UuRVyS68K0hGpktmkXqwZkVrsrhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ypENyYp7QHoZaRZpMdt2X/LsakFgKUb3XLbJKPohns=;
- b=HFhJN2Uw56oBus+P4a5V/ssgMzFipiRRQP9jj9PgdJTx89flK+SL4HCshKunHeWeXPr/1EM3MGgWemYogCnONwNOgPBrlC9vVO4Zu1ceEWG++Qw9blKLRWq7K4vHBRzkBjG7LTsTUtBbqKaT4VdbYa7S2ne84DsgEQLtzhapRQ1kqwT5tsGLWxXnb9ccGW4w2igVl0knE6NqJbO2nRmZm1zMubLXuSUas3N2fQfal5OCez2mxLkd/nNjiY6aZ8bcg2OROh23phelQYPgA+l1WBhx+YtuxaGH4cwZznRS7m5EcCJR91o7iY3LFgRshBWuOcyPWND5Bnnrhr0vYr5EqQ==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by MN2PR02MB6814.namprd02.prod.outlook.com (2603:10b6:208:199::16)
+ bh=vONRz7RFZXEIb3OTxBTQ5Ao3Ze2/CD6tr6O6uVot7xU=;
+ b=5gvzMVLuU+uQg2ONfuZ1TFgMCd73OLNzvQo6hBh/TiuiAunLXdPn4xjySWxe07vWpdu9FavXhjMrk/yToJwLvNFXuTzWqithYVLpqtnx4/iQkLwQIsICKSAokpjCxdv4SS9BMaYrLEaPijZsHxGSeuQpEpZ7yN1UliTBYbKljsE=
+Received: from SJ0PR03CA0335.namprd03.prod.outlook.com (2603:10b6:a03:39c::10)
+ by MN0PR12MB6030.namprd12.prod.outlook.com (2603:10b6:208:3ce::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Thu, 21 May
- 2026 17:19:04 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%5]) with mapi id 15.21.0048.013; Thu, 21 May 2026
- 17:19:04 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Berkant Koc <me@berkoc.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
-CC: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
- Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>, Thomas
- Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Deepak Rawat <drawat.floss@gmail.com>
-Subject: RE: [PATCH v3 2/2] drm/hyperv: validate VMBus packet size in receive
- callback
-Thread-Topic: [PATCH v3 2/2] drm/hyperv: validate VMBus packet size in receive
- callback
-Thread-Index: AQHc5816N8UGGzrbNEC1JOxCe/0MVrYYvDsw
-Date: Thu, 21 May 2026 17:19:04 +0000
-Message-ID: <SN6PR02MB4157BBE2E29FE5B21B51FF19D40E2@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <cover.1779221339.git.me@berkoc.com>
- <e6e63276cca2901641ab39029e4fd3d621b1ee92.1779221799.git.me@berkoc.com>
-In-Reply-To: <e6e63276cca2901641ab39029e4fd3d621b1ee92.1779221799.git.me@berkoc.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|MN2PR02MB6814:EE_
-x-ms-office365-filtering-correlation-id: cfd6db04-207f-4c77-2c03-08deb75d0ee4
-x-microsoft-antispam: BCL:0;
- ARA:14566002|8062599012|15080799012|8060799015|12121999013|13091999003|19110799012|31061999003|41001999006|51005399006|37011999003|19101099003|2604032031799003|440099028|3412199025|102099032|40105399003|1710799026;
-x-microsoft-antispam-message-info: =?us-ascii?Q?/AsZQESDEeEVMZl0jZbWEZeVmiJnwTU8gZMUUgaQqdyG4jNju4sQBHUS0wfw?=
- =?us-ascii?Q?wWk0VCDk7PZknve472Gtkrjq1QlSirR9FxD73MmoVx7AXooKYGnmtMt7V3zG?=
- =?us-ascii?Q?sPEJg70s8IiwPnkZqYumLkOfaDnh1UY8F68NW+Vmnjf4Emdfi3PKIHeA6ySt?=
- =?us-ascii?Q?d5JsBnlNydKEl0pjAV//LTnelnY+uunM6xptF5ouNthUACr+9S41zzTzR9wT?=
- =?us-ascii?Q?qx31Biow4Cz/9M7Iq29NTBaOEwJHScgc2NzqtvVf27/sry8UX5dXZHpVoWsk?=
- =?us-ascii?Q?paPUpKBMZ3qpxSUGHrVG1gnmt4OOJrWzVWGBmOJUG5Za5DBc8gPGfPRUGDX+?=
- =?us-ascii?Q?jhHNYQ3kDh0kmkYN1tXM41vTstR60K4GJLHPdTSe4OZHwOu8KFUclsyhE3B4?=
- =?us-ascii?Q?fNH0U6iJEaxWdkABxDb8TjPODzrcqwF68HW1pKMDdrA5djxeB6IgzKosVj0w?=
- =?us-ascii?Q?cREIOalxDSJ3YvpvqkO5c7wrikB9IjxKgvk/p3wCvpJ3UaAQUgXZ7SDoCOhp?=
- =?us-ascii?Q?NtdVbQL4uHJ/+wSog7f2i3E6Xrfvm6JB8iz0UdA+S04dCXHkNFwK9yVh94US?=
- =?us-ascii?Q?ILn4ReqlTZfw0mOGzdRDjv7ljJzIU5w2VIjDR8rEk5yBU/Bel/4zQCAkC4j3?=
- =?us-ascii?Q?521uSQm567e7GCEizR56699uKjOcveBjpdcMkJhGwCqAl9IztRXpQXsO3dOB?=
- =?us-ascii?Q?IkOzhFjxE9CGVq/oQKc8kvbLi8AXF6uETd/18KPrCMoTjQojL6n61d+WPXOq?=
- =?us-ascii?Q?spnvwMumKgdci7hYXyvgTrcauf/wqiTcSwe6tf2UrYEKduRGV3gdbFxL4L4+?=
- =?us-ascii?Q?m1pfZMUFLCCJLNxKo/AG+qNCIjlKlBbhZ4UyvmWhU/jLK65E+hYEIk5ztMkr?=
- =?us-ascii?Q?+OkuwHnGLMds+a+AA3FpD+iljvNxPdYEbKx87XvEsRPIsuk4TKtImaU4pZZQ?=
- =?us-ascii?Q?cyw++niPCSCukcfPTUPpf/mOqEtfMzapk7jF/JUO2ASgPgfVzJpahxPlZXwh?=
- =?us-ascii?Q?r4oiCnS1HqS9SHGEU8dWu/47/kVj3PNlNZOu7GsJBrH5YPKjsaoi52/k9gaf?=
- =?us-ascii?Q?Quk8VtOfjbQve3bjvxeWNQLw7p4TDeGvt8Ls1w93fRV23GJyeIf6JcQxymTq?=
- =?us-ascii?Q?3wyMs2hWq95/?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Hu7f8C5Lv+4g57sfH91b8PRNby5dJS3b1qJuBwRPqg80e5VboNmIUp2yWtJL?=
- =?us-ascii?Q?0QL7Egi7BKultZ8aU4LsVsnS8zB4vKLBb5frcY+hf4nXTzzm6UbQGcoKX0fO?=
- =?us-ascii?Q?p8/6ZjGgGTahhbtrUp624rSrGlIXleS4PU47lOi0+t+zhO2l+ALdVkthzfDS?=
- =?us-ascii?Q?rOCP+DZ9ZWnRYzuSpOYsa7f9+eQPfuS72W+xF4uhkGhQMRz8j4sNOD9Uw5dg?=
- =?us-ascii?Q?r0WNpLY5ljYhBq0wcB65wNNlD7twkZ7Ia+i6SwKQrKsYo0vaWK2+Y30/JOY8?=
- =?us-ascii?Q?zsc9f9KHobAuMD9meiJ0Ia73b5Xi8W0/7/kkSo85rt6+O5NeVNb4CvVpeBSE?=
- =?us-ascii?Q?OqqZf1R9B/yv/wo97IAmR91ihRUiVVT05BX+YGwJlHJIP318VZgcCfXKxEIv?=
- =?us-ascii?Q?GpZ75D9HYFgNmuFzX2eLPTtlfPfvV1S+6+SwCiQ1+ocoTe0BiHMn/RYpC9sw?=
- =?us-ascii?Q?SiT2RM9YNuatMTp7mA86OxcNIx6gM+9+xBofsrLuMEL/V6A6uVkKg5GYvq/m?=
- =?us-ascii?Q?aB9y+pLpcywbsmrw81kSdsbQc5KeCusARSEiIZwCQXkq8T4/hiIcPlT6QUlE?=
- =?us-ascii?Q?Xy5q7c7LV8YTxjNgy9GMiHkkl8zIYHILMKWtGihQVOIXZoTLVObX2Xv01l0U?=
- =?us-ascii?Q?aoLM1t8uLD4VYRH1xuFIOgfUOgs5DnufzLmyM+BDBeJ5+kZRMlER36labCYx?=
- =?us-ascii?Q?UY5AjACXveGpXKIq6BqsNRvK+n2fkvYycT/ZTFS4wSSoGWvyH/y2mdC/+4FR?=
- =?us-ascii?Q?0eyoDCahY2jNfesdt93/gAgcgQAcfBJ8G5MMtA9eJ3k4hP9OFNc33JT0KvJZ?=
- =?us-ascii?Q?Ww6lCnDRUiLlYmrJQ9Nb2Ap9PEImhtje4zWtiv1V/v5427+dfnmkFyqa1864?=
- =?us-ascii?Q?xwzB/2ufdq8bxW0mikl3hAlou8DzQvWw867UXDRCi5CEN8estki0MQv7EnCl?=
- =?us-ascii?Q?N9WD6yyixFSGu8mNyHA+f7u65FtOFNpmR949x8vDpZfPJDYwc8IkdqsQhxHq?=
- =?us-ascii?Q?q9h+y6BcO2R8bfsmMp43ZQxdgo3XEf3ft0aUiH/EGKWHMNWylgSo8wLQpJWx?=
- =?us-ascii?Q?7t2RSefHWebvxLyAKfseBIDHImLztN4QKUTWgPfP8Yb6QfWfgyZiDRncA6YP?=
- =?us-ascii?Q?yYW8SbI9T0+YjGymepZJzehbHukeNaaoy+xXugInclKmLIWF+zesi9Tstoyc?=
- =?us-ascii?Q?PVrfF/PgWVP0ZacXLuYPg69vT+Y/MBEH5A9Yji0V2m47hVGN6W+UfPGiQAs7?=
- =?us-ascii?Q?DZbLn0zEHUfvW+kqGaRCE72KP/1t5loliwRbL8AQUPWcGbDSRSaOxJ71GSkD?=
- =?us-ascii?Q?i3FPeGSdz5+ofPCVhysfz+Ei1eJr7AF5TvQMcSCV2YXhfhdJxvIYkFNaiDf8?=
- =?us-ascii?Q?R4Mx7SA=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2026 17:28:18 +0000
+Received: from CO1PEPF00012E81.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c:cafe::57) by SJ0PR03CA0335.outlook.office365.com
+ (2603:10b6:a03:39c::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.17 via Frontend Transport; Thu, 21
+ May 2026 17:28:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF00012E81.mail.protection.outlook.com (10.167.249.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Thu, 21 May 2026 17:28:15 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 21 May
+ 2026 12:28:09 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 21 May
+ 2026 10:28:09 -0700
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 21 May 2026 12:28:08 -0500
+Message-ID: <819e2c14-0b8e-e1c9-a70f-bfe89c12d3da@amd.com>
+Date: Thu, 21 May 2026 10:28:06 -0700
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfd6db04-207f-4c77-2c03-08deb75d0ee4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2026 17:19:04.2340 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR02MB6814
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1] accel/amdxdna: Block running when IOMMU is off
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
+References: <20260520223531.1403302-1-lizhi.hou@amd.com>
+ <c0018792-7867-4fc6-b64d-7e0fb8717f08@amd.com>
+ <88097167-1bf9-235a-36dc-467207ee63c6@amd.com>
+ <3154ab4f-1808-4e8c-a7a2-128938d52299@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <3154ab4f-1808-4e8c-a7a2-128938d52299@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E81:EE_|MN0PR12MB6030:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7fd6ff63-73bc-4601-c264-08deb75e57b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700016|376014|13003099007|18002099003|56012099003|22082099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: /YMsTog1dCFwM2e0hLLYqhL3I27j3P02KYN8FIa5sZHPcIHHoRb8Rxf5Pu1B9UpsdadZo35F038W7ELpvTxMYZgKLfX4ajxpNr+cBAwXZTp4BShciQjVnQFx1VGEZCB3jtNsDwfZsYsdOm4njX+eI480jKl5ARA2b34fbMkZ4e44kjlUH/uznyPZBIpUzSWpkULaO2vO+pif9XGWoNdRT7LJlal2/+hf0zGaeQK0iEqVAeXCMnJTVu3V4wvufoABYIz6h5EClX5xCgG6GERczuOsg6n0CJuIv7A0NJDbKDbDRZ1ud47g8Cc1B+Xu/MqiXa/GJ4vM5/ey7EjPpwXOuEYlD7koPu3P1OrQpunEswrSiZk42DkPij0UHbed7614nNaYjaBbNCqXF2W2MQ3takYEgs/lxZJ7kCjMH8JcZ+HBKUR8Yxnyg+3T6IJ987+w7Gs3DzGqmYM7fCk3OkV1cBNQDKM3tjL+cPAqwgGWNSVA6kld3v+4cmTkQ7QkB9/vYjgHzMmJxmhiSCwHFz3pHmdMTWex3pCf4Qm/2NVRxa8N8mu6BHbj7x1Ao5z/Ghf8uJ7EX33Gur2+6vwBwLFR9+cq/zYUOrF94nXv6cI6H3oUpKaEBvK921VvOpD3WuJaDruEqtw0qAIDo+mkZQ+HhscYGHUm2sTqqdXXB3BKahkuXUXMSf4Ky6c1IYVwkElq
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(13003099007)(18002099003)(56012099003)(22082099003)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: i6fa2/orKufiso1SwWNIOBb4TGgL3UtQjCX2Ogn/p50Z6yH9nKh/PjV6N2wMadfrG5HTKwBOL1IR8tp3bSG9/uVNTi3FUwoxGFqIhzz0RuoJxKY7VaNUVt+UAjnqDvwXv7QMOnFigLjNEkZbm/ZKxBcPnCdkRqydXDMQX+7ZQpxbsh78ORHp8muE76ttt6gwKAXHahxz4rPByOfhq5KBpL+8V4os+81z81m/iViEzTyB+1v4zCH7KCsNSxNsBkqtyjKivFIDEih/SNvhiiCgpRlsylu/zjcGypmitLDegbY7BowXXP/PmdO9ZlGJW4zkhXI2vgN1FciwrvZjloOyH29bTYQC4B0s2b4Sk89yKCxGZBLL//TSvLMRg1EcgD1iVd7lE7dcU9U6Fwndkf3y2PO8N+xawcvfHtNBSya2Q+txmJpZpmS5ggJfxs6p+u7+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 17:28:15.8288 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fd6ff63-73bc-4601-c264-08deb75e57b8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E81.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6030
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,139 +122,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Berkant Koc <me@berkoc.com> Sent: Tuesday, May 19, 2026 1:09 PM
->=20
-> hyperv_receive_sub() reads msg->vid_hdr.type and dispatches into one
-> of four message-type branches without knowing how many bytes the host
-> wrote into hv->recv_buf. The completion path then runs
-> memcpy(hv->init_buf, msg, VMBUS_MAX_PACKET_SIZE), so the consumer
-> that wakes on wait_for_completion_timeout() can read up to 16 KiB of
-> residue from a prior message as if it were the response payload.
->=20
-> Pass bytes_recvd into hyperv_receive_sub() and reject any packet that
-> does not cover the pipe + synthvid header. For each of the three
-> completion-driving types (SYNTHVID_VERSION_RESPONSE,
-> SYNTHVID_RESOLUTION_RESPONSE, SYNTHVID_VRAM_LOCATION_ACK) also
-> require the type-specific payload before memcpy/complete, and apply
-> the same rule to SYNTHVID_FEATURE_CHANGE before reading is_dirt_needed.
-> The memcpy then uses bytes_recvd, which is bounded by
-> VMBUS_MAX_PACKET_SIZE through the call to vmbus_recvpacket().
->=20
-> Rejected packets are reported via drm_err_ratelimited() rather than
-> silently dropped, matching the CoCo-hardened pattern in
-> hv_kvp_onchannelcallback().
+Applied to drm-misc-fixes
 
-We discussed several issues with this patch in the feedback
-from Sashiko. But see one more issue below.
-
->=20
-> Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic vid=
-eo device")
-> Cc: stable@vger.kernel.org # 5.14+
-> Signed-off-by: Berkant Koc <me@berkoc.com>
-> Assisted-by: Claude:claude-opus-4-7 berkoc-pipeline
-> ---
->  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 42 +++++++++++++++++++++--
->  1 file changed, 39 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c b/drivers/gpu/drm/=
-hyperv/hyperv_drm_proto.c
-> index c3d0ff229..12d3feb4f 100644
-> --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> @@ -420,26 +420,62 @@ static int hyperv_get_supported_resolution(struct h=
-v_device *hdev)
->  	return 0;
->  }
->=20
-> -static void hyperv_receive_sub(struct hv_device *hdev)
-> +static void hyperv_receive_sub(struct hv_device *hdev, u32 bytes_recvd)
->  {
->  	struct hyperv_drm_device *hv =3D hv_get_drvdata(hdev);
->  	struct synthvid_msg *msg;
-> +	size_t hdr_size;
->=20
->  	if (!hv)
->  		return;
->=20
-> +	hdr_size =3D sizeof(struct pipe_msg_hdr) +
-> +		   sizeof(struct synthvid_msg_hdr);
-> +	if (bytes_recvd < hdr_size) {
-> +		drm_err_ratelimited(&hv->dev,
-> +				    "synthvid packet too small for header: %u\n",
-> +				    bytes_recvd);
-> +		return;
-> +	}
-> +
->  	msg =3D (struct synthvid_msg *)hv->recv_buf;
->=20
->  	/* Complete the wait event */
->  	if (msg->vid_hdr.type =3D=3D SYNTHVID_VERSION_RESPONSE ||
->  	    msg->vid_hdr.type =3D=3D SYNTHVID_RESOLUTION_RESPONSE ||
->  	    msg->vid_hdr.type =3D=3D SYNTHVID_VRAM_LOCATION_ACK) {
-> -		memcpy(hv->init_buf, msg, VMBUS_MAX_PACKET_SIZE);
-> +		size_t need =3D hdr_size;
-> +
-> +		switch (msg->vid_hdr.type) {
-> +		case SYNTHVID_VERSION_RESPONSE:
-> +			need +=3D sizeof(struct synthvid_version_resp);
-> +			break;
-> +		case SYNTHVID_RESOLUTION_RESPONSE:
-> +			need +=3D sizeof(struct synthvid_supported_resolution_resp);
-
-I'm concerned that this might be too aggressive.  The last element
-of struct synthvid_supported_resolution_resp is an array, and there's
-a count in the message describing how many elements of the array
-are populated. But Hyper-V may not (and probably doesn't) include
-unpopulated elements in the response message.  So "need" is likely
-calculated as too large. Are you able to test this in a Hyper-V VM to
-confirm?
-
-I think you'll find it necessary to first check that enough bytes
-have arrived to read the "resolution_count" field, and then use
-that value to calculate "need".  There are several other places
-in hardened VMBus drivers that use that same two-level
-technique. It's a pain, but there's not really any alternative.
-
-Michael
-
-> +			break;
-> +		case SYNTHVID_VRAM_LOCATION_ACK:
-> +			need +=3D sizeof(struct synthvid_vram_location_ack);
-> +			break;
-> +		}
-> +		if (bytes_recvd < need) {
-> +			drm_err_ratelimited(&hv->dev,
-> +					    "synthvid packet too small for type %u: %u < %zu\n",
-> +					    msg->vid_hdr.type, bytes_recvd, need);
-> +			return;
-> +		}
-> +		memcpy(hv->init_buf, msg, bytes_recvd);
->  		complete(&hv->wait);
->  		return;
->  	}
->=20
->  	if (msg->vid_hdr.type =3D=3D SYNTHVID_FEATURE_CHANGE) {
-> +		if (bytes_recvd < hdr_size +
-> +		    sizeof(struct synthvid_feature_change)) {
-> +			drm_err_ratelimited(&hv->dev,
-> +					    "synthvid feature change packet too small: %u\n",
-> +					    bytes_recvd);
-> +			return;
-> +		}
->  		hv->dirt_needed =3D msg->feature_chg.is_dirt_needed;
->  		if (hv->dirt_needed)
->  			hyperv_hide_hw_ptr(hv->hdev);
-> @@ -466,7 +502,7 @@ static void hyperv_receive(void *ctx)
->  				       &bytes_recvd, &req_id);
->  		if (bytes_recvd > 0 &&
->  		    recv_buf->pipe_hdr.type =3D=3D PIPE_MSG_DATA)
-> -			hyperv_receive_sub(hdev);
-> +			hyperv_receive_sub(hdev, bytes_recvd);
->  	} while (bytes_recvd > 0 && ret =3D=3D 0);
->  }
->=20
-> --
-> 2.47.3
->=20
-
+On 5/20/26 21:32, Mario Limonciello wrote:
+>
+>
+> On 5/20/26 22:43, Lizhi Hou wrote:
+>>
+>> On 5/20/26 17:57, Mario Limonciello wrote:
+>>>
+>>>
+>>> On 5/20/26 17:35, Lizhi Hou wrote:
+>>>> The AIE2 device firmware requires IOMMU on.
+>>>>
+>>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5319
+>>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>>>> ---
+>>>>   drivers/accel/amdxdna/aie2_pci.c | 5 +++++
+>>>>   1 file changed, 5 insertions(+)
+>>>>
+>>>> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/ 
+>>>> amdxdna/aie2_pci.c
+>>>> index c4d345d4c76b..22f66c7f534d 100644
+>>>> --- a/drivers/accel/amdxdna/aie2_pci.c
+>>>> +++ b/drivers/accel/amdxdna/aie2_pci.c
+>>>> @@ -490,6 +490,11 @@ static int aie2_init(struct amdxdna_dev *xdna)
+>>>>           return -EINVAL;
+>>>>       }
+>>>>   +    if (!xdna->group) {
+>>>> +        XDNA_ERR(xdna, "Running without IOMMU not supported");
+>>>> +        return -EINVAL;
+>>>> +    }
+>>>> +
+>>>>       ndev = drmm_kzalloc(&xdna->ddev, sizeof(*ndev), GFP_KERNEL);
+>>>>       if (!ndev)
+>>>>           return -ENOMEM;
+>>>
+>>> I think it would be better to change the return for 
+>>> amdxdna_iommu_init().
+>>
+>> amdxdna_iommu_init() is common code for all kinds of hardware. I 
+>> would keep the check only for AIE2 now, which is known to require 
+>> IOMMU on.
+> Got it.  Then this makes sense.
+>
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+>>
+>>
+>> Lizhi
+>>
+>>>
+>>> This has a check that lets !xdna->group pass; which can be turned 
+>>> into an error code instead.
+>
