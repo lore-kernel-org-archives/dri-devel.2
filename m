@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 270CDCD5BAE
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:53:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BD45CD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:53:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFB7C10F24B;
-	Thu, 21 May 2026 07:53:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD72C10F24A;
+	Thu, 21 May 2026 07:53:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="tkyWKwdq";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="pDWkfj9q";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BEC810F23F
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E57510F23C
  for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:52:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2A2AB60238;
- Thu, 21 May 2026 07:52:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EA971C2BCB4;
+ by sea.source.kernel.org (Postfix) with ESMTP id EC5EE445E2;
+ Thu, 21 May 2026 07:52:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C437AC4AF0F;
  Thu, 21 May 2026 07:52:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1779349978; bh=S4pPbSgc+qf3s7sj9z2x5AM1OIfB+ksx2cOL1FaBOAE=;
+ t=1779349977; bh=ZLZg3IepeQ/FIWdBo7ULWIJqtzCz5tUnDaQV8pb6xjo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=tkyWKwdqKhSdr3lwRDMPhBtzprdSJwetH8RWYZc8gSXV1yx6OJEKJENHK2rZyHrHM
- rf0RCsvAWX3M1DQ2ltJl4m8GLXhuxF8eST64Q/LC7u849LX6nQhjm9FlqpHq3kBey6
- A8Mb7EHWH1qGfUmVK0d9GR7mcQetrqYFjObzxAMM=
+ b=pDWkfj9qzfufJelx4OK0KKcWNMMIuB1wexLtWA8zNVjVn+c5Chit3trh2ke8ypAXw
+ bn7rSFJ9WjkGiQQNqUN1VAQ6eV8xPGxyrYGsCe/SOWrvjf5ia5QtVZa9H/20C3TrTo
+ 6BYr/vjzzz1mO3NbW+QjYJRkfbg4xsgTwcVsTPhI=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E0D38CD5BAC;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id B7B4CCD5BAC;
  Thu, 21 May 2026 07:52:57 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Thu, 21 May 2026 15:52:59 +0800
-Subject: [PATCH v2 7/7] block: rnull: use `LocalModule` for `THIS_MODULE`
+Date: Thu, 21 May 2026 15:52:57 +0800
+Subject: [PATCH v2 5/7] rust: miscdevice: set fops.owner from driver module
+ pointer
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-fix-fops-owner-v2-7-fd99079c5a04@linux.dev>
+Message-Id: <20260521-fix-fops-owner-v2-5-fd99079c5a04@linux.dev>
 References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
 In-Reply-To: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -60,11 +61,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
  Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779349975; l=753;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779349975; l=845;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=S4pPbSgc+qf3s7sj9z2x5AM1OIfB+ksx2cOL1FaBOAE=;
- b=D/WbQh6QCQ4+L8oHA0rQ/T+b96zfIASqmqtVA6vSSnL0g729WfQ333Fc4Gu/a3riPU0GOYKm2
- ILmRx37kgAvBAD1gAoSG/HegdK+N3yV5OgDBVjD2yOiAIVd4GuNszfW
+ bh=ZLZg3IepeQ/FIWdBo7ULWIJqtzCz5tUnDaQV8pb6xjo=;
+ b=ZPcQW+ke2M5roVi8hqjSu2tTV/KUO5SrxqOBAl4HnOX0EguwitDtpC+1e+TOpKDo8ODRgHXl6
+ 2TlCA91puNbAnSKac6TUK9BwTyx90qtpGPx93nCS4GVpkfpiQPIHcmg
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -84,31 +85,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the `THIS_MODULE` import with `LocalModule` from the crate,
-consistent with the move of `THIS_MODULE` into the `ModuleMetadata`
-trait.
+Set the miscdevice fops owner field from the driver module pointer
+via `<T::ThisModule as ModuleMetadata>::THIS_MODULE`, instead of
+defaulting to null.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/block/rnull/configfs.rs | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ rust/kernel/miscdevice.rs | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
-index c10a55fc58948..b2547ad1e5ddd 100644
---- a/drivers/block/rnull/configfs.rs
-+++ b/drivers/block/rnull/configfs.rs
-@@ -1,9 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
+diff --git a/rust/kernel/miscdevice.rs b/rust/kernel/miscdevice.rs
+index 83ce50def5ac9..16837c46bca49 100644
+--- a/rust/kernel/miscdevice.rs
++++ b/rust/kernel/miscdevice.rs
+@@ -30,6 +30,7 @@
+         ForeignOwnable,
+         Opaque, //
+     },
++    ModuleMetadata, //
+ };
+ use core::marker::PhantomData;
  
--use super::{
--    NullBlkDevice,
--    THIS_MODULE, //
--};
-+use super::NullBlkDevice;
-+use crate::LocalModule;
- use kernel::{
-     block::mq::gen_disk::{
-         GenDisk,
+@@ -430,6 +431,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
+         } else {
+             None
+         },
++        owner: <T::ThisModule as ModuleMetadata>::THIS_MODULE.as_ptr(),
+         ..pin_init::zeroed()
+     };
+ 
 
 -- 
 2.43.0
