@@ -4,49 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74DAFCD5BB4
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 18:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 904C9CD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 19:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5977510E554;
-	Thu, 21 May 2026 18:56:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02BD310E527;
+	Thu, 21 May 2026 19:02:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WyiW9jrJ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="O35bPHXR";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8352C10E1DF;
- Thu, 21 May 2026 18:56:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=sVjLEB7Naf89XwfAlVqfn6fiYt2mgbkC8rcKbVFM4ZQ=; b=WyiW9jrJE3IPmDbqRIByANcIDk
- F7bPShMluB90PMXEsvGSzgYTqQdg62Gi8gibiqP9BZAAN3Fs0rRSGmU2td/yfGgC7/eQlCqFwHrS/
- jC/kVuhnyxryPeT+ITnQu9D/gr65P0RO0Tk2Ww66iZDXCo9A4+TDXiilYxrMYMFjTN48j9V/oO/vt
- v6CNfXBsHE2uPMii8EiiN+niyVqrFwPPlWqtibsm06ESeCeV9E+lUUBIG4N9rMq1m7nXZktWGTpON
- ovS9a5si3THkoGFwxNCwoaK7uLdPcsxDTckPWNvy47Zli3MyjkD0xZiRkUNf5WKE83lqmKF1LY4r7
- BSVSRpaA==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wQ8ZZ-004V6y-8Z; Thu, 21 May 2026 20:56:45 +0200
-Message-ID: <add51789-7291-40d6-9c8a-f68f46f1f11c@Igalia.com>
-Date: Thu, 21 May 2026 11:56:38 -0700
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E683810E527
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 19:02:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779390083; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=QtFQnWfrqDSOpJKVk6QTILMbQ48kcsCTcVO2qOUOrdNx5yUljoNL8mQ3AuOABkJdT7XFGvG57OgYNiJ6BOTiQWGlRRsDqGaMtWfR2EBA7xlrPEcpAo7rmU/ClLWISMCLnGY36ySlNf1qqt3jt6k6O3hnpcOaFJ+ECwfpCNE8h68=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779390083;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=1kRt4VWbNQdDPdtCvmC+JOTMWdntqKcIlWHLvpo213Y=; 
+ b=BBb6ojXcp+UGCKaTRp5F+NfMGnJ8HF6OfwrO3a06ImyKsvEvdPLE7sxABi+fsIlIE0h+4vdsaNuYIcr3kiNRjXwgdjeZc16yHgisDFTf4rnHXTVcBHbmDrG0t/VKSZaLcXGk7M+yHEMOBQmCw8k5FdWItWXH1aqrN8H8tBIVudQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779390083; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=1kRt4VWbNQdDPdtCvmC+JOTMWdntqKcIlWHLvpo213Y=;
+ b=O35bPHXRavWJh44wjuVH1z3A1U/gj5uBH8Ztgek046pR3eH3GB8J8XbOkxUaWnHl
+ tGP1JR0fHcc9PORoBRGoAWGf+YSMsf6epu4Mi/Wabiawb6ZhLGJhppep1MpvQ2rb524
+ nbhh8Dnt9nwfkDR+4hhArnCIjspqxI/8Bi/+mTZY=
+Received: by mx.zohomail.com with SMTPS id 177939008156683.21234787815092;
+ Thu, 21 May 2026 12:01:21 -0700 (PDT)
+Message-ID: <4bc3709f-21bc-49f5-8fcf-972dec1397f7@collabora.com>
+Date: Thu, 21 May 2026 22:01:15 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/7] Refactor drm_writeback_connector structure
-To: Suraj Kandpal <suraj.kandpal@intel.com>, freedreno@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel-list@raspberrypi.com,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260521053708.1475129-1-suraj.kandpal@intel.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20260521053708.1475129-1-suraj.kandpal@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] drm/virtio: abort virtqueue wait on device removal to
+ avoid hung task
+To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+d6dd6f86d3aaf7eebe7406e45c1c6e549453f224@syzkaller.appspotmail.com,
+ syzbot+908bd910da5dd79b88de4cf7baf376cc873a922e@syzkaller.appspotmail.com
+References: <20260521-virtio-gpu_wait_event-v2-1-5796b3a71d03@redhat.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260521-virtio-gpu_wait_event-v2-1-5796b3a71d03@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,74 +75,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/20/26 22:37, Suraj Kandpal wrote:
-> Some drivers cannot work with the current design where the connector
-> is embedded within the drm_writeback_connector such as intel and
-> some drivers that can get it working end up adding a lot of checks
-> all around the code to check if it's a writeback conenctor or not.
-> This is due to the inheritance limitation in C.
-> This series intends to solve it by moving the drm_writeback_connector
-> within the drm_connector and remove the drm_connector base which was in
-> drm_writeback_connector. This is done in union with hdmi connector
-> within drm_connector to save memory and since drm_connector cannot be
-> both hdmi and writeback it serves is well.
-> A RFC version was floated and discussion had taken place at [1] which
-> kicked of this more cleaner series.
-> We do all other required modifications that come with these changes
-> along with addition of new function which returns the drm_connector when
-> drm_writeback_connector is present.
-> This series also contains some writeback API cleanups as a consequence
-> of writeback connector moving into drm_connector
-> All drivers will be expected to allocate the drm_connector.
-> This discussion was tiggered from [2] and sits on top of Dmitry's series
-> see [3].
->
-> [1] https://patchwork.freedesktop.org/series/152758/
-> [2] https://patchwork.freedesktop.org/series/152106/
-> [3] https://patchwork.freedesktop.org/series/152420/
-QQ: What tree is this patch set based on? I tried to apply it locally 
-but I get conflicts no matter what baseline I use. I've tried full 
-kernel, drm-tip and drm-next. Dmitry's patch set, [3] above, applies 
-fine but I get conflicts in the rcar and mali files when trying to apply 
-this set.
+21.05.2026 05:19, Ryosuke Yasuoka пишет:
+> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
+> wait_event() without any abort condition when waiting for virtqueue
+> space. If the host device stops processing commands, these waits block
+> indefinitely inside a drm_dev_enter/exit() critical section. Since
+> drm_dev_unplug(), which is called in device removal and system shutdown
+> call path, blocks on synchronize_srcu() until all critical sections
+> complete, device removal and system shutdown also hang.
+> 
+> Add a vqs_released flag to virtio_gpu_device and include it in the
+> wait_event() condition. Set the flag and wake up both queues in a new
+> virtio_gpu_release_vqs() helper, called before drm_dev_unplug() in both
+> virtio_gpu_remove() and virtio_gpu_shutdown(). When the flag is set, the
+> wait returns immediately and the command is aborted, following the same
+> cleanup path as drm_dev_enter() failure.
+> 
+> Reported-by: syzbot+d6dd6f86d3aaf7eebe7406e45c1c6e549453f224@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
+> Reported-by: syzbot+908bd910da5dd79b88de4cf7baf376cc873a922e@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
+> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+> ---
+> Changes in v2:
+> - Update the commit message.
+> - Replace wait_event_timeout() with wait_event() using a compound
+> condition that includes a new vqs_released flag.
+> - Add virtio_gpu_release_vqs() helper to set the flag and wake up
+> both queues, called before drm_dev_unplug() in remove and shutdown
+> paths.
+> - Remove the hardcoded 5-second timeout. Recovery is now driven by
+> the driver flag instead of an arbitrary timeout value.
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_drv.c | 15 +++++++++++++++
+>  drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
+>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++++++++++++++++++++--
+>  3 files changed, 37 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> index a5ce96fb8a1d..e4fe5e0780f9 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> @@ -119,10 +119,24 @@ static int virtio_gpu_probe(struct virtio_device *vdev)
+>  	return ret;
+>  }
+>  
+> +/*
+> + * Release pending virtqueue waits so the drm_dev_enter/exit() critical
+> + * sections complete before drm_dev_unplug() blocks on synchronize_srcu().
+> + */
+> +static void virtio_gpu_release_vqs(struct drm_device *dev)
+> +{
+> +	struct virtio_gpu_device *vgdev = dev->dev_private;
+> +
+> +	vgdev->vqs_released = true;
+> +	wake_up_all(&vgdev->ctrlq.ack_queue);
+> +	wake_up_all(&vgdev->cursorq.ack_queue);
+> +}
+> +
+>  static void virtio_gpu_remove(struct virtio_device *vdev)
+>  {
+>  	struct drm_device *dev = vdev->priv;
+>  
+> +	virtio_gpu_release_vqs(dev);
+>  	drm_dev_unplug(dev);
+>  	drm_atomic_helper_shutdown(dev);
+>  	virtio_gpu_deinit(dev);
+> @@ -133,6 +147,7 @@ static void virtio_gpu_shutdown(struct virtio_device *vdev)
+>  {
+>  	struct drm_device *dev = vdev->priv;
+>  
+> +	virtio_gpu_release_vqs(dev);
+>  	/* stop talking to the device */
+>  	drm_dev_unplug(dev);
+>  }
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+> index f17660a71a3e..0bd69a40857e 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+> @@ -235,6 +235,7 @@ struct virtio_gpu_device {
+>  
+>  	struct virtio_gpu_queue ctrlq;
+>  	struct virtio_gpu_queue cursorq;
+> +	bool vqs_released;
+>  	struct kmem_cache *vbufs;
+>  
+>  	atomic_t pending_commands;
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+> index 67865810a2e7..8057a9b7356d 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+> @@ -396,7 +396,19 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+>  	if (vq->num_free < elemcnt) {
+>  		spin_unlock(&vgdev->ctrlq.qlock);
+>  		virtio_gpu_notify(vgdev);
+> -		wait_event(vgdev->ctrlq.ack_queue, vq->num_free >= elemcnt);
+> +		wait_event(vgdev->ctrlq.ack_queue,
+> +			   vq->num_free >= elemcnt || vgdev->vqs_released);
+> +		/*
+> +		 * Set by virtio_gpu_release_vqs() to unblock
+> +		 * synchronize_srcu() wait in drm_dev_unplug().
+> +		 */
+> +		if (vgdev->vqs_released) {
+> +			if (fence && vbuf->objs)
+> +				virtio_gpu_array_unlock_resv(vbuf->objs);
+> +			free_vbuf(vgdev, vbuf);
+> +			drm_dev_exit(idx);
+> +			return -ENODEV;
+> +		}
+>  		goto again;
+>  	}
+>  
+> @@ -566,7 +578,14 @@ static void virtio_gpu_queue_cursor(struct virtio_gpu_device *vgdev,
+>  	ret = virtqueue_add_sgs(vq, sgs, outcnt, 0, vbuf, GFP_ATOMIC);
+>  	if (ret == -ENOSPC) {
+>  		spin_unlock(&vgdev->cursorq.qlock);
+> -		wait_event(vgdev->cursorq.ack_queue, vq->num_free >= outcnt);
+> +		wait_event(vgdev->cursorq.ack_queue,
+> +			   vq->num_free >= outcnt || vgdev->vqs_released);
+> +		/* See comment in virtio_gpu_queue_ctrl_sgs(). */
+> +		if (vgdev->vqs_released) {
+> +			free_vbuf(vgdev, vbuf);
+> +			drm_dev_exit(idx);
+> +			return;
+> +		}
+>  		spin_lock(&vgdev->cursorq.qlock);
+>  		goto retry;
+>  	} else {
 
-Thanks,
-John.
+What about other wait_event in the driver? Why only these?
 
->
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
->
-> Suraj Kandpal (7):
->    drm: writeback: Refactor drm_writeback_connector structure
->    drm: writeback: Modify writeback init helpers
->    drm: writeback: Modify drm_writeback_queue_job helper
->    drm: writeback: Modify drm_writeback_signal_completion helper
->    drm: writeback: Modify drm_writeback_get_out_fence helper
->    drm: writeback: Modify prepare_writeback_job helper
->    drm: writeback: Modify cleanup_writeback_job helper
->
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +--
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 12 +--
->   .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  2 +-
->   .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
->   .../arm/display/komeda/komeda_wb_connector.c  | 11 +--
->   drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
->   drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
->   drivers/gpu/drm/arm/malidp_mw.c               |  7 +-
->   drivers/gpu/drm/drm_atomic_uapi.c             |  4 +-
->   drivers/gpu/drm/drm_writeback.c               | 50 +++++++-----
->   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  9 ++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 10 +--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
->   .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  6 +-
->   .../drm/renesas/rcar-du/rcar_du_writeback.c   | 16 ++--
->   drivers/gpu/drm/vc4/vc4_txp.c                 |  8 +-
->   drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
->   drivers/gpu/drm/vkms/vkms_writeback.c         | 15 ++--
->   include/drm/drm_connector.h                   | 69 ++++++++++++++++-
->   include/drm/drm_modeset_helper_vtables.h      |  4 +-
->   include/drm/drm_writeback.h                   | 76 ++-----------------
->   22 files changed, 164 insertions(+), 163 deletions(-)
->
-
+-- 
+Best regards,
+Dmitry
