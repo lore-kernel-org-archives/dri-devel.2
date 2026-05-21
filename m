@@ -4,134 +4,185 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96AF6CD5BA4
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:36:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C03DCD5BAA
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 08:37:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEFD410E133;
-	Thu, 21 May 2026 08:36:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BFF910E486;
+	Thu, 21 May 2026 08:37:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GsERyUqR";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Trw38hpF";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ik51TAlW";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010038.outbound.protection.outlook.com
- [40.93.198.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DAC310E133
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:36:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HCKqeFLEsPDKeYE4DBcbXgU14gCna+MU8Cl02eyeY8oMen5w2ud7clSO6DmZXsTb6gBMwL5dhT3xepSSKSHSQJ4NiqMoYAzswC1xsjPZxvSZOyf/ejHt1nyFBjZAH+mBhFHZMgaCIaxWwiPaoUfsWWq2yTxQrNTZlup82Ft3DgR8Pn0DndsGWTx/DCYMj3yyCTQpKTSVTeZr7//cPD4nw44m/sH43cIea44bYgAURlWplcuISGTw5GtEvgAj/OjUugh2q7pwYC7MGvnaX31lBtBNjGHUyINDLvbLTIroNSv+pXQe4Dmj7Pw10ZqjmcMtZo1OvAXV1I/3vYPwRiUV2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yjVqHtxovV/VU0Gx1sCI/KXhH97UD1BPkitrcHMr6sI=;
- b=CDE2K6z5koVlnM7lcMucV8dGrjzVfz1UReHKI7yDUwT0qFCPMk88h53mmUrRUY8SaJK1OdzVydGG2dLXku0jJpU/2VYGTgyYsFKnu7hbjNxIvEh/lmQzcSQl83Wy6Q1plO0DY3sjvpmA9Z9qbjJDYCeW7XxhM7uG2jSFKhAK/ZulOk0Yjb1crdosv7KHryKVjio1cVA4Jk4orvEWUrWlPbl0fyeW3+DAgA2kfaCnjD+U3v5DE/qaRTTLPNO/hT5T0XRr9odwVaQkzvrC2bIWWzFcfzS2lgM61/PjVvoGM0zUH5rnudF+8IYpjY0ExroZyZOF5BxrGeynW2NpsfYoMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yjVqHtxovV/VU0Gx1sCI/KXhH97UD1BPkitrcHMr6sI=;
- b=GsERyUqR1txJnbftSnSThI+KFrvA1HdsJDKIkCFSyKmI0+tQUtjgosAHa8a0Kd7wBPhVwR0XzEiTjhQXxOcjFku40qwdXhIxA2xn/w/ICLJxqgMPBcl7GUpCCaN3KvgMSa9l9yU964UEOcrtE+uql1wg7JUYKKskNhPrha3UsZM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB7868.namprd12.prod.outlook.com (2603:10b6:a03:4cd::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Thu, 21 May
- 2026 08:36:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Thu, 21 May 2026
- 08:36:52 +0000
-Message-ID: <d793568d-9611-4174-b9e9-c71ffec5ae93@amd.com>
-Date: Thu, 21 May 2026 10:36:47 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] dma-resv: Define guards for context-less dma_resv
- locks
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20260513-panthor-guard-refactor-v1-0-f2d8c15a97ce@collabora.com>
- <20260513-panthor-guard-refactor-v1-2-f2d8c15a97ce@collabora.com>
- <03a57011-e734-4a74-aef2-e3a6016e15fc@amd.com>
- <20260518111456.30ba9bba@fedora>
- <a9ee80aa-0c9b-4bd7-87bb-d3e228357b18@amd.com>
- <20260518161531.331cab2d@fedora>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260518161531.331cab2d@fedora>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL0PR0102CA0029.prod.exchangelabs.com
- (2603:10b6:207:18::42) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10F7210E483
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:37:10 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64L7M9K6118986
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:37:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=El4wNMt9BXL9CxxtRdtqTV
+ x+E6o7UHeoj7av7h+WfcI=; b=Trw38hpFc3Uxmsxjfu7cVuCmyXS6WZ39nWg0SE
+ akyGensBif0/ULxQcPPBG9D7sac9jKuydsTJ4IaHQocxwctnByVKYnVB4mI0toNE
+ SdpfJT9vOELGFzPNl9Az6o/kqZ08mXro8GaeDySwzyoNKFVZCLVkIYOnFsEo6KEF
+ bJmt1M7ivhKwT6Vb+fDulepmbjEGwXUo82NblLrvbrDD/5b0quMl/RUmd/yH53xR
+ P155WhEBw0FDk+ct73qt9Z1seTGTUP5Y4mlWPMO5mjtd4NasLjoDXfKeTfgsUzjo
+ 9Obr2KNaswV3iLrbA/+wijZcq69LTkyX7fshpsA/vGZdUnnA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ee8c15q-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:37:09 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-514d2b22e7fso81667851cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 01:37:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779352628; x=1779957428;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=El4wNMt9BXL9CxxtRdtqTVx+E6o7UHeoj7av7h+WfcI=;
+ b=ik51TAlWbLa0DQc2HLAVgEQJtQSxTnLw+yI2ZRfqzMUCTPPsgqcYffqtve+Efly4DL
+ GXyLT5ebY2nPBJ85GmCrgIhGpJ9Nc0uwGf2vvjcBkp5lESMZR0X3xEZJKDFSz5oLIL+3
+ CDplRK6CevM3qox83CLEB5hGUn3aPTBp1NXsdeaCjeXNzdpOqsqSjhlHUnSkBfiNa/4P
+ /t8SbkVZzjrRVlsV3jnAjhnrPa9z8zXoRngddnIy4lopWrN76aBUMJ0NmkoR+trA60g1
+ O38wSN/F76kr7F/KEKMDd1sAhgJiCKkwGhdcpH4i6J1gK0mdg0d3fZt/mNk2oCGgClCl
+ +GBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779352628; x=1779957428;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=El4wNMt9BXL9CxxtRdtqTVx+E6o7UHeoj7av7h+WfcI=;
+ b=jRDb4s0398D1WNGVfs+rT+3Ht75ac6JQrzM6FXYzHIT/auPPaB3W7fuKFDVM3tZija
+ YGPFeNdTfwK9E9DNUYnLNbsCBt056U+uDzay/zDrXSspuvftl4GJb+dz2EwGieODG2rx
+ ItqnDwJKOGxfC9cmvDYY+4kflTSwRfaZF80Eu5K4umwBwx8TiWqHBjElbMQNMruWGwHC
+ K8ZjxRAEwV4jg57Y5QWnhxbingYctwMvBo3xH5Zmry8sjWbz5dQBUP8BjHgorSR84JJT
+ ttQCRoOo4ooOg1pmexyNKd1noPC3k6py/vk27Xcha/pkM++yWVVzLg51Ye1l6i7cHYUL
+ TLbA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9KOBm0c7T4D4y6NTiq82Zzc7KqLf6/XyO182YGwSc6gCWeDKlri7rmm12nTnZoWDPEl3+kFoMDc2k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwyFoeN2vLMeByK5hahmL1T5yx7W32YhloRmU61YoLe4ekG+9L9
+ LFo8bUDWZhsWQlXZoXFWUCUCXS54bRzW4wtLs5RJhc7fTs4D1s46HgMM8dXObxGiBqrKSgZdKZ8
+ CpjR5RTxau6pU9d5eKraAxWF5QiOSbjl7prXJqPC7eupAu4uDZEBC3SoUvOfGLwrkHEycuP4=
+X-Gm-Gg: Acq92OEwEVUel0GeQO2AxeiosoJNu8T/+mSXimVyJfJcwHgoqTFRW/RPHXQ+qBWqHz2
+ jBBFapGLVvhLhWLPfvrCDmnIqABXqHsT+KelvlhLRU0Vv6Ch0rriWaedwYdKVgR8pzV1mw1dyq2
+ PkZdn6JgDfgObflFJP2mYonGJHUbFyfFylLOCzbmE4m8aCKOFOSJ0QxO3V3rj0MMTCiOLghOQA+
+ j3PN3UZ2g70doosRpq3ade3RSNDw1pqD4g7EaAL8J7c+odxvyyVUKtKemHPG5R3l9fzjC9tRKNo
+ paAq29tg3ACsDmXwucFyWNfDydSJ+BPv+LFSowtfsVgKSJ+q+iWJf2pA50mZPaue7idJz/yopwE
+ Io8gbrH6aVrC0aoh8v9WZbsgp6w3Fr3Fo06rMch+kxam78/GrXUFqiquqMeB3dQ==
+X-Received: by 2002:a05:622a:514:b0:50d:900e:c1c1 with SMTP id
+ d75a77b69052e-516c5484841mr24416621cf.7.1779352628209; 
+ Thu, 21 May 2026 01:37:08 -0700 (PDT)
+X-Received: by 2002:a05:622a:514:b0:50d:900e:c1c1 with SMTP id
+ d75a77b69052e-516c5484841mr24415481cf.7.1779352626922; 
+ Thu, 21 May 2026 01:37:06 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:bb10:ae82:b7c3:d15a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4903caede9fsm10502405e9.14.2026.05.21.01.37.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2026 01:37:06 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH 00/23] driver core: count references of the platform
+ device's fwnode, not OF node
+Date: Thu, 21 May 2026 10:36:23 +0200
+Message-Id: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB7868:EE_
-X-MS-Office365-Filtering-Correlation-Id: f60446dd-4e45-421c-ec74-08deb7141bbe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|5023799004|11063799006|4143699003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: b4kraUOn2o2byKWCmaWK/vo3Hl5wmabtkuY2cuVg0vTH2MHzyASrwJ3a+Q23sjxYQD9K3hIG2fs6XSDSrpUjhxc3lV8Kd5LIYy/4uZbaG4w2rOWxP01INvSOdEwNYK/4PTWG0zKjntyAECwb7Kk5QmhFCKENEPjXHgKzcfUzM9+/s33U98omeI5+g6vsinUfCnsmYCXfuZDyr7JF/Bj7UiYRbyZcV/J1/iuRT9LqQhOXvEewAtUpxMfTZOcxrcxdywa2Gy4UZLbPBj0UK+kE0N64VSjSPlHlM6/jBnw/wSW5wmhptFSRSPdgp17HrroqG9NdPCAUIhFWIQRUyPB7+RdBYlLtbFpBINxPeWEltxW2NoqI7jyYXAtDSB1Hd4E0PMxA9prGB1nM9LaXD5nAi7wM3ltQ8UVeWeh1dksYNWvB+n3w3rIw/x08y4XMBO0pxfVsVvr8kRK0ZRlCg4Gxy6c6sS5PQi2MiYMze1rWb8scnvQTokD1hy3s2Xj5mGLnX5cvyvkPz1QcEccQEO5aZdoF/ibPs0Bpe+Ta9OOrpRmpKRysNWYGTehVkb2GqsgrjoAOvC1YLoWoQsTNkZQ8TGLnXPxhv1picB84OSpfwXQi0rW7SA1s6QhuLify0AZxdegZulAH67DpVaWzu1HTXO1NQhJ+PlrmsjuP2my7CpNycMBs5wm83Xw2m+MWoThN
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(5023799004)(11063799006)(4143699003)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NE9BM0tjc0RCdlJDSTBzeU0vVXlhL0RzU2lWOEFzRWkzQ3dGRDQyMFAvM3FL?=
- =?utf-8?B?bUY1a0FyODFGV3BaamhQKzlxYXd6R0ZMbkNpR0RuT0k1MlE1dDRRZ2hEand4?=
- =?utf-8?B?dHFUdFFuVjNCQ083Q040Q1ROZjVEaGJTbjJIeEo4ZVJEcjZkT2Z4VEVkYTJj?=
- =?utf-8?B?YWN0MVVsbFZNQnBlb3IwZkFvVXdpNTRaakdFQ21abHdyeTRpZnI5cmgvY1hD?=
- =?utf-8?B?UlFxbzFDV21pdDJTYW84TlBINjdsWHJ4Ri9zODluaHY5Ym9EUk5GVVJSMnNn?=
- =?utf-8?B?ZHBuR2V5cWhHd0VWdXRRMmNpMGtqSjl5WDArREJlRmErOUh4UnZQR0ZyYm5T?=
- =?utf-8?B?MjdnZ09CQUhXZ2RBaUlYQ0JuVlJCQmZRb3E5a3dXdHk1a1E5bjkxQkxCM0lS?=
- =?utf-8?B?V3JIbnhpSjlQaDhPSzZBdHk3RFQ4bnl2Q09HUitldkIycnJibVZ0TC9wYVZT?=
- =?utf-8?B?emxYWHNBMDFWclBRdVh5WnhFeFRzWnhKVUVTSGUwM1Y0LytzK1F2WWRDTkY4?=
- =?utf-8?B?TVRRdXJXc0dObkE2MXZRSE53cG4yV09lVDU2QnMxanVrUGw0Y0JGclN4RnZh?=
- =?utf-8?B?QmtnUzBjZ0V0eFh5M0FsTlorS3dkT0JrTkp0dndqaGoreFcyeUFqSHdla0Vi?=
- =?utf-8?B?ekNsblcyMlllMUVBa1pPRUwyUEhPOFYzY0owelVyNjVLMFNQc1lGRjQ5RUNH?=
- =?utf-8?B?NGdQQ1BIV0drNjdiRWw1VVFIelgyQ3p4ejZYWG95Sm1BSnhqeExpQkpSNlFa?=
- =?utf-8?B?WWN3VEV4UFlvYS9mOVZNY2pjOTJQTlo3YWdyZStrKytBS0IrVGxqaTBFdHgr?=
- =?utf-8?B?RlBlQksvOVRWR1EzQjNwaTlLTmZZeTBlZFJpdE1HbW0wd3ZJZmp0SWl5eEFN?=
- =?utf-8?B?OHVCQURiUlovaFZEdDc2bkdFNEprZzRhTXVRZFRPR1hUVEpjclJWT3BmWHg2?=
- =?utf-8?B?UUxnWUw4Z0tueEc4RllzVmMyUFFDMEJhT1ZNWnREYXgvais1aFR2bGpia2pp?=
- =?utf-8?B?elBjbHZCM0xSQzFXdWp5YnkzTEZBN0d5anluK29KWmlYQ3hadFd5Rko1cmph?=
- =?utf-8?B?aFM0T2wzakhhaFJVU0IvR3BrNFJockFKTzNSb1ExWjQvL1lKZ2lnN0Zjb0Zn?=
- =?utf-8?B?Y2kyVVNUbzJScmZsUFRqL2c3UzhxRml5ZDlLK1RpYmE5WjlueVVYYUVRbXVU?=
- =?utf-8?B?QTZzUk9qWjFtVDRwZWlIZnBWR0lRKzFZcjZYZ2U5c1NNbGlzL00ydEdYSnhq?=
- =?utf-8?B?dFJWYmdxOCtpd09hL0QxRFVHQUpCckZXeWlVRENyV0hRQ3UzYVZVeFM4TUlt?=
- =?utf-8?B?NEVaRmVoUVJkaElZa0tYUUNsM3NvZFpyNCs0a21JRXlZSG5YZjFpenR6eWZU?=
- =?utf-8?B?TlFVTllDMW1UdDlHaERXTmVxVkQzTXk5eEhaWElyOTBzakpRY0VwOGlRa0kv?=
- =?utf-8?B?aEpWcWZzNEYrQUc1eXpGbzRFOUtVK1NTU0t0a2ZoZUF4eDR2QUlxM1lEWCtD?=
- =?utf-8?B?aWsrUHY2Mkpjb29yU1dnSHorZExHZjhFODdNMlQxbGVVV2hONTNxaGJXWjI3?=
- =?utf-8?B?YnlWa1p1ZnQrU3JiWDh0dGtjdk1VU3FMVHIwcGlYamlvNm5EZGNRQWdDNDdl?=
- =?utf-8?B?R0QxeUhhYk16bk4vWFVCeVh4OFZxTTkrY0UrY0ZObVlhL0hGaTBUVUtFTHJT?=
- =?utf-8?B?RFZMc3ZTNFZkdzJteXBhbm15VnRJM21vZENvMVhqUmRNK0ovWjdZaVRpSHBk?=
- =?utf-8?B?cnRCYUViK2FmckM3U2YranRWemNHOVN0UUc3Z0NVVUZ1VCszY0tkVUQzV3Ni?=
- =?utf-8?B?Sk1OZDZLWmJpcEdJZTB1WTFtZk8wQWdxc1NEeEJWLzIzalduMHlhZU5qcm1w?=
- =?utf-8?B?MlhEMnprdzgxRVZ5eE9ySGpSRWNZclRERWFGUTlab2RFSjBQSk5lZ3JvSzdF?=
- =?utf-8?B?ODl5Z0s4VXBUcExTdXZrWmRBT0dxNDFqNHJDTWNYV2RjK2RRT2grTTZ1dWwz?=
- =?utf-8?B?UEx3NXg2cE1xQURvZXpId1NHaFVJWUttSDFKd2t4c1B1dVhxbitpS1JqdVRR?=
- =?utf-8?B?SDRib3R1YlpGK2VjWktEdDduQXJwM1h5NVBvandsVlYyMjJVZ1IzNFZiVHIw?=
- =?utf-8?B?N3lpeVhRWUZURXUwNHBhRlhaQktwK2k3NjlLakc4WU02QWVIQTJJTm1vSUJU?=
- =?utf-8?B?VVVOQ3ZVcHY2VVd1L3k5Mmo2V3Q0N0JWUkM3aURSb3E2a3NHNjk4WnRQTXhx?=
- =?utf-8?B?UlFHWUZjdDNFcUNPci9hYXVBaWRXSkgzMnZnUnlwQzAzdTlqaVNoVFpqRlVw?=
- =?utf-8?Q?GTYYdar3W1V/QmFVGn?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f60446dd-4e45-421c-ec74-08deb7141bbe
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 08:36:52.6916 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s0tWQQ9lRlwQ+zlAh+xJCSInalvosqNM/in0mHVNDTey24Hm6nagDvUPhQp469js
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7868
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAfEDmoC/x2MQQqAIBAAvyJ7bkGNzPpKdKjcai8qChZEf086z
+ sDMA5kSU4ZRPJCocObgK6hGwHYu/iBkVxm01EZ2WmJ0VHC/fHCEiXZ01vS2NUOvaIVaxSr5/o/
+ T/L4fVuIfJWEAAAA=
+X-Change-ID: 20260520-pdev-fwnode-ref-d867836971eb
+To: Lee Jones <lee@kernel.org>,
+ Mark Brown <broonie@opensource.wolfsonmicro.com>,
+ Thierry Reding <thierry.reding@avionic-design.de>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Srinivas Kandagatla <srini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Peter Chen <peter.chen@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5107;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=D3r2n74KWxEYfDl8rWFGKV6Wr7M1gfnVPwg1g1CrN84=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqDsQZF3+Wnnqse1OrX9tW8YslypJ8/2vlajEr3
+ JD2ATbv3b6JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCag7EGQAKCRAFnS7L/zaE
+ w8EKD/9dgPJ3F9RbNULXnoMj4pWPfWo/PfTbl87hUlFmLRa5e+BZbCj7lym0G7cDSCBBxhP1m38
+ XDMPAP0b7y/NNBM5+VFFKiHSXL2ftnoZYhTiPCXqAg8yXpg2s9DUQx7N9NbBTjBZDPFloWIKRq+
+ KlrMHuxSs7HgG8kOBSK5eW4l+mXcdX07ZoH1zm3uq+BtSWd3lpPf2/lLKF+k5Cc1lpzbfNDEq7Z
+ Ykm7Kfr1bDflSUQG/fhL8ilD15sZF0ffqDCywGL+UWcM5riCnkN5/v/BOF94pxi6LYD1XBlKs9t
+ 9gnTDKdlCmzmuhXIMsvOdZbSYYaJdad0De3ClLQ1TJN9KZXrqkxtJmLL2WUv2kI+YgHoNhRxM/d
+ DoZ7lw/sbJRbjlusrb2aLa4FDl776mKWYhsIxGgIm/BEQk8ttADCJ+lCw5QMO0KC5BvtqRFoazO
+ pG82IvBTgo1DqWURzhU8JiJIsRJMdzSm/fNAHAdK3htZj4WBovzhar44MI2zYLwsIEOTWII1a/C
+ zWJCChwoCsQXVVI4H2ICRncw83pF/8yG5ToHIO30PdXPpkq36sYUdxvG/qk/pmu07MX2Gz3GGPd
+ 4HA7SKpoUAI1k/yCQzarBy1I3uysZITHV1i0mIHh5wtU/1mmf90cnXhXSuAnrIq3vTxq48wjVLg
+ wrYHri/y1wYzsQQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-ORIG-GUID: i2OCP72ySW6-GlxP7N34f3nlqxQh1Klz
+X-Authority-Analysis: v=2.4 cv=e5k2j6p/ c=1 sm=1 tr=0 ts=6a0ec435 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=x7ldU9BvHY0adF9BoRAA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA4MyBTYWx0ZWRfX9+GC9OpmEfR5
+ eb7UfutcoMOhx5j/Oq49tEKHxVk2Mwp/hFmG6CxY6nw90RTMMRWJUNHuGBcmj738qK368EXohVJ
+ sIMS2g+Y/3kiO+OoUzlXw0FnguF2Tcj1wNWDLSeItl/KREaGWfxrP9nkxS/xmwx0xAtE4m0p2iS
+ +AWHeuH4BZ2A/anKh2ya0VRcb0r0o2FnN9fnJix/E3g8Aq/whTrI47TYlLYgcMdR10ERxhmTFIb
+ 4z8sLZ8U7ESBqiKY/0xvDwLHINqMzqpwF8po9hllk+pDrsbSGSQ6eT4asVRDeKosrkL1df8UYtp
+ Vx02jyfqs72bVC/Lg64QUjNO4NZLl/rqRaX7pAx35N5T3+bfP4oZjwq3UsBcG9FMpVQiuJYe5BJ
+ kv3KY5d6DviB1sIw+7ZTj0aIWk2BB6meNlP4sGNRkk4ql3qVmYmI2N7bj80MuX7VBGrHyYC5um+
+ Ox5YzYawenTllp7Nsww==
+X-Proofpoint-GUID: i2OCP72ySW6-GlxP7N34f3nlqxQh1Klz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210083
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,53 +198,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/18/26 16:15, Boris Brezillon wrote:
-> On Mon, 18 May 2026 14:18:41 +0200
-> Christian König <christian.koenig@amd.com> wrote:
-> 
->> On 5/18/26 11:14, Boris Brezillon wrote:
->>> Hi Christian,
->>>
->>> On Mon, 18 May 2026 09:10:23 +0200
->>> Christian König <christian.koenig@amd.com> wrote:
->>>   
->>>> On 5/13/26 18:58, Boris Brezillon wrote:  
->>>>> When used without a context, dma_resv are no different from regular
->>>>> locks. Define guards so we can use the guard-syntactic sugars for
->>>>> explicit/implicit scoped locks.
->>>>>
->>>>> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>    
->>>>
->>>> Reviewed-by: Christian König <christian.koenig@amd.com>
->>>>
->>>> How do you want to upstream it? My preference would be drm-misc-next, but I think I can live with a panthor specific branch as well.  
->>>
->>> Everything Panthor related goes through drm-misc-next, so drm-misc-next
->>> also has my preference ;-). But I'd like to wait for more feedback on
->>> the other drm patches, and there are a few things I need to address in
->>> the panthor patches anyway, so it's likely to take a couple more weeks
->>> for this series to hit the drm-misc tree, unless you have a good reason
->>> to fast-track this specific patch.  
->>
->> Well the DMA-buf code itself uses dma_resv_lock/unlock
-> 
-> There's no use in dma-resv.c that can be converted to guards. I gave
-> dma-buf.c a try, but just like for panthor, I don't really like the fact
-> it's halfway through (other locks still use manual locking), so I'd be
-> tempted to convert everything at once for consistency. If you're fine
-> with that, I can give this a try.
+I'd like to first apologize for the long, treewide series and an
+extensive Cc list but I think it's important to show the big picture and
+the end result of this rework.
 
-Well depends on what everything means. I would only convert dma-buf.c in one patch and nothing else.
+Platform device core provides helper interfaces for dealing with
+dynamically created platform devices. Most users should use
+platform_device_register_full() which encapsulates most of the
+operations but some modules will want to use the split approach of
+calling platform_device_alloc() + platform_device_add() separately for
+various reasons.
 
->> and obviously has test cases for all the different variants.
-> 
-> Looks like the test cases all validate that dma_resv_lock(x, NULL)
-> returns 0. If I were to convert those to guard(dma_resv)(), these checks
-> would be gone. Is that okay with you?
+With many platform devices now using dynamic software nodes as their
+primary firmware nodes and with the platform device interface being
+extended to also better cover the use-cases of secondary software nodes,
+I believe it makes sense to switch to counting the references of all
+kinds of firmware nodes.
 
-Ah, good point. No we need to check the return value here.
+To that end, I identified all users of platform_device_alloc() that also
+assign dev.of_node or dev.fwnode manually. I noticed five cases where
+the references are not increased as they should (patches 1-5 fix these
+users) and provided three new functions in platform_device.h that now
+become the preferred interfaces for assigning firmware nodes to dynamic
+platform devices (in line with platform_device_add_data(),
+platform_device_add_resources(), etc.). The bulk of the patches in this
+series are small driver conversions to port all users to going through
+the new functions that now encapsulate the refcount logic. With that
+done, the final patch seamlessly switches to counting the references of
+all firmware node types.
 
-So keep the test cases as they are, they basically make sure that we can actually use the guards when there is no ticket.
+This effort is prerequisite of removing platform_device_release_full()
+and unifying the release path for dynamic platform devices using
+unmanaged software nodes.
 
-Thanks,
-Christian.
+Merging strategy: First tree patches should go directly into individual
+maintainers' trees and land in v7.1 and stable as bug fixes. The
+remaining patches touch lots of drivers but the changes are minimal and
+unlikely to cause any conflicts. I believe they should be queued in the
+driver core tree for v7.2 (possibly on an immutable branch for others to
+merge into their trees). If the subsystem maintainers object, the
+alternative is to queue the three new helpers for platform devices via
+the driver core tree. After v7.2-rc1, I'd resend individual driver
+patches to appropriate maintainers and once they're upstream, we can
+apply the final platform device change. However this would take three
+cycles to complete so my preference is the former solution.
+
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Bartosz Golaszewski (23):
+      mfd: tps6586x: fix OF node refcount
+      net: mv643xx: fix OF node refcount
+      slimbus: qcom-ngd-ctrl: fix OF node refcount
+      pmdomain: imx: fix OF node refcount
+      powerpc/powermac: fix OF node refcount
+      driver core: platform: provide platform_device_set_of_node()
+      driver core: platform: provide platform_device_set_fwnode()
+      driver core: platform: provide platform_device_set_of_node_from_dev()
+      of: platform: use platform_device_set_of_node()
+      powerpc/powermac: use platform_device_set_of_node()
+      i2c: pxa-pci: use platform_device_set_of_node()
+      iommu/fsl: use platform_device_set_of_node()
+      net: bcmgenet: use platform_device_set_of_node()
+      pmdomain: imx: use platform_device_set_of_node()
+      mfd: tps6586: use platform_device_set_of_node()
+      slimbus: qcom-ngd-ctrl: use platform_device_set_of_node()
+      net: mv643xx: use platform_device_set_of_node()
+      drm/xe/i2c: use platform_device_set_fwnode()
+      platform/surface: gpe: use platform_device_set_fwnode()
+      usb: chipidea: use platform_device_set_of_node_from_dev()
+      usb: musb: use platform_device_set_of_node_from_dev()
+      reset: rzg2l: use platform_device_set_of_node_from_dev()
+      driver core: platform: count references to all kinds of firmware nodes
+
+ arch/powerpc/platforms/powermac/low_i2c.c    |  2 +-
+ drivers/base/platform.c                      | 56 ++++++++++++++++++++++++++--
+ drivers/gpu/drm/xe/xe_i2c.c                  |  2 +-
+ drivers/i2c/busses/i2c-pxa-pci.c             |  3 +-
+ drivers/iommu/fsl_pamu.c                     |  7 ++--
+ drivers/mfd/tps6586x.c                       |  2 +-
+ drivers/net/ethernet/broadcom/genet/bcmmii.c | 10 +++--
+ drivers/net/ethernet/marvell/mv643xx_eth.c   |  2 +-
+ drivers/of/platform.c                        |  2 +-
+ drivers/platform/surface/surface_gpe.c       |  2 +-
+ drivers/pmdomain/imx/gpc.c                   |  3 +-
+ drivers/reset/reset-rzg2l-usbphy-ctrl.c      |  2 +-
+ drivers/slimbus/qcom-ngd-ctrl.c              |  2 +-
+ drivers/usb/chipidea/core.c                  |  2 +-
+ drivers/usb/musb/jz4740.c                    |  2 +-
+ include/linux/platform_device.h              |  8 ++++
+ 16 files changed, 84 insertions(+), 23 deletions(-)
+---
+base-commit: 687da68900cd1a46549f7d9430c7d40346cb86a0
+change-id: 20260520-pdev-fwnode-ref-d867836971eb
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
