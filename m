@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60134CD4F3D
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 19:28:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DBCDCD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 19:28:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF9510E532;
-	Thu, 21 May 2026 19:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A68F110E1EC;
+	Thu, 21 May 2026 19:28:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n72JhuMA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C7XUtvhp";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 016F410E1EC;
- Thu, 21 May 2026 19:28:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0538510E1EC;
+ Thu, 21 May 2026 19:28:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B214D435B9;
- Thu, 21 May 2026 19:28:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AE0F1F000E9;
- Thu, 21 May 2026 19:28:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DCD8040D8A;
+ Thu, 21 May 2026 19:28:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 184BC1F000E9;
+ Thu, 21 May 2026 19:28:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779391697;
- bh=CJcyzecC8tciKtEQnMIWnlmWg2fkVheR+DFJEp2gElQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=n72JhuMAtFbvW9EYJcn9KNxhuke5vDl16yGwekFQRZ0HZx2eZR6KnJ1tuPQMqNaj1
- bRPwtEFrO4hlVLRhFe0B1NOFxL7VAkufsTCfHNOdJNSzg6xHEUCFXskcFH93O8Y1mF
- GWtGzG+SeMC/wGYHvusIDEZ6SF72fx03GaZWG1sioLOhDY3893BRE5J4+U5g96Tpik
- Z2LpFxejuzzy3iTWWkfaj2MzRNaxC3tDpdoxscymckBS7jZAU835ed/at8dd0DndSh
- BeZoe2dLP8C8wL6oCiPQ23F4iqions/3aH8vgctw+9EgyELl/QE5v6nM0g6wHwBt62
- +vF1Ehgisdb/A==
-Date: Thu, 21 May 2026 14:28:13 -0500
+ s=k20260515; t=1779391717;
+ bh=WGkA5lXoVjlzSIZoeQLMLfIwbdSnbcmaBdnP/E1bVlA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=C7XUtvhpGoeeWmo+Zuzl0EaBzOUy6zQ2TeyiqDiBznoZNiqEADgShlFQ19vN6f//4
+ Jwr91LxgBIAKC13YBF2yo+HE2sIBoF2WJ4+AEYUGDQM0nlMCM+cyNe69xqLzsU2pKE
+ hjWgpCkYOWohouHCJf3Ur6w9Y+oijYytnX3887XGcZbIAYBQOy5xi6K+wkrndpU6l3
+ Ziz5KFZ4iNBf6tjdQOkTkeK7cZb/P7obJQD6aIuRWngSMNHqeHfKtNFqMgRHGfShon
+ SnCEP8nGkuz7ctLIWRBg9DsKvAydFvG2E0Ptjc+coF6vMOQ4H7sYNEryXh7+jglIUX
+ ZkcCpFSJ6Q+5A==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v4 00/29] soc/qcom/ubwc: rework UBWC configuration database
-Message-ID: <ag9crUWAzrAU2ue_@baldur>
+Subject: Re: (subset) [PATCH v4 00/29] soc/qcom/ubwc: rework UBWC
+ configuration database
+Date: Thu, 21 May 2026 14:28:26 -0500
+Message-ID: <177939170564.182385.14385611507235354897.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
 References: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,7 +68,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 07, 2026 at 04:02:56PM +0300, Dmitry Baryshkov wrote:
+
+On Thu, 07 May 2026 16:02:56 +0300, Dmitry Baryshkov wrote:
 > Currently we store several settings in the configuration database. Some
 > of them are incorrect or not completely matching the expected
 > configuration settings. Others are directly derivable from the UBWC
@@ -77,90 +81,17 @@ On Thu, May 07, 2026 at 04:02:56PM +0300, Dmitry Baryshkov wrote:
 > batch of soc/qcom patches, which we can pull into drm/msm or to ack
 > merging the first patches through drm/msm tree directly.
 > 
+> [...]
 
-You can find the initial UBWC patches at:
+Applied, thanks!
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260507-ubwc-rework-v4-4-c19593d20c1d@oss.qualcomm.com
+[02/29] soc: qcom: ubwc: define UBWC 3.1
+        commit: ab7e4d7cf6f8efd37a675a85eb0aef3d6a4954ba
+[03/29] soc: qcom: ubwc: define helper for MDSS and Adreno drivers
+        commit: b5f7365c44d8fd58ef0224bf4111805c4fea0a1e
+[04/29] soc: qcom: ubwc: add helper controlling AMSBC enablement
+        commit: c5e3f2a3abcb925f0364df09abfd759ff0590454
 
-Regards,
-Bjorn
-
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
-> Changes in v4:
-> - Rebased on linux-next, dropping merged dependencies.
-> - Reworked A8xx, simplifying several corner cases.
-> - Link to v3: https://lore.kernel.org/r/20260312-ubwc-rework-v3-0-b7e8f800176a@oss.qualcomm.com
-> 
-> Changes in v3:
-> - Corrected UWBC_STATIC programming for MDSS 5.x platforms (Konrad)
-> - Switched MDSS 6.x+ to qcom_ubwc_min_acc_length_64b() too
-> - Added qcom_ubwc_enable_amsbc() helper
-> - Reworked the DPU handling of UBWC config, making it simpler to handle
->   minor revisions.
-> - Removed the comment regarding the best guess for min_acc_length
-> - Link to v2: https://lore.kernel.org/r/20260311-ubwc-rework-v2-0-69f718f2a1c9@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Renamed MDSS UBWC programming function to make it more obvious that
->   they are related to the MDSS revision rather than UBWC version
->   (Konrad)
-> - Brought back the patch to use qcom_ubwc_version_tag() in msm_mdss.c,
->   got lost in rebases (Konrad)
-> - Link to v1: https://lore.kernel.org/r/20260306-ubwc-rework-v1-0-9cfdff12f2bb@oss.qualcomm.com
-> 
-> ---
-> Dmitry Baryshkov (28):
->       drm/msm/mdss: correct UBWC programming sequences
->       soc: qcom: ubwc: define UBWC 3.1
->       soc: qcom: ubwc: define helper for MDSS and Adreno drivers
->       soc: qcom: ubwc: add helper controlling AMSBC enablement
->       drm/msm/adreno: use qcom_ubwc_version_tag() helper
->       drm/msm/mdss: use qcom_ubwc_version_tag() helper
->       drm/msm/adreno: use new helper to set min_acc length
->       drm/msm/mdss: use new helper to set min_acc length
->       drm/msm/adreno: use new helper to set macrotile_mode
->       drm/msm/mdss: use new helper to set macrotile_mode
->       drm/msm/mdss: use new helper to set UBWC bank spreading
->       drm/msm/adreno: use new helper to set ubwc_swizzle
->       drm/msm/dpu: use new helper to set ubwc_swizzle
->       drm/msm/mdss: use new helper to set ubwc_swizzle
->       drm/msm/adreno: write reserved UBWC-related bits
->       drm/msm/adreno: set fp16compoptdis for UBWC 3.0 formats
->       drm/msm/adreno: use new helper to set amsbc
->       drm/msm/adreno: use version ranges in A8xx UBWC code
->       drm/msm/mdss: use new helper to set amsbc
->       drm/msm/dpu: drop ubwc_dec_version
->       drm/msm/dpu: invert the order of UBWC checks
->       soc: qcom: ubwc: set min_acc length to 64 for all UBWC 1.0 targets
->       soc: qcom: ubwc: drop ubwc_dec_version
->       soc: qcom: ubwc: drop ubwc_bank_spread
->       soc: qcom: ubwc: drop macrotile_mode from the database
->       soc: qcom: ubwc: use fixed values for UBWC swizzle for UBWC < 4.0
->       soc: qcom: ubwc: sort out the rest of the UBWC swizzle settings
->       soc: qcom: ubwc: deduplicate UBWC configuration data
-> 
-> Konrad Dybcio (1):
->       drm/msm/adreno: Trust the SSoT UBWC config
-> 
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c       |  11 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |  93 +--------
->  drivers/gpu/drm/msm/adreno/a8xx_gpu.c       |  50 +++--
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c     |   4 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h     |   5 -
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c |  39 ++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   |   3 +-
->  drivers/gpu/drm/msm/msm_mdss.c              | 120 ++++--------
->  drivers/soc/qcom/ubwc_config.c              | 294 +++++++---------------------
->  include/linux/soc/qcom/ubwc.h               | 103 ++++++----
->  10 files changed, 235 insertions(+), 487 deletions(-)
-> ---
-> base-commit: 735d2f48cadaa9a87e7c7601667878de70c771c5
-> change-id: 20260211-ubwc-rework-e6ce1d8eb520
-> prerequisite-patch-id: 5bc7dddd09fcdb4f534f8468ab3ad51781667066
-> 
-> Best regards,
-> --  
-> With best wishes
-> Dmitry
-> 
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
