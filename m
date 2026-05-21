@@ -4,117 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB9ECD343F
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:45:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9CD2CD4F3C
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 07:47:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11F5110E484;
-	Thu, 21 May 2026 07:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1688C10E116;
+	Thu, 21 May 2026 07:47:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XlwwHhEy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lnVHFdnu";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B791C10E1F8
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:45:01 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4891e86fabeso76159455e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 00:45:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1779349500; x=1779954300; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:from:references:cc:to:subject:reply-to:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=hHRSZ1dQ/OppMz1XaPvdHkTsf0qKVIFDibvJklHxKOo=;
- b=XlwwHhEyygxpPu0+Bo5vKTl4jjP4dLaIYWeBV9Uq6dbFWvPDNueKzsse5hlc2Sq6Xb
- i881idCRwc6wqqgLymYhaeK4d5sezjUOSLxuSH9KAS4Mb6T8BAvDHM6FdvaSfg+lCB9r
- iDWhSUYd3UxXliEQNQfKukoDxm8AEHsKKPhjl+dOu4CroEZoO/ZgWkGCS7ib8Yha1f+A
- Wqxp0id0iiAQJ8rz7bufIzu6mhyhxwSmVDbAX/hfPMwcYFBpwnayojZv3dFYKw6FBjU6
- j604T+6S3fhmoCEUGADr4Dw1hm1VfJeD+cp7UVavIkQT0lTFzuZaKyGjvPehnMyd2aKn
- FbeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779349500; x=1779954300;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:from:references:cc:to:subject:reply-to:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hHRSZ1dQ/OppMz1XaPvdHkTsf0qKVIFDibvJklHxKOo=;
- b=ZcbRBQOAMqZizGz+uzY6gLrjU0Rx/3TMpDOGNQpxACtGSIGxOQIBunjmzMfpQbvL4o
- Na5OZLUT1lDF4qZ7q2PmT+XwdvOMKfbbe5IMR8djJGn0OAtYIyB3IxcUo+YRS7Y6Ja1x
- xz3ggKchgj385ADZvnBJMRA6F3pjWSqYF/wFHnfktAcjbpq0cortRx5Fq+W4d5qTAFtH
- NBu8Sg6UXgJ8d/X+DVBKJDSnDyckonLFWMKNEWUbSnA41qTvwJOv4pHWHX54/3MDQy9Q
- Wp7ZX34DSebCrdeosd83BHcxC22XVbKdVPkSsA/OEMmvPEpKSdHt/+yEU7h1zm6oQh9K
- uefA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/GcLL1kcDdrI9v4QhpRzWiLkMzjElSVPgO6L9F48l04Li5TABOtOoJ3jkjH3/2nThTHSFhvO9wcI0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzvEHehKoyM0gkKBmuJTFOVU/1nNhKMxGltzKMqAISTeEGuSF/m
- GRZN9UHY3HSlexz6N9XEWpWt9+jrCdq76CNU0HNRYebZWOfkzZMd2kdt1sA5Uebszc0=
-X-Gm-Gg: Acq92OEh/G+ZoWptcrF9jrmh7hEusWFX7r78CnMJCSVa+mwHxAJTdRUKsui4c/joDfM
- 4NihcOVt9aXJeFVeVJHK6o4yAlrKxZUPXmppSBP34ZW9k7j2FyEgHjzhGyMUldnmDvxdwVV/Enp
- 25uNT0tYUrjU7k+ZzUbg01jSFtjO8onADqoeF3BC36ZI+2o/4dEhhpUF7aQgoccM8AiXAiXJrZP
- RQsHQse9eN/wvXVG89fiBbZuEuU+L2XullW4/YuSRyDAPtQBdbFXNaz9s+tW4RHh1vtOC98rr/s
- ZAVeFaBRo4JJk37QClxx51i5ybg2Qv6kCw3JXm68DfNj0BNGxMqSO3vWLP7ROwKPOeZ//vYbEID
- P3XkG7DHz1TXevqh/96r6K14EpoGx+LLi0Nb+4U7COctl1qwahQa+9OaUMq3iucXwCJXs2XVp48
- ozEcb6kY8mTDIdZJ1vF6Pr7/hDwAESfPyx2h3beEa9Ik1K1AqYsi6krT0iMre0zcyzQ0+pY7oY6
- UqoSh0=
-X-Received: by 2002:a05:6000:2883:b0:45e:742c:f195 with SMTP id
- ffacd0b85a97d-45ea38c0decmr2776799f8f.12.1779349499721; 
- Thu, 21 May 2026 00:44:59 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:e038:7e8a:7467:8c6c?
- ([2a01:e0a:106d:1080:e038:7e8a:7467:8c6c])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eaa92de72sm670351f8f.21.2026.05.21.00.44.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 May 2026 00:44:59 -0700 (PDT)
-Message-ID: <efede04f-b2e2-4fba-8247-f92eafa2b381@linaro.org>
-Date: Thu, 21 May 2026 09:44:58 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/msm/dsi: support DSC configurations with
- slice_per_pkt > 1
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Alexander Koskovich <akoskovich@pm.me>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01E8610E116;
+ Thu, 21 May 2026 07:47:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 07E6160172;
+ Thu, 21 May 2026 07:47:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16D8C1F00A3B;
+ Thu, 21 May 2026 07:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779349652;
+ bh=UczfSrk2FCod7H4rifpa1n/f+nsCfH/NDhquQgw9qmA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=lnVHFdnu4MxoKkNgwK7y8HGU3d4DYUs+ji4ZleQUFnc7lWrFEDHl1CvxyDjdXpvgT
+ HlnlNlFw1CQJGU4CFlK9lKXlg2BKtXCogvJzTjYP7G3AAFoqpOzNAKV5fMtUdbFfBX
+ nhAmOBBIl9WhjiX3HqlhL1J0mtoa1LPqB1stBsH9a1oNOXiK09uHryvqmCGyaZHGUp
+ HxYt8eE2J1iTPLWK8onPq+B79CD00dCDAvTCQEsUzlmt28kAk9Tk82+RogLNXDjd1s
+ BdKNotWIoG5SDfjfSx8/ZcBPmf/kArJ294dCiuHk4Z9UdDQdIRaH/dsTGUrYdG1RLG
+ +ccFkeS4sY5Rg==
+Date: Thu, 21 May 2026 09:47:29 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Pengyu Luo <mitltlatltl@gmail.com>, Nikita Travkin <nikita@trvn.ru>, 
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20260318-dsi-dsc-slice-per-pkt-v1-0-1bd66b7f9e0c@pm.me>
- <20260318-dsi-dsc-slice-per-pkt-v1-2-1bd66b7f9e0c@pm.me>
- <w74ctaczp3ty7wil2sfkztc6wvuppgpyff4tw4dze34irvfmlx@e5f36rzqmp6i>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <w74ctaczp3ty7wil2sfkztc6wvuppgpyff4tw4dze34irvfmlx@e5f36rzqmp6i>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH RESEND v3 1/6] drm/connector: report IRQ_HPD events to
+ drm_connector_oob_hotplug_event()
+Message-ID: <20260521-funny-astonishing-mackerel-cc5a01@penduick>
+References: <20260513-hpd-irq-events-v3-0-086857017f16@oss.qualcomm.com>
+ <20260513-hpd-irq-events-v3-1-086857017f16@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="uipgpe3pv2bnp7vq"
+Content-Disposition: inline
+In-Reply-To: <20260513-hpd-irq-events-v3-1-086857017f16@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,37 +85,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/18/26 10:39, Dmitry Baryshkov wrote:
-> On Wed, Mar 18, 2026 at 07:33:03AM +0000, Alexander Koskovich wrote:
->> Some panels support multiple slice to be sent in a single DSC packet and
->> this feature is a must for specific panels, such as the JDI LPM026M648C.
->>
->> Use the MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT flag to derive slice_per_pkt
->> from slice_count, note that most panels are expected to just work with
->> just one slice per packet.
->>
->> This change was originally authored by Jonathan Marek:
->> https://lore.kernel.org/all/20231114174218.19765-3-jonathan@marek.ca
-> 
-> This is a wrong way to give attribution. Either please retain the author
-> and Jonathan's SoB or use Co-developed-by and still Jonathan's SoB.
 
-Please retain `Signed-off-by: Jonathan Marek <jonathan@marek.ca>` since the only
-major difference with the original patch is moving the drm_mipi_dsi.h change to
-another patch.
+--uipgpe3pv2bnp7vq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RESEND v3 1/6] drm/connector: report IRQ_HPD events to
+ drm_connector_oob_hotplug_event()
+MIME-Version: 1.0
 
-> 
-> The patch looks good to me.
-> 
->>
->> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
->> ---
->>   drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
->>   1 file changed, 10 insertions(+), 15 deletions(-)
->>
-> 
+On Wed, May 13, 2026 at 09:23:21PM +0300, Dmitry Baryshkov wrote:
+> The DisplayPort standard defines a special kind of events called IRQ.
+> These events are used to notify DP Source about the events on the Sink
+> side. It is extremely important for DP MST handling, where the MST
+> events are reported through this IRQ.
+>=20
+> In case of the USB-C DP AltMode there is no actual HPD pulse, but the
+> events are ported through the bits in the AltMode VDOs.
+>=20
+> Extend the drm_connector_oob_hotplug_event() interface and report IRQ
+> events to the DisplayPort Sink drivers.
+>=20
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/drm_connector.c          |  5 ++++-
+>  drivers/usb/typec/altmodes/displayport.c | 15 +++++++++++----
+>  include/drm/drm_connector.h              | 19 ++++++++++++++++++-
+>  3 files changed, 33 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index 47dc53c4a738..edee9daccd51 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -3510,6 +3510,8 @@ struct drm_connector *drm_connector_find_by_fwnode(=
+struct fwnode_handle *fwnode)
+>   * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to=
+ connector
+>   * @connector_fwnode: fwnode_handle to report the event on
+>   * @status: hot plug detect logical state
+> + * @extra_status: additional information provided by the sink without ch=
+anging
+> + * the HPD state (or in addition to such a change).
+>   *
+>   * On some hardware a hotplug event notification may come from outside t=
+he display
+>   * driver / device. An example of this is some USB Type-C setups where t=
+he hardware
+> @@ -3520,7 +3522,8 @@ struct drm_connector *drm_connector_find_by_fwnode(=
+struct fwnode_handle *fwnode)
+>   * a drm_connector reference through calling drm_connector_find_by_fwnod=
+e().
+>   */
+>  void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwn=
+ode,
+> -				     enum drm_connector_status status)
+> +				     enum drm_connector_status status,
+> +				     enum drm_connector_status_extra extra_status)
+>  {
+>  	struct drm_connector *connector;
+> =20
+> diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec=
+/altmodes/displayport.c
+> index 35d9c3086990..7182a8e2e710 100644
+> --- a/drivers/usb/typec/altmodes/displayport.c
+> +++ b/drivers/usb/typec/altmodes/displayport.c
+> @@ -189,7 +189,9 @@ static int dp_altmode_status_update(struct dp_altmode=
+ *dp)
+>  	} else {
+>  		drm_connector_oob_hotplug_event(dp->connector_fwnode,
+>  						hpd ? connector_status_connected :
+> -						      connector_status_disconnected);
+> +						      connector_status_disconnected,
+> +						(hpd && irq_hpd) ? DRM_CONNECTOR_DP_IRQ_HPD :
+> +								   DRM_CONNECTOR_NO_EXTRA_STATUS);
 
+Since the extra status itself, and what the options mean, are DP specific, =
+do we really want to
+extend drm_connector_oob_hotplug_event()? I think I'd prefer to have a DP s=
+pecific variant, with its
+own set of parameters.
+
+Maxime
+
+--uipgpe3pv2bnp7vq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCag64iQAKCRAnX84Zoj2+
+dhJzAYClCMH5nftN7lNJDSZByXRPwo/xO31PTF3adTcKyfMtvVmon8CIoheOgyRx
+VwxpLvMBf0dr9uwFTrG2lPtQTFNmHOzXDF1ujEGuM3hWzigGtwt7xylrgcMlpE1b
+f9c6Uo1BbQ==
+=SGa3
+-----END PGP SIGNATURE-----
+
+--uipgpe3pv2bnp7vq--
