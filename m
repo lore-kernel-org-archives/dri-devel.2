@@ -4,63 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5734ACD5BB1
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:28:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40690CD5BB1
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:33:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF0F110F315;
-	Thu, 21 May 2026 13:28:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EB9710E510;
+	Thu, 21 May 2026 13:33:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kHkJGorh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ENRvP//N";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D491010F31B;
- Thu, 21 May 2026 13:28:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1pt8cC1q/6uiiKUcEF8O51ow/PRF5dt+UW1IXwaqmeI=; b=kHkJGorhA+vU2fWMYTRysB2GW0
- yoAQesc8hnkUV+WgFa0gcQr+nl04M4mnkBWjhsD5q9xVHPvU9i4e/IqWZcKRYjXGkSlcyKXP70anZ
- l5EcNJg2uhbMESmQfEMhTQmKuWmWh0w+MsJ5vn2uHdppoZgtJ//q5KtjlYIkiNDQrVaQzePoQuuKn
- y3SF8XJ2HFzuJVT+Takvl7kLO84h4DcbAoJpWduxD0b9zkPJ4jElp+LHgZA38CdvfLxUUMkN/cjWg
- EpkN2ag7iNi8/bNcoDfSASHxTUJyUckv4aw4n89uRRd0euqCg03Ib4FsJy/vlIARFhfsonEcy1ZcR
- vY7Gc3AA==;
-Received: from [79.117.146.159] (helo=[192.168.1.135])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wQ3RN-004MeT-2b; Thu, 21 May 2026 15:27:57 +0200
-Message-ID: <86bb4dc7-ba05-418f-8978-4d9e8fd6a3a7@igalia.com>
-Date: Thu, 21 May 2026 15:27:55 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5524D10E510;
+ Thu, 21 May 2026 13:33:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9E93660210;
+ Thu, 21 May 2026 13:33:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B451F000E9;
+ Thu, 21 May 2026 13:33:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779370406;
+ bh=JMvTXrLi2fecyuCzobJPBmjEJITlU0vYIW862WydbuI=;
+ h=From:To:Cc:Subject:Date;
+ b=ENRvP//NxlPse9MxCJOFh1AogZslAel87SB2mSCIhsf3jItcOS+woGIBwiFJXxxJO
+ /vrcLfGb5f9Zgybo+8/jwPpcfxzDdtk9qobrtYv1Jx7qF2CaHOv9To+pMFVf+CxBaj
+ Txk/IJPdMMNkgGbRiVQjeh8OyeTtBQ2jV3/sTZSlJcvRZB5VWyLoc9rDPU3aPLI4HL
+ h0jOm1f2w6p8YOUlM5pSaTCh9uIPDhngu0K2kHqivFsRg/751UQV/kKlDAKhtjc0hL
+ ruCH8xG0ElU6V7TuBi+cEWySHRlk4t3CmGbCJy8V2gQGUgE/wtg5mB81jG8Jj8LiQq
+ dMkB09LzsXQtw==
+From: Kees Cook <kees@kernel.org>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ Petr Pavlu <petr.pavlu@suse.com>, Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Corey Minyard <corey@minyard.net>, Gabriel Somlo <somlo@cmu.edu>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+ Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Tiwei Bie <tiwei.btw@antgroup.com>,
+ Benjamin Berg <benjamin.berg@intel.com>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "David E. Box" <david.e.box@linux.intel.com>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
+ linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: [PATCH 00/11] Convert moduleparams to seq_buf
+Date: Thu, 21 May 2026 06:33:13 -0700
+Message-Id: <20260521133315.work.845-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/6] drm/colorop: make lut(1/3)d_interpolation mutable
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- Uma Shankar <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260519211111.228303-1-mwen@igalia.com>
- <20260519211111.228303-5-mwen@igalia.com>
- <ebee1103-c76e-46c3-9a71-84f5e84fd76c@intel.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <ebee1103-c76e-46c3-9a71-84f5e84fd76c@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8383; i=kees@kernel.org;
+ h=from:subject:message-id; bh=iRiRSOifqAhDEW+rM5ucutf2vqbqOCl0n39wA2pC2nE=;
+ b=owGbwMvMwCVmps19z/KJym7G02pJDFn8nPP5NjJqfrXdrfdzgRzzhL0cEUvVFLTFyz0Emuo2S
+ cuk+1zsKGVhEONikBVTZAmyc49z8XjbHu4+VxFmDisTyBAGLk4BmMjpjYwMW1sezs9aJ6S4pvfM
+ 9cD7+tJ32F5enlDXEpZXkNZ/g4mVnZFh3zrv5UmSl4OP8839kFvnc/3g3qNPdE9ob/yzv04h4/U
+ XTgA=
+X-Developer-Key: i=kees@kernel.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,190 +123,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
+I tried to trim the CC list here, but it's still pretty huge...
 
-On 21/05/2026 13:17, Borah, Chaitanya Kumar wrote:
->
->
-> On 5/20/2026 2:39 AM, Melissa Wen wrote:
->> As it's not immutable anymore, any changes should be handled by
->> drm_colorop_state. Move their enum and make it correctly behaves as
->> mutable.
->>
->> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>
->> ---
->>
->> v6:
->> - check drm_object_property_get_default_value() before set interp props
->> ---
->>   drivers/gpu/drm/drm_atomic.c      |  4 ++--
->>   drivers/gpu/drm/drm_atomic_uapi.c |  8 ++++----
->>   drivers/gpu/drm/drm_colorop.c     | 16 ++++++++++++++--
->>   include/drm/drm_colorop.h         | 28 ++++++++++++++--------------
->>   4 files changed, 34 insertions(+), 22 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
->> index 659cf56150e5..b26212e719b2 100644
->> --- a/drivers/gpu/drm/drm_atomic.c
->> +++ b/drivers/gpu/drm/drm_atomic.c
->> @@ -857,7 +857,7 @@ static void drm_atomic_colorop_print_state(struct 
->> drm_printer *p,
->>       case DRM_COLOROP_1D_LUT:
->>           drm_printf_indent(p, 1, "size=%d\n", colorop->size);
->>           drm_printf_indent(p, 1, "interpolation=%s\n",
->> - 
->> drm_get_colorop_lut1d_interpolation_name(colorop->lut1d_interpolation));
->> + drm_get_colorop_lut1d_interpolation_name(state->lut1d_interpolation));
->>           drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? 
->> state->data->base.id : 0);
->>           break;
->>       case DRM_COLOROP_CTM_3X4:
->> @@ -869,7 +869,7 @@ static void drm_atomic_colorop_print_state(struct 
->> drm_printer *p,
->>       case DRM_COLOROP_3D_LUT:
->>           drm_printf_indent(p, 1, "size=%d\n", colorop->size);
->>           drm_printf_indent(p, 1, "interpolation=%s\n",
->> - 
->> drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interpolation));
->> + drm_get_colorop_lut3d_interpolation_name(state->lut3d_interpolation));
->>           drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? 
->> state->data->base.id : 0);
->>           break;
->>       default:
->> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
->> b/drivers/gpu/drm/drm_atomic_uapi.c
->> index 6441b55cc274..78423905051e 100644
->> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->> @@ -751,13 +751,13 @@ static int 
->> drm_atomic_colorop_set_property(struct drm_colorop *colorop,
->>       if (property == colorop->bypass_property) {
->>           state->bypass = val;
->>       } else if (property == colorop->lut1d_interpolation_property) {
->> -        colorop->lut1d_interpolation = val;
->> +        state->lut1d_interpolation = val;
->>       } else if (property == colorop->curve_1d_type_property) {
->>           state->curve_1d_type = val;
->>       } else if (property == colorop->multiplier_property) {
->>           state->multiplier = val;
->>       } else if (property == colorop->lut3d_interpolation_property) {
->> -        colorop->lut3d_interpolation = val;
->> +        state->lut3d_interpolation = val;
->>       } else if (property == colorop->data_property) {
->>           return drm_atomic_color_set_data_property(colorop, state,
->>                                 property, val);
->> @@ -782,7 +782,7 @@ drm_atomic_colorop_get_property(struct 
->> drm_colorop *colorop,
->>       else if (property == colorop->bypass_property)
->>           *val = state->bypass;
->>       else if (property == colorop->lut1d_interpolation_property)
->> -        *val = colorop->lut1d_interpolation;
->> +        *val = state->lut1d_interpolation;
->>       else if (property == colorop->curve_1d_type_property)
->>           *val = state->curve_1d_type;
->>       else if (property == colorop->multiplier_property)
->> @@ -790,7 +790,7 @@ drm_atomic_colorop_get_property(struct 
->> drm_colorop *colorop,
->>       else if (property == colorop->size_property)
->>           *val = colorop->size;
->>       else if (property == colorop->lut3d_interpolation_property)
->> -        *val = colorop->lut3d_interpolation;
->> +        *val = state->lut3d_interpolation;
->>       else if (property == colorop->data_property)
->>           *val = (state->data) ? state->data->base.id : 0;
->>       else
->> diff --git a/drivers/gpu/drm/drm_colorop.c 
->> b/drivers/gpu/drm/drm_colorop.c
->> index 764d12060666..b0a9a8094dfe 100644
->> --- a/drivers/gpu/drm/drm_colorop.c
->> +++ b/drivers/gpu/drm/drm_colorop.c
->> @@ -342,7 +342,6 @@ int drm_plane_colorop_curve_1d_lut_init(struct 
->> drm_device *dev, struct drm_color
->>         colorop->lut1d_interpolation_property = prop;
->>       drm_object_attach_property(&colorop->base, prop, interpolation);
->> -    colorop->lut1d_interpolation = interpolation;
->>         /* data */
->>       ret = drm_colorop_create_data_prop(dev, colorop);
->> @@ -442,7 +441,6 @@ int drm_plane_colorop_3dlut_init(struct 
->> drm_device *dev, struct drm_colorop *col
->>         colorop->lut3d_interpolation_property = prop;
->>       drm_object_attach_property(&colorop->base, prop, interpolation);
->> -    colorop->lut3d_interpolation = interpolation;
->>         /* data */
->>       ret = drm_colorop_create_data_prop(dev, colorop);
->> @@ -521,6 +519,20 @@ static void __drm_colorop_state_reset(struct 
->> drm_colorop_state *colorop_state,
->>                                  &val))
->>               colorop_state->curve_1d_type = val;
->>       }
->> +
->> +    if (colorop->lut1d_interpolation_property) {
->> + if(!drm_object_property_get_default_value(&colorop->base,
->> + colorop->lut1d_interpolation_property,
->> +                              &val));
->> +            colorop_state->lut1d_interpolation = val;
->> +    }
->> +
->> +    if (colorop->lut3d_interpolation_property) {
->> + if(!drm_object_property_get_default_value(&colorop->base,
->> + colorop->lut3d_interpolation_property,
->> +                              &val);
->> +            colorop_state->lut3d_interpolation = val;
->> +    }
->
-> I see you fixed the ; in the next patch, better to fix it within this 
-> patch. Also needs space between if and (.
+We've had a long-standing issue with "write to a string pointer" callbacks
+that don't bounds check the destination (and for which the bounds is
+also not part of the callback prototype, even if it is "known" to be
+PAGE_SIZE, which sysfs_emit() depends on). Both moduleparams and sysfs
+use this pattern. As a first step, and to test the migration method,
+migrate moduleparams first.
 
-Ouch, thanks for pointing it out.
+There are 2 "mechanical" treewide patches that are handled by Coccinelle:
+- treewide: Convert struct kernel_param_ops initializers to DEFINE_KERNEL_PARAM_OPS
+- treewide: Convert custom kernel_param_ops .get callbacks to seq_buf via cocci
 
->
->>   }
->>     /**
->> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
->> index 53a2148082d5..d08a6a8a8392 100644
->> --- a/include/drm/drm_colorop.h
->> +++ b/include/drm/drm_colorop.h
->> @@ -183,6 +183,20 @@ struct drm_colorop_state {
->>        */
->>       struct drm_property_blob *data;
->>   +    /**
->> +     * @lut1d_interpolation:
->> +     *
->> +     * Interpolation for DRM_COLOROP_1D_LUT
->> +     */
->> +    enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
->> +
->> +    /**
->> +     * @lut3d_interpolation:
->> +     *
->> +     * Interpolation for DRM_COLOROP_3D_LUT
->> +     */
->> +    enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
->> +
->>       /** @state: backpointer to global drm_atomic_commit */
->>       struct drm_atomic_commit *state;
->>   };
->> @@ -306,20 +320,6 @@ struct drm_colorop {
->>        */
->>       uint32_t size;
->>   -    /**
->> -     * @lut1d_interpolation:
->> -     *
->> -     * Interpolation for DRM_COLOROP_1D_LUT
->> -     */
->> -    enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
->> -
->> -    /**
->> -     * @lut3d_interpolation:
->> -     *
->> -     * Interpolation for DRM_COLOROP_3D_LUT
->> -     */
->> -    enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
->> -
->>       /**
->>        * @lut1d_interpolation_property:
->>        *
->
+The last treewide patch is manual, and may need to be broken up into
+per-subsystem patches, though I'd prefer to avoid this, as it would
+extend the migration from 1 relase to at least 2 releases. (1 to
+release the migration infrastructure, then 1 release to collect all the
+subsystem changes, and possibly 1 more release to remove the migration
+infrastructure.)
+
+Thoughts, questions?
+
+-Kees
+
+Kees Cook (10):
+  panic: Replace panic_print_get() with generic helper
+  moduleparam: Add DEFINE_KERNEL_PARAM_OPS macro family
+  treewide: Convert struct kernel_param_ops initializers to
+    DEFINE_KERNEL_PARAM_OPS
+  moduleparam: Rename .get field to .get_str
+  moduleparam: Add seq_buf-based .get callback alongside .get_str
+  moduleparam: Route DEFINE_KERNEL_PARAM_OPS get pointer via _Generic
+  params: Convert generic kernel_param_ops .get helpers to seq_buf
+  treewide: Convert custom kernel_param_ops .get callbacks to seq_buf
+    via cocci
+  treewide: Manually convert custom kernel_param_ops .get callbacks
+  moduleparam: Drop legacy kernel_param_ops .get_str field and dispatch
+    logic
+
+Pengpeng Hou (1):
+  params: bound array element output to the caller's page buffer
+
+ include/linux/dynamic_debug.h                 |   8 +-
+ include/linux/moduleparam.h                   |  65 +++++++---
+ security/apparmor/include/lib.h               |   3 +-
+ mm/kfence/core.c                              |  15 ++-
+ arch/powerpc/kvm/book3s_hv.c                  |   5 +-
+ arch/s390/kernel/perf_cpum_sf.c               |  12 +-
+ arch/um/drivers/vfio_kern.c                   |   9 +-
+ arch/um/drivers/virtio_uml.c                  |  18 +--
+ arch/x86/kernel/msr.c                         |  11 +-
+ arch/x86/kvm/mmu/mmu.c                        |  28 ++--
+ arch/x86/kvm/svm/avic.c                       |  14 +-
+ arch/x86/kvm/vmx/vmx.c                        |  24 ++--
+ arch/x86/platform/uv/uv_nmi.c                 |  24 ++--
+ block/disk-events.c                           |   6 +-
+ drivers/acpi/button.c                         |  19 ++-
+ drivers/acpi/ec.c                             |  14 +-
+ drivers/acpi/sysfs.c                          | 114 ++++++++--------
+ drivers/block/loop.c                          |  12 +-
+ drivers/block/null_blk/main.c                 |  12 +-
+ drivers/block/rnbd/rnbd-srv.c                 |   6 +-
+ drivers/block/ublk_drv.c                      |  12 +-
+ drivers/char/ipmi/ipmi_msghandler.c           |  12 +-
+ drivers/char/ipmi/ipmi_watchdog.c             |  50 +++----
+ drivers/crypto/hisilicon/hpre/hpre_main.c     |  16 +--
+ drivers/crypto/hisilicon/sec2/sec_main.c      |  23 +---
+ drivers/crypto/hisilicon/zip/zip_crypto.c     |   5 +-
+ drivers/crypto/hisilicon/zip/zip_main.c       |  21 +--
+ drivers/dma/dmatest.c                         |  34 ++---
+ drivers/edac/i10nm_base.c                     |   6 +-
+ drivers/firmware/efi/efi-pstore.c             |   6 +-
+ drivers/firmware/qcom/qcom_scm.c              |  18 +--
+ drivers/firmware/qemu_fw_cfg.c                |  40 +++---
+ drivers/gpu/drm/drm_panic.c                   |  13 +-
+ drivers/gpu/drm/i915/i915_mitigations.c       |  31 ++---
+ drivers/gpu/drm/imagination/pvr_fw_trace.c    |   6 +-
+ drivers/hid/hid-cougar.c                      |   6 +-
+ drivers/hid/hid-steam.c                       |   6 +-
+ drivers/infiniband/hw/hfi1/driver.c           |  12 +-
+ drivers/infiniband/ulp/iser/iscsi_iser.c      |   6 +-
+ drivers/infiniband/ulp/isert/ib_isert.c       |   6 +-
+ drivers/infiniband/ulp/srp/ib_srp.c           |  12 +-
+ drivers/infiniband/ulp/srpt/ib_srpt.c         |   5 +-
+ drivers/input/misc/ati_remote2.c              |  23 ++--
+ drivers/input/mouse/psmouse-base.c            |  15 ++-
+ drivers/md/md.c                               |   5 +-
+ drivers/media/pci/tw686x/tw686x-core.c        |   6 +-
+ drivers/media/usb/uvc/uvc_driver.c            |  14 +-
+ drivers/misc/lis3lv02d/lis3lv02d.c            |   5 +-
+ drivers/net/wireless/ath/wil6210/main.c       |  10 +-
+ drivers/nvme/host/multipath.c                 |  17 +--
+ drivers/nvme/host/pci.c                       |  18 +--
+ drivers/nvme/target/rdma.c                    |   5 +-
+ drivers/nvme/target/tcp.c                     |   5 +-
+ drivers/pci/pcie/aspm.c                       |  17 ++-
+ drivers/platform/x86/acerhdf.c                |   5 +-
+ drivers/power/supply/bq27xxx_battery.c        |   6 +-
+ drivers/power/supply/test_power.c             | 122 +++++++++---------
+ drivers/scsi/fcoe/fcoe_transport.c            |  22 ++--
+ drivers/scsi/sg.c                             |   6 +-
+ drivers/target/target_core_user.c             |  25 ++--
+ .../processor_thermal_soc_slider.c            |  24 ++--
+ drivers/thermal/intel/intel_powerclamp.c      |  34 ++---
+ drivers/tty/hvc/hvc_iucv.c                    |  24 ++--
+ drivers/tty/sysrq.c                           |   6 +-
+ drivers/ufs/core/ufs-fault-injection.c        |  12 +-
+ drivers/ufs/core/ufs-mcq.c                    |  18 +--
+ drivers/ufs/core/ufs-txeq.c                   |   5 +-
+ drivers/ufs/core/ufshcd.c                     |  12 +-
+ drivers/usb/core/quirks.c                     |   6 +-
+ drivers/usb/gadget/legacy/serial.c            |   5 +-
+ drivers/usb/storage/usb.c                     |  25 ++--
+ drivers/vhost/scsi.c                          |  12 +-
+ drivers/virt/nitro_enclaves/ne_misc_dev.c     |   6 +-
+ drivers/virtio/virtio_mmio.c                  |  27 ++--
+ fs/ceph/super.c                               |  10 +-
+ fs/fuse/dir.c                                 |   5 +-
+ fs/nfs/namespace.c                            |  12 +-
+ fs/nfs/super.c                                |   6 +-
+ fs/ocfs2/dlmfs/dlmfs.c                        |   5 +-
+ fs/overlayfs/copy_up.c                        |   5 +-
+ fs/ubifs/super.c                              |   6 +-
+ kernel/locking/locktorture.c                  |  12 +-
+ kernel/panic.c                                |  11 +-
+ kernel/params.c                               | 122 +++++++++---------
+ kernel/power/hibernate.c                      |   6 +-
+ kernel/rcu/tree.c                             |  24 ++--
+ kernel/sched/ext.c                            |  11 +-
+ kernel/workqueue.c                            |  18 ++-
+ lib/dynamic_debug.c                           |  16 ++-
+ lib/test_dynamic_debug.c                      |  12 +-
+ mm/damon/lru_sort.c                           |  33 +++--
+ mm/damon/reclaim.c                            |  33 +++--
+ mm/damon/stat.c                               |  16 +--
+ mm/memory_hotplug.c                           |  30 +++--
+ mm/page_reporting.c                           |  11 +-
+ mm/shuffle.c                                  |   6 +-
+ mm/zswap.c                                    |  14 +-
+ net/batman-adv/bat_algo.c                     |   6 +-
+ net/ceph/ceph_common.c                        |  10 +-
+ net/ipv4/tcp_dctcp.c                          |   6 +-
+ net/sunrpc/auth.c                             |  12 +-
+ net/sunrpc/svc.c                              |   5 +-
+ net/sunrpc/xprtsock.c                         |  18 +--
+ samples/damon/mtier.c                         |   6 +-
+ samples/damon/prcl.c                          |   6 +-
+ samples/damon/wsse.c                          |   6 +-
+ security/apparmor/lib.c                       |  27 ++--
+ security/apparmor/lsm.c                       |  75 +++++------
+ sound/hda/controllers/intel.c                 |   5 +-
+ sound/usb/card.c                              |   7 +-
+ 110 files changed, 854 insertions(+), 1066 deletions(-)
+
+-- 
+2.34.1
 
