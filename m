@@ -4,117 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD724CD5BAC
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 14:13:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A695CCD4F3D
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 14:36:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 152B410F338;
-	Thu, 21 May 2026 14:13:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F09410E4C7;
+	Thu, 21 May 2026 14:36:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="B0KS206S";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="csR/xaIt";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EB1F10F335
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 14:13:11 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-83659d38e38so2460113b3a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:13:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779372791; cv=none;
- d=google.com; s=arc-20240605;
- b=iLBQzH4ce7kMl+Ll9s4rMsuM9EEDsNOs4Bkq33+IvN+UOdGZPnhUxACM5R5Hay7dtX
- J9Q9CCT0GeIuzV44Savfyj0W0q9DxTrLvn0A3JsmDhXPa6cGSjLhkxl88hmE9xg2LjlJ
- fGSpZx6Y+aHbEJP2A5uW6UV7IGFTrkeN/9dr+qqNryb/3mV6/pNe/EPAQY59Zl0VAG8V
- hIHdN+9FBUH0c4YGhfPEP08rwjw8txaA4vbH/dL1jJLl4TmT1J0slexbQ3nUf0S+nuLX
- HfkxTbhCg15S4+pPy2NMPA/Na1VQjyF3cJHVwWZ9BzVOFnUANC3Px7AcLTk4XNNRzPiT
- 6sFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=REP4STaURwNBwYLUxnT2eThrBHI2vGspRNmg6btJygo=;
- fh=arxgmCB4ytKU1PEWQnMtdkN7qzuZbszUqrpOYERCkpk=;
- b=ZAg99/rhPtdJHTUeJBziCDlWIvq9t4X69n/15TG9bbE33+9DEQZq2i1wj2S8FNjvuY
- 3t4bnK2dBKWTcdFTeJBNZmTIV+nk7ErF9erFMLoDL7T+zYoMev3pCW1M+g2stcsNiQ4V
- 3+jDTC4RoSUfcBgbAI1JbmzZ836onINgFzMs4nDkae7DPK8S0ow+39gpsHkw0lFGriaY
- I2m5c/SATVSaWx0OXUrhHa8Yi6FYkAzLaQTCuKvY3nSivJgTFQe70HWe2mhvdomsX8aa
- AfXEdSdpfdvVlOkzrealHo1gRxjSxT6lcVlKTSI8Zdf2F042OXwLDqbHmXZMyLJJ+/+m
- F5Zw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1968210E4C7
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 14:36:28 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2b9fcf7c91bso65880045ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:36:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1779372791; x=1779977591;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=REP4STaURwNBwYLUxnT2eThrBHI2vGspRNmg6btJygo=;
- b=B0KS206SJCDMlPBj3enN0FsCW+bO+4qoyBjEbW/roKfA8sJwk/nfyATTMyS+9k1Bsc
- F+j7F9k2ubY32CFqKo+cXnsazki1e1I0ster1uIDj8Kyy4sHYuZuBlDMrUX6BCpQIuSW
- Pgb5txZ6LQ53Be20KEG+ZVZN8Uf6ptBqiZqDxwOGJcu8JMOHGhkvpqFT/FA2jmj0+IHM
- OYywnIpcZYYvDnk7z367KV+anBeBUnuGIVtvFj/8dUDCFqBEwaqhHo1JrWYKDpECAt0K
- z14Hb9qOlw8IkC1saAzEr01e/V8QRYPio5xwP/XNk6oko3d7OY1/B5Baj6BS6QwTnLLk
- 6zFQ==
+ d=gmail.com; s=20251104; t=1779374187; x=1779978987; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=PTAM2OCnR/CpQqKrM7cC8oSYE2+MEWlXnrT+DWAEKJA=;
+ b=csR/xaItFw+AfT1Yq0aQ1vDbP84E1P/jON9TU5RQ5xjRfcM1gj03+8InqKWgco+RXe
+ 2mo0+LGnHL7xDnsWm9l651hPOcYP6mRCBf0kp/ZOIo7RSojIgD9CLvDznPx8BR0gndMw
+ VLua4yoK81AghiXXh6cC/nZ4vCk/wTEXjNkX0bB24Ad8eQ0TAGlGpGV47bnFlTLG411T
+ xnJeh383M0EYMOss6sN/T91DuHGO4A8Q+RED4q0PltTmnzWhs0m9ff2W5vpOOk1jvRnx
+ WZrq0z1kxNNvg98DdJ9pgGo9V+sJHItm5ogbpLALib/etrk+pw2BgAIycWXu4YC5fWR7
+ Lcjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779372791; x=1779977591;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1779374187; x=1779978987;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=REP4STaURwNBwYLUxnT2eThrBHI2vGspRNmg6btJygo=;
- b=dGLssJ0YAz/jqCQQlJnz0JIzV26HhDDSli/aarIBShZ9NVwEKRMAIxqwqSdSOpFmwh
- GOasCV8yTGlBzwq5ta8NuiIEctQxzkQTeVoCdR7/1AKD/rfqhwO8cT9Bu5ivvJ9hkhLY
- okTyErlLk+apYTZx74RaXFa/oPZAe0cxPP4xGu2BXx26THtaSqnFat0ksqgvnbRCvD9t
- aA6scwvhMg/WV6IiroaAx/l5WTOVVl6tqZuNx0TKCiwXSnR+YK3i9hJv+dbil4j1w6dX
- 5SjRNq2SSFcZWaxU0c2xuKv/oBB6X5LoRMcqhgL9ZMjd1LmtCk2cIdZwwQpiL6b0g9Zs
- 1+tA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9/eNpq4dkwU7co3tqHIrteiQ6f6wuPSXGsvexQLaBpMe0NuVYn0HpTUVaKLiKvkoinqeRXyZZvPS0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YySY9v0Iikw73Pu0woVYeaZUpUZPVS74COIskVCsG01iHywt1Ri
- cw/cl+YC17FHdhFpoq1VHtN8BDhKsk0KjMpDK+VkQ6zKM8gZFmo8JMqz3shIUC0Eub805fO6/L7
- NBGWIu8UrQjjk3cG7IN0AYrpEoAxtXMgen+rp3Cv2zQ==
-X-Gm-Gg: Acq92OEBJaktlAdGnSLgumUSisLW4RyetufhOhPi8ppFyU9DAVCFw/R4szd28HSJWXK
- HdOqsqKOoGxbopkD7jQJkdnODoljZnSQvmvsLT4AadXCNmPkfHS2czfi142hxrDbbUzPxro57vh
- UfJYpWbgomh3NCrbaJOMHU+OyNRRdbkAbZeKzDHHquniut2dsF7ndtY420XXX1lWxYRN5ckckEO
- e0UVzTwSgYatZH0OdCTzzQImwTwWXoPRVPVSHD20rzAm3D5HjBXhRxfJL3ZWKwW2QzxhU84ehL+
- h8z29VhAoo1aJWBPlzvudM8cMeHo0v/Vf0tygRc=
-X-Received: by 2002:a05:6a00:170c:b0:83f:2568:d45f with SMTP id
- d2e1a72fcca58-8414ae0067emr3410992b3a.23.1779372790773; Thu, 21 May 2026
- 07:13:10 -0700 (PDT)
+ bh=PTAM2OCnR/CpQqKrM7cC8oSYE2+MEWlXnrT+DWAEKJA=;
+ b=WzmDJkTY9zPOjxe3MKDaWn3My7V4ERWtW6gnYQGbVSLnDJvVo107Y//iEjNME5D89A
+ g7zlKOQFbL0QP/bdmU24jj4JF9UGWP5hV7PLQrnOsST+6sDtEbqlcYYb8C4y58i4CMJf
+ QXgbrR9GUHzPVQkrN2dwVtAIBXSwFIN4PPKmR0+UBY/vJqis6L5top8xjN4upXE19wCV
+ N5w+v7UcYM30bLTTAPgcOJggQwJwH9P5xLtOyVwDum/Z4rI8N4b6lQeOMFH8Wx/5gEhR
+ WcgYvdCN9p83ah6hsB51lSDtdFQNH8WHgt7BfHaxFEQJXxaDXnVL7YUycjIwH1wigBCW
+ AyTQ==
+X-Gm-Message-State: AOJu0YyZ/uc/CH5I6vyppT1hw7ZaG0pIw2u6++1aLUrwPfA7xyi2cDJR
+ mlcfNNgsKxIN0quoQUmS+XSFjYbsrvWxKydeaIxqvs1E0hMt3welXr4j
+X-Gm-Gg: Acq92OHYP9aMAF0DF9OJ0KeLxiIEE3vELCXgUQoOyTNJBlTOMiQwmtwuhkxyyFDpVK0
+ H5+cmyJOdmfFrANgihcLWTrdeLGXTOO9EtNHbGx4+6A2iFXw31iHZB6aF+CIBHUG0GGdKxLt+Fo
+ hAPRWlij85rgcGUzS+ZoZJGdELaq87RN7c5W61vvL3dGhEdMAfndN03pT8ti9vz4umlCULCZKpH
+ qGtN6PNe90HROawHIVwqdAqPoCjbZ6gSHiwPVvb5V7sciXCpzrYBulBNvGeYvnVTMAqNuk4fnes
+ HlvyTbnNCyEqte+t/2Z3ihW8I/HEd/gB9ZB5C7zVtr4zSAEgk40TZlWd03X8kWUuhmJwRgykCS6
+ X0BNgEpbH2b9Te3Lhu8tXRdgAGNB8MPl6zjCDV9hqSoGQ/YUZmsfbA+BF4A0cIBInzyur+udGV+
+ I8BHtLpCQ0KbcXGyEVSFtFfCWsLh4XI4Xbcso1nVia65lBvCibCyetemJwV3JEOHLMRKNdzePr9
+ RtKbpmb7Tv2f79azvEbKMAaxK8=
+X-Received: by 2002:a17:902:ce92:b0:2b0:bebb:1081 with SMTP id
+ d9443c01a7336-2bea339d36fmr32322615ad.28.1779374187405; 
+ Thu, 21 May 2026 07:36:27 -0700 (PDT)
+Received: from daeinki-virtual-machine.localdomain ([58.124.60.88])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2bea929d774sm13807245ad.32.2026.05.21.07.36.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2026 07:36:26 -0700 (PDT)
+From: Inki Dae <inki.dae@samsung.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: [GIT PULL] exynos-drm-next
+Date: Thu, 21 May 2026 23:36:24 +0900
+Message-Id: <20260521143624.56906-1-inki.dae@samsung.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
- <20260423-color-format-v14-3-449a419ccbd4@collabora.com>
-In-Reply-To: <20260423-color-format-v14-3-449a419ccbd4@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 21 May 2026 15:12:59 +0100
-X-Gm-Features: AVHnY4IhuE52xfR4O7ZsBvGU9UxEW_nGPaKeUuOJKbLW6yd-ftNZQIcte9EpFTU
-Message-ID: <CAPj87rOgkSAhVzzHyuKEGPxVYeDhJKLGVNrBA2BkG00gvMJjYQ@mail.gmail.com>
-Subject: Re: [PATCH v14 03/28] drm: Add new general DRM property "color format"
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- wayland-devel@lists.freedesktop.org, Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,19 +86,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Dave and Daniel,
 
-On Thu, 23 Apr 2026 at 20:04, Nicolas Frattaroli
-<nicolas.frattaroli@collabora.com> wrote:
-> +       } else if (property == connector->color_format_property) {
-> +               if (val > INT_MAX || !drm_connector_color_format_valid(val)) {
-> +                       drm_dbg_atomic(connector->dev,
-> +                                      "[CONNECTOR:%d:%s] unknown color format %llu\n",
-> +                                      connector->base.id, connector->name, val);
-> +                       return -EINVAL;
-> +               }
+    This PR brings a cleanup and modernization series for Exynos DRM,
+    focused on fbdev emulation and DMA/GEM internals.
 
-Shouldn't this already be ensured by drm_property_change_valid_get()?
+Major changes are:
+    - migrate fbdev allocation to DRM client buffers,
+    - switch fbdev geometry calculations to DRM format helpers with tighter checks,
+    - fix screen_buffer handling to match fb_info semantics,
+    - adopt DRM core DMA tracking and remove redundant Exynos-side code.
+	
+Please kindly let me know if there is any problem.
 
-Cheers,
-Daniel
+Thanks,
+Inki Dae
+
+The following changes since commit 512f9f150f367176fa9e5f4613b4863409a6f686:
+
+  Merge tag 'drm-msm-next-2026-04-02' of https://gitlab.freedesktop.org/drm/msm into drm-next (2026-04-03 18:57:00 +1000)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos tags/exynos-drm-next-for-v7.2
+
+for you to fetch changes up to b9bb45aeaf028450c753782280922d31120b342a:
+
+  drm/exynos: Make exynos_drm_framebuffer_init() an internal interface (2026-05-21 23:11:46 +0900)
+
+----------------------------------------------------------------
+New feature and cleanup for Exynos fbdev
+- Move fbdev emulation to DRM client buffers
+  . Reuses standard ADDFB2/GEM paths and simplifies cleanup.
+- Use DRM format helpers for geometry and size
+  . Applies 4CC-based format/pitch/size calculation with stronger checks and PAGE_SIZE alignment.
+  . Sets screen_size and fix.smem_len from actual allocated size.
+
+Exynos DRM internal cleanup
+- Adopt DRM core DMA tracking and drop redundant code
+  . Removes private DMA tracking, exynos_drm_gem_prime_import(), and obsolete iommu_dma_init_domain() stub.
+- Reduce duplication and tighten local scope
+  . Replaces MAX_FB_BUFFER with DRM_FORMAT_MAX_PLANES.
+  . Drops redundant exynos_drm_gem.size and internalizes local-only helpers.
+
+Bug fix for Exynos fbdev behavior
+- Fix screen_buffer offset handling
+  . Keeps screen_buffer at framebuffer base and avoids applying scanout offset.
+  . Includes Fixes and stable Cc for backporting.
+
+----------------------------------------------------------------
+Chen-Yu Tsai (5):
+      drm/exynos: Internalize exynos_drm_gem_free_object()
+      drm/exynos: Use DRM core dedicated DMA device tracking facility
+      drm/exynos: Drop exynos_drm_gem.size field
+      drm/exynos: Drop MAX_FB_BUFFER in favor of DRM_FORMAT_MAX_PLANES
+      drm/exynos/dma: Drop iommu_dma_init_domain() stub
+
+Thomas Zimmermann (5):
+      drm/exynos: fbdev: Remove offset into screen_buffer
+      drm/exynos: fbdev: Inline exynos_drm_fbdev_update()
+      drm/exynos: fbdev: Calculate buffer geometry with format helpers
+      drm/exynos: fbdev: Use a DRM client buffer
+      drm/exynos: Make exynos_drm_framebuffer_init() an internal interface
+
+ drivers/gpu/drm/exynos/exynos_drm_dma.c   |  15 ++--
+ drivers/gpu/drm/exynos/exynos_drm_drv.c   |   1 -
+ drivers/gpu/drm/exynos/exynos_drm_drv.h   |   9 ---
+ drivers/gpu/drm/exynos/exynos_drm_fb.c    |   9 +--
+ drivers/gpu/drm/exynos/exynos_drm_fb.h    |  10 +--
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 111 +++++++++++++++---------------
+ drivers/gpu/drm/exynos/exynos_drm_g2d.c   |  13 ++--
+ drivers/gpu/drm/exynos/exynos_drm_gem.c   |  50 ++++++--------
+ drivers/gpu/drm/exynos/exynos_drm_gem.h   |   8 ---
+ drivers/gpu/drm/exynos/exynos_drm_ipp.c   |   2 +-
+ drivers/gpu/drm/exynos/exynos_drm_ipp.h   |   4 +-
+ 11 files changed, 103 insertions(+), 129 deletions(-)
