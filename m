@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B42CD5BAF
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 23:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86644CD5BAF
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 23:40:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FE1F10F457;
-	Thu, 21 May 2026 23:40:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB4C810F45A;
+	Thu, 21 May 2026 23:40:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NRztFjac";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k7zjIvWd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8546A10F457
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 23:40:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3AEB10F45A
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 23:40:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0733C60172;
- Thu, 21 May 2026 23:40:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B531F000E9;
- Thu, 21 May 2026 23:40:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A48A143D3C;
+ Thu, 21 May 2026 23:40:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B6971F00A3B;
+ Thu, 21 May 2026 23:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779406807;
- bh=ZhrVRWnv8zNdxXcPSXmUKIJuAuNCE6ADfKvZitNDWSY=;
+ s=k20260515; t=1779406814;
+ bh=ggJY/UJJUIurxIjGS19alaA47Bxd3KuWm+WJgDSyvC0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=NRztFjacPD5/OZIzlRctcJhFSCoVS8vrrtffhaKXdEOrFCj6CHm3C75ntBkDGQ799
- xm9dUNxesoukHHbiIEatxULSbbMrslyqWAu8qItUGWxu34th1NP3nF8QPW8KJSYZx1
- +M3y91d5/7ufqBNSO7fVsl4c15Toukv76GXuJQijBKTaWLKnSTGsq7WODnCR1XXkka
- YqgeIa8LK/KuUt5u+rJGWpXnyy3UyvFTNx8cHiTo6VqxR4Vq8ZuWoeuR3kYa9nXLK6
- 5NppZmRhG+CZo6XJv+eHIlL//GPbxqmWZ+vxjlmsttWwoLOBHFn1npbcx9T/GaMUz6
- WKdylY3qxs3Qg==
+ b=k7zjIvWd+VGBCSOvUB86+/MHTdB2856fFXG9wO030mFsM1A99tCNEpFMmgGcwOrvH
+ 44r/pHNRp4ruC80cSDkePGveT0NqDmh9OpQX8RZIZpcYZBdNm+or0xOOV+3rE5DNDG
+ OU2uCgfW6CbzJ9fE4j5B4MvUIXwnybq1UuUTSxYPMMKfpuo/VZ+En/8NqHGoFpPVW+
+ UPsh+gVmNckJtDgAG0TRJjEXGdFbRhK6NOFyZnQzI44MA5tgIXZ1S5dme7t8d4NM1O
+ fJqAY43w5dpLjN55VwUndsv0L91SXR0De/zlc8GczmH70e27kit8z3drjWx51VnZmF
+ GeTUTOjroaKLw==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
@@ -45,9 +45,9 @@ Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
  Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH v4 07/27] rust: auxiliary: implement Sync for Device<Bound>
-Date: Fri, 22 May 2026 01:34:33 +0200
-Message-ID: <20260521233501.1191842-8-dakr@kernel.org>
+Subject: [PATCH v4 08/27] rust: usb: implement Sync for Device<Bound>
+Date: Fri, 22 May 2026 01:34:34 +0200
+Message-ID: <20260521233501.1191842-9-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260521233501.1191842-1-dakr@kernel.org>
 References: <20260521233501.1191842-1-dakr@kernel.org>
@@ -70,35 +70,35 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Implement Sync for Device<Bound> in addition to Device<Normal>.
 
-Device<Bound> uses the same underlying struct auxiliary_device as
+Device<Bound> uses the same underlying struct usb_device as
 Device<Normal>; Bound is a zero-sized type-state marker that does not
 affect thread safety.
 
-This is needed for drivers to store &'bound auxiliary::Device<Bound> in
-their private data while remaining Send.
+This is needed for drivers to store &'bound usb::Device<Bound> in their
+private data while remaining Send.
 
 Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 Reviewed-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/auxiliary.rs | 4 ++++
+ rust/kernel/usb.rs | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-index 4e83f9e27d78..df2c97423dcc 100644
---- a/rust/kernel/auxiliary.rs
-+++ b/rust/kernel/auxiliary.rs
-@@ -369,6 +369,10 @@ unsafe impl Send for Device {}
- // (i.e. `Device<Normal>) are thread safe.
+diff --git a/rust/kernel/usb.rs b/rust/kernel/usb.rs
+index 88721970afcb..6c917d8fa883 100644
+--- a/rust/kernel/usb.rs
++++ b/rust/kernel/usb.rs
+@@ -468,6 +468,10 @@ unsafe impl Send for Device {}
+ // allow any mutation through a shared reference.
  unsafe impl Sync for Device {}
  
-+// SAFETY: Same as `Device<Normal>` -- the underlying `struct auxiliary_device` is the same;
++// SAFETY: Same as `Device<Normal>` -- the underlying `struct usb_device` is the same;
 +// `Bound` is a zero-sized type-state marker that does not affect thread safety.
 +unsafe impl Sync for Device<device::Bound> {}
 +
- /// Wrapper that stores a [`TypeId`] alongside the registration data for runtime type checking.
- #[repr(C)]
- #[pin_data]
+ /// Declares a kernel module that exposes a single USB driver.
+ ///
+ /// # Examples
 -- 
 2.54.0
 
