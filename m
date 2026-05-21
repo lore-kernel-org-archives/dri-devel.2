@@ -4,61 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC61ACD5BA4
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26108CD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52FDD10E05E;
-	Thu, 21 May 2026 09:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8656C10E2A8;
+	Thu, 21 May 2026 09:03:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="AGmBTyA7";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="R0D0zqrj";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33E6410E05E
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 09:01:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779354066;
- bh=HkYvTVcPzSTc+LKOwW4MxrM8I91nfQVQdqotlUSn+lA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=AGmBTyA7gH4ux1s88NG7277H5LLbOvuOMz20+ai56lyumT0m4etdK9ZrKA/OhZPvZ
- DQcKB6ioFVSXqHWyMuWrqzvM4aqjcta50N4XSC3fz7YNRL5Y6oYNp1XngR0zcoVE4p
- tCkyZbBpYTPocrQq02wdiEJAB4/S8dSQNyN5hZvb4MgEuceLmC6+Q2B4O0tISVk8aa
- g1BNL/pxVbF9oceU4ybUnO91sFPXaDdOY9LzhebV0Rjp+p6cIEQEQylCweK9d4wrkB
- lu/YPi74aPQiQW4RLc71oiyVWCC5DRfaD65eLqh66aka+6qqlWEQy8SNzs5+YLozUQ
- JsNOs2SZzZ5+w==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1126D17E107C;
- Thu, 21 May 2026 11:01:06 +0200 (CEST)
-Date: Thu, 21 May 2026 11:01:00 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] dma-resv: Define guards for context-less dma_resv
- locks
-Message-ID: <20260521110100.598baadb@fedora>
-In-Reply-To: <20260521105402.4bc4b1e5@fedora>
-References: <20260513-panthor-guard-refactor-v1-0-f2d8c15a97ce@collabora.com>
- <20260513-panthor-guard-refactor-v1-2-f2d8c15a97ce@collabora.com>
- <03a57011-e734-4a74-aef2-e3a6016e15fc@amd.com>
- <20260518111456.30ba9bba@fedora>
- <a9ee80aa-0c9b-4bd7-87bb-d3e228357b18@amd.com>
- <20260518161531.331cab2d@fedora>
- <d793568d-9611-4174-b9e9-c71ffec5ae93@amd.com>
- <20260521105402.4bc4b1e5@fedora>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E294E10E107;
+ Thu, 21 May 2026 09:03:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1779354226; x=1779613426;
+ bh=XUOs5gzGAQsfeLUsJnVftHR4Vb5FftuYeGY6rn8jz0E=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=R0D0zqrjGCyWsuQ6b9mypJwIzOF8Y0katgLZRMiayBuusZ0iwdIgcEklFemG/r6tn
+ DwOpvWS+xBHsTAGXriTQVw16UnvuKxUo1fTLEQdePQaG7F1SBf79LAGCU/tVVxXVtF
+ bi8B/KrAPytg3vhJ6siZDTKxsQXs+OGtQV0B+F+WLOhMy8ZVvICSJfv9X+kmL8LjIe
+ hGWL6dK7LQKOXbGlMIB6Or+W/pONfjNt8mlruAF1mqxe3vFozCaMJooPFUBPuDnNs3
+ 2ORvA1FpgkABj0dYfpHo8mc173r7mCmgk9GtFhsyAQDUq8CWFG21zZB7OEe4sy1HfM
+ Ok79cjNyWE0zg==
+Date: Thu, 21 May 2026 09:03:40 +0000
+To: Neil Armstrong <neil.armstrong@linaro.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
+Message-ID: <B1J_l5TEAq5VkrzIONy8jR64syCY4emf6nfv6_oisI08IblhzeBv7meOvwVNFxknOEtVAA9QZKkG1eUtMlsCU4vJeYit4gAWYI2J5p-U6tc=@pm.me>
+In-Reply-To: <efede04f-b2e2-4fba-8247-f92eafa2b381@linaro.org>
+References: <20260318-dsi-dsc-slice-per-pkt-v1-0-1bd66b7f9e0c@pm.me>
+ <20260318-dsi-dsc-slice-per-pkt-v1-2-1bd66b7f9e0c@pm.me>
+ <w74ctaczp3ty7wil2sfkztc6wvuppgpyff4tw4dze34irvfmlx@e5f36rzqmp6i>
+ <efede04f-b2e2-4fba-8247-f92eafa2b381@linaro.org>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: fb4b6bed8fc43b6f3108e2d4f609f11792d1cd57
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,64 +69,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 21 May 2026 10:54:02 +0200
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
+On Thursday, May 21st, 2026 at 3:50 AM, Neil Armstrong <neil.armstrong@lina=
+ro.org> wrote:
 
-> On Thu, 21 May 2026 10:36:47 +0200
-> Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
+> On 3/18/26 10:39, Dmitry Baryshkov wrote:
+> > On Wed, Mar 18, 2026 at 07:33:03AM +0000, Alexander Koskovich wrote:
+> >> Some panels support multiple slice to be sent in a single DSC packet a=
+nd
+> >> this feature is a must for specific panels, such as the JDI LPM026M648=
+C.
+> >>
+> >> Use the MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT flag to derive slice_per_p=
+kt
+> >> from slice_count, note that most panels are expected to just work with
+> >> just one slice per packet.
+> >>
+> >> This change was originally authored by Jonathan Marek:
+> >> https://lore.kernel.org/all/20231114174218.19765-3-jonathan@marek.ca
+> >
+> > This is a wrong way to give attribution. Either please retain the autho=
+r
+> > and Jonathan's SoB or use Co-developed-by and still Jonathan's SoB.
 >=20
-> > On 5/18/26 16:15, Boris Brezillon wrote: =20
-> > > On Mon, 18 May 2026 14:18:41 +0200
-> > > Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
-> > >    =20
-> > >> On 5/18/26 11:14, Boris Brezillon wrote:   =20
-> > >>> Hi Christian,
-> > >>>
-> > >>> On Mon, 18 May 2026 09:10:23 +0200
-> > >>> Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
-> > >>>      =20
-> > >>>> On 5/13/26 18:58, Boris Brezillon wrote:     =20
-> > >>>>> When used without a context, dma_resv are no different from regul=
-ar
-> > >>>>> locks. Define guards so we can use the guard-syntactic sugars for
-> > >>>>> explicit/implicit scoped locks.
-> > >>>>>
-> > >>>>> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>   =
-    =20
-> > >>>>
-> > >>>> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > >>>>
-> > >>>> How do you want to upstream it? My preference would be drm-misc-ne=
-xt, but I think I can live with a panthor specific branch as well.     =20
-> > >>>
-> > >>> Everything Panthor related goes through drm-misc-next, so drm-misc-=
-next
-> > >>> also has my preference ;-). But I'd like to wait for more feedback =
-on
-> > >>> the other drm patches, and there are a few things I need to address=
- in
-> > >>> the panthor patches anyway, so it's likely to take a couple more we=
-eks
-> > >>> for this series to hit the drm-misc tree, unless you have a good re=
-ason
-> > >>> to fast-track this specific patch.     =20
-> > >>
-> > >> Well the DMA-buf code itself uses dma_resv_lock/unlock   =20
-> > >=20
-> > > There's no use in dma-resv.c that can be converted to guards. I gave
-> > > dma-buf.c a try, but just like for panthor, I don't really like the f=
-act
-> > > it's halfway through (other locks still use manual locking), so I'd be
-> > > tempted to convert everything at once for consistency. If you're fine
-> > > with that, I can give this a try.   =20
-> >=20
-> > Well depends on what everything means. I would only convert dma-buf.c i=
-n one patch and nothing else. =20
+> Please retain `Signed-off-by: Jonathan Marek <jonathan@marek.ca>` since t=
+he only
+> major difference with the original patch is moving the drm_mipi_dsi.h cha=
+nge to
+> another patch.
+
+Yeah, made sure to add his Signed-off-by to v2:
+https://lore.kernel.org/linux-arm-msm/20260318-dsi-dsc-slice-per-pkt-v2-2-0=
+a1b316f8250@pm.me
+
 >=20
-> By everything I mean all type of locks, not just dma_resv ones.
-
-BTW, I actually did more than just dma-buf.c [1], let me know what you
-want from there and I'll ditch the rest.
-
-[1]https://gitlab.freedesktop.org/bbrezillon/linux/-/commits/b4/panthor-gua=
-rd-refactor
+> >
+> > The patch looks good to me.
+> >
+> >>
+> >> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> >> ---
+> >>   drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+> >>   1 file changed, 10 insertions(+), 15 deletions(-)
+> >>
+> >
+>=20
+>=20
+> 
