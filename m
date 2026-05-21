@@ -4,61 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93229CD5BAC
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 14:13:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD724CD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 14:13:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEBC410E4E5;
-	Thu, 21 May 2026 14:13:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 152B410F338;
+	Thu, 21 May 2026 14:13:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="ECLexoX1";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="B0KS206S";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D036E10E4E5
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 14:13:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779372786; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=SUgO5ws+tBCQT0WUk7m9OqeJjuGaW9dgACsBugEeSGB/2yv/hd2RPPhqWyIrZpSZWHz8XuyQ6sq1by8NhxDzH9YZCntv6mGJ62Sv0A8ZuWYwNyXLUme5mZI0Xuf1ykgrTGQtgarodgrnh3dvc5T5LZmORNpvsYmeMhHc7Ru9Igw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779372786;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=0/jNls64NPl5dO+bgmH5gGf2lVDbjs1vLBYMfjIcFiE=; 
- b=dDOb6h1o7But23QhSbbufq3ToVD3Mk1xgTm5gnpXAfNV7X1BSALI6u8gId5eCa5e7c7wSLDbIscUBJLjiKXISrCYH2NC386gmEZm3mvxXorWhtLkA/rSuEK1sJYtUYy2lhjrbDBHPNPgIJtsAOSU60HnjkGuR1qoXJP7OuYWihs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779372786; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
- bh=0/jNls64NPl5dO+bgmH5gGf2lVDbjs1vLBYMfjIcFiE=;
- b=ECLexoX1PJgsNwPtsE/KzzkpHtOtvzyR5q1qdJ6eoFiNkvaVHHQfGwDOuyYYQqFT
- ANvO1RXy9D27Zus2E588s/2b5Bksz8fSlxbvtqIskrFnssGo8kGzah2Vp5QuTBBqr4x
- Lz5U7EbrnpEERhmv/BKjasoFQXchurUzHa3VrtJE=
-Received: by mx.zohomail.com with SMTPS id 177937278357391.36330198048734;
- Thu, 21 May 2026 07:13:03 -0700 (PDT)
-Message-ID: <9e5063e8-99ba-4e33-b3e6-03656928c475@collabora.com>
-Date: Thu, 21 May 2026 17:13:00 +0300
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EB1F10F335
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 14:13:11 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-83659d38e38so2460113b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 07:13:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779372791; cv=none;
+ d=google.com; s=arc-20240605;
+ b=iLBQzH4ce7kMl+Ll9s4rMsuM9EEDsNOs4Bkq33+IvN+UOdGZPnhUxACM5R5Hay7dtX
+ J9Q9CCT0GeIuzV44Savfyj0W0q9DxTrLvn0A3JsmDhXPa6cGSjLhkxl88hmE9xg2LjlJ
+ fGSpZx6Y+aHbEJP2A5uW6UV7IGFTrkeN/9dr+qqNryb/3mV6/pNe/EPAQY59Zl0VAG8V
+ hIHdN+9FBUH0c4YGhfPEP08rwjw8txaA4vbH/dL1jJLl4TmT1J0slexbQ3nUf0S+nuLX
+ HfkxTbhCg15S4+pPy2NMPA/Na1VQjyF3cJHVwWZ9BzVOFnUANC3Px7AcLTk4XNNRzPiT
+ 6sFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=REP4STaURwNBwYLUxnT2eThrBHI2vGspRNmg6btJygo=;
+ fh=arxgmCB4ytKU1PEWQnMtdkN7qzuZbszUqrpOYERCkpk=;
+ b=ZAg99/rhPtdJHTUeJBziCDlWIvq9t4X69n/15TG9bbE33+9DEQZq2i1wj2S8FNjvuY
+ 3t4bnK2dBKWTcdFTeJBNZmTIV+nk7ErF9erFMLoDL7T+zYoMev3pCW1M+g2stcsNiQ4V
+ 3+jDTC4RoSUfcBgbAI1JbmzZ836onINgFzMs4nDkae7DPK8S0ow+39gpsHkw0lFGriaY
+ I2m5c/SATVSaWx0OXUrhHa8Yi6FYkAzLaQTCuKvY3nSivJgTFQe70HWe2mhvdomsX8aa
+ AfXEdSdpfdvVlOkzrealHo1gRxjSxT6lcVlKTSI8Zdf2F042OXwLDqbHmXZMyLJJ+/+m
+ F5Zw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1779372791; x=1779977591;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=REP4STaURwNBwYLUxnT2eThrBHI2vGspRNmg6btJygo=;
+ b=B0KS206SJCDMlPBj3enN0FsCW+bO+4qoyBjEbW/roKfA8sJwk/nfyATTMyS+9k1Bsc
+ F+j7F9k2ubY32CFqKo+cXnsazki1e1I0ster1uIDj8Kyy4sHYuZuBlDMrUX6BCpQIuSW
+ Pgb5txZ6LQ53Be20KEG+ZVZN8Uf6ptBqiZqDxwOGJcu8JMOHGhkvpqFT/FA2jmj0+IHM
+ OYywnIpcZYYvDnk7z367KV+anBeBUnuGIVtvFj/8dUDCFqBEwaqhHo1JrWYKDpECAt0K
+ z14Hb9qOlw8IkC1saAzEr01e/V8QRYPio5xwP/XNk6oko3d7OY1/B5Baj6BS6QwTnLLk
+ 6zFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779372791; x=1779977591;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=REP4STaURwNBwYLUxnT2eThrBHI2vGspRNmg6btJygo=;
+ b=dGLssJ0YAz/jqCQQlJnz0JIzV26HhDDSli/aarIBShZ9NVwEKRMAIxqwqSdSOpFmwh
+ GOasCV8yTGlBzwq5ta8NuiIEctQxzkQTeVoCdR7/1AKD/rfqhwO8cT9Bu5ivvJ9hkhLY
+ okTyErlLk+apYTZx74RaXFa/oPZAe0cxPP4xGu2BXx26THtaSqnFat0ksqgvnbRCvD9t
+ aA6scwvhMg/WV6IiroaAx/l5WTOVVl6tqZuNx0TKCiwXSnR+YK3i9hJv+dbil4j1w6dX
+ 5SjRNq2SSFcZWaxU0c2xuKv/oBB6X5LoRMcqhgL9ZMjd1LmtCk2cIdZwwQpiL6b0g9Zs
+ 1+tA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9/eNpq4dkwU7co3tqHIrteiQ6f6wuPSXGsvexQLaBpMe0NuVYn0HpTUVaKLiKvkoinqeRXyZZvPS0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySY9v0Iikw73Pu0woVYeaZUpUZPVS74COIskVCsG01iHywt1Ri
+ cw/cl+YC17FHdhFpoq1VHtN8BDhKsk0KjMpDK+VkQ6zKM8gZFmo8JMqz3shIUC0Eub805fO6/L7
+ NBGWIu8UrQjjk3cG7IN0AYrpEoAxtXMgen+rp3Cv2zQ==
+X-Gm-Gg: Acq92OEBJaktlAdGnSLgumUSisLW4RyetufhOhPi8ppFyU9DAVCFw/R4szd28HSJWXK
+ HdOqsqKOoGxbopkD7jQJkdnODoljZnSQvmvsLT4AadXCNmPkfHS2czfi142hxrDbbUzPxro57vh
+ UfJYpWbgomh3NCrbaJOMHU+OyNRRdbkAbZeKzDHHquniut2dsF7ndtY420XXX1lWxYRN5ckckEO
+ e0UVzTwSgYatZH0OdCTzzQImwTwWXoPRVPVSHD20rzAm3D5HjBXhRxfJL3ZWKwW2QzxhU84ehL+
+ h8z29VhAoo1aJWBPlzvudM8cMeHo0v/Vf0tygRc=
+X-Received: by 2002:a05:6a00:170c:b0:83f:2568:d45f with SMTP id
+ d2e1a72fcca58-8414ae0067emr3410992b3a.23.1779372790773; Thu, 21 May 2026
+ 07:13:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/3] drm/virtio: Add support for saving and restoring
- virtio_gpu_objects
-To: "Kim, Dongwon" <dongwon.kim@intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "airlied@redhat.com" <airlied@redhat.com>,
- "kraxel@redhat.com" <kraxel@redhat.com>
-References: <20260429204729.993669-1-dongwon.kim@intel.com>
- <20260429204729.993669-3-dongwon.kim@intel.com>
- <4ec04daf-9665-4b15-9e62-b83eb9aaa7c9@collabora.com>
- <PH0PR11MB5112A54866C6888080137302FA002@PH0PR11MB5112.namprd11.prod.outlook.com>
- <8ff5d9cd-62bc-4136-af00-96acd3a2c07f@collabora.com>
- <PH0PR11MB511260F7209810CD9569E696FA002@PH0PR11MB5112.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <PH0PR11MB511260F7209810CD9569E696FA002@PH0PR11MB5112.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+References: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
+ <20260423-color-format-v14-3-449a419ccbd4@collabora.com>
+In-Reply-To: <20260423-color-format-v14-3-449a419ccbd4@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 21 May 2026 15:12:59 +0100
+X-Gm-Features: AVHnY4IhuE52xfR4O7ZsBvGU9UxEW_nGPaKeUuOJKbLW6yd-ftNZQIcte9EpFTU
+Message-ID: <CAPj87rOgkSAhVzzHyuKEGPxVYeDhJKLGVNrBA2BkG00gvMJjYQ@mail.gmail.com>
+Subject: Re: [PATCH v14 03/28] drm: Add new general DRM property "color format"
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ kernel@collabora.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ wayland-devel@lists.freedesktop.org, Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,36 +130,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/19/26 21:28, Kim, Dongwon wrote:
-> Hi Dmitry,
-> 
->> Subject: Re: [PATCH v8 2/3] drm/virtio: Add support for saving and restoring
->> virtio_gpu_objects
->>
->> On 5/19/26 03:23, Kim, Dongwon wrote:
->>>> Can virtio_gpu_remove_from_restore_list() be moved to
->>>> virtio_gpu_cmd_unref_resource()?
->>> Yes, technically it can be done and we can remove some redundancy but
->>> don't you think adding it or removing it from the list would be better
->>> to be handled outside of vq functions (virtgpu_vq.c) where actual
->>> communication messages are processed?
->>
->> cmd_unref() indeed isn't a good fit
->>
->> Could you please check if list node can now be removed from
->> virtio_gpu_cleanup_object()? IIRC, there was a problem with that in older patch
->> versions.
-> 
-> Yes, you are talking about patch v7 where removal of the node was done in virtio_gpu_cleanup_object().
-> You actually mentioned this at that time,
-> 
-> " Also, looks wrong to delete object's node from the list by the
-> virtio_gpu_cleanup_object() that is invoked from cmd-completion callback. You calling virtio_gpu_object_unref_all() that walks up obj_restore_list while obj already may be in process of async unref'ing?"
-> 
-> Your concern was valid so I moved node removal right before cmd unref call in v8 (the latest so far).
+Hi,
 
-Thanks for the reminder, let's keep it as in this patch then.
+On Thu, 23 Apr 2026 at 20:04, Nicolas Frattaroli
+<nicolas.frattaroli@collabora.com> wrote:
+> +       } else if (property == connector->color_format_property) {
+> +               if (val > INT_MAX || !drm_connector_color_format_valid(val)) {
+> +                       drm_dbg_atomic(connector->dev,
+> +                                      "[CONNECTOR:%d:%s] unknown color format %llu\n",
+> +                                      connector->base.id, connector->name, val);
+> +                       return -EINVAL;
+> +               }
 
--- 
-Best regards,
-Dmitry
+Shouldn't this already be ensured by drm_property_change_valid_get()?
+
+Cheers,
+Daniel
