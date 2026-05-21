@@ -4,54 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF2D6CD4F54
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 02:19:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68368CD5BA6
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 02:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4730310F1AD;
-	Thu, 21 May 2026 02:19:55 +0000 (UTC)
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
- [209.85.210.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DEC410F1AB
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 02:19:50 +0000 (UTC)
-Received: by mail-ot1-f71.google.com with SMTP id
- 46e09a7af769-7dbb6b95836so15691597a34.3
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:19:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779329990; x=1779934790;
- h=cc:to:from:subject:message-id:in-reply-to:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CzDENP6IjMuE+dFgbF5yX5xWJgBQqW+B+xC/YsKt82Y=;
- b=j+D3R4FwLD08mTCQXyCA4mKx+Vh2shAK1TtMVfOcQaWxr0QERwX5Gt/HhNSpSq9lxt
- 5iLIqSkIQ/Agp1pRxc9TQNeeXPocSHKBufS1PxV8kCT7fgXC2ol83S7Imh70Ae0e8v7j
- 7DQTbMoN4Ai11f+BwajEULMuV+T72GG5SCGH0p1Sxj4BSAneOKl8yG4dnzjYVmKsPjVy
- Tka/T/U3i99QKcTlJELuxQEPdV/9WfOnbx6zYlwk9wl8wieptoFJtbu162ao/pQ5zsc7
- tx4QfNF1nocKh/KEgOBmIGTHvNf1espVlhVp995H+sxqnRXHemym2vpIq/vjG3dokWfO
- wQmw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ82BPHL24J3nWoWUPc9ZfcTjFs7utBKQt1lEldsdL93ZNKwZFUFncs/NQ7vvNlD6l/yOlitUBHROAE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWG35y9OFUM59BPj5z1R0WAsQBD0vBWc+NlYqMVPDjPRnRoGEq
- 1pPROosxYIHp+7pax24kq5hux4FzbSmbkMUhDjobqYEBGfzHXKicWFdZMo3Ize5m52jSSX47f08
- 0N+U8ikU88jiZIcFZ5y7bSKWuEVb6C6vN+r+WYTVbCEqZJSup5wq+6kdhXlM=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC1510F1B6;
+	Thu, 21 May 2026 02:49:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="IK9kbqcu";
+	dkim-atps=neutral
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011000.outbound.protection.outlook.com
+ [40.93.194.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1107510E07C;
+ Thu, 21 May 2026 02:49:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZNzQfqPa0aBBvbhPPJyBtVtUScDYxYftlRV9TD9SQPfN38xJ/J+vBjYRDPYYeX7r9L5lZI6Ey7OSWvRq/pkVUpYw3xjQnqTXg77liFKOLAYWI+zMNsr8Yfntqd5YjkJBDb8l2WybmGT0uuvrJ3pZwjDAP8j5NLPI7vnN9nuiFbcaiRycwUGVlFuGL/QtqasrjIBTjOXS8dQs4PZuXjwYD9FNjI68xpkCDbBlUqWqlCZZwO4UtQ99Qkg5keVeQBJdPrXMhD3ukCJA7yOheA6X2mlkHQJmsHe9gz1wwSl6tf+DpBPS+MZ4cS4TGc8B+OlRm3lqLLAGNN2CCFuIFV8bfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=loUNz5fm1mY1eZa8mTlWfxgqu04fYL3GArxwFQltiPU=;
+ b=UkVsAD2XYgFlEltmz8u/q2xO/3wLQJLP8hB5jxx2vzrVVzuP0goXvcm9skaxsqvMsr80G3rKoKr69Xs4VgqDtA6YnnpELp8IIxjMWISy4CeYFD3dapkQztr1eqPmmjzy/OqJgjRCChA5pIWw1i4/5G9H84YzESON/mwchm3xSSFEHrzw+p+XXMgSUXI6cW3VEUXc8tJe/XhsGarfcn1RxgTHCJpK9rlxuYU2Q3Ozkkz40EKdOVWJ5kec2mxW7qaLJGXbc56yuPP6uOhYpGd2BacSnJF7rDBCCNRbfEIipt2FjKmpQ3NI+Sjv1SWaTOjBgeUrwWSgLsRu7/NMe39qXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=loUNz5fm1mY1eZa8mTlWfxgqu04fYL3GArxwFQltiPU=;
+ b=IK9kbqcu3pjvg23hxqy3XxFOfL1EvGK+PSgg8O4IYUcueSHwl81Uh8xtJt+PFib+3E9sUHmYAwmDVEK8vYkn5OxedsxQFVUKB//aw1LS5DByWN/2LGlA+hNdu3YIgjUxStDrHIJ0aYATDPTD7S2LBzD0aRbS6pUO4V7Rykd+wiaZ5RjLxuRDN0VFv91yr9rcGll2ENbG2HpVhubtJQihvdQswJsNusz7ccO/bNX/tY9KH3f5abUi5Q1Mj6sXf4+U4e8pLfzTgCuMPDScuAvKdZOMtINnCDgcf2KKIRf+pSiRmRvjw+M8x1kK2yvhQQYsfomAB7tRWbzOqGuh3FNjqg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ DS0PR12MB8296.namprd12.prod.outlook.com (2603:10b6:8:f7::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.14; Thu, 21 May 2026 02:49:07 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.20.9913.012; Thu, 21 May 2026
+ 02:49:07 +0000
+From: John Hubbard <jhubbard@nvidia.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ James Clark <james.clark@linaro.org>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, John Hubbard <jhubbard@nvidia.com>
+Subject: [PATCH 1/2] perf/core: out-of-line and export
+ perf_allow_cpu/tracepoint()
+Date: Wed, 20 May 2026 19:49:03 -0700
+Message-ID: <20260521024904.331912-2-jhubbard@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260521024904.331912-1-jhubbard@nvidia.com>
+References: <20260521024904.331912-1-jhubbard@nvidia.com>
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0143.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::28) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b02:b0:696:2a7c:40be with SMTP id
- 006d021491bc7-69d6edccba1mr426926eaf.10.1779329989817; Wed, 20 May 2026
- 19:19:49 -0700 (PDT)
-Date: Wed, 20 May 2026 19:19:49 -0700
-In-Reply-To: <20260521-virtio-gpu_wait_event-v2-1-5796b3a71d03@redhat.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a0e6bc5.a00a0220.396cf0.0001.GAE@google.com>
-Subject: Re: [PATCH v2] drm/virtio: abort virtqueue wait on device removal to
- avoid hung task
-From: syzbot <syzbot@syzkaller.appspotmail.com>
-To: ryasuoka@redhat.com
-Cc: airlied@redhat.com, dmitry.osipenko@collabora.com, 
- dri-devel@lists.freedesktop.org, gurchetansingh@chromium.org, 
- kraxel@redhat.com, linux-kernel@vger.kernel.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, olvaffe@gmail.com, 
- ryasuoka@redhat.com, simona@ffwll.ch, tzimmermann@suse.de, 
- virtualization@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DS0PR12MB8296:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa859675-eaf3-4914-32ea-08deb6e3873d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|7416014|11063799006|18002099003|22082099003|56012099003|5023799004;
+X-Microsoft-Antispam-Message-Info: 7YCLKPa2AEUwz3att/sONDAIaWb8B/wr+USOaqgwP0zRV7RjZxQ35FLThr3lCfRoIFOYVSMkiMiQcPk8VPReh8kftrxsrvuSg67nYcCPREyuQtC4TXb6vmvUL9AHATCND8Fu9iuaM+J+EDepIioEydF5LIGkWHjLtHMmxiZUfh4zr7zEtEllqS04cRxSMWIctVDxRNm3+Wy3A170lWCFyejZbDDnZee+r9Dk7vYUvgHReBEF7ciDXDhgQvQfeYZw/7KSYbMADJEu2p56tDy6sWXNCWAICbS39/MPtnvk0XPvLQFi+B+OQ9nqv65AxTyUvBLU0iXPQCjGlqeNJH/Ma0bMWcYnjXReeE5Lpc+oQcs9BPIHjRpbkVMsew5kYOIKcbyDNlxMk2lquOCkp5vwDmLICV0vgxaCOp9zy7vMQMTEPulucOPabFmvDeADhCBZEEXDbEGfIsvhX6ZhraSr52ISbjbRw0crw7QVAsnM/NpZt9UA4jOXG/KnvX3zRZ5rkA9yBsOUj9cjUMpxLzQ8OHe6Y+KRn3eMlgaawpjnUDhvzoXw6LPGsouSen38yAakdmdR5fK+WU7yaGSoxo6SF0QOkNUjvjJ7KjQdP0Hn1CSrpfadxS/BC3YLqSOkahB7iS9xaImmTbHBypB27lX8oGHeprjx30l1IAbl0Ato6aH/ERCkPwmcb/UZdGU5hmHo
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7416014)(11063799006)(18002099003)(22082099003)(56012099003)(5023799004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?At473bMyY4zEGvPiGykbaFDQNmRAZorWR7BrFw68wTWJd4g7Zh+FgChMoJJK?=
+ =?us-ascii?Q?LR58CUAAnavVb6YrlQXYNDrEu4FMToQAjF6XggOKuTXRioBK4nW8Am4dP77r?=
+ =?us-ascii?Q?+0IhdOMkX7uZchUo44+gy/kafJwrkkYrnkRnMP1bfo2Af5GJT8U/agOv1oM4?=
+ =?us-ascii?Q?TMZOHNJuSLQB3t4ZUBMoNirbpiK6gZ4TCghdZRRSLhYeRcbuPF6HfTIA9Hqy?=
+ =?us-ascii?Q?3/w72FRkZPlJTSlnHQLQ7X1ZuFAgSJkeD2dyVKlGIUXurEIVjER1IRLZG3Lu?=
+ =?us-ascii?Q?XdWjEogGeV8tz21u/2H5YFdyECOvaYlF2ze0Dqaq/Xj6AkUsHrdTPJoWW5L4?=
+ =?us-ascii?Q?laa6+Hubed+a9fSmH5+43DbdePdnN6bx4+Oz1CFFztw0fRnveED3ywkKZYS4?=
+ =?us-ascii?Q?b94Rb5cQBvHxpzgl/IbjmOEAfYu+NkrrdD3gshqTFhX7Km0SI+mJMj3W5GI8?=
+ =?us-ascii?Q?BnmSfIMxeMlakH5mpGwtVzP6O5vSTtBl1x8URewN5TtnMIvMa9jpYjhqj+aw?=
+ =?us-ascii?Q?wjdYSP3uupSlQwGyozE3d7F+XvyuCzNqzMtH+mRNjEiMKSEMHYLJ6S7Abs1T?=
+ =?us-ascii?Q?o+khm7X1J0vo2SffhaJpcMTlwkZm38Mcbtu9bvFZ6c5S55WjQf3C4xHbOHQt?=
+ =?us-ascii?Q?tXI/Kd+2xK9uQigjv7bYCz8H0oTjZoKk31AiWaXOZ3PXMEhYBzatMAmxqww6?=
+ =?us-ascii?Q?e2vl/L3cWfHvNwvhj98TrcUNfrn3QabD4nsfwrAx+XswJ9zYzUhF0yv+ncBC?=
+ =?us-ascii?Q?EXH0kzN8UtPmWMgYyUj+6f4hyn4r7XhsANtVM6E5UD2lcb7FMmvKWXJKfqW+?=
+ =?us-ascii?Q?eo1uFRSL9Cr3TfCN+gVuzo11JJ4OYpned7MCUxhX5j/i8hO3yPxYRykQlY++?=
+ =?us-ascii?Q?hP1bF02Y0fLX+AXurGQZwSThQg45mGf5gSm6AVfzeVLJ3WuWiJl4tkrxTMqU?=
+ =?us-ascii?Q?y222+Go2XBXCCPhS9qfS+j/35kOUn3M5SawIdJfnk/z81QOwrIhkYBRX9/Xc?=
+ =?us-ascii?Q?K+zCDly6BmLedvRK2fVKNTVQHiaIh+sA6VsPsqSyWHOj1huh1hqwUzy+rpA7?=
+ =?us-ascii?Q?479VxVka+LSgCLmrQvOEDrX9MTU7n1JjO/0Kv2XoR+19G2P8OlygRgwvK+NV?=
+ =?us-ascii?Q?3IDtR3OdxhbUf6mt3BsMKY4CqvNxPf4Qa5gVfTgJ2XuGXp2CbPri+++W9fq2?=
+ =?us-ascii?Q?HPwBURy9DZH9HJ9XqIz6AGnNri9drD296+mCewwgCooIK9oXmwf4vhUj7u8R?=
+ =?us-ascii?Q?LrIytIT+uLLRgQd7zSzo9G1Q7UnqdQyP7CaHjU12S++fClgGXBL+rdkumW5x?=
+ =?us-ascii?Q?/SrouH/uXI9zaR/mS0US+u0J5TAE0I/pjZ68dsmVyWgzBTgIpxKgCG7CbLdt?=
+ =?us-ascii?Q?0fbu5bJth4kPrrlZpFy2uwF1VYLIeWQP/lcd26lx5x2+5iAk6PsmpwJ80bdz?=
+ =?us-ascii?Q?iHaANSoSkXoXy9yhJFZl3dtaUuoxk9GhTTRt43pjBrKbmfncCy/AeESqrHWi?=
+ =?us-ascii?Q?WgphYDxm2ppaaykzj9Nks33vjA4l8YGz9/e5kJ57EMN7M0S66dpE5qrUn/NP?=
+ =?us-ascii?Q?0G4vKwXelGqxdelkB4fOIAgHdCAZ3VkIoKrO7qxynx6NeY5zMw1OEUGpXQbE?=
+ =?us-ascii?Q?7NZ6s5razAK9S+Lk39bJEuqD9CQwyCsABzN1hyQB3SC2R6PbhzJ0VSgtBSHF?=
+ =?us-ascii?Q?XHCwsVLnANd2Gb2OIa8/o/ftoYH2XF17Fh8DBhAsAyUh3TVQRdrly18L0Zsi?=
+ =?us-ascii?Q?/yo69ic/fQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa859675-eaf3-4914-32ea-08deb6e3873d
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 02:49:07.7261 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +t/A1mw6qLeuKVlQbxclEqwjE5RtdtBrN60LxlL0yXJBV1WguK2UsDklPgnINIf69amwNmiAZqYspoP3xhckkg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8296
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,144 +139,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
-> wait_event() without any abort condition when waiting for virtqueue
-> space. If the host device stops processing commands, these waits block
-> indefinitely inside a drm_dev_enter/exit() critical section. Since
-> drm_dev_unplug(), which is called in device removal and system shutdown
-> call path, blocks on synchronize_srcu() until all critical sections
-> complete, device removal and system shutdown also hang.
->
-> Add a vqs_released flag to virtio_gpu_device and include it in the
-> wait_event() condition. Set the flag and wake up both queues in a new
-> virtio_gpu_release_vqs() helper, called before drm_dev_unplug() in both
-> virtio_gpu_remove() and virtio_gpu_shutdown(). When the flag is set, the
-> wait returns immediately and the command is aborted, following the same
-> cleanup path as drm_dev_enter() failure.
->
-> Reported-by: syzbot+d6dd6f86d3aaf7eebe7406e45c1c6e549453f224@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
-> Reported-by: syzbot+908bd910da5dd79b88de4cf7baf376cc873a922e@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
-> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
-> ---
-> Changes in v2:
-> - Update the commit message.
-> - Replace wait_event_timeout() with wait_event() using a compound
-> condition that includes a new vqs_released flag.
-> - Add virtio_gpu_release_vqs() helper to set the flag and wake up
-> both queues, called before drm_dev_unplug() in remove and shutdown
-> paths.
-> - Remove the hardcoded 5-second timeout. Recovery is now driven by
-> the driver flag instead of an arbitrary timeout value.
-> ---
->  drivers/gpu/drm/virtio/virtgpu_drv.c | 15 +++++++++++++++
->  drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
->  drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++++++++++++++++++++--
->  3 files changed, 37 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> index a5ce96fb8a1d..e4fe5e0780f9 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> @@ -119,10 +119,24 @@ static int virtio_gpu_probe(struct virtio_device *vdev)
->  	return ret;
->  }
->  
-> +/*
-> + * Release pending virtqueue waits so the drm_dev_enter/exit() critical
-> + * sections complete before drm_dev_unplug() blocks on synchronize_srcu().
-> + */
-> +static void virtio_gpu_release_vqs(struct drm_device *dev)
-> +{
-> +	struct virtio_gpu_device *vgdev = dev->dev_private;
-> +
-> +	vgdev->vqs_released = true;
-> +	wake_up_all(&vgdev->ctrlq.ack_queue);
-> +	wake_up_all(&vgdev->cursorq.ack_queue);
-> +}
-> +
->  static void virtio_gpu_remove(struct virtio_device *vdev)
->  {
->  	struct drm_device *dev = vdev->priv;
->  
-> +	virtio_gpu_release_vqs(dev);
->  	drm_dev_unplug(dev);
->  	drm_atomic_helper_shutdown(dev);
->  	virtio_gpu_deinit(dev);
-> @@ -133,6 +147,7 @@ static void virtio_gpu_shutdown(struct virtio_device *vdev)
->  {
->  	struct drm_device *dev = vdev->priv;
->  
-> +	virtio_gpu_release_vqs(dev);
->  	/* stop talking to the device */
->  	drm_dev_unplug(dev);
->  }
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> index f17660a71a3e..0bd69a40857e 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> @@ -235,6 +235,7 @@ struct virtio_gpu_device {
->  
->  	struct virtio_gpu_queue ctrlq;
->  	struct virtio_gpu_queue cursorq;
-> +	bool vqs_released;
->  	struct kmem_cache *vbufs;
->  
->  	atomic_t pending_commands;
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> index 67865810a2e7..8057a9b7356d 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> @@ -396,7 +396,19 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
->  	if (vq->num_free < elemcnt) {
->  		spin_unlock(&vgdev->ctrlq.qlock);
->  		virtio_gpu_notify(vgdev);
-> -		wait_event(vgdev->ctrlq.ack_queue, vq->num_free >= elemcnt);
-> +		wait_event(vgdev->ctrlq.ack_queue,
-> +			   vq->num_free >= elemcnt || vgdev->vqs_released);
-> +		/*
-> +		 * Set by virtio_gpu_release_vqs() to unblock
-> +		 * synchronize_srcu() wait in drm_dev_unplug().
-> +		 */
-> +		if (vgdev->vqs_released) {
-> +			if (fence && vbuf->objs)
-> +				virtio_gpu_array_unlock_resv(vbuf->objs);
-> +			free_vbuf(vgdev, vbuf);
-> +			drm_dev_exit(idx);
-> +			return -ENODEV;
-> +		}
->  		goto again;
->  	}
->  
-> @@ -566,7 +578,14 @@ static void virtio_gpu_queue_cursor(struct virtio_gpu_device *vgdev,
->  	ret = virtqueue_add_sgs(vq, sgs, outcnt, 0, vbuf, GFP_ATOMIC);
->  	if (ret == -ENOSPC) {
->  		spin_unlock(&vgdev->cursorq.qlock);
-> -		wait_event(vgdev->cursorq.ack_queue, vq->num_free >= outcnt);
-> +		wait_event(vgdev->cursorq.ack_queue,
-> +			   vq->num_free >= outcnt || vgdev->vqs_released);
-> +		/* See comment in virtio_gpu_queue_ctrl_sgs(). */
-> +		if (vgdev->vqs_released) {
-> +			free_vbuf(vgdev, vbuf);
-> +			drm_dev_exit(idx);
-> +			return;
-> +		}
->  		spin_lock(&vgdev->cursorq.qlock);
->  		goto retry;
->  	} else {
->
-> ---
-> base-commit: 5200f5f493f79f14bbdc349e402a40dfb32f23c8
-> change-id: 20260518-virtio-gpu_wait_event-5aa060754f12
->
-> Best regards,
-> -- 
-> Ryosuke Yasuoka <ryasuoka@redhat.com>
->
+These helpers are static inline in <linux/perf_event.h> and reach
+into sysctl_perf_event_paranoid and security_perf_event_open(),
+neither of which is itself exported. The perf_allow_* trio is
+therefore asymmetric: built-in callers can use any of the three, but
+modular code can only call perf_allow_kernel().
 
-I see the command but can't find the corresponding bug.
-The email is sent to  syzbot+HASH@syzkaller.appspotmail.com address
-but the HASH does not correspond to any known bug.
-Please double check the address.
+Move both bodies into kernel/events/core.c next to perf_allow_kernel()
+and export them with EXPORT_SYMBOL_GPL, following the shape of
+commit 5e9629d0ae97 ("drivers/perf: arm_spe: Use perf_allow_kernel()
+for permissions"). Existing in-tree callers live in built-in arch and
+tracing code, so the change is invisible to them.
+
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+---
+ include/linux/perf_event.h | 18 ++----------------
+ kernel/events/core.c       | 18 ++++++++++++++++++
+ 2 files changed, 20 insertions(+), 16 deletions(-)
+
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index 48d851fbd8ea..00c4ffe1434d 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -1791,22 +1791,8 @@ static inline int perf_is_paranoid(void)
+ }
+ 
+ extern int perf_allow_kernel(void);
+-
+-static inline int perf_allow_cpu(void)
+-{
+-	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
+-		return -EACCES;
+-
+-	return security_perf_event_open(PERF_SECURITY_CPU);
+-}
+-
+-static inline int perf_allow_tracepoint(void)
+-{
+-	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
+-		return -EPERM;
+-
+-	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
+-}
++extern int perf_allow_cpu(void);
++extern int perf_allow_tracepoint(void);
+ 
+ extern int perf_exclude_event(struct perf_event *event, struct pt_regs *regs);
+ 
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 7935d5663944..cb13f3ad11a3 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -14731,6 +14731,24 @@ int perf_allow_kernel(void)
+ }
+ EXPORT_SYMBOL_GPL(perf_allow_kernel);
+ 
++int perf_allow_cpu(void)
++{
++	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
++		return -EACCES;
++
++	return security_perf_event_open(PERF_SECURITY_CPU);
++}
++EXPORT_SYMBOL_GPL(perf_allow_cpu);
++
++int perf_allow_tracepoint(void)
++{
++	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
++		return -EPERM;
++
++	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
++}
++EXPORT_SYMBOL_GPL(perf_allow_tracepoint);
++
+ /*
+  * Inherit an event from parent task to child task.
+  *
+-- 
+2.54.0
 
