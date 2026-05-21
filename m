@@ -4,88 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCA96CD5BAC
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 15:01:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 439C2CD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 15:08:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E03A510F398;
-	Thu, 21 May 2026 15:01:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5638D10F37D;
+	Thu, 21 May 2026 15:08:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MRrEqIfw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OSjwBA+3";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAACD10F37D
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:01:33 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4903fd19957so1384475e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:01:33 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47B0210E0CC
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:08:49 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-5a8c94cefcdso5270824e87.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 08:08:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779375692; x=1779980492; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779376127; x=1779980927; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HWDvvZpW/sE15P0paVY2aruhyEKLAjYbjEimD4YPxkE=;
- b=MRrEqIfwO/vVFv2U9Fa0+JeSpzKWmzDdDDVnR+XqRELB+vQXriYOC2PXHii1ub7gp9
- 6pO0OVgWJDU1pO5KtlMkvcOcHvLRhU2WKZq37xe4lkEJTVWqc9OE5MGwDrWXZv1D4nTa
- M/7QFDACY1UnwVjN0pj4yt8+rYfMDrVl3iu0ZceiJIEK1k/AtL0tX8KmRah0gYg0/DvR
- 6qSbsey6qRM3YmxZFWjjv8++9378yQ9V5CTaxy+g2/bYOf7WLaWgplwbIt868YEZ8sdM
- t9SekSTvlXc5S4KXDJ7HDElDp/OAc4V7YZT+71kjY6I4q266S2ZaVvfK1O5dkxTVL+DS
- wPTQ==
+ bh=mR8YNzhzHv5g5ezNdxi/IR56+HrSSzrEa6IF1DOutaU=;
+ b=OSjwBA+3szqkYhv7PgaHCrEWeu84xCagI4SucUvypjbLgdVDHy7Wx+gl3joSwmkvgl
+ /LDyjJjlvgTl5eH+Qt2Vxf/ShOa2WTqWByljk+ixv/6g/7MjjLvwhjcho95/oh5H0cPF
+ cPlDlN8rX7FSzfMhDig1TJDdh2ujjxG5Fnu8v1lLgTyn+kYHHx2zUepFTgZ7XgnTv+Xp
+ ipbF68tswMxn1NBOEQOz/krfaApKZm0EKpARZDQOVeZHXSWCeHhTo9E0IcYk2lMS43sz
+ khlFn4gZjbuEXBjY8I9BzccfZu1CFe6buDlj73bwFdtnRPXXYmEl0+XdUXBZpxQXh3CU
+ 5lpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779375692; x=1779980492;
+ d=1e100.net; s=20251104; t=1779376127; x=1779980927;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=HWDvvZpW/sE15P0paVY2aruhyEKLAjYbjEimD4YPxkE=;
- b=VHQORHVX9ovfolT9wlKDb9MADvDGLIRz4/pP6qnOctvmITWQUUUfvY7/vbviUd0gA5
- OKQimwtXC26dYA5boTYSuxYO3eZrT9flrK01i+RJ30UjEUv4X71REYRD4fgcC6i6M/rG
- SHXQiLWQTZGvVm6c+mHiWy7MgLLhavVDcM0iaOHF/1STUduPxguomzI0zTpSZHGkRjzw
- 8Xr8ouSqf65G8Vv8ta3MCuT7yNcdFNFP25HXYU8ZW9vGl+BqrJ0mMY2CyjOGW7MvkDWP
- RN7btnA/X1hWx+2+9kC8LoB9lrfOXVXr+gkYZ4Q6MQZYKRankd7jML9TTTTJaqi09Ter
- coew==
+ bh=mR8YNzhzHv5g5ezNdxi/IR56+HrSSzrEa6IF1DOutaU=;
+ b=jLGCVsUPCBJKm0tmpoeCYVdfvSnc+XK8Zj+DqgbHlJZJsahig1NRQcTH+f4l1PLsnu
+ LUTxdMhEO6PQF0z576x1V5LvONK2ahOEwk24GOH5oeRB5jKsbVNl/aqkIzWAaoN4VhTX
+ ++A87MmUXJjuqYpIg1hyGdQL1uvImiyLwVXLUGxsHts4AP6Hybk2FyFSNM0XrWJKhACw
+ 1HHdaxGKG+SRq5LDB/kK4cdk2OoVBtOLgFD7MtWW6Wooc7bKKCULTnleT20fMZeEaM7M
+ Tk2V6Jr2inasbw8eiRE861susYVIkecDtxKdtaLC/70khZUoJKXRWHztwZXtGsZFabiW
+ xhMg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9eiR0iyIZq1gz+DFC7Odda4IjQI82MFFyCzUUWWpbARs+1rTf1SmO+vl9iKddvi53kmDMJV0ZBiAk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw65hu/QjExYLKgmIhwbGqQYXFXXK2WL0gDgI7wvUmcAxeLxItZ
- pKYs9IIBVCKqOBF5kypWybiRKeSoThPPWpaJYmvTQC6A5nHPEulG/wf9
-X-Gm-Gg: Acq92OE+ich3xQtRrfGsAADBLVmAtrLbYKJJsVRukL17QK3wuz1WBHYvfZ2exGkCnp/
- 3wT6U1ki/C5Sz4LUXbfPPFNtKUbtHQXG3MmiW9T2H7i5tR14eLMQq9MUyKA1y8iCNZuS5ebQZ6Q
- oHcTNU9IN1xvSr3oZjcDpP+HGIwUSFrt2jWNoXbCa/OTXWIcCu3r5MXlbkEZBsmCigtabsSkAmd
- UrrqhNu9/sS0aa49mhHuOEAj18Zd/wyErBgcB6o4H2/X9eBB/Hmfkz1ZekdBCQxvXmlqNt9VFX8
- 9vRVsqTPwq/YPVVJ5g4oUbMKmEFyki/Nt3XkpF4llYRTz+0NnNJZDerS2Of0FIsRcOa0hYy8+uo
- HaYRGCiww2dLjLG+SyvFvLA2YynT84wGVxQ5uhxVPLjyajSZ7EMD2B+6UwhMuvZuFubvxwbnhYp
- rM+yF9Et/HCJlPfWO4KzGpCb7KVHce+DhVwCQdjn4ddg==
-X-Received: by 2002:a05:600d:10:b0:48e:526e:101a with SMTP id
- 5b1f17b1804b1-4903606b81emr41807905e9.12.1779375691986; 
- Thu, 21 May 2026 08:01:31 -0700 (PDT)
-Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4903caede9fsm34056745e9.14.2026.05.21.08.01.30
+ AFNElJ86nDBVMkrnOi8+2gu4gfpIFIw5JOahHdKYgRqaV9DhBbcqTcGEOHQcuGPdscF7nogsK9tS4To3AZQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YykAsvt4MZ59LjO3v9Tu/QTFSEEenZIPTu0hAOfOE2mv+OvH6To
+ qoy43W/el8SjfIUQ5JZbDxTX/sZAXmLjZLJKBQS4NVAWkTn6Uy1SmyR/
+X-Gm-Gg: Acq92OFyEyALq1+wBQIgRNHZHaLVg2ysnTVrRBxC/ALr0FplZFuqpCYUcslfrog1InT
+ 1Ac3tYit2jY/mFKZNvyBffsiXDEj6vVOSBMsoMmmEo9y/4dsiZxnTHNVlnRqJzT3PWWBcnYCe7C
+ Tu/7vpQH4D0YBInR52OVAx4RTZ3GRaoqTO3y/UGjBUSSXSVZ3k5GVMuWLjg6p/5VbmBBHH0t4Ha
+ 9vpN7OHfecRfyblQce8DPN8X1QUGwDPEykQqU75YELoaopOhIMrL44No90a4eOWEO6xd1Ubca6a
+ pRRXTNZTg0+aJBBYqo/fje7wJct+GnVlv4eS7vEjhrra0bOvmLWA6BgrEaX7UtQaSF7vafplokd
+ HBPcXKm5QTLvcZ3DIJpQS4Wk52JMi/12hGZxk6KyaR6HEcZcFNI5XJRgHwGedt5ArbNAeLEeHrD
+ ktaTd74x6nvdHS5V3ynIpD4aMK6MKpFkJbPGdyMsJPabI=
+X-Received: by 2002:a19:7001:0:b0:5aa:265f:acd0 with SMTP id
+ 2adb3069b0e04-5aa2bc90bacmr751255e87.39.1779376126773; 
+ Thu, 21 May 2026 08:08:46 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa2f120c6esm335686e87.19.2026.05.21.08.08.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 08:01:31 -0700 (PDT)
-From: Vitor Soares <ivitro@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
-Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 15/15] arm64: dts: ti: k3-am62-verdin: Add Mezzanine with
- LG LP156WF1 LVDS panel
-Date: Thu, 21 May 2026 16:00:51 +0100
-Message-ID: <20260521150038.103538-32-ivitro@gmail.com>
+ Thu, 21 May 2026 08:08:46 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v5 0/2] drm/amdgpu: fix recursive ww_mutex in devcoredump IB
+ dump
+Date: Thu, 21 May 2026 20:08:38 +0500
+Message-ID: <20260521150841.20625-1-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260521150038.103538-17-ivitro@gmail.com>
-References: <20260521150038.103538-17-ivitro@gmail.com>
+In-Reply-To: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
+References: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,186 +96,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Vitor Soares <vitor.soares@toradex.com>
+This series fixes a lockdep "possible recursive locking" splat in
+amdgpu_devcoredump_format() that fires on every GPU timeout once a job
+with a PASID context is involved. With amdgpu.gpu_recovery=0 the timeout
+handler refires every ~2 s, so the splat repeats until it drowns the
+kernel ring buffer. It is also a real self-deadlock for IB BOs that
+share their dma_resv with the root PD (the always-valid case).
+ 
+The root cause: amdgpu_devcoredump_format() holds the VM root PD's
+reservation and then reserves each IB BO on top of it, nesting two
+reservation_ww_class_mutex acquires without a ww_acquire_ctx.
+ 
+The fix teaches amdgpu_vm_lock_by_pasid() to lock the root PD in a
+drm_exec context, so the devcoredump path can lock the root PD and all
+the IB BOs together in one ww ticket. Because amdgpu_vm_lock_by_pasid()
+has a second caller in the page-fault path, the series is split so each
+patch builds and works on its own:
+ 
+  1/2  Convert amdgpu_vm_lock_by_pasid() to take a drm_exec context and
+       lock the root PD with drm_exec_lock_obj(). The drm_exec context
+       holds the root BO reference, so the root output parameter is
+       dropped. Updates the existing caller, amdgpu_vm_handle_fault().
+       Pure refactor, no functional change to the page-fault path.
+ 
+  2/2  Use the new signature in amdgpu_devcoredump_format(): lock the
+       root PD and every IB BO together in one drm_exec ticket. The
+       per-IB amdgpu_bo_reserve() nesting is gone, along with a BO
+       refcount leak on the old reserve-failure path. This is the
+       actual bug fix and carries the Fixes: tag.
+ 
+Tested on Linux 7.1-rc4 + this series, Radeon RX 7900 XTX (gfx1100),
+KASAN + PROVE_LOCKING enabled, using a small libdrm_amdgpu reproducer
+that submits a GFX IB chained at GPU VA 0 and waits for the hang. Before
+the series the splat fires on every TDR; after it the dmesg is clean
+across repeated timeouts and the devcoredump IB dump is produced
+correctly.
+ 
+v1: https://lore.kernel.org/amd-gfx/20260429143743.50743-1-mikhail.v.gavrilov@gmail.com/
+v2: https://lore.kernel.org/amd-gfx/20260519161541.19994-1-mikhail.v.gavrilov@gmail.com/
+v3: https://lore.kernel.org/amd-gfx/20260520151741.50575-1-mikhail.v.gavrilov@gmail.com/
+v4: https://lore.kernel.org/amd-gfx/20260521104335.28978-1-mikhail.v.gavrilov@gmail.com/
+ 
+Changes since v4:
+- Pass nr=1 to drm_exec_init() in amdgpu_vm_handle_fault(), since
+  exactly one object (the root PD) is locked there (Christian).
+- Picked up Christian's Reviewed-by on patch 1.
+ 
+Changes since v3:
+- Lock the root PD with drm_exec_lock_obj() instead of
+  amdgpu_vm_lock_pd(): the latter dereferences the VM pointer, which is
+  not yet re-validated at that point (Christian).
+- Drop the root output parameter of amdgpu_vm_lock_by_pasid() entirely;
+  the drm_exec context already holds a reference on the locked root BO,
+  so the extra reference and the parameter are unnecessary (Christian).
+- Unlock the root BO with drm_exec_unlock_obj() on the VM-recheck-failed
+  path (Christian).
+- amdgpu_vm_handle_fault() and amdgpu_devcoredump_format() updated for
+  the simplified signature; both lose their root variable.
+- Drops the v3 kernel-doc "*root" reference, which also resolves the
+  docutils "Inline emphasis start-string without end-string" warning
+  the kernel test robot reported against v3.
+ 
+Changes since v2:
+- Reworked along the lines Christian suggested: amdgpu_vm_lock_by_pasid()
+  takes a drm_exec context directly (patch 1), and the devcoredump code
+  locks the root PD and all IB BOs in a single ticket (patch 2). The
+  amdgpu_devcoredump_ib_ref struct and the three collect/lock/release
+  helpers from v2 are gone.
+ 
+Changes since v1:
+- Switched from per-IB amdgpu_bo_reserve() to drm_exec.
+- Dropped the Cc: stable tag: the regression only landed in 7.1-rc1, so
+  the fix reaches 7.1 via drm-fixes without a stable backport.
 
-Add a device tree overlay enabling the LG LP156WF1 15.6" FHD (1920x1080)
-dual-channel LVDS panel on the Verdin Development Board with Verdin AM62
-Mezzanine expansion board. The panel connects via the AM62 OLDI0 and
-OLDI1 in dual-channel mode on the Mezzanine LVDS interface (J10).
+Mikhail Gavrilov (2):
+  drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to drm_exec
+  drm/amdgpu: fix recursive ww_mutex acquire in
+    amdgpu_devcoredump_format
 
-Assisted-by: Claude:claude-sonnet-4.6
-Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
----
- arch/arm64/boot/dts/ti/Makefile               |   5 +
- ...verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso | 129 ++++++++++++++++++
- 2 files changed, 134 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso
+ .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 105 ++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  91 +++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   2 +-
+ 3 files changed, 129 insertions(+), 69 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 371f9a043fe5..e9951b5d2e0b 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -30,6 +30,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-phyboard-lyra-rdk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-can.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-lvds-lg-lp156wf1.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-nau8822-btl.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-hdmi.dtbo
-@@ -232,6 +233,9 @@ k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
- 	k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
- k3-am625-verdin-wifi-dev-mezzanine-can-dtbs := k3-am625-verdin-wifi-dev.dtb \
- 	k3-am625-verdin-dev-mezzanine-can.dtbo
-+k3-am625-verdin-wifi-dev-mezzanine-lvds-lg-lp156wf1-dtbs := \
-+	k3-am625-verdin-wifi-dev.dtb \
-+	k3-am625-verdin-dev-mezzanine-lvds-lg-lp156wf1.dtbo
- k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-dtbs := \
- 	k3-am625-verdin-wifi-dev.dtb \
- 	k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
-@@ -352,6 +356,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am625-sk-hdmi-audio.dtb \
- 	k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
- 	k3-am625-verdin-wifi-dev-mezzanine-can.dtb \
-+	k3-am625-verdin-wifi-dev-mezzanine-lvds-lg-lp156wf1.dtb \
- 	k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds.dtb \
- 	k3-am625-verdin-wifi-dev-nau8822-btl.dtb \
- 	k3-am625-verdin-wifi-dev-ov5640-24mhz.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso
-new file mode 100644
-index 000000000000..a4d6cbe9ff3b
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso
-@@ -0,0 +1,129 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * LG LP156WF1 dual-channel LVDS panel on Verdin AM62 Mezzanine
-+ * LVDS interface (J10), used with the Verdin Development Board.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pwm/pwm.h>
-+
-+&{/} {
-+	backlight_pwm2: backlight-pwm2 {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 45 63 88 119 158 203 255>;
-+		default-brightness-level = <4>;
-+		/* Verdin GPIO_4 (SODIMM 212) - LVDS_BKL_EN */
-+		enable-gpios = <&mcu_gpio0 4 GPIO_ACTIVE_HIGH>;
-+		/* Verdin PWM_2 (SODIMM 16) - LVDS_PWM */
-+		pwms = <&epwm0 1 6666667 PWM_POLARITY_INVERTED>;
-+	};
-+
-+	panel-lvds-native {
-+		compatible = "lg,lp156wf1", "panel-lvds";
-+		backlight = <&backlight_pwm2>;
-+		data-mapping = "jeida-24";
-+		height-mm = <194>;
-+		width-mm = <345>;
-+
-+		panel-timing {
-+			clock-frequency = <138500000>;
-+			hactive = <1920>;
-+			hback-porch = <40>;
-+			hfront-porch = <24>;
-+			hsync-len = <16>;
-+			pixelclk-active = <0>;
-+			vactive = <1080>;
-+			vback-porch = <23>;
-+			vfront-porch = <3>;
-+			vsync-len = <5>;
-+		};
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				dual-lvds-odd-pixels;
-+
-+				panel_lvds_native_in0: endpoint {
-+					remote-endpoint = <&oldi0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				dual-lvds-even-pixels;
-+
-+				panel_lvds_native_in1: endpoint {
-+					remote-endpoint = <&oldi1_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&dss {
-+	status = "okay";
-+};
-+
-+&dss_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* DSS VP1: internal DPI output to OLDIx */
-+	port@0 {
-+		reg = <0>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		dss0_out0: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&oldi0_in>;
-+		};
-+
-+		dss0_out1: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&oldi1_in>;
-+		};
-+	};
-+};
-+
-+&oldi0 {
-+	ti,companion-oldi = <&oldi1>;
-+	status = "okay";
-+};
-+
-+&oldi0_port0 {
-+	oldi0_in: endpoint {
-+		remote-endpoint = <&dss0_out0>;
-+	};
-+};
-+
-+&oldi0_port1 {
-+	oldi0_out: endpoint {
-+		remote-endpoint = <&panel_lvds_native_in0>;
-+	};
-+};
-+
-+&oldi1 {
-+	ti,secondary-oldi;
-+	status = "okay";
-+};
-+
-+&oldi1_port0 {
-+	oldi1_in: endpoint {
-+		remote-endpoint = <&dss0_out1>;
-+	};
-+};
-+
-+&oldi1_port1 {
-+	oldi1_out: endpoint {
-+		remote-endpoint = <&panel_lvds_native_in1>;
-+	};
-+};
 -- 
 2.54.0
 
