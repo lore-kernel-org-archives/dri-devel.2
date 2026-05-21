@@ -4,109 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E58DCD5BB0
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:07:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35822CD5BB0
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF81710E48E;
-	Thu, 21 May 2026 09:07:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9021F10E107;
+	Thu, 21 May 2026 09:11:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="T5mzFTbl";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="S4kVgTtn";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63B5210E483
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 09:07:37 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-490229aa522so24479025e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 02:07:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1779354456; x=1779959256; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EWcZf8xQyNgHL46GgzNOnTpRTb6xpQnkpgYkPgYwfTU=;
- b=T5mzFTbl/MmDGcEYdrcoxp15n/8iTPFym8Vh7fHKI/hTze+Xww/O37ZkkrmgjOQZjm
- Qd7HKlEz3+0O+r+3W8z2GslCYPcv7KemYkTI7WOtiUMjHFTsQWrhtX9VFDSykqVEiJ38
- 44S5QGzVa6bthu0yG6ghB5sz/QUGViKk4vqMk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779354456; x=1779959256;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EWcZf8xQyNgHL46GgzNOnTpRTb6xpQnkpgYkPgYwfTU=;
- b=mmgv0mFx+4KfqfzT3Wg/H6ExtOwDe3l0jxLRL9SytKIdJI5AC/vEAwqT7b8PRT3V4C
- YwbtwnsEXubiSfMLwDv0A0u8/XgrQJKf/ttGnI3/NgYzgMvbVvQf4NN4KEMqgb/sH2q6
- Im1ym9uVgjXCG6vo4LON9ThkXWS+U20d31VMOxODvWGvn05/porXTn1e3Eicjvj85koP
- IAfvdFhHcnZD34tRV1rdGLzqH3OSdttpduv5ztJ/ZjRF2QGl313zabiX/wkaeOlvHg3h
- kY40eBDLYU8UTCkutzbv/BvN1ngT9tfYs6QQXSWs2bETB7wNr0yGS0NQ/TrHmphOKwMr
- iKCg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/ipy+dOI9TbZvrFRTmFY8jstrQOXDl9ob459ISxgt5Mm6cCjNX+F8EDBBWydVsnnfWusTycHmN9V0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YySuhcS7ZS0n/PqLociU+GxFEZd7FCpZdsvq5rMK6isrDuCRU0o
- 8/RYB+52fwEXPYWMNFULRZuwhH6M64wQjrORIcXTv44CiZ0AFVZzGgdqOW1eYANBQNk=
-X-Gm-Gg: Acq92OG/wfYUYlxN1T8Aj6TRfeetW4IwSiQiUB7KzQzjoX4prW2hlm4KM2Zp3j9AmJk
- pEZKCfHYqdGsbU/YjvPmzLVYFkc/xMMk/NcEidLtgXADUyAjOSCeDSPP/AgBPLozzzMztvLCq5w
- GYSFyoqSMzVogVBp8IhHDbYeepiCOGjJzv16HwpCL3wRxLurHcSCcichOWSduAa+jo5Envv3NS7
- EqdsSXOeU8m4hjcbBHhrMd60vnlwSJympnhhd8VKWGyY5u8A3FUQlNdlarKgGAXyGWgFNYGT6Oq
- jk/JaeFX+4Edk+MLxtPn8YPwCZBPjBjwQAOGiYt4Q3R86GXXp5P8klTln6h2x8iKvEXwzbHFCO2
- GGvkO+ozn3iMUBrMJMJQtdg8qKSn7h27wfelCTCfoPGJd9i/Vv122aV+LLas6H/8Pqc3slffk2D
- VH826iN2g2p+lNkfJJcssr+R8qGfvh04E5y+09l2uG1R1k0Q==
-X-Received: by 2002:a05:600c:3b9d:b0:490:3b8b:6ba2 with SMTP id
- 5b1f17b1804b1-4903b8b6e29mr19074285e9.8.1779354455523; 
- Thu, 21 May 2026 02:07:35 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eaa7d9daasm1532388f8f.11.2026.05.21.02.07.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 02:07:34 -0700 (PDT)
-Date: Thu, 21 May 2026 11:07:32 +0200
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Mark Brown <broonie@kernel.org>, Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <rob.clark@oss.qualcomm.com>
-Subject: Re: [PATCH v4] drm/gem: Make the GEM LRU lock part of drm_device
-Message-ID: <ag7LVI2mia92Oa8L@phenom.ffwll.local>
-Mail-Followup-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Mark Brown <broonie@kernel.org>,
- Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <rob.clark@oss.qualcomm.com>
-References: <20260518-panthor-shrinker-fixes-v4-1-1920234470d5@collabora.com>
- <20260518165225.145175b1@fedora>
- <a1920a93-ac61-4246-a57c-b10bada3d70c@sirena.org.uk>
- <20260519135153.42c3f4a0@fedora>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D74C10E107
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 09:10:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779354658;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=tL4bc9P4R8KGMQCjOMGjzl7XMoB1LctMJh1QnkgN/GQ=;
+ b=S4kVgTtnIErRHNGmxjWLOmPYtcb8xm7rXmRu2RNHs5X9GF/nUNN3gfFgbIRxN8bipqhAqz
+ z1P5SMGS4ZnrULLcYkuE6XjLp8ZkvC4tKjGB5TtH37u4pA4ZAG54Nzbi5pdtN/oMW2ASyA
+ 29S9EwFj7LHqdS9CkG0Up2gRYz+zxbI=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-395-3wFvOmq4Mn6ew9z9wV80vw-1; Thu,
+ 21 May 2026 05:10:54 -0400
+X-MC-Unique: 3wFvOmq4Mn6ew9z9wV80vw-1
+X-Mimecast-MFC-AGG-ID: 3wFvOmq4Mn6ew9z9wV80vw_1779354652
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 798831956056; Thu, 21 May 2026 09:10:52 +0000 (UTC)
+Received: from [192.168.1.153] (headnet01.pony-001.prod.iad2.dc.redhat.com
+ [10.2.32.101])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 380DD19560A3; Thu, 21 May 2026 09:10:49 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH 0/2] dma-buf: add DMA_BUF_IOCTL_DERIVE for
+ reduced-permission aliases
+Date: Thu, 21 May 2026 11:10:13 +0200
+Message-Id: <20260521-dmabuf-limit-access-v1-0-26c01e27365a@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260519135153.42c3f4a0@fedora>
-X-Operating-System: Linux phenom 6.19.10+deb14-amd64 
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSQqAMAxA0atI1gY6OOFVxEWtUQNONCqCeHeLy
+ 7f4/wGhwCRQJw8Eulh4WyN0moCf3DoSch8NRplC5UZhv7juHHDmhQ903pMIltYU2ua2yrSDWO6
+ BBr7/a9O+7wfhdnW9ZQAAAA==
+X-Change-ID: 20260520-dmabuf-limit-access-73261353841a
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, Shuah Khan <shuah@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Albert Esteve <aesteve@redhat.com>, 
+ mripard@kernel.org
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779354648; l=3435;
+ i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
+ bh=LUVEbF2qik6JDxZLdpWxQMrWMt8EdXOnTWHgU/bDF84=;
+ b=1nbNWgdOgax/ZiztigFfGJVUWcZKvRsY/6bLBBCxRH9PBuJ2gSbSAkKc9o7ctC21xFonFEIBn
+ UfK5yxy7NMID+5Z66wciWiUPogDnxCkZe9uRxn+1h/0yrM9AwPOE0eF
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Mimecast-MFC-PROC-ID: zqA4nFwUrZ201jsfoIxPsfjZR7arokf08gAIn4qpu5M_1779354652
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,54 +89,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 19, 2026 at 01:51:53PM +0200, Boris Brezillon wrote:
-> On Tue, 19 May 2026 12:37:16 +0100
-> Mark Brown <broonie@kernel.org> wrote:
-> 
-> > On Mon, May 18, 2026 at 04:52:25PM +0200, Boris Brezillon wrote:
-> > > +Mark for the silent conflict resolution needed to reconcile
-> > > drm-misc-fixes and drm-next/drm-misc-next.  
-> > 
-> > This doesn't appear to be a drm-misc thing, I was seeing issues on the
-> > DRM tree.  The patch does seem to ahve resolved things though.  Please
-> > consider topic branches!
-> 
-> I'm just following the dim guide for resolution of conflicts between
-> drm trees[1], so that's probably something to discuss with the
-> DRM/DRM-misc maintainers. As for the suggestion to use topic branches,
-> I've never heard of it being used for -fixes vs -next conflict
-> resolution, every time I've gone through this process it was for
-> xxx-next vs yyy-next conflict (xxx and yyy being different subsystem
-> trees).
-> 
-> Maxime, Thomas, Maarteen, Sima and/or Dave, any suggestion/opinion?
+When sharing a dma-buf between components of different trust levels, the
+allocator may need to hand a consumer a read-only view of a buffer it
+holds with read-write access. An example is a camera pipeline where the
+capture component writes frames into a buffer and needs to pass a
+read-only handle to a downstream processing component that should not be
+able to modify the data.
 
-Yeah, in general we do substantially fewer topic branches than other
-subsystems. That's fallout from the committer model, which just want a
-branch to push their patches and be done with it all - they're not full
-maintainers, we don't magically have more of those. And sometimes that
-results in more of a mess than necessary.
+However, no such mechanism exists today. The access mode of a dma-buf
+file descriptor is fixed at export time, and the standard POSIX
+interfaces for duplicating or changing file descriptors (i.e., dup(2),
+dup3(2), and fcntl(F_SETFL)) cannot alter the read/write access mode of
+the copy.
 
-We try to keep the mess in check by doing backmerges as needed, ideally
-before applying a patch. It's not super well documented since when/how to
-backmerge is part of the section for maintainers:
+One natural candidate would be reopening via /proc/self/fd/<N> with
+O_RDONLY, which works for regular files. For dma-buf this would fail
+(that is, if we were to add a new handler for open f_op) with ENXIO
+because the dmabuf pseudo-filesystem carries SB_NOUSER, which prevents
+the VFS from opening its files through path-based resolution from
+userspace.
 
-https://drm.pages.freedesktop.org/maintainer-tools/maintainer/maintainer-drm-misc.html
+Alternatively, exporting the buffer twice would produce two independent
+dma_buf instances, which breaks fence synchronization.
 
-The assumption is that committers will ask maintainers for help if they're
-trying to push a patch that results in tons of conflicts when applying
-(since development should happen on top of linux-next or drm-tip). Could
-probably improve that a bit. But also, often it's only clear after
-applying that a fixup is needed, and then it's pushed already. And with
-committers there's no undoing pushed patches. So it's just part of the
-deal with having lots of committers imo that history is a bit more a mess
-at times.
+Therefore we add a new DMA_BUF_IOCTL_DERIVE ioctl, which produces a new
+file descriptor for an existing dma-buf with a caller-specified subset
+of the original permissions:
 
-Cheers, Sima
+```
+  struct dma_buf_derive { __u32 flags; __s32 fd; };
 
-> [1]https://drm.pages.freedesktop.org/maintainer-tools/committer/conflict-resolution.html
+  struct dma_buf_derive req = { .flags = O_RDONLY | O_CLOEXEC };
+  ioctl(rw_fd, DMA_BUF_IOCTL_DERIVE, &req);
+  /* req.fd is now a read-only alias of the same buffer */
+```
 
+Permission escalation is rejected with -EACCES. The new fd aliases the
+same struct dma_buf as the original, same dma_resv, same exporter ops,
+same underlying memory; so importers attaching to either fd see the same
+fence timeline and operate on the same object. Access control for which
+components may receive or pass on restricted descriptors can be layered on
+top via SELinux file:read and file:write permissions.
+
+A shared writable mapping (PROT_WRITE | MAP_SHARED) on the read-only fd is
+rejected with -EACCES in dma_buf_mmap_internal().
+
+Two small internal adjustments accompany the ioctl:
+- __dma_buf_list_del() is moved to dma_buf_release() so it fires exactly
+  once on dentry destruction rather than on every file close.
+- dma_buf_file_release() is updated to call dma_buf_put() only for
+  files that are not the primary dma-buf file.
+
+This may not be the best approach, but after considering different
+options and alternatives (as described above), we decided to raise the
+discussion upstream. Thus, we welcome any alternative proposal or ideas.
+
+The series is structured as:
+- Patch 1 adds the new ioctl implementation.
+- Patch 2 adds selftests covering the new ioctl.
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Albert Esteve (2):
+      dma-buf: add DMA_BUF_IOCTL_DERIVE for reduced-permission aliases
+      selftests: dma-buf: add DERIVE ioctl tests
+
+ drivers/dma-buf/dma-buf.c                          |  58 ++++++++++-
+ include/uapi/linux/dma-buf.h                       |  28 +++++
+ tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 114 ++++++++++++++++++++-
+ 3 files changed, 198 insertions(+), 2 deletions(-)
+---
+base-commit: ab5fce87a778cb780a05984a2ca448f2b41aafbf
+change-id: 20260520-dmabuf-limit-access-73261353841a
+
+Best regards,
 -- 
-Simona Vetter
-Software Engineer
-http://blog.ffwll.ch
+Albert Esteve <aesteve@redhat.com>
+
