@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FB06CD4F54
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 02:19:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF2D6CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 02:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 128F010F1A4;
-	Thu, 21 May 2026 02:19:49 +0000 (UTC)
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0606710F1A4
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 02:19:48 +0000 (UTC)
-Received: by mail-ot1-f69.google.com with SMTP id
- 46e09a7af769-7e3dbd97fe3so11004036a34.1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:19:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4730310F1AD;
+	Thu, 21 May 2026 02:19:55 +0000 (UTC)
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DEC410F1AB
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 02:19:50 +0000 (UTC)
+Received: by mail-ot1-f71.google.com with SMTP id
+ 46e09a7af769-7dbb6b95836so15691597a34.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 19:19:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779329987; x=1779934787;
+ d=1e100.net; s=20251104; t=1779329990; x=1779934790;
  h=cc:to:from:subject:message-id:in-reply-to:date:mime-version
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=CzDENP6IjMuE+dFgbF5yX5xWJgBQqW+B+xC/YsKt82Y=;
- b=gpIBDbo7J4ZnY18VbeCtZpr+/XQaxPjVv1zFYBO+1VbnPBSw88oX/pMoQJs9GGx65m
- O8IW0FYQa2RNXzxs6l+5HIVAbLNpp/VIMcI8p8/SYh+4m/ITwP1zNuLdhgnioHbbLJvP
- zPQ65wopHWKpc/IF5OsMYIMBEFSeWeBVv3uJO+bXeYdIYlqmn63J61OPPWi2mMOGCer0
- 4y+DToXh7ztznU1GstlzyXw9GpXbmnSM9KnX7WHFdQBbg1RbvLg05EoBV3l/1lS+5FiP
- zLgdiaShDTPWNQfnkDIuwwCwaJeEzVOD94PYRSYIO4NK1DA+Ll+Gb4110WfF3wWhK4Jm
- h65Q==
+ b=j+D3R4FwLD08mTCQXyCA4mKx+Vh2shAK1TtMVfOcQaWxr0QERwX5Gt/HhNSpSq9lxt
+ 5iLIqSkIQ/Agp1pRxc9TQNeeXPocSHKBufS1PxV8kCT7fgXC2ol83S7Imh70Ae0e8v7j
+ 7DQTbMoN4Ai11f+BwajEULMuV+T72GG5SCGH0p1Sxj4BSAneOKl8yG4dnzjYVmKsPjVy
+ Tka/T/U3i99QKcTlJELuxQEPdV/9WfOnbx6zYlwk9wl8wieptoFJtbu162ao/pQ5zsc7
+ tx4QfNF1nocKh/KEgOBmIGTHvNf1espVlhVp995H+sxqnRXHemym2vpIq/vjG3dokWfO
+ wQmw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/J5jvq/Mvqoyt5SRrtRJo33F1IJwDRQNxU40Q99osPwOyRFaqa+g83FUJItSNp/weNRGZ/PC0c3hE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YydZLWxg5Jht71PnQKSDU/iP+95AaA7YNrYfN1dRmG3+JjpHKal
- L2kKpvjvso9OV+5aJWOHjN5A4fC1DnNG0acnJVD0beGu02+1Ura9JapyVl4qqqFBYeWVVkaZd4q
- UYWsaD10GpS7wDMHX0foVPOnhJ2Fl8dn1Sj2k+c7C4WSq7RvLCp3AhQTmCM4=
+ AFNElJ82BPHL24J3nWoWUPc9ZfcTjFs7utBKQt1lEldsdL93ZNKwZFUFncs/NQ7vvNlD6l/yOlitUBHROAE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxWG35y9OFUM59BPj5z1R0WAsQBD0vBWc+NlYqMVPDjPRnRoGEq
+ 1pPROosxYIHp+7pax24kq5hux4FzbSmbkMUhDjobqYEBGfzHXKicWFdZMo3Ize5m52jSSX47f08
+ 0N+U8ikU88jiZIcFZ5y7bSKWuEVb6C6vN+r+WYTVbCEqZJSup5wq+6kdhXlM=
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:151f:b0:69b:56e5:cd6b with SMTP id
- 006d021491bc7-69d6ee0c9cbmr457677eaf.11.1779329987249; Wed, 20 May 2026
- 19:19:47 -0700 (PDT)
-Date: Wed, 20 May 2026 19:19:47 -0700
+X-Received: by 2002:a05:6820:4b02:b0:696:2a7c:40be with SMTP id
+ 006d021491bc7-69d6edccba1mr426926eaf.10.1779329989817; Wed, 20 May 2026
+ 19:19:49 -0700 (PDT)
+Date: Wed, 20 May 2026 19:19:49 -0700
 In-Reply-To: <20260521-virtio-gpu_wait_event-v2-1-5796b3a71d03@redhat.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a0e6bc3.170a0220.303405.4ce1.GAE@google.com>
+Message-ID: <6a0e6bc5.a00a0220.396cf0.0001.GAE@google.com>
 Subject: Re: [PATCH v2] drm/virtio: abort virtqueue wait on device removal to
  avoid hung task
 From: syzbot <syzbot@syzkaller.appspotmail.com>
