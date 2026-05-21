@@ -4,122 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1C2CCD4F3D
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 05:45:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 156B7CD343F
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 05:45:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C5F410F1D9;
-	Thu, 21 May 2026 05:45:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75EBB10F1EB;
+	Thu, 21 May 2026 05:45:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OXEe49/6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Qtptoc60";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TyumxlXq";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bCpXFEum";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D708910F1D9
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 05:45:46 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A923B10F1E6
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 05:45:50 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64KKlaje2157882
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 05:45:46 GMT
+ 64KM1T7j3680282
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 05:45:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=BqqubzpdbdtQfA/IGavwMW5/BByOyO7liDh
- sovCQsGI=; b=OXEe49/6MlCPmsETZ3xUsFLCNgzTkjBHG4on5TfbEB0set4pPTD
- nZpez+zgIB8rLyPCM75GC6I8b759vFOTDuKLySUo7YdmIXoRSEjlolmgS4w4Xh9D
- ryiWJfA2jmWEHkqS87NAfsyVGlg0kzWeecNj6IEOxXs0tlPFIx2Gu9o9xg7NRxVW
- wiweW+ZVKsxx4RiIvYlt6/ZwUMUgC6Fdrl/3ebZ0wwWgl2AoGQe/3y7M/jiAOoqU
- Ry5bWxtRI55TboRDTBY2FBiSLjPm3u2B+tUr19kxtr0wxFN9XyyQH4Tzba4xv+ME
- xr5UqZerbzYWbSamR0xT0v8WJCk8gmEDElw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ma41jvg-1
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=hmDUYWP981+
+ QEsAdC4yYWGwxCIUyaTrbIpAPDTEiCGc=; b=TyumxlXq0YuiU1vHhbZ3KhNYWdZ
+ gUJ35ZvQyZ+isC3km2aRsmKlk3NkJ1DMCksumlahLciUmw1JntOwUie+ZiC2eVzw
+ yFIiJHhshAMg3PqZgcQsdOYBpq0zK+nYdb31RX9qvCWrA7SM4krQsArdna/fAVNl
+ bL4e3fKfm/7f1bUVSI0sLgYhMVuE0nWwJz5bMtvWkAEEvM9q7ZbyKFhb0f/KFl3A
+ Hbr4y56PeERuDATqfnJxkWNuwbXJZGtlI4fqHhidCCVtGatCEBfwi4s/6StiIa+y
+ rrHn2fZrGPMtT0C1jlg/6DH75UuQ8BZGpQh3tt4c3rb+BWlAlOSXOsyowIQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9e9j3a8n-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 05:45:46 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-36865d109dcso5347578a91.1
- for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 22:45:46 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 05:45:49 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-365faf6006dso5752345a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 20 May 2026 22:45:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779342345; x=1779947145;
+ d=oss.qualcomm.com; s=google; t=1779342349; x=1779947149;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=BqqubzpdbdtQfA/IGavwMW5/BByOyO7liDhsovCQsGI=;
- b=Qtptoc60jvrHKqRRdPhmTRMPWCYEJDgHQ2NSFRgym0cZD7n2pHcJQalajNYboKg3ox
- 9c9OXuGaKwwAgAiAfh+Y6YVswm78OFyda78+h39orGf6lFGWD/xLCnlvQ3GPJpksCnIj
- xvFGxPEJREXljkCvRsnrovSEgXBma6xAabFYmpajF3Ge0r2LuFc/aCraXbwgCJLXCjf1
- 8SCPevdu/alyce7OLBxJ0xZMTPjIRg477MsyLAQUbUh0XOspoycEC55x02oLQ5kKjeUI
- bXzjSr+6u0s5qGbIOgtfQ01JUfV2Ms/7ElbL4s9C7F/gEY8sprieuTwPz4wJyACWY7F+
- 95Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779342345; x=1779947145;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BqqubzpdbdtQfA/IGavwMW5/BByOyO7liDhsovCQsGI=;
- b=R8nIJz+KwFE21usvS6XkDpfphU8ROx1tQVrQJ4tAO9jT8BGws1Lt+rMJlB1Zl55Z47
- UfFrpIkGGVxMMMJZ/mSpRo9pU7gZKfZXShA9F8BPrAwvXJA79aIs9vq3YatG1Qblpd1D
- NDsSXHe0/RvxhSHPkLyGuHrJpy8u1XS1n0JnJpEQaVYlreV1LKCOk5/2iJGpLUdy46gz
- 3L+MU17kslwUUnt5f14rp8cFNGFUBKTtR2YOaWJQAh/Trpbb3lCxic+++iH8QFbw1ilB
- +hnMBa+Dh5MUSl8bKdn3RHsyY5FV17EAfQ5DJ5Q1iojvFVVHx7NDGgjKksl8nRjfT+Hg
- 7DDA==
+ bh=hmDUYWP981+QEsAdC4yYWGwxCIUyaTrbIpAPDTEiCGc=;
+ b=bCpXFEumDehD8n94Eis6AcEr+5h8y97YhNYICWw+MUuzgZ6F0AmFbwiIGjklFvoixv
+ 2hhgOePIcdJk2yYjrt1+n/BqUuJf+ew4E3x+bW0P5uJBmJJGttrS6qSj95dJL0aulZWX
+ 81Zf2aC9mcW6SSVI0x2uw3Kjv3BgMPp27ct1rOffYANkayuwk9ADn0xRkJ8Tdqthebyc
+ RF3M177CTNWTTtmggZIG7p2/vyOmt7P3LxX7z2+xDQvS0MF7EqMw2PLx6UAoynrXBqFC
+ ZlHE53f+/X8i2mhlRIYvWag2/rRDroEejZHKtU6VxImdBFL3WV0uUzek1xzPx/yiN1qL
+ 8nxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779342349; x=1779947149;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=hmDUYWP981+QEsAdC4yYWGwxCIUyaTrbIpAPDTEiCGc=;
+ b=Imv4RaARjhAGhTqwuHZRHGsnJYLy/RwlhXNSX07McWqQZoc9OB9/jXy6Q5y3z5M64k
+ O2G/ynoZ36uYQCIFK1a4n18GNeSI/VF27blQHGORbAQEWc0OmxrP23yKb4CDPPuSj2QT
+ Mrq6C8eS73CH8Oc+0DsyiYyr8Vd7D18RsdtO+tP+ZOEZueCeuEcAvxW7qljMDbh8Suja
+ ltWgeIxBaBelHWAnOHSwbdxnq/yvRSo5JnojzNDXPk+e/AIjsXuUxc3mTU48zOvcAVwV
+ +LwFesRKG6bjc6B1Ng4EyB/MlwK5oq4Gc7Etui5gwM+sG+SspZKonDRj4Lli/UTN4x4J
+ 8Dvg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/ANcEE0Es0QwjtsqH6Fm+DYR35xbaVgUmokvivx9hRckbisV2Zg8ZgfNglYTeeICtZY66u5ykgKxg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6VPUK9mSwY9RasT1L4hJX9fBF6NWYxrs7KcgSXuMQKrW1Sidh
- LZAbLg56HL+KvhJJ9BBNDBL/zUG1DMckgeYzp0+5D7wxuN1J3LKvfq2xO6AOyZPHOFlyVLPh7ar
- 7GyGqp2pnEVov3NKizUi2LmRqQaah0OYXAF6hKx/oEyPsdGPG5tmCtw+0EljVM5rDkXxiw7w=
-X-Gm-Gg: Acq92OE6mDfpBwbxhVPqbhzeB5nYrTFCMl+lF+XekT2BR5XcT490wsUITXcB5EEFzRM
- bBwJ1cFLrvvewMOzIqzm3TYyNU2sMHoswoF0rqnRb47zXci6+pF3lVyc/VAgz4XpvZgeu1yNdpz
- GyvmWd+UYk0JS5LtZ24f+utK00QsWzV5t1QSOF3LfxWA88H9yuyPrHTgV1TE/Fmk0dXn7a/LWAP
- yYRBxr579eqLiyGgF/DBNjNYMXoyEs8IkiMSffz69GKiOIXZdVL0W3R9F9OBB0xaZ7pbO4rsS0K
- IlIif/kiS8XTQ/C3opL5F/Av7X7N9lGF8hKtM6ZaZrfxR0B9Vu/8emBZbM60+Zv/gDUVc4h7ENc
- O+rEH3SzsAokzaIxGnV+nB09TdIeSnhZOZwB53c2C3XJ0NqTRH67dXEnmjqW3a/IK
-X-Received: by 2002:a17:90b:3811:b0:36a:2a9b:3fb5 with SMTP id
- 98e67ed59e1d1-36a455f8dd7mr1388604a91.18.1779342345196; 
- Wed, 20 May 2026 22:45:45 -0700 (PDT)
-X-Received: by 2002:a17:90b:3811:b0:36a:2a9b:3fb5 with SMTP id
- 98e67ed59e1d1-36a455f8dd7mr1388571a91.18.1779342344735; 
- Wed, 20 May 2026 22:45:44 -0700 (PDT)
+ AFNElJ/siJDXHlt/J+A1RPgEkiMnkx7Cpe7CmhjZCgxgpQivERjia8HgVzAavB3MxcP+7kNQHG3uocpZDXY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwU+KfDviaTw8+wtrakan8q5UXUH6qn688F7n4UVzmAuxPkPqxB
+ 2QNtDlVNzx8Q3FG8P+7BJh25Jt0cjuIlHR+yNk4WVrp88aH65hJBn+mIp30GkO+fae++eRcQSq/
+ Rc7ErM9i1hZ1Ru6N8NGUfszPgbEyPtlma0aRbQqOBcAFalfJJkwdIM6Hs8aoL3K82q1Gh4W0=
+X-Gm-Gg: Acq92OEBUU1zD1QdaTqOkUZXqXosdDn37y53ijcHNsNqvXlGo5KTGQWEfn3ArClcKMo
+ RiIsXG7RSZ34QS4dcoSslFOBVaS51HC6ChYaxna3tYaLcVR0eCedFRZAJIIdBwTe8LAJoGlwyot
+ 44VzXvOaDT2AMLvDJuWrqsnNbBBbiBc2YSXmKc3IFrejz1df47FJ9Y8F3fXRKDF3h6+zhT2yi3F
+ QkuBplRzMVbSBquq21I7zbZ+apPNc5xJvnDY8r1mPc8edxzjRDqNPApltz5Ipo/OsGT0N1qf66g
+ GTn1LnFuC7eKstZIr8ptYtCJ44lpBuAn/EqaCvVHlNIFFmwuAJ6gnOz7d5L0L66gYdQA0n0Mdgv
+ /j0chHI7wAP48gRph+MlyuRntKMInp7P4QIS2bh3Vhac5tnL8MwWX4G5G3eCrCAf2
+X-Received: by 2002:a17:90b:4ed0:b0:369:932a:2b8b with SMTP id
+ 98e67ed59e1d1-36a451a6651mr1415910a91.11.1779342349019; 
+ Wed, 20 May 2026 22:45:49 -0700 (PDT)
+X-Received: by 2002:a17:90b:4ed0:b0:369:932a:2b8b with SMTP id
+ 98e67ed59e1d1-36a451a6651mr1415881a91.11.1779342348496; 
+ Wed, 20 May 2026 22:45:48 -0700 (PDT)
 Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36a3cb323e3sm1474847a91.4.2026.05.20.22.45.41
+ 98e67ed59e1d1-36a3cb323e3sm1474847a91.4.2026.05.20.22.45.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 22:45:44 -0700 (PDT)
+ Wed, 20 May 2026 22:45:48 -0700 (PDT)
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 To: srini@kernel.org, linux-arm-msm@vger.kernel.org
 Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
  linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
  dri-devel@lists.freedesktop.org, arnd@arndb.de,
  dmitry.baryshkov@oss.qualcomm.com
-Subject: [PATCH v12 0/4] misc: fastrpc: Add polling mode support
-Date: Thu, 21 May 2026 11:15:35 +0530
-Message-Id: <20260521054539.128651-1-ekansh.gupta@oss.qualcomm.com>
+Subject: [PATCH v12 1/4] misc: fastrpc: Move fdlist to invoke context structure
+Date: Thu, 21 May 2026 11:15:36 +0530
+Message-Id: <20260521054539.128651-2-ekansh.gupta@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260521054539.128651-1-ekansh.gupta@oss.qualcomm.com>
+References: <20260521054539.128651-1-ekansh.gupta@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=K9kS2SWI c=1 sm=1 tr=0 ts=6a0e9c0a cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Authority-Analysis: v=2.4 cv=bfhbluPB c=1 sm=1 tr=0 ts=6a0e9c0d cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=NEAV23lmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=FeUw2I9XaFYL6OdlDaEA:9
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: C-Nmza0IGY3kPAp7kBCLXYFqeth8Yyqp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA1MiBTYWx0ZWRfXzmQyCl0r8HdR
- J+KGMCJgfDjUIrb8iWnFyVCHWj/nyunlrhfkK9/+T8seqkoDXj34PYmQXB9vr7Az6EJztl8dNP4
- jK3nlP19aYwkuEmXTdYNdhBkNtg81Td8GdkkjRnF/8LHhZjjmdfwXIAqDOzVoxi7hZP03nC2+01
- WWVr+XQayVlYw3Yn0FCw/wnmlQHoUN6UgWP85lPNUzVWNkZyuzQc7LHMXb3obVuRMntHcHh8Tn2
- 3Vm6Oc16Lp+CZ8vNovD0b6YioE7xgUEO5+5jfnQIw9KLvfNlxHnAQxYjeBaV6AxLoMOZFBLbQK8
- wetN5tYGFM+I8YPrL4/WurdwJTePcPFz5F8+ECT5Berk9ZDikeoJd8YcqqWEeJpCB5a+dW5reKQ
- 8T1NldqvG0433faED04R1vDYy9rS3GfC54gYkqaREYAqMEC3HlXqaS5ts2oAJ3WNSL7sZA+U6dq
- zPdnKbdxcuSV89MRzFw==
-X-Proofpoint-ORIG-GUID: C-Nmza0IGY3kPAp7kBCLXYFqeth8Yyqp
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=HL6mAI18knL3XnPGOeUA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: d4lQJibmu1MbnHdvIJiaTJ09E6vRfXHx
+X-Proofpoint-ORIG-GUID: d4lQJibmu1MbnHdvIJiaTJ09E6vRfXHx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA1MiBTYWx0ZWRfX0EAODwdt2WzT
+ oQp52pCp3HTWrpohvS5k0nOuc/I9YTMsjttri5UmqY73aCM+yLdY6xWj10ytUDzQXLZkJU12O17
+ qLPgPZjE9nHBXGXQzg2L3n+6ZsVXczB+QKXVgHDyz7Utz3xfOyJF/AKYLJdqdzM6oq6SU5G+Lid
+ sde4gJ/47fyqLR99XrC3MAcCwP/SGtx4JE7cGbdMSWsgIs0WDaVRYN+H0uf78abbcIcfGoUdSeo
+ ri+8xdA3BX0+FZTPcyiGgXEvt5mG+/wHgcwlfNwyigyGptetCgLt8EC1G0dtyE0KmZyOxLjUZhu
+ 4dTUUlQ3CT2WPvGhpl8UM+rU2hjdCLmQRFDRJBxgdIVPTsoEn6x9CJBhmVqUO97P2i4JKHs0tMf
+ fSrywWvD9XpPg7F5iOxd7TBvFeta8PTVLAvbloqrRO1b2s77AsdPxYwcEACThkkx0iwXqluT3MD
+ wHCnY38Z5SILHa+pO2g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501
- impostorscore=0 malwarescore=0 spamscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210052
+ phishscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 adultscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605210052
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,71 +138,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series adds polling mode feature that have been missing in
-upstream FastRPC driver.
+The fdlist is currently part of the meta buffer which is set during
+fastrpc_get_args(), this fdlist is getting recalculated during
+fastrpc_put_args().
 
-- Add changes to move fdlist to ctx structure to avoid code duplicacy.
-- Update context mask to support polling mode.
-- Add changes to support polling feature.
+Move fdlist to the invoke context structure to improve maintainability
+and reduce redundancy. This centralizes its handling and simplifies
+meta buffer preparation and reading logic.
 
-Userspace change: https://github.com/qualcomm/fastrpc/pull/258
-Patch [v11]: https://lore.kernel.org/all/20260520065047.3415790-1-ekansh.gupta@oss.qualcomm.com/
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+---
+ drivers/misc/fastrpc.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-Changes in v12:
-  - Fixed poll_mode_supported check.
-
-Changes in v11:
-  - Moved back to read_poll*.
-  - Improved error handling.
-
-Changes in v10:
-  - Add milos and sar2130p to fastrpc_poll_supported_machines. 
-  - Updated comment for supported platform list.
-
-Changes in v9:
-  - Added platform support check.
-  - Moved to readl as per Luben's suggestion.
-  - Cleaned up fastrpc_wait_for_completion().
-
-Changes in v8:
-  - Added more comments.
-
-Changes in v7:
-  - Fixed warnings.
-  - Fixed commit text.
-  - Addressed clean-up comments.
-
-Changes in v6:
-  - Fixed poll memory calculation.
-  - Added few formatting changes.
-
-Changes in v5:
-  - Add more details in commit text.
-
-Changes in v4:
-  - Replace hardcoded ctxid mask with GENMASK.
-  - Fixed commit text.
-
-Changes in v3:
-  - Resolve compilation warning.
-
-Changes in v2:
-  - Added comments and fixed commit text.
-  - Defined context id position as a macro.
-  - Added new IOCTL to control polling mode as always enabling
-    it might cause excess power consumption.
-  - Cleaned up polling mode implementation.
-
-Ekansh Gupta (4):
-  misc: fastrpc: Move fdlist to invoke context structure
-  misc: fastrpc: Replace hardcoded ctxid mask with GENMASK
-  misc: fastrpc: Expand context ID mask for DSP polling mode support
-  misc: fastrpc: Add polling mode support for fastRPC driver
-
- drivers/misc/fastrpc.c      | 189 ++++++++++++++++++++++++++++++++----
- include/uapi/misc/fastrpc.h |  29 ++++++
- 2 files changed, 198 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 1080f9acf70a..a9f507a88c67 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -233,6 +233,7 @@ struct fastrpc_invoke_ctx {
+ 	int pid;
+ 	int client_id;
+ 	u32 sc;
++	u64 *fdlist;
+ 	u32 *crc;
+ 	u64 ctxid;
+ 	u64 msg_sz;
+@@ -1016,6 +1017,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 	rpra = ctx->buf->virt;
+ 	list = fastrpc_invoke_buf_start(rpra, ctx->nscalars);
+ 	pages = fastrpc_phy_page_start(list, ctx->nscalars);
++	ctx->fdlist = (u64 *)(pages + ctx->nscalars);
+ 	args = (uintptr_t)ctx->buf->virt + metalen;
+ 	rlen = pkt_size - metalen;
+ 	ctx->rpra = rpra;
+@@ -1118,18 +1120,11 @@ static int fastrpc_put_args(struct fastrpc_invoke_ctx *ctx,
+ 	union fastrpc_remote_arg *rpra = ctx->rpra;
+ 	struct fastrpc_user *fl = ctx->fl;
+ 	struct fastrpc_map *mmap = NULL;
+-	struct fastrpc_invoke_buf *list;
+-	struct fastrpc_phy_page *pages;
+-	u64 *fdlist;
+-	int i, inbufs, outbufs, handles;
++	u64 *fdlist = ctx->fdlist;
++	int i, inbufs;
+ 	int ret = 0;
+ 
+ 	inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
+-	outbufs = REMOTE_SCALARS_OUTBUFS(ctx->sc);
+-	handles = REMOTE_SCALARS_INHANDLES(ctx->sc) + REMOTE_SCALARS_OUTHANDLES(ctx->sc);
+-	list = fastrpc_invoke_buf_start(rpra, ctx->nscalars);
+-	pages = fastrpc_phy_page_start(list, ctx->nscalars);
+-	fdlist = (uint64_t *)(pages + inbufs + outbufs + handles);
+ 
+ 	for (i = inbufs; i < ctx->nbufs; ++i) {
+ 		if (!ctx->maps[i]) {
 -- 
 2.34.1
 
