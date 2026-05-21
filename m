@@ -4,54 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F597CD4F3D
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:51:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE98CD4F3D
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 13:51:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8616410F332;
-	Thu, 21 May 2026 13:51:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0529A10F32F;
+	Thu, 21 May 2026 13:51:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="TAYlyn8L";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="QNih+0YF";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 996DF10F32F
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 13:51:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779371491; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2865E10F32F
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 13:51:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779371497; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Xj1l6SCXFilAgiCmPOoUOIOipkS1n0jV6y+dEbnFm9OCFziJ+pIwZfcpnThnHe9obVVsilBddkUDGnQJE7V2bat5UcsULJ6hDaONzGQH2TKc8jCdcVA59n/ShQwou69iV2wCJW1B/kmcpHFVkdo6Lhc5ZQKV5L/W4B3MyHCKE6g=
+ b=UCRFdi9Mzw0+nmC2EFmHalk9MyjCYCiDYPBQUuYwRRavMKFUtcfS0oZzFdtvkbiQUpW+IhIZJUV441rKzGYQVQaOYBqd3ZbDmYjbwDKcDyIzcCyFgS+KRQjFUVYBzSRIc8i5CWDdGtMIfBLIitiS0zhVCzVzNIzuZ4uhRRwdPIg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779371491;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=27/DsMQHvE8GN7cV15fGmw7sO45eST2Z/oa3bBIf+lE=; 
- b=BcTj2kkrNoY6tDulEWt1fPLGkrVYAaeTp29T/9xP4KLU2VDdOVTNf/llv1PjP0higG99utbfap4dyGfF5xej4iPVqO6XKQolFr01FevCEfDxNIk37cYM/cY7zJh4NPiWZIGdfdknRYyZb6CyCPStwj8WSuL74Hx6TgV0x8S+u8o=
+ s=zohoarc; t=1779371497;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=ZhyZSwfXn2KIJwjK9GEatQLgb5i7VWy5RSbPa+iiulw=; 
+ b=FJ1cw5mtgBJdvOOgaCXxiVoqsqH0wzf5zjuHDjwfpsVk6BRdh59VNqykaGmklRnF1ZdtZ7cyfEGzqlcAg37d0jVixC2Jtboo5uNEsDIaKx+0IXjcIDX0p8D+Una8q+N5pp4UmUpYOk9AkLQWvbYrjDg44chDp8yp5foc1f4decU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779371491; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779371497; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=27/DsMQHvE8GN7cV15fGmw7sO45eST2Z/oa3bBIf+lE=;
- b=TAYlyn8LY+97jWSBVzBleNt9nnlhRX28es/ZLtZjD+nyHlmV5FlQbE5aSM68P4fu
- z6T+7D/0XQzPgq/bZDbXN4vlcefl7WObwRT2HcPMXBwrSu+bMpSM/AaPIXjFEinGq7i
- tlwSGegXHsxOgoGDP/1nDTh0Vhf0zWRwZVYc6ndI=
-Received: by mx.zohomail.com with SMTPS id 1779371490551254.02408473226046;
- Thu, 21 May 2026 06:51:30 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=ZhyZSwfXn2KIJwjK9GEatQLgb5i7VWy5RSbPa+iiulw=;
+ b=QNih+0YFzmJ49JQf9WIAVVNNu5pEjUuR6rvwNpRE8ZMN06L/M3FuhcHWZNE9swYT
+ maC9sBJ5FoH48TTGtb94T0AsN+gWIkgUcFdVsejLCcp63wFn1BIgx9TJFLk0yKEsFMD
+ rEffjZegsRRrWb1fEhE3Ld2aHEu0ahWS04mu8jvY=
+Received: by mx.zohomail.com with SMTPS id 1779371496091958.5240224921871;
+ Thu, 21 May 2026 06:51:36 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: [PATCH v5 0/2] Let userspace know about swapped out panthor GEM
- objects
-Date: Thu, 21 May 2026 15:51:14 +0200
-Message-Id: <20260521-panthor-bo-reclaim-observability-v5-0-49313994da55@collabora.com>
+Date: Thu, 21 May 2026 15:51:16 +0200
+Subject: [PATCH v5 2/2] drm/panthor: Reduce padding in gems debugfs for
+ refcount
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43PwW6DMAwG4FdBOc9TQkIoPe09ph2cYEYmIF2So
- lYV775AJ62aeuBoyf7+3zcWKTiK7FjcWKDZReenPFQvBbM9Tp8Ers0zK3mpuSo5nHBKvQ9gPAS
- yA7oRvMnIjMYNLl2hqbmuG9tUUlqWmVOgzl22iPeP+xzP5otsWt3fjUDf55yd7mvMYCSwfhxdO
- hZtGGF00cJElwRrEeAVCMVWrXcx+XDd+s9iO95fdRbAAVUrUGqig+rerB8GND7ga07fAubyERU
- 70DKjthGyImo7o5+i8hGVO1CZUc2xk6XQCp83VX9otet9tb1fo9HCmgNv/6PLsvwAs/e9zCECA
- AA=
-X-Change-ID: 20260420-panthor-bo-reclaim-observability-970679c9533c
+Message-Id: <20260521-panthor-bo-reclaim-observability-v5-2-49313994da55@collabora.com>
+References: <20260521-panthor-bo-reclaim-observability-v5-0-49313994da55@collabora.com>
+In-Reply-To: <20260521-panthor-bo-reclaim-observability-v5-0-49313994da55@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -75,61 +70,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Panthor has recently gained a GEM shrinker. It allows evicting memory
-that backs unused GEM objects to swap.
+The "gems" debugfs file is getting a little too wide for comfort. While
+a lot of this is unavoidable due to the theoretical upper limits of
+numbers here (e.g. size needs to be 16 chars because 2**48-1 in decimal
+is 15 digits, plus one space for separation), the refcount column has a
+decent 5 characters to be saved, as it can only ever contain a 10-digit
+decimal number.
 
-In this series, Panthor's gems debugfs is extended so that information
-on evicted pages can be gathered by users.
+Reduce the refcount column's width to 11, which fulfils this requirement
+with an additional space for separation.
 
----
-Changes in v5:
-- Drop fdinfo patch to unblock series
-- Don't set the flag introduced in fdinfo patch in panthor
-- Link to v4: https://patch.msgid.link/20260520-panthor-bo-reclaim-observability-v4-0-a47ab61cb80d@collabora.com
-
-Changes in v4:
-- Change "evicted" memory type documentation to no longer explicitly
-  mention swap
-- Link to v3: https://patch.msgid.link/20260423-panthor-bo-reclaim-observability-v3-0-60af32164a4f@collabora.com
-
-Changes in v3:
-- Add documentation for new "evicted" memory type in fdinfo
-- Link to v2: https://patch.msgid.link/20260421-panthor-bo-reclaim-observability-v2-0-c9135eedfb6f@collabora.com
-
-Changes in v2:
-- Change reclaimed_count to saturate at INT_MAX
-- Add "evictions" column to panthor gems debugfs which prints
-  reclaimed_count
-- Add a patch to reduce the padding of one panthor gems debugfs column a
-  bit
-- Link to v1: https://patch.msgid.link/20260420-panthor-bo-reclaim-observability-v1-0-a4d1a36ee84f@collabora.com
-
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: kernel@collabora.com
+Reviewed-by: Steven Price <steven.price@arm.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-
 ---
-Nicolas Frattaroli (2):
-      drm/panthor: Implement evicted status for GEM objects
-      drm/panthor: Reduce padding in gems debugfs for refcount
+ drivers/gpu/drm/panthor/panthor_gem.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- drivers/gpu/drm/panthor/panthor_gem.c | 16 ++++++++++++----
- drivers/gpu/drm/panthor/panthor_gem.h | 10 ++++++++++
- 2 files changed, 22 insertions(+), 4 deletions(-)
----
-base-commit: 69c95e4c529297c25503e60acba757fba24fdc95
-change-id: 20260420-panthor-bo-reclaim-observability-970679c9533c
+diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+index 25bb62a48276..ac9b9854c729 100644
+--- a/drivers/gpu/drm/panthor/panthor_gem.c
++++ b/drivers/gpu/drm/panthor/panthor_gem.c
+@@ -1642,7 +1642,7 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
+ 
+ 	snprintf(creator_info, sizeof(creator_info),
+ 		 "%s/%d", bo->debugfs.creator.process_name, bo->debugfs.creator.tgid);
+-	seq_printf(m, "%-32s%-16d%-16d%-11d%-16zd%-16zd0x%-16lx",
++	seq_printf(m, "%-32s%-16d%-11d%-11d%-16zd%-16zd0x%-16lx",
+ 		   creator_info,
+ 		   bo->base.name,
+ 		   refcount,
+@@ -1679,8 +1679,8 @@ static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
+ 
+ 	panthor_gem_debugfs_print_flag_names(m);
+ 
+-	seq_puts(m, "created-by                      global-name     refcount        evictions  size            resident-size   file-offset       state      usage       label\n");
+-	seq_puts(m, "---------------------------------------------------------------------------------------------------------------------------------------------------------\n");
++	seq_puts(m, "created-by                      global-name     refcount   evictions  size            resident-size   file-offset       state      usage       label\n");
++	seq_puts(m, "----------------------------------------------------------------------------------------------------------------------------------------------------\n");
+ 
+ 	scoped_guard(mutex, &ptdev->gems.lock) {
+ 		list_for_each_entry(bo, &ptdev->gems.node, debugfs.node) {
+@@ -1688,7 +1688,7 @@ static void panthor_gem_debugfs_print_bos(struct panthor_device *ptdev,
+ 		}
+ 	}
+ 
+-	seq_puts(m, "=========================================================================================================================================================\n");
++	seq_puts(m, "====================================================================================================================================================\n");
+ 	seq_printf(m, "Total size: %zd, Total resident: %zd, Total reclaimable: %zd\n",
+ 		   totals.size, totals.resident, totals.reclaimable);
+ }
 
-Best regards,
---  
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+-- 
+2.54.0
 
