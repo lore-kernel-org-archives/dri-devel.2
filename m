@@ -4,91 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B525CD5BAF
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 22:39:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAA6CCD5BAF
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 22:54:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5B8610F427;
-	Thu, 21 May 2026 22:39:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24DF210E1F0;
+	Thu, 21 May 2026 22:54:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="bnwNHF+4";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="J6mznSbG";
 	dkim-atps=neutral
-Received: from mail-dy1-f226.google.com (mail-dy1-f226.google.com
- [74.125.82.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EDD510F427
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 22:39:15 +0000 (UTC)
-Received: by mail-dy1-f226.google.com with SMTP id
- 5a478bee46e88-2f3c623322bso614929eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:39:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779403155; x=1780007955;
- h=content-transfer-encoding:mime-version:reply-to:message-id:date
- :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=O9CpPII62OQSIBdF+4kU9DnX+BNtPMXmEbBRLIKXWiQ=;
- b=CiT+ELFKCfgyHO1Wboxf5EEGuJo1Am0fw/eBkduV0rTRGXzduM00BXOrnZ1SQMiOyv
- jNCbiOrP4CRvjD94oAgC6pQUykpGP0h/xffMms74/lszrOsjWcZKBKYfxbMoO7kC8NrL
- q4FVSV06bEoICLt++7TtzCnG86uNHEeyYCK3f5eCGASayGD5XFvSyvEEmhQV11cCT4Bv
- vtWpFlQ4RpMKSiwqBEoyzG+b7PTSUlr4vaVC3hAdHeMoxxlJDRx1sgwV8htn3+lJuX/G
- FO4dXaLJPmIJvr/MrbrAGwn/diEFXp4E9RXDn6FVX8Ugmr6Si5/Okrb6d2s12cExYQRK
- WXjw==
-X-Gm-Message-State: AOJu0YxBbSlPscfQBTZn7UUbsHdFPzUFndTHGBipQJkimx2CU4pt4KMe
- 5/FPhVoj8K3+AlqjjycKCJdvNc+pxlHnhdQYTI6ZeUAaHiV3jZy+MNUtWNy18qH0LIzF+3pXmo5
- 0O3sOCuRBy2nS188gucFnIn8wdzIze0Ryw0zKIH7ie5xpidnEk2X1kREOQjWfIf/4z75x7GubVc
- /GUVtIZQ86jZgPFkWEdisPIHIJlRJ+X3WFzWx0LaHZ33requzDY6MzZwgDb+HG0ZGr/uR3XS844
- X0EL4GmhIeiUHRow9xwNfPgwUkZ
-X-Gm-Gg: Acq92OHC3UBp2bMb5Vt0BUqfUIBXIeddOP+yYbDUWzIYL9iBArLYvuX30TcfJuZXZb4
- TgHiJTzcJ+ZjFr8All+SyD0y26AkJLvVZfNxPLKP/fIj5abRhxUzWE7zlj4izQUGDn8VcgvqJ1Q
- 9P6bzFQTFDI/tOuDdIBZyjcElxZDAk3NmIWqhBQgCyCLQF/Fx3au6gFgjvoJYwW1FBzQ0WY/7A4
- e5AJ9CM/D2b/eRH+zDjUZ4ctomFU/ZwGhc5LK89cps8/5DugajhfbsjsgL5YK+omvWE8ZilGgC7
- qkRswtm0h3qUa1X1PQd4S6kanZ6RRubVTVo3iiRqf8Mm5+mKaXFoKNgaX8mdSKL3yW4xvOCnUvL
- O6uMb5ASuQjI1vpsgFEhAV5LY1AWRsuCGpf0ITWcW077+H6PxgwQHvd2HtSgfEbWaOLop7QzD8N
- IEoUMoNcF/KizoxvEShwxK3U1T5/5ripj8JdXCZGJs7KgTxzUnIyiG8TreBIQ2GVZW
-X-Received: by 2002:a05:7300:cb86:b0:2ed:e12:3773 with SMTP id
- 5a478bee46e88-304491faf02mr740185eec.35.1779403154491; 
- Thu, 21 May 2026 15:39:14 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-102.dlp.protect.broadcom.com. [144.49.247.102])
- by smtp-relay.gmail.com with ESMTPS id
- 5a478bee46e88-3044b925984sm34416eec.26.2026.05.21.15.39.14
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 21 May 2026 15:39:14 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-8ba9baef44cso93213346d6.0
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 15:39:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1779403153; x=1780007953;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:reply-to:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=O9CpPII62OQSIBdF+4kU9DnX+BNtPMXmEbBRLIKXWiQ=;
- b=bnwNHF+4XwCusPvsEPxsRCP2+T7zQvIgb0EqwjaA3g4GZyBTfffResqoPKujJ8w+tm
- C05vU2KS1U6HFh86XFSMm4qYYMHKTDhyGXeu+a8lWUDwndnQfYTVGQp+0b0rke02x4b1
- +Q5oDj+rXybf1M2G2FzhMYN6GUuXkeY+ER+s0=
-X-Received: by 2002:a05:620a:1b81:b0:8eb:2aae:ef9c with SMTP id
- af79cd13be357-914b49347d0mr191819585a.27.1779403153183; 
- Thu, 21 May 2026 15:39:13 -0700 (PDT)
-X-Received: by 2002:a05:620a:1b81:b0:8eb:2aae:ef9c with SMTP id
- af79cd13be357-914b49347d0mr191815085a.27.1779403152485; 
- Thu, 21 May 2026 15:39:12 -0700 (PDT)
-Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
- ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-914b5ff60cbsm24805285a.30.2026.05.21.15.39.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 15:39:12 -0700 (PDT)
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-To: dri-devel@lists.freedesktop.org
-Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
- zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Subject: [PATCH] drm/vmwgfx: Remove duplicates in vmwgfx_bo.h
-Date: Thu, 21 May 2026 15:41:36 -0700
-Message-ID: <20260521224137.628035-1-maaz.mombasawala@broadcom.com>
-X-Mailer: git-send-email 2.54.0
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012020.outbound.protection.outlook.com [52.101.53.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5287710E1F0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 22:54:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Svv+/v+Qtycecahp8jQXccFXPlHSKdWM6OZz/TOeChhQyvn17OE26iXRhYnASrDpuTH8TQO8Ea0wfXr4RVgXEchsZymQGFnLvKhLXtSgZaDSLNbqn++/65EjkaWNFOzSnbG9bAzYTfMYHpHyYf1GExqHuO06fTdkh52+PY0fugUwnv9qhuNDyhhOggHrrEro6e4pNuH+bm5m8yItAOYY71C5sL476UL0mOou6mv+DB2KtuPP8LhMI71EJ51SdXJS2ACmcq5U16wSkwUkOu72UEYK0C+hW1oA2+RWXjTGbgc/9iMmRvz1jgf3euOMLkjq/CgT7WJvDvIfjXoN1Rc0YQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bPFMtd43LHKf0SYSrgWJ6l3TJd2XxCN+4G7FsV1yXlg=;
+ b=aT8q+I6kcBi03E7tUzbuDEPsqlFUMfDzMgNFq1eUsMtrpb6O+9qxvRRCLtfWd00FmmN7SNrrEtxCBE9Iybt2jLrpx5moJpHgkrFdFdaj1Pzo+RLQAxlaS9lMA7Wx04u82MM1w8KN1a6Kwg9rDZVdrpROJ91UYTSf6s6Q77b3QdDviFI3pZNUPcO7Y3I2Y67xQAYYNracoLN5buRZM5zGb+j+ZPULz3yTWKALasQHCUIZaS9ZAl3wrcBBgqBSKtTimna+/JdJlf+QMFOyJIHJfCOhZqU019NXLzRfI3E6LiWOxYWzCc6VqA8ZhRGreBZkoI6sCIG2aISo+KbPf0pIYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bPFMtd43LHKf0SYSrgWJ6l3TJd2XxCN+4G7FsV1yXlg=;
+ b=J6mznSbGgYCK1sHFIj3NWC4iz+WtaXeEX5kl9d/XnjxgoNqpNIT6xW//xnxyHuBt4vElPR6UjOD35fZl4NZWZOeYRONjYto3Lk0pGHNMFYfP70L8JeGb3aoxoVo0CDK6ZQCTfigdMTdYGzoaAuD3vShN11z3DMWeHAt6/RJW2HgdQYPqe8UzDRbNqERtcBaPLQ/GErKca+uDY2Z/51Oz+4zOBtee9KXWuom5VE3/YFC/+Xjv23Pm8I5R9Eaq75E7gEGYytixljkygmLufH5oVgUwvcFMd/S36ynlSmwvbhEDqY0QNiZaC38g6dMofZUZ/xHKFTWBqsxvltQoVKuUDA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ SA1PR12MB7102.namprd12.prod.outlook.com (2603:10b6:806:29f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Thu, 21 May
+ 2026 22:54:43 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.20.9913.012; Thu, 21 May 2026
+ 22:54:43 +0000
+Message-ID: <59658f51-f6d4-41e1-bb3d-dc0f1637f6a5@nvidia.com>
+Date: Thu, 21 May 2026 15:54:40 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: set SB_I_NOEXEC on the pseudo filesystem
+To: Christian Brauner <brauner@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jens Axboe <axboe@kernel.dk>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+References: <20260520214350.168689-1-jhubbard@nvidia.com>
+ <20260521-dilettanten-klarzukommen-9351cba40c06@brauner>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <20260521-dilettanten-klarzukommen-9351cba40c06@brauner>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0120.namprd05.prod.outlook.com
+ (2603:10b6:a03:334::35) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SA1PR12MB7102:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78f5df30-9178-4c0e-54da-08deb78bf266
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|11063799006|6133799003|18002099003|56012099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info: RVvPgVNU3uXW0zqIGB1nWGlrNeuG+yH4w+racYokKREWpUrCHPUm8Mll9Av5b9U+op6S5Jqh7C9yPnW4euu0ZJk5fiFVdZ1FutSeSCmzzaRH8FOVOXLB8kPw1OW7hTy871s9Nvzqldo5/kLWhHGPCOLoZRCRDHJhzjEexxwB5gt6uGdefCl8yR0HNkV0NLnW+zYAVxKr4dq0WaSD+aeC5MAQavUab1soxl/JM0i007hTBZlRGELjXBqooPUDILOE31nCSwJiVgcdzh1E33PvOnNp3EaysnKH+6/cVycLM5dD6IS7VOb4AhKin7Z8QD1sKESvhi1ewu2plfQ8kZFqsyD8A8/k/q/iuq5oiSl26ctBII5BTOlTdFjUx5V6QMJz16CDSkqWXEbT+4gAKiNMQPF/eh2GrE53m8FCei268aSdmJW6DTAt29p9ViJgscrhpM0cAWOtTd7Sm9n1APg1Rgwftt1U3P7vT54cRlLcR9JFGY2SJjtYe50GYsCyts+Vb/lVUrMOyMpNHfVZthLHyjLeQzPG2DvLPx9nelQMNcKlU6Qad82cPbJ1Q/P5qXLClr4XLbQROE/liTacBSAksXmMbDrX+WzvOfblFITp45tBUCdiMsVhyvH0S4ixnLvNlmhXFtbS6el9DX6VWdmOLwyCjb4ZlRhFybMDMuemFJWB7DTAv+eb9ud2TiQZGnSH
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(11063799006)(6133799003)(18002099003)(56012099003)(22082099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YW5BY0pVaEpkRkh2UkpFaE1lMkN1K0M2c3d2SEx6MnBnaE5SUXlJQjB0ejJu?=
+ =?utf-8?B?RWdrTjVNeWc1dWEwM0hCQnljMTBiQVUwaUtaVlJkZDM4a0Z5Y0s3VnVocmRS?=
+ =?utf-8?B?c0pxeVdnbXV2cStVdEZMRDdaRk01cStBSE9SSG0xWGQ1aUlVY3k4SjNnRDAy?=
+ =?utf-8?B?SDNFb2QvaC9QNUt0MFhTcFMyaEZST2dEYkVVUDhMVXZyT051SmZqUUVkdGZM?=
+ =?utf-8?B?MlJ0WEpvbEVzaUtzTjFCS2h3YzhOVk5LdkdpLzI2bEtNMm5VLzZ1Q1BFMjdN?=
+ =?utf-8?B?MFk0SUNHQ21sYVNpRXlhRWROSjgzM0s1TFFSTGtRQSt4UlgrWUlFZDMrdEVV?=
+ =?utf-8?B?SFU3WGJkZ25oOEpLTWFBR21DeTFZTTFkWTd6SUt3MW9OSUNLdnBWaUNnNlJV?=
+ =?utf-8?B?MFJlWXFicnB4ODB4VmNWa2xKd0VXbi9PZjZTSmhpRG1YNmVFRU1mRWl0SnVB?=
+ =?utf-8?B?c3lrWHJkUFdWWnZmeWVlcnJaQi9aaUlsT2pvWFpxVDNFN1BKMEQ0dmUyMGpt?=
+ =?utf-8?B?RmRNVjl3TUMwVE1leXVpWFcrWXFKWS93SE1uWjhLL2xVRTBEY3JiRVJxdmww?=
+ =?utf-8?B?b0NVb21HaE44R1dzZ3ZWWWtxaitmZTQvV2tIUWNkMlFWTGdXNlZYcitwRU12?=
+ =?utf-8?B?YVNvblZOMTRUUXUxNExJZ1B4NTloOGw5ZWFRdkk1MWt6RVNpNW9iMGRQdVAy?=
+ =?utf-8?B?WnQyWUJ3VHNXeGVKNWRuOHZNUTNZYW50RWxNNVJkMndrZnpoY1ZUeWdVdDU3?=
+ =?utf-8?B?cDEzYnM5NWJrM25QcXI4SnVIQVVubU1iY21mOTNNdzRnNnB1OHB5SXp5Vm5V?=
+ =?utf-8?B?N2xQbHAwMEozRlNmUFc2UklDMjhrSEVFc2IrSDJZb0ZHZW1NWmdobTdUVnk3?=
+ =?utf-8?B?ckQ4UGFROWNrMHd2RnI3TGwwSTFrY2M5YlZKQ3IxMVdzQ1pGZkhpZHdiYVha?=
+ =?utf-8?B?ZUU0Rm9BYU1WTzV2a2xRSHhaaGxsamNBdUUrSzJESnBkUnlEWWZpZ294VHdE?=
+ =?utf-8?B?d0N6a1BHbzlKbmQ4bXdrejdXYVlHTU1MUFQ4TU9OQlFUajZ0SVZNQmE1aXV4?=
+ =?utf-8?B?a0pxSEY4OFluMVdLU3RYQnpUZGVuQXlTQkVRaDNDTlZsTzlOS0FtMEV3czRB?=
+ =?utf-8?B?bDQ1TGVPN01tNVdjMmh4LzJaSnJGV3NTeEtRNE1tZm1SVXZ2TFBUdXpSb3kz?=
+ =?utf-8?B?elhrU0dySTVzMFJFZlZveXozL3ZUbVo5NXllMU1UNlJjalAybVNRRlc1bm11?=
+ =?utf-8?B?VCtXRDhNbXE3WEdlY2FlWnBSVnI0WFFmalZuT2RZdWZrWm1LRHh5WWYyeW9S?=
+ =?utf-8?B?ekVBSy96U0tzM1dwOFZINXZWNFBOZ0Ribks1bE8zZGFncE5sOStjK2R6ZlF4?=
+ =?utf-8?B?SzU4YWpOZ3V5MWF1dnFlRWNsRTNZdmlVWHFFODQ0MmdPcWJPZFI2U1JpZGE3?=
+ =?utf-8?B?aXlRc2Y1d2I2Rk1MNHZ5MUhxSGprNmFBT1F4OEg4VnJmNXJnc01wQ0NRdlpu?=
+ =?utf-8?B?UnJUcytPT2tpbFY4NnQwZGZ5MTNMUTQzZGpFaDRLbVk0QURLbk5hRU4zTllO?=
+ =?utf-8?B?MEo4aEJhZy9INlBkZ2hnRVVRZ3psVFh2UCtpM096emR3RzNjVnRrejJQczdu?=
+ =?utf-8?B?VlI0RTFoTVJHdjF5eUQvSzlSUnY5MmljZk1ZamlRa3k1RURPeWwxbS9ydUFl?=
+ =?utf-8?B?Q3hEbFRKV3BsMzJFMnB0NjR1MFBxWFpQSUxWbE94ZG8vc1o3ZnVyeXNmS1lY?=
+ =?utf-8?B?VE1xMTJmM241SWdZb3BoV0Q4UUhOd0tJaG1UcytvSTErR0V2T0VNQVIxRXBa?=
+ =?utf-8?B?NUJUSUw3Wkl2K0RZNzNEVFliNzVXYVE3TEYyWmU5bXlmUnhSZjYvUzRjZ0tI?=
+ =?utf-8?B?amVaNjllNE9mZEx2ZVl0dDBqRzRMRzRoYU8wV0haU0JCMGlWeDlha2ZCSHg0?=
+ =?utf-8?B?bFUxSWgyOENFaU5xbUFyTlkrKzBaUzgwNkJwclBiSzFLWFc4NCtwNTlIdFVY?=
+ =?utf-8?B?VFF1L3ZVTENLL1JhQVYraGhta2NuTTdBdFhaSmxXaEIzY2VXZi92ZDY2OHE0?=
+ =?utf-8?B?V0cvVllIVEVVcWR1NElSN21IeHdDM1Jqa3J2RVBKUDFDblhERXB3VXAzbXRx?=
+ =?utf-8?B?MmN2MzJhb2J0czhod2orMlhHeUhMZE42OVhsdXF3eTdNTndtLzdTQnIxZm1V?=
+ =?utf-8?B?OTdmekFoWDdKYkcxNkVTek9uMGdUanB2SXpWNXlncmMzbFU5QUFKdklBMnhE?=
+ =?utf-8?B?N1g1clJZVG1jNitTK0JvSUNEc2xsdWFoR3JRNHZjUmhQQWxvVEdrOWl2dGhz?=
+ =?utf-8?B?bzVLeVBMd0NkNEI4UDVkNnJIb3BIeFRlWTE1V2x5V2hHZndibkZzQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78f5df30-9178-4c0e-54da-08deb78bf266
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 22:54:43.0329 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V88K1jQmLEphZa5n3YfU3VWiN35yE4ZKnMKh4jNUrW4kRUWPEyZQWxExmKyDP8K6Qrf+rx0vI5nJ42YB5KK9VA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7102
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,284 +137,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The vmw_user_bo_ref and vmw_user_bo_unref functions are identical to
-vmw_bo_reference and vmw_bo_unreference respectively, remove them.
+On 5/21/26 4:54 AM, Christian Brauner wrote:
+> On Wed, May 20, 2026 at 02:43:50PM -0700, John Hubbard wrote:
+>> The dma-buf pseudo filesystem dispenses S_ANON_INODE inodes via
+>> alloc_anon_inode() but never sets SB_I_NOEXEC on its superblock.
+>> Since commit 1e7ab6f67824 ("anon_inode: rework assertions") in 6.17,
+>> path_noexec() warns on exactly that combination, so an mmap() on any
+>> dma-buf fd trips the warning:
+>>
+>>   WARNING: CPU: 11 PID: 121813 at fs/exec.c:118 path_noexec+0x47/0x50
+>>    do_mmap+0x2b5/0x680
+>>    vm_mmap_pgoff+0x129/0x210
+>>    ksys_mmap_pgoff+0x177/0x240
+>>    __x64_sys_mmap+0x33/0x70
+>>
+>> dma-bufs have no business being executable, which is the invariant
+>> that the new assertion is enforcing. Set SB_I_NOEXEC on the dmabuf
+>> superblock.
+>>
+>> Reproducer on a CONFIG_DEBUG_VFS=y kernel:
+>>
+>>   make -C tools/testing/selftests/dmabuf-heaps
+>>   sudo ./tools/testing/selftests/dmabuf-heaps/dmabuf-heap -t system
+>>
+>> The selftest allocates from /dev/dma_heap/system and mmaps the
+>> returned fd, which trips the warning without this patch.
+>>
+>> Fixes: 1e7ab6f67824 ("anon_inode: rework assertions")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+>> ---
+> 
+> Perfect, the asserts are paying off. Thanks!
+> Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c       |  4 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.h       | 15 ---------------
- drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c  |  4 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h      |  1 -
- drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c  |  4 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c      |  4 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c  |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_prime.c    |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_resource.c | 12 ++++++------
- drivers/gpu/drm/vmwgfx/vmwgfx_shader.c   |  4 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c  |  6 +++---
- 11 files changed, 21 insertions(+), 37 deletions(-)
+Thanks for the review!
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index d1ce1a58e134..a9a204234ed6 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -539,7 +539,7 @@ static int vmw_user_bo_synccpu_release(struct drm_file *filp,
- 		if (!(flags & drm_vmw_synccpu_allow_cs)) {
- 			atomic_dec(&vmw_bo->cpu_writers);
- 		}
--		vmw_user_bo_unref(&vmw_bo);
-+		vmw_bo_unreference(&vmw_bo);
- 	}
- 
- 	return ret;
-@@ -581,7 +581,7 @@ int vmw_user_bo_synccpu_ioctl(struct drm_device *dev, void *data,
- 			return ret;
- 
- 		ret = vmw_user_bo_synccpu_grab(vbo, arg->flags);
--		vmw_user_bo_unref(&vbo);
-+		vmw_bo_unreference(&vbo);
- 		if (unlikely(ret != 0)) {
- 			if (ret == -ERESTARTSYS || ret == -EBUSY)
- 				return -EBUSY;
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.h b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.h
-index cf84a163bfcb..f3c2cfb42588 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.h
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.h
-@@ -213,21 +213,6 @@ static inline struct vmw_bo *vmw_bo_reference(struct vmw_bo *buf)
- 	return buf;
- }
- 
--static inline struct vmw_bo *vmw_user_bo_ref(struct vmw_bo *vbo)
--{
--	drm_gem_object_get(&vbo->tbo.base);
--	return vbo;
--}
--
--static inline void vmw_user_bo_unref(struct vmw_bo **buf)
--{
--	struct vmw_bo *tmp_buf = *buf;
--
--	*buf = NULL;
--	if (tmp_buf)
--		drm_gem_object_put(&tmp_buf->tbo.base);
--}
--
- static inline struct vmw_bo *to_vmw_bo(struct drm_gem_object *gobj)
- {
- 	return container_of((gobj), struct vmw_bo, tbo.base);
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c
-index 091f1039a052..9c882e746e3c 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c
-@@ -502,7 +502,7 @@ static int vmw_cotable_resize(struct vmw_resource *res, size_t new_size)
- 
- 	vmw_resource_mob_attach(res);
- 	/* Let go of the old mob. */
--	vmw_user_bo_unref(&old_buf);
-+	vmw_bo_unreference(&old_buf);
- 	res->id = vcotbl->type;
- 
- 	ret = dma_resv_reserve_fences(bo->base.resv, 1);
-@@ -521,7 +521,7 @@ static int vmw_cotable_resize(struct vmw_resource *res, size_t new_size)
- out_wait:
- 	ttm_bo_unpin(bo);
- 	ttm_bo_unreserve(bo);
--	vmw_user_bo_unref(&buf);
-+	vmw_bo_unreference(&buf);
- 
- out_done:
- 	MKS_STAT_TIME_POP(MKSSTAT_KERN_COTABLE_RESIZE);
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-index cda55ee009d2..cd46d3995ade 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-@@ -96,7 +96,6 @@ struct vmwgfx_hash_item {
- 
- struct vmw_res_func;
- 
--struct vmw_bo;
- struct vmw_bo;
- struct vmw_resource_dirty;
- 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-index e1f18020170a..f3fd45f28140 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-@@ -1148,7 +1148,7 @@ static int vmw_translate_mob_ptr(struct vmw_private *dev_priv,
- 	vmw_bo_placement_set(vmw_bo, VMW_BO_DOMAIN_MOB, VMW_BO_DOMAIN_MOB);
- 	ret = vmw_validation_add_bo(sw_context->ctx, vmw_bo);
- 	tmp_bo = vmw_bo;
--	vmw_user_bo_unref(&tmp_bo);
-+	vmw_bo_unreference(&tmp_bo);
- 	if (unlikely(ret != 0))
- 		return ret;
- 
-@@ -1205,7 +1205,7 @@ static int vmw_translate_guest_ptr(struct vmw_private *dev_priv,
- 			     VMW_BO_DOMAIN_GMR | VMW_BO_DOMAIN_VRAM);
- 	ret = vmw_validation_add_bo(sw_context->ctx, vmw_bo);
- 	tmp_bo = vmw_bo;
--	vmw_user_bo_unref(&tmp_bo);
-+	vmw_bo_unreference(&tmp_bo);
- 	if (unlikely(ret != 0))
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 4db29b645a38..6bd83e49885b 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -1968,7 +1968,7 @@ int vmw_connector_get_modes(struct drm_connector *connector)
- struct vmw_user_object *vmw_user_object_ref(struct vmw_user_object *uo)
- {
- 	if (uo->buffer)
--		vmw_user_bo_ref(uo->buffer);
-+		vmw_bo_reference(uo->buffer);
- 	else if (uo->surface)
- 		vmw_surface_reference(uo->surface);
- 	return uo;
-@@ -1977,7 +1977,7 @@ struct vmw_user_object *vmw_user_object_ref(struct vmw_user_object *uo)
- void vmw_user_object_unref(struct vmw_user_object *uo)
- {
- 	if (uo->buffer)
--		vmw_user_bo_unref(&uo->buffer);
-+		vmw_bo_unreference(&uo->buffer);
- 	else if (uo->surface)
- 		vmw_surface_unreference(&uo->surface);
- }
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c b/drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c
-index 679adf7c7183..d4a1cd50c325 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c
-@@ -451,7 +451,7 @@ int vmw_overlay_ioctl(struct drm_device *dev, void *data,
- 
- 	ret = vmw_overlay_update_stream(dev_priv, buf, arg, true);
- 
--	vmw_user_bo_unref(&buf);
-+	vmw_bo_unreference(&buf);
- 
- out_unlock:
- 	mutex_unlock(&overlay->mutex);
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c b/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
-index 598b90ac7590..6abeb1ee1f8f 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
-@@ -117,7 +117,7 @@ int vmw_prime_handle_to_fd(struct drm_device *dev,
- 								 handle, flags,
- 								 prime_fd);
- 		}
--		vmw_user_bo_unref(&vbo);
-+		vmw_bo_unreference(&vbo);
- 	}
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
-index 388011696941..1391bed79f7b 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
-@@ -143,7 +143,7 @@ static void vmw_resource_release(struct kref *kref)
- 		if (res->coherent)
- 			vmw_bo_dirty_release(res->guest_memory_bo);
- 		ttm_bo_unreserve(bo);
--		vmw_user_bo_unref(&res->guest_memory_bo);
-+		vmw_bo_unreference(&res->guest_memory_bo);
- 	}
- 
- 	if (likely(res->hw_destroy != NULL)) {
-@@ -315,7 +315,7 @@ int vmw_user_object_lookup(struct vmw_private *dev_priv,
- 							    uo->buffer,
- 							    handle);
- 		if (uo->surface)
--			vmw_user_bo_unref(&uo->buffer);
-+			vmw_bo_unreference(&uo->buffer);
- 	}
- 
- 	return ret;
-@@ -466,11 +466,11 @@ void vmw_resource_unreserve(struct vmw_resource *res,
- 			vmw_resource_mob_detach(res);
- 			if (res->coherent)
- 				vmw_bo_dirty_release(res->guest_memory_bo);
--			vmw_user_bo_unref(&res->guest_memory_bo);
-+			vmw_bo_unreference(&res->guest_memory_bo);
- 		}
- 
- 		if (new_guest_memory_bo) {
--			res->guest_memory_bo = vmw_user_bo_ref(new_guest_memory_bo);
-+			res->guest_memory_bo = vmw_bo_reference(new_guest_memory_bo);
- 
- 			/*
- 			 * The validation code should already have added a
-@@ -560,7 +560,7 @@ vmw_resource_check_buffer(struct ww_acquire_ctx *ticket,
- 	drm_gem_object_put(&val_buf->bo->base);
- 	val_buf->bo = NULL;
- 	if (guest_memory_dirty)
--		vmw_user_bo_unref(&res->guest_memory_bo);
-+		vmw_bo_unreference(&res->guest_memory_bo);
- 
- 	return ret;
- }
-@@ -736,7 +736,7 @@ int vmw_resource_validate(struct vmw_resource *res, bool intr,
- 		goto out_no_validate;
- 	else if (!res->func->needs_guest_memory && res->guest_memory_bo) {
- 		WARN_ON_ONCE(vmw_resource_mob_attached(res));
--		vmw_user_bo_unref(&res->guest_memory_bo);
-+		vmw_bo_unreference(&res->guest_memory_bo);
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c b/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
-index eca4e3e97eb4..ede4de9dc8b0 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
-@@ -180,7 +180,7 @@ static int vmw_gb_shader_init(struct vmw_private *dev_priv,
- 
- 	res->guest_memory_size = size;
- 	if (byte_code) {
--		res->guest_memory_bo = vmw_user_bo_ref(byte_code);
-+		res->guest_memory_bo = vmw_bo_reference(byte_code);
- 		res->guest_memory_offset = offset;
- 	}
- 	shader->size = size;
-@@ -809,7 +809,7 @@ static int vmw_shader_define(struct drm_device *dev, struct drm_file *file_priv,
- 				    shader_type, num_input_sig,
- 				    num_output_sig, tfile, shader_handle);
- out_bad_arg:
--	vmw_user_bo_unref(&buffer);
-+	vmw_bo_unreference(&buffer);
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-index 34e55ad07ca9..5a9c953eb73c 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-@@ -972,7 +972,7 @@ static int vmw_buffer_prime_to_surface_base(struct vmw_private *dev_priv,
- 
- 	*base_p = base;
- out:
--	vmw_user_bo_unref(&bo);
-+	vmw_bo_unreference(&bo);
- 
- 	return ret;
- }
-@@ -1593,12 +1593,12 @@ vmw_gb_surface_define_internal(struct drm_device *dev,
- 		if (ret == 0) {
- 			if (res->guest_memory_bo->is_dumb) {
- 				VMW_DEBUG_USER("Can't backup surface with a dumb buffer.\n");
--				vmw_user_bo_unref(&res->guest_memory_bo);
-+				vmw_bo_unreference(&res->guest_memory_bo);
- 				ret = -EINVAL;
- 				goto out_unlock;
- 			} else if (res->guest_memory_bo->tbo.base.size < res->guest_memory_size) {
- 				VMW_DEBUG_USER("Surface backup buffer too small.\n");
--				vmw_user_bo_unref(&res->guest_memory_bo);
-+				vmw_bo_unreference(&res->guest_memory_bo);
- 				ret = -EINVAL;
- 				goto out_unlock;
- 			} else {
+> 
+>>  drivers/dma-buf/dma-buf.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>> index 71f37544a5c6..d86a99d7b8dc 100644
+>> --- a/drivers/dma-buf/dma-buf.c
+>> +++ b/drivers/dma-buf/dma-buf.c
+>> @@ -216,6 +216,7 @@ static int dma_buf_fs_init_context(struct fs_context *fc)
+>>  	if (!ctx)
+>>  		return -ENOMEM;
+>>  	ctx->dops = &dma_buf_dentry_ops;
+>> +	fc->s_iflags |= SB_I_NOEXEC;
+> 
+> While you're at it, also raise SB_I_NODEV. You're not creating any
+> device nodes and this is additional hardening.
+
+OK, I'll add that and send out a v2, after collecting any other
+feedback on this one.
+
+thanks,
 -- 
-2.54.0
+John Hubbard
 
