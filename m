@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35822CD5BB0
-	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:11:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A988CD5BAC
+	for <dri-devel@archiver.kernel.org>; Thu, 21 May 2026 09:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9021F10E107;
-	Thu, 21 May 2026 09:11:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA3B310E3F6;
+	Thu, 21 May 2026 09:11:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="S4kVgTtn";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="KWMJ3eRg";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D74C10E107
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 09:10:58 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B165110E3F6
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 09:11:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779354658;
+ s=mimecast20190719; t=1779354662;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=tL4bc9P4R8KGMQCjOMGjzl7XMoB1LctMJh1QnkgN/GQ=;
- b=S4kVgTtnIErRHNGmxjWLOmPYtcb8xm7rXmRu2RNHs5X9GF/nUNN3gfFgbIRxN8bipqhAqz
- z1P5SMGS4ZnrULLcYkuE6XjLp8ZkvC4tKjGB5TtH37u4pA4ZAG54Nzbi5pdtN/oMW2ASyA
- 29S9EwFj7LHqdS9CkG0Up2gRYz+zxbI=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vjxV//gOyz/n+AtRONHMGYrZm4NAi0bq2+NJ8phfFu8=;
+ b=KWMJ3eRgBFxjZDGaRvoW+xY6wp/YCvoK5Xp7gRHmxrMK2658EQqvcySRF8gGER8YBnitF5
+ S2fJky5zagAFGOs2HquxD6N1Q5MNNEsAuSDwVaQtrnZJlChhPu/NmrZmTvoYSrxRGaANPY
+ eB4S3yDk3vI/8kccdLPE2+rEHb7ydvU=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-395-3wFvOmq4Mn6ew9z9wV80vw-1; Thu,
- 21 May 2026 05:10:54 -0400
-X-MC-Unique: 3wFvOmq4Mn6ew9z9wV80vw-1
-X-Mimecast-MFC-AGG-ID: 3wFvOmq4Mn6ew9z9wV80vw_1779354652
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-160-qNw0hdrzO3mUsAwMX-eh-w-1; Thu,
+ 21 May 2026 05:11:01 -0400
+X-MC-Unique: qNw0hdrzO3mUsAwMX-eh-w-1
+X-Mimecast-MFC-AGG-ID: qNw0hdrzO3mUsAwMX-eh-w_1779354659
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 798831956056; Thu, 21 May 2026 09:10:52 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 4CD221800343; Thu, 21 May 2026 09:10:59 +0000 (UTC)
 Received: from [192.168.1.153] (headnet01.pony-001.prod.iad2.dc.redhat.com
  [10.2.32.101])
  by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 380DD19560A3; Thu, 21 May 2026 09:10:49 +0000 (UTC)
+ id 33E7C19560A3; Thu, 21 May 2026 09:10:56 +0000 (UTC)
 From: Albert Esteve <aesteve@redhat.com>
-Subject: [PATCH 0/2] dma-buf: add DMA_BUF_IOCTL_DERIVE for
- reduced-permission aliases
-Date: Thu, 21 May 2026 11:10:13 +0200
-Message-Id: <20260521-dmabuf-limit-access-v1-0-26c01e27365a@redhat.com>
+Date: Thu, 21 May 2026 11:10:15 +0200
+Subject: [PATCH 2/2] selftests: dma-buf: add DERIVE ioctl tests
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSQqAMAxA0atI1gY6OOFVxEWtUQNONCqCeHeLy
- 7f4/wGhwCRQJw8Eulh4WyN0moCf3DoSch8NRplC5UZhv7juHHDmhQ903pMIltYU2ua2yrSDWO6
- BBr7/a9O+7wfhdnW9ZQAAAA==
-X-Change-ID: 20260520-dmabuf-limit-access-73261353841a
+Message-Id: <20260521-dmabuf-limit-access-v1-2-26c01e27365a@redhat.com>
+References: <20260521-dmabuf-limit-access-v1-0-26c01e27365a@redhat.com>
+In-Reply-To: <20260521-dmabuf-limit-access-v1-0-26c01e27365a@redhat.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
@@ -62,15 +60,15 @@ Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, Albert Esteve <aesteve@redhat.com>, 
  mripard@kernel.org
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779354648; l=3435;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779354648; l=4904;
  i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=LUVEbF2qik6JDxZLdpWxQMrWMt8EdXOnTWHgU/bDF84=;
- b=1nbNWgdOgax/ZiztigFfGJVUWcZKvRsY/6bLBBCxRH9PBuJ2gSbSAkKc9o7ctC21xFonFEIBn
- UfK5yxy7NMID+5Z66wciWiUPogDnxCkZe9uRxn+1h/0yrM9AwPOE0eF
+ bh=/ApxYmdq3kHu3thKFegK+YtWMiL83D621EF8tkmYSG4=;
+ b=Xw1Be6/9oJc7tUp8Mo1663PiOX1fvKwqDaWX3WJ3OMPYs/gXgAh7yML6JMuLdi5QSXy/RKbdE
+ 8UmbeD0gzGDCHTDVwDgZf86kMG0+6oi6wy+eK+Yz6BDr1US2pGcJXSz
 X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
  pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-MFC-PROC-ID: zqA4nFwUrZ201jsfoIxPsfjZR7arokf08gAIn4qpu5M_1779354652
+X-Mimecast-MFC-PROC-ID: CoppV-hqzWXcOU0wLh203dHveu-e_dl30QrwYid-T0o_1779354659
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -89,80 +87,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When sharing a dma-buf between components of different trust levels, the
-allocator may need to hand a consumer a read-only view of a buffer it
-holds with read-write access. An example is a camera pipeline where the
-capture component writes frames into a buffer and needs to pass a
-read-only handle to a downstream processing component that should not be
-able to modify the data.
+dma-buf now supports aliasing an existing file descriptor with reduced
+access permissions via DMA_BUF_IOCTL_DERIVE ioctl, and enforces that a
+shared writable mapping cannot be created through a read-only file
+descriptor.
 
-However, no such mechanism exists today. The access mode of a dma-buf
-file descriptor is fixed at export time, and the standard POSIX
-interfaces for duplicating or changing file descriptors (i.e., dup(2),
-dup3(2), and fcntl(F_SETFL)) cannot alter the read/write access mode of
-the copy.
+Add two tests to the dmabuf-heaps selftest to exercise this behaviour.
+The positive test allocates a buffer, derives its file descriptor as
+O_RDONLY through the ioctl, confirms that a read-only shared mapping
+succeeds, and verifies that data written through the original read-write
+file descriptor is visible through the derived one.
 
-One natural candidate would be reopening via /proc/self/fd/<N> with
-O_RDONLY, which works for regular files. For dma-buf this would fail
-(that is, if we were to add a new handler for open f_op) with ENXIO
-because the dmabuf pseudo-filesystem carries SB_NOUSER, which prevents
-the VFS from opening its files through path-based resolution from
-userspace.
-
-Alternatively, exporting the buffer twice would produce two independent
-dma_buf instances, which breaks fence synchronization.
-
-Therefore we add a new DMA_BUF_IOCTL_DERIVE ioctl, which produces a new
-file descriptor for an existing dma-buf with a caller-specified subset
-of the original permissions:
-
-```
-  struct dma_buf_derive { __u32 flags; __s32 fd; };
-
-  struct dma_buf_derive req = { .flags = O_RDONLY | O_CLOEXEC };
-  ioctl(rw_fd, DMA_BUF_IOCTL_DERIVE, &req);
-  /* req.fd is now a read-only alias of the same buffer */
-```
-
-Permission escalation is rejected with -EACCES. The new fd aliases the
-same struct dma_buf as the original, same dma_resv, same exporter ops,
-same underlying memory; so importers attaching to either fd see the same
-fence timeline and operate on the same object. Access control for which
-components may receive or pass on restricted descriptors can be layered on
-top via SELinux file:read and file:write permissions.
-
-A shared writable mapping (PROT_WRITE | MAP_SHARED) on the read-only fd is
-rejected with -EACCES in dma_buf_mmap_internal().
-
-Two small internal adjustments accompany the ioctl:
-- __dma_buf_list_del() is moved to dma_buf_release() so it fires exactly
-  once on dentry destruction rather than on every file close.
-- dma_buf_file_release() is updated to call dma_buf_put() only for
-  files that are not the primary dma-buf file.
-
-This may not be the best approach, but after considering different
-options and alternatives (as described above), we decided to raise the
-discussion upstream. Thus, we welcome any alternative proposal or ideas.
-
-The series is structured as:
-- Patch 1 adds the new ioctl implementation.
-- Patch 2 adds selftests covering the new ioctl.
+The negative test confirms that attempting a DMA_BUF_IOCTL_DERIVE ioctl
+call with RW flags on a read-only file descriptor is rejected with EACCES.
+Same for mmap() escalation attempt.
 
 Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
-Albert Esteve (2):
-      dma-buf: add DMA_BUF_IOCTL_DERIVE for reduced-permission aliases
-      selftests: dma-buf: add DERIVE ioctl tests
-
- drivers/dma-buf/dma-buf.c                          |  58 ++++++++++-
- include/uapi/linux/dma-buf.h                       |  28 +++++
  tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 114 ++++++++++++++++++++-
- 3 files changed, 198 insertions(+), 2 deletions(-)
----
-base-commit: ab5fce87a778cb780a05984a2ca448f2b41aafbf
-change-id: 20260520-dmabuf-limit-access-73261353841a
+ 1 file changed, 113 insertions(+), 1 deletion(-)
 
-Best regards,
+diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+index fc9694fc4e89e..c3856189200be 100644
+--- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
++++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+@@ -390,6 +390,116 @@ static void test_alloc_errors(char *heap_name)
+ 	close(heap_fd);
+ }
+ 
++static int setup_ro_derive(int heap_fd, int *dmabuf_fd, int *ro_fd)
++{
++	struct dma_buf_derive params = {
++		.flags = O_RDONLY | O_CLOEXEC,
++	};
++	int ret;
++
++	ret = dmabuf_heap_alloc(heap_fd, ONE_MEG, 0, dmabuf_fd);
++	ksft_test_result(!ret, "Allocate RW buffer\n");
++	if (ret)
++		return -1;
++
++	ret = ioctl(*dmabuf_fd, DMA_BUF_IOCTL_DERIVE, &params);
++	ksft_test_result(!ret, "Derive as O_RDONLY %s\n",
++			 ret < 0 ? strerror(errno) : "OK");
++	if (ret < 0) {
++		close(*dmabuf_fd);
++		*dmabuf_fd = -1;
++		return -1;
++	}
++
++	*ro_fd = params.fd;
++	return 0;
++}
++
++static void test_ro_derive(char *heap_name)
++{
++	int heap_fd = -1, dmabuf_fd = -1, ro_fd = -1;
++	void *rw_map = MAP_FAILED, *ro_map = MAP_FAILED;
++	int ret;
++
++	heap_fd = dmabuf_heap_open(heap_name);
++
++	ksft_print_msg("Testing read-only derive with mmap:\n");
++
++	if (setup_ro_derive(heap_fd, &dmabuf_fd, &ro_fd))
++		goto out;
++
++	rw_map = mmap(NULL, ONE_MEG, PROT_READ | PROT_WRITE, MAP_SHARED,
++		      dmabuf_fd, 0);
++	ksft_test_result(rw_map != MAP_FAILED, "RW mmap on RW fd %s\n",
++			 rw_map == MAP_FAILED ? strerror(errno) : "OK");
++	if (rw_map == MAP_FAILED)
++		goto out;
++
++	dmabuf_sync(dmabuf_fd, DMA_BUF_SYNC_START);
++	memset(rw_map, 0xab, ONE_MEG);
++	dmabuf_sync(dmabuf_fd, DMA_BUF_SYNC_END);
++
++	ro_map = mmap(NULL, ONE_MEG, PROT_READ, MAP_SHARED, ro_fd, 0);
++	ksft_test_result(ro_map != MAP_FAILED, "RO mmap on RO fd %s\n",
++			 ro_map == MAP_FAILED ? strerror(errno) : "OK");
++	if (ro_map == MAP_FAILED)
++		goto out;
++
++	dmabuf_sync(ro_fd, DMA_BUF_SYNC_START);
++	ret = memcmp(rw_map, ro_map, ONE_MEG);
++	dmabuf_sync(ro_fd, DMA_BUF_SYNC_END);
++	ksft_test_result(!ret, "Data written via RW fd visible through RO fd\n");
++
++out:
++	if (ro_map != MAP_FAILED)
++		munmap(ro_map, ONE_MEG);
++	if (rw_map != MAP_FAILED)
++		munmap(rw_map, ONE_MEG);
++	if (ro_fd >= 0)
++		close(ro_fd);
++	if (dmabuf_fd >= 0)
++		close(dmabuf_fd);
++	close(heap_fd);
++}
++
++static void test_ro_derive_escalation(char *heap_name)
++{
++	struct dma_buf_derive params = {
++		.flags = O_RDWR | O_CLOEXEC,
++	};
++	int heap_fd = -1, dmabuf_fd = -1, ro_fd = -1, ret = 0;
++	void *bad_map;
++
++	heap_fd = dmabuf_heap_open(heap_name);
++
++	ksft_print_msg("Testing read-only derive with escalation attempt:\n");
++
++	if (setup_ro_derive(heap_fd, &dmabuf_fd, &ro_fd))
++		goto out;
++
++	ret = ioctl(ro_fd, DMA_BUF_IOCTL_DERIVE, &params);
++	ksft_test_result(ret < 0 && errno == EACCES,
++			 "O_RDWR derive on RO fd correctly rejected (errno=%d)\n",
++			 errno);
++	if (!ret)
++		close(params.fd);
++
++	bad_map = mmap(NULL, ONE_MEG, PROT_READ | PROT_WRITE, MAP_SHARED,
++		       ro_fd, 0);
++	ksft_test_result(bad_map == MAP_FAILED && errno == EACCES,
++			 "RW shared mmap on RO fd correctly rejected (errno=%d)\n",
++			 errno);
++	if (bad_map != MAP_FAILED)
++		munmap(bad_map, ONE_MEG);
++
++out:
++	if (ro_fd >= 0)
++		close(ro_fd);
++	if (dmabuf_fd >= 0)
++		close(dmabuf_fd);
++	close(heap_fd);
++}
++
+ static int numer_of_heaps(void)
+ {
+ 	DIR *d = opendir(DEVPATH);
+@@ -420,7 +530,7 @@ int main(void)
+ 		return KSFT_SKIP;
+ 	}
+ 
+-	ksft_set_plan(11 * numer_of_heaps());
++	ksft_set_plan(20 * numer_of_heaps());
+ 
+ 	while ((dir = readdir(d))) {
+ 		if (!strncmp(dir->d_name, ".", 2))
+@@ -435,6 +545,8 @@ int main(void)
+ 		test_alloc_zeroed(dir->d_name, ONE_MEG);
+ 		test_alloc_compat(dir->d_name);
+ 		test_alloc_errors(dir->d_name);
++		test_ro_derive(dir->d_name);
++		test_ro_derive_escalation(dir->d_name);
+ 	}
+ 	closedir(d);
+ 
+
 -- 
-Albert Esteve <aesteve@redhat.com>
+2.53.0
 
