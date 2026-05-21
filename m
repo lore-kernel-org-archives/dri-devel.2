@@ -4,80 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF5AFCD5BB6
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 14:42:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5DF3CD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 14:42:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB5C10F665;
-	Fri, 22 May 2026 14:42:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E17510F65F;
+	Fri, 22 May 2026 14:42:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rdeMXCdK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TTpiOWei";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99C5910E168
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:07:29 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-3660ab73adbso4862353a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 23:07:29 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1C1510E4B6
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 16:46:36 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-490388fd0dbso8750375e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 09:46:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779430049; x=1780034849; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779381995; x=1779986795; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NXHEsP6MIsIy0oSjkFIfzW+qvl+16XTQ6Ealt2erRAM=;
- b=rdeMXCdKjfi5luPi/C8m5FynzORhBns+tkRhuOYd5zwNOPeD4exgxsmBmT5Gy4skRP
- v3+umqmYFCN4ZzAJ0kmpZZKgZza57jMSGCHXEagbWaQMXsNPmdrzvu9s5jATtZoY/8FM
- N0jsLMgJVJq93GXH1Xkeyf4A9IxZXj/7i3eKX8NLYQFAl4F6yOEyp4CXM72Q4joeGZaC
- hZ0PWfDhyHwXxkOUg3YEhrB93wYGS+B3bw+7N457Ocnq4BPA0ytf1XiMuNBFGbNBHbwf
- +MNgJ1It8lKyTC9+XjFJxycACVN02xsUem3uKpQiUZOBPAlt4yPbbU5xei9P22kkSeLj
- yeHA==
+ bh=NA/nM16UoxaTsk3A7SWQL7q3HkgK647mNtY2rDcRyyc=;
+ b=TTpiOWeiFWUfAbnU9qhNz35ZYcE1aZrtiVIQBGuIHP9g8HcTPKaWyrdxazCFF6Wt6t
+ U5IRxyK1k9rU9z9DPPUBzEJyRjxmcv/iDJduGZthJkl4AZaMheqPhMCiYg2q6HjF5wzf
+ 0Dm1oye6c3hgOzLszPemltJEVkNzzVuI+D56wmSvITdpBduXxx+u3QAD4Hchg5XDSxBE
+ R2jGA2uOLv9iMnJ6rCczkxMuSYIoQePLvIJLALnzcpeNCGgGGHVJC1vwurIlt30LeQBJ
+ YCXlPJjN8riF/d8udOaJeoBLFB7sgQd/OjJ1JeqkQu9KrLp552t5/kaAfUvMXpvaVMTX
+ tIZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779430049; x=1780034849;
+ d=1e100.net; s=20251104; t=1779381995; x=1779986795;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=NXHEsP6MIsIy0oSjkFIfzW+qvl+16XTQ6Ealt2erRAM=;
- b=OllhYMAlBJwsWsH+eiCtXu2MvnES/9zxxed9pRo8Eks5S4+JirgHSDtIWMJFkNHJYl
- 7759p//bR63Q+0ve64YEtWLUoSGe3S9vNRCfMIoztFW0rI1+82W+Nko0mTOZLbEbuNAl
- 4cC/4JwXdOssTzUOglLJTdXsjmdJs0/5EfzOEbfxh7h7QN9PU1VOzmlboBedxiO5f+7f
- UpgpojvAnGTrNAAQwEGgNaKBhZGEuTRMJyp7dwv29FKXrnIF4OkNV9WzqVYpBI2sLV0G
- APlk8uFwrX5ftfqNPWt8Cnw81imfh3vQSQnxzvBJp8+N/w8rY/gORGmC4Hax54drlNR9
- XA2g==
+ bh=NA/nM16UoxaTsk3A7SWQL7q3HkgK647mNtY2rDcRyyc=;
+ b=AweUyLe+K5GC3wclBVlzy4t+TYHadFpzHJIw/nbFm5GIFcEoDwtCjNsTtubNu3GjbJ
+ KeaqX/5E4TVluwV62+tGJr4V8YYr6+q3hM8q8Sw94M+rVvtNA0pFG4XvcbmErjCx9SnD
+ C0fa8JOY4sy6h5cB3l7J2iQOQfsXMCTUPo1ldTQm8Y8Lu9Tg3hmjGUwqOGIPjVeTIRDs
+ MDOVh6gpAtcU7k59LGB+94hdFhzU4YaVn5j29b8UCXTU2Pp7AUKa85UfoJVTo4hG/yPU
+ 2R/a9q0Vwxay099oYrCKymi+wazxqCn+bVGyOtG8eFRhZCFbVSuXfBR8DS2rw+FKLjMo
+ IiQA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8QtN99UW1aoYJbjItFTAO1UF5/YOEfwxdCOpj9dPzf2J6Kazxs/9Kb9AH0TrhU7rCOXIlDtuWzK9Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YybKambgPOQAQZZ46+6JvuWOLc4/v96sU1oaM0Q556LKphVDQnm
- jrj3lt6Rs6JZjU7jmF+f2wxLwb8gE3MgEyvgcDpCfNAhm+daBPdhycix
-X-Gm-Gg: Acq92OHG706x09Dsm3o/7poQihOzIBmRkg3XDry/XOI+MyzPb09dINMYQ2IkQ3NX/LJ
- 0wm3LEDzVRtWMmf+6R0EDudVcf1Kk1ftzJiYZfxCAFqb6LOWL7v4iWzpj/sHh9b/av8bZriMVTY
- yP5qJMmBalRsiQrS444WZI8Nbpr4AMezAd2ZrhILxR9PdGT9BDTo3c/n8e4p6XUQS3Wj2bqrp3U
- yBl18q0zmMA+r5jTpL1+tYiLW+c8gIoWpQu03Y7UjNh1JSS3+TfxIDmsVYXot0aXOaD602dR5Xg
- c0zrkz0JxrXmQv4BcJVJtKGZqmumhjTM1/Cwlm6KO3Tg0kqfXn7pEcsd2sAhhwQC5nT+KSl0l11
- J4U60I56mqIK3Gfduq+IuQjD2/15wcYJChZnDde/O2YLNzL21Hr4r8tXIGYXg45kWgOubmYjVwl
- SGES6GNEGkBXG4OQcGRISDGJuW8/b921B01LL9EG0jRPbaPcQtU2tCkLAGMiWUbhkeWw==
-X-Received: by 2002:a17:90b:6c8:b0:368:7398:df8a with SMTP id
- 98e67ed59e1d1-36a473cccc4mr5285786a91.4.1779430049070; 
- Thu, 21 May 2026 23:07:29 -0700 (PDT)
-Received: from radxa (122-58-25-162-adsl.sparkbb.co.nz. [122.58.25.162])
+ AFNElJ+YpHMPYKCxlN89rj6fVs7ZoMSeO4Ud0iBGhaLgsEt3m2OgxDnon8jy7cS8YawnkpE2MyF34nXLtm0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YypS+27vUKNQoMBMFkagbGypO2YMSksA9yWiFWSLHeTvpba4YQE
+ TTAOex9oUMlWb38Aqy/rGRHtSlnoKhFvCw0ddowP9rJDo9Wtzm49gdy3
+X-Gm-Gg: Acq92OFafGYWlD8bwVCQfQJxQTARf0t5rHzwVnVEZ5067NrlK8/iUejsabJLmrooM8c
+ j+QzL6WmXNEwMNKxtX8Ww8QyxXMbOEDW2nDrYpbXDpldAixvZoiGEwtpw9lEIwzHiBjS3puewhn
+ Vvz5q/jIMkBU/zZ32QzWQO1nd1xFP0/uaWoA2T0oyTlnlPcpJWeQ2x8ACTeNW7POvIJKKZCndHX
+ NgCzZtw1CIkMbp8R05yNQqRMjEHguJ6tKBZ2sgXbZlDoEdxDvaN1kpQv26SWtFeOJg4jRhLXrGS
+ R4giRe7ItpQKgHVoe5uJaa+NVhRsEQhIVTv9x4k53vQn0TrPPv125ioaLc4PwMcD7Qe5Aokp3Rv
+ nDmaPLkt/m+gzJ2hL4TiF88GvKhrSjbpY96+4gCmNKwCoSGgwdb0hdXlxuVP0QrwnvYZJ3rgDjq
+ ke613GQgq46V74b0YkJTnW7K+U3O7E5ngtcMpcG5++rCxcRsSXmq2qdyaysfWCY7dV
+X-Received: by 2002:a05:600c:45c6:b0:488:ac01:72de with SMTP id
+ 5b1f17b1804b1-49036033502mr53623425e9.5.1779381994891; 
+ Thu, 21 May 2026 09:46:34 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36a7212aa06sm428572a91.3.2026.05.21.23.07.24
+ 5b1f17b1804b1-49035ecac15sm31613075e9.6.2026.05.21.09.46.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 23:07:28 -0700 (PDT)
-From: Graham O'Connor <graham.oconnor@gmail.com>
-To: linux-arm-msm@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, abhinav.kumar@linux.dev, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Graham O'Connor <graham.oconnor@gmail.com>
-Subject: [PATCH 3/6] drm/msm/dp: Limit voltage swing level to 2 for RA620
- bridge
-Date: Fri, 22 May 2026 18:06:42 +1200
-Message-ID: <20260522060645.4399-4-graham.oconnor@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260522060645.4399-1-graham.oconnor@gmail.com>
-References: <20260522060645.4399-1-graham.oconnor@gmail.com>
+ Thu, 21 May 2026 09:46:34 -0700 (PDT)
+Date: Thu, 21 May 2026 17:46:31 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Pengpeng Hou
+ <pengpeng@iscas.ac.cn>, stable@vger.kernel.org, Petr Pavlu
+ <petr.pavlu@suse.com>, Richard Weinberger <richard@nod.at>, Anton Ivanov
+ <anton.ivanov@cambridgegreys.com>, Johannes Berg
+ <johannes@sipsolutions.net>, "Rafael J. Wysocki" <rafael@kernel.org>, Len
+ Brown <lenb@kernel.org>, Corey Minyard <corey@minyard.net>, Gabriel Somlo
+ <somlo@cmu.edu>, "Michael S. Tsirkin" <mst@redhat.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Laurent
+ Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede
+ <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Bjorn
+ Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>, "James E.J.
+ Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+ <martin.petersen@oracle.com>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, Jason Wang
+ <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio
+ =?UTF-8?B?UMOpcmV6?= <eperezma@redhat.com>, Jason Baron
+ <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>, Tiwei Bie
+ <tiwei.btw@antgroup.com>, Benjamin Berg <benjamin.berg@intel.com>, Ilpo
+ =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, "David E. Box"
+ <david.e.box@linux.intel.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Peter Zijlstra
+ <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik
+ <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
+ <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
+ <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>, Frank Li
+ <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
+ <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Alexander
+ Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Dmitry
+ Vyukov <dvyukov@google.com>, Andrew Morton <akpm@linux-foundation.org>,
+ John Johansen <john.johansen@canonical.com>, Paul Moore
+ <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E. Hallyn"
+ <serge@hallyn.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
+ linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 01/11] params: bound array element output to the
+ caller's page buffer
+Message-ID: <20260521174631.71a06440@pumpkin>
+In-Reply-To: <20260521133326.2465264-1-kees@kernel.org>
+References: <20260521133315.work.845-kees@kernel.org>
+ <20260521133326.2465264-1-kees@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 22 May 2026 14:41:04 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,35 +145,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The RA620 DP-to-HDMI bridge used on the Radxa Dragon Q6A does not
-acknowledge DP link training at voltage swing level 3. The bridge
-requests maximum voltage swing but never completes link training
-when the driver attempts level 3, causing HDMI output to fail.
+On Thu, 21 May 2026 06:33:14 -0700
+Kees Cook <kees@kernel.org> wrote:
 
-Cap DP_TRAIN_LEVEL_MAX at 2 to match the behaviour of the vendor
-kernel, where link training completes successfully at level 2.
-This allows the RA620 bridge to establish a stable HDMI connection.
+> From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> 
+> param_array_get() appends each element's string representation into the
+> shared sysfs page buffer by passing buffer + off to the element getter.
+> 
+> That works for getters that only write a small bounded string, but
+> param_get_charp() and similar helpers format against PAGE_SIZE from the
+> pointer they receive. Once off is non-zero, an element getter can
+> therefore write past the end of the original sysfs page buffer.
+> 
+> Collect each element into a temporary PAGE_SIZE buffer first and then
+> copy only the remaining space into the caller's page buffer.
 
-Tested on Radxa Dragon Q6A (QCS6490) with RA620 DP-to-HDMI bridge
+Should this be using a 4k buffer on all architectures?
+Initially perhaps just using a different name for the constant until
+all the associated PAGE_SIZE limits have been removed.
 
-Signed-off-by: Graham O'Connor <graham.oconnor@gmail.com>
----
- drivers/gpu/drm/msm/dp/dp_link.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+-- David
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
-index 76125e9c0..ff0d8e99d 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.h
-+++ b/drivers/gpu/drm/msm/dp/dp_link.h
-@@ -24,7 +24,7 @@ struct msm_dp_link_info {
- 	unsigned long capabilities;
- };
- 
--#define DP_TRAIN_LEVEL_MAX	3
-+#define DP_TRAIN_LEVEL_MAX	2
- 
- struct msm_dp_link_test_video {
- 	u32 test_video_pattern;
--- 
-2.53.0
+> 
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> Signed-off-by: Kees Cook <kees@kernel.org>
+> ---
+>  kernel/params.c | 26 ++++++++++++++++++++------
+>  1 file changed, 20 insertions(+), 6 deletions(-)
+> 
+> diff --git a/kernel/params.c b/kernel/params.c
+> index 74d620bc2521..752721922a15 100644
+> --- a/kernel/params.c
+> +++ b/kernel/params.c
+> @@ -475,22 +475,36 @@ static int param_array_set(const char *val, const struct kernel_param *kp)
+>  static int param_array_get(char *buffer, const struct kernel_param *kp)
+>  {
+>  	int i, off, ret;
+> +	char *elem_buf;
+>  	const struct kparam_array *arr = kp->arr;
+>  	struct kernel_param p = *kp;
+>  
+> +	elem_buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
+> +	if (!elem_buf)
+> +		return -ENOMEM;
+> +
+>  	for (i = off = 0; i < (arr->num ? *arr->num : arr->max); i++) {
+> -		/* Replace \n with comma */
+> -		if (i)
+> -			buffer[off - 1] = ',';
+>  		p.arg = arr->elem + arr->elemsize * i;
+>  		check_kparam_locked(p.mod);
+> -		ret = arr->ops->get(buffer + off, &p);
+> +		ret = arr->ops->get(elem_buf, &p);
+>  		if (ret < 0)
+> -			return ret;
+> +			goto out;
+> +		ret = min(ret, (int)(PAGE_SIZE - 1 - off));
+> +		if (!ret)
+> +			break;
+> +		/* Replace the previous element's trailing newline with a comma. */
+> +		if (i)
+> +			buffer[off - 1] = ',';
+> +		memcpy(buffer + off, elem_buf, ret);
+>  		off += ret;
+> +		if (off == PAGE_SIZE - 1)
+> +			break;
+>  	}
+>  	buffer[off] = '\0';
+> -	return off;
+> +	ret = off;
+> +out:
+> +	kfree(elem_buf);
+> +	return ret;
+>  }
+>  
+>  static void param_array_free(void *arg)
 
