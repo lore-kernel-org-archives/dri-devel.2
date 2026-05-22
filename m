@@ -4,132 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 897AACD5BB3
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 17:34:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56D06CD5BB6
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 17:34:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA29A10F6E4;
-	Fri, 22 May 2026 17:34:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 901CA10F6E7;
+	Fri, 22 May 2026 17:34:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SPW6jEAp";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DkLFhZOZ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ygp1pBlg";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="drdmehoA";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46D2210F6A9
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:34:47 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D0F310F6CA
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:34:51 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64MBKONH1298128
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:34:47 GMT
+ 64MBCSl1776878
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:34:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=ddK7or9wy6b
- 4dbI0qP5KfxhLsio0GbpdcAYFvLAgVMQ=; b=SPW6jEAp4ZcnPbDKN4RxEzHRuFm
- V1frctw/RceQZPvmyENs9Af2Lmw8WYYmTftQjP6v/vhz+0ORPSGV3NsjJwVa9i22
- y1BYDIDVb/1qgArbmgGDct4OSUBpQxy7UxOZKd+g3DwU2RAMGW+C04bWnKuEzv70
- iywGSUXqr7zwIvwpFSaJtyNaM4a4+BRAfG11dIEj+Z1p0KjOMYe47b6i29wPn0lJ
- qBx3y7Mxe/3vKosZz+XxglfttFbiuyof2ZA4MURNLiTXbqp5toIC+zleClq9RQZv
- xRke4M+vBB4mPnHRLIu7BKZuavCc6V54PHvCF95LQagEmB0OCspskTU8JVg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eaah0c7ha-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=4tfvGKSXQFo
+ neM9FUCAjiWpETYTjQZebXY53uh3TIBc=; b=Ygp1pBlglCbTY35OZ8HllI2EPpu
+ GigFSCGaSdI+LKkVxtHskRLNvYLqpuaVacAJ1bTFJ/4rXqwPD7GYZ+C9WmelEGNf
+ levumOqYgbvyLUkeAvMEgUQW2a/lilXTTXIWoXGfJvEnrl1xofZ/iAwK6bH6HJcs
+ x/6a6NY9N3gIB+Tt1JX0kj4kXbpoY+GexDR9LLkk91aQ1s9E5wFue/Xw9gCh+5hT
+ p0c0eKNuQyCgFG7zHE3cVV0nY5M8dBrQ1ush1cnDP3dyozGGAl7xNXM8a9hCwIiD
+ gAwU7f74o4iTpDwRYw6Bp13W3EvuiPgN6HE11Qq8I941VhMU82XB8ByoB4Q==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea94h4nt6-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:34:46 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2ba3245a43dso81226775ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 10:34:46 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:34:50 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-c8525f0807aso530921a12.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 10:34:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779471286; x=1780076086;
+ d=oss.qualcomm.com; s=google; t=1779471289; x=1780076089;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ddK7or9wy6b4dbI0qP5KfxhLsio0GbpdcAYFvLAgVMQ=;
- b=DkLFhZOZf1tqrv48M7OwetZ9TCkfOGrS2F/STCPuL/SoaOGwQ/dTJmR3dEsHKCZQMV
- Lj8iX9TRKZVanSyNFuxCEaZZ6OpHnCTkn/aDm8uL+5vSAhyV29xUpAF7LscOr2r7gysJ
- AH63AE5vhcT7+LuGwALJWbEsBqryfL8JSCoeNqp5nUZ2CR/G4Kjws1roFFek8pzyQML7
- 9G7bsrjzjmU7jDe0xNTsQWMD8kF3iDPYpraRAIGprPwY/csHDDWavJBV57a4+SkyP0uG
- Uu6l7kIavJLTlGWEEoDc3r+1/KqOZ4hO1M6KOKxMuMaQQnEdwTT99hW/K4Se7QsPZz0A
- eozg==
+ bh=4tfvGKSXQFoneM9FUCAjiWpETYTjQZebXY53uh3TIBc=;
+ b=drdmehoAruHEgBhCBwb7oeJO93Utn93F3nQrLWGc9qaIH+17vjnaRdTCvK7AIpsNrb
+ SgDEQMvEJUgnDUwxXdtezu0SEmc4JyGI4LDKb2IvChy0OLO6CJSgpwAu1QeLUfhJyoZX
+ sqJVwg2EXLSZ6UAyzMkmVvLRMdj6gegNZSbOOtSmUpTgZhzy8u76pEArdhf/pF901tsa
+ 50uqo75ZbzJgoRmbqLoWEWplqjTteW6zJKdsJM0gumJ2YipkfZLcxgzXpK7QDc7eWaGh
+ JsN85oey+6Uu/rkc5uDbySohIVMMSJLHzryPEjGc1N8tGDGODCHJJSazWVlwRAznTpSt
+ Yw2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779471286; x=1780076086;
+ d=1e100.net; s=20251104; t=1779471289; x=1780076089;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ddK7or9wy6b4dbI0qP5KfxhLsio0GbpdcAYFvLAgVMQ=;
- b=Gle9jAMIT8HSRtoEdBbps+X8q7nTeuY2b89zUoK4oqfJd4eAa/PUMXyRFdIgwghdWB
- eIg5fALkht0dFTa4mR3Oz0U6gFL0NTxzWYXS3qWGEIXNM1fzZFlkak18IEB2Ntf8Kscl
- fuaOrpChNb2k0Fx9kySRBpI8mYRLm36AWD+KDOmG3997qK3UcQVDTXxmce5um72eM/Lt
- 3EXY/p47FI6VMn3fXa1Fh8mVEqRUECFSXpbCkKWwv64wuoDD1rugWDxuWWNqfXS555rd
- PGm05MvAyXzZoSaW1dROQFdApQ8dST58HSfD+9qh1l4X2MPVTzyUMqG2XRhjK95YgVu2
- 1CvA==
-X-Gm-Message-State: AOJu0YxoAvQ4Qkuhqaiu9SDOoKDdwT6Doso5s3vusmZ9RyemMe4fpxMJ
- Z/H8mGxM4E89C7QdWv6khAmqCmrGOODgPyIQUtrme24ba3FX2oqTtAO25FffHBvBUoIO5qqR9Qh
- XU0j1hu4gg9wVNrFvatGW6lEf/aMVsav3s4u3JD8KhJ6LrvVMQPEEaSXKk/1Egn2S2Vcrybp6G0
- shULw=
-X-Gm-Gg: Acq92OGydX+qpAen5TiA9WmmEVCID5GjzMxdAFqeNIkexvDnOtb/8h22CbmN+qV4hvw
- ug4cjam91dyWZr1jkdZ6Qy2X6wNcNfZN0QmUZleqiPFshUF4YEqD1MaO+3+T3qF+5BiM/kjY0Dh
- 4hFiDSc7CaDl8zOgBYD6mYsnnuYixen1aFy1gDsiw+8Z12O26iVaPpO1PoVTx5ldjIhOOxlcXQG
- gkJ9Op9uLDH1A0DxuRJyINDcUZeFuUuISfK1HUXVKOm/NBoH7E2CujYUEfgK2yIk9Cobj1yUc2G
- t5IaFqSpD+GuKtM8osaii2Ka5/NjHup43+m/CHmVyL25MN27TGDkx//Jufb1lyCyj9T3YhD0kV0
- Tte25bDBboLwtWqGXp8WgO+TAxRqo2KbC
-X-Received: by 2002:a17:902:cec8:b0:2b0:61c2:8e83 with SMTP id
- d9443c01a7336-2beb05b5668mr49943585ad.20.1779471285678; 
- Fri, 22 May 2026 10:34:45 -0700 (PDT)
-X-Received: by 2002:a17:902:cec8:b0:2b0:61c2:8e83 with SMTP id
- d9443c01a7336-2beb05b5668mr49943065ad.20.1779471284931; 
- Fri, 22 May 2026 10:34:44 -0700 (PDT)
+ bh=4tfvGKSXQFoneM9FUCAjiWpETYTjQZebXY53uh3TIBc=;
+ b=K5M08VV/0Fb0iQDZSv82bsDRhktfh77OOFRdqPqLFYwJz6aqDCZHxi76+wrRw8sGsV
+ OCU0+QucpBsGEWeSTOHvrtZPsN17Tf0/qzPkSfqa6UovEhd5TqqyyXxRvV5emF+8jSCe
+ mBz0o3lrYx9P9oDlP3PIiOLKLnrNEd2RGohNKex+UFWymvo5/65oNAHdqjHGoGTaF8xc
+ 5AXIpmpbIyo4nBigsMdcT+YTCwAMhyf1Hih1AT833+W0JX02howpG6KfjKrerci59+PO
+ ysP82JGD4XX8CFPISflm5A7WyAuOQYHfzfEdz1ylln4dUD41KZlpKC/QXDNhB5X81vwU
+ vRcA==
+X-Gm-Message-State: AOJu0Yw2qOFvjpqvFnLUhSm8Fa/M5WDeEAUzMW1pyIdTitNgrSZyTKdO
+ DPUVCodhY443X6r7YQcmECH/HJgZOAI9JQam6GbfkQFJJ/qFuegE7zDPTf7h13NL0GftNT8+BWP
+ rEnMXZ/qaL8j9M9vOg5GOnGka6eMmCwdvbnmK+WYYyzbiEedU2WRK2S2uzyQwgM6jwgCslLfoJ+
+ zercA=
+X-Gm-Gg: Acq92OGo7EUQakJQnPZpeHY0gFcwS85NcmPKEm6Qtn9KinDARfn8AHKYISmBhhWPpxn
+ QbrlX9NkbXPOXIyvbbynvv/pSOqj6Ri9rXim/yoTQF8oMLGKDgpUzLFAkrv4662TSyb+HjD/Hav
+ l0xXx+eCQYmDrKTOI5Hnz1FwWvuqaGd8ZLjZVWt8A/pW/GNQ1CuxvRqPmauA0RJTyQr8UlibNMk
+ iyZg2HHR/OVdEdJkmw4/e7EGk9EeLCk3kQjhauDzzDWkKS5FveQ2kV+Kqlyetu3/z0WNTk1h80b
+ EklfqUedVcMPsGBb2hiCbhTFvBDUzIjspkXn5YlIZOTwUbxbiiesJEjSJdO/vMyPyh8cbZnonjz
+ zGUupkfO6U2hZoyhLNgIKTGQmdQ1ixc7w
+X-Received: by 2002:a05:6a00:f8a:b0:83a:4846:90bf with SMTP id
+ d2e1a72fcca58-8415f3a13c9mr5033275b3a.43.1779471289308; 
+ Fri, 22 May 2026 10:34:49 -0700 (PDT)
+X-Received: by 2002:a05:6a00:f8a:b0:83a:4846:90bf with SMTP id
+ d2e1a72fcca58-8415f3a13c9mr5033232b3a.43.1779471288673; 
+ Fri, 22 May 2026 10:34:48 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb58b387dsm23400135ad.50.2026.05.22.10.34.44
+ d2e1a72fcca58-84164e9e7a5sm3238713b3a.33.2026.05.22.10.34.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 10:34:44 -0700 (PDT)
+ Fri, 22 May 2026 10:34:47 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v9 05/16] drm/msm/registers: Add perfcntr json
-Date: Fri, 22 May 2026 10:32:51 -0700
-Message-ID: <20260522173349.55491-6-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v9 07/16] drm/msm: Add sysprof accessors
+Date: Fri, 22 May 2026 10:32:53 -0700
+Message-ID: <20260522173349.55491-8-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260522173349.55491-1-robin.clark@oss.qualcomm.com>
 References: <20260522173349.55491-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE3NSBTYWx0ZWRfXyoz/jN+nDj3e
- 8YzcyM27xIlz6fbS6+WCdTAlXYdFJ+GCtMy/Q4Ei3Clyf/wZUBItE6DOsXCOdRal4H9IdD/h5iC
- ICDDGlSH8V6QtDhRSVkSj9v89ARxib8GCbK4z0Xx4OQG1c+rzXAqwFW8/4Ztw0XhU/ZalicmGDb
- NLhA0V7CsYQNSRMnA08F5/axxIvXy7HLFjFaKLCkZQEFBhOHPqouRBzhdpAFGDe1JHSFbuAGCzL
- i4IRH0c06DvFT6fcjduksHh1iZ1ZFH5r7jEGQ5Qbc15SdMwdyVUt71Xs2ALOR2SPKtzIeheUzbK
- YFMpokFrvlQZlIPMetFy3/5sawTrmhsdpNj5kjVvReUbG4LJYE3pLFwSEtdYvZJNHmxsuL55PGD
- wu69JsxP/yyJriRJbTTOv6JwbvpL1++tw8bqMSCI/nC/0bG6S+oeR8fw3UgnKVgt88QrEkY08l2
- XRPjDzkmAqKXrjyJaIg==
-X-Proofpoint-GUID: nxkBax1EADyJPwVBXdQ5GG-usPS3bVq9
-X-Authority-Analysis: v=2.4 cv=LNdWhpW9 c=1 sm=1 tr=0 ts=6a1093b6 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
+X-Proofpoint-GUID: u22gSGDAT_RpwUCloQEcNio6IVbJHVGx
+X-Authority-Analysis: v=2.4 cv=QblWeMbv c=1 sm=1 tr=0 ts=6a1093ba cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=tPAUhwUxvbDVC6ka7NAA:9 a=ulHW8LRkPv6jbv31:21 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: nxkBax1EADyJPwVBXdQ5GG-usPS3bVq9
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
+ a=v4b4B-quZFKF0PxyZCUA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-ORIG-GUID: u22gSGDAT_RpwUCloQEcNio6IVbJHVGx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE3NSBTYWx0ZWRfX7IWyDVEOGYfO
+ hEo/0TEl/JVCxHfYGBzK5NIzZeEvCJ3Dw3I7dMbelSoGhyZn2xyLzny3x0wSibubzVxrkExAHLa
+ rhKZFBJgplwQKkbGsrmcYoIHhx8O8V5RNY2dLnvS1KobdwvdXezVE9rp6y2k0NRn5GyzY4qmm+A
+ zFRYLkR3UnACbu6z2/c91PgA2iZfQqMN22vYpDL16+VrLl05xxpqsjacpocLkAb8qyN6lqByajb
+ yrT3B5B/rHD3jVPiWOLbbaYQR9Il/pntddnmr7tUhzGw6EIEumjIeHAOmU9hABTU+GnhC2aPsL1
+ P66vxioF39d68DW1q/ncUFUZyxXX9rxqsnHVoC2NqdxMupnOic5qu4GbhjjaW6KD5F5LPS4QKwY
+ JcLpUL7RCyDv2jn3465zEosfNMbmyRSzcqMFQ4BshmgRjy5RLAnA6PHbwejUlP4HkO2ED2RoCsi
+ JmdMBIEYU7HvsQ3qxMQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-22_04,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605220175
+ bulkscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
+ suspectscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220175
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,978 +143,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Pull in perfcntr json and wire up generation of perfcntr tables.
+Currently the sysprof param serves two functions, (a) disabling perfcntr
+clearing on context switch/preemption, and (b) disabling IFPC.  In the
+future, with kernel side global perfcntr collection/stream, the decision
+about disabling IFPC will change.
 
-Sync from mesa commit d2c4653ee953 ("freedreno/registers: Add gen8 perfcntrs")
+To prepare for this, split out two helpers/accessors for the two
+different cases.  For now, they are the same thing, but this will
+change.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Reviewed-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/Makefile                  |  25 +-
- drivers/gpu/drm/msm/msm_perfcntr.h            |  48 ++++
- .../msm/registers/adreno/a2xx_perfcntrs.json  | 109 ++++++++
- .../msm/registers/adreno/a5xx_perfcntrs.json  | 128 ++++++++++
- .../msm/registers/adreno/a6xx_perfcntrs.json  | 112 ++++++++
- .../msm/registers/adreno/a7xx_perfcntrs.json  | 228 +++++++++++++++++
- .../msm/registers/adreno/a8xx_perfcntrs.json  | 240 ++++++++++++++++++
- 7 files changed, 889 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.h
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
- create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c     |  8 +++-----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  5 +++--
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c |  2 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c     |  2 +-
+ drivers/gpu/drm/msm/adreno/a8xx_preempt.c |  2 +-
+ drivers/gpu/drm/msm/msm_gpu.h             | 18 ++++++++++++++++++
+ 6 files changed, 27 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-index ce00cfb0a875..337634e7e247 100644
---- a/drivers/gpu/drm/msm/Makefile
-+++ b/drivers/gpu/drm/msm/Makefile
-@@ -176,6 +176,11 @@ quiet_cmd_headergen = GENHDR  $@
-       cmd_headergen = mkdir -p $(obj)/generated && $(PYTHON3) $(src)/registers/gen_header.py \
- 		      $(headergen-opts) --rnn $(src)/registers --xml $< c-defines > $@
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 1b44b9e21ad8..aba08fb76249 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -2036,10 +2036,10 @@ static int a6xx_gmu_get_irq(struct a6xx_gmu *gmu, struct platform_device *pdev,
  
-+# TODO how to do this for a2xx/a5xx which have different .xml arg?
-+quiet_cmd_headergen_json = GENHDRJSN  $@
-+      cmd_headergen_json = mkdir -p $(obj)/generated && $(PYTHON3) $(src)/registers/gen_header.py \
-+		      $(headergen-opts) --rnn $(src)/registers --xml $(filter %.xml,$^) perfcntrs --json $< > $@
-+
- $(obj)/generated/%.xml.h: $(src)/registers/adreno/%.xml \
- 		$(src)/registers/adreno/adreno_common.xml \
- 		$(src)/registers/adreno/adreno_pm4.xml \
-@@ -192,6 +197,24 @@ $(obj)/generated/%.xml.h: $(src)/registers/display/%.xml \
- 		FORCE
- 	$(call if_changed,headergen)
+ void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu)
+ {
++	bool sysprof = msm_gpu_sysprof_no_ifpc(gpu);
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+ 	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+-	unsigned int sysprof_active;
  
-+ADRENO_PERFCNTRS =
-+
-+define adreno_perfcntrs
-+ADRENO_PERFCNTRS += generated/$(1)_perfcntrs.json.c
-+$$(obj)/generated/$(1)_perfcntrs.json.c: $$(src)/registers/adreno/$(1)_perfcntrs.json \
-+		$$(src)/registers/adreno/$(2).xml \
-+		FORCE
-+	$$(call if_changed,headergen_json)
-+endef
-+
-+$(eval $(call adreno_perfcntrs,a2xx,a2xx))
-+$(eval $(call adreno_perfcntrs,a5xx,a5xx))
-+$(eval $(call adreno_perfcntrs,a6xx,a6xx))
-+$(eval $(call adreno_perfcntrs,a7xx,a6xx))
-+$(eval $(call adreno_perfcntrs,a8xx,a6xx))
-+
-+adreno-y += $(ADRENO_PERFCNTRS:.c=.o)
-+
- ADRENO_HEADERS = \
- 	generated/a2xx.xml.h \
- 	generated/a3xx.xml.h \
-@@ -226,4 +249,4 @@ DISPLAY_HEADERS = \
- $(addprefix $(obj)/,$(adreno-y)): $(addprefix $(obj)/,$(ADRENO_HEADERS))
- $(addprefix $(obj)/,$(msm-display-y)): $(addprefix $(obj)/,$(DISPLAY_HEADERS))
+ 	/* Nothing to do if GPU is suspended. We will handle this during GMU resume */
+ 	if (!pm_runtime_get_if_active(&gpu->pdev->dev))
+@@ -2047,15 +2047,13 @@ void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu)
  
--targets += $(ADRENO_HEADERS) $(DISPLAY_HEADERS)
-+targets += $(ADRENO_HEADERS) $(DISPLAY_HEADERS) $(ADRENO_PERFCNTRS)
-diff --git a/drivers/gpu/drm/msm/msm_perfcntr.h b/drivers/gpu/drm/msm/msm_perfcntr.h
-new file mode 100644
-index 000000000000..305dcde15c5e
---- /dev/null
-+++ b/drivers/gpu/drm/msm/msm_perfcntr.h
-@@ -0,0 +1,48 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef __MSM_PERFCNTR_H__
-+#define __MSM_PERFCNTR_H__
-+
-+#include "linux/array_size.h"
-+
-+#include "adreno_common.xml.h"
-+
-+/*
-+ * This is a subset of the tables used by mesa.  We don't need to
-+ * enumerate the countables on the kernel side.
-+ */
-+
-+/* Describes a single counter: */
-+struct msm_perfcntr_counter {
-+   /* offset of the SELect register to choose what to count: */
-+   unsigned select_reg;
-+   /* additional SEL regs to enable slice counters (gen8+) */
-+   unsigned slice_select_regs[2];
-+   /* offset of the lo/hi 32b to read current counter value: */
-+   unsigned counter_reg_lo;
-+   unsigned counter_reg_hi;
-+   /* TODO some counters have enable/clear registers */
-+};
-+
-+/* Describes an entire counter group: */
-+struct msm_perfcntr_group {
-+   const char *name;
-+   enum adreno_pipe pipe;
-+   unsigned num_counters;
-+   const struct msm_perfcntr_counter *counters;
-+};
-+
-+#define GROUP(_name, _pipe, _counters, _countables) {                          \
-+      .name = _name,                                                           \
-+      .pipe = _pipe,                                                           \
-+      .num_counters = ARRAY_SIZE(_counters),                                   \
-+      .counters = _counters,                                                   \
-+   }
-+
-+#define fd_perfcntr_counter msm_perfcntr_counter
-+#define fd_perfcntr_group   msm_perfcntr_group
-+
-+#endif /* __MSM_PERFCNTR_H__ */
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json b/drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json
-new file mode 100644
-index 000000000000..8095345ffd8e
---- /dev/null
-+++ b/drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json
-@@ -0,0 +1,109 @@
+ 	mutex_lock(&gmu->lock);
+ 
+-	sysprof_active = refcount_read(&gpu->sysprof_active);
+-
+ 	/*
+ 	 * 'Perfcounter select' register values are lost during IFPC collapse. To avoid that,
+ 	 * use the currently unused perfcounter oob vote to block IFPC when sysprof is active
+ 	 */
+-	if ((sysprof_active > 1) && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
++	if (sysprof && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
+ 		a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+-	else if ((sysprof_active == 1) && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
++	else if (!sysprof && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
+ 		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+ 
+ 	mutex_unlock(&gmu->lock);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 727281fbef36..71f54ab5425d 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -203,7 +203,7 @@ static void get_stats_counter(struct msm_ringbuffer *ring, u32 counter,
+ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 		struct msm_ringbuffer *ring, struct msm_gem_submit *submit)
+ {
+-	bool sysprof = refcount_read(&a6xx_gpu->base.base.sysprof_active) > 1;
++	bool sysprof = msm_gpu_sysprof_no_perfcntr_zap(&a6xx_gpu->base.base);
+ 	struct msm_context *ctx = submit->queue->ctx;
+ 	struct drm_gpuvm *vm = msm_context_vm(submit->dev, ctx);
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+@@ -1608,7 +1608,7 @@ static int hw_init(struct msm_gpu *gpu)
+ 		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_BOOT_SLUMBER);
+ 	}
+ 
+-	if (!ret && (refcount_read(&gpu->sysprof_active) > 1)) {
++	if (!ret && msm_gpu_sysprof_no_ifpc(gpu)) {
+ 		ret = a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+ 		if (!ret)
+ 			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
+@@ -2854,6 +2854,7 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+ 		.progress = a8xx_progress,
++		.sysprof_setup = a6xx_gmu_sysprof_setup,
+ 	},
+ 	.init = a6xx_gpu_init,
+ 	.get_timestamp = a8xx_gmu_get_timestamp,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+index df4cbf42e9a4..1e599d4ddea1 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+@@ -261,7 +261,7 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
+ 	mod_timer(&a6xx_gpu->preempt_timer, jiffies + msecs_to_jiffies(10000));
+ 
+ 	/* Enable or disable postamble as needed */
+-	sysprof = refcount_read(&a6xx_gpu->base.base.sysprof_active) > 1;
++	sysprof = msm_gpu_sysprof_no_perfcntr_zap(gpu);
+ 
+ 	if (!sysprof && !a6xx_gpu->postamble_enabled)
+ 		preempt_prepare_postamble(a6xx_gpu);
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+index ccfccc45133f..e022c9a162a4 100644
+--- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+@@ -849,7 +849,7 @@ static int hw_init(struct msm_gpu *gpu)
+ 	 */
+ 	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+ 
+-	if (!ret && (refcount_read(&gpu->sysprof_active) > 1)) {
++	if (!ret && msm_gpu_sysprof_no_perfcntr_zap(gpu)) {
+ 		ret = a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+ 		if (!ret)
+ 			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_preempt.c b/drivers/gpu/drm/msm/adreno/a8xx_preempt.c
+index 3d8c33ba722e..6cb53a071801 100644
+--- a/drivers/gpu/drm/msm/adreno/a8xx_preempt.c
++++ b/drivers/gpu/drm/msm/adreno/a8xx_preempt.c
+@@ -242,7 +242,7 @@ void a8xx_preempt_trigger(struct msm_gpu *gpu)
+ 	mod_timer(&a6xx_gpu->preempt_timer, jiffies + msecs_to_jiffies(10000));
+ 
+ 	/* Enable or disable postamble as needed */
+-	sysprof = refcount_read(&a6xx_gpu->base.base.sysprof_active) > 1;
++	sysprof = msm_gpu_sysprof_no_perfcntr_zap(gpu);
+ 
+ 	if (!sysprof && !a6xx_gpu->postamble_enabled)
+ 		preempt_prepare_postamble(a6xx_gpu);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 8c08dc065372..9e5c753437c2 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -311,6 +311,24 @@ static inline bool msm_gpu_active(struct msm_gpu *gpu)
+ 	return false;
+ }
+ 
++static inline bool
++msm_gpu_sysprof_no_perfcntr_zap(struct msm_gpu *gpu)
 +{
-+    "chip": "A2XX",
-+    "groups": [
-+        {
-+            "name": "CP",
-+            "num": 1,
-+            "select": "CP_PERFCOUNTER_SELECT",
-+            "counter_lo": "CP_PERFCOUNTER_LO",
-+            "counter_hi": "CP_PERFCOUNTER_HI",
-+            "countable_type": "a2xx_cp_perfcount_sel"
-+        },
-+        {
-+            "name": "PA_SU",
-+            "num": 4,
-+            "select": "PA_SU_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "PA_SU_PERFCOUNTER{}_LOW",
-+            "counter_hi": "PA_SU_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_su_perfcnt_select"
-+        },
-+        {
-+            "name": "PA_SC",
-+            "num": 1,
-+            "select": "PA_SC_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "PA_SC_PERFCOUNTER{}_LOW",
-+            "counter_hi": "PA_SC_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_sc_perfcnt_select"
-+        },
-+        {
-+            "name": "VGT",
-+            "num": 4,
-+            "select": "VGT_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "VGT_PERFCOUNTER{}_LOW",
-+            "counter_hi": "VGT_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_vgt_perfcount_select"
-+        },
-+        {
-+            "name": "TCR",
-+            "num": 2,
-+            "select": "TCR_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "TCR_PERFCOUNTER{}_LOW",
-+            "counter_hi": "TCR_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_tcr_perfcount_select"
-+        },
-+        {
-+            "name": "TP0",
-+            "num": 2,
-+            "select": "TP0_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "TP0_PERFCOUNTER{}_LOW",
-+            "counter_hi": "TP0_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_tp_perfcount_select"
-+        },
-+        {
-+            "name": "TCM",
-+            "num": 2,
-+            "select": "TCM_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "TCM_PERFCOUNTER{}_LOW",
-+            "counter_hi": "TCM_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_tcm_perfcount_select"
-+        },
-+        {
-+            "name": "TCF",
-+            "num": 12,
-+            "select": "TCF_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "TCF_PERFCOUNTER{}_LOW",
-+            "counter_hi": "TCF_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_tcf_perfcount_select"
-+        },
-+        {
-+            "name": "SQ",
-+            "num": 4,
-+            "select": "SQ_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "SQ_PERFCOUNTER{}_LOW",
-+            "counter_hi": "SQ_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_sq_perfcnt_select"
-+        },
-+        {
-+            "name": "SX",
-+            "num": 1,
-+            "select": "SX_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "SX_PERFCOUNTER{}_LOW",
-+            "counter_hi": "SX_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_sx_perfcnt_select"
-+        },
-+        {
-+            "name": "MH",
-+            "num": 2,
-+            "select": "MH_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "MH_PERFCOUNTER{}_LOW",
-+            "counter_hi": "MH_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_mh_perfcnt_select"
-+        },
-+        {
-+            "name": "RBBM",
-+            "num": 2,
-+            "select": "RBBM_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "RBBM_PERFCOUNTER{}_LO",
-+            "counter_hi": "RBBM_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_rbbm_perfcount1_sel"
-+        },
-+        {
-+            "name": "RB",
-+            "num": 4,
-+            "select": "RB_PERFCOUNTER{}_SELECT",
-+            "counter_lo": "RB_PERFCOUNTER{}_LOW",
-+            "counter_hi": "RB_PERFCOUNTER{}_HI",
-+            "countable_type": "a2xx_rb_perfcnt_select"
-+        }
-+    ]
++	return refcount_read(&gpu->sysprof_active) > 1;
 +}
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json b/drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json
-new file mode 100644
-index 000000000000..d95503543f94
---- /dev/null
-+++ b/drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json
-@@ -0,0 +1,128 @@
++
++static inline bool
++msm_gpu_sysprof_no_ifpc(struct msm_gpu *gpu)
 +{
-+    "chip": "A5XX",
-+    "groups": [
-+        {
-+            "name": "CP",
-+            "num": 8,
-+            "reserved": [ 0 ],
-+            "select": "CP_PERFCTR_CP_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_CP_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_CP_{}_HI",
-+            "countable_type": "a5xx_cp_perfcounter_select"
-+        },
-+        {
-+            "name": "CCU",
-+            "num": 4,
-+            "select": "RB_PERFCTR_CCU_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_CCU_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_CCU_{}_HI",
-+            "countable_type": "a5xx_ccu_perfcounter_select"
-+        },
-+        {
-+            "name": "TSE",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_TSE_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_TSE_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_TSE_{}_HI",
-+            "countable_type": "a5xx_tse_perfcounter_select"
-+        },
-+        {
-+            "name": "RAS",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_RAS_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_RAS_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_RAS_{}_HI",
-+            "countable_type": "a5xx_ras_perfcounter_select"
-+        },
-+        {
-+            "name": "LRZ",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_LRZ_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_LRZ_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_LRZ_{}_HI",
-+            "countable_type": "a5xx_lrz_perfcounter_select"
-+        },
-+        {
-+            "name": "HLSQ",
-+            "num": 8,
-+            "select": "HLSQ_PERFCTR_HLSQ_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_HLSQ_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_HLSQ_{}_HI",
-+            "countable_type": "a5xx_hlsq_perfcounter_select"
-+        },
-+        {
-+            "name": "PC",
-+            "num": 8,
-+            "select": "PC_PERFCTR_PC_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_PC_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_PC_{}_HI",
-+            "countable_type": "a5xx_pc_perfcounter_select"
-+        },
-+        {
-+            "name": "RB",
-+            "num": 8,
-+            "select": "RB_PERFCTR_RB_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_RB_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_RB_{}_HI",
-+            "countable_type": "a5xx_rb_perfcounter_select"
-+        },
-+        {
-+            "name": "RBBM",
-+            "num": 4,
-+            "reserved": [ 0 ],
-+            "select": "RBBM_PERFCTR_RBBM_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_RBBM_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_RBBM_{}_HI",
-+            "countable_type": "a5xx_rbbm_perfcounter_select"
-+        },
-+        {
-+            "name": "SP",
-+            "num": 12,
-+            "reserved": [ 0 ],
-+            "select": "SP_PERFCTR_SP_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_SP_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_SP_{}_HI",
-+            "countable_type": "a5xx_sp_perfcounter_select"
-+        },
-+        {
-+            "name": "TP",
-+            "num": 8,
-+            "select": "TPL1_PERFCTR_TP_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_TP_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_TP_{}_HI",
-+            "countable_type": "a5xx_tp_perfcounter_select"
-+        },
-+        {
-+            "name": "UCHE",
-+            "num": 8,
-+            "select": "UCHE_PERFCTR_UCHE_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_UCHE_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_UCHE_{}_HI",
-+            "countable_type": "a5xx_uche_perfcounter_select"
-+        },
-+        {
-+            "name": "VFD",
-+            "num": 8,
-+            "select": "VFD_PERFCTR_VFD_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_VFD_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_VFD_{}_HI",
-+            "countable_type": "a5xx_vfd_perfcounter_select"
-+        },
-+        {
-+            "name": "VPC",
-+            "num": 4,
-+            "select": "VPC_PERFCTR_VPC_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_VPC_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_VPC_{}_HI",
-+            "countable_type": "a5xx_vpc_perfcounter_select"
-+        },
-+        {
-+            "name": "VSC",
-+            "num": 2,
-+            "select": "VSC_PERFCTR_VSC_SEL_{}",
-+            "counter_lo": "RBBM_PERFCTR_VSC_{}_LO",
-+            "counter_hi": "RBBM_PERFCTR_VSC_{}_HI",
-+            "countable_type": "a5xx_vsc_perfcounter_select"
-+        }
-+    ]
++	/*
++	 * For now, this is the same condition as disabling perfcntr clears
++	 * on context switch.  But once kernel perfcntr IFPC support is in
++	 * place, we will only need to disable IFPC for legacy userspace
++	 * setting SYSPROF param.
++	 */
++	return msm_gpu_sysprof_no_perfcntr_zap(gpu);
 +}
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json b/drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
-new file mode 100644
-index 000000000000..ec303e0b9f28
---- /dev/null
-+++ b/drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
-@@ -0,0 +1,112 @@
-+{
-+    "chip": "A6XX",
-+    "groups": [
-+        {
-+            "name": "CP",
-+            "num": 14,
-+            "reserved": [ 0 ],
-+            "select": "CP_PERFCTR_CP_SEL",
-+            "counter": "RBBM_PERFCTR_CP",
-+            "countable_type": "a6xx_cp_perfcounter_select"
-+        },
-+        {
-+            "name": "CCU",
-+            "num": 5,
-+            "select": "RB_PERFCTR_CCU_SEL",
-+            "counter": "RBBM_PERFCTR_CCU",
-+            "countable_type": "a6xx_ccu_perfcounter_select"
-+        },
-+        {
-+            "name": "TSE",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_TSE_SEL",
-+            "counter": "RBBM_PERFCTR_TSE",
-+            "countable_type": "a6xx_tse_perfcounter_select"
-+        },
-+        {
-+            "name": "RAS",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_RAS_SEL",
-+            "counter": "RBBM_PERFCTR_RAS",
-+            "countable_type": "a6xx_ras_perfcounter_select"
-+        },
-+        {
-+            "name": "LRZ",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_LRZ_SEL",
-+            "counter": "RBBM_PERFCTR_LRZ",
-+            "countable_type": "a6xx_lrz_perfcounter_select"
-+        },
-+        {
-+            "name": "CMP",
-+            "num": 4,
-+            "select": "RB_PERFCTR_CMP_SEL",
-+            "counter": "RBBM_PERFCTR_CMP",
-+            "countable_type": "a6xx_cmp_perfcounter_select"
-+        },
-+        {
-+            "name": "HLSQ",
-+            "num": 6,
-+            "select": "HLSQ_PERFCTR_HLSQ_SEL",
-+            "counter": "RBBM_PERFCTR_HLSQ",
-+            "countable_type": "a6xx_hlsq_perfcounter_select"
-+        },
-+        {
-+            "name": "PC",
-+            "num": 8,
-+            "select": "PC_PERFCTR_PC_SEL",
-+            "counter": "RBBM_PERFCTR_PC",
-+            "countable_type": "a6xx_pc_perfcounter_select"
-+        },
-+        {
-+            "name": "RB",
-+            "num": 8,
-+            "select": "RB_PERFCTR_RB_SEL",
-+            "counter": "RBBM_PERFCTR_RB",
-+            "countable_type": "a6xx_rb_perfcounter_select"
-+        },
-+        {
-+            "name": "SP",
-+            "num": 24,
-+            "reserved": [ 0 ],
-+            "select": "SP_PERFCTR_SP_SEL",
-+            "counter": "RBBM_PERFCTR_SP",
-+            "countable_type": "a6xx_sp_perfcounter_select"
-+        },
-+        {
-+            "name": "TP",
-+            "num": 12,
-+            "select": "TPL1_PERFCTR_TP_SEL",
-+            "counter": "RBBM_PERFCTR_TP",
-+            "countable_type": "a6xx_tp_perfcounter_select"
-+        },
-+        {
-+            "name": "UCHE",
-+            "num": 12,
-+            "select": "UCHE_PERFCTR_UCHE_SEL",
-+            "counter": "RBBM_PERFCTR_UCHE",
-+            "countable_type": "a6xx_uche_perfcounter_select"
-+        },
-+        {
-+            "name": "VFD",
-+            "num": 8,
-+            "select": "VFD_PERFCTR_VFD_SEL",
-+            "counter": "RBBM_PERFCTR_VFD",
-+            "countable_type": "a6xx_vfd_perfcounter_select"
-+        },
-+        {
-+            "name": "VPC",
-+            "num": 6,
-+            "select": "VPC_PERFCTR_VPC_SEL",
-+            "counter": "RBBM_PERFCTR_VPC",
-+            "countable_type": "a6xx_vpc_perfcounter_select"
-+        },
-+        {
-+            "name": "VSC",
-+            "num": 2,
-+            "select": "VSC_PERFCTR_VSC_SEL",
-+            "counter": "RBBM_PERFCTR_VSC",
-+            "countable_type": "a6xx_vsc_perfcounter_select"
-+        }
-+    ]
-+}
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json b/drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
-new file mode 100644
-index 000000000000..e60aab1862ec
---- /dev/null
-+++ b/drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
-@@ -0,0 +1,228 @@
-+{
-+    "chip": "A7XX",
-+    "groups": [
-+        {
-+            "name": "CP",
-+            "num": 14,
-+            "reserved": [ 0 ],
-+            "select": "CP_PERFCTR_CP_SEL",
-+            "counter": "RBBM_PERFCTR_CP",
-+            "countable_type": "a7xx_cp_perfcounter_select"
-+        },
-+        {
-+            "name": "RBBM",
-+            "num": 4,
-+            "select": "RBBM_PERFCTR_RBBM_SEL",
-+            "counter": "RBBM_PERFCTR_RBBM",
-+            "countable_type": "a7xx_rbbm_perfcounter_select"
-+        },
-+        {
-+            "name": "PC",
-+            "pipe": "BR",
-+            "num": 8,
-+            "select": "PC_PERFCTR_PC_SEL",
-+            "counter": "RBBM_PERFCTR_PC",
-+            "countable_type": "a7xx_pc_perfcounter_select"
-+        },
-+        {
-+            "name": "VFD",
-+            "pipe": "BR",
-+            "num": 8,
-+            "select": "VFD_PERFCTR_VFD_SEL",
-+            "counter": "RBBM_PERFCTR_VFD",
-+            "countable_type": "a7xx_vfd_perfcounter_select"
-+        },
-+        {
-+            "name": "HLSQ",
-+            "pipe": "BR",
-+            "num": 6,
-+            "select": "SP_PERFCTR_HLSQ_SEL",
-+            "counter": "RBBM_PERFCTR_HLSQ",
-+            "countable_type": "a7xx_hlsq_perfcounter_select"
-+        },
-+        {
-+            "name": "VPC",
-+            "pipe": "BR",
-+            "num": 6,
-+            "select": "VPC_PERFCTR_VPC_SEL",
-+            "counter": "RBBM_PERFCTR_VPC",
-+            "countable_type": "a7xx_vpc_perfcounter_select"
-+        },
-+        {
-+            "name": "TSE",
-+            "pipe": "BR",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_TSE_SEL",
-+            "counter": "RBBM_PERFCTR_TSE",
-+            "countable_type": "a7xx_tse_perfcounter_select"
-+        },
-+        {
-+            "name": "RAS",
-+            "pipe": "BR",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_RAS_SEL",
-+            "counter": "RBBM_PERFCTR_RAS",
-+            "countable_type": "a7xx_ras_perfcounter_select"
-+        },
-+        {
-+            "name": "UCHE",
-+            "num": 12,
-+            "select": "UCHE_PERFCTR_UCHE_SEL",
-+            "counter": "RBBM_PERFCTR_UCHE",
-+            "countable_type": "a7xx_uche_perfcounter_select"
-+        },
-+        {
-+            "name": "TP",
-+            "pipe": "BR",
-+            "num": 12,
-+            "select": "TPL1_PERFCTR_TP_SEL",
-+            "counter": "RBBM_PERFCTR_TP",
-+            "countable_type": "a7xx_tp_perfcounter_select"
-+        },
-+        {
-+            "name": "SP",
-+            "pipe": "BR",
-+            "num": 24,
-+            "select": "SP_PERFCTR_SP_SEL",
-+            "counter": "RBBM_PERFCTR_SP",
-+            "countable_type": "a7xx_sp_perfcounter_select"
-+        },
-+        {
-+            "name": "RB",
-+            "num": 8,
-+            "select": "RB_PERFCTR_RB_SEL",
-+            "counter": "RBBM_PERFCTR_RB",
-+            "countable_type": "a7xx_rb_perfcounter_select"
-+        },
-+        {
-+            "name": "VSC",
-+            "num": 2,
-+            "select": "VSC_PERFCTR_VSC_SEL",
-+            "counter": "RBBM_PERFCTR_VSC",
-+            "countable_type": "a7xx_vsc_perfcounter_select"
-+        },
-+        {
-+            "name": "CCU",
-+            "num": 5,
-+            "select": "RB_PERFCTR_CCU_SEL",
-+            "counter": "RBBM_PERFCTR_CCU",
-+            "countable_type": "a7xx_ccu_perfcounter_select"
-+        },
-+        {
-+            "name": "LRZ",
-+            "pipe": "BR",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_LRZ_SEL",
-+            "counter": "RBBM_PERFCTR_LRZ",
-+            "countable_type": "a7xx_lrz_perfcounter_select"
-+        },
-+        {
-+            "name": "CMP",
-+            "num": 4,
-+            "select": "RB_PERFCTR_CMP_SEL",
-+            "counter": "RBBM_PERFCTR_CMP",
-+            "countable_type": "a7xx_cmp_perfcounter_select"
-+        },
-+        {
-+            "name": "UFC",
-+            "pipe": "BR",
-+            "num": 4,
-+            "select": "RB_PERFCTR_UFC_SEL",
-+            "counter": "RBBM_PERFCTR_UFC",
-+            "countable_type": "a7xx_ufc_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_CP",
-+            "num": 7,
-+            "select": "CP_BV_PERFCTR_CP_SEL",
-+            "counter": "RBBM_PERFCTR2_CP",
-+            "countable_type": "a7xx_cp_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_PC",
-+            "pipe": "BV",
-+            "num": 8,
-+            "select_offset": 8,
-+            "select": "PC_PERFCTR_PC_SEL",
-+            "counter": "RBBM_PERFCTR_BV_PC",
-+            "countable_type": "a7xx_pc_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_VFD",
-+            "pipe": "BV",
-+            "num": 8,
-+            "select_offset": 8,
-+            "select": "VFD_PERFCTR_VFD_SEL",
-+            "counter": "RBBM_PERFCTR_BV_VFD",
-+            "countable_type": "a7xx_vfd_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_VPC",
-+            "pipe": "BV",
-+            "num": 6,
-+            "select_offset": 6,
-+            "select": "VPC_PERFCTR_VPC_SEL",
-+            "counter": "RBBM_PERFCTR_BV_VPC",
-+            "countable_type": "a7xx_vpc_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_TP",
-+            "pipe": "BV",
-+            "num": 6,
-+            "select_offset": 12,
-+            "select": "TPL1_PERFCTR_TP_SEL",
-+            "counter": "RBBM_PERFCTR2_TP",
-+            "countable_type": "a7xx_tp_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_SP",
-+            "pipe": "BV",
-+            "num": 12,
-+            "select_offset": 24,
-+            "select": "SP_PERFCTR_SP_SEL",
-+            "counter": "RBBM_PERFCTR2_SP",
-+            "countable_type": "a7xx_sp_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_UFC",
-+            "pipe": "BV",
-+            "num": 2,
-+            "select_offset": 4,
-+            "select": "RB_PERFCTR_UFC_SEL",
-+            "counter": "RBBM_PERFCTR2_UFC",
-+            "countable_type": "a7xx_ufc_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_TSE",
-+            "pipe": "BV",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_TSE_SEL",
-+            "counter": "RBBM_PERFCTR_BV_TSE",
-+            "countable_type": "a7xx_tse_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_RAS",
-+            "pipe": "BV",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_RAS_SEL",
-+            "counter": "RBBM_PERFCTR_BV_RAS",
-+            "countable_type": "a7xx_ras_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_LRZ",
-+            "pipe": "BV",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_LRZ_SEL",
-+            "counter": "RBBM_PERFCTR_BV_LRZ",
-+            "countable_type": "a7xx_lrz_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_HLSQ",
-+            "pipe": "BV",
-+            "num": 6,
-+            "select": "SP_PERFCTR_HLSQ_SEL",
-+            "counter": "RBBM_PERFCTR2_HLSQ",
-+            "countable_type": "a7xx_hlsq_perfcounter_select"
-+        }
-+    ]
-+}
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json b/drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
-new file mode 100644
-index 000000000000..fe4d01f10ff8
---- /dev/null
-+++ b/drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
-@@ -0,0 +1,240 @@
-+{
-+    "chip": "A8XX",
-+    "groups": [
-+        {
-+            "name": "CP",
-+            "num": 14,
-+            "reserved": [ 0 ],
-+            "select": "CP_PERFCTR_CP_SEL",
-+            "counter": "RBBM_PERFCTR_CP",
-+            "countable_type": "a8xx_cp_perfcounter_select"
-+        },
-+        {
-+            "name": "RBBM",
-+            "num": 4,
-+            "select": "RBBM_PERFCTR_RBBM_SEL",
-+            "slice_select": [ "RBBM_SLICE_PERFCTR_RBBM_SEL" ],
-+            "counter": "RBBM_PERFCTR_RBBM",
-+            "countable_type": "a8xx_rbbm_perfcounter_select"
-+        },
-+        {
-+            "name": "PC",
-+            "pipe": "BR",
-+            "num": 8,
-+            "select": "PC_PERFCTR_PC_SEL",
-+            "slice_select": [ "PC_SLICE_PERFCTR_PC_SEL" ],
-+            "counter": "RBBM_PERFCTR_PC",
-+            "countable_type": "a8xx_pc_perfcounter_select"
-+        },
-+        {
-+            "name": "VFD",
-+            "pipe": "BR",
-+            "num": 8,
-+            "select": "VFD_PERFCTR_VFD_SEL",
-+            "counter": "RBBM_PERFCTR_VFD",
-+            "countable_type": "a8xx_vfd_perfcounter_select"
-+        },
-+        {
-+            "name": "HLSQ",
-+            "pipe": "BR",
-+            "num": 6,
-+            "select": "SP_PERFCTR_HLSQ_SEL",
-+            "slice_select": [ "SP_PERFCTR_HLSQ_SEL_2" ],
-+            "counter": "RBBM_PERFCTR_HLSQ",
-+            "countable_type": "a8xx_hlsq_perfcounter_select"
-+        },
-+        {
-+            "name": "VPC",
-+            "pipe": "BR",
-+            "num": 6,
-+            "select": "VPC_PERFCTR_VPC_SEL",
-+            "slice_select": [ "VPC_PERFCTR_VPC_SEL_1", "VPC_PERFCTR_VPC_SEL_2" ],
-+            "counter": "RBBM_PERFCTR_VPC",
-+            "countable_type": "a8xx_vpc_perfcounter_select"
-+        },
-+        {
-+            "name": "TSE",
-+            "pipe": "BR",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_TSE_SEL",
-+            "slice_select": [ "GRAS_PERFCTR_TSEFE_SEL" ],
-+            "counter": "RBBM_PERFCTR_TSE",
-+            "countable_type": "a8xx_tse_perfcounter_select"
-+        },
-+        {
-+            "name": "RAS",
-+            "pipe": "BR",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_RAS_SEL",
-+            "counter": "RBBM_PERFCTR_RAS",
-+            "countable_type": "a8xx_ras_perfcounter_select"
-+        },
-+        {
-+            "name": "UCHE",
-+            "num": 24,
-+            "select": "UCHE_PERFCTR_UCHE_SEL",
-+            "counter": "RBBM_PERFCTR_UCHE",
-+            "countable_type": "a8xx_uche_perfcounter_select"
-+        },
-+        {
-+            "name": "TP",
-+            "pipe": "BR",
-+            "num": 12,
-+            "select": "TPL1_PERFCTR_TP_SEL",
-+            "counter": "RBBM_PERFCTR_TP",
-+            "countable_type": "a8xx_tp_perfcounter_select"
-+        },
-+        {
-+            "name": "SP",
-+            "pipe": "BR",
-+            "num": 24,
-+            "select": "SP_PERFCTR_SP_SEL",
-+            "counter": "RBBM_PERFCTR_SP",
-+            "countable_type": "a8xx_sp_perfcounter_select"
-+        },
-+        {
-+            "name": "RB",
-+            "pipe": "BR",
-+            "num": 8,
-+            "select": "RB_PERFCTR_RB_SEL",
-+            "counter": "RBBM_PERFCTR_RB",
-+            "countable_type": "a8xx_rb_perfcounter_select"
-+        },
-+        {
-+            "name": "VSC",
-+            "num": 2,
-+            "select": "VSC_PERFCTR_VSC_SEL",
-+            "counter": "RBBM_PERFCTR_VSC",
-+            "countable_type": "a8xx_vsc_perfcounter_select"
-+        },
-+        {
-+            "name": "CCU",
-+            "pipe": "BR",
-+            "num": 5,
-+            "select": "RB_PERFCTR_CCU_SEL",
-+            "counter": "RBBM_PERFCTR_CCU",
-+            "countable_type": "a8xx_ccu_perfcounter_select"
-+        },
-+        {
-+            "name": "LRZ",
-+            "pipe": "BR",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_LRZ_SEL",
-+            "counter": "RBBM_PERFCTR_LRZ",
-+            "countable_type": "a8xx_lrz_perfcounter_select"
-+        },
-+        {
-+            "name": "CMP",
-+            "num": 4,
-+            "select": "RB_PERFCTR_CMP_SEL",
-+            "counter": "RBBM_PERFCTR_CMP",
-+            "countable_type": "a8xx_cmp_perfcounter_select"
-+        },
-+        {
-+            "name": "UFC",
-+            "pipe": "BR",
-+            "num": 4,
-+            "select": "RB_PERFCTR_UFC_SEL",
-+            "counter": "RBBM_PERFCTR_UFC",
-+            "countable_type": "a8xx_ufc_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_CP",
-+            "num": 7,
-+            "select_offset": 14,
-+            "select": "CP_PERFCTR_CP_SEL",
-+            "counter": "RBBM_PERFCTR2_CP",
-+            "countable_type": "a8xx_cp_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_PC",
-+            "pipe": "BV",
-+            "num": 8,
-+            "select_offset": 8,
-+            "select": "PC_PERFCTR_PC_SEL",
-+            "slice_select": [ "PC_SLICE_PERFCTR_PC_SEL" ],
-+            "counter": "RBBM_PERFCTR_BV_PC",
-+            "countable_type": "a8xx_pc_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_VFD",
-+            "pipe": "BV",
-+            "num": 8,
-+            "select_offset": 8,
-+            "select": "VFD_PERFCTR_VFD_SEL",
-+            "counter": "RBBM_PERFCTR_BV_VFD",
-+            "countable_type": "a8xx_vfd_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_VPC",
-+            "pipe": "BV",
-+            "num": 6,
-+            "select_offset": 6,
-+            "select": "VPC_PERFCTR_VPC_SEL",
-+            "slice_select": [ "VPC_PERFCTR_VPC_SEL_1", "VPC_PERFCTR_VPC_SEL_2" ],
-+            "counter": "RBBM_PERFCTR_BV_VPC",
-+            "countable_type": "a8xx_vpc_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_TP",
-+            "pipe": "BV",
-+            "num": 8,
-+            "select_offset": 12,
-+            "select": "TPL1_PERFCTR_TP_SEL",
-+            "counter": "RBBM_PERFCTR2_TP",
-+            "countable_type": "a8xx_tp_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_SP",
-+            "pipe": "BV",
-+            "num": 12,
-+            "select_offset": 24,
-+            "select": "SP_PERFCTR_SP_SEL",
-+            "counter": "RBBM_PERFCTR2_SP",
-+            "countable_type": "a8xx_sp_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_UFC",
-+            "pipe": "BV",
-+            "num": 2,
-+            "select_offset": 4,
-+            "select": "RB_PERFCTR_UFC_SEL",
-+            "counter": "RBBM_PERFCTR2_UFC",
-+            "countable_type": "a8xx_ufc_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_TSE",
-+            "pipe": "BV",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_TSE_SEL",
-+            "slice_select": [ "GRAS_PERFCTR_TSEFE_SEL" ],
-+            "counter": "RBBM_PERFCTR_BV_TSE",
-+            "countable_type": "a8xx_tse_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_RAS",
-+            "pipe": "BV",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_RAS_SEL",
-+            "counter": "RBBM_PERFCTR_BV_RAS",
-+            "countable_type": "a8xx_ras_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_LRZ",
-+            "pipe": "BV",
-+            "num": 4,
-+            "select": "GRAS_PERFCTR_LRZ_SEL",
-+            "counter": "RBBM_PERFCTR_BV_LRZ",
-+            "countable_type": "a8xx_lrz_perfcounter_select"
-+        },
-+        {
-+            "name": "BV_HLSQ",
-+            "pipe": "BV",
-+            "num": 6,
-+            "select": "SP_PERFCTR_HLSQ_SEL",
-+            "slice_select": [ "SP_PERFCTR_HLSQ_SEL_2" ],
-+            "counter": "RBBM_PERFCTR2_HLSQ",
-+            "countable_type": "a8xx_hlsq_perfcounter_select"
-+        }
-+    ]
-+}
++
+ /*
+  * The number of priority levels provided by drm gpu scheduler.  The
+  * DRM_SCHED_PRIORITY_KERNEL priority level is treated specially in some
 -- 
 2.54.0
 
