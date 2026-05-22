@@ -4,61 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E94B3CD5BB6
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 13:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87406CD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 13:43:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F30B310E09F;
-	Fri, 22 May 2026 13:40:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E89BD10F61B;
+	Fri, 22 May 2026 13:43:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QrThRZPB";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ARebg8jz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="e87+jKDI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ARebg8jz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="e87+jKDI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A71710E07D;
- Fri, 22 May 2026 13:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779457207; x=1810993207;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-id;
- bh=AqzWIe15rSPR2qFTMV0hV+sdzraVnQlAGYI8gzdLoy0=;
- b=QrThRZPB1GCRjrIP8oUliX3be73s1vlbKS59DNtSOe4DuEYoHa5cfqGY
- B6HQLsgX28HqoHM45kv5er1yzZxWhnpWsfAovtrS2g5f8QW9HP9uXtKtA
- tOwXYXtQEx7LmbJNUo9+F/Zk22G4AUmVJ8BVd+n6SQ+ke3HX22mRth6CT
- JkrnKcJUvM0k5w46G4Xotom4YfqG2cVH80RlSVBfKu54wqnMuzpAZ0xTE
- Qq7bSMGac1O/OMn0vz/7AeRGPdR3Ygr0g29D9xUwaSaCQD6Q2861lPA7U
- muGYokJLnOxjCrAI05vqUB4Ufpxoxa8sop+g6Nw1Bgg8x7m7exMdiIiBw Q==;
-X-CSE-ConnectionGUID: E9u/wFDZSFyNUdJnOsSS4w==
-X-CSE-MsgGUID: HOLCDxRtTB2lI+RFtbjVYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="91778777"
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="91778777"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2026 06:40:07 -0700
-X-CSE-ConnectionGUID: yGGLmTkkQ0SkhpaPtpcYMw==
-X-CSE-MsgGUID: 0HgWlebzRxq3Mt5xv1JXfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="234562688"
-Received: from dev-417.igk.intel.com ([10.91.214.181])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2026 06:40:04 -0700
-Date: Fri, 22 May 2026 15:40:02 +0200 (CEST)
-From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-cc: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v1 2/2] drm/managed: fix drmm_add_mod_or_reset() kernel-doc
-In-Reply-To: <8b886c39-f474-463e-99c5-2cc91466f1b9@intel.com>
-Message-ID: <676b9ad7-46f7-fabe-163e-33012a23030c@intel.com>
-References: <20260521155231.1821935-1-michal.grzelak@intel.com>
- <20260521155231.1821935-3-michal.grzelak@intel.com>
- <8b886c39-f474-463e-99c5-2cc91466f1b9@intel.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1176410F5E8
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 13:43:28 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CA52D6B519;
+ Fri, 22 May 2026 13:43:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779457406; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=fR3WzL8svdu9YnodP+paFDiGbN0UeRwL4B0YOmtBs+0=;
+ b=ARebg8jztU3ShhhkC0kVjHt4nLE1pdgTh3vWAqSWSxtkjE83WKGWQLi2ow/9hYm/Q6MrKc
+ LEAs99BIs459lX4nc8ckel/Y3ULseqXE875FbQ3kSkMiia0q5Lu+1Sd1GdyouXavc4kwiM
+ 8QgugmBDk+wHbJw/XdrBR486NW9GxWo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779457406;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=fR3WzL8svdu9YnodP+paFDiGbN0UeRwL4B0YOmtBs+0=;
+ b=e87+jKDI6gXWAIg8ymy/pc+cXoXiaOl3vBMkp6QMeJxECswpHRLrHwNwRmhPgTpFsEWeEo
+ YiFtMHo/UCJMCmCw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ARebg8jz;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=e87+jKDI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779457406; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=fR3WzL8svdu9YnodP+paFDiGbN0UeRwL4B0YOmtBs+0=;
+ b=ARebg8jztU3ShhhkC0kVjHt4nLE1pdgTh3vWAqSWSxtkjE83WKGWQLi2ow/9hYm/Q6MrKc
+ LEAs99BIs459lX4nc8ckel/Y3ULseqXE875FbQ3kSkMiia0q5Lu+1Sd1GdyouXavc4kwiM
+ 8QgugmBDk+wHbJw/XdrBR486NW9GxWo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779457406;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=fR3WzL8svdu9YnodP+paFDiGbN0UeRwL4B0YOmtBs+0=;
+ b=e87+jKDI6gXWAIg8ymy/pc+cXoXiaOl3vBMkp6QMeJxECswpHRLrHwNwRmhPgTpFsEWeEo
+ YiFtMHo/UCJMCmCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 806D6593A8;
+ Fri, 22 May 2026 13:43:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QQoIHn5dEGrfQAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 22 May 2026 13:43:26 +0000
+Message-ID: <5fbcda92-f6b0-4de2-89e5-ea43a6248b05@suse.de>
+Date: Fri, 22 May 2026 15:43:26 +0200
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-969468146-1779456677=:1544314"
-Content-ID: <7e91f919-70b4-ad0c-8680-dc597dce2f86@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
+ for vblank
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Icenowy Zheng <uwu@icenowy.me>, stable@vger.kernel.org
+References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
+ <ee86cb43-e5df-4946-a957-931a73dde752@suse.de> <ahBWayIcQUHuAt4i@intel.com>
+ <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de> <ahBZ8nIqR4qESLZg@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <ahBZ8nIqR4qESLZg@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: CA52D6B519
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[11]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch,ravnborg.org,lists.freedesktop.org,vger.kernel.org,icenowy.me];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ internal_greylist_whitelist(0.00)[2a07:de40:b281:104:10:150:64:97];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,51 +153,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi
 
---8323329-969468146-1779456677=:1544314
-Content-Type: text/plain; CHARSET=ISO-8859-2; format=flowed
-Content-Transfer-Encoding: 8BIT
-Content-ID: <95e88270-d98b-7af7-d8da-c2e395bb1814@intel.com>
+Am 22.05.26 um 15:28 schrieb Ville Syrjälä:
+[...]
+>>>> But why does your HW use CRTC 1 in the first place.
+>>> Could be eg. the enabled outputs can't be driven with CRTC 0.
+>>>
+>>> I guess what you want to do is pick the first crtc from modesets[]
+>>> which is enabled. Or perhaps even "pick the Nth enabled crtc from
+>>> modesets[] based on the ioctl argument".
+>> The enable-status of each CRTC could change later on, which might lead
+>> to problems.
+> Sound like a locking issue if someone is changing the configuration
+> at the same time we're trying to do the vblank wait here.
 
-On Fri, 22 May 2026, Borah, Chaitanya Kumar wrote:
-> On 5/21/2026 9:22 PM, Micha� Grzelak wrote:
->> Kernel-doc of drmm_add_mode_or_reset() references @releases which is not
->> on argument list. Swap '@' between 'releases' and 'action' words to fix
->> the documentation.
+I mean that the connected outputs could change at a later point or we 
+could have multiple CRTCs in use. Today, someone in #intel-gfx reported 
+a problem with panning if multiple CRTCs are in use.
+
+Therefore picking a CRTC freely could be a problem. Let's say we 
+configure modes from one CRTC, but later wait/pan/flush with another 
+CRTC. I would not trust this to work correctly.
+
+Hence, my suggestion is to select a primary CRTC during the fbdev 
+client's probe and use it for all later operations until the next probe 
+happens.  All other CRTCs would mirror the primary one.
+
+Best regards
+Thomas
+
+
 >
-> s/drmm_add_mode_or_reset/drmm_add_action
->
+>> Picking the one CRTC/output with the lowest spec and
+>> mirroring it to the others might work. This CRTC would then be the one
+>> to wait for.
+>>
+>> Best regards
+>> Thomas
+>>
+>> -- 
+>> --
+>> Thomas Zimmermann
+>> Graphics Driver Developer
+>> SUSE Software Solutions Germany GmbH
+>> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+>> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+>>
 
-Title would like to see that as well...
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-BR,
-Micha�
 
->> 
->> Signed-off-by: Micha� Grzelak <michal.grzelak@intel.com>
->> ---
->>   include/drm/drm_managed.h | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->> 
->> diff --git a/include/drm/drm_managed.h b/include/drm/drm_managed.h
->> index 72bfac002c06..72d0d68be226 100644
->> --- a/include/drm/drm_managed.h
->> +++ b/include/drm/drm_managed.h
->> @@ -18,7 +18,7 @@ typedef void (*drmres_release_t)(struct drm_device *dev, 
->> void *res);
->>    * @action: function which should be called when @dev is released
->>    * @data: opaque pointer, passed to @action
->>    *
->> - * This function adds the @release action with optional parameter @data to 
->> the
->> + * This function adds the release @action with optional parameter @data to 
->> the
->>    * list of cleanup actions for @dev. The cleanup actions will be run in 
->> reverse
->>    * order in the final drm_dev_put() call for @dev.
->>    */
->
->
---8323329-969468146-1779456677=:1544314--
