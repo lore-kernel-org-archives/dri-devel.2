@@ -4,77 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12AE6CD5BB1
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 12:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC49ECD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 12:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4761210F750;
-	Fri, 22 May 2026 12:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC6D10E0FC;
+	Fri, 22 May 2026 12:51:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="WgaCAY3E";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jLUG34R+";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94CF510F721;
- Fri, 22 May 2026 12:37:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779453411; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=OZrUo1WYc2zkFyjS/Q4vGR//2hqTKcz6X0SAScJjxyBVfvZu+gFXXqjMKAWknoZjGriHA9hmmmMqlMmMy3pMDP/Cm07HidJFKehE8gajqvKWU1Mmf4XJsyrMy8eRe5W9yI6X/a/htdL6fmHI5PLDaDQIX9OETHoPRf1CtgjiH00=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779453411;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=26EFTuIhlqnsc4uUzyuaHx+9wSdJArl+zaLC9veBaX4=; 
- b=AxZIQ0iZI5ov3PdaO7thHVLkcHajpuj/P3iFwjQFAiCUvR0VKW86lD2JN4k96fHmE2xCsCxGJJ2uVU5s06kkd5HfzLL8maT4kdF9/zB6ztGN8Vv2t7DiOaxEAH4MOaLcKpEiHXtIih0tQwWzeI8bYJU543N/QaXBs2dMxOFxhyA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453411; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=26EFTuIhlqnsc4uUzyuaHx+9wSdJArl+zaLC9veBaX4=;
- b=WgaCAY3ElQAIEMmoGTQDPDiSDLigtnAiKKiXLrNgQW9ISknxT60ysRE8k/lOT8Yb
- PvAUK6V7Z21bTRXAROnZLm8ra4QB/ZEMZ7vHLzub8jwLgIO8Q7FtT8soDQR/dRXyqQk
- DTtoH0Dtvu9Dc2yP7JxJR6RXiUH/uMcpoqIHIS/s=
-Received: by mx.zohomail.com with SMTPS id 177945341033966.33667935734206;
- Fri, 22 May 2026 05:36:50 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 22 May 2026 14:32:19 +0200
-Subject: [PATCH v15 28/28] drm/connector: Update docs of "colorspace" for
- color format prop
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A92310E0FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 12:51:30 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4903997fcb5so18444995e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 05:51:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1779454289; x=1780059089; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=qITjIxKdpi1UQe1FdVWE4w1z8BRh8hFPuNNNTfo269A=;
+ b=jLUG34R+kKk/EBBY+phs+6EZ3yVL6Xm1/FJ41B0Xy0V9FG5CJ+UNI18kFf8eOZKNhZ
+ rrKms2N/O42nFS56A0sz0FkU1NvflCDE+YiVmf8aafqUuTj3lo0aWb/OZxV16/RS1Nww
+ 5dy3cquZmreEVpCpfQ79pWsvsX+xCmy5wKv1+bkFO9wbqYfi5Ets250nl9PRGVhEWVBH
+ vzaNRUJCtyPU3vSzIPs1yO/8OkXvYe6x1WiQECiTV8q1uXoeVB7egPz2kYT5+bFd2Bhp
+ 6pTmk5qA+4OM1jO4uLdIJkH+Ct5+tDtOC98qRnYIFhpR2qOB7+Auu2Drxj+0xnocqt+h
+ 8etg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779454289; x=1780059089;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qITjIxKdpi1UQe1FdVWE4w1z8BRh8hFPuNNNTfo269A=;
+ b=Q2tKVeyk9bFTL+yFwbvlmYfec/C+/aNwExxNhCx98UL1xmsd2pxnHYFbGXdXsMkOqL
+ pf05K+oK/GThfcmW9xLtAmoMfaViaGf4MI33zLxqXbElcpjO83SjeYbVfFnCyqj+oQdq
+ fjNMz+0KljQ3TFPlTOcGL9fcyeP6L0w7F8j1EgZWWzJFRuGlzNMUP3EOkpkXfaO8+C/+
+ 833DAl8wq6B6iIstA4qD9BPjyLUr/9DCPPZbm7fTX/GhJU/0P0pecTZE3n+EamigWQKD
+ rgb+TNlFQmr70B2Sjk+Usod9K4wwDFHABggbaSUmt+uLqgXkSPMyFz6jJ8IC7LPBDYNW
+ LQQA==
+X-Gm-Message-State: AOJu0Ywb97mN5hAcTUuFwv8R4yFdT1J0E2VmCeDbOJgyOYGV3L+uh06S
+ W01XRkpMHv1LgsnXoFFpEkh2WhQfJdWyvo6OlgVnUCtNvNd9EF27HK9LKzuY6S/j20c=
+X-Gm-Gg: Acq92OEDADVAiVuYq2e+Wfk8z7F6XPG2UbK+pVnT9mPmdWfDWT/BkDBmBQluvxs09Qd
+ D0W5UiuxYopVGXpCAMAQEEF6lhec01dPkAqTYpES0pb9Plq7icSgCBNk0FO87KhK0nIZqnH/9Ud
+ 5HUsARXtwnZ7beeqQVYj87R8vL+C6Sc2dLm/eHkOkRYtIJNVam8QQhFLRORFYGomwZHTITcOwo1
+ b0YAUK52RtB1hL4JCrx+nnJ/9maGsqMqvQl5f+9QY7aO/92+BfMvcAsvURWg4hrbPQpo6ATdcHB
+ pquV7RNJRRrwCsGoNTQ6EdG+FuEFFs1BOcReR4GQuhfCSIapSedtGFJBhgfBlfDsMi7z4Pvnc4S
+ 1nlN41KxZoGCtwYSmZGpKe1ZTia3yvXxF33nmDGv/ato+GU6pZKJNukyDoKH6M7rJ4YGfzwmyEi
+ GPIXXpsmCs3m6QrBXDd/FXFvompnSOAtEkrqXunH0U+5VWAe70qGd7F58=
+X-Received: by 2002:a05:600c:a14:b0:48f:99a9:bbcc with SMTP id
+ 5b1f17b1804b1-4904249af8cmr43036585e9.10.1779454288848; 
+ Fri, 22 May 2026 05:51:28 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49042af0ac1sm15046735e9.31.2026.05.22.05.51.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 May 2026 05:51:28 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v6 0/2] drm: panel: support the R63419 based dual-DSI video
+ mode Display Panels
+Date: Fri, 22 May 2026 14:51:23 +0200
+Message-Id: <20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v6-0-16edddda9951@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-color-format-v15-28-21fb136c9df2@collabora.com>
-References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
-In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+X-B4-Tracking: v=1; b=H4sIAEtREGoC/5XQy07DMBAF0F+pvMZoPH4kZsV/IBaOM27NI47sE
+ FFV+XecsiCoLII0myuNzx35wgrlSIU9HC4s0xxLTEMN5u7A/MkNR+Kxr5khoAGFLZ/SGD0v763
+ RwN3ZDZT4mPwrTbwgz0YqYTk1qExD2HcQWKXGTCF+Xmuenr9z+eheyE+rvW6cYplSPl/vmMW69
+ 8/KWXDgthXUaVdHi8e3OLic7lM+srVzxo0qYaeKqyqcF6C07MHfqPJH1aB2qnJVgxE+oHLUhRt
+ VbdT6YJ+qqtq1Fq0LmuwfP6A3Koqdqq5q3+sGAK2VFn6py7J8AU7ZUANDAgAA
+X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f
+To: Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Daniel Stone <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Conor Dooley <conor.dooley@microchip.com>, KancyJoe <kancy2333@outlook.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2545;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=yu5kbiZ7RSpkU9DZCpgGVCTo6zTSxkQHUhlI1OpeSZU=;
+ b=owEBbAKT/ZANAwAKAXfc29rIyEnRAcsmYgBqEFFOKZN7cltSl4iY7VA4xytyu+IWa1ufwwM5Ync+
+ 21HH8U6JAjIEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCahBRTgAKCRB33NvayMhJ0f+dD/
+ dluIr2VYAGxXnbAONds0fhFF5qTOghobJH9hzEpYHGTzmHnU93c27IYNjTSTC5QgO9/bWP9SB7UB/z
+ ozJw9jZTuaNZSsAF1tcBr7mLUmHG3dY2DAS8qMhimo8RtjilNVKGW7vBmYiyCrFcACwltHKjSPYPHr
+ C6UveKj5kVweeUdCj5guO+77zseBf/pQ4w+R7FV93drAT8NpmwpB++7PbzcztO5lmlxpGS1e4P/Cg6
+ gOnaML1kYbcUxhF4evNIlUGY1bZvaxje6a5IcDcs0ZaqE+R0jPAYpKAeCn3owrb0tXQ+vXfY3f8R9o
+ kzOfD3eDW8OO/DM1GSoNOXZgQmsfdF4JEu+GyCyVV+99PuQgFgIVqomxolGCFM6wUjHVrgVoVnQpkS
+ G6EgrymFmO91ojg838j709OMdA86FDkLm7XugO2K717YVWaxUCKBy3ACYp5Eg1Wt9Vkns3Wj5nGQJY
+ ttOb2su2YDgeVUEmoWwGrs4IQ6daGmERStSveu2TRUYCYW1n/XAOEOSZvpUOcpOL3t7EXtguZ5vBHe
+ UTKDOf/SCe+SH3l7NMqGXmi+sgwteX/IoFH88Tiu6V8JXwayeudqE/umSKZz2hvMNTE4BCR97hyS2K
+ a7jc+Klcg38Fa9i8mZq2Q3FC7m01clxHgBk2f13n0UfDRD1upullV+NCz7
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,37 +118,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The colorspace property's documentation states that BT2020_RGB and
-BT2020_YCC are equivalent, and the output format depends on the driver.
+Add support for the Renesas 63419 based dual-DSI video mode
+Display Panels found in the Ayaneo gaming handled devices.
 
-Now that there is a "color format" property that userspace can use to
-explicitly set a format, update the colorspace docs to mention this.
-
-The behaviour here is not changed for userspace that doesn't know about
-the color format property yet, as the color format property defaults to
-"AUTO", where the choice of output format is left up to drivers.
-
-Reviewed-by: Daniel Stone <daniel@fooishbar.org>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/gpu/drm/drm_connector.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v6:
+- Get new dt bindings review from Conor
+- Properly init dsi_ctx
+- Link to v5: https://patch.msgid.link/20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-0-dd5700299390@linaro.org
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index b91c1f76355e..52f9a6a8daf7 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2573,7 +2573,8 @@ EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
-  *		conversion matrix and convert to the appropriate quantization
-  *		range.
-  *		The variants BT2020_RGB and BT2020_YCC are equivalent and the
-- *		driver chooses between RGB and YCbCr on its own.
-+ *		driver chooses between RGB and YCbCr based on the color format
-+ *		property.
-  *
-  *	SMPTE_170M_YCC:
-  *	BT709_YCC:
+Changes in v5:
+- Import panel-common-dual.yaml in bindings
+- Set reg as required
+- fix bindings example typo
+- Add helper to switch link in order to use single dsi_ctx to properly handle errors
+- Disable vdd supplies if vcc supplied fail to enable
+- Precise the power off sequence is recommended by the vendor spec
+- Drop passing of node to second dsi to avoid re-probing the driver twice
+- Link to v4: https://patch.msgid.link/20260519-topic-sm8650-ayaneo-pocket-s2-r63419-v4-0-b8929af5e951@linaro.org
 
--- 
-2.54.0
+Changes in v4:
+- Moved height/width in the drm_mode, duplicated modes to use drm_connector_helper_get_modes_fixed
+- Create dsi_info on the stack with proper OF node and name passed
+- Switched to devm_drm_panel_add/devm_mipi_dsi_attach & dropped remove
+- Link to v3: https://patch.msgid.link/20260504-topic-sm8650-ayaneo-pocket-s2-r63419-v3-0-9f61cf24aebf@linaro.org
+
+Changes in v3:
+- Added DDIC compatible as fallback
+- Added rotation in bindings example
+- Fixed bindings subject
+- Added second MODULE_AUTHOR entry and re-ordered signed-off-by order
+- Link to v2: https://patch.msgid.link/20260430-topic-sm8650-ayaneo-pocket-s2-r63419-v2-0-91ac10453d0c@linaro.org
+
+Changes in v2:
+- Add missing rotation property into bindings
+- Fix commit message & subject typos
+- Link to v1: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-0-981eb5ab5a51@linaro.org
+
+---
+KancyJoe (1):
+      drm: panel: add support for the Renesas R63419 based dual-DSI video mode Display Panels
+
+Neil Armstrong (1):
+      dt-bindings: display: panel: document the Renesas R63419 based dual-DSI video mode Display Panels
+
+ .../bindings/display/panel/renesas,r63419.yaml     |  98 ++++++
+ drivers/gpu/drm/panel/Kconfig                      |  12 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-renesas-r63419.c       | 364 +++++++++++++++++++++
+ 4 files changed, 475 insertions(+)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
