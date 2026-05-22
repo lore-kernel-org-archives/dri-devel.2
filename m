@@ -4,130 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B14EDCD5BB4
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 17:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 125F4CD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 17:38:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A64810F6F6;
-	Fri, 22 May 2026 17:35:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C9C210F5F6;
+	Fri, 22 May 2026 17:38:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nhiv68V7";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CvVECjcH";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="SG95T8OY";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01D3410F6F6
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:35:05 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64MD3Ad0779158
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:35:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=OlrCc+t7CrC
- NbDyoSUL1NFgB6ARlkR4nNT8vRThHknA=; b=Nhiv68V7rCVQ3U8Ans1Lm6y562y
- EhvIb6H7KflZ+dkr60GemDETvYGH0/cK+plN3QqzLrmpZfh405aqjPBJVmQE4oyR
- 6LmDw1M3k6Jcjmfd5Ur3xxdi7KwS8jDM0DF2n1w4EORYKnUnkqJCO8EEcYRILqU0
- lixsHnoaPOzjQNB0N07DdZcJdEy2G+BgjlwxqwCVR+YUTLCZaQbRb1bjQcI214xF
- oNzYEJvVblzxP1Ks8NxFKWuS2AggvOi8+aUxTuuDC6zxA3OwQ1i44SA72ZaExLKe
- kBYyjrkosNzGn8tcuY691bP6LIw1jr02jGx+msZh+7eaiFpUys1icd4tk3w==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eac7auy21-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:35:04 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2bd6aeb3637so183887085ad.2
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 10:35:04 -0700 (PDT)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B251710F5F6
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 17:38:36 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-c8025aecc40so3795048a12.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 10:38:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779471516; cv=none;
+ d=google.com; s=arc-20240605;
+ b=deZF7tLqeu0JLAAkqFfUWjj9GmhDMPKOhE46plLj2vLg8y3V+twyjj84Zz7SynZPOb
+ oTyZH8z5pKQH1NewdMtI8/CMijauB/t1M+ayT2p6WaHYi6+3l7BsGIL6MKIfZS0TSKpR
+ HX91NrQexWIW2vXPApb8nIR/M0MqHJkStFiiFQKUAtbcrm23I9aVn+12buKm00KrEi5V
+ z+4qu6ajasqHRshbZ/QijZkqsfKBmExVOD9LDRhp+ONYv7gahacOtYLV8SQZqY/UIICa
+ L4bHNV3nLFo6PO5q9ZtcLdhOniaLxKUXsLIY3uL8QYM8oA+cHoDIhxNsGChUf1AxddAK
+ HIgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=IVnvoAxveeXVkX6pNtnMesdFolHZTT6TJssbfAAnj1Y=;
+ fh=mVORzFE1zHogb7ctfe3A+C68ceMLn8FCBftrBT//juM=;
+ b=WdURDHd+kMXEbqYz7cR86U3b33b6Zm/7fZ2GM8u/H+Os2ok+46luvvc8/pT7YXh5BW
+ VtmHRTov/iE9vQPk22GsmLQwTzBAAnEFz9wCUU+isWncH6Jc9mux73bElsYqIkg3IJwg
+ ppvgZVXz7GKv8fv2lpxKrHurZbajpUsCrzQdpVJkFpG2kUgjlVtYZcsZutODtQqLC7Lg
+ n/GCVrLEL/mEUg92KXro8/FztKJMeYoBLbaUApyvGbnckNspVfSN+yMuwW8AC/4CMeU3
+ 07xhkN2m0g6I4gWSTAce9Zula+H/MrQWtpEzaruBA/avTTzXQGqqdHJWmH65kp0d4B/U
+ 1dIw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779471304; x=1780076104;
+ d=fooishbar.org; s=google; t=1779471516; x=1780076316;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OlrCc+t7CrCNbDyoSUL1NFgB6ARlkR4nNT8vRThHknA=;
- b=CvVECjcH3cWtqXKZ5tj8s0KyDRAStOjp2xJMENhw/Oy0ptFbfd+RFIhAkQ0BgtDDbm
- owmNtOkuxJF2exiYDfxbzvN0y4+huSzyaqyM5VEyr4wKGdlXPz2UzCOrx+pm6cEi2M85
- Tt0Q3FAsXSo9MQdzRpBskRW4XiD0FotmD5MxDZ42fXSRTsh5g9zc/C3lSY3bGHrxeuqR
- pcu/MXs0bY2gxaEskFfkt/daErHrmTzdKyqko9UezmGC6IRoD44nusxUiCBoUdXmAsQg
- E1nN5hEcWGI8sltKznjrjdF7VnlzOfvWHZ5RJn6AR2htBILd5Op2sCppDwUhA8TTzCie
- 878Q==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=IVnvoAxveeXVkX6pNtnMesdFolHZTT6TJssbfAAnj1Y=;
+ b=SG95T8OYQzLc2vzyuOlDfBsWS/wzj8MP3L9azMLik+EnvpAWLbmqCmbN1q7iG+eFix
+ owJEUjjKQ6OP6p+raSmebUzWlQgwOccgPPYAX7BAPDewXlliPFejI4ySq1HMTLULU43S
+ rRSx1/DJAlFBZe6lUAnoEKmpVr2HtZ/tof1reF+WD9uqpDW8x7KLZ7YfLbg70ioPIaI+
+ 7mAIH5mi/KDpGdyfLptCqwBiw3UAcF4Hg2cQIpqzbhGITAqT/V0+y97dUdkPzfGNXa4b
+ ZRH+7D4uXmAkQoWbrgpoSBk6ulcLr4Sd48Kz7vzGDQFkFmEfmpk0hY7FciYczF05c6uv
+ NhNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779471304; x=1780076104;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=OlrCc+t7CrCNbDyoSUL1NFgB6ARlkR4nNT8vRThHknA=;
- b=D0CT6oYThP5MD/WWAYhXwvGX9BgzFiPzrfyvkLkcvzCDNnpwpYsV4ZORYszpu97VzU
- DmJFV3sl/SiHd+UeR3CHzIiyk6aEaosMdgnRjJ7vZB6o+wnNYO/DBR+nY6q8L2+UuW39
- 408tsqYmh4n9Zi9fAhpLAlAyvbjCkU23dwddKvk5rhtH0x5yoT6MMphGVrgZ/hzROi0d
- 6qa64/jJttI+FP3YB3A1AE4oszYMNgvOoTgRH1goXAP8sobh+tDDULdPAeGTYCkpZcTi
- GN36DyViJDL2ZxtKYobUNmYwzAVZReuhsWY4/EQVSMZykoHkBWnAfpWv5rUKONzwkb/c
- 1IXg==
-X-Gm-Message-State: AOJu0Yw7wv3v4MZMFBWZMiCCgUk8+NgQwxzYnZ1gt9okrXIx/yDXKvdU
- QUH1eWsVKLM5l2br0PcAkMyn2L8dGhdD8AmVTziquzg7XY7Ruqk1wHZVnBYa8D0PX5513SF2yIP
- 2CukDisSbSnhh33a3zjFp6c/rPrbJRFakLg6n0QDOrfOlbLSe8gGCQg2WAYb2Lm9C2VbUO0FGYY
- puhF8=
-X-Gm-Gg: Acq92OFUp8gVFUzhJoHskKDld8IW6rK/1BmUPHYSrZ0CS8Y25qj1MD5xGXh8vU1prjc
- wXPhoKg6aKly6Eg63jhDc9oudt1Xs7r/CddXGXm8W/i1CqGBEagBX/t6yEENmew+L5JyXUQjf6w
- LeXDfr+6+sYGPfHy9OyCmgruna6U8jObA6weVXO4LZ5lQ2U41niKRKJN3+xGSq72bz4OX847ZNI
- 7OU7yTrkTmQm2ojEidxp+b5AzMyCo2lR/KxSq0KDLWM92ou2yjKrcag63KXuM6vZND0y06qEZ1j
- Yfj8lrfHPStZDUb59EZQsxhSph6w3Hf4RZK8AgiET77XMmGNDvVFzZ15OtJt8TGhuSYSuYaesdk
- 2ohf3DmDK89UdGzad9FVle8eeumbjHynt
-X-Received: by 2002:a17:903:2f03:b0:2bd:eeb6:ff28 with SMTP id
- d9443c01a7336-2beb0672a53mr56265405ad.12.1779471303803; 
- Fri, 22 May 2026 10:35:03 -0700 (PDT)
-X-Received: by 2002:a17:903:2f03:b0:2bd:eeb6:ff28 with SMTP id
- d9443c01a7336-2beb0672a53mr56264985ad.12.1779471303286; 
- Fri, 22 May 2026 10:35:03 -0700 (PDT)
-Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb56d750asm23344045ad.33.2026.05.22.10.35.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 10:35:02 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v9 15/16] drm/msm/a6xx: Append SEL regs to dyn pwrup reglist
-Date: Fri, 22 May 2026 10:33:01 -0700
-Message-ID: <20260522173349.55491-16-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260522173349.55491-1-robin.clark@oss.qualcomm.com>
-References: <20260522173349.55491-1-robin.clark@oss.qualcomm.com>
+ d=1e100.net; s=20251104; t=1779471516; x=1780076316;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IVnvoAxveeXVkX6pNtnMesdFolHZTT6TJssbfAAnj1Y=;
+ b=UczIviyE7yEBwtZ0jIcz7sc7sEPb8I2aB44Nd9Ditsw4NhxLYRfxPbzcGv7RpQwqtg
+ 0wrPbTW3CxZ/mxHsFjVgwmoZTpi5dYwdwIoNlt7J5J+mCCpQfADjzwa639XblTNMGwvA
+ 16P6/mrz9TT0lMx7Gr8q9Ec1WE9/RKzfb2iZLJqLq8sM2Mt6G0M0q218+UtSptdJEL0V
+ sc4+XeHHYeHkTk35wRr6sTMhYoYZP2dnkX962j4k9WTN6An2kuP6STCYUe6qPevUHtmI
+ 40wKIs/nBLgE/eas/gS0LW4viKGbaVcVaZ12+V8WlnmevAxs9PG9Cq5Vk/rOKjS7QDja
+ ba+Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ94alZ4sLlpFRYpi3MUSROiunZEBu8dbu6GXBjN1iym48lXEIHHjBx70kTsvaRVShfWtVsULpKXu78=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzK/A/NAKDArX55koCkTrI7kocJLYVbzUwlc+zs4fKO3q8q5ur6
+ gE6wKSramA3WNWWe+4smkV/yL6hls9/wF4kLkZBtcsD76Y+WfTNV3MkVH/b2GY/0BdnNS0NGU9p
+ 0r871YfDlBkXm5vo8LFIuI1aTb3FB6XP+YuqaKt9meg==
+X-Gm-Gg: Acq92OEzlje2HwxeSIDhvVfA/rHcI4k80S3JLq7s11+o4N8fngE6gK1yu/oEuHZ00+F
+ xYOIRzE4/EEGv7aAdp3ShtKoSlzcrMV4c+LS4S289ziCEo1Rj2xrHc06yfPp29rXUEscCyxaigR
+ XS/Xai4XVm/RqJ/IL+Majhl4CLcblFiXNddu7Lgme/c08WKhap46dmvLS6+dmJ/5YUKNILS60OW
+ qsnviSDPd9kKTaoD2UOtxPQKhqoWBVDRTn4S6YSbp95KAsk++IlPanXot2o7RYq1eqPlmAgbB5F
+ VLS7xug=
+X-Received: by 2002:a05:6300:210e:b0:3a2:cf6d:aa04 with SMTP id
+ adf61e73a8af0-3b307bde7b0mr8345335637.8.1779471516101; Fri, 22 May 2026
+ 10:38:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: FL7K9vF8vQSsbM2zVm5pRPeohodtAlwt
-X-Authority-Analysis: v=2.4 cv=JrbBas4C c=1 sm=1 tr=0 ts=6a1093c8 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=gjKahejJLxXXi_JFjLAA:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: FL7K9vF8vQSsbM2zVm5pRPeohodtAlwt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE3NSBTYWx0ZWRfX4fr4aAOHSVpD
- WyVHQwTmCfEO7Y4UirLewd3psEiGYmezkQILI81KI4lfy34BMcf/6Jsg5BX4k3Hz8Sn2YOXforv
- hhY7LxvdaP411++8mMSjZgbLa10JTtSk6F+pQE2olDa+J0xtlLfw713br7bsqgmAqEvcMB3osR9
- 9sR48CdCTI5LIGUViCDIB+r0Ouoc/Z5/t3UYFRLIIKwonVn1sS05/Wln7YuqSpbevH9Zpn94ucA
- fR0kQjiIpx7GLodNV4a4OpCkn4sonWenzRtcCV/MvtRrl/PZygEEXrNpcu5n+8YpPRm5I704TKb
- K02deFKw+JEdWSAWROeKHbDF1jL+abP7KFa4SL/F9aHHqWaBvynIOOIbpayTk5aefY9j4hPX6pS
- x5XP7rVIyNmJaz0pbeYr9s1VLyBfw+n3MbKaVYjZXT7aKwHos/jiGlBVUFo5BJ9djcPxRUqmUIi
- /h7RehGOmYw/sc91vGg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_04,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 clxscore=1015 adultscore=0
- lowpriorityscore=0 spamscore=0 malwarescore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220175
+References: <20260520-scdc-link-health-v2-0-511af18cd64b@collabora.com>
+ <20260520-scdc-link-health-v2-3-511af18cd64b@collabora.com>
+In-Reply-To: <20260520-scdc-link-health-v2-3-511af18cd64b@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Fri, 22 May 2026 18:38:24 +0100
+X-Gm-Features: AVHnY4Iyy7zGNtQMTS3djgL0PzThMuauBSUo8jnZn2Vn7HzLcmAjq7TCihnYb_4
+Message-ID: <CAPj87rMe_oOR66uBE1PpNq4oMgpw_XhAbQit3tohTQbUD2dPdQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] drm/scdc-helper: Implement parsing and printing
+ HDMI 2.1 fields
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,194 +114,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is needed so that SEL reg values are restored on exit from IFPC.
+Hi Nicolas,
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-Reviewed-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 84 +++++++++++++++++++++++++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h | 11 +++-
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c |  1 +
- 3 files changed, 89 insertions(+), 7 deletions(-)
+On Wed, 20 May 2026 at 14:36, Nicolas Frattaroli
+<nicolas.frattaroli@collabora.com> wrote:
+> -       for (i = 0; i < ARRAY_SIZE(buf) - 1; i += 2) {
+> +       for (i = 0; i <= ERR_DET_OFF(SCDC_ERR_DET_2_H); i += 2) {
+>                 if (buf[i + 1] & SCDC_CHANNEL_VALID)
+>                         counter[i / 2] = buf[i] | (buf[i + 1] & ~SCDC_CHANNEL_VALID) << 8;
+>                 else
+> @@ -355,9 +433,15 @@ int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[3]
+>                 buf[i] = 0;
+>                 buf[i + 1] = 0;
+>         }
+> -       buf[ARRAY_SIZE(buf) - 1] = 0;
+> +       buf[ERR_DET_OFF(SCDC_ERR_DET_CHECKSUM)] = 0;
+> +
+> +       if (num_lanes == 4)
+> +               counter[3] = buf[ERR_DET_OFF(SCDC_ERR_DET_3_L)] |
+> +                            (buf[ERR_DET_OFF(SCDC_ERR_DET_3_H)] & ~SCDC_CHANNEL_VALID) << 8;
+> +       else
+> +               counter[3] = 0;
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index e6c362c55dee..af524130d5c4 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -946,6 +946,7 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
- 			  A7XX_CP_APERTURE_CNTL_HOST_PIPE(PIPE_NONE));
- 	}
- 	lock->dynamic_list_len = dyn_pwrup_reglist_count;
-+	a6xx_gpu->dynamic_sel_reglist_offset = dyn_pwrup_reglist_count;
- }
- 
- static int a7xx_preempt_start(struct msm_gpu *gpu)
-@@ -2535,11 +2536,60 @@ static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	return progress;
- }
- 
-+static void
-+perfcntr_select(struct msm_ringbuffer *ring, enum adreno_pipe pipe,
-+		uint32_t regidx, uint32_t *countables, uint32_t nr,
-+		uint32_t **reglist)
-+{
-+	OUT_PKT4(ring, regidx, nr);
-+	for (unsigned i = 0; i < nr; i++)
-+		OUT_RING(ring, countables[i]);
-+
-+	if (!*reglist)
-+		return;
-+
-+	for (unsigned i = 0; i < nr; i++) {
-+		/*
-+		 * Bitfield is in same position on a7xx, but only 2 bits..
-+		 * which is sufficient for NONE/BR/BV:
-+		 */
-+		*(*reglist)++ = A8XX_CP_APERTURE_CNTL_HOST_PIPEID(pipe);
-+		*(*reglist)++ = regidx + i;
-+		*(*reglist)++ = countables[i];
-+	}
-+}
-+
- static void
- a6xx_perfcntr_configure(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 			const struct msm_perfcntr_stream *stream)
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
- 	enum adreno_pipe pipe = PIPE_NONE;
-+	uint32_t *reglist = NULL;
-+	uint32_t *reglist_sel_start;
-+
-+	if (to_adreno_gpu(gpu)->info->family >= ADRENO_7XX_GEN1) {
-+		WARN_ON(!a6xx_gpu->pwrup_reglist_emitted);
-+
-+		struct cpu_gpu_lock *lock = a6xx_gpu->pwrup_reglist_ptr;
-+		int off = (2 * lock->ifpc_list_len) +
-+			  (2 * lock->preemption_list_len) +
-+			  (3 * a6xx_gpu->dynamic_sel_reglist_offset);
-+
-+		reglist = (uint32_t *)&lock->regs[0];
-+		reglist += off;
-+		reglist_sel_start = reglist;
-+
-+		/* Clear any previously configured SEL reg entries: */
-+		lock->dynamic_list_len = a6xx_gpu->dynamic_sel_reglist_offset;
-+
-+		/*
-+		 * Ensure CP sees the dynamic_list_len update before we
-+		 * start modifying the SEL entries:
-+		 */
-+		dma_wmb();
-+	}
- 
- 	for (unsigned i = 0; i < stream->nr_groups; i++) {
- 		unsigned group_idx = msm_perfcntr_group_idx(stream, i);
-@@ -2567,17 +2617,15 @@ a6xx_perfcntr_configure(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 
- 		const struct msm_perfcntr_counter *counter = &group->counters[base];
- 		unsigned nr = group_state->allocated_counters;
--		OUT_PKT4(ring, counter->select_reg, nr);
--		for (unsigned c = 0; c < nr; c++)
--			OUT_RING(ring, group_state->countables[c]);
-+		perfcntr_select(ring, pipe, counter->select_reg,
-+				group_state->countables, nr, &reglist);
- 
- 		for (unsigned s = 0; s < ARRAY_SIZE(counter->slice_select_regs); s++) {
- 			if (!counter->slice_select_regs[s])
- 				break;
- 
--			OUT_PKT4(ring, counter->slice_select_regs[s], nr);
--			for (unsigned c = 0; c < nr; c++)
--				OUT_RING(ring, group_state->countables[c]);
-+			perfcntr_select(ring, pipe, counter->slice_select_regs[s],
-+					group_state->countables, nr, &reglist);
- 		}
- 	}
- 
-@@ -2591,6 +2639,30 @@ a6xx_perfcntr_configure(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 	OUT_RING(ring, upper_32_bits(rbmemptr(ring, perfcntr_fence)));
- 	OUT_RING(ring, stream->sel_fence);
- 
-+	/*
-+	 * Update the pwrup reglist size before flushing.  Kgsl does a shared-
-+	 * memory spinlock dance with SQE to avoid racing with IFPC exit.  But
-+	 * we can skip that since the ringbuffer programming will be executed
-+	 * by SQE after dynamic reglist size is updated.  So even if we lose
-+	 * the race, the register programming in the rb will overwrite/correct
-+	 * the SEL regs restored by SQE on IFPC exit, before sampling begins.
-+	 */
-+	if (reglist) {
-+		struct cpu_gpu_lock *lock = a6xx_gpu->pwrup_reglist_ptr;
-+		unsigned nr_regs = (reglist - reglist_sel_start) / 3;
-+
-+		/*
-+		 * Ensure CP sees updates to the pwrup_reglist before it
-+		 * sees the new (increased) length:
-+		 */
-+		dma_wmb();
-+
-+		/* Update dynamic reglist len to include new SEL reg programming: */
-+		lock->dynamic_list_len = a6xx_gpu->dynamic_sel_reglist_offset + nr_regs;
-+
-+		WARN_ON_ONCE(reglist > (uint32_t *)((uint8_t *)lock + PWRUP_REGLIST_SIZE));
-+	}
-+
- 	a6xx_flush_yield(gpu, ring);
- 
- 	/* Check to see if we need to start preemption */
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-index d3f0b40787db..b72fb58bf223 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-@@ -21,17 +21,19 @@ struct cpu_gpu_lock {
- 	uint32_t cpu_req;
- 	uint32_t turn;
- 	union {
-+		/* a6xx: */
- 		struct {
- 			uint16_t list_length;
- 			uint16_t list_offset;
- 		};
-+		/* a7xx+: */
- 		struct {
- 			uint8_t ifpc_list_len;
- 			uint8_t preemption_list_len;
- 			uint16_t dynamic_list_len;
- 		};
- 	};
--	uint64_t regs[62];
-+	uint64_t regs[];
- };
- 
- /**
-@@ -101,6 +103,13 @@ struct a6xx_gpu {
- 	uint64_t pwrup_reglist_iova;
- 	bool pwrup_reglist_emitted;
- 
-+	/*
-+	 * Offset of start of SEL regs appended to pwrup_reglist.  This
-+	 * is equal to lock->dynamic_list_len if no SEL regs are appended
-+	 * to the end of the dynamic reglist.
-+	 */
-+	uint16_t dynamic_sel_reglist_offset;
-+
- 	bool has_whereami;
- 
- 	void __iomem *llc_mmio;
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index 6c040f718176..2ce7c6ac4521 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -468,6 +468,7 @@ static void a8xx_patch_pwrup_reglist(struct msm_gpu *gpu)
- 	}
- 
- 	lock->dynamic_list_len = dyn_pwrup_reglist_count;
-+	a6xx_gpu->dynamic_sel_reglist_offset = dyn_pwrup_reglist_count;
- 
- done:
- 	a8xx_aperture_clear(gpu);
--- 
-2.54.0
+I get that this is separate from the loop above because it's
+discontiguous, but is it also missing the validity check? I mean,
+lane_count == 3 means 'fsvo 3 which may be 1 or 2' so have to check
+SCDC_CHANNEL_VALID there, but if we have 4 lanes explicitly specified
+then we are we missing the check for the valid bit, or is it just
+always valid / we shouldn't check?
 
+tbh having it separately is a bit messy. I half-wonder if unrolling
+the loop wouldn't be cleaner, e.g.:
+#define GET_SCDC_ERR_CNT(c) { \
+        bool valid = (buf[(c) * 2 + 1] & SCDC_CHANNEL_VALID; \
+        if (valid) {  \
+                counter[c] = buf[ERR_DET_OFF(SCDC_ERR_DET_ ##x _L)]; \
+                counter[c] |= (buf[ERR_DET_OFF(SCDC_ERR_DET_ ##x _H)]
+& ~SCDC_CHANNEL_VALID) << 8; \
+        } else {
+                counter[c] = 0;
+        } \
+}
+
+GET_SCDC_ERR_CNT(0);
+GET_SCDC_ERR_CNT(1);
+GET_SCDC_ERR_CNT(2);
+if (num_lanes == 4)
+        GET_SCDC_ERR_CNT(3);
+else
+        counter[3] = 0;
+
+Up to you though. It's a messy format, with no objectively great solution.
+
+With or without that suggestion, series is:
+Reviewed-by: Daniel Stone <daniels@collabora.com>
+
+Thanks for pulling all this together!
+
+Cheers,
+Daniel
