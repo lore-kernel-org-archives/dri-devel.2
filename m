@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34952CD4F5B
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 10:56:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F81DCD5BB1
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 10:57:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4014C10E1DD;
-	Fri, 22 May 2026 10:56:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96B4310E23F;
+	Fri, 22 May 2026 10:57:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pc8aGyIv";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JaBfUJfN";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E91E410E1DD;
- Fri, 22 May 2026 10:56:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779447383; x=1810983383;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=0Le0sGFW5ovhB8eKgEXc5RLsefQ8SHAlMFFuEGoI4Vc=;
- b=Pc8aGyIvemNO9F0pFs6HhpMDYZUoOoJUEtWK0+51LYIlZUtl7qRSDhq8
- D5OaXD7kbUxkG5LiElCY+ThoKo/GOCkXv5Yza4mhq41k0sECz3qPgf3M5
- l1izre/HoOZ2XiItJYf4tshaCRi6tgklqtoeZxshsjXn0oRwZ9hHa3G31
- W65wQgr0PT7UoyiUrKTVtwgiuefVbuub7ltsg3qZJOeb1D3TkrwkHdMpB
- noj5MrkK+eP2IRMYk7NuswF6hqJw44vX9D5/73P+2byzaBwu6Y0gCIu/1
- 2+DE4p2JIVK7q2cRh7gw2DYluwahxVFtZnZPpRyNyViNkBr5i8uzTqay/ A==;
-X-CSE-ConnectionGUID: F+A3INnXSR2IqtrFSgjdQg==
-X-CSE-MsgGUID: GTjoH9+wQQSV7N73Xo5xpQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11793"; a="67900536"
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="67900536"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2026 03:56:23 -0700
-X-CSE-ConnectionGUID: KJVwhtpBQJO8AznvVV+uEA==
-X-CSE-MsgGUID: LUNH2tLtQSSVPJY1xsUFZg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="240937052"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.245.22])
- ([10.245.245.22])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2026 03:56:21 -0700
-Message-ID: <38cc3449-b51a-4b54-bed8-8802e7b37299@intel.com>
-Date: Fri, 22 May 2026 11:56:18 +0100
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEE1F10E23F
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 10:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779447438;
+ bh=RaCiD9C9ee+AQyy4fknkK+gihP8GQ7R1bKyeCWj4GDI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JaBfUJfNr5zqyyEI/gZ60k0uCx5ucNwCUpCb+nz04In5Nr63IGybolGcpcf16P+uB
+ +FvtjHNPxh/5FZKqhnRpMPt7HeklNlIZdeA2eniYfEQYkyfyc+flXL8vunV+BFRZrs
+ GL34YSlf46DWcQF79YZ4aA/dazoqE9dXAoeC+r3b2keMJxHm3/THxSyqC1+TV37aLz
+ TU5ZWAxsNihkH2i/H+cmbJnuqJWGVSZZ+Q80GnFvBEehoLGLGcdxp32PVN7sCRj2RY
+ mlKXZnNftdV6nYkp1r1rCxbV0thIPb6P/SGkaZg9XCieytEFhOkDQztSU0J2F3NY7F
+ 7l+qHsLkBBHyA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 621F117E0550;
+ Fri, 22 May 2026 12:57:17 +0200 (CEST)
+Message-ID: <bfdbf194-b400-4de3-bb68-74652dece74d@collabora.com>
+Date: Fri, 22 May 2026 13:57:16 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] gpu/buddy: Track per-order used blocks with a
- scoreboard
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- Francois Dugast <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-References: <20260522092600.32818-1-francois.dugast@intel.com>
- <20260522092600.32818-6-francois.dugast@intel.com>
- <e3022ae8-d08d-4114-b6c0-c8f0890a2dae@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <e3022ae8-d08d-4114-b6c0-c8f0890a2dae@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v6 02/22] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Daniel Stone <daniels@collabora.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
+ <20260520-dw-hdmi-qp-scramb-v6-2-24b74603b782@collabora.com>
+ <20260521-sweet-devout-panther-44d73c@penduick>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260521-sweet-devout-panther-44d73c@penduick>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,216 +75,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 22/05/2026 11:25, Arunpravin Paneer Selvam wrote:
+Hi Maxime,
+
+On 5/21/26 10:52 AM, Maxime Ripard wrote:
+> Hi,
 > 
+> Thanks for working on this!
+
+Thanks for your quick review! :-)
+
 > 
-> On 5/22/2026 2:55 PM, Francois Dugast wrote:
->> Extend the scoreboard approach from the previous commit to used blocks,
->> so drm_buddy_print() can report per-order allocation pressure in O(1).
+> On Wed, May 20, 2026 at 09:38:13PM +0300, Cristian Ciocaltea wrote:
+>> Add the connector-level infrastructure to support HDMI 2.0 scrambling:
 >>
->> Unlike free blocks, an allocated block can leave the allocated state
->> through mark_free() (normal free and gpu_buddy_block_trim()) or be
->> consumed directly by gpu_block_free() during coalescing. Both sites are
->> guarded by gpu_buddy_block_is_allocated() and paired with the increment
->> in mark_allocated().
+>> - .scrambler_src_{enable|disable}() callbacks in
+>>   drm_connector_hdmi_funcs for source-side scrambling control
+>> - A delayed work item (scdc_work) with an associated callback (scdc_cb)
+>>   for periodic monitoring of sink-side scrambling status
+>> - A scrambler_enabled flag to track whether scrambling is currently
+>>   active
 >>
->> v3:
->> - Assert scoreboard is empty at fini(), as sanity check (Matthew Auld)
+>> These are intended to be used by SCDC scrambling helpers to coordinate
+>> scrambling setup and teardown between the source driver and the DRM
+>> core.
 >>
->> v2:
->> - Update after fix for use-after-free in split_block() call sites
->> - Change goto label to out_free_used_scoreboard for clarity
->> - Make drm_buddy_print() and gpu_buddy_print() symmetric for used and
->>    free
->>
->> Signed-off-by: Francois Dugast <francois.dugast@intel.com>
->> Assisted-by: GitHub Copilot:claude-sonnet-4.6
->> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 >> ---
->>   drivers/gpu/buddy.c         | 42 ++++++++++++++++++++++++++++---------
->>   drivers/gpu/drm/drm_buddy.c | 18 ++++++++++------
->>   include/linux/gpu_buddy.h   |  8 +++++++
->>   3 files changed, 52 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->> index de18b63fef0a..dc81fe0301ce 100644
->> --- a/drivers/gpu/buddy.c
->> +++ b/drivers/gpu/buddy.c
->> @@ -194,6 +194,7 @@ static void mark_allocated(struct gpu_buddy *mm,
->>       block->header |= GPU_BUDDY_ALLOCATED;
->>       mm->free_scoreboard[gpu_buddy_block_order(block)]--;
->> +    mm->used_scoreboard[gpu_buddy_block_order(block)]++;
-> The main consumer of free_scoreboard and used_scoreboard is 
-> gpu_buddy_print(), which is a debug/diagnostic path - it only gets 
-> called during debugfs reads or error state dumps, not during regular 
-> operation.
-> However, the cost of maintaining these scoreboards is paid on every 
-> alloc and free, which is the hot path of the allocator. Even though each 
-> individual update is small, do we really need to add extra work to the
-> hot path for something that only benefits a rarely-called debug function?
-> Am I missing a use case that justifies the hot-path overhead?
+>>  drivers/gpu/drm/drm_connector.c | 14 +++++++++++
+>>  include/drm/drm_connector.h     | 52 +++++++++++++++++++++++++++++++++++++++++
+>>  2 files changed, 66 insertions(+)
+> 
+> So we would need kunit tests for this.
 
-The usecase I originally saw involved sampling this frequently during a 
-running workload to help collect some running stats. For example to 
-generate a graph of the "page usage" over time. So is there lots of 
-smaller order usage (bad), or do we get mostly larger page orders 
-(good), do we see spikes we all of sudden we start getting smaller and 
-smaller orders, perhaps due to fragmentation? In general we just wanted 
-some more visibility to get a better sense of the "page usage" at 
-runtime. At the moment we don't have much visibility into what page 
-sizes we are actually getting from the allocator, over time.
-
-We originally had this at this at the driver level, but it's not quite 
-as nice implementation wise, plus having it in the allocator could then 
-be beneficial to other drivers? Also the added cost did not seem too 
-bad, it's just incrementing/decrementing a counter. What do you think here?
+Ack.
 
 > 
-> Regards,
-> Arun.
->>       rbtree_remove(mm, block);
->>   }
->> @@ -203,6 +204,9 @@ static void mark_free(struct gpu_buddy *mm,
->>   {
->>       enum gpu_buddy_free_tree tree;
->> +    if (gpu_buddy_block_is_allocated(block))
->> +        mm->used_scoreboard[gpu_buddy_block_order(block)]--;
->> +
->>       block->header &= ~GPU_BUDDY_HEADER_STATE;
->>       block->header |= GPU_BUDDY_FREE;
->> @@ -281,6 +285,9 @@ static unsigned int __gpu_buddy_free(struct 
->> gpu_buddy *mm,
->>           if (force_merge && gpu_buddy_block_is_clear(buddy))
->>               mm->clear_avail -= gpu_buddy_block_size(mm, buddy);
->> +        if (gpu_buddy_block_is_allocated(block))
->> +            mm->used_scoreboard[gpu_buddy_block_order(block)]--;
->> +
->>           gpu_block_free(mm, block);
->>           gpu_block_free(mm, buddy);
->> @@ -398,11 +405,17 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 
->> size, u64 chunk_size)
->>       if (!mm->free_scoreboard)
->>           return -ENOMEM;
->> +    mm->used_scoreboard = kcalloc(mm->max_order + 1,
->> +                      sizeof(*mm->used_scoreboard),
->> +                      GFP_KERNEL);
->> +    if (!mm->used_scoreboard)
->> +        goto out_free_free_scoreboard;
->> +
->>       mm->free_trees = kmalloc_array(GPU_BUDDY_MAX_FREE_TREES,
->>                          sizeof(*mm->free_trees),
->>                          GFP_KERNEL);
->>       if (!mm->free_trees)
->> -        goto out_free_scoreboard;
->> +        goto out_free_used_scoreboard;
->>       for_each_free_tree(i) {
->>           mm->free_trees[i] = kmalloc_array(mm->max_order + 1,
->> @@ -464,7 +477,9 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, 
->> u64 chunk_size)
->>       while (i--)
->>           kfree(mm->free_trees[i]);
->>       kfree(mm->free_trees);
->> -out_free_scoreboard:
->> +out_free_used_scoreboard:
->> +    kfree(mm->used_scoreboard);
->> +out_free_free_scoreboard:
->>       kfree(mm->free_scoreboard);
->>       return -ENOMEM;
->>   }
->> @@ -500,11 +515,15 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
->>       gpu_buddy_assert(mm->avail == mm->size);
->> +    for (i = 0; i <= mm->max_order; ++i)
->> +        gpu_buddy_assert(!mm->used_scoreboard[i]);
->> +
->>       for_each_free_tree(i)
->>           kfree(mm->free_trees[i]);
->>       kfree(mm->free_trees);
->>       kfree(mm->roots);
->>       kfree(mm->free_scoreboard);
->> +    kfree(mm->used_scoreboard);
->>   }
->>   EXPORT_SYMBOL(gpu_buddy_fini);
->> @@ -1505,15 +1524,18 @@ void gpu_buddy_print(struct gpu_buddy *mm)
->>           mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm- 
->> >clear_avail >> 20);
->>       for (order = mm->max_order; order >= 0; order--) {
->> -        u64 count = mm->free_scoreboard[order];
->> -        u64 free = count * (mm->chunk_size << order);
->> -
->> -        if (free < SZ_1M)
->> -            pr_info("order-%2d free: %8llu KiB, blocks: %llu\n",
->> -                order, free >> 10, count);
->> +        u64 free_count = mm->free_scoreboard[order];
->> +        u64 used_count = mm->used_scoreboard[order];
->> +        u64 block_size = mm->chunk_size << order;
->> +        u64 free = free_count * block_size;
->> +        u64 used = used_count * block_size;
->> +
->> +        if (block_size < SZ_1M)
->> +            pr_info("order-%2d free: %8llu KiB, used: %8llu KiB, 
->> free_blocks: %llu, used_blocks: %llu\n",
->> +                order, free >> 10, used >> 10, free_count, used_count);
->>           else
->> -            pr_info("order-%2d free: %8llu MiB, blocks: %llu\n",
->> -                order, free >> 20, count);
->> +            pr_info("order-%2d free: %8llu MiB, used: %8llu MiB, 
->> free_blocks: %llu, used_blocks: %llu\n",
->> +                order, free >> 20, used >> 20, free_count, used_count);
->>       }
->>   }
->>   EXPORT_SYMBOL(gpu_buddy_print);
->> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->> index eef995e08a37..1536e59c6fe7 100644
->> --- a/drivers/gpu/drm/drm_buddy.c
->> +++ b/drivers/gpu/drm/drm_buddy.c
->> @@ -47,17 +47,23 @@ void drm_buddy_print(struct gpu_buddy *mm, struct 
->> drm_printer *p)
->>              mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, 
->> mm->clear_avail >> 20);
->>       for (order = mm->max_order; order >= 0; order--) {
->> -        u64 count = mm->free_scoreboard[order];
->> -        u64 free = count * (mm->chunk_size << order);
->> +        u64 free_count = mm->free_scoreboard[order];
->> +        u64 used_count = mm->used_scoreboard[order];
->> +        u64 block_size = mm->chunk_size << order;
->> +        u64 free = free_count * block_size;
->> +        u64 used = used_count * block_size;
->>           drm_printf(p, "order-%2d ", order);
->> -        if (free < SZ_1M)
->> -            drm_printf(p, "free: %8llu KiB", free >> 10);
->> +        if (block_size < SZ_1M)
->> +            drm_printf(p, "free: %8llu KiB, used: %8llu KiB",
->> +                   free >> 10, used >> 10);
->>           else
->> -            drm_printf(p, "free: %8llu MiB", free >> 20);
->> +            drm_printf(p, "free: %8llu MiB, used: %8llu MiB",
->> +                   free >> 20, used >> 20);
->> -        drm_printf(p, ", blocks: %llu\n", count);
->> +        drm_printf(p, ", free_blocks: %llu, used_blocks: %llu\n",
->> +               free_count, used_count);
->>       }
->>   }
->>   EXPORT_SYMBOL(drm_buddy_print);
->> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
->> index a28f7d7637ca..e037714563d8 100644
->> --- a/include/linux/gpu_buddy.h
->> +++ b/include/linux/gpu_buddy.h
->> @@ -180,6 +180,14 @@ struct gpu_buddy {
->>        * called on a free block.
->>        */
->>       u64 *free_scoreboard;
->> +    /*
->> +     * Per-order used block scoreboard: used_scoreboard[order] holds the
->> +     * number of blocks of that order currently in the allocated state.
->> +     * Incremented in mark_allocated(), decremented in mark_free() 
->> (guarded
->> +     * by gpu_buddy_block_is_allocated()) and in __gpu_buddy_free() 
->> when an
->> +     * allocated block is consumed directly during buddy coalescing.
->> +     */
->> +    u64 *used_scoreboard;
->>   /* public: */
->>       unsigned int n_roots;
->>       unsigned int max_order;
-> 
+>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+>> index 3fa4d2082cd7..91e58362fbc0 100644
+>> --- a/drivers/gpu/drm/drm_connector.c
+>> +++ b/drivers/gpu/drm/drm_connector.c
+>> @@ -220,6 +220,19 @@ void drm_connector_free_work_fn(struct work_struct *work)
+>>  	}
+>>  }
 
+[...]
+
+>> +	/**
+>> +	 * @scdc_work: Work item currently used to monitor sink-side scrambling
+>> +	 * status and retry setup if the sink resets it.
+>> +	 */
+>> +	struct delayed_work scdc_work;
+>> +
+>> +	/** @scdc_cb: Callback to be invoked as part of @scdc_work.
+>> +	 *
+>> +	 * Currently used to monitor sink-side scrambling status and retry
+>> +	 * setup if the sink resets it.
+>> +	 *
+>> +	 * This is assigned by the framework when making use of
+>> +	 * drm_scdc_start_scrambling() helper.
+>> +	 */
+>> +	void (*scdc_cb)(struct drm_connector *connector);
+>> +
+> 
+> I'm really not sure what the monitor thing is about. If we have setup
+> the scrambler at enable time, and we set it again on hotplugging, why
+> would we need to monitor anything?
+
+This is similar to 257d36d493e9 ("drm/vc4: hdmi: Add a workqueue to set
+scrambling") in order to deal with some displays needing a retry on scrambling
+setup.
+
+> Also, scrambling is only relevant for HDMI 2.0. We need a way to expose
+> that somehow and make sure that HDMI 2.0 drivers actually have
+> scrambling setup.
+
+I assumed drivers that do not reject the HDMI 2.0 rates in their
+.tmds_char_rate_valid() are implicitly expected to support scrambling. 
+Thinking again we could extend the framework to provide some additional checks,
+but let's discuss the topic on the SCDC patch.
+
+Regards,
+Cristian
