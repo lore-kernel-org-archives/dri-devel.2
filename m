@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0525CD5BAB
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 02:54:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22064CD5BAF
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 03:03:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88BB10E221;
-	Fri, 22 May 2026 02:53:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31C7B10E52C;
+	Fri, 22 May 2026 03:03:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X5wXTzdd";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="YWNMy7+N";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAE4910E221
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 02:53:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1AA6E44527
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 02:53:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11731F0155A
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 02:53:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779418437;
- bh=KQQbO9uIVHawRi/YOjp4KVnq7XgGe6qoi1Nu0bm/L5A=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=X5wXTzddZA4CgUagP7nTu9LG5ostqEENkFYqsHOc8JqoPnxqvojfLQ3OeYKwA9Tqw
- hZkRRv4UhfAqEjp6e2vsx3EA+d7xR7ixVP6YaARZTAy1rvk94yUCGIBOXIlgpNIB6c
- fN3flc96SgrGH3gTaeJ/DXnmb2ogRbdJFNW0viA8sG40ZshKrfSYBgnsrS3hmoYTMS
- 6/XhdyIcs84Z7rdayFi9OEK9o+2ixLViq4jfAQ5e1Eo+J8PMVfLjaV9I0H7SFCFtDq
- 39hOX4dch0Io3NkgBIwzeZZg0MCPhJYxHVYk4aWtVyYrkJWhLwxVkZK+gsJr81mnbL
- /QXwCaj/biCJw==
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-bd2087858c4so1371205766b.0
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 19:53:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ8shWQepcqq2GlCarrHdd7IdCJ/AgHfz32lRf721Iubr5Em/4VS/pxHp/Y/1lyQNCyT373DBCGBQrM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzSKGH8S6an5bR3sb5dgfbd9qS8OM7CGd9l+H7eIc/DwZnrch5i
- nb+mzSEHoFrEvvDh8yexpPpYPwnSmS/XBMBwIV94vf0T0O38BnV5Ul2W18jyzeWMV5kznbyvY/k
- +N2ArTrR31ag6qSjeaRtpQg/oHq8OaUI=
-X-Received: by 2002:a17:907:75d9:b0:bbe:37ee:8a2b with SMTP id
- a640c23a62f3a-bdd279ce23fmr68612566b.33.1779418435725; Thu, 21 May 2026
- 19:53:55 -0700 (PDT)
+Received: from mail-m9393.xmail.ntesmail.com (mail-m9393.xmail.ntesmail.com
+ [103.126.93.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2A310E52C
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 03:03:04 +0000 (UTC)
+Received: from [172.16.12.43] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3f63c7eb5;
+ Fri, 22 May 2026 11:03:00 +0800 (GMT+08:00)
+Message-ID: <fb40d3fb-b7c6-4c31-b9a7-89318c36c739@rock-chips.com>
+Date: Fri, 22 May 2026 11:02:59 +0800
 MIME-Version: 1.0
-References: <20260519073950.143287-1-yaolu@kylinos.cn>
-In-Reply-To: <20260519073950.143287-1-yaolu@kylinos.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Fri, 22 May 2026 10:54:16 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6eopGi0CWpftzJ9Vf-dDzk8fPpJGnpAZeWMNoeTnJjyQ@mail.gmail.com>
-X-Gm-Features: AVHnY4Ii2ETj2FoK1SUinlJ6x561ksaPmL9uH180AnPkmzvXVDr-Nswn9TgOnHE
-Message-ID: <CAAhV-H6eopGi0CWpftzJ9Vf-dDzk8fPpJGnpAZeWMNoeTnJjyQ@mail.gmail.com>
-Subject: Re: [PATH] drm/loongson: fix vga client not unregist
-To: yaolu@kylinos.cn
-Cc: lvjianmin@loongson.cn, wuqianhai@loongson.cn, jeffbai@aosc.io, 
- xry111@xry111.site, zhengxingda@iscas.ac.cn, dri-devel@lists.freedesktop.org, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
+ hclk as third clock for RK3588
+To: Conor Dooley <conor@kernel.org>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20260521080835.1362416-1-damon.ding@rock-chips.com>
+ <20260521080835.1362416-2-damon.ding@rock-chips.com>
+ <20260521-waking-case-cd709f0a7712@spud>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260521-waking-case-cd709f0a7712@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e4da2df0203a3kunmcdc39b7bb3028
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHklPVkIeS0hIH09LQxhPT1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=YWNMy7+NkSl3ewSULgQHdbz/2vosC6n4DoirPKOBaGSW+pxLBmEJMuFE6VmFA0OsHpCBjRp/wI7NBieBAoJT91OdjP2y71rQaC9sSqazDzS8MMXYV9YYsXo6X7O1/AqGOeprWhYDlfadH5Pr+Q8+gAehYLkah0zmjTaJGrnQmuE=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=ix2iDSv2xXDyggBMNPYyTIg1mIFriHtuF7LmuxwXjjM=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,36 +72,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi, Lu,
+Hi Conor,
 
-Your subject line is incomplete.
+On 5/22/2026 3:54 AM, Conor Dooley wrote:
+> On Thu, May 21, 2026 at 04:08:26PM +0800, Damon Ding wrote:
+>> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
+>> registers and enable the video datapath.
+>>
+>> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
+>> phandle reference, which allowed the eDP to work without explicitly
+>> managing the hclk_vo1 clock. However, this is not safe or explicit.
+>>
+>> To make the clock dependency explicit, enforce per-SoC clock-names
+>> requirements:
+>>   - RK3288: 2 clocks (dp, pclk)
+>>   - RK3399: 3 clocks (dp, pclk, grf)
+>>   - RK3588: 3 clocks (dp, pclk, hclk)
+>>
+>> Do not reuse the 'grf' clock name for RK3588 because it represents
+>> a different clock with distinct control logic:
+>> - The 'grf' clock is only for GRF register access and is toggled
+>>    dynamically during register access.
+>> - The 'hclk' clock controls both GRF access and video datapath
+>>    gating, and must remain enabled during probe.
+>>
+>> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
+>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>>
+>> ---
+>>
+>> Changes in v4:
+>> - Modify the commit msg.
+>>
+>> Changes in v5:
+>> - Enforce the correct third clock name on a per-compatible basis.
+>> - Modify the commit msg simultaneously.
+>>
+>> Changes in v6:
+>> - Expand more detail commit msg about using hclk instead of grf clock.
+>> ---
+>>   .../rockchip/rockchip,analogix-dp.yaml        | 37 +++++++++++++++++--
+>>   1 file changed, 33 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> index d99b23b88cc5..8001c1facf98 100644
+>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> @@ -23,10 +23,7 @@ properties:
+>>   
+>>     clock-names:
+>>       minItems: 2
+>> -    items:
+>> -      - const: dp
+>> -      - const: pclk
+>> -      - const: grf
+> 
+> Instead of removing this, you can make it
+> 
+> items:
+>   - const: dp
+>   - const pclk
+>   - enum:
+>       - grf
+>       - hclk
+> 
+>> +    maxItems: 3
+> 
+> And delete this.
+> 
 
-Huacai
+Oh I see, thanks for clarifying.
 
-On Tue, May 19, 2026 at 3:40=E2=80=AFPM <yaolu@kylinos.cn> wrote:
->
-> From: Lu Yao <yaolu@kylinos.cn>
->
-> Need set vgadev->set_decode to NULL when pci_remove.
->
-> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-> ---
->  drivers/gpu/drm/loongson/lsdc_drv.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongs=
-on/lsdc_drv.c
-> index 6cd21480c979..79bb61278aa7 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_drv.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_drv.c
-> @@ -327,6 +327,7 @@ static void lsdc_pci_remove(struct pci_dev *pdev)
->         struct drm_device *ddev =3D pci_get_drvdata(pdev);
->
->         drm_dev_unregister(ddev);
-> +       vga_client_unregister(pdev);
->         drm_atomic_helper_shutdown(ddev);
->  }
->
-> --
-> 2.25.1
->
+The idea is to keep all valid clock names at the top level, and use only 
+minItems/maxItems in allOf to differentiate platforms.
+
+>>   
+>>     power-domains:
+>>       maxItems: 1
+>> @@ -60,6 +57,33 @@ required:
+>>   allOf:
+>>     - $ref: /schemas/display/bridge/analogix,dp.yaml#
+>>   
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - rockchip,rk3288-dp
+>> +    then:
+>> +      properties:
+>> +        clock-names:
+>> +          items:
+>> +            - const: dp
+>> +            - const: pclk
+> 
+> Then this becomes
+>    clock-names:
+>      maxItems: 2
+>    clocks:
+>      maxItems: 2
+> 
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - rockchip,rk3399-edp
+>> +    then:
+>> +      properties:
+>> +        clock-names:
+>> +          items:
+>> +            - const: dp
+>> +            - const: pclk
+>> +            - const: grf
+> 
+> maybe this needs a minItems: 3? Depends on if the grf clock is
+> mandatory. Also probably needs a
+> clocks:
+>    minItems: 3
+> if that's the case.
+> 
+
+Yes, the minItems should be 3 for both clocks and clock-names.
+
+>> +
+>>     - if:
+>>         properties:
+>>           compatible:
+>> @@ -68,6 +92,11 @@ allOf:
+>>                 - rockchip,rk3588-edp
+>>       then:
+>>         properties:
+>> +        clock-names:
+>> +          items:
+>> +            - const: dp
+>> +            - const: pclk
+>> +            - const: hclk
+> 
+> And the same here as for the 3399.
+> 
+
+Will update in v7.
+
+Best regards,
+Damon
+
