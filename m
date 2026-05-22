@@ -4,68 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A310CCD5BB1
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 13:28:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E94B3CD5BB6
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 13:40:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7EE310F5ED;
-	Fri, 22 May 2026 13:28:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F30B310E09F;
+	Fri, 22 May 2026 13:40:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jp5MlugV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QrThRZPB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00A9E10F5ED
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 13:28:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A71710E07D;
+ Fri, 22 May 2026 13:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779456506; x=1810992506;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=vMCnx8a+02wpW1v2x3Gaju1pVGV683eSmQkhfp/4j3U=;
- b=Jp5MlugV/BBp62w6fFZ7ISWyUR2bJZqFZWZ2m6M3QjCXU7ovamz5M6iW
- PWdr7uskW0YtrjPUJaP7/s7W6LtWforpw/nY2ThyeVuLuMrGFoSZmk/9e
- 2uRkQ9zamuNI+fN9avVwEWiL+6TEBdPqwlJBtmFK/tGV7ydU98h7EnDxp
- X5ROz6ZwnWYN3Zbzo1lgAy4MH1aE6fWwBdMezZnU4nKc7lpmWt+c3hC+5
- UNkgkHRDIFnUIZSzPuaP5mCZUTlI1lkF/Jh5DEq6q8TTuGkcL6Pj8JTnc
- zvws7v0gkgY1oDuBMft+d5c85fLCyA7hCasmpmfs6hWXzLydc7m3z0DUc Q==;
-X-CSE-ConnectionGUID: hWP+H0p3QMSrtP2tcQ/N5A==
-X-CSE-MsgGUID: mwXuJQYJRaKpqFZ3mrBisA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="80236690"
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="80236690"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2026 06:28:25 -0700
-X-CSE-ConnectionGUID: q+1wd2RyQXCYQ84bgdaVhA==
-X-CSE-MsgGUID: LG5P5DgUT5uXTJP5dpOaXg==
+ t=1779457207; x=1810993207;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-id;
+ bh=AqzWIe15rSPR2qFTMV0hV+sdzraVnQlAGYI8gzdLoy0=;
+ b=QrThRZPB1GCRjrIP8oUliX3be73s1vlbKS59DNtSOe4DuEYoHa5cfqGY
+ B6HQLsgX28HqoHM45kv5er1yzZxWhnpWsfAovtrS2g5f8QW9HP9uXtKtA
+ tOwXYXtQEx7LmbJNUo9+F/Zk22G4AUmVJ8BVd+n6SQ+ke3HX22mRth6CT
+ JkrnKcJUvM0k5w46G4Xotom4YfqG2cVH80RlSVBfKu54wqnMuzpAZ0xTE
+ Qq7bSMGac1O/OMn0vz/7AeRGPdR3Ygr0g29D9xUwaSaCQD6Q2861lPA7U
+ muGYokJLnOxjCrAI05vqUB4Ufpxoxa8sop+g6Nw1Bgg8x7m7exMdiIiBw Q==;
+X-CSE-ConnectionGUID: E9u/wFDZSFyNUdJnOsSS4w==
+X-CSE-MsgGUID: HOLCDxRtTB2lI+RFtbjVYA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="91778777"
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="91778777"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2026 06:40:07 -0700
+X-CSE-ConnectionGUID: yGGLmTkkQ0SkhpaPtpcYMw==
+X-CSE-MsgGUID: 0HgWlebzRxq3Mt5xv1JXfQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="241143308"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.187])
- by orviesa007-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 May 2026 06:28:22 -0700
-Date: Fri, 22 May 2026 16:28:18 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
- for vblank
-Message-ID: <ahBZ8nIqR4qESLZg@intel.com>
-References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
- <ee86cb43-e5df-4946-a957-931a73dde752@suse.de>
- <ahBWayIcQUHuAt4i@intel.com>
- <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de>
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="234562688"
+Received: from dev-417.igk.intel.com ([10.91.214.181])
+ by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2026 06:40:04 -0700
+Date: Fri, 22 May 2026 15:40:02 +0200 (CEST)
+From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+cc: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v1 2/2] drm/managed: fix drmm_add_mod_or_reset() kernel-doc
+In-Reply-To: <8b886c39-f474-463e-99c5-2cc91466f1b9@intel.com>
+Message-ID: <676b9ad7-46f7-fabe-163e-33012a23030c@intel.com>
+References: <20260521155231.1821935-1-michal.grzelak@intel.com>
+ <20260521155231.1821935-3-michal.grzelak@intel.com>
+ <8b886c39-f474-463e-99c5-2cc91466f1b9@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: multipart/mixed; BOUNDARY="8323329-969468146-1779456677=:1544314"
+Content-ID: <7e91f919-70b4-ad0c-8680-dc597dce2f86@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,120 +74,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 22, 2026 at 03:24:05PM +0200, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 22.05.26 um 15:13 schrieb Ville Syrjälä:
-> > On Fri, May 22, 2026 at 01:55:59PM +0200, Thomas Zimmermann wrote:
-> >> Hi
-> >>
-> >> Am 19.05.26 um 11:24 schrieb Icenowy Zheng:
-> >>> Currently the implementaion of drm_client_modeset_wait_for_vblank()
-> >>> assumes drm_vblank_get() will fail when the CRTC isn't active. However
-> >>> it seems that this is not true, and running fbcon on a device with the
-> >>> first CRTC inactive will lead to kernel warning in some cases (which
-> >>> could be reproduced with the loongson driver).
-> >>>
-> >>> Change the implementation to add a check for the active state (atomic) /
-> >>> enabled state (non-atomic) before calling drm_vblank_get(). As the
-> >>> assumption of drm_vblank_get() failing for inactive CRTC isn't met, the
-> >>> error status of drm_vblank_get() can now be exported too.
-> >>>
-> >>> Cc: stable@vger.kernel.org
-> >>> Fixes: d8c4bddcd8bc ("drm/fb-helper: Synchronize dirty worker with vblank")
-> >>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> >>> ---
-> >>>    drivers/gpu/drm/drm_client_modeset.c | 13 +++++++++++--
-> >>>    1 file changed, 11 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-> >>> index bb49b8361271a..1b03bf351256e 100644
-> >>> --- a/drivers/gpu/drm/drm_client_modeset.c
-> >>> +++ b/drivers/gpu/drm/drm_client_modeset.c
-> >>> @@ -1310,7 +1310,7 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
-> >>>    {
-> >>>    	struct drm_device *dev = client->dev;
-> >>>    	struct drm_crtc *crtc;
-> >>> -	int ret;
-> >>> +	int ret = 0;
-> >>>    
-> >>>    	/*
-> >>>    	 * Rate-limit update frequency to vblank. If there's a DRM master
-> >>> @@ -1326,15 +1326,24 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
-> >>>    	 * Only wait for a vblank event if the CRTC is enabled, otherwise
-> >>>    	 * just don't do anything, not even report an error.
-> >>>    	 */
-> >>> +	if (drm_drv_uses_atomic_modeset(dev)) {
-> >>> +		if (!crtc->state || !crtc->state->active)
-> >>> +			goto out;
-> >>> +	} else {
-> >>> +		if (!crtc->enabled)
-> >>> +			goto out;
-> >>> +	}
-> >>> +
-> >> This part is good.
-> > Locking is missing.
-> 
-> Ok
-> 
-> >
-> >>>    	ret = drm_crtc_vblank_get(crtc);
-> >>>    	if (!ret) {
-> >>>    		drm_crtc_wait_one_vblank(crtc);
-> >>>    		drm_crtc_vblank_put(crtc);
-> >>>    	}
-> >>>    
-> >>> +out:
-> >>>    	drm_master_internal_release(dev);
-> >>>    
-> >>> -	return 0;
-> >>> +	return ret;
-> >> But this isn't. There can be CRTCs without any vblank at all. We still
-> >> want to fail silently for them. So we still have to return 0 here.
-> >>
-> >> Having set this, fixing this helper is only partially what you want.
-> >> Since your device has vblanking, the emulation should check on the
-> >> correct CRTC. IOW you need to pass the right CRTC index at
-> >>
-> >> https://elixir.bootlin.com/linux/v7.1-rc1/source/drivers/gpu/drm/drm_fb_helper.c#L237
-> >> https://elixir.bootlin.com/linux/v7.1-rc1/source/drivers/gpu/drm/drm_fb_helper.c#L920
-> >>
-> >> I'm not quite sure how to support this. The CRTC is under
-> >> fb_helper->client.modesets.crtc. You'd have to figure out which is the
-> >> relevant one and use that. But that's also not so great, as fbdev ioctls
-> >> only support CRTC 0. Doing internal re-mappings only complicates matters.
-> >>
-> >> But why does your HW use CRTC 1 in the first place.
-> > Could be eg. the enabled outputs can't be driven with CRTC 0.
-> >
-> > I guess what you want to do is pick the first crtc from modesets[]
-> > which is enabled. Or perhaps even "pick the Nth enabled crtc from
-> > modesets[] based on the ioctl argument".
-> 
-> The enable-status of each CRTC could change later on, which might lead 
-> to problems.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Sound like a locking issue if someone is changing the configuration
-at the same time we're trying to do the vblank wait here.
+--8323329-969468146-1779456677=:1544314
+Content-Type: text/plain; CHARSET=ISO-8859-2; format=flowed
+Content-Transfer-Encoding: 8BIT
+Content-ID: <95e88270-d98b-7af7-d8da-c2e395bb1814@intel.com>
 
-> Picking the one CRTC/output with the lowest spec and 
-> mirroring it to the others might work. This CRTC would then be the one 
-> to wait for.
-> 
-> Best regards
-> Thomas
-> 
-> >
-> 
-> -- 
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-> 
+On Fri, 22 May 2026, Borah, Chaitanya Kumar wrote:
+> On 5/21/2026 9:22 PM, Micha³ Grzelak wrote:
+>> Kernel-doc of drmm_add_mode_or_reset() references @releases which is not
+>> on argument list. Swap '@' between 'releases' and 'action' words to fix
+>> the documentation.
+>
+> s/drmm_add_mode_or_reset/drmm_add_action
+>
 
--- 
-Ville Syrjälä
-Intel
+Title would like to see that as well...
+
+BR,
+Micha³
+
+>> 
+>> Signed-off-by: Micha³ Grzelak <michal.grzelak@intel.com>
+>> ---
+>>   include/drm/drm_managed.h | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>> 
+>> diff --git a/include/drm/drm_managed.h b/include/drm/drm_managed.h
+>> index 72bfac002c06..72d0d68be226 100644
+>> --- a/include/drm/drm_managed.h
+>> +++ b/include/drm/drm_managed.h
+>> @@ -18,7 +18,7 @@ typedef void (*drmres_release_t)(struct drm_device *dev, 
+>> void *res);
+>>    * @action: function which should be called when @dev is released
+>>    * @data: opaque pointer, passed to @action
+>>    *
+>> - * This function adds the @release action with optional parameter @data to 
+>> the
+>> + * This function adds the release @action with optional parameter @data to 
+>> the
+>>    * list of cleanup actions for @dev. The cleanup actions will be run in 
+>> reverse
+>>    * order in the final drm_dev_put() call for @dev.
+>>    */
+>
+>
+--8323329-969468146-1779456677=:1544314--
