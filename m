@@ -4,84 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92B6CCD5BB0
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 13:15:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F14D6CD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 13:20:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07C3710F55F;
-	Fri, 22 May 2026 13:15:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5985210E042;
+	Fri, 22 May 2026 13:20:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="pJk6JTWW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YUxW1xld";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D17D510F55F
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 13:15:46 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64MBaawx065105; Fri, 22 May 2026 14:15:28 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=XxsnKDXR/eGbvj4MOBU8MjX
- +HuSTAvLW6j5mOJIJzos=; b=pJk6JTWWv2nafVPGo5fDGLfp0mzAAS23LfbMqcu
- 3NyXDFRQ8c1rpbfx1DwmW9bdUw0j6C77MJ0cxhNMblRdsnc3YrkxpveDchcgqvHQ
- CEXeNnG89dk7lrajT2AbQaPkr0QJqeY+oSDZ0FYSAlyFSlF+7xHEaWQBwpulGF8e
- pSQzQSruMAZv6ZMIh4vPSLbppFcMpuEWRY2xPRInu2r8N9dZF/V8JbsfKAyvAh1S
- 0K5pInDfzu09lS3/0mTZA232Q4yVyjK+835cqY8gLYbwEE0uPrHqkUic6zQ6GbBt
- carVkkAujvEAfqfFZDynZXdDsIdqzcLmJWND37G7h7Pfc5w==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4e6gnsnfkx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 May 2026 14:15:28 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.81) by
- HHMAIL01.hh.imgtec.org (10.100.10.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 22 May 2026 14:15:27 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-Date: Fri, 22 May 2026 14:15:00 +0100
-Subject: [PATCH 6.12.y] drm/imagination: Synchronize interrupts before
- suspending the GPU
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63CE310E042
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 13:20:37 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4891e5b9c1fso64292455e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:20:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779456036; x=1780060836; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=1qLGD+d59NtgQVVpwJfCXZu6HhFLlAFnjmTwdInD0HI=;
+ b=YUxW1xldV/ikIle+gLjnlBHOCJZ6Ge8Q8kHphYzaK0sYtue3JcIMHeVlp2mvqU8Akm
+ owb4KR5fc9BvMdx0x7XIGt/HxJh+CnKoHN9TRzeQtk5FhgFH67GNAuWFv/zwPLjw0CVR
+ aUSkwE256m7VdFmc+eL3KhSS7aXbRnJrsx9j0k7yKumqhcaJFYXKQibNnY+aPDcIMH0k
+ 8WQEhHUIUKuwHqiXNCgYEhcgpbKY0DTnnaOpEr/qYDia9+gUXc7ntx2AANS2tK4u7yxv
+ mh0PKgu9k0ljODPTJYQtRtwWekhxkVQoWeoIRN2mpXWOZa9cP8f9H3iDIyWTzEfMoWks
+ RBjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779456036; x=1780060836;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1qLGD+d59NtgQVVpwJfCXZu6HhFLlAFnjmTwdInD0HI=;
+ b=m8p0eY6CqELVfnA9OXUjFUVil4x4cdt5MiSecXUiWt/AuPy5le6+UPHfvw/S2smvGV
+ PO+WUkLmXdvhCHFMx3AbGi+amjiGAbv2vUSCGORi1zTSLYB+mZJKyf2ApGFiuyrSHuHM
+ 7LnS8EE1zwxJXZ5pjUJE0ENh3ibON/qw5+Rlb/ykJJbuvVerL48/Lp4o76CBeB9AyOQ6
+ BGtIeiHoLgcdm8K2Ee5Ae9uM2G3AqVEfc1uneZ8s/PfXUi8smY52HrIWmh+RA4G7r+zX
+ sAKzQshixXBRss0Rp9v5zx1vL9LQgITwL9ji7FUE5h7AU5di9jO66oQ7mZj3ELIP4pPC
+ CpEA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+Ln8fU6fvm3SiG29ZBnKPTKyu6rOVonYfa8zrg74lrzsiTswO+0RCuQaEuecYwTMALZbDVQB3ZmP0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzsynOWYXA/enkZSse6Q83iwOGFbS2MNGvQy2U3UwnfTi32lH1X
+ 6wqiRihHaIlTwmMUjHhjPkxNWystvr3B95nlIxxcH3FAVYC7Mr3G0k3b
+X-Gm-Gg: Acq92OGZxKKdVFzeSLyJTkfNpbXo4Hn/XPAmVn39DIBmoyoD1Hskzsftl808RnUOl/1
+ 0bHE92F2R1FCNFknXFn4pDRxcvjw7NGW9OGw9aTtxUgRqd3hZL/NbrRZXiA4W5/na/PnPw9AF9l
+ S7stKD20k3MvxrQ9N/JFmpABQA0skAySFEkCr7fyI6wYG2hIvJI8iB5FKbTwIrmbWvm5gFukbkX
+ 8FKypJ6TDoMcTW4eMo4IiMOtNVZzqUFcXF/p+FKQVJpvRJ3iy+rc6Vm9xCP6EU2DmJ4WT9SrHtj
+ hNnsesyBHs356ChLV7UQUVaHLE7MAWWkRKSNMrKKd1p6RAHv2MwCcM0nBlSXRUn1LhbXUVTTAbA
+ caWOnPfpRMdtxnQtuDiJgXcIOr8sb32NsreQOqFzwk2P9KzAUps8dGdu4Kkrdfx1o6dYBAkznTM
+ bD5K14wmhWigfcdCli8av9VaoYb4QiSlZt4OkdG8eovS5jjdGDLkI2
+X-Received: by 2002:a05:600d:8494:20b0:48f:d1b8:9aaa with SMTP id
+ 5b1f17b1804b1-490424a1628mr37558685e9.6.1779456035429; 
+ Fri, 22 May 2026 06:20:35 -0700 (PDT)
+Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490454a0cd5sm52220755e9.10.2026.05.22.06.20.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 May 2026 06:20:34 -0700 (PDT)
+From: Vitor Soares <ivitro@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Thierry Reding <thierry.reding@gmail.com>
+Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 00/11] arm64: dts: ti: k3-am62-verdin: Add display and
+ peripheral overlays
+Date: Fri, 22 May 2026 14:20:13 +0100
+Message-ID: <20260522132014.226721-13-ivitro@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260522-sync-irqs-6-12-v1-1-b0ecc9675078@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIANNWEGoC/x3MQQ5AMBBA0avIrI3opBpxFbEoBrMpOoloxN01l
- m/x/wPKUVihKx6IfInKHjJMWcC0+bAyypwNVJOrGyLUFCaUeCo6NISLsXMzkvOtZcjREXmR+x/
- 24CpDVYLhfT/+NPZZaAAAAA==
-X-Change-ID: 20260522-sync-irqs-6-12-f14d5b26a84e
-To: <stable@vger.kernel.org>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Frank Binns
- <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Brajesh Gupta <brajesh.gupta@imgtec.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- Alessio Belle <alessio.belle@imgtec.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779455727; l=5150;
- i=alessio.belle@imgtec.com; s=20251208; h=from:subject:message-id;
- bh=fL66KdxuMYYzK/jk3Z3iXcH/ZdM/jwC1r3OEN+ueeIk=;
- b=z5FxstMo5Jat6iQ/7vzys6qXLSvYSR/Uj9XzGhsQZHw7gF6pCnf0BWZzzfEBwdn4Y+5YjI3Hc
- 0zbukf2Y6xSD81/hafUFK7zxF2bWOYtzcqBzwEMXQt8UUwz+2nqMuOg
-X-Developer-Key: i=alessio.belle@imgtec.com; a=ed25519;
- pk=2Vtuk+GKBRjwMqIHpKk+Gx6zl7cgtq0joszcOc0zF4g=
-X-Originating-IP: [172.25.4.81]
-X-Proofpoint-GUID: p6rKugC5h4WRTgINmRXfv0jnUrJLvY1y
-X-Proofpoint-ORIG-GUID: p6rKugC5h4WRTgINmRXfv0jnUrJLvY1y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDEzMSBTYWx0ZWRfX9IrNXgC7Tj8K
- w4b69p3yj8WWejU16c6ojUawnXTjJBN/zJW6NWWmhOhwef+0pVcfWyODfmEZaSUQEsl8GqzFFIc
- 4LbUI4QXBiMKfIbd98JKRpIZdydQ8RiWIoznsVjVPM5creiO0eIYjDaOtBQj+BIhXsGKy28lBkO
- oxwzE+45tz7clN1JES/W4haGQIRVSMPt6MNcMATTdP/9bcnJJCKF1I5qLlKh7eSSPqNInwjmK3Z
- Ds6Mtz/6oZ5jNbZIKVHEjnMIgPRLj1sanEkD4zuSD4uB/h/tFaupqx4OhnbXNplctrro8E/xkGj
- z6LUMF2vHT2n1eUdFPBwObztgJkK9oEMI3eCJLo/8glSVuzMSuu36pUMqIThkwtBkqRvSNLKPjU
- nQrx1EO1p/qXgHXcdxUwswrNqEPm6npvkyyDCm4BooG8zWyPppnEzSne3NtGIroeS2gd2reW4hM
- aIuLTqGw6kfR2wEzT3A==
-X-Authority-Analysis: v=2.4 cv=W9EIkxWk c=1 sm=1 tr=0 ts=6a1056f0 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=yF7cHsaFFYkA:10 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=Ol410iqxPhN9chiBww0A:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,122 +99,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-commit 2d7f05cddf4c268cc36256a2476946041dbdd36d upstream.
+From: Vitor Soares <vitor.soares@toradex.com>
 
-The runtime PM suspend callback doesn't know whether the IRQ handler is
-in progress on a different CPU core and doesn't wait for it to finish.
+This series adds device tree overlays, expanding the hardware support for
+the Toradex Verdin AM62 SoM. The overlays target displays, cameras, audio,
+and peripherals available through Toradex carrier boards and the accessory
+ecosystem.
 
-Depending on timing, the IRQ handler could be running while the GPU is
-suspended, leading to it being killed when trying to access GPU
-registers. See example signature below.
+Display additions cover three interface types:
+- native OLDI (LVDS) with Toradex Capacitive Touch Display 10.1" LVDS
+- DSI-to-LVDS adapter based on the SN65DSI84 with Toradex Capacitive Touch
+  Display 10.1" LVDS
+- DSI driving Toradex Capacitive Touch Display 7" and 10.1" DSI.
 
-In a power off sequence initiated by the runtime PM suspend callback,
-wait for any IRQ handlers in progress on other CPU cores to finish, by
-calling synchronize_irq().
+The Riverdi vendor prefix and panel bindings required by the DSI overlay
+patches are also added.
 
-This version of the patch contains only the part of the upstream commit
-that applies to 6.12; the rest was a revert of code added in 6.16.
-The second paragraph above is different because on 6.12 this kind of bug
-doesn't seem to crash the entire kernel, only the IRQ handler, leaving
-the driver unusable in practice.
+Non-display additions include OV5640 CSI camera support in 24 MHz and
+27 MHz oscillator variants, NAU8822 Bridge Tied Load mode on the
+Development Board, MCU_MCAN1 on the Verdin AM62 Mezzanine board,
+and MCU_UART0 reservation for the Cortex-M4F debug UART.
 
-The crash signature below is also different, both because of the above,
-and because there was no support for TI AM68 SK in 6.12.
+TI maintainers: patches adding the Riverdi vendor prefix and panel-lvds
+bindings are required by the DTS patches.
+Are you fine picking up the full series once those patches are acked by
+the DT/display maintainers?
 
-Example signature on a TI AM62 SK platform:
-
-  [ 7827.189088] Internal error: synchronous external abort: 0000000096000010 [#1] PREEMPT SMP
-  [ 7827.197311] Modules linked in:
-  [ 7827.222015] CPU: 0 UID: 0 PID: 461 Comm: irq/405-gpu Tainted: G   M               6.12.90 #5
-  [ 7827.230461] Tainted: [M]=MACHINE_CHECK
-  [ 7827.234203] Hardware name: Texas Instruments AM625 SK (DT)
-  [ 7827.239682] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-  [ 7827.246637] pc : pvr_device_irq_thread_handler+0x64/0x180 [powervr]
-  [ 7827.252941] lr : irq_thread_fn+0x2c/0xa8
-  [ 7827.256872] sp : ffff800082d8bd50
-  [ 7827.260179] x29: ffff800082d8bd70 x28: ffff8000800ce374 x27: ffff800081829cc0
-  [ 7827.267328] x26: ffff000004701e80 x25: ffff000005b884ac x24: ffff000005bd5780
-  [ 7827.274472] x23: ffff00000da40bc0 x22: ffff00000da40ba0 x21: ffff800082d8bd58
-  [ 7827.281614] x20: ffff00000da40000 x19: ffff000004701e80 x18: 08000000c6af9003
-  [ 7827.288750] x17: 0000000000000010 x16: 0000000000000068 x15: 0df234008df66400
-  [ 7827.295886] x14: 0000000000000000 x13: 000005c68f6e7191 x12: 000000000000025e
-  [ 7827.303020] x11: 00000000000000c0 x10: 0000000000000ac0 x9 : ffff800082d8bd00
-  [ 7827.310157] x8 : ffff000005bd62a0 x7 : ffff000077261380 x6 : 00000000000005c6
-  [ 7827.317292] x5 : 000000000000425e x4 : 0000000000000000 x3 : 0000000000000000
-  [ 7827.324428] x2 : 00000000000008a8 x1 : ffff800082d608a8 x0 : ffff000005bd5780
-  [ 7827.331568] Call trace:
-  [ 7827.334011]  pvr_device_irq_thread_handler+0x64/0x180 [powervr]
-  [ 7827.339954]  irq_thread_fn+0x2c/0xa8
-  [ 7827.343530]  irq_thread+0x16c/0x2f4
-  [ 7827.347019]  kthread+0x110/0x114
-  [ 7827.350248]  ret_from_fork+0x10/0x20
-  [ 7827.353834] Code: f9446682 f943c281 b9404442 8b020021 (b9400021)
-  [ 7827.359921] ---[ end trace 0000000000000000 ]---
-  [ 7827.364820] genirq: exiting task "irq/405-gpu" (461) is an active IRQ thread (irq 405)
-  [ 8011.230278] powervr fd00000.gpu: Job timeout
-  [ 8011.230350] powervr fd00000.gpu: Job timeout
-  [ 8011.230426] powervr fd00000.gpu: Job timeout
-
-Fixes: cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure and META FW support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Thanks,
+Vitor Soares
 ---
-This is a backport of the parts relevant to 6.12 of [1].
-
-[1] https://lore.kernel.org/all/20260310-drain-irqs-before-suspend-v1-0-bf4f9ed68e75@imgtec.com/
+Changes in v2:
+- Add Acked-by tags
+- Drop introduction of the LG LP156WF1 15.6" FHD dual-channel LVDS panel
+- Drop migration of "logictechno,lt170410-2whc" to panel-lvds.yaml
+- Link v1: https://lore.kernel.org/all/20260521150038.103538-17-ivitro@gmail.com/
 ---
- drivers/gpu/drm/imagination/pvr_power.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
-index bf4cf8426f91..077d2651798c 100644
---- a/drivers/gpu/drm/imagination/pvr_power.c
-+++ b/drivers/gpu/drm/imagination/pvr_power.c
-@@ -84,7 +84,7 @@ pvr_power_request_pwr_off(struct pvr_device *pvr_dev)
- }
- 
- static int
--pvr_power_fw_disable(struct pvr_device *pvr_dev, bool hard_reset)
-+pvr_power_fw_disable(struct pvr_device *pvr_dev, bool hard_reset, bool rpm_suspend)
- {
- 	if (!hard_reset) {
- 		int err;
-@@ -100,6 +100,11 @@ pvr_power_fw_disable(struct pvr_device *pvr_dev, bool hard_reset)
- 			return err;
- 	}
- 
-+	if (rpm_suspend) {
-+		/* Wait for late processing of GPU or firmware IRQs in other cores */
-+		synchronize_irq(pvr_dev->irq);
-+	}
-+
- 	return pvr_fw_stop(pvr_dev);
- }
- 
-@@ -243,7 +248,7 @@ pvr_power_device_suspend(struct device *dev)
- 		return -EIO;
- 
- 	if (pvr_dev->fw_dev.booted) {
--		err = pvr_power_fw_disable(pvr_dev, false);
-+		err = pvr_power_fw_disable(pvr_dev, false, true);
- 		if (err)
- 			goto err_drm_dev_exit;
- 	}
-@@ -425,7 +430,7 @@ pvr_power_reset(struct pvr_device *pvr_dev, bool hard_reset)
- 			queues_disabled = true;
- 		}
- 
--		err = pvr_power_fw_disable(pvr_dev, hard_reset);
-+		err = pvr_power_fw_disable(pvr_dev, hard_reset, false);
- 		if (!err) {
- 			if (hard_reset) {
- 				pvr_dev->fw_dev.booted = false;
+Vitor Soares (11):
+  arm64: dts: ti: k3-am62-verdin: Add Toradex DSI to LVDS adapter with
+    10.1" display
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    10.1" LVDS
+  dt-bindings: vendor-prefixes: Add Riverdi
+  dt-bindings: display: panel-lvds: Add Riverdi RVT70HSLNWCA0 and
+    RVT101HVLNWC00
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    10.1" DSI
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    7" DSI
+  arm64: dts: ti: k3-am62-verdin: Add NAU8822 Bridge Tied Load
+  arm64: dts: ti: k3-am62-verdin: Reserve UART_4 for Cortex-M4F
+  arm64: dts: ti: k3-am62-verdin: Add Toradex OV5640 CSI Cameras
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Verdin Mezzanine CAN
+  arm64: dts: ti: k3-am62-verdin: Add Mezzanine with Toradex Display
+    10.1" LVDS
 
----
-base-commit: 2538fbeff8a94ee2b54eb09d92209e24a1e650d4
-change-id: 20260522-sync-irqs-6-12-f14d5b26a84e
+ .../bindings/display/panel/panel-lvds.yaml    |   4 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/ti/Makefile               |  49 +++++++
+ .../ti/k3-am625-verdin-dev-mezzanine-can.dtso |  28 ++++
+ ...mezzanine-panel-cap-touch-10inch-lvds.dtso |  97 +++++++++++++
+ .../ti/k3-am625-verdin-dev-nau8822-btl.dtso   |  14 ++
+ ...in-dsi-to-lvds-panel-cap-touch-10inch.dtso | 123 ++++++++++++++++
+ .../dts/ti/k3-am625-verdin-ov5640-24mhz.dtso  |  17 +++
+ .../boot/dts/ti/k3-am625-verdin-ov5640.dtsi   |  71 ++++++++++
+ .../boot/dts/ti/k3-am625-verdin-ov5640.dtso   |  18 +++
+ ...625-verdin-panel-cap-touch-10inch-dsi.dtso | 132 ++++++++++++++++++
+ ...25-verdin-panel-cap-touch-10inch-lvds.dtso | 119 ++++++++++++++++
+ ...m625-verdin-panel-cap-touch-7inch-dsi.dtso | 132 ++++++++++++++++++
+ .../dts/ti/k3-am625-verdin-uart4-mcu.dtso     |  13 ++
+ 14 files changed, 819 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-can.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-nau8822-btl.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640-24mhz.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtsi
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-7inch-dsi.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
 
-Best regards,
 -- 
-Alessio Belle <alessio.belle@imgtec.com>
+2.54.0
 
