@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1636CD5BB6
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 407F6CD5BB4
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D3D310F6AE;
-	Fri, 22 May 2026 16:11:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 825D810F61A;
+	Fri, 22 May 2026 16:12:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KSuPBBuC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ibit3h5Q";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 970BE10F61A
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:11:54 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-490388fd0dbso20099755e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 09:11:54 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0519510F61A
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:11:53 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-48fe26a177cso56977305e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 09:11:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779466313; x=1780071113; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779466311; x=1780071111; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RP+CltVi6jUCZJal0Anzdw8j6V9ipqNLat7Pdw8ZHRU=;
- b=KSuPBBuC9pENqW8zwLpFnNcg8pZn6gnUePTRq0kca5eMIrc8qoAsm+ewuqVfrO4xeR
- VqrdwtTZ/Df5UX77bokjoi3cHrTdhBeoMDlj4DnB3SDmqmFbeRT+4HoGxwXAkmIszboT
- Miv5wtw8LChGU57ui+diozu31eKIuoH+MGchw0rZgTsrKGWswHgVJgvMa16fW43MiJiV
- 1gcAzo0GpAiKsVUawHt7UHoQM57wKmEou4jbTKKjlyeJ1WIzTTBt6ehc+mC9Owcoo63/
- 6pYJCiV1atHxUhWtjIcVvKnBk3W0Rq8mVtq+ys8IHQS1NbVzsS0rX8gCVEySZdMErL0U
- DN6w==
+ bh=sEzEUIi3oWaa4bkqOIR8hzCtlujzV1XyxBwf8XTkUg4=;
+ b=Ibit3h5QaQIsN7uWnmTEQLX1OakCfStTRojBmvlMRaRiYxnuGPB1SBtA10HvlgARTn
+ Ye4uDOuzFpaNyRajNTjK1fBUZNyg3fsEta11Mb7CQeKMZ7B8i//PUaGjBPRKmmLHAiI2
+ y+NHVqU44TU3896jdwlClsxcuEsY/IBYzDmo06+bsefRclaCMmJTd11HhEb4YGLpet7E
+ ghD3l0nhK9k7GMcpVbpWRS8FJk9bnni66x4xej/ps1MXnAF7PD3j0ivdUTDZddcRuNyQ
+ uzPwwBuv5lBOqzPdRfZR1kK6SdDUMmLHeuNpSEjA+SNTjbQiVdRGSuDS8D/GK2zcBDG3
+ ao5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779466313; x=1780071113;
+ d=1e100.net; s=20251104; t=1779466311; x=1780071111;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=RP+CltVi6jUCZJal0Anzdw8j6V9ipqNLat7Pdw8ZHRU=;
- b=P0RujI3UYfxn0mfwqNZt9lpP0cO1klEKAT/fBrsAiuYmEc3zr4z8cP4IrdUjI8Zsp4
- xerkZ6SLGsoMt0vDPzb8rS85Od3hMkE0Nln72aSnuVJ9jYvABwa/2Jxw48VqfGhUhDl2
- 0hC+tkrHAI3fiIuDD4+Vcnupc0dv2KlhNGZFIOx2wubHTo+TW+F2TCdfaC0hZm+110FR
- MoUO91Hruzmf6RoHXaKOlzz0NwaCUU674XnzTViyTAPgWFVgccU+//zApjybMqXPkj0L
- 32ugLdaJGtzxCHd5nbRUB631rgAwgt5ncGDBdvzxGG4blG1VCr/V9sxxdRNPyRPfZk42
- Azeg==
+ bh=sEzEUIi3oWaa4bkqOIR8hzCtlujzV1XyxBwf8XTkUg4=;
+ b=C4rzczFgOsyA8BkrITKDV2FB0U5nmxQi4lXPV/xime1r8uMPfZh2gnOASHGK4JXr+6
+ LuYScjYNi5ZoTcIjGt6SgoBMDxALUBqgWjlFavwuXJjJKQ7j1C8b3YJHvFoaFLnXVZqU
+ HaNualfk5tWVUYcdm69x/X6UnrZ2x1NMfHLwj01NZcgBGt6SWNNHkjqmQ/IlJWK6FVj6
+ 6biAYEErISX81v36goo9VTTPUSAHRbYmv/u2PhxwNhsPj4pcJtZcDTjaG4L7KRLl3aPx
+ 6BdIJ/6E1E0bALoA+5hNC61vLidROw2OPz0h9uJ12zBBKkO3HhhL5L8liNTGEv5oBt8A
+ puOQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/4T5v5vIIztsaE8JqwP4kALpzF1/C2l3adda7WURpqQc8anWrfJi/sjJ6IBb8RNn41GRKO+C2aoAc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy5VlHwmEyFZtyzf/2PwB6iRsFAqssWcRospwCAT6gvao9Zl3Lh
- /fzBqyxSJus6XZe7IIlbKae15zBdpSlma1b/wEAso4cb0kG4/k1g1sF3
-X-Gm-Gg: Acq92OF3kv32PGxHM8p+jcY+toglV4HI2WBYFKXFtkB0xOK/jT6FN3PziXBS1uiAiWW
- A5uRu+8Mjl41f+uBDUPmuQko72V47HdqLdgEt928kR12lJSTehNwuDVZpek4e7L5IZ/RiOBYAD4
- rYy+XTDSRmKzwaOvQX0u3poCHl8up+LmBI6Y+i9RV2pxT/VqE5atgHf3eHvxmfwu+yWztpP8MD7
- baGsgOUGVHlYOJvb8Yze/dsGGocJaAAlqvilHxQ1VTFyFd+b5tL7Y0vf6t150k00KmnNsKWuCBm
- WNK2nRWEDdyRYmCqEkyFQmhunhlMw5QCexf4X9FQer+N5TRiYmMt55jxz5//xvZ+5luiD1lmHC+
- u05oCSxQ9UbDO6os69WfTMp8/3ENLnWTRDBK2QIXlta7zaHoB43srK8DUqtY9WFtlLEiMMq89jR
- dHNYMLek5/D51mfWcy9JlfRWWqm/FFCBuCVTjHHzs3FQ==
-X-Received: by 2002:a05:600c:3e0c:b0:488:ac01:72de with SMTP id
- 5b1f17b1804b1-49042489c30mr69866695e9.5.1779466313046; 
- Fri, 22 May 2026 09:11:53 -0700 (PDT)
+ AFNElJ+4yERGt6ur36tt+guWYj5UL2aFC4kBVGxHVZUGJtaDjz/H48vzAK4hbrYHJ/Se2/0b78PEctlR+D8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIq2VCGDbEC0ibikanuAbZ6dvaGAPzLbsHWIwQlq7XIlfRFaok
+ Ha2k5/YCcMx5IZ2ZZfZGgAfJVK5k0MaOva9e2LEIMgW1McXQJLrtaCFC
+X-Gm-Gg: Acq92OEd4bjR2obE4iDyPAfqNrunQcsoGm1LNWzb/Emsp/E4KypKRCaTYpZKr26TQU1
+ rIJKmPZzUrSelBpOLF2ZwhfPbcjdj/cIBV+Hf5rpvcwDRQRs9K7Mv/sWy23zms3K7IZkSaiKmLY
+ q0N5BQfzhsOGQUKz0aO0+eLAbMeXd3JD7ZiPRmZiiTXFG/ESChrCjW01dwUXTdIACvcoP0wFFgE
+ WMrlKtSALgMaqEc4UG12LaQdWG9FNa4jJEOlQQD1p52B88hSBUumx2RydZatlS4b5cpWK15ZAPN
+ F4+dPgqCzoiYNjxw8rLpxn8JHatnr2s/o9bttq1ShsXhcm9rCh6P5A6/GqJjSkyKPNxGxEJL+lZ
+ IR7j94lO4GS6znb6LWGpoDfkazwzhNx64vX2oL7Etqdpo53OT7jk4u0Dhz5CY6Pj2p67Cqj7MTp
+ wvYHNrDwkiSVyhw1O9L+e5w1cSdHsacDzBi935sUB3Mg==
+X-Received: by 2002:a05:600c:4fc9:b0:490:3893:c71 with SMTP id
+ 5b1f17b1804b1-4904248839emr59095215e9.5.1779466311391; 
+ Fri, 22 May 2026 09:11:51 -0700 (PDT)
 Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490454a0b9asm51042755e9.11.2026.05.22.09.11.51
+ 5b1f17b1804b1-490454a0b9asm51042755e9.11.2026.05.22.09.11.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 09:11:52 -0700 (PDT)
+ Fri, 22 May 2026 09:11:50 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -78,10 +78,10 @@ To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v3 08/11] arm64: dts: ti: k3-am62-verdin: Reserve UART_4 for
- Cortex-M4F
-Date: Fri, 22 May 2026 17:11:12 +0100
-Message-ID: <20260522161105.277519-21-ivitro@gmail.com>
+Subject: [PATCH v3 07/11] arm64: dts: ti: k3-am62-verdin: Add NAU8822 Bridge
+ Tied Load
+Date: Fri, 22 May 2026 17:11:11 +0100
+Message-ID: <20260522161105.277519-20-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260522161105.277519-13-ivitro@gmail.com>
 References: <20260522161105.277519-13-ivitro@gmail.com>
@@ -104,64 +104,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Vitor Soares <vitor.soares@toradex.com>
 
-Add a device tree overlay reserving AM62 MCU_UART0 (Verdin UART_4) for
-use by the Cortex-M4F co-processor as its debug UART.
+Add a device tree overlay enabling Bridge Tied Load (BTL) mode on the
+Nuvoton NAU8822 audio codec present on the Verdin Development Board.
+In BTL mode, the two loudspeaker outputs are bridged to deliver higher
+output power on the X28 speaker connector.
 
 Assisted-by: Claude:claude-sonnet-4.6
 Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 ---
- arch/arm64/boot/dts/ti/Makefile                     |  4 ++++
- .../boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso      | 13 +++++++++++++
- 2 files changed, 17 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
+ arch/arm64/boot/dts/ti/Makefile                    |  4 ++++
+ .../dts/ti/k3-am625-verdin-dev-nau8822-btl.dtso    | 14 ++++++++++++++
+ 2 files changed, 18 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-nau8822-btl.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index a1083c0b2502..31c9bc1d48b1 100644
+index 14898f8ab0e2..a1083c0b2502 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -44,6 +44,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-uart4-mcu.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia.dtb
-@@ -230,6 +231,8 @@ k3-am625-verdin-wifi-dev-nau8822-btl-dtbs := k3-am625-verdin-wifi-dev.dtb \
+@@ -29,6 +29,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-csi2-tevi-ov5640.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-phyboard-lyra-rdk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-nau8822-btl.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-hdmi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dahlia-dsi-to-hdmi.dtb
+@@ -224,6 +225,8 @@ k3-am625-sk-hdmi-audio-dtbs := k3-am625-sk.dtb k3-am62x-sk-hdmi-audio.dtbo
+ k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
++k3-am625-verdin-wifi-dev-nau8822-btl-dtbs := k3-am625-verdin-wifi-dev.dtb \
++	k3-am625-verdin-dev-nau8822-btl.dtbo
  k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := \
  	k3-am625-verdin-wifi-dev.dtb \
  	k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
-+k3-am625-verdin-wifi-dev-uart4-mcu-dtbs := k3-am625-verdin-wifi-dev.dtb \
-+	k3-am625-verdin-uart4-mcu.dtbo
- k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds-dtbs := \
- 	k3-am625-verdin-wifi-mallow.dtb \
- 	k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
-@@ -337,6 +340,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+@@ -332,6 +335,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am625-sk-csi2-tevi-ov5640.dtb \
+ 	k3-am625-sk-hdmi-audio.dtb \
  	k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
- 	k3-am625-verdin-wifi-dev-nau8822-btl.dtb \
++	k3-am625-verdin-wifi-dev-nau8822-btl.dtb \
  	k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi.dtb \
-+	k3-am625-verdin-wifi-dev-uart4-mcu.dtb \
  	k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds.dtb \
  	k3-am62-lp-sk-hdmi-audio.dtb \
- 	k3-am62-lp-sk-nand.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-nau8822-btl.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-nau8822-btl.dtso
 new file mode 100644
-index 000000000000..e263809cdf74
+index 000000000000..e4b662519a6b
 --- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
-@@ -0,0 +1,13 @@
++++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-nau8822-btl.dtso
+@@ -0,0 +1,14 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +/*
 + * Copyright (c) Toradex
 + *
-+ * Verdin AM62 Cortex-M4F debug UART
++ * Enable Bridge Tied Load (BTL) speaker mode on the Verdin Development Board,
++ * combining the two loudspeaker outputs for higher output power.
 + */
 +
 +/dts-v1/;
 +/plugin/;
 +
-+&mcu_uart0 {
-+	status = "reserved";
++&nau8822_1a {
++	nuvoton,spk-btl;
 +};
 -- 
 2.54.0
