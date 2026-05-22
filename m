@@ -4,160 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D16DBCD5BB3
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 06:34:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B599DCD5BAF
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 06:39:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173E110F4C1;
-	Fri, 22 May 2026 06:34:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F045D10E245;
+	Fri, 22 May 2026 06:39:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MLs4k8iA";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TbLMOZDP";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ahv6Hjez";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09FB410E245;
- Fri, 22 May 2026 06:34:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779431651; x=1810967651;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=XK4qk8hhl/rVe4lWDG3lgHb4l3UHuizvQ8Grg5bOu9A=;
- b=MLs4k8iA6tZft+dThRupGlHS65nVO09/m4UKJrTi8Zvej/XA6x8leEp2
- tG51xt6QnYWW2Ky134vbrrMl3H6vviMsVSD6roVhKYE3YdLFNGA2+GCxN
- 75wARE2ZSTDstPJsY1p3IoRsqvZXJpz9/5myB4pSCSq9dJE1b7RoTa7Hn
- /gWEC9c+bUREGD4wUU9XoJdQG4xhVMj3835iDZKCFNhms52Kb4g0Rds22
- 7Byaj39DZwuKTGYOxNRYVEP4UiJDwD3nw0i6FF1V/tUX3b5saA951AX85
- 2EuPqytnGnyaGnOB5iNUxfi2+i11UWve2uaymkP4jcM5gjVBXvgrC5tAw Q==;
-X-CSE-ConnectionGUID: euKlmgtiRGqUmRGTSqUKqQ==
-X-CSE-MsgGUID: o8VaowalSe6cBKrZ0zegPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11793"; a="80537502"
-X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="80537502"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2026 23:34:10 -0700
-X-CSE-ConnectionGUID: ZKt525joRJyyQNLXQu924A==
-X-CSE-MsgGUID: etBG6fvVRLCoQJGokmamAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="236401332"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2026 23:34:10 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 21 May 2026 23:34:09 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 21 May 2026 23:34:09 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.5) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 21 May 2026 23:34:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=atvTmYmeQfUdtoKO5lxQsrbnoiB5dahj3SSF5hevi9bR8L9pDnMLx4rWeWf2D/8mES6ZBePU8JxphJcGqDL16WdcIzbjKbOuxkYQiaExZzuRJjoEFgeVwy6sPCMyNJgmbWq0/S+WWMiB75rYk7zT3XEEiVO6zsCFfzJkfjAchkHov9yJYppEtJW0m7BYUI/4gFqMSUU9Hot9DTTQo3v5h7r7NYYNBJFNV67QEKtLE6E/0fb5EhB3Yb4oo5m0UIQEsD1bStXw6SRbWnIhiK/x+Mdd6yy540iYAyJaK5Cokt9RpeSgG48ECjlMCj+qZEpNfG3/R8LJMucZ7LKF+Hi8tA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Na31aQvDsn+crMMoGqVKz+irXy4roKR5oEoNxWSCZo0=;
- b=HrChPhSdI+kFlO+dyDV2lypfrnWaQF9M6zCJ+h8u3el4VYVfeNPLbHsHq16koUVriYXaGPL0UEfKix3S8tA55Vej2lsnPTJeysnVjQo7/KDRAZSikBbhY4diNtQEoSrAdYtwKD8RbyFbvqgQxxwlQqKhhXGhm5Lj/bgWyf7w3XaLGQK6yb48CRmqkszfIzRknPbwssEOwYPDPLIFp5MrTHXE9iremewNuodgqsIrQCj1+bFEARErQ3VOd9Izp76BsZSfcg95NvqrpHDFvGn9gX91AJ3otuUELxyn58fBIOubkQdqDRl04q9iZu/SPDOrRu1G4UQLAqF/JsO1PA60VQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by DM4PR11MB5245.namprd11.prod.outlook.com (2603:10b6:5:388::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Fri, 22 May
- 2026 06:34:07 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.21.0048.013; Fri, 22 May 2026
- 06:34:07 +0000
-Message-ID: <9a2155fc-1100-4a84-a0f4-37e730d9700f@intel.com>
-Date: Fri, 22 May 2026 12:04:00 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] drm/print: describe 6th & 9th bit of drm.debug
-Content-Language: en-GB
-To: =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-References: <20260521155231.1821935-1-michal.grzelak@intel.com>
- <20260521155231.1821935-2-michal.grzelak@intel.com>
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260521155231.1821935-2-michal.grzelak@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0064.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b3::13) To SJ1PR11MB6129.namprd11.prod.outlook.com
- (2603:10b6:a03:488::12)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39A0910E245
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:39:07 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64M3hwFx2765201
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:39:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ JmINK/1u1ZY/zWzlVZMsxeh9Pabz3nrezFAKXzevSnM=; b=TbLMOZDPCPViNzPj
+ QSto9uLQJTZAJZhRZKqfR6II5lfal3gX7NH+deO3/gT/PssYVtYI1FsU4ZwYCNzS
+ 8QQVV2YQKUVAlTULzqUiL7pnXKk+Nsv/OTzAiMeDcwAmt2GuecR35YwZuRzer1wS
+ CTO5zlblx9gNb/wss9tfEzDlbOcYg4iawdWiOLopNF4Zp/Qe4rRkiAyLtUmeKdHU
+ 8aXBiU9KK4rng7GdSz/ScZxHuKYOyEaK/3kbBzdXNAuBV2KW+NZQThNCoJHq7iVc
+ Gaq0MizQ7lpl6X8WgVCiOFuwHKEnk3R6QAHrJDXQUhIz5e0sNcGCzrNp9pZHvPfl
+ ySbNsQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea3u7ueee-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:39:06 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2ba224c3ffdso168330955ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 23:39:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779431945; x=1780036745;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:cc:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JmINK/1u1ZY/zWzlVZMsxeh9Pabz3nrezFAKXzevSnM=;
+ b=Ahv6HjezZqMn/zntGExls5mOr8w6dWz8ibDob0D2entFNQtENhjPdupQ4deWty9JPs
+ Jj3JUSICg3YY/cgOcmlj6aITFZd+nINY+/68eL3WNi1DXgjZnISVdL71kLI84oZI/jmF
+ CPDVxxnjpLFuTkPGMxE9k/xSAOsLngLS2AouRvrOv5mrGCqmQ7gxyBy2tH2pFN85XQHT
+ cNQaWZI6+2/v4F0TGtmi7jMygnkX+wW80kifyVs9KzFeuISgmhiiPx7zJIx/ESZbLL0/
+ ZSCPg/O2NkKcC+ekZIVq+wY9YIBsI6sTcYa6ApTAB1KdeG4r2VJvSzjZcaqSG28ABNSn
+ +YOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779431945; x=1780036745;
+ h=content-transfer-encoding:in-reply-to:cc:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JmINK/1u1ZY/zWzlVZMsxeh9Pabz3nrezFAKXzevSnM=;
+ b=DUmgIoi4apd1PKWAkGB5/Eg71eAvsBLVa/t0l+LHPX+u3g8175t2DDD1dyS64RatzM
+ h3zXoeMJ0QhdDsAWsOPVAtEB1FSMuyff4siaUaOqRMBlgkmHMYaZcTlq+z8SFO6a5gVD
+ g36HhACvVwG3XE9wUb67hiWoirRCR2HJNCCJyRmz7XHSButWezTxBblpIg1PMvfmOr+G
+ 4vPDrCCGR03pfyynEZa2McoS+JSgHmRId6KWsXuTctgVUvd2kbgYU4m2Rs+i1UCz2YHB
+ ElQHBW7s9IJTmxQ1p1dx2eHBQZ2tcPZRIdQdjsjw9Ai605eig2tTspnYj9LbBRnWANWY
+ NSUA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8UfAmumZ1z1rEv8p74uDls4gcs3X8wxC/0v5IgnjDCnbAdSHVYcq3qVT5vh7fCnrFlbn60q93yHaY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDA2c7xFavpOW/o1M8H1sC1O5xOaqaHs/DoKURTLKlYCYKc2KD
+ sBjX3dxwQwAL+COJmbTt0tOyTA8B2SjYI40yM/bjM+sSzw5EcfpIv4//y4+SgzOINRPsRGhYhoN
+ NH2Qc7nMhjeLTSbamycS3JoszPLHSBvxdyct5wsJs7UEoLmfIPnPmGj2NIez9zhqP62+1QJE=
+X-Gm-Gg: Acq92OEWB1iPWAxLQd6nM5PjBLTJvrpUoFN/mtAUxq7AZNc5oMa3o8UFt0LmMMZ/0ZC
+ b5/ReS6ARUMnz3h2DZAvWU56Pvt6iWiUYmzc7UH9fogWfl8X8uxFaFZJc/8zgc8WnGCAF4HbjQt
+ +AJWGi1+xJKYdx4Odi3/rJxyz9pYG5oIVGgzFmK+3KVtrOBbScmhpNI8nwmD9ymUMQh6xH7xyRp
+ BgEI6D686dY8EEj0PWyjXeOtKEF7n2sQbWjtYhDbuv+B2WHxiS3S9rScfOIlc0Q+iNEOPcBB/SJ
+ Rs5hcBalB7DFmp+ByEPNqDz489He4qLEr1osqSI2YBlnhKChyavitzRTcREZIB0TWGkdVIxWnEQ
+ REVw0h65FMcX5Bk01+b9FV8E9vj0dzrdnEUVg5MC/neFJo8/7rKfL4rafD7fLQAuvJhMNY2GNjn
+ Cj8p62w/Idg1fowO0T
+X-Received: by 2002:a17:902:ceca:b0:2b2:4029:d781 with SMTP id
+ d9443c01a7336-2beb05d9fd3mr24537045ad.20.1779431945144; 
+ Thu, 21 May 2026 23:39:05 -0700 (PDT)
+X-Received: by 2002:a17:902:ceca:b0:2b2:4029:d781 with SMTP id
+ d9443c01a7336-2beb05d9fd3mr24536755ad.20.1779431944658; 
+ Thu, 21 May 2026 23:39:04 -0700 (PDT)
+Received: from [10.133.33.160] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2beb58db336sm5558365ad.68.2026.05.21.23.39.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 May 2026 23:39:04 -0700 (PDT)
+Message-ID: <3be2caa4-dfdb-434d-90d2-63a35518e27d@oss.qualcomm.com>
+Date: Fri, 22 May 2026 14:37:39 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|DM4PR11MB5245:EE_
-X-MS-Office365-Filtering-Correlation-Id: d266959f-aea6-4e25-44e7-08deb7cc2014
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|3023799007|11063799006|4143699003|22082099003|56012099003|18002099003|10086099003;
-X-Microsoft-Antispam-Message-Info: SfNuEOfb3e25eaG7Ra9+WXVaRwN83WimcSr3DlrDWcMj9u9+Za18krpU3TMrOz244pBeneZsuIKn1ejCN8bmh5cWYbzcoILQQk3m1pYCicmVjuRKyHCyRog9ZveWbepEgE//TzTqnuLlSnMlUXcm6Ibfmwu6zwTq+iZck2dLndIglgLjhbbee6747Da2kGl8rRLysXVcYRkysRug0WvwUV9qi9SJabe4gtAFIGqfuoY6rtNGbscraF89Ello+YN/hV8pNXO8hr+okhiaHSb9d0wFxykYN/fpUPx/IJP/969yPOiHJNNlXWANNUfQueWN9DccdYmJi/YfXE2NT7RonYEYcR3RRk7mtMubUfEHMTTNrx3Q5Wp41dd5BZPIQjbLuIoTCDX+mMvZOcxaL1tYae6auhrYjj+eXXS+q18CKfmpLiOPX3nE5rM4Psj3BGAlcT/K7vlhVem4oTu46FkDqk6BTShgH0mMPY9EE1l/eFfILLyh19AE2FPyCNKmfbG+K9A+MfAx0uK6Q3F5g2xFfHceJhxwpXOLtQsV9OTKKHd/W5FBkpDELOf/bULW1vKHDOUpFz0vGwcx9BC51BfxiZo+uXCulyR887KdZjT4K0+hJyMe93tSHklLghMiMybPlXygbxtpalDUHjcK3pFKXYhtBDZnallFln6eERhr9iGe0Lkl0fUXb8YAJXX9Thtj
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(3023799007)(11063799006)(4143699003)(22082099003)(56012099003)(18002099003)(10086099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmpoaTBVa3FlbXcxdXpPTCtLQnNUSUNNSDI3dVl1Um14YXlvbkVPUUFNRFVz?=
- =?utf-8?B?YzRjS0FKeitJQS9PZk04SE9CU29iZ2h3RWp4RXVOQmNFeHErRmRWYWlNS3Vx?=
- =?utf-8?B?SnBpRzRMZFRwWlhENGRQYmIvYm9BZkFGOE9MN3g1SmZiYzhPV2hLQXBFU3dL?=
- =?utf-8?B?eHpoL1NGc1I1bzhyZjg4dFdYQU1SUzdJaFNaMG9JOFZUQXNOZUVPRkdWNk1v?=
- =?utf-8?B?RDB4cjdiZW5XdXJSckFIQWdaSDlIT0Z4TngyWWZsRTAra3dmRHpvOHJxWHhy?=
- =?utf-8?B?STc0S2w1Yld1cHpPczA0MXpKNlFwb05ubU1nZkNOT0MvMEw4bjJJTXdvaTZz?=
- =?utf-8?B?RWZoL21YdXFVRmJXRjAxdkdCK05Jci80aHdBRld0aFR4RkdOMVVoN3ducmlx?=
- =?utf-8?B?VHZhTVA5M0xyQk9CMUNMN2lobnc3N1JjVTFaMFJqbC80TTV3dTUyTXR1OWpT?=
- =?utf-8?B?RDFvanl1YWV6NFFNRzlUSUxLNExUOHA3S1VnbWxiRTFDVjFBbjNoNzczb2lm?=
- =?utf-8?B?QVNiWWszR0NzaVlxaCtkNzN0V1VKUzZFSW1WZDhsbDh3UWppRS8vVDBoZlhY?=
- =?utf-8?B?c2JlT296aUFtQUhmYkc4ZXFMckFGL2k3cEliT3g3NFdjYTVrbm1sbWVDQVNh?=
- =?utf-8?B?ZW5yeFBKM2xvcGYvdENMbVhabFF2MFc0SEx6QUpWdHVhSWhWZjEwUkg4TVc3?=
- =?utf-8?B?dzR0ZUNPTmFNOGUyTTEvT3MvSzRVMDZ3d3J2cGYwYkRWZ1RZZHJNUm93dkNC?=
- =?utf-8?B?eUJzVDFHV00vOENxcmxUZW5BNnZIaGN4Z1o0UWRBZm1aL1I3YThCWWRHaGFG?=
- =?utf-8?B?b0plRzdzQkdyOFNLdTdDWUdPRzdIUnhlVHNpOFRreVFFanM4ME84ck1yWldn?=
- =?utf-8?B?RXFmL3dVNHBYK3gwNm9vQXE5YkRjN2tZRkdLNERhM1krOXJpaDVybXIrSnV2?=
- =?utf-8?B?OS9qZ0hvd0E3UXpxRHhGdk5ENG1Nb1BxM1E1b0xyL0h4elh2aGxkRkJST3Qz?=
- =?utf-8?B?TjhxcFBwYk9Band5cEdUMms1VjhtRXN5dmdHRFhNQnlrbmtnK2tpZVhXUkRy?=
- =?utf-8?B?OTVOUUxhSVBZZnkwM3pQWlpRQ3FDNUhvNFVyK2RsMkpGaldwV3llSEhUcXlC?=
- =?utf-8?B?Q0tSbmVrNFgwbm1ISzRwRlQ5amJBdzIrSXg5S01NV3g0M2k0MWNMa0V0THEv?=
- =?utf-8?B?d3lmT2dxM3g2TEVYajBBR1pTR2szNk1lYWlKNHFDVS9WQW54VWZ3MWgwWVpO?=
- =?utf-8?B?Z0ltR2kzYXdTcjF3c1VEK3Bja1ZjUVlvNW05SUJ4bXR2YW9oVktYMDN6QlAv?=
- =?utf-8?B?ek16a3NLVlV4VWRJNUExTTVCdWFremo4LzRFQ3NxQnNZQXQvRGxzcTR2QlhN?=
- =?utf-8?B?THNveitlOExEMlZMM3BPMGVNL0ZQQURLeXRXdWpGSTRKMjZHOC96K1hTNDJK?=
- =?utf-8?B?elB1cUNnNWgvL1ppVFAwYU9DOTlvVHpQVXNRaE9CbDFkb1BQMjlNcEZlNE9H?=
- =?utf-8?B?dnE5VzB4VGFPR3JaeEg1TXM1U3cxMW5vd3pHVjlpYmNDaGFFai80dlF0ZnBK?=
- =?utf-8?B?WEZ5VjlzR1dTeEpnRkRSelVhbU5BWW9CYmY5eThmSllOVW9YQno0VFVaN1gw?=
- =?utf-8?B?alV4Zm5tTmdQTFc5Z1lEeEUxS3lJQ3RhbUNIeWVscllJS2ovRnRoOUtDUnFj?=
- =?utf-8?B?RDFCb2o4VEtpdFVkR0RYR3kxV0RIUzIzVi8wUXJLLzIvdGJpNEFYcmdmRUZq?=
- =?utf-8?B?U0lNTGk3YkEyT2RsMXZSNWNlWDN4VFUvMFFCSGJCa1UwVGp5cDFoVzJGMWJa?=
- =?utf-8?B?T25qaGN6Qis2ODNzOEEzTUdiaktvaU4xdDBMdHRkQ21MRDZTd2RyWWgrVlZB?=
- =?utf-8?B?ZXl2RHcrZjB3ejFsbFdieGRYYkhxSnQxOWk2cnV1K2ZkdkdxTHBjYUdJdG1J?=
- =?utf-8?B?c3lPZG16bVZrTld6Tk96T3NEMGt6Q3o3TUpZUmR3VmJScmYwdGpiRXB1RVBC?=
- =?utf-8?B?NTZCdjBNUVhJTW5xMDNVRnVWa1B2S3FNTTRjN3NFdUwybWJVUFB5ZG1iT1hG?=
- =?utf-8?B?blg2cmN6OFhTU3lNNE9Hb1NvMkxvQklvNnllTlNjRDR1bCtiYlhDSGhKN285?=
- =?utf-8?B?V2RiS2R5alUzazJaNi93Um9Fd1FjSmdPQmgxcFIzcThKeEt2dzdPakMzWmo4?=
- =?utf-8?B?cVpGbWJpUFFORlQySHZYWE9jcWVWVUhGbVF2TmtxWHBNVXdBWit0RzAybWJ0?=
- =?utf-8?B?VTNzSXEwSTdYaEpWSTNQakxScUlveElxZHM2Nms2V2JaaWJFSytDZ1I1RWhT?=
- =?utf-8?B?UTBPZndEOWJWS1BzRXVDL0xLTlJVM1JjclhrdFRtWjBuRUxKbzdJbWQ5anhP?=
- =?utf-8?Q?4zMnab4nuXgAhK8k=3D?=
-X-Exchange-RoutingPolicyChecked: c7pAacCSW1hbIhK/XHfb4oAMRramp41brR/0vCK77k1y/gKjJg2zhFmJtrU4Brhe6hM8etHlcIlXgCaLoSsQF0DDPWYR+m3GLXMhfCXlx5OvqaqNAH7VDEoTZmVls/b1LsFE1cBgEWZbSgS2EjYVuQQb3EtJsUf3bQrhUzGHhFjyhkmgt/idITb5BYf3SW3+x1+661ISBrgOhRVstKoqwCwCSezDVTnRW93ufoIrDMgyLLQaIu+aqAzjRjP8MUS2t3uHiH/4VBXJ09QpTBsTzrxnnAgBO3X0QYevJwkRnXEue+58y3P234R0dgqySKUTTppoNnRHGWMMrzY9DGBIWQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d266959f-aea6-4e25-44e7-08deb7cc2014
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2026 06:34:07.5464 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K+H3+vy3UpdqHH1X8Bw67i8U1uyDYpSgU1QAVnbsNZ6gAByW+PXBk2AH9JkJH1nKHtjW6lq7zvEC05C10B/BL2RpWFdV+7nyROPx2dVJcCc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5245
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/5] misc: fastrpc: Fix initial memory allocation for
+ Audio PD memory pool
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, srini@kernel.org,
+ amahesh@qti.qualcomm.com, arnd@arndb.de, gregkh@linuxfoundation.org,
+ abelvesa@kernel.org, jorge.ramirez-ortiz@linaro.org
+References: <20260515124217.20723-1-jianping.li@oss.qualcomm.com>
+ <20260515124217.20723-2-jianping.li@oss.qualcomm.com>
+ <almtuwpdab6oc44zljo333iv6iels24j27ucuiwsojkfc56zmt@xrbj6baxc46b>
+Content-Language: en-US
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, stable@kernel.org
+In-Reply-To: <almtuwpdab6oc44zljo333iv6iels24j27ucuiwsojkfc56zmt@xrbj6baxc46b>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=aIXAb79m c=1 sm=1 tr=0 ts=6a0ffa0a cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=5IayI-uhQhADWBiAsg0A:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: vEdlf-LX_mwa9czBvfk--mOyam8fzh-N
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDA2NCBTYWx0ZWRfX50mmNNl0mzqc
+ KgQ6HqAZxqF8gpDTHGiYWrrdz8welkIKGsjXjDVbc5oTNrF7zs0SIwk+E+bM4R6y34cpouXR5Ow
+ /usVGA4YhbQ0xmo7XcM6LriOyK0rfN783Wt5T3kXduVmyBz7Srg+2eVBUZIIsWT/7BErsbaCqhr
+ VubjuyjR1KMRPOupWuI3TGf5klGv2fuZcWNBfBNk3M+vfdnBkx20sa4b9c5VjsF4498viPvUKRU
+ jMQBiuMTLwhWUjW7TUf/HqYwb8LWLP31+tNta/QHMfnYI9a9Hhb8QBSSkhl+kgE8S4FhcujxdUn
+ bG5fECKExOULp37KQwdTB0IgMSM8z88QnbHaCj1oi5SXJuiLhnOsl8NTQvYYSJMkF7f7CBjH+n8
+ 2jgjbMMs3LMQAM5Oww10N8Tpenvic+AegYTt48I3aB0SZV9ctQoDB60xLH1LAqiZbPBKk5cRbmA
+ sXnKf8XDxj//F7WH1LA==
+X-Proofpoint-ORIG-GUID: vEdlf-LX_mwa9czBvfk--mOyam8fzh-N
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220064
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,55 +148,63 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
+On 5/15/2026 9:33 PM, Dmitry Baryshkov wrote:
+> On Fri, May 15, 2026 at 08:42:13PM +0800, Jianping Li wrote:
+>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>>
+>> The initial buffer allocated for the Audio PD memory pool is never added
+>> to the pool because pageslen is set to 0. As a result, the buffer is not
+>> registered with Audio PD and is never used, causing a memory leak. Audio
+>> PD immediately falls back to allocating memory from the remote heap since
+>> the pool starts out empty.
+>>
+>> Fix this by setting pageslen to 1 so that the initially allocated buffer
+>> is correctly registered and becomes part of the Audio PD memory pool.
+>>
+>> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+>> Cc: stable@kernel.org
+>> Co-developed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> If it's From:Ekansh, it can't be CDB: Ekansh. How can Ekansh co-develop
+> the patch with himself?
 
-On 5/21/2026 9:22 PM, Michał Grzelak wrote:
-> Setting 6th or 9th bit of drm.debug change debug logging. Meanwhile
-> `modinfo drm` does not inform about it at all.
-> 
-> Add info to MODULE_PARAM_DESC(debug, ...) about setting 6th and 9th bit
-> basing on DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, ...). Match
-> description of corresponding bits with enum drm_debug_category. Include
-> 9th bit in the example with enabling all possible logging provided at
-> comment at include/drm/drm_print.h.
-> 
+I will delete CBD:Ekansh.
 
-LGTM
-
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-
-> Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
-> ---
->   drivers/gpu/drm/drm_print.c | 4 +++-
->   include/drm/drm_print.h     | 2 +-
->   2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-> index ded9461df5f2..86cef1a37678 100644
-> --- a/drivers/gpu/drm/drm_print.c
-> +++ b/drivers/gpu/drm/drm_print.c
-> @@ -50,8 +50,10 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
->   "\t\tBit 3 (0x08)  will enable PRIME messages (prime code)\n"
->   "\t\tBit 4 (0x10)  will enable ATOMIC messages (atomic code)\n"
->   "\t\tBit 5 (0x20)  will enable VBL messages (vblank code)\n"
-> +"\t\tBit 6 (0x40)  will enable STATE messages (atomic state code)\n"
->   "\t\tBit 7 (0x80)  will enable LEASE messages (leasing code)\n"
-> -"\t\tBit 8 (0x100) will enable DP messages (displayport code)");
-> +"\t\tBit 8 (0x100) will enable DP messages (displayport code)\n"
-> +"\t\tBit 9 (0x200) will enable DRMRES messages (managed resources code)");
->   
->   #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
->   module_param_named(debug, __drm_debug, ulong, 0600);
-> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-> index ab017b05e175..2adc5ac688e1 100644
-> --- a/include/drm/drm_print.h
-> +++ b/include/drm/drm_print.h
-> @@ -87,7 +87,7 @@ extern unsigned long __drm_debug;
->    *  - drm.debug=0x2 will enable DRIVER messages
->    *  - drm.debug=0x3 will enable CORE and DRIVER messages
->    *  - ...
-> - *  - drm.debug=0x1ff will enable all messages
-> + *  - drm.debug=0x3ff will enable all messages
->    *
->    * An interesting feature is that it's possible to enable verbose logging at
->    * run-time by echoing the debug value in its sysfs node::
-
+>
+>> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+>> ---
+>>   drivers/misc/fastrpc.c | 8 ++++----
+>>   1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+>> index 1080f9acf70a..8b21f85cd9f4 100644
+>> --- a/drivers/misc/fastrpc.c
+>> +++ b/drivers/misc/fastrpc.c
+>> @@ -1324,7 +1324,9 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>>   		err = PTR_ERR(name);
+>>   		goto err;
+>>   	}
+>> -
+>> +	inbuf.client_id = fl->client_id;
+>> +	inbuf.namelen = init.namelen;
+>> +	inbuf.pageslen = 0;
+>>   	if (!fl->cctx->remote_heap) {
+>>   		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
+>>   						&fl->cctx->remote_heap);
+>> @@ -1347,12 +1349,10 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>>   				goto err_map;
+>>   			}
+>>   			scm_done = true;
+>> +			inbuf.pageslen = 1;
+>>   		}
+>>   	}
+>>   
+>> -	inbuf.client_id = fl->client_id;
+>> -	inbuf.namelen = init.namelen;
+>> -	inbuf.pageslen = 0;
+>>   	fl->pd = USER_PD;
+>>   
+>>   	args[0].ptr = (u64)(uintptr_t)&inbuf;
+>> -- 
+>> 2.43.0
+>>
