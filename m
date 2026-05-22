@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB07CD5BB3
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:11:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1636CD5BB6
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87F4C10F639;
-	Fri, 22 May 2026 16:11:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D3D310F6AE;
+	Fri, 22 May 2026 16:11:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dArtRNSK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KSuPBBuC";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96FEB10F5C7
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:11:46 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4891c0620bcso47858525e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 09:11:46 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 970BE10F61A
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:11:54 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-490388fd0dbso20099755e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 09:11:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779466305; x=1780071105; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779466313; x=1780071113; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MxhTRa0jJQh6ofFG9sXlZ7aauhKliKnMeyOlOjmQWhU=;
- b=dArtRNSK5HpATVhHBqn6wahNjPpBGrRUKvQczENnme80XaxH3czNn4Rafd2FT+234B
- ItJmbBolhraUyQ0CBwPNmeyqluBDRcs7vwUR60+RumEdaOAotjz9F5O78s2u146WYs7J
- xO3BVwFx1EGcFMupZ/cp9DNu1QFifwF/c5jNbQT/BwQt/xMzHAlrzoEmeUY4dyvwoqNQ
- pQWzhCwjur/xEln/jPqkCCK/7EwGQhRAkbBGY3Vf9hYTWIxA3bNzMW70VC9V2cTIGLYG
- 0H3woT1ZlAstI+pHOxmlsLjQn2MIiVpxto5QrO1sYNbKMbjUWswh1MbSnBwp7YHFwie+
- ZVpw==
+ bh=RP+CltVi6jUCZJal0Anzdw8j6V9ipqNLat7Pdw8ZHRU=;
+ b=KSuPBBuC9pENqW8zwLpFnNcg8pZn6gnUePTRq0kca5eMIrc8qoAsm+ewuqVfrO4xeR
+ VqrdwtTZ/Df5UX77bokjoi3cHrTdhBeoMDlj4DnB3SDmqmFbeRT+4HoGxwXAkmIszboT
+ Miv5wtw8LChGU57ui+diozu31eKIuoH+MGchw0rZgTsrKGWswHgVJgvMa16fW43MiJiV
+ 1gcAzo0GpAiKsVUawHt7UHoQM57wKmEou4jbTKKjlyeJ1WIzTTBt6ehc+mC9Owcoo63/
+ 6pYJCiV1atHxUhWtjIcVvKnBk3W0Rq8mVtq+ys8IHQS1NbVzsS0rX8gCVEySZdMErL0U
+ DN6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779466305; x=1780071105;
+ d=1e100.net; s=20251104; t=1779466313; x=1780071113;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=MxhTRa0jJQh6ofFG9sXlZ7aauhKliKnMeyOlOjmQWhU=;
- b=UH8tPcG+IsyXgljVOnQZh0zzvXyiKzOpdukE38p3BH25+d38IwG5aVr9EUgcmhcJJ8
- t5Ny3n4rlU5VaERu+sOb6KwuD/XdFK8mXoZE22I/Tj3yGJrv+D7ClMiQtT1eeQUGUbc5
- YCkc0ttcnH9Nq3meXu0wkPv28eTxtjeenL35uGFB+HyblIaqidCXKrFX0WVtJt6pm995
- IbgkgoNgUIhE2T3RMU4cOgRrBdO9lVJvdqJbXcgsLOOWNeRjMpClZib9uv5R8NH0ZaUY
- MbkVY2uJ4RAnWpaHoDIguF731OB1nflnzp1iN3FsP1HELysAIv7WMrlXbAS5MDTDbj+u
- R42g==
+ bh=RP+CltVi6jUCZJal0Anzdw8j6V9ipqNLat7Pdw8ZHRU=;
+ b=P0RujI3UYfxn0mfwqNZt9lpP0cO1klEKAT/fBrsAiuYmEc3zr4z8cP4IrdUjI8Zsp4
+ xerkZ6SLGsoMt0vDPzb8rS85Od3hMkE0Nln72aSnuVJ9jYvABwa/2Jxw48VqfGhUhDl2
+ 0hC+tkrHAI3fiIuDD4+Vcnupc0dv2KlhNGZFIOx2wubHTo+TW+F2TCdfaC0hZm+110FR
+ MoUO91Hruzmf6RoHXaKOlzz0NwaCUU674XnzTViyTAPgWFVgccU+//zApjybMqXPkj0L
+ 32ugLdaJGtzxCHd5nbRUB631rgAwgt5ncGDBdvzxGG4blG1VCr/V9sxxdRNPyRPfZk42
+ Azeg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9JFkkxJzPfRD1C7DYigdIK4Tb+fcajcDIe1KuPHfY+mY8d5w7KTO1JJJK2yjOK/CPhvqdsDnIeo6M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyf4CS50Ote1Yp9C6Vcwa2pHlDupCjs1g/uW6/a/eJ5Hwrktp2z
- J3URL1/0otjqgxNi4sThgOvpcUCSKI3H585kuSMhpnInWlJBdbn1LHgi
-X-Gm-Gg: Acq92OG3uoYUUBI5GU4TOa428VE5URUrCVkbbrDuVC2EU+lX3ld3qoXKWDko1RRxbaZ
- 6L+Il7XZtWVhSaL68V3UxpFUiHdtijj4leVekBLZYtHtrIqyEIUk8f6/oou0eFrkVD2M0gc/6Ao
- V8HDEu/Ml6NPLVUYrXxy+ZzA4DiUGWe8Vyy4V5yiTtoDOvpFPeFjbWyLm1e+n6BLNfOOl1rA52D
- bTo831Xv+yY8TT/NOTiaijfhd+upjoyBLiBJ6y9HSirYoUXgICuhY4UC8oJQQTuVdie6rCw+F/s
- rZm1e1hMUmfk7e3WihxD6pygXYGduzBakJF9HLQtXOjSDiRPFAjlOjSrPM0lpJWnsKiDW6KCcU2
- ILa1shQImswPUITAZ7YC8VRpwRIywtUcp9Hl+KbgqEvpWIxPG2OAkdbK91BF9fcoIVlCJkNsCwV
- 4CVmoKcTZJGwenVBNc9WDil6lBDUcQnGOULRiffAHcox8n3FzsabpZ
-X-Received: by 2002:a05:600c:1c21:b0:490:44eb:c1ea with SMTP id
- 5b1f17b1804b1-49044ebc2edmr57464185e9.24.1779466304832; 
- Fri, 22 May 2026 09:11:44 -0700 (PDT)
+ AFNElJ/4T5v5vIIztsaE8JqwP4kALpzF1/C2l3adda7WURpqQc8anWrfJi/sjJ6IBb8RNn41GRKO+C2aoAc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy5VlHwmEyFZtyzf/2PwB6iRsFAqssWcRospwCAT6gvao9Zl3Lh
+ /fzBqyxSJus6XZe7IIlbKae15zBdpSlma1b/wEAso4cb0kG4/k1g1sF3
+X-Gm-Gg: Acq92OF3kv32PGxHM8p+jcY+toglV4HI2WBYFKXFtkB0xOK/jT6FN3PziXBS1uiAiWW
+ A5uRu+8Mjl41f+uBDUPmuQko72V47HdqLdgEt928kR12lJSTehNwuDVZpek4e7L5IZ/RiOBYAD4
+ rYy+XTDSRmKzwaOvQX0u3poCHl8up+LmBI6Y+i9RV2pxT/VqE5atgHf3eHvxmfwu+yWztpP8MD7
+ baGsgOUGVHlYOJvb8Yze/dsGGocJaAAlqvilHxQ1VTFyFd+b5tL7Y0vf6t150k00KmnNsKWuCBm
+ WNK2nRWEDdyRYmCqEkyFQmhunhlMw5QCexf4X9FQer+N5TRiYmMt55jxz5//xvZ+5luiD1lmHC+
+ u05oCSxQ9UbDO6os69WfTMp8/3ENLnWTRDBK2QIXlta7zaHoB43srK8DUqtY9WFtlLEiMMq89jR
+ dHNYMLek5/D51mfWcy9JlfRWWqm/FFCBuCVTjHHzs3FQ==
+X-Received: by 2002:a05:600c:3e0c:b0:488:ac01:72de with SMTP id
+ 5b1f17b1804b1-49042489c30mr69866695e9.5.1779466313046; 
+ Fri, 22 May 2026 09:11:53 -0700 (PDT)
 Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490454a0b9asm51042755e9.11.2026.05.22.09.11.43
+ 5b1f17b1804b1-490454a0b9asm51042755e9.11.2026.05.22.09.11.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 09:11:44 -0700 (PDT)
+ Fri, 22 May 2026 09:11:52 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -77,11 +77,11 @@ To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Thierry Reding <thierry.reding@gmail.com>
 Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v3 03/11] dt-bindings: vendor-prefixes: Add Riverdi
-Date: Fri, 22 May 2026 17:11:07 +0100
-Message-ID: <20260522161105.277519-16-ivitro@gmail.com>
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v3 08/11] arm64: dts: ti: k3-am62-verdin: Reserve UART_4 for
+ Cortex-M4F
+Date: Fri, 22 May 2026 17:11:12 +0100
+Message-ID: <20260522161105.277519-21-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260522161105.277519-13-ivitro@gmail.com>
 References: <20260522161105.277519-13-ivitro@gmail.com>
@@ -104,29 +104,65 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Vitor Soares <vitor.soares@toradex.com>
 
-Add vendor prefix for Riverdi Sp. z o.o, a design and manufacturer
-of TFT display solutions.
+Add a device tree overlay reserving AM62 MCU_UART0 (Verdin UART_4) for
+use by the Cortex-M4F co-processor as its debug UART.
 
-Link: https://riverdi.com
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Assisted-by: Claude:claude-sonnet-4.6
 Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/ti/Makefile                     |  4 ++++
+ .../boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso      | 13 +++++++++++++
+ 2 files changed, 17 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 28784d66ae7b..bac056d486e7 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1403,6 +1403,8 @@ patternProperties:
-     description: Embest RIoT
-   "^riscv,.*":
-     description: RISC-V Foundation
-+  "^riverdi,.*":
-+    description: Riverdi Sp. z o.o
-   "^rockchip,.*":
-     description: Rockchip Electronics Co., Ltd.
-   "^rocktech,.*":
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index a1083c0b2502..31c9bc1d48b1 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -44,6 +44,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-zinnia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-uart4-mcu.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia.dtb
+@@ -230,6 +231,8 @@ k3-am625-verdin-wifi-dev-nau8822-btl-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
++k3-am625-verdin-wifi-dev-uart4-mcu-dtbs := k3-am625-verdin-wifi-dev.dtb \
++	k3-am625-verdin-uart4-mcu.dtbo
+ k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds-dtbs := \
+ 	k3-am625-verdin-wifi-mallow.dtb \
+ 	k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
+@@ -337,6 +340,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
+ 	k3-am625-verdin-wifi-dev-nau8822-btl.dtb \
+ 	k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi.dtb \
++	k3-am625-verdin-wifi-dev-uart4-mcu.dtb \
+ 	k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds.dtb \
+ 	k3-am62-lp-sk-hdmi-audio.dtb \
+ 	k3-am62-lp-sk-nand.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
+new file mode 100644
+index 000000000000..e263809cdf74
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Verdin AM62 Cortex-M4F debug UART
++ */
++
++/dts-v1/;
++/plugin/;
++
++&mcu_uart0 {
++	status = "reserved";
++};
 -- 
 2.54.0
 
