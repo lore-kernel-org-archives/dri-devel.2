@@ -4,139 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A47A7CD5BB0
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 12:07:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 798DCCD5BB1
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 12:15:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECF5610F596;
-	Fri, 22 May 2026 12:06:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFBC110F588;
+	Fri, 22 May 2026 12:15:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KbPyYICb";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z2pTne3X";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="s7uwSOTh";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8D/Une9L";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EIHpDw5S";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/sk5BZ2J";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3EB10F596
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 12:06:58 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64M733HU1298195
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 12:06:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- RuC4SrN5QXHeOndDmUz76nUGZQ7L7HnziVS8PNaqBls=; b=KbPyYICbkw/yR81+
- kcwtkJE+EFGBR52L0V90LzQMV7Dkug0zN9yHQZfqVwW9Ub0TEst1+DfitJg4ckm/
- ifKTLg3d3eF3cGq8BuJpzAAxlpbLZsgDC3ctoCOslSF6G5O/wkbppwBHWfPxgEDc
- wBJ0T1qhJLQK7ImPXTQ4DVUY6xBGInUn/iaT3V9uhU7JyW4jSea8rDC9aurry9ya
- T5OiqUQnm4poTl7B9BzJNB8PShzzRKdx2DJR5EZNJFtAP71xkqtGMfiR/2rX4rRl
- UlQZ+79o9ZPtqb+UTGNj+kKHAA6YJnXh4CmyP8X1kdA71OjQLNPy4fzEg9YzjW0t
- mPrcoQ==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eaah0aubj-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 12:06:58 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id
- a1e0cc1a2514c-95687296dbcso322189241.1
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 05:06:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779451617; x=1780056417;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RuC4SrN5QXHeOndDmUz76nUGZQ7L7HnziVS8PNaqBls=;
- b=Z2pTne3Xjonzuzq+CFnFBJ4YSrCt/6Nd7xYkkNqHURcxjYYEoESdtvq2gvIihKi1JR
- hMNiDoPZ2H28DWYFF+cqJutNz7fKk1dZD5Ml2qACuAcAeyRt/gPgEmAIlKtMSWjoWAgX
- p94X/rk7qq9ovg0rTO2fU9q4aOU59MbGK0OZciNLVC/YJNDlMs6+ASx6svH4Lml5Gic0
- J2AjYOc9IcYvXK0HcyWYqYxLKEFkQx4Ee9/QGJBn/mjUY7ZRwZUxg2yF2lVN6s9Q7jj5
- TXkiZTM598xbgl+4cH6yXsKgZY07/n1tsJJ4JWtaAHPTc1taeGtw4laf25ujOkB49xvV
- JdPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779451617; x=1780056417;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=RuC4SrN5QXHeOndDmUz76nUGZQ7L7HnziVS8PNaqBls=;
- b=Qy1uCSqnAAFwRm3JGEyJXRXX+zd/wPUY+CkLIaQ/V1LhL9lpxlJYEkzuRYX1FHiVe3
- LuFTtkuBYCeOMzhTJfet84+0Xr53OcrDixayPexv5vX263FvBsPnsZU7rDAtLDFn7je9
- /mNW4F78NkUgeFFPQ3OtcTF7m9+QN9eEdxfAVLMCKA+8WqQh9/2wW+hkij/WjDnzDNrj
- 2JfjNU29Z5IJCd7cM/epBVT+SGUAHu/KO/RexjwkAL+1p/BOi/GKgxxrKgiedfFYrQfr
- DlkyYk70asgBsyznukdOwZ71IWhVCf9rqIO1p+5ODmigEEQNnE2+tdvq47C6KIA8+rMp
- 00QQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+RJHGio3R5fGIc5OLaMUlpYorZxcFREysS76JAAnzqsJyddGzXAx3sDJreMzSH5tudETk/dycqU+w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx4iQBYuvfphIuGa5Pm44mWwPm16A4b6GnschNRc1ZmLLYQ/S64
- GYzc2NdALHgjaOnfAL7KCvT793tHiG8EsGHxLUQQmP7QZLrKlSCm1/N2XYQOTtRv1+SsHwb1Q5Y
- buerrTHr8icaXYkIHb/bWgk7lycdaoLqD4p696jj+i4vF+RMOJOg+tKA+4iLEqbRrfhHm7aw=
-X-Gm-Gg: Acq92OFEwpszu2VdRSZCrhbfGyUh1C/qD3jy/XkYJ8x1pTTp8RzfyopTjYyP7YNdVOs
- QuXVuj1DYPXERxghMs8nH9vTZIAG4WwuI+PZklJ/+FGA5fNHe2VWzcqqW2sQBx7IZvqdHjTZjLk
- 3geIWPsyV1Qy726zApLOic4+acE6+o7FA1GLqFjRnlqf2DtAVbSAx79UCpKbmbmT7mya3WO5G49
- 0ude+shbo46BD3qqRi+utEt6AXGx7XAjEF+vMMn0n+uxMLBiDZCF6tF6RXg1zQD5xLnR7uMMT+5
- GxpQMd24hIRgU0ESNL56r7VzjgvtImVe3Uy33pha0hsg133h6/Bn8dJeoqUwFdG/44OcmWpz6nG
- AXfrrOGMC7pMxwuPQe+t4dvwgjMkdZyAprEd6mpwh4aOrfQ==
-X-Received: by 2002:a05:6102:12ce:b0:631:2a09:94c0 with SMTP id
- ada2fe7eead31-67c704cc2f0mr493734137.2.1779451617109; 
- Fri, 22 May 2026 05:06:57 -0700 (PDT)
-X-Received: by 2002:a05:6102:12ce:b0:631:2a09:94c0 with SMTP id
- ada2fe7eead31-67c704cc2f0mr493706137.2.1779451616558; 
- Fri, 22 May 2026 05:06:56 -0700 (PDT)
-Received: from [192.168.119.254] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bddc62d3f21sm47749466b.44.2026.05.22.05.06.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 May 2026 05:06:55 -0700 (PDT)
-Message-ID: <fd4f87d3-6c3b-4171-ac19-7ba28a899dd0@oss.qualcomm.com>
-Date: Fri, 22 May 2026 14:06:53 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D78610F588
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 12:15:00 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EE22D6BC97;
+ Fri, 22 May 2026 12:14:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779452099; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ptY1IlspQTpMQ6DhwpPWv/BlY7Z7SGGDn6x0AktbKSI=;
+ b=s7uwSOThtont8ctCoMaTl8NbQzDBohiFXKCSr/HvC/+bbgpmFeXxjgPtHREoaP3yzSRcjE
+ dnBtnE4TkVXSy2mceL6ewAszEbl9EfppsknNWJHIHiXVUsXWdtdE6/0G0o5EFcEHiXPvq+
+ Hz+QdJJvul62wQbLP8f10jdCRFjxBpU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779452099;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ptY1IlspQTpMQ6DhwpPWv/BlY7Z7SGGDn6x0AktbKSI=;
+ b=8D/Une9LmgDGdy0IttGePqT651aAsFFqw8VslqF89AndnIQ/sNcscTpm0KzHmkUS9K3NTy
+ SXIXzKXBRa6CMaBQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=EIHpDw5S;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="/sk5BZ2J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779452098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ptY1IlspQTpMQ6DhwpPWv/BlY7Z7SGGDn6x0AktbKSI=;
+ b=EIHpDw5SSbfvjckHwKA/TRjiH1dJhEcE2l/rFum3c2/4qvaRgjHXBg0xGwUWUFv/9rdSYM
+ V7jFEIz+3zPbnnwQJPWbLsq9z+WkC0Ed27vvy/dGIK+uART3DLlUs/jzvrh/yRh1mJSR/9
+ RG5XBZDxKrGduDKnPA5VRNOOSMZINYE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779452098;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ptY1IlspQTpMQ6DhwpPWv/BlY7Z7SGGDn6x0AktbKSI=;
+ b=/sk5BZ2JTYnAWaYAlREzf0aZoneb4E6Zi0wUizoiPTQmk7LtEk2vFt4l8qy/kFkVJGNEpS
+ MvB71mbMmFCSRvDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A19E8593A8;
+ Fri, 22 May 2026 12:14:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Bo9eHsJIEGqpagAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 22 May 2026 12:14:58 +0000
+Message-ID: <3ffcf348-94dd-449b-a672-450b45a4c7cc@suse.de>
+Date: Fri, 22 May 2026 14:14:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/10] drm/msm/dp: clear EDID on display unplug
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260314-hpd-refactor-v5-0-0c8450737d64@oss.qualcomm.com>
- <20260314-hpd-refactor-v5-10-0c8450737d64@oss.qualcomm.com>
- <93327e80-c4fa-464c-90d2-26a7b08b2ea9@oss.qualcomm.com>
- <kpx6hqics3odr66whpatyr4q3onj3sbm3bmoesr27u4up5wrcd@irdyyavhfvo5>
+Subject: Re: [PATCH 1/4] fbdev: Wrap user-invoked calls to fb_set_var() in
+ helper
+To: Helge Deller <deller@gmx.de>, simona@ffwll.ch, airlied@gmail.com,
+ lukas@wunner.de, maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ chleroy@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <20260520160744.130841-1-tzimmermann@suse.de>
+ <20260520160744.130841-2-tzimmermann@suse.de>
+ <0ce59eaf-1124-48c5-b812-c8e6b58e01d0@gmx.de>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <kpx6hqics3odr66whpatyr4q3onj3sbm3bmoesr27u4up5wrcd@irdyyavhfvo5>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDEyMSBTYWx0ZWRfXzEtSD5j8/rej
- HMC/EbrD0QFqlhEiz71ziM6Kv09tXsy7PCxw8WtGO3F5NAY/T7HrTAG0976FJU0mOlPhtQRuJ+O
- YsX51UHeXC9zeL4W2GkU9UB76gk05kLSBkh4Mu1wo7TlxKuH8NR4qLy8bL5e+APfMpYnAsW4CjM
- rOu3lTtZHulWd5nMotuN+MbZ+g+PmIv4YMpckQ3G6usYpurrje4xnOq6gKAslHdb5Ig0dYbqiUy
- 984IoHuWh7+NChf9ks3Acb2a3FDT4QI+y8vC3K45yJlh3NmMXtUTN2Y6mxLnNQJBRTjdnTJQjgR
- +tmaX+BQlQZMcDuV/TrkU2XJ8c940gAs32DhrS1MonvmulY/DcJvKG82wSBqDUuiYadqfZBex0N
- zqQKjb1i5Xa27dMwBPyO+LXgp0tviFRzCSI/VV1hr6EiB9sk3NQxcssrCBi+MzcROJaaiR7eaiJ
- 4v0Ykl/SU9x/rY8lcvw==
-X-Proofpoint-GUID: q_5B1XuVI-H6fxA9W654j0UfbObbf3Wr
-X-Authority-Analysis: v=2.4 cv=LNdWhpW9 c=1 sm=1 tr=0 ts=6a1046e2 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=t_vVken9Fv9OD4yO6SUA:9 a=QEXdDO2ut3YA:10
- a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-ORIG-GUID: q_5B1XuVI-H6fxA9W654j0UfbObbf3Wr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605220121
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <0ce59eaf-1124-48c5-b812-c8e6b58e01d0@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: EE22D6BC97
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_DN_SOME(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[gmx.de,ffwll.ch,gmail.com,wunner.de,linux.ibm.com,ellerman.id.au,kernel.org];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_SEVEN(0.00)[11]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.de:dkim, suse.de:email, suse.de:mid,
+ suse.com:url]
+X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,42 +154,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/22/26 2:02 PM, Dmitry Baryshkov wrote:
-> On Fri, May 22, 2026 at 01:49:50PM +0200, Konrad Dybcio wrote:
->> On 3/14/26 2:09 AM, Dmitry Baryshkov wrote:
->>> Currently the driver only updates the EDID when it detects a connected
->>> monitor, which results in the connector still listing outdated modes
->>> even after the display is unplugged. Set connector's EDID to NULL on
->>> unplug to clear the list of modes.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>> ---
->>>  drivers/gpu/drm/msm/dp/dp_display.c | 4 ++++
->>>  drivers/gpu/drm/msm/dp/dp_panel.c   | 8 ++++++++
->>>  drivers/gpu/drm/msm/dp/dp_panel.h   | 2 ++
->>>  3 files changed, 14 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->>> index 0a38957ea901..5c6a24ec140d 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>> @@ -447,6 +447,10 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
->>>  		return 0;
->>>  	}
->>>  
->>> +	/* Don't forget modes for eDP */
->>> +	if (!dp->msm_dp_display.is_edp)
->>> +		msm_dp_panel_unplugged(dp->panel, dp->msm_dp_display.connector);
+Hi
+
+Am 20.05.26 um 20:51 schrieb Helge Deller:
+> On 5/20/26 18:00, Thomas Zimmermann wrote:
+>> Handle fbcon during display updates in fb_set_var_from_user(). Check
+>> with fbcon if the mode change is possible, update hardware state and
+>> finally update fbcon. Update all callers.
 >>
->> Is there a change some ""funny"" panels decide to output a new EDID blob
->> after a "proper"/custom reset sequence (e.g. to remove limitations
->> presented to the DPTX at the UEFI display init stage?)
-> 
-> The panels don't know if it is a UEFI init or a normal reset. EDID
-> changes require a long HPD pulse anyway.
+>> Only the FBIOPUT_VSCREENINFO ioctl currently does all steps. Other
+>> mode-changes callers in sysfs and driver code are missing fbcon-related
+>> steps.
+>>
+>> With the new helper, ps3fb and sh_mobile_lcdcfb no longer maintain
+>> fbcon state themselves.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>>   drivers/video/fbdev/core/fb_chrdev.c   |  6 +-----
+>>   drivers/video/fbdev/core/fbcon.c       |  2 --
+>>   drivers/video/fbdev/core/fbmem.c       | 13 +++++++++++++
+>>   drivers/video/fbdev/core/fbsysfs.c     |  4 +---
+>>   drivers/video/fbdev/ps3fb.c            |  5 +----
+>>   drivers/video/fbdev/sh_mobile_lcdcfb.c |  5 +----
+>>   include/linux/fb.h                     |  2 ++
+>>   7 files changed, 19 insertions(+), 18 deletions(-)
+>>
+>> ...
+>> diff --git a/include/linux/fb.h b/include/linux/fb.h
+>> index 5178a33c752c..88680a7cabd5 100644
+>> --- a/include/linux/fb.h
+>> +++ b/include/linux/fb.h
+>> @@ -533,6 +533,8 @@ extern int fb_set_var(struct fb_info *info, 
+>> struct fb_var_screeninfo *var);
+>>   extern int fb_pan_display(struct fb_info *info, struct 
+>> fb_var_screeninfo *var);
+>>   extern int fb_blank(struct fb_info *info, int blank);
+>>   +int fb_set_var_from_user(struct fb_info *info, struct 
+>> fb_var_screeninfo *var);
+>> +
+>
+> "extern" int fb_set_var_from_user(...) ?
 
-I was wondering about the possibility of the panels effectively having
-a side-channel for absolutely proprietary configuration. But your last
-sentence makes me believe even that shouldn't be an issue
+As Christophe ointed out, not having extern is correct. I think, if 
+anything, we should remove the existing externs from the headers.
 
-Konrad
+>
+> Other than that the series is a nice cleanup!
+
+Thanks. I'll send you an updated series with the #ifdef fix for patch 
+3.  Sending just fixup patches can confuse the tracker bots and services 
+(say patchwork), so I'd avoid that.
+
+Best regards
+Thomas
+
+
+>
+> Thanks!
+> Helge
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
