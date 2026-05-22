@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D7FCD5BB0
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 18:19:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1656FCD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 18:24:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E25210E0BD;
-	Fri, 22 May 2026 18:19:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73E5010E288;
+	Fri, 22 May 2026 18:24:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Yfj+uOao";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VaoEA6Eg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C210510E0BD
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 18:19:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A76D10E288
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 18:24:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779473943; x=1811009943;
+ t=1779474282; x=1811010282;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=rQ4Y7nagtCKEmKniU+R5AbpYhu/DJlNiFJo4ePL8mrU=;
- b=Yfj+uOaomVM6Ucvd7gcGrupd3vOX+PnHw1DwQkBfcsVG1+ptdmwsH61M
- 7Vgyr3e2mI3thkGliESxiFEjo6VzOjb/3YkQCrmush2tAW9RgKYMTNiSP
- NcOK9Sl7ydOMtEiuGy01GtB0Q3g94/WZ5yeBwe30Orn2zRGmMMmXdPSsk
- ZsYY2DPHGiHxWaofxSdJLyE66VKATyYCRieg4W0gHcjeFwSvVPpBljs6A
- 7dSxvr8FANIP9Z+QS6ltQ1HPUOpeBRP94Ki4KBMWfauxuTrkzXS9GmQ1m
- ixi7jSq2zvMJ6LhDAjr+TWOpy9MwbPCVArJHA5uzgTRJCXGZVjT8T9dI+ w==;
-X-CSE-ConnectionGUID: oio9maYcS/KbtrU7uo1r8w==
-X-CSE-MsgGUID: kzP6MpYNSrqe7n3n4l/9LA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="80441108"
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="80441108"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2026 11:19:03 -0700
-X-CSE-ConnectionGUID: QK9eXneaQOKRzUxCnO33cA==
-X-CSE-MsgGUID: CLl1Hd9sRvuOITV2TE1G0Q==
+ bh=ttG915SHcKi6dZnXm0ZZK6xbc8yqyrLEeSINwfytnAI=;
+ b=VaoEA6EgQDcTDfwNZiGTXk0sdfI+nTxdWW7Nt4zsfYTYu5cPVaybSfi7
+ /LQreJPaPGx9SH4EG/CmxDHdi4PD8iMMVKUbCMGhIBEHgyOFLyxkkV8M8
+ Drvr3LD4gGZZzhcqFxePI7NPo9VyShi+gSpc1ihF56+StTcPCnaJI6Xf5
+ qlDpdZQqjBGGSJrHL7WaAYev9Bb7l329M5jYRCLLVdlYhuxOR7fwX3tU6
+ t9kOcILmvdXPyvgswv8zpdNwZS5ZO+1zCnQa/Tl95nO7C2qo5QgOP7GpF
+ eV9wlpUVPLWCR07yFNpiVip5GzvqHs8AivSzXpFApA5jaq2rWgV+pSl8f g==;
+X-CSE-ConnectionGUID: YySyUCm4QWySgOlFHSMd8g==
+X-CSE-MsgGUID: hNPak6nMTlqcfF1OSQKO2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="67934940"
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="67934940"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2026 11:24:42 -0700
+X-CSE-ConnectionGUID: EB381szPTM6FueON0d7NNw==
+X-CSE-MsgGUID: o+jqMJwmSQCUroU8ieIM9w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="271327221"
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="240148436"
 Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.187])
- by orviesa002-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 May 2026 11:19:00 -0700
-Date: Fri, 22 May 2026 21:18:56 +0300
+ by orviesa010-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 May 2026 11:24:39 -0700
+Date: Fri, 22 May 2026 21:24:35 +0300
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
@@ -50,7 +50,7 @@ Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
  pekka.paalanen@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
  linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v3 2/2] drm: ensure blend mode supported if alpha exposed
-Message-ID: <ahCeEJQZYOJG-GIx@intel.com>
+Message-ID: <ahCfY3RXV2l-fZda@intel.com>
 References: <20260518175429.80615-1-leandro.ribeiro@collabora.com>
  <20260518175429.80615-3-leandro.ribeiro@collabora.com>
 MIME-Version: 1.0
@@ -86,12 +86,6 @@ On Mon, May 18, 2026 at 02:54:29PM -0300, Leandro Ribeiro wrote:
 > Error out if a driver expose alpha property or pixel formats with alpha
 > and does not expose the blend mode property. This way userspace don't
 > have to guess. Drivers that hit such error must be fixed.
-
-I don't think the error handling is a good idea. It's just another
-completely untested error path that is more or less guaranteed to
-break eventually. So IMO just WARN and plow ahead like we do for
-everything else there.
-
 > 
 > Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 > ---
@@ -155,6 +149,10 @@ everything else there.
 > +			plane->base.id, plane->name);
 > +		return -EINVAL;
 > +	}
+
+Why this? I don't think the constant alpha property has anything
+really to do with the per-pixel alpha stuff.
+
 > +
 > +	for (i = 0; i < plane->format_count; i++) {
 > +		fmt = drm_format_info(plane->format_types[i]);
