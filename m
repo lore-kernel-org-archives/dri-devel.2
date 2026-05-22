@@ -4,154 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F8A6CD5BAC
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 20:09:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7385CD5BB1
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 20:44:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C5AF10F6E8;
-	Fri, 22 May 2026 20:09:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E95C510E032;
+	Fri, 22 May 2026 20:44:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EbgztTsE";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ijLzRe75";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i0n86bgj";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD4BA10F6E8
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 20:09:21 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64MHF2ES1800764
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 20:09:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4mgJ5edVM+mqGwYghHMz4APWCN08GCaqEMyrnNrUOWY=; b=EbgztTsE1C9CerSE
- ANTpW3uvn5Il5z/EcdPUowP+j1DovIhpYLkshTBQcFSp04zrMrdGzt9VrEDdhC4u
- /OS8jPtLzIIC64gNN8r1/jWRO1QKY7ePcVrH1lXNsJdefWwgMAsp1OkdSnzgxz2A
- RmeUVsDokIDB0hnA0AhEfhHrMWZiz+A/5xNfbXHXQ2JjFfmAuTexFDG4uSh9GBE4
- Uj7Hhq2m1Z1Dkp6h7E7qH5ORpxVxb0PHRo1f9A+gQd3r8tvMFo7+/vT88LSzxMd0
- CYtP3evhGCD5OxWn9UeuQY1sqK6HwmFMAEMNY2/FH5RrzV0e0fIlG8WG6aFtaO5Z
- vTsYIQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ean9g276u-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 20:09:21 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-910304978f3so1550879385a.1
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 13:09:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779480560; cv=none;
- d=google.com; s=arc-20240605;
- b=WroFXXKCb9DkI2jdhNv97vqGArBdB4Ko5d9sTbjBAtgW2mminaH32pGU3p+ok6Hdvy
- 3qgYRLkXmXO/Tfw0hv6g+ClSJPmU25opORe4DVR+JoM+dXBP6BKGil3CM921SnlglJ6V
- 5vjwXMv1eduxTQJqjzpTXSErDJmr1uj6E6FnY+y67lwDUsYenZkQi5yWNq3AAiNr1Fet
- yy7SzrcMS1A7pP14z9UPc0V62TCEbI0ygILGdT2rAGCnbYFhcmwlsyEY9ogc99zw5n0m
- cx0FUhp7iSNVAD/3Qi34T/DiSIk9lILimvLH+BI41isXjZWjntwhgZYeT72dpGyaspdk
- kh/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=4mgJ5edVM+mqGwYghHMz4APWCN08GCaqEMyrnNrUOWY=;
- fh=NvCF9+/snIjQOrmZ83TfyqOQhTrT3NdjrGuPz/NzXSU=;
- b=e+T1zw0GZpEdVVd6Cmx3Zic+m8JBelda2LKKjcj6qcN4kh4tabU7XwNe3pB3oWcbvw
- AUQv79HTwDDpE7QplafKCGsUrmZw+YN4IH0aq6cYyPY6Zs/b2VLDulVZdaf37d7FfQJl
- nooo3/VJKBgR8n43f02HsKU/Py93KZ7WNsTNuVeGN6BHc6gKfy0EEcGhyg/l0Fk+EMaa
- ZZPessVyYMmPU7ArrYr2rSXEFovIsDLEtID4MSJbrH8y4uwFIH/0pe8+fJAvLHrQRfb2
- H6JB8ACYB2+xDInoc/Eo7JPdkjC6jDTnj3I+c9yol1LVAVUKLDU5/BtW+9SfS2K25YII
- dyfQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779480560; x=1780085360;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4mgJ5edVM+mqGwYghHMz4APWCN08GCaqEMyrnNrUOWY=;
- b=ijLzRe75xVJXGCGxEsJhxwEKs6B51d4tsmBVur5F+ZWIp+GhByXAdgfOE9CJTnykbv
- M0jcVI1wg3Bq0tJTdfoHtWOJUP36xKgKa2pz1t+isnoSs5o+LNoTrXMbWHawIIbCUszR
- JL7wPEaxS2g3V0ADslG5iWahH4NTs36z8bVu0JqXb6ZxqveLLI62M+L+MbKunjxV6lu7
- mr6Pl3mYatcf7pKx7y0OC75o3NbRFhM8NNQKWQkKQjjs5ZJMdFcsW3tJ6VvVFVUL+KDg
- omaPiOe68EvzUAlGVGAGWyEcr7/RczwNxsieUpBVm2PfUyghvqOYPoVvAaL74igQ/Nsy
- GNAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779480560; x=1780085360;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=4mgJ5edVM+mqGwYghHMz4APWCN08GCaqEMyrnNrUOWY=;
- b=oG076bcp3EfMQ3khSmPQMf1L1ud7Ycxb9fKm4hB/VM/0ZaSTOy0k+WXSKj6a2Lqy7T
- 52TQsmLKYZSb+EiOVFZkSNc7P7wzFAwXPwODGP2EHqNc8pgOlQjLhTpvlIQt+vnn5sYl
- mtPgWWr4kHp1SwcBOduy/WxaakXkZ9I/4bxmrjQNVs2Ji0o0SxYc0CSwgBb4XnwNIREl
- lSNoXe1K93mD5Pho9+A0fi1QYPLQ189c/MUrsU9RU3fFxRhGATdxsGBlHB6GORtYVhy1
- Aa5tuVepdmdMZ9Sk/61GZfqjPLD2tqDczUp/cmv4efiG194Aez6I8ag+DVNnDawzoq7E
- ToTw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+yphgSR6rMcZbjb8geJ+qubg9I3ZBvXpGJh8zmHceZ8Rg1qAdYFyP0prkxNabqqR9AX82RL9bRvWc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzFCzdQsNNNjlpwdF2e8L24HXD/s1+pxvGHHwkQiLd+w35I2eDe
- Gs6kK103VfS5lOHFJ6iU+UIiafxDnnV9g94DEKCyN9FNxYnxohs4ix0j8FsyrdIpj+3qWR4cF37
- ZznhyJmmz37+XwpANsSXuA2Cz5EpJAvs50NrbWvMf6CAHZGcBQtQhv/U6Q+9uKyNvGs5hYbtbRI
- 9EEaQp6iyoFMsu+hOTwbL/hNdAmW9WGNuvl3H1HaJP0VxAIw==
-X-Gm-Gg: Acq92OG/0h+Oj6kmfJr2RBj4Nl2a3q711sEtt+n9eXMY2dZUr2I/v7QY+lGSeArG5JY
- heUlt5lkSacJpbK8UUT7msZgVf9UXrHcVPrKrsZ/l08YejGbj1iTrA6OxdDSsVpHlHV85ZpUtFI
- FFTe+HULFtHxvL9Z4K1BV7KqKLy/Dt7D8s8Hrjo3Db9DIgyNOoHv9zR5OQXKHmzPpwlqZ1TUy4F
- 8+ghRD/wSCi46QAtZNhP7z+brSPxX/hMp/gbxr2JXbj4v9er6fDdCo8oKMiPjtgAP71
-X-Received: by 2002:a05:620a:28c7:b0:8cd:aa61:ad8f with SMTP id
- af79cd13be357-914b50cab94mr617028685a.14.1779480560185; 
- Fri, 22 May 2026 13:09:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:28c7:b0:8cd:aa61:ad8f with SMTP id
- af79cd13be357-914b50cab94mr617022585a.14.1779480559708; Fri, 22 May 2026
- 13:09:19 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD1F10E032;
+ Fri, 22 May 2026 20:44:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779482662; x=1811018662;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=TSTcX8cekkPnOwE9ObhI4cOVAvaI1zyVezSm+7Md6cc=;
+ b=i0n86bgj9DFwrJWCMlxiVVvJDtK0FItzPOz+S2zFD6kR02MnzdmJOML5
+ 5tvvE35mSpCStJD8Pb9LBquVGVrqQvr6oXI6QRMdr380odf0c1+SGMVTm
+ Y8LxEDi4ciX0e6nRJcagRuSjGzK2ahvKr68iHhN4yXoKn/bwTnWosoIgH
+ etX1SMibm/cBqcWSSOeJ+ybs5MQjYlk4LL/WpbfvWw8Aca+JgKl0mzHDM
+ a21FXVjIYIpKiiDuvQqkvRkFNLSHNR0220jHMfPjreDNq6R74tovnJdaY
+ NAVYeGW/7fJ0xQcMUCllME4QwSiDOqXDMcDDzFHlVUNfE5TPLivnhuQNy w==;
+X-CSE-ConnectionGUID: a/7rzCSeQLCeZety5AqNzA==
+X-CSE-MsgGUID: AnvRARcbRKmLBmzwwRzhiw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="84301931"
+X-IronPort-AV: E=Sophos;i="6.24,163,1774335600"; d="scan'208";a="84301931"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2026 13:44:19 -0700
+X-CSE-ConnectionGUID: D2Ukmh/1Seys9l6C39/Z3g==
+X-CSE-MsgGUID: qiGNgflbT0OU4GkHIqyL3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,163,1774335600"; d="scan'208";a="245048533"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2026 13:44:17 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 22 May 2026 13:44:15 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Fri, 22 May 2026 13:44:15 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.2) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 22 May 2026 13:44:15 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UIAgajDs1E+rKgSQq0GYGcl6SiiQF9Jl0spy3JwFv9JaGSyvyTdSZFdM2GjDvkSutdf9m/NhKrPPXq6MLSWQXJo3DZYhJ2tco51ML4GWl7OS/n/2fvP/q44v2xX96BdOoA/tAmuOjIFX4xwJOws1o/NxNZGRIk1blYIjY4fnAC0aM03Ryt461MgRP0voqfB3Y6T0S9dtlkTDzEc+h/Y+RSfFEf1rUvWrkSB68f9bDAyjt2B8wuUWU2v4pXyKzyXD3vDlNeitNCi0z5AgBE6Ya/ExylOCUq3U70hcXLaN9UtO1BRq/nTBxTXHon3I7e0mghjRKg7NW+w0fB1hSJkOqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QWO3kJJKOFM49ADThxN8Wjop5vJw0EdS8nEaAJeASro=;
+ b=FHOkpfUPfUHcjthWFWCycI1EY/6DLC6pvlUqAMoXTzFA55xRkrkd6lbfHbLKst9c3M48kCnLKxrwDOPIfLZPS2EbIEr5w71uGkg0K1hAKJuYIZsub9+6X1zVtIKww1b08d7ivtIzObe0n9qmR6rLiyzEUijACYwuizmw1zC2Lc5l8BhEPBgUb0Z3pO5UeHL2W6iEkxU+8P1FdwsYa5vw4cfR5Nq6iP5vJHNR9LHEIwTnVrIRfpo55m/qpZsZembFu3RZNfDuJDNpWicf5Hx3+q5f1SbK+mDtdrdRZ7+P1JPRwmDuYayJV446oi4pqxHi7594KLXIotamwCladWN46g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
+ by DM4PR11MB6478.namprd11.prod.outlook.com (2603:10b6:8:89::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Fri, 22 May
+ 2026 20:44:07 +0000
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe%4]) with mapi id 15.21.0048.016; Fri, 22 May 2026
+ 20:44:06 +0000
+Date: Fri, 22 May 2026 16:44:02 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+CC: Maarten Lankhorst <dev@lankhorst.se>, Matthew Brost
+ <matthew.brost@intel.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, <intel-xe@lists.freedesktop.org>, dri-devel
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: drm: xe: Kernel-submitted job timed out
+Message-ID: <ahDAErDSE-SFA0oM@intel.com>
+References: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
+ <6874536d-ab1a-4dd7-a23f-2a071bda145e@lankhorst.se>
+ <CAHk-=wj5aE1yVMb8RM2AuNUHSMnQDaGT+Vy+At5ds1vxBA+Kng@mail.gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wj5aE1yVMb8RM2AuNUHSMnQDaGT+Vy+At5ds1vxBA+Kng@mail.gmail.com>
+X-ClientProxiedBy: SJ0PR03CA0264.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a0::29) To CO1PR11MB5073.namprd11.prod.outlook.com
+ (2603:10b6:303:92::23)
 MIME-Version: 1.0
-References: <20260522-mhi_runtimepm-v2-0-fbebf41a82bb@oss.qualcomm.com>
- <20260522-mhi_runtimepm-v2-3-fbebf41a82bb@oss.qualcomm.com>
-In-Reply-To: <20260522-mhi_runtimepm-v2-3-fbebf41a82bb@oss.qualcomm.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 22 May 2026 22:09:08 +0200
-X-Gm-Features: AVHnY4J-9F8AAJuD_tJW6-iaDPIYDcwXI9s5goDnYZwmGPWaSdjsV19cBJfwNa0
-Message-ID: <CAFEp6-1sdQn11NKom6cfwtJvZX-CnPRpJeVzQ+99Sb4A4L-qaQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/6] net: mhi_net: Hold runtime PM during active data
- path operations
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Sergey Ryazanov <ryazanov.s.a@gmail.com>,
- Johannes Berg <johannes@sipsolutions.net>, mhi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org, ath12k@lists.infradead.org,
- netdev@vger.kernel.org, mayank.rana@oss.qualcomm.com,
- quic_vbadigan@quicinc.com, vivek.pernamitta@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: k4Qjikq3uTtp9kOgQIZiB4OhWv4otY3j
-X-Authority-Analysis: v=2.4 cv=B/qJFutM c=1 sm=1 tr=0 ts=6a10b7f1 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=omgbQWz8Cy1bZfrwG_oA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: k4Qjikq3uTtp9kOgQIZiB4OhWv4otY3j
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDIwMCBTYWx0ZWRfX2zTZu7gKs6h/
- NOmnZxpnYOgfjF9DlV/+Hygl9bKMAxjhht/HHNIK1qGnAzyWpYzC58R5WGaJnKfpinbFVzkSizv
- lTvGlaextsaT2FoKhf2X3iPgYkntHDaOx8/b/ZLX13bH09jopNecSnepx1cCGaglrJo3yUWkeqT
- 6IYfq8rI9KvNi+tQON3n/bEm2UCof8NdgI1LzthsU0y9uh5AjKN4Yg+kvJtTVi/J7JenK+lxAeV
- zPiI2n/BlKvDuz2Q1tPRe74h+qPhr9DkSsZvAq3Y31+IEjoxmKpWcaMoTJ80AZ5Fblt6nv2mdYo
- cunyTAtHl3mUZuEt8MCwI4VgrqyBfWfxVjDAYQ5aiPpR+1g/VNGaiuHE8A4GKyaZVyESsmxHNQC
- Mz8n5QhdoRNr6J/KDvGSt/kQ2bk+k2u+W9S05W5ghfo8NC8gYiF7GCjMSW5GMnt3K6xVewkcZeS
- eU4zndsIE5HC4k7BZ0A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_05,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 clxscore=1011 malwarescore=0 lowpriorityscore=0
- suspectscore=0 adultscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220200
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|DM4PR11MB6478:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3a92f03-b337-4231-1313-08deb842ddf8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003|11063799006|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info: pBJISTwa/Ww3/wOg6oYvgSjYat4urn2NLBqukdaFpCm7MuLcIHC7mtx6/HMSp0Q+sIyIoX2sOd9kwM2HDDTCjskABtqM6xJLuAupnpMu4t1tT1Z/t4Lj/4rlYRCOrn3yR40BCROEMhUaf0nC9AJYyNqwcsrriQsXyFzI4BzqZNwRFSvpYRGpx6K3l5u9Eht58b6aIgveO94iPLP203oBrz0gIQtVPqg0F5eY6OBl3Pq06JlKc0xzlT4gMeqlIz06g5fFD9GN4wk5fsQJOtLTxAg8Pd0J77qKcgDRMPJ1juXGVq/n/B1h1YLyHb06KMKCklZZiYWd76jp11Ngp+f7s5E9RGIRIUR7Q5cizUMqdP2TW8c3DiYaYNIy3t7W+LnmEJSkxUXybAQRvYxebIXvcKpWuFRkDNhYNGSwaD/ngml5Kjv0IRX5Ox+9SkXkUNBJA/AqEq7xNc7CUdPYihY6E3Ylhe5OXMTywPZYmHastm1hVc5hlvu85Wg8TQpI/9+GvTJUI4RlY0XsdAayrIqNoXyMBjDaFScZhM8ekvIHHJhImsjZx/l8Bi7NGQvdOygC1z3iwdJSYN31xiq5R2YiBt+S5ofzL6gP0DMkAwjCsgiv3lwnsRO0fsS3oDo65dkoVgLBwoY0n69cGkKj7qJ5BZ0Hf7zWZOli1RKB0+UUKhHvmfaPsODH+bPMvS3lA1Yx
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003)(11063799006)(4143699003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hhIlYJ0X8nM70beI7YsZbDGhuQVEp1L9eWvzjnmHnx7Fx6cma/80992DEr5O?=
+ =?us-ascii?Q?liUGnqnNxu5cr9nzPz/Ptj1RhlXSMxuFFM8aFFa6sfxDHCcOcwLdHAqtEFU1?=
+ =?us-ascii?Q?FAf5kesWZGNKM3FbaP7aaHsximIkuosb0ZBpSGmqHTlI2NxkCojlxZQDDADg?=
+ =?us-ascii?Q?I5dd8EJW6IX0UMNSwvYqDpvoA8PQSJwCu7sRNHOMduX/AOI5tbYq5wsXNmFZ?=
+ =?us-ascii?Q?lA1IQO2bLQd+zranIMEnaiDsKr9UwiiQgSnyO4MsLerLaM9YxTWb0P3gAWEo?=
+ =?us-ascii?Q?hk6otRcnTjIHGoqyQppq2BRPtpFvMQdxhM5GMiHVvuGXqqEbiy79RMmvskAg?=
+ =?us-ascii?Q?TyHTcsfzG/BQ860VG5vhC6eLpJ74FmFWNE2HzkoAR4ZQMZ5A7Xzv/e2E0UHg?=
+ =?us-ascii?Q?Vj23YWNeUiDYyjnF0jzOy+YwVG9H4J9xeLVP+5U+BTYXmp6leWvmqQ1T0I+Z?=
+ =?us-ascii?Q?meKgfgSNC8rFPLdsFZ79X2mXk83bluWZP5sLrk/ME6TGbrr2bMEuvBttXpnw?=
+ =?us-ascii?Q?xq119DyIcyT/gFzGzpivzXxtbAvzCbMG+wBx5rH2ufpTVch/VfipOXfZ08Bq?=
+ =?us-ascii?Q?poZ1Xz3AsXgquOq5FxDVQBt3ij4yDfH/FDwapGsmNlivNzgoKOuCoVFci8ex?=
+ =?us-ascii?Q?7975YMZ8q9w8kSwzokqWoOz7BijO7ImbqWLI1cqNUpJMlWWR0Nz80aEam4fy?=
+ =?us-ascii?Q?b9QafdAWejREY6bHcSZbUGebz2VwyOcaQ9mV29fR1r7yzsOYu0o1npP/DanL?=
+ =?us-ascii?Q?UixziFfjeRbOt7FtwVrd/Ft6s20EUVP7VzaBLnex25HI/BtG5rTTfv9fRoNN?=
+ =?us-ascii?Q?d3LbM40F1cvZt9IZoCg54YFPT7VxXl0xD1fzcdihCHtH211BiEvtKCDKPHAe?=
+ =?us-ascii?Q?whY6q6ddb9eCkbdc5tyh2bSQYYQZk6CTpJ6EDVJpqVTRQ8XG8NDERM9xBOSJ?=
+ =?us-ascii?Q?ks9lUd+FgdzX8cMm1PxheRkZ8iwdDpjaJJWEyIHIocU1rwf8l/XfO482MtZ+?=
+ =?us-ascii?Q?EH6cwcyhTffYNn10/BUy176d5taie0sLWiJZeJqfN9mdnqC+NA2PsUf3PkIt?=
+ =?us-ascii?Q?G/Nt0TBLeZTfNfG7F7BK4yF1aTCwa3MhWTes5scXpz8gDCMF3K2GzRAGzgPC?=
+ =?us-ascii?Q?O1gPhamMP9vPKE8SqT0PjRXWpth5fVm44jacfxd01OD3Sl+ARHbi2kn7WEyJ?=
+ =?us-ascii?Q?uatzgk5O09zra/N8VeZYjmtQN6QBnC1T/I7hxUNa5NQYGxsoqAWEy6ZVxigk?=
+ =?us-ascii?Q?f9++lBDojC1HmmdabuuFOHSE9Xw7k5a/C6AYF250CodVfawr9EX3BfZEJUip?=
+ =?us-ascii?Q?uzaTAhJHukUu20e1lpXxvAuJ8aMuZ+NFRNI7eqxRUWhB3tintzffnozJdME+?=
+ =?us-ascii?Q?zhptbxiJ+jb8HI6mfCrqUZE3K7pB4I5RoyP+3zicApIjlALV7+fr+w1TDdg7?=
+ =?us-ascii?Q?P+KE8nY45jaFmktdkYPwu0RixOPgxcQ60e29ApLNdzGWYtnlUn15t8eR1mWt?=
+ =?us-ascii?Q?+8lPAy0AqnJPrAPDGMQzxl79eIOfhisahIILixYpSvu8OeXI5fVZdaCTxVg5?=
+ =?us-ascii?Q?DTvI/avgtyNZ4/4YaA9e05iSMTV05s5loKSqZgtE5zEn/WiW7/xinPK35F1I?=
+ =?us-ascii?Q?Gz2g/P03XcHeyRA3K4HqYFKs0G39fUrAJfnI7TNH2t7IHpwfdcxY27NvYIip?=
+ =?us-ascii?Q?CSeo3KllEsmAvIfOZYR0Ozss9VtpZw+gTOZg1iJ7xkuTpQU9AbdQOSlyjeij?=
+ =?us-ascii?Q?BMfidLzLuQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: RJ9JkWQFcoWu2kKgDdZD/jDb72AcBAY90XTvUBcGFJeCrVEWMFjEqq6h9wgMQdmblvueBNrPM+E7kh8c0I12Csgush27OEK/CqevehkEmJKH7Gd+Ec+A3Bu1fsrGbNWLQtXPnKNbqNlqXUoSXarQM+lPoFA8831Syrb1GBXIv0ECJ8/j5OUHGqllRj/I8X6+xW+WgHJVSX8CCzHgjfh/kX1XxJKeHWYWLgeXY12yq4X+fPeCSiCZYuYJ01/wxxL0qf8a/u86rHSeBoA3R1mIv6XjP0eflTSRAFmtx00JMCvGKEjgypLLsTiB1oLJsiCGTrOQ98sWwEtqyp+HAtghyQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3a92f03-b337-4231-1313-08deb842ddf8
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2026 20:44:06.6666 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h4YxCSEBAZPgzRW1n79Ju4Iz4PmUMWZKyUp5W3uwKZhd8XAxDDjRpK5ajS/Gg7KwhFp3Uy3b1CknCQ/72baEFA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6478
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,165 +163,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krishna,
+On Fri, May 22, 2026 at 12:05:35PM -0700, Linus Torvalds wrote:
+> On Fri, 22 May 2026 at 11:55, Maarten Lankhorst <dev@lankhorst.se> wrote:
+> >
+> > There's a
+> > May 22 11:09:19 3970x kernel: xe 0000:4b:00.0: [drm] Tile0: GT0: Timedout job: seqno=4485322, lrc_seqno=4485322, guc_id=0, flags=0x73 in no process [-1]
+> > May 22 11:09:19 3970x kernel: xe 0000:4b:00.0: [drm] Xe device coredump has been created
+> > May 22 11:09:19 3970x kernel: xe 0000:4b:00.0: [drm] Check your /sys/class/drm/card0/device/devcoredump/data
+> >
+> > Do you have this coredump too?
+> 
+> Nope. I was assuming it didn't survive the reboot.
 
-On Fri, May 22, 2026 at 12:01=E2=80=AFPM Krishna Chaitanya Chundru
-<krishna.chundru@oss.qualcomm.com> wrote:
->
-> The mhi_net driver does not coordinate with runtime PM, which allows the
-> underlying MHI controller to be runtime-suspended while transmit, receive=
-,
-> or RX buffer refill operations are in progress. This can lead to stalled
-> transfers or failed queueing once runtime PM is enabled in the MHI core.
->
-> Add runtime PM reference counting to the mhi_net data path to keep the
-> controller active for the duration of TX, RX, and buffer management
-> operations. Enable runtime PM during probe and take/release references
-> explicitly around these critical paths.
->
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.co=
-m>
-> ---
->  drivers/net/mhi_net.c | 39 +++++++++++++++++++++++++++++++++++++++
->  1 file changed, 39 insertions(+)
->
-> diff --git a/drivers/net/mhi_net.c b/drivers/net/mhi_net.c
-> index ae169929a9d8..5d7f9ccdb17b 100644
-> --- a/drivers/net/mhi_net.c
-> +++ b/drivers/net/mhi_net.c
-> @@ -9,6 +9,7 @@
->  #include <linux/mod_devicetable.h>
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
-> +#include <linux/pm_runtime.h>
->  #include <linux/skbuff.h>
->  #include <linux/u64_stats_sync.h>
->
-> @@ -76,11 +77,19 @@ static netdev_tx_t mhi_ndo_xmit(struct sk_buff *skb, =
-struct net_device *ndev)
->         struct mhi_device *mdev =3D mhi_netdev->mdev;
->         int err;
->
-> +       err =3D pm_runtime_get(&mdev->dev);
-> +       if (err < 0 && err !=3D -EINPROGRESS) {
-> +               dev_err(&mdev->dev, "pm_runtime_get failed %d\n", err);
-> +               pm_runtime_put_noidle(&mdev->dev);
-> +               goto exit_drop;
-> +       }
-> +
+It doesn't. In this kind of setup the best way to deal with devcoredump
+is to create a udev rule that copies the data file to a persistent place.
 
-I am wondering what the value is in pushing this PM responsibility to
-each individual MHI client driver and requiring every MHI operation to
-be bracketed with runtime PM handling.
+> 
+> (This machine doesn't allow any remote logins - very much on purpose -
+> so when the GPU hangs, it's toast).
 
-What does the client driver know here that the MHI core itself cannot
-handle centrally? It feels like ensuring the controller is
-runtime-active during transfer could be handled generically in the
-framework instead of duplicating the same logic in every client.
+Any journal saving the kernel buf log of previous boots? Preferably with
+some drm.debug flags enabled 0xf likely
 
->         err =3D mhi_queue_skb(mdev, DMA_TO_DEVICE, skb, skb->len, MHI_EOT=
-);
->         if (unlikely(err)) {
->                 net_err_ratelimited("%s: Failed to queue TX buf (%d)\n",
->                                     ndev->name, err);
->                 dev_kfree_skb_any(skb);
-> +               pm_runtime_put(&mdev->dev);
->                 goto exit_drop;
->         }
->
-> @@ -251,6 +260,7 @@ static void mhi_net_ul_callback(struct mhi_device *mh=
-i_dev,
->                 /* MHI layer stopping/resetting the UL channel */
->                 if (mhi_res->transaction_status =3D=3D -ENOTCONN) {
->                         u64_stats_update_end(&mhi_netdev->stats.tx_syncp)=
-;
-> +                       pm_runtime_put(&mdev->dev);
->                         return;
->                 }
->
-> @@ -261,6 +271,7 @@ static void mhi_net_ul_callback(struct mhi_device *mh=
-i_dev,
->         }
->         u64_stats_update_end(&mhi_netdev->stats.tx_syncp);
->
-> +       pm_runtime_put(&mdev->dev);
->         if (netif_queue_stopped(ndev) && !mhi_queue_is_full(mdev, DMA_TO_=
-DEVICE))
->                 netif_wake_queue(ndev);
->  }
-> @@ -277,6 +288,12 @@ static void mhi_net_rx_refill_work(struct work_struc=
-t *work)
->
->         size =3D mhi_netdev->mru ? mhi_netdev->mru : READ_ONCE(ndev->mtu)=
-;
->
-> +       err =3D pm_runtime_resume_and_get(&mdev->dev);
-> +       if (err) {
-> +               dev_err(&mdev->dev, "pm_runtime_resume_and_get failed %d\=
-n", err);
-> +               return;
-> +       }
-> +
->         while (!mhi_queue_is_full(mdev, DMA_FROM_DEVICE)) {
->                 skb =3D netdev_alloc_skb(ndev, size);
->                 if (unlikely(!skb))
-> @@ -296,6 +313,7 @@ static void mhi_net_rx_refill_work(struct work_struct=
- *work)
->                 cond_resched();
->         }
->
-> +       pm_runtime_put(&mdev->dev);
->         /* If we're still starved of rx buffers, reschedule later */
->         if (mhi_get_free_desc_count(mdev, DMA_FROM_DEVICE) =3D=3D mhi_net=
-dev->rx_queue_sz)
->                 schedule_delayed_work(&mhi_netdev->rx_refill, HZ / 2);
-> @@ -362,20 +380,41 @@ static int mhi_net_probe(struct mhi_device *mhi_dev=
-,
->
->         SET_NETDEV_DEV(ndev, &mhi_dev->dev);
->
-> +       pm_runtime_no_callbacks(&mhi_dev->dev);
-> +       err =3D devm_pm_runtime_set_active_enabled(&mhi_dev->dev);
-> +       if (err)
-> +               return err;
-> +
-> +       err =3D pm_runtime_resume_and_get(&mhi_dev->dev);
-> +       if (err) {
-> +               dev_err(&mhi_dev->dev, "pm_runtime_resume_and_get failed =
-%d\n", err);
-> +               return err;
-> +       }
-> +
->         err =3D mhi_net_newlink(mhi_dev, ndev);
->         if (err) {
->                 free_netdev(ndev);
-> +               pm_runtime_put(&mhi_dev->dev);
->                 return err;
->         }
->
-> +       pm_runtime_put(&mhi_dev->dev);
->         return 0;
->  }
->
->  static void mhi_net_remove(struct mhi_device *mhi_dev)
->  {
->         struct mhi_net_dev *mhi_netdev =3D dev_get_drvdata(&mhi_dev->dev)=
-;
-> +       int err;
-> +
-> +       err =3D pm_runtime_resume_and_get(&mhi_dev->dev);
-> +       if (err)
-> +               dev_err(&mhi_dev->dev, "pm_runtime_resume_and_get failed =
-%d\n", err);
->
->         mhi_net_dellink(mhi_dev, mhi_netdev->ndev);
-> +
-> +       if (!err)
-> +               pm_runtime_put(&mhi_dev->dev);
->  }
->
->  static const struct mhi_device_info mhi_hwip0 =3D {
->
-> --
-> 2.34.1
->
+Also:
+
+Any bisect possible in this setup? I imagine it might be painful though...
+
+What was the last drm-fixes pull you got in this 7.1.0-rc3-00073-ga6920214ba75 ?
+
+I believe the quickest path might be to simply drop the xe fixes you might
+have recently gotten there while we don't identify the culprit.
+
+Thanks,
+Rodrigo.
+
+> 
+>                Linus
