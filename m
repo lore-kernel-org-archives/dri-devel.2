@@ -4,85 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88122CD5BB3
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 18:53:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A73CD5BAC
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 18:55:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7DCD10E591;
-	Fri, 22 May 2026 18:53:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E65B410E2AC;
+	Fri, 22 May 2026 18:55:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FsXqKMk7";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="gE/nsoIC";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D31A610E591
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 18:53:09 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-67bb5ad91bfso15749988a12.0
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:53:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1779475988; x=1780080788;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=2kBCb2Vyz3hk8nTFUoNxlEdJoq6+xf8SvRAwJsAv7Ws=;
- b=FsXqKMk754UTQeFDfskBc9JKXVC7D/fMVMLEC9uJ9F6tyJRXIxZObucOE4GVlk6cUk
- /UnUiTrf3t18AYk+fLUhZM8odrfUD7Y134dnCkigAeGuMlXdFJUlaNBkisGbaeE0vQJ6
- LzsRc137zHwcwHtZknkPcNdQ0gYcZG0Qu7P0s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779475988; x=1780080788;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2kBCb2Vyz3hk8nTFUoNxlEdJoq6+xf8SvRAwJsAv7Ws=;
- b=BrKQanf/QkIkQEx2Ie8V2vDzCYoTNqeTtRP+TUAdYb4hjQ1g/cKFRUs+637VelF0l3
- E/pmNhgnAOPp7y7BlB3o/aYpsGLKHlJPzHI41itS+LSgHPgdVclrBWrXI6aLpXxB40Ti
- AO39BcSNuxTJnvuNDC7SrHictnZK04WtK/Y4F64uc9ZoMxADa/bt7t9ndTRGmi5thcug
- EKFjZx4a2fDsLBe8Tmj/NOa0ibmEFvvQ0R3Em+UxvwJzdf4KO3dFF0JHp6iRlANMspEC
- VFcA1T+SdNZZR1LcZxMvowKffyuL+27IaT7wGCt6E79LB+My2QanScG0bMxTDtsFOq2H
- 82wg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9cQtQA9E1c1Ag4fgYtY0uFrg4LayA0+czHaT69UhMZXIICpdaAxLNkbmFHr0SidQ2oHEQWVextlIQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZyvwKj01hsR0P2j5Bd3uF/8Ft7pHmc5YbHAp+0bgyDFoYNWP4
- qbQHo+7ANoW+ufdclanb8Zn75lDtWtwyTpYZyCUIo3rIb4ibejB7umbJaB+qy65hElyTJYz3agR
- dserca/A=
-X-Gm-Gg: Acq92OGkqfrhxfkb7GQfEsYVOE7JvqI5vdPheHeh/am0Ghw22Of7ZTRKcCwqw0RWR1a
- Ck9U1sQtLPCJE8NhGxyHCN4BWF75wpLwxAb4TfjfrBsZtviHPJf82SSrOdszB/qJz9n99RmXv87
- 4MRiS/G2mbtnbSjSCqyEeqc8zdG/p9N18D0hpK8/dRBSUbbhW3DCRdtH1ch/F/uCopH4mPQqMoH
- GTLGXVvDdJ0yttiNwSzU0MPxscDhG2UrEdvtmcuFor0M0xMAF58yarNhDTy+7R6JSjF6kqYyfdW
- shsq/p9bvgUbxONImM4bb8vJBjyJSF0Tbmryr0/mYueGGaKFATpxTm+Q6Zo+adrk6dvtNZLPtgM
- xvNn3rLEcHx65Ku+oJ7P1dHEyz6BJzSatUib1Rj23YIfiarKhwvIxp5ab+4i9/XF0uXDpAKGt8V
- 4jnAkfYmiI9KqTRqxvbNycXpPwgfip3HPDkmp1D/mXHZnui8jqI9dXwJmZDAMAmlAU9DuPw5Amy
- HxgRsCyuUs=
-X-Received: by 2002:a05:6402:5256:b0:67c:4e1b:9134 with SMTP id
- 4fb4d7f45d1cf-6889c4750d0mr2611803a12.14.1779475988171; 
- Fri, 22 May 2026 11:53:08 -0700 (PDT)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com.
- [209.85.218.42]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-688bd00e751sm941184a12.27.2026.05.22.11.53.07
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 May 2026 11:53:07 -0700 (PDT)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-bd9a71b565aso807122566b.0
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:53:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9aV/tK4Xq4S6Gg6XmObYxRU81QuYY3t1KTWXTNzy9ootDZBrTD/Tz47jXmCcJcZwhAQp1tVxEfmC8=@lists.freedesktop.org
-X-Received: by 2002:a17:906:5a71:b0:bc6:92e5:818a with SMTP id
- a640c23a62f3a-bdd23603709mr246622166b.21.1779475986826; Fri, 22 May 2026
- 11:53:06 -0700 (PDT)
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F40B10E2AC;
+ Fri, 22 May 2026 18:55:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1779476152;
+ bh=T3X0qyXrDkda0w7uSasjHxeNcjgg7yJJUiqlmBkuCa0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=gE/nsoIC/s9AY4W7tXMuu3wWLflKjzrazBPR9IB+03yyMI0vNdUXrIya7K/avlkXB
+ sC+6n7+Oxeq6EdwW8p0sbnFDRpsPiVqJjNrXNYXB2R5u3WoIz4SPsVZagp9Mkb7r6v
+ Q91emHHU7VmCnBl9YbMgGjQrxK0/+4nrDnMfAP2olETyBexaPEeAgAcpwsgP7diPOG
+ tez8FiiDZT+wKDdc/dCjDRCrEPPEbPodW0p9QUAI1tPV1NLJ84y8/yAjC6fXnRU4o2
+ /2fdbDZZNyw8ZAR7/jwtbkzQt6N7cEB58MMZe1laeM34/RfrB0tpOqinF6WBTa0+bC
+ OPH0r6KJjd0+A==
+Message-ID: <6874536d-ab1a-4dd7-a23f-2a071bda145e@lankhorst.se>
+Date: Fri, 22 May 2026 20:55:51 +0200
 MIME-Version: 1.0
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 22 May 2026 11:52:49 -0700
-X-Gmail-Original-Message-ID: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
-X-Gm-Features: AVHnY4KmnIb72wwGZp8IXCSL9h5kCIPeXKE7KFKXm6CONjtLWs5-fyKUubAKK_c
-Message-ID: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
-Subject: drm: xe: Kernel-submitted job timed out
-To: Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: drm: xe: Kernel-submitted job timed out
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- intel-xe@lists.freedesktop.org, 
- dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="00000000000015284706526c8ac6"
+ intel-xe@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>
+References: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,125 +57,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000015284706526c8ac6
-Content-Type: text/plain; charset="UTF-8"
+Hey,
 
-Actually, this doesn't seem to have actually timed out, it seems to
-have never been started, and then subsequent operations were confused.
+Den 2026-05-22 kl. 20:52, skrev Linus Torvalds:
+> Actually, this doesn't seem to have actually timed out, it seems to
+> have never been started, and then subsequent operations were confused.
+> 
+> Because I had to reboot my desktop as non-responsive (the cursor was
+> moving, but no screen updates) after two lines of
+> 
+>   xe 0000:4b:00.0: [drm] Tile0: GT0: Check job timeout: seqno=4485322,
+> lrc_seqno=4485322, guc_id=0, not started
+> 
+> followed a few seconds later by some Xe fault and then an endless
+> stream of "Kernel-submitted job timed out" reports.
+> 
+> Presumably that job was the thing that was never started in the first place.
+> 
+> Cut-down dmesg with the endless repeats deleted (after rebooting to
+> get a working system) attached.
+> 
+>              Linus
 
-Because I had to reboot my desktop as non-responsive (the cursor was
-moving, but no screen updates) after two lines of
+There's a 
+May 22 11:09:19 3970x kernel: xe 0000:4b:00.0: [drm] Tile0: GT0: Timedout job: seqno=4485322, lrc_seqno=4485322, guc_id=0, flags=0x73 in no process [-1]
+May 22 11:09:19 3970x kernel: xe 0000:4b:00.0: [drm] Xe device coredump has been created
+May 22 11:09:19 3970x kernel: xe 0000:4b:00.0: [drm] Check your /sys/class/drm/card0/device/devcoredump/data
 
-  xe 0000:4b:00.0: [drm] Tile0: GT0: Check job timeout: seqno=4485322,
-lrc_seqno=4485322, guc_id=0, not started
+Do you have this coredump too?
 
-followed a few seconds later by some Xe fault and then an endless
-stream of "Kernel-submitted job timed out" reports.
-
-Presumably that job was the thing that was never started in the first place.
-
-Cut-down dmesg with the endless repeats deleted (after rebooting to
-get a working system) attached.
-
-             Linus
-
---00000000000015284706526c8ac6
-Content-Type: application/octet-stream; name=out
-Content-Disposition: attachment; filename=out
-Content-Transfer-Encoding: base64
-Content-ID: <f_mpha1gkw0>
-X-Attachment-Id: f_mpha1gkw0
-
-Ck1heSAyMiAxMTowOToxMSAzOTcweCBrZXJuZWw6IHhlIDAwMDA6NGI6MDAuMDogW2RybV0gVGls
-ZTA6IEdUMDogQ2hlY2sgam9iIHRpbWVvdXQ6IHNlcW5vPTQ0ODUzMjIsIGxyY19zZXFubz00NDg1
-MzIyLCBndWNfaWQ9MCwgbm90IHN0YXJ0ZWQKTWF5IDIyIDExOjA5OjE2IDM5NzB4IGtlcm5lbDog
-eGUgMDAwMDo0YjowMC4wOiBbZHJtXSBUaWxlMDogR1QwOiBDaGVjayBqb2IgdGltZW91dDogc2Vx
-bm89NDQ4NTMyMiwgbHJjX3NlcW5vPTQ0ODUzMjIsIGd1Y19pZD0wLCBub3Qgc3RhcnRlZAoKTWF5
-IDIyIDExOjA5OjE5IDM5NzB4IGtlcm5lbDogeGUgMDAwMDo0YjowMC4wOiBbZHJtXSBUaWxlMDog
-R1QwOiAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBU0lEOiAwCiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRmF1bHRlZCBBZGRyZXNzOiAweDAwMDAw
-MDAyZmE5ZmEwMDAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBGYXVsdFR5
-cGU6IDAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBY2Nlc3NUeXBlOiAw
-CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRmF1bHRMZXZlbDogMgogICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEVuZ2luZUNsYXNzOiAzIGJjcwogICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEVuZ2luZUluc3RhbmNlOiA4Ck1heSAy
-MiAxMTowOToxOSAzOTcweCBrZXJuZWw6IHhlIDAwMDA6NGI6MDAuMDogW2RybV0gVGlsZTA6IEdU
-MDogRmF1bHQgcmVzcG9uc2U6IFVuc3VjY2Vzc2Z1bCAtRUlOVkFMCk1heSAyMiAxMTowOToxOSAz
-OTcweCBrZXJuZWw6IHhlIDAwMDA6NGI6MDAuMDogW2RybV0gVGlsZTA6IEdUMDogRW5naW5lIG1l
-bW9yeSBDQVQgZXJyb3IgWzE4XTogY2xhc3M9YmNzLCBsb2dpY2FsX21hc2s6IDB4MiwgZ3VjX2lk
-PTAKTWF5IDIyIDExOjA5OjE5IDM5NzB4IGtlcm5lbDogeGUgMDAwMDo0YjowMC4wOiBbZHJtXSBU
-aWxlMDogR1QwOiBFbmdpbmUgcmVzZXQ6IGVuZ2luZV9jbGFzcz1iY3MsIGxvZ2ljYWxfbWFzazog
-MHgyLCBndWNfaWQ9MCwgc3RhdGU9MHgyNDkKTWF5IDIyIDExOjA5OjE5IDM5NzB4IGtlcm5lbDog
-eGUgMDAwMDo0YjowMC4wOiBbZHJtXSBUaWxlMDogR1QwOiBUaW1lZG91dCBqb2I6IHNlcW5vPTQ0
-ODUzMjIsIGxyY19zZXFubz00NDg1MzIyLCBndWNfaWQ9MCwgZmxhZ3M9MHg3MyBpbiBubyBwcm9j
-ZXNzIFstMV0KTWF5IDIyIDExOjA5OjE5IDM5NzB4IGtlcm5lbDogeGUgMDAwMDo0YjowMC4wOiBb
-ZHJtXSBYZSBkZXZpY2UgY29yZWR1bXAgaGFzIGJlZW4gY3JlYXRlZApNYXkgMjIgMTE6MDk6MTkg
-Mzk3MHgga2VybmVsOiB4ZSAwMDAwOjRiOjAwLjA6IFtkcm1dIENoZWNrIHlvdXIgL3N5cy9jbGFz
-cy9kcm0vY2FyZDAvZGV2aWNlL2RldmNvcmVkdW1wL2RhdGEKTWF5IDIyIDExOjA5OjE5IDM5NzB4
-IGtlcm5lbDogLS0tLS0tLS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0tCk1heSAyMiAxMTow
-OToxOSAzOTcweCBrZXJuZWw6IHhlIDAwMDA6NGI6MDAuMDogW2RybV0gVGlsZTA6IEdUMDogS2Vy
-bmVsLXN1Ym1pdHRlZCBqb2IgdGltZWQgb3V0Ck1heSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6
-IFdBUk5JTkc6IGRyaXZlcnMvZ3B1L2RybS94ZS94ZV9ndWNfc3VibWl0LmM6MTYyNyBhdCBndWNf
-ZXhlY19xdWV1ZV90aW1lZG91dF9qb2IrMHhlMjkvMHgxMDAwIFt4ZV0sIENQVSMxNzoga3dvcmtl
-ci91MjU2OjAvMjMwNjkzNQpNYXkgMjIgMTE6MDk6MTkgMzk3MHgga2VybmVsOiBNb2R1bGVzIGxp
-bmtlZCBpbjogdWFzIHVzYl9zdG9yYWdlIHVpbnB1dCByZmNvbW0gbmZfY29ubnRyYWNrX25ldGJp
-b3NfbnMgbmZfY29ubnRyYWNrX2Jyb2FkY2FzdCBuZnRfZmliX2luZXQgbmZ0X2ZpYl9pcHY0IG5m
-dF9maWJfaXB2NiBuZnRfZmliIG5mdF9yZWplY3RfaW5ldCBuZl9yZWplY3RfaXB2NCBuZl9yZWpl
-Y3RfaXB2NiBuZnRfcmVqZWN0IG5mdF9jdCBuZnRfY2hhaW5fbmF0IG5mX25hdCBuZl9jb25udHJh
-Y2sgbmZfZGVmcmFnX2lwdjYgbmZfZGVmcmFnX2lwdjQgbmZfdGFibGVzIHN1bnJwYyBibmVwIHZm
-YXQgZmF0IGl3bG12bSBtYWM4MDIxMSBsaWJhcmM0IHNuZF9oZGFfY29kZWNfaW50ZWxoZG1pIHNu
-ZF9oZGFfY29kZWNfaGRtaSBzbmRfaGRhX2ludGVsIHNuZF9pbnRlbF9kc3BjZmcgc25kX2hkYV9j
-b2RlYyBzbmRfdXNiX2F1ZGlvIHNuZF9oZGFfY29yZSBidHVzYiBzbmRfaHdkZXAgYnRydGwgYW1k
-X2F0bCBzbmRfdXNibWlkaV9saWIgaXdsd2lmaSBzbmRfc2VxIGJ0aW50ZWwgYW1kNjRfZWRhYyBz
-bmRfcmF3bWlkaSBidGJjbSBibHVldG9vdGggc25kX3BjbSBlZGFjX21jZV9hbWQgc25kX3NlcV9k
-ZXZpY2Ugd21pX2Jtb2YgYXRsYW50aWMgY2ZnODAyMTEgcGNzcGtyIGlnYiBtYyBtYWNzZWMgZGNh
-IHNuZF90aW1lciByZmtpbGwgbXhtX3dtaSBzbmQgaTJjX3BpaXg0IHNvdW5kY29yZSBpMmNfc21i
-dXMgazEwdGVtcCBqb3lkZXYgbmZuZXRsaW5rIHpyYW0gZG1fY3J5cHQgeGUgZHJtX3R0bV9oZWxw
-ZXIgdHRtIGkyY19hbGdvX2JpdCBncHVfc2NoZWQgZHJtX2J1ZGR5IHZpZGVvIGRybV9jbGllbnRf
-bGliIGRybV9zdWJhbGxvY19oZWxwZXIgZHJtX2dwdXZtIGRybV9leGVjIGRybV9ncHVzdm1faGVs
-cGVyIGRybV9kaXNwbGF5X2hlbHBlciBkcm1fa21zX2hlbHBlciBjY3AgZHJtIGNlYyBudm1lIHNw
-NTEwMF90Y28gbnZtZV9jb3JlIHdtaSBpMmNfZGV2IGZ1c2UKTWF5IDIyIDExOjA5OjE5IDM5NzB4
-IGtlcm5lbDogQ1BVOiAxNyBVSUQ6IDAgUElEOiAyMzA2OTM1IENvbW06IGt3b3JrZXIvdTI1Njow
-IE5vdCB0YWludGVkIDcuMS4wLXJjMy0wMDA3My1nYTY5MjAyMTRiYTc1ICM0NiBQUkVFTVBUTEFa
-WSAKTWF5IDIyIDExOjA5OjE5IDM5NzB4IGtlcm5lbDogSGFyZHdhcmUgbmFtZTogR2lnYWJ5dGUg
-VGVjaG5vbG9neSBDby4sIEx0ZC4gVFJYNDAgQU9SVVMgTUFTVEVSL1RSWDQwIEFPUlVTIE1BU1RF
-UiwgQklPUyBGNyAwOS8wNy8yMDIyCk1heSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6IFdvcmtx
-dWV1ZTogZ3Qtb3JkZXJlZC13cSBkcm1fc2NoZWRfam9iX3RpbWVkb3V0IFtncHVfc2NoZWRdCk1h
-eSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6IFJJUDogMDAxMDpndWNfZXhlY19xdWV1ZV90aW1l
-ZG91dF9qb2IrMHhmM2IvMHgxMDAwIFt4ZV0KTWF5IDIyIDExOjA5OjE5IDM5NzB4IGtlcm5lbDog
-Q29kZTogOGIgMTEgNDggODUgZDIgNzQgMDYgNDggOGIgN2EgMDggZWIgMDIgMzEgZmYgNDggOGIg
-NTcgNTAgNDggODUgZDIgNzUgMDMgNDggOGIgMTcgNDQgMGYgYjYgNDYgMjYgMGYgYjYgNDkgMDgg
-NGMgODkgZjcgNDggODkgYzYgPDY3PiA0OCAwZiBiOSAzYSA0OCA4YiA0MyA2MCA0YyA4YiA3YyAy
-NCAyMCA0NCA4YiA3NCAyNCAyOCA0OSA4OSBkYwpNYXkgMjIgMTE6MDk6MTkgMzk3MHgga2VybmVs
-OiBSU1A6IDAwMTg6ZmZmZmQwZTBhYTZjN2Q4OCBFRkxBR1M6IDAwMDEwMjQ2Ck1heSAyMiAxMTow
-OToxOSAzOTcweCBrZXJuZWw6IFJBWDogZmZmZmZmZmZjMGMzYjdjZCBSQlg6IGZmZmY4YTQwMjBj
-NDY0MDAgUkNYOiAwMDAwMDAwMDAwMDAwMDAwCk1heSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6
-IFJEWDogZmZmZjhhNDAwNGQzNjljMCBSU0k6IGZmZmZmZmZmYzBjM2I3Y2QgUkRJOiBmZmZmZmZm
-ZmMwOTFjZDMwCk1heSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6IFJCUDogMDAwMDAwMDAwMDAw
-MDAwMCBSMDg6IDAwMDAwMDAwMDAwMDAwMDAgUjA5OiBmZmZmOGE0ZjNmMGZiMjQwCk1heSAyMiAx
-MTowOToxOSAzOTcweCBrZXJuZWw6IFIxMDogMDAwMDAwMDAwMDAwYmZmZCBSMTE6IDNmZmZmZmZm
-ZmZmZmJmZmYgUjEyOiBmZmZmOGE0MDIwYzQ2NDAwCk1heSAyMiAxMTowOToxOSAzOTcweCBrZXJu
-ZWw6IFIxMzogZmZmZjhhNDAxYzU1OGUwMCBSMTQ6IGZmZmZmZmZmYzA5MWNkMzAgUjE1OiBmZmZm
-OGE0MDE2NmMwMDAwCk1heSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6IEZTOiAgMDAwMDAwMDAw
-MDAwMDAwMCgwMDAwKSBHUzpmZmZmOGE0ZjRlMmVkMDAwKDAwMDApIGtubEdTOjAwMDAwMDAwMDAw
-MDAwMDAKTWF5IDIyIDExOjA5OjE5IDM5NzB4IGtlcm5lbDogQ1M6ICAwMDEwIERTOiAwMDAwIEVT
-OiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMwpNYXkgMjIgMTE6MDk6MTkgMzk3MHgga2VybmVs
-OiBDUjI6IDAwMDAyNDNjMDhmZjAwMDAgQ1IzOiAwMDAwMDAwMTk5NGQ1MDAwIENSNDogMDAwMDAw
-MDAwMDM1MGVmMApNYXkgMjIgMTE6MDk6MTkgMzk3MHgga2VybmVsOiBDYWxsIFRyYWNlOgpNYXkg
-MjIgMTE6MDk6MTkgMzk3MHgga2VybmVsOiAgPFRBU0s+Ck1heSAyMiAxMTowOToxOSAzOTcweCBr
-ZXJuZWw6ICA/IHdha2VfYml0X2Z1bmN0aW9uKzB4NjAvMHg2MApNYXkgMjIgMTE6MDk6MTkgMzk3
-MHgga2VybmVsOiAgZHJtX3NjaGVkX2pvYl90aW1lZG91dCsweGI4LzB4MTMwIFtncHVfc2NoZWRd
-Ck1heSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6ICBwcm9jZXNzX3NjaGVkdWxlZF93b3Jrcysw
-eDFhYy8weDM4MApNYXkgMjIgMTE6MDk6MTkgMzk3MHgga2VybmVsOiAgd29ya2VyX3RocmVhZCsw
-eDFmNC8weDJkMApNYXkgMjIgMTE6MDk6MTkgMzk3MHgga2VybmVsOiAgPyBwcl9jb250X3dvcmsr
-MHgxYjAvMHgxYjAKTWF5IDIyIDExOjA5OjE5IDM5NzB4IGtlcm5lbDogIGt0aHJlYWQrMHhlZS8w
-eDEyMApNYXkgMjIgMTE6MDk6MTkgMzk3MHgga2VybmVsOiAgPyBrdGhyZWFkX2Jsa2NnKzB4MzAv
-MHgzMApNYXkgMjIgMTE6MDk6MTkgMzk3MHgga2VybmVsOiAgcmV0X2Zyb21fZm9yaysweDlkLzB4
-MjAwCk1heSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6ICA/IGt0aHJlYWRfYmxrY2crMHgzMC8w
-eDMwCk1heSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6ICByZXRfZnJvbV9mb3JrX2FzbSsweDEx
-LzB4MjAKTWF5IDIyIDExOjA5OjE5IDM5NzB4IGtlcm5lbDogIDwvVEFTSz4KTWF5IDIyIDExOjA5
-OjE5IDM5NzB4IGtlcm5lbDogLS0tWyBlbmQgdHJhY2UgMDAwMDAwMDAwMDAwMDAwMCBdLS0tCk1h
-eSAyMiAxMTowOToxOSAzOTcweCBrZXJuZWw6IHhlIDAwMDA6NGI6MDAuMDogW2RybV0gVGlsZTA6
-IEdUMDogVGltZWRvdXQgam9iOiBzZXFubz00NDg1MzI1LCBscmNfc2Vxbm89NDQ4NTMyNSwgZ3Vj
-X2lkPTAsIGZsYWdzPTB4NzMgaW4gbm8gcHJvY2VzcyBbLTFdCg==
---00000000000015284706526c8ac6--
+Kind regards,
+~Maarten Lankhorst
