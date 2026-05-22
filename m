@@ -4,90 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D573CCD5BB4
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB22FCD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:17:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3646B10F5D2;
-	Fri, 22 May 2026 16:12:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1EC210F642;
+	Fri, 22 May 2026 16:17:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jaxagjOG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UNZ9koOS";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C63A10F5FD
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:11:48 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-48909558b3aso76041485e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 09:11:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779466307; x=1780071107; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=og4Ss48qjWaYlmsfdFxPi0Imv8+Y+Dj/6CNrwGbe4NU=;
- b=jaxagjOGAYM/iaDM2qQc0YvWyaSF66XovFQm3n4UjGJ6jwoXAhZ+yM1iBZjiGSXgR1
- T/KCnMtHZotK1jqvXsD0cmGKCdDqG12iAKQhFzasdh0868y3+Fus7wLnBUZ5/Vm+2Nh9
- I8aM8jR/L6DWwt744V9celpEV5SvFX4+YVqWhSsZmuG1hJ21AcaZiwAatFMCkOYYHFSr
- zfnrFPdXa2rVrrlQ8c5B31pMvAbAZqTXVLpKezUHvs7kZHkbBmd8J5syyNbBsSpLgs5F
- ukeb4tgTE2+gbq20Vzjr90HejVvf7Os5borPlfo4pop/XNek1sXTvYhIZRTC3K6UmgQs
- 2MmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779466307; x=1780071107;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=og4Ss48qjWaYlmsfdFxPi0Imv8+Y+Dj/6CNrwGbe4NU=;
- b=HyBNZ1havqN4akDy4i2Hwr2C1o/MCsES7SfG3nE84e3SnPyAHMRG0MhNWcS/zYeJRe
- vEwczIupLPSLEqMD6CWQqgmbGS319Tz9N6H6G7AXcIzdhNypyra7HMZP9D0tky6P8cbJ
- ivleUy2yVTpYIhQiR8UFCfLZynGkmyyx2Ab1oBqXN11/dhEW2/YABUpNy4X+ZHU/TRVJ
- /R6dwAWYsshvKWYCaUNjO2eprwN8Jx8PTGcHVSW4Km39CuhMAiviElMfTQ+lzccnQzfK
- Bf6b3oE9w0igUvCQ6vobe8DyWKkgBW4GVUD50xWF+RE/Y4FTBFJeXHi8hgj4b3op18a0
- xTxw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8ioedEqMQkp81phtKb5YcZ3A8H3oBxUfuuj4t9pjP50iVU0AuhWbxPFLLfG8kyd38FbNUxAjdLYnE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzxvSvaScIyW61R6SRO+KEfEuBTYQLDwcZ+sB8hPLWbhJog5Pcs
- i9svMfyF3vTvANr8H8731WhYUanO270xBc1dXO85iuXUS4AhtzlsMzZ1
-X-Gm-Gg: Acq92OHc9keU8HivlNnkqHRSthWvK03hD07mwA97KJ5xdDiUelxaefsoPZusaXESy5y
- 2rB5A2mfTXFPLEeuUjGC7MYCQEGJDL/0Pe5s28LNoMnC8KHaTMkNIvB40sgAcMyLH2A1FPG3AZA
- CJvM9gtImWrFB1IAI+GYoTaV8vBzTPgAtru29bD2vaUJR0DjFgiossBCwl6Cht/x4TFZhwjEczb
- pGOr5ngmb7+x5fztWTZyOXoWniBSwJnFFuc9VCvEDw594l9bEcJrC/BgtNfgaIMOSFiY78KR798
- ejGzovRabGbOFtfSHj4fthP5d1hVr2iRPf8jlKKMIV1l8FdfBKSeDlUtXpZRRkBvDaZehCODM3b
- tj+/H5MnBdOCmKVn9cYI/nirIY6d9NgyWdvqhy7p3JVVHeBBmpdqwDLYYOdzrSQe06fR+Ee17OL
- Z6n6Zwq/wjh6OTddNnJ/sZ7gfkf33kUr4O45EYordWQw==
-X-Received: by 2002:a05:600c:c83:b0:48f:d612:3c4a with SMTP id
- 5b1f17b1804b1-49042488b81mr59056955e9.1.1779466306479; 
- Fri, 22 May 2026 09:11:46 -0700 (PDT)
-Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490454a0b9asm51042755e9.11.2026.05.22.09.11.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 09:11:46 -0700 (PDT)
-From: Vitor Soares <ivitro@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Thierry Reding <thierry.reding@gmail.com>
-Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v3 04/11] dt-bindings: display: panel-lvds: Add Riverdi
- RVT70HSLNWCA0 and RVT101HVLNWC00
-Date: Fri, 22 May 2026 17:11:08 +0100
-Message-ID: <20260522161105.277519-17-ivitro@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260522161105.277519-13-ivitro@gmail.com>
-References: <20260522161105.277519-13-ivitro@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1765F10F642
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:17:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 774D040931;
+ Fri, 22 May 2026 16:17:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361211F000E9;
+ Fri, 22 May 2026 16:17:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779466669;
+ bh=SD6FHiszBLtwk4oPX8InQw0Ejv5/nftEPeupI+z1+zo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=UNZ9koOScsHmXoJtud8jjPvCqZmXGk5F7XJiqVRW9I+QcBHUKyhlpphGq7RHWpkOe
+ kZUq3p36C57+V82JKNS+wUwZebdHmM1weNsJMQMFZez9LBu/Y8SqT/0WbX3PH4v8Le
+ RLn7mKe36FV+Os1VLtkUhR8eapTyd9JkGwFPPUeneAoSLgBuB13wvyBK97RvrOU7fb
+ bS/77qZBuHGcaKozTHF6jI7PiVYx+agJQisgb9xcwt8IQqr5A9zBmhBxMirdkGBJb8
+ 5nGKoKccqtHdizfDCnIx+KT5wOuMT3qNJW5q9WHpawssisrMMuEG+f+S8Q5uuDNSJO
+ 4nvyL5krx8a8w==
+Date: Fri, 22 May 2026 06:17:48 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
+Cc: Eric Chanudet <echanude@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
+ Natalie Vock <natalie.vock@gmx.de>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, cgroups@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Maxime Ripard <mripard@redhat.com>,
+ Albert Esteve <aesteve@redhat.com>, Dave Airlie <airlied@gmail.com>,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] cgroup/dmem: add dmem.memcg control file for
+ double-charging to memcg
+Message-ID: <ahCBrNfiLrh10Vtq@slm.duckdns.org>
+References: <20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com>
+ <20260519-cgroup-dmem-memcg-double-charge-v2-2-db4d1407062b@redhat.com>
+ <ahBxB5a9sX9DEWvl@localhost.localdomain>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ahBxB5a9sX9DEWvl@localhost.localdomain>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,37 +73,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Vitor Soares <vitor.soares@toradex.com>
+Hello,
 
-The Riverdi RVT70HSLNWCA0 is a 7.0" WSVGA (1024x600) IPS TFT LCD LVDS
-panel used in the Riverdi RVT70HSDNWCA0 display module.
+On Fri, May 22, 2026 at 05:26:16PM +0200, Michal Koutný wrote:
+> Hello Eric.
+> 
+> On Tue, May 19, 2026 at 11:59:02AM -0400, Eric Chanudet <echanude@redhat.com> wrote:
+> > Add a root-only cgroupfs file "dmem.memcg" that lets an administrator
+> > configure whether allocations in a dmem region should also be charged to
+> > the memory controller.
+> 
+> This kinda makes sense as it is not unlike io.cost.* device
+> configurators.
+> 
+> Just for my better understanding -- will there be a space for userspace
+> to switch this? (No charged dmem allocations happen before responsible
+> userspace runs, so that the attribute remains unlocked.)
+> 
+> (I'm rather indifferent about the actual double charging/non-charging
+> matter.)
 
-The Riverdi RVT101HVLNWC00 is a 10.1" WXGA (1280x800) IPS TFT LCD LVDS
-panel used in the Riverdi RVT101HVDNWC00 display module.
+I wonder whether this would make more sense as a mount flag? What's the use
+case for e.g. having different config for different devices? Wouldn't that
+be really confusing?
 
-Link: https://download.riverdi.com/RVT70HSLNWCA0/DS_RVT70HSLNWCA0_Rev.1.4.pdf
-Link: https://download.riverdi.com/RVT101HVLNWC00/DS_RVT101HVLNWC00_Rev.1.4.pdf
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
----
- .../devicetree/bindings/display/panel/panel-lvds.yaml         | 4 ++++
- 1 file changed, 4 insertions(+)
+Thanks.
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-index b31c67babaa8..b89f86bc0683 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-@@ -58,6 +58,10 @@ properties:
-           - hydis,hv070wx2-1e0
-           # Jenson Display BL-JT60050-01A 7" WSVGA (1024x600) color TFT LCD LVDS panel
-           - jenson,bl-jt60050-01a
-+          # Riverdi RVT101HVLNWC00 10.1" WXGA (1280x800) TFT LCD LVDS panel
-+          - riverdi,rvt101hvlnwc00
-+          # Riverdi RVT70HSLNWCA0 7.0" WSVGA (1024x600) TFT LCD LVDS panel
-+          - riverdi,rvt70hslnwca0
-           # Samsung LTN070NL01 7.0" WSVGA (1024x600) TFT LCD LVDS panel
-           - samsung,ltn070nl01
-           # Samsung LTN101AL03 10.1" WXGA (800x1280) TFT LCD LVDS panel
 -- 
-2.54.0
-
+tejun
