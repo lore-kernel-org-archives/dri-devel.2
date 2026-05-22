@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D344FCD5BB6
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D573CCD5BB4
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:12:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA51E10F6BB;
-	Fri, 22 May 2026 16:12:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3646B10F5D2;
+	Fri, 22 May 2026 16:12:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L4mJCz6U";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jaxagjOG";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84AB310F61A
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:11:59 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-488a88aeec9so85126815e9.2
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 09:11:59 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C63A10F5FD
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:11:48 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-48909558b3aso76041485e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 09:11:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779466318; x=1780071118; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779466307; x=1780071107; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GnOH4oi9MCTSp//zOnHHBdVKY0oDkBkYij1oiK/rQm8=;
- b=L4mJCz6UxRqjwMvzsGUhCDgV0mM+hZYBBXX9BDcgdCl/ssTqclXbzAoPWS0rhcmwIF
- Lp/FWSufWD1uZVPs00lDbzFM15Q7UkZDp52Mdhp0NGlO5Zm5eJLwfFuhCU8jJyDyPN32
- fZcjYM6xyjH8fMdQPwpxw8KGAeYlSN/adO4di2mc+yYP8g7/iCbcU4iKBG2Mg0yB/sOT
- 5SdShR+lUkq38azqvIFrClm2N3MX0FJh59WFTZzK1uYPsuxBpWIYWZp1nzY7gfaw/tSs
- QjQwhEdSuisJZceRX8TdI6EkXsxDYIfRMP3jaskQfIZZmpl2M+AAfRBDLqVLgHqXKa4+
- q/7A==
+ bh=og4Ss48qjWaYlmsfdFxPi0Imv8+Y+Dj/6CNrwGbe4NU=;
+ b=jaxagjOGAYM/iaDM2qQc0YvWyaSF66XovFQm3n4UjGJ6jwoXAhZ+yM1iBZjiGSXgR1
+ T/KCnMtHZotK1jqvXsD0cmGKCdDqG12iAKQhFzasdh0868y3+Fus7wLnBUZ5/Vm+2Nh9
+ I8aM8jR/L6DWwt744V9celpEV5SvFX4+YVqWhSsZmuG1hJ21AcaZiwAatFMCkOYYHFSr
+ zfnrFPdXa2rVrrlQ8c5B31pMvAbAZqTXVLpKezUHvs7kZHkbBmd8J5syyNbBsSpLgs5F
+ ukeb4tgTE2+gbq20Vzjr90HejVvf7Os5borPlfo4pop/XNek1sXTvYhIZRTC3K6UmgQs
+ 2MmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779466318; x=1780071118;
+ d=1e100.net; s=20251104; t=1779466307; x=1780071107;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=GnOH4oi9MCTSp//zOnHHBdVKY0oDkBkYij1oiK/rQm8=;
- b=oopVuFA6c4ny12t3b5JZPgmPvjWeg/G+hDKcAYRZgfikRBgWyemA4dP5E/XaoUN0Vf
- Js0FrvLuZ0VL0nonLU18UMNbz18+zuKIbnrET5m1yBjtfXXGJjg2r3OUxGs2CenLiAsL
- oak47XdIVbylMKjPkuDmErU8Rzl7mOpz5wM3KYlcV45HW3Y9F+bYblT9d49atAZW3bV+
- ly1LaGDGw54U/CI1nK+xwhpl5OLalmP+QSP2obPorTNBalb9596kHabdr1r0m91PX4cj
- /rVtUjW1y0WKyelNwpzLiBieJlk7B8/bVcRsKGCoXWxaBXJf6ju7VDBJF3OFTvFGKyHN
- jo2w==
+ bh=og4Ss48qjWaYlmsfdFxPi0Imv8+Y+Dj/6CNrwGbe4NU=;
+ b=HyBNZ1havqN4akDy4i2Hwr2C1o/MCsES7SfG3nE84e3SnPyAHMRG0MhNWcS/zYeJRe
+ vEwczIupLPSLEqMD6CWQqgmbGS319Tz9N6H6G7AXcIzdhNypyra7HMZP9D0tky6P8cbJ
+ ivleUy2yVTpYIhQiR8UFCfLZynGkmyyx2Ab1oBqXN11/dhEW2/YABUpNy4X+ZHU/TRVJ
+ /R6dwAWYsshvKWYCaUNjO2eprwN8Jx8PTGcHVSW4Km39CuhMAiviElMfTQ+lzccnQzfK
+ Bf6b3oE9w0igUvCQ6vobe8DyWKkgBW4GVUD50xWF+RE/Y4FTBFJeXHi8hgj4b3op18a0
+ xTxw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+EZc2NGv4dPk/nZrHV9XS7DLYxurfFEBeyUJDqPd+7IvuwqiJ2I3LM3nCibJVAd1W6VnktOrrqpV8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwV8VXPx+XWhQcW+hkiTA1sfWstn5lw/syu9BMI2dmIcTCAhhSN
- eGSTQJuVAw1/pOxgOnfuVnJ7a8oPrNIdD8ViIekoCh1yBNDKoMbfECoZ
-X-Gm-Gg: Acq92OFzdosA8wUIHgtY8NFLEp+aP+UtkURHGexrmRpmQ5Cd/Bf5/nyotq0pRE6nIQi
- RVoEvzXVs8E2DoDDxR+AQfqwK5P+NU7Va8iNxMVNGSTHhZHMiDr0QGLPzm/+waBN8JavxIeMIJ2
- yW1NIfBfVZKmMmLeKDD+2mJ6nkjidFR1qnZIoQLXVN21aRvpc06aH8RYgT15nxOOLGHDtwrBltz
- xcbXbvtyzdqoX0fhXqyLtqYHWDi0UpHXPgBqu9FDC5gcsmKdkPL4vTTA5+N6zH40cVcv30J0CTJ
- S1RDG0p2AWhlORJLj+sOGmyUyc46xfKrLlMbtsIcTGXIVvoOcAkz80hdbgX9sWDW4mErRsNDbTJ
- w2sMYYiKoyYMFwA4e00kEiks/+uiwG+rr/EQvLPEri5w90eDtlqVZaXjN/4ZB97SArG2p74tmFs
- UVQmxI00GrEHP7GINbJauTAfUt/oODLCNdY3zFCTr72A==
-X-Received: by 2002:a05:600c:3e12:b0:490:40f1:5314 with SMTP id
- 5b1f17b1804b1-49042482845mr63876345e9.1.1779466317936; 
- Fri, 22 May 2026 09:11:57 -0700 (PDT)
+ AFNElJ8ioedEqMQkp81phtKb5YcZ3A8H3oBxUfuuj4t9pjP50iVU0AuhWbxPFLLfG8kyd38FbNUxAjdLYnE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzxvSvaScIyW61R6SRO+KEfEuBTYQLDwcZ+sB8hPLWbhJog5Pcs
+ i9svMfyF3vTvANr8H8731WhYUanO270xBc1dXO85iuXUS4AhtzlsMzZ1
+X-Gm-Gg: Acq92OHc9keU8HivlNnkqHRSthWvK03hD07mwA97KJ5xdDiUelxaefsoPZusaXESy5y
+ 2rB5A2mfTXFPLEeuUjGC7MYCQEGJDL/0Pe5s28LNoMnC8KHaTMkNIvB40sgAcMyLH2A1FPG3AZA
+ CJvM9gtImWrFB1IAI+GYoTaV8vBzTPgAtru29bD2vaUJR0DjFgiossBCwl6Cht/x4TFZhwjEczb
+ pGOr5ngmb7+x5fztWTZyOXoWniBSwJnFFuc9VCvEDw594l9bEcJrC/BgtNfgaIMOSFiY78KR798
+ ejGzovRabGbOFtfSHj4fthP5d1hVr2iRPf8jlKKMIV1l8FdfBKSeDlUtXpZRRkBvDaZehCODM3b
+ tj+/H5MnBdOCmKVn9cYI/nirIY6d9NgyWdvqhy7p3JVVHeBBmpdqwDLYYOdzrSQe06fR+Ee17OL
+ Z6n6Zwq/wjh6OTddNnJ/sZ7gfkf33kUr4O45EYordWQw==
+X-Received: by 2002:a05:600c:c83:b0:48f:d612:3c4a with SMTP id
+ 5b1f17b1804b1-49042488b81mr59056955e9.1.1779466306479; 
+ Fri, 22 May 2026 09:11:46 -0700 (PDT)
 Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490454a0b9asm51042755e9.11.2026.05.22.09.11.56
+ 5b1f17b1804b1-490454a0b9asm51042755e9.11.2026.05.22.09.11.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 09:11:57 -0700 (PDT)
+ Fri, 22 May 2026 09:11:46 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -77,11 +77,12 @@ To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Thierry Reding <thierry.reding@gmail.com>
 Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v3 11/11] arm64: dts: ti: k3-am62-verdin: Add Mezzanine with
- Toradex Display 10.1" LVDS
-Date: Fri, 22 May 2026 17:11:15 +0100
-Message-ID: <20260522161105.277519-24-ivitro@gmail.com>
+ linux-arm-kernel@lists.infradead.org,
+ Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 04/11] dt-bindings: display: panel-lvds: Add Riverdi
+ RVT70HSLNWCA0 and RVT101HVLNWC00
+Date: Fri, 22 May 2026 17:11:08 +0100
+Message-ID: <20260522161105.277519-17-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260522161105.277519-13-ivitro@gmail.com>
 References: <20260522161105.277519-13-ivitro@gmail.com>
@@ -104,164 +105,35 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Vitor Soares <vitor.soares@toradex.com>
 
-Add a device tree overlay enabling the Toradex Capacitive Touch Display
-10.1" LVDS on the Verdin Development Board with Verdin AM62 Mezzanine
-expansion board. The panel connects via the AM62 OLDI0 on the Mezzanine
-LVDS interface (J10). The panel is a LogicTechno LT170410-2WHC 10.1" WXGA
-IPS LCD and the touch input is provided by an Atmel MaxTouch capacitive
-touch controller.
+The Riverdi RVT70HSLNWCA0 is a 7.0" WSVGA (1024x600) IPS TFT LCD LVDS
+panel used in the Riverdi RVT70HSDNWCA0 display module.
 
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-Assisted-by: Claude:claude-sonnet-4.6
+The Riverdi RVT101HVLNWC00 is a 10.1" WXGA (1280x800) IPS TFT LCD LVDS
+panel used in the Riverdi RVT101HVDNWC00 display module.
+
+Link: https://download.riverdi.com/RVT70HSLNWCA0/DS_RVT70HSLNWCA0_Rev.1.4.pdf
+Link: https://download.riverdi.com/RVT101HVLNWC00/DS_RVT101HVLNWC00_Rev.1.4.pdf
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 ---
-Changes in v3:
-- Add missing regulator-name property on fixed regulators
-- Simplify regulator labels
-- Rename touch@ nodes to touchscreen@
+ .../devicetree/bindings/display/panel/panel-lvds.yaml         | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Changes in v2:
-- Use panel-simple compatible form
-
- arch/arm64/boot/dts/ti/Makefile               |  5 +
- ...mezzanine-panel-cap-touch-10inch-lvds.dtso | 98 +++++++++++++++++++
- 2 files changed, 103 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
-
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 90bb3b0522d3..371f9a043fe5 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -30,6 +30,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-phyboard-lyra-rdk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-can.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-nau8822-btl.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-hdmi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
-@@ -231,6 +232,9 @@ k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
- 	k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
- k3-am625-verdin-wifi-dev-mezzanine-can-dtbs := k3-am625-verdin-wifi-dev.dtb \
- 	k3-am625-verdin-dev-mezzanine-can.dtbo
-+k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-dtbs := \
-+	k3-am625-verdin-wifi-dev.dtb \
-+	k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
- k3-am625-verdin-wifi-dev-nau8822-btl-dtbs := k3-am625-verdin-wifi-dev.dtb \
- 	k3-am625-verdin-dev-nau8822-btl.dtbo
- k3-am625-verdin-wifi-dev-ov5640-24mhz-dtbs := k3-am625-verdin-wifi-dev.dtb \
-@@ -348,6 +352,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am625-sk-hdmi-audio.dtb \
- 	k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
- 	k3-am625-verdin-wifi-dev-mezzanine-can.dtb \
-+	k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds.dtb \
- 	k3-am625-verdin-wifi-dev-nau8822-btl.dtb \
- 	k3-am625-verdin-wifi-dev-ov5640-24mhz.dtb \
- 	k3-am625-verdin-wifi-dev-ov5640.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
-new file mode 100644
-index 000000000000..83fc4f3a24f5
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
-@@ -0,0 +1,98 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex Capacitive Touch Display 10.1" LVDS on the Verdin AM62 Mezzanine
-+ * LVDS interface (J10), used with the Verdin Development Board.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-+ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/pwm/pwm.h>
-+
-+&{/} {
-+	backlight_pwm2: backlight-pwm2 {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 45 63 88 119 158 203 255>;
-+		default-brightness-level = <4>;
-+		/* Verdin GPIO_4 (SODIMM 212) - LVDS_BKL_EN */
-+		enable-gpios = <&mcu_gpio0 4 GPIO_ACTIVE_HIGH>;
-+		/* Verdin PWM_2 (SODIMM 16) - LVDS_PWM */
-+		pwms = <&epwm0 1 6666667 PWM_POLARITY_INVERTED>;
-+	};
-+
-+	panel-lvds-native {
-+		compatible = "logictechno,lt170410-2whc";
-+		backlight = <&backlight_pwm2>;
-+		power-supply = <&reg_3v3_lvds>;
-+
-+		port {
-+			panel_lvds_native_in: endpoint {
-+				remote-endpoint = <&oldi0_out>;
-+			};
-+		};
-+	};
-+
-+	reg_3v3_lvds: regulator-3v3-lvds {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "+V3.3_LVDS";
-+	};
-+};
-+
-+&dss {
-+	status = "okay";
-+};
-+
-+&dss_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* DSS VP1: internal DPI output to OLDIx */
-+	port@0 {
-+		reg = <0>;
-+
-+		dss0_out: endpoint {
-+			remote-endpoint = <&oldi0_in>;
-+		};
-+	};
-+};
-+
-+/* Verdin I2C_2_DSI */
-+&main_i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	touchscreen@4a {
-+		compatible = "atmel,maxtouch";
-+		reg = <0x4a>;
-+		/* Verdin GPIO_3 (SODIMM 210) - LVDS_TOUCH_INT# */
-+		interrupt-parent = <&mcu_gpio0>;
-+		interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
-+		/* Verdin GPIO_2 (SODIMM 208) - LVDS_TOUCH_RST# */
-+		reset-gpios = <&mcu_gpio0 2 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&oldi0 {
-+	status = "okay";
-+};
-+
-+&oldi0_port0 {
-+	oldi0_in: endpoint {
-+		remote-endpoint = <&dss0_out>;
-+	};
-+};
-+
-+&oldi0_port1 {
-+	oldi0_out: endpoint {
-+		remote-endpoint = <&panel_lvds_native_in>;
-+	};
-+};
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+index b31c67babaa8..b89f86bc0683 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+@@ -58,6 +58,10 @@ properties:
+           - hydis,hv070wx2-1e0
+           # Jenson Display BL-JT60050-01A 7" WSVGA (1024x600) color TFT LCD LVDS panel
+           - jenson,bl-jt60050-01a
++          # Riverdi RVT101HVLNWC00 10.1" WXGA (1280x800) TFT LCD LVDS panel
++          - riverdi,rvt101hvlnwc00
++          # Riverdi RVT70HSLNWCA0 7.0" WSVGA (1024x600) TFT LCD LVDS panel
++          - riverdi,rvt70hslnwca0
+           # Samsung LTN070NL01 7.0" WSVGA (1024x600) TFT LCD LVDS panel
+           - samsung,ltn070nl01
+           # Samsung LTN101AL03 10.1" WXGA (800x1280) TFT LCD LVDS panel
 -- 
 2.54.0
 
