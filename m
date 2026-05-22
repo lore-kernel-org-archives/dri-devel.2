@@ -4,125 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3388CCD4F3D
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 07:37:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9895CCD5BB3
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 07:43:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92B2010F47C;
-	Fri, 22 May 2026 07:37:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF09C10F4C6;
+	Fri, 22 May 2026 07:43:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CiDA+3yt";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="UTjxmf1w";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013014.outbound.protection.outlook.com
- [40.93.201.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8124D10F2D1;
- Fri, 22 May 2026 07:37:09 +0000 (UTC)
+Received: from TYVP286CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11011019.outbound.protection.outlook.com [52.101.125.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE5010F4C6
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 07:43:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lW3tjWi3M2QLgzTKD+Tfuy+yuNe/foz7pGCDzD0gnLHXF2nJ+vZjspP+kQy7JswuY1wdpZDmBVkV+7T0oPd4NMw3tVVHNwjVJ76VRFMq/7jBcg4gyZFHCGK41sz9U8SziJ4OFTPMOXsXsj4QbZowilzRLUMtBtLDlgE4POOh3MeNUagXNiZQXREnWn1MxIm1iP6VEZfjWkr0ng6CMvJ8EdmYzBhr9YUOENtzMikxwCh9ZSuWZgP5O1dOQ332weIym17PvbI5nCpx25X1XU42wO0NVC+1rjDgMFVXHqI27XURTdb7z0Gm9E1fTO0Ht38aBJc5uT95KHdaNEHmUrBh4Q==
+ b=H3FOHG2B5pHXxxESUJXQ2oudtpUK7X2UEvCtuJI/r1dRFSleVRD3qIKtfyhYMYXlN22AVI4gFZt8xTy/SxPZ2oA51BXDe/6Z+ogBwzOEoxozB7Dkp+Lb+xBzuZPuMme4vnMI0FTQtiL6ih0/mq28uE2b22L7sR63jZsL6lusBKSBp186TiDrBsKPUtWUrWJbH+lZ54ttdGzpxVPlrLQb3LIY/eiLuDJGdQOHS1SO6OtKMbeN3ptL9nWkhihyAucS2yDb+B6SIWi7x9JzYsrEe0R0+6XmHEmRcLHV21j4WZU+308a7J+BWDs8ZXl/EdXuVlbkDDzpLMwzEikmnabidQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x0LZflDPRucNTXJw1MRfJ8nBQbkvAg6Iyl3zZfUdqnw=;
- b=dQPv0Vrj5jSrsbVdetHmnS5hbwjUckV3H+PwQnbEotmfxNcyKUblEYF0vxNCo13ajQlzH8S13DMBNdxVFqGFBiIjy10JxU0ydOm1cQhIgQV9LTkeTZ8SaoyKAhZElC//m7itdJWjUuSoIjgzimc7+79ao+9DNMXIxwfwIv5pKGXP/+ZKRb3l+cVd1ryCkCl6OUOeyvPX9vDAnKpKwxAUFl7CoKfhPLHbf6Fxg+7yILh4IDOymPqb4rxYSfKmNxRgbLQ9gcr6CRwUHSMUrrTk3SW6N6NzAoMmJicGaN5/3jZ6VyMpmH/SnYqH6jGyy3vDnakO+Kq+hNq+WoyuQuNjhA==
+ bh=CyBpuS29Aqypl83QzK5ImPwvqccD/sZa6+kdJ01138c=;
+ b=I0UBvIm1SiigtNPjTFM9ruBVGioO/OaSqvxP20JNEfmVr97JM1D1E3XemdZg1sXRAhRUGsOmVbEXyIzwA0GXYyzh97NPoWgkIph38CYkSHie51VcWaBI3I+RKBEW0rb/fbp3CbSqSvuPW+GlrT3ZgT4qCe39ni6X+HamSSWUlU2gwyzhAkP3iJnb1kaTCrlUd33kGIaOGgDVP5OSAAkaA2ndDLQ2GyhYMxxLXPX+XPyQ8NYtMZIjb6Jdrf7neDh+LIxGersYEp41ntF6Y4j+qvZaqCm6oW7qrLtQZqpcD0aXtgPBuvUNKeqtbFjE7SkQHQ890nC85GfwxLNnKxzquw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x0LZflDPRucNTXJw1MRfJ8nBQbkvAg6Iyl3zZfUdqnw=;
- b=CiDA+3yt8lioQx9Pi4dxiXhFvX5aokct7dIUZg5kPJMHrJbakF/GAyA7equHtGEi3L7cItODeIZI9O7T2F818g3JQTHdHkNrOcbEhHsfiOnTuOsETATKjYuY1NzN+lgvvcEWPHBl5G5BJF+jA769CvCh4wcyldOCVF21nXg9WG8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW3PR12MB4476.namprd12.prod.outlook.com (2603:10b6:303:2d::11)
+ bh=CyBpuS29Aqypl83QzK5ImPwvqccD/sZa6+kdJ01138c=;
+ b=UTjxmf1w/xcDbW9SO1dTTfxUjNgJilTwBlZ1AWB+6vu1zMLFmx3TeTbPQk00wocLj8IqxLGWvGVva4liHzkUzTtarWSd6f8DC94AdHmdui1+3klodtXl7wcmPk5bQ+9YNnfc9Lnf4yJUO3eBiHlP3lpZfdXrs2OB189d1GCBSBY=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TY4PR01MB17555.jpnprd01.prod.outlook.com (2603:1096:405:34d::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Fri, 22 May
- 2026 07:37:05 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Fri, 22 May 2026
- 07:37:05 +0000
-Message-ID: <b2d8b281-a8e3-43a7-a4a8-b112526070e2@amd.com>
-Date: Fri, 22 May 2026 09:37:00 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon: Use kvfree instead of kfree in
- radeon_gpu_reset
-To: Dawei Feng <dawei.feng@seu.edu.cn>, alexander.deucher@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn, stable@vger.kernel.org, Zilin Guan <zilin@seu.edu.cn>
-References: <20260522033254.3602281-1-dawei.feng@seu.edu.cn>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.16; Fri, 22 May
+ 2026 07:43:13 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0048.016; Fri, 22 May 2026
+ 07:43:13 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+ magnus.damm <magnus.damm@gmail.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Fabrizio
+ Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH v4 0/5] Add DU support for RZ/T2H and RZ/N2H SoCs
+Thread-Topic: [PATCH v4 0/5] Add DU support for RZ/T2H and RZ/N2H SoCs
+Thread-Index: AQHc56nGzYGBPcWMNkCDgPKka/DP5LYZrYxQ
+Date: Fri, 22 May 2026 07:43:13 +0000
+Message-ID: <TY3PR01MB11346BB32B2CD7697B7001780860F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260519160825.4082566-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260519160825.4082566-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260522033254.3602281-1-dawei.feng@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0200.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a5::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4476:EE_
-X-MS-Office365-Filtering-Correlation-Id: d23d7db6-5163-4493-741d-08deb7d4ebbc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|18002099003|56012099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info: uzfKDKqVgQLF6ifQc4j1PDZK7zpWjmvejtp7zbnVXbkyjJVkSMUxWrWMhHT8i9/og6O9hTY34vh9IQNGheUYho7MLDJch2sGW61vlg90KM88vRNAFR6QfVe+Wug51XSEFEqx8a8BGF2RM9anK2zHRVQOnvjdwrYTy3PgCj0R6mOx/r+RAx8tCQ2vDjkzP3FrJJse/FpyoF9d85qBI3Sgq4RQfZjK05wcnB/Jy7YS5VvVDVzSdX+8j5W9e77SbzmGh3uVuQKv1MjVzd39FAwHGTLzUpfUlL7r2TYMZiMAvNhwYQKTnZa5UeoRmLbsXElq8ekSZIw7mGCLqkXg1AD1+c9odwu7FsH5sNQNKafcXwEImsgx2YEQKU65ZO4PlKWpWvjm01QqW0HEQ6e2gGRombqeHKCXCQ6i+XloL8BV3we2JNwsJY2YrPC55wrkP4LrTqaDzsPJSHSUD/EzESuZwLAaM/NPSXP7tfutr9pwNDuBwoT/e51Kk2c5vKvlcq3AX4wrQbzF67TGZVG5ffvmYMiilrlTFbf3ka/shWHvXWFtSyig+x7h/DwZE8lV4agTk+iGgFbTY5tq5prmxFDd2JFNqAUo3vdS0piZBdZ6XnHcP8fJhERGZ7hZtNNtOEcC9d4yhrBma+JbTaxTn8DRFx5QZ5Y2lUHEwzBxR9LboJ9R0zxMLwxMbxS1wghDfjoD
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(56012099003)(22082099003)(11063799006);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB17555:EE_
+x-ms-office365-filtering-correlation-id: 0b080bf0-064e-4379-78cb-08deb7d5c76c
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|38070700021|921020|3023799007|18002099003|22082099003|56012099003|11063799006;
+x-microsoft-antispam-message-info: hwO3tnrlkbEEhVT+OTDD5yyfOJiAXfYIAVrtxJbesttgHhDRI+ZLuQ8d1eJ/dSfTi6Ht6oY2o7CwbF1BRpzbzRSL7birLwV0vI+QslorAjufLwFaUHFKHuXVxxxcrjqoJIGkL/MEnTD4/II5LNg3JzyBExTdlu88Kjuofq5oYbEEads4XJhVDZdfaJKjNJg0yi4UECIhNCWNhcJlhJ1zUxusU6KUAXrvJSHJd1kyOpt91+y+VSSO5mD3KEjuOZxngVSC/miCBkTJHcXNbPbzdhrSymPPBAoigIW71JXAGtWZUamrtBEbBBASQTTTVDcPcD17asTFIUCSvv4ObZAywyAxhS9NDjFOaa3zk7+T3rYXtRtU+j3G9hsH/ec0N3/xUcdL2BpQvX/hjmCkT97aHkvHptfQp0WXyYQCsO4VHEvWC8Rt0cpZ0patD0iYRhY1jbhKj+QTTxPOrhG70afLS2QGzdC7LqgG6lJMDJGKtCLj6udygrLB/2V55sOknXostpFkKTkMvbYWQ2OBfdqd4R6SwruVXwtseTJRNHSvjrcM8KZmHXkkD7KyuNHCYnf0ul7rSzPJEOx2ygenkp+RTWDcTmLMExSIGq+eE92FDH23e1EP3PZLDrhAvDwhyr7/FOciayXrW2hLzcTfET+4ldX5nEuDtMQFs7zBchfjFYhUUsRQPot89pyJatz3eMqWCyVnwlZvsN/8T/qGBgyrNHTydWAprfkkxrL+gktS1t8FQo8IMsbVVW5C+AJUYZvhZAtE/FcuqMxJ17disQEuqg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700021)(921020)(3023799007)(18002099003)(22082099003)(56012099003)(11063799006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFZ1L0lnanl6NkI3WDJkRXBpQk8vSE1aQ2R2aThBRnNkSGhKc3k4bUh0ZFR2?=
- =?utf-8?B?QlU5NUl3MXE3NnR5VU5xWi9rR2NGZjFxR0pCRlFlWFdWV2RBaHJHQklJbmtt?=
- =?utf-8?B?QVorRnB6R1pvRjZIZlZ4YU8vdURHcHNBaUROSlZ2TFk5UXJVa3dPS29kZkNL?=
- =?utf-8?B?Q0g5eXBXYi9lQjdCbHVtMmZOeUZRWlBKQ2NoWE5zLzNMS21hd2wyNkptbnpN?=
- =?utf-8?B?K1VtYzZTUy8xazVpY3R4c01SM0IxaXRpNmlNdTU4dGtSdlFyRFV2Zlduek15?=
- =?utf-8?B?NHdwVjByenk1S2dCYnFrOHZVU3JjNGtBbHBsSUgyamFpWkNERmZmblNCcUpV?=
- =?utf-8?B?UzZaKzM3dVpKT3QxOUhxbmE3TnA1dFg1ZFc5Nk8vWmNSTDcyZCs1NExBRi96?=
- =?utf-8?B?UkVtQ1NCOWVCMjQ4RVVXQ28rb1EzTXR3MWZndThkZWJDMDFwN0dUdnN4b0Fv?=
- =?utf-8?B?VmxIVEQraUpEblkwU2xpNitwZUZ4dXh4NVBDT3NTSUVjTHNTUEJWU2l0TnN4?=
- =?utf-8?B?TmUxOCt3dDdmWmI0dStwTjRvM3d4OXlvcnphVnBTWU84emtxcVBKSXpkM01q?=
- =?utf-8?B?N042ZzB1VXNvVFhGb2xXRzNBaG9vbHZ1RVRBY2VORzFJZG1pdGk4NDlSenBZ?=
- =?utf-8?B?Q21vR1ZpUlFyWkNZdWovQ0Q4MklWRUQyMVF4bVNORXl5Qml6SU9TcktDZ0JW?=
- =?utf-8?B?eS9CY2lMK01peHV3S2VrSkl5emFic1NHMDN0UStzWlE5OG1uMkVFWXkwTy9r?=
- =?utf-8?B?THc1Ym8yVVRnemtOQjdMZzZKQnZ3L1VFa0pNZkpCNnVpYVhSOVpLZnhydHhy?=
- =?utf-8?B?aU01eUpPMnpOMmxNZjdSanVuaEs0Ym56SGh6QVR5MDh6eXJhanRuUnRDbTMv?=
- =?utf-8?B?Mm92aGtxUEtWNUZ4ZmF6eGhSWGNpcWV5R1puUHlhWGMzRXJGMlBhTmZBTkFS?=
- =?utf-8?B?THFPR0w4YjhOekdxbDhNVFNwM2VoRmZ6cmR6QW9QZnY3a215Z3haQVlnK2JB?=
- =?utf-8?B?bGdlSW1jaHliMmU2SzVwWVp0THI1ckJYMnVzZ1FpWHhYYnZ6U1lIUEkvcW84?=
- =?utf-8?B?KzRGM2UvTGZaaFFmbFM4cFpHWGZzbmV4TVlEV0hqSm5JRDQ5d1pNWXZjWms0?=
- =?utf-8?B?M0RqTG9kVXFjWlNoRTkyZjYyNVR6OXpYQjhXbWJ1MHZ4bWFHQmxLRjQ5Y29l?=
- =?utf-8?B?cVdDajZpRzRtRkJ5OXUyYmorQ0RxUUY4M3IxVDMwUmpJbERDVDZPb3ZTRDR6?=
- =?utf-8?B?TjFrK0JITkZxL2l6RG5jWE12SS9XdWRUT1greWF6K2NGLzIwR25YZjcyUVNN?=
- =?utf-8?B?Y0crdC9xWWV4R211N3V2bUEyZGZHcUVIYXNta3lmbUhEQzFiQ0FnMGNoNXBK?=
- =?utf-8?B?V0RvRktQWUpKREdWNStHYy9JcmFhMmpWNlBHcDIvMHJwd0hBWUhIbnBDUzRJ?=
- =?utf-8?B?OVlPWnMvTjc4VE5BM29tNTFhSmFncWpJWDFOMk9yVkhwWEg4OUtDcFVOM1h3?=
- =?utf-8?B?UUNrdm1hK3d2emFLb2FzSnViTXFyRkR4RzQveVJYaUJZTUxqbk85bTg5L2o2?=
- =?utf-8?B?L2ZKSzh2UUdWbXBuU1FXSmxDL0N5Y1NjN3I1WTdBNkthb2hFdXU5UHNkbnF5?=
- =?utf-8?B?MUJrRUR1UWhJTGE5WjhnQXRRSGhva3E2ZUtsQk01YXg0L3lUeVpkejJISFJX?=
- =?utf-8?B?bHQ2Z2tJejV2R3JsWC9TaFRudUFBaHRtK3FyK1laeEdlbEdPUWtJT1RIRFcx?=
- =?utf-8?B?OUhmRW80Q2hpb1B6bXdzRU1yekp4eDdzQ3d3OXI0MUk3cWRNV3VOTnFVRkpu?=
- =?utf-8?B?YVc4eWFBTHRpYzkzOFE0YWdXNDBRdHhPUU5NcjBCcHkrZ1dPc281N3R4T0p2?=
- =?utf-8?B?OW9pM25XdWlBUmFSUy9WMkFpVlMwUFhNaG1ycS93bFBPd3NZM1d5eWlRa254?=
- =?utf-8?B?OE9ibWt0a0hiTHNKYkYwTC9HVUllanBseWhwVFBRRmhjaTdxdGFSbzk1bng3?=
- =?utf-8?B?cVpJM2p3bG1ITEE5TSs2Y2VUS1ErSWZ4MWNkbm0wVUZKQUVWYjRqS3NPQTAw?=
- =?utf-8?B?V2JLdVQvYkFWMDdEaG9ncEl0TjlESXcydkxORVYvTmo5dHFXMndhVVduOEpL?=
- =?utf-8?B?MU9CeEttUE92Q1c2SzdQTzNnZFovVWVqenZsbThPLzhFaFUvS2ZOOC8rYjMz?=
- =?utf-8?B?V0FYaWx5LzlqNFJiOGM0QTlzblJOQW83MU1FaFBneUNKQWU0clp4dEo1Mit4?=
- =?utf-8?B?bEpUL2FNaGJob2ozY09lRms2ZXNHWVBXVGR3RGVWYXljenhub3BWWnpBazJt?=
- =?utf-8?Q?u7tqAnwBkAbEllL+lX?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d23d7db6-5163-4493-741d-08deb7d4ebbc
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tbgle7snqVOfTW1iJ/j5iZsR0A8YF7ZCzl5aOT7PSutX2DL4B13nJP3ff+uy?=
+ =?us-ascii?Q?HGYLLrIR1XDSX+vdnRJKDpATS2oAPFQJ5JuzrCWKXq4onnLkdKOsoJmUyGwG?=
+ =?us-ascii?Q?sXtgoanlb1dR1UhAJjZ93/19edeXgfTEeGjU38Fg72zoLHh216Rkh25HhaNi?=
+ =?us-ascii?Q?8T8eh1fecJl4pgVVLBTwip+x6o+xC/m/2+nL3NSxNi3cYm+EjOoRCnPgWpC+?=
+ =?us-ascii?Q?ktHkXTEjSWPoCPYCSxpvKsF4UBWHYNx5c4SN+4tYcnEF8RRebzoNUGKLjuAE?=
+ =?us-ascii?Q?a4lJGwcVdNn+9aIMZpQRTRLm24pNPRRZ78C5Axmz7/8n5WF+qC8SplAop4S4?=
+ =?us-ascii?Q?Nqsc8c8oi4GpZ3i0zO96TUJsVK1BFxvJ+v8M3yau/I/pS779DdRQtdCPHY8q?=
+ =?us-ascii?Q?6pTFOo9CzMDM0iT6r0fAXbGHQsk5wAg/LqTc1cUoUiEa9SAyHrWEJPu1gIIU?=
+ =?us-ascii?Q?Ma14X8JOMdkwgSdlDNOrRye9AdEgB8/dbiujl7oU4VBoUQJzFaGcy2VBiKgc?=
+ =?us-ascii?Q?v3n21b8bMDWO1FCy66OHoYejF3jvTcKRJ38dtz0nyXTSV5CWsLJ1J1WSeKTL?=
+ =?us-ascii?Q?aA/H+lIkuZLh7ZiHQIYDutjPT7ZeSXlDFK738n34BT6u44HhAQGZWOj2od68?=
+ =?us-ascii?Q?X5BVZOs1tbFAomdOz1lCu+adkN1Fa+QVv/q45xROyKVuyE1vMIyPXLeK6Ilm?=
+ =?us-ascii?Q?1rK16MgnHsloAKUWB81aZo1uc7ocj3HB/uBHZ66Q4o71vMCrDuDluWAxmUz3?=
+ =?us-ascii?Q?IhkRFwYcSIyj2VrFLHfjFGoty/sEBWFb1CGriOd44sNyfh9P8wEbnRWjNxLX?=
+ =?us-ascii?Q?EEry0SNiR1fPyvSx73/BvJA2YksY/rotWhjpZO1HuG9FY78cOu3NFlYFm2gE?=
+ =?us-ascii?Q?J5vuunVGmNousRgGu0pP8Kw8bHBqDNSBV8vBZLI/lpkIjnZvJ87B6aujNQ0E?=
+ =?us-ascii?Q?8EyI4V2rKMFSNqFlm3PWmYnn1VugpyfFAOUMiEuCVGl8YTTNUolMFWgjhBzw?=
+ =?us-ascii?Q?nnxCCgTW2duH12Ih1PRJUvOqeOmJUcIat3fyGWsxnD+AHb4flfiOujXe8Fj+?=
+ =?us-ascii?Q?EDLkM29yYSZgj19nmcA4yD2Z9cKXJenzEOqfPyf2ZrFT1A7smM8uJulAFj6g?=
+ =?us-ascii?Q?9G9MhEP+qiB9nhJjU+pZJ04kRDxLVqgkAX+w+J1VA40KLts7jK31tUduDdeS?=
+ =?us-ascii?Q?kwZ0qVz10G4bMbS5ZBwFHQOcaHeqViZCZpzShYfPcQktlUHrcaQPkWBjg2N+?=
+ =?us-ascii?Q?znXwKw3rp9pH1cuk4yiSfuiFINTp1wSqcJYcw3maQ1TrJuJoEtAjrUK41t2v?=
+ =?us-ascii?Q?WEUOUAT15YRBjq07htiR2NUXd+nALjqVMRZI8NfyjFt2POl/YZD6/gdMMdHi?=
+ =?us-ascii?Q?cS0ixn6AE4pxipRQ491qkEVAUSI1cnPyOcnNyy8B2nmYOKRBa33zHYuiWPNK?=
+ =?us-ascii?Q?u6a9HnbMUyOitxwjQqUBtnEZnqMa9sMRZo1WB2aRbRWIvFkCBe6YNOnPiVGo?=
+ =?us-ascii?Q?1ZkXnWk6J+QHmNQGHnuTOrzOOGccBukWwikiCV8zNfSom0TYdVE8AdE2e2Fh?=
+ =?us-ascii?Q?uFRAR5U5B9jiH8GYBp48cYTlsQAy1CUYTGFSkh1XTGr2wJzZaOq5ZUTV/q1C?=
+ =?us-ascii?Q?7bBi+UOqwqSOf3nHRljjTsgO2j/leb3pCza7bRX22nL5iz4Gtdw5deHucAHJ?=
+ =?us-ascii?Q?oW9emhA1QwU6VSwg52wZzlRq69aLJlfMPCKDUQHBSQJa3nG0p4eLno8MNtW7?=
+ =?us-ascii?Q?E+KlT8zaqQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2026 07:37:05.2314 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S6I32zomr8w0tjlEcCmaZ9eBgx24xj4wuDo5qjMtOhmFQcyfo6kbCuoiUCT9eVBI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4476
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b080bf0-064e-4379-78cb-08deb7d5c76c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2026 07:43:13.4324 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: G2thQnMy+BPwyuWHdVmOjBPy/DJ9rAT6/b6a83m7iJbwBvgnejJuwFCQWMDR9guHfZFOyWphtz9gcc9hiemE2xN4+TLw12n5rTKnlz00v2I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB17555
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,48 +140,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/22/26 05:32, Dawei Feng wrote:
-> radeon_ring_backup() internally allocates ring_data buffers using
-> kvmalloc_array(), which may use vmalloc() for large allocations. Using
-> kfree() to release vmalloc-backed ring_data buffers in
-> radeon_gpu_reset() will lead to memory corruption.
-> 
-> Use kvfree() to safely handle both kmalloc and vmalloc allocations.
-> 
-> The bug was first flagged by an experimental analysis tool we are
-> developing for kernel memory-management bugs while analyzing
-> v6.13-rc1. The tool is still under development and is not yet publicly
-> available. Manual inspection confirms that the bug is still
-> present in v7.1-rc3.
-> 
-> Runtime validation was not attempted because a targeted reproducer for
-> this GPU reset error path was not available. Compile-tested only.
-> 
-> Fixes: 2098105ec65c ("drm: drop drm_[cm]alloc* helpers")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
-> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Hi,
 
-Good catch, Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
->  drivers/gpu/drm/radeon/radeon_device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-> index 705c012fcf9e..1f0f0d0eb673 100644
-> --- a/drivers/gpu/drm/radeon/radeon_device.c
-> +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> @@ -1800,7 +1800,7 @@ int radeon_gpu_reset(struct radeon_device *rdev)
->                                             ring_sizes[i], ring_data[i]);
->                 } else {
->                         radeon_fence_driver_force_completion(rdev, i);
-> -                       kfree(ring_data[i]);
-> +                       kvfree(ring_data[i]);
->                 }
->         }
-> 
+> -----Original Message-----
+> From: Prabhakar <prabhakar.csengg@gmail.com>
+> Sent: 19 May 2026 17:08
+> Subject: [PATCH v4 0/5] Add DU support for RZ/T2H and RZ/N2H SoCs
+>=20
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>=20
+> Hi All,
+>=20
+> This series adds support for the Display Unit (DU) on the RZ/T2H and RZ/N=
+2H (R9A09G087) SoCs. The DU on
+> these platforms is functionally similar to the RZ/G2UL DU but includes so=
+me SoC specific differences
+> such as a single output port and explicit DPI output enable control. The =
+series includes the following
+> changes:
+> 1. Add device tree bindings for the RZ/T2H and RZ/N2H DU variants,
+>    including a new compatible string.
+> 2. Make the DU reset control optional to allow probing on RZ/T2H
+>    where the DU does not have a reset line.
+> 3. Move pixel clock validation logic to per-SoC constraints in
+>    rzg2l_du_device_info to accommodate different clock limits
+>    across SoCs.
+> 4. Implement support for the RZ/T2H DU variant in the driver,
+>    including handling of the DPI output enable signal.
+>=20
+> Patches are rebased on next-20260519 and apply on drm-next.
+>=20
+> v3->v4:
+> - Added Acked-by tag from Rob for patch #1
+> - Added Reviewed-by tag from Rob for patches #2
+> - Dropped per pad limits in patch #4 and added
+>   a check to return early if the output is not DPAD0,
+>   as the clock limits only apply to that output.
+> - Updated commit message in patch #4
+>=20
+> v2->v3:
+> - Rebased on latest next-20260508.
+> - Included Tommaso's patch to refuse port@1 for RZ/G2UL, which was
+>   previously in a separate series.
+> - Moved clock limits from device_info to output_routing to allow
+>   per-output constraints.
+> - Updated commit message for patch#4
+>=20
+> v1->v2:
+> - Dropped the "port" property in favor of "ports" with a single port@0
+>   child, to align with the existing RZ/G2L bindings and simplify the
+>   device tree structure.
+> - Updated the commit message to reflect the change from "port" to "ports"=
+.
+> - Dropped storing info pointer in struct rzg2l_du_encoder as it's not
+>   needed.
+> - Add Reviewed-by tags from Laurent for patches 2-4.
+> - Rebase on latest next-20260507.
+>=20
+> Cheers,
+> Prabhakar
+>=20
+> Lad Prabhakar (4):
+>   dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H and RZ/N2H support
+>   drm: renesas: rz-du: Make DU reset control optional for RZ/T2H support
+>   drm: renesas: rz-du: Move mode_valid logic to per-SoC clock limits
+>   drm: renesas: rz-du: Add support for RZ/T2H SoC
+>=20
+> Tommaso Merciai (1):
+>   dt-bindings: display: renesas,rzg2l-du: Refuse port@1 for RZ/G2UL
+>=20
+>  .../bindings/display/renesas,rzg2l-du.yaml    | 21 +++++++++++++++++--
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  9 ++++++--  drivers/gpu=
+/drm/renesas/rz-
+> du/rzg2l_du_drv.c  | 20 +++++++++++++++++-  drivers/gpu/drm/renesas/rz-du=
+/rzg2l_du_drv.h  | 14
+> +++++++++++++  .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  9 +++++++=
+-
+>  5 files changed, 67 insertions(+), 6 deletions(-)
+>=20
 > --
-> 2.34.1
-> 
+> 2.54.0
+
+Applied to drm-misc-next.
+
+Cheers,
+Biju
 
