@@ -4,100 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A99BCD4F3D
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 08:31:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC68BCD5BB1
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 08:32:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3F510E1B6;
-	Fri, 22 May 2026 08:31:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2804510E674;
+	Fri, 22 May 2026 08:32:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H08HdUBu";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Z80jbL3U";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SKdp4Ts6";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="z3ze6DAC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Wtw6p+pw";
 	dkim-atps=neutral
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A28F510E669
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 08:31:36 +0000 (UTC)
-Received: by mail-ot1-f43.google.com with SMTP id
- 46e09a7af769-7de4a9cb8eeso6743524a34.0
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 01:31:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779438696; cv=none;
- d=google.com; s=arc-20240605;
- b=aH7brWZKPnCzNae7MgwkUDUrb7xE1/Q1jlyYZt9uUig3HDmOUy8eApsArCwC0A1GOw
- uxlAMjRt5jZMw35U0EjNsTiC5Sjuz2z/SUFAWTaUZTFqj/t8NoGaiJDLbLwCnEhZ1HEE
- JAlSmbw+eQKP270IUQUTFZtUobFmkszGyRUHpUDniUfmALVKwYeCHAfnhUsrA2ZRx6Rj
- v2A+NrIVqkc3mzt7a8WQhbbupSoSWUU17uWkt7zrE3TBMQr8jTYLsXhpaCV8UvypTIW6
- 8LAj5f3vGiqrh8CyJUbAIOz444uFkFNdPRXYJy/XX6ADk1fSuJMMKHzOirreheZ+tbXD
- N6FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=9ThiWo7n+RoKO5Fmewf5eOm/6gdGdTn6HMevgFDP/mU=;
- fh=cVK9hrYfXWnRxMY908yHqnem0qSHYYsGRb9lDgiW7w8=;
- b=HyZDSB9jVMvrlNHmxr1HRH1flJXuBnjfeopHj2NvCue6CaNB4NxZ21YeY1Hgbd3H+a
- aHnXNcZBwvXQEQi4pF1Lkx+IrSCArN52niTrWjE7tCSt5996WZTScxDQ35ZKz4F6drN0
- KJ8da0kN1fQ9Vd8sv/i6qJrq01vHU1PY20K3Ya258QqmUDzUyrHGoFWDiyOf3L1Q65lT
- NjvA/VlffDr2rc8hMOuEt1ULR1csyQpCFdzsq4PfUqFRagr/AbsnLE7HM+L08JhUMIrc
- YDs9Pxnpbnu5jz1ns/eZhPfJQ7FlYqhzR3IEacWyObQmg/M9LP6uvCwTcUUUx/yAY9T/
- Gjng==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779438696; x=1780043496; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9ThiWo7n+RoKO5Fmewf5eOm/6gdGdTn6HMevgFDP/mU=;
- b=H08HdUBuwu46VvkyPvPg+b68rk6rGandYdFqq0c3AIBmcg8W2Vz0fX0OfH7snP3B/w
- Pmng3OdGQ8or8K709Bk3nafh7I8X/u16Ymfay5J4peN5vibd4S7/drGU7S2c7GoE+OZI
- cYIVkk8eXTlXMXV/au6hO4HcMcw4cI1XOVy8/TAIpUwVhgBDXbl/JQYw7XhMwcKq7Ewj
- rVuMBKudUF9BepjdZD88GgLwQBmZFuXPyy6OXzM+c5YW48n9YYwnr0scgBLNoX2M142g
- z9+/mIb/Non3vlBSAcySIo1BnQt3+kymY2TI//zvzkX6w9a2AkJ0FlupckLChkpsYR2J
- bO8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779438696; x=1780043496;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=9ThiWo7n+RoKO5Fmewf5eOm/6gdGdTn6HMevgFDP/mU=;
- b=R7bCJ5yIVJ0cYizE+kO0Mt6Vy0OnulR9dJh1cxp4eftNEyxf2qAeVn2c7bFO1aEvdf
- 3S9CbFJPGwQwjhaO9T/L9/dsybzdvx5yLq/yMHqme39KIBTwys0HaRbnaj+J7mV52wf3
- +eK3GP+k7E2858YJi3AeXrNi2Ka3YDMgQ2EtxaHuufG3DFprUSClp9H2EzTonwa++QCj
- YRCyo64QOl2MvRX+XfYvNSe89dmB2Xm+aBZt8mShjaLAjHopyeAJCmjhUQPSNm5maRTS
- E4LLi6EQBbJGzImt/mHzRd1WdMOvIzLgI9z1XUvLAgCa1AvUBuUW/zSzhNP0HAWfo7o8
- Zo4g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/HhO/ICpm0werIT1A0FeCyOobUFjzmcSF5e3cbc1t92wBXjHLBpgauVLdzTpjMEvysJPBJZIh4Xw8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxngzO0c/YtQMiJl4curWbkQb0cG7YJXPinpiZ+AGW8Qrmbmn2O
- aAzoJ2/c5alaW4LiqDUHkNj4eBy4X58NShonejI07+HE+lOpmKEoQLB4OSvjZjquxkX+jhCmfbQ
- j6LYM5Q5GTNHQ3DTsOZ7eaRb7+pLPSqs=
-X-Gm-Gg: Acq92OHe50VJvJ9hbJ/lOQC3trVbScytOumG4YteWDepqrQaVsSteBwBYrmHK+8W2j7
- YBaYDfCxKyKklLnqfAltQzUSKrzrBLz3fBPAeo7ktKZT0jZ1Ug8H0tNovmqXUiL2LJJL81X3xw8
- 8CqDbLBJ7UYmvf5PWArt6sGbbJ2aZYRWZHKBoftPlJOiKP7Khv3odTBYhjRG+4GH0ujjSKfzxaZ
- VIImer8vLGQks+hG48KBhZnZziGOuZPh7WP1r7Z3siyDV2jeKgXnL9+kdJbH6ZauyudCQsHhD9B
- YtwZUaHMQw==
-X-Received: by 2002:a05:6830:4707:b0:7d7:570b:6800 with SMTP id
- 46e09a7af769-7e5feef54dbmr1560827a34.23.1779438695670; Fri, 22 May 2026
- 01:31:35 -0700 (PDT)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7B0710E674
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 08:32:00 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C999F67A2C;
+ Fri, 22 May 2026 08:31:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779438718; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Tuilf5LwW21gUh1UoZd/CNtYlcutL76vyc+BqjvsY1Q=;
+ b=Z80jbL3Ue/0WTcHBfgVascboUScMgNJjmeFDrViG69txxXK9Ez7uhASmfG60tPHIwPU7eT
+ tTMgjemkivJWX1v1AZDFSq9ytb7BQNz9ilAt1S8frA+KRlenPJ4fCdwjVmJenxELEKzkAA
+ Iw/ztzybRYgZQzPwHz2kQslSWAhmTIU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779438718;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Tuilf5LwW21gUh1UoZd/CNtYlcutL76vyc+BqjvsY1Q=;
+ b=SKdp4Ts6vRhRKkqk60MxCFQdbXhgUVizQJCENHgm3jk55jB0U047mOVEJES9a+iPajS8k1
+ T0YMwsj0upKcQLCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779438717; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Tuilf5LwW21gUh1UoZd/CNtYlcutL76vyc+BqjvsY1Q=;
+ b=z3ze6DACR2PVML4l5JBKYPjyZ3Fi42x80sAiUY7JZP5ZByXnmYLSmptSQud2gC3F2TIHK4
+ aG+wtDr920BCWehs+Nt6wI8GP5MOFpnw0lgzF7M+rsNA0myVuu/E2B6mavK9o58adocGqx
+ XKtm9UJoUVZ5IbtfdiFmKIrDQ4QKGsM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779438717;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Tuilf5LwW21gUh1UoZd/CNtYlcutL76vyc+BqjvsY1Q=;
+ b=Wtw6p+pw5tQU+Qhogpl82mczhslVgx+mjPeXTHICdn/DdBTe+Odvn+h4RIg1IryP9RwEwW
+ TzixNv/kBLA6x7Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DCFEE593A8;
+ Fri, 22 May 2026 08:31:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6iZ5K3wUEGreCwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 22 May 2026 08:31:56 +0000
+Message-ID: <428aa165-c193-47ff-b3d7-26618595c3be@suse.de>
+Date: Fri, 22 May 2026 10:31:55 +0200
 MIME-Version: 1.0
-References: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
- <20260521150841.20625-1-mikhail.v.gavrilov@gmail.com>
- <20260521150841.20625-3-mikhail.v.gavrilov@gmail.com>
- <55aee3e4-9003-4694-b0fa-277a8c2bbbc4@amd.com>
-In-Reply-To: <55aee3e4-9003-4694-b0fa-277a8c2bbbc4@amd.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Fri, 22 May 2026 13:31:23 +0500
-X-Gm-Features: AVHnY4LSbTM-4tTWAVOgrISJCrLtgJ-GyODBgDohHuk9RVR7oadaYTWLeSuLNrM
-Message-ID: <CABXGCsPPY3qX7Ad-a7==nmA5R7aejCTCrmWYpn-9OQQU=1eMMA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/2] drm/amdgpu: fix recursive ww_mutex acquire in
- amdgpu_devcoredump_format
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Igor Torrente <igor.torrente@collabora.com>
+Cc: loic.molinari@collabora.com, willy@infradead.org, frank.binns@imgtec.com, 
+ matt.coster@imgtec.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+References: <20260209133241.238813-1-tzimmermann@suse.de>
+ <20260209133241.238813-6-tzimmermann@suse.de>
+ <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
+ <20260520164412.3a73d85a@fedora>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260520164412.3a73d85a@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
+ FREEMAIL_CC(0.00)[collabora.com,infradead.org,imgtec.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,kvack.org];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ MID_RHS_MATCH_FROM(0.00)[];
+ internal_greylist_whitelist(0.00)[10.150.64.97];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ collabora.com:email, suse.de:email, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,37 +147,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks for the review. v6 will:
+Hi
 
- - trim the commit message: drop the reproducer paragraph, keep just
-   the problem description and the solution
- - move the IB dumping into its own function
- - replace the break-based flow inside drm_exec_until_all_locked() with
-   goto error handling, and drop the now-superfluous `locked` variable
- - not call drm_exec_fini() in the locking helper on the error path
+Am 20.05.26 um 16:44 schrieb Boris Brezillon:
+> On Wed, 20 May 2026 10:11:03 -0300
+> Igor Torrente <igor.torrente@collabora.com> wrote:
+>
+>> On 2/9/26 10:27, Thomas Zimmermann wrote:
+>>> Invoke folio_mark_accessed() in mmap page faults to add the folio to
+>>> the memory manager's LRU list. Userspace invokes mmap to get the memory
+>>> for software rendering. Compositors do the same when creating the final
+>>> on-screen image, so keeping the pages in LRU makes sense. Avoids paging
+>>> out graphics buffers when under memory pressure.
+>>>
+>>> In pfn_mkwrite, further invoke the folio_mark_dirty() to add the folio
+>>> for writeback should the underlying file be paged out from system memory.
+>>> This rarely happens in practice, yet it would corrupt the buffer content.
+>>>
+>>> This has little effect on a system's hardware-accelerated rendering, which
+>>> only mmaps for an initial setup of textures, meshes, shaders, etc.
+>>>
+>>> v3:
+>>> - rewrite for VM_PFNMAP
+>>> v2:
+>>> - adapt to changes in drm_gem_shmem_try_mmap_pmd()
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+>> Hi Thomas,
+>>
+>> I have and Radxa ROCK 5B+ with Mali-G610 GPU and I'm developing the VDRM
+>> (native context) driver
+>> for panthor.ko.
+>>
+>> Recently I update my kernel from 7.0 to the 7.1-rc3, and qemu started
+>> freezing with KVM error below
+>> when running any graphical application with Venus or Panthor VDRM. For
+>> some reason Virgl is not affected.
+>>
+>> ```
+>> error: kvm run failed Bad address
+>> PC=0000ffffb4a86d70 X00=0000ffffb4be5000 X01=0000ffffb2279bb0
+>> X02=0000000000000600 X03=0000ffffb4be5000 X04=0000ffffb227a1b0
+>> X05=0000ffffb4be5600 X06=0000000000000001 X07=0000aaaaf384fd80
+>> X08=dcc58d0daf897753 X09=0000000000000002 X10=0000ffffb4b96758
+>> X11=000000002533f84b X12=0000000000001060 X13=0000000000000000
+>> X14=0000000000000000 X15=0000000000000010 X16=0000ffffb3880128
+>> X17=0000ffffb4a86c80 X18=0000000000000000 X19=0000aaaaf384f8a0
+>> X20=0000aaaaf37cec80 X21=0000aaaaf37c7210 X22=0000aaaaf37c9550
+>> X23=0000aaaaf37c74e0 X24=0000ffffb3b47fc8 X25=0000ffffb3b47fc8
+>> X26=0000ffffb3b43c78 X27=0000aaaaf37e1840 X28=0000aaaaf37cee50
+>> X29=0000ffffecbf1a60 X30=0000ffffb364b530  SP=0000ffffecbf1a60
+>> PSTATE=0000000020001000 --C- EL0t
+>> ```
+>>
+>> After bisecting I reach to your commit.
+>>
+>> ```
+>> 28e3918179aa75cfd4490b3b0281496ed91d829a  drm/gem-shmem:
+>> Track folio accessed/dirty status in mmap
+>> ```
+>>
+>> It still reproducible in the 7.1-rc4 (ab5fce87a778).
+>>
+>> Appling the following patch (Boris suggestion) fixes the issue for me.
+>>
+>> ```
+>> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> index 545933c7f712..1e036f69c1ce 100644
+>> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> @@ -696,7 +696,7 @@ const struct vm_operations_struct
+>> drm_gem_shmem_vm_ops = {
+>>    #endif
+>>           .open = drm_gem_shmem_vm_open,
+>>           .close = drm_gem_shmem_vm_close,
+>> -       .pfn_mkwrite = drm_gem_shmem_pfn_mkwrite,
+>> +//     .pfn_mkwrite = drm_gem_shmem_pfn_mkwrite,
+>>    };
+>>    EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
+>> ```
+>>
+>> I'm not familiar with the drm_gem, code so I don't any more insightful
+>> information
+>> to share.  But hopefully we can find a better fix for this.
+> Hm, given how close we are from the end of the release cycle, it might
+> be safer to revert those .pfn_mkwrite changes and consider them again
+> once all the details have been sorted out (it's the second time around
+> we hit issues on this patch, and the lack of reviews from MM devs is
+> scaring me bit to be honest).
+>
+> Thomas, any opinion?
 
-One thing I'd like to confirm before respinning =E2=80=94 the !mapping case=
- in
-the locking loop:
+Sure, please go ahead. The mmap change in this series seems rather fragile.
 
-mapping =3D amdgpu_vm_bo_lookup_mapping(vm, pfn);
-if (!mapping)
-    continue;
+Best regards
+Thomas
 
-You commented "That's also an error, it could be that we just want to
-print the IB start address in that case."
+>
 
-My reading: a missing mapping is not fatal to the whole dump. For that
-IB there is simply nothing to lock, so the locking loop should move on
-to the next IB, and the content loop then still emits the
-"IB #N 0x<addr> <dw>" header with no body (it already does this via
-goto output_ib_content). The dump continues for the remaining IBs.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-So in the locking loop I'd keep `continue` for !mapping, and reserve
-goto-abort only for real errors (drm_exec_lock_obj() failure, VM not
-found). Is that what you intended, or should a missing mapping abort
-the whole IB dump?
 
---=20
-Thanks,
-Mike.
