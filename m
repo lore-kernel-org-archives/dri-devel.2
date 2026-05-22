@@ -4,127 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9895CCD5BB3
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 07:43:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2EB6CD5BB3
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 07:44:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF09C10F4C6;
-	Fri, 22 May 2026 07:43:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 162B110F4DD;
+	Fri, 22 May 2026 07:44:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="UTjxmf1w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vf/t7jKs";
 	dkim-atps=neutral
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011019.outbound.protection.outlook.com [52.101.125.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE5010F4C6
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 07:43:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H3FOHG2B5pHXxxESUJXQ2oudtpUK7X2UEvCtuJI/r1dRFSleVRD3qIKtfyhYMYXlN22AVI4gFZt8xTy/SxPZ2oA51BXDe/6Z+ogBwzOEoxozB7Dkp+Lb+xBzuZPuMme4vnMI0FTQtiL6ih0/mq28uE2b22L7sR63jZsL6lusBKSBp186TiDrBsKPUtWUrWJbH+lZ54ttdGzpxVPlrLQb3LIY/eiLuDJGdQOHS1SO6OtKMbeN3ptL9nWkhihyAucS2yDb+B6SIWi7x9JzYsrEe0R0+6XmHEmRcLHV21j4WZU+308a7J+BWDs8ZXl/EdXuVlbkDDzpLMwzEikmnabidQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CyBpuS29Aqypl83QzK5ImPwvqccD/sZa6+kdJ01138c=;
- b=I0UBvIm1SiigtNPjTFM9ruBVGioO/OaSqvxP20JNEfmVr97JM1D1E3XemdZg1sXRAhRUGsOmVbEXyIzwA0GXYyzh97NPoWgkIph38CYkSHie51VcWaBI3I+RKBEW0rb/fbp3CbSqSvuPW+GlrT3ZgT4qCe39ni6X+HamSSWUlU2gwyzhAkP3iJnb1kaTCrlUd33kGIaOGgDVP5OSAAkaA2ndDLQ2GyhYMxxLXPX+XPyQ8NYtMZIjb6Jdrf7neDh+LIxGersYEp41ntF6Y4j+qvZaqCm6oW7qrLtQZqpcD0aXtgPBuvUNKeqtbFjE7SkQHQ890nC85GfwxLNnKxzquw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CyBpuS29Aqypl83QzK5ImPwvqccD/sZa6+kdJ01138c=;
- b=UTjxmf1w/xcDbW9SO1dTTfxUjNgJilTwBlZ1AWB+6vu1zMLFmx3TeTbPQk00wocLj8IqxLGWvGVva4liHzkUzTtarWSd6f8DC94AdHmdui1+3klodtXl7wcmPk5bQ+9YNnfc9Lnf4yJUO3eBiHlP3lpZfdXrs2OB189d1GCBSBY=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TY4PR01MB17555.jpnprd01.prod.outlook.com (2603:1096:405:34d::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.16; Fri, 22 May
- 2026 07:43:13 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0048.016; Fri, 22 May 2026
- 07:43:13 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>, Laurent Pinchart
- <laurent.pinchart+renesas@ideasonboard.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
- magnus.damm <magnus.damm@gmail.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Fabrizio
- Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
- <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v4 0/5] Add DU support for RZ/T2H and RZ/N2H SoCs
-Thread-Topic: [PATCH v4 0/5] Add DU support for RZ/T2H and RZ/N2H SoCs
-Thread-Index: AQHc56nGzYGBPcWMNkCDgPKka/DP5LYZrYxQ
-Date: Fri, 22 May 2026 07:43:13 +0000
-Message-ID: <TY3PR01MB11346BB32B2CD7697B7001780860F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260519160825.4082566-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260519160825.4082566-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB17555:EE_
-x-ms-office365-filtering-correlation-id: 0b080bf0-064e-4379-78cb-08deb7d5c76c
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|38070700021|921020|3023799007|18002099003|22082099003|56012099003|11063799006;
-x-microsoft-antispam-message-info: hwO3tnrlkbEEhVT+OTDD5yyfOJiAXfYIAVrtxJbesttgHhDRI+ZLuQ8d1eJ/dSfTi6Ht6oY2o7CwbF1BRpzbzRSL7birLwV0vI+QslorAjufLwFaUHFKHuXVxxxcrjqoJIGkL/MEnTD4/II5LNg3JzyBExTdlu88Kjuofq5oYbEEads4XJhVDZdfaJKjNJg0yi4UECIhNCWNhcJlhJ1zUxusU6KUAXrvJSHJd1kyOpt91+y+VSSO5mD3KEjuOZxngVSC/miCBkTJHcXNbPbzdhrSymPPBAoigIW71JXAGtWZUamrtBEbBBASQTTTVDcPcD17asTFIUCSvv4ObZAywyAxhS9NDjFOaa3zk7+T3rYXtRtU+j3G9hsH/ec0N3/xUcdL2BpQvX/hjmCkT97aHkvHptfQp0WXyYQCsO4VHEvWC8Rt0cpZ0patD0iYRhY1jbhKj+QTTxPOrhG70afLS2QGzdC7LqgG6lJMDJGKtCLj6udygrLB/2V55sOknXostpFkKTkMvbYWQ2OBfdqd4R6SwruVXwtseTJRNHSvjrcM8KZmHXkkD7KyuNHCYnf0ul7rSzPJEOx2ygenkp+RTWDcTmLMExSIGq+eE92FDH23e1EP3PZLDrhAvDwhyr7/FOciayXrW2hLzcTfET+4ldX5nEuDtMQFs7zBchfjFYhUUsRQPot89pyJatz3eMqWCyVnwlZvsN/8T/qGBgyrNHTydWAprfkkxrL+gktS1t8FQo8IMsbVVW5C+AJUYZvhZAtE/FcuqMxJ17disQEuqg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700021)(921020)(3023799007)(18002099003)(22082099003)(56012099003)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tbgle7snqVOfTW1iJ/j5iZsR0A8YF7ZCzl5aOT7PSutX2DL4B13nJP3ff+uy?=
- =?us-ascii?Q?HGYLLrIR1XDSX+vdnRJKDpATS2oAPFQJ5JuzrCWKXq4onnLkdKOsoJmUyGwG?=
- =?us-ascii?Q?sXtgoanlb1dR1UhAJjZ93/19edeXgfTEeGjU38Fg72zoLHh216Rkh25HhaNi?=
- =?us-ascii?Q?8T8eh1fecJl4pgVVLBTwip+x6o+xC/m/2+nL3NSxNi3cYm+EjOoRCnPgWpC+?=
- =?us-ascii?Q?ktHkXTEjSWPoCPYCSxpvKsF4UBWHYNx5c4SN+4tYcnEF8RRebzoNUGKLjuAE?=
- =?us-ascii?Q?a4lJGwcVdNn+9aIMZpQRTRLm24pNPRRZ78C5Axmz7/8n5WF+qC8SplAop4S4?=
- =?us-ascii?Q?Nqsc8c8oi4GpZ3i0zO96TUJsVK1BFxvJ+v8M3yau/I/pS779DdRQtdCPHY8q?=
- =?us-ascii?Q?6pTFOo9CzMDM0iT6r0fAXbGHQsk5wAg/LqTc1cUoUiEa9SAyHrWEJPu1gIIU?=
- =?us-ascii?Q?Ma14X8JOMdkwgSdlDNOrRye9AdEgB8/dbiujl7oU4VBoUQJzFaGcy2VBiKgc?=
- =?us-ascii?Q?v3n21b8bMDWO1FCy66OHoYejF3jvTcKRJ38dtz0nyXTSV5CWsLJ1J1WSeKTL?=
- =?us-ascii?Q?aA/H+lIkuZLh7ZiHQIYDutjPT7ZeSXlDFK738n34BT6u44HhAQGZWOj2od68?=
- =?us-ascii?Q?X5BVZOs1tbFAomdOz1lCu+adkN1Fa+QVv/q45xROyKVuyE1vMIyPXLeK6Ilm?=
- =?us-ascii?Q?1rK16MgnHsloAKUWB81aZo1uc7ocj3HB/uBHZ66Q4o71vMCrDuDluWAxmUz3?=
- =?us-ascii?Q?IhkRFwYcSIyj2VrFLHfjFGoty/sEBWFb1CGriOd44sNyfh9P8wEbnRWjNxLX?=
- =?us-ascii?Q?EEry0SNiR1fPyvSx73/BvJA2YksY/rotWhjpZO1HuG9FY78cOu3NFlYFm2gE?=
- =?us-ascii?Q?J5vuunVGmNousRgGu0pP8Kw8bHBqDNSBV8vBZLI/lpkIjnZvJ87B6aujNQ0E?=
- =?us-ascii?Q?8EyI4V2rKMFSNqFlm3PWmYnn1VugpyfFAOUMiEuCVGl8YTTNUolMFWgjhBzw?=
- =?us-ascii?Q?nnxCCgTW2duH12Ih1PRJUvOqeOmJUcIat3fyGWsxnD+AHb4flfiOujXe8Fj+?=
- =?us-ascii?Q?EDLkM29yYSZgj19nmcA4yD2Z9cKXJenzEOqfPyf2ZrFT1A7smM8uJulAFj6g?=
- =?us-ascii?Q?9G9MhEP+qiB9nhJjU+pZJ04kRDxLVqgkAX+w+J1VA40KLts7jK31tUduDdeS?=
- =?us-ascii?Q?kwZ0qVz10G4bMbS5ZBwFHQOcaHeqViZCZpzShYfPcQktlUHrcaQPkWBjg2N+?=
- =?us-ascii?Q?znXwKw3rp9pH1cuk4yiSfuiFINTp1wSqcJYcw3maQ1TrJuJoEtAjrUK41t2v?=
- =?us-ascii?Q?WEUOUAT15YRBjq07htiR2NUXd+nALjqVMRZI8NfyjFt2POl/YZD6/gdMMdHi?=
- =?us-ascii?Q?cS0ixn6AE4pxipRQ491qkEVAUSI1cnPyOcnNyy8B2nmYOKRBa33zHYuiWPNK?=
- =?us-ascii?Q?u6a9HnbMUyOitxwjQqUBtnEZnqMa9sMRZo1WB2aRbRWIvFkCBe6YNOnPiVGo?=
- =?us-ascii?Q?1ZkXnWk6J+QHmNQGHnuTOrzOOGccBukWwikiCV8zNfSom0TYdVE8AdE2e2Fh?=
- =?us-ascii?Q?uFRAR5U5B9jiH8GYBp48cYTlsQAy1CUYTGFSkh1XTGr2wJzZaOq5ZUTV/q1C?=
- =?us-ascii?Q?7bBi+UOqwqSOf3nHRljjTsgO2j/leb3pCza7bRX22nL5iz4Gtdw5deHucAHJ?=
- =?us-ascii?Q?oW9emhA1QwU6VSwg52wZzlRq69aLJlfMPCKDUQHBSQJa3nG0p4eLno8MNtW7?=
- =?us-ascii?Q?E+KlT8zaqQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B90E10F502;
+ Fri, 22 May 2026 07:44:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9CA646014B;
+ Fri, 22 May 2026 07:44:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D331F00A3D;
+ Fri, 22 May 2026 07:43:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779435849;
+ bh=VrXF29bFOvYEg9sO118+umVcO0JfkNNCWZdK/cFtHow=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Vf/t7jKsSIO+qe+6tRxPYGoD9FkkGxUyqleh8qsf5JEmI5yAFfQfd6bWqmNwSLqFE
+ JC1TPXCMF1wNkSklStK+IGJs47944uD9x7MBKjfQgdgfl8tW7eoK4r0LozYPT16OSk
+ zNL62XYTRBBIGmsJRtf6asAsSmE3/aCIv1kBwwLpDZLof0FtkOLEOa5exGdWXmuxUt
+ bFE0ONHq/F/EWqPTTVS6/mUik8viyElQpIT1jkmP/iY6duPIpIsWC4+qVlonn0dS0k
+ TONP00VWjfoGsNyvjSJiz5gWGYonLoCjznbVnwQF8PFC5pFQxJhMGJy2Tk71iGze9o
+ NxaiQGYc4GsMw==
+Date: Fri, 22 May 2026 13:13:51 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v6 00/16] firmware: qcom: Add OP-TEE PAS service support
+Message-ID: <ahAJN_GEmKHA5tn3@sumit-xelite>
+References: <20260518072856.22790-1-sumit.garg@kernel.org>
+ <bc3eb187-d0a4-40ce-b72c-1724b33e28ea@oss.qualcomm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b080bf0-064e-4379-78cb-08deb7d5c76c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2026 07:43:13.4324 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: G2thQnMy+BPwyuWHdVmOjBPy/DJ9rAT6/b6a83m7iJbwBvgnejJuwFCQWMDR9guHfZFOyWphtz9gcc9hiemE2xN4+TLw12n5rTKnlz00v2I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB17555
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bc3eb187-d0a4-40ce-b72c-1724b33e28ea@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,89 +78,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed, May 20, 2026 at 09:27:05AM -0700, Jeff Johnson wrote:
+> On 5/18/2026 12:28 AM, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> > 
+> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> > support these non-standard SCM calls. And even for newer architectures
+> > using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+> > calls either with FF-A requirements coming in. And with both OP-TEE
+> > and QTEE drivers well integrated in the TEE subsystem, it makes further
+> > sense to reuse the TEE bus client drivers infrastructure.
+> > 
+> > The added benefit of TEE bus infrastructure is that there is support
+> > for discoverable/enumerable services. With that client drivers don't
+> > have to manually invoke a special SCM call to know the service status.
+> > 
+> > So enable the generic Peripheral Authentication Service (PAS) provided
+> > by the firmware. It acts as the common layer with different TZ
+> > backends plugged in whether it's an SCM implementation or a proper
+> > TEE bus based PAS service implementation.
+> > 
+> > The TEE PAS service ABI is designed to be extensible with additional API
+> > as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+> > extensions of the PAS service needed while still maintaining backwards
+> > compatibility.
+> > 
+> > Currently OP-TEE support is being added to provide the backend PAS
+> > service implementation which can be found as part of this PR [1].
+> > This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+> > EVK board being the next target. In addition to that WIN/IPQ targets
+> > planning to use OP-TEE will use this service too. Surely the backwards
+> > compatibility is maintained and tested for SCM backend.
+> > 
+> > Note that kernel PAS service support while running in EL2 is at parity
+> > among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
+> > on proper IOMMU support being worked out on the PAS client end.
+> > 
+> > Patch summary:
+> > - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+> >   only allow UEFI and Linux to boot in EL2.
+> > - Patch #2: adds generic PAS service.
+> > - Patch #3: migrates SCM backend to generic PAS service.
+> > - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+> > - Patch #5-#14: migrates all client drivers to generic PAS service.
+> > - Patch #15: drops legacy PAS SCM exported APIs.
+> > 
+> > The patch-set is based on v7.1-rc4 tag and can be found in git tree here
+> > [2].
+> > 
+> > Merge strategy:
+> > 
+> > It is expected due to APIs dependency, the entire patch-set to go via
+> > the Qcom tree. All other subsystem maintainers, it will be great if I
+> > can get acks for the corresponding subsystem patches.
+> > 
+> > [1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
+> > [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v6
+> > 
+> > ---
+> > Changes in v6:
+> > - Rebased to v7.1-rc4 tag.
+> > - Patch #14: fixed ret error print.
+> > - Add Kconfig descriptions for PAS symbols such that they are visible
+> >   in menuconfig to update.
+> > 
+> > Changes in v5:
+> > - Incorporated misc. comments from Mukesh.
+> > - Split up patch #11 into 2 to add an independent commit for passing
+> >   proper PAS ID to set_remote_state API.
+> > - Picked up tags.
+> > 
+> > Changes in v4:
+> > - Incorporate misc. comments on patch #4.
+> > - Picked up an ack for patch #10.
+> > - Clarify in cover letter about state of media support.
+> > 
+> > Changes in v3:
+> > - Incorporated some style and misc. comments for patch #2, #3 and #4.
+> > - Add QCOM_PAS Kconfig dependency for various subsystems.
+> > - Switch from pseudo TA to proper TA invoke commands.
+> > 
+> > Changes in v2:
+> > - Fixed kernel doc warnings.
+> > - Polish commit message and comments for patch #2.
+> > - Pass proper PAS ID in set_remote_state API for media firmware drivers.
+> > - Added Maintainer entry and dropped MODULE_AUTHOR.
+> > 
+> > Mukesh Ojha (1):
+> >   arm64: dts: qcom: kodiak: Add EL2 overlay
+> > 
+> > Sumit Garg (15):
+> >   firmware: qcom: Add a generic PAS service
+> >   firmware: qcom_scm: Migrate to generic PAS service
+> >   firmware: qcom: Add a PAS TEE service
+> >   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+> >   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+> >   soc: qcom: mdtloader: Switch to generic PAS TZ APIs
+> >   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+> >   remoteproc: qcom: Select QCOM_PAS generic service
+> >   drm/msm: Switch to generic PAS TZ APIs
+> >   media: qcom: Switch to generic PAS TZ APIs
+> >   media: qcom: Pass proper PAS ID to set_remote_state API
+> >   net: ipa: Switch to generic PAS TZ APIs
+> >   wifi: ath12k: Switch to generic PAS TZ APIs
+> >   firmware: qcom_scm: Remove SCM PAS wrappers
+> >   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+> > 
+> >  MAINTAINERS                                   |   9 +
+> >  arch/arm64/boot/dts/qcom/Makefile             |   2 +
+> >  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
+> >  drivers/firmware/qcom/Kconfig                 |  21 +-
+> >  drivers/firmware/qcom/Makefile                |   2 +
+> >  drivers/firmware/qcom/qcom_pas.c              | 291 +++++++++++
+> >  drivers/firmware/qcom/qcom_pas.h              |  50 ++
+> >  drivers/firmware/qcom/qcom_pas_tee.c          | 476 ++++++++++++++++++
+> >  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+> >  drivers/gpu/drm/msm/Kconfig                   |   1 +
+> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+> >  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+> >  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+> >  drivers/media/platform/qcom/venus/Kconfig     |   1 +
+> >  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+> >  drivers/net/ipa/Kconfig                       |   2 +-
+> >  drivers/net/ipa/ipa_main.c                    |  13 +-
+> >  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+> >  drivers/net/wireless/ath/ath12k/ahb.c         |  10 +-
+> >  drivers/remoteproc/Kconfig                    |   4 +-
+> >  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+> >  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+> >  drivers/remoteproc/qcom_wcnss.c               |  12 +-
+> >  drivers/soc/qcom/mdt_loader.c                 |  12 +-
+> >  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+> >  include/linux/firmware/qcom/qcom_scm.h        |  29 --
+> >  include/linux/soc/qcom/mdt_loader.h           |   6 +-
+> >  28 files changed, 1119 insertions(+), 320 deletions(-)
+> >  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> > 
+> 
+> In my automation I do bisection builds and it fails when I bisect.
 
-> -----Original Message-----
-> From: Prabhakar <prabhakar.csengg@gmail.com>
-> Sent: 19 May 2026 17:08
-> Subject: [PATCH v4 0/5] Add DU support for RZ/T2H and RZ/N2H SoCs
->=20
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> Hi All,
->=20
-> This series adds support for the Display Unit (DU) on the RZ/T2H and RZ/N=
-2H (R9A09G087) SoCs. The DU on
-> these platforms is functionally similar to the RZ/G2UL DU but includes so=
-me SoC specific differences
-> such as a single output port and explicit DPI output enable control. The =
-series includes the following
-> changes:
-> 1. Add device tree bindings for the RZ/T2H and RZ/N2H DU variants,
->    including a new compatible string.
-> 2. Make the DU reset control optional to allow probing on RZ/T2H
->    where the DU does not have a reset line.
-> 3. Move pixel clock validation logic to per-SoC constraints in
->    rzg2l_du_device_info to accommodate different clock limits
->    across SoCs.
-> 4. Implement support for the RZ/T2H DU variant in the driver,
->    including handling of the DPI output enable signal.
->=20
-> Patches are rebased on next-20260519 and apply on drm-next.
->=20
-> v3->v4:
-> - Added Acked-by tag from Rob for patch #1
-> - Added Reviewed-by tag from Rob for patches #2
-> - Dropped per pad limits in patch #4 and added
->   a check to return early if the output is not DPAD0,
->   as the clock limits only apply to that output.
-> - Updated commit message in patch #4
->=20
-> v2->v3:
-> - Rebased on latest next-20260508.
-> - Included Tommaso's patch to refuse port@1 for RZ/G2UL, which was
->   previously in a separate series.
-> - Moved clock limits from device_info to output_routing to allow
->   per-output constraints.
-> - Updated commit message for patch#4
->=20
-> v1->v2:
-> - Dropped the "port" property in favor of "ports" with a single port@0
->   child, to align with the existing RZ/G2L bindings and simplify the
->   device tree structure.
-> - Updated the commit message to reflect the change from "port" to "ports"=
-.
-> - Dropped storing info pointer in struct rzg2l_du_encoder as it's not
->   needed.
-> - Add Reviewed-by tags from Laurent for patches 2-4.
-> - Rebase on latest next-20260507.
->=20
-> Cheers,
-> Prabhakar
->=20
-> Lad Prabhakar (4):
->   dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H and RZ/N2H support
->   drm: renesas: rz-du: Make DU reset control optional for RZ/T2H support
->   drm: renesas: rz-du: Move mode_valid logic to per-SoC clock limits
->   drm: renesas: rz-du: Add support for RZ/T2H SoC
->=20
-> Tommaso Merciai (1):
->   dt-bindings: display: renesas,rzg2l-du: Refuse port@1 for RZ/G2UL
->=20
->  .../bindings/display/renesas,rzg2l-du.yaml    | 21 +++++++++++++++++--
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  9 ++++++--  drivers/gpu=
-/drm/renesas/rz-
-> du/rzg2l_du_drv.c  | 20 +++++++++++++++++-  drivers/gpu/drm/renesas/rz-du=
-/rzg2l_du_drv.h  | 14
-> +++++++++++++  .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  9 +++++++=
--
->  5 files changed, 67 insertions(+), 6 deletions(-)
->=20
-> --
-> 2.54.0
+Thanks for this report. It's really rather a directly dependency of
+qcom_q6v5_pas on mdt_loader. Switching them individually is causing this
+git bisection problem. I don't see any other way to fix this apart from
+mergging patch 5/16 and 7/16. Will do that for v7.
 
-Applied to drm-misc-next.
+> 
+> At "remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs":
+> 
+> ../drivers/remoteproc/qcom_q6v5_pas.c: In function 'qcom_pas_load':
+> ../drivers/remoteproc/qcom_q6v5_pas.c:244:44: error: passing argument 1 of 'qcom_mdt_pas_load' from incompatible pointer type [-Wincompatible-pointer-types]
+>   244 |                 ret = qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
+>       |                                         ~~~^~~~~~~~~~~~~
+>       |                                            |
+>       |                                            struct qcom_pas_context *
+> In file included from ../drivers/remoteproc/qcom_q6v5_pas.c:27:
+> ../include/linux/soc/qcom/mdt_loader.h:23:52: note: expected 'struct qcom_scm_pas_context *' but argument is of type 'struct qcom_pas_context *'
+>    23 | int qcom_mdt_pas_load(struct qcom_scm_pas_context *ctx, const struct firmware *fw,
+>       |                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+> ../drivers/remoteproc/qcom_q6v5_pas.c: In function 'qcom_pas_start':
+> ../drivers/remoteproc/qcom_q6v5_pas.c:322:36: error: passing argument 1 of 'qcom_mdt_pas_load' from incompatible pointer type [-Wincompatible-pointer-types]
+>   322 |         ret = qcom_mdt_pas_load(pas->pas_ctx, pas->firmware, rproc->firmware,
+>       |                                 ~~~^~~~~~~~~
+>       |                                    |
+>       |                                    struct qcom_pas_context *
+> ../include/linux/soc/qcom/mdt_loader.h:23:52: note: expected 'struct qcom_scm_pas_context *' but argument is of type 'struct qcom_pas_context *'
+>    23 | int qcom_mdt_pas_load(struct qcom_scm_pas_context *ctx, const struct firmware *fw,
+>       |                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+> make[5]: *** [../scripts/Makefile.build:289: drivers/remoteproc/qcom_q6v5_pas.o] Error 1
+> 
+> 
+> At "remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs":
+> 
+> ../drivers/remoteproc/qcom_q6v5_pas.c: In function 'qcom_pas_load':
+> ../drivers/remoteproc/qcom_q6v5_pas.c:244:44: error: passing argument 1 of 'qcom_mdt_pas_load' from incompatible pointer type [-Wincompatible-pointer-types]
+>   244 |                 ret = qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
+>       |                                         ~~~^~~~~~~~~~~~~
+>       |                                            |
+>       |                                            struct qcom_pas_context *
+> In file included from ../drivers/remoteproc/qcom_q6v5_pas.c:27:
+> ../include/linux/soc/qcom/mdt_loader.h:23:52: note: expected 'struct qcom_scm_pas_context *' but argument is of type 'struct qcom_pas_context *'
+>    23 | int qcom_mdt_pas_load(struct qcom_scm_pas_context *ctx, const struct firmware *fw,
+>       |                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+> ../drivers/remoteproc/qcom_q6v5_pas.c: In function 'qcom_pas_start':
+> ../drivers/remoteproc/qcom_q6v5_pas.c:322:36: error: passing argument 1 of 'qcom_mdt_pas_load' from incompatible pointer type [-Wincompatible-pointer-types]
+>   322 |         ret = qcom_mdt_pas_load(pas->pas_ctx, pas->firmware, rproc->firmware,
+>       |                                 ~~~^~~~~~~~~
+>       |                                    |
+>       |                                    struct qcom_pas_context *
+> ../include/linux/soc/qcom/mdt_loader.h:23:52: note: expected 'struct qcom_scm_pas_context *' but argument is of type 'struct qcom_pas_context *'
+>    23 | int qcom_mdt_pas_load(struct qcom_scm_pas_context *ctx, const struct firmware *fw,
+>       |                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+> make[5]: *** [../scripts/Makefile.build:289: drivers/remoteproc/qcom_q6v5_pas.o] Error 1
+> 
+> 
+> This is because the 5/16 patch depends upon changes in the 7/16 patch.
 
-Cheers,
-Biju
+It is rather because of direct dependency of 5/16 on 7/16, I will merge
+them both.
 
+-Sumit
