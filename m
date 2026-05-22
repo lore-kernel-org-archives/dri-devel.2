@@ -4,66 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B87DCD4F3D
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 08:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A99BCD4F3D
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 08:31:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEF7110E198;
-	Fri, 22 May 2026 08:26:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3F510E1B6;
+	Fri, 22 May 2026 08:31:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="h3avMHJG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H08HdUBu";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 797DF10E198
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 08:26:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779438375; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=dMV2hEK/whH8fcHfZeci81wUSCn4E9qs1sGCHKkzf9W2o2FHj2SlyDxMH4R4yrSCnAPYUSL99FZZeTfAD3JV9yDEmAKzFy2XLA9Rx96kw6UlvNEqZ1g9Hhui1Ean4MUCaXUsDDm3QUv7Z/wr0ONxJKlFGg3U94ycbj+RBFWHeEE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779438375;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=9/HtBbXO7Hb1AE+uzWM7pmy4kh9HfNVxnKVejgA40j8=; 
- b=E/HmYUJqYtzpuXR0X8sbjXRSgpmdaYQqQS89L3fkVL9LJeSfX0rMP/1BcVhOVjL1aPTEhxoDPG0/cjjsT6ReM5SRasTVFChRlyrjDMqFsoS9qo7EHuYQyU3X0Y1ntbIUp4OqMPmsMP+J3JEPlfi67tXaf/0FWQtHH86VN5NlToI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779438375; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=9/HtBbXO7Hb1AE+uzWM7pmy4kh9HfNVxnKVejgA40j8=;
- b=h3avMHJG8KePKksJfg2l9IKHEfBL5JqsjX5qWxOWVZTI7cIDzexPfgXCEyws/cz+
- N/qkB9ChIP4779gwzJQmlyjLER3oMrGidpF0DpcO1Zy1wPUyFL9FIgwZKP2VKqcBDLr
- PrV4PrUwUWg1vFYQfuPB1wCdXOp3pl+/E5aN0TAI=
-Received: by mx.zohomail.com with SMTPS id 1779438373126891.8505993850015;
- Fri, 22 May 2026 01:26:13 -0700 (PDT)
-Message-ID: <eebd1c78-94b5-4b33-9708-5cafa1a29ef7@collabora.com>
-Date: Fri, 22 May 2026 11:26:06 +0300
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A28F510E669
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 08:31:36 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ 46e09a7af769-7de4a9cb8eeso6743524a34.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 01:31:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779438696; cv=none;
+ d=google.com; s=arc-20240605;
+ b=aH7brWZKPnCzNae7MgwkUDUrb7xE1/Q1jlyYZt9uUig3HDmOUy8eApsArCwC0A1GOw
+ uxlAMjRt5jZMw35U0EjNsTiC5Sjuz2z/SUFAWTaUZTFqj/t8NoGaiJDLbLwCnEhZ1HEE
+ JAlSmbw+eQKP270IUQUTFZtUobFmkszGyRUHpUDniUfmALVKwYeCHAfnhUsrA2ZRx6Rj
+ v2A+NrIVqkc3mzt7a8WQhbbupSoSWUU17uWkt7zrE3TBMQr8jTYLsXhpaCV8UvypTIW6
+ 8LAj5f3vGiqrh8CyJUbAIOz444uFkFNdPRXYJy/XX6ADk1fSuJMMKHzOirreheZ+tbXD
+ N6FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9ThiWo7n+RoKO5Fmewf5eOm/6gdGdTn6HMevgFDP/mU=;
+ fh=cVK9hrYfXWnRxMY908yHqnem0qSHYYsGRb9lDgiW7w8=;
+ b=HyZDSB9jVMvrlNHmxr1HRH1flJXuBnjfeopHj2NvCue6CaNB4NxZ21YeY1Hgbd3H+a
+ aHnXNcZBwvXQEQi4pF1Lkx+IrSCArN52niTrWjE7tCSt5996WZTScxDQ35ZKz4F6drN0
+ KJ8da0kN1fQ9Vd8sv/i6qJrq01vHU1PY20K3Ya258QqmUDzUyrHGoFWDiyOf3L1Q65lT
+ NjvA/VlffDr2rc8hMOuEt1ULR1csyQpCFdzsq4PfUqFRagr/AbsnLE7HM+L08JhUMIrc
+ YDs9Pxnpbnu5jz1ns/eZhPfJQ7FlYqhzR3IEacWyObQmg/M9LP6uvCwTcUUUx/yAY9T/
+ Gjng==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779438696; x=1780043496; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9ThiWo7n+RoKO5Fmewf5eOm/6gdGdTn6HMevgFDP/mU=;
+ b=H08HdUBuwu46VvkyPvPg+b68rk6rGandYdFqq0c3AIBmcg8W2Vz0fX0OfH7snP3B/w
+ Pmng3OdGQ8or8K709Bk3nafh7I8X/u16Ymfay5J4peN5vibd4S7/drGU7S2c7GoE+OZI
+ cYIVkk8eXTlXMXV/au6hO4HcMcw4cI1XOVy8/TAIpUwVhgBDXbl/JQYw7XhMwcKq7Ewj
+ rVuMBKudUF9BepjdZD88GgLwQBmZFuXPyy6OXzM+c5YW48n9YYwnr0scgBLNoX2M142g
+ z9+/mIb/Non3vlBSAcySIo1BnQt3+kymY2TI//zvzkX6w9a2AkJ0FlupckLChkpsYR2J
+ bO8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779438696; x=1780043496;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9ThiWo7n+RoKO5Fmewf5eOm/6gdGdTn6HMevgFDP/mU=;
+ b=R7bCJ5yIVJ0cYizE+kO0Mt6Vy0OnulR9dJh1cxp4eftNEyxf2qAeVn2c7bFO1aEvdf
+ 3S9CbFJPGwQwjhaO9T/L9/dsybzdvx5yLq/yMHqme39KIBTwys0HaRbnaj+J7mV52wf3
+ +eK3GP+k7E2858YJi3AeXrNi2Ka3YDMgQ2EtxaHuufG3DFprUSClp9H2EzTonwa++QCj
+ YRCyo64QOl2MvRX+XfYvNSe89dmB2Xm+aBZt8mShjaLAjHopyeAJCmjhUQPSNm5maRTS
+ E4LLi6EQBbJGzImt/mHzRd1WdMOvIzLgI9z1XUvLAgCa1AvUBuUW/zSzhNP0HAWfo7o8
+ Zo4g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/HhO/ICpm0werIT1A0FeCyOobUFjzmcSF5e3cbc1t92wBXjHLBpgauVLdzTpjMEvysJPBJZIh4Xw8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxngzO0c/YtQMiJl4curWbkQb0cG7YJXPinpiZ+AGW8Qrmbmn2O
+ aAzoJ2/c5alaW4LiqDUHkNj4eBy4X58NShonejI07+HE+lOpmKEoQLB4OSvjZjquxkX+jhCmfbQ
+ j6LYM5Q5GTNHQ3DTsOZ7eaRb7+pLPSqs=
+X-Gm-Gg: Acq92OHe50VJvJ9hbJ/lOQC3trVbScytOumG4YteWDepqrQaVsSteBwBYrmHK+8W2j7
+ YBaYDfCxKyKklLnqfAltQzUSKrzrBLz3fBPAeo7ktKZT0jZ1Ug8H0tNovmqXUiL2LJJL81X3xw8
+ 8CqDbLBJ7UYmvf5PWArt6sGbbJ2aZYRWZHKBoftPlJOiKP7Khv3odTBYhjRG+4GH0ujjSKfzxaZ
+ VIImer8vLGQks+hG48KBhZnZziGOuZPh7WP1r7Z3siyDV2jeKgXnL9+kdJbH6ZauyudCQsHhD9B
+ YtwZUaHMQw==
+X-Received: by 2002:a05:6830:4707:b0:7d7:570b:6800 with SMTP id
+ 46e09a7af769-7e5feef54dbmr1560827a34.23.1779438695670; Fri, 22 May 2026
+ 01:31:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/virtio: use uninterruptible resv lock for plane
- updates
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Deepanshu Kartikey <kartikey406@gmail.com>, airlied@redhat.com,
- kraxel@redhat.com, gurchetansingh@chromium.org, olvaffe@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- simona@ffwll.ch, sumit.semwal@linaro.org
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org,
- syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20260519082247.34470-1-kartikey406@gmail.com>
- <2e23513c-9d59-4891-acfe-9f1fbcbce778@amd.com>
- <f6bcef23-5510-4aad-bf6a-4e1ecfc8d474@collabora.com>
- <a0f2cfd5-d4df-4e50-a52b-d5befbc2e481@amd.com>
- <f37bdc63-3575-49e5-aa5b-7b93428b293d@collabora.com>
- <1832e5a8-db85-4b66-a5f0-08043c4aed54@amd.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <1832e5a8-db85-4b66-a5f0-08043c4aed54@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+References: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
+ <20260521150841.20625-1-mikhail.v.gavrilov@gmail.com>
+ <20260521150841.20625-3-mikhail.v.gavrilov@gmail.com>
+ <55aee3e4-9003-4694-b0fa-277a8c2bbbc4@amd.com>
+In-Reply-To: <55aee3e4-9003-4694-b0fa-277a8c2bbbc4@amd.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Fri, 22 May 2026 13:31:23 +0500
+X-Gm-Features: AVHnY4LSbTM-4tTWAVOgrISJCrLtgJ-GyODBgDohHuk9RVR7oadaYTWLeSuLNrM
+Message-ID: <CABXGCsPPY3qX7Ad-a7==nmA5R7aejCTCrmWYpn-9OQQU=1eMMA@mail.gmail.com>
+Subject: Re: [PATCH v5 2/2] drm/amdgpu: fix recursive ww_mutex acquire in
+ amdgpu_devcoredump_format
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,76 +113,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-20.05.2026 14:00, Christian König пишет:
-> On 5/20/26 10:12, Dmitry Osipenko wrote:
->> On 5/20/26 10:05, Christian König wrote:
->>> On 5/20/26 08:50, Dmitry Osipenko wrote:
->>>> On 5/19/26 11:27, Christian König wrote:
->>>>> On 5/19/26 10:22, Deepanshu Kartikey wrote:
->>>>>> virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush() lock
->>>>>> the framebuffer BO's dma_resv via virtio_gpu_array_lock_resv() and
->>>>>> ignore its return value. The function can fail with -EINTR from
->>>>>> dma_resv_lock_interruptible() (signal during lock wait) or with
->>>>>> -ENOMEM from dma_resv_reserve_fences() (fence slot allocation),
->>>>>> leaving the resv lock not held. The queue path then walks the object
->>>>>> array and calls dma_resv_add_fence(), which requires the lock held;
->>>>>> with lockdep enabled this trips dma_resv_assert_held():
->>>>>>
->>>>>>   WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
->>>>>>   Call Trace:
->>>>>>    virtio_gpu_array_add_fence
->>>>>>    virtio_gpu_queue_ctrl_sgs
->>>>>>    virtio_gpu_queue_fenced_ctrl_buffer
->>>>>>    virtio_gpu_cursor_plane_update
->>>>>>    drm_atomic_helper_commit_planes
->>>>>>    drm_atomic_helper_commit_tail
->>>>>>    commit_tail
->>>>>>    drm_atomic_helper_commit
->>>>>>    drm_atomic_commit
->>>>>>    drm_atomic_helper_update_plane
->>>>>>    __setplane_atomic
->>>>>>    drm_mode_cursor_universal
->>>>>>    drm_mode_cursor_common
->>>>>>    drm_mode_cursor_ioctl
->>>>>>    drm_ioctl
->>>>>>    __x64_sys_ioctl
->>>>>>
->>>>>> Beyond the WARN, mutating the dma_resv fence list without the lock
->>>>>> races with concurrent readers/writers and can corrupt the list.
->>>>>
->>>>> Well why are you trying to add a fence on an atomic mode set in the first place?
->>>>>
->>>>> That is usually an illegal operation here.
->>>> That is pre-existing in the driver. It performs draw operation and in
->>>> some cases waits for the completion during atomic. Whether all that
->>>> syncing is correct is hard to say immediately as some of it may be
->>>> historical edge cases.
->>>
->>> I'm not not so deeply in the atomic mode setting stuff but it strongly sounds like that this is seriously broken.
->>>
->>> The background is that the atomic mode set framework allows an output dma_fence which is signaled when the commit is finished.
->>>
->>> So when you allocate a fence slot and add a new fence to finish the atomic commit it is trivially possible that this cycles back and waits for the atomic commit to finish. In other words you have a deadlock.
->>>
->>> You probably need specially crafted userspace with the right timing to trigger that, but such issues are usually a rather big no-no and need to be fixed in the long term.
->>>
->>> Try to add dma_fence_begin_signaling() and dma_fence_end_signaling() annotation and enable lockdep, the tool should be able to point out if and what exactly goes wrong.
->>>
->>> The usual fix is to prepare everything before commit_tail is called (alloc memory, create, reserve slot, add dma_fence etc....) and then just send out the prepared commands later on.
->>
->> We tried with moving resv alloc to prepare_fb() in a previous patch
->> version, it resulted in a non-trivial deadlocks. The goal of this patch
->> is to fix immediate problem with a minimal code change.
-> 
-> Yeah, totally fine with me to get that fixed first.
-> 
->> What you're saying is correct, but it may require a rather big
->> refactoring of the code. In general, everything works okay today, so not
->> really an urgent problem.
-> 
-> It's just a potential issue and when the AI bots keep evolving like they already do they will sooner or later start to point that out as well.
-Don't mind if bots will produce something useful
+Thanks for the review. v6 will:
 
--- 
-Best regards,
-Dmitry
+ - trim the commit message: drop the reproducer paragraph, keep just
+   the problem description and the solution
+ - move the IB dumping into its own function
+ - replace the break-based flow inside drm_exec_until_all_locked() with
+   goto error handling, and drop the now-superfluous `locked` variable
+ - not call drm_exec_fini() in the locking helper on the error path
+
+One thing I'd like to confirm before respinning =E2=80=94 the !mapping case=
+ in
+the locking loop:
+
+mapping =3D amdgpu_vm_bo_lookup_mapping(vm, pfn);
+if (!mapping)
+    continue;
+
+You commented "That's also an error, it could be that we just want to
+print the IB start address in that case."
+
+My reading: a missing mapping is not fatal to the whole dump. For that
+IB there is simply nothing to lock, so the locking loop should move on
+to the next IB, and the content loop then still emits the
+"IB #N 0x<addr> <dw>" header with no body (it already does this via
+goto output_ib_content). The dump continues for the remaining IBs.
+
+So in the locking loop I'd keep `continue` for !mapping, and reserve
+goto-abort only for real errors (drm_exec_lock_obj() failure, VM not
+found). Is that what you intended, or should a missing mapping abort
+the whole IB dump?
+
+--=20
+Thanks,
+Mike.
