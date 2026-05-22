@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B54ACD4F5B
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 04:39:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DFDACD5BAF
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 05:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6D1910E236;
-	Fri, 22 May 2026 04:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 526C210E655;
+	Fri, 22 May 2026 05:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V+4OywB6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hJzH+rSY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA5C10E05F
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 04:39:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3058540C29;
- Fri, 22 May 2026 04:39:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E9D1F000E9;
- Fri, 22 May 2026 04:39:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779424781;
- bh=4R/ga3Po6rMY7/TfHCvcJNg7OZHy4BvhXq7wh2Ys9tU=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=V+4OywB6Ij3jKYq4K1WppfdDnOGW/1nY5Q2/4SqgmZPpjVOBYUPJ+fTM2TVkk2e7f
- MqQa0iuxW0neznyC2TdIWYM3VY+2AOBipiBvrDJk3zrJW56SjCy01RNAIJ7sKd/nIC
- Qsna44aTeQ33uTJ5F8NfW6w7tqVUrOy84giORHypM4QjxS1pxiC2Oa9v+NWqa9FD+b
- 47gLjc36mPUK08epy/u9JaH5OaWahb/5Z8x/j+m21rtXOfj71sJ83rT6dF3VSxbzUf
- aWpsvqN5tVEPYq0uB40EFHbnFS9d8aHalB+h7XUfZyS9JFcnA4RycYNrsTZvJ7jesF
- Q/q1MiTqGtUaw==
-X-Mailer: emacs 30.2 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, sumit.semwal@linaro.org,
- benjamin.gaignard@collabora.com, Brian.Starkey@arm.com,
- jstultz@google.com, tjmercier@google.com,
- christian.koenig@amd.com, m.szyprowski@samsung.com,
- robin.murphy@arm.com, leon@kernel.org, sean.anderson@linux.dev,
- ptesarik@suse.com, catalin.marinas@arm.com,
- suzuki.poulose@arm.com, steven.price@arm.com,
- thomas.lendacky@amd.com, john.allen@amd.com,
- ashish.kalra@amd.com, suravee.suthikulpanit@amd.com,
- linux-coco@lists.linux.dev
-Subject: Re: [PATCH v5 1/2] dma-mapping: introduce DMA_ATTR_CC_SHARED for
- shared memory
-In-Reply-To: <20260521175420.GA7702@ziepe.ca>
-References: <20260325192352.437608-2-jiri@resnulli.us>
- <yq5atst6ywbl.fsf@kernel.org>
- <4qdizkkoeke3cvkcf35upa7p7ick6s654eqlrizmi7ozkw5eze@tnpk2e34xgwl>
- <yq5awly0d504.fsf@kernel.org>
- <tteiecxfqy4k24wnzvp6ocxnuopyhmqtne2xwh5htwldlbzjnp@o6cbzdlurxld>
- <20260421121004.GA3611611@ziepe.ca> <yq5aik9jcpzm.fsf@kernel.org>
- <20260424225514.GE804026@ziepe.ca> <20260426130531.GF804026@ziepe.ca>
- <yq5azf1s6aic.fsf@kernel.org> <20260521175420.GA7702@ziepe.ca>
-Date: Fri, 22 May 2026 10:09:26 +0530
-Message-ID: <yq5aqzn45a81.fsf@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8EA10E651;
+ Fri, 22 May 2026 05:03:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779426216; x=1810962216;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=E8zrZ+DOMJekp9q7/lOL//bUZd/V4myHDQNYD3uZPRk=;
+ b=hJzH+rSYxPs95zKWIhJ7I5DEIH75pUtAUdihKZzjzY3sSZGucmsmfIhU
+ 8fkqnenoY6GdVKvGLYD53QOOf+eSqTLUEBnJ+RJdmUpwzRJe/mSNpuPhV
+ GqSkmaS/H6yD8MFV1nuTjvjaw5E5LtgKOwQO9KLmgicYDg5tF2DUmzEmh
+ DfTvccsQ2p4yqtkv4jq3ZVpAObtIV87I+p5i2nRESACeyqYcTqQpFGhGn
+ bHa3bxRZ6SBDhHwbynncohpLCf1vHRpMyQFOhCs8qt9IQ4jPeVl+D1255
+ tMQ1w57sJysEjiYauwyiPgrm3bK2mcY+uoYzNHOwjUX//nuVb2tIXu0wW w==;
+X-CSE-ConnectionGUID: fIEo/8OvRfG7Soweu40xIg==
+X-CSE-MsgGUID: uLB4t+J1QlSsjs/44gbgug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11793"; a="90651683"
+X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="90651683"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2026 22:03:35 -0700
+X-CSE-ConnectionGUID: o+XizXbcQhmK9VklxX922A==
+X-CSE-MsgGUID: We6M0pVaQDaUDB29VIfYwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="239946188"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
+ by orviesa010.jf.intel.com with ESMTP; 21 May 2026 22:03:29 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: uma.shankar@intel.com, arun.r.murthy@intel.com, abhinav.kumar@linux.dev,
+ tzimmermann@suse.de, sean@poorly.ru, marijn.suijten@somainline.org,
+ laurent.pinchart+renesas@ideasonboard.com, dave.stevenson@raspberrypi.com,
+ tomi.valkeinen+renesas@ideasonboard.com,
+ kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com,
+ kernel-dev@igalia.com, John.Harrison@Igalia.com,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH v5 0/7] Refactor drm_writeback_connector structure
+Date: Fri, 22 May 2026 10:33:06 +0530
+Message-Id: <20260522050313.1800378-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,116 +73,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Jason Gunthorpe <jgg@ziepe.ca> writes:
+Some drivers cannot work with the current design where the connector
+is embedded within the drm_writeback_connector such as intel and
+some drivers that can get it working end up adding a lot of checks
+all around the code to check if it's a writeback conenctor or not.
+This is due to the inheritance limitation in C.
+This series intends to solve it by moving the drm_writeback_connector
+within the drm_connector and remove the drm_connector base which was in
+drm_writeback_connector. This is done in union with hdmi connector
+within drm_connector to save memory and since drm_connector cannot be
+both hdmi and writeback it serves is well.
+A RFC version was floated and discussion had taken place at [1] which
+kicked of this more cleaner series.
+We do all other required modifications that come with these changes
+along with addition of new function which returns the drm_connector when
+drm_writeback_connector is present.
+This series also contains some writeback API cleanups as a consequence
+of writeback connector moving into drm_connector
+All drivers will be expected to allocate the drm_connector.
+This discussion was tiggered from [2] and sits on top of Dmitry's series
+see [3].
 
-> On Thu, May 21, 2026 at 09:05:39PM +0530, Aneesh Kumar K.V wrote:
->> I am wondering whether this is better
->> 
->> static inline dma_addr_t dma_direct_map_phys(struct device *dev,
->> 		phys_addr_t phys, size_t size, enum dma_data_direction dir,
->> 		unsigned long attrs, bool flush)
->> {
->> 	dma_addr_t dma_addr;
->> 
->> 	/*
->> 	 * For a device requiring unencrypted DMA, MMIO memory is treated
->> 	 * as shared.
->> 	 */
->> 	if (force_dma_unencrypted(dev) && (attrs & DMA_ATTR_MMIO))
->> 		attrs |= DMA_ATTR_CC_SHARED;
->
-> It is an option, I would be happier if we went and fixed the few
-> callers to properly pass the shared. CC did this with the
-> pgprot_decrypted() stuff, same reasoning:
->
-> diff --git a/block/blk-mq-dma.c b/block/blk-mq-dma.c
-> index bfdb9ed7074116..e77f6404caa3db 100644
-> --- a/block/blk-mq-dma.c
-> +++ b/block/blk-mq-dma.c
-> @@ -90,7 +90,7 @@ static bool blk_dma_map_direct(struct request *req, struct device *dma_dev,
->  	unsigned int attrs = 0;
->  
->  	if (iter->p2pdma.map == PCI_P2PDMA_MAP_THRU_HOST_BRIDGE)
-> -		attrs |= DMA_ATTR_MMIO;
-> +		attrs |= iter->p2pdma.mem->dma_mapping_flags;
->  
->  	iter->addr = dma_map_phys(dma_dev, vec->paddr, vec->len,
->  			rq_dma_dir(req), attrs);
-> @@ -115,7 +115,7 @@ static bool blk_rq_dma_map_iova(struct request *req, struct device *dma_dev,
->  	iter->len = dma_iova_size(state);
->  
->  	if (iter->p2pdma.map == PCI_P2PDMA_MAP_THRU_HOST_BRIDGE)
-> -		attrs |= DMA_ATTR_MMIO;
-> +		attrs |= iter->p2pdma.mem->dma_mapping_flags;
->  
->  	do {
->  		error = dma_iova_link(dma_dev, state, vec->paddr, mapped,
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> index 794acff2546a34..96022fadc48245 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -147,7 +147,7 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->  			ret = dma_iova_link(attach->dev, dma->state,
->  					    phys_vec[i].paddr, 0,
->  					    phys_vec[i].len, dir,
-> -					    DMA_ATTR_MMIO);
-> +					    provider->dma_mapping_flags);
->  			if (ret)
->  				goto err_unmap_dma;
->  
-> @@ -155,7 +155,7 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->  		} else {
->  			addr = dma_map_phys(attach->dev, phys_vec[i].paddr,
->  					    phys_vec[i].len, dir,
-> -					    DMA_ATTR_MMIO);
-> +					    provider->dma_mapping_flags);
->  			ret = dma_mapping_error(attach->dev, addr);
->  			if (ret)
->  				goto err_unmap_dma;
-> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> index 7c898542af8d5e..e4229b4d35c767 100644
-> --- a/drivers/pci/p2pdma.c
-> +++ b/drivers/pci/p2pdma.c
-> @@ -282,6 +282,8 @@ int pcim_p2pdma_init(struct pci_dev *pdev)
->  			continue;
->  
->  		p2p->mem[i].owner = &pdev->dev;
-> +		p2p->mem[i].dma_mapping_flags =
-> +			DMA_ATTR_MMIO | DMA_ATTR_CC_SHARED;
->  		p2p->mem[i].bus_offset =
->  			pci_bus_address(pdev, i) - pci_resource_start(pdev, i);
->  	}
-> diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
-> index 873de20a224759..402dc5e5d62b0a 100644
-> --- a/include/linux/pci-p2pdma.h
-> +++ b/include/linux/pci-p2pdma.h
-> @@ -21,10 +21,12 @@ struct scatterlist;
->   *
->   * A p2pdma provider is a range of MMIO address space available to the CPU.
->   * @owner: Device to which this provider belongs.
-> + * @dma_mapping_flags: DMA attributes to use for host bridge mappings.
->   * @bus_offset: Bus offset for p2p communication.
->   */
->  struct p2pdma_provider {
->  	struct device *owner;
-> +	unsigned long dma_mapping_flags;
->  	u64 bus_offset;
->  };
->  
-> diff --git a/mm/hmm.c b/mm/hmm.c
-> index 5955f2f0c83db1..c3f445acddf873 100644
-> --- a/mm/hmm.c
-> +++ b/mm/hmm.c
-> @@ -811,7 +811,7 @@ dma_addr_t hmm_dma_map_pfn(struct device *dev, struct hmm_dma_map *map,
->  	case PCI_P2PDMA_MAP_NONE:
->  		break;
->  	case PCI_P2PDMA_MAP_THRU_HOST_BRIDGE:
-> -		attrs |= DMA_ATTR_MMIO;
-> +		attrs |= p2pdma_state->mem->dma_mapping_flags;
->  		pfns[idx] |= HMM_PFN_P2PDMA;
->  		break;
->  	case PCI_P2PDMA_MAP_BUS_ADDR:
+[1] https://patchwork.freedesktop.org/series/152758/
+[2] https://patchwork.freedesktop.org/series/152106/
+[3] https://patchwork.freedesktop.org/series/152420/
 
-Can I convert this as an independent patch with your SOB?
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
--aneesh
+Suraj Kandpal (7):
+  drm: writeback: Refactor drm_writeback_connector structure
+  drm: writeback: Modify writeback init helpers
+  drm: writeback: Modify drm_writeback_queue_job helper
+  drm: writeback: Modify drm_writeback_signal_completion helper
+  drm: writeback: Modify drm_writeback_get_out_fence helper
+  drm: writeback: Modify prepare_writeback_job helper
+  drm: writeback: Modify cleanup_writeback_job helper
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 12 +--
+ .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+ .../arm/display/komeda/komeda_wb_connector.c  | 11 +--
+ drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+ drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+ drivers/gpu/drm/arm/malidp_mw.c               |  7 +-
+ drivers/gpu/drm/drm_atomic_uapi.c             |  4 +-
+ drivers/gpu/drm/drm_writeback.c               | 46 ++++++-----
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  9 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 10 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
+ .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  6 +-
+ .../drm/renesas/rcar-du/rcar_du_writeback.c   | 15 ++--
+ drivers/gpu/drm/vc4/vc4_txp.c                 |  8 +-
+ drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
+ drivers/gpu/drm/vkms/vkms_writeback.c         | 15 ++--
+ include/drm/drm_connector.h                   | 69 ++++++++++++++++-
+ include/drm/drm_modeset_helper_vtables.h      |  4 +-
+ include/drm/drm_writeback.h                   | 76 ++-----------------
+ 22 files changed, 160 insertions(+), 162 deletions(-)
+
+-- 
+2.34.1
+
