@@ -4,135 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16979CD5BB4
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 14:10:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3F0CD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 14:21:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 655DB10E279;
-	Fri, 22 May 2026 14:09:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F9EE10E28A;
+	Fri, 22 May 2026 14:21:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="aAwxxDyp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="R2eEI9yp";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aAwxxDyp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="R2eEI9yp";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="i53jBIPC";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WVhgCcul";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4910D10E279
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 14:09:58 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B6F876775A;
- Fri, 22 May 2026 14:09:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779458996; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=QKjA67bLe5pKP7UGALp0Pnr8LB2ZVYfXRG0NEZkHU3c=;
- b=aAwxxDypxeB1JZj70N+bYe80Cb1oX0YWhWPMfHo45sdWO+YyHln89sh/J9mLygBp90ZBQZ
- QqUEZoOm/Uqh8bL30a6qzWHEMz9vJYwn+NTq+sdRRjOPEsB3zYfTFISm0xzo2fxWaEX2JP
- HF0RNeHhKFb6XF+avdBT7yb3TOvf4i4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779458996;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=QKjA67bLe5pKP7UGALp0Pnr8LB2ZVYfXRG0NEZkHU3c=;
- b=R2eEI9ypgMGyl8melpldHvgSgNN38+meeiaYDhaWllI8820g9AcI5R+uxwUkIDwIWm6cEE
- OgMtjfVHRLvIFgCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779458996; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=QKjA67bLe5pKP7UGALp0Pnr8LB2ZVYfXRG0NEZkHU3c=;
- b=aAwxxDypxeB1JZj70N+bYe80Cb1oX0YWhWPMfHo45sdWO+YyHln89sh/J9mLygBp90ZBQZ
- QqUEZoOm/Uqh8bL30a6qzWHEMz9vJYwn+NTq+sdRRjOPEsB3zYfTFISm0xzo2fxWaEX2JP
- HF0RNeHhKFb6XF+avdBT7yb3TOvf4i4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779458996;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=QKjA67bLe5pKP7UGALp0Pnr8LB2ZVYfXRG0NEZkHU3c=;
- b=R2eEI9ypgMGyl8melpldHvgSgNN38+meeiaYDhaWllI8820g9AcI5R+uxwUkIDwIWm6cEE
- OgMtjfVHRLvIFgCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 63AA3593A8;
- Fri, 22 May 2026 14:09:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id rE6pFbRjEGpIWgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 22 May 2026 14:09:56 +0000
-Message-ID: <06e079a3-c8ec-4e3f-99da-c776d35cedfe@suse.de>
-Date: Fri, 22 May 2026 16:09:55 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D158810E28A
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 14:21:25 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64M8auAo399343
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 14:21:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ b9j+7eXCckmlcKUILjcOcoFvG2Vudf6r9KN2UMOzISo=; b=i53jBIPC/i0fJ+XE
+ U31AvAFJK00Aw55SLFDhZpf9lvBlALSDqdHh83+TDNR4hZ9LMb4r6C5pvR3RF6sc
+ tz+1NaA9oVMMfS2OE74RLPcfsTrOc+/HAHZfoEa9fToc+kkNpA+x94/S9Gn0hDCS
+ GYa9PIdAmiM/jSqOm7/gjriNvVSLCf7fcILcUCrOgw0ks5dh7mQQBUpHLXTPAfzk
+ 0BygaLwdAcCIgymhEwPdYoli/ZQs7HGFxDmti17UqaVPnSOk6gh3deoEljrMKkim
+ M+E9DVkYdXwhbXglNrn4dCnB0LTroG6qq5SSKRePg+jTBKw58ePQxP/rssPTbKkO
+ 8z4+MQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea5p9vp1f-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 14:21:25 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-365e70c39d0so7079043a91.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 07:21:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779459684; x=1780064484;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=b9j+7eXCckmlcKUILjcOcoFvG2Vudf6r9KN2UMOzISo=;
+ b=WVhgCculeWSMw3xAoGCHcjOXRDXv4mIe94nfe7bkaodSQQbyq0Y15VaTwkjZAelJpG
+ wBbyhSJ2N3D54FP9ImeD0zTxLjcvljzfS6BttRa1fKhb4w0RV9whE/U3rLxTl1T7iDCs
+ WYvA6eoxNB1Lm7S4CBTeyK3aeozZRV6tIwQwomeLwu0VT2w43S0KjB1udAsYm/NGSeXE
+ EkVOD3WE58H+xWvOhy1l1T1FdV5nBqDPYTpbhE0H79XU/CT8AQ+OwXEMLaCWohrPQcMT
+ 9xL3G/ljbddNmphMX265AyPIhBHAiawFQ8qDY2DObXOc7RYoI09IY1nbFwYutmShcmur
+ 6knQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779459684; x=1780064484;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=b9j+7eXCckmlcKUILjcOcoFvG2Vudf6r9KN2UMOzISo=;
+ b=hWafLJOLGZx71MGWrnv302LePwNZVeMGDucPZJp1dtcqSdQfeCzbNRrpGJJuVLqeH6
+ 5JhzKQzD9+GGn+QQwODHCfjOzUnJP3PmcvoZ9dzlyMn55iqLDj/swF6NgYkXrrA1bZXr
+ /R/Un/TyG+2qPPOWuHwMolxiP5T0InXPCSi/VLMbZsPqAjonrNtSg3KM+40ndNW7WhIy
+ pPIVuBBvI9MD5s+K5Z5eSXDAuKF/hTKeL4qPE7spzsd/V5J3vwuGtPicXgmf9v3+EAeN
+ Hxy4V4ex4Zjk/mqi1IrAtINJBPhqWO/k+TwBnTLoVchztEaRjAi0+29ZR34EthIGMTSY
+ CrBw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/QGuEEPXy/dU6b8rr/+KLUFbBLCR/6FppleXxszmGOl2wyivpoDMg9oMPE72hAxDfbopBBcaCig+Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzKUAg0LX6CoKwdAxa84AbDcld4oSi7C+zw9qNALsUQUyDllgKy
+ Cy/pN7MLneTCv5bKop0w2+mvluavqE00UXq8W9cMaDwXzt9XCGaXUzhfRecYbydxnMPh4Y9PXhG
+ E5p8zy4LAavqXWYmBHa+95bMuQBLMden4bRxs3UaEQTRWwjPwxRAcOVORP8Lg/weHLawqg1U=
+X-Gm-Gg: Acq92OEOKEt/1B+Y5Bm76/76sbaaxGgyl3WIaK2VgJ+e6xNPCiH1MSPC1okKk8OLqgR
+ 7iz1SopLESqqfE6+TRKnxzp+gJJmc66sePasyg5nmVIWE4APsXyukDtBb9+C9keXv/ZtrWfEpfh
+ Dsb/AlMwTxo27q5n872S6bHKLOVQrfvS+4eP6ZpQVuBvoK0UmWD3ITFr5vnCl68lRea61pRuWzb
+ x8wqhD6liz8uYeETAXeEWPJ23KfChPQ3rR36YdKSqVKi32Jr1oA4mzk3fxkUwzu5Zc4pVCLWfoi
+ pZ68CIhTMXh6q8MnnN14Xxj1PMfybGuFF7Dr2YeEDtif/ZZ5YDZL7WxPIpVqr5msG7L9x3eH/hc
+ VuOZsvunKPUp7uhv+KYDSeu8Gagjo37Bm4/GDfF9bcS/PK++7xGw9
+X-Received: by 2002:a17:90b:5343:b0:368:83e6:ca95 with SMTP id
+ 98e67ed59e1d1-36a671e98dcmr3494377a91.0.1779459684538; 
+ Fri, 22 May 2026 07:21:24 -0700 (PDT)
+X-Received: by 2002:a17:90b:5343:b0:368:83e6:ca95 with SMTP id
+ 98e67ed59e1d1-36a671e98dcmr3494333a91.0.1779459683996; 
+ Fri, 22 May 2026 07:21:23 -0700 (PDT)
+Received: from [192.168.1.13] ([106.222.231.34])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-36a6f0baca7sm1350671a91.2.2026.05.22.07.21.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 22 May 2026 07:21:23 -0700 (PDT)
+Message-ID: <8da827fa-bc60-4086-a424-5ec376f15e27@oss.qualcomm.com>
+Date: Fri, 22 May 2026 19:51:12 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
- for vblank
-To: Icenowy Zheng <uwu@icenowy.me>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
- <ee86cb43-e5df-4946-a957-931a73dde752@suse.de> <ahBWayIcQUHuAt4i@intel.com>
- <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de> <ahBZ8nIqR4qESLZg@intel.com>
- <5fbcda92-f6b0-4de2-89e5-ea43a6248b05@suse.de>
- <3219f779c2f3bd17348a70d6c8278b1b1ab317d1.camel@icenowy.me>
+Subject: Re: [PATCH 6/8] arm64: dts: qcom: kaanapali: Add GPU cooling
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260512-kaana-gpu-dt-v1-0-13e1c07c2050@oss.qualcomm.com>
+ <20260512-kaana-gpu-dt-v1-6-13e1c07c2050@oss.qualcomm.com>
+ <iun4ziuei3tzvr75qbbqgxytto6vptvtd7j5mr5ol5aqviaafz@5m4yxgnqjavc>
+ <e6572f5b-3686-46ca-956d-c06a7363cef2@oss.qualcomm.com>
+ <vjdz65uy4pxlbt2e4wlwvdu5llwazyopeqb3caswvejenm5iv7@3s3p7iz4otef>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <3219f779c2f3bd17348a70d6c8278b1b1ab317d1.camel@icenowy.me>
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+In-Reply-To: <vjdz65uy4pxlbt2e4wlwvdu5llwazyopeqb3caswvejenm5iv7@3s3p7iz4otef>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_SEVEN(0.00)[10];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,ravnborg.org,lists.freedesktop.org,vger.kernel.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.com:url]
+X-Authority-Analysis: v=2.4 cv=DKm/JSNb c=1 sm=1 tr=0 ts=6a106665 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=JaHktJlP2QtFIg7UHuVw+g==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=rjDOXfNolGiz0B_7zKQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: 4EyU5hS4oX6jt6ef2SgqnFuk8mO7SIJD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE0MiBTYWx0ZWRfX+MBxyLwklh6w
+ jtllJXPhQFDAdKCwk4EVkzBUVU/O7NU8GBsyhtmRz7gptnZCCf00slm/fTk9FbViVBewie5xxS5
+ pePy4CL6LqxZiPLsK/qqxNL4ow6HFh0d38tVHe2oTNEjV71xTu/GI7y0c8qNZHIQvOALztUNnAq
+ OR8mXwtwCLl+SSvUEkOEPBxQAgO8gdg0N0e1HVWSAE0PYxAkSUdiuJCPXoQwbP7ywab64SzEa86
+ hMnPUXHTR0OSg8aPv1075gn5h1ly66kUdXm9FlYenjSO0lJoj2xcZ/ScPMeSdQ49Tpnb8kdCZ62
+ B2tRaIYS4w1LVC7kz2Ic1uLB2g5aX65EWMy3+9NzOHexyoNxcbiXcexRkY913S8m+kX1S76QrY7
+ Fqi7pN42zcb7u7w8lVLuQJzl4k7S91xQe+5FFDJcO5xCc1eVrzC8Y2t6YOIZ8HfMAYB1VYPlRtv
+ PhESsCpZbQddquPFBoQ==
+X-Proofpoint-ORIG-GUID: 4EyU5hS4oX6jt6ef2SgqnFuk8mO7SIJD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605220142
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,84 +160,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 22.05.26 um 16:01 schrieb Icenowy Zheng:
-> 在 2026-05-22五的 15:43 +0200，Thomas Zimmermann写道：
->> Hi
->>
->> Am 22.05.26 um 15:28 schrieb Ville Syrjälä:
->> [...]
->>>>>> But why does your HW use CRTC 1 in the first place.
->>>>> Could be eg. the enabled outputs can't be driven with CRTC 0.
-> Yes, for many embedded display solutions the CRTC-connector map is
-> totally fixed.
->
->>>>> I guess what you want to do is pick the first crtc from
->>>>> modesets[]
->>>>> which is enabled. Or perhaps even "pick the Nth enabled crtc
->>>>> from
->>>>> modesets[] based on the ioctl argument".
->>>> The enable-status of each CRTC could change later on, which might
->>>> lead
->>>> to problems.
->>> Sound like a locking issue if someone is changing the configuration
->>> at the same time we're trying to do the vblank wait here.
->> I mean that the connected outputs could change at a later point or we
->> could have multiple CRTCs in use. Today, someone in #intel-gfx
->> reported
->> a problem with panning if multiple CRTCs are in use.
->>
->> Therefore picking a CRTC freely could be a problem. Let's say we
->> configure modes from one CRTC, but later wait/pan/flush with another
->> CRTC. I would not trust this to work correctly.
->>
->> Hence, my suggestion is to select a primary CRTC during the fbdev
->> client's probe and use it for all later operations until the next
->> probe
->> happens.  All other CRTCs would mirror the primary one.
-> What will happen if the "primary CRTC" is then disabled because of no
-> connected connectors can be driven with it?
 
-This happens during a client hotplug event. We'd re-detect all 
-connectors, pick the CRTC/output with the lowest spec as new primary and 
-mirror it to all other connected outputs.
-
-Best regards
-Thomas
-
->
-> Thanks,
-> Icenowy
->
->> Best regards
->> Thomas
+On 5/17/2026 11:56 PM, Dmitry Baryshkov wrote:
+> On Thu, May 14, 2026 at 12:17:54PM +0530, Gaurav Kohli wrote:
 >>
 >>
->>>> Picking the one CRTC/output with the lowest spec and
->>>> mirroring it to the others might work. This CRTC would then be
->>>> the one
->>>> to wait for.
+>> On 5/13/2026 11:23 PM, Dmitry Baryshkov wrote:
+>>> On Tue, May 12, 2026 at 03:53:20AM +0530, Akhil P Oommen wrote:
+>>>> From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 >>>>
->>>> Best regards
->>>> Thomas
+>>>> Unlike the CPU, the GPU does not throttle its speed automatically when it
+>>>> reaches high temperatures.
 >>>>
->>>> -- 
->>>> --
->>>> Thomas Zimmermann
->>>> Graphics Driver Developer
->>>> SUSE Software Solutions Germany GmbH
->>>> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->>>> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809,
->>>> AG Nürnberg)
+>>>> Set up GPU cooling by throttling the GPU speed
+>>>> when reaching 105°C.
 >>>>
+>>>> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+>>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>>>> ---
+>>>>    arch/arm64/boot/dts/qcom/kaanapali.dtsi | 165 ++++++++++++++++++++++++++------
+>>>>    1 file changed, 135 insertions(+), 30 deletions(-)
+>>>>
+>>>> +
+>>>>    			thermal-sensors = <&tsens5 0>;
+>>>>    			trips {
+>>>> -				gpuss-0-hot {
+>>>> -					temperature = <120000>;
+>>>> +				gpuss_0_alert0: gpuss-0-alert0 {
+>>>> +					temperature = <105000>;
+>>>>    					hysteresis = <5000>;
+>>>> -					type = "hot";
+>>>> +					type = "passive";
+>>>>    				};
+>>>
+>>> Why don't we keep both passive and hot trip points?
+>>>
+>>
+>> Need guidance here, we are keeping passive at low temp so still hot trip is
+>> needed for such cases.
+> 
+> I think we are saying the same. Keep both passive and hot trip points.
+> 
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Sure, will send updated one.
 
+>>
+>>>>    				gpuss-0-critical {
+>>>>
+>>>
+>>
+> 
 
