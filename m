@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDEEDCD5BB0
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 12:01:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30773CD5BB1
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 12:02:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6346A10F584;
-	Fri, 22 May 2026 12:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88AA010F58A;
+	Fri, 22 May 2026 12:02:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aTlfXNtj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PPVe/AJE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B87A10F584;
- Fri, 22 May 2026 12:01:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2972010F583;
+ Fri, 22 May 2026 12:02:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8A7E760138;
+ by sea.source.kernel.org (Postfix) with ESMTP id 04DE3432FE;
+ Fri, 22 May 2026 12:02:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4D101F00A3E;
  Fri, 22 May 2026 12:01:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B829D1F00A3D;
- Fri, 22 May 2026 12:01:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779451316;
- bh=wKsgbpUVkZO9zW0In0sWJicjFDTgo4Mlcppw/kDfVs0=;
+ s=k20260515; t=1779451332;
+ bh=Z6uy6Kioni3gaYTMtj9KN4Qx170IjsLwGLPu9IFKsDA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=aTlfXNtjIaj9o47TEuehFmkjsImumavGXNOVarCCDwfW1zckYzwFtay1Pr9xTRIaY
- r/mUIKCevJ2zP5F82g5QMArBC7/4raoHLtFBKXxnI9iULe8/KQH/bWv1ixFbGiPnP/
- KtbDZzolQcg+JvqiH7coA7VGk4G+hOdlyIuRzujaVZmHy8yG02bv7VxhweBvPKzQsE
- 5yYqTzOLTt0PVrNva+KIxrcz87+KvVwvw/oPMqXBN+Nr7aYS9LblbJfAIrRDQ43iLU
- YMGeU/o6llXpPT36P3IUA5538wBBVv5l+ioAOa0Z46WTTc7CdUW4mQWFv++P6WoFM0
- nfJlxrsE34Ufw==
+ b=PPVe/AJEUwumHJ0Yd71Phu5zgHX8psmZpYH73sqmPVgHok1KmsUBfKJtzZh1Wpmf8
+ cqH6sSCp008OdQJ7KKqjss97TH2z6yE6I4sJRsAExipFiXlTPGFS1FUnw7xPK4yLMs
+ SPJEmyWWOw/8IEMVoE/eZqpJ+GCrYtmlG9kDhRtoigOXhI0rHbTGO76CzCAV/5dW7k
+ pdWEzaa7pQYD7rDYSPakyb5WeESkuYpPOYcZKzYJ4yN2cjfivWSv7X0UKqQK1dibb3
+ L2QLqe6PZoojO1cb8NBTm50QxOj403JEOq393OM/NPxMHyKeRFzk5M9v1deTNhrwi6
+ ilYCgspCiDYeA==
 From: Sumit Garg <sumit.garg@kernel.org>
 To: andersson@kernel.org
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
@@ -53,9 +53,9 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
  skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
  Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: [PATCH v7 07/15] remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
-Date: Fri, 22 May 2026 17:29:28 +0530
-Message-ID: <20260522115936.201208-8-sumit.garg@kernel.org>
+Subject: [PATCH v7 08/15] remoteproc: qcom: Select QCOM_PAS generic service
+Date: Fri, 22 May 2026 17:29:29 +0530
+Message-ID: <20260522115936.201208-9-sumit.garg@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260522115936.201208-1-sumit.garg@kernel.org>
 References: <20260522115936.201208-1-sumit.garg@kernel.org>
@@ -78,71 +78,45 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Switch qcom_wcnss client driver over to generic PAS TZ APIs. Generic PAS
-TZ service allows to support multiple TZ implementation backends like QTEE
-based SCM PAS service, OP-TEE based PAS service and any further future TZ
-backend service.
+Select PAS generic service driver to enable support for multiple PAS
+backends like OP-TEE in addition to SCM.
 
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+Tested-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com> # IPQ9650
 Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 ---
- drivers/remoteproc/qcom_wcnss.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/remoteproc/Kconfig | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
-index 4add9037dbd5..0dbdd18ab3dd 100644
---- a/drivers/remoteproc/qcom_wcnss.c
-+++ b/drivers/remoteproc/qcom_wcnss.c
-@@ -19,7 +19,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_domain.h>
- #include <linux/pm_runtime.h>
--#include <linux/firmware/qcom/qcom_scm.h>
-+#include <linux/firmware/qcom/qcom_pas.h>
- #include <linux/regulator/consumer.h>
- #include <linux/remoteproc.h>
- #include <linux/soc/qcom/mdt_loader.h>
-@@ -257,7 +257,7 @@ static int wcnss_start(struct rproc *rproc)
- 	wcnss_indicate_nv_download(wcnss);
- 	wcnss_configure_iris(wcnss);
- 
--	ret = qcom_scm_pas_auth_and_reset(WCNSS_PAS_ID);
-+	ret = qcom_pas_auth_and_reset(WCNSS_PAS_ID);
- 	if (ret) {
- 		dev_err(wcnss->dev,
- 			"failed to authenticate image and release reset\n");
-@@ -269,7 +269,7 @@ static int wcnss_start(struct rproc *rproc)
- 	if (wcnss->ready_irq > 0 && ret == 0) {
- 		/* We have a ready_irq, but it didn't fire in time. */
- 		dev_err(wcnss->dev, "start timed out\n");
--		qcom_scm_pas_shutdown(WCNSS_PAS_ID);
-+		qcom_pas_shutdown(WCNSS_PAS_ID);
- 		ret = -ETIMEDOUT;
- 		goto disable_iris;
- 	}
-@@ -311,7 +311,7 @@ static int wcnss_stop(struct rproc *rproc)
- 					    0);
- 	}
- 
--	ret = qcom_scm_pas_shutdown(WCNSS_PAS_ID);
-+	ret = qcom_pas_shutdown(WCNSS_PAS_ID);
- 	if (ret)
- 		dev_err(wcnss->dev, "failed to shutdown: %d\n", ret);
- 
-@@ -557,10 +557,10 @@ static int wcnss_probe(struct platform_device *pdev)
- 
- 	data = of_device_get_match_data(&pdev->dev);
- 
--	if (!qcom_scm_is_available())
-+	if (!qcom_pas_is_available())
- 		return -EPROBE_DEFER;
- 
--	if (!qcom_scm_pas_supported(WCNSS_PAS_ID)) {
-+	if (!qcom_pas_supported(WCNSS_PAS_ID)) {
- 		dev_err(&pdev->dev, "PAS is not available for WCNSS\n");
- 		return -ENXIO;
- 	}
+diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
+index ee54436fea5a..9a6ca30e1481 100644
+--- a/drivers/remoteproc/Kconfig
++++ b/drivers/remoteproc/Kconfig
+@@ -210,6 +210,7 @@ config QCOM_Q6V5_MSS
+ 	select QCOM_Q6V5_COMMON
+ 	select QCOM_RPROC_COMMON
+ 	select QCOM_SCM
++	select QCOM_PAS
+ 	help
+ 	  Say y here to support the Qualcomm self-authenticating modem
+ 	  subsystem based on Hexagon V5. The TrustZone based system is
+@@ -230,6 +231,7 @@ config QCOM_Q6V5_PAS
+ 	select QCOM_Q6V5_COMMON
+ 	select QCOM_RPROC_COMMON
+ 	select QCOM_SCM
++	select QCOM_PAS
+ 	help
+ 	  Say y here to support the TrustZone based Peripheral Image Loader for
+ 	  the Qualcomm remote processors. This is commonly used to control
+@@ -282,7 +284,7 @@ config QCOM_WCNSS_PIL
+ 	select QCOM_MDT_LOADER
+ 	select QCOM_PIL_INFO
+ 	select QCOM_RPROC_COMMON
+-	select QCOM_SCM
++	select QCOM_PAS
+ 	help
+ 	  Say y here to support the Peripheral Image Loader for loading WCNSS
+ 	  firmware and boot the core on e.g. MSM8974, MSM8916. The firmware is
 -- 
 2.51.0
 
