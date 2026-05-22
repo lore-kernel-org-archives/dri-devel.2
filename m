@@ -4,62 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53AE5CD5BB1
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 11:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C21DCD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 11:47:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A85B810F56C;
-	Fri, 22 May 2026 11:42:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8B010F574;
+	Fri, 22 May 2026 11:47:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="pQIbBUKf";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IzzeeHSC";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VgwlWkc4";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D95EC10F56C
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779450166;
- bh=eEnxhVP7h9oNVDGsBLFcwZgYtanJdNFLIjNzXRvxveg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=pQIbBUKfLUUcBeUIyJLFkWg85GrWbe3+dbaliKFQTozycasoD6CoVrro0PxJL8Rse
- pKiRSM/4ODqb/IYIBpQIT/uar68Rg3pWgbECr1h+oNU+gYPzfLvHxiQimyUkfM28Cq
- FgjsLmQE9E6g9aC1SHo0NN1rrFUr3WWwuzVgVeh57CRfOtvPDmdUonIolcuxwqEmNy
- nznWdddZfPNEZl7JQ6uwKqOxCR5JZskhIc9Hh/6dew0r9X9niUqiDhIoWY6m0ir+l9
- JD8ycgKgs+5IGbNuHbCo5bulYhm4FATTK2jpvwKE/9R1CY86LMYuMeRZq04gxhZ5eu
- bbkR3rq9UMdzw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B903917E0550;
- Fri, 22 May 2026 13:42:45 +0200 (CEST)
-Message-ID: <64a21a69-d99b-4ae3-9477-dd0f6b37f689@collabora.com>
-Date: Fri, 22 May 2026 14:42:45 +0300
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A1A910F574
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:47:10 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64M9uUsK312917
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:47:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 9Vtic2scv0lNArrUhQhjpK+aneD52xMJ//xMO3IOSEU=; b=IzzeeHSC4ZyDPsaj
+ v9yxiHOQXtKDaeU8EEnfLF1qlMN6hs2RK/7Fq8z0WhxYLDqKbGXd2UOmlmdwQat0
+ Cl08ME+g17i5H7r4oemJsDm4MCtBQ0/IIFL9556mbLb9HuZD6B8LGUIX6CuNGel8
+ Fpp/PBp0YeRKPBNeeMxKMaP1VpAfMUwRkoI18OcHFCTP8fM0Rq9O0cGOtvRMCzCh
+ 9B5NtATkkxxzhQgr3QD2dFSgcB75ttmSRyMKM9mo10G7GpcBQ21l9ratiBcEzYY8
+ EDirxcr7zzYC5NSlOUsU3yca0zWcYzD+tn+7sljQ0v/qqh5LjwzbLDKr0jJzEhxs
+ f00pjw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea8833mky-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:47:09 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-8b49bb5a914so19144946d6.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 04:47:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779450428; x=1780055228;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9Vtic2scv0lNArrUhQhjpK+aneD52xMJ//xMO3IOSEU=;
+ b=VgwlWkc4FjkPfc72td5VkiZx7zXFyYmY3RliVn13YL75nob0c80Nje9JmDT6ib9Ljk
+ 7pqf7FYum+QZB3E8TdMax+2AhH+YYC350IVPOgP81mxzUG6caVKfHeAHzV5EVYJ+pYYN
+ rAnq4U7VvMHkooGmLwo7McurCoMnQxHMZ4JKUXqb4+rHND73D0Bwtu+T2Cw+jWXrGjvu
+ qq3Qb0l6wh/UQ4FdeaVmgdbjrsf9vWNm6PHCpnaqPFvnv9BvaZDp3mqiMgx8hfay/3ru
+ UfmbJ8TC4upjJXmQwaFP+2F859P3Uc+5TEh14OAkC9qSLzSUFANNbJOeYIoMIRz5wCjt
+ 2ieA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779450428; x=1780055228;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9Vtic2scv0lNArrUhQhjpK+aneD52xMJ//xMO3IOSEU=;
+ b=J/Z9YUBo9ZMUByGtKko/Ppiy6vz2/wgOm5WH7h4VREWb8+nUNgSQd0GGfJCBepvAOg
+ hzLD35Y6Xsx1GBlHc4JTjlys8oRsQxoUH5da+CaRy5jykpHReaNzNXwFpjyq7z7K4ofs
+ 1BBslyWLALel6KHR38UbYvrEWiNxcg5SsTYsYh1ST2cdrgE6qppY6BiFvWX0lEmIxuzo
+ 4qd5apUa8YL5V13J49wo+QhcUKr2SiobvoJZO+EY47DGaon0vUq2v4bsfFG6qV0cq9uR
+ d/LROoajZPwW/Ay0Jqfa/txlao18SW4xex87sHQwLYOqmpGbuXolxmcG7syrDpyDXgXt
+ y0SA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9EQGytfM2vDsVNQx1Q2iyBqw+rWgJMRTc0hnW6/+tDtSBtVfYMHfDG2m5QkcGUDyxYGxsbfiwMEDE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyaOsrRYygRUe6jGZuGSPICmeUH3kYaf0esQ1QcDYJYMs9awQQo
+ 7zDROC6N141VOGUGElzf5ABGCei0ICUXhGXmq9nhzqGD7WHXKRU0ixotK/1Hx0LLn8Yn61lrRdd
+ KTPlDvA7SbBzl6QZ5P8TENHZkT2SIq64v4w2RdqGV0GLt7+vhXoSRQsJSON1ipMbBe1IKmnbAdN
+ ooU6w=
+X-Gm-Gg: Acq92OGq/iNY2qQz80qX7Bm4OMZIVFNM94UE/jvl003ypKL910ZWNbBrMNSic/cuxZA
+ bYxS+MlMAKSPjo899ofxHuvhZwatBakKyX36EWa7NaYP2rdo4mXxB+3yX5+UxEL9OAeenSdG7P/
+ L/ZCLeg88x8b06JJ4Bc35QZvVHytraIGQJ2FHPwENzeaHfR56fX/WmavmQ4zFbHj+oNZ1IsUrsy
+ QCa4xVC94Xw58OORmfaUv/Ls3Fv0dDOa6UZmGiZbwpT+qeXpXUYaBFcxO3LM9bnFO4uQzPFIaoO
+ nLnqiwbDNeUM0Yhh0L5kX7CI/RDXsfQLULpep5EBYEUw3iCAag/o2acYiW3snYof4bCWusiG19S
+ k0GnMHRP1GvDNGVwLjD/NVkdgpG3cT+0RX3JjIKFAkzkVkw==
+X-Received: by 2002:a05:622a:8313:b0:509:d76:fe73 with SMTP id
+ d75a77b69052e-516d436867emr24779081cf.3.1779450428488; 
+ Fri, 22 May 2026 04:47:08 -0700 (PDT)
+X-Received: by 2002:a05:622a:8313:b0:509:d76:fe73 with SMTP id
+ d75a77b69052e-516d436867emr24778751cf.3.1779450428043; 
+ Fri, 22 May 2026 04:47:08 -0700 (PDT)
+Received: from [192.168.119.254] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bddc30528a7sm47004366b.21.2026.05.22.04.47.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 22 May 2026 04:47:07 -0700 (PDT)
+Message-ID: <7a74f989-1235-41b4-90b7-aad1c68e9b37@oss.qualcomm.com>
+Date: Fri, 22 May 2026 13:47:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/22] drm/display: scdc_helper: Add HDMI 2.0
- scrambling management helpers
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Daniel Stone <daniels@collabora.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com>
- <20260520-dw-hdmi-qp-scramb-v6-4-24b74603b782@collabora.com>
- <20260521-chestnut-harrier-of-enhancement-2bcfa2@penduick>
+Subject: Re: [PATCH v5 09/10] drm/msm/dp: turn link_ready into plugged
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260314-hpd-refactor-v5-0-0c8450737d64@oss.qualcomm.com>
+ <20260314-hpd-refactor-v5-9-0c8450737d64@oss.qualcomm.com>
 Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260521-chestnut-harrier-of-enhancement-2bcfa2@penduick>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260314-hpd-refactor-v5-9-0c8450737d64@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDExNyBTYWx0ZWRfXwWa+ZXv1Gsup
+ SjJ1aFv5vKVGZ3VoulR8HjyaHOGI9h28MxeOuVXy8Ol1dtwnlgk396Y81Y/91CoizU6l9BB81lR
+ yO5RBKeBiwsvZE/d+YUV2MynHaQB/cQEm2DtWibit4F83Xgeb8ofILFSZUDxtORDSZ9EDKK/+D9
+ hEdKxgL8+ZklFECUU+jpsqUu6a/65/l5YW3lvjKI8l+aZpGOIIDc+vPkYd1DArzqlZ/CVmXsHzZ
+ LM2JQybvVmOWCp/7VhY251ImDYvPddYGaz8489O1DfJ23Vgcs9Y5DoEAaHpkIyZjnUUZWM2Umay
+ 01YbxoEEU7Odxbt77fdCypWZ1EX1zHkJoCWzi7WmC9cNf2gsZDQAKOZeS+d5YJCj1IFPtiPU7/M
+ i9G5sSW/FI6OQFvwZLVzYgLMSo7Dv8AFMl5AkjabLp4SEF/mtTgjh1HzdaEkqfBWrZc7ulE/hEA
+ 69uRFyu5DqQfnqrEQvg==
+X-Proofpoint-GUID: clD6ILbk6dzlMe-n_AtdzhnCyff4JnF7
+X-Proofpoint-ORIG-GUID: clD6ILbk6dzlMe-n_AtdzhnCyff4JnF7
+X-Authority-Analysis: v=2.4 cv=LsSiDHdc c=1 sm=1 tr=0 ts=6a10423d cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=pcg_VVX8d75-tFNqbqgA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220117
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,243 +149,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/21/26 11:10 AM, Maxime Ripard wrote:
-> On Wed, May 20, 2026 at 09:38:15PM +0300, Cristian Ciocaltea wrote:
->> Add drm_scdc_start_scrambling(), drm_scdc_stop_scrambling() and
->> drm_scdc_sync_status() helpers to manage the full lifecycle of HDMI 2.0
->> SCDC scrambling on both source and sink sides.
->>
->> drm_scdc_start_scrambling() configures SCDC scrambling and high TMDS
->> clock ratio and starts a periodic work item that monitors the sink's
->> SCDC scrambling status, retrying setup when the sink loses state.
->>
->> drm_scdc_stop_scrambling() tears down scrambling on both sides and
->> cancels the monitoring work.
->>
->> drm_scdc_sync_status() triggers a CRTC reset on reconnection to restore
->> SCDC state lost during sink disconnects within an active display
->> pipeline.
->>
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  drivers/gpu/drm/display/drm_scdc_helper.c | 235 +++++++++++++++++++++++++++++-
->>  include/drm/display/drm_scdc_helper.h     |   6 +-
->>  2 files changed, 236 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
->> index cb6632346aad..5bacb886d373 100644
->> --- a/drivers/gpu/drm/display/drm_scdc_helper.c
->> +++ b/drivers/gpu/drm/display/drm_scdc_helper.c
->> @@ -21,16 +21,22 @@
->>   * DEALINGS IN THE SOFTWARE.
->>   */
->>  
->> +#include <linux/delay.h>
->>  #include <linux/export.h>
->>  #include <linux/i2c.h>
->> +#include <linux/minmax.h>
->>  #include <linux/slab.h>
->> -#include <linux/delay.h>
->>  
->> -#include <drm/display/drm_scdc_helper.h>
->> +#include <drm/drm_atomic.h>
->> +#include <drm/drm_atomic_helper.h>
->> +#include <drm/drm_bridge_helper.h>
->>  #include <drm/drm_connector.h>
->> +#include <drm/drm_crtc.h>
->>  #include <drm/drm_device.h>
->>  #include <drm/drm_print.h>
->>  
->> +#include <drm/display/drm_scdc_helper.h>
->> +
->>  /**
->>   * DOC: scdc helpers
->>   *
->> @@ -50,10 +56,14 @@
->>   * has to track the connector status changes using interrupts and
->>   * restore the SCDC status. The typical solution for this is to trigger an
->>   * empty modeset in drm_connector_helper_funcs.detect_ctx(), like what vc4 does
->> - * in vc4_hdmi_reset_link().
->> + * in vc4_hdmi_reset_link(). Alternatively, use the HDMI connector framework
->> + * which ensures drm_scdc_sync_status() is called in the context of
->> + * drm_atomic_helper_connector_hdmi_hotplug_ctx().
->>   */
->>  
->> -#define SCDC_I2C_SLAVE_ADDRESS 0x54
->> +#define SCDC_I2C_SLAVE_ADDRESS		0x54
->> +#define SCDC_MAX_SOURCE_VERSION		0x1
->> +#define SCDC_STATUS_POLL_DELAY_MS	3000
->>  
->>  #define drm_scdc_dbg(connector, fmt, ...)					\
->>  	drm_dbg_kms((connector)->dev, "[CONNECTOR:%d:%s] " fmt,			\
->> @@ -270,3 +280,220 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
->>  	return true;
->>  }
->>  EXPORT_SYMBOL(drm_scdc_set_high_tmds_clock_ratio);
->> +
->> +static int drm_scdc_setup_scrambler(struct drm_connector *connector)
->> +{
->> +	bool done;
->> +
->> +	done = drm_scdc_set_high_tmds_clock_ratio(connector, true);
->> +	if (!done)
->> +		return -EIO;
->> +
->> +	done = drm_scdc_set_scrambling(connector, true);
->> +	if (!done)
->> +		return -EIO;
->> +
->> +	schedule_delayed_work(&connector->hdmi.scdc_work,
->> +			      msecs_to_jiffies(SCDC_STATUS_POLL_DELAY_MS));
->> +	return 0;
->> +}
+On 3/14/26 2:09 AM, Dmitry Baryshkov wrote:
+> Tracking when the DP link is ready isn't that useful from the driver
+> point of view. It doesn't provide a direct information if the device
+> should be suspended, etc. Replace it with the 'plugged' boolean, which
+> is set when the driver knows that there is DPRX plugged.
 > 
-> There's a very tight deadline in the spec to enable the scrambler
-> relative to the video. Debouncing (I assume?) for three seconds break
-> it. Drivers might not be able to do better, but it's really not
-> something we should entertain at the framework level and we should call
-> the callback straight-away.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-In drm_scdc_start_scrambling() we call this function directly, the callback is
-only meant to retry the call if the sink didn't set the scrambling for whatever
-reason.
+[...]
 
-Or do you mean we shouldn't wait that long before retrying? vc4 uses 1s, I got
-some mixed results in a few occasions and experimented with increased values,
-but I'll revert or we can adjust to whatever you think it'd be more sensible.
+> -static void msm_dp_display_host_phy_init(struct msm_dp_display_private *dp)
+> +static bool msm_dp_display_host_phy_init(struct msm_dp_display_private *dp)
+>  {
+>  	drm_dbg_dp(dp->drm_dev, "type=%d core_init=%d phy_init=%d\n",
+>  		dp->msm_dp_display.connector_type, dp->core_initialized,
+> @@ -312,7 +313,10 @@ static void msm_dp_display_host_phy_init(struct msm_dp_display_private *dp)
+>  	if (!dp->phy_initialized) {
+>  		msm_dp_ctrl_phy_init(dp->ctrl);
+>  		dp->phy_initialized = true;
+> +		return true;
+>  	}
+> +
+> +	return false;
+>  }
 
->> +static void drm_scdc_monitor_scrambler(struct drm_connector *connector)
->> +{
->> +	if (READ_ONCE(connector->hdmi.scrambler_enabled) &&
->> +	    !drm_scdc_get_scrambling_status(connector))
->> +		drm_scdc_setup_scrambler(connector);
->> +}
->> +
->> +static int drm_scdc_reset_crtc(struct drm_connector *connector,
->> +			       struct drm_modeset_acquire_ctx *ctx)
->> +{
->> +	struct drm_crtc *crtc;
->> +	u8 config;
->> +	int ret;
->> +
->> +	if (!ctx || !connector->state)
->> +		return 0;
->> +
->> +	crtc = connector->state->crtc;
->> +	if (!crtc || !crtc->state || !crtc->state->active)
->> +		return 0;
->> +
->> +	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
->> +	if (ret) {
->> +		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	if ((config & SCDC_SCRAMBLING_ENABLE) &&
->> +	    (config & SCDC_TMDS_BIT_CLOCK_RATIO_BY_40))
->> +		return 0;
->> +
->> +	/*
->> +	 * Reset the CRTC to suspend TMDS transmission, conforming to HDMI 2.0
->> +	 * spec which requires scrambled data not to be sent before the sink is
->> +	 * configured, and TMDS clock to be suspended while changing the clock
->> +	 * ratio.  The disable/re-enable cycle triggered by the reset should
->> +	 * call drm_scdc_start_scrambling() during re-enable, properly
->> +	 * configuring the sink before data transmission resumes.
->> +	 */
->> +
->> +	drm_scdc_dbg(connector, "Resetting CRTC to restore SCDC status\n");
->> +
->> +	ret = drm_atomic_helper_reset_crtc(crtc, ctx);
->> +	if (ret && ret != -EDEADLOCK)
->> +		drm_scdc_dbg(connector, "Failed to reset CRTC: %d\n", ret);
->> +
->> +	return ret;
->> +}
-> 
-> locking is a bit more involved than that, I'd suggest to take
-> vc4_hdmi_reset_link() and turn it into a helper.
+Please either rename this function or add kerneldoc - it's not obvious
+what "msm_dp_display_host_phy_init() == true" is supposed to mean
 
-The current non-NULL ctx call chain goes through drm_helper_probe_detect_ctx()
--> .detect_ctx -> ... -> drm_scdc_sync_status() -> drm_scdc_reset_crtc(), and
-the connection mutex is already held by drm_helper_probe_detect() in that path. 
 
-I'll make the helper safe under any caller by taking the connection_mutex via
-the supplied ctx, since re-acquiring it with the same context when it is already
-held should be a no-op.  Moreover, the racy crtc->state->active early out could
-be dropped: when the CRTC is inactive, drm_atomic_helper_reset_crtc() should
-result in a no-op commit anyway, so the check is at best an optimisation. 
-This mirrors what drm_bridge_helper_reset_crtc() does.
+>  
+>  static void msm_dp_display_host_phy_exit(struct msm_dp_display_private *dp)
+> @@ -366,14 +370,6 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
+>  	u32 sink_request = dp->link->sink_request;
+>  
+>  	drm_dbg_dp(dp->drm_dev, "%d\n", sink_request);
+> -	if (!dp->msm_dp_display.link_ready) {
+> -		if (sink_request & DP_LINK_STATUS_UPDATED) {
+> -			drm_dbg_dp(dp->drm_dev, "Disconnected sink_request: %d\n",
+> -							sink_request);
+> -			DRM_ERROR("Disconnected, no DP_LINK_STATUS_UPDATED\n");
+> -			return -EINVAL;
+> -		}
+> -	}
+>  
+>  	msm_dp_ctrl_handle_sink_request(dp->ctrl);
+>  
+> @@ -392,11 +388,11 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
+>  			dp->msm_dp_display.connector_type,
+>  			dp->link->sink_count);
+>  
+> -	if (dp->msm_dp_display.link_ready)
+> -		return 0;
+> +	mutex_lock(&dp->plugged_lock);
 
->> +/**
->> + * drm_scdc_start_scrambling - activate scrambling and monitor SCDC status
->> + * @connector: connector
->> + *
->> + * Enables scrambling and high TMDS clock ratio on both source and sink sides.
->> + * Additionally, use a delayed work item to monitor the scrambling status on
->> + * the sink side and retry the operation, as some displays refuse to set the
->> + * scrambling bit right away.
->> + *
->> + * Returns:
->> + * Zero if scrambling is set successfully, an error code otherwise.
->> + */
->> +int drm_scdc_start_scrambling(struct drm_connector *connector)
->> +{
->> +	struct drm_display_info *info = &connector->display_info;
->> +	struct drm_connector_hdmi *hdmi = &connector->hdmi;
->> +	int ret;
->> +	u8 ver;
->> +
->> +	if (!hdmi->funcs ||
->> +	    !hdmi->funcs->scrambler_src_enable ||
->> +	    !hdmi->funcs->scrambler_src_disable) {
->> +		drm_scdc_dbg(connector, "Function not implemented, bailing.\n");
->> +		return -EINVAL;
->> +	}
-> 
-> This case shouldn't be a thing. The driver must not probe if it's not set.
+guard(mutex)(&dp->plugged_lock)
 
-When advertising DRM_BRIDGE_OP_HDMI_SCRAMBLER, drm_bridge_connector_init() will
-fail if the scrambler hooks are not provided.  However, the check would be still
-useful if one missed to set DRM_BRIDGE_OP_HDMI_SCRAMBLER before adding the
-bridge.  I'll try to also handle non-bridge usecases - pls see the proposal
-below.
+[...]
 
->> +	if (!info->is_hdmi ||
->> +	    !info->hdmi.scdc.supported ||
->> +	    !info->hdmi.scdc.scrambling.supported) {
->> +		drm_scdc_dbg(connector, "Sink doesn't support scrambling.\n");
->> +		return -EINVAL;
->> +	}
-> 
-> You should also compute whether we actually need to enable the scrambler
-> here, based on the mode, format and bpc.
+>  static void msm_dp_display_handle_plugged_change(struct msm_dp *msm_dp_display,
+> @@ -446,8 +440,12 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
+>  			dp->msm_dp_display.connector_type,
+>  			dp->link->sink_count);
+>  
+> -	if (!dp->msm_dp_display.link_ready)
+> +	mutex_lock(&dp->plugged_lock);
 
-I'm thinking to mirror the existing supported_formats / ycbcr_420_allowed
-plumbing:
+likewise
 
-- Add a 'scrambling_supported' flag to struct drm_connector_hdmi and let
-  drm_bridge_connector_init() to propagates it from the HDMI bridge before
-  calling drmm_connector_hdmi_init().
+[...]
 
-- drmm_connector_hdmi_init() validates that the capability is consistent with
-  the provided callbacks: when scrambling_supported is true, both
-  scrambler_src_enable() and scrambler_src_disable() must be provided.
+>  end:
+> -	pm_runtime_put_sync(&dp->pdev->dev);
+> +	/*
+> +	 * If we detected the DPRX, leave the controller on so that it doesn't
+> +	 * loose the state.
 
-- Add a 'scrambling_needed' flag to struct drm_connector_hdmi_state to be set by
-  hdmi_compute_clock() based on the TMDS character rate and the source/sink
-  scrambling capabilities.
+loose -> lose
 
-- Ensure hdmi_clock_valid() rejects modes having TMDS character rate exceeding
-  340 MHz when either the source or the sink lacks the required SCDC scrambling
-  capability.
+> +	 */
+> +	if (!priv->plugged) {
+> +		if (phy_deinit) {
+> +			msm_dp_aux_enable_xfers(priv->aux, false);
+> +			msm_dp_display_host_phy_exit(priv);
 
-> I'd also like to see what a !bridge user of this would look like. The
-> vc4 driver has all the infrastructure you need already, so converting it
-> to it would be great.
+Should msm_dp_aux_enable_xfers() logically be called anywhere outside
+phy_init/exit()?
 
-Sure, will do.  I've just ordered a RPI5 board, so I should be able to properly
-validate this.
+> +		}
+> +
+> +		pm_runtime_put_sync(&dp->pdev->dev);
+> +	}
+> +
+> +	mutex_unlock(&priv->plugged_lock);
+> +
+>  	return status;
+>  }
+>  
+> @@ -1123,6 +1145,8 @@ static int msm_dp_display_probe(struct platform_device *pdev)
+>  		(dp->msm_dp_display.connector_type == DRM_MODE_CONNECTOR_eDP);
+>  	dp->hpd_isr_status = 0;
+>  
+> +	mutex_init(&dp->plugged_lock);
 
-Thanks,
-Cristian
+devm/drmm?
+
+Konrad
