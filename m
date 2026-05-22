@@ -4,89 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0757ACD5BB0
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 13:21:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FBD3CD5BB1
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 13:22:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AAC610F5C1;
-	Fri, 22 May 2026 13:21:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91EDF10E049;
+	Fri, 22 May 2026 13:22:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L+2KT5zQ";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="T6zGXEvU";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D74AC10F5BB
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 13:20:51 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4903fd19957so12680815e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:20:51 -0700 (PDT)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DB7010E049
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 13:22:43 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-8b4eb1fd5d0so90148936d6.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:22:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779456050; x=1780060850; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RP+CltVi6jUCZJal0Anzdw8j6V9ipqNLat7Pdw8ZHRU=;
- b=L+2KT5zQtl3A1oFErmCv+GGvkmOPp5O+PeCnu1ZO1sC5lOgN7TZzeGzoYrFXsZCqzc
- XMBNpZgSrGg0lwBdzYiUfxxUKOQutrSlpudyRdAC5nE9gK1AjjvpXCd45Km7oCo5hNdZ
- dhnFBeq60spMN5oV3g/I3NH91eVgGCO118D32hzM/hHpAJsL+JgwCduYMHvmI3tzKR+/
- gvqfZb96+xeLFncLDeeXPYD2aAFo7fcDVtD9Zx1HmwwGYSnApettvsEzP4hLubxgv3DH
- rmtXNHRpTd6jQ76NZVv6zXcvVSCmbVqSPrvpUBP/Q/VJeJa+mTb/UTUx3CD1LkLht3Mg
- uSIw==
+ d=ziepe.ca; s=google; t=1779456162; x=1780060962; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=iQuBEkHkP60iYe92EnrAsVFZKioHOoQ3fMLBNw/bYhY=;
+ b=T6zGXEvUlm18Ubn5b3mSwNBJWVzWp8m89W5Ig9HRCAHQBpdZxq4e1ZD9BkQn4CbAIo
+ 85SIMxO0Yll4Q5ERPY2wp8xAXsmrtxEuHjCBL9tWux1nNqJbvg62w4YSN+lp7+Rn0qvx
+ GvIysMsbxdbFcWC1bWR2bIvQlWCts4TlIj81a+QVr8SIeKgvsLK4korOjv/eX+h2elaF
+ U29CrykRYNB2JTm31P5Uazd04h3c6mRsToZY/CF86sh0vv+pDLZrbtHxT/qSjgXLhMjq
+ pEYsncj+kUcY+604pbcRi2Fo6Q8qEE9/fFnRoo02II0uZNYJTKzd0bwNUH777vEEKRHT
+ d0rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779456050; x=1780060850;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=RP+CltVi6jUCZJal0Anzdw8j6V9ipqNLat7Pdw8ZHRU=;
- b=N5q3kz6IpZdKW/C9TyTcacbFNDmWaXhUmB3dNuGzqLTrQ/k6szcPzdru/E3RBorUlz
- javhj6xWWUq3AyYESvf1q6K9EpWB3WhC8MRhAq0xIANcqnCaV2tBPnscxTn6BfBmZw+P
- ZUD0Ef1O6l27UuOnT8uLGHFTB/CgCLpJP+M85U9mqNbQAnW0s+86bghTCcdRJ24Ms4r1
- pWwFi/MwU37p3I1Hqw9zEBi7AIlJ9GCQlbyK2cCvkTXTg/gacbwLHo49H0o/uCp3weCA
- Alz3C2Gg6PGlEEOGDBcnALLVQ5Igq+xBMe8APG9SjT0kLLet0hzV46OlzT0IuFORNn6/
- YxUw==
+ d=1e100.net; s=20251104; t=1779456162; x=1780060962;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=iQuBEkHkP60iYe92EnrAsVFZKioHOoQ3fMLBNw/bYhY=;
+ b=StEDqmXM1L4OJP845/6cD2CUgC3sNn9+8pLd5NbJKRa8bCpQkaOeZ5hHn/nNbzM3Qz
+ laYs+HaHRO6dVgp4BzCn9Xot/Po8Qny6mjqu8/5OOE68JGVb8pSbz0fsnd7Yo1BQ2j+L
+ w8dyvcthDmTa5kV83Ws8abD5hz5SY6KdElLQXzqtFeltvkzMIFixyYEMZyRib1rgsU8s
+ m8MrnxmekmZFMIac8AAOVgjZqvztVYOa9IikIvcMgrLGWuF55rwApapP/qwz9wlgg8m4
+ 0Tllvd0Gf4R8gyyHNzapPfPbQZZLl8/6M+XT2XLOHgBlgL4EN06u4Z5IRFHJbtBnTfgF
+ 9VCw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/3WutdqXC1SsD3WXdqp+l+Ui26aIh26/trhtYstiVTC8obSDYY2ydzZisUH6eEIMBvYBJ6FWscpo8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzTPngkUIBOyhM8keSieYj654QCpvXeECVybsLGiec9Avr1pbfO
- zF9dkTP8r94Z7pVgw6FffOvKrzC+XeE3HFkqFsGsnBGMjxjsyAc4UglZ
-X-Gm-Gg: Acq92OGmvaWndphU0gYhtymLZr0nMECsbPzSjkJNmeiYbej18I12RQnGKDJdsvQfPZC
- SZ3ebd/46uQN0MksyE9WWMIAS3hLRvF5Tvl8nB895WZb4BEpWN9fn863hsfP2lta3gGgd2bXELF
- qjmiyYjJKf4CXRCs2V+vEtPE9qMC/fgxC/glNKCgsO/58fOxvlXiF0ByNArAG5rFb2CWAMyRAS5
- VvxtdalTeO/hlIW3k8Gwt1pi/VvnG7yX1CTkBHpkuuN+QMbTx+Zslws8tHH4zKLa0b3zLYsp6K2
- Y51hw4MdMUUGR/FWdnTGzRwjIL23fvY4mhKq7ObeUdC9ncC3e5h8vmR7iWVwFBmdVOW7HJyxQjM
- tBMIfXUKPGbv4T6HMxjrSGMxF3CtcqcxMutpQHb9jbOKl9kLoLvecviDhLfQS9lCdFk3vjLmOv1
- g5A+X9o3ITUHFqfOXlei8w84oMRMcHBliaORmbCjCULQ==
-X-Received: by 2002:a05:600c:4510:b0:48f:d5a0:284e with SMTP id
- 5b1f17b1804b1-490428e03b8mr49601195e9.28.1779456049615; 
- Fri, 22 May 2026 06:20:49 -0700 (PDT)
-Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490454a0cd5sm52220755e9.10.2026.05.22.06.20.47
+ AFNElJ/U+lmr++gZ7DOYsDt3NNcPkQdC4KmDUGm97QSN5q37ov4ZrCAMroW9jxZHiO1dM6NAX/dS88UJT7o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwyuAQUCyCBq6Q4Hlc9cMoVqJKxZloek2awzF1LLQkK3MD4YQAo
+ JY3W8dmw+bHra4rLMZVYYTUAhbtGdG6PVE9lqZbV6x/qWTFsG81dE9/59RTR9LSnIz4=
+X-Gm-Gg: Acq92OHJGX8ERvUrnBpbJqdxSKOeRqZ2j0BndUDVNMgaIhwSkFC57ZmX9iko/bwlqsC
+ ZhidEveQMoSrMXkGp/DyVJd6EsFpqBZDXxiF/H9P9g5QuIaxHMnIDMacV+F4q7ekCDAnsB1i3Sr
+ uCsOyZDU7EsnoWl6gGlVjiAaUoMrw7dzJqeX0issLGml3E7xwTbGfTMBUg4IaHlCS6wPDr97dlU
+ gd3KlqDOnixrKL7yS6dlWVZSYYq7lUEy15Sd8fAnmQCxJ38ndHORQ2Opga7uXK/RiT6ux1luhlh
+ mi/ZPE+9dLaWhuBSDOa8M39EeEmmq3JBW23sWYIlxHKyLGbMUFjwlegvE2rRhr8+6m9rGDB07Jp
+ NLo2AkqjTiqEHO5J/jtdoff9p2ur+ZoYfVa7xFciY6vSZHhnSuq5tfq38BowuxzB5wzurEMGSDN
+ +76H12evcA/RM3taT6Z3dwAdhm8YTlktWXhsAy41QllW9j4TyBInj5EflN8EpQxGxdaxpWtisJX
+ fDJGw==
+X-Received: by 2002:a05:620a:a2da:10b0:914:ba0a:b62 with SMTP id
+ af79cd13be357-914ba0a0df1mr206635885a.49.1779456161602; 
+ Fri, 22 May 2026 06:22:41 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-914bb8c7dc7sm116726285a.6.2026.05.22.06.22.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 06:20:49 -0700 (PDT)
-From: Vitor Soares <ivitro@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Thierry Reding <thierry.reding@gmail.com>
-Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 08/11] arm64: dts: ti: k3-am62-verdin: Reserve UART_4 for
- Cortex-M4F
-Date: Fri, 22 May 2026 14:20:21 +0100
-Message-ID: <20260522132014.226721-21-ivitro@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260522132014.226721-13-ivitro@gmail.com>
-References: <20260522132014.226721-13-ivitro@gmail.com>
+ Fri, 22 May 2026 06:22:41 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wQPpo-00000003hPg-2B15;
+ Fri, 22 May 2026 10:22:40 -0300
+Date: Fri, 22 May 2026 10:22:40 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, sumit.semwal@linaro.org,
+ benjamin.gaignard@collabora.com, Brian.Starkey@arm.com,
+ jstultz@google.com, tjmercier@google.com, christian.koenig@amd.com,
+ m.szyprowski@samsung.com, robin.murphy@arm.com, leon@kernel.org,
+ sean.anderson@linux.dev, ptesarik@suse.com, catalin.marinas@arm.com,
+ suzuki.poulose@arm.com, steven.price@arm.com,
+ thomas.lendacky@amd.com, john.allen@amd.com, ashish.kalra@amd.com,
+ suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v5 1/2] dma-mapping: introduce DMA_ATTR_CC_SHARED for
+ shared memory
+Message-ID: <20260522132240.GD7702@ziepe.ca>
+References: <4qdizkkoeke3cvkcf35upa7p7ick6s654eqlrizmi7ozkw5eze@tnpk2e34xgwl>
+ <yq5awly0d504.fsf@kernel.org>
+ <tteiecxfqy4k24wnzvp6ocxnuopyhmqtne2xwh5htwldlbzjnp@o6cbzdlurxld>
+ <20260421121004.GA3611611@ziepe.ca> <yq5aik9jcpzm.fsf@kernel.org>
+ <20260424225514.GE804026@ziepe.ca>
+ <20260426130531.GF804026@ziepe.ca> <yq5azf1s6aic.fsf@kernel.org>
+ <20260521175420.GA7702@ziepe.ca> <yq5aqzn45a81.fsf@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5aqzn45a81.fsf@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,67 +108,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Vitor Soares <vitor.soares@toradex.com>
+On Fri, May 22, 2026 at 10:09:26AM +0530, Aneesh Kumar K.V wrote:
 
-Add a device tree overlay reserving AM62 MCU_UART0 (Verdin UART_4) for
-use by the Cortex-M4F co-processor as its debug UART.
+> Can I convert this as an independent patch with your SOB?
 
-Assisted-by: Claude:claude-sonnet-4.6
-Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
----
- arch/arm64/boot/dts/ti/Makefile                     |  4 ++++
- .../boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso      | 13 +++++++++++++
- 2 files changed, 17 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
+Sure,
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index a1083c0b2502..31c9bc1d48b1 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -44,6 +44,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-uart4-mcu.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia.dtb
-@@ -230,6 +231,8 @@ k3-am625-verdin-wifi-dev-nau8822-btl-dtbs := k3-am625-verdin-wifi-dev.dtb \
- k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := \
- 	k3-am625-verdin-wifi-dev.dtb \
- 	k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
-+k3-am625-verdin-wifi-dev-uart4-mcu-dtbs := k3-am625-verdin-wifi-dev.dtb \
-+	k3-am625-verdin-uart4-mcu.dtbo
- k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds-dtbs := \
- 	k3-am625-verdin-wifi-mallow.dtb \
- 	k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
-@@ -337,6 +340,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
- 	k3-am625-verdin-wifi-dev-nau8822-btl.dtb \
- 	k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi.dtb \
-+	k3-am625-verdin-wifi-dev-uart4-mcu.dtb \
- 	k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds.dtb \
- 	k3-am62-lp-sk-hdmi-audio.dtb \
- 	k3-am62-lp-sk-nand.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
-new file mode 100644
-index 000000000000..e263809cdf74
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
-@@ -0,0 +1,13 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Verdin AM62 Cortex-M4F debug UART
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&mcu_uart0 {
-+	status = "reserved";
-+};
--- 
-2.54.0
+Maybe you can ignore it for your series, the intersection of CC and
+P2P is non-existant right now. HW doesn't support it. Make the DMA API
+follow the design assuming this patch is applied.
 
+Jason
