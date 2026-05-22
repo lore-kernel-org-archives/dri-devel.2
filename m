@@ -4,50 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE4C0CD5BB3
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:08:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF1D9CD5BB3
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 16:11:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECE4010E8E8;
-	Fri, 22 May 2026 16:08:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0511610E292;
+	Fri, 22 May 2026 16:11:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iWN8HczS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FWa+GJpI";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75FC810E8E8
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:08:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779466086;
- bh=J2zbrUI6IHKWzuNJqMPA+KyQdjhf7qXTmpVdvBNaLSg=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=iWN8HczSfYKqq9RMue9g28/DLidBnsoQm56nsDj16eum0+cz6LT2wm/fEDOumLVLJ
- UFp8239MfLWogC2qzbCi72KazdHAVoc1wEw5FByx7TAuHvVaMdlETpxP/jc/rSK0AL
- JQp/yTLo/72NcLZj+v2EGJcimeZ12dClla2NFR3+p9JtD5pbTCgkF00txIRAoDed9D
- hT3x26WlDU15mGOBoxPEu4uiKkU11plChyJWibRr+V+0XcE7/6/NCGR20I19oL8mYR
- Tgabh6qaPhBs5Xd1P33POIOLqWobh4OQAM/kah7ZtoEcsxv95jrFOrRCnFZeohxy9A
- DAD9vDGEZ/1WA==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id DC41C17E0CAC;
- Fri, 22 May 2026 18:08:05 +0200 (CEST)
-Date: Fri, 22 May 2026 18:08:02 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, Liviu Dudau
- <liviu.dudau@arm.com>, Steven Price <steven.price@arm.com>
-Subject: Re: [RFC 2/2] drm/panthor: Use separate workqueue for DRM scheduler
-Message-ID: <20260522174831.34983d27@fedora>
-In-Reply-To: <20260522113817.11745-3-tvrtko.ursulin@igalia.com>
-References: <20260522113817.11745-1-tvrtko.ursulin@igalia.com>
- <20260522113817.11745-3-tvrtko.ursulin@igalia.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC5E810E292
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 16:11:41 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4891b0786beso51626095e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 09:11:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779466300; x=1780071100; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QPGVYKqn3FQ80LKzOq7xEivdqWu7ECBxaeXMtXQgpig=;
+ b=FWa+GJpID3G47Ct5p78T2/4ivpeT3BwxgUQwL1jtL6roprMIevO/TpBWcVAdkjNz9t
+ TYy0JLp+WGUITZxHcafSm7xL7ThZlMNfGOzpJvDENnFBZDZ6JD+80hve6cNjXAmif5Js
+ btZ3vCtA1yiTfj7H908NJbCyGaToGRoB7Qxpzet689LJyYPfWZAk6ZFkw5j66lLsnNV9
+ R3LJnorTtnPQ3uby9jHTqZaSIEWrpvqTIhdnMIVliD128ii9rGBh/L6Nql7C+ySsT210
+ bffZ3pMQmHSNCdAvhN0sjOHSCBW/D1tjo2XUpKTU4SlvE2wr5V/VpfSxXOOJQxInwZUk
+ 7ODQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779466300; x=1780071100;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QPGVYKqn3FQ80LKzOq7xEivdqWu7ECBxaeXMtXQgpig=;
+ b=eDqmXCNbi38rco3VbGcP686TrAJSF7kDRsqsOoDwtsfqLy4azxbmUWPa6a/EIcvfWx
+ XD595jWZebiJK3OVfTKVm8BZ+Mx5o+FUw8ck1hd0BnBAbiPHspKFs7+r64+GpFeMROH6
+ WwgAVPIrElkL3b0v7lv2+Q4COQOvkLMEigB4O9+p++3wiNuaw5aoGpCtRIeLUyOIP/X/
+ Ene1PCJxN1KZNd8/EkVTrqyaWb8a1K2uNDfqW8Otgdy/8rcNp9kUIad2u+YM6lZUP2H4
+ vkXJFhGZ2MnZAZthYJ/ooYEFKxJ23msclZ6Z/khUnMdeCKiAXxuy4opU9NuypK5rjjzf
+ 2yHA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/OM+SNJRAAcUtAH0j2mzUSL7cUU611QMCo3aeZGBWoMZrTAjuM8GqxtW561IrMOAVt5pWmfz+o2eo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUgAvf5Xp5oBB7TvelTd1hAco618EyouVVG9ZUyENnTySUqVtz
+ L0X5iTptOvOPfTejhzIrHiLuxANx1h21kHJ560PoN9doo/sFNbbtmDx3
+X-Gm-Gg: Acq92OHxD7zPUWMbxmZsbGkoRsf7KYAF2CCZQHDmFBAkxTt6ZFLnFzKRHrC3umyF0rY
+ h4jpDOGIeRwzbbCZ2lwaYQ7mO6WgMWk9mOXeYtK+DHp+WOTPeBmvgncasS0Y4z8CJqruiZMtYWe
+ IlEAemz8GwCiOaWmpOQdrOqcdrgc/bdrlQWYWyaRlUcogXYfIqSBncLpu4G/mosfRfwHt+Vv3BX
+ 0bgsCDsbTB0uJV+mcF/J7Ow2dIAlR2Crl371UJ5ErUknIboeTy/MdDy719Hf2dUeY/Y3S50L7CN
+ Qlb995S8y3TwuiHgS/179Tpdhv/AK9ZSWGbsW0ddRuMp8yIj8vqnn/obMTUF5H5AR+p4YJYC2dI
+ b+Tgxt12KyUYfOhyS7Nx7lg+fBlVJQjYb4QBn2UN2XFArT1U+Fpg27G8yRsvfOo0VIjdq6scb9D
+ HynEVJqPpgZ/jGyvRowcQ6cftVFO0JZTQrcCxXmFW8og==
+X-Received: by 2002:a05:600c:1c0a:b0:490:402f:324d with SMTP id
+ 5b1f17b1804b1-490428e03admr60430125e9.29.1779466299935; 
+ Fri, 22 May 2026 09:11:39 -0700 (PDT)
+Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490454a0b9asm51042755e9.11.2026.05.22.09.11.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 May 2026 09:11:39 -0700 (PDT)
+From: Vitor Soares <ivitro@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Thierry Reding <thierry.reding@gmail.com>
+Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v3 00/11] arm64: dts: ti: k3-am62-verdin: Add display and
+ peripheral overlays
+Date: Fri, 22 May 2026 17:11:04 +0100
+Message-ID: <20260522161105.277519-13-ivitro@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,126 +99,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 22 May 2026 12:38:17 +0100
-Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+From: Vitor Soares <vitor.soares@toradex.com>
 
-> Currently an unordered workqueue is used for the DRM scheduler which means
-> its concurrency is externally managed, and given there is one scheduler
-> instance per userspace queue, that means workqueue management logic is
-> within its rights to spawn many kernel threads to submit their respective
-> jobs.
-> 
-> Problem there is that all run job callbacks are serialized on the device
-> global mutex, making the potential thread storm just causing lock
-> contention.
+This series adds device tree overlays, expanding the hardware support for
+the Toradex Verdin AM62 SoM. The overlays target displays, cameras, audio,
+and peripherals available through Toradex carrier boards and the accessory
+ecosystem.
 
-Yeah, so initially we were not supposed to take the lock over the whole
-run_job() function. We should normally be able to queue things to the
-ring buffer, and only briefly take the lock to check if the context is
-still resident and kick the group scheduler if it's not. I agree that
-in practice it turned in a huge synchronization point. I guess we should
-consider turning that mutex into a rwsem that's taken in write mode in
-the tick path, and read-mode elsewhere.
+Display additions cover three interface types:
+- native OLDI (LVDS) with Toradex Capacitive Touch Display 10.1" LVDS
+- DSI-to-LVDS adapter based on the SN65DSI84 with Toradex Capacitive Touch
+  Display 10.1" LVDS
+- DSI driving Toradex Capacitive Touch Display 7" and 10.1" DSI.
 
-> 
-> If we add a separate ordered workqueue for the DRM scheduler integration
-> we can avoid this problem, since the ordered property directly expresses
-> the nature of the submission backend implementation.
+The Riverdi vendor prefix and panel bindings required by the DSI overlay
+patches are also added.
 
-I don't see alloc_ordered_workqueue() being used for the sched_wq
-workqueue, is that intended (according to this comment, you seem to
-want an ordered wq).
+Non-display additions include OV5640 CSI camera support in 24 MHz and
+27 MHz oscillator variants, NAU8822 Bridge Tied Load mode on the
+Development Board, MCU_MCAN1 on the Mezzanine board low-speed header,
+and MCU_UART0 reservation for the Cortex-M4F debug UART.
 
-> 
-> And considering the other user of this workqueue, the free job callback,
-> which is not globally serialized in this manner so could be thought to
-> potentially regress with this change, it should not be the case since
-> commit
-> a58f317c1ca0 ("drm/sched: Free all finished jobs at once")
-> made the DRM scheduler handle the cleanup of finished jobs more promptly.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Boris Brezillon <boris.brezillon@collabora.com>
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: Steven Price <steven.price@arm.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 27 ++++++++++++++++---------
->  1 file changed, 17 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 2bee1c92fb9e..cc6b3e2b015a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -147,13 +147,11 @@ struct panthor_scheduler {
->  	struct panthor_device *ptdev;
->  
->  	/**
-> -	 * @wq: Workqueue used by our internal scheduler logic and
-> -	 * drm_gpu_scheduler.
-> +	 * @wq: Workqueue used by our internal scheduler logic.
->  	 *
->  	 * Used for the scheduler tick, group update or other kind of FW
->  	 * event processing that can't be handled in the threaded interrupt
-> -	 * path. Also passed to the drm_gpu_scheduler instances embedded
-> -	 * in panthor_queue.
-> +	 * path.
->  	 */
->  	struct workqueue_struct *wq;
->  
-> @@ -166,6 +164,14 @@ struct panthor_scheduler {
->  	 */
->  	struct workqueue_struct *heap_alloc_wq;
->  
-> +	/**
-> +	 * @sched_wq: Workqueue used for the DRM scheduler.
-> +	 *
-> +	 * Workqueue used for drm_gpu_scheduler instances embedded in
-> +	 * panthor_queue.
-> +	 */
-> +	struct workqueue_struct *sched_wq;
-> +
->  	/** @tick_work: Work executed on a scheduling tick. */
->  	struct delayed_work tick_work;
->  
-> @@ -3488,7 +3494,7 @@ group_create_queue(struct panthor_group *group,
->  {
->  	struct drm_sched_init_args sched_args = {
->  		.ops = &panthor_queue_sched_ops,
-> -		.submit_wq = group->ptdev->scheduler->wq,
-> +		.submit_wq = group->ptdev->scheduler->sched_wq,
->  		/*
->  		 * The credit limit argument tells us the total number of
->  		 * instructions across all CS slots in the ringbuffer, with
-> @@ -4078,6 +4084,9 @@ static void panthor_sched_fini(struct drm_device *ddev, void *res)
->  	if (sched->heap_alloc_wq)
->  		destroy_workqueue(sched->heap_alloc_wq);
->  
-> +	if (sched->sched_wq)
-> +		destroy_workqueue(sched->sched_wq);
-> +
->  	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
->  		drm_WARN_ON(ddev, !list_empty(&sched->groups.runnable[prio]));
->  		drm_WARN_ON(ddev, !list_empty(&sched->groups.idle[prio]));
-> @@ -4167,13 +4176,11 @@ int panthor_sched_init(struct panthor_device *ptdev)
->  	 * FW is smart enough to fall back on other methods if the kernel can't
->  	 * allocate memory, and fail the tiling job if none of these
->  	 * countermeasures worked.
-> -	 *
-> -	 * Set WQ_MEM_RECLAIM on sched->wq to unblock the situation when the
-> -	 * system is running out of memory.
->  	 */
->  	sched->heap_alloc_wq = alloc_workqueue("panthor-heap-alloc", WQ_UNBOUND, 0);
-> -	sched->wq = alloc_workqueue("panthor-csf-sched", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
-> -	if (!sched->wq || !sched->heap_alloc_wq) {
-> +	sched->wq = alloc_workqueue("panthor-csf-sched", WQ_UNBOUND, 0);
-> +	sched->sched_wq = alloc_workqueue("panthor-drm-sched", WQ_MEM_RECLAIM, 0);
+TI maintainers: patches adding the Riverdi vendor prefix and panel-lvds
+bindings are required by the DTS patches.
+Are you fine picking up the full series once those patches are acked by
+the DT/display maintainers?
 
-The other one also needs MEM_RECLAIM, because you need work items
-queued to sched->wq to run to guarantee forward progress, and you need
-to guarantee forward progress to reclaim GPU mem.
+---
+Changes in v3:
+- Add missing regulator-name property on fixed regulators
+- Simplify regulator labels (reg_3v3_lvds_native -> reg_3v3_lvds,
+  reg_3v3_lvds_bridge -> reg_3v3_dsi)
+- Rename touch@ nodes to touchscreen@
+- Link v2: https://lore.kernel.org/all/20260522132014.226721-13-ivitro@gmail.com/
 
-> +	if (!sched->wq || !sched->heap_alloc_wq || !sched->sched_wq) {
->  		panthor_sched_fini(&ptdev->base, sched);
->  		drm_err(&ptdev->base, "Failed to allocate the workqueues");
->  		return -ENOMEM;
+Changes in v2:
+- Add Ab tags
+- Drop introduction of the LG LP156WF1 15.6" FHD dual-channel LVDS panel
+- Drop migration of "logictechno,lt170410-2whc" to panel-lvds.yaml
+- Link v1: https://lore.kernel.org/all/20260521150038.103538-17-ivitro@gmail.com/
+---
+
+Vitor Soares (11):
+  arm64: dts: ti: k3-am62-verdin: Add Toradex DSI to LVDS adapter with
+    10.1" display
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    10.1" LVDS
+  dt-bindings: vendor-prefixes: Add Riverdi
+  dt-bindings: display: panel-lvds: Add Riverdi RVT70HSLNWCA0 and
+    RVT101HVLNWC00
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    10.1" DSI
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    7" DSI
+  arm64: dts: ti: k3-am62-verdin: Add NAU8822 Bridge Tied Load
+  arm64: dts: ti: k3-am62-verdin: Reserve UART_4 for Cortex-M4F
+  arm64: dts: ti: k3-am62-verdin: Add Toradex OV5640 CSI Cameras
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Verdin Mezzanine CAN
+  arm64: dts: ti: k3-am62-verdin: Add Mezzanine with Toradex Display
+    10.1" LVDS
+
+ .../bindings/display/panel/panel-lvds.yaml    |   4 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/ti/Makefile               |  49 +++++++
+ .../ti/k3-am625-verdin-dev-mezzanine-can.dtso |  28 ++++
+ ...mezzanine-panel-cap-touch-10inch-lvds.dtso |  98 +++++++++++++
+ .../ti/k3-am625-verdin-dev-nau8822-btl.dtso   |  14 ++
+ ...in-dsi-to-lvds-panel-cap-touch-10inch.dtso | 124 ++++++++++++++++
+ .../dts/ti/k3-am625-verdin-ov5640-24mhz.dtso  |  17 +++
+ .../boot/dts/ti/k3-am625-verdin-ov5640.dtsi   |  71 ++++++++++
+ .../boot/dts/ti/k3-am625-verdin-ov5640.dtso   |  18 +++
+ ...625-verdin-panel-cap-touch-10inch-dsi.dtso | 132 ++++++++++++++++++
+ ...25-verdin-panel-cap-touch-10inch-lvds.dtso | 120 ++++++++++++++++
+ ...m625-verdin-panel-cap-touch-7inch-dsi.dtso | 132 ++++++++++++++++++
+ .../dts/ti/k3-am625-verdin-uart4-mcu.dtso     |  13 ++
+ 14 files changed, 822 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-can.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-nau8822-btl.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640-24mhz.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtsi
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-7inch-dsi.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
+
+-- 
+2.54.0
 
