@@ -4,59 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB1B9CD4F5B
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 06:29:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4327CD4F5B
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 06:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D49610E056;
-	Fri, 22 May 2026 06:29:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28D4410F4B3;
+	Fri, 22 May 2026 06:30:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Ge2Vi3wu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cpbJM+Gm";
 	dkim-atps=neutral
-Received: from mail-m60217.netease.com (mail-m60217.netease.com
- [210.79.60.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12EEF10E056
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:29:17 +0000 (UTC)
-Received: from [172.16.12.43] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3f6a8ca63;
- Fri, 22 May 2026 14:29:13 +0800 (GMT+08:00)
-Message-ID: <32192c5f-cc25-4a2d-ada6-53f28edb6cbb@rock-chips.com>
-Date: Fri, 22 May 2026 14:29:12 +0800
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35B8B10E666;
+ Fri, 22 May 2026 06:30:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779431457; x=1810967457;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=9gdbqe6UlquK71WXmNgj/lQMzKM1NlsMo17WRuEhccc=;
+ b=cpbJM+Gmrs8g7AGDUPlj1df2f2JoKsgj+NbwT4ZFb/XGMNEWNIJ1jhz1
+ 0o17g0HVcJRXiwluxCkaZKYrhzdJanrxyC87lRn+9Z0SlUjcTIS3tSz89
+ vo5zy5AKBYAGy2kyWJdNeVVbdhHFNvteclxaCS1Hgot13vjaD01lCpKDQ
+ 5hFx+5g2ugQ4MUzqNsgT4x1WbZR8gxE2Ax6HF1GIpknen0DXiTtvsuomJ
+ LUjz/QdX+dB3u1t40b5vHRYvYt75Lw4PLWlkxtdRXTWvsbw6lYldStFfx
+ XsqCCIEJ3A6YxZBifYG1Vm7vSAanxnxiewDW3/P4LlW+PBk8RWOnwE+fr g==;
+X-CSE-ConnectionGUID: A4ZL6HTgRb+KOR+32yPmLg==
+X-CSE-MsgGUID: rhJWtOWKRQecSl22zMalsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11793"; a="105823031"
+X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="105823031"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2026 23:30:40 -0700
+X-CSE-ConnectionGUID: Y/aT79xtTDu45SSFiY+zJg==
+X-CSE-MsgGUID: 7Qm3U9WnRb+63C7dIg3/Fw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="237783261"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2026 23:30:40 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 21 May 2026 23:30:39 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 21 May 2026 23:30:39 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.70) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 21 May 2026 23:30:37 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NWWOS6X+nqb0pRkivIszcbEHjWnAgEl/i1Oxu//DFnttIWKto51u9qePZDivcKfxnU+kPPXVYbTh0G6RbSan2F5a2/EuAw5ak4MUV4hh5HG5n2cM7m11PqVdaifJcv82vS2SdslgwUJ6ocWHWssZifZZeosi4h8jjCkcBvLIYS4IjI+TsX5P3twj/lHuNEm94VdOu93okV/Fpid7N+pdF/E4/wn+XQn5s/NT3ArdmN0v0iNLV2hbnqFCnTeziwiG57/9twmppi5qxJkalN+zQiHDW/wGcGS7tlpuZmKNz7rUjSaXacvzO6P46fDo03Ep2xGJ9kBHiUpKX1OeYuNNrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GEy/Ej0EcxB009G0d2UaY06gzD1P2XCpFNfmNZeV2wc=;
+ b=Bqfs3Th84BT+EGdpnsAW0qzApz6gEkDnR5uyLaiN2MJlMl9AazKxWw1O/5e25rxWEU48nkS/7ESiP9XG94VOkzh4fkVo7LsMurQR7ghiIBixJ76Ga3T4hugWkmbbXx6PhVExfn3yFkHwaCDAOKxZ9KU65yzZc8Gn/79alWpXWp29kOWjuqprRCIt21mo99COiGPpbG4PBIhJocZu0x1RMTLZOYrLwKx+kX6udJPlJp0aL3H8kLz9LKZlC6m/SCuaMT6hYUvVexeIcDdRuLInrnttEbOt/Qe8ft0JXcJy7ZLitoyZEHE+8AhYQ6J4C1zwc1OzwSDaHu+PkdnUHSlieg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by DM4PR11MB5245.namprd11.prod.outlook.com (2603:10b6:5:388::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Fri, 22 May
+ 2026 06:30:30 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.21.0048.013; Fri, 22 May 2026
+ 06:30:30 +0000
+Message-ID: <8b886c39-f474-463e-99c5-2cc91466f1b9@intel.com>
+Date: Fri, 22 May 2026 12:00:23 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
- hclk as third clock for RK3588
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260521080835.1362416-1-damon.ding@rock-chips.com>
- <20260521080835.1362416-2-damon.ding@rock-chips.com>
- <20260522-demonic-shaggy-wasp-a3f261@quoll>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260522-demonic-shaggy-wasp-a3f261@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e4e5fadf103a3kunmc160eef7c9158
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSx0dVh0aQ0sYS00ZSk5IHlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=Ge2Vi3wu2ir9dKSljIze3RU0HI4ooU+nbjYYN4NtZj672UOwX4tXHZTNQBewK8gB1YpVxTOQiJbWg6hCG5TY5DkfojEbr4ySYSz6NS7/DhB3GUh9wi1h+ORTDA9wJNNjA9a563651C6YEN+H6GxyCjSRhiEP3Y5LAchPv2jlqA0=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=qMah8/jyNcPvAfqkwCIR/RWKyy2WqG3nOuBp+tSy2AA=;
- h=date:mime-version:subject:message-id:from;
+Subject: Re: [PATCH v1 2/2] drm/managed: fix drmm_add_mod_or_reset() kernel-doc
+To: =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>
+CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+References: <20260521155231.1821935-1-michal.grzelak@intel.com>
+ <20260521155231.1821935-3-michal.grzelak@intel.com>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260521155231.1821935-3-michal.grzelak@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0065.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b3::7) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|DM4PR11MB5245:EE_
+X-MS-Office365-Filtering-Correlation-Id: dac4a96d-165d-4a81-91ed-08deb7cb9e85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|11063799006|4143699003|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: M43lRBwlwuo1WZYE6/Caqk3Fr6YxHTXqJXuMwHZKI2zGxzIpOEirt8LlUCUfy54KYtt7drsnjDGtQo3vxCfHJFQnGEF1LCJXVjPbSA0qmgNd77l7IckDjHsO/DJJOt6RonUbeBuQOszESvjL1iCuWCiGMuAey3SEFcE8GDrjqYX81SqTNLPKu1wgrb9d6rDsn+RuySOvieIZmSH616DJO/nPZnmTQeX/TqhZ90t25GBvGSUyNOgnH29TwbjcpvB3niQE85hAsYyiq/HO8aFbdgQkUKwM3gYApRJFZBAKIc7/a2bGh6VXKXXvNr3gi516gBzgY4+6auzwH/+RXEfVArF5Z67Iko/Tz+OqgXZSoQ5BKnx6wwMU4/EdGDvx+JG5j7cKj1Yea3FWXhNxy23QE1mctVXjFL+BxnWvSp1KfY/P/iWg8dAKnk1JEA1EZb0NAQ7T26V2nvHTF8z6QAGMptL0Z6YUcl6V3aEvX+pxhQeJypybjiEMrxs0lvhaMdQWsaivPySD5NrASWv2RVvSPrJLckTMoRuphpjhxok2uRUeW/aO0RcMG8M4TWIU5LmNDrLViu7+2pD46iECZka/ZoCR7PTMSOk2BU3pZ3RhOvGv8iX65IRHCvI6jvs9dXUXyPEitwyOnRM31ZZAQXs0if/7KRNI5dkQWmVEyYtYF1yU4H/Mqks5n6vV5HJO3tdj
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(11063799006)(4143699003)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjZsT21LR1VWK3dEWEdyZUs2T2U3SGVCNHVBRnJoWUNUY0ZFQ2I1ZDNaU3cw?=
+ =?utf-8?B?cUpJcXBUaEI5Znk0WlpsR1kwQ003VlFIWWQ3K1NudDZqNWZBV3loSHduREo1?=
+ =?utf-8?B?enp0T0owSldzUzZ3SXN4VEpsamhWdFNkc0hoOGZSbEQvQ1E4bmllOWIzK05C?=
+ =?utf-8?B?T25IZkQwdFd3UFZTM2tQcjkxWVBCSENDR0x2UThURDZBUUtkamFRbXlQL2Vw?=
+ =?utf-8?B?UW83cFFyeEFIZDh6Y3dKNEVzc3Fnend0NVJ5MDhvN2xVd1FmSUN3VTl1bzJC?=
+ =?utf-8?B?OXA2MFRVZ3ZaU05jVmdRRnVPTGVOZy94TlBlbHI2enNENGx0VVA1N0FTaWtH?=
+ =?utf-8?B?RldNTHA4dXVZNFdiTThwVjU5WXpMSVk2Qi8xdmh0QXJFTDlqNlEwV3hoN1ow?=
+ =?utf-8?B?ak81OUpyVGZjTmVBVlZXQSt3M2VpUkIxNFB3NkZSZUFaZUxPaTF6a0VrS21I?=
+ =?utf-8?B?RDBMNTFXNzNxSHBQb3EzS0p2b1c5NFNhMWNDb2FxOXhKNExCelpsTEtZV3Y4?=
+ =?utf-8?B?OGlJa2c3S2VEcUpLaUpuTEhhMnY4NkxFcTRoZjAwMVdOOGxrN2g3eGdGQVo1?=
+ =?utf-8?B?ZkhKMG5HMmc0VndZZklTS3NOYnRLajhocnhham9IQzFDNUxCRDBEVFFQeHAy?=
+ =?utf-8?B?LzMwb2YxL0g1M1dsWDhIK1RYcXNvU2RZNWxNWUdSd2ppd2ZYSWp4VW5nSkdG?=
+ =?utf-8?B?ZThXdForcDFLaUhhYVo5cEhvNWFFb3dmalNDRC8zTGZheDVmUVR3WDFVYjhp?=
+ =?utf-8?B?cktvUElCL3JVc29lZFNBNnUzVGpqMTRGRXQ0WVlueVN2WUhhandXSEJqdldp?=
+ =?utf-8?B?Wmgwb2xmS3hsOFJIcjBseVBSUllBRE51ZGM5L3BPWlpRck5sL29FU0Y0R3Er?=
+ =?utf-8?B?RExSVWNPdVdVSzVRMnRYLzRhaytPakFJK2l6R0FVbnZibWlCQUh3MExzZE9T?=
+ =?utf-8?B?Z0xJb1BSSmRKT0NidGNvSHMxNWg0THM4M3YyZG56a0pCREcvNURjTlNEU1pt?=
+ =?utf-8?B?Q2Rwdm9JbVJVNGpqZnlzU2RMbmxIN0xjRk9TczI3Qm9wV1dMTytnVVN5SHBs?=
+ =?utf-8?B?bnhBMUtCVUhldGRFaWJlUmlBd2JyQU42bmRDQ0pIdk96MjI4d3NudWRRcjlH?=
+ =?utf-8?B?Rzg0NEhZTGJ2NEpUNHRMT0k1c3BET1EzQjNYbXBpQ0ZqMEErcTdGeHpDaUxQ?=
+ =?utf-8?B?K3JTQ3FXUE5ialZXME1BWFZXdFZRQTlUaE11d2JtNGlxWW5Zb0g0NWJDZjdX?=
+ =?utf-8?B?bk5WSkpzMHpXdEZ0VVRrN0IwRVFMQzF3a2xGODV3d0ZzZHFJVXVIb0xMVHlN?=
+ =?utf-8?B?cCtJKzFNRGpxRGVxb1Q3RnlLSktMdW43a1ZXdWRCSkptUVc3NXJoSWJUWTlM?=
+ =?utf-8?B?TVRwZXpteDl6Mjkxb1lNR0FYclBGZ0hEQmhqMjhBVjhqZnNuRTRETVN6V0pW?=
+ =?utf-8?B?c25wTjNaQkhRVnQrcHNFWnE4a2VJRkxFNUZxakptYUUrQk9vYUpnK3NmL044?=
+ =?utf-8?B?Qlhialcwbzl1NHE1RXdZcjBFcWc1eWRwa0txSTYxNjJ5ekNocWhRVHBtQ2JP?=
+ =?utf-8?B?Y254VFMzekZVYXE0aDFjeEZ3L2F2aGhsK3R3NnovazZJMWw0aFhaMVVHV1Bj?=
+ =?utf-8?B?RXVSQUFNNVN0ajFhSGxpQlg0UHlORldWeUh3ejFTQVBRNVY1MUp0SWxzYktz?=
+ =?utf-8?B?NVE5M1hWdDBWcnM0ZHFONUlCUGR2WVBVY0xEdkkzLzlzTDcyZHRXV1J1elNY?=
+ =?utf-8?B?OHh1NU5QL0ROcmgwSmhlekxsU0FGMlBBL3d2a2huYlE0bVFpUDVHUTNwUTBB?=
+ =?utf-8?B?TXFRRTVjREE3dm45L2NDU1lBZVMxU3VrRVg4QnhUQ0xYM3VLcHBPcG9vWXZI?=
+ =?utf-8?B?RjBqcUZiRVZTYkRqUlQ4RTN1TkdXWmNraktIb29jNCtZbUdVVmtiVVVpYWlP?=
+ =?utf-8?B?MjhNR1FSbm9pbDdIc0VSVVhraW9IaUhSR2VqZEdYNWY4U0dKQzQ0alBIbUww?=
+ =?utf-8?B?NWFhZktjYzZtaTZVOG5QVldJVkI1Ui9mM0ZobDZxQUpFL3NsWXlEaW9qTFNs?=
+ =?utf-8?B?UHB4dE5JWWlvdjFaVFNhbnBRSGxjaUJZM0lRUjBsQ0U5Y1F6bzB4eW1SZUh2?=
+ =?utf-8?B?b2tzd2tQQ3FnSlhJLzBkV3RQKzB6Ti9HYmVkL09ZaUZEcE1IMDZZTlNXdnBY?=
+ =?utf-8?B?K3oyVThTWXNQWkpTV2UyYWRLUlF2TmVQWVA1dlJ4QzBKOXFYWHVQSUVTZTBU?=
+ =?utf-8?B?T2xuQlErYkRFVnU3d3J1RlpFZ2MxejA0cUsrM05CcVh6SnRqNWFnbExWY0hV?=
+ =?utf-8?B?V1BqSStCUit3anBmaEdIRUR6ajhLYkdCVDlzdXN1MjMvemZod2xGcFFQU1cx?=
+ =?utf-8?Q?eAJ0++T3BtQr88ro=3D?=
+X-Exchange-RoutingPolicyChecked: qlu3fOoGJZvRAjHcD+FdvHA0bZt7kpx0qOnE4AOARwpR6jMfPsPkFpuJeZRe6NmSXMQn6Qr7yH1Tt4x43BNPPGquqlPsq0mahiH3WoCeTlMQIFiaIr1DtDu7WnV0eft7vo6rDWD+uSdUPOKDThh5VhZ4GLqf98wrEATp81a1YZIobB8nab4q1dYrmhfEWA7Qw/97Icnb0Kfpz0Uc6n0TpRWRTDl0uPoRqmf9CyzDUUPjV0A0oISr9X0kfY6M0ePG4ZvNGMfGCtQOVNo1w5+h6hA0f+LeOtcGj4VJfo4a90DU6Qi1UkqEKol1Iuo/Taz0e2qMj5s1aMp7cov9s3q4aQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: dac4a96d-165d-4a81-91ed-08deb7cb9e85
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2026 06:30:30.3277 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: txJaEpsoq3vUddh5gGs37C8DjwttyvgSaUkNBNe8ai5CCMQGJCzBOBThhNWjmA68RMJTLkaF4Qxi/a6x8gGGd4kKCmFYrZTFVgCYsnQrz9M=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5245
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,93 +173,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
 
-On 5/22/2026 2:11 PM, Krzysztof Kozlowski wrote:
-> On Thu, May 21, 2026 at 04:08:26PM +0800, Damon Ding wrote:
->> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
->> registers and enable the video datapath.
->>
->> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
->> phandle reference, which allowed the eDP to work without explicitly
->> managing the hclk_vo1 clock. However, this is not safe or explicit.
->>
->> To make the clock dependency explicit, enforce per-SoC clock-names
->> requirements:
->>   - RK3288: 2 clocks (dp, pclk)
->>   - RK3399: 3 clocks (dp, pclk, grf)
->>   - RK3588: 3 clocks (dp, pclk, hclk)
->>
->> Do not reuse the 'grf' clock name for RK3588 because it represents
->> a different clock with distinct control logic:
->> - The 'grf' clock is only for GRF register access and is toggled
->>    dynamically during register access.
->> - The 'hclk' clock controls both GRF access and video datapath
->>    gating, and must remain enabled during probe.
->>
->> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>
->> ---
->>
->> Changes in v4:
->> - Modify the commit msg.
->>
->> Changes in v5:
->> - Enforce the correct third clock name on a per-compatible basis.
->> - Modify the commit msg simultaneously.
->>
->> Changes in v6:
->> - Expand more detail commit msg about using hclk instead of grf clock.
->> ---
->>   .../rockchip/rockchip,analogix-dp.yaml        | 37 +++++++++++++++++--
->>   1 file changed, 33 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> index d99b23b88cc5..8001c1facf98 100644
->> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> @@ -23,10 +23,7 @@ properties:
->>   
->>     clock-names:
->>       minItems: 2
->> -    items:
->> -      - const: dp
->> -      - const: pclk
->> -      - const: grf
->> +    maxItems: 3
->>   
->>     power-domains:
->>       maxItems: 1
->> @@ -60,6 +57,33 @@ required:
->>   allOf:
->>     - $ref: /schemas/display/bridge/analogix,dp.yaml#
->>   
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - rockchip,rk3288-dp
->> +    then:
->> +      properties:
->> +        clock-names:
->> +          items:
->> +            - const: dp
->> +            - const: pclk
-> 
-> Why aren't there constraints for clocks? They always must come together.
-> 
-> Please open any other binding and look how it is done there.
-> 
-> 
 
-Yes, as Conor's suggestion, the right way is to keep all valid clock 
-names at the top level, and use only minItems/maxItems in allOf to 
-differentiate clocks and clock-names of platforms.
+On 5/21/2026 9:22 PM, Michał Grzelak wrote:
+> Kernel-doc of drmm_add_mode_or_reset() references @releases which is not
+> on argument list. Swap '@' between 'releases' and 'action' words to fix
+> the documentation.
 
-I will update this in next version.
+s/drmm_add_mode_or_reset/drmm_add_action
 
-Best regards,
-Damon
+> 
+> Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
+> ---
+>   include/drm/drm_managed.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/drm/drm_managed.h b/include/drm/drm_managed.h
+> index 72bfac002c06..72d0d68be226 100644
+> --- a/include/drm/drm_managed.h
+> +++ b/include/drm/drm_managed.h
+> @@ -18,7 +18,7 @@ typedef void (*drmres_release_t)(struct drm_device *dev, void *res);
+>    * @action: function which should be called when @dev is released
+>    * @data: opaque pointer, passed to @action
+>    *
+> - * This function adds the @release action with optional parameter @data to the
+> + * This function adds the release @action with optional parameter @data to the
+>    * list of cleanup actions for @dev. The cleanup actions will be run in reverse
+>    * order in the final drm_dev_put() call for @dev.
+>    */
 
