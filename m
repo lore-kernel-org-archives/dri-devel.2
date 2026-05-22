@@ -4,135 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA93BCD5BB0
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 11:33:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE2FCD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 11:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0994710E41A;
-	Fri, 22 May 2026 11:33:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ELr8j3nF";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UVXRehNN";
-	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E57510E41A
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:33:12 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64MA49xa3947400
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:33:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- gW8frZZ8Fde1HC+RzR+WMWPFCf5xWqdVBkT+AH22Cr0=; b=ELr8j3nFK7SWU342
- WKeO/0WJnKRJ+BrSmgT1N/7BFttmEH4vUwJVkS0Pfj23OC8ixVonLXJIAudwVoZt
- 1bcsdFv5xhEVFhBk2EEKVwZ0y8tXwhsaFqrmc0YutDA469E3Dk+j1ybhppUGU4OJ
- veYKLKaTBEGIQpeNZxrAyeiZeY1pBLxqeQCjPmUDXRWCZR/WA+cSKWK0/jpBrY7W
- BvkwUtCy+l/trEPGBor/yFjX1sBWR7eyTKd/OrCER07Lsp97vVCE+ok7KLhs1jvl
- hlJR3JTMQTjyH32k8JqRleFLI8qoolSnD88mJ5dHMfCvtiMDiunCyQsz18MOhAqb
- MsLlzQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ean2ng99c-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:33:12 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50d9f1bccd7so17706371cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 04:33:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779449591; x=1780054391;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gW8frZZ8Fde1HC+RzR+WMWPFCf5xWqdVBkT+AH22Cr0=;
- b=UVXRehNNNgRGLIVJKFpfZJ1NFJacnQrycmEs6cOjTRcgddPPoE1AytAlf8BaEMX/uX
- sDpN+T7yDReOL5Suwj/QzkUzSGh12yNI74nFknLh87U1/arrLw9eOsbRChnpbNE6WJY+
- aw/sFNHdiPHICWe0+T9g0asLw/TX33UbKdTxFPElUCJg4JmU40QGuc4rHCAmP8oOX6q2
- QyON83BHQaDM4vudaEfA5cOx0diipoxcyhvdWgvXMKgo2ww/j/BqFYydpxgzGlebI+g4
- P0ABbbvPTM4tFt5Z5ulRxlRq1USgz3JafwEqAyJe91VrrRPMnRAlxcD88SSDSEGfjURZ
- TnPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779449591; x=1780054391;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gW8frZZ8Fde1HC+RzR+WMWPFCf5xWqdVBkT+AH22Cr0=;
- b=QH+JBpKTNwkLAVCPiMxw0M44NSg/LnFgos4oVx3a4bGElL06RPLnbzawgaTTC7fuPk
- 3cxFGmOUPEw87FLmH8xX9xC1BYMi8KeGX1+kQrl66boxEQU8kpWCeLaTQker7LY/KrGF
- JIAyMnHS2bqhAwU1cHXX73Fy1fadlLQkXFGkfrB4hyoA7IxOXptOrdWRLppxT1Vk8gfz
- I5cksENah3owCnFWQyWCMHYXA9pLEyXhUWhjwA+Ra+atjXLHQSQKwbQPfdFLtax7Bg+3
- rmZorMGRT7I6W/veis+G9GiiAeI7+JTYXXl4usyD/sQ6eTVzVcgpC9AchfCOh1NTrhI7
- kg0g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8BWDppL1+oKSOT1mfbbvNmEyxeW3IxRZkKJOrtQbXenNJy/vHyNAKtVwdvZ68zH9ULmW0cW79E/UY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwXGhnzALSRU7iryXRZ3uJEdpWsq9D2BWNgCOjyOijPrc8kVMYS
- 3toYQWvBjjCAdZh7v9wOu3oDU1MGZkDdcFNrByutWF+ZD6ZQcrobrEWB1jqMmHsvbdx4e6wTIMn
- aIrWHpQqOoGbqoDmpZQ0Yf0NvatFX8nSiI6BE9Ux5MI4gvZpqn69aTVFO7ioBPj5TNqcS1mI=
-X-Gm-Gg: Acq92OGF/rFDuPLj+eJBlrXz5BHrYjjcX1rwTzh9f3Y5WMJwGYKFAgkeF87fvqoMrgU
- L1w4UxnpmmHL5UdF8ZldjSW5sKBVghKT9unaObd0Bwi0gykzAfJCIJer6jhoFcnhI/i/A5y2pm5
- K5THnVKRfJ//caPyO/c5vf/OlOSu0UeSsRF5w6VRful0+WpBaDmugOiCiT8wW7bDgcppFMSQrfU
- q2hp44hwwFStw9GadvH2pP4hg2CajLveE9vnNtbacprGEYez9FqoNuvvyDSePJkGAzHSKxPL8TJ
- bwddHpW2905rtQfbR2qAwgejIRZ5gXHNyIvVL/0u9iEJaWPIikNJphbWO32G4eEEm2cPhslyHCf
- kSj3i9Nr6J8W/Qc45YqZSuUuNna881DVXWGyyJ3Uckx9UMw==
-X-Received: by 2002:ac8:5916:0:b0:516:cae0:c6e9 with SMTP id
- d75a77b69052e-516d419f0e0mr36225911cf.0.1779449591123; 
- Fri, 22 May 2026 04:33:11 -0700 (PDT)
-X-Received: by 2002:ac8:5916:0:b0:516:cae0:c6e9 with SMTP id
- d75a77b69052e-516d419f0e0mr36225491cf.0.1779449590594; 
- Fri, 22 May 2026 04:33:10 -0700 (PDT)
-Received: from [192.168.119.254] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bddc62d5d0csm45618666b.43.2026.05.22.04.33.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 May 2026 04:33:09 -0700 (PDT)
-Message-ID: <7bfcdf7c-f114-4f4f-9ca7-6a0d31c856d5@oss.qualcomm.com>
-Date: Fri, 22 May 2026 13:33:07 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/10] drm/msm/dp: Move link training to atomic_enable()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE3E10F546;
+	Fri, 22 May 2026 11:33:19 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F09A10F546
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 11:33:15 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.115])
+ by APP-01 (Coremail) with SMTP id qwCowAAHsm30PhBqUL4pEQ--.4624S2;
+ Fri, 22 May 2026 19:33:09 +0800 (CST)
+Message-ID: <36c9f600659923045c84e59c7a3b61e29cce1013.camel@iscas.ac.cn>
+Subject: Re: [PATCH v3] drm/loongson: Use managed KMS polling
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Myeonghun Pak <mhun512@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Sui Jingfeng	
+ <suijingfeng@loongson.cn>, Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu	
+ <wuqianhai@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai	
+ <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260314-hpd-refactor-v5-0-0c8450737d64@oss.qualcomm.com>
- <20260314-hpd-refactor-v5-4-0c8450737d64@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260314-hpd-refactor-v5-4-0c8450737d64@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=XvDK/1F9 c=1 sm=1 tr=0 ts=6a103ef8 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=DFjhG9jlQqNoXxgc5tgA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: Ee5IX8d7R9t2iRMyBMWI8lwOfCEkYGjh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDExNSBTYWx0ZWRfX9xHHDarlSI7u
- T89pn/Q3AArAFRVOBZmPdzwdr672Vlo49s2LBPCCtR8JcWsCLHidBooQbxQ6jP3stX1Dzgu32jF
- 4G5CJbm0+ehkHlvZxPP4lQNZQsG+3qE+un4WO6cj5oPvWwRJV8/o/mTOJb3YQMQr+wplijGDBla
- NnSEPFParuz7YHiEzpkgnQBk9B2d1abuVZKgxzG2pR8NPb4tiOeQ8It0OG/OHuXZuCdJvl5Evzy
- FkxFxbKKSpmS4H74iJx3O2LcIYzlPpOWhvPl4Ye8SPkd64Zzt4bVdJQ9Q3HHF/GE4NPB459pCit
- TaoE5aQUdx5TaOvLwuX+c459TphSjuvYG6rtjQ0iCspP38xdIzyTo8tZll9YNZMPr8zXGQ0aijL
- WeUiYh1mSLVB9ePP9DDuNgUKhjiem3MyNPwX2p7afmxPfN/OzOpr1lwfV1E39wwdKXBuqykYsaS
- /zGa23Lf2uwMK6qSo5g==
-X-Proofpoint-ORIG-GUID: Ee5IX8d7R9t2iRMyBMWI8lwOfCEkYGjh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0
- impostorscore=0 adultscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220115
+ linux-kernel@vger.kernel.org, 	stable@vger.kernel.org, Ijae Kim
+ <ae878000@gmail.com>, Huacai Chen	 <chenhuacai@loongson.cn>
+Date: Fri, 22 May 2026 19:33:08 +0800
+In-Reply-To: <20260513065706.23803-1-mhun512@gmail.com>
+References: <20260513065706.23803-1-mhun512@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: qwCowAAHsm30PhBqUL4pEQ--.4624S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4ktw13Gr48KFy5Ar47Jwb_yoW8GF4DpF
+ W3G3sxtFyUGrn8CF4qg34xXF1xuaykJa43CrsxJ397uw1qya4fWr1xtF4Yg3WDJrWY9F4F
+ yFyqvr1Skw1UJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+ ZFpf9x07jaXdbUUUUU=
+X-Originating-IP: [112.94.100.115]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,51 +68,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/14/26 2:09 AM, Dmitry Baryshkov wrote:
-> From: Jessica Zhang <jesszhan0024@gmail.com>
-> 
-> Currently, the DP link training is being done during HPD. Move
-> link training to atomic_enable() in accordance with the atomic_enable()
-> documentation.
-> 
-> Link disabling is already done in atomic_post_disable() (as part of the
-> dp_ctrl_off_link_stream() helper).
-> 
-> Finally, call the plug/unplug handlers directly in hpd_notify() instead
-> of queueing them in the event thread so that they aren't preempted by
-> other events.
-> 
-> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+=E5=9C=A8 2026-05-13=E4=B8=89=E7=9A=84 15:57 +0900=EF=BC=8CMyeonghun Pak=E5=
+=86=99=E9=81=93=EF=BC=9A
+> lsdc_pci_probe() initializes KMS polling before setting up vblank
+> support,
+> requesting the IRQ and registering the DRM device. If any of those
+> later
+> steps fails, probe returns without finalizing polling. The driver
+> also
+> never finalizes polling on regular removal.
+>=20
+> Use drmm_kms_helper_poll_init() so polling is tied to the DRM device
+> lifetime and automatically finalized on probe failure and device
+> removal.
+>=20
+> This issue was identified during our ongoing static-analysis research
+> while
+> reviewing kernel code.
+>=20
+> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+> controller")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Jianmin Lv <lvjianmin@loongson.cn>
+> Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+
+Thanks,
+Icenowy
+
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index a05144de3b93..e7b1ed5491c4 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -436,11 +436,6 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
->  	msm_dp_link_psm_config(dp->link, &dp->panel->link_info, false);
->  
->  	msm_dp_link_reset_phy_params_vx_px(dp->link);
-> -	rc = msm_dp_ctrl_on_link(dp->ctrl);
-> -	if (rc) {
-> -		DRM_ERROR("failed to complete DP link training\n");
-> -		goto end;
-> -	}
->  
->  	msm_dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
->  
-> @@ -1695,6 +1690,11 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
->  		force_link_train = true;
->  	}
->  
-> +	rc = msm_dp_ctrl_on_link(msm_dp_display->ctrl);
-> +	if (rc)
-> +		DRM_ERROR("Failed link training (rc=%d)\n", rc);
+> Changes in v3:
+> - Capitalize the subject as suggested by Huacai Chen.
+> - Add Reviewed-by and Acked-by tags.
+>=20
+> Changes in v2:
+> - Switch to drmm_kms_helper_poll_init() as suggested by Icenowy Zheng
+> =C2=A0 and Thomas Zimmermann instead of adding manual cleanup paths.
 
-So this will still crash the device if the above fails - there's some
-return statements in this function, should we bail out if that happens?
-
-Konrad
