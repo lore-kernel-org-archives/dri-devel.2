@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D620CD4F5B
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 06:44:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78B46CD4F5B
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 06:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4062710E0F8;
-	Fri, 22 May 2026 06:44:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6F5210E20D;
+	Fri, 22 May 2026 06:44:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xyX1jmqh";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XcfGSSKP";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB1D10E0F8
- for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:44:03 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4896c22fcbaso57822865e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 23:44:03 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC1B710E20D
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 06:44:50 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-48ff4f8ef0dso74445495e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 21 May 2026 23:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1779432241; x=1780037041; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1779432289; x=1780037089; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:from:references:cc:to:subject:reply-to:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=V95QtxOjNpk/eFHCICMdSHCCCiyFoiVHQUBE50qTcZQ=;
- b=xyX1jmqhCVZkJrtuvkU3/B2LpVqL8zAletH7ggdEZ9Xwnx29Xs7NvyJCRUnrjLnVbo
- 6Cl0bZIQ8uYtEoEX2HHM6wnad8iApHvDBeMLrt0q0+zIwh8BZ4vDWXvVjA8GxNoswmso
- IDItpNtQ1OWkg69Mk/BV7d1CSbWtuvG6KsoPojDMSlATA1rgDyq4WdcKMHkPJOdeTZyR
- j1fOadQPH5GjrnRm/5nWzRyRrHjLiHMRxuNHgBo0UcEe3Z5dEE7owcgN7ACyuLFGrfu+
- iYwDpCFLQ0Zwr3moQT8oiXGh2oVeg6xdSUcmlWBGybDdg+BhY34+djUs2rgexy5WrhVp
- K3Hg==
+ :reply-to; bh=PYQd1NpG4Phq0nb70yqYM1eItmr7QKZZscpcBlKX1kE=;
+ b=XcfGSSKPQEHyZzXByw6zO6YAB6AHeoCSWGebxxYHrKrc6Ixh/Q8juI0N1yriwSZuEu
+ Cfc28Dhr7TC62xpTpJaXIJ95EwiTQq/v4bxkH+xNZQJnM9BrYgfOsBp8AjM4kiCFm10X
+ 2RUiqCjM7sE3RBpcT/wLU4TnZCUrDzXbIWQZfbCtE3lKYeT/pXAR1eFuCCy9DVmhRrKU
+ 9aRNNUR4oWLS9OHr6SBqOclC+VCwR4EXhk3W8rkpbOqvtL4W7qR4dRQZFLeLMBWnwqJ0
+ e2NqCkHJ5lRFSPLEmgrPLO1mfm7Wug/RKyIPIaI0tE6d5kua+U/a6Dd64cmzDCc5TLaT
+ jhBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779432241; x=1780037041;
+ d=1e100.net; s=20251104; t=1779432289; x=1780037089;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:from:references:cc:to:subject:reply-to:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=V95QtxOjNpk/eFHCICMdSHCCCiyFoiVHQUBE50qTcZQ=;
- b=CQ+cOkzdFLPMr44Pb+S3+qzTpfq6lp4VuQKleT0K68alQIVwXOziTcY29pPSqOhqtO
- WTzFbgsjkMXgYhm7NBwT1hN1IS3VL15DR+CukF94i3QbBsjLOt5JleQEMvKq+B2WQE+q
- P2zqxxv7mpI7Ccme2zZptygkK6+gM88azSKidYWIBhisihBCXmkMmsKWav2cGK1EszFp
- 1Qi8iyF3+dGFcVSjOwYyQoGBjsWIWn2eQI4l+1Ya3pb/Qf6PYpT5w7donkSnL2OOizvO
- RkwHcKeHSwDCP0bqYtQGsq0UqYXUavGWNB6ReD/qpNJRJxegF+MCKNSw1iTXKbiojePg
- Q6dw==
+ bh=PYQd1NpG4Phq0nb70yqYM1eItmr7QKZZscpcBlKX1kE=;
+ b=ZVRw/63E/OHT+M0bGXrdZp6kspbungRgRzYiC04jSiomGoJiEgaKGXoY6wASm33BQX
+ 13eUoIWXukSwmXN4XppYdtuQ33dxQKRAaBwYFdbTq64RDShlo9Lo0GhE4TthOUFGoYkt
+ 0rWHOxEDUnFoiLr8ZHo7MW+JCBYW0IeenphBuqLdKGtdPVu8I8yijuJmBIekhdfgPsUw
+ M0bC0wzaBjUcE+2ZzibRycFl9PacSh4PgvRF9ZFbU312a4fpc9JVHNoKF8Sdmb6byyBm
+ BfJfVU7HMKeLMerFbdh7Ku5X3dNcqj6QW3U5j7tYuRzSmsP6OwZu8UivFtiFfWkJkYws
+ GZMw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8gTy9tkwINAyYqKxeHDAarMzG8haE9nysT1UE0Nj0qtsIpjAqVnxjtt8B4cnkZmRa8ZWwzuPJvDAc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzj9ZIIstPmZAqdDcy7Ag3jt6JwuOluzBUg/9zkDs3tKXgYJi3g
- PpOWrfy1vT2pmeKSs913ZgdddTVo3CZelGMouqsRxGu3gctEHV5fTp1HzvXSa0kIlpo=
-X-Gm-Gg: Acq92OEvhzsug93+NIAq0hOiGhXdtTR+/ccNaAd0Z/COzAVZMDUgfIN/XMxJ9gqEZPR
- heEehJAksnBzSu3D/v+KIXBSMMmXs//mOrYKCa4584HpBNH0UNh59BN6HXxnrQE9LvAuwPyNI7q
- BZRHl+ACZql7ztZxZ3tKpoh50tVtXRNYTN8qcK3Cmgq3JrOMWxkfRafbGzxvhfm1MkYgPBUCOiV
- 8Z3A0O4m8THx05Uf6EXgaHx0jaXHIfra7RrANulHcjdjqeeMv3v5Ap07o1sng9YETFzgycMqWt6
- pge/gjSiBfnagzw/cj2Mc4mjRKrZJWKPMjAnW/ujAc4HDTY7bcpGEkpF5YeUniqLQpjlCuxeqlY
- cVuWVuVKzbpH33NZei/UVeJbhtvnxYdeyHzoBJVXBrW7WpOENlzJz+QZpHZ0h8KhKmtlWg0bQBE
- 1Vn3SjlbBxYDqeUiOEpvPn/KKAUbAwwM9z7phrQgUwATE5ffQeNaBknCIBMEVWgZKqkcFay6s8g
- LtC9As=
-X-Received: by 2002:a05:600c:4ecc:b0:488:a824:fdff with SMTP id
- 5b1f17b1804b1-490426d190cmr26027355e9.22.1779432241368; 
- Thu, 21 May 2026 23:44:01 -0700 (PDT)
+ AFNElJ82yrxoD6wdWKc1shPzJ72Ej/db/yL7pghCf2jjr8Jmcj/R4hQA83Kc4sO8CZtz8b+ueZHPAUanV80=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxotAy8nayToKWAjCQDlqXBmveHvI59rTrjTOjLgXCrxyrXfXbO
+ F3v0DKNpQG88REPv69G2Oz+qbckwkm37JVD3gjk7s2+zHYMpEWEpmsnT2RbVf7Q0uro=
+X-Gm-Gg: Acq92OGBFxtWCJIgCimpbFW8sW60Xzjts5PO/ZmoeW1lF+H3FckV7dVDw7t71N1gpPF
+ H45VkTopLG/8X5LqLQ1fR14Yz5KJbdsTBt+tm8QsKqTiFiN1BNDGBLrsDhAeQhogO1MtsYalv4n
+ hIKphG6y0okDLC/eqF7RCql2a2ELeygUThsNZ9Jt6PDFhJol/NO2Q92FpC6G4xVuDzuGJunqgOr
+ j88k3IB4ovv5M4vJSMm3UHfN9MlGDG4ujJrbbbFFvmBWU5mRqBKMkzA3Cgx2Vkn5zouBYJpjcYN
+ HNGAMwBV3LAjlxs8dBuEMUmFbOOh+3LIHPHNOJ4SxL/eRHDPr+2tIiowYSoXB/GzqoItwoxIKqL
+ A4lWEWf/TDSrssUsZ2tIjBt6XJIq/FJVeeAGFFIRaCuFh3Nz684duk6y2m/mIr7Y9ToiESvAwCn
+ CmpQAYDagyOWnR3ZriFjOQM1aE8NcKmkO4yAiWV8GWgXsHMbz1S7Aw7VtG9EPN4gOYJILcNkkkj
+ 7g80RK+WpALlI5znA==
+X-Received: by 2002:a05:600c:4f0b:b0:489:1c32:210d with SMTP id
+ 5b1f17b1804b1-490426a479fmr24824925e9.15.1779432289279; 
+ Thu, 21 May 2026 23:44:49 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:192b:8d21:b456:cb51?
  ([2a01:e0a:106d:1080:192b:8d21:b456:cb51])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490417ac7dasm10859115e9.7.2026.05.21.23.44.00
+ 5b1f17b1804b1-490454e38d6sm21819665e9.7.2026.05.21.23.44.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 May 2026 23:44:00 -0700 (PDT)
-Message-ID: <def01730-bd5d-4c61-a302-a9ca625cda7a@linaro.org>
-Date: Fri, 22 May 2026 08:44:00 +0200
+ Thu, 21 May 2026 23:44:48 -0700 (PDT)
+Message-ID: <340451f1-f397-4eb9-b6ff-8c6ae1bcefcb@linaro.org>
+Date: Fri, 22 May 2026 08:44:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] arm64: dts: qcom: qcs6490-radxa-dragon-q6a: Enable
- GPU and display pipeline
+Subject: Re: [PATCH 6/6] arm64: dts: qcom: qcs6490-radxa-dragon-q6a: Enable
+ USB3 SuperSpeed
 To: Graham O'Connor <graham.oconnor@gmail.com>, linux-arm-msm@vger.kernel.org
 Cc: andersson@kernel.org, konradybcio@kernel.org,
  robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
@@ -78,7 +78,7 @@ Cc: andersson@kernel.org, konradybcio@kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260522060645.4399-1-graham.oconnor@gmail.com>
- <20260522060645.4399-6-graham.oconnor@gmail.com>
+ <20260522060645.4399-7-graham.oconnor@gmail.com>
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
@@ -106,7 +106,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260522060645.4399-6-graham.oconnor@gmail.com>
+In-Reply-To: <20260522060645.4399-7-graham.oconnor@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -125,128 +125,111 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
 On 5/22/26 08:06, Graham O'Connor wrote:
-> Enable the GPU clock controller (gpucc), GMU, display clock controller
-> (dispcc), and MDSS display subsystem.
+> Enable the USB3-A port by configuring the USB HSPHY with required
+> regulator supplies and the QMP combo PHY with correct lane assignments
+> for this fixed USB-A connector.
 > 
-> Add DisplayPort HPD pinctrl state for GPIO47 and wire up the DP output
-> pipeline through the RA620 DP-to-HDMI bridge. The RA620 is a passive
-> hardware bridge requiring no driver - it converts DP to HDMI
-> autonomously. Add the dp-connector and hdmi-connector nodes to complete
-> the display graph.
+> The QMP combo PHY shares lanes between DisplayPort and USB3 SuperSpeed.
+> Configure port@0 with two endpoints: endpoint@0 for DP output (lanes
+> 0-1) connected to the HDMI bridge, and endpoint@1 for USB3 SS output
+> (lanes 2-3). Remove the orientation-switch property as this is a fixed
+> USB-A connector with no orientation switching.
 > 
-> Disable DSI, DSI PHY, eDP, and eDP PHY as these interfaces are not
-> present on the Radxa Dragon Q6A hardware.
+> Add a usb-a-connector node wiring the HS and SS paths to the DWC3
+> controller and QMP PHY respectively. Set dr_mode to host as this is
+> a fixed host-only USB-A port.
 > 
-> Tested on Radxa Dragon Q6A (QCS6490) with RA620 DP-to-HDMI bridge
-> connected to an HDMI monitor.
+> Tested on Radxa Dragon Q6A (QCS6490) with USB3 SuperSpeed confirmed
+> via lsusb showing 5000M link speed.
 > 
 > Signed-off-by: Graham O'Connor <graham.oconnor@gmail.com>
 > ---
->   .../dts/qcom/qcs6490-radxa-dragon-q6a.dts     | 85 +++++++++++++++++++
->   1 file changed, 85 insertions(+)
+>   .../dts/qcom/qcs6490-radxa-dragon-q6a.dts     | 71 +++++++++++++++++++
+>   1 file changed, 71 insertions(+)
 > 
 > diff --git a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
-> index 4003837ad..e8ad6e666 100644
+> index e8ad6e666..c16c3664e 100644
 > --- a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
 > +++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
-> @@ -1113,3 +1113,88 @@ &pcie1 {
->   &eud {
+> @@ -1198,3 +1198,74 @@ &mdss_edp {
+>   &mdss_edp_phy {
 >   	status = "disabled";
 >   };
 > +
-> +&gpucc {
+> +&usb_1_hsphy {
+> +	vdda-pll-supply = <&vreg_l10c_0p88>;
+> +	vdda18-supply = <&vreg_l1c_1p8>;
+> +	vdda33-supply = <&vreg_l2b_3p072>;
 > +	status = "okay";
 > +};
 > +
-> +&gmu {
+> +&usb_1_qmpphy {
+> +	vdda-phy-supply = <&vreg_l6b_1p2>;
+> +	vdda-pll-supply = <&vreg_l1b_0p912>;
+> +	/delete-property/ orientation-switch;
 > +	status = "okay";
-> +};
 > +
-> +&dispcc {
-> +	status = "okay";
-> +};
+> +	ports {
+> +		port@0 {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
 > +
-> +&mdss {
-> +	status = "okay";
-> +};
+> +			/delete-node/ endpoint;
 > +
-> +&tlmm {
-> +	dp_hot_plug_det: dp-hot-plug-det-state {
-> +		pins = "gpio47";
-> +		function = "dp_hot";
-> +		bias-disable;
+> +			/* DP output - connected to hdmi-bridge */
+> +			usb_dp_qmpphy_out_dp: endpoint@0 {
+> +				reg = <0>;
+> +				data-lanes = <0 1>;
+> +				remote-endpoint = <&hdmi_bridge_in>;
+> +			};
+
+Previous patch needs this change to work, please squash.
+
+Neil
+
+> +
+> +			/* USB3 SS output */
+> +			usb_dp_qmpphy_out_usb: endpoint@1 {
+> +				reg = <1>;
+> +				data-lanes = <2 3>;
+> +				remote-endpoint = <&usb3_con_ss_in>;
+> +			};
+> +		};
 > +	};
 > +};
 > +
 > +/ {
-> +	hdmi-bridge {
-> +		compatible = "dp-connector";
-
-This is not the right way to enable the HDMI connector.
-
-This patch https://lore.kernel.org/all/20250914-radxa-dragon-q6a-v2-5-045f7e92b3bb@radxa.com/
-is the right way by exposing the HDMI bridge and setting the right usb_1_qmpphy data lanes.
-
-Neil
-
-> +		label = "hdmi";
-> +		type = "full-size";
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&dp_hot_plug_det>;
+> +	usb3_con: connector {
+> +		compatible = "usb-a-connector";
+> +
 > +		ports {
 > +			#address-cells = <1>;
 > +			#size-cells = <0>;
+> +
 > +			port@0 {
 > +				reg = <0>;
-> +				hdmi_bridge_in: endpoint {
-> +					remote-endpoint = <&usb_dp_qmpphy_out_dp>;
+> +				usb3_con_hs_in: endpoint {
+> +					remote-endpoint = <&usb_1_dwc3_hs>;
 > +				};
 > +			};
+> +
 > +			port@1 {
 > +				reg = <1>;
-> +				hdmi_bridge_out: endpoint {
-> +					remote-endpoint = <&hdmi_connector_in>;
+> +				usb3_con_ss_in: endpoint {
+> +					remote-endpoint = <&usb_dp_qmpphy_out_usb>;
 > +				};
 > +			};
 > +		};
 > +	};
-> +
-> +	hdmi-connector {
-> +		compatible = "hdmi-connector";
-> +		label = "hdmi";
-> +		type = "a";
-> +		port {
-> +			hdmi_connector_in: endpoint {
-> +				remote-endpoint = <&hdmi_bridge_out>;
-> +			};
-> +		};
-> +	};
 > +};
 > +
-> +&mdss_dp {
+> +&usb_1_dwc3_hs {
+> +	remote-endpoint = <&usb3_con_hs_in>;
+> +};
+> +
+> +&usb_1 {
+> +	dr_mode = "host";
 > +	status = "okay";
-> +};
-> +
-> +&mdss_dp_out {
-> +	data-lanes = <0 1>;
-> +};
-> +
-> +&mdss_dsi {
-> +	status = "disabled";
-> +};
-> +
-> +&mdss_dsi_phy {
-> +	status = "disabled";
-> +};
-> +
-> +&mdss_edp {
-> +	status = "disabled";
-> +};
-> +
-> +&mdss_edp_phy {
-> +	status = "disabled";
 > +};
 
