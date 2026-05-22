@@ -4,73 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 041FCCD5BB0
-	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 18:11:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D7FCD5BB0
+	for <dri-devel@archiver.kernel.org>; Fri, 22 May 2026 18:19:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F1F510E26D;
-	Fri, 22 May 2026 18:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E25210E0BD;
+	Fri, 22 May 2026 18:19:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VUkyWFKR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Yfj+uOao";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A95A110E0BD;
- Fri, 22 May 2026 18:11:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C210510E0BD
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 18:19:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779473464; x=1811009464;
+ t=1779473943; x=1811009943;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=jrUMl5Pj6W1zeeKqO5bZT+4B5c7mV/TBAJjBOPt581E=;
- b=VUkyWFKRfLYgxfdQDv7vcHXzaFEX5AjTJZbqXDXcCpiMjt7MKJiRQYh9
- 3B3fmcCu6ES9ffwT98/1+bTa3gLTk/pB1hmxkuAnNffiEuMpWmT+9KOr9
- g6M7101u6YhQtexgAzpGq2D0zV8WIPaQ+BYLFp1I8dCdrsoVP3EqZtovd
- xWjBqm9+NJ3r1edINKCwmIA9ctcPQ5/LlZqOweJkkJ8dhnRXxBNwbg8AN
- ddkVUZ7bbD4mX2lQRy3DyCOBA0jfieK4U/FHnqcpQPdra9jJ66FBbrZiI
- 6974RsdL2iSKH3bY+QKTy6aQk27O4VBS9SvTJ4ddUkB3144hDADMqN0ur A==;
-X-CSE-ConnectionGUID: EhBZVOTASdCKJkupqfAIGw==
-X-CSE-MsgGUID: 7+2IaW7vSziAl2ID5wrQaA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="80440575"
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="80440575"
+ bh=rQ4Y7nagtCKEmKniU+R5AbpYhu/DJlNiFJo4ePL8mrU=;
+ b=Yfj+uOaomVM6Ucvd7gcGrupd3vOX+PnHw1DwQkBfcsVG1+ptdmwsH61M
+ 7Vgyr3e2mI3thkGliESxiFEjo6VzOjb/3YkQCrmush2tAW9RgKYMTNiSP
+ NcOK9Sl7ydOMtEiuGy01GtB0Q3g94/WZ5yeBwe30Orn2zRGmMMmXdPSsk
+ ZsYY2DPHGiHxWaofxSdJLyE66VKATyYCRieg4W0gHcjeFwSvVPpBljs6A
+ 7dSxvr8FANIP9Z+QS6ltQ1HPUOpeBRP94Ki4KBMWfauxuTrkzXS9GmQ1m
+ ixi7jSq2zvMJ6LhDAjr+TWOpy9MwbPCVArJHA5uzgTRJCXGZVjT8T9dI+ w==;
+X-CSE-ConnectionGUID: oio9maYcS/KbtrU7uo1r8w==
+X-CSE-MsgGUID: kzP6MpYNSrqe7n3n4l/9LA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="80441108"
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="80441108"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2026 11:11:04 -0700
-X-CSE-ConnectionGUID: huksGKwGQyWmHQy4pAxRFA==
-X-CSE-MsgGUID: 5g2D4wElRq2SNhxXUH4rTg==
+ 22 May 2026 11:19:03 -0700
+X-CSE-ConnectionGUID: QK9eXneaQOKRzUxCnO33cA==
+X-CSE-MsgGUID: CLl1Hd9sRvuOITV2TE1G0Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="271325699"
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="271327221"
 Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.187])
  by orviesa002-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 May 2026 11:10:59 -0700
-Date: Fri, 22 May 2026 21:10:55 +0300
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 May 2026 11:19:00 -0700
+Date: Fri, 22 May 2026 21:18:56 +0300
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- Daniel Stone <daniel.stone@collabora.com>,
- Ian Forbes <ian.forbes@broadcom.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel@collabora.com, wayland-devel@lists.freedesktop.org,
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v9 2/2] drm: Send per-connector hotplug events
-Message-ID: <ahCcL-QmxwSvMcUl@intel.com>
-References: <20260422-hot-plug-passup-v9-0-aef804255986@collabora.com>
- <20260422-hot-plug-passup-v9-2-aef804255986@collabora.com>
- <CAPj87rNHsa2TKMcSMHeq3M7ZfyZp0P_i3FtjxQp8Qk53UwXGLQ@mail.gmail.com>
- <ZSuf-ENwSXWZM2puVBDxGQ@collabora.com>
- <CAPj87rOiq1i6ZFaeYoeu3jhCRdZPiwdfffHBJ97ihTxmgMJ_VA@mail.gmail.com>
+To: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
+ daniels@collabora.com, jani.nikula@linux.intel.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ pekka.paalanen@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] drm: ensure blend mode supported if alpha exposed
+Message-ID: <ahCeEJQZYOJG-GIx@intel.com>
+References: <20260518175429.80615-1-leandro.ribeiro@collabora.com>
+ <20260518175429.80615-3-leandro.ribeiro@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPj87rOiq1i6ZFaeYoeu3jhCRdZPiwdfffHBJ97ihTxmgMJ_VA@mail.gmail.com>
+In-Reply-To: <20260518175429.80615-3-leandro.ribeiro@collabora.com>
 X-Patchwork-Hint: comment
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
@@ -89,54 +76,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 22, 2026 at 06:58:26PM +0100, Daniel Stone wrote:
-> On Fri, 22 May 2026 at 14:06, Nicolas Frattaroli
-> <nicolas.frattaroli@collabora.com> wrote:
-> > On Thursday, 21 May 2026 17:00:17 Central European Summer Time Daniel Stone wrote:
-> > > On Wed, 22 Apr 2026 at 19:24, Nicolas Frattaroli
-> > > <nicolas.frattaroli@collabora.com> wrote:
-> > > > +       /* Pick up any changes detected by the probe functions. */
-> > > > +       if (dev->mode_config.delayed_event) {
-> > >
-> > > Not your doing, as it was just the same before, but doesn't this read
-> > > need to be protected by the mode_config mutex?
-> >
-> > It looks like the fuzzy meaning of the mode_config.mutex came to
-> > bite here. It is set to true with the lock held in
-> > drm_helper_probe_single_connector_modes(), but set to false in this
-> > function without the lock, and always read without the lock
-> > (drm_kms_helper_poll_enable(), reschedule_output_poll_work()). Some
-> > of these calls happen in paths where it might be inconvenient to take
-> > a lock this coarse.
-> >
-> > Specifically, drm_helper_probe_single_connector_modes() has this
-> > comment right before setting delayed_event to true:
-> >
-> >         /*
-> >          * The hotplug event code might call into the fb
-> >          * helpers, and so expects that we do not hold any
-> >          * locks. Fire up the poll struct instead, it will
-> >          * disable itself again.
-> >          */
-> >
-> > So there was a problem with accessing parts under a lock before,
-> > so if we're reintroducing the coarse lock wherever the boolean is
-> > accessed we might be going backwards here.
+On Mon, May 18, 2026 at 02:54:29PM -0300, Leandro Ribeiro wrote:
+> Before "drm/drm_blend: allow blend mode property without PREMULTI",
+> userspace would have to assume that only PREMULTI was supported by
+> drivers that didn't expose the blend mode property. But now userspace
+> shouldn't relly on that, as they can't count with drivers always
+> supporting PREMULTI.
 > 
-> Yeah, that makes sense - those are definitely called from an IRQ
-> context so it wouldn't be safe to take the mode_config mutex.
-> 
-> I wonder if the safest path which guarantees eventual consistency is
-> to change the !trylock(mode_config) { goto out } path in
-> output_poll_execute() to jump directly to the schedule_delayed_work()?
-> That way we could read and modify delayed_event under the mode_config
-> mutex; the if (changed) path will not be taken if it wasn't possible
-> to take the mode_config mutex.
+> Error out if a driver expose alpha property or pixel formats with alpha
+> and does not expose the blend mode property. This way userspace don't
+> have to guess. Drivers that hit such error must be fixed.
 
-I've been cursing at this delayed_event hack a couple of times.
-Seems to me that the correct solution would be to make
-drm_client_dev_hotplug() schedule its own work and do the actual
-work there instead of this direct call we have right now.
+I don't think the error handling is a good idea. It's just another
+completely untested error path that is more or less guaranteed to
+break eventually. So IMO just WARN and plow ahead like we do for
+everything else there.
+
+> 
+> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> ---
+>  drivers/gpu/drm/drm_crtc_internal.h |  2 +-
+>  drivers/gpu/drm/drm_drv.c           |  7 ++++--
+>  drivers/gpu/drm/drm_mode_config.c   | 37 +++++++++++++++++++++++++++--
+>  3 files changed, 41 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+> index c09409229644..2a4862202496 100644
+> --- a/drivers/gpu/drm/drm_crtc_internal.h
+> +++ b/drivers/gpu/drm/drm_crtc_internal.h
+> @@ -95,7 +95,7 @@ int drm_mode_setcrtc(struct drm_device *dev,
+>  /* drm_mode_config.c */
+>  int drm_modeset_register_all(struct drm_device *dev);
+>  void drm_modeset_unregister_all(struct drm_device *dev);
+> -void drm_mode_config_validate(struct drm_device *dev);
+> +int drm_mode_config_validate(struct drm_device *dev);
+>  
+>  /* drm_modes.c */
+>  const char *drm_get_mode_status_name(enum drm_mode_status status);
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index 985c283cf59f..def78046a963 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -1059,8 +1059,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+>  	const struct drm_driver *driver = dev->driver;
+>  	int ret;
+>  
+> -	if (!driver->load)
+> -		drm_mode_config_validate(dev);
+> +	if (!driver->load) {
+> +		ret = drm_mode_config_validate(dev);
+> +		if (ret)
+> +			return ret;
+> +	}
+>  
+>  	WARN_ON(!dev->managed.final_kfree);
+>  
+> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+> index 66f7dc37b597..18c6b5707532 100644
+> --- a/drivers/gpu/drm/drm_mode_config.c
+> +++ b/drivers/gpu/drm/drm_mode_config.c
+> @@ -674,16 +674,45 @@ static void validate_encoder_possible_crtcs(struct drm_encoder *encoder)
+>  	     encoder->possible_crtcs, crtc_mask);
+>  }
+>  
+> -void drm_mode_config_validate(struct drm_device *dev)
+> +static int plane_alpha_require_blend_mode(struct drm_plane *plane)
+> +{
+> +	struct drm_device *dev = plane->dev;
+> +	const struct drm_format_info *fmt;
+> +	u32 i;
+> +
+> +	/* blend mode property supported, no need to check anything */
+> +	if (plane->blend_mode_property)
+> +		return 0;
+> +
+> +	if (plane->alpha_property) {
+> +		drm_err(dev, "[PLANE:%d:%s] alpha property exposed but blend mode not setup",
+> +			plane->base.id, plane->name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	for (i = 0; i < plane->format_count; i++) {
+> +		fmt = drm_format_info(plane->format_types[i]);
+> +		if (fmt->has_alpha) {
+> +			drm_err(dev, "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup",
+> +				plane->base.id, plane->name);
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +int drm_mode_config_validate(struct drm_device *dev)
+>  {
+>  	struct drm_encoder *encoder;
+>  	struct drm_crtc *crtc;
+>  	struct drm_plane *plane;
+>  	u32 primary_with_crtc = 0, cursor_with_crtc = 0;
+>  	unsigned int num_primary = 0;
+> +	int ret = 0;
+>  
+>  	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+> -		return;
+> +		return ret;
+>  
+>  	drm_for_each_encoder(encoder, dev)
+>  		fixup_encoder_possible_clones(encoder);
+> @@ -732,9 +761,13 @@ void drm_mode_config_validate(struct drm_device *dev)
+>  	drm_for_each_plane(plane, dev) {
+>  		if (plane->type == DRM_PLANE_TYPE_PRIMARY)
+>  			num_primary++;
+> +
+> +		ret |= plane_alpha_require_blend_mode(plane);
+>  	}
+>  
+>  	WARN(num_primary != dev->mode_config.num_crtc,
+>  	     "Must have as many primary planes as there are CRTCs, but have %u primary planes and %u CRTCs",
+>  	     num_primary, dev->mode_config.num_crtc);
+> +
+> +	return ret;
+>  }
+> -- 
+> 2.54.0
 
 -- 
 Ville Syrjälä
