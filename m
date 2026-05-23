@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 790B6CD5BB4
-	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 03:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 065BECD5BB4
+	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 03:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E18B710F759;
-	Sat, 23 May 2026 03:06:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 641EF10F772;
+	Sat, 23 May 2026 03:11:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="eS6rAr7t";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="cup6vNeE";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011026.outbound.protection.outlook.com [52.101.62.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28D0710F759
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 03:06:26 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011008.outbound.protection.outlook.com [52.101.57.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BFB810F76C
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 03:11:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c69bZAfsXJSa7R8JKOBKt8tFtb9S3mtnPGiyWqvWnLxtlsTakfxSRT0Y3UaV/8GHPfP6+kY2yxGzp0EYC2bUJbDOlJBcua9GYLW3yVrSdk08ga3kwsaFxNZeNKIIddAHADxjhAaeys1pze9nkCNbvx1XJbZRmc9ZzTQq1Tq48GGDiNhcUUsFAdnv8f7GRB7m3W2E3lyJaPunynaPPsrMbQS+3XFjgZOqPNz5ZOW8As6D+vQGt6xY04cwSsd/FEwNGo7cRp+YOC4btArkCOemUcraPcllalwOWXM7kRXsiuc59tFp+mpg9Ny+DGwoP4D2SgIvf0P1PI/BzQDE7wAJ6Q==
+ b=KYgnl0cHvuInksDt+9MR6nuoYbeoav2aNKPyNTh3tjj/rbmudx18K0v+V5CUXz0l9v0QK0FVOmcuj0vRZ8M19VFy4GMtouzvNXPm8UYNUqEcs6+FmGUNi7j0UM3ZLDNNAA7fiITUA53GBKfulkhogx5zLZQbbzlxrzT6Am3mU0ZrJqyNbeVn/0DqyaPB9rq9HTSrqsl+C4tnVT/Ns8Hf/by8kYOwHyf7MPX0JH5y9zO22GoU6Iw1cNRCJtxa+9dO8YMvNGUgSpvBS+/gkDmcRZYFMyH5s3Hitqf/cLdw7+6xcP9LGbHK2LN2Pa4DWDWFy1AFS52cbgJXfVUOyHH87A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PEWU93mdUXKas+HRROZUJdDEEpquSt0TGgzm7AUrJB8=;
- b=NvNWTXhvBvZfgoSjBVn0TfLhTvwHaXqY+1vpSmrRrESWbtcosAnS6nyy2FsXtJHyN+mS4zyvG/JlIfMHAnCtDMOePFD+ZRPAgQxa/IbkiZrS4pSYVlLUSQ5oEjZEpiEVAAd4qA6C7fj+bA5X5zIqQR4QLYA2xx+wGcKJ5iOeumKDfgjWqm6O/ye84UvcN94o1eidj8juTrqmPNYXKKemhPYfzuZcU/4RND7LZo/SEsyROEtQVhxUuiUjaNJ+QLKzllRUbgpKZiERRljXJ5HJGJpWIToQzzSdP95YLfxtpy80cizHSXnY+kVFr8VvUn8XIzVjz1Agcw1pIa0YLfy4tw==
+ bh=j2nxtFmeHLZI1LGMR8uK1X+Hi64giIH86piY9+V8Cf8=;
+ b=VHlAOWzLjEq5by07FbwQyVLHypSzN5knSYJrJxDboiznKPKonwlSFZDlkb579XqNn9crHapGxsapJz49qgsK6PNxoDaHZXcOI8v8lYpcyJVyzJj0Tww8SP5BZAkJZ9/NXurrZxReSiRnFV7j5g7beHU0csuMDIVnUlqJQnFfVL8SHpxIMAPwvkGP/JKk5/Zv+NFZGUdfURWXRmFVKrTsOQQrHRTNBRBTCEE+mxkw58b2hdYONziAmnCaYkbbuH+E9RXs+7ymRletAvVWF44iaikNxVLMtu4xoUir8A4RoGDTV5F7/M77RY7EKboyiNSdBAzi0VPrTf0SOI550+deqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PEWU93mdUXKas+HRROZUJdDEEpquSt0TGgzm7AUrJB8=;
- b=eS6rAr7tluR50R0OKCMIuE2dnWy7/GT5LiEQqLrSaUzpTznc2n7RFgvmU4+HJC1Iv7+952vzcnOkzfntGvAJaFNJijDNVvV1moE9OIbpRmBYWQKxcldjhARKU/kw93Fa2Sx60QYTzy9gIUrcFNKZHrsj9B2c8swLtsTGBSmB5Kl6es+24mzFPpQ/DPyNw29DsCuyJ8EFYFGQPg0xhgUfdVSQHiHlSQxrK2CW1Uo7EEAY/T+v5oqbFuclyi9lFHOs5bvX+s3DiM4UtUvHlqaf2PenHj6LL0KjHYfQUz09gtSsDVFRCCoGQ6XdpbDrpdPk8O3ulkMtMo9ORja33gCqTA==
+ bh=j2nxtFmeHLZI1LGMR8uK1X+Hi64giIH86piY9+V8Cf8=;
+ b=cup6vNeEEC/hrbSAHSlQRwMtDAm0aP74cS90a5esyjAg5mVOLeiazoyqHzGTZ+A1TGbvuSJb6RR5np+HnVf/KM9dvtzYn+lWGSo0zBlLdqzpRToktcJhNEp7ExUzNyUbduKbBJVA1C9j7+XPwXJqmc0WhIN9bE4XUTb19lHnkzdq9+C4E0DLf8wJquimSfooe5FGDWnR77RCgDYPMm/0MQfn2gqjtFc1AIOygQjiHUtehG59c5rkw6Pq5PK3gUVlVwW3uJ4H2SknXlRUKWLONNKkhRjIgphJWgIRDnzAOXSUJ5I+FRp1SxqfxaiUNOJ7SfOcne0acGkJGKhQsg77jw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DS7PR12MB6263.namprd12.prod.outlook.com (2603:10b6:8:95::17) with
+ CY8PR12MB8313.namprd12.prod.outlook.com (2603:10b6:930:7d::6) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.17; Sat, 23 May 2026 03:06:22 +0000
+ 15.21.48.17; Sat, 23 May 2026 03:11:01 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0048.016; Sat, 23 May 2026
- 03:06:22 +0000
-Message-ID: <b149ae04-98a4-486f-bf19-ff448303e9d6@nvidia.com>
-Date: Fri, 22 May 2026 20:06:20 -0700
+ 03:11:01 +0000
+Message-ID: <9e83007b-08bf-408b-8694-b92271793d1d@nvidia.com>
+Date: Fri, 22 May 2026 20:10:58 -0700
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 19/20] gpu: nova-core: vbios: drop redundant TryFrom
- import
+Subject: Re: [PATCH v4 20/20] gpu: nova-core: vbios: move constants and
+ functions to be associated
 To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
  <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
@@ -55,78 +55,78 @@ Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
  nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260519-fix-vbios-v4-0-5d3f210c5602@nvidia.com>
- <20260519-fix-vbios-v4-19-5d3f210c5602@nvidia.com>
+ <20260519-fix-vbios-v4-20-5d3f210c5602@nvidia.com>
 Content-Language: en-US
 From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20260519-fix-vbios-v4-19-5d3f210c5602@nvidia.com>
+In-Reply-To: <20260519-fix-vbios-v4-20-5d3f210c5602@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0065.namprd13.prod.outlook.com
- (2603:10b6:a03:2c4::10) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0110.namprd03.prod.outlook.com
+ (2603:10b6:a03:333::25) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DS7PR12MB6263:EE_
-X-MS-Office365-Filtering-Correlation-Id: a121e0b4-fc99-4271-0247-08deb8784483
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|CY8PR12MB8313:EE_
+X-MS-Office365-Filtering-Correlation-Id: fbe17717-7aea-48fd-d01e-08deb878ea8d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: Qt67CrGiJIiSkRyPr7/BThWe0Aic+QWWhsZ6fQ6drAad+rb5r1jj/vASZebtheO558dKsR4P9umjAspdFsDWVz6ol8Q9h4ABLLfGvxJzWXVyMXPsvgJ4RqTua5bOMSMVhYI6XkcxqJJAquAaTO0ifFk52CvXM2I2i2sDP5jLKqIHrEIgp1xRx/sT7inO5fM3rYmvrYJfeHp+DIRlZ3zL83blisQnW3MXaepVdIUooeU7butBSYHeqcVoCxu5T2TuigRWEoL9CaTGLqVzOknUS3SaJHscst8eSH9gqArZUkkRoD7ImrIgANoICjPw1O9mkTqoZ/YpvFm/Uq+/QEJLD6RVkTroA+03iL7tMuIkJ94PthEq/6jBb8DBLQgcjjm+B4a7q96M03+tn4wVezyTQPlNjGHcmUCTNRMLbfwDxVIPsvEBWZhj3yQw+4ykhvYYp5T83W11CUYMGUFoIezmvA/omQeQrSVFZ2tj7COfN1XfuRvclX5YtG8ZszH/25dK+wVvu4XH781hUkUwwhgIMjB3caBH2huG2VgEJmR3J18x0O7KSaTSTwmFd9SEchvhVQBSB4IXMp8997SrNoZNU3ezVrd64pWpX+hXwqpbW32FWhr0n6wq8RuR++yz43FdLmdix1Txd0D4Rn8aqfoTYrhe0JU46hTz4V8A0z944n5wz3PYbO4q2JnUk4mTm41T
+ ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099003|11063799006|6133799003|4143699003;
+X-Microsoft-Antispam-Message-Info: zu+DeQVOlc7sJt+ozWSlSX1JJcnqmrYK3yjCU34207IV2pTOcIRh9kQg9HrTtHjDpCpSyRIjCdALtBq9jtl0SA6qVbkYgbXU2JLeKwDRhq1kL2OkZX+izrxnWmpNKsF3/J4fc/3paK9s+OeynV+SQYfo85frZGomZhtMOtmVYhC4vP6PHN5OkZbFHkV9/WW1pjnBuZdFlw1C+aLBcAdALY/vz4YUFoO4dXmc5diA+u10WC0iPT/gGKYrp0A2rdIA6s+PIc1V8uJkV35e8Ut/tpBoVyUaU9ol9qyZiPCAwkJy7Em+ePHkxBgRiwIVnJAT6T338YXPWPBoqopiq1Y4n+vcSLyQKG31NBWIlznIfGZ6OmfWkSlIqdKYS+OaDPCGOCH5jKHYyh/68t7S7VVBgGNfklPbx3YAKLmnwGuaGrmIlBtvxD2BH7jV/ht7D6nYDzMxa1/Vdc3jzGGxAO7w3rcjJFqlEsn5utxZ5HinGNbOFAkjZjtSARJk3u8vVEBv9Xo+3yWpOxQzG3Ba6Xogg0QHfsBr4IeL6gDM3N84cfGSLOShWUOjm29lJerQydpq9qWe4tQowRc8T9P0g7ArA/l20zi7p+Kz+HU24r3xNlnUBrNnvu9Zd0JR+Pi+ZnvRpg+lmP9/XK6oHjls/CKxj/NogOuVPROH7Am99HtSUo/9bsr8xkkotISzpgq9GAhg
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003)(4143699003)(11063799006);
+ SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003)(11063799006)(6133799003)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZnVaYlNmRU9FVW10VW5zRTRscjhCM29YTXhtb0wwWFBSZmhLWVIxUmxqL011?=
- =?utf-8?B?S01PeE5hd2lWZ1BoMWV4dnhQZUdRQVI5cU5KQU9wT1g4NWVlV2pTU3N6U1N5?=
- =?utf-8?B?UWNqc1FWWTFLSmo3NW9Ia3BEY2FLcmZMeWMyMjhwZ3VxWG5tWFg4di9vZWda?=
- =?utf-8?B?TXlTclRpUzBpVzNSbGNRMTY5NTVGRk9ycVJlblBaT2Exa1Jad2VZY0RwbFIr?=
- =?utf-8?B?enZQMXpvRE1kL1B5aGF5WHN3MC9TU3JFRDVyZldqZFhRNE1qNktibk1qMUha?=
- =?utf-8?B?WjVJQWNKV0xUeXBwTDdvVGViQmwzVnE1RG91c1VyWGE1Si9CUk5MM3VOTWR0?=
- =?utf-8?B?bDFiY1hyMDZIRjRiZG9NWlVSWWF5ZU1zaEs3VURuMDBTODZOSDluYytSTUhR?=
- =?utf-8?B?TTFMK3pwWC83b1E2dW4vL2RrQ1p6YXZoZkpQa3lzazBzTVFrK2NPazNwM1JK?=
- =?utf-8?B?ZEVSaDZ0WURyT3VKRGtaY3dJQXlVZmdFVTQvbHpKbHRzSHU4VXp1N1VvOEQz?=
- =?utf-8?B?QzRUUzdQeHdDcFgyeEdLdjlKNlVRSjhUam5lejAzY1hnRW1paG10ZFBSa1R1?=
- =?utf-8?B?b0UrZkx2aVFZQmFGTEg2eEFjUFdWYk42eTU5VXg1Um0yazczQllqWEtudGxn?=
- =?utf-8?B?ZmZEcVRlUW96TkdDeUEyR2Q5OWkwSVh4WGsrNjF2OUt4VERjWGZJd1JYUi80?=
- =?utf-8?B?OWlManN5Tk5wWE5DdTA0d0xLbmhnSkM4R1RPZklhTlFCRTNqcnFrYWZrbmNR?=
- =?utf-8?B?dTJlcmlIWFRFdENUZWpyVmRPdC9hQ2NXZ1VrT2kvb0pJckxyUXFaRmx2cnV2?=
- =?utf-8?B?ZnM5TDlUblU0UVJuMFhOejc1TGhZQThPODlLUzRCWEwrUUhIRm5FNTZlOGd4?=
- =?utf-8?B?Q3pIL2xlVkw4aXROUE1jcU9SZmVhZ1EyV1FXZGhKdzhla3dTQVpGUnJNQ0cv?=
- =?utf-8?B?OWZvbEpRQmYvZ3U4Q1JyU09SL2RXNjV0Q0R5NnRRM2lKVTd2U2NmdndBMTRX?=
- =?utf-8?B?MVFscTRYYjNOcFZncGJiUFJCOXhtaUxaWEJhSlRsMmlHWlhDNGJPYVJTaVFH?=
- =?utf-8?B?VCtZaUhJVExnR3pZa0E5Tll6Z0dxMWJpS0lGNk14RDZDN3E3ZDV4NDVvZFZL?=
- =?utf-8?B?bE5mS0tLOWNxdnB5L0QydEsxWHB3dG9iT3MvaHhKQVBRbHhmM21kUnFsWTYz?=
- =?utf-8?B?b29WVVV6VmxFVjd5UlJlK1ZBSWFiSHZRYjZ0TXA0UXVRLzd5MTRpSEF6QjVZ?=
- =?utf-8?B?cXFtREsxOEVabUJwQXc0bDNrS0R3Tk5hVEpINmFmblRaMGZJUzF5UVg4Ry8r?=
- =?utf-8?B?SnErV25YaVhJd25QY1ZUVEZQSGtLdStIY3pxQXRYU0t6RGVuemFaRUxMbm1P?=
- =?utf-8?B?ZXpwNHhuSi9MUUx6VGg1Q1p0aTYzU2txTG5YYUFTc2ZpUE83bEpGTkdPVWdG?=
- =?utf-8?B?WE5ZN0U1RzhuaVBFTms1dWN6c1RMVmtyVWV3L2NxYWgyNjMwWHVHWmVSc2pT?=
- =?utf-8?B?WTF1cVdZS0g3cmlHbm9lenFLM0hiSzE4VGlRWVpUOWJGTjEyeHdBK1U3L2E3?=
- =?utf-8?B?OUZGaTVuTzltWmtQTHlIbFFMTTlJenBjc2FNaEt2RlQxRkRRdGRiQTBTWkVt?=
- =?utf-8?B?REQ1UFAxZVY2RU9XSVhqcWdoeGhXVnYwVmsvY2dmV2gwemsxMk5qM3NrREho?=
- =?utf-8?B?aWw4Tnpxenk3U1llYnZwUUtlMzBlck5WeDBYWUdMMTVVNjVEQ2V6d25KSUpH?=
- =?utf-8?B?WW92V3BiOWFIbXorYjhIKys1bEk2TldTeFU2Tmh5bTk2MVNwTmRPck1WWVgz?=
- =?utf-8?B?VDZyMUk0NjZhcS8rNzhET0huUG1KMlpPaGtzT29xNlBUcTg1MlFzNXZjdGVr?=
- =?utf-8?B?Z3FBZ2Fma1FXY0JLYnQ0cm11NXVXNk1XQlQ1amw0MzlNbTYyb1hkVFhZTG9Z?=
- =?utf-8?B?NkFUcGhGODdMcTdtNU9oaWxNZ2M0OGc4SFpNRlQyS3pxWGptcWdocHJieHRZ?=
- =?utf-8?B?RytkNjBWa1ppYWszTmRlWFkvNU1NMHZPQ1h0QUZvRlQ0cUk4amFOZGtneUZD?=
- =?utf-8?B?aUVTSmZWMXRKOWFlQWpTTzlnZWYrTkZCTm9jdGh1L01vZHhiVE9VV1VCTWt3?=
- =?utf-8?B?SXNlNVRSVytlQnd0blIva05SMDB6TDB4ZTAxSDlkdE93RW5kMWpDc3h1cmFX?=
- =?utf-8?B?WnRyK1hhc2RuOHhuSTArNGtiRHd0THFqM3RaelNPZTZVVWhpZXpuS1ZOWUUv?=
- =?utf-8?B?TGd4ZXh1YldDcGtnVStvWUNkWjY2aXZ5LzI5cGRRUDhkdUNqTTNHUkc3cGpV?=
- =?utf-8?B?QUd3YWxYSWRFL2NRaU9vVFFZWTRwRDJEZnBzRjRKRkYwdlZvemVNQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QXdEZVlkZmRtaU5oMWlxdDFPT3lObGMvZmszSDhqSE5kOVdoSFdkanJEVWtH?=
+ =?utf-8?B?TzRkVFRiWUd6bmFSY3pSZyt6bXRVMGZQSjNaTkZOVHVGY0V3R2VldkZFVXQx?=
+ =?utf-8?B?RnExY1hPOW5XMWZpSUhXc3JwNFNFUTc3U2VGbHdWcTN0ekVYaDZXcVdDeGF0?=
+ =?utf-8?B?RExVZHRpSTZGdmtWamMxbDZBWGdJeEpsV0RHenpsdktseURYc1h5cExFaW1O?=
+ =?utf-8?B?K2ZMKzhFN0E3QXBVdVlvTnFoUlZOdGJLZHZNSzdhSk1zMzA1VnFNWkI0MG94?=
+ =?utf-8?B?OExaeWdkaHkybmVpRWF3UWEvNkNSV05ZbklzVVB3OXpSOGNzc3NzNzZnUk5S?=
+ =?utf-8?B?NVhWNktWNGExMUxhanl3bmhWY05lYUk3dFUwdWZyRFFtYkE0WFZocC9ud0FO?=
+ =?utf-8?B?VmpLekVrNHhqS3FtY2NvQ0ZXejRqejB1ODFlMmc2blJqZldvb2Z4RUxIdkNt?=
+ =?utf-8?B?VGsvbFRJVHVGVVNRc3ZVRjk0WGg3ZDF0NSsrKzB0OFZPK3hKbEk4RmVmb2pr?=
+ =?utf-8?B?cGNrYmlyeU1NdHJzRkphK2Q3MDQzYXNTbTRKQVc0VkVlUlpHMW9qQ1h0ci9H?=
+ =?utf-8?B?c2E1ZmNvOFBqNDBQckpwVmZCZnpzRzJxSjNrazFyOTNxZC9DQ2pSR3pHMUpo?=
+ =?utf-8?B?MFk1dEloWWJhZWw5VVVRamVwdkZCM3phc0VkOW9UWUo2NUNFVkJjRVlYWWNV?=
+ =?utf-8?B?d3RweGh4RE9ZVm9sK0FIbi9ld2pQT0E3bUVHMlVma29nOEhXaisxbVg4bHlW?=
+ =?utf-8?B?LzBXdmY0TmxSKzBFNGlCbjJnejhxY0FzSUR1L3lNNWROV2gydktUaEhvWVIr?=
+ =?utf-8?B?VE04SVEvRkwzMTgwNjA5MkVhNk1QVkVNUnRQU2JVMy8yM0VWYWZBQm9tUjVK?=
+ =?utf-8?B?SEtKSXQ3VnE1a1Q1N3M5Q0tvWENmeHdFQnNDQ2cyRDNZZDFOdE9aSHFQU3JD?=
+ =?utf-8?B?OGRFVm9iNVJHS21RQzF6N0UyU1BXQzN2Nmk1TEpkdkx5c0NHMVMvb0c3aE53?=
+ =?utf-8?B?QXhTQzBtVkdua2k5eXRSTFBHcHpPRlpaU0kwYlRxeGZQOGJabW14bkU1R200?=
+ =?utf-8?B?bHFiYmV2YUJnV1RET0tLYkRhOUFSeUFONGpPZmxFanZxWTRGUTZSQjVjcFNt?=
+ =?utf-8?B?Q2RiRE5JQ3dSUDE2emxMVVJIOU9qRHRtckxsMWt5aklKclNsVHpoWk5xUTF2?=
+ =?utf-8?B?NWJ3MU5RTldVejlpcGhWa0ZmMjlNaEhjaWdTUmtXQUE1eVVkNjg1Z2dYbVFI?=
+ =?utf-8?B?bjI0ZHpEVnNRbkJtYjJObERZZEZxNHZZSngvZ1ZJRld3cGtnOExRRWlvN2Ri?=
+ =?utf-8?B?MEZiQkxRNFFHbG9OZUV5UnhHaE5LMmxyeWRHVy83N2tuUmZiL3dXVHJSaUpt?=
+ =?utf-8?B?VUtzd0YvUmNnL0t6WEVpbDR5OFVtTEp6OHdGOEZzMHB5NUU3NFJTSy9TbkVF?=
+ =?utf-8?B?RnRGZTkrc1Q0Y2YvS1pIYy9QOFo0cEYrWjJ2QStyT1MxSjgrWGROcE5xZ2hh?=
+ =?utf-8?B?SWFDYXZFT01WVmFOZk1SSUs0dHdnUVdVaDFqOHh4MGR5UEJUWWNERXhKTnJV?=
+ =?utf-8?B?a1hyTG83Vk53Tzh0RnRQNXpRTkRSV3JQejZUZjhpc3dhNERFNExUaTlpVEZw?=
+ =?utf-8?B?bTZNVmhrMGRWSDNhMFpUcmVVeStjR2tIamVYQlYwU2ZRdWhvT04vZ0syVlE5?=
+ =?utf-8?B?cXgyRXZNdjcxQlpVUHZOWWNRcTJoamNoT3BvWDh1dmhqQzJ2akZReGJkUGdm?=
+ =?utf-8?B?cTE2QXQyajJLSlY0RmJhbGcwL0ZvRHdUUmtkOUNzUDBGeS9SeVdKWWZBSHZD?=
+ =?utf-8?B?cmg2ek5pWkNQdzMzQUtIY3VIVXBqUnRJMGROZyt1QUFCTEFjbXgwMWxDcmN3?=
+ =?utf-8?B?elNVSmZ4QXpwVUJRV3plVzJudHdTRXFUSFVkUkdRSFVrRksrSU81L0JSWDRK?=
+ =?utf-8?B?WHMrazNjbnlvK0tqeFFhYWx2K0Y1dXJDWVFqeUU1ZXZIM2JFeGdBZlVRZWVJ?=
+ =?utf-8?B?TXIzSWVNQ1JJMjR0a3c0Z3JrUmo0T01mOEc5RDJvUUxxdEVKYUF3cEN6OXcr?=
+ =?utf-8?B?UCtsNXFrN1FQcGwvUHNDUHJOK04wa1hUdmh0ZmtZOFJtVlZ5Zld1RmQxSjUr?=
+ =?utf-8?B?a290dXNiSUlGekxYNGpSMTJoQ053Q05vNFFRSlhmNzZ0Zm1WUFppUlVlNldB?=
+ =?utf-8?B?OEVieEJwZThkZ1p6RFpITG5kaXVDZGpxOXZzQVhRSjA3VXZJUC91RGF5b1Ev?=
+ =?utf-8?B?NXNJMTA3bE9QMVRYZUZ1RUFJdlA4MUZOdEhhRmpqMU1iMHdaaDJGVU83UTVG?=
+ =?utf-8?B?dkh3N0thUEtBNlhPalEzb0M2Vi9wZ0pWck01VVFyR0F6WTl3WTcyZz09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a121e0b4-fc99-4271-0247-08deb8784483
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbe17717-7aea-48fd-d01e-08deb878ea8d
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2026 03:06:21.9658 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2026 03:11:00.9258 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7jh6YVqaaeGyhCa21Q//dchgZZ7bVGYSbs1WMsy9rAMZ+uj1LRLLgths7qjhml8hDFhweTcA2HQWFuimPlztkg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6263
+X-MS-Exchange-CrossTenant-UserPrincipalName: IANhIrPpZJo9VwG9rf7tV6kL5MRjFB1TPfgtYmr9okSlXUM4/TT/mSgsXlFb3kO2G4pp2BoVDdZ/UHsIDQb3qQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8313
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,12 +143,15 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 5/18/26 7:55 PM, Eliot Courtney wrote:
-> This is unused.
+> Move constants and functions to be inside the impls of the types they
+> are related to. This makes it more obvious what each type and value is
+> for.
 > 
 > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 > ---
->  drivers/gpu/nova-core/vbios.rs | 2 --
->  1 file changed, 2 deletions(-)
+>  Documentation/gpu/nova/core/vbios.rst |   2 +-
+>  drivers/gpu/nova-core/vbios.rs        | 185 +++++++++++++++++-----------------
+>  2 files changed, 96 insertions(+), 91 deletions(-)
 
 Reviewed-by: John Hubbard <jhubbard@nvidia.com>
 
@@ -156,19 +159,321 @@ thanks,
 -- 
 John Hubbard
 
+
 > 
+> diff --git a/Documentation/gpu/nova/core/vbios.rst b/Documentation/gpu/nova/core/vbios.rst
+> index a4fe63422ede..9d3379ccfb30 100644
+> --- a/Documentation/gpu/nova/core/vbios.rst
+> +++ b/Documentation/gpu/nova/core/vbios.rst
+> @@ -232,7 +232,7 @@ Falcon data in the VBIOS which contains the PMU lookup table. This lookup table
+>  used to find the required Falcon ucode based on an application ID.
+>  
+>  The location of the PMU lookup table is found by scanning the BIT (`BIOS Information Table`_)
+> -tokens for a token with the id `BIT_TOKEN_ID_FALCON_DATA` (0x70) which indicates the
+> +tokens for a token with the Falcon data token id (0x70) which indicates the
+>  offset of the same from the start of the VBIOS image. Unfortunately, the offset
+>  does not account for the EFI image located between the PciAt and FwSec images.
+>  The `vbios.rs` code compensates for this with appropriate arithmetic.
 > diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-> index ad571b39400d..9cc2f008bbfb 100644
+> index 9cc2f008bbfb..07b5235faff8 100644
 > --- a/drivers/gpu/nova-core/vbios.rs
 > +++ b/drivers/gpu/nova-core/vbios.rs
-> @@ -2,8 +2,6 @@
+> @@ -27,16 +27,6 @@
+>      num::FromSafeCast,
+>  };
 >  
->  //! VBIOS extraction and parsing.
->  
-> -use core::convert::TryFrom;
+> -/// The offset of the VBIOS ROM in the BAR0 space.
+> -const ROM_OFFSET: usize = 0x300000;
+> -/// The maximum length of the VBIOS ROM to scan into.
+> -const BIOS_MAX_SCAN_LEN: usize = 0x100000;
+> -/// The size to read ahead when parsing initial BIOS image headers.
+> -const BIOS_READ_AHEAD_SIZE: usize = 1024;
+> -/// The bit in the last image indicator byte for the PCI Data Structure that
+> -/// indicates the last image. Bit 0-6 are reserved, bit 7 is last image bit.
+> -const LAST_IMAGE_BIT_MASK: u8 = 0x80;
 > -
->  use kernel::{
->      device,
->      io::Io,
+>  /// BIOS Image Type from PCI Data Structure code_type field.
+>  #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+>  #[repr(u8)]
+> @@ -65,14 +55,6 @@ fn try_from(code: u8) -> Result<Self> {
+>      }
+>  }
+>  
+> -// PMU lookup table entry types. Used to locate PMU table entries
+> -// in the Fwsec image, corresponding to falcon ucodes.
+> -#[expect(dead_code)]
+> -const FALCON_UCODE_ENTRY_APPID_FIRMWARE_SEC_LIC: u8 = 0x05;
+> -#[expect(dead_code)]
+> -const FALCON_UCODE_ENTRY_APPID_FWSEC_DBG: u8 = 0x45;
+> -const FALCON_UCODE_ENTRY_APPID_FWSEC_PROD: u8 = 0x85;
+> -
+>  /// Vbios Reader for constructing the VBIOS data.
+>  struct VbiosIterator<'a> {
+>      dev: &'a device::Device,
+> @@ -110,73 +92,79 @@ struct VbiosIterator<'a> {
+>      }
+>  }
+>  
+> -/// Return the byte offset where the PCI Expansion ROM images begin in the GPU's ROM.
+> -///
+> -/// The GPU's ROM may begin with an Init-from-ROM (IFR) header that precedes
+> -/// the PCI Expansion ROM images (VBIOS).  When present, the PROM shadow
+> -/// method must parse this header to determine the offset where the PCI ROM
+> -/// images actually begin, and adjust all subsequent reads accordingly.
+> -///
+> -/// On most GPUs this is not needed because the IFR microcode has already
+> -/// applied the ROM offset so that PROM reads transparently skip the header.
+> -/// On GA100, for some reason, the IFR offset is not applied to PROM
+> -/// reads.  Therefore, the search for the PCI expansion must skip the IFR
+> -/// header, if found.
+> -fn vbios_rom_offset(dev: &device::Device, bar0: &Bar0) -> Result<usize> {
+> -    /// IFR signature.
+> -    const NV_PBUS_IFR_FMT_FIXED0_SIGNATURE_VALUE: u32 = u32::from_le_bytes(*b"NVGI");
+> -    /// ROM directory signature.
+> -    const NV_ROM_DIRECTORY_IDENTIFIER: u32 = u32::from_le_bytes(*b"RFRD");
+> -    /// Offset of the NV_PMGR_ROM_ADDR_OFFSET register in IFR Extended section.
+> -    const IFR_SW_EXT_ROM_ADDR_OFFSET: usize = 4;
+> -    /// Size of Redundant Firmware Flash Status section.
+> -    const RFW_FLASH_STATUS_SIZE: usize = SZ_4K;
+> -    /// Offset in the ROM Directory of the PCI Option ROM offset
+> -    const PCI_OPTION_ROM_OFFSET: usize = 8;
+> -
+> -    let signature = bar0.read(NV_PBUS_IFR_FMT_FIXED0).signature();
+> -
+> -    if signature == NV_PBUS_IFR_FMT_FIXED0_SIGNATURE_VALUE {
+> -        let fixed1 = bar0.read(NV_PBUS_IFR_FMT_FIXED1);
+> -
+> -        match fixed1.version() {
+> -            1 | 2 => {
+> -                let fixed_data_size = usize::from(fixed1.fixed_data_size());
+> -                let pmgr_rom_addr_offset = fixed_data_size + IFR_SW_EXT_ROM_ADDR_OFFSET;
+> -                bar0.try_read32(ROM_OFFSET + pmgr_rom_addr_offset)
+> -                    .map(usize::from_safe_cast)
+> -            }
+> -            3 => {
+> -                let fixed2 = bar0.read(NV_PBUS_IFR_FMT_FIXED2);
+> -                let total_data_size = usize::from(fixed2.total_data_size());
+> -                let flash_status_offset =
+> -                    usize::from_safe_cast(bar0.try_read32(ROM_OFFSET + total_data_size)?);
+> -                let dir_offset = flash_status_offset + RFW_FLASH_STATUS_SIZE;
+> -                let dir_sig = bar0.try_read32(ROM_OFFSET + dir_offset)?;
+> -                if dir_sig != NV_ROM_DIRECTORY_IDENTIFIER {
+> -                    dev_err!(dev, "could not find IFR ROM directory\n");
+> -                    return Err(EINVAL);
+> -                }
+> -                bar0.try_read32(ROM_OFFSET + dir_offset + PCI_OPTION_ROM_OFFSET)
+> -                    .map(usize::from_safe_cast)
+> -            }
+> -            _ => {
+> -                dev_err!(dev, "unsupported IFR header version {}\n", fixed1.version());
+> -                Err(EINVAL)
+> -            }
+> -        }
+> -    } else {
+> -        Ok(0)
+> -    }
+> -}
+> -
+>  impl<'a> VbiosIterator<'a> {
+> +    /// The offset of the VBIOS ROM in the BAR0 space.
+> +    const ROM_OFFSET: usize = 0x300000;
+> +    /// The maximum length of the VBIOS ROM to scan into.
+> +    const BIOS_MAX_SCAN_LEN: usize = 0x100000;
+> +    /// The size to read ahead when parsing initial BIOS image headers.
+> +    const BIOS_READ_AHEAD_SIZE: usize = 1024;
+> +
+> +    /// Return the byte offset where the PCI Expansion ROM images begin in the GPU's ROM.
+> +    ///
+> +    /// The GPU's ROM may begin with an Init-from-ROM (IFR) header that precedes the PCI Expansion
+> +    /// ROM images (VBIOS). When present, the PROM shadow method must parse this header to determine
+> +    /// the offset where the PCI ROM images actually begin, and adjust all subsequent reads
+> +    /// accordingly.
+> +    ///
+> +    /// On most GPUs this is not needed because the IFR microcode has already applied the ROM offset
+> +    /// so that PROM reads transparently skip the header. On GA100, for some reason, the IFR offset
+> +    /// is not applied to PROM reads. Therefore, the search for the PCI expansion must skip the IFR
+> +    /// header, if found.
+> +    fn rom_offset(dev: &device::Device, bar0: &Bar0) -> Result<usize> {
+> +        /// IFR signature.
+> +        const NV_PBUS_IFR_FMT_FIXED0_SIGNATURE_VALUE: u32 = u32::from_le_bytes(*b"NVGI");
+> +        /// ROM directory signature.
+> +        const NV_ROM_DIRECTORY_IDENTIFIER: u32 = u32::from_le_bytes(*b"RFRD");
+> +        /// Offset of the NV_PMGR_ROM_ADDR_OFFSET register in IFR Extended section.
+> +        const IFR_SW_EXT_ROM_ADDR_OFFSET: usize = 4;
+> +        /// Size of Redundant Firmware Flash Status section.
+> +        const RFW_FLASH_STATUS_SIZE: usize = SZ_4K;
+> +        /// Offset in the ROM Directory of the PCI Option ROM offset.
+> +        const PCI_OPTION_ROM_OFFSET: usize = 8;
+> +
+> +        let signature = bar0.read(NV_PBUS_IFR_FMT_FIXED0).signature();
+> +
+> +        if signature == NV_PBUS_IFR_FMT_FIXED0_SIGNATURE_VALUE {
+> +            let fixed1 = bar0.read(NV_PBUS_IFR_FMT_FIXED1);
+> +
+> +            match fixed1.version() {
+> +                1 | 2 => {
+> +                    let fixed_data_size = usize::from(fixed1.fixed_data_size());
+> +                    let pmgr_rom_addr_offset = fixed_data_size + IFR_SW_EXT_ROM_ADDR_OFFSET;
+> +                    bar0.try_read32(Self::ROM_OFFSET + pmgr_rom_addr_offset)
+> +                        .map(usize::from_safe_cast)
+> +                }
+> +                3 => {
+> +                    let fixed2 = bar0.read(NV_PBUS_IFR_FMT_FIXED2);
+> +                    let total_data_size = usize::from(fixed2.total_data_size());
+> +                    let flash_status_offset =
+> +                        usize::from_safe_cast(bar0.try_read32(Self::ROM_OFFSET + total_data_size)?);
+> +                    let dir_offset = flash_status_offset + RFW_FLASH_STATUS_SIZE;
+> +                    let dir_sig = bar0.try_read32(Self::ROM_OFFSET + dir_offset)?;
+> +                    if dir_sig != NV_ROM_DIRECTORY_IDENTIFIER {
+> +                        dev_err!(dev, "could not find IFR ROM directory\n");
+> +                        return Err(EINVAL);
+> +                    }
+> +                    bar0.try_read32(Self::ROM_OFFSET + dir_offset + PCI_OPTION_ROM_OFFSET)
+> +                        .map(usize::from_safe_cast)
+> +                }
+> +                _ => {
+> +                    dev_err!(dev, "unsupported IFR header version {}\n", fixed1.version());
+> +                    Err(EINVAL)
+> +                }
+> +            }
+> +        } else {
+> +            Ok(0)
+> +        }
+> +    }
+> +
+>      fn new(dev: &'a device::Device, bar0: &'a Bar0) -> Result<Self> {
+>          Ok(Self {
+>              dev,
+>              bar0,
+>              data: KVec::new(),
+> -            current_offset: vbios_rom_offset(dev, bar0)?,
+> +            current_offset: Self::rom_offset(dev, bar0)?,
+>              last_found: false,
+>          })
+>      }
+> @@ -186,7 +174,7 @@ fn read_more(&mut self, len: usize) -> Result {
+>          let start = self.data.len();
+>          let end = start + len;
+>  
+> -        if end > BIOS_MAX_SCAN_LEN {
+> +        if end > Self::BIOS_MAX_SCAN_LEN {
+>              dev_err!(self.dev, "Error: exceeded BIOS scan limit.\n");
+>              return Err(EINVAL);
+>          }
+> @@ -205,7 +193,7 @@ fn read_more(&mut self, len: usize) -> Result {
+>          // Read ROM data bytes and push directly to `data`.
+>          for addr in (start..end).step_by(core::mem::size_of::<u32>()) {
+>              // Read 32-bit word from the VBIOS ROM
+> -            let word = self.bar0.try_read32(ROM_OFFSET + addr)?;
+> +            let word = self.bar0.try_read32(Self::ROM_OFFSET + addr)?;
+>  
+>              // Convert the `u32` to a 4 byte array and push each byte.
+>              word.to_ne_bytes()
+> @@ -267,7 +255,7 @@ fn next(&mut self) -> Option<Self::Item> {
+>              return None;
+>          }
+>  
+> -        if self.current_offset >= BIOS_MAX_SCAN_LEN {
+> +        if self.current_offset >= Self::BIOS_MAX_SCAN_LEN {
+>              dev_err!(self.dev, "Error: exceeded BIOS scan limit, stopping scan\n");
+>              return None;
+>          }
+> @@ -275,7 +263,7 @@ fn next(&mut self) -> Option<Self::Item> {
+>          // Parse image headers first to get image size.
+>          let image_size = match self.read_bios_image_at_offset(
+>              self.current_offset,
+> -            BIOS_READ_AHEAD_SIZE,
+> +            Self::BIOS_READ_AHEAD_SIZE,
+>              "parse initial BIOS image headers",
+>          ) {
+>              Ok(image) => image.image_size_bytes(),
+> @@ -416,6 +404,9 @@ struct PcirStruct {
+>  unsafe impl FromBytes for PcirStruct {}
+>  
+>  impl PcirStruct {
+> +    /// The bit in `last_image` that indicates the last image.
+> +    const LAST_IMAGE_BIT_MASK: u8 = 0x80;
+> +
+>      fn new(dev: &device::Device, data: &[u8]) -> Result<Self> {
+>          let (pcir, _) = PcirStruct::from_bytes_copy_prefix(data).ok_or(EINVAL)?;
+>  
+> @@ -439,7 +430,7 @@ fn new(dev: &device::Device, data: &[u8]) -> Result<Self> {
+>  
+>      /// Check if this is the last image in the ROM.
+>      fn is_last(&self) -> bool {
+> -        self.last_image & LAST_IMAGE_BIT_MASK != 0
+> +        self.last_image & Self::LAST_IMAGE_BIT_MASK != 0
+>      }
+>  
+>      /// Calculate image size in bytes from 512-byte blocks.
+> @@ -505,10 +496,10 @@ struct BitToken {
+>  // SAFETY: all bit patterns are valid for `BitToken`.
+>  unsafe impl FromBytes for BitToken {}
+>  
+> -// Define the token ID for the Falcon data
+> -const BIT_TOKEN_ID_FALCON_DATA: u8 = 0x70;
+> -
+>  impl BitToken {
+> +    /// BIT token ID for Falcon data.
+> +    const ID_FALCON_DATA: u8 = 0x70;
+> +
+>      /// Find a BIT token entry by BIT ID in a PciAtBiosImage
+>      fn from_id(image: &PciAtBiosImage, token_id: u8) -> Result<Self> {
+>          let header = &image.bit_header;
+> @@ -604,6 +595,9 @@ struct NpdeStruct {
+>  unsafe impl FromBytes for NpdeStruct {}
+>  
+>  impl NpdeStruct {
+> +    /// The bit in `last_image` that indicates the last image.
+> +    const LAST_IMAGE_BIT_MASK: u8 = 0x80;
+> +
+>      fn new(dev: &device::Device, data: &[u8]) -> Option<Self> {
+>          let (npde, _) = NpdeStruct::from_bytes_copy_prefix(data)?;
+>  
+> @@ -627,7 +621,7 @@ fn new(dev: &device::Device, data: &[u8]) -> Option<Self> {
+>  
+>      /// Check if this is the last image in the ROM.
+>      fn is_last(&self) -> bool {
+> -        self.last_image & LAST_IMAGE_BIT_MASK != 0
+> +        self.last_image & Self::LAST_IMAGE_BIT_MASK != 0
+>      }
+>  
+>      /// Calculate image size in bytes from 512-byte blocks.
+> @@ -799,7 +793,7 @@ fn get_bit_token(&self, token_id: u8) -> Result<BitToken> {
+>      /// between them, so subtract the PCI-AT image size here to convert it to a FWSEC-relative
+>      /// offset.
+>      fn falcon_data_offset(&self) -> Result<usize> {
+> -        let token = self.get_bit_token(BIT_TOKEN_ID_FALCON_DATA)?;
+> +        let token = self.get_bit_token(BitToken::ID_FALCON_DATA)?;
+>          let offset = usize::from(token.data_offset);
+>  
+>          // Read the 4-byte falcon data pointer at the offset specified in the token.
+> @@ -846,6 +840,17 @@ struct PmuLookupTableEntry {
+>  // SAFETY: all bit patterns are valid for `PmuLookupTableEntry`.
+>  unsafe impl FromBytes for PmuLookupTableEntry {}
+>  
+> +impl PmuLookupTableEntry {
+> +    /// PMU lookup table application ID for firmware security license ucode.
+> +    #[expect(dead_code)]
+> +    const APPID_FIRMWARE_SEC_LIC: u8 = 0x05;
+> +    /// PMU lookup table application ID for debug FWSEC ucode.
+> +    #[expect(dead_code)]
+> +    const APPID_FWSEC_DBG: u8 = 0x45;
+> +    /// PMU lookup table application ID for production FWSEC ucode.
+> +    const APPID_FWSEC_PROD: u8 = 0x85;
+> +}
+> +
+>  #[repr(C)]
+>  struct PmuLookupTableHeader {
+>      version: u8,
+> @@ -923,7 +928,7 @@ fn new(
+>          let pmu_lookup_table = PmuLookupTable::new(&second_fwsec.dev, pmu_lookup_data)?;
+>  
+>          let entry = pmu_lookup_table
+> -            .find_entry_by_type(FALCON_UCODE_ENTRY_APPID_FWSEC_PROD)
+> +            .find_entry_by_type(PmuLookupTableEntry::APPID_FWSEC_PROD)
+>              .inspect_err(|e| {
+>                  dev_err!(
+>                      second_fwsec.dev,
 > 
 
