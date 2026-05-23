@@ -4,95 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D934BCD5BBF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9354CD5BCB
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A81C610E3F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2F0E10E3F4;
 	Mon, 25 May 2026 06:20:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sewmbVmj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U2xKswx8";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE12610E095
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 20:50:36 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-c795f441ff7so6539604a12.2
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 13:50:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779569436; cv=none;
- d=google.com; s=arc-20240605;
- b=W/2I2gVU6bHtnOsNpG9vT19w6ZRwB+M02TVO9TG5Mn/sUToEkk2y+mo81Or6qd19R3
- 1e4UGIMPQHhJUTB71a0RR08tgEE1/SgY1uEa/MZshfai0efYaJj0k1WnDwHxrvyvCKOP
- BVxFdk9tqORMLoqrqB7on+mJWQ4UxipDpntGKT5KtB8k8Ncgdv5HxGEPFkUNXu+PdRvV
- KjynL5CFkTYw1boY90Wf/LiFy4R6OvX6AArklHGekfnU5P/QwT1zjEn89CKRC5DR7tgt
- sMtybk9jRph5agiwDBG4VByPVjcG8RtPjGjsyiJBJNxKCiko4bb9GIiSLs5fVd9wq38k
- ILDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=IyTQ98dxYkPfqT9yOtXNuJEPxSlMOIrwYBGil6h3LZ0=;
- fh=wyXZkJCYIlOkdTRtQ0lTnFCiG+aCmUPJXkZqTdApMbo=;
- b=RmDqo8PQ9O6wudyrn1tIcalpJv8JMVpCBlHIy24hhqjhsdiWyq7ClHvIhyfXRbP87t
- FCvZzfWoYURKn3mhYIYLP8MfmxBwLftEV+TFvGHub7y+EF14rst62O1J8ziL3yHh0O6l
- X/dUxp3D1qvWK/oUGZta9bXhyuOEntWej9ExpdUrde5QeM9R3cGLAseSHr+Z4PaW4VhY
- dSRa8TKs1AREynDvNOeRGRfrjprNa4Q+8xbzY0rcb91Y7ujsCzB92BCdzlJxDeeVnRZO
- RjQtbOihRdhC4epyZvjcZuomGqeVKaLLHrdmRTSC/KYFHv6nGLKUn3m4lpbvCjLCrSwF
- hCZw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A963A10E104
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 16:57:36 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-c801b30188dso3799990a12.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 09:57:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779569436; x=1780174236; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1779555456; x=1780160256; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IyTQ98dxYkPfqT9yOtXNuJEPxSlMOIrwYBGil6h3LZ0=;
- b=sewmbVmj8rCgVYV/e0JWs/1Vf95PNIcbnoksI1xT//9Cl7XLkdnrBvpN7nQgsyCnFC
- qSPAcO7038sQWctLy3pHCh04aOiWGnWL8v1yCUtHoZ3RxWeSfqjIkaLKAa+riKATloGP
- hxkMBH9/D854ZtWOXzR69AvvUdeNTj+/U1H+6s+SxjD0E7lCa3NO0U+e1LmxvXzKWFN9
- AkX5GiXMX/pFhFU0O/AVHjvc5fXKH1Gq3sRLH8EkuYjJg7rMMDBc+aB6b3H6fb//zcpE
- Y3B9Gn/T/AFORKQlVkas/ucjOgdITECubwK0EbTQKVa3nlOUiJgs0B5O0SUebObuOqVE
- 2ZnA==
+ bh=XhLvA3TfrJzOyIZPC1ppqWVZ5nG/suASGnYJNqiPlkY=;
+ b=U2xKswx8PFGgaa26u0e+rvpnyx+4DPpPKX6LvvWIQunGSipvR60SAqcx9CAkH5HtoN
+ 12d0sXffFbwcEDDBmd8KPwT4EFjoIhpJC5rZ2nTqjwdwCSjra/70rOzG5Bm/K9OVYLwI
+ SyfjwLpz1QbIBvWdv0+Nw2A/Kc2njvkwDXC5Pbt/HpwECmlAl28+KoRyGX7elmslxub9
+ 5sYdJbjAoUi4F67RG36KuTF3Ec+B3RVnRKFUnsszbMcJPL6LAcDOlhw0Gp3ZKsX02Fno
+ XCwbIboY4SRS2ba3SBec0o1RuiXyG5JxdCPkH7tG2CZoOOdz5Al0/lYRae3O9QJzMZlg
+ iSmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779569436; x=1780174236;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1779555456; x=1780160256;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=IyTQ98dxYkPfqT9yOtXNuJEPxSlMOIrwYBGil6h3LZ0=;
- b=mYVmzi2ofDMfC9Sld9pKJnSOiy5sJpnGUYGuFLylLZ3RjqZ8uQuNQeSs/OkffeekPk
- YKS8r95eEmFH+XULHr/W8/qpwXxGnQhdfygpskOeKorRxPexyZh9zONnaI1DHwdEK+O6
- 0DgYC2WSAivN7yhOLFf87+pAD9oR04wc0yJo2oXYh6kkoZGkKlTr4Ew+vkLgkNumydh8
- 0x3op1uValt+Jijk9TS/MPDlo1A3cOZscwh+EoNkPpE40w1dChYBkuuC8hwYKr7lMOAt
- 6/71JadvBUHVq0Pk3ftoOjv/oawOThQvdjYPPPIkR4lOkGRVBSC1zF8STgz8tj8ldaiA
- yRzQ==
+ bh=XhLvA3TfrJzOyIZPC1ppqWVZ5nG/suASGnYJNqiPlkY=;
+ b=qY/xHYGxz8TzfsnMIdOrglVIYZd7JkhtWiff/XOtKGDKm4QMTi9VXXIppT8C3QBggJ
+ cZcThE4yGHjATlmw6tsoLjFsx4E4Y8BGrrnX5mDweQsahIbSFcg0gljtjVApigNLsVrc
+ 0aChuJOHVsIS/flTYfF/823imiGnoQFxorYOWUqh/aay0UXc89a7BUVBGrXIn2rdY8fR
+ XnXYUMc+ChMwSjkD+UsWEIqDMBvhPnr8r4zPlSZOekdH+2SsYqCoMl2FHUaP3f8VsbPI
+ HffiZ1SNCgpnSKeCJ+LczNgUk/HmFAA+DoTzBxB6OF5QHJGXeWRhUzODMiUOVcgM44Xr
+ C52A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+GiPxBlOlqndFZ/6aV+xay7St6zz2YcwE9nNzxUoHHAAlVijfP/Z7p3LgkNMywXF1XpxyBtTCbQPw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz49emZaWq7gX5pKXhsD1EALKunTK7lrQekXohrDjjp75NbMzg9
- qLPGAVM41qff1mi9UTsux+/9PDuwxmfqQmy62k80UbhZyLrSYriDhwfRpHEwUV7vDglhxLeDvmP
- oc5pEY8MldAGcSOfgb56yj/ffQIlmHm8X2A==
-X-Gm-Gg: Acq92OGw9rsfmwZNeTFtjzCZa0ekzyBoQGDDt/pMMGUtb0R+h1pLMMi02MZEBDKHZjI
- F4upcdISrD28YX7ANMIan+N9cMc47zardb/62X5cu3Kw5SJDdFp1q8/dT5zwlB5A3NStVRGgL73
- f7xuw0k/loG44JrzZCTBCZQLuaukHBeJoNTVck+sXNfK/9at6hgSKWP5nMsPlRVffLFMPu5KAkT
- cmENUSmupC8I3Mln+dkGT91VVXePtP2/WnHJy/3zX6xsiBBxGTPQCitCKiqlccYQa28BbhCC06S
- 0cCgKOdtmpIAg5q32lNlYzt6kEPKgdqSD2kSQLVV9pWcQc7XsPJxj8IPa8g9oyrlEc/4HZrr
-X-Received: by 2002:a05:6a21:3285:b0:3a0:adc5:52c1 with SMTP id
- adf61e73a8af0-3b328c4cbf0mr9292019637.11.1779569436223; Sat, 23 May 2026
- 13:50:36 -0700 (PDT)
+ AFNElJ8n+98VDLaFL7XaA/kpSn/N7uiNHknN3AzRc/U4hBECZPUlIhbSLpwKv8zaIv7J4fjHBMvVHRgABrk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxzkxV9khv8aJwOz6VdgP0fl6Wh5uetuw2GNo734vXTy0RYS2k7
+ OHpNpGXMxNEp+9HycrUqLavSThOO0x4dkhQdY9oduKzwdPtlYs19wKJe
+X-Gm-Gg: Acq92OHP0yTBhDfvydLgBmPtyjFNwy/Z+e6ogj4g3TJZ3Qm3IHOHC0oJL9NMJM2C5sn
+ iI6SkWHug9tqfaRyG5J8moMdfj1P6ap1Vh60VDud8MJJCjIw/4z84nW8hr9r5D8TYkp0F4NgAkt
+ a2brA5XIhVpb0yehS+QbjwcaXFpbLqPOJcIo1AXcqWlYxrmw3AjmaHsMOxDqgwAuvdocekm++9z
+ 89sgR5gyO/jrYvtnoUYSmqN8Iq+b3jStzUrOvQW1Ha80F80G9/HpQcS2OJ+CQK4HUL0ZeOKksAG
+ 5+GKhUEpaoeASxYDNWijNmU1ZcqLOY9FrZw4GcXGbRy1DmmyElrAInhM5oPV49f/TpRmRGsO1wN
+ 6EfeFP6ss7d12NoQ4Z7OHOldXaqSbKhpa6esMmaiZC1MH/uY8RY1ny/tddNgDuumnT33sGt5YaE
+ rpPul70tlhFT4tlkryivRUxvuVfnmwLCu9DghruZIkpRTvzZR+Hagd4GxKWB0JrHTcvdl8R1HHN
+ sk0avvTX6pF/0iJNnoKpX9xRC6l6tRjXs8aBCyrkcv1JeZTDpHIw0Vp7OC6eJA/egiG7Rp1XWf3
+ FXlbD0Tzw/k=
+X-Received: by 2002:a17:903:2b0c:b0:2ae:825b:49a5 with SMTP id
+ d9443c01a7336-2beb0582ba0mr82866055ad.0.1779555456134; 
+ Sat, 23 May 2026 09:57:36 -0700 (PDT)
+Received: from
+ codespaces-78f0a7.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net
+ ([4.240.39.193]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2beb58c69a0sm47832065ad.59.2026.05.23.09.57.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 23 May 2026 09:57:35 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: Felix.Kuehling@amd.com
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH] drm/amdkfd: fix NULL dereference in get_queue_ids()
+Date: Sat, 23 May 2026 16:56:46 +0000
+Message-ID: <20260523165646.25645-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260523142645.39102-1-meatuni001@gmail.com>
+References: <20260523142645.39102-1-meatuni001@gmail.com>
 MIME-Version: 1.0
-References: <20260430010405.52591-1-kenner.linuxdev@gmail.com>
-In-Reply-To: <20260430010405.52591-1-kenner.linuxdev@gmail.com>
-From: kenner azevedi <kenner.linuxdev@gmail.com>
-Date: Sat, 23 May 2026 16:50:25 -0400
-X-Gm-Features: AVHnY4JlT12H_E0ODt_22_aaUdV4UquI6AiBAxfDaGZ9HELRKphl73htp1x5-BY
-Message-ID: <CAFHy_waHvX5cDPu4=7R4nQzWBudYP2BwT6aiq0jHf4nCT3tGzw@mail.gmail.com>
-Subject: Re: [PATCH] Fix kernel-doc for amdgpu_display_manager
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 25 May 2026 06:20:29 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,48 +95,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Team, good afternoon.
+When usr_queue_id_array is NULL and num_queues is non-zero,
+get_queue_ids() returns NULL. The callers check only IS_ERR() on the
+return value; since IS_ERR(NULL) == false the check passes, and
+suspend_queues() calls q_array_invalidate() which immediately
+dereferences NULL while iterating num_queues times.
 
-Any update about this patch?
+Userspace can trigger this via kfd_ioctl_set_debug_trap() by supplying
+num_queues > 0 with a zero queue_array_ptr, causing a kernel panic.
 
-Regards,
+A NULL usr_queue_id_array with num_queues == 0 is a legitimate no-op
+(q_array_invalidate never executes, and resume_queues already guards
+all queue_ids dereferences behind a NULL check). Return ERR_PTR(-EINVAL)
+only when num_queues is non-zero and the pointer is absent; both callers
+already propagate IS_ERR() returns correctly to userspace.
 
-Kenner Azevedo
+Fixes: a70a93fa568b ("drm/amdkfd: add debug suspend and resume process queues operation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Wed, Apr 29, 2026 at 9:04=E2=80=AFPM Kenner de Azevedo dos Santos Mirand=
-a
-<kenner.linuxdev@gmail.com> wrote:
->
-> The struct boot_time_crc_info is not described in amdgpu_display_manager.
->
-> Running the `make htmldocs` is showing the following warning :
->
-> WARNING: ./drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:715 struct m=
-ember 'boot_time_crc_info' not described in 'amdgpu_display_manager'
->
-> i added the description that fix the warning and describe the struct.
->
-> The warning is not showing anymore in make htmldocs after change.
->
-> Signed-off-by: Kenner de Azevedo dos Santos Miranda <kenner.linuxdev@gmai=
-l.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 74a8fe1a1999..201b4796b591 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -347,6 +347,7 @@ struct hpd_rx_irq_offload_work {
->   * @dmub_aux_transfer_done: struct completion used to indicate when DMUB
->   *                         transfers are done
->   * @delayed_hpd_wq: work queue used to delay DMUB HPD work
-> + * @boot_time_crc_info: Stores CRC information collected during boot
->   */
->  struct amdgpu_display_manager {
->
-> --
-> 2.43.0
->
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index c08ad718dbd7..8488b3a6c2ba 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -3312,7 +3312,7 @@ static uint32_t *get_queue_ids(uint32_t num_queues, uint32_t *usr_queue_id_array
+ 	size_t array_size;
+ 
+ 	if (!usr_queue_id_array)
+-		return NULL;
++		return num_queues ? ERR_PTR(-EINVAL) : NULL;
+ 
+ 	if (check_mul_overflow((size_t)num_queues, sizeof(uint32_t), &array_size))
+ 		return ERR_PTR(-EINVAL);
+-- 
+2.53.0
+
