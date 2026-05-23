@@ -4,131 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8479ACD5BB3
-	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 00:14:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613DBCD5BBF
+	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 01:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F6E210E043;
-	Sat, 23 May 2026 00:14:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C55410E2BA;
+	Sat, 23 May 2026 01:04:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="RAIgrbEY";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="fT1NcaLS";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013049.outbound.protection.outlook.com
- [40.93.201.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46DD510E043
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 00:14:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EGxC45rGXThdEX+elJsCCLKBkGWE0YIu5S0TzVIZ4iwP9P/42B/KXwmaArA2o7qLklsVL8ZszRfoAdIK/C7XtOGewdrTHpmP6JjXDVMTfUHnXh0I+TfG+xA4OuG64Hfdnryzmhp9xtDiHLG52nyQgUyEcf+VmPevOsYMQOsIm41//m9SdlJ+/muQBczA4pu1AHEv4k1Ppm+2LBmec1b+Jqh7lQnwviXjhv7PW0fHx7yw9bsZMvwS4vjU9xsISDK4qnQQ+sImM7ZFpdXpalpvtA48ylaw2mdJLRfOTcPfTuRiBMl4hkOjfqNX4a4o+vvd8QCKJKkt/tODnkV0h9v1uQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lDMYhXft+k1xzyogkftZKkzkAriD2+9oUielgcNvlB0=;
- b=cS4nBQDTliqt7eFlhFrdK+Nkbk/U3SyyMrCR21z+1ljDCHLe6CfOv65nvGS9ocsMMqwexnM1IHcl7qATJTOymyn12tyhulpoOHHeBijt8WxOsmH4LM64Da9Wb63RczbmMI7vYWb35XOOS//nPdQW26Nun5smDI8xuxD4qgXHkqWPe+u4jpjJ36Wt8KMUIhYhzXdo0b9QrA8Fwdzt9GyRkK1oaAX1utam+nQiu6+cXwVgvuXqzhxB9ieQ9pnmKheVvoIB7Htz1l4qw9mNHjRwcRaNCqB8PlM3oI5nCELZ3WE2vnkk+Ds/K7/QRBrdwO6rf/fuBvHaCUFYZgB0sLRifg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lDMYhXft+k1xzyogkftZKkzkAriD2+9oUielgcNvlB0=;
- b=RAIgrbEYGDCD/2IdOu0qbmHXQHr2n130oiEnExeM84529MerFmP1r6uFotWOMKXEWT0zPPHa9CByFrvHY5nGBHoM18bET3bHrcutzZorqSZJ3S1IchMKMew1SqqtQ1ByEu4m+rmdYfXNqfAY3X2Lkxlxox/clnSZkypsecIa+LL4irWDMBJSE5EfADASOYcIYiCTiGQirELyd4OEhwqG3bSfM3LEMZ3/W5zph/P/T1ouk62JZ+OUn8918PQTrNQ2r0rohyCo05N6HHOK4qmQYZTKJZzI+X68oG4YR4re9CeO12tcgi85aQNWjbOY/tRWFKWXjBvbTC8Oua9eanTNMw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DM4PR12MB5913.namprd12.prod.outlook.com (2603:10b6:8:66::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.14; Sat, 23 May 2026 00:13:59 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0048.016; Sat, 23 May 2026
- 00:13:59 +0000
-Message-ID: <b7bba000-adf4-4ebb-939b-8f9f549fa6b0@nvidia.com>
-Date: Fri, 22 May 2026 17:13:57 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 14/20] gpu: nova-core: vbios: construct
- `FwSecBiosImage` directly from BIOS images
-To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
- <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Joel Fernandes <joelagnelf@nvidia.com>
-References: <20260519-fix-vbios-v4-0-5d3f210c5602@nvidia.com>
- <20260519-fix-vbios-v4-14-5d3f210c5602@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20260519-fix-vbios-v4-14-5d3f210c5602@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0120.namprd03.prod.outlook.com
- (2603:10b6:a03:333::35) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C3F910E027
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 01:04:11 +0000 (UTC)
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+ by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 64N0ei451171825
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 18:04:10 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=ZSYPnXqPgD1WmWUsBlypXTMK46Ru/H45VtdzBiXsUQo=; b=fT1NcaLS0als
+ V0CzITn5MusJzO7wCLcepvtcBFTpq0bJwdQSvOVtuXxphbNRdr5w4GkHaTzTSf3+
+ 1R03uZUVNbYR09SXtNfze33jf0vl16nQtWNHx7IejIEpQwTNM6Zdr4URIJIP4IUZ
+ /MxPR0PRQGLKj5okI7T8m28gwIvEkhfg4k5DlHcYM4LKRk6uMqHrbOKc8yy5HHtZ
+ 5eqDNEm/6fylQhFYaVIcSOMFDFs1Klh81XfuQ3MBoRuhLL4csUmWciCvrsH6JK3j
+ sIxVPa7SHf06LM2veBJyy78S1WcvHjVGrhiGukFXNTCVAfsoQEefzYCSC/aL5enj
+ hOGP41Rqtg==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200])
+ by m0001303.ppops.net (PPS) with ESMTPS id 4ea5x81qta-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 18:04:10 -0700 (PDT)
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-4853528d99dso3293415b6e.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 18:04:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779498249; cv=none;
+ d=google.com; s=arc-20240605;
+ b=aB2iEyslv0JbJKVZ5SOzHLpOHe0i1CsbnCidPQDF2PraVRY7xIqOolE7r+qICxVbU7
+ +6IyZvtSOao9oN/AsXGYDKRLWllac9cN6Cflj85AcGspXll81ZzePqIBebsHzadVNao4
+ uAJw5WW/L+0dzfnTvncZkMtg6LddDvYcN+Cc0kgaVQyLrwONEJV0pPfvpa6YH7hQx4UJ
+ l4If1I8y/wZX3R+2wmnPoBJ9lDoLUEFK8QfWDYwymfTCbVQS4+bYVsZOlcmE9BGYcqlc
+ 3LmqvFJixNyLvHitNQOqklSaHrNI1yAte8Nd5CNvo3OU+LlwyhOWBuMJMh5R91HsHPhA
+ FqRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version;
+ bh=ckSywFlrQVuSq3t4EfSWLfDKEF0bsmOAyDZjQDxER6Y=;
+ fh=MHaEzg+yD9LqADY6DSCFrYiiJVrks1XYuaaf+63fAvA=;
+ b=J7HGwIxY/R4kAI7ErVCdrB3kS08LMI4c5CwijvF62FT6MXpiAc1bel47ngMddtmmrL
+ 2yJffGOc1o0RV0Uqohp8EcGpF98xWG7FNNCMNpQAtS6GI55GuTCd3tbKPYHH8fcuOmAj
+ c07XpSZai3vACUUtx/UezEELNTErtLFQrwPFI3PPbUTLOm4i5t9ojB9/cIZxjlRmKDq7
+ m0Qt5R8nVvuXsm3KYc6xkRxDSiPRQQuwKAsRFEyOLiSt5/V0rb4/mDou4yKXABP3RWzi
+ CU4pkLHm6mATgNAqRdpX6VVpP7P6+JLpO1uLJd6w11N4bKufsdqnfi1ZGLj3/Gov1tq2
+ kNXg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779498249; x=1780103049;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ckSywFlrQVuSq3t4EfSWLfDKEF0bsmOAyDZjQDxER6Y=;
+ b=Bby+kq5gM7DIH2XfBXedi63UPJ/f7QyP73ny2GVHB1ThMYjM+VFcMjfTHsTPOoqhyX
+ cZSMZ8SpSpSf3qC1KfhCz/wOxZtHsJGVE1qrpSc0LiF4e8fFKoYMlZ07kW7azS+JAk+G
+ xXAcwC5/kmud2FtQcDDRMiqdOMllz0YmFuiF2fgyE5Pec0I1IsPraBLT9V1o2kQkk9Sb
+ VF1NDvmObTDDXCDaMKAZb1E7YZzRxYhwe/S1Zird6g6Rb6usXU+oK2xWArHdKa/IxAHc
+ AB/aN09B57Uwts0YcVyJQ5v2m1pvsaz+Kyvofil5DGCLMiAJx+p6HJ/nPXFH3Zifv2Zr
+ oXgA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8z/DqDUXUE4H9T8KdI94AfvaY/ePDPMPA1JxUNW4SKit6qZhEktom81BOZ2TWQ6nG8Ta+3AYAIGQI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwhlJVUumgit72UNp2wNqoVh6dnuokfReacRJKifYj9TJTezwuu
+ uk0pERGm0ubDc3TK8YpEBuAWNXm1kAz8asYL/uWDmxEPTT01q28+JvDmSoow/C56QSHMLFW7UjI
+ 6LqaJf7YdjpokFocj+c/8ynfb0gwz56Mu2xcQyLuekPm8pDXyyXgqC5RuE9cliGi3P6Pw2O6Pqh
+ rZ6ocheH4D6/SzDJcThVGBZGVBjv3O8yChQXWE1GodB0A=
+X-Gm-Gg: Acq92OE/eDFi7ltr3mbkOehoVDGwodQCdJ/833cdZkQJZ5dh7bXsZgit9jy/JXGpcaI
+ evqDe2HSPwjOEnoO5RJMkHd5NSuiZ53vqKcxnfbFVNWTYOdpGIzR9uITpf4Xd1fc+tuWUXUmP9o
+ oSCegqDMUs7UMBKlL6rpG/ZSkIvXWTf9ppSVVwYt98Xu/Xksf5SKvDJBJ/7yQpuFi3mGQP7tkaX
+ F0T
+X-Received: by 2002:a05:6808:f0c:b0:479:de32:b310 with SMTP id
+ 5614622812f47-48549902f22mr3459524b6e.0.1779498249491; 
+ Fri, 22 May 2026 18:04:09 -0700 (PDT)
+X-Received: by 2002:a05:6808:f0c:b0:479:de32:b310 with SMTP id
+ 5614622812f47-48549902f22mr3459507b6e.0.1779498248992; Fri, 22 May 2026
+ 18:04:08 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DM4PR12MB5913:EE_
-X-MS-Office365-Filtering-Correlation-Id: 943133ad-8998-49e2-8f4c-08deb8602f9e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|4143699003|11063799006|18002099003|22082099003|56012099003|3023799007;
-X-Microsoft-Antispam-Message-Info: uvPgMamcKiZ50cxLH/Ty/zn5OZcnnGh9ivMwOVKqX0EIgZ+TwGVrMB/MnS35qEzbbxsFvUrkUjgwuWxTUotIWKiYDcrd9nnK61x9HkjRaMJh9XTHj+bydiZkCN1c2caHQnXPQ8wxlRXzMZOpKoQISsPtQjzWtqdF6WRf5+2eGtBx+3+6AqMKdZNEHRRIgbZU8jfRZvsZ4w02qq3eGBwUu+fSYDx5GbButYLNCu+Cq+Tm//ZLVlZavjegexUWgwlD8e9kDhagqepphu+AZCv5VFs0AQThYT8tm00IGVOU5ldLuktDqe1zx62+RNoEKhJL+pJeFuR2Q86X12WhTjf/Yf4k846FkvPc/P9c3fm3OiUXKL6qyKKAz1h0JffhKSIKcOPs+EPJZEjfKzxa7qTQ0Qx1U9UgI1sbiW7oCET+vghH+MBtSR9QceImRTapQKvGaJ9g0tmlAHWd6nHvqCq5ehIUo9agCoh9H1cTv8IeNyZ6wDGp1PLvze3tsum9ZPFzI5SQ8Nj6AlUydyMsIl5+lRTg6xw0g3+3Pjqcrf3m0NGpoFty/iMdVATokvcFLfkTW5VxeMWLYqbxXB2SuvB2eC2qPNnWSsWtMFuakonrNdynG/b3UO5I7D1pvQRXeOJwAc2s+59nQz5Q/oEmh6eC4ukWTERv/idXJQRvqpdWrYlETthnBH/6N4Lloq4AzMpw
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(4143699003)(11063799006)(18002099003)(22082099003)(56012099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3lzbTAxUmpqODRwVTcwellYNFZSSWdxTHJIcWtycGpVR09iTFlsTkR2SVc4?=
- =?utf-8?B?RTdFamJ4QnE4NHdFRWhsVFMyK2VPSEQ1eU9RMXp1Z2FuY29qa2pYOThERERR?=
- =?utf-8?B?YzF3Q2tpbDcwYzg0OTBjVzY4bzFIZVZzRlRyTW5wUy9SeHBuckNwa1dVS3Vr?=
- =?utf-8?B?YUN2WXJDSUdjc2ZhcGFEa2Z0bDZ5RGdYcmxKWVl2bTRtTjVtSHdJVjNLbW1X?=
- =?utf-8?B?STMwWE8rUmZTejY5SE1HNGRXODFwc0svSW83UWdRcGhXUHpFQU9QUVlDMHRr?=
- =?utf-8?B?Q2Q4VCtDbGZlUThXcks2eFdVSXhyQVV2SW8yUTAyVDRWUlNCcktadG1YTDdo?=
- =?utf-8?B?V1JRSHhoQlFKcko0bExWbVIzTXllWklEQ2VZUWN6SEtBQkFZNTJxYldKRnNa?=
- =?utf-8?B?QkRnSCtXT1JGTkJUdE9FamNlUHg4VUlPRjk5TlNCOTFLMnhWSWcyZnRuQXo1?=
- =?utf-8?B?MUlFTG03dXFXcDRsVDY3ZkxtcGZicS9ocCthd05pblVKN2RlWm1TSjBQL1hC?=
- =?utf-8?B?TXpCdE1UUHJzQ3R0M3BiREpVblh2NjJHSzRlOUhCZ2V5OFk1U0x1SE1PVFBk?=
- =?utf-8?B?QVNlNndvRElabUxoS0h2dXR2ZEUxdVNkNzdEeDlncTVFOHN1YlkzZFAwdWJh?=
- =?utf-8?B?YnU4eGdOWFdsaHJzdlc5b0dZYjYrYzBhKzk5STR2c3lJbXd0bk4zNVY0cjFS?=
- =?utf-8?B?bG41R2tTcCtlbVNMY2RJWDBFejJMM3R4UndzeCtLMGZnNU1hR2hNNzUya2hu?=
- =?utf-8?B?U2RLd0tNS2ZYNjRtYjV4MHMzdVJKRStjNWpZdUoxVEZIVlQraExhQVhHVnRy?=
- =?utf-8?B?OUZ3S0t4TDRsYkNVdUJ1QXN2cm1YUXVKRWF2clRYWWVVVWs4NGlQUE1sbms1?=
- =?utf-8?B?R0pNMTNHclVSVGptWDcrQkM0akZWNTlhb1RKb1FrUjd4bzVxdS8yakdxdjBr?=
- =?utf-8?B?UHlORGQ5V3JWbU5ENVlTMjhEeEIxWkQ2Y2cwZlpVUUh3M2I4WS9WdGx1Q0dn?=
- =?utf-8?B?cFcwYi9GeVpOTGxJTGFwcGFqSXpFbXZWTTBIQlNLOXlZUDJONW95YmVndFJo?=
- =?utf-8?B?MHF3c0N3c3FEc1B2MmVxVnNHRHRwdjZLVExkejlQRE9VWXFvOGlheDVreU1Z?=
- =?utf-8?B?d2IvOVB0Q25wU2lkeFp0OVN3eVdWaW1ocnRlNDdRR0lsdFRvS0xmUmpoMWx3?=
- =?utf-8?B?WTZ6WTF4VVFLMllIdjRYbmpNT1FST2hvZFg1ZjErUWgrQ2tpRnZhMW8rU2hZ?=
- =?utf-8?B?THpITVdiSThibHdtaDkwQjAwajFCdzBzV294eld5Rk1IRlQzWlRLbDM5ZkFG?=
- =?utf-8?B?MmtIK3hjWkhIVUNSUWdJbmR2Y0dWMlpDcWpkNURKYkNkakJLVTdzWXU2ZkdH?=
- =?utf-8?B?WnNjbUtjYjNlZW9ESXk0VTQzNDB3MVI1U1dxc2R2azBXU0o4T0FiNWhjMWYz?=
- =?utf-8?B?MVJUVGxTNzgvZGdMSDR1Uno3SXRueWpveFJLT00xRU5teUQ4N0FkVC9nU2Vm?=
- =?utf-8?B?cU0rOHUvQkk2MDFvMWFVcnA3ZXZSUG5BdzdRQmlxVXcwVVgvVmUyTG8zQWVS?=
- =?utf-8?B?eE11d2pINFIxV2QxMGRsa21yV1A5c0RKc0hOTmpYdnhDaGlBVDBrZDc3ZVFM?=
- =?utf-8?B?VFY2azdHbVB2K2tjQlQ2VW5ocWQvNGdmUjlGb0tLaHpkSlhGeVNnRmU0QjRZ?=
- =?utf-8?B?WmM4U2d6Szk0YXEyRW9MK3VmM096eis0RlJQWk9yY2l2UzVaUUt6ZG5GTTZ0?=
- =?utf-8?B?aTl5K1VJSGpoVEJQZmxWRlFWbjEvU2YvUTdXR0hMSmFnRWkvV2Q1MUdKQnpr?=
- =?utf-8?B?Zk1qM3N3SnpQaGlHbUxoYVgzUG5sdzE4bDVwSGNkMUJLekZ0VUtTOVRzUlZH?=
- =?utf-8?B?STErTUFFNzMyU241anRhQUVIZXppWWladWdhYi9IdHYwL3Bsb1lUSjhrRjc2?=
- =?utf-8?B?RnVtcmo5TDcyNGZFYXNRZ3EwQUNBa1lPRXFta0tZVUlMWXIyUWlGVWoyOE9W?=
- =?utf-8?B?eDhqVlI0RmhBOHlkRDI5RXlWdVhQTWZhUnp2L1BGRTcyYTlDZHduRDVqMlhF?=
- =?utf-8?B?YkovekRoK2t0VmYxeWZlWlBTWVZYbzh3alhtWFltOTY1Wk5XNmZ3ZVdsM2Uv?=
- =?utf-8?B?cm5ETFdvWHZMbnVZSWFuNjZ4Q2NsZk1COUszOVowdjRNdzB5RDBWNTQzeDF5?=
- =?utf-8?B?QUZnYVhIdytSWnYzQ2xpdFdkMWlKUHpSQU1lU0lUUmtqRFFDTU1RQzBSMG5E?=
- =?utf-8?B?SWRJZXRmcEN5ZWtQeDBjU3B6ZnFnWnhSdmRTSTFHbmR3Yk5JbmJWQllZNDh2?=
- =?utf-8?B?VjdBMDRPOXBMOHhWWi9kb1I5KzR2NHE4WVJ2R1FXUUE3OUVJVEJxUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 943133ad-8998-49e2-8f4c-08deb8602f9e
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2026 00:13:59.0036 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mcyCAVS+bYtmNLYGJSFmVZ3lLmAvEqlQHpm6LVP5MMBxwkn6Yn7Ya+KoHrXcppvSvZV/6ecWGwZeZ2t/YmXIFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5913
+References: <20260519201401.1558410-1-zhipingz@meta.com>
+ <20260519201401.1558410-2-zhipingz@meta.com>
+ <20260521160412.4fa75406@shazbot.org> <20260521162437.406085db@shazbot.org>
+In-Reply-To: <20260521162437.406085db@shazbot.org>
+From: Zhiping Zhang <zhipingz@meta.com>
+Date: Fri, 22 May 2026 18:03:57 -0700
+X-Gm-Features: AVHnY4InmgAbt-a7ZIoyl3OFAhk-P34lQOEjx6K7zj7MuEim3oYM-YaMDsRZ4E8
+Message-ID: <CAH3zFs1gh6UZewMf9GJ6CtO5v0yWNokp-eZQ8G2QnyAyxD7-wQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] vfio: add dma-buf get_tph callback and DMA_BUF_TPH
+ feature
+To: Alex Williamson <alex@shazbot.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=daewG3Xe c=1 sm=1 tr=0 ts=6a10fd0a cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=_78whYxrdx1mplLwxq1U:22
+ a=r1p2_3pzAAAA:8 a=VabnemYjAAAA:8 a=LZULGAC3ikq4sroI4wUA:9 a=QEXdDO2ut3YA:10
+ a=r_pkcD-q9-ctt7trBg_g:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-ORIG-GUID: WHEXQw9e1CBChz8p9sspJFNigJ7T1mqy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIzMDAwNyBTYWx0ZWRfXxojKTkmpngz+
+ 63CgqN3mgCb2xL9eO8afsGLXdSeVpVzD2RWSMpKtaR0i1L+O5kZlEwWd34MFmeLftTOOwGRdT6J
+ Fzo+3fFYqr7QdFZVOH8KTTtj6rcC9VUW2ET61ntP+sdJOqYkaH4NQpyv2dJXT1q+6JvdA178Lum
+ 7B9gAs0+wbVRDxtifRNkrS3cwVeWxGb0RlhdfeVTlYPyAixZRrSLt062/vGgA2EMiy+GEL5H13s
+ WdEixqFZVorAHvS5rSdyKo16eiUCnLceZBlXw+qZDSmalH6mcJKpf5lxeKJel159RF+sAFGP+AS
+ kUxpigRuVoD3+N4YH+KedXCLSI2LhPLSXGOkk6sLGR+wqqPIdnroCw9AWVFZ0QzCkS8CN20fnTQ
+ w7gglh3jMoSQZCCOOTBGdGxKJUpy4WDPWrGW1mU+Tbr+w/IEhWnyitqZSwbyhK+9d0LbnH8aHVE
+ xlrA2bKJdSMEr7C2I/w==
+X-Proofpoint-GUID: WHEXQw9e1CBChz8p9sspJFNigJ7T1mqy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_06,2026-05-18_01,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,82 +139,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/18/26 7:55 PM, Eliot Courtney wrote:
-> `FwSecBiosBuilder` now only contains `falcon_ucode_offset` which just
-> gets passed directly into `FwSecBiosImage`. Remove `FwSecBiosBuilder`
-> and construct `FwSecBiosImage` directly, as a simplification.
-> 
-> Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/vbios.rs | 98 +++++++++++++++++-------------------------
->  1 file changed, 39 insertions(+), 59 deletions(-)
-...> @@ -353,15 +349,23 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
->          }
->  
->          // Using all the images, setup the falcon data pointer in Fwsec.
-> -        if let (Some(mut second), Some(first), Some(pci_at)) =
-> +        if let (Some(second), Some(first), Some(pci_at)) =
->              (second_fwsec_image, first_fwsec_image, pci_at_image)
->          {
-> -            second
-> -                .setup_falcon_data(&pci_at, &first)
-> +            let fwsec_image = FwSecBiosImage::new(pci_at, first, second)
->                  .inspect_err(|e| dev_err!(dev, "Falcon data setup failed: {:?}\n", e))?;
-> -            Ok(Vbios {
-> -                fwsec_image: second.build()?,
-> -            })
-> +
-> +            if cfg!(debug_assertions) {
-> +                // Print the desc header for debugging
+On Thu, May 21, 2026 at 3:24=E2=80=AFPM Alex Williamson <alex@shazbot.org> =
+wrote:
+>
+> >
+> On Thu, 21 May 2026 16:04:12 -0600
+> Alex Williamson <alex@shazbot.org> wrote:
+>
+> > On Tue, 19 May 2026 13:13:49 -0700
+> > Zhiping Zhang <zhipingz@meta.com> wrote:
+> >
+> > > Add a dma-buf get_tph callback for exporters to return TPH
+> > > (TLP Processing Hints) metadata, and add VFIO_DEVICE_FEATURE_DMA_BUF_=
+TPH
+> > > so userspace can attach that metadata to a VFIO-exported dma-buf.
+> >
+> > This should be two patches, the first extending the dma-buf framework
+> > for the get_tph callback for explicit approval from dma-buf maintainers
+> > (who are not even copied here).  The second the vfio-pci implementation
+> > of get_tph.
+> >
+> > > 8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
+> > > uAPI carries both with explicit validity flags so importers get the
+> > > value matching their requested width. SET is write-once per dma-buf;
+> > > the existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI is unchanged.
+> >
+> > I didn't see what motivated this write-once change, I thought we
+> > understood that it was a userspace problem that the tph values need to
+> > be set before providing the dma-buf fd to the importer and that races
+> > relative to that are a userspace ordering problem.  Write-once seems
+> > unnecessarily restrictive and there's no justification provided here.
+> >
+> > > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> > > ---
+> > >  drivers/vfio/pci/vfio_pci_core.c   |   3 +
+> > >  drivers/vfio/pci/vfio_pci_dmabuf.c | 134 +++++++++++++++++++++++++++=
+--
+> > >  drivers/vfio/pci/vfio_pci_priv.h   |  12 +++
+> > >  include/linux/dma-buf.h            |  21 +++++
+> > >  include/uapi/linux/vfio.h          |  35 ++++++++
+> > >  5 files changed, 198 insertions(+), 7 deletions(-)
+> > >
+> > > diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio=
+_pci_core.c
+> > > index 3f8d093aacf8..94aa6dd95701 100644
+> > > --- a/drivers/vfio/pci/vfio_pci_core.c
+> > > +++ b/drivers/vfio/pci/vfio_pci_core.c
+> > > @@ -1534,6 +1534,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_dev=
+ice *device, u32 flags,
+> > >             return vfio_pci_core_feature_token(vdev, flags, arg, args=
+z);
+> > >     case VFIO_DEVICE_FEATURE_DMA_BUF:
+> > >             return vfio_pci_core_feature_dma_buf(vdev, flags, arg, ar=
+gsz);
+> > > +   case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
+> > > +           return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
+> > > +                                                    argsz);
+> > >     default:
+> > >             return -ENOTTY;
+> > >     }
+> > > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vf=
+io_pci_dmabuf.c
+> > > index f87fd32e4a01..be1c65385670 100644
+> > > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > > @@ -19,7 +19,24 @@ struct vfio_pci_dma_buf {
+> > >     u32 nr_ranges;
+> > >     struct kref kref;
+> > >     struct completion comp;
+> > > -   u8 revoked : 1;
+> > > +   /*
+> > > +    * TPH metadata published by VFIO_DEVICE_FEATURE_DMA_BUF_TPH and
+> > > +    * consumed by the @get_tph dma-buf callback.
+> > > +    *
+> > > +    * @tph_flags is the publish/consume gate: writers populate
+> > > +    * @steering_tag, @steering_tag_ext and @ph first, then store
+> > > +    * @tph_flags with smp_store_release(); readers do
+> > > +    * smp_load_acquire(&tph_flags) before accessing the value fields.
+> > > +    * @tph_flags =3D=3D 0 means "TPH not set". Writers publish a non=
+-zero
+> > > +    * value only once per dma-buf and serialize via vdev->memory_loc=
+k;
+> > > +    * readers stay lockless to avoid AB-BA against the dma_resv_lock=
+ held
+> > > +    * by importers.
+> > > +    */
+> >
+> > Can you outline the ABBA hazard, I'm not seeing it.  You're acquiring
+> > memory_lock in the feature SET and dma_resv_lock doesn't appear to be
+> > held when calling .get_tph().  There's a lot of lockless complication
+> > here balanced on this claim of avoiding a hazard that doesn't appear
+> > present.
+> >
+> > > +   u32 tph_flags;
+> > > +   u16 steering_tag_ext;
+> > > +   u8 steering_tag;
+> > > +   u8 ph;
+> > > +   bool revoked;
+> >
+> > If we still used memory_lock for tph, these could be:
+> >
+> >       u8 tph_st_valid:1; /* memory_lock */
+> >       u8 tph_st_ext_valid:1; /* memory_lock */
+> >       u8 tph_ph:2; /* memory_lock */
+> >       u8 tph_st;
+> >       u16 tph_st_ext;
+> >       u8 revoked:1; /* dma_resv_lock */
+> >
+> > The existing change of @revoked from bitfield to bool has no rationale
+> > noted for it in the commit log.
+>
+> On second thought, what dependency does anything here have on
+> memory_lock?  I think we're jumping through hoops to avoid a lock we
+> don't even need.  If we just want to serialize SET vs get_tph we could
+> have a mutex on the dma-buf structure, or use RCU if we want to manage
+> it locklessly and make sure get_tph always sees a fully consistent set
+> of values.  Thanks,
+>
+> Alex
 
-Both this patch, and patch 16/20 are doing a tiny bit of work to
-preserve this printing. And that looks good.
+Agreed, we don't need memory_lock in this path. For v5 I'll instead add a
+struct mutex lock to struct vfio_pci_dma_buf and take it in SET,
+get_tph,
+and around the priv->vdev =3D NULL store in cleanup.
 
-However, after careful consideration over several months, I have
-come to believe that this printing is no longer earning its keep,
-even for debug-level printing.
-
-A significant fraction of the dmesg debug level output is consumed
-by this one print, for example:
-
-nova-core 0000:01:00.0: PmuLookupTableEntry desc: V3(
-    FalconUCodeDescV3 {
-        hdr: 78381825,
-        stored_size: 59904,
-        pkc_data_offset: 1444,
-        interface_offset: 28,
-        imem_phys_base: 0,
-        imem_load_size: 57856,
-        imem_virt_base: 0,
-        dmem_phys_base: 0,
-        dmem_load_size: 2048,
-        engine_id_mask: 1024,
-        ucode_id: 9,
-        signature_count: 3,
-        signature_versions: 7,
-        _reserved: 37449,
-    },
-)
-
-...and yet it is exceedingly rare to make use of that particular
-data, even when debugging.
-
-Let's just delete it. As always, bringup people can add it back in
-temporarily if they need it. But they likely never will, because new
-hardware doesn't hit this path anyway.
-
-
-
-> +                let desc = fwsec_image.header()?;
-> +                dev_dbg!(
-> +                    fwsec_image.base.dev,
-> +                    "PmuLookupTableEntry desc: {:#?}\n",
-> +                    desc
-> +                );
-> +            }
-> +
-thanks,
--- 
-John Hubbard
-
+Thanks,
+Zhiping
