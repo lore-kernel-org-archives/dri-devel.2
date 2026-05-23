@@ -4,129 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02EA0CD5BB1
-	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 03:35:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBE5CD4F54
+	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 03:57:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53E5A10E047;
-	Sat, 23 May 2026 03:35:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7866E10E0A5;
+	Sat, 23 May 2026 03:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="dJJLJ/3f";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eJVrVFM3";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010060.outbound.protection.outlook.com [52.101.46.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5CAE10E047
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 03:35:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dbppHw6+ZdNJo7hUL0B7OHMEh+1o9y8lSIDlnSAHAev/G7ejIsduqrzCs7fL6g0vGt5mFkKldy/Ivi6iKMR/1i7rMpmcW4kw4QXM1RsurjdFQwBV7LWE8kxqAppLQ+9Vq8qLAEK1Gnr/+9w8FTcZpr9IwHlE+cf7cFvLqUlFC2hTXtOPYnFRwC0d117ePI2UoORPk0C/FTifHIsTvsXBAb0KnEaC5mD2je8T4QN923Fj93Tx7GPJIFNw/AEWwEdPXd+vkAoWuleGeOrIIeP2pe8KCuwwkg/wGq552qDp6tVxQbP/YuNZyG6qbcGilm+dGX2JeN6C9WUxAYNPugaRqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vOynArN+lkpwUmiQxvWvJhkcK6XQdzUhPb6uMQbHzPk=;
- b=nA2Vd4jx0LK3y7EeHzUByV1uJ3tu2g9y4Gvd9k84G2RWoPm1U+fA6AyVIQ5691nNW15DU/pr2WLvUJDxlvBGy6M9oWl5rrOLZkT6s4ZRhBoWOnHAZH70+G3ACaDgO3M15t7Pz+OWP13fr+8VfUIj3S2oiKwaprdUEHF0glt1Cm+4XOk2ZlH1hCQcHNMtCHwnu5p+G5KowUzJb3WxjnKHuidrd8qKXrJ60Rs2V17r4zfPt1ew05ps+Vvmj+GnAyn7nUCaulpLWaAboulHHdvBqYDTFB8xmmMbk+Xwjx4Grw0IIf8GnEcINbDKHVeMBhAmHWh38Eq9MWZx+yHBZcyLbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vOynArN+lkpwUmiQxvWvJhkcK6XQdzUhPb6uMQbHzPk=;
- b=dJJLJ/3fC+vyHWgdpt9zqBZRLhKCbElZP7PrENQaXBceMYfIW/zp6y09gGWnOFmCiCGlcG9ymNZe3P77Xh0+Z15cWyIhpkwh/Sm6zI5uZUGcbU39yvupj6SBjo4a029qNC6xtLw0JD1p6Y1BxSeEFmfZLDHGx4YB1no66J1yQaA+mu7FXdwGNOneVRg1hreM/KI4aatZruyku0HFHL5UgPDRRIdLT/JSeFO12iUXZIEfqOCGAi5B/7S3smUqVhL6Q7JxPABp8KM5KLfHvAbf1gKRioNc/SVB0HcBw+wpeHJhOK2Ea9IGiaT1T1bS5Qp+xQ5EhhvxikiaXumLaUSdIw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- BN5PR12MB9512.namprd12.prod.outlook.com (2603:10b6:408:2ab::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Sat, 23 May
- 2026 03:35:14 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0048.016; Sat, 23 May 2026
- 03:35:14 +0000
-Message-ID: <4e7b5050-a120-4fd0-a208-7e9d5f61f402@nvidia.com>
-Date: Fri, 22 May 2026 20:35:12 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 15/20] gpu: nova-core: vbios: use the first PCI-AT and
- FWSEC images
-To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
- <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260519-fix-vbios-v4-0-5d3f210c5602@nvidia.com>
- <20260519-fix-vbios-v4-15-5d3f210c5602@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20260519-fix-vbios-v4-15-5d3f210c5602@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0127.namprd13.prod.outlook.com
- (2603:10b6:a03:2c6::12) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34AAA10E0A5
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 03:57:43 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-367cbac9cb1so7586215a91.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 20:57:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779508663; x=1780113463; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=zaTsiEXwtDm0P7DS42R5+7UDMEhgxJ2oBOfUIkmvUIk=;
+ b=eJVrVFM372n03FUs2fWE3GH6LkkYb8D3Szg0j9z9IIkf2u+6UfIY23iM2Nz1xcj8ay
+ v1IBsuEBkXjAxX1chgmvKxwTOTIMDPDgalhUNn9zcQnZLZZcfk6NnPRv521g/jpKloce
+ PtXtTMVD/0f1rGl9JmKA7pXOFpIIhax+k5lu10rekjQrXem+/zR6Ly9m2Nrf4Cm80kiN
+ Jh/EEyrZQ3Uts4djGgEUv02Qo/ctTZlbMqRcu7aWo9ejSfAvrNdBuHz41jqYaca5/W2V
+ ISjaENDTaxoggB54ZsmgF5IHwTpvlG4oMuA5CnFaCHXaSGIURlu+A7XjthOiFcpL5ryx
+ vSFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779508663; x=1780113463;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zaTsiEXwtDm0P7DS42R5+7UDMEhgxJ2oBOfUIkmvUIk=;
+ b=VlMQl/wU9AvmM4BfAvHqskGtHorI+UEm7bU8u9jYdxoLshhAXMT0IPDX4KiO4qWQ8d
+ gfvSICz8wjpuHrJcv8adDCE6NdTRxBF4mY6ZNtRsxiE1vX4XwP8dSxgtzTizwoLSPabZ
+ AHiDFTaDRhiCn3jP8/7fQH+Aoo2bqpmlHT4rPaY0Bxd3vFzEM7m/UlogHD2WwuGUCBXg
+ gn/kgrtm1p9oNTvLFZQ+/aHGoli0eWZj9+QGHR+c6Y4kBFQO1AGLtBbxnHv3kWt1Qwtm
+ /g71tH+la0hP+L2jKPWz+r591KU4pfG09v9tL7LeUkXiyRgM8RB3SQJzNsbjaHVS10Dq
+ nXdw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8emARBs9whYMwJIDhTnzN2hFefg+oadX4u5PfKG0dc7zyiDUobtg7OINrZs+3TzlU0IZ9Z5OCYTyg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx6lKuFNkiai4hK1M63XJBDYnHmpqMiq2Oht+Zvo8XQbQW8FMqi
+ xI41bBHT5Xid+bsD5Wzfd2skzXcXRGZTu9OvU7WZVjxVI7weU5E+7C2m
+X-Gm-Gg: Acq92OEF2aVTf53L9Xa4gp8C3aZaNMqBiiG5wZ3/yP8kJJbhjH+k3zaiq+UfRf89aMF
+ m/r5iz4Giht2pLp6Jc+AWqGWBQZz+Jr4o2Jytuq4x53iAy7kxnY16ZlPTtcIwt4li6J/n8oQVCu
+ Qg50MQKr1OiBpeiJk1U/+7FZzrg6rucTqRaEsNqwosSiyDiAGXu2TlQ918/3aBjdQCnRiorQ/Lo
+ 1ptSxwT/r7zKihsil/RPm4/N1MFnYWWDcmsN1ZpX/wjbFIUManIwdEY9B0PAeJfB0ZPUJhqdwgt
+ iQc2tnbBJ8Cb/SmOl+K0ZpEd+OgQYlKZxtoEbzxYEnKegIRoQepJ2U+qFCVevnHkPwHPTTF1507
+ OmBOm4dbuY8gJeWPt0x8+L7oZGhn7qXbcn+VF2TgJQKwDcjjV16LvoXsFG4rF49f/ql2Y8Zo93N
+ vRa+75s6vaPtCrVoCE0qzOXL7j8ySxO/duf+ZeEHV6ehJHw+Dtsc6UoqsJNMZi3rd/7ijTsMMg+
+ ijvo1pjdHWPPVicyvwF38QXNFMNLnSZm+8MtvCRqwA5mrkGsX1nt7SiSe4OW6aLgZMHH6Ogxkaz
+ 9bwoTmZrwaR7pw==
+X-Received: by 2002:a17:90b:3791:b0:36a:a16b:5f65 with SMTP id
+ 98e67ed59e1d1-36aa16b65e4mr391911a91.11.1779508662455; 
+ Fri, 22 May 2026 20:57:42 -0700 (PDT)
+Received: from cmpatel-home.hsd1.or.comcast.net
+ ([2601:1c0:5780:9200:108d:469b:1b:5f15])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-36a721c7cf9sm3280702a91.10.2026.05.22.20.57.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 May 2026 20:57:42 -0700 (PDT)
+From: Chintan Patel <chintanlike@gmail.com>
+To: sumit.semwal@linaro.org,
+	neil.armstrong@linaro.org
+Cc: dianders@chromium.org, jesszhan0024@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Chintan Patel <chintanlike@gmail.com>
+Subject: [PATCH v3] drm/panel: novatek-nt36672a: Inline panel init sequences
+Date: Fri, 22 May 2026 20:57:34 -0700
+Message-ID: <20260523035734.6602-1-chintanlike@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|BN5PR12MB9512:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2815e8af-b574-4e80-695d-08deb87c4cdc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|11063799006|4143699003|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: WAuayrYdLV5NA2qISkTeqxXwNauLCGvB1Mq+ygJuIu19n4PNj02kWnrIoZ3ZSL8IVbUEZBV3sx71JP+RFevzpvZwHRPCBdWlsO5hkjXQpgoKmtKyFcKPlxwqGPzSN1xqcV0wSoI8kHYMM6zASeIp6rYML/R6wDQnSjeEQEN32J4hgd11KlFYVzoOGq7mdhC+KB78mmvpqrikiA94uSg43ld4YnHtNzfgt0awMFzJJfSXcR+8ss1ag0o4LMmm5kOOIz/8+2PpvmV+I1Csny8vP6UWsYgceAu2iffnhMFckny054NcqWq2FLD0ymMUbtb5N0jqUwPp5vtFy51ncjjR2FoNjmMEE/8q4NLrdSTTnJ8yhqcdX5P4wtBHn7HsxM8Nbp2McDuzycrdfZEP24a1GsLM5YngSO3RbW3qnFX/R7WRmKN7OzydCxMALrkojkWwrI1CpSgd1VbAIDuiM5ZQDei5GYuq8G/uLNC5/BItQ6zQmk3TYGVd9Si6h3pYy8V+JcK3o8ATL/UjMX8a7/Sf0hVAP5baoSU928TsAUk2xhcnFDjQMyJlaOzU54jT7So4h5JncoBQeGyD/WuUKHK6bGCTTWcGHLj/zwRhn2eioFs4ov/X8OtaMXJFFqORAv45eLEbhVIBxPq/x9uyCReOdQI5J0d/rRSdF42Gakkze44rrKsbdCBBdvl7b75RZ0zH
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(11063799006)(4143699003)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RWgzVVZvRXhVRlRGTE1yeDdTSmpWSVpFeEFweERCb1ZaNXFEaHp2L21HWlBO?=
- =?utf-8?B?NElyUjNEWmE1bUszV0JtbGkwVUtOMGF1Z010TVk2NjltL0NMT1hBbGVrMDQw?=
- =?utf-8?B?U2lIejlZbzdQcTI3a3M3Y1c4MnZoc0swc0FXL25VdkgxbDZYeVhKb2dnbU1z?=
- =?utf-8?B?dDM1NFA3aFJmZ09rSnRlZzV2WjNneXB3MExRNytiajV4QXlJTGRaVmVyUzgw?=
- =?utf-8?B?K2I1S3YxVUZ3YU9uakJHV2hUems4bnBPMUlOd01rdHpaNnd3ZTVwSWFjU29X?=
- =?utf-8?B?YVRIU3JVcXhsV0RNSDAwVDBjUThERUFSbUltSFF5SWJjamQyMDhKZ0x6N0Vl?=
- =?utf-8?B?am4xN0ZVT1ZyMnh1bXNFTnVGK3dLaTJPV2ZwakhRMTFSM0dLL2R6UDBZYXV0?=
- =?utf-8?B?T3BQQXdNdktiWmpsUU5NeDZrWFZ2cHJSQlRMZVFSVWlyQkZwZDY3bTJHTlBN?=
- =?utf-8?B?aE05WFNkQ0dJejNwaDVueGlmNUdubGQxcVlLYzBQWHJtMkdhblY1MDBoSW9r?=
- =?utf-8?B?eFM5K3ozQXlkUzlzZ1JLd1dDUS93Y05ER1c1Rk52eHF1SU5xN0Q3OHhtVVBn?=
- =?utf-8?B?eFEybFJsMmh5cXRRR3JHTDNUVW1RbENpK1N6ZUhLSmtrQ09DT1FQZGxsSG81?=
- =?utf-8?B?bFRLSmtDUFBuSXhPSzJ6V3Z3WTNKcWFUazRaOFFxTm9tYk11ZVFsZk83MktJ?=
- =?utf-8?B?ejZremdXUHk1MXVLY0w1enJ4M0NDMzdLcmg1VzlSNE9Ea0dKdnowOVVZT1Yz?=
- =?utf-8?B?NmY3czF4MU1Ka05sMCtEZHlHYi9BOC9KSkF4eEw2cTViN0xDbGdVMk5uWE5B?=
- =?utf-8?B?STlqQmhDdzNQaXBqM3R0c1lPcEUxZ2FSZktIMmlFaEYyTkcycU4yclN6Rkwr?=
- =?utf-8?B?c3VkbTl2Ulk3cDVxQ0prS04yeWtQR1hZQnNsenVHWjJYTXBoazhWZDRrL0tD?=
- =?utf-8?B?QXBaUXpGZ1dxU0Q0Zkt5U0FmTTdkZE8vL0RqZDVJVVVmbDdMTEZRQzVyWU41?=
- =?utf-8?B?MWxPN25QVnQ2SXQ3c3BYZThlTlRQdE5EWURoakM0blMvOUFlRVRnbW9UMmJo?=
- =?utf-8?B?RS91OUY3YzRHRklHM0RjbHQxbzNIQm0wUXFFTGhkSGhKbldWMjVjMFc5cHVO?=
- =?utf-8?B?SVREVFY3OE9tV3BiMm1NYU5BNVdqUHF0bEdWeU16OFN0TjhPajJRMXNDNnY0?=
- =?utf-8?B?eGx0dGRMN09ScGhaRlZpUUpKdDFtdkNEblgyd1VoeHlQVCtnbFhhb2hSUkMw?=
- =?utf-8?B?T0VOUzdGV3AwU1hkQ3R3Nmg0NFc4L0tRakQzTkFwdlIwa2I2V2xSajVob21F?=
- =?utf-8?B?QU4zU0tnQ1ZJS0M1STF6L1dCSFJ0Z2Qva0RMRWNDd3FMci8ydldWSWhzOTJ3?=
- =?utf-8?B?blowTFJhNXJPd3NjdEY3c2lCalh3dUlGZlhwRXkzbmhFU2FEbXJZQ2RyZUQz?=
- =?utf-8?B?QUVSVmQ0UDBXcjA4MlRlTHBCM2ZqZmEwN0NZR085YkIrTnExMmo2c3pXemp5?=
- =?utf-8?B?aFUrVFFaMUVtanlXS0ltSjU3TkdTSC9rMFE0MW53aGJ0R2lKclVsMXM2V0JI?=
- =?utf-8?B?a2UxR0ZyY3ZvN2Fxd2lEbVVuVlM0R2lOZFRXOWNYYXdGOEZPM0RoTUo4VTM4?=
- =?utf-8?B?THl2V2xnK0hiRWs4T2Yray95b2xtWnp1N3B6Z01mT2oxN3hocmtKWnBJZjhk?=
- =?utf-8?B?UEc5bXVDTFVGTmRNT042SGcvZzU2Zmk0N21BVTBzYmRmQkhURWFVWDVqOGlR?=
- =?utf-8?B?RTJiRy9wMUZrMjJUS0d5ZFhCaE1jR2xwTFpRWTZNdXZOOUd3MHg2M1dOQ1Zr?=
- =?utf-8?B?RHJnVm9YRTI0WEQ5UFZtTUlkd0Q5YnA5S1RoNjBYTVpIQldNVGR6bm5RbmF1?=
- =?utf-8?B?QVl3cmFkS3BWR1hzbjJIcFlBWCt1UFhZakQzeVZSRTExRGZ5bkhiSjJsSnFt?=
- =?utf-8?B?UkVOK2p3akQ3ck1JMFk0MlNwMkpOKzZkait2bzNUSXFKaHhNd3RNWk5jTkpx?=
- =?utf-8?B?dDBJTUJCRHhXdHNEMkpXVUZkbHgyakNxejlmRkVPZVptMEZQV2hXRTZ3Y2Yv?=
- =?utf-8?B?MmpYU2ZTVmtCQnlPMUtqMEZ2a0dRQm9UWDRxT2hWQktwR1gwU0lSUGcwY2Z4?=
- =?utf-8?B?b2QrYloyK2VPV00xWFRjTlRaOFNGalpIaS9HekpkWDNOQUZpY3JKelZqOWpy?=
- =?utf-8?B?ellwZG5URlVmaS9MT0Y3NTVDaXdDdW9ZZWZUc0pZcXBoTDhOZUl4L2hoamlS?=
- =?utf-8?B?UkpSMVIyME8wTERrcHNOdjBFcE9jbTJrWjNKVXZtcnUyUm9DK1dlN2w0M0Ex?=
- =?utf-8?B?M2hxOFFmdjdLMm9BZmNhVWUxZmd1MUJSdDA1MDBGU1A2VlI2VmNFQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2815e8af-b574-4e80-695d-08deb87c4cdc
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2026 03:35:13.9850 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: acXg3/VRecu/NU9HxhFlaQR5MJWDnHpdOQb+UQL2ORVkYLySBNgasGtFfdgQcpfhAe6ZH/9sTLMJ35MGk/svYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9512
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,57 +93,633 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/18/26 7:55 PM, Eliot Courtney wrote:
-> Currently, PCI-AT takes the final image if multiple exist. For FWSEC, it
-> takes the first one and the last one. Align both of these to nouveau
-> behavior by taking the first ones.
+Inline the panel initialization command sequences and remove the
+table-based command abstraction used by the NT36672A panel driver.
 
-Let's do even better, and use Open RM for guidance instead of
-nouveau, for this case.
+Replace the nt36672a_panel_cmd tables and nt36672a_send_cmds()
+helper with explicit initialization functions using
+mipi_dsi_dcs_write_seq_multi() and
+mipi_dsi_dcs_write_var_seq_multi() directly.
 
-Open RM tracks one offset where the FWSEC region starts and reads
-everything past it as one buffer (see s_locateExpansionRoms() in
-kernel_gsp_vbios_tu102.c). Matching that in nova-core drops the
-first-vs-second-FWSEC dispatch and the second checked_sub in
-FwSecBiosImage::new.
+This improves readability by making the panel programming sequence
+explicit in code and allows future sharing of common command
+subsequences between panels. It also removes an unnecessary wrapper
+around the MIPI DSI helpers.
 
-This saves about 40 LOC.
+Additionally, compress repeated register writes into small loops where
+appropriate to reduce duplication in the initialization sequences.
 
-I think it's worth doing.
+Add:
+tianma_fhd_video_send_init_cmds_1()
+tianma_fhd_video_send_init_cmds_2()
+tianma_fhd_video_send_deinit_cmds()
 
-thanks,
+Update nt36672a_panel_desc to use function pointers for panel init
+sequences and invoke them directly from prepare/unprepare paths.
+
+Signed-off-by: Chintan Patel <chintanlike@gmail.com>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+---
+Changes in v3:
+- Rename on_init_1/on_init_2/off_init to send_init_cmds_1/send_init_cmds_2/send_deinit_cmds
+- Convert all hex values to lowercase (0xFF → 0xff) per kernel coding standards
+
+Changes in v2:
+- Replace command tables with explicit init functions
+- Remove nt36672a_send_cmds() helper entirely
+- Use mipi_dsi_dcs_write_seq_multi() directly
+- Use mipi_dsi_dcs_write_var_seq_multi() loops for repeated register writes
+- Convert nt36672a_panel_desc command table fields to function pointers
+---
+ .../gpu/drm/panel/panel-novatek-nt36672a.c    | 522 +++++++-----------
+ 1 file changed, 186 insertions(+), 336 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+index 7e8b5e059575..464d9ce47d87 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+@@ -28,10 +28,6 @@
+ 
+ #include <video/mipi_display.h>
+ 
+-struct nt36672a_panel_cmd {
+-	const char data[2];
+-};
+-
+ static const char * const nt36672a_regulator_names[] = {
+ 	"vddio",
+ 	"vddpos",
+@@ -55,13 +51,9 @@ struct nt36672a_panel_desc {
+ 	enum mipi_dsi_pixel_format format;
+ 	unsigned int lanes;
+ 
+-	unsigned int num_on_cmds_1;
+-	const struct nt36672a_panel_cmd *on_cmds_1;
+-	unsigned int num_on_cmds_2;
+-	const struct nt36672a_panel_cmd *on_cmds_2;
+-
+-	unsigned int num_off_cmds;
+-	const struct nt36672a_panel_cmd *off_cmds;
++	void (*send_init_cmds_1)(struct mipi_dsi_multi_context *dsi_ctx);
++	void (*send_init_cmds_2)(struct mipi_dsi_multi_context *dsi_ctx);
++	void (*send_deinit_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
+ };
+ 
+ struct nt36672a_panel {
+@@ -79,19 +71,6 @@ static inline struct nt36672a_panel *to_nt36672a_panel(struct drm_panel *panel)
+ 	return container_of(panel, struct nt36672a_panel, base);
+ }
+ 
+-static void nt36672a_send_cmds(struct mipi_dsi_multi_context *dsi_ctx,
+-			       const struct nt36672a_panel_cmd *cmds, int num)
+-{
+-	unsigned int i;
+-
+-	for (i = 0; i < num; i++) {
+-		const struct nt36672a_panel_cmd *cmd = &cmds[i];
+-
+-		/* cmd->data[0] is the DCS command, cmd->data[1] is the parameter */
+-		mipi_dsi_dcs_write_buffer_multi(dsi_ctx, cmd->data, sizeof(cmd->data));
+-	}
+-}
+-
+ static void nt36672a_panel_power_off(struct drm_panel *panel)
+ {
+ 	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
+@@ -110,8 +89,8 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
+ 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->link };
+ 
+ 	/* send off cmds */
+-	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->off_cmds,
+-			   pinfo->desc->num_off_cmds);
++	if (pinfo->desc->send_deinit_cmds)
++		pinfo->desc->send_deinit_cmds(&dsi_ctx);
+ 
+ 	/* Reset error to continue with display off even if send_cmds failed */
+ 	dsi_ctx.accum_err = 0;
+@@ -162,8 +141,8 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
+ 	dsi_ctx.accum_err = nt36672a_panel_power_on(pinfo);
+ 
+ 	/* send first part of init cmds */
+-	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->on_cmds_1,
+-			   pinfo->desc->num_on_cmds_1);
++	if (pinfo->desc->send_init_cmds_1)
++		pinfo->desc->send_init_cmds_1(&dsi_ctx);
+ 
+ 	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+ 
+@@ -173,8 +152,8 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
+ 	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+ 
+ 	/* Send rest of the init cmds */
+-	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->on_cmds_2,
+-			   pinfo->desc->num_on_cmds_2);
++	if (pinfo->desc->send_init_cmds_2)
++		pinfo->desc->send_init_cmds_2(&dsi_ctx);
+ 
+ 	mipi_dsi_msleep(&dsi_ctx, 120);
+ 
+@@ -213,310 +192,184 @@ static const struct drm_panel_funcs panel_funcs = {
+ 	.get_modes = nt36672a_panel_get_modes,
+ };
+ 
+-static const struct nt36672a_panel_cmd tianma_fhd_video_on_cmds_1[] = {
++static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	u8 reg;
++
+ 	/* skin enhancement mode */
+-	{ .data = {0xFF, 0x22} },
+-	{ .data = {0x00, 0x40} },
+-	{ .data = {0x01, 0xC0} },
+-	{ .data = {0x02, 0x40} },
+-	{ .data = {0x03, 0x40} },
+-	{ .data = {0x04, 0x40} },
+-	{ .data = {0x05, 0x40} },
+-	{ .data = {0x06, 0x40} },
+-	{ .data = {0x07, 0x40} },
+-	{ .data = {0x08, 0x40} },
+-	{ .data = {0x09, 0x40} },
+-	{ .data = {0x0A, 0x40} },
+-	{ .data = {0x0B, 0x40} },
+-	{ .data = {0x0C, 0x40} },
+-	{ .data = {0x0D, 0x40} },
+-	{ .data = {0x0E, 0x40} },
+-	{ .data = {0x0F, 0x40} },
+-	{ .data = {0x10, 0x40} },
+-	{ .data = {0x11, 0x50} },
+-	{ .data = {0x12, 0x60} },
+-	{ .data = {0x13, 0x70} },
+-	{ .data = {0x14, 0x58} },
+-	{ .data = {0x15, 0x68} },
+-	{ .data = {0x16, 0x78} },
+-	{ .data = {0x17, 0x77} },
+-	{ .data = {0x18, 0x39} },
+-	{ .data = {0x19, 0x2D} },
+-	{ .data = {0x1A, 0x2E} },
+-	{ .data = {0x1B, 0x32} },
+-	{ .data = {0x1C, 0x37} },
+-	{ .data = {0x1D, 0x3A} },
+-	{ .data = {0x1E, 0x40} },
+-	{ .data = {0x1F, 0x40} },
+-	{ .data = {0x20, 0x40} },
+-	{ .data = {0x21, 0x40} },
+-	{ .data = {0x22, 0x40} },
+-	{ .data = {0x23, 0x40} },
+-	{ .data = {0x24, 0x40} },
+-	{ .data = {0x25, 0x40} },
+-	{ .data = {0x26, 0x40} },
+-	{ .data = {0x27, 0x40} },
+-	{ .data = {0x28, 0x40} },
+-	{ .data = {0x2D, 0x00} },
+-	{ .data = {0x2F, 0x40} },
+-	{ .data = {0x30, 0x40} },
+-	{ .data = {0x31, 0x40} },
+-	{ .data = {0x32, 0x40} },
+-	{ .data = {0x33, 0x40} },
+-	{ .data = {0x34, 0x40} },
+-	{ .data = {0x35, 0x40} },
+-	{ .data = {0x36, 0x40} },
+-	{ .data = {0x37, 0x40} },
+-	{ .data = {0x38, 0x40} },
+-	{ .data = {0x39, 0x40} },
+-	{ .data = {0x3A, 0x40} },
+-	{ .data = {0x3B, 0x40} },
+-	{ .data = {0x3D, 0x40} },
+-	{ .data = {0x3F, 0x40} },
+-	{ .data = {0x40, 0x40} },
+-	{ .data = {0x41, 0x40} },
+-	{ .data = {0x42, 0x40} },
+-	{ .data = {0x43, 0x40} },
+-	{ .data = {0x44, 0x40} },
+-	{ .data = {0x45, 0x40} },
+-	{ .data = {0x46, 0x40} },
+-	{ .data = {0x47, 0x40} },
+-	{ .data = {0x48, 0x40} },
+-	{ .data = {0x49, 0x40} },
+-	{ .data = {0x4A, 0x40} },
+-	{ .data = {0x4B, 0x40} },
+-	{ .data = {0x4C, 0x40} },
+-	{ .data = {0x4D, 0x40} },
+-	{ .data = {0x4E, 0x40} },
+-	{ .data = {0x4F, 0x40} },
+-	{ .data = {0x50, 0x40} },
+-	{ .data = {0x51, 0x40} },
+-	{ .data = {0x52, 0x40} },
+-	{ .data = {0x53, 0x01} },
+-	{ .data = {0x54, 0x01} },
+-	{ .data = {0x55, 0xFE} },
+-	{ .data = {0x56, 0x77} },
+-	{ .data = {0x58, 0xCD} },
+-	{ .data = {0x59, 0xD0} },
+-	{ .data = {0x5A, 0xD0} },
+-	{ .data = {0x5B, 0x50} },
+-	{ .data = {0x5C, 0x50} },
+-	{ .data = {0x5D, 0x50} },
+-	{ .data = {0x5E, 0x50} },
+-	{ .data = {0x5F, 0x50} },
+-	{ .data = {0x60, 0x50} },
+-	{ .data = {0x61, 0x50} },
+-	{ .data = {0x62, 0x50} },
+-	{ .data = {0x63, 0x50} },
+-	{ .data = {0x64, 0x50} },
+-	{ .data = {0x65, 0x50} },
+-	{ .data = {0x66, 0x50} },
+-	{ .data = {0x67, 0x50} },
+-	{ .data = {0x68, 0x50} },
+-	{ .data = {0x69, 0x50} },
+-	{ .data = {0x6A, 0x50} },
+-	{ .data = {0x6B, 0x50} },
+-	{ .data = {0x6C, 0x50} },
+-	{ .data = {0x6D, 0x50} },
+-	{ .data = {0x6E, 0x50} },
+-	{ .data = {0x6F, 0x50} },
+-	{ .data = {0x70, 0x07} },
+-	{ .data = {0x71, 0x00} },
+-	{ .data = {0x72, 0x00} },
+-	{ .data = {0x73, 0x00} },
+-	{ .data = {0x74, 0x06} },
+-	{ .data = {0x75, 0x0C} },
+-	{ .data = {0x76, 0x03} },
+-	{ .data = {0x77, 0x09} },
+-	{ .data = {0x78, 0x0F} },
+-	{ .data = {0x79, 0x68} },
+-	{ .data = {0x7A, 0x88} },
+-	{ .data = {0x7C, 0x80} },
+-	{ .data = {0x7D, 0x80} },
+-	{ .data = {0x7E, 0x80} },
+-	{ .data = {0x7F, 0x00} },
+-	{ .data = {0x80, 0x00} },
+-	{ .data = {0x81, 0x00} },
+-	{ .data = {0x83, 0x01} },
+-	{ .data = {0x84, 0x00} },
+-	{ .data = {0x85, 0x80} },
+-	{ .data = {0x86, 0x80} },
+-	{ .data = {0x87, 0x80} },
+-	{ .data = {0x88, 0x40} },
+-	{ .data = {0x89, 0x91} },
+-	{ .data = {0x8A, 0x98} },
+-	{ .data = {0x8B, 0x80} },
+-	{ .data = {0x8C, 0x80} },
+-	{ .data = {0x8D, 0x80} },
+-	{ .data = {0x8E, 0x80} },
+-	{ .data = {0x8F, 0x80} },
+-	{ .data = {0x90, 0x80} },
+-	{ .data = {0x91, 0x80} },
+-	{ .data = {0x92, 0x80} },
+-	{ .data = {0x93, 0x80} },
+-	{ .data = {0x94, 0x80} },
+-	{ .data = {0x95, 0x80} },
+-	{ .data = {0x96, 0x80} },
+-	{ .data = {0x97, 0x80} },
+-	{ .data = {0x98, 0x80} },
+-	{ .data = {0x99, 0x80} },
+-	{ .data = {0x9A, 0x80} },
+-	{ .data = {0x9B, 0x80} },
+-	{ .data = {0x9C, 0x80} },
+-	{ .data = {0x9D, 0x80} },
+-	{ .data = {0x9E, 0x80} },
+-	{ .data = {0x9F, 0x80} },
+-	{ .data = {0xA0, 0x8A} },
+-	{ .data = {0xA2, 0x80} },
+-	{ .data = {0xA6, 0x80} },
+-	{ .data = {0xA7, 0x80} },
+-	{ .data = {0xA9, 0x80} },
+-	{ .data = {0xAA, 0x80} },
+-	{ .data = {0xAB, 0x80} },
+-	{ .data = {0xAC, 0x80} },
+-	{ .data = {0xAD, 0x80} },
+-	{ .data = {0xAE, 0x80} },
+-	{ .data = {0xAF, 0x80} },
+-	{ .data = {0xB7, 0x76} },
+-	{ .data = {0xB8, 0x76} },
+-	{ .data = {0xB9, 0x05} },
+-	{ .data = {0xBA, 0x0D} },
+-	{ .data = {0xBB, 0x14} },
+-	{ .data = {0xBC, 0x0F} },
+-	{ .data = {0xBD, 0x18} },
+-	{ .data = {0xBE, 0x1F} },
+-	{ .data = {0xBF, 0x05} },
+-	{ .data = {0xC0, 0x0D} },
+-	{ .data = {0xC1, 0x14} },
+-	{ .data = {0xC2, 0x03} },
+-	{ .data = {0xC3, 0x07} },
+-	{ .data = {0xC4, 0x0A} },
+-	{ .data = {0xC5, 0xA0} },
+-	{ .data = {0xC6, 0x55} },
+-	{ .data = {0xC7, 0xFF} },
+-	{ .data = {0xC8, 0x39} },
+-	{ .data = {0xC9, 0x44} },
+-	{ .data = {0xCA, 0x12} },
+-	{ .data = {0xCD, 0x80} },
+-	{ .data = {0xDB, 0x80} },
+-	{ .data = {0xDC, 0x80} },
+-	{ .data = {0xDD, 0x80} },
+-	{ .data = {0xE0, 0x80} },
+-	{ .data = {0xE1, 0x80} },
+-	{ .data = {0xE2, 0x80} },
+-	{ .data = {0xE3, 0x80} },
+-	{ .data = {0xE4, 0x80} },
+-	{ .data = {0xE5, 0x40} },
+-	{ .data = {0xE6, 0x40} },
+-	{ .data = {0xE7, 0x40} },
+-	{ .data = {0xE8, 0x40} },
+-	{ .data = {0xE9, 0x40} },
+-	{ .data = {0xEA, 0x40} },
+-	{ .data = {0xEB, 0x40} },
+-	{ .data = {0xEC, 0x40} },
+-	{ .data = {0xED, 0x40} },
+-	{ .data = {0xEE, 0x40} },
+-	{ .data = {0xEF, 0x40} },
+-	{ .data = {0xF0, 0x40} },
+-	{ .data = {0xF1, 0x40} },
+-	{ .data = {0xF2, 0x40} },
+-	{ .data = {0xF3, 0x40} },
+-	{ .data = {0xF4, 0x40} },
+-	{ .data = {0xF5, 0x40} },
+-	{ .data = {0xF6, 0x40} },
+-	{ .data = {0xFB, 0x1} },
+-	{ .data = {0xFF, 0x23} },
+-	{ .data = {0xFB, 0x01} },
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x22);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x00, 0x40);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x01, 0xc0);
++	for (reg = 0x02; reg <= 0x10; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x11, 0x50);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x12, 0x60);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x13, 0x70);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x14, 0x58);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x15, 0x68);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x16, 0x78);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x17, 0x77);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x18, 0x39);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x19, 0x2d);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1a, 0x2e);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1b, 0x32);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1c, 0x37);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1d, 0x3a);
++	for (reg = 0x1e; reg <= 0x28; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2d, 0x00);
++	for (reg = 0x2f; reg <= 0x3b; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3d, 0x40);
++	for (reg = 0x3f; reg <= 0x52; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x54, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0xfe);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x56, 0x77);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x58, 0xcd);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x59, 0xd0);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5a, 0xd0);
++	for (reg = 0x5b; reg <= 0x6f; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x50);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x70, 0x07);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x71, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x72, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x73, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x74, 0x06);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x75, 0x0c);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x76, 0x03);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x77, 0x09);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x78, 0x0f);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x79, 0x68);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7a, 0x88);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7c, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7d, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7e, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7f, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x81, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x87, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x40);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0x91);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x98);
++	for (reg = 0x8b; reg <= 0x9f; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa0, 0x8a);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa2, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa6, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa7, 0x80);
++	for (reg = 0xa9; reg <= 0xaf; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb7, 0x76);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb8, 0x76);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb9, 0x05);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xba, 0x0d);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbb, 0x14);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbc, 0x0f);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbd, 0x18);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbe, 0x1f);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbf, 0x05);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc0, 0x0d);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc1, 0x14);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc2, 0x03);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x07);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc4, 0x0a);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc5, 0xa0);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc6, 0x55);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc7, 0xff);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc8, 0x39);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc9, 0x44);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xca, 0x12);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcd, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdb, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdc, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdd, 0x80);
++	for (reg = 0xe0; reg <= 0xe4; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x80);
++	for (reg = 0xe5; reg <= 0xf6; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0x40);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x23);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
+ 	/* dimming enable */
+-	{ .data = {0x01, 0x84} },
+-	{ .data = {0x05, 0x2D} },
+-	{ .data = {0x06, 0x00} },
+-	 /* resolution 1080*2246 */
+-	{ .data = {0x11, 0x01} },
+-	{ .data = {0x12, 0x7B} },
+-	{ .data = {0x15, 0x6F} },
+-	{ .data = {0x16, 0x0B} },
+-	 /* UI mode */
+-	{ .data = {0x29, 0x0A} },
+-	{ .data = {0x30, 0xFF} },
+-	{ .data = {0x31, 0xFF} },
+-	{ .data = {0x32, 0xFF} },
+-	{ .data = {0x33, 0xFF} },
+-	{ .data = {0x34, 0xFF} },
+-	{ .data = {0x35, 0xFF} },
+-	{ .data = {0x36, 0xFF} },
+-	{ .data = {0x37, 0xFF} },
+-	{ .data = {0x38, 0xFC} },
+-	{ .data = {0x39, 0xF8} },
+-	{ .data = {0x3A, 0xF4} },
+-	{ .data = {0x3B, 0xF1} },
+-	{ .data = {0x3D, 0xEE} },
+-	{ .data = {0x3F, 0xEB} },
+-	{ .data = {0x40, 0xE8} },
+-	{ .data = {0x41, 0xE5} },
+-	 /* STILL mode */
+-	{ .data = {0x2A, 0x13} },
+-	{ .data = {0x45, 0xFF} },
+-	{ .data = {0x46, 0xFF} },
+-	{ .data = {0x47, 0xFF} },
+-	{ .data = {0x48, 0xFF} },
+-	{ .data = {0x49, 0xFF} },
+-	{ .data = {0x4A, 0xFF} },
+-	{ .data = {0x4B, 0xFF} },
+-	{ .data = {0x4C, 0xFF} },
+-	{ .data = {0x4D, 0xED} },
+-	{ .data = {0x4E, 0xD5} },
+-	{ .data = {0x4F, 0xBF} },
+-	{ .data = {0x50, 0xA6} },
+-	{ .data = {0x51, 0x96} },
+-	{ .data = {0x52, 0x86} },
+-	{ .data = {0x53, 0x76} },
+-	{ .data = {0x54, 0x66} },
+-	 /* MOVING mode */
+-	{ .data = {0x2B, 0x0E} },
+-	{ .data = {0x58, 0xFF} },
+-	{ .data = {0x59, 0xFF} },
+-	{ .data = {0x5A, 0xFF} },
+-	{ .data = {0x5B, 0xFF} },
+-	{ .data = {0x5C, 0xFF} },
+-	{ .data = {0x5D, 0xFF} },
+-	{ .data = {0x5E, 0xFF} },
+-	{ .data = {0x5F, 0xFF} },
+-	{ .data = {0x60, 0xF6} },
+-	{ .data = {0x61, 0xEA} },
+-	{ .data = {0x62, 0xE1} },
+-	{ .data = {0x63, 0xD8} },
+-	{ .data = {0x64, 0xCE} },
+-	{ .data = {0x65, 0xC3} },
+-	{ .data = {0x66, 0xBA} },
+-	{ .data = {0x67, 0xB3} },
+-	{ .data = {0xFF, 0x25} },
+-	{ .data = {0xFB, 0x01} },
+-	{ .data = {0x05, 0x04} },
+-	{ .data = {0xFF, 0x26} },
+-	{ .data = {0xFB, 0x01} },
+-	{ .data = {0x1C, 0xAF} },
+-	{ .data = {0xFF, 0x10} },
+-	{ .data = {0xFB, 0x01} },
+-	{ .data = {0x51, 0xFF} },
+-	{ .data = {0x53, 0x24} },
+-	{ .data = {0x55, 0x00} },
+-};
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x01, 0x84);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x2d);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x06, 0x00);
++	/* resolution 1080*2246 */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x11, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x12, 0x7b);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x15, 0x6f);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x16, 0x0b);
++	/* UI mode */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x29, 0x0a);
++	for (reg = 0x30; reg <= 0x37; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0xff);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x38, 0xfc);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x39, 0xf8);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3a, 0xf4);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3b, 0xf1);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3d, 0xee);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3f, 0xeb);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x40, 0xe8);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x41, 0xe5);
++	/* STILL mode */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2a, 0x13);
++	for (reg = 0x45; reg <= 0x4c; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0xff);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x4d, 0xed);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x4e, 0xd5);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x4f, 0xbf);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x50, 0xa6);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x96);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x52, 0x86);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x76);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x54, 0x66);
++	/* MOVING mode */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2b, 0x0e);
++	for (reg = 0x58; reg <= 0x5f; reg++)
++		mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, reg, 0xff);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0xf6);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x61, 0xea);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x62, 0xe1);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x63, 0xd8);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x64, 0xce);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x65, 0xc3);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x66, 0xba);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x67, 0xb3);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x25);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x04);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x26);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1c, 0xaf);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0xff);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
++}
+ 
+-static const struct nt36672a_panel_cmd tianma_fhd_video_on_cmds_2[] = {
+-	{ .data = {0xFF, 0x24} },
+-	{ .data = {0xFB, 0x01} },
+-	{ .data = {0xC3, 0x01} },
+-	{ .data = {0xC4, 0x54} },
+-	{ .data = {0xFF, 0x10} },
+-};
++static void tianma_fhd_video_send_init_cmds_2(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc4, 0x54);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
++}
+ 
+-static const struct nt36672a_panel_cmd tianma_fhd_video_off_cmds[] = {
+-	{ .data = {0xFF, 0x24} },
+-	{ .data = {0xFB, 0x01} },
+-	{ .data = {0xC3, 0x01} },
+-	{ .data = {0xFF, 0x10} },
+-};
++static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
++}
+ 
+ static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
+ 	.clock		= 161331,
+@@ -546,12 +399,9 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
+ 			| MIPI_DSI_MODE_VIDEO_BURST,
+ 	.format = MIPI_DSI_FMT_RGB888,
+ 	.lanes = 4,
+-	.on_cmds_1 = tianma_fhd_video_on_cmds_1,
+-	.num_on_cmds_1 = ARRAY_SIZE(tianma_fhd_video_on_cmds_1),
+-	.on_cmds_2 = tianma_fhd_video_on_cmds_2,
+-	.num_on_cmds_2 = ARRAY_SIZE(tianma_fhd_video_on_cmds_2),
+-	.off_cmds = tianma_fhd_video_off_cmds,
+-	.num_off_cmds = ARRAY_SIZE(tianma_fhd_video_off_cmds),
++	.send_init_cmds_1 = tianma_fhd_video_send_init_cmds_1,
++	.send_init_cmds_2 = tianma_fhd_video_send_init_cmds_2,
++	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
+ };
+ 
+ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
 -- 
-John Hubbard
-
-
-> 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/vbios.rs | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-> index c5dad9e065da..ff21f85fdfb6 100644
-> --- a/drivers/gpu/nova-core/vbios.rs
-> +++ b/drivers/gpu/nova-core/vbios.rs
-> @@ -333,12 +333,16 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
->              // Convert to a specific image type
->              match BiosImageType::try_from(image.pcir.code_type) {
->                  Ok(BiosImageType::PciAt) => {
-> -                    pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-> +                    // Silently ignore any extra PCI-AT images.
-> +                    if pci_at_image.is_none() {
-> +                        pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-> +                    }
->                  }
->                  Ok(BiosImageType::FwSec) => {
-> +                    // Silently ignore any extra FwSec images beyond the first two.
->                      if first_fwsec_image.is_none() {
->                          first_fwsec_image = Some(image);
-> -                    } else {
-> +                    } else if second_fwsec_image.is_none() {
->                          second_fwsec_image = Some(image);
->                      }
->                  }
-> 
+2.43.0
 
