@@ -4,77 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86A53CD5BAC
-	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 15:41:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D37DCD5BAC
+	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 15:46:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AADFB10E308;
-	Sat, 23 May 2026 15:41:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A83F10E309;
+	Sat, 23 May 2026 15:46:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ExwsO3CI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XtGo7vjv";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 796A210E308
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 15:41:30 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2bc85eda6b6so41945965ad.1
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 08:41:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779550890; x=1780155690; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=tlfATX24+gOXKKLMuPk5Ufobg0T/xx+iuzrEcxjjNAY=;
- b=ExwsO3CIx3xEyreCPIAJ5fqhz9hJRSYl9pKkj3oY4/3IMSHPTgrPJRB4M3xk48F9TV
- wb68oNnwQre8IQ1VlQwi2ZGUqpG0q9aGt2l2m/5MiYQ6ydoQSsLezzZUKUH5ClE49MTE
- UtaE6n6XR0Ancqx7hIc+gsWfdyP6VxoXf2tKirm7zDMgcQDENlYnisM06WbkYv0fkxP6
- XCxGYcIH4Xm4ePprmbHE8yhY22NjvsoFVnPKeV44M82pB9mEovpKIFVEPhXbwAWB0U2M
- JcW2xtS6MJe3gzq+ZrCxlsKYzLbwb4UTaA4EvjVhJcndwRfZoby3rcMlPS5YJwN9ne8Y
- y/4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779550890; x=1780155690;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tlfATX24+gOXKKLMuPk5Ufobg0T/xx+iuzrEcxjjNAY=;
- b=bIC5QykXxAkD1j4pwSkxf5gvM571lxaXDvf90ykD9psHAyBvikS+ZR3SeTqPpW4Tlf
- j/+WrcA+0G7KoKyxh5XSQ0CCAndBlMZGG+ONyciDBMSHZcsPz24XLrOXcJVKpTlBEfTl
- pUXiqGKvumR7g0gMONpUq51awLDCi0b7bByDjcpC0mPGt+tyLLqUIW88JvVZCjIxWRab
- 7Kr5NlvSnsirfQKMYhHATf7N/QYqF3QyyK4SKAtj1NmSPhROhbYDbrNRcU7gtLsUyoUg
- a0Aq8/YKljLbeu8N5l9cUg3Wnd6eanyE9CI/8j+EqbCr93JP+cqwzPrIlaFBlAg3R2Fs
- IzrQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/yq5RE8oP9UsQOmVeIokm3npUuS4bYuAVUESwRRWQI+47nbu4ftiza7qGYgbU5IM/7/lB0+jHZ8z8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUQXmRHWU7y506RrOcTKVtKQ5ZDZHLYq4gmyp9Wli2LhrN+I7h
- bzItr4sbb7BOtPzU9J81jip7qI9JO4a89GpHJCrOhXoGhxcFd2w665eH
-X-Gm-Gg: Acq92OHzNOtxDIiDt/HQEQhijqKFV0VkPj8cJ9H+33gHoOqkjAH0f5xgY/cRBsZyrck
- bBqTNGns/pSMo9lm++f+gwReEqPgI4nvixQBae013Vfj3LvC6PGMb9WMtHNaBW+yej1Mablrr0Z
- BUC6LALFOveMSzTScOWosCHEUSFt8dAcXKC5OREb+EnrK8KySxR7v9NcQ7QBiLOl5ePLciaVEH8
- RTZrN0nJYvkWbwD8f3DX0DcwZ2Q61m2FDuId9S7cwvQ7FABtkqDdIbXMcAD5hzqKJEzGISJ2HT9
- 1w4cHK4gkSX6Jz1l1X9mS41gBgoNjgHH1LRzL5Ef8ytu2wAWjMZ4+Bxo3GVP+VI9ulS/olrzcXE
- h8R/+C/W+lVd/f0NJ2R1ZAxlMCjs6jLBFOTcDooibqMHARJRJhe9GBchElE2QR1HXv2LSnJ2SKM
- UEHpZrYI2TO18ThP3d5ziq79AsJXudqv7sQP+XeDzUxKnuljshCMgkyU+hVVllO/BzQbg0xrmrF
- VE=
-X-Received: by 2002:a17:903:19e8:b0:2b0:6e4a:32d0 with SMTP id
- d9443c01a7336-2beb06a6053mr89764875ad.35.1779550889927; 
- Sat, 23 May 2026 08:41:29 -0700 (PDT)
-Received: from nixos-office (mx-ll-171.5.30-148.dynamic.3bb.co.th.
- [171.5.30.148]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb5695c40sm45239765ad.5.2026.05.23.08.41.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 May 2026 08:41:28 -0700 (PDT)
-From: Julian Braha <julianbraha@gmail.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH v2] drm/i915: use 'depends on' with visible DEBUG_OBJECTS for
- DRM_I915_DEBUG and DRM_I915_SW_FENCE_DEBUG_OBJECTS
-Date: Sat, 23 May 2026 16:41:21 +0100
-Message-ID: <20260523154121.147103-1-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0B3910E309
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 15:46:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AEECC60055;
+ Sat, 23 May 2026 15:46:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EF321F000E9;
+ Sat, 23 May 2026 15:46:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779551214;
+ bh=o01mZIap77JdV7lnWDWkCgBFoE4EHf5jWItgL7KxWEQ=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=XtGo7vjv/u2jBKRoLHA3oC9OmfZu2mVOGV/5v91LFo3aenQIJ3Cybr0FFjI67nVMk
+ rsOKWs1mXpXve5q7T/hfXdkKBYgWVqT1s9evRpWtpIRO/d3Zltm68xofkt3Wt1bVLO
+ 7jJavYWoDXZxu8XNR30oIIFFxdR2KkchADzY/WPMvjqNlfN/M2a7heUiyegIGuuEDZ
+ 0xFLspwBB4sdqtVmDAwEwrZr/JcayDEPbyHrjLY5NnXGo9x902lQgoa6YqcXzCVGGt
+ KRFJt1o421jQFFp3Lh9B9DfEag4cUfKMND6Kt4a3SRvOVNHtRbb3Wha0CnuBfBGbKX
+ RnfmInEnTQ2zg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 23 May 2026 17:46:46 +0200
+Message-Id: <DIQ696JK4WV0.2HOQ57L342S77@kernel.org>
+Subject: Re: [PATCH v4 21/27] rust: types: add `ForLt` trait for
+ higher-ranked lifetime support
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
+ <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
+ <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <igor.korotin@linux.dev>, <daniel.almeida@collabora.com>,
+ <pcolberg@redhat.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260521233501.1191842-1-dakr@kernel.org>
+ <20260521233501.1191842-22-dakr@kernel.org>
+In-Reply-To: <20260521233501.1191842-22-dakr@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,62 +70,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A previous version of this patch[1] accidentally introduced an unmet
-dependency bug, because DRM_I915_DEBUG selects
-DRM_I915_SW_FENCE_DEBUG_OBJECTS without also depending on DEBUG_OBJECTS.
+On Fri May 22, 2026 at 1:34 AM CEST, Danilo Krummrich wrote:
+> [ Handle macro_rules! invocations in the ForLt! proc macro's covariance
+>   and WF checks.
+>
+>   Proc macros cannot expand macro_rules! invocations, so the
+>   syn::Visit-based has_lifetime() and replace_lifetime() helpers cannot
+>   inspect types hidden behind macro calls. This caused the covariance
+>   proof to be silently skipped and lifetime substitution to fail for
+>   such types.
+>
+>   Add an explicit Type::Macro arm to Prover::prove to conservatively
+>   require a compiler-assisted covariance proof. Detect macro-containing
+>   types with has_macro() and use a WithLt trait projection for lifetime
+>   substitution instead of AST-level replacement. - Danilo ]
 
-DRM_I915_SW_FENCE_DEBUG_OBJECTS currently selects DEBUG_OBJECTS even though
-DEBUG_OBJECTS is visible to users. Other config options use 'depends on'
-for DEBUG_OBJECTS, so let's do the same here.
+I was made aware by Gary that WFness is not actually being checked, which i=
+s why
+the static expansion was needed in the first place.
 
-This select-visible Kconfig misusage was detected by Kconfirm, a static
-analysis tool for Kconfig.
+Thus macros will remain unsupported (even covariant macros are rejected), y=
+et we
+can improve the error message by adding the following diff on top of the
+previous v3 patch.
 
-Link 1: https://lore.kernel.org/all/20260502191932.4491-1-julianbraha@gmail.com/
+diff --git a/rust/macros/for_lt.rs b/rust/macros/for_lt.rs
+index df2027789713..75d0ce450bf0 100644
+--- a/rust/macros/for_lt.rs
++++ b/rust/macros/for_lt.rs
+@@ -107,6 +107,12 @@ fn visit_lifetime(&mut self, lifetime: &Lifetime) {
+                     self.1 =3D true;
+                 }
+             }
++
++            // Macro invocations are opaque; conservatively assume they ma=
+y
++            // reference the lifetime.
++            fn visit_macro(&mut self, _: &syn::Macro) {
++                self.1 =3D true;
++            }
+         }
 
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
----
-v2:
-- select PREEMPT_COUNT, avoid recursive dependency
-
- drivers/gpu/drm/i915/Kconfig.debug | 3 ++-
- lib/Kconfig.debug                  | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index 3562a02ef7ad..657cdf49181e 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -35,6 +35,7 @@ config DRM_I915_REPLAY_GPU_HANGS_API
- 
- config DRM_I915_DEBUG
- 	bool "Enable additional driver debugging"
-+	depends on DEBUG_OBJECTS
- 	depends on DRM_I915
- 	depends on EXPERT # only for developers
- 	depends on !COMPILE_TEST # never built by robots
-@@ -153,7 +154,7 @@ config DRM_I915_TRACE_GTT
- config DRM_I915_SW_FENCE_DEBUG_OBJECTS
- 	bool "Enable additional driver debugging for fence objects"
- 	depends on DRM_I915
--	select DEBUG_OBJECTS
-+	depends on DEBUG_OBJECTS
- 	default n
- 	help
- 	  Choose this option to turn on extra driver debugging that may affect
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 8ff5adcfe1e0..6501b7040706 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -760,7 +760,7 @@ source "mm/Kconfig.debug"
- 
- config DEBUG_OBJECTS
- 	bool "Debug object operations"
--	depends on PREEMPT_COUNT || !DEFERRED_STRUCT_PAGE_INIT
-+	select PREEMPT_COUNT if !DEFERRED_STRUCT_PAGE_INIT
- 	depends on DEBUG_KERNEL
- 	help
- 	  If you say Y here, additional code will be inserted into the
--- 
-2.54.0
+         let mut visitor =3D HasLifetime(lt, false);
 
