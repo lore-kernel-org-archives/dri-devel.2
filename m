@@ -4,75 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDCA1CD5BBF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89014CD5BCB
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 944AD10E3FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA65910E3FC;
 	Mon, 25 May 2026 06:20:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BQDeqPgQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fGatEwr5";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED91B10E0EE
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 13:03:29 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-c736261ee8dso3996593a12.1
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 06:03:29 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2FD510E33F
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 19:52:19 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-365d8e43759so4353650a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 12:52:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779627809; x=1780232609; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779565939; x=1780170739; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=kj4rwdcY67VyrdGlOu4L8pJ9Vyfha/VtjkF5I+0OLKM=;
- b=BQDeqPgQMBxj1dJ1M6cZ302XDO7kfb8TfzhqNQL7OzaTsXiGDWeX/AXlcH5jwtRUUs
- yAacIkX3BhdddhTv3X3hlxGvDiexCVAw74tYdeIA4KMvF71FHaolJtg3FthTdHskMeGJ
- lJ7QWDI3YMmHg3cPpV0GaYFOQ/RNy0ReMAoxXMcv4AnhyY7t3886nKLdyfyHS0v9cxpK
- GsHwdd+Ad/U1ltLkVcVBncRZhr9CdtW7hnn1nFnBY4EftQkWosRwN7nYCbZGKWgtM3Ru
- HCO36IrLx7eOcTDRUbIVN9yLNtmyt6KGDPrbtQBq0imBt6oghPFahMMK5YQ9H6B8jPP+
- 0GrA==
+ bh=lWrWJYufhREX3pTpYqP+nOLGz+ztZIkOJ8+XyiCxrpo=;
+ b=fGatEwr5USrkA6ogH/xkIaTgOPxUhThuNfmyPCjJznJMm3gtMtPcAZkgOGk5Ec71qt
+ FRBa+EHBR6QZWtijtZCIo6NiwVd5bz05E7wNiU9l3QefAH2y4XB/LtPOyVrBBcMkCW4o
+ L925UV55VmniK10sHWYoeoluoq5/iltynysV5Tcdbm3xfYiV16cgZKD6hhVAW4WBUeMB
+ bp1u+tbrfTVuLqVzS+6SldxeUnYpE5Q9/Yfl/buQx5r9qTLqIvbbOMSlBMyhWN0yCh75
+ SdqKZ2aUW9WKsxvHXiMrfwC6laxzKr41onEqTipfIxK6XGbVveZSieVJtGoBupsCGD6q
+ hiIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779627809; x=1780232609;
+ d=1e100.net; s=20251104; t=1779565939; x=1780170739;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kj4rwdcY67VyrdGlOu4L8pJ9Vyfha/VtjkF5I+0OLKM=;
- b=iqcpuH2L/pilzuqqCWVN8Grlh+JWs/8CSY1DxZ5/fOD1kY4C8DckJAsRbGuTOF2Yh2
- NB2zsNDiFD43lwSOm9SE7UVcDYlz6WrjeNZwxjEa1vxO75gd2bhMsjxG2/+jz+g74Gcv
- pIGndFjW8YnuGItt88zfBibnRpzVr2hGUJDbR3c6vKhdCIs9B3rAY54O/ClsG0T/lx/3
- BsiGsFqaOTmlSKtZPF+waZ0OxJvB+Ki0dYGn9vzwspUsZAtwIIT6GrD0DgTM/UYO3vHH
- D7Nu1d2RGZzr43WyGt7ikY9a5sKvaMFCZGQ6F85JttfUbrHyVOMtCnaExvl3hP9d3v3A
- iaLg==
+ bh=lWrWJYufhREX3pTpYqP+nOLGz+ztZIkOJ8+XyiCxrpo=;
+ b=P3kbyn6PmMlaLzakEY8zEqyf7VM1lJZ/G2bA+8EjPzbcIue8eW2AxMjHdGiiSgth3t
+ qTNX7EZ7F/5z+h061ajxKkgoAJo36oujyCcmDWpoTxbhzCY2bFoX1VYliMZt8/B7/t4K
+ P3AXHwgApkFaJlaeoGUY9udXk+zvgFgT5bYXXjKgHI5wvwcgZ7GLrKSsQwmXR4UC7fwJ
+ YaVf2Sqn1LYJPsRYrj1obqCIR+7IIN4w5R9gs27IBLoPCcxgJMvmKORx7erkuDiCtLsY
+ IdBfCLdjtvnLPFINzRpnrP2F5dojFRCgekhnz5J1NWj2q5KQdxbH8fjpgtNcI2x1jTSx
+ C5IQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ99Kzjcjsbm350P8y4byHuXRwEJzH86BG9zJgbOJQ8F/G3VgaSrGxK2Q5QR8Ks615EHSEeO0jLlDvA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+MSCCWH8WTXx7Lm7GFqOezIAr3HAK7/0wyKYztRZVKVbcSyib
- z9As7PBh4li0YK8OCOQMNkBQ5wQfrTFUYvcaZlu0cEbxzYGNvucBS2vH
-X-Gm-Gg: Acq92OEiEVcJV4oyHoXXP9pXizx3cAlmPMGBf17lvXKe0dTl+gedXQsLIJFeowQUl1L
- 5ZDVtEP+MtU+Eb57xnHc5MqzS0XEAHBbKEbaIf0zxHx0ttFj3KrtXaD2x6G1xZVSFRlC5fNWpOx
- vgAK2rKsRb+Phjw4ujVKv/i64B+xFYhX/PmHF7zYs2zltUo9WLL1oS1RU9ic55WGktX5sK+RXd+
- zdY6vAzvo37kDLiuOQlp2kJUYH+G4e9M4UBW/vYcjNVRvdZcqCyGl+lUKganrfO44IbqeNzq9JQ
- EIJE6tJZ2tAyNAMijwN2eSsXV0sXBMlmbQTMaHl4uPetByr9frQou/H61zEFxa7yBhGqnOjCXev
- yrsDpUTXHqoDrVFAzh1mgd9DYGOw0NIb289JxfLq/3yI/VkTwbh4nlADfDLaGuQHLGtq9kXssQc
- pvNLkxcjPV428+Tp4v8tHxPlr3aHSFO8pWC3smWRsIYGWTQlN3RK+gfqTgX0H4J1pe9cX+MlC2B
- TaTbrmhf0zDag12iEOGlGAaURBHQDzTg+jzIruEHK+LmpYvraAqY6f19wxgS1UiDFWVyPgMdI86
- S2+9chRcv6o=
-X-Received: by 2002:a05:6a21:4d8d:b0:3b3:241f:66c6 with SMTP id
- adf61e73a8af0-3b328e504b4mr10852348637.26.1779627809312; 
- Sun, 24 May 2026 06:03:29 -0700 (PDT)
+ AFNElJ8eXJbE6Yld1t0g3yEa0PnqD0SSj3m4wBCwc2cdI64dKfNhq06aqGXbdKkMQmwyqFUdkxwDCwVWzn8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyf5vz4+x0xrqDbChwHxNFP1CUIYyxlF6kAAiTikA+fO3efTWyH
+ B7KBmJrrRTnmEBYU1deO3EQmnuQCFhF0rrMhopKILW7BC8QpthumA/jA
+X-Gm-Gg: Acq92OF2on0c18exqpphb1xA4h7J9u+X4Az5kb50XuHTo99qfYY+Mg/JgP7xnDCUODu
+ z80vRRqGXO6nXnChT8qaoBas26an/9RuinQa2IhmF17TQVAHohtDffn4bImub8gUukksOxQuahj
+ x4z7ZnGDJ2BsNnR7q3bsVC/m5Po0C4ymuBC7MGbCr1BBhKcWFUp0pxjj5Ns2ezGu8TEYkLAoIs8
+ 9inf4JCZVTLfQVyznBoSVhMd7HAPzBJvRPsCvH/wXRCrY1bsOVnKBkW0In0G5bUOIguEqG4Ia41
+ AHURBXp1Xztbpj+ztR7D7IZ8D2jjqrmgImhbm/j0s+UOfWqwS87wv0+tVymlK3n5hCo46vk2fb0
+ cc3ssyxeh7ET7MW4MgwSjD29ea9Kh74Elvudu+QqGZo0DvGhPznrZmU3cmdkz0AzFxnkCiFVHJE
+ v7tYWUQedOIOCAFk7e1RRJXeDx2rWxKoXrckAslVUzqNuyipuWPxEK3kA4OV519DJ26HNNqzc/S
+ VxiOyVApbu6H0AU1EGsD9mp6gsTL6BEHhWFPgpKcP8r5N1Re1wsYFCw74Myu8zp0Th0ks4A/hme
+ 4DRWFXpo9i0JA3OHLbjzQQ==
+X-Received: by 2002:a17:90b:1d44:b0:369:7944:d723 with SMTP id
+ 98e67ed59e1d1-36a6bb5a6bfmr5964578a91.4.1779565939265; 
+ Sat, 23 May 2026 12:52:19 -0700 (PDT)
 Received: from
  codespaces-78f0a7.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net
- ([4.240.39.193]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c8520560ff8sm5759610a12.24.2026.05.24.06.03.25
+ ([4.240.39.195]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-36a7212aa06sm2993459a91.3.2026.05.23.12.52.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 May 2026 06:03:28 -0700 (PDT)
+ Sat, 23 May 2026 12:52:17 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: robh@kernel.org
 Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, tzimmermann@suse.de,
  Frank.Li@nxp.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] accel/ethosu: reject DMA commands with uninitialized length
-Date: Sun, 24 May 2026 13:03:19 +0000
-Message-ID: <20260524130319.12747-1-meatuni001@gmail.com>
+Subject: [PATCH] accel/ethosu: fix IFM region index out-of-bounds in command
+ stream parser
+Date: Sat, 23 May 2026 19:51:59 +0000
+Message-ID: <20260523195159.55801-1-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -92,43 +93,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-cmd_state_init() initializes the command state with memset(0xff),
-leaving dma->len at U64_MAX to signal missing setup. The only setter
-is NPU_SET_DMA0_LEN; if userspace omits this command and issues
-NPU_OP_DMA_START, dma->len remains U64_MAX.
+NPU_SET_IFM_REGION extracts the region index with param & 0x7f, giving
+a maximum value of 127. However region_size[] and output_region[] in
+struct ethosu_validated_cmdstream_info are both sized to
+NPU_BASEP_REGION_MAX (8), giving valid indices [0..7].
 
-In dma_length(), a positive stride added to U64_MAX wraps to a small
-value. With size0 == 1, check_mul_overflow() does not trigger and
-dma_length() returns 0 instead of U64_MAX. The caller's U64_MAX check
-then passes, region_size[] stays 0, and the bounds check in
-ethosu_job.c is bypassed, allowing hardware to execute DMA with stale
-physical addresses.
+Every other region assignment in the same switch uses param & 0x7:
+  NPU_SET_OFM_REGION:  st.ofm.region  = param & 0x7;
+  NPU_SET_IFM2_REGION: st.ifm2.region = param & 0x7;
+  NPU_SET_WEIGHT_REGION: st.weight[0].region = param & 0x7;
+  NPU_SET_SCALE_REGION:  st.scale[0].region  = param & 0x7;
 
-Fix by checking for U64_MAX at the start of dma_length() before any
-arithmetic, consistent with the sentinel value used throughout the
-driver to detect uninitialized fields.
+The 0x7f mask on IFM is inconsistent and appears to be a typo.
+
+feat_matrix_length() and calc_sizes() use the region index directly
+as an array subscript into the kzalloc'd info struct:
+  info->region_size[fm->region] = max(...);
+
+A userspace caller supplying NPU_SET_IFM_REGION with param > 7 causes
+a write up to 127*8 = 1016 bytes past the start of region_size[],
+corrupting adjacent kernel heap data.
+
+Fix by applying the same & 0x7 mask used by all other region
+assignments.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/accel/ethosu/ethosu_gem.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/accel/ethosu/ethosu_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 8e95539da98f..3401883e207f 100644
+index f526f4aedffd..80d4bc21c28f 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -164,6 +164,9 @@ static u64 dma_length(struct ethosu_validated_cmdstream_info *info,
- 	s8 mode = dma_st->mode;
- 	u64 len = dma->len;
- 
-+	if (len == U64_MAX)
-+		return U64_MAX;
-+
- 	if (mode >= 1) {
- 		if (dma->stride[0] < 0 && (u64)(-dma->stride[0]) > len)
- 			return U64_MAX;
+@@ -466,7 +466,7 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 			st.ifm.broadcast = param;
+ 			break;
+ 		case NPU_SET_IFM_REGION:
+-			st.ifm.region = param & 0x7f;
++			st.ifm.region = param & 0x7;
+ 			break;
+ 		case NPU_SET_IFM_WIDTH0_M1:
+ 			st.ifm.width0 = param;
 -- 
 2.53.0
 
