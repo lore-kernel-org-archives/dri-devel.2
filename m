@@ -4,76 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73152CD5BC0
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D60DCD5BC7
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C828510E04A;
-	Mon, 25 May 2026 06:20:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 651F910E3E7;
+	Mon, 25 May 2026 06:20:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IBhAsHlR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZbO/s/LB";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADE5610E31C
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 21:09:27 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-83f674f978fso3110861b3a.3
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 14:09:27 -0700 (PDT)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9F1710E31C
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 21:09:36 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-82f8b60e485so3530575b3a.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 14:09:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779570567; x=1780175367; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=NOrc7TUYA1VZjAj3FpFbAmZl2qMxqvGuE8h2aBD3LuU=;
- b=IBhAsHlRwHiIe2/tAdusq517Wt2sBnXilBx2m6V51AxkgGdIRnuVUwNl46vBNWHK0i
- tVtUaZCQrxXcb4z05hp8AAUyJWr41QV60roQvAxtxbwo1vNem1WvQy8A8glOGyLAOEb0
- ECb4GnW0izupXKwfnu0Cc7g3lOCMedVLv1hcsCYW3t0NcAposzDLyUTj2V3CxMu6+Lwz
- FBfLR7cBMEJeC7sE+N2aeL2dWsK55ujpoiEkYbj28lKN3DfQ44YcUcqMe3joZ7SfB8Me
- DTTlmI5HRimM9WAH58nKSEBGgGIpSl67OF4BGb3BlwcxuneiEvZSQ2z1/Y+QFaSfAK7b
- QyHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779570567; x=1780175367;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1779570576; x=1780175376; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NOrc7TUYA1VZjAj3FpFbAmZl2qMxqvGuE8h2aBD3LuU=;
- b=KEaBrtE0XeTgdHTG0l+x+SEt6QWjmIRksyyi2SuX9OGR2WQIBFDojfPu8g/K2YpBxi
- GLO1YVOHOt+XtnmuHNRnzUPsDpPfYLg7Ub5ir7uwsmQe6a9Qfu2JKsmZPHn8nXDsNbW8
- QPP9rLtzIz/nNxiFrGffCBV72l8TlkO69rLGTz6SJGCB9OY+sMSp/1OyJxynxDqbDsSI
- HMpXSqspwPzYzrVlz6uqsOQhRrY5RqauQAK4VG79ta7SQHCrw51EKIjN6lW6vtidHgt9
- Rp7kNfJsGQTwYz0v7HQNEVSdt/5QVseEhQ8kKgfqJvwOSn1Y+3mWCFBw6q0o22tEEDVl
- iRSA==
+ bh=m75pjVJH9fVWqs1GIsLd17VZCLb6FKMxe/bCaTR72AE=;
+ b=ZbO/s/LBVJYtIJYOJwjdHWu9U9nbinKJb0TPAOl3QvS+ndx2bOODRDi4EXsOi5L0SE
+ MB5ITaA8bW5CvToMv2XMk2VGj+aMHe7lzOxqglphfR8VfthEh48ldYrp9G5Jl8/AvYfC
+ RWwc/OJl6VH6/0IBjorte7hz9dJhL+P8isX40GbJiQapr+kMK/HJt5K2nMKOJcTOQIcb
+ YGJpgwm67fiBzWJAco/tPMUXCEiFRHmdjEAOgwniborRXw9LOxyX52WaH0EJUFTE7OQ4
+ SPk6xhtADxDhktZEB+W5vbVRNmvwOAPAtr8MDKuzXiN35c3g4WpMFNspTwgis7bWT8wn
+ QEsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779570576; x=1780175376;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=m75pjVJH9fVWqs1GIsLd17VZCLb6FKMxe/bCaTR72AE=;
+ b=QdUzmmkOicy5/EdlqQhX9RqhqXfbyRWGBtY0Tp3dHqxoOfVmYYJfFZLfYKpVUfURQ8
+ AdyQuWVGRK4iC4ZQmsHY4F2z86UdfRQNyd+A4+nqSzbeMSzg50x4bzvxsvn2nqRApVwt
+ 0lYPaPD4m8OR9bM/ob65ySBQ5WguoA/+KEd7b2W06LaV6wE1oqj6LNT2lVvh0wdSL6Pk
+ FzKtjAvpyPO968B0M0sGJHmntDeXyW9vvzDazuDhX2FLTqn5NNCPkV89x8odQgoL/9RU
+ 8WTUIeKtOLTUxP3JNLhxXmAqy6upd1YELcuxKCVWl0MhWNVs3pZISWlwNgshTK2q8Oob
+ m3eQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+IobdHOhfPuJl2YOwHbXpMFyDGenb3FwR+ImjOmOIUnG4JAIeGOemkYFdnJZD5a8i7S8vwkipEcQQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwWNUfnSIXQjkB+L26y0ZslnpDA/XG8l7nfEai87sbML5/3Q4eP
- qX09wXsqqLE0s2xfovjWFXoM53689ZnvR1KRdHgUVdEEh9rMEjNUEeY9
-X-Gm-Gg: Acq92OFsU82pEshg/AGk9XeGi+MKpIimNyDzl8KmAs+uL/S8barFYqZQbLRoNuheXXI
- 74j8sq1rXo9/dYpnFVQmlFkM/jo+gbkX39Z3Pxn7f+A2yt1+Usnr1I0EOrMmN1zbBTHF3AWEBol
- Pw7DaYs6/nDBd2ECBpTR2w6m98u9D2fyeW39KXv+qTttsbOn2+kxi4ANZ7GOqx8Gts+WVSE4bVi
- Mw4I737PQbtEUrZGsN5JzOLUYgZrY2IprI7AUj1zmNR4bwzmNWApesoOwDAIn6CA0wPEgcXJhZi
- +8LJGzMq0e9iGs5QkLqfIuOC6dTxzoZorN4ulbed+DcxlPG049CYH+AtD3I1SAHXCKPK/zyZOng
- 3LCjGRCHj5Fix/Qnd6yA7VYA4Alzms08qC4S2DIA30anwT+lXk6tNZtaOMulzTs1y7yTz+w+GS0
- FEeqZJ4Cj+hqQ5MbznV1xNu5k4/OOSyD4BbEqOAakfyu2ve9V8kwR22TgdCsIumge+ZjiBVVhDG
- Bref7ACbPSQglO1TLHSaxrMHXuMmpl36OHyUMHZjyDJgwhFE9p1muZkWreE4Ya1W0u5iz3GQXPb
- kCQrg8wmN3bMbBNmCHXvWA==
-X-Received: by 2002:a05:6a00:1f11:b0:82f:d34c:ccc6 with SMTP id
- d2e1a72fcca58-8415f1e0b31mr7824111b3a.10.1779570566997; 
- Sat, 23 May 2026 14:09:26 -0700 (PDT)
+ AFNElJ9JNkYIPFuowypB3GN5uuHuio0KTzdh2b2tv3sOSAK6LQ0KvKe16++brzw2yy7SlNE3aX8t6bN4Hic=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxipj8ruAodQHXVbXiNk1eQRCXVNFluQ9aWXOdeHrba87inAf/n
+ Fh2JTbU3hHn5PsCnE/LsjRDFEN6nRRNDZeADfXN247oSb95vNCQi5qFpojhbW9MxIRjO2w==
+X-Gm-Gg: Acq92OE55hl/BiBadDoYKynmBWkUXozoVTHJv6zyqGtUFOncKlDvjVb6/sGafrkMZvk
+ qOdZ3ND4U/7Y3UkoNEymvtmEOUTs06YRVNk+HLT9Mqm4p45bP1EgOME3MBTy3mEEJaTcSMefwBq
+ KNo6jXy0rAM8laITii22EmUMQOjWAQcUiuPNDQUEib5rg0fXqTayzjLgg4TgLpkyt1QvOioCbtJ
+ P7tA6d7w4/G3TKZ8cigxFLCyPkHXY8JepmWryAQTiQr/CaqbsEzlniVpZ0zDDdZYiG+NydYoqym
+ VeboAN2iLz5B5SA6y7+2NmOblv+1U8Xs1aEbc5jcYohVsdFsoqJ1MsozsS8SONJo19s7q0t+hvh
+ KEaItmzLgEKGkON+xGZ5kZozevs9M7Uege5YzXl8cQgZKK9erkJbNCpCBrLeA7w6YfAOmkEiOfu
+ 9Rb242vE4729a/aOWTyd6hScuIWh+rYzCiIwxhgutpS3JJMfsTxdwOl22OLJm7sHU/e3wg5c00p
+ WVWr4GhJa0XZdrTYZq57KHhFOKwPaKTuLuOyZ8LFDChJ837wvhx2KDeXB/jeSpXRDsCKWgFtC3I
+ RT5f+W8TY04=
+X-Received: by 2002:a05:6a00:348a:b0:837:e9cc:d460 with SMTP id
+ d2e1a72fcca58-8415f15b4dcmr8301554b3a.18.1779570576015; 
+ Sat, 23 May 2026 14:09:36 -0700 (PDT)
 Received: from
  codespaces-78f0a7.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net
  ([4.240.39.195]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84164fc646bsm5406884b3a.46.2026.05.23.14.09.21
+ d2e1a72fcca58-84164fc646bsm5406884b3a.46.2026.05.23.14.09.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 May 2026 14:09:25 -0700 (PDT)
+ Sat, 23 May 2026 14:09:34 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: robh@kernel.org
 Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, tzimmermann@suse.de,
  Frank.Li@nxp.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH 0/2] accel/ethosu: fix two command stream parser bugs
-Date: Sat, 23 May 2026 21:07:51 +0000
-Message-ID: <20260523210840.92039-1-meatuni001@gmail.com>
+Subject: [PATCH 2/2] accel/ethosu: fix wrong weight index in
+ NPU_SET_SCALE1_LENGTH on U85
+Date: Sat, 23 May 2026 21:07:53 +0000
+Message-ID: <20260523210840.92039-3-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260523210840.92039-1-meatuni001@gmail.com>
+References: <20260523210840.92039-1-meatuni001@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 25 May 2026 06:20:29 +0000
@@ -92,30 +96,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While investigating the IFM region index out-of-bounds fix already sent
-[1], two additional bugs were found in the same command stream parser
-function ethosu_gem_cmdstream_copy_and_validate():
+On non-U65 hardware (e.g. U85), opcode 0x4093 is NPU_SET_WEIGHT2_LENGTH.
+The BASE handler for the same opcode correctly assigns to
+st.weight[2].base, but the LENGTH handler mistakenly assigns cmds[1]
+to st.weight[1].length instead of st.weight[2].length.
 
-Patch 1: NPU_OP_RESIZE unconditionally triggers WARN_ON(1), allowing
-any unprivileged user with DRM device access to spam the kernel log or
-panic the kernel if panic_on_warn is set.
+This leaves weight[2].length at its initialised sentinel value of
+0xffffffff and corrupts weight[1].length with the user-supplied value,
+breaking the software bounds-check state for both weight buffers on U85.
 
-Patch 2: NPU_SET_SCALE1_LENGTH on U85 hardware assigns the user-supplied
-length to weight[1] instead of weight[2], mismatching its BASE handler
-and corrupting the software bounds-check state for both weight buffers.
+Fix the index to match the BASE handler.
 
-Both fixes apply cleanly on top of the IFM patch and target the same
-Fixes: tag since all three bugs originate in the same commit.
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ drivers/accel/ethosu/ethosu_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[1] <20260523195159.55801-1-meatuni001@gmail.com>
-
-Muhammad Bilal (2):
-  accel/ethosu: reject NPU_OP_RESIZE commands from userspace
-  accel/ethosu: fix wrong weight index in NPU_SET_SCALE1_LENGTH on U85
-
- drivers/accel/ethosu/ethosu_gem.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 043541407a8f..5a02285a4986 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -600,7 +600,7 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 			if (ethosu_is_u65(edev))
+ 				st.scale[1].length = cmds[1];
+ 			else
+-				st.weight[1].length = cmds[1];
++				st.weight[2].length = cmds[1];
+ 			break;
+ 		case NPU_SET_WEIGHT3_BASE:
+ 			st.weight[3].base = addr;
 -- 
 2.53.0
 
