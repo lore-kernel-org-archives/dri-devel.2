@@ -4,106 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B253ACD5BBF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:21:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2424CD5BC0
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:21:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E497F10E401;
-	Mon, 25 May 2026 06:21:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 011ED10E404;
+	Mon, 25 May 2026 06:21:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W/qwAMS1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l/LptzVf";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 913B010E06C;
- Sat, 23 May 2026 00:38:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7697440390;
- Sat, 23 May 2026 00:38:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDCE81F000E9;
- Sat, 23 May 2026 00:38:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779496688;
- bh=ke0QgGP72oU1/KHDzVSs1lh/gkg7Mw8fFDTolKbzoHA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=W/qwAMS1ok+56HAwvYiYz0R5wmKsD0RscuUhy5BVEzThMnr+wQxbKIW0Yk+lqtg0R
- dxN4FM+nLAHenqFi1JvSelOt20CYFnYpdSX3hvz5/mvzq/JXO7gcBTjSStG/A5FM8j
- 0Dk4RFZ90/nX0Xzby8V+5D3uQDTYP8o1bo3XSKlx4rKPB6vCO/Oui18woqanoP+n4U
- enXhw+/EJeP6Kw2ZiII29eiMOdyHFC3VD0U1T97Mm+aD6rZa6A+hyeA7zcgLPdsptw
- 8LWGxoojes1mewesgkVxxy+dLIhtJlwu3XyRYodcKxBzIRSnWjQs++a/owD5p2CmBM
- RNz3sazG7iMhQ==
-From: SeongJae Park <sj@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: SeongJae Park <sj@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>, Petr Pavlu <petr.pavlu@suse.com>,
- Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Corey Minyard <corey@minyard.net>, Gabriel Somlo <somlo@cmu.edu>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
- Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
- Tiwei Bie <tiwei.btw@antgroup.com>,
- Benjamin Berg <benjamin.berg@intel.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "David E. Box" <david.e.box@linux.intel.com>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
- linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
- linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arch@vger.kernel.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 04/11] treewide: Convert struct kernel_param_ops
- initializers to DEFINE_KERNEL_PARAM_OPS
-Date: Fri, 22 May 2026 17:38:01 -0700
-Message-ID: <20260523003801.86344-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260521133326.2465264-4-kees@kernel.org>
-References: 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBF7710E2E4
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 07:32:52 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2b9ec9443c2so47466575ad.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 00:32:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779521572; x=1780126372; darn=lists.freedesktop.org;
+ h=cc:to:subject:date:from:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=H+KRTw9/sBNPjfGJSKTyHrcZ/0neRgH4YHpK/FuxGf0=;
+ b=l/LptzVfFxN1IWDFEl+AbkoXfrhb2VSg0nyUMdoWKlRpV9ejRiIN5PhQD+WLBSMOy+
+ F9R/9b0XSGe25nnTV93spA1SbvUIof2UXeky9RYbhsXe3Z94zN+agYEdEVAzIthlVIEN
+ Gh6vUeORx0Xnl6DAU6Y6ND28qVgaChLq9TpBJk2IaijpqUjM6QMANSig2yfDZdD6CZN2
+ 5dfuiVh61MdZEtSgkdKTx3IWeoO0poZwVZSZGm5MY99h7kxBdJjQyJvFPg7JdxKBoCQn
+ Abq+8wOJYY0EuEiyycQ2YH0alz6wgCoH7J9Tw/xIYEqOuNO2kpdrY+gFnNOI7gAZBcWB
+ 72VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779521572; x=1780126372;
+ h=cc:to:subject:date:from:message-id:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=H+KRTw9/sBNPjfGJSKTyHrcZ/0neRgH4YHpK/FuxGf0=;
+ b=SDeSH0+/uVOo8R/NwZsQ5LS7jSDzr8UrOxnp3gtB4iibBK4ZUmAkYrOoVyWDfZxlx3
+ XMW8aisJV5DXDIMhHFa0TuzDO01PjmW3b6MB5gYAWS8zunjMtPLe4IuFaMf6cYlN7adR
+ HGqO201T4dwf1ioEr4rsQ9ro3pxNzSy1/oJ0wJvhGPuD4MbDEM3prsBhIKGbOhYjpSe9
+ 2hGiZ0xScRj75ZmAE04XEhZVQ3C3ktxuQc8Rtj326TPCfZkFaqEl9vk0yx6uD1S8dQp1
+ 0TPKAPDSZYQ1oE0fsCqRX2pzzCygNzY8WrPUuSWfjFVLgmQv/Qrcl+6fsYXL3pQHEQvI
+ cJEg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+WfwIloe89gKlvz5p6WZMk7ylAPnoMFWDyG2Rli7OzabRwp7sxykhC9O0BoUWmJnc7O0L8eywYnVE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx1C/lzTvYwGJgzdgcHHpxVljTdjvVycbX/Fj2btzFuWYaMFTiA
+ y/M3sVg4j7o6w+KJY1VekeNHx1wXF5mLdF2omhaTsS+WRtgDomVT7A6s
+X-Gm-Gg: Acq92OECdhSp6Ge1cPEov6w/mpDm0O4b1mzhUkh/171G3rUkSt000OVcIiLCq1WlGpR
+ Gx+tZNZw1MVseo5WNmshjg/A5q4+WB4HZoWlrMXc4eVuvVQ5UpmaNgewkNvgVkhB8uvN4YTZD/p
+ IDw8fDSfDtGxyNtII3KzDq69/tZBcwd/CBkA2ZZF4dgnSsh3h5Oi63+LQxLg1hMdp9yRUKg0W8j
+ 9o9IMzGOrVhAK8Xl/Sf5NEqUugJK02FezkqSxPoVXqRKzGaujT0jtVhLKZzpbc4CMnJU8rUvOgu
+ HVSsY1oXH7Lku+OVF7gRl6S52wWZGXgxA+aSiymYydqlDUI7kxeAUZDhYKe/wtd1gmxtCjXC4fV
+ KrU3OUUffZ7KUCglh1wLSUe5ArtD28uQR0laib+WYo78mdIni9sRJ8U0HvYt+rQZTHaYKj3jrbG
+ Lbfqpvtf9utvjauEwgilufMmt9fmf1AyJI7RchorWOK/6DBHchz/+gMvUXTjF91UNioXCy/SGCM
+ jlKuMFcDY+FhOOOO7V7zbc=
+X-Received: by 2002:a17:903:fa7:b0:2bc:ac76:c1d0 with SMTP id
+ d9443c01a7336-2beb088e3ecmr52736095ad.17.1779521572418; 
+ Sat, 23 May 2026 00:32:52 -0700 (PDT)
+Received: from 1.0.0.127.in-addr.arpa ([103.129.134.214])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2beb58b387dsm38101085ad.50.2026.05.23.00.32.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Sat, 23 May 2026 00:32:52 -0700 (PDT)
+Message-ID: <6a115824.a0bed9bd.3c0137.9edf@mx.google.com>
+From: Shuvam Pandey <shuvampandey1@gmail.com>
+Date: Sat, 23 May 2026 13:17:33 +0545
+Subject: [PATCH] accel/qaic: Protect perf stats BO state with bo->lock
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Approved-At: Mon, 25 May 2026 06:21:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,44 +86,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 21 May 2026 06:33:17 -0700 Kees Cook <kees@kernel.org> wrote:
+qaic_perf_stats_bo_ioctl() validates each BO by checking bo->sliced and
+bo->dbc before returning its perf stats. These fields are changed by the
+detach paths while holding bo->lock, but the perf stats ioctl reads them
+without that lock.
 
-> Using Coccinelle, rewrite every struct kernel_param_ops initializer that
-> sets .get into a DEFINE_KERNEL_PARAM_OPS-family macro invocation,
-> for example:
-> 
-> @@
-> declarer name DEFINE_KERNEL_PARAM_OPS;
-> identifier OPS;
-> expression SET, GET;
-> @@
-> - const struct kernel_param_ops OPS = {
-> -       .set = SET,
-> -       .get = GET,
-> - };
-> + DEFINE_KERNEL_PARAM_OPS(OPS, SET, GET);
-> 
-> Using the macro for initialization means future changes can manipulate
-> the struct layout and callback prototypes without having to change every
-> initializer.
-> 
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
-[...]
->  mm/damon/lru_sort.c                           | 19 ++---
->  mm/damon/reclaim.c                            | 19 ++---
->  mm/damon/stat.c                               |  6 +-
-[...]
->  samples/damon/mtier.c                         |  6 +-
->  samples/damon/prcl.c                          |  6 +-
->  samples/damon/wsse.c                          |  6 +-
+A concurrent detach can clear bo->dbc and mark the BO unsliced while the
+perf stats ioctl is validating the BO. Take bo->lock while checking the
+BO state and copying the per-BO stats into the temporary result buffer.
 
-For the above DAMON part changes,
+Fixes: 4ddf4ddfceb4 ("accel/qaic: Ensure entry belongs to DBC in qaic_perf_stats_bo_ioctl()")
+Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
+---
+ drivers/accel/qaic/qaic_data.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-Reviewed-by: SeongJae Park <sj@kernel.org>
+diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_data.c
+index 1e4c579d2..1d74c2ec3 100644
+--- a/drivers/accel/qaic/qaic_data.c
++++ b/drivers/accel/qaic/qaic_data.c
+@@ -1834,15 +1834,16 @@ int qaic_perf_stats_bo_ioctl(struct drm_device *dev, void *data, struct drm_file
+ 			goto free_ent;
+ 		}
+ 		bo = to_qaic_bo(obj);
++		ret = mutex_lock_interruptible(&bo->lock);
++		if (ret)
++			goto put_obj;
+ 		if (!bo->sliced) {
+-			drm_gem_object_put(obj);
+ 			ret = -EINVAL;
+-			goto free_ent;
++			goto unlock_bo;
+ 		}
+ 		if (bo->dbc->id != args->hdr.dbc_id) {
+-			drm_gem_object_put(obj);
+ 			ret = -EINVAL;
+-			goto free_ent;
++			goto unlock_bo;
+ 		}
+ 		/*
+ 		 * perf stats ioctl is called before wait ioctl is complete then
+@@ -1858,7 +1859,12 @@ int qaic_perf_stats_bo_ioctl(struct drm_device *dev, void *data, struct drm_file
+ 						    bo->perf_stats.req_received_ts), 1000);
+ 		ent[i].queue_level_before = bo->perf_stats.queue_level_before;
+ 		ent[i].num_queue_element = bo->total_slice_nents;
++unlock_bo:
++		mutex_unlock(&bo->lock);
++put_obj:
+ 		drm_gem_object_put(obj);
++		if (ret)
++			goto free_ent;
+ 	}
+ 
+ 	if (copy_to_user(u64_to_user_ptr(args->data), ent, args->hdr.count * sizeof(*ent)))
+-- 
+2.50.1 (Apple Git-155)
 
-
-Thanks,
-SJ
-
-[...]
