@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 387FDCD5BAC
-	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 10:41:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A787CD5BB1
+	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 10:41:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FEA10E2D7;
-	Sat, 23 May 2026 10:41:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8557D10E2EB;
+	Sat, 23 May 2026 10:41:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dECT3WYy";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="aZ8VRfqp";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A350810E2D7
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 10:41:38 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 275FA10E2D7
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 10:41:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779532897;
+ s=mimecast20190719; t=1779532900;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=y1jgoVOyXWjGHzsv5K/BVa074MnLk4iyZS4E4IEHpwE=;
- b=dECT3WYyUZR2EqAikeiOIu85ALkQRVvS9x/OsSORgWdGMqjrHRp/SnxAH7I/mU86W2A2ct
- eExcOMpH+/TTvDCAnyvCTJZjOhqqGNTnzyxSOddSpr+EgDvSf1aTnZl9lsBsJ/rormkLeW
- lfSw5J8MT/zSwUfY/vymjorcN66kh1U=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=BaLC69i13BPjVBegJ0y/4AtwLN5mHubHwSFs790g7Io=;
+ b=aZ8VRfqpuf7UqIJXMg2vrXM0F0674KCb1vp7LmTgQkkjjgoAStKnDDm0c6KI+Z0gzwNNPX
+ 6q/wyZlI1r353pZ1bMox9lhkPibjks6BDeIMpBHucbl5r53nsYe2qF8yIvmqdhe5x2iz+p
+ UbqKBhOFOFgD3BX7ocjUN17kIygdxSk=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-683-2N7bbq_TNe-QPKabcCcgwQ-1; Sat, 23 May 2026 06:41:35 -0400
-X-MC-Unique: 2N7bbq_TNe-QPKabcCcgwQ-1
-X-Mimecast-MFC-AGG-ID: 2N7bbq_TNe-QPKabcCcgwQ_1779532894
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-44a71109b94so5804881f8f.3
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 03:41:35 -0700 (PDT)
+ us-mta-650-flAGsuZfPsm3SpHjcuelAA-1; Sat, 23 May 2026 06:41:38 -0400
+X-MC-Unique: flAGsuZfPsm3SpHjcuelAA-1
+X-Mimecast-MFC-AGG-ID: flAGsuZfPsm3SpHjcuelAA_1779532897
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-4904bbc6094so8433945e9.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 03:41:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779532894; x=1780137694;
+ d=1e100.net; s=20251104; t=1779532897; x=1780137697;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=y1jgoVOyXWjGHzsv5K/BVa074MnLk4iyZS4E4IEHpwE=;
- b=aeV7pwWqEc9+pod+YdjLQ+daeKBdIv4nLxOLVdD2jKTR1Djb5ALrjNIF49HpUyKYW7
- cxJJskOY0MrNQttvlWaW3hySv6LUUJJSeEGhKDId+nnHcnspMfQAlvJZNy4USPRLoH1b
- c+4EbIOyPBuFyJYhMWqofqsAgVbsAMr2OICWKap+ybEobzCIVlLhsiqCYZnb10VYKhE6
- IyCN7qcwiTPLrvv+za2OpR5wGea7G6gKLJ4NTaifRWHMuZvQDYOpjwcZy/aK10yUCcKC
- bZRF3Uhd9TiaJIbXS6taCpwDZLFORy61sAEPpZK2LGmNoTW/r8My2sDqznLNvnKohtvM
- M8Wg==
-X-Gm-Message-State: AOJu0Yx1ugw4NXKGPb5hzm+e68u6POPmlF8DCGS/PWnelFbAZExLKnZS
- L5eKh4yAjY7/yrjtKFD0XponDu5K2yjiX5b4rdqPx35TkcXR1oaL/1L636MFt0uau1RESMEPSsm
- 8T6A8BgMKi295Zjwxiw4SUTgGGuHqwPErNUdckBGzZ3LzJHGibM23j0aiVcEfoolEnqyEdg==
-X-Gm-Gg: Acq92OHLdHOgtsxshue4nMuHOZYvsslnQOpiU7HivBuY1GWl47Pigd12KJzeGA0l6kf
- lYTo7dqM7N11qPV/gVCpp6fCytgGaMeVoEOHTgLhonysjH5lCLkDsQq7HPT/9lL01U0fTQkFenh
- TWiWlCYWvHqZu0Ca4A5LTCZp0eI81S6Hwnt9RqXl5UEjuPY4oO0jNwwum7PkuBT1JXZzUqHUIQ1
- Z1IWmpXhxNd/rd7IMjAQsmuDRhIhqasr9m8e96oQDG/VmtetDahXIbtcCM1VPQqhWJUdqp9VN4A
- 4w/tIdmd9esaOaE/cCNYAyIsaoxOa1hRyXIG3OFnh8FoV/izEq9R1GmRW1wEXn6RhVlEpKdvSDl
- B3zYpCVjm1PMhG1Y=
-X-Received: by 2002:a05:6000:1848:b0:45e:73eb:2a75 with SMTP id
- ffacd0b85a97d-45eb367fb1amr11734533f8f.16.1779532894376; 
- Sat, 23 May 2026 03:41:34 -0700 (PDT)
-X-Received: by 2002:a05:6000:1848:b0:45e:73eb:2a75 with SMTP id
- ffacd0b85a97d-45eb367fb1amr11734484f8f.16.1779532893896; 
- Sat, 23 May 2026 03:41:33 -0700 (PDT)
+ bh=BaLC69i13BPjVBegJ0y/4AtwLN5mHubHwSFs790g7Io=;
+ b=WSuen0v/Ne9pOzMZLuj3vg/cX5UcR9RUb6Q0BjQH9Ia8iL+r/L78FJaYHfDndNU5Z1
+ jPHHYLCMt1zfd7PGfnmNwI4ZPnZY8DPISl/314mmBsed8NfBpkdMh5JJ3qpbBTUUFi4A
+ o1hR/qYP2g+OehouU+5mgAOpI8gTtQrNb4aFDkdn1fCS1sFPWHUesmARy7MTF6RDMVhe
+ c5y/rAq2VfXi5EXdy59HGSSwmADui3uJF4odhRNogTmlSYd8dUFVI+IQQNzmQDkdpBAR
+ Ritszz0z7QfXekfRGzF65tUX+jVX0wAh293XX98+yit71eSNf9+72dZ1iM5r702SXWr5
+ ePdw==
+X-Gm-Message-State: AOJu0Yw66kxYsHdqvESFdAgNCWcsTeMd+SETICoFuMcd2gWDtaZZTLvs
+ ZQFrwaa1LrFXUYCWWoWvQWakgZeqiiJM/ENfPdq5xHMKT4OE3xAJtNtDvHtrd7lNQlIPFAU60Wh
+ A3cqXzOS/XYaPjJ+/Viun7NsEGJqBHznxPCWeiuBIAkpY/OeExkmXoRp9xZSU2FBtBmVR/A==
+X-Gm-Gg: Acq92OErcXgFsUxtARCD14grDjCDdi8BT2BjJqup9jNNusGQShhDu78jE/MQ2rKDUuA
+ pwN+p7wYg4Q0ptkczeR7Kszut6VWoaaB74dOHrogjfVyw1HUZYAbgPmDHucNBtOGc1phSU1Rv68
+ 6Xo5OgETkIo9EqgxzhGJ2v2QbRDWTy8pAjSkWIHdGKx2vazHAcO9jyXVGgJeelzrJfJ8wj2XJn/
+ YeYLyiholltpRqYdg8vqLJkjU92AHr/Ex2fa3sEa4bu+RXC95D51lAEPpwS2rgJN2MbdzK+J99D
+ wSSWLA3KVM1T4UwJlHqrA1PxgZI3vYJHMGHxDIzibtDnCXJyo67ElWIv5ZPUQ0GT72zb403LW/b
+ 6aF1WLyfbOZD948gxKhohN7e1gA==
+X-Received: by 2002:a05:600c:8684:b0:489:5022:39a4 with SMTP id
+ 5b1f17b1804b1-4904248f5aemr71404675e9.9.1779532897004; 
+ Sat, 23 May 2026 03:41:37 -0700 (PDT)
+X-Received: by 2002:a05:600c:8684:b0:489:5022:39a4 with SMTP id
+ 5b1f17b1804b1-4904248f5aemr71404455e9.9.1779532896591; 
+ Sat, 23 May 2026 03:41:36 -0700 (PDT)
 Received: from localhost ([90.167.87.79]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eb6d4850dsm10599026f8f.17.2026.05.23.03.41.31
+ ffacd0b85a97d-45eb6d5e484sm11207236f8f.30.2026.05.23.03.41.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 May 2026 03:41:32 -0700 (PDT)
+ Sat, 23 May 2026 03:41:36 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
-Date: Sat, 23 May 2026 12:40:59 +0200
-Subject: [PATCH v5 2/3] drm/bridge: ite-it66121: Move .mode_set logic to
- .atomic_enable
+Date: Sat, 23 May 2026 12:41:00 +0200
+Subject: [PATCH v5 3/3] drm/bridge: ite-it66121: Select HDMI or DVI mode
+ based on sink type
 MIME-Version: 1.0
-Message-Id: <20260523-it66121-fix-dvi-mode-v5-v5-2-33b4468162f9@redhat.com>
+Message-Id: <20260523-it66121-fix-dvi-mode-v5-v5-3-33b4468162f9@redhat.com>
 References: <20260523-it66121-fix-dvi-mode-v5-v5-0-33b4468162f9@redhat.com>
 In-Reply-To: <20260523-it66121-fix-dvi-mode-v5-v5-0-33b4468162f9@redhat.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -86,24 +86,24 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Javier Martinez Canillas <javierm@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5239; i=javierm@redhat.com;
- h=from:subject:message-id; bh=XyrKmaSXTZhXeDUIJhAtHdxc6vXOmzSmWs6u5h9cwSs=;
- b=owEBbQKS/ZANAwAKAcdR5ZDWPz1pAcsmYgBqEYRSrEvCEBSa0/3iFf2TDdS7fRsgrNzgGQX0z
- McqwJYDFZGJAjMEAAEKAB0WIQTXXteqJOUM1kXG9FfHUeWQ1j89aQUCahGEUgAKCRDHUeWQ1j89
- aeTKEACltpfqio3QIDCwv34mRASuoQdj7LrGdOcwxGzGA3xt5eoOx+Nuz9iFW7EBsIJh8vyLRFc
- 8DwGK+mVYhxjENeHmgSWOvWayRPESLDTidqkyrQ0/b8LqmRnrTYYjXNeoKlFYUCXzw4tFCIiu+Z
- hPh8quQ5TuWCQ4kIBu2GhcnFG6n9SEAqUi3aJ/SeTzFREsc8WBf3wsVa5T9w0f7fiYXyeXiJGl8
- CIXKJ8KCHETm26iZAHcT6l70OCH4lpwVTjGd9uE5EVvsj4qHa4EfhMh4AlHiop/snrwEwaRolOi
- mFdtLo7wbnr/8PKBa4eSi1qgQJdFG/ci+hGkCr2/PFnpqbXakD9mDYGolZlOauvLR0ImMY93Tiy
- SFlPlzy9r8JdPz2ECcs9QIgvS4DVNrwae9hJoU09Peltf6s7TOE9knXzRFcQjWbPsrP8TT26VMO
- 78WL79yJiqX8sg+pf1/yRWQvnPX+cmlBSOTt+4NkHfErdytRg6zoqe7632DMiRkb+O/qiRBzLiq
- XZqXaKGd1JwXBf7YhA3yFWuRrlrYWex0806snm2PhuRN+ZmImeIcs+P0O2Yb1ptW6QbtqGMPttm
- FlG9Nvh8DPeLNtHRT+E9ZuROS4kaNmWM8YKRggi3ISRCOh1eAZIeqSO8SnnZmAcc98gayWBhEx3
- wf1VDXyTJoQQ2RA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1357; i=javierm@redhat.com;
+ h=from:subject:message-id; bh=leBrvbxMUKYjGUjfd12DhXg0zEYbgc4w/81RR+zUS3Q=;
+ b=owEBbQKS/ZANAwAKAcdR5ZDWPz1pAcsmYgBqEYRT8H5EluVVUVnH6dfH2GVEAzPPpDr0JhH6R
+ W+yMFf1aHmJAjMEAAEKAB0WIQTXXteqJOUM1kXG9FfHUeWQ1j89aQUCahGEUwAKCRDHUeWQ1j89
+ aeqeD/sElyJeM426JOafGGMUP3MW2L9vZB/T55nCO5SIqEs1QoIy0NZSoqVjnL6Q5FD1zs0eEpA
+ Iwh1nskLeFMzLgqCOeHwX8puQeRatPqRkHtoMKbEaD/8+rS+CCpKm4eIXnulcJgjCDmzMuKbaw5
+ RP84hANPW6uUoGIOtXxQz9ZIJb5GPNMmollnZBlppsP1vkFQfDgPi6YnWm5S8ZEa9Yoa2ck1wex
+ PLawQaS/KF4FnWzByYD1sJpPaIXpeKPIzeClhi/A2ZtK2WFdyjjVjbDF40gNz7iO0aMaRpFOMeO
+ f3Ehdx3pJApvQp8mWLA/6xB8ZglRe7ViRPPbvuzFlDUmkDktZypYTty1G1WfYih5r5qEq2R7cyA
+ MbX7IMLjMTCGCZci9wA8F0wgWoJyRuCvkJzMceXMMwSvtVtUm5563keZdIpWwSuVdrvizulwUTt
+ xQ/qMHCpJ4MvJELGL4GrBtCnZcbhNTlcL3F9TiNl6k+hg63xsQE1CiQGLYzHNsjCWRL4Ie9LZ/j
+ Ees86kFZgElxB+zDteg1VCGsl7LBl7c6VuEP52OIA2o6vjT+wBTtV4nv4uo+J60GKCq4SMeA2cR
+ WfnIxDV5RXUNmfAlWh/Occ2fv3ljHxw8PO+1NGeqfAUDnysOpcUsVlsvZkH0oumM/g2sAIr5zA3
+ vY5+x4M/Q3NvhSg==
 X-Developer-Key: i=javierm@redhat.com; a=openpgp;
  fpr=D75ED7AA24E50CD645C6F457C751E590D63F3D69
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: g0yW2xYl6TRjMgI7GlOYtonZYEzjpC2iWpiAkkIdo_s_1779532894
+X-Mimecast-MFC-PROC-ID: 2NsLlAf10ROM7MwF0vanY208vqOEHgyfd9EKmOWh_oc_1779532897
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -122,169 +122,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move the existing .mode_set logic to the .atomic_enable callback. The
-former is deprecated and drivers are supposed to use the latter instead.
+The driver unconditionally sets the transmission mode to HDMI, which
+leads to display output not working with DVI monitors. Check the
+connector's display information sink type to identify the correct mode
+to configure the bridge.
 
-Also, drop the struct it66121_ctx.connector field because the connector
-can be accessed through the atomic state and there is no need to store
-it anymore.
-
-Suggested-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/bridge/ite-it66121.c | 100 ++++++++++++++++++++---------------
- 1 file changed, 57 insertions(+), 43 deletions(-)
+ drivers/gpu/drm/bridge/ite-it66121.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-index f41f51f300c9..9725e5db5db3 100644
+index 9725e5db5db3..a469e8d9d2d8 100644
 --- a/drivers/gpu/drm/bridge/ite-it66121.c
 +++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -315,7 +315,6 @@ struct it66121_chip_info {
- struct it66121_ctx {
- 	struct regmap *regmap;
- 	struct drm_bridge bridge;
--	struct drm_connector *connector;
- 	struct device *dev;
- 	struct gpio_desc *gpio_reset;
- 	struct i2c_client *client;
-@@ -668,6 +667,58 @@ static int it66121_bridge_attach(struct drm_bridge *bridge,
- 	return 0;
- }
+@@ -199,6 +199,7 @@
  
-+static void it66121_set_mode(struct it66121_ctx *ctx,
-+			     struct drm_connector *connector,
-+			     struct drm_atomic_commit *state)
-+{
-+	const struct drm_connector_state *conn_state;
-+	const struct drm_crtc_state *crtc_state;
-+	const struct drm_display_mode *mode;
-+	struct drm_crtc *crtc;
-+
-+	conn_state = drm_atomic_get_new_connector_state(state, connector);
-+	if (WARN_ON(!conn_state))
-+		return;
-+
-+	crtc = conn_state->crtc;
-+	if (WARN_ON(!crtc))
-+		return;
-+
-+	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	if (WARN_ON(!crtc_state))
-+		return;
-+
-+	mode = &crtc_state->adjusted_mode;
-+
-+	mutex_lock(&ctx->lock);
-+
-+	/* Set TX mode to HDMI */
-+	if (regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG, IT66121_HDMI_MODE_HDMI))
-+		goto unlock;
-+
-+	if ((ctx->id == ID_IT66121 || ctx->id == ID_IT66122) &&
-+	    regmap_write_bits(ctx->regmap, IT66121_CLK_BANK_REG,
-+			      IT66121_CLK_BANK_PWROFF_TXCLK,
-+			      IT66121_CLK_BANK_PWROFF_TXCLK)) {
-+		goto unlock;
-+	}
-+
-+	if (it66121_configure_input(ctx))
-+		goto unlock;
-+
-+	if (it66121_configure_afe(ctx, mode))
-+		goto unlock;
-+
-+	if ((ctx->id == ID_IT66121 || ctx->id == ID_IT66122) &&
-+	    regmap_write_bits(ctx->regmap, IT66121_CLK_BANK_REG,
-+			      IT66121_CLK_BANK_PWROFF_TXCLK, 0)) {
-+		goto unlock;
-+	}
-+
-+unlock:
-+	mutex_unlock(&ctx->lock);
-+}
-+
- static int it66121_set_mute(struct it66121_ctx *ctx, bool mute)
- {
- 	int ret;
-@@ -740,13 +791,15 @@ static void it66121_bridge_enable(struct drm_bridge *bridge,
- 				  struct drm_atomic_commit *state)
- {
- 	struct it66121_ctx *ctx = container_of(bridge, struct it66121_ctx, bridge);
-+	struct drm_connector *connector;
+ #define IT66121_HDMI_MODE_REG			0xC0
+ #define IT66121_HDMI_MODE_HDMI			BIT(0)
++#define IT66121_HDMI_MODE_DVI			0
  
--	ctx->connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
--	if (WARN_ON(!ctx->connector))
-+	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
-+	if (WARN_ON(!connector))
- 		return;
+ #define IT66121_SYS_STATUS_REG			0x0E
+ #define IT66121_SYS_STATUS_ACTIVE_IRQ		BIT(7)
+@@ -692,8 +693,10 @@ static void it66121_set_mode(struct it66121_ctx *ctx,
  
--	drm_atomic_helper_connector_hdmi_update_infoframes(ctx->connector, state);
-+	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
+ 	mutex_lock(&ctx->lock);
  
-+	it66121_set_mode(ctx, connector, state);
- 	it66121_set_mute(ctx, false);
- }
- 
-@@ -756,8 +809,6 @@ static void it66121_bridge_disable(struct drm_bridge *bridge,
- 	struct it66121_ctx *ctx = container_of(bridge, struct it66121_ctx, bridge);
- 
- 	it66121_set_mute(ctx, true);
--
--	ctx->connector = NULL;
- }
- 
- static int it66121_bridge_check(struct drm_bridge *bridge,
-@@ -778,42 +829,6 @@ static int it66121_bridge_check(struct drm_bridge *bridge,
- 	return 0;
- }
- 
--static
--void it66121_bridge_mode_set(struct drm_bridge *bridge,
--			     const struct drm_display_mode *mode,
--			     const struct drm_display_mode *adjusted_mode)
--{
--	struct it66121_ctx *ctx = container_of(bridge, struct it66121_ctx, bridge);
--
--	mutex_lock(&ctx->lock);
--
 -	/* Set TX mode to HDMI */
 -	if (regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG, IT66121_HDMI_MODE_HDMI))
--		goto unlock;
--
--	if ((ctx->id == ID_IT66121 || ctx->id == ID_IT66122) &&
--	    regmap_write_bits(ctx->regmap, IT66121_CLK_BANK_REG,
--			      IT66121_CLK_BANK_PWROFF_TXCLK,
--			      IT66121_CLK_BANK_PWROFF_TXCLK)) {
--		goto unlock;
--	}
--
--	if (it66121_configure_input(ctx))
--		goto unlock;
--
--	if (it66121_configure_afe(ctx, adjusted_mode))
--		goto unlock;
--
--	if ((ctx->id == ID_IT66121 || ctx->id == ID_IT66122) &&
--	    regmap_write_bits(ctx->regmap, IT66121_CLK_BANK_REG,
--			      IT66121_CLK_BANK_PWROFF_TXCLK, 0)) {
--		goto unlock;
--	}
--
--unlock:
--	mutex_unlock(&ctx->lock);
--}
--
- static enum drm_connector_status
- it66121_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
-@@ -1532,7 +1547,6 @@ static const struct drm_bridge_funcs it66121_bridge_funcs = {
- 	.atomic_enable = it66121_bridge_enable,
- 	.atomic_disable = it66121_bridge_disable,
- 	.atomic_check = it66121_bridge_check,
--	.mode_set = it66121_bridge_mode_set,
- 	.detect = it66121_bridge_detect,
- 	.edid_read = it66121_bridge_edid_read,
- 	.hpd_enable = it66121_bridge_hpd_enable,
++	/* Set TX mode to HDMI or DVI */
++	if (regmap_write(ctx->regmap, IT66121_HDMI_MODE_REG,
++			 connector->display_info.is_hdmi ?
++			 IT66121_HDMI_MODE_HDMI : IT66121_HDMI_MODE_DVI))
+ 		goto unlock;
+ 
+ 	if ((ctx->id == ID_IT66121 || ctx->id == ID_IT66122) &&
 
 -- 
 2.54.0
