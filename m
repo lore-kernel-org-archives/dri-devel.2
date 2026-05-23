@@ -4,116 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FA0BCD5BB8
-	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 01:11:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BAC4CD5BB8
+	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 01:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3DA110E027;
-	Sat, 23 May 2026 01:11:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ABEE10E060;
+	Sat, 23 May 2026 01:28:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BX2EHCWz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KzpHlvTH";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011011.outbound.protection.outlook.com [52.101.52.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C66810E027
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 01:11:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FNKqqWOIKf6ONbVcieJmSU2LkuApXX0q5USBiOH7gyVnkCBAcBCyDCade/TaTgIt2cKHpAuI4RFPZAKtp/jzWZbTCB0qssV1ZbneuzzX0NSoxHYw4pUbC/fPFMLufNw7TkojsrLl/rRzREqWZaboiCgXGISs+vRnkJEpXS0U9hY108SHWXX9bBCeXbwh4rQ2TBss7VyomaQAUVfcybtsOG2Oa43ZWBFDrQhUN6jZZ/GBLTCjTvERVcGyU6TLHsRh2BL7Rf9YU4yv+RRxxR5niscYe5qs08ccr2nNnHPyV41J3JrNccVpEJSFEUaYTSrn9S3ucQ74YbWRWqFq3O3UQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V0H9mfSmmesW/ETR2Cby4bZoI1Zxp5JG/zLeEJZ9cDs=;
- b=W46RsA0y2fDa7KH26wqJ81OvQFEvL9ikwUZk9KYsMgTiCBST87irOTpLv4TRB7fj39pHkuABCXWt8Qhpn0YvtOYdC8M+9wQpwJSCnKDzE1ho9CHzxbudGl04j3sWJIts6R1mf75idby9Uz9mecWVORG1vj5sATfiFQWTWR2gmCcoxgC0qYIjTY3UchZRpNSLuBSTsWob/LCwWooBqIWjxUql/VKR+hGIkZ8VvuY6EGE3RipyWw7IIyVWDrZnqNt1Kb4k6410ypJ/t+vo39MJD+SIy9F+F1Ea15ijhzzQsfriAp33CFeifRpAL6R5W7eFqX29zJ5wtF91+D88o8a/Rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V0H9mfSmmesW/ETR2Cby4bZoI1Zxp5JG/zLeEJZ9cDs=;
- b=BX2EHCWzNLP3HRoU7uGzk6r23Z2l3nIFlpJfn5TExXIqJPRF8bnvCWWqBdlAozj18cLDIajbwQzaIvS0fPaHluj/yM9wWJBmpB7TUfLvLqnVumTRwnG9F19MJ/rdhF75xaTHAeNO/dXYN4xmHUrb8dwUxDTMHk7aJcf9LxQOtbAUjpsPNymNfsWFHUOF0sJO10I6m+hTkj3vrsZ/StSZDOSua4stQ0bN1Eyz3ANGbTQSLMEoyjPIcX4PW+NKZDjkof8UuSNoP4Ti55Cbo4bJJKDrcIlx30AOWv03ESMxck3nnrMwqRsAsy3vje7ZWPSgHD32oghi2dh3y9Yuij7hpQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- MN0PR12MB6269.namprd12.prod.outlook.com (2603:10b6:208:3c3::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Sat, 23 May
- 2026 01:11:20 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0048.016; Sat, 23 May 2026
- 01:11:20 +0000
-From: John Hubbard <jhubbard@nvidia.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Christian Brauner <brauner@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, LKML <linux-kernel@vger.kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, stable@vger.kernel.org
-Subject: [PATCH v2] dma-buf: set SB_I_NOEXEC and SB_I_NODEV on the pseudo
- filesystem
-Date: Fri, 22 May 2026 18:11:17 -0700
-Message-ID: <20260523011117.121390-1-jhubbard@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0101.namprd13.prod.outlook.com
- (2603:10b6:a03:2c5::16) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+Received: from mail-yx1-f65.google.com (mail-yx1-f65.google.com
+ [74.125.224.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 286A510E060
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 01:28:48 +0000 (UTC)
+Received: by mail-yx1-f65.google.com with SMTP id
+ 956f58d0204a3-65c396d3b36so7986056d50.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 22 May 2026 18:28:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779499727; x=1780104527; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=6ELJsuqJw2+MUMy5nRR3yUJhv+8XiKjY5EbNN+zpf1Y=;
+ b=KzpHlvTHhl0IoTQY+ThXNaBb8fqQpOf59xylHEo+3Y6D9dXzfJ2Ju/Aegnfi/+by0q
+ p42eyFRfBkQFwPSZvvvoD27LLZjm537w6uOV15FG5U+ngYQVeZPcuHHSxb7upaCvLvum
+ lFwNVeWISTbNvqkNyCDIUPmbRAP0emE/y89j4gAI1okqqZ0vgmfqLN22TqFDr4ph4U/1
+ KwvqaasjLWW68YtzIgXLoaRVducmxQvZySjgOcZof0c6T8bs7YOi6a7eIp+3HjsqlQqT
+ PZqfdZG5LWsp1JFWsSrLL8u9OV2xx+M+rOwwyVbFGGqSqtA0LBPBVqwqB3hUTZui2/Jj
+ kEyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779499727; x=1780104527;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6ELJsuqJw2+MUMy5nRR3yUJhv+8XiKjY5EbNN+zpf1Y=;
+ b=W+N5z3eL3QQjtRvcskqxFCd4PaYP4o7dRcImv1YIy8v7rX0URfr+RCEX6qQw7cjw7s
+ ajFkmRfCASZ2eyEiQn0bltFYtK0Ic2hM5Bw0cG4NURCNdkU/uEBLIj85zoMBvULoTEJ+
+ QF44TlRLcp4wnzUyfW5LYpNoP2fRgqGco71t51GOEgz5JSDN/BRZSATZrKhbraBzpe1v
+ YulniUdSjQIhvsZJQ+hN43w1g5mW3hPPlSPa5W+qnhhGby1VIcOK2qiz4tocA6I9XcLO
+ JB/h2A7/7gsbGcOc/JSXFmhohC7dBCMTRY/2Tms+Zv0Q3bPAONg2SsPZByED/QnifYkk
+ 31Hw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/3MEn8iRLf2a4CyTacYFSLnGeROOd1zd/qSNUnkdtn75LlJH2q7hMr4IaXuBvid/8Fbh2rRa/TkNQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhwckQlcj2CMw+H1SoGwfe1e2fHGquSIoFTY/ZbhzETgBnlQjz
+ E3lk/fgoD29Q+d6qKslHP7tDq6jFoYeVGXVgSa+we7sQIBddye/KZEqb
+X-Gm-Gg: Acq92OERtgIH7fOXMLxpea+j8Wk7ZAy+bMuxzpC/EhBAlTimXtNe/eDAaH/M9Jx7OhZ
+ FW4Zlp50PqfezN4/o95d/1bMev6j9q+UKUjQtsUyio4x0kS0zzeIuaESiUuGaOvqhnnRVSGVKyn
+ TVhABAuFMjjuWAn0TWmhq3EKteEO4zfV90G/Emhji6J43JP8afpoUDua3dQY9CX8CVuEGvj/QYe
+ B1QmLFRbRwjluG0smJRdo/fk4HBSPobuwxB7NMVRHk53rhTSbyeaFGPl/7d4UCQINfY9YSWcAJa
+ C9lqMZheGYY4QCN9UCj26iCW2qCDUpS8kGlCtQXFkdFnjFsYVaSQ9m77ObSVSiKv/NvBgb23f7N
+ KezfS1fbYJ91+6kS9SpGQ0PmvKcz9KHyWN2IFCfV+C0zxMg3/jpaMnS14NHqSFrqxX9M+46h8J/
+ CaStwT7NzIyKLkyj5BMXFBzbJDJjYB
+X-Received: by 2002:a05:690e:440b:b0:651:c29e:f0b0 with SMTP id
+ 956f58d0204a3-65ec963a356mr4605847d50.4.1779499727046; 
+ Fri, 22 May 2026 18:28:47 -0700 (PDT)
+Received: from flagship.lan ([136.58.14.109]) by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-65ecfda36bdsm1446622d50.16.2026.05.22.18.28.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 May 2026 18:28:46 -0700 (PDT)
+From: Jacob McLemore <jmclemore.lkml@gmail.com>
+To: jmclemore.lkml@gmail.com
+Cc: tzimmermann@suse.de, Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/tegra: sor: Remove usage of drm_simple_encoder_init()
+Date: Fri, 22 May 2026 20:26:24 -0500
+Message-ID: <20260523012824.81043-1-jmclemore.lkml@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN0PR12MB6269:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3de25eaa-2437-44ca-519b-08deb86832c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|18002099003|56012099003|6133799003|11063799006;
-X-Microsoft-Antispam-Message-Info: kGwRktcbnwbD3UPJPBQSQV+eNMtzdyR6EFcv3QkvtvnJv5MydnJPq+S7yi+VvDxhLe1lZUu6D8b1gqQK5rkyYoNGIY0VPFCVnWecbEcEvwqdA1mcUoo/lUei8m2etrCl08z3ne+7T++O/CZLeoxga19aL4nqyUiYpok/MaWCbrlZLNXdNZMhB8rUTO3UznWp3kTA3InNhTDYeAdkAhwHmNw30+g7qpLlf7Q3oJB9P+CsudTg3dS2kJz1cKs9qKWuA7Jr8oGY9yEdkq+HKpBpf5HZLUscfYrqj2Mwn+Ioy+yOt4Kyp1SxMl8UY6F5X8kSbKdBzkVpfGjFm9F3Nj/0e1AokJT7S4HHkhR09yQu6dzgKSzFXIOzgu0R7FFhPqF24nq0LrYNyENc5NRJMX/kj8+5uhk0Img3KUQKTUPzeayGS2wjx97Zdj2LbKOSMjrrM6Asv+APCNieYSCMt9QsAlFXGy0F4rn+blF+am4IE8aBE1QONQrKcSYGwPlhYO0+dkZ9zV7TBPO5slQj4EDB2cI2a27/PM2NLkCu7sT8hrQkDWrzb8mykBpEWTkxM1h3LlfrNDJJJ9WBGEDDRWJOSlXaXNirtirRs7BDnxOmfTvZ5nEGF5AJv1AoqkxWzpcsKrq/PAZ7sK7UAQHPBMDo/ISpi42mw6/RwtPfSnFjlMnmq5Wp/485240muPeK5L/d
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(56012099003)(6133799003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?iVz8aRYR6m8mHFMOzEE5XfEY8U+O15TZirYXfnUFiFDl+2W67WW8504iZ3kY?=
- =?us-ascii?Q?y+jGi6IMzvB0ir5VkPHi9qoeJkaMCGAt3IVdPTW0igfWjfF+ALZBOqgKgqRI?=
- =?us-ascii?Q?DHM4refTngb/n47tOy+3j80KGzay8HLshqyq/NnZa1ddUutlh20aa62L/8jR?=
- =?us-ascii?Q?mhaVhYZcSuo/re4Gs5I+Y4FP3am39xqyTw/2ZG41BpZldOIHsNfNwQKtzkXz?=
- =?us-ascii?Q?U7+svhHUOvglXsow3UL7GUSvs2gboXsWvF+shoBrh3/jTwuVgQPs0K8YUi7h?=
- =?us-ascii?Q?ePufNPJxWY3KvpiBJVl1o9PGNGAPwBFS56s8DF4tD4tPuNk4sYo9qAJKpszD?=
- =?us-ascii?Q?0txd7FE6znmEAh44NmQEXT2xSwsA6T8vQbxP12gz66a26EoeQOwSC2fqJLMk?=
- =?us-ascii?Q?jY7wpDC8k+wEfwlEMC7wRMV06HhrJ1kbfdnrz9FprKd0YKxRrVwypgj4VDrY?=
- =?us-ascii?Q?0F2V0cxx37V02qK2c1EPFGbK3XjDLW6TmMBTHc7Ks/dko7qWr9+hO0ja8BeQ?=
- =?us-ascii?Q?GMHrYYuP74cHGeHKDuDfrPmN1+Pv8Gie4HYLhz8x5AXGyr/5p7kFU/zZ34Km?=
- =?us-ascii?Q?uBppysIit/uPAuYD1ITCEc/gYnHq2MYjAWVP4JTdGwt9yLOnp8Gx6hLMwd1a?=
- =?us-ascii?Q?UFbKndZgg6ya4P2shqoh3FQ26rR3T1o3CL/2zEkPejuMaSw+ZLoT+sjJHxEm?=
- =?us-ascii?Q?/dfLF7ALU57aHdgAQG2vLz4IT9VWxwX+R1cEiHN4Zxqc/EOBLGJJ2DHknBRU?=
- =?us-ascii?Q?6zgLxN2JZyEO+ykRjXEZ8pH/EUbtDuLQKfO7hC6Q5KSRDFvJ24JH3Ok3S9bz?=
- =?us-ascii?Q?vaEIOHaKqxexFF+n2haBV5GsDabDdLP+rZwHjtPFaHqrc74K2gPaLtrGAM0n?=
- =?us-ascii?Q?5B7uXpqQp7gJVdObE2uIlMUKwxQ+cYdt40UWxnIl8Q2rMwG/GPlzJpxWDayL?=
- =?us-ascii?Q?Q/ocTLwl7tTfM3ijXFK2EYbwiCl81/1OzgBLT0p3d/HUL6eeSXrVcI2p0Cks?=
- =?us-ascii?Q?/0HhMzNA853wDh9UjZGsVBIV9qLCXivIbm9cReobOTR1gYyNgWCIjcPSFdkr?=
- =?us-ascii?Q?l0CEeG0prC56Y3MtOe3Ma/yEjjmrDNBBUJIX77Bi2jfss8XEdBgw92YS5gCL?=
- =?us-ascii?Q?W6jy9PcJHhOnflzZtEuH+jK1/KbX0/vIuUysluIKIM9ps0Kqq7/JesZYjsKP?=
- =?us-ascii?Q?bOdDdYtlNjQsCcNJF6DuNSOfwKluQ2Dr8eZ9oBWMPtB+duF29krl7Jd/Za62?=
- =?us-ascii?Q?ws6wXr/9MIAACLo1JWM8kwBd0PRSor+qcFXwMviXHWhUAH9Vgay5WQssktWs?=
- =?us-ascii?Q?GmSB5uH9+JursD4LhkZ1xM7Sj4NGiowarP7cUn7pliE+EzpCaWFG9jKz0VeN?=
- =?us-ascii?Q?ip+r00gnid5U37Zx2UT/K6HB2NPYV8t7NJi9C3k3I3PuQh5yNrr+SmmHWfPh?=
- =?us-ascii?Q?DoGDXxrv1/i0YzbWTflAq5uf7f5psEWCdKCX3MbXGU+0k+YwKTGFzdmaS8Ns?=
- =?us-ascii?Q?EIUrMFzrBJbXs6jNiMkRMraXc4+b64c6SFQQIjFMqBraInqA7PJ3FK2A/WPa?=
- =?us-ascii?Q?n2dqXQ/3qutlfxC40TyAOG4xN8GlMJIXs+9qsj2sOxeYXfk/8J52kiPhsggS?=
- =?us-ascii?Q?ih5iXLigb96hK+fytFnrZBfAaKnYCjrv811W19X/DXtkIE+Wo8VeWJdHT2aY?=
- =?us-ascii?Q?lT7CjCS4ZhC6fIiOUcinG79oTP5tSA/Kf4IKVFxuxky/IPnSuyE9BPMybQf7?=
- =?us-ascii?Q?w5UxOe8Kbw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3de25eaa-2437-44ca-519b-08deb86832c1
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2026 01:11:20.2234 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4K5CdJbbXGztqZcfObpuHkC/KARBweJ93osgZHubb3futfZB2Fc+SkKDmd6NRcH+MOSr9QoLJua2NMVFF1/9cw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6269
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,60 +88,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dma-buf pseudo filesystem dispenses S_ANON_INODE inodes via
-alloc_anon_inode() but never sets SB_I_NOEXEC on its superblock.
-Since commit 1e7ab6f67824 ("anon_inode: rework assertions") in 6.17,
-path_noexec() warns on exactly that combination, so an mmap() on any
-dma-buf fd trips the warning:
+Remove the deprecated trivial helper drm_simple_encoder_init(). Inline
+the call to drm_encoder_init and add instance of
+drm_encoder_funcs.
 
-  WARNING: CPU: 11 PID: 121813 at fs/exec.c:118 path_noexec+0x47/0x50
-   do_mmap+0x2b5/0x680
-   vm_mmap_pgoff+0x129/0x210
-   ksys_mmap_pgoff+0x177/0x240
-   __x64_sys_mmap+0x33/0x70
-
-dma-bufs have no business being executable, which is the invariant
-that the new assertion is enforcing. Set SB_I_NOEXEC. Also set
-SB_I_NODEV, since the pseudo filesystem creates no device nodes.
-
-Reproducer on a CONFIG_DEBUG_VFS=y kernel:
-
-  make -C tools/testing/selftests/dmabuf-heaps
-  sudo ./tools/testing/selftests/dmabuf-heaps/dmabuf-heap -t system
-
-The selftest allocates from /dev/dma_heap/system and mmaps the
-returned fd, which trips the warning without this patch.
-
-Fixes: 1e7ab6f67824 ("anon_inode: rework assertions")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+Signed-off-by: Jacob McLemore <jmclemore.lkml@gmail.com>
 ---
+Saw this was a good first task in Documentation/gpu/todo.rst.
+This is my first patch, so apologies if I've set up anything wrong
+in either my email client or gitconfig and the patch ends up invalid.
+---
+ drivers/gpu/drm/tegra/sor.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Changes since v1:
-
-   * Also set SB_I_NODEV (suggested by Christian Brauner).
-   * Added Christian Brauner's Reviewed-by tag (thanks!)
-
-
- drivers/dma-buf/dma-buf.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 71f37544a5c6..ea1ddd4293b2 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -216,6 +216,8 @@ static int dma_buf_fs_init_context(struct fs_context *fc)
- 	if (!ctx)
- 		return -ENOMEM;
- 	ctx->dops = &dma_buf_dentry_ops;
-+	fc->s_iflags |= SB_I_NOEXEC;
-+	fc->s_iflags |= SB_I_NODEV;
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
+index de8b2dfc4984..4ac23aedb682 100644
+--- a/drivers/gpu/drm/tegra/sor.c
++++ b/drivers/gpu/drm/tegra/sor.c
+@@ -25,7 +25,6 @@
+ #include <drm/drm_file.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_simple_kms_helper.h>
  
+ #include "dc.h"
+ #include "dp.h"
+@@ -3038,6 +3037,10 @@ static const struct tegra_sor_ops tegra_sor_dp_ops = {
+ 	.probe = tegra_sor_dp_probe,
+ };
+ 
++static const struct drm_encoder_funcs tegra_sor_encoder_funcs_cleanup = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static int tegra_sor_init(struct host1x_client *client)
+ {
+ 	struct drm_device *drm = dev_get_drvdata(client->host);
+@@ -3081,7 +3084,7 @@ static int tegra_sor_init(struct host1x_client *client)
+ 				 &tegra_sor_connector_helper_funcs);
+ 	sor->output.connector.dpms = DRM_MODE_DPMS_OFF;
+ 
+-	drm_simple_encoder_init(drm, &sor->output.encoder, encoder);
++	drm_encoder_init(drm, &sor->output.encoder, &tegra_sor_encoder_funcs_cleanup, encoder, NULL);
+ 	drm_encoder_helper_add(&sor->output.encoder, helpers);
+ 
+ 	drm_connector_attach_encoder(&sor->output.connector,
 
-base-commit: 6779b50faa562e6cca1aa6a4649a4d764c6c7e28
+base-commit: 79bd2dded182b1d458b18e62684b7f82ffc682e5
 -- 
-2.54.0
+2.43.0
 
