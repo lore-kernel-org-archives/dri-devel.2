@@ -4,99 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F9F2CD5BAC
-	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 14:49:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48068CD5BAC
+	for <dri-devel@archiver.kernel.org>; Sat, 23 May 2026 15:16:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 482F610E30F;
-	Sat, 23 May 2026 14:49:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62AD310E0E8;
+	Sat, 23 May 2026 15:16:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FFfgHPm+";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="rLda0nO3";
 	dkim-atps=neutral
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42A8010E309
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 14:49:02 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-67c4aaf76ecso13236627a12.3
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 07:49:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779547741; cv=none;
- d=google.com; s=arc-20240605;
- b=R+QZdeGm8ffo02eDJ76i6N9dz9CVejIZmdwXK91XlV1G02PrUIcbUYHYrkAJMaBqau
- hSTI8D6XvGxdEGtqjQhi/Pw09eJXhNGNu/Y+xt9gAVgLZOCpx9babVK3T07MOZ9rXPQX
- B+3csSNA/DzudfRFetS0UeED3+siSsvyISqKu3VX6x59daG7dCtpUDutgCw6/48wnuAz
- RBwZgXoyiW0Pekpt+28EHmnVITlIFPSBrmF9dsgIJZgSxBm3DGxYtbpatlnv3to+vLiN
- vBzM80/qSKZg41UhK8XOmt1vwtUxqFMSQtbF7CB2NAKYbo8JM4N1j9wBtmchW+iKflkM
- 5IDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=dJ6anXWxKYMTLL9fyM/A3M4Ad1F60HO0HgpiKzYTKao=;
- fh=ppVYJ1tc3ficFPyU1l5EAE5Egv+JTc8/4+cRvotOW5I=;
- b=P6oN3iQ5QbcqTJTCV/z4gigTKWymmPnBzw5qC5+alqO+angIj/pwKNUlxdmFWU3tQ3
- JAwTdSB6Zg22+Zoq4aBkaMlIBLqWkEC/jWnu86LnyoPWligeuYEH/MdGIDsSijdZ9/YP
- fC8WNIvX1EPTwa2MhaDC+zMRx6N+PTZyAayfsoVpoXs1sjmxAwTe+NXGyxmhylIl584H
- NEnjHTGkldCajjPsLFh19xEXe1CypSmsmHXFp3CRHXRYE1xiQ9Ulna7gB7do3LgGW041
- GUWBhx5Q1BfPX+Uz3lsKOH+3IeTP7QFhnwXbyz8/7xeq9TrlqvGBZx1vKo3AiOZxEFnQ
- 0X6g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1779547741; x=1780152541;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dJ6anXWxKYMTLL9fyM/A3M4Ad1F60HO0HgpiKzYTKao=;
- b=FFfgHPm+7rJJioapygUO3msk76fcq2W/uffDMpNx6v99ojYH4BOTVzigIg8d9p8Mvf
- DmOAHu3xMUiz1NyrsMgdG6hf+OvrDOvuaXGAxVRFTMYQJxGI9QgVX+h4rIWgWUVfKrZl
- AL1EkJMTWah7DT3F9Xm7QHpp5UhUiyNXR0XyI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779547741; x=1780152541;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=dJ6anXWxKYMTLL9fyM/A3M4Ad1F60HO0HgpiKzYTKao=;
- b=Nc0bHK/eijIFWs5hvGoHjnQs4NP7AucH807aW79v+XI8LnxABU8Y1mxdQ+W4Pqm78v
- LChdliHjr7fUvIs0bJD5lxdtMjJYrCaqieogI1O6Z/sWvQqPKJld+dMc446lRXfeTglD
- 5c/jMPnn9TIyPrOrDqjEjIvPoA1+YLyT4+/WtEU02kbE3fqQqhSqOm2JIHPdwC5CbbIc
- Ii8BNVIsP7duWF35PB/4xK37hX0l05CEhyzSRG3AsIWDyZFEWFDHJg8+VYntToTUif3M
- bI/Mwn1TpWIYBydgkThPmb3czTlLxEDe/mI46O2DuRrJF3MVZ5O1Aami7tbMN0N4qxdf
- gXLg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9fNVhWocu4w6I9D3pury+TpK70/4K6BKdWL63WJreo2tY890KnuQb/gaQCfQSuNx/jli+awMSDs2c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzEPxhpzjIT+WYIPuAdmHUZDikr6mjV9l763xGohH4CNJYXlQlx
- JFp+XgAefHMMIkcG+Wz+Tf2t0gSGEB/L1Uwhv8tzj+LpqcXGjMdfXVAmftovi6jorjDsHvFDPV0
- 1MVpc9YPnU4GDZCZndKP68NdyGIs+BkfhLyHilIpmWA==
-X-Gm-Gg: Acq92OE8kUDJ8/3yxi+4WMMwIWd33TX7ABMq5lgWpphc/bRqgMcwyapD4aPf5dR1IbW
- 5BQkKGzQIZ8CrvlWTz8vAbtRNtKhTYj+kH97nJhRTtiiFxol4G6q6r1E4iU7EKrkzzdGyqrWfYF
- 2PXAS9CePbqUZ/x2vTZjuXWDvNr7j1+5kwr6dX3ER5dXpkNGOpTl2WGGiyVwh5jhcxve6gufksE
- 7cSGYOrGoYuomsMuxxi5Bg82Ettq2p+SZK68pXqbxrBNXWddk1VfprJdSFlvT2xjg6xE3o7+0iJ
- xFreHMJI/1J9uojrs8bsphPEGt3ZiuMZB8GU/8tHJX6Cw0BeVQ==
-X-Received: by 2002:a05:6402:43c5:b0:676:9c6d:5c59 with SMTP id
- 4fb4d7f45d1cf-6889c406c91mr4037615a12.2.1779547741254; Sat, 23 May 2026
- 07:49:01 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
- <6874536d-ab1a-4dd7-a23f-2a071bda145e@lankhorst.se>
- <CAHk-=wj5aE1yVMb8RM2AuNUHSMnQDaGT+Vy+At5ds1vxBA+Kng@mail.gmail.com>
- <ahDAErDSE-SFA0oM@intel.com>
- <CAHk-=whX59mtUnU2ayMWoDQX6Ee2NXLK2NxQ+dZnb-Qc_mF1hw@mail.gmail.com>
- <af9278d3-4002-4e09-9bcf-bc75d1cf8145@lankhorst.se>
-In-Reply-To: <af9278d3-4002-4e09-9bcf-bc75d1cf8145@lankhorst.se>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 23 May 2026 07:48:49 -0700
-X-Gm-Features: AVHnY4KEVEpp75kX8G4Rhk0bsk3iMbWvcHaEkzBiByL61-bRiRVSFHCy-rN0x5w
-Message-ID: <CAADWXX-pfvA3mKWSjdahnihAXHQB2VP9BOJDCXonG3Q_nxurLg@mail.gmail.com>
-Subject: Re: drm: xe: Kernel-submitted job timed out
-To: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- intel-xe@lists.freedesktop.org, 
- dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazolkn19012050.outbound.protection.outlook.com [52.103.2.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0277210E0E8
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 15:16:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LQ/hfpLshFbzLArdnQaBxn4kjNwG+rsWLSWjmKWDmAIPQ6CbtN4UBv7/GHAPY4v4DuAiDcUpD+Fw490XbazvOa7WZVgELAX6MI4MwZ0yflgn9YQXXR7vsz2KpNsVBTzzo/whHcqwOGUtc3xU4NHurCogSTvyIXKAO1mKQnQFicpS4azLrQ2ZGEhelTEjK1yyWNAc5x2SgMzyh0zDo/DmuaBQ7AXh+v1Hp6oiozQWoI5+NiSFUZnTjzvZMNnNP6cKul8RkGoDSnxvek5634lC9iaa7unKxHrLpn/AyF8QZuOfzQX2BiSYWTDy7gB0mkhrxYmOMMRgdbpJG8sZGV4OPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kyerMwdIk77fkQN4MAE78+n3S2aPrvdHvrDQ/MAxShI=;
+ b=eiaWxSjSrsZ81un2zbz0T9N0dfA3/S4PwHPr4OFfHxBpK0GEnN7WbXu64Ra7zZeE5u4zcHhMygrv55BgjHA8VwAH3F9R1M4SKeuizyDpEcWRRyclU2pSDJSHdspep1HT91TrGF/YkxqBoL5SOwPLCfRD7liuHY82j2QsbBLBucE+RxzeNdhRl9sZsUFay+s5r+ox023iqgQZcCHJBQGiuNSg09JzrxQ+Ry2yCyQ0F/To8pGJNz3Qe5VE88yFbDYiuzMBpdlJPik2QcUmLmzFpxXV/qY3PV9qUlcaTZQ4hJwYVzW9UKMdBMcYUHGLSuf4+40PnO1bg1ykdNFPM99o0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kyerMwdIk77fkQN4MAE78+n3S2aPrvdHvrDQ/MAxShI=;
+ b=rLda0nO3sBx6CL0uoxjnxe4nRxkPRQNoUS3B8kWtwK1/dAtx+wlhf+kos85lKGm9mRZWvpDr54hYTwDrnvDqxLvZo9m64o7iRCDSa6IaOvc9N7a+Wai0CBIAaxoshE9cz56wAmsUFRi0C8dKwoqCH8nDMgNI5BjDJutlAzKBbmcma3xJfleIfqffjYxOUh6peHmgExrnRaxtxtTAS3iVkTRknmE8SSSm/D44uC4SQngt+jYtG4IaD1HbVNsRGZXMgb8ftQSGpXSLAyUn5sYpCPzVLTne39esAFcRBteR1tZYdvz/Ulguzz7HRKhNXR4tea3sklCuasW754+oNYz7CQ==
+Received: from BN7PR02MB4148.namprd02.prod.outlook.com (2603:10b6:406:f6::17)
+ by CH3PR02MB10217.namprd02.prod.outlook.com (2603:10b6:610:1be::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Sat, 23 May
+ 2026 15:16:38 +0000
+Received: from BN7PR02MB4148.namprd02.prod.outlook.com
+ ([fe80::6007:d1a1:bcf9:58ef]) by BN7PR02MB4148.namprd02.prod.outlook.com
+ ([fe80::6007:d1a1:bcf9:58ef%6]) with mapi id 15.21.0048.016; Sat, 23 May 2026
+ 15:16:38 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Berkant Koc <me@berkoc.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
+CC: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "K. Y.
+ Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
+ Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Deepak Rawat <drawat.floss@gmail.com>
+Subject: RE: [PATCH v5 1/2] drm/hyperv: validate resolution_count and fix WIN8
+ fallback
+Thread-Topic: [PATCH v5 1/2] drm/hyperv: validate resolution_count and fix
+ WIN8 fallback
+Thread-Index: AQHc6rxkBstGlz14A0u8i/tKrUkC/LYbuMtQ
+Date: Sat, 23 May 2026 15:16:38 +0000
+Message-ID: <BN7PR02MB41489A7D961B5A1E763ED448D40C2@BN7PR02MB4148.namprd02.prod.outlook.com>
+References: <cover.1779542874.git.me@berkoc.com>
+ <6945b22419c7d404b4954a113de2ac9c900dba93.1779542874.git.me@berkoc.com>
+In-Reply-To: <6945b22419c7d404b4954a113de2ac9c900dba93.1779542874.git.me@berkoc.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN7PR02MB4148:EE_|CH3PR02MB10217:EE_
+x-ms-office365-filtering-correlation-id: a58a994b-e62e-4d98-f329-08deb8de4937
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|8022599003|12121999013|13091999003|41001999006|19110799012|15080799012|8062599012|8060799015|31061999003|37011999003|19101099003|440099028|3412199025|12091999003|102099032|56899033|1710799026;
+x-microsoft-antispam-message-info: =?us-ascii?Q?ye0fOLA2rhCnIyCGdKQEhT0dOajL50Wy9UTvVhI74LwDZ/OLbDqdgR6ykLtV?=
+ =?us-ascii?Q?Hpt+0xSbLIPcjFgreXu3+1ICpPUSpkHmLTGL9MMUQLFidXk30uhZVXqGA5V5?=
+ =?us-ascii?Q?gkhTKu+y3lD7TE4EmoYVJLqycAN8vWpoxd8PvN/Mi/iGH8PnLVnTSURS5OFC?=
+ =?us-ascii?Q?JcEf0v5Ji/eyFp52R6oUSKcAE6gd9ZHynDnEgicYy0nnr02O0wB/cDY1uMmN?=
+ =?us-ascii?Q?Uv9mirFQSCl46VOuKorMU2scftS/C2QZxcgn9a+eGw2i2NkRZPloWz3AfBjO?=
+ =?us-ascii?Q?GBHze1hfCYKF7+pwLcUSzZ1Y0yaGaKwIFpcq2WD4SGqYZ9orgcbaQr08efJH?=
+ =?us-ascii?Q?rXrHX3d1BicwTBZ7g8bx0H1vUqaSw+VZkruzNBUlHkExE/4mF4/phvhvadId?=
+ =?us-ascii?Q?lOT3RJtN8pcozm1YSrLOKISsCnrbvSINE6x+c7Pu9w6LhInI9QXCNu1kfWYL?=
+ =?us-ascii?Q?u/UXhFIGWEqGCs7VV/bH0uCvLoE4YcEbFbM2D6q+6qoBpo+4YBdvoYr99xpA?=
+ =?us-ascii?Q?isWsVu0vlHyb0mI+DhANEhjfNNmVAK72IwFIB/+LJS+2KAQ3OEmI+hkbKpPk?=
+ =?us-ascii?Q?VBrgMA5AvRMlAGfciVSqZugazoRM9HdNTS78Lz3hyXhI1SFEzXxzjy3OCUji?=
+ =?us-ascii?Q?zJLeLnWoCFV/pIUmypaznhtOK6cd+Oc2RSzE1pq1SMH3jfrIfDj1DTzFiF60?=
+ =?us-ascii?Q?SZtLeAFrrT7o+3CPe5io/hOXtmoGeVmNTV89mDay08onP/pIIEX7Ln4CO777?=
+ =?us-ascii?Q?0I1bp3bMvqXMV5dJnwB4PMfRkP9gO83z2/Wh1GuKgBW2SIrZask6jfy3dv9k?=
+ =?us-ascii?Q?zOMPmBp9h2OzJpACeyoMysZUCf34ygwp4VK1bUgOIzsQ7yGzaa7SKJVLTD2M?=
+ =?us-ascii?Q?d1TI8xstmXW8iH7T2DrUjtjUf1yfwMuAa7u9OqmXBDC0jhGziHW8Xy+y/ljS?=
+ =?us-ascii?Q?ObFgGzuTSexJvZ3CU0dFZDiy0jttz5dEfwlqE/Rj4yIqAExfIszSIsJzPby2?=
+ =?us-ascii?Q?r0rxe5PKNdkaK2Y1AdgzfmzwI6yvTvH97xCFYQ1f+Wu17QTqclYzdv5NbZ9E?=
+ =?us-ascii?Q?fO6q+GPBX+AnoYaZrOmvfutOVWO0Nw=3D=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YJIVvl+vSUbFRes0whd5pywnZIggldLWbFoqzYNQuHZvAUrzVTNVvnb+3/+H?=
+ =?us-ascii?Q?+EbvAVehE3NNQrqlndJY6gVgDy1TWpzNGYlBDMcFF18AzzM/nNy17uVp4mbl?=
+ =?us-ascii?Q?QngHIIncl5x9ipfegzalrSYBcUpoyZyMWVv14O9g3uk4xfxHqyxiWz7xMxwb?=
+ =?us-ascii?Q?mETn3YUs9cYTkPWx01IUk/7o3M5q0zX+tUfGzedVkWMsMb68835WQHHXW5wZ?=
+ =?us-ascii?Q?Y+xT6Twnbhg2ziDSgFNEHaMYyf87wbYUz8WK7WUyAh6LgANu94QYgfuvobsM?=
+ =?us-ascii?Q?gpxlL8PwjkqziStOZYZZn2Zip60Omu2rtF0Hzte5RYSt+7flgAfdYWJPeP5S?=
+ =?us-ascii?Q?2VNqjAYeBy64PvFqQ4yTLHwO6PMcTmV+UguLuuR7zoQqOE3yITdGtX4juaoY?=
+ =?us-ascii?Q?UkrRe/ZbdC8Ls9ghNdATnZZRaq7xCIXhY3AVtYuDoLs/CjfxbJJMYVPS4/CN?=
+ =?us-ascii?Q?+ums27SQ1fD8NloCfyXidZzYBDA+W3XC2hWaLtvFL2sGVgwjzD5891baBl7S?=
+ =?us-ascii?Q?EEAfmUdY8ve2swSBUWIzIAh/njxl7ItFN3MlplYr854SsMBWqomYs2F7rc1I?=
+ =?us-ascii?Q?hbAq0CETY//KennizF+9WEHibMaH3xbCSqFoxNRfJOj6bfTmb7cRJghMVK0p?=
+ =?us-ascii?Q?DwhjyJauii85uKy6apce1UU7eQbJCVGYD4AHySpqCx4rjDx0Maf2bQal7rX/?=
+ =?us-ascii?Q?m/QAZUZzNupbgR6CM6DZmhHTqSx6FW77f8VGjrnt9lXuRy9qNAq9mC7sR+bN?=
+ =?us-ascii?Q?Nrkf+HozuBjo+ni+lgWrNz4EaoIp3FBlLQirKIDAZeE/Nl3+/JNAtNvAIlbK?=
+ =?us-ascii?Q?dRWEZlSfXRt/tt9ET5vVL6iGQVXPQ1WyZknz+hwvri0DO3J3YlmM1utxmNJO?=
+ =?us-ascii?Q?O5aF5e5GT4trSXYagujAtPEn7Zw48+6OXMvG3Aby+xKa69VDffO6dULkRz15?=
+ =?us-ascii?Q?zmfE1AbmN5nyYscDqdEZUCOI4FANM4H5FKEZFbHHjn+2NBUsA3+cN2Y2sTQZ?=
+ =?us-ascii?Q?IBMw2AFhEhfmOKWmeW/NVuZu+/mHdHy4XtaLA73PNS+USXcyVxlg2jLID+4Y?=
+ =?us-ascii?Q?1fQjNE0BfWm4kq3tS5mRjqa6LSmYnzQ5MqJfUpaXhs3LyosueoA++7Tt2n43?=
+ =?us-ascii?Q?DcFnuqW01YYX+hJBZLeAl5k0oRVil0K6ldXpgwTF8gkbagZrAjeqyDyVxYTe?=
+ =?us-ascii?Q?Xad10EBC7aCKsI03ddXDRLJPFMQOJc9pxo/9ibG6MqnrQ1jqPqJlZx7+s0Rh?=
+ =?us-ascii?Q?EM/JC1ekL6bsJiICbW3P0jSewkn7OSueyvKfocJ4nQuMbJqTmgwV/epo74pV?=
+ =?us-ascii?Q?gHAACHQCPxwIi/ubx6DLGy4dA5nod7fpgSb/9w9VDmR0kwRz9JCz10RJqEXq?=
+ =?us-ascii?Q?zJ2uCiw=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN7PR02MB4148.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: a58a994b-e62e-4d98-f329-08deb8de4937
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 May 2026 15:16:38.3626 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR02MB10217
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,26 +141,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 23, 2026 at 1:29=E2=80=AFAM Maarten Lankhorst <dev@lankhorst.se=
-> wrote:
->
-> Does it happen more frequently when loading VRAM intensive programs?
+From: Berkant Koc <me@berkoc.com> Sent: Tuesday, May 19, 2026 1:08 PM
+>=20
+> A SYNTHVID_RESOLUTION_RESPONSE with resolution_count > 64 walks past
+> the supported_resolution[SYNTHVID_MAX_RESOLUTION_COUNT] array in the
+> parse loop. Bound resolution_count against the array size, folded
+> into the existing zero-check.
+>=20
+> When the WIN10 resolution probe fails, the caller in
+> hyperv_connect_vsp() left hv->screen_*_max / preferred_* unpopulated,
+> which sets mode_config.max_width / max_height to 0 and makes
+> drm_internal_framebuffer_create() reject every userspace framebuffer
+> with -EINVAL. The pre-WIN10 branch had the same gap for
+> preferred_width / preferred_height. Use a single post-probe fallback
+> guarded by screen_width_max =3D=3D 0 so both paths converge on the WIN8
+> defaults.
+>=20
+> Signed-off-by: Berkant Koc <me@berkoc.com>
+> Assisted-by: Claude:claude-opus-4-7 berkoc-pipeline
+> Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic vid=
+eo device")
+> Cc: stable@vger.kernel.org # 5.14+
+> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
 
-Well, "more frequently" is hard to say since it's happened twice, but
-this time it certainly happened when launching a new program.
+I ran a basic smoke-test on my local Hyper-V instance. I can
+confirm that no error messages or failure were generated
+in the "good" case where the resolution_count from Hyper-V is
+valid. I did not simulate a bogus resolution_count and ensure
+it is detected.
 
-This time it was a markdown viewer.
+Tested-by: Michael Kelley <mhklinux@outlook.com> =20
 
-I wouldn't expect that to be particularly VRAM-intensive, but hey,
-since I run with two 6k monitors, I suspect *anything* with big
-windows will chew up a few hundred megs of VRAM just for the frame
-buffer side.
+> ---
+>  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> index 051ecc526..c3d0ff229 100644
+> --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> @@ -391,8 +391,11 @@ static int hyperv_get_supported_resolution(struct hv=
+_device *hdev)
+>  		return -ETIMEDOUT;
+>  	}
+>=20
+> -	if (msg->resolution_resp.resolution_count =3D=3D 0) {
+> -		drm_err(dev, "No supported resolutions\n");
+> +	if (msg->resolution_resp.resolution_count =3D=3D 0 ||
+> +	    msg->resolution_resp.resolution_count >
+> +	    SYNTHVID_MAX_RESOLUTION_COUNT) {
+> +		drm_err(dev, "Invalid resolution count: %d\n",
+> +			msg->resolution_resp.resolution_count);
+>  		return -ENODEV;
+>  	}
+>=20
+> @@ -508,9 +511,13 @@ int hyperv_connect_vsp(struct hv_device *hdev)
+>  		ret =3D hyperv_get_supported_resolution(hdev);
+>  		if (ret)
+>  			drm_err(dev, "Failed to get supported resolution from host, use defau=
+lt\n");
+> -	} else {
+> +	}
+> +
+> +	if (!hv->screen_width_max) {
+>  		hv->screen_width_max =3D SYNTHVID_WIDTH_WIN8;
+>  		hv->screen_height_max =3D SYNTHVID_HEIGHT_WIN8;
+> +		hv->preferred_width =3D SYNTHVID_WIDTH_WIN8;
+> +		hv->preferred_height =3D SYNTHVID_HEIGHT_WIN8;
+>  	}
+>=20
+>  	hv->mmio_megabytes =3D hdev->channel->offermsg.offer.mmio_megabytes;
+> --
+> 2.47.3
+>=20
 
-It's a B50 Pro, so it's a discrete card with 16GB on card.
-
-I have no memory of what it might have been back a few months ago. But
-I would expect it to be all the usual stuff - ten terminals, a web
-browser with a dozen tabs, and whatever gnome and wayland do, and then
-the occasional random other thing.
-
-             Linus
