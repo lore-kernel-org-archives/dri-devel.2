@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F11A3CD5BB1
-	for <dri-devel@archiver.kernel.org>; Sun, 24 May 2026 21:32:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E48F7CD5BAB
+	for <dri-devel@archiver.kernel.org>; Sun, 24 May 2026 21:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5170310E337;
-	Sun, 24 May 2026 21:32:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A4C310E34A;
+	Sun, 24 May 2026 21:33:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=packett.cool header.i=@packett.cool header.b="aHUkg6Qj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XwP2+gD5";
 	dkim-atps=neutral
-Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com
- [91.218.175.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 944C710E337
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 21:32:40 +0000 (UTC)
-Message-ID: <ab26ea90-5f28-4582-8f82-3925471d917f@packett.cool>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
- s=key1; t=1779658348;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Zt5RINp/uhenX2tIAWFcoDiZdc5YR75o2ZI4vamwopM=;
- b=aHUkg6QjBBpY4qCrK6aP1U4dLQHIYBJXCQNXfRDk51+Oa635VMYkA/Jd+kEm+xvm5vXhjn
- sZMBPzLPVrEdwF+VQ6g/tzt4elO+h7Tdz3TQtP+QJVH5/O4jaQu/5l3r3VQZCzAPGgR/Is
- +j520yplIVv/Fkp9Z/Dp0uwIW06yHCTHpc/K1nVJ8wHHzVzTk78u/GoaEeNsqb8OWpK5ZW
- nZ2h6g5e+meRSy9/hfeg+QCqOqQTG1C9mTrpUDukNHq/9poMA1twK/ZQUrtxQl1cIEOQfL
- xpg61jZ0Lm7WrjasBzFL3bifVY26kfQLjDpz/sqi1lddC/xtivo8Vpe6b9qxzA==
-Date: Sun, 24 May 2026 18:32:18 -0300
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDF8A10E31E
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 21:33:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9110D442FE;
+ Sun, 24 May 2026 21:33:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BF51F000E9;
+ Sun, 24 May 2026 21:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779658431;
+ bh=U2bgs3hxq/b6hYch8osYnasgSoV5kG2hhrESAk4/vdE=;
+ h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+ b=XwP2+gD5BnemlPnX9mfPqISPgLuz7K/mdva6FOhU10kHMPA7wU+BjcLE6qQ6jUro/
+ vDbZZzK4MFzWmZUQYPGDXZY558lp/RLoEvLVDvUdGhLph5yod5Vtb5wi7LmXYIZQJJ
+ Iyn0kffNxLwXBCezu26RN0q5OpR8qvwO/ROjyIZGap6h3j3L1pUECK0x3DxBoa0u3U
+ JHoFFMp+WQYlf/63ct6pAy45hXVPWF9ZGz/JVOxkB64PXxxsLTyyWQKrkmVWll0yfG
+ hTjVFYMfxdHzZmioqFcPIan6qaUUjqrkFSVV3rZ0i69iEgVxiDFGjF0O5kJG/fVS5T
+ 1xwt/y0klJuuA==
+Date: Mon, 25 May 2026 05:33:45 +0800
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, samuel@sholland.org,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mturquette@baylibre.com, sboyd@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
+ layer reg space
+Message-ID: <ahNuuaVlDl0KvOSj@home.wens.tw>
+References: <20260509190015.79086-1-jernej.skrabec@siol.net>
+ <20260509190015.79086-8-jernej.skrabec@siol.net>
+ <20260514-valiant-ape-of-discourse-a4f5a9@quoll>
 MIME-Version: 1.0
-Subject: Re: [PATCH v6 00/10] drm/msm/dp: Drop the HPD state machine
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-References: <20260524-hpd-refactor-v6-0-cf3ab488dd7b@oss.qualcomm.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20260524-hpd-refactor-v6-0-cf3ab488dd7b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260514-valiant-ape-of-discourse-a4f5a9@quoll>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,49 +64,53 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: wens@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
-On 5/24/26 7:33 AM, Dmitry Baryshkov wrote:
-> Currently, all HPD interrupt handling must go through the HPD state
-> machine.
->
-> This has caused many issues where the DRM framework assumes that DP is
-> in one state while the state machine is stuck in another state.
->
-> As discussed here [1], this series:
->
-> - Removes the state machine
-> - Moves link training to atomic_enable()
-> - Changes the detect() behavior to return true if a display is physically
->    plugged in (as opposed to if the DP link is ready).
-> - Remove event queue and move internal HPD handling to hpd_notify()
->
-> To correctly detect the displays which are plugged on boot on the boards
-> which use dp-connector devices, this series depends on [2]. USB-C and
-> eDP panels are handled natively.
->
-> [1] https://patchwork.freedesktop.org/patch/656312/?series=142010&rev=2#comment_1201738
-> [2] https://lore.kernel.org/all/20260314-dp-connector-hpd-v1-0-786044cedc17@oss.qualcomm.com/
->
-> ---
-> Changes in v6:
-> - Corrected mismatch between Jessica's From and SoB emails
-> - Corrected documentation and fixed style comments for
->    msm_dp_bridge_detect() (Bjorn, Konrad)
-> - Changed msm_dp_bridge_atomic_enable() to bail out earlier in case of
->    link training failure (Konrad)
-> - Corrected commit message for the link training commit to stop
->    mentioning event-related changes (Konrad)
-> - Added kerneldoc to msm_dp_display_host_phy_init(), describing return
->    value (Konrad)
-> - Switched to guard() instead of raw mutex_lock() (Konrad)
-> - Link to v5: https://lore.kernel.org/r/20260314-hpd-refactor-v5-0-0c8450737d64@oss.qualcomm.com
+(resent from new email)
 
-Looks like v5 is already in linux-next.. merged in:
+On Thu, May 14, 2026 at 2:04 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
+> > From: Jernej Skrabec <jernej.skrabec@gmail.com>
+> >
+> > As it turns out, current H616 DE33 binding was written based on
+> > incomplete understanding of DE33 design. Namely, planes are shared
+> > resource and not tied to specific mixer, which was the case for previous
+> > generations of Display Engine (DE3 and earlier).
+> >
+> > This means that current DE33 binding doesn't properly reflect HW and
+> > using it would mean that second mixer (used for second display output)
+> > can't be supported.
+> >
+> > Remove layer register space, which will be represented with additional
+> > node, and replace it with phandle, which will point to that new, shared
+> > node. That way, all mixers can share same layers.
+> >
+> > There is no user of this binding yet, so changes can be made safely,
+> > without breaking any backward compatibility.
+>
+> There is user. git grep gives me:
+> drivers/gpu/drm/sun4i/sun8i_mixer.c
+>
+> which means this is a released ABI. As I understood, the old code was
 
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=4d28d7f4c69895437aeb0337d5e8d3dc2a5395cf
+We held off on merging the DT changes so that we could rework this.
+I can't find the actual request though. It was probably over IRC.
 
-~val
+> working fine but just did not support all use cases. Why this cannot be
+> kept backwards compatible?
 
+AFAIK the "planes" block is shared between two display mixers. As the
+commit message explains, this prevents using the second mixer, since
+only one of them can claim and map the register space. And on the H700
+(which is the same die as the H616 discussed here but with more exposed
+interfaces), there could actually be a use case for the second mixer.
+
+Hope that explains things.
+
+
+ChenYu
