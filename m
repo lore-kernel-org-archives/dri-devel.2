@@ -4,63 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F530CD5BB8
-	for <dri-devel@archiver.kernel.org>; Sun, 24 May 2026 02:07:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C791CD4F54
+	for <dri-devel@archiver.kernel.org>; Sun, 24 May 2026 02:14:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23B5B10E075;
-	Sun, 24 May 2026 02:07:53 +0000 (UTC)
-X-Greylist: delayed 402 seconds by postgrey-1.36 at gabe;
- Sun, 24 May 2026 02:07:51 UTC
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2704910E075
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 02:07:50 +0000 (UTC)
-X-QQ-mid: esmtpgz15t1779587905t55917f99
-X-QQ-Originating-IP: +CMkYgQkelm3p4bzQbNBKmYcwd2gel7t9keJU6p+mwY=
-Received: from [127.0.0.1] ( [116.234.26.110]) by bizesmtp.qq.com (ESMTP) with 
- id ; Sun, 24 May 2026 09:58:22 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1059293555878524542
-Message-ID: <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
-Date: Sun, 24 May 2026 09:58:23 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A11310E335;
+	Sun, 24 May 2026 02:14:55 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nz5DbKvD";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81E8B10E073;
+ Sun, 24 May 2026 02:14:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 40DDA42B26;
+ Sun, 24 May 2026 02:14:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68A461F000E9;
+ Sun, 24 May 2026 02:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779588893;
+ bh=G5R/Msk4mdpDZchRzMLag6qpLqWVwDUZRhGt+9XswAU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Nz5DbKvDsy3l8olga2/R4cLLUAEmJ3wCPdbMdVRC4/pvVL76tZr6fJshjg0pJktaF
+ 8+BtbmQ5A1RfEwRPp/EyPCOzjTsfW5ygkBIxxcXJUtxP9fqwDCmPj3fJxgAAEL5K8F
+ 4AxmdO0yCzCDyBauu8/Tccp8eedsnmrJh+Ku2DQddd1DWgc8jzT/rNx0j9rN24Nj4O
+ 39sBSZU726hg2NiaKf2r97VTLsOjB0nIRYm5rMP93qhiXhY/UlUJu1fzTkKZod883f
+ p4A04VQIoctrfwVJgPBNKfWj6JhKy2ko/kg9/vHtuSpKZ9PxQQJmecxPT6Eo/a18l/
+ 8CWysG5BqszgQ==
+Message-ID: <ece17b5e-143e-4196-8b07-57efff2e3954@kernel.org>
+Date: Sat, 23 May 2026 21:14:51 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] arm64: qcom: Enable additional hardware on Radxa
- Dragon Q6A
-To: Graham O'Connor <graham.oconnor@gmail.com>, linux-arm-msm@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, neil.armstrong@linaro.org
-References: <20260522060645.4399-1-graham.oconnor@gmail.com>
- <20260522101323.31911-1-graham.oconnor@gmail.com>
+Subject: Re: [PATCH v3 0/8] Add support for a DRM backlight capability
+To: Sebastian Wick <sebastian.wick@redhat.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20260424220953.167058-1-mario.limonciello@amd.com>
+ <CA+hFU4wEODFP=oPw522MyQs1asGq+KyYw6rcKpxxxj0y75fPXg@mail.gmail.com>
 Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <20260522101323.31911-1-graham.oconnor@gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <CA+hFU4wEODFP=oPw522MyQs1asGq+KyYw6rcKpxxxj0y75fPXg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: Nhi/8BSYHilBLwcaBOl2A72XJ//F0YkO027Go56Z2g3pWCvHEtyb5505
- dNOlg6/1CfpljW/3HZUrpfJDO8cmeeLIuwA3DRJtDC0X1pvYzkCF8+5OJQLs3MYtwZJBJ4l
- rTF2iCKBnEGO/TzCrxHXTa/CZQTOOVlXbVhDBx/VllDBZlVkAKGqfmfucsJ+mZP+9VuR1Xa
- clFbvE76y0u5zA7TJiIQvP1AIxKJgBfBMNfDOzydrD+geuFIVmVJ/39AV55aUi0EaDbvDq+
- LgxOUcj7ppvLtsi1j1yLAd7sCLRT3fK6Jx9NN/wPvkfTbwhZuDWxbJKWiSAQwvlSBOZP0kk
- 7qjYPcN/w82vIrHagInxpiHv+4HfZKG/ZKGXDq9tq+vqKbcHj5JIC9Cex1bOCADtFeq3ZN2
- Pu7brkEL5kIxBdANIf2eePTv3oxv1aoSpB9n68zM7qS5me/d92+Prh318Qgzl3Gf1VSJDOd
- gCPeuYi+YWJUbibXtcymhX8YtaCI9WXFuoCeph+JH4lAZeaB7MQg1b/eMfkYL28nIWgVZFW
- 1rkili+2bfPFwGUzsFhF08Ve4ZZNJzL01VnrWNy9cqSdB3N+p9Xwb8womuII/yrvQYK5A0T
- ESdTIXLyKYI7i1BrQtqydYtbAIVWmwJZbwZDaCRb206reEtnYKvn6psCZr1fLxbldra9L19
- KLukrQ1a3teioc3BGqvdxnlBW9tu/2+4unXYbdy1awJBZqNi5MZ5fwWXsRqh6FTxBSLNNBH
- DNUzuN+VAU2IuLVpqoOJd48pWZ4Pj0XsIfUa3gRfXW3x1pqHer0E9PEU9MEY4Z/EpuAZ4TU
- QnEIOJfQ/N77u+680qX9fsScEgig1Rev+kBCV8mYy88lsCj1bkQAtcZ/nrV9mngc6T0mwg7
- +lpLRkd1+6xFGFrbTEILAslLFcGtJpvGn5sJb6nmzImZGWk2Nris1epy0Uqv3w8Rw+8VVlM
- Vzu2/vEdIaYStlvF9wWyTHL2y9JJSS72zHlq0BThAzzmfKnTONtSL72SjDK2Vhm3ySseAIE
- FQ4ITHEAfIu/cnnyRaOKj+eaHfphPJZFHIal85FCjyeSobdDMrk0wUGzXYZk4UiDTxP5XC4
- Q==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,56 +61,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/22/2026 6:13 PM, Graham O'Connor wrote:
-> Thank you to Konrad, Neil, and others for the very prompt and helpful reviews.
-> 
-> Based on the feedback received, I think it best to withdraw this series to
-> address the issues raised, most notobly:
-> 
-> 1. The DP_TRAIN_LEVEL_MAX change (patch 3) is too broad - it affects all
->     devices using the Qualcomm MSM DP driver rather than being specific to
->     the RA620 bridge. A proper fix should be implemented at the bridge
->     level. This is going to take more investigation.
-> 
-> 2. The display DT nodes (patch 5) should use the radxa,ra620 compatible
->     string per the existing Radxa upstream series from Xilin Wu, and the
->     lane ordering needs correcting.
-> 
-> 3. The rpmh-rsc early return (patch 1) needs further review regarding
->     the implications of returning before full driver initialization.
-> 
-> 4. DTS patch label dependency issue (sorry)
-> 
-> I'll integrate with the Radxa upstream effort, re-evaluate the other areas
-> and resubmit corrected patches addressing these concerns at a later date.
-> 
-> Thanks for the feedback.
-> 
-> Cheers
-> 
-> Graham
 
-Hi Graham,
 
-Thanks for working on the additional hardware bring-up for Q6A upstream 
-support. I'm really glad to see someone pushing this forward.
+On 5/11/26 6:11 PM, Sebastian Wick wrote:
+> On Sat, Apr 25, 2026 at 12:10 AM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+>>
+>> From: Mario Limonciello (AMD) <superm1@kernel.org>
+>>
+>> At Display Next Hackfest 2025 we discussed the renewed need for moving
+>> brightness control into the DRM connector properties.  I've taken the
+>> previous efforts from David and Marta, rebased and adjusted for the
+>> current kernel.
+> 
+> Thanks a lot for this!
 
-I actually posted a patch series [1] last month, and it is generally in 
-good shape. Unfortunately, I got busy with other work and haven't had a 
-chance to send v2 yet.
+Sure!
 
-If it helps, please feel free to take over that series and fold your 
-additional patches into it. I think that would be a good way to move 
-things forward.
+> 
+> I've wired it up for mutter but I don't have a machine with AMD
+> graphics and an internal panel, so I can't really test it.
+> 
+> https://gitlab.gnome.org/swick/mutter/-/commits/wip/kms-luminance-prop
 
-Also, I believe patches 10-12 in my series are no longer needed and can 
-be dropped.
+Awesome!  I have been caught up with a few other things so I haven't 
+been able to give this a shot, but wanted to before the hackfest.
 
-Thank you again for the work you have done.
+But I have never used a dev version of mutter, so can you give me a 
+little hand holding or pointers?
 
-[1] 
-https://patchwork.kernel.org/project/linux-arm-msm/list/?series=1078242&state=%2A&archive=both
+I was able to build/install your branch into /usr/local.  I otherwise 
+have GNOME 50 set up on this system.
+How do I actually "use" the mutter built from your dev branch?
 
--- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+Will picking GNOME session at my login manager pick mutter from 
+/usr/local or do I need to do anything?
+> 
+> I've also noticed a few things while doing so:
+> 
+> 1. There isn't a bit of information which tells user space if the
+> property is actually backed by anything
+> 2. A fixed range from 0 to uint16_t max might be problematic for
+> backlights with very few steps
+> 
+> Could maybe fix both of those issues by making the range dynamic to
+> the actual numbers of steps, where zero means that there isn't any
+> backing backlight device.
+
+I'll play with this idea and see how well it works.
+> 
+>> The legacy sysfs interface is synchronized with the DRM connector (although
+>> the scale may be different as DRM connector property is u16).
+>>
+>> Later after this has been adopted by enough userspace, it may make sense to
+>> configure the legacy sysfs interface to be configurable so that only
+>> DRM master controls backlight.
+>>
+>> I've done a first implementation with amdgpu with eDP connectors; but
+>> conceivably this can be extended to other connectors like DP for displays
+>> that can be controlled via DDC as well later.
+>>
+>> I have also used DRM review prompts to review this series and fix some bugs
+>> which were caught with two different Claude models.  The fixes are squashed
+>> into the patches.
+>>
+>> Assisted-by: Claude Opus
+>> Assisted-by: Claude Sonnet
+>>
+>> For ease of testing; this series is also available on this branch:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/backlight-property-v3
+>>
+>> David Rheinsberg (1):
+>>    backlight: add kernel-internal backlight API
+>>
+>> Mario Limonciello (6):
+>>    drm: link connectors to backlight devices
+>>    DRM: Add support for client and driver indicating support for
+>>      luminance
+>>    drm/amd/display: Pass up errors reading actual brightness
+>>    drm/amd: Indicate driver supports luminance
+>>    drm/amd/display: Allow backlight registration to fail
+>>    drm/amd/display: use drm backlight
+>>
+>> Marta Lofstedt (1):
+>>    backlight: expose the current brightness in the new kernel API
+>>
+>>   drivers/gpu/drm/Kconfig                       |   1 +
+>>   drivers/gpu/drm/Makefile                      |   2 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  88 +++-
+>>   drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+>>   drivers/gpu/drm/drm_backlight.c               | 406 ++++++++++++++++++
+>>   drivers/gpu/drm/drm_connector.c               |  12 +
+>>   drivers/gpu/drm/drm_drv.c                     |   8 +
+>>   drivers/gpu/drm/drm_ioctl.c                   |  10 +
+>>   drivers/gpu/drm/drm_mode_config.c             |   7 +
+>>   drivers/gpu/drm/drm_mode_object.c             |  66 ++-
+>>   drivers/gpu/drm/drm_sysfs.c                   |  54 +++
+>>   drivers/video/backlight/backlight.c           |  83 ++++
+>>   include/drm/drm_backlight.h                   |  45 ++
+>>   include/drm/drm_connector.h                   |   8 +
+>>   include/drm/drm_drv.h                         |   7 +
+>>   include/drm/drm_file.h                        |   8 +
+>>   include/drm/drm_mode_config.h                 |   5 +
+>>   include/linux/backlight.h                     |  30 ++
+>>   include/uapi/drm/drm.h                        |  10 +
+>>   20 files changed, 852 insertions(+), 23 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/drm_backlight.c
+>>   create mode 100644 include/drm/drm_backlight.h
+>>
+>> --
+>> 2.53.0
+>>
+> 
+> 
+
