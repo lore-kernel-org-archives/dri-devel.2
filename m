@@ -4,78 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5C7ACD5BBF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77616CD5BC0
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA3B10E3E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 808ED10E3EF;
 	Mon, 25 May 2026 06:20:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JyLlgN3P";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pRkV6Csi";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E7B410E095
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 20:15:37 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2bd80b3aa13so55639215ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 13:15:37 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A298510E166
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 15:57:32 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-3699cdeec05so3687234a91.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 08:57:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779567337; x=1780172137; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=63gsm4lozyWo/LQgbMDAJ2S7yKWjAOtV2E9hWx+OomM=;
- b=JyLlgN3PiS69JzGWZWsq5bQmk6ov1GyvqZygJkKL21rU/9ElRbXVRx+2GaQNANstWC
- 41y8w+LPlTqZWx9liFqFkXj7iMddQ8WxBPvgN6B41Ldd20uE+nyxBEswM0uj5Vqsqr9U
- ZFNVOIuyiPyXKXRPD1/rJD812JFGp9VqbHXbOwPD+cylwxf6DEjVfqtT9t3+YhiM0uEY
- mbZyWd+ckZWMPHvVdsP0M9d6mxTII5RIJceIUV2ND5SUJzMgT2diqpeHrUTjyfzGbYgr
- yaVYzQsBMWdVzY8zOTuOTSqtZWBeEb0AWO8fOvx5kK8Dqp5BLSTMYjq9NrYl271+wvOZ
- 99aQ==
+ d=gmail.com; s=20251104; t=1779638252; x=1780243052; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5pGO8hezM1yTgC77jiIpPHRz4G800mj82NUOkgOlqoc=;
+ b=pRkV6CsiEOzUF4zrI85+6DvjetlPCHgVfaXHwIUaoBOdES7ZxX/upPZ4zuDQOFZXyJ
+ ltn8YoGQ4Y1ngfKQyCgo7QXa007zahUNIu+dQbEApr5ep+oy+VELec62XFJ3BgQX8bFj
+ 5/mdG38DAz7R1sYq7rWT5+Da12TeCoArA+nwk9HHrRvhcAYrsg21ZSpEi9KT10oIWIh4
+ hLjyRLSqZDv4+T0q6yfqB85pUapeJbFVjmjT1rwW0PTCJ2IVPjEhGBs4b5QoAG3gCHal
+ s6/HMjc9otMW61L18+AYhi2NXIJh6wPAgqeAjmbuRqrdR4bTO7f7B0t7dLHYCAum3Rfo
+ Ccsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779567337; x=1780172137;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=63gsm4lozyWo/LQgbMDAJ2S7yKWjAOtV2E9hWx+OomM=;
- b=f1Fzgc7tAzblwxE5zyXv7NhL+c717FoDAGN2oxPwnfmTAjNyOXESDXDBtB+z4p93+J
- edox7UfIk4VSoU1s5I7ola3ovMpGztadeNZXEgNOX8mkqSKxKMEXpTcFdgb0NZhzbqnE
- b/3kmVJpJ+ATbokWAdaSBYzElog/+uvrNZzaPMBfWnnOEhhgTswClZjp9at8/7lHWVeb
- mckq7mZSW8ppW+MW8UuS/f3VrpSgTSYc8rjkmPpLp4vs5TiMnnemUkImWQBA1t8RZXNg
- wjxoZhNjNKP9V49pSdY1WaoCxq7wK8ThoYVCdHpoik9e8IHEpEqdtZdE+WjeeeK3kQPm
- nVGw==
+ d=1e100.net; s=20251104; t=1779638252; x=1780243052;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5pGO8hezM1yTgC77jiIpPHRz4G800mj82NUOkgOlqoc=;
+ b=RV1DREAW8zCm4PFqtgt6N6vV4vk6R6YEYqHY+HSUT5BDhaxz1LPKgxfz/UHMpzJEGW
+ A6SZKGNeJdf0/myjj/78zaSyiZCtIVVq5/FEt0MKP+YvBgwl81FQhSHyyxLLGROe5SzC
+ SHP39kHc2aeGCjvEUeCt8eT/lzk8ZfQCZLY1/Xm2cf0lm9R30ycUcrSKzd4mJkZRNYE+
+ Gv6Hzrq8L7w29qQ1HbKVArLNmE3MEQxkvJOGkiRsImX0hWerDdVVg3oDhRlO+owNU9Iu
+ aenWW2z4EZL956iIxEe71NT0wIdYmKoMFP7nPdUmgdYdnXWbSDM+CGYslNZHvpl4qJXD
+ GXMA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+QujAlbK5dfUx1c/UwjSmbzAf24GD0Lc4Y2QDawSL0GMJ+Z1smJeFd/semXLhjSlOVuOpuNorB4WQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxfofVi3DRfxLMC8XxvuYJI3cjLSOMJZm4Jm5wjAI8usWE4c6l5
- VbhMFWfeAhl8owoKFjJCpR02QZNN2Ix15hGlmHr1FvoZpmcvV4HYyuPa
-X-Gm-Gg: Acq92OH0ItaCmr6wLZ2LoM504hEqU5diLDHvnccEWabbU0Fm6w2H9eLdPswhw/ekCji
- LxSePbyNDPtbdvC5NrwR50Ih3JPk9ckMiyYBEkogOHSYINkxrI60NFnBqua1CI2dqy8pHBIDYgk
- ASMXaoNAXn98rI+ESU/ErWvvP4u8S1V+Hl99yy/lnxMfv3Hu8r4NWkaDtMqmYB8DFWkUktWWYNq
- 16AWYVxdVJ0aH3nAG/mYzCBb6IgKS1i8ZKi7B58ge0/nh6Cyjr8Rt1bl9n/2XMmNDZ8YvqDkXoW
- UvQ4D0vLpraSUwj95WEdHoc/GrgfRHRRyk3YMYvMF2pK9BVEUt21J3ZhRtDjmLPrtlH+/OAxnDM
- v+LV0dxyEv9wdT0AmgNZAL2ZdZoBZhpKuyTV9U2d/AFMeDke1aUT9LiaP9HtxVarJzaChoKagat
- h7amQcPTDH18dPs5dVsvhAZDyHW4OABbEECePuKcSo/4c1zhcxsDBA450nLkoTpyRdnOTFeHdyi
- kL3rOXaCBrkJdlHhxRqPFjTVTYDoJbr8h57xuErpaDzf2GBxkXQIUwAM1Qzceenniks+KwQRO0u
- Rtst1ZgOoUo=
-X-Received: by 2002:a17:902:cf08:b0:2b7:aa20:3c61 with SMTP id
- d9443c01a7336-2beb083ee1fmr89812565ad.33.1779567337013; 
- Sat, 23 May 2026 13:15:37 -0700 (PDT)
+ AFNElJ8SKfWddYx84u9HwFy+7i58DjDB3xR2b9Y7FEfBMIr7DpiXg/JjrcxNp36mkDbWAqHoSz47rF0UdXo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySa5R50uDSWABhnME4yBjMVPljxglnF+Q1+jTs37CT4VAO8Hl8
+ wQGmmUm2wEQwpEGioPka79Ap4/4Ud1DHv/lB3jW+p2zDmRZ5k+RO2pVp
+X-Gm-Gg: Acq92OGVbO3cDRPL7UHr6tEzlxUp/zSsnaMUkMoqsfE5DlBPX7xA8aJGrRtdFyKJCwh
+ P3wcMwcKYADi7DXrZumIrkc9NvmbCOngmosCMnQtWLx4pHB7jHCzpL+g9F3gJWLAkB/FoSCXyJ/
+ dNmZvpa24/iCdzRqpbHVIW/Tb+HBVaIlEwqPgumNFf8anTQqLPNasL63iw0qlwtWK+Aod+2U6gI
+ dz5saPfkfxk5fTGT7vBizwm2+ct5ySqZLba8M/ZCTWr+Ej0U28X1uiqFwhG9+9253knRq6ESHXk
+ ms6QpoYEjhU+pZU7SsPSYvzvxcVN5bfQwZdPATDmFjpL2SeWHWGdCMfIc5dBeKKgYlgwwV5IaZQ
+ 8Yc6QIKGwr370Q9PNoWeA3q/smpe7ahpbvGn04kJ0tPobvDuKom61gGsV8IF80DHM4OD0KtJ0iy
+ z+qSoIukcYNIGqgQXBX1S2z9W0lnM3EmciPjWPDEXjwEoTSyaOq+mQffyTVFRYcVbGHaiZC0OEe
+ fmIsrFTq9rb6II2L+q9E6eXkw2DO5abG+H+5xkU4ljmaTYYxXWSMEIjZZK0srQ9q6LqYZefQ1Mf
+ zshnI8gkZJOWdeK4TId5og==
+X-Received: by 2002:a05:6300:2795:10b0:3b3:62be:3584 with SMTP id
+ adf61e73a8af0-3b362be393dmr2496390637.11.1779638251896; 
+ Sun, 24 May 2026 08:57:31 -0700 (PDT)
 Received: from
  codespaces-78f0a7.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net
- ([4.240.39.195]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb5695a40sm47957545ad.17.2026.05.23.13.15.35
+ ([4.240.39.193]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84164fbb66bsm6973381b3a.45.2026.05.24.08.57.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 May 2026 13:15:36 -0700 (PDT)
+ Sun, 24 May 2026 08:57:31 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
-To: robh@kernel.org
-Cc: tomeu@tomeuvizoso.net, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] accel/ethosu: fix OOB write in
- ethosu_gem_cmdstream_copy_and_validate()
-Date: Sat, 23 May 2026 20:14:44 +0000
-Message-ID: <20260523201444.66197-1-meatuni001@gmail.com>
+To: tomeu@tomeuvizoso.net
+Cc: ogabbay@kernel.org, jeff.hugo@oss.qualcomm.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH] accel/rocket: fix NULL dereference and integer overflow in
+ rocket_job_push()
+Date: Sun, 24 May 2026 15:57:16 +0000
+Message-ID: <20260524155716.90955-1-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260523190843.33977-1-meatuni001@gmail.com>
-References: <20260523190843.33977-1-meatuni001@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 25 May 2026 06:20:29 +0000
@@ -94,21 +92,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While reviewing the command stream parser further, I noticed that
-weight[1..3] and scale[1] have their base and length parsed but no
-corresponding WEIGHT1_REGION/SCALE1_REGION commands exist in the UAPI.
-After cmd_state_init() memsets the state to 0xff, their .region field
-stays 0xff and is never assigned, so calc_sizes() never updates
-region_size[] with their extents.
+rocket_job_push() allocates a temporary array to hold all input and
+output GEM object pointers:
 
-The job submission in ethosu_job.c validates region_size[i] <= gem->size,
-but since secondary weights never wrote into region_size[], a userspace
-caller could supply large base+length values for weight[1..3] or scale[1]
-that exceed the GEM buffer without the kernel catching it.
+    bos = kvmalloc_array(job->in_bo_count + job->out_bo_count,
+                         sizeof(void *), GFP_KERNEL);
+    memcpy(bos, job->in_bos, job->in_bo_count * sizeof(void *));
+    memcpy(&bos[job->in_bo_count], job->out_bos, ...);
 
-Does the hardware specification guarantee that weight[1..3] and scale[1]
-are always sub-offsets within weight[0]'s region, or can they reference
-memory independently? If the latter, should their extents be validated
-against region_size[weight[0].region] in calc_sizes()?
+Two bugs exist:
 
-Muhammad Bilal
+1. Missing NULL check: if kvmalloc_array() fails, bos is NULL and
+   the subsequent memcpy() dereferences it, causing a kernel NULL
+   pointer dereference.
+
+2. Integer overflow: in_bo_count and out_bo_count are both u32, set
+   directly from userspace-supplied in_bo_handle_count and
+   out_bo_handle_count with no prior validation. Their sum is computed
+   in u32 arithmetic and can wrap to a smaller value, causing the
+   allocation count passed to kvmalloc_array() to be smaller than
+   intended. Subsequent uses still operate on the original counts when
+   copying and locking objects, which may lead to out-of-bounds accesses
+   on the temporary array.
+
+Fix by using check_add_overflow() to detect count overflow before the
+allocation, and adding a NULL check on the allocation result.
+
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ drivers/accel/rocket/rocket_job.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ac51bff39833..71f64bf2bb7f 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -8,6 +8,7 @@
+ #include <drm/drm_gem.h>
+ #include <drm/rocket_accel.h>
+ #include <linux/interrupt.h>
++#include <linux/overflow.h>
+ #include <linux/iommu.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+@@ -188,14 +189,19 @@ static int rocket_job_push(struct rocket_job *job)
+ 	struct rocket_device *rdev = job->rdev;
+ 	struct drm_gem_object **bos;
+ 	struct ww_acquire_ctx acquire_ctx;
++	u32 bo_count;
+ 	int ret = 0;
+ 
+-	bos = kvmalloc_array(job->in_bo_count + job->out_bo_count, sizeof(void *),
+-			     GFP_KERNEL);
++	if (check_add_overflow(job->in_bo_count, job->out_bo_count, &bo_count))
++		return -EINVAL;
++
++	bos = kvmalloc_array(bo_count, sizeof(*bos), GFP_KERNEL);
++	if (!bos)
++		return -ENOMEM;
+ 	memcpy(bos, job->in_bos, job->in_bo_count * sizeof(void *));
+ 	memcpy(&bos[job->in_bo_count], job->out_bos, job->out_bo_count * sizeof(void *));
+ 
+-	ret = drm_gem_lock_reservations(bos, job->in_bo_count + job->out_bo_count, &acquire_ctx);
++	ret = drm_gem_lock_reservations(bos, bo_count, &acquire_ctx);
+ 	if (ret)
+ 		goto err;
+ 
+@@ -220,7 +226,7 @@ static int rocket_job_push(struct rocket_job *job)
+ 	rocket_attach_object_fences(job->out_bos, job->out_bo_count, job->inference_done_fence);
+ 
+ err_unlock:
+-	drm_gem_unlock_reservations(bos, job->in_bo_count + job->out_bo_count, &acquire_ctx);
++	drm_gem_unlock_reservations(bos, bo_count, &acquire_ctx);
+ err:
+ 	kvfree(bos);
+ 
+-- 
+2.53.0
+
