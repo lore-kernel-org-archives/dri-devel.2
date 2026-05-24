@@ -4,83 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C362ACD5BB1
-	for <dri-devel@archiver.kernel.org>; Sun, 24 May 2026 16:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E02CD5BAB
+	for <dri-devel@archiver.kernel.org>; Sun, 24 May 2026 16:38:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A44A10E374;
-	Sun, 24 May 2026 16:37:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF7A210E379;
+	Sun, 24 May 2026 16:38:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="knlOkAYL";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SIrnan5g";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S0fQvMEj";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9334710E374
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 16:37:29 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2baca4df358so54924495ad.2
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 09:37:29 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A22CC10E379
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 16:38:27 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64O37PKZ2667606
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 16:38:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=VXsbIGfE/YGMhTf/DNGAiwi0
+ TECdbjhbag3+7cTDv9k=; b=SIrnan5gB1jAJWsSJPjwGzlEU0sRG+SUfFPAS+dM
+ PO4mUtGh7aP2yIIRTd/2B983/QN26DJ4MFUOzvmlHzPKXfr7TWI3r04JceRo7MuK
+ asr+XPAbJwqsR9JoXb1sNnqoH7v/O6boHetmm+IB8tE0H5bYqFXCLIqp1GyS9Yk+
+ ZdN1MBLNDIhfMxLqWNEgpiHk/L5ZL93RRpqrxFTdfNnlnj4bgjoWh2bJ0WlP/45f
+ VXPARvsqhPyRPf3bB4FtRVKtXw0+9veBnNddzIpLGu0f0vKN3XR2lQF+VAkvCd0i
+ 3DN9IQoMugg9yW7WmUKj53uzvsfoz9uk6TOri7PIF/tP6A==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb4f3bjrh-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 16:38:27 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-63cbb164b37so17950258137.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 09:38:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779640649; x=1780245449; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=G0HUvMlBgBGQWslCXm5T/VCz5F81Ghf/XcT+I734BSU=;
- b=knlOkAYLNoande8NR0mN23adryNyblnW4smxvXLgjxeCmdEkqYgd9t+PLiWPv+mxR/
- V3aCkJo3irkg2k79uk4IzYbgFL+2AFE22k2Uusk7HpPGNcxkkeVVhtfSajQ26CEx3qCp
- ZPsX1UHg3xjViaRHGnBYC3Ndz6VPA/YpeOFq5wDZdKhv4t116UPao2qk/Ddu1KAM8Fby
- t6iMeUE1lHzFJmwY8QgAO1qGsrc5fA1KHj6GrtfZA8ZECNaLfIjPqhAvMG9SkqsGZT6p
- QyauLeYzMCPjfi+G5Qi3LtzuqY1UtwZ+7FtHJ5aLPXyUCu4JJFMXYCS9FbilNXLwoRQF
- 4kow==
+ d=oss.qualcomm.com; s=google; t=1779640706; x=1780245506;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=VXsbIGfE/YGMhTf/DNGAiwi0TECdbjhbag3+7cTDv9k=;
+ b=S0fQvMEjXc/IXLh1o6yfUXsBjJjx2XkAeR/QYXujU4/fpnQUON2Ae3wrzqXCAZkJQF
+ 1B1Hevo3XFgqTD4n1WxA8fBbG75GRLLUMLK+5YOBXN9Zggb8jI7kg2dqdqKw6wGgUtNm
+ TAx3cmncJF79l4V5P3nmKeKY8cBOs9EbFCkwH6PTyfx2pc2AEQl5f6pjh+7pQ3EaDoTg
+ +roec631pO/oXNHqcEpHwxfXDA7uyCWN3WLpGA5ug30ajI+37johl8l8bwFhAWPThxaj
+ gRl/bIgN7hd8awk9MmjxsE++l8QQw5jRjAo3z/mVaKl4I4fJ2Nqr0xrdABZxzKoPqdyg
+ ts/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779640649; x=1780245449;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=G0HUvMlBgBGQWslCXm5T/VCz5F81Ghf/XcT+I734BSU=;
- b=bcGPtbuBXLP9LMIonnnUAXPRMVSWU58pup9MKjcRGWAvLucTySmg0mxvIhK3NI/wPt
- s3MFd4hz30lkEiMWlvUvfOiPbeNH8jivNn4o95kAD92D+gZOaPeNRfXCPAhq/Sse3bOw
- kI0CaEG/ZKBKfQW0VIa0rekRL7IEUTTLz88PA9fLF5IigLwS41agd8rdTp1Ol0GD5cDW
- uzK6PAat0HXYPv2793oCBTXbWphlaNP7f6ILX/k/WtOEX8dwNqQl4KTuqxu4m+zSMB6O
- kdHCGRPtDH22MV16WQjojHaB4MMrV+Jsu2xHD4Gzy9C1jXJEy/y3dSE7oJkBzT9TEU0Q
- qAgA==
+ d=1e100.net; s=20251104; t=1779640706; x=1780245506;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VXsbIGfE/YGMhTf/DNGAiwi0TECdbjhbag3+7cTDv9k=;
+ b=XV7jZc9DJxXMqGxBnwB8F5bGC3GJM3XZDGNRTyx/pFeZn+D2/Jz5PGvz576FTFTjvI
+ maCJP6XNT4QncNWFSCP/IKjhIgkqeXreB/RFIpx8sRuzDS8gS3ZIV8Hl0ED+TNWO2LQe
+ ZStzO+m1QO3ur49KSqX/hS7o9w1EgDTuZe94BGo+CBH65npyLjXZ1n2g7ajF8dHVEU7a
+ Ry897c2Ekn1uOYSsit2cbgdB0j/B6F4cAp8gA48qx04MKgGi2dBVkNUsN4+PApNz/Ccv
+ f/Yi4Z0UdjCJ6QQp4+Zk4/e8usiOmTbfhnHkXPL3V4Asdh9E7x9xZQckpAJNE9g1akPP
+ s/5Q==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9Shgbyq72jGywydGrdWaaRvpbxKGLYsLLPw9/vApMi0zFWC/boEhuTHI4bayI+Od0MfH5jMTZdGjw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxgi07/Y6GmX587+wwSz5j1Rr68zX8vJLJ0MxdxAwgI571yKSls
- X/Tp+z+IV/KMqmWjmOAP0JYqsUqoGVUJd1ZjQjP7pmeBkgZewMYxhi4=
-X-Gm-Gg: Acq92OEiqJlMnbDcSKe4yTzqkoievQfGc5Dq9aVpFupUmiEiN1dzEupSXPOZ5kU/f4U
- gISL52z+QFhOgXKZad6r3F+HYG6RTDDJccl+4cOiO5dhAfa2fafX+v2hXbKuIthatemzsHFKf3D
- 0kc8iJJ9OYvkP2JVZFtrWPq/kbgXlyYHycebM38CGi9PKHLe6d+pi454aosskNo7Z0/lPojkAVw
- MkAmp8GH9QO2d2asmN8RagrYOIwDzbGkurubg77dWNDoazSRje7tH/jCyRtPUH473CTGj0n0ZVC
- /NSJg/x579FsboGqeZzlg9y2HLR01vTDgtsXqamtdCPnYGtUUvH954OoQ3224LFsvjsNSv7aeES
- v8MLt/D1zXXPx4LzFxwwJkcrx7beP6uv552Dtsk78lmqtrT9W2IhWbNWktXQuDv5LUL3lgwmQcr
- BE/Vu9V9erZtfsc4v+yulrshpWVs34SZ4+ffuEG20ehnvRMMsvpJoveIXXJR1C0k+kddA58X/ew
- B43LW3fRw==
-X-Received: by 2002:a17:902:d4c4:b0:2b2:4d78:eec2 with SMTP id
- d9443c01a7336-2beb0711965mr114609995ad.18.1779640649048; 
- Sun, 24 May 2026 09:37:29 -0700 (PDT)
-Received: from localhost.localdomain ([1.226.165.54])
+ AFNElJ8H1SKfQugFAKVw8h4+WOoDYlWs9KGwA5I1IzsOSoDacqkIHizkMTj6Wn1NB6zQG4BARrGcKRVoDpY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxWWZlJiHezD0KveHFOeAifedEraFQp8umGYhOpw+KCQKDvWo9W
+ rMnFpdY5ztGwWQ1yGJxG/phlAfH2Bjk4FtfKJAx9PNao3j4UuZv2bbbFgmzrExUksccU3o39FpK
+ wdS+WH5B03kCSuJjybNE6mro0TutmPe756AoDiUsr9/Yf9g59VmtsE6XkXkvszWXOkTVQhlU=
+X-Gm-Gg: Acq92OHBY9f3ZHDta+G1hEFjTnF0fxjfwnO+lush5DmbUVfnyEsAulcONr6cMpwT9Hq
+ zMczjgj1qkZ3qYl1FGFpV4csF0LdZAjCBC/kIdoDBWt4MdGSLB3r6GNRYAeSxwGpCOWzoa1YzCT
+ MqPRScfJQCdkGK6nx2UY7mp1X+ZWs2pCQAbiDOlB03thNbt6eBnXxqBIf/CeMte2kKTa/+Pbm2G
+ AsGntO47X2IXtIcpfpAdvD7HE0ph8uSEwo9k8PepEY5/TE7zA/16BSs6CyC+qezX7fIzI++skaR
+ Nu3Fip2M0qRIGuU1FYMmfbHVnT6H2+8mDUnKxl56MMXwalbxoW3qtopzCOhiYCqmsOoAmgWOqIf
+ d7XlD6r6hvPW4PM6x+gMRDXisj16pVfa4E3WWS1FT/fzOQr+XvE7X/9MkGFcKhgiyLOrPgG50T5
+ V9nHnMQ8ymzDhCAKG3PIUtsr5LyMZ8Zljdu/U=
+X-Received: by 2002:a05:6102:8641:10b0:631:9366:da89 with SMTP id
+ ada2fe7eead31-673c31671d9mr4237846137.8.1779640705983; 
+ Sun, 24 May 2026 09:38:25 -0700 (PDT)
+X-Received: by 2002:a05:6102:8641:10b0:631:9366:da89 with SMTP id
+ ada2fe7eead31-673c31671d9mr4237842137.8.1779640705537; 
+ Sun, 24 May 2026 09:38:25 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb58b309bsm73017325ad.51.2026.05.24.09.37.26
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 24 May 2026 09:37:28 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jianhua Lu <lujianhua000@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Myeonghun Pak <mhun512@gmail.com>,
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH 2/2] drm/panel: novatek-nt36523: use devm_drm_panel_add()
-Date: Mon, 25 May 2026 01:36:33 +0900
-Message-ID: <c6fe4a162692b4df5525353dbdac5b88eda91a79.1779640137.git.mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1779640137.git.mhun512@gmail.com>
-References: <cover.1779640137.git.mhun512@gmail.com>
+ 2adb3069b0e04-5aa32cc08c0sm2020669e87.36.2026.05.24.09.38.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 24 May 2026 09:38:24 -0700 (PDT)
+Date: Sun, 24 May 2026 19:38:21 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Graham O'Connor <graham.oconnor@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robin.clark@oss.qualcomm.com, lumag@kernel.org,
+ abhinav.kumar@linux.dev, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/6] arm64: dts: qcom: qcs6490-radxa-dragon-q6a: Add
+ regulator supplies and disable EUD
+Message-ID: <hwlkksr2nbarur6n7i7gt56ghhuxxscaey2idff75cx2sthsqz@cd52yzmhyybp>
+References: <20260522060645.4399-1-graham.oconnor@gmail.com>
+ <20260522060645.4399-5-graham.oconnor@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260522060645.4399-5-graham.oconnor@gmail.com>
+X-Proofpoint-ORIG-GUID: oH5du9VWNsc3Mev9y1da6-P3iys4rBDb
+X-Authority-Analysis: v=2.4 cv=WvYb99fv c=1 sm=1 tr=0 ts=6a132983 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=pGLkceISAAAA:8
+ a=xsPyQ2l8_84pY8PHn1gA:9 a=CjuIK1q_8ugA:10 a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI0MDE2NyBTYWx0ZWRfX6cr16HApya0B
+ lmRcnsKT6QQir40pIhWuZ+67VHA3FNpPPfmrmr9o/HlRnaMT9o81WVDFwwo3St8o69zjuQ0I1H6
+ QcGnWeg/cl6gvNhvVPVmRMNPyvdSWrLZzFZNPkTfab19kv8UGcjyvd805JBBevJq6txRI6NKZYt
+ 6OJpzYshKWQ7+IzrvNQC2P1X0htK7DPAdVNWEC1DojivZll4bfxa8/BwGTGCFDFhsk+Kne/5Gmo
+ NFd9w4mDExNn4RkmFxxsVJKf+lgKbjSvRtEzXejLPkmgdF8gIVh0HCpnktMhi8QzbkvhcD8zOl4
+ 8fUvuxqNCfK5KBbNIOcyJTd67sJWHq6xEFhWClOWTHTnFOy0xI7YcvC3VM17mK10Ud0INKsexxr
+ Y86oBZNrgx5rMGHecC97uhIOc4XNyiQY6h2aRs2osN+eJ0z4gkq/l8hiHDsUeAw5aEvXwiNGzAk
+ LvJw5gWNcNKw0H+72Yw==
+X-Proofpoint-GUID: oH5du9VWNsc3Mev9y1da6-P3iys4rBDb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-24_05,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605240167
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,59 +143,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nt36523_probe() adds the DRM panel before attaching the DSI devices. If
-one of the devm_mipi_dsi_attach() calls fails, probe returns with the
-panel still registered.
+On Fri, May 22, 2026 at 06:06:43PM +1200, Graham O'Connor wrote:
+> Add missing regulator supplies for qfprom and the PCIe controllers.
+> The qfprom node requires vcc-supply for correct eFuse reading. The
+> PCIe controllers require vdda and vddpe-3v3 supplies for the PHY and
+> connector power rails.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+vddpe-3v3 is a legacy property for specifying power rails for connected
+devices rather than the controller.
 
-Fixes: 0993234a0045 ("drm/panel: Add driver for Novatek NT36523")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/gpu/drm/panel/panel-novatek-nt36523.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+> 
+> Disable the Embedded USB Debugger (EUD) as it conflicts with normal
+> USB operation on this board.
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36523.c b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-index 226d91daf8..f6592b01df 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-@@ -1047,13 +1047,6 @@ static int nt36523_unprepare(struct drm_panel *panel)
- 	return 0;
- }
- 
--static void nt36523_remove(struct mipi_dsi_device *dsi)
--{
--	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
--
--	drm_panel_remove(&pinfo->panel);
--}
--
- static int nt36523_get_modes(struct drm_panel *panel,
- 			       struct drm_connector *connector)
- {
-@@ -1225,7 +1218,9 @@ static int nt36523_probe(struct mipi_dsi_device *dsi)
- 			return dev_err_probe(dev, ret, "Failed to get backlight\n");
- 	}
- 
--	drm_panel_add(&pinfo->panel);
-+	ret = devm_drm_panel_add(dev, &pinfo->panel);
-+	if (ret)
-+		return ret;
- 
- 	for (i = 0; i < DSI_NUM_MIN + pinfo->desc->is_dual_dsi; i++) {
- 		pinfo->dsi[i]->lanes = pinfo->desc->lanes;
-@@ -1259,7 +1254,6 @@ MODULE_DEVICE_TABLE(of, nt36523_of_match);
- 
- static struct mipi_dsi_driver nt36523_driver = {
- 	.probe = nt36523_probe,
--	.remove = nt36523_remove,
- 	.driver = {
- 		.name = "panel-novatek-nt36523",
- 		.of_match_table = nt36523_of_match,
+Separate commot please, with the description of the conflict.
+
+> 
+> Tested on Radxa Dragon Q6A (QCS6490)
+> 
+> Signed-off-by: Graham O'Connor <graham.oconnor@gmail.com>
+> ---
+>  .../dts/qcom/qcs6490-radxa-dragon-q6a.dts     | 20 +++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+> index bb5a42b03..4003837ad 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+> @@ -1093,3 +1093,23 @@ &sdc2_data {
+>  	bias-pull-up;
+>  	drive-strength = <10>;
+>  };
+> +
+> +/* Provide required regulator supplies for qfprom and PCIe controllers */
+> +&qfprom {
+> +	vcc-supply = <&vreg_l1c_1p8>;
+> +};
+
+Please keep the nodes sorted.
+
+> +
+> +&pcie0 {
+> +	vdda-supply = <&vreg_l1c_1p8>;
+> +	vddpe-3v3-supply = <&vreg_bob_3p296>;
+> +};
+> +
+> +&pcie1 {
+> +	vdda-supply = <&vreg_l1c_1p8>;
+> +	vddpe-3v3-supply = <&vreg_bob_3p296>;
+> +};
+> +
+> +/* Disable EUD as it conflicts with USB operation */
+> +&eud {
+> +	status = "disabled";
+> +};
+> -- 
+> 2.53.0
+> 
+
 -- 
-2.47.1
-
+With best wishes
+Dmitry
