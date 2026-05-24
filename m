@@ -4,55 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2307CD5BBF
-	for <dri-devel@archiver.kernel.org>; Sun, 24 May 2026 16:27:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4D0ACD5BB1
+	for <dri-devel@archiver.kernel.org>; Sun, 24 May 2026 16:34:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 649ED10E2E9;
-	Sun, 24 May 2026 16:27:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04F8210E367;
+	Sun, 24 May 2026 16:34:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Wt6Oovyh";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="evqtIquE";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P0HFvXFw";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 762E310E25F
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 16:27:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779640063;
- bh=vMUwbHaZbWb66jZ7iCMLMPvsaOQ2sMZq+JqO8SMiEww=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Wt6OovyhHdAuiw09WvJxFvTmER1N/qZZr3Jxc+vd4z+yhxjuLcXSA4psnQdf2Z06j
- MH1DyvBUt8L95MDosMTsNnO8ga3cgpL5iq7spoDFgRJlP7CTIK8AcXAeYbTF4af2eZ
- D27ksPPwqPCOdqhffIgUU5rdU/HhJK9W2za1XLeYeuvquZj4M4AXQLGl/n8kdNXL7V
- D85NwWf5bm2ye2EIqxrdeum6pgxWkQe+Kb5wohrcj3jVfup7rp6/QxVdIi5bvA6kvS
- QIOCiFfHsBDnmGYo804Y3gRHaTImv8/4BmMbGm22Fcs1DBeYumPULVEhTF+1EP8o0e
- ffKpAqgXi8YJQ==
-Received: from localhost (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id AE3E717E0AE5;
- Sun, 24 May 2026 18:27:43 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Sun, 24 May 2026 19:27:29 +0300
-Subject: [PATCH 2/2] drm/rockchip: vop2: Add YUV support to background
- color
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4187310E367
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 16:34:00 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64O7ljax693456
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 16:33:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=wrvxcU9Tac+9ZjUKvUObJ9ge
+ mc2+OvvMLP3GIcBqox4=; b=evqtIquEr/Hg/mYsDx529pGt2wI7r0m24QPkWfhI
+ F8gUg/8dSATAr9EOVpQFz77jNgS6Zh5BI+oHArZw/ClXpXYVEcSl6Ho7N0F9gpG2
+ +ox849XVXs3NxRHwHDxr6MEsaNtmdqy08tV/1ytED6kNCghFy0cLWBZC/tQx9ipa
+ NeLYTxNYE+0YbRDPrAWiHBRTady5YBwj4RbLZw30E8VfNQrAMOcwWzD9SgalayQ9
+ wDlBxmvlk5++EIJ7XOOoEzOPVDft609uNiSvxWuc6uNk10lVul5ub+bT29A5higc
+ /IAArS1wOl/KGHpEDdMHIhMSNyGj1HmHtB2om5Muohic2w==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
+ [209.85.222.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb3jgup4f-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 16:33:59 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id
+ a1e0cc1a2514c-956732444ffso15945521241.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 09:33:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779640434; x=1780245234;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=wrvxcU9Tac+9ZjUKvUObJ9gemc2+OvvMLP3GIcBqox4=;
+ b=P0HFvXFw3aoDdT2f7PAYi4WIm+46h8dl2omwlMXwVGV28+Dy+LZS6tbXeN9p1E2VbR
+ eZWDZPxyoEHaR+kuxshWUgLvC+4lpXTLY2kaJ0YxAltCelEJVOQn1sYFzNXT+xyz/GDR
+ pWPm68weFdSCJKfuHNrxwqU4uRn5U2EQ2BefSSUCIlNxZzNZAsPsZOp1Dpz/glzICu+B
+ a5f75WHIsqqOlxhxT4noYoYDmsoUEtBixE2hPXLPUX6Ea+ev+KLEXOekjjyV8aiFeY1h
+ Fulel+i+ylXz6Qb4YJVE626BIHs3nTf+NQVV9Cprs+GneczDXD5Vr2kLobEV8dW9njuo
+ JhJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779640434; x=1780245234;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wrvxcU9Tac+9ZjUKvUObJ9gemc2+OvvMLP3GIcBqox4=;
+ b=tTnitc6rOHqxKKqI6Z2yylbV75EvpIk7doi3KBB4/OTIMtenq0Dv22YqObrDePQsxL
+ otdBJwlWlDiyTdQJRoib95sSUQUN45DYTSv0z4YZuNK8INQnMkyuItbuXX2N2kg8fQaY
+ m+E9EKgOSwpc6bHdiQX4QQ8Oib17VQ0E7PMqbLfRLRSgMfYfsp6XiVRorXZOh4kQYZCR
+ CRrd7G7c5z+0ETcXlKB7mM47ab3SgGIvYhXoxu3K0dup5fnzN1ggygVvzbvr/iTTEFra
+ zQL0EqIDt8Vfyaiq+Uuc+Y64YAu4rCjon3djrlP/OzAI8Zh18lVAnlM4d838HMT8jSKl
+ z2xw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/N5st0cScPjXb2klwWG4pms/aI9awOJilXkn0kqH+U61q7ONIOr20lNmmUFczy0rpKREiPBu2g+FU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwGfNZy2amebzaleIG0ZBeZNMgr2gfX6Sf8LxewgQfJmFqEnzaj
+ /G3lkuHxuRCsTWr/VPbcDkSAZdAcoEHcBTyUFFo9cKahkCDlxQYjqbw74ceH24pN/YV3ztkseMl
+ y1nVlNvrcXxu6dn2A8bduIkVNFXhfr4vMy+UjYuaq9ZDrkz5gdLZ12taNuU86cf+w/pJ+cs4=
+X-Gm-Gg: Acq92OF1WBS20CkmoEhGt0SIlKuz5Xs1DOwITilPghJATF/RXJSvspxfxAGRzpDAbOa
+ qzFg275tD28claSL9YASTMiR5IiW96sCMy8Y/FaNU8gpU9OYtQ70BI9KJy3uD1parwFAWoUAlJm
+ EhGFIkW6qAfDKao9wKdxE0677EYYqeOMk24CndSbrdeYnOT6Hhi1MSO4rSC8bfM8JlqnlB4IVau
+ ZKzqO7uI3suinPdFRj4sLYIinfJ1C5lEBRJtoG8oF885WnvP/Z5bQaD+CU2e9KLeNxTKNUvVN0i
+ b+Bm3OJ9A5IqeV/VKSad5zodqLCcbubAcW7zyPBlbEntHI+2CpssYZgeNC7eNAkjT4oMt1rQHU9
+ Jy+nVbgKLYT4t4YHl1hwEVbRBnCWp4BmS9X+XjLQiX5Gp7uiDsCmvOTxi44a6MmItw7PKm5swOW
+ LY+wQi06xCYeSiQXFCQdcp+JwTKDSOUL+0NNc=
+X-Received: by 2002:a05:6102:3e22:b0:631:ab8b:c348 with SMTP id
+ ada2fe7eead31-67c803c8b93mr5581656137.8.1779640434550; 
+ Sun, 24 May 2026 09:33:54 -0700 (PDT)
+X-Received: by 2002:a05:6102:3e22:b0:631:ab8b:c348 with SMTP id
+ ada2fe7eead31-67c803c8b93mr5581642137.8.1779640434160; 
+ Sun, 24 May 2026 09:33:54 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa32ceb258sm2040482e87.48.2026.05.24.09.33.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 24 May 2026 09:33:52 -0700 (PDT)
+Date: Sun, 24 May 2026 19:33:51 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Graham O'Connor <graham.oconnor@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robin.clark@oss.qualcomm.com, lumag@kernel.org,
+ abhinav.kumar@linux.dev, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/6] firmware: qcom: scm: Allow EFI variable access on
+ Radxa Dragon Q6A
+Message-ID: <65pjothj3tjvfmpjemktdinmeouxnuodkhjx3s53it2spmldwz@l2jhbuxeutyk>
+References: <20260522060645.4399-1-graham.oconnor@gmail.com>
+ <20260522060645.4399-3-graham.oconnor@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260524-vop2-bg-yuv-v1-2-dcb6a52923f5@collabora.com>
-References: <20260524-vop2-bg-yuv-v1-0-dcb6a52923f5@collabora.com>
-In-Reply-To: <20260524-vop2-bg-yuv-v1-0-dcb6a52923f5@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260522060645.4399-3-graham.oconnor@gmail.com>
+X-Proofpoint-GUID: BjW8o9zLYQqrjE393pEN_CjP6QrlnE9W
+X-Proofpoint-ORIG-GUID: BjW8o9zLYQqrjE393pEN_CjP6QrlnE9W
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI0MDE2NyBTYWx0ZWRfXx/NEjzQLSZoq
+ TRO3TvG/co/VWfWcUhYJYnOl4ntVTE3J/sEc23y1Cl7C2Re9UT0kOnJxY30Qf7XNIJnE2DZrO1+
+ iKwx02Fh3h2LFrnI1F6L6SLzxk1p5KeD8OPZZc4g4LRASZo8idDjm5za1CoSBFbLqLFjuibhLjq
+ /PxtHhiOcs0djuGOvish1MfbBb/jS2Y5+6wD4T7UZObdTaQ+n3Tygc6J3Mu5L0esocoj9KEMt9Z
+ OSzH3eIl2aYMKZ35jNN3h/RGAmpmsy1bROtorpa/Z5/UquYa/Y7V7dgjd0Sirg4f7IJosFjg1BG
+ uQR+eZ4heFm/Ve8XtPVoVV2Vpts1wbGXe0m0lDFRTYBx5zSyHT75QBKgOQXm0EflWOtiwiK+e0o
+ nbLDq7IWR3XOuCexuSFb1y5E0tlK7FWP5PqVsUtVfVq1wWJGfL4cOASAg7wFZF2zH5tr3rerBx5
+ 1J8HY5Mywm2JCxL3nOA==
+X-Authority-Analysis: v=2.4 cv=Do9mPm/+ c=1 sm=1 tr=0 ts=6a132877 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=pGLkceISAAAA:8
+ a=tsHZmUjQ-Mj4z8azS1oA:9 a=CjuIK1q_8ugA:10 a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-24_05,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 suspectscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 phishscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605240167
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,235 +142,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The VOP2 background color must be programmed with 10-bit precision,
-using YUV format when the overlay operates in YUV mode, and RGB
-otherwise.
+On Fri, May 22, 2026 at 06:06:41PM +1200, Graham O'Connor wrote:
+> Add the Radxa Dragon Q6A compatible string to the SCM allowlist to
+> enable EFI variable access on this platform. Without this entry,
+> the SCM driver refuses to service EFI variable requests, preventing
+> the system from reading and writing UEFI variables.
 
-Add the required RGB-to-YCbCr conversion logic, covering all color
-spaces supported by the display controller: BT601L, BT601F, BT709L and
-BT2020L.
+Which medium is used by Q6A to store UEFI vars?
 
-Since the color is currently programmed to hardware on every atomic
-commit, minimize the computation cost by splitting the work across the
-two paths: in atomic_enable(), perform the conversion unconditionally
-(the hardware state is unknown after power-on), while in atomic_flush(),
-perform it only when the DRM property has actually changed.
-
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 152 ++++++++++++++++++++++++---
- 1 file changed, 137 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 64ac07cb1b0d..e3f7ed2ff285 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -644,6 +644,88 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
- 	}
- }
- 
-+/*
-+ * RGB-to-YCbCr conversion based on color_to_ycbcr() and rgb2ycbcr() from
-+ * drivers/media/common/v4l2-tpg/v4l2-tpg-core.c.
-+ *
-+ * Limited-range Y offset & chroma midpoint are expressed in 16-bit space.
-+ */
-+#define RGB2YUV_LIMITED_Y_OFFSET	(16 << 8)
-+#define RGB2YUV_CHROMA_OFFSET		(128 << 8)
-+#define COEFF(v, r)			((s32)(0.5 + (v) * (r) * 256.0))
-+
-+struct rgb2yuv_matrix {
-+	s32 y_r,  y_g,  y_b;
-+	s32 cb_r, cb_g, cb_b;
-+	s32 cr_r, cr_g, cr_b;
-+	s32 y_offset;
-+};
-+
-+/* BT.601 Limited range */
-+static const struct rgb2yuv_matrix rgb2yuv_bt601l = {
-+	.y_r  = COEFF(0.299, 219),   .y_g  = COEFF(0.587, 219),   .y_b  = COEFF(0.114, 219),
-+	.cb_r = COEFF(-0.1687, 224), .cb_g = COEFF(-0.3313, 224), .cb_b = COEFF(0.5, 224),
-+	.cr_r = COEFF(0.5, 224),     .cr_g = COEFF(-0.4187, 224), .cr_b = COEFF(-0.0813, 224),
-+	.y_offset = RGB2YUV_LIMITED_Y_OFFSET,
-+};
-+
-+/* BT.601 Full range */
-+static const struct rgb2yuv_matrix rgb2yuv_bt601f = {
-+	.y_r  = COEFF(0.299, 255),   .y_g  = COEFF(0.587, 255),   .y_b  = COEFF(0.114, 255),
-+	.cb_r = COEFF(-0.1687, 255), .cb_g = COEFF(-0.3313, 255), .cb_b = COEFF(0.5, 255),
-+	.cr_r = COEFF(0.5, 255),     .cr_g = COEFF(-0.4187, 255), .cr_b = COEFF(-0.0813, 255),
-+	.y_offset = 0,
-+};
-+
-+/* BT.709 Limited range */
-+static const struct rgb2yuv_matrix rgb2yuv_bt709l = {
-+	.y_r  = COEFF(0.2126, 219),  .y_g  = COEFF(0.7152, 219),  .y_b  = COEFF(0.0722, 219),
-+	.cb_r = COEFF(-0.1146, 224), .cb_g = COEFF(-0.3854, 224), .cb_b = COEFF(0.5, 224),
-+	.cr_r = COEFF(0.5, 224),     .cr_g = COEFF(-0.4542, 224), .cr_b = COEFF(-0.0458, 224),
-+	.y_offset = RGB2YUV_LIMITED_Y_OFFSET,
-+};
-+
-+/* BT.2020 Limited range */
-+static const struct rgb2yuv_matrix rgb2yuv_bt2020l = {
-+	.y_r  = COEFF(0.2627, 219),  .y_g  = COEFF(0.6780, 219),  .y_b  = COEFF(0.0593, 219),
-+	.cb_r = COEFF(-0.1396, 224), .cb_g = COEFF(-0.3604, 224), .cb_b = COEFF(0.5, 224),
-+	.cr_r = COEFF(0.5, 224),     .cr_g = COEFF(-0.4598, 224), .cr_b = COEFF(-0.0402, 224),
-+	.y_offset = RGB2YUV_LIMITED_Y_OFFSET,
-+};
-+
-+static const struct rgb2yuv_matrix *
-+vop2_rgb2yuv_get_matrix(enum vop_csc_format csc)
-+{
-+	switch (csc) {
-+	case CSC_BT601L:
-+		return &rgb2yuv_bt601l;
-+	case CSC_BT601F:
-+		return &rgb2yuv_bt601f;
-+	case CSC_BT2020L:
-+		return &rgb2yuv_bt2020l;
-+	case CSC_BT709L:
-+	default:
-+		return &rgb2yuv_bt709l;
-+	}
-+}
-+
-+/* Convert an RGB (16bpc) to YUV444 (16bpc). */
-+static void vop2_rgb16_to_yuv16(enum vop_csc_format csc, u16 r, u16 g, u16 b,
-+				u16 *y, u16 *cb, u16 *cr)
-+{
-+	const struct rgb2yuv_matrix *m = vop2_rgb2yuv_get_matrix(csc);
-+	s64 rs = r, gs = g, bs = b;
-+	s64 ys, cbs, crs;
-+
-+	ys  = m->y_r  * rs + m->y_g  * gs + m->y_b  * bs;
-+	cbs = m->cb_r * rs + m->cb_g * gs + m->cb_b * bs;
-+	crs = m->cr_r * rs + m->cr_g * gs + m->cr_b * bs;
-+
-+	*y  = (ys  >> 16) + m->y_offset;
-+	*cb = (cbs >> 16) + RGB2YUV_CHROMA_OFFSET;
-+	*cr = (crs >> 16) + RGB2YUV_CHROMA_OFFSET;
-+}
-+
- static int vop2_convert_csc_mode(int csc_mode)
- {
- 	switch (csc_mode) {
-@@ -1554,12 +1636,58 @@ static void vop2_dither_setup(struct drm_crtc *crtc, u32 *dsp_ctrl)
- 				DITHER_DOWN_ALLEGRO);
- }
- 
--static void vop2_post_config(struct drm_crtc *crtc)
-+static void vop2_bgcolor_setup(struct drm_crtc *crtc, bool force,
-+			       struct drm_crtc_state *new_crtc_state,
-+			       struct drm_crtc_state *old_crtc_state)
-+{
-+	struct rockchip_crtc_state *new_vcstate = to_rockchip_crtc_state(new_crtc_state);
-+	struct rockchip_crtc_state *old_vcstate = to_rockchip_crtc_state(old_crtc_state);
-+	struct vop2_video_port *vp = to_vop2_video_port(crtc);
-+	u64 bgcolor = new_crtc_state->background_color;
-+	u16 y, cb, cr;
-+	u32 val;
-+
-+	if (!force && old_crtc_state->background_color == bgcolor &&
-+	    old_vcstate->color_space == new_vcstate->color_space)
-+		return;
-+
-+	/*
-+	 * Background color is programmed with 10 bits of precision, using YUV
-+	 * format when operating in YUV overlay mode, and RGB otherwise.
-+	 */
-+	if (new_vcstate->yuv_overlay) {
-+		vop2_rgb16_to_yuv16(new_vcstate->color_space,
-+				    DRM_ARGB64_GETR(bgcolor),
-+				    DRM_ARGB64_GETG(bgcolor),
-+				    DRM_ARGB64_GETB(bgcolor),
-+				    &y, &cb, &cr);
-+
-+		val = FIELD_PREP(RK3568_VP_DSP_BG__DSP_BG_RED, cr >> 6);
-+		FIELD_MODIFY(RK3568_VP_DSP_BG__DSP_BG_GREEN, &val, y >> 6);
-+		FIELD_MODIFY(RK3568_VP_DSP_BG__DSP_BG_BLUE, &val, cb >> 6);
-+	} else {
-+		/*
-+		 * Since performance is more important than accuracy here, make
-+		 * use of the DRM_ARGB64_GET*_BPCS() helpers.
-+		 */
-+		val = FIELD_PREP(RK3568_VP_DSP_BG__DSP_BG_RED,
-+				 DRM_ARGB64_GETR_BPCS(bgcolor, 10));
-+		FIELD_MODIFY(RK3568_VP_DSP_BG__DSP_BG_GREEN, &val,
-+			     DRM_ARGB64_GETG_BPCS(bgcolor, 10));
-+		FIELD_MODIFY(RK3568_VP_DSP_BG__DSP_BG_BLUE, &val,
-+			     DRM_ARGB64_GETB_BPCS(bgcolor, 10));
-+	}
-+
-+	vop2_vp_write(vp, RK3568_VP_DSP_BG, val);
-+}
-+
-+static void vop2_post_config(struct drm_crtc *crtc, bool force,
-+			     struct drm_crtc_state *new_crtc_state,
-+			     struct drm_crtc_state *old_crtc_state)
- {
- 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
- 	struct vop2 *vop2 = vp->vop2;
--	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
--	u64 bgcolor = crtc->state->background_color;
-+	struct drm_display_mode *mode = &new_crtc_state->adjusted_mode;
- 	u16 vtotal = mode->crtc_vtotal;
- 	u16 hdisplay = mode->crtc_hdisplay;
- 	u16 hact_st = mode->crtc_htotal - mode->crtc_hsync_start;
-@@ -1605,15 +1733,7 @@ static void vop2_post_config(struct drm_crtc *crtc)
- 		vop2_vp_write(vp, RK3568_VP_POST_DSP_VACT_INFO_F1, val);
- 	}
- 
--	/*
--	 * Background color is programmed with 10 bits of precision.
--	 * Since performance is more important than accuracy here,
--	 * make use of the DRM_ARGB64_GET*_BPCS() helpers.
--	 */
--	val = FIELD_PREP(RK3568_VP_DSP_BG__DSP_BG_RED, DRM_ARGB64_GETR_BPCS(bgcolor, 10));
--	FIELD_MODIFY(RK3568_VP_DSP_BG__DSP_BG_GREEN, &val, DRM_ARGB64_GETG_BPCS(bgcolor, 10));
--	FIELD_MODIFY(RK3568_VP_DSP_BG__DSP_BG_BLUE, &val, DRM_ARGB64_GETB_BPCS(bgcolor, 10));
--	vop2_vp_write(vp, RK3568_VP_DSP_BG, val);
-+	vop2_bgcolor_setup(crtc, force, new_crtc_state, old_crtc_state);
- }
- 
- static int us_to_vertical_line(struct drm_display_mode *mode, int us)
-@@ -1628,8 +1748,9 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 	struct vop2 *vop2 = vp->vop2;
- 	const struct vop2_data *vop2_data = vop2->data;
- 	const struct vop2_video_port_data *vp_data = &vop2_data->vp[vp->id];
-+	struct drm_crtc_state *old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
- 	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
--	struct rockchip_crtc_state *vcstate = to_rockchip_crtc_state(crtc->state);
-+	struct rockchip_crtc_state *vcstate = to_rockchip_crtc_state(crtc_state);
- 	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
- 	unsigned long clock = mode->crtc_clock * 1000;
- 	u16 hsync_len = mode->crtc_hsync_end - mode->crtc_hsync_start;
-@@ -1799,7 +1920,7 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	clk_set_rate(vp->dclk, clock);
- 
--	vop2_post_config(crtc);
-+	vop2_post_config(crtc, true, crtc_state, old_crtc_state);
- 
- 	vop2_cfg_done(vp);
- 
-@@ -1874,6 +1995,7 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
- 				   struct drm_atomic_commit *state)
- {
- 	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	struct drm_crtc_state *old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
- 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
- 	struct vop2 *vop2 = vp->vop2;
- 
-@@ -1881,7 +2003,7 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
- 	if (!drm_atomic_crtc_needs_modeset(crtc_state) && crtc_state->color_mgmt_changed)
- 		vop2_crtc_atomic_try_set_gamma_locked(vop2, vp, crtc, crtc_state);
- 
--	vop2_post_config(crtc);
-+	vop2_post_config(crtc, false, crtc_state, old_crtc_state);
- 
- 	vop2_cfg_done(vp);
- 
+> 
+> Tested on Radxa Dragon Q6A (QCS6490)
+> 
+> Signed-off-by: Graham O'Connor <graham.oconnor@gmail.com>
+> ---
+>  drivers/firmware/qcom/qcom_scm.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+> index 6b601a4b8..4702ad898 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
+> @@ -2320,6 +2320,7 @@ static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_unused = {
+>  	{ .compatible = "qcom,x1e80100-crd" },
+>  	{ .compatible = "qcom,x1e80100-qcp" },
+>  	{ .compatible = "qcom,x1p42100-crd" },
+> +	{ .compatible = "radxa,dragon-q6a" },
+>  	{ }
+>  };
+>  
+> -- 
+> 2.53.0
+> 
 
 -- 
-2.54.0
-
+With best wishes
+Dmitry
