@@ -4,101 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 624DBCD5BC0
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70CD0CD5BBF
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F37B10E3E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC50010E3ED;
 	Mon, 25 May 2026 06:20:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FRGkHE9j";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OTbotCAh";
 	dkim-atps=neutral
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
- [209.85.128.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 927CE10E34A
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 21:33:21 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id
- 5b1f17b1804b1-490426d72f7so22700235e9.3
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 14:33:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779658400; cv=none;
- d=google.com; s=arc-20240605;
- b=RpfOH3s8CWjixn4VjWxGmo5XRyXYBw0d4wG6WVyD7HpLPWKeMzzcBtzteKFb0WJSZb
- jm1b68e/35XfWcgasBflvD+Jpxbb7rcZSg+YI6I0FtahFN+yLPxE6mOIkoHnIlOGuGfv
- CR+6tJi/j8Pj+uj2C+CZ5GfOARepWvHdSuZZ1u0M6X98rGQMGGynY8yAFVuCCl0IFOlu
- aaGEpqyDooglQ0897jaS2Jbn7luEW4Lz4bL74wgecJhHJVfY9ki3dXEzfDoOiqdSrDRB
- ZicxiPPYz6uCdzvU6CiScVYa0gQlOocygS4KPNnyLNmqh0NjaupYp7H9Rxr2+W+g3Mia
- kc+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=RfBHHtWh1E5iPfg08hDGPxdg+iSUq3Vo7ZICvTuwHxk=;
- fh=rDltgjhaWmGCx9BMA1PIrNR2540oPvM8yw2Pjefp/ZY=;
- b=MTQ3CDF4tjKjZj0VDfZNWjeOayKx3uw0UZJ5DMzmnLSb/c8ZpRoCL2kjGbXZIoaza8
- X8PHGr/Vv6+2yAGcDLfF3YdNWLWuMux06vLsGGjeAIQFq0iXOYSCsn+piuS40UYL8Vns
- IoFwHnoVYoPyPpQuIrBk5H47B5s/pUUUP26s7gT0By/noO/FNlSjFKONFd61SxNefP/8
- GJq/G7867bArYTeL7pup+t38zD0hgr4fZySWLigeolCeMZRX0U2hPjeADgvyYyVaW+8S
- +wQjMdw7jirX4fMcZaJyZX4JgnFrvfR2s5mx5xglT8XJ6Q0FQsKtTLEHmPGUJLqfEfT2
- SrtA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B231910E062
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 05:18:36 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2bd9c3b550aso60680475ad.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 22:18:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779658400; x=1780263200; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=RfBHHtWh1E5iPfg08hDGPxdg+iSUq3Vo7ZICvTuwHxk=;
- b=FRGkHE9jAhuLY7lflKPlQcu98V+coRIiYtVFdgNep5JC9N/ZznUw6FrVr00qPB9klt
- 9VxoNF1Y2m0bhaqs0yk3LuQkI01ChzmYiOkiiOsavveRredKXc+RoMAozcYyNkD8KVLs
- chvgxwM0HKqd1qhS8d9xIdZxUbHh1T0sq/9fFlZCv3b6OB4SjH48h5Fbx/KsfrbVsDTg
- T4ouxZ3SYp/hz+X/gaKTKE0ajn5Fse36U/aBkeSGU20SqQMwb8Rtp72mD19TA7Jp7RA/
- 3V26W+Wja3fItUJG4UB7LJKT8JnM3jsV1BE9i//1m9AfopopnqMlqu1FHfjSrVnNHNjz
- RdAQ==
+ d=gmail.com; s=20251104; t=1779599916; x=1780204716; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Qirud4yg6ff64Rz1Y6X2KitE2QcTgww2RA7TfD1h/wM=;
+ b=OTbotCAhydeYUbvZMp/2nODdhfEMugTb3HGA9Eyo8EPhAL3D6NE4D2aW8bsd9R+VNB
+ C9IGiNZyIAbaY1jeQPSCXqQFrWed5pBqFIhNihjjMleXchH/D7VPLuaMMLA7uyOMxQ8z
+ nDFsV/lCfRe52RhbfPwVnvoQJnTEmaIXOjgmu69srpwlrx8RqrDzxcCQ75nMtxzxxb21
+ gLdjUOHXrZb/v1MDrizmerBDxS6pvtQXSOd/+WeTa+tvfok6b1yHqw1wFXhkymr1gxTt
+ zKDb92ejqHk3ai/jn7TCoelZgQ2Y3wx5oc7Z01TZx3btxDk1s4XjEdQWhAX6yjunVPNj
+ 43Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779658400; x=1780263200;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RfBHHtWh1E5iPfg08hDGPxdg+iSUq3Vo7ZICvTuwHxk=;
- b=OQRD01+XAUE7H74tGDVenVtE7MIxthJSSBmhS4VChOBqA2WxE1fV+6pOHwSfZMrt2h
- 8U8iWgS35Olm+7ls9ADHxYinN8lMLHbC7gv7/KzsDSDJsAr5lyUszQZR/mk1QEWuN5LK
- h+/9MRQOZIN3PVja99fAAovHtQowzMvLRxUtG/4SN1LKh/bF4D6951SVd0LKIRzYPvEh
- oTX43cpRNbkktLSx5fm4djN3Pr6oXfwLq7SR9vyYHmo7nbWXIJPbZhWA2fLiQJIxT0jx
- 0U9Xm3Q3QWVigbw5Pz8SRCo2EhsugdXJzZlYxu+DLv4DL6Z82Uiy6mCGrqw4suXxrw2F
- gziw==
+ d=1e100.net; s=20251104; t=1779599916; x=1780204716;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Qirud4yg6ff64Rz1Y6X2KitE2QcTgww2RA7TfD1h/wM=;
+ b=rlLJy6iKzW+OKThCiPwiMk4zjqDV4uZT781ZyIc6kMASNbG1zxFXjsjw4Y0w6OcPb1
+ KDnEMv3mnUyEImmI/WrXDHxDuH1A+d6Ru2drykYOoeaiVKQ3Al/tRsMQxXXKCQVhI2az
+ g/W+xpOtbCufYmzEqvuCV6F/dQpBy33Sa5fSguOm8lHktUrF0ozc8insXDkr2LohzNQu
+ /U2f6qqL4zvLANZmd+2h0paio7GLTNQI2dON1Ugn2Wq7bXat6v7643ZVczMyBzUfB8pR
+ DqAU3f/74s0+zGH+V4F+sxiVa0hoDFIl99QoMME3+pk8jv7TuDHle/u5k7qZcm53Mr2p
+ 1Vug==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9E5Fv3H6POYHKhgqw6lYIiC0ZDVDXK5fiHltr+OPwjwXCPoK+JfCnpPa1u5ptzBgE8h5u/PqoocZ4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyrFxc6+A/D4aJdoEGMBXO54XUIjGPRsqPtvZY/kNDOHw4nzOWX
- 9FiHHnQZ+xniOEDwmG7vfh2X6j8pfXOst4zsv3X0yTreiYE+rCjCtMXHPQYZfWY07Q6u1rQ72k2
- JG2youTv+yXEJPGF8gADGfq+apCWUwZk=
-X-Gm-Gg: Acq92OFDa5Ab8Luzfcz4dT2Ocg2RQdPNc+PXNSbrIyHR3HmBUr80Kaf1gs6HBjCgITD
- EgK0kvYFWQzU1q4zv63/d1XcxgfI5vcNQYltZhes6TzrOxFMVKcxGASfK/8/UcgSna6xfnmtRS6
- UuGr6BrY+wLuL8VXJ5PLHbqn84rh7bIwWJ2tPf92VUXrRv09m9oDTJZ8ox9d6BZnF0UDIZn/RSy
- foQp/z1x4Xxp0fPe6DfnE8B4ta7QmoOuWGtGeDwhsD4DDZC/++D+K8FHsa7ZYWryFDCLBMzhJSK
- Mj7k4FXXNepkK+NDj7Ds6h1Gk2JFu90WGd80vJVkkTsbBJ4gflXz
-X-Received: by 2002:a05:600c:19cb:b0:490:507c:bdb1 with SMTP id
- 5b1f17b1804b1-490507cbed4mr133267705e9.15.1779658399829; Sun, 24 May 2026
- 14:33:19 -0700 (PDT)
+ AFNElJ8TEOeGnCM5BRjXDQLuLf7PnsKI7rq6CeULs9nzaWkXCrqPPWJNWuqW2o+FMrB7Bqq8z9svQvofirI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzZcuh+z3OWbNeHSmzHV6jD/ad3fu6Z8iE4DLj2uXhQPfP3WNtd
+ NnCwFXUW7q5CMyOTvHw9AVk10VAauTBpfMH71t0PIEyI24EiysyiwrKC
+X-Gm-Gg: Acq92OGEI/7qcLt+zmxOibKhiJg6gVWkMqstxhch+63fCkS8anRSHpaYeJY7hnbjKWZ
+ X1sEKO8ZVi2sgwmmyW3xuWQ2LR4+wDyMVZRdlgV+O4sE6RNqSp3ZXSJVnwVqBdnutg/Yro4zhCW
+ ZsWE1WhZRIjsukW/NBfPZOjwGEMzPuS3tuD/PZ022a9Z6ZR76LG5LjG+GlHNczYvZ0E4THM2sSn
+ UFonknVk/Uzfh46tyrzH7nItyhK45ZVvjP5SjhKjh8kI+4o4g/efgBrl/qlhh4nGpa7ACWQHjF6
+ 2QjlxXeNIfK4N1oOPqRjE84hHV9SFXTONFYQKvcO5+x9qHjS5wzZiKnoWMD79Ceb4TGfdPsN1g5
+ XEMvyqByJ3BfEed6DYfuDiXndTGiR7mh4cELEA+Oojdk0SqyC4qgnmv1I602991H09s8dFuClx9
+ EuF9EMsg2qLUBclMI4JgPEN6GuKc9j/9ykMy8fr2TntKYOZ/YThrcOiaemUGqzeDQZvrbrn1ipB
+ 2N4gDX3e4GT5Xr7JLzL7mu3EQwovjg1oWeuWroF7h/2/Y6MdaQuVOvm0M49mlWLo+46VcEI1gil
+ +5ovr2E1yHBaDfY=
+X-Received: by 2002:a17:902:f549:b0:2b2:6df1:1112 with SMTP id
+ d9443c01a7336-2beb07757ebmr102149795ad.40.1779599916185; 
+ Sat, 23 May 2026 22:18:36 -0700 (PDT)
+Received: from
+ codespaces-78f0a7.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net
+ ([4.240.39.196]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2beb56c4f8fsm59058805ad.26.2026.05.23.22.18.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 23 May 2026 22:18:35 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: robh@kernel.org
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, tzimmermann@suse.de,
+ Frank.Li@nxp.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH] accel/ethosu: fix integer overflow in dma_length()
+Date: Sun, 24 May 2026 05:16:58 +0000
+Message-ID: <20260524051659.70654-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-From: Misty Robinson <11111577m@gmail.com>
-Date: Sun, 24 May 2026 17:33:09 -0400
-X-Gm-Features: AVHnY4LYUQ0Tyb2yqL4DCU3LkzUo1pVpr98xcI4oG9pyvGMAS9XPi4QkbHlPExg
-Message-ID: <CAFufjN0cNAx9=xfNOTVZzm9wi8TjWGCRd0Bu_7P_QQUHj_BYNw@mail.gmail.com>
-Subject: Re: [PATCH v5 05/19] drm/mode-config: Document drm_private_obj
- exclusion from drm_mode_config_reset()
-To: mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com, alex.hung@amd.com, 
- andrzej.hajda@intel.com, contact@emersion.fr, corbet@lwn.net, 
- daniels@collabora.com, dave.stevenson@raspberrypi.com, 
- dmitry.baryshkov@oss.qualcomm.com, dri-devel@lists.freedesktop.org, 
- harry.wentland@amd.com, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com, 
- jernej.skrabec@gmail.com, jonas@kwiboo.se, joonas.lahtinen@linux.intel.com, 
- jyri.sarha@iki.fi, kernel-list@raspberrypi.com, 
- laurent.pinchart+renesas@ideasonboard.com, 
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, 
- maarten.lankhorst@linux.intel.com, mcanal@igalia.com, mwen@igalia.com, 
- neil.armstrong@linaro.org, rfoss@kernel.org, rodrigo.vivi@intel.com, 
- samuel@sholland.org, sebastian.wick@redhat.com, simona@ffwll.ch, 
- skhan@linuxfoundation.org, tomi.valkeinen@ideasonboard.com, 
- tursulin@ursulin.net, tzimmermann@suse.de, wens@kernel.org
-Content-Type: multipart/alternative; boundary="000000000000be51920652970205"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 25 May 2026 06:20:29 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,14 +92,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000be51920652970205
-Content-Type: text/plain; charset="UTF-8"
+dma_length() computes the total DMA transfer length as:
 
+    len = ((len + stride[0]) * size0 + stride[1]) * size1
 
+where len and stride[] are 64-bit values derived from user-supplied
+40-bit command stream fields, and size0/size1 are user-supplied u16
+values.
 
---000000000000be51920652970205
-Content-Type: text/html; charset="UTF-8"
+The final multiplication by size1 (up to 65535) on an intermediate
+result that can already be ~2^55 easily exceeds 2^64, wrapping the
+u64 result to a small positive value.
 
-<div dir="auto"></div>
+This wrapped value is then stored in info->region_size[] and compared
+against gem->size in ethosu_job.c:
 
---000000000000be51920652970205--
+    if (cmd_info->region_size[i] > gem->size)
+        return -EOVERFLOW;
+
+A userspace caller can craft stride and size values so that the
+calculated length wraps to zero or a small value, passing this check
+while the hardware executes a DMA transfer with the original large
+strides, accessing memory far outside the GEM buffer.
+
+Fix by replacing the unchecked multiplications with
+check_mul_overflow(), returning U64_MAX on overflow. The callers
+of dma_length() already treat U64_MAX as an error sentinel.
+
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ drivers/accel/ethosu/ethosu_gem.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 5a02285a4986..1f132611a6ce 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -2,6 +2,7 @@
+ /* Copyright 2025 Arm, Ltd. */
+ 
+ #include <linux/err.h>
++#include <linux/overflow.h>
+ #include <linux/slab.h>
+ 
+ #include <drm/ethosu_accel.h>
+@@ -165,11 +166,13 @@ static u64 dma_length(struct ethosu_validated_cmdstream_info *info,
+ 
+ 	if (mode >= 1) {
+ 		len += dma->stride[0];
+-		len *= dma_st->size0;
++		if (check_mul_overflow(len, (u64)dma_st->size0, &len))
++			return U64_MAX;
+ 	}
+ 	if (mode == 2) {
+ 		len += dma->stride[1];
+-		len *= dma_st->size1;
++		if (check_mul_overflow(len, (u64)dma_st->size1, &len))
++			return U64_MAX;
+ 	}
+ 	if (dma->region >= 0)
+ 		info->region_size[dma->region] = max(info->region_size[dma->region],
+-- 
+2.53.0
+
