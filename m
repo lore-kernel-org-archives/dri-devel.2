@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 321DFCD5BC7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDCA1CD5BBF
 	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:20:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CC3810E3F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 944AD10E3FB;
 	Mon, 25 May 2026 06:20:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TnizGh9q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BQDeqPgQ";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0620E10E303
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 14:27:19 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-c736261ee8dso3860081a12.1
- for <dri-devel@lists.freedesktop.org>; Sat, 23 May 2026 07:27:19 -0700 (PDT)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED91B10E0EE
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 13:03:29 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-c736261ee8dso3996593a12.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 06:03:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779546438; x=1780151238; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779627809; x=1780232609; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=mzFTxVPO2bV5wPss4Z0njUQ82fwBRkchQ0evEohJCFc=;
- b=TnizGh9qSUupuiq/OrfRcThb61tLXPUKJl47v9sWOajpEmNKq8in3Wy3ZKPFQN2uFB
- BRLY79+5jFGZk76WUH64oGL7rm2S8Ay1JKcCW2ArEMFwjPgzpeuJASGN3gk2syvU5E05
- 5YW33p61NA55xQGzfrZWBTZOoelRFZoZwXBQy2NH4QJJPGek2MHJp7fXaMXwyiA1DlQ4
- MYaFb6Y+R90mQnA8YjDc5F9AsKxRWkdht+ZYm+g+71bQTc+7x2VeBXNNAtn6km5S4Yv2
- B+GVC1wGZ52C3n+IAnokyPni97Cexn0Tf89bKauto8gD9Va7XPlqiGoguQi786BzpMif
- H4yw==
+ bh=kj4rwdcY67VyrdGlOu4L8pJ9Vyfha/VtjkF5I+0OLKM=;
+ b=BQDeqPgQMBxj1dJ1M6cZ302XDO7kfb8TfzhqNQL7OzaTsXiGDWeX/AXlcH5jwtRUUs
+ yAacIkX3BhdddhTv3X3hlxGvDiexCVAw74tYdeIA4KMvF71FHaolJtg3FthTdHskMeGJ
+ lJ7QWDI3YMmHg3cPpV0GaYFOQ/RNy0ReMAoxXMcv4AnhyY7t3886nKLdyfyHS0v9cxpK
+ GsHwdd+Ad/U1ltLkVcVBncRZhr9CdtW7hnn1nFnBY4EftQkWosRwN7nYCbZGKWgtM3Ru
+ HCO36IrLx7eOcTDRUbIVN9yLNtmyt6KGDPrbtQBq0imBt6oghPFahMMK5YQ9H6B8jPP+
+ 0GrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779546438; x=1780151238;
+ d=1e100.net; s=20251104; t=1779627809; x=1780232609;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mzFTxVPO2bV5wPss4Z0njUQ82fwBRkchQ0evEohJCFc=;
- b=bmVJGFd4QzX4nvFjMV05GMImBKB5aeFPhkdcByCyFdYV3QvRlCDKuS9iJpWDbTpfYM
- 6pQFEfjso9ySHtUULWb2WTH7nGJDgrhRc/2Xm+98gJP+L9c6rWNdTK+1Uztj9ROHl2C/
- RWXFJppq3+Lqeu3AmMrkjOj0kD3Y2Xlw50uiGfMHCdIT2yBp9gVn5cirxDbzWHKqsMfq
- MPUSc34/MBT9ec0jTJKuM7nsQr2oTtVA+zEsbPVeAdXyJ3UzKm5gUZqqWcKs7X/mKe6h
- 1u+NQees4e5kdMW3nLBoDRY2ZF88U6BUwxFuKDRQpJiMWXP+qHkzfmZWIepojZm0tCWQ
- fzuA==
+ bh=kj4rwdcY67VyrdGlOu4L8pJ9Vyfha/VtjkF5I+0OLKM=;
+ b=iqcpuH2L/pilzuqqCWVN8Grlh+JWs/8CSY1DxZ5/fOD1kY4C8DckJAsRbGuTOF2Yh2
+ NB2zsNDiFD43lwSOm9SE7UVcDYlz6WrjeNZwxjEa1vxO75gd2bhMsjxG2/+jz+g74Gcv
+ pIGndFjW8YnuGItt88zfBibnRpzVr2hGUJDbR3c6vKhdCIs9B3rAY54O/ClsG0T/lx/3
+ BsiGsFqaOTmlSKtZPF+waZ0OxJvB+Ki0dYGn9vzwspUsZAtwIIT6GrD0DgTM/UYO3vHH
+ D7Nu1d2RGZzr43WyGt7ikY9a5sKvaMFCZGQ6F85JttfUbrHyVOMtCnaExvl3hP9d3v3A
+ iaLg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8YYkqY0cJ8Wfzh2uiwt7D76vRji1a2p5J6vlpr8jaL8gOHcVZ2NfWpcYF78VZVULQUiar0DDMnLbo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJt3zEjYuz0tNDDLnBBBa1kBvRGkW4BhRXlt8XPXR0uAJ/Oww0
- Tn/2M+Z1UXJpXhuV8mt8qCXT/hWIzAEGatK875SNaq4+TEAcRhnvO6bTSfTCRM6fubBdKJA6
-X-Gm-Gg: Acq92OHl+ejIwkUznj3epexvfM+f1b8k3x664v8GN5RX4ENPo9Wezqb2iqn3+JbF7bd
- 0yEktkQnbpuaIUYF0UcKaSk5kWQH0OzYDJJH7uHvfMaBitjyLCt0aDwg49Q7aY9q+bQgZIUZvCZ
- kPULERyfmA3xJOLPQswtkcVYCXyZ72C5agYIqPN4PQyX1qWuAWfZEX/L36ymormSgXk0tFWv+Lk
- IyTVKNXKmzBgf5ATwj/DjlHQZ5owMTXBIKSOmLhTJSZfCmm0LTqaZKyvikMqj7h0SEu0rdfP5R/
- CmRyW7aKPAVYn4KhfG7+LanyWsiNIkZ5sfqkJ4hJ3F8gJdS/TV9eaao8X0jYQdLCrVCjXaYu5Ti
- D3dVXAda3GUAvKlTKjORKm4MJMptNHp6SVKUj2i4xuTymXpLxmvuKmTG9BVlC/hcaZfm5ERXaWF
- 7rwNBmXqYPH5iyaL1mOe1t5TQGccFWIi/L9Adr0sneMEBiGrMzcNfB8WSDVLsWcM4y6QYqyaE2p
- 3h5eTu33xK5xd4RszUA35OzoKtrADEbuPrT7lLgvRmjggKqGeGioDGR/wghPN8Nyk5FZHiMf3F8
- x3nz9lxzzFe+krBELUQ5ZPwooQ==
-X-Received: by 2002:a05:6a21:32a0:b0:3b3:216b:274c with SMTP id
- adf61e73a8af0-3b328cc44f3mr8711006637.22.1779546438447; 
- Sat, 23 May 2026 07:27:18 -0700 (PDT)
+ AFNElJ99Kzjcjsbm350P8y4byHuXRwEJzH86BG9zJgbOJQ8F/G3VgaSrGxK2Q5QR8Ks615EHSEeO0jLlDvA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+MSCCWH8WTXx7Lm7GFqOezIAr3HAK7/0wyKYztRZVKVbcSyib
+ z9As7PBh4li0YK8OCOQMNkBQ5wQfrTFUYvcaZlu0cEbxzYGNvucBS2vH
+X-Gm-Gg: Acq92OEiEVcJV4oyHoXXP9pXizx3cAlmPMGBf17lvXKe0dTl+gedXQsLIJFeowQUl1L
+ 5ZDVtEP+MtU+Eb57xnHc5MqzS0XEAHBbKEbaIf0zxHx0ttFj3KrtXaD2x6G1xZVSFRlC5fNWpOx
+ vgAK2rKsRb+Phjw4ujVKv/i64B+xFYhX/PmHF7zYs2zltUo9WLL1oS1RU9ic55WGktX5sK+RXd+
+ zdY6vAzvo37kDLiuOQlp2kJUYH+G4e9M4UBW/vYcjNVRvdZcqCyGl+lUKganrfO44IbqeNzq9JQ
+ EIJE6tJZ2tAyNAMijwN2eSsXV0sXBMlmbQTMaHl4uPetByr9frQou/H61zEFxa7yBhGqnOjCXev
+ yrsDpUTXHqoDrVFAzh1mgd9DYGOw0NIb289JxfLq/3yI/VkTwbh4nlADfDLaGuQHLGtq9kXssQc
+ pvNLkxcjPV428+Tp4v8tHxPlr3aHSFO8pWC3smWRsIYGWTQlN3RK+gfqTgX0H4J1pe9cX+MlC2B
+ TaTbrmhf0zDag12iEOGlGAaURBHQDzTg+jzIruEHK+LmpYvraAqY6f19wxgS1UiDFWVyPgMdI86
+ S2+9chRcv6o=
+X-Received: by 2002:a05:6a21:4d8d:b0:3b3:241f:66c6 with SMTP id
+ adf61e73a8af0-3b328e504b4mr10852348637.26.1779627809312; 
+ Sun, 24 May 2026 06:03:29 -0700 (PDT)
 Received: from
  codespaces-78f0a7.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net
- ([4.240.39.192]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84164afe2dasm4875597b3a.19.2026.05.23.07.27.15
+ ([4.240.39.193]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c8520560ff8sm5759610a12.24.2026.05.24.06.03.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 May 2026 07:27:18 -0700 (PDT)
+ Sun, 24 May 2026 06:03:28 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
-To: Felix.Kuehling@amd.com
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] drm/amdkfd: fix integer overflow in get_queue_ids()
-Date: Sat, 23 May 2026 14:26:45 +0000
-Message-ID: <20260523142645.39102-1-meatuni001@gmail.com>
+To: robh@kernel.org
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, tzimmermann@suse.de,
+ Frank.Li@nxp.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH] accel/ethosu: reject DMA commands with uninitialized length
+Date: Sun, 24 May 2026 13:03:19 +0000
+Message-ID: <20260524130319.12747-1-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -92,80 +92,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-get_queue_ids() computes the allocation size as:
+cmd_state_init() initializes the command state with memset(0xff),
+leaving dma->len at U64_MAX to signal missing setup. The only setter
+is NPU_SET_DMA0_LEN; if userspace omits this command and issues
+NPU_OP_DMA_START, dma->len remains U64_MAX.
 
-    size_t array_size = num_queues * sizeof(uint32_t);
+In dma_length(), a positive stride added to U64_MAX wraps to a small
+value. With size0 == 1, check_mul_overflow() does not trigger and
+dma_length() returns 0 instead of U64_MAX. The caller's U64_MAX check
+then passes, region_size[] stays 0, and the bounds check in
+ethosu_job.c is bypassed, allowing hardware to execute DMA with stale
+physical addresses.
 
-num_queues is a user-controlled u32 copied directly from the ioctl
-argument (args.suspend_queues.num_queues or args.resume_queues.num_queues)
-via kfd_ioctl_set_debug_trap() with no prior validation or clamping.
+Fix by checking for U64_MAX at the start of dma_length() before any
+arithmetic, consistent with the sentinel value used throughout the
+driver to detect uninitialized fields.
 
-On 32-bit kernels, size_t is 32 bits wide.  A caller supplying
-num_queues = 0x40000001 causes the multiplication to silently wrap:
-
-    0x40000001 * 4 = 0x100000004  ->  truncated to 0x4
-
-memdup_user() then allocates only 4 bytes.  q_array_invalidate() is
-called immediately after with the original num_queues value and
-iterates 0x40000001 times writing KFD_DBG_QUEUE_INVALID_MASK into the
-4-byte buffer, producing an unbounded heap buffer overflow.
-q_array_get_index() in both callers walks the same buffer using the
-same unchecked count.
-
-Both call sites are affected:
-- suspend_queues() calls get_queue_ids() unconditionally
-- resume_queues() calls it only when usr_queue_id_array is non-NULL
-
-Both callers already propagate IS_ERR() returns to userspace, so
-returning ERR_PTR(-EINVAL) on overflow requires no new error handling.
-
-The copy_to_user() calls at the tail of both functions also compute
-num_queues * sizeof(uint32_t), but are only reachable after a
-successful get_queue_ids() return, so they are safe once the
-allocation is correctly bounded.
-
-Fix by replacing the unchecked multiplication with check_mul_overflow().
-Cast num_queues to size_t so all three arguments match the destination
-type, avoiding implicit type mismatch on compilers that implement the
-macro with typeof() rather than __builtin_mul_overflow() directly.
-Add an explicit #include <linux/overflow.h> rather than relying on the
-transitive pull through linux/slab.h.
-
-Fixes: a70a93fa568b ("drm/amdkfd: add debug suspend and resume process queues operation")
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/accel/ethosu/ethosu_gem.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index e0a31e11f0ff..c08ad718dbd7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -25,6 +25,7 @@
- #include <linux/ratelimit.h>
- #include <linux/printk.h>
- #include <linux/slab.h>
-+#include <linux/overflow.h>
- #include <linux/list.h>
- #include <linux/types.h>
- #include <linux/bitops.h>
-@@ -3308,11 +3309,14 @@ static void copy_context_work_handler(struct work_struct *work)
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 8e95539da98f..3401883e207f 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -164,6 +164,9 @@ static u64 dma_length(struct ethosu_validated_cmdstream_info *info,
+ 	s8 mode = dma_st->mode;
+ 	u64 len = dma->len;
  
- static uint32_t *get_queue_ids(uint32_t num_queues, uint32_t *usr_queue_id_array)
- {
--	size_t array_size = num_queues * sizeof(uint32_t);
-+	size_t array_size;
- 
- 	if (!usr_queue_id_array)
- 		return NULL;
- 
-+	if (check_mul_overflow((size_t)num_queues, sizeof(uint32_t), &array_size))
-+		return ERR_PTR(-EINVAL);
++	if (len == U64_MAX)
++		return U64_MAX;
 +
- 	return memdup_user(usr_queue_id_array, array_size);
- }
- 
+ 	if (mode >= 1) {
+ 		if (dma->stride[0] < 0 && (u64)(-dma->stride[0]) > len)
+ 			return U64_MAX;
 -- 
 2.53.0
 
