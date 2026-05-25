@@ -4,51 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6AB1CD5BD5
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 10:12:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B0FACD5BC8
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 10:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB5710E13D;
-	Mon, 25 May 2026 10:12:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87EDD10E13E;
+	Mon, 25 May 2026 10:14:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="N1v33egE";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="NcpNvr/k";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5593710E05A;
- Mon, 25 May 2026 10:12:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1779703961;
- bh=+MxXb4nBc7rJZhFiYVaR3/C1CkpWdublLqUdpodHn/s=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=N1v33egEjVp+yHxFpO90Oyz5Zz/AaLQNzN6kGfKTshEV0J/Zuam7/Yen0nMEjzcBf
- nwPqveqi7zQvjSwL93xqT3lZxYYMjyor4GOfILYHIn6D4ixMjmbcNomyE/AMvA1ixz
- MCoeMlyAMhMFnip/hTpDcp2R6QwbIQdw/dKUjFUGa2TdazTOcDdSDO6fk4fdmLJNDr
- X9MY6O62D0Ot5NSOgVLS0P/OO7CfIRvn8KM4gs8EKdRrPDdC7nCOy9UHwzUfIGZBDq
- rbiKHIgLJ0EZy6/A33Jkr/d4FsW8yNIm7g8lJK1EZ8fvttdAyJ3uOF/ZHjEGI2JIah
- fWyjsMOfMZc/w==
-Message-ID: <f36a6be9-940f-4ad9-acef-5e192f0ed8fc@lankhorst.se>
-Date: Mon, 25 May 2026 12:12:33 +0200
+Received: from smtp.smtpout.orange.fr (smtp-28.smtpout.orange.fr
+ [80.12.242.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBB1010E13E
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 10:14:24 +0000 (UTC)
+Received: from [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
+ ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
+ by smtp.orange.fr with ESMTPSA
+ id RSKCwSmE60vWHRSKCwRtyp; Mon, 25 May 2026 12:14:23 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1779704063;
+ bh=RHF5/7UJVhD27Lwb3tHM9Ryg0OTUsaGFuxHHVJkuPxk=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=NcpNvr/k0+PeOZaoW4Nk+Iybpzmi6ytDHvD3XA9jydeEmW1P78wZ0USD+CLdeAkuk
+ ai4y2JPxyZaViQI8SK+BkPTe4+ykrdzO1mTOrZ5qGqe4hUHCVgq4Q0b2u7P5iIcGuj
+ rVLOQ8OZcaOYRJ5f1yhHkKFQskNW47SimzDKmBXgFwy4yFqQKG4JA/2NcwFz7WnrKj
+ Yxr3iCo2J4Mrnwr373rlBZWNMWbbe0z6p5R/QC+dTybMbizogzsDRkb2DpoPQWJPTR
+ WYBs8pEp0/Q28im+9cWb764Z3e6YEUsCti2zPMKtIoh9qS4WkT5JCMLV/g22LGGBQ6
+ ZZ3CbCAMRr5Pg==
+X-ME-Helo: [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Mon, 25 May 2026 12:14:23 +0200
+X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
+Message-ID: <f90481df-c68e-4c3c-be50-ad4e5e97d19b@wanadoo.fr>
+Date: Mon, 25 May 2026 12:14:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/intel/display: Add support for pipe background color
- (v4)
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+Subject: Re: [PATCH 2/2] drm/panel: novatek-nt36523: use devm_drm_panel_add()
+To: Myeonghun Pak <mhun512@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jianhua Lu <lujianhua000@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
- Chandra Konduru <chandra.konduru@intel.com>,
- dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>
-References: <20260505200133.636584-2-dev@lankhorst.se>
- <a734e41d-3665-402b-a56a-43fd4f8819ff@intel.com>
- <fef9056c-460e-4a49-bed8-f2882109e886@linux.intel.com>
- <090aca95-975d-4564-8b44-30df139800b5@intel.com>
- <f1f09a62-b36e-4ddf-b42c-dad300a72aef@lankhorst.se>
- <a24f9d8ecff945b2cdc032ae95bdc834ee9c248a@intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <a24f9d8ecff945b2cdc032ae95bdc834ee9c248a@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+References: <cover.1779640137.git.mhun512@gmail.com>
+ <c6fe4a162692b4df5525353dbdac5b88eda91a79.1779640137.git.mhun512@gmail.com>
+Content-Language: en-US, fr-FR
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+In-Reply-To: <c6fe4a162692b4df5525353dbdac5b88eda91a79.1779640137.git.mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,33 +70,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
-
-Den 2026-05-25 kl. 11:39, skrev Jani Nikula:
-> On Fri, 22 May 2026, Maarten Lankhorst <dev@lankhorst.se> wrote:
->> Den 2026-05-18 kl. 12:47, skrev Borah, Chaitanya Kumar:
->>> I will leave the name change up to your discretion. The i915 CI needs a re-run, though.
->>>
->>> With the typo and checkpatch issues fixed, LGTM.
->>>
->>> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->>>
->>
->> Addressed and renamed the functions.
->> Pushed!
+Le 24/05/2026 à 18:36, Myeonghun Pak a écrit :
+> nt36523_probe() adds the DRM panel before attaching the DSI devices. If
+> one of the devm_mipi_dsi_attach() calls fails, probe returns with the
+> panel still registered.
 > 
-> Please do not change patches while applying.
+> This issue was identified during our ongoing static-analysis research while
+> reviewing kernel code.
 > 
-> It's only okay to tweak commit messages, whitespace and maybe comments,
-> but function renames need a new version on the list. There are no
-> exceptions.
+> Fixes: 0993234a0045 ("drm/panel: Add driver for Novatek NT36523")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>   drivers/gpu/drm/panel/panel-novatek-nt36523.c | 12 +++---------
+>   1 file changed, 3 insertions(+), 9 deletions(-)
 > 
-> Commit e2d57ceaa72d ("drm/intel/display: Add support for pipe background
-> color (v4)") in the tree says it's v4 and references this patch, but
-> they're not the same.
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36523.c b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
+> index 226d91daf8..f6592b01df 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36523.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
+> @@ -1047,13 +1047,6 @@ static int nt36523_unprepare(struct drm_panel *panel)
+>   	return 0;
+>   }
+>   
+> -static void nt36523_remove(struct mipi_dsi_device *dsi)
+> -{
+> -	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
 
-Thanks, I'll be more careful next time. I did compile test to ensure nothing would break,
-but send a new version next time and wait for CI results.
+Hi,
 
-Kind regards,
-~Maarten Lankhorst
+Not looked in details, but the:
+	mipi_dsi_set_drvdata(dsi, pinfo);
+in the probe now looks useless.
+
+CJ
+
+> -
+> -	drm_panel_remove(&pinfo->panel);
+> -}
+> -
+>   static int nt36523_get_modes(struct drm_panel *panel,
+>   			       struct drm_connector *connector)
+>   {
+> @@ -1225,7 +1218,9 @@ static int nt36523_probe(struct mipi_dsi_device *dsi)
+>   			return dev_err_probe(dev, ret, "Failed to get backlight\n");
+>   	}
+>   
+> -	drm_panel_add(&pinfo->panel);
+> +	ret = devm_drm_panel_add(dev, &pinfo->panel);
+> +	if (ret)
+> +		return ret;
+>   
+>   	for (i = 0; i < DSI_NUM_MIN + pinfo->desc->is_dual_dsi; i++) {
+>   		pinfo->dsi[i]->lanes = pinfo->desc->lanes;
+> @@ -1259,7 +1254,6 @@ MODULE_DEVICE_TABLE(of, nt36523_of_match);
+>   
+>   static struct mipi_dsi_driver nt36523_driver = {
+>   	.probe = nt36523_probe,
+> -	.remove = nt36523_remove,
+>   	.driver = {
+>   		.name = "panel-novatek-nt36523",
+>   		.of_match_table = nt36523_of_match,
+
