@@ -4,65 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5869CCD5BC9
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 09:40:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1179CD5BBF
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 09:42:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CDED10E098;
-	Mon, 25 May 2026 09:40:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E66C10E102;
+	Mon, 25 May 2026 09:42:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KO39SrHQ";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Nv/exr7A";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0BA10E084;
- Mon, 25 May 2026 09:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779702005; x=1811238005;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Pb8ZxQLNtSWGEc+bq65SJao1sGnUBNpWPTxHc1Pbs1c=;
- b=KO39SrHQ/CJjX+WdBUsgSZAPkM7gB7dhe/EMkI2K2g9rO4v4Z3KGyreK
- hmLr+wUZ0Czuf/7jYdzHeqiiO8JVXpSFb/YyAq92S39uLgzRw8U/NcTJa
- f5xJtbuclLNtPqbuWLDzJikRj9NWZiwH8zp9Z6MhKOm4ER/cTJzyuk6+f
- Gfcrw/Oo062svXp+jQu0/MlTMtrR4dMXv6bkJBJCcs2bhwH9DZulhUxRI
- Eo7QPALG0oynXVRISSzcy3swfyOhrs92laFVUh0IMfkynQyci1bhuzHc/
- 37nBepT+T7PdXytUTbe52ezt/aFPrfxkcwVj1MdSrn5b412VAuZ4lGm6l A==;
-X-CSE-ConnectionGUID: 8rfbNAaNTwae6lLxpwn2Gg==
-X-CSE-MsgGUID: WGiq7rKsQXmbOxJgwQmMiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11796"; a="80375622"
-X-IronPort-AV: E=Sophos;i="6.24,167,1774335600"; d="scan'208";a="80375622"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2026 02:40:05 -0700
-X-CSE-ConnectionGUID: 9KGJoRI7Tz6kKYzesS1/IA==
-X-CSE-MsgGUID: DgFjbGTLThq4/L2V7xvC9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,167,1774335600"; d="scan'208";a="245836079"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.216])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2026 02:40:02 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Maarten Lankhorst <dev@lankhorst.se>, "Borah, Chaitanya Kumar"
- <chaitanya.kumar.borah@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Chandra Konduru
- <chandra.konduru@intel.com>, dri-devel@lists.freedesktop.org, Matt Roper
- <matthew.d.roper@intel.com>
-Subject: Re: [PATCH] drm/intel/display: Add support for pipe background
- color (v4)
-In-Reply-To: <f1f09a62-b36e-4ddf-b42c-dad300a72aef@lankhorst.se>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260505200133.636584-2-dev@lankhorst.se>
- <a734e41d-3665-402b-a56a-43fd4f8819ff@intel.com>
- <fef9056c-460e-4a49-bed8-f2882109e886@linux.intel.com>
- <090aca95-975d-4564-8b44-30df139800b5@intel.com>
- <f1f09a62-b36e-4ddf-b42c-dad300a72aef@lankhorst.se>
-Date: Mon, 25 May 2026 12:39:58 +0300
-Message-ID: <a24f9d8ecff945b2cdc032ae95bdc834ee9c248a@intel.com>
+Received: from mail-m128250.netease.com (mail-m128250.netease.com
+ [103.209.128.250])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AEC310E0F1
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 09:42:12 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3fb5a1dcd;
+ Mon, 25 May 2026 17:42:08 +0800 (GMT+08:00)
+Message-ID: <c3c81cc7-6c5e-44b4-892b-c5b4199452ec@rock-chips.com>
+Date: Mon, 25 May 2026 17:42:07 +0800
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
+ hclk as third clock for RK3588
+To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260525082033.117569-1-damon.ding@rock-chips.com>
+ <20260525082033.117569-2-damon.ding@rock-chips.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260525082033.117569-2-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e5e835f7703a3kunmae9bfcda10eb2a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGh9NVkNPHxgYGB9LT0hNTVYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=Nv/exr7AsXooqkxImwxXo6jSxa80U8X1v8eE9880g+5wTjsSfrFu/nYbd7R3+3fm+kswG7ONUngoAn2OjhHJvkZYNBFRtLobTuZ8f4zxo3IF196fLscVp94xRG9cx7NwP6qx+FLnqpNhUGX9bglXhf0iCjlXU+1XBZd6pMh6294=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=sL2k1TVhyRJKaVnuqZpKLrU4rtjpfO7R4bvt8rDkFus=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,31 +71,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 22 May 2026, Maarten Lankhorst <dev@lankhorst.se> wrote:
-> Den 2026-05-18 kl. 12:47, skrev Borah, Chaitanya Kumar:
->> I will leave the name change up to your discretion. The i915 CI needs a re-run, though.
->> 
->> With the typo and checkpatch issues fixed, LGTM.
->> 
->> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> 
->
-> Addressed and renamed the functions.
-> Pushed!
+On 5/25/2026 4:20 PM, Damon Ding wrote:
+> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
+> registers and enable the video datapath.
+> 
+> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
+> phandle reference, which allowed the eDP to work without explicitly
+> managing the hclk_vo1 clock. However, this is not safe or explicit.
+> 
+> To make the clock dependency explicit, enforce per-SoC clock-names
+> requirements:
+>   - RK3288: 2 clocks (dp, pclk)
+>   - RK3399: 3 clocks (dp, pclk, grf)
+>   - RK3588: 3 clocks (dp, pclk, hclk)
+> 
+> Do not reuse the 'grf' clock name for RK3588 because it represents
+> a different clock with distinct control logic:
+> - The 'grf' clock is only for GRF register access and is toggled
+>    dynamically during register access.
+> - The 'hclk' clock controls both GRF access and video datapath
+>    gating, and must remain enabled during probe.
+> 
+> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> 
+> ---
+> 
+> Changes in v4:
+> - Modify the commit msg.
+> 
+> Changes in v5:
+> - Enforce the correct third clock name on a per-compatible basis.
+> - Modify the commit msg simultaneously.
+> 
+> Changes in v6:
+> - Expand more detail commit msg about using hclk instead of grf clock.
+> 
+> Changes in v7:
+> - List all valid clock names at the top level, and constrain the clock
+>    count for each platform with minItems/maxItems in allOf.
+> ---
+>   .../rockchip/rockchip,analogix-dp.yaml        | 34 ++++++++++++++++++-
+>   1 file changed, 33 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+> index d99b23b88cc5..7fe7655c1f37 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+> @@ -26,7 +26,9 @@ properties:
+>       items:
+>         - const: dp
+>         - const: pclk
+> -      - const: grf
+> +      - enum:
+> +        - grf
+> +        - hclk
 
-Please do not change patches while applying.
+./Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml:34:9: 
+[warning] wrong indentation: expected 10 but found 8 (indentation)
 
-It's only okay to tweak commit messages, whitespace and maybe comments,
-but function renames need a new version on the list. There are no
-exceptions.
+Will fix in v8.
 
-Commit e2d57ceaa72d ("drm/intel/display: Add support for pipe background
-color (v4)") in the tree says it's v4 and references this patch, but
-they're not the same.
+Best regards,
+Damon
 
+>   
+>     power-domains:
+>       maxItems: 1
+> @@ -60,6 +62,32 @@ required:
+>   allOf:
+>     - $ref: /schemas/display/bridge/analogix,dp.yaml#
+>   
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - rockchip,rk3288-dp
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 2
+> +        clock-names:
+> +          maxItems: 2
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - rockchip,rk3399-edp
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 3
+> +        clock-names:
+> +          minItems: 3
+> +
+>     - if:
+>         properties:
+>           compatible:
+> @@ -68,6 +96,10 @@ allOf:
+>                 - rockchip,rk3588-edp
+>       then:
+>         properties:
+> +        clocks:
+> +          minItems: 3
+> +        clock-names:
+> +          minItems: 3
+>           resets:
+>             minItems: 2
+>           reset-names:
 
-BR,
-Jani.
-
--- 
-Jani Nikula, Intel
