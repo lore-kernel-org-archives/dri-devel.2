@@ -4,46 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F045CCD5BD0
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 11:36:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7FEECD5BB1
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 11:41:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CEA110E272;
-	Mon, 25 May 2026 11:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46B5C10E0AD;
+	Mon, 25 May 2026 11:41:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="l6Teo2dm";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="u2YRkimN";
 	dkim-atps=neutral
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5CF0410E272
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 11:36:31 +0000 (UTC)
-Received: by linux.microsoft.com (Postfix, from userid 1216)
- id E6FD120B7166; Mon, 25 May 2026 04:36:21 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E6FD120B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1779708981;
- bh=zN4QWGWlr5StOwKAFlE8xNBGaQRFU1nlK14WTHcvb7o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=l6Teo2dmgEEr1SAeRiyWbkSc2zFMtW1ZfDccj4f5GjjCETqNAvKu9fwh9DdFJ2P+r
- pi0XSHPCxP8u5V6rz+wyr3cu8YbHT89YE8ayfalFGm6nBmOXT5TcttXXs+Xe1uBAs8
- WztOD0oPDP0SyTrJ+XfZcoWuZl+Z2NyMhdOHQhls=
-Date: Mon, 25 May 2026 07:36:21 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Berkant Koc <me@berkoc.com>
-Cc: Saurabh Sengar <ssengar@linux.microsoft.com>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Deepak Rawat <drawat.floss@gmail.com>
-Subject: Re: [PATCH v5 0/2] drm/hyperv: harden host message parsing
-Message-ID: <ahQ0NS1jrfU8ms1U@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <cover.1779542874.git.me@berkoc.com>
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021118.outbound.protection.outlook.com [52.101.100.118])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1378710E0AD;
+ Mon, 25 May 2026 11:41:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bTp0nky0BdXG7XXnHgly6tgxN/x34E7IVfVpzkFnFpQfUFujaniuJD/yMoBxP2UrPQw61OW6aCkyoSLcZ+ryrY1iuZ9jlisSJNu2Oza1hrPx4ch/Sfslm2dfAnwlMZLlKsuqfnQ7dZny7FkhX6lsHVwrZtq5MAzbf9XDppi4OF6MeHS3WVVqUBpQDWvXh4ENjYdv5ahAnsCrGkpVIpwRvN4tO4m94FqKhmzXE/hK7EAdmxyTdvGFXN9AdFnrIfTtPtkmerxo4hz5iS/eCR6PCJUO+0/txpjCxzp8bzW5QwhVXWN1aMYrH3riQZ33bEMFTyDhpOPtDfz8cWIdBvaDog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=niH42kPo8V+ZKSKgXcEXO9NdlI/ejaxZzubP/k3ZbmA=;
+ b=EXBr/kGwguDHfXVjYL3vmgs9ds4V2ki0Gewd5WOqE5msaH/VkAzFD3uRFu3GTvH2iCe471ojETK6NyO0keZbSLCl+AhbCdIv0wdzPGWZ7TWgnPylasrUcUfTeImphXvcCrtEd48+gZzhZX1266r7cb4YmJ2MJLmcn3+oFpRj9Hzy8Bfw9op7HaDF41EDtvIQq5wfvX87vnwbu8KjG9OL9gsX33cEaMco/sefI8j9kZQCQThWzHjKqjw/qkIFIwkC9X1b5sy1dEnYr5UCmNfFKrXdggnHvyRgzYmrzuc1LmZTpdpvI0xkDGivyDJLE1hzirFmj0RGLukCUxBLqPrjkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=niH42kPo8V+ZKSKgXcEXO9NdlI/ejaxZzubP/k3ZbmA=;
+ b=u2YRkimNrZlfcHS0hxFrXZKXDYyHbAqxps5YDCI9HvHczMaJXV4u548JiDzUb+8quZdHlfyY93jHyzNpvNLsXtDJ8UD49jggjGub2P5z1kWzLD/IEriR1VBTjcxFGIqP0wB1ngMoEKonjjg8A2llql5uuvDLPqGa3S9ixVmcJnY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO6P265MB7083.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:31a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.19; Mon, 25 May
+ 2026 11:40:59 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0048.019; Mon, 25 May 2026
+ 11:40:59 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 25 May 2026 12:40:58 +0100
+Message-Id: <DIRQA2JNXAHY.2TVOL7GYSHM3V@garyguo.net>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v4 17/27] rust: pci: make Bar lifetime-parameterized
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
+ <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
+ <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <igor.korotin@linux.dev>, <daniel.almeida@collabora.com>,
+ <pcolberg@redhat.com>
+X-Mailer: aerc 0.21.0
+References: <20260521233501.1191842-1-dakr@kernel.org>
+ <20260521233501.1191842-18-dakr@kernel.org>
+ <DIRHA02BRA92.32YSMYYL2QBIG@nvidia.com>
+In-Reply-To: <DIRHA02BRA92.32YSMYYL2QBIG@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0045.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:152::14) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1779542874.git.me@berkoc.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO6P265MB7083:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0aad0b3d-38d4-4114-5c1d-08deba527dc1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|7416014|376014|366016|921020|4143699003|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: xzXe5SQxPYo8OgfrIPIEiKj/9Myg34LnunvXoPHxYyUCnWXYSMB4j1fxzZiGScsZTa/xunPpcnDYBNZHzhQCYUr5Ae9K3zgGbbHuYcPSsqXoXadqfrH+0wKBAAFOtuaN9g5hzuzCx6bkeEtyXhOEyR/JEGT40SFPAONRf6lKUj3MxhZFZULrcCSZb+O/Yv0F/T7Tl3wguSK9HBhFszxXxx7gqwuUuww1a/RwwwD6fmz/hACi/sA5PZD+LzEsrFxempbq8kzhWrXci48CQmh5dOGf7hUUGhJrIWiUJ+wbfa1YSF9P/79FSiV4spYIP8zFMGT+zH/xm8jNacfT/NY/fDvHMvvAhGUjk3VkRkfMGPi1uahPrcn70gSTkXVOok3UzaAKqWeoCKdK6859cd4D12fWuXo47z8NC+VycMIZ5voHIsiSrb/Ivgjniapqj3MrmeSgrlqctJuWBYSjRxEPRqaEh9zrKkCRO6X4u5Qq4wIfHHQyVI+og7AVFxnFoqNnWyb+Gmuo5ARBzzRmRcYvtvjbv5LkAEuZzFDhRsarXSLB8LXXIVln6nHCGwc5y15z25QWeniEzFEgStrXyoHmtPE7Nrf1IumerJmqFzRoSA2KXgnSI1wGXBvHSU1LDz6bje3duEQFdrngTog25ThK8DKSBqBZ1wIjSASmELY2y8ow1bp0CKccS+xjTf496a4ZsrkEHFL+04pR426EmYKpuJUVDSVD9FUu0rTjIB45NO0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(7416014)(376014)(366016)(921020)(4143699003)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWhDZHM1WnpWTDJWTEFPb3ZYeHdDTENTZ2hMQVJ6ZnRQMUdxZjJpK294M1Jx?=
+ =?utf-8?B?bGoxTEtvMnNxZ1R5bVIrQVZWdFlwSkdxQkxwK2F5ZEF4WHVRUGdlb1ZFZy8y?=
+ =?utf-8?B?VUtEcDhFQWxhdXRuRlJZdGcrc1huUFBzS2Z6Y1kzOXBSRTFrSmNTdVRVVWt6?=
+ =?utf-8?B?eXl4Z0w4QmhDU2JnVm5MWk93clRmcHB5VEFZVHFMYW9zZlV2M3FxdFcveS81?=
+ =?utf-8?B?c1hqbGlwbFcrVXkxcFpnTWJBQWdiQzNidTdOcnVVajI3ODlGT3VLN1R1T2xi?=
+ =?utf-8?B?VlRKRWFiTUhLcGdOSGpNTUtCckhNVEtaMVNhWmNkdVdpVnZoYUs3OWtBMU4y?=
+ =?utf-8?B?WWFrenhNSW54Z240SmlHMlNUY0ZpRkFZQkUwS1dXNXdyeXhnTyt1QVo2MW5N?=
+ =?utf-8?B?QXNCTjdQQURWSEQ1SnBCcXR1Z3QvZUFFTEhpQko3Q3JkUWFQSmJGTGNJMDF1?=
+ =?utf-8?B?M3pTaFlLUkJrVUJ6MnZyVmhFbGtNL0hLbHEyWk0xTEFIYmhOaWNtUUF0R1FX?=
+ =?utf-8?B?aU0yTnlOekdseUxwaEQ4S24ycmJOMHRGMFA4UUVQbEliYkFlYWpJeVNxSEc3?=
+ =?utf-8?B?dW5NRWN6WHZiNkJxMUNYWHA0aTE4UDRSTnpodjlTTjVMVTVkRDZGOWxET1BU?=
+ =?utf-8?B?dHFzK2JvcUw5eTBjdE1nM2RwSmYycmU4ajIvUzg1d1dYSHhjSm15N3V0d1Rv?=
+ =?utf-8?B?WDlBMmV0bXhqbVo2M3pHRldVWGxFNUJyMjVPcFFpOUlHY1kxU2ZtVlJ6eE81?=
+ =?utf-8?B?L2RSV3doSzRDWHdkZ25nVGlhalVYWnJnUDdnZ2ZhZnUrTEpmU3hUaU15MUNp?=
+ =?utf-8?B?cy9FSFJkT3cxOFgvL0NETUQrT0ZrSC9Ha2Y0V0hINEs4SmhRY3orL1RpM0xz?=
+ =?utf-8?B?a2w2Nis3TzBSRDhFTHMvZWViWnBOWE16ZnZxR1IxWHMybm5EVU91akViTkNs?=
+ =?utf-8?B?VXlvckRzbjFaUVI1NExFbkt5TWFVUkh2ZjZJZ0p1bXhtQ0M5Z0xJL0dWRThx?=
+ =?utf-8?B?aTQwbURiWmVYZGtzOTF1YUVuU3d6YkZPM3FOQ1NEOUMveStjcmtnRlBlZ3E0?=
+ =?utf-8?B?YytkZUo0aFkvU0hrclNLcjVOSDd6Q3E3K1I0U3V4VVY2dUExNkpMQTQyVU1w?=
+ =?utf-8?B?cnMzalo0dUkvZ3R0L3g1MkhvUlhxWnFCZ1VqR3M4dDljRDJJV0ZtSGg5SXpw?=
+ =?utf-8?B?RFI0QmM4ZGNqYkhXSTJYaFJxQjY3a0thUFdKb2pBRE00Rk1haC9qUk02VkM5?=
+ =?utf-8?B?Tmcrc0IvS1N3ZStqNkNldjFzOWRyb3ZMc1dwdDlyRTZxQnpaWklobEpPTlhi?=
+ =?utf-8?B?N1V0WVI4bDREVnZ3aStkcFNlY1RTbG5kSUNDTHlqR2NVQTBMbGNmdU5jdDAw?=
+ =?utf-8?B?NHhKSm16WWkrS1FXcEFINE1MSzdLeVpvSzRoQVAvU2lrVzVWL2xKZkVnRWhw?=
+ =?utf-8?B?eHRZQXFxQnF6N1loM0lkR2hTTnBXS1k4Rmo5eFpnN2ZOazEwOG8yd0dycUQ0?=
+ =?utf-8?B?ci9yRnFRbXpIVFdkbEZ3VlVsN0l5Rjk3M1VnbVFGN3pyZmhML1ZDU29oaFRk?=
+ =?utf-8?B?SWh1Ym84eitacWo4SmNFZzNzOWZtYk5oaVNXYnNHZVZWTkh1R3ZJcXNaYjA2?=
+ =?utf-8?B?Rjhqam03VDZyR0xROG9JR0RuenV2anhXUWFuVDUwU2VSQmd2bDA0aTZyR0R2?=
+ =?utf-8?B?K2x6Rkk0RExGTEdhYTJKYUt2R1lINWg2K09Va3lJS2Q5N2pkZE5UVXVjSitM?=
+ =?utf-8?B?elBBUGlUMUQrK1VPSlBWRmcvVHZXeEFoUnEydGt0ZW1RamxMYzFaSGpja050?=
+ =?utf-8?B?YkxwdDlGNmVldFI4OUNXMzRnYmcvQ2xPS3FuYmVXdUVKVEp3dHcvT1JoQ2N2?=
+ =?utf-8?B?WGZ4dW9BNjAvVVd3K09YV013WStwQnM1ZG5lK0lTZVVrNm1SbTZ6enZjWHZi?=
+ =?utf-8?B?Y0NWQjdwQnhjMUdGNVRXbDhwYTJKNEl3OHBETWdMV3YySXNPME44ampUTkty?=
+ =?utf-8?B?c0hvNFRHWVdvZzNvS2JKRmg0R1pxZ1hlZlYyVDNtalhwYUN0VU9saUVIQkcy?=
+ =?utf-8?B?ZitSNWdzWUN6RWFpdW1Zei9xeldLQ2pUekFIdkhXYk83dk82RngzcElxa2dj?=
+ =?utf-8?B?S1lyNHJMQmtYNVhHNUwva2QxSXNNVWo5YkpzN211c2UzRHRneSttcWhXWVk0?=
+ =?utf-8?B?OTdJQjdKbjk4VTRvZ1pnSC9aNkFoRFBrZC93VmVOcTJqVVVDMWhWTHZLNEph?=
+ =?utf-8?B?czNFTTlna0dsQnBzVngzMzRpbVp5YUlsSTFxTm42Vjg0dElIeVFaUmlIaTRP?=
+ =?utf-8?B?NnNRZ0dnMjA3MUlHM0c3S0dwK2M1eDFkdnVrTzNtSnc2TGRiMkxkQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0aad0b3d-38d4-4114-5c1d-08deba527dc1
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 11:40:59.3986 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4wWCjXEolfar1Tr2tkJq3+ndMZAOnKimYv4iMq/+jKeZZCdLuJUT9nV7Tq+nAHN7pTXwg67xLF5r47Toun7oNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB7083
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,117 +150,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 23, 2026 at 03:27:54PM +0200, Berkant Koc wrote:
-> Two independent issues in the synthetic video driver that both stem
-> from trusting unvalidated host data.
-> 
-> 1/2 bounds resolution_count from SYNTHVID_RESOLUTION_RESPONSE against
-> the supported_resolution[] array, and populates WIN8 defaults for
-> hv->screen_*_max / hv->preferred_* in both the WIN10-probe-failure
-> path and the pre-WIN10 path, so a failed or pre-WIN10 probe yields a
-> usable display instead of having drm_internal_framebuffer_create()
-> reject every userspace framebuffer with -EINVAL.
-> 
-> 2/2 forwards bytes_recvd from vmbus_recvpacket() into the sub-handler,
-> rejects packets that do not cover the synthvid header, and requires
-> the type-specific payload size before memcpy/complete or before
-> reading the feature-change byte. Rejected packets are logged via
-> drm_err_ratelimited() instead of being silently dropped, matching the
-> CoCo-hardened pattern in hv_kvp_onchannelcallback().
-> 
-> 1/2 is unchanged from v3/v4 and carries Michael Kelley's Reviewed-by.
-> 
-> Changes since v4 (per review by Michael Kelley):
-> 
->   2/2: collapsed the leading "if (type == ... ) { ... switch ... }"
->        plus the separate "if (type == FEATURE_CHANGE)" into a single
->        switch on msg->vid_hdr.type. The three completion-driving cases
->        compute their per-type size and break to a shared exit that does
->        the size check + memcpy(init_buf) + complete(); FEATURE_CHANGE is
->        its own case that validates its payload and returns without
->        falling through; unknown types hit default and return. No
->        functional change, fewer lines.
-> 
->   2/2: the vmbus_recvpacket() nonzero-return path (e.g. -ENOBUFS for a
->        too-big packet) is itself a malformed-message case. It is now
->        logged via drm_err_ratelimited(), consistent with the
->        sub-handler's other reject paths, instead of being silently
->        skipped. No channel recovery is attempted, as that is not worth
->        the added code for this rare host-side condition.
-> 
-> Changes since v3 (per review by Michael Kelley):
-> 
->   2/2: validate SYNTHVID_RESOLUTION_RESPONSE against its actual
->        variable length. The response carries resolution_count entries,
->        not the full SYNTHVID_MAX_RESOLUTION_COUNT array, so requiring
->        sizeof(struct synthvid_supported_resolution_resp) rejected the
->        shorter responses the host legitimately sends and broke
->        resolution probing. Require the fixed prefix, read and bound
->        resolution_count, then require only the count-sized array.
-> 
->   2/2: only run hyperv_receive_sub() when vmbus_recvpacket() returned
->        success. v3 dropped the bytes_recvd upper bound as redundant,
->        which holds only on a successful receive: on -ENOBUFS
->        vmbus_recvpacket() reports the required length in bytes_recvd,
->        which can exceed the 16 KiB hv->recv_buf, and the subsequent
->        memcpy(hv->init_buf, msg, bytes_recvd) would read and write
->        past both buffers. Gating on the success return restores the
->        invariant that made the bound redundant, so an oversized host
->        packet is dropped rather than copied.
-> 
-> Changes since v2 (per review by Michael Kelley):
-> 
->   1/2: dropped the reinit_completion() change; the stale completion can
->        only outlive its request in hyperv_vmbus_resume() after a
->        get_supported_resolution() timeout, which is a narrower fix that
->        belongs in a separate patch against the resume path. Pre-WIN10
->        branch now also populates hv->preferred_*. The else branch is
->        gone; a single screen_width_max == 0 check covers both the
->        pre-WIN10 case and a failed WIN10 probe.
-> 
->   2/2: added a per-type switch for the three completion-driving message
->        types so the wait-completion path validates payload size before
->        memcpy/complete. Every reject path emits drm_err_ratelimited()
->        rather than returning silently.
-> 
-> Changes since v1:
-> 
->   1/2: bound resolution_count check folded into the existing zero check;
->        populate WIN8 defaults when hyperv_get_supported_resolution()
->        fails.
->   2/2: forward bytes_recvd into hyperv_receive_sub(); enforce the pipe +
->        synthvid header minimum; check synthvid_feature_change payload
->        size before reading is_dirt_needed.
-> 
-> The shared init_buf reuse (a duplicate or late host response can
-> overwrite init_buf between successive request/response cycles) and the
-> related completion reinit are real but orthogonal to this size
-> validation. As discussed on v2, they are queued as a separate follow-up
-> against the resume/expected-type path once this series lands.
-> 
-> This series is verified by static analysis and code inspection against
-> the synthvid protocol structures and the vmbus_recvpacket() contract. I
-> do not currently have a Hyper-V test environment to exercise the receive
-> and resolution-probe paths at runtime, so confirmation from someone who
-> can run it in a Hyper-V VM would be welcome.
-> 
-> Both patches carry an Assisted-by: Claude:claude-opus-4-7 berkoc-pipeline
-> trailer per the kernel coding-assistants policy. Code, analysis and
-> review responses are mine; the model is used as a structured reviewer
-> under human verification.
-> 
-> Berkant Koc (2):
->   drm/hyperv: validate resolution_count and fix WIN8 fallback
->   drm/hyperv: validate VMBus packet size in receive callback
-> 
->  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 113 +++++++++++++++++++---
->  1 file changed, 97 insertions(+), 16 deletions(-)
-> 
-> 
+On Mon May 25, 2026 at 5:37 AM BST, Eliot Courtney wrote:
+> On Fri May 22, 2026 at 8:34 AM JST, Danilo Krummrich wrote:
+>> Convert pci::Bar<SIZE> to pci::Bar<'a, SIZE>, storing &'a Device<Bound>
+>> to tie the BAR mapping lifetime to the device.
+>>
+>> iomap_region_sized() now returns Result<Bar<'a, SIZE>> directly instead
+>> of impl PinInit<Devres<Bar<SIZE>>, Error>.
+>>
+>> Add Bar::into_devres() to consume the bar and register it as a
+>> device-managed resource, returning Devres<Bar<'static, SIZE>>. The
+>> lifetime is erased to 'static because Devres guarantees the bar does not
+>> actually outlive the device -- access is revoked on unbind.
+>>
+>> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+>> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+>> ---
+>>  drivers/gpu/nova-core/driver.rs |  7 +++--
+>>  rust/kernel/devres.rs           |  2 +-
+>>  rust/kernel/pci/io.rs           | 50 ++++++++++++++++++---------------
+>>  samples/rust/rust_driver_pci.rs |  5 ++--
+>>  4 files changed, 35 insertions(+), 29 deletions(-)
+>>
+>> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/dri=
+ver.rs
+>> index 6ad1a856694c..7dbec0470c26 100644
+>> --- a/drivers/gpu/nova-core/driver.rs
+>> +++ b/drivers/gpu/nova-core/driver.rs
+>> @@ -45,7 +45,7 @@ pub(crate) struct NovaCore {
+>>  // DMA addresses. These systems should be quite rare.
+>>  const GPU_DMA_BITS: u32 =3D 47;
+>> =20
+>> -pub(crate) type Bar0 =3D pci::Bar<BAR0_SIZE>;
+>> +pub(crate) type Bar0 =3D pci::Bar<'static, BAR0_SIZE>;
+>> =20
+>>  kernel::pci_device_table!(
+>>      PCI_TABLE,
+>> @@ -92,8 +92,9 @@ fn probe<'bound>(
+>>              // other threads of execution.
+>>              unsafe { pdev.dma_set_mask_and_coherent(DmaMask::new::<GPU_=
+DMA_BITS>())? };
+>> =20
+>> -            let bar =3D Arc::pin_init(
+>> -                pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar=
+0"),
+>> +            let bar =3D Arc::new(
+>> +                pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar=
+0")?
+>> +                    .into_devres()?,
+>>                  GFP_KERNEL,
+>>              )?;
+>> =20
+>> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+>> index fd4633f977f6..82cbd8b969fb 100644
+>> --- a/rust/kernel/devres.rs
+>> +++ b/rust/kernel/devres.rs
+>> @@ -304,7 +304,7 @@ pub fn device(&self) -> &Device {
+>>      ///     pci, //
+>>      /// };
+>>      ///
+>> -    /// fn from_core(dev: &pci::Device<Core<'_>>, devres: Devres<pci::B=
+ar<0x4>>) -> Result {
+>> +    /// fn from_core(dev: &pci::Device<Core<'_>>, devres: Devres<pci::B=
+ar<'_, 0x4>>) -> Result {
+>>      ///     let bar =3D devres.access(dev.as_ref())?;
+>>      ///
+>>      ///     let _ =3D bar.read32(0x0);
+>> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+>> index ae78676c927f..6116c55412bc 100644
+>> --- a/rust/kernel/pci/io.rs
+>> +++ b/rust/kernel/pci/io.rs
+>> @@ -14,8 +14,7 @@
+>>          Mmio,
+>>          MmioRaw, //
+>>      },
+>> -    prelude::*,
+>> -    sync::aref::ARef, //
+>> +    prelude::*, //
+>>  };
+>>  use core::{
+>>      marker::PhantomData,
+>> @@ -146,14 +145,14 @@ impl<'a, S: ConfigSpaceKind> IoKnownSize for Confi=
+gSpace<'a, S> {
+>>  ///
+>>  /// `Bar` always holds an `IoRaw` instance that holds a valid pointer t=
+o the start of the I/O
+>>  /// memory mapped PCI BAR and its size.
+>> -pub struct Bar<const SIZE: usize =3D 0> {
+>> -    pdev: ARef<Device>,
+>> +pub struct Bar<'a, const SIZE: usize =3D 0> {
+>> +    pdev: &'a Device<device::Bound>,
+>>      io: MmioRaw<SIZE>,
+>>      num: i32,
+>>  }
+>> =20
+>> -impl<const SIZE: usize> Bar<SIZE> {
+>> -    pub(super) fn new(pdev: &Device, num: u32, name: &CStr) -> Result<S=
+elf> {
+>> +impl<'a, const SIZE: usize> Bar<'a, SIZE> {
+>> +    pub(super) fn new(pdev: &'a Device<device::Bound>, num: u32, name: =
+&CStr) -> Result<Self> {
+>
+> I think Sashiko's comment w.r.t. &CStrs in this patch looks accurate
+> and they should be 'static or at least 'a ish.
 
-Applied, thanks!
+It needs to be `'static` to be leak-safe.
 
-> base-commit: 4bf5d3da79c48e1df4bab82c9680c53adeff7820
-> -- 
-> 2.47.3
-> 
+Best,
+Gary
