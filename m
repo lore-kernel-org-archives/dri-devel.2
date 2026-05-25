@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D435CCD5BBF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 08:45:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F8E9CD5BD5
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 08:45:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 327B710E600;
-	Mon, 25 May 2026 08:45:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B92210E091;
+	Mon, 25 May 2026 08:45:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Af96JGHD";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ggsMS7mp";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FBF110E51F
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:45:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9E210E600
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:45:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779698751;
+ s=mimecast20190719; t=1779698755;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xqQpQ/GF7r/UpbjClH/YEY/g/tI3n+T6qxGAQdsX9zg=;
- b=Af96JGHDHV19ioVZ6paGbhDf9BufbYF5d6WhmQ8wsr+8d3Pq4Cizc1iKj1SX2GpnDV9A1/
- v9knnQyhyOOSReYRVkxuZSnY9UjVY1EGum2uXln/WCJ6JB54oGJ+oJm858srSnI9NCpZKY
- PD9GqF/88Oe6sz9ZHYjciTLhlz5vCuw=
+ bh=rBIdZie6RpIvBk6Y4z+QSU0EMts/JP8b+GhZQsswjNU=;
+ b=ggsMS7mpR7SF0/osTGRlbd1wW/surQgPEbSdjkBM+ZWJHag9RGCmX9mUOEGJRI3R44cF0B
+ shPktIqMDk+xo2lhvPS5+BEyejwggAhD7kjjlLURQ+Guz4y5ydsY9dNDl9YpEvUMNdBZD9
+ 42yP+IBN1d5NKKWZbPLIPbiHUd8N3rg=
 Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
  [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-124-FHblc90kPfar7DU13hTUWA-1; Mon, 25 May 2026 04:45:48 -0400
-X-MC-Unique: FHblc90kPfar7DU13hTUWA-1
-X-Mimecast-MFC-AGG-ID: FHblc90kPfar7DU13hTUWA_1779698746
+ us-mta-308-ac5-feXHNnSONRMruE4Mtw-1; Mon, 25 May 2026 04:45:53 -0400
+X-MC-Unique: ac5-feXHNnSONRMruE4Mtw-1
+X-Mimecast-MFC-AGG-ID: ac5-feXHNnSONRMruE4Mtw_1779698752
 Received: by mail-lj1-f200.google.com with SMTP id
- 38308e7fff4ca-3942da9e8deso34181521fa.0
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 01:45:47 -0700 (PDT)
+ 38308e7fff4ca-393964e2aecso34601861fa.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 01:45:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779698746; x=1780303546;
+ d=1e100.net; s=20251104; t=1779698752; x=1780303552;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=xqQpQ/GF7r/UpbjClH/YEY/g/tI3n+T6qxGAQdsX9zg=;
- b=ZOC8VMeERgaaiLyvHUypAcWoLyuy6gTVcWT/OG9o4SGuMu8D6+s33ycwpu9xMY+UlU
- 0DeRBNJKg2mcrLc/i1xejvR2X3P4zcuSQTK9QtX0YnPcNk3DvP/kvFAnwBpQhupYEfep
- iRBqluYOaYGVKQtqalgo9GSoslDu9hawy69O3gyW8Id+p4BBbEyGWhHkqrs/n22916GO
- TVRoKYJB4F0Dg3quTz1oOfN1c4PPT+KHyMrmVkBUxeGdzvRaHG7SSrgfFujred7FUQhz
- 55cs72NxyBy/hfSxw4/InUEj/eHU6ms12c1h6Bj4mR/aaM16JGEmbmUSK1novtrFCFn1
- CW9g==
-X-Gm-Message-State: AOJu0YzNhIi66vY6N2Pc390O/D/DyiuzUwRqb/7Qj0vD9Y2gTU/WjIdR
- Ps5bE8LTyPkba0y8j8sdngezk9iPKfbj2/+puMcqgH+i0E1/5gGiECnqCiU37369FHP/NX4kC/8
- ndedGHu9YJ9Gd+68eRwj5mSUYDRrptJuL4thy75/R13X+UU2v6DJJjHSkRVHRuDk4jhCr
-X-Gm-Gg: Acq92OEv4clPJZg35nSOPu01THPEM3AIXV6DQ1EnySFbu76j5/EHOMAQp/9PsUPgu4G
- oBiff86nuij/6i3ZHhkiHYEKylppcNdCAp72WSH/lYbEgWwlJ3TLkn41pZ3r3H70gbzZRHKu8IR
- A5bMofpIHjdPpJgU49wUyc3ROVz+g/7hnMIgOz2C2d5RCPva/U4GH+m4alI5wFFCR6eQHwb4Q67
- xWwIS8Ye3LK3iPpgBkiMbYGeg41C7lUnJPnpgmNJU+tTv+fun1OQK3GKYYXdtvcTsDkaJBxhNKc
- IOkQNNg3G3w30QmEsX5AStnrEkO0RwMp363BmfkpClwTO+MK1v+sxXgfJL9n4dR/xpF4zeE+akB
- cXUyw/0i2smgMl4wb8YpFjUWWEHnf0uy4/Vrn
-X-Received: by 2002:a2e:ab0a:0:b0:38e:298:96de with SMTP id
- 38308e7fff4ca-395d8bd30f6mr43125621fa.1.1779698746322; 
- Mon, 25 May 2026 01:45:46 -0700 (PDT)
-X-Received: by 2002:a2e:ab0a:0:b0:38e:298:96de with SMTP id
- 38308e7fff4ca-395d8bd30f6mr43125471fa.1.1779698745867; 
- Mon, 25 May 2026 01:45:45 -0700 (PDT)
+ bh=rBIdZie6RpIvBk6Y4z+QSU0EMts/JP8b+GhZQsswjNU=;
+ b=ry3R5R0TkFeIfDLruX1HZlfQdcLGOp0H0QzK3c3UCC/X4rsePqaIjLKwvf13yWikBA
+ yBG+pUMGGPCcIChZctKAzoJKrO+7Peatjp28K3M9Yzq40YLwNzgQbwREDJdGWOYSwY2g
+ KVrtrz6mZYnpDLx2DaRvWVeFRTY34L8aP0uZDXZmHWDFcgOSSshMmr2wYcbCk8eG9ahn
+ u5vaABXP+1YxyZkB566kI7pszcug0As6V69rheXMfEdujdzSfe3lHZe4jJFGH5DFR67R
+ nncZE5rva/0ByOGDDW6UdBiqAPzX/fNQtV+swnmy5I75ZVjlfSOn2ULpu35kSbk/wJAa
+ Y08g==
+X-Gm-Message-State: AOJu0Yxvu2mj5nUCmwU8RfZ/steRnJkp15fgI/Xf64ZxKJzYK2R8wLsf
+ guRYStwN9K+pjWHR9EQx4dPAqiyyKI7iBlCaIrU1eSEs86rmtc35JFq8eZuo5f/P8wiTgTz2aoz
+ can49nJIxF/G5fDVuE1Vb0AfPJs7t+Ouw20uLQiUYTpPKEKJb33livAwBUZoOp07pYT4J
+X-Gm-Gg: Acq92OFU0h6YzFkJIF0tXHNEhUN+jLuPr+AWT8/mmnKDS8oQKrfgRnaR4qfGXa7wzm9
+ XfjaMJgdpSMiuvO5A9B3TGvoJIZY4hOxmcWclpHpHDZWEXVWZ4SroFmW17vHKmm5ipoi6UFv/GT
+ wQFXBLLPrT+tjk5qN/39xixSq1lqp2kT25xIARkqxpDs3FycPx5L+EoqXVFzGLlKn6vuP8RSH0c
+ iQF6XKg8PRFZPkiVWGZ5Q5rvwawMqiRNks5uRBZ4NX5aFm7PcriSMqyXa4lJLE3ZVsGcOTMTPrM
+ FOOw5FoEJOirlYPJxkFdqm8J6TQWdbp0L5uTkb39ZWskLi9kXH0T1j6clolKafEshRJ7maHlWR7
+ yrXY5N0pW+YWXGb4DVF1aiZOiuYb2CkidK6je
+X-Received: by 2002:a2e:bc1d:0:b0:393:5c4c:c482 with SMTP id
+ 38308e7fff4ca-395d8d54765mr51455041fa.29.1779698752125; 
+ Mon, 25 May 2026 01:45:52 -0700 (PDT)
+X-Received: by 2002:a2e:bc1d:0:b0:393:5c4c:c482 with SMTP id
+ 38308e7fff4ca-395d8d54765mr51454871fa.29.1779698751572; 
+ Mon, 25 May 2026 01:45:51 -0700 (PDT)
 Received: from fedora (85-23-51-1.bb.dnainternet.fi. [85.23.51.1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-395dca7bcddsm21679061fa.16.2026.05.25.01.45.44
+ 38308e7fff4ca-395dca7bcddsm21679061fa.16.2026.05.25.01.45.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 May 2026 01:45:45 -0700 (PDT)
+ Mon, 25 May 2026 01:45:50 -0700 (PDT)
 From: mpenttil@redhat.com
 To: linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
@@ -80,16 +80,18 @@ Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  "Liam R. Howlett" <Liam.Howlett@oracle.com>,
  Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-Subject: [PATCH v12 2/5] mm: Add helper to convert HMM pfn to migrate pfn
-Date: Mon, 25 May 2026 11:45:21 +0300
-Message-ID: <20260525084524.139868-3-mpenttil@redhat.com>
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Marco Pagani <marpagan@redhat.com>
+Subject: [PATCH v12 5/5] lib/test_hmm: add a new testcase for the migrate on
+ fault
+Date: Mon, 25 May 2026 11:45:24 +0300
+Message-ID: <20260525084524.139868-6-mpenttil@redhat.com>
 X-Mailer: git-send-email 2.50.0
 In-Reply-To: <20260525084524.139868-1-mpenttil@redhat.com>
 References: <20260525084524.139868-1-mpenttil@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: J69gbwprWuOqlSBb6UcoBxkN4iXOq1HAcz0RzMgQnKo_1779698746
+X-Mimecast-MFC-PROC-ID: W92QagtiEM6w6VVvAmTKfJUdI6q6IA_gjVPkj71mqDw_1779698752
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -110,9 +112,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Mika Penttilä <mpenttil@redhat.com>
 
-The unified HMM/migrate_device pagewalk does the "collecting"
-on the HMM side, so we need a helper to transfer pfns to the
-migrate_vma world.
+Enhance the hmm test driver (lib/test_hmm) with migrate on fault case.
 
 Cc: David Hildenbrand <david@kernel.org>
 Cc: Jason Gunthorpe <jgg@nvidia.com>
@@ -121,167 +121,278 @@ Cc: Alistair Popple <apopple@nvidia.com>
 Cc: Balbir Singh <balbirs@nvidia.com>
 Cc: Zi Yan <ziy@nvidia.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
-Suggested-by: Alistair Popple <apopple@nvidia.com>
+Signed-off-by: Marco Pagani <marpagan@redhat.com>
 Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
 ---
- include/linux/hmm.h     | 19 +++++++++++++-
- include/linux/migrate.h |  3 ++-
- mm/migrate_device.c     | 55 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 75 insertions(+), 2 deletions(-)
+ lib/test_hmm.c                         | 116 ++++++++++++++++++++++++-
+ lib/test_hmm_uapi.h                    |  19 ++--
+ tools/testing/selftests/mm/hmm-tests.c |  54 ++++++++++++
+ 3 files changed, 176 insertions(+), 13 deletions(-)
 
-diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index db75ffc949a7..bfedafc1c143 100644
---- a/include/linux/hmm.h
-+++ b/include/linux/hmm.h
-@@ -13,6 +13,8 @@
+diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+index 1a3e21325cf2..d45666b51f33 100644
+--- a/lib/test_hmm.c
++++ b/lib/test_hmm.c
+@@ -36,6 +36,7 @@
+ #define DMIRROR_RANGE_FAULT_TIMEOUT	1000
+ #define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
+ #define DEVMEM_CHUNKS_RESERVE		16
++#define PFNS_ARRAY_SIZE			64
  
- struct mmu_interval_notifier;
+ /*
+  * For device_private pages, dpage is just a dummy struct page
+@@ -355,6 +356,7 @@ static int dmirror_range_fault(struct dmirror *dmirror,
+ 	struct mm_struct *mm = dmirror->notifier.mm;
+ 	unsigned long timeout =
+ 		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
++	bool migrate = range->default_flags & HMM_PFN_REQ_MIGRATE;
+ 	int ret;
  
-+struct migrate_vma;
+ 	while (true) {
+@@ -364,9 +366,15 @@ static int dmirror_range_fault(struct dmirror *dmirror,
+ 		}
+ 
+ 		range->notifier_seq = mmu_interval_read_begin(range->notifier);
+-		mmap_read_lock(mm);
+-		ret = hmm_range_fault(range);
+-		mmap_read_unlock(mm);
 +
- /*
-  * On output:
-  * 0             - The page is faultable and a future call with 
-@@ -27,6 +29,13 @@ struct mmu_interval_notifier;
-  * HMM_PFN_P2PDMA_BUS - Bus mapped P2P transfer
-  * HMM_PFN_DMA_MAPPED - Flag preserved on input-to-output transformation
-  *                      to mark that page is already DMA mapped
-+ * HMM_PFN_MIGRATE    - The entry is to be migrated. Note, HMM_PFN_MIGRATE
-+ *                      alone without HMM_PFN_VALID denotes the
-+ *                      empty page.
-+ *                      This flag together with HMM_PFN_COMPOUND are
-+ *                      indicators for migrate_hmm_range_setup() to
-+ *                      setup the migrate pfns.
-+ * HMM_PFN_COMPOUND   - The entry is represents a > 0 order page
-  *
-  * On input:
-  * 0                 - Return the current state of the page, do not fault it.
-@@ -34,6 +43,8 @@ struct mmu_interval_notifier;
-  *                     will fail
-  * HMM_PFN_REQ_WRITE - The output must have HMM_PFN_WRITE or hmm_range_fault()
-  *                     will fail. Must be combined with HMM_PFN_REQ_FAULT.
-+ * HMM_PFN_REQ_MIGRATE - For default_flags, request to migrate, according to
-+ *                       hmm_range.migrate.flags
-  */
- enum hmm_pfn_flags {
- 	/* Output fields and flags */
-@@ -48,11 +59,15 @@ enum hmm_pfn_flags {
- 	HMM_PFN_P2PDMA     = 1UL << (BITS_PER_LONG - 5),
- 	HMM_PFN_P2PDMA_BUS = 1UL << (BITS_PER_LONG - 6),
++		/* mmap lock held for whole migrate on fault operation */
++		if (!migrate) {
++			mmap_read_lock(mm);
++			ret = hmm_range_fault(range);
++			mmap_read_unlock(mm);
++		} else {
++			ret = hmm_range_fault(range);
++		}
+ 		if (ret) {
+ 			if (ret == -EBUSY)
+ 				continue;
+@@ -382,7 +390,9 @@ static int dmirror_range_fault(struct dmirror *dmirror,
+ 		break;
+ 	}
  
--	HMM_PFN_ORDER_SHIFT = (BITS_PER_LONG - 11),
-+	/* Migrate request */
-+	HMM_PFN_MIGRATE    = 1UL << (BITS_PER_LONG - 7),
-+	HMM_PFN_COMPOUND   = 1UL << (BITS_PER_LONG - 8),
-+	HMM_PFN_ORDER_SHIFT = (BITS_PER_LONG - 13),
+-	ret = dmirror_do_fault(dmirror, range);
++	/* update device page table after migration */
++	if (!migrate)
++		ret = dmirror_do_fault(dmirror, range);
  
- 	/* Input flags */
- 	HMM_PFN_REQ_FAULT = HMM_PFN_VALID,
- 	HMM_PFN_REQ_WRITE = HMM_PFN_WRITE,
-+	HMM_PFN_REQ_MIGRATE = HMM_PFN_MIGRATE,
- 
- 	HMM_PFN_FLAGS = ~((1UL << HMM_PFN_ORDER_SHIFT) - 1),
- };
-@@ -107,6 +122,7 @@ static inline unsigned int hmm_pfn_to_map_order(unsigned long hmm_pfn)
-  * @default_flags: default flags for the range (write, read, ... see hmm doc)
-  * @pfn_flags_mask: allows to mask pfn flags so that only default_flags matter
-  * @dev_private_owner: owner of device private pages
-+ * @migrate: structure for migrating a range of a VMA
-  */
- struct hmm_range {
- 	struct mmu_interval_notifier *notifier;
-@@ -117,6 +133,7 @@ struct hmm_range {
- 	unsigned long		default_flags;
- 	unsigned long		pfn_flags_mask;
- 	void			*dev_private_owner;
-+	struct migrate_vma      *migrate;
- };
- 
- /*
-diff --git a/include/linux/migrate.h b/include/linux/migrate.h
-index d5af2b7f577b..425ab5242da0 100644
---- a/include/linux/migrate.h
-+++ b/include/linux/migrate.h
-@@ -3,6 +3,7 @@
- #define _LINUX_MIGRATE_H
- 
- #include <linux/mm.h>
-+#include <linux/hmm.h>
- #include <linux/mempolicy.h>
- #include <linux/migrate_mode.h>
- #include <linux/hugetlb.h>
-@@ -200,7 +201,7 @@ void migrate_device_pages(unsigned long *src_pfns, unsigned long *dst_pfns,
- 			unsigned long npages);
- void migrate_device_finalize(unsigned long *src_pfns,
- 			unsigned long *dst_pfns, unsigned long npages);
--
-+void migrate_hmm_range_setup(struct hmm_range *range);
- #endif /* CONFIG_MIGRATION */
- 
- #endif /* _LINUX_MIGRATE_H */
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index ab49d4dcdb60..deb6c944cf15 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -1487,3 +1487,58 @@ int migrate_device_coherent_folio(struct folio *folio)
- 		return 0;
- 	return -EBUSY;
+ 	mutex_unlock(&dmirror->mutex);
+ out:
+@@ -1258,6 +1268,100 @@ static int dmirror_migrate_to_device(struct dmirror *dmirror,
+ 	return ret;
  }
-+
-+/**
-+ * migrate_hmm_range_setup() - prepare to migrate a range of memory
-+ * @range: contains pointer to struct migrate_vma to be set up.
-+ *
-+ * When collecting has been done with hmm_range_fault(), this
-+ * should be called next, and completes range->migrate by
-+ * populating migrate->src[] and migrate->dst[]
-+ * using range->hmm_pfns[].
-+ * Also, migrate->cpages and migrate->npages get initialized.
-+ * After migrate_hmm_range_setup(), range->migrate is good
-+ * for the rest of the migrate_vma_* flow.
-+ */
-+void migrate_hmm_range_setup(struct hmm_range *range)
+ 
++static int do_fault_and_migrate(struct dmirror *dmirror, struct hmm_range *range)
 +{
 +	struct migrate_vma *migrate = range->migrate;
++	int ret;
 +
-+	if (!migrate)
-+		return;
++	mmap_read_lock(dmirror->notifier.mm);
 +
-+	migrate->npages = (migrate->end - migrate->start) >> PAGE_SHIFT;
-+	migrate->cpages = 0;
++	/* Fault-in pages for migration */
++	ret = dmirror_range_fault(dmirror, range);
 +
-+	for (unsigned long i = 0; i < migrate->npages; i++) {
-+		unsigned long pfn = range->hmm_pfns[i];
++	pr_debug("Migrating from sys mem to device mem\n");
++	migrate_hmm_range_setup(range);
 +
-+		/*
-+		 * We are only interested in entries to be
-+		 * migrated.
-+		 */
-+		if (!(pfn & HMM_PFN_MIGRATE)) {
-+			migrate->src[i] = 0;
-+			migrate->dst[i] = 0;
-+			continue;
-+		}
++	dmirror_migrate_alloc_and_copy(migrate, dmirror);
++	migrate_vma_pages(migrate);
++	dmirror_migrate_finalize_and_map(migrate, dmirror);
++	migrate_vma_finalize(migrate);
 +
-+		migrate->cpages++;
++	mmap_read_unlock(dmirror->notifier.mm);
++	return ret;
++}
 +
-+		/* HMM_PFN_MIGRATE without HMM_PFN_VALID denotes the special zero page */
-+		if (pfn & HMM_PFN_VALID)
-+			migrate->src[i] = migrate_pfn(page_to_pfn(hmm_pfn_to_page(pfn)));
-+		else
-+			migrate->src[i] = 0;
++static int dmirror_fault_and_migrate_to_device(struct dmirror *dmirror,
++					       struct hmm_dmirror_cmd *cmd)
++{
++	unsigned long start, size, end, next;
++	unsigned long src_pfns[PFNS_ARRAY_SIZE] = { 0 };
++	unsigned long dst_pfns[PFNS_ARRAY_SIZE] = { 0 };
++	struct migrate_vma migrate = { 0 };
++	struct hmm_range range = { 0 };
++	struct dmirror_bounce bounce;
++	int ret = 0;
 +
-+		migrate->src[i] |= MIGRATE_PFN_MIGRATE;
-+		migrate->src[i] |= (pfn & HMM_PFN_WRITE) ? MIGRATE_PFN_WRITE : 0;
-+		migrate->src[i] |= (pfn & HMM_PFN_COMPOUND) ? MIGRATE_PFN_COMPOUND : 0;
-+		migrate->dst[i] = 0;
++	/* Whole range */
++	start = cmd->addr;
++	size = cmd->npages << PAGE_SHIFT;
++	end = start + size;
++
++	if (!mmget_not_zero(dmirror->notifier.mm)) {
++		ret = -EFAULT;
++		goto out;
 +	}
 +
-+	if (migrate->cpages)
-+		migrate_vma_unmap(migrate);
++	migrate.pgmap_owner = dmirror->mdevice;
++	migrate.src = src_pfns;
++	migrate.dst = dst_pfns;
++	migrate.flags = MIGRATE_VMA_SELECT_SYSTEM;
 +
++	range.migrate = &migrate;
++	range.hmm_pfns = src_pfns;
++	range.pfn_flags_mask = 0;
++	range.default_flags = HMM_PFN_REQ_FAULT | HMM_PFN_REQ_MIGRATE;
++	range.dev_private_owner = dmirror->mdevice;
++	range.notifier = &dmirror->notifier;
++
++	for (next = start; next < end; next = range.end) {
++		range.start = next;
++		range.end = min(end, next + (PFNS_ARRAY_SIZE << PAGE_SHIFT));
++
++		pr_debug("Fault and migrate range start:%#lx end:%#lx\n",
++			 range.start, range.end);
++
++		ret = do_fault_and_migrate(dmirror, &range);
++		if (ret)
++			goto out_mmput;
++	}
++
++	/*
++	 * Return the migrated data for verification.
++	 * Only for pages in device zone
++	 */
++	ret = dmirror_bounce_init(&bounce, start, size);
++	if (ret)
++		goto out_mmput;
++
++	mutex_lock(&dmirror->mutex);
++	ret = dmirror_do_read(dmirror, start, end, &bounce);
++	mutex_unlock(&dmirror->mutex);
++	if (ret == 0) {
++		ret = copy_to_user(u64_to_user_ptr(cmd->ptr), bounce.ptr, bounce.size);
++		if (ret)
++			ret = -EFAULT;
++	}
++
++	cmd->cpages = bounce.cpages;
++	dmirror_bounce_fini(&bounce);
++
++
++out_mmput:
++	mmput(dmirror->notifier.mm);
++out:
++	return ret;
 +}
-+EXPORT_SYMBOL(migrate_hmm_range_setup);
++
+ static void dmirror_mkentry(struct dmirror *dmirror, struct hmm_range *range,
+ 			    unsigned char *perm, unsigned long entry)
+ {
+@@ -1524,6 +1628,10 @@ static long dmirror_fops_unlocked_ioctl(struct file *filp,
+ 		ret = dmirror_migrate_to_device(dmirror, &cmd);
+ 		break;
+ 
++	case HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV:
++		ret = dmirror_fault_and_migrate_to_device(dmirror, &cmd);
++		break;
++
+ 	case HMM_DMIRROR_MIGRATE_TO_SYS:
+ 		ret = dmirror_migrate_to_system(dmirror, &cmd);
+ 		break;
+diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
+index f94c6d457338..0b6e7a419e36 100644
+--- a/lib/test_hmm_uapi.h
++++ b/lib/test_hmm_uapi.h
+@@ -29,15 +29,16 @@ struct hmm_dmirror_cmd {
+ };
+ 
+ /* Expose the address space of the calling process through hmm device file */
+-#define HMM_DMIRROR_READ		_IOWR('H', 0x00, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_WRITE		_IOWR('H', 0x01, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_MIGRATE_TO_DEV	_IOWR('H', 0x02, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_MIGRATE_TO_SYS	_IOWR('H', 0x03, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_EXCLUSIVE		_IOWR('H', 0x05, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_CHECK_EXCLUSIVE	_IOWR('H', 0x06, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_RELEASE		_IOWR('H', 0x07, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_FLAGS		_IOWR('H', 0x08, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_READ			_IOWR('H', 0x00, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_WRITE			_IOWR('H', 0x01, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_MIGRATE_TO_DEV		_IOWR('H', 0x02, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV	_IOWR('H', 0x03, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_MIGRATE_TO_SYS		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_SNAPSHOT			_IOWR('H', 0x05, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_EXCLUSIVE			_IOWR('H', 0x06, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_CHECK_EXCLUSIVE		_IOWR('H', 0x07, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_RELEASE			_IOWR('H', 0x08, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_FLAGS			_IOWR('H', 0x09, struct hmm_dmirror_cmd)
+ 
+ #define HMM_DMIRROR_FLAG_FAIL_ALLOC	(1ULL << 0)
+ 
+diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
+index 77fb4c5d871b..c8d6a3c33ef2 100644
+--- a/tools/testing/selftests/mm/hmm-tests.c
++++ b/tools/testing/selftests/mm/hmm-tests.c
+@@ -278,6 +278,13 @@ static int hmm_migrate_sys_to_dev(int fd,
+ 	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_DEV, buffer, npages);
+ }
+ 
++static int hmm_migrate_on_fault_sys_to_dev(int fd,
++					   struct hmm_buffer *buffer,
++					   unsigned long npages)
++{
++	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV, buffer, npages);
++}
++
+ static int hmm_migrate_dev_to_sys(int fd,
+ 				   struct hmm_buffer *buffer,
+ 				   unsigned long npages)
+@@ -985,6 +992,53 @@ TEST_F(hmm, migrate)
+ 	hmm_buffer_free(buffer);
+ }
+ 
++
++/*
++ * Fault and migrate anonymous memory to device private memory.
++ */
++TEST_F(hmm, migrate_on_fault)
++{
++	struct hmm_buffer *buffer;
++	unsigned long npages;
++	unsigned long size;
++	unsigned long i;
++	int *ptr;
++	int ret;
++
++	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
++	ASSERT_NE(npages, 0);
++	size = npages << self->page_shift;
++
++	buffer = malloc(sizeof(*buffer));
++	ASSERT_NE(buffer, NULL);
++
++	buffer->fd = -1;
++	buffer->size = size;
++	buffer->mirror = malloc(size);
++	ASSERT_NE(buffer->mirror, NULL);
++
++	buffer->ptr = mmap(NULL, size,
++			   PROT_READ | PROT_WRITE,
++			   MAP_PRIVATE | MAP_ANONYMOUS,
++			   buffer->fd, 0);
++	ASSERT_NE(buffer->ptr, MAP_FAILED);
++
++	/* Initialize buffer in system memory. */
++	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
++		ptr[i] = i;
++
++	/* Fault and migrate memory to device. */
++	ret = hmm_migrate_on_fault_sys_to_dev(self->fd, buffer, npages);
++	ASSERT_EQ(ret, 0);
++	ASSERT_EQ(buffer->cpages, npages);
++
++	/* Check what the device read. */
++	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
++		ASSERT_EQ(ptr[i], i);
++
++	hmm_buffer_free(buffer);
++}
++
+ /*
+  * Migrate private file memory to device private memory.
+  */
 -- 
 2.50.0
 
