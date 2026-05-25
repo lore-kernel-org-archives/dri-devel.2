@@ -4,55 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B0FACD5BC8
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 10:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93542CD5BD0
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 10:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87EDD10E13E;
-	Mon, 25 May 2026 10:14:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C6510E00F;
+	Mon, 25 May 2026 10:57:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="NcpNvr/k";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ILYktu1Z";
 	dkim-atps=neutral
-Received: from smtp.smtpout.orange.fr (smtp-28.smtpout.orange.fr
- [80.12.242.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBB1010E13E
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 10:14:24 +0000 (UTC)
-Received: from [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
- ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
- by smtp.orange.fr with ESMTPSA
- id RSKCwSmE60vWHRSKCwRtyp; Mon, 25 May 2026 12:14:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1779704063;
- bh=RHF5/7UJVhD27Lwb3tHM9Ryg0OTUsaGFuxHHVJkuPxk=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=NcpNvr/k0+PeOZaoW4Nk+Iybpzmi6ytDHvD3XA9jydeEmW1P78wZ0USD+CLdeAkuk
- ai4y2JPxyZaViQI8SK+BkPTe4+ykrdzO1mTOrZ5qGqe4hUHCVgq4Q0b2u7P5iIcGuj
- rVLOQ8OZcaOYRJ5f1yhHkKFQskNW47SimzDKmBXgFwy4yFqQKG4JA/2NcwFz7WnrKj
- Yxr3iCo2J4Mrnwr373rlBZWNMWbbe0z6p5R/QC+dTybMbizogzsDRkb2DpoPQWJPTR
- WYBs8pEp0/Q28im+9cWb764Z3e6YEUsCti2zPMKtIoh9qS4WkT5JCMLV/g22LGGBQ6
- ZZ3CbCAMRr5Pg==
-X-ME-Helo: [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Mon, 25 May 2026 12:14:23 +0200
-X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
-Message-ID: <f90481df-c68e-4c3c-be50-ad4e5e97d19b@wanadoo.fr>
-Date: Mon, 25 May 2026 12:14:18 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2E010E00F
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 10:57:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=3gZrGj2YR3+SfoOQuAgMhl6DjNIOV/Cz4XPSgQ/V+Kk=; b=ILYktu1Z7fiAMgtt1cQj4l3DEj
+ Hr5ieqIhRp3TWAtb8xpu+RtJ2KCcgUbMcQLH/8LZU0axzFiYBftIKg+CvcWI6iR/pu3W8rnq3QtTL
+ atuAl63/k7XyI3OHded7sm3GLdMn8PfHO2dew6uWhktxJWaZcNAPNFG5suiDv9KeBKMbPx+u5Q4qR
+ ch7ogi1kvF4BiuxI5YcL4DhPW08tLCIL2deb5fsdsX5B8IHmoYhNT69rXzfJ3+QfPIGEX9JNictV+
+ +SyBIIUcSs7uFp927IXAc7WFFeyl6B+4XJba0Qg6lhHI9iogB+l4OsswzgfnY/Y/xUjhqcTYBf5XR
+ jcO0TU8A==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wRT0C-007yr1-2e; Mon, 25 May 2026 12:57:44 +0200
+Message-ID: <51bc9733-162f-4c1a-88e8-99f23b4677ee@igalia.com>
+Date: Mon, 25 May 2026 11:57:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panel: novatek-nt36523: use devm_drm_panel_add()
-To: Myeonghun Pak <mhun512@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jianhua Lu <lujianhua000@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+Subject: Re: [PATCH v2 04/14] drm/v3d: Replace spin_lock_irqsave() with
+ spin_lock()
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-References: <cover.1779640137.git.mhun512@gmail.com>
- <c6fe4a162692b4df5525353dbdac5b88eda91a79.1779640137.git.mhun512@gmail.com>
-Content-Language: en-US, fr-FR
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <c6fe4a162692b4df5525353dbdac5b88eda91a79.1779640137.git.mhun512@gmail.com>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
+ <20260510-v3d-sched-misc-fixes-v2-4-ca4aba343ef6@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260510-v3d-sched-misc-fixes-v2-4-ca4aba343ef6@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,67 +67,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Le 24/05/2026 à 18:36, Myeonghun Pak a écrit :
-> nt36523_probe() adds the DRM panel before attaching the DSI devices. If
-> one of the devm_mipi_dsi_attach() calls fails, probe returns with the
-> panel still registered.
+
+On 10/05/2026 23:12, Maíra Canal wrote:
+> queue->queue_lock is only acquired from v3d_overflow_mem_work() and
+> v3d_bin_job_run(), both of which run from workqueue context. The hard
+> IRQ handler does not take this lock, so disabling interrupts while
+> holding it is unnecessary.
 > 
-> This issue was identified during our ongoing static-analysis research while
-> reviewing kernel code.
+> Drop the spin_lock_irqsave() and use plain spin_(un)lock() instead.
 > 
-> Fixes: 0993234a0045 ("drm/panel: Add driver for Novatek NT36523")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 > ---
->   drivers/gpu/drm/panel/panel-novatek-nt36523.c | 12 +++---------
->   1 file changed, 3 insertions(+), 9 deletions(-)
+>   drivers/gpu/drm/v3d/v3d_irq.c   | 17 +++++++----------
+>   drivers/gpu/drm/v3d/v3d_sched.c | 21 ++++++++++-----------
+>   2 files changed, 17 insertions(+), 21 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36523.c b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-> index 226d91daf8..f6592b01df 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-> @@ -1047,13 +1047,6 @@ static int nt36523_unprepare(struct drm_panel *panel)
->   	return 0;
->   }
+> diff --git a/drivers/gpu/drm/v3d/v3d_irq.c b/drivers/gpu/drm/v3d/v3d_irq.c
+> index 86efaef2722c..754a969b862b 100644
+> --- a/drivers/gpu/drm/v3d/v3d_irq.c
+> +++ b/drivers/gpu/drm/v3d/v3d_irq.c
+> @@ -47,7 +47,6 @@ v3d_overflow_mem_work(struct work_struct *work)
+>   	struct v3d_queue_state *queue = &v3d->queue[V3D_BIN];
+>   	struct v3d_bin_job *bin_job;
+>   	struct drm_gem_object *obj;
+> -	unsigned long irqflags;
 >   
-> -static void nt36523_remove(struct mipi_dsi_device *dsi)
-> -{
-> -	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
-
-Hi,
-
-Not looked in details, but the:
-	mipi_dsi_set_drvdata(dsi, pinfo);
-in the probe now looks useless.
-
-CJ
-
-> -
-> -	drm_panel_remove(&pinfo->panel);
-> -}
-> -
->   static int nt36523_get_modes(struct drm_panel *panel,
->   			       struct drm_connector *connector)
->   {
-> @@ -1225,7 +1218,9 @@ static int nt36523_probe(struct mipi_dsi_device *dsi)
->   			return dev_err_probe(dev, ret, "Failed to get backlight\n");
+>   	if (IS_ERR(bo)) {
+>   		drm_err(dev, "Couldn't allocate binner overflow mem\n");
+> @@ -64,18 +63,16 @@ v3d_overflow_mem_work(struct work_struct *work)
+>   	 * bin job got scheduled, that's fine.  We'll just give them
+>   	 * some binner pool anyway.
+>   	 */
+> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
+> -	bin_job = (struct v3d_bin_job *)queue->active_job;
+> +	scoped_guard(spinlock, &queue->queue_lock) {
+> +		bin_job = (struct v3d_bin_job *)queue->active_job;
+>   
+> -	if (!bin_job) {
+> -		spin_unlock_irqrestore(&queue->queue_lock, irqflags);
+> -		goto out;
+> +		if (!bin_job)
+> +			goto out;
+> +
+> +		drm_gem_object_get(obj);
+> +		list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
 >   	}
 >   
-> -	drm_panel_add(&pinfo->panel);
-> +	ret = devm_drm_panel_add(dev, &pinfo->panel);
-> +	if (ret)
-> +		return ret;
+> -	drm_gem_object_get(obj);
+> -	list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
+> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
+> -
+>   	v3d_mmu_flush_all(v3d);
 >   
->   	for (i = 0; i < DSI_NUM_MIN + pinfo->desc->is_dual_dsi; i++) {
->   		pinfo->dsi[i]->lanes = pinfo->desc->lanes;
-> @@ -1259,7 +1254,6 @@ MODULE_DEVICE_TABLE(of, nt36523_of_match);
+>   	V3D_CORE_WRITE(0, V3D_PTB_BPOA, bo->node.start << V3D_MMU_PAGE_SHIFT);
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+> index 66569b538e4e..cc3212e2cb5d 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -204,7 +204,6 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
+>   	struct v3d_queue_state *queue = &v3d->queue[V3D_BIN];
+>   	struct drm_device *dev = &v3d->drm;
+>   	struct dma_fence *fence;
+> -	unsigned long irqflags;
 >   
->   static struct mipi_dsi_driver nt36523_driver = {
->   	.probe = nt36523_probe,
-> -	.remove = nt36523_remove,
->   	.driver = {
->   		.name = "panel-novatek-nt36523",
->   		.of_match_table = nt36523_of_match,
+>   	if (unlikely(job->base.base.s_fence->finished.error))
+>   		goto out_clean_job;
+> @@ -212,13 +211,13 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
+>   	/* Lock required around bin_job update vs
+>   	 * v3d_overflow_mem_work().
+>   	 */
+> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
+> -	queue->active_job = &job->base;
+> -	/* Clear out the overflow allocation, so we don't
+> -	 * reuse the overflow attached to a previous job.
+> -	 */
+> -	V3D_CORE_WRITE(0, V3D_PTB_BPOS, 0);
+> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
+> +	scoped_guard(spinlock, &queue->queue_lock) {
+> +		queue->active_job = &job->base;
+> +		/* Clear out the overflow allocation, so we don't
+> +		 * reuse the overflow attached to a previous job.
+> +		 */
+> +		V3D_CORE_WRITE(0, V3D_PTB_BPOS, 0);
+
+Transformation is like-for-like and after the previous patch irq safety 
+is indeed not needed, so:
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+The only thing I am not sure of is whether this write to V3D_PTB_BPOS 
+needs to under the lock. Bin job run callback is the only place which 
+touches it so maybe not? And if it doesn't, then of course do that 
+movement in a separate patch.
+
+Regards,
+
+Tvrtko
+
+> +	}
+>   
+>   	v3d_invalidate_caches(v3d);
+>   
+> @@ -254,9 +253,9 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
+>   	return fence;
+>   
+>   out_clean_job:
+> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
+> -	queue->active_job = NULL;
+> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
+> +	scoped_guard(spinlock, &queue->queue_lock) {
+> +		queue->active_job = NULL;
+> +	}
+>   	return NULL;
+>   }
+>   
+> 
 
