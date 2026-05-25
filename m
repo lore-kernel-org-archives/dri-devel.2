@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FBA1CD5BC8
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 22:59:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 219F3CD5BC9
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 22:59:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF6610E17A;
-	Mon, 25 May 2026 22:59:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F76B10E24E;
+	Mon, 25 May 2026 22:59:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BVqtI4gB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n1Pjd28n";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9798910E17A
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 22:59:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3112410E24E
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 22:59:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1C6E1600AB;
+ by sea.source.kernel.org (Postfix) with ESMTP id 94EAB4378C;
+ Mon, 25 May 2026 22:59:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8981F00A3A;
  Mon, 25 May 2026 22:59:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE801F000E9;
- Mon, 25 May 2026 22:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779749944;
- bh=L1d7UULgaosIXxBW7/PeEq+ReoPxcxwGmVZLUt9dhbk=;
+ s=k20260515; t=1779749947;
+ bh=XNOA11o3XVKPjE8hzFVrc4KJGxqos6GX3K9OdJH/JfQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=BVqtI4gBPRr6mv32/kNFuM2DUAbhzRXeWaF6NtE4X8QdxKwBBuLz3IaofBFUm5fNM
- fx8rJ2s1atFucDwPruiOoEezrTF+iZ9j/MXm77TRPCyzyx8z2qmAVXJcCp0TB2FiTJ
- ua2nKliZLQotm+9v2LSj0+mHQo2MVE2DLwF1Y+vLkFAhnfOhBCXafG3abmDLJrZiE0
- pH7Irjnd4MGYsz9W9MbvEueV40uOdJefWo+AErffF10VQp1D+1GNp0YaDARzYO4Qtb
- p2UY9SDEWqDieyt099zhNhSyfUNEu1XFr3hriZRCGbMLTkQLbK0/1CyR9Mk7DHArXn
- wOLmjPBCTVqXw==
+ b=n1Pjd28nN1kAD2QhDt9geotEnooMgSRuMrQKhsAqwI+ijSFd54tWYVzW2Epltbh8J
+ itGl1PIuCx3zfCe/RmdeDYCtCoYWYB8OJrMKo9Y6+OeX616y2ogSjDQThsIeI+Vruz
+ hBNQhfB6u2qOVczqn8IzIL/A0WEbbjEMaB6s8z55Th85/e/J7/iyK0PK2OGcfx5d0i
+ 9a2IOwiIyEGqGPvjh4jit5qg1GT6VR1KQSk8Zy7fC1eaBTutRR5QQ6x2vSlaR6xIA4
+ RPVr3f8nnhYBG7DwPgv8pagzkEQLv6hSacI06ciNeBuzK2TKFvvQaeAaJxiAHjRvPz
+ o9xtCm9jC1/pw==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, acourbot@nvidia.com, aliceryhl@google.com,
  jhubbard@nvidia.com, ecourtney@nvidia.com, ttabi@nvidia.com,
  joelagnelf@nvidia.com, gary@garyguo.net
 Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org
-Subject: [PATCH 4/5] gpu: nova-core: gsp: replace ARef<Device> with &'a Device
- in sequencer
-Date: Tue, 26 May 2026 00:58:32 +0200
-Message-ID: <20260525225838.276108-5-dakr@kernel.org>
+Subject: [PATCH 5/5] gpu: nova: separate driver type from driver data
+Date: Tue, 26 May 2026 00:58:33 +0200
+Message-ID: <20260525225838.276108-6-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260525225838.276108-1-dakr@kernel.org>
 References: <20260525225838.276108-1-dakr@kernel.org>
@@ -60,86 +59,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-GspSequencer, GspSeqIter, and GspSequencerParams are already
-lifetime-parameterized; the ARef<Device> is unnecessary -- a plain
-&'a Device reference suffices.
+Split NovaDriver into a unit struct for trait implementations and a
+separate Nova struct for the private driver data.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/nova-core/gsp/boot.rs      |  2 +-
- drivers/gpu/nova-core/gsp/sequencer.rs | 11 +++++------
- 2 files changed, 6 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/nova/driver.rs | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index df105ef4b371..3e8f9611d2b3 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -234,7 +234,7 @@ pub(crate) fn boot(
-             libos_dma_handle: libos_handle,
-             gsp_falcon,
-             sec2_falcon,
--            dev: pdev.as_ref().into(),
-+            dev,
-             bar,
-         };
-         GspSequencer::run(&self.cmdq, seq_params)?;
-diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-core/gsp/sequencer.rs
-index 474e4c8021db..b3015483ed17 100644
---- a/drivers/gpu/nova-core/gsp/sequencer.rs
-+++ b/drivers/gpu/nova-core/gsp/sequencer.rs
-@@ -11,7 +11,6 @@
-         Io, //
-     },
-     prelude::*,
--    sync::aref::ARef,
-     time::{
-         delay::fsleep,
-         Delta, //
-@@ -142,7 +141,7 @@ pub(crate) struct GspSequencer<'a> {
-     /// Bootloader application version.
-     bootloader_app_version: u32,
-     /// Device for logging.
--    dev: ARef<device::Device>,
-+    dev: &'a device::Device,
+diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
+index e4765bc5b3ec..4289df7de01c 100644
+--- a/drivers/gpu/drm/nova/driver.rs
++++ b/drivers/gpu/drm/nova/driver.rs
+@@ -15,9 +15,11 @@
+ use crate::file::File;
+ use crate::gem::NovaObject;
+ 
+-pub(crate) struct NovaDriver {
++pub(crate) struct NovaDriver;
++
++pub(crate) struct Nova {
+     #[expect(unused)]
+-    drm: ARef<drm::Device<Self>>,
++    drm: ARef<drm::Device<NovaDriver>>,
  }
  
- impl fw::RegWritePayload {
-@@ -281,7 +280,7 @@ pub(crate) struct GspSeqIter<'a> {
-     /// Number of commands processed so far.
-     cmds_processed: u32,
-     /// Device for logging.
--    dev: ARef<device::Device>,
-+    dev: &'a device::Device,
- }
+ /// Convienence type alias for the DRM device type for this driver
+@@ -51,19 +53,19 @@ pub(crate) struct NovaData {
  
- impl<'a> Iterator for GspSeqIter<'a> {
-@@ -309,7 +308,7 @@ fn next(&mut self) -> Option<Self::Item> {
-             self.cmd_data.len() - offset
-         };
-         buffer[..copy_len].copy_from_slice(&self.cmd_data[offset..offset + copy_len]);
--        let cmd_result = GspSeqCmd::new(&buffer, &self.dev);
-+        let cmd_result = GspSeqCmd::new(&buffer, self.dev);
+ impl auxiliary::Driver for NovaDriver {
+     type IdInfo = ();
+-    type Data<'bound> = Self;
++    type Data<'bound> = Nova;
+     const ID_TABLE: auxiliary::IdTable<Self::IdInfo> = &AUX_TABLE;
  
-         cmd_result.map_or_else(
-             |_err| {
-@@ -334,7 +333,7 @@ fn iter(&self) -> GspSeqIter<'_> {
-             current_offset: 0,
-             total_cmds: self.seq_info.cmd_index,
-             cmds_processed: 0,
--            dev: self.dev.clone(),
-+            dev: self.dev,
-         }
+     fn probe<'bound>(
+         adev: &'bound auxiliary::Device<Core<'_>>,
+         _info: &'bound Self::IdInfo,
+-    ) -> impl PinInit<Self, Error> + 'bound {
++    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         let data = try_pin_init!(NovaData { adev: adev.into() });
+ 
+         let drm = drm::Device::<Self>::new(adev.as_ref(), data)?;
+         drm::Registration::new_foreign_owned(&drm, adev.as_ref(), 0)?;
+ 
+-        Ok(Self { drm })
++        Ok(Nova { drm })
      }
  }
-@@ -350,7 +349,7 @@ pub(crate) struct GspSequencerParams<'a> {
-     /// SEC2 falcon for core operations.
-     pub(crate) sec2_falcon: &'a Falcon<Sec2>,
-     /// Device for logging.
--    pub(crate) dev: ARef<device::Device>,
-+    pub(crate) dev: &'a device::Device,
-     /// BAR0 for register access.
-     pub(crate) bar: &'a Bar0,
- }
+ 
 -- 
 2.54.0
 
