@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 219F3CD5BC9
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 22:59:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F24B0CD5BC8
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 23:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F76B10E24E;
-	Mon, 25 May 2026 22:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED31F10E342;
+	Mon, 25 May 2026 23:02:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n1Pjd28n";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M/o77t8o";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3112410E24E
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 22:59:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CCA710E342
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:02:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 94EAB4378C;
- Mon, 25 May 2026 22:59:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8981F00A3A;
- Mon, 25 May 2026 22:59:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 151DE4431B;
+ Mon, 25 May 2026 23:02:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330711F000E9;
+ Mon, 25 May 2026 23:02:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779749947;
- bh=XNOA11o3XVKPjE8hzFVrc4KJGxqos6GX3K9OdJH/JfQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=n1Pjd28nN1kAD2QhDt9geotEnooMgSRuMrQKhsAqwI+ijSFd54tWYVzW2Epltbh8J
- itGl1PIuCx3zfCe/RmdeDYCtCoYWYB8OJrMKo9Y6+OeX616y2ogSjDQThsIeI+Vruz
- hBNQhfB6u2qOVczqn8IzIL/A0WEbbjEMaB6s8z55Th85/e/J7/iyK0PK2OGcfx5d0i
- 9a2IOwiIyEGqGPvjh4jit5qg1GT6VR1KQSk8Zy7fC1eaBTutRR5QQ6x2vSlaR6xIA4
- RPVr3f8nnhYBG7DwPgv8pagzkEQLv6hSacI06ciNeBuzK2TKFvvQaeAaJxiAHjRvPz
- o9xtCm9jC1/pw==
+ s=k20260515; t=1779750126;
+ bh=S2uI5zgspP6cNcWKDDQWRpzAEQVb4nF+eNOFB+O6P0k=;
+ h=From:To:Cc:Subject:Date;
+ b=M/o77t8ojLAk7q6HCkyBbDZzhoTrEdSzdqfF9SeGll7wR+dz0xjpALmERSq0GufdX
+ p7ihl5N8ns8m7vPUT/hHX5h9wt/9C11WUGDBepTmQRd5Es3tgTOL7fD6xPa1jb3xss
+ kOIwyzWuWPWf/C1kS0YIMTRgYXSyXQnPg9cJdIUp0jaDjLVIAqc6AAZUU5UIFdc4bB
+ en8u/8ydqxIpqwz/MPVpq876HX5CgWEce5g9fH+PPvC1ZMCfo6kMiENayP/LmhawZ5
+ efKarLzCVCTMIrInz1sKBy7xoODafyhJ2Laz3Lpstllfq83frxdoTjl8KWZCNyzlub
+ UNiZOltqAo/oQ==
 From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org, acourbot@nvidia.com, aliceryhl@google.com,
- jhubbard@nvidia.com, ecourtney@nvidia.com, ttabi@nvidia.com,
- joelagnelf@nvidia.com, gary@garyguo.net
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
-Subject: [PATCH 5/5] gpu: nova: separate driver type from driver data
-Date: Tue, 26 May 2026 00:58:33 +0200
-Message-ID: <20260525225838.276108-6-dakr@kernel.org>
+To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
+ boris.brezillon@collabora.com, deborah.brouwer@collabora.com,
+ gary@garyguo.net
+Cc: dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH 0/2] drm: tyr: use lifetime-bound IoMem
+Date: Tue, 26 May 2026 01:01:42 +0200
+Message-ID: <20260525230152.277820-1-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260525225838.276108-1-dakr@kernel.org>
-References: <20260525225838.276108-1-dakr@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -59,55 +57,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Split NovaDriver into a unit struct for trait implementations and a
-separate Nova struct for the private driver data.
+Adopt the driver core lifetime infrastructure for tyr.
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/gpu/drm/nova/driver.rs | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+Separate the driver type from the driver data and use lifetime-bound
+IoMem directly in probe instead of wrapping it in Devres and Arc,
+simplifying register access.
 
-diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
-index e4765bc5b3ec..4289df7de01c 100644
---- a/drivers/gpu/drm/nova/driver.rs
-+++ b/drivers/gpu/drm/nova/driver.rs
-@@ -15,9 +15,11 @@
- use crate::file::File;
- use crate::gem::NovaObject;
- 
--pub(crate) struct NovaDriver {
-+pub(crate) struct NovaDriver;
-+
-+pub(crate) struct Nova {
-     #[expect(unused)]
--    drm: ARef<drm::Device<Self>>,
-+    drm: ARef<drm::Device<NovaDriver>>,
- }
- 
- /// Convienence type alias for the DRM device type for this driver
-@@ -51,19 +53,19 @@ pub(crate) struct NovaData {
- 
- impl auxiliary::Driver for NovaDriver {
-     type IdInfo = ();
--    type Data<'bound> = Self;
-+    type Data<'bound> = Nova;
-     const ID_TABLE: auxiliary::IdTable<Self::IdInfo> = &AUX_TABLE;
- 
-     fn probe<'bound>(
-         adev: &'bound auxiliary::Device<Core<'_>>,
-         _info: &'bound Self::IdInfo,
--    ) -> impl PinInit<Self, Error> + 'bound {
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         let data = try_pin_init!(NovaData { adev: adev.into() });
- 
-         let drm = drm::Device::<Self>::new(adev.as_ref(), data)?;
-         drm::Registration::new_foreign_owned(&drm, adev.as_ref(), 0)?;
- 
--        Ok(Self { drm })
-+        Ok(Nova { drm })
-     }
- }
- 
+This patch series is based on [1] and drm-rust-next.
+
+[1] https://lore.kernel.org/driver-core/20260525202921.124698-1-dakr@kernel.org/
+
+Danilo Krummrich (2):
+  gpu: drm: tyr: separate driver type from driver data
+  gpu: drm: tyr: use IoMem directly instead of Devres
+
+ drivers/gpu/drm/tyr/driver.rs | 29 ++++++++++++-----------------
+ drivers/gpu/drm/tyr/gpu.rs    | 13 +++----------
+ drivers/gpu/drm/tyr/tyr.rs    |  4 ++--
+ 3 files changed, 17 insertions(+), 29 deletions(-)
+
 -- 
 2.54.0
 
