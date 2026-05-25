@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 109E2CD5BB1
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 12:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84F6BCD5BB1
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 13:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72D2210E31C;
-	Mon, 25 May 2026 12:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D48F810E11C;
+	Mon, 25 May 2026 13:02:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="ZYD/90zY";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dCbfcuOV";
 	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Mon, 25 May 2026 12:59:06 UTC
-Received: from mail-m158234.netease.com (mail-m158234.netease.com
- [47.251.158.234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B3F810E31C
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 12:59:05 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3fbb28c45;
- Mon, 25 May 2026 20:53:59 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v8 05/10] drm/rockchip: analogix_dp: Enable hclk for RK3588
-Date: Mon, 25 May 2026 20:53:26 +0800
-Message-Id: <20260525125331.140059-6-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260525125331.140059-1-damon.ding@rock-chips.com>
-References: <20260525125331.140059-1-damon.ding@rock-chips.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 386E310E11C
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 13:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ViQPRRMnJqc0icNShkUVfIAL6Dfwf6UV4SKmaUXl+FY=; b=dCbfcuOVT9hRZxu9rDCs6GmRjW
+ mHfAlR5+nwACGzLAGC+ZZE4RK0bZmLk2BcwEglZy2y0EiP6iRhkbL/p3ul7YXS4YMHel6mPeB8TUL
+ gMyb9TCfVE+R/F0EOqk5gkA5aIJoJRIkHBFDUJx2qQ7Cgcg4V3dFNGdWEZQePFGWhsKc0e9uDWwya
+ C5CKR9SDpLw7KWUBiIs3FX8i5Zg1xuQvkFYS0vTMaRcQqZuyjSvOmFTGEek6zFR8OfEMXTcWjNPKS
+ TNaz+1AWDYQ7xvI/CqjmyFTbikJl9rZtie0XIINuiRQ5tYiHKpsZaqiUkrcqEJq8U+fC7SB2lJO+f
+ ybOJ5zwA==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wRUwt-0081Qq-1Q; Mon, 25 May 2026 15:02:27 +0200
+Message-ID: <9f76bf92-b6e8-42ff-b00f-6b59df0546f1@igalia.com>
+Date: Mon, 25 May 2026 14:02:25 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/14] drm/v3d: Convert submit helpers to operate on
+ struct v3d_submit
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
+ <20260510-v3d-sched-misc-fixes-v2-10-ca4aba343ef6@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260510-v3d-sched-misc-fixes-v2-10-ca4aba343ef6@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e5f3304f803a8kunm7b8971f5af5cc5
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSx1DVkhNSklJHUNCGElCS1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=ZYD/90zY8kQTz0Hc0lpwQh+LoydrKWIfTntfRLG+YaW2FdQ8ZdDrBiLboBmGALveo53paxfOyhUuWVGRt0qMXMWmstrPmP18CQ1STX5Ap/vSZBHO6Uvy9hEspnp6qUdfbslmMQAHrPX9nDdYeck/x/6ImuJkEeB8wrIUy3l+6Fo=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=qzrSU6F51VUS8IVrczy9Q/DVSlabFI0ne4m7RTJg/xI=;
- h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,50 +67,579 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Acquire and enable the HCLK_VO1 bus clock explicitly for RK3588
-eDP controller to guarantee register and datapath access.
 
-The clock was previously enabled implicitly via rockchip,vo-grf
-phandle reference, which relies on side effect and is fragile.
+On 10/05/2026 23:12, Maíra Canal wrote:
+> Generalize v3d_lookup_bos(), v3d_lock_bo_reservations() (renamed to
+> v3d_submit_lock_reservations()), v3d_attach_fences_and_unlock_reservation()
+> and v3d_setup_csd_jobs_and_bos() so they all take a struct v3d_submit
+> and operate on every job in the chain.
+> 
+> Now, the locking helper now iterates over all jobs and locks the union of
+> their BOs under one DRM exec, using DRM_EXEC_IGNORE_DUPLICATES to tolerate
+> shared BO references. The fence-attach helper similarly walks every job
+> and attaches the chain's last fence to all touched BOs.
+> 
+> Update CL/TFU/CSD/CPU ioctls to use the new helper signatures. The CPU
+> ioctl still uses two struct v3d_submit instances (one for the CPU job,
+> one for the indirect CSD jobs) and keeps its manual mutex/push/two-pass
+> fence-attach flow. Converting the indirect CSD path into the unified
+> chain is done in the next commit.
+> 
+> No functional change.
+> 
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>   drivers/gpu/drm/v3d/v3d_submit.c | 295 ++++++++++++++-------------------------
+>   1 file changed, 108 insertions(+), 187 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+> index ef003ca6b42a..899128fc2bd5 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+> @@ -20,32 +20,51 @@
+>    * to v3d, so we don't attach dma-buf fences to them.
+>    */
+>   static int
+> -v3d_lock_bo_reservations(struct v3d_job *job, struct drm_exec *exec)
+> +v3d_submit_lock_reservations(struct v3d_submit *submit)
+>   {
+> -	int i, ret;
+> +	int i, j, ret;
+>   
+> -	drm_exec_init(exec, DRM_EXEC_INTERRUPTIBLE_WAIT, job->bo_count);
+> -	drm_exec_until_all_locked(exec) {
+> -		ret = drm_exec_prepare_array(exec, job->bo, job->bo_count, 1);
+> -	}
+> +	drm_exec_init(&submit->exec,
+> +		      DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES, 0);
+> +	drm_exec_until_all_locked(&submit->exec) {
+> +		for (i = 0; i < submit->job_count; i++) {
+> +			struct v3d_job *job = submit->jobs[i];
+>   
+> -	if (ret)
+> -		goto fail;
+> -
+> -	for (i = 0; i < job->bo_count; i++) {
+> -		ret = drm_sched_job_add_implicit_dependencies(&job->base,
+> -							      job->bo[i], true);
+> +			ret = drm_exec_prepare_array(&submit->exec, job->bo,
+> +						     job->bo_count, 1);
+> +			if (ret)
+> +				break;
+> +		}
+> +		drm_exec_retry_on_contention(&submit->exec);
+>   		if (ret)
+>   			goto fail;
+>   	}
+>   
+> +	for (i = 0; i < submit->job_count; i++) {
+> +		struct v3d_job *job = submit->jobs[i];
+> +
+> +		for (j = 0; j < job->bo_count; j++) {
+> +			ret = drm_sched_job_add_implicit_dependencies(&job->base,
+> +								      job->bo[j],
+> +								      true);
+> +			if (ret)
+> +				goto fail;
+> +		}
+> +	}
+> +
+>   	return 0;
+>   
+>   fail:
+> -	drm_exec_fini(exec);
+> +	drm_exec_fini(&submit->exec);
+>   	return ret;
+>   }
+>   
+> +static void
+> +v3d_submit_unlock_reservations(struct v3d_submit *submit)
+> +{
+> +	drm_exec_fini(&submit->exec);
+> +}
+> +
+>   /**
+>    * v3d_lookup_bos() - Sets up job->bo[] with the GEM objects
+>    * referenced by the job.
+> @@ -63,25 +82,23 @@ v3d_lock_bo_reservations(struct v3d_job *job, struct drm_exec *exec)
+>    * failure, because that will happen at `v3d_job_free()`.
+>    */
+>   static int
+> -v3d_lookup_bos(struct drm_device *dev,
+> -	       struct drm_file *file_priv,
+> -	       struct v3d_job *job,
+> -	       u64 bo_handles,
+> -	       u32 bo_count)
+> +v3d_lookup_bos(struct v3d_submit *submit, u64 bo_handles, u32 bo_count)
+>   {
+> -	job->bo_count = bo_count;
+> +	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
+>   
+> -	if (!job->bo_count) {
+> +	last_job->bo_count = bo_count;
+> +
+> +	if (!last_job->bo_count) {
+>   		/* See comment on bo_index for why we have to check
+>   		 * this.
+>   		 */
+> -		drm_warn(dev, "Rendering requires BOs\n");
+> +		drm_warn(&submit->v3d->drm, "Rendering requires BOs\n");
+>   		return -EINVAL;
 
-Fetch optional "hclk" clock in driver to align with updated device
-tree binding and keep consistent with hardware clock dependency.
+Just a nit - it would probably look more natural to have the bo_count 
+cehck and early abort before the assignment to the last_job.
 
-Fixes: 729f8eefdcad ("drm/rockchip: analogix_dp: Add support for RK3588")
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>   	}
+>   
+> -	return drm_gem_objects_lookup(file_priv,
+> +	return drm_gem_objects_lookup(submit->file_priv,
+>   				      (void __user *)(uintptr_t)bo_handles,
+> -				      job->bo_count, &job->bo);
+> +				      last_job->bo_count, &last_job->bo);
+>   }
+>   
+>   static void
+> @@ -142,25 +159,6 @@ void v3d_job_put(struct v3d_job *job)
+>   	kref_put(&job->refcount, job->free);
+>   }
+>   
+> -static int
+> -v3d_job_allocate(struct v3d_dev *v3d, void **container, size_t size)
+> -{
+> -	*container = kcalloc(1, size, GFP_KERNEL);
+> -	if (!*container) {
+> -		drm_err(&v3d->drm, "Cannot allocate memory for V3D job.\n");
+> -		return -ENOMEM;
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -static void
+> -v3d_job_deallocate(void **container)
+> -{
+> -	kfree(*container);
+> -	*container = NULL;
+> -}
+> -
+>   static int
+>   v3d_job_add_syncobjs(struct v3d_job *job, struct drm_file *file_priv,
+>   		     u32 in_sync, struct v3d_submit_ext *se, enum v3d_queue queue)
+> @@ -201,47 +199,6 @@ v3d_job_add_syncobjs(struct v3d_job *job, struct drm_file *file_priv,
+>   	return 0;
+>   }
+>   
+> -static int
+> -v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+> -	     struct v3d_job *job, void (*free)(struct kref *ref),
+> -	     u32 in_sync, struct v3d_submit_ext *se, enum v3d_queue queue)
+> -{
+> -	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
+> -	int ret;
+> -
+> -	job->v3d = v3d;
+> -	job->free = free;
+> -	job->file_priv = v3d_priv;
+> -
+> -	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
+> -				 1, v3d_priv, file_priv->client_id);
+> -	if (ret)
+> -		return ret;
+> -
+> -	ret = v3d_job_add_syncobjs(job, file_priv, in_sync, se, queue);
+> -	if (ret)
+> -		goto fail_job_init;
+> -
+> -	/* CPU jobs don't require hardware resources */
+> -	if (queue != V3D_CPU) {
+> -		ret = v3d_pm_runtime_get(v3d);
+> -		if (ret)
+> -			goto fail_job_init;
+> -		job->has_pm_ref = true;
+> -	}
+> -
+> -	kref_init(&job->refcount);
+> -
+> -	job->client_stats = v3d_stats_get(v3d_priv->stats[queue]);
+> -	job->global_stats = v3d_stats_get(v3d->queue[queue].stats);
+> -
+> -	return 0;
+> -
+> -fail_job_init:
+> -	drm_sched_job_cleanup(&job->base);
+> -	return ret;
+> -}
+> -
+>   static int
+>   v3d_submit_add_job(struct v3d_submit *submit, void **container, size_t size,
+>   		   void (*free)(struct kref *ref), enum v3d_queue queue)
+> @@ -370,31 +327,34 @@ v3d_submit_cleanup_jobs(struct v3d_submit *submit)
+>   }
+>   
+>   static void
+> -v3d_attach_fences_and_unlock_reservation(struct drm_file *file_priv,
+> -					 struct v3d_job *job,
+> -					 struct drm_exec *exec,
+> -					 u32 out_sync,
+> -					 struct v3d_submit_ext *se,
+> -					 struct dma_fence *done_fence)
+> +v3d_attach_fences_and_unlock_reservation(struct v3d_submit *submit,
+> +					 u32 out_sync, struct v3d_submit_ext *se)
+>   {
+> -	struct drm_syncobj *sync_out;
+>   	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
+> -	int i;
+> +	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
+> +	struct drm_syncobj *sync_out;
+>   
+> -	for (i = 0; i < job->bo_count; i++) {
+> -		/* XXX: Use shared fences for read-only objects. */
+> -		dma_resv_add_fence(job->bo[i]->resv, job->done_fence,
+> -				   DMA_RESV_USAGE_WRITE);
+> +	/* The submission's last fence covers the entire submission. Attach it
+> +	 * to every BO touched by any job in the submission.
+> +	 */
+> +	for (int i = 0; i < submit->job_count; i++) {
+> +		struct v3d_job *job = submit->jobs[i];
+> +
+> +		for (int j = 0; j < job->bo_count; j++) {
+> +			/* XXX: Use shared fences for read-only objects. */
+> +			dma_resv_add_fence(job->bo[j]->resv, last_job->done_fence,
+> +					   DMA_RESV_USAGE_WRITE);
+> +		}
+>   	}
+>   
+> -	drm_exec_fini(exec);
+> +	v3d_submit_unlock_reservations(submit);
+>   
+>   	/* Update the return sync object for the job */
+>   	/* If it only supports a single signal semaphore*/
+>   	if (!has_multisync) {
+> -		sync_out = drm_syncobj_find(file_priv, out_sync);
+> +		sync_out = drm_syncobj_find(submit->file_priv, out_sync);
+>   		if (sync_out) {
+> -			drm_syncobj_replace_fence(sync_out, done_fence);
+> +			drm_syncobj_replace_fence(sync_out, last_job->done_fence);
+>   			drm_syncobj_put(sync_out);
+>   		}
+>   		return;
+> @@ -402,9 +362,9 @@ v3d_attach_fences_and_unlock_reservation(struct drm_file *file_priv,
+>   
+>   	/* If multiple semaphores extension is supported */
+>   	if (se->out_sync_count) {
+> -		for (i = 0; i < se->out_sync_count; i++) {
+> +		for (int i = 0; i < se->out_sync_count; i++) {
+>   			drm_syncobj_replace_fence(se->out_syncs[i].syncobj,
+> -						  done_fence);
+> +						  last_job->done_fence);
+>   			drm_syncobj_put(se->out_syncs[i].syncobj);
+>   		}
+>   		kvfree(se->out_syncs);
+> @@ -412,46 +372,36 @@ v3d_attach_fences_and_unlock_reservation(struct drm_file *file_priv,
+>   }
+>   
+>   static int
+> -v3d_setup_csd_jobs_and_bos(struct drm_file *file_priv,
+> -			   struct v3d_dev *v3d,
+> +v3d_setup_csd_jobs_and_bos(struct v3d_submit *submit,
+>   			   struct drm_v3d_submit_csd *args,
+> -			   struct v3d_csd_job **job,
+> -			   struct v3d_job **clean_job,
+> -			   struct v3d_submit_ext *se,
+> -			   struct drm_exec *exec)
+> +			   struct v3d_submit_ext *se)
+>   {
+> +	struct v3d_csd_job *job = NULL;
+> +	struct v3d_job *clean_job = NULL;
+>   	int ret;
+>   
+> -	ret = v3d_job_allocate(v3d, (void *)job, sizeof(**job));
+> +	ret = v3d_submit_add_job(submit, (void **)&job, sizeof(*job),
+> +				 v3d_job_free, V3D_CSD);
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = v3d_job_init(v3d, file_priv, &(*job)->base,
+> -			   v3d_job_free, args->in_sync, se, V3D_CSD);
+> -	if (ret) {
+> -		v3d_job_deallocate((void *)job);
+> -		return ret;
+> -	}
+> -
+> -	ret = v3d_job_allocate(v3d, (void *)clean_job, sizeof(**clean_job));
+> +	ret = v3d_job_add_syncobjs(&job->base, submit->file_priv, args->in_sync,
+> +				   se, V3D_CSD);
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = v3d_job_init(v3d, file_priv, *clean_job,
+> -			   v3d_job_free, 0, NULL, V3D_CACHE_CLEAN);
+> -	if (ret) {
+> -		v3d_job_deallocate((void *)clean_job);
+> -		return ret;
+> -	}
+> +	job->args = *args;
+>   
+> -	(*job)->args = *args;
+> -
+> -	ret = v3d_lookup_bos(&v3d->drm, file_priv, *clean_job,
+> -			     args->bo_handles, args->bo_handle_count);
+> +	ret = v3d_submit_add_job(submit, (void **)&clean_job, sizeof(*clean_job),
+> +				 v3d_job_free, V3D_CACHE_CLEAN);
+>   	if (ret)
+>   		return ret;
+>   
+> -	return v3d_lock_bo_reservations(*clean_job, exec);
+> +	ret = v3d_lookup_bos(submit, args->bo_handles, args->bo_handle_count);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return v3d_submit_lock_reservations(submit);
+>   }
+>   
+>   static void
+> @@ -1086,14 +1036,11 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+>   			goto fail;
+>   	}
+>   
+> -	ret = v3d_lookup_bos(dev, file_priv,
+> -			     submit.jobs[submit.job_count - 1],
+> -			     args->bo_handles, args->bo_handle_count);
+> +	ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
+>   	if (ret)
+>   		goto fail;
+>   
+> -	ret = v3d_lock_bo_reservations(submit.jobs[submit.job_count - 1],
+> -				       &submit.exec);
+> +	ret = v3d_submit_lock_reservations(&submit);
+>   	if (ret)
+>   		goto fail;
+>   
+> @@ -1105,18 +1052,14 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+>   	if (ret)
+>   		goto fail_unreserve;
+>   
+> -	v3d_attach_fences_and_unlock_reservation(file_priv,
+> -						 submit.jobs[submit.job_count - 1],
+> -						 &submit.exec,
+> -						 args->out_sync, &se,
+> -						 submit.jobs[submit.job_count - 1]->done_fence);
+> +	v3d_attach_fences_and_unlock_reservation(&submit, args->out_sync, &se);
+>   
+>   	v3d_submit_put_jobs(&submit);
+>   
+>   	return 0;
+>   
+>   fail_unreserve:
+> -	drm_exec_fini(&submit.exec);
+> +	v3d_submit_unlock_reservations(&submit);
+>   fail:
+>   	v3d_submit_cleanup_jobs(&submit);
+>   	v3d_put_multisync_post_deps(&se);
+> @@ -1194,7 +1137,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+>   		job->base.bo[job->base.bo_count] = bo;
+>   	}
+>   
+> -	ret = v3d_lock_bo_reservations(&job->base, &submit.exec);
+> +	ret = v3d_submit_lock_reservations(&submit);
+>   	if (ret)
+>   		goto fail;
+>   
+> @@ -1202,17 +1145,14 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+>   	if (ret)
+>   		goto fail_unreserve;
+>   
+> -	v3d_attach_fences_and_unlock_reservation(file_priv,
+> -						 &job->base, &submit.exec,
+> -						 args->out_sync, &se,
+> -						 job->base.done_fence);
+> +	v3d_attach_fences_and_unlock_reservation(&submit, args->out_sync, &se);
+>   
+>   	v3d_submit_put_jobs(&submit);
+>   
+>   	return 0;
+>   
+>   fail_unreserve:
+> -	drm_exec_fini(&submit.exec);
+> +	v3d_submit_unlock_reservations(&submit);
+>   fail:
+>   	v3d_submit_cleanup_jobs(&submit);
+>   	v3d_put_multisync_post_deps(&se);
+> @@ -1236,8 +1176,6 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+>   	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
+>   	struct drm_v3d_submit_csd *args = data;
+>   	struct v3d_submit_ext se = {0};
+> -	struct v3d_csd_job *job = NULL;
+> -	struct v3d_job *clean_job = NULL;
+>   	int ret;
+>   
+>   	trace_v3d_submit_csd_ioctl(dev, args->cfg[5], args->cfg[6]);
+> @@ -1263,14 +1201,10 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+>   		}
+>   	}
+>   
+> -	ret = v3d_setup_csd_jobs_and_bos(file_priv, submit.v3d, args,
+> -					 &job, &clean_job, &se, &submit.exec);
+> +	ret = v3d_setup_csd_jobs_and_bos(&submit, args, &se);
+>   	if (ret)
+>   		goto fail;
+>   
+> -	submit.jobs[submit.job_count++] = &job->base;
+> -	submit.jobs[submit.job_count++] = clean_job;
+> -
+>   	ret = v3d_attach_perfmon_to_jobs(&submit, args->perfmon_id);
+>   	if (ret)
+>   		goto fail_unreserve;
+> @@ -1279,18 +1213,14 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+>   	if (ret)
+>   		goto fail_unreserve;
+>   
+> -	v3d_attach_fences_and_unlock_reservation(file_priv,
+> -						 clean_job,
+> -						 &submit.exec,
+> -						 args->out_sync, &se,
+> -						 clean_job->done_fence);
+> +	v3d_attach_fences_and_unlock_reservation(&submit, args->out_sync, &se);
+>   
+>   	v3d_submit_put_jobs(&submit);
+>   
+>   	return 0;
+>   
+>   fail_unreserve:
+> -	drm_exec_fini(&submit.exec);
+> +	v3d_submit_unlock_reservations(&submit);
+>   fail:
+>   	v3d_submit_cleanup_jobs(&submit);
+>   	v3d_put_multisync_post_deps(&se);
+> @@ -1321,13 +1251,14 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   		     struct drm_file *file_priv)
+>   {
+>   	struct v3d_dev *v3d = to_v3d_dev(dev);
+> +	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
+> +	struct v3d_submit indirect_submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
+>   	struct drm_v3d_submit_cpu *args = data;
+>   	struct v3d_submit_ext se = {0};
+>   	struct v3d_submit_ext *out_se = NULL;
+>   	struct v3d_cpu_job *cpu_job = NULL;
+>   	struct v3d_csd_job *csd_job = NULL;
+>   	struct v3d_job *clean_job = NULL;
+> -	struct drm_exec exec;
+>   	int ret;
+>   
+>   	if (args->flags && !(args->flags & DRM_V3D_SUBMIT_EXTENSION)) {
+> @@ -1335,7 +1266,8 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   		return -EINVAL;
+>   	}
+>   
+> -	ret = v3d_job_allocate(v3d, (void *)&cpu_job, sizeof(*cpu_job));
+> +	ret = v3d_submit_add_job(&submit, (void **)&cpu_job, sizeof(*cpu_job),
+> +				 v3d_job_free, V3D_CPU);
+>   	if (ret)
+>   		return ret;
+>   
+> @@ -1362,34 +1294,31 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   
+>   	trace_v3d_submit_cpu_ioctl(&v3d->drm, cpu_job->job_type);
+>   
+> -	ret = v3d_job_init(v3d, file_priv, &cpu_job->base,
+> -			   v3d_job_free, 0, &se, V3D_CPU);
+> -	if (ret) {
+> -		v3d_job_deallocate((void *)&cpu_job);
+> +	ret = v3d_job_add_syncobjs(&cpu_job->base, file_priv, 0, &se, V3D_CPU);
+> +	if (ret)
+>   		goto fail;
+> -	}
+>   
+>   	if (cpu_job->job_type == V3D_CPU_JOB_TYPE_INDIRECT_CSD) {
+> -		ret = v3d_setup_csd_jobs_and_bos(file_priv, v3d,
+> +		ret = v3d_setup_csd_jobs_and_bos(&indirect_submit,
+>   						 &cpu_job->indirect_csd.args,
+> -						 &cpu_job->indirect_csd.job,
+> -						 &cpu_job->indirect_csd.clean_job,
+> -						 NULL,
+> -						 &cpu_job->indirect_csd.exec);
+> +						 NULL);
+>   		if (ret)
+>   			goto fail;
+> +
+> +		cpu_job->indirect_csd.job = container_of(indirect_submit.jobs[0],
+> +							 struct v3d_csd_job, base);
+> +		cpu_job->indirect_csd.clean_job = indirect_submit.jobs[1];
+>   	}
+>   
+>   	clean_job = cpu_job->indirect_csd.clean_job;
+>   	csd_job = cpu_job->indirect_csd.job;
 
----
+Nit - the above two assignments can be move in the if-block just above. 
+Or the switch statement a bit lower. Unless this will all disappear 
+later in the series in which case no need to bother.
 
-Changes in v4:
-- Modify the commit msg.
----
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+>   
+>   	if (args->bo_handle_count) {
+> -		ret = v3d_lookup_bos(dev, file_priv, &cpu_job->base,
+> -				     args->bo_handles, args->bo_handle_count);
+> +		ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
+>   		if (ret)
+>   			goto fail;
+>   
+> -		ret = v3d_lock_bo_reservations(&cpu_job->base, &exec);
+> +		ret = v3d_submit_lock_reservations(&submit);
+>   		if (ret)
+>   			goto fail;
+>   	}
+> @@ -1421,36 +1350,28 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   
+>   	out_se = (cpu_job->job_type == V3D_CPU_JOB_TYPE_INDIRECT_CSD) ? NULL : &se;
+>   
+> -	v3d_attach_fences_and_unlock_reservation(file_priv,
+> -						 &cpu_job->base,
+> -						 &exec, 0,
+> -						 out_se, cpu_job->base.done_fence);
+> +	v3d_attach_fences_and_unlock_reservation(&submit, 0, out_se);
+>   
+>   	switch (cpu_job->job_type) {
+>   	case V3D_CPU_JOB_TYPE_INDIRECT_CSD:
+> -		v3d_attach_fences_and_unlock_reservation(file_priv,
+> -							 clean_job,
+> -							 &cpu_job->indirect_csd.exec,
+> -							 0, &se, clean_job->done_fence);
+> +		v3d_attach_fences_and_unlock_reservation(&indirect_submit, 0, &se);
+>   		break;
+>   	default:
+>   		break;
+>   	}
+>   
+> -	v3d_job_put(&cpu_job->base);
+> -	v3d_job_put(&csd_job->base);
+> -	v3d_job_put(clean_job);
+> +	v3d_submit_put_jobs(&submit);
+> +	v3d_submit_put_jobs(&indirect_submit);
+>   
+>   	return 0;
+>   
+>   fail_unreserve:
+>   	mutex_unlock(&v3d->sched_lock);
+> -	drm_exec_fini(&exec);
+> -	drm_exec_fini(&cpu_job->indirect_csd.exec);
+> +	v3d_submit_unlock_reservations(&submit);
+> +	v3d_submit_unlock_reservations(&indirect_submit);
+>   fail:
+> -	v3d_job_cleanup((void *)cpu_job);
+> -	v3d_job_cleanup((void *)csd_job);
+> -	v3d_job_cleanup(clean_job);
+> +	v3d_submit_cleanup_jobs(&submit);
+> +	v3d_submit_cleanup_jobs(&indirect_submit);
+>   	v3d_put_multisync_post_deps(&se);
+>   	kvfree(cpu_job->timestamp_query.queries);
+>   	kvfree(cpu_job->performance_query.queries);
+> 
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index 06072efd7fca..d2af5eb29dbb 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -311,6 +311,7 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- {
- 	struct device *dev = dp->dev;
- 	struct device_node *np = dev->of_node;
-+	struct clk *clk;
- 
- 	dp->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
- 	if (IS_ERR(dp->grf))
-@@ -327,6 +328,11 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 		return dev_err_probe(dev, PTR_ERR(dp->pclk),
- 				     "failed to get pclk property\n");
- 
-+	clk = devm_clk_get_optional_enabled(dev, "hclk");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get hclk property\n");
-+
- 	dp->rst = devm_reset_control_get(dev, "dp");
- 	if (IS_ERR(dp->rst))
- 		return dev_err_probe(dev, PTR_ERR(dp->rst),
--- 
-2.34.1
+LGTM.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Regards,
+
+Tvrtko
+
 
