@@ -4,41 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68C1ECD5BC9
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 23:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D486ACD5BC8
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 23:53:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 994A210E0D1;
-	Mon, 25 May 2026 23:40:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4340910E201;
+	Mon, 25 May 2026 23:53:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="FOCWb8Q3";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="R4i0IHMa";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6287910E0D1
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:40:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779752400; cv=none; 
+X-Greylist: delayed 902 seconds by postgrey-1.36 at gabe;
+ Mon, 25 May 2026 23:53:33 UTC
+Received: from sender4-op-o10.zoho.com (sender4-op-o10.zoho.com
+ [136.143.188.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6037810E201
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:53:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779752306; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=ca1wM0tMBOu1Cw5uvOyCSkwsgbLX/fsZ0rKlkNVFl7Vq95JfYdX+WUibFBoDPf5q7zEMVxxViwfo8OtHf8blWeGaI78/SnuQD+x73J/NlKYndwDrMhkDRKmWUEks8Vhl4cJCDy5sTCgUp8Qrt+wfXuFfbt2bPCRExmDpF4srvbs=
+ b=Osc1iJdh9i//7IziDWI8TRqMtUIiNR5OuD2WNgr1FPdTgEx0i2U0OujaW0GCI+3bVvFwbg/eGPDxEmjFQKX7FbzWyNyvxdy0gWKriEKGNHGqQPPQJNnjvw9FJ2q/7oQisq1vmTnp8i2EasSRKrz+cqfCeo31pHCGcMUSRfvxqLo=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779752400;
+ s=zohoarc; t=1779752306;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ZvrW3sUwBueNf3eOV1tZZMywMjDuEwW0BY1Xg9h0JPs=; 
- b=bD/MMXduFJqi1dyzzNpxtOV3zmIKe6q+Gozda2ysA1lg9T0lQ3Za/pnXyAiSGFnjvz9zTk3q2wXXOTy8EUOfCieL3O/LLtEIN15VGYPyv4nZ0PyeIeiaUF3NxVEEqFzF9K8APziniv/sikCEefRYr2aPsrdy25XuzmGtgu83Pdw=
+ bh=AWzAifp2Eq9PNUKyhqA9ZAbFibzkc5QldnOyWDzTtdY=; 
+ b=QbPmZc/xUwgXkE07vfweI6zfHUzODSZ1QdEK1ACJUUKEhjolrTxdhNLpEtyCQ88x9DvsYK0bDStd/v+Rrub3yPIcmfpotzBm2m4Eo9kOt9kTGPmzeGbsTNUeSLLze6XizH5FKXbzP83mabOhK4+AjW7KNwBss8rf0gEe1Lps7CY=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=leandro.ribeiro@collabora.com;
  dmarc=pass header.from=<leandro.ribeiro@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779752400; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779752306; 
  s=zohomail; d=collabora.com; i=leandro.ribeiro@collabora.com; 
  h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=ZvrW3sUwBueNf3eOV1tZZMywMjDuEwW0BY1Xg9h0JPs=;
- b=FOCWb8Q3MGLsXssXZMfZ6TkYAczPRmIsuYfzH/7T7kTtpkMeodSB8XX9cyMCJQKI
- KaYHjCLv9gQzSOAh6DODRJWUIiEljD9JKHl3RwPTVsyahmInkNydotbUdRa9WTfRB5c
- 3LVMxhEb3U6y6/tKH3Fb8BDPfm+RLcM1o2jH4QmU=
-Received: by mx.zohomail.com with SMTPS id 1779752397409221.4769894279583;
- Mon, 25 May 2026 16:39:57 -0700 (PDT)
-Message-ID: <21f1ee84-8786-406a-a91c-a03acc231877@collabora.com>
-Date: Mon, 25 May 2026 20:39:52 -0300
+ bh=AWzAifp2Eq9PNUKyhqA9ZAbFibzkc5QldnOyWDzTtdY=;
+ b=R4i0IHMaoCc3dMqg3h5An09/RCpaMWWuHCDvLkUegDYAAkLCfiOPg34IPD8UGOdp
+ o0JrC6lBcoi4wuM8ByibaVA/TN65O/O6uNElBxWmxz3HMmpLasEqN5MkPNMCB1sEYrJ
+ C5hVincZMLX5/IEI10PGyPltgiYg2HLoKY9MiKVc=
+Received: by mx.zohomail.com with SMTPS id 1779752303243559.4926896587914;
+ Mon, 25 May 2026 16:38:23 -0700 (PDT)
+Message-ID: <020b2afd-b056-4502-9ad5-51eabba94074@collabora.com>
+Date: Mon, 25 May 2026 20:38:16 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 2/2] drm: ensure blend mode supported if alpha exposed
@@ -50,10 +52,10 @@ Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
  linux-kernel@vger.kernel.org
 References: <20260518175429.80615-1-leandro.ribeiro@collabora.com>
  <20260518175429.80615-3-leandro.ribeiro@collabora.com>
- <ahCeEJQZYOJG-GIx@intel.com>
+ <ahCfY3RXV2l-fZda@intel.com>
 Content-Language: en-US
 From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-In-Reply-To: <ahCeEJQZYOJG-GIx@intel.com>
+In-Reply-To: <ahCfY3RXV2l-fZda@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
@@ -74,7 +76,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 5/22/26 3:18 PM, Ville Syrjälä wrote:
+On 5/22/26 3:24 PM, Ville Syrjälä wrote:
 > On Mon, May 18, 2026 at 02:54:29PM -0300, Leandro Ribeiro wrote:
 >> Before "drm/drm_blend: allow blend mode property without PREMULTI",
 >> userspace would have to assume that only PREMULTI was supported by
@@ -85,15 +87,6 @@ On 5/22/26 3:18 PM, Ville Syrjälä wrote:
 >> Error out if a driver expose alpha property or pixel formats with alpha
 >> and does not expose the blend mode property. This way userspace don't
 >> have to guess. Drivers that hit such error must be fixed.
-> 
-> I don't think the error handling is a good idea. It's just another
-> completely untested error path that is more or less guaranteed to
-> break eventually. So IMO just WARN and plow ahead like we do for
-> everything else there.
-> 
-
-Sounds good to me, I'll change that in the next revision.
-
 >>
 >> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 >> ---
@@ -157,6 +150,14 @@ Sounds good to me, I'll change that in the next revision.
 >> +			plane->base.id, plane->name);
 >> +		return -EINVAL;
 >> +	}
+> 
+> Why this? I don't think the constant alpha property has anything
+> really to do with the per-pixel alpha stuff.
+
+You’re right: if the pixel format has no alpha channel, the constant
+alpha property produces identical results for COVERAGE and PREMULTI.
+
+> 
 >> +
 >> +	for (i = 0; i < plane->format_count; i++) {
 >> +		fmt = drm_format_info(plane->format_types[i]);
