@@ -4,126 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4335CD5BBF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 09:11:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 707ECCD5BBF
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 09:17:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B80710E04F;
-	Mon, 25 May 2026 09:11:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C893C10E05F;
+	Mon, 25 May 2026 09:16:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="twalLFMQ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="abKkV7H6";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UC5eVSC1";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012023.outbound.protection.outlook.com [52.101.48.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB33310E04F;
- Mon, 25 May 2026 09:11:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a9EHIBSZ8eylmk35PzUKW73+mzksYkGvfKX+RrxCxwM5uORnD85zlY4mJlSGkDKXiUTFojETmdYTIraHG+nCfAg3a/6+3u1JqNT5Y4yztLdZn/Yny5VFz0I20m2N58+l3G1B1Y4DrL75kmo/wuUe8Zq4kPtIGAcjFyjH4d/ZCwca1NGWJe29dUwBpOyCcfe6Er//Ba8OyhwidwaJjJYbCjNh+/2x9ZdKThltGFZi/vFpw0I1WnRpt5QD0FKm9SUGjY7VfJmBEqEwNJOoXMPOJZ/8uHA/7HWHp6kS5ub9IHbgLC6rz4YV9LaL5JbFfJqQg24DrDZlk4M90pveZHbIyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9sX9kBzdbn+W2kOBJSb5t2exILaWALqkUa0IHyGymQE=;
- b=UeXvobSeSJZ3s35bz2kwSKaPpRjps4L0xO/2bBGr5w6qoRoAquH+Ckwv+tVyyib3XKvbfmOv/sIFuS4PlsyxOhDW4gTqhangk07UnUCOhI9hJnz5g0/B6/Ng91k7Sx3aXzGNBNNMmyvQsLR1Pf9DzhsZ/XPLlW0tbr6FIM+DrXyp71z259ResqHc8j7ZHQjtJZ97vwXIWg6BTL2QJN+RG0rZF8J+CvH6L/VG+3z8v7Z3eO2hRC0k3/6W3jBpe0tYlJTBkVkUdqnqFh13WxzwsPEDMiIpJ+9kVj4Y1yushyNWcAOK0BysgFmFr9m6K+gTPYiekl0O+KOvxBuF0Hez2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9sX9kBzdbn+W2kOBJSb5t2exILaWALqkUa0IHyGymQE=;
- b=twalLFMQrnUfFk4HF47ZtmUXi1FeILNZ63wDCqkkneo4e/ODWi93C9O52Gsi/wycaCvbBmvirNcp7pSwDiuqYzX715b4u0LvfvEqjRcyrqkOB9Z/wpExAKFHv9Df64yIcsV1JCXLD07OLJZzGRemZNuuS+hTtszGtZBLQUBYefE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from EAYPR12MB999132.namprd12.prod.outlook.com
- (2603:10b6:303:2c2::11) by LV3PR12MB9403.namprd12.prod.outlook.com
- (2603:10b6:408:217::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
- 2026 09:11:04 +0000
-Received: from EAYPR12MB999132.namprd12.prod.outlook.com
- ([fe80::7798:60c4:e3f0:d3f8]) by EAYPR12MB999132.namprd12.prod.outlook.com
- ([fe80::7798:60c4:e3f0:d3f8%4]) with mapi id 15.20.9891.021; Mon, 25 May 2026
- 09:11:04 +0000
-Message-ID: <394c16c1-2c3c-4a70-9d08-1e5ead02b424@amd.com>
-Date: Mon, 25 May 2026 14:40:59 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] gpu/buddy: Track per-order used blocks with a
- scoreboard
-To: Matthew Auld <matthew.auld@intel.com>,
- Francois Dugast <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-References: <20260522092600.32818-1-francois.dugast@intel.com>
- <20260522092600.32818-6-francois.dugast@intel.com>
- <e3022ae8-d08d-4114-b6c0-c8f0890a2dae@amd.com>
- <38cc3449-b51a-4b54-bed8-8802e7b37299@intel.com>
-Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <38cc3449-b51a-4b54-bed8-8802e7b37299@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0141.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b9::15) To EAYPR12MB999132.namprd12.prod.outlook.com
- (2603:10b6:303:2c2::11)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7408D10E05F
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 09:16:58 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64P9Ed5W079559
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 09:16:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=swGUlrLa5WZl6kGap/pSw0CO
+ t52HIv57pADbESN3Ydk=; b=abKkV7H6Fz+QC0xMZhrJJ3CP1pIr//RzFsO5yml9
+ wn+H2SLGXR/iMHmZCdzwzzIdSKjtMOM+Mfn7cQSJzvCMlZ3+lF6k/CD/ZjRRxYwu
+ M4RftU4PKNSGZA+zYr+BQgcL22+ey9VtYXKencBfHWbBLVeKU0dhoNLQt2AiuHwX
+ x6UdgE55kmPJOUVb++VP7vzkvZY8vQkqgp+SiCoxRuvFAcdpP6all8SALn0kpy4D
+ qdpBWCuOOMRTDW1ek8lyLMBXL8Bpt6PEW5qLK2CKaONdStPjSWBFWzgctCRs9jHX
+ P/2q8TT/vHAefgdCdhz4SHfJ7zpSEOa9873S086jTcyA1w==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
+ [209.85.222.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eckma80aa-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 09:16:57 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id
+ a1e0cc1a2514c-95fcbf9c0e8so14988390241.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 02:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779700617; x=1780305417;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=swGUlrLa5WZl6kGap/pSw0COt52HIv57pADbESN3Ydk=;
+ b=UC5eVSC1GAtd/bJIVT1CezCZvztMUJHMn0peCTmZOwhrGNEZPvLs6ohoWyeXzHOpEW
+ zBIHvvJJ1MiQDnHxV+HNcY9WnQ8BC1toUTfT3qNq8G4HdiVHBQPQTOJlDrbUM1hG+f0h
+ B6waVtWic+HkkkrWm0CtnhLOCiRlfH9PhLykuW1vf0g2uTq3G+UM+0ysr14PIzIsE8fO
+ 3LD8dGPRyCugGp6h4p3LB7UlJ+Luj6oWZ9oSZMOsaBjq1JXiuCY/NIjijQAiATHdBKUR
+ XBa2QyfcnNASHGf2LEfaZmbwDPXFus8M4AxGYDzFHIB+TfKA7qUGIVxuAV/8vE0dhizX
+ Qb7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779700617; x=1780305417;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=swGUlrLa5WZl6kGap/pSw0COt52HIv57pADbESN3Ydk=;
+ b=h+NoMT2czgr0Ynz+c1ntksHJEfVszIM1FPI0U3pNtxGx5UUeSfKFOJVWweU6jiEzu1
+ LO8yvP5ZvefgfZd3gRgeDWzlnwZ4hYvxBwPXfH3ZordPx1wrqtWjOZAVeNeExjy7Y9ES
+ XcI6QWod1W60uWXzw14YtDvP+QYcUHKG/+/XDH8Ze2t9/FdvmAC0d5rNf2mVc/tVW/+X
+ EplBjgqIHWckGuFfQoOPtGJdbeMNxl3LqVpmLMqd+WIRkySMFP7GQuHdiVMeE7w+TFlt
+ zHCIC+/6P4kC6cITE8p5+gKI4Cq7KVuPZMZtNt4qnNImIRjB04JToSsAbW78DcngRYX9
+ 6Pzw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9nsnA/OwZVdijzPIraxbPmn6rZoIiLJcE/1upOT8ZN3hRkdJHtQ26f3R/MD7lrFgreYzNEMYwRsaY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyijxwd4mh9nQhGYor02jzNfrKtj/dGRu5YTQf3SmifvSmvq+yR
+ l9FxylKdaN6ynz0Wpad82Ebo9TKOba3HURghTw64aoMcVHEq0VpkIM8ZIWDKajWbJZRpoVbvrgL
+ gr0o1qcOWbMvbu+7gOmaHunr0Z4AbZoZu3FoszNHoMlGmpmGhm0w+5qq574DMOPu7/ejVOzE=
+X-Gm-Gg: Acq92OGSmEJKQR+ac+QiZTBT8TlTUwNeN7gDamFAojhIeyI+HW2YoG/0Kx9UNDnvVdd
+ 2xVDmJfpIjv3g7PcFwBIVZ1VFBaP3t4D/U59j+ZyELebyGDzcwG6qVC7A+cSYONp7ZJ24ype7Yc
+ fZZSYAwEMHFHw8D55Y8ehw+59je+/RN7jPkq1ehC4xDQAkqlUJJU6D64dWtqPumiwI4pE7ov0B7
+ 4EMwD4rnaLYRHlG0uJIlmJUKq5Cj652HuKnwhjti15qKReL3EDN201UwStiCJGUVHLWrUYTiObq
+ WviOxTzoB/BcIbq3S9uZiUX1kjzGQ2yvZRFyjFDtFweFWZ7R/pIDeTvXfxTyAyeKY2tTJJFM2Id
+ 7hhRmQBxvSVvRITxv7XV45DUS1iku3TMhdo3titc0A7/mZyGJuPiBK7UnrwF7q0DkgYefRXUS/X
+ 98UdYEs0AK2Rm0rvAOmFLb5d/zESiMlWai/8c=
+X-Received: by 2002:a05:6102:3585:b0:631:41f9:ffa2 with SMTP id
+ ada2fe7eead31-67c8cba579fmr6903432137.29.1779700616854; 
+ Mon, 25 May 2026 02:16:56 -0700 (PDT)
+X-Received: by 2002:a05:6102:3585:b0:631:41f9:ffa2 with SMTP id
+ ada2fe7eead31-67c8cba579fmr6903427137.29.1779700616494; 
+ Mon, 25 May 2026 02:16:56 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa32ceb153sm2526918e87.39.2026.05.25.02.16.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2026 02:16:55 -0700 (PDT)
+Date: Mon, 25 May 2026 12:16:53 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+Cc: srini@kernel.org, linux-arm-msm@vger.kernel.org,
+ gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ dri-devel@lists.freedesktop.org, arnd@arndb.de,
+ ekansh.gupta@oss.qualcomm.com, stable@kernel.org
+Subject: Re: [PATCH v1] misc: fastrpc: fix channel ctx ref leak when session
+ alloc fails
+Message-ID: <jubkqaefflafx5bfa43ky64y4zwbpmhwrsayh32fyendoplfaz@ih6h6nohp3wb>
+References: <20260525085340.2734738-1-anandu.e@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR12MB999132:EE_|LV3PR12MB9403:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd5dd8f5-eb10-4b9d-8c76-08deba3d8bea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|22082099003|18002099003|56012099003|4143699003|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: j+iFILGzER/mIXWJozKfSmC9emBM65oK5D6MTdpDdyhI5QFSG7m9Rr1iQkWmCYSxq2HSym826YdtMMKxmzPuwWF8fvsGFd6tu0s1bkqKMCvdrIXdch0REOGdwNEdE6QEWMSU1lVGjhC/UkM75w6Oll49OjKREwH1AgvYq5KrOMaQDjICChwpbDnSSlghIxvwSFyU8DIIXQ9ewNtAZ2FC0ErMPJD7DMw5ZCSfrk8CMLzfeT4tKOvIHRT5paab5+ujIFYzvFLe5HvpfQu4N+3LxTGDxB9qC3Qdb3jF7+9Z1r2jGgWrKUyno/kc0ZWs7ZiBkQPtUzhD+7EuDO7NU9x5zwwIX+yD/D+/E6HqZ2A00v1GjCi7yEwazsSvLFfgAHyFtUkW+aXeEqXPSca1h85V0IjKgnvT7m6aDPZnzSO6pyzZuF6CsFiLw7g6zb43R8Uj4NSi7xDJZwRIW6PL98XkHS1gVeYyH2i4ipIsD6HrhbCi4fwDTpmJf3pTf3H7sC0vNex1AGht1IF35xJ6fGFKlQB5whxZFb6qrtHMtn1ufpUL6UGgVrPwP68WAxWPKvWSD48e4VLmjI3h9I11ThWqtpLHnSirH3vvoSi1vorCn/K02Ar1hCbjgj7qz9zaC5jcsOD5xRHhHN37uVYE7b2evy3Cc/p8zCOCYg7xIOv22LMlkJST8DnBExxP4kNxeUnd
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:EAYPR12MB999132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(18002099003)(56012099003)(4143699003)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bGVvbk1wNEU2Mm14dXZRTWZPeDNZYWFKbHpzWkQwd3hxTDZLVXZEbmFlVTgv?=
- =?utf-8?B?OUVBL3poREJLZ202M2tqKzc4V3ZEQXVvWHU5ZWYyQjhHb0psbUZiYXhRQlcz?=
- =?utf-8?B?U012SUtvNjFYY1QrY3dwQ0ZlVUo5VW5rd0JrZXJxZkVtZWhZaGozb0tSZmZB?=
- =?utf-8?B?M1RiY1ZXbWhKOENsb1VHc0lIbmNPSFpMTEMySVk0cVM2dXl3RUUvbnFlZzZ3?=
- =?utf-8?B?cC9ZMHJKaGlIT3pjK1YyaFpCemFsTHFPcFJDNS9hOEhWTVNIT3QvMlNwS1Vj?=
- =?utf-8?B?QVpMajJKK0drdTBLYS9hemxEZXZoQ3RrS1BWRE0vU0xzdWI4LytuWktwNDRy?=
- =?utf-8?B?ZmZCU0lMWllSVDlkd1ZtNGJLdTlaRWhZcHdKZUwrdm1JcWJ0MG5oM21Nd3hG?=
- =?utf-8?B?RmhNU3ZHVnN5SFRFUWhwYmtwMnJIVGFvQitNM3ljR3dQVHFUQUprc2lSWHRC?=
- =?utf-8?B?VllWZ2dQdXh4bE0vUVZVcjRuc0tsL2Nzc1BMOFF0MG96blZlVWhTd2xVQWpS?=
- =?utf-8?B?NXBiWFR3eWJGeTh5MWcxYVJLV3JRWm5od25ZSklZRTFrZTBBT1J0aWc1c1pX?=
- =?utf-8?B?b09ZcStiRXB4TzJYUkk2eE1XQWFaT1NML3I2SVJpU1UxaVRHN3RlUjJtY2FG?=
- =?utf-8?B?L05Xb2k5TUt2QzJFNWV3QzFiai9ES2s3OGtIVElzWlFBcEtEbGRpMmk4STZn?=
- =?utf-8?B?V0doM3V4bXdVK2Y5blY5bVlGWHA4a3JDUEQzN1o2UzJNQjdoLzlLRGdKRFA5?=
- =?utf-8?B?UWg5dDc4T1ZkN2o0M2pMdlE1VmhVL05IRGFBdjBsTVh0U0g0ZXdMK0RmUWZv?=
- =?utf-8?B?QTZ3YldmVHVQY25qS2UrY0NSRHlNc3llTDIvSGc0RUx3K1JiVUdia0pHTU0v?=
- =?utf-8?B?VG85WGtuNWlKQjVoUmNhdFJrY0tKL1FKYzdNYUFtaTVQcDFuZnFXbnc4S2s0?=
- =?utf-8?B?NEg5WThnbTFjRGMwcEluTCtyK3dBODdaRTcvOTFqTjl3MHRLOGk4Mmk3RzZW?=
- =?utf-8?B?bUpnOVQ1TWNLcXJlc3NWM3JRNklwdVFyTitWb0Q0ZzZXU2V2eVNTQ0ZUSnly?=
- =?utf-8?B?V1BqZ0Z4VUFkRWJvVFlKSUlYMU95L0FWdDFOcWFyS0d6RUczYWVPU2lYUXhI?=
- =?utf-8?B?bktNNXdnMFVvNDUvalJTQ3k4OXVxeFZFTm54anZOOGVsTVdqdFNpNnRkSDZQ?=
- =?utf-8?B?M3hrbUk3clpKZGd2KzVJaCtUZGliSUUxVS9ISjloS05Ja0JHZjdCMFc1YzJt?=
- =?utf-8?B?TmFxek1weW0wWkJQOHNLakkwR2dKTi9DNHJ4MVJORTkvU1NtbG5pZ1dLZllD?=
- =?utf-8?B?M1ludlZhbEhmUUIxSHRxamkwakFINGRLUlZSRS9pZDc4ZjQ4L3NUVzlBTGlV?=
- =?utf-8?B?T2Mrdm1QZkh4bmlBY3lUTEc4Tk04UHdrQ1d5aWdSb1lZcFpSSTFiYy9jRmlw?=
- =?utf-8?B?RUN5TmcySVZDbzBOSVg1NUlIUFlTcEtwOG90ZlJPcWpUcWhva25md2xobGpa?=
- =?utf-8?B?Y012QlpvRUhuMUFGRnVzSDZaSnhKeERkN2w4ckwrWElBT0FuTnVOOWRVNHI4?=
- =?utf-8?B?dFpxODZ2d25peENzMWNsdTlNemZONGJlN04wVDhyOU9IdXdYMFFpOHkxNTRV?=
- =?utf-8?B?cU5uZHByd3lvYjk0VzBVdGdsZWpERDlEWDZuSDAzZ2VVd3ZkTFNwQjhvZHUx?=
- =?utf-8?B?Qm83Mm96eUVtZmp0OHQ2SE5jMGVRcGNNN0RQdmUyRmdib2laUHVaMWRGaDRZ?=
- =?utf-8?B?VGtPbmxaQkpxYlZBTVpnMmRzditBL3lOa0xXVUJCeUdadVZ1RUdNSGxlamZS?=
- =?utf-8?B?c3JtWkhHYXNZaGIwenVEZ0t6K2l0WEE1TThhUVJsTkFtUGp2WnAzandGZ1U3?=
- =?utf-8?B?R1oyT0NMQW8zY1ltaVVuUUFpZENxakNmUUlLT1Rodzdma0pCY3NKWFNldzFZ?=
- =?utf-8?B?aDkydi9na1JCTElobGJ6Sy91QWdmRk9kUzNMRzArOEJ3N1BOUUl4eVdhMG4v?=
- =?utf-8?B?ZSt4L3JHVEUvVGVOZzdGUjZLamJFbnVvM2lmczVVdlFZb2NTdEJJTEd6WlVn?=
- =?utf-8?B?emlwWHJFUFpTd3pXOEN3allPSm1FMG1yODd4Y3ZMOWVZc1N2MUNqL3B0ZmZ6?=
- =?utf-8?B?cTdFOExPR0VOU0JpK0dQUmtZK0hZakVIWVpmb1Ztc21qazFuRldmaG43b282?=
- =?utf-8?B?ZWwxUEtJdWo0dnkxbFlXY2ZmemZGUTM0NDlXU3JEVXUyeXRNaW5NV3NIMUlz?=
- =?utf-8?B?c1gweGJvNm1pcWIvYTQ5bVpoMlhSZ0VlTzFzK3VJNU9wT1ZMSUs5OCtOSFFi?=
- =?utf-8?B?KzJEckdWMzQ2RnhtQlFTMGhXbjhrZitveGo4TUFPcTZTTmYrOHZsQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd5dd8f5-eb10-4b9d-8c76-08deba3d8bea
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999132.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 09:11:04.4900 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +vKE0OcqNETKeyWJxpJmwE5xpqmniqO4/KzZ6ojnox8k4FYEPDsNLq1Y44zyqUyZn0XmDgKxSgGL+2GYFWmDkQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9403
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260525085340.2734738-1-anandu.e@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=cL3QdFeN c=1 sm=1 tr=0 ts=6a141389 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=MvwZFT3bVuec0MXgCpgA:9 a=CjuIK1q_8ugA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-ORIG-GUID: E1jR2vmnw7i-bIo0mhVeA9YX7HeOT5m_
+X-Proofpoint-GUID: E1jR2vmnw7i-bIo0mhVeA9YX7HeOT5m_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDA5MyBTYWx0ZWRfX1UUIwP+n8YSS
+ eJ7BBasMAkuHHWEAxUHSLKiWu4I5Bvqax75ftMBB033iOkoFmZBiT08MtYSuiNC7qRXFezIJ6YU
+ Zyj7Kt5q3p/USMElTCC6GRyr9JMp2CKMrP2ZPioHlHjZZJYIDglo1zIYRjsX9Qnqk9oZS09pCiZ
+ BGoSAZRgDiYRSEqXVOAzT4BBAOHRqQsjPQoFujFBp4MC/Ff6T098cNxy4BRYt5ALOSfYGBN6aVi
+ dELGj+NTK5swwT3ugiemqBOh479JT0SORz8fjKGS30jYLn++TBiZ5CMZXg4po3Ft6HUO5NA5ONi
+ /0UhkeovuEX7XHcdYtbZ7KkHHAlFFiozde0rtebnj956AQGr8KCI1pUhw6FmxEWPEkbpd68roWo
+ 8jtxqUEr7pnDJL3QyDOL9zuQGdfo0Sifxm5feyjAyDKCWgoUsu1fvi5rZQjowqmtR3G0GzRlTwZ
+ P202dbZdxJ2rWNtGwAQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-25_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0
+ lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605250093
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,233 +142,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, May 25, 2026 at 02:23:40PM +0530, Anandu Krishnan E wrote:
+> fastrpc_channel_ctx_get() is called in fastrpc_device_open() before
+> fastrpc_session_alloc(). If session alloc fails, the error path
+> returns -EBUSY without calling fastrpc_channel_ctx_put(), leaking
+> the reference. Fix by adding the missing put.
+> 
+> Fixes: 278d56f970ae ("misc: fastrpc: Reference count channel context")
+> Cc: stable@kernel.org
+> Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
-On 5/22/2026 4:26 PM, Matthew Auld wrote:
-> On 22/05/2026 11:25, Arunpravin Paneer Selvam wrote:
->>
->>
->> On 5/22/2026 2:55 PM, Francois Dugast wrote:
->>> Extend the scoreboard approach from the previous commit to used blocks,
->>> so drm_buddy_print() can report per-order allocation pressure in O(1).
->>>
->>> Unlike free blocks, an allocated block can leave the allocated state
->>> through mark_free() (normal free and gpu_buddy_block_trim()) or be
->>> consumed directly by gpu_block_free() during coalescing. Both sites are
->>> guarded by gpu_buddy_block_is_allocated() and paired with the increment
->>> in mark_allocated().
->>>
->>> v3:
->>> - Assert scoreboard is empty at fini(), as sanity check (Matthew Auld)
->>>
->>> v2:
->>> - Update after fix for use-after-free in split_block() call sites
->>> - Change goto label to out_free_used_scoreboard for clarity
->>> - Make drm_buddy_print() and gpu_buddy_print() symmetric for used and
->>>    free
->>>
->>> Signed-off-by: Francois Dugast <francois.dugast@intel.com>
->>> Assisted-by: GitHub Copilot:claude-sonnet-4.6
->>> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->>> ---
->>>   drivers/gpu/buddy.c         | 42 
->>> ++++++++++++++++++++++++++++---------
->>>   drivers/gpu/drm/drm_buddy.c | 18 ++++++++++------
->>>   include/linux/gpu_buddy.h   |  8 +++++++
->>>   3 files changed, 52 insertions(+), 16 deletions(-)
->>>
->>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->>> index de18b63fef0a..dc81fe0301ce 100644
->>> --- a/drivers/gpu/buddy.c
->>> +++ b/drivers/gpu/buddy.c
->>> @@ -194,6 +194,7 @@ static void mark_allocated(struct gpu_buddy *mm,
->>>       block->header |= GPU_BUDDY_ALLOCATED;
->>>       mm->free_scoreboard[gpu_buddy_block_order(block)]--;
->>> +    mm->used_scoreboard[gpu_buddy_block_order(block)]++;
->> The main consumer of free_scoreboard and used_scoreboard is 
->> gpu_buddy_print(), which is a debug/diagnostic path - it only gets 
->> called during debugfs reads or error state dumps, not during regular 
->> operation.
->> However, the cost of maintaining these scoreboards is paid on every 
->> alloc and free, which is the hot path of the allocator. Even though 
->> each individual update is small, do we really need to add extra work 
->> to the
->> hot path for something that only benefits a rarely-called debug 
->> function?
->> Am I missing a use case that justifies the hot-path overhead?
->
-> The usecase I originally saw involved sampling this frequently during 
-> a running workload to help collect some running stats. For example to 
-> generate a graph of the "page usage" over time. So is there lots of 
-> smaller order usage (bad), or do we get mostly larger page orders 
-> (good), do we see spikes we all of sudden we start getting smaller and 
-> smaller orders, perhaps due to fragmentation? In general we just 
-> wanted some more visibility to get a better sense of the "page usage" 
-> at runtime. At the moment we don't have much visibility into what page 
-> sizes we are actually getting from the allocator, over time.
->
-> We originally had this at this at the driver level, but it's not quite 
-> as nice implementation wise, plus having it in the allocator could 
-> then be beneficial to other drivers? Also the added cost did not seem 
-> too bad, it's just incrementing/decrementing a counter. What do you 
-> think here?
-Yes, that should be fine and useful for capturing runtime workload 
-statistics.
-
-Regards,
-Arun.
->
->>
->> Regards,
->> Arun.
->>>       rbtree_remove(mm, block);
->>>   }
->>> @@ -203,6 +204,9 @@ static void mark_free(struct gpu_buddy *mm,
->>>   {
->>>       enum gpu_buddy_free_tree tree;
->>> +    if (gpu_buddy_block_is_allocated(block))
->>> + mm->used_scoreboard[gpu_buddy_block_order(block)]--;
->>> +
->>>       block->header &= ~GPU_BUDDY_HEADER_STATE;
->>>       block->header |= GPU_BUDDY_FREE;
->>> @@ -281,6 +285,9 @@ static unsigned int __gpu_buddy_free(struct 
->>> gpu_buddy *mm,
->>>           if (force_merge && gpu_buddy_block_is_clear(buddy))
->>>               mm->clear_avail -= gpu_buddy_block_size(mm, buddy);
->>> +        if (gpu_buddy_block_is_allocated(block))
->>> + mm->used_scoreboard[gpu_buddy_block_order(block)]--;
->>> +
->>>           gpu_block_free(mm, block);
->>>           gpu_block_free(mm, buddy);
->>> @@ -398,11 +405,17 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 
->>> size, u64 chunk_size)
->>>       if (!mm->free_scoreboard)
->>>           return -ENOMEM;
->>> +    mm->used_scoreboard = kcalloc(mm->max_order + 1,
->>> +                      sizeof(*mm->used_scoreboard),
->>> +                      GFP_KERNEL);
->>> +    if (!mm->used_scoreboard)
->>> +        goto out_free_free_scoreboard;
->>> +
->>>       mm->free_trees = kmalloc_array(GPU_BUDDY_MAX_FREE_TREES,
->>>                          sizeof(*mm->free_trees),
->>>                          GFP_KERNEL);
->>>       if (!mm->free_trees)
->>> -        goto out_free_scoreboard;
->>> +        goto out_free_used_scoreboard;
->>>       for_each_free_tree(i) {
->>>           mm->free_trees[i] = kmalloc_array(mm->max_order + 1,
->>> @@ -464,7 +477,9 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 
->>> size, u64 chunk_size)
->>>       while (i--)
->>>           kfree(mm->free_trees[i]);
->>>       kfree(mm->free_trees);
->>> -out_free_scoreboard:
->>> +out_free_used_scoreboard:
->>> +    kfree(mm->used_scoreboard);
->>> +out_free_free_scoreboard:
->>>       kfree(mm->free_scoreboard);
->>>       return -ENOMEM;
->>>   }
->>> @@ -500,11 +515,15 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
->>>       gpu_buddy_assert(mm->avail == mm->size);
->>> +    for (i = 0; i <= mm->max_order; ++i)
->>> +        gpu_buddy_assert(!mm->used_scoreboard[i]);
->>> +
->>>       for_each_free_tree(i)
->>>           kfree(mm->free_trees[i]);
->>>       kfree(mm->free_trees);
->>>       kfree(mm->roots);
->>>       kfree(mm->free_scoreboard);
->>> +    kfree(mm->used_scoreboard);
->>>   }
->>>   EXPORT_SYMBOL(gpu_buddy_fini);
->>> @@ -1505,15 +1524,18 @@ void gpu_buddy_print(struct gpu_buddy *mm)
->>>           mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm- 
->>> >clear_avail >> 20);
->>>       for (order = mm->max_order; order >= 0; order--) {
->>> -        u64 count = mm->free_scoreboard[order];
->>> -        u64 free = count * (mm->chunk_size << order);
->>> -
->>> -        if (free < SZ_1M)
->>> -            pr_info("order-%2d free: %8llu KiB, blocks: %llu\n",
->>> -                order, free >> 10, count);
->>> +        u64 free_count = mm->free_scoreboard[order];
->>> +        u64 used_count = mm->used_scoreboard[order];
->>> +        u64 block_size = mm->chunk_size << order;
->>> +        u64 free = free_count * block_size;
->>> +        u64 used = used_count * block_size;
->>> +
->>> +        if (block_size < SZ_1M)
->>> +            pr_info("order-%2d free: %8llu KiB, used: %8llu KiB, 
->>> free_blocks: %llu, used_blocks: %llu\n",
->>> +                order, free >> 10, used >> 10, free_count, 
->>> used_count);
->>>           else
->>> -            pr_info("order-%2d free: %8llu MiB, blocks: %llu\n",
->>> -                order, free >> 20, count);
->>> +            pr_info("order-%2d free: %8llu MiB, used: %8llu MiB, 
->>> free_blocks: %llu, used_blocks: %llu\n",
->>> +                order, free >> 20, used >> 20, free_count, 
->>> used_count);
->>>       }
->>>   }
->>>   EXPORT_SYMBOL(gpu_buddy_print);
->>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>> index eef995e08a37..1536e59c6fe7 100644
->>> --- a/drivers/gpu/drm/drm_buddy.c
->>> +++ b/drivers/gpu/drm/drm_buddy.c
->>> @@ -47,17 +47,23 @@ void drm_buddy_print(struct gpu_buddy *mm, 
->>> struct drm_printer *p)
->>>              mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, 
->>> mm->clear_avail >> 20);
->>>       for (order = mm->max_order; order >= 0; order--) {
->>> -        u64 count = mm->free_scoreboard[order];
->>> -        u64 free = count * (mm->chunk_size << order);
->>> +        u64 free_count = mm->free_scoreboard[order];
->>> +        u64 used_count = mm->used_scoreboard[order];
->>> +        u64 block_size = mm->chunk_size << order;
->>> +        u64 free = free_count * block_size;
->>> +        u64 used = used_count * block_size;
->>>           drm_printf(p, "order-%2d ", order);
->>> -        if (free < SZ_1M)
->>> -            drm_printf(p, "free: %8llu KiB", free >> 10);
->>> +        if (block_size < SZ_1M)
->>> +            drm_printf(p, "free: %8llu KiB, used: %8llu KiB",
->>> +                   free >> 10, used >> 10);
->>>           else
->>> -            drm_printf(p, "free: %8llu MiB", free >> 20);
->>> +            drm_printf(p, "free: %8llu MiB, used: %8llu MiB",
->>> +                   free >> 20, used >> 20);
->>> -        drm_printf(p, ", blocks: %llu\n", count);
->>> +        drm_printf(p, ", free_blocks: %llu, used_blocks: %llu\n",
->>> +               free_count, used_count);
->>>       }
->>>   }
->>>   EXPORT_SYMBOL(drm_buddy_print);
->>> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
->>> index a28f7d7637ca..e037714563d8 100644
->>> --- a/include/linux/gpu_buddy.h
->>> +++ b/include/linux/gpu_buddy.h
->>> @@ -180,6 +180,14 @@ struct gpu_buddy {
->>>        * called on a free block.
->>>        */
->>>       u64 *free_scoreboard;
->>> +    /*
->>> +     * Per-order used block scoreboard: used_scoreboard[order] 
->>> holds the
->>> +     * number of blocks of that order currently in the allocated 
->>> state.
->>> +     * Incremented in mark_allocated(), decremented in mark_free() 
->>> (guarded
->>> +     * by gpu_buddy_block_is_allocated()) and in __gpu_buddy_free() 
->>> when an
->>> +     * allocated block is consumed directly during buddy coalescing.
->>> +     */
->>> +    u64 *used_scoreboard;
->>>   /* public: */
->>>       unsigned int n_roots;
->>>       unsigned int max_order;
->>
->
-
+-- 
+With best wishes
+Dmitry
