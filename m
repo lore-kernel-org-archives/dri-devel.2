@@ -4,132 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F233ACD5BCF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 08:42:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C88CD5BBF
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 08:45:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 609D910E3D8;
-	Mon, 25 May 2026 08:42:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82BC310E419;
+	Mon, 25 May 2026 08:45:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="K32hxZYr";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="iXMgUNdL";
 	dkim-atps=neutral
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011043.outbound.protection.outlook.com [52.101.125.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D546710E3D8
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:42:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kVhqDR/wBGqkJO+W6vf6nZWIHRNm5uX7HV3vV/RTbyJtQ/v+ZOFNvI/dLB0a3jEd3eOsk51Iim8GmChmcNH3JDQ8wqecPcO6jRKgAcC4KriAWslq7Wlg3EyJY/fuI+OkYmIBEbDGlKM/mG/NRHky3ZQj8P6nUekdo3FtXj61FeYnmV7jM/cUY+PJK3dy48E4wnXgWvWd8OPkvforgA0YD3ZfcdY/WuCcIrk8rm+fQ0qgdaoAQoOV+sHzyiwZ9P6lTTCJcg2xB/M3QgM/89CdLnaRlI4UwucGuOcUNxcGqjSTBPLlq9ZZrEl9D2W/4SdgZEVHpV9R05uEPCYXgz2nZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BN1FHlI2l17HP1IyY7cD9mYd60lZbIeJ/eF0bonNyIU=;
- b=OLOv0ZvN0x4JNVCBCM2oe73p9mVEEegwBxGlNCDw6Ozvrpw76iPr0L+q3Nq3QFF2+AGR36R7BdYqhkvA9zGX/Wok3FcPwMpLM2NPP3zUnPbaORkbQKusxSmxyFbvXtn/FYDDu2PT3dEh7W/7zvAiKZF3w4EE6gyG5AVy6UNo3LUUS0efsxWuU54TnsUkydmAwjseAey3Z+pbY7wqOW1KMUVBO9gQ7cCnw3E8J7e+xS1ykJ1/wQ6HOHMDuFtvHeUy9SYlvQj32PuRQEMcAVQnmeR2/PEJXwG8mwPf2spHjtR/BASYOwsSGPJOHkn0+8KdCIhTOBMCoseh8nN8TjwYPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BN1FHlI2l17HP1IyY7cD9mYd60lZbIeJ/eF0bonNyIU=;
- b=K32hxZYrKh8y8YmvhI5MzwpDxde6hwYaiZNQpInXeI2o1+uS3RKnw4k5D16Uis2jKfBonYUST5P5p9kVhE7WbYx7l2Sw18JJeuBa84Fz+Rg+Fvl8/cQm9QPi7k1dupXCRdS8R3ASbc0VSl/IzOyVmZW+/eKpJN2qD2nTq8sNz78=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS3PR01MB8620.jpnprd01.prod.outlook.com (2603:1096:604:19a::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.19; Mon, 25 May
- 2026 08:42:09 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0048.016; Mon, 25 May 2026
- 08:42:09 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: biju.das.au <biju.das.au@gmail.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, Robert
- Foss <rfoss@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-CC: laurent.pinchart <laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dmitry
- Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Tommaso Merciai
- <tommaso.merciai.xr@bp.renesas.com>, Manikandan Muralidharan
- <manikandan.m@microchip.com>, Cristian Ciocaltea
- <cristian.ciocaltea@collabora.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
- <biju.das.au@gmail.com>, "linux-renesas-soc@vger.kernel.org"
- <linux-renesas-soc@vger.kernel.org>
-Subject: RE: [PATCH v2] drm/bridge: adv7511: Clear HPD IRQ during
- atomic_enable()
-Thread-Topic: [PATCH v2] drm/bridge: adv7511: Clear HPD IRQ during
- atomic_enable()
-Thread-Index: AQHc0lGnqkHmHOuI6UOwxKbFb3EqF7Yen9rw
-Date: Mon, 25 May 2026 08:42:09 +0000
-Message-ID: <TY3PR01MB1134642ADD917B1BBF998A034860A2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260422121457.166780-1-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260422121457.166780-1-biju.das.jz@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS3PR01MB8620:EE_
-x-ms-office365-filtering-correlation-id: e5064841-8a05-48c5-ca81-08deba39825a
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|18002099003|56012099003|22082099003|38070700021|5023799004|11063799006|6133799003;
-x-microsoft-antispam-message-info: KvukzQvP4yx8p3twdYkCmCyaNQCKteAXKczox2q2kTRG39ExbiTLvfMbr3jQVVmPOaU/mJRIiCntY538g36wuUFuSoJtamAjpoDNTygue4GhRfSsbQ+2EWHg+DM1VDuA+5+28CQ4D1z322OKF5bMqPB67K1CnZvEDp40qhCQ8v0BLzFRuNCTbgaUBOzLtejZx8qMS57JjdS51r0eqCmxoO817HbcgCwwWyLRXD0Q0iE+R6woOkquaKN5PYkAxuyVl6U24TFFVlBvrt6G/mn7sC2WFSlpa7n0jMPeu02enUp9mNGmyBh3mINbVRTr4k4wC6schhJ3Jg0ejrAAmYzA1/vrXH176t9EQcbjeLB8Atvn7UygRf7GxslpqvFkeG+F1S1slJG0qjaRhtkb/vsNskfJZ8c0na+xXWIsylEOXsCZn6WKSzDJpSSmmALK/A6tpS3sjQPejYYhZ4McxKcbpqTjwOGMYfEne5BVoWa2ULMZwFnSaKmi1Qy+UZXOeMzBSfJAriZfCNA5jxMxi0SwmkdAcn26qlGVPptVP+MY5Op7RTJSt1JXobaLcst57zZ7KoUbzXTINz6P+zSSuAVVakgIyLDyUJkZoaRgexrAKoaSOolGLdNFvePV3RglPRIas6naAu+GlDdUXpe3HeFqj5kKLzm5MVhvpYr/iqG5Jz470YlTN57axs2uIJCdSgKwvzCNsBjV55QWiVHB29ni0x01cCyQLI0BodOO7JV0w+Xgc3/hGIuFFy9IoggTtD5l
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(56012099003)(22082099003)(38070700021)(5023799004)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VDnenFDrNViV87jHPHsdpNjdkSAaKImi9JagKwHOwri37QU6FKTteR/JYVqc?=
- =?us-ascii?Q?ZnIxg2rqT2akaFzImaWzbW3DcJr16jiw70v3P+HRQFO/D1l2b0uWzJNFjC/J?=
- =?us-ascii?Q?MjZurgccxKivZdjNdY6n877+1I52VoZskKiFkMzXDpUkIL/4XSuN3ZCpOmra?=
- =?us-ascii?Q?I/WmyT3kW13WzLk73oXWwHbbrKTw5NXLHTtjEmESL/1mEKJQfvVLAjdTfURj?=
- =?us-ascii?Q?aL88ISRclGYSGNRxUcT5V5qdMyUV3s9aVcsGTi0L3GEiKh0jmBdxRlmwyzSf?=
- =?us-ascii?Q?WzsZF0li1/lzYI5PsH+hWvBw9MU7GcXMVPUZznBHBJjBIZ27I5f4R+GwIcP+?=
- =?us-ascii?Q?BbG6e5PUJTNF9samkm2ty61Ft/waNPM10R+Iczc+cC6soVVAoD+GJ02M3LqX?=
- =?us-ascii?Q?ggtz6D4+/14ffDxvByVe3bMfOs1gpJUJhAG6ocsSkY282o7sBLDWrzdscyf/?=
- =?us-ascii?Q?Eg56XqNL32oxfBVdOj3A1acWswtFvsO5tUW7UGANAI7o2Ub2hNuDOXXp02Jk?=
- =?us-ascii?Q?S5dHCj6BzlApWM1aN8LUNLJOnYD5pz0jC59+ftmxghw/CmJB0dAicd+WwlfK?=
- =?us-ascii?Q?i/tGjkAniiMhAvmJB1+uorTWoy/tt0szeLo46B0un/8gHWUspRwJjbgY4lWp?=
- =?us-ascii?Q?s7DLrb2015dwO2KkWcCSHKOoikQRivmeIlOV+AxOne/TQoB1d4sKzLQqfIW1?=
- =?us-ascii?Q?e1CY3dAL4UlT3HCfmwFksswBUrYnaADQKOFiLfXuf2WE0vbJb5yCQ7Di2swE?=
- =?us-ascii?Q?7gkfWWBvIonxzTiPWCKpf1PtMeNqrL3ObgN81/r9HuTsJKgC2fj2frQxBSPt?=
- =?us-ascii?Q?tp4oBnZPJ8sYY33wgdE0XWqIxpP0C2CCP0wDJMsTEINAxXGa0i1DHRPWKe3W?=
- =?us-ascii?Q?rdI5K9otEanopb3UBm/vHjMVjbLyDNiwNDaOFAh8F4jCdBSbHatn0P2Wrjvm?=
- =?us-ascii?Q?VxYeNU8AV3eAgeG0hglxknHXJhuapo04fyqRDOrB0WAKeauakBb/GAyLLFTE?=
- =?us-ascii?Q?oRPCrRlTQPxTsTy2hxMiV7fOxY7xY9wPv5Zb41RMow1Ccwlq0JMPGZ01ZF65?=
- =?us-ascii?Q?YqtJOEtXdz67ROSL7lQpmwFbIazi/yAr36YKRt5ejOM6szrhHpvRqg9KPjp6?=
- =?us-ascii?Q?cxbgDlwF+ffz6c9qJcqNs3awx0HXRzcGx7I44QrSG/OK688TNwkDCYBv+T/i?=
- =?us-ascii?Q?zxwRURxfaOObtHga4UoQpRmeBLYZxLqi1+BUnHloQlkrwysaXFLTDKAQXMxD?=
- =?us-ascii?Q?KotkvvZwrwqNAYbMiOJdNO/il0me3QpMpyWiozcBBBAnacotUZWdRi8VjCeA?=
- =?us-ascii?Q?4bP2S8JEou+PLuSjACefRLFZkaq2zCIoF3tW/X5LRaW/A656FRYkHo/iNG7d?=
- =?us-ascii?Q?81BX3GlwHeY8ECuOtiOBk2fMIwm40gEJ32B3Vr4xLDSSDPhxevf09zl7t/IC?=
- =?us-ascii?Q?0GMGdzgMoC4OXJxB7RZBYdVXKQ9M9GriyOnqwp/O/gTMRBIwBhWPP1QCBldg?=
- =?us-ascii?Q?ks/TWO+OQBcXBC/KG4mC2vEx/BZY9G4V25ugFjguhZSELz/tiJHNF6kJupKC?=
- =?us-ascii?Q?51VvhxhyfiBdnFzUMFXftFH/VCpamxRgb2K5bKp2FefNtNXGsiIlo3cLXXlQ?=
- =?us-ascii?Q?WlplnV3uLyDIHj84U5S8F448TszZo0S5ml/Hf4/qVNOS4y12Z5Lb8y2egAsc?=
- =?us-ascii?Q?IH+BdVwgbW7LcQuay9cs5JqBmMA4hPmPtvpH5VnUcMywBrdRAfJVHjcGIJWB?=
- =?us-ascii?Q?qOv7XlGzdw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4559F10E419
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:45:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779698743;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rdMdPF6AjRDfJupohBg/unbXMgpat50XT188LnR7nHE=;
+ b=iXMgUNdLGUIrA+Cp0PrEyDePTzRMjxnr95tsXy9G390kRmYtE4FRjx56BfmQnqrjcgEVUI
+ He82KZDBGN1awwewKo11k4sSVFkZtNGQiXWSrKvpmnGiiKNsL40g/syK3kcEDUXt9AOsMC
+ FHPY7/R+rnAW33PMUdtkV0+dNxwFWdw=
+Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
+ [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-507-ONRjtWQ-P0OapyyBocWcLg-1; Mon, 25 May 2026 04:45:41 -0400
+X-MC-Unique: ONRjtWQ-P0OapyyBocWcLg-1
+X-Mimecast-MFC-AGG-ID: ONRjtWQ-P0OapyyBocWcLg_1779698740
+Received: by mail-lj1-f197.google.com with SMTP id
+ 38308e7fff4ca-38eeb467db3so36238621fa.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 01:45:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779698740; x=1780303540;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rdMdPF6AjRDfJupohBg/unbXMgpat50XT188LnR7nHE=;
+ b=K4MnP6z2SFCYOZ8gST4ZSrmxgQBnW7zVryci7zqBGMvaue/BI5Cx44I8lEzVFPQNuR
+ lEgDdiigEwOZUM4QHvegGcOQrVc1+6x5oKPCUwZ9s78nnWQBAQLds+co1nXKwvM387Z4
+ SkSRaADVmQg1qJLIjlaqFKkwCprGdC1AC+8678u7guxsJXjfJsOCcJ+8QHDL3xWLhiqp
+ PIPMw/WEwBswQrs5QufOdbOw5yo/sk92q3nmRTp8WrMmYPaI+eDfLYMNdpCT9SduxWAt
+ lS7w1RFv1BbMddhjououj2Q7IRxjGNZN+v6wPOES0GRxlrsB26QP2AW5avEoOBatVR3+
+ VBUQ==
+X-Gm-Message-State: AOJu0YzjnmrZVgUclToM6sAxhTKBd0iM3H9suN/N/7u6dHWqT8uFABFK
+ 9tpTJAi7L9hPG0PpiXnE2v9o7YhTv2NzxR+F5G8o9Nut/fduBD+hUWaNIhqDWg2pyKJXNB6dmt8
+ FrrV2iZD85M0bZoaUyLmS+ZDMp6RrddzU/KXTieyBmX32qfAcQ+l0FZl78uhvegXs/1uy
+X-Gm-Gg: Acq92OE+TXWnsldxShEhxuFjU3ySqi1fG8OzlOY64jzPEN423JxMqpqeBp7gtOsv3nc
+ dbgdn90SqN+w9aVGqpeiVdiEJdunIC9MkrYaISl3TGZjQwAJhzHj4sTNTsRkDN5h6SAzY9oHX1M
+ ypysX/KVYguNWuxMwqvAaqaeGvjVu075KlKYopvkZ9UyQ/XwlcmJBHWJp6wmt4f83YMbhp7zzec
+ PVG9iJ8VkpUarJzbPOsBCnq43Pbdk/ZNlfiFuSb67or7ccMdzYxszNgN85X00rx0OQXGmsbpDOr
+ 5/mt2mxa8LsfUScl3GHSHtPzWzOJ+r5DpDgOF0h1p/iB6DSgwYFX4QdleqSfG2JX3f14kjGLOVl
+ GrPUCLA6fs0QK9SIMCHYNVl05O6Y5TWsZ0Uo4
+X-Received: by 2002:a2e:bea0:0:b0:393:4e44:63ba with SMTP id
+ 38308e7fff4ca-395d8e13013mr47053041fa.29.1779698740133; 
+ Mon, 25 May 2026 01:45:40 -0700 (PDT)
+X-Received: by 2002:a2e:bea0:0:b0:393:4e44:63ba with SMTP id
+ 38308e7fff4ca-395d8e13013mr47052741fa.29.1779698739582; 
+ Mon, 25 May 2026 01:45:39 -0700 (PDT)
+Received: from fedora (85-23-51-1.bb.dnainternet.fi. [85.23.51.1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-395dca7bcddsm21679061fa.16.2026.05.25.01.45.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2026 01:45:39 -0700 (PDT)
+From: mpenttil@redhat.com
+To: linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Mika=20Penttil=C3=A4?= <mpenttil@redhat.com>,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+Subject: [PATCH v12 0/5] Migrate on fault for device pages
+Date: Mon, 25 May 2026 11:45:19 +0300
+Message-ID: <20260525084524.139868-1-mpenttil@redhat.com>
+X-Mailer: git-send-email 2.50.0
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5064841-8a05-48c5-ca81-08deba39825a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 May 2026 08:42:09.5877 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BO+8EYrzEcnJnXp9ZAWwflPE8sezbQncK/vNwZa25ub4OwIDWodoF8HfBY9oFupG77nYRlcjwhX7wzSuC+hj/wwPDL6v7i8J1xz7HugCG8U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB8620
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: hlKSFvIy-rng1CiBl-6msETgdeMxqH-AsmF6a1OHqEo_1779698740
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,70 +105,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi All,
+From: Mika Penttilä <mpenttil@redhat.com>
 
-> -----Original Message-----
-> From: Biju <biju.das.au@gmail.com>
-> Sent: 22 April 2026 13:15
-> Subject: [PATCH v2] drm/bridge: adv7511: Clear HPD IRQ during atomic_enab=
-le()
->=20
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> On RZ/G3E SMARC EVK, suspend-to-RAM via PSCI powers down the ADV7535 chip=
- entirely, causing the HPD status
-> bit to be in a stale state on resume. When the display controller driver'=
-s system PM resume callback
-> invokes drm_mode_config_helper_resume(), it calls the bridge's atomic_ena=
-ble(), but the stale HPD IRQ is
-> never cleared, leading to incorrect behaviour.
->=20
-> Clear the HPD status bit in adv7511_bridge_atomic_enable() after powering=
- on, so that any HPD interrupt
-> latched before or during power-loss is dismissed before normal operation =
-resumes.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> ---
-> Tested HPD, s2idle and s2ram on RZ/G3L SMARC EVK connected to ADV7535 on =
-both polling and IRQ mode.
-> v1->v2:
->  * Dropped PM support instead clearing latched HPD status bit in
->    adv7511_bridge_atomic_enable()
->  * Dropped suspended variable from struct adv7511.
->  * Updated comment in adv7511_bridge_atomic_enable().
->  * Clearing the HPD status bit unconditionally as there is no harm.
->  * Updated commit header and description.
->  * Dropped the tags.
-> ---
->  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/d=
-rm/bridge/adv7511/adv7511_drv.c
-> index 6bd76c1fb007..7663814b4032 100644
-> --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> @@ -792,6 +792,13 @@ static void adv7511_bridge_atomic_enable(struct drm_=
-bridge *bridge,
->=20
->  	adv7511_power_on(adv);
->=20
-> +	/*
-> +	 * Clear the HPD status bit (ADV7511_INT0_HPD), so that any HPD
-> +	 * interrupt latched before or during power loss is dismissed before
-> +	 * normal operation resumes.
-> +	 */
-> +	regmap_write(adv->regmap, ADV7511_REG_INT(0), ADV7511_INT0_HPD);
-> +
->  	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
-ncoder);
->  	if (WARN_ON(!connector))
->  		return;
-> --
-> 2.43.0
+Currently, the way device page faulting and migration works
+is not optimal, if you want to do both fault handling and
+migration at once.
 
-Gentle ping.
+Being able to migrate not present pages (or pages mapped with incorrect
+permissions, eg. COW) to the GPU requires doing either of the
+following sequences:
 
-Cheers,
-Biju
+1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
+2. migrate_vma_*() - migrate the pages
+
+Or:
+
+1. migrate_vma_*() - migrate present pages
+2. If non-present pages detected by migrate_vma_*():
+   a) call hmm_range_fault() to fault pages in
+   b) call migrate_vma_*() again to migrate now present pages
+
+The problem with the first sequence is that you always have to do two
+page walks even when most of the time the pages are present or zero page
+mappings so the common case takes a performance hit.
+
+The second sequence is better for the common case, but far worse if
+pages aren't present because now you have to walk the page tables three
+times (once to find the page is not present, once so hmm_range_fault()
+can find a non-present page to fault in and once again to setup the
+migration). It is also tricky to code correctly. One page table walk
+could costs over 1000 cpu cycles on X86-64, which is a significant hit.
+
+We should be able to walk the page table once, faulting
+pages in as required and replacing them with migration entries if
+requested.
+
+Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
+which tells to prepare for migration also during fault handling.
+Also, for the migrate_vma_setup() call paths, a flag, MIGRATE_VMA_FAULT,
+is added to tell to add fault handling to migrate.
+
+One extra benefit of migrating with hmm_range_fault() path
+is the migrate_vma.vma gets populated, so no need to
+retrieve that separataly.
+
+Tested in X86-64 VM with HMM test device, passing the selftests.
+For performance, the migrate throughput tests from the selftests
+show similar numbers (within error margin) as unmodified kernel.
+Tested also rebased on the
+"Remove device private pages from physical address space" series:
+https://lore.kernel.org/linux-mm/20260130111050.53670-1-jniethe@nvidia.com/
+plus a small patch to adjust with no problems.
+
+Changes v11-v12
+  - Fix for issue found by Intel CI in patch 3
+
+Changes v10-v11
+  - Fix nested mmap_read_lock in test suite
+  - Addressed review comments from David
+
+Changes v9-v10
+  - Fix for issue Intel CI found, forgotten pte_unmap() before
+    migration_entry_wait()
+
+Changes v8-v9
+  - rebase on drm-tip
+  - fixed uaf around  migrate_vma_split_folio() usage
+  - added missing pmd unlock
+
+Changes v7-v8
+  - rebase on 7.0
+  - fixed subject in two patches
+  - enhanced commit messages
+  - squashed patch 6 into patch 4 to fix kernel test robot warning
+  - readded dropped Cc block from cover letter
+  - fixed white space
+
+Changes v6-v7
+  - rebase on 7.0.0-rc6
+  - added documentation and comments
+  - denote to be migrated zero page as HMM_PFN_MIGRATE alone
+  - got rid of HMM_PFN_INOUT_FLAGS movement in patch 2
+  - picked up Acked-By from David for patch 1
+  
+Changes v5-v6
+  - rebase on 7.0.0-rc4
+  - use range based TLB flushing while unmapping ptes
+  - gate migration behind HMM_PFN_REQ_MIGRATE for fault and
+    migrate paths
+  - always infer migration flags from migrate->flags only
+
+Changes v4-v5
+  - rebase on 6.19
+  - fixed David's email address
+  - fixed link issue without CONFIG_TRANSPARENT_HUGEPAGE
+  - refactored into smaller commits
+  - added more comments to code
+
+Changes v3-v4:
+  - rebase on 6.19-rc8
+  - fixed issues found by kernel test robot with random configs
+  - fixed typos
+
+Changes v2-v3:
+  - rebase on 6.19-rc7
+  - fixed issues found by kernel test robot
+  - fixed smatch issues reported by Dan Carpenter <dan.carpenter@linaro.org>
+  - fixes to lock handling (pmd/pte) on errors
+  - added assertions for pmd/pte lock states
+  - other issues discovered by Matthew, thanks!
+
+Changes v1-v2:
+  - rebase on 6.19-rc6
+  - fixed issues found by kernel test robot
+  - fixed locking (pmd/ptl) to cover handle_ and prepare_ regions
+    parts if migrating
+  - other issues discovered by Matthew, thanks!
+
+Changes RFC-v1:
+  - rebase on 6.19-rc5
+  - adjust for the device THP
+  - changes from feedback
+
+Revisions:
+  - RFC https://lore.kernel.org/linux-mm/20250814072045.3637192-1-mpenttil@redhat.com/
+  - v1: https://lore.kernel.org/all/20260114091923.3950465-1-mpenttil@redhat.com/
+  - v2: https://lore.kernel.org/all/20260119112502.645059-1-mpenttil@redhat.com/
+  - v3: https://lore.kernel.org/all/20260126111939.1332983-2-mpenttil@redhat.com/
+  - v4: https://lore.kernel.org/all/20260202112622.2104213-1-mpenttil@redhat.com/
+  - v5: https://lore.kernel.org/linux-mm/20260211081301.2940672-1-mpenttil@redhat.com/
+  - v6: https://lore.kernel.org/linux-mm/20260316062407.3354636-1-mpenttil@redhat.com/
+  - v7: https://lore.kernel.org/linux-mm/20260330115611.347988-1-mpenttil@redhat.com/
+  - v8: https://lore.kernel.org/linux-mm/20260414041226.1539439-1-mpenttil@redhat.com/
+  - v9: https://lore.kernel.org/linux-mm/20260505051658.2219537-1-mpenttil@redhat.com/
+  - v10: https://lore.kernel.org/linux-mm/20260505184421.2324798-1-mpenttil@redhat.com/
+  - v11: https://lore.kernel.org/linux-mm/20260525050830.100254-1-mpenttil@redhat.com/
+
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Leon Romanovsky <leonro@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+
+Mika Penttilä (5):
+  mm/Kconfig: changes for migrate on fault for device pages
+  mm: Add helper to convert HMM pfn to migrate pfn
+  mm/hmm: do the plumbing for HMM to participate in migration
+  mm: setup device page migration in HMM pagewalk
+  lib/test_hmm: add a new testcase for the migrate on fault
+
+ include/linux/hmm.h                    |  19 +-
+ include/linux/migrate.h                |  26 +-
+ lib/test_hmm.c                         | 118 +++-
+ lib/test_hmm_uapi.h                    |  19 +-
+ mm/Kconfig                             |   2 +
+ mm/hmm.c                               | 843 +++++++++++++++++++++++--
+ mm/migrate_device.c                    | 583 +++--------------
+ tools/testing/selftests/mm/hmm-tests.c |  54 ++
+ 8 files changed, 1086 insertions(+), 578 deletions(-)
+
+drm-tip
+base-commit: a79fb6644b307c0ced7b8fe967cdcac8ea884e03
+-- 
+2.50.0
+
