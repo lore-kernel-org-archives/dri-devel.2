@@ -4,69 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2100CD5BBF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:48:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B76EECD5BBF
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 06:50:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9032710E45F;
-	Mon, 25 May 2026 06:48:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09FA810E41C;
+	Mon, 25 May 2026 06:50:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HF+datPj";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IxpjIjhL";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UuZ97plH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7226D10E406
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 06:47:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AADEE60202;
- Mon, 25 May 2026 06:47:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A78CC2BCB3;
- Mon, 25 May 2026 06:47:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779691676;
- bh=8IJtxE6ig879Om2zQsEpoJwAJxcysV9GjhnS8w61yPE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=HF+datPjSxS3b5PgXXMxnBM3jF1xWKk0kHemKUPIm88QAyU9IAWOkfPI9J9R95SZj
- s3Zl5r4c81sCZSo2+5U+nW314g55ayDxkiXF3ayYbKCuC95Q+u4eVeCTxbEP7tcqGI
- Zvf2ofIZGsg15dBfZy6UG73yczAqk6eSCqj+0C9B0nxTTNJURM0NsuPNDgxHkUtKkW
- EKly34hSsZZVV7xJcJAnYyqPgsUa+K1O12dbQvZMZadaWSuNTWRbs6uHZTa33ZP2Z/
- Kn5EaXABwXKKbDRs4fI5lKnTpPqFmfiX7Em76/pRm8bisQNyEss4CFj4+ZOTVTwQZ6
- BQ2hjHDTAWFrQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3696ACD5BBF;
- Mon, 25 May 2026 06:47:56 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Mon, 25 May 2026 01:47:44 -0500
-Subject: [PATCH v2 1/2] spi: tegra210-quad: Allocate DMA memory for DMA engine
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DDA710E41C
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 06:50:16 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64ONE3hZ877595
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 06:50:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=IXgwX/BN+Wvydg0Bls4hK6tR
+ Lkz7ypU2uVd20K0LfNQ=; b=IxpjIjhLCubUIy9/OlDq3DZxdVxW4Gxz+P5M9wB0
+ rzEBv07wYXDssVo4EOfDW0+XAgD/i+KjosWIdkjn9bCjYNX8dYMwbf30uJchURzh
+ rJHiB1zVNiL5Xw1Jq3MO4Bdks2bSUha60rEsRosokoUPqNEQ7yKNa9Qm3b9IfAY2
+ VxitltmpoN44cAwupbMe/2hrgxZeIKh9e31x3JgcJt6V8PwD1RygfcJ3f4tbBjEO
+ E+tAPY4snhTME8pbyD9vQVmuJtilkBu5KVCalI01UCh8zgt/mh0XYty9zGQbFg2/
+ PDimgj9zjtIpYpmz44Kh1PoN2ndhnsViOQ22lPGKMyC8LA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb4f3dcff-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 06:50:15 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2b9fe2d6793so207964065ad.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 23:50:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779691815; x=1780296615;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:from:cc:content-language:references:to:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IXgwX/BN+Wvydg0Bls4hK6tRLkz7ypU2uVd20K0LfNQ=;
+ b=UuZ97plHNoqBG2JpBbtb579CVAle1M4hPtj0qNpq5IyWvxtlS2AarSZsewSH792M0c
+ fVp2oU3Eo7iIN1w1/CHljSu3Qp34sjbgHZOloZrXKN5uOLaYeQXyun4j6E31Xuy8VZDu
+ egunC28wt7vyxXX1IDa84xg+SYlupSK7j4y4wIkKgzzpDU7Z+e8nCGGBiH6Sg9bamyPe
+ fsEqR/hqvnLSKIcL+zECLLEkIJ9xALXXATQIva0UrgudCGs/CHUJYhi4gEJv2xhUSsAx
+ Yhj2pavVT0lMRbg0ls2twqp+hzKWz8f4HC102V8T8kzJtsITBUtk+G0DJuOCT9kKmYKI
+ K8qA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779691815; x=1780296615;
+ h=in-reply-to:from:cc:content-language:references:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=IXgwX/BN+Wvydg0Bls4hK6tRLkz7ypU2uVd20K0LfNQ=;
+ b=DWrFxmq9ALy9Vi4z/STxdQvoKGsY7qr1rhndz+ZVN8nGCXeUJU91XZs/VFa+r7d+SY
+ ABOMkq5MdUhD94M9dSxXH5s65nEPkD4cNTyKi8BohnFp0eppS7zlEqSpmdWcLS50vdHi
+ KV89Nbkbcr/ftgQhinV1AIXGdQiik3Np1udNUeMPP2aVlpMOqGL4OOwoZhEg0D7Xd7kc
+ W4CS+ekEZNRS+Kka0qWGu6nUFQDXZs60jcp8gw/5ZaHKaKFEZ6e7TDiBv8hBfUjpl+vm
+ j9jgg82AhTZO1SJa/etaa7Qd10JtrhcQ7UOe+prbtELpXlYuOFlSsbpKlj1ujYQ/Ivos
+ ZibQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+gR/Sb+HnbPZ8paVyp0/Emh353ESEL8Qnc5VVul883dosOCZWU1GVov8sDmO/UguygCUODBG6mYL0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDqapC7yOiHy4tEGDLYUPczLPAYB3sWKxLiDkHUYAfKid/6OY3
+ fsbHcrgOdMKRDZ4BXXXue/TPJ3niwDJSN5qsO+VooHABfhol4b1StIhvUNzSQ3T0Q/OSS/0Hanr
+ O9Ln72ixjI7yF+J5Rz3zdItBmR0bpDSu5mG3Y/UIsgr63wOsFCGYxI9/Nu/0e6Iy3WHbi+Ps=
+X-Gm-Gg: Acq92OEFnXUM89K1YAWB3JXA+0FQVE3OcJJ4ylcD/Z2flO69za9Y23qfzCjGXEJg8rP
+ RKFb8kbCRB0qtSLOF8MTWZN7x0QcMUolM6WJ9EBsEE8B0Q+N4C1QJaViI54Q+tPVanbV/Kys5B6
+ 0WAhyvL7pQGldTaM5nMntj/URLTuAvwrcwzVOFpUltnElmq26vYjylkTngtty9C1wGgLD5Vc84r
+ Vkh4++9GDQVbhvFkDx0QoBBmIOQA0jQFBBs7l1mfNadt22q58zQlnNWprHK2cdWvu9NGzzbnE8p
+ 5hna3NUup82L7HiF7Z5/Tx5TT/1/w9uBSAkPzep+bzwWIOxbOvszfi3KJGsOcOSmoybHttEhSgv
+ RaTLumqPWgM9dd7eDxZlJFVdBtLwbcfjWdrYZs+FZbKZGLDdosaIoEWfhtrEdnIJr2wKKNNDEnk
+ t86dzVcKkR2tiz0feciQxlmf0Q9So=
+X-Received: by 2002:a17:902:e745:b0:2b0:6a22:5165 with SMTP id
+ d9443c01a7336-2beb0631a29mr143935885ad.7.1779691814995; 
+ Sun, 24 May 2026 23:50:14 -0700 (PDT)
+X-Received: by 2002:a17:902:e745:b0:2b0:6a22:5165 with SMTP id
+ d9443c01a7336-2beb0631a29mr143935575ad.7.1779691814464; 
+ Sun, 24 May 2026 23:50:14 -0700 (PDT)
+Received: from [10.133.33.209] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2beb5695f5fsm86076325ad.8.2026.05.24.23.50.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 24 May 2026 23:50:14 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------5AyF6PH8XKarVpt7ZLz3e99f"
+Message-ID: <fc638116-2b80-4610-a20e-31baa6881774@oss.qualcomm.com>
+Date: Mon, 25 May 2026 14:50:08 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260525-tegra194-qspi-iommu-v2-1-a11c53f804b2@gmail.com>
-References: <20260525-tegra194-qspi-iommu-v2-0-a11c53f804b2@gmail.com>
-In-Reply-To: <20260525-tegra194-qspi-iommu-v2-0-a11c53f804b2@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>, Mark Brown <broonie@kernel.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-tegra@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- devicetree@vger.kernel.org, Thierry Reding <treding@nvidia.com>, 
- Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779691675; l=4772;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=l7YzDxh5xjjzC7rsRABKlUS2hzABVlzgeHIZyzIWkrM=;
- b=1CpmXZNayhDytsA6U5Qt3+xyw/X7Eb6AGh0QR7nvO2tUVzPwtmzzzjdw398yo30DQVIpDEIyd
- bl3Q0/WH8EFCpg1Oe/n3LOBMq4SK7Mpln8fxiexCXagp6RW6EfEmPtX
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/5] misc: fastrpc: Remove buffer from list prior to
+ unmap operation
+To: Greg KH <gregkh@linuxfoundation.org>
+References: <20260515124217.20723-1-jianping.li@oss.qualcomm.com>
+ <20260515124217.20723-3-jianping.li@oss.qualcomm.com>
+ <xnkycubizpoe4rmhc3jt36ulx2fb3tubjybu3djovafkqqttmc@o6vw2so5ctxr>
+ <37146a3a-b18f-40f1-b95b-0ac19bf6c07a@oss.qualcomm.com>
+ <2026052211-pavilion-compost-5fcd@gregkh>
+ <d9248bf3-ef48-4c04-ad7d-debc8854bae5@oss.qualcomm.com>
+ <2026052541-moaning-dioxide-d5c7@gregkh>
+Content-Language: en-US
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ amahesh@qti.qualcomm.com, arnd@arndb.de, abelvesa@kernel.org,
+ jorge.ramirez-ortiz@linaro.org, Ekansh Gupta
+ <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, stable@kernel.org
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+In-Reply-To: <2026052541-moaning-dioxide-d5c7@gregkh>
+X-Proofpoint-ORIG-GUID: J-wk-4igETHbRal1jMM-TWIibWYLEfEN
+X-Authority-Analysis: v=2.4 cv=WvYb99fv c=1 sm=1 tr=0 ts=6a13f127 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=r77TgQKjGQsHNAKrUKIA:9
+ a=EUspDBNiAAAA:8 a=4N7uJnPDXdwvaSyrK_AA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=vdeD6H_HsMhiC5eImKYA:9 a=FOgTHULqtPVeTiFL:21 a=_W_S_7VecoQA:10
+ a=lqcHg5cX4UMA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDA2NSBTYWx0ZWRfXwnpEsYlrQO11
+ Nyjp60aWh4uTf5fCbD5b0k761PWiSgI2odLrGzCrSfUJQr7oC6Li4ulzySCeDE6bpBM5463XTZf
+ KljKPLDH+ffh8DlMhkleyP0H9rTMSeXsklvCmxyM9xAW8Hf2yW+xBe/mhZrZBNLTsE93xcyEN+l
+ fpi9mFLkGuj7bpoRWKo7+l6v6MxMMBqeZ7ZD7krywiNQmT5fOpY+s8Lh5o+pjPkBeYUkAeamTiB
+ fSt+/NukyxuxQaMsHqB1AEhl9e81c+1TnR4p+UjYDkI4McMKOkfwpyG7c4N1EKqaQ3Yij24rPjD
+ m7XY32b4yGzKNo1A3Qbgc/3L1CyyznL8b9BEEtkN0nB5HEWjhendk9PbODDfOFzggicW1yCOhZ7
+ AMhtCZ4bMTilBfbcqzyDo/TKqaWxPSVQvnf3bNgGRWbaKnDBBcS9nVvKqI62aPOYLvQ7RjzGqmZ
+ uIttENncxKHmVoEnsYg==
+X-Proofpoint-GUID: J-wk-4igETHbRal1jMM-TWIibWYLEfEN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-25_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605250065
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,132 +149,176 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Aaron Kling <webgeek1234@gmail.com>
-
-When the SPI controllers are running in DMA mode, it is the DMA engine
-that performs the memory accesses rather than the SPI controller. Pass
-the DMA engine's struct device pointer to the DMA API to make sure the
-correct DMA operations are used.
-
-Suggested-by: Thierry Reding <treding@nvidia.com>
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
- drivers/spi/spi-tegra210-quad.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
-index db28dd556484b2..588a929a97850a 100644
---- a/drivers/spi/spi-tegra210-quad.c
-+++ b/drivers/spi/spi-tegra210-quad.c
-@@ -226,11 +226,13 @@ struct tegra_qspi {
- 	struct completion			xfer_completion;
- 	struct spi_transfer			*curr_xfer;
- 
-+	struct device				*rx_dma_dev;
- 	struct dma_chan				*rx_dma_chan;
- 	u32					*rx_dma_buf;
- 	dma_addr_t				rx_dma_phys;
- 	struct dma_async_tx_descriptor		*rx_dma_desc;
- 
-+	struct device				*tx_dma_dev;
- 	struct dma_chan				*tx_dma_chan;
- 	u32					*tx_dma_buf;
- 	dma_addr_t				tx_dma_phys;
-@@ -574,15 +576,15 @@ static int tegra_qspi_dma_map_xfer(struct tegra_qspi *tqspi, struct spi_transfer
- 	len = DIV_ROUND_UP(tqspi->curr_dma_words * tqspi->bytes_per_word, 4) * 4;
- 
- 	if (t->tx_buf) {
--		t->tx_dma = dma_map_single(tqspi->dev, (void *)tx_buf, len, DMA_TO_DEVICE);
--		if (dma_mapping_error(tqspi->dev, t->tx_dma))
-+		t->tx_dma = dma_map_single(tqspi->tx_dma_dev, (void *)tx_buf, len, DMA_TO_DEVICE);
-+		if (dma_mapping_error(tqspi->tx_dma_dev, t->tx_dma))
- 			return -ENOMEM;
- 	}
- 
- 	if (t->rx_buf) {
--		t->rx_dma = dma_map_single(tqspi->dev, (void *)rx_buf, len, DMA_FROM_DEVICE);
--		if (dma_mapping_error(tqspi->dev, t->rx_dma)) {
--			dma_unmap_single(tqspi->dev, t->tx_dma, len, DMA_TO_DEVICE);
-+		t->rx_dma = dma_map_single(tqspi->rx_dma_dev, (void *)rx_buf, len, DMA_FROM_DEVICE);
-+		if (dma_mapping_error(tqspi->rx_dma_dev, t->rx_dma)) {
-+			dma_unmap_single(tqspi->tx_dma_dev, t->tx_dma, len, DMA_TO_DEVICE);
- 			return -ENOMEM;
- 		}
- 	}
-@@ -597,9 +599,9 @@ static void tegra_qspi_dma_unmap_xfer(struct tegra_qspi *tqspi, struct spi_trans
- 	len = DIV_ROUND_UP(tqspi->curr_dma_words * tqspi->bytes_per_word, 4) * 4;
- 
- 	if (t->tx_buf)
--		dma_unmap_single(tqspi->dev, t->tx_dma, len, DMA_TO_DEVICE);
-+		dma_unmap_single(tqspi->tx_dma_dev, t->tx_dma, len, DMA_TO_DEVICE);
- 	if (t->rx_buf)
--		dma_unmap_single(tqspi->dev, t->rx_dma, len, DMA_FROM_DEVICE);
-+		dma_unmap_single(tqspi->rx_dma_dev, t->rx_dma, len, DMA_FROM_DEVICE);
- }
- 
- static int tegra_qspi_start_dma_based_transfer(struct tegra_qspi *tqspi, struct spi_transfer *t)
-@@ -745,7 +747,7 @@ static int tegra_qspi_start_cpu_based_transfer(struct tegra_qspi *qspi, struct s
- static void tegra_qspi_deinit_dma(struct tegra_qspi *tqspi)
- {
- 	if (tqspi->tx_dma_buf) {
--		dma_free_coherent(tqspi->dev, tqspi->dma_buf_size,
-+		dma_free_coherent(tqspi->tx_dma_dev, tqspi->dma_buf_size,
- 				  tqspi->tx_dma_buf, tqspi->tx_dma_phys);
- 		tqspi->tx_dma_buf = NULL;
- 	}
-@@ -756,7 +758,7 @@ static void tegra_qspi_deinit_dma(struct tegra_qspi *tqspi)
- 	}
- 
- 	if (tqspi->rx_dma_buf) {
--		dma_free_coherent(tqspi->dev, tqspi->dma_buf_size,
-+		dma_free_coherent(tqspi->rx_dma_dev, tqspi->dma_buf_size,
- 				  tqspi->rx_dma_buf, tqspi->rx_dma_phys);
- 		tqspi->rx_dma_buf = NULL;
- 	}
-@@ -782,6 +784,7 @@ static int tegra_qspi_init_dma(struct tegra_qspi *tqspi)
- 		}
- 
- 		tqspi->rx_dma_chan = dma_chan;
-+		tqspi->rx_dma_dev = dmaengine_get_dma_device(tqspi->rx_dma_chan);
- 
- 		dma_chan = dma_request_chan(tqspi->dev, "tx");
- 		if (IS_ERR(dma_chan)) {
-@@ -790,15 +793,19 @@ static int tegra_qspi_init_dma(struct tegra_qspi *tqspi)
- 		}
- 
- 		tqspi->tx_dma_chan = dma_chan;
-+		tqspi->tx_dma_dev = dmaengine_get_dma_device(tqspi->tx_dma_chan);
- 	} else {
- 		if (!device_iommu_mapped(tqspi->dev)) {
- 			dev_warn(tqspi->dev,
- 				 "IOMMU not enabled in device-tree, falling back to PIO mode\n");
- 			return 0;
- 		}
-+
-+		tqspi->rx_dma_dev = tqspi->dev;
-+		tqspi->tx_dma_dev = tqspi->dev;
- 	}
- 
--	dma_buf = dma_alloc_coherent(tqspi->dev, tqspi->dma_buf_size, &dma_phys, GFP_KERNEL);
-+	dma_buf = dma_alloc_coherent(tqspi->rx_dma_dev, tqspi->dma_buf_size, &dma_phys, GFP_KERNEL);
- 	if (!dma_buf) {
- 		err = -ENOMEM;
- 		goto err_out;
-@@ -807,7 +814,7 @@ static int tegra_qspi_init_dma(struct tegra_qspi *tqspi)
- 	tqspi->rx_dma_buf = dma_buf;
- 	tqspi->rx_dma_phys = dma_phys;
- 
--	dma_buf = dma_alloc_coherent(tqspi->dev, tqspi->dma_buf_size, &dma_phys, GFP_KERNEL);
-+	dma_buf = dma_alloc_coherent(tqspi->tx_dma_dev, tqspi->dma_buf_size, &dma_phys, GFP_KERNEL);
- 	if (!dma_buf) {
- 		err = -ENOMEM;
- 		goto err_out;
-
--- 
-2.53.0
+This is a multi-part message in MIME format.
+--------------5AyF6PH8XKarVpt7ZLz3e99f
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+On 5/25/2026 1:06 PM, Greg KH wrote:
+> On Mon, May 25, 2026 at 11:30:43AM +0800, Jianping Li wrote:
+>> On 5/22/2026 3:03 PM, Greg KH wrote:
+>>> On Fri, May 22, 2026 at 02:55:29PM +0800, Jianping Li wrote:
+>>>> On 5/15/2026 9:36 PM, Dmitry Baryshkov wrote:
+>>>>> On Fri, May 15, 2026 at 08:42:14PM +0800, Jianping Li wrote:
+>>>>>> From: Ekansh Gupta<ekansh.gupta@oss.qualcomm.com>
+>>>>>>
+>>>>>> fastrpc_req_munmap_impl() is called to unmap any buffer. The buffer is
+>>>>>> getting removed from the list after it is unmapped from DSP. This can
+>>>>>> create potential race conditions if any other thread removes the entry
+>>>>>> from list while unmap operation is ongoing. Remove the entry before
+>>>>> How can it remove the entry from the list?
+>>>> Multiple threads sharing the same file descriptor may invoke unmap concurrently.
+>>> multiple threads sharing the same file descriptor is a horrible
+>>> userspace bug.  If you do that, you get what you deserve :)
+>>>
+>>> thanks,
+>>>
+>>> greg k-h
+>> I agree that concurrent unmap on the same buffer from multiple threads
+>> is a userspace bug.
+>>
+>> However, the fastrpc driver is exposed via ioctl, and any userspace
+>> (including any random apk) can map directly and then call multiple unmap.
+> So there is no userspace selinux permissions settings on the fasterpc
+> device node at all?
+>
+>> This patch is not intended to support incorrect userspace usage,
+>> but to ensure that the driver remains robust against invalid or
+>> racy inputs.
+> Isn't control to this device an "admin only" thing?
+>
+> thanks,
+>
+> greg k-h
+
+Hi Greg,
+
+Thanks for the feedback.
+Yes there is sepolicy.
+
+I’ll collect more details around the expected userspace model and
+access restrictions for this interface, and better justify whether
+this needs kernel-side handling.
+
+For now, I’ll drop this patch from the current series and revisit it
+with additional context in a separate submission.
+
+Thanks,
+Jianping
+
+--------------5AyF6PH8XKarVpt7ZLz3e99f
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/25/2026 1:06 PM, Greg KH wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:2026052541-moaning-dioxide-d5c7@gregkh">
+      <pre wrap="" class="moz-quote-pre">On Mon, May 25, 2026 at 11:30:43AM +0800, Jianping Li wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 5/22/2026 3:03 PM, Greg KH wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On Fri, May 22, 2026 at 02:55:29PM +0800, Jianping Li wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 5/15/2026 9:36 PM, Dmitry Baryshkov wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On Fri, May 15, 2026 at 08:42:14PM +0800, Jianping Li wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">From: Ekansh Gupta<a class="moz-txt-link-rfc2396E" href="mailto:ekansh.gupta@oss.qualcomm.com">&lt;ekansh.gupta@oss.qualcomm.com&gt;</a>
+
+fastrpc_req_munmap_impl() is called to unmap any buffer. The buffer is
+getting removed from the list after it is unmapped from DSP. This can
+create potential race conditions if any other thread removes the entry
+from list while unmap operation is ongoing. Remove the entry before
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">How can it remove the entry from the list?
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">Multiple threads sharing the same file descriptor may invoke unmap concurrently.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">multiple threads sharing the same file descriptor is a horrible
+userspace bug.  If you do that, you get what you deserve :)
+
+thanks,
+
+greg k-h
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+I agree that concurrent unmap on the same buffer from multiple threads
+is a userspace bug.
+
+However, the fastrpc driver is exposed via ioctl, and any userspace
+(including any random apk) can map directly and then call multiple unmap.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+So there is no userspace selinux permissions settings on the fasterpc
+device node at all?
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">This patch is not intended to support incorrect userspace usage,
+but to ensure that the driver remains robust against invalid or
+racy inputs.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Isn't control to this device an "admin only" thing?
+
+thanks,
+
+greg k-h</pre>
+    </blockquote>
+    <pre wrap="" class="moz-quote-pre"><style>a {
+    text-decoration: none;
+    color: #464feb;
+}tr th, tr td {
+    border: 1px solid #e6e6e6;
+}tr th {
+    background-color: #f5f5f5;
+}</style><div
+style="font-family:'Segoe UI';font-size:14px;font-style:normal;font-weight:400;line-height:20px"><pre
+    wrap="" class="moz-quote-pre">Hi Greg,
+
+Thanks for the feedback.
+Yes there is sepolicy.
+
+I’ll collect more details around the expected userspace model and
+access restrictions for this interface, and better justify whether
+this needs kernel-side handling.
+
+For now, I’ll drop this patch from the current series and revisit it
+with additional context in a separate submission.
+
+Thanks,
+Jianping</pre></div></pre>
+    <blockquote type="cite"
+      cite="mid:2026052541-moaning-dioxide-d5c7@gregkh">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------5AyF6PH8XKarVpt7ZLz3e99f--
