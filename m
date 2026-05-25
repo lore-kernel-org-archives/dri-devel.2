@@ -4,91 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C98CD5BC0
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 08:00:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD39DCD5BC0
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 08:04:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F135110E324;
-	Mon, 25 May 2026 08:00:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37E8510E5BA;
+	Mon, 25 May 2026 08:04:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="quJDKDCs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jNHiYuWU";
 	dkim-atps=neutral
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84A1910E324
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:00:12 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-38be5e86918so115160441fa.3
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 01:00:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779696011; cv=none;
- d=google.com; s=arc-20240605;
- b=WSJLrCBmWIPA9eK/naAj7/SGytjcxMyWCTi5EYA7ANzDT+EuZCITWCpTll9agZhdI/
- 3OVRdB4ga/iTRJsJNtztmqhzGUj8nkCYexy+NOdcISsx47Tb4Ejvum2IhY7fSftnKqe3
- XK/0O72T7fEORCgWaXMEeue2B+nBE8zku9x+QLahD57sh3QErEYcIPQDKk1E7lVnPPkY
- ChgK233bd/CC4ywnaOCIwtGddBc+HCfx+ydweCoHaaakIySwCdw4ZyMj+CtTYPjStJn4
- w+9eKuZf2NBoBhdaavYnzMhyRSSKd6HewHSmNuu5r3pNwz0ecJv89vQuPKpkWFnPENhb
- /FQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=T6m6iM56WTZ+JdCiQdR6E29EVcPgbbg9SGsS1j0BH2s=;
- fh=Q1Sjz9z2Nc/Dck+fwlMJII6u83w9iNVwgmG7jSRG3pQ=;
- b=VelZlE+7ZYXkFv1c1XBsVrBjkXozWjGDsbczIX/ube0aNTpiDXUHkyYOVjOk2nMy6h
- MFvruieqv3X8+YwM+E+JdDdgmC9P60ot4D0un6+X2IJ5d0Y7y4+fUEc8EYlTBZQkO/MP
- 6ucsWjM1EpUX2Xbsj4Mv2G3OAZuJfycin1kZ5K1OcNrGcZYafW38SfpGCjShSQ2yU0Qn
- MZjSRpZS+TRFxK8C0ts6twXD4IjLtf8FMu9WvwnRfERnSaQPZ94R7fzpRPpHnlGoJQxx
- aJyELWOicVStiYW5hhPgO5etNlGwGuBJn7IWPGep+LmHvOpmSOE5MI8jJoqBoRkQnk58
- Awdg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BC4110E5C1
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:04:18 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-43d75312379so7775522f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 01:04:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779696011; x=1780300811; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=T6m6iM56WTZ+JdCiQdR6E29EVcPgbbg9SGsS1j0BH2s=;
- b=quJDKDCsoOCIoMpXZpCqgaqTpJECtaoGnmzHYsUE4RnL/WvdGD8z/SAJ6gR6jQ3EZy
- jT3lHgxpaXkccOB2PjFoWPikU46qQ5zCttu3bUMKhjNpDrD5SxtVQql/t6mq8Em0/z3M
- RUXH8mytDC9jM1UMXs4dZa+R7jUezIwJ2zxxPjutyp/38CfhXa91JruDLJENIE/2CFhe
- Gmu6/VmZVEOFI5VbwWYiJQ695xzfr6SXQyU0o/JhCwBFET/arKkJ4YDlziu3sFJ3TDsq
- eLlxbCsOshC5mYZwvqMlGUy90WE96yyaWTGpTvWlii2Lc0LmnqEoS++TjozECsaM/KyA
- xPMA==
+ d=gmail.com; s=20251104; t=1779696257; x=1780301057; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=e4TwWx9Jkv5+tXBeIF9TrY2gJYisieGsYYHEykccDJM=;
+ b=jNHiYuWUe+kEoazNz4DItBh9QEE+Z1EAac0h1dxRgebpVP4/XWhCiss3kDSeaVHC9B
+ idOkG7XBsVLLLw1vR13tFZ/pw6tTWrG40D9XHdSO05AJp44qLaeTJEl3m/CM9hOTXALA
+ vPtWJo9ILC020Dkm4uQ/Ci9GNjJrfVuCX6e8zymZ107n3nkOnMIzze3F84GwhWlFbrXx
+ ibaAjN483uQ51whSXbWV+9+5PsE06toe7WZeMLL+e0SDLvK3yUT/I2KjTbQCZgzDUUSc
+ hvktWsnuw6OETP/P3Bfk14eqcFElDgQLyAz56TV8B88oOY+Sjmx0iRtBXKPDeApeVjWK
+ l4og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779696011; x=1780300811;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=T6m6iM56WTZ+JdCiQdR6E29EVcPgbbg9SGsS1j0BH2s=;
- b=qWHdzPomaMl4oYUoqgJs8ELCwzJYnifL4XWtw8Yds3+ck5X1HxYl2mLf1MN4MDt67z
- O+VQVXSKO3X78zBG/A2V9Phhcr4TN3BrbO8HYy9ksQSCETt8glOr9Qj1nnM7Xd4/PhET
- eOcaF7s0CfmNVy0Ii8YZZiMm+e3/84gutgikhNszc61FOXb8rkEzEN0osIJsz4vgct1g
- L8yjFS+cOwIZ2+vhWF7VmbnJuTSeE3x/qi7MabH87lpiA6rxlKsbSSaOBW+T8v9DGPso
- UX1GptAVmr6XQG5zWFuHuKKimIVlR1PljB/80OTbsOQ6vX/zriL8eDzL4owvwlPJeKx/
- 7S+Q==
-X-Gm-Message-State: AOJu0YwBo5lOu7fK0OwL8X76hEsl8NUGnRWcTDMBUmK7J/i5lgwkQzM4
- 2KPNtGm0RGvWeDTXUTdSsl+M0O8Ra8IdbJmE3JoeQRCu4cKuGaG1ilIlwGln/CHn8+WGhBGS1nR
- zUsqsJyfyHoBNJ8D4838zDDwPDWqypOc=
-X-Gm-Gg: Acq92OFMuOVqmdA8G3zwbA+nmROnDUV+OeSMGUBw2Jr5dE1WdeK5uxVjcAcMo+r/71d
- 8JPBvEZ9GoTxalJhZvEa6NWB8486DZwZzZ68y7QpEYAqapxQRievo/A1OQgDbyfB73+ZHXoB7xn
- 44jcCYtPrgXMM/nlLQXtLhac0+y45Y+MC6WPy6d3wrkaq5zgyBWXn1KTuRF8x/frVSSj6bzuSz4
- 3B3UIjtaHgyHRK573JH3FEQuCsyDhxp2iVwuYVnaFYq8WphSh1AlEBMfUTdtLsyQRWD/uA8zKJ8
- RPqGsuw9RgkcRRd+KIRifJrTmEjyYCTrjQ/KEe8=
-X-Received: by 2002:a05:6512:6399:20b0:5aa:2a4e:5b78 with SMTP id
- 2adb3069b0e04-5aa32326a7cmr2764426e87.17.1779696010275; Mon, 25 May 2026
- 01:00:10 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1779696257; x=1780301057;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=e4TwWx9Jkv5+tXBeIF9TrY2gJYisieGsYYHEykccDJM=;
+ b=F8eyxhQ+pVp0Cejkn42fGKsga1A/BrL1Yq5C1wphUNiI4KcZfosdLJNF6akVt/np5z
+ tt0/gaQDExMuq832JzoOd9Zo/cus7BAW/0PUADy6XuF0V9M+78BOhyulXz02hj+0WWs5
+ snMT/VeFOdVmEM18PXtDdrZvcdrMYRLF1fJDIYBGvaYJNiFa/VUDy0PxYFXhq+tZh6m9
+ 5NyPePrEJGESH27Y5zwKwB5swvITREd88tYaUmxjIUydjsfMA1HLqq9MJVMOFMhBK2Uv
+ /D+n3WK9pH4YUH/0PQdPR6kYFd6LAM3IZpR7VrMtRw2OoaySzVZ1OruJzXonYF9ziYQc
+ BK4g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8aUprg93D6DregZt5bofhDawQ5o4Ad4aZucNfcdqKHQPyUTYV1Paa0sOUBILk7LDVyGIbTdvCeOXc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwSVrnFTOGo56BUQsBSDQ/x5UQswnoe7Py6fzOi9ItDCVeCLB6L
+ u1Jcg2oSDCm6TCxCDXChQz3GiV9+tsSc82y54Wj6BP5/VRyTYNy3ILnA
+X-Gm-Gg: Acq92OGBtboqxkUAeuwAaWPIjLHkrMmSd95JpvnkGyy1N24gnGDhnosnSgGosDWeCO5
+ TGbpIQi3tOSywvFCKMyUR/M1GyN9dubdDYM7usqweP1vH/DlIGwiZQCTDtTOFFXnnzwmZOLz8lZ
+ +vXa2Fhqa6a1DKcL78rcxFH8PL8ZwPsBoX45uvufQRJSZMu7fOBTv6KA5lClrLSEcqi/a9UJ4zA
+ 0fzVRIviP6tQbf/hk5NKMBd9JNA4sqGNkRmvN3gW0qbmSAcVifRPsKoeyumMDtauXgI5OxzoJdg
+ 1o+Y71EyWr4IFfcTu/8lU9j00Q2l3jupZZwI7VxtwFOkghkjf883Qms/SJcm8+aRGJqVAW2DUNf
+ mzqeC70RvI0D64JcqdMUu2cXd21ZjpGqtJdxllHRen7Yt9YdgMI0aV3EoB7kcHC0uC6Pgf7Z49J
+ aNhtLi5tYIFnaHj6QGHW5S5b3WSgneAhP9rw==
+X-Received: by 2002:a05:600c:46cb:b0:48f:e044:927d with SMTP id
+ 5b1f17b1804b1-49042480f2dmr184665115e9.10.1779696256861; 
+ Mon, 25 May 2026 01:04:16 -0700 (PDT)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490428d698fsm78263835e9.19.2026.05.25.01.04.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2026 01:04:16 -0700 (PDT)
+Date: Mon, 25 May 2026 11:04:13 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Ivan Lipski <ivan.lipski@amd.com>, Anthony Koo <anthony.koo@amd.com>,
+ Lohita Mudimela <lohita.mudimela@amd.com>,
+ Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] drm/amd/display: use READ_ONCE() in
+ psr_su_set_dsc_slice_height()
+Message-ID: <ahQCfcFVMQY4JGXM@stanley.mountain>
 MIME-Version: 1.0
-References: <20260405124006.2688556-1-yiconghui@gmail.com>
-In-Reply-To: <20260405124006.2688556-1-yiconghui@gmail.com>
-From: Yicong Sito Hui <yiconghui@gmail.com>
-Date: Mon, 25 May 2026 09:00:00 +0100
-X-Gm-Features: AVHnY4LOOtNbQLXnMNNX2tNFsKMqcodAOfoENJSZIUXBhFGKZEj9I4nr5UlNZpw
-Message-ID: <CAJ4mek0gEHeDDAwrFcZQ3jHKVXkKXxgkL9_eknLaY=P3BcSmAQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: Fix kernel-doc warning for
- dpu_core_perf_adjusted_mode_clk
-To: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev, 
- jesszhan0024@gmail.com, sean@poorly.run, alexdeucher@gmail.com, 
- David Airlie <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- skhan@linuxfoundation.org, me@brighamcampbell.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,18 +96,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 05/04/2026 1:40 pm, Yicong Hui wrote:
-> Fix the following W=1 kernel-doc warning by correctly renaming the
-> parameter crtc_clk_rate to mode_clk_rate in the kernel-doc and using the
-> correct separator of : instead of -
->
-> ...
->
->   u64 dpu_core_perf_adjusted_mode_clk(u64 mode_clk_rate,
+This code has two checks for if "stream->timing.dsc_cfg.num_slices_v" is
+zero so static checkers complain.  The second check was added based on
+real life crashes so it suggests there is a race condition.  Use
+READ_ONCE() to fix this more reliably.
 
-Hello!
+In the original code we returns true for the first zero check and false
+for the second check.  The caller doesn't care about returns so it
+doesn't matter whether we return true or false.
 
-Is there any further feedback or progress on this patch?
+Fixes: 21fc0ff38f57 ("drm/amd/display: fix a divided-by-zero error")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+Untested.  Just reviewing static checker warnings.  I wanted a chance
+to use READ_ONCE().
 
-Thank you!
-Yicong
+ .../gpu/drm/amd/display/modules/power/power_psr.c   | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_psr.c b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+index 5ecb570c204e..92c0aed08170 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_psr.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+@@ -635,22 +635,23 @@ bool psr_su_set_dsc_slice_height(struct dc *dc, struct dc_link *link,
+ {
+ 	uint32_t pic_height;
+ 	uint32_t slice_height;
++	uint32_t num_slices_v;
+ 
+ 	config->dsc_slice_height = 0;
+ 	if (!(link->connector_signal & SIGNAL_TYPE_EDP) ||
+ 	    !dc->caps.edp_dsc_support ||
+ 	    link->panel_config.dsc.disable_dsc_edp ||
+-	    !link->dpcd_caps.dsc_caps.dsc_basic_caps.fields.dsc_support.DSC_SUPPORT ||
+-	    !stream->timing.dsc_cfg.num_slices_v)
++	    !link->dpcd_caps.dsc_caps.dsc_basic_caps.fields.dsc_support.DSC_SUPPORT)
+ 		return true;
+ 
++	num_slices_v = READ_ONCE(stream->timing.dsc_cfg.num_slices_v);
++	if (!num_slices_v)
++		return false;
++
+ 	pic_height = stream->timing.v_addressable +
+ 		stream->timing.v_border_top + stream->timing.v_border_bottom;
+ 
+-	if (stream->timing.dsc_cfg.num_slices_v == 0)
+-		return false;
+-
+-	slice_height = pic_height / stream->timing.dsc_cfg.num_slices_v;
++	slice_height = pic_height / num_slices_v;
+ 	config->dsc_slice_height = (uint16_t)slice_height;
+ 
+ 	if (slice_height) {
+-- 
+2.53.0
+
