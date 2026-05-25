@@ -4,127 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E49B0CD5BB1
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 14:57:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 836BDCD5BB1
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 15:02:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4063210E398;
-	Mon, 25 May 2026 14:57:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B632F10E39B;
+	Mon, 25 May 2026 15:02:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="A7LJb67+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="abQDFWZo";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazolkn19012077.outbound.protection.outlook.com [52.103.11.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0863710E398
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 14:57:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lGRpCbyAe4RKVMMEledvHqwLilUW1k7gorFesJkg3guasIx2BWtNpWfQrtW4X//O6iCm9OU3UD3JpPe9qc64NYgZLkazQfh1A9/FNz90Ijt1s0w2NI3PP+BfJzJwZ8RZcXKV0/4tZRrtk4ZNGytxf6pE8MaI61KWQary892BkvvrFviuCZFpdnNPEj5p56bWJWBYJ0aDJmLO1Afa8NiGWoK3cq5XY/ImWbWkJUrin5wrY4PquFLqxLLwjbqlI/1QqOaqsoOjT1fEwY6QoBUXeZ98fTOb/SPwczpXBHufDMFuVSqxhe7UbaLfPzmODFFTkx1xKErjVGbR9EVP4Towig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xea8CpjiMpbGlX5dyWHPyqixI9JjWcBnpAD6OAuaemk=;
- b=LdyMb/a9btCgL504wyO3NY+BEhGQcu7hZZtp5TsjViggLowvrkjw5Od3NwrPYH0I7ZAgePMNXbm329pknzw//7482OMyjXfJ8t9Fvf2w5rGTcZRfE/s6JYrSNeHlAAe92hBRDvNDcBbwy7oh/BsiKecE0IYFXrjQWOX/udiLX7slVB670YC+UOu+rsfw4oodetdLnS3JjC9m0s1EBCWDy6IYE6q/f/6ApNKM4rh88didrZPFur7LiLSzpJubdM6C+24b3EO7e2KRl3+M0MY/WGQRpwWToIn6q7eJoUu90ZOiItZfnK6qkvnaruZiu9MggS9jIGmHAAiwhg9KXC8FJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xea8CpjiMpbGlX5dyWHPyqixI9JjWcBnpAD6OAuaemk=;
- b=A7LJb67+Jz4h7BpciOp+CsvFc6RZD8Up1dC3J4rD/3SSmevbLRHv3GqGFHwOfSi7tTK4LwoSGGCFB6/9InUQflfBIBmwyG0gC6zssBuJz/xUbBvk5J3YopVzqJKqmHoIciExvjK3kh0eZ33LZjS1oi7VLtGDv1x/g8kfAP6O8OMY+5TjxYxZ1z4C5qdWyk+zcsli+OTRgE57BelyJDnlyXJnSET3PjZXTZxkX2oYJznNWV5uaKYcLJ0KQ/2v4nFBWfa/4sHP/ontQxI/0SuSTyOtf6MYg55fB/kqbugZffyDzrwJzYqaA3SaSBKuvv0IJFVFaKmUQwhVa0DBCjVQVw==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by PH0PR02MB7798.namprd02.prod.outlook.com (2603:10b6:510:5f::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
- 2026 14:57:24 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0048.019; Mon, 25 May 2026
- 14:57:24 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, Berkant Koc
- <me@berkoc.com>
-CC: Saurabh Sengar <ssengar@linux.microsoft.com>, Dexuan Cui
- <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
- Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>, Thomas
- Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Deepak Rawat <drawat.floss@gmail.com>
-Subject: RE: [PATCH v5 0/2] drm/hyperv: harden host message parsing
-Thread-Topic: [PATCH v5 0/2] drm/hyperv: harden host message parsing
-Thread-Index: AQHc6rxXbeGIcHdjcEGvwSATz8Ad/rYen/KAgAA4KpA=
-Date: Mon, 25 May 2026 14:57:24 +0000
-Message-ID: <SN6PR02MB4157F72302D2B4B86ECE553FD40A2@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <cover.1779542874.git.me@berkoc.com>
- <ahQ0NS1jrfU8ms1U@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-In-Reply-To: <ahQ0NS1jrfU8ms1U@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|PH0PR02MB7798:EE_
-x-ms-office365-filtering-correlation-id: 29f74e71-09ee-4338-c127-08deba6dee4e
-x-microsoft-antispam: BCL:0;
- ARA:14566002|51005399006|19101099003|37011999003|15080799012|8060799015|8062599012|19110799012|31061999003|13091999003|40105399003|3412199025|440099028|102099032|1710799026;
-x-microsoft-antispam-message-info: =?us-ascii?Q?Cj/sWSbEU2zp7WmXmWoIjZ5o+3h6J/YHL+i6ANw7hGBM3+x2OA0159i/X6cK?=
- =?us-ascii?Q?UH5NN5wWUsbdTMTHwUIXp0t/mHC2U9hnY8ugXfE6rXWZ61Vd6SU8ScWMnJcu?=
- =?us-ascii?Q?mzamMVhGikxQ7sGbCxFTuZI20PAy/RUs8cJWDURldEIoM3UWPs7+9bwEjqFY?=
- =?us-ascii?Q?SfU/Fat5Zcn3j9Z5hrId2IWTE0vCUuVIxjGgvX17lHnU/pHrRGcxOTcqv9d9?=
- =?us-ascii?Q?BhLjPA1rB1Z+cA3mTLBD+EY5pRaN0QlikkPYnk5nPXDYkeJKr/ACxpCgihsb?=
- =?us-ascii?Q?WtFOftl5PcPClRacHnvnd15II44u3coSAXJ+aR1d7+w4sXPAqBBKq3t0HrFX?=
- =?us-ascii?Q?NsDYza6NJ1lbRs5bAduVogzNt8tOa1W65QlQKJ+uvanHje/FJ9IivqOimpGW?=
- =?us-ascii?Q?mLcT7WLp09bTWgWVe3O902/BBQDfYVJy5IoWOOgfDRxRlznX9XdjJ5gBI59i?=
- =?us-ascii?Q?vuCgT271xuMd6mamx+kgy+t/wkyhVzVSHyGfPJrqwtuU2CHeZXhiL2UBB0OT?=
- =?us-ascii?Q?hiqahzqeXO6BzAARboHY0zYJd2fabbs0ksAvxJ0OLtEx6XBhUuLf6tSgcRuJ?=
- =?us-ascii?Q?wfMdbG3XnuYPHNCl9CHEZmXjUm/MBepqUwNEwu6m/U4EUlaVSbma9FHzvDEt?=
- =?us-ascii?Q?kJixx8ygxHKOzx2BVHqyiw8SgYV3AjK7yFuXeSHHcOV8s9yz+Udu03iGLaDL?=
- =?us-ascii?Q?F4kFlU51Iwpgpr6i1U1RltNhoPDMCBHPnbsLlaN4tOaCXA2oEf9KnuyV/YkF?=
- =?us-ascii?Q?UV4HEr/CCMDKmQtbs3XKL0rU4GiwB4cGgpBLNo5xIlpNnK/lRXQaEuS65HmC?=
- =?us-ascii?Q?5bikRy0+o5J1kuQEBj2mbpF8GaEfknbvb3j8wfymydLCvr9VY28TFccEPK3J?=
- =?us-ascii?Q?k4m9QK9QD/q9kjSw5zseWJozGYsrf33/qDpJqyicoX1HYGr1RuHl6bVTthfo?=
- =?us-ascii?Q?pbYIHc4nq+DnH3YDhz3K5Z5grOfF7sgNYgK2x/x5rE/uOWjGruzunEc8lin1?=
- =?us-ascii?Q?yjI1A/YBs7D51qRIqCveoPlrDw=3D=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?o52l6/eW5rHQSWXE5ejJ/HvQk3vLMGZsDw7Ili/75h+p/7m75SKbwXyqH42U?=
- =?us-ascii?Q?rFZ3+LfdCHCsi+rfoO9QOskZB9yNsLmBnGM5RGta57FAKezaZjJUqbXKEGSs?=
- =?us-ascii?Q?TOOpis6qvqv+wkEGP9Xc+7384EKuPEpLcvzicC/CNuU6EPswISj0XxkdqAcB?=
- =?us-ascii?Q?yQDb/ma0ubCnZywn7VvnraB1OfnKJkyx/++XCTiL512MJ6Gq3536H7VIOQ+4?=
- =?us-ascii?Q?RdxaSHf5x6F2dBdq4YSDa6jPWC1DVD86MvOmrowxcQsPhvvq694iuVRCP+91?=
- =?us-ascii?Q?VAar/gwUeVIIL/gKvimKb5N3teR6itl5GohhZokVgznjwE2vnlGh+HgqzzCz?=
- =?us-ascii?Q?GmkLraRkKTkd20O3N6qRkTMGWrndaQwKRZb+yQQOP7f1D+LIjhcvLag2VCDN?=
- =?us-ascii?Q?TF4cbdkD7wAUoDOruSkkCgztetdl6IDZA8ot0PT98umpnmiNZwhURYgq4H5w?=
- =?us-ascii?Q?5LdTOOyphcM/Cb6o+TbQKWVIf6g1wnCuZ0FkhVsUZcloBzjhCdqFUjOAs593?=
- =?us-ascii?Q?DoQGklfvVs/hFBekH5dEOezXAJ2As/FkLj1fveFJShSwSEEM07wlKfxlNM32?=
- =?us-ascii?Q?QXlblJ/DTVdXEIHCmR5vTqR11L5ZH8qZckd8EZm0CRfJXjF2EP+F7/aV5bBC?=
- =?us-ascii?Q?PRsxtCD955J5uq7MPGepyIR9LpWC8n+aUxfaChmT3eAWm76zJQqnvydiDPP8?=
- =?us-ascii?Q?X4TjL6+Xzqo3sx4AJr1WnapULwUuAZGAkgLOIA0tC8bH2JWP+U6mXR2wx1hx?=
- =?us-ascii?Q?H6QT9vMhdFo5p/1U+X8nqp3jj9gLiqe3MeZBiCGTE0noZxYK8jGPvFu2jkep?=
- =?us-ascii?Q?tOwRentD5yt1HrCQoo+sKIc0X18IBinovLnt+47IVRjfUrM5v9xhsjLtWuSe?=
- =?us-ascii?Q?d6mhrF2AO2bL87UFZiynwDgTwYBn4NtewQzG0PGfEELQykkl2KrUjD3Tb/TF?=
- =?us-ascii?Q?i1zVo0nzOMPdq1Fl6cWFxOBDsw2UcmwA1occ1xfWkcfIgdYu3X9XJwnGz431?=
- =?us-ascii?Q?i5+07kdX9dHJ1SZ2T26As3OlBY3YScoq8t+FsGMlu1Vr/IhccTyGRLQi5TpB?=
- =?us-ascii?Q?TFjIhBQl3iG1OsQDnVLXplWyIq7i22JkGqujZO+hX+IaTUNILJ+RE84PK0hp?=
- =?us-ascii?Q?+kd0BADqyDl0SFPVlmWmd3c9S39ZImlb6rNxBhK/1lh3JpNbvdG8anUIGVyV?=
- =?us-ascii?Q?4TduEVAYGPnMOqm0vZ42opE6S8+g/zAeFTDOJ659BRhNOGTUe6qwXCl9CH0Q?=
- =?us-ascii?Q?6WeTYO7GUpIby+w2Fr1nzvYOMiokmwha0F0L7ZJFKkkLSSOB428hPrwoEAEk?=
- =?us-ascii?Q?muV+RyDjNjNv0kPrIEPofBjXXgyhtcm6tF4G8O7lW1Hw2BL/t3fFpF2BGGoF?=
- =?us-ascii?Q?fxIhepk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBE810E399;
+ Mon, 25 May 2026 15:02:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4B584600C3;
+ Mon, 25 May 2026 15:02:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3711F000E9;
+ Mon, 25 May 2026 15:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779721362;
+ bh=oE/uAUi1ZJ8Z07LJo3PiENxZ5di8rJGAwdTc2Ip5hJM=;
+ h=Date:From:To:Cc:Subject;
+ b=abQDFWZoeoIySS5uM50oNQAhEjFEVdVhPVHyVFnb4M3QzXnsXKnjMt0FinMac5pWX
+ OjO7kExt7XscZ3Kvd5x77xeMvRUYkV5eH1ALelDj3wJaSovdgCXh155PFpm53LUPNe
+ nYkMYpYhoDn77oPoKMZsbEGSBIIJOqWZmyvdsuHDkGG3Xdm/9IimafUBUJW4z/k3SZ
+ NxrOyUeiujK/5hl+P8aOeVKMbqrDFcUC9SDVEEjD4D2R63Sw/t76Og7BAKWJSYkGVp
+ p/QIre4pVFgcM+LjoxRieN7stJ1lR+QuXj4p6b1mhqq7NzyeXejHvsUITNnd2cQ1dJ
+ ahEkFWGsGtkfQ==
+Date: Mon, 25 May 2026 16:02:37 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <ahRkjeEjdeF_icWN@sirena.org.uk>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29f74e71-09ee-4338-c127-08deba6dee4e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 May 2026 14:57:24.4956 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR02MB7798
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="GroEncpA0Meuaket"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,44 +62,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> Sent: Monday, May 25=
-, 2026 4:36 AM
->=20
-> On Sat, May 23, 2026 at 03:27:54PM +0200, Berkant Koc wrote:
-> > Two independent issues in the synthetic video driver that both stem
-> > from trusting unvalidated host data.
-> >
-> > 1/2 bounds resolution_count from SYNTHVID_RESOLUTION_RESPONSE against
-> > the supported_resolution[] array, and populates WIN8 defaults for
-> > hv->screen_*_max / hv->preferred_* in both the WIN10-probe-failure
-> > path and the pre-WIN10 path, so a failed or pre-WIN10 probe yields a
-> > usable display instead of having drm_internal_framebuffer_create()
-> > reject every userspace framebuffer with -EINVAL.
-> >
-> > 2/2 forwards bytes_recvd from vmbus_recvpacket() into the sub-handler,
-> > rejects packets that do not cover the synthvid header, and requires
-> > the type-specific payload size before memcpy/complete or before
-> > reading the feature-change byte. Rejected packets are logged via
-> > drm_err_ratelimited() instead of being silently dropped, matching the
-> > CoCo-hardened pattern in hv_kvp_onchannelcallback().
-> >
-> > 1/2 is unchanged from v3/v4 and carries Michael Kelley's Reviewed-by.
-> >
 
-[snip]
+--GroEncpA0Meuaket
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> >
-> > Berkant Koc (2):
-> >   drm/hyperv: validate resolution_count and fix WIN8 fallback
-> >   drm/hyperv: validate VMBus packet size in receive callback
-> >
-> >  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 113 +++++++++++++++++++---
-> >  1 file changed, 97 insertions(+), 16 deletions(-)
-> >
-> >
->=20
-> Applied, thanks!
+Hi all,
 
-Hamza -- which tree was this applied to?
+After merging the drm-misc tree, today's linux-next build (x86_64
+allmodconfig) failed like this:
 
-Michael
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:43:48:
+error: 'struct drm_atomic_state' declared inside parameter list will
+not be visible outside of this definition or declaration [-Werror]
+   43 |                                         struct drm_atomic_state *state)
+      |                                                ^~~~~~~~~~~~~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
+In function 'vs_cursor_plane_atomic_check':
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:45:82:
+error: passing argument 1 of 'drm_atomic_get_new_plane_state' from
+incompatible pointer type [-Wincompatible-pointer-types]
+   45 |         struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+      |                                                                                  ^~~~~
+      |                                                                                  |
+      |                                                                                  struct
+      |                                                                                  drm_atomic_state
+      |                                                                                  *
+In file included from
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:12:
+/tmp/next/build/include/drm/drm_atomic.h:824:64: note: expected
+'const struct drm_atomic_commit *' but argument is of type 'struct
+drm_atomic_state *'
+  824 | drm_atomic_get_new_plane_state(const struct drm_atomic_commit *state,
+      |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:55:60:
+error: passing argument 1 of 'drm_atomic_get_new_crtc_state' from
+incompatible pointer type [-Wincompatible-pointer-types]
+   55 |                 crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+      |                                                            ^~~~~
+      |                                                            | struct
+      |                                                            drm_atomic_state
+      |                                                            *
+/tmp/next/build/include/drm/drm_atomic.h:794:63: note: expected
+'const struct drm_atomic_commit *' but argument is of type 'struct
+drm_atomic_state *'
+  794 | drm_atomic_get_new_crtc_state(const struct drm_atomic_commit *state,
+      |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
+At top level:
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:101:51:
+error: 'struct drm_atomic_state' declared inside parameter list will
+not be visible outside of this definition or declaration [-Werror]
+  101 |                                            struct drm_atomic_state *atomic_state)
+      |                                                   ^~~~~~~~~~~~~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
+In function 'vs_cursor_plane_atomic_enable':
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:103:72:
+error: passing argument 1 of 'drm_atomic_get_new_plane_state' from
+incompatible pointer type [-Wincompatible-pointer-types]
+  103 |         struct drm_plane_state *state = drm_atomic_get_new_plane_state(atomic_state,
+      |                                                                        ^~~~~~~~~~~~
+      |                                                                        |
+      |                                                                        struct
+      |                                                                        drm_atomic_state
+      |                                                                        *
+/tmp/next/build/include/drm/drm_atomic.h:824:64: note: expected
+'const struct drm_atomic_commit *' but argument is of type 'struct
+drm_atomic_state *'
+  824 | drm_atomic_get_new_plane_state(const struct drm_atomic_commit *state,
+      |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
+At top level:
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:118:52:
+error: 'struct drm_atomic_state' declared inside parameter list will
+not be visible outside of this definition or declaration [-Werror]
+  118 |                                             struct drm_atomic_state *atomic_state)
+      |                                                    ^~~~~~~~~~~~~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
+In function 'vs_cursor_plane_atomic_disable':
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:120:72:
+error: passing argument 1 of 'drm_atomic_get_old_plane_state' from
+incompatible pointer type [-Wincompatible-pointer-types]
+  120 |         struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
+      |                                                                        ^~~~~~~~~~~~
+      |                                                                        |
+      |                                                                        struct
+      |                                                                        drm_atomic_state
+      |                                                                        *
+/tmp/next/build/include/drm/drm_atomic.h:809:64: note: expected
+'const struct drm_atomic_commit *' but argument is of type 'struct
+drm_atomic_state *'
+  809 | drm_atomic_get_old_plane_state(const struct drm_atomic_commit *state,
+      |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
+At top level:
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:135:51:
+error: 'struct drm_atomic_state' declared inside parameter list will
+not be visible outside of this definition or declaration [-Werror]
+  135 |                                            struct drm_atomic_state *atomic_state)
+      |                                                   ^~~~~~~~~~~~~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
+In function 'vs_cursor_plane_atomic_update':
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:137:72:
+error: passing argument 1 of 'drm_atomic_get_new_plane_state' from
+incompatible pointer type [-Wincompatible-pointer-types]
+  137 |         struct drm_plane_state *state = drm_atomic_get_new_plane_state(atomic_state,
+      |                                                                        ^~~~~~~~~~~~
+      |                                                                        |
+      |                                                                        struct
+      |                                                                        drm_atomic_state
+      |                                                                        *
+/tmp/next/build/include/drm/drm_atomic.h:824:64: note: expected
+'const struct drm_atomic_commit *' but argument is of type 'struct
+drm_atomic_state *'
+  824 | drm_atomic_get_new_plane_state(const struct drm_atomic_commit *state,
+      |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:147:55:
+error: passing argument 2 of 'vs_cursor_plane_atomic_disable' from
+incompatible pointer type [-Wincompatible-pointer-types]
+  147 |                 vs_cursor_plane_atomic_disable(plane, atomic_state);
+      |                                                       ^~~~~~~~~~~~
+      |                                                       | struct
+      |                                                       drm_atomic_state
+      |                                                       *
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:118:70:
+note: expected 'struct drm_atomic_state *' but argument is of type
+'struct drm_atomic_state *'
+  118 |                                             struct drm_atomic_state *atomic_state)
+      |                                             ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
+At top level:
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:225:27:
+error: initialization of 'int (*)(struct drm_plane *, struct
+drm_atomic_commit *)' from incompatible pointer type 'int (*)(struct
+drm_plane *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
+  225 |         .atomic_check   = vs_cursor_plane_atomic_check,
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:225:27:
+note: (near initialization for
+'vs_cursor_plane_helper_funcs.atomic_check')
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:226:27:
+error: initialization of 'void (*)(struct drm_plane *, struct
+drm_atomic_commit *)' from incompatible pointer type 'void (*)(struct
+drm_plane *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
+  226 |         .atomic_update  = vs_cursor_plane_atomic_update,
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:226:27:
+note: (near initialization for
+'vs_cursor_plane_helper_funcs.atomic_update')
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:227:27:
+error: initialization of 'void (*)(struct drm_plane *, struct
+drm_atomic_commit *)' from incompatible pointer type 'void (*)(struct
+drm_plane *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
+  227 |         .atomic_enable  = vs_cursor_plane_atomic_enable,
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:227:27:
+note: (near initialization for
+'vs_cursor_plane_helper_funcs.atomic_enable')
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:228:27:
+error: initialization of 'void (*)(struct drm_plane *, struct
+drm_atomic_commit *)' from incompatible pointer type 'void (*)(struct
+drm_plane *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
+  228 |         .atomic_disable = vs_cursor_plane_atomic_disable,
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:228:27:
+note: (near initialization for
+'vs_cursor_plane_helper_funcs.atomic_disable')
+
+Caused by commit
+
+  8c4ae21891255 (drm: verisilicon: add support for cursor planes)
+
+interacting with
+
+  5164f7e7ff8ec (drm: Rename struct drm_atomic_state to drm_atomic_commit)
+
+which appears to be an ancestor of the verisilicon commit.  I have used
+the version from next-20260522 instead.
+
+--GroEncpA0Meuaket
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoUZIwACgkQJNaLcl1U
+h9DN8Qf/XuhsmNTm6pM5E0zNbbxWHWulWwJR/Ew5fOfYo7OrEPRrSuPtdQAtut5S
+hEBMfjyeSf4zBnDpN/k6Q4Qgzt7xkXaD1okSbNf/445x10ZnejyNR/uVkcJga89Y
+4GXCtPZtY6VQq6sIvgkUz4wWuFHhh4nUkhLuI+EEkS3aagdGcF/aa9THi8CFnUQ/
+5xXN5VmNXybd0axsMDPsyH8PQyZhL3yIK24Sf4B7hsJWV8naQVWwN+TUNxLTT0qJ
+Vx0G/8dzXjBj7as37v/7ifRZqqsjYtswtWdGCE4oMfnUXH8BMUO+HMY/4uCXWymB
+T7xr3DtMEHxQTpuEuThcIHWHqdUchg==
+=5+80
+-----END PGP SIGNATURE-----
+
+--GroEncpA0Meuaket--
