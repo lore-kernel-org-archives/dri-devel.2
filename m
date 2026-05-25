@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40E40CD5BC9
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 20:29:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A941CD5BC9
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 20:29:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF7210E3CA;
-	Mon, 25 May 2026 20:29:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9D3E10E264;
+	Mon, 25 May 2026 20:29:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QSgKPNc+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KpduoAIr";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5940310E3CA
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 20:29:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E62D10E264
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 20:29:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1256641727;
+ by sea.source.kernel.org (Postfix) with ESMTP id 33F8041B20;
+ Mon, 25 May 2026 20:29:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C501F000E9;
  Mon, 25 May 2026 20:29:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7E81F00A3A;
- Mon, 25 May 2026 20:29:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779740978;
- bh=f29QOiLOmTtepPqGTyUIO0rU++hJKbjbxryGjGLUDYY=;
+ s=k20260515; t=1779740985;
+ bh=CvsWKx5YQe9ahMUZVvp0ojIrus3es8Io68N4EoQNks0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=QSgKPNc+JoRjxcpaHyht4zv1jP+wZg3OUncC/d7JZRePkLU6NHmtZSEMDQb/QPWct
- GC9fW/BK9+kX9xOJtJ8M5dqXJYz9pte2/JD4eyCF16z9U3H13hkrsyqNN5dwmuG1f8
- TmSVS0dtRu1Hzt2fUn6Ibro2kAlCFH4xfrxqSTmnRwkHxL2qvzJmEl4oLgc3/CGBwA
- DxDk4mTWDwYVGItXOj8QDkK6pN+snuv1e9ECsoWqGa8SXd5mTfBXhBO3xMV+kcHwdD
- PLwi7aMRYda8UA46SspnWMp2Z9WMz2eLc+2BHNjOcsNmA4vj6p6j6qfaH1V44+RmQn
- VvuK2ddEc9WhQ==
+ b=KpduoAIr0LeDIRVPVRU0Ks2uAUTfj4bIY+YARKxe/qUadknx+sc+/0ys/MCuAtH8o
+ 9x/F+Y4eIJ/pvHBzJXMO/VVPJJYiIR98t6JGsQdGfkyaPLSBMn50p8p94E4PqKu30d
+ N5/tDY5d+OTB7CgA+rde2mus8bXXYpCImZqkEI09XT5Tophca2IJUAoMsx1J1wxILm
+ ovpLRaYvuq1C9zDYFN53npOxUuu28YK2DD5sB1sU3eXWP02BmHnUEp5osWhtajC2IQ
+ J7tGd39Qbd1XlaxcPt7EvDPsvCQuFs5knqcLU+qv3q1LrLMCa7VMkcX8eCKNz3YOoX
+ kNEtI26E5U9XA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
@@ -44,12 +44,11 @@ Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>, stable@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v5 01/24] rust: pci: use 'static lifetime for PCI BAR resource
- names
-Date: Mon, 25 May 2026 22:20:48 +0200
-Message-ID: <20260525202921.124698-2-dakr@kernel.org>
+ Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH v5 02/24] rust: alloc: remove `'static` bound on
+ `ForeignOwnable`
+Date: Mon, 25 May 2026 22:20:49 +0200
+Message-ID: <20260525202921.124698-3-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260525202921.124698-1-dakr@kernel.org>
 References: <20260525202921.124698-1-dakr@kernel.org>
@@ -70,50 +69,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pci_request_region() stores the name pointer directly in struct
-resource; use &'static CStr to ensure the pointer remains valid even if
-the Bar is leaked.
+From: Gary Guo <gary@garyguo.net>
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260522004943.CDA7C1F000E9@smtp.kernel.org/
-Fixes: 3c2e31d717ac ("rust: pci: move I/O infrastructure to separate file")
+The `'static` bound is currently necessary because there's no
+restriction on the lifetime of the GAT. Add a `Self: 'a` bound to
+restrict possible lifetimes on `Borrowed` and `BorrowedMut`, and lift
+the `'static` requirement.
+
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/pci/io.rs | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ rust/kernel/alloc/kbox.rs | 24 ++++++++++++++++++------
+ rust/kernel/types.rs      |  8 ++++++--
+ 2 files changed, 24 insertions(+), 8 deletions(-)
 
-diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
-index ae78676c927f..3ce21482b079 100644
---- a/rust/kernel/pci/io.rs
-+++ b/rust/kernel/pci/io.rs
-@@ -153,7 +153,7 @@ pub struct Bar<const SIZE: usize = 0> {
- }
+diff --git a/rust/kernel/alloc/kbox.rs b/rust/kernel/alloc/kbox.rs
+index c824ed6e1523..2f8c16473c2c 100644
+--- a/rust/kernel/alloc/kbox.rs
++++ b/rust/kernel/alloc/kbox.rs
+@@ -477,7 +477,7 @@ fn try_init<E>(init: impl Init<T, E>, flags: Flags) -> Result<Self, E>
  
- impl<const SIZE: usize> Bar<SIZE> {
--    pub(super) fn new(pdev: &Device, num: u32, name: &CStr) -> Result<Self> {
-+    pub(super) fn new(pdev: &Device, num: u32, name: &'static CStr) -> Result<Self> {
-         let len = pdev.resource_len(num)?;
-         if len == 0 {
-             return Err(ENOMEM);
-@@ -252,7 +252,7 @@ impl Device<device::Bound> {
-     pub fn iomap_region_sized<'a, const SIZE: usize>(
-         &'a self,
-         bar: u32,
--        name: &'a CStr,
-+        name: &'static CStr,
-     ) -> impl PinInit<Devres<Bar<SIZE>>, Error> + 'a {
-         Devres::new(self.as_ref(), Bar::<SIZE>::new(self, bar, name))
-     }
-@@ -261,7 +261,7 @@ pub fn iomap_region_sized<'a, const SIZE: usize>(
-     pub fn iomap_region<'a>(
-         &'a self,
-         bar: u32,
--        name: &'a CStr,
-+        name: &'static CStr,
-     ) -> impl PinInit<Devres<Bar>, Error> + 'a {
-         self.iomap_region_sized::<0>(bar, name)
-     }
+ // SAFETY: The pointer returned by `into_foreign` comes from a well aligned
+ // pointer to `T` allocated by `A`.
+-unsafe impl<T: 'static, A> ForeignOwnable for Box<T, A>
++unsafe impl<T, A> ForeignOwnable for Box<T, A>
+ where
+     A: Allocator,
+ {
+@@ -487,8 +487,14 @@ unsafe impl<T: 'static, A> ForeignOwnable for Box<T, A>
+         core::mem::align_of::<T>()
+     };
+ 
+-    type Borrowed<'a> = &'a T;
+-    type BorrowedMut<'a> = &'a mut T;
++    type Borrowed<'a>
++        = &'a T
++    where
++        Self: 'a;
++    type BorrowedMut<'a>
++        = &'a mut T
++    where
++        Self: 'a;
+ 
+     fn into_foreign(self) -> *mut c_void {
+         Box::into_raw(self).cast()
+@@ -516,13 +522,19 @@ unsafe fn borrow_mut<'a>(ptr: *mut c_void) -> &'a mut T {
+ 
+ // SAFETY: The pointer returned by `into_foreign` comes from a well aligned
+ // pointer to `T` allocated by `A`.
+-unsafe impl<T: 'static, A> ForeignOwnable for Pin<Box<T, A>>
++unsafe impl<T, A> ForeignOwnable for Pin<Box<T, A>>
+ where
+     A: Allocator,
+ {
+     const FOREIGN_ALIGN: usize = <Box<T, A> as ForeignOwnable>::FOREIGN_ALIGN;
+-    type Borrowed<'a> = Pin<&'a T>;
+-    type BorrowedMut<'a> = Pin<&'a mut T>;
++    type Borrowed<'a>
++        = Pin<&'a T>
++    where
++        Self: 'a;
++    type BorrowedMut<'a>
++        = Pin<&'a mut T>
++    where
++        Self: 'a;
+ 
+     fn into_foreign(self) -> *mut c_void {
+         // SAFETY: We are still treating the box as pinned.
+diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
+index 4329d3c2c2e5..9cf9f869d195 100644
+--- a/rust/kernel/types.rs
++++ b/rust/kernel/types.rs
+@@ -27,10 +27,14 @@ pub unsafe trait ForeignOwnable: Sized {
+     const FOREIGN_ALIGN: usize;
+ 
+     /// Type used to immutably borrow a value that is currently foreign-owned.
+-    type Borrowed<'a>;
++    type Borrowed<'a>
++    where
++        Self: 'a;
+ 
+     /// Type used to mutably borrow a value that is currently foreign-owned.
+-    type BorrowedMut<'a>;
++    type BorrowedMut<'a>
++    where
++        Self: 'a;
+ 
+     /// Converts a Rust-owned object to a foreign-owned one.
+     ///
 -- 
 2.54.0
 
