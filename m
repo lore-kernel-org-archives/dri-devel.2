@@ -4,54 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E48F7CD5BAB
-	for <dri-devel@archiver.kernel.org>; Sun, 24 May 2026 21:33:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36F32CD5BAB
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 01:05:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A4C310E34A;
-	Sun, 24 May 2026 21:33:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05B6D10E089;
+	Mon, 25 May 2026 01:05:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XwP2+gD5";
+	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="t9gyOEmu";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDF8A10E31E
- for <dri-devel@lists.freedesktop.org>; Sun, 24 May 2026 21:33:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9110D442FE;
- Sun, 24 May 2026 21:33:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BF51F000E9;
- Sun, 24 May 2026 21:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779658431;
- bh=U2bgs3hxq/b6hYch8osYnasgSoV5kG2hhrESAk4/vdE=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
- b=XwP2+gD5BnemlPnX9mfPqISPgLuz7K/mdva6FOhU10kHMPA7wU+BjcLE6qQ6jUro/
- vDbZZzK4MFzWmZUQYPGDXZY558lp/RLoEvLVDvUdGhLph5yod5Vtb5wi7LmXYIZQJJ
- Iyn0kffNxLwXBCezu26RN0q5OpR8qvwO/ROjyIZGap6h3j3L1pUECK0x3DxBoa0u3U
- JHoFFMp+WQYlf/63ct6pAy45hXVPWF9ZGz/JVOxkB64PXxxsLTyyWQKrkmVWll0yfG
- hTjVFYMfxdHzZmioqFcPIan6qaUUjqrkFSVV3rZ0i69iEgVxiDFGjF0O5kJG/fVS5T
- 1xwt/y0klJuuA==
-Date: Mon, 25 May 2026 05:33:45 +0800
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, samuel@sholland.org,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- mturquette@baylibre.com, sboyd@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
- layer reg space
-Message-ID: <ahNuuaVlDl0KvOSj@home.wens.tw>
-References: <20260509190015.79086-1-jernej.skrabec@siol.net>
- <20260509190015.79086-8-jernej.skrabec@siol.net>
- <20260514-valiant-ape-of-discourse-a4f5a9@quoll>
+Received: from out28-99.mail.aliyun.com (out28-99.mail.aliyun.com
+ [115.124.28.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 061E810E013
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 01:05:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
+ t=1779671151; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=eVZn7MAONGMHowrlbF8Q4henpwp8Ya3lVGmR/icgdNU=;
+ b=t9gyOEmuh0YrD8tlqx42G0tDbGMElLut6FY00yD4eG7adQUsykrlyb05tRitMzGyGhffSab9ZryStWFd66RWC7O0Dxl0TZ+XPMFK6sQEx5vUvFoZcLNBWX28b+BETSrNRRgvmiavaLWEwAbDBWY8/O+q6x1j5gJit+FcWNDXp6AtssjXs5W4SmLbM4LGXYhhufphPWZW3RhbzmwVJfl5T+fx01ls38KLfuGKpnNrTHMakkzuDIt+a6AvbglOUvxYTz9ctXR7pcfbRGMiswn2sRYX/htn6KUPpLhxnwQ5SRRhO59PkVMZLsXD8bSzfMPNj4fWjIuOq1rm7Nj5meIX6w==
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.08476708|-1; BR=01201311R191ec; CH=green;
+ DM=|CONTINUE|false|; DS=SPAM|spam_ad|0.867174-0.00121929-0.131607;
+ FP=12538500737862170034|0|0|0|0|-1|-1|-1;
+ HT=maildocker-contentspam033037022039; MF=syyang@lontium.com; NM=1; PH=DS;
+ RN=24; RT=24; SR=0; TI=SMTPD_---.hfqF6Xd_1779671149; 
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
+ fp:SMTPD_---.hfqF6Xd_1779671149 cluster:ay29) by smtp.aliyun-inc.com;
+ Mon, 25 May 2026 09:05:50 +0800
+From: syyang@lontium.com
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
+ xbpeng@lontium.com, qdchen@lontium.com, llzhang@lontium.com,
+ Sunyun Yang <syyang@lontium.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v12 1/2] dt-bindings: bridge: Add Lontium LT7911EXC eDP to
+ MIPI DSI bridge
+Date: Mon, 25 May 2026 09:05:43 +0800
+Message-Id: <20260525010545.9470-2-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260525010545.9470-1-syyang@lontium.com>
+References: <20260525010545.9470-1-syyang@lontium.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260514-valiant-ape-of-discourse-a4f5a9@quoll>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,53 +61,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: wens@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+From: Sunyun Yang <syyang@lontium.com>
 
-(resent from new email)
+This commit adds the device tree binding schema for the Lontium LT7911EXC.
+This device is an I2C-controlled bridge that converts eDP 1.4 input to MIPI
+DSI output.
 
-On Thu, May 14, 2026 at 2:04 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
-> > From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> >
-> > As it turns out, current H616 DE33 binding was written based on
-> > incomplete understanding of DE33 design. Namely, planes are shared
-> > resource and not tied to specific mixer, which was the case for previous
-> > generations of Display Engine (DE3 and earlier).
-> >
-> > This means that current DE33 binding doesn't properly reflect HW and
-> > using it would mean that second mixer (used for second display output)
-> > can't be supported.
-> >
-> > Remove layer register space, which will be represented with additional
-> > node, and replace it with phandle, which will point to that new, shared
-> > node. That way, all mixers can share same layers.
-> >
-> > There is no user of this binding yet, so changes can be made safely,
-> > without breaking any backward compatibility.
->
-> There is user. git grep gives me:
-> drivers/gpu/drm/sun4i/sun8i_mixer.c
->
-> which means this is a released ABI. As I understood, the old code was
+Signed-off-by: Sunyun Yang <syyang@lontium.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../display/bridge/lontium,lt7911exc.yaml     | 89 +++++++++++++++++++
+ 1 file changed, 89 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
 
-We held off on merging the DT changes so that we could rework this.
-I can't find the actual request though. It was probably over IRC.
+diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+new file mode 100644
+index 000000000000..3290b10ce883
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+@@ -0,0 +1,89 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/lontium,lt7911exc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Lontium LT7911EXC eDP to MIPI DSI Bridge
++
++maintainers:
++  - Sunyun Yang <syyang@lontium.com>
++
++properties:
++  compatible:
++    enum:
++      - lontium,lt7911exc
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description: GPIO connected to RST_ pin.
++
++  vdd-supply:
++    description: Regulator for 1.2V MIPI phy power.
++
++  vcc-supply:
++    description: Regulator for 3.3V IO power.
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for eDP input.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for MIPI DSI output.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vdd-supply
++  - vcc-supply
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        mipi-bridge@41 {
++            compatible = "lontium,lt7911exc";
++            reg = <0x41>;
++            reset-gpios = <&gpy8 8 GPIO_ACTIVE_LOW>;
++            vdd-supply = <&lt7911exc_1v2>;
++            vcc-supply = <&lt7911exc_3v3>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    bridge_in: endpoint {
++                        remote-endpoint = <&edp_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    bridge_out: endpoint {
++                        remote-endpoint = <&panel_in>;
++                    };
++                };
++            };
++        };
++    };
+-- 
+2.34.1
 
-> working fine but just did not support all use cases. Why this cannot be
-> kept backwards compatible?
-
-AFAIK the "planes" block is shared between two display mixers. As the
-commit message explains, this prevents using the second mixer, since
-only one of them can claim and map the register space. And on the H700
-(which is the same die as the H616 discussed here but with more exposed
-interfaces), there could actually be a use case for the second mixer.
-
-Hope that explains things.
-
-
-ChenYu
