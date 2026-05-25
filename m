@@ -4,141 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D778CD5BC9
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 13:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F72ECD5BB1
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 13:35:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD82310E36B;
-	Mon, 25 May 2026 13:35:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0985B10E370;
+	Mon, 25 May 2026 13:35:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="cHlgJ/mC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ArMoF0E0";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FUVKHnQJ";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6129710E36B
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 13:35:11 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-43d75312379so8030417f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 06:35:11 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D60110E122
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 13:35:28 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64PAi3SN824507
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 13:35:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ZNLxbtGJrP9x6ELJiMrV9m0Y5RYj50NF/BQj9YA7V10=; b=ArMoF0E0Zh4o/UjO
+ yx+pVe07APozjE7Bu2qU7ZstTsKjacKHrR3r4anw3+137NN/5zxTJD8VoHvy+3nh
+ dSXPZLcRoLu2s65JmVtseYDTrnFnhdFfKxR56n4RZn5vEnOCDE1zzcOrgDZHv+fq
+ GK4NU8mXCl9U0MAdqYPLLFJ8pMWN6obtNkttEtaMyqHTs3UVru8gGOEyZOi48khI
+ amPkpzTwsi+kRjrfL43j2NkMQCl3uH8NtvIPXArmLmgfgHadHOr7IbjPZvCRetBs
+ B8q35YLL+0W7RTShImHf7NvChqS2wQIW99Jt/uvxwMk4CgVYozLotLooD3C/sljO
+ bxfxrw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb4m7ptfr-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 13:35:27 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-50f13da9684so118121491cf.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 06:35:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1779716110; x=1780320910; darn=lists.freedesktop.org; 
+ d=oss.qualcomm.com; s=google; t=1779716127; x=1780320927;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=9XVHRPBSt9KXo5wrulw6nEDVPqzcFN/DF35DZwL4F0c=;
- b=cHlgJ/mC/Ss3ADRJgm1FGw0NOmKtRMIrE6E0BHrO33kpnI7P+OdRp4KB3VhrM0BBVa
- 0cGF3ucW+7qDmxU4vAgmW7ybj6zbZvhZj8na4yWhHbzF9sBkw2LTMDTFY4DjGnPzzDmu
- hBSNFyzOXN7Kg6Gbrc6LR7OQcCbLVuapB95D/P/zZdCKeE/wjwP4e6ll+vLwSq1HVruf
- n/MepGWWcSk2wimo7dYuM/ra5evbRVef/iFwjKF1LnJ9roUCrv40IK8Iil8Y8/PTgkZ/
- pGjf2QHxh0scfkYvd+lLpncu7aDFdL6X/5gnbaV090luYRXlpDFqVCu5QnRhM5RS+7gO
- ug2w==
+ bh=ZNLxbtGJrP9x6ELJiMrV9m0Y5RYj50NF/BQj9YA7V10=;
+ b=FUVKHnQJcc49roHr7V+6B/+rv1zLxpm77doO602O6sU6XXyYaBYttgd5uwNbsMEaAF
+ Bk9qyDR0cKHj0QJGZokA68fl+3pChC5GebrVgkjcRTLOn4KMt9dV3o2dZ441XpQoT2ka
+ vyog/0KyZtWGtAbhlGitWpMzSPLEI//mvcTmkcbtpzCZMLdGyQQml1lnKHl3UmYFxQD6
+ saQ3jW0N1AJnFG33otFqagVFPklATmbWGnJRPGtIsBTmLrZc8A+GXcl6h6gJ63OScOFp
+ WmJzK7gPW41Tji8iMuvLNZ20CepIu+TqIeF0TGogygLgCAcDO4I7Z6xvlx6P7QrZvAOI
+ qW9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779716110; x=1780320910;
+ d=1e100.net; s=20251104; t=1779716127; x=1780320927;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=9XVHRPBSt9KXo5wrulw6nEDVPqzcFN/DF35DZwL4F0c=;
- b=qsJ6aBblZXEptY9bxOkiOFtwMxvmIwooYjJVSio1ZAzzD3jQY1KIhNMvrxoa3yOwW5
- NgcGvzLoDDeexI+E8MVusDNZ2lVGQaKBUFRETpna0xMZKM3Mnq/pQrofBCPosnRK/21t
- OmUdtL4Ld0wKGKkJNYWprFml1sam8BWnp2mZ8mF8okyrbRjYiGT1npNo1EPKdDEIxevE
- +3UPueKr9PR6FaTSConfqNw61huuFlpOv6Jq2FehR4+0hNIop9pPpcg1QVI1paZFkUt3
- s2Vj1MxX14Qeuh7Qy6niw9ZmIQ6y9HkpkvIebqwhcSKqRAVesqEl2IvBKiP3NtRZGc9x
- LOwQ==
+ bh=ZNLxbtGJrP9x6ELJiMrV9m0Y5RYj50NF/BQj9YA7V10=;
+ b=ox/FNJvfiCpPQ1w5eegLndTAuSaQbzyp+pnBKrALNsz8WDp64kRXBkFi0Awnm11lWW
+ XrXruKGvZAyaDJ8GbrPULDXEdmnHXWy2ox9u8Pre2rWGMei0T07oZr1t3BatF2FmTovL
+ jyGBuPOi8DETAO7tQGO8WklwoO7sLokYmCiYtYMdni0RrP2EnYBkUxzBE7OawbSLdOYd
+ xoO7gAycdiH6LpGnglRqYHmXyP5Q2J8ZHyLuOXj/CiTtULHG5xgZpdUKghbrNcM/K6cw
+ GuXMgsPFDH6//hd4kjz0RwASFVn34xEr7UZyHrqUVj7oP7ZbQMtDao1mldgcTLpR6hs8
+ bQTQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/aWCfuNagpfQ1GQGyoBGPbms6B2v6as3gPlN3CfiDMh32PmeqQWmr5SbTHTxDHccxKqT2S5/tWLJs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwdKTJDlygXSyN+QFaaMyewuCwDZ6x6sS2eWg1psNaKxs27A+xA
- veef8a7ea9Ow9FAWMPNqheKaY6Vm4BAEhl+Dmzo4eixZoERgfVpTZNR1LQw8hp/gcdA=
-X-Gm-Gg: Acq92OHPqQVL+LoSSxyXeLoejlwaxlg5/LlP/Wv4LSaluYCB2741PIEdbyYppbs46xu
- AhULuajflxDgjgpJzhp9YbAv7DUBTeXjK3eSfblbVu2IXclkeEx9DCVXbWHejTRXZ9QXRsShh4D
- k0HDFTC1+u4lEWZdV5DDu5CCmnAv3Ks8r7J0JTHYJnnPjyGUvX7tVFsF8lgd0fKDpvpJ/R2e5xd
- jd6bCvpcQttg2nzv9gNL2OmbUhG56hL74Ds+O4YJexzFxjCWtLZ4Hm9w6xnpbKtV3iKJzvlEHlM
- ckmQiJb9nwWO4SZfmKuGUb6+Gv+jgEXIDvSR2VKZcG+AfiUkE0sf2eaD/1yzdtEMkCiEQAoS8cO
- p6mpsIKU/NjvmvjV4j9flj41xt8bXpNpGqnol0fUOUcNy2gLIWZnWNvsdO/1RF0YQwfb1WxiHtO
- kzgNZRNZpAYfPT4zGQs0P2u9P5AOQKZACh4LM2thVQhdnae61Y3UJTRWI09kZ+Mj2STzR7GuEI6
- ITOkIaEQxgAkQRNETfnCuFN26HohWULVAo8D2Ft0Ivg6eDiN4ruEZ9WG+tqdcgp0tQZuw==
-X-Received: by 2002:a05:6000:2008:b0:45e:8cdc:4ee8 with SMTP id
- ffacd0b85a97d-45ea3128ccdmr31052715f8f.6.1779716109692; 
- Mon, 25 May 2026 06:35:09 -0700 (PDT)
-Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
- (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
- [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+ AFNElJ+52a3RQYhUWQUElauRQ9JXrOn0ataqSBus+Aj45DAUdP9qI5qdern8bI/gwys7S4xU6HDRJ40yVDA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZRbj/ZXYc4NBR9Zlg0v8rAa6+Nbr6a1px+ltZPjppNNfTs2pN
+ Q+K1SwJ+OhhGJqNG94LUu4MUkyI0sEuDjbMg9y2PEovx0LAF8ahRSXBcyRFNFWIm1X89spx5r2+
+ gvOXE36nbTIizl0I4wrKLfV9cIxhrOIk0ULYVuM8gff3EhJ2t+5qw436mISj5v3KHWIKEfQM=
+X-Gm-Gg: Acq92OH2czp9fOWWvSh3fxH2Xk5X8SAYYbT6/F1z4hoxyndHSpJ0QtLKsiDyvJSAsvT
+ pYULfGzaSmNYVnGUr/U8anaBauQWb8fGQBzWaW7WqzXEP16Wlc2WXfRjut8ME5StBCSlrlbwVsK
+ cKQEERqTqshQmeN6m10r1Z1QLvcyDfesd0n83qKUHeCseGoAUQ6xWSlDtCSWAJFOAKjwfJNYE2b
+ VgkC9NC2zQkFGoan45t8c735/Nv33K2qDZOPYH0suWHiCNtgVrDoUmvtd4aMbwCX12uSer8ue8D
+ KfxMAI8aAfL0u184DLoD5y7zaaJpMnz9YgQuLYvZTttya0FNY0m0LG5TjwNcBCYDsveskTd+4wK
+ 3lkT8tqq2nHwI37emB4Z6dI25jfdyQHDuvlPHnlkuAjk=
+X-Received: by 2002:ac8:7d45:0:b0:50d:cd5a:577b with SMTP id
+ d75a77b69052e-516d436a31cmr178465551cf.35.1779716126589; 
+ Mon, 25 May 2026 06:35:26 -0700 (PDT)
+X-Received: by 2002:ac8:7d45:0:b0:50d:cd5a:577b with SMTP id
+ d75a77b69052e-516d436a31cmr178465131cf.35.1779716126048; 
+ Mon, 25 May 2026 06:35:26 -0700 (PDT)
+Received: from [10.236.54.193] ([88.128.88.68])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eb6d5cb9asm29456456f8f.27.2026.05.25.06.35.06
+ ffacd0b85a97d-45eb6cd151asm26639898f8f.13.2026.05.25.06.35.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 May 2026 06:35:09 -0700 (PDT)
-Message-ID: <da358ae1-91b4-4a16-ac76-ffab99c230b9@suse.com>
-Date: Mon, 25 May 2026 15:35:06 +0200
+ Mon, 25 May 2026 06:35:25 -0700 (PDT)
+Message-ID: <4afff193-8d2d-45b3-b8b6-0334e1f8921a@oss.qualcomm.com>
+Date: Mon, 25 May 2026 15:35:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/11] treewide: Convert struct kernel_param_ops
- initializers to DEFINE_KERNEL_PARAM_OPS
-To: Kees Cook <kees@kernel.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Pengpeng Hou
- <pengpeng@iscas.ac.cn>, Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Corey Minyard <corey@minyard.net>, Gabriel Somlo <somlo@cmu.edu>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Hannes Reinecke <hare@suse.de>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
- Tiwei Bie <tiwei.btw@antgroup.com>, Benjamin Berg <benjamin.berg@intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "David E. Box" <david.e.box@linux.intel.com>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
- <akpm@linux-foundation.org>, John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
- linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
- linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arch@vger.kernel.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <20260521133315.work.845-kees@kernel.org>
- <20260521133326.2465264-4-kees@kernel.org>
+Subject: Re: [PATCH v6 03/10] drm/msm/dp: Read DPCD and sink count in bridge
+ detect()
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Val Packett <val@packett.cool>
+References: <20260524-hpd-refactor-v6-0-cf3ab488dd7b@oss.qualcomm.com>
+ <20260524-hpd-refactor-v6-3-cf3ab488dd7b@oss.qualcomm.com>
+ <00ee4b34-7f71-4448-806b-65bd62ebe574@oss.qualcomm.com>
 Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20260521133326.2465264-4-kees@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+In-Reply-To: <00ee4b34-7f71-4448-806b-65bd62ebe574@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Nhi5PgKjrq2V9sVb1whx8wACNSq5kpTx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDEzOCBTYWx0ZWRfX1xazraCbhJM9
+ kBYXLuYUG/e36Cb98F7s6NrPdeb4p6gplwwxHoZSMxl02mSrtvyI4s84yW2xx+sig6+y244iRCF
+ mHIjUxROJwJF2FGkJIPuxl+YJMVNJJoLjnrZwHo2SLAnW1A7reSiwZaAlkrA+8kbmtSVjFdhRFJ
+ ZKFDSZF/A6Vg0mBCAPhcv0KwZGWgUN73m+IsGFvmvym5/tSV19t++6BX2zDvjyJDTtVpgvwQr63
+ kFsMhuFedI0hBK/mesSwVYkxSvxyMLr89FJAsXNoyX5IrZn3Wlrhcy/5VnsCJzJ2my3KdCh6iir
+ nrhZ3WABB3/phub2FORB2JKSZ+/RAloGJ8TFk2+DZcqgz4NXxzyKZrVGaEfSTt3Zm3TKlzXsiBV
+ zVyODTb3zU4ARJecUjPQgz0cp2CxSCrKUwNgP2q+rQ1kqdRmqfYZz/z2YUMDj+QVpTU5KBOZJGU
+ 9wYDhkjxKn6DBJ5k/Fw==
+X-Authority-Analysis: v=2.4 cv=MrJiLWae c=1 sm=1 tr=0 ts=6a14501f cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=REkWmwYpG64U3YBEcLtx5Q==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=fzl85mFQbXLh34uAWx0A:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: Nhi5PgKjrq2V9sVb1whx8wACNSq5kpTx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-25_04,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 malwarescore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605250138
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,30 +153,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/21/26 3:33 PM, Kees Cook wrote:
-> Using Coccinelle, rewrite every struct kernel_param_ops initializer that
-> sets .get into a DEFINE_KERNEL_PARAM_OPS-family macro invocation,
-> for example:
+On 25/05/2026 15:32, Konrad Dybcio wrote:
+> On 5/24/26 12:33 PM, Dmitry Baryshkov wrote:
+>> From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+>>
+>> Instead of relying on the link_ready flag to specify if DP is connected,
+>> read the DPCD bits and get the sink count to accurately detect if DP is
+>> connected.
+>>
+>> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+>> Tested-by: Val Packett <val@packett.cool> # x1e80100-dell-latitude-7455
+>> Tested-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com> # Hamoa IOT EVK, QCS8300 Ride
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 63 +++++++++++++++++++++++++++++++++++++
+>>   drivers/gpu/drm/msm/dp/dp_drm.c     | 20 ------------
+>>   drivers/gpu/drm/msm/dp/dp_drm.h     |  2 ++
+>>   3 files changed, 65 insertions(+), 20 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 1dd168acbbc3..97c4752005c0 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -1152,6 +1152,69 @@ static int msm_dp_hpd_event_thread_start(struct msm_dp_display_private *msm_dp_p
+>>   	return 0;
+>>   }
+>>   
+>> +/**
+>> + * msm_dp_bridge_detect - callback to determine if connector is connected
+>> + *
+>> + * @bridge: Pointer to drm bridge structure
+>> + * @connector: Pointer to drm connector structure
+>> + *
+>> + * Returns: where there is a display connected to the DPTX (returning
 > 
-> @@
-> declarer name DEFINE_KERNEL_PARAM_OPS;
-> identifier OPS;
-> expression SET, GET;
-> @@
-> - const struct kernel_param_ops OPS = {
-> -       .set = SET,
-> -       .get = GET,
-> - };
-> + DEFINE_KERNEL_PARAM_OPS(OPS, SET, GET);
-> 
-> Using the macro for initialization means future changes can manipulate
-> the struct layout and callback prototypes without having to change every
-> initializer.
+> 		whether?
 
-Nit: For consistency, I suggest also converting the few remaining
-kernel_param_ops instances that specify only .set and no .get, such as
-simdisk_param_ops_filename.
+yep
+
+> 
+> Otherwise, if keeping msm_dp_aux_enable_xfers(true) is intentional
+> in bailout cases:
+
+In the non-error bailouts, yes. I might want to change that later, but 
+for now it's expected this way.
+
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Konrad
+
 
 -- 
-Thanks,
-Petr
+With best wishes
+Dmitry
