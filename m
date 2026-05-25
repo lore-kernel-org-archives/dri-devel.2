@@ -4,46 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96BA6CD5BC8
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 23:02:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E46A3CD5BC9
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 23:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 043B510E346;
-	Mon, 25 May 2026 23:02:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 104D010E350;
+	Mon, 25 May 2026 23:04:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T0w8emvl";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="OAv5XXRG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 476E510E346
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:02:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 304B2405E5;
- Mon, 25 May 2026 23:02:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC081F00A3A;
- Mon, 25 May 2026 23:02:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779750129;
- bh=DGOJOSQ7b8NBZpTxAI72jcjvSeKR03Lp8WhOZgHY0hw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=T0w8emvlIZ5ZAjcXpOuE1mjzhefGaPvsVPpMzr+m4sHk3ZzkddZrDkNglwVoPBRCQ
- io0WwZvdYwOjrhQBygp5yGCqA7PwbEZSN8fcK+mEcrtFntR8eV+BH9+1HAH2Ov5k3W
- y4towv+7GxuVQZ5CzzKDUmiNEqNyOg166wpomrS/dqU2tgsjsExWJrg+D0g/lv4Y+0
- Sj/GzCOAa7sNk6l3vsnqCP8SOxKnbJI/P4c1pH/x6rl5YDUckuFrnzEyQ2/Qa/rnYp
- 7ipkSaCi86SPuVOwFOD9XZarIhrkt0MfmlPi7pb3SS+8rceEdClwsJlH0n9T4XwBEH
- agtTSkAm7Kz/A==
-From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
- boris.brezillon@collabora.com, deborah.brouwer@collabora.com,
- gary@garyguo.net
-Cc: dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH 1/2] gpu: drm: tyr: separate driver type from driver data
-Date: Tue, 26 May 2026 01:01:43 +0200
-Message-ID: <20260525230152.277820-2-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260525230152.277820-1-dakr@kernel.org>
-References: <20260525230152.277820-1-dakr@kernel.org>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1889610E350
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:04:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779750233; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=W16URHxLrRf063Nbc1cqwkLKgLZgiB0XMk2IDwWlx6KWfVjZJlD5p6Yuw2MH2xlwW6MuThbc/9hBCRMdN0++CvZhpZvFxPT7Ecs5OrnASm4F6L8Jc5cbt3lxfPds2gYIN8Zw7Wv6JjAPQZupQoMsOxYQo41L9hU5Iw7+pbl6L3U=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779750233;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=r59dlwZbto10IILOaFizsE9SyZW/qPRtuY80fbqubEc=; 
+ b=AIFg4fRDK5MEZ+4kq9YLIIUZ1NvxihbpiZw7ftw9WLI1yfIaX/T7+idoh2U0hulxDb5s4CIGevG1zvD2eX0EWOatfMYhG8XXBOrNT/5jW+FoOShT1Cutq6ZlBnXmtSX9qolZXuZDpekMSvXxfzZG7l4UOKGFBtRYl/JePJaFqXM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779750232; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=r59dlwZbto10IILOaFizsE9SyZW/qPRtuY80fbqubEc=;
+ b=OAv5XXRGgMbCVTcRwAmIrEnn3DsVcEb3+MIdfOdQOMvHGiopXiV0YNnIjECmdfxq
+ DelHSzV9ZXjVRUkzoLCW6wJU4notJ8ojyGKg8R7bnbDvpKJIxQRZ8fCKKlgkn4iJxiA
+ YotLb4XyXzjWjwYgjhE73NYntJcQ52QJyvyNkXXw=
+Received: by mx.zohomail.com with SMTPS id 1779750230905980.2652943115111;
+ Mon, 25 May 2026 16:03:50 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH 0/4] RPM, percnt and other minor fixes for Panfrost
+Date: Tue, 26 May 2026 00:03:34 +0100
+Message-Id: <20260526-claude-fixes-v1-0-16e92eaa4949@collabora.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM3QpAQBCG4VvRHNtau0huRQ72ZzAS2kFK7t3i8
+ Onr/S5gDIQMdXJBwIOYljkiSxNwg5l7FOSjQUlVykJp4SazexQdnciiUlZqk+ncVA5isgb8hlg
+ 07W/e7Yhuez/gvh/6RbXRcAAAAA==
+X-Change-ID: 20260523-claude-fixes-82b03a134a8c
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1582;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=DnfFqmHwIQLq09vcFweT1CVuLAK6yegUP4USc7+CNq0=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqFNVTnk23auY6SQqh7Z3BNaNT73C48bkvGpQJg
+ +qHL6kPPKuJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCahTVUwAKCRAOJn5M7lND
+ PfOzC/9eZhilMTOvPSXSXeIzqYwOLGCbLvXe7CWOSxU/ItrOqIjooOPuUP+ZNfBSug5ySJdegAU
+ YNi1zzIDVREMyvNxhbiFIZ+s9eLd9DSQ9YZuRk5rLI1deotA4LE7cxdvDUvLRjnIe1mA50HXTvZ
+ 0/qtECBjjL5w5vJQuNOhEB2glq9UGhVloN1TZviL1Rew0oydMyhrU++6P6UdaKPrGT154DM8Ilj
+ V3WaUCI7M4p7BtrxOsAChM7t1PIudBsPgz02cwd+iZDZvxE84LlNNEYx4/fmTNR8jeCH9sMw7qn
+ BbBMmIU9FK6/tIJd9T6z+JWSBbNpJJyBKjSPwg8A+Al8e+DS8mAPfr+2KZaOOjKfhOQ1RcEC8/e
+ iQ/wn2I7/tNpl//J0OItigmBd/T+CIrG9cPHsmOoPYq7AS8el5iueCRBPDJ66TMAiAKFxJNbDMT
+ 1X7jwIhsj/P2D6Omuv6j5egDdlBUhcYRJO0YkTSXkFePMGJIwLtjxxh95tOWuRjZC6wEg=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,78 +86,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce TyrPlatformDriver as a unit struct for the platform::Driver
-trait implementation and keep TyrPlatformDriverData for the private
-driver data.
+This patch series comes with some minor fixes for Panfrost. Some of the
+issues addressed were uncovered by LLM tools, while the one about RPM was
+traditionally debugged.
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+I haven't yet added any Fixes or Reported-By tags, because the purpose of
+the first revision is probing appetite for these changes and eliciting
+early discussion.
+
+The only proper bug fixes are the ones for perfcnt and RPM, and the others
+are more about ensuring robustness. perfcnt bug was never observed in the
+open, because no one had faced a HW reset when a perfcnt session was
+ongoing. RPM fix addresses a long-standing issue I had been observing for
+quite some time, but that I had completely misunderstood.
+
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/tyr/driver.rs | 10 ++++++----
- drivers/gpu/drm/tyr/tyr.rs    |  4 ++--
- 2 files changed, 8 insertions(+), 6 deletions(-)
+Adrián Larumbe (4):
+      drm/panfrost: Check another bo field for cache option query
+      drm/panfrost: Make reset sequence deal with an active HWPerf session
+      drm/panfrost: Prevent division by 0
+      drm/panfrost: Fix RPM so device suspends when no jobs are in flight
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 2224fdb20a51..5f4c484f671f 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -51,6 +51,8 @@
- /// Convenience type alias for the DRM device type for this driver.
- pub(crate) type TyrDrmDevice = drm::Device<TyrDrmDriver>;
- 
-+pub(crate) struct TyrPlatformDriver;
-+
- #[pin_data(PinnedDrop)]
- pub(crate) struct TyrPlatformDriverData {
-     _device: ARef<TyrDrmDevice>,
-@@ -93,22 +95,22 @@ fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
- kernel::of_device_table!(
-     OF_TABLE,
-     MODULE_OF_TABLE,
--    <TyrPlatformDriverData as platform::Driver>::IdInfo,
-+    <TyrPlatformDriver as platform::Driver>::IdInfo,
-     [
-         (of::DeviceId::new(c"rockchip,rk3588-mali"), ()),
-         (of::DeviceId::new(c"arm,mali-valhall-csf"), ())
-     ]
- );
- 
--impl platform::Driver for TyrPlatformDriverData {
-+impl platform::Driver for TyrPlatformDriver {
-     type IdInfo = ();
--    type Data<'bound> = Self;
-+    type Data<'bound> = TyrPlatformDriverData;
-     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
- 
-     fn probe<'bound>(
-         pdev: &'bound platform::Device<Core<'_>>,
-         _info: Option<&'bound Self::IdInfo>,
--    ) -> impl PinInit<Self, Error> + 'bound {
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         let core_clk = Clk::get(pdev.as_ref(), Some(c"core"))?;
-         let stacks_clk = OptionalClk::get(pdev.as_ref(), Some(c"stacks"))?;
-         let coregroup_clk = OptionalClk::get(pdev.as_ref(), Some(c"coregroup"))?;
-diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-index 9432ddd6b5b8..95cda7b0962f 100644
---- a/drivers/gpu/drm/tyr/tyr.rs
-+++ b/drivers/gpu/drm/tyr/tyr.rs
-@@ -5,7 +5,7 @@
- //! The name "Tyr" is inspired by Norse mythology, reflecting Arm's tradition of
- //! naming their GPUs after Nordic mythological figures and places.
- 
--use crate::driver::TyrPlatformDriverData;
-+use crate::driver::TyrPlatformDriver;
- 
- mod driver;
- mod file;
-@@ -14,7 +14,7 @@
- mod regs;
- 
- kernel::module_platform_driver! {
--    type: TyrPlatformDriverData,
-+    type: TyrPlatformDriver,
-     name: "tyr",
-     authors: ["The Tyr driver authors"],
-     description: "Arm Mali Tyr DRM driver",
--- 
-2.54.0
+ drivers/gpu/drm/panfrost/panfrost_devfreq.c |  3 +-
+ drivers/gpu/drm/panfrost/panfrost_device.c  |  1 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c     | 10 +++--
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 58 +++++++++++++++++++----------
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.h |  1 +
+ 5 files changed, 49 insertions(+), 24 deletions(-)
+---
+base-commit: c1079aebb4de218caa86c44f9a53700d1a582683
+change-id: 20260523-claude-fixes-82b03a134a8c
+
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
 
