@@ -4,52 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 254B3CD5BC9
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 18:08:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A75D3CD5BB1
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 18:21:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1675510E130;
-	Mon, 25 May 2026 18:08:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7D6C10E3C4;
+	Mon, 25 May 2026 18:21:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FFatuLdk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A24EMPyu";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBEF10E130
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 18:08:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B44B210E351;
+ Mon, 25 May 2026 18:21:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2C48660008;
- Mon, 25 May 2026 18:08:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F0A1F000E9;
- Mon, 25 May 2026 18:08:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 610D5405D2;
+ Mon, 25 May 2026 18:21:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC8B91F000E9;
+ Mon, 25 May 2026 18:20:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779732503;
- bh=7Af3TKqZ6J/IkI0/8uM7h0/MHCvGSTZXbOtVg9cLdf0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=FFatuLdk5Yox/DB+pOxc7ZBNnKlyHccQqtirihulizn4txxUHmpV2QruT3DTznn+E
- HuRemBwC4OpBkkL199x3vYvZ6ADunW6bTE7kjdDXnAyOXVeH3Iaj4p+Wu8tvGhV5VC
- zqLDTPhgPBnMMsVBCi+hJ4lUQL/1WPS8EBpkJPWArh3/ojVuKkUp8zshUVGDPDEei5
- rRpMqE5cSv+MJjIqpag64sRlZGMIwrvEJBkia42drb7oi2RJiWoeaf6kN0Nyod9xeS
- rAohY2dZThMZjusM4EQpMU6zOVGQvbincCji6SisiTiyuai+iWrRigIUSH7rkg43Em
- WrFNSPB/mdvag==
-Message-ID: <c46cee82-d4b2-41bd-af2a-686d4f6cda2b@kernel.org>
-Date: Mon, 25 May 2026 20:08:19 +0200
+ s=k20260515; t=1779733263;
+ bh=VXDb5A0uSCQP6fsSMHl0AF2XjVwmNMmezTZK1i26vFY=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To;
+ b=A24EMPyuiypyiRvqkQSpHlW43BUlkR3C3PiuhqMsMvBjgwuYrzDxELvoVGXot69Dk
+ 5o3vVaT+HkNLHTaHQyonKx1KxHWz7UZqdL4ScKoKvoSCpfN37vfSZQ5jX61mUN3sKi
+ aJaiAXuddz4f6oHw1Jlt+6e+Z2Cxvg+9xYxun9UR20MxjrCg0QK+clwdSiYaE3C/U+
+ EaCtz09i0QZJtosPhoh49s+Euo847Ao/hW2k2Twm0s5BrWqKUqob9fQjx5iqPRTD0E
+ s7+SQETnmGjAAG5H4WPgo3vzkN5gxVyEt6KW4Hni6Cyyo5gGI2BUkdD1J1W3+zo8J6
+ TmfHJeIQtA0uQ==
+Message-ID: <e5bdc43c-6a3d-4e75-ad9d-721aaf7988bd@kernel.org>
+Date: Mon, 25 May 2026 13:20:45 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 15/22] gpu: nova-core: vbios: use the first PCI-AT image
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260525-fix-vbios-v5-0-e5e455251537@nvidia.com>
- <20260525-fix-vbios-v5-15-e5e455251537@nvidia.com>
- <DIRU7Z3NH9J2.2HT7Z93HFCFW0@kernel.org>
- <CANiq72kR0raSG33DgSxMuc-2uMa626dT=-5=ko_HBgmeOrCFZA@mail.gmail.com>
-From: Danilo Krummrich <dakr@kernel.org>
+Subject: Re: [PATCH v3 0/8] Add support for a DRM backlight capability
+From: Mario Limonciello <superm1@kernel.org>
+To: Sebastian Wick <sebastian.wick@redhat.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20260424220953.167058-1-mario.limonciello@amd.com>
+ <CA+hFU4wEODFP=oPw522MyQs1asGq+KyYw6rcKpxxxj0y75fPXg@mail.gmail.com>
+ <ece17b5e-143e-4196-8b07-57efff2e3954@kernel.org>
 Content-Language: en-US
-In-Reply-To: <CANiq72kR0raSG33DgSxMuc-2uMa626dT=-5=ko_HBgmeOrCFZA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <ece17b5e-143e-4196-8b07-57efff2e3954@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,15 +62,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/25/26 8:02 PM, Miguel Ojeda wrote:
-> On Mon, May 25, 2026 at 4:46 PM Danilo Krummrich <dakr@kernel.org> wrote:
+
+
+On 5/23/26 9:14 PM, Mario Limonciello wrote:
+> 
+> 
+> On 5/11/26 6:11 PM, Sebastian Wick wrote:
+>> On Sat, Apr 25, 2026 at 12:10 AM Mario Limonciello
+>> <mario.limonciello@amd.com> wrote:
+>>>
+>>> From: Mario Limonciello (AMD) <superm1@kernel.org>
+>>>
+>>> At Display Next Hackfest 2025 we discussed the renewed need for moving
+>>> brightness control into the DRM connector properties.  I've taken the
+>>> previous efforts from David and Marta, rebased and adjusted for the
+>>> current kernel.
 >>
->> However, I'm not exactly sure it really is an improvement in terms of
->> readability and whether this is a prime example for this lint.
+>> Thanks a lot for this!
 > 
-> The lint is globally allowed since v7.1-rc3, commit 838d852da850
-> ("rust: allow `clippy::collapsible_match` globally"), so please feel
-> free to ignore it.
+> Sure!
 > 
-> (Same for `clippy::collapsible_if`.)
-Ah, I somehow missed that -- thanks!
+>>
+>> I've wired it up for mutter but I don't have a machine with AMD
+>> graphics and an internal panel, so I can't really test it.
+>>
+>> https://gitlab.gnome.org/swick/mutter/-/commits/wip/kms-luminance-prop
+> 
+> Awesome!  I have been caught up with a few other things so I haven't 
+> been able to give this a shot, but wanted to before the hackfest.
+> 
+> But I have never used a dev version of mutter, so can you give me a 
+> little hand holding or pointers?
+> 
+> I was able to build/install your branch into /usr/local.  I otherwise 
+> have GNOME 50 set up on this system.
+> How do I actually "use" the mutter built from your dev branch?
+> 
+> Will picking GNOME session at my login manager pick mutter from /usr/ 
+> local or do I need to do anything?
+>>
+>> I've also noticed a few things while doing so:
+>>
+>> 1. There isn't a bit of information which tells user space if the
+>> property is actually backed by anything
+>> 2. A fixed range from 0 to uint16_t max might be problematic for
+>> backlights with very few steps
+
+I managed to do this - you tell me if it was an accurate enough test.
+
+1) I built your tree and installed it to /usr/local.
+2) I switched to a VT and launched mutter like this.
+
+# dbus-run-session /usr/local/bin/mutter --wayland -- konsole
+
+3) From that konsole session I ran commands like this to change brightness.
+
+# ./tools/gdctl show
+
+I then confirmed the range showed up.
+
+Monitors:
+└──Monitor eDP-1 (Built-in display)
+    ├──Vendor: BOE
+    ├──Product: NE135A1M-NY1
+    ├──Serial: 0x00000000
+    ├──Current mode
+    │   └──2880x1920@120.000
+    └──Preferences
+        └──Backlight:
+            ├──active ⇒  True
+            ├──min ⇒  655
+            ├──max ⇒  65535
+            └──value ⇒  22938
+
+Then I did the following to change.
+
+# ./tools/gdctl prefs --monitor "eDP-1" --backlight 12938
+# drm_info | grep LUMINANCE
+# ./tools/gdctl prefs --monitor "eDP-1" --backlight 22938
+# drm_info | grep LUMINANCE
+
+I did observe the brightness visibly changed on the panel as did the 
+value of LUMINANCE in the properties.
+
+>>
+>> Could maybe fix both of those issues by making the range dynamic to
+>> the actual numbers of steps, where zero means that there isn't any
+>> backing backlight device.
+> 
+> I'll play with this idea and see how well it works.
+>>
+>>> The legacy sysfs interface is synchronized with the DRM connector 
+>>> (although
+>>> the scale may be different as DRM connector property is u16).
+>>>
+>>> Later after this has been adopted by enough userspace, it may make 
+>>> sense to
+>>> configure the legacy sysfs interface to be configurable so that only
+>>> DRM master controls backlight.
+>>>
+>>> I've done a first implementation with amdgpu with eDP connectors; but
+>>> conceivably this can be extended to other connectors like DP for 
+>>> displays
+>>> that can be controlled via DDC as well later.
+>>>
+>>> I have also used DRM review prompts to review this series and fix 
+>>> some bugs
+>>> which were caught with two different Claude models.  The fixes are 
+>>> squashed
+>>> into the patches.
+>>>
+>>> Assisted-by: Claude Opus
+>>> Assisted-by: Claude Sonnet
+>>>
+>>> For ease of testing; this series is also available on this branch:
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/ 
+>>> log/?h=superm1/backlight-property-v3
+>>>
+>>> David Rheinsberg (1):
+>>>    backlight: add kernel-internal backlight API
+>>>
+>>> Mario Limonciello (6):
+>>>    drm: link connectors to backlight devices
+>>>    DRM: Add support for client and driver indicating support for
+>>>      luminance
+>>>    drm/amd/display: Pass up errors reading actual brightness
+>>>    drm/amd: Indicate driver supports luminance
+>>>    drm/amd/display: Allow backlight registration to fail
+>>>    drm/amd/display: use drm backlight
+>>>
+>>> Marta Lofstedt (1):
+>>>    backlight: expose the current brightness in the new kernel API
+>>>
+>>>   drivers/gpu/drm/Kconfig                       |   1 +
+>>>   drivers/gpu/drm/Makefile                      |   2 +
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+>>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  88 +++-
+>>>   drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+>>>   drivers/gpu/drm/drm_backlight.c               | 406 ++++++++++++++++++
+>>>   drivers/gpu/drm/drm_connector.c               |  12 +
+>>>   drivers/gpu/drm/drm_drv.c                     |   8 +
+>>>   drivers/gpu/drm/drm_ioctl.c                   |  10 +
+>>>   drivers/gpu/drm/drm_mode_config.c             |   7 +
+>>>   drivers/gpu/drm/drm_mode_object.c             |  66 ++-
+>>>   drivers/gpu/drm/drm_sysfs.c                   |  54 +++
+>>>   drivers/video/backlight/backlight.c           |  83 ++++
+>>>   include/drm/drm_backlight.h                   |  45 ++
+>>>   include/drm/drm_connector.h                   |   8 +
+>>>   include/drm/drm_drv.h                         |   7 +
+>>>   include/drm/drm_file.h                        |   8 +
+>>>   include/drm/drm_mode_config.h                 |   5 +
+>>>   include/linux/backlight.h                     |  30 ++
+>>>   include/uapi/drm/drm.h                        |  10 +
+>>>   20 files changed, 852 insertions(+), 23 deletions(-)
+>>>   create mode 100644 drivers/gpu/drm/drm_backlight.c
+>>>   create mode 100644 include/drm/drm_backlight.h
+>>>
+>>> -- 
+>>> 2.53.0
+>>>
+>>
+>>
+> 
+
