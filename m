@@ -4,137 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB0D9CD5BB1
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 13:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E927ACD5BC9
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 13:57:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4904110E10E;
-	Mon, 25 May 2026 13:55:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4791D10E128;
+	Mon, 25 May 2026 13:57:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="bu/t0uS2";
+	dkim=pass (2048-bit key; unprotected) header.d=poorly.run header.i=@poorly.run header.b="drl1dbHg";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012011.outbound.protection.outlook.com [52.101.48.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9B8B10E10E
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 13:55:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KDk1Tnpfrb2/j31i2hULCbT0HAktSvhsIgWyUqEAy/1qGuQhISZDuMxwwyB1ZkjKCNBWpXJuGzgfTl8kWbFjHmML2RHi2fLStk9bTeUFLCz115tqaFOBjWcQH46AKbD4D7ZRtgxk5ykQa8l+y6h8UeWHpiM9y/9PINLQt2Qw720JSWmQBFsA8dnG1xUWRi8XuICiOETeijB2iZwp6BjQ6WBSEjcbsruSYxHxiUhVquskn/8yGm8U+OpQREcp0iyfb/cARIi0O92RfzwaBIWUaoqwDssuRaihY4LAitJmmi4Y+dYPYTX+u1gtmZCJ+dNK953RpyvcF/y0pi5lgQBo0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=suuPw4XpfuOUbEoXDBFAqfRoUgheSUOJoNYrxWJgk7Q=;
- b=ZpqIh4Wzpqn+YzUEJRxRwNkICq5XBSRWNMDDakp7ZtU8I1J7DT2COSHKyJqF+8QtjUZsyYDvnjT2X8wg8U6br1tMCJgoQA5uXowu8WvyA4FJrSfj3IE9kcOpR0InPYlbQqbQz+FwxeQjx1+Z3zyDIuQCU21lZc9dNWBw0VOpSBvdBvqDjv0oicf30TqStHdQYJmfvxWHOq7oHC9rWSn7iJFRzNArAkSy/C3Js3JzPGmN9EUZfGMqgFqYaVVBnqm0k6MsCggb1QPchrcBml+9uSyddgWvulM2Zs3FoeAwEc4oM4KIv7/UDkZXkpDnFElqxN0iJDAKN6xyCow98QhK0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=suuPw4XpfuOUbEoXDBFAqfRoUgheSUOJoNYrxWJgk7Q=;
- b=bu/t0uS2evehnsnT/XnLVOwDkys4nQ8Hp4BxkmVuk4Y6+02TyRkRd3RnCkW4Yck67b4NJeNWPUK5Fhvij1NAyefwvKZ9HynpFIOe4Byr3x+yFHVhviZMBbi99KUOhqitNor1Hf3QZcDAC48BjBI/OGVFgQRmTzoX1WbDdx+CchbCMbTAC0hHVNE0AeuLoJYQvZaQLJ41kzyIhvPBvrot0AZIKEGPmZENLxK7LDIZhDMccpTztJSe9D6pHrnuLtuueJfCJOGXjRWbK2loszXq98bVRoIHe5P1ZgrfIV87PsyAdlvEY+PHm7a7+F1if0ypzz/gU+viXVqeaxxa/XROfQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by PH0PR12MB7789.namprd12.prod.outlook.com (2603:10b6:510:283::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
- 2026 13:55:45 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0048.016; Mon, 25 May 2026
- 13:55:45 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 25 May 2026 22:55:42 +0900
-Message-Id: <DIRT57ZG8YYC.26ZY5M6PWWQXN@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <aliceryhl@google.com>, <david.m.ertman@intel.com>, <ira.weiny@intel.com>,
- <leon@kernel.org>, <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Eliot
- Courtney" <ecourtney@nvidia.com>
-Subject: Re: [PATCH v4 19/27] samples: rust: rust_driver_pci: use HRT
- lifetime for Bar
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20260521233501.1191842-1-dakr@kernel.org>
- <20260521233501.1191842-20-dakr@kernel.org>
-In-Reply-To: <20260521233501.1191842-20-dakr@kernel.org>
-X-ClientProxiedBy: TY4P286CA0078.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:36d::19) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
+ [209.85.128.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C63510E128
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 13:57:32 +0000 (UTC)
+Received: by mail-yw1-f175.google.com with SMTP id
+ 00721157ae682-7bdaa68cf81so88381467b3.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 06:57:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=poorly.run; s=google; t=1779717451; x=1780322251; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=R2Pnx/Mi+Y/3KV/4Sc1GEttUJtfyf8f5vLDsmZdB3eA=;
+ b=drl1dbHgFn46jD9/1E+ftFwo8fyEynU0mzF7rrsOJG1h+Djaa6JbjM/0SZA7UKgPY+
+ NTP4j9vJukZhEAOb3N0Gwf2AXoIZvsjx1EYXFe1PfN5T71l3Dd2VwSYWehPWVEcAck91
+ kmxGWZvOVMf0nt+5vo2UFGKOJuGr3uP5CIG7PaSbpy8HMU7dTK2a/ozJ9KObsaZL+uE/
+ ssFFqp4gMhzStA13VF4M4lSVQr6mbknzlOJRiu31kE5AqlTvTH5Q8xhkKoYli8Qfv7vQ
+ oU/INzDTwA6xF+EeNktGhPrRBvdsytBWoBAzlnxFbTGPAkHpc8p0j2bd8fjTpncTxIDu
+ 24VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779717451; x=1780322251;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=R2Pnx/Mi+Y/3KV/4Sc1GEttUJtfyf8f5vLDsmZdB3eA=;
+ b=CMQNS+F4MsBvCgscKAktF6uIxonVBPffyhYKOmVafTlIM+cizsgNLI0P8MSFHut5Ml
+ 28Ph462jDCwyEChFEjgTpsBKVDk/YhIFvB8cO0sBISKRWxDfKNvXw0gnIT++/N8/cfkv
+ +P8J60x1n8LeMog1DzsuA4pEiOea47OWWMALJHEztd4ypa6RDln8ZiaRnG72syPI+mtK
+ Ar9Y8BDxODuoyRDcmLdU9+LJ8OE10HsLWxmXvqkX/L1E8tyhc1XSkCZhkTL4vhDVSJrT
+ XM0/GjE4BqrtQcuSl4cR1Gcz4fgVGtXbBqtnENCd/IOoV+1KlDPtjEmQpdMTL022jH/6
+ uMXA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ91n7yZHw+vClyTgwadnj5NlvwCMjLzFTbEtL0Sas0l507haOWBzDa5vdFJrariV/S+bjHUxEpOG9Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxo97y0/XXp9/3AWr/sWs0XNX97EwjHobXgRx/EF2v+olA5q99F
+ qkSqzHIB357HGO1M7KAwYLBH5jO8zPEgFmh55/2U2L+X+ZFKofp52Z00n2wuCfyMBo4=
+X-Gm-Gg: Acq92OFU5pLErrl6nJD4hXycGzxY0mzE119+uOR6TdlhkI/Zf2DaU2PVob2cga6ZYiF
+ doTtoNwbzLPCirlpG46F5AOvxoHoVuMdk2NGvh+OrdymqSlZ9qSW36Gtt814JJAodnkTyuDaxC1
+ tk9MfYo9Gu8O9GgLnOQ0nL5QQ/ty4GouA2Z9o+SPcZFrSacquczSizoqM/1iQ44OXU5I3i5p4sU
+ AvWdZruDRsLB7Fxh9KWWtrmL86Z6esxwF4qWHAzKq85S0JjHfcH1Z7BcWIuN5BVW5WOMWIe+7JT
+ uqCwouaZK+38MxHWSUt71PjJdVQVVI846riUtC/pCP6KX+D1ivAoO50q1T7xmrgmnLF6Iuk5x3O
+ 53h3RkstYKvzIZVx3rYxVwBRH16zrKqNheDH9y1YGr9Js9vZzsyUXEcX143U4L9XMNNOdAuLy7b
+ nbKVmwiCH8UNBSD753JhiWCV9fu34jktxH1CoOzP+HydFBlMGEMWmKJnY=
+X-Received: by 2002:a05:690c:338e:b0:7c9:30f5:2054 with SMTP id
+ 00721157ae682-7d33a95ca47mr156744337b3.40.1779717451418; 
+ Mon, 25 May 2026 06:57:31 -0700 (PDT)
+Received: from localhost (191.99.245.35.bc.googleusercontent.com.
+ [35.245.99.191]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-7d389d176a9sm46721407b3.16.2026.05.25.06.57.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2026 06:57:30 -0700 (PDT)
+From: Sean Paul <sean@poorly.run>
+To: intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com
+Cc: Sean Paul <seanpaul@google.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v2.1 1/2] drm/i915/color: Fix step discontinuity in Post-CSC
+ Gamma LUT
+Date: Mon, 25 May 2026 09:56:04 -0400
+Message-ID: <20260525135730.1122696-1-sean@poorly.run>
+X-Mailer: git-send-email 2.54.0.794.g4f17f83d09-goog
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH0PR12MB7789:EE_
-X-MS-Office365-Filtering-Correlation-Id: bdfa504d-ffbd-48e8-e03e-08deba655165
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|7416014|376014|1800799024|366016|11063799006|4143699003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Y5Il0AaELh6rUV2w1zGKzrwNa/Qe2OlTLz/mzELHx8f6woBXmnXBy3mrTvYuMppCZ6fdD07YnlwwvD6+o6PLh+uSvJz3gCqKBKmXuw1BHnMxu3fbOVKWMepez+iRQ1au9CBM+R3ik8Ss8RlC9LplpCk6bBaUJZc2GNuu+vq5pTdu/zcUHPjHpRABnj2g8RVvIFJEZ/jo8bPFBnq2MUOzGsXxO84jl+/++oR6xkDpqYTdD8NGnAkwqYhkzEcskarssvCje+IISAsHwiKYySeY2do3iQMs1dcFvdnCCwjOOhxFBvN7fpzit+fHYkxNJ4FgVk7Ah6HpgnfjYW7ZLUBqDBja49RMvfj/amg4JOzaMEZnaBv9lhMfRqiXOqF2dqxzVEL2uchWnC8q1sErk0kFpW1O3HSGD+g5KdOAjE6gLMcA6UP2lIt8eziWNE+lsR/QAa2AUl45QceSAn0ZCZRh1BYl17KQPH6sbaL9XH3o3DYyfVKPcgum/T+iBbDjoPQ1z+js/2eBYoy2SswkLnFucCMz7UmdESVmme8c3rM71p/VmjJ8zntsxZatWKHP3JZa7hKV0L0ujAbkc5HUG8/Qp9/AOFFjXF25ovPWyPv+3SBTlwCaw/f0htnwKkpGEq0wUF6r+iN7Xvvuurz8CfcdFevRwMZgcOByf2YwEAMhciyoGjzSNt1SasC1JQulk+D/
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(366016)(11063799006)(4143699003)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OW54SmNkdm9XRjVEblllYUhBVUNWeWY0cnArQk0yQnZWTnlhTGZlRHFPeGNF?=
- =?utf-8?B?RStudXZ3K2YvRGN0N0Q5SS9MTTJ3OU1wVkxZZlJUR2ZzMzl4NnpJMEx0M3Bz?=
- =?utf-8?B?K1JkaThmNnBUR1VaTktyN1JyeUJPYlZ0UUl3MmtjcHh1Z3NCRlBJeXkrOVV0?=
- =?utf-8?B?VHVORTFYQnV3ZjM3cEs5c3VlVTB2WEpmSDgxMFNKejJmbnEvaDJYRHl0d1Zl?=
- =?utf-8?B?WElyaG9FTjgxMWxwZWswektLblB6WmJjK0ZqVnVHRU9xemtyNGVEck94QjFr?=
- =?utf-8?B?SEJNbldYSUFMdndFL0kwdnBEZTlUR1RGMERsTS9FNjRtbnRBSnlRSEpXUWdq?=
- =?utf-8?B?MUE1ODVDaVhnZ1FNSXZzUjdYcTU0eU16UEdhZlhBWnE1YkEwRFM0MEdDR29H?=
- =?utf-8?B?NHV6emR5L2RkbzJVWFJyOUYzZWhjS1paTkZzU3hGYlFxeXBNek5adVZ0WnVz?=
- =?utf-8?B?TFltbWN1eTMzdFBwNk1TUzdzejhqUWdJRGpyMmFPclI3SW5JdlhYaUU5N25C?=
- =?utf-8?B?Tzh4UjcyTTNnNWY4d01vRUVFZWxZVlFYTHpzQmZkejFYaW95dEh5eHNzYjN4?=
- =?utf-8?B?LzMyTTZsMnRQQ3lQK0NZQUxrcVh4QnhCUUM3Szl3VFpkaVg2ZlZJdDJJZjRB?=
- =?utf-8?B?Q0dZa25EYldtWlA1R1dpcjByL00yN0NuOXlJV0swNGtERWVKTWsvVHJncWpx?=
- =?utf-8?B?STFGQ3VGUXIrVElaL1B5RUV3YU0rK3NuSTZGS3c1aUlCd3VMYUU3Q01xUE5a?=
- =?utf-8?B?TGZKUFFYWmZBTzJLaVFBbktjM2tFSDFwdzQ2K1hsNG9VcGkrcXpjZSs3MWR5?=
- =?utf-8?B?c3JtbFRYUU9EYzk3TTBkSXB3YjlIcXBnTzNjek1udjlxQWtTRDhlWk96U1cz?=
- =?utf-8?B?TTI0bnlDUW5Vc0FPdG9SWUFCWTBzRjV6NHp6TzI4UXAyRWJ3dlQyUGtvZlhN?=
- =?utf-8?B?YkJ4WGw4SmZPNktEc2JLS0JnVXBNVVplcGRUbDkxVUxKNHU3bitIS0l0SHBr?=
- =?utf-8?B?ZEJFTERXdzZDNmZCL1NaM0Zkd3hsa2p5b2Z0ZllkTHh3S25nb3E4a1ZuMEtr?=
- =?utf-8?B?cUlQUHQzT0laUkNFdFBzVk1Hci9MUUZoazQwQ09TczVOR1lNU05mdExQWnZh?=
- =?utf-8?B?Szh2emdVenEvbTkrVDZ2bWVVMzlib2I5ZWU0ZkR1WlB4Mlo3ajFmajlncW9B?=
- =?utf-8?B?bHRRS1R6YjY3bCtkMUZ6eURxZ3pjYlZTM2lzTUo0am16Qk12d1N6MHlnYitB?=
- =?utf-8?B?dUM5Qk1hVVJsaWJwYkUvaTk1VnN3YnM0WFlRRk5NOVg3N2dOYnNtdFRISEtS?=
- =?utf-8?B?WjJUdENUV2ZSUW1lYnl6eHR6TnY0Ylg3a1RTcHhVNFNnNm1jb2I1TmEwSlJv?=
- =?utf-8?B?OTcvVFpWOVkxZ1UwRnFYSkIwM2lYSnRld3J0RlNmZjU0Z1pYTWlUYUloRE4z?=
- =?utf-8?B?NS9odkl5L2E3TkVoTlRDSFl5clRlN0VBTVNkV0tBeCtZQlFObUd5Tm9yQWsv?=
- =?utf-8?B?YmUyV0FDeWtIRG04dkpVZFYwSFluYjVuOEV6ZkE3TTJQUTRmRW5tbklvc0NM?=
- =?utf-8?B?QkplQnNYQWZXc0hhWWpwL0FsaHFYTGpReWRlVVZpM0RNdmNnWG9xbnVWUWh4?=
- =?utf-8?B?ZGtxT1dYQTNZQ1VMd0dRbk5tVllKaFcrek9DRzhvV3ZJTHV5M1RTaWI4bmJF?=
- =?utf-8?B?cVhrRHZVNUVxaHdPTVFZa0I4VDM2R1AyVnR4ZkJWUW8zeXZHWHJVSG1sYUV1?=
- =?utf-8?B?QmNqR2tqNFB2RWg5b1pET0VoaEVQVUpBZXE3VXZBZmJ4YUxOU2phQXY4UlQ3?=
- =?utf-8?B?YVJtdmNWVnk3ZGRYUDJjenk3TTB0a3JNZEsvVTR5U2xBNzl4Y0Z1aHJKTDgr?=
- =?utf-8?B?Wm9LdEovejl6Q09nSHZJYWFvQ2pMS1FBZS80S05WQU1tVFl5b2FnbU42Wk84?=
- =?utf-8?B?V2dPUzI1WXJFdGxyWHZVMVg1TW9reUVxRi8wRm9mMkVDMUl3RG1NZVEyWTRZ?=
- =?utf-8?B?VFRxMldDK3Awd2xIOVJkeERtN3U0UDdqM2t0UlZtUzBBQXQwWTBNY1puZVE4?=
- =?utf-8?B?aEhQdktOREpKUUttSnBqYUovMFF4ZXgwRVB3akU3Y3ZUcXdVQUc0S0dvU2pX?=
- =?utf-8?B?MUREU1BBVzhNUjY1ajBsRTZUSk1mRlFEcWZSK3dna3FZL1FzQlJZMzlRbEhV?=
- =?utf-8?B?NWNpZDI4dVcyNlN2QU5zcGNseGJJVWg1aTJyS0VxQmRiZzJWdWRtbHY3YjdH?=
- =?utf-8?B?Q2lYZklDN01hRGpMSzlHSTNzVzhYMVcxWm5YUzhLQWJvcS9WblhIbWFNSlNz?=
- =?utf-8?B?WGxvWDErZmMxKzhGVkpueDlRbTlsY1VZMUhOQ1pKRjRzVjBMSEkxd0RTN1px?=
- =?utf-8?Q?xZmtGwIa5fuJ/mrRNSp3WDoc+epIo/b67ZEoTti7IzaLq?=
-X-MS-Exchange-AntiSpam-MessageData-1: dLL+DCowVD5S5A==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bdfa504d-ffbd-48e8-e03e-08deba655165
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 13:55:45.4792 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hm1HA+GR5FmCRRBVFzroymPHieezzMjSBVzG+F8b9BcCq/gKFEZDLCpYaxThGfAFleWb49ql3c88kFcGlsBl4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7789
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,16 +91,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri May 22, 2026 at 8:34 AM JST, Danilo Krummrich wrote:
-> Convert the sample driver to SampleDriver<'bound>, taking advantage of
-> the lifetime-parameterized Driver trait.
->
-> The driver struct holds &'bound pci::Device directly instead of
-> ARef<pci::Device>, and pci::Bar<'bound> directly instead of
-> Devres<pci::Bar>. This removes PinnedDrop, pin_init_scope, and runtime
-> revocation checks on BAR access.
->
-> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+From: Sean Paul <seanpaul@google.com>
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Fix a step discontinuity in the Post-CSC Gamma LUT when SDR dimming
+is active by clamping Segment 2 to the last user-provided LUT entry
+value instead of hardcoding it to 1.0 (1 << 24).
+
+Link: https://lore.kernel.org/intel-gfx/20260521180143.2143262-1-sean@poorly.run/ #v1
+Signed-off-by: Sean Paul <seanpaul@google.com>
+
+Changes in v2:
+- Split out into separate patches for pre/post csc fixes
+- Dropped loop bounds fix in favor of [1]
+
+[1]- https://lore.kernel.org/r/20260519075245.383864-1-pranay.samala@intel.com
+---
+
+Changes in v2.1:
+- Rebased on Pranay's patch and sending without in-reply-to
+
+ drivers/gpu/drm/i915/display/intel_color.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 7ef870cd9a16..7185f3628dcf 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -4038,11 +4038,11 @@ xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
+ 						   lut_val);
+ 			}
+ 
+-			/* Segment 2 */
++			/* Segment 2 - clamp to the last LUT value to prevent step discontinuity */
+ 			do {
+ 				intel_de_write_dsb(display, dsb,
+ 						   PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, 0),
+-						   (1 << 24));
++						   lut_val);
+ 			} while (i++ < 34);
+ 		} else {
+ 			/*TODO: Add for segment 0 */
+-- 
+Sean Paul, Software Engineer, Google / Chromium OS
+
