@@ -4,58 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49CB7CD5BB1
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 16:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DDB3CD5BB1
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 17:10:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9276210E3B3;
-	Mon, 25 May 2026 16:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0F6F10E1BC;
+	Mon, 25 May 2026 17:10:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WHSIA2sz";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="KSNrwM1o";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 413FB10E3B3
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 16:54:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 52FDF60008;
- Mon, 25 May 2026 16:54:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B92B01F000E9;
- Mon, 25 May 2026 16:54:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779728059;
- bh=3kgvASxp3f7rsNalAAxiKY75IcAIHz3Q2alZe0wcMyI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=WHSIA2szLm/lG8nfbsx0b1dX/19zaHSHKmzhqWGOlfRydi3jFqS0LXDvjPo15jyr+
- GYMyv3Z/0DMGvpPKfLG0XbJC+OcLdnLPzvuK6m8OvRwxBF2MD/heGI1Q7Brotx7ek9
- 8Iuni51ScaWRnImVtRTHOTIckQuMsxO5IsMSKMLpgp6ZGFkTelEqhc/9cLm4jFD0LS
- 3kMa+nu80ND+5cWl1nCeqjCt5kLTFG5W6CVabh/SxGxd50iWHJds6KK5aypiLMwEN7
- mwQuZrVhRqknXAJAuZh2iThVMKD7rpQkF5fuOzvSCkPIk87OMC6ZjEIynhFEYg5xSe
- SMmE5z96Q8tyQ==
-Date: Mon, 25 May 2026 17:54:11 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
- jonas@kwiboo.se, jernej.skrabec@gmail.com,
- nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com,
- sebastian.reichel@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
- luca.ceresoli@bootlin.com, dianders@chromium.org,
- m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 01/10] dt-bindings: display: rockchip: analogix-dp:
- Fix hclk as third clock for RK3588
-Message-ID: <20260525-ominous-hurling-c24874030f5a@spud>
-References: <20260525125331.140059-1-damon.ding@rock-chips.com>
- <20260525125331.140059-2-damon.ding@rock-chips.com>
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62ACB89622
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 17:10:08 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-490388fd0dbso41525985e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 10:10:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1779729007; x=1780333807; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=izugkSqOYsBmSyQ8jfD9m1SVj73YG14U78pRBc6Lai0=;
+ b=KSNrwM1opFvcKIzJVlHhT45lTCORBhOIxIdcNPgk2NSwhhIWYtUc0r3WCpX/4qMKCZ
+ UEDFOTQmakUYaZa97Cm7l9nR3UdSKujemsD43qx6X3wvDrqUny7th0rfzAINdhl3bvIQ
+ QzDqCLgM+5hDD0FCRx7ydzhZLiYJEqIAJ12sjdY7RFTEuEXM5DH2xluXoaLYOZNlyPNI
+ 6XuzR8QH4m6bLjKCTv+s/gdDzeljBHHujPodvbvGTrY2Y27jvuKaop+lDwaBOhCAgMWy
+ 1NBgQOcZ7/EVYLQAw/6pJqE6w8pjLV0MM+/cld/NZ9i2B9udmCm9mqgAGr1KthgDzFqE
+ Xwrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779729007; x=1780333807;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=izugkSqOYsBmSyQ8jfD9m1SVj73YG14U78pRBc6Lai0=;
+ b=QtV5kazS33moGHYkhu/OL4tqTMQkKIiXO+3ne53fKlUKqUDL4h0JjTfoQ++fIiFy0I
+ aq4QhNtdnxb+f1L7Vuvrt2LBTU1uiMEUB32BbmFFhh37bBBYzNh4PLvxhRzl3BnbZx/T
+ 7M3BKC1DMYIUOD70AkXwou3dcJTSZrcFjq7/g8bi0Ekocsr0YNZS1u42mPPFyMzDslLd
+ N/0Tdvewx10LPe55RKe/710rVXI9sX9WFt5sAK21QhFrEWqNbbVCEOG0w+cULXXJ295i
+ 28GMUpetAp9nOSlHXshBSdhnaFFJutS+GfzIIg9lzJRTOOeo44Vlk0Y2Cd8zdskZ/AJ9
+ 7HdA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+4BvdJkGqOSeDOts7vLofUcc+WwQhVkAcUVpNbXukFshBHN7b3GQUdPmeqiFkO4R+eFUCWle6X7Ms=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvzLMINwfaMthvA3F48qIh+lRLQmY6Ccz5kuCrzPbrvPnxVnWJ
+ U8sHkdue2WfXIP+QY8Np+EXcr3v47vgsNLiUXa4H5OmNSe9LGkcOgq8sc+RDttNDGKE=
+X-Gm-Gg: Acq92OHVhPtsthCPJiWpbFlW1awmMl0j1EtRDmm+D8hqRYMfDEqTH9TXu83dAKcLNyr
+ Z9s7WNlhj8nCOyB1uVm4LKyiibnn1tqvrlmnSfM8wRjxfndOWoChH8ladXDjS0w90mEJLro3CIt
+ EvBr43UDtEDDNsouaXGshtGuJDEnRg1cVnEteBisqrQ0LZN0cKvXmfOio7p/TtI2nFNH9jEPp19
+ MfNfI6aAdBpoRil/6Mb8Au8nPGt5KQTYmQXnO2H0F4G9LeSMsS055AYHJ7cbyvEzhkAug5WrkiZ
+ mjuFWWho1ikKkz5LkCL9ytI/jLwNbExShKzG/ElUrBfOEEH+kHFnx9Dt+WuWXDLspNyh3Dig4iX
+ PApK09pnxcTa4Qev4Swannbkw4ETBq8DrqfxfomALKIRTdGnZu6BJKsJvuhoOqRqlF0t9F41DDA
+ PW0n6AmyO/B2V6Fey/oaxoEgU0+gmqcwKAPdawFQzDRQy3oECt1WqBKSM/hmpjb7S0sqEnvQ6r7
+ gwgIcLK+dNY6oN6W2jCABCDWWAD0bpsU+txqKhZ+AbxG+uK8jJfJoO0WejrsmQDuE9A2EreAfsQ
+ Q9QTCxKNUzPxDJc=
+X-Received: by 2002:a05:600c:35cf:b0:490:44eb:c1e5 with SMTP id
+ 5b1f17b1804b1-49044ebc257mr277307095e9.31.1779729006482; 
+ Mon, 25 May 2026 10:10:06 -0700 (PDT)
+Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
+ (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
+ [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4904526c926sm456877405e9.1.2026.05.25.10.10.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 May 2026 10:10:06 -0700 (PDT)
+Message-ID: <a192eb5c-5d16-483d-862e-d937fa1b8269@suse.com>
+Date: Mon, 25 May 2026 19:10:03 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Mp1gnxnR0vhDimzB"
-Content-Disposition: inline
-In-Reply-To: <20260525125331.140059-2-damon.ding@rock-chips.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/11] params: Convert generic kernel_param_ops .get
+ helpers to seq_buf
+To: Kees Cook <kees@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Pengpeng Hou
+ <pengpeng@iscas.ac.cn>, Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Corey Minyard <corey@minyard.net>, Gabriel Somlo <somlo@cmu.edu>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Hannes Reinecke <hare@suse.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Tiwei Bie <tiwei.btw@antgroup.com>, Benjamin Berg <benjamin.berg@intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "David E. Box" <david.e.box@linux.intel.com>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
+ <akpm@linux-foundation.org>, John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
+ linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20260521133315.work.845-kees@kernel.org>
+ <20260521133326.2465264-8-kees@kernel.org>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260521133326.2465264-8-kees@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,146 +155,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
---Mp1gnxnR0vhDimzB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, May 25, 2026 at 08:53:22PM +0800, Damon Ding wrote:
-> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
-> registers and enable the video datapath.
->=20
-> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
-> phandle reference, which allowed the eDP to work without explicitly
-> managing the hclk_vo1 clock. However, this is not safe or explicit.
->=20
-> To make the clock dependency explicit, enforce per-SoC clock-names
-> requirements:
->  - RK3288: 2 clocks (dp, pclk)
->  - RK3399: 3 clocks (dp, pclk, grf)
->  - RK3588: 3 clocks (dp, pclk, hclk)
->=20
-> Do not reuse the 'grf' clock name for RK3588 because it represents
-> a different clock with distinct control logic:
-> - The 'grf' clock is only for GRF register access and is toggled
->   dynamically during register access.
-> - The 'hclk' clock controls both GRF access and video datapath
->   gating, and must remain enabled during probe.
->=20
-> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add su=
-pport for RK3588")
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->=20
+On 5/21/26 3:33 PM, Kees Cook wrote:
+> Convert the generic struct kernel_param_ops .get helpers in
+> kernel/params.c directly to the seq_buf signature, drop their legacy
+> "char *" form, and refresh prototypes in <linux/moduleparam.h>:
+> 
+>   param_get_byte/short/ushort/int/uint/long/ulong/ullong/hexint
+>   param_get_charp/bool/invbool/string
+>   param_array_get
+> 
+> The STANDARD_PARAM_DEF() macro expands to a seq_buf body for every
+> numeric helper. param_array_get() now writes element output directly
+> into the parent seq_buf when the element ops provide .get; it only
+> allocates the per-call PAGE_SIZE bounce buffer when the element ops
+> still use the legacy .get_str path. The common "rewrite the prior
+> element's trailing newline as a comma" step lives outside both
+> branches so the two paths share it.
+> 
+> The non-core changes in this commit (arch/x86/kvm, mm/kfence,
+> drivers/dma/dmatest, security/apparmor) are the small set of callers that
+> directly invoke one of the converted generic helpers from their own .get
+> callback (e.g. an apparmor wrapper that adds a capability check and then
+> delegates to param_get_bool()). Because the helpers' signature changes
+> here, these wrappers must move in lockstep. Each of them is updated
+> to take "struct seq_buf *" and pass it through; param_get_debug() in
+> apparmor also pulls aa_print_debug_params() (and its val_mask_to_str()
+> helper, in security/apparmor/lib.c) over to seq_buf, since that is the
+> only consumer. No other behavioural change is intended.
+> 
+> Custom .get callbacks that do not delegate to a generic helper (and
+> therefore still match the .get_str signature) are routed automatically
+> to the .get_str field by the DEFINE_KERNEL_PARAM_OPS _Generic dispatcher
+> and are deliberately left alone here, to be changed separately within
+> their respective subsystems.
+> 
+> Signed-off-by: Kees Cook <kees@kernel.org>
 > ---
->=20
-> Changes in v4:
-> - Modify the commit msg.
->=20
-> Changes in v5:
-> - Enforce the correct third clock name on a per-compatible basis.
-> - Modify the commit msg simultaneously.
->=20
-> Changes in v6:
-> - Expand more detail commit msg about using hclk instead of grf clock.
->=20
-> Changes in v7:
-> - List all valid clock names at the top level, and constrain the clock
->   count for each platform with minItems/maxItems in allOf.
->=20
-> Changes in v8:
-> - Fix indentation to 10 for enum in clock-names property.
-> ---
->  .../rockchip/rockchip,analogix-dp.yaml        | 34 ++++++++++++++++++-
->  1 file changed, 33 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
-analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
-hip,analogix-dp.yaml
-> index d99b23b88cc5..a1ab7a77bdd3 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> @@ -26,7 +26,9 @@ properties:
->      items:
->        - const: dp
->        - const: pclk
-> -      - const: grf
-> +      - enum:
-> +          - grf
-> +          - hclk
-> =20
->    power-domains:
->      maxItems: 1
-> @@ -60,6 +62,32 @@ required:
->  allOf:
->    - $ref: /schemas/display/bridge/analogix,dp.yaml#
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - rockchip,rk3288-dp
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 2
-> +        clock-names:
-> +          maxItems: 2
+> [...]
+> @@ -453,36 +457,46 @@ static int param_array_set(const char *val, const struct kernel_param *kp)
+>  			   arr->num ?: &temp_num);
+>  }
+>  
+> -static int param_array_get(char *buffer, const struct kernel_param *kp)
+> +static int param_array_get(struct seq_buf *s, const struct kernel_param *kp)
+>  {
+> -	int i, off, ret;
+> -	char *elem_buf;
+>  	const struct kparam_array *arr = kp->arr;
+>  	struct kernel_param p = *kp;
+> +	char *elem_buf = NULL;
+> +	int i, ret = 0;
+>  
+> -	elem_buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
+> -	if (!elem_buf)
+> -		return -ENOMEM;
+> +	for (i = 0; i < (arr->num ? *arr->num : arr->max); i++) {
+> +		size_t before = s->len;
+>  
+> -	for (i = off = 0; i < (arr->num ? *arr->num : arr->max); i++) {
+>  		p.arg = arr->elem + arr->elemsize * i;
+>  		check_kparam_locked(p.mod);
+> -		ret = arr->ops->get_str(elem_buf, &p);
+> -		if (ret < 0)
+> -			goto out;
+> -		ret = min(ret, (int)(PAGE_SIZE - 1 - off));
+> -		if (!ret)
 > +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - rockchip,rk3399-edp
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 3
-> +        clock-names:
-> +          minItems: 3
-
-If you go back to v6, you'll see that I never asked you to remove the
-explict clock-names from here or below. Only the one from the 3288
-section. The minItems was an addition, not a replacement.
-
-pw-bot: changes-requested
-
-Cheers,
-Conor.
-
+> +		if (arr->ops->get) {
+> +			ret = arr->ops->get(s, &p);
+> +			if (ret < 0)
+> +				goto out;
+> +		} else {
+> +			if (!elem_buf) {
+> +				elem_buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
+> +				if (!elem_buf) {
+> +					ret = -ENOMEM;
+> +					goto out;
+> +				}
+> +			}
+> +			ret = arr->ops->get_str(elem_buf, &p);
+> +			if (ret < 0)
+> +				goto out;
+> +			seq_buf_putmem(s, elem_buf, ret);
+> +		}
 > +
->    - if:
->        properties:
->          compatible:
-> @@ -68,6 +96,10 @@ allOf:
->                - rockchip,rk3588-edp
->      then:
->        properties:
-> +        clocks:
-> +          minItems: 3
-> +        clock-names:
-> +          minItems: 3
->          resets:
->            minItems: 2
->          reset-names:
-> --=20
-> 2.34.1
->=20
->=20
+> +		/* Nothing got written (e.g. overflow) — stop. */
+> +		if (s->len == before)
+>  			break;
+> +
+>  		/* Replace the previous element's trailing newline with a comma. */
+> -		if (i)
+> -			buffer[off - 1] = ',';
+> -		memcpy(buffer + off, elem_buf, ret);
+> -		off += ret;
+> -		if (off == PAGE_SIZE - 1)
+> -			break;
+> +		if (i && s->buffer[before - 1] == '\n')
+> +			s->buffer[before - 1] = ',';
+>  	}
+> -	buffer[off] = '\0';
+> -	ret = off;
+> +	ret = 0;
+>  out:
+>  	kfree(elem_buf);
+>  	return ret;
 
---Mp1gnxnR0vhDimzB
-Content-Type: application/pgp-signature; name="signature.asc"
+Since you're almost completely rewriting the logic in param_array_get(),
+I suggest tightening it up a bit. The function could warn or return an
+error when a kernel_param_ops::get/get_str() call adds a string that
+doesn't terminate with '\n', specifically, when the call adds either
+a zero-length string or a non-zero-length string that ends with
+a different character (unless an overflow occurred).
 
------BEGIN PGP SIGNATURE-----
+The updated code silently stops the loop when a get call returns
+a zero-length string. Similarly, handling of a string not terminated by
+'\n' is halfway there because of the added check
+"s->buffer[before - 1] == '\n'".
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahR+swAKCRB4tDGHoIJi
-0o1sAPoCijEh8PvkC+TvmEG0cY5/F12kqBe0lYz7nrYlMfDh9AEA70JPBE7y/TZV
-FPGNv8tWORRJxlbf3FYOq1H7vDY0/AE=
-=9FAA
------END PGP SIGNATURE-----
-
---Mp1gnxnR0vhDimzB--
+-- 
+Thanks,
+Petr
