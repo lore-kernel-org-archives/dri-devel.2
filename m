@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F24B0CD5BC8
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 23:02:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEB15CD5BC9
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 23:02:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED31F10E342;
-	Mon, 25 May 2026 23:02:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB5C10E349;
+	Mon, 25 May 2026 23:02:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M/o77t8o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bemvlSxN";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CCA710E342
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:02:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7375610E346
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:02:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 151DE4431B;
- Mon, 25 May 2026 23:02:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330711F000E9;
- Mon, 25 May 2026 23:02:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 489FE445BA;
+ Mon, 25 May 2026 23:02:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B3D11F000E9;
+ Mon, 25 May 2026 23:02:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779750126;
- bh=S2uI5zgspP6cNcWKDDQWRpzAEQVb4nF+eNOFB+O6P0k=;
- h=From:To:Cc:Subject:Date;
- b=M/o77t8ojLAk7q6HCkyBbDZzhoTrEdSzdqfF9SeGll7wR+dz0xjpALmERSq0GufdX
- p7ihl5N8ns8m7vPUT/hHX5h9wt/9C11WUGDBepTmQRd5Es3tgTOL7fD6xPa1jb3xss
- kOIwyzWuWPWf/C1kS0YIMTRgYXSyXQnPg9cJdIUp0jaDjLVIAqc6AAZUU5UIFdc4bB
- en8u/8ydqxIpqwz/MPVpq876HX5CgWEce5g9fH+PPvC1ZMCfo6kMiENayP/LmhawZ5
- efKarLzCVCTMIrInz1sKBy7xoODafyhJ2Laz3Lpstllfq83frxdoTjl8KWZCNyzlub
- UNiZOltqAo/oQ==
+ s=k20260515; t=1779750131;
+ bh=NQRc8RHwdq2jCkTtlcpPnLRgr54Ug9pwCPdCfI4Dghg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=bemvlSxNh4VCbbJBewp9R3s35oCxzFYf5OJRuU8MFY94wQjEozOwJtL7tVdOuBkMb
+ RkfJZi3QG36XDq2cD+/Akcb7+E6xxjqscKykGMmDuNJlFvMJxtiWqGfpRYfEHANUaG
+ X9vR8mC/NahBsBRFhggzW6gDuVehbFYpYweU/4nGZWyKlfy3G9cfDsOzFKdkO3LrCy
+ +88CXA5Qw4eLST6zCYc9KSGlpr/ChYBCKi0wk9tNtXz3NCf2u12UfDJXidFaOnHIXy
+ F9+os/nKQTfuz6NHFlYogN3iZEJMAnzjmufMSM6YohFKl5e+NnByUArsGUR7IhYbtz
+ jVNuuvbeRKUWA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  boris.brezillon@collabora.com, deborah.brouwer@collabora.com,
  gary@garyguo.net
 Cc: dri-devel@lists.freedesktop.org,
 	rust-for-linux@vger.kernel.org
-Subject: [PATCH 0/2] drm: tyr: use lifetime-bound IoMem
-Date: Tue, 26 May 2026 01:01:42 +0200
-Message-ID: <20260525230152.277820-1-dakr@kernel.org>
+Subject: [PATCH 2/2] gpu: drm: tyr: use IoMem directly instead of Devres
+Date: Tue, 26 May 2026 01:01:44 +0200
+Message-ID: <20260525230152.277820-3-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260525230152.277820-1-dakr@kernel.org>
+References: <20260525230152.277820-1-dakr@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -57,25 +59,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Adopt the driver core lifetime infrastructure for tyr.
+Now that IoMem is lifetime-parameterized, use it directly in probe
+rather than wrapping it in Devres and Arc. The I/O memory mapping is
+only used during probe and not stored in driver data, so device-managed
+revocation is unnecessary.
 
-Separate the driver type from the driver data and use lifetime-bound
-IoMem directly in probe instead of wrapping it in Devres and Arc,
-simplifying register access.
+This removes the Devres access(dev) pattern from issue_soft_reset(),
+GpuInfo::new(), and l2_power_on(), simplifying register access.
 
-This patch series is based on [1] and drm-rust-next.
-
-[1] https://lore.kernel.org/driver-core/20260525202921.124698-1-dakr@kernel.org/
-
-Danilo Krummrich (2):
-  gpu: drm: tyr: separate driver type from driver data
-  gpu: drm: tyr: use IoMem directly instead of Devres
-
- drivers/gpu/drm/tyr/driver.rs | 29 ++++++++++++-----------------
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+---
+ drivers/gpu/drm/tyr/driver.rs | 19 ++++++-------------
  drivers/gpu/drm/tyr/gpu.rs    | 13 +++----------
- drivers/gpu/drm/tyr/tyr.rs    |  4 ++--
- 3 files changed, 17 insertions(+), 29 deletions(-)
+ 2 files changed, 9 insertions(+), 23 deletions(-)
 
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index 5f4c484f671f..b9a5cc5fc678 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -6,11 +6,9 @@
+         OptionalClk, //
+     },
+     device::{
+-        Bound,
+         Core,
+         Device, //
+     },
+-    devres::Devres,
+     dma::{
+         Device as DmaDevice,
+         DmaMask, //
+@@ -30,7 +28,6 @@
+     sizes::SZ_2M,
+     sync::{
+         aref::ARef,
+-        Arc,
+         Mutex, //
+     },
+     time, //
+@@ -44,7 +41,7 @@
+     regs::gpu_control::*, //
+ };
+ 
+-pub(crate) type IoMem = kernel::io::mem::IoMem<'static, SZ_2M>;
++pub(crate) type IoMem<'a> = kernel::io::mem::IoMem<'a, SZ_2M>;
+ 
+ pub(crate) struct TyrDrmDriver;
+ 
+@@ -74,15 +71,11 @@ pub(crate) struct TyrDrmDeviceData {
+     pub(crate) gpu_info: GpuInfo,
+ }
+ 
+-fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
+-    let io = (*iomem).access(dev)?;
+-    io.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
++fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
++    iomem.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
+ 
+     poll::read_poll_timeout(
+-        || {
+-            let io = (*iomem).access(dev)?;
+-            Ok(io.read(GPU_IRQ_RAWSTAT))
+-        },
++        || Ok(iomem.read(GPU_IRQ_RAWSTAT)),
+         |status| status.reset_completed(),
+         time::Delta::from_millis(1),
+         time::Delta::from_millis(100),
+@@ -123,12 +116,12 @@ fn probe<'bound>(
+         let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
+ 
+         let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
+-        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?.into_devres()?, GFP_KERNEL)?;
++        let iomem = request.iomap_sized::<SZ_2M>()?;
+ 
+         issue_soft_reset(pdev.as_ref(), &iomem)?;
+         gpu::l2_power_on(pdev.as_ref(), &iomem)?;
+ 
+-        let gpu_info = GpuInfo::new(pdev.as_ref(), &iomem)?;
++        let gpu_info = GpuInfo::new(&iomem)?;
+         gpu_info.log(pdev.as_ref());
+ 
+         let pa_bits = MMU_FEATURES::from_raw(gpu_info.mmu_features)
+diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
+index 652556026f50..3acffefaf210 100644
+--- a/drivers/gpu/drm/tyr/gpu.rs
++++ b/drivers/gpu/drm/tyr/gpu.rs
+@@ -9,7 +9,6 @@
+         Bound,
+         Device, //
+     },
+-    devres::Devres,
+     io::{
+         poll,
+         register::Array,
+@@ -40,9 +39,7 @@
+ pub(crate) struct GpuInfo(pub(crate) uapi::drm_panthor_gpu_info);
+ 
+ impl GpuInfo {
+-    pub(crate) fn new(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<Self> {
+-        let io = (*iomem).access(dev)?;
+-
++    pub(crate) fn new(io: &IoMem<'_>) -> Result<Self> {
+         Ok(Self(uapi::drm_panthor_gpu_info {
+             gpu_id: io.read(GPU_ID).into_raw(),
+             gpu_rev: io.read(REVIDR).into_raw(),
+@@ -163,15 +160,11 @@ struct GpuModels {
+ }];
+ 
+ /// Powers on the l2 block.
+-pub(crate) fn l2_power_on(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
+-    let io = (*iomem).access(dev)?;
++pub(crate) fn l2_power_on(dev: &Device, io: &IoMem<'_>) -> Result {
+     io.write_reg(L2_PWRON_LO::zeroed().with_const_request::<1>());
+ 
+     poll::read_poll_timeout(
+-        || {
+-            let io = (*iomem).access(dev)?;
+-            Ok(io.read(L2_READY_LO))
+-        },
++        || Ok(io.read(L2_READY_LO)),
+         |status| status.ready() == 1,
+         Delta::from_millis(1),
+         Delta::from_millis(100),
 -- 
 2.54.0
 
