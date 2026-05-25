@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 836BDCD5BB1
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 15:02:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEC9ECD5BB1
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 15:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B632F10E39B;
-	Mon, 25 May 2026 15:02:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A3C510E39E;
+	Mon, 25 May 2026 15:11:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="abQDFWZo";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.b="C5a1B+HY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBE810E399;
- Mon, 25 May 2026 15:02:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4B584600C3;
- Mon, 25 May 2026 15:02:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3711F000E9;
- Mon, 25 May 2026 15:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779721362;
- bh=oE/uAUi1ZJ8Z07LJo3PiENxZ5di8rJGAwdTc2Ip5hJM=;
- h=Date:From:To:Cc:Subject;
- b=abQDFWZoeoIySS5uM50oNQAhEjFEVdVhPVHyVFnb4M3QzXnsXKnjMt0FinMac5pWX
- OjO7kExt7XscZ3Kvd5x77xeMvRUYkV5eH1ALelDj3wJaSovdgCXh155PFpm53LUPNe
- nYkMYpYhoDn77oPoKMZsbEGSBIIJOqWZmyvdsuHDkGG3Xdm/9IimafUBUJW4z/k3SZ
- NxrOyUeiujK/5hl+P8aOeVKMbqrDFcUC9SDVEEjD4D2R63Sw/t76Og7BAKWJSYkGVp
- p/QIre4pVFgcM+LjoxRieN7stJ1lR+QuXj4p6b1mhqq7NzyeXejHvsUITNnd2cQ1dJ
- ahEkFWGsGtkfQ==
-Date: Mon, 25 May 2026 16:02:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Maxime Ripard <mripard@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <ahRkjeEjdeF_icWN@sirena.org.uk>
+X-Greylist: delayed 1494 seconds by postgrey-1.36 at gabe;
+ Mon, 25 May 2026 15:11:05 UTC
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBDC810E39E
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 15:11:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru; 
+ s=dkim;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+ Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=w/3hesROXh6QgRIYA4BX5lYaKo8hedo3oXUz/m/DUto=; b=C5a1B+HYRKthkXmsQLfGLJyNtX
+ iVG9xweFadQIXbrXXU1Q0++Ay4aIxg0ezVZ/Rji3PdLitjFBYLmw2LPxU2XXpaxIVuObM/fzdBz1t
+ WPkj5I+84guaUXT6OUHCVSnBUk7py5SPZimqXJ//CNb6ZLWKOww7gXrjElUBHljhHjSc=;
+Received: by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls
+ TLS_AES_128_GCM_SHA256 (envelope-from <alexeymin@minlexx.ru>)
+ id 1wRWZA-00000007I48-0ryI; Mon, 25 May 2026 17:46:04 +0300
+Message-ID: <ace48664-cd7e-4cb8-8940-04ffe6f93e19@minlexx.ru>
+Date: Mon, 25 May 2026 17:46:02 +0300
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="GroEncpA0Meuaket"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/panel: novatek-nt36672a: Inline panel init
+ sequences
+To: Chintan Patel <chintanlike@gmail.com>, sumit.semwal@linaro.org,
+ neil.armstrong@linaro.org
+Cc: dianders@chromium.org, jesszhan0024@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260523035734.6602-1-chintanlike@gmail.com>
+Content-Language: en-US
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <20260523035734.6602-1-chintanlike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,197 +63,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 23.05.2026 06:57, Chintan Patel wrote:
+> Inline the panel initialization command sequences and remove the
+> table-based command abstraction used by the NT36672A panel driver.
+> 
+> Replace the nt36672a_panel_cmd tables and nt36672a_send_cmds()
+> helper with explicit initialization functions using
+> mipi_dsi_dcs_write_seq_multi() and
+> mipi_dsi_dcs_write_var_seq_multi() directly.
+> 
+> This improves readability by making the panel programming sequence
+> explicit in code and allows future sharing of common command
+> subsequences between panels. It also removes an unnecessary wrapper
+> around the MIPI DSI helpers.
+> 
+> Additionally, compress repeated register writes into small loops where
+> appropriate to reduce duplication in the initialization sequences.
+> 
+> Add:
+> tianma_fhd_video_send_init_cmds_1()
+> tianma_fhd_video_send_init_cmds_2()
+> tianma_fhd_video_send_deinit_cmds()
+> 
+> Update nt36672a_panel_desc to use function pointers for panel init
+> sequences and invoke them directly from prepare/unprepare paths.
+> 
+> Signed-off-by: Chintan Patel <chintanlike@gmail.com>
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> ---
+> Changes in v3:
+> - Rename on_init_1/on_init_2/off_init to send_init_cmds_1/send_init_cmds_2/send_deinit_cmds
+> - Convert all hex values to lowercase (0xFF → 0xff) per kernel coding standards
+> 
+> Changes in v2:
+> - Replace command tables with explicit init functions
+> - Remove nt36672a_send_cmds() helper entirely
+> - Use mipi_dsi_dcs_write_seq_multi() directly
+> - Use mipi_dsi_dcs_write_var_seq_multi() loops for repeated register writes
+> - Convert nt36672a_panel_desc command table fields to function pointers
+> ---
+>   .../gpu/drm/panel/panel-novatek-nt36672a.c    | 522 +++++++-----------
+>   1 file changed, 186 insertions(+), 336 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> index 7e8b5e059575..464d9ce47d87 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
 
---GroEncpA0Meuaket
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+...
 
-Hi all,
+> @@ -162,8 +141,8 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
+>   	dsi_ctx.accum_err = nt36672a_panel_power_on(pinfo);
+>   
+>   	/* send first part of init cmds */
+> -	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->on_cmds_1,
+> -			   pinfo->desc->num_on_cmds_1);
+> +	if (pinfo->desc->send_init_cmds_1)
+> +		pinfo->desc->send_init_cmds_1(&dsi_ctx);
+>   
+>   	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>   
+> @@ -173,8 +152,8 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
+>   	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+>   
+>   	/* Send rest of the init cmds */
+> -	nt36672a_send_cmds(&dsi_ctx, pinfo->desc->on_cmds_2,
+> -			   pinfo->desc->num_on_cmds_2);
+> +	if (pinfo->desc->send_init_cmds_2)
+> +		pinfo->desc->send_init_cmds_2(&dsi_ctx);
+>   
+>   	mipi_dsi_msleep(&dsi_ctx, 120);
+>   
 
-After merging the drm-misc tree, today's linux-next build (x86_64
-allmodconfig) failed like this:
+Hi!
 
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:43:48:
-error: 'struct drm_atomic_state' declared inside parameter list will
-not be visible outside of this definition or declaration [-Werror]
-   43 |                                         struct drm_atomic_state *state)
-      |                                                ^~~~~~~~~~~~~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
-In function 'vs_cursor_plane_atomic_check':
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:45:82:
-error: passing argument 1 of 'drm_atomic_get_new_plane_state' from
-incompatible pointer type [-Wincompatible-pointer-types]
-   45 |         struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
-      |                                                                                  ^~~~~
-      |                                                                                  |
-      |                                                                                  struct
-      |                                                                                  drm_atomic_state
-      |                                                                                  *
-In file included from
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:12:
-/tmp/next/build/include/drm/drm_atomic.h:824:64: note: expected
-'const struct drm_atomic_commit *' but argument is of type 'struct
-drm_atomic_state *'
-  824 | drm_atomic_get_new_plane_state(const struct drm_atomic_commit *state,
-      |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:55:60:
-error: passing argument 1 of 'drm_atomic_get_new_crtc_state' from
-incompatible pointer type [-Wincompatible-pointer-types]
-   55 |                 crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-      |                                                            ^~~~~
-      |                                                            | struct
-      |                                                            drm_atomic_state
-      |                                                            *
-/tmp/next/build/include/drm/drm_atomic.h:794:63: note: expected
-'const struct drm_atomic_commit *' but argument is of type 'struct
-drm_atomic_state *'
-  794 | drm_atomic_get_new_crtc_state(const struct drm_atomic_commit *state,
-      |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
-At top level:
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:101:51:
-error: 'struct drm_atomic_state' declared inside parameter list will
-not be visible outside of this definition or declaration [-Werror]
-  101 |                                            struct drm_atomic_state *atomic_state)
-      |                                                   ^~~~~~~~~~~~~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
-In function 'vs_cursor_plane_atomic_enable':
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:103:72:
-error: passing argument 1 of 'drm_atomic_get_new_plane_state' from
-incompatible pointer type [-Wincompatible-pointer-types]
-  103 |         struct drm_plane_state *state = drm_atomic_get_new_plane_state(atomic_state,
-      |                                                                        ^~~~~~~~~~~~
-      |                                                                        |
-      |                                                                        struct
-      |                                                                        drm_atomic_state
-      |                                                                        *
-/tmp/next/build/include/drm/drm_atomic.h:824:64: note: expected
-'const struct drm_atomic_commit *' but argument is of type 'struct
-drm_atomic_state *'
-  824 | drm_atomic_get_new_plane_state(const struct drm_atomic_commit *state,
-      |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
-At top level:
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:118:52:
-error: 'struct drm_atomic_state' declared inside parameter list will
-not be visible outside of this definition or declaration [-Werror]
-  118 |                                             struct drm_atomic_state *atomic_state)
-      |                                                    ^~~~~~~~~~~~~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
-In function 'vs_cursor_plane_atomic_disable':
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:120:72:
-error: passing argument 1 of 'drm_atomic_get_old_plane_state' from
-incompatible pointer type [-Wincompatible-pointer-types]
-  120 |         struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
-      |                                                                        ^~~~~~~~~~~~
-      |                                                                        |
-      |                                                                        struct
-      |                                                                        drm_atomic_state
-      |                                                                        *
-/tmp/next/build/include/drm/drm_atomic.h:809:64: note: expected
-'const struct drm_atomic_commit *' but argument is of type 'struct
-drm_atomic_state *'
-  809 | drm_atomic_get_old_plane_state(const struct drm_atomic_commit *state,
-      |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
-At top level:
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:135:51:
-error: 'struct drm_atomic_state' declared inside parameter list will
-not be visible outside of this definition or declaration [-Werror]
-  135 |                                            struct drm_atomic_state *atomic_state)
-      |                                                   ^~~~~~~~~~~~~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
-In function 'vs_cursor_plane_atomic_update':
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:137:72:
-error: passing argument 1 of 'drm_atomic_get_new_plane_state' from
-incompatible pointer type [-Wincompatible-pointer-types]
-  137 |         struct drm_plane_state *state = drm_atomic_get_new_plane_state(atomic_state,
-      |                                                                        ^~~~~~~~~~~~
-      |                                                                        |
-      |                                                                        struct
-      |                                                                        drm_atomic_state
-      |                                                                        *
-/tmp/next/build/include/drm/drm_atomic.h:824:64: note: expected
-'const struct drm_atomic_commit *' but argument is of type 'struct
-drm_atomic_state *'
-  824 | drm_atomic_get_new_plane_state(const struct drm_atomic_commit *state,
-      |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:147:55:
-error: passing argument 2 of 'vs_cursor_plane_atomic_disable' from
-incompatible pointer type [-Wincompatible-pointer-types]
-  147 |                 vs_cursor_plane_atomic_disable(plane, atomic_state);
-      |                                                       ^~~~~~~~~~~~
-      |                                                       | struct
-      |                                                       drm_atomic_state
-      |                                                       *
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:118:70:
-note: expected 'struct drm_atomic_state *' but argument is of type
-'struct drm_atomic_state *'
-  118 |                                             struct drm_atomic_state *atomic_state)
-      |                                             ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:
-At top level:
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:225:27:
-error: initialization of 'int (*)(struct drm_plane *, struct
-drm_atomic_commit *)' from incompatible pointer type 'int (*)(struct
-drm_plane *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
-  225 |         .atomic_check   = vs_cursor_plane_atomic_check,
-      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:225:27:
-note: (near initialization for
-'vs_cursor_plane_helper_funcs.atomic_check')
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:226:27:
-error: initialization of 'void (*)(struct drm_plane *, struct
-drm_atomic_commit *)' from incompatible pointer type 'void (*)(struct
-drm_plane *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
-  226 |         .atomic_update  = vs_cursor_plane_atomic_update,
-      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:226:27:
-note: (near initialization for
-'vs_cursor_plane_helper_funcs.atomic_update')
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:227:27:
-error: initialization of 'void (*)(struct drm_plane *, struct
-drm_atomic_commit *)' from incompatible pointer type 'void (*)(struct
-drm_plane *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
-  227 |         .atomic_enable  = vs_cursor_plane_atomic_enable,
-      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:227:27:
-note: (near initialization for
-'vs_cursor_plane_helper_funcs.atomic_enable')
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:228:27:
-error: initialization of 'void (*)(struct drm_plane *, struct
-drm_atomic_commit *)' from incompatible pointer type 'void (*)(struct
-drm_plane *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
-  228 |         .atomic_disable = vs_cursor_plane_atomic_disable,
-      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/tmp/next/build/drivers/gpu/drm/verisilicon/vs_cursor_plane.c:228:27:
-note: (near initialization for
-'vs_cursor_plane_helper_funcs.atomic_disable')
+Here, the split of panel init sequence into 2 separate functions _1 / _2
+is completely artificial and completely unnecessary. For some unknown
+reason the initial version of driver had initialization procedure cut in
+2 parts on the boundary of exit_sleep_mode + set_display_on commands.
 
-Caused by commit
+I think the whole init sequence should be glued together into one big
+send_init_cmds() callback and have all these calls:
 
-  8c4ae21891255 (drm: verisilicon: add support for cursor planes)
+     mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+     /* 0x46 = 70 ms delay */
+     mipi_dsi_msleep(&dsi_ctx, 70);
+     mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
 
-interacting with
 
-  5164f7e7ff8ec (drm: Rename struct drm_atomic_state to drm_atomic_commit)
+included in the middle. This opens up a possibility for other panels
+based on nt36672a to be supported in this driver, which don't have the
+init sequence split this way. The location of exit_sleep_mode and
+set_display_on commands there is different. And, importantly, the delay
+is different too.
 
-which appears to be an ancestor of the verisilicon commit.  I have used
-the version from next-20260522 instead.
+I once did a very similar change to this driver [1] to add support for
+more panels (ignore touchscreen changes there, look only at panel).
+What is also important, that change was also tested on Xiaomi Poco F1
+(xiaomi-beryllium) phone, which is the main user of this panel.
+Unfortunately I never got to send it, even though I wanted to..
 
---GroEncpA0Meuaket
-Content-Type: application/pgp-signature; name="signature.asc"
+What do you think?
 
------BEGIN PGP SIGNATURE-----
+[1] https://gitlab.com/sdm845-mainline/linux/-/merge_requests/131
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoUZIwACgkQJNaLcl1U
-h9DN8Qf/XuhsmNTm6pM5E0zNbbxWHWulWwJR/Ew5fOfYo7OrEPRrSuPtdQAtut5S
-hEBMfjyeSf4zBnDpN/k6Q4Qgzt7xkXaD1okSbNf/445x10ZnejyNR/uVkcJga89Y
-4GXCtPZtY6VQq6sIvgkUz4wWuFHhh4nUkhLuI+EEkS3aagdGcF/aa9THi8CFnUQ/
-5xXN5VmNXybd0axsMDPsyH8PQyZhL3yIK24Sf4B7hsJWV8naQVWwN+TUNxLTT0qJ
-Vx0G/8dzXjBj7as37v/7ifRZqqsjYtswtWdGCE4oMfnUXH8BMUO+HMY/4uCXWymB
-T7xr3DtMEHxQTpuEuThcIHWHqdUchg==
-=5+80
------END PGP SIGNATURE-----
-
---GroEncpA0Meuaket--
+--
+Regards,
+Alexey Minnekhanov
