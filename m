@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF8F1CD5BB1
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 13:58:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C3F9CD5BC9
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 13:59:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E93F10E382;
-	Mon, 25 May 2026 13:58:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF7C710E38D;
+	Mon, 25 May 2026 13:58:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DNo7Gc4r";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="mZVWYmyT";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010062.outbound.protection.outlook.com [52.101.61.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8307A10E389
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 13:58:51 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012069.outbound.protection.outlook.com [40.107.209.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D353910E389
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 13:58:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FqRaZ+FVK5OiH+GvInFGVb+kxfsTyq5M9v3NHNTy3DYFr0+Is5Xcp91hm2J3qUDyX1bx26ErlHYy5O+yWVJU13xd4lu3VVi+owJFQG8da+RGj6CjCeQuqtFVz10aJuwDXdrz/eGlmHYszVYEySoECr10pV+IgD9TEChIrqvui9j0KTqVZ3mADR3I79m7agHQfyALnFNV0TGhFhH483wkIebgaBYQg2PdWb5aB/A/gORNd+/L1wJBCRJlfB34DxdBmaQHPgQzkPTwbWv5zmnrg1N8XRSGyUGKvX6udqOyHtZon8nT/cbAY8CF73mJ4tT9lS4cwxmwWKO+u/MJJ6BeCg==
+ b=f6lg7UvLRxq0NkmpTYNIXOle5Tj7DXPbHL7juLNGpW+o21nmpU66nsjVB6E6GX55lGsrm8J51IOXNeNRzTqQoJKE4ECVNczJcKqBcsEz48vO5tkHlgmNG+8++kAd5hSEuILYHypDVRng1xVw+5biJxcysXlppmULmLGn0VJOS++Lg2y/5vdv1Qvdb6a2e0ACNR24s9Zf561fm2cF81RjxxHbuEZlU28oijiV7JkBIBFQkvhRrT6t/vTqgicFv1ckrE+75SSHY3/zOO/k8Z+TvShjwYe01kYA3PFFd8TQUPdEbsbwdQKc3z0ZiInlr9vkNZsx3qbTf0WT3FdjETnMgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a2Fu+/N6fTQw7yoERolJMEuLXln8P7QlCYPqLlCbu0k=;
- b=jLckGqiLsZHgNVD0xfpDgcZ/G+mPjQacgQM5ndEnuczTkao0ENCBAzknvwykyeULFO+BxgxiYw8C7X9cuzcVRs5eyqRFlpWpm9G8/iAHMrt33iKit3A+I8gp+dMgL2sqW48/FyK5eY+bO/ntQigwuF4aUuLclf9AmC3KuOJGiDBdy3jRm/x1wgd7TiguF2rhBqQtppjhn/gLkKVWF/Yra3z4/y1EVadYifWfszg8p3T6aPbK28rPcVqtCBqTGarPnOg14h2j2r76Px4tt5mK5kKLC81ebdtg/Ugs6zv/jJFMrx+GmsK9bGWTyT0L6rjHtnPd+dq101hjf8zsPe1gww==
+ bh=LaxYNiCObU+skCYh3NazEDXcaQUUrYOkr/QyrxE+EB4=;
+ b=XrxXJH7A34UFppkgymQcFerdBNcA3zd5UfrLFBouWt7rWLF3gtsZGT8GFTXV/1EJt6s9i/0JDXBrXysl1jphJZhkqOOMLs7QWWAoLlharoxuBW0KTg9Fy3CQappySdqM7rXVsnC9jykhTSHb1bqDeliJBZj4SXTCTAfxI0QqZ1Ugr7YVh61tpksoCucqimN8awggYT+IK3NQ6rWWnfBIBOLpOAEch25bVOz4sG3iH87kyVeHsvsUwbTM6Kyx+MfvoIEq5x9NdmOq5cKOjwPV8+XFvafJK4PFWq6o3okmw1Klkk+Vcts2inF/9/6w76XM7JI0xfUqvoroT57XOmcTHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a2Fu+/N6fTQw7yoERolJMEuLXln8P7QlCYPqLlCbu0k=;
- b=DNo7Gc4raZpNB/n/hE2vO/Sy75Cuy+U4DV7b1k/xmP/dUW80hVLXKfNFu8lRTOcjLETb9mIueKzsVc67BWSqt2+PLx3KrRj42L6hxWpVYVTfXpL+dUgzlUmgnkzahGZaDtX7TyCyGuR0VmIobEO5Xd6ncnJYjxqnMRroWcPlAfVJlAD6YqiShc82EV6viFwHenSV8tMG3TmJeErg6fkq2WJc3GyImQXrcXPzydWpqBUOt419Gno9z/try3DGXjp0aPrKdS8Dv8H1vFkNDVN75F5UOnwb6Jc5Yxq7nJytmfasb0mMCcXjppGq0uEEg08JXwM5f0VKhl5dj1wGhBGoPQ==
+ bh=LaxYNiCObU+skCYh3NazEDXcaQUUrYOkr/QyrxE+EB4=;
+ b=mZVWYmyTyagBHTXEI0WLhpstfLMV9y5EoMuU8b18hwgkg3QSkvc3Ocj878UxbudapFVTBmadlRtcY/1c7j3QyGMLmdNh9MzFcttpHkxCdxNUKxHq11xatwguYKXS79mhR1sALqIgk/YdwEr1GnxMyZ5qkUs+opSsEhRBgTPqPieW/ZwvbYo9xS3Shagepmh0DvM/58Tck699seTJ/GPg+i2xZ2Tkp7idpsbjNiCWOEnqhY2Ycg8vtNIubChP6kiqNUAux3ilCe7wAxHekknFO0hrTeKufmJR2159oDM2AAIqTlQFgxjJqhQvw58Xqoq6YbAyPfGa0no7ReOc98obRg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
  by IA1PR12MB6628.namprd12.prod.outlook.com (2603:10b6:208:3a0::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
- 2026 13:58:48 +0000
+ 2026 13:58:52 +0000
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0048.019; Mon, 25 May 2026
- 13:58:48 +0000
+ 13:58:52 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Mon, 25 May 2026 22:57:33 +0900
-Subject: [PATCH v5 15/22] gpu: nova-core: vbios: use the first PCI-AT image
+Date: Mon, 25 May 2026 22:57:34 +0900
+Subject: [PATCH v5 16/22] gpu: nova-core: vbios: use single logical block
+ for the FWSEC section
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260525-fix-vbios-v5-15-e5e455251537@nvidia.com>
+Message-Id: <20260525-fix-vbios-v5-16-e5e455251537@nvidia.com>
 References: <20260525-fix-vbios-v5-0-e5e455251537@nvidia.com>
 In-Reply-To: <20260525-fix-vbios-v5-0-e5e455251537@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -59,73 +60,73 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P301CA0119.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37e::9) To BL0PR12MB2353.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4P301CA0121.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37e::17) To BL0PR12MB2353.namprd12.prod.outlook.com
  (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA1PR12MB6628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e06095a-29c6-4877-4bfb-08deba65be3c
+X-MS-Office365-Filtering-Correlation-Id: 0890a931-e684-4392-4eb3-08deba65c0c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|366016|376014|10070799003|18002099003|56012099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info: 3oojMWwvbDZlXodRRdBXyb7vl1Y4Jvob8nY8RfX65wNGZf0KBh8OpmkOOj47MPPpNmDlvY/nvHf3ugUnoWGYfDb51onjRYV2BiE/ydYG0rWFthZX0HYkeh3cMXwL3Nt0B5kxDv92p8b6Mb8H3qhjHxoy5Dzg2l3bgesTvMtwCkEF9gOXJqOM07M3Y7Llr1cehcYK5VBW1SQY6e8CqsFsOkkjvn47hYxsGN5jfOtiDF35P0svG9xZNYiweBBE05znIqk29z7mGjoBm9URSKPajIvgdXACjsZxI5z2NSMSjGgG/UlOjNLqXZqV+JVW94h4Uz5qwzFZLb/5QLzh7z4q388Z9YQsLOL5glYvwmAwWKhvujI09OJjwZMvNyCDrbDkZ49Qw4T6uNENYjgoZIjBoY3fsnKdOET0i8EpKEydKOJEpGSB4DfsLHrnsNJ/ioeAQ35l0h57i+EhJjiBu2/Df7e95maVPUGC2IpFrDgHG6sSauKK+BKKiX+UTwC9bJn3QmbnrXtOLyPkfNM4L+S2zf382zWQP/5TiBtMUYm02ugYw0E6p5cZsGgAaMPkZBXXuFgYd1igm/WPm2+C1bajUS1uDbQz9J69DSvYgbgMhBlXpAz/+zmxHegSNjBvbnHHG9vpe4qdnQa9JNKA8pIBWuuW9mdh3xzhNBsp1TID2zzIpboniXz/VOG7ftv/pCOr
+X-Microsoft-Antispam-Message-Info: XvL62vP8TuO7f2+723yYo67GSc/P3Z3KAji/uQFnly0H86I5jlSrjiaAmt2ELi4YW39iy8jNy6cdo/x2BxM7zK9UiuVqCnhKPrXHz/L0f8JiTj8xJb4J8AYToihUfWmJERbGe0Oo9sMo+LXKXI8uEGD3EVz4OKw8nnPQEw09aqwwIeG1GjcziOzlepZyb9fgQ3nBYKo+sfLLi8IO8Jod4fSmhwu7NPCwZIrynKGrPN2GyfPYcLFyTPlY6d5AG4jkf8/zz0MBXNF15q2VsMJcquDDAI47X2WKiIozWgmiBkHmWhUrTBgm0lKRPpJr3JhV6BCLgySgGAXuPaFG0K6TRbyLn5AsWbzKt/FGGNuxgwHtPfz2izxDkhrA+Tl4iKzUA8odHnX/3gpEyFPj2no5PKdzAuslj2N5MhUJJYl29Cy2N6vcY7YkqwROQclUCmA9xSmmxd2tHb4MhDNWR1AGXvS5n/ObcwGt4/RoAv3fvRSct/WXqQ82cWj+W48vU8h+Z1IUkRMKEGbmyBiU5a6AxRL6Q7TaVeFq4TZyCd4S+O72lhdKdIuIe9q2OoWku7A36LUIarbnn+uzeHNb3X1NJT73DX90WlA6sDvDfFCkWWq3aBVgUsEi9nVVS12MpE0TjADF6D2DZ6A1oZ+CYVi0AINd6rxnkGbro10Ip5Vqe3GFU86XNXxMI0RrMXcePLsw
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014)(10070799003)(18002099003)(56012099003)(22082099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekZGRm54Z2U2SkJSNGVxcW5zRnlBVlp5em9WUDJaSTNrZ1NaYTNjbVd6WGRj?=
- =?utf-8?B?VXdrRVRyaWdEQjZPT0EyRmFNWHNXQ0QycW8zb0dKYnQ4RkRmN1FrWmlObGtl?=
- =?utf-8?B?ZUpvZ2tZT0Y5TTRTdC9sd1kxQy9PV3VCeDBPOFNEQXRSNHdPeCtSQ0kwaEMz?=
- =?utf-8?B?VEVjRDJVQ0NiK0ZlVHdkUThvOGNmTTBwWWNPd0dXeERESjROQWRBZEw2OEJS?=
- =?utf-8?B?M2lDMng2UWMxV2EwS3FNcHEvSjI3UGZKR3NmTXlnd2NMV0dpMkY0WHk1WjdB?=
- =?utf-8?B?YldlL2l1cDVYTWtDVmhlUysvWVVXb1EyZWZ4ZzlqenF0VmJzNFA2YVIwa3pJ?=
- =?utf-8?B?dXRQWG9XZkRXT2tTVTFzY2Q1b1RyUTA4c1g2MXJtUkRGOE1UWEF2a0h6TWVh?=
- =?utf-8?B?MnBLMkFLb3RiQVNla2kxU0lqQnhnTHVnL3FCZE5wSXBzUW9TSit6VDl1ck8z?=
- =?utf-8?B?WElDVHM2bGp0bGVwZVJ5b1ptbTY5ZGs4UDVpK2N2THpqelUzUnFpRHR3VlEz?=
- =?utf-8?B?WVR3TVNhOU1ndXpzK2pPWUF6a0VZbWNBM3pKemdUbjRFUjcrLzY4R25pbGlR?=
- =?utf-8?B?OXRsT0lNd2pYNUNrNWdNUVIwdWRYNmpCTEJXaW9XT3AycHlicml2b3lBUXhX?=
- =?utf-8?B?YVB4ZWZMeEdsTlpRMmpuQ3V6SGlPbGpYMFd6WTJKSzJGV3lNbVNWbmlwbUl4?=
- =?utf-8?B?VENnQmRUQ1pORmxOWlJLbExVNkRtSzJoZ2w3ckdraHFwZjRoMXplWkMwZWM5?=
- =?utf-8?B?Qlp3MkFDLzNrckx3NC9Wc2NDRk9Zc1habisxNms2OEUyY3JnbW1BbFM0OEcy?=
- =?utf-8?B?Z2NVcWwxaFZmRkpzUzBiMWVVa3hOMjhiTmRJUnlrNHJyVzBHNitRRGo2OHh1?=
- =?utf-8?B?b09zU0tsQXAyQzFTbDcrekRsTWZONHBzU2t4d24yVjRsV0QxL0hmQlZCV0Ja?=
- =?utf-8?B?NVBENGZaUUxGdU5IQ1dXZld1TEZ5ZllPcVZzZGRLVzFlQThGSlJSeWpXSUpE?=
- =?utf-8?B?NEJ0eW5TK1k0V2hEM05RSTRLSWdhcnVxcjJxcUEyT0dBcFgzc0VydCtBZHVk?=
- =?utf-8?B?SXhVU2VHNjVOdWREY1l5ci9UVUhlTGNEVUZERURycHJJUmhZcDk4YlkvSFo4?=
- =?utf-8?B?c1V3N1R2UGs0NHJKWlpVMVk1a0U5Uk8xSy85ZHlSSVlYQmthbDBZMDFiOUNu?=
- =?utf-8?B?MnBUSmF6MUE0WTJ0U0NTcGlpeGxaK3JhOTZKSmRtamYvUFlkVXlqVEpWRzVn?=
- =?utf-8?B?UWcvRStzQjJZZzlja05rZ1NFM21oQnIwQlgvYmJKTEV0OHF2Wkl2Q1htd0l4?=
- =?utf-8?B?WlhPNVMvRzFqZU1GZEtsbm1NMUhHNjVrVFNDUmdwQ0JONU92VVAxUEtZVjdl?=
- =?utf-8?B?MExxalNsWUxhdzh2QytlSFZKMlJLWU5qY1VvWlNJRkwreGVpMXRGMzlLajdH?=
- =?utf-8?B?UmNPSDdQM2dJa3N6Y2w2RHZnUVdzQkJyMEpYZ2M5djZZTjdxdHRIbm5RL1Q3?=
- =?utf-8?B?c3VSOFQzbGI2T3dVaVVhcDdSVlhMemhXazU4dURuUWtWR0FGOUxTck1waGlG?=
- =?utf-8?B?WnM0WURhQnZyYnJ0MWdIb0xHWG80UERFM1pWY3o5UDd4cmJzeGtqK0t4R1Y0?=
- =?utf-8?B?NGVwWVF6QW1NdUxlanUrZVBudVViMnVnVzRyUkxLbXBtWFFJNFFDUkdnSmhn?=
- =?utf-8?B?RStiQVFGUmNpMk54WTFIakhQTUpEa2ZRaXp1azVBTTlDUmNUWG1uNzdDamlB?=
- =?utf-8?B?UjhPaEthTFZONXkwc3FwWTJEYSs3TGdhNjZRV0h5VjgvZjJZQmJ2bElnTDQv?=
- =?utf-8?B?N3hWWUtvSDI4bGU3R2JYeklNdS8vSm1zTmlwZFltNkZKNG85Q2l1VUh5cjJa?=
- =?utf-8?B?dTlSWDluS3hHZURuK25lMU1TY1JUQnptSGtSY21RZ0ZyL2JKQVRuMG1JcmVu?=
- =?utf-8?B?VExPQnVyaERLZVZiWWdrMzVLbXZoeU1OVTFROW03STI3czlsVzA5ZENBVmpM?=
- =?utf-8?B?S0lrdjQxL25vRlIzeDRiSVIrRG14ZzJtY1ZJdGgrSkxSTHF1OEtPSzM3NHpK?=
- =?utf-8?B?VThhRzI4ZzM1ZXUvZFV4dHBsMlVVU1QxejlPelZNSVZLbzgrREhDSUliMXo2?=
- =?utf-8?B?clYyVXZvdm9zTnN6aUhJdjA1OXdkejRNU1pZTHg4RXBJN3RGd2pNdENjUy9L?=
- =?utf-8?B?VWZrRFNjaStiZ2llYWtyR3lTSkplM0hrKzlEY0JxSHduSjg1U1Z5ZzBpZjFk?=
- =?utf-8?B?K3RKMUVKeEdmNTlFUU02OXpkUGx6STE3amFwU3h3SEFUeTd1NURoVjkxY2hp?=
- =?utf-8?B?OW5vNmIrcllGQ0lhVzBNSjAvQk55L3BjRkt6TTZCS0IvMktsYVRERDR0bjFh?=
- =?utf-8?Q?Vjkp4mVZxc7HCswm/DLMIBxkFdtsmJGB4iQZP34BM+vNd?=
-X-MS-Exchange-AntiSpam-MessageData-1: sqIpjQcRROEFtw==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3BuY056cFBhaHZPUkNQRmUrbytiaW9hZ21uYnNNTjYvYmZyRXNXaTRLMGdV?=
+ =?utf-8?B?eTdqaHdwQnFxcjBFYWhLTGRUZlBRZC9vUEthWS9pZ1U2RHFjT0Z3bzExSTZj?=
+ =?utf-8?B?VUpFd2hMeU5BYlRYUXFMaTEyaUdGUU5mY2Q1bVU0VkJGRmxpTG93SGZPdlhj?=
+ =?utf-8?B?dW5wRzU2Tll6Mmk2bDkwVGZCNTY4Yk9QL2hybkxjWDhMT3JIZUZUSVUvUzZD?=
+ =?utf-8?B?Tkpqdko2dHVXaCs3SUFwbm83S2hNZjd6aFI1K1UweG1ITmplZWhCbHRJNzBR?=
+ =?utf-8?B?ckhJcy95a3ZqdDNLeVl5dnRucXM5K3Q2U1VrdTRCQ1NrbzNsZEZWMXVwRkM1?=
+ =?utf-8?B?ZE1JRkEwanpuYXVpTCsvM291ME54cFd2WXBFYktDM051TFhkWE5QcTZ4ZUt6?=
+ =?utf-8?B?Ylloanc5ZjJYVml6WnpJbHF3dGJOUU1jWURIYmt6Y0QvcEt5bGQ2REJLcUtj?=
+ =?utf-8?B?NjFVZG9iYVYwaVZidVpEdnFaSHpCaDB0c2Jna0ZzUG1RSm5nQWRkVk5LL09r?=
+ =?utf-8?B?RDIwTXpQWTZMUWo1OEhONUFrdHVWSnQ2U3drTjlyT1poam5BUGt2UU4vL2lU?=
+ =?utf-8?B?clEwdElEWmhMTUVuUjFWaFJTQUxYSXg3T3NISmhFQ2lrMWZTd3lUalB2VjJ5?=
+ =?utf-8?B?aWRwUmlaNEdsSEhUV0cwdk1HckltZWsrMk5GcVFFWG1xU3JuYVhRemtQYi9s?=
+ =?utf-8?B?cTFZRm42UVJVelp6NSt6WDc0ekRDL1V6VmxxOG40VzBKNUxDSjEwbENXQVZ1?=
+ =?utf-8?B?OGxMaytPclZTRXhMdkZ1VEdpTEVMRVhPK3k5SnEza2tsbUU4RVZiRnhUZXg5?=
+ =?utf-8?B?KzFVSjNLT1N1UzAzVUJpYnR0cGhsZi9uNUEyNHFGNlQrZHBBMzRqZ01CY2p4?=
+ =?utf-8?B?NmN2dzNhSFQxODFiRWpERzZoY2l2SXprdGRzQmwySk9CQ0JaZlRTbDRudFQ2?=
+ =?utf-8?B?eUVKVXcrQWd3NzB2REoyTVc3blp5VnlLczZ3OEFKbU56VzFEcm5ycGJBR0FR?=
+ =?utf-8?B?ekhyUXN6b25Va3BPMC96ME51VGc4cTdrRXIrTncvemt2aFZWVzZSQVFhMGg5?=
+ =?utf-8?B?TldUSXcrMGl6MnRRMFNxRTlUZmlyU0tYRHZ1N2dVVnZadDJzdDFkYW9SSy96?=
+ =?utf-8?B?Tk5Obmp3VGkrd3E0Q0FhZE5rSHhZRjVEcnZiS2FNYXpyN1FiQk1hbTBta0tR?=
+ =?utf-8?B?NC9mNkx3R2NBRk5nNkdKVFFDVGNNY0tYMHowSnRRQi94MFVSdEtnQi9zcFk0?=
+ =?utf-8?B?M1NDL3ljSURxWVV5WHpKYWtSVDZ0eXZVbVcwSXhrVjlJQVRsNFBWcURzdnRj?=
+ =?utf-8?B?NG5FMDFHbmxkZU4vVjNSSm0rc1dGVHhwakFkcjhlZjRYV0pNdVZKQ2F5cWNz?=
+ =?utf-8?B?aklqb0swNm94OU5tcUJLWUovTHJQbkVWVGxjdE5kSE1hUHc3WUttWWFBZWx1?=
+ =?utf-8?B?dytxckhjenlpa09VNUtDeDlpY216NGtrOXIzK011RU9tK0g0Y1NQZ2dBb2xI?=
+ =?utf-8?B?eTVodUt3d2lQbUFuMjZLVEk5YUM1dWZDMWIrZk1tZVVKcU1NNGN6RnFMZUNE?=
+ =?utf-8?B?eldmYVlCZW9BTjNUd3V2OFU2KzdEbGtWd2drRmgxaW9pQndxR1g5a3BhUFJD?=
+ =?utf-8?B?T2RrTnhhTkxKUHN3dHZIN0xlTkxOM01mRnFPZ1llZURaOXkyYmtOcFdnM3VV?=
+ =?utf-8?B?THpaNG5ZdGpPekx5ZE1YSmk3eEFMLzY2eTQ2UGFNQ0tRc3RidEZjYXFMbWNI?=
+ =?utf-8?B?OG5nVkR2Q1FJRUt0S29RaEFjaE94MUZQZFU1TWQySms4azVSTmc0ait1K2F0?=
+ =?utf-8?B?bzk5UlFXY2h0dUJEcU5waml2VHpLL25RMFd1ekpCRVZ4UEVKaDhUSHpyMzNm?=
+ =?utf-8?B?RkRYb3VoS2tNZWlMR2xKK1JWNjN6cWJZajRycVpmZjNhc09oYTJuZDU3b2RZ?=
+ =?utf-8?B?NE9ZZVhGOGsrNUhwdVFlSEtIZ0dSbFh3WndJbXJnWHIwcEJLT2dOMUJkVE5G?=
+ =?utf-8?B?WUc5bzhoWWRxaFJrTzhlemQzOXVNNFIyQTF6dXZtSjl5ZWRNbkJyblJ4NXdn?=
+ =?utf-8?B?YkE5eFZ4OStjTk9vMnQ3SFZZd08yTWZ1VGpzUE1HcmtqaVRQZEZuWndQTDBr?=
+ =?utf-8?B?c3UwaUVDRUpsZXVPMmp1ZUpLUjZPdWdHVVk0MEM4S0J0SVJJeEQ5TUpmSU9m?=
+ =?utf-8?B?cTUrYTBseHFLQ1hNUFBRZE9PSjMwZlc2Z1pBSzlHc0F5cGRRcm9tTWQzVkJs?=
+ =?utf-8?B?cHhQTUlmWDFyZkJqWVlJVWJYbjZLNXdiZXdwR2VUY2lCZmgvK0xGcUMzNksx?=
+ =?utf-8?B?Vzd2dVhrcDhDRGhUZ3N6WjVLOW9NQnVwRFF2em5nRDVDT3oyYWpzYkxBM2xu?=
+ =?utf-8?Q?KuybkSCWdbBcjZxDcRd+xS4aZhiIVRJHwbxxrgA9PE/3s?=
+X-MS-Exchange-AntiSpam-MessageData-1: Tuutlv5G4qciqg==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e06095a-29c6-4877-4bfb-08deba65be3c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0890a931-e684-4392-4eb3-08deba65c0c7
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 13:58:48.1831 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 13:58:52.2949 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C/A4vllt96tEdKG5eEYhUegbfzyKz5JHg3WcLdDqiizJMuC9EbFZQezs7jOZb7mKCJmKLSuPrf77OxZ9TogBrw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ONFenGJsT+sBtTs+W8EcdUu818Pd5sYt20kzf9y1R0B8zYTbuGRvZ8LcBG3uConqnrqJk8N/KrICBcLtMR+UHA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6628
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,30 +143,270 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, PCI-AT takes the final image if multiple exist. Use the
-first one instead, to match nouveau behaviour.
+Currently, FWSEC takes the first image and the last image. Treat the
+first FWSEC image and all following image data as one logical block
+for building the final FWSEC image. This avoids explicitly tracking
+two FWSEC images.
 
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/vbios.rs | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/nova-core/vbios.rs | 99 ++++++++++++++++--------------------------
+ 1 file changed, 37 insertions(+), 62 deletions(-)
 
 diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-index 9c5281e7a0d3..82811e42e858 100644
+index 82811e42e858..5266e15793cf 100644
 --- a/drivers/gpu/nova-core/vbios.rs
 +++ b/drivers/gpu/nova-core/vbios.rs
-@@ -333,7 +333,10 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
+@@ -84,7 +84,7 @@ struct VbiosIterator<'a> {
+     /// progressively extends. It is used so that we do not re-read any contents that are already
+     /// read as we use the cumulative length read so far, and re-read any gaps as we extend the
+     /// length.
+-    data: KVec<u8>,
++    data: KVVec<u8>,
+     /// Current offset of the [`Iterator`].
+     current_offset: usize,
+     /// Indicate whether the last image has been found.
+@@ -177,7 +177,7 @@ fn new(dev: &'a device::Device, bar0: &'a Bar0) -> Result<Self> {
+         Ok(Self {
+             dev,
+             bar0,
+-            data: KVec::new(),
++            data: KVVec::new(),
+             current_offset: vbios_rom_offset(dev, bar0)?,
+             last_found: false,
+         })
+@@ -315,8 +315,7 @@ impl Vbios {
+     pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
+         // Images to extract from iteration
+         let mut pci_at_image: Option<PciAtBiosImage> = None;
+-        let mut first_fwsec_image: Option<BiosImage> = None;
+-        let mut second_fwsec_image: Option<BiosImage> = None;
++        let mut fwsec_section: Option<KVVec<u8>> = None;
+ 
+         // Parse all VBIOS images in the ROM
+         for image_result in VbiosIterator::new(dev, bar0)? {
+@@ -330,6 +329,13 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
+                 image.is_last()
+             );
+ 
++            // Once we have found the first FWSEC image, grab all data after that as the FWSEC
++            // section. This is indexed as one logical block to build the final FWSEC image.
++            if let Some(data) = fwsec_section.as_mut() {
++                data.extend_from_slice(&image.data, GFP_KERNEL)?;
++                continue;
++            }
++
              // Convert to a specific image type
              match BiosImageType::try_from(image.pcir.code_type) {
                  Ok(BiosImageType::PciAt) => {
--                    pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-+                    // Silently ignore any extra PCI-AT images.
-+                    if pci_at_image.is_none() {
-+                        pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-+                    }
+@@ -338,13 +344,7 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
+                         pci_at_image = Some(PciAtBiosImage::try_from(image)?);
+                     }
                  }
-                 Ok(BiosImageType::FwSec) => {
-                     if first_fwsec_image.is_none() {
+-                Ok(BiosImageType::FwSec) => {
+-                    if first_fwsec_image.is_none() {
+-                        first_fwsec_image = Some(image);
+-                    } else {
+-                        second_fwsec_image = Some(image);
+-                    }
+-                }
++                Ok(BiosImageType::FwSec) => fwsec_section = Some(image.data),
+                 _ => {
+                     // Ignore other image types or unknown types
+                 }
+@@ -352,10 +352,8 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
+         }
+ 
+         // Using all the images, setup the falcon data pointer in Fwsec.
+-        if let (Some(second), Some(first), Some(pci_at)) =
+-            (second_fwsec_image, first_fwsec_image, pci_at_image)
+-        {
+-            let fwsec_image = FwSecBiosImage::new(pci_at, first, second)
++        if let (Some(pci_at), Some(fwsec_section)) = (pci_at_image, fwsec_section) {
++            let fwsec_image = FwSecBiosImage::new(dev, pci_at, fwsec_section)
+                 .inspect_err(|e| dev_err!(dev, "Falcon data setup failed: {:?}\n", e))?;
+ 
+             Ok(Vbios { fwsec_image })
+@@ -703,7 +701,10 @@ struct NbsiBiosImage {
+ ///
+ /// The PMU table contains voltage/frequency tables as well as a pointer to the Falcon Ucode.
+ pub(crate) struct FwSecBiosImage {
+-    base: BiosImage,
++    /// Used for logging.
++    dev: ARef<device::Device>,
++    /// FWSEC data.
++    data: KVVec<u8>,
+     /// The offset of the Falcon ucode.
+     falcon_ucode_offset: usize,
+ }
+@@ -713,8 +714,6 @@ pub(crate) struct FwSecBiosImage {
+ /// A BiosImage struct is embedded into all image types and implements common operations.
+ #[expect(dead_code)]
+ struct BiosImage {
+-    /// Used for logging.
+-    dev: ARef<device::Device>,
+     /// PCI ROM Expansion Header
+     rom_header: PciRomHeader,
+     /// PCI Data Structure
+@@ -722,7 +721,7 @@ struct BiosImage {
+     /// NVIDIA PCI Data Extension (optional)
+     npde: Option<NpdeStruct>,
+     /// Image data (includes ROM header and PCIR)
+-    data: KVec<u8>,
++    data: KVVec<u8>,
+ }
+ 
+ impl BiosImage {
+@@ -795,11 +794,10 @@ fn new(dev: &device::Device, data: &[u8]) -> Result<Self> {
+         let npde = NpdeStruct::find_in_data(dev, data, &rom_header, &pcir);
+ 
+         // Create a copy of the data.
+-        let mut data_copy = KVec::new();
++        let mut data_copy = KVVec::new();
+         data_copy.extend_from_slice(data, GFP_KERNEL)?;
+ 
+         Ok(BiosImage {
+-            dev: dev.into(),
+             rom_header,
+             pcir,
+             npde,
+@@ -837,7 +835,7 @@ fn get_bit_token(&self, token_id: u8) -> Result<BitToken> {
+     /// treats the PCI-AT and FWSEC images as logically contiguous even when an EFI image sits in
+     /// between them, so subtract the PCI-AT image size here to convert it to a FWSEC-relative
+     /// offset.
+-    fn falcon_data_offset(&self) -> Result<usize> {
++    fn falcon_data_offset(&self, dev: &device::Device) -> Result<usize> {
+         let token = self.get_bit_token(BIT_TOKEN_ID_FALCON_DATA)?;
+         let offset = usize::from(token.data_offset);
+ 
+@@ -852,7 +850,7 @@ fn falcon_data_offset(&self) -> Result<usize> {
+             .checked_sub(data.len())
+             .ok_or(EINVAL)
+             .inspect_err(|_| {
+-                dev_err!(self.base.dev, "Falcon data pointer out of bounds\n");
++                dev_err!(dev, "Falcon data pointer out of bounds\n");
+             })
+     }
+ }
+@@ -942,59 +940,38 @@ fn find_entry_by_type(&self, entry_type: u8) -> Result<&PmuLookupTableEntry> {
+ impl FwSecBiosImage {
+     /// Build the final `FwSecBiosImage` from the PCI-AT and FWSEC BIOS images.
+     fn new(
++        dev: &device::Device,
+         pci_at_image: PciAtBiosImage,
+-        first_fwsec: BiosImage,
+-        second_fwsec: BiosImage,
++        data: KVVec<u8>,
+     ) -> Result<FwSecBiosImage> {
+-        let offset = pci_at_image.falcon_data_offset()?;
++        let offset = pci_at_image.falcon_data_offset(dev)?;
+ 
+-        // The offset is from the start of the first FwSec image, but it
+-        // may point into the second FwSec image. Treat the two FwSec images
+-        // as contiguous here and subtract the first image length when the
+-        // target lies in the second one.
+-        let pmu_lookup_data = if offset < first_fwsec.data.len() {
+-            first_fwsec.data.get(offset..)
+-        } else {
+-            second_fwsec.data.get(offset - first_fwsec.data.len()..)
+-        }
+-        .ok_or(EINVAL)?;
+-
+-        let pmu_lookup_table = PmuLookupTable::new(&second_fwsec.dev, pmu_lookup_data)?;
++        let pmu_lookup_data = data.get(offset..).ok_or(EINVAL)?;
++        let pmu_lookup_table = PmuLookupTable::new(dev, pmu_lookup_data)?;
+ 
+         let entry = pmu_lookup_table
+             .find_entry_by_type(FALCON_UCODE_ENTRY_APPID_FWSEC_PROD)
+             .inspect_err(|e| {
+-                dev_err!(
+-                    second_fwsec.dev,
+-                    "PmuLookupTableEntry not found, error: {:?}\n",
+-                    e
+-                );
++                dev_err!(dev, "PmuLookupTableEntry not found, error: {:?}\n", e);
+             })?;
+ 
+         let falcon_ucode_offset = usize::from_safe_cast(entry.data)
+             .checked_sub(pci_at_image.base.data.len())
+-            .and_then(|o| o.checked_sub(first_fwsec.data.len()))
+             .ok_or(EINVAL)
+             .inspect_err(|_| {
+-                dev_err!(
+-                    second_fwsec.dev,
+-                    "Falcon Ucode offset not in second Fwsec.\n"
+-                );
++                dev_err!(dev, "Falcon Ucode offset not in Fwsec.\n");
+             })?;
+ 
+         Ok(FwSecBiosImage {
+-            base: second_fwsec,
++            dev: dev.into(),
++            data,
+             falcon_ucode_offset,
+         })
+     }
+ 
+     /// Get the FwSec header ([`FalconUCodeDesc`]).
+     pub(crate) fn header(&self) -> Result<FalconUCodeDesc> {
+-        let data = self
+-            .base
+-            .data
+-            .get(self.falcon_ucode_offset..)
+-            .ok_or(EINVAL)?;
++        let data = self.data.get(self.falcon_ucode_offset..).ok_or(EINVAL)?;
+ 
+         // Read the version byte from the header.
+         let ver = data.get(1).copied().ok_or(EINVAL)?;
+@@ -1012,7 +989,7 @@ pub(crate) fn header(&self) -> Result<FalconUCodeDesc> {
+                 Ok(FalconUCodeDesc::V3(v3))
+             }
+             _ => {
+-                dev_err!(self.base.dev, "invalid fwsec firmware version: {:?}\n", ver);
++                dev_err!(self.dev, "invalid fwsec firmware version: {:?}\n", ver);
+                 Err(EINVAL)
+             }
+         }
+@@ -1027,15 +1004,14 @@ pub(crate) fn ucode(&self, desc: &FalconUCodeDesc) -> Result<&[u8]> {
+         );
+ 
+         // The ucode data follows the descriptor.
+-        self.base
+-            .data
++        self.data
+             .get(self.falcon_ucode_offset..)
+             .and_then(|data| data.get(desc.size()..))
+             .and_then(|data| data.get(..size))
+             .ok_or(ERANGE)
+             .inspect_err(|_| {
+                 dev_err!(
+-                    self.base.dev,
++                    self.dev,
+                     "fwsec ucode data not contained within BIOS bounds\n"
+                 )
+             })
+@@ -1053,9 +1029,9 @@ pub(crate) fn sigs(&self, desc: &FalconUCodeDesc) -> Result<&[Bcrt30Rsa3kSignatu
+         let sigs_size = sigs_count * core::mem::size_of::<Bcrt30Rsa3kSignature>();
+ 
+         // Make sure the data is within bounds.
+-        if sigs_data_offset + sigs_size > self.base.data.len() {
++        if sigs_data_offset + sigs_size > self.data.len() {
+             dev_err!(
+-                self.base.dev,
++                self.dev,
+                 "fwsec signatures data not contained within BIOS bounds\n"
+             );
+             return Err(ERANGE);
+@@ -1065,8 +1041,7 @@ pub(crate) fn sigs(&self, desc: &FalconUCodeDesc) -> Result<&[Bcrt30Rsa3kSignatu
+         // sizeof::<Bcrt30Rsa3kSignature>()` is within the bounds of `data`.
+         Ok(unsafe {
+             core::slice::from_raw_parts(
+-                self.base
+-                    .data
++                self.data
+                     .as_ptr()
+                     .add(sigs_data_offset)
+                     .cast::<Bcrt30Rsa3kSignature>(),
 
 -- 
 2.54.0
