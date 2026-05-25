@@ -4,54 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93542CD5BD0
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 10:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DF68CD5BD0
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 11:02:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3C6510E00F;
-	Mon, 25 May 2026 10:57:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FFF610E1A3;
+	Mon, 25 May 2026 11:02:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ILYktu1Z";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="SDlBQuOL";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2E010E00F
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 10:57:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3gZrGj2YR3+SfoOQuAgMhl6DjNIOV/Cz4XPSgQ/V+Kk=; b=ILYktu1Z7fiAMgtt1cQj4l3DEj
- Hr5ieqIhRp3TWAtb8xpu+RtJ2KCcgUbMcQLH/8LZU0axzFiYBftIKg+CvcWI6iR/pu3W8rnq3QtTL
- atuAl63/k7XyI3OHded7sm3GLdMn8PfHO2dew6uWhktxJWaZcNAPNFG5suiDv9KeBKMbPx+u5Q4qR
- ch7ogi1kvF4BiuxI5YcL4DhPW08tLCIL2deb5fsdsX5B8IHmoYhNT69rXzfJ3+QfPIGEX9JNictV+
- +SyBIIUcSs7uFp927IXAc7WFFeyl6B+4XJba0Qg6lhHI9iogB+l4OsswzgfnY/Y/xUjhqcTYBf5XR
- jcO0TU8A==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wRT0C-007yr1-2e; Mon, 25 May 2026 12:57:44 +0200
-Message-ID: <51bc9733-162f-4c1a-88e8-99f23b4677ee@igalia.com>
-Date: Mon, 25 May 2026 11:57:43 +0100
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013063.outbound.protection.outlook.com
+ [40.93.196.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EFFD10E1A3
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 11:02:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AXoZ1jmktu12gzsqjV3V8BJVazEDKQFhfFBS8Sj2KlffT0qSKZww0yY0Smr/sxGxbcQBI8i40R3moUsY0Jd8DyehOmIF8B5cDGRsFvm0Scfwc+EynQIJfuvGWcZIO6fuk//gqXsbtyrrE+OW9DYXCHkXERh9E1fa/zPvGOdD72jl1EQ8OJcpdnVQOq+9eUTOsWk7Ik+rRJtPbEJgHyG2V+0d4e/1XE9zo8vPIgXfiK01BcVcbDsaS1lf4s91KbCEbxlOveQkDHvl7eE0oWWeZuB3uAk9Ys8QjNH6q5AhCt4DLFMTESRPTED+0d6nD37n4C7hYygkTuHyP1fvLtvjkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5FpnROGl/wonNT+7wE3uMMKj1abHQP2iVM8oBFaptbg=;
+ b=PZk49TUphBqzwFSvWqPfwO8doUiS0RBvDJgWW8IGnSsYlPRhrnjRnxJgjyPDr94hoQQv7o/TL7jxI9+/QKW3bqpPdHkIpQ2eQkm3jlQJVvboVog1JNRkpF/tcBVy4LVEYbARcKaSr3rPS9IBAn/mLAtIsM8jx+ol+hmXYvgaJ6p89THgyo8bo2RCUe8YX1lEwfMKuyQEZNfx7zZ2NveXSwdZ6rwG0dgJn6XubmQGFNsguX/0z3+zwrrpQpiqGg8mc9p8YY8R5ZYH6qcj13nL/pd4VKtsm6NNP1AxHgzjWYvomXqShGLwCB6+8NPZbcY511DaxYekVBQoLy68lMcfCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5FpnROGl/wonNT+7wE3uMMKj1abHQP2iVM8oBFaptbg=;
+ b=SDlBQuOLOj9wJxq+gP1YC1untSDlpTOmfeW7l8va9LCUuQbCdIwmIEQJwOUxpPjX6q0x+/hI0+NglzO6Kj1hMXqfvDUSBAVpfsr1YfpluWnNh6S/qSh2e+v/qrABbxDm8f5hbbU7hOXVXPKQW0Ctl+yHQy3HOa1mtdzK3hJdAzxqgTEGnL4dXy2DXkNH6GVqxsM0VqhHC9ifQyYcmwoTJCZw7ojkE0Zvtf/kxA92+YxOGRIPCaw0EkSBUJcW3Agv7GS3tL4anxoNxLmFngSTz8Gj84pweeCROgBtoAk+tpiU5RrmkiY8EbeDgCu/XkJbSnZO6a2fqLc1rP7gE+WD6w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by PH7PR12MB8179.namprd12.prod.outlook.com (2603:10b6:510:2b8::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
+ 2026 11:02:45 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0048.016; Mon, 25 May 2026
+ 11:02:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 25 May 2026 20:02:41 +0900
+Message-Id: <DIRPGQZO0YYN.1HZX96PCQ90MT@nvidia.com>
+Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <aliceryhl@google.com>, <david.m.ertman@intel.com>, <ira.weiny@intel.com>,
+ <leon@kernel.org>, <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v4 10/27] rust: device: make Core and CoreInternal
+ lifetime-parameterized
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260521233501.1191842-1-dakr@kernel.org>
+ <20260521233501.1191842-11-dakr@kernel.org>
+In-Reply-To: <20260521233501.1191842-11-dakr@kernel.org>
+X-ClientProxiedBy: TYCP286CA0200.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:385::6) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/14] drm/v3d: Replace spin_lock_irqsave() with
- spin_lock()
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
- <20260510-v3d-sched-misc-fixes-v2-4-ca4aba343ef6@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260510-v3d-sched-misc-fixes-v2-4-ca4aba343ef6@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH7PR12MB8179:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe6a3baf-7f33-43e1-5eae-08deba4d2608
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|10070799003|11063799006|4143699003|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: MvEzrsXj8PvyQFSlomI5h11SeH3fEOSx2EpEOly48GetUvvfK3k5prWru9dfP79BURuobajmKTh0Vhx3ujirvbu+voU6yYYqtGRH9+ytyE2KDM5HaJYenEmSkhk8BOYCTmEi5HEyCbI/UlEY5dgzcR+B3nJhuH8Q39roN9LfKld3QrP3YF9CGfOlTD9+/OFwOvZEpMu0RSS+LOd8ObeZK5Lvstk758qq6iuw3q7Tlyhq8YZm1uRzJpCmk3NrbF59dQT9vaOfJTk+A78yDbSXeT5Ha1o9nwZISArYnwekdhVLurFO+N719g+B4fidaOshPyyO9hELoqVX+jlR/5gju57f6gf68AsBScCZCm0R60ZJtIEh/P+cVI+1C6mYvYc1VS/eMNDhz7ZutikHq0pRGz10k1WJm+WXF3jvPxz6Nai9+O+umOyhUnNex6ox/L9tbQ/aHwcNQ9diM7fMimK04MQwXlce4Z9/X2sBTZV9Jzr5yR6E9KBMQxIsSHDn9aSRwkPY0/6Xed8/gIGyvLLKcvyPz3embqqsw0N5/FTUWU8dDzei+ztg+AXvtlOG9kUfvGhdW978iEkc8D0jymucXZ7MWGTSGzbyVUKldTv+V+gH7NTEjJw4YtzJzxu5SuaTTOaubx+41FZw/rqgI73XDbf+7B9RpFytuED+4gWc/InHwMp7sIyOA5ml4XYXCiYN
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(10070799003)(11063799006)(4143699003)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L05uTXJYM2RDdVRRdGZRTEcyY0RabXlFMC82bnNjM05SdENWTWtiMFlWUFIy?=
+ =?utf-8?B?V2dremkxK3RoSm8wV0d3Q0dRTURKVHZNSWg5UzNlRmRhMlJwWS9OTkFmOVdq?=
+ =?utf-8?B?b3Rpb0VLdm1vTmJkekFDa3A4Zk1DWVY1bWFzZnhlU2JDV0NQcjE1UHU5TjVv?=
+ =?utf-8?B?OTVUQTVQNkh0REZEVjJmY05VSCt6YzNEWWp0TCtUMTEycGVWQ0xIV3NVeS9K?=
+ =?utf-8?B?ZDArMzhteGcxZU9YN252cmR0R0JNNERTT3FuenhiNFZ5TFdFNStPc1o2S0NO?=
+ =?utf-8?B?d1YzZzkyVnRVK0wyTVdxeTdKYVJreVpjQ3VhZWFacDlSaVNXaSsxV2tyelBL?=
+ =?utf-8?B?UThSZEtYbWlpWEdkT2Z5MlJYS3pEOHRYSW5rQWhKMFdsd3kydFpzSXc4UE4x?=
+ =?utf-8?B?Y25hMmVkY0lWY3g5Szg3c0NhNnZDWkpNalp6bzBOUGNtRitYZFlwYnQwK0ly?=
+ =?utf-8?B?RGlDYVUzazl2UkVObDdtNG5ibjJLdWRtVDYyNXNqMnFicTI0cGtwaE1oWW15?=
+ =?utf-8?B?MUo0a2hCNzRiUUM5ZHkvYysyM0FTeldha1RJdC9FRHMyZjR2eHNjZHpVRjhu?=
+ =?utf-8?B?aHNRclZ5NURkL1MxckVEVGpRZHBuN3FVbVlnODZiUDJ2L09aZHVKaFFlcFFG?=
+ =?utf-8?B?Y0hUNEZDaTV2QWJ3KzBhdWM5MERpeUVsckRabWVZTXQvbFVlMy9jbU8zVHox?=
+ =?utf-8?B?cXlwNVJTSkk1QUlOTFRVVkUxYkZLUWhCTFZJWFpKN2p6Z1FFZVVyNnU0eVl2?=
+ =?utf-8?B?MGtJcmU2VkJ6VWY3UmV0UEw4aUpWSU82S0lHMnpnTWIyWlNsbFloeTZ5Nmtz?=
+ =?utf-8?B?Q0VFWVlvZXh5WHlEdmkrTURVTlNyUk16WHFxUTJmLzRTUmlkYjRzTW9ndDdD?=
+ =?utf-8?B?SUIrQzR1MGl1OERtMzFtMER2K1ZQbFZ6aWpKa05FYjE5aERSbFNFRWYrMHM3?=
+ =?utf-8?B?S3l4NzRpRVFGMlhoeGc1MEx1alBrUGpvdHVjWk1pL21rdGVVR1NVTC9Ldk95?=
+ =?utf-8?B?QVFyTmUzZHgzZkZhQlhaRkhHMlBNaVp3Z0JiWTIzblBtbkx6VWpsaFhvRnZ4?=
+ =?utf-8?B?N1lhYTZkenpockRKS29MK1F2UndGWmpLcHFTT1RJUEZXVEpqT2N2WDFTdkJq?=
+ =?utf-8?B?bzBNNHFFdytMUmEyVkZjQjA2OCttMXllcFpyNmlmY3NRYVZ1TGVyTkhqeFc3?=
+ =?utf-8?B?VVBCbUljUG1MWU9BVWJrYTc5dTRXR0NKbW5pcno0RGM1b0c4bHRmOE9TbUVI?=
+ =?utf-8?B?YitoNkRtUVRWODhibFFVZStmMmdSL2plK1dSM2tzaUF2ekVHeTk0YitvbXpj?=
+ =?utf-8?B?YmxOdllJQy9wQXM1djNxSEFtVjlXUjVva2RJYUdHbHJlNk5VRlREdkp1R3Bm?=
+ =?utf-8?B?UEw0OVRkc0Zxc2Jwb09ZWVhPLzRqamZ6QUZtVXVEeGpqWUVRZUhHQUdzeTVI?=
+ =?utf-8?B?c21rVEtRVHdBajdIZ3NOUHBZSUNtTUlyZ3VZWVRPMEJzQWpNblJnQWtqanZD?=
+ =?utf-8?B?RERxQmoxT3g0Qy9KTTMzSEtKNHc3SDFYYWVFaEgxUDg5UTI2YllDUFgrMTkv?=
+ =?utf-8?B?MUxLdk1WQ3NmQ21EUGtMMm5qMnBQYm11bFhhWnp6eVc4K2JlMFBJMGZoZXZy?=
+ =?utf-8?B?NU56OEpVNjZQSUpWd0RXNnNjUE5hVFJQdnc1c3ZZVVFEbTJ3VXMvWHhVcGhR?=
+ =?utf-8?B?SGhqREZiYnZmeVMxa0t5SG1YWUEvNHg1VHlTWTVvcjVRQzUyTEZmK05vblUr?=
+ =?utf-8?B?OTE4bHFCUHB3bk94dHVSUm5vTFUxVXh2bytCWDlSWFp0NjM2U1hlYk5FWG9j?=
+ =?utf-8?B?TU1xZHZhOHFuSUI0YVF6VE5sK1dTWnlzMU9Oa1MwNjVLRlgyK1RkV294TjF5?=
+ =?utf-8?B?U000ZStxc2lsa053ckozbEUyajIwMDB0dTRrUTROQ1hVUGxEK0VWL1ZpOC9N?=
+ =?utf-8?B?amI5QlE2anNENnNCTHdldzY4MzNJZDBpbWYrWjJqL3JaSm5SVG00bzJ4UEhZ?=
+ =?utf-8?B?L09WeCtQRy93TTlwV0kwRGJscHhZOFJjMXNuTFpSWWdROGxYYmVVNEtSLy80?=
+ =?utf-8?B?Ym0xZ3pWS1hNNXRJbTNyU3dCMDRiZFoxNWNjbGtUTEtIL2VWOGh0dnFCTlBk?=
+ =?utf-8?B?TlJCK2dmQTFrTWQ4U2MyMjNkZklpK0NNb3lxTitPMlJocUp1aDk5d3JudG5V?=
+ =?utf-8?B?NktkRHUvRlU1Wlg5bmJKN215WDltNldkS0o3NWg0SkJLKzE5bm5WU3JNRFp2?=
+ =?utf-8?B?Z3VzQVkrREJXVHphZ0t5eXc3aG5Ra04vZWVsWkpBN3k4bFoyRUtLTTB2QzZj?=
+ =?utf-8?B?RmprWVdXWWZSY3VwOW9tRHVqQ3BsNUl4MXRBYXQrNW1Fd1JQT2Y2YjJCYncr?=
+ =?utf-8?Q?Tc9dX/uEaVyOLlclMkrLAHcoefyTVXqEDNFT3LGw0kkLH?=
+X-MS-Exchange-AntiSpam-MessageData-1: EVKfAt9zohLBsw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe6a3baf-7f33-43e1-5eae-08deba4d2608
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 11:02:44.8645 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GqFD5gTsIiVlM1D0epPx4YeYJDZAb4o6/eI/bCgs3BeZH8QgZr/MJ5E57wQ9aH48oqobb+Ysfg5Sib6la6Z+xQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8179
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,119 +150,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri May 22, 2026 at 8:34 AM JST, Danilo Krummrich wrote:
+> Device<Core> references in probe callbacks are scoped to the callback,
+> not the full binding duration. Add a lifetime parameter to Core and
+> CoreInternal to accurately represent this in the type system.
+>
+> Suggested-by: Gary Guo <gary@garyguo.net>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-On 10/05/2026 23:12, Maíra Canal wrote:
-> queue->queue_lock is only acquired from v3d_overflow_mem_work() and
-> v3d_bin_job_run(), both of which run from workqueue context. The hard
-> IRQ handler does not take this lock, so disabling interrupts while
-> holding it is unnecessary.
-> 
-> Drop the spin_lock_irqsave() and use plain spin_(un)lock() instead.
-> 
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/v3d/v3d_irq.c   | 17 +++++++----------
->   drivers/gpu/drm/v3d/v3d_sched.c | 21 ++++++++++-----------
->   2 files changed, 17 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/v3d/v3d_irq.c b/drivers/gpu/drm/v3d/v3d_irq.c
-> index 86efaef2722c..754a969b862b 100644
-> --- a/drivers/gpu/drm/v3d/v3d_irq.c
-> +++ b/drivers/gpu/drm/v3d/v3d_irq.c
-> @@ -47,7 +47,6 @@ v3d_overflow_mem_work(struct work_struct *work)
->   	struct v3d_queue_state *queue = &v3d->queue[V3D_BIN];
->   	struct v3d_bin_job *bin_job;
->   	struct drm_gem_object *obj;
-> -	unsigned long irqflags;
->   
->   	if (IS_ERR(bo)) {
->   		drm_err(dev, "Couldn't allocate binner overflow mem\n");
-> @@ -64,18 +63,16 @@ v3d_overflow_mem_work(struct work_struct *work)
->   	 * bin job got scheduled, that's fine.  We'll just give them
->   	 * some binner pool anyway.
->   	 */
-> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
-> -	bin_job = (struct v3d_bin_job *)queue->active_job;
-> +	scoped_guard(spinlock, &queue->queue_lock) {
-> +		bin_job = (struct v3d_bin_job *)queue->active_job;
->   
-> -	if (!bin_job) {
-> -		spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-> -		goto out;
-> +		if (!bin_job)
-> +			goto out;
-> +
-> +		drm_gem_object_get(obj);
-> +		list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
->   	}
->   
-> -	drm_gem_object_get(obj);
-> -	list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
-> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-> -
->   	v3d_mmu_flush_all(v3d);
->   
->   	V3D_CORE_WRITE(0, V3D_PTB_BPOA, bo->node.start << V3D_MMU_PAGE_SHIFT);
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-> index 66569b538e4e..cc3212e2cb5d 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -204,7 +204,6 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
->   	struct v3d_queue_state *queue = &v3d->queue[V3D_BIN];
->   	struct drm_device *dev = &v3d->drm;
->   	struct dma_fence *fence;
-> -	unsigned long irqflags;
->   
->   	if (unlikely(job->base.base.s_fence->finished.error))
->   		goto out_clean_job;
-> @@ -212,13 +211,13 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
->   	/* Lock required around bin_job update vs
->   	 * v3d_overflow_mem_work().
->   	 */
-> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
-> -	queue->active_job = &job->base;
-> -	/* Clear out the overflow allocation, so we don't
-> -	 * reuse the overflow attached to a previous job.
-> -	 */
-> -	V3D_CORE_WRITE(0, V3D_PTB_BPOS, 0);
-> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-> +	scoped_guard(spinlock, &queue->queue_lock) {
-> +		queue->active_job = &job->base;
-> +		/* Clear out the overflow allocation, so we don't
-> +		 * reuse the overflow attached to a previous job.
-> +		 */
-> +		V3D_CORE_WRITE(0, V3D_PTB_BPOS, 0);
-
-Transformation is like-for-like and after the previous patch irq safety 
-is indeed not needed, so:
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-The only thing I am not sure of is whether this write to V3D_PTB_BPOS 
-needs to under the lock. Bin job run callback is the only place which 
-touches it so maybe not? And if it doesn't, then of course do that 
-movement in a separate patch.
-
-Regards,
-
-Tvrtko
-
-> +	}
->   
->   	v3d_invalidate_caches(v3d);
->   
-> @@ -254,9 +253,9 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
->   	return fence;
->   
->   out_clean_job:
-> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
-> -	queue->active_job = NULL;
-> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-> +	scoped_guard(spinlock, &queue->queue_lock) {
-> +		queue->active_job = NULL;
-> +	}
->   	return NULL;
->   }
->   
-> 
-
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
