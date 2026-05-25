@@ -4,134 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11CD5CD5BD0
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 12:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A6F1CD5BD0
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 12:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB9A10E2DA;
-	Mon, 25 May 2026 12:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B260D892C8;
+	Mon, 25 May 2026 12:40:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="gjPtszwc";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CnbHTBxG";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bo3U+wKj";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010032.outbound.protection.outlook.com
- [52.101.193.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3E1810E2DA;
- Mon, 25 May 2026 12:38:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DKt/NAzXt1EUexCTnBaFlUmqEmKTD/oFnY8NbmZAiGhYcmVhP5utGw2mBdHv22DppOB0yy390zSKTTZX0fatptGIQCYZsbRRsKqlLuAsDbTGAchifoFJQCjr3XCX+0byP1OOPGw8e78CnkakLy3IQgcqh7PBGBX8K5PDfzObnjWW87i/h1TgE1Wk1S3IUM1Mao2o9NYutCb0V0eoxWa/s9Sd8j4jAU1kp2hGlTqAMBKKLhHTObmIhzSOVD0boVMteQqgSJi+18rikxsMidc1Vohg2qpEATSTzhmhmn5j7T53Bfwos9JswyHbpSJZipJqf7rrQaJC2/LYbvem8KKhiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jUMfAEMQJc7XxxUNdgqjRPcyEa++2NTwvLKNfBRC9rs=;
- b=TngkT+B/CPxy1p4SAp5Lm//OPJbvvWN9Hu6CxHboSKamBclw79v5AMc1G1IvnzuN5OC1vF9UQt10yG5EntdbiiFwZB/GIyCPH1QsAbgkBoHeYfdFcUKvyY85fUlEnqHn7C5JA2y6/Rel278u3PRD5cp8lx2gEQt9N2HjdNB/iNO/my+I8jVo94/ALmKJfu7fKfaJb6qB9ZYQcnTTXkcP890XzBlWa6js4ClyXFrs29bvzQ4gXwXXdZcEmoVTBN7TReIFMrugkVI5g73VtA3oleBzisoAQy1Ilzjy3LoaoWEaLp7dt1dq/lYFMDzHMlpd8NXC0UkVLDCS4DqHPgT7bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jUMfAEMQJc7XxxUNdgqjRPcyEa++2NTwvLKNfBRC9rs=;
- b=gjPtszwcgUc41/WxbcibyYgIPTzq8VmgMU4SZjskoHg7cgtYwr50AadA2kTldqxLt3o0KYkX/6tepbNgo3rTXtY4XfrQdEbS6isnwDBmabnry6+kuATkwJmnBtwRlekxUOrp0+MriNUFGX/7FS2WALOj72fprQ1p+OBOXezyB3YsPwEAW15uh1HFbveilZflk87DmUo0839KQEax+TIlmSpu+rW2pR+fAg4qwsyfJihFRTlgNZeQQ2TZc3+Eci1minT3ykcQzXNzKqtE3eLIsCFDZ3h779pFMjTf2AeJbn5QRL0zgZjQ1Dd7NzYL8AIsCWqRP+tP4COqAJI3kdOz2g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by BN7PPF7F4CD71A4.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6d6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
- 2026 12:38:43 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0048.019; Mon, 25 May 2026
- 12:38:43 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 25 May 2026 21:38:39 +0900
-Message-Id: <DIRRI8BMO3CL.1H4LSPXCKOAZN@nvidia.com>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Joel
- Fernandes" <joelagnelf@nvidia.com>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v4 14/20] gpu: nova-core: vbios: construct
- `FwSecBiosImage` directly from BIOS images
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260519-fix-vbios-v4-0-5d3f210c5602@nvidia.com>
- <20260519-fix-vbios-v4-14-5d3f210c5602@nvidia.com>
- <b7bba000-adf4-4ebb-939b-8f9f549fa6b0@nvidia.com>
-In-Reply-To: <b7bba000-adf4-4ebb-939b-8f9f549fa6b0@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0061.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:371::15) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 098FB892C8
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 12:40:17 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64P8f3Dl4156310
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 12:40:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ MmglVhlO6xRIyqHwjXuSIzMFaQCymWUXmP5JOhtQ+JE=; b=CnbHTBxGNIfzUJ08
+ j0kVrg06YgdpZTAj4LUN6Nzq4fIsVGZvtLuSPcFlPFvuRTtqby6areJRJ85RSo5o
+ /S8F3Mmi5IQYhtXa1TIpdH2ro1Y6jZ847LkD9kNbFWPaUmh2e1SpFMYJ3IGyrARA
+ pd5KqXEOviFl+SJr64kdLcc2wBfgZQ/cT5nEDEp0/T6diM9vNV6YCSCkabKuM9R7
+ 9qj+cAzmhVjsDnC7DhxMyDMUmEvMVxJoVUmfHn5HwAazetU+tu3EBq5i58hCQ2Fa
+ Fe495Y6rjA3aDlh8YrGgi3YvwPkxkIh7ukh/JH5im2dwElNODNqAxLMW+rMlsHq4
+ ASVgRA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb4m7pm73-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 12:40:17 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-914ae262b06so68925385a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 05:40:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779712816; x=1780317616;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MmglVhlO6xRIyqHwjXuSIzMFaQCymWUXmP5JOhtQ+JE=;
+ b=Bo3U+wKjeTxDds0JstRYPpH4wKA7SicGUQfryIZcRarSfSLGqWc2DnDtdrIDFWy1AF
+ wtbM2uIQbkjOCPeY/HHFVBhr3Lb/qyHQIsRG8GaI2TE5Vlx0ee4Pk1SyzkiUoKH/4k9D
+ bpYom0WhDsKjEkV6eQm26y9nfpixjgi4Sa1suZdZEfwkTTZScciaisthhE4bvJU2xKu6
+ FGLNkqBP4G/2+RJDY8s9i57BmHZZHOpfapgDBjwqkljeumSQbx6tfBASuqVvPfjdtXoS
+ 4+9mFFAaN0ezkH4RhQMGnOzZVjb8nXKgFe2NAm8MLskqbkKlB8jDFSmusQCGI+giIr4E
+ 0AHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779712816; x=1780317616;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MmglVhlO6xRIyqHwjXuSIzMFaQCymWUXmP5JOhtQ+JE=;
+ b=oRpwHG644K6G20yLbM+F4aQX73+ippcvPHidKybqGOh2/6mQpUSnKG+fJJoW7tDC10
+ 9OGfDpjFpFCLGAC9JCAoPSko+gjc4nJf4xQMLAeBUJNR6mYLfMGUdM0U3N2CvFlNOahf
+ 5l86RoGA0H1/PeOBtt2i5CC07dE+0lAVcrzVwimoYCcmziSvu0WOk+LKpAqg+aCgEDIB
+ Uq0sXvKYdHz0EsJazko2ljRu56DNk+ve0jAen02w9NDbZ3r4VZmjLfHfPVb0j4jjfPDm
+ 2JQJBYQclnoMEqhh76LsDogzOkl8R+URe2UwFMagHOsFTuz4Z4gY/gNGoL7/GBiVuNun
+ rVAw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ80vrpgvy2ilBwV+PN+9gNjDFoKrM4bnHMcwkQf280E9se/wA6FXcOVl8dqIV8v2TifP+/EUSHGV7I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxiixJwAAEzjLKMdnofFcjJivkVKh4GKGJclAQGTPhq3Q9llWat
+ SCeifMXr3C0S9GJh5c9PYRib1m5dRflun29PjIkwxTeTtZWSwNG3gCkbJsmTE5zWMxAaI1v+xTf
+ JelWyAn6WtgbFcKG/yzOxmilvWUym/B6FmUl+48spT8et2Ty8t0KDr5VT2OX9B6d7oZ6zVrk=
+X-Gm-Gg: Acq92OHpkdCbUQoEBOTLCi2/uyhftFY8kaRXiZld1/1CKnhVAMa4GH7zLvdIxe6RPqn
+ DYodaKcgsoCEutoIjUWAL6lhdFhjUQiwn89p2rkZa1UywcjimTpkX3uIdavT6K41UmgtswoegK+
+ VXby11Bx8GbH2ArZFaD49RuBaFvEgRaNvaFLwaZeosyLyX8LZUZH9X37u+/al4fNNZTwrO9Av1I
+ FjyuD7I+rFRsAuNpolByzHK2yvdpWblA4E0cBKcy6T9iA6ethDNagSDT7eOfRPjv/KnywwG3QO1
+ c45sWc2rtFtfUbjVo9LXkdGorkwBcKGBWQ+6ZXxTNAWbHVDIdtvhXHACOi1RFo7u19oKhUatFI0
+ nVDhSqjZaiYCI/dZC8akvRRY271d8odhXNwE9RPALshbvDg==
+X-Received: by 2002:a05:620a:468a:b0:8ee:a1d:bac6 with SMTP id
+ af79cd13be357-914b49e9d14mr1374572485a.4.1779712816373; 
+ Mon, 25 May 2026 05:40:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:468a:b0:8ee:a1d:bac6 with SMTP id
+ af79cd13be357-914b49e9d14mr1374569185a.4.1779712815873; 
+ Mon, 25 May 2026 05:40:15 -0700 (PDT)
+Received: from [192.168.119.254] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-688b9f603desm3917557a12.12.2026.05.25.05.40.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 May 2026 05:40:14 -0700 (PDT)
+Message-ID: <934e6039-4639-49bd-8cf9-a1674f86b8c8@oss.qualcomm.com>
+Date: Mon, 25 May 2026 14:40:12 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|BN7PPF7F4CD71A4:EE_
-X-MS-Office365-Filtering-Correlation-Id: b330e792-5247-42a9-4f69-08deba5a8e49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|10070799003|4143699003|11063799006|3023799007|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: XstuJ1w25NYRhKZlZmMJIzeLFaLGICFhrb1X1uxYeO27zroTS4gdrz6KZwomplTX37Iqf3AGIo80pOigga30/36dtYWxAGYi/J3up0Apb17Xg1VR6MdnhHsPowDwyNoPqz3FZaAZWULdhtX6/yw9LtfREyBKsV+VCeMCjZgQZ68xOAWvga0gkpwAlW8nwmBOlzTS1JpHUcNIQm4uhYzFc3QEQ4xIaF8Pth0lJUHH0lJXMEeOi2+QNhHGRyt2RBHAh85KKm1WQwOrRNIinxhkAAAYSKjJJri/R3KaUkWdRZ+npwOgkb0JzAiCkKlXWJOdJUHQGxxagiDVVUv89sKUWCm002S1Ta1x4Y8X1eESJRg0+/fQOJLfxZSAAvtHbrpmRfcj10Bz4J019WUnC63ibZ8zxl1q86avaKs8KUctGHqScf8XC6B/5ZhKrWtdh4ORE4d9+pw9fzbhdtZqs/EdGN7CMiAbEB1xlS2SyVgqLETT9uhudArKQsWixDNebMhy1FC8yhdqtvLA2JX01GQ0ox8WpEfLmAC8oeiGwqaha8pMW5ZlViyDtoItjgznFp7K3n4VNlYEL+LBkF8sVmfo297YI/qnpNSf09kVMCsDFzYAeRX4aP5/Nh4eag3jQl5ZxiUUdHyQkTWe9VlX5PFQnro0jG5MuqFNOxFrrS+IAXN/p4xiSguhO2ekZ95vPkdj
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(10070799003)(4143699003)(11063799006)(3023799007)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SVAreVZqWUVMTDUxT2thUjc2dEtYY05VTElvbmY4Vld3YkJJZGVPcyswYlk4?=
- =?utf-8?B?QjU1T3Ftd2dPS2pDT2FBQ2t5V1dnQnFGWU9Sc0Fxd081UjlJdm05elhCRUVX?=
- =?utf-8?B?clNiOTk5SkFTRlJMNjlleUQ4SkRsS0lhbUdPOUNCeE9ScWtkcTRqRmV2Kys1?=
- =?utf-8?B?NUlmVHowWUhFY0ZxWUlYc1IvdHdFampjVXAwRHZGV3VWMTBiZzNUZnpUM2xM?=
- =?utf-8?B?NXQ0NzBOOFlpN01UblQreU1XTTUwdnFwa1piTFpzWVlYeFNFWHZPODRjYXFM?=
- =?utf-8?B?RmQ0UWhrelJYZnlQUm9jUlFGVkNtS2J2R2NzZ0U0dnE3Z0RzMEYyUHZRSm8r?=
- =?utf-8?B?a1JpSitpd0NXWWErQVFCN2tZMUgyZVJ4SEdDT3RKZUZhenY0a1l1aVRmRHYr?=
- =?utf-8?B?ZTFiWUlQSVhQckF4NUZkM2I2TzBnSEd6d0E2d1M2NWJGdmwyNUdYazZjRVgy?=
- =?utf-8?B?K1cwWVMyQ09YSElSQjJ1a0d0NkZvdUJ4bmdLMmVIa2lzUUtiNzhlWTdaRzV5?=
- =?utf-8?B?Rmtodyszc3VBdU1Remsxbjk3dC9ndnlBNzRjZENjMGhldlJRaU80OWdvckhI?=
- =?utf-8?B?emlPMlByVldUdWMvOE9LWnZtdFUvWExYMU1aL0hDVmo1NlZ0b09ERkFySEQ0?=
- =?utf-8?B?UTlNcVlsWFYrbVh6SjE0elVFdW91MXdFbEVlYkU0eDZLbTR3RGYwR2RUNzlI?=
- =?utf-8?B?SUdMWFJheGFIZkczMEZXNi9PMnFheW5TK1JGaUZ5Mi9rYUp2ekgwUEZwTFVr?=
- =?utf-8?B?ZmxlUG84dERHWHROTUU2akZ6MWYzNnNNYTB1U05QYkQ2WVJ3NjZkdmh1b1VU?=
- =?utf-8?B?UGl6Z1Q0SlJudmMxYjcyQjJRaFZNdFVYakNLaGg3VUIwTnJlS0dLTVkydjNY?=
- =?utf-8?B?dkhtYW05QVczNlg3ZmoyVHhvdkljMVRDT251WVdWRVBsL2liMGFseHAxdG5h?=
- =?utf-8?B?V0NqbTN4OHZlb0lIQWh5MHkyYWN2OUNCcXV2OHoxeHRNVUl1UitFc3J2ajVT?=
- =?utf-8?B?cTVhb1hkTExiMmNPbTV1d1hBMkFvaXpmRFFSbFRMQXJsZGdDeUhaM1BYdEtz?=
- =?utf-8?B?RjV6aUQvS3RvSVM1b3I3ZmFMUlE5Um9LbEVra1M2UXNzdnhlVXM0M2w4ZGc2?=
- =?utf-8?B?V0xIMW5xeW5qTnBLZTBjQllzS0tBc0tGbG5PaUFHZGJJSnJ6S1RGdnYvNzg2?=
- =?utf-8?B?Mld3OE5ZSGM4WTBEUmxsRVRZcnpGRElJS2FkR1BLdE5TRVJPWkhNcnNpQ1dl?=
- =?utf-8?B?TWIzSmVHMnBqQmFmT2tVQmpzdXptbUJxMVY5RU1NVkgrWWNnei9SRWg2ekg4?=
- =?utf-8?B?U2FmaEdIeTZCWWVsbkxVR25ybXhBTTR5S0FZRkIvM25Gb0FUMXFTSHZ4dDMw?=
- =?utf-8?B?UlRiSnVBQ2ZTYUcxbzh1L0tqWXFQRGsyblcxRkN0bnozSEVwMzYrdUVwT1l5?=
- =?utf-8?B?UCtoOGF5WXhMQXd1N2kzWS9Odkp1S2FaNUhURW5Vb3Z6OEFzVDNwWFJRNVhK?=
- =?utf-8?B?a1BKVDI2TWZ1QUN1SWJNd1QwbVMxWkNPeXJCamhJdmhUaW9sWEltU2loZ1pJ?=
- =?utf-8?B?STdnK0dMcHpSb2JJcDZja1NLZEM0SFNrUWM2QUNmZitPWUI3WUwrbENtdHZa?=
- =?utf-8?B?V3ZGTE91dlpId1ZXVXJSRlBKRnBKbE1UM0l4b1NXbjI4UERpR0p4SXIzK3hX?=
- =?utf-8?B?Mkg4VWZTN2EyWGJxR090bkpIUytkV3lKUkN2UktJWE5razlGcmYwQkl3blNv?=
- =?utf-8?B?c1VmNDJmVHBlMk1SN09pNGF4VmxabXNybHpEUmhZY3NiY3R3SmZZYnJjYUpk?=
- =?utf-8?B?U3EwQnF0Q2RGYitZTURHQWxMNC9XVWJWKzZDbmUyMnk2QWRrYWJ4TFRHQjRx?=
- =?utf-8?B?NnFhUjVKYi82UHpDWS9NOUZUdmt1TGl0VEtJSmJsZHlqcmEremphMTlxNUlG?=
- =?utf-8?B?ZkZiRmFoQkduVlhMUXZHbXltM3dDZ0RSZ2F1SC9TMFVaaFhQek8xbHZET3lV?=
- =?utf-8?B?L2Q0eWZDN0RIK3JQNEJGdkpFbDErUHcxaVVPMURTR2VRT3Y1aHYwMFQvZjY5?=
- =?utf-8?B?U3FjcXdBbEM2R3B3KzBWVzRpMjhsdksvbk1FeTh4bFRmMFdwc2JUK3hjOE5i?=
- =?utf-8?B?Nkh2WURGTGtxb3RyT3hwQWVEbzJpb2N0MGRJTnFDaWEyTmxxMFAvOWhINkhO?=
- =?utf-8?B?N0ZXanNSWVFUODYrQ1htMWJGOW5OOTFPeWk5dWNhaWN0d29UVEkrRHZlMnhD?=
- =?utf-8?B?L09lU0V0OEI4Y2lqR2pJZXY1WWVUanh4Q1EzR3FUaG9ZM0wzRkliZjFKbUQ2?=
- =?utf-8?B?VGErbzE4aURtQnZvLzVXN1hLaDlybXhIZHFTVlhxWFJRRS9Yd2pObDlMNjNW?=
- =?utf-8?Q?HCt8J9Rkws0RRzgWDgCHGJ9EYojoU+QjtckJo+Ot0X2VT?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7GkcyP5aPgfiXw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b330e792-5247-42a9-4f69-08deba5a8e49
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 12:38:43.1414 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zXs2XRIzisfSdyW4r+AbMG9JDwPv806CA/4V78BJIDnpfJDt35GBVLUjA/yPACKhx+2oIrHJ6nvpsqhuVoTd3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF7F4CD71A4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] soc: qcom: rpmh-rsc: Skip TCS init when RSC is
+ managed by firmware
+To: Graham O'Connor <graham.oconnor@gmail.com>, linux-arm-msm@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, abhinav.kumar@linux.dev, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260522060645.4399-1-graham.oconnor@gmail.com>
+ <20260522060645.4399-2-graham.oconnor@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260522060645.4399-2-graham.oconnor@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: dsCaxFEVZufioNk3aV6OAVJhxNzJyCbQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDEzMCBTYWx0ZWRfX2qrFyKBEPirP
+ 8pBp+STuNuzk44prDR9HgGL2uPAfQcBLhjaYYBxBrmBOmtssM8RETucthFrwDilU7VLUfoheBz5
+ RTObXQj0M0wXvMAaOAdp1gliR+4jXTY6AGc88PSlxOA5bXF/USOPemwf5SZxUDxW4gQpM8J+Mu3
+ H3iWASvxQXEF4FT06eao6i0b8zq1x25VpBs+C0wjn7OjOy0+dOEBSEvask1J0Q71C6O13jNEF7H
+ USa5zxPi2CNDwKrLOYlhx8csdni5I+El5d/1JIVTy4d2hXNCz0rU/8WTZprE2fYclXzRdWHj5lW
+ 7V24Ff9Sov+N3iM8OJGG8RbJ2etRi250L8EPEP4v2gYNZVwYrv47vC+LbRiV49q3Mu+0Sg9g4RM
+ r7lqTvgqtVvvhOmnfMOUw2lujoQsbFPb5m1LcDpBSYES7etXtt+TJs/9vZb4H6tqcNBAxsF/gQC
+ vqqax6y2IC2IhVCo6UA==
+X-Authority-Analysis: v=2.4 cv=MrJiLWae c=1 sm=1 tr=0 ts=6a144331 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VOnKaOCXMBmNH4hAPL4A:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: dsCaxFEVZufioNk3aV6OAVJhxNzJyCbQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-25_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 malwarescore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605250130
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,77 +146,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat May 23, 2026 at 9:13 AM JST, John Hubbard wrote:
-> On 5/18/26 7:55 PM, Eliot Courtney wrote:
->> `FwSecBiosBuilder` now only contains `falcon_ucode_offset` which just
->> gets passed directly into `FwSecBiosImage`. Remove `FwSecBiosBuilder`
->> and construct `FwSecBiosImage` directly, as a simplification.
->>=20
->> Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/vbios.rs | 98 +++++++++++++++++------------------=
--------
->>  1 file changed, 39 insertions(+), 59 deletions(-)
-> ...> @@ -353,15 +349,23 @@ pub(crate) fn new(dev: &device::Device, bar0: =
-&Bar0) -> Result<Vbios> {
->>          }
->> =20
->>          // Using all the images, setup the falcon data pointer in Fwsec=
-.
->> -        if let (Some(mut second), Some(first), Some(pci_at)) =3D
->> +        if let (Some(second), Some(first), Some(pci_at)) =3D
->>              (second_fwsec_image, first_fwsec_image, pci_at_image)
->>          {
->> -            second
->> -                .setup_falcon_data(&pci_at, &first)
->> +            let fwsec_image =3D FwSecBiosImage::new(pci_at, first, seco=
-nd)
->>                  .inspect_err(|e| dev_err!(dev, "Falcon data setup faile=
-d: {:?}\n", e))?;
->> -            Ok(Vbios {
->> -                fwsec_image: second.build()?,
->> -            })
->> +
->> +            if cfg!(debug_assertions) {
->> +                // Print the desc header for debugging
->
-> Both this patch, and patch 16/20 are doing a tiny bit of work to
-> preserve this printing. And that looks good.
->
-> However, after careful consideration over several months, I have
-> come to believe that this printing is no longer earning its keep,
-> even for debug-level printing.
->
-> A significant fraction of the dmesg debug level output is consumed
-> by this one print, for example:
->
-> nova-core 0000:01:00.0: PmuLookupTableEntry desc: V3(
->     FalconUCodeDescV3 {
->         hdr: 78381825,
->         stored_size: 59904,
->         pkc_data_offset: 1444,
->         interface_offset: 28,
->         imem_phys_base: 0,
->         imem_load_size: 57856,
->         imem_virt_base: 0,
->         dmem_phys_base: 0,
->         dmem_load_size: 2048,
->         engine_id_mask: 1024,
->         ucode_id: 9,
->         signature_count: 3,
->         signature_versions: 7,
->         _reserved: 37449,
->     },
-> )
->
-> ...and yet it is exceedingly rare to make use of that particular
-> data, even when debugging.
->
-> Let's just delete it. As always, bringup people can add it back in
-> temporarily if they need it. But they likely never will, because new
-> hardware doesn't hit this path anyway.
+On 5/22/26 8:06 AM, Graham O'Connor wrote:
+> On QCS6490-based platforms booting via UEFI, the RSC hardware solver
+> is already active when the kernel takes over from the firmware. Calling
+> rpmh_probe_tcs_config() in this state reinitializes the controller
+> while the firmware is actively managing it, causing a security
+> violation and system reset.
 
-Yeah, good idea - I am glad to hear tbh. I wanted to delete these when
-working on this but I wasn't completely sure what people find useful
-for debugging etc so I left it alone. Thanks!
+I don't think this has been an issue so far on other platforms..
+
+Do you have some more details?
+
+Konrad
