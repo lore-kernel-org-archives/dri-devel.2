@@ -4,47 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB273CD5BBF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 08:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB34ECD5BBF
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 08:28:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DDF510E5F4;
-	Mon, 25 May 2026 08:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3690110E5F5;
+	Mon, 25 May 2026 08:28:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Rniw1FlN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ebFSXMox";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N5tgaPoM";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF1410E5F4
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:28:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Lv
- ACdezaJFlYc8/KTHh3irWUTEDg1QmiaXKDHI/aTuA=; b=Rniw1FlNKuOkPC2s2p
- 5iB3TBIi3J9EgW31D+0kQiss3+57X+HYFScsNUfpTpr+ThVJi/iP/WepUzqzc7vN
- ZSu40NAecn5cuDd6DVo8t+V28fRjkaICGgvnI4G4Bxxa5849ewBEevJI/iilS9pe
- Iz/HauwxrtvX00aWekT3nIGVo=
-Received: from 163.com (unknown [])
- by gzsmtp5 (Coremail) with SMTP id QCgvCgAHGrD_BxRqrB9rFA--.116S2;
- Mon, 25 May 2026 16:27:47 +0800 (CST)
-From: w15303746062@163.com
-To: simona@ffwll.ch,
-	deller@gmx.de
-Cc: tzimmermann@suse.de, ville.syrjala@linux.intel.com, sam@ravnborg.org,
- kees@kernel.org, yanquanmin1@huawei.com, syoshida@redhat.com,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: [PATCH 7.0] fbdev: fbcon: fix memory leak in error path of
- fbcon_do_set_font()
-Date: Mon, 25 May 2026 16:27:41 +0800
-Message-Id: <20260525082741.600003-1-w15303746062@163.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC2010E5F5
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:28:53 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64P6DlWo723934
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:28:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=BLppBFkkrTJ9DihnX0lJj7ir
+ Oe9XAXyw3RAwRnSslRc=; b=ebFSXMoxFbFObAypkDqxQJPVzyAx8JR7wzI3jplF
+ PIYAc9+s1D7EwDMUA8CZP+50b8ogDG6WNtEiVVmMZmki+xDwixDm48OtQHfCDPyB
+ +t+xFEjBcZ42MFfo6tKU07K2HSHY3PNuagvPGcxL026BTDIAJJiGegKJh2Uqak5w
+ x4a1hBGVnh19zhBB22cad6uZZJYZ0DPw+5Tlr7UIoEZOJy4lbB78Wvu/3b+5kD4m
+ G7k94LxqmSFPjMKjLGAa1fhftEK6fo6sU1J2Awjk25zoz3Va7Geb1GrCfrtb43DX
+ sMICmizXhAFgDI+YC7nO0jDmEie7pr0sZoIoHpY2Vs+jmQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb88w58mc-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 08:28:52 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-516d09e77e6so72486591cf.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 01:28:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779697732; x=1780302532;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=BLppBFkkrTJ9DihnX0lJj7irOe9XAXyw3RAwRnSslRc=;
+ b=N5tgaPoMXbN4C5uAYq/dosy3c1ilH92JvRiExyPHz+9wsWLxnonLd2koVpEtgx7VsQ
+ jHGwN13m6Xy6Rrol6thVg3rsbFZBnwH7BbDtqRvGQXt1G+gJGAuwMuriFRlxqKHYxkLf
+ axY0KN83a6HyM1EUUho9n3+UXX7yvVEHsBbSk6qz5UCwCFDvTx43/4aN29d5m5+3aQjy
+ v+UFIcG/2AG9RShyxJgZftN4ElNHpMSj7xKkqk1ONL1QVaiR1e4c2dOax0EDjobD9f8O
+ VXznuQattqAPOOVZE94Cfrr4JWKrEeV7Sl0gSaluyi8Tx+pUlcRkAKQ+1phJWhxmTwFC
+ dSWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779697732; x=1780302532;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BLppBFkkrTJ9DihnX0lJj7irOe9XAXyw3RAwRnSslRc=;
+ b=ehaivl0f4VkOPVqxrL1GOv4JtDabEJX1rOmyqPVQZdXd9FEiXCfaJSGYCWWqSceVzN
+ PDUUYrhwdvuW++TBvvioeBB6tmegYm0e2my68R/kr0zX85VuLcvN4IPBucOPs4bL/IJJ
+ a69fpIKs1/Qq3FBnCth1ryx01c32bxffHM5z+D2rRNNJG2MCKuP4xC3ROEqa7nDoQEAz
+ B2A+LqWKXvjS3/iHAeR0jB2Qk5rNh+kpisWvYWL8QSsm5sfcHpsl/1+NCbJIOhyr0UJj
+ S0iG+TC+WSfw/EZR0xmOugrnWjJgecFiAFFMpuQ/HaM1A4yK6+zYEXryCBJj29d0ZRKn
+ Qw7g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+6vVhojyCpSjQITrcVaLj9C+OGJnTMDYALl3OAFN8boLw+sZFvMCWd91zr8HNNPueiAD4LfP5wC4A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+orT1jBKum9hTVGiRGRMTG07tPNZgTpKW4TCQZqmHjBjhDieH
+ VILenJAItjzgWvkWEEw9snckgb6XdzgewpuW3iSWFer281xaO0hmeu7MeYMahOcdbyqTXXCU+9K
+ GIuih08ivDVzEawPC0T0dSB4I6T7lH1SczYu4NG/ALMtVbQFxKzfZyauZw4gwMd0kbkD5gkI=
+X-Gm-Gg: Acq92OEr9rGK9lxqfAgwYmRnzvCUd6OlmJHi/8qUuhtFIG5m/gmbFX71nm1fsqQHLvm
+ kFgmlxvBAlTl/Yu1J04dD+ognjT1dRSrQxOYNmG/WTxhDNZIgA12DDk0iz5lQT1DwSHOu1BiB5x
+ Y1w8dpzPAzKnsMgVW3vfKlKTVqSDndJ8eOrB1P+H+u8vg3VPvOlXRWKOucnQL4vhaaph1CdL5/8
+ GnfertyL9YjnZ0qJNt2qHWlZSOKxC1DA7Al4Z6w/gQIG0RFczEYOtofj4rkOkWSwLWgqPXumaDP
+ 238z6FadpebeOv/pvlcwdgHOTrOysnHSdKEE2HqrttS1QkQ2oLKLhuCVKVkwGW+gxvGo0awTa/E
+ DVLl0wWF0UAz+5Ze7CKHNrMCpUPF1X/5mrwRmDrwd9Ez/P/ytP9OBK3fR4r7Kh3HDZUu65Rkrh1
+ 5QuMBnfQV0TFaDBh1JQ+9Dajvg13uECwE1w6M=
+X-Received: by 2002:a05:622a:6115:b0:516:51da:ae52 with SMTP id
+ d75a77b69052e-516d43cb30amr179921241cf.33.1779697731660; 
+ Mon, 25 May 2026 01:28:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:6115:b0:516:51da:ae52 with SMTP id
+ d75a77b69052e-516d43cb30amr179921091cf.33.1779697731225; 
+ Mon, 25 May 2026 01:28:51 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-395dcc4446asm21334871fa.39.2026.05.25.01.28.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2026 01:28:50 -0700 (PDT)
+Date: Mon, 25 May 2026 11:28:48 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Jianping Li <jianping.li@oss.qualcomm.com>, amahesh@qti.qualcomm.com,
+ arnd@arndb.de, abelvesa@kernel.org, jorge.ramirez-ortiz@linaro.org,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, stable@kernel.org
+Subject: Re: [PATCH v5 2/5] misc: fastrpc: Remove buffer from list prior to
+ unmap operation
+Message-ID: <wowscekybeyxjgoztvwtgls4s7pbwciiztsizyc6kolxp4g72m@bfy32b24zo2s>
+References: <20260515124217.20723-1-jianping.li@oss.qualcomm.com>
+ <20260515124217.20723-3-jianping.li@oss.qualcomm.com>
+ <xnkycubizpoe4rmhc3jt36ulx2fb3tubjybu3djovafkqqttmc@o6vw2so5ctxr>
+ <37146a3a-b18f-40f1-b95b-0ac19bf6c07a@oss.qualcomm.com>
+ <2026052211-pavilion-compost-5fcd@gregkh>
+ <d9248bf3-ef48-4c04-ad7d-debc8854bae5@oss.qualcomm.com>
+ <2026052541-moaning-dioxide-d5c7@gregkh>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: QCgvCgAHGrD_BxRqrB9rFA--.116S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCrWrKrW5ArWkWw17Zr13urg_yoW5ZryrpF
- 4rG34SkFn5JF1jka1v9w48ZF4rXa42kFW5WayxKa4Yqr45CryUCr4rtFyUZa98GrZ7WFyS
- vw1jy3yjgas8uaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5SdkUUUUU=
-X-Originating-IP: [113.200.174.100]
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbDAAOhhWoUCAPvhAAA35
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026052541-moaning-dioxide-d5c7@gregkh>
+X-Authority-Analysis: v=2.4 cv=S/jpBosP c=1 sm=1 tr=0 ts=6a140844 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=Wl0GIK3KD4wLFu1QXOQA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDA4NSBTYWx0ZWRfX7uomUgqgH07c
+ QtuE30zoA8FHI7iEGuwexcOQ3O8xp2IYIvU0M3gIn9Bkqobf2SraPeAup3C+Fx8gtd2IdgHDWUB
+ r4+g574X9RxKqirxDEMFssMKCrCPlDzzDy5qsuTjVwNmySiVYY0ySjFvIjyMy69rFZJNcT3H3+l
+ fXg74HQiD/WkdV4JtIl7NaRbpaF59a0uoB1+wMQOKeXxHVF1MbjI8LEUiZ+5FLpMkv5NeWAHYG1
+ 1S1+qbxNQNHJ92HkqOLwEWJXMhyxH3R6MPCq0Xszb6vrv4ImWeUH+w3uMGdqLwTiINP0/sanMhI
+ W1Wqb6MRcb1vzbAKCfgpZQ/TzwKgUrnWoOGtwut15bhVEu0mDyK9tmG6SKlT3fHMGPSRKbAiA1M
+ qBUS0ZEXixXrkcIlBk/6odogg6QdMafrOeg6B/GnHMBKDd/jJke47OuH/t2uhOHb2oRKW5TUgqz
+ 8BfhMIIvFCPbIIAMlMA==
+X-Proofpoint-ORIG-GUID: A34db5mh38_I38gXGC17WSJr0GFNsRWz
+X-Proofpoint-GUID: A34db5mh38_I38gXGC17WSJr0GFNsRWz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-25_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 adultscore=0 phishscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605250085
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,74 +148,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+On Mon, May 25, 2026 at 07:06:37AM +0200, Greg KH wrote:
+> On Mon, May 25, 2026 at 11:30:43AM +0800, Jianping Li wrote:
+> > 
+> > On 5/22/2026 3:03 PM, Greg KH wrote:
+> > > On Fri, May 22, 2026 at 02:55:29PM +0800, Jianping Li wrote:
+> > > > On 5/15/2026 9:36 PM, Dmitry Baryshkov wrote:
+> > > > > On Fri, May 15, 2026 at 08:42:14PM +0800, Jianping Li wrote:
+> > > > > > From: Ekansh Gupta<ekansh.gupta@oss.qualcomm.com>
+> > > > > > 
+> > > > > > fastrpc_req_munmap_impl() is called to unmap any buffer. The buffer is
+> > > > > > getting removed from the list after it is unmapped from DSP. This can
+> > > > > > create potential race conditions if any other thread removes the entry
+> > > > > > from list while unmap operation is ongoing. Remove the entry before
+> > > > > How can it remove the entry from the list?
+> > > > Multiple threads sharing the same file descriptor may invoke unmap concurrently.
+> > > multiple threads sharing the same file descriptor is a horrible
+> > > userspace bug.  If you do that, you get what you deserve :)
+> > > 
+> > > thanks,
+> > > 
+> > > greg k-h
+> > 
+> > I agree that concurrent unmap on the same buffer from multiple threads
+> > is a userspace bug.
+> > 
+> > However, the fastrpc driver is exposed via ioctl, and any userspace
+> > (including any random apk) can map directly and then call multiple unmap.
+> 
+> So there is no userspace selinux permissions settings on the fasterpc
+> device node at all?
+> 
+> > This patch is not intended to support incorrect userspace usage,
+> > but to ensure that the driver remains robust against invalid or
+> > racy inputs.
+> 
+> Isn't control to this device an "admin only" thing?
 
-[ Note: This issue was discovered on the 7.0 kernel. While the current
-  mainline has already been refactored to use `font_data_t` (which 
-  inadvertently resolved this bug), this vulnerability still actively 
-  affects the 7.0 branch and older stable trees that rely on the legacy 
-  userfont logic. This patch provides a targeted fix for these stable 
-  branches. ]
+No, it's being used by normal user apps. Also, there are systems without
+SELinux being enabled / used.
 
-When fbcon_do_set_font() fails (e.g., due to a vc_resize() failure under
-fault injection), it jumps to the `err_out` label to roll back the
-console state.
+> 
+> thanks,
+> 
+> greg k-h
 
-However, the restoration of the previous font state (`p->userfont =
-old_userfont`) is erroneously placed inside the `if (userfont)` block.
-If the failed operation was attempting to set the default builtin font
-(`userfont == 0`), the restoration is completely skipped.
-
-This causes a state machine corruption where `p->userfont` remains `0`
-while `p->fontdata` still points to the previously allocated user font
-memory. Later, when the console is destroyed (e.g., via VT_DISALLOCATE),
-fbcon_free_font() fails to free this memory because its `if (p->userfont)`
-check fails, resulting in a memory leak caught by kmemleak:
-
-  unreferenced object 0xffff888127ea0000 (size 33296):
-    comm "syz.0.8726", pid 33224, jiffies 4297754643
-    hex dump (first 32 bytes):
-      a6 e4 f9 dd 00 00 00 00 00 82 00 00 01 00 00 00  ................
-      d2 09 6c bf 52 8a 7d d4 ef 1d 59 16 51 86 32 bf  ..l.R.}...Y.Q.2.
-    backtrace (crc 4a0a57dd):
-      ___kmalloc_large_node+0xe7/0x180 mm/slub.c:5214
-      __kmalloc_large_node_noprof+0x29/0x130 mm/slub.c:5232
-      __do_kmalloc_node mm/slub.c:5248 [inline]
-      __kmalloc_noprof+0x5fc/0x7c0 mm/slub.c:5272
-      kmalloc_noprof include/linux/slab.h:954 [inline]
-      fbcon_set_font+0x431/0xa60 drivers/video/fbdev/core/fbcon.c:2525
-      con_font_set drivers/tty/vt/vt.c:4918 [inline]
-      con_font_op+0x94d/0xe80 drivers/tty/vt/vt.c:4958
-      vt_k_ioctl drivers/tty/vt/vt_ioctl.c:472 [inline]
-      vt_ioctl+0x63c/0x2ee0 drivers/tty/vt/vt_ioctl.c:743
-
-Fix this by moving the `p->userfont = old_userfont` assignment outside
-the `if (userfont)` block so that the terminal state is unconditionally
-and correctly restored regardless of which font setting triggered the
-error.
-
-Fixes: a5a923038d70 ("fbdev: fbcon: Properly revert changes when vc_resize() failed")
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
----
- drivers/video/fbdev/core/fbcon.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 666261ae59d8..a38545dc8416 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2461,8 +2461,10 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	p->fontdata = old_data;
- 	vc->vc_font.data = old_data;
- 
-+	/* Unconditionally restore the previous userfont state */
-+	p->userfont = old_userfont;
-+
- 	if (userfont) {
--		p->userfont = old_userfont;
- 		if (--REFCOUNT(data) == 0)
- 			kfree(data - FONT_EXTRA_WORDS * sizeof(int));
- 	}
 -- 
-2.34.1
-
+With best wishes
+Dmitry
