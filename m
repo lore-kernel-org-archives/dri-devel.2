@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEB15CD5BC9
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 23:02:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96BA6CD5BC8
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 23:02:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB5C10E349;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 043B510E346;
 	Mon, 25 May 2026 23:02:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bemvlSxN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T0w8emvl";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7375610E346
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:02:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 476E510E346
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:02:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 489FE445BA;
- Mon, 25 May 2026 23:02:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B3D11F000E9;
+ by sea.source.kernel.org (Postfix) with ESMTP id 304B2405E5;
  Mon, 25 May 2026 23:02:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC081F00A3A;
+ Mon, 25 May 2026 23:02:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779750131;
- bh=NQRc8RHwdq2jCkTtlcpPnLRgr54Ug9pwCPdCfI4Dghg=;
+ s=k20260515; t=1779750129;
+ bh=DGOJOSQ7b8NBZpTxAI72jcjvSeKR03Lp8WhOZgHY0hw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=bemvlSxNh4VCbbJBewp9R3s35oCxzFYf5OJRuU8MFY94wQjEozOwJtL7tVdOuBkMb
- RkfJZi3QG36XDq2cD+/Akcb7+E6xxjqscKykGMmDuNJlFvMJxtiWqGfpRYfEHANUaG
- X9vR8mC/NahBsBRFhggzW6gDuVehbFYpYweU/4nGZWyKlfy3G9cfDsOzFKdkO3LrCy
- +88CXA5Qw4eLST6zCYc9KSGlpr/ChYBCKi0wk9tNtXz3NCf2u12UfDJXidFaOnHIXy
- F9+os/nKQTfuz6NHFlYogN3iZEJMAnzjmufMSM6YohFKl5e+NnByUArsGUR7IhYbtz
- jVNuuvbeRKUWA==
+ b=T0w8emvlIZ5ZAjcXpOuE1mjzhefGaPvsVPpMzr+m4sHk3ZzkddZrDkNglwVoPBRCQ
+ io0WwZvdYwOjrhQBygp5yGCqA7PwbEZSN8fcK+mEcrtFntR8eV+BH9+1HAH2Ov5k3W
+ y4towv+7GxuVQZ5CzzKDUmiNEqNyOg166wpomrS/dqU2tgsjsExWJrg+D0g/lv4Y+0
+ Sj/GzCOAa7sNk6l3vsnqCP8SOxKnbJI/P4c1pH/x6rl5YDUckuFrnzEyQ2/Qa/rnYp
+ 7ipkSaCi86SPuVOwFOD9XZarIhrkt0MfmlPi7pb3SS+8rceEdClwsJlH0n9T4XwBEH
+ agtTSkAm7Kz/A==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  boris.brezillon@collabora.com, deborah.brouwer@collabora.com,
  gary@garyguo.net
 Cc: dri-devel@lists.freedesktop.org,
 	rust-for-linux@vger.kernel.org
-Subject: [PATCH 2/2] gpu: drm: tyr: use IoMem directly instead of Devres
-Date: Tue, 26 May 2026 01:01:44 +0200
-Message-ID: <20260525230152.277820-3-dakr@kernel.org>
+Subject: [PATCH 1/2] gpu: drm: tyr: separate driver type from driver data
+Date: Tue, 26 May 2026 01:01:43 +0200
+Message-ID: <20260525230152.277820-2-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260525230152.277820-1-dakr@kernel.org>
 References: <20260525230152.277820-1-dakr@kernel.org>
@@ -59,128 +59,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that IoMem is lifetime-parameterized, use it directly in probe
-rather than wrapping it in Devres and Arc. The I/O memory mapping is
-only used during probe and not stored in driver data, so device-managed
-revocation is unnecessary.
-
-This removes the Devres access(dev) pattern from issue_soft_reset(),
-GpuInfo::new(), and l2_power_on(), simplifying register access.
+Introduce TyrPlatformDriver as a unit struct for the platform::Driver
+trait implementation and keep TyrPlatformDriverData for the private
+driver data.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/drm/tyr/driver.rs | 19 ++++++-------------
- drivers/gpu/drm/tyr/gpu.rs    | 13 +++----------
- 2 files changed, 9 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/tyr/driver.rs | 10 ++++++----
+ drivers/gpu/drm/tyr/tyr.rs    |  4 ++--
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 5f4c484f671f..b9a5cc5fc678 100644
+index 2224fdb20a51..5f4c484f671f 100644
 --- a/drivers/gpu/drm/tyr/driver.rs
 +++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -6,11 +6,9 @@
-         OptionalClk, //
-     },
-     device::{
--        Bound,
-         Core,
-         Device, //
-     },
--    devres::Devres,
-     dma::{
-         Device as DmaDevice,
-         DmaMask, //
-@@ -30,7 +28,6 @@
-     sizes::SZ_2M,
-     sync::{
-         aref::ARef,
--        Arc,
-         Mutex, //
-     },
-     time, //
-@@ -44,7 +41,7 @@
-     regs::gpu_control::*, //
- };
+@@ -51,6 +51,8 @@
+ /// Convenience type alias for the DRM device type for this driver.
+ pub(crate) type TyrDrmDevice = drm::Device<TyrDrmDriver>;
  
--pub(crate) type IoMem = kernel::io::mem::IoMem<'static, SZ_2M>;
-+pub(crate) type IoMem<'a> = kernel::io::mem::IoMem<'a, SZ_2M>;
++pub(crate) struct TyrPlatformDriver;
++
+ #[pin_data(PinnedDrop)]
+ pub(crate) struct TyrPlatformDriverData {
+     _device: ARef<TyrDrmDevice>,
+@@ -93,22 +95,22 @@ fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
+ kernel::of_device_table!(
+     OF_TABLE,
+     MODULE_OF_TABLE,
+-    <TyrPlatformDriverData as platform::Driver>::IdInfo,
++    <TyrPlatformDriver as platform::Driver>::IdInfo,
+     [
+         (of::DeviceId::new(c"rockchip,rk3588-mali"), ()),
+         (of::DeviceId::new(c"arm,mali-valhall-csf"), ())
+     ]
+ );
  
- pub(crate) struct TyrDrmDriver;
+-impl platform::Driver for TyrPlatformDriverData {
++impl platform::Driver for TyrPlatformDriver {
+     type IdInfo = ();
+-    type Data<'bound> = Self;
++    type Data<'bound> = TyrPlatformDriverData;
+     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
  
-@@ -74,15 +71,11 @@ pub(crate) struct TyrDrmDeviceData {
-     pub(crate) gpu_info: GpuInfo,
- }
+     fn probe<'bound>(
+         pdev: &'bound platform::Device<Core<'_>>,
+         _info: Option<&'bound Self::IdInfo>,
+-    ) -> impl PinInit<Self, Error> + 'bound {
++    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         let core_clk = Clk::get(pdev.as_ref(), Some(c"core"))?;
+         let stacks_clk = OptionalClk::get(pdev.as_ref(), Some(c"stacks"))?;
+         let coregroup_clk = OptionalClk::get(pdev.as_ref(), Some(c"coregroup"))?;
+diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
+index 9432ddd6b5b8..95cda7b0962f 100644
+--- a/drivers/gpu/drm/tyr/tyr.rs
++++ b/drivers/gpu/drm/tyr/tyr.rs
+@@ -5,7 +5,7 @@
+ //! The name "Tyr" is inspired by Norse mythology, reflecting Arm's tradition of
+ //! naming their GPUs after Nordic mythological figures and places.
  
--fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
--    let io = (*iomem).access(dev)?;
--    io.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
-+fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
-+    iomem.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
+-use crate::driver::TyrPlatformDriverData;
++use crate::driver::TyrPlatformDriver;
  
-     poll::read_poll_timeout(
--        || {
--            let io = (*iomem).access(dev)?;
--            Ok(io.read(GPU_IRQ_RAWSTAT))
--        },
-+        || Ok(iomem.read(GPU_IRQ_RAWSTAT)),
-         |status| status.reset_completed(),
-         time::Delta::from_millis(1),
-         time::Delta::from_millis(100),
-@@ -123,12 +116,12 @@ fn probe<'bound>(
-         let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
+ mod driver;
+ mod file;
+@@ -14,7 +14,7 @@
+ mod regs;
  
-         let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
--        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?.into_devres()?, GFP_KERNEL)?;
-+        let iomem = request.iomap_sized::<SZ_2M>()?;
- 
-         issue_soft_reset(pdev.as_ref(), &iomem)?;
-         gpu::l2_power_on(pdev.as_ref(), &iomem)?;
- 
--        let gpu_info = GpuInfo::new(pdev.as_ref(), &iomem)?;
-+        let gpu_info = GpuInfo::new(&iomem)?;
-         gpu_info.log(pdev.as_ref());
- 
-         let pa_bits = MMU_FEATURES::from_raw(gpu_info.mmu_features)
-diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
-index 652556026f50..3acffefaf210 100644
---- a/drivers/gpu/drm/tyr/gpu.rs
-+++ b/drivers/gpu/drm/tyr/gpu.rs
-@@ -9,7 +9,6 @@
-         Bound,
-         Device, //
-     },
--    devres::Devres,
-     io::{
-         poll,
-         register::Array,
-@@ -40,9 +39,7 @@
- pub(crate) struct GpuInfo(pub(crate) uapi::drm_panthor_gpu_info);
- 
- impl GpuInfo {
--    pub(crate) fn new(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<Self> {
--        let io = (*iomem).access(dev)?;
--
-+    pub(crate) fn new(io: &IoMem<'_>) -> Result<Self> {
-         Ok(Self(uapi::drm_panthor_gpu_info {
-             gpu_id: io.read(GPU_ID).into_raw(),
-             gpu_rev: io.read(REVIDR).into_raw(),
-@@ -163,15 +160,11 @@ struct GpuModels {
- }];
- 
- /// Powers on the l2 block.
--pub(crate) fn l2_power_on(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
--    let io = (*iomem).access(dev)?;
-+pub(crate) fn l2_power_on(dev: &Device, io: &IoMem<'_>) -> Result {
-     io.write_reg(L2_PWRON_LO::zeroed().with_const_request::<1>());
- 
-     poll::read_poll_timeout(
--        || {
--            let io = (*iomem).access(dev)?;
--            Ok(io.read(L2_READY_LO))
--        },
-+        || Ok(io.read(L2_READY_LO)),
-         |status| status.ready() == 1,
-         Delta::from_millis(1),
-         Delta::from_millis(100),
+ kernel::module_platform_driver! {
+-    type: TyrPlatformDriverData,
++    type: TyrPlatformDriver,
+     name: "tyr",
+     authors: ["The Tyr driver authors"],
+     description: "Arm Mali Tyr DRM driver",
 -- 
 2.54.0
 
