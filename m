@@ -4,72 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C81FECD5BB1
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 12:30:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B4A8CD5BB1
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 12:31:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C48C10E2B6;
-	Mon, 25 May 2026 12:30:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B8EE10E10D;
+	Mon, 25 May 2026 12:31:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Trf40pUi";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="tqPBHSC0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A5E910E2B6
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 12:30:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779712222; x=1811248222;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=5bhexpmneKoYSiRbvSbWWrxgpggJapgRMGJ1yQI3xC8=;
- b=Trf40pUi3gsjs4hLE/qJB/lr9+rBl1qmgZS4VawRI05eJrUEjj7g+AaJ
- WBHMVhpaY+i61RB0ghxRS5+BQDbxBiaUiPcSUfiXc+XzvMPwl1Hi1qVfr
- 8B4otDm1dQ185xPwWY5rnCh2sieprlbnHVF/zByIFA6gVJVtgcYzXj/hs
- aXUY1rro/4Aiay2WCYhMCcTJ205iFK0vyWkyAPeEYlxmijb2rHB5UkjVu
- GajeuhU5zDeoxtOTHgV86Z8czbDk4c85hYrXd42VCDNgs+vxT0cRgK1Zk
- PNlJSp3B2vKTZGUmeaDh/dEbFkw0I0OmQaOKcx2q8n/fgE4/vgPY4ZACA w==;
-X-CSE-ConnectionGUID: ndieEVxsRc6SbdYf1zjocw==
-X-CSE-MsgGUID: RTecitiOTs+2L/Kw99wqKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11796"; a="97960965"
-X-IronPort-AV: E=Sophos;i="6.24,167,1774335600"; d="scan'208";a="97960965"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2026 05:30:22 -0700
-X-CSE-ConnectionGUID: wYfTuSWdQoe10+GbYDwJRA==
-X-CSE-MsgGUID: DrvYC+pmQ4iok4w5G6cMPQ==
-X-ExtLoop1: 1
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
- ([10.245.244.3])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2026 05:30:18 -0700
-Date: Mon, 25 May 2026 15:30:15 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+Received: from smtp.smtpout.orange.fr (smtp-15.smtpout.orange.fr
+ [80.12.242.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E59B10E10D
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 12:31:04 +0000 (UTC)
+Received: from fedora.home ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
+ by smtp.orange.fr with ESMTPSA
+ id RUSRwq2akQMzxRUSRwv4V0; Mon, 25 May 2026 14:31:02 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1779712262;
+ bh=+24KCHj8Nhbt66nix0buOwJbN6z4qiKLJeZ5FnCFY+o=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=tqPBHSC08dB51FytLI07zypkiHsmNulKxzm+DD6cQVpPAWR90GVK/yYtPQwhd+X3O
+ 61FvAsTzGFC/hf1HbZDfYnmYIzaEzbqQwytc5aJoVH53R6h/k3W4yrV/VJAAp7Qm8V
+ xeS7o5Kn+qH6tbo+hRMhnwzE4zOC5KWpnDniOqVXi+/4aadK7QksAIfUL+Ck8zqfOX
+ okS67F/r1wJPODEZ6CR6lUvyCt9+XsV2boWisGX2Ub07QhwMY/Yjc6LCVRvYvZHSLX
+ sN5o1S9bd0hoP+Tllj9A4Sr/P1+wmBV4hm+ICvJHkHM97LMS2RAhNUQm8BsvBJP7Yf
+ vAM8Gu8NMfdVg==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Mon, 25 May 2026 14:31:02 +0200
+X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
- for vblank
-Message-ID: <ahRA17a7JR2PVOuJ@intel.com>
-References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
- <ee86cb43-e5df-4946-a957-931a73dde752@suse.de>
- <ahBWayIcQUHuAt4i@intel.com>
- <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de>
- <ahBZ8nIqR4qESLZg@intel.com>
- <5fbcda92-f6b0-4de2-89e5-ea43a6248b05@suse.de>
- <ahCw9zakihaGHLsN@intel.com>
- <428be9d9-06f7-4bcb-807b-d351101c3c4b@linux.intel.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/vkms: Constify struct configfs_item_operations and
+ configfs_group_operations
+Date: Mon, 25 May 2026 14:30:56 +0200
+Message-ID: <ade89ec366460754dd1746dd8001afb53cfaffbf.1779712234.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <428be9d9-06f7-4bcb-807b-d351101c3c4b@linux.intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,83 +65,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 25, 2026 at 10:13:57AM +0200, Maarten Lankhorst wrote:
-> Hey,
-> 
-> Den 2026-05-22 kl. 21:39, skrev Ville Syrjälä:
-> > On Fri, May 22, 2026 at 03:43:26PM +0200, Thomas Zimmermann wrote:
-> >> Hi
-> >>
-> >> Am 22.05.26 um 15:28 schrieb Ville Syrjälä:
-> >> [...]
-> >>>>>> But why does your HW use CRTC 1 in the first place.
-> >>>>> Could be eg. the enabled outputs can't be driven with CRTC 0.
-> >>>>>
-> >>>>> I guess what you want to do is pick the first crtc from modesets[]
-> >>>>> which is enabled. Or perhaps even "pick the Nth enabled crtc from
-> >>>>> modesets[] based on the ioctl argument".
-> >>>> The enable-status of each CRTC could change later on, which might lead
-> >>>> to problems.
-> >>> Sound like a locking issue if someone is changing the configuration
-> >>> at the same time we're trying to do the vblank wait here.
-> >>
-> >> I mean that the connected outputs could change at a later point or we 
-> >> could have multiple CRTCs in use. Today, someone in #intel-gfx reported 
-> >> a problem with panning if multiple CRTCs are in use.
-> >>
-> >> Therefore picking a CRTC freely could be a problem. Let's say we 
-> >> configure modes from one CRTC, but later wait/pan/flush with another 
-> >> CRTC. I would not trust this to work correctly.
-> >>
-> >> Hence, my suggestion is to select a primary CRTC during the fbdev 
-> >> client's probe and use it for all later operations until the next probe 
-> >> happens.  All other CRTCs would mirror the primary one.
-> > 
-> > Actual mirroring may not be possible due to different modes supported
-> > on each output. The whole multi-output fbdev thing in the drm fb helper
-> > is kind of a hack that's rather hard to make work 100% sensibly.
-> > 
-> > For the panning possibly the only sensible thing is to use the max of
-> > hdisplay/vdisplay of all the crtcs as the xres/yres so it's clear
-> > how much things can actually be panned. Oh and tiled displays (assuming
-> > we would actually want the fbdev stuff to tile correctly) make the
-> > situation even more complicated. I think the current support for tiled
-> > displays in the fb helper is semi-busted.´
-> 
-> I tested fbdev on a tiled DP-MST monitor.
-> It works better than my kwin's wayland compositor, as it detects both tiles
-> and presents a single image spanning both tiles.
+'struct configfs_item_operations' and 'configfs_group_operations' are not
+modified in this driver.
 
-IIRC we've occasionally seen cases where it picks a non-tiled mode
-on the primary connector, and also still enables the second tile.
+Constifying these structures moves some data to a read-only section, so
+increases overall security, especially when the structure holds some
+function pointers.
 
-> Kwin sees both as separate
-> monitors.
-> 
-> I still see vertical tearing between both tiles, so it would be nice if
-> intel/display would support atomic updates for both crtc's directly.
-> 
-> The code's already there for bigjoiner, just needs to do the same for
-> tile joiner updates when all tiled crtc's are in the atomic update.
+On a x86_64, with allmodconfig, as an example:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  21554	  10096	    128	  31778	   7c22	drivers/gpu/drm/vkms/vkms_configfs.o
 
-We don't have any special code for atomic updates with joiner
-currently. It just happens to work most of the time.
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  22546	   9104	    128	  31778	   7c22	drivers/gpu/drm/vkms/vkms_configfs.o
 
-With joiner the pipes will be in sync/phase, so that helps a bit.
-But we do also try to make the pipes in sync/phase also for tiled
-display via the use of the port sync. So if you see a difference
-in tearing between joiner vs. tiled then that likely means the
-problem is in userspace (as in it submits separate commits for
-each tile).
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Compile tested only.
+---
+ drivers/gpu/drm/vkms/vkms_configfs.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-I have occasionally pondered about hiding the tiled display stuff
-completely from userspace and handling it in the kernel the same
-was as joiner. But the problem is that we'd also need to cook up
-a new EDID for the display that combines both tiles, and we'd
-still need the second connector to be enabled internally (and 
-hide that fact from userspace). None of that code exists
-currently and wouldn't be entirely trivial to implement.
-
+diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
+index 7551b8c7766d..b2b3343f9d35 100644
+--- a/drivers/gpu/drm/vkms/vkms_configfs.c
++++ b/drivers/gpu/drm/vkms/vkms_configfs.c
+@@ -189,7 +189,7 @@ static void crtc_release(struct config_item *item)
+ 	}
+ }
+ 
+-static struct configfs_item_operations crtc_item_operations = {
++static const struct configfs_item_operations crtc_item_operations = {
+ 	.release	= &crtc_release,
+ };
+ 
+@@ -231,7 +231,7 @@ static struct config_group *make_crtc_group(struct config_group *group,
+ 	return &crtc->group;
+ }
+ 
+-static struct configfs_group_operations crtcs_group_operations = {
++static const struct configfs_group_operations crtcs_group_operations = {
+ 	.make_group	= &make_crtc_group,
+ };
+ 
+@@ -276,7 +276,7 @@ static void plane_possible_crtcs_drop_link(struct config_item *src,
+ 		vkms_config_plane_detach_crtc(plane->config, crtc->config);
+ }
+ 
+-static struct configfs_item_operations plane_possible_crtcs_item_operations = {
++static const struct configfs_item_operations plane_possible_crtcs_item_operations = {
+ 	.allow_link	= plane_possible_crtcs_allow_link,
+ 	.drop_link	= plane_possible_crtcs_drop_link,
+ };
+@@ -345,7 +345,7 @@ static void plane_release(struct config_item *item)
+ 	}
+ }
+ 
+-static struct configfs_item_operations plane_item_operations = {
++static const struct configfs_item_operations plane_item_operations = {
+ 	.release	= &plane_release,
+ };
+ 
+@@ -393,7 +393,7 @@ static struct config_group *make_plane_group(struct config_group *group,
+ 	return &plane->group;
+ }
+ 
+-static struct configfs_group_operations planes_group_operations = {
++static const struct configfs_group_operations planes_group_operations = {
+ 	.make_group	= &make_plane_group,
+ };
+ 
+@@ -438,7 +438,7 @@ static void encoder_possible_crtcs_drop_link(struct config_item *src,
+ 		vkms_config_encoder_detach_crtc(encoder->config, crtc->config);
+ }
+ 
+-static struct configfs_item_operations encoder_possible_crtcs_item_operations = {
++static const struct configfs_item_operations encoder_possible_crtcs_item_operations = {
+ 	.allow_link	= encoder_possible_crtcs_allow_link,
+ 	.drop_link	= encoder_possible_crtcs_drop_link,
+ };
+@@ -462,7 +462,7 @@ static void encoder_release(struct config_item *item)
+ 	}
+ }
+ 
+-static struct configfs_item_operations encoder_item_operations = {
++static const struct configfs_item_operations encoder_item_operations = {
+ 	.release	= &encoder_release,
+ };
+ 
+@@ -510,7 +510,7 @@ static struct config_group *make_encoder_group(struct config_group *group,
+ 	return &encoder->group;
+ }
+ 
+-static struct configfs_group_operations encoders_group_operations = {
++static const struct configfs_group_operations encoders_group_operations = {
+ 	.make_group	= &make_encoder_group,
+ };
+ 
+@@ -579,7 +579,7 @@ static void connector_release(struct config_item *item)
+ 	}
+ }
+ 
+-static struct configfs_item_operations connector_item_operations = {
++static const struct configfs_item_operations connector_item_operations = {
+ 	.release	= &connector_release,
+ };
+ 
+@@ -628,7 +628,7 @@ static void connector_possible_encoders_drop_link(struct config_item *src,
+ 	}
+ }
+ 
+-static struct configfs_item_operations connector_possible_encoders_item_operations = {
++static const struct configfs_item_operations connector_possible_encoders_item_operations = {
+ 	.allow_link	= connector_possible_encoders_allow_link,
+ 	.drop_link	= connector_possible_encoders_drop_link,
+ };
+@@ -677,7 +677,7 @@ static struct config_group *make_connector_group(struct config_group *group,
+ 	return &connector->group;
+ }
+ 
+-static struct configfs_group_operations connectors_group_operations = {
++static const struct configfs_group_operations connectors_group_operations = {
+ 	.make_group	= &make_connector_group,
+ };
+ 
+@@ -750,7 +750,7 @@ static void device_release(struct config_item *item)
+ 	kfree(dev);
+ }
+ 
+-static struct configfs_item_operations device_item_operations = {
++static const struct configfs_item_operations device_item_operations = {
+ 	.release	= &device_release,
+ };
+ 
+@@ -802,7 +802,7 @@ static struct config_group *make_device_group(struct config_group *group,
+ 	return &dev->group;
+ }
+ 
+-static struct configfs_group_operations device_group_ops = {
++static const struct configfs_group_operations device_group_ops = {
+ 	.make_group = &make_device_group,
+ };
+ 
 -- 
-Ville Syrjälä
-Intel
+2.54.0
+
