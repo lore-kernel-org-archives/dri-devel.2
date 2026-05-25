@@ -4,90 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBA3ACD5BBF
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 07:00:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A832CD5BC0
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 07:14:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC8610E4E6;
-	Mon, 25 May 2026 07:00:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA0F910E583;
+	Mon, 25 May 2026 07:14:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lc7PyXSy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TWJFVdR/";
 	dkim-atps=neutral
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E41710E4D9
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 07:00:55 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-38be5e86918so114626641fa.3
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 00:00:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779692453; cv=none;
- d=google.com; s=arc-20240605;
- b=lyUJMUtcfnUUFEACMkGWnKiXzX3yYGEzKE6oO4P3qCgQ/IQOMSDPxeFtX5Dgz4pT0d
- XeS5Ws0EXnzZwxO8r+T+PI4qBsTw4oHPKQG9zBYlKDQXT756/FXftODQSsovsrQsHNyT
- abjvIqOixe3Nj0HxzDX4j/WkRZKoiCm9wzujkQM8GQjnnXDsliWKPENsjlhVuJ1nRKsr
- AO7bVy552Fc9rpuupMPOP0TgK421glVU/+3MMXilgA98bfvEo17kxlih99abOZG9aPNm
- u7/z10ueylldtlt+RTx6ToxGLyMrx2l/hAibuXEWW1EHv0YsR+gsxsGJO09mPsbuW/nk
- 0tfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=JUjlbnJYbkRdlxiYQtavpZsY3nMGypg9CaIw/zecZ9o=;
- fh=nZXM94EmuODnR0RSWMrAMkPZDZ7P8luwjm/mFt3yG/A=;
- b=dmpVEv+rm56aYHzw2cRPkEpv3L5XpzjAVo1fp1c0U4eDSAlViZJZepW8YAjEfrbwLL
- pmqbILVqBjdU6o6jLGokNTq+WJ0H16PGa42AlkEvoXWt/s+QP4RIO7tviwVtkTFU8nt1
- 7OpvheGyWgVrL4VV0Ja+YlFYVsAfv2eRpglSklSRnvMO30hPh/wY4g2302MFAB/5ULov
- pa35XbjdOt+c4wrQyJbs+RFvRZFmlsGUK4oao+P9gvHeqHzKQwBjzbhN/1jlcsNOvcYx
- aG4qUkrmU5iMsevuYDJ0lvRAJGrcgU228pfIdoaB4Q+0mMugxxo11Nisdxc92EFSb4Ub
- aW+w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F16C10E02D
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 07:14:48 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-490686877a1so2269835e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 00:14:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779692453; x=1780297253; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=JUjlbnJYbkRdlxiYQtavpZsY3nMGypg9CaIw/zecZ9o=;
- b=lc7PyXSyjUkWoCBkVsfHIr9ZXURk7Yyc7C3GA97k0DCQC3gq034KaEhXn0scUGh66p
- x7jzGib27iLp160Gbbi9zxwCOXVHNpwvBuHTEItc4doUM4tKJ146y8JBFjGRVgwtqJvn
- aPoYExWkaPkNA46jOECsi61YjDTnZ8FCiaO2bgSm23gGmRfCLDS3ErSGmhphNhpkgj3p
- xzNSy2bkR8efoNMqeHT7w7qVGcJJdp5nAHqiOACn6ewdzvDiXiBZezxW9orRQPjdUv36
- cIWmyxJZPFvVYZ3UDQ1pzTbBDdVXEo/hMimYC9G5FkrhWP2QUMj6TDQTu/NdPwn9F2r8
- gLXg==
+ d=gmail.com; s=20251104; t=1779693287; x=1780298087; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=O5YPxs0JzfTvXLL6qyKCCkEFV46IOQigJmqAvNQ18D8=;
+ b=TWJFVdR/fFZ2NXTrP+Qt8R2nmFdxzfLwpghJKidleR0Cx9y19WETfaXhkPp7ismxTP
+ dazqXfOl8n8lhu6mOvZVZol7d1dPlOo0KQyXTXMbZV35eiRH4YsKNBcGVapfpB6PC0Dp
+ PXXfTSwpfmNhslBdd5Qfqfza46Y5STAkE3c93bwqgadVolYi+BlJH6SA7M6u4Ox5BzQw
+ V4Pa8v9GN7wHPysF961fuahDC/sqMKDS55/gDFtnnZSiJhHq6zb/yzHpA34+m8gHhIIZ
+ TjjxZ8d6UCOwQ3ENgLBmRr0M3qEAUfBXKjCuqc2r+un8m+leqRJ2oFeHde7K+Roc3oq8
+ KgKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779692453; x=1780297253;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JUjlbnJYbkRdlxiYQtavpZsY3nMGypg9CaIw/zecZ9o=;
- b=THXkQtAckbvL0wN90ONSZRnkgm6ZvWNr7r2XnlzRwBEPqzXcRoXZ761+inz2gP5uKl
- oD1zwCELGIjBM27ueNERz90NFhXit0M59MEvgQZv58+1chX9/jkJYgaNrJhOKYx7XycK
- ywn44vkTWvF4ccivMzbX5I+Xa9UQbUyJCTcXmP1I3qqIlbwy4sQnGh3vxw5MQ13bXNaw
- B0Cj4Y8mvJz9/tLs/6KUjRjnSajtGVfwmas3VtOsijoYwAvEs0kd8tWqGF0cyWpqoayE
- NPhcxZz7AKStmf56ta+2qZ4of3GXpIzMnZngg/dfSeh6lQRI68p3OtqixOrgqZ95S6Ra
- lI/g==
-X-Gm-Message-State: AOJu0YxzIHUDaALFJq2XdKy54mn5InLM88TXLZo1uHGtT8fl8eT+cW18
- g+VcEV+L8cpH2jBRT9PUMe6ztXFQP3R5n2yqEOOn7B2GiFFhisW4bXf2qmpwNHMfS+apinkLVWY
- TpIFD++K4GD9N5d3OCA2ClvKEH4OWBqQ=
-X-Gm-Gg: Acq92OFiC/1ZEeUE2Ux0sodN/vwl5hG5AyzdrqI21mO2aBSkgvTsT2oF+Iq7pbP9JpG
- M6AND7tsO2BubngC31hlVWr7eb2C0wewJyjQ26l1yNx06rf8faypiGBHPuUG6pA/dnzK03qJsgm
- LqVCODJASOWRSiPbHxKE6pNu4hwTXU/czmo/sS01a8sXPYImGphcZ8tBpgmDxsdW8EF7FnIZFSe
- nvg4qZup0MkMQqklAlI20hZOBjZMhOhQOp5dgbT8l49YUeJdTlDB4+3HH4MP7Qxut+1e+07qw0h
- Vqjr+rtw1fcB4FRn6gYiw2BJc3XWjZmYOQ50m+6j8KcKhybI0Q==
-X-Received: by 2002:a05:6512:3e12:b0:5aa:12a3:461e with SMTP id
- 2adb3069b0e04-5aa323229d5mr3611414e87.16.1779692453186; Mon, 25 May 2026
- 00:00:53 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1779693287; x=1780298087;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=O5YPxs0JzfTvXLL6qyKCCkEFV46IOQigJmqAvNQ18D8=;
+ b=T54OFlXE3zE1Mv6rOgvnSYw+87uFDouheZVzEHRtrNNnelZWCa6+K5i2AOaCxsowFl
+ aSULUjLmtdshUKHJ3AvJ/EhmymN9s7G124OnCd6DQK2krXcnMQzN9PcjCd6lCWYVEoZM
+ Sf0DacGQWE0yI/Ao7UAdu+2iKXoefKVxw3lA+1aNJdAshVxvgjYFoRDGJMez0oD++mzN
+ nUVyW2yDU/+rcujyF+FCX0Us8yHBQhDFPrBmRiY7CMNGBWwKmkdzjuoWwQeIR21reL/w
+ JG8OL9rd79DJaCjvIXYnLbzTfz5MZGhfaMlcZVtjGOS1eD18zhQXLCkKJGrkcNQ1nG9G
+ oO/g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+3gXIu+TX8Yz+ieM0s8zmoQi4dI055U5LilHbD6ZFWzSD007ybe0GVSU9g7OytEji684op+i/WdL4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxMAUBpgJvvAib5W/elbMubkN0Ci0YTLfSGi0Xs9fx9yrd8atsH
+ Jgraj1xDJsRyRqheIcmJASYYfCN9Gi3lFiKjqgoRI9OxdBXW/cFamohT
+X-Gm-Gg: Acq92OHT2AN4u5WgK6wv7NWUrQPWHtpX4sxpiPemdrrPUKWcvgMMQK2TSBgXaJjgqa6
+ WOQ6poucQcq6ay4vvCLZVS++y5VcKnAXp+mJ9vQHHkl8wQ/VmsCr3+TR33Mf9drAkSI0B4/Zpu8
+ 77n/I55d14i0t2PsfBEUN99U6izyrbmIGKoohHeIrBOt7tmZDfsJrVOZ9Nj0vdkJUeTJuEmf8tF
+ XhCDDnMtJ7gQUgHismFQCcPeQmj7wLYifVmKBDrowbGHDJjkQaV8QqNuHvj5tHK8TIaX6RxFXGx
+ JcXi70EDzxqDNnGYhOMU1uJrWhyU4r3lgXq3HBaC6RCMqykV8ikiSerrD4aR37zm4E+71tWvDrv
+ A12f/a/NC1/YKgGKuY6iIF/2f4cn1/GdBvl/D6UPuiJmj7h9R7mEAoO3n1kEcyYBRnzE1Wg8mnQ
+ zze0R7NWLXiI2zrXQTIzl06No=
+X-Received: by 2002:a05:600c:8599:b0:48f:e230:29f4 with SMTP id
+ 5b1f17b1804b1-490426ade02mr136310365e9.15.1779693286465; 
+ Mon, 25 May 2026 00:14:46 -0700 (PDT)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490454ea134sm255601535e9.8.2026.05.25.00.14.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2026 00:14:45 -0700 (PDT)
+Date: Mon, 25 May 2026 10:14:42 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Karol Wachowski <karol.wachowski@intel.com>
+Cc: Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+Subject: [PATCH] accel/ivpu: prevent uninitialized data bug in debugfs
+Message-ID: <ahP24m6Mii9EDL7Q@stanley.mountain>
 MIME-Version: 1.0
-References: <20260409154826.8955-1-yiconghui@gmail.com>
-In-Reply-To: <20260409154826.8955-1-yiconghui@gmail.com>
-From: Yicong Sito Hui <yiconghui@gmail.com>
-Date: Mon, 25 May 2026 08:00:00 +0100
-X-Gm-Features: AVHnY4IBAVB4xP9dmdekyumR6_AK_QjMPnGfuyn_CtUFiDxM8NPxSnbL3u_hqbc
-Message-ID: <CAJ4mek1UTYPd5E7JgcZ0fpN4KoB4z7oSPoxbsNUXmdN4uqgFgQ@mail.gmail.com>
-Subject: Re: [PATCH] drm: Remove unused header in drm_dumb_buffers.c
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, alexdeucher@gmail.com, 
- christian.koenig@amd.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- skhan@linuxfoundation.org, me@brighamcampbell.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,39 +90,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 09/04/2026 4:48 pm, Yicong Hui wrote:
-> Remove the header #include "drm_internal.h" from drm_dumb_buffers.c,
-> which is included but not used.
->
-> Header was introduced in 47f10854ca89 when moving functions, but was
-> not removed in 96a7b60f6ddb when the drm_gem_dumb_destroy function was
-> removed.
->
-> Compiles successfully with DRM enabled, pass kunit tests and
-> IGT-tests in a vng virtual machine.
->
-> Fixes: 96a7b60f6ddb ("drm: remove dumb_destroy callback")
-> Signed-off-by: Yicong Hui <yiconghui@gmail.com>
-> ---
->   drivers/gpu/drm/drm_dumb_buffers.c | 1 -
->   1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
-> index e2b62e5fb891..61bf3c9b7182 100644
-> --- a/drivers/gpu/drm/drm_dumb_buffers.c
-> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
-> @@ -32,7 +32,6 @@
->   #include <drm/drm_print.h>
->
->   #include "drm_crtc_internal.h"
-> -#include "drm_internal.h"
->
->   /**
->    * DOC: overview
+The simple_write_to_buffer() will only initialize data starting from
+the *pos offset so if it's non-zero then the first part of the buffer
+uninitialized.  Really, if *pos is non-zero then this code won't work
+so just check for that at the start of the function.
 
-Hello!
+Fixes: 320323d2e545 ("accel/ivpu: Add debugfs interface for setting HWS priority bands")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+ drivers/accel/ivpu/ivpu_debugfs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Is there any further feedback or progress on this patch?
+diff --git a/drivers/accel/ivpu/ivpu_debugfs.c b/drivers/accel/ivpu/ivpu_debugfs.c
+index 189dbe94cf14..dc20bc73c6ed 100644
+--- a/drivers/accel/ivpu/ivpu_debugfs.c
++++ b/drivers/accel/ivpu/ivpu_debugfs.c
+@@ -450,7 +450,7 @@ priority_bands_fops_write(struct file *file, const char __user *user_buf, size_t
+ 	u32 band;
+ 	int ret;
+ 
+-	if (size >= sizeof(buf))
++	if (*pos != 0 || size >= sizeof(buf))
+ 		return -EINVAL;
+ 
+ 	ret = simple_write_to_buffer(buf, sizeof(buf) - 1, pos, user_buf, size);
+-- 
+2.53.0
 
-Thank you!
-Yicong
