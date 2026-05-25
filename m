@@ -4,63 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25FD1CD5BD5
-	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 10:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53692CD5BC8
+	for <dri-devel@archiver.kernel.org>; Mon, 25 May 2026 10:09:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C704310E28B;
-	Mon, 25 May 2026 10:06:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94F3210E1F1;
+	Mon, 25 May 2026 10:09:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Df2WkEyC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OfgNmMml";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XQIOVGdm";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EF4C10E0EC;
- Mon, 25 May 2026 10:06:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=eBEeZMrZM7/C8pXjQYVWQa4FrwVMoSc7Wozy/Zc+UnU=; b=Df2WkEyCbxrLiwT9wGvQmP2mVS
- h2b+hLVY6nHelGBgqaAVoFk7GGzdpE4ktnBVlbUlkdR3IXCP/aRn9X0IeRSC7wjmhoOjgrbP7/6tp
- uvIVnxS6lM4urU/QOaPKlsJmb7nzA45v8SDIAdVbZhg1mgZhgal/FuLAnYuLegIMdlQAM4LclGhPu
- 4pJ+2+Gy7I0/yhd5Bs0Iqe4m6u5QviOr+R9AsHhrPjMHgJGOi3np363x37z/j7xuRr7AMlSMV/H7y
- 15FLLhZn8nBbDiO+0zIp6PVULmpf34AQ8W/P9/XN9fbR/Dwniy7JQCNsnCVlHplidpGoUX7V6HKeR
- AaBQcL4A==;
-Received: from [79.117.146.159] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wRSBo-007xuT-IW; Mon, 25 May 2026 12:05:40 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v7 3/4] drm/atomic: track individual colorop updates
-Date: Mon, 25 May 2026 11:50:00 +0200
-Message-ID: <20260525100524.304263-4-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260525100524.304263-1-mwen@igalia.com>
-References: <20260525100524.304263-1-mwen@igalia.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 495FF10E1A3
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 10:08:59 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64P81rFs1844577
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 10:08:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=IhQx+fQN8NMYGyoe+FxB1LZO
+ zEN9L+wVzrVejV2yZ4g=; b=OfgNmMml1DZ/CmCKWR0hegPNSABNWmLY2PsdIEQ/
+ yJB1nBPr4xxP5Q2xNGPGwfT32zWPQJHTVwhFD67V40iISKNaN9Djid5qEJPQz88W
+ qlgLUEQ1NUBSozgBkH9/oTwxrxogy+DM4EKr1J/ajGGOAZXP5g3lliR0Aja/Ck82
+ IaGKMexr0dxmyZ5o2ISRDRA2YHAez6iYvHIDVWxgs3AQ7+Op5i3qEeePpY8D9WAh
+ XjndcPKoJXfFFL9FXXlaKdnqr5l34L0yvt6OTdTga3AbacGavwWHYgLDGCaFBDl5
+ BO57a7xSHYkr0GCeTx0/x01DDAzl9Z3DfcDRtQHWK/DpcQ==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb88w5nc9-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 10:08:58 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-6618ab427ccso10982327137.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 03:08:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779703738; x=1780308538;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=IhQx+fQN8NMYGyoe+FxB1LZOzEN9L+wVzrVejV2yZ4g=;
+ b=XQIOVGdmToOTF0c81Tm4DFtocxbtBIn6cLQ05FN6FfIc9Ap/+nO6o4p6XGq8ZQzA8o
+ a3jM2Y7TNTnEUjbmUWKbm98relbfbsHYdWVl3ro0WfAl98yxTNbKKeT/Zfuc1pgeaO0/
+ 8tdn3hZRW9Etpnr6VCfhTVUU2q5k1e53+9oqgxc2+lkySZWyFU8nh85YtrvcC26PXcR/
+ 1aMY7uNORoaew423ZSYLCUZL2D+EM4PwkgFutDauKBiua8yMXho8hNHayyTubs35B5pt
+ 5ur+FH+lv8NrGOdVjEFmuizT0Lba/ryxwGrtU5pIK4Wr4mQl+mK2HI7ClaN9zXnV3h5f
+ fN0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779703738; x=1780308538;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=IhQx+fQN8NMYGyoe+FxB1LZOzEN9L+wVzrVejV2yZ4g=;
+ b=bmwgHa4aAGZ15q2nt/q8W4XQIoJj459NZbMFKke0iZ0zQjshRIZ/k5FPTmoN7iyh/t
+ 4rvC10KrcKQHhPC0FnFimXnKFIzt0hPYQyO1pglEoBmyUWR1xKMiVxkSyiS6j0IirwlA
+ eealVMAWYy5tJHVjym3tRdNZhsWXC0VVKhrYTbRYQpyE3OBoDXnajvENwRG6kfTj0uzi
+ nm5SVqq5O7hQND23LwjDEKDkc9JyzL0yzTa1HU1ZMJeY+Gq3OXvY5WWOh6E0loSTIyEL
+ c2xT/8ZFaUOwqKmbnHjRrEQY4sQQEayXGusOUadGNF9QQ7kSUkmWSwCsMSHIQt32NCs7
+ o5/Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8j8t22QUw+39xYvTV/KCRxm+cnHJe5CLCVEr5XWElbov8TESLXcBNU/mlSF5jw0qEkMXVJ76HYYLc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwowNj6Gl7csvpXbVd2WHXcKczFCdxKzTy+RttXz4ZOdQjCSoHq
+ rcQ62z1OZJo6TXEkDtbqcxp4kozC6FRg4VwHL2YXZg3+vi7ocfPOZlk3pXfq5C9h+j8a2B7daHY
+ 2ZYbyTeGRz2I2deFxR4wBxYK1ocOuc0bQY5JjgXlLzU1+BAztaX0zqA2NiZcYlOIDfehYTdk=
+X-Gm-Gg: Acq92OFXSlEV+XgXWiBD6FZExi/8xV91+MKj/0qIy3kGivju6mNq1D6NHOkYjUh7jWd
+ nKRq5F7wr+b6+4WszQbLFnE67j/XM1pCdmqvVO4DPAYTmr62Z5WDZYMN8bmDlQbCC9dFWFHJnXN
+ /2B/CLfOK55ihB3UHWghJ7xwcFEwWas+jWvbni0U7IM+yAWAwBdYSB03JKtSistkPaCNyevrU5G
+ I3LQQC4+GDAvK91S1F1gjJSUCsMS2XWMMCwpV4Q7vutGQdJ81x23aPiRkE+vJAw9368UGTk+psR
+ 253JuOAEkBEz2U+2IUGnt18j3T5EFhjeZWW/gSa6ovMIGLgxvR8N5WH2t+Fqt1xkdJZAlaVCp2E
+ t0CtSVVnUVqp9yuW7/3MZlpHfhwBYuPlgJbW+Faz7Rn/fuf5lv7/l7I8+cNV29PQQX8BRrtD5vt
+ hapoy68p9AOVAmzvLwo/oKWf0dCE/+o+Q7o2ioVSCINBC4Qg==
+X-Received: by 2002:a05:6102:610a:20b0:608:d017:471c with SMTP id
+ ada2fe7eead31-673c1842bf7mr1390555137.6.1779703737798; 
+ Mon, 25 May 2026 03:08:57 -0700 (PDT)
+X-Received: by 2002:a05:6102:610a:20b0:608:d017:471c with SMTP id
+ ada2fe7eead31-673c1842bf7mr1390545137.6.1779703737408; 
+ Mon, 25 May 2026 03:08:57 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa32cf945fsm2557294e87.75.2026.05.25.03.08.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2026 03:08:56 -0700 (PDT)
+Date: Mon, 25 May 2026 13:08:54 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yijie Yang <yijie.yang@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: misc: qcom,fastrpc: Add Maili FastRPC
+ compatible
+Message-ID: <moeb7zqqhengrd2nrqyuqydyq4pk4imd2uylmr4tf2ypn65h34@z33iifvtf7al>
+References: <20260525-fastrpc-v1-1-ae9add881952@oss.qualcomm.com>
+ <meuxtcs3quchupl6gf4vtjiosmoig7zs2tc2vr2xthetem5hll@l4op77zr2srj>
+ <a7b4c0ea-0e02-4ede-8d51-a4c038d55a5a@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a7b4c0ea-0e02-4ede-8d51-a4c038d55a5a@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=S/jpBosP c=1 sm=1 tr=0 ts=6a141fba cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=N0EbhCz5inPs_2rfm9cA:9 a=CjuIK1q_8ugA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDEwMyBTYWx0ZWRfX8lG8zBI7OL68
+ spEbPLPcuDRgNfJA6xZVKM30A4mB68RXQUWFSwy4bLvwqdmHzO+PqxBrleuXWfJalfdpqYUzPwu
+ 0UZmk+x5VgdMdvEa0fWbLsmPTYN1sv8RwNIORPQDvrTZlyRLJaBftMTzq6zobRp8LFTmkFZYI/o
+ DCS6C/Pc/lakljdzF7xDuwEracF1xrJEAOmiBS2b+LZjRYqGiygola7OeVUd72eL25YhJKqzO8n
+ eqqMZAE/xPykqY8n0pDmZiV50QYOFNmCVOAv21rpzeLuWAgRWVULgQTNkznJVl6T4sOOPu14dTE
+ rIHJyq+T8rwUm9Nl4YICZWEsAcyqHGUGhliZ/fp45CbkHheCYjw2+RV17Nv08cKFEhtiujwf1Xe
+ QDKuSWV90P5m18Cr5muPqp5jktUn/D9UHyJzAFsnS6fMPwUmsUk9ggFbt5CVndgw13djS5LjtIo
+ iilAt+TeiJ6ikCUnMpA==
+X-Proofpoint-ORIG-GUID: Alo0eQVfdWxTtMUZT60SfR3E3QtA_qcr
+X-Proofpoint-GUID: Alo0eQVfdWxTtMUZT60SfR3E3QtA_qcr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-25_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 adultscore=0 phishscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605250103
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,190 +145,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As we do for CRTC color mgmt properties, use color_mgmt_changed flag to
-track any value changes in the color pipeline of a given plane, so that
-drivers can update color blocks as soon as plane color pipeline or
-individual colorop values change. Since we're here, only announce and
-track changes to plane COLOR_PIPELINE prop if its value is actually
-changing.
+On Mon, May 25, 2026 at 05:37:23PM +0800, Yijie Yang wrote:
+> 
+> 
+> On 5/25/2026 4:37 PM, Dmitry Baryshkov wrote:
+> > On Mon, May 25, 2026 at 02:21:17PM +0800, Yijie Yang wrote:
+> > > Document compatible string for the FastRPC interface on the Qualcomm Maili
+> > > SoC, which is compatible with the Qualcomm Kaanapali FastRPC and can
+> > > fallback to Kaanapali.
+> > 
+> > Can I assume that it has the same bus width as Kaanapali?
+> 
+> Yes, the DMA width for CDSP and ADSP is the same. If you were referring to
+> something other than the DMA width, please let me know.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com> #v1
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+Thanks for the confirmation.
 
----
+> 
+> > 
+> > > 
+> > > Assisted-by: Claude:claude-opus-4-6
+> > 
+> > Claude assisting to write a one-liner patch? It's becoming ridiculous.
+> 
+> This patch was generated alongside a set of Maili-related patches and was
+> not created specifically on its own.
 
-v3: track lut(1/3)d_interpolation property updates (Chaitanya)
-v6: use `|= replaced` for consistency (Chaitanya)
----
- drivers/gpu/drm/drm_atomic_uapi.c | 64 ++++++++++++++++++++++++-------
- include/drm/drm_atomic_uapi.h     |  4 +-
- 2 files changed, 54 insertions(+), 14 deletions(-)
+Okay...
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 78423905051e..e997917819e8 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -265,13 +265,19 @@ EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
-  *
-  * Helper function to select the color pipeline on a plane by setting
-  * it to the first drm_colorop element of the pipeline.
-+ *
-+ * Return: true if plane color pipeline value changed, false otherwise.
-  */
--void
-+bool
- drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 				 struct drm_colorop *colorop)
- {
- 	struct drm_plane *plane = plane_state->plane;
- 
-+	/* Color pipeline didn't change */
-+	if (plane_state->color_pipeline == colorop)
-+		return false;
-+
- 	if (colorop)
- 		drm_dbg_atomic(plane->dev,
- 			       "Set [COLOROP:%d] for [PLANE:%d:%s] state %p\n",
-@@ -283,6 +289,8 @@ drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 			       plane->base.id, plane->name, plane_state);
- 
- 	plane_state->color_pipeline = colorop;
-+
-+	return true;
- }
- EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
- 
-@@ -604,7 +612,7 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
- 		if (val && !colorop)
- 			return -EACCES;
- 
--		drm_atomic_set_colorop_for_plane(state, colorop);
-+		state->color_mgmt_changed |= drm_atomic_set_colorop_for_plane(state, colorop);
- 	} else if (property == config->prop_fb_damage_clips) {
- 		ret = drm_property_replace_blob_from_id(dev,
- 					&state->fb_damage_clips,
-@@ -713,11 +721,11 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
- static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
- 					      struct drm_colorop_state *state,
- 					      struct drm_property *property,
--					      uint64_t val)
-+					      uint64_t val,
-+					      bool *replaced)
- {
- 	ssize_t elem_size = -1;
- 	ssize_t size = -1;
--	bool replaced = false;
- 
- 	switch (colorop->type) {
- 	case DRM_COLOROP_1D_LUT:
-@@ -739,28 +747,45 @@ static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
- 						 &state->data,
- 						 val,
- 						 -1, size, elem_size,
--						 &replaced);
-+						 replaced);
- }
- 
- static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
- 					   struct drm_colorop_state *state,
- 					   struct drm_file *file_priv,
- 					   struct drm_property *property,
--					   uint64_t val)
-+					   uint64_t val,
-+					   bool *replaced)
- {
- 	if (property == colorop->bypass_property) {
--		state->bypass = val;
-+		if (state->bypass != val) {
-+			state->bypass = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->lut1d_interpolation_property) {
--		state->lut1d_interpolation = val;
-+		if (state->lut1d_interpolation != val) {
-+			state->lut1d_interpolation = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->curve_1d_type_property) {
--		state->curve_1d_type = val;
-+		if (state->curve_1d_type != val) {
-+			state->curve_1d_type = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->multiplier_property) {
--		state->multiplier = val;
-+		if (state->multiplier != val) {
-+			state->multiplier = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->lut3d_interpolation_property) {
--		state->lut3d_interpolation = val;
-+		if (state->lut3d_interpolation != val) {
-+			state->lut3d_interpolation = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->data_property) {
- 		return drm_atomic_color_set_data_property(colorop, state,
--							  property, val);
-+							  property, val,
-+							  replaced);
- 	} else {
- 		drm_dbg_atomic(colorop->dev,
- 			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
-@@ -1275,8 +1300,10 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
- 		break;
- 	}
- 	case DRM_MODE_OBJECT_COLOROP: {
-+		struct drm_plane_state *plane_state;
- 		struct drm_colorop *colorop = obj_to_colorop(obj);
- 		struct drm_colorop_state *colorop_state;
-+		bool replaced = false;
- 
- 		colorop_state = drm_atomic_get_colorop_state(state, colorop);
- 		if (IS_ERR(colorop_state)) {
-@@ -1285,7 +1312,18 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
- 		}
- 
- 		ret = drm_atomic_colorop_set_property(colorop, colorop_state,
--						      file_priv, prop, prop_value);
-+						      file_priv, prop, prop_value,
-+						      &replaced);
-+		if (ret || !replaced)
-+			break;
-+
-+		plane_state = drm_atomic_get_plane_state(state, colorop->plane);
-+		if (IS_ERR(plane_state)) {
-+			ret = PTR_ERR(plane_state);
-+			break;
-+		}
-+		plane_state->color_mgmt_changed |= replaced;
-+
- 		break;
- 	}
- 	default:
-diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
-index 436315523326..4e7e78f711e2 100644
---- a/include/drm/drm_atomic_uapi.h
-+++ b/include/drm/drm_atomic_uapi.h
-@@ -29,6 +29,8 @@
- #ifndef DRM_ATOMIC_UAPI_H_
- #define DRM_ATOMIC_UAPI_H_
- 
-+#include <linux/types.h>
-+
- struct drm_crtc_state;
- struct drm_display_mode;
- struct drm_property_blob;
-@@ -50,7 +52,7 @@ drm_atomic_set_crtc_for_plane(struct drm_plane_state *plane_state,
- 			      struct drm_crtc *crtc);
- void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
- 				 struct drm_framebuffer *fb);
--void drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
-+bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 				      struct drm_colorop *colorop);
- int __must_check
- drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
+> 
+> > 
+> > > Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> > > ---
+> > >   Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml | 1 +
+> > >   1 file changed, 1 insertion(+)
+> > > 
+
 -- 
-2.53.0
-
+With best wishes
+Dmitry
