@@ -4,75 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FE0DCD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:49:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F9D3CD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:53:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA3B10E476;
-	Tue, 26 May 2026 14:49:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A938C10E4EB;
+	Tue, 26 May 2026 14:53:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F+pEue8b";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MVc26bQD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C648510E476
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:49:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779806987; x=1811342987;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=qmIH6yVvgzOiB5JNQwghkQLv6udJEQZaAKStIOi2Yqw=;
- b=F+pEue8bofEsJey3OADSo/B4VEcUVtt831I9KEVsxbeLlFj6g+ApSk0I
- VtaIwONpPKgWDr6WljcBzjLfAYByXxTrRzmutNan4hetSsB/Q0MH8ScW2
- YhAQmRPnpND/SDHUrPljv6UvK3EUf6DkzTM4sH4wOmTlfwRtPn+rZ6gpZ
- ywyRo8cVbMXEFtc6NDYvYlAewN4I33Y+DTmEO1KxXJjW6q6xCTMihoNLJ
- +lt0SEnC2osfgTz7XSkrbrKS7lbYLn+9muXH7+i8OP6cOzGhAftjf+XL2
- J0pes4BtXWe+Nym/XLPjFWFDNxyDd03NJ7YpRLEg/hHCkr1VP1ntce3Nk A==;
-X-CSE-ConnectionGUID: 2GlA9p8CQTmr9QPJDDrH4Q==
-X-CSE-MsgGUID: da7wjfKeQmqv4Ebqyi1W7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="80653992"
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="80653992"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 07:49:46 -0700
-X-CSE-ConnectionGUID: axrAJN43RS+bv8s9lxfbew==
-X-CSE-MsgGUID: 9WiOfvFITTCrXI3tnTV9kw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="272274178"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.182])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 07:49:42 -0700
-Date: Tue, 26 May 2026 17:49:39 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
- for vblank
-Message-ID: <ahWzA50VEsJfbyuK@intel.com>
-References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
- <ee86cb43-e5df-4946-a957-931a73dde752@suse.de>
- <ahBWayIcQUHuAt4i@intel.com>
- <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de>
- <ahBZ8nIqR4qESLZg@intel.com>
- <5fbcda92-f6b0-4de2-89e5-ea43a6248b05@suse.de>
- <ahCw9zakihaGHLsN@intel.com>
- <428be9d9-06f7-4bcb-807b-d351101c3c4b@linux.intel.com>
- <ahRA17a7JR2PVOuJ@intel.com>
- <ce002f59-50ae-451c-8904-0caf50f5eef5@linux.intel.com>
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
+ [74.125.82.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B63E710E4EB
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:53:05 +0000 (UTC)
+Received: by mail-dy1-f171.google.com with SMTP id
+ 5a478bee46e88-2f6e6a0a215so911569eec.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:53:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779807185; cv=none;
+ d=google.com; s=arc-20240605;
+ b=hS4BceXBoQTuT/Ol2nZsUZOAYB4aZBOdZiW4KncIEHBqyV4Gv0+7OMjQLMaXieQKth
+ wHTAuPPR5VS802EorJpEII5uhW8CJuyxHS09BtipL6EZDZ0IugRXTRyDgz/KeG84ns8G
+ BgYB1qQ/iEE48BrhktxFQegebH9V8Xf5b800H7gUM/Ni41VDlsP9EXw7N/ils0YLrDHm
+ FFQ1x7OUFTfxf4Wb9bW+074YAmpwosaY47Q/1hPya1mc6io2Phu1VTznGSj8UItEj9Fu
+ jQhSPCG9+tVCPs2wDBp5pIGTCdvEQFAYmvOva/uAsMZtGCbqx3q9yXUTWvFikERLMfi+
+ hlxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=kuzpY6XgB0sl9R2wkZih4Zz2Dy5QZS8ND0a9lUvUZwQ=;
+ fh=BtuRJVwAkX2E4OO+BDUpq2amV+Zo+8WfPbzAut06qYE=;
+ b=gwAPtZL+NhXJQcuJXIP4vAXVK8r527m/mgXcpu4dd0YumC24Rkn1kIXs4k0JUwgTeF
+ ndBZgcSUNeqPUw8KD3AoYAttGoj+RlYpHfVRzNrJwlW565omCouDyp1T+lPh4zPQQNFO
+ RShHuElxBguULPQmVaWwA7pwFmWkLVkGPplfvWxSS5E1P31jmLkuZkm+QYla+XDmdVug
+ GfHHH4PXFJJLa2PTEXe1tmwSiCM9UzZM8acsk/R83RK8JzX0fF8j7FVHQIo+mj7wEzLO
+ WDrB66NfTS1Uh5JCvrxSO+ly9ix2YH/tzZukhIUxih/nNTGQET9IP97EE+srtas9dnaX
+ 5+vA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779807185; x=1780411985; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kuzpY6XgB0sl9R2wkZih4Zz2Dy5QZS8ND0a9lUvUZwQ=;
+ b=MVc26bQDm4q0rXKyurX2HyLEwCa/yeFIYFAP8FDXcpKNJVdap7aaSRqLY8IbCru1Hr
+ 6w/0xdyspfjUqCP31c1AiZfIApCYO3b848HTT4l/CJVUWyJLt/Fw92ASFjxAG/mv2gWx
+ BVwln6XFAaXjOtCm6oSIEiogfbM4DV1c3d7TkfzrnbRlXKjzDFR6ZvTG1PY8NqtLxumK
+ KLomk7ltzjY1rcpNDNBI5Yjkf9lSdyrtEgsfih5yDk0IEPJoJLLwIbdsmqHVSVvEovWg
+ aHbhP4Vri4n0jw3OjnbTn+DS5zU/fIiNCkO7jz1hVMAL+VbiJQ/E69aDqsRffMJU72lK
+ 2P2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779807185; x=1780411985;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=kuzpY6XgB0sl9R2wkZih4Zz2Dy5QZS8ND0a9lUvUZwQ=;
+ b=iSRFlEjzyLVVtprJ3i6JLfZaR7ZIa1TrjR6HvalQUUW5w70grD49T5/ZV0yNIVVD54
+ afcddSjpbuUuFHuiYpmCS+xEIKKCRCV+WV7mtNnO9LDiRzMArkPTVlhnyNNk8IIXWARB
+ 7y15fdx4DhzPRvZ5FFln4D+6IEvEOb6Fd6I4PEAYfryVmaRPSWFMnuSYsNLWteUB3Jza
+ zHmvFcViZuhy3QxxDj0V84LrWG8R9YD0ZDqGP9vbjiDjzAb5diPX+jfyVADZPJlANQpy
+ 9b9NTXh+ak6ybNgtCiaue3YRYxBTQIe99oDXY9cUlf0QaSX0jO9Dr3EeMkjq8RmB3K8c
+ rUmw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/7Zdzpoux9bAzNK5gtqxQZGo7sgNaCVUY/yE12yNaFZl1O2rVRD/ubeCTp5SZzGYh9Z41omhx/g50=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwVGH/mG3R/Kg5ui9ZIobiGIalIsYjPy2J9FSn6/C8r8AnBtGeF
+ e0lnVsrE1Q929L/y2431MqutfIsecUzAtFmHcmKk3j2icovwXrq0Nqlhs+jHwkGJQ3W8Ljrrw2W
+ FaIlvIXtmc10lVQ+M1ozBLclDMyFaMY4=
+X-Gm-Gg: Acq92OH1EtGK0hnRkxDKQpxGdbhX/RqcjnHX0vLB/vkzfn/dxvwfinMwilLziQR0ENz
+ MY2Xx3HG2nHRs1I+iEZHWYoEMYRg16VBBvTtz08sdJ5RiLFpnG8hjmsvXQ7phfSnQYWTgSh9J4l
+ 08t01nyGYVeh85md1YomIgaGwXXwGXub2oqZGfgAF0mZ++kFJU9XLyfypaICIrMDrDIrCf4ibQg
+ Xa/7+sQTlCVjBdUHk7hY6ssZ5i8MV0zE9nA1V/FtGoZmTGoReV015NW1KWADSXTeWMKBiHAE/cg
+ xNdDGo0/yORm0l6GR0/yp9aSkqrE0cY7YcODSs00kSxkcJoYFFXTR1sYPNaQqfFmw1O11z7ILHA
+ 58yMB
+X-Received: by 2002:a05:7022:626:b0:134:d037:aca3 with SMTP id
+ a92af1059eb24-1365fa3ef8bmr3010059c88.3.1779807184983; Tue, 26 May 2026
+ 07:53:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ce002f59-50ae-451c-8904-0caf50f5eef5@linux.intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260519030624.51613-1-leorize+oss@disroot.org>
+ <20260519030624.51613-2-leorize+oss@disroot.org>
+In-Reply-To: <20260519030624.51613-2-leorize+oss@disroot.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 26 May 2026 10:52:53 -0400
+X-Gm-Features: AVHnY4LcPsiYYQmh-1BOJDsIdKpDtx2NbLr3E_yI9k27EGP0u5MvvjHIjHnWQ-Q
+Message-ID: <CADnq5_MrUaLRP70hwb5YGawjfft9qUaH4h_t4TQ17AEgAwj3ww@mail.gmail.com>
+Subject: Re: [PATCH 1/1] drm/amd/display: set MSA MISC1 bit 6 when using VSC
+ SDP for DCE 11.x
+To: Leorize <leorize+oss@disroot.org>, "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>
+Cc: linux-kernel@vger.kernel.org, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,104 +112,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 26, 2026 at 01:14:55PM +0200, Maarten Lankhorst wrote:
-> Hey,
-> 
-> Den 2026-05-25 kl. 14:30, skrev Ville Syrjälä:
-> > On Mon, May 25, 2026 at 10:13:57AM +0200, Maarten Lankhorst wrote:
-> >> Hey,
-> >>
-> >> Den 2026-05-22 kl. 21:39, skrev Ville Syrjälä:
-> >>> On Fri, May 22, 2026 at 03:43:26PM +0200, Thomas Zimmermann wrote:
-> >>>> Hi
-> >>>>
-> >>>> Am 22.05.26 um 15:28 schrieb Ville Syrjälä:
-> >>>> [...]
-> >>>>>>>> But why does your HW use CRTC 1 in the first place.
-> >>>>>>> Could be eg. the enabled outputs can't be driven with CRTC 0.
-> >>>>>>>
-> >>>>>>> I guess what you want to do is pick the first crtc from modesets[]
-> >>>>>>> which is enabled. Or perhaps even "pick the Nth enabled crtc from
-> >>>>>>> modesets[] based on the ioctl argument".
-> >>>>>> The enable-status of each CRTC could change later on, which might lead
-> >>>>>> to problems.
-> >>>>> Sound like a locking issue if someone is changing the configuration
-> >>>>> at the same time we're trying to do the vblank wait here.
-> >>>>
-> >>>> I mean that the connected outputs could change at a later point or we 
-> >>>> could have multiple CRTCs in use. Today, someone in #intel-gfx reported 
-> >>>> a problem with panning if multiple CRTCs are in use.
-> >>>>
-> >>>> Therefore picking a CRTC freely could be a problem. Let's say we 
-> >>>> configure modes from one CRTC, but later wait/pan/flush with another 
-> >>>> CRTC. I would not trust this to work correctly.
-> >>>>
-> >>>> Hence, my suggestion is to select a primary CRTC during the fbdev 
-> >>>> client's probe and use it for all later operations until the next probe 
-> >>>> happens.  All other CRTCs would mirror the primary one.
-> >>>
-> >>> Actual mirroring may not be possible due to different modes supported
-> >>> on each output. The whole multi-output fbdev thing in the drm fb helper
-> >>> is kind of a hack that's rather hard to make work 100% sensibly.
-> >>>
-> >>> For the panning possibly the only sensible thing is to use the max of
-> >>> hdisplay/vdisplay of all the crtcs as the xres/yres so it's clear
-> >>> how much things can actually be panned. Oh and tiled displays (assuming
-> >>> we would actually want the fbdev stuff to tile correctly) make the
-> >>> situation even more complicated. I think the current support for tiled
-> >>> displays in the fb helper is semi-busted.´
-> >>
-> >> I tested fbdev on a tiled DP-MST monitor.
-> >> It works better than my kwin's wayland compositor, as it detects both tiles
-> >> and presents a single image spanning both tiles.
-> > 
-> > IIRC we've occasionally seen cases where it picks a non-tiled mode
-> > on the primary connector, and also still enables the second tile.
-> > 
-> >> Kwin sees both as separate
-> >> monitors.
-> >>
-> >> I still see vertical tearing between both tiles, so it would be nice if
-> >> intel/display would support atomic updates for both crtc's directly.
-> >>
-> >> The code's already there for bigjoiner, just needs to do the same for
-> >> tile joiner updates when all tiled crtc's are in the atomic update.
-> > 
-> > We don't have any special code for atomic updates with joiner
-> > currently. It just happens to work most of the time.
-> > 
-> > With joiner the pipes will be in sync/phase, so that helps a bit.
-> > But we do also try to make the pipes in sync/phase also for tiled
-> > display via the use of the port sync. So if you see a difference
-> > in tearing between joiner vs. tiled then that likely means the
-> > problem is in userspace (as in it submits separate commits for
-> > each tile).
-> 
-> The only thing kernel should do is if crtc 1 and 2 are part of a
-> commit and in sync is to perform the same as bigjoiner updates for
-> crtc 1 & 2 simultaneously.
+@Leo (Sunpeng) Li
+, @Wentland, Harry
 
-Nothing is performed simultaneously for joiner either. The only thing
-that is guaranteed is that the joined pipes are updated back to back,
-because the pipes are always consecutive. If you have consecutive pipes
-used for a tiled display (or the pipes in between are not part of the
-commit) then there is zero difference between joiner vs. tiled display
-commit.
+Can you take a look at this?
 
-> 
-> That shouldn't be too much to ask from the kernel, and not hard to
-> implement.
-> 
-> 
-> > I have occasionally pondered about hiding the tiled display stuff
-> > completely from userspace and handling it in the kernel the same
-> > was as joiner. But the problem is that we'd also need to cook up
-> > a new EDID for the display that combines both tiles, and we'd
-> > still need the second connector to be enabled internally (and 
-> > hide that fact from userspace). None of that code exists
-> > currently and wouldn't be entirely trivial to implement.
-> > 
-
--- 
-Ville Syrjälä
-Intel
+On Tue, May 19, 2026 at 3:19=E2=80=AFAM Leorize <leorize+oss@disroot.org> w=
+rote:
+>
+> When BT.2020 colorimetry is selected, the driver sends information using
+> VSC SDP but does not set "ignore MSA colorimetry" bit on older GPUs with
+> DCE-based IPs. This causes certain sinks to prefer colorimetry
+> information in DP MSA, resulting in terrible color rendering ("dull"
+> colors) when HDR is enabled.
+>
+> This commit wires up the MISC1 bit 6 for GPUs with DCE 11.x based IPs to
+> correctly configure sinks to ignore colorimetry information in MSA,
+> resolving the color rendering issue.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4849
+> Assisted-by: oh-my-pi:GPT-5.5
+> Signed-off-by: Leorize <leorize+oss@disroot.org>
+> ---
+>  .../drm/amd/display/dc/dce/dce_stream_encoder.c   | 15 ++++++++++++++-
+>  .../drm/amd/display/dc/dce/dce_stream_encoder.h   |  3 ++-
+>  2 files changed, 16 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c b/dr=
+ivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+> index ed407e779c12..2c3a20d35fe9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+> @@ -271,7 +271,6 @@ static void dce110_stream_encoder_dp_set_stream_attri=
+bute(
+>         bool use_vsc_sdp_for_colorimetry,
+>         uint32_t enable_sdp_splitting)
+>  {
+> -       (void)use_vsc_sdp_for_colorimetry;
+>         (void)enable_sdp_splitting;
+>         uint32_t h_active_start;
+>         uint32_t v_active_start;
+> @@ -334,6 +333,16 @@ static void dce110_stream_encoder_dp_set_stream_attr=
+ibute(
+>         if (REG(DP_MSA_MISC))
+>                 misc1 =3D REG_READ(DP_MSA_MISC);
+>
+> +       /* For YCbCr420 and BT2020 Colorimetry Formats, VSC SDP shall be =
+used.
+> +        * When MISC1, bit 6, is Set to 1, a Source device uses a VSC SDP=
+ to indicate the
+> +        * Pixel Encoding/Colorimetry Format and that a Sink device shall=
+ ignore MISC1, bit 7,
+> +        * and MISC0, bits 7:1 (MISC1, bit 7, and MISC0, bits 7:1, become=
+ "don't care").
+> +        */
+> +       if (use_vsc_sdp_for_colorimetry)
+> +               misc1 =3D misc1 | 0x40;
+> +       else
+> +               misc1 =3D misc1 & ~0x40;
+> +
+>         /* set color depth */
+>
+>         switch (hw_crtc_timing.display_color_depth) {
+> @@ -499,6 +508,10 @@ static void dce110_stream_encoder_dp_set_stream_attr=
+ibute(
+>                                 hw_crtc_timing.h_addressable + hw_crtc_ti=
+ming.h_border_right,
+>                                 DP_MSA_VHEIGHT, hw_crtc_timing.v_border_t=
+op +
+>                                 hw_crtc_timing.v_addressable + hw_crtc_ti=
+ming.v_border_bottom);
+> +       } else {
+> +               /* DCE-only path */
+> +               if (REG(DP_MSA_MISC))
+> +                       REG_WRITE(DP_MSA_MISC, misc1);   /* MSA_MISC1 */
+>         }
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h b/dr=
+ivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
+> index 342c0afe6a94..88d6044904d1 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
+> @@ -96,7 +96,8 @@
+>
+>  #define SE_COMMON_REG_LIST(id)\
+>         SE_COMMON_REG_LIST_DCE_BASE(id), \
+> -       SRI(AFMT_CNTL, DIG, id)
+> +       SRI(AFMT_CNTL, DIG, id), \
+> +       SRI(DP_MSA_MISC, DP, id)
+>
+>  #define SE_DCN_REG_LIST(id)\
+>         SE_COMMON_REG_LIST_BASE(id),\
+> --
+> 2.54.0
+>
