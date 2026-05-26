@@ -4,163 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F2DDCD5BDF
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:22:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 330F3CD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:24:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5014510E12C;
-	Tue, 26 May 2026 09:22:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D74F10E60F;
+	Tue, 26 May 2026 09:24:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="VAijS1od";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q6I6VFLJ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VAijS1od";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q6I6VFLJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TWm4i+KN";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02A0510E12C
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:22:46 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 94B526B346;
- Tue, 26 May 2026 09:22:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779787364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=dSvjQQSdD0rwF6LUM0JsPgONSlRbO3wD9RFgWm9OySo=;
- b=VAijS1ode21962RALMpEDQvhWosJZQD54KvUSbmvsBbY7fSXj6QCrVc13ZksbrnNDb9I8s
- c1V9fnoWbf+87mc0qDndSFsDw3McYPL1tdXqCJIU9G3cHhYfdj3Bvla/C2fL9pQPcGuo7C
- Zo6VaV9zBe4nglfZDEvfBrHSGl7IB9o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779787364;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=dSvjQQSdD0rwF6LUM0JsPgONSlRbO3wD9RFgWm9OySo=;
- b=Q6I6VFLJL7j6Ca4GX4Dp6xrpYpciDlP+JyRLy/WLruUox4Hydh39c/SxpyqYBNqgMSAbtn
- kyG6pGULsZmxM1DA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VAijS1od;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Q6I6VFLJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779787364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=dSvjQQSdD0rwF6LUM0JsPgONSlRbO3wD9RFgWm9OySo=;
- b=VAijS1ode21962RALMpEDQvhWosJZQD54KvUSbmvsBbY7fSXj6QCrVc13ZksbrnNDb9I8s
- c1V9fnoWbf+87mc0qDndSFsDw3McYPL1tdXqCJIU9G3cHhYfdj3Bvla/C2fL9pQPcGuo7C
- Zo6VaV9zBe4nglfZDEvfBrHSGl7IB9o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779787364;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=dSvjQQSdD0rwF6LUM0JsPgONSlRbO3wD9RFgWm9OySo=;
- b=Q6I6VFLJL7j6Ca4GX4Dp6xrpYpciDlP+JyRLy/WLruUox4Hydh39c/SxpyqYBNqgMSAbtn
- kyG6pGULsZmxM1DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9EA955A125;
- Tue, 26 May 2026 09:22:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Mc5aJWNmFWpaewAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 26 May 2026 09:22:43 +0000
-Message-ID: <3e523040-b59a-40dc-8b60-d604c32bac88@suse.de>
-Date: Tue, 26 May 2026 11:22:43 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EE6D10E179;
+ Tue, 26 May 2026 09:24:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779787477; x=1811323477;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=UxK94y3fWJzZjnLNI4RnnCb0k4ycYwtk98jPwkRyCi0=;
+ b=TWm4i+KNLG2ShG40rck1kFyA/afERwuJvtqsWlB7gpk5xYxfwdkNAyHL
+ 9ZdYaz5XSv8Vz83eanDAZ0AdPJqxEf8+GLOn9V8CdlAlHgbl2MdTQYS3B
+ I+9MF/S9BuLpFudre9ZF7YA0Fh0tR/qksjybgGoAy/Zsi8vc8wCwMcuQq
+ 85DpAaQAvY2GniK7YOOOMmh3Jl8UNQGioBaalwXIh4EZKDYkKv8e5fvYF
+ T/8UERiAwjE4Cd6sZPSw0QrijIKuiTD4XGWTYDQpH6ZUFifxrzX7uVaUg
+ WKQTfDKlxHPTIFec46M5d3Fuws4wIBu9tefvnTEZnoFcW6wvvy6CusInj w==;
+X-CSE-ConnectionGUID: VNf9lbo0Qqm/2iirtmONaw==
+X-CSE-MsgGUID: HPtyveCWSA+iTCfA+uEXGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="80710488"
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="80710488"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 02:24:36 -0700
+X-CSE-ConnectionGUID: slU2VGj9TbGua5O+IiR8Gw==
+X-CSE-MsgGUID: uKFXlOePQ0ypZtjRo5w26Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="245900357"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.244.115])
+ ([10.245.244.115])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 02:24:32 -0700
+Message-ID: <b797a2aaa1bcef239a2eba449043dd278b9fa51a.camel@linux.intel.com>
+Subject: Re: [PATCH v4 2/5] cgroup/dmem: Add reclaim callback for lowering
+ max below current usage
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ intel-xe@lists.freedesktop.org
+Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner
+ <hannes@cmpxchg.org>,  Tejun Heo <tj@kernel.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maxime Ripard	 <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter	 <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org
+Date: Tue, 26 May 2026 11:24:29 +0200
+In-Reply-To: <9fe89d8e-9c32-4b03-ac2c-a634f5d4de0c@linux.intel.com>
+References: <20260512082406.44470-1-thomas.hellstrom@linux.intel.com>
+ <20260512082406.44470-3-thomas.hellstrom@linux.intel.com>
+ <9fe89d8e-9c32-4b03-ac2c-a634f5d4de0c@linux.intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/19] drm/crtc: Add new atomic_create_state callback
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
- Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
- Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-References: <20260519-drm-mode-config-init-v5-0-388b03321e38@kernel.org>
- <20260519-drm-mode-config-init-v5-12-388b03321e38@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260519-drm-mode-config-init-v5-12-388b03321e38@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 94B526B346
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCPT_COUNT_TWELVE(0.00)[37]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- internal_greylist_whitelist(0.00)[2a07:de40:b281:104:10:150:64:97];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- R_RATELIMIT(0.00)[to_ip_from(RL7gneoo7ydcsn9o76mxr5d8pb)];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email, suse.de:mid,
- suse.de:dkim, imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo,
- qualcomm.com:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,156 +83,403 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi, Maarten,
+
+Thanks for reviewing.
+
+On Tue, 2026-05-26 at 10:27 +0200, Maarten Lankhorst wrote:
+> Hello,
+>=20
+> Den 2026-05-12 kl. 10:24, skrev Thomas Hellstr=C3=B6m:
+> > Add an optional reclaim callback to struct dmem_cgroup_region. When
+> > dmem.max is set below the current usage of a cgroup pool, the new
+> > limit
+> > is applied immediately (so that concurrent allocations are
+> > throttled
+> > while reclaim is in progress) and then the driver is asked to evict
+> > memory to bring usage back below the limit.
+> >=20
+> > Reclaim is attempted up to a bounded number of times. No error is
+> > returned to userspace if usage remains above the limit after
+> > reclaim,
+> > and a pending signal will abort the reclaim loop early. This
+> > matches
+> > the behavior of memory.max in the memory cgroup controller.
+> >=20
+> > Also honor O_NONBLOCK so that if that flag is set during the
+> > max value write, no reclaim is initiated. The idea is to avoid
+> > charging the reclaim cost to the writer of the max value.
+> >=20
+> > v2:
+> > - Write max before reclaim is attempted (Maarten)
+> > - Let signals abort the reclaim without error (Maarten)
+> > - If a new max value is written with the O_NONBLOCK flag,
+> > =C2=A0 reclaim is not attempted (Maarten)
+> > - Extract region from the pool parameter rather than
+> > =C2=A0 passing it explicitly to set_resource_xxx().
+> > v3:
+> > - Use an rwsem to protect reclaim callback registration and
+> > =C2=A0 region unregister against concurrent reclaim invocations,
+> > =C2=A0 ensuring reclaim_priv is visible when the callback is
+> > =C2=A0 invoked. (Sashiko-bot)
+> >=20
+> > Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > ---
+> > =C2=A0include/linux/cgroup_dmem.h |=C2=A0 24 ++++++++
+> > =C2=A0kernel/cgroup/dmem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
+106
+> > +++++++++++++++++++++++++++++++++---
+> > =C2=A02 files changed, 121 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/include/linux/cgroup_dmem.h
+> > b/include/linux/cgroup_dmem.h
+> > index dd4869f1d736..c3bce21cbe80 100644
+> > --- a/include/linux/cgroup_dmem.h
+> > +++ b/include/linux/cgroup_dmem.h
+> > @@ -14,6 +14,21 @@ struct dmem_cgroup_pool_state;
+> > =C2=A0/* Opaque definition of a cgroup region, used internally */
+> > =C2=A0struct dmem_cgroup_region;
+> > =C2=A0
+> > +/**
+> > + * typedef dmem_cgroup_reclaim_fn_t - Reclaim callback for a dmem
+> > cgroup region.
+> > + * @pool: The cgroup pool that needs memory reclaimed.
+> > + * @target_bytes: Minimum number of bytes the driver should
+> > attempt to free.
+> > + * @priv: Private data registered with
+> > dmem_cgroup_region_set_reclaim().
+> > + *
+> > + * Called by the dmem cgroup controller when dmem.max is set below
+> > the current
+> > + * usage of @pool. The driver should evict at least @target_bytes
+> > of memory
+> > + * from @pool. May be called multiple times if usage remains above
+> > the limit.
+> > + *
+> > + * Return: 0 if progress was made, negative error code otherwise.
+> > + */
+> > +typedef int (*dmem_cgroup_reclaim_fn_t)(struct
+> > dmem_cgroup_pool_state *pool,
+> > +					u64 target_bytes, void
+> > *priv);
+> > +
+> > =C2=A0#if IS_ENABLED(CONFIG_CGROUP_DMEM)
+> > =C2=A0struct dmem_cgroup_region *dmem_cgroup_register_region(u64 size,
+> > const char *name_fmt, ...) __printf(2,3);
+> > =C2=A0void dmem_cgroup_unregister_region(struct dmem_cgroup_region
+> > *region);
+> > @@ -26,6 +41,9 @@ bool dmem_cgroup_state_evict_valuable(struct
+> > dmem_cgroup_pool_state *limit_pool,
+> > =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool ignore_low, bool
+> > *ret_hit_low);
+> > =C2=A0
+> > =C2=A0void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state
+> > *pool);
+> > +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region
+> > *region,
+> > +				=C2=A0=C2=A0=C2=A0 dmem_cgroup_reclaim_fn_t
+> > reclaim,
+> > +				=C2=A0=C2=A0=C2=A0 void *priv);
+> > =C2=A0#else
+> > =C2=A0static inline __printf(2,3) struct dmem_cgroup_region *
+> > =C2=A0dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
+> > @@ -62,5 +80,11 @@ bool dmem_cgroup_state_evict_valuable(struct
+> > dmem_cgroup_pool_state *limit_pool,
+> > =C2=A0static inline void dmem_cgroup_pool_state_put(struct
+> > dmem_cgroup_pool_state *pool)
+> > =C2=A0{ }
+> > =C2=A0
+> > +static inline void
+> > +dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
+> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dmem_cgroup_reclaim_fn_t recla=
+im,
+> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *priv)
+> > +{ }
+> > +
+> > =C2=A0#endif
+> > =C2=A0#endif	/* _CGROUP_DMEM_H */
+> > diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+> > index 1ab1fb47f271..5fd5a1634d21 100644
+> > --- a/kernel/cgroup/dmem.c
+> > +++ b/kernel/cgroup/dmem.c
+> > @@ -51,6 +51,20 @@ struct dmem_cgroup_region {
+> > =C2=A0	 * No new pools should be added to the region afterwards.
+> > =C2=A0	 */
+> > =C2=A0	bool unregistered;
+> > +
+> > +	/**
+> > +	 * @reclaim: Optional callback invoked when dmem.max is
+> > set below the
+> > +	 * current usage of a pool. The driver should attempt to
+> > free at least
+> > +	 * @target_bytes from @pool. May be called multiple times
+> > if usage
+> > +	 * remains above the limit after returning.
+> > +	 */
+> > +	dmem_cgroup_reclaim_fn_t reclaim;
+> > +
+> > +	/** @reclaim_priv: Private data passed to @reclaim. */
+> > +	void *reclaim_priv;
+> > +
+> > +	/** @unregister_sem: Protect @reclaim while it is running.
+> > */
+> > +	struct rw_semaphore unregister_sem;
+> > =C2=A0};
+> > =C2=A0
+> > =C2=A0struct dmemcg_state {
+> > @@ -145,21 +159,58 @@ static void free_cg_pool(struct
+> > dmem_cgroup_pool_state *pool)
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0static void
+> > -set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
+> > +set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
+> > bool nonblock)
+> > =C2=A0{
+> > =C2=A0	page_counter_set_min(&pool->cnt, val);
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0static void
+> > -set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
+> > +set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
+> > bool nonblock)
+> > =C2=A0{
+> > =C2=A0	page_counter_set_low(&pool->cnt, val);
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0static void
+> > -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
+> > +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
+> > bool nonblock)
+> > =C2=A0{
+> > -	page_counter_set_max(&pool->cnt, val);
+> > +	struct dmem_cgroup_region *region =3D pool->region;
+> > +
+> > +	/*
+> > +	 * Always update the limit, even if usage currently
+> > exceeds it.
+> > +	 * Concurrent allocations will be throttled against the
+> > new limit
+> > +	 * while reclaim is in progress.
+> > +	 */
+> > +	xchg(&pool->cnt.max, (unsigned long)val);
+> > +
+> > +	if (nonblock || !READ_ONCE(region->reclaim))
+> > +		return;
+> > +
+> > +	for (int retries =3D 5; retries > 0; retries--) {
+> Where does 5 come from? This code should retry until no longer above
+> limit, otherwise you'll get some hard to debug issues.
+
+The memcg controller uses MAX_RECLAIM_RETRIES, although if that fails,
+it will invoke the OOM killer, although if the reclaim callback makes
+progress, it will not consume a retry. Perhaps we should adopt the same
+behaviour except the OOM killer, at least for now. Note that if a
+signal is pending, the reclaim attempt is abandoned both here and in
+memcg.
 
 
-Am 19.05.26 um 11:01 schrieb Maxime Ripard:
-> Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
-> to drm_private_obj") introduced a new pattern for allocating drm object
-> states.
->
-> Instead of relying on the reset() callback, it created a new
-> atomic_create_state hook. This is helpful because reset is a bit
-> overloaded: it's used to create the initial software state, reset it,
-> but also reset the hardware.
->
-> It can also be used either at probe time, to create the initial state
-> and possibly reset the hardware to an expected default, but also during
-> suspend/resume.
->
-> Both these cases come with different expectations too: during the
-> initialization, we want to initialize all states, but during
-> suspend/resume, drm_private_states for example are expected to be kept
-> around.
->
-> reset() also isn't fallible, which makes it harder to handle
-> initialization errors properly. This is only really relevant for some
-> drivers though, since all the helpers for reset only create a new
-> state, and don't touch the hardware at all.
->
-> It was thus decided to create a new hook that would allocate and
-> initialize a pristine state without any side effect:
-> atomic_create_state to untangle a bit some of it, and to separate the
-> initialization with the actual reset one might need during a
-> suspend/resume.
->
-> Continue the transition to the new pattern with CRTCs.
->
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+>=20
+> > +		u64 usage =3D page_counter_read(&pool->cnt);
+> > +		int ret;
+> > +
+> > +		if (usage <=3D val)
+> > +			break;
+> > +
+> > +		if (signal_pending(current))
+> > +			break;
+> > +
+> > +		/* Block unregister until the reclaim callback
+> > completes. */
+> > +		if (down_read_interruptible(&region-
+> > >unregister_sem))
+> > +			break;
+> > +
+> > +		if (!region->reclaim) {
+> > +			up_read(&region->unregister_sem);
+> > +			break;
+> > +		}
+> > +
+> > +		ret =3D region->reclaim(pool, usage - val, region-
+> > >reclaim_priv);
+> > +		up_read(&region->unregister_sem);
+> > +		if (ret)
+> > +			break;
+> > +
+> > +		cond_resched();
+> > +	}
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+> > @@ -184,9 +235,9 @@ static u64 get_resource_current(struct
+> > dmem_cgroup_pool_state *pool)
+> > =C2=A0
+> > =C2=A0static void reset_all_resource_limits(struct
+> > dmem_cgroup_pool_state *rpool)
+> > =C2=A0{
+> > -	set_resource_min(rpool, 0);
+> > -	set_resource_low(rpool, 0);
+> > -	set_resource_max(rpool, PAGE_COUNTER_MAX);
+> > +	set_resource_min(rpool, 0, false);
+> > +	set_resource_low(rpool, 0, false);
+> > +	set_resource_max(rpool, PAGE_COUNTER_MAX, false);
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0static void dmemcs_offline(struct cgroup_subsys_state *css)
+> > @@ -491,6 +542,12 @@ void dmem_cgroup_unregister_region(struct
+> > dmem_cgroup_region *region)
+> > =C2=A0	region->unregistered =3D true;
+> > =C2=A0	spin_unlock(&dmemcg_lock);
+> > =C2=A0
+> > +	/* Ensure all reclaim() callbacks have finished. */
+> > +	down_write(&region->unregister_sem);
+> > +	/* Pairs with READ_ONCE() in set_resource_max() */
+> > +	WRITE_ONCE(region->reclaim, NULL);
+> > +	up_write(&region->unregister_sem);
+> > +
+> > =C2=A0	kref_put(&region->ref, dmemcg_free_region);
+> > =C2=A0}
+> I've thought about it some more, Can we do the same as dma-buf init?
+>=20
+> DEFINE_DMEMCG_REGION_INFO(info);
+> info.size =3D size.
+> info.ops =3D &drm_ttm_dmem_region_ops;
+> info.region_priv =3D ttm_region;
+> info.device_priv =3D drm_dev;
+>=20
+> dmem_region =3D dmem_cgroup_register_region(&info);
+>=20
+> This way we don't need to have a typedef for function pointers,
+> no need for READ_ONCE() and/or additional locking, which was only
+> added because it wasn't set at init.
+>=20
+> If we can push the responsibility for serialization against unload
+> to the driver, we should also be able to use drm_dev_enter/exit here
+> for the reclaim loop?
+>=20
+> Something like below:
+>=20
+> if (!ops->device_begin(device_priv, &cookie))
+> 	return 0; // Device gone
+>=20
+> while (true) {
+> 	ops->reclaim(region_priv, ...);
+> }
+>=20
+> ops->device_end(device_priv, cookie);
+>=20
+> Although we will additionally need to ensure that the region holds a
+> refcount on
+> reclaim_priv until dmemcg_free_region is called, otherwise this
+> breaks.
+>=20
+> So 4 ops needed:
+> - device_begin
+> - reclaim
+> - device_end
+> - free (called after region refcount drops to 0, called immediately
+> on !CONFIG_DMEMCG, drops device refcount)
+>=20
+> Relatedly, I believe perhaps we should also convert from drmm managed
+> to devm managed,
+> as all memory is already freed after the device is physically
+> detached.
+>=20
+> Hopefully this solves all lifetime issues, and this design allows for
+> additional callbacks into the device or region later on if needed.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-[...]
-> +
-> +	crtc_state = crtc->funcs->atomic_create_state(crtc);
-> +	if (IS_ERR(crtc_state))
-> +		return PTR_ERR(crtc_state);
-> +
-> +	if (drm_dev_has_vblank(crtc->dev))
-> +		drm_crtc_vblank_reset(crtc);
-
-I've recently looked at the vblank init and reset code. At some point, 
-we'll have to make the vblank reset controllable by drivers. Not an 
-issue for now though.
-
-Best regards
-Thomas
-
-> +
-> +	crtc->state = crtc_state;
-> +
-> +	return 0;
-> +}
-> +
-> +static int drm_mode_config_crtc_reset_with_create_state(struct drm_crtc *crtc)
-> +{
-> +	if (crtc->state) {
-> +		crtc->funcs->atomic_destroy_state(crtc, crtc->state);
-> +		crtc->state = NULL;
-> +	}
-> +
-> +	return drm_mode_config_crtc_create_state(crtc);
-> +}
-> +
->   /**
->    * drm_mode_config_reset - call ->reset callbacks
->    * @dev: drm device
->    *
->    * This functions calls all the crtc's, encoder's and connector's ->reset
-> @@ -237,13 +266,16 @@ void drm_mode_config_reset(struct drm_device *dev)
->   			plane->funcs->reset(plane);
->   		else if (plane->funcs->atomic_create_state)
->   			drm_mode_config_plane_reset_with_create_state(plane);
->   	}
->   
-> -	drm_for_each_crtc(crtc, dev)
-> +	drm_for_each_crtc(crtc, dev) {
->   		if (crtc->funcs->reset)
->   			crtc->funcs->reset(crtc);
-> +		else if (crtc->funcs->atomic_create_state)
-> +			drm_mode_config_crtc_reset_with_create_state(crtc);
-> +	}
->   
->   	drm_for_each_encoder(encoder, dev)
->   		if (encoder->funcs && encoder->funcs->reset)
->   			encoder->funcs->reset(encoder);
->   
-> diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-> index 0bb72453464a..213f7e298008 100644
-> --- a/include/drm/drm_atomic_state_helper.h
-> +++ b/include/drm/drm_atomic_state_helper.h
-> @@ -43,10 +43,12 @@ struct drm_device;
->   void __drm_atomic_helper_crtc_state_init(struct drm_crtc_state *state,
->   					  struct drm_crtc *crtc);
->   void __drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
->   				    struct drm_crtc_state *state);
->   void drm_atomic_helper_crtc_reset(struct drm_crtc *crtc);
-> +struct drm_crtc_state *
-> +drm_atomic_helper_crtc_create_state(struct drm_crtc *crtc);
->   void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
->   					      struct drm_crtc_state *state);
->   struct drm_crtc_state *
->   drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc);
->   void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state);
-> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> index c6dbe8b7db9e..152349f973e3 100644
-> --- a/include/drm/drm_crtc.h
-> +++ b/include/drm/drm_crtc.h
-> @@ -636,10 +636,26 @@ struct drm_crtc_funcs {
->   	 * 0 on success or a negative error code on failure.
->   	 */
->   	int (*set_property)(struct drm_crtc *crtc,
->   			    struct drm_property *property, uint64_t val);
->   
-> +	/**
-> +	 * @atomic_create_state:
-> +	 *
-> +	 * Allocate a pristine, initialized, state for the CRTC object
-> +	 * and return it. This callback must have no side effects: in
-> +	 * particular, the returned state must not be assigned to the
-> +	 * object's state pointer and it must not affect the hardware
-> +	 * state.
-> +	 *
-> +	 * RETURNS:
-> +	 *
-> +	 * A new, pristine, CRTC state instance or an error pointer
-> +	 * on failure.
-> +	 */
-> +	struct drm_crtc_state *(*atomic_create_state)(struct drm_crtc *crtc);
-> +
->   	/**
->   	 * @atomic_duplicate_state:
->   	 *
->   	 * Duplicate the current atomic state for this CRTC and return it.
->   	 * The core and helpers guarantee that any atomic state duplicated with
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Let me take a look at this.
+/Thomas
 
 
+>=20
+> Kind regards,
+> ~Maarten Lankhorst
+>=20
+> > =C2=A0EXPORT_SYMBOL_GPL(dmem_cgroup_unregister_region);
+> > @@ -530,6 +587,7 @@ struct dmem_cgroup_region
+> > *dmem_cgroup_register_region(u64 size, const char *fmt
+> > =C2=A0	INIT_LIST_HEAD(&ret->pools);
+> > =C2=A0	ret->name =3D region_name;
+> > =C2=A0	ret->size =3D size;
+> > +	init_rwsem(&ret->unregister_sem);
+> > =C2=A0	kref_init(&ret->ref);
+> > =C2=A0
+> > =C2=A0	spin_lock(&dmemcg_lock);
+> > @@ -568,6 +626,34 @@ void dmem_cgroup_pool_state_put(struct
+> > dmem_cgroup_pool_state *pool)
+> > =C2=A0}
+> > =C2=A0EXPORT_SYMBOL_GPL(dmem_cgroup_pool_state_put);
+> > =C2=A0
+> > +/**
+> > + * dmem_cgroup_region_set_reclaim() - Register a reclaim callback
+> > on a region.
+> > + * @region: The region to register the callback for.
+> > + * @reclaim: Callback to invoke when dmem.max is set below current
+> > usage.
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Called =
+with the pool that needs reclaiming and the
+> > number of
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bytes t=
+o free. Returns 0 on progress, negative on
+> > failure.
+> > + * @priv: Opaque pointer passed back to @reclaim.
+> > + *
+> > + * When dmem.max is lowered below the current usage of a cgroup
+> > pool, the
+> > + * dmem controller will call @reclaim with a target number of
+> > bytes to free.
+> > + * After @reclaim returns the controller retries setting the
+> > limit; if usage
+> > + * is still too high it calls @reclaim again, up to a bounded
+> > retry count.
+> > + */
+> > +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region
+> > *region,
+> > +				=C2=A0=C2=A0=C2=A0 dmem_cgroup_reclaim_fn_t
+> > reclaim,
+> > +				=C2=A0=C2=A0=C2=A0 void *priv)
+> > +{
+> > +	if (!region)
+> > +		return;
+> > +
+> > +	down_write(&region->unregister_sem);
+> > +	region->reclaim_priv =3D priv;
+> > +	/* Pairs with READ_ONCE() in set_resource_max() */
+> > +	WRITE_ONCE(region->reclaim, reclaim);
+> > +	up_write(&region->unregister_sem);
+> > +}
+> > +EXPORT_SYMBOL_GPL(dmem_cgroup_region_set_reclaim);
+> > +
+> > =C2=A0static struct dmem_cgroup_pool_state *
+> > =C2=A0get_cg_pool_unlocked(struct dmemcg_state *cg, struct
+> > dmem_cgroup_region *region)
+> > =C2=A0{
+> > @@ -725,9 +811,10 @@ static int dmemcg_parse_limit(char *options,
+> > u64 *new_limit)
+> > =C2=A0
+> > =C2=A0static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+> > =C2=A0				 char *buf, size_t nbytes, loff_t
+> > off,
+> > -				 void (*apply)(struct
+> > dmem_cgroup_pool_state *, u64))
+> > +				 void (*apply)(struct
+> > dmem_cgroup_pool_state *, u64, bool))
+> > =C2=A0{
+> > =C2=A0	struct dmemcg_state *dmemcs =3D css_to_dmemcs(of_css(of));
+> > +	bool nonblock =3D of->file->f_flags & O_NONBLOCK;
+> > =C2=A0	int err =3D 0;
+> > =C2=A0
+> > =C2=A0	while (buf && !err) {
+> > @@ -772,7 +859,8 @@ static ssize_t dmemcg_limit_write(struct
+> > kernfs_open_file *of,
+> > =C2=A0		}
+> > =C2=A0
+> > =C2=A0		/* And commit */
+> > -		apply(pool, new_limit);
+> > +		apply(pool, new_limit, nonblock);
+> > +
+> > =C2=A0		dmemcg_pool_put(pool);
+> > =C2=A0
+> > =C2=A0out_put:
