@@ -4,125 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC76ACD5BD0
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 03:09:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7B3CCD5BD0
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 03:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4ADA10E445;
-	Tue, 26 May 2026 03:09:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1156710E44A;
+	Tue, 26 May 2026 03:09:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tkDMac/E";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EhlosBvB";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010042.outbound.protection.outlook.com
- [40.93.198.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E39910E445;
- Tue, 26 May 2026 03:09:22 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012054.outbound.protection.outlook.com [52.101.48.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09CFA10E449;
+ Tue, 26 May 2026 03:09:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VYnC5wYBhshEZASeO4MDjmE/BjRHQoT1IMCOeyeSvXr16CiOnIZlfAXqlaUBn5xc4GUUV+U5XkK74voaGzZysnGRX8/MrV/hRlBSJZObYVzjDZKn9KOvPE3CqCdce6S4tC/qt7eoXmKFdddElMdXrtMzpUd8F54uxr0iA+MLEF9+i0oKiNN4Wnirs2lZzI5gHDfDP5fjarmZ3sw7p4pi5qopph6/jXOa57ZYMFXXVOSQ9AWuPrgwfnXANtkjstdg+VLPzln8z5qLJGtmOHX5VasH9IbMSK+3b8JK/FsONgyBfyUr7DaggpNIc8apYu2zD2HpWR4xvMS3oYFI8X4nog==
+ b=e7Dgb9cR3eqgks9QBLF+GfUa/t3Tm4YKVJwTFK5N6fMLvu2SgnIYxOFfkFMF6H1DTDuH7JhDKM2o7SkE5WM8ghTQtj2j8OM0qN8S7C52donY6o59tEc+I0QYQKlx0K7SxQCAb4kuD/3KU4QXVCb12xR/Xd+mBKgfaiqE3x6HlxX7bfviz5tfpICUZyYGVG5R5+jAjxvYhK4UqjPQGCs9HRhcWo5SqnI3Tv9SBKBYanVafGWEBcWfMjonqf/MTW/a9KxsBUjZJS6YHAmqkVdck3ITDISRknNp00qIs3d6z3SirJfgL1TWRk2vv8/dP/S9X+NrdXg5d9eN7XhSpRKiQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rESSheZNPViO9lxk5jJ9DlqZz99RcKoydBll9V9LUaI=;
- b=TodCmZkOHif9c11dAN4OgNmXNqBeVgs5GaxGgz1BUEIk7wu3Lg8kctF/YCUkvnHq6P4ObwlUW33Fnk48BhoGha+5VPdh4Im3vA4xk5M3uzURwGJ0eZC1FB7IDGkXNG5Z9gUjcAWg9vEnyiYSqEk1g9KmF5sySLE13K3UQoLrTeIhG6VBdKQ+VoufZ1sDyOjSbOdUzKH8nRy1WahyOMnCGzLOlkuRQ7lgi7KwV2b1wnplIieCu99wpt6wupwL7RFCMSpo1HHooe2Z0/wBRXvq2uCHEGgdBDx8d1KdmDa3ggFaaIq35koNMNXzIsDCCXOtOnXUZyiGtYDW3AAjHo2LsQ==
+ bh=qP4QFh8B+LbKBUkWOuIjhJzAQEBdBNLslFRhm15mnrA=;
+ b=BfsIJNq6NCy8tn/QIgOtzqxZxTiHe/WgXbtsm2Fovx0kuiPtJUfeGIN+ooVnpgwMvKypiIm+G4WVX2EdOiPVHb/3pvDgfZxf+qXKuSvq8nwj2CC16jw7c1ffBT4sVTX/9kzswsC/z0GzALhvPUS/Qd+JbdHEc81TyI0L5R2kfONOAVMRpehEdlEgTRBNwt8b/f3PCBfRokzQvbtWxFo0Qqg01qoJhz/5le0DZLAlPphiGRgrqx7/ZAUW2h7N+9XYReASGXSpNmdfY3BkceOiRIMCjFQaALLDF2MvNrzhqUNYl5La3u6ODOJ14q10boQ0bz9uH9dhXFdhYTxUkK46Kg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rESSheZNPViO9lxk5jJ9DlqZz99RcKoydBll9V9LUaI=;
- b=tkDMac/EDGPA0wix96NBCywf5izyd3BfPpGQEsESXUJJsftPqur4S7IilAOK1/7goAVOMpeC8/93079Er+x4XNIJGepKj2vif5TLlEtUZT8Xb6ouKjfHYs3f7UymkhsP7Px3fICBdoh0kfzKX2r9Mh1lDaoSGae3nWMJiEuXtos=
+ bh=qP4QFh8B+LbKBUkWOuIjhJzAQEBdBNLslFRhm15mnrA=;
+ b=EhlosBvBRe/5s+xtAXwZvjIOlWZcPb0VyEKmpo1ugjXKYZBnAK3vmYXKOTzSS4hARsZD4hbQAeG2OF4Dc1mJ6mOCFIdTHlyX6BAHnnxOC9tetvmHNiP2qGJJDgbKyamOCbpXwzc7ncPZCs7OV5UaYtV4ofTyH2SEB9fkGD3nJxg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CYYPR12MB8892.namprd12.prod.outlook.com (2603:10b6:930:be::12)
  by DM4PR12MB5987.namprd12.prod.outlook.com (2603:10b6:8:6a::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
- 2026 03:09:18 +0000
+ 2026 03:09:40 +0000
 Received: from CYYPR12MB8892.namprd12.prod.outlook.com
  ([fe80::62b0:b284:c9c6:c96]) by CYYPR12MB8892.namprd12.prod.outlook.com
  ([fe80::62b0:b284:c9c6:c96%4]) with mapi id 15.21.0048.019; Tue, 26 May 2026
- 03:09:18 +0000
-Message-ID: <d4b22785-2718-45d4-9292-10bf8f8bff03@amd.com>
-Date: Tue, 26 May 2026 11:09:04 +0800
+ 03:09:40 +0000
+Message-ID: <dcfcdeda-0592-42e8-b6bc-34e797fca21e@amd.com>
+Date: Tue, 26 May 2026 11:09:32 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] drm/edid: extract base section header processing
- into helper
+Subject: Re: [PATCH v3 2/3] drm/edid: parse panel type from DisplayID 2.x
+ Display Parameters
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Ray Wu <Ray.Wu@amd.com>, Limonciello Mario <Mario.Limonciello@amd.com>,
  Jani Nikula <jani.nikula@intel.com>
 References: <20260526030254.1460480-1-chen-yu.chen@amd.com>
- <20260526030254.1460480-2-chen-yu.chen@amd.com>
+ <20260526030254.1460480-3-chen-yu.chen@amd.com>
 Content-Language: en-US
 From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
-In-Reply-To: <20260526030254.1460480-2-chen-yu.chen@amd.com>
+In-Reply-To: <20260526030254.1460480-3-chen-yu.chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0181.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:be::14) To CYYPR12MB8892.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN3PR01CA0183.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:be::8) To CYYPR12MB8892.namprd12.prod.outlook.com
  (2603:10b6:930:be::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CYYPR12MB8892:EE_|DM4PR12MB5987:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b9641af-28e8-4a7c-13e7-08debad42c90
+X-MS-Office365-Filtering-Correlation-Id: 58c59fda-7da5-4643-31ef-08debad43a0a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: VpCE8xUZWtbmwVJbFbmvqaAFOFbC/dWU90NoaBaTDcqDcSN00ZvUINFwFmD54ElQUvjFR+ZTxha8u8fG/pubQ4vugKDXxTYy622m2u3G2XA8GP4sO/DWItANEXiGBTjDquoZqEeobExP2VLk+nCGF1AyI0KXFAB6ngrUfZFlshZm64q46Nddh2hVRke76pfRtU/GtRNRgGmjF5SJ6kaIlecGJfueArHJaqqlSHmKpQAeYzLFreZtYOmGFutlnBQzv1VlQFl97Ky2SQ8VTeLd4RSUo3Rlyji+kiWHquTYPM23vAkFJ9DaiVbDHAAI4pdNnI+Wgz1SUd3FmDO+oTkJO2IIoGFRLXXFl4WGWSVkQkH3iKkaWJhqeKW3AzwXR0hFt/E3vnsq5KY3YlZL3bPLwX6Hgu+tRVn3QfDehcw4RUmEiuwQnuxZGR19S96l8j78YFBS4vGw1V8p5NcV3FOAfQxkBOB5eVCNbA9HBsiNHvFyPLZyoWzDJQV/89O2gZ7L5bztgPO58BEamTxgrl1zYNSnLrQfsGjjWUjgjzx5PnDottf5yNg0cKwbMPzhwhVIQlFabupL4hc6KvDf1zMRewXhFumgd2Xi2wdtqGZD6n3dP6qFOkq3pUPwua52Cth+kUbHRzZRsgsaVErEUMvozRWE3Vo+YTJrNDi0EvzVY9SB+UNri4ZUunaGELWsBLTl
+ ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003|6133799003|3023799007|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: 51z5YGFee26F5pNlcfSNyKlDthC0n3c5bz9D3wSBiH6Yiw+69W/Z89jwRhBavtL+wb8jj9j26I8zddqEif9Ur5aAPPv/Lw9EwHHrEuybfZ67blowaPsPhwVFDErrtL1UY/AWovoEcB6f976oI36pdO/dWmnDJpc9Q98wjIvGZh64OAvdHnVaf10FaWRpElQyLHRWSGqjlN/aepnm2kYJAJfVpIwENTLKQOJkdmL428PkRykhKiRPaUW+aO5K3O+Dyedv7K2Dam3CjSBJqX6iaMYSaZvGJcMTTpSKKbYlK5nR1+hxbf4PrWk/qEQ4xPaCRsmbUnJ+YkwL/F0M8wsxyEjhnJDxoAmOHAdG0jCKmyLsmXhAsR5WnFFwoA8mNYFsNuhHN07EuP0izemzC8ChDSuTBkrp4wnfSbw5L6j19Io1aNt+NIOM3QU8+D9/Qdl0nLNrmGkd6CLlSJsXHCXGomt96nyeOtONrXmSaTvy23Gsw9VhG2waubaMnWgig3Zsjkdt1sTkY1k6CsJKANETAZs6V0ZafoV+27HXdgsN78ccUr0f+IAT6vWg1hQvRAP77365Y/tsSBEETtZYCjPGTs4aiP/CpaE1cAtqVSH5VKdv9wCQYW5SSxgmMwMbkS69w73K3aDd9PRVwEu/N2+yk/1KnsWf8u9MfaPNzKOT3i0sIXXOakQie/cDTA2c0MNt
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CYYPR12MB8892.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003)(4143699003)(11063799006);
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003)(6133799003)(3023799007)(4143699003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dW5ZNDEvcU40eVZIbUVmZUtBR0dMUWp1amxwU1BqMUc5Yk51Q3kzNmFLQkZK?=
- =?utf-8?B?R2JNbnZKMXpnSWRZTkYxR3QwaTcva1gzamN6OFRkY3crY05LdFYwYTdBMmEx?=
- =?utf-8?B?bEFjWnhxRmsvdk5tMk1wNzRaYVdLZ1RZeldyUjZtUDM0bzZLYkR2WEtpS011?=
- =?utf-8?B?d2hrdFRmZFF1Q29IcU9FNDJlQnlxaTBFTnIxM0FCL0RHWVU0bTNrc1V1Q3Zo?=
- =?utf-8?B?RUdwMUtiVk5IbHhiU1BnQk9QR0FQajNoK3MzRDlCT1FoYzBlcS9ZZ3J3UW8w?=
- =?utf-8?B?WXpObFcrNkYxZzlCK2xNdmJ3eXppSngvM2VqY3hnUHZpRWZtNWZzTE5zVVVU?=
- =?utf-8?B?M0g0RTFCZlQxSDVTMTBYNlFhMmE5RVpHUlFNK3NzL296aSt6cFFmRzJZNU9C?=
- =?utf-8?B?M3BsY2I4NEdiTVlSazZ4ZTIrUVBuVkpJbWhhT003YkhaNFBnUTF2YUN3RUJh?=
- =?utf-8?B?TmlsbGV3UnBoeHc2WlJlZkdXRmRWZGh3emYydlVaTXFmeENETm1VZFZWVlMw?=
- =?utf-8?B?dHd3VWhQZWIwNnZoNE0wN3dXaDBMQmN2RjVycmFBa3RJUmdOdlpPNVpNR25y?=
- =?utf-8?B?Wmc3cmt1MC92NHJob2tCcnFveGl2MXM2U3VpdkUzTTJHdmt2VkNYL0pxWFFz?=
- =?utf-8?B?UEVCOFFRRVVaVEY2Ulk4YnUzKzFMQWhMcVpqSGgrYlVJYVh0SGxUTHdjQTRI?=
- =?utf-8?B?RnRzTTlJZjhwZUMzVXJMYjZuMGZjWDBMbmF3T2Y3SDZYellYdDVjSlkvdU0r?=
- =?utf-8?B?OGp4Q3BoMmthRWJPTm9XaTBGUmNKMHE3dnc5L0dCenZ5cFpEcGpXYk0wVDdW?=
- =?utf-8?B?L3d2M3ZyNXdONlZTY21MTVE5V1FhNC9RUW9LRk5kUUUzZVJ3VEVreGU5SEcv?=
- =?utf-8?B?WmxURzBHbkREM0xRZ1JBNkYwalRhaHZMWXBuVUw3eTdscFlCYXFBQjMyWlVp?=
- =?utf-8?B?UENQQiszSFpqdCs5VnEzQklpaCtDMEdNVCtkMkF6Q3UyQTdZZ0FTZENITUJ2?=
- =?utf-8?B?MWsrVzBDbVpJRXNpUWkxdHIvenZuQVBNMzhtYWVQNkRUU0syRFRzM1FtRHlD?=
- =?utf-8?B?eS9EVWRhZjVPRjh3S1BQcXhOVkQ5YWlvVmVnb1FDWlBqQWowNE5qVitDUWxp?=
- =?utf-8?B?Yld2K1lnT3VOeWZsMmhpZyt4ZGpOaERPZG10ZlRieUo5ejdVU0tyV1NGOG41?=
- =?utf-8?B?NjNQdUxGUi96a3Y2QjIzbWoxSURHalFaNzRRYW9OUFhwdDhwY3JzRFRtM29D?=
- =?utf-8?B?R05aTGI3YUY0elFVU1dlczd0WFhpV05OQ3RWd05uZHJ0ajlFRkZDNTRGR0ZQ?=
- =?utf-8?B?VFJBZUkyODI5MmRyRWEzTkhsaGQ2ZHFZYmszYmZkcW1zVHV3d2UzVDZCeXRH?=
- =?utf-8?B?cXJhdFhTVGFHdFVsUis5VVIvakNLU2ZTcEhrWXdiK3NUT1Nyd3hZLzg0RlRX?=
- =?utf-8?B?ckRuYlRTQk1xc3BaTmRtQkdtWWJxamFHYUphcGR4ZVl5RzBKUnJyL1VSeEc3?=
- =?utf-8?B?cVRPV0RESjlVVDZsbXB2ait4SWlUUXYxa2FTQnFLVWhnSXdxelN6YUNGY3gz?=
- =?utf-8?B?SGxITGltQVU2VE8wZm5UanQ5UVp1RTJTVCtXU1JEUDNmd2hhUHJPOU5mWDRm?=
- =?utf-8?B?a0x0bFQ0cTgxK1E0cXRGaWVxVDloYm43SzlCRjNJWno2MUt2Y1l6QVBkamh1?=
- =?utf-8?B?djI5MW9GaFp1TDdCK0R0WENUL3RDS1pvUDYzL2FwSUsrL2FYb0RrUm9pWUJF?=
- =?utf-8?B?UmM3a2xhZjMxeTZnOUtsOE1tWi96aVhiMHdNNnpJWUJiUWVOYlJ5RnlPd0sv?=
- =?utf-8?B?eXB0NnJzZy9HSmF4OEF0bUFIcXhPcWhGZkUvWSs3QzJoVjRTM2FlNjFYeEJZ?=
- =?utf-8?B?MVlaN3NIZUd5REp4dEVwbmdZSUlTdVRodnEwNVVVWGZlT0VCTlpwYTlDRWdh?=
- =?utf-8?B?MHdwRWZxK2E4dzE0TlRtdEs4N3o1UStBMHNiV3RJRTU2ZGxaa29BNnpJTXV0?=
- =?utf-8?B?b282MU1tNkl2WndHUWVXMVBMNVhkTXV0eHdjVmJ5UExYNUF2YXgxN2VKcGl4?=
- =?utf-8?B?aW96YlFCb20vT0FjVlczYUV6bno2bzFWcW1RU1Zzb1M1ekZSNXI1bnlueWZC?=
- =?utf-8?B?VUR5eVphUXhYMnMxOVkzTklBT21OcUVHckI4b0NNK0lFcWNlc293REZ2RGF4?=
- =?utf-8?B?eHExUEgxdDIzdUFQYU05SjN0ZGJoU3RDR2dtVFlDT3cvR2NaYlk1cEM4ckxl?=
- =?utf-8?B?QnpPYkMzcDhYay9ReUU2eHd0cXErRWZ6V2dSRGtNT3kyYXE2Uk5MMVEvcDhO?=
- =?utf-8?Q?lkJZcwDy+DUi+sYSFd?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ky9YZ3JnV2hkVS9udDNjZmtsb1crUTZPQklzckVORkQ5Z3JDdVJjQ09Hc3Fv?=
+ =?utf-8?B?eXRPWjZxSVZZaWlhL2p0T0Jxa3hjaVFDT3Z0a1ZSSVhQamVMZTEyakQ5bDJP?=
+ =?utf-8?B?NDVFRE9lYUJsVlNJM3phT05lcUVaVStFdXg2YTMrTTN6UXNrT2FDN1g1d294?=
+ =?utf-8?B?S0RuVXlib3BmNmNsb1doV2VHSXNzZlI3Y29TY3JsczNIVFFoeXc0Z0VBTlEy?=
+ =?utf-8?B?MDhpUnNLaU5QQWFJR1ViTG14K1M2bDJSMU9IQng5OFNiT1M5d05LU014Q3Fn?=
+ =?utf-8?B?ang5NXFqU242K1k5MFVWVGd4dGk3US9WeTNJTXBmT2RCQnhEMmVxYkJoMFBU?=
+ =?utf-8?B?YzhEdUNjSWtyV0ZrYWw5dW9Ja1dVM21WOWIrZE9Cam1Oai9UOElOYnpQNWRU?=
+ =?utf-8?B?TWlZYjFOUVdlYmM3Y1NZaUtWbzhXKzNOUmF2ek9RNllsVEFaVmJ3OWVEeXFn?=
+ =?utf-8?B?a0dqUHlsNVhZS21hMWJNeHV3Wit6c3dKeWNVd3V3N0JIcGpsZjVCRlhFcnpO?=
+ =?utf-8?B?WGdVR3BBTm1wZ1VnU01mOHdhb3RlbUpVR1Z1eklYQVdHYzIvazRJVzd3NzVq?=
+ =?utf-8?B?c0R2NEljdElubkJaamhjWHdtaDRqV3VBUEdOQUgrWWVBc0NxcHl6UlRwU2ZE?=
+ =?utf-8?B?TExFRm1JcHFpY0hZNUt3OW1RaWlkM204Rk5RZWQzVFg0TjFBOXVBMGxjaDNj?=
+ =?utf-8?B?a09XeUlRWGN0bVRvWlVUdVdEV25aSXZhWEVpL3N5QVU5VW5kSWhiUVNsNDNI?=
+ =?utf-8?B?M1I1N3RRV0p1QmhXbm1kSFAzL2JYNUJaa1gyR080SzQrQlJUUUgxQkZPa0J1?=
+ =?utf-8?B?QVZseURvUDNmSkNkYkRCdUs5WUtUNDdoMlZqczR0dkdEcUhKd2VEWSsrSkNX?=
+ =?utf-8?B?VHJ2dHVaQktzL2ttYWpqS2ZLYmpFOGU3dFNybkZRV1JVQjhnczhhYktod2gy?=
+ =?utf-8?B?SzdWUFptaDFiOTRCc0RUVW5IN2hZQWhCR1BmWm1QVkNCL1dRaFc1TXhjbWd6?=
+ =?utf-8?B?VytqWllNNVJuZWlmd0ZwUmhaRGJpZWtxNWw3ZzladVlTVWR4S3VnaG5NeXZV?=
+ =?utf-8?B?L215M3BrR001Q2g1a01BRjJQYmY4aDdBbldLQmhMNFhWQlEyclhPWm5oYURy?=
+ =?utf-8?B?QmlsaXpHcDVkQ1N0UFJ2T3FFUCtsbFpKSjFNVEQvWDFINE5Pd3FwVnYvYjFN?=
+ =?utf-8?B?N3BqQmlCbkUzeDRmSmlIZjFqcFVlY3RUSzdEaDNYTW91NDRoVkZReDdidXZR?=
+ =?utf-8?B?ZDZHOWgzVEs3R2w4TzkyN0FCT2JXWU4zUU9ybUMyNXNSZDhIWitIUTZRdlIz?=
+ =?utf-8?B?R0dEMTA4a0xEQ1lLcmFUZ0hOVXVLSW5pVjZQQ2U1Y21Vb0N2dGIxNWZJMXFm?=
+ =?utf-8?B?UHgvblhsT2QwWkNHR2FvUlhqSU5FQWtIOHI2Qkx2eFFmOFAyeG9hWDZJWXB5?=
+ =?utf-8?B?ekt3OWpPNnRhQ3c0MUdwVU5yS1RCdUNsNmxNTVVHL1FJWWdNTnJTTEEzOFJi?=
+ =?utf-8?B?RU8rajFmRWY5QkJvZEpvd3FRcFY0OVZZMEhuTXY2S0dwMGpZdFNJS2VOTEVa?=
+ =?utf-8?B?eElkby9WekNHSjFtS05OVWRsVndXQ1F1bkJWQ1pSMTVrb2dBaVZHb2pqQTNF?=
+ =?utf-8?B?VFplM3pCWGxqakkzV0ZWZ1paRmVEcm5SU1NlRGtHRjJSS2hjWURlZi8zY1BG?=
+ =?utf-8?B?YU1aVVVnbStYNFpJd0I1c2RVK0xuOGRKdDRMUU1ubm1RQnhvVXIrMnJYZkJY?=
+ =?utf-8?B?Q1JHZUxFTTBwUStTU3VIM0F2eVg3bUtFS3VhQngxV25mWVVoTi85ZkVJWTJy?=
+ =?utf-8?B?QjUxRXYycldyVXBTYmxWOWZRcWRHa3VSYWNvcFlYdmFiRi93aDdXUDY0Qi9v?=
+ =?utf-8?B?bDNJanB5UXdQZ0orbmxya1gvTE5zN2RaQ2ZXWWVGSnV3WlhWeXVWSDZ6THds?=
+ =?utf-8?B?MGhQdGtPUWlNU0xMbHNYeU93T3lFQWE0UlZ2MFlFWFdQWFdnekQ4RnU0a0or?=
+ =?utf-8?B?S2Y1UkNNRzdmQUpjWitwK3diQ0Q2WDhPbzdhRjhOd3NDMm9VaE9LN21RcEQx?=
+ =?utf-8?B?cndCN0lmVkxFNVJqU0J3MGw4L1RYdXNMWUZQTUc5bmZ1V1hvQ1lNZkJFczJY?=
+ =?utf-8?B?UVBUU3Vjb0ZubG1xUEd0WWQ2THAxOE1DVWpKYUEzWHYwOFRheEVlQTduaTV2?=
+ =?utf-8?B?ZzFRbTErbE8rSU9ENS9Jalc2MXV2TmVuVmd1TmlNbVVOd3l6eG4wOXhDc1dp?=
+ =?utf-8?B?bmQ2TWJ3OHppK2tOM0ZoMGFYaUhxWHg1WFc3WjcxNlpybHlHam1PVkJtZGY4?=
+ =?utf-8?Q?EU3W/qMyYOXIlr8ytQ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b9641af-28e8-4a7c-13e7-08debad42c90
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58c59fda-7da5-4643-31ef-08debad43a0a
 X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8892.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 03:09:17.9954 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 03:09:40.5773 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oNYxhAB7Gm/Fqi8s+vR5NPwXwy/e1yduCwY0xICv8xtkCuQT2KxhbjGfE/+IpseaFhgMWC/uXC3L5XTAlpmPMA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ivwwo6M9cQyj+26fr8UCAjr0OrEwEzcsodoC9qNmgdAefcaZKb01cWHaNv88nq2olB20QBiOZL8bvpTPSzgrlg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5987
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,78 +143,178 @@ I forgot to include Mario's Reviewed-by in the commit message:
 Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
 On 5/26/2026 10:59 AM, Chenyu Chen wrote:
-> Extract the DisplayID base section header logging and non_desktop
-> detection from update_displayid_info() into a dedicated helper,
-> drm_displayid_process_base_section_header(). Remove the break so the
-> iterator walks through all data blocks, preparing for future patches
-> that will parse additional block types within the loop.
+> Parse the Display Parameters Data Block (tag 0x21) defined in
+> DisplayID v2.1a Section 4.2.6. Extract the Display Device Technology
+> field from the color depth and device technology byte, which indicates
+> whether the panel uses LCD or OLED technology.
 > 
-> The helper is called only once for the base section via a
-> base_section_header_processed flag. Since version and primary_use are
-> only captured from the base section, and extension sections carry a
-> primary use of zero per spec, the non_desktop logic is unaffected.
-> 
-> No functional change.
+> Add a panel_type field to struct drm_display_info and populate it
+> during DisplayID iteration so downstream drivers can use it for
+> panel-type-dependent behavior. Add DRM_MODE_PANEL_TYPE_LCD to the UAPI
+> panel type property alongside the existing OLED value.
 > 
 > Assisted-by: Copilot:Claude-Opus-4.6
 > Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 > ---
->  drivers/gpu/drm/drm_edid.c | 37 +++++++++++++++++++++----------------
->  1 file changed, 21 insertions(+), 16 deletions(-)
+>  drivers/gpu/drm/drm_connector.c          |  3 +-
+>  drivers/gpu/drm/drm_displayid_internal.h | 24 +++++++++++++
+>  drivers/gpu/drm/drm_edid.c               | 45 ++++++++++++++++++++++++
+>  include/drm/drm_connector.h              |  6 ++++
+>  include/uapi/drm/drm_mode.h              |  1 +
+>  5 files changed, 78 insertions(+), 1 deletion(-)
 > 
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index aec05adbc889..f2ac4542a7d3 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1176,6 +1176,7 @@ static const struct drm_prop_enum_list drm_link_status_enum_list[] = {
+>  static const struct drm_prop_enum_list drm_panel_type_enum_list[] = {
+>  	{ DRM_MODE_PANEL_TYPE_UNKNOWN, "unknown" },
+>  	{ DRM_MODE_PANEL_TYPE_OLED, "OLED" },
+> +	{ DRM_MODE_PANEL_TYPE_LCD, "LCD" },
+>  };
+>  
+>  /**
+> @@ -1508,7 +1509,7 @@ EXPORT_SYMBOL(drm_hdmi_connector_get_output_format_name);
+>   * 	never read back the value of "DPMS" because it can be incorrect.
+>   * panel_type:
+>   * 	Immutable enum property to indicate the type of connected panel.
+> - * 	Possible values are "unknown" (default) and "OLED".
+> + * 	Possible values are "unknown" (default), "OLED", and "LCD".
+>   * PATH:
+>   * 	Connector path property to identify how this sink is physically
+>   * 	connected. Used by DP MST. This should be set by calling
+> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+> index 5b1b32f73516..6f431aafafcf 100644
+> --- a/drivers/gpu/drm/drm_displayid_internal.h
+> +++ b/drivers/gpu/drm/drm_displayid_internal.h
+> @@ -142,6 +142,30 @@ struct displayid_formula_timing_block {
+>  	struct displayid_formula_timings_9 timings[];
+>  } __packed;
+>  
+> +#define DISPLAYID_DEVICE_TECH_UNSPECIFIED	0
+> +#define DISPLAYID_DEVICE_TECH_LCD		1
+> +#define DISPLAYID_DEVICE_TECH_OLED		2
+> +
+> +#define DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH	GENMASK(6, 4)
+> +
+> +struct displayid_display_params_block {
+> +	struct displayid_block base;
+> +	__le16 horiz_image_size;
+> +	__le16 vert_image_size;
+> +	__le16 horiz_pixel_count;
+> +	__le16 vert_pixel_count;
+> +	u8 features;
+> +	u8 primary_color1[3];
+> +	u8 primary_color2[3];
+> +	u8 primary_color3[3];
+> +	u8 white_point[3];
+> +	__le16 max_luminance_full;
+> +	__le16 max_luminance_10;
+> +	__le16 min_luminance;
+> +	u8 color_depth_and_tech;	/* [2:0] depth, [6:4] device tech, [7] theme */
+> +	u8 gamma_eotf;
+> +} __packed;
+> +
+>  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+>  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
+>  
 > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 8031f021d4d0..7ad3f939dbe6 100644
+> index 7ad3f939dbe6..a9d480981c8f 100644
 > --- a/drivers/gpu/drm/drm_edid.c
 > +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -6715,30 +6715,35 @@ static void drm_reset_display_info(struct drm_connector *connector)
+> @@ -6713,6 +6713,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
+>  
+>  	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
 >  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
+> +
+> +	info->panel_type = DRM_MODE_PANEL_TYPE_UNKNOWN;
 >  }
 >  
-> +static void drm_displayid_process_base_section_header(struct drm_connector *connector,
-> +						      const struct displayid_iter *iter)
+>  static void drm_displayid_process_base_section_header(struct drm_connector *connector,
+> @@ -6731,6 +6733,45 @@ static void drm_displayid_process_base_section_header(struct drm_connector *conn
+>  		info->non_desktop = true;
+>  }
+>  
+> +static void
+> +drm_displayid_parse_display_params(struct drm_connector *connector,
+> +				   const struct displayid_block *block)
 > +{
 > +	struct drm_display_info *info = &connector->display_info;
+> +	const struct displayid_display_params_block *params =
+> +		(const struct displayid_display_params_block *)block;
+> +	u8 tech;
+> +
+> +	if (block->num_bytes < sizeof(*params) - sizeof(params->base)) {
+> +		drm_dbg_kms(connector->dev,
+> +			    "[CONNECTOR:%d:%s] DisplayID Display Parameters block too short (%u < %zu)\n",
+> +			    connector->base.id, connector->name,
+> +			    block->num_bytes,
+> +			    sizeof(*params) - sizeof(params->base));
+> +		return;
+> +	}
+> +
+> +	tech = FIELD_GET(DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH,
+> +			 params->color_depth_and_tech);
 > +
 > +	drm_dbg_kms(connector->dev,
-> +		    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
+> +		    "[CONNECTOR:%d:%s] DisplayID Display Parameters: device technology %s\n",
 > +		    connector->base.id, connector->name,
-> +		    displayid_version(iter),
-> +		    displayid_primary_use(iter));
-> +	if (displayid_version(iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
-> +	    (displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
-> +	     displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
-> +		info->non_desktop = true;
+> +		    tech == DISPLAYID_DEVICE_TECH_LCD ? "LCD" :
+> +		    tech == DISPLAYID_DEVICE_TECH_OLED ? "OLED" : "unspecified");
+> +
+> +	switch (tech) {
+> +	case DISPLAYID_DEVICE_TECH_LCD:
+> +		info->panel_type = DRM_MODE_PANEL_TYPE_LCD;
+> +		break;
+> +	case DISPLAYID_DEVICE_TECH_OLED:
+> +		info->panel_type = DRM_MODE_PANEL_TYPE_OLED;
+> +		break;
+> +	default:
+> +		break;
+> +	}
 > +}
 > +
 >  static void update_displayid_info(struct drm_connector *connector,
 >  				  const struct drm_edid *drm_edid)
 >  {
-> -	struct drm_display_info *info = &connector->display_info;
->  	const struct displayid_block *block;
->  	struct displayid_iter iter;
-> +	bool base_section_header_processed = false;
->  
->  	displayid_iter_edid_begin(drm_edid, &iter);
->  	displayid_iter_for_each(block, &iter) {
-> -		drm_dbg_kms(connector->dev,
-> -			    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
-> -			    connector->base.id, connector->name,
-> -			    displayid_version(&iter),
-> -			    displayid_primary_use(&iter));
-> -		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
-> -		    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
-> -		     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
-> -			info->non_desktop = true;
-> -
-> -		/*
-> -		 * We're only interested in the base section here, no need to
-> -		 * iterate further.
-> -		 */
-> -		break;
-> +		if (!base_section_header_processed) {
-> +			drm_displayid_process_base_section_header(connector, &iter);
-> +			base_section_header_processed = true;
-> +		}
+> @@ -6744,6 +6785,10 @@ static void update_displayid_info(struct drm_connector *connector,
+>  			drm_displayid_process_base_section_header(connector, &iter);
+>  			base_section_header_processed = true;
+>  		}
+> +
+> +		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+> +		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS)
+> +			drm_displayid_parse_display_params(connector, block);
 >  	}
 >  	displayid_iter_end(&iter);
 >  }
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index c398dbc68bbc..745cd917fe40 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -899,6 +899,12 @@ struct drm_display_info {
+>  	 * @amd_vsdb: AMD-specific VSDB information.
+>  	 */
+>  	struct drm_amd_vsdb_info amd_vsdb;
+> +
+> +	/**
+> +	 * @panel_type: Panel type from DisplayID Display Parameters
+> +	 * Data Block (tag 0x21). Uses DRM_MODE_PANEL_TYPE_* constants.
+> +	 */
+> +	u8 panel_type;
+>  };
+>  
+>  int drm_display_info_set_bus_formats(struct drm_display_info *info,
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index 3693d82b5279..d7ca1040b92e 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -169,6 +169,7 @@ extern "C" {
+>  /* Panel type property */
+>  #define DRM_MODE_PANEL_TYPE_UNKNOWN	0
+>  #define DRM_MODE_PANEL_TYPE_OLED	1
+> +#define DRM_MODE_PANEL_TYPE_LCD		2
+>  
+>  /*
+>   * DRM_MODE_ROTATE_<degrees>
