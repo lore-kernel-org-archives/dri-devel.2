@@ -4,102 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A765FCD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:18:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3586BCD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:18:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F00B310E699;
-	Tue, 26 May 2026 14:18:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B6E210E69A;
+	Tue, 26 May 2026 14:18:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="aePwRNmC";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="QHVeLCOF";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5202210E699
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:17:58 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-48984d29fe3so112015975e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:17:58 -0700 (PDT)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55D8210E69A
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:18:05 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-43d76dd4ee8so6242864f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:18:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1779805077; x=1780409877;
+ d=baylibre.com; s=google; t=1779805084; x=1780409884;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=g7+ZEzN34eEHBV2XeA10qliUnFt9aIEOrlvbEy+ooC0=;
- b=aePwRNmC4AFKmgoJHlkY4qH3X2FaAwMWmFu75RLCGEh65URTdwdVjff1oo+Ltn//zT
- ahNoSUFFjn5dinP46lUfWTLN4P5PSmPUN4++Bd2Q81DNvoLYcI1RGAb0M6c/Kjk+Fmu3
- e6ErbpsqrmEEfagjf/MYXEW+7NJ6k4BMngNxHxX4nEWpNyUKRlZNHiNhXVyXUkUDa8bD
- gOIKqK4nNfZbrJbqNfTYaDzaoQ03v5wii9BjFUppw/93hO9I09WCe5HCWhz6YF9Bsbl3
- 0p4aGqYASCl4NXKoIEV58/gIxwB9slitOfUamGIQ6rLr81F3gy6m1he4RIh3nqyL4Q/M
- Eapw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779805077; x=1780409877;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=g7+ZEzN34eEHBV2XeA10qliUnFt9aIEOrlvbEy+ooC0=;
- b=VTN8X81Xe0lGrMTk76xQf9PSmPmUflo3A28Aoi9soCVNGi84OE+th9lOKrocbi4yKA
- 6Zeq7ebGiH2sWSLvagx/Ksh+CsIfZLY6l0EsBVsTXv0pEtx3ZfRArYyCIEWvs4kyIGHc
- tILQHspvFnJuPzFZ6RWTKlTUf1ULDngUVmWdIaSwINQfgEijnqsR8OfeVrQPFG0GMMvy
- 90pBNQNAuY8MlUe7SNNYkkjEDSsNo5kEAdNtMNQEqGh54Kt+uL+5IJbbtGQXcwklQ8Ag
- aYoaPNCOKFqOzc6s7EfpCxjU6M8rergCZwzF1SEV1zH9735gCW7Ut0OUVoRgkmUmTttc
- 91yg==
+ bh=HcGq1XrISl74r5Iag0hCS2Wz/dm0EE2zh+iieQwt2tE=;
+ b=QHVeLCOFZJC6ln/wNnpNWnBFgZyhndpLkra2g6dADJyzUWh2VtNnJ+JCPnnBqY+b8e
+ kg+x0QY9CQMaiGlgqPN8d7mz8UdWod7trGL7i5iyjRt/tNErpQ7D7Cg0ZfEvHfTuIhNZ
+ zY05fZJD0NU4Ith7mK5RSxmmqqirpQwBaNtIff60jfWdiNLLfXJHXo3ihgPALgWxjRt+
+ 1b4t6UT+8IvgKZ2QYBvGpgF8efYTPmB5cKVWwu+yGLkZ+B8Kge/e4wF8LQrkmsSwR1PT
+ 47yvsfAO3hPF7c7nEy/1fiBtVKjCTFFiTIoULSu7/oGZW9qBMd6xCsii6lC66i6+ixb+
+ MxaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779805084; x=1780409884;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=HcGq1XrISl74r5Iag0hCS2Wz/dm0EE2zh+iieQwt2tE=;
+ b=hEECno4xUgGSteC5fHOEjk+W6YG1pR1xNYZjGo9wPV/QTYL6yvHqk8yXbs943H+PDY
+ 4a/RtqMtkSWSS1zyvQDM5TbXb2GVPuyu0bYpGs/H7939MYKAJRrY/57Bs1hmgr8/6dlN
+ wbtd85jlWsMog5muhs18cJo701KE8J0aaD6tEU3lMxj/V3uE642jqaz7nMtIxGvgmZ1t
+ vx5rAoyvZ9JRbxqUvydbSR96nrlh23xHOaOFQdq7+H8P+drd+n/AyTzPooQQf9oPoF9W
+ x6e/1jETyfKt/CgJN/qBQXVQTDJT7ViqHtnaOy59vyAh/f8spEPY7i9B1GVH3JUdgVn5
+ BWhw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8R4hw/PJ2T5wS8yxHzH2DCvdNEinLxpbqXIPs/w+Qc49eGVP1pcpUbni5ujKXtgk9yMy6Q/ongp/A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzwape/50JmMJSGGdrw/lZQZMbjkI45JgjwMynNrH6O7IfJJouH
- KZE5pJB0FkuKl9e+zLAifm3/fdPBDuIpD9qqoHAbHQjo82anfIFbpu2g5BPDKEHX/LA=
-X-Gm-Gg: Acq92OHYG+4gtvy2Z1xjndqoePaPbyadCjyTZFstSzuNJQReoPsLhnPXV41pdns5/wd
- +A5biarXZK/wlxEkD270mOx71Gj7ppIba5DaB9LcLAdPNdyKX+gDW5kjM196mptsVCYw2xgS9E3
- LdhsxWxRJYHYsGb4NVt5tV6ko/yBz3sx8whG69Xa6AZioTM/PlNn6EmI9XcTOy9H9fxy7+AqPTf
- 7KGN5a4mmaj4AapAGAAvFQcgaQUI+0SZhHDxS2BNBwvcTFwaWFV7wSD7FemXj8YuqicRx9FGGYl
- YQ7SJBEzgDF2EH+gbAnIiIVGMzO4fGHD7Hf7hpZdaB8YHJScaTgfwgS3f11Gf+i6E/CEwzxv+8m
- 0gKdejdjNsFYaC16OHxXOvbcJYDsK42lFVBeOcm8zSPOQFKmqdADHuNfOIkR/XVtaUj4h5bUTXQ
- bix+7p3uqmC/iHyG6NIWvMPtZX56nWuUiDHuBOoHSCv1/WGS9MOPCJbe3+1T56Dx2Pbk/aXsIwm
- +M24jaG79ewT+lZnvN8bHppFQ==
-X-Received: by 2002:a05:600c:8484:b0:48a:906b:14ca with SMTP id
- 5b1f17b1804b1-490426cd8c4mr332344195e9.20.1779805076904; 
- Tue, 26 May 2026 07:17:56 -0700 (PDT)
+ AFNElJ+NOsIx6d24PeE93O7Elpl9I/A6MrO0UqS65ueoOJsHGRxbSk38VWDb/qJyRSDuIo57JtEURkoKiqs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzOmSgUyiDcYkbV4Peh6OflGGEu90h13i2X1M3f4/XyiLc4ycaT
+ Y+s22Wn+DmInpR4OKO2HZCeSpUgocrJDmdXxY8h8/pNBrCyTdrJyfrWR6tnwXU78LxQ=
+X-Gm-Gg: Acq92OHWRknJ9b4afaqdtFyCjEtzjRbulnzVNMlXFyudv8fduwwbe6VQ0voBGZt+Tql
+ keUCwAkncpkYK/nG9aK+BGKPaepadr1abRUEeyLtPXXPRcTvvqwoYYAzm7u8+eBDKfKLvDVRnOr
+ Ty7UF741Z+7Dust0bMC5MbW7ktJIWOJ1BYGdmpmFQxnuloIu8Qf0sNt3nDrpmi2Ftt5s52uik6f
+ yCtAIv9gVyY1W+7iu4sOzlFVehBgxAExdPPRpLyanCzBuZSv6JpkTWzKWseQjvT853YagJQduq4
+ 5pOAMZ0ed36rxjqr8vDh5wQ46xwjDI3d9FiGJJ94GzcAZAL0bTfn257JEhdWkIMjGekd4YNAoGz
+ fRsFUE/x04REI7mUSN63C4YXejIcUa31cuBEQZswp0dqksTsxMB9ZKqFW80nhINcLzqChoCkD7c
+ O+YiG4XYsq4IxB5Bid0ACz8IJTu5ypgY2FQlJaQ540zdKxegxA1MZ4MvPq+dZz8498OBZpxuOfo
+ tVdaV6OPwrB2Cw=
+X-Received: by 2002:a5d:588d:0:b0:43d:a37f:8d5c with SMTP id
+ ffacd0b85a97d-45eb36a860amr35484418f8f.17.1779805083801; 
+ Tue, 26 May 2026 07:18:03 -0700 (PDT)
 Received: from localhost
  (p200300f65f47db04a716d2bdeddb4813.dip0.t-ipconnect.de.
  [2003:f6:5f47:db04:a716:d2bd:eddb:4813])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4904526ca21sm323690885e9.3.2026.05.26.07.17.55
+ ffacd0b85a97d-45eb6cce0a4sm35446032f8f.12.2026.05.26.07.18.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 07:17:56 -0700 (PDT)
+ Tue, 26 May 2026 07:18:03 -0700 (PDT)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
  <u.kleine-koenig@baylibre.com>
 To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@kernel.org>, Max Staudt <max@enpas.org>,
- Andi Shyti <andi.shyti@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: linux-ide@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
- netdev@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org,
  "Christian A. Ehrhardt" <christian.ehrhardt@codasip.com>,
  "Christian A. Ehrhardt" <lk@c--e.de>
-Subject: [PATCH v1 0/8] zorro: Improve handling of pointers in
- zorro_device_id::driver_data
-Date: Tue, 26 May 2026 16:17:26 +0200
-Message-ID: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
+Subject: [PATCH v1 5/8] video: fm2fb: Use named initializer for
+ zorro_device_id array
+Date: Tue, 26 May 2026 16:17:31 +0200
+Message-ID: <12911d2a1dfc4e482bbc0a417df73748283d04ee.1779803053.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
+References: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2934;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1095;
  i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=Kybdz7vMHfQVHVOh6L5fYiSlCH/4zeDGpuUchAH7Tmw=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqFat2pwUr5NuB2EXH5DJBMYu0MFsCRZClzwm2T
- O9dYlR4RvKJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCahWrdgAKCRCPgPtYfRL+
- TkGXB/437E8f30EKdaE8q56oaJt5WlihQ7/3LiGG3zpapj74Iu08O8/GcyZKo9eVo8NUFaoQUo0
- 0hif3fK8HhAxSruKgus+1EQhLy4QeBS7zZsfKLyQOA2B83qRv2SA46ZptWCnVfQXneJtq5rnt/p
- z+XAhB5HNmZ0vPCrnsT8fL9BH8Yuh3zYqxT9eUnhr+pmthPLdEZiphMZPNHOU/10eCiEJb0TQUX
- jspmFLtmTRiWApFBZdcAJAZ22LyP1Ls51jKz1i9KFNk3U1cVVN3KNX/HmgRm8an2jPEYqs0Aq03
- oaSi8UN/pRU/wOeZjcBFx1K5Dq0XXmkIHLJB0BQbJ8js9PWI
+ bh=vLYhva7TFPlfvxBS6GmaWUTUrenc6YRKtxASZZ8jZAs=;
+ b=owGbwMvMwMXY3/A7olbonx/jabUkhizR1U3u1mK5E3TLryob8TbMXBf7Meys0fYbv3Zb72143
+ 3vnx1XHTkZjFgZGLgZZMUUW+8Y1mVZVcpGda/9dhhnEygQyhYGLUwAmIn2Yg2FmQtmKN5sOa66d
+ rJ39ZNfE2ot/OA2maOQlfn6hfan1i8Mb4SIfoZq/cUIZGvkL54m+vZ7BXv+uMskjeJbmFLOL0ge
+ i121P2PLYp/i5QtlVhXVqG52cctz7l9vnZS38pPBF91FWn9T5+RVBSk62Nu9Dklb/T7DRamzO05
+ Ws7ZzWfPdGfHXDwb73Nx04dA3T4rvVFhXvkzGM97/dY/gncmbLuv/qzy+5NTMns0fkBx5iyGj59
+ ujvn7LK/lfNL5l53ikZMQTw3+D4s/H93QKxqaUlit7rQ9amBjunr++0kjj7/1d7xiy7L9K+UnEF
+ nCeFvxe0nPmySbTYOCDD7DST1Ns1rbkRO5akO9YE8W8DAA==
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -118,71 +111,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+Using named initializers is more explicit and thus easier to parse for a
+human.
 
-this series is about improving the handling of pointers in struct
-zorro_device_id's driver_data.
+While touching this array, drop the explicit zero from the list terminator.
 
-While it's ok on all current Linux platforms to store a pointer in an
-unsigned long variable, it involves casting that loses type information.
-This can be nicely seen in patch #7 where after profiting from patch #6
-the compiler notices a missing const.
+This change doesn't introduce changes to the compiled zorro_device_id
+array.
 
-Preparing for that change, all zorro_device_ids are converted to use
-named initializers, which is also a nice cleanup that could stand for
-itself, as it improves readability for humans. (That is necessary
-because an anonymous union can be initialized by name, but not using a
-list initializer.)
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+---
+ drivers/video/fbdev/fm2fb.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-My motivation for this series is the CHERI hardware extension. With that
-pointers are bigger than longs and thus you cannot store pointers in
-zorro_device_id::driver_data. So this series is also about getting
-support for CHERI into the mainline, but I hope the clean up effects
-mentioned above are justification enough to accept this series.
-
-The dependencies in this series are as follows:
-
- - Patch #5 depends on #1, #2
- - Patches #7 and #8 depend on patch #6.
-
-So if the ata maintainers agreed to merge their patch #1 via scsi, and
-Geert agrees to patch #5 and that it's also merged via scsi, patches #1,
-#2, #6 and #7 can go in without further coordination.
-
-Patches #3, #4 and #5 are only about using the same initialization style
-for all zorro_device_id and can go in without coordination.
-
-Best regards
-Uwe
-
-Uwe Kleine-König (The Capable Hub) (8):
-  ata: pata_budda: Use named initializer for zorro_device_id
-  scsi: Use named initializer for zorro_device_id
-  net: Use named initializer for zorro_device_id arrays
-  i2c: icy: Use named initializer for zorro_device_id arrays
-  video: fm2fb: Use named initializer for zorro_device_id array
-  zorro: Simplify storing pointers in device id struct
-  scsi: zorro7xx: Make use of struct zorro_device_id::driver_data_ptr
-  video: cirrusfb: Make use of struct zorro_device_id::driver_data_ptr
-
- drivers/ata/pata_buddha.c             |  8 ++++----
- drivers/i2c/busses/i2c-icy.c          |  4 ++--
- drivers/net/ethernet/8390/hydra.c     |  4 ++--
- drivers/net/ethernet/8390/xsurf100.c  |  4 ++--
- drivers/net/ethernet/8390/zorro8390.c |  6 +++---
- drivers/net/ethernet/amd/a2065.c      |  8 ++++----
- drivers/net/ethernet/amd/ariadne.c    |  4 ++--
- drivers/scsi/a2091.c                  |  6 +++---
- drivers/scsi/gvp11.c                  | 17 ++++++++--------
- drivers/scsi/zorro7xx.c               | 16 +++++++--------
- drivers/scsi/zorro_esp.c              |  2 +-
- drivers/video/fbdev/cirrusfb.c        | 28 +++++++++++++--------------
- drivers/video/fbdev/fm2fb.c           |  6 +++---
- include/linux/mod_devicetable.h       |  6 +++++-
- 14 files changed, 62 insertions(+), 57 deletions(-)
-
-
-base-commit: d387b06f7c15b4639244ad66b4b0900c6a02b430
+diff --git a/drivers/video/fbdev/fm2fb.c b/drivers/video/fbdev/fm2fb.c
+index 25d2e716edf2..a62c8d86bf69 100644
+--- a/drivers/video/fbdev/fm2fb.c
++++ b/drivers/video/fbdev/fm2fb.c
+@@ -212,9 +212,9 @@ static int fm2fb_setcolreg(u_int regno, u_int red, u_int green, u_int blue,
+ static int fm2fb_probe(struct zorro_dev *z, const struct zorro_device_id *id);
+ 
+ static const struct zorro_device_id fm2fb_devices[] = {
+-	{ ZORRO_PROD_BSC_FRAMEMASTER_II },
+-	{ ZORRO_PROD_HELFRICH_RAINBOW_II },
+-	{ 0 }
++	{ .id = ZORRO_PROD_BSC_FRAMEMASTER_II },
++	{ .id = ZORRO_PROD_HELFRICH_RAINBOW_II },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(zorro, fm2fb_devices);
+ 
 -- 
 2.47.3
 
