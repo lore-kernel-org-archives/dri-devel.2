@@ -4,78 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B2CCD5BD5
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4090CD5BDF
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:03:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD7B10E462;
-	Tue, 26 May 2026 09:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 159EF10E471;
+	Tue, 26 May 2026 09:03:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="baaPyYMv";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CFOTXZ/J";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Osk3/v8m";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="o3oEKfPy";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ssazCIfk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="k09tBqN/";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cDFJ/fIa";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kyNGaIPN";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC7110E462
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:00:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D223410E478
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:03:14 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 363006B3E6;
- Tue, 26 May 2026 08:59:58 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7B9356B2FB;
+ Tue, 26 May 2026 09:03:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779785999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1779786193; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ejy15HLRULv/iHzJLGVQCrLp/AiLuLDwUgWtV4C2EU0=;
- b=baaPyYMv4yGoQHFimAxytqQjn6ho5Zd1wa0FMTwsSYl4HfumaHInOXtFRCQanNqprT5hFp
- auTBrgDJ8tUVkwo6MaC9M+qFT+nZxC/H4fWaDNQArID5i810CzAF4F5PbEZZtaZC05Nhrn
- bHaoQ2UTzpstuC6Fr9OqknOV9u9dO9o=
+ bh=1yHSAnSnfei8Gpn2LyHnScleECQ2X3M3l4lHkpRdlsY=;
+ b=ssazCIfkbn/XH8qvMDgaTEmoPRG0iN7BpVes7jP6wzLpPdPpf7XhxPspDKmhRGrWrWnEcD
+ HUh3FO5qjERqbV5N3xoIBF4nV3HiJmtBErWqgfZ11hJ1w+HJQwUp8ErS5bruCK9F4ClxoY
+ KmcdsDzvdTodr8w0YyVjEVv0YvBEQIo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779785999;
+ s=susede2_ed25519; t=1779786193;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ejy15HLRULv/iHzJLGVQCrLp/AiLuLDwUgWtV4C2EU0=;
- b=CFOTXZ/Jc28jW6gUmHAzNdWyt0f6zPZG+4PWGuwLGJUl0oh2nsUA9GcdS6AVEZhA2OrMKV
- WtkbZVOIvCyH3+BA==
+ bh=1yHSAnSnfei8Gpn2LyHnScleECQ2X3M3l4lHkpRdlsY=;
+ b=k09tBqN/nuw/Yzpcik8gNJC/9N5tQ/YhIZX6GeULjf4G1J5nKOwBaIvzi5f4hUwfBy3VGC
+ BVL+2GbqYR7y6+Cg==
 Authentication-Results: smtp-out1.suse.de;
-	none
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="cDFJ/fIa";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kyNGaIPN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779785998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1779786188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ejy15HLRULv/iHzJLGVQCrLp/AiLuLDwUgWtV4C2EU0=;
- b=Osk3/v8mo9hxyPDuoXN6f41EsFVPQmCgg+ElT42l3CUUFnP0mQEO8Tf4arcKpUWI3bpw5N
- 32aTrm9kBeHRV4iUfnJ1+9hZL4oCsIj1+zudrX0f+JoDcETLgzINRl2Igclt+cV9fFFw7P
- GpQad7BUfcrYFlgjt5c27wIFwuvWm2Q=
+ bh=1yHSAnSnfei8Gpn2LyHnScleECQ2X3M3l4lHkpRdlsY=;
+ b=cDFJ/fIaPTLps14vShNqkeLQ2ry751FTf598fjLwi++BhSaPRJArHvYHnNs2o8K1x1p9ZM
+ WYmKvGNoSTsR5qxRfvBEkeET1ApRsnXK6bSgmOEB2po1lJpHYIl0qv7C1IKuSv770Enfux
+ B/amjK67/jPITJ+88L+F77xLF6rjPN0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779785998;
+ s=susede2_ed25519; t=1779786188;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ejy15HLRULv/iHzJLGVQCrLp/AiLuLDwUgWtV4C2EU0=;
- b=o3oEKfPyVr5jbUeUmexTQStzMVEUG9KNlGA+0hMIrGHnx4fp31jKEhtkVwom+QxhKRCnN1
- ZM2Wuy20DjfNrKBA==
+ bh=1yHSAnSnfei8Gpn2LyHnScleECQ2X3M3l4lHkpRdlsY=;
+ b=kyNGaIPNw+IYlG1o6Yr0yD6ud8RKRG6VXC/MTwB+b/XtPgHLGgQVcqGfmLlfZ8ktEs28rV
+ CeQn3BXUiwkMbfCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5162C5A10E;
- Tue, 26 May 2026 08:59:57 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8723A5A112;
+ Tue, 26 May 2026 09:03:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 01R4Eg1hFWqZZAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 26 May 2026 08:59:57 +0000
-Message-ID: <0057f209-c8a6-48bc-9194-36e3b19bec67@suse.de>
-Date: Tue, 26 May 2026 10:59:56 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id /jKuH8thFWrHZwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 26 May 2026 09:03:07 +0000
+Message-ID: <0f581544-69aa-4d88-9b72-9341a4c847ea@suse.de>
+Date: Tue, 26 May 2026 11:03:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/19] drm/atomic: Document atomic commit lifetime
+Subject: Re: [PATCH v5 03/19] drm/atomic: Drop drm_private_obj.state
+ assignment from create_state
 To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -103,7 +106,7 @@ Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
  Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 References: <20260519-drm-mode-config-init-v5-0-388b03321e38@kernel.org>
- <20260519-drm-mode-config-init-v5-1-388b03321e38@kernel.org>
+ <20260519-drm-mode-config-init-v5-3-388b03321e38@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -130,25 +133,34 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260519-drm-mode-config-init-v5-1-388b03321e38@kernel.org>
+In-Reply-To: <20260519-drm-mode-config-init-v5-3-388b03321e38@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: 7B9356B2FB
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- TAGGED_RCPT(0.00)[renesas]; RCPT_COUNT_TWELVE(0.00)[38];
- TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLyhjdboxbrjk5hnijtjs4kbm6)];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_SOME(0.00)[];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo, ideasonboard.com:email]
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
+ RCPT_COUNT_TWELVE(0.00)[38]; RCVD_TLS_ALL(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ ARC_NA(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ R_RATELIMIT(0.00)[to_ip_from(RL7gneoo7ydcsn9o76mxr5d8pb)];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[];
+ internal_greylist_whitelist(0.00)[2a07:de40:b281:104:10:150:64:97];
+ TAGGED_RCPT(0.00)[renesas];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, suse.de:dkim,
+ suse.com:url, ideasonboard.com:email, imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,163 +176,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-I left a number of comments on the style of writing. Apart from that, 
-it's great to have the lifetime documented.
 
 Am 19.05.26 um 11:01 schrieb Maxime Ripard:
-> How drm_atomic_commit and the various entity structures are allocated
-> and freed isn't really trivial. Document it.
+> The initial intent of the atomic_create_state hook was to simply
+> allocate a proper drm_private_state and return it, without any side
+> effect.
 >
+> However, __drm_atomic_helper_private_obj_create_state(), which most
+> atomic_create_state implementations call, introduces a side effect by
+> setting drm_private_obj.state to the newly allocated state.
+>
+> This assignment defeats the purpose, but is also redundant since
+> drm_atomic_private_obj_init(), the only call site for the
+> atomic_create_state hook, will also set this pointer to the newly
+> allocated state.
+>
+> Drop the assignment in __drm_atomic_helper_private_obj_create_state().
+>
+> Fixes: e7be39ed1716 ("drm/atomic-helper: Add private_obj atomic_create_state helper")
 > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
 > ---
->   Documentation/gpu/drm-kms.rst |  6 +++++
->   drivers/gpu/drm/drm_atomic.c  | 58 +++++++++++++++++++++++++++++++++++++++++++
->   2 files changed, 64 insertions(+)
+>   drivers/gpu/drm/drm_atomic_state_helper.c | 2 --
+>   1 file changed, 2 deletions(-)
 >
-> diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
-> index d22817fdf9aa..36d76e391074 100644
-> --- a/Documentation/gpu/drm-kms.rst
-> +++ b/Documentation/gpu/drm-kms.rst
-> @@ -282,10 +282,16 @@ structure, ordering of committing state changes to hardware is sequenced using
->   :c:type:`struct drm_crtc_commit <drm_crtc_commit>`.
->   
->   Read on in this chapter, and also in :ref:`drm_atomic_helper` for more detailed
->   coverage of specific topics.
->   
-> +Atomic State Lifetime
-> +---------------------
-> +
-> +.. kernel-doc:: drivers/gpu/drm/drm_atomic.c
-> +   :doc: state lifetime
-> +
->   Handling Driver Private State
->   -----------------------------
->   
->   .. kernel-doc:: drivers/gpu/drm/drm_atomic.c
->      :doc: handling driver private state
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 170de30c28ae..d98586d89bbe 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -45,10 +45,68 @@
->   #include <drm/drm_colorop.h>
->   
->   #include "drm_crtc_internal.h"
->   #include "drm_internal.h"
->   
-> +/**
-> + * DOC: state lifetime
-> + *
-> + * &struct drm_atomic_commit represents an update to video pipeline
-
-I'd say 'modeset pipeline'. Video sounds too much like V4L.
-
-> + * state. It's a transient object that holds a state update as a
-> + * collection of pointers to individual objects' states. &struct
-> + * drm_atomic_commit has a much shorter lifetime than the objects'
-> + * states, since it's only allocated while preparing, checking or
-> + * committing the update, while object states are allocated when
-> + * preparing the update and kept alive as long as they are active in the
-> + * device.
-> + *
-> + * Their respective lifetimes are:
-> + *
-> + * - at reset time, the object reset implementation will allocate a new
-> + *   default state and will store it in the object state pointer.
-
-Using present seems more natural, e.g., 'allocates' and 'stores'
-
-> + *
-> + * - whenever a new update is needed:
-> + *
-> + *   + A new &struct drm_atomic_commit is allocated using
-> + *     drm_atomic_commit_alloc().
-
-Active form: "drm_atomic_commit_alloc() allocates a new instance of 
-struct drm_atomic_commit."
-
-IIRC the '&' needs to go before drm_atomic_commit.
-
-> + *
-> + *   + The current active state of all entities affected by the update
-> + *     is copied into this new &struct drm_atomic_commit using
-> + *     drm_atomic_get_plane_state(), drm_atomic_get_crtc_state(),
-> + *     drm_atomic_get_connector_state(), or
-> + *     drm_atomic_get_private_obj_state(). This new state can then be
-> + *     modified.
-
-Again use active form.  Mention which helper invokes the copying. I 
-assume it's drm_atomic_commit_alloc() or the UAPI entry points.
-
-> + *
-> + *     At that point, &struct drm_atomic_commit stores three state
-> + *     pointers for any affected entity: the "old" and "new" states, and
-> + *     state_to_destroy. The old state is the state currently active in
-> + *     the hardware, which is either the one initialized by reset() or a
-> + *     newer one if a commit has been made. The new state is the state
-> + *     we just allocated and we might eventually commit to the hardware.
-> + *     The state_to_destroy points to the state we'll eventually have to
-> + *     free when the drm_atomic_commit will be destroyed, and points to
-> + *     the new state for now since the old state is still the active
-> + *     state.
-
-Ok, sounds good.
-
-> + *
-> + *   + After the state is populated, it is checked. If the check is
-
-You mean, it populated the new commit with the updated states?
-
-Where does the check happen?
-
-Again, use active form. Like: 'After ... populated the new commit with 
-the updated states, it checks by invoking atomic_check of all involved 
-pipeline stages."
-
-> + *     successful, the update is committed. Part of the commit is a call
-
-Active form: "successful, ... commits the update."
-
-> + *     to drm_atomic_helper_swap_state() which will turn the new states
-> + *     into the active states. Doing so involves updating the object's
-> + *     state pointer (&drm_crtc.state or similar) to point to the new
-> + *     state, and state_to_destroy will now point to the old states,
-> + *     that used to be active but aren't anymore.
-
-The final sentence ""Doing so..." is serviceable. For splendid writing, 
-you could write somethink like "After swapping states, each object's 
-state pointer refers to the formerly new state. The state_to_destroy 
-pointer refers to the formerly old state."
-
-> + *
-> + *   + When the commit is done, and when all references to our &struct
-> + *     drm_atomic_commit are put, __drm_atomic_commit_free() is called.
-
-Active form: "After commiting the new state to hardware, ... puts all 
-references to strut drm_atomic_commit and calls __drm_atomic_commit_free()".
-
-> + *     It will, in turn, call drm_atomic_commit_clear() that will free
-
-Present form: "It calls ... the frees ... and ...."
-
-Best regards
-Thomas
-
-> + *     all state_to_destroy (ie. old states), and finally free &struct
-> + *     drm_atomic_commit instance.
-> + *
-> + *   + Now, we don't have any active &struct drm_atomic_commit anymore,
-> + *     and only the entity active states remain allocated.
-> + */
-> +
->   void __drm_crtc_commit_free(struct kref *kref)
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index cc70508d4fdb..a82568d87e4f 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -729,12 +729,10 @@ EXPORT_SYMBOL(drm_atomic_helper_connector_destroy_state);
+>   void __drm_atomic_helper_private_obj_create_state(struct drm_private_obj *obj,
+>   						  struct drm_private_state *state)
 >   {
->   	struct drm_crtc_commit *commit =
->   		container_of(kref, struct drm_crtc_commit, ref);
+>   	if (state)
+>   		state->obj = obj;
+> -
+> -	obj->state = state;
+>   }
+>   EXPORT_SYMBOL(__drm_atomic_helper_private_obj_create_state);
 >   
+>   /**
+>    * __drm_atomic_helper_private_obj_duplicate_state - copy atomic private state
 >
 
 -- 
