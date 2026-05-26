@@ -4,71 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE0F3CD5BDF
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:53:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B70BCD5BD2
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C070410E490;
-	Tue, 26 May 2026 09:53:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A1210E13F;
+	Tue, 26 May 2026 09:57:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mgYPxeoC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="impR7dqW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9CD10E13F;
- Tue, 26 May 2026 09:53:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779789213; x=1811325213;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=qxLdqer/T0R+tLdMT9Bc8YIVDWwE0imaVhQoE14GOrg=;
- b=mgYPxeoCBoxGybLLf62Z7NZByrTM2oYzde1fITdemTpIrq+VIEtMsw5l
- dNiSw6DJqh6OpTuLOZveIiG/RbDRxiNAidlMlMtqxfgWBtI+ToHp+X6nr
- lh7MW4Xi8OVYRdwvZlrNFm4eDZNfPfVTQS3SYPeQWJNbm5KRUiSyhJ4/d
- L9xfjOVZXAOhNs3qj/aE4ahrY3r3Vjc4zBlu7rEzfG2Rd0HFEDNRlTvia
- Uo1jMhOHG1t33b4ktv9ftm19U90dqc31kWzJQh6G98JROL4uCJx1pyBMU
- Bd4N59nd9RMvVuIgB2I687oe49jIVBGYeZsIgn4MKukI/n9+9tR7gd2Gj Q==;
-X-CSE-ConnectionGUID: jfr+E/f+Q8ut4NkWjEX2lA==
-X-CSE-MsgGUID: hOdWS2fpQP6OD00KDRvC1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="80582606"
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="80582606"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 02:53:32 -0700
-X-CSE-ConnectionGUID: HYvTEH+lTHe2WjJdmJJN5A==
-X-CSE-MsgGUID: FInZMyFcQtGmCJKIM0Fz4A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="246141873"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.113])
- ([10.245.244.113])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 02:53:26 -0700
-Message-ID: <09a61032-2ebf-4767-93f9-92a2c2a62e46@linux.intel.com>
-Date: Tue, 26 May 2026 11:53:23 +0200
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A0B710E13F
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:57:45 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2ba3e3c4f87so108524175ad.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 02:57:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779789465; x=1780394265; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=gSOWa+WoGd25f9CoUvwpEs1bBTK5FG4rfD00vKZHrt4=;
+ b=impR7dqW6u3xiCiggw0hidAkGAggaGAAWmkHJfdXf4uE1P3G7xTJY4b4BQQal9t7ZA
+ bAD3C20Exbj3Mjzg3ImfAiYJHZOQ81tvhTR/cV547NqVzH8tcuApP2f80lqdScmd8/Zt
+ xZV8DDSD7xi+wU4UfktbIVS8LJ9Q9VNCPYAQaLBO9UQn7Jgy75Yuy63NrdZAFkaUkI2I
+ qTylEwnmrdURFu0GjToe+0nFg+vNnxa1Qi1jlGGfDxcLxU+7Lg7zG0pyfM6AvpW2h4v6
+ D+4LylZzBOKR5wQ7DM7tVQGrEQ10LQhXpa394pv3/tHzqPIl4ZofP17qlGnEPZG9yay1
+ W/rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779789465; x=1780394265;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gSOWa+WoGd25f9CoUvwpEs1bBTK5FG4rfD00vKZHrt4=;
+ b=n7zmtZLBN8K0pC0dQQmwiouY9PSXm6JddZBg92W7dRQIA8h6adFcjcu8c4eR7DLIjN
+ 8cBIzmJveYS58Y/rD7QtNDanrb4ZwYUbTr7xsLyE4Poq6aFSFEgZ52iDi3rgL6WJmHY9
+ Z5lfAetKI/DrbSjemV1qj1Gk0k9TPqcdpvb7LDaUZJOpQiIrgDDNj5cnWXpzLtA8twCy
+ 4RYTaMfWpUnikfQmDJPaDs1fzyfI2GzM1dTxFyZJZsM1+ef32e//KcY7b+BwReO2Nm/x
+ UV3yYAQSxPpx+X7lQri13Mz8/r9JMzgZAZof+LDchEbXcITXovP9eiz+Yzij19LgZcKS
+ sMLA==
+X-Gm-Message-State: AOJu0YyldSHMxIrBat3YBuKI9XHjy3rcVUDb3p29zLlp7YA8hij8bUgv
+ Q05OeS5RUWlhfuAgCEfyCDcLnibtPiKfRAzZZdFatWRsrAkfmWqOcBEU
+X-Gm-Gg: Acq92OHIVFaMDk3sfHrAXhgEZP0XR4z0LoMvtYk4XlJ2AB7mADisGBGGh2tTYKV0OIu
+ eCXqLOPeOwhOw/TZNGbfj0HLPlM8APgvXw4cCoySQ8P/x23IzbAzJPCusbJxZWjrQJ+gJ2YOd6x
+ FhchHJl/DobTGK4uq9nTSGi57MqRZyrmf0UW2L7xUA7tXunB7xswNLviU3QF9XuIyUWS814zwT7
+ KzuCCpSNjZoOrsWlUIfnjNqAikSPDkafTlhcoYXxb/yBf0OIwlG92XRkS6Xoxug4CSBes3d0qkn
+ r248YQpSC2qDD40pkemBrBpfrFuMjPd7213BnaPGWOBeibFZYErDHnvSn2VZUou8KTa6WQAuKiI
+ ipEC2DncrUyU8aToGJ5bDeLsnuWvr3KeVSvP3DuE6+VmxvWc2LU+VH1PZHNNOeW92TD7dYC+2ox
+ DgYhEZDz0Rjcg2+9Xy3TRBG686sD4eE7vj25g0xblwfa8iCpsW2e2JVWAphGsJl8pk4YPYbh0Qz
+ UjF4QKrPTc=
+X-Received: by 2002:a17:902:ce8e:b0:2b2:4f43:b48c with SMTP id
+ d9443c01a7336-2beb0381369mr203545545ad.14.1779789464668; 
+ Tue, 26 May 2026 02:57:44 -0700 (PDT)
+Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2beb58b2d47sm147055165ad.45.2026.05.26.02.57.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 May 2026 02:57:43 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+Subject: [PATCH v2 0/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+Date: Tue, 26 May 2026 17:57:15 +0800
+Message-Id: <20260526-bar-v2-0-c66df9a840c4@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/5] cgroup/dmem: Add reclaim callback for lowering max
- below current usage
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>, 
- Tejun Heo <tj@kernel.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260512082406.44470-1-thomas.hellstrom@linux.intel.com>
- <20260512082406.44470-3-thomas.hellstrom@linux.intel.com>
- <9fe89d8e-9c32-4b03-ac2c-a634f5d4de0c@linux.intel.com>
- <b797a2aaa1bcef239a2eba449043dd278b9fa51a.camel@linux.intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <b797a2aaa1bcef239a2eba449043dd278b9fa51a.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHtuFWoC/zWMywrDIBBFfyXMuhYfUbCr/kfIwtoxGWhi0SItw
+ X+vFbo8l3vOARkTYYbLcEDCQpni3kCeBvCr2xdkdG8MkkvDNdfs5hLTUgXpVTBWWWjPZ8JA716
+ Z5sYr5VdMnx4t4rf+fdP9IhhnQgqrR27CiOG6bI4eZx83mGutX0IBFuqWAAAA
+X-Change-ID: 20260505-bar-523f2c3f6939
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, LiangCheng Wang <zaq14760@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779789463; l=1797;
+ i=zaq14760@gmail.com; h=from:subject:message-id;
+ bh=Kmq+0JLaZnUA+G7wcCq8VCK1JhVzlHRY2UTpbNvp+v0=;
+ b=H20lFZ57zk7aLVD9tzw2j8UNuMfNWBa3MKA5sXBHiXJmdmFROxPxHaCPGx/w/yU34eWDDAUXZ
+ pgYnO/HpbeIB5T8zuWr/aDgC+EEg/JnKGg4LLGiEJGXw+g1avjDnKhI
+X-Developer-Key: i=zaq14760@gmail.com; a=ed25519;
+ pk=5IaLhzvMqasgGPT47dsa8HEpfb0/Dv2BZC0TzSLj6E0=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,222 +102,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Thomas,
+This patch series adds support for the Mayqueen Pixpaper 4.26
+monochrome e-ink display panel, controlled via SPI.
 
-Den 2026-05-26 kl. 11:24, skrev Thomas Hellström:
-> Hi, Maarten,
-> 
-> Thanks for reviewing.
-> 
-> On Tue, 2026-05-26 at 10:27 +0200, Maarten Lankhorst wrote:
->> Hello,
->>
->> Den 2026-05-12 kl. 10:24, skrev Thomas Hellström:
->>> Add an optional reclaim callback to struct dmem_cgroup_region. When
->>> dmem.max is set below the current usage of a cgroup pool, the new
->>> limit
->>> is applied immediately (so that concurrent allocations are
->>> throttled
->>> while reclaim is in progress) and then the driver is asked to evict
->>> memory to bring usage back below the limit.
->>>
->>> Reclaim is attempted up to a bounded number of times. No error is
->>> returned to userspace if usage remains above the limit after
->>> reclaim,
->>> and a pending signal will abort the reclaim loop early. This
->>> matches
->>> the behavior of memory.max in the memory cgroup controller.
->>>
->>> Also honor O_NONBLOCK so that if that flag is set during the
->>> max value write, no reclaim is initiated. The idea is to avoid
->>> charging the reclaim cost to the writer of the max value.
->>>
->>> v2:
->>> - Write max before reclaim is attempted (Maarten)
->>> - Let signals abort the reclaim without error (Maarten)
->>> - If a new max value is written with the O_NONBLOCK flag,
->>>   reclaim is not attempted (Maarten)
->>> - Extract region from the pool parameter rather than
->>>   passing it explicitly to set_resource_xxx().
->>> v3:
->>> - Use an rwsem to protect reclaim callback registration and
->>>   region unregister against concurrent reclaim invocations,
->>>   ensuring reclaim_priv is visible when the callback is
->>>   invoked. (Sashiko-bot)
->>>
->>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
->>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> ---
->>>  include/linux/cgroup_dmem.h |  24 ++++++++
->>>  kernel/cgroup/dmem.c        | 106
->>> +++++++++++++++++++++++++++++++++---
->>>  2 files changed, 121 insertions(+), 9 deletions(-)
->>>
->>> diff --git a/include/linux/cgroup_dmem.h
->>> b/include/linux/cgroup_dmem.h
->>> index dd4869f1d736..c3bce21cbe80 100644
->>> --- a/include/linux/cgroup_dmem.h
->>> +++ b/include/linux/cgroup_dmem.h
->>> @@ -14,6 +14,21 @@ struct dmem_cgroup_pool_state;
->>>  /* Opaque definition of a cgroup region, used internally */
->>>  struct dmem_cgroup_region;
->>>  
->>> +/**
->>> + * typedef dmem_cgroup_reclaim_fn_t - Reclaim callback for a dmem
->>> cgroup region.
->>> + * @pool: The cgroup pool that needs memory reclaimed.
->>> + * @target_bytes: Minimum number of bytes the driver should
->>> attempt to free.
->>> + * @priv: Private data registered with
->>> dmem_cgroup_region_set_reclaim().
->>> + *
->>> + * Called by the dmem cgroup controller when dmem.max is set below
->>> the current
->>> + * usage of @pool. The driver should evict at least @target_bytes
->>> of memory
->>> + * from @pool. May be called multiple times if usage remains above
->>> the limit.
->>> + *
->>> + * Return: 0 if progress was made, negative error code otherwise.
->>> + */
->>> +typedef int (*dmem_cgroup_reclaim_fn_t)(struct
->>> dmem_cgroup_pool_state *pool,
->>> +					u64 target_bytes, void
->>> *priv);
->>> +
->>>  #if IS_ENABLED(CONFIG_CGROUP_DMEM)
->>>  struct dmem_cgroup_region *dmem_cgroup_register_region(u64 size,
->>> const char *name_fmt, ...) __printf(2,3);
->>>  void dmem_cgroup_unregister_region(struct dmem_cgroup_region
->>> *region);
->>> @@ -26,6 +41,9 @@ bool dmem_cgroup_state_evict_valuable(struct
->>> dmem_cgroup_pool_state *limit_pool,
->>>  				      bool ignore_low, bool
->>> *ret_hit_low);
->>>  
->>>  void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state
->>> *pool);
->>> +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region
->>> *region,
->>> +				    dmem_cgroup_reclaim_fn_t
->>> reclaim,
->>> +				    void *priv);
->>>  #else
->>>  static inline __printf(2,3) struct dmem_cgroup_region *
->>>  dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
->>> @@ -62,5 +80,11 @@ bool dmem_cgroup_state_evict_valuable(struct
->>> dmem_cgroup_pool_state *limit_pool,
->>>  static inline void dmem_cgroup_pool_state_put(struct
->>> dmem_cgroup_pool_state *pool)
->>>  { }
->>>  
->>> +static inline void
->>> +dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
->>> +			       dmem_cgroup_reclaim_fn_t reclaim,
->>> +			       void *priv)
->>> +{ }
->>> +
->>>  #endif
->>>  #endif	/* _CGROUP_DMEM_H */
->>> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
->>> index 1ab1fb47f271..5fd5a1634d21 100644
->>> --- a/kernel/cgroup/dmem.c
->>> +++ b/kernel/cgroup/dmem.c
->>> @@ -51,6 +51,20 @@ struct dmem_cgroup_region {
->>>  	 * No new pools should be added to the region afterwards.
->>>  	 */
->>>  	bool unregistered;
->>> +
->>> +	/**
->>> +	 * @reclaim: Optional callback invoked when dmem.max is
->>> set below the
->>> +	 * current usage of a pool. The driver should attempt to
->>> free at least
->>> +	 * @target_bytes from @pool. May be called multiple times
->>> if usage
->>> +	 * remains above the limit after returning.
->>> +	 */
->>> +	dmem_cgroup_reclaim_fn_t reclaim;
->>> +
->>> +	/** @reclaim_priv: Private data passed to @reclaim. */
->>> +	void *reclaim_priv;
->>> +
->>> +	/** @unregister_sem: Protect @reclaim while it is running.
->>> */
->>> +	struct rw_semaphore unregister_sem;
->>>  };
->>>  
->>>  struct dmemcg_state {
->>> @@ -145,21 +159,58 @@ static void free_cg_pool(struct
->>> dmem_cgroup_pool_state *pool)
->>>  }
->>>  
->>>  static void
->>> -set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
->>> +set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
->>> bool nonblock)
->>>  {
->>>  	page_counter_set_min(&pool->cnt, val);
->>>  }
->>>  
->>>  static void
->>> -set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
->>> +set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
->>> bool nonblock)
->>>  {
->>>  	page_counter_set_low(&pool->cnt, val);
->>>  }
->>>  
->>>  static void
->>> -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
->>> +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
->>> bool nonblock)
->>>  {
->>> -	page_counter_set_max(&pool->cnt, val);
->>> +	struct dmem_cgroup_region *region = pool->region;
->>> +
->>> +	/*
->>> +	 * Always update the limit, even if usage currently
->>> exceeds it.
->>> +	 * Concurrent allocations will be throttled against the
->>> new limit
->>> +	 * while reclaim is in progress.
->>> +	 */
->>> +	xchg(&pool->cnt.max, (unsigned long)val);
->>> +
->>> +	if (nonblock || !READ_ONCE(region->reclaim))
->>> +		return;
->>> +
->>> +	for (int retries = 5; retries > 0; retries--) {
->> Where does 5 come from? This code should retry until no longer above
->> limit, otherwise you'll get some hard to debug issues.
-> 
-> The memcg controller uses MAX_RECLAIM_RETRIES, although if that fails,
-> it will invoke the OOM killer, although if the reclaim callback makes
-> progress, it will not consume a retry. Perhaps we should adopt the same
-> behaviour except the OOM killer, at least for now. Note that if a
-> signal is pending, the reclaim attempt is abandoned both here and in
-> memcg.
+The series includes:
+- Device tree binding updates for the Pixpaper 4.26 panel
+- A DRM tiny driver implementation for the Pixpaper 4.26 panel
+- A MAINTAINERS update for the Pixpaper DRM drivers and binding
 
-Yeah, it would be good if we could re-use the same MAX_RECLAIM_RETRIES, so
-we will at least know where it's coming from.
+The panel supports 800x480 resolution with XRGB8888 framebuffer
+input and uses SPI, along with GPIO lines for reset, busy, and
+data/command control.
 
-Perhaps move it to a slightly more public header. I'm thinking linux/mm.h,
-but  perhaps the mm maintainers will prefer another place.
+Tested on:
+- Raspberry Pi 5 with Linux kernel 7.1.0-rc1
 
-It makes sense to eventually fail on no progress, especially if all remaining
-memory is pinned. This can happen when we pin dma-buf for example.
+Feedback is welcome.
 
-Adding an entire DMEM OOM killer would be interesting, but probably far outside
-the scope of dmemcg for the foreseeable future. It's only unfortunate that
-we have no way of reporting or logging failure at all right now.
+Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
+---
+Changes in v2:
+- Explain why pixpaper-426m requires a distinct compatible string despite
+  sharing the same SPI and GPIO properties with the existing Pixpaper panel.
+- Drop the duplicated pixpaper-426m DT binding example.
+- Update the binding description for multiple Pixpaper panels.
+- Select DRM_GEM_SHMEM_HELPER instead of DRM_GEM_DMA_HELPER for the
+  pixpaper-426m driver.
+- Link to v1: https://lore.kernel.org/r/20260506-bar-v1-0-12195406f4ef@gmail.com
 
->>> <snip>
-> 
-> Let me take a look at this.
-> /Thomas
+---
+LiangCheng Wang (2):
+      dt-bindings: display: mayqueen,pixpaper: add pixpaper-426m
+      drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
 
-Thanks for looking into it.
+ .../bindings/display/mayqueen,pixpaper.yaml        |  13 +-
+ MAINTAINERS                                        |   3 +-
+ drivers/gpu/drm/tiny/Kconfig                       |  16 +
+ drivers/gpu/drm/tiny/Makefile                      |   1 +
+ drivers/gpu/drm/tiny/pixpaper-426m.c               | 828 +++++++++++++++++++++
+ 5 files changed, 855 insertions(+), 6 deletions(-)
+---
+base-commit: a293ec25d59dd96309058c70df5a4dd0f889a1e4
+change-id: 20260505-bar-523f2c3f6939
 
-Kind regards,
-~Maarten Lankhorst
+Best regards,
+-- 
+LiangCheng Wang <zaq14760@gmail.com>
+
