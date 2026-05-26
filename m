@@ -4,140 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F77CD5BD0
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:44:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FE0DCD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:49:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FB9810E6B5;
-	Tue, 26 May 2026 14:44:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA3B10E476;
+	Tue, 26 May 2026 14:49:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="wErWFlsr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gXhoc9y1";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wErWFlsr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gXhoc9y1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F+pEue8b";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90F5910E6B5
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:44:23 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 16DAC6A882;
- Tue, 26 May 2026 14:44:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779806662; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xSGN5MnauGYIiHQIRVAhWm2E3gq8TYxrC2C53w6vF5Y=;
- b=wErWFlsrUXXYAc0gDI1DDrJ+qPgznfE+4+qFot/TZvveLbdwDV6cC8umTVAps7oT3cno/J
- BxhK9OqU3BDLs5OdvJcHxvXXm+BP/788T3pw+UlRC7ogzm+a31wMvTMeVbP2NuAPr69uKM
- Vf9ST0lxGsQbkh7JIRUhXS2lO0TIps0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779806662;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xSGN5MnauGYIiHQIRVAhWm2E3gq8TYxrC2C53w6vF5Y=;
- b=gXhoc9y1WGbtKocceAjH/67WYJ0TUX3Sg3pt0JunysECvszYvwME5DZ8llgW0wnwrB1Kvg
- yLH+ZDXhBeoViLBA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wErWFlsr;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=gXhoc9y1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779806662; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xSGN5MnauGYIiHQIRVAhWm2E3gq8TYxrC2C53w6vF5Y=;
- b=wErWFlsrUXXYAc0gDI1DDrJ+qPgznfE+4+qFot/TZvveLbdwDV6cC8umTVAps7oT3cno/J
- BxhK9OqU3BDLs5OdvJcHxvXXm+BP/788T3pw+UlRC7ogzm+a31wMvTMeVbP2NuAPr69uKM
- Vf9ST0lxGsQbkh7JIRUhXS2lO0TIps0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779806662;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xSGN5MnauGYIiHQIRVAhWm2E3gq8TYxrC2C53w6vF5Y=;
- b=gXhoc9y1WGbtKocceAjH/67WYJ0TUX3Sg3pt0JunysECvszYvwME5DZ8llgW0wnwrB1Kvg
- yLH+ZDXhBeoViLBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B77225A266;
- Tue, 26 May 2026 14:44:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id d0JVK8WxFWoWPgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 26 May 2026 14:44:21 +0000
-Message-ID: <850e8355-7884-405c-a70a-986ce032c019@suse.de>
-Date: Tue, 26 May 2026 16:44:21 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C648510E476
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:49:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779806987; x=1811342987;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=qmIH6yVvgzOiB5JNQwghkQLv6udJEQZaAKStIOi2Yqw=;
+ b=F+pEue8bofEsJey3OADSo/B4VEcUVtt831I9KEVsxbeLlFj6g+ApSk0I
+ VtaIwONpPKgWDr6WljcBzjLfAYByXxTrRzmutNan4hetSsB/Q0MH8ScW2
+ YhAQmRPnpND/SDHUrPljv6UvK3EUf6DkzTM4sH4wOmTlfwRtPn+rZ6gpZ
+ ywyRo8cVbMXEFtc6NDYvYlAewN4I33Y+DTmEO1KxXJjW6q6xCTMihoNLJ
+ +lt0SEnC2osfgTz7XSkrbrKS7lbYLn+9muXH7+i8OP6cOzGhAftjf+XL2
+ J0pes4BtXWe+Nym/XLPjFWFDNxyDd03NJ7YpRLEg/hHCkr1VP1ntce3Nk A==;
+X-CSE-ConnectionGUID: 2GlA9p8CQTmr9QPJDDrH4Q==
+X-CSE-MsgGUID: da7wjfKeQmqv4Ebqyi1W7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="80653992"
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="80653992"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 07:49:46 -0700
+X-CSE-ConnectionGUID: axrAJN43RS+bv8s9lxfbew==
+X-CSE-MsgGUID: 9WiOfvFITTCrXI3tnTV9kw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="272274178"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.182])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 07:49:42 -0700
+Date: Tue, 26 May 2026 17:49:39 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
+ for vblank
+Message-ID: <ahWzA50VEsJfbyuK@intel.com>
+References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
+ <ee86cb43-e5df-4946-a957-931a73dde752@suse.de>
+ <ahBWayIcQUHuAt4i@intel.com>
+ <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de>
+ <ahBZ8nIqR4qESLZg@intel.com>
+ <5fbcda92-f6b0-4de2-89e5-ea43a6248b05@suse.de>
+ <ahCw9zakihaGHLsN@intel.com>
+ <428be9d9-06f7-4bcb-807b-d351101c3c4b@linux.intel.com>
+ <ahRA17a7JR2PVOuJ@intel.com>
+ <ce002f59-50ae-451c-8904-0caf50f5eef5@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] drm/gem-shmem: Track folio accessed/dirty status
- in mmap
-To: Igor Torrente <igor.torrente@collabora.com>,
- boris.brezillon@collabora.com, loic.molinari@collabora.com,
- willy@infradead.org, frank.binns@imgtec.com, matt.coster@imgtec.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-References: <20260209133241.238813-1-tzimmermann@suse.de>
- <20260209133241.238813-6-tzimmermann@suse.de>
- <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 16DAC6A882
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[collabora.com,infradead.org,imgtec.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
- MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+]
+In-Reply-To: <ce002f59-50ae-451c-8904-0caf50f5eef5@linux.intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,77 +88,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On Tue, May 26, 2026 at 01:14:55PM +0200, Maarten Lankhorst wrote:
+> Hey,
+> 
+> Den 2026-05-25 kl. 14:30, skrev Ville Syrj�l�:
+> > On Mon, May 25, 2026 at 10:13:57AM +0200, Maarten Lankhorst wrote:
+> >> Hey,
+> >>
+> >> Den 2026-05-22 kl. 21:39, skrev Ville Syrj�l�:
+> >>> On Fri, May 22, 2026 at 03:43:26PM +0200, Thomas Zimmermann wrote:
+> >>>> Hi
+> >>>>
+> >>>> Am 22.05.26 um 15:28 schrieb Ville Syrj�l�:
+> >>>> [...]
+> >>>>>>>> But why does your HW use CRTC 1 in the first place.
+> >>>>>>> Could be eg. the enabled outputs can't be driven with CRTC 0.
+> >>>>>>>
+> >>>>>>> I guess what you want to do is pick the first crtc from modesets[]
+> >>>>>>> which is enabled. Or perhaps even "pick the Nth enabled crtc from
+> >>>>>>> modesets[] based on the ioctl argument".
+> >>>>>> The enable-status of each CRTC could change later on, which might lead
+> >>>>>> to problems.
+> >>>>> Sound like a locking issue if someone is changing the configuration
+> >>>>> at the same time we're trying to do the vblank wait here.
+> >>>>
+> >>>> I mean that the connected outputs could change at a later point or we 
+> >>>> could have multiple CRTCs in use. Today, someone in #intel-gfx reported 
+> >>>> a problem with panning if multiple CRTCs are in use.
+> >>>>
+> >>>> Therefore picking a CRTC freely could be a problem. Let's say we 
+> >>>> configure modes from one CRTC, but later wait/pan/flush with another 
+> >>>> CRTC. I would not trust this to work correctly.
+> >>>>
+> >>>> Hence, my suggestion is to select a primary CRTC during the fbdev 
+> >>>> client's probe and use it for all later operations until the next probe 
+> >>>> happens.� All other CRTCs would mirror the primary one.
+> >>>
+> >>> Actual mirroring may not be possible due to different modes supported
+> >>> on each output. The whole multi-output fbdev thing in the drm fb helper
+> >>> is kind of a hack that's rather hard to make work 100% sensibly.
+> >>>
+> >>> For the panning possibly the only sensible thing is to use the max of
+> >>> hdisplay/vdisplay of all the crtcs as the xres/yres so it's clear
+> >>> how much things can actually be panned. Oh and tiled displays (assuming
+> >>> we would actually want the fbdev stuff to tile correctly) make the
+> >>> situation even more complicated. I think the current support for tiled
+> >>> displays in the fb helper is semi-busted.�
+> >>
+> >> I tested fbdev on a tiled DP-MST monitor.
+> >> It works better than my kwin's wayland compositor, as it detects both tiles
+> >> and presents a single image spanning both tiles.
+> > 
+> > IIRC we've occasionally seen cases where it picks a non-tiled mode
+> > on the primary connector, and also still enables the second tile.
+> > 
+> >> Kwin sees both as separate
+> >> monitors.
+> >>
+> >> I still see vertical tearing between both tiles, so it would be nice if
+> >> intel/display would support atomic updates for both crtc's directly.
+> >>
+> >> The code's already there for bigjoiner, just needs to do the same for
+> >> tile joiner updates when all tiled crtc's are in the atomic update.
+> > 
+> > We don't have any special code for atomic updates with joiner
+> > currently. It just happens to work most of the time.
+> > 
+> > With joiner the pipes will be in sync/phase, so that helps a bit.
+> > But we do also try to make the pipes in sync/phase also for tiled
+> > display via the use of the port sync. So if you see a difference
+> > in tearing between joiner vs. tiled then that likely means the
+> > problem is in userspace (as in it submits separate commits for
+> > each tile).
+> 
+> The only thing kernel should do is if crtc 1 and 2 are part of a
+> commit and in sync is to perform the same as bigjoiner updates for
+> crtc 1 & 2 simultaneously.
 
-Am 20.05.26 um 15:11 schrieb Igor Torrente:
-[...]
->
-> I'm not familiar with the drm_gem, code so I don't any more insightful 
-> information
-> to share.  But hopefully we can find a better fix for this.
+Nothing is performed simultaneously for joiner either. The only thing
+that is guaranteed is that the joined pipes are updated back to back,
+because the pipes are always consecutive. If you have consecutive pipes
+used for a tiled display (or the pipes in between are not part of the
+commit) then there is zero difference between joiner vs. tiled display
+commit.
 
-Do you have huge pages enabled ?
-
-Best regards
-Thomas
-
->
-> BR,
-> Igor Torrente
->
->> ---
->>   drivers/gpu/drm/drm_gem_shmem_helper.c | 20 ++++++++++++++++++++
->>   1 file changed, 20 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c 
->> b/drivers/gpu/drm/drm_gem_shmem_helper.c
->> index c3a054899ba3..0c86ad40a049 100644
->> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
->> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
->> @@ -598,6 +598,9 @@ static vm_fault_t drm_gem_shmem_fault(struct 
->> vm_fault *vmf)
->>       if (ret != VM_FAULT_NOPAGE)
->>           ret = vmf_insert_pfn(vma, vmf->address, pfn);
->>   +    if (likely(!(ret & VM_FAULT_ERROR)))
->> +        folio_mark_accessed(folio);
->> +
->>   out:
->>       dma_resv_unlock(obj->resv);
->>   @@ -638,10 +641,27 @@ static void drm_gem_shmem_vm_close(struct 
->> vm_area_struct *vma)
->>       drm_gem_vm_close(vma);
->>   }
->>   +static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
->> +{
->> +    struct vm_area_struct *vma = vmf->vma;
->> +    struct drm_gem_object *obj = vma->vm_private_data;
->> +    struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
->> +    pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset 
->> within VMA */
->> +    struct page *page = shmem->pages[page_offset];
->> +    struct folio *folio = page_folio(page);
->> +
->> +    file_update_time(vma->vm_file);
->> +
->> +    folio_mark_dirty(folio);
->> +
->> +    return 0;
->> +}
->> +
->>   const struct vm_operations_struct drm_gem_shmem_vm_ops = {
->>       .fault = drm_gem_shmem_fault,
->>       .open = drm_gem_shmem_vm_open,
->>       .close = drm_gem_shmem_vm_close,
->> +    .pfn_mkwrite = drm_gem_shmem_pfn_mkwrite,
->>   };
->>   EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
+> 
+> That shouldn't be too much to ask from the kernel, and not hard to
+> implement.
+> 
+> 
+> > I have occasionally pondered about hiding the tiled display stuff
+> > completely from userspace and handling it in the kernel the same
+> > was as joiner. But the problem is that we'd also need to cook up
+> > a new EDID for the display that combines both tiles, and we'd
+> > still need the second connector to be enabled internally (and 
+> > hide that fact from userspace). None of that code exists
+> > currently and wouldn't be entirely trivial to implement.
+> > 
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Ville Syrj�l�
+Intel
