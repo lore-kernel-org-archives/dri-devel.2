@@ -4,69 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F977CD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 17:33:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B4ABCD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 17:40:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C00B810E534;
-	Tue, 26 May 2026 17:33:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D234010E1BF;
+	Tue, 26 May 2026 17:40:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="tW5IIKmX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="prSRkHkM";
 	dkim-atps=neutral
-Received: from mail-pl1-f202.google.com (mail-pl1-f202.google.com
- [209.85.214.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09CCA10E73F
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 17:33:54 +0000 (UTC)
-Received: by mail-pl1-f202.google.com with SMTP id
- d9443c01a7336-2bc763c7256so234873545ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 10:33:54 -0700 (PDT)
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com
+ [209.85.222.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5476910E1BF
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 17:40:40 +0000 (UTC)
+Received: by mail-ua1-f52.google.com with SMTP id
+ a1e0cc1a2514c-956948531a1so2866996241.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 10:40:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779817239; cv=none;
+ d=google.com; s=arc-20240605;
+ b=hohTCCgZjz2gj10+7Ed/mhB2MsiHWmD8IQohCLDmw17M0V/SqYwnrzEbOHaEHG8eMQ
+ hZd1wiZPl7Xql+UUCmXd1c6p36Pupg5P/D5ON35i2r6rHAOOjozj3A9/meMAhjcRu6sk
+ Bs5+gBvzGVmvRP++WMCoG6nLzc4yN87SmqURr8PHuPbGYIIh+Lghc3A0ylewbpgVXhUw
+ 4KKuw0lkCu6TdyIEi29ugn9Ryo+a0wRfI31dqC7Tb6IrUuIZkTBxrPKycmRBLvhq20J8
+ Q7K1Xox5Y+NOUbI5Xqh36zNpD/iEXFaK7M+tYkuEJ9CIwRlkUAOKb9zul0c9uw3ZUzl1
+ e3+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=sB+mjSu/pqVnN5kPDqiN9QaioGX3lZ6RIksWWTXTj0o=;
+ fh=8E4bXk5Y/37793CjLV35lGoMVP9A/bqAWwfMp7qS5WE=;
+ b=hNdu6WJNpu7VgkCleFOFvnETnCkPcmn04IongHh3gU2aYDG/gwm6n8G4TDAQgvMvHj
+ NLsKvl5bSSUCDOz1sLczVokeXJmKrKUbujhiQdCaORR2l6iiX8/ZGlpNsRg1TZDgU07I
+ qdCR5N+PsBjZjVYw8sxb7my0gcMuP0pTLOytU/X/cOEioPr+92w058aId7ziWlQSCKm+
+ hcD2eXMrnyduodY1eoyB2DzlPfZ9l1r+Od9vxJS+sXDLf8iyWcnvs9kGtynPw2In47rW
+ 75UmgDkFvz8j6iGMXZpqntL9imLas9AP5Aho6/CTBUKBLgLkvXr0VP8OQIQJi1NLB7jV
+ ITTQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1779816833; x=1780421633;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=hcUFNVo2Sgdj71izYX2y2jUTakglUwC/840c4cOGT0g=;
- b=tW5IIKmXg/VjQcz+9VU9lXCl80IIlkjc+zFHXB+CqvHLl3VQ2M0v3yFEnFzwVCmiMG
- CddsY8v5setXAIFtMpdaatovvmF6Cwg1GArdQn69Zjq6DfqREhXXODkcdWM2+3hCQaVe
- /0J81Tt00N5fA/grcNmIL6v6TkuEJKTNdZrYAAsrU1xW1g0PCF2+pjHuXJXgyAtNykoJ
- wQDCYXxC4jGAl8DxxW0raA+mGEyb7vcaE3jWH4OpSvxMP1Ya5alk4VwzUcg7wOW2HLYt
- j9uQzEq7671vbcmclHJkk/rIv6CPzGXyxiH8jS4vbbAVtzxNCPqWTFWqzSNuLcgY1+FZ
- jXGQ==
+ d=gmail.com; s=20251104; t=1779817239; x=1780422039; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=sB+mjSu/pqVnN5kPDqiN9QaioGX3lZ6RIksWWTXTj0o=;
+ b=prSRkHkMuIW/F8Qg8izJM/CKVompV7HyFtigfdgDq5KisrfJD/aSvqramDrks2Sctq
+ wlg8JFA/AHFTGr8qIWoRKcecu8HMzmRSoZq5gqYC9t0kJBI54nZuLbrYmco1bVvPlFF8
+ TGwRHmL9nmcn/r+9+rHM2LLTxTPDdcMFO2VOJfWEq+TCPRSWp2YIPeZGIxit+excL18A
+ a7JKe1twW23BUrev5r0zFUBmvIxP7riIp3j3cO2MrKlK29z8mUX8aTkGNAzWT6+/lGJE
+ 6ig7qokacGlpHgkKTQAOfsRQyhdY74mTsbdja4+BG41Q551XOPoTjBOQHQnp+DrXe3l4
+ L0aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779816833; x=1780421633;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hcUFNVo2Sgdj71izYX2y2jUTakglUwC/840c4cOGT0g=;
- b=okx466NUPe+KSjv8zlhn8wBXKEUhB6pnT5ugNK8e+60GQLBqXzBDps30gRP/Cy40l8
- XgMcG2Ju2OlAYuMMrayxXcYaaWFZUEiwgknssmr6WhHhaHKqu4HtOZAHpzzhyNpy3Mfz
- w6it5akh+rXHaQrc8aSqo2sUGg+z7A5t83ZKYq7rbN82+hCXvoXYH2Ib2AYhXLHJtGp8
- a7c2zYyH3K448U1GprVYhlx4inFnETdxSZpWsg0gZu6BUT+3NmuCG5Ew1Mku2KlGdPWT
- wAQnmGM0Im4fPsLBnYFxC/1Sndf7Mg0ETyilRZAC26mBn8LcFUaKdnT7N0GGWnMoi6xx
- VxVA==
+ d=1e100.net; s=20251104; t=1779817239; x=1780422039;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sB+mjSu/pqVnN5kPDqiN9QaioGX3lZ6RIksWWTXTj0o=;
+ b=q/0NzoX1/zi5XnseOy0ex3Uy+NP9Q/6qamJRIiYPfnFIqq/335wZeTz/qXIOe8ylLh
+ 36Fl4wj7gJEIHOvERhCb0pdno38stj40cDpPmMDofeRP6C57F7qfpICMMGbXSffJVCBn
+ eLzuf18ldeQm5jyhABSRilc3Mzx/qpk85KS+cbKdBGfynuX1QESYgu2tE+VVFXtir2kH
+ FWpVrFWEv2dcYjFyhqoeU2I7CEY8uLZr+kA5XpW4EGtVIWxdiSfTApwW2odOfGDpO1dn
+ Xp/K/CMqxUnppnMoDF0EiBc3mQhWxXvvzzCMcl3v4tEInCbHLA5QnElsj8wg+7Aj7LnI
+ FzhA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ98vT6vYUVwVnyuXeUxg07q3a17zo1mHy/p6pniXxnu7opRNQ6Me/nG5EK7azxrnZwlaWN4OV8eNzY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzU1Oj5nMyg17R7rKNDEw3Jxd3lia4kTSL8JVLmVPdzKBbMcwd8
- h9hjvKjZreYV++W7jNb9QyMZ9wN9jgQ290ncU574nQ/w/9+ie+bYptD2FBzgjp8SLGYuLkfAhdm
- pIQ==
-X-Received: from pgbfe22.prod.google.com
- ([2002:a05:6a02:2896:b0:c82:798f:6276])
- (user=praan job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:3947:b0:398:d6a9:fc9
- with SMTP id adf61e73a8af0-3b328cb9cffmr19853341637.5.1779816833191; Tue, 26
- May 2026 10:33:53 -0700 (PDT)
-Date: Tue, 26 May 2026 17:33:50 +0000
-In-Reply-To: <20260511214243.349487-1-xuehaohu@google.com>
-Mime-Version: 1.0
-References: <20260511214243.349487-1-xuehaohu@google.com>
-X-Mailer: git-send-email 2.54.0.746.g67dd491aae-goog
-Message-ID: <20260526173350.2359263-1-praan@google.com>
-Subject: Re: [PATCH] dma-buf: Fix silent overflow for phys vec to sgt
-From: Pranjal Shrivastava <praan@google.com>
-To: xuehaohu@google.com
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, kevin.tian@intel.com, 
- ankita@nvidia.com, jgg@ziepe.ca, alex@shazbot.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- jmoroni@google.com, Pranjal Shrivastava <praan@google.com>
+ AFNElJ+hx/Xuzh+sT156BY1CJhdHiF0PCR4xoWymiz7YQXlLiWtCjyhjKvI5HcM6DWzJ4VetI9NzFDpj2lc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzffZp8nMXdFQb7p6MpPKdHjS7rgKAhLRKyOidKbLBgRJ0RrstR
+ fTKxvy1s5uNecUYUe3sufEIrEBuF9ohokhGhMr2px0ZHAWdJMgAArWZRj3eRZsqPThAKelsgHFz
+ FUI3pBwzf0E1lFJdZNdpA4JMFo2poE5U=
+X-Gm-Gg: Acq92OHm95RrcV8wLj36SUtsl8J1IXApvqyNB9XXudfJX3/c2kdTeIX83Vk/a5zQL7W
+ UKJV8B5fIy8gSs1gFEK6SxASiXPObPr29w+ngECbrNmiXX4xvx0Tsfv+TZt6rnUDU0qCxHepSji
+ RyaBQIAqr8y6+kNDLurgVQOrLzE7+UKniuCxRuE9VMrJzYJDHu3g5omt2HmTKPnmBOFeUwkiCy4
+ 2Yj9cTqasm0b2X7DoMTtimDMVJr/YSh5wMwH0kGG4ET0HVex9KDQCSL1viSN6s6nhXr1AOKKnvW
+ DPEjOJ0=
+X-Received: by 2002:a05:6102:3f86:b0:602:8c16:b24c with SMTP id
+ ada2fe7eead31-67c7c0765aemr9185857137.19.1779817239074; Tue, 26 May 2026
+ 10:40:39 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260314-panel-patches-v4-0-1ecbb2c0c3c8@gmail.com>
+ <177818605997.73000.9692910497119100760.b4-ty@kernel.org>
+ <CAHuF_Zr0Z+rP72fLts5Ar56XyY8VMROzE0wQ_S5iyO+A4YoMSw@mail.gmail.com>
+In-Reply-To: <CAHuF_Zr0Z+rP72fLts5Ar56XyY8VMROzE0wQ_S5iyO+A4YoMSw@mail.gmail.com>
+From: Yedaya Katsman <yedaya.ka@gmail.com>
+Date: Tue, 26 May 2026 20:40:27 +0300
+X-Gm-Features: AVHnY4K0YHv_VhlqTQcjH1BYoi9vYxYTC8vhg9AZJCVfVLC71VCaUv3jbXuBfa8
+Message-ID: <CAHuF_ZoirJ7PdLxQcY2NC-Gay6wv=m=eVZBDLFXrRYnszo8Wew@mail.gmail.com>
+Subject: Re: (subset) [PATCH v4 0/3] Add support for the Samsung S6E8FCO DSI
+ and M1906F9 display panel
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ =?UTF-8?B?S2FtaWwgR2/FgmRh?= <kamil.golda@protonmail.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Kaustabh Chakraborty <kauschluss@disroot.org>, 
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,90 +119,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 11, 2026, David Hu wrote:
-> In case MMIO size is bigger than 4G, and peer2peer
-> dma goes through host bridge, we trigger the code
-> path to assign total linked IVOA, greater than 4G
+Hello Bjorn, just a reminder about this, I don't want the wrong
+compatible getting into a release
 
-Nit: s/IVOA/IOVA
-
-> to mapped_len, and leading to a silent overflow
-
-> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> Signed-off-by: David Hu <xuehaohu@google.com>
-> ---
-> drivers/dma-buf/dma-buf-mapping.c | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
-
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> index 794acff2546a..658064140357 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -95,7 +95,8 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->  					 size_t nr_ranges, size_t size,
-> 					 enum dma_data_direction dir)
-> {
-> -	unsigned int nents, mapped_len = 0;
-> +	unsigned int nents = 0;
-> +	size_t mapped_len = 0;
-> 	struct dma_buf_dma *dma;
-> 	struct scatterlist *sgl;
-> 	dma_addr_t addr;
-
-Minor nit: Let's follow the reverse xmas tree format?
-This looks correct to me, for this change:
-
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-
-Apart from this, I see similar issues at other places:
-
-  1. In calc_sg_nents(), nents is accumulated as an unsigned int. [1]
-     If nr_ranges is very large, nents could also overflow, potentially
-     leading to a small allocation in sg_alloc_table() and a subsequent
-     out-of-bounds access in the mapping loop. It might be worth changing
-     nents to size_t there and adding a check against UINT_MAX.
-
-   2. In fill_sg_entry(), the loop variable i is an int [2]. Changing
-     it to unsigned int would be more consistent with the nents type
-     and safer for extremely large mappings.
-
-
-Maybe, we should also fix these? For example:
-
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 794acff2546a..ecf07ffca2b9 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -10,7 +10,7 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
-                                         dma_addr_t addr)
- {
-        unsigned int len, nents;
--       int i;
-+       unsigned int i;
-
-        nents = DIV_ROUND_UP(length, UINT_MAX);
-        for (i = 0; i < nents; i++) {
-@@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
-                                  struct phys_vec *phys_vec, size_t nr_ranges,
-                                  size_t size)
- {
--       unsigned int nents = 0;
-+       size_t nents = 0;
-        size_t i;
-
-        if (!state || !dma_use_iova(state)) {
-@@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
-                nents = DIV_ROUND_UP(size, UINT_MAX);
-        }
-
-+       if (nents > UINT_MAX)
-+               return 0;
-+
-        return nents;
- }
-
-Thanks,
-Praan
-
-[1] https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/dma-buf/dma-buf-mapping.c#L39
-[2] https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/dma-buf/dma-buf-mapping.c#L13
+On Wed, 13 May 2026 at 15:09, Yedaya Katsman <yedaya.ka@gmail.com> wrote:
+>
+> On Thu, 7 May 2026 at 23:35, Bjorn Andersson <andersson@kernel.org> wrote:
+> >
+> >
+> > On Sat, 14 Mar 2026 23:46:20 +0200, Yedaya Katsman wrote:
+> > > This adds a driver to support the Samsung S6E8FCO DSI controller with the
+> > > M1906F9 display panel found in Xiaomi Mi A3 (xiaomi-laurel). The driver is
+> > > generated using linux-mdss-dsi-panel-driver-generator[0].
+> > >
+> > > The mdss reset dependency makes the screen work more reliably.
+> > >
+> > > [0]: https://github.com/msm8916-mainline/linux-mdss-dsi-panel-driver-generator
+> > > Original tree with patches: https://gitlab.postmarketos.org/SzczurekYT/linux/-/tree/laurel
+> > >
+> > > [...]
+> >
+> > Applied, thanks!
+> >
+> > [3/3] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: Enable MDSS and add panel
+> >       commit: 493cb869874cd301c370adf9a3f9577942c4f0f1
+>
+> Thanks for applying, but notice that this is an old version, the last
+> version is v7:
+> https://lore.kernel.org/all/20260320-panel-patches-v7-3-3eaefc4b3878@gmail.com/
+> The compatible string was fixed in v5, and other patches in the series
+> were applied with the new version.
+>
+> The difference is in the compatible, 's6e8fc0' with a zero instead of an O.
+>
+> > Best regards,
+> > --
+> > Bjorn Andersson <andersson@kernel.org>
