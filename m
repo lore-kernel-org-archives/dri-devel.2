@@ -4,95 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4D23CD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:18:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DF50CD5BD0
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12EF110E69C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8EF10E69D;
 	Tue, 26 May 2026 14:18:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="SJUoM8xl";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="QVjQ9Nwo";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA92410E69C
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:18:09 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-44e1860558fso6817048f8f.0
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:18:09 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 158F010E69C
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:18:07 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4906869f0cbso20112005e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:18:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1779805088; x=1780409888;
+ d=baylibre.com; s=google; t=1779805085; x=1780409885;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+l0tXTe0JtsE6kljkXV/yKiUveLQAvzo0OxqjuzKVB0=;
- b=SJUoM8xlXmZOwmoUHCFaIYkduUqP5nTYZ7U824Ps+Q2CC7BM830MJ4MrWHDdlpsVh8
- nkOy0FveKkmBISCJcXBsi5F9VN8LuuGggNePssrfrJ/pigFq4ysOhX5ym7qk5SdVqZTc
- FleH7nVTWHU1CE0W9rOUQwxeIXBm50MYBDXCLfY8GFoj42vM3XleT2bIB3ZClrVCKavP
- eVLnFAaT7R+Dto6HYfHp87jHPZMlYIEWuhwW1uvqGcJ2/avA6ozklSl/uiZdZ9q3bQXl
- VzK0yFhhM2VQKJ+hagC+5vMqOwxhrpnm8f8pD7poXomnpmdN+/NcOL0uCgExdF3lr7nY
- 4oLA==
+ bh=DWA1rx79U563LTGj65VSgfxyjti8CkpfF8kpzyqUrdk=;
+ b=QVjQ9Nwo4PKWRW8DuQ+TfWzfGp9QXLJDyQc0tpzOoF1/e44Grg3JTtKZOzt7oBon3J
+ bEhGki0niSswqLFOPvJbigANJyx5GWl1kGu2O2B3vpmPtoWf2Kvazu4yEipnP9Wv36ey
+ Of7cu9rPyjRuAtFpRiTWxxBsCp69kf1zeGlhySpoHcFB3EuFAm5PxZwD/7Suhi66lTQ9
+ fHmLltf+f0WkbcNhXvJUlEPAv6KKwfj7u4F9qr8gxtqvtZLfzsHpaUL1GdYmIZAUjFQO
+ oUWl5A0tSNMni9Tyqw7UIJc4+qkwU2BdIdeROGgVReql5/7mXaNLk2dBTRYVarHStdpz
+ NdDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779805088; x=1780409888;
+ d=1e100.net; s=20251104; t=1779805085; x=1780409885;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=+l0tXTe0JtsE6kljkXV/yKiUveLQAvzo0OxqjuzKVB0=;
- b=iKDUABJCUquaYrqeh4IOrkatEDMQH3ZfhSls1OhHkhw4m1rtjVP5CXO4Tc12+9FP5E
- pblep6SYGiA0rKUFMNNK7xTdykqY99he0cO7kx7KCWitBl6rDhwtmLM4xomTFxHZTpK6
- oj/nlrjauY0I2+R78w7AsXgVLlmZrKDxr5FQCBOflF488daAI9CfTK6/T2VfiWbU2exD
- zeluX8uJFrZ8JeDj5mURg8ecsgjbMlZZnAVhrmArW8z3CF4nliiM3WQU2cyp1MyjSUJ5
- wNKmRARe6b5ianhRoZrvjfdCbTqfbRtOYUnDyqnE2kurE9QyQGF2K3wA5Sizrm9ZZlsz
- M0FA==
+ bh=DWA1rx79U563LTGj65VSgfxyjti8CkpfF8kpzyqUrdk=;
+ b=js2j8QJnApaISBBTjjqzeODSXcdCqBn4VljAZ6POfGQLAMUs6F18MAGhOV4CU6xAL1
+ BkhZ0aXNOeB/8j5GahXInVOB5guc7x/+GW9jkwAP/DHg9Hfe8u6Kv6t689h2zKkocARN
+ +UW7FdIcW7h+Zmnuw9MMF0/vnozqare8Uzk2uQ1Ym0I1VRvtSqAY9uC61SjpfbjzWrTD
+ C7ePy6/1tDvEl3VFb+EKkDYKbIBdMUAK7WKUBN8sg0kPwfHUto8SbjbEB3l0ES2Fa1Ml
+ WyIQPTSBQ652Cs6j7+6mtVa9pvwNGS2T66Xnrr0XRQnrw0S559Gh16GGqowI+CBtiS0h
+ dl4A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9e1zB1E8J+Jd6UBiMj5NpF/ub3cSuwAl6Bngihs0859JRCMG4pCFG6cQr+5ARChGho71rIFiQWWuM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFRk15ud0CKTO9w5m889yLD2ZO10XDZzwRUYp777vMVnSV984O
- F89ubEma93rCfgCgkHXWscoxvR2xdfsM5RrIXZ5UwlnfMDYJmXK3Rnus3r1VYhIul1s=
-X-Gm-Gg: Acq92OHApKwrNk1ExgfrLS01BMijnJTF+vAbiwBAMA3aNaJo2afMjjahYp9HFaC0HcS
- BOreSikU4htrBP69K0uqigj5lO9TZYtzGOL5zVZtAUPXEK0n1HqpUssYaTPLXBQcQtvbTha11ZY
- fA8rolsHoTlyFlee43eFxt7JIVw47xKhbfEyu0rYn64BMHb56kftrCKMB+lmadz9PVXRs67pqIp
- W9OPD3U9GXfKkYeD24TAIrJudwJy1MlqGjWSBR/JJlnJxX4KlmXuAvRWUNTtgjFpXIlgwAi8JnG
- y028/YaJBvywJ7N87poTYsV6XnLbVpQKNmZ/UakRixH1btSl6BFdsOk7oQCz/jHkhjZ4Z8XR/EO
- U3aK6aaPORkApYshiM0Ko76Ra2sAkAFLi2NHIju+lH6YRzDWzzBB4JtK77pKj3qpQ0zgyG2c0qf
- BuNWsJHBR5Rj99pN1SFDOe2rVy29rNurqBi/wj9VV8REyfHYT/9GP6HehO7cdeEsx8/g68dpEMe
- jl1qj89YCJ0GSo=
-X-Received: by 2002:a05:6000:2003:b0:43b:4136:1e6f with SMTP id
- ffacd0b85a97d-45eb38e4b46mr32569170f8f.38.1779805088108; 
- Tue, 26 May 2026 07:18:08 -0700 (PDT)
+ AFNElJ8eM+rL1cmQAwB7VdkY3zO/3AwpHkM38LNYPrTPOngZEaARs9pQPk+RBlFwMar+z/Ei5C5YdExMN7Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5pXtCp6sjXPKZhz5IicbO6iGhouqsvgoUwEjAlMoOoavuVhV3
+ dTPw2GUzG4siA0ChlIinzOQB+n6y9m1A2W1fLPCEbSVZQod4b8iY0v60ZvOkuMArI9E=
+X-Gm-Gg: Acq92OGaah4pAvjXE/jIYu1jzqTXtb3sY9cqc/OnweMqWX0luAL13yNBOa/bhgTB8zx
+ WjX1ZHJmh/kI2aTo91gj4o8WHOxpHsTbcpbkJ8wBns/KWJOfm/7QmqtUDOCfojkyG9awr64Jlry
+ ePz8/iySg+n4AMIx/uCSuv68SA1zA+0n1VfhB6IlbVGOzAunLBAQrXwJApLShLeHZ+N+3/8NvKE
+ Q4nmzQNFVlZI5yu6XhXTE0Rgm0Lo4LfQH2ahIN+oYBdUewqLrock2F122QCb0+l6hm2s4fcQsdN
+ hco7SPH6yKfu0zYH0gadQ5zrp+aEh7BTDUuaDf/h8zotwP7Q8ZmPSP+EYsA0iM9WQ4PetGhux2+
+ Sz7bjZLH5FH9OWrq3bPYkfaY/1zhOBze8EF8nI75FbpDqspP5XzSEIlXUxUjyRlf4+fH2G0g/sB
+ dyxpDAWuq3g7b5ByuaSJxrwPYpo/0VAeYy0S9EcMd2lSMmxtAXl5pgIBsC2ukvpnkQUDxD8c+v+
+ JSCQncEXlH1ZaePy6ricRki2g==
+X-Received: by 2002:a05:600c:4592:b0:490:6237:5213 with SMTP id
+ 5b1f17b1804b1-4906237537cmr145220735e9.23.1779805085104; 
+ Tue, 26 May 2026 07:18:05 -0700 (PDT)
 Received: from localhost
  (p200300f65f47db04a716d2bdeddb4813.dip0.t-ipconnect.de.
  [2003:f6:5f47:db04:a716:d2bd:eddb:4813])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-45ec7fcd7f9sm22348657f8f.37.2026.05.26.07.18.07
+ 5b1f17b1804b1-4904561a160sm379625175e9.9.2026.05.26.07.18.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 07:18:07 -0700 (PDT)
+ Tue, 26 May 2026 07:18:04 -0700 (PDT)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
  <u.kleine-koenig@baylibre.com>
 To: Geert Uytterhoeven <geert@linux-m68k.org>,
-	Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org,
+ Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@kernel.org>, Max Staudt <max@enpas.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org,
  "Christian A. Ehrhardt" <christian.ehrhardt@codasip.com>,
- "Christian A. Ehrhardt" <lk@c--e.de>
-Subject: [PATCH v1 8/8] video: cirrusfb: Make use of struct
- zorro_device_id::driver_data_ptr
-Date: Tue, 26 May 2026 16:17:34 +0200
-Message-ID: <72b515651ab8df2f464deb620fd7b24370d6fb1a.1779803053.git.u.kleine-koenig@baylibre.com>
+ "Christian A. Ehrhardt" <lk@c--e.de>, linux-ide@vger.kernel.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v1 6/8] zorro: Simplify storing pointers in device id struct
+Date: Tue, 26 May 2026 16:17:32 +0200
+Message-ID: <49576a7501128c93ef318566ed7faefce163f1fd.1779803053.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
 References: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2338;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1515;
  i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=K/rLWEjDKkHsJ9bxXPZI9DKSp87tpARRFywudt2h+mw=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqFauKEYSHWUZfQM/7o+z0zP1g8ExpBrH3mhgHl
- +PAjlqxotOJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCahWrigAKCRCPgPtYfRL+
- TiO5B/9L+NQiEbboLQhnRBDWb9kWCznt9081jTJD52DjSXIbOimq9lDExC1+m0zHI2vR23OtAz5
- rYKvMs5BII8C3sPjydO9HflKm+0HGBoxNHyFcBRx7nMD9YMRu0oEL1KgUF5aYOJDw3EZHWDojMB
- lD0vp9qtN/T5HfKs2Sh/ySwqhx90V07yB8/WO6csBHNoZKyJ5crGE/3+EXpuwm9iLdG7ro9/WqW
- 252nXum67dBmt2ECelLNWuOkHKOPjUDQ82WHUAqobOpqwWWtT8BqDC/PsBofb8nn9ZBDxydS9Eu
- V55nk2HDzDn0IRAJmoktE3+whV9/arrbjN0Wx39DREREqzRp
+ bh=A14j4ivDNBl2yGcg6n5ndH+ByZLqjyYb/4BbZyB+vg8=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqFauEMCO+XO5wBiq0WLDW9CPIg9uJbXOSVo41d
+ x54C4q2mLiJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCahWrhAAKCRCPgPtYfRL+
+ TjnnB/9l+SDbdriw4+P0R0QawXzQR6RNcTSEDOsG0Za0QxbkFa85XMb5sLwAO0owuw/Rowx6ky+
+ QMdsAXUgR3vwvQLdxYJlkEl/VA/XHq/xJJAuw+YZlvI7KLvHFN3YqbmJgo+fHO56QX05JkYBvJ2
+ Jk9WKvtvJ58lFHkr+5etBSYF3AixiJ+YBuoVcvjao9lM8EjUJ8SyDU/sXtdjUltWSXQmsKSN5Wa
+ cffVeDubVIqpPQNOIDt4M8130VMFMoHEz1nySiOBmpolGD4C9tykhh7r5xGVttivy5+fc/p6kFl
+ 64ZyNUXuXtZrf+NrGcA7ZEOvBZuObVE5B7q9XxMf4MX80c3s
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -111,69 +120,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Usage of .driver_data_ptr allows to drop several casts and so make the
-driver a bit more type safe.
+Technically it is fine (on all current Linux architectures) to store a
+pointer in an unsigned long variable. However this needs explicit
+casting which is an easy source for type mismatches.
 
-While touching the zorro_device_id array, drop an unneeded explicit zero
-in the list terminator.
+By replacing the plain unsigned long .driver_data in struct
+zorro_device_id by an anonymous union, most of the casting can be
+dropped. There is still some implicit casting involved (between a void *
+and a driver specific pointer type), but that's better than the approach
+to store a pointer in an unsigned long variable as this doesn't lose the
+information that the data being pointed to is const.
+
+All users of struct zorro_device_id are initialized in a way that is
+compatible with the new definition, so no adaptions are needed there.
 
 Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/video/fbdev/cirrusfb.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ include/linux/mod_devicetable.h | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/cirrusfb.c b/drivers/video/fbdev/cirrusfb.c
-index 2693b5cc053f..7e07e775b393 100644
---- a/drivers/video/fbdev/cirrusfb.c
-+++ b/drivers/video/fbdev/cirrusfb.c
-@@ -321,25 +321,25 @@ static const struct zorrocl zcl_picasso4_z2 = {
+diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
+index 3b0c9a251a2e..2673a1bd82c4 100644
+--- a/include/linux/mod_devicetable.h
++++ b/include/linux/mod_devicetable.h
+@@ -640,7 +640,11 @@ struct mdio_device_id {
  
- static const struct zorro_device_id cirrusfb_zorro_table[] = {
- 	{
--		.id		= ZORRO_PROD_HELFRICH_SD64_REG,
--		.driver_data	= (unsigned long)&zcl_sd64,
-+		.id = ZORRO_PROD_HELFRICH_SD64_REG,
-+		.driver_data_ptr = &zcl_sd64,
- 	}, {
--		.id		= ZORRO_PROD_HELFRICH_PICCOLO_REG,
--		.driver_data	= (unsigned long)&zcl_piccolo,
-+		.id = ZORRO_PROD_HELFRICH_PICCOLO_REG,
-+		.driver_data_ptr = &zcl_piccolo,
- 	}, {
--		.id	= ZORRO_PROD_VILLAGE_TRONIC_PICASSO_II_II_PLUS_REG,
--		.driver_data	= (unsigned long)&zcl_picasso,
-+		.id = ZORRO_PROD_VILLAGE_TRONIC_PICASSO_II_II_PLUS_REG,
-+		.driver_data_ptr = &zcl_picasso,
- 	}, {
--		.id		= ZORRO_PROD_GVP_EGS_28_24_SPECTRUM_REG,
--		.driver_data	= (unsigned long)&zcl_spectrum,
-+		.id = ZORRO_PROD_GVP_EGS_28_24_SPECTRUM_REG,
-+		.driver_data_ptr = &zcl_spectrum,
- 	}, {
--		.id		= ZORRO_PROD_VILLAGE_TRONIC_PICASSO_IV_Z3,
--		.driver_data	= (unsigned long)&zcl_picasso4_z3,
-+		.id = ZORRO_PROD_VILLAGE_TRONIC_PICASSO_IV_Z3,
-+		.driver_data_ptr = &zcl_picasso4_z3,
- 	}, {
--		.id		= ZORRO_PROD_VILLAGE_TRONIC_PICASSO_IV_Z2_REG,
--		.driver_data	= (unsigned long)&zcl_picasso4_z2,
-+		.id = ZORRO_PROD_VILLAGE_TRONIC_PICASSO_IV_Z2_REG,
-+		.driver_data_ptr = &zcl_picasso4_z2,
- 	},
--	{ 0 }
-+	{ }
+ struct zorro_device_id {
+ 	__u32 id;			/* Device ID or ZORRO_WILDCARD */
+-	kernel_ulong_t driver_data;	/* Data private to the driver */
++	union {
++		/* Data private to the driver */
++		kernel_ulong_t driver_data;
++		const void *driver_data_ptr;
++	};
  };
- MODULE_DEVICE_TABLE(zorro, cirrusfb_zorro_table);
- #endif /* CONFIG_ZORRO */
-@@ -2208,7 +2208,7 @@ static int cirrusfb_zorro_register(struct zorro_dev *z,
- 	if (!info)
- 		return -ENOMEM;
  
--	zcl = (const struct zorrocl *)ent->driver_data;
-+	zcl = ent->driver_data_ptr;
- 	btype = zcl->type;
- 	regbase = zorro_resource_start(z) + zcl->regoffset;
- 	ramsize = zcl->ramsize;
+ #define ZORRO_WILDCARD			(0xffffffff)	/* not official */
 -- 
 2.47.3
 
