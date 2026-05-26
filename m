@@ -4,56 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 660C7CD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:17:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F245ACD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D244E10E623;
-	Tue, 26 May 2026 11:17:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 490A510E193;
+	Tue, 26 May 2026 11:28:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Yp7lfk3K";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="T+VFQrdC";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE9E910E623
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:17:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=+0sPyzuSHlLoJAd87i/e3m0e8N619YAooFpJZS/llgA=; b=Y
- p7lfk3KuXdF/NX3kF9S4mqcEdfoyTxGLBbQWti6D24hDkf33OEnbxTpkl21QMLoq
- T/9AzoASk8kEMxCh6SCBZzkpR+dVjZjP3cNw7NLf9a7UuHVZCMNdwb7VkrdX8FOg
- 4cBTBphBoDKakAO0D117sF+zMFqbEZS8TuVO12qqNk=
-Received: from w15303746062$163.com ( [113.200.174.80] ) by
- ajax-webmail-wmsvr-40-141 (Coremail) ; Tue, 26 May 2026 19:16:23 +0800
- (CST)
-X-Originating-IP: [113.200.174.80]
-Date: Tue, 26 May 2026 19:16:23 +0800 (CST)
-From: w15303746062  <w15303746062@163.com>
-To: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>
-Cc: "Greg KH" <gregkh@linuxfoundation.org>, louis.chauvet@bootlin.com,
- hamohammed.sa@gmail.com, simona@ffwll.ch, melissa.srw@gmail.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
-Subject: Re:Re: [PATCH 6.18.y] drm/vkms: Fix ABBA deadlock in vblank disable
- and timer callback
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <9c4a68c4-43a3-4a9b-a131-9570174c8df3@linux.intel.com>
-References: <20260515131826.388154-1-w15303746062@163.com>
- <2026051557-thermal-petite-7da0@gregkh>
- <581657f0.ba8.19e2eaaf003.Coremail.w15303746062@163.com>
- <2026051633-skyward-parrot-cdd3@gregkh>
- <397754a7.224c.19e38e42006.Coremail.w15303746062@163.com>
- <9c4a68c4-43a3-4a9b-a131-9570174c8df3@linux.intel.com>
-X-NTES-SC: AL_Qu2cC/uSu0kj5SaYbOkfmU0Qguw9Xcq5uPkj34FWN5t8jCrr+ScQXEB9PUv50tuDMAuVihKOaARIx+pFfqh7RpoTzlm0XpsHjmuGni5I5i2vMQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+Received: from mail-m822136196.xmail.ntesmail.com
+ (mail-m822136196.xmail.ntesmail.com [8.221.36.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84AD810E193
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:28:01 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3fe1e02e5;
+ Tue, 26 May 2026 19:27:56 +0800 (GMT+08:00)
+Message-ID: <0c6299ce-29a6-4443-9877-498d65c8881b@rock-chips.com>
+Date: Tue, 26 May 2026 19:27:55 +0800
 MIME-Version: 1.0
-Message-ID: <63508f34.98ff.19e640005c5.Coremail.w15303746062@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: jSgvCgD3X1oHgRVqdLqsAA--.13543W
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4wdBJWoVgQfVegAA3W
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
+ hclk as third clock for RK3588
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260525125331.140059-1-damon.ding@rock-chips.com>
+ <20260525125331.140059-2-damon.ding@rock-chips.com>
+ <20260525-ominous-hurling-c24874030f5a@spud>
+ <f6c2f07b-52b8-4181-aa1d-a7d8dcda245c@rock-chips.com>
+Content-Language: en-US
+In-Reply-To: <f6c2f07b-52b8-4181-aa1d-a7d8dcda245c@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e640a975403a8kunmdb4d9780b82cd9
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGkofVk8YTUIZSUhJSxkdHlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=T+VFQrdClvcP/O2v5qFlRx6F02LnccpcsGKQOrU6IbQAyoBjW2V40VeklsbdKbglbmXlWV0Mc1N3ctIvC5SxnGJVmgg3qMdzqE0LkrkpCSlEjRp49YhrxykR/EQ3VanMbZ6P3MG3TdfkHMdOQW1k2xXh2v6Ylz6fjsIP6qTG4cQ=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=CA3vEIesYpDr2R+IgNJm0/KUdwGN/M9rR+d1PmsZUNg=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,44 +73,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CkhpIE1hYXJ0ZW4sCgo+QXMgZmFyIGFzIEkgY2FuIHRlbGwsIGlmIGl0J3MganVzdCBhIGJ1ZyBh
-ZmZlY3RpbmcgdmttcywgYWxsIHlvdSBuZWVkIHRvIGRvCj5pcyBvbmx5IGEgZmV3IGNvbW1pdHM6
-Cj4KPjc0YWZlYjgxMjg1MCAoImRybS92Ymxhbms6IEFkZCB2YmxhbmsgdGltZXIiKQo+ZDU0ZGJi
-NTk2M2JkICgiZHJtL3ZibGFuazogQWRkIENSVEMgaGVscGVycyBmb3Igc2ltcGxlIHVzZSBjYXNl
-cyIpCj4wMmUyNjgxZmZlMWEgKCJkcm0vdmttczogQ29udmVydCB0byBEUk0ncyB2YmxhbmsgdGlt
-ZXIiKQo+NzlhZTg1MTBiNWI4ICgiZHJtL2F0b21pYzogSW5jcmVhc2UgdGltZW91dCBpbiBkcm1f
-YXRvbWljX2hlbHBlcl93YWl0X2Zvcl92YmxhbmtzKCkiKQo+Mzk0NmQzYmE5OTM0ICgiZHJtL3Zi
-bGFuazogRml4IGtlcm5lbCBkb2NzIGZvciB2YmxhbmsgdGltZXIiKQo+Cj5UaGVyZSdzIG5vIG5l
-ZWQgdG8gY29udmVydCBhbGwgb3RoZXIgZHJpdmVycyBpZiBpdCdzIG9ubHkgdmttcyB0aGF0IHlv
-dSdyZSBmaXhpbmcuCgpUaGFuayB5b3UgdmVyeSBtdWNoIGZvciBwb2ludGluZyBvdXQgdGhpcyBw
-cmVjaXNlIGRlcGVuZGVuY3kgY2hhaW4uIEl0IGNvbXBsZXRlbHkgc2F2ZWQgdGhlIGJhY2twb3J0
-IGVmZm9ydC4gSSBoYXZlIGNoZXJyeS1waWNrZWQgdGhlc2UgNSBjb21taXRzIG9udG8gdGhlIDYu
-MTgueSBicmFuY2gsIGFuZCB0aGV5IGFwcGx5IGNsZWFubHkgd2l0aG91dCBwdWxsaW5nIGluIHRo
-ZSBtYXNzaXZlIERSTSBjb3JlIHJlZmFjdG9yaW5nLiAKClRoaXMgc2VyaWVzIGNvbXBsZXRlbHkg
-cmVzb2x2ZXMgdGhlIFN5emthbGxlciBSQ1Ugc3RhbGwgKHNvZnQgbG9ja3VwKSBJIHdhcyBvYnNl
-cnZpbmcgaW4gbXkgbG9jYWwgZnV6emluZyBlbnZpcm9ubWVudC4gSSBoYXZlIGp1c3Qgc3VibWl0
-dGVkIHRoaXMgNS1wYXRjaCBzZXJpZXMgdG8gdGhlIGxpc3QuCgo+QnV0IHNpbmNlIHlvdSBmb3Vu
-ZCB0aGlzIGJ1ZyBpbiBvbmUgZHJpdmVyLCBpdCBtaWdodCBiZSB3aXNlIHRvIGNoZWNrIGlmIG90
-aGVycwo+aGF2ZSB0aGUgc2FtZSBidWcgYW5kIGFzayBmb3IgYmFja3BvcnRzIGZvciB0aG9zZSB0
-b28uCgpGb2xsb3dpbmcgeW91ciBzdWdnZXN0aW9uLCBJIGNvbmR1Y3RlZCBhIHN0YXRpYyBsb2Nr
-IGRlcGVuZGVuY3kgYXVkaXQgYWNyb3NzIHRoZSBkcml2ZXJzL2dwdS9kcm0vIHN1YnN5c3RlbSBp
-biB0aGUgNi4xOC55IHRyZWUsIHNwZWNpZmljYWxseSBsb29raW5nIGZvciBzaW1pbGFyIGFidXNl
-cyBvZiBocnRpbWVyX2NhbmNlbCBwYWlyZWQgd2l0aCBjdXN0b20gdmJsYW5rL3BvbGxpbmcgdGlt
-ZXJzLgoKSSBhdWRpdGVkIHRoZSBoaWdobHkgc3VzcGljaW91cyBjYW5kaWRhdGVzLCBpbmNsdWRp
-bmc6CgoxLiBpOTE1L2d2dCAodmlydHVhbCBkaXNwbGF5IGVtdWxhdGlvbjogdmJsYW5rX3RpbWVy
-X2ZuIHZzIGludGVsX3ZncHVfY2xlYW5fZGlzcGxheSkKMi4geGUgKE9BIGJ1ZmZlciBwb2xsaW5n
-OiB4ZV9vYV9wb2xsX2NoZWNrX3RpbWVyX2NiIHZzIHhlX29hX3N0cmVhbV9kaXNhYmxlKQozLiBt
-c20gKGZlbmNlIGRlYWRsaW5lcyAmIGRldmZyZXE6IGRlYWRsaW5lX3RpbWVyIHZzIG1zbV91cGRh
-dGVfZmVuY2UpCgpGb3J0dW5hdGVseSwgdGhlc2UgZHJpdmVycyBhcmUgc3RydWN0dXJhbGx5IHNh
-ZmUgZnJvbSB0aGlzIHNwZWNpZmljIEFCQkEgZGVhZGxvY2sgcGF0dGVybi4gVGhleSBzdWNjZXNz
-ZnVsbHkgYXZvaWQgaXQgZWl0aGVyIGJ5IGhlYXZpbHkgZGVjb3VwbGluZyB0aGUgdGltZXIgY2Fs
-bGJhY2sgZnJvbSB0aGUgbG9jayBjb250ZXh0IHZpYSB3b3JrcXVldWVzIChtc21fZmVuY2UgYW5k
-IGk5MTUvZ3Z0IG9ubHkgdXNlIHRoZSB0aW1lciB0byBzYWZlbHkgd2FrZV91cCBvciBxdWV1ZSB3
-b3JrIHdpdGhvdXQgaG9sZGluZyBtdXRleGVzL3NwaW5sb2NrcyksIG9yIGJ5IHV0aWxpemluZyBm
-aW5lLWdyYWluZWQgbG9ja2luZyB3aGVyZSB0aGUgY2FuY2VsIHBhdGggYW5kIHRoZSB0aW1lciBj
-YWxsYmFjayBkbyBub3QgY29udGVzdCB0aGUgc2FtZSBsb2NrICh4ZSBzdHJlYW0gcG9sbGluZyku
-CgpUaGVyZWZvcmUsIGl0IHNlZW1zIHZrbXMgd2FzIGEgdW5pcXVlIGxlZ2FjeSBvdXRsaWVyIGlu
-IHRoaXMgcmVnYXJkLiBObyBmdXJ0aGVyIGJhY2twb3J0cyBhcmUgbmVlZGVkIGZvciBvdGhlciBE
-Uk0gZHJpdmVycyBmb3IgdGhpcyBzcGVjaWZpYyB2dWxuZXJhYmlsaXR5LgoKVGhhbmtzIGFnYWlu
-IGZvciB0aGUgcm9hZG1hcCBhbmQgdGhlIHRob3JvdWdoIHJldmlldy4KCkJlc3QgcmVnYXJkcywK
-TWluZ3l1Cg==
+Hi Conor,
+
+On 5/26/2026 8:54 AM, Damon Ding wrote:
+> Hi Conor,
+> 
+> On 5/26/2026 12:54 AM, Conor Dooley wrote:
+>> On Mon, May 25, 2026 at 08:53:22PM +0800, Damon Ding wrote:
+>>> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
+>>> registers and enable the video datapath.
+>>>
+>>> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
+>>> phandle reference, which allowed the eDP to work without explicitly
+>>> managing the hclk_vo1 clock. However, this is not safe or explicit.
+>>>
+>>> To make the clock dependency explicit, enforce per-SoC clock-names
+>>> requirements:
+>>>   - RK3288: 2 clocks (dp, pclk)
+>>>   - RK3399: 3 clocks (dp, pclk, grf)
+>>>   - RK3588: 3 clocks (dp, pclk, hclk)
+>>>
+>>> Do not reuse the 'grf' clock name for RK3588 because it represents
+>>> a different clock with distinct control logic:
+>>> - The 'grf' clock is only for GRF register access and is toggled
+>>>    dynamically during register access.
+>>> - The 'hclk' clock controls both GRF access and video datapath
+>>>    gating, and must remain enabled during probe.
+>>>
+>>> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: 
+>>> Add support for RK3588")
+>>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>>>
+>>> ---
+>>>
+>>> Changes in v4:
+>>> - Modify the commit msg.
+>>>
+>>> Changes in v5:
+>>> - Enforce the correct third clock name on a per-compatible basis.
+>>> - Modify the commit msg simultaneously.
+>>>
+>>> Changes in v6:
+>>> - Expand more detail commit msg about using hclk instead of grf clock.
+>>>
+>>> Changes in v7:
+>>> - List all valid clock names at the top level, and constrain the clock
+>>>    count for each platform with minItems/maxItems in allOf.
+>>>
+>>> Changes in v8:
+>>> - Fix indentation to 10 for enum in clock-names property.
+>>> ---
+>>>   .../rockchip/rockchip,analogix-dp.yaml        | 34 ++++++++++++++++++-
+>>>   1 file changed, 33 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/display/rockchip/ 
+>>> rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/ 
+>>> display/rockchip/rockchip,analogix-dp.yaml
+>>> index d99b23b88cc5..a1ab7a77bdd3 100644
+>>> --- a/Documentation/devicetree/bindings/display/rockchip/ 
+>>> rockchip,analogix-dp.yaml
+>>> +++ b/Documentation/devicetree/bindings/display/rockchip/ 
+>>> rockchip,analogix-dp.yaml
+>>> @@ -26,7 +26,9 @@ properties:
+>>>       items:
+>>>         - const: dp
+>>>         - const: pclk
+>>> -      - const: grf
+>>> +      - enum:
+>>> +          - grf
+>>> +          - hclk
+>>>     power-domains:
+>>>       maxItems: 1
+>>> @@ -60,6 +62,32 @@ required:
+>>>   allOf:
+>>>     - $ref: /schemas/display/bridge/analogix,dp.yaml#
+>>> +  - if:
+>>> +      properties:
+>>> +        compatible:
+>>> +          contains:
+>>> +            enum:
+>>> +              - rockchip,rk3288-dp
+>>> +    then:
+>>> +      properties:
+>>> +        clocks:
+>>> +          maxItems: 2
+>>> +        clock-names:
+>>> +          maxItems: 2
+>>> +
+>>> +  - if:
+>>> +      properties:
+>>> +        compatible:
+>>> +          contains:
+>>> +            enum:
+>>> +              - rockchip,rk3399-edp
+>>> +    then:
+>>> +      properties:
+>>> +        clocks:
+>>> +          minItems: 3
+>>> +        clock-names:
+>>> +          minItems: 3
+>>
+>> If you go back to v6, you'll see that I never asked you to remove the
+>> explict clock-names from here or below. Only the one from the 3288
+>> section. The minItems was an addition, not a replacement.
+>>
+>> pw-bot: changes-requested
+>>
+> 
+> Sorry for the misunderstanding. I will restore the explicit clock-names 
+> definitions and fix this in next version.
+> 
+
+Sorry to bother you. I attempted to place the explicit clock-names under 
+minItems:
+
+diff --git 
+a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml 
+b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+index a1ab7a77bdd3..ef03edf52de8 100644
+--- 
+a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
++++ 
+b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+@@ -87,6 +87,10 @@ allOf:
+            minItems: 3
+          clock-names:
+            minItems: 3
++          items:
++            - const: dp
++            - const: pclk
++            - const: grf
+
+    - if:
+        properties:
+@@ -100,6 +104,10 @@ allOf:
+            minItems: 3
+          clock-names:
+            minItems: 3
++          items:
++            - const: dp
++            - const: pclk
++            - const: hclk
+          resets:
+            minItems: 2
+          reset-names:
+
+make dt_binding_check 
+DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+
+Then the following errors occurred:
+
+   SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+   CHKDT   ./Documentation/devicetree/bindings
+/home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml: 
+allOf:2:then:properties:clock-names: 'oneOf' conditional failed, one 
+must be fixed:
+         False schema does not allow 3
+         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too long
+         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too short
+         1 was expected
+         3 is greater than the maximum of 2
+         hint: "minItems" is only needed if less than the "items" list 
+length
+         from schema $id: http://devicetree.org/meta-schemas/items.yaml
+/home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml: 
+allOf:3:then:properties:clock-names: 'oneOf' conditional failed, one 
+must be fixed:
+         False schema does not allow 3
+         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too long
+         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too 
+short
+         1 was expected
+         3 is greater than the maximum of 2
+         hint: "minItems" is only needed if less than the "items" list 
+length
+         from schema $id: http://devicetree.org/meta-schemas/items.yaml
+   LINT    ./Documentation/devicetree/bindings
+   DTEX 
+Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.example.dts
+   DTC [C] 
+Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.example.dtb
+
+Neither keeping only minItems nor only the explicit clock-names causes 
+any errors. Would it be a better idea to keep just the explicit 
+clock-names here?
+
+Best regards,
+Damon
+
+> 
+>>
+>>> +
+>>>     - if:
+>>>         properties:
+>>>           compatible:
+>>> @@ -68,6 +96,10 @@ allOf:
+>>>                 - rockchip,rk3588-edp
+>>>       then:
+>>>         properties:
+>>> +        clocks:
+>>> +          minItems: 3
+>>> +        clock-names:
+>>> +          minItems: 3
+>>>           resets:
+>>>             minItems: 2
+>>>           reset-names:
+>>> -- 
+>>> 2.34.1
+>>>
+>>>
+> 
+> 
+> 
+
