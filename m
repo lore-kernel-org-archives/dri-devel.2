@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8D44CD5BD0
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 13:32:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AAD5CD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 13:32:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF75110E4AB;
-	Tue, 26 May 2026 13:32:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7626110E656;
+	Tue, 26 May 2026 13:32:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="nQKSiyXr";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Hq6wihak";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CAED10E482
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 13:32:20 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 203C110E4D0
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 13:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=6w
- dUSydCAldsf7w8+0XqwnOjjPoxBTMdvmgLiBqHNPE=; b=nQKSiyXrZjMuh/O2qe
- ozGMluuvgNx9hnYA8IP7Hf0iMNZQQRPvHvxvTfsalTXiCZCS35dnk4guSelx9fjI
- YmwM4Tr7fLsp0//iWMW7d/LUkcX7ceh9arpp/bS0ItQFo+b58WT5c6bXdGGYOH/j
- oG7z76ivEYD22A7Gg9hzLmk5k=
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
+ Content-Type; bh=UEeCL38PHXnSztjS/6CD3ugZQl17GiH4O46J5Qeh2ow=;
+ b=Hq6wihakIVrABfWAspSMpgZ4h9RCajB1RhhaOQz1G3Q5Y8BIelyUs5lyjJVI0I
+ e3mn1lUeLX8Upyxm34xbvI+k9u0bMI/YMmRkOT+Z6SlHGp2pI3GMYe24vVe+I3+v
+ iuyxHpCUjZITpMncf4HZGaioIKXMbsIYXfCgqKW8uzhHo=
 Received: from 163.com (unknown [])
  by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id
- _____wD3v0evoBVqYN9KDg--.14290S4; 
- Tue, 26 May 2026 21:31:39 +0800 (CST)
+ _____wD3v0evoBVqYN9KDg--.14290S6; 
+ Tue, 26 May 2026 21:31:43 +0800 (CST)
 From: w15303746062@163.com
 To: stable@vger.kernel.org,
 	gregkh@linuxfoundation.org,
@@ -32,25 +32,26 @@ To: stable@vger.kernel.org,
 Cc: tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org,
- Javier Martinez Canillas <javierm@redhat.com>,
- Michael Kelley <mhklinux@outlook.com>,
+ syzbot+fcede535e7eb57cf5b43@syzkaller.appspotmail.com,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: [PATCH v2 6.18.y 2/5] drm/vblank: Add CRTC helpers for simple use
- cases
-Date: Tue, 26 May 2026 21:31:20 +0800
-Message-Id: <20260526133123.691465-3-w15303746062@163.com>
+Subject: [PATCH v2 6.18.y 4/5] drm/atomic: Increase timeout in
+ drm_atomic_helper_wait_for_vblanks()
+Date: Tue, 26 May 2026 21:31:22 +0800
+Message-Id: <20260526133123.691465-5-w15303746062@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260526133123.691465-1-w15303746062@163.com>
 References: <20260526133123.691465-1-w15303746062@163.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3v0evoBVqYN9KDg--.14290S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW3AFyxZr4UWF15ur13JFyrWFg_yoW7tr1kpF
- srGry5Kr4YqFy5W3sxJws2yw1ag3yFyas7XrykG343Z3Z5KrnxuF18AryxuF13XrnrJ3Wf
- X342yr15C3WrCa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jIPfdUUUUU=
+X-CM-TRANSID: _____wD3v0evoBVqYN9KDg--.14290S6
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZrW8Cw4kKrykXF13ZrWUArb_yoW8CFW3pF
+ srKFyUtrsYqF1Dt34DAa1xZa4Y9ay7XFyIg3srtw1ruw4qyF9IyF1SvrW3GFyUZrsrur4a
+ vas7Jr13Cr15CFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFGQDUUUUU=
 X-Originating-IP: [113.200.174.100]
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC5Bs2GmoVoLuDWgAA3u
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbDAB83G2oVoL-2sQAA3U
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,171 +69,41 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Thomas Zimmermann <tzimmermann@suse.de>
 
-Implement atomic_flush, atomic_enable and atomic_disable of struct
-drm_crtc_helper_funcs for vblank handling. Driver with no further
-requirements can use these functions instead of adding their own.
-Also simplifies the use of vblank timers.
+Increase the timeout for vblank events from 100 ms to 1000 ms. This
+is the same fix as in commit f050da08a4ed ("drm/vblank: Increase
+timeout in drm_wait_one_vblank()") for another vblank timeout.
 
-The code has been adopted from vkms, which added the funtionality
-in commit 3a0709928b17 ("drm/vkms: Add vblank events simulated by
-hrtimers").
-
-v3:
-- mention vkms (Javier)
-v2:
-- fix docs
+After merging generic DRM vblank timers [1] and converting several
+DRM drivers for virtual hardware, these drivers synchronize their
+vblank events to the display refresh rate. This can trigger timeouts
+within the DRM framework.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Tested-by: Michael Kelley <mhklinux@outlook.com>
-Link: https://lore.kernel.org/r/20250916083816.30275-3-tzimmermann@suse.de
-(cherry picked from commit d54dbb5963bdbdf8559903fe2b2343e871adcb30)
+Link: https://lore.kernel.org/dri-devel/20250904145806.430568-1-tzimmermann@suse.de/ # [1]
+Reported-by: syzbot+fcede535e7eb57cf5b43@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/dri-devel/69381d6c.050a0220.4004e.0017.GAE@google.com/
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+Link: https://patch.msgid.link/20251209143325.102056-1-tzimmermann@suse.de
+(cherry picked from commit 79ae8510b5b81b9500370f89c619b50ca9c0990f)
 Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 ---
- drivers/gpu/drm/drm_vblank_helper.c | 80 +++++++++++++++++++++++++++++
- include/drm/drm_vblank_helper.h     | 23 +++++++++
- 2 files changed, 103 insertions(+)
+ drivers/gpu/drm/drm_atomic_helper.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_vblank_helper.c b/drivers/gpu/drm/drm_vblank_helper.c
-index f94d1e706191..a04a6ba1b0ca 100644
---- a/drivers/gpu/drm/drm_vblank_helper.c
-+++ b/drivers/gpu/drm/drm_vblank_helper.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: MIT
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index d5ebe6ea0acb..f9d328dcaed8 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -1837,7 +1837,7 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
+ 		ret = wait_event_timeout(dev->vblank[i].queue,
+ 					 state->crtcs[i].last_vblank_count !=
+ 						drm_crtc_vblank_count(crtc),
+-					 msecs_to_jiffies(100));
++					 msecs_to_jiffies(1000));
  
-+#include <drm/drm_atomic.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_modeset_helper_vtables.h>
-@@ -17,6 +18,12 @@
-  * Drivers enable support for vblank timers by setting the vblank callbacks
-  * in struct &drm_crtc_funcs to the helpers provided by this library. The
-  * initializer macro DRM_CRTC_VBLANK_TIMER_FUNCS does this conveniently.
-+ * The driver further has to send the VBLANK event from its atomic_flush
-+ * callback and control vblank from the CRTC's atomic_enable and atomic_disable
-+ * callbacks. The callbacks are located in struct &drm_crtc_helper_funcs.
-+ * The vblank helper library provides implementations of these callbacks
-+ * for drivers without further requirements. The initializer macro
-+ * DRM_CRTC_HELPER_VBLANK_FUNCS sets them coveniently.
-  *
-  * Once the driver enables vblank support with drm_vblank_init(), each
-  * CRTC's vblank timer fires according to the programmed display mode. By
-@@ -25,6 +32,79 @@
-  * struct &drm_crtc_helper_funcs.handle_vblank_timeout.
-  */
- 
-+/*
-+ * VBLANK helpers
-+ */
-+
-+/**
-+ * drm_crtc_vblank_atomic_flush -
-+ *	Implements struct &drm_crtc_helper_funcs.atomic_flush
-+ * @crtc: The CRTC
-+ * @state: The atomic state to apply
-+ *
-+ * The helper drm_crtc_vblank_atomic_flush() implements atomic_flush of
-+ * struct drm_crtc_helper_funcs for CRTCs that only need to send out a
-+ * VBLANK event.
-+ *
-+ * See also struct &drm_crtc_helper_funcs.atomic_flush.
-+ */
-+void drm_crtc_vblank_atomic_flush(struct drm_crtc *crtc,
-+				  struct drm_atomic_state *state)
-+{
-+	struct drm_device *dev = crtc->dev;
-+	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	struct drm_pending_vblank_event *event;
-+
-+	spin_lock_irq(&dev->event_lock);
-+
-+	event = crtc_state->event;
-+	crtc_state->event = NULL;
-+
-+	if (event) {
-+		if (drm_crtc_vblank_get(crtc) == 0)
-+			drm_crtc_arm_vblank_event(crtc, event);
-+		else
-+			drm_crtc_send_vblank_event(crtc, event);
-+	}
-+
-+	spin_unlock_irq(&dev->event_lock);
-+}
-+EXPORT_SYMBOL(drm_crtc_vblank_atomic_flush);
-+
-+/**
-+ * drm_crtc_vblank_atomic_enable - Implements struct &drm_crtc_helper_funcs.atomic_enable
-+ * @crtc: The CRTC
-+ * @state: The atomic state
-+ *
-+ * The helper drm_crtc_vblank_atomic_enable() implements atomic_enable
-+ * of struct drm_crtc_helper_funcs for CRTCs the only need to enable VBLANKs.
-+ *
-+ * See also struct &drm_crtc_helper_funcs.atomic_enable.
-+ */
-+void drm_crtc_vblank_atomic_enable(struct drm_crtc *crtc,
-+				   struct drm_atomic_state *state)
-+{
-+	drm_crtc_vblank_on(crtc);
-+}
-+EXPORT_SYMBOL(drm_crtc_vblank_atomic_enable);
-+
-+/**
-+ * drm_crtc_vblank_atomic_disable - Implements struct &drm_crtc_helper_funcs.atomic_disable
-+ * @crtc: The CRTC
-+ * @state: The atomic state
-+ *
-+ * The helper drm_crtc_vblank_atomic_disable() implements atomic_disable
-+ * of struct drm_crtc_helper_funcs for CRTCs the only need to disable VBLANKs.
-+ *
-+ * See also struct &drm_crtc_funcs.atomic_disable.
-+ */
-+void drm_crtc_vblank_atomic_disable(struct drm_crtc *crtc,
-+				    struct drm_atomic_state *state)
-+{
-+	drm_crtc_vblank_off(crtc);
-+}
-+EXPORT_SYMBOL(drm_crtc_vblank_atomic_disable);
-+
- /*
-  * VBLANK timer
-  */
-diff --git a/include/drm/drm_vblank_helper.h b/include/drm/drm_vblank_helper.h
-index 74a971d0cfba..fcd8a9b35846 100644
---- a/include/drm/drm_vblank_helper.h
-+++ b/include/drm/drm_vblank_helper.h
-@@ -6,8 +6,31 @@
- #include <linux/hrtimer_types.h>
- #include <linux/types.h>
- 
-+struct drm_atomic_state;
- struct drm_crtc;
- 
-+/*
-+ * VBLANK helpers
-+ */
-+
-+void drm_crtc_vblank_atomic_flush(struct drm_crtc *crtc,
-+				  struct drm_atomic_state *state);
-+void drm_crtc_vblank_atomic_enable(struct drm_crtc *crtc,
-+				   struct drm_atomic_state *state);
-+void drm_crtc_vblank_atomic_disable(struct drm_crtc *crtc,
-+				    struct drm_atomic_state *crtc_state);
-+
-+/**
-+ * DRM_CRTC_HELPER_VBLANK_FUNCS - Default implementation for VBLANK helpers
-+ *
-+ * This macro initializes struct &drm_crtc_helper_funcs to default helpers
-+ * for VBLANK handling.
-+ */
-+#define DRM_CRTC_HELPER_VBLANK_FUNCS \
-+	.atomic_flush = drm_crtc_vblank_atomic_flush, \
-+	.atomic_enable = drm_crtc_vblank_atomic_enable, \
-+	.atomic_disable = drm_crtc_vblank_atomic_disable
-+
- /*
-  * VBLANK timer
-  */
+ 		WARN(!ret, "[CRTC:%d:%s] vblank wait timed out\n",
+ 		     crtc->base.id, crtc->name);
 -- 
 2.34.1
 
