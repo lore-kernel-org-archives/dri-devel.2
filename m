@@ -4,133 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05238CD5BB4
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 06:45:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B38DCD5BD1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 06:53:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61A5610E144;
-	Tue, 26 May 2026 06:45:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCD1010E4E3;
+	Tue, 26 May 2026 06:53:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hZDRy9w9";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="Z3K5vl6q";
 	dkim-atps=neutral
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11011004.outbound.protection.outlook.com [40.107.130.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C81A310E144
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 06:45:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JG7DdyAw6ba6cureBExqtIgmyk3wk4ddun9Bc4CcRSo6r63YezhRhkIAueBNFP0KRi+DfCc+0dBwLEAR6djne2r65E/oYYeQDQQOMlAxHGKREh1196QHF/UPdFTuV9cTawHW/K3VFcDonj/nhCLsu2JjXSR/TGILsHOHO11ruiagqFWXNf+pJ2citafQAd21/fFqQI7Xy8VnkB2VJZZRG7bLaYJJFTzXadNvvI7c2vEqrCChfU3BJF3pdIvvMeDz+pFaP0iwd+UgapJoFh2T8XRHMy0rNvKDV5o8RnQYVEyAWNv4/i2Tc8wfYMRxIiHa3qtFSqBEtA41aTjgXS6+9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iRnidN5zNQaRB1EPvo9TfbtlGxbBvkwKTQzEDewSdlg=;
- b=kVqwiZofbQL6GY8wGHHGTu+nTsl8J8wBbpTpfmNcd9kSV5ivu6Y5Yw8xWRDP5hAMIgry1YZqpxstjtIJbu4Q7hcAmW5QhimQReTnjhUryo8hkSd4CHuXjl59HoVXq5EV9zJd0vqaDjn9fmicwO1mEcJIOGEkWacESEyYXU1NB5WyWkxJgQ7PILVq0BA6m4Z53Jw/xc8ahJf4GKqg+9RupsK6ft7WcTWB0NxyHuowzcxUgFwkc8wUGrD44+YePIZGXhB1SQ02AD/Oux7YsCSGiHMdmqW5vJr/rWwIiMTTnb95vRf/2Ma+gtK+qQvC0EOeqK67rApXiuAUhKV8Ohi6Eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iRnidN5zNQaRB1EPvo9TfbtlGxbBvkwKTQzEDewSdlg=;
- b=hZDRy9w9OrA83Hqk0HUOK3d0JU49vBR9hrghiN4WXWkXQhRSpTbCH9JraNxzR06X2d9lkwkUdKmnNflB9bGg4Tbxo0UfIKlku/AeVSF/wxlwDlGX2dTrq1IXYxjQteOnBHR/OHbtm+Rc/Qbdji4JWJALH1Gplidt1oAmaMK3lsyjuK5rZ3MY50qHC4LHYhB+WLOifV4x6E8HBPSp5Uyl8eQOdr0Y+4PJdVZeSwUC/dm07RCso3oybfWt4RSh5pFCsleRAemZX7o8p7Z4dFDKjqqdtFHyd1GGcR0DJwFCsjGMkOOj9zDM6tzDXwbM6PwFdD1iogyCY6m+ojQXRHz21g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by DU2PR04MB8549.eurprd04.prod.outlook.com
- (2603:10a6:10:2d4::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
- 2026 06:44:59 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%5]) with mapi id 15.21.0071.010; Tue, 26 May 2026
- 06:44:59 +0000
-Date: Tue, 26 May 2026 09:44:53 +0300
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-phy@lists.infradead.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 
- linux@ew.tq-group.com, Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Ying Liu <victor.liu@nxp.com>
-Subject: Re: [PATCH v23 5/8] dt-bindings: display: bridge: Add Cadence MHDP8501
-Message-ID: <6oub7yyy22dtrevw7oayaqkcncz6tmmddy6fb75gsn3z6yfe3r@zr5lehbaohof>
-References: <20260519-dcss-hdmi-upstreaming-v23-0-5615524a9c63@oss.nxp.com>
- <20260519-dcss-hdmi-upstreaming-v23-5-5615524a9c63@oss.nxp.com>
- <20260526-golden-bobcat-of-aurora-fd1fef@quoll>
- <2301c829-5203-47ea-bc26-09f9e3b459a4@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2301c829-5203-47ea-bc26-09f9e3b459a4@kernel.org>
-X-ClientProxiedBy: FR4P281CA0342.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::20) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A09F10E44D
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 06:53:11 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-45ea19f412aso2824948f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 23:53:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1779778389; x=1780383189; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=yXWASYjT/jE4WzpKhE8nVhHkzGwmPlTITkkcMF0D8BI=;
+ b=Z3K5vl6q6p5EbeZinZFefQTbXguFU0mPuP+SYkHCWUdSq27x9/NzMUy/+8R7Ov7gDW
+ /uuiZe9A0RkbA/wcxzhXDBMGrI1+u3tXqvqOsQznEPre/4x+DnN3MGn85drfPZjSD2zD
+ Aem+G0czoOj16TW62YQ2YSFt6eRJP7jIYCbUg+55ZuK0MHNzgN3pFPvWJ4cIb92UlLX7
+ G7DfLbzBKXfBIxq9rldtRmCgC22LGSh3J/cPSCOZZGFf5tQKHVJhzrjJCL++mWcAwhBr
+ PIF+5emLmoevoaVmVTZ/WeKQoTFFRCKWQwLiQxTQmG+//r/91KEXuryXBU3MUOdQ7Efj
+ z2fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779778389; x=1780383189;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=yXWASYjT/jE4WzpKhE8nVhHkzGwmPlTITkkcMF0D8BI=;
+ b=rkpCarVWgxg8JZ9wvZApy99q4Hl9Pcqscnrwt9RFiaypYefa3nTmG1/K80gMdNEDzM
+ MYRz7CIQ0s43JiY39hHMOvkEyMvxaC2f3a8AMCN8D17LxF1zg6Zjb8iP7mxFY/BTz5DO
+ k/NFvcnd3JyinmjzX6GgeZjrDZA56QmXy6Mu9ddEkuS6xL09wFtNRg6++lpdCqRBnQTF
+ LuagvnWOuiLLVSjvZV1ivkF9tXuuAK+cydRP0MBFQeXsUTWmdl7iaFQGW32J16Q1XynZ
+ kt8AXFyBUE2Xe08XIYjBUfibCfWpvDKN1X0r8+K0T42SfWR2Dy3PvhzSscqISc1RQ3sM
+ e2Sw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8jB9Ol21GXLJOtjeCceDhOXmQhSxdsSrPHtnbB7TvPhVHjfA9jOrstNkNWkNG8phWsQe1kx0rz120=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxse98tlr/jS6GYAz5pW6wCXK74a3Jx1hxCWLVpKr44tY6N5Wof
+ hi4FIg7Vcq0SrqHtzI/8a2s4EJAND5gi0vxmZLsI98jz9Klc8HGah4Ka52UbrTKYOlc=
+X-Gm-Gg: Acq92OHiQxvNgrq425SDtAukC5vKMHKHPhikwFWUUUmm6aLIM1xdgCpKrnZX6espU8Y
+ H0mm0hk6JvWlOnV2XqnAVQtj1nLht6IE5bEHH52HKK9FM/jfzp8r9Dsgd8t3w77CeGvsIxAZq83
+ 6/qYnKUNUP5qlRSeIYZF9TxCKal0erMqUwV3tLiz2Kyz1NM972mLa0PDyBKfhLDahP4WXTVYuez
+ 06665J6wjWUh7S9bR6m4h0687xvrGUUAFs3fPAykm4aQeMguCx6PBEDFHMG3VKq68bsOYI1rCfU
+ eDW0HDzbcUyCpM7bA+2od59w0iZH07k9rEOL/9j9BusuB9tIiJBJ4DJ2agQlwwgo8of+BY1Hwxz
+ L1LzoKh++f8FSd9xA7lJFq2frHiug08qMfO0L/O3aeJSJfbTa9auy/kh2nxmnX8jbwRrFSAM3PV
+ v/IjNvMkWzkCKR6xZqYs64dmPiVF+DFlR2TS+g5NByhMzsofpOIqT82/dk8PPHvWZTvf3IjXcRo
+ E8xrvGUHDMjR91/q6wJGSZTsS4B4d22MCbDG43nwOt0WI0yyrMucmdAvZZ6Rch0K/Lt9+6mJ71C
+ ebnb
+X-Received: by 2002:a05:6000:2003:b0:43b:4136:1e6f with SMTP id
+ ffacd0b85a97d-45eb38e4b46mr29516257f8f.38.1779778389230; 
+ Mon, 25 May 2026 23:53:09 -0700 (PDT)
+Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
+ (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
+ [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45eb6c9ba2esm33848641f8f.8.2026.05.25.23.53.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 May 2026 23:53:08 -0700 (PDT)
+Message-ID: <88c5ca1d-eeda-4023-bc7a-397b92780db9@suse.com>
+Date: Tue, 26 May 2026 08:53:06 +0200
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|DU2PR04MB8549:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd51b472-fb53-4a02-406f-08debaf24e19
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|366016|7416014|376014|1800799024|3023799007|22082099003|56012099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: +9q8c4MCvyXRIYAq5j0MoNEuIZHHXz9kfnyCqVCTzz1tDsfnheL2YQGwv7WDRC30etDzS/gtg5L3/1MeXYFefNPcfj0zT3+EVL09arKkufry86/lplLG9dCQrJNfsixsQlGdlU17CgKqciYkcqrAZQ2IB157KO0qcilt6Q1YSK/pZzxJSequewXyRY+IKBqvNijPRLMaB13/lE/Z9wuumK2AH0btacAKUiuJeMHU9c8nKkFccwnRRQyTv98oFT4gzEFSLscs5Psw34R4x5U0P2eLGz5+/jD1YBM5MJ0f1UzlnC8bTlqH8R4FC3G+Lhj4a42Xm+dibVqPfxPj7aOkskb4BEOq8vWdkIxI44wZQarDBSaLV5XgoePJU6itqNO5Mp1mk65C7ieF5685Qt8Ot260md9JOVO8UwM1AyoFrmWvPtFiRCACjTrU9U4BFuLgoLNLirEdRcTddGsVkVVosdEWQLizL/cT3StBuLwmqw0EuSE42GSDaaKzO9mRRXnu4xuiN6FJ0dArew5pswMa6MiZjnZwhe/OpUmnOAiaGRtu1+h6EhmIbcGFgL7o8Q0Za5yQvGwGXUMFXvtyL7glk08qq4/tYCV0V7skrlxasu1gxvJr3SPGdIMv/QegB7fxYJR2DgTP2zJvNQH5+O7awA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(366016)(7416014)(376014)(1800799024)(3023799007)(22082099003)(56012099003)(18002099003)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?RKocyKRroxBptAjXGYivfpsMbfPYCEqbtZSiU8qFEJamkcRYeFaB6jVVgrG7?=
- =?us-ascii?Q?w5dSyXMKRmovKMuV3XbMoHh/7ciZffXJkqiTnbVj1f2jLLwJsfiWGwcU9lm1?=
- =?us-ascii?Q?/hNH+6Ck7UlrEgkw0/HRX/J1lGrC4sFRtYcyuOS0hN/of89JbykgacrDlxxD?=
- =?us-ascii?Q?A+oZcimMhHOPOsfej6lSltHlbDPbrG9wBq6RkBKNFSauno2Ul6wVsb+5Ia7v?=
- =?us-ascii?Q?BT4qCmikqXXhycNjgozfYkU7U7Zf2nQCp14FMtMGVRLHJ95RwyYMOLsC/FnM?=
- =?us-ascii?Q?xpCqG/GBQ+33dIOolExRaM5XS4m9uq1Zs7ZNs6ujpq/UOXBGHmBk5tY5pc0t?=
- =?us-ascii?Q?7aU9X2WiZhNFe5ZhuHLlYzNC2ALyYPmnt2MSxEHp8+53TXu8UTB5S1AfRG6p?=
- =?us-ascii?Q?wTpVoRj9j//HyMI/rIpZxeYGoABUzvWK1YDwC+aBUjUUoubku/O4EFsvOwUM?=
- =?us-ascii?Q?cWtHfi/XQUSGsU4rBNl4fPmDVbk0dhCdGgP1lAGfqOmLSx21RI2QpV+UeS2s?=
- =?us-ascii?Q?zFEK3p1JvJPriUXmsj2GP0aD7THJS6PHJLNsH5YRfsyEqV8FoIJdzJmMUKM+?=
- =?us-ascii?Q?+9N6TPlds89LfxF8zZZP8jZ/CGgqI98p6t9xJdNsIrNi+q0xhRxahbxKqohr?=
- =?us-ascii?Q?Zt57spQiqUPN95ejD0SxEUuawBbEGBx8hfwyW0XiqzIMw9ypkn2di5xRHs/1?=
- =?us-ascii?Q?P+dNpWzDrrqtgqruzR9gfSD1yIq7vQvkbxnT5Rmrl81Hx0i27VN/tjoXOzFT?=
- =?us-ascii?Q?VnFiJX1GcvQPDJEnWNMGGFEWJSpYZkc4urkfSHdDcbnZgns7zzDN7GGu9itJ?=
- =?us-ascii?Q?fzq8clFqAWPYm+x/WmmVKKZK0K+Kamnciza187nIwprOB7vFVxjGQi8ILlOA?=
- =?us-ascii?Q?wsNb/jv0jpzuGJjVSnAGstQfUrrRiESc0I9OULJaPNiW6msmmaGilGNxltUA?=
- =?us-ascii?Q?HzJxa81vJylVnloWyMgibKOEXyPFP1vcDBQvZoCV8jWflE8s4n2MlYq2LoKp?=
- =?us-ascii?Q?q7LKU32FGiTgpyNc5I8Jp3aRJXf55GXKAf6T+KD0ZIDlEyz9Fo1jv8jLVjl5?=
- =?us-ascii?Q?O74iTe5kYl/h5/MaagWvsQ1k2VczD7y0phJfQ+K10iYNjoySIL4oFnQ/5zX3?=
- =?us-ascii?Q?dGDTIzGOYxz4agSPIoREfCiJEPSUWTa7vjvhGUi8RaaLnIKmgBuAJrZ9e0iZ?=
- =?us-ascii?Q?GR8dUK3KXG3t5BG3TXFh3Qbr2RiOzGkkQ0wkYvrLO4BK2D8UKxW0HgaY20oq?=
- =?us-ascii?Q?iYWRZFo3rmFuIZ2l71vljlRdXtN7Bwu4HKZRRvtmzbX02zLfDHWLOvgJpRut?=
- =?us-ascii?Q?xHMUt5xxLwu+/L7GGzQZrZist2uW1WAGOBEZWOwMAVI+rnjnJqPkaFqVjJx1?=
- =?us-ascii?Q?B5fXEnUcvSztBZ7cy/cq1wTDKIU1X4aO+4E65LtDFrX+U/fE0ND8gnPTQK0M?=
- =?us-ascii?Q?xq8/wLeuCJir0iep6SEBZTfC4OlsmybhKChn4LIKcSuzwxJZR9JdBZYUHkvl?=
- =?us-ascii?Q?XMwQP8t9nZ4/vHMygTOCtlLYuboRTqwKmiDjPWwILxje6JX04DU7eWwZluGS?=
- =?us-ascii?Q?eME/CFXkehqRm5+p7beemPfwony2d6jAgx7PU6mFiHaTKlpxfasQmd630oQZ?=
- =?us-ascii?Q?PiehGTlWMuj0qMDPBXy5A2vP3zxXZ/X1kLi1AiyaSHw4oU8mCzHRWGtRIv8/?=
- =?us-ascii?Q?iGGs1isbNkqhRLsfBe9TGsYtnfFT3aQ/rm5fAoSy1ts4H9OYPHjJvKCvZLsu?=
- =?us-ascii?Q?LZIuE4pjobhNVWdGatpPRCAKu8euMBI=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd51b472-fb53-4a02-406f-08debaf24e19
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 06:44:59.1103 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 67L+3gOqE5+OzwVBPpQZBS4uVp5OLR7DO4AAtVDTK3KwJ9zPfy7EqTktV4HzLvuO/yQQU0Y7VGQIX6vKh8Z19Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8549
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/11] Convert moduleparams to seq_buf
+To: Kees Cook <kees@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Pengpeng Hou
+ <pengpeng@iscas.ac.cn>, Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Corey Minyard <corey@minyard.net>, Gabriel Somlo <somlo@cmu.edu>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Hannes Reinecke <hare@suse.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Tiwei Bie <tiwei.btw@antgroup.com>, Benjamin Berg <benjamin.berg@intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "David E. Box" <david.e.box@linux.intel.com>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
+ <akpm@linux-foundation.org>, John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
+ linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20260521133315.work.845-kees@kernel.org>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260521133315.work.845-kees@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,77 +153,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
-
-On Tue, May 26, 2026 at 08:10:43AM +0200, Krzysztof Kozlowski wrote:
-> On 26/05/2026 08:08, Krzysztof Kozlowski wrote:
-> > On Tue, May 19, 2026 at 02:42:28PM +0000, Laurentiu Palcu wrote:
-> >> From: Sandor Yu <Sandor.yu@nxp.com>
-> >>
-> >> Add bindings for Cadence MHDP8501 DisplayPort/HDMI bridge.
-> >>
-> >> Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
-> >> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> >> ---
-> >>  .../bindings/display/bridge/cdns,mhdp8501.yaml     | 136 +++++++++++++++++++++
-> >>  1 file changed, 136 insertions(+)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml
-> >> new file mode 100644
-> >> index 0000000000000..57e7e95199777
-> >> --- /dev/null
-> >> +++ b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml
+On 5/21/26 3:33 PM, Kees Cook wrote:
+> Hi,
 > 
-> Filename must match compatible.
+> I tried to trim the CC list here, but it's still pretty huge...
 > 
-> >> @@ -0,0 +1,136 @@
-> >> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> >> +%YAML 1.2
-> >> +---
-> >> +$id: http://devicetree.org/schemas/display/bridge/cdns,mhdp8501.yaml#
-> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >> +
-> >> +title: Cadence MHDP8501 DP/HDMI bridge
-> >> +
-> >> +maintainers:
-> >> +  - Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> >> +
-> >> +description:
-> >> +  Cadence MHDP8501 DisplayPort/HDMI interface.
-> >> +
-> >> +properties:
-> >> +  compatible:
-> >> +    enum:
-> >> +      - fsl,imx8mq-mhdp8501-hdmi
-> >> +      - fsl,imx8mq-mhdp8501-dp
-> > 
-> > We are at v23 and you will be getting the same questions till you
-> > finally fix that commit msg.
-> > 
-> > Why bus/connector is part of the compatible? Device is exactly the same.
-> > Please read writing bindings - it covers exactly this case.
-
-The device is the same but, based on the FW, it can act as DP or HDMI
-controller. For 8MQ, the FW is loaded by the ROM. I did look at the writing
-bindings doc and I assume you're referring to this exact paragraph:
-
-   - DON'T use bus suffixes to encode the type of interface device is using.
-     The parent bus node already implies that interface.  DON'T add the type of
-     device, if the device cannot be anything else.
-
-I don't see how is this applicable in this particular case. The parent bus node
-does not imply the interface and, as I explained previously, the device can be
-either DP or HDMI.
-
+> We've had a long-standing issue with "write to a string pointer" callbacks
+> that don't bounds check the destination (and for which the bounds is
+> also not part of the callback prototype, even if it is "known" to be
+> PAGE_SIZE, which sysfs_emit() depends on). Both moduleparams and sysfs
+> use this pattern. As a first step, and to test the migration method,
+> migrate moduleparams first.
 > 
-> And this was BTW completely different in previous version.
+> There are 2 "mechanical" treewide patches that are handled by Coccinelle:
+> - treewide: Convert struct kernel_param_ops initializers to DEFINE_KERNEL_PARAM_OPS
+> - treewide: Convert custom kernel_param_ops .get callbacks to seq_buf via cocci
+> 
+> The last treewide patch is manual, and may need to be broken up into
+> per-subsystem patches, though I'd prefer to avoid this, as it would
+> extend the migration from 1 relase to at least 2 releases. (1 to
+> release the migration infrastructure, then 1 release to collect all the
+> subsystem changes, and possibly 1 more release to remove the migration
+> infrastructure.)
+> 
+> Thoughts, questions?
 
-It was indeed. However, the problem is that there's no way to detect
-from the controller's registers if we're in DP mode or HDMI. In v22 I
-added a DT traversal function to detect the connector type from the last
-node but it was suggested to me that having 2 compatibles would be a
-much cleaner solution and I agree.
+This looks reasonable to me. I added a few minor comments on the patches
+but they already look solid.
 
 -- 
 Thanks,
-Laurentiu
+Petr
