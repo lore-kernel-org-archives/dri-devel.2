@@ -4,106 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12225CD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 15:35:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 244B7CD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 15:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC5110E6CC;
-	Tue, 26 May 2026 15:35:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61B8110E6EC;
+	Tue, 26 May 2026 15:58:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uZpGEHk/";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="DwNXBepa";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012034.outbound.protection.outlook.com
- [40.93.195.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1FCB10E4B1
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 15:35:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ctGN3i0Piix8ZFVSaUqdr3+ryAjYc/F2Zi9UQBuX1mIm8WDNzDpvkwAHZR3d5f/yXxDTIGTNCESM/+nvgzxQybrtFFz/DhNDTFKpV5aqY/3iV5FOZ+6078TDcTjGcyDaKaxIEEfySGoOZdaKfvyVS3Zyi690dGbPI+kmZsbqJZqOmsSrnEMLkQLv6b0aVu5Suaeug2dF9P6OTvmv7nxuMUwwyx3AqIg1Ak+/ZjT45vfb/ikQ9zeDwP4oXVKq9JflcPMHQkBHyN7wawsyQT57yOUqZ1NDXNUulY0UM1wZGczpxT/6HoHWOMwJ/gJ1jkffSDj+UlW1I/bKmwg2kjkD4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AnXHydEtrFn0CxSbJfJ3KbAEucQsxTrKq+pVMDQJQ1g=;
- b=ZMi5GkKgLCEfUxkFUpYIBXfdUpE4hn5Ynh40//oFsyjx3V/tzA8WS6Kx9Xy1KrmR2k0ne8TYaBIlzVQVsyyXNldXQ1F4n4uUHGjJQ9yMXujpx8PxbJx3Rwz50jn34z8ibw5KXjnR1ZEoOYFcdJA/bIuv131UnosXiBneEFELQ4CHx4n6cjXzXYiweBewhtCZffeZEjlKaFoT0RBFxwc1c/0tKScHs6dJk9+WF7x8fiXENd9hKeXH0uWpw02rGXaFd8bGKfgcgIhcBctut6i0CZKeaAucJx5if166L/33T/L+YwEM3bisG91xBVUoftwHBO0OlA7moP+z5gtrsFXHtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AnXHydEtrFn0CxSbJfJ3KbAEucQsxTrKq+pVMDQJQ1g=;
- b=uZpGEHk/vwIc5H5UAj+LHMeaCmNuGSgd9V+huTAkJO7AwmkmGfM4kjFI63sDA+Cf6MdtfM11f6eGv6mhM2NZdRE4yXz27BxUSu6c3UJfAVF/HlwG15Etg+P2khXgZGCWZV+zX2JrTlhbxmXKD7P3Ed53jm252nBETohAe8jmOcY=
-Received: from SJ0PR03CA0101.namprd03.prod.outlook.com (2603:10b6:a03:333::16)
- by PH7PR12MB6419.namprd12.prod.outlook.com (2603:10b6:510:1fd::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.19; Tue, 26 May
- 2026 15:34:56 +0000
-Received: from MWH0EPF000C6190.namprd02.prod.outlook.com
- (2603:10b6:a03:333:cafe::8) by SJ0PR03CA0101.outlook.office365.com
- (2603:10b6:a03:333::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.11 via Frontend Transport; Tue, 26
- May 2026 15:34:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6190.mail.protection.outlook.com (10.167.249.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 15:34:55 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 26 May
- 2026 10:34:54 -0500
-Received: from amd.com (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41 via Frontend
- Transport; Tue, 26 May 2026 10:34:51 -0500
-Date: Tue, 26 May 2026 15:34:40 +0000
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-CC: Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>, "Will
- Deacon" <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Leon Romanovsky <leon@kernel.org>, Vasant Hegde
- <vasant.hegde@amd.com>, <iommu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] iommufd: take dma_resv lock before dma_buf_unpin() in
- release path
-Message-ID: <uwnw7ybrgdobizf6do3ugrxshqhlzsusi34w3aky5hlp3y7wa2@hxmgp5tbpzzc>
-References: <20260526111034.4079-1-Ankit.Soni@amd.com>
- <20260526122656.GE2487554@ziepe.ca>
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D67E10E6D3
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 15:58:30 +0000 (UTC)
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64Q2rgd62323490
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 08:58:30 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=gDuNn3rpanO1DihrMmhQrHSm1RvOXRtnr6ab6R1I/jM=; b=DwNXBepavwKm
+ nyZY44KwzPaJYlaOLv3fWadfTO19FqKlVbV3mEO1Wuznug2CdCtTKFjmfR28ekX0
+ x/WDlyRAXGjAPKndLF5deyJpSujQx8DmOGrityvhXzK+ZrtOQBn6pmmmswBlf0sc
+ lSxM+pRbKPESX77Ga1/L11yEZxyN1Skkw0pRDfpHhIb6SsRKhE1zAWnLbCGWBGTV
+ wkX555t4VippH3t7zBW8DSLhbx5TsBBjWDEqKmZm2mzb4wQMfA8AY+2Qay/JED9W
+ ItwXRnX9zv96oHxkB5LhxnVUoh6ji/BwjukVna5tKEvuRvkDoJd3dZqkUepG19V9
+ JCrEcuGzcQ==
+Received: from mail.thefacebook.com ([163.114.134.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4eckmkyc0x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 08:58:29 -0700 (PDT)
+Received: from twshared132777.16.frc2.facebook.com (2620:10d:c085:108::4) by
+ mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.37; Tue, 26 May 2026 15:58:28 +0000
+Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
+ id 6B92735B01DBB; Tue, 26 May 2026 07:44:12 -0700 (PDT)
+From: Zhiping Zhang <zhipingz@meta.com>
+To: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
+ Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>
+CC: Bjorn Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
+ <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
+ <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
+Subject: [PATCH v5 4/4] RDMA/mlx5: get tph for p2p access when registering
+ dma-buf mr
+Date: Tue, 26 May 2026 07:43:56 -0700
+Message-ID: <20260526144401.1485788-5-zhipingz@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260526144401.1485788-1-zhipingz@meta.com>
+References: <20260526144401.1485788-1-zhipingz@meta.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260526122656.GE2487554@ziepe.ca>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6190:EE_|PH7PR12MB6419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0eb7a452-7b0f-4ca8-2355-08debb3c56a2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|7416014|82310400026|22082099003|18002099003|56012099003|4143699003|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: McqmJ5G9IiLfTeBbwMDI3FLoJndmLMZ305FdTGrHYtvXe104OSbvRaqJp8GbwL4f2wKZFe/2LVQdN5im0HjfquOhmE+Ry+ChWbhHzMsYaXBgjexLJnhaB82tZ0WPUptwvzd/3cAmwjnjQDiZ5vSZH4ZAUCG0YJWBi7lBmliMGhKfq5jPemmpWRVf4JjTSkNDZWEdKbNOSKghTB3s+PWAiSIeSJFnkrpdN03GEq7LCKETwpKPMsfTf+KBTYCTFbHYhO00oSvlwtg/RFRDDGSrzdIaZ+HVnvdXz6qoE8s3Ds0gvCSOJobpXemcijVDPttqjZiosTO1tpT5Tq4RYrOaHVSK5HV1VYViALlRjKwMXJogmQ1PPp28NKl37QlCcJkC0GSlnCvhyigQUOIENXpPFjv0JROadSFoZAyGaDEIjxzgKG+ftRNNpg+XYhvK16zea1BRnf9aTJuzdiY/L9ZPv2J6cyUFr9LyTZkql2azZYOM+T0k+7sxhNvVQ3UqMl9t+yI33PPCCLaC6jnJF/4m7QInZFg1p6WBcPscokradHy+BmCyChqALANJTsuXyrmtI68l2puNmJKZrSsWvhuQS0CFhaDU43OXSFo1DFQDGPvUwVS4EEcoDVzB85J8tjqYcZCmhl6L281OJP0ffjoEJtNaENoruFv9t/qZ6m5jdr2WVQbTpvux9BDyEduGKBYDZJ8wuiMczxWtLd1S4GelpFBMuLI7TCaE8KU8t9KfR90=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(7416014)(82310400026)(22082099003)(18002099003)(56012099003)(4143699003)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: gUaAX7a+2t3qxZY8F8h2uPMW7g4TspUD0kwe/oYHtUO3pgD9m73ZXNZLfjJF1NURGQIIZFu9gjAN+2HaVzraVtsphmCDLSSqD3FQNeehTHme0AQaxghVGnbhvbeKbmTvFV9tcLWDAChXkuVS+UQ/ZW2Lk+PxBcks7tuwelUV3DM1H6Nya49ON4j0OasED6GhZBUFkoNAEBvk5so/lC2Qtz4dJ6Nr3JXL9hLy0xU7UvcsR6xOahbQfV5/rs9lP/cXQDGHpDirWdrIpVNp7p8DTf1Twotw97sHGewKEa9HNAu0me108lIZVlF0CCVX2sQfBWTCkF6HTadQrJhAnl3+k5fB4/h+y8CmWWBladl2ZWDUq61PLO81uHwYlbC6HyEYaMLC5wt4PXqwT2tdy97SZ6AqMztWN6toJgmhhJSCw8WPSbQIixYSmnBypTmIWqtq
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 15:34:55.7751 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0eb7a452-7b0f-4ca8-2355-08debb3c56a2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6190.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6419
+Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDEzNyBTYWx0ZWRfX/6AFtdfGXM3r
+ bjh6FDM7Wwh+guHCn7J9OmDh47gmZR0aKz3Wzkby7wrNZtx1MpDGv8DG9I1UzSo3eMOfDY4DMfX
+ fCyovSU/1hU8/Q7gaAdTvwjwdYT03yFY2qKo/XG5URi39J0bhD7OV3OrhlA53klkHU+L/F1CUct
+ dj9Et6iCKJboQdYLNI+N+69O3zIQa5MfBzHPSS7EQzo3ioCsK/EgXkOE+lih/WbyJsRjKTHltRP
+ tn7BY1wPl48shymsU5FI+asdZgxCzeK69/S53EoiMsPRQv/X8yKovU4oxrshcDjVgJGe20ItyCA
+ fBpw6qhpALomZqSxaHH7vD0e5y//SGR6rv+MlfGg288A6yJkL5hVich3x1O2j17Rs4MC5j4cST4
+ TsTO36X3mJwxgVbliinsLlLv44VtuYpMKbb9aOUMvZRNqzIYvOne4IHKgBvX72ysxXst1tP9GiL
+ zJnJphQqXS5xDvskpdg==
+X-Proofpoint-ORIG-GUID: bGcUno0bGjZTpj618y4n_P4hin4xM7If
+X-Authority-Analysis: v=2.4 cv=JN0LdcKb c=1 sm=1 tr=0 ts=6a15c325 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=03ozwUkBphtHgyqjj1sw:22 a=VabnemYjAAAA:8 a=V5UY4OeGJVDm2y4WvKoA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-GUID: bGcUno0bGjZTpj618y4n_P4hin4xM7If
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-26_03,2026-05-26_03,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,30 +93,293 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 26, 2026 at 09:26:56AM -0300, Jason Gunthorpe wrote:
-> On Tue, May 26, 2026 at 11:10:34AM +0000, Ankit Soni wrote:
-> > dma_buf_unpin() requires the caller to hold the exporter's dma_resv
-> > lock:
-> > 
-> >   void dma_buf_unpin(struct dma_buf_attachment *attach)
-> >   {
-> >           ...
-> >           dma_resv_assert_held(dmabuf->resv);
-> >           ...
-> >   }
-> > 
-> > iopt_release_pages() calls dma_buf_unpin() without taking that lock,
-> > so every iommufd_ioas_destroy()/iommufd_ioas_unmap() that releases
-> > the last reference on a DMABUF-backed iopt_pages triggers a WARN.
-> > This was hit while running tools/testing/selftests/iommu/iommufd:
-> 
-> Any idea why this is comming up now? Did I run the tests without some
-> kind of debug option to turn on that assertion maybe?
-> 
-> Jason
+Query dma-buf TPH metadata when registering a dma-buf MR for peer-to-
+peer access and translate the returned steering tag into an mlx5 ST
+index. Keep the DMAH path as the first priority and only fall back to
+DMA-buf metadata when no DMAH is supplied.
 
-The assertion is gated by CONFIG_LOCKDEP. My config has it on via
-CONFIG_DEBUG_LOCK_ALLOC=y (LOCK_STAT, PROVE_LOCKING and
-DEBUG_WW_MUTEX_SLOWPATH each select-chain to LOCKDEP as well).
+Track per-MR ownership of the allocated ST index and release it on MR
+setup failure, destroy, and FRMR-pool reuse. Release the ST index before
+the MR is pushed back into the FRMR pool, and free mlx5_st_idx_data when
+its refcount reaches zero so repeated allocation/deallocation does not
+leak memory.
 
--Ankit
+Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+---
+ drivers/infiniband/hw/mlx5/mlx5_ib.h          |  6 ++
+ drivers/infiniband/hw/mlx5/mr.c               | 86 ++++++++++++++++++-
+ .../net/ethernet/mellanox/mlx5/core/lib/st.c  | 28 ++++--
+ include/linux/mlx5/driver.h                   |  7 ++
+ 4 files changed, 115 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h b/drivers/infiniband/hw=
+/mlx5/mlx5_ib.h
+index e156dc4d7529..4ab867392267 100644
+--- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
++++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+@@ -721,6 +721,12 @@ struct mlx5_ib_mr {
+ 			u8 revoked :1;
+ 			/* Indicates previous dmabuf page fault occurred */
+ 			u8 dmabuf_faulted:1;
++			/* Set when the MR owns dmabuf_st_index and must
++			 * release it via mlx5_st_dealloc_index() once the
++			 * firmware mkey is no longer referencing it.
++			 */
++			u8 dmabuf_st_owned:1;
++			u16 dmabuf_st_index;
+ 			struct mlx5_ib_mkey null_mmkey;
+ 		};
+ 	};
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
+/mr.c
+index 3b6da45061a5..8059b5e4da97 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -38,6 +38,7 @@
+ #include <linux/delay.h>
+ #include <linux/dma-buf.h>
+ #include <linux/dma-resv.h>
++#include <linux/pci-tph.h>
+ #include <rdma/frmr_pools.h>
+ #include <rdma/ib_umem_odp.h>
+ #include "dm.h"
+@@ -46,6 +47,8 @@
+ #include "data_direct.h"
+ #include "dmah.h"
+=20
++MODULE_IMPORT_NS("DMA_BUF");
++
+ static int mkey_max_umr_order(struct mlx5_ib_dev *dev)
+ {
+ 	if (MLX5_CAP_GEN(dev->mdev, umr_extended_translation_offset))
+@@ -899,6 +902,63 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_atta=
+ch_ops =3D {
+ 	.invalidate_mappings =3D mlx5_ib_dmabuf_invalidate_cb,
+ };
+=20
++/*
++ * Query TPH metadata from @dmabuf and translate the raw steering tag in=
+to
++ * an mlx5 ST index. On success, returns 0 and the caller becomes the
++ * owner of *@st_index (must be released with mlx5_st_dealloc_index()
++ * once the firmware mkey no longer references it). On any failure
++ * *@st_index and *@ph are left as the no-TPH defaults set by the caller=
+.
++ *
++ * @dmabuf must already be referenced by the caller (e.g. via the umem's
++ * attachment) so we don't re-resolve the user's fd here and avoid a
++ * dup2() TOCTOU between umem creation and TPH lookup.
++ */
++static void get_tph_mr_dmabuf(struct mlx5_ib_dev *dev, struct dma_buf *d=
+mabuf,
++			      u16 *st_index, u8 *ph)
++{
++	u8 req_type;
++	u16 steering_tag;
++	u8 st_width;
++	int ret;
++
++	if (!dmabuf->ops->get_tph)
++		return;
++
++	req_type =3D pcie_tph_enabled_req_type(dev->mdev->pdev);
++	switch (req_type) {
++	case PCI_TPH_REQ_TPH_ONLY:
++		st_width =3D 8;
++		break;
++	case PCI_TPH_REQ_EXT_TPH:
++		st_width =3D 16;
++		break;
++	default:
++		return;
++	}
++
++	ret =3D dmabuf->ops->get_tph(dmabuf, &steering_tag, ph, st_width);
++	if (ret) {
++		mlx5_ib_dbg(dev, "get_tph failed (%d)\n", ret);
++		*ph =3D MLX5_IB_NO_PH;
++		return;
++	}
++
++	ret =3D mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag, st_index);
++	if (ret) {
++		*ph =3D MLX5_IB_NO_PH;
++		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
++	}
++}
++
++static void mlx5_ib_mr_put_dmabuf_st(struct mlx5_ib_mr *mr)
++{
++	if (mr->umem && mr->dmabuf_st_owned) {
++		mlx5_st_dealloc_index(mr_to_mdev(mr)->mdev,
++				      mr->dmabuf_st_index);
++		mr->dmabuf_st_owned =3D 0;
++	}
++}
++
+ static struct ib_mr *
+ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
+ 		   u64 offset, u64 length, u64 virt_addr,
+@@ -941,16 +1001,26 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device=
+ *dma_device,
+ 		ph =3D dmah->ph;
+ 		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
+ 			st_index =3D mdmah->st_index;
++	} else {
++		get_tph_mr_dmabuf(dev, umem_dmabuf->attach->dmabuf,
++				  &st_index, &ph);
+ 	}
+=20
+ 	mr =3D alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
+ 				access_flags, access_mode,
+ 				st_index, ph);
+ 	if (IS_ERR(mr)) {
++		if (!dmah && st_index !=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
++			mlx5_st_dealloc_index(dev->mdev, st_index);
+ 		ib_umem_release(&umem_dmabuf->umem);
+ 		return ERR_CAST(mr);
+ 	}
+=20
++	if (!dmah && st_index !=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX) {
++		mr->dmabuf_st_index =3D st_index;
++		mr->dmabuf_st_owned =3D 1;
++	}
++
+ 	mlx5_ib_dbg(dev, "mkey 0x%x\n", mr->mmkey.key);
+=20
+ 	atomic_add(ib_umem_num_pages(mr->umem), &dev->mdev->priv.reg_pages);
+@@ -1377,9 +1447,17 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_i=
+b_mr *mr)
+ 	bool is_odp =3D is_odp_mr(mr);
+ 	int ret;
+=20
+-	if (mr->ibmr.frmr.pool && !mlx5_umr_revoke_mr_with_lock(mr) &&
+-	    !ib_frmr_pool_push(mr->ibmr.device, &mr->ibmr))
+-		return 0;
++	if (mr->ibmr.frmr.pool && !mlx5_umr_revoke_mr_with_lock(mr)) {
++		/*
++		 * The mkey has been revoked: firmware no longer references
++		 * dmabuf_st_index, so release it before this mr can re-enter
++		 * the FRMR cache for reuse by another registration.
++		 */
++		mlx5_ib_mr_put_dmabuf_st(mr);
++
++		if (!ib_frmr_pool_push(mr->ibmr.device, &mr->ibmr))
++			return 0;
++	}
+=20
+ 	if (is_odp)
+ 		mutex_lock(&to_ib_umem_odp(mr->umem)->umem_mutex);
+@@ -1400,6 +1478,8 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib=
+_mr *mr)
+ 		dma_resv_unlock(
+ 			to_ib_umem_dmabuf(mr->umem)->attach->dmabuf->resv);
+ 	}
++	if (!ret)
++		mlx5_ib_mr_put_dmabuf_st(mr);
+ 	return ret;
+ }
+=20
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
+et/ethernet/mellanox/mlx5/core/lib/st.c
+index 997be91f0a13..8929c17c88bc 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
+@@ -29,7 +29,7 @@ struct mlx5_st *mlx5_st_create(struct mlx5_core_dev *de=
+v)
+ 	u8 direct_mode =3D 0;
+ 	u16 num_entries;
+ 	u32 tbl_loc;
+-	int ret;
++	int ret =3D 0;
+=20
+ 	if (!MLX5_CAP_GEN(dev, mkey_pcie_tph))
+ 		return NULL;
+@@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
+ 	kfree(st);
+ }
+=20
+-int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
+_type,
+-			unsigned int cpu_uid, u16 *st_index)
++int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
++			       u16 *st_index)
+ {
+ 	struct mlx5_st_idx_data *idx_data;
+ 	struct mlx5_st *st =3D dev->st;
+ 	unsigned long index;
+ 	u32 xa_id;
+-	u16 tag;
+-	int ret;
++	int ret =3D 0;
+=20
+ 	if (!st)
+ 		return -EOPNOTSUPP;
+=20
+-	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
+-	if (ret)
+-		return ret;
+-
+ 	if (st->direct_mode) {
+ 		*st_index =3D tag;
+ 		return 0;
+@@ -152,6 +147,20 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, e=
+num tph_mem_type mem_type,
+ 	mutex_unlock(&st->lock);
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
++
++int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
+_type,
++			unsigned int cpu_uid, u16 *st_index)
++{
++	u16 tag;
++	int ret;
++
++	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
++	if (ret)
++		return ret;
++
++	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
++}
+ EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
+=20
+ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
+@@ -175,6 +184,7 @@ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, =
+u16 st_index)
+=20
+ 	if (refcount_dec_and_test(&idx_data->usecount)) {
+ 		xa_erase(&st->idx_xa, st_index);
++		kfree(idx_data);
+ 		/* We leave PCI config space as was before, no mkey will refer to it *=
+/
+ 	}
+=20
+diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
+index 04b96c5abb57..523a9ab0ae1e 100644
+--- a/include/linux/mlx5/driver.h
++++ b/include/linux/mlx5/driver.h
+@@ -1166,10 +1166,17 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *=
+dev, enum mlx5_sw_icm_type type
+ 			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
+=20
+ #ifdef CONFIG_PCIE_TPH
++int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
++			       u16 *st_index);
+ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
+_type,
+ 			unsigned int cpu_uid, u16 *st_index);
+ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
+ #else
++static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
++					     u16 tag, u16 *st_index)
++{
++	return -EOPNOTSUPP;
++}
+ static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
+ 				      enum tph_mem_type mem_type,
+ 				      unsigned int cpu_uid, u16 *st_index)
+--=20
+2.53.0-Meta
+
