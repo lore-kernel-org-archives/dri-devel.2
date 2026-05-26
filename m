@@ -4,65 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69E93CD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F8ECD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:20:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94E5510E4C2;
-	Tue, 26 May 2026 16:13:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OpQ4xLvT";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4AD010E1B7;
- Tue, 26 May 2026 16:13:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A8451402A3;
- Tue, 26 May 2026 16:13:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B75F1F000E9;
- Tue, 26 May 2026 16:13:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779812013;
- bh=HoQ502gwpeiNp5KJxRq0pIgzkr0RP/tEx2RDysEICWw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=OpQ4xLvTA4MJ2XS4/Vzdju1ys4yv/uQ85topgEYflLbhAA+30vT7ARUmzmvcB/T77
- s1M3fGkNAq2adWMicf7Qw3bch7WWAf11yxvEGYj8io1m1Rs94FPDZ6bzh3UvkO5Owy
- 5SMqjHw6gSZfdvJZOi+Qk+Sw6+qwprY11fe6oU5YpprUv9BPObJ16z4A8NQ21DAsBo
- BFgwbdoLUSLINdcXBiS25P4kP2OcrQgYYHLpItpcamJFTyGyVJQhyNYTsnMLowV6/9
- wXK0teGW1H8GSpIOWjz1Q0VXcoLj3vt0G/R8kD1l8WeX61h64NZ3Nq79MJ28Z5pDRC
- GqjLQst7v2aYw==
-Date: Tue, 26 May 2026 21:43:19 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: bod@kernel.org
-Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v7 00/15] firmware: qcom: Add OP-TEE PAS service support
-Message-ID: <ahXGn4wrEozWd_Ur@sumit-xelite>
-References: <20260522115936.201208-1-sumit.garg@kernel.org>
- <177975399325.14006.12128272008783925649.b4-reply@b4>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0E910E48A;
+	Tue, 26 May 2026 16:20:01 +0000 (UTC)
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2A3F10E48A
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 16:19:59 +0000 (UTC)
+Received: from abreu.molgen.mpg.de (g42.guest.molgen.mpg.de [141.14.220.42])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 801AD4C19741A2;
+ Tue, 26 May 2026 18:19:35 +0200 (CEST)
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/audio: skip ELD query for force-off connectors
+Date: Tue, 26 May 2026 18:19:24 +0200
+Message-ID: <20260526161925.17041-1-pmenzel@molgen.mpg.de>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <177975399325.14006.12128272008783925649.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,204 +49,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey Brian,
+When a connector is forced off via the `video=` command-line parameter
+(`video=<connector>:d`), `intel_audio_component_get_eld()` returns -EINVAL
+for that port because `find_audio_state()` finds no active encoder.  The
+audio driver interprets this as an error rather than a clean “no monitor
+present” reply, and, on the Dell XPS 13 9360, at `drm.debug=0x04` the
+repeated calls generate the log below:
 
-On Tue, May 26, 2026 at 01:06:33AM +0100, bod@kernel.org wrote:
-> On 2026-05-22 17:29 +0530, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Qcom platforms has the legacy of using non-standard SCM calls
-> > splintered over the various kernel drivers. These SCM calls aren't
-> > compliant with the standard SMC calling conventions which is a
-> > prerequisite to enable migration to the FF-A specifications from Arm.
-> > 
-> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> > support these non-standard SCM calls. And even for newer architectures
-> > using S-EL2 with Hafnium support, QTEE won't be able to support SCM
-> > calls either with FF-A requirements coming in. And with both OP-TEE
-> > and QTEE drivers well integrated in the TEE subsystem, it makes further
-> > sense to reuse the TEE bus client drivers infrastructure.
-> > 
-> > The added benefit of TEE bus infrastructure is that there is support
-> > for discoverable/enumerable services. With that client drivers don't
-> > have to manually invoke a special SCM call to know the service status.
-> > 
-> > So enable the generic Peripheral Authentication Service (PAS) provided
-> > by the firmware. It acts as the common layer with different TZ
-> > backends plugged in whether it's an SCM implementation or a proper
-> > TEE bus based PAS service implementation.
-> > 
-> > The TEE PAS service ABI is designed to be extensible with additional API
-> > as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
-> > extensions of the PAS service needed while still maintaining backwards
-> > compatibility.
-> > 
-> > Currently OP-TEE support is being added to provide the backend PAS
-> > service implementation which can be found as part of this PR [1].
-> > This implementation has been tested on Kodiak/RB3Gen2 board with lemans
-> > EVK board being the next target. In addition to that WIN/IPQ targets
-> > planning to use OP-TEE will use this service too. Surely the backwards
-> > compatibility is maintained and tested for SCM backend.
-> > 
-> > Note that kernel PAS service support while running in EL2 is at parity
-> > among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
-> > on proper IOMMU support being worked out on the PAS client end.
-> > 
-> > Patch summary:
-> > - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
-> >   only allow UEFI and Linux to boot in EL2.
-> > - Patch #2: adds generic PAS service.
-> > - Patch #3: migrates SCM backend to generic PAS service.
-> > - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
-> > - Patch #5-#13: migrates all client drivers to generic PAS service.
-> > - Patch #14: drops legacy PAS SCM exported APIs.
-> > 
-> > The patch-set is based on qcom tree tip [2] and can be found in git tree
-> > here [3].
-> > 
-> > Merge strategy:
-> > 
-> > It is expected due to APIs dependency, the entire patch-set to go via
-> > the Qcom tree. All other subsystem maintainers, it will be great if I
-> > can get acks for the corresponding subsystem patches.
+    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
+    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
+    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
+    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port C
+    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port C
+    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port C
+    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
+    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
+    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
 
-It looks like you missed this merge strategy part of the cover letter.
+Add `intel_audio_connector_is_forced_off()` which scans the connector list
+to check whether any connector on the given port has
+`force == DRM_FORCE_OFF`. When the caller finds no audio state and the
+port’s connector is forced off, report `*enabled = false` and return 0 so
+the audio driver sees a clean “not connected” answer and stops querying
+that port.
 
-> > 
-> > [1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
-> > [2] https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git/log/?h=for-next
-> > [3] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v7
-> > 
-> > ---
-> > Changes in v7:
-> > - Rebased to qcom tree (for-next branch) tip.
-> > - Merged patch #5 and #7 due to build dependency.
-> > - Disabled modem for kodiak EL2 as it isn't tested yet.
-> > - Fix an issue found out by sashiko-bot for patch #4.
-> 
-> This whole series needs to be broken up into different parts and sent in
-> smaller chunks landing the core changes into the firmware, the drivers and
-> finally the dts.
+With `video=DP-2:d drm.debug=0x04` the unneeded calls are gone (port C):
 
-The DTS EL2 change for Kodiak is totally independent one and that's why
-it's the first one in this series which can be picked independently.
+    [   90.458772] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
+    [   90.459649] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
+    [   90.460547] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
+    [   90.461581] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
+    [   90.462509] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
+    [   90.463385] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
 
-> 
-> For example applying the Iris stuff is impossible until the remoteproc
-> stuff lands.
-> 
-> Instead of sending one giant series which no one maintainer can apply send
-> a number of series where one posts a dependency on the other.
+Assisted-by: Claude Sonnet 4.6
+Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
+---
+ drivers/gpu/drm/i915/display/intel_audio.c | 29 +++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
-The subsystem changes like for Iris are just about renaming of the
-firmware APIs to be used which is moving away from SCM specific API to
-the generic PAS API. I don't think there is any clean way to merge the
-API renaming changes independently of when the new API gets introduced.
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index 081627e0d917..7864b9a485d5 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -36,6 +36,7 @@
+ #include "intel_cdclk.h"
+ #include "intel_crtc.h"
+ #include "intel_de.h"
++#include "intel_display.h"
+ #include "intel_display_types.h"
+ #include "intel_display_wa.h"
+ #include "intel_lpe_audio.h"
+@@ -1211,6 +1212,28 @@ static int intel_audio_component_sync_audio_rate(struct device *kdev, int port,
+ 	return err;
+ }
+ 
++static bool intel_audio_connector_is_forced_off(struct intel_display *display,
++						int port)
++{
++	struct drm_connector_list_iter conn_iter;
++	struct intel_connector *connector;
++	bool forced_off = false;
++
++	drm_connector_list_iter_begin(display->drm, &conn_iter);
++	for_each_intel_connector_iter(connector, &conn_iter) {
++		struct intel_encoder *encoder = intel_attached_encoder(connector);
++
++		if (encoder && encoder->port == port &&
++		    connector->base.force == DRM_FORCE_OFF) {
++			forced_off = true;
++			break;
++		}
++	}
++	drm_connector_list_iter_end(&conn_iter);
++
++	return forced_off;
++}
++
+ static int intel_audio_component_get_eld(struct device *kdev, int port,
+ 					 int cpu_transcoder, bool *enabled,
+ 					 unsigned char *buf, int max_bytes)
+@@ -1223,9 +1246,13 @@ static int intel_audio_component_get_eld(struct device *kdev, int port,
+ 
+ 	audio_state = find_audio_state(display, port, cpu_transcoder);
+ 	if (!audio_state) {
++		mutex_unlock(&display->audio.mutex);
++		if (intel_audio_connector_is_forced_off(display, port)) {
++			*enabled = false;
++			return 0;
++		}
+ 		drm_dbg_kms(display->drm, "Not valid for port %c\n",
+ 			    port_name(port));
+-		mutex_unlock(&display->audio.mutex);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.53.0
 
-> 
-> Lumping the TEE stuff in with video encoder, wifi, dts is spanning too many
-> things and makes merging a NAK.
-> 
-> Break this up into logical chunks and sequence a one series on top of the
-> other - accpeting that you might, likely will have to keep on top of the
-> various series and resend/rebase as things get merged.
-
-I tried my best for the logical split of the patches here keeping the
-subsystems changes to very minimal required (only renaming firmware
-APIs). I would be open to any further suggestions.
-
-However, if you are happy with firmware APIs renaming for the media
-subsystem then it will be nice to get ack from you. I hope Bjorn can
-then pickup the entire series.
-
--Sumit
-
-> 
-> > Changes in v6:
-> > - Rebased to v7.1-rc4 tag.
-> > - Patch #14: fixed ret error print.
-> > - Add Kconfig descriptions for PAS symbols such that they are visible
-> >   in menuconfig to update.
-> > 
-> > Changes in v5:
-> > - Incorporated misc. comments from Mukesh.
-> > - Split up patch #11 into 2 to add an independent commit for passing
-> >   proper PAS ID to set_remote_state API.
-> > - Picked up tags.
-> > 
-> > Changes in v4:
-> > - Incorporate misc. comments on patch #4.
-> > - Picked up an ack for patch #10.
-> > - Clarify in cover letter about state of media support.
-> > 
-> > Changes in v3:
-> > - Incorporated some style and misc. comments for patch #2, #3 and #4.
-> > - Add QCOM_PAS Kconfig dependency for various subsystems.
-> > - Switch from pseudo TA to proper TA invoke commands.
-> > 
-> > Changes in v2:
-> > - Fixed kernel doc warnings.
-> > - Polish commit message and comments for patch #2.
-> > - Pass proper PAS ID in set_remote_state API for media firmware drivers.
-> > - Added Maintainer entry and dropped MODULE_AUTHOR.
-> > 
-> > Mukesh Ojha (1):
-> >   arm64: dts: qcom: kodiak: Add EL2 overlay
-> > 
-> > Sumit Garg (14):
-> >   firmware: qcom: Add a generic PAS service
-> >   firmware: qcom_scm: Migrate to generic PAS service
-> >   firmware: qcom: Add a PAS TEE service
-> >   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
-> >   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
-> >   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
-> >   remoteproc: qcom: Select QCOM_PAS generic service
-> >   drm/msm: Switch to generic PAS TZ APIs
-> >   media: qcom: Switch to generic PAS TZ APIs
-> >   media: qcom: Pass proper PAS ID to set_remote_state API
-> >   net: ipa: Switch to generic PAS TZ APIs
-> >   wifi: ath12k: Switch to generic PAS TZ APIs
-> >   firmware: qcom_scm: Remove SCM PAS wrappers
-> >   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
-> > 
-> >  MAINTAINERS                                   |   9 +
-> >  arch/arm64/boot/dts/qcom/Makefile             |   2 +
-> >  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  39 ++
-> >  drivers/firmware/qcom/Kconfig                 |  21 +-
-> >  drivers/firmware/qcom/Makefile                |   2 +
-> >  drivers/firmware/qcom/qcom_pas.c              | 291 +++++++++++
-> >  drivers/firmware/qcom/qcom_pas.h              |  50 ++
-> >  drivers/firmware/qcom/qcom_pas_tee.c          | 477 ++++++++++++++++++
-> >  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
-> >  drivers/gpu/drm/msm/Kconfig                   |   1 +
-> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
-> >  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
-> >  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
-> >  drivers/media/platform/qcom/venus/Kconfig     |   1 +
-> >  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
-> >  drivers/net/ipa/Kconfig                       |   2 +-
-> >  drivers/net/ipa/ipa_main.c                    |  13 +-
-> >  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
-> >  drivers/net/wireless/ath/ath12k/ahb.c         |  10 +-
-> >  drivers/remoteproc/Kconfig                    |   4 +-
-> >  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
-> >  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
-> >  drivers/remoteproc/qcom_wcnss.c               |  12 +-
-> >  drivers/soc/qcom/mdt_loader.c                 |  12 +-
-> >  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
-> >  include/linux/firmware/qcom/qcom_scm.h        |  29 --
-> >  include/linux/soc/qcom/mdt_loader.h           |   6 +-
-> >  28 files changed, 1124 insertions(+), 320 deletions(-)
-> >  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
-> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> > 
-> > -- 
-> > 2.51.0
-> > 
-> > 
-> 
-> 
