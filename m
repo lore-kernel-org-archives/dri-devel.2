@@ -4,64 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B4BCD5BB4
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 08:18:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF453CD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 08:22:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD7CB10E5DF;
-	Tue, 26 May 2026 08:18:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17DB410E148;
+	Tue, 26 May 2026 08:22:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="Wuq0HNWI";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NFohwz+B";
 	dkim-atps=neutral
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
- [136.143.188.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA6A710E603
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 08:18:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779783515; cv=none; 
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C669310E148
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 08:22:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779783739; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=FWZ2tYymJfyIfly1WlPJXKZgBvoXqNA/WEM7NYQE6cT6/PhQ0AQzAQDVCE9LG1XRoFuqbkNgL5kugLKYC0whqISUtDp+mIZqMKqvoHDpRXbglLd/NdJrRgYsPQUbwSoxAAZ60K6BS+OIess6NKtJMg/N6pJk7y4vKBv2Z0hZhPk=
+ b=ktYCr4xCIJP04F83YL1EmHtBs8t3tAaYqkOlZ8l9gKiCQghmbDyadoni0bFs1P0xHpDPv/h8aW5UiTzf3QxuQ94tIFRv7T4j3kxTvydMv7iBm/CzLQ0XF+rPlPZTALfELjJhZT2b5par5Lh11flGQnkGO/V3Pjo/GvWRnN7E8fs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779783515;
+ s=zohoarc; t=1779783739;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=VxdYd1cKkV0EdIWlixskBAMHzoXvyNtx9ZGHc6qepk8=; 
- b=MOTzvRekXYnFgo18gwlhZ6E8iyxs9PBQEY3q33hHnkea/UEbmFK8pKxJDqN8CAHFtrRMVevVcUNato+rrPsgKswLArjqwYXrTTgEnnjcAKFCYIodvBjyIzxtXSph0OQYvJTAEpy7uHBibAxmLLv2jkHomMqe9psMxKnHectcKAo=
+ bh=N1n3Fs1hye1n8WQ+9B4xXUDm3+q2mI4xG7vxT0L2VPs=; 
+ b=IRpICoA0iTmmHngWDnyl1l1H+D8Z1TfjCiW1uUcAK3N55eb5p/gsjcmspfQfJzXcswUpUfH60xCeCMKnIw9mToqOZzIV+I/IjCCNE62d/hKeK7XQ+JQsdPM4mq3J84Q46EZ49TYLD/SyO+2CClr/02y/YSp7tGmG97S0ZCil010=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779783515; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=VxdYd1cKkV0EdIWlixskBAMHzoXvyNtx9ZGHc6qepk8=;
- b=Wuq0HNWIK3LpgkbB/KUjGhGHyg8nK/KT2+H6BS3+34imCG/2C4OMkjyXdYUsCSTE
- gkaGLSQ9hi4CyDduXKqKaoyw/2d2ug45rkaFW48Hp9tmb0PmOG+/oYX2A0H1kJr73cD
- AP9VQUFXoSYj+2EzZx7zn2KCuH9olUYTXQ06xLMYK/L/AnZCscKi0yC0d/ByCyr0o5H
- ZAS4zZkZxlfx6xphon039Gy9q1q4qWc5R+cQJTKFmbL6A3LRgMOtfLOfFLlskVqn3K+
- pNn/WbdUST94/jOsTFV26SShtiDRKvShOuq1EhuxODv0TNbUKkaEjrx2M9EIdiSou67
- mzwcm8NEhA==
-Received: by mx.zohomail.com with SMTPS id 177978351302433.27254888770108;
- Tue, 26 May 2026 01:18:33 -0700 (PDT)
-Message-ID: <da7033ca1c9a5fbce6b48ad684644c56c366a74b.camel@icenowy.me>
-Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
- for vblank
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Ville =?ISO-8859-1?Q?Syrj=E4l=E4?=
- <ville.syrjala@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Date: Tue, 26 May 2026 16:18:12 +0800
-In-Reply-To: <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de>
-References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
- <ee86cb43-e5df-4946-a957-931a73dde752@suse.de> <ahBWayIcQUHuAt4i@intel.com>
- <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779783739; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=N1n3Fs1hye1n8WQ+9B4xXUDm3+q2mI4xG7vxT0L2VPs=;
+ b=NFohwz+BxwN19rJgJK4gpSPAihDiCmyHB8KynAHIAnuoN8GXmQsW1acKO6ivIKfD
+ VM08AoMw13ogMhcUcmA08KR8vZNE66BtbsIAAxMAjGyuTIcUbaJ5AFbut5AnyFBB3yi
+ mPimTu6VKhUdihomQw3tXGw1euoejAD1Dj/Q8j00=
+Received: by mx.zohomail.com with SMTPS id 1779783737862838.2646396623846;
+ Tue, 26 May 2026 01:22:17 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Daniel Stone <daniel@fooishbar.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel@collabora.com
+Subject: Re: [PATCH v2 3/3] drm/scdc-helper: Implement parsing and printing
+ HDMI 2.1 fields
+Date: Tue, 26 May 2026 10:22:11 +0200
+Message-ID: <JO-iqbj4QxiNxPkvtLngHg@collabora.com>
+In-Reply-To: <CAPj87rMe_oOR66uBE1PpNq4oMgpw_XhAbQit3tohTQbUD2dPdQ@mail.gmail.com>
+References: <20260520-scdc-link-health-v2-0-511af18cd64b@collabora.com>
+ <20260520-scdc-link-health-v2-3-511af18cd64b@collabora.com>
+ <CAPj87rMe_oOR66uBE1PpNq4oMgpw_XhAbQit3tohTQbUD2dPdQ@mail.gmail.com>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,148 +74,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-05-22=E4=BA=94=E7=9A=84 15:24 +0200=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> Hi
->=20
-> Am 22.05.26 um 15:13 schrieb Ville Syrj=C3=A4l=C3=A4:
-> > On Fri, May 22, 2026 at 01:55:59PM +0200, Thomas Zimmermann wrote:
-> > > Hi
-> > >=20
-> > > Am 19.05.26 um 11:24 schrieb Icenowy Zheng:
-> > > > Currently the implementaion of
-> > > > drm_client_modeset_wait_for_vblank()
-> > > > assumes drm_vblank_get() will fail when the CRTC isn't active.
-> > > > However
-> > > > it seems that this is not true, and running fbcon on a device
-> > > > with the
-> > > > first CRTC inactive will lead to kernel warning in some cases
-> > > > (which
-> > > > could be reproduced with the loongson driver).
-> > > >=20
-> > > > Change the implementation to add a check for the active state
-> > > > (atomic) /
-> > > > enabled state (non-atomic) before calling drm_vblank_get(). As
-> > > > the
-> > > > assumption of drm_vblank_get() failing for inactive CRTC isn't
-> > > > met, the
-> > > > error status of drm_vblank_get() can now be exported too.
-> > > >=20
-> > > > Cc: stable@vger.kernel.org
-> > > > Fixes: d8c4bddcd8bc ("drm/fb-helper: Synchronize dirty worker
-> > > > with vblank")
-> > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > > ---
-> > > > =C2=A0=C2=A0 drivers/gpu/drm/drm_client_modeset.c | 13 +++++++++++-=
--
-> > > > =C2=A0=C2=A0 1 file changed, 11 insertions(+), 2 deletions(-)
-> > > >=20
-> > > > diff --git a/drivers/gpu/drm/drm_client_modeset.c
-> > > > b/drivers/gpu/drm/drm_client_modeset.c
-> > > > index bb49b8361271a..1b03bf351256e 100644
-> > > > --- a/drivers/gpu/drm/drm_client_modeset.c
-> > > > +++ b/drivers/gpu/drm/drm_client_modeset.c
-> > > > @@ -1310,7 +1310,7 @@ int
-> > > > drm_client_modeset_wait_for_vblank(struct drm_client_dev
-> > > > *client, unsigned i
-> > > > =C2=A0=C2=A0 {
-> > > > =C2=A0=C2=A0=C2=A0	struct drm_device *dev =3D client->dev;
-> > > > =C2=A0=C2=A0=C2=A0	struct drm_crtc *crtc;
-> > > > -	int ret;
-> > > > +	int ret =3D 0;
-> > > > =C2=A0=C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0	/*
-> > > > =C2=A0=C2=A0=C2=A0	 * Rate-limit update frequency to vblank. If the=
-re's a
-> > > > DRM master
-> > > > @@ -1326,15 +1326,24 @@ int
-> > > > drm_client_modeset_wait_for_vblank(struct drm_client_dev
-> > > > *client, unsigned i
-> > > > =C2=A0=C2=A0=C2=A0	 * Only wait for a vblank event if the CRTC is
-> > > > enabled, otherwise
-> > > > =C2=A0=C2=A0=C2=A0	 * just don't do anything, not even report an er=
-ror.
-> > > > =C2=A0=C2=A0=C2=A0	 */
-> > > > +	if (drm_drv_uses_atomic_modeset(dev)) {
-> > > > +		if (!crtc->state || !crtc->state->active)
-> > > > +			goto out;
-> > > > +	} else {
-> > > > +		if (!crtc->enabled)
-> > > > +			goto out;
-> > > > +	}
-> > > > +
-> > > This part is good.
-> > Locking is missing.
->=20
-> Ok
->=20
-> >=20
-> > > > =C2=A0=C2=A0=C2=A0	ret =3D drm_crtc_vblank_get(crtc);
-> > > > =C2=A0=C2=A0=C2=A0	if (!ret) {
-> > > > =C2=A0=C2=A0=C2=A0		drm_crtc_wait_one_vblank(crtc);
-> > > > =C2=A0=C2=A0=C2=A0		drm_crtc_vblank_put(crtc);
-> > > > =C2=A0=C2=A0=C2=A0	}
-> > > > =C2=A0=C2=A0=20
-> > > > +out:
-> > > > =C2=A0=C2=A0=C2=A0	drm_master_internal_release(dev);
-> > > > =C2=A0=C2=A0=20
-> > > > -	return 0;
-> > > > +	return ret;
-> > > But this isn't. There can be CRTCs without any vblank at all. We
-> > > still
-> > > want to fail silently for them. So we still have to return 0
-> > > here.
-> > >=20
-> > > Having set this, fixing this helper is only partially what you
-> > > want.
-> > > Since your device has vblanking, the emulation should check on
-> > > the
-> > > correct CRTC. IOW you need to pass the right CRTC index at
-> > >=20
-> > > https://elixir.bootlin.com/linux/v7.1-rc1/source/drivers/gpu/drm/drm_=
-fb_helper.c#L237
-> > > https://elixir.bootlin.com/linux/v7.1-rc1/source/drivers/gpu/drm/drm_=
-fb_helper.c#L920
-> > >=20
-> > > I'm not quite sure how to support this. The CRTC is under
-> > > fb_helper->client.modesets.crtc. You'd have to figure out which
-> > > is the
-> > > relevant one and use that. But that's also not so great, as fbdev
-> > > ioctls
-> > > only support CRTC 0. Doing internal re-mappings only complicates
-> > > matters.
-> > >=20
-> > > But why does your HW use CRTC 1 in the first place.
-> > Could be eg. the enabled outputs can't be driven with CRTC 0.
-> >=20
-> > I guess what you want to do is pick the first crtc from modesets[]
-> > which is enabled. Or perhaps even "pick the Nth enabled crtc from
-> > modesets[] based on the ioctl argument".
->=20
-> The enable-status of each CRTC could change later on, which might
-> lead=20
+On Friday, 22 May 2026 19:38:24 Central European Summer Time Daniel Stone wrote:
+> Hi Nicolas,
+> 
+> On Wed, 20 May 2026 at 14:36, Nicolas Frattaroli
+> <nicolas.frattaroli@collabora.com> wrote:
+> > -       for (i = 0; i < ARRAY_SIZE(buf) - 1; i += 2) {
+> > +       for (i = 0; i <= ERR_DET_OFF(SCDC_ERR_DET_2_H); i += 2) {
+> >                 if (buf[i + 1] & SCDC_CHANNEL_VALID)
+> >                         counter[i / 2] = buf[i] | (buf[i + 1] & ~SCDC_CHANNEL_VALID) << 8;
+> >                 else
+> > @@ -355,9 +433,15 @@ int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[3]
+> >                 buf[i] = 0;
+> >                 buf[i + 1] = 0;
+> >         }
+> > -       buf[ARRAY_SIZE(buf) - 1] = 0;
+> > +       buf[ERR_DET_OFF(SCDC_ERR_DET_CHECKSUM)] = 0;
+> > +
+> > +       if (num_lanes == 4)
+> > +               counter[3] = buf[ERR_DET_OFF(SCDC_ERR_DET_3_L)] |
+> > +                            (buf[ERR_DET_OFF(SCDC_ERR_DET_3_H)] & ~SCDC_CHANNEL_VALID) << 8;
+> > +       else
+> > +               counter[3] = 0;
+> 
+> I get that this is separate from the loop above because it's
+> discontiguous, but is it also missing the validity check? I mean,
+> lane_count == 3 means 'fsvo 3 which may be 1 or 2' so have to check
+> SCDC_CHANNEL_VALID there, but if we have 4 lanes explicitly specified
+> then we are we missing the check for the valid bit, or is it just
+> always valid / we shouldn't check?
+> 
+> tbh having it separately is a bit messy. I half-wonder if unrolling
+> the loop wouldn't be cleaner, e.g.:
+> #define GET_SCDC_ERR_CNT(c) { \
+>         bool valid = (buf[(c) * 2 + 1] & SCDC_CHANNEL_VALID; \
+>         if (valid) {  \
+>                 counter[c] = buf[ERR_DET_OFF(SCDC_ERR_DET_ ##x _L)]; \
+>                 counter[c] |= (buf[ERR_DET_OFF(SCDC_ERR_DET_ ##x _H)]
+> & ~SCDC_CHANNEL_VALID) << 8; \
+>         } else {
+>                 counter[c] = 0;
+>         } \
+> }
+> 
+> GET_SCDC_ERR_CNT(0);
+> GET_SCDC_ERR_CNT(1);
+> GET_SCDC_ERR_CNT(2);
+> if (num_lanes == 4)
+>         GET_SCDC_ERR_CNT(3);
+> else
+>         counter[3] = 0;
+> 
+> Up to you though. It's a messy format, with no objectively great solution.
 
-Well, maybe it's too difficult for things like fbdev to support
-hotplugging outputs.
+Yeah, I think you found an actual bug here. Maybe iterating once over
+i = 0 to buf_sz is the better choice here anyway.
 
-Maybe just use crtcs from modeset[] and check its enable status before
-doing vblank wait, and have the vsync waiting falling back to nothing
-when the initial CRTC of it isn't now enabled?
+I'm also realising now that for lane 4 I'm not writing 0 to the fields
+after being done with them, so that's not right either.
 
-This will at least make some usages of fbdev work and restrict the
-failure for other usages (e.g. doesn't enable vblank on a not enabled
-CRTC).
+Thanks for the review, will send v3 in short order.
 
-Thanks,
-Icenowy
+Kind regards,
+Nicolas Frattaroli
 
-> to problems.=C2=A0 Picking the one CRTC/output with the lowest spec and=
-=20
-> mirroring it to the others might work. This CRTC would then be the
-> one=20
-> to wait for.
->=20
-> Best regards
-> Thomas
->=20
-> >=20
+> 
+> With or without that suggestion, series is:
+> Reviewed-by: Daniel Stone <daniels@collabora.com>
+> 
+> Thanks for pulling all this together!
+> 
+> Cheers,
+> Daniel
+> 
+
+
+
+
