@@ -4,60 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F245ACD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:28:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA634CD5BD0
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:34:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 490A510E193;
-	Tue, 26 May 2026 11:28:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F3CD10E172;
+	Tue, 26 May 2026 11:34:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="T+VFQrdC";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DdKpm/Ue";
 	dkim-atps=neutral
-Received: from mail-m822136196.xmail.ntesmail.com
- (mail-m822136196.xmail.ntesmail.com [8.221.36.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84AD810E193
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:28:01 +0000 (UTC)
-Received: from [172.16.12.74] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3fe1e02e5;
- Tue, 26 May 2026 19:27:56 +0800 (GMT+08:00)
-Message-ID: <0c6299ce-29a6-4443-9877-498d65c8881b@rock-chips.com>
-Date: Tue, 26 May 2026 19:27:55 +0800
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 997AD10E172
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:34:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779795292;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VD+dmiG81dGo1mjueRmNr772xEYjIurIakGJoB8fU4s=;
+ b=DdKpm/UezA3KpMPxgHlp1Sn9g6Plmp6vyALmeK7Ri6QRFhbU6voF0bN43I6wZnMVl7Ao7l
+ ZpWSCSzFCljR+2N6Y82uwT3cy92SxTEqAS3yrwGihdb10KjsdLlM4TOMJxraQSYviRiAX7
+ 1ENHpaEmYJD2guIP3GbZo1J4JdEbI0s=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-616-U_zekg4YNK6ewj5nEws0kA-1; Tue, 26 May 2026 07:34:50 -0400
+X-MC-Unique: U_zekg4YNK6ewj5nEws0kA-1
+X-Mimecast-MFC-AGG-ID: U_zekg4YNK6ewj5nEws0kA_1779795290
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-490479c2911so44522975e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 04:34:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779795289; x=1780400089;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=VD+dmiG81dGo1mjueRmNr772xEYjIurIakGJoB8fU4s=;
+ b=RlQhJKKV/xWzdvbWzlZJJDuM1RAn9KXaZe8KiBCZGD0LxA/pihqpek3dsvzemH2Y2o
+ IqiQOghEGwfFTucvOwZtegT4ckJOZFJ0A8SMMWAedsjEkxB10pZPqYu/1SZ5KOwg7m1Z
+ C0OUxONW1X46BJN71xSXAQ4xm66FsPgrKKvIRHpQLPstEccRPJlzSFHIu21asxgua+k/
+ 41wPbwlVlK394z1RG1/bQWiZtBjY3CECPXMLC3y5Osq0LSwQ712wjipPjkCSC+5Ow/JM
+ avK5Is+o4SAlIVuqREm3vCxBZdtyI4uDcrOUp9bDs/QR+iHv2XEwUmXf/6FO0n8Zy75j
+ /Ecg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+zIq+ztKsu27+2VdDIDMXr5ulwQ9ps5KFc+xzPdzzeaqlR9nGv8lxu8LdIGwVVJD4JukrK1qGU5zM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxIufyfN6OdvzsCPOD8ahnz9cp7decPZpw67vrG2NAd5AKX+SXd
+ zIR3Zvd82IPW7OR2rWbJ6pSo9N1HEUCdDmIGB1jM4AFPSO+AOzmHEm7aar6E6Xs4Oe4WrzA3vyR
+ 1+8njwcSN3gGXPIG0dZ177yX2mtHZqYRxMdJsgN/yguj9wQPBm/dl17DHc65FfUEZTUqTpA==
+X-Gm-Gg: Acq92OFOZtmF46w0n5XBtMwZyX5g5Cx0TJDXHYH8kd9+8xEx431q23KwJ91SBs2/sNh
+ oKNrho0/Ntw8l3BlFs3jYKSLraAAeGBsOWnx+9J/63myC28Bu3oze1c/x0ycIGVTHmVEJlqTLMy
+ oie9vzhJ53p/jp24jnLZxbVOOxD4Bz39TE83kEItsaG0TuoEFvi4m4JHim6T0yRWtD8DrBcPC0V
+ w3DVJa7lAU/LvklaUMBnwMG5j0fnGf1l2LyAZK1SHY7aHRn/st9Ly6iW0KZW2+lyeuP3uRAK8RX
+ 39cfOO7MSXPAsot2RX43roLMEMG7oVFOZZZLUsVHPLT1TonklVXM+01coL8gtXXe8F66kxVk/3r
+ FtpNE2NY1cHNsNaz55YjJAi0KXFJVfAqpSweLIjw/zFLZQo2TZmLSFf7NqA==
+X-Received: by 2002:a05:600c:4ecc:b0:48a:56de:d62a with SMTP id
+ 5b1f17b1804b1-490424b3c7fmr275107535e9.11.1779795289592; 
+ Tue, 26 May 2026 04:34:49 -0700 (PDT)
+X-Received: by 2002:a05:600c:4ecc:b0:48a:56de:d62a with SMTP id
+ 5b1f17b1804b1-490424b3c7fmr275106815e9.11.1779795289064; 
+ Tue, 26 May 2026 04:34:49 -0700 (PDT)
+Received: from [192.168.88.32] ([212.105.155.152])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4904526c926sm565711385e9.1.2026.05.26.04.34.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 May 2026 04:34:48 -0700 (PDT)
+Message-ID: <5a54d307-0b8c-468d-9183-6433f9daba56@redhat.com>
+Date: Tue, 26 May 2026 13:34:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
- hclk as third clock for RK3588
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260525125331.140059-1-damon.ding@rock-chips.com>
- <20260525125331.140059-2-damon.ding@rock-chips.com>
- <20260525-ominous-hurling-c24874030f5a@spud>
- <f6c2f07b-52b8-4181-aa1d-a7d8dcda245c@rock-chips.com>
+Subject: Re: [PATCH v2 3/6] net: mhi_net: Hold runtime PM during active data
+ path operations
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Johannes Berg <johannes@sipsolutions.net>, mhi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+ netdev@vger.kernel.org, mayank.rana@oss.qualcomm.com,
+ quic_vbadigan@quicinc.com, vivek.pernamitta@oss.qualcomm.com
+References: <20260522-mhi_runtimepm-v2-0-fbebf41a82bb@oss.qualcomm.com>
+ <20260522-mhi_runtimepm-v2-3-fbebf41a82bb@oss.qualcomm.com>
+ <CAFEp6-1sdQn11NKom6cfwtJvZX-CnPRpJeVzQ+99Sb4A4L-qaQ@mail.gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <CAFEp6-1sdQn11NKom6cfwtJvZX-CnPRpJeVzQ+99Sb4A4L-qaQ@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 0hf8a5KIWUR0fQzEtr6iNbtTSCrTaAKFgj5jFzhUWSM_1779795290
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-In-Reply-To: <f6c2f07b-52b8-4181-aa1d-a7d8dcda245c@rock-chips.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e640a975403a8kunmdb4d9780b82cd9
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGkofVk8YTUIZSUhJSxkdHlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=T+VFQrdClvcP/O2v5qFlRx6F02LnccpcsGKQOrU6IbQAyoBjW2V40VeklsbdKbglbmXlWV0Mc1N3ctIvC5SxnGJVmgg3qMdzqE0LkrkpCSlEjRp49YhrxykR/EQ3VanMbZ6P3MG3TdfkHMdOQW1k2xXh2v6Ylz6fjsIP6qTG4cQ=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=CA3vEIesYpDr2R+IgNJm0/KUdwGN/M9rR+d1PmsZUNg=;
- h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,216 +118,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Conor,
-
-On 5/26/2026 8:54 AM, Damon Ding wrote:
-> Hi Conor,
-> 
-> On 5/26/2026 12:54 AM, Conor Dooley wrote:
->> On Mon, May 25, 2026 at 08:53:22PM +0800, Damon Ding wrote:
->>> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
->>> registers and enable the video datapath.
->>>
->>> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
->>> phandle reference, which allowed the eDP to work without explicitly
->>> managing the hclk_vo1 clock. However, this is not safe or explicit.
->>>
->>> To make the clock dependency explicit, enforce per-SoC clock-names
->>> requirements:
->>>   - RK3288: 2 clocks (dp, pclk)
->>>   - RK3399: 3 clocks (dp, pclk, grf)
->>>   - RK3588: 3 clocks (dp, pclk, hclk)
->>>
->>> Do not reuse the 'grf' clock name for RK3588 because it represents
->>> a different clock with distinct control logic:
->>> - The 'grf' clock is only for GRF register access and is toggled
->>>    dynamically during register access.
->>> - The 'hclk' clock controls both GRF access and video datapath
->>>    gating, and must remain enabled during probe.
->>>
->>> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: 
->>> Add support for RK3588")
->>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>>
->>> ---
->>>
->>> Changes in v4:
->>> - Modify the commit msg.
->>>
->>> Changes in v5:
->>> - Enforce the correct third clock name on a per-compatible basis.
->>> - Modify the commit msg simultaneously.
->>>
->>> Changes in v6:
->>> - Expand more detail commit msg about using hclk instead of grf clock.
->>>
->>> Changes in v7:
->>> - List all valid clock names at the top level, and constrain the clock
->>>    count for each platform with minItems/maxItems in allOf.
->>>
->>> Changes in v8:
->>> - Fix indentation to 10 for enum in clock-names property.
->>> ---
->>>   .../rockchip/rockchip,analogix-dp.yaml        | 34 ++++++++++++++++++-
->>>   1 file changed, 33 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/display/rockchip/ 
->>> rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/ 
->>> display/rockchip/rockchip,analogix-dp.yaml
->>> index d99b23b88cc5..a1ab7a77bdd3 100644
->>> --- a/Documentation/devicetree/bindings/display/rockchip/ 
->>> rockchip,analogix-dp.yaml
->>> +++ b/Documentation/devicetree/bindings/display/rockchip/ 
->>> rockchip,analogix-dp.yaml
->>> @@ -26,7 +26,9 @@ properties:
->>>       items:
->>>         - const: dp
->>>         - const: pclk
->>> -      - const: grf
->>> +      - enum:
->>> +          - grf
->>> +          - hclk
->>>     power-domains:
->>>       maxItems: 1
->>> @@ -60,6 +62,32 @@ required:
->>>   allOf:
->>>     - $ref: /schemas/display/bridge/analogix,dp.yaml#
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            enum:
->>> +              - rockchip,rk3288-dp
->>> +    then:
->>> +      properties:
->>> +        clocks:
->>> +          maxItems: 2
->>> +        clock-names:
->>> +          maxItems: 2
->>> +
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            enum:
->>> +              - rockchip,rk3399-edp
->>> +    then:
->>> +      properties:
->>> +        clocks:
->>> +          minItems: 3
->>> +        clock-names:
->>> +          minItems: 3
+On 5/22/26 10:09 PM, Loic Poulain wrote:
+> On Fri, May 22, 2026 at 12:01 PM Krishna Chaitanya Chundru
+> <krishna.chundru@oss.qualcomm.com> wrote:
 >>
->> If you go back to v6, you'll see that I never asked you to remove the
->> explict clock-names from here or below. Only the one from the 3288
->> section. The minItems was an addition, not a replacement.
+>> The mhi_net driver does not coordinate with runtime PM, which allows the
+>> underlying MHI controller to be runtime-suspended while transmit, receive,
+>> or RX buffer refill operations are in progress. This can lead to stalled
+>> transfers or failed queueing once runtime PM is enabled in the MHI core.
 >>
->> pw-bot: changes-requested
+>> Add runtime PM reference counting to the mhi_net data path to keep the
+>> controller active for the duration of TX, RX, and buffer management
+>> operations. Enable runtime PM during probe and take/release references
+>> explicitly around these critical paths.
 >>
-> 
-> Sorry for the misunderstanding. I will restore the explicit clock-names 
-> definitions and fix this in next version.
-> 
-
-Sorry to bother you. I attempted to place the explicit clock-names under 
-minItems:
-
-diff --git 
-a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml 
-b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-index a1ab7a77bdd3..ef03edf52de8 100644
---- 
-a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-+++ 
-b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-@@ -87,6 +87,10 @@ allOf:
-            minItems: 3
-          clock-names:
-            minItems: 3
-+          items:
-+            - const: dp
-+            - const: pclk
-+            - const: grf
-
-    - if:
-        properties:
-@@ -100,6 +104,10 @@ allOf:
-            minItems: 3
-          clock-names:
-            minItems: 3
-+          items:
-+            - const: dp
-+            - const: pclk
-+            - const: hclk
-          resets:
-            minItems: 2
-          reset-names:
-
-make dt_binding_check 
-DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-
-Then the following errors occurred:
-
-   SCHEMA  Documentation/devicetree/bindings/processed-schema.json
-   CHKDT   ./Documentation/devicetree/bindings
-/home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml: 
-allOf:2:then:properties:clock-names: 'oneOf' conditional failed, one 
-must be fixed:
-         False schema does not allow 3
-         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too long
-         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too short
-         1 was expected
-         3 is greater than the maximum of 2
-         hint: "minItems" is only needed if less than the "items" list 
-length
-         from schema $id: http://devicetree.org/meta-schemas/items.yaml
-/home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml: 
-allOf:3:then:properties:clock-names: 'oneOf' conditional failed, one 
-must be fixed:
-         False schema does not allow 3
-         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too long
-         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too 
-short
-         1 was expected
-         3 is greater than the maximum of 2
-         hint: "minItems" is only needed if less than the "items" list 
-length
-         from schema $id: http://devicetree.org/meta-schemas/items.yaml
-   LINT    ./Documentation/devicetree/bindings
-   DTEX 
-Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.example.dts
-   DTC [C] 
-Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.example.dtb
-
-Neither keeping only minItems nor only the explicit clock-names causes 
-any errors. Would it be a better idea to keep just the explicit 
-clock-names here?
-
-Best regards,
-Damon
-
-> 
+>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+>> ---
+>>  drivers/net/mhi_net.c | 39 +++++++++++++++++++++++++++++++++++++++
+>>  1 file changed, 39 insertions(+)
 >>
->>> +
->>>     - if:
->>>         properties:
->>>           compatible:
->>> @@ -68,6 +96,10 @@ allOf:
->>>                 - rockchip,rk3588-edp
->>>       then:
->>>         properties:
->>> +        clocks:
->>> +          minItems: 3
->>> +        clock-names:
->>> +          minItems: 3
->>>           resets:
->>>             minItems: 2
->>>           reset-names:
->>> -- 
->>> 2.34.1
->>>
->>>
+>> diff --git a/drivers/net/mhi_net.c b/drivers/net/mhi_net.c
+>> index ae169929a9d8..5d7f9ccdb17b 100644
+>> --- a/drivers/net/mhi_net.c
+>> +++ b/drivers/net/mhi_net.c
+>> @@ -9,6 +9,7 @@
+>>  #include <linux/mod_devicetable.h>
+>>  #include <linux/module.h>
+>>  #include <linux/netdevice.h>
+>> +#include <linux/pm_runtime.h>
+>>  #include <linux/skbuff.h>
+>>  #include <linux/u64_stats_sync.h>
+>>
+>> @@ -76,11 +77,19 @@ static netdev_tx_t mhi_ndo_xmit(struct sk_buff *skb, struct net_device *ndev)
+>>         struct mhi_device *mdev = mhi_netdev->mdev;
+>>         int err;
+>>
+>> +       err = pm_runtime_get(&mdev->dev);
+>> +       if (err < 0 && err != -EINPROGRESS) {
+>> +               dev_err(&mdev->dev, "pm_runtime_get failed %d\n", err);
+>> +               pm_runtime_put_noidle(&mdev->dev);
+>> +               goto exit_drop;
+>> +       }
+>> +
 > 
+> I am wondering what the value is in pushing this PM responsibility to
+> each individual MHI client driver and requiring every MHI operation to
+> be bracketed with runtime PM handling.
 > 
-> 
+> What does the client driver know here that the MHI core itself cannot
+> handle centrally? It feels like ensuring the controller is
+> runtime-active during transfer could be handled generically in the
+> framework instead of duplicating the same logic in every client.
+
+Indeed if *feel* like the MHI core should be able to put together all
+the status needed to correctly track the PM.
+
+Adding PM tracking to the NIC driver network data-path looks quite bad.
+
+/P
 
