@@ -4,74 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B70BCD5BD2
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:57:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9229DCD5BD2
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:57:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65A1210E13F;
-	Tue, 26 May 2026 09:57:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 050DD10E617;
+	Tue, 26 May 2026 09:57:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="impR7dqW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="klDfg8DW";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A0B710E13F
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:57:45 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2ba3e3c4f87so108524175ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 02:57:45 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D88110E617
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:57:48 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2ba6485d219so79658435ad.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 02:57:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779789465; x=1780394265; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=gSOWa+WoGd25f9CoUvwpEs1bBTK5FG4rfD00vKZHrt4=;
- b=impR7dqW6u3xiCiggw0hidAkGAggaGAAWmkHJfdXf4uE1P3G7xTJY4b4BQQal9t7ZA
- bAD3C20Exbj3Mjzg3ImfAiYJHZOQ81tvhTR/cV547NqVzH8tcuApP2f80lqdScmd8/Zt
- xZV8DDSD7xi+wU4UfktbIVS8LJ9Q9VNCPYAQaLBO9UQn7Jgy75Yuy63NrdZAFkaUkI2I
- qTylEwnmrdURFu0GjToe+0nFg+vNnxa1Qi1jlGGfDxcLxU+7Lg7zG0pyfM6AvpW2h4v6
- D+4LylZzBOKR5wQ7DM7tVQGrEQ10LQhXpa394pv3/tHzqPIl4ZofP17qlGnEPZG9yay1
- W/rQ==
+ d=gmail.com; s=20251104; t=1779789468; x=1780394268; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=62ASa2L/nhpOgPRME3/DR39dM2q2Ujo48JV3eKd2yRs=;
+ b=klDfg8DWuL1j6D6Czkc1K5dySOpW0pEKVcfL5A9iNI5A91aPZfJtFF5okKpzMaseBe
+ 3J7J60S3ynaqjlOB9VgkwUdrib8prceDxnLVvxZDEGbW5CMj9rbDJyd7vF0ALl+zQ7a/
+ ZDfa5oSr88Fe8ujNfiqS2ffCLe8nyqem+IZZgY6Cve/D6lamFrmTAfR7jHVQGHTrR2tE
+ lqXKJreaSNnDVCvxZsnAWlrGTitDb60+EV/LEQpRj3dw/gmYmhcgOzjZOVj5zM9ue32R
+ t6bEzXy6tZTtIo5eGeyOBemCcqeQpe7fDksj7n75YMDJKBZRW/QK5b5lYTubYzxaRH7F
+ zsXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779789465; x=1780394265;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gSOWa+WoGd25f9CoUvwpEs1bBTK5FG4rfD00vKZHrt4=;
- b=n7zmtZLBN8K0pC0dQQmwiouY9PSXm6JddZBg92W7dRQIA8h6adFcjcu8c4eR7DLIjN
- 8cBIzmJveYS58Y/rD7QtNDanrb4ZwYUbTr7xsLyE4Poq6aFSFEgZ52iDi3rgL6WJmHY9
- Z5lfAetKI/DrbSjemV1qj1Gk0k9TPqcdpvb7LDaUZJOpQiIrgDDNj5cnWXpzLtA8twCy
- 4RYTaMfWpUnikfQmDJPaDs1fzyfI2GzM1dTxFyZJZsM1+ef32e//KcY7b+BwReO2Nm/x
- UV3yYAQSxPpx+X7lQri13Mz8/r9JMzgZAZof+LDchEbXcITXovP9eiz+Yzij19LgZcKS
- sMLA==
-X-Gm-Message-State: AOJu0YyldSHMxIrBat3YBuKI9XHjy3rcVUDb3p29zLlp7YA8hij8bUgv
- Q05OeS5RUWlhfuAgCEfyCDcLnibtPiKfRAzZZdFatWRsrAkfmWqOcBEU
-X-Gm-Gg: Acq92OHIVFaMDk3sfHrAXhgEZP0XR4z0LoMvtYk4XlJ2AB7mADisGBGGh2tTYKV0OIu
- eCXqLOPeOwhOw/TZNGbfj0HLPlM8APgvXw4cCoySQ8P/x23IzbAzJPCusbJxZWjrQJ+gJ2YOd6x
- FhchHJl/DobTGK4uq9nTSGi57MqRZyrmf0UW2L7xUA7tXunB7xswNLviU3QF9XuIyUWS814zwT7
- KzuCCpSNjZoOrsWlUIfnjNqAikSPDkafTlhcoYXxb/yBf0OIwlG92XRkS6Xoxug4CSBes3d0qkn
- r248YQpSC2qDD40pkemBrBpfrFuMjPd7213BnaPGWOBeibFZYErDHnvSn2VZUou8KTa6WQAuKiI
- ipEC2DncrUyU8aToGJ5bDeLsnuWvr3KeVSvP3DuE6+VmxvWc2LU+VH1PZHNNOeW92TD7dYC+2ox
- DgYhEZDz0Rjcg2+9Xy3TRBG686sD4eE7vj25g0xblwfa8iCpsW2e2JVWAphGsJl8pk4YPYbh0Qz
- UjF4QKrPTc=
-X-Received: by 2002:a17:902:ce8e:b0:2b2:4f43:b48c with SMTP id
- d9443c01a7336-2beb0381369mr203545545ad.14.1779789464668; 
- Tue, 26 May 2026 02:57:44 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1779789468; x=1780394268;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=62ASa2L/nhpOgPRME3/DR39dM2q2Ujo48JV3eKd2yRs=;
+ b=JSKnemZ/qn/HbpTiL97CjZ8aGiNtgcctrbESIB3ig+KZuxIU37YTUDtqUtKgIW+01+
+ X+qhLG73MwbtYStn45tY9HMod+c8KJ9qgbdqZe/wgeWc4vJHISLBD+mOBeMZwgsNodGf
+ v16fI6fI82yL3mihEqS4T2IPb2pgIuoCVYA+F8c35vZDAwenq4XsnIMW34dQFz3ulptd
+ Yh/mnyR83GpcuyuU2Cp8pOGsCjtEW/p13+ZPAOtOZlmJ3xIy4AkMRP2/U1wtXb4hz4m8
+ BHP7A5aKlHqnSpILYzNDSPLgHiIot8kPXOtdZoxDVn+2xJImou6y1XnRZNSh6QzfhvFn
+ weGg==
+X-Gm-Message-State: AOJu0Yxk4GUECm/STq57j0tDtn3ABSt88LDUH5t99QrBt6fJAtFUFlgA
+ JI+0BeWckF50ZzKS+HBgH5Ai1TpDYpoq4Mx0SvzAKHNuIs9ldeKRctLV
+X-Gm-Gg: Acq92OE4/9yNCHsZniL9JXwNovEX29z8UuKXos6IGaU6eO1672Gfj595xWTmb5Yxg8Q
+ zxWHYAV6vr7wupXvxP6l/Zma5dtHnZx8dP/PhAHo8++3Ma/lkmuUVuDGsN+rBLoAt42moYcxzGM
+ b1dHCcoM/FhOokBt5n5cW892wM2s+3zoSnm1XYVpm8cQ3LqG2xzZAWXNk3cQx3TlFrH808qPiM9
+ /XF23YAopNE1wjyQCFfeCoUQKTqs7k0AGjQcZ7K4Lq8HOYihgjn5q2YLeGsB4CdYd8iBz2GI5ej
+ Q8bFTX1fVSEcL0ilduGr2TcqVUucRcrV29XJS4X8suMu+sBECkNGZ/9F7Z/+4hf9jFt/ckPHNex
+ W3PbuZ9Qw75mB1ituWlM0oSrPACqs0XVQGi21R4Et0555Jz3rVwiOOTgtDe8TrT5ZkbcwDwR8nL
+ rPYkdEX3zBJunGlqEL+mxzkwUVnQU//9mw7JLvm+Qd2SodgKfP8NX5mvbDHAkLQcQq2B2jBHQOi
+ JOsRv9mT62osazMS1qg6g==
+X-Received: by 2002:a17:902:ea0e:b0:2bc:dc18:35a2 with SMTP id
+ d9443c01a7336-2beb05e48b8mr214421815ad.26.1779789467793; 
+ Tue, 26 May 2026 02:57:47 -0700 (PDT)
 Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb58b2d47sm147055165ad.45.2026.05.26.02.57.41
+ d9443c01a7336-2beb58b2d47sm147055165ad.45.2026.05.26.02.57.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 02:57:43 -0700 (PDT)
+ Tue, 26 May 2026 02:57:47 -0700 (PDT)
 From: LiangCheng Wang <zaq14760@gmail.com>
-Subject: [PATCH v2 0/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
- e-ink panel
-Date: Tue, 26 May 2026 17:57:15 +0800
-Message-Id: <20260526-bar-v2-0-c66df9a840c4@gmail.com>
+Date: Tue, 26 May 2026 17:57:16 +0800
+Subject: [PATCH v2 1/2] dt-bindings: display: mayqueen,pixpaper: add
+ pixpaper-426m
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHtuFWoC/zWMywrDIBBFfyXMuhYfUbCr/kfIwtoxGWhi0SItw
- X+vFbo8l3vOARkTYYbLcEDCQpni3kCeBvCr2xdkdG8MkkvDNdfs5hLTUgXpVTBWWWjPZ8JA716
- Z5sYr5VdMnx4t4rf+fdP9IhhnQgqrR27CiOG6bI4eZx83mGutX0IBFuqWAAAA
-X-Change-ID: 20260505-bar-523f2c3f6939
+Message-Id: <20260526-bar-v2-1-c66df9a840c4@gmail.com>
+References: <20260526-bar-v2-0-c66df9a840c4@gmail.com>
+In-Reply-To: <20260526-bar-v2-0-c66df9a840c4@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -80,11 +78,11 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, LiangCheng Wang <zaq14760@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779789463; l=1797;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779789463; l=2062;
  i=zaq14760@gmail.com; h=from:subject:message-id;
- bh=Kmq+0JLaZnUA+G7wcCq8VCK1JhVzlHRY2UTpbNvp+v0=;
- b=H20lFZ57zk7aLVD9tzw2j8UNuMfNWBa3MKA5sXBHiXJmdmFROxPxHaCPGx/w/yU34eWDDAUXZ
- pgYnO/HpbeIB5T8zuWr/aDgC+EEg/JnKGg4LLGiEJGXw+g1avjDnKhI
+ bh=xjDcQrcGN4gLcGwZrUgVzOpV//jSntMqaSVLUFyRwzc=;
+ b=9OxnFEpX/rDY/kyYQ+ru5PXaNK8aV3Goml65+mirmTqPlGZrjRZb0dmKJBVU1DXEiIU5m0VWM
+ eCUPwCLOT93Dptjfco11526Hz7ScEQkQH/ge6MapV0GMtS9Zk7IsgFO
 X-Developer-Key: i=zaq14760@gmail.com; a=ed25519;
  pk=5IaLhzvMqasgGPT47dsa8HEpfb0/Dv2BZC0TzSLj6E0=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -102,50 +100,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series adds support for the Mayqueen Pixpaper 4.26
-monochrome e-ink display panel, controlled via SPI.
+Add the compatible string for the PIXPAPER 4.26 monochrome
+e-ink panel to the Mayqueen Pixpaper binding.
 
-The series includes:
-- Device tree binding updates for the Pixpaper 4.26 panel
-- A DRM tiny driver implementation for the Pixpaper 4.26 panel
-- A MAINTAINERS update for the Pixpaper DRM drivers and binding
+The new panel uses the same SPI and GPIO properties as the
+existing Pixpaper panel, but it is not software-compatible with
+it. The 4.26-inch panel requires different panel-specific
+initialization and update command sequences, so use a distinct
+compatible string.
 
-The panel supports 800x480 resolution with XRGB8888 framebuffer
-input and uses SPI, along with GPIO lines for reset, busy, and
-data/command control.
-
-Tested on:
-- Raspberry Pi 5 with Linux kernel 7.1.0-rc1
-
-Feedback is welcome.
+Document the new compatible string and update the binding
+description accordingly.
 
 Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
 ---
-Changes in v2:
-- Explain why pixpaper-426m requires a distinct compatible string despite
-  sharing the same SPI and GPIO properties with the existing Pixpaper panel.
-- Drop the duplicated pixpaper-426m DT binding example.
-- Update the binding description for multiple Pixpaper panels.
-- Select DRM_GEM_SHMEM_HELPER instead of DRM_GEM_DMA_HELPER for the
-  pixpaper-426m driver.
-- Link to v1: https://lore.kernel.org/r/20260506-bar-v1-0-12195406f4ef@gmail.com
+ .../devicetree/bindings/display/mayqueen,pixpaper.yaml      | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
----
-LiangCheng Wang (2):
-      dt-bindings: display: mayqueen,pixpaper: add pixpaper-426m
-      drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
+diff --git a/Documentation/devicetree/bindings/display/mayqueen,pixpaper.yaml b/Documentation/devicetree/bindings/display/mayqueen,pixpaper.yaml
+index cd27f8ba5ae1d94660818525b5fa71db98c8acb7..68a6157114604a8308259191e55d1e2d15d76c11 100644
+--- a/Documentation/devicetree/bindings/display/mayqueen,pixpaper.yaml
++++ b/Documentation/devicetree/bindings/display/mayqueen,pixpaper.yaml
+@@ -4,22 +4,25 @@
+ $id: http://devicetree.org/schemas/display/mayqueen,pixpaper.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Mayqueen Pixpaper e-ink display panel
++title: Mayqueen Pixpaper e-ink display panels
+ 
+ maintainers:
+   - LiangCheng Wang <zaq14760@gmail.com>
+ 
+ description:
+-  The Pixpaper is an e-ink display panel controlled via an SPI interface.
+-  The panel has a resolution of 122x250 pixels and requires GPIO pins for
+-  reset, busy, and data/command control.
++  Mayqueen Pixpaper e-ink display panels are controlled via an SPI interface
++  and require GPIO pins for reset, busy, and data/command control. Different
++  panel models use model-specific command sequences selected via their
++  compatible strings.
+ 
+ allOf:
+   - $ref: /schemas/spi/spi-peripheral-props.yaml#
+ 
+ properties:
+   compatible:
+-    const: mayqueen,pixpaper
++    enum:
++      - mayqueen,pixpaper
++      - mayqueen,pixpaper-426m
+ 
+   reg:
+     maxItems: 1
 
- .../bindings/display/mayqueen,pixpaper.yaml        |  13 +-
- MAINTAINERS                                        |   3 +-
- drivers/gpu/drm/tiny/Kconfig                       |  16 +
- drivers/gpu/drm/tiny/Makefile                      |   1 +
- drivers/gpu/drm/tiny/pixpaper-426m.c               | 828 +++++++++++++++++++++
- 5 files changed, 855 insertions(+), 6 deletions(-)
----
-base-commit: a293ec25d59dd96309058c70df5a4dd0f889a1e4
-change-id: 20260505-bar-523f2c3f6939
-
-Best regards,
 -- 
-LiangCheng Wang <zaq14760@gmail.com>
+2.34.1
 
