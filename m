@@ -4,132 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CBE7CD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 08:35:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B2CCD5BD5
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:00:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8283910E608;
-	Tue, 26 May 2026 08:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD7B10E462;
+	Tue, 26 May 2026 09:00:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HfvsJ4JG";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XuDEHFAK";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="baaPyYMv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CFOTXZ/J";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Osk3/v8m";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="o3oEKfPy";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0116410E608
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 08:35:36 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64Q5ivoo1802490
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 08:35:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- DxN7uZ0WxSxkaNekTFdgi3oj+0DA7+48Vw++MklSwVQ=; b=HfvsJ4JGWoXw1fuD
- Krxf92uXqUokgbUoD/JC4DyGvFSiA39CXGRsv1WmMpYfPazMuL2rjuiY5eRfd0O5
- M62T2BzXqzeN8byKZABnSjRSU7sPVZSGgN51iGT8+9Kl+pa+0YUOUkDf+RSp+FaZ
- IsZUbTvPzPiMLbpmvjSvCaVVDRiI9quaaOxjwpOdkiiJkXeCOfSHOS+aZ1Mdz5q5
- GrfIFLY8I3dz1wyVXtXwKBisORSNB8vG+EJC69CBGzGBr2GaDwG9hPxOCd9QgAl+
- NvsnJJIOq/w4eqp9thjx5ooh85MoC1RgycqRCLWQvnbachSEa4M7lO747CwC5s8y
- /Ff+lA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eckyqku9v-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 08:35:35 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-82f85179263so12089581b3a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 01:35:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779784535; x=1780389335;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=DxN7uZ0WxSxkaNekTFdgi3oj+0DA7+48Vw++MklSwVQ=;
- b=XuDEHFAKSWjP3YNGPgKIyzQzjZPXEo4jcT8Ik6nPrvMUV5dImu9noQeHe4O+nOsNI6
- Aa/RgEtAuiZYFAF7MACVaRvReIb1CLVlkAgEZOxtARCEzWzJzRJLBktC5dQOwH3FRk5f
- VeQ4ZY0/n2i0bkjlsqLOYHuVRhaxqCnGRnLLndcXOFxqbWyEu0lAIRQT0W0Rtjv2l5Xj
- fISwBI8e0zePF+gWZC0kyLq2/KF++s94JNPG144f33ruhYBqWmB59T4omrVM+nHHIij9
- q8Waz0nopI7099g7OFOWHqw3zSPwXvI2aZxr170Q1cjGYLXUx/O+N63ud5FKrpa69glj
- kk0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779784535; x=1780389335;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DxN7uZ0WxSxkaNekTFdgi3oj+0DA7+48Vw++MklSwVQ=;
- b=r4lKtAukJaiN/ajkhfAmk/kwQb0PLGZXgvjghtNylmJcZ77lCAr6bMxOs4ROgqYOKr
- G5DFzTrcpoWhT6JvkYP7Ce6c+56GrW2pknGT0/AnUSBIa5zHZ/Nrw2pKFGRV/0W6hhei
- tWJnQXRV5iTG8KRy6irRRRdVnPO768cOlVTsojmM5S+uZ2RFLTobjILT4WOwJNGclh4H
- 0OaUojSIk+5dht+0tai3pubXfAoAkWCMbUs0OYhWTscMFLp6V915H5tC3LE6YKAYeEsx
- IazxgjNjrgH48Ah4WLESfx3ozsmJ1zEHsYr8Skd3ACVCqjXiNSiHsZ4s3z+4IIgmIHFX
- GfKg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/KaQ7UU3M8fMCn8zbGSF7XVSoNXfhOWTNWJzzsSaYSUVsNl+QSsHhEY/71iTPIYffeiPsUpxz3huY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzFJfyXERh/fNdtgWfAht4pQxsfAyMUQCFvpLjfCHe7eZJrm6Y1
- hchErYigp3zmtKQN5lN5qjMCjmJgJMm+dTdZ6Ygln9EJHbGOcekWwtnPHJwz6C3l06QQpGgxIZS
- 0+zAl26aJleZav05e5pDPHwzUxfpK4HKG6Whj6BwlxxktY7Bz4dP0sdD0wyYbNqLGJDC1kgE=
-X-Gm-Gg: Acq92OHBl/qQPLcJYm813/Cs7ssuCbABut4lfBwRSGpbA8Bp1c8ul6ZpftiPEpbTord
- iKXKtwAcCo3VESmqC0/TFFbURidLLFcq9oh0FwoElQRT3IxHzQHYSrtNOrh/4HHCbkKueJRNo8p
- 9pU4eM4XMr1c6bjDJYuOcaML2z0Cb6fULbNrG9hpf69t06EOCNW3iiuu5tHfTiqivMbwyd8ktS2
- 6G07S7sxOeK1qqlFHSnTRZxd+ysuaNPEps//ImfG7pI4h76EX5Ll5BFzBG7s2dMigdrHFN1pcir
- rGE+d4ykIxin/LUNRdqe1dYpet2aN98NbRsEzIXixHFQgZPnoqGyqe053bWWZyh1rGO8ibkgOjx
- VZMlSSFOZU4hYtZyqxNXdW3iNVXJvWyMncg+wCnaAJbNbqA==
-X-Received: by 2002:a05:6a00:3a0d:b0:82f:3828:a009 with SMTP id
- d2e1a72fcca58-8415f3b0771mr16934565b3a.3.1779784534879; 
- Tue, 26 May 2026 01:35:34 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3a0d:b0:82f:3828:a009 with SMTP id
- d2e1a72fcca58-8415f3b0771mr16934512b3a.3.1779784534257; 
- Tue, 26 May 2026 01:35:34 -0700 (PDT)
-Received: from [10.206.98.126] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84165009852sm11859079b3a.59.2026.05.26.01.35.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 May 2026 01:35:33 -0700 (PDT)
-Message-ID: <02630778-a16d-405e-9ce4-7076d14c06b2@oss.qualcomm.com>
-Date: Tue, 26 May 2026 14:05:28 +0530
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC7110E462
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:00:01 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 363006B3E6;
+ Tue, 26 May 2026 08:59:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779785999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ejy15HLRULv/iHzJLGVQCrLp/AiLuLDwUgWtV4C2EU0=;
+ b=baaPyYMv4yGoQHFimAxytqQjn6ho5Zd1wa0FMTwsSYl4HfumaHInOXtFRCQanNqprT5hFp
+ auTBrgDJ8tUVkwo6MaC9M+qFT+nZxC/H4fWaDNQArID5i810CzAF4F5PbEZZtaZC05Nhrn
+ bHaoQ2UTzpstuC6Fr9OqknOV9u9dO9o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779785999;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ejy15HLRULv/iHzJLGVQCrLp/AiLuLDwUgWtV4C2EU0=;
+ b=CFOTXZ/Jc28jW6gUmHAzNdWyt0f6zPZG+4PWGuwLGJUl0oh2nsUA9GcdS6AVEZhA2OrMKV
+ WtkbZVOIvCyH3+BA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779785998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ejy15HLRULv/iHzJLGVQCrLp/AiLuLDwUgWtV4C2EU0=;
+ b=Osk3/v8mo9hxyPDuoXN6f41EsFVPQmCgg+ElT42l3CUUFnP0mQEO8Tf4arcKpUWI3bpw5N
+ 32aTrm9kBeHRV4iUfnJ1+9hZL4oCsIj1+zudrX0f+JoDcETLgzINRl2Igclt+cV9fFFw7P
+ GpQad7BUfcrYFlgjt5c27wIFwuvWm2Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779785998;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ejy15HLRULv/iHzJLGVQCrLp/AiLuLDwUgWtV4C2EU0=;
+ b=o3oEKfPyVr5jbUeUmexTQStzMVEUG9KNlGA+0hMIrGHnx4fp31jKEhtkVwom+QxhKRCnN1
+ ZM2Wuy20DjfNrKBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5162C5A10E;
+ Tue, 26 May 2026 08:59:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 01R4Eg1hFWqZZAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 26 May 2026 08:59:57 +0000
+Message-ID: <0057f209-c8a6-48bc-9194-36e3b19bec67@suse.de>
+Date: Tue, 26 May 2026 10:59:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] misc: fastrpc: fix context leak and hang on
- signal-interrupted invoke
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: srini@kernel.org, linux-arm-msm@vger.kernel.org,
- gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- dri-devel@lists.freedesktop.org, arnd@arndb.de,
- ekansh.gupta@oss.qualcomm.com, stable@kernel.org
-References: <20260525124222.3082420-1-anandu.e@oss.qualcomm.com>
- <37zqhqm3ryyigcalimems2xvy2ccq3eyssls2pqx4qjufx57z6@w5kbehynw4h6>
+Subject: Re: [PATCH v5 01/19] drm/atomic: Document atomic commit lifetime
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
+ Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+References: <20260519-drm-mode-config-init-v5-0-388b03321e38@kernel.org>
+ <20260519-drm-mode-config-init-v5-1-388b03321e38@kernel.org>
 Content-Language: en-US
-From: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-In-Reply-To: <37zqhqm3ryyigcalimems2xvy2ccq3eyssls2pqx4qjufx57z6@w5kbehynw4h6>
-Content-Type: text/plain; charset=UTF-8
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260519-drm-mode-config-init-v5-1-388b03321e38@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=RMyD2Yi+ c=1 sm=1 tr=0 ts=6a155b57 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Kv5pTRVh4xdshmm17rYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-ORIG-GUID: 7Lh24gzv9EqCxihrpfruyw5V40fKe8Do
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDA3MyBTYWx0ZWRfX06kxhwW/aSbl
- vzlPrP9+OZ7z/vncVJARn/qUbQUEt4AS8FLrK2nfbvHgYWiSJUqhxghPfysXKQsieJBzH6RZTEU
- O2zC/SBfM31Vwwe7htUIO4Ipb8KDcMIMT1OFAUK5thaPBnETbMx1hK5uoMyiJwIMipdnAr72Baw
- ERJ+D+AnDUKvKCMmnAiE579ODmWSJToOwYUW2j+wqxdUrIDJzPJbvynHkUGh13t3RNpkgS+OqmM
- Ku089bhT0aUCP27I66E5/zh9TaZJvgerjS7uavo82uyj6Hb7Nz2BJDJA0ZXmUMKDHTY3Cz4RuPl
- uMRUxu1R732/4avDzgert5qlRcfecczUW61UBj7DDllhF5hlOJSKDUKGywU8JMY9oZ+7Kwn1H3z
- S/M1x4s1hy78pluoWckS8nv91rN4k/cS1Ar1Ox18Ttnb8EBgQJC7oCFSeJIaVbIbpma1Jq+10my
- +cLTkXif7rmJa0GIV4w==
-X-Proofpoint-GUID: 7Lh24gzv9EqCxihrpfruyw5V40fKe8Do
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-26_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015
- lowpriorityscore=0 phishscore=0 adultscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605260073
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ TAGGED_RCPT(0.00)[renesas]; RCPT_COUNT_TWELVE(0.00)[38];
+ TO_DN_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLyhjdboxbrjk5hnijtjs4kbm6)];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo, ideasonboard.com:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,61 +164,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
+I left a number of comments on the style of writing. Apart from that, 
+it's great to have the lifetime documented.
 
-On 25-05-2026 06:58 pm, Dmitry Baryshkov wrote:
-> On Mon, May 25, 2026 at 06:12:22PM +0530, Anandu Krishnan E wrote:
->> fastrpc invokes work by sending an RPC message to the DSP and blocking
->> in wait_for_completion_interruptible() until the DSP responds. If a
->> signal arrives during this wait, the syscall returns -ERESTARTSYS and
->> the invoke context which holds the in-flight DMA buffers and
->> completion state is left stranded in fl->pending.
->>
->> On the next syscall attempt (either auto-restarted by the kernel via
->> SA_RESTART or manually retried by user-space after EINTR), a fresh
->> context is allocated and the RPC message is re-sent to the DSP. This
->> has two consequences:
->>
->>   - The original context leaks in fl->pending until the file is closed.
->>   - The DSP receives a duplicate invocation. If the DSP was mid-way
->>     through processing the first request and had issued a reverse RPC
->>     call back to the host, the retry sends a new forward request
->>     instead of the expected reverse-RPC response. The DSP thread
->>     waiting for that response is never woken, causing a hang.
->>
->> Fix this by saving the interrupted context to a new fl->interrupted
->> list on -ERESTARTSYS. When the same thread retries the invoke with a
->> matching sc, restore the context and jump directly to the wait,
->> skipping context allocation and message re-send.
-> What if the userspace doesn't honour -ERESTARTSYS and submits a new
-> workload?
-If the same thread submits a new workload with a different sc while an
-interrupted context is pending, 
-fastrpc_context_restore_interrupted() detects the mismatch (ictx->sc !=
-sc) and returns -EINVAL .
-This blocks the new submission and forces the thread to resolve its
-in-flight interrupted context first.
-
-This is intentional. The original DSP request is still in-flight and the
-DSP may issue a reverse RPC back to 
-the host as part of completing it. If we allowed a new forward request
-from the same thread in parallel, 
-the DSP would receive an unexpected message instead of the reverse-RPC
-response it is waiting for, 
-causing a hang/ unexpected behavior.
-
-i am open to new suggestions as well , can you please help suggest what
-is the correct way to handle 
-interrupted scenarios ?. 
+Am 19.05.26 um 11:01 schrieb Maxime Ripard:
+> How drm_atomic_commit and the various entity structures are allocated
+> and freed isn't really trivial. Document it.
 >
->> Also drain fl->interrupted on process exit and complete any sleeping
->> contexts with -EPIPE when the rpmsg channel is removed.
->>
->> Fixes: 387f625585d1 ("misc: fastrpc: handle interrupted contexts")
->> Cc: stable@kernel.org
->> Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
->> ---
->>  drivers/misc/fastrpc.c | 69 ++++++++++++++++++++++++++++++++----------
->>  1 file changed, 53 insertions(+), 16 deletions(-)
->>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>   Documentation/gpu/drm-kms.rst |  6 +++++
+>   drivers/gpu/drm/drm_atomic.c  | 58 +++++++++++++++++++++++++++++++++++++++++++
+>   2 files changed, 64 insertions(+)
+>
+> diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
+> index d22817fdf9aa..36d76e391074 100644
+> --- a/Documentation/gpu/drm-kms.rst
+> +++ b/Documentation/gpu/drm-kms.rst
+> @@ -282,10 +282,16 @@ structure, ordering of committing state changes to hardware is sequenced using
+>   :c:type:`struct drm_crtc_commit <drm_crtc_commit>`.
+>   
+>   Read on in this chapter, and also in :ref:`drm_atomic_helper` for more detailed
+>   coverage of specific topics.
+>   
+> +Atomic State Lifetime
+> +---------------------
+> +
+> +.. kernel-doc:: drivers/gpu/drm/drm_atomic.c
+> +   :doc: state lifetime
+> +
+>   Handling Driver Private State
+>   -----------------------------
+>   
+>   .. kernel-doc:: drivers/gpu/drm/drm_atomic.c
+>      :doc: handling driver private state
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 170de30c28ae..d98586d89bbe 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -45,10 +45,68 @@
+>   #include <drm/drm_colorop.h>
+>   
+>   #include "drm_crtc_internal.h"
+>   #include "drm_internal.h"
+>   
+> +/**
+> + * DOC: state lifetime
+> + *
+> + * &struct drm_atomic_commit represents an update to video pipeline
+
+I'd say 'modeset pipeline'. Video sounds too much like V4L.
+
+> + * state. It's a transient object that holds a state update as a
+> + * collection of pointers to individual objects' states. &struct
+> + * drm_atomic_commit has a much shorter lifetime than the objects'
+> + * states, since it's only allocated while preparing, checking or
+> + * committing the update, while object states are allocated when
+> + * preparing the update and kept alive as long as they are active in the
+> + * device.
+> + *
+> + * Their respective lifetimes are:
+> + *
+> + * - at reset time, the object reset implementation will allocate a new
+> + *   default state and will store it in the object state pointer.
+
+Using present seems more natural, e.g., 'allocates' and 'stores'
+
+> + *
+> + * - whenever a new update is needed:
+> + *
+> + *   + A new &struct drm_atomic_commit is allocated using
+> + *     drm_atomic_commit_alloc().
+
+Active form: "drm_atomic_commit_alloc() allocates a new instance of 
+struct drm_atomic_commit."
+
+IIRC the '&' needs to go before drm_atomic_commit.
+
+> + *
+> + *   + The current active state of all entities affected by the update
+> + *     is copied into this new &struct drm_atomic_commit using
+> + *     drm_atomic_get_plane_state(), drm_atomic_get_crtc_state(),
+> + *     drm_atomic_get_connector_state(), or
+> + *     drm_atomic_get_private_obj_state(). This new state can then be
+> + *     modified.
+
+Again use active form.  Mention which helper invokes the copying. I 
+assume it's drm_atomic_commit_alloc() or the UAPI entry points.
+
+> + *
+> + *     At that point, &struct drm_atomic_commit stores three state
+> + *     pointers for any affected entity: the "old" and "new" states, and
+> + *     state_to_destroy. The old state is the state currently active in
+> + *     the hardware, which is either the one initialized by reset() or a
+> + *     newer one if a commit has been made. The new state is the state
+> + *     we just allocated and we might eventually commit to the hardware.
+> + *     The state_to_destroy points to the state we'll eventually have to
+> + *     free when the drm_atomic_commit will be destroyed, and points to
+> + *     the new state for now since the old state is still the active
+> + *     state.
+
+Ok, sounds good.
+
+> + *
+> + *   + After the state is populated, it is checked. If the check is
+
+You mean, it populated the new commit with the updated states?
+
+Where does the check happen?
+
+Again, use active form. Like: 'After ... populated the new commit with 
+the updated states, it checks by invoking atomic_check of all involved 
+pipeline stages."
+
+> + *     successful, the update is committed. Part of the commit is a call
+
+Active form: "successful, ... commits the update."
+
+> + *     to drm_atomic_helper_swap_state() which will turn the new states
+> + *     into the active states. Doing so involves updating the object's
+> + *     state pointer (&drm_crtc.state or similar) to point to the new
+> + *     state, and state_to_destroy will now point to the old states,
+> + *     that used to be active but aren't anymore.
+
+The final sentence ""Doing so..." is serviceable. For splendid writing, 
+you could write somethink like "After swapping states, each object's 
+state pointer refers to the formerly new state. The state_to_destroy 
+pointer refers to the formerly old state."
+
+> + *
+> + *   + When the commit is done, and when all references to our &struct
+> + *     drm_atomic_commit are put, __drm_atomic_commit_free() is called.
+
+Active form: "After commiting the new state to hardware, ... puts all 
+references to strut drm_atomic_commit and calls __drm_atomic_commit_free()".
+
+> + *     It will, in turn, call drm_atomic_commit_clear() that will free
+
+Present form: "It calls ... the frees ... and ...."
+
+Best regards
+Thomas
+
+> + *     all state_to_destroy (ie. old states), and finally free &struct
+> + *     drm_atomic_commit instance.
+> + *
+> + *   + Now, we don't have any active &struct drm_atomic_commit anymore,
+> + *     and only the entity active states remain allocated.
+> + */
+> +
+>   void __drm_crtc_commit_free(struct kref *kref)
+>   {
+>   	struct drm_crtc_commit *commit =
+>   		container_of(kref, struct drm_crtc_commit, ref);
+>   
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
