@@ -4,124 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7B3CCD5BD0
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 03:09:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F0CACD5BC9
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 03:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1156710E44A;
-	Tue, 26 May 2026 03:09:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9229D10E44B;
+	Tue, 26 May 2026 03:10:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EhlosBvB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PV3ODrNS";
 	dkim-atps=neutral
 Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012054.outbound.protection.outlook.com [52.101.48.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09CFA10E449;
- Tue, 26 May 2026 03:09:43 +0000 (UTC)
+ (mail-westus2azon11012015.outbound.protection.outlook.com [52.101.48.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9944C10E448;
+ Tue, 26 May 2026 03:10:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e7Dgb9cR3eqgks9QBLF+GfUa/t3Tm4YKVJwTFK5N6fMLvu2SgnIYxOFfkFMF6H1DTDuH7JhDKM2o7SkE5WM8ghTQtj2j8OM0qN8S7C52donY6o59tEc+I0QYQKlx0K7SxQCAb4kuD/3KU4QXVCb12xR/Xd+mBKgfaiqE3x6HlxX7bfviz5tfpICUZyYGVG5R5+jAjxvYhK4UqjPQGCs9HRhcWo5SqnI3Tv9SBKBYanVafGWEBcWfMjonqf/MTW/a9KxsBUjZJS6YHAmqkVdck3ITDISRknNp00qIs3d6z3SirJfgL1TWRk2vv8/dP/S9X+NrdXg5d9eN7XhSpRKiQg==
+ b=VqnOnGWWRGcBZtuyeRFcMH/52A7DR6FgQV+SKR8tUbcFg2F1INqY/jPB3Ghe6G0sb/3+TvyfFAW9jNYDfn5lQ085p5ayD7pNBzmtS15byEHUwu/gw7jiZWEZ446f5UZGRxYQNdIfq8pBxqZjBM3X3jZ3WSQgmMIQHoXxdEFqt7XzkN/DhHM5ngfsGQhl1E3nSwrKY4nDXV8G8u5xrCzuNfrzogSa2B83mDgQQO5YaA2Fj0J5j7/z9cs8VN4HSplEPLngdbsMnMnw2Kapp2pXUMJN/IXqHVERS3ZvmMVrLdC4E07myFJMC01TJl3esRDNZKDs0Q2ucAwwnz3/R5XMnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qP4QFh8B+LbKBUkWOuIjhJzAQEBdBNLslFRhm15mnrA=;
- b=BfsIJNq6NCy8tn/QIgOtzqxZxTiHe/WgXbtsm2Fovx0kuiPtJUfeGIN+ooVnpgwMvKypiIm+G4WVX2EdOiPVHb/3pvDgfZxf+qXKuSvq8nwj2CC16jw7c1ffBT4sVTX/9kzswsC/z0GzALhvPUS/Qd+JbdHEc81TyI0L5R2kfONOAVMRpehEdlEgTRBNwt8b/f3PCBfRokzQvbtWxFo0Qqg01qoJhz/5le0DZLAlPphiGRgrqx7/ZAUW2h7N+9XYReASGXSpNmdfY3BkceOiRIMCjFQaALLDF2MvNrzhqUNYl5La3u6ODOJ14q10boQ0bz9uH9dhXFdhYTxUkK46Kg==
+ bh=Ohi9g3ox2YWhB8QJZiRYVTJbzBs5AOvCZKP7nKaNKrk=;
+ b=mYgtuiYDXwW89Y2CYXSSREiMzU3jSuhX5Kh5eB6pIJQeFTUArFIsju6o07RLmSXgKznhvxXdaGy1a6gDi5yswOdqrNCUVxjbOFWEvz1z1raGgmFsylwcOI8LTHC4rDNjb/QDrYeWEurIIx0iKT/ZswY294ZNJe1d46AFth0Og87+l6mc9MSDYYHcGZ65fBQkBnfmDQ5TdTHb4CfryTisJBU28nHcWsVVP02UcY8U427ap4AVlLG3mnHxRaBs7jKhp1XBcrW8Dw434oEOTsFE0q9wUX9/B/BGLHILHv5dD0JI5icdgw+KHN9Rk9PK9FDCHXyMOIkkxeuq3JVf4Qc/VA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qP4QFh8B+LbKBUkWOuIjhJzAQEBdBNLslFRhm15mnrA=;
- b=EhlosBvBRe/5s+xtAXwZvjIOlWZcPb0VyEKmpo1ugjXKYZBnAK3vmYXKOTzSS4hARsZD4hbQAeG2OF4Dc1mJ6mOCFIdTHlyX6BAHnnxOC9tetvmHNiP2qGJJDgbKyamOCbpXwzc7ncPZCs7OV5UaYtV4ofTyH2SEB9fkGD3nJxg=
+ bh=Ohi9g3ox2YWhB8QJZiRYVTJbzBs5AOvCZKP7nKaNKrk=;
+ b=PV3ODrNSLmMhpsIZL1wpkQKwTE60sBxToBbpdeOAA9TTyIG9/Ls8dC4v3y+tSjSCPp73eGuWpKt/bDRJunsFa+5+ABPGbzcsMMWPpE8KSaI89AYzSzYynANuCVVQ4sVTU8IZ2iJTeLx2F2WldiaZZkvDVQEGFejcEs3NO0s80hA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CYYPR12MB8892.namprd12.prod.outlook.com (2603:10b6:930:be::12)
  by DM4PR12MB5987.namprd12.prod.outlook.com (2603:10b6:8:6a::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
- 2026 03:09:40 +0000
+ 2026 03:10:00 +0000
 Received: from CYYPR12MB8892.namprd12.prod.outlook.com
  ([fe80::62b0:b284:c9c6:c96]) by CYYPR12MB8892.namprd12.prod.outlook.com
  ([fe80::62b0:b284:c9c6:c96%4]) with mapi id 15.21.0048.019; Tue, 26 May 2026
- 03:09:40 +0000
-Message-ID: <dcfcdeda-0592-42e8-b6bc-34e797fca21e@amd.com>
-Date: Tue, 26 May 2026 11:09:32 +0800
+ 03:10:00 +0000
+Message-ID: <d2516fce-bb18-4384-9864-51c246669614@amd.com>
+Date: Tue, 26 May 2026 11:09:52 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] drm/edid: parse panel type from DisplayID 2.x
- Display Parameters
+Subject: Re: [PATCH v3 3/3] drm/amd/display: use DisplayID panel type in
+ dm_set_panel_type
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Ray Wu <Ray.Wu@amd.com>, Limonciello Mario <Mario.Limonciello@amd.com>,
  Jani Nikula <jani.nikula@intel.com>
 References: <20260526030254.1460480-1-chen-yu.chen@amd.com>
- <20260526030254.1460480-3-chen-yu.chen@amd.com>
+ <20260526030254.1460480-4-chen-yu.chen@amd.com>
 Content-Language: en-US
 From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
-In-Reply-To: <20260526030254.1460480-3-chen-yu.chen@amd.com>
+In-Reply-To: <20260526030254.1460480-4-chen-yu.chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0183.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:be::8) To CYYPR12MB8892.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN3PR01CA0132.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:bf::16) To CYYPR12MB8892.namprd12.prod.outlook.com
  (2603:10b6:930:be::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CYYPR12MB8892:EE_|DM4PR12MB5987:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58c59fda-7da5-4643-31ef-08debad43a0a
+X-MS-Office365-Filtering-Correlation-Id: 9427a80f-ad65-4660-e530-08debad445ca
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003|6133799003|3023799007|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: 51z5YGFee26F5pNlcfSNyKlDthC0n3c5bz9D3wSBiH6Yiw+69W/Z89jwRhBavtL+wb8jj9j26I8zddqEif9Ur5aAPPv/Lw9EwHHrEuybfZ67blowaPsPhwVFDErrtL1UY/AWovoEcB6f976oI36pdO/dWmnDJpc9Q98wjIvGZh64OAvdHnVaf10FaWRpElQyLHRWSGqjlN/aepnm2kYJAJfVpIwENTLKQOJkdmL428PkRykhKiRPaUW+aO5K3O+Dyedv7K2Dam3CjSBJqX6iaMYSaZvGJcMTTpSKKbYlK5nR1+hxbf4PrWk/qEQ4xPaCRsmbUnJ+YkwL/F0M8wsxyEjhnJDxoAmOHAdG0jCKmyLsmXhAsR5WnFFwoA8mNYFsNuhHN07EuP0izemzC8ChDSuTBkrp4wnfSbw5L6j19Io1aNt+NIOM3QU8+D9/Qdl0nLNrmGkd6CLlSJsXHCXGomt96nyeOtONrXmSaTvy23Gsw9VhG2waubaMnWgig3Zsjkdt1sTkY1k6CsJKANETAZs6V0ZafoV+27HXdgsN78ccUr0f+IAT6vWg1hQvRAP77365Y/tsSBEETtZYCjPGTs4aiP/CpaE1cAtqVSH5VKdv9wCQYW5SSxgmMwMbkS69w73K3aDd9PRVwEu/N2+yk/1KnsWf8u9MfaPNzKOT3i0sIXXOakQie/cDTA2c0MNt
+ ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003|6133799003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: 4jeDe4qiiBW59kr95wVhAuu1KgcNgltNzNkRc5jftg470yNqPa1qJmWRzNA/gx5g9jPrDrb7Q4SOTk7E5GhVS7pvppHmdu0jBJVF8PtCsbdLkpP75VibCiJYhhDbXrSgAIYZjbCVMlbmXWNE6kGCs550EaqRlAPv1DhPiLirjq3IOTkVeYavD+UktLdEogwLyHaXCV62j5hYhlDZ5wn+9SE234l6A7dAspzqCneQ61wqHsktes/a7IqwtUfWdJOlru4I+hgtebhldbVG9fdT6OOson5AtMlvA0AZZLPoBo2smeGTQcx7ezMf+UFyUVwiK6cR4yAhaHLgk/hrByOtNYYvHy+pu+8k2CxaNAbqisH7bKVZDWTSCcjqKoq41Akqvg6dBTJg+Wk1ABhhsVJY91TyTLtjah29Gev9/f9soGIf6SOjPVkRj4h8GTuSgEORxC4R+yJ/I0RB0JLamZWIBee0IxdI5C3vcbOuWSzd8uKz3c/syAupYJZZF/puvh6vflNhraKbesu9sxbp9LLCDq8FnXk/tclOuV67v/UunEK3gi+LMVMJi1r9LQBwoXr3X72vBcAdaOi3gYEcHOkWyKZWN5txo65kOM4TM5l04YERTqd8OC65+Ule92XeelX+kOVsAtqIzA7o4KCPIjqNGWa5NQvrAaQBRNpFnisucuUg5w63i9zBxzN3RuTwn8lR
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CYYPR12MB8892.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003)(6133799003)(3023799007)(4143699003)(11063799006);
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003)(6133799003)(4143699003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ky9YZ3JnV2hkVS9udDNjZmtsb1crUTZPQklzckVORkQ5Z3JDdVJjQ09Hc3Fv?=
- =?utf-8?B?eXRPWjZxSVZZaWlhL2p0T0Jxa3hjaVFDT3Z0a1ZSSVhQamVMZTEyakQ5bDJP?=
- =?utf-8?B?NDVFRE9lYUJsVlNJM3phT05lcUVaVStFdXg2YTMrTTN6UXNrT2FDN1g1d294?=
- =?utf-8?B?S0RuVXlib3BmNmNsb1doV2VHSXNzZlI3Y29TY3JsczNIVFFoeXc0Z0VBTlEy?=
- =?utf-8?B?MDhpUnNLaU5QQWFJR1ViTG14K1M2bDJSMU9IQng5OFNiT1M5d05LU014Q3Fn?=
- =?utf-8?B?ang5NXFqU242K1k5MFVWVGd4dGk3US9WeTNJTXBmT2RCQnhEMmVxYkJoMFBU?=
- =?utf-8?B?YzhEdUNjSWtyV0ZrYWw5dW9Ja1dVM21WOWIrZE9Cam1Oai9UOElOYnpQNWRU?=
- =?utf-8?B?TWlZYjFOUVdlYmM3Y1NZaUtWbzhXKzNOUmF2ek9RNllsVEFaVmJ3OWVEeXFn?=
- =?utf-8?B?a0dqUHlsNVhZS21hMWJNeHV3Wit6c3dKeWNVd3V3N0JIcGpsZjVCRlhFcnpO?=
- =?utf-8?B?WGdVR3BBTm1wZ1VnU01mOHdhb3RlbUpVR1Z1eklYQVdHYzIvazRJVzd3NzVq?=
- =?utf-8?B?c0R2NEljdElubkJaamhjWHdtaDRqV3VBUEdOQUgrWWVBc0NxcHl6UlRwU2ZE?=
- =?utf-8?B?TExFRm1JcHFpY0hZNUt3OW1RaWlkM204Rk5RZWQzVFg0TjFBOXVBMGxjaDNj?=
- =?utf-8?B?a09XeUlRWGN0bVRvWlVUdVdEV25aSXZhWEVpL3N5QVU5VW5kSWhiUVNsNDNI?=
- =?utf-8?B?M1I1N3RRV0p1QmhXbm1kSFAzL2JYNUJaa1gyR080SzQrQlJUUUgxQkZPa0J1?=
- =?utf-8?B?QVZseURvUDNmSkNkYkRCdUs5WUtUNDdoMlZqczR0dkdEcUhKd2VEWSsrSkNX?=
- =?utf-8?B?VHJ2dHVaQktzL2ttYWpqS2ZLYmpFOGU3dFNybkZRV1JVQjhnczhhYktod2gy?=
- =?utf-8?B?SzdWUFptaDFiOTRCc0RUVW5IN2hZQWhCR1BmWm1QVkNCL1dRaFc1TXhjbWd6?=
- =?utf-8?B?VytqWllNNVJuZWlmd0ZwUmhaRGJpZWtxNWw3ZzladVlTVWR4S3VnaG5NeXZV?=
- =?utf-8?B?L215M3BrR001Q2g1a01BRjJQYmY4aDdBbldLQmhMNFhWQlEyclhPWm5oYURy?=
- =?utf-8?B?QmlsaXpHcDVkQ1N0UFJ2T3FFUCtsbFpKSjFNVEQvWDFINE5Pd3FwVnYvYjFN?=
- =?utf-8?B?N3BqQmlCbkUzeDRmSmlIZjFqcFVlY3RUSzdEaDNYTW91NDRoVkZReDdidXZR?=
- =?utf-8?B?ZDZHOWgzVEs3R2w4TzkyN0FCT2JXWU4zUU9ybUMyNXNSZDhIWitIUTZRdlIz?=
- =?utf-8?B?R0dEMTA4a0xEQ1lLcmFUZ0hOVXVLSW5pVjZQQ2U1Y21Vb0N2dGIxNWZJMXFm?=
- =?utf-8?B?UHgvblhsT2QwWkNHR2FvUlhqSU5FQWtIOHI2Qkx2eFFmOFAyeG9hWDZJWXB5?=
- =?utf-8?B?ekt3OWpPNnRhQ3c0MUdwVU5yS1RCdUNsNmxNTVVHL1FJWWdNTnJTTEEzOFJi?=
- =?utf-8?B?RU8rajFmRWY5QkJvZEpvd3FRcFY0OVZZMEhuTXY2S0dwMGpZdFNJS2VOTEVa?=
- =?utf-8?B?eElkby9WekNHSjFtS05OVWRsVndXQ1F1bkJWQ1pSMTVrb2dBaVZHb2pqQTNF?=
- =?utf-8?B?VFplM3pCWGxqakkzV0ZWZ1paRmVEcm5SU1NlRGtHRjJSS2hjWURlZi8zY1BG?=
- =?utf-8?B?YU1aVVVnbStYNFpJd0I1c2RVK0xuOGRKdDRMUU1ubm1RQnhvVXIrMnJYZkJY?=
- =?utf-8?B?Q1JHZUxFTTBwUStTU3VIM0F2eVg3bUtFS3VhQngxV25mWVVoTi85ZkVJWTJy?=
- =?utf-8?B?QjUxRXYycldyVXBTYmxWOWZRcWRHa3VSYWNvcFlYdmFiRi93aDdXUDY0Qi9v?=
- =?utf-8?B?bDNJanB5UXdQZ0orbmxya1gvTE5zN2RaQ2ZXWWVGSnV3WlhWeXVWSDZ6THds?=
- =?utf-8?B?MGhQdGtPUWlNU0xMbHNYeU93T3lFQWE0UlZ2MFlFWFdQWFdnekQ4RnU0a0or?=
- =?utf-8?B?S2Y1UkNNRzdmQUpjWitwK3diQ0Q2WDhPbzdhRjhOd3NDMm9VaE9LN21RcEQx?=
- =?utf-8?B?cndCN0lmVkxFNVJqU0J3MGw4L1RYdXNMWUZQTUc5bmZ1V1hvQ1lNZkJFczJY?=
- =?utf-8?B?UVBUU3Vjb0ZubG1xUEd0WWQ2THAxOE1DVWpKYUEzWHYwOFRheEVlQTduaTV2?=
- =?utf-8?B?ZzFRbTErbE8rSU9ENS9Jalc2MXV2TmVuVmd1TmlNbVVOd3l6eG4wOXhDc1dp?=
- =?utf-8?B?bmQ2TWJ3OHppK2tOM0ZoMGFYaUhxWHg1WFc3WjcxNlpybHlHam1PVkJtZGY4?=
- =?utf-8?Q?EU3W/qMyYOXIlr8ytQ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVZadldsVFZKOU84TXY2Qm1ONmhZbHplTDBPSE9tekduU0dXVEhjTGcxa0lF?=
+ =?utf-8?B?a01pTExOMWpSbzgwZWJTbEZZNEFScDYwbmJxcmwySm1UVUZlRWdUUVNUb3Az?=
+ =?utf-8?B?VHQ0L0JzVUw4ajNYMDZhL3h6Vk5ibHhMT2V4Z2YxbzZnRzNtQ21SMTdTSUhk?=
+ =?utf-8?B?OXJUZ3hFUDBBejNFMytpeFZhZnUwYmc5Y2piTmt1ZnZWV1c0Wmg3SDVDZHN1?=
+ =?utf-8?B?c3NjQkxZZ0lkRzZheXJWVUVaRWY3UG02MDFRM2JyekFVd1Yva0gxTDdWUTl4?=
+ =?utf-8?B?c3FFV1o1c0dpQXVEVC9ySEp2UnpqZ3JLOUZEVTBMQ0N5T3lEL1FJY3l1d1Nw?=
+ =?utf-8?B?UWtTK3M4ejRKd0hBTys0Ylp5ckZ5MFhwME9QUkJlN042d3RYWWpXRWRrNFRr?=
+ =?utf-8?B?UXJHb0VTTVhSNHpLR1lqdVNueEpMaDl0MlEyNzA5cDdCQWJMcmRGNTgrM2NN?=
+ =?utf-8?B?NGtGRmpRbEdaRXhBS1BrZjdIcWxMOHNDVzIvdm5JSmQwWlpQbUx1V2dTZVRX?=
+ =?utf-8?B?dmVSZWhFdzQzdDk0aFE1K3pBVzNDaE56NS9DYi9pSld5NXovS2UycE91YjQ4?=
+ =?utf-8?B?YzZqdm5ld3VnemxXUWdDSTZ1NGlUeU0wK0d3blNjRHNTYnlrOUJCQ0xhTjF4?=
+ =?utf-8?B?QmhOamNTRDN5NERxbk0rTHFEVFpTVndyVWRoc3dUZHByK1VPcExiMkRhdFph?=
+ =?utf-8?B?R1BLVkFCenZmR3RVUzhZZlE5eHgrVlRwWDVDZnA2ZWdSNG9DdDAxR21xbzM0?=
+ =?utf-8?B?cENhbi9EMzNMbmtqempPamszTUpnb0lJbjRRZ25DU0RadEF5SlQ5MzJhQzcw?=
+ =?utf-8?B?bzk5V0s0NTBQeFNoT1F6Vk15ZG1BUjhGMTZFMUxTemlqUTVkK3QvTEVHeEh1?=
+ =?utf-8?B?RDB3UzRGeVZDdjVGSFBoQi80MW15cXE3RE4vVzRydlBlSkNYa1hibzltNURQ?=
+ =?utf-8?B?QjhUMVdyWjhNV3dCMmtScFM5bHlQd2ZrNGZIVlBDK1d3MkdZclgxUkI1THU0?=
+ =?utf-8?B?RFFHOVpobUtoL3NaTDFKNDc1Qlp5WDJBcnRWV1NWank4ZW55MjNkYW9tc3g2?=
+ =?utf-8?B?a1czWTBhQjI0S1BONkVnOTFqc001QlMwa1RMNjBnVm9NcncySTN0OVFMZFZD?=
+ =?utf-8?B?QVdCS281cGpVaUN0dUppek4zVWFsbk9vdFFTa1FTMGJUYjhaTitNOUlsK3Y3?=
+ =?utf-8?B?cjFuSDhVOWdIVWRkbmdvRlZ0Y290TDZDV29IaHlzQ3c3WE10YVpWMjMrbVIw?=
+ =?utf-8?B?R3p6emdoUWE3VGtoWFRMK2tVdGgxYzRGYTlsblBSWEVRTWhubnFOTVBtbmlZ?=
+ =?utf-8?B?RkpUZDJqQUREamFhdUpEUnFWUlZCSlo1MFlRdGxvbm9HWG5rZktyYURkN1Rz?=
+ =?utf-8?B?YWtGWW9GZ2RFZFlBYlVZZ1g5MFZ5dk1jQXM3R3ZBZzhjS3lmOTZ2MHVRbWNF?=
+ =?utf-8?B?S0diWHE3NFBnYlZBN1NxY2xCM2JRYnBuaTQ0MGtuNTNFS0Q1OGJxNVl6ekVp?=
+ =?utf-8?B?SW1ZMkdhK1NOWmxpUW1KZjB5SWFpOGFybW5tcEV0ckVvMThKTVA4ZStJdDRk?=
+ =?utf-8?B?OWhoYjRQRFhWSmpiNU1ORHhGWDNKaFBLSE1mTXd4aXVEVFdSQ3J0Qk0rTitE?=
+ =?utf-8?B?YVhlNG9aRWEvcXVMMnEzZVZKcTk4V2h5ZUUxUnJZWENmUERrT08remJINXRh?=
+ =?utf-8?B?ODFqMXNxUlViWk5nc004NHh6blVCRmU0NUtQbmlYbW1wc1d6Y2lSVC9mOG9U?=
+ =?utf-8?B?dTBudHljOHJodklhOXJlS0VkSk9KbUZ6cmVRY09uVjlsZ0VBaUUvb3loTXR0?=
+ =?utf-8?B?NEZla2xZZzBPSHRSaVlPUHlSSkdHK1Jic1c4STd3dGNxT2hudHMrcndoT09i?=
+ =?utf-8?B?UG5OTU9yVzhHN2FrcU5JVzRGbEJNWEFJT3gxQkFKRkpxOEZ6REJZeWlTRmNq?=
+ =?utf-8?B?WHo5UkNrcXo1RE1jQyttNU54Ky8wUnhQQUQ3eitUR2JQcjhHbjNBaHFwTGlj?=
+ =?utf-8?B?T2RIdmFJaXI3WHErOHZNeTd6MlUwU2hodEhrbWpSSUdFSVBlV2VzRE1SRmVX?=
+ =?utf-8?B?MXF3b2ROakVwVUhNTnpFemFOSmRwYnNlQWpZdVhCNzEwQXFFS3V2elZOT0dD?=
+ =?utf-8?B?NnlEVFREVUtrUmVQdEcvK1E0VmNuc21YWnNGaURDN1JUaHU4VU1wUTRqMU5X?=
+ =?utf-8?B?ajFEcnU3Wm43cDlaNVU5N2U4NVVMd0lZY3htcnphaWlnVW5ZU2FodVgwcWZw?=
+ =?utf-8?B?Wk1IeWpqQkZqdG1JNnBIVzdJVXJvazNVU05nd1I2TDhwWFdCTE5FODIrTHBn?=
+ =?utf-8?Q?dEGY4YZxfOU07IMyAj?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58c59fda-7da5-4643-31ef-08debad43a0a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9427a80f-ad65-4660-e530-08debad445ca
 X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8892.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 03:09:40.5773 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 03:10:00.3186 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ivwwo6M9cQyj+26fr8UCAjr0OrEwEzcsodoC9qNmgdAefcaZKb01cWHaNv88nq2olB20QBiOZL8bvpTPSzgrlg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0mtsqcDz8o8ShTo43gv4DsQVWP/WP9IMsUithKCFmmVnEjcGSi8zj3MAY2iMyaYSopvG0UykiZpLIQ5cqrZmhg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5987
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,178 +143,50 @@ I forgot to include Mario's Reviewed-by in the commit message:
 Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
 On 5/26/2026 10:59 AM, Chenyu Chen wrote:
-> Parse the Display Parameters Data Block (tag 0x21) defined in
-> DisplayID v2.1a Section 4.2.6. Extract the Display Device Technology
-> field from the color depth and device technology byte, which indicates
-> whether the panel uses LCD or OLED technology.
-> 
-> Add a panel_type field to struct drm_display_info and populate it
-> during DisplayID iteration so downstream drivers can use it for
-> panel-type-dependent behavior. Add DRM_MODE_PANEL_TYPE_LCD to the UAPI
-> panel type property alongside the existing OLED value.
+> Wire up the newly parsed panel_type from drm_display_info into
+> amdgpu_dm's panel type detection path. When neither the AMD VSDB
+> nor DPCD determines the panel type, fall back to the DisplayID
+> Display Device Technology field to set PANEL_TYPE_LCD or
+> PANEL_TYPE_OLED accordingly. Also expose LCD to userspace via
+> the panel_type connector property.
 > 
 > Assisted-by: Copilot:Claude-Opus-4.6
 > Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 > ---
->  drivers/gpu/drm/drm_connector.c          |  3 +-
->  drivers/gpu/drm/drm_displayid_internal.h | 24 +++++++++++++
->  drivers/gpu/drm/drm_edid.c               | 45 ++++++++++++++++++++++++
->  include/drm/drm_connector.h              |  6 ++++
->  include/uapi/drm/drm_mode.h              |  1 +
->  5 files changed, 78 insertions(+), 1 deletion(-)
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index aec05adbc889..f2ac4542a7d3 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1176,6 +1176,7 @@ static const struct drm_prop_enum_list drm_link_status_enum_list[] = {
->  static const struct drm_prop_enum_list drm_panel_type_enum_list[] = {
->  	{ DRM_MODE_PANEL_TYPE_UNKNOWN, "unknown" },
->  	{ DRM_MODE_PANEL_TYPE_OLED, "OLED" },
-> +	{ DRM_MODE_PANEL_TYPE_LCD, "LCD" },
->  };
->  
->  /**
-> @@ -1508,7 +1509,7 @@ EXPORT_SYMBOL(drm_hdmi_connector_get_output_format_name);
->   * 	never read back the value of "DPMS" because it can be incorrect.
->   * panel_type:
->   * 	Immutable enum property to indicate the type of connected panel.
-> - * 	Possible values are "unknown" (default) and "OLED".
-> + * 	Possible values are "unknown" (default), "OLED", and "LCD".
->   * PATH:
->   * 	Connector path property to identify how this sink is physically
->   * 	connected. Used by DP MST. This should be set by calling
-> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
-> index 5b1b32f73516..6f431aafafcf 100644
-> --- a/drivers/gpu/drm/drm_displayid_internal.h
-> +++ b/drivers/gpu/drm/drm_displayid_internal.h
-> @@ -142,6 +142,30 @@ struct displayid_formula_timing_block {
->  	struct displayid_formula_timings_9 timings[];
->  } __packed;
->  
-> +#define DISPLAYID_DEVICE_TECH_UNSPECIFIED	0
-> +#define DISPLAYID_DEVICE_TECH_LCD		1
-> +#define DISPLAYID_DEVICE_TECH_OLED		2
-> +
-> +#define DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH	GENMASK(6, 4)
-> +
-> +struct displayid_display_params_block {
-> +	struct displayid_block base;
-> +	__le16 horiz_image_size;
-> +	__le16 vert_image_size;
-> +	__le16 horiz_pixel_count;
-> +	__le16 vert_pixel_count;
-> +	u8 features;
-> +	u8 primary_color1[3];
-> +	u8 primary_color2[3];
-> +	u8 primary_color3[3];
-> +	u8 white_point[3];
-> +	__le16 max_luminance_full;
-> +	__le16 max_luminance_10;
-> +	__le16 min_luminance;
-> +	u8 color_depth_and_tech;	/* [2:0] depth, [6:4] device tech, [7] theme */
-> +	u8 gamma_eotf;
-> +} __packed;
-> +
->  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
->  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
->  
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 7ad3f939dbe6..a9d480981c8f 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -6713,6 +6713,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
->  
->  	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
->  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
-> +
-> +	info->panel_type = DRM_MODE_PANEL_TYPE_UNKNOWN;
->  }
->  
->  static void drm_displayid_process_base_section_header(struct drm_connector *connector,
-> @@ -6731,6 +6733,45 @@ static void drm_displayid_process_base_section_header(struct drm_connector *conn
->  		info->non_desktop = true;
->  }
->  
-> +static void
-> +drm_displayid_parse_display_params(struct drm_connector *connector,
-> +				   const struct displayid_block *block)
-> +{
-> +	struct drm_display_info *info = &connector->display_info;
-> +	const struct displayid_display_params_block *params =
-> +		(const struct displayid_display_params_block *)block;
-> +	u8 tech;
-> +
-> +	if (block->num_bytes < sizeof(*params) - sizeof(params->base)) {
-> +		drm_dbg_kms(connector->dev,
-> +			    "[CONNECTOR:%d:%s] DisplayID Display Parameters block too short (%u < %zu)\n",
-> +			    connector->base.id, connector->name,
-> +			    block->num_bytes,
-> +			    sizeof(*params) - sizeof(params->base));
-> +		return;
-> +	}
-> +
-> +	tech = FIELD_GET(DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH,
-> +			 params->color_depth_and_tech);
-> +
-> +	drm_dbg_kms(connector->dev,
-> +		    "[CONNECTOR:%d:%s] DisplayID Display Parameters: device technology %s\n",
-> +		    connector->base.id, connector->name,
-> +		    tech == DISPLAYID_DEVICE_TECH_LCD ? "LCD" :
-> +		    tech == DISPLAYID_DEVICE_TECH_OLED ? "OLED" : "unspecified");
-> +
-> +	switch (tech) {
-> +	case DISPLAYID_DEVICE_TECH_LCD:
-> +		info->panel_type = DRM_MODE_PANEL_TYPE_LCD;
-> +		break;
-> +	case DISPLAYID_DEVICE_TECH_OLED:
-> +		info->panel_type = DRM_MODE_PANEL_TYPE_OLED;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +}
-> +
->  static void update_displayid_info(struct drm_connector *connector,
->  				  const struct drm_edid *drm_edid)
->  {
-> @@ -6744,6 +6785,10 @@ static void update_displayid_info(struct drm_connector *connector,
->  			drm_displayid_process_base_section_header(connector, &iter);
->  			base_section_header_processed = true;
->  		}
-> +
-> +		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
-> +		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS)
-> +			drm_displayid_parse_display_params(connector, block);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index e42a5eecdf46..ccf933ed63de 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3944,11 +3944,13 @@ static void dm_set_panel_type(struct amdgpu_dm_connector *aconnector)
+>  			link->panel_type = PANEL_TYPE_OLED;
 >  	}
->  	displayid_iter_end(&iter);
->  }
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index c398dbc68bbc..745cd917fe40 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -899,6 +899,12 @@ struct drm_display_info {
->  	 * @amd_vsdb: AMD-specific VSDB information.
->  	 */
->  	struct drm_amd_vsdb_info amd_vsdb;
-> +
-> +	/**
-> +	 * @panel_type: Panel type from DisplayID Display Parameters
-> +	 * Data Block (tag 0x21). Uses DRM_MODE_PANEL_TYPE_* constants.
-> +	 */
-> +	u8 panel_type;
->  };
 >  
->  int drm_display_info_set_bus_formats(struct drm_display_info *info,
-> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> index 3693d82b5279..d7ca1040b92e 100644
-> --- a/include/uapi/drm/drm_mode.h
-> +++ b/include/uapi/drm/drm_mode.h
-> @@ -169,6 +169,7 @@ extern "C" {
->  /* Panel type property */
->  #define DRM_MODE_PANEL_TYPE_UNKNOWN	0
->  #define DRM_MODE_PANEL_TYPE_OLED	1
-> +#define DRM_MODE_PANEL_TYPE_LCD		2
+> -	/*
+> -	 * TODO: get panel type from DID2 that has device technology field
+> -	 * to specify if it's OLED or not. But we need to wait for DID2
+> -	 * support in DC and EDID parser to be able to use it here.
+> -	 */
+> +	/* If VSDB and DPCD didn't determine panel type, check DID */
+> +	if (link->panel_type == PANEL_TYPE_NONE) {
+> +		if (display_info->panel_type == DRM_MODE_PANEL_TYPE_LCD)
+> +			link->panel_type = PANEL_TYPE_LCD;
+> +		else if (display_info->panel_type == DRM_MODE_PANEL_TYPE_OLED)
+> +			link->panel_type = PANEL_TYPE_OLED;
+> +	}
 >  
->  /*
->   * DRM_MODE_ROTATE_<degrees>
+>  	if (link->panel_type == PANEL_TYPE_NONE) {
+>  		struct drm_amd_vsdb_info *vsdb = &display_info->amd_vsdb;
+> @@ -3966,6 +3968,10 @@ static void dm_set_panel_type(struct amdgpu_dm_connector *aconnector)
+>  		drm_object_property_set_value(&connector->base,
+>  		    adev_to_drm(adev)->mode_config.panel_type_property,
+>  		    DRM_MODE_PANEL_TYPE_OLED);
+> +	else if (link->panel_type == PANEL_TYPE_LCD)
+> +		drm_object_property_set_value(&connector->base,
+> +		    adev_to_drm(adev)->mode_config.panel_type_property,
+> +		    DRM_MODE_PANEL_TYPE_LCD);
+>  	else
+>  		drm_object_property_set_value(&connector->base,
+>  		    adev_to_drm(adev)->mode_config.panel_type_property,
