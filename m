@@ -4,97 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FB76CD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09CBBCD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:39:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86E5C10E1A1;
-	Tue, 26 May 2026 16:38:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FBFB10E6B8;
+	Tue, 26 May 2026 16:39:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="H17L7q/r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WV0ha9NB";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D357810E1A1
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 16:38:18 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4891b0786beso72675125e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:38:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1779813497; x=1780418297;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+neT3f/iOdkns4E+8cxUHIEwouFFRC5e7pB2NZRvaQM=;
- b=H17L7q/rQlEVpdNqSPFoMXCjaW1Hw90qWmor/UxGNRrtb7CGTYldH4Jt+FHiS9soqx
- sWtpL9Cb7ZPUeS+6H8+4t6gw3BJmZ8huSXA6gNXSiuf/BlyNVUgiMeSAHZNlmqJ2WjFM
- 4aqfAw6YYx6/O3pdZoslxpUP9I0rX0TziLnIQknY3/l8ANNOu3a/M2SeGZbn9T3PhFnq
- pTm+Karwjpml8onSUZcA7rH+7QegfqMhyEUB2BRH0rlyPaXaVFtY30mnyYMsBkicPWc0
- CxoEw92CczT70Sl4jx7kFwukAJxy9k3Z2e9b8m9Tc+lbLMojX2dHycu1wfddwgMWTXM+
- 2tRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779813497; x=1780418297;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+neT3f/iOdkns4E+8cxUHIEwouFFRC5e7pB2NZRvaQM=;
- b=HGTRgPYIObcPyICHLTyASH7ELDlVMLLQveByznWXuL7umm+8HyRiwpBNMQxdEwNvNc
- INLscrK6A8SIf0Rpm+BlAa8n8XyiIxj2tc4W7n2/62FEQlQfltVAY/1l0shdU2OvOMPU
- GcCyzCYkunDwXtKNh8gT78OquagopLy4EGf8Nbd96453/SgRi34i2lGT27wCp5IXmJ+1
- adeulaSF4LJ+PlRaq38Pwl0OaSjJp1jfrAdWj5Q7rDi9ofbb0hKZ9pR2LYOmFuYWdpBE
- wp4iI5ZXDTaMCiYShivelBuQOSuTyJU1qw4+laRe+Mez0k1N5lmwDjRgyAbMU8iwnC4f
- oIQw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9qIKGROp5M37B5v+4hX3dDViFMni9WwGovZmmUThZoKQ5opRpfQWQaawLbErFMnZ0OUr5LFs18qLY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+y2a2E5L0N2U3OeLmq8wVfIVghIuMtW7D0As1a+RCblAQELw9
- o2Bzj2T+AzjPRSUkO5wH1beenWLlVRUufydgAL+dRpvgjYyzleArrsyXBBIgAJXZCV4=
-X-Gm-Gg: Acq92OG3GRM1ycK1O6o6d+rVHFJKIvg9qAEsR/1ITeapRUQHP//7BUyFj0dd2W9XWmb
- ZUTyqa6v7y7oyXdFbbt7AvOmSq0E6Fu63sPwpYGdf2+7DzUlY1f2oiJ5h9J7PIWbPzkjnB+slOf
- 9mCdupIlSu+YFnNioPOx4kS1j+UliJDOWvl87jCGrv624ETcRamgBfYB4nBWgWCkr+c//6qZjbl
- 3rjclhkrpOFjIzn34BlNq+bUq/awDT0NxMFhn2FasIZgqCaTKzNzmeAh8zqQAnmOnkbaeLdf4a5
- 6e1BGwUuWfoPF6zd2kjJiqyMlJnjiDZ9G4uPTginx/4OqM1WbWz7GhKGg3s4cY8kYMH4SazHURe
- LjlV8W9IGqpPi/ZevW+mW46OkkSVsXqmb2ZBC8FzmHzRao3F2t3aX09wdMgEjsOLBy0AaHR4Mu2
- JUNuAf/i29/aJGuSvrzOOYP2J9YODBWxTiWfLEGG5KQ9t+2GSqrUkJ16cEwP++VYTGR9ToKIOCw
- kwUbfy6s8WjMKo=
-X-Received: by 2002:a05:600c:4ecc:b0:485:4388:3492 with SMTP id
- 5b1f17b1804b1-490424b25abmr314126765e9.11.1779813497306; 
- Tue, 26 May 2026 09:38:17 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db04a716d2bdeddb4813.dip0.t-ipconnect.de.
- [2003:f6:5f47:db04:a716:d2bd:eddb:4813])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-45eb6d493dfsm37901229f8f.23.2026.05.26.09.38.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 09:38:16 -0700 (PDT)
-Date: Tue, 26 May 2026 18:38:15 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@kernel.org>, Max Staudt <max@enpas.org>,
- Andi Shyti <andi.shyti@kernel.org>, 
- Helge Deller <deller@gmx.de>, linux-ide@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, 
- linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
- netdev@vger.kernel.org, 
- linux-i2c@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- "Christian A. Ehrhardt" <christian.ehrhardt@codasip.com>,
- "Christian A. Ehrhardt" <lk@c--e.de>
-Subject: Re: [PATCH v1 0/8] zorro: Improve handling of pointers in
- zorro_device_id::driver_data
-Message-ID: <ahXMGtBv_pQXM7YS@monoceros>
-References: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
- <CAMuHMdUVoNg-rSV_hDcvi6KCosmE=SMcxUj2Y8fkoJ=33zMSXw@mail.gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A089010E68E
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 16:39:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C9AD2600FC;
+ Tue, 26 May 2026 16:39:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92B51F000E9;
+ Tue, 26 May 2026 16:39:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779813589;
+ bh=muQvscvrR0GygbyWY9xTCCnVzYrNRWHq2FyEs8Z2mhg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=WV0ha9NBjJDXnyInyw9E6XVFcsb46b1ZidB7yHTv2A+62lesDDMgl4Ymotk9a0Vd6
+ gdgMrxkfiiZJGFM7Pot5NNyYqyjkfWkhmvm1xZ9Z5+juouZQPlB4Svurg7ThTkimJB
+ 10SKX7kYGXG4sRSwJdYmfM+1TAMz924wXhe0OrXk42QpO+0EkKI2M+1f7qGxtR4GPp
+ yj5VUIG7Ds8Qmu4CauXb709S45fG7bAZuTjLEeCewOsYnjgwcldzqA4q03TUKCos/k
+ koeE75BD5mx9DGn4KHXb8E2l6zE69d2n3mzEfI6tjQKNzk8/E0E+EHJz5Bt9c7N6Z3
+ KUgoUzz4UEDNg==
+Date: Tue, 26 May 2026 17:39:42 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
+ jonas@kwiboo.se, jernej.skrabec@gmail.com,
+ nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com,
+ sebastian.reichel@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
+ luca.ceresoli@bootlin.com, dianders@chromium.org,
+ m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 01/10] dt-bindings: display: rockchip: analogix-dp:
+ Fix hclk as third clock for RK3588
+Message-ID: <20260526-sizing-slush-ebb20673cdc9@spud>
+References: <20260525125331.140059-1-damon.ding@rock-chips.com>
+ <20260525125331.140059-2-damon.ding@rock-chips.com>
+ <20260525-ominous-hurling-c24874030f5a@spud>
+ <f6c2f07b-52b8-4181-aa1d-a7d8dcda245c@rock-chips.com>
+ <0c6299ce-29a6-4443-9877-498d65c8881b@rock-chips.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="26ssrqftvvoyehs2"
+ protocol="application/pgp-signature"; boundary="Zfz/XMY9sGbWvmeP"
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdUVoNg-rSV_hDcvi6KCosmE=SMcxUj2Y8fkoJ=33zMSXw@mail.gmail.com>
+In-Reply-To: <0c6299ce-29a6-4443-9877-498d65c8881b@rock-chips.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,72 +75,221 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---26ssrqftvvoyehs2
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+--Zfz/XMY9sGbWvmeP
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 0/8] zorro: Improve handling of pointers in
- zorro_device_id::driver_data
-MIME-Version: 1.0
 
-On Tue, May 26, 2026 at 05:01:48PM +0200, Geert Uytterhoeven wrote:
-> Hi Uwe,
+On Tue, May 26, 2026 at 07:27:55PM +0800, Damon Ding wrote:
+> Hi Conor,
 >=20
-> On Tue, 26 May 2026 at 16:17, Uwe Kleine-K=F6nig (The Capable Hub)
-> <u.kleine-koenig@baylibre.com> wrote:
-> > this series is about improving the handling of pointers in struct
-> > zorro_device_id's driver_data.
-> >
-> > While it's ok on all current Linux platforms to store a pointer in an
-> > unsigned long variable, it involves casting that loses type information.
-> > This can be nicely seen in patch #7 where after profiting from patch #6
-> > the compiler notices a missing const.
-> >
-> > Preparing for that change, all zorro_device_ids are converted to use
-> > named initializers, which is also a nice cleanup that could stand for
-> > itself, as it improves readability for humans. (That is necessary
-> > because an anonymous union can be initialized by name, but not using a
-> > list initializer.)
-> >
-> > My motivation for this series is the CHERI hardware extension. With that
-> > pointers are bigger than longs and thus you cannot store pointers in
-> > zorro_device_id::driver_data. So this series is also about getting
-> > support for CHERI into the mainline, but I hope the clean up effects
-> > mentioned above are justification enough to accept this series.
+> On 5/26/2026 8:54 AM, Damon Ding wrote:
+> > Hi Conor,
+> >=20
+> > On 5/26/2026 12:54 AM, Conor Dooley wrote:
+> > > On Mon, May 25, 2026 at 08:53:22PM +0800, Damon Ding wrote:
+> > > > RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
+> > > > registers and enable the video datapath.
+> > > >=20
+> > > > Previously, the clock was enabled implicitly via the 'rockchip,vo-g=
+rf'
+> > > > phandle reference, which allowed the eDP to work without explicitly
+> > > > managing the hclk_vo1 clock. However, this is not safe or explicit.
+> > > >=20
+> > > > To make the clock dependency explicit, enforce per-SoC clock-names
+> > > > requirements:
+> > > > =A0 - RK3288: 2 clocks (dp, pclk)
+> > > > =A0 - RK3399: 3 clocks (dp, pclk, grf)
+> > > > =A0 - RK3588: 3 clocks (dp, pclk, hclk)
+> > > >=20
+> > > > Do not reuse the 'grf' clock name for RK3588 because it represents
+> > > > a different clock with distinct control logic:
+> > > > - The 'grf' clock is only for GRF register access and is toggled
+> > > > =A0=A0 dynamically during register access.
+> > > > - The 'hclk' clock controls both GRF access and video datapath
+> > > > =A0=A0 gating, and must remain enabled during probe.
+> > > >=20
+> > > > Fixes: f855146263b1 ("dt-bindings: display: rockchip:
+> > > > analogix-dp: Add support for RK3588")
+> > > > Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> > > >=20
+> > > > ---
+> > > >=20
+> > > > Changes in v4:
+> > > > - Modify the commit msg.
+> > > >=20
+> > > > Changes in v5:
+> > > > - Enforce the correct third clock name on a per-compatible basis.
+> > > > - Modify the commit msg simultaneously.
+> > > >=20
+> > > > Changes in v6:
+> > > > - Expand more detail commit msg about using hclk instead of grf clo=
+ck.
+> > > >=20
+> > > > Changes in v7:
+> > > > - List all valid clock names at the top level, and constrain the cl=
+ock
+> > > > =A0=A0 count for each platform with minItems/maxItems in allOf.
+> > > >=20
+> > > > Changes in v8:
+> > > > - Fix indentation to 10 for enum in clock-names property.
+> > > > ---
+> > > > =A0 .../rockchip/rockchip,analogix-dp.yaml=A0=A0=A0=A0=A0=A0=A0 | 3=
+4 ++++++++++++++++++-
+> > > > =A0 1 file changed, 33 insertions(+), 1 deletion(-)
+> > > >=20
+> > > > diff --git a/Documentation/devicetree/bindings/display/rockchip/
+> > > > rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/
+> > > > display/rockchip/rockchip,analogix-dp.yaml
+> > > > index d99b23b88cc5..a1ab7a77bdd3 100644
+> > > > --- a/Documentation/devicetree/bindings/display/rockchip/
+> > > > rockchip,analogix-dp.yaml
+> > > > +++ b/Documentation/devicetree/bindings/display/rockchip/
+> > > > rockchip,analogix-dp.yaml
+> > > > @@ -26,7 +26,9 @@ properties:
+> > > > =A0=A0=A0=A0=A0 items:
+> > > > =A0=A0=A0=A0=A0=A0=A0 - const: dp
+> > > > =A0=A0=A0=A0=A0=A0=A0 - const: pclk
+> > > > -=A0=A0=A0=A0=A0 - const: grf
+> > > > +=A0=A0=A0=A0=A0 - enum:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - grf
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - hclk
+> > > > =A0=A0=A0 power-domains:
+> > > > =A0=A0=A0=A0=A0 maxItems: 1
+> > > > @@ -60,6 +62,32 @@ required:
+> > > > =A0 allOf:
+> > > > =A0=A0=A0 - $ref: /schemas/display/bridge/analogix,dp.yaml#
+> > > > +=A0 - if:
+> > > > +=A0=A0=A0=A0=A0 properties:
+> > > > +=A0=A0=A0=A0=A0=A0=A0 compatible:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 contains:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 enum:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 - rockchip,rk3288-dp
+> > > > +=A0=A0=A0 then:
+> > > > +=A0=A0=A0=A0=A0 properties:
+> > > > +=A0=A0=A0=A0=A0=A0=A0 clocks:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 maxItems: 2
+> > > > +=A0=A0=A0=A0=A0=A0=A0 clock-names:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 maxItems: 2
+> > > > +
+> > > > +=A0 - if:
+> > > > +=A0=A0=A0=A0=A0 properties:
+> > > > +=A0=A0=A0=A0=A0=A0=A0 compatible:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 contains:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 enum:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 - rockchip,rk3399-edp
+> > > > +=A0=A0=A0 then:
+> > > > +=A0=A0=A0=A0=A0 properties:
+> > > > +=A0=A0=A0=A0=A0=A0=A0 clocks:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 minItems: 3
+> > > > +=A0=A0=A0=A0=A0=A0=A0 clock-names:
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 minItems: 3
+> > >=20
+> > > If you go back to v6, you'll see that I never asked you to remove the
+> > > explict clock-names from here or below. Only the one from the 3288
+> > > section. The minItems was an addition, not a replacement.
+> > >=20
+> > > pw-bot: changes-requested
+> > >=20
+> >=20
+> > Sorry for the misunderstanding. I will restore the explicit clock-names
+> > definitions and fix this in next version.
+> >=20
 >=20
-> Thanks for your series!
+> Sorry to bother you. I attempted to place the explicit clock-names under
+> minItems:
 >=20
-> > The dependencies in this series are as follows:
-> >
-> >  - Patch #5 depends on #1, #2
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
+analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
+hip,analogix-dp.yaml
+> index a1ab7a77bdd3..ef03edf52de8 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> @@ -87,6 +87,10 @@ allOf:
+>            minItems: 3
+>          clock-names:
+>            minItems: 3
+> +          items:
+> +            - const: dp
+> +            - const: pclk
+> +            - const: grf
 >=20
-> s/5/6/?
+>    - if:
+>        properties:
+> @@ -100,6 +104,10 @@ allOf:
+>            minItems: 3
+>          clock-names:
+>            minItems: 3
+> +          items:
+> +            - const: dp
+> +            - const: pclk
+> +            - const: hclk
+>          resets:
+>            minItems: 2
+>          reset-names:
 >=20
-> >  - Patches #7 and #8 depend on patch #6.
-> >
-> > So if the ata maintainers agreed to merge their patch #1 via scsi, and
-> > Geert agrees to patch #5 and that it's also merged via scsi, patches #1,
+> make dt_binding_check DT_SCHEMA_FILES=3DDocumentation/devicetree/bindings=
+/display/rockchip/rockchip,analogix-dp.yaml
 >=20
-> s/5/6/?
+> Then the following errors occurred:
+>=20
+>   SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+>   CHKDT   ./Documentation/devicetree/bindings
+> /home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/ro=
+ckchip,analogix-dp.yaml:
+> allOf:2:then:properties:clock-names: 'oneOf' conditional failed, one must=
+ be
+> fixed:
+>         False schema does not allow 3
+>         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too long
+>         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too sho=
+rt
+>         1 was expected
+>         3 is greater than the maximum of 2
+>         hint: "minItems" is only needed if less than the "items" list len=
+gth
+>         from schema $id: http://devicetree.org/meta-schemas/items.yaml
+> /home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/ro=
+ckchip,analogix-dp.yaml:
+> allOf:3:then:properties:clock-names: 'oneOf' conditional failed, one must=
+ be
+> fixed:
+>         False schema does not allow 3
+>         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too lo=
+ng
+>         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too sh=
+ort
+>         1 was expected
+>         3 is greater than the maximum of 2
+>         hint: "minItems" is only needed if less than the "items" list len=
+gth
+>         from schema $id: http://devicetree.org/meta-schemas/items.yaml
+>   LINT    ./Documentation/devicetree/bindings
+>   DTEX Documentation/devicetree/bindings/display/rockchip/rockchip,analog=
+ix-dp.example.dts
+>   DTC [C] Documentation/devicetree/bindings/display/rockchip/rockchip,ana=
+logix-dp.example.dtb
+>=20
+> Neither keeping only minItems nor only the explicit clock-names causes any
+> errors. Would it be a better idea to keep just the explicit clock-names
+> here?
 
-Yes, indeed. And I tried so hard to get all the numbers right :-\
+Sure.
 
-Best regards
-Uwe
+This feels like a bug because I have no idea where the "maximum of 2" is
+coming from. I'll ask Rob about it.
 
---26ssrqftvvoyehs2
+--Zfz/XMY9sGbWvmeP
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmoVzHQACgkQj4D7WH0S
-/k4BXggAoAuTCgxPow5/rQYRxSTj+kNc4XmxhIlX39wkjq4KJoBOkfK1zOhQISV1
-4HHCqWa9m9dov4bu6Kg8LwbKa2UChzh7HIDanvg0FuTjuR2DvZAqQ1h3KlZHQj4H
-Dh1fxxwA9H2mAUN8tHgeBxUVZ6qajflOjKFHpsQbdgTyoj2LkR1szY77e5P4QdmS
-0UJbs5rWuTPA+ErMqqdl4SkAygYx8SEw84ch7byHO4yx9rpUCp8zJk95dKJCgAir
-L38wVLJUZNR7sQVkPKakWtv34niUdKWjqIXa8yB4GHOQFX65uFKEzrvodPCyE2J/
-vgh7fbUvdt3OqTL+DpSduQS2l1F1qA==
-=W3Nr
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahXMywAKCRB4tDGHoIJi
+0nNxAPdSXs3+yTeA4WF2uX8dr8/6syoPbTc3u7WbdikCLqnCAP41C/X0iWwW3uhW
+CtmWRM45+bFWCcZWdgPOHmBAXes6Ag==
+=H19y
 -----END PGP SIGNATURE-----
 
---26ssrqftvvoyehs2--
+--Zfz/XMY9sGbWvmeP--
