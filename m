@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9C26CD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 18:17:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35886CD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 18:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1915810E1D8;
-	Tue, 26 May 2026 18:17:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 985B110E49C;
+	Tue, 26 May 2026 18:17:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="k9TXB0vF";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kKCr/mS+";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5071010E1D8
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 18:17:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D59D10E49C
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 18:17:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779819433;
- bh=LK27PYsAGH3dhnn4TnO1UlfZ2j3tL+/sLGsPaiCJaco=;
- h=From:To:Cc:Subject:Date:From;
- b=k9TXB0vFtfuFnnr/ml8GLn0rFIMigpvVAkk7dEM4OT/O2P4HCvNkYAtP5zixf21KF
- f4fmvb0XqRRxQeWlOVbg31Ulg8/s+KnwYm5g7+cEU0BLBcvCy1Tba8lZ0UiSpsvBSs
- ML4hCppqqSnlylz+pYIRhyJ3vdOF+HDPpxemQx3VSTp+6GjzJlfafZYuJVb+vU/PHi
- 17Du8Gybpz5ZmhXaVGbW7higrOUQPljUPB+48Fod06cNAxTDNJ7J1JQjdVKdFpoIyn
- 9usFhEOVnzp0KN0FOosLmaW0SCFU/QFvL50QUYOigO/owpChmeKHLtpqoLJX4E4k/V
- rrmGmfvz419pg==
+ s=mail; t=1779819436;
+ bh=4qBUq6c+98qMlKZuAev1kRrXsKeMZH2NUu0ShA8/CK8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=kKCr/mS+yvI/OPVwCE4L67tq+wqWavaJ3p0SrZWDrimSX4tgfrr1viedgE3G97sYR
+ 2vRAqqtujcNdapPn6kOBf5Z9J/ZGWB3D8L3JIrS0PbC0+TS/OI3mEhD6Q7w/sXsCdq
+ 3mvh9sZH7OiFRHXM+VJ/oQ35W0iYLu89hUYaCCQnf4TCUVXYClIb/oKVPXahRzYuzG
+ Ls2HQZnt82EDnoHIMg/9O918iSgTc1s5aNkD30dpqdBrnRQKB0AV45R5eGp1mcvNqo
+ ovl5pEunMpjYmw2DAgCzIjc2V3BtIZV9dIzjyf+2MOM4cT5ApWJ6fyKQ0OU/3PUF6c
+ ESeBdXFeRRSew==
 Received: from archlinux (unknown [100.64.0.159])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: leandrohrb)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 57AB417E0CF3;
- Tue, 26 May 2026 20:17:09 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8AA2F17E0DD3;
+ Tue, 26 May 2026 20:17:13 +0200 (CEST)
 From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 To: dri-devel@lists.freedesktop.org
 Cc: airlied@gmail.com, daniels@collabora.com, jani.nikula@linux.intel.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  pekka.paalanen@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
  ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/2] drm/drm_blend: allow blend mode property without
+Subject: [PATCH v4 1/2] drm/drm_blend: allow blend mode property without
  PREMULTI
-Date: Tue, 26 May 2026 15:16:58 -0300
-Message-ID: <20260526181700.25310-1-leandro.ribeiro@collabora.com>
+Date: Tue, 26 May 2026 15:16:59 -0300
+Message-ID: <20260526181700.25310-2-leandro.ribeiro@collabora.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260526181700.25310-1-leandro.ribeiro@collabora.com>
+References: <20260526181700.25310-1-leandro.ribeiro@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -65,39 +67,71 @@ support entirely. DRM currently requires that PREMULTI is present when
 creating a blend mode property, which prevents such drivers from being
 properly upstreamed.
 
-This series removes this restriction and allows drivers to create a blend
-mode property without PREMULTI.
+Remove this restriction and allow drivers to create a blend mode
+property without PREMULTI, enabling support for hardware that
+implements only COVERAGE blend mode.
 
-On Weston (userspace), we are working [1] towards adding support for
-this kind of hardware.
+This does not introduce a regression, as no existing upstream drivers
+expose only COVERAGE. However, userspace that wants to support such kind
+of hardware in the future will have to check the supported blend modes
+instead of assuming PREMULTI is always supported.
 
-[1] https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2046
+Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+---
+ drivers/gpu/drm/drm_blend.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-v4:
-- Trigger warnings instead of errors when pixel format with alpha is
-  exposed but blend mode is not setup.
-- Require blend mode only when plane exposes pixel formats with alpha, not
-  when it supports the alpha property.
-
-v3:
-- Changed where we enforce drivers to expose blend mode for planes that
-  support the alpha property or pixel formats with alpha.
-- Fixed missing check to forbid calling
-  drm_plane_create_blend_mode_property() with a zero bitmask of
-  supported modes.
-
-v2:
-- Force drivers to expose blend mode if plane supports alpha property
-  or pixel format with alpha.
-
-Leandro Ribeiro (2):
-  drm/drm_blend: allow blend mode property without PREMULTI
-  drm: ensure blend mode supported if pixel format with alpha exposed
-
- drivers/gpu/drm/drm_blend.c       | 20 ++++++++++++++------
- drivers/gpu/drm/drm_mode_config.c | 21 +++++++++++++++++++++
- 2 files changed, 35 insertions(+), 6 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+index 2f0d1ba285be..d17ae964fb21 100644
+--- a/drivers/gpu/drm/drm_blend.c
++++ b/drivers/gpu/drm/drm_blend.c
+@@ -563,10 +563,10 @@ EXPORT_SYMBOL(drm_atomic_normalize_zpos);
+ /**
+  * drm_plane_create_blend_mode_property - create a new blend mode property
+  * @plane: drm plane
+- * @supported_modes: bitmask of supported modes, must include
+- *		     BIT(DRM_MODE_BLEND_PREMULTI). Current DRM assumption is
+- *		     that alpha is premultiplied, and old userspace can break if
+- *		     the property defaults to anything else.
++ * @supported_modes: bitmask of supported modes. When
++ *		     BIT(DRM_MODE_BLEND_PREMULTI) is included, it will be used
++ *		     as the default. Otherwise, the default will fallback to one
++ *		     of the supported modes.
+  *
+  * This creates a new property describing the blend mode.
+  *
+@@ -599,13 +599,14 @@ int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+ 		{ DRM_MODE_BLEND_PREMULTI, "Pre-multiplied" },
+ 		{ DRM_MODE_BLEND_COVERAGE, "Coverage" },
+ 	};
++	unsigned int default_mode;
+ 	unsigned int valid_mode_mask = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+ 				       BIT(DRM_MODE_BLEND_PREMULTI)   |
+ 				       BIT(DRM_MODE_BLEND_COVERAGE);
+ 	int i;
+ 
+ 	if (WARN_ON((supported_modes & ~valid_mode_mask) ||
+-		    ((supported_modes & BIT(DRM_MODE_BLEND_PREMULTI)) == 0)))
++		    (supported_modes == 0)))
+ 		return -EINVAL;
+ 
+ 	prop = drm_property_create(dev, DRM_MODE_PROP_ENUM,
+@@ -630,7 +631,14 @@ int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+ 		}
+ 	}
+ 
+-	drm_object_attach_property(&plane->base, prop, DRM_MODE_BLEND_PREMULTI);
++	if (supported_modes & BIT(DRM_MODE_BLEND_PREMULTI))
++		default_mode = DRM_MODE_BLEND_PREMULTI;
++	else if (supported_modes & BIT(DRM_MODE_BLEND_COVERAGE))
++		default_mode = DRM_MODE_BLEND_COVERAGE;
++	else
++		default_mode = DRM_MODE_BLEND_PIXEL_NONE;
++
++	drm_object_attach_property(&plane->base, prop, default_mode);
+ 	plane->blend_mode_property = prop;
+ 
+ 	return 0;
 -- 
 2.54.0
 
