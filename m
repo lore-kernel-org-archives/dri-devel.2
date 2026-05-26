@@ -4,129 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62CBACD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:12:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79329CD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:15:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A72F310E61F;
-	Tue, 26 May 2026 11:12:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD09810E61C;
+	Tue, 26 May 2026 11:15:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lfHn88wO";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D1+/6m7r";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jryq6VMo";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63EDE10E4A5
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:12:05 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64Q5xjcK1604516
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:12:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=yE5zp//7Dfu
- QE0K36XHvwhH9aqHThjhno/dJ8VRxZKs=; b=lfHn88wO1tzZ3YjwQ7qLJba1r/N
- zWBI9ee4GJlrXDpYax4eKjLCEC2tC5/1rek4s0ZwVq6ntueyq2rlKlIbY8G1DkmK
- uM/RLrsKvZ7tSYLsRu3Pb9TVDSew+faoVT07bbaf5MPp6r2AfOKQnXcev7Y2u9X3
- x2Q3RobBvzH1wCYeWLq/c2h+4KErfAUUBUCFyKgcR2zxZeY/bBVX6SG5Si934vR0
- zLT0KUnKxhBXJAuMnzrsK8vTWToIXNbLKaV2Lc4cLd5zVmaY3zSYJfn3pLAPN/b0
- umqbM0nd2IdRbyR0r4iX9GBL8A9ntvH46TDvHzxYH6XZHLOPfgIHigwhq4A==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ed5v3s73f-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:12:04 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-367bb9caa54so9477006a91.2
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 04:12:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779793924; x=1780398724;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yE5zp//7DfuQE0K36XHvwhH9aqHThjhno/dJ8VRxZKs=;
- b=D1+/6m7rA0McrhtLW/RunxooD1TRBEPClrOmCRLVVZv7oOYsILrh56hxCRcddgZSbP
- tDJihaw1zAwk14/wQ/qeUXRXwJ0znohaxK+LVhml2JbaG94bL7t9f79Zpv5l5PtnGKpq
- KU3NO7iEOpPemYSIC1SiO4DuXxlsY+KDwPf44nNBojGToRjQLC7/3iC5eZHfH+E2K7zV
- yyL8i8aS9aqYa20zpt01EVEIdGbtsKVYO0OFkOjkXXq9JmvQrCHFBbV3s3mB+9zPqV3z
- RXc/S+qINzXPP+cil1niphKuzQza2X18a32kP5BsfYICu4bWWiQWQPSreB4Wvo3o5aka
- kBRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779793924; x=1780398724;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=yE5zp//7DfuQE0K36XHvwhH9aqHThjhno/dJ8VRxZKs=;
- b=gJkwPKPfhVTs7PKyIins2u81V6xeReascisi7iMzDQbSq79fa/0WNARJtBG5IqeqhT
- h68CRCMYBg5k9M9Rq9V1iGRvoh8dLdFoV8EXAkr3pO4uj/5QwuWAFqPKlamuCuD8EN5D
- OsPGqUGw4rQmd79A/xSB7OQ3YZjCeSfnsKMPCPSFAndb8CVJ+ZzoE4vhI+kjNqjc0/go
- gb37xxocMVq9lVbPCj1TYBbzPH2rx+JxlCNMzigqhnLdlUdJiZ2Ox6fqvn4vCSWhdhtq
- RRLRSe72r970qvzGZlSBQwWwCAXKM2cir43pAedZu2dmBZAbiSGxVlG3CIF2jGiU/TAb
- z2Ug==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9vUJQmaBTHVj5thIyGpKC59rFOPbCL3Q46vf7YvlIFNxN8prjpNa+7J8WjsEPDFHfONknWD9QGNHA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwF0X0/DfNZe+aUZAojqTzbfgHHH7FDn/Hvt8y9UKGXMp4oPGGB
- uD1H+W4nXueu9/JrzTNUioHXMbbvLisVhUgqhHfcBo77KQMrptDLv4DfhuGGoeqT5pEH4ualI+2
- N5zVgJRmtdcEKh7PdZEW1C6G4K/0hilRW8nNCxG6rAbjf10nNPqGJ/H/zywS27Fqlbpn3B8g=
-X-Gm-Gg: Acq92OGBv3IJbXvzxSyO5id8EBxiUOkwqFKkqdXsFwVkRi6bu2C4O+Q/aBUhLJP95F8
- M75lZvYjoqlILLbOJk2OAqpywn/LGs+glYzbdwSJsEqDp5J47IwFN0+3/gvxT/Mkni2YVevHlWd
- 1Xa45tZEAG8L3aawgpKxMvd54IPdUj3m3ryzdO5kinMbIp5Nz/QECFjm0NVQtpXPUFsn+SYL7d2
- WXb3ERcoqsyZ0VWW3fnm+OJD+duT5S+rKemRjRnHZJL0CeMSqeeE8lK1mtg32U2fOjxOi5KU3Rj
- hmBnvopavml5fldh3MelM5pno0UtPQQNAHWRvH1Q6VG6a3ot0dzchESp/8uPJiw2cAWms2PjgHK
- K3gCwYbK0p2uzGspDmviLq+FaFusV9Js3lwcWaaVaEvb2kmcpXzGwogD97sQosh1sduscnE0q7P
- DS396GTQKxczi7LvVu0kohiiuFf1HT
-X-Received: by 2002:a17:90b:3b8a:b0:35f:b647:d98a with SMTP id
- 98e67ed59e1d1-36a6749eb2cmr18032373a91.5.1779793923457; 
- Tue, 26 May 2026 04:12:03 -0700 (PDT)
-X-Received: by 2002:a17:90b:3b8a:b0:35f:b647:d98a with SMTP id
- 98e67ed59e1d1-36a6749eb2cmr18032342a91.5.1779793922963; 
- Tue, 26 May 2026 04:12:02 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com
- (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36a72c4ce6bsm12104253a91.11.2026.05.26.04.11.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 04:12:02 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
- gregkh@linuxfoundation.org, abelvesa@kernel.org,
- jorge.ramirez@oss.qualcomm.com
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- Jianping Li <jianping.li@oss.qualcomm.com>
-Subject: [PATCH v6 5/5] misc: fastrpc: Allow fastrpc_buf_free() to accept NULL
-Date: Tue, 26 May 2026 19:11:24 +0800
-Message-Id: <20260526111124.515-6-jianping.li@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260526111124.515-1-jianping.li@oss.qualcomm.com>
-References: <20260526111124.515-1-jianping.li@oss.qualcomm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7EB810E621
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:15:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779794107; x=1811330107;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=LH1kk/OjDWW9qCPf90sUt3+xiiFp4lugKAXQrebJ1gY=;
+ b=Jryq6VMo+BQtuESRV8Z5Z7TdEtaerLML4cKnRLubUxAHC6w5CgVR8Q14
+ uRe5IOaHgUEnCs+h6e9qaqbnyOQnL1Xpr2G0O1z0esoVJ7T3fIQRb9FAe
+ LsHKeM/fdaXuX7TfBo5dB+iIjPKGmxbMFjIX0GTG9nEagS+2JyCpDQE7T
+ WlY96R1n+L1Xaw0957aALXOrLJbaHrJ0Va+Xmus16kLaDQYcXfO/vPF2D
+ ApfeZqDKT6qLlNmQijDZZcQCXRdZYtRUGt2NfzISs84sQlgDCwpNf8XNt
+ rrl19hkMeMEW58QV+sQtzJnhSMXjScTzGtwUxEfhf2lLhwdBZ2RRehEgP A==;
+X-CSE-ConnectionGUID: L1cPeGfRTt2ipP524S5BFQ==
+X-CSE-MsgGUID: Z+KGgCOYThiukOAR4ffAAg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="80575294"
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="80575294"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 04:15:07 -0700
+X-CSE-ConnectionGUID: gleDVuQfQOe8JfdHmtbKmA==
+X-CSE-MsgGUID: SSHd7gO4QfOl9Mo7DX8x0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="242064468"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.113])
+ ([10.245.244.113])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 04:15:04 -0700
+Message-ID: <ce002f59-50ae-451c-8904-0caf50f5eef5@linux.intel.com>
+Date: Tue, 26 May 2026 13:14:55 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
+ for vblank
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>,
+ stable@vger.kernel.org
+References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
+ <ee86cb43-e5df-4946-a957-931a73dde752@suse.de> <ahBWayIcQUHuAt4i@intel.com>
+ <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de> <ahBZ8nIqR4qESLZg@intel.com>
+ <5fbcda92-f6b0-4de2-89e5-ea43a6248b05@suse.de> <ahCw9zakihaGHLsN@intel.com>
+ <428be9d9-06f7-4bcb-807b-d351101c3c4b@linux.intel.com>
+ <ahRA17a7JR2PVOuJ@intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <ahRA17a7JR2PVOuJ@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDA5NyBTYWx0ZWRfX/IjCzEU9gkkP
- iMconkqB4gTVaweIQ09SxfiCGWV9SaXUDXJFJiSjcBWu8dJ2DW1PCi4kmk1MbQv7LHcXtdOBPcd
- YaBm5QgOyikMzYBaW+h4uGWfaU0UDnFYY17sSNnlj1xLAPodevH6xfcrU40vhZYdGovsj8DVBJv
- 8LUW01sSNQ8gy4JdV57REoCkv35UidrLPlXbjP6Jp4p/yd25gHPhSQLkRXH5J61B85WqoDJygBc
- 8IVcsz5iiih48LG+ASWSo6svKEV4uX2dDgmz5t15LHv5It7rBi2rgIiaFfzndusj+u9GlHaUUBu
- jpB+5A1+atCQcM6ztgnTeJrePCPmjmrW1qezpsqD5kcwTkcF2DaL7rFmc1l7Dc70O7Ktpe188/5
- 4FsB05n5CAi+VvoGnd6Mdhx5ARHtVkqZe3jXgeQ7nq4OF28asu9sNIVNADVMAE+RHkEp1dEpFOZ
- pTxQU26nADPjympq9Mw==
-X-Authority-Analysis: v=2.4 cv=Zc4t8MVA c=1 sm=1 tr=0 ts=6a158004 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=Dpl4kN4VNrDjC7DZWhsA:9 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: mPU8lfl5HRtToSPU03gUsX9lKqWtvtIA
-X-Proofpoint-GUID: mPU8lfl5HRtToSPU03gUsX9lKqWtvtIA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-26_02,2026-05-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 impostorscore=0 bulkscore=0 adultscore=0
- phishscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605260097
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,51 +81,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Hey,
 
-Make fastrpc_buf_free() a no-op when passed a NULL pointer, allowing
-callers to avoid open-coded NULL checks.
+Den 2026-05-25 kl. 14:30, skrev Ville Syrjälä:
+> On Mon, May 25, 2026 at 10:13:57AM +0200, Maarten Lankhorst wrote:
+>> Hey,
+>>
+>> Den 2026-05-22 kl. 21:39, skrev Ville Syrjälä:
+>>> On Fri, May 22, 2026 at 03:43:26PM +0200, Thomas Zimmermann wrote:
+>>>> Hi
+>>>>
+>>>> Am 22.05.26 um 15:28 schrieb Ville Syrjälä:
+>>>> [...]
+>>>>>>>> But why does your HW use CRTC 1 in the first place.
+>>>>>>> Could be eg. the enabled outputs can't be driven with CRTC 0.
+>>>>>>>
+>>>>>>> I guess what you want to do is pick the first crtc from modesets[]
+>>>>>>> which is enabled. Or perhaps even "pick the Nth enabled crtc from
+>>>>>>> modesets[] based on the ioctl argument".
+>>>>>> The enable-status of each CRTC could change later on, which might lead
+>>>>>> to problems.
+>>>>> Sound like a locking issue if someone is changing the configuration
+>>>>> at the same time we're trying to do the vblank wait here.
+>>>>
+>>>> I mean that the connected outputs could change at a later point or we 
+>>>> could have multiple CRTCs in use. Today, someone in #intel-gfx reported 
+>>>> a problem with panning if multiple CRTCs are in use.
+>>>>
+>>>> Therefore picking a CRTC freely could be a problem. Let's say we 
+>>>> configure modes from one CRTC, but later wait/pan/flush with another 
+>>>> CRTC. I would not trust this to work correctly.
+>>>>
+>>>> Hence, my suggestion is to select a primary CRTC during the fbdev 
+>>>> client's probe and use it for all later operations until the next probe 
+>>>> happens.  All other CRTCs would mirror the primary one.
+>>>
+>>> Actual mirroring may not be possible due to different modes supported
+>>> on each output. The whole multi-output fbdev thing in the drm fb helper
+>>> is kind of a hack that's rather hard to make work 100% sensibly.
+>>>
+>>> For the panning possibly the only sensible thing is to use the max of
+>>> hdisplay/vdisplay of all the crtcs as the xres/yres so it's clear
+>>> how much things can actually be panned. Oh and tiled displays (assuming
+>>> we would actually want the fbdev stuff to tile correctly) make the
+>>> situation even more complicated. I think the current support for tiled
+>>> displays in the fb helper is semi-busted.´
+>>
+>> I tested fbdev on a tiled DP-MST monitor.
+>> It works better than my kwin's wayland compositor, as it detects both tiles
+>> and presents a single image spanning both tiles.
+> 
+> IIRC we've occasionally seen cases where it picks a non-tiled mode
+> on the primary connector, and also still enables the second tile.
+> 
+>> Kwin sees both as separate
+>> monitors.
+>>
+>> I still see vertical tearing between both tiles, so it would be nice if
+>> intel/display would support atomic updates for both crtc's directly.
+>>
+>> The code's already there for bigjoiner, just needs to do the same for
+>> tile joiner updates when all tiled crtc's are in the atomic update.
+> 
+> We don't have any special code for atomic updates with joiner
+> currently. It just happens to work most of the time.
+> 
+> With joiner the pipes will be in sync/phase, so that helps a bit.
+> But we do also try to make the pipes in sync/phase also for tiled
+> display via the use of the port sync. So if you see a difference
+> in tearing between joiner vs. tiled then that likely means the
+> problem is in userspace (as in it submits separate commits for
+> each tile).
 
-Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+The only thing kernel should do is if crtc 1 and 2 are part of a
+commit and in sync is to perform the same as bigjoiner updates for
+crtc 1 & 2 simultaneously.
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 0208208c2d27..6f3cb4934156 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -418,6 +418,9 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
- 
- static void fastrpc_buf_free(struct fastrpc_buf *buf)
- {
-+	if (!buf)
-+		return;
-+
- 	dma_free_coherent(buf->dev, buf->size, buf->virt,
- 			  fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr));
- 	kfree(buf);
-@@ -510,8 +513,7 @@ static void fastrpc_user_free(struct kref *ref)
- 	struct fastrpc_map *map, *m;
- 	struct fastrpc_buf *buf, *b;
- 
--	if (fl->init_mem)
--		fastrpc_buf_free(fl->init_mem);
-+	fastrpc_buf_free(fl->init_mem);
- 
- 	list_for_each_entry_safe(ctx, n, &fl->pending, node) {
- 		list_del(&ctx->node);
-@@ -556,8 +558,7 @@ static void fastrpc_context_free(struct kref *ref)
- 	for (i = 0; i < ctx->nbufs; i++)
- 		fastrpc_map_put(ctx->maps[i]);
- 
--	if (ctx->buf)
--		fastrpc_buf_free(ctx->buf);
-+	fastrpc_buf_free(ctx->buf);
- 
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	idr_remove(&cctx->ctx_idr, ctx->ctxid >> 4);
--- 
-2.43.0
+That shouldn't be too much to ask from the kernel, and not hard to
+implement.
+
+
+> I have occasionally pondered about hiding the tiled display stuff
+> completely from userspace and handling it in the kernel the same
+> was as joiner. But the problem is that we'd also need to cook up
+> a new EDID for the display that combines both tiles, and we'd
+> still need the second connector to be enabled internally (and 
+> hide that fact from userspace). None of that code exists
+> currently and wouldn't be entirely trivial to implement.
+> 
 
