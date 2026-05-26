@@ -4,76 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A071CD5BD0
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:15:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F2DDCD5BDF
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 09:22:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B52E610E484;
-	Tue, 26 May 2026 09:15:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5014510E12C;
+	Tue, 26 May 2026 09:22:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DPnwdnDU";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="VAijS1od";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q6I6VFLJ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VAijS1od";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q6I6VFLJ";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D33310E1A5
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:15:20 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2bdeed4f717so55089465ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 02:15:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779786920; x=1780391720; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=zcJdTmTjfiBuviJiW8pIvbqp3hR7VDqq1Y5TAU3hp2Q=;
- b=DPnwdnDUi2Lmjcm2zAw9VlLsrS3zWYoCTB2w1aQt78cQr9Lk6av7AaFDEWG3vXf/yW
- G37ijGkzIQXGlCwZxUrKlUbE5q6tB7IycATefyiaGnzrYrqHow0vxh0rL4TiovkYCn78
- hPNuIoN4q+rYV+OEOvuPZDbiMgVxqbDrADut3EIfiK5LzlqvMcbWIAJi5ByfMF+GmFGM
- i364HFwCJc8gDyZhzPSOaBp2xE/HbJzW4f3ShReyW8Q8M94gvmJPrjuqxnliJnSQcAgf
- E2qxwEn+ABY6pxTpwOpMBwgLo517oDiHlM6RkFx8pIYE3UF2f/Q+B/ZGgR75NGagTkPW
- MsXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779786920; x=1780391720;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zcJdTmTjfiBuviJiW8pIvbqp3hR7VDqq1Y5TAU3hp2Q=;
- b=b5aE8kc0eX6b3sQoBbivRzU+xkW/5CSSVc/3PrF1azNN8ci/fL1Xby/Ht6ScfZTYgY
- KB/HcO+QOP7V9IV/GeC6oILqc+rGCpIMtq8etAM6khbSZ3j6eWQZlLTfCmfp6AXJX8Hy
- se+ksfQi1dBDBdTKD1VEV0cB1s0jNmulwmEKIH23t52BWHF1qZ+ZDOoT6iO5xAcSZWaQ
- 6rxn2JbqNfdY0+E7uncKdNGhlytRxsAmgcrV/f5sVgR+pwSy2eUKIbnGMGOwectiiz4e
- xf1G3J/vattcMecxo5mTkhIcxRC/M93/ZtMy7QMetj79BEv/wrdUBmw1EAs7F+RFpmKz
- 0Wkw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/U9I6w299bqPEqHXXIZp3XQXoMP6SNcENwNwUTRjlETt5+T7ITy3pLaS3BfvCzZFGJpbGvxeABAlo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwyX5VyOMxDMEkYVZjvOME81ZvZuEQ9BcQGoobE+UFLGkzWBfp3
- /gkwLaN2Gv6TzMzL0qRiI5gIrV3QzxYIZuynFwecX6N1D6qvCrLmDHcU
-X-Gm-Gg: Acq92OGAMR3nPsuE1Tjank0F172YPlJ2JGE7ebJEhXK1O37ZLZYjHVcq9HpuR1pJWS8
- EOcqIvtolP8GbQG3K+X265LswB30qCRqEaMykmW/qhG1A9BU4r5Df8egR1N58fHwGVXyIIBiz3B
- aFUrFpF5yJVHnZ6nDhKclR69kzu5Yh28d4KtCE4X/w/v3MXHCyC/pl2aptEODBtsYqWRnrCGBc8
- gGA5FFKZW1LAb7g+xJ0JbAVJ0t8ey/k4cpQOApJCaEapwcB9j1QF2PavYIHw79I/sqtcVL4uJZz
- W4fJEBxA2GMVwgSPG8S11hBhgoMLk1tGfj6mQf4OqM7Jx4QUQNOz0zU/tjchmvpgXpPN+hIIvuC
- XW0BZO1s8pJKtBjOFviD4y2DdgLdIfDeRr4VlQqbigQkjMICw0bCnB4hTwxwbmQuDYSr56MzR5n
- bQvIYlpBbiC0yY2oH5YM86rKgMthIHIs/tymxvrXx83K7pxSCsiOw8gcQ3qg==
-X-Received: by 2002:a17:903:faf:b0:2bd:2439:25fc with SMTP id
- d9443c01a7336-2beb033f460mr169505875ad.7.1779786919586; 
- Tue, 26 May 2026 02:15:19 -0700 (PDT)
-Received: from oslab.. (n058152109154.netvigator.com. [58.152.109.154])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beca535bc1sm71381615ad.56.2026.05.26.02.15.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 02:15:19 -0700 (PDT)
-From: Tuo Li <islituo@gmail.com>
-To: simona@ffwll.ch,
-	deller@gmx.de,
-	kees@kernel.org,
-	tzimmermann@suse.de
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tuo Li <islituo@gmail.com>
-Subject: [PATCH] fbdev:modedb: fix a possible UAF in fb_find_mode()
-Date: Tue, 26 May 2026 17:15:07 +0800
-Message-ID: <20260526091507.421730-1-islituo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02A0510E12C
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 09:22:46 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 94B526B346;
+ Tue, 26 May 2026 09:22:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779787364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dSvjQQSdD0rwF6LUM0JsPgONSlRbO3wD9RFgWm9OySo=;
+ b=VAijS1ode21962RALMpEDQvhWosJZQD54KvUSbmvsBbY7fSXj6QCrVc13ZksbrnNDb9I8s
+ c1V9fnoWbf+87mc0qDndSFsDw3McYPL1tdXqCJIU9G3cHhYfdj3Bvla/C2fL9pQPcGuo7C
+ Zo6VaV9zBe4nglfZDEvfBrHSGl7IB9o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779787364;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dSvjQQSdD0rwF6LUM0JsPgONSlRbO3wD9RFgWm9OySo=;
+ b=Q6I6VFLJL7j6Ca4GX4Dp6xrpYpciDlP+JyRLy/WLruUox4Hydh39c/SxpyqYBNqgMSAbtn
+ kyG6pGULsZmxM1DA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VAijS1od;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Q6I6VFLJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779787364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dSvjQQSdD0rwF6LUM0JsPgONSlRbO3wD9RFgWm9OySo=;
+ b=VAijS1ode21962RALMpEDQvhWosJZQD54KvUSbmvsBbY7fSXj6QCrVc13ZksbrnNDb9I8s
+ c1V9fnoWbf+87mc0qDndSFsDw3McYPL1tdXqCJIU9G3cHhYfdj3Bvla/C2fL9pQPcGuo7C
+ Zo6VaV9zBe4nglfZDEvfBrHSGl7IB9o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779787364;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dSvjQQSdD0rwF6LUM0JsPgONSlRbO3wD9RFgWm9OySo=;
+ b=Q6I6VFLJL7j6Ca4GX4Dp6xrpYpciDlP+JyRLy/WLruUox4Hydh39c/SxpyqYBNqgMSAbtn
+ kyG6pGULsZmxM1DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9EA955A125;
+ Tue, 26 May 2026 09:22:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Mc5aJWNmFWpaewAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 26 May 2026 09:22:43 +0000
+Message-ID: <3e523040-b59a-40dc-8b60-d604c32bac88@suse.de>
+Date: Tue, 26 May 2026 11:22:43 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/19] drm/crtc: Add new atomic_create_state callback
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
+ Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+References: <20260519-drm-mode-config-init-v5-0-388b03321e38@kernel.org>
+ <20260519-drm-mode-config-init-v5-12-388b03321e38@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260519-drm-mode-config-init-v5-12-388b03321e38@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 94B526B346
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCPT_COUNT_TWELVE(0.00)[37]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ internal_greylist_whitelist(0.00)[2a07:de40:b281:104:10:150:64:97];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ R_RATELIMIT(0.00)[to_ip_from(RL7gneoo7ydcsn9o76mxr5d8pb)];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email, suse.de:mid,
+ suse.de:dkim, imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo,
+ qualcomm.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,77 +176,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If mode_option is NULL, it is assigned from mode_option_buf:
 
-  if (!mode_option) {
-    fb_get_options(NULL, &mode_option_buf);
-    mode_option = mode_option_buf;
-  }
 
-Later, name is assigned from mode_option:
+Am 19.05.26 um 11:01 schrieb Maxime Ripard:
+> Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
+> to drm_private_obj") introduced a new pattern for allocating drm object
+> states.
+>
+> Instead of relying on the reset() callback, it created a new
+> atomic_create_state hook. This is helpful because reset is a bit
+> overloaded: it's used to create the initial software state, reset it,
+> but also reset the hardware.
+>
+> It can also be used either at probe time, to create the initial state
+> and possibly reset the hardware to an expected default, but also during
+> suspend/resume.
+>
+> Both these cases come with different expectations too: during the
+> initialization, we want to initialize all states, but during
+> suspend/resume, drm_private_states for example are expected to be kept
+> around.
+>
+> reset() also isn't fallible, which makes it harder to handle
+> initialization errors properly. This is only really relevant for some
+> drivers though, since all the helpers for reset only create a new
+> state, and don't touch the hardware at all.
+>
+> It was thus decided to create a new hook that would allocate and
+> initialize a pristine state without any side effect:
+> atomic_create_state to untangle a bit some of it, and to separate the
+> initialization with the actual reset one might need during a
+> suspend/resume.
+>
+> Continue the transition to the new pattern with CRTCs.
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-  const char *name = mode_option;
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-However, mode_option_buf is freed before name is no longer used:
+[...]
+> +
+> +	crtc_state = crtc->funcs->atomic_create_state(crtc);
+> +	if (IS_ERR(crtc_state))
+> +		return PTR_ERR(crtc_state);
+> +
+> +	if (drm_dev_has_vblank(crtc->dev))
+> +		drm_crtc_vblank_reset(crtc);
 
-  kfree(mode_option_buf);
+I've recently looked at the vblank init and reset code. At some point, 
+we'll have to make the vblank reset controllable by drivers. Not an 
+issue for now though.
 
-while name is still accessed by:
+Best regards
+Thomas
 
-  if ((name_matches(db[i], name, namelen) ||
+> +
+> +	crtc->state = crtc_state;
+> +
+> +	return 0;
+> +}
+> +
+> +static int drm_mode_config_crtc_reset_with_create_state(struct drm_crtc *crtc)
+> +{
+> +	if (crtc->state) {
+> +		crtc->funcs->atomic_destroy_state(crtc, crtc->state);
+> +		crtc->state = NULL;
+> +	}
+> +
+> +	return drm_mode_config_crtc_create_state(crtc);
+> +}
+> +
+>   /**
+>    * drm_mode_config_reset - call ->reset callbacks
+>    * @dev: drm device
+>    *
+>    * This functions calls all the crtc's, encoder's and connector's ->reset
+> @@ -237,13 +266,16 @@ void drm_mode_config_reset(struct drm_device *dev)
+>   			plane->funcs->reset(plane);
+>   		else if (plane->funcs->atomic_create_state)
+>   			drm_mode_config_plane_reset_with_create_state(plane);
+>   	}
+>   
+> -	drm_for_each_crtc(crtc, dev)
+> +	drm_for_each_crtc(crtc, dev) {
+>   		if (crtc->funcs->reset)
+>   			crtc->funcs->reset(crtc);
+> +		else if (crtc->funcs->atomic_create_state)
+> +			drm_mode_config_crtc_reset_with_create_state(crtc);
+> +	}
+>   
+>   	drm_for_each_encoder(encoder, dev)
+>   		if (encoder->funcs && encoder->funcs->reset)
+>   			encoder->funcs->reset(encoder);
+>   
+> diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
+> index 0bb72453464a..213f7e298008 100644
+> --- a/include/drm/drm_atomic_state_helper.h
+> +++ b/include/drm/drm_atomic_state_helper.h
+> @@ -43,10 +43,12 @@ struct drm_device;
+>   void __drm_atomic_helper_crtc_state_init(struct drm_crtc_state *state,
+>   					  struct drm_crtc *crtc);
+>   void __drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
+>   				    struct drm_crtc_state *state);
+>   void drm_atomic_helper_crtc_reset(struct drm_crtc *crtc);
+> +struct drm_crtc_state *
+> +drm_atomic_helper_crtc_create_state(struct drm_crtc *crtc);
+>   void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
+>   					      struct drm_crtc_state *state);
+>   struct drm_crtc_state *
+>   drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc);
+>   void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state);
+> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> index c6dbe8b7db9e..152349f973e3 100644
+> --- a/include/drm/drm_crtc.h
+> +++ b/include/drm/drm_crtc.h
+> @@ -636,10 +636,26 @@ struct drm_crtc_funcs {
+>   	 * 0 on success or a negative error code on failure.
+>   	 */
+>   	int (*set_property)(struct drm_crtc *crtc,
+>   			    struct drm_property *property, uint64_t val);
+>   
+> +	/**
+> +	 * @atomic_create_state:
+> +	 *
+> +	 * Allocate a pristine, initialized, state for the CRTC object
+> +	 * and return it. This callback must have no side effects: in
+> +	 * particular, the returned state must not be assigned to the
+> +	 * object's state pointer and it must not affect the hardware
+> +	 * state.
+> +	 *
+> +	 * RETURNS:
+> +	 *
+> +	 * A new, pristine, CRTC state instance or an error pointer
+> +	 * on failure.
+> +	 */
+> +	struct drm_crtc_state *(*atomic_create_state)(struct drm_crtc *crtc);
+> +
+>   	/**
+>   	 * @atomic_duplicate_state:
+>   	 *
+>   	 * Duplicate the current atomic state for this CRTC and return it.
+>   	 * The core and helpers guarantee that any atomic state duplicated with
+>
 
-Since name aliases mode_option_buf, this may result in a
-use-after-free.
-
-Fix this by moving the kfree(mode_option_buf) call behind the access, and
-add corresponding cleanup before early returns.
-
-Signed-off-by: Tuo Li <islituo@gmail.com>
----
- drivers/video/fbdev/core/modedb.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/video/fbdev/core/modedb.c b/drivers/video/fbdev/core/modedb.c
-index 703d0b7aec32..91f6c78f9e19 100644
---- a/drivers/video/fbdev/core/modedb.c
-+++ b/drivers/video/fbdev/core/modedb.c
-@@ -724,7 +724,6 @@ int fb_find_mode(struct fb_var_screeninfo *var,
- 			res_specified = 1;
- 		}
- done:
--		kfree(mode_option_buf);
- 		if (cvt) {
- 			struct fb_videomode cvt_mode;
- 			int ret;
-@@ -749,6 +748,7 @@ int fb_find_mode(struct fb_var_screeninfo *var,
- 
- 			if (!ret && !fb_try_mode(var, info, &cvt_mode, bpp)) {
- 				DPRINTK("modedb CVT: CVT mode ok\n");
-+				kfree(mode_option_buf);
- 				return 1;
- 			}
- 
-@@ -793,8 +793,10 @@ int fb_find_mode(struct fb_var_screeninfo *var,
- 				if (!interlace_specified ||
- 				    db_interlace == interlace)
- 					if (refresh_specified &&
--					    db[i].refresh == refresh)
-+					    db[i].refresh == refresh) {
-+						kfree(mode_option_buf);
- 						return 1;
-+					}
- 
- 				if (score < diff) {
- 					diff = score;
-@@ -802,6 +804,8 @@ int fb_find_mode(struct fb_var_screeninfo *var,
- 				}
- 			}
- 		}
-+
-+		kfree(mode_option_buf);
- 		if (best != -1) {
- 			fb_try_mode(var, info, &db[best], bpp);
- 			return (refresh_specified) ? 2 : 1;
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
