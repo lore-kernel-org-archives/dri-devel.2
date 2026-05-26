@@ -4,59 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61484CD5BD2
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:35:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3CBBCD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 12:07:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1E3D10E628;
-	Tue, 26 May 2026 11:35:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE9D10E189;
+	Tue, 26 May 2026 12:07:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DYoe+6bX";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="SSXcpjGy";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A14F10E629
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:35:47 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 0CD2B1A36CE;
- Tue, 26 May 2026 11:35:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D2CB76011D;
- Tue, 26 May 2026 11:35:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 92F081088862E; 
- Tue, 26 May 2026 13:35:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1779795344; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=vJ2eTxf2bOVB2Sa7mZv6SIpQ81Big2MiLsICy7jB5PM=;
- b=DYoe+6bXw5m8ZJKwqMS1WuttC+jB6JzYjN3iyEeckKdvP2CCHq7NvuM1BfhEuondkKeBrm
- JpfLx6uAj0o0eDAxDSfb6ylNyo0YcFLf1sC/woMw2CYQfZs4ckOCt8NsOoapLAQg4Y5d11
- C0FLvcIpSGNmsJjqc5lViRHxylwkZB2eY3el2sNa/qPPGPKkXqWGCxv2Z0Bo6c3BJAr6ry
- W5fqiXpoCqP6bIHV6q7iDQyizpmgqkGDn+XWyLt9r+iMjQFamsf7twI4HVO6gX+tbUaKCU
- zVQj8YapsyezjEyCPVrBSn4DsswyOhc9++ASi9eM5Qh6KwFHo37qec2lVtXBig==
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0520F10E189
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 12:07:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=1MdOEH4FWXiWKeE/kCEFwFy+r+6+6c969EcWKnH6xAs=; b=S
+ SXcpjGy+7E0J8cK0lj7yYa8DxV+7BWnmmnEW8CN5krYl37NpPqMl5BC1YSyA1iDn
+ hR19hlUESi8+zav8Je9TtU237DO69f2utrpz88SsdDE+QFiJxx8Wzn6t4b0RUnwz
+ poMrkd5Lb9NpXLKob2ey+dG2Sh67+65xWRffFvSRYM=
+Received: from w15303746062$163.com ( [113.200.174.80] ) by
+ ajax-webmail-wmsvr-40-141 (Coremail) ; Tue, 26 May 2026 20:06:59 +0800
+ (CST)
+X-Originating-IP: [113.200.174.80]
+Date: Tue, 26 May 2026 20:06:59 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: "Sasha Levin" <sashal@kernel.org>
+Cc: stable@vger.kernel.org, gregkh@linuxfoundation.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
+Subject: Re:Re: [PATCH 6.18.y 0/5] drm/vkms: Backport generic vblank timer
+ to fix ABBA deadlock
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260525231000.agent5-0001@kernel.org>
+References: <9c4a68c4-43a3-4a9b-a131-9570174c8df3@linux.intel.com>
+ <20260525131610.608273-1-w15303746062@163.com>
+ <20260525231000.agent5-0001@kernel.org>
+X-NTES-SC: AL_Qu2cC/uSuEoq7yWRbOkfmU0Qguw9Xcq5uPkj34FWN5t8jCrr+ScQXEB9PUv50tuDMAuVihKOaARIx+pFfqh7RpoTF7tdhwCbHx9uN8X99aBCXA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 1/4] drm/scdc-helper: Don't use ssize_t return type
- for scdc_read/write
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Daniel Stone <daniel@fooishbar.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com
-In-Reply-To: <20260526-scdc-link-health-v3-1-59e4a4aaead1@collabora.com>
-References: <20260526-scdc-link-health-v3-0-59e4a4aaead1@collabora.com>
- <20260526-scdc-link-health-v3-1-59e4a4aaead1@collabora.com>
-Date: Tue, 26 May 2026 13:35:32 +0200
-Message-Id: <177979533269.297330.8882105635223780267.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Message-ID: <51ff85d2.9c25.19e642e591c.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: jSgvCgD3X2bjjBVqr76sAA--.13476W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC-wM7H2oVjOM8CQAA39
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,20 +65,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 26 May 2026 12:19:57 +0200, Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> drm_scdc_read and drm_scdc_write, both of which are only used within
-> drm_scdc_helper (although exported), use a ssize_t as their return type.
-> 
-> This would make sense if they returned the number of bytes read/written
-> on success, and negative errno otherwise. However, they return 0 on
-> success.
-> 
-> [...]
-
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+CkhpIFNhc2hhLAoKPkxvb2tpbmcgYXQgdGhlIGZpdmUgY29tbWl0czoKPgo+ICAtIDEvNSAoNzRh
+ZmViODEyODUwKSBpcyB0aGUgb25lIHRoYXQgYWN0dWFsbHkgZml4ZXMgdGhlIEFCQkEKPiAgICBk
+ZWFkbG9jayB5b3Ugb2JzZXJ2ZWQgdW5kZXIgU3l6a2FsbGVyOyBpdCBhZGRzIHRoZSBnZW5lcmlj
+IHZibGFuawo+ICAgIHRpbWVyIHRoYXQgcmVwbGFjZXMgdGhlIG9wZW4tY29kZWQgdmttcyBocnRp
+bWVyIHBhdGguCj4KPiAgLSAyLzUgKGQ1NGRiYjU5NjNiZCkgYWRkcyBuZXcgQ1JUQyBoZWxwZXJz
+IGZvciAic2ltcGxlIHVzZSBjYXNlcyIuCj4gICAgTm8gRml4ZXM6L0NjOnN0YWJsZSwgbm8gZGVz
+Y3JpYmVkIGJ1Zy4KPgo+ICAtIDMvNSAoMDJlMjY4MWZmZTFhKSBpcyBhIHJlZmFjdG9yIHRoYXQg
+Y29udmVydHMgdmttcyB0byB0aGUgbmV3Cj4gICAgaGVscGVycy4gTm8gRml4ZXM6L0NjOnN0YWJs
+ZSwgbm8gZGVzY3JpYmVkIGJ1Zy4KPgo+ICAtIDQvNSAoNzlhZTg1MTBiNWI4KSBpcyBhIHY3LjEt
+cmMxIHRpbWVvdXQgYnVtcCB0aGF0IGRlcGVuZHMgb24gMS81Lgo+ICAgIEl0IGlzIG5vdCB5ZXQg
+aW4gYW55IHJlbGVhc2VkIHN0YWJsZSwgc28gYXBwbHlpbmcgaXQgdG8gNi4xOC55Cj4gICAgd291
+bGQgcHV0IGl0IG9uIGFuIExUUyBiZWZvcmUgYW55IExUUyBjb250YWlucyBpdC4KPgo+ICAtIDUv
+NSAoMzk0NmQzYmE5OTM0KSBpcyBhIGRvYyBmaXggZm9yIDEvNS4KPgo+UGVyIHN0YWJsZS1rZXJu
+ZWwtcnVsZXMsIHdoYXQgSSBuZWVkIHRvIHF1ZXVlIGlzIHRoZSBtaW5pbXVtIHNldCB0aGF0Cj5m
+aXhlcyB0aGUgYnVnLiBDb3VsZCB5b3UgZXhwbGFpbiwgcGVyIHBhdGNoLCB3aHkgMi81Li41LzUg
+YXJlIHJlcXVpcmVkCj50byBtYWtlIDEvNSB3b3JrIC8gYXJlIHJlcXVpcmVkIHRvIGFjdHVhbGx5
+IGZpeCB0aGUgZGVhZGxvY2s/IElmIG9ubHkKPjEvNSBpcyBuZWVkZWQsIHBsZWFzZSByZXNlbmQg
+anVzdCB0aGF0IG9uZSB3aXRoIHlvdXIgU2lnbmVkLW9mZi1ieQo+YWRkZWQgKHRoZSBjYXJyaWVk
+IHBhdGNoZXMgdG9kYXkgb25seSBoYXZlIFRob21hcydzIFMtby1iLCB3aGljaAo+YnJlYWtzIHRo
+ZSBjaGFpbiBvZiBjdXN0b2R5IG9uIGEgc3RhYmxlIHN1Ym1pc3Npb24pLgoKVGhhbmtzIGZvciB0
+aGUgcXVpY2sgcmV2aWV3IGFuZCBmb3IgcG9pbnRpbmcgb3V0IHRoZSBtaXNzaW5nIFNpZ25lZC1v
+ZmYtYnkuIEkgYXBvbG9naXplIGZvciB0aGF0IG9taXNzaW9uOyBpdCB3YXMgbXkgbWlzdGFrZSBk
+dXJpbmcgdGhlIGNoZXJyeS1waWNrIHByb2Nlc3MuCgpSZWdhcmRpbmcgdGhlIGRlcGVuZGVuY3kg
+Y2hhaW4sIEkgd291bGQgbGlrZSB0byBjbGFyaWZ5IHdoeSBjb21taXQgMS81IGFsb25lIGNhbm5v
+dCBmaXggdGhlIGlzc3VlOgoKQ29tbWl0cyAxLzUgYW5kIDIvNSBpbnRyb2R1Y2UgdGhlIG5ldyBn
+ZW5lcmljIHZibGFuayB0aW1lciBpbmZyYXN0cnVjdHVyZSB0byB0aGUgRFJNIGNvcmUgYnV0IGRv
+ICpub3QqIHRvdWNoIHRoZSB2a21zIGRyaXZlciBhdCBhbGwuIApDb21taXQgMy81ICgwMmUyNjgx
+ZmZlMWEpIGlzIHRoZSBhY3R1YWwgZml4IHRoYXQgbW9kaWZpZXMgYGRyaXZlcnMvZ3B1L2RybS92
+a21zL3ZrbXNfY3J0Yy5jYC4gSXQgcmVtb3ZlcyB0aGUgYnVnZ3kgb3Blbi1jb2RlZCBocnRpbWVy
+IHRoYXQgY2F1c2VzIHRoZSBBQkJBIGRlYWRsb2NrIGFuZCBzd2l0Y2hlcyB2a21zIHRvIHVzZSB0
+aGUgbmV3IGluZnJhc3RydWN0dXJlIGludHJvZHVjZWQgaW4gMS81IGFuZCAyLzUuIAoKVGhlcmVm
+b3JlLCAxLzUsIDIvNSwgYW5kIDMvNSBmb3JtIGFuIGluZGl2aXNpYmxlIHNldC4gQXBwbHlpbmcg
+b25seSAxLzUgd291bGQgbGVhdmUgdGhlIGRlYWRsb2NrIGluIHZrbXMgY29tcGxldGVseSB1bnBh
+dGNoZWQuCgpBcyBmb3IgNC81IGFuZCA1LzUgKHRoZSB0aW1lb3V0IGJ1bXAgYW5kIGRvYyBmaXgp
+LCBNYWFydGVuIExhbmtob3JzdCAoRFJNIG1haW50YWluZXIpIGV4cGxpY2l0bHkgcmVjb21tZW5k
+ZWQgcHVsbGluZyBpbiB0aGlzIGV4YWN0IDUtY29tbWl0IGxpc3QgYXMgdGhlIHByb3BlciB1cHN0
+cmVhbSBmaXggZm9yIHRoaXMgc3BlY2lmaWMgdmttcyBpc3N1ZSAoc2VlIHRoZSBtYWlsaW5nIGxp
+c3QgbGluayBpbiB0aGlzIHRocmVhZCkuIAoKSG93ZXZlciwgaWYgeW91IGZlZWwgNC81IGFuZCA1
+LzUgaW50cm9kdWNlIHVubmVjZXNzYXJ5IHJpc2sgZm9yIHRoZSA2LjE4Lnkgc3RhYmxlIHRyZWUs
+IEkgY2FuIGFic29sdXRlbHkgZHJvcCB0aGVtIGFuZCBvbmx5IHN1Ym1pdCAxLzUsIDIvNSwgYW5k
+IDMvNS4gCgpJIGFtIHByZXBhcmluZyBhIHYyIHBhdGNoIHNlcmllcyBub3cgd2l0aCBteSBTaWdu
+ZWQtb2ZmLWJ5IGFkZGVkIHRvIHRoZSBjaGFpbiBvZiBjdXN0b2R5LiBDb3VsZCB5b3UgbGV0IG1l
+IGtub3cgaWYgeW91IHByZWZlciB0aGUgZnVsbCA1LXBhdGNoIHNlcmllcyBhcyByZWNvbW1lbmRl
+ZCBieSBEUk0gbWFpbnRhaW5lcnMsIG9yIGp1c3QgdGhlIG1pbmltYWwgMy1wYXRjaCBzZXJpZXM/
+CgpCZXN0IHJlZ2FyZHMsCk1pbmd5dQo=
