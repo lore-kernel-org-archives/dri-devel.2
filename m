@@ -4,92 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D92ECD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 01:01:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40A30CD5BC9
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 01:05:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66D0110E427;
-	Tue, 26 May 2026 01:01:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B0AF10E428;
+	Tue, 26 May 2026 01:05:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y0lI66Tb";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="HN1LNHTR";
 	dkim-atps=neutral
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5ABD10E427
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 01:01:19 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-8bc3ef10cc4so137079206d6.1
- for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 18:01:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779757279; cv=none;
- d=google.com; s=arc-20240605;
- b=JEh1Ctoaq96naA4HRWov7V97bwJvZRTt5U9K05QWSn55akgK7lL8yfvCb6Q6uuE+Na
- Yy/mbSmyaU4xdtmI4rUjXU6NQcszLxbDTGBDRLImuQto64udtnsozBqn1p8QF8Ar8Ari
- G6M3hfO3n+Bsl785vOdiHJbDUOo0eDGjLk/dMA0CeQAFKZihEUZGEDn/CCQqsgtCXmRl
- Nc/IIp3S8cYH+AEHKbrx7zu6KFEgsIlyVHYlC6d5/EYpsDVaTiy4t7z+9sKyniyWc6ZV
- xYM/la2ccHzsizZs2/6eL8EPQKeAM85RTKMtt7looY1ZU9/Hm/jdjENxATa37okyDW+f
- r+eA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=WkoDOmIQ5Hj2yranYHm7ebfBS7cyHn6dxBl0N9prozU=;
- fh=S2me9wrktfMQS8G7/2vDFMXCpISpg614ljtiyzvVXq4=;
- b=IvwJ6QibLlptjfzAuBIBaL7EELU+feDihg8AzIg6OF9SuL964EAg/BZZwnSmIoyJ+8
- UK35JoJYvcKKehFDKP2ImBtLP77FPeuxPENWz4RMFS3mJzaPA8gw0nP53ViHih3463GC
- D2CPJBlFaX6zn61ISR+oO+lsWn/i0cgzBSJPRrHKBrpFBm7D7CqYWJIQHdp0fMD6Wonr
- zF9V40Qyxyd7zM78/t5kZ2gPNopvtF5Au1Qqs5+fmJs6NJsJQ1Tc/PTSF42trGEV5fMZ
- 2H8iUSgIKllMdwtuJCU1c4KA8urgutLI1gCKva4Vv/WzsPL3u5u0k8bh0D+D1Lg6x8te
- SY2Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779757279; x=1780362079; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WkoDOmIQ5Hj2yranYHm7ebfBS7cyHn6dxBl0N9prozU=;
- b=Y0lI66TbRZfz6I5gm7iBttp6TZB45pVH5PAOYFgp97jcga5gnUKDAWQYR2jdBLNK2W
- p6rGEmLXsbfgGK76eIXEhucjJy/TYVbNGXdPkvActAwUhbd2gM/0XjdUzM4y3e0v1jjd
- BfZCKMEuyQZnzBomZ2/xpQKsidedl/78TJQlEsYh/evr/QtQKOQq4ktvZ7pDVpSq5Ehj
- 5nCK2Keyl39ozkiwkSmgb5gxwr02gEv77SaMcr9GBJTKY7YYxIuGLe32h1UmZC5Gx9PO
- j0+ebuL1pdpbjk++GPhllbcTrgsgVDeXt5F9qvOcJrlnEv7tck2YyA0ROffsQeH+h1JV
- F8dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779757279; x=1780362079;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=WkoDOmIQ5Hj2yranYHm7ebfBS7cyHn6dxBl0N9prozU=;
- b=bKEgUSmbvlc8ngoE0thfJvGsxJWuXStU+uKigd6IETfy+rSFJpmeKONgiiWdGexaOm
- hDuN/7aDo4cwHE/DG1+n1TBduNHm2feREo/HuF+9+rgFrM2mVGOF+0P3hs2bgM5OjObE
- xxLJLIIKG/IUDyvEeD6rWjgPDrdeeDvlk3c6LWbv9TVpLepCWpRohF9VcWFLLYy771Ul
- GBZG8pmEfNgwLU9nj8df3Kmcap1lxZFo5zR1hyr3XzVE18NVApBO/8/cjhREEB58Jf6X
- WIcRdyykHrIg/q7Y9R5xFaM45HbP1kMLt+0Ei2gTo94o/vFOqXf0N6fuTZZp/Xms/i8A
- Zi4A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+xFWysjkLlWhCLSiNGrJgXpedvIOK90Ku3vSgPASmX1ZBbRTYKJun2yxVG3Ubaz3KnrdMv1QPPx2A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyY65JlbNvfA6muML+XHRBMMhxdTuHnkp+VUDQqzK84JlPm6aHC
- /IxhdY4cPD/92TF6Y85z/afsgCbbKSTLLNniVW9RCe/EnEU5xgL5yotK8LuW9m1S2BD9ETYF2mn
- 22+pX1q8msbX7wdjiAqdhExYiu3/WRkU=
-X-Gm-Gg: Acq92OGYz7EeL0xgB6+1LsKJEDK+BP3AnHic3AJMSfY38/yWAo6pfmOb1yjKWhaUV4v
- elUSWNOAbUkCm7K+85zCnSzItE6Wif16V5ggCX7ljWRM0RW8C69KgzJV1IyPP0/aCTOkv2cBm0H
- ojQMWXcq1Zu+l20KQ8/vSYXQpuRBP/xZqGFlVdhwRLRA+HzLVmkyNOE811VlKN1XhriMcTLr5yl
- N0AKA6yG+7T3cDZrd/ziE3x0PKCU+FI2YtS/juYGuqhIwKB1AUTRwXTvR+fGgX5+f5Aa/BbS9O7
- rC7UyVccxKoWf/NjEUtGCRbgIduop+GsP0L5888bz4EZ43dXglKSr/ktLt7UxzkrcxI=
-X-Received: by 2002:ad4:5cce:0:b0:8a0:7c8:409b with SMTP id
- 6a1803df08f44-8cc7b5c7ab0mr282601246d6.33.1779757278711; Mon, 25 May 2026
- 18:01:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260521143624.56906-1-inki.dae@samsung.com>
-In-Reply-To: <20260521143624.56906-1-inki.dae@samsung.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Tue, 26 May 2026 11:01:07 +1000
-X-Gm-Features: AVHnY4L_jkvbJSgFydFCJJxizdKRbh_UeuepOxjo5-N1eR69ce0-W7oMKRR46qM
-Message-ID: <CAPM=9twLzSJh-rHpNf-JOPBmzFnFevc6v-gu6kWfLCTPeyWLFQ@mail.gmail.com>
-Subject: Re: [GIT PULL] exynos-drm-next
-To: Inki Dae <inki.dae@samsung.com>
-Cc: airlied@linux.ie, daniel@ffwll.ch, dri-devel@lists.freedesktop.org, 
- linux-samsung-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010027.outbound.protection.outlook.com [52.101.56.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D46D010E42C;
+ Tue, 26 May 2026 01:05:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H88hZXHoydTSiu9ihtUiOagsC0llqLcuEE5GjJFjZeFhXvArx0US+GNmermabLAqpgLMDd/Uvb+QzfVQ0rYEK9jtFavF42twYcF+l5lVJHx2PZed1pZp4G+IspwV1xkRc8m1tX19oDIEVNlowHTR3K9YW8Dgf1+Dc9eUYQXuXeEmaWoXHNwmY1kqqwBRJHi8wtLR7D0j5AFAJ9tl/B0yv9vopI6vx2JqyTlCfJsKxs0agYCDAt9Km2TiE6Y3hswa3fNggGMmG8j8KOveV358xHx+E8/AcwAt+YyLdE1ZeJt3yWxm7bT5VOYhz9bSUb0xONTN5h5fll2kWlhkQEXE+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lLYG3e2JDi4yLeGie84a3SyW0pvyP/p8Mz9z2cVD1Ys=;
+ b=V+soWlBWvmqD/lVJFQN8wnENzwrqWkTyVMaqxn9QWDtuEUc8ah+ISpA+rm+LntrNbWufPNWSABbZOOc43NZBix0+yZUH2+DqSI7saUCW8E8DkWnpSF6mZ75MO+375HQE9RdcttuqWa+e03EuU+HX3Ffr+O6rHG0Wx/wzKxTyMfSsooomRHPhkeqIuseNRP8vyZugVE03NTXdJub/5jYYoAIY3gitfJ5aRa+/4uPOnU9XgDUvSyRnge6Hk2sMzhS4ruR1lP6cydu6RafoYzbHkN0EBQsHJY4HV/SWQWvLo+s7J8F4YuxodS+Th+sST4gMtmlQG6ctyP+pIRNIe7D3fw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lLYG3e2JDi4yLeGie84a3SyW0pvyP/p8Mz9z2cVD1Ys=;
+ b=HN1LNHTRcqKCG+Al0dSIxsZhjdmLHLPLRHn+mUx8kcQgus4ptsnxcWjdT9tpMlBPBCcm306p63PCOnoOzQzngqLyoZ3+TNejszdPmn31WXm1rG8dKesIwt+KZFmIySKvbplGlf/oUGrSwcEhLQZmFx4RwmHFQ9fxdujU7PpFMY9C3cuB3b10MIWgT7q5h3T+Zyu/A054so2N8Z+PtNpode/CPJi/q02Gpnqtm9Naf+KmwdI0lBtSqH3+PK0xtOntOZGw6CGqKX9Oxsur6jrWpvE5Y8sDFuwBHM/EZVsW2miOpYsLQtwdrcwrsc/uNGvFTfjlXtqV1JNhkMFQ/0yK7A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by SN7PR12MB7912.namprd12.prod.outlook.com (2603:10b6:806:341::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
+ 2026 01:05:19 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0048.019; Tue, 26 May 2026
+ 01:05:19 +0000
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 26 May 2026 10:05:14 +0900
+Message-Id: <DIS7DV2OS6KF.3HDIEU9TOZX5Z@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v5 13/22] gpu: nova-core: vbios: store PMU lookup
+ entries in a KVVec
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260525-fix-vbios-v5-0-e5e455251537@nvidia.com>
+ <20260525-fix-vbios-v5-13-e5e455251537@nvidia.com>
+ <f2e3e7e6-3e6c-4a1b-aba5-9be0c41e5c6b@kernel.org>
+In-Reply-To: <f2e3e7e6-3e6c-4a1b-aba5-9be0c41e5c6b@kernel.org>
+X-ClientProxiedBy: TYCP286CA0273.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c9::12) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SN7PR12MB7912:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c2008a1-0891-4a9e-31b3-08debac2da79
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|10070799003|56012099003|4143699003|6133799003|5023799004|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: r0Ddye+NLiCF3IX10nsnwvdYsNDrFxXorJiV/OmUjYbZo6Ju3v6RMu6CTwt2WlpUL7A02h4a4Op8U33yttIxUIsw1qFsvOIyW5rsCsPM9JL0Z/XvVoIkyuTtZ40fi1Zf33IvhGrew3puBk+g/VkrPD0VLoezI6WojF9PdXrdwYfNCAaQdNA77fDhVcq239Ci3yA2ZpZ9z1TmK6m7H5N1jx43jKjZtM+A0oIdiUDaG3sQp2IYAOfJPKhlbnCAeZmGfZsDwUX9pPqSXwritUQH6ljyVmNdGAD0f9EoDIzZMWb1qZueVa5+keL0LnGLHhdA0llapVSUamh/zBzmRubXI4wAzps4gVDOVoPeFllD1j/b0ZJpd+9/u3e151dmSaDA7DiG4OwtO4XBZUEY5dLQhfmW7P1JHQMJyMKmsdvy42YqGswK18js61oX/NMQDAAK8AwoOW4Cori8oHNlGAk/TUGzJxPsSXSC9R5lAp8jFdLUNCLl2frhbeoWc23gjV3bHZHgfw5Jdn5lp3EnEsq7Zd8MTVC/Qa2XHjyHNht6rsZn/rZqiLTMDjnA/VnJ5Sf5rijTEvQbw9iFV+7zCI2AVr/N/03ZsCdnND+swsyYdnEYruTv8Ov2fiQx2TohlyfAIp5m6KOODAo+BwJaeduuNE9UlnIRDdtGRsNI2BDQ29PhxGVnpzv3G29KyzA76xyu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(10070799003)(56012099003)(4143699003)(6133799003)(5023799004)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RG80THJNNE0vNFRBS3MrMG9VUDUybWsrWHp2cXNXV3dNVTlBZUd0ZmhyU212?=
+ =?utf-8?B?NjAvKzg4Nm1HOFF0cVFsbFpOdXNVeDlydmJydjI5YXhmU000N2RPVzVxQkJG?=
+ =?utf-8?B?ZjBndFl1MkxjdWFDaXZlbUs1Z1VZQlFWTjFpQ2IxV0JxZUtYbFlkbHozTTdV?=
+ =?utf-8?B?eHpVaERzVEdJV3lBRlZ6enRncUpTeS85U1N3NlBUM0N6R3dNMVRMM0ZlREVw?=
+ =?utf-8?B?cmxNTmp1NjRsV2ZWNU5EK2lhRmdkVGpEL0lFTGtLSXBsa2hnQjExRWtmVHRJ?=
+ =?utf-8?B?UVRMTm5KSGZidkllSXdrSzBFd3I1U0RXM3RDNHNLVWtqNGo4elNwNEhsT2du?=
+ =?utf-8?B?bk1nVlVFdHpUZHJmaDRNd28ycG1HRlV2d0Y0UjVJcXpOemc0K0hzWUp2eVFX?=
+ =?utf-8?B?MDBNOXNOZnkyaWxCWmJSa2EzbGIvZGVBNVNoOGVkdnZFeXI3Y0F0VzFIWUl2?=
+ =?utf-8?B?KzlxdVRqYkxTU3JzenZiL2NlZ3ZMK09lbndEKzA0ZVhRMVFEeDdJL0dJa1VF?=
+ =?utf-8?B?NU1ZRmFKdXJObXZ1dGJ0Q3J6Rm85MzEydThIaTNvUWN1bi8vRk56VUJsV1BF?=
+ =?utf-8?B?ZFJTVlRDdlowUnV2Zkc2K0tlNmFNZXZFNUFEVUNkNytEY2JURFh5Z3JKTmRN?=
+ =?utf-8?B?UE8rdFE0SjYvaTlVbkNXOTZ5WmU0Z1ZBYlpWOEhVZXVIMzZOTmZkb2ZDa21M?=
+ =?utf-8?B?R0JUajNoVDB3by92VU9KbXRpd1Q4WnBVdGxhbVZiOE11Tk1yMGREN0ZJN1Fl?=
+ =?utf-8?B?a1YwbFBPazVRT3JCNGJNSjdGc0trb1FzbXkvN3JKRXd1NDUrejV4STBLWGhz?=
+ =?utf-8?B?azV6bjIwZlpvZXhWNlE2S3g4ckEwbng0WXNKd3k3SXZFZVhkN2FLUER4Wm82?=
+ =?utf-8?B?RGRaZ0VYQXVUSm8zVk5lQmJOTUcwWE1KTHRNWDU1Q3ZXcU9xSHVVUG9XT3Rx?=
+ =?utf-8?B?dzYzaVNwY0grVFYvMWVQU2xSMStsejMweFpleHZGMVROTk1WTWJTdGNUZzIr?=
+ =?utf-8?B?L0pHOE9mMUM1WnA5S1VYYXNnb0lGZXQ5R3pPQlhZVDNydytJR21EMHU2Qy9O?=
+ =?utf-8?B?L0dtVW1vQTFTUUxsRTJRZlFRTjFuSjUvaUlzODNLRjMzSm9YelpkZDZIaGdr?=
+ =?utf-8?B?MlMyTEJuR0lFVXZjMmttOW5Qb3RRYjFFKzlrd1JCWGNRdGFDU0FaOGxKTE5h?=
+ =?utf-8?B?TzUwN2g4bmxLVnpIdDBOUmtQQWNlTUlHRGMrR09RVWVlaDE1QVlVTmZ2OCts?=
+ =?utf-8?B?R2xYRlM3Z3lBYmNIelBDQUcxdnRHZnhxcVltblpTakN4MDFDZlNlaERUTVh5?=
+ =?utf-8?B?eFN1M2FJckV4aTVnN1ovcHV3WVZXRGhpa2VjVFFHbVBCYWVZcnZTWUxGMmpl?=
+ =?utf-8?B?WnVyWHhsNUhLQ2x5NUQvWnVUSzVOMUZCMmRzenc2QytGM2NCNWx1MXZNSTlw?=
+ =?utf-8?B?K0NsZzNRaGVEV1dEcFU4N0FsajhSYmF0VWg1Y0ltMmRXdGlSd3JkOFN5L1E2?=
+ =?utf-8?B?NVZTRG1HVjZlQ2Y2UEt0WTlBdFowMnVCbGlNR0MzeXp5VHczSFZmWFdVdjho?=
+ =?utf-8?B?Z1ZnOFlmdldHeGl1WTlRVGhSR0pmTThLQXBOOWUrclM2dll2ak9FVXRLeGl1?=
+ =?utf-8?B?bEgwZEs0cnhGVEJkS3dvcTZNdTNjUGxtY3doRllyVjlmOWZoOWtKWmtLSDRw?=
+ =?utf-8?B?ck1Scnhqc1Z0bElpVjJOS0NuV1VzSmZVd05RNGRpN29GYmhTdWRrdHFmRkFm?=
+ =?utf-8?B?dlZVOUZMZ21qZnlER21aRm9oM0JtVlVCeU93QlJVNFRrN2RaSHk5ZHJtdmk4?=
+ =?utf-8?B?ckVuenNRUzVtTXBwSGd0WFBSYm40NkE2c0YxL1NFdkdDeEJnT1R6NURYV244?=
+ =?utf-8?B?Vzl2a3cvODFGS0pUNGpqREFsZ1ZWWVNBd1RaQmpta1YrU0lUZFRkTWFod0FL?=
+ =?utf-8?B?dHd3NXg4RVBnMjBxNFp0SXNPdnZmVW5qaXBvbWpYMDlKVTRwWUtsdUMzR1Jr?=
+ =?utf-8?B?TGJRa0NEUU96d1JVZGd6MHgwRnQrYzhrcjl3TlZSS3k0Q0tWRmx0cCtBQmZt?=
+ =?utf-8?B?K1JuM3Z3WDlraXpTNGRBYUQwZ05XVlVVbU5yamlYaHh4bzNVcXZwclQzdTJ0?=
+ =?utf-8?B?My9TYnV4bEhwQzJSa2tRUEk1N3lvWGRsOUhFbkY5NU5mL2FzaEJhT2pwdk1s?=
+ =?utf-8?B?UDBWaWNBQnZuc2Qybmw4VmZKaDh0eHpkT2FyWE16MVFhNzVLeFBQL2l3aVdh?=
+ =?utf-8?B?d3NDREJkTFJzLzZyT2luTlhpL0piQWIvRWVuV3VFajE2cVRPMEhpd1ZmWkh6?=
+ =?utf-8?B?QkxhYll0UDFJS3o3YkFPUkZZTTRtVVRBKzQrb3lTbkxBRlZzTmtzcEtaWFpG?=
+ =?utf-8?Q?LHUFdp1Dom+X/WBDwrrX3rBJx76THTyBS22QVw6RRDsAz?=
+X-MS-Exchange-AntiSpam-MessageData-1: zjPqzXB/HZ4JwA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c2008a1-0891-4a9e-31b3-08debac2da79
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 01:05:18.6280 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /L9DNkt7GUT9mTQYQId1NX/jZLz898mQcrJDK063Hnm+TNN/689PX/KVZYKMnfCyC2Eq4KiVfp59RDonD+I0FA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7912
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,112 +146,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 22 May 2026 at 00:36, Inki Dae <inki.dae@samsung.com> wrote:
->
-> Hi Dave and Daniel,
->
->     This PR brings a cleanup and modernization series for Exynos DRM,
->     focused on fbdev emulation and DMA/GEM internals.
->
-> Major changes are:
->     - migrate fbdev allocation to DRM client buffers,
->     - switch fbdev geometry calculations to DRM format helpers with tight=
-er checks,
->     - fix screen_buffer handling to match fb_info semantics,
->     - adopt DRM core DMA tracking and remove redundant Exynos-side code.
->
-> Please kindly let me know if there is any problem.
+On Mon May 25, 2026 at 11:29 PM JST, Danilo Krummrich wrote:
+> On 5/25/26 3:57 PM, Eliot Courtney wrote:
+>> -    table_data: KVec<u8>,
+>> +    entries: KVVec<PmuLookupTableEntry>,
+> Here an in at least one other place the patch series changes kmalloc() to
+> kvmalloc(). Do we really expect this to potentially exceed KMALLOC_MAX_SI=
+ZE?
 
-Hi Inki,
+It won't exceed KMALLOC_MAX_SIZE, AFAICT. IIUC KVVec tries kmalloc
+first then falls back to vmalloc. Is there a disadvantage to using KVVec?
 
-In file included from
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/exynos/exynos_drm_gem.c:=
-16:
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/exynos/exynos_drm_gem.c:
-In function =E2=80=98exynos_drm_alloc_buf=E2=80=99:
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/exynos/exynos_drm_gem.c:=
-69:49:
-warning: format =E2=80=98%lx=E2=80=99 expects argument of type =E2=80=98lon=
-g unsigned int=E2=80=99,
-but argument 6 has type =E2=80=98size_t=E2=80=99 {aka =E2=80=98unsigned int=
-=E2=80=99} [-Wformat=3D]
-   69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev),
-"dma_addr(0x%lx), size(0x%lx)\n",
-      |
-^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   70 |                         (unsigned long)exynos_gem->dma_addr,
-exynos_gem->base.size);
-      |
-~~~~~~~~~~~~~~~~~~~~~
-      |
-              |
-      |
-              size_t {aka unsigned int}
-/home/airlied/devel/kernel/dim/src/include/drm/drm_print.h:563:39:
-note: in definition of macro =E2=80=98drm_dev_dbg=E2=80=99
-  563 |         __drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
-      |                                       ^~~
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/exynos/exynos_drm_gem.c:=
-69:9:
-note: in expansion of macro =E2=80=98DRM_DEV_DEBUG_KMS=E2=80=99
-   69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev),
-"dma_addr(0x%lx), size(0x%lx)\n",
-      |         ^~~~~~~~~~~~~~~~~
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/exynos/exynos_drm_gem.c:=
-69:76:
-note: format string is defined here
-   69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev),
-"dma_addr(0x%lx), size(0x%lx)\n",
-      |
-          ~~^
-      |
-            |
-      |
-            long unsigned int
-      |
-          %x
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/exynos/exynos_drm_gem.c:
-In function =E2=80=98exynos_drm_free_buf=E2=80=99:
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/exynos/exynos_drm_gem.c:=
-83:37:
-warning: format =E2=80=98%lx=E2=80=99 expects argument of type =E2=80=98lon=
-g unsigned int=E2=80=99,
-but argument 6 has type =E2=80=98size_t=E2=80=99 {aka =E2=80=98unsigned int=
-=E2=80=99} [-Wformat=3D]
-   83 |         DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n=
-",
-      |                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~
-   84 |                         (unsigned long)exynos_gem->dma_addr,
-exynos_gem->base.size);
-      |
-~~~~~~~~~~~~~~~~~~~~~
-      |
-              |
-      |
-              size_t {aka unsigned int}
-/home/airlied/devel/kernel/dim/src/include/drm/drm_print.h:563:39:
-note: in definition of macro =E2=80=98drm_dev_dbg=E2=80=99
-  563 |         __drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
-      |                                       ^~~
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/exynos/exynos_drm_gem.c:=
-83:9:
-note: in expansion of macro =E2=80=98DRM_DEV_DEBUG_KMS=E2=80=99
-   83 |         DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n=
-",
-      |         ^~~~~~~~~~~~~~~~~
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/exynos/exynos_drm_gem.c:=
-83:64:
-note: format string is defined here
-   83 |         DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n=
-",
-      |                                                              ~~^
-      |                                                                |
-      |
-long unsigned int
-      |                                                              %x
+In this case we don't need the memory to be physically contiguous, so I
+thought it would be best to try to document that in the type.
 
-
-Can you fix this up in a follow on PR?
-
-Dave.
+But yeah please LMK if the above reasoning is wrong, I can change it
+back to KVec. I didn't see any existing guidelines for this for rust -
+if we want to choose based on the expected size of the allocation, then
+I think KVec is the right choice. If we want to choose based on the
+guarantees/contract (physically contiguous memory) then I think KVVec
+makes more sense.
