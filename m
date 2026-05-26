@@ -4,36 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F8ECD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:20:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3145DCD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:36:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0E910E48A;
-	Tue, 26 May 2026 16:20:01 +0000 (UTC)
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2A3F10E48A
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 16:19:59 +0000 (UTC)
-Received: from abreu.molgen.mpg.de (g42.guest.molgen.mpg.de [141.14.220.42])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 801AD4C19741A2;
- Tue, 26 May 2026 18:19:35 +0200 (CEST)
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915/audio: skip ELD query for force-off connectors
-Date: Tue, 26 May 2026 18:19:24 +0200
-Message-ID: <20260526161925.17041-1-pmenzel@molgen.mpg.de>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8221010E64B;
+	Tue, 26 May 2026 16:36:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Isf0AQex";
+	dkim-atps=neutral
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1368E10E6D8
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 16:36:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779813390; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Q1mjqmDRXQBJ9UnE09fB7WIVsaDY2NOIivd7MnqmH287x0ggU5IXnzT5pPtmTTzZj14KaQdfkZf97T+zc1K6O6Z7KOe6yxUlJe2bmw3xgdWpvB30LTe7NkxKyBTpg0bgw+iwuGTdwZtuaJ8nHmpDPeAmErJKrZaXBtqWK0GLKaQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779813390;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=V1Y8Qh6mitTx4NX5Mx6U9ei3R+n3NEvxuCei133kMXI=; 
+ b=TlebiAZjorsGDG+ot0dYPdhBdnZlv4+bNd8sON37rvozKDQAzI8hv5p+6Bc12GFdULX2tRI2gwf9MS9fJDeAPcom4c8eqekMAAV2ClM/DzAa5NFw8jS1lABcLCDjc+mozKivI+2yLkQC5FTdyamsjZuuwkFiozPrCmtlSkv5sC0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779813390; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=V1Y8Qh6mitTx4NX5Mx6U9ei3R+n3NEvxuCei133kMXI=;
+ b=Isf0AQexepKpwQVcebDrBqA8KwKvnCQIpcDtyHAm6cOAt7hj8snXpRFJmk2JdgFV
+ d3JfG5BnpGW88xILkkxvhdOt41KkSylfvDsgEcL6UPzQrW337dzhjyZV4odkKXG2J2r
+ XViQo2AAKIw2aO0DouDXqKpJ/VGaSaKGWUAtJ5QA=
+Received: by mx.zohomail.com with SMTPS id 1779813389125208.9739422841859;
+ Tue, 26 May 2026 09:36:29 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>,
+ dri-devel@lists.freedesktop.org, Lukas Zapolskas <lukas.zapolskas@arm.com>
+Cc: nd@arm.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Mihail Atanassov <mihail.atanassov@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>
+Subject: Re: [PATCH v6 4/7] drm/panthor: Introduce sampling sessions to handle
+ userspace clients
+Date: Tue, 26 May 2026 18:36:22 +0200
+Message-ID: <qNyBEQ6rTuGUNU0cUjgOqA@collabora.com>
+In-Reply-To: <20251215171453.2506348-5-lukas.zapolskas@arm.com>
+References: <20251215171453.2506348-1-lukas.zapolskas@arm.com>
+ <20251215171453.2506348-5-lukas.zapolskas@arm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,101 +73,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a connector is forced off via the `video=` command-line parameter
-(`video=<connector>:d`), `intel_audio_component_get_eld()` returns -EINVAL
-for that port because `find_audio_state()` finds no active encoder.  The
-audio driver interprets this as an error rather than a clean “no monitor
-present” reply, and, on the Dell XPS 13 9360, at `drm.debug=0x04` the
-repeated calls generate the log below:
+Hello,
 
-    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
-    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
-    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
-    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port C
-    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port C
-    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port C
-    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
-    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
-    i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
+I know I'm a bit late, but I've found a bug.
 
-Add `intel_audio_connector_is_forced_off()` which scans the connector list
-to check whether any connector on the given port has
-`force == DRM_FORCE_OFF`. When the caller finds no audio state and the
-port’s connector is forced off, report `*enabled = false` and return 0 so
-the audio driver sees a clean “not connected” answer and stops querying
-that port.
+On Monday, 15 December 2025 18:14:50 Central European Summer Time Lukas Zapolskas wrote:
+> To allow for combining the requests from multiple userspace clients,
+> an intermediary layer between the HW/FW interfaces and userspace is
+> created, containing the information for the counter requests and
+> tracking of insert and extract indices. Each session starts inactive
+> and must be explicitly activated via PERF_CONTROL.START, and
+> explicitly stopped via PERF_CONTROL.STOP. Userspace identifies a
+> single client with its session ID and the panthor file it is
+> associated with.
+> 
+> The SAMPLE and STOP commands both produce a single sample when called,
+> and these samples can be disambiguated via the opaque user data field
+> passed in the PERF_CONTROL uAPI. If this functionality is not desired,
+> these fields can be kept as zero, as the kernel copies this value into
+> the corresponding sample without attempting to interpret it.
+> 
+> Currently, only manual sampling sessions are supported, providing
+> samples when userspace calls PERF_CONTROL.SAMPLE, and only a single
+> session is allowed at a time. Multiple sessions and periodic sampling
+> will be enabled in following patches.
+> 
+> No protection is provided against the 32-bit hardware counter
+> overflows, so for the moment it is up to userspace to ensure that
+> the counters are sampled at a reasonable frequency.
+> 
+> The counter set enum is added to the uapi to clarify the restrictions
+> on calling the interface.
+> 
+> Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_perf.c | 706 ++++++++++++++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_perf.h |  16 +
+>  2 files changed, 716 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
+> index 3a65d6d326e8..cea8f678c4e1 100644
+> --- a/drivers/gpu/drm/panthor/panthor_perf.c
+> +++ b/drivers/gpu/drm/panthor/panthor_perf.c
+> [ ... snip ...]
+> +
+> +static int session_destroy(struct panthor_perf *perf, struct panthor_perf_session *session)
+> +{
+> +	session_put(session);
+> +
+> +	return 0;
+> +}
+> +
+> +static int session_teardown(struct panthor_perf *perf, struct panthor_perf_session *session)
+> +{
+> +	if (test_bit(PANTHOR_PERF_SESSION_ACTIVE, session->state))
+> +		return -EINVAL;
+> +
+> +	if (READ_ONCE(session->pending_sample_request) != SAMPLE_TYPE_NONE)
+> +		return -EBUSY;
+> +
+> +	return session_destroy(perf, session);
+> +}
+> +
+> +/**
+> + * panthor_perf_session_teardown - Teardown the session associated with the @sid.
+> + * @pfile: Open panthor file.
+> + * @perf: Handle to the perf control structure.
+> + * @sid: Session identifier.
+> + *
+> + * Destroys a stopped session where the last sample has been explicitly consumed
+> + * or discarded. Active sessions will be ignored.
+> + *
+> + * Return: 0 on success, negative error code on failure.
+> + */
+> +int panthor_perf_session_teardown(struct panthor_file *pfile, struct panthor_perf *perf, u32 sid)
+> +{
+> +	int err;
+> +	struct panthor_perf_session *session;
+> +
+> +	xa_lock(&perf->sessions);
+> +	session = __xa_erase(&perf->sessions, sid);
 
-With `video=DP-2:d drm.debug=0x04` the unneeded calls are gone (port C):
+This also needs to check for !session. __xa_erase will return NULL
+on a bogus `sid`, and the ioctl handler doesn't actually check if
+the `sid` userspace passed in is still around.
 
-    [   90.458772] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
-    [   90.459649] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
-    [   90.460547] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port B
-    [   90.461581] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
-    [   90.462509] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
-    [   90.463385] i915 0000:00:02.0: [drm:intel_audio_component_get_eld [i915]] Not valid for port D
+A simple
 
-Assisted-by: Claude Sonnet 4.6
-Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
----
- drivers/gpu/drm/i915/display/intel_audio.c | 29 +++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+	if (!session) {
+		xa_unlock(&perf->sessions);
+		return -EINVAL;
+	}
 
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index 081627e0d917..7864b9a485d5 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -36,6 +36,7 @@
- #include "intel_cdclk.h"
- #include "intel_crtc.h"
- #include "intel_de.h"
-+#include "intel_display.h"
- #include "intel_display_types.h"
- #include "intel_display_wa.h"
- #include "intel_lpe_audio.h"
-@@ -1211,6 +1212,28 @@ static int intel_audio_component_sync_audio_rate(struct device *kdev, int port,
- 	return err;
- }
- 
-+static bool intel_audio_connector_is_forced_off(struct intel_display *display,
-+						int port)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct intel_connector *connector;
-+	bool forced_off = false;
-+
-+	drm_connector_list_iter_begin(display->drm, &conn_iter);
-+	for_each_intel_connector_iter(connector, &conn_iter) {
-+		struct intel_encoder *encoder = intel_attached_encoder(connector);
-+
-+		if (encoder && encoder->port == port &&
-+		    connector->base.force == DRM_FORCE_OFF) {
-+			forced_off = true;
-+			break;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return forced_off;
-+}
-+
- static int intel_audio_component_get_eld(struct device *kdev, int port,
- 					 int cpu_transcoder, bool *enabled,
- 					 unsigned char *buf, int max_bytes)
-@@ -1223,9 +1246,13 @@ static int intel_audio_component_get_eld(struct device *kdev, int port,
- 
- 	audio_state = find_audio_state(display, port, cpu_transcoder);
- 	if (!audio_state) {
-+		mutex_unlock(&display->audio.mutex);
-+		if (intel_audio_connector_is_forced_off(display, port)) {
-+			*enabled = false;
-+			return 0;
-+		}
- 		drm_dbg_kms(display->drm, "Not valid for port %c\n",
- 			    port_name(port));
--		mutex_unlock(&display->audio.mutex);
- 		return -EINVAL;
- 	}
- 
--- 
-2.53.0
+did the trick for me.
+
+Kind regards,
+Nicolas Frattaroli
+
+> +
+> +	if (xa_is_err(session)) {
+> +		err = xa_err(session);
+> +		goto restore;
+> +	}
+> +
+> +	if (session->pfile != pfile) {
+> +		err = -EINVAL;
+> +		goto restore;
+> +	}
+> +
+> +	session_get(session);
+> +	xa_unlock(&perf->sessions);
+> +
+> +	err = session_teardown(perf, session);
+> +
+> +	session_put(session);
+> +
+> +	return err;
+> +
+> +restore:
+> +	__xa_store(&perf->sessions, sid, session, GFP_KERNEL);
+> +	xa_unlock(&perf->sessions);
+> +
+> +	return err;
+> +}
+> +
+> [... snip ...]
+
+
+
 
