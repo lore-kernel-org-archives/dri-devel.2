@@ -4,144 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9219DCD5BCF
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 07:25:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F54FCD5BCF
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 07:41:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00C1D10E45B;
-	Tue, 26 May 2026 07:25:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFFA310E51B;
+	Tue, 26 May 2026 07:41:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="pxONxFnV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="423ZpdgY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ca4benR3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wTMXG0xn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hVpWEfV3";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D1A10E45B
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:25:39 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3BB3C65443;
- Tue, 26 May 2026 07:25:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779780338; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vbopPMUAcDk7jLhilmYVg0dGzzmpzpAxF4hYZz7NYRM=;
- b=pxONxFnVbulMHn5Y6V2sHm+sTznAE0SstZoQBz0jByCjjDh8naiR1HzjD02lMQV9WTdLEK
- hmtQh6EbPnn/zrLMpXjPV8AvkX980wCiqDLkrWTFXrlUH648fW0wd0BbTytRxndUssPf2E
- 0qG2yWgAMfeux3Cb7oW7647wLRezxoI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779780338;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vbopPMUAcDk7jLhilmYVg0dGzzmpzpAxF4hYZz7NYRM=;
- b=423ZpdgY19uNmHhgX84wNO9yS7iFotUmDFhS+TAUmtZL5xlo8RjNft2O1HxNN2eMQIPDdt
- xtBdlctJS+54viBA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ca4benR3;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=wTMXG0xn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779780337; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vbopPMUAcDk7jLhilmYVg0dGzzmpzpAxF4hYZz7NYRM=;
- b=Ca4benR3XC6eqbXaPAmkWHqrlwLdcKyEc+n/3MT3mf5n6XG6zKv1ZJqPerajkj3Suy7tts
- So+twlh3+nj0r5DVz+iVWZK+kmKiwxmjrslSf8Jr7+cAKHLGaImAvn6rJSOmFyLiFf+AQE
- Yko0vgiT/1WgekTl2sKuklJdblMZK9M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779780337;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vbopPMUAcDk7jLhilmYVg0dGzzmpzpAxF4hYZz7NYRM=;
- b=wTMXG0xnv1TUiYjLZz7CnWpwNZ6xbzTNONpqfzuwX41ciCODpV8v5VFKBA0BMGe3XwBjpq
- vLovYNlw6FJxUKCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3E265A0AF;
- Tue, 26 May 2026 07:25:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id bvY6MvBKFWpDBQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 26 May 2026 07:25:36 +0000
-Message-ID: <07a05f2e-c015-48e0-b942-9b3f0c63858c@suse.de>
-Date: Tue, 26 May 2026 09:25:36 +0200
-MIME-Version: 1.0
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010028.outbound.protection.outlook.com [52.101.61.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F33510E51B
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:40:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bMw1RFRX67x2QZ78z20+PMMZLG3we0rBnUOxOI5mwPk/KvubjxtAXI27hk0PUTZ6s0ukkJm8OqS67TfeppQrg8bcFbGCgwXsoc5Ley2609TCtBb7J26ffgVThdslLdZeExalcJi34xxUILPeW7I2/lVumoWKtcl7MMiIQvCPymA0tTbWMECYBo3LgCecymdSqscwBh0C/MA5eAvcaFIjC/62lH+BUVx3k243DGSsVt9DLPYb1hmD6gkzBKVdaXyqdEh6gFB74F/DG4V9s1ZlMSqGo8JUvnuJ4lEPqfEocn3EjKGa4lHTP14JMH6bQsp+CbYJXjFTsY07w++WVQiPoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L00bC2FWVEsDKy39rNP4ADjdZTbejRfUMppkBttYpVg=;
+ b=QHW/A40SLgDkW/BlMizdDgUOTkCil88xn15FwTFQmuB1spjixuxfMSkJBdlp6cqVls3cEytq/t4qf7o6Q+0exhxBujwHuZ2s5X1xy/7Il+Xds+oFkOJlnRpc5ONVnNBfvbSfs5AaUCQhuGI9wRYGFIGT9IFnys9y2tfCor5PEcE7YI034SzOSoa2l70a0935fdDkjybHmKAUofWoqI1EitHU70iPPgvOALP+i5U/q8M16KpW9vSoQr7ZyChAmMWm8cjLRp4rzENF5ypgbnVh0j4AJGIpTkXslUYAOi9TrEfFyvwI3Ld3ohV8YQtnmUIyInEwQQLkumNuLrg2N5vHJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L00bC2FWVEsDKy39rNP4ADjdZTbejRfUMppkBttYpVg=;
+ b=hVpWEfV3/1vcs6AbBZnDBdUPGl7g7mmdcQF5aU/FK0l+1kq7tuPRYlE2HW9UXNhNZG1XiNNHtj5//ysAVzRCACVcL4xFdEwDkmNXK1swRC5YQPUOXo9X700t5cCWirIbtR/XyUIDdVMgK4Zj0ijifdSvB0Rs5tY5/CkeZCk9ElM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB6814.namprd12.prod.outlook.com (2603:10b6:806:266::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Tue, 26 May
+ 2026 07:40:56 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0048.016; Tue, 26 May 2026
+ 07:40:56 +0000
+Message-ID: <4ac138d9-fa24-432f-b2cc-78c3fc58f0e3@amd.com>
+Date: Tue, 26 May 2026 09:40:47 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] fbdev: Wrap fbcon updates from vga-switcheroo in
- helper
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: deller@gmx.de, simona@ffwll.ch, airlied@gmail.com, lukas@wunner.de,
- maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
- chleroy@kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-References: <20260522123019.211059-1-tzimmermann@suse.de>
- <20260522123019.211059-4-tzimmermann@suse.de>
- <CAMuHMdXKF=fSZLqQiOuxDvygBDVSZKD+CQ3Rj+R4E_rYrz-WtA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] mm/memcontrol: add dmem charge/uncharge functions
+To: Shakeel Butt <shakeel.butt@linux.dev>, Eric Chanudet <echanude@redhat.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
+ Natalie Vock <natalie.vock@gmx.de>, Tejun Heo <tj@kernel.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "T.J. Mercier" <tjmercier@google.com>,
+ Maxime Ripard <mripard@redhat.com>, Albert Esteve <aesteve@redhat.com>,
+ Dave Airlie <airlied@gmail.com>, linux-doc@vger.kernel.org
+References: <20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com>
+ <20260519-cgroup-dmem-memcg-double-charge-v2-1-db4d1407062b@redhat.com>
+ <ahB7pCu_G4vuswc0@linux.dev> <ahB8OhgdPgOkzuS9@linux.dev>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAMuHMdXKF=fSZLqQiOuxDvygBDVSZKD+CQ3Rj+R4E_rYrz-WtA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 3BB3C65443
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCPT_COUNT_TWELVE(0.00)[12];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[];
- FREEMAIL_CC(0.00)[gmx.de,ffwll.ch,gmail.com,wunner.de,linux.ibm.com,ellerman.id.au,kernel.org,lists.freedesktop.org,vger.kernel.org,lists.ozlabs.org];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[];
- internal_greylist_whitelist(0.00)[2a07:de40:b281:104:10:150:64:97];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:url, imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.com:url, suse.de:email, suse.de:mid,
- suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <ahB8OhgdPgOkzuS9@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0016.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c9::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6814:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3fd3e3f8-a34a-432a-a1a6-08debafa1f2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|18002099003|22082099003|11063799006|56012099003|4143699003;
+X-Microsoft-Antispam-Message-Info: 7dE+6M6317zRY56ryNhsr9xb6e2WOAhu5pscx/nZpd0R01RFb9DYkbX4LJGSpMRpcZ9RgXo8uStN8Yz0/3JFyKjCrgWkHlLp+NPGHsSsWDW2vhZEj4v016c6//Ty5CSxccn4NMlRpfXR+O/l0YLIJlPlLvl5jub1/orSppVQ9VChd+CQTs9lgleBM2XMiHtCvzuc/d7kDCRCVMECuWgRzW/OS5mK8oeUZ8RXZo/D35elAra2/GWqikzcX0rcBcTYyE9WDDJoKHskEh8DlwA+5tFsYeZ6W2qEitgt5APTyf5c3PxrM7ckIiWXRD9Ezo4SRj+jsGv9GOjDRjBEFgAbOhVCFcqsfEycuUJC6QNXyE6oHlsGmAsJUniemeUFcuIE7trvzFuHnYLq0Jl5At8+cFlD0DOfeDS3dtAWdhYDLg7gq/e1mgS3z5IEGQtEnxLaw09ok5525VX+jIp/ccvDtfkpue3J6WRkBwnA053YnB1z6iVxIikKBUKmWO44HNdfa3/4dkdJmZdj7x7EFamsGWAg0eZ0K3xo8Q/yaoWz1Tq7xgaAWrYTCr7m7Lo7WRTeL/Vct1gECqbKdrJDMbTauqFqGT7fIz3EXp4sPrHOoS/bVPnDlyOfosIwaE74l2bldOyl4zdWiUarLH9Ov/1Fh00SawaxObN4iQRzdXZ5bMkg0t5QJ3Z8gjDzLNOZGgvM
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(11063799006)(56012099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2I3TXJCeXBOV1c4RFFVUG1ZVzNjSGlCTkRDL1NrSmFnc0hQZ3p3dmN6RzN0?=
+ =?utf-8?B?bnVldC96czNhdzFVMHdMQXdoTDVwWGRVeERQaFYrVlM2bFA3RFZ4L2xVL0Ra?=
+ =?utf-8?B?aG1qVmM2QlR5M0NramlubGtPb2tlYUZvSHNjV2JVUGN4ZGtXZ2Nzem5OdTBB?=
+ =?utf-8?B?UlVGOW8wZGJhY3RoR2JVMkprcFdjWG1GeDZLVjgvNjFuNmVNSjBRK3FWSTV3?=
+ =?utf-8?B?dExCSFRxbXg2UUZId1M0bVdIdGtZdkNOSlZBajZicjhzeUdzYnN6azJLYktU?=
+ =?utf-8?B?VGQzcERaZUR5MzZJa3U0QlZsd0RLMHZEVmVGTEdNWDhqMGd1VXg1bm1BNjkw?=
+ =?utf-8?B?TW5RTHMzZDBPaDZMZTRnMGtySU9Sdmc4eFdzeVZnV245UXM1b0U5QWRqUjI5?=
+ =?utf-8?B?WmhoQ2ladmJEVHpJQ1ZWamRneVpoS2I3MzR3WXczY2c4ekZBR0dTOTR4NVlU?=
+ =?utf-8?B?dCt4V1l6d2RMNGVPWkFPb29zUi9NYkNDNWdNRkdZNlY5RWZqbFlUV3B0amV0?=
+ =?utf-8?B?TG54NDBoWXROL0lObkZYVEJLWGxrVWtPV3VaalVwcmJBMHp6R0pmN0F5c0lR?=
+ =?utf-8?B?M25NL3FyWWwzOVJvVjYzak1wUTNMVzRROVpyTGh0RjJ2UXVGUVN1c2tBVFVN?=
+ =?utf-8?B?TjlldHU1cXppalE2T1JMK0VYeWxhaURpSUZTWnVEUXZaRnB1Rm1JbGlCUWhl?=
+ =?utf-8?B?SlUwYnZsSDFoTTYvNFA3aXVKem1lNGpVVVlDeHhsUDU0SE16cDlWMElvSjFD?=
+ =?utf-8?B?Q1JweWU2MzlaVXNVZmFZd2FXblYrMTZnYWNVWG1GaWJnODBxNFlma0VUL3Na?=
+ =?utf-8?B?MllXRjd5ZEJzei94MzRwUi9TTjBja0hsMVZxMENZUkhDek11V2RGKytTNmhs?=
+ =?utf-8?B?MU10Ulh1Q2Q4ZVhDQ21qYUdhS1owMmlIb2tLUWJobWVDcnc2RXpIZHhzcDNj?=
+ =?utf-8?B?TXVYWlh3d0xPbXBPQjE2R0NXbnlvekpGa05tZFJZeGNmTGVDakIyM1RLUWx6?=
+ =?utf-8?B?RmkyVWFiYnpEOWRoZEh6KzRmSmNnVTVac1FXRXdlU0NrUGVvTkU3NkVYM0NU?=
+ =?utf-8?B?T0JmWDNLNzQ2Tys2U1ZaY2JBeHBlOHZBT085TWF6cksybjhGdTlhaHZQYmMr?=
+ =?utf-8?B?T2ovMTc5TERQVXpvN2FKbVJYNVRWNlBTRE56dnJlV3RQdW5VWFN6eXlsZ1pu?=
+ =?utf-8?B?a3pmbVZkSEwxWWdXcGRuais4ank2UkYwWERXd0NNZUZyd3dZK2Y5VEdZells?=
+ =?utf-8?B?UmoyS0JrVm93OUNPcHpDdTNHWkJLWWt5VU5qUWl5VEJQN1lSOExnSytDUDVo?=
+ =?utf-8?B?OEVpcGhNZHJ3SmthOTRiTUxhZk9ObGNhTC8wYmliZkIwUmdKdFFSRUwvcXdh?=
+ =?utf-8?B?V0VJWFVid3hDYmJOMW1kT2pFK1R4NlZDdDRNRms0S0pBWDM2UGU5Y1EwU1or?=
+ =?utf-8?B?MEJpSTB4Y21NNGJ3OGdLbkZRUVhuS2ZVSG44d1RCazN0ZHo5WGRxMmxuSnY1?=
+ =?utf-8?B?NGFsSjcrVCtLajZjQ1FkYlM3NHJGc0FnSk8yWVdDVGZIOUs3VWNhOE90dEVX?=
+ =?utf-8?B?cG01dWcra0svK0xIRHRQTHZoS2FYdWVGeEp1NE9BTUF5bFdENTFVNE9vVThY?=
+ =?utf-8?B?aExaNWFkNmN5dmVDUllJM0kyQXU2QlNodVhHK2EzNGVOekd4dGZtS3V5Vitt?=
+ =?utf-8?B?VGNEUWNLcDhTODBLL2ZoUk0xMDBWTXRBTTJ2VFg2VnNsUi9CZlJjc3JUa3lO?=
+ =?utf-8?B?d0tldVU5Y3BlYUs5NEwxVTM5Zjl1STl1ZlZCVnFQSU9jZGRVRk8vTS9NR2hq?=
+ =?utf-8?B?THNTWnpQNGJUQ1ZjVm5Fc3kxSVhMUXByWkdFQjlmakRSRGxBSXkzVjBzQ1lp?=
+ =?utf-8?B?WlBRTFFRQnpYaHU0czgzNHYyTGxMY0h0UmtHQ1RGaUQvTXpIY1crZWJnaFd6?=
+ =?utf-8?B?cmQ5WkRGblY5V21wd2tZQS9GUm5aelFKT3lDSVlPVXVKbUxxZTFMc3NDQzBr?=
+ =?utf-8?B?elY0MjNzZ2xyZFRDekRsWjBYbHg4OVo3S2puSnkyWllNZHpCVzZ3Vk9NdjZx?=
+ =?utf-8?B?Q0tXcFZjRDhFdzFxZHpJUXREci9OZ3ZJTlJkTlpVQitwSTRRd1g5bU4wbjlY?=
+ =?utf-8?B?Y2JjTE1MTGRQZXhxOHZrZkZhNmZKR2ZhcGR5S3dPd1RkYi9kaHFQaFduckVP?=
+ =?utf-8?B?RkJ3STBNTmpXKzJmeUJqTkxsaERPVDkrWUpJOVB4K0J1RzhvZ3lab1pHNmRJ?=
+ =?utf-8?B?NVJ0Vy9KRlhHMUJFUy82VjlSSmRwMFBwV20yU3h5Z1R3S1VyU1hnQ3NGNUo4?=
+ =?utf-8?Q?ZVek5xuhxm8KCGBP+p?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fd3e3f8-a34a-432a-a1a6-08debafa1f2b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 07:40:56.2495 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MwSFg7t2L7MSCPsgx/+Vjn3Prp6MCNlu1l+bmWs1epUTtuBwKre8WfezhTddikSv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6814
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,83 +147,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Geert
-
-Am 25.05.26 um 11:31 schrieb Geert Uytterhoeven:
-> Hi Thomas,
->
-> On Fri, 22 May 2026 at 15:11, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Handle console remapping in fbcon in fb_switch_output(). Vga-switcheroo
->> invokes this functionality before switching physical outputs to a new
->> graphics device. Open-coding fbcon state in vga-switcheroo exposed fbdev
->> implementation details.
+On 5/22/26 17:55, Shakeel Butt wrote:
+> On Fri, May 22, 2026 at 08:53:10AM -0700, Shakeel Butt wrote:
+>> On Tue, May 19, 2026 at 11:59:01AM -0400, Eric Chanudet wrote:
+>>> Add mem_cgroup_dmem_charge() and mem_cgroup_dmem_uncharge() to allow
+>>> dmem pool allocations to optionally be double-charged against the memory
+>>> controller. Take the struct cgroup from the dmem pool's css as there is
+>>> no convenient object exported to represent these allocations. These will
+>>> resolve the effective memory css from that cgroup and perform the
+>>> charge.
+>>>
+>>> Introduce a MEMCG_DMEM stat counter to memory.stat to make the cgroup's
+>>> dmem charge visible.
+>>>
+>>> Signed-off-by: Eric Chanudet <echanude@redhat.com>
+>>> ---
+>>>  include/linux/memcontrol.h | 16 ++++++++++++
+>>>  mm/memcontrol.c            | 65 ++++++++++++++++++++++++++++++++++++++++++++++
+>>>  2 files changed, 81 insertions(+)
+>>>
+>>> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+>>> index dc3fa687759b45748b2acee6d7f43da325eb50c1..8e1d49b87fb64e6114f3eb920293e14920290fe7 100644
+>>> --- a/include/linux/memcontrol.h
+>>> +++ b/include/linux/memcontrol.h
+>>> @@ -39,6 +39,7 @@ enum memcg_stat_item {
+>>>  	MEMCG_ZSWAP_B,
+>>>  	MEMCG_ZSWAPPED,
+>>>  	MEMCG_ZSWAP_INCOMP,
+>>> +	MEMCG_DMEM,
+>>>  	MEMCG_NR_STAT,
+>>>  };
+>>>  
+>>> @@ -1872,6 +1873,21 @@ static inline bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg)
+>>>  }
+>>>  #endif
+>>>  
+>>> +#if defined(CONFIG_MEMCG) && defined(CONFIG_CGROUP_DMEM)
+>>> +bool mem_cgroup_dmem_charge(struct cgroup *cgrp, unsigned int nr_pages,
+>>> +			    gfp_t gfp_mask);
+>>> +void mem_cgroup_dmem_uncharge(struct cgroup *cgrp, unsigned int nr_pages);
+>>> +#else
+>>> +static inline bool mem_cgroup_dmem_charge(struct cgroup *cgrp,
+>>> +					  unsigned int nr_pages, gfp_t gfp_mask)
 >>
->> Vga-switcheroo is used for switching physical outputs among graphics
->> hardware. This functionality is only supported by DRM drivers. A later
->> update will further move fb_switch_output() into DRM's fbdev emulation;
->> thus fully decoupling vga-switcheroo from fbdev.
+>> Please follow Johannes's request to pass the actually memory object instead of
+>> naked numbers.
 >>
->> v2:
->> - use '#if defined' (Helge)
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Thanks for your patch, which is now commit 91458b3f2a84bc7b ("fbdev:
-> Wrap fbcon updates from vga-switcheroo in helper") in fbdev/for-next.
->
->> --- a/drivers/gpu/vga/vga_switcheroo.c
->> +++ b/drivers/gpu/vga/vga_switcheroo.c
->> @@ -31,11 +31,9 @@
->>   #define pr_fmt(fmt) "vga_switcheroo: " fmt
->>
->>   #include <linux/apple-gmux.h>
->> -#include <linux/console.h>
->>   #include <linux/debugfs.h>
->>   #include <linux/fb.h>
->>   #include <linux/fs.h>
->> -#include <linux/fbcon.h>
->>   #include <linux/module.h>
->>   #include <linux/pci.h>
->>   #include <linux/pm_domain.h>
->> @@ -735,8 +733,10 @@ static int vga_switchto_stage2(struct vga_switcheroo_client *new_client)
->>          if (!active->driver_power_control)
->>                  set_audio_state(active->id, VGA_SWITCHEROO_OFF);
->>
->> +#if defined(CONFIG_FB)
->>          if (new_client->fb_info)
->> -               fbcon_remap_all(new_client->fb_info);
->> +               fb_switch_outputs(new_client->fb_info);
->> +#endif
-> What if CONFIG_FB is modular?
-> CONFIG_VGA_SWITCHEROO is bool.
+> 
+> Also what exactly is the backing memory here? Is it system memory? If yes, then
+> you need to pass struct page. For non-system memory, I am not sure memcg is the
+> right place to charge such memory.
 
-Good point. Fbcon is currently linked into fb.ko, which is build with 
-CONFIG_FB.  Kconfig covers this dependency at [1]. For now, I think we 
-could make it 'depends on FB=y'.  As I mentioned elsewhere, this 
-fb-related logic is only relevant for DRM and supposed to be moved there 
-soon.  That will also resolve any such config issues.
+The object might be backed by system memory, but might also be backed by device memory.
 
-Let me prepare an update for this.
+The charge is there because when applications over allocate device memory they get swapped to system memory.
 
-Best regards
-Thomas
-
-[1] 
-https://elixir.bootlin.com/linux/v7.0.9/source/drivers/gpu/vga/Kconfig#L7
-
->
->>          mutex_lock(&vgasr_priv.mux_hw_lock);
->>          ret = vgasr_priv.handler->switchto(new_client->id);
-> Gr{oetje,eeting}s,
->
->                          Geert
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Regards,
+Christian.
