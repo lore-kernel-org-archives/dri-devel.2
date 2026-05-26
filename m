@@ -4,54 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA7C2CD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 19:29:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0EC7CD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 19:58:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6642C10E54F;
-	Tue, 26 May 2026 19:28:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08A8910E1DE;
+	Tue, 26 May 2026 19:58:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AxlgTG/R";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vC+5haJr";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1444010E53B
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 19:28:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779823734; x=1811359734;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=ZCJ/ku+pCwrpXomxjr4qGwLuQomQ2VaaXUe4X7zZRdk=;
- b=AxlgTG/REB2UvX/2cwrlqa20zTXPEd+fg1E2l48HC5ivFTOpYPZjIIhl
- TIBFGAA4nJlrW6v2zGv4u+pW/eTONp1VG4QlVhEOI9cUK9PGfooPGi6QE
- VeyZ8p4u0P4op6nPrgdwADpzbVXbqACv9ODwTP9zfb8J1r7VKFmCk1Tvz
- N0oadSBYWHQJkmLj+HR/wYqPUgy+9z3ySoSiaDTrj7yi40zG6bNsCsJhK
- Vao0gqbAw9Nqps4nMXu6uJ6ea6oWKF/1Wkp/gtdv0Fa7y6VgVAMD1PTOy
- JJsFwH1xZdDh0TfDo40KAmd4ZErYy1r0bsCS47LeUQfxRSEfgGz5onbqo w==;
-X-CSE-ConnectionGUID: 9R4pNVKtQUO8kE53gVSvOg==
-X-CSE-MsgGUID: 8WSsnilsQoWll+/ODM5GOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="91219171"
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="91219171"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 12:28:53 -0700
-X-CSE-ConnectionGUID: nDw94J7RTpCUwr+HlvNT4w==
-X-CSE-MsgGUID: Jplo1sPuQEKSOMJLU4IH0A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="241172578"
-Received: from dongwonk-z390-aorus-ultra.fm.intel.com ([10.105.158.5])
- by orviesa010.jf.intel.com with ESMTP; 26 May 2026 12:28:53 -0700
-From: dongwon.kim@intel.com
-To: dri-devel@lists.freedesktop.org, airlied@redhat.com, kraxel@redhat.com,
- dmitry.osipenko@collabora.com
-Subject: [PATCH v9 2/3] drm/virtio: Add support for saving and restoring
- virtio_gpu_objects
-Date: Tue, 26 May 2026 12:28:13 -0700
-Message-Id: <20260526192814.179673-3-dongwon.kim@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260526192814.179673-1-dongwon.kim@intel.com>
-References: <20260526192814.179673-1-dongwon.kim@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2358B10E1DE
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 19:58:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3FA8C60018;
+ Tue, 26 May 2026 19:58:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662251F000E9;
+ Tue, 26 May 2026 19:58:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=korg; t=1779825500;
+ bh=lMQX5cmTdMhyiYzNOAjSjjruf4hIUXjs5/FMA2ixGi8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=vC+5haJrZXcnYfhXlK6XMFGrf8Pa12esbMowF6KHpRCbwN3adLP+YkMOUmlgJLbPX
+ uEcdIH+WEbpHFRZtlJLmHKci0Rp4HSrsNhDknaSH2SjbtxwE66P0JVpXjys5uvU0BE
+ hzg5G67c9oQ1F744OCJmCB8WNKnTSMwAMGJtxkyw=
+Date: Tue, 26 May 2026 12:58:18 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: syzbot <syzbot+5d32c8bd82427f9c77cc@syzkaller.appspotmail.com>
+Cc: apopple@nvidia.com, byungchul@sk.com, david@kernel.org,
+ gourry@gourry.net, joshua.hahnjy@gmail.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, matthew.brost@intel.com, rakie.kim@sk.com,
+ syzkaller-bugs@googlegroups.com, ying.huang@linux.alibaba.com,
+ ziy@nvidia.com, dri-devel@lists.freedesktop.org, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: Re: [syzbot] [mm?] WARNING in alloc_frozen_pages_noprof (2)
+Message-Id: <20260526125818.d78b7db78d26df094258f8dd@linux-foundation.org>
+In-Reply-To: <6a150a33.2b0a0220.185dbd.0005.GAE@google.com>
+References: <6a150a33.2b0a0220.185dbd.0005.GAE@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,357 +61,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Dongwon Kim <dongwon.kim@intel.com>
+On Mon, 25 May 2026 19:49:23 -0700 syzbot <syzbot+5d32c8bd82427f9c77cc@syzkaller.appspotmail.com> wrote:
 
-When the host KVM/QEMU resumes from hibernation, it loses all graphics
-resources previously submitted by the guest OS, as the QEMU process is
-terminated during the suspend-resume cycle. This leads to invalid resource
-errors when the guest OS attempts to interact with the host using those
-resources after resumption.
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    4cbfe4502e3d Merge tag 'v7.1-rc5-ksmbd-server-fixes' of gi..
+> git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux master
+> console output: https://syzkaller.appspot.com/x/log.txt?x=146c161f980000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=9475bd041c93289
+> dashboard link: https://syzkaller.appspot.com/bug?extid=5d32c8bd82427f9c77cc
+> compiler:       aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> userspace arch: arm64
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11026336580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14ab9796580000
 
-To resolve this, the virtio-gpu driver now tracks all active virtio_gpu_objects
-and provides a mechanism to restore them by re-submitting the objects to QEMU
-when needed (e.g., during resume from hibernation).
+Thanks.
 
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Vivek Kasireddy <vivek.kasireddy@intel.com>
-Cc: Nirmoy Das <nirmoyd@nvidia.com>
-Signed-off-by: Dongwon Kim <dongwon.kim@intel.com>
----
-v2: - Attach backing is done if bo->attached was set before
+> Downloadable assets:
+> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/fa3fbcfdac58/non_bootable_disk-4cbfe450.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/e825a08fb48d/vmlinux-4cbfe450.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/55037c053ec3/Image-4cbfe450.gz.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+5d32c8bd82427f9c77cc@syzkaller.appspotmail.com
+> 
+> ------------[ cut here ]------------
+> WARNING: mm/page_alloc.c:5202 at __alloc_frozen_pages_noprof+0x734/0x1144 mm/page_alloc.c:5202, CPU#0: syz.2.17/3592
 
-v3: - Restoration is no longer triggered via .restore; instead, it is handled
-      by a PM notifier only during hibernation.
+	if (WARN_ON_ONCE_GFP(order > MAX_PAGE_ORDER, gfp))
 
-v4: - Remove virtio_gpu_object from the restore list before freeing the object
-      to prevent an use-after-free situation.
-      (Nirmoy Das)
+> Modules linked in:
+> CPU: 0 UID: 0 PID: 3592 Comm: syz.2.17 Not tainted syzkaller #0 PREEMPT 
+> Hardware name: linux,dummy-virt (DT)
+> pstate: 21402009 (nzCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+> pc : __alloc_frozen_pages_noprof+0x734/0x1144 mm/page_alloc.c:5202
+> lr : alloc_pages_mpol+0x70/0x1a4 mm/mempolicy.c:2490
+> sp : ffff800085d93900
+> x29: ffff800085d93a00 x28: 000000000000000b x27: 0000000000000000
+> x26: 0000000000000000 x25: fcf0000014c00000 x24: 0000000000040dc0
+> x23: 0000000000000000 x22: 0000000000000000 x21: 000000000000000b
+> x20: ffffffffffffffff x19: 0000000000000000 x18: 0000000000000002
+> x17: 0000000000000000 x16: 0000000000000000 x15: 0000000020000200
+> x14: ffff8000828b2000 x13: ffffc1ffc0000000 x12: 0000000000000001
+> x11: 0000000000000000 x10: ffff800082b6f4e8 x9 : 0000000000000000
+> x8 : 0000000000000030 x7 : ffff800082e9b430 x6 : 0000000000000001
+> x5 : 0000000000000000 x4 : f3f00000065c90c0 x3 : 0000000000000000
+> x2 : 0000000000000000 x1 : 0000000000000001 x0 : ffff800082dfd000
+> Call trace:
+>  __alloc_frozen_pages_noprof+0x734/0x1144 mm/page_alloc.c:5202 (P)
+>  alloc_pages_mpol+0x70/0x1a4 mm/mempolicy.c:2490
+>  alloc_frozen_pages_noprof+0x48/0xd4 mm/mempolicy.c:2561
+>  ___kmalloc_large_node+0x11c/0x13c mm/slub.c:5237
+>  __kmalloc_large_node_noprof mm/slub.c:5268 [inline]
+>  __do_kmalloc_node mm/slub.c:5284 [inline]
+>  __kmalloc_noprof+0x450/0x560 mm/slub.c:5308
+>  kmalloc_noprof include/linux/slab.h:954 [inline]
+>  kzalloc_noprof include/linux/slab.h:1188 [inline]
+>  fill_object_idr drivers/gpu/drm/drm_lease.c:389 [inline]
+>  drm_mode_create_lease_ioctl+0x184/0x93c drivers/gpu/drm/drm_lease.c:521
+>  drm_ioctl_kernel+0xc0/0x130 drivers/gpu/drm/drm_ioctl.c:804
+>  drm_ioctl+0x258/0x580 drivers/gpu/drm/drm_ioctl.c:901
+>  vfs_ioctl fs/ioctl.c:51 [inline]
 
-    - Protect restore list operations with a spinlock
-      (Nirmoy Das)
+Methinks drm_mode_create_lease_ioctl() wants some more arg checking.
 
-    - Initialize ret with 0 in virtio_gpu_object_restore_all
-      (Nirmoy Das)
+otoh, memdup_user() passes __GFP_NOWARN, so perhaps
+__alloc_frozen_pages_noprof() should be taught to honor that.
 
-    - Move restore list node into virtio_gpu_bo struct to reduce memory usage
-      (Dmitry Osipenko)
-
-v5: - Include object backed by imported dmabuf
-      (Dmitry Osipenko)
-
-    - Not storing virgl objects in the restore_list as virgl 3D objects are not
-      recoverable.
-      (Dmitry Osipenko)
-
-    - Change the name 'list',a node in restore_list to 'restore_node'
-      (Nirmoy Das)
-
-    - Use mutex instead of spinlock when updating restore_list
-      (Nirmoy Das)
-
-    - Initialize restore_node when virtio_gpu_object is created - this is to
-      determine whether the object should be removed from the restore_list with
-      'list_empty' function when it is time to free the object as not all objects
-      will be added to the list.
-
-v6: - Add a helper, virtio_gpu_add_object_to_restore_list
-      (Dmitry Osipenko)
-
-v7: - Add drm_print.h
-
-v8: - Remove BO from restore list right before unref is called
----
- drivers/gpu/drm/virtio/virtgpu_drv.h    | 15 ++++++
- drivers/gpu/drm/virtio/virtgpu_kms.c    |  3 ++
- drivers/gpu/drm/virtio/virtgpu_object.c | 70 +++++++++++++++++++++++++
- drivers/gpu/drm/virtio/virtgpu_prime.c  | 43 +++++++++++++++
- drivers/gpu/drm/virtio/virtgpu_vram.c   |  3 ++
- 5 files changed, 134 insertions(+)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index c630c75e308b..647e0f5f4f8e 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -99,6 +99,10 @@ struct virtio_gpu_object {
- 
- 	int uuid_state;
- 	uuid_t uuid;
-+
-+	/* for restoration of objects after hibernation */
-+	struct virtio_gpu_object_params params;
-+	struct list_head restore_node;
- };
- #define gem_to_virtio_gpu_obj(gobj) \
- 	container_of((gobj), struct virtio_gpu_object, base.base)
-@@ -267,6 +271,8 @@ struct virtio_gpu_device {
- 	struct work_struct obj_free_work;
- 	spinlock_t obj_free_lock;
- 	struct list_head obj_free_list;
-+	struct mutex obj_restore_lock;
-+	struct list_head obj_restore_list;
- 
- 	struct virtio_gpu_drv_capset *capsets;
- 	uint32_t num_capsets;
-@@ -472,6 +478,7 @@ void virtio_gpu_fence_event_process(struct virtio_gpu_device *vdev,
- 				    u64 fence_id);
- 
- /* virtgpu_object.c */
-+void virtio_gpu_remove_from_restore_list(struct virtio_gpu_object *bo);
- void virtio_gpu_cleanup_object(struct virtio_gpu_object *bo);
- struct drm_gem_object *virtio_gpu_create_object(struct drm_device *dev,
- 						size_t size);
-@@ -484,6 +491,12 @@ bool virtio_gpu_is_shmem(struct virtio_gpu_object *bo);
- 
- int virtio_gpu_resource_id_get(struct virtio_gpu_device *vgdev,
- 			       uint32_t *resid);
-+
-+void virtio_gpu_add_object_to_restore_list(struct virtio_gpu_device *vgdev,
-+					   struct virtio_gpu_object *bo);
-+
-+int virtio_gpu_object_restore_all(struct virtio_gpu_device *vgdev);
-+
- /* virtgpu_prime.c */
- int virtio_gpu_resource_assign_uuid(struct virtio_gpu_device *vgdev,
- 				    struct virtio_gpu_object *bo);
-@@ -498,6 +511,8 @@ int virtgpu_dma_buf_import_sgt(struct virtio_gpu_mem_entry **ents,
- 			       unsigned int *nents,
- 			       struct virtio_gpu_object *bo,
- 			       struct dma_buf_attachment *attach);
-+int virtgpu_dma_buf_obj_resubmit(struct virtio_gpu_device *vgdev,
-+				 struct virtio_gpu_object *bo);
- 
- /* virtgpu_debugfs.c */
- void virtio_gpu_debugfs_init(struct drm_minor *minor);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 82baf1b3717e..9601f310875d 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -171,6 +171,8 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 		  virtio_gpu_array_put_free_work);
- 	INIT_LIST_HEAD(&vgdev->obj_free_list);
- 	spin_lock_init(&vgdev->obj_free_lock);
-+	INIT_LIST_HEAD(&vgdev->obj_restore_list);
-+	mutex_init(&vgdev->obj_restore_lock);
- 
- #ifdef __LITTLE_ENDIAN
- 	if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_VIRGL))
-@@ -307,6 +309,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
- 	flush_work(&vgdev->config_changed_work);
- 	virtio_reset_device(vgdev->vdev);
- 	vgdev->vdev->config->del_vqs(vgdev->vdev);
-+	mutex_destroy(&vgdev->obj_restore_lock);
- }
- 
- void virtio_gpu_release(struct drm_device *dev)
-diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
-index ec9efacc6919..a1ea65f7b1de 100644
---- a/drivers/gpu/drm/virtio/virtgpu_object.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_object.c
-@@ -63,6 +63,15 @@ static void virtio_gpu_resource_id_put(struct virtio_gpu_device *vgdev, uint32_t
- 		ida_free(&vgdev->resource_ida, id - 1);
- }
- 
-+void virtio_gpu_remove_from_restore_list(struct virtio_gpu_object *bo)
-+{
-+	struct virtio_gpu_device *vgdev = bo->base.base.dev->dev_private;
-+
-+	mutex_lock(&vgdev->obj_restore_lock);
-+	list_del_init(&bo->restore_node);
-+	mutex_unlock(&vgdev->obj_restore_lock);
-+}
-+
- void virtio_gpu_cleanup_object(struct virtio_gpu_object *bo)
- {
- 	struct virtio_gpu_device *vgdev = bo->base.base.dev->dev_private;
-@@ -94,6 +103,7 @@ static void virtio_gpu_free_object(struct drm_gem_object *obj)
- 	struct virtio_gpu_device *vgdev = bo->base.base.dev->dev_private;
- 
- 	if (bo->created) {
-+		virtio_gpu_remove_from_restore_list(bo);
- 		virtio_gpu_cmd_unref_resource(vgdev, bo);
- 		virtio_gpu_notify(vgdev);
- 		/* completion handler calls virtio_gpu_cleanup_object() */
-@@ -220,6 +230,8 @@ int virtio_gpu_object_create(struct virtio_gpu_device *vgdev,
- 		return PTR_ERR(shmem_obj);
- 	bo = gem_to_virtio_gpu_obj(&shmem_obj->base);
- 
-+	INIT_LIST_HEAD(&bo->restore_node);
-+
- 	ret = virtio_gpu_resource_id_get(vgdev, &bo->hw_res_handle);
- 	if (ret < 0)
- 		goto err_free_gem;
-@@ -258,6 +270,12 @@ int virtio_gpu_object_create(struct virtio_gpu_device *vgdev,
- 		virtio_gpu_object_attach(vgdev, bo, ents, nents);
- 	}
- 
-+	if (!params->virgl) {
-+		/* store non-virgl object with its param to the restore list */
-+		bo->params = *params;
-+		virtio_gpu_add_object_to_restore_list(vgdev, bo);
-+	}
-+
- 	*bo_ptr = bo;
- 	return 0;
- 
-@@ -271,3 +289,55 @@ int virtio_gpu_object_create(struct virtio_gpu_device *vgdev,
- 	drm_gem_shmem_free(shmem_obj);
- 	return ret;
- }
-+
-+void virtio_gpu_add_object_to_restore_list(struct virtio_gpu_device *vgdev,
-+					   struct virtio_gpu_object *bo)
-+{
-+	mutex_lock(&vgdev->obj_restore_lock);
-+	list_add_tail(&bo->restore_node, &vgdev->obj_restore_list);
-+	mutex_unlock(&vgdev->obj_restore_lock);
-+}
-+
-+int virtio_gpu_object_restore_all(struct virtio_gpu_device *vgdev)
-+{
-+	struct virtio_gpu_object *bo, *tmp;
-+	struct virtio_gpu_mem_entry *ents;
-+	unsigned int nents;
-+	int ret = 0;
-+
-+	mutex_lock(&vgdev->obj_restore_lock);
-+	list_for_each_entry_safe(bo, tmp, &vgdev->obj_restore_list,
-+				 restore_node) {
-+		if (drm_gem_is_imported(&bo->base.base)) {
-+			ret = virtgpu_dma_buf_obj_resubmit(vgdev, bo);
-+			if (ret)
-+				break;
-+
-+			continue;
-+		}
-+
-+		if (bo->params.blob || bo->attached) {
-+			ret = virtio_gpu_object_shmem_init(vgdev, bo, &ents,
-+							   &nents);
-+			if (ret)
-+				break;
-+		}
-+
-+		if (bo->params.blob) {
-+			virtio_gpu_cmd_resource_create_blob(vgdev, bo,
-+							    &bo->params,
-+							    ents, nents);
-+		} else {
-+			virtio_gpu_cmd_create_resource(vgdev, bo, &bo->params,
-+						       NULL, NULL);
-+			if (bo->attached) {
-+				bo->attached = false;
-+				virtio_gpu_object_attach(vgdev, bo, ents,
-+							 nents);
-+			}
-+		}
-+	}
-+	mutex_unlock(&vgdev->obj_restore_lock);
-+
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
-index 70b3b836e1c9..27eaab9f5cfa 100644
---- a/drivers/gpu/drm/virtio/virtgpu_prime.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
-@@ -23,6 +23,7 @@
-  */
- 
- #include <drm/drm_prime.h>
-+#include <drm/drm_print.h>
- #include <linux/virtio_dma_buf.h>
- 
- #include "virtgpu_drv.h"
-@@ -216,6 +217,7 @@ static void virtgpu_dma_buf_free_obj(struct drm_gem_object *obj)
- 	}
- 
- 	if (bo->created) {
-+		virtio_gpu_remove_from_restore_list(bo);
- 		virtio_gpu_cmd_unref_resource(vgdev, bo);
- 		virtio_gpu_notify(vgdev);
- 		return;
-@@ -262,6 +264,12 @@ static int virtgpu_dma_buf_init_obj(struct drm_device *dev,
- 	dma_buf_unpin(attach);
- 	dma_resv_unlock(resv);
- 
-+	/* store the dmabuf imported object with its params to
-+	 * the restore list
-+	 */
-+	bo->params = params;
-+	virtio_gpu_add_object_to_restore_list(vgdev, bo);
-+
- 	return 0;
- 
- err_import:
-@@ -272,6 +280,39 @@ static int virtgpu_dma_buf_init_obj(struct drm_device *dev,
- 	return ret;
- }
- 
-+int virtgpu_dma_buf_obj_resubmit(struct virtio_gpu_device *vgdev,
-+				 struct virtio_gpu_object *bo)
-+{
-+	struct virtio_gpu_mem_entry *ents;
-+	struct scatterlist *sl;
-+	int i;
-+
-+	if (!bo->sgt) {
-+		DRM_ERROR("no sgt bound to virtio_gpu_object\n");
-+		return -ENOMEM;
-+	}
-+
-+	ents = kvmalloc_array(bo->sgt->nents,
-+			      sizeof(struct virtio_gpu_mem_entry),
-+			      GFP_KERNEL);
-+	if (!ents) {
-+		DRM_ERROR("failed to allocate ent list\n");
-+		return -ENOMEM;
-+	}
-+
-+	for_each_sgtable_dma_sg(bo->sgt, sl, i) {
-+		ents[i].addr = cpu_to_le64(sg_dma_address(sl));
-+		ents[i].length = cpu_to_le32(sg_dma_len(sl));
-+		ents[i].padding = 0;
-+	}
-+
-+	virtio_gpu_cmd_resource_create_blob(vgdev, bo, &bo->params,
-+					    ents, bo->sgt->nents);
-+
-+	return 0;
-+}
-+
-+
- static const struct drm_gem_object_funcs virtgpu_gem_dma_buf_funcs = {
- 	.free = virtgpu_dma_buf_free_obj,
- };
-@@ -317,6 +358,8 @@ struct drm_gem_object *virtgpu_gem_prime_import(struct drm_device *dev,
- 	if (!bo)
- 		return ERR_PTR(-ENOMEM);
- 
-+	INIT_LIST_HEAD(&bo->restore_node);
-+
- 	obj = &bo->base.base;
- 	obj->resv = buf->resv;
- 	obj->funcs = &virtgpu_gem_dma_buf_funcs;
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vram.c b/drivers/gpu/drm/virtio/virtgpu_vram.c
-index 4ae3cbc35dd3..9ad11c7f1194 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vram.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vram.c
-@@ -20,6 +20,7 @@ static void virtio_gpu_vram_free(struct drm_gem_object *obj)
- 		if (unmap)
- 			virtio_gpu_cmd_unmap(vgdev, bo);
- 
-+		virtio_gpu_remove_from_restore_list(bo);
- 		virtio_gpu_cmd_unref_resource(vgdev, bo);
- 		virtio_gpu_notify(vgdev);
- 		return;
-@@ -207,6 +208,8 @@ int virtio_gpu_vram_create(struct virtio_gpu_device *vgdev,
- 	obj = &vram->base.base.base;
- 	obj->funcs = &virtio_gpu_vram_funcs;
- 
-+	INIT_LIST_HEAD(&vram->base.restore_node);
-+
- 	params->size = PAGE_ALIGN(params->size);
- 	drm_gem_private_object_init(vgdev->ddev, obj, params->size);
- 
--- 
-2.34.1
+>  __do_sys_ioctl fs/ioctl.c:597 [inline]
+>  __se_sys_ioctl fs/ioctl.c:583 [inline]
+>  __arm64_sys_ioctl+0xac/0x104 fs/ioctl.c:583
+>  __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+>  invoke_syscall+0x54/0x10c arch/arm64/kernel/syscall.c:49
+>  el0_svc_common.constprop.0+0x40/0xe0 arch/arm64/kernel/syscall.c:121
+>  do_el0_svc+0x1c/0x34 arch/arm64/kernel/syscall.c:140
+>  el0_svc+0x38/0x140 arch/arm64/kernel/entry-common.c:740
+>  el0t_64_sync_handler+0xa0/0xf0 arch/arm64/kernel/entry-common.c:759
+>  el0t_64_sync+0x1a4/0x1a8 arch/arm64/kernel/entry.S:594
+> ---[ end trace 0000000000000000 ]---
 
