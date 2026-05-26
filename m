@@ -4,52 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3CBBCD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 12:07:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55260CD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 12:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE9D10E189;
-	Tue, 26 May 2026 12:07:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A977510E1A0;
+	Tue, 26 May 2026 12:08:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="SSXcpjGy";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RNU5++s0";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0520F10E189
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 12:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=1MdOEH4FWXiWKeE/kCEFwFy+r+6+6c969EcWKnH6xAs=; b=S
- SXcpjGy+7E0J8cK0lj7yYa8DxV+7BWnmmnEW8CN5krYl37NpPqMl5BC1YSyA1iDn
- hR19hlUESi8+zav8Je9TtU237DO69f2utrpz88SsdDE+QFiJxx8Wzn6t4b0RUnwz
- poMrkd5Lb9NpXLKob2ey+dG2Sh67+65xWRffFvSRYM=
-Received: from w15303746062$163.com ( [113.200.174.80] ) by
- ajax-webmail-wmsvr-40-141 (Coremail) ; Tue, 26 May 2026 20:06:59 +0800
- (CST)
-X-Originating-IP: [113.200.174.80]
-Date: Tue, 26 May 2026 20:06:59 +0800 (CST)
-From: w15303746062  <w15303746062@163.com>
-To: "Sasha Levin" <sashal@kernel.org>
-Cc: stable@vger.kernel.org, gregkh@linuxfoundation.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
-Subject: Re:Re: [PATCH 6.18.y 0/5] drm/vkms: Backport generic vblank timer
- to fix ABBA deadlock
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260525231000.agent5-0001@kernel.org>
-References: <9c4a68c4-43a3-4a9b-a131-9570174c8df3@linux.intel.com>
- <20260525131610.608273-1-w15303746062@163.com>
- <20260525231000.agent5-0001@kernel.org>
-X-NTES-SC: AL_Qu2cC/uSuEoq7yWRbOkfmU0Qguw9Xcq5uPkj34FWN5t8jCrr+ScQXEB9PUv50tuDMAuVihKOaARIx+pFfqh7RpoTF7tdhwCbHx9uN8X99aBCXA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEF810E195
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 12:08:15 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id B6FFE1A36D2;
+ Tue, 26 May 2026 12:08:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 866A56011D;
+ Tue, 26 May 2026 12:08:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 7181C10888356; 
+ Tue, 26 May 2026 14:07:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1779797292; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=DK8eA9/GN7NzLuxBx/GTovhK/apGoGFfUGeCC5d5iyI=;
+ b=RNU5++s0L9bfnoxU24iB+xsMHm5P0Ae9cOJvZKPHxeM97AF368q8RuNWiwcQLO12P9CZ6o
+ moU9/AUpCKd8iyFRV54iR+l+nhFxSXVFwjQn4i9RbIvM26ms7QueBOCrGZ0MMKChE14P7P
+ HZ4an8aN8PC+KrEOHJu3tLBY7Zi/DIs7l3U2GzxAYnRfA3DEp2mUT0jZPfnbEJn4DAORa7
+ xVj58D97QdBzzHxdheW2w2kq4sIQtzS+j2fdh6rSwYZIdd5EZ0oVBR7inInOpoANc0OCpg
+ LhcQsFUfMpAh+toIhmX2aljXCS2HNweQL5NuMs0i3q0TuPvtlh6+YQ76VYqetA==
 MIME-Version: 1.0
-Message-ID: <51ff85d2.9c25.19e642e591c.Coremail.w15303746062@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: jSgvCgD3X2bjjBVqr76sAA--.13476W
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC-wM7H2oVjOM8CQAA39
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 2/2] drm/bridge: analogix_dp: Add support for
+ optional data-lanes mapping
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, 
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com, 
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com, 
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com, 
+ dianders@chromium.org, m.szyprowski@samsung.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260525094731.121380-3-damon.ding@rock-chips.com>
+References: <20260525094731.121380-1-damon.ding@rock-chips.com>
+ <20260525094731.121380-3-damon.ding@rock-chips.com>
+Date: Tue, 26 May 2026 14:07:50 +0200
+Message-Id: <177979727057.297330.10691183273720133245.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,48 +74,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CkhpIFNhc2hhLAoKPkxvb2tpbmcgYXQgdGhlIGZpdmUgY29tbWl0czoKPgo+ICAtIDEvNSAoNzRh
-ZmViODEyODUwKSBpcyB0aGUgb25lIHRoYXQgYWN0dWFsbHkgZml4ZXMgdGhlIEFCQkEKPiAgICBk
-ZWFkbG9jayB5b3Ugb2JzZXJ2ZWQgdW5kZXIgU3l6a2FsbGVyOyBpdCBhZGRzIHRoZSBnZW5lcmlj
-IHZibGFuawo+ICAgIHRpbWVyIHRoYXQgcmVwbGFjZXMgdGhlIG9wZW4tY29kZWQgdmttcyBocnRp
-bWVyIHBhdGguCj4KPiAgLSAyLzUgKGQ1NGRiYjU5NjNiZCkgYWRkcyBuZXcgQ1JUQyBoZWxwZXJz
-IGZvciAic2ltcGxlIHVzZSBjYXNlcyIuCj4gICAgTm8gRml4ZXM6L0NjOnN0YWJsZSwgbm8gZGVz
-Y3JpYmVkIGJ1Zy4KPgo+ICAtIDMvNSAoMDJlMjY4MWZmZTFhKSBpcyBhIHJlZmFjdG9yIHRoYXQg
-Y29udmVydHMgdmttcyB0byB0aGUgbmV3Cj4gICAgaGVscGVycy4gTm8gRml4ZXM6L0NjOnN0YWJs
-ZSwgbm8gZGVzY3JpYmVkIGJ1Zy4KPgo+ICAtIDQvNSAoNzlhZTg1MTBiNWI4KSBpcyBhIHY3LjEt
-cmMxIHRpbWVvdXQgYnVtcCB0aGF0IGRlcGVuZHMgb24gMS81Lgo+ICAgIEl0IGlzIG5vdCB5ZXQg
-aW4gYW55IHJlbGVhc2VkIHN0YWJsZSwgc28gYXBwbHlpbmcgaXQgdG8gNi4xOC55Cj4gICAgd291
-bGQgcHV0IGl0IG9uIGFuIExUUyBiZWZvcmUgYW55IExUUyBjb250YWlucyBpdC4KPgo+ICAtIDUv
-NSAoMzk0NmQzYmE5OTM0KSBpcyBhIGRvYyBmaXggZm9yIDEvNS4KPgo+UGVyIHN0YWJsZS1rZXJu
-ZWwtcnVsZXMsIHdoYXQgSSBuZWVkIHRvIHF1ZXVlIGlzIHRoZSBtaW5pbXVtIHNldCB0aGF0Cj5m
-aXhlcyB0aGUgYnVnLiBDb3VsZCB5b3UgZXhwbGFpbiwgcGVyIHBhdGNoLCB3aHkgMi81Li41LzUg
-YXJlIHJlcXVpcmVkCj50byBtYWtlIDEvNSB3b3JrIC8gYXJlIHJlcXVpcmVkIHRvIGFjdHVhbGx5
-IGZpeCB0aGUgZGVhZGxvY2s/IElmIG9ubHkKPjEvNSBpcyBuZWVkZWQsIHBsZWFzZSByZXNlbmQg
-anVzdCB0aGF0IG9uZSB3aXRoIHlvdXIgU2lnbmVkLW9mZi1ieQo+YWRkZWQgKHRoZSBjYXJyaWVk
-IHBhdGNoZXMgdG9kYXkgb25seSBoYXZlIFRob21hcydzIFMtby1iLCB3aGljaAo+YnJlYWtzIHRo
-ZSBjaGFpbiBvZiBjdXN0b2R5IG9uIGEgc3RhYmxlIHN1Ym1pc3Npb24pLgoKVGhhbmtzIGZvciB0
-aGUgcXVpY2sgcmV2aWV3IGFuZCBmb3IgcG9pbnRpbmcgb3V0IHRoZSBtaXNzaW5nIFNpZ25lZC1v
-ZmYtYnkuIEkgYXBvbG9naXplIGZvciB0aGF0IG9taXNzaW9uOyBpdCB3YXMgbXkgbWlzdGFrZSBk
-dXJpbmcgdGhlIGNoZXJyeS1waWNrIHByb2Nlc3MuCgpSZWdhcmRpbmcgdGhlIGRlcGVuZGVuY3kg
-Y2hhaW4sIEkgd291bGQgbGlrZSB0byBjbGFyaWZ5IHdoeSBjb21taXQgMS81IGFsb25lIGNhbm5v
-dCBmaXggdGhlIGlzc3VlOgoKQ29tbWl0cyAxLzUgYW5kIDIvNSBpbnRyb2R1Y2UgdGhlIG5ldyBn
-ZW5lcmljIHZibGFuayB0aW1lciBpbmZyYXN0cnVjdHVyZSB0byB0aGUgRFJNIGNvcmUgYnV0IGRv
-ICpub3QqIHRvdWNoIHRoZSB2a21zIGRyaXZlciBhdCBhbGwuIApDb21taXQgMy81ICgwMmUyNjgx
-ZmZlMWEpIGlzIHRoZSBhY3R1YWwgZml4IHRoYXQgbW9kaWZpZXMgYGRyaXZlcnMvZ3B1L2RybS92
-a21zL3ZrbXNfY3J0Yy5jYC4gSXQgcmVtb3ZlcyB0aGUgYnVnZ3kgb3Blbi1jb2RlZCBocnRpbWVy
-IHRoYXQgY2F1c2VzIHRoZSBBQkJBIGRlYWRsb2NrIGFuZCBzd2l0Y2hlcyB2a21zIHRvIHVzZSB0
-aGUgbmV3IGluZnJhc3RydWN0dXJlIGludHJvZHVjZWQgaW4gMS81IGFuZCAyLzUuIAoKVGhlcmVm
-b3JlLCAxLzUsIDIvNSwgYW5kIDMvNSBmb3JtIGFuIGluZGl2aXNpYmxlIHNldC4gQXBwbHlpbmcg
-b25seSAxLzUgd291bGQgbGVhdmUgdGhlIGRlYWRsb2NrIGluIHZrbXMgY29tcGxldGVseSB1bnBh
-dGNoZWQuCgpBcyBmb3IgNC81IGFuZCA1LzUgKHRoZSB0aW1lb3V0IGJ1bXAgYW5kIGRvYyBmaXgp
-LCBNYWFydGVuIExhbmtob3JzdCAoRFJNIG1haW50YWluZXIpIGV4cGxpY2l0bHkgcmVjb21tZW5k
-ZWQgcHVsbGluZyBpbiB0aGlzIGV4YWN0IDUtY29tbWl0IGxpc3QgYXMgdGhlIHByb3BlciB1cHN0
-cmVhbSBmaXggZm9yIHRoaXMgc3BlY2lmaWMgdmttcyBpc3N1ZSAoc2VlIHRoZSBtYWlsaW5nIGxp
-c3QgbGluayBpbiB0aGlzIHRocmVhZCkuIAoKSG93ZXZlciwgaWYgeW91IGZlZWwgNC81IGFuZCA1
-LzUgaW50cm9kdWNlIHVubmVjZXNzYXJ5IHJpc2sgZm9yIHRoZSA2LjE4Lnkgc3RhYmxlIHRyZWUs
-IEkgY2FuIGFic29sdXRlbHkgZHJvcCB0aGVtIGFuZCBvbmx5IHN1Ym1pdCAxLzUsIDIvNSwgYW5k
-IDMvNS4gCgpJIGFtIHByZXBhcmluZyBhIHYyIHBhdGNoIHNlcmllcyBub3cgd2l0aCBteSBTaWdu
-ZWQtb2ZmLWJ5IGFkZGVkIHRvIHRoZSBjaGFpbiBvZiBjdXN0b2R5LiBDb3VsZCB5b3UgbGV0IG1l
-IGtub3cgaWYgeW91IHByZWZlciB0aGUgZnVsbCA1LXBhdGNoIHNlcmllcyBhcyByZWNvbW1lbmRl
-ZCBieSBEUk0gbWFpbnRhaW5lcnMsIG9yIGp1c3QgdGhlIG1pbmltYWwgMy1wYXRjaCBzZXJpZXM/
-CgpCZXN0IHJlZ2FyZHMsCk1pbmd5dQo=
+On Mon, 25 May 2026 17:47:31 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
+
+Hello Damon,
+
+>
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 8cf6b73bceac..d53ab25bc57b 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -1234,6 +1234,59 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+> [ ... skip 11 lines ... ]
+> +	int ret, i;
+> +
+> +	memcpy(video_info->lane_map, map, sizeof(map));
+> +
+> +	num_lanes = drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, 1,
+> +						   video_info->max_lane_count);
+
+Should num_lanes be > 4, the buffers could overflow. I realize it should
+not happen, but analogix_dp_dt_parse_pdata() can set max_lane_count from
+the device tree, so a bogus dtb could cause such overflow.
+
+Perhaps you should just (in a separate patch) error out in
+analogix_dp_dt_parse_pdata() to prevent this. And maybe even adding an
+BUG_ON(lane_count > 4) here.
+
+Otherwise LGTM.
+
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
