@@ -4,102 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE74CD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:11:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB5C6CD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB24E10E244;
-	Tue, 26 May 2026 11:10:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5908810E37C;
+	Tue, 26 May 2026 11:11:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5JC0cr7n";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ieXacd1k";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VvisURFs";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011064.outbound.protection.outlook.com [52.101.62.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6357410E244
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:10:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dH9Bz+uA595Qz5H7jO6hqc9odfa5tjWuct0/kSoi5YjvV6rQ7dX7Gx1+tn8/qzT4RJM5GlmXx+XCh/ZTxPHyNAe7ACzWYwHSIdTIYbxxxl3GGlxfFh3yxrOVw8Vt2eDHc9AWvkQudu8dILxSK+icB2/gdb7dE5cIYx80KrcLjis57SAuMC9MjSIK9/Aze0xDsqHg8pzO/fo3rIs+RZYZxwhXa2xC7u1OIKrPYu4MPVUU+miF5aEf+RM/0ZXbojgavdUSDhx6mhwApYtjFzj9hyjOFTnQNGtB0RuExRoHAkmbDAdtSHltV65UHY/LaLCK1y8ODYWPYjcahmJXgpIP1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F1CWIZ0zkWf3sFhGIgbqhLQceLgewneqANZycTMMRvc=;
- b=C0Tbpf2RGmrsQh2jVrE1/dj2h8xOElrchhdrEYEBCbXZsytsRrkENoeA0JF67IXveR6wkAbfkah0L9q8zhv1fBpaHuu5qfMEDO4ILG6VXnLbYARQW9bz5SAWbgT+nj85fdnXse5BwYwYz0uJXxPJZDwtVQQptKnwd9nhHHBBdeqAyrpJ44+LBPQGMWC3hj3ZVDc18a3qs9fw4ddPLb7OxxwmeDkkLb7edDlMvtFnC81h/eOZf9/sAtxINxFHUybii6qcM+geRrMD/aiGhEj77Orix0HSqYL9x3BRfsDd8eX4gD7ZMmifoYpjRJHozIFqvOzvMr4ig2ldQ+KsCcoELA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F1CWIZ0zkWf3sFhGIgbqhLQceLgewneqANZycTMMRvc=;
- b=5JC0cr7nWIZ9OoiEXPmx2R1UFfgjGE5+NFKCnFxB7V0i7oPnTtSUyFl5PBMczD4gcAmC4vrJ10btaO1vctbspVpLTXGXsSiXS8UnI1/5/oOSkmP8lNBAYIB7O9vGmZP+w0wRYTYW80JLBWMJ0ZNhDK756a6LOAaWi8BmmfHM+VQ=
-Received: from CH0PR04CA0053.namprd04.prod.outlook.com (2603:10b6:610:77::28)
- by IA1PR12MB8406.namprd12.prod.outlook.com (2603:10b6:208:3da::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 26 May
- 2026 11:10:53 +0000
-Received: from CH1PEPF0000AD74.namprd04.prod.outlook.com
- (2603:10b6:610:77:cafe::3d) by CH0PR04CA0053.outlook.office365.com
- (2603:10b6:610:77::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.11 via Frontend Transport; Tue, 26
- May 2026 11:10:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD74.mail.protection.outlook.com (10.167.244.52) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 11:10:53 +0000
-Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 26 May
- 2026 06:10:48 -0500
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>
-CC: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, "Robin
- Murphy" <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Leon
- Romanovsky" <leon@kernel.org>, Vasant Hegde <vasant.hegde@amd.com>,
- <iommu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <linux-media@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Ankit Soni <Ankit.Soni@amd.com>
-Subject: [PATCH] iommufd: take dma_resv lock before dma_buf_unpin() in release
- path
-Date: Tue, 26 May 2026 11:10:34 +0000
-Message-ID: <20260526111034.4079-1-Ankit.Soni@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EECF10E37C
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:11:37 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64Q8ANjZ691606
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:11:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=WnPeFnYm50V
+ ptjiqnHaSpsB7Y9ad0zWN9mmwwejDdiY=; b=ieXacd1kjQV1C42FyHkFDsqQtEn
+ kACdYNlJ11If5SV3Y/M4Dgo7reYLEDmuzrOHpOr8mmkJagPuU9Aq77QCD6t9NUcx
+ OSmhMJKJ1CKi5nd6oyhuIUXgbLG074OF7LypFU9R1tfGSpUN+Iq986bMmRKup0pb
+ dQtngw6iS0DpDoM07RzyjCB4dBcbAehKxFwCtNobXxwNGkrXjz5zlEegf1hG4IRu
+ 4c/Go+4HYcxY2YnKsUrCg4iFBxm2oSMamiZLH5IEEstSNOWEva3sBRAvjjhqC4Sp
+ YADyAD4PRqD5qb0QZL+noTk5zmS/otzW9K5pogRrzgKkMxZtm6+Kcl9qkcg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecpy2ktar-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:11:37 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-366344513a3so21156420a91.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 04:11:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779793896; x=1780398696;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WnPeFnYm50VptjiqnHaSpsB7Y9ad0zWN9mmwwejDdiY=;
+ b=VvisURFs/VckxKMk9kd+PIgrzr6l3JV6TE6ahy8DFpPB1WxRjXygUclME3E6V+nQ5C
+ 5llJ1JDHT9TMwiI1yoTIzHhCzubetrMgSD3avFi1puDn8wPH+h38mI3gsMo8qprYTExk
+ ZYWwD8PTHX1ktk/NUCQdiqff5R9NfyF//wQO3PzynPH7XVXqAM5vDsu15WOfumTSXfce
+ nd08ebFgTVJpRBd93H4QQmpMkqZBDoe0SyibaeFPJODGpqyUkIkBiX99xGO/vvzO/mj4
+ Ondpou2etOYnmF79GROdeT+3W/r4HqBAFI4xkekUSc3oH94I6GN4cYQHpEcLIR48aju/
+ VQbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779793896; x=1780398696;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=WnPeFnYm50VptjiqnHaSpsB7Y9ad0zWN9mmwwejDdiY=;
+ b=Ed34/h4LiLJp6tJfNF+GXdJiRUPuOOsvbxHy8BO3nX2zCY4EQSIB/rF0V6CjMVB9os
+ LQGqpUCakTiclrKoCNGTM5Y5+Ki8PRrAjxH+JlN9l1Bq+gloCXXKGlBbG/3aiD/BcARM
+ Q2sNZuKcAlkJ/XY4OrMOm6w3orkBnIDWNo6V/biZn2pCelKby/YlXIbjzM5Y9KmnYnN8
+ 5i3JaxVtN3e7dweNx2gZIdEq1SkrDk7yR4mim5diKzQ8IeaymrcDlkMsqW+KzHPn0zqB
+ B1PAbJKzGhMkXX3bP2xbbT+BzZYvoDR0zaI7Zrcrjb1VXqmewesPKENYRcnFU6l16E0o
+ 026A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/wYB7re6fxRoEBh+bzZQcDttnOE5AiIW8UL6AzWL2PTro9nbSjFAHhpJAAoSXMh0rdEyOQOYkgbA8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwGtFH/ty2kKfIBcXs6rQ7rRqfTnCMtVMl1qFcFh7Jh7gpHSe8u
+ NBJcsFlIF+Y7TmVj4XgawAI1UtdPh96Az/K2mjMmzJnj8EqiqBmhT8iEbHC51tthRgJo90QLmIK
+ fkYxtpX8GshlSrFLaHa41RF0M0DOZMfJ4HkyZPP5h/JNYGG3oF1jArjdYCBO6H10dQoMSSpc=
+X-Gm-Gg: Acq92OHMhpn0kp24aBd67g36NcdialNY8ZyhxYu+AQQiZxAybIBT1IUlbZ3+g3CWpYr
+ PC4zd0iJDneZTUFzHfA8aykXHCkIRprT5rA1PorFxKscE04uuASMnkh17w2tVDjMLtlH2IcZhtW
+ 0d6+5c3PYlqDj6xdC5x7hiVOMSvy+Lua+O+3co9FFt9I1h8dEXmJoAVeCPtlMQNYy/oQA+TVDWY
+ fRJSNPbHx2Jo1mcmFNGZJXimzqBn3NgW3rBpnHk22hLrd3nH36spoT7Vz6D3063ewmdj6uwS2Pw
+ ii3SGo1DTEwaDy0krqbzihgL46Xl7nRcGhYtpKJt6wAIxW5ED/w4N3Y3psyNRvXdl5bxm3M44a9
+ BpHn65ZOAoskWa5KhcfutOriTkKmiLRDSTSx4PmqYZaDljVnW9CLo0ZtVyGgbMps0IBXrn+Lhee
+ l0sFnBq0lGEJSwMv0V6w==
+X-Received: by 2002:a17:90a:c106:b0:369:7003:4e2d with SMTP id
+ 98e67ed59e1d1-36a676090bemr17128813a91.17.1779793896392; 
+ Tue, 26 May 2026 04:11:36 -0700 (PDT)
+X-Received: by 2002:a17:90a:c106:b0:369:7003:4e2d with SMTP id
+ 98e67ed59e1d1-36a676090bemr17128775a91.17.1779793895824; 
+ Tue, 26 May 2026 04:11:35 -0700 (PDT)
+Received: from QCOM-SocCW5bzXR.qualcomm.com
+ (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-36a72c4ce6bsm12104253a91.11.2026.05.26.04.11.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 May 2026 04:11:35 -0700 (PDT)
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+To: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
+ gregkh@linuxfoundation.org, abelvesa@kernel.org,
+ jorge.ramirez@oss.qualcomm.com
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ stable@kernel.org, Jianping Li <jianping.li@oss.qualcomm.com>
+Subject: [PATCH v6 1/5] misc: fastrpc: Fix initial memory allocation for Audio
+ PD memory pool
+Date: Tue, 26 May 2026 19:11:20 +0800
+Message-Id: <20260526111124.515-2-jianping.li@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260526111124.515-1-jianping.li@oss.qualcomm.com>
+References: <20260526111124.515-1-jianping.li@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD74:EE_|IA1PR12MB8406:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd42f7c2-285d-4b67-1f7b-08debb1773de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|7416014|36860700016|376014|1800799024|11063799006|6133799003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 9zaVwTxhzMJeILH8PVK1Swgflw4C47fpUlETzU8w6D12/1I8o6QQHZvnC9Fj915wB6KbTHrosG9MFve0TnWZsec/pnOLS7Xo1oypBV7X8B+trml9pgtZgmoIK7GL7JmkugPbUjmavFPT8YdJDuvItFTKBm5LzRmW/lDeJFFB6FMgP8CdqJWn+xvIjqHaiUHlWTn7qVCEUoVk9FBZs0zpydft35kC+Moq2Q199P6XA031LKWqf7dtFm8/Uj7a2NYHptpDHwl1XBjwKQMR3vMzSM10wR5Ot0q3aleKkYxx/94znSQ1y7Txbi0DmXCWnnzcTbY0crWp/3ewWX3Lxmiix4XxUP8waiU8+7pK8n9KAfz++bljLgEsMvyTzmEFtCsEmOLrW8pnN4khlXIfRHb3bvuF+bX6aLrdYeY7L49xqCmEYqUHVz58vg4y/Zcin2vm00yehNGThr8LHZKP8QwHzKx7fSGTDWZguRysOvcicAaoMCvB9CUHmARusQBc/NBkyBy0MW5qF2G9856ybMGpwe9PWXV0gTqsw3sxlJHikae3rYe6ceQ69rHjPzujBUQQP4Ooq6jAlJCddW2puy7Q4bKVrHXZFl4p78UfS2kVXTa2E+Ed1UYBgViJ8W7ew4VLoyy5rs4OK57GNJh/S6xmPuegV+ieRBuDp0NTcyOrE1h7zFWijYNiJVBRygTVnYNW+CpX5yL8WAjZGSdSTOsy/GDW51HQuqpeYfTQJuY4izc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(7416014)(36860700016)(376014)(1800799024)(11063799006)(6133799003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0iA4HrXmxGS0ykZnl5K6iTE53f/w3I3sn+xYvLG8xaSmQfakBE8Nh4hINpL7RnI7ubRWvNBdApTapf7oF+W1UCCDH04TH4uKClaGILL7+vNV4FCjy8dgIys7p3jcwzgPGzo6mloQOV57vfbIV5UgcEIwUES3fEbDZjnomtzg/hIl02dTgW9gzlnAMq9XuW+GoVenR1KCVw76pj8AsQxmabv1Kxn584x6iXvs5UlKrNHaDmvOPUYucgBvi18ZNVxZV3EjXQByLGmPlFk9SCgnZ59oicCm9/koJQm7daIAC2MlDj8R41gVJK/F4bMfvAZvapF8u527Al8Pp6ZkKd6gEu+wOY9AlQubIvJ3R0TxZ6LP7vejt1kRyhv05hXNqUzg+i0JaNpMmiEukcd8ZTuJ+BnIN8dHC3gdf7YvjXhlodZD7eGu5ghb95Q0Ns8oCauk
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 11:10:53.5228 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd42f7c2-285d-4b67-1f7b-08debb1773de
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD74.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8406
+X-Proofpoint-GUID: HFSkcNKz139NiLSpHbcwZSn9XMvU7ci9
+X-Authority-Analysis: v=2.4 cv=ML5QXsZl c=1 sm=1 tr=0 ts=6a157fe9 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=Rm9GPb-2FwNFOyaWfJMA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: HFSkcNKz139NiLSpHbcwZSn9XMvU7ci9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDA5NyBTYWx0ZWRfXzNOYQbqpXxz1
+ 7YR1PtwErb5wcTrfYK6kXeXK/CBOmPSYG6VHwqYLuJcJllQI/MdWbWFrHFyXZQcf4GhG1/PfE34
+ A6Gbc8DjCdGGZXbEuOJPcMbnrQfXoH9GDtEk1UE/3GSsdqQYCUsX1VlKXca2icfFZvKbdZ2g9u2
+ gh+AoX+f7UJekLJ9jvdPuFkoCu0PeEroGfD8fuA8DjD0SGb8daLfCjqVPnNSzwn15zOkpYoAx+d
+ nOYRAFoguDDkLh39uj4HbcIatLpmDPKlAoJjvNIr5rNHXLhStYzm1gURlTewsCM6RJ0oTpsU8zG
+ Y2LbzVosjsvc+1Q5dFE2Jh4DbQhM3/3wm+rqnYYhpg2F0oCqk9yQosR6wv/ZP6NWd1oq9A51S63
+ z2bUYCVLSiEpbTOGdDr3UkyODthsHL3SXeWaEqzdt5H+gxH4hm2qE912IMXh6s2Zej/uNkyg3Ah
+ uRqRUZNqzcbD/pH8jcQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-26_02,2026-05-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 phishscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605260097
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,61 +143,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma_buf_unpin() requires the caller to hold the exporter's dma_resv
-lock:
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-  void dma_buf_unpin(struct dma_buf_attachment *attach)
-  {
-          ...
-          dma_resv_assert_held(dmabuf->resv);
-          ...
-  }
+The initial buffer allocated for the Audio PD memory pool is never added
+to the pool because pageslen is set to 0. As a result, the buffer is not
+registered with Audio PD and is never used, causing a memory leak. Audio
+PD immediately falls back to allocating memory from the remote heap since
+the pool starts out empty.
 
-iopt_release_pages() calls dma_buf_unpin() without taking that lock,
-so every iommufd_ioas_destroy()/iommufd_ioas_unmap() that releases
-the last reference on a DMABUF-backed iopt_pages triggers a WARN.
-This was hit while running tools/testing/selftests/iommu/iommufd:
+Fix this by setting pageslen to 1 so that the initially allocated buffer
+is correctly registered and becomes part of the Audio PD memory pool.
 
-  WARNING: drivers/dma-buf/dma-buf.c:1137 at dma_buf_unpin+0x62/0x70
-  RIP: 0010:dma_buf_unpin+0x62/0x70
-  Call Trace:
-   <TASK>
-   dma_buf_unpin+0x62/0x70
-   iopt_release_pages+0xe4/0x190
-   iopt_unmap_iova_range+0x1c7/0x290
-   iopt_unmap_all+0x1a/0x30
-   iommufd_ioas_destroy+0x1d/0x50
-   iommufd_fops_release+0x93/0x150
-   __fput+0xfc/0x2c0
-   __x64_sys_close+0x3d/0x80
-   do_syscall_64+0x65/0x180
-   </TASK>
-
-Take the dma_resv lock around dma_buf_unpin() in iopt_release_pages(),
-matching the iopt_map_dmabuf() convention. dma_buf_detach() acquires the
-reservation lock internally, so it must remain outside the locked region.
-
-Fixes: 8c5f9645c389 ("iommufd: Add dma_buf_pin()")
-Reported-by: Ankit Soni <Ankit.Soni@amd.com>
-Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
+Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+Cc: stable@kernel.org
+Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
 ---
- drivers/iommu/iommufd/pages.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/misc/fastrpc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-index 9bdb2945afe1..7b64002e54b9 100644
---- a/drivers/iommu/iommufd/pages.c
-+++ b/drivers/iommu/iommufd/pages.c
-@@ -1663,7 +1663,9 @@ void iopt_release_pages(struct kref *kref)
- 	if (iopt_is_dmabuf(pages) && pages->dmabuf.attach) {
- 		struct dma_buf *dmabuf = pages->dmabuf.attach->dmabuf;
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 5524354f3ccc..80a636962357 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -1373,7 +1373,9 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 		err = PTR_ERR(name);
+ 		goto err;
+ 	}
+-
++	inbuf.client_id = fl->client_id;
++	inbuf.namelen = init.namelen;
++	inbuf.pageslen = 0;
+ 	if (!fl->cctx->remote_heap) {
+ 		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
+ 						&fl->cctx->remote_heap);
+@@ -1396,12 +1398,10 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 				goto err_map;
+ 			}
+ 			scm_done = true;
++			inbuf.pageslen = 1;
+ 		}
+ 	}
  
-+		dma_resv_lock(dmabuf->resv, NULL);
- 		dma_buf_unpin(pages->dmabuf.attach);
-+		dma_resv_unlock(dmabuf->resv);
- 		dma_buf_detach(dmabuf, pages->dmabuf.attach);
- 		dma_buf_put(dmabuf);
- 		WARN_ON(!list_empty(&pages->dmabuf.tracker));
+-	inbuf.client_id = fl->client_id;
+-	inbuf.namelen = init.namelen;
+-	inbuf.pageslen = 0;
+ 	fl->pd = USER_PD;
+ 
+ 	args[0].ptr = (u64)(uintptr_t)&inbuf;
 -- 
 2.43.0
 
