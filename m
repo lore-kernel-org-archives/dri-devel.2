@@ -4,61 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09CBBCD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:39:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2161CD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:46:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FBFB10E6B8;
-	Tue, 26 May 2026 16:39:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1136A10E68E;
+	Tue, 26 May 2026 16:46:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WV0ha9NB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dm6om/QB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A089010E68E
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 16:39:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FF8610E68E;
+ Tue, 26 May 2026 16:46:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C9AD2600FC;
- Tue, 26 May 2026 16:39:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92B51F000E9;
- Tue, 26 May 2026 16:39:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4EB3E41850;
+ Tue, 26 May 2026 16:46:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 803721F000E9;
+ Tue, 26 May 2026 16:46:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779813589;
- bh=muQvscvrR0GygbyWY9xTCCnVzYrNRWHq2FyEs8Z2mhg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=WV0ha9NBjJDXnyInyw9E6XVFcsb46b1ZidB7yHTv2A+62lesDDMgl4Ymotk9a0Vd6
- gdgMrxkfiiZJGFM7Pot5NNyYqyjkfWkhmvm1xZ9Z5+juouZQPlB4Svurg7ThTkimJB
- 10SKX7kYGXG4sRSwJdYmfM+1TAMz924wXhe0OrXk42QpO+0EkKI2M+1f7qGxtR4GPp
- yj5VUIG7Ds8Qmu4CauXb709S45fG7bAZuTjLEeCewOsYnjgwcldzqA4q03TUKCos/k
- koeE75BD5mx9DGn4KHXb8E2l6zE69d2n3mzEfI6tjQKNzk8/E0E+EHJz5Bt9c7N6Z3
- KUgoUzz4UEDNg==
-Date: Tue, 26 May 2026 17:39:42 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
- jonas@kwiboo.se, jernej.skrabec@gmail.com,
- nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com,
- sebastian.reichel@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
- luca.ceresoli@bootlin.com, dianders@chromium.org,
- m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 01/10] dt-bindings: display: rockchip: analogix-dp:
- Fix hclk as third clock for RK3588
-Message-ID: <20260526-sizing-slush-ebb20673cdc9@spud>
-References: <20260525125331.140059-1-damon.ding@rock-chips.com>
- <20260525125331.140059-2-damon.ding@rock-chips.com>
- <20260525-ominous-hurling-c24874030f5a@spud>
- <f6c2f07b-52b8-4181-aa1d-a7d8dcda245c@rock-chips.com>
- <0c6299ce-29a6-4443-9877-498d65c8881b@rock-chips.com>
+ s=k20260515; t=1779813986;
+ bh=uIyvspHblRrdrbJfHD/CPhWE9oReqSGbA+uFa9zkY4c=;
+ h=From:Subject:Date:To:Cc;
+ b=dm6om/QBISwUQlgnD4LRNgffNUqnA/hxrqGsb8gM0ehHRciELxq9rD/1vhliseCez
+ us4Mb8O/0NV6hoz5ut5vxRUyK+6pamkVskQm6Cpba2orzsp46/6ntpP4KMrXune5Bc
+ +lf5tvBELKqBAtVZq4SbFHomP+bBOjzexY45sChgdco9n9xuc3GJ76QBEZ5OlexmnK
+ mMfjNrqDfVqeZevrcKeq3YpzSC0+J/w8rV0K709P13mMfmyV+lnx8dw1Kn4TjaI1qk
+ M3SwxKN/pb+hs9pxv3dtf9V37y5j8Kt9NaJ99lX5QAuSXg7kPelxKtvuAAo9n/NgHt
+ o+dJKZY1r3oSg==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v6 00/19] drm/atomic: Rework initial state allocation
+Date: Tue, 26 May 2026 18:46:12 +0200
+Message-Id: <20260526-drm-mode-config-init-v6-0-852346394200@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Zfz/XMY9sGbWvmeP"
-Content-Disposition: inline
-In-Reply-To: <0c6299ce-29a6-4443-9877-498d65c8881b@rock-chips.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OTW6DMBAF4Ksgr+vK4x8wWfUeVRaxPSZWi2ltg
+ lJF3L2GLJIK0eWb0ftmbiRjCpjJobqRhFPIYYgl1C8VsedT7JAGVzLhjNdMAKMu9bQfHFI7RB8
+ 6GmIYKSB4xU0jlWOkVL8S+nBd2ffjPSf8vhR9vA+JOeWF6PswHqrVDNnSiNeRLqcoUxQkWbrnk
+ Mch/awfTrCW/39mAlo22Ii2sRrB+rcPTBE/X4fUreLEnxS+p/Ci2Fp4ACGxqe1GEQ9FcrmjiKJ
+ oU2vXOsOcNhtFPhQFfEeRRVEtOO+sBePbjaKelXZHUUURWhsmBAcU+o8yz/MvQc/qDQ0CAAA=
+X-Change-ID: 20260310-drm-mode-config-init-1e1f52b745d0
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>, 
+ Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5972; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=R8cMkBgch6OdecOXXUVZ645zaDP9sOBrv+AVIkkeRDM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmi58LyWb6dmnj4gQTXAZGgCXaXra6s09t5+ZFkoNK0L
+ jYvnVPPO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE/hkw1pktfeh0R+s76+bb
+ Oozd+/UNpm36UCSpdKPEaEO4i5F79PLN1v8NNQOFdNWf77ivseS0O2PDis5jt4123N957/ssPX5
+ Zz50Kb1vTUqTsa2c+3v3e411wkbTTPGaRk54e7yY1ugr9C/0AAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,222 +95,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
---Zfz/XMY9sGbWvmeP
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series started from my work on the hardware state readout[1], and
+more specifically a discussion with Thomas[2].
 
-On Tue, May 26, 2026 at 07:27:55PM +0800, Damon Ding wrote:
-> Hi Conor,
->=20
-> On 5/26/2026 8:54 AM, Damon Ding wrote:
-> > Hi Conor,
-> >=20
-> > On 5/26/2026 12:54 AM, Conor Dooley wrote:
-> > > On Mon, May 25, 2026 at 08:53:22PM +0800, Damon Ding wrote:
-> > > > RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
-> > > > registers and enable the video datapath.
-> > > >=20
-> > > > Previously, the clock was enabled implicitly via the 'rockchip,vo-g=
-rf'
-> > > > phandle reference, which allowed the eDP to work without explicitly
-> > > > managing the hclk_vo1 clock. However, this is not safe or explicit.
-> > > >=20
-> > > > To make the clock dependency explicit, enforce per-SoC clock-names
-> > > > requirements:
-> > > > =A0 - RK3288: 2 clocks (dp, pclk)
-> > > > =A0 - RK3399: 3 clocks (dp, pclk, grf)
-> > > > =A0 - RK3588: 3 clocks (dp, pclk, hclk)
-> > > >=20
-> > > > Do not reuse the 'grf' clock name for RK3588 because it represents
-> > > > a different clock with distinct control logic:
-> > > > - The 'grf' clock is only for GRF register access and is toggled
-> > > > =A0=A0 dynamically during register access.
-> > > > - The 'hclk' clock controls both GRF access and video datapath
-> > > > =A0=A0 gating, and must remain enabled during probe.
-> > > >=20
-> > > > Fixes: f855146263b1 ("dt-bindings: display: rockchip:
-> > > > analogix-dp: Add support for RK3588")
-> > > > Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> > > >=20
-> > > > ---
-> > > >=20
-> > > > Changes in v4:
-> > > > - Modify the commit msg.
-> > > >=20
-> > > > Changes in v5:
-> > > > - Enforce the correct third clock name on a per-compatible basis.
-> > > > - Modify the commit msg simultaneously.
-> > > >=20
-> > > > Changes in v6:
-> > > > - Expand more detail commit msg about using hclk instead of grf clo=
-ck.
-> > > >=20
-> > > > Changes in v7:
-> > > > - List all valid clock names at the top level, and constrain the cl=
-ock
-> > > > =A0=A0 count for each platform with minItems/maxItems in allOf.
-> > > >=20
-> > > > Changes in v8:
-> > > > - Fix indentation to 10 for enum in clock-names property.
-> > > > ---
-> > > > =A0 .../rockchip/rockchip,analogix-dp.yaml=A0=A0=A0=A0=A0=A0=A0 | 3=
-4 ++++++++++++++++++-
-> > > > =A0 1 file changed, 33 insertions(+), 1 deletion(-)
-> > > >=20
-> > > > diff --git a/Documentation/devicetree/bindings/display/rockchip/
-> > > > rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/
-> > > > display/rockchip/rockchip,analogix-dp.yaml
-> > > > index d99b23b88cc5..a1ab7a77bdd3 100644
-> > > > --- a/Documentation/devicetree/bindings/display/rockchip/
-> > > > rockchip,analogix-dp.yaml
-> > > > +++ b/Documentation/devicetree/bindings/display/rockchip/
-> > > > rockchip,analogix-dp.yaml
-> > > > @@ -26,7 +26,9 @@ properties:
-> > > > =A0=A0=A0=A0=A0 items:
-> > > > =A0=A0=A0=A0=A0=A0=A0 - const: dp
-> > > > =A0=A0=A0=A0=A0=A0=A0 - const: pclk
-> > > > -=A0=A0=A0=A0=A0 - const: grf
-> > > > +=A0=A0=A0=A0=A0 - enum:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - grf
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - hclk
-> > > > =A0=A0=A0 power-domains:
-> > > > =A0=A0=A0=A0=A0 maxItems: 1
-> > > > @@ -60,6 +62,32 @@ required:
-> > > > =A0 allOf:
-> > > > =A0=A0=A0 - $ref: /schemas/display/bridge/analogix,dp.yaml#
-> > > > +=A0 - if:
-> > > > +=A0=A0=A0=A0=A0 properties:
-> > > > +=A0=A0=A0=A0=A0=A0=A0 compatible:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 contains:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 enum:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 - rockchip,rk3288-dp
-> > > > +=A0=A0=A0 then:
-> > > > +=A0=A0=A0=A0=A0 properties:
-> > > > +=A0=A0=A0=A0=A0=A0=A0 clocks:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 maxItems: 2
-> > > > +=A0=A0=A0=A0=A0=A0=A0 clock-names:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 maxItems: 2
-> > > > +
-> > > > +=A0 - if:
-> > > > +=A0=A0=A0=A0=A0 properties:
-> > > > +=A0=A0=A0=A0=A0=A0=A0 compatible:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 contains:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 enum:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 - rockchip,rk3399-edp
-> > > > +=A0=A0=A0 then:
-> > > > +=A0=A0=A0=A0=A0 properties:
-> > > > +=A0=A0=A0=A0=A0=A0=A0 clocks:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 minItems: 3
-> > > > +=A0=A0=A0=A0=A0=A0=A0 clock-names:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 minItems: 3
-> > >=20
-> > > If you go back to v6, you'll see that I never asked you to remove the
-> > > explict clock-names from here or below. Only the one from the 3288
-> > > section. The minItems was an addition, not a replacement.
-> > >=20
-> > > pw-bot: changes-requested
-> > >=20
-> >=20
-> > Sorry for the misunderstanding. I will restore the explicit clock-names
-> > definitions and fix this in next version.
-> >=20
->=20
-> Sorry to bother you. I attempted to place the explicit clock-names under
-> minItems:
->=20
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
-analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
-hip,analogix-dp.yaml
-> index a1ab7a77bdd3..ef03edf52de8 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> @@ -87,6 +87,10 @@ allOf:
->            minItems: 3
->          clock-names:
->            minItems: 3
-> +          items:
-> +            - const: dp
-> +            - const: pclk
-> +            - const: grf
->=20
->    - if:
->        properties:
-> @@ -100,6 +104,10 @@ allOf:
->            minItems: 3
->          clock-names:
->            minItems: 3
-> +          items:
-> +            - const: dp
-> +            - const: pclk
-> +            - const: hclk
->          resets:
->            minItems: 2
->          reset-names:
->=20
-> make dt_binding_check DT_SCHEMA_FILES=3DDocumentation/devicetree/bindings=
-/display/rockchip/rockchip,analogix-dp.yaml
->=20
-> Then the following errors occurred:
->=20
->   SCHEMA  Documentation/devicetree/bindings/processed-schema.json
->   CHKDT   ./Documentation/devicetree/bindings
-> /home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/ro=
-ckchip,analogix-dp.yaml:
-> allOf:2:then:properties:clock-names: 'oneOf' conditional failed, one must=
- be
-> fixed:
->         False schema does not allow 3
->         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too long
->         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too sho=
-rt
->         1 was expected
->         3 is greater than the maximum of 2
->         hint: "minItems" is only needed if less than the "items" list len=
-gth
->         from schema $id: http://devicetree.org/meta-schemas/items.yaml
-> /home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/ro=
-ckchip,analogix-dp.yaml:
-> allOf:3:then:properties:clock-names: 'oneOf' conditional failed, one must=
- be
-> fixed:
->         False schema does not allow 3
->         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too lo=
-ng
->         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too sh=
-ort
->         1 was expected
->         3 is greater than the maximum of 2
->         hint: "minItems" is only needed if less than the "items" list len=
-gth
->         from schema $id: http://devicetree.org/meta-schemas/items.yaml
->   LINT    ./Documentation/devicetree/bindings
->   DTEX Documentation/devicetree/bindings/display/rockchip/rockchip,analog=
-ix-dp.example.dts
->   DTC [C] Documentation/devicetree/bindings/display/rockchip/rockchip,ana=
-logix-dp.example.dtb
->=20
-> Neither keeping only minItems nor only the explicit clock-names causes any
-> errors. Would it be a better idea to keep just the explicit clock-names
-> here?
+This series expands the work that has been merged recently to make
+drm_private_obj and drm_private_state allocation a bit more consistent
+and ended up creating a new atomic_create_state callback to allocate a
+new state with no side effect.
 
-Sure.
+The first patches document the existing behaviour and fix a few
+cleanups and typos.
 
-This feels like a bug because I have no idea where the "maximum of 2" is
-coming from. I'll ask Rob about it.
+Then, __drm_*_state_reset() helpers are renamed to
+__drm_*_state_init() to clarify that they initialize rather than
+reset state, and we add the new atomic_create_state callback to
+every other DRM object (planes, CRTCs, connectors, colorops).
 
---Zfz/XMY9sGbWvmeP
-Content-Type: application/pgp-signature; name="signature.asc"
+Next, we leverage those new callbacks to create a new helper,
+drm_mode_config_create_initial_state(), to create the initial state
+for all the objects of a driver, and update the driver skeleton to
+recommend it.
 
------BEGIN PGP SIGNATURE-----
+Finally, we convert the tidss driver and the bridge_connector to the
+new pattern.
 
-iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahXMywAKCRB4tDGHoIJi
-0nNxAPdSXs3+yTeA4WF2uX8dr8/6syoPbTc3u7WbdikCLqnCAP41C/X0iWwW3uhW
-CtmWRM45+bFWCcZWdgPOHmBAXes6Ag==
-=H19y
------END PGP SIGNATURE-----
+This was tested on a TI SK-AM62, with the tidss driver.
 
---Zfz/XMY9sGbWvmeP--
+Let me know what you think,
+Maxime
+
+1: https://lore.kernel.org/dri-devel/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org/
+2: https://lore.kernel.org/dri-devel/5920ffe5-b6b1-484b-b320-332b9eb9db82@suse.de/
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v6:
+- Reword the docs according to Thomas review
+- Link to v5: https://lore.kernel.org/r/20260519-drm-mode-config-init-v5-0-388b03321e38@kernel.org
+
+Changes in v5:
+- Address sashiko reviews
+- Improve the docs
+- Fix drmm_connector_hdmi_init
+- Drop drm/tidss: Switch to drm_mode_config_create_initial_state since
+  not all possible bridges would have been converted to create_state 
+- Link to v4: https://lore.kernel.org/r/20260512-drm-mode-config-init-v4-0-591dfdcc1bf9@kernel.org
+
+Changes in v4:
+- Rebased on current drm-misc-next
+- Update drm_atomic_state to drm_atomic_commit
+- Various doc impromvements
+- Don't call drm_crtc_vblank_reset in create_state
+- Prevent mem leak if states already have a state when
+  drm_mode_config_reset or _create_initial_state are called
+- Link to v3: https://lore.kernel.org/r/20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org
+
+Changes in v3:
+- Reintroduce state documentation that was dropped by accident
+- Change name to drm_mode_config_create_initial_state()
+- Don't call drm_mode_config_create_initial_state() in drm_dev_register
+  anymore
+- Drop __drm_atomic_helper_*_create_state
+- Improve documentation and commit messages where necessary
+- Collected tags
+- Link to v2: https://lore.kernel.org/r/20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org
+
+Changes in v2:
+- Change the _state_reset function names to _state_init
+- Change the colorop too
+- Various doc improvements
+- Link to v1: https://lore.kernel.org/r/20260310-drm-mode-config-init-v1-0-de7397c8e1cf@kernel.org
+
+---
+Maxime Ripard (19):
+      drm/atomic: Document atomic commit lifetime
+      drm/colorop: Fix typos in the doc
+      drm/atomic: Drop drm_private_obj.state assignment from create_state
+      drm/atomic: Expand atomic_create_state expectations for drm_private_obj
+      drm/mode-config: Document drm_private_obj exclusion from drm_mode_config_reset()
+      drm/colorop: Rename __drm_colorop_state_reset()
+      drm/colorop: Create drm_atomic_helper_colorop_create_state()
+      drm/atomic-state-helper: Fix __drm_atomic_helper_plane_reset() doc typo
+      drm/atomic-state-helper: Rename __drm_atomic_helper_plane_state_reset()
+      drm/plane: Add new atomic_create_state callback
+      drm/atomic-state-helper: Rename __drm_atomic_helper_crtc_state_reset()
+      drm/crtc: Add new atomic_create_state callback
+      drm/atomic-state-helper: Rename __drm_atomic_helper_connector_state_reset()
+      drm/hdmi: Rename __drm_atomic_helper_connector_hdmi_reset()
+      drm/connector: Add new atomic_create_state callback
+      drm/mode-config: Create drm_mode_config_create_initial_state()
+      drm/drv: Switch skeleton to drm_mode_config_create_initial_state()
+      drm/tidss: Convert to atomic_create_state
+      drm/bridge_connector: Convert to atomic_create_state
+
+ Documentation/gpu/drm-kms.rst                      |   6 +
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  17 +-
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  15 +-
+ drivers/gpu/drm/drm_atomic.c                       |  80 +++++++++
+ drivers/gpu/drm/drm_atomic_state_helper.c          | 114 ++++++++++---
+ drivers/gpu/drm/drm_colorop.c                      |  41 ++++-
+ drivers/gpu/drm/drm_connector.c                    |  10 +-
+ drivers/gpu/drm/drm_drv.c                          |   4 +-
+ drivers/gpu/drm/drm_mode_config.c                  | 189 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_crtc.c          |   2 +-
+ drivers/gpu/drm/i915/display/intel_plane.c         |   2 +-
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |   2 +-
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c |   2 +-
+ drivers/gpu/drm/tidss/tidss_crtc.c                 |  17 +-
+ drivers/gpu/drm/tidss/tidss_plane.c                |   2 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     |   2 +-
+ include/drm/display/drm_hdmi_state_helper.h        |   4 +-
+ include/drm/drm_atomic.h                           |   5 +-
+ include/drm/drm_atomic_state_helper.h              |  12 +-
+ include/drm/drm_colorop.h                          |   2 +
+ include/drm/drm_connector.h                        |  16 ++
+ include/drm/drm_crtc.h                             |  16 ++
+ include/drm/drm_mode_config.h                      |   1 +
+ include/drm/drm_plane.h                            |  16 ++
+ 24 files changed, 509 insertions(+), 68 deletions(-)
+---
+base-commit: 69c95e4c529297c25503e60acba757fba24fdc95
+change-id: 20260310-drm-mode-config-init-1e1f52b745d0
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
