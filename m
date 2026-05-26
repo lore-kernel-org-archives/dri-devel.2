@@ -4,137 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 045AFCD5BCF
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 05:45:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55D17CD5BB4
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 05:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48CE610E203;
-	Tue, 26 May 2026 05:45:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC08A10E216;
+	Tue, 26 May 2026 05:46:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="c1ZPEtIC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AQcjNZ3u";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QwI+XmT9";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010012.outbound.protection.outlook.com [52.101.61.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBC3D10E203
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 05:45:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nh3tF9CcfMRKuwHSVfnLM4rS0dwlshsxdoAMmP+2WK5vbQVksmFaiJ3XV9+aw159VNKrIZ2FYi4OcXDiaQgH5JD33/0jRbcAZEZj55urS8VzK9JCExypyjMsx6aI4hUx4c/UPnq5fsM78ZRLoVY9SnmDAAMG5m2A/aFdBSWMK8zSE/T6nx4Q//Y+QMH3Xtb7hdlNhnhZepdMQe1Uh+c30krqdN3lM0m1uii4PFhK+t44l3FyznKrVzFKq6dCX66W7IDaTqXIrmW0j2cDZHq0v1IjZNFlXgdx8j5g6RQyRwAxmEwL1nuXatKB91fSFuV+4/ORBzPwSyN/hLTYFimeFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n4zI7xbKY0nf5I/Mx7hfhz95pNfcSZpR6ETfwrjmmvA=;
- b=RpAHboO+EKsEiDSt87WFyEdChSOPO/3aOer6Cd4OHo2MagCyAtY67keIascPD5+6aQn3dIWm7ENbowU0WGM6UHY3vKcpxiA1+qGkwZMaLiRNb7lMCAbZsbb6eC/c2tDuUFrP1VhKx5uZnkMkgyXkhnckg9X1qHqtnqaw4OD25U6oq1m5Im7EC2BFTGLpfbArbzIoOgsdUSG+LA7zN81GAAAsNRmoGYfv4CkCslLuzwFdTLq2+hLYNi8A2v7qqfdxC8Y3I0tzp0MGDSWrfiWGVYuqOlm83Fzm6jn9DPHddv9GyB8Nkczg4FlX4xYtmgHry/Dv/dUY7PRxukWAZZ9tEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n4zI7xbKY0nf5I/Mx7hfhz95pNfcSZpR6ETfwrjmmvA=;
- b=c1ZPEtICLXRLHrJC/mhPjo1rkKKI8QcGn7OwAEGSpK5PtERhdKpo/K36HSzLTKrrWQsivkAn/fisuvZxTOftgwkeOAboC+upvhL5Rk5JmxEmuXb+Xk8TDou9xoLCuyyuUBV2DoajvHR85/WzdhKlnfLzQ86eYuOm6Gcwg5rV2OeHaEo6AXH52G9OclscINdPoNSa1JpGZ8v/utBbqwlRhF+/Z1qY2FFU6ZDLPipKkGN2IZXO3nWMGjXL2+/w8wOpR67ZI9VAx7mMCoOQhT7ABaxPDTQHiaL2uhNIKslEbKmsbTBY+gYTfGUYmYISmqZBC2sJ80YYWRzLQ3YFhk3l/A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN2PR12MB3997.namprd12.prod.outlook.com (2603:10b6:208:161::11)
- by SJ2PR12MB8035.namprd12.prod.outlook.com (2603:10b6:a03:4d3::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Tue, 26 May
- 2026 05:45:12 +0000
-Received: from MN2PR12MB3997.namprd12.prod.outlook.com
- ([fe80::73c6:e479:9b75:b2cf]) by MN2PR12MB3997.namprd12.prod.outlook.com
- ([fe80::73c6:e479:9b75:b2cf%6]) with mapi id 15.21.0048.016; Tue, 26 May 2026
- 05:45:06 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 26 May 2026 14:44:54 +0900
-Message-Id: <DISDBZI6SAVQ.3TJDFMM7MLUBH@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <aliceryhl@google.com>, <david.m.ertman@intel.com>, <ira.weiny@intel.com>,
- <leon@kernel.org>, <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Eliot
- Courtney" <ecourtney@nvidia.com>
-Subject: Re: [PATCH v5 22/24] rust: types: add `ForLt` trait for
- higher-ranked lifetime support
-References: <20260525202921.124698-1-dakr@kernel.org>
- <20260525202921.124698-23-dakr@kernel.org>
-In-Reply-To: <20260525202921.124698-23-dakr@kernel.org>
-X-ClientProxiedBy: TYWPR01CA0033.jpnprd01.prod.outlook.com
- (2603:1096:400:aa::20) To BY5PR12MB3986.namprd12.prod.outlook.com
- (2603:10b6:a03:195::27)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23FD310E216
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 05:46:01 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64Q20KaS3604070
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 05:46:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=KDy9vXC1Rd1tq49bIIsepsbF
+ IYBji5z/KFPlG+PXtu4=; b=AQcjNZ3unsyUZEiT/Vv8mevSYCIgge/foyWgPge9
+ g4MiGFrL0sCHfSSZkLK4BI3DpIq5/IW4U1GKjuejBtIjq7wD/cR6/U0nz0+SNTya
+ CzKrIbs+SEXxaR7AkPX/XgzUHXQ8X4lsWcHNowxua+oX5jBMf/wBTS3gYw6e1Clx
+ qRQfCv8mq8ldQyCxB9M5DL8diX2HcK3iiOAa7on3vkEy7VAZhp4MvxLA85Ca950t
+ z+mOFwfTYIHvmn/myV8yAAKSj1WG/Tbk7+ngzhNfOrQjAqaAG5w6xeQEjdLT8hMm
+ 5r716ZJNDF0gSTv9dY/UN05mv7spGTYheYYc2T+NdT/4zw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
+ [209.85.217.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecpyqjewj-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 05:46:00 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id
+ ada2fe7eead31-6751db2792dso1733695137.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 25 May 2026 22:46:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779774359; x=1780379159;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=KDy9vXC1Rd1tq49bIIsepsbFIYBji5z/KFPlG+PXtu4=;
+ b=QwI+XmT9E1sTTJOlCjYPTnanb6h7BKWrtWMp6lNMzLb9oaJ/xIfEYBUVlkE2rWExLQ
+ NpicfZfk54gt+FxCSmzxxHkvkUoBCOIWrA3Ecxp98kN1Y0Ekc77LYgQXbQn6jnGDrApG
+ 33ddEZ9rHlztvLfBCA2dP/nx15BfiIBWjxsznRL+yGkJJucxeI5b2XCHpAwoxv4IFk9a
+ 0Krf8y1RAhwLKBiwBqOchpGp765subpR/NZ0hZHAG49P76YyOGTeBJ8zjhXOoJS7JkNs
+ 5tQAGqZZ3tfYGou6i9FAd2vSiejCbdyoEQjWVrs13Bwz2Qfj50+4ihL0mGM7cYlziQdk
+ hzUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779774359; x=1780379159;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KDy9vXC1Rd1tq49bIIsepsbFIYBji5z/KFPlG+PXtu4=;
+ b=iLCqmDz6zlvSgJ6hekt9E8oEJGaVTHYF10+pGdvOWUa9nbxsArDD6POy5kdn5H0hWA
+ 3BOAlqX5rCQ95f7rVQidevjIETtWNAekwwIT7CKEsSO5ax5zTYXQm08ihJxb9RjC1l4B
+ GOcagbaex69cC9uoHzVC12TZrhREvcE+lR2yOaaJ5B4KAwesFJcZQn7kzySvt50+4BDw
+ pw9tcrmAF/r1h1pzueNuycdAkqRyiFoSlhu15SyXMN8bVr/LzNxNtxCuPZZw0+USygk3
+ jgTY2tPHzJlxGuJMkU12e2QF1uCw0OvPNyA60P64uJnVafK3oU6CskWeE2YwM2AKeN4D
+ YQDw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9FifXb/YG4Qs8O0+fQqDyVa4d5k+FJ3JccklW+Vd8z398KQLuRYOpmFIP9f4IocUA2YRlfQspge4c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz167Sn6MJ7yqD6LzNnDuwJLKGqsTIfl5pSIGxJmR6EoeEzLsoG
+ OAVOhQjzf0EdN8ytXH3v7cJPnErpP1zeC3D3pbGhbV4vB+iZUtQV3Fl6fnQ9fTYgEf5uyVhe1ZB
+ S/X1t4CYGsbCg4BgZ95mIw98ESeHIROHm7AcjNgSIhzvEYEgXbh9gKdo3rJLQGLVhpp7QUHw=
+X-Gm-Gg: Acq92OHoSXTuhou/JCw/Pu4HIIkqpmmF0n/1xzhMuQzQA8wobijb9FDZbxybI7e8zUx
+ xtGDF6GJZYU7xxLdaHvd0bl7RFHUI8ngSANUPaGJeQGVz0l7MtcUl/n2Wvp/hUK77MEE0smxXhX
+ UcA2TXQSPU69rLJuyRR/9y4XAGgDfwrW1xEI6GeM2PiX9own88McCM8OKh/isoGhgU4BJKm5D99
+ OcrxSF49K9CfhlGgH11GV/OuMsbDKI7E1IE7yXDsdGjb8G9QrTaYB1fGuKKPG+LHKnip73c95TA
+ rWB4GxwibItViJaOzsGkb31nJABqSa9bt2tGYB6geuqXGjkWCQFFdii5mNKXY99lsCIpplpUDTY
+ FTXDhiewQvXz84DI4/FGJIZYnRBVBpluipE1qIWjbKGkUFsL96i7ke1icmjp7n6MdmZiFecQLQ4
+ rHQUF29H/LC5egIZZVivLXnCeteMQSIG7VHCk=
+X-Received: by 2002:a05:6102:390f:b0:605:7a45:c7c5 with SMTP id
+ ada2fe7eead31-67c8a0759eemr7094133137.14.1779774359378; 
+ Mon, 25 May 2026 22:45:59 -0700 (PDT)
+X-Received: by 2002:a05:6102:390f:b0:605:7a45:c7c5 with SMTP id
+ ada2fe7eead31-67c8a0759eemr7094126137.14.1779774358957; 
+ Mon, 25 May 2026 22:45:58 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa4623be9asm200944e87.0.2026.05.25.22.45.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2026 22:45:57 -0700 (PDT)
+Date: Tue, 26 May 2026 08:45:56 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Val Packett <val@packett.cool>
+Subject: Re: [PATCH v6 09/10] drm/msm/dp: turn link_ready into plugged
+Message-ID: <3jezpw5umag5pfyn6gvzqhcea7kpdg666c657rofwu7wzgpj7b@suwc7wn3poex>
+References: <20260524-hpd-refactor-v6-0-cf3ab488dd7b@oss.qualcomm.com>
+ <20260524-hpd-refactor-v6-9-cf3ab488dd7b@oss.qualcomm.com>
+ <79fff2b4-d8c1-4225-a75a-f9c2dc6a85e4@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3997:EE_|SJ2PR12MB8035:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8bac370d-42db-45ad-28c2-08debae9ef0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|366016|376014|7416014|56012099003|18002099003|22082099003|11063799006|6133799003|4143699003;
-X-Microsoft-Antispam-Message-Info: t+05UN6eED4hXUoh6Ao33LT6db7SL4/G8aVfoRYxugQllnyp4WpENsy1uyTfd8VZ4U3hHtXY0OJCHfvOWaeWojlOuNqLkpabt/D8I7HwiPuEQuiZFC5lU6soW4qwAhEWC59uhwS81+XnmQ6pSVXp+cco4vlLJ2KussGMZr3tNPFZgMKR2aRCw7c5tJX6L6fMLPDiSFLNW7u2O80E3Gco7+MY7k9aAD6MT3VPAxXw6wktFnsMF5EDh2dg+NA2HXm0ruIEQcs6lrYJ0H9Dahoc1Edh8BJ6vWSKm6aNNK740O+NeSuv4MSmlaMpWkIK73R1/y5mNo5avK73G7p0PHV9EpG3nfEHStvqMu9uKRG1cSIZiX8SX6nTw68gKKrRHPe3RJTPWXqB7wVoaqcQP/zL5mOEEAy9BHPSqnSpLBguF+NaNPIRtJFTUGKyPQI7jEcvLg886phzzeyvWBkWS3EikA6B5qj/ILHYkeXmYzgiOSZT+BB609vE+B6Q6W2f9TlVh6zr4MUM1UbwdSAqZFo3aTw8Vex85WpCy0cBPLKK9dMFMSmsMxFq1CxTWChi4BqyCuBT4tvLUlqb9jxM5s63ar8NBhuNyEHduuCnfiJgGrWgHWiwNW4MOAsNk+jIMeZPPtDF6gYgSULPXaDHto6lQJTQWp0Db+VIBSot3rHRkl1gHLkw5REz1VHz9uUnnlfK
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(7416014)(56012099003)(18002099003)(22082099003)(11063799006)(6133799003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ejhKVWNhOGhOaG8zL2FPY2dNV3M2SlBWWjVNS052KzI5SVVBblJwR2JnYlEr?=
- =?utf-8?B?ZFlZbEVpc3BRK0N2OXFSWmRkWnREYWJDRkp6N2JBMzB1T0JTdFF4WEw1R2Yw?=
- =?utf-8?B?WDNnelBuR2VZaGFoaEtzVGxETS91cFlvRVNhQVdWU0tIa0J4UG96RlNKN20v?=
- =?utf-8?B?d3U1VmEvSmRDbzV0TUdza3diVVEzOTVEZlVjbjI5V0FEN0RBWXBqUGMzTFJN?=
- =?utf-8?B?RFVuekxNdCs2ZjNGSjRYVnMxOTFqcjRCYjJyMnJVdTg2dk1yNlZQN0gwQUpX?=
- =?utf-8?B?R1dyL2VjN0dRVTkxTWpVRDhoWjBvblo3aTlWTk04U3gwQjU5Z0ZqS0RuRGlQ?=
- =?utf-8?B?RTJMaGJ4dTdHWlNFaGgvSXpzeEN5d1h2b1JNdzROUllVZVl1L1FOakRUcWFm?=
- =?utf-8?B?WjdmNGFNRjdEUUYyQ3RZYStUTjRRbjVQeEs2L08yY09WS3JOb0ZPWFMxYlpC?=
- =?utf-8?B?eHliekJveWZvMXY2UFlER0kramdGbU53NHBnL0NTckJSVlFlNStnaU5sYVc3?=
- =?utf-8?B?K3JXSmV6WVRTNHY3a1VPQ3ZiLzFUbXk5VjQxa3MxWHJyK1RaSHlKdHNWRXF0?=
- =?utf-8?B?andSU21SVTVTVXFPRmhtaFNIOGFHU3hQcnhsMDNZSkkvMk9vd2RWMmsyOUlr?=
- =?utf-8?B?OXRjQ2srL2pyYWZ6TktUOUh4R1RVTlpiUzMzeVdMRGZ1MkVIS3hZazVLRXVC?=
- =?utf-8?B?enZLUmc0RkVreGpzYUFlcENpdFg2ek9XenRyV2xZUDhNZXJSUXUrRWYydDFH?=
- =?utf-8?B?bE9JUnI0bjREVzNiNWZUazh2b2hkbGR6Q2h1d0JZZlpIblZXczdTcXZUSUJZ?=
- =?utf-8?B?bGdIQkV0TVFZTHB1Q2t1UVlRYXZpbWdNT2VIaWRIcXdKVXNGcTl1L1pnTkpZ?=
- =?utf-8?B?bUFxakVteUU2TFJZVmV3TVNuWGVRSjJNK0V6NlB5b1o3ZmRnUmR2Q3dJQU1S?=
- =?utf-8?B?dEhuRk5QOHFMZEtCNXB1U254MHJQSlpITmMwS09CclIzaWRsVjd1T2VTOXRV?=
- =?utf-8?B?SXNUaU13bmNvbk1IZG5tS05CWlRqUnZwb3YvWVdpQnZNbW5BRTE2MjVmWmpH?=
- =?utf-8?B?SGU2SGZBOHVYUnJZeExNT3MxNS9lSkJDdG9zaElacWRGblpndFNxZWZjKytj?=
- =?utf-8?B?blRmbVlEYmhybGFkZzljYXU2SUc4eDhnRjVDZVE4NjJPYVhuUThzaFlaQmtE?=
- =?utf-8?B?b3h1dWZEell0M0d6WlVZcG91N29CTjZ2dnViN0ZlMDRLWU1qa05USk9Jc05H?=
- =?utf-8?B?eUowQVlXaXJOWFVPUTlFUDNtbFhRaHYzQ1A3bzZKT1JBUDRwTXhQck90VjVo?=
- =?utf-8?B?WjZzbkU5VjZmZWNQODE4Tnd1YS9vVjRIZlYwanZoemZhUHJieWRDT0g2Smdj?=
- =?utf-8?B?Rm9yV2hrYml3ZTcwUVZmN05qYVJUYWFINHZ5c0NMall0dXdtdEQ0VHJjRTVJ?=
- =?utf-8?B?eGlEVDFzYk9UdVpETWxSSG5xZXcrVmQ0S2FIN1Nid3ZIZHlxeEpTVWdYNHdr?=
- =?utf-8?B?aVZQQVR4V0Y4V2NyV2NaODQraVh5aEFlWWUyK0F3Z1VvRWNWVXpIU01UU24x?=
- =?utf-8?B?TzJndDZYKzlBYTdMSXFLN3BkdWVLcGZSb2lEQ1BPQitmOUwvR29zN0xTRmNZ?=
- =?utf-8?B?R0FuNXI5NnJPdDI4WWNUYkNCWkVkYzFtUUJuK0RkaXpXVG9YSVR4L0lZMjU0?=
- =?utf-8?B?emFuODNvRVcyRjZ4WitNNURncyt4TUV6eHlybU9RK05yRFYxNklUVnc5MjBk?=
- =?utf-8?B?UTlxZDBkYURJOFZLTTZldVR3VlBHNnRUUW1QT2x4alpkTkwwZU16NERJZjhj?=
- =?utf-8?B?VVZidEtVNVZ2NnFEVUJWSWNWTXhWQis5Z2VieTlBd0dHYy95VWpJdzJvWVEx?=
- =?utf-8?B?SENZdngwVEx2S05sN2JROG5IRkhtUEpiYTJRbFRtZE40TWFtNkk1RG5WUmE4?=
- =?utf-8?B?RHZSRnJRYnYvYzl6eW1tVWhtUVlMSkV1VHZiOFJRdGxRVmJmditXQ0tjdjk2?=
- =?utf-8?B?Wkx1Y3laZXo4dFNOelMvbzkwV05aaENDS2UxT0Jid1p1VTJSYmRkdFY3cEs4?=
- =?utf-8?B?UU9QNzRQYXBuMC8wTW5kZTVmdWRlTExNWk9PZzhlaXJVcDJSaFdHZHBOdWlu?=
- =?utf-8?B?N2Y4L3MwL3FIWlFSQWkxUWJYZmFxYXhUeUdSVFN4d2V5UFRHekFLc0FRUE0y?=
- =?utf-8?B?bGIwOC9wRFFuaHlHOWJkZkxTbWY1MnEwaHVJSFUvQmZ6a0YvbzNmNXgxWEo1?=
- =?utf-8?B?VWNvL0NJYUVFb2hKa0VOdG5GL0R0a0VpQWV2aklPaWpyd0U1ZnUwR2Q5YU4z?=
- =?utf-8?B?cmw2Mllsb3hPMGdWNHFiU2IxOEFHU2tvM1BRS1A2ZzRPbTRQYW5QaXZUU3dP?=
- =?utf-8?Q?ZIBZkdGeZ/saRKSELTbCpf8LqCrwhA1ubF73lpwLwAtCy?=
-X-MS-Exchange-AntiSpam-MessageData-1: /oKQAdb0wHEEEQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bac370d-42db-45ad-28c2-08debae9ef0d
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB3986.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 05:45:06.2744 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GHAZr3AHdyMfYb/a7GjKOPqoG9qTFaCi8MfL/iO2gz4UqFstaEqA784R1ka7sHqbHmELSZrABd2TmtU8pSyPMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8035
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <79fff2b4-d8c1-4225-a75a-f9c2dc6a85e4@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=dtfrzVg4 c=1 sm=1 tr=0 ts=6a153398 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=brEAT6A2eyJCnXEto54A:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: ABJRBhUrWFOwAiwGe-OQNesYYAh3EpNm
+X-Proofpoint-ORIG-GUID: ABJRBhUrWFOwAiwGe-OQNesYYAh3EpNm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDA0NyBTYWx0ZWRfXyPR9iLxMnq4i
+ BueBNOzQXMkwkoS4WvfYuTIA9R30zfiNXXtKzjTioYgFYH+8BiYDuBN1/GglMcGaRBSPiyuoega
+ QEd5sYuxdPzPtejJpUEYwcF5CVzAg4g4JzjVRbu4lRP+6XsNl8Duz2GAd59Na5o7uHOhlz2eU6s
+ 840AGW+adUOHzeY/mZPgUKxnUZhdmsJeqCVPPG3Lor2pZvtLsha/TEqNjf6lvimXtfruHlG7jA2
+ ZHIedJGNh4B2If/Gv+iOu8AmseExaRi/Y1rsfCoWVK1kX6t3+1TDoTLf+xb65UxSusBtaWu6iPa
+ +w7DaJB5OB6f7gk44KgBp3D4XnM8UHbYa90HzjuyyiJMF18NPDwNTYxvMOUGdVFxrMy5q9eupHl
+ 36gmLD+kFJ+V664eOmvmseKVlvub6mV7XuTxpRq3kRJKT8vX2KFYdEMxgMCBV9LEnu4FUziGdD9
+ YE1Vht2zwkGj0aLgLKQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-26_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0 phishscore=0
+ adultscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605260047
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,58 +148,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue May 26, 2026 at 5:21 AM JST, Danilo Krummrich wrote:
-> From: Gary Guo <gary@garyguo.net>
->
-> There are a few cases, e.g. when dealing with data referencing each
-> other, one might want to write code that is generic over lifetimes. For
-> example, if you want to take a function that takes `&'a Foo` and gives
-> `Bar<'a>`, you can write:
->
->     f: impl for<'a> FnOnce(&'a Foo) -> Bar<'a>,
->
-> However, it becomes tricky when you want that function to not have a
-> fixed `Bar`, but have it be generic again. In this case, one needs
-> something that is generic over types that are themselves generic over
-> lifetimes.
->
-> `ForLt` provides such support. It provides a trait `ForLt` which
-> describes a type generic over a lifetime. One may use `ForLt::Of<'a>` to
-> get an instance of a type for a specific lifetime.
->
-> For the case of cross referencing, one would almost always want the
-> lifetime to be covariant. Therefore this is also made a requirement for
-> the `ForLt` trait, so functions with `ForLt` trait bound can assume
-> covariance.
->
-> A macro `ForLt!()` is provided to be able to obtain a type that
-> implements `ForLt`. For example, `ForLt!(for<'a> Bar<'a>)` would yield a
-> type that `<TheType as ForLt>::Of<'a>` is `Bar<'a>`. This also works
-> with lifetime elision, e.g. `ForLt!(Bar<'_>)` or for types without
-> lifetime at all, e.g. `ForLt!(u32)`.
->
-> The API design draws inspiration from the higher-kinded-types [1] crate,
-> however a different design decision has been taken (e.g. covariance
-> requirement) and the implementation is independent.
->
-> License headers use "Apache-2.0 OR MIT" because I anticipate this to be
-> used in pin-init crate too which is licensed as such.
->
-> Link: https://docs.rs/higher-kinded-types/ [1]
->
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> [ Handle macro_rules! invocations in the ForLt! proc macro's covariance
->   and WF checks. Since proc macros cannot expand macro_rules!, add a
->   visit_macro() implementation to conservatively assume macro
->   invocations may contain lifetimes, forcing them through the
->   compiler-assisted covariance proof.
->
->   While at it, fix a few typos in the documentation and in the commit
->   message. - Danilo ]
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On Mon, May 25, 2026 at 04:01:23PM +0200, Konrad Dybcio wrote:
+> On 5/24/26 12:33 PM, Dmitry Baryshkov wrote:
+> > Tracking when the DP link is ready isn't that useful from the driver
+> > point of view. It doesn't provide a direct information if the device
+> > should be suspended, etc. Replace it with the 'plugged' boolean, which
+> > is set when the driver knows that there is DPRX plugged.
+> > 
+> > Tested-by: Val Packett <val@packett.cool> # x1e80100-dell-latitude-7455
+> > Tested-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com> # Hamoa IOT EVK, QCS8300 Ride
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> 
+> [...]
+> 
+> > -static void msm_dp_display_host_phy_init(struct msm_dp_display_private *dp)
+> > +/**
+> > + * msm_dp_display_host_phy_init() - start up DP PHY
+> > + * @dp: main display data structure
+> > + *
+> > + * Prepare DP PHY for the AUX transactions to succeed.
+> > + *
+> > + * Returns: true if this call has initliazed the PHY and false if the PHY has
+> > + * already been setup beforehand.
+> 
+> This assumes no failure. I hope adding various return-value checks across
+> this driver is somewhere on the todolist..
+> 
+> [...]
+> 
+> >  end:
+> > -	pm_runtime_put_sync(&dp->pdev->dev);
+> > +	/*
+> > +	 * If we detected the DPRX, leave the controller on so that it doesn't
+> > +	 * loose the state.
+> 
+> "lose"
+> 
+> That is done.. presumably so that one could correct a coredump or similar?
 
-For everything but the proc macro,
+No. It is exactly as written: to keep the DPTX state. Otherwise the HPD
+state machine will be reset, DPTX won't be able to respond to the HPD
+pulses from the branch device, when the anything gets plugged into it,
+etc.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> 
+> Konrad
+
+-- 
+With best wishes
+Dmitry
