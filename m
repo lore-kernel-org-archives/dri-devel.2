@@ -4,60 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CCE5CD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 10:24:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDB5FCD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 10:33:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 764B510E176;
-	Tue, 26 May 2026 10:24:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A4E710E480;
+	Tue, 26 May 2026 10:33:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="VUlBoxOS";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WbaKozvu";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA43E10E176
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 10:24:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779791087; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=NOlIH75qqa25JWfAzCjVhpwWxIA32hgCADvtVH+num61w0z6sTh82SHZIb1YIVYVH4kbfBQeF038k9l7PQFMv4Ot5CuV5I0DhWe/pzXqWij1DLxt5agML8W+T+cuv0hcCsb0dnya17bbYQZWKMCnByoxxNWSaZWtQ0aVxoTcTMY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779791087;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=TDVXsSWvApJd6i2RkpLsXQc7NgLFn0Lda0b1N9smog0=; 
- b=VJefMagrXWU6x9sFNy94uvQvpq5t6FoTrTAcUdSSjBOQNXoaaRdQrzmSCSFYB8WqM7m+FX+0JO/wcv0RV7jWczMYoB3SNIjVFdKDcJwRWpLXMqYfhTpFNn27Tjh13G7Xt3KZpqn0N8I7UklRxRcs7mOEgH0z4Xa+pRc5SHpSJ0E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779791087; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=TDVXsSWvApJd6i2RkpLsXQc7NgLFn0Lda0b1N9smog0=;
- b=VUlBoxOSF4MJy/oB1Obqy7TcIjq0Y+FstJUHYZNRfs3aP2Vj2AzB8Lb5epKfCDbN
- G+FMX+EY7jizlvwBFUFQYsmxyptjFyo8NvJ5EYAKWwbRQSMeMIpItBt3UzHVHgEKz0Q
- oCiBKbNNG2900ZRZ2xKhbOvm/XFWdlqKH7/IHLro=
-Received: by mx.zohomail.com with SMTPS id 1779791085350818.9103831316124;
- Tue, 26 May 2026 03:24:45 -0700 (PDT)
-Message-ID: <f684508b-ec0e-4e71-80be-95ae874d8e85@collabora.com>
-Date: Tue, 26 May 2026 13:24:40 +0300
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C998410E480
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 10:33:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779791635;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MZLeaQH6dFx4A3siWeeBaKKVFSf9fS72LAcJjC0fop8=;
+ b=WbaKozvuqhKo0legUjuSNLfZVRz9HehB9t14OmasAizfOaXnb9+TBsj6Wlibq/f0E1zm1H
+ nMst2d0coSWbu/oTR4bF6fXNdKrR7fdnC0DD7i5H/UaYrSqSnpf2InFIYPQ/seXKdw+LaB
+ aw9VGLi6VWnBXC1voRvDaiSnkSXr4uM=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-602-lLHkzTr7OKyemJXXdE4iUg-1; Tue, 26 May 2026 06:33:53 -0400
+X-MC-Unique: lLHkzTr7OKyemJXXdE4iUg-1
+X-Mimecast-MFC-AGG-ID: lLHkzTr7OKyemJXXdE4iUg_1779791632
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-45aeac88af4so8452438f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 03:33:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779791632; x=1780396432;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MZLeaQH6dFx4A3siWeeBaKKVFSf9fS72LAcJjC0fop8=;
+ b=K1m1Fz8059hY9tJ3ICX7ISJ1KsyGSuwtPj4j5co9kTyRMGDaoNA7jq5GF/TnbnsfNU
+ aGNevuiEI21lXJT7Uly7otSOIKtcDw6uy7bbtGKaMZiyhePEG1AMLRBlGhaoHOfdAr93
+ ywLWpKMiNoUyhQZgu3Szicqovw8m6HGyTNV01qev5jQUw/4zfM+/twqPBdL+kh+/T/i9
+ lHa+Pg0z0X+CLscfV+xSSk7Xi20NV5V4B9+Ncp6SGIew6MJ7OqkAdsWXneBXGxSsomqj
+ IOzIzqLW7yBLwj/ow069hxQnCEAWQIQlry00xCn49H61Yi3aTyV8CUBtZx9x3DbQ2ihw
+ ZUOg==
+X-Gm-Message-State: AOJu0YwIQYYsFuftx/pRiQI7Fklozf4QjIlsDlScL2nI3OL/kYFmaLpw
+ jnshM19TWh2G+BmBjIQ7MWcLjxR09Nz0mmDXbIVxweM9cGRl2ZvH/XVJecsd8aFpkc+MvI8fyd0
+ tJBpfmJtKBF0hMj4yQsk5JQkwl9tvZb0ATySmbA0U1u1o/+C92rXb0LwRR3+MiTQmdvnfbFqEem
+ AfpA==
+X-Gm-Gg: Acq92OHyd5N1Xbk1rrE844O94AThEof2y764tjrUaRgLBx5TvYmQrw+TUfY7Dh4YqAH
+ gxCn1csTf50yKWrG6TU05n38E6p4k5zzqsek7pU9WlwizQCh21NaSMTG0KjPbtrsIGETmSZ0gCL
+ XHuey1HmXIgfRwl41j2wqpnXv8KYh4wRHZ99jNpzkb449fwBq1L1vCt6o0ANaiXItXlu+HtiSX/
+ UXFevNfv9Ii6VXmCVycFfp//eXoxLEpPqaKUBInLhwzkAMD3NFWfHFns0EIHDXKaFKB1mkYncMj
+ NXuWlcByd+isFO3bBNxKn5HFd1TZY+OlG+46wkcfSsBPuYWdaGbG6W0RtlJEDzqiqn8d4e31gJ5
+ g/WLr5ffquzL+i79YwO9Z5PZL3zGuaDK94yBbPLntk2n/kgF0+lFqqakZ7/J8AuX/8x0q7E3Czl
+ nZoRaE
+X-Received: by 2002:a05:6000:2383:b0:43d:73d4:b2f with SMTP id
+ ffacd0b85a97d-45eb38ca94emr31549001f8f.39.1779791632409; 
+ Tue, 26 May 2026 03:33:52 -0700 (PDT)
+X-Received: by 2002:a05:6000:2383:b0:43d:73d4:b2f with SMTP id
+ ffacd0b85a97d-45eb38ca94emr31548959f8f.39.1779791631873; 
+ Tue, 26 May 2026 03:33:51 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45eb6d5e484sm33219861f8f.30.2026.05.26.03.33.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 May 2026 03:33:51 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Andrzej
+ Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>, Jernej
+ Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Phong LE <ple@baylibre.com>, Robert
+ Foss <rfoss@kernel.org>, Sen Wang <sen@ti.com>, Simona Vetter
+ <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v5 0/3] drm/bridge: ite-it66121: Switch to HDMI helpers
+ and fix DVI output
+In-Reply-To: <1f0d964dcf8a32297b9d5a854309c736@kernel.org>
+References: <20260523-it66121-fix-dvi-mode-v5-v5-0-33b4468162f9@redhat.com>
+ <1f0d964dcf8a32297b9d5a854309c736@kernel.org>
+Date: Tue, 26 May 2026 12:33:50 +0200
+Message-ID: <871peympdd.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/virtio: abort virtqueue wait on device removal to
- avoid hung task
-To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <18b1d7267ace8b76.329809b8dd1e13b3.4134c0f069791aa6@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <18b1d7267ace8b76.329809b8dd1e13b3.4134c0f069791aa6@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: fKqGnTCx6lq-FGW8JR9RWx6Hrt6M2D2w0xYWmHaCe34_1779791632
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,185 +107,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/22/26 11:51, Ryosuke Yasuoka wrote:
-> Hi Dmitry,
-> Thank you for your review and the comment.
-> 
-> On 21/05/2026 22:01, Dmitry Osipenko wrote:
->> 21.05.2026 05:19, Ryosuke Yasuoka пишет:
->>> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
->>> wait_event() without any abort condition when waiting for virtqueue
->>> space. If the host device stops processing commands, these waits block
->>> indefinitely inside a drm_dev_enter/exit() critical section. Since
->>> drm_dev_unplug(), which is called in device removal and system shutdown
->>> call path, blocks on synchronize_srcu() until all critical sections
->>> complete, device removal and system shutdown also hang.
->>>
->>> Add a vqs_released flag to virtio_gpu_device and include it in the
->>> wait_event() condition. Set the flag and wake up both queues in a new
->>> virtio_gpu_release_vqs() helper, called before drm_dev_unplug() in both
->>> virtio_gpu_remove() and virtio_gpu_shutdown(). When the flag is set, the
->>> wait returns immediately and the command is aborted, following the same
->>> cleanup path as drm_dev_enter() failure.
->>>
->>> Reported-by: syzbot+d6dd6f86d3aaf7eebe7406e45c1c6e549453f224@syzkaller.appspotmail.com
->>> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
->>> Reported-by: syzbot+908bd910da5dd79b88de4cf7baf376cc873a922e@syzkaller.appspotmail.com
->>> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
->>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
->>> ---
->>> Changes in v2:
->>> - Update the commit message.
->>> - Replace wait_event_timeout() with wait_event() using a compound
->>> condition that includes a new vqs_released flag.
->>> - Add virtio_gpu_release_vqs() helper to set the flag and wake up
->>> both queues, called before drm_dev_unplug() in remove and shutdown
->>> paths.
->>> - Remove the hardcoded 5-second timeout. Recovery is now driven by
->>> the driver flag instead of an arbitrary timeout value.
->>> ---
->>>  drivers/gpu/drm/virtio/virtgpu_drv.c | 15 +++++++++++++++
->>>  drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
->>>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++++++++++++++++++++--
->>>  3 files changed, 37 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
->>> index a5ce96fb8a1d..e4fe5e0780f9 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
->>> @@ -119,10 +119,24 @@ static int virtio_gpu_probe(struct virtio_device *vdev)
->>>  	return ret;
->>>  }
->>>  
->>> +/*
->>> + * Release pending virtqueue waits so the drm_dev_enter/exit() critical
->>> + * sections complete before drm_dev_unplug() blocks on synchronize_srcu().
->>> + */
->>> +static void virtio_gpu_release_vqs(struct drm_device *dev)
->>> +{
->>> +	struct virtio_gpu_device *vgdev = dev->dev_private;
->>> +
->>> +	vgdev->vqs_released = true;
->>> +	wake_up_all(&vgdev->ctrlq.ack_queue);
->>> +	wake_up_all(&vgdev->cursorq.ack_queue);
->>> +}
->>> +
->>>  static void virtio_gpu_remove(struct virtio_device *vdev)
->>>  {
->>>  	struct drm_device *dev = vdev->priv;
->>>  
->>> +	virtio_gpu_release_vqs(dev);
->>>  	drm_dev_unplug(dev);
->>>  	drm_atomic_helper_shutdown(dev);
->>>  	virtio_gpu_deinit(dev);
->>> @@ -133,6 +147,7 @@ static void virtio_gpu_shutdown(struct virtio_device *vdev)
->>>  {
->>>  	struct drm_device *dev = vdev->priv;
->>>  
->>> +	virtio_gpu_release_vqs(dev);
->>>  	/* stop talking to the device */
->>>  	drm_dev_unplug(dev);
->>>  }
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
->>> index f17660a71a3e..0bd69a40857e 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
->>> @@ -235,6 +235,7 @@ struct virtio_gpu_device {
->>>  
->>>  	struct virtio_gpu_queue ctrlq;
->>>  	struct virtio_gpu_queue cursorq;
->>> +	bool vqs_released;
->>>  	struct kmem_cache *vbufs;
->>>  
->>>  	atomic_t pending_commands;
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
->>> index 67865810a2e7..8057a9b7356d 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
->>> @@ -396,7 +396,19 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
->>>  	if (vq->num_free < elemcnt) {
->>>  		spin_unlock(&vgdev->ctrlq.qlock);
->>>  		virtio_gpu_notify(vgdev);
->>> -		wait_event(vgdev->ctrlq.ack_queue, vq->num_free >= elemcnt);
->>> +		wait_event(vgdev->ctrlq.ack_queue,
->>> +			   vq->num_free >= elemcnt || vgdev->vqs_released);
->>> +		/*
->>> +		 * Set by virtio_gpu_release_vqs() to unblock
->>> +		 * synchronize_srcu() wait in drm_dev_unplug().
->>> +		 */
->>> +		if (vgdev->vqs_released) {
->>> +			if (fence && vbuf->objs)
->>> +				virtio_gpu_array_unlock_resv(vbuf->objs);
->>> +			free_vbuf(vgdev, vbuf);
->>> +			drm_dev_exit(idx);
->>> +			return -ENODEV;
->>> +		}
->>>  		goto again;
->>>  	}
->>>  
->>> @@ -566,7 +578,14 @@ static void virtio_gpu_queue_cursor(struct virtio_gpu_device *vgdev,
->>>  	ret = virtqueue_add_sgs(vq, sgs, outcnt, 0, vbuf, GFP_ATOMIC);
->>>  	if (ret == -ENOSPC) {
->>>  		spin_unlock(&vgdev->cursorq.qlock);
->>> -		wait_event(vgdev->cursorq.ack_queue, vq->num_free >= outcnt);
->>> +		wait_event(vgdev->cursorq.ack_queue,
->>> +			   vq->num_free >= outcnt || vgdev->vqs_released);
->>> +		/* See comment in virtio_gpu_queue_ctrl_sgs(). */
->>> +		if (vgdev->vqs_released) {
->>> +			free_vbuf(vgdev, vbuf);
->>> +			drm_dev_exit(idx);
->>> +			return;
->>> +		}
->>>  		spin_lock(&vgdev->cursorq.qlock);
->>>  		goto retry;
->>>  	} else {
->>
->> What about other wait_event in the driver? Why only these?
-> 
-> There are other wait_event() calls on vgdev->resp_wq in virtgpu_prime.c
-> and virtgpu_vram.c. These can also cause a stuck process when the host
-> device stops or does not respond and should be fixed. However, they are
-> not related to the issue being fixed here. I think they should be
-> addressed in a separate commit.
-> 
-> The wait_event(vgdev->resp_wq) calls wait for a host response, not for
-> virtqueue ring space. They are not inside a drm_dev_enter/exit()
-> critical section, so they don't block drm_dev_unplug() ->
-> synchronize_srcu() and are not part of the deadlock reported by syzbot.
-> 
-> However, if a process is stuck in wait_event(vgdev->resp_wq), there is
-> no way to recover other than host device recovery itself. We can still
-> remove the device and destroy the virtqueues while the process is stuck,
-> so the host response can never arrive. IIUC, the stuck thread holds a
-> drm_device reference, preventing vgdev from being freed; this is a
-> resource leak.
-> 
-> This can be fixed by adding a wake_up_all() and a vqs_released check
-> similar to what is done for ctrlq/cursorq. However, I think this should
-> be a separate commit since the root cause and problem are different.
-> 
-> Alternatively, the resp_wq wait_event() calls could be converted to
-> wait_event_interruptible() to fix the issue. But as you mentioned
-> earlier in the v1 comment, we need the wait_event_interruptible()
-> rework.
-> 
-> What do you think? Should I include the resp_wq fix as a separate commit
-> in this patch series, or leave it for the _interruptible() rework?
+"Maxime Ripard" <mripard@kernel.org> writes:
 
-Let's leave it for the later rework.
+> On Sat, 23 May 2026 12:40:57 +0200, Javier Martinez Canillas wrote:
+>> Display output does not work when connecting an AM625 BeaglePlay board
+>> to a DVI monitor, because the DRM it66121 bridge driver assumes that
+>> the sink type is always HDMI. This patch series fixes the issue.
+>>     
+>> Patch #1 reworks the driver to use the HDMI helpers instead of open
+>> 
+>> [ ... ]
+>
+> Reviewed-by: Maxime Ripard <mripard@kernel.org>
+>
 
-I briefly tried testing this patch and it's not apparent what exact
-problem this patch solves.
-
-With a regular Linux OS running systemd, during normal shutdown, systemd
-waits for processes to be terminated before it would perform kernel
-shutdown, hence virtio_gpu_shutdown() doesn't have a chance to be
-invoked in my scenario.
-
-In the referenced syzkaller reports, I don't see anything related to
-shutdown or driver removal. Could you please clarify how to reproduce
-and test the original issue?
+Pushed to drm-misc (drm-misc-next). Thanks!
 
 -- 
 Best regards,
-Dmitry
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
