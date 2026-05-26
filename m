@@ -4,107 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DF50CD5BD0
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:18:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F81ACD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8EF10E69D;
-	Tue, 26 May 2026 14:18:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B156510E1A6;
+	Tue, 26 May 2026 14:25:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="QVjQ9Nwo";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="H/VO/YV/";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 158F010E69C
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:18:07 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4906869f0cbso20112005e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:18:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1779805085; x=1780409885;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DWA1rx79U563LTGj65VSgfxyjti8CkpfF8kpzyqUrdk=;
- b=QVjQ9Nwo4PKWRW8DuQ+TfWzfGp9QXLJDyQc0tpzOoF1/e44Grg3JTtKZOzt7oBon3J
- bEhGki0niSswqLFOPvJbigANJyx5GWl1kGu2O2B3vpmPtoWf2Kvazu4yEipnP9Wv36ey
- Of7cu9rPyjRuAtFpRiTWxxBsCp69kf1zeGlhySpoHcFB3EuFAm5PxZwD/7Suhi66lTQ9
- fHmLltf+f0WkbcNhXvJUlEPAv6KKwfj7u4F9qr8gxtqvtZLfzsHpaUL1GdYmIZAUjFQO
- oUWl5A0tSNMni9Tyqw7UIJc4+qkwU2BdIdeROGgVReql5/7mXaNLk2dBTRYVarHStdpz
- NdDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779805085; x=1780409885;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=DWA1rx79U563LTGj65VSgfxyjti8CkpfF8kpzyqUrdk=;
- b=js2j8QJnApaISBBTjjqzeODSXcdCqBn4VljAZ6POfGQLAMUs6F18MAGhOV4CU6xAL1
- BkhZ0aXNOeB/8j5GahXInVOB5guc7x/+GW9jkwAP/DHg9Hfe8u6Kv6t689h2zKkocARN
- +UW7FdIcW7h+Zmnuw9MMF0/vnozqare8Uzk2uQ1Ym0I1VRvtSqAY9uC61SjpfbjzWrTD
- C7ePy6/1tDvEl3VFb+EKkDYKbIBdMUAK7WKUBN8sg0kPwfHUto8SbjbEB3l0ES2Fa1Ml
- WyIQPTSBQ652Cs6j7+6mtVa9pvwNGS2T66Xnrr0XRQnrw0S559Gh16GGqowI+CBtiS0h
- dl4A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8eM+rL1cmQAwB7VdkY3zO/3AwpHkM38LNYPrTPOngZEaARs9pQPk+RBlFwMar+z/Ei5C5YdExMN7Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5pXtCp6sjXPKZhz5IicbO6iGhouqsvgoUwEjAlMoOoavuVhV3
- dTPw2GUzG4siA0ChlIinzOQB+n6y9m1A2W1fLPCEbSVZQod4b8iY0v60ZvOkuMArI9E=
-X-Gm-Gg: Acq92OGaah4pAvjXE/jIYu1jzqTXtb3sY9cqc/OnweMqWX0luAL13yNBOa/bhgTB8zx
- WjX1ZHJmh/kI2aTo91gj4o8WHOxpHsTbcpbkJ8wBns/KWJOfm/7QmqtUDOCfojkyG9awr64Jlry
- ePz8/iySg+n4AMIx/uCSuv68SA1zA+0n1VfhB6IlbVGOzAunLBAQrXwJApLShLeHZ+N+3/8NvKE
- Q4nmzQNFVlZI5yu6XhXTE0Rgm0Lo4LfQH2ahIN+oYBdUewqLrock2F122QCb0+l6hm2s4fcQsdN
- hco7SPH6yKfu0zYH0gadQ5zrp+aEh7BTDUuaDf/h8zotwP7Q8ZmPSP+EYsA0iM9WQ4PetGhux2+
- Sz7bjZLH5FH9OWrq3bPYkfaY/1zhOBze8EF8nI75FbpDqspP5XzSEIlXUxUjyRlf4+fH2G0g/sB
- dyxpDAWuq3g7b5ByuaSJxrwPYpo/0VAeYy0S9EcMd2lSMmxtAXl5pgIBsC2ukvpnkQUDxD8c+v+
- JSCQncEXlH1ZaePy6ricRki2g==
-X-Received: by 2002:a05:600c:4592:b0:490:6237:5213 with SMTP id
- 5b1f17b1804b1-4906237537cmr145220735e9.23.1779805085104; 
- Tue, 26 May 2026 07:18:05 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db04a716d2bdeddb4813.dip0.t-ipconnect.de.
- [2003:f6:5f47:db04:a716:d2bd:eddb:4813])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4904561a160sm379625175e9.9.2026.05.26.07.18.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 07:18:04 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@kernel.org>, Max Staudt <max@enpas.org>,
- Andi Shyti <andi.shyti@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org,
- "Christian A. Ehrhardt" <christian.ehrhardt@codasip.com>,
- "Christian A. Ehrhardt" <lk@c--e.de>, linux-ide@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v1 6/8] zorro: Simplify storing pointers in device id struct
-Date: Tue, 26 May 2026 16:17:32 +0200
-Message-ID: <49576a7501128c93ef318566ed7faefce163f1fd.1779803053.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
-References: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8311410E1A6
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:25:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779805517;
+ bh=Bl4IwYfk4r4/YPEI87za0//V367q8exzt2FJpPHDYlY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=H/VO/YV/C7inqs4ctSh8Lg80citI1bh1V0NRvA/7Rdwuydrr50zwAjhx9YA/TfY8o
+ NsH8Kt1qvgrTxbfIEqxCaYRHkDKMy2hpftQKMezTiFL6xg4G6TwhYWo3QP5w5qch0i
+ i4Fppwu6pCUgjf8p0gdLQKLKJSoWaRqaqP96ePmhpPUWVKhopUJc2xJ8jRCPimUSFF
+ cezxGU20+fhr0qF2Z0rEjra3GFyJ0yDgkGxHaZDW7oDOoJHPPhHcDBhRiSKSKSScVB
+ lYDteYBYisOLA6+zXMaORpQ7UjYEhWpqaWihbPw/dNw3XkIL+5L8cLpHdLJcjrmTI4
+ 1gPJlk/A+Jr2w==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A1DFB17E0CF3;
+ Tue, 26 May 2026 16:25:16 +0200 (CEST)
+Date: Tue, 26 May 2026 16:25:11 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven
+ Price <steven.price@arm.com>, kernel@collabora.com, Liviu Dudau
+ <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH v13 5/6] drm/panthor: Support sparse mappings
+Message-ID: <20260526162511.5ffdde3f@fedora>
+In-Reply-To: <20260522185206.2798288-6-adrian.larumbe@collabora.com>
+References: <20260522185206.2798288-1-adrian.larumbe@collabora.com>
+ <20260522185206.2798288-6-adrian.larumbe@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1515;
- i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=A14j4ivDNBl2yGcg6n5ndH+ByZLqjyYb/4BbZyB+vg8=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqFauEMCO+XO5wBiq0WLDW9CPIg9uJbXOSVo41d
- x54C4q2mLiJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCahWrhAAKCRCPgPtYfRL+
- TjnnB/9l+SDbdriw4+P0R0QawXzQR6RNcTSEDOsG0Za0QxbkFa85XMb5sLwAO0owuw/Rowx6ky+
- QMdsAXUgR3vwvQLdxYJlkEl/VA/XHq/xJJAuw+YZlvI7KLvHFN3YqbmJgo+fHO56QX05JkYBvJ2
- Jk9WKvtvJ58lFHkr+5etBSYF3AixiJ+YBuoVcvjao9lM8EjUJ8SyDU/sXtdjUltWSXQmsKSN5Wa
- cffVeDubVIqpPQNOIDt4M8130VMFMoHEz1nySiOBmpolGD4C9tykhh7r5xGVttivy5+fc/p6kFl
- 64ZyNUXuXtZrf+NrGcA7ZEOvBZuObVE5B7q9XxMf4MX80c3s
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,42 +68,531 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Technically it is fine (on all current Linux architectures) to store a
-pointer in an unsigned long variable. However this needs explicit
-casting which is an easy source for type mismatches.
+On Fri, 22 May 2026 19:51:59 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-By replacing the plain unsigned long .driver_data in struct
-zorro_device_id by an anonymous union, most of the casting can be
-dropped. There is still some implicit casting involved (between a void *
-and a driver specific pointer type), but that's better than the approach
-to store a pointer in an unsigned long variable as this doesn't lose the
-information that the data being pointed to is const.
+> Allow UM to bind sparsely populated memory regions by cyclically mapping
+> virtual ranges over a kernel-allocated dummy BO. This alternative is
+> preferable to the old method of handling sparseness in the UMD, because it
+> relied on the creation of a buffer object to the same end, despite the fa=
+ct
+> Vulkan sparse resources don't need to be backed by a driver BO.
+>=20
+> The choice of backing sparsely-bound regions with a Panthor BO was made so
+> as to profit from the existing shrinker reclaim code. That way no special
+> treatment must be given to the dummy sparse BOs when reclaiming memory, as
+> would be the case if we had chosen a raw kernel page implementation.
+>=20
+> A new dummy BO is allocated per open file context, because even though the
+> Vulkan spec mandates that writes into sparsely bound regions must be
+> discarded, our implementation is still a workaround over the fact Mali CSF
+> GPUs cannot support this behaviour on the hardware level, so writes still
+> make it into the backing BO. If we had a global one, then it could be a
+> venue for information leaks between file contexts, which should never
+> happen in DRM.
+>=20
+> As a side note, care was put to adjust dummy BO offsets for sparse mappin=
+gs
+> so that all addresses in the new VA are mapped aligned against it.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-All users of struct zorro_device_id are initialized in a way that is
-compatible with the new definition, so no adaptions are needed there.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
- include/linux/mod_devicetable.h | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
-index 3b0c9a251a2e..2673a1bd82c4 100644
---- a/include/linux/mod_devicetable.h
-+++ b/include/linux/mod_devicetable.h
-@@ -640,7 +640,11 @@ struct mdio_device_id {
- 
- struct zorro_device_id {
- 	__u32 id;			/* Device ID or ZORRO_WILDCARD */
--	kernel_ulong_t driver_data;	/* Data private to the driver */
-+	union {
-+		/* Data private to the driver */
-+		kernel_ulong_t driver_data;
-+		const void *driver_data_ptr;
-+	};
- };
- 
- #define ZORRO_WILDCARD			(0xffffffff)	/* not official */
--- 
-2.47.3
+> ---
+>  drivers/gpu/drm/panthor/panthor_gem.c |  18 +++
+>  drivers/gpu/drm/panthor/panthor_gem.h |   2 +
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 195 ++++++++++++++++++++++----
+>  include/uapi/drm/panthor_drm.h        |  12 ++
+>  4 files changed, 201 insertions(+), 26 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/pant=
+hor/panthor_gem.c
+> index 13295d7a593d..c798ac2963e1 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -1345,6 +1345,24 @@ panthor_kernel_bo_create(struct panthor_device *pt=
+dev, struct panthor_vm *vm,
+>  	return ERR_PTR(ret);
+>  }
+> =20
+> +/**
+> + * panthor_dummy_bo_create() - Create a Panthor BO meant to back sparse =
+bindings.
+> + * @ptdev: Device.
+> + *
+> + * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
+> + */
+> +struct panthor_gem_object *
+> +panthor_dummy_bo_create(struct panthor_device *ptdev)
+> +{
+> +	/* Since even when the DRM device's mount point has enabled THP we have=
+ no guarantee
+> +	 * that drm_gem_get_pages() will return a single 2MiB PMD, and also we =
+cannot be sure
+> +	 * that the 2MiB won't be reclaimed and re-allocated later on as 4KiB c=
+hunks, it doesn't
+> +	 * make sense to pre-populate this object's page array, nor to fall bac=
+k on a BO size
+> +	 * of 4KiB. Sticking to a dummy object size of 2MiB lets us keep things=
+ simple for now.
+> +	 */
+> +	return panthor_gem_create(&ptdev->base, SZ_2M, DRM_PANTHOR_BO_NO_MMAP, =
+NULL, 0);
+> +}
+> +
+>  static bool can_swap(void)
+>  {
+>  	return get_nr_swap_pages() > 0;
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/pant=
+hor/panthor_gem.h
+> index ae0491d0b121..8639c2fa08e6 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.h
+> @@ -315,6 +315,8 @@ panthor_kernel_bo_create(struct panthor_device *ptdev=
+, struct panthor_vm *vm,
+> =20
+>  void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo);
+> =20
+> +struct panthor_gem_object *panthor_dummy_bo_create(struct panthor_device=
+ *ptdev);
+> +
+>  #ifdef CONFIG_DEBUG_FS
+>  void panthor_gem_debugfs_init(struct drm_minor *minor);
+>  #endif
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
+hor/panthor_mmu.c
+> index ca78267d43e9..18b156172cc9 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -116,6 +116,17 @@ struct panthor_mmu {
+>  struct panthor_vm_pool {
+>  	/** @xa: Array used for VM handle tracking. */
+>  	struct xarray xa;
+> +
+> +	/**
+> +	 * @dummy: Dummy object used for sparse mappings
+> +	 *
+> +	 * Sparse bindings map virtual address ranges onto a dummy
+> +	 * BO in a modulo fashion. Even though sparse writes are meant
+> +	 * to be discarded and reads undefined, writes are still reflected
+> +	 * in the dummy buffer. That means we must keep a dummy object per
+> +	 * file context, to avoid data leaks between them.
+> +	 */
+> +	struct panthor_gem_object *dummy;
+>  };
+> =20
+>  /**
+> @@ -395,6 +406,15 @@ struct panthor_vm {
+>  		 */
+>  		struct list_head lru_node;
+>  	} reclaim;
+> +
+> +	/**
+> +	 * @dummy: Dummy object used for sparse mappings.
+> +	 *
+> +	 * VM's must keep a reference to the file context-wide dummy BO because
+> +	 * they can outlive the file context, which includes the VM pool holding
+> +	 * the original dummy BO reference.
+> +	 */
+> +	struct panthor_gem_object *dummy;
+>  };
+> =20
+>  /**
+> @@ -1027,6 +1047,30 @@ panthor_vm_map_pages(struct panthor_vm *vm, u64 io=
+va, int prot,
+>  	return 0;
+>  }
+> =20
+> +static int
+> +panthor_vm_map_sparse(struct panthor_vm *vm, u64 iova, int prot,
+> +		      struct sg_table *sgt, u64 size)
+> +{
+> +	u64 mapped =3D 0;
+> +	int ret;
+> +
+> +	while (mapped < size) {
+> +		u64 addr =3D iova + mapped;
+> +		u32 chunk_size =3D min(size - mapped, SZ_2M - (addr & (SZ_2M - 1)));
+> +
+> +		ret =3D panthor_vm_map_pages(vm, addr, prot, sgt,
+> +					   addr % SZ_2M, chunk_size);
+> +		if (ret) {
+> +			panthor_vm_unmap_pages(vm, iova, mapped);
+> +			return ret;
+> +		}
+> +
+> +		mapped +=3D chunk_size;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int flags_to_prot(u32 flags)
+>  {
+>  	int prot =3D 0;
+> @@ -1269,6 +1313,7 @@ static int panthor_vm_op_ctx_prealloc_pts(struct pa=
+nthor_vm_op_ctx *op_ctx)
+>  	(DRM_PANTHOR_VM_BIND_OP_MAP_READONLY | \
+>  	 DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC | \
+>  	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED | \
+> +	 DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE | \
+>  	 DRM_PANTHOR_VM_BIND_OP_TYPE_MASK)
+> =20
+>  static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ct=
+x,
+> @@ -1276,6 +1321,7 @@ static int panthor_vm_prepare_map_op_ctx(struct pan=
+thor_vm_op_ctx *op_ctx,
+>  					 struct panthor_gem_object *bo,
+>  					 const struct drm_panthor_vm_bind_op *op)
+>  {
+> +	bool is_sparse =3D op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+>  	struct drm_gpuvm_bo *preallocated_vm_bo;
+>  	struct sg_table *sgt =3D NULL;
+>  	int ret;
+> @@ -1287,8 +1333,21 @@ static int panthor_vm_prepare_map_op_ctx(struct pa=
+nthor_vm_op_ctx *op_ctx,
+>  	    (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) !=3D DRM_PANTHOR_VM_=
+BIND_OP_TYPE_MAP)
+>  		return -EINVAL;
+> =20
+> -	/* Make sure the VA and size are in-bounds. */
+> -	if (op->size > bo->base.size || op->bo_offset > bo->base.size - op->siz=
+e)
+> +	/* uAPI mandates sparsely bound regions must not be executable. */
+> +	if (is_sparse && !(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC))
+> +		return -EINVAL;
+> +
+> +	/* For non-sparse, make sure the VA and size are in-bounds.
+> +	 * For sparse, this is not applicable, because the dummy BO is
+> +	 * repeatedly mapped over a potentially wider VA range.
+> +	 */
+> +	if (!is_sparse && (op->size > bo->base.size || op->bo_offset > bo->base=
+.size - op->size))
+> +		return -EINVAL;
+> +
+> +	/* For sparse, we don't expect any user BO, the BO we get passed
+> +	 * is the dummy BO attached to the VM pool.
+> +	 */
+> +	if (is_sparse && (op->bo_handle || op->bo_offset))
+>  		return -EINVAL;
+> =20
+>  	/* If the BO has an exclusive VM attached, it can't be mapped to other =
+VMs. */
+> @@ -1437,7 +1496,9 @@ panthor_vm_get_bo_for_va(struct panthor_vm *vm, u64=
+ va, u64 *bo_offset)
+>  	if (vma && vma->base.gem.obj) {
+>  		drm_gem_object_get(vma->base.gem.obj);
+>  		bo =3D to_panthor_bo(vma->base.gem.obj);
+> -		*bo_offset =3D vma->base.gem.offset + (va - vma->base.va.addr);
+> +		*bo_offset =3D !(vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE) ?
+> +			vma->base.gem.offset + (va - vma->base.va.addr) :
+> +			va & (SZ_2M - 1);
+>  	}
+>  	mutex_unlock(&vm->op_lock);
+> =20
+> @@ -1542,6 +1603,9 @@ int panthor_vm_pool_create_vm(struct panthor_device=
+ *ptdev,
+>  	if (IS_ERR(vm))
+>  		return PTR_ERR(vm);
+> =20
+> +	drm_gem_object_get(&pool->dummy->base);
+> +	vm->dummy =3D pool->dummy;
+> +
+>  	ret =3D xa_alloc(&pool->xa, &id, vm,
+>  		       XA_LIMIT(1, PANTHOR_MAX_VMS_PER_FILE), GFP_KERNEL);
+> =20
+> @@ -1641,6 +1705,8 @@ void panthor_vm_pool_destroy(struct panthor_file *p=
+file)
+>  	xa_for_each(&pfile->vms->xa, i, vm)
+>  		panthor_vm_destroy(vm);
+> =20
+> +	if (pfile->vms->dummy)
+> +		drm_gem_object_put(&pfile->vms->dummy->base);
+>  	xa_destroy(&pfile->vms->xa);
+>  	kfree(pfile->vms);
+>  }
+> @@ -1653,12 +1719,28 @@ void panthor_vm_pool_destroy(struct panthor_file =
+*pfile)
+>   */
+>  int panthor_vm_pool_create(struct panthor_file *pfile)
+>  {
+> +	struct panthor_gem_object *dummy;
+> +	int ret;
+> +
+>  	pfile->vms =3D kzalloc_obj(*pfile->vms);
+>  	if (!pfile->vms)
+>  		return -ENOMEM;
+> =20
+>  	xa_init_flags(&pfile->vms->xa, XA_FLAGS_ALLOC1);
+> +
+> +	dummy =3D panthor_dummy_bo_create(pfile->ptdev);
+> +	if (IS_ERR(dummy)) {
+> +		ret =3D PTR_ERR(dummy);
+> +		goto err_destroy_vm_pool;
+> +	}
+> +
+> +	pfile->vms->dummy =3D dummy;
+> +
+>  	return 0;
+> +
+> +err_destroy_vm_pool:
+> +	panthor_vm_pool_destroy(pfile);
+> +	return ret;
+>  }
+> =20
+>  /* dummy TLB ops, the real TLB flush happens in panthor_vm_flush_range()=
+ */
+> @@ -1995,6 +2077,9 @@ static void panthor_vm_free(struct drm_gpuvm *gpuvm)
+> =20
+>  	free_io_pgtable_ops(vm->pgtbl_ops);
+> =20
+> +	if (vm->dummy)
+> +		drm_gem_object_put(&vm->dummy->base);
+> +
+>  	drm_mm_takedown(&vm->mm);
+>  	kfree(vm);
+>  }
+> @@ -2154,7 +2239,30 @@ static void panthor_vma_init(struct panthor_vma *v=
+ma, u32 flags)
+>  #define PANTHOR_VM_MAP_FLAGS \
+>  	(DRM_PANTHOR_VM_BIND_OP_MAP_READONLY | \
+>  	 DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC | \
+> -	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED)
+> +	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED | \
+> +	 DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)
+> +
+> +static void
+> +panthor_fix_sparse_map_offset(struct drm_gpuva_op_map *op, u32 flags)
+> +{
+> +	if (op && (flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE))
+> +		op->gem.offset =3D op->va.addr & (SZ_2M - 1);
+> +}
+> +
+> +static int
+> +panthor_vm_exec_map_op(struct panthor_vm *vm, u32 flags,
+> +		       const struct drm_gpuva_op_map *op)
+> +{
+> +	struct panthor_gem_object *bo =3D to_panthor_bo(op->gem.obj);
+> +	int prot =3D flags_to_prot(flags);
+> +
+> +	if (flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)
+> +		return panthor_vm_map_sparse(vm, op->va.addr, prot,
+> +					     bo->dmap.sgt, op->va.range);
+> +
+> +	return panthor_vm_map_pages(vm, op->va.addr, prot, bo->dmap.sgt,
+> +				    op->gem.offset, op->va.range);
+> +}
+> =20
+>  static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
+>  {
+> @@ -2167,10 +2275,9 @@ static int panthor_gpuva_sm_step_map(struct drm_gp=
+uva_op *op, void *priv)
+>  		return -EINVAL;
+> =20
+>  	panthor_vma_init(vma, op_ctx->flags & PANTHOR_VM_MAP_FLAGS);
+> +	panthor_fix_sparse_map_offset(&op->map, vma->flags);
+> =20
+> -	ret =3D panthor_vm_map_pages(vm, op->map.va.addr, flags_to_prot(vma->fl=
+ags),
+> -				   op_ctx->map.bo->dmap.sgt, op->map.gem.offset,
+> -				   op->map.va.range);
+> +	ret =3D panthor_vm_exec_map_op(vm, vma->flags, &op->map);
+>  	if (ret) {
+>  		panthor_vm_op_ctx_return_vma(op_ctx, vma);
+>  		return ret;
+> @@ -2202,6 +2309,8 @@ static void
+>  unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
+>  		     u64 *unmap_start, u64 *unmap_range)
+>  {
+> +	struct panthor_vma *unmap_vma =3D container_of(op->unmap->va, struct pa=
+nthor_vma, base);
+> +	bool is_sparse =3D unmap_vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+>  	u64 aligned_unmap_start, aligned_unmap_end, unmap_end;
+> =20
+>  	unmap_end =3D *unmap_start + *unmap_range;
+> @@ -2209,11 +2318,15 @@ unmap_hugepage_align(const struct drm_gpuva_op_re=
+map *op,
+>  	aligned_unmap_end =3D ALIGN(unmap_end, SZ_2M);
+> =20
+>  	/* If we're dealing with a huge page, make sure the unmap region is
+> -	 * aligned on the start of the page.
+> +	 * aligned on the start of the page. If the unmapped VMA stands for
+> +	 * a sparse mapping, always assume the backing storage is a THP, since
+> +	 * the overhead of unmapping 2MiB worth of 4KiB pages and remapping
+> +	 * some of them is offset by the logic of working out whether it's
+> +	 * the opposite case right below. This also holds true for op->next.
+>  	 */
+>  	if (op->prev && aligned_unmap_start < *unmap_start &&
+>  	    op->prev->va.addr <=3D aligned_unmap_start &&
+> -	    iova_mapped_as_huge_page(op->prev, *unmap_start)) {
+> +	    (is_sparse || iova_mapped_as_huge_page(op->prev, *unmap_start))) {
+>  		*unmap_range +=3D *unmap_start - aligned_unmap_start;
+>  		*unmap_start =3D aligned_unmap_start;
+>  	}
+> @@ -2223,7 +2336,7 @@ unmap_hugepage_align(const struct drm_gpuva_op_rema=
+p *op,
+>  	 */
+>  	if (op->next && aligned_unmap_end > unmap_end &&
+>  	    op->next->va.addr + op->next->va.range >=3D aligned_unmap_end &&
+> -	    iova_mapped_as_huge_page(op->next, unmap_end - 1)) {
+> +	    (is_sparse || iova_mapped_as_huge_page(op->next, unmap_end - 1))) {
+>  		*unmap_range +=3D aligned_unmap_end - unmap_end;
+>  	}
+>  }
+> @@ -2240,6 +2353,11 @@ static int panthor_gpuva_sm_step_remap(struct drm_=
+gpuva_op *op,
+> =20
+>  	drm_gpuva_op_remap_to_unmap_range(&op->remap, &unmap_start, &unmap_rang=
+e);
+> =20
+> +	/* op->remap.prev's BO offset is always the same as the unmap va's, but
+> +	 * that of op->remap.next must be adjusted so as to remain < SZ_2M
+> +	 */
+> +	panthor_fix_sparse_map_offset(op->remap.next, unmap_vma->flags);
+> +
+>  	/*
+>  	 * ARM IOMMU page table management code disallows partial unmaps of hug=
+e pages,
+>  	 * so when a partial unmap is requested, we must first unmap the entire=
+ huge
+> @@ -2259,14 +2377,19 @@ static int panthor_gpuva_sm_step_remap(struct drm=
+_gpuva_op *op,
+>  	}
+> =20
+>  	if (op->remap.prev) {
+> -		struct panthor_gem_object *bo =3D to_panthor_bo(op->remap.prev->gem.ob=
+j);
+>  		u64 offset =3D op->remap.prev->gem.offset + unmap_start - op->remap.pr=
+ev->va.addr;
+>  		u64 size =3D op->remap.prev->va.addr + op->remap.prev->va.range - unma=
+p_start;
+> =20
+> -		if (!unmap_vma->evicted) {
+> -			ret =3D panthor_vm_map_pages(vm, unmap_start,
+> -						   flags_to_prot(unmap_vma->flags),
+> -						   bo->dmap.sgt, offset, size);
+> +		if (!unmap_vma->evicted && size > 0) {
+> +			struct drm_gpuva_op_map map_op =3D {
+> +				.va.addr =3D unmap_start,
+> +				.va.range =3D size,
+> +				.gem.obj =3D op->remap.prev->gem.obj,
+> +				.gem.offset =3D offset,
+> +			};
+> +			panthor_fix_sparse_map_offset(&map_op, unmap_vma->flags);
+> +
+> +			ret =3D panthor_vm_exec_map_op(vm, unmap_vma->flags, &map_op);
+>  			if (ret)
+>  				return ret;
+>  		}
+> @@ -2277,14 +2400,19 @@ static int panthor_gpuva_sm_step_remap(struct drm=
+_gpuva_op *op,
+>  	}
+> =20
+>  	if (op->remap.next) {
+> -		struct panthor_gem_object *bo =3D to_panthor_bo(op->remap.next->gem.ob=
+j);
+>  		u64 addr =3D op->remap.next->va.addr;
+>  		u64 size =3D unmap_start + unmap_range - op->remap.next->va.addr;
+> =20
+> -		if (!unmap_vma->evicted) {
+> -			ret =3D panthor_vm_map_pages(vm, addr, flags_to_prot(unmap_vma->flags=
+),
+> -						   bo->dmap.sgt, op->remap.next->gem.offset,
+> -						   size);
+> +		if (!unmap_vma->evicted && size > 0) {
+> +			struct drm_gpuva_op_map map_op =3D {
+> +				.va.addr =3D addr,
+> +				.va.range =3D size,
+> +				.gem.obj =3D op->remap.next->gem.obj,
+> +				.gem.offset =3D op->remap.next->gem.offset,
+> +			};
+> +			panthor_fix_sparse_map_offset(&map_op, unmap_vma->flags);
+> +
+> +			ret =3D panthor_vm_exec_map_op(vm, unmap_vma->flags, &map_op);
+>  			if (ret)
+>  				return ret;
+>  		}
+> @@ -2481,11 +2609,17 @@ static int remap_evicted_vma(struct drm_gpuvm_bo =
+*vm_bo,
+>  		ret =3D panthor_vm_lock_region(vm, evicted_vma->base.va.addr,
+>  					     evicted_vma->base.va.range);
+>  		if (!ret) {
+> -			ret =3D panthor_vm_map_pages(vm, evicted_vma->base.va.addr,
+> -						   flags_to_prot(evicted_vma->flags),
+> -						   bo->dmap.sgt,
+> -						   evicted_vma->base.gem.offset,
+> -						   evicted_vma->base.va.range);
+> +			struct drm_gpuva_op_map map_op =3D {
+> +				.va.addr =3D evicted_vma->base.va.addr,
+> +				.va.range =3D evicted_vma->base.va.range,
+> +				.gem.obj =3D &bo->base,
+> +				.gem.offset =3D evicted_vma->base.gem.offset,
+> +			};
+> +			if (evicted_vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)
+> +				drm_WARN_ON_ONCE(&vm->ptdev->base, map_op.gem.offset !=3D
+> +						 (map_op.va.addr & (SZ_2M - 1)));
+> +
+> +			ret =3D panthor_vm_exec_map_op(vm, evicted_vma->flags, &map_op);
+>  			if (!ret)
+>  				evicted_vma->evicted =3D false;
+> =20
+> @@ -2849,7 +2983,13 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *fi=
+le,
+> =20
+>  	switch (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) {
+>  	case DRM_PANTHOR_VM_BIND_OP_TYPE_MAP:
+> -		gem =3D drm_gem_object_lookup(file, op->bo_handle);
+> +		if (!(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)) {
+> +			gem =3D drm_gem_object_lookup(file, op->bo_handle);
+> +		} else {
+> +			gem =3D &vm->dummy->base;
+> +			drm_gem_object_get(&vm->dummy->base);
+> +		}
+> +
+>  		ret =3D panthor_vm_prepare_map_op_ctx(op_ctx, vm,
+>  						    gem ? to_panthor_bo(gem) : NULL,
+>  						    op);
+> @@ -3057,6 +3197,9 @@ int panthor_vm_map_bo_range(struct panthor_vm *vm, =
+struct panthor_gem_object *bo
+>  	struct panthor_vm_op_ctx op_ctx;
+>  	int ret;
+> =20
+> +	if (drm_WARN_ON(&vm->ptdev->base, flags & DRM_PANTHOR_VM_BIND_OP_MAP_SP=
+ARSE))
+> +		return -EINVAL;
+> +
+>  	ret =3D panthor_vm_prepare_map_op_ctx(&op_ctx, vm, bo, &op);
+>  	if (ret)
+>  		return ret;
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_dr=
+m.h
+> index 14a93a4ef6ff..a2ff0f4ec691 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -614,6 +614,18 @@ enum drm_panthor_vm_bind_op_flags {
+>  	 */
+>  	DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED =3D 1 << 2,
+> =20
+> +	/**
+> +	 * @DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE: Sparsely map a virtual memory ra=
+nge
+> +	 *
+> +	 * Only valid with DRM_PANTHOR_VM_BIND_OP_TYPE_MAP.
+> +	 *
+> +	 * When this flag is set, the whole vm_bind range is mapped over a dumm=
+y object in a cyclic
+> +	 * fashion, and all GPU reads from addresses in the range return undefi=
+ned values. This flag
+> +	 * being set means drm_panthor_vm_bind_op::bo_offset and drm_panthor_vm=
+_bind_op::bo_handle
+> +	 * must both be set to 0. DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC must also b=
+e set.
+> +	 */
+> +	DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE =3D 1 << 3,
+> +
+>  	/**
+>  	 * @DRM_PANTHOR_VM_BIND_OP_TYPE_MASK: Mask used to determine the type o=
+f operation.
+>  	 */
 
