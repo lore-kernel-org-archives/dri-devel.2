@@ -4,67 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77681CD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 10:52:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE74CD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B93E10E18D;
-	Tue, 26 May 2026 10:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB24E10E244;
+	Tue, 26 May 2026 11:10:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PPhnhVCM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5JC0cr7n";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A502510E18D
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 10:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779792761; x=1811328761;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ttkr2+0dIaHFtf//U2hQIElnpEpz3WPD5vAJ8wxCnq0=;
- b=PPhnhVCMsZL3mwYwd4xihMU+TpqMkM4jc3+W32cic8uFSjoojrC6A31N
- FOvhaGnX1tqyXbWVKpM9n2VWgLkEobTV9fCEIE3MoRVy9at77Phq5vV0o
- Z+lvAS9hbhug+o11zH6v7eVYaIuHi4a2CGT+KS0Rz0ctu0cmVT55UIQax
- hhxIdVh+ARSVsQ3ju1pg+0ECHarAF697zb/czgQqDlWefg/Z4Tu0sAjs0
- 4TMHQJqAod+AUFgqq+lRWmJ35A+VWv6y2elhiyq1Tpr5lgWC37ZLdwUhD
- rWdaNsIjAIC8KMqsgDDHhXAzxtkQVnN9vwNdTWnPe5aTPIGGwSjFe4jH7 g==;
-X-CSE-ConnectionGUID: IeNmeM3rSCSyOVsI06CZtA==
-X-CSE-MsgGUID: fV7qeWZiTMualhq+TJ3umw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="79748353"
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="79748353"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 03:52:40 -0700
-X-CSE-ConnectionGUID: q8yNucOFQpKAtsW/f4s2Fg==
-X-CSE-MsgGUID: DchafCYYTqWf0NNxqXDEeA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="241946828"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost)
- ([10.245.244.104])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 03:52:34 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss
- <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Daniel Stone <daniel@fooishbar.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: Re: [PATCH v3 4/4] drm/scdc-helper: Implement parsing and printing
- HDMI 2.1 fields
-In-Reply-To: <20260526-scdc-link-health-v3-4-59e4a4aaead1@collabora.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260526-scdc-link-health-v3-0-59e4a4aaead1@collabora.com>
- <20260526-scdc-link-health-v3-4-59e4a4aaead1@collabora.com>
-Date: Tue, 26 May 2026 13:52:31 +0300
-Message-ID: <a14c938ec67d501967873622e5d2c3c40765cc1d@intel.com>
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011064.outbound.protection.outlook.com [52.101.62.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6357410E244
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:10:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dH9Bz+uA595Qz5H7jO6hqc9odfa5tjWuct0/kSoi5YjvV6rQ7dX7Gx1+tn8/qzT4RJM5GlmXx+XCh/ZTxPHyNAe7ACzWYwHSIdTIYbxxxl3GGlxfFh3yxrOVw8Vt2eDHc9AWvkQudu8dILxSK+icB2/gdb7dE5cIYx80KrcLjis57SAuMC9MjSIK9/Aze0xDsqHg8pzO/fo3rIs+RZYZxwhXa2xC7u1OIKrPYu4MPVUU+miF5aEf+RM/0ZXbojgavdUSDhx6mhwApYtjFzj9hyjOFTnQNGtB0RuExRoHAkmbDAdtSHltV65UHY/LaLCK1y8ODYWPYjcahmJXgpIP1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F1CWIZ0zkWf3sFhGIgbqhLQceLgewneqANZycTMMRvc=;
+ b=C0Tbpf2RGmrsQh2jVrE1/dj2h8xOElrchhdrEYEBCbXZsytsRrkENoeA0JF67IXveR6wkAbfkah0L9q8zhv1fBpaHuu5qfMEDO4ILG6VXnLbYARQW9bz5SAWbgT+nj85fdnXse5BwYwYz0uJXxPJZDwtVQQptKnwd9nhHHBBdeqAyrpJ44+LBPQGMWC3hj3ZVDc18a3qs9fw4ddPLb7OxxwmeDkkLb7edDlMvtFnC81h/eOZf9/sAtxINxFHUybii6qcM+geRrMD/aiGhEj77Orix0HSqYL9x3BRfsDd8eX4gD7ZMmifoYpjRJHozIFqvOzvMr4ig2ldQ+KsCcoELA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F1CWIZ0zkWf3sFhGIgbqhLQceLgewneqANZycTMMRvc=;
+ b=5JC0cr7nWIZ9OoiEXPmx2R1UFfgjGE5+NFKCnFxB7V0i7oPnTtSUyFl5PBMczD4gcAmC4vrJ10btaO1vctbspVpLTXGXsSiXS8UnI1/5/oOSkmP8lNBAYIB7O9vGmZP+w0wRYTYW80JLBWMJ0ZNhDK756a6LOAaWi8BmmfHM+VQ=
+Received: from CH0PR04CA0053.namprd04.prod.outlook.com (2603:10b6:610:77::28)
+ by IA1PR12MB8406.namprd12.prod.outlook.com (2603:10b6:208:3da::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 26 May
+ 2026 11:10:53 +0000
+Received: from CH1PEPF0000AD74.namprd04.prod.outlook.com
+ (2603:10b6:610:77:cafe::3d) by CH0PR04CA0053.outlook.office365.com
+ (2603:10b6:610:77::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.11 via Frontend Transport; Tue, 26
+ May 2026 11:10:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD74.mail.protection.outlook.com (10.167.244.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 11:10:53 +0000
+Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 26 May
+ 2026 06:10:48 -0500
+From: Ankit Soni <Ankit.Soni@amd.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>
+CC: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, "Robin
+ Murphy" <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Leon
+ Romanovsky" <leon@kernel.org>, Vasant Hegde <vasant.hegde@amd.com>,
+ <iommu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, <linux-media@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Ankit Soni <Ankit.Soni@amd.com>
+Subject: [PATCH] iommufd: take dma_resv lock before dma_buf_unpin() in release
+ path
+Date: Tue, 26 May 2026 11:10:34 +0000
+Message-ID: <20260526111034.4079-1-Ankit.Soni@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD74:EE_|IA1PR12MB8406:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd42f7c2-285d-4b67-1f7b-08debb1773de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|7416014|36860700016|376014|1800799024|11063799006|6133799003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 9zaVwTxhzMJeILH8PVK1Swgflw4C47fpUlETzU8w6D12/1I8o6QQHZvnC9Fj915wB6KbTHrosG9MFve0TnWZsec/pnOLS7Xo1oypBV7X8B+trml9pgtZgmoIK7GL7JmkugPbUjmavFPT8YdJDuvItFTKBm5LzRmW/lDeJFFB6FMgP8CdqJWn+xvIjqHaiUHlWTn7qVCEUoVk9FBZs0zpydft35kC+Moq2Q199P6XA031LKWqf7dtFm8/Uj7a2NYHptpDHwl1XBjwKQMR3vMzSM10wR5Ot0q3aleKkYxx/94znSQ1y7Txbi0DmXCWnnzcTbY0crWp/3ewWX3Lxmiix4XxUP8waiU8+7pK8n9KAfz++bljLgEsMvyTzmEFtCsEmOLrW8pnN4khlXIfRHb3bvuF+bX6aLrdYeY7L49xqCmEYqUHVz58vg4y/Zcin2vm00yehNGThr8LHZKP8QwHzKx7fSGTDWZguRysOvcicAaoMCvB9CUHmARusQBc/NBkyBy0MW5qF2G9856ybMGpwe9PWXV0gTqsw3sxlJHikae3rYe6ceQ69rHjPzujBUQQP4Ooq6jAlJCddW2puy7Q4bKVrHXZFl4p78UfS2kVXTa2E+Ed1UYBgViJ8W7ew4VLoyy5rs4OK57GNJh/S6xmPuegV+ieRBuDp0NTcyOrE1h7zFWijYNiJVBRygTVnYNW+CpX5yL8WAjZGSdSTOsy/GDW51HQuqpeYfTQJuY4izc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(7416014)(36860700016)(376014)(1800799024)(11063799006)(6133799003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 0iA4HrXmxGS0ykZnl5K6iTE53f/w3I3sn+xYvLG8xaSmQfakBE8Nh4hINpL7RnI7ubRWvNBdApTapf7oF+W1UCCDH04TH4uKClaGILL7+vNV4FCjy8dgIys7p3jcwzgPGzo6mloQOV57vfbIV5UgcEIwUES3fEbDZjnomtzg/hIl02dTgW9gzlnAMq9XuW+GoVenR1KCVw76pj8AsQxmabv1Kxn584x6iXvs5UlKrNHaDmvOPUYucgBvi18ZNVxZV3EjXQByLGmPlFk9SCgnZ59oicCm9/koJQm7daIAC2MlDj8R41gVJK/F4bMfvAZvapF8u527Al8Pp6ZkKd6gEu+wOY9AlQubIvJ3R0TxZ6LP7vejt1kRyhv05hXNqUzg+i0JaNpMmiEukcd8ZTuJ+BnIN8dHC3gdf7YvjXhlodZD7eGu5ghb95Q0Ns8oCauk
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 11:10:53.5228 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd42f7c2-285d-4b67-1f7b-08debb1773de
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD74.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8406
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,462 +115,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 26 May 2026, Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> HDMI 2.1 redefines previously reserved fields in SCDC for various new
-> uses. No version check needs to be performed, as an HDMI 2.0 sink's
-> reserved SCDC fields are well-defined to be 0, and any zero-ness of
-> these fields for an HDMI 2.0 sink is not a surprise for SCDC parsers for
-> HDMI 2.1.
->
-> Implement reading and outputting these fields over debugfs.
->
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/display/drm_scdc_helper.c | 154 ++++++++++++++++++++++++++----
->  include/drm/display/drm_scdc.h            |   9 ++
->  include/drm/display/drm_scdc_helper.h     |  85 ++++++++++++++---
->  3 files changed, 218 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-> index 75a59c6fc7a5..b5a866372b0f 100644
-> --- a/drivers/gpu/drm/display/drm_scdc_helper.c
-> +++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-> @@ -21,6 +21,7 @@
->   * DEALINGS IN THE SOFTWARE.
->   */
->  
-> +#include <linux/bitfield.h>
->  #include <linux/export.h>
->  #include <linux/i2c.h>
->  #include <linux/slab.h>
-> @@ -63,6 +64,38 @@ struct scdc_debugfs_priv {
->  	struct drm_scdc_state state;
->  };
->  
-> +static __pure const char *drm_scdc_frl_rate_str(enum drm_scdc_frl_rate rate)
+dma_buf_unpin() requires the caller to hold the exporter's dma_resv
+lock:
 
-There are a total of only 71 __pure usages in the kernel. Is this
-helpful for a static function where the compiler can figure it out by
-itself?
+  void dma_buf_unpin(struct dma_buf_attachment *attach)
+  {
+          ...
+          dma_resv_assert_held(dmabuf->resv);
+          ...
+  }
 
-> +{
-> +	switch (rate) {
-> +	case SCDC_FRL_RATE_OFF:
-> +		return "Off";
-> +	case SCDC_FRL_RATE_3X3:
-> +		return "3 Gbit/s x 3 lanes";
-> +	case SCDC_FRL_RATE_6X3:
-> +		return "6 Gbit/s x 3 lanes";
-> +	case SCDC_FRL_RATE_6X4:
-> +		return "6 Gbit/s x 4 lanes";
-> +	case SCDC_FRL_RATE_8X4:
-> +		return "8 Gbit/s x 4 lanes";
-> +	case SCDC_FRL_RATE_10X4:
-> +		return "10 Gbit/s x 4 lanes";
-> +	case SCDC_FRL_RATE_12X4:
-> +		return "12 Gbit/s x 4 lanes";
-> +	case SCDC_FRL_RATE_RESV_7:
-> +	case SCDC_FRL_RATE_RESV_8:
-> +	case SCDC_FRL_RATE_RESV_9:
-> +	case SCDC_FRL_RATE_RESV_10:
-> +	case SCDC_FRL_RATE_RESV_11:
-> +	case SCDC_FRL_RATE_RESV_12:
-> +	case SCDC_FRL_RATE_RESV_13:
-> +	case SCDC_FRL_RATE_RESV_14:
-> +	case SCDC_FRL_RATE_RESV_15:
-> +		return "(Reserved)";
-> +	default:
-> +		return NULL;
-> +	}
-> +}
-> +
->  /**
->   * drm_scdc_read - read a block of data from SCDC
->   * @adapter: I2C controller
-> @@ -309,10 +342,57 @@ int drm_scdc_read_status0_flags(struct drm_connector *connector,
->  }
->  EXPORT_SYMBOL(drm_scdc_read_status0_flags);
->  
-> +/**
-> + * drm_scdc_read_status1_2_flags - Read SCDC "Status Flags" 1 and 2 Registers
-> + * @connector: pointer to &struct drm_connector to issue the scdc request on
-> + * @flags: pointer to the caller's &struct drm_scdc_status_flags to output to
-> + *
-> + * Reads the SCDC Status Flags 1 and 2 registers, and outputs their contents to
-> + * the destination @flags. Contents of @flags.status1 and @flags.status2 are
-> + * only valid if function returns 0.
-> + *
-> + * Returns 0 on success, negative errno on error.
-> + */
-> +int drm_scdc_read_status1_2_flags(struct drm_connector *connector,
-> +				  struct drm_scdc_status_flags *flags)
-> +{
-> +	int ret;
-> +
-> +	ret = drm_scdc_writeb(connector->ddc, SCDC_UPDATE_0, SCDC_FLT_UPDATE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = drm_scdc_readb(connector->ddc, SCDC_STATUS_FLAGS_1, &flags->status1.data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return drm_scdc_readb(connector->ddc, SCDC_STATUS_FLAGS_2, &flags->status2.data);
-> +}
-> +EXPORT_SYMBOL(drm_scdc_read_status1_2_flags);
-> +
-> +#define ERR_DET_OFF(x) ((x) - SCDC_ERR_DET_0_L)
-> +
-> +static int __pure scdc_err_cnt_buf_idx(unsigned int lane)
-> +{
-> +	switch (lane) {
-> +	case 0:
-> +		return ERR_DET_OFF(SCDC_ERR_DET_0_L);
-> +	case 1:
-> +		return ERR_DET_OFF(SCDC_ERR_DET_1_L);
-> +	case 2:
-> +		return ERR_DET_OFF(SCDC_ERR_DET_2_L);
-> +	case 3:
-> +		return ERR_DET_OFF(SCDC_ERR_DET_3_L);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
->  /**
->   * drm_scdc_read_error_counters - Read and clear SCDC error counters
->   * @connector: pointer to &struct drm_connector to issue the scdc request on
-> - * @counter: Caller's u16 array with 3 elements to write the counter values into
-> + * @counter: Caller's u16 array with 4 elements to write the counter values into
-> + * @num_lanes: number of active lanes, either 3 or 4
->   *
->   * Read the SCDC channel error counters. If the count of channel *n* is valid,
->   * write it into counter[n]. Otherwise, set counter[n] to 0. Reads all counters
-> @@ -320,18 +400,31 @@ EXPORT_SYMBOL(drm_scdc_read_status0_flags);
->   *
->   * Returns: %0 on success, negative errno on error.
->   */
-> -int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[3])
-> +int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[4],
-> +				 unsigned int num_lanes)
->  {
-> -	u8 buf[7] = { 0 };
-> +	unsigned int buf_sz;
-> +	u8 buf[9] = { 0 };
+iopt_release_pages() calls dma_buf_unpin() without taking that lock,
+so every iommufd_ioas_destroy()/iommufd_ioas_unmap() that releases
+the last reference on a DMABUF-backed iopt_pages triggers a WARN.
+This was hit while running tools/testing/selftests/iommu/iommufd:
 
-I'd use {} for initialization.
+  WARNING: drivers/dma-buf/dma-buf.c:1137 at dma_buf_unpin+0x62/0x70
+  RIP: 0010:dma_buf_unpin+0x62/0x70
+  Call Trace:
+   <TASK>
+   dma_buf_unpin+0x62/0x70
+   iopt_release_pages+0xe4/0x190
+   iopt_unmap_iova_range+0x1c7/0x290
+   iopt_unmap_all+0x1a/0x30
+   iommufd_ioas_destroy+0x1d/0x50
+   iommufd_fops_release+0x93/0x150
+   __fput+0xfc/0x2c0
+   __x64_sys_close+0x3d/0x80
+   do_syscall_64+0x65/0x180
+   </TASK>
 
->  	int ret;
->  	u8 sum = 0;
-> -	int i;
-> +	int i, idx;
-> +
-> +	switch (num_lanes) {
-> +	case 3:
-> +		buf_sz = 7;
-> +		break;
-> +	case 4:
-> +		buf_sz = 9;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
->  
->  	ret = drm_scdc_writeb(connector->ddc, SCDC_UPDATE_0, SCDC_CED_UPDATE);
->  	if (ret)
->  		return ret;
->  
-> -	ret = drm_scdc_read(connector->ddc, SCDC_ERR_DET_0_L, buf, ARRAY_SIZE(buf));
-> +	ret = drm_scdc_read(connector->ddc, SCDC_ERR_DET_0_L, buf, buf_sz);
->  	if (ret)
->  		return ret;
->  
-> @@ -339,24 +432,23 @@ int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[3]
->  	 * Verify the "checksum", i.e. sum up everything including the checksum
->  	 * register as a wrapping unsigned 8-bit addition and verify it's 0.
->  	 */
-> -	for (i = 0; i < ARRAY_SIZE(buf); i++)
-> +	for (i = 0; i < buf_sz; i++)
->  		sum = wrapping_add(u8, sum, buf[i]);
->  
->  	if (sum)
->  		return -EPROTO;
->  
-> -	for (i = 0; i < ARRAY_SIZE(buf) - 1; i += 2) {
-> -		if (buf[i + 1] & SCDC_CHANNEL_VALID)
-> -			counter[i / 2] = buf[i] | (buf[i + 1] & ~SCDC_CHANNEL_VALID) << 8;
-> +	for (i = 0; i < num_lanes; i++) {
-> +		idx = scdc_err_cnt_buf_idx(i);
-> +		if (buf[idx + 1] & SCDC_CHANNEL_VALID)
-> +			counter[i] = buf[idx] | (buf[idx + 1] & ~SCDC_CHANNEL_VALID) << 8;
->  		else
-> -			counter[i / 2] = 0;
-> -
-> -		buf[i] = 0;
-> -		buf[i + 1] = 0;
-> +			counter[i] = 0;
->  	}
-> -	buf[ARRAY_SIZE(buf) - 1] = 0;
->  
-> -	return drm_scdc_write(connector->ddc, SCDC_ERR_DET_0_L, buf, ARRAY_SIZE(buf));
-> +	memset(buf, 0, buf_sz);
-> +
-> +	return drm_scdc_write(connector->ddc, SCDC_ERR_DET_0_L, buf, buf_sz);
->  }
->  EXPORT_SYMBOL(drm_scdc_read_error_counters);
->  
-> @@ -376,6 +468,7 @@ int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *
->  	u8 upd_flags[2] = { 0 };
->  	struct i2c_adapter *ddc;
->  	struct drm_scdc *scdc;
-> +	int num_lanes;
->  	int ret;
->  	u8 val;
->  
-> @@ -397,6 +490,19 @@ int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *
->  
->  	state->scrambling_detected = drm_scdc_get_scrambling_status(connector);
->  
-> +	ret = drm_scdc_readb(ddc, SCDC_CONFIG_1, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	state->rate = FIELD_GET(SCDC_FRL_RATE, val);
-> +	num_lanes = drm_scdc_num_frl_lanes(state->rate);
-> +	if (num_lanes < 0)
-> +		return num_lanes;
-> +	if (!num_lanes)
-> +		num_lanes = 3;
-> +
-> +	state->ffe_levels = FIELD_GET(SCDC_FFE_LEVELS, val);
-> +
->  	ret = drm_scdc_read(ddc, SCDC_UPDATE_0, &upd_flags, sizeof(upd_flags));
->  	if (ret)
->  		return ret;
-> @@ -407,8 +513,15 @@ int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *
->  			return ret;
->  	}
->  
-> +	if (upd_flags[0] & SCDC_FLT_UPDATE) {
-> +		ret = drm_scdc_read_status1_2_flags(connector, &state->stf);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	if (upd_flags[0] & SCDC_CED_UPDATE) {
-> -		ret = drm_scdc_read_error_counters(connector, state->error_count);
-> +		ret = drm_scdc_read_error_counters(connector, state->error_count,
-> +						   num_lanes);
->  		if (ret)
->  			return ret;
->  	}
-> @@ -456,6 +569,8 @@ static int scdc_status_show(struct seq_file *m, void *data)
->  
->  	scdc_print_flag(m, "Scrambling Enabled", st->scrambling_enabled);
->  	scdc_print_flag(m, "Scrambling Detected", st->scrambling_detected);
-> +	scdc_print_str(m, "FRL Rate", drm_scdc_frl_rate_str(st->rate));
-> +	scdc_print_dec(m, "FFE Levels", st->ffe_levels);
->  
->  	if (st->tmds_bclk_x40)
->  		scdc_print_str(m, "TMDS Bit Clock Ratio", "1/40");
-> @@ -466,10 +581,17 @@ static int scdc_status_show(struct seq_file *m, void *data)
->  	scdc_print_flag(m, "Channel 0 Locked", st->stf.status0.flags.ch0_locked);
->  	scdc_print_flag(m, "Channel 1 Locked", st->stf.status0.flags.ch1_locked);
->  	scdc_print_flag(m, "Channel 2 Locked", st->stf.status0.flags.ch2_locked);
-> +	if (drm_scdc_num_frl_lanes(st->rate) == 4)
-> +		scdc_print_flag(m, "Lane 3 Locked", st->stf.status0.flags.ln3_locked);
-> +
-> +	scdc_print_flag(m, "Sink Ready For Link Training", st->stf.status0.flags.flt_ready);
-> +	scdc_print_flag(m, "Sink Failed To Decode DSC", st->stf.status0.flags.dsc_fail);
->  
->  	scdc_print_dec(m, "Channel 0 Errors", st->error_count[0]);
->  	scdc_print_dec(m, "Channel 1 Errors", st->error_count[1]);
->  	scdc_print_dec(m, "Channel 2 Errors", st->error_count[2]);
-> +	if (drm_scdc_num_frl_lanes(st->rate) == 4)
-> +		scdc_print_dec(m, "Lane 3 Errors", st->error_count[3]);
->  
->  	return 0;
->  
-> diff --git a/include/drm/display/drm_scdc.h b/include/drm/display/drm_scdc.h
-> index 3d58f37e8ed8..56cd909edac9 100644
-> --- a/include/drm/display/drm_scdc.h
-> +++ b/include/drm/display/drm_scdc.h
-> @@ -29,6 +29,7 @@
->  #define SCDC_SOURCE_VERSION 0x02
->  
->  #define SCDC_UPDATE_0 0x10
-> +#define  SCDC_FLT_UPDATE (1 << 5)
->  #define  SCDC_READ_REQUEST_TEST (1 << 2)
->  #define  SCDC_CED_UPDATE (1 << 1)
->  #define  SCDC_STATUS_UPDATE (1 << 0)
-> @@ -46,6 +47,10 @@
->  #define SCDC_CONFIG_0 0x30
->  #define  SCDC_READ_REQUEST_ENABLE (1 << 0)
->  
-> +#define SCDC_CONFIG_1 0x31
-> +#define  SCDC_FRL_RATE   0x0f
-> +#define  SCDC_FFE_LEVELS 0xf0
-> +
->  #define SCDC_STATUS_FLAGS_0 0x40
->  #define  SCDC_CH2_LOCK (1 << 3)
->  #define  SCDC_CH1_LOCK (1 << 2)
-> @@ -54,6 +59,7 @@
->  #define  SCDC_CLOCK_DETECT (1 << 0)
->  
->  #define SCDC_STATUS_FLAGS_1 0x41
-> +#define SCDC_STATUS_FLAGS_2 0x42
->  
->  #define SCDC_ERR_DET_0_L 0x50
->  #define SCDC_ERR_DET_0_H 0x51
-> @@ -65,6 +71,9 @@
->  
->  #define SCDC_ERR_DET_CHECKSUM 0x56
->  
-> +#define SCDC_ERR_DET_3_L 0x57
-> +#define SCDC_ERR_DET_3_H 0x58
-> +
->  #define SCDC_TEST_CONFIG_0 0xc0
->  #define  SCDC_TEST_READ_REQUEST (1 << 7)
->  #define  SCDC_TEST_READ_REQUEST_DELAY(x) ((x) & 0x7f)
-> diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
-> index c066c1158275..a1b73f0be73f 100644
-> --- a/include/drm/display/drm_scdc_helper.h
-> +++ b/include/drm/display/drm_scdc_helper.h
-> @@ -24,6 +24,7 @@
->  #ifndef DRM_SCDC_HELPER_H
->  #define DRM_SCDC_HELPER_H
->  
-> +#include <linux/errno.h>
->  #include <linux/types.h>
->  
->  #include <drm/display/drm_scdc.h>
-> @@ -40,10 +41,10 @@ struct drm_scdc_status_flags {
->  			bool ch0_locked : 1;
->  			bool ch1_locked : 1;
->  			bool ch2_locked : 1;
-> -			bool rsvd_4 : 1;
-> +			bool ln3_locked : 1;
->  			bool rsvd_5 : 1;
-> -			bool rsvd_6 : 1;
-> -			bool rsvd_7 : 1;
-> +			bool flt_ready : 1;
-> +			bool dsc_fail : 1;
->  		} flags __packed;
->  		u8 data;
->  	} status0;
-> @@ -51,19 +52,68 @@ struct drm_scdc_status_flags {
->  	/* Status Register 1 */
->  	union {
->  		struct {
-> -			bool rsvd_0 : 1;
-> -			bool rsvd_1 : 1;
-> -			bool rsvd_2 : 1;
-> -			bool rsvd_3 : 1;
-> -			bool rsvd_4 : 1;
-> -			bool rsvd_5 : 1;
-> -			bool rsvd_6 : 1;
-> -			bool rsvd_7 : 1;
-> +			u8 ln0_training_pattern : 4;
-> +			u8 ln1_training_pattern : 4;
->  		} flags __packed;
->  		u8 data;
->  	} status1;
-> +
-> +	/* Status Register 2 */
-> +	union {
-> +		struct {
-> +			u8 ln2_training_pattern : 4;
-> +			u8 ln3_training_pattern : 4;
-> +		} flags __packed;
-> +		u8 data;
-> +	} status2;
+Take the dma_resv lock around dma_buf_unpin() in iopt_release_pages(),
+matching the iopt_map_dmabuf() convention. dma_buf_detach() acquires the
+reservation lock internally, so it must remain outside the locked region.
 
-Here too, bitfield bit order is implementation defined. See my other
-reply in the thread.
+Fixes: 8c5f9645c389 ("iommufd: Add dma_buf_pin()")
+Reported-by: Ankit Soni <Ankit.Soni@amd.com>
+Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
+---
+ drivers/iommu/iommufd/pages.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-BR,
-Jani.
-
-> +};
-> +
-> +enum drm_scdc_frl_rate {
-> +	SCDC_FRL_RATE_OFF = 0,
-> +	SCDC_FRL_RATE_3X3 = 1,
-> +	SCDC_FRL_RATE_6X3 = 2,
-> +	SCDC_FRL_RATE_6X4 = 3,
-> +	SCDC_FRL_RATE_8X4 = 4,
-> +	SCDC_FRL_RATE_10X4 = 5,
-> +	SCDC_FRL_RATE_12X4 = 6,
-> +	SCDC_FRL_RATE_RESV_7 = 7,
-> +	SCDC_FRL_RATE_RESV_8 = 8,
-> +	SCDC_FRL_RATE_RESV_9 = 9,
-> +	SCDC_FRL_RATE_RESV_10 = 10,
-> +	SCDC_FRL_RATE_RESV_11 = 11,
-> +	SCDC_FRL_RATE_RESV_12 = 12,
-> +	SCDC_FRL_RATE_RESV_13 = 13,
-> +	SCDC_FRL_RATE_RESV_14 = 14,
-> +	SCDC_FRL_RATE_RESV_15 = 15
->  };
->  
-> +/**
-> + * drm_scdc_num_frl_lanes - get number of lanes for a given FRL rate
-> + * @rate: one of &enum drm_scdc_frl_rate
-> + *
-> + * For a given @rate, return the number of lanes it uses.
-> + *
-> + * Returns: %-EINVAL if @rate is not a valid FRL rate, or the number of lanes
-> + * for a given &enum drm_scdc_frl_rate on success (including %0 for "off")
-> + */
-> +static inline __pure int drm_scdc_num_frl_lanes(enum drm_scdc_frl_rate rate)
-> +{
-> +	switch (rate) {
-> +	case SCDC_FRL_RATE_OFF:
-> +		return 0;
-> +	case SCDC_FRL_RATE_3X3:
-> +	case SCDC_FRL_RATE_6X3:
-> +		return 3;
-> +	case SCDC_FRL_RATE_6X4:
-> +	case SCDC_FRL_RATE_8X4:
-> +	case SCDC_FRL_RATE_10X4:
-> +	case SCDC_FRL_RATE_12X4:
-> +		return 4;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
->  struct drm_scdc_state {
->  	/** @stf: contents of the status flag registers */
->  	struct drm_scdc_status_flags stf;
-> @@ -76,8 +126,12 @@ struct drm_scdc_state {
->  	 * clock period, false if it's 1/10th of the clock period.
->  	 */
->  	bool tmds_bclk_x40;
-> -	/** @error_count: character error counts for each channel */
-> -	u16 error_count[3];
-> +	/** @rate: FRL rate set by the source */
-> +	enum drm_scdc_frl_rate rate : 4;
-> +	/** @ffe_levels: The FFE levels for @rate set by the source */
-> +	u8 ffe_levels : 4;
-> +	/** @error_count: character error counts for each channel/link */
-> +	u16 error_count[4];
->  };
->  
->  int drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
-> @@ -128,9 +182,12 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector, bool se
->  
->  int drm_scdc_read_status0_flags(struct drm_connector *connector,
->  				struct drm_scdc_status_flags *flags);
-> +int drm_scdc_read_status1_2_flags(struct drm_connector *connector,
-> +				  struct drm_scdc_status_flags *flags);
->  int drm_scdc_read_state(struct drm_connector *connector,
->  			struct drm_scdc_state *state);
-> -int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[3]);
-> +int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[4],
-> +				 unsigned int num_lanes);
->  void drm_scdc_debugfs_init(struct drm_connector *connector, struct dentry *root);
->  
->  #endif
-
+diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+index 9bdb2945afe1..7b64002e54b9 100644
+--- a/drivers/iommu/iommufd/pages.c
++++ b/drivers/iommu/iommufd/pages.c
+@@ -1663,7 +1663,9 @@ void iopt_release_pages(struct kref *kref)
+ 	if (iopt_is_dmabuf(pages) && pages->dmabuf.attach) {
+ 		struct dma_buf *dmabuf = pages->dmabuf.attach->dmabuf;
+ 
++		dma_resv_lock(dmabuf->resv, NULL);
+ 		dma_buf_unpin(pages->dmabuf.attach);
++		dma_resv_unlock(dmabuf->resv);
+ 		dma_buf_detach(dmabuf, pages->dmabuf.attach);
+ 		dma_buf_put(dmabuf);
+ 		WARN_ON(!list_empty(&pages->dmabuf.tracker));
 -- 
-Jani Nikula, Intel
+2.43.0
+
