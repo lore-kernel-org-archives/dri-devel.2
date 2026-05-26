@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8C31CD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 13:17:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 323A7CD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 13:32:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9FAA10E146;
-	Tue, 26 May 2026 13:16:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9219F10E356;
+	Tue, 26 May 2026 13:32:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cG214dNa";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="kwqqAwf7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF1310E146;
- Tue, 26 May 2026 13:16:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DEFFB416A7;
- Tue, 26 May 2026 13:16:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B471F000E9;
- Tue, 26 May 2026 13:16:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779801418;
- bh=JE0l0J/Q4cmSCbkBtHlHYstq0L2VtzMwueKDyLmSf5U=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=cG214dNa11lOiy46AORsXkv4bUe7G6t792Zz1McUEExu49YQuzsGWtnjMFhpT/q5B
- MrWm4yWs+7MGpCUCObANSrsl8H/A53DJXfmh/222L8XI5XR3vgOsg9FTL9a5N4RvVF
- /IQgh/8GaVvCxaAdLesrjnrwjwBy5AMiFXGJQityPEoWKRCSgP5efR4ZjeTTgOJezo
- PwBvoko/tjwmeO2XhNDL2BKxA1yJcrPddVH1UdV4FzAY7pxcLcCPIn4RxUalJYhNwW
- azzU0WcX+XhCrOXM7HeDL8YEIyMvt8RdnFSmqajqRMyEIyISiN7yQG8bwpdY8bRSrW
- +HGWRV9/6y6MA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55BA410E356
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 13:32:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
+ Content-Type; bh=PSo2mZnrd+YTMNhrD5rxHDm0q19foH/SymQJKDqIgZM=;
+ b=kwqqAwf74delaSBdV0iK2mLT+eFhwhDpexV78bJoEtAO0I8Y6WKOqxtY6UcM+E
+ euO4ZBWHdvkgGzKoKnXo5EpuPmGlOtOR2nWQhApxak8oA6Z6voPx5WCK11MnQRds
+ EwTo8mu9yhZxV/fwB+uh08cNFAvDXMNznm8P7udAoBUew=
+Received: from 163.com (unknown [])
+ by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id
+ _____wD3v0evoBVqYN9KDg--.14290S2; 
+ Tue, 26 May 2026 21:31:30 +0800 (CST)
+From: w15303746062@163.com
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	sashal@kernel.org
+Cc: tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: [PATCH v2 6.18.y 0/5] drm/vkms: Backport generic vblank timer to fix
+ ABBA deadlock
+Date: Tue, 26 May 2026 21:31:18 +0800
+Message-Id: <20260526133123.691465-1-w15303746062@163.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 26 May 2026 15:16:54 +0200
-Message-Id: <DISMY2BS8E1D.Q85V8DKCPM1C@kernel.org>
-Subject: Re: [PATCH] nouveau/gsp: fix NULL pointer dereference in r535
- nvenc/ofs alloc
-Cc: <lyude@redhat.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <airlied@redhat.com>, <ttabi@nvidia.com>,
- <bskeggs@nvidia.com>, <dri-devel@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <zhongling0719@126.com>
-To: "Hongling Zeng" <zenghongling@kylinos.cn>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260526014721.13299-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260526014721.13299-1-zenghongling@kylinos.cn>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wD3v0evoBVqYN9KDg--.14290S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ary3Jw4fCw1DZw4kCF4rXwb_yoW8tw1fpF
+ srGr9Iyr4UJF9a93ZxAan29343ZayxGrWvgr97twn8Zr1jyF17AF1jgr43XFZ8Xrs7Zr42
+ qr92yry5ur1jkFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jeSoXUUUUU=
+X-Originating-IP: [113.200.174.100]
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC-xI0GGoVoLLfOwAA3I
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,25 +62,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue May 26, 2026 at 3:47 AM CEST, Hongling Zeng wrote:
-> nvkm_gsp_rm_alloc_get() can return NULL as well as error pointers.
-> The current code only checks for error pointers with IS_ERR(), which
-> would lead to a NULL pointer dereference if NULL is returned.
->
-> Fix by using IS_ERR_OR_NULL() instead of IS_ERR(), matching the
-> pattern used in nvkm_gsp_rm_alloc().
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-There was a similar patch [1] a while ago for another callsite. I replied:
+This series backports the generic vblank timer infrastructure and 
+converts the vkms driver to use it, fixing an ABBA deadlock.
 
-	Are we sure that this can ever return NULL in the first place? I know
-	that nvkm_gsp_rm_alloc_get() internally checks for IS_ERR_OR_NULL(), but
-	I couldn't find anything within the callchain that would actually return
-	NULL.
-=09
-	That said, I think IS_ERR_OR_NULL() checks are misleading.
+Bug Context:
+During local fuzzing with Syzkaller, an RCU preempt stall (soft lockup) 
+was consistently observed in the vkms driver. The issue stems from the 
+open-coded hrtimer in vkms attempting to acquire the vblank_time_lock 
+(spinlock) from the timer's hardirq context, while the disable path 
+holds the same lock and calls hrtimer_cancel(), resulting in a classic 
+ABBA deadlock.
 
-Is there a real case where NULL can be returned? If not, let's remove the
-IS_ERR_OR_NULL() throughout the whole chain instead.
+This 5-patch series is the complete upstream fix recommended by the DRM 
+maintainers. It introduces the safe generic vblank timer to the DRM core 
+and transitions vkms to it, cleanly resolving the lockup. 
 
-[1] https://lore.kernel.org/lkml/20260418071412.86022-1-sunliming@linux.dev=
-/
+Additionally, a lock dependency audit was conducted on other DRM drivers 
+(i915/gvt, xe, msm) that utilize hrtimer_cancel. They were found to be 
+structurally safe from this specific deadlock pattern, confirming this 
+is a vkms-specific legacy issue.
+
+Changes in v2:
+- Added the missing Signed-off-by trailers from Mingyu Wang to properly 
+  establish the chain of custody, as requested by Sasha Levin.
+- Included the bug report context in the cover letter as suggested by 
+  Maarten Lankhorst.
+- The 5 patches remain identical to v1.
+
+Thomas Zimmermann (5):
+  drm/vblank: Add vblank timer
+  drm/vblank: Add CRTC helpers for simple use cases
+  drm/vkms: Convert to DRM's vblank timer
+  drm/atomic: Increase timeout in drm_atomic_helper_wait_for_vblanks()
+  drm/vblank: Fix kernel docs for vblank timer
+
+ Documentation/gpu/drm-kms-helpers.rst    |  12 ++
+ drivers/gpu/drm/Makefile                 |   3 +-
+ drivers/gpu/drm/drm_atomic_helper.c      |   2 +-
+ drivers/gpu/drm/drm_vblank.c             | 172 +++++++++++++++++++++-
+ drivers/gpu/drm/drm_vblank_helper.c      | 176 +++++++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_crtc.c         |  83 +----------
+ drivers/gpu/drm/vkms/vkms_drv.h          |   2 -
+ include/drm/drm_modeset_helper_vtables.h |  12 ++
+ include/drm/drm_vblank.h                 |  32 +++++
+ include/drm/drm_vblank_helper.h          |  56 ++++++++
+ 10 files changed, 468 insertions(+), 82 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_vblank_helper.c
+ create mode 100644 include/drm/drm_vblank_helper.h
+
+-- 
+2.34.1
+
