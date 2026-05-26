@@ -4,68 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79329CD5BC8
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 660C7CD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 11:17:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD09810E61C;
-	Tue, 26 May 2026 11:15:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D244E10E623;
+	Tue, 26 May 2026 11:17:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jryq6VMo";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Yp7lfk3K";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7EB810E621
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:15:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779794107; x=1811330107;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=LH1kk/OjDWW9qCPf90sUt3+xiiFp4lugKAXQrebJ1gY=;
- b=Jryq6VMo+BQtuESRV8Z5Z7TdEtaerLML4cKnRLubUxAHC6w5CgVR8Q14
- uRe5IOaHgUEnCs+h6e9qaqbnyOQnL1Xpr2G0O1z0esoVJ7T3fIQRb9FAe
- LsHKeM/fdaXuX7TfBo5dB+iIjPKGmxbMFjIX0GTG9nEagS+2JyCpDQE7T
- WlY96R1n+L1Xaw0957aALXOrLJbaHrJ0Va+Xmus16kLaDQYcXfO/vPF2D
- ApfeZqDKT6qLlNmQijDZZcQCXRdZYtRUGt2NfzISs84sQlgDCwpNf8XNt
- rrl19hkMeMEW58QV+sQtzJnhSMXjScTzGtwUxEfhf2lLhwdBZ2RRehEgP A==;
-X-CSE-ConnectionGUID: L1cPeGfRTt2ipP524S5BFQ==
-X-CSE-MsgGUID: Z+KGgCOYThiukOAR4ffAAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="80575294"
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="80575294"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 04:15:07 -0700
-X-CSE-ConnectionGUID: gleDVuQfQOe8JfdHmtbKmA==
-X-CSE-MsgGUID: SSHd7gO4QfOl9Mo7DX8x0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="242064468"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.113])
- ([10.245.244.113])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 04:15:04 -0700
-Message-ID: <ce002f59-50ae-451c-8904-0caf50f5eef5@linux.intel.com>
-Date: Tue, 26 May 2026 13:14:55 +0200
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9E910E623
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:17:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=+0sPyzuSHlLoJAd87i/e3m0e8N619YAooFpJZS/llgA=; b=Y
+ p7lfk3KuXdF/NX3kF9S4mqcEdfoyTxGLBbQWti6D24hDkf33OEnbxTpkl21QMLoq
+ T/9AzoASk8kEMxCh6SCBZzkpR+dVjZjP3cNw7NLf9a7UuHVZCMNdwb7VkrdX8FOg
+ 4cBTBphBoDKakAO0D117sF+zMFqbEZS8TuVO12qqNk=
+Received: from w15303746062$163.com ( [113.200.174.80] ) by
+ ajax-webmail-wmsvr-40-141 (Coremail) ; Tue, 26 May 2026 19:16:23 +0800
+ (CST)
+X-Originating-IP: [113.200.174.80]
+Date: Tue, 26 May 2026 19:16:23 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>
+Cc: "Greg KH" <gregkh@linuxfoundation.org>, louis.chauvet@bootlin.com,
+ hamohammed.sa@gmail.com, simona@ffwll.ch, melissa.srw@gmail.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
+Subject: Re:Re: [PATCH 6.18.y] drm/vkms: Fix ABBA deadlock in vblank disable
+ and timer callback
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <9c4a68c4-43a3-4a9b-a131-9570174c8df3@linux.intel.com>
+References: <20260515131826.388154-1-w15303746062@163.com>
+ <2026051557-thermal-petite-7da0@gregkh>
+ <581657f0.ba8.19e2eaaf003.Coremail.w15303746062@163.com>
+ <2026051633-skyward-parrot-cdd3@gregkh>
+ <397754a7.224c.19e38e42006.Coremail.w15303746062@163.com>
+ <9c4a68c4-43a3-4a9b-a131-9570174c8df3@linux.intel.com>
+X-NTES-SC: AL_Qu2cC/uSu0kj5SaYbOkfmU0Qguw9Xcq5uPkj34FWN5t8jCrr+ScQXEB9PUv50tuDMAuVihKOaARIx+pFfqh7RpoTzlm0XpsHjmuGni5I5i2vMQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/client: check whether CRTC is active before waiting
- for vblank
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>,
- stable@vger.kernel.org
-References: <20260519092420.1124348-1-zhengxingda@iscas.ac.cn>
- <ee86cb43-e5df-4946-a957-931a73dde752@suse.de> <ahBWayIcQUHuAt4i@intel.com>
- <b4b2e8cb-dd7c-42c2-88b7-0a2ab95a90ee@suse.de> <ahBZ8nIqR4qESLZg@intel.com>
- <5fbcda92-f6b0-4de2-89e5-ea43a6248b05@suse.de> <ahCw9zakihaGHLsN@intel.com>
- <428be9d9-06f7-4bcb-807b-d351101c3c4b@linux.intel.com>
- <ahRA17a7JR2PVOuJ@intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <ahRA17a7JR2PVOuJ@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-ID: <63508f34.98ff.19e640005c5.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: jSgvCgD3X1oHgRVqdLqsAA--.13543W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4wdBJWoVgQfVegAA3W
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,92 +69,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
-
-Den 2026-05-25 kl. 14:30, skrev Ville Syrjälä:
-> On Mon, May 25, 2026 at 10:13:57AM +0200, Maarten Lankhorst wrote:
->> Hey,
->>
->> Den 2026-05-22 kl. 21:39, skrev Ville Syrjälä:
->>> On Fri, May 22, 2026 at 03:43:26PM +0200, Thomas Zimmermann wrote:
->>>> Hi
->>>>
->>>> Am 22.05.26 um 15:28 schrieb Ville Syrjälä:
->>>> [...]
->>>>>>>> But why does your HW use CRTC 1 in the first place.
->>>>>>> Could be eg. the enabled outputs can't be driven with CRTC 0.
->>>>>>>
->>>>>>> I guess what you want to do is pick the first crtc from modesets[]
->>>>>>> which is enabled. Or perhaps even "pick the Nth enabled crtc from
->>>>>>> modesets[] based on the ioctl argument".
->>>>>> The enable-status of each CRTC could change later on, which might lead
->>>>>> to problems.
->>>>> Sound like a locking issue if someone is changing the configuration
->>>>> at the same time we're trying to do the vblank wait here.
->>>>
->>>> I mean that the connected outputs could change at a later point or we 
->>>> could have multiple CRTCs in use. Today, someone in #intel-gfx reported 
->>>> a problem with panning if multiple CRTCs are in use.
->>>>
->>>> Therefore picking a CRTC freely could be a problem. Let's say we 
->>>> configure modes from one CRTC, but later wait/pan/flush with another 
->>>> CRTC. I would not trust this to work correctly.
->>>>
->>>> Hence, my suggestion is to select a primary CRTC during the fbdev 
->>>> client's probe and use it for all later operations until the next probe 
->>>> happens.  All other CRTCs would mirror the primary one.
->>>
->>> Actual mirroring may not be possible due to different modes supported
->>> on each output. The whole multi-output fbdev thing in the drm fb helper
->>> is kind of a hack that's rather hard to make work 100% sensibly.
->>>
->>> For the panning possibly the only sensible thing is to use the max of
->>> hdisplay/vdisplay of all the crtcs as the xres/yres so it's clear
->>> how much things can actually be panned. Oh and tiled displays (assuming
->>> we would actually want the fbdev stuff to tile correctly) make the
->>> situation even more complicated. I think the current support for tiled
->>> displays in the fb helper is semi-busted.´
->>
->> I tested fbdev on a tiled DP-MST monitor.
->> It works better than my kwin's wayland compositor, as it detects both tiles
->> and presents a single image spanning both tiles.
-> 
-> IIRC we've occasionally seen cases where it picks a non-tiled mode
-> on the primary connector, and also still enables the second tile.
-> 
->> Kwin sees both as separate
->> monitors.
->>
->> I still see vertical tearing between both tiles, so it would be nice if
->> intel/display would support atomic updates for both crtc's directly.
->>
->> The code's already there for bigjoiner, just needs to do the same for
->> tile joiner updates when all tiled crtc's are in the atomic update.
-> 
-> We don't have any special code for atomic updates with joiner
-> currently. It just happens to work most of the time.
-> 
-> With joiner the pipes will be in sync/phase, so that helps a bit.
-> But we do also try to make the pipes in sync/phase also for tiled
-> display via the use of the port sync. So if you see a difference
-> in tearing between joiner vs. tiled then that likely means the
-> problem is in userspace (as in it submits separate commits for
-> each tile).
-
-The only thing kernel should do is if crtc 1 and 2 are part of a
-commit and in sync is to perform the same as bigjoiner updates for
-crtc 1 & 2 simultaneously.
-
-That shouldn't be too much to ask from the kernel, and not hard to
-implement.
-
-
-> I have occasionally pondered about hiding the tiled display stuff
-> completely from userspace and handling it in the kernel the same
-> was as joiner. But the problem is that we'd also need to cook up
-> a new EDID for the display that combines both tiles, and we'd
-> still need the second connector to be enabled internally (and 
-> hide that fact from userspace). None of that code exists
-> currently and wouldn't be entirely trivial to implement.
-> 
-
+CkhpIE1hYXJ0ZW4sCgo+QXMgZmFyIGFzIEkgY2FuIHRlbGwsIGlmIGl0J3MganVzdCBhIGJ1ZyBh
+ZmZlY3RpbmcgdmttcywgYWxsIHlvdSBuZWVkIHRvIGRvCj5pcyBvbmx5IGEgZmV3IGNvbW1pdHM6
+Cj4KPjc0YWZlYjgxMjg1MCAoImRybS92Ymxhbms6IEFkZCB2YmxhbmsgdGltZXIiKQo+ZDU0ZGJi
+NTk2M2JkICgiZHJtL3ZibGFuazogQWRkIENSVEMgaGVscGVycyBmb3Igc2ltcGxlIHVzZSBjYXNl
+cyIpCj4wMmUyNjgxZmZlMWEgKCJkcm0vdmttczogQ29udmVydCB0byBEUk0ncyB2YmxhbmsgdGlt
+ZXIiKQo+NzlhZTg1MTBiNWI4ICgiZHJtL2F0b21pYzogSW5jcmVhc2UgdGltZW91dCBpbiBkcm1f
+YXRvbWljX2hlbHBlcl93YWl0X2Zvcl92YmxhbmtzKCkiKQo+Mzk0NmQzYmE5OTM0ICgiZHJtL3Zi
+bGFuazogRml4IGtlcm5lbCBkb2NzIGZvciB2YmxhbmsgdGltZXIiKQo+Cj5UaGVyZSdzIG5vIG5l
+ZWQgdG8gY29udmVydCBhbGwgb3RoZXIgZHJpdmVycyBpZiBpdCdzIG9ubHkgdmttcyB0aGF0IHlv
+dSdyZSBmaXhpbmcuCgpUaGFuayB5b3UgdmVyeSBtdWNoIGZvciBwb2ludGluZyBvdXQgdGhpcyBw
+cmVjaXNlIGRlcGVuZGVuY3kgY2hhaW4uIEl0IGNvbXBsZXRlbHkgc2F2ZWQgdGhlIGJhY2twb3J0
+IGVmZm9ydC4gSSBoYXZlIGNoZXJyeS1waWNrZWQgdGhlc2UgNSBjb21taXRzIG9udG8gdGhlIDYu
+MTgueSBicmFuY2gsIGFuZCB0aGV5IGFwcGx5IGNsZWFubHkgd2l0aG91dCBwdWxsaW5nIGluIHRo
+ZSBtYXNzaXZlIERSTSBjb3JlIHJlZmFjdG9yaW5nLiAKClRoaXMgc2VyaWVzIGNvbXBsZXRlbHkg
+cmVzb2x2ZXMgdGhlIFN5emthbGxlciBSQ1Ugc3RhbGwgKHNvZnQgbG9ja3VwKSBJIHdhcyBvYnNl
+cnZpbmcgaW4gbXkgbG9jYWwgZnV6emluZyBlbnZpcm9ubWVudC4gSSBoYXZlIGp1c3Qgc3VibWl0
+dGVkIHRoaXMgNS1wYXRjaCBzZXJpZXMgdG8gdGhlIGxpc3QuCgo+QnV0IHNpbmNlIHlvdSBmb3Vu
+ZCB0aGlzIGJ1ZyBpbiBvbmUgZHJpdmVyLCBpdCBtaWdodCBiZSB3aXNlIHRvIGNoZWNrIGlmIG90
+aGVycwo+aGF2ZSB0aGUgc2FtZSBidWcgYW5kIGFzayBmb3IgYmFja3BvcnRzIGZvciB0aG9zZSB0
+b28uCgpGb2xsb3dpbmcgeW91ciBzdWdnZXN0aW9uLCBJIGNvbmR1Y3RlZCBhIHN0YXRpYyBsb2Nr
+IGRlcGVuZGVuY3kgYXVkaXQgYWNyb3NzIHRoZSBkcml2ZXJzL2dwdS9kcm0vIHN1YnN5c3RlbSBp
+biB0aGUgNi4xOC55IHRyZWUsIHNwZWNpZmljYWxseSBsb29raW5nIGZvciBzaW1pbGFyIGFidXNl
+cyBvZiBocnRpbWVyX2NhbmNlbCBwYWlyZWQgd2l0aCBjdXN0b20gdmJsYW5rL3BvbGxpbmcgdGlt
+ZXJzLgoKSSBhdWRpdGVkIHRoZSBoaWdobHkgc3VzcGljaW91cyBjYW5kaWRhdGVzLCBpbmNsdWRp
+bmc6CgoxLiBpOTE1L2d2dCAodmlydHVhbCBkaXNwbGF5IGVtdWxhdGlvbjogdmJsYW5rX3RpbWVy
+X2ZuIHZzIGludGVsX3ZncHVfY2xlYW5fZGlzcGxheSkKMi4geGUgKE9BIGJ1ZmZlciBwb2xsaW5n
+OiB4ZV9vYV9wb2xsX2NoZWNrX3RpbWVyX2NiIHZzIHhlX29hX3N0cmVhbV9kaXNhYmxlKQozLiBt
+c20gKGZlbmNlIGRlYWRsaW5lcyAmIGRldmZyZXE6IGRlYWRsaW5lX3RpbWVyIHZzIG1zbV91cGRh
+dGVfZmVuY2UpCgpGb3J0dW5hdGVseSwgdGhlc2UgZHJpdmVycyBhcmUgc3RydWN0dXJhbGx5IHNh
+ZmUgZnJvbSB0aGlzIHNwZWNpZmljIEFCQkEgZGVhZGxvY2sgcGF0dGVybi4gVGhleSBzdWNjZXNz
+ZnVsbHkgYXZvaWQgaXQgZWl0aGVyIGJ5IGhlYXZpbHkgZGVjb3VwbGluZyB0aGUgdGltZXIgY2Fs
+bGJhY2sgZnJvbSB0aGUgbG9jayBjb250ZXh0IHZpYSB3b3JrcXVldWVzIChtc21fZmVuY2UgYW5k
+IGk5MTUvZ3Z0IG9ubHkgdXNlIHRoZSB0aW1lciB0byBzYWZlbHkgd2FrZV91cCBvciBxdWV1ZSB3
+b3JrIHdpdGhvdXQgaG9sZGluZyBtdXRleGVzL3NwaW5sb2NrcyksIG9yIGJ5IHV0aWxpemluZyBm
+aW5lLWdyYWluZWQgbG9ja2luZyB3aGVyZSB0aGUgY2FuY2VsIHBhdGggYW5kIHRoZSB0aW1lciBj
+YWxsYmFjayBkbyBub3QgY29udGVzdCB0aGUgc2FtZSBsb2NrICh4ZSBzdHJlYW0gcG9sbGluZyku
+CgpUaGVyZWZvcmUsIGl0IHNlZW1zIHZrbXMgd2FzIGEgdW5pcXVlIGxlZ2FjeSBvdXRsaWVyIGlu
+IHRoaXMgcmVnYXJkLiBObyBmdXJ0aGVyIGJhY2twb3J0cyBhcmUgbmVlZGVkIGZvciBvdGhlciBE
+Uk0gZHJpdmVycyBmb3IgdGhpcyBzcGVjaWZpYyB2dWxuZXJhYmlsaXR5LgoKVGhhbmtzIGFnYWlu
+IGZvciB0aGUgcm9hZG1hcCBhbmQgdGhlIHRob3JvdWdoIHJldmlldy4KCkJlc3QgcmVnYXJkcywK
+TWluZ3l1Cg==
