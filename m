@@ -4,150 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 286EACD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 18:46:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C247CD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 18:49:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38D9610E4E1;
-	Tue, 26 May 2026 18:46:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA51410E1B1;
+	Tue, 26 May 2026 18:49:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jkODDQDk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pe7dnKTW";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010041.outbound.protection.outlook.com
- [40.93.198.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 108D910E1B1;
- Tue, 26 May 2026 18:46:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qe2gM3kuiy5tg9hI6w7FlfVmRgu47aClpNJh9LdwSTiPsfkUw7ZSJClS8cLFq7NfodUE7BYcjVrbLu2zZdbJ6gTysOKwCduyHSBcASNM+lJV6pvotUBOUIOcTPBnQFh3OAKTNM1i0cxNeDE/yzcEmIHv8nnzTiQ9b3WYhYZyB1euaMh/FHbP0YjsLvJxfvNlAU2hy+ci0FGOpZACgsSN5Yn5zuBVP7g0CpZehtEKuUSWjomgFsDBGCP9YGekLnUtv6CBttq71ewwPXZh0k2+ISui/4DMy+8YsbirTJYSUGft0n7uOM1G1fbiZgDs174itD37CY35+ziAiP6mCu1nYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=usmq5QS9PZSu1k4Wjaqclft5D5ClHR0nk+5vOHKFCwY=;
- b=HzV5HhOw/1HVL9lMXtBCvFMrS3P+bGdj2D19JhgJX3luse2VK9XMTdxepdNVbn07MxNA9VjGfU3CeoTUNCfHAkdMAiTRSQr8lgZxSRle8dnBNm0wNI1Tll0HDw+oifiWBj/k1tPXZJSUS69EAA3OrkRjS2qS1NRLF/TJuTEHEPqIHCcNz8Nw86jFGJ+BQZgz9rakOAd7S9CiiyOgjCMFUq8a2f1K9OMmVHYXMF5mnt//bk1CPe42DWOF8AKyXvUfSJyLOmce29Cgm+f3WVXKctYvqtVyaTWePJXvE6jyCb8v0rLaL+8Ic6/jD8i60w7LlkrLqnKSqcj+bVIkpz/cBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=usmq5QS9PZSu1k4Wjaqclft5D5ClHR0nk+5vOHKFCwY=;
- b=jkODDQDk4VwOh/NMuGuhLnONP8b46sAqQlhFSEvP+YDDhNHDXcYCn5EE6wPkNu5s41bwEhNjBds01g6ZoIcfAyO4dquw7AlxM+s0dY7FZxDzYF4mX4cX4BdEc1afK9gqyxjPt7iAbuPib1hfP86rEx3lHFOQ6bAkL2jBmsO1EGM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by IA0PR12MB8908.namprd12.prod.outlook.com (2603:10b6:208:48a::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 26 May
- 2026 18:46:34 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0071.010; Tue, 26 May 2026
- 18:46:34 +0000
-Message-ID: <27db214f-b57b-45ab-8deb-da2aa8efb9d7@amd.com>
-Date: Tue, 26 May 2026 12:46:30 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/8] drm/amd/display: use
- drmm_writeback_connector_init()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
- <20260505-wb-drop-encoder-v5-2-42567b7c7af2@oss.qualcomm.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260505-wb-drop-encoder-v5-2-42567b7c7af2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0373.namprd04.prod.outlook.com
- (2603:10b6:303:81::18) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A69F88FBD
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 18:49:29 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-2f5ae07e2b5so908186eec.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 11:49:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779821368; cv=none;
+ d=google.com; s=arc-20240605;
+ b=PyaP2j8DUzaTWqaU93KyRIIbQq4Xq+ZlFX6eKLCj3lAcsxRepZeTExxx9RwLogqFtx
+ UnV4yYHlORcbfnjLRS9RGNnYEs/ye4nwk/9Kb1qG0dsz00fBznsWxbAh81720VqJwI7Q
+ VDUX83rtiU3kzarTi1a4QrR/nEx8WW6zPcqZG8kzakufJfMSYfrCCGJB6f9AZaGccptx
+ G6CY+Ba6iIJ1XWR5IGsQgK0m5b4fNqhlEU7Vls78H9iRmTldsy4rOxRq3flCqbn6WF8E
+ XSqEdqwb1G9+afCRY/sJQkP6T8u7LJo+ek9wSTep/JYQ26aACTcnvOMaoi/u+17dxb7t
+ hMOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=gq/O5ZHqDltDecbFmxpc8E+jT5oOcbB4Yuea57wtwdA=;
+ fh=jTBaayff3jpWPvGL9ABJFLJQUuGRKsWPW9oqWIrG2E4=;
+ b=PNjFyIwMsWaYygKEv2MR0qyX+Ri+cFRCRF8EEIT4xewXjbnf+D6KwZ9ncQqowrSJmJ
+ BQpYLq6eJUT1kdjiqYNP8LOaDVDlHaISq+Rncmk9xa3j74pUOeBPMATdgkoDs1u56kzw
+ fSAViX1NFc0v7zfi6b6Q0yq7DPeDb2K0aw8qhnRPf8N7RKGcZIdZEm3e1DQ0+Zn8RmtD
+ hNMMiwf0FaKdNItWMXCyPMoSdHrvcbOFpkjKmvgJnAQa0w2rShPcYyr5cgJ9xs+uVS9i
+ 4C0f7MCjCbcmjMbcYKNtW7psg6X29Qsy4vg6f5ke3E/iEXlt8OEVGzbGj1H1982cQS2M
+ wQIA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779821368; x=1780426168; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gq/O5ZHqDltDecbFmxpc8E+jT5oOcbB4Yuea57wtwdA=;
+ b=Pe7dnKTWgSP0glhMuFeHeV0s5XgK8P29DHFlObWowtkHRRAC0KBeLDIVabyDKZYp2P
+ PEOpyZ8rNFJs1vhVnDTgWAVhD0O4y5eLaFzZZ2p84m9C6NleCTCrKyY0obVI6BwGHV8I
+ 5sbvJLSp9bvfuKhnhve1nAace3+Q9o1+l9iv1OblGNlyKgsYtuK/eMp+L99oXdyxated
+ trmaCDPI0f7k0jamLK2vKzl5gsWJ6SWM73rRzmhWnXrn6JJGaW9YjYRrjr56hMpIPNIH
+ awnbbs/WwI29wTOOJa2xg7CxTFs1Hgq2Ewk6zgpTzE41FFgHZVk+qh6BOadPp0BYzkbA
+ Pwzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779821368; x=1780426168;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=gq/O5ZHqDltDecbFmxpc8E+jT5oOcbB4Yuea57wtwdA=;
+ b=ggQQz1yp6vwglTWh5NqBgpuziXmehmpY7dKFrpLcitzhjvIUKDZfU/avCWNbOhOmPX
+ Z31YJ/pD6FOAK+KDt4Ug5yHiaqmh+zGP9q/POo2IUtbjlcZS55WuuRyh/RoSULvwv0p8
+ 2lh68m9POPuAtCVOQujf9/HVTqcmpancgvMNAsQCya1kpXwEEfUi4i+gbERjoBd0n2bP
+ BseFJb+ZMdFSBVAQSk4YcQNl2oSxXbxLCmV9B1ELqiPKgQiMzcMG115XEL+VIyw7OrEN
+ CUnjrX9ItYx03L7lPJVznKX4z9RtgrBoznW4GGjTguKeKcUe4rfXAGzh6dc5GTlBDROk
+ zaZg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9WEE690lq0TvlCIZPdITXQouSEYr9JvT+KiBOSzs1BxvzkwfnSwczXhOBcKVwhYUQ3Cxwn36wV3J8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwdpyPvfj+QEm3sOUwUOzoNlMhMqCiJlWw93mc8mBQEijZYeqik
+ Z4t3XdIXA6F8Gr4kqtOfJw0hUFI7sSGIMa7wqcj6SQ/MFfdIzC1xscN8kGjbeStkNA9iaVjrzbR
+ yw7tXQifFNLtiASllUiIwgMlkhKt0Wzc=
+X-Gm-Gg: Acq92OGa/aBiPuYZQGuc/hS5UvshNsQUAaJoJiYBicR7tnGuNZ5OqcFdongNHYiXdIQ
+ 28zwamRMyr7tn+pXDFnCI0VeldBmElEIFx66rWmWOrar/ztb8UBrG1hPHUp0zvmnwjICDVwvUgl
+ E3pcDwcrEm0fi06XqaaRhOUeKLnGvAO7DHpw4Js7/XadqYAkMjk2tS/14nBsOdlGHrY6TdJd6gk
+ 2R0kfAm2zWrrF3FFexR6EGAPWOafJtphalFSqTWZj18FDV7htpXxqgZT2CU05ah62xkRKf+xffY
+ p3C/i0PFrtTTQHMZ6GwpbSR9E7lJ+jQSW6E970azyyg31z+ZfQv+5mEO6Blub0WetXBZT5Oiu20
+ h1SMzc6PRxP5srFIgyYVwgLI=
+X-Received: by 2002:a05:7300:5711:b0:2dc:e799:934f with SMTP id
+ 5a478bee46e88-30449099a11mr4340063eec.3.1779821368216; Tue, 26 May 2026
+ 11:49:28 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA0PR12MB8908:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c6440b8-df28-4c2b-9ee1-08debb571be8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|921020|11063799006|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: ZeDg00k6sX2zVdXsLIJBFA6DJSBWr0PnHvTOrKI+GMnZvGYDjuaT1p0Ymo6P8hYg87jNYjOn5FP0PULpiXZWTT0xXJ6GJzf6U3hggCG6Bjge2MqODdbOS+2QlDT3mWoINJmhRyQFVQC8khCKBzJ92XMK6u/1NW4EusyYTiWgEmGfn9kdVnxo7DhOQt3E2ty6EAN+LcCVTFKuAJ0noSkWEgvSIiKXw2Q7IsXOLK0CDEjQFHJFOWh9V6YWJpQgoGc4T1v9ABXWmE10Zxu35lXYTZV5jSQLc8rZnRQdSkZ8hiKkoAjqe44Z2QoNLbsHYGn0gurXPlQWgN0ceA0mNHCuTXyU2/aWx6oxqW2ASrhBHrZnrMqx0bczt/GJJ6WXL61wathm30FT39hIAF62iiM3qGplbCw5tp06LifA/cbCzsGD2FlasonSmxg3UYbR9439qtwo6ip8Q0+9mJyrWM07Ok917hTh54ny2XWGKqKuZ1f1zTGbdrop21NQmgs1Vk4NE5IUyDoQ0L67Ut86DwI0QlQR0qoRlQPaevRuabEMLLGdkSXnAIisk4zo64HnnFcERFM9OD2Q+c6VItciatCnkrMOlMozN3CHjf96DpxOx4m557r/3fXDjHc1lqfF7uDtSnmIx3/MFVGMwtcU5rM/RrEDhr5WQ31XoLI8hpzWj23jy5bBFbGm415xspAf5A00OHSel807DhDMjRz9wH0U4jIhfywMxa5ShVUZO++8oUk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(921020)(11063799006)(4143699003)(22082099003)(18002099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Nk0yNUVURlJVdlN3bzBrNWVDcTA3cWpvUUlON3lpemtMY0VMVXVOWTVnbm9q?=
- =?utf-8?B?Y0FGT3huOEN0ZzRiN1llMjBDSDNxWm9sY2gxS3I2VE5pTlVBSjJPTDZpZmhC?=
- =?utf-8?B?emxZS2k3UmQyYkI1eTFZZFBWWmpSZFJ0Z1FWZlJGNStVcFFCNG9xd0ZCOC9L?=
- =?utf-8?B?TU1BNHZoald1WXRUSnNqVjhTSzBOc0diWlJOSDVDVUI2RDQwUEJEL3hOWHp0?=
- =?utf-8?B?NXVtdkwyVEtESTkwMHdoVTN1aVpWWEtuUU5HRVRPYVZQTDA1WHNrTUdycXNq?=
- =?utf-8?B?UnI1amJKWGtIb2FjZkxUdnZ0TmhkN0tHYUQreWZYQk5DMVZHNVZWNDBNZUJ1?=
- =?utf-8?B?cjFSQTd6T0doK0d2V3pGQWhuVWRtdFdyOFlNM3NMb0hYVHl6Q1ZqaGlzS1lo?=
- =?utf-8?B?R2JhdUoySGtEOCthbkEyS3B3d0dFMXJ2ZmZpK3JEUDZ5NWdEa2h6YVU2eUJ1?=
- =?utf-8?B?dEZGVEFBMlhidjRKWldsczZCOGs4Vm1NbWN2R2NHTnp1MnNPckdsMUQveU42?=
- =?utf-8?B?ZjIyKzdlU3Q1SFE5ZTduZ0RvTmFQTGMyS0hydmVEQ25YNmpLdmoxa1NTRy9J?=
- =?utf-8?B?Z080VGxyRkoxcVZnc2JiNVoySm05cXhFTU5RaERLallzak5valJKa0JxaUhz?=
- =?utf-8?B?WHhNNmJmNit4d1pYdTBTUXVRVDJrblNlTUNseXUzNzRVN0JQbGFGdFZlYzE5?=
- =?utf-8?B?eFEwN083bUFETmlMTTh3UVNHWFBhYlczbDdtYzVDWnBDQktrRlg5bHc1MFdM?=
- =?utf-8?B?aGZmcUxKN1kzN3dwcEk3STFPS1ZSTWVMNWw2ZUc5cmRpT3pLaVFabURucmNL?=
- =?utf-8?B?UmJqN2t1V1VxWE04eE43Wlk0OEVBb2Q1SHpxWVBmK0lZbjh3YWpZemtUYTBx?=
- =?utf-8?B?WStTNVZ5YWhZaExSL3RPYldlcEFYMTJ1ek00VjFNWFp6elBpVytMUnV6dDFx?=
- =?utf-8?B?aFJabDBpU1hNUnJCSWgxN2ZlN2g4UUovNWsyc0krOWdXbWNhZ3BwaGRsVnhx?=
- =?utf-8?B?clJhM05JOExxVXVONWtWL2ZGVi84aVo2d3dua3BxRHZ1SzdsMFpKd1JtbVpG?=
- =?utf-8?B?Z0FuNE1TRU9mRmRKSFhjOGtaWHJXWjR5blQ2eHgzcHo4UUh2ckRwQXZQK0cz?=
- =?utf-8?B?d0pGV2RjZ244Z1doMXhMZkwxVFRWcjZhNGhhT2Q3SXBWOG9rRnZ1MWRxWDRC?=
- =?utf-8?B?K09HMUtGeG9UeStDOXU1YTdRYkFaQ3dRMlpubHhmRVQ2QTYyeTJidHJSODY4?=
- =?utf-8?B?SlFUVW8za1BKK3lnS3JaaE5udTJ5VHNKVVN2R3pOMzRoR0ZVK2l4dUdqNSs0?=
- =?utf-8?B?bXhqMTJxbHpKRnJSWTBZbUhUSnFLMER5RC96TEZJTTBVMHBXVW1ncC9TS0xY?=
- =?utf-8?B?WGdQbEsrbVNQekdGQ2FQQWJxdjVXVzdpa21hWk1JeFRGcEU0T091QmRjTGdJ?=
- =?utf-8?B?YWR5VC81YnNtc1dtSllhUm1HbExCMnRxSWY5bUhMalBReHRWck4xR21weGkx?=
- =?utf-8?B?Z3dMSDJqaUc4UWMrU0hYSGx4ZGFGSlQ2SHBvV0tCQzVnUXQ1NXZRbFQ5SWd5?=
- =?utf-8?B?ZUtjQytDeGtVbFlSRWZzWWl3K3NiTVNlcm42QXl3czdpTDFpSUNVNlVxMS85?=
- =?utf-8?B?UTlWUWN5TEtKemZOVU1OdjNvVnBLcjRubDdUZ0JKbnduVThjV1ZRZWFFWkRK?=
- =?utf-8?B?aDh0cERJWXhsVmd0U2Q4b2F0Q01nY3gyVS9oZG9HZDR6dmU1N1p0WlhSdkIy?=
- =?utf-8?B?UFRNS3lONk9MbzJFSUF0Tlk5dE5xZlhNMjlrMjBncXc3cnlERTdRMUx2ZWRP?=
- =?utf-8?B?czl2WG9MU3kyb3E2aWFpWC9wekJzVHBCbmVERzd6blowVmJ6NmdvbCtDZ0tx?=
- =?utf-8?B?R3VzL0xsc1NuSDVGejAwOHNyOHl4VXpYVmN3RGs0OThMRFE0cXFmSTJxZWdw?=
- =?utf-8?B?cXJDa201RFpNZzhWZnJxcklWdWN4QzBxVjIrS3hzTFVGakxPdkw3dlNOY01S?=
- =?utf-8?B?TFhJS1QxSVBpTkw2elRGcEowdXBUNGY5cS8zaXB3Y1VRTFdrcksxeDRHbU1y?=
- =?utf-8?B?bEdxbnRSenlQY2trSUFxcHFpWmloOTFEcHc1QVdwZlZCYnBYY29yOUF2Tms1?=
- =?utf-8?B?WGZ6TS9MV3ZYYW1aY2Uza3RDTURGWXlQOFBJMUxLZWtIYzkvVUdkRWJkRHAw?=
- =?utf-8?B?aGJjUHVyZDdZcEZEb0llTURmNXFBRkNtNDg3Z0M3SGxlVVo1aGhmSWY1ZUJQ?=
- =?utf-8?B?SnAwNkErTEZ0UGZBQWlmUUtTNGY3U0NtdFlNQWhMSTNNV2E0TVllN0FYNG9D?=
- =?utf-8?B?NDBYeFFQc2NFOEtCSG05dlYyNHlDYlVpbloxOG4yQ2J3Nml2S21jZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c6440b8-df28-4c2b-9ee1-08debb571be8
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 18:46:33.9598 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jvjeCAD2BI77z78UAtaW+h4eqDcnD6vZvs/mrvi3B8y2FmN5LLomaL2oghRsVwejLguSZdvAq1mAy+vVUTfseA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8908
+References: <20260525202921.124698-1-dakr@kernel.org>
+ <20260525202921.124698-23-dakr@kernel.org>
+In-Reply-To: <20260525202921.124698-23-dakr@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 26 May 2026 20:49:15 +0200
+X-Gm-Features: AVHnY4LynmVmerdJFsxXUCWY1urLy48wQB7u14V2mO2sDmYd9U9x9x1s6x7Cz50
+Message-ID: <CANiq72=iLUncNw35tpRinUt15W0aqsEiNn+rMcjC3VGq0gx0Rg@mail.gmail.com>
+Subject: Re: [PATCH v5 22/24] rust: types: add `ForLt` trait for higher-ranked
+ lifetime support
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com, 
+ aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com, 
+ leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com, 
+ ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org, 
+ abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de, 
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+ tmgross@umich.edu, igor.korotin@linux.dev, daniel.almeida@collabora.com, 
+ pcolberg@redhat.com, driver-core@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-pm@vger.kernel.org, 
+ linux-pwm@vger.kernel.org, linux-pci@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,106 +119,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Will allocating wbcon with drmm_kzalloc before calling 
-amdgpu_dm_wb_connector_init be more memory-safe as below?
+On Mon, May 25, 2026 at 10:32=E2=80=AFPM Danilo Krummrich <dakr@kernel.org>=
+ wrote:
+>
+> +/// Representation of types generic over a lifetime.
+> +///
+> +/// The type must be covariant over the generic lifetime, i.e. the lifet=
+ime parameter
+> +/// can be soundly shortened.
 
+I wonder if we could keep some of the commit message around here -- it
+was a well-written one!
 
-@@ -5790,7 +5791,8 @@ static int amdgpu_dm_initialize_drm_device(struct 
-amdgpu_device *adev)
-  		link = dc_get_link_at_index(dm->dc, i);
+> +/// The full syntax is
+> +/// ```
 
-  		if (link->connector_signal == SIGNAL_TYPE_VIRTUAL) {
--			struct amdgpu_dm_wb_connector *wbcon = kzalloc_obj(*wbcon);
-+			struct amdgpu_dm_wb_connector *wbcon =
-+				drmm_kzalloc(adev_to_drm(adev), sizeof(*wbcon), GFP_KERNEL);
+Nit: we are not fully consistent treewide about this, but please add a
+newline before (and after) examples/code blocks.
 
-  			if (!wbcon) {
-  				drm_err(adev_to_drm(adev), "KMS: Failed to allocate writeback 
-connector\n");
-@@ -5799,7 +5801,6 @@ static int amdgpu_dm_initialize_drm_device(struct 
-amdgpu_device *adev)
+> +/// ForLt!(TypeThatUse<'_>) // Equivalent to `ForLt!(for<'a> TypeThatUse=
+<'a>)`
 
-  			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
-  				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback 
-connector\n");
--				kfree(wbcon);
-  				continue;
-  			}
+Nit: please end comments with a period (most in the patch are already OK).
 
-On 5/4/26 18:24, Dmitry Baryshkov wrote:
-> The driver uses drm_writeback_connector_init() instead of its drmm
-> counterpart, but it doesn't perform the job queue cleanup (neither
-> manually nor by calling drm_writeback_connector_cleanup()). On the
-> contrary, the drmm_writeback_connector_init() function ensures the
-> proper cleanup of the job queue.
-> 
-> Use drmm_plain_encoder_alloc() to allocate simple encoder and
-> drmm_writeback_connector_init() in order to initialize writeback
-> connector instance.
-> 
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  2 +-
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 18 +++++++++++++-----
->   2 files changed, 14 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e96a12ff2d31..2ac64495cdb7 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -10683,7 +10683,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
->   		return;
->   	}
->   
-> -	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
-> +	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
->   	if (!acrtc) {
->   		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
->   		kfree(wb_info);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> index 110f0173eee6..fdc3da40452f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> @@ -169,7 +169,6 @@ static const struct drm_encoder_helper_funcs amdgpu_dm_wb_encoder_helper_funcs =
->   
->   static const struct drm_connector_funcs amdgpu_dm_wb_connector_funcs = {
->   	.fill_modes = drm_helper_probe_single_connector_modes,
-> -	.destroy = drm_connector_cleanup,
->   	.reset = amdgpu_dm_connector_funcs_reset,
->   	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
->   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-> @@ -188,17 +187,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
->   	struct dc *dc = dm->dc;
->   	struct dc_link *link = dc_get_link_at_index(dc, link_index);
->   	int res = 0;
-> +	struct drm_encoder *encoder;
-> +
-> +	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
-> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
-> +	if (IS_ERR(encoder))
-> +		return PTR_ERR(encoder);
-> +
-> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
-> +
-> +	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
->   
->   	wbcon->link = link;
->   
->   	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
->   
-> -	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
-> +	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
->   					    &amdgpu_dm_wb_connector_funcs,
-> -					    &amdgpu_dm_wb_encoder_helper_funcs,
-> +					    encoder,
->   					    amdgpu_dm_wb_formats,
-> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
-> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
-> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
->   
->   	if (res)
->   		return res;
-> 
+> +        // https://github.com/rust-lang/rust/issues/152489
 
+Linked to:
+
+  https://github.com/Rust-for-Linux/linux/issues/355
+
+and tagged the issue with our label upstream.
+
+> +    // Currently the Rust compiler doesn't check this, see the above Pro=
+veWf documentation.
+
+Nit: `ProveWf`
+
+> +/// Obtain a type that implements `ForLt` for the given higher-ranked ty=
+pe.
+
+Nit: [`ForLt`] like below.
+
+> +/// Please refer to the documentation of [`ForLt`] trait.
+
+"of the"?
+
+> +#[allow(non_snake_case)] // The macro shares the name with the trait.
+
+We normally put comments on top of attributes, but if somehow that
+messes up the formatting or similar, please ignore it.
+
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
+
+Thanks!
+
+Cheers,
+Miguel
