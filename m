@@ -4,153 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11C18CD5BD1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26BCACD5BC8
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 16:58:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A89210E4C3;
-	Tue, 26 May 2026 16:55:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 902FC10E741;
+	Tue, 26 May 2026 16:58:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XdV5TZ3r";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Rhg8YZC+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7BE910E49C;
- Tue, 26 May 2026 16:55:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779814530; x=1811350530;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=86q0wjwMnGRcZh+WJTcR47o6HY1IAjVxAHrA3Ejb0BA=;
- b=XdV5TZ3rIU7dPAWGDOPMDgOc7Q5PvPHyLxN+KyqzNSW/7lIeholg1v4U
- AYHzri5SEOcJiTgAU4I3/ytx8KAZW5RbcnEJrFfUUUC9PZ4gq2gt8sLK6
- +/A4Lg1FyQbAOzS/GF5jvJ38Mhzv7WCQt8LnfqGmieU9h+H02V3UJeRKO
- yg1x/gfg8Tl1JTwfVmA5pwj2H6U2OhvMNe2zI3uNf9gz/rjkYNiVPdUiW
- vfLw5rLiylGhMqyaAQWWGfVCOXQ/eVIbO38W0KFdxNz5v9UkqnzymkP2P
- hgv0MRNFmE4vM4XeBVIOk028XsxAXiwrM7BFb/QvtIGNUxRPzyMxV4cTO w==;
-X-CSE-ConnectionGUID: r433fm7mQnu26q8GsYQkqQ==
-X-CSE-MsgGUID: zqfuXUQvSJyQFWh+uFlWqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="90936736"
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="90936736"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 09:55:29 -0700
-X-CSE-ConnectionGUID: 2HWtuiG2TY6eHpr2HkopfA==
-X-CSE-MsgGUID: U1PeYSE6TJaIPbZhNykk4A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="246945408"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 09:55:30 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 26 May 2026 09:55:28 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 26 May 2026 09:55:28 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.17)
- by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 26 May 2026 09:55:28 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013067.outbound.protection.outlook.com
+ [40.107.201.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD63F10E6FE;
+ Tue, 26 May 2026 16:58:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DLVe/Q/T34tK1GBfeCRJeexH2sC3bO0vCCwXE+eI0ftoH8aXVuOAsInovmmkJxOEUMwuFV5+Ttna3p80q9r2x3KyUdMM96XyMz8E/lWu1IfyWmDrU67KGo02+fjrX7I344NxTjC7jxOaa3kL+Ze7aFncplcsyk+e64uIkMvnMq+vX332VUK/afmrEHrrgJFlqTI4Vn5lezIr255QCJ44WUPHjUGYa9tZVx4v41dM70bycoVufIN1yXiiF4gXyUvirTQWXnagia9yHE+Vz4OXshS3MNz8VHI6ZvD97lC0db58VJAiLacnMDr0XZmqHuSUkYlyvA/GLl2bt2+OraQz6A==
+ b=h+LR99m7uW25TOlMLx+9W7xYRjK2MtrDigOK3ht10ZqOz9zbEU8SG/5sbydLyuhLkTHSwMoSSfzs3kjUTRZe4K2ptixPfoCZSxBijMiVJ3ZiUiF2F5/qqPEJIiD/UXfRcFsu3Yc+FFPRq4eBCetu03YIYCVLCs79Cmrd+88zr/kY0mALX9M8T0UfWbuCG4djG1cDxlEd1si7a2L5eJiALsH21oM7pg60GPCiECFT6OvT/1qlmg3b+PZImZHIMHobRZlWkMbeCkDws37hZ6avyUW65fa68QM+3RpV60kdOaglTh7o8a8SGutJlJ6djaJffYIF5g5uGxpDTHPGif5myw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=May0Sz1+XwQ6WsdVU+yfd+MWb/AoteFU662doU4t3Hw=;
- b=WzKrKNuvb56rqSBss3NeF1noa11c77sAKK30P++C+LmCCIyWdsbfhjtG8ZmN1ElZ2fWneHjwlHTNEopHHnjVn+/yZUQhglSj//23aQ2G4bD7/o0qjgYHf0W8ie8QYpnEGaQ0oe8MXhYKDe1W/udnVSMjN/PAvNnvk5yWAPlxwNq0lDnGsj6Z0gr6UKx8g+KRRua+HIJsbUlcjIfPdMmJrI2EFC72L/XLOXi7P9EvTJaNzllA+CGSAwXbNeIzsxMrD3bnCi1l3WuvF+LLrcXJ2kHFW8oiWyHX+RnXAuGkyQOp6UTTlwG15fbfALkBvkjMvXI7L8+UUwMIegkIRDTNRg==
+ bh=3jin9ZQEW5ieNr+p+7yj4fk5UYi8kamWaStvk8pYotc=;
+ b=DUMqX1oE9SqaOpRbb96e6LFzcvjcI44PSghF3NC5+7qVyFmAqmwWhVg2RvtDYe7dirwXnWOzo+xEdfK6dpWkvRlKsmvYB1nUo0fqSUgLOhAFdZ+E6oOIJ6EBQ2ST+lG5oCwPUA35TT7Z6VNMmBUxd/Ju1IjaFXKfI1BVZ4cqm7BHc35z6FvVrL46noTShoceeThdYI6gFqQMqUmDZrA0dYrA0OydK6vlEPoI24xCZsROniMXs7SY+sSRRW2j1AuQOsj4mB+dTZPS6+iGeTtmVRQ+XqdLMQ3fNVpcafLF+MHctTBEv2OJvl3OIQKPJl9H34h0reVthqbDo6TBZzIn5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3jin9ZQEW5ieNr+p+7yj4fk5UYi8kamWaStvk8pYotc=;
+ b=Rhg8YZC+b139tKwk/uMR2gcRualUpGk6V+m+UjrbXzn7qVmKxr5v9dJ2UT92d42Npo/1uoZkN40XzMsQIRHAh6hePouHmihEAJXmUZtlfBrVlXX97fvIaP/LUzCe13OQCtxQOKBOJ+Ifl0hJ0NTKyEhvN/piYbf7IF47i4BFlHE=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CY8PR11MB7828.namprd11.prod.outlook.com (2603:10b6:930:78::8)
- by SA0PR11MB4654.namprd11.prod.outlook.com (2603:10b6:806:98::11) with
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by SN7PR12MB7131.namprd12.prod.outlook.com (2603:10b6:806:2a3::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 26 May
- 2026 16:55:26 +0000
-Received: from CY8PR11MB7828.namprd11.prod.outlook.com
- ([fe80::1171:db4d:d6ad:3277]) by CY8PR11MB7828.namprd11.prod.outlook.com
- ([fe80::1171:db4d:d6ad:3277%4]) with mapi id 15.21.0048.016; Tue, 26 May 2026
- 16:55:26 +0000
-Date: Tue, 26 May 2026 18:55:19 +0200
-From: Francois Dugast <francois.dugast@intel.com>
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-CC: Matthew Auld <matthew.auld@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v4 5/5] gpu/buddy: Track per-order used blocks with a
- scoreboard
-Message-ID: <ahXQbk22mSPUOXk6@fdugast-desk>
-References: <20260522092600.32818-1-francois.dugast@intel.com>
- <20260522092600.32818-6-francois.dugast@intel.com>
- <e3022ae8-d08d-4114-b6c0-c8f0890a2dae@amd.com>
- <38cc3449-b51a-4b54-bed8-8802e7b37299@intel.com>
- <394c16c1-2c3c-4a70-9d08-1e5ead02b424@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
+ 2026 16:58:31 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0071.010; Tue, 26 May 2026
+ 16:58:31 +0000
+Message-ID: <c90c7607-aa9b-4353-b900-1e8e9f2bfbda@amd.com>
+Date: Tue, 26 May 2026 10:58:28 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 4/4] drm/amd/display: use plane color_mgmt_changed to
+ track colorop changes
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260525100524.304263-1-mwen@igalia.com>
+ <20260525100524.304263-5-mwen@igalia.com>
+ <85aad1b1-3ac8-464a-ab5a-69c92a491925@amd.com>
+ <9d30ef2d-cea8-44dc-9669-492ddaa02108@igalia.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <9d30ef2d-cea8-44dc-9669-492ddaa02108@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <394c16c1-2c3c-4a70-9d08-1e5ead02b424@amd.com>
-Organization: Intel Corporation
-X-ClientProxiedBy: DUZPR01CA0098.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4bb::29) To CY8PR11MB7828.namprd11.prod.outlook.com
- (2603:10b6:930:78::8)
+X-ClientProxiedBy: MW3PR06CA0009.namprd06.prod.outlook.com
+ (2603:10b6:303:2a::14) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR11MB7828:EE_|SA0PR11MB4654:EE_
-X-MS-Office365-Filtering-Correlation-Id: d35a3bac-059c-46b8-0688-08debb4795cc
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SN7PR12MB7131:EE_
+X-MS-Office365-Filtering-Correlation-Id: effca768-db33-427c-e422-08debb4803ea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|56012099006|6133799003|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: mm/WjG5XAmot1j0r1dQeLtR9wEYtgWvqwpTgGSThSAGyc3hUNurm+O/sBvkNa0KMb/DkzPrZ0G0Gln+wKfYWf9/0wmqo274eNxViKekaUo0VqTrLP6LgqWK5Iv49Xmo/IU3696RqN9p9M/R2CGIjqv+erJK3gYxhQskursSP0ccKBlcPY29SGhLXswxde1JGMPdKehuRk6qblsuy3P0DJeF/zKubymCfffbOYrZUKPHOVOfOdMkp+fA9hbGIswkYcAAKuDfUv8Pm15zqvFkjPBdJ2UAzYfr4qiVWNMeLdSU8Nv0HCi84+B7dF4vl+6LfIf1yJ8yF9xQfpGxCYrUiRLwOWd15LgcPd9HK7XuFtWvtWGwNAMNq2BQHgjpyI6sSr49XwZNPA3F9y+LQepEWV8DV2yJT0O0V8CbcjTpqxnTt0irVdof1rrPJM8qBwaDajFRDrg200iw69z8wlcWLgt8BanPP8BwcrCkGyUdHqx0A8CB6DJuLbq/xs8CwwgNLTy+RR3Cg9CeNhNR+9L9J1wPPMcRnMsEROZTFfUTQFC/HapKeQ2+3iGTwAAtLN2vhuTk6xVHPjAXR5iqWsL8UrtwTxMXoIw2o6R9vAyoE1db0+UgXUA90K1yN1sug1P6s6ufsJXSfiNlh31WoXoyUh7jydnZ2DaMWB1pIIOU/vvu0W7G653RgBFJPx4aphFmQ
+ ARA:13230040|1800799024|7416014|376014|366016|18002099003|22082099003|11063799006|4143699003|56012099006|921020;
+X-Microsoft-Antispam-Message-Info: JIUlunbgtUqGT9Z1NksZicqtDJbJ6+7nEgj4skd6ffBDm69OEhWfhCubNb8WOaX8iXMo4WOyhUJFuIUsH9sQZVYu+UEkUMhr5dc2IrcW3wpm6wjATPzjiGMAnXNYrSgtBMJhrWbPZvD/jXqZnoH0EuHpNaXFuGUMzkB6xRqAlQ2iNtVo7zGvjVnM3PVryiftCDYlYQke3vbJbF+RMtsEdopUptHPmG/Eckpdr7v8NPnKcnMYvcfGFsc7PuZPW5j+JbmKF6ulwRpCezKsUdsDobyv5x3W4f1qnFEbO0siMajvCMJBL/qYtf8y3IIGGTksg7epnBYga/OxLdPW0YXNSU8F/ff4U+fKcBLfHT2Me7q5coZVkHz+Xbw8FwjDKjv8tIA+Ik4IRRGiejMDJRPJpfEW4AjOOiYY6yFsjT/MCXpBiQ9g8SDdORbn3I5v3ePDa/uCLju/NFv/hCqB439MbtUbU1pUJzInf9ANWsW+YQXaZO91lM1SduD5jVUyUaEPmXlTaKZrGDM656CA7Ux8ggUK2i6HjQwMP097tOHgrE6m6vXK23DMElUxAdLJr+z5ud8QplMV5njaBP12jcwJWJZzD5FRVO7MO1PwRiMl3B9AR2x0CPKFeNbLmTyScZnM7dBwyQK5vgu9jPx2mV3lStpaNVNCmWjBvy+OP5jZbWMCDGvmWKgk6WEVyuTavXqtUOAVFITM/Jzj4J49pF5fuwjZJt06tY8l2cJ0Tgl1F10=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR11MB7828.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(56012099006)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?XUT+u35rWjQyJQfXoF0A+HPEFStync4BaK54uRVTCa1+keYazLYNZvuMcl?=
- =?iso-8859-1?Q?1pnQmWdRiTWjqIdFR3KFrT7kEM47w1slZoYNTnVcUkpGxKeGim3m/97ttD?=
- =?iso-8859-1?Q?57G5YlbXkVDzTMcIPAsz0xoLq3nQbUDYybZp4jfuMZV+9sWor6UqJLz0nL?=
- =?iso-8859-1?Q?L0s6t9VN7Un/crV+ETdSlQ3Wg8gH5DEhR+zSOdkXiLa9xfqIXqlvH4MQyR?=
- =?iso-8859-1?Q?19rB5wbqH/nVaSdj8kSThndwTefYJaep1CA7ND+CLA2nKnQvoYouU9pVo9?=
- =?iso-8859-1?Q?G/Xjzd59ruN0nRAcpWOTrLGcjXZgS2JccuXTV/c6Xpb+VzQl47pITDzrMM?=
- =?iso-8859-1?Q?oq9ZT2bTv2Z4yl5Pd3kwu7Jb9SnmTQ4v5rUINMUk0QZo58eSTcKckjX06R?=
- =?iso-8859-1?Q?sBeUsxb2tSBlCwj/lOz/YHH6APwQxT/Cro++I9sX4JMQKGj1fPtQRF5xvx?=
- =?iso-8859-1?Q?yZu/DkYgUxjnOXBdE+pTTEmz1LPq5SIWXQXAFzl+72n/8x3foEA7qWMAkO?=
- =?iso-8859-1?Q?QZF64Z6mQs+BWOaZCRFIiCEOsHNzT1EMvqRgY/CZzzKZyM3E6hfdH3xL/Z?=
- =?iso-8859-1?Q?Lzij7qZMgb9wh67DeBE0mfSoid2t3Qoq9qMDrTSPNJl+5i/Z16wXhsOFF6?=
- =?iso-8859-1?Q?rO/eHjIehAmMbuEX3vzTS2F98fpF7smOI2GKeJEwRFUzhJw1yEg7EjAwbD?=
- =?iso-8859-1?Q?Xw0KLatfSUjc+labZPq+Wq306eBLRi2bbZHJ9PRQEgcWS87oSib+VthsqN?=
- =?iso-8859-1?Q?nNaLoGxHgY51SZ0W+kIYAweUHHMrNwh9KtG/UfoaHhRySCVreQGWXcd7cm?=
- =?iso-8859-1?Q?6SVaoe/fIfrpZIzNcn99rwJmjEkFXSYpd5zKEw1iGMYZt3oPQG6XuQzTK5?=
- =?iso-8859-1?Q?0TuQqZNRiGh2oo4Zg4GA+QllaFkTIz+j20gKY+iwJt8H0+ncKxo8HwpWDw?=
- =?iso-8859-1?Q?aV496NtUba6CWFsI11Y2EQy44axHWq66xMmzMglWFEAkqespEfKYQYuTql?=
- =?iso-8859-1?Q?9KGJBg4lmFH5ek8QontsRVxYwUaCzAQwu6RGDwrfVccyJTF3Fq1oZrk3fi?=
- =?iso-8859-1?Q?G7/kyGRsLd6ydYJLrEvfso74LU1o6rKRzsNlZHhS8TrcoUpqP6Me30OOxD?=
- =?iso-8859-1?Q?xQdX44EDvOfyvVT+eRcy093grUdi11B32DF4y0JAqIY6Zx6Yt83KygGdg8?=
- =?iso-8859-1?Q?m86mO423oyegL4xrGDrhylTzCnmrHy2MkxnW5F89++QCEalGbf5+IsU6Rz?=
- =?iso-8859-1?Q?VjV1+Pja9Ybm317bDLPkcUl45MaiJ85q++Y1mKw8KV9bCXBGr7YgvHvSSJ?=
- =?iso-8859-1?Q?ci7yQ92/fVwV4AZyQ1ej91biD9sBOkmWej6wqQodhLXM6dALYp+18Fwq0j?=
- =?iso-8859-1?Q?8XJFwrWZWTo9T+zo/WFSVq+w/qRxVf98+SqmfG2eNPtsGxNjKVavOFkMDn?=
- =?iso-8859-1?Q?mS/O0s/+e225+yRHf2B3+1QKi8jAuTdCQGvQ4dEimJpaHuKzyUtjul52Ab?=
- =?iso-8859-1?Q?IS/luBajm+eSmseyLkOGTzlv+4YzEkl77ngNz7kbcW+7EVGuPJCZ/kScsw?=
- =?iso-8859-1?Q?uvc9Pc4LK2cbejLX72cZcOdjip/9bwreBY2JyehjZOS4e/veTzldVOO+mN?=
- =?iso-8859-1?Q?LpBrlqhpDruic4cQTypWY48AbbPlFSt0wh8Rwv0emkjDdSVnSagaCRUjAD?=
- =?iso-8859-1?Q?rKEKLCBDdlFJscYegp9X5Q1NFX7Oz52oDPp54SQRZd6yUQvUjOCPgR5zDM?=
- =?iso-8859-1?Q?8C3QvZ3Cs4LKyeIGbDBY46fb09bQDx9GCd9VjpaUwII+XsA145ytlV2ahc?=
- =?iso-8859-1?Q?epCKYyGwcFpEBOa13WNxxHLTkZo8KZ8=3D?=
-X-Exchange-RoutingPolicyChecked: jjCaoOw2dawWOyDM8Xbc2EJoEdF6c2iI2q00quT6nVAeTHylfss5jZ90uNUzEpGtcRfbTmqVfHWKy27s3nTrU0G/nYnlklnipNl3MoQdwyaag3pbgYKgfUUECjMLUReixrFlCCKGCV2dAA9kBtifsDKgSOhUlGzJv55aBg5g2lMhwtSAxsngwj6J0z2qVMPe3IGUesxvEiEUmhze/Ojh/i7QY069JSnNKnjoQsYJ6h4f1JIoDhZB1ZKp8alxsnh4YXq2CRMDfun4yI8wmz9iNfpoDC63bwQ0+SKMPUVLbtOEYh49TGh5cFNQH+beVk1oy/tA7dOBg/S+zB7L28d7VQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d35a3bac-059c-46b8-0688-08debb4795cc
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7828.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eXgzNnBRdTliNmRPZThVZWhJSDNVT3dGOXBLd2RCUTFLd2dxeGx3K1BnMDhZ?=
+ =?utf-8?B?WSs0OWZSS01uMW4xdGdySmx2Wlp3blRjTWkyOEIxUkh5YVhDNVdNcUFJZWt4?=
+ =?utf-8?B?YWw1RzY3ejV2cmFuT1FlUDBnZ1FaZFMxTTRWSHhZcXBUc3ZtczNpVm5lSXVi?=
+ =?utf-8?B?WDdFaEVDOTQxcEZhTnpvdkpaOTlJQ1ZPamVuVWd4UjNTblJSWTh6a3RTMDlr?=
+ =?utf-8?B?T0N1L3BBVndseUdKYWhtdFdZME9wa0NuWEtRd3JBdk9PSlN1aTd2VldhN1d3?=
+ =?utf-8?B?WGNndWN5a2pkMmo4SzZralIzRlVncDNpbG53Vnl1UkE5WmtJQ0J1YXo1bC9K?=
+ =?utf-8?B?aVREWm1vWjc2cDFOR2QvY2orUFFMMHR1WUtEK0pnRmJvemdRalp6cWl0NThq?=
+ =?utf-8?B?Sy9vb09kcDBQT2dYTkRCVjBuL3FzSmdFUzluY3FtQ24rTTk2VTdIaHVMOFhr?=
+ =?utf-8?B?RXlWOE5kTjA3MGROWHFkZlRTWlRXaUdkTFF5OXJBZ0Q1WVA2UUJJTEJsTnpa?=
+ =?utf-8?B?ZndhM0UrNzN3bXRPSXBldnpFZ01Kem54UlFKNG1SMDEvTHZyYVBJc09Sb0V5?=
+ =?utf-8?B?bVRKZFgrSVE4c0RMRlBnOWx2aUtXS0VBdVdxdnY0bCtvYlYvLzJKS2JPYUhF?=
+ =?utf-8?B?bldmTXY0Zi9uUGpRb05MT2toSUdJeFduTDZlcWl4dEVZcE9BajVZRFp3U2lY?=
+ =?utf-8?B?OGhxaDFyeUJ6c1RuMHdFMmNFbXhsa3l6UVBqb2lMYkdzTEtJdlptVnZ0d2gv?=
+ =?utf-8?B?b3RUam1ENXpleDd6cmt3ak1kU0RHY2RnOVFnYk1tdXNtOTFRdEJSK1VNaFg1?=
+ =?utf-8?B?RkplRE9DVkgxYUU5VHNYYVYrdXg5aE9zcXBGbGoyNWRCdy9UdXRDcFNqQnFt?=
+ =?utf-8?B?aEtwTjI3alFhQnFpQUhlYXZWZGdvMDRKY0dHUWRyL3Nhb25CUnI0dDBGcHNj?=
+ =?utf-8?B?Zi9RdXFONnJVRS9jREJ4NXRtZW9sMVdrSURRVTFqY1drdVpZNFRPSHhxblZF?=
+ =?utf-8?B?RisyVjVkRzRxd2NHSWZMWDBqdVU2Vjk4b3h6dGdUbTZPNGhKVVZFeHo3OEdq?=
+ =?utf-8?B?MWhHTHEwWUFSOVEvcXlOMkZYNWJCdjJPL05hVkZ3WFkvMC9panFoYXNLOTBs?=
+ =?utf-8?B?TlRNcDl3Um5GZ3hOMHd6VW96aGQ0TnFCU3hDUitFYWFiL2NjWHZJZmpFSGM3?=
+ =?utf-8?B?dG1QazhlMWJWdFhLcFdSVzZPYXZnWDlMblViaUNUemF5bmtBRWVlcW55a1RU?=
+ =?utf-8?B?VlB5QkFpczgvSzg1eGY5bGRraXZrbEE3MkdubDYzZVoxZWd2am1udTdXbTBj?=
+ =?utf-8?B?WDY3YTQybnZuaXdueFQ2TXd4Ri9KVDVyaHFncnVyMzdtV3RCVVRlQ0xTaHZD?=
+ =?utf-8?B?N0cwQ3FQTCt5NXpDM3VVTTNnNW1xNUhSUFNVLytFVXl0WUN0M3Bvb2dKRHI0?=
+ =?utf-8?B?ZjJlODBwRm95bFkwZm41elZPVWx0S1EweUhVQWV5eXBnZVRZUkU0Wit5SlVO?=
+ =?utf-8?B?NlF3Q3crOXcyL0VDSUoyRm9jRTJCbU5ReW5mOStPeFJCbmRkcmZXUE1BMWor?=
+ =?utf-8?B?WC9NYjk4SDIzTENsZkFaZlU4R0oxU3lCOWQxNTFyQ1dqTVc1aHExVFg3TXF6?=
+ =?utf-8?B?MjZhZG9YZ3RhVkpjQ3c3bWRucXlMS2ZUSDJtdEs1ZlAzL1FhejF1MHVDYjRu?=
+ =?utf-8?B?cUIwWmEzY0p5bWJPR1hTLzIyWEdEK2thZTJ4dW9ST1JBZDFnU2IvVU4xRVF6?=
+ =?utf-8?B?YUhxbVdROVlRTVhGNldwWjdibnZIemNpbXg3Q0d3RkovSUtwRjBiTDZucExF?=
+ =?utf-8?B?OElZY0RHUjFycEFFTUVrU1QzYUR6c3htNkk1R1E4aE8vVFU0SGo5a0hvMGNH?=
+ =?utf-8?B?VWpnb2RUZmVLUGo4Zkh3bnlORDkxcGZNakEzejQrOHZFT2d4OWdXK0swOXRm?=
+ =?utf-8?B?MnNpeDY4REJoWGJQSmlLamkwbGdzWXI1QVdjMU15Q29meE9odkxnTDVVeFBW?=
+ =?utf-8?B?WGdwTElNYUpYWTFFcm1uMWNXMGpTZEJ2Mkw2Q0NxWmp3dGJwbFp6K2xQa3JB?=
+ =?utf-8?B?MHp3Tk5pVjhaVlpoL2xYQ0lXejNva0dkU2RZRFRvZkd1bDU0aEsvdWJCektY?=
+ =?utf-8?B?d1NuVUFuenZGV0tmQXlSVVpxdVk5MUFOczB6L0RXZVBqalhoZjVjL0NtRTF0?=
+ =?utf-8?B?OW9kTGh3S05nNDl0UjREQ3g5K0c4OERQUDh4Mjl3TnljT1dmZWErZmxwcXVY?=
+ =?utf-8?B?ZklsVkNWNGFLZnp0NWp1UldFQ3NRVzJwcXpNWERocHR2RGdIK3B0dEJiR1Fj?=
+ =?utf-8?B?UEVacnA1OCsrdTAzdkM2Y2xMalJxdTVySG9vN202TWVnanNieVFkZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: effca768-db33-427c-e422-08debb4803ea
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 16:55:26.5510 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 16:58:31.3631 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sYh6upcW/ZVRMSm8FROlpQoOUtp+cgDMaDN5PEIVYW1Gt+eqNMjAV9yKQHDJyNzOYw8EATbLfbhU8o9UTGQMJXdSFYJX7DEcdBCUfiRnlIY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4654
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: ImotAoUcOb0WJK6ggbHW4pm48PqEAVtymO89y/SS+dSbiGP5j4PSocqwmJBP0AT8y8OTQN6cepa0trAWMj2Q5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7131
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,86 +155,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 25, 2026 at 02:40:59PM +0530, Arunpravin Paneer Selvam wrote:
+
+
+On 5/26/26 10:09, Melissa Wen wrote:
 > 
 > 
-> On 5/22/2026 4:26 PM, Matthew Auld wrote:
-> > On 22/05/2026 11:25, Arunpravin Paneer Selvam wrote:
-> > > 
-> > > 
-> > > On 5/22/2026 2:55 PM, Francois Dugast wrote:
-> > > > Extend the scoreboard approach from the previous commit to used blocks,
-> > > > so drm_buddy_print() can report per-order allocation pressure in O(1).
-> > > > 
-> > > > Unlike free blocks, an allocated block can leave the allocated state
-> > > > through mark_free() (normal free and gpu_buddy_block_trim()) or be
-> > > > consumed directly by gpu_block_free() during coalescing. Both sites are
-> > > > guarded by gpu_buddy_block_is_allocated() and paired with the increment
-> > > > in mark_allocated().
-> > > > 
-> > > > v3:
-> > > > - Assert scoreboard is empty at fini(), as sanity check (Matthew Auld)
-> > > > 
-> > > > v2:
-> > > > - Update after fix for use-after-free in split_block() call sites
-> > > > - Change goto label to out_free_used_scoreboard for clarity
-> > > > - Make drm_buddy_print() and gpu_buddy_print() symmetric for used and
-> > > > �� free
-> > > > 
-> > > > Signed-off-by: Francois Dugast <francois.dugast@intel.com>
-> > > > Assisted-by: GitHub Copilot:claude-sonnet-4.6
-> > > > Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> > > > ---
-> > > > � drivers/gpu/buddy.c�������� | 42
-> > > > ++++++++++++++++++++++++++++---------
-> > > > � drivers/gpu/drm/drm_buddy.c | 18 ++++++++++------
-> > > > � include/linux/gpu_buddy.h�� |� 8 +++++++
-> > > > � 3 files changed, 52 insertions(+), 16 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> > > > index de18b63fef0a..dc81fe0301ce 100644
-> > > > --- a/drivers/gpu/buddy.c
-> > > > +++ b/drivers/gpu/buddy.c
-> > > > @@ -194,6 +194,7 @@ static void mark_allocated(struct gpu_buddy *mm,
-> > > > ����� block->header |= GPU_BUDDY_ALLOCATED;
-> > > > ����� mm->free_scoreboard[gpu_buddy_block_order(block)]--;
-> > > > +��� mm->used_scoreboard[gpu_buddy_block_order(block)]++;
-> > > The main consumer of free_scoreboard and used_scoreboard is
-> > > gpu_buddy_print(), which is a debug/diagnostic path - it only gets
-> > > called during debugfs reads or error state dumps, not during regular
-> > > operation.
-> > > However, the cost of maintaining these scoreboards is paid on every
-> > > alloc and free, which is the hot path of the allocator. Even though
-> > > each individual update is small, do we really need to add extra work
-> > > to the
-> > > hot path for something that only benefits a rarely-called debug
-> > > function?
-> > > Am I missing a use case that justifies the hot-path overhead?
-> > 
-> > The usecase I originally saw involved sampling this frequently during a
-> > running workload to help collect some running stats. For example to
-> > generate a graph of the "page usage" over time. So is there lots of
-> > smaller order usage (bad), or do we get mostly larger page orders
-> > (good), do we see spikes we all of sudden we start getting smaller and
-> > smaller orders, perhaps due to fragmentation? In general we just wanted
-> > some more visibility to get a better sense of the "page usage" at
-> > runtime. At the moment we don't have much visibility into what page
-> > sizes we are actually getting from the allocator, over time.
-> > 
-> > We originally had this at this at the driver level, but it's not quite
-> > as nice implementation wise, plus having it in the allocator could then
-> > be beneficial to other drivers? Also the added cost did not seem too
-> > bad, it's just incrementing/decrementing a counter. What do you think
-> > here?
-> Yes, that should be fine and useful for capturing runtime workload
-> statistics.
+> On 26/05/2026 05:29, Alex Hung wrote:
+>> Reviewed-by: Alex Hung <alex.hung@amd.com>
 > 
-> Regards,
-> Arun.
+> Hi Alex,
+> 
+> Thanks for the reviews.
+> As this last patch depends on the previous one, I think the entire 
+> series should go via AMD's branch, instead of drm-misc.
+> WDYT?
 
-Thank you for the review!
+More changes in drm than amdgpu so I think drm-misc will be a better 
+choice, but I am fine with either.
 
-Arun, any objection to merge this? If so, should it go throug drm-misc?
+Hi Alex Deucher,
 
-Thanks,
-Francois
+Do you have any suggestions?
+
+> 
+> Melissa
+> 
+>>
+>> On 5/25/26 03:50, Melissa Wen wrote:
+>>> Ensure the driver tracks changes in any colorop property of a plane
+>>> color pipeline by using the same mechanism of CRTC color management and
+>>> update plane color blocks when any colorop property changes. It fixes an
+>>> issue observed on gamescope settings for night mode which is done via
+>>> shaper/3D-LUT updates.
+>>>
+>>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
+>>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/ 
+>>> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index d590f0df6abd..36425d9c2a67 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -10198,7 +10198,7 @@ static void amdgpu_dm_commit_planes(struct 
+>>> drm_atomic_commit *state,
+>>>               continue;
+>>>             bundle->surface_updates[planes_count].surface = dc_plane;
+>>> -        if (new_pcrtc_state->color_mgmt_changed) {
+>>> +        if (new_pcrtc_state->color_mgmt_changed || new_plane_state- 
+>>> >color_mgmt_changed) {
+>>>               bundle->surface_updates[planes_count].gamma = 
+>>> &dc_plane->gamma_correction;
+>>> bundle->surface_updates[planes_count].in_transfer_func = &dc_plane- 
+>>> >in_transfer_func;
+>>> bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane- 
+>>> >gamut_remap_matrix;
+>>> @@ -12024,6 +12024,10 @@ static bool should_reset_plane(struct 
+>>> drm_atomic_commit *state,
+>>>       if (new_crtc_state->color_mgmt_changed)
+>>>           return true;
+>>>   +    /* Plane color pipeline or its colorop changes. */
+>>> +    if (new_plane_state->color_mgmt_changed)
+>>> +        return true;
+>>> +
+>>>       /*
+>>>        * On zpos change, planes need to be reordered by removing and 
+>>> re-adding
+>>>        * them one by one to the dc state, in order of descending zpos.
+>>
+> 
+
