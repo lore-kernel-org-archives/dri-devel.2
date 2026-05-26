@@ -4,96 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2609ACD5BB1
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:15:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A765FCD5BB1
+	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 14:18:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFA710E4C4;
-	Tue, 26 May 2026 14:15:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F00B310E699;
+	Tue, 26 May 2026 14:18:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eSemOEIH";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="aePwRNmC";
 	dkim-atps=neutral
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
- [74.125.82.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD9E10E4C4
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:15:33 +0000 (UTC)
-Received: by mail-dy1-f170.google.com with SMTP id
- 5a478bee46e88-2ee4e75bc93so909975eec.1
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:15:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779804933; cv=none;
- d=google.com; s=arc-20240605;
- b=MqkLFxLPl263sfwKHVzX9vIBGCMw/RKnAL8vfLn4hK+ZklZK3m+8L+vpBpNl7gfsWX
- RyS+XNQc8ERJ45oz4LzUBsHzt2zSp6GJo4y+yWGldOp7wxDeM59yaJLcSC3IDlGiCpwr
- ZJmwPV7hhGG+MxA13lwn6K+0aqLEVivCsIuqGP70g1Z1F89vSOp3ANhI0JhJyWYMTUAq
- 0+D3K3WcZzLblV/ztRfCNMvO5afLwRNQ4SbgjreT8KRFRpReU8aNDhtZkfFWkyxEIMVZ
- YHxhV+81dgOPnkkvlklWONRWcHy2JQs6QmPije8va3/eBi28S3U+cOhyKugKFwy7KRs3
- qmmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=pDEhYyW2dJMi85Y1zStgUw0dqF6oniUn/APg9Dgbdro=;
- fh=kyFZehDpHDjm7J6GommeuwaBy4MCfYbMQIBrFdr2pKg=;
- b=JG2uPCmGsTpz0H0ojvOhVDHyNQjZ5OggwEgBCmxm1NrDyrQT8ZemRljpJ+kKGlL1eC
- 5DDjipehCyXJId2TsMEt55/hrY2Fjclpnb3kY8WdXb/lzJ7UM+ksu3Ohj/HzZ4XWD1AM
- QAFb9+D8b+obbx2P4U14h3X1n1RiajaRUTfVpurNkR4KgAb6INBPkMFkR85ROqIqHFPD
- pYvlNcmetdXiCbKjLkC2g5bxEleWU4EGL7yvBgBhGA8nn0SPl+7wh4GKQcJzY7ngctJN
- IFayqccnIn/JklHQmo3mlR+v2wZIb2KdJcVvILfBli9LNtfR5i/jtOf8Eamllt0VvvhT
- oufA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5202210E699
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 14:17:58 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-48984d29fe3so112015975e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 07:17:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779804933; x=1780409733; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pDEhYyW2dJMi85Y1zStgUw0dqF6oniUn/APg9Dgbdro=;
- b=eSemOEIHzoTsRnZXP/ZWZWTJAh74l09/uX35xQHxYuQyi4z9HUrk3ICx+YrCUhyS5y
- 0zjCPAwf8eOv+rGDlKt60E25/pBUwxMz/ZpYniDupM54U4LXa1gaPGnbRc4Ysxkquwo7
- 7xZrLZzY9a9GCYH2HFSp/BDnE5+krbgg1TkJOikYuVo9zcf+NCN/xQZFvFNXDK8amVWp
- /bFYHWrKyp2YCvqEoZx+ltixyzXRndDCkHkHdsrrrCEgljLd7O0ws5rlcUB6T0jkW2No
- 8qUmOY0ZarOim2yAw2Hsc5GP6vra48/r27TBA/x6svPuALnhyFuPtfUDuPbWtrAHOr6q
- ZVog==
+ d=baylibre.com; s=google; t=1779805077; x=1780409877;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=g7+ZEzN34eEHBV2XeA10qliUnFt9aIEOrlvbEy+ooC0=;
+ b=aePwRNmC4AFKmgoJHlkY4qH3X2FaAwMWmFu75RLCGEh65URTdwdVjff1oo+Ltn//zT
+ ahNoSUFFjn5dinP46lUfWTLN4P5PSmPUN4++Bd2Q81DNvoLYcI1RGAb0M6c/Kjk+Fmu3
+ e6ErbpsqrmEEfagjf/MYXEW+7NJ6k4BMngNxHxX4nEWpNyUKRlZNHiNhXVyXUkUDa8bD
+ gOIKqK4nNfZbrJbqNfTYaDzaoQ03v5wii9BjFUppw/93hO9I09WCe5HCWhz6YF9Bsbl3
+ 0p4aGqYASCl4NXKoIEV58/gIxwB9slitOfUamGIQ6rLr81F3gy6m1he4RIh3nqyL4Q/M
+ Eapw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779804933; x=1780409733;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=pDEhYyW2dJMi85Y1zStgUw0dqF6oniUn/APg9Dgbdro=;
- b=Y4K+yA98g0nVidKfww9GRsWHZJ/M/5DQMPB07uIjqGCF1dMA1UQBTUaumlp7VJRivS
- 2fbSfdlEhwroVR4kItydKNXhuQ3BPB4CNzk6D9Va+f8aiRw6/B5M1PmjXbMbsgYkoLB9
- 3eAxpvmKVR8ty8bA/pUNgUpQK0GIVxSYE6RhfukOIaHXyVaMDSwphxAHQ3flXDlidNwV
- 4A7NKK5ILa4E6rQo84IWLAjV57zKnEmu0khQYweYCzwl8DbDuIEbP/Um0Nr9ejNv5Xsq
- v5wPMq1j5Icqs1fPKv1aIcerpbdtXbHw2xXcChmfojJffXnlXvuLe1J6ZiKuK+D3C3rZ
- LKow==
+ d=1e100.net; s=20251104; t=1779805077; x=1780409877;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g7+ZEzN34eEHBV2XeA10qliUnFt9aIEOrlvbEy+ooC0=;
+ b=VTN8X81Xe0lGrMTk76xQf9PSmPmUflo3A28Aoi9soCVNGi84OE+th9lOKrocbi4yKA
+ 6Zeq7ebGiH2sWSLvagx/Ksh+CsIfZLY6l0EsBVsTXv0pEtx3ZfRArYyCIEWvs4kyIGHc
+ tILQHspvFnJuPzFZ6RWTKlTUf1ULDngUVmWdIaSwINQfgEijnqsR8OfeVrQPFG0GMMvy
+ 90pBNQNAuY8MlUe7SNNYkkjEDSsNo5kEAdNtMNQEqGh54Kt+uL+5IJbbtGQXcwklQ8Ag
+ aYoaPNCOKFqOzc6s7EfpCxjU6M8rergCZwzF1SEV1zH9735gCW7Ut0OUVoRgkmUmTttc
+ 91yg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/rxcPNuJK5XDNm5gVjcbpsk2TnzTmhSCRaoRZWiuPYAVhrDhC4+0iVzYxI8m47tc7pTWp6VEgYY1s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2aBaxbu7cbXp6+mqLz1wMila7xId7xFcO7r1Bzm3T/Tt/4VnB
- I8ShHMz8TqeJhWW4Wc8NvpdaKGFbFs/im3T+mpYuICwNO8fa8CDYph7eQE6xujaSANNfwFQiMaT
- Mgo0cnTpvoeM2506LOKS7cQxQK2ZcFpo=
-X-Gm-Gg: Acq92OFVWERNVZCyOsUMNGgdmrLgyILvd944u3AeVzQtzjJrqonCgfOmzGXlpTWtla7
- Q3Wy2fp7NXl/IdBqLH/HuWrGYDvbMdNE93ByDLGUzf0+se5YOoGhVH7jlnju/RU4tgBXXUmg8Jy
- zhchilIg74+AoyC3P+q3Kd0PM5RPAeUYf1PkiKQdeWrBy3Oy0un1nWZpdl8+jb35YKGtLI5PqVJ
- KOKQ6pdZ+GnJXfUTHVCNP1plEep6YrvHyB811hznN6jrhQ0K5z/d8DF2aS7hfO4J/gapHM5tg9u
- ZtsHR5pJ0FF+/6mkiSAejiVy5JaDQMZspjV0/cLC1cCebXgdYLfDcD2E75exT0xiftwSbA==
-X-Received: by 2002:a05:7022:626:b0:134:d037:aca3 with SMTP id
- a92af1059eb24-1365fa3ef8bmr2984957c88.3.1779804932490; Tue, 26 May 2026
- 07:15:32 -0700 (PDT)
+ AFNElJ8R4hw/PJ2T5wS8yxHzH2DCvdNEinLxpbqXIPs/w+Qc49eGVP1pcpUbni5ujKXtgk9yMy6Q/ongp/A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzwape/50JmMJSGGdrw/lZQZMbjkI45JgjwMynNrH6O7IfJJouH
+ KZE5pJB0FkuKl9e+zLAifm3/fdPBDuIpD9qqoHAbHQjo82anfIFbpu2g5BPDKEHX/LA=
+X-Gm-Gg: Acq92OHYG+4gtvy2Z1xjndqoePaPbyadCjyTZFstSzuNJQReoPsLhnPXV41pdns5/wd
+ +A5biarXZK/wlxEkD270mOx71Gj7ppIba5DaB9LcLAdPNdyKX+gDW5kjM196mptsVCYw2xgS9E3
+ LdhsxWxRJYHYsGb4NVt5tV6ko/yBz3sx8whG69Xa6AZioTM/PlNn6EmI9XcTOy9H9fxy7+AqPTf
+ 7KGN5a4mmaj4AapAGAAvFQcgaQUI+0SZhHDxS2BNBwvcTFwaWFV7wSD7FemXj8YuqicRx9FGGYl
+ YQ7SJBEzgDF2EH+gbAnIiIVGMzO4fGHD7Hf7hpZdaB8YHJScaTgfwgS3f11Gf+i6E/CEwzxv+8m
+ 0gKdejdjNsFYaC16OHxXOvbcJYDsK42lFVBeOcm8zSPOQFKmqdADHuNfOIkR/XVtaUj4h5bUTXQ
+ bix+7p3uqmC/iHyG6NIWvMPtZX56nWuUiDHuBOoHSCv1/WGS9MOPCJbe3+1T56Dx2Pbk/aXsIwm
+ +M24jaG79ewT+lZnvN8bHppFQ==
+X-Received: by 2002:a05:600c:8484:b0:48a:906b:14ca with SMTP id
+ 5b1f17b1804b1-490426cd8c4mr332344195e9.20.1779805076904; 
+ Tue, 26 May 2026 07:17:56 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db04a716d2bdeddb4813.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:a716:d2bd:eddb:4813])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4904526ca21sm323690885e9.3.2026.05.26.07.17.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 May 2026 07:17:56 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@kernel.org>, Max Staudt <max@enpas.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: linux-ide@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+ netdev@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ "Christian A. Ehrhardt" <christian.ehrhardt@codasip.com>,
+ "Christian A. Ehrhardt" <lk@c--e.de>
+Subject: [PATCH v1 0/8] zorro: Improve handling of pointers in
+ zorro_device_id::driver_data
+Date: Tue, 26 May 2026 16:17:26 +0200
+Message-ID: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-References: <20260430010405.52591-1-kenner.linuxdev@gmail.com>
-In-Reply-To: <20260430010405.52591-1-kenner.linuxdev@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 May 2026 10:15:21 -0400
-X-Gm-Features: AVHnY4J0ZB2mv1xChxAt83HPpsLFRk-FKZaQO5ikwPX2QY_kbwvz-npmP2bMC6U
-Message-ID: <CADnq5_N+GpmKk+1oTLGhahwkCeT8F5Ru-yig7WJYK3XrANXhLA@mail.gmail.com>
-Subject: Re: [PATCH] Fix kernel-doc for amdgpu_display_manager
-To: Kenner de Azevedo dos Santos Miranda <kenner.linuxdev@gmail.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2934;
+ i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
+ bh=Kybdz7vMHfQVHVOh6L5fYiSlCH/4zeDGpuUchAH7Tmw=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqFat2pwUr5NuB2EXH5DJBMYu0MFsCRZClzwm2T
+ O9dYlR4RvKJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCahWrdgAKCRCPgPtYfRL+
+ TkGXB/437E8f30EKdaE8q56oaJt5WlihQ7/3LiGG3zpapj74Iu08O8/GcyZKo9eVo8NUFaoQUo0
+ 0hif3fK8HhAxSruKgus+1EQhLy4QeBS7zZsfKLyQOA2B83qRv2SA46ZptWCnVfQXneJtq5rnt/p
+ z+XAhB5HNmZ0vPCrnsT8fL9BH8Yuh3zYqxT9eUnhr+pmthPLdEZiphMZPNHOU/10eCiEJb0TQUX
+ jspmFLtmTRiWApFBZdcAJAZ22LyP1Ls51jKz1i9KFNk3U1cVVN3KNX/HmgRm8an2jPEYqs0Aq03
+ oaSi8UN/pRU/wOeZjcBFx1K5Dq0XXmkIHLJB0BQbJ8js9PWI
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,53 +118,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 30, 2026 at 3:49=E2=80=AFAM Kenner de Azevedo dos Santos Mirand=
-a
-<kenner.linuxdev@gmail.com> wrote:
->
-> The struct boot_time_crc_info is not described in amdgpu_display_manager.
->
-> Running the `make htmldocs` is showing the following warning :
->
-> WARNING: ./drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:715 struct m=
-ember 'boot_time_crc_info' not described in 'amdgpu_display_manager'
->
-> i added the description that fix the warning and describe the struct.
->
-> The warning is not showing anymore in make htmldocs after change.
->
-> Signed-off-by: Kenner de Azevedo dos Santos Miranda <kenner.linuxdev@gmai=
-l.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 74a8fe1a1999..201b4796b591 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -347,6 +347,7 @@ struct hpd_rx_irq_offload_work {
->   * @dmub_aux_transfer_done: struct completion used to indicate when DMUB
->   *                         transfers are done
->   * @delayed_hpd_wq: work queue used to delay DMUB HPD work
-> + * @boot_time_crc_info: Stores CRC information collected during boot
+Hello,
 
-This element has kerneldoc within the structure already:
+this series is about improving the handling of pointers in struct
+zorro_device_id's driver_data.
 
-    /**
-         * @dm_boot_time_crc_info:
-         *
-         * Buffer info for the boot time crc.
-         */
-        struct dm_boot_time_crc_info boot_time_crc_info;
+While it's ok on all current Linux platforms to store a pointer in an
+unsigned long variable, it involves casting that loses type information.
+This can be nicely seen in patch #7 where after profiting from patch #6
+the compiler notices a missing const.
 
-Alex
+Preparing for that change, all zorro_device_ids are converted to use
+named initializers, which is also a nice cleanup that could stand for
+itself, as it improves readability for humans. (That is necessary
+because an anonymous union can be initialized by name, but not using a
+list initializer.)
+
+My motivation for this series is the CHERI hardware extension. With that
+pointers are bigger than longs and thus you cannot store pointers in
+zorro_device_id::driver_data. So this series is also about getting
+support for CHERI into the mainline, but I hope the clean up effects
+mentioned above are justification enough to accept this series.
+
+The dependencies in this series are as follows:
+
+ - Patch #5 depends on #1, #2
+ - Patches #7 and #8 depend on patch #6.
+
+So if the ata maintainers agreed to merge their patch #1 via scsi, and
+Geert agrees to patch #5 and that it's also merged via scsi, patches #1,
+#2, #6 and #7 can go in without further coordination.
+
+Patches #3, #4 and #5 are only about using the same initialization style
+for all zorro_device_id and can go in without coordination.
+
+Best regards
+Uwe
+
+Uwe Kleine-König (The Capable Hub) (8):
+  ata: pata_budda: Use named initializer for zorro_device_id
+  scsi: Use named initializer for zorro_device_id
+  net: Use named initializer for zorro_device_id arrays
+  i2c: icy: Use named initializer for zorro_device_id arrays
+  video: fm2fb: Use named initializer for zorro_device_id array
+  zorro: Simplify storing pointers in device id struct
+  scsi: zorro7xx: Make use of struct zorro_device_id::driver_data_ptr
+  video: cirrusfb: Make use of struct zorro_device_id::driver_data_ptr
+
+ drivers/ata/pata_buddha.c             |  8 ++++----
+ drivers/i2c/busses/i2c-icy.c          |  4 ++--
+ drivers/net/ethernet/8390/hydra.c     |  4 ++--
+ drivers/net/ethernet/8390/xsurf100.c  |  4 ++--
+ drivers/net/ethernet/8390/zorro8390.c |  6 +++---
+ drivers/net/ethernet/amd/a2065.c      |  8 ++++----
+ drivers/net/ethernet/amd/ariadne.c    |  4 ++--
+ drivers/scsi/a2091.c                  |  6 +++---
+ drivers/scsi/gvp11.c                  | 17 ++++++++--------
+ drivers/scsi/zorro7xx.c               | 16 +++++++--------
+ drivers/scsi/zorro_esp.c              |  2 +-
+ drivers/video/fbdev/cirrusfb.c        | 28 +++++++++++++--------------
+ drivers/video/fbdev/fm2fb.c           |  6 +++---
+ include/linux/mod_devicetable.h       |  6 +++++-
+ 14 files changed, 62 insertions(+), 57 deletions(-)
 
 
->   */
->  struct amdgpu_display_manager {
->
-> --
-> 2.43.0
->
+base-commit: d387b06f7c15b4639244ad66b4b0900c6a02b430
+-- 
+2.47.3
+
