@@ -4,84 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38ED0CD5BDE
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 06:23:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 867A5CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 06:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8188010E651;
-	Wed, 27 May 2026 06:23:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC29710E698;
+	Wed, 27 May 2026 06:26:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=reznichenko.net header.i=@reznichenko.net header.b="UiyNgIq+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k96GTGMv";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB7C10E64E
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 06:23:08 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2b788a98557so73093805ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 23:23:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=reznichenko.net; s=google; t=1779862988; x=1780467788;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kxKv6TNT2ucWixdqNW8yAkZUrV+NzaLwJo+O9oWCtAU=;
- b=UiyNgIq+wywNpn56pqy0UuXODVOdMbrRMxPSSH5dKmqlxTDl6gHhbxdUJl5EHrkf7f
- pqBZO6q9I/jR3IhEyu0/iv8IVjabzpLu1ORjeDyWqnRaQkXF66d3L30eFP3oABBurMLt
- if0SKXlGAUtViAcblyK7bHjBAWysFzYqWdBTAhkq/gnA5kkg09xhE7lSI1SpLA4I6MDW
- IHkXuEzkzsmCqjkRH9LaE2HUrttO3A5wOm2ix1SGXdX97Uto562NTvYvMQt8gBMGDYIN
- 5DG2X5CLEYCZ5GhXdgHpvfTJo+XEpDsVaqx+lCVnNmDM9H+AVzynrgwC8WejJJUZFfnE
- mt3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779862988; x=1780467788;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=kxKv6TNT2ucWixdqNW8yAkZUrV+NzaLwJo+O9oWCtAU=;
- b=eTGMCbdeGgVx3HluEH4YC5fwbAbtQcCZw5CiBkn4IBcOXiaRjE5Ti5/B2o/adyhCiw
- 1SE/FuoswObx798FL2OJtE9I9J9fmMHyEZzZlCDXhfz/JFaO7hcm2IqNKnRAT/swjnS6
- ROgvaOOGsebLpK1A8rXiciTnvw7W/7UKyQI5mSIvND8E3y1kTFpy19RW1neQBPavuDmi
- lZBD2PfYcA6ejCgs+unUVzp9JnZlXvE8XLT/y1A3W00X3hna9s4yS1GlFAErWa6NJk1J
- Chnp9nw/mCIERECwvDX9Aod2cOZcaKnUlGCk7Jp+g0iK8DSBXDW8vUgE9rEuhECYLagW
- Zwqw==
-X-Gm-Message-State: AOJu0Yxjbm7OqpDxbkWkQGFPgTb/EUos5b9E6nnRXd9duojfAJFurwIv
- E/U5oY0U41iW1om08RK648Hs20b0KxpLqYvNWQHPGc0K9u38BwBQ317TQwrX81l0M38=
-X-Gm-Gg: Acq92OF9HK3k1brd1vMQpqfj7rnKsQstGzynNXgXHIv2YapnYzjeVrNJq/+aVpsUEiQ
- cZFuQoJTRafZUsz+9605909BKLuRHM4r7LPBZvoaa9mcbV+DzEmtMMFyszEXInl+CXp86tSqQ8T
- H1cXs0bUmFwn0xaIgs0QnULwQ2M3+VYQHdWuCrJ4dY0UnA+EljAoe/D/hm3saiDXW/44AkCSA90
- O93meTog3YFWJEYH8h+WMrf/Bd52MSj2tGOKjVqFi25EHT3qKTYalBvjqVGdyLlecNaK4HP8Xm8
- YGBriX/Y+wb0Ban3QBjJOXnCW3Crpo4E9aRFtqe1S4nnNsYU5Ggc+o4uHjjr/tRh7AO7hDgTdQg
- N1z+sjmOfUUZPZMlMUIMlEEaaHoBhBNnqJL2hCfxV45xkF4+fN9n0u8Lw/ovTjBoxBIaWTioRok
- QlW+FecEuQPpSgj1mj9xvwGN5ORw==
-X-Received: by 2002:a17:902:d48e:b0:2ba:5a20:1d94 with SMTP id
- d9443c01a7336-2beb059944cmr243719465ad.13.1779862988022; 
- Tue, 26 May 2026 23:23:08 -0700 (PDT)
-Received: from z440.. ([24.21.231.36]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb5695f05sm182387205ad.6.2026.05.26.23.23.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 23:23:07 -0700 (PDT)
-From: Igor Reznichenko <igor@reznichenko.net>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Manivannan Sadhasivam <mani@kernel.org>, "Kael D'Alcamo" <dev@kael-k.io>,
- Kever Yang <kever.yang@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] drm/panel: Add Ilitek ILI9488 controller driver
-Date: Tue, 26 May 2026 23:23:00 -0700
-Message-ID: <20260527062300.88928-3-igor@reznichenko.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260527062300.88928-1-igor@reznichenko.net>
-References: <20260527062300.88928-1-igor@reznichenko.net>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6C1710E668;
+ Wed, 27 May 2026 06:26:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779863176; x=1811399176;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=2zFW40isIvSW6LhWt0OkqNGsVHejsU4fj9duglmqRFo=;
+ b=k96GTGMviOqD+RNtLmOMAIznvrM4kfywtxgDKG/mzxuS71Ke84aOVWVi
+ BESDlV5mF+2tdwAaI5FHPdKKyutjHTaNm4FIjf22XQ4tQ6/Jh0K4beMkI
+ eUu2Av8dSY9VBgguBwdSA9YNSkqkFPVI1xt7cFnkG69Du1bhUkzAwG7gW
+ Pe2cZ35vPIrOBNR+QdSbmkQIemJJDTNZvSwxcwJkR0t6ffST93z7i5es4
+ tWNCB80m1bgwnRuPGLJAK/wexw3w20a31tGySSHyjaAXol40WyMw/4jBp
+ iJnHf/uTxJVaX9+3LEDLThGnduDlOov6xhJu/zfwcMNrD62VJGaTLMCWq Q==;
+X-CSE-ConnectionGUID: wQRftdgXQuCbmntn+UD19g==
+X-CSE-MsgGUID: XjpRWcvMT92Z9z9caUnqnw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="84541254"
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="84541254"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 23:26:15 -0700
+X-CSE-ConnectionGUID: p6/Wl8HrQximtwp9hNEJGA==
+X-CSE-MsgGUID: jMp8ZwOjRI6zcPuFW8AW0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="241980491"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 23:26:14 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 26 May 2026 23:26:13 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 26 May 2026 23:26:13 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.71) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 26 May 2026 23:26:13 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yml5w0pJ8AJi87kNpFz/BETVZagbezfWFI+S0VV8r9OXIIZMJQPq1nWCRM/+RSmQvqix1k7c+dIIrb13HLOz6MKYk8Q5JAiqAAaNWJVu1dmL2qP1tym7yebPZD5kxAettPZASa4HLiGa10EJmymj2lSy2rF2YnfJ0vkANsjhEhHksq/yxp7xfDUO3XgTqcXAdhXjswifGVLJ+WMRsDYSl2ZbhaM6mJ4sjzAfj/M/mbAzN8t4+XisxRLSR1Mz7B18pJR42GIiXFlWaTreqVyvoRgGyND4fVZtjxmz9DsKtfgm8oEpBM+WcWW6CQqE92sHbGmULQ+7gKAPN5aTi/emhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V1hm7VsXG0uBNcHD76+CrP5TFmSWr/IvG07WxN9zutE=;
+ b=Wo1ma9HnY4hyqhSaeZtxNTbCOua2DYIWks0MV92UwxGQNJwnzJ4ZIHeszHXVezOGldhFAf/+9IxmOV/FQM92wc3LdtZQSCeA3KrwVkNPfcZlHOvXcJVNuaXsA0c1zgjKdBpC+9uqJEtE4frqC2v+GljprQttd6/tSNCEwtmRL7KEzGTwRRyjCaOSNBh5fYPGNX1V0c4X1aVMJo1rrNPn8B729o7g5HmKjsnv2mExbhO1jx7ocK8DfVZruLMqld5s649IOswJTkGAjPY+WTCxiitIPZ3otCg95A4mY6f0ShrLcHBMbvGbfIhFA0xnvz9Zqb+hJTib/4zobUo5rSI0+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
+ DS7PR11MB7950.namprd11.prod.outlook.com (2603:10b6:8:e0::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.11; Wed, 27 May 2026 06:26:06 +0000
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0071.011; Wed, 27 May 2026
+ 06:26:06 +0000
+Message-ID: <0d93c0f4-4f2d-46a0-9076-4a6f63148c8a@intel.com>
+Date: Wed, 27 May 2026 11:55:55 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/9] drm/ras: Introduce set-error-threshold
+To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
+CC: <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <kuba@kernel.org>,
+ <lijo.lazar@amd.com>, <Hawking.Zhang@amd.com>, <davem@davemloft.net>,
+ <pabeni@redhat.com>, <edumazet@google.com>, <maarten@lankhorst.se>,
+ <zachary.mckevitt@oss.qualcomm.com>, <rodrigo.vivi@intel.com>,
+ <michal.wajdeczko@intel.com>, <matthew.d.roper@intel.com>,
+ <umesh.nerlige.ramappa@intel.com>, <mallesh.koujalagi@intel.com>,
+ <anoop.c.vijay@intel.com>, <aravind.iddamsetty@linux.intel.com>
+References: <20260512191610.1817578-1-raag.jadav@intel.com>
+ <20260512191610.1817578-4-raag.jadav@intel.com>
+Content-Language: en-US
+From: "Tauro, Riana" <riana.tauro@intel.com>
+In-Reply-To: <20260512191610.1817578-4-raag.jadav@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0053.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d3::18) To DS0PR11MB7958.namprd11.prod.outlook.com
+ (2603:10b6:8:f9::19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|DS7PR11MB7950:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d803b13-1b5b-43ea-4180-08debbb8d552
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|4143699003|3023799007|11063799006|6133799003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: DzRfsVYgBNk3YC34LYBdFjYSdmwhvGG5jOEfWEjm0jM9i6jy8o456+hnH8Tx67nDthnCfeIo5hshxR9JwjoIo1iJ+0h5CWfq7qhvjevnT5mExygIX2O2efhrllLAyzJf/u9+3nxBz21DaieTlzLsLtndLvQ3D5RWeK0Dn8/9xLu+W71fQLefT2cQVnFLi8dOrbsiowQMhI5FY8BHckQBtMTUntCWdDt65z4S31A/tZajU9FUVRNBIZAcy8f1EeW1tSkIIWotRsNCh8ngcWSwJn/xCXimIqU34JWtDfNjq6R1JkyaXYm4bZwLG+OTjk09+whDrCNOy8uJrLUDF6bYLisiuYQstnsAFX/S2z0Rov8GAKbIYgUtg1Y1z3XuJ1jukraonaEb4m3uSiZ5YforNMa4Rrcn4Hzi7yN5dD1kjgDKi/RbgfbP0qiBgXqIOCVcgnfJTx0LVo5Zn2+gt1FSxmEmP35W/9KGpSGU2CUnuvsJuU9pk6uczJlv+JPeiG32CtRZR0zma6eaY/Vxv6dsgICAmbjA7KOrTSWAElyN51cP3lsAUYJLq741CPO2ubRbTQVxMQFDSCzhqr8JX/3gELIyy1zt11YU0pJX4oiA0wtxgFI0LpTLyzagcjHTR6823knfPqIG1u9U9id6DJKSsmC/Hoe164qx7vUwCt0WPrAfsVxSaLRHZgK4q09mIgQ6
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(4143699003)(3023799007)(11063799006)(6133799003)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STZLQ1ZqaVNycmNGaDkvZExwdmVqaXlXa1BvclhJUlNWZy91OG5DWHRtck4w?=
+ =?utf-8?B?bXFCZ3BZb2MvZzFzZEVQTVNFZ1QzUkluQjhkYjVSSUNndXZLdzJvUjhaS0sv?=
+ =?utf-8?B?RGd0cUxobkZpQU9aU0VLdG15N2ZQWmlUalE2akZoSzk1eUdrRjVrelBET280?=
+ =?utf-8?B?Y3UrNC9UeCtmUDZla3Fod09YekhsQ0J6ZURDVUwzMVJTSU1KZzd5RlNBY0RS?=
+ =?utf-8?B?ZHZxazU5cms5Y0hob1QwQkNxbzBLT1hsU09CN0JKbkc2NkV5TGtkYy9VcTZy?=
+ =?utf-8?B?V0p5dzZSNjFLUmNSMk1ISVNkVm1KbDZIdkUyRjRuQlE0ZWZkckxNdTQvUmxS?=
+ =?utf-8?B?aTNHaDlmUUE2d0JrQWhGOGdQTm5lbzVlNktpaDZIcDhjRUY3aWUwMFlJSHpx?=
+ =?utf-8?B?eGdKWFRWM0ZOeGVSRUpCcFpZdUtobVZGYTJuUFkvSk1XT1hBbGExSjVXdS8y?=
+ =?utf-8?B?UW5mNHdsalg2VWhOSEhZOEV5aGFEb0YrcW5ucmlxS3ZJelNwVzNlSkpvMG05?=
+ =?utf-8?B?OUttQTlma3Y5ZFlkSmJXMVI2Y2NxZG1PV2w3V2xoWmx1MWcrZHBMRXFmOEkr?=
+ =?utf-8?B?VWZJelcyZk54eDlDb3FFUDRGVm9nV0hubHJwZFhRWnFhem56ZXh6V0d1TFF0?=
+ =?utf-8?B?bVBBUEd4eHZxTmhscEUrZk1jNTJUaXZsRzZ2Ky8vZjBvdVF2MFZEc3M4Z0FI?=
+ =?utf-8?B?R1lQT2NGZGZFMFVWdVAvVzNBL0FCV0lTSGNubU1rdm1Tc1F6MWhiZGxqQmRo?=
+ =?utf-8?B?K2l6RGttMG9BTnpBY1BCZTFoTEptc0Zjd2RMTXJUSURFVmJ0THdBOGFSN1hx?=
+ =?utf-8?B?OGRTbFNBSnd1aHpTaEFCWHlBSExMSXN3RkNBMUVWMEJBbktQa3dQMDBxeFUw?=
+ =?utf-8?B?QUVndXpSd1hndi9zbUtXRmxmUlAvYTlIWjl6V0JlbDR3VDFHKzhQa3FyblAx?=
+ =?utf-8?B?a2grb2wxa0Z5OGVQQ0RmcTAxTUdYL0NoR2Y5bkpZTFZuRUx2b29WdWgyb1dS?=
+ =?utf-8?B?VHgrWGtVM0RLQmg5N1N3TmNVUnJaTzc0S0tNYnYyUDV2Skt1Q2Z6RnZ4bzFp?=
+ =?utf-8?B?amVCZlBITkd3R09DaGp0OHdBSHJnL3pYR0JqMmo1TTUrRmdTV28rL2E3c25n?=
+ =?utf-8?B?NWFjcFBNZW9JNDFpbzR0NEF3aDUwNGxmamJ6bkpnbmY3amZkYm1BakFtNEFo?=
+ =?utf-8?B?cU5kUzZSb29mMVNlbk5yY1JFb2lwQVAvQnlnY0lBcHEwM0h0V0RTNVNnR1BJ?=
+ =?utf-8?B?Z0IyL2VjcjdmcVJaY0RTT3g4emR6bXJrQkVyV1BzbG9abVk4aHMxZUtMQkpR?=
+ =?utf-8?B?Q1lSd3hQTWwyZVFISVlOaWxaeTVURXFQdXJpejZtTjNLenViQnhQeHlGWDdP?=
+ =?utf-8?B?bnJNVHQvSXkrSkxvT3k4eTNhRWhDUUVwNWhQbXFhcUJYZXgrbzZtVUpGM3lB?=
+ =?utf-8?B?SWV1MG9XSm5LNDlDZjhYdHRHaFQ5NDh1NEh5d2k1Z05zUElYUlhyMXE0RXdv?=
+ =?utf-8?B?SWxneWlGODk3cVVmdnpIQ1IyVktFQy9OdXR1dEpaZ0VjQ1hqd3BSdnp3MFJ4?=
+ =?utf-8?B?ODhFN3dyaGcwU2ZaSU9lOXZ5Rk5QVlpLODdKdkFkSmlGMFp5VzNCRVYxV0Zy?=
+ =?utf-8?B?VDcvUXZteHVUTWsyNHJ5K2x5cTRKdTY3U1FwZFk5MHk0eE1xMFR3TjNTR3l3?=
+ =?utf-8?B?cW4rQjJraDh0VXgzUnV4bTZlbVJ3K1lWcE56SUUxbjgwd3Vkd2xCTzZWUHhn?=
+ =?utf-8?B?blBKcDJjbjliK0hyRG5VS3ZDaUcvZE02ZGNuZ0FEN2QzeGxsT0x5Ujk1ODBi?=
+ =?utf-8?B?YTJITnlZcnlEaWhDUXc2dmxlZTJmWDZXTW4vQm90ZGNxak5ob0lXTnBZODY2?=
+ =?utf-8?B?aW5TTmZ4UWhaNSttb09maERmdnU3K2t0OWF3N2RIZEdnR1RSb09GNy8xUDNQ?=
+ =?utf-8?B?N2JVSGQ2VFg3WExuMVNJZkRKbzZCUEo3S20xNUJQTWdiTzNuQ2FTVmZJcENT?=
+ =?utf-8?B?L1htVWV4Z3dmeXAvUUlEQ1FBcnVMT2Q0NWlXQy9iREhiK3JjWVdEZlMzUnhl?=
+ =?utf-8?B?TFJ4VzF6Z2FSd2xLMFM3MDlpMUxNWFJRYVpHVGxFZ3V1clpyOVFLcXR6dU5a?=
+ =?utf-8?B?c05jZkFYT2h3R0hkSWhxa21DZTFPRFM1Yzd2Sk9tcE12b1lBWjRLV3hHYWYx?=
+ =?utf-8?B?RHV1OTcwU043cWl4K2RKVFlaZTRoNTJXdGdIcStIYkdKYXpNelRmUFVuSHhW?=
+ =?utf-8?B?Y1hybm1qb1FjakdSSUFKdkxscDNDMjN5WlcvTDNxclBORURKTkxDUmU0L2Zs?=
+ =?utf-8?B?OWk4VFRxMWdyVVptL1VEN2RnMmtKSUhDd1B1T2xKdUZoNThyOEhhdz09?=
+X-Exchange-RoutingPolicyChecked: RwA+Xwpp4O/QhUf9qXcT9AkdNdAY597NKwLl+ejUdop6z0geZ5pGzTsI08le4UoWZO5pXxxYo23g4GaZNgzYCtA6Lmp3ZI+FL8/LM+KyHMarSid51YJn960+zRgCxDZ/5+cTikTprWNOl/Hr34HTPtpaOxNUwhUJEDTXPGs0TG4GRpdd7yF4eCpZQ3VADFcnx7O9QJiutRPM3RZM8vjMowNvuJ4qcmpCOPvcKYi8fo3ZPLnMeD7Q+b5zCLGD9xV69PQxfaUOE0f84QyhpSNvvBuhWmX5BDlmrSDaLlxXWFWgRXdDm6YiYQjpedy1ouhhJA2nP+fjOftTl4c8nXyBgw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d803b13-1b5b-43ea-4180-08debbb8d552
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 06:26:06.1994 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XIR+P2vWCfMkc47+9wRDl7H9vvcIZPVcXqZShnEGfChv7mGuVPLjRHHmXMLrjNtSlpJISpvAjgGRyIJFrWRwkA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB7950
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,374 +176,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for Ilitek ILI9488 DSI controller which is used in
-FocusLCDs E35GH-I-MW800-CB 320x480 MIPI DSI panel. The mode timing
-was adjusted after STM32MP157 testing. The previous 14.256 MHz mode
-worked on AM62P, but was awkward for STM32 DSI/LTDC clock synthesis.
 
-Signed-off-by: Igor Reznichenko <igor@reznichenko.net>
----
- MAINTAINERS                                  |   6 +
- drivers/gpu/drm/panel/Kconfig                |   9 +
- drivers/gpu/drm/panel/Makefile               |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili9488.c | 299 +++++++++++++++++++
- 4 files changed, 315 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+On 5/13/2026 12:46 AM, Raag Jadav wrote:
+> Add set-error-threshold command support which allows setting threshold
+> value of the error. Threshold in RAS context means the number of errors
+> the hardware is expected to accumulate before it raises them to software.
+> This is to have a fine grained control over error notifications that are
+> raised by the hardware.
+>
+> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+> ---
+> v2: Return -EOPNOTSUPP on threshold callbacks absence (Riana)
+>      Document threshold value bounds checking responsibility (Riana)
+> ---
+>   Documentation/gpu/drm-ras.rst            |  9 +++++
+>   Documentation/netlink/specs/drm_ras.yaml | 12 ++++++
+>   drivers/gpu/drm/drm_ras.c                | 51 ++++++++++++++++++++++++
+>   drivers/gpu/drm/drm_ras_nl.c             | 14 +++++++
+>   drivers/gpu/drm/drm_ras_nl.h             |  2 +
+>   include/drm/drm_ras.h                    | 14 +++++++
+>   include/uapi/drm/drm_ras.h               |  1 +
+>   7 files changed, 103 insertions(+)
+>
+> diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm-ras.rst
+> index dfa72e8becda..07a33d16bad9 100644
+> --- a/Documentation/gpu/drm-ras.rst
+> +++ b/Documentation/gpu/drm-ras.rst
+> @@ -56,6 +56,8 @@ User space tools can:
+>     ``node-id`` and ``error-id`` as parameters.
+>   * Query specific error threshold value with the ``get-error-threshold`` command, using both
+>     ``node-id`` and ``error-id`` as parameters.
+> +* Set specific error threshold value with the ``set-error-threshold`` command, using
+> +  ``node-id``, ``error-id`` and ``error-threshold`` as parameters.
+>   
+>   YAML-based Interface
+>   --------------------
+> @@ -118,3 +120,10 @@ Example: Query threshold value of a given error
+>   
+>       sudo ynl --family drm_ras --do get-error-threshold --json '{"node-id":0, "error-id":1}'
+>       {'error-id': 1, 'error-name': 'error_name1', 'error-threshold': 16}
+> +
+> +Example: Set threshold value of a given error
+> +
+> +.. code-block:: bash
+> +
+> +    sudo ynl --family drm_ras --do set-error-threshold --json '{"node-id":0, "error-id":1, "error-threshold":8}'
+> +    None
+> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
+> index 016d713069bb..ba7e0a944e7d 100644
+> --- a/Documentation/netlink/specs/drm_ras.yaml
+> +++ b/Documentation/netlink/specs/drm_ras.yaml
+> @@ -148,3 +148,15 @@ operations:
+>               - error-id
+>               - error-name
+>               - error-threshold
+> +    -
+> +      name: set-error-threshold
+> +      doc: >-
+> +           Set threshold value of an error.
+> +      attribute-set: error-counter-attrs
+> +      flags: [admin-perm]
+> +      do:
+> +        request:
+> +          attributes:
+> +            - node-id
+> +            - error-id
+> +            - error-threshold
+> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+> index 87e57bd1e8ad..f351147489ca 100644
+> --- a/drivers/gpu/drm/drm_ras.c
+> +++ b/drivers/gpu/drm/drm_ras.c
+> @@ -45,6 +45,9 @@
+>    *    Userspace must provide Node ID and Error ID.
+>    *    Returns the threshold value of a specific error.
+>    *
+> + * 5. SET_ERROR_THRESHOLD: Set threshold value of an error.
+> + *    Userspace must provide Node ID, Error ID and threshold value to be set.
+> + *
+>    * Node registration:
+>    *
+>    * - drm_ras_node_register(): Registers a new node and assigns
+> @@ -78,6 +81,8 @@
+>    *   operation, clearing a counter value from a specific node.
+>    * - drm_ras_nl_get_error_threshold_doit(): Implements the GET_ERROR_THRESHOLD doit
+>    *   operation, fetching the threshold value of a specific error.
+> + * - drm_ras_nl_set_error_threshold_doit(): Implements the SET_ERROR_THRESHOLD doit
+> + *   operation, setting the threshold value of a specific error.
+>    */
+>   
+>   static DEFINE_XARRAY_ALLOC(drm_ras_xa);
+> @@ -193,6 +198,24 @@ static int get_node_error_threshold(u32 node_id, u32 error_id,
+>   	return node->query_error_threshold(node, error_id, name, value);
+>   }
+>   
+> +static int set_node_error_threshold(u32 node_id, u32 error_id, u32 value)
+> +{
+> +	struct drm_ras_node *node;
+> +
+> +	node = xa_load(&drm_ras_xa, node_id);
+> +	if (!node)
+> +		return -ENOENT;
+> +
+> +	if (!node->set_error_threshold)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (error_id < node->error_counter_range.first ||
+> +	    error_id > node->error_counter_range.last)
+> +		return -EINVAL;
+> +
+> +	return node->set_error_threshold(node, error_id, value);
+> +}
+> +
+>   static int msg_reply_counter_value(struct sk_buff *msg, u32 error_id,
+>   				   const char *error_name, u32 value)
+>   {
+> @@ -464,6 +487,34 @@ int drm_ras_nl_get_error_threshold_doit(struct sk_buff *skb,
+>   	return doit_reply_threshold_value(info, node_id, error_id);
+>   }
+>   
+> +/**
+> + * drm_ras_nl_set_error_threshold_doit() - Set threshold value of an error
+> + * @skb: Netlink message buffer
+> + * @info: Generic Netlink info containing attributes of the request
+> + *
+> + * Extracts the Node ID, Error ID and threshold value from the netlink attributes
+> + * and sets the threshold of the corresponding error.
+> + *
+> + * Return: 0 on success, or negative errno on failure.
+> + */
+> +int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb,
+> +					struct genl_info *info)
+> +{
+> +	u32 node_id, error_id, value;
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 461a3eed6129..a70aacb4f6fb 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8038,6 +8038,12 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/ilitek,ili9486.yaml
- F:	drivers/gpu/drm/tiny/ili9486.c
- 
-+DRM DRIVER FOR ILITEK ILI9488 PANELS
-+M:	Igor Reznichenko <igor@reznichenko.net>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
-+F:	drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-+
- DRM DRIVER FOR ILITEK ILI9805 PANELS
- M:	Michael Trimarchi <michael@amarulasolutions.com>
- S:	Maintained
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index d592f4f4b939..03397e652cae 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -260,6 +260,15 @@ config DRM_PANEL_ILITEK_ILI9341
- 	  QVGA (240x320) RGB panels. support serial & parallel rgb
- 	  interface.
- 
-+config DRM_PANEL_ILITEK_ILI9488
-+	tristate "Ilitek ILI9488-based panels"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y if you want to enable support for panels based on the
-+	  Ilitek ILI9488 controller.
-+
- config DRM_PANEL_ILITEK_ILI9805
- 	tristate "Ilitek ILI9805-based panels"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index a4291dc3905b..753b18842e7a 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -26,6 +26,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
- obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
-+obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9488) += panel-ilitek-ili9488.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_CORE) += panel-ilitek-ili9806e-core.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_DSI) += panel-ilitek-ili9806e-dsi.o
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9488.c b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-new file mode 100644
-index 000000000000..b2145cbe8c30
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-@@ -0,0 +1,299 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/errno.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+#include <video/mipi_display.h>
-+
-+struct ili9488_desc {
-+	const struct drm_display_mode *display_mode;
-+	unsigned long mode_flags;
-+	enum mipi_dsi_pixel_format format;
-+	unsigned int lanes;
-+	void (*init_sequence)(struct mipi_dsi_multi_context *ctx);
-+};
-+
-+struct ili9488 {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct gpio_desc *reset;
-+	struct regulator_bulk_data supplies[2];
-+	const struct ili9488_desc *desc;
-+	enum drm_panel_orientation orientation;
-+};
-+
-+static const char * const regulator_names[] = {
-+	"vci",
-+	"iovcc",
-+};
-+
-+static void e35gh_i_mw800cb_init(struct mipi_dsi_multi_context *ctx)
-+{
-+	/* Gamma control 1,2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xE0, 0x00, 0x10, 0x14, 0x01, 0x0E, 0x04, 0x33,
-+				     0x56, 0x48, 0x03, 0x0C, 0x0B, 0x2B, 0x34, 0x0F);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xE1, 0x00, 0x12, 0x18, 0x05, 0x12, 0x06, 0x40,
-+				     0x34, 0x57, 0x06, 0x10, 0x0C, 0x3B, 0x3F, 0x0F);
-+	/* Power control 1,2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xC0, 0x0F, 0x0C);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xC1, 0x41);
-+	/* VCOM Control */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xC5, 0x00, 0x25, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x36, 0x48);
-+	/* Interface pixel format 18bpp */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x3A, 0x66);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB0, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB1, 0xA0);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB4, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB6, 0x02, 0x02, 0x3B);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xE9, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xF7, 0xA9, 0x51, 0x2C, 0x82);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x21, 0x00);
-+}
-+
-+static const struct drm_display_mode e35gh_i_mw800cb_display_mode = {
-+	.clock = 14400,
-+
-+	.hdisplay = 320,
-+	.hsync_start = 320 + 60,
-+	.hsync_end = 320 + 60 + 20,
-+	.htotal = 320 + 60 + 20 + 42,
-+
-+	.vdisplay = 480,
-+	.vsync_start = 480 + 20,
-+	.vsync_end = 480 + 20 + 10,
-+	.vtotal = 480 + 20 + 10 + 33,
-+
-+	.width_mm = 48,
-+	.height_mm = 73,
-+
-+	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static inline struct ili9488 *panel_to_ili9488(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct ili9488, panel);
-+}
-+
-+static int ili9488_power_on(struct ili9488 *ili)
-+{
-+	struct mipi_dsi_device *dsi = ili->dsi;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ili->supplies), ili->supplies);
-+	if (ret < 0) {
-+		dev_err(&dsi->dev, "regulator bulk enable failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	gpiod_set_value_cansleep(ili->reset, 0);
-+	usleep_range(1000, 5000);
-+	gpiod_set_value_cansleep(ili->reset, 1);
-+	usleep_range(1000, 5000);
-+	gpiod_set_value_cansleep(ili->reset, 0);
-+	usleep_range(5000, 10000);
-+
-+	return 0;
-+}
-+
-+static int ili9488_power_off(struct ili9488 *ili)
-+{
-+	struct mipi_dsi_device *dsi = ili->dsi;
-+	int ret;
-+
-+	gpiod_set_value_cansleep(ili->reset, 1);
-+
-+	ret = regulator_bulk_disable(ARRAY_SIZE(ili->supplies), ili->supplies);
-+	if (ret)
-+		dev_err(&dsi->dev, "regulator bulk disable failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int ili9488_activate(struct ili9488 *ili)
-+{
-+	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
-+
-+	if (ili->desc->init_sequence)
-+		ili->desc->init_sequence(&ctx);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 120);
-+	mipi_dsi_dcs_set_display_on_multi(&ctx);
-+
-+	return ctx.accum_err;
-+}
-+
-+static int ili9488_prepare(struct drm_panel *panel)
-+{
-+	struct ili9488 *ili = panel_to_ili9488(panel);
-+	int ret;
-+
-+	ret = ili9488_power_on(ili);
-+	if (ret)
-+		return ret;
-+
-+	ret = ili9488_activate(ili);
-+	if (ret) {
-+		ili9488_power_off(ili);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ili9488_deactivate(struct ili9488 *ili)
-+{
-+	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&ctx);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 120);
-+
-+	return ctx.accum_err;
-+}
-+
-+static int ili9488_unprepare(struct drm_panel *panel)
-+{
-+	struct ili9488 *ili = panel_to_ili9488(panel);
-+	struct mipi_dsi_device *dsi = ili->dsi;
-+	int ret;
-+
-+	ili9488_deactivate(ili);
-+	ret = ili9488_power_off(ili);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "power off failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int ili9488_get_modes(struct drm_panel *panel, struct drm_connector *connector)
-+{
-+	struct ili9488 *ili = panel_to_ili9488(panel);
-+	const struct drm_display_mode *mode = ili->desc->display_mode;
-+
-+	return drm_connector_helper_get_modes_fixed(connector, mode);
-+}
-+
-+static enum drm_panel_orientation ili9488_get_orientation(struct drm_panel *panel)
-+{
-+	struct ili9488 *ili = panel_to_ili9488(panel);
-+
-+	return ili->orientation;
-+}
-+
-+static const struct drm_panel_funcs ili9488_funcs = {
-+	.prepare	= ili9488_prepare,
-+	.unprepare	= ili9488_unprepare,
-+	.get_modes	= ili9488_get_modes,
-+	.get_orientation = ili9488_get_orientation,
-+};
-+
-+static int ili9488_dsi_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct ili9488 *ili;
-+	int i, ret;
-+
-+	ili = devm_drm_panel_alloc(dev, struct ili9488, panel, &ili9488_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ili))
-+		return PTR_ERR(ili);
-+
-+	ili->desc = device_get_match_data(dev);
-+	mipi_dsi_set_drvdata(dsi, ili);
-+	ili->dsi = dsi;
-+
-+	dsi->mode_flags = ili->desc->mode_flags;
-+	dsi->format = ili->desc->format;
-+	dsi->lanes = ili->desc->lanes;
-+
-+	ili->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ili->reset))
-+		return dev_err_probe(dev, PTR_ERR(ili->reset),
-+				     "failed to get reset-gpios\n");
-+
-+	for (i = 0; i < ARRAY_SIZE(ili->supplies); i++)
-+		ili->supplies[i].supply = regulator_names[i];
-+
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ili->supplies),
-+				      ili->supplies);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to get regulators\n");
-+
-+	ret = of_drm_get_panel_orientation(dev->of_node, &ili->orientation);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get orientation\n");
-+
-+	ret = drm_panel_of_backlight(&ili->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get backlight\n");
-+
-+	ili->panel.prepare_prev_first = true;
-+	drm_panel_add(&ili->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		dev_err_probe(dev, ret, "failed to attach to DSI host\n");
-+		drm_panel_remove(&ili->panel);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void ili9488_dsi_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct ili9488 *ili = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ili->panel);
-+}
-+
-+static const struct ili9488_desc e35gh_i_mw800cb_desc = {
-+	.init_sequence = e35gh_i_mw800cb_init,
-+	.display_mode = &e35gh_i_mw800cb_display_mode,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+		      MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-+	.format = MIPI_DSI_FMT_RGB666_PACKED,
-+	.lanes = 1,
-+};
-+
-+static const struct of_device_id ili9488_of_match[] = {
-+	{ .compatible = "focuslcds,e35gh-i-mw800cb", .data = &e35gh_i_mw800cb_desc },
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, ili9488_of_match);
-+
-+static struct mipi_dsi_driver ili9488_dsi_driver = {
-+	.probe	= ili9488_dsi_probe,
-+	.remove	= ili9488_dsi_remove,
-+	.driver = {
-+		.name		= "ili9488-dsi",
-+		.of_match_table	= ili9488_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(ili9488_dsi_driver);
-+
-+MODULE_AUTHOR("Igor Reznichenko <igor@reznichenko.net>");
-+MODULE_DESCRIPTION("Ilitek ILI9488 Controller Driver");
-+MODULE_LICENSE("GPL");
--- 
-2.43.0
+threshold
 
+> +
+> +	if (!info->attrs ||
+> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID) ||
+> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID) ||
+> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD))
+> +		return -EINVAL;
+> +
+> +	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
+> +	error_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
+> +	value = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD]);
+> +
+> +	return set_node_error_threshold(node_id, error_id, value);
+> +}
+> +
+>   /**
+>    * drm_ras_node_register() - Register a new RAS node
+>    * @node: Node structure to register
+> diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+> index ecec2041c758..02e8e5054d05 100644
+> --- a/drivers/gpu/drm/drm_ras_nl.c
+> +++ b/drivers/gpu/drm/drm_ras_nl.c
+> @@ -34,6 +34,13 @@ static const struct nla_policy drm_ras_get_error_threshold_nl_policy[DRM_RAS_A_E
+>   	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
+>   };
+>   
+> +/* DRM_RAS_CMD_SET_ERROR_THRESHOLD - do */
+> +static const struct nla_policy drm_ras_set_error_threshold_nl_policy[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD + 1] = {
+> +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
+> +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
+> +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD] = { .type = NLA_U32, },
+> +};
+> +
+>   /* Ops table for drm_ras */
+>   static const struct genl_split_ops drm_ras_nl_ops[] = {
+>   	{
+> @@ -69,6 +76,13 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
+>   		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
+>   		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
+>   	},
+> +	{
+> +		.cmd		= DRM_RAS_CMD_SET_ERROR_THRESHOLD,
+> +		.doit		= drm_ras_nl_set_error_threshold_doit,
+> +		.policy		= drm_ras_set_error_threshold_nl_policy,
+> +		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD,
+> +		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
+> +	},
+>   };
+>   
+>   struct genl_family drm_ras_nl_family __ro_after_init = {
+> diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
+> index 399280c2c6e1..57b1e647d833 100644
+> --- a/drivers/gpu/drm/drm_ras_nl.h
+> +++ b/drivers/gpu/drm/drm_ras_nl.h
+> @@ -22,6 +22,8 @@ int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+>   					struct genl_info *info);
+>   int drm_ras_nl_get_error_threshold_doit(struct sk_buff *skb,
+>   					struct genl_info *info);
+> +int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb,
+> +					struct genl_info *info);
+>   
+>   extern struct genl_family drm_ras_nl_family;
+>   
+> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
+> index 7bb429d85f57..134e20a16abc 100644
+> --- a/include/drm/drm_ras.h
+> +++ b/include/drm/drm_ras.h
+> @@ -83,6 +83,20 @@ struct drm_ras_node {
+>   	 */
+>   	int (*query_error_threshold)(struct drm_ras_node *node, u32 error_id,
+>   				     const char **name, u32 *val);
+> +	/**
+> +	 * @set_error_threshold:
+> +	 *
+> +	 * This callback is used by drm-ras to set threshold value of a specific
+> +	 * error.
+> +	 *
+> +	 * Driver should expect set_error_threshold() to be called with error_id
+> +	 * from `error_counter_range.first` to `error_counter_range.last`.
+> +	 * Driver is responsible for threshold value bounds checking.
+> +	 *
+> +	 * Returns: 0 on success, negative error code on failure.
+> +	 */
+> +	int (*set_error_threshold)(struct drm_ras_node *node, u32 error_id,
+> +				   u32 val);
+Nit: threshold
+
+Thanks
+Riana
+
+>   
+>   	/** @priv: Driver private data */
+>   	void *priv;
+> diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
+> index 59530f987ba2..27c68956495f 100644
+> --- a/include/uapi/drm/drm_ras.h
+> +++ b/include/uapi/drm/drm_ras.h
+> @@ -44,6 +44,7 @@ enum {
+>   	DRM_RAS_CMD_GET_ERROR_COUNTER,
+>   	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
+>   	DRM_RAS_CMD_GET_ERROR_THRESHOLD,
+> +	DRM_RAS_CMD_SET_ERROR_THRESHOLD,
+>   
+>   	__DRM_RAS_CMD_MAX,
+>   	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
