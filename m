@@ -4,87 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9470CCD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 07:29:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA379CD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 07:29:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7150F10ED15;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 917AB10ED16;
 	Thu, 28 May 2026 07:29:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AJip6g/m";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dqlzfk4S";
 	dkim-atps=neutral
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82E3F10E0E5
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 14:34:06 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-7c04749d739so80513407b3.3
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 07:34:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779892445; cv=none;
- d=google.com; s=arc-20240605;
- b=kv7B+60L99ZhgvvuPvZk9Fp0X0ZgQpNA4OmrH3qBYGKRC+Vo5wJi8OQtyCIHx6dw03
- W/8NVUm+j1mnmzWDErk9bhfALQ2xq0nL7PnyIy4Uve5FLFIor2evuTLDJ2X4gYvaSlsC
- OYEsJ3K+9firYd+6nkceN6z3qiPnAoQUbhHudD7YkwvtYD/L4vzg293/wpQp/uaYLJsW
- MXw8PQfWEGTo1cnu9qsX+y8T9RqSXbrxlT5RRMeRiFMc/SIAJX9Lae3hJ0puIuML4jhN
- /rnHYWj14EixN2X0g4b4BHN6hVTwgsHLR+VpSMns6z7ivmZ7dscA9bQhCQ3wI5gYx3lS
- 02EQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=fJqar9L8+eehteUQWsu1NTNv62PRoS7/WvyShE2hN8Y=;
- fh=oIx1LRsS5li60AsN4oH8G4Pnq8Bs3IXxtPsgD0NMDt0=;
- b=b+L00Kr/KV1qMFr1VJwPzVy4t2cYpm+51QJngOeRjxZq2ki29aSS5HxsgTZ6+IviS0
- GllunisrtxE8/KQqIVoQZZZSyt7AvWL8J/rXoumC1h1tVOwXpvLTuTH/xb5SHaPxZdc8
- SNfINEOY+Q4py5HS7cQ25WdJZqawbUSrGQSGpCMLt/mhF5XiJEx5XAedccVKXOS71GG5
- w/ZE67XbsxIlNDAcXeWYF7jOSVslV94oUGOJWykKkRxqQuAK1WayiqEw8chmvypNM6HW
- cWQJhmzA8TvMnaTTBNnRbryooV94K6RdldJYZSz88O4XAPlGw8vndogvKecI+/utxevE
- e2IA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D78B710E7BD
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:39:27 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-490791a3e92so1421035e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 08:39:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779892445; x=1780497245; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=fJqar9L8+eehteUQWsu1NTNv62PRoS7/WvyShE2hN8Y=;
- b=AJip6g/m1DYuFsKNgsBT5qm5Od2RK0zNukNBxayZwxot9uVTW5DmlNrZ64SjVMyEuZ
- lHRXC3WyxvN7lTlfjDX7jtvrTl+JU6MXBnoTj0HL1prXOcGrZ7Du2Tb6hvbfFax7fWOh
- Zbs5U/mB63GWkMDxk020CyCwxkUJVV86KZTcg3xuiwHdmAUjFTyACDrrXfHLI0HE4Zjk
- 6lMkLNSjqHppGmq8KLztOoIkFt+natWqKhgk9WdWfIq/YqGcvI4E+01HkTGC/WyknE9/
- 932NcRmfeDUtQ6euUjJ3F9qNwqacYcyVrspXLi8FVflSvM6ys+oxeJ1pqgNjBCK4K8WQ
- zK7g==
+ d=gmail.com; s=20251104; t=1779896366; x=1780501166; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ADHAKXLPSV+B46SoR3AVK3+w80ncz+/VZrd71fy3Anc=;
+ b=Dqlzfk4S6cYbuyn5VFnuXClAK8qwPxuu3vw4ZGhgIKluMryXcvyiMnxjWZ7+wnzNyI
+ Irghj/YDfxFxEP0TjTabituXqF2iMDYlPUf45f/ZMPSnbzNJ4wdbRZRU0B0BTPmuo6RE
+ iX7JyKvT1bRhMMND36LnKI8vWC2YX5iX1ZeZWSYPSOqkY7Qes2EvIIPe0nFENroxa3xN
+ K14qhyw1r/oRwzQFh63nIhQlNJY8y9sz/mRCT4WYDWN1vN5atWMNyB94mUICcUUk8VlM
+ nDTm+LEPdwn3tcyDvbyof4rTfG77C2nzU1BFDJ/HUX2S+0LOlWBeIkCivx2a0K2WMouj
+ YirQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779892445; x=1780497245;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fJqar9L8+eehteUQWsu1NTNv62PRoS7/WvyShE2hN8Y=;
- b=be/i0yWNQQBLDgCa6zlLICyrtHzm0d7l6DyETKX7ZgKWovT/Lm9x/wHKL4jPzogH+z
- 4eyVwhj1m5ZF8xVabcrFt53rm+VzXNqTNx3vWkNz4TPj5+ZapXC03N2OjW5YuwQU6Cf3
- p+6SRm3ICEyj6thtBmU6Frnpewhhd+BUZ6f1Qu+Q/wvhdu2h6mvwSK4EGFFKBkaF5RA/
- ZCqE8S/VBlnMmQJmbf8mDpAV2gsGcF9W1q2wH4FHcjLN6GY3XFf2Ntf6Vm35dArApSHQ
- bYhU8aCewxHKSPGtvVlS8jTPDFvv6m4YqiviqeCnocb4KxC2NfCV/x7GLkt3OPyDJ/Kx
- mfyA==
+ d=1e100.net; s=20251104; t=1779896366; x=1780501166;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ADHAKXLPSV+B46SoR3AVK3+w80ncz+/VZrd71fy3Anc=;
+ b=QBiTyRx/wzfHZ2sLDcQU3uZ6BlaDNe5qJNmf6jDnyTYkPLLKLDNh9Wy8IDMESj/w7R
+ bAtHaQgSRPvSs3F7tstK+xrUNGSV6yz9l0dA7CbGEkvtHWJTdhYR/bWoh4Dr3H52O20v
+ EZbB8AxkX30Wb3ZlWWt43llw3Nl/3FnXerFrTo0F89FEWqKBfhYEDRP2JY04Cwf+WKQo
+ ABUWOSFXtnadZJ2+jUaoYss1WDuJkxuaBTRgfDQ9QS3I4Ranmx0t8cp5y+onjBcnd34m
+ 6rdbBrIT1VZ3eKOwKSmAUA6Rp35C+TAG92g4kQT+hYX4I0Ymqvhqs+xzo5Xu6yKj9nG0
+ rZXg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8V6kqpZkjqcpuGTccLVcuuqnsf27Q10LMJ6Dep3GJP9Tq3fO+6Xzc1s/ZqH1890RWd7XM1Kmy70Ng=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwJwGr5HPvz3P8HQK9DOFW8ZPYk02KtALsU7aSg07DJLTLLMRE
- lL2Qrur1MYuyS/W0bHIx4bG68pQgWB4VbkPTeWtCfnsRZ2gSqpqXH9Yb887Nw+L/DrP/kHWrJsA
- qWbjMGBH9r4wtEpZRbS0haKEX31Ltl2w=
-X-Gm-Gg: Acq92OFBsA5veCsbuPUS8LJTQ+cib2O7shlHLs+wHmA30PyWXf+rAPisswSiEb9pu/+
- vYN76cKh09nAogwFWxiCSIOYEw59zoUnjKclDlUVluE0DBeNugLmmY8Y0QGpvbVNFKUs/t8fyAb
- QSKyqmdCRIioQUAmN4wyw0HmSI158IeEDdIGf4M270SKQrtdcP3X7ZvBiOmd2vvXIQ/Sz35MO5o
- H1czVYjuC47GDUwihAEc0UGm75/qvZuk8/vpCUa3KuhVLZbx7um8UTPnSxZCDkQwa7iQUGCyL64
- NOWVYCQCW3vCiE5RnXIqz7dGMI7exaCuqYIDwQujI5EhkZ03zgihC13JsP9wshuUnM5h8vSp
-X-Received: by 2002:a05:690c:4883:b0:7d1:c256:b5a8 with SMTP id
- 00721157ae682-7d33ac50c26mr243122427b3.40.1779892445243; Wed, 27 May 2026
- 07:34:05 -0700 (PDT)
+ AFNElJ9piEr0CrFyDwsV4ghYYLgH+s2Vmgmm+qSxk4gNY09KFkwB0+IZ67kkeZBBQii5XKc4OLe6ZpxcPEg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywy66Kw0He9xincTk+9g1fAV0UAPms0givR9FerejzVjOslvrDI
+ oFr+z/v6yoHnBRSST+YbOcrkdmXGI5O+szxHcBgm5jspvgQwevbhEfgQ
+X-Gm-Gg: Acq92OE9YPA/FHk5KnsKwXq0ea6gA8NFfX0WCENJ/FdKQq4pQNwqJuqJ/8es1tnfAY9
+ ZE14b2zaA4/Q1OQYRj0cXt0AAxNrxPJy/QImNEVgpBR9rgKH5gdUjtLnN6KJBO4CxAf/TKjlu3p
+ wzHVPdbQXvltGbD4mKqwW+JlIA7M2IvTnUeB/juz8pkOkYWnJAGFAYpTA0KgOAxA5wnnVo4ckbe
+ bwm8ByM6WNd4zWOdBPSC413zcXT83wNhSmWKvJdzws7TQuhXfHpJEiTA0rRaiwcIHy00Jc7DqlL
+ vAI5ngPrSpc8ck9L5z848rRq74d8+BDYyLV/eC8rGqQMopoIUfezd4C9sBi/3waeljqpvfd3wpT
+ //0zCcfXxj+3h0hWCt25D0wHE3dxpMCDKIBpvGy1Mcfulkz4RJFxUWHlkHexxlV5xCGodqxLldf
+ +GeROV4zRXaFnOaep4lfRB2VWq7NUG3X64pmgXWAmJV/hlNh0hLHEWvr8xDUK+5L3Z/UxV3//aV
+ ZR+8KDOz8c=
+X-Received: by 2002:a05:600c:4ecc:b0:490:502:8422 with SMTP id
+ 5b1f17b1804b1-490428e2ceamr162598325e9.6.1779896366116; 
+ Wed, 27 May 2026 08:39:26 -0700 (PDT)
+Received: from simuladores.arostegui.proxmox
+ (178.pool85-58-80.dynamic.orange.es. [85.58.80.178])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45edb54a6cdsm7241937f8f.2.2026.05.27.08.39.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 May 2026 08:39:25 -0700 (PDT)
+From: =?UTF-8?q?Alberto=20Ar=C3=B3stegui?= <aarosteguig@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ AlbertoArostegui <aarosteguig@gmail.com>
+Subject: [PATCH] fbdev: pxa168fb: use devm_ioremap_resource() for MMIO
+Date: Wed, 27 May 2026 15:39:13 +0000
+Message-ID: <20260527153913.33342-1-aarosteguig@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-From: D D <dhabal123@gmail.com>
-Date: Wed, 27 May 2026 20:03:54 +0530
-X-Gm-Features: AVHnY4Kl2ZqhbWmLaEFG8Y_w8kAUZeskqipdE5ovkgAii9kaO-bxgRxmvCIQIf8
-Message-ID: <CA+g3TbucTCsgvGaywNqyZdh5g-889zK06WZ57Mpxm1qOpgYTfA@mail.gmail.com>
-Subject: [PATCH 0/2] accel/rocket: Fix NULL deref and double-free in job
- submit error path
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: simona@ffwll.ch, airlied@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000f022500652cd8029"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 28 May 2026 07:29:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,94 +89,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000f022500652cd8029
-Content-Type: text/plain; charset="UTF-8"
+From: AlbertoArostegui <aarosteguig@gmail.com>
 
-Hi Tomeu,
+pxa168fb maps the LCD controller register resource with devm_ioremap(),
+which does not request the memory region. Use devm_ioremap_resource()
+instead so the MMIO range is claimed before being mapped.
 
-Two bugs in the job submission error path in rocket_job.c:
+This also handles cleanup automatically.
 
-1) rocket_job_cleanup() unconditionally calls
-   rocket_iommu_domain_put(job->domain), but job->domain is only
-   assigned after all fallible operations in
-   rocket_ioctl_submit_job(). On early failure, job->domain is NULL,
-   causing a NULL pointer dereference.
+Signed-off-by: AlbertoArostegui <aarosteguig@gmail.com>
+---
+ drivers/video/fbdev/pxa168fb.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-2) rocket_copy_tasks() frees rjob->tasks on its error path but does
-   not NULL the pointer. rocket_job_cleanup() frees it again,
-   resulting in a double-free.
+diff --git a/drivers/video/fbdev/pxa168fb.c b/drivers/video/fbdev/pxa168fb.c
+index ec602f7776eb..6784888d93c9 100644
+--- a/drivers/video/fbdev/pxa168fb.c
++++ b/drivers/video/fbdev/pxa168fb.c
+@@ -653,10 +653,9 @@ static int pxa168fb_probe(struct platform_device *pdev)
+ 	/*
+ 	 * Map LCD controller registers.
+ 	 */
+-	fbi->reg_base = devm_ioremap(&pdev->dev, res->start,
+-					     resource_size(res));
+-	if (fbi->reg_base == NULL) {
+-		ret = -ENOMEM;
++	fbi->reg_base = devm_ioremap_resource(&pdev->dev, res);
++	if (IS_ERR(fbi->reg_base)) {
++		ret = PTR_ERR(fbi->reg_base);
+ 		goto failed_free_info;
+ 	}
+ 
+-- 
+2.43.0
 
-Patch 1 adds a NULL check for job->domain in rocket_job_cleanup().
-Patch 2 sets rjob->tasks to NULL after freeing in rocket_copy_tasks().
-
-Dhabaleshwar Das (2):
-  accel/rocket: Add NULL check for domain in rocket_job_cleanup()
-  accel/rocket: Fix double-free of tasks array in rocket_copy_tasks()
-
- drivers/accel/rocket/rocket_job.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-Thanks,
-Dhabaleshwar Das
-
---000000000000f022500652cd8029
-Content-Type: application/octet-stream; name="Bug2_patch2_double_free.patch"
-Content-Disposition: attachment; filename="Bug2_patch2_double_free.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mpo5vs6j0>
-X-Attachment-Id: f_mpo5vs6j0
-
-RnJvbTogRGhhYmFsZXNod2FyIERhcyA8ZGhhYmFsMTIzQGdtYWlsLmNvbT4KRGF0ZTogV2VkLCAy
-OCBNYXkgMjAyNiAwMDowMDowMCArMDUzMApTdWJqZWN0OiBbUEFUQ0ggMi8yXSBhY2NlbC9yb2Nr
-ZXQ6IEZpeCBkb3VibGUtZnJlZSBvZiB0YXNrcyBhcnJheSBpbiByb2NrZXRfY29weV90YXNrcygp
-Cgpyb2NrZXRfY29weV90YXNrcygpIGZyZWVzIHJqb2ItPnRhc2tzIHZpYSBrdmZyZWUoKSBvbiBp
-dHMgZXJyb3IgcGF0aApidXQgZG9lcyBub3Qgc2V0IHRoZSBwb2ludGVyIHRvIE5VTEwuIFdoZW4g
-dGhlIGNhbGxlcidzIGVycm9yIHBhdGgKbGF0ZXIgcmVhY2hlcyByb2NrZXRfam9iX2NsZWFudXAo
-KSB2aWEgcm9ja2V0X2pvYl9wdXQoKSwKcm9ja2V0X2pvYl9jbGVhbnVwKCkgY2FsbHMga3ZmcmVl
-KGpvYi0+dGFza3MpIGFnYWluLCByZXN1bHRpbmcgaW4gYQpkb3VibGUtZnJlZS4KClNldCByam9i
-LT50YXNrcyB0byBOVUxMIGFmdGVyIGZyZWVpbmcgaXQgaW4gcm9ja2V0X2NvcHlfdGFza3MoKSBz
-bwp0aGF0IHRoZSBzdWJzZXF1ZW50IGt2ZnJlZSgpIGluIHJvY2tldF9qb2JfY2xlYW51cCgpIGlz
-IGEgc2FmZSBuby1vcC4KCkZpeGVzOiAwODEwZDVhZDg4YTEgKCJhY2NlbC9yb2NrZXQ6IEFkZCBq
-b2Igc3VibWlzc2lvbiBJT0NUTCIpClNpZ25lZC1vZmYtYnk6IERoYWJhbGVzaHdhciBEYXMgPGRo
-YWJhbDEyM0BnbWFpbC5jb20+Ci0tLQogZHJpdmVycy9hY2NlbC9yb2NrZXQvcm9ja2V0X2pvYi5j
-IHwgMSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2FjY2VsL3JvY2tldC9yb2NrZXRfam9iLmMgYi9kcml2ZXJzL2FjY2VsL3JvY2tldC9yb2Nr
-ZXRfam9iLmMKaW5kZXggYWJjZGVmMS4uMTIzNDU2NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9hY2Nl
-bC9yb2NrZXQvcm9ja2V0X2pvYi5jCisrKyBiL2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9q
-b2IuYwpAQCAtMTAxLDYgKzEwMSw3IEBAIHN0YXRpYyBpbnQgcm9ja2V0X2NvcHlfdGFza3Moc3Ry
-dWN0IGRybV9kZXZpY2UgKmRldiwgc3RydWN0IGRybV9maWxlICpmaWxlLAoKIGZhaWw6CiAJa3Zm
-cmVlKHJqb2ItPnRhc2tzKTsKKwlyam9iLT50YXNrcyA9IE5VTEw7CiAJcmV0dXJuIHJldDsKIH0K
---000000000000f022500652cd8029
-Content-Type: application/octet-stream; name="Bug2_patch1_null_deref.patch"
-Content-Disposition: attachment; filename="Bug2_patch1_null_deref.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mpo5vs6w1>
-X-Attachment-Id: f_mpo5vs6w1
-
-RnJvbTogRGhhYmFsZXNod2FyIERhcyA8ZGhhYmFsMTIzQGdtYWlsLmNvbT4KRGF0ZTogV2VkLCAy
-OCBNYXkgMjAyNiAwMDowMDowMCArMDUzMApTdWJqZWN0OiBbUEFUQ0ggMS8yXSBhY2NlbC9yb2Nr
-ZXQ6IEFkZCBOVUxMIGNoZWNrIGZvciBkb21haW4gaW4gcm9ja2V0X2pvYl9jbGVhbnVwKCkKCklu
-IHJvY2tldF9pb2N0bF9zdWJtaXRfam9iKCksIGlmIHJvY2tldF9jb3B5X3Rhc2tzKCkgb3IKZHJt
-X2dlbV9vYmplY3RzX2xvb2t1cCgpIGZhaWxzLCB0aGUgZXJyb3IgcGF0aCByZWFjaGVzCnJvY2tl
-dF9qb2JfY2xlYW51cCgpIHZpYSByb2NrZXRfam9iX3B1dCgpLiByb2NrZXRfam9iX2NsZWFudXAo
-KQp1bmNvbmRpdGlvbmFsbHkgY2FsbHMgcm9ja2V0X2lvbW11X2RvbWFpbl9wdXQoam9iLT5kb21h
-aW4pLCBidXQKam9iLT5kb21haW4gaXMgb25seSBhc3NpZ25lZCBhZnRlciBhbGwgdGhlIGZhbGxp
-YmxlIG9wZXJhdGlvbnMuIFNpbmNlCnRoZSBqb2Igc3RydWN0IGlzIHplcm9lZCBieSBremFsbG9j
-LCBqb2ItPmRvbWFpbiBpcyBOVUxMIG9uIGVhcmx5CmZhaWx1cmUsIGNhdXNpbmcgYSBOVUxMIHBv
-aW50ZXIgZGVyZWZlcmVuY2UgaW4Kcm9ja2V0X2lvbW11X2RvbWFpbl9wdXQoKSB3aGljaCBjYWxs
-cyBrcmVmX3B1dCgpIG9uIGEgTlVMTCBwb2ludGVyLgoKQWRkIGEgTlVMTCBjaGVjayBiZWZvcmUg
-Y2FsbGluZyByb2NrZXRfaW9tbXVfZG9tYWluX3B1dCgpLgoKRml4ZXM6IDA4MTBkNWFkODhhMSAo
-ImFjY2VsL3JvY2tldDogQWRkIGpvYiBzdWJtaXNzaW9uIElPQ1RMIikKU2lnbmVkLW9mZi1ieTog
-RGhhYmFsZXNod2FyIERhcyA8ZGhhYmFsMTIzQGdtYWlsLmNvbT4KLS0tCiBkcml2ZXJzL2FjY2Vs
-L3JvY2tldC9yb2NrZXRfam9iLmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9u
-cygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvYWNjZWwvcm9ja2V0L3Jv
-Y2tldF9qb2IuYyBiL2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYwppbmRleCBhYmNk
-ZWYxLi4xMjM0NTY3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2FjY2VsL3JvY2tldC9yb2NrZXRfam9i
-LmMKKysrIGIvZHJpdmVycy9hY2NlbC9yb2NrZXQvcm9ja2V0X2pvYi5jCkBAIC0yMzMsNyArMjMz
-LDggQEAgc3RhdGljIHZvaWQgcm9ja2V0X2pvYl9jbGVhbnVwKHN0cnVjdCBrcmVmICpyZWYpCiAJ
-c3RydWN0IHJvY2tldF9qb2IgKmpvYiA9IGNvbnRhaW5lcl9vZihyZWYsIHN0cnVjdCByb2NrZXRf
-am9iLAogCQkJCQkJcmVmY291bnQpOwogCXVuc2lnbmVkIGludCBpOwoKLQlyb2NrZXRfaW9tbXVf
-ZG9tYWluX3B1dChqb2ItPmRvbWFpbik7CisJaWYgKGpvYi0+ZG9tYWluKQorCQlyb2NrZXRfaW9t
-bXVfZG9tYWluX3B1dChqb2ItPmRvbWFpbik7CgogCWRtYV9mZW5jZV9wdXQoam9iLT5kb25lX2Zl
-bmNlKTsKIAlkbWFfZmVuY2VfcHV0KGpvYi0+aW5mZXJlbmNlX2RvbmVfZmVuY2UpOwo=
---000000000000f022500652cd8029--
