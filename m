@@ -4,70 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45B2BCD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E4FFCD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:53:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A74B110E9FF;
-	Wed, 27 May 2026 20:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A518A10EA03;
+	Wed, 27 May 2026 20:53:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="bHLbiJCO";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="RNYOFR4v";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="SYR/FQvF";
 	dkim-atps=neutral
-Received: from mail-qv1-f73.google.com (mail-qv1-f73.google.com
- [209.85.219.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9D0710E9FF
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:50:51 +0000 (UTC)
-Received: by mail-qv1-f73.google.com with SMTP id
- 6a1803df08f44-8ca1295e3a9so222487646d6.1
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:50:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1779915051; x=1780519851;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=OnsOZAwcaFX6qrXTkZ3llO87kDjoRN0331vlXYrms0w=;
- b=bHLbiJCOvdaVlLzCeQN7qKkefJFCMAeKHrAzcGoBSE6U34Bh3ToqVTejJJNjVPT034
- 7ZXm53kNTU1zbyCjmyomRH7/TN0WT4XEJt09HM8C38ZnyME+c2kDKucoOhFn0S9FbSds
- ug7WgUM7OHZBPO65XNyXGY+57KFi50KmDbuV2UUwW7u5iv1fIOUJicxL+uZhS2AXefH7
- xQ1yYGRHZdNV+pfvTCsJkDnq2rF5txoeyf2/lMd3ivSuCX4mEOYk+YplAEx6qid0nVsK
- RjJDw4n+kvj7LksoOu7cdwb5Iz9DxMb58FnJZEckdfmBUf9aT5AvgkzdOfvL0zoNB0zk
- CYLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779915051; x=1780519851;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OnsOZAwcaFX6qrXTkZ3llO87kDjoRN0331vlXYrms0w=;
- b=Tmuv4hkDGSCyCqMvYrCkrikLBxfNGLrhqWbmBVXa7E9phI0dzdrj90BhlCXxDzZIko
- 85K+ylV71DX5GyUaUicsBAzCsjG1jNDo+B2w5kfHF6Bm5Lkjxj+H6krKkdeQvUw3FA0m
- iixQ5xYHQ58cx1LC7h6oR3jsnn+wWDJSm5S6ND36j9vC+KNufBO6nRbP/hHKGRwPG/rC
- 6PYe4wEpGNzDN67Q8gCkNHPv4UhCEfERcBDl+oTxsf2uBWz/TzM+s4iwFeOXuutxuR/B
- aVPvhGAnNNzrAblg6lVJEMC09n6FyvlBFf9QfK9LX2JrhEjko+/DuXel765rP+faIAys
- m+vA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/x9YL08+z+sBRIZmN4EPDeJprYWsZgX0wOeHoHmOEumvAba5rrXtri9MKK15WAozCY+pJ9NY0HSIc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlEDhqgT3auYWP8yUm8TO64oMp+JnnxRIww1hfG+L0WY8890nF
- Pnzv/MHZLDdFtDIz3h9MvLA93hE2IfGj/j0cI6+cNy3KmfgqPeBa7bsZ0PGwTl4ChMk5UVG1i+T
- NCXt8qahcL5gX
-X-Received: from qviu6.prod.google.com ([2002:a0c:c486:0:b0:8cc:2486:6603])
- (user=xuehaohu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6214:54ca:b0:8ac:b237:9fb5 with SMTP id
- 6a1803df08f44-8cc7b5fe0d8mr387104406d6.49.1779915050519; 
- Wed, 27 May 2026 13:50:50 -0700 (PDT)
-Date: Wed, 27 May 2026 20:50:47 +0000
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.54.0.794.g4f17f83d09-goog
-Message-ID: <20260527205048.2168808-1-xuehaohu@google.com>
-Subject: [PATCH v2] dma-buf: Fix silent overflow for phys vec to sgt
-From: David Hu <xuehaohu@google.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>
-Cc: Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Alex Williamson <alex@shazbot.org>,
- linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, jmoroni@google.com, praan@google.com, 
- leonro@nvidia.com, David Hu <xuehaohu@google.com>, stable@vger.kernel.org, 
- iommu@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Received: from fout-a5-smtp.messagingengine.com
+ (fout-a5-smtp.messagingengine.com [103.168.172.148])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 547BC10EA03
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:53:36 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.phl.internal (Postfix) with ESMTP id A26A0EC0077;
+ Wed, 27 May 2026 16:53:35 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Wed, 27 May 2026 16:53:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1779915215;
+ x=1780001615; bh=TzsAIWJKWxLMYgzdxaWg1KgQLd4L0BjlB8TYvo0b3Wo=; b=
+ RNYOFR4v5bWL/PM5DIyXR4qJ7Z6D92QH4Cy3LppgJ2E10MJO0PuwTaB/1ZS4mPXs
+ HCy0NsxoHbYMZFe3VwIxnIk7UalNGjMCyXkVRadKJ/QJRllBlcvLK0US9bDnRRwH
+ 6klEt3FAKvTL2P4spELYW/PugDCje8LL0Ak2B8lpWgrlMieFy0qqty5mthOK6YVr
+ Rhf9Iewhj29R21KaCbpTOdDzjPQiJ0CmO+Rk7JOctajA/BmSBddG/tAdkJT5GGtW
+ zBuDNHNOx3392bRIFbVn1Ult5hkbN35Ha4jR+7jPRHGfTjrPROxBLy/cGuNVSNd3
+ ViIUKxEjTTS2UcxD0OILWQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1779915215; x=
+ 1780001615; bh=TzsAIWJKWxLMYgzdxaWg1KgQLd4L0BjlB8TYvo0b3Wo=; b=S
+ YR/FQvFC4ejpPKA5OBsG13goMswKVWLYt6j6dBBPa74VeBdvIyoCVVHp1jCXiqIU
+ 07UC5auhDx18L36o7Zewh5c80pfPFKlgetlVnNkUbmTCcPGme4t6P2IrLyA3FYl1
+ 2nYaYTArJB2lHcUyoxswLCD9xVmvtAiYlF2pFMU6So7MkExYpS+C+rzrlorO0HIl
+ jBiU6PuyZz+kIvrGRvD213X+hEG3/+Rg7HED7lIYZvRy7Gjz8NdPcJ4wYfnRIUlS
+ fw2ts1qxs9BqHIwWUkgLiWw72+YfKObWsWa7EzK6/QVHc3wQUozvmjRXvnBdLVNX
+ seAoShWn6kLhUu2+63EhQ==
+X-ME-Sender: <xms:z1kXamIPytd-cXsTONJm-Aj97UNRY8erds7YIJI34uyND3oBSi-Z4g>
+ <xme:z1kXaltoxOt0GRjv_2UhRNeWXGOr9itEAPa_TWXD4vrODN9l-pRVdYFbvyClNSOc2
+ GPZWW5WX3-vmnTuTB94M_xbapRKUN0E3HboovE7EYH_6QzzUvDDZg>
+X-ME-Received: <xmr:z1kXamU78RBBOF3LItIWluXvjTR0m2VhE8TZFi-BcVnUEXTlyLXxbu9UCZA>
+X-ME-Proxy-Cause: dmFkZTF1K9viltT52o4ie7G6CQKxrNMh36y//trnUnjN2k5DDgIcr7l1e0mhd521pVUDS/
+ uUGjEBHMKe4uB8HMHx4OURBWT7vcgWNK/HbH2TS03Hxbg5FeReRt7to9/tAI+ydT7I1l89
+ uhh7qF0gDk2T40TaUxMNHZxuF+GSXmiNNkylKLwO+IpzgNQ4v74oMtPuQDE3B0Xiy58k/H
+ OdJyMun/gxHDWJd4SGLl8Pb+k54CNl+UmtkuZYH5bsrFwFICfdDCJITm++6BzDRZXY9DKa
+ O8KAQIwlIxQ9/B+BwQfavF8kkeajVFD2pGqmPEYauMUdU+iLblknNkg8eCzti1XGaihJVh
+ qVoc+YvwS0sBtLpk5V9sfF412d0n5bBVYaDlaUJ5lgZULolELwh4cY5u+BDy6Xjz92ZTQS
+ dKE81COvd/li6hW7NzXrkCXp91IpDu7+2BgrEgE3Zh8JU6ezDH5h+sMjmvg/x7QvHfxIne
+ lDFoJF/TIt1qrWIKqoxk5000z2TjniOuWIRbKYzld7HeHhtoTa7+acr6e0auCJQRsK+tnW
+ Tlu41x61PoLJ2LbQGxryv42A/1+Mnbsx6dlJNiQ5ZutWsX43E5IDzh+73DxHGwzuwVnJLu
+ qICs6bhUv4aZw/7QiJNSkhBaWYhcMLlgqC3xyqr3DgShx8Jfvzey4VBaL0zg
+X-ME-Proxy: <xmx:z1kXaoJn4vy4awOhNB-9NU295v8QIWTpScmh081UN1PvO8WAuPNszA>
+ <xmx:z1kXaj9mjlGWSi9WlnN52HuUcbRJ0U3AjtMA6XsHuhhdoMeuUEryYA>
+ <xmx:z1kXauNgGG1dViSVnY4M55iBNlOuBJ70jXTrL4WK4i9NlB3auC950Q>
+ <xmx:z1kXan1Orfv6sdp6Dbaq5FokGcKR6AgKbOBN6YPa_wJKAhs29pTzjw>
+ <xmx:z1kXag0SGdBPokUwULyB2T-XuxcA1UGmGMn0kcLsKDgBKz-bZMCPSAt_>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 27 May 2026 16:53:33 -0400 (EDT)
+Date: Wed, 27 May 2026 14:53:32 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Zhiping Zhang <zhipingz@meta.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Christian Konig
+ <christian.koenig@amd.com>, Bjorn Helgaas <helgaas@kernel.org>,
+ <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, Keith Busch <kbusch@kernel.org>, Yochai
+ Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+ alex@shazbot.org
+Subject: Re: [PATCH v5 1/4] PCI/TPH: expose the enabled TPH requester type
+Message-ID: <20260527145332.30412ea4@shazbot.org>
+In-Reply-To: <20260526144401.1485788-2-zhipingz@meta.com>
+References: <20260526144401.1485788-1-zhipingz@meta.com>
+ <20260526144401.1485788-2-zhipingz@meta.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,83 +103,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In case MMIO size is bigger than 4G and peer2peer DMA goes
-through host bridge, we trigger a code path that assigns the
-total linked IOVA (which is greater than 4G) to mapped_len.
+On Tue, 26 May 2026 07:43:53 -0700
+Zhiping Zhang <zhipingz@meta.com> wrote:
 
-Previously, `mapped_len` was declared as 32-bit `unsigned int`.
-When accumulating `size_t` lengths, this leads to a silent wrap-around.
-This truncation causes truncated lengths to be passed to functions
-like `fill_sg_entry()`.
+> Add pcie_tph_enabled_req_type() so drivers can query the enabled TPH
+> requester mode without reaching into pci_dev internals.
+> 
+> This keeps pci_dev::tph_req_type inside the PCI/TPH code and provides a
+> !CONFIG_PCIE_TPH stub for callers.
+> 
+> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> ---
+>  drivers/pci/tph.c       | 12 ++++++++++++
+>  include/linux/pci-tph.h |  2 ++
+>  2 files changed, 14 insertions(+)
+> 
+> diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
+> index 91145e8d9d95..6c4492075ae9 100644
+> --- a/drivers/pci/tph.c
+> +++ b/drivers/pci/tph.c
+> @@ -174,6 +174,18 @@ u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev)
+>  }
+>  EXPORT_SYMBOL(pcie_tph_get_st_table_loc);
+>  
+> +/**
+> + * pcie_tph_enabled_req_type - Return the device's enabled TPH requester type
+> + * @pdev: PCI device to query
+> + *
+> + * Return: PCI_TPH_REQ_DISABLE, PCI_TPH_REQ_TPH_ONLY or PCI_TPH_REQ_EXT_TPH.
+> + */
+> +u8 pcie_tph_enabled_req_type(struct pci_dev *pdev)
+> +{
+> +	return pdev->tph_req_type;
+> +}
+> +EXPORT_SYMBOL(pcie_tph_enabled_req_type);
+> +
+>  /*
+>   * Return the size of ST table. If ST table is not in TPH Requester Extended
+>   * Capability space, return 0. Otherwise return the ST Table Size + 1.
+> diff --git a/include/linux/pci-tph.h b/include/linux/pci-tph.h
+> index be68cd17f2f8..fe572737b409 100644
+> --- a/include/linux/pci-tph.h
+> +++ b/include/linux/pci-tph.h
+> @@ -30,6 +30,7 @@ void pcie_disable_tph(struct pci_dev *pdev);
+>  int pcie_enable_tph(struct pci_dev *pdev, int mode);
+>  u16 pcie_tph_get_st_table_size(struct pci_dev *pdev);
+>  u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev);
+> +u8 pcie_tph_enabled_req_type(struct pci_dev *pdev);
+>  #else
+>  static inline int pcie_tph_set_st_entry(struct pci_dev *pdev,
+>  					unsigned int index, u16 tag)
+> @@ -41,6 +42,7 @@ static inline int pcie_tph_get_cpu_st(struct pci_dev *dev,
+>  static inline void pcie_disable_tph(struct pci_dev *pdev) { }
+>  static inline int pcie_enable_tph(struct pci_dev *pdev, int mode)
+>  { return -EINVAL; }
+> +static inline u8 pcie_tph_enabled_req_type(struct pci_dev *pdev) { return 0; }
 
-Fix this by changing `mapped_len` to `size_t` (64-bit). While
-at it, fix similar potential overflow issues in `calc_sg_nents`
-by using `size_t` for `nents` and checking against `UINT_MAX`
-and using `unsigned int` for the loop iterator in `fill_sg_entry`
-to match.
+nit, s/0/PCI_TPH_REQ_DISABLE/ for consistency.  Thanks,
 
-to mapped_len, and leading to a silent overflow
+Alex
 
-Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-Cc: stable@vger.kernel.org
-Cc: iommu@lists.linux.dev
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-Signed-off-by: David Hu <xuehaohu@google.com>
----
-Changes in v2:
- Fixed 'IVOA' -> 'IOVA' typo and expanded commit message (Claude Bot).
- Added Reverse Xmas tree formatting (Pranjal).
- Folded in extra bounds checking for calc_sg_nents() (Pranjal).
- Folded in type consistency fix for fill_sg_entry() (Pranjal).
- Droped unnecessary `nents = 0` initialization (Claude Bot).
-
- drivers/dma-buf/dma-buf-mapping.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 794acff2546a..5bc769fc42ea 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -10,7 +10,7 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 					 dma_addr_t addr)
- {
- 	unsigned int len, nents;
--	int i;
-+	unsigned int i;
- 
- 	nents = DIV_ROUND_UP(length, UINT_MAX);
- 	for (i = 0; i < nents; i++) {
-@@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
- 				  struct phys_vec *phys_vec, size_t nr_ranges,
- 				  size_t size)
- {
--	unsigned int nents = 0;
-+	size_t nents = 0;
- 	size_t i;
- 
- 	if (!state || !dma_use_iova(state)) {
-@@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
- 		nents = DIV_ROUND_UP(size, UINT_MAX);
- 	}
- 
-+	if (nents > UINT_MAX)
-+		return 0;
-+
- 	return nents;
- }
- 
-@@ -95,9 +98,10 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
- 					 size_t nr_ranges, size_t size,
- 					 enum dma_data_direction dir)
- {
--	unsigned int nents, mapped_len = 0;
- 	struct dma_buf_dma *dma;
- 	struct scatterlist *sgl;
-+	size_t mapped_len = 0;
-+	unsigned int nents;
- 	dma_addr_t addr;
- 	size_t i;
- 	int ret;
--- 
-2.54.0.794.g4f17f83d09-goog
 
