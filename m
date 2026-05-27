@@ -4,49 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5507DCD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 22:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B70E9CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 22:38:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9794510EA4C;
-	Wed, 27 May 2026 22:06:32 +0000 (UTC)
-Received: from mail-oa1-f80.google.com (mail-oa1-f80.google.com
- [209.85.160.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13A0710EA48
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 22:06:31 +0000 (UTC)
-Received: by mail-oa1-f80.google.com with SMTP id
- 586e51a60fabf-43b469c6e24so5300992fac.1
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:06:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779919590; x=1780524390;
- h=to:from:subject:message-id:date:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=NA5/KnErm1XNnMMMcMghiPaIGjepl4VXf+uvQWVvmZ4=;
- b=SdRghfoKIXYPZgNXAusa8Sb4BL/NB9RH7QeK6bomwP30Ha4muz5AFYuMzHbPJ8U4qS
- AJp7/LIOL11a53GKo9t+KUVfWOOfKggLhxp/D9ezyeR+2eLIF8VvUfDi7c990BFRANFd
- 7YSqHm12RmSeI3sZjFiEcJlKdH1SF+hhwqMAzAHB3Op2VhOsoo5HYiuCcr+Jv1HdSh7M
- drCOuvCcTbEUE7dMlRGRfnn/G3C2RNnVvx6B46CeSVHTGjvpfGpOzU6JtUGOpofd6gqm
- Ixt8i083N0vvBqHZBO5DRzkOwS4i5QAkNjPz+MeVth55wnxpHZX/PBAJBDcMovmvjxVw
- I7Kw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ91bytK4/GeqFDnn8KsEkza9p+gTUPA1gq0r4xysFF4BPHzVsfnhfVwG32tFnCCdiO6W+O4lDMqjro=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRXU8U7mHSXhQB+94wCxgc+PT1u8H9E0JzwQdHkntJAjCJodDV
- y45DsKkdwHxSP94lfeQuCV8mGQmonbTKt/GEZEo+wsiverskdP4u878zwVQKoDXzU+8L9ZGCKPU
- vebHHsjrB9Fkb01CR3T3QqWPf3pefvWU1vS23FeFnQ8Vo8DYBdGJRSHpsPbc=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1627E10EA71;
+	Wed, 27 May 2026 22:38:44 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="hj0Xnh2l";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="hwzCJGs9";
+	dkim-atps=neutral
+Received: from fout-a7-smtp.messagingengine.com
+ (fout-a7-smtp.messagingengine.com [103.168.172.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C214C10EA71
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 22:38:41 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.phl.internal (Postfix) with ESMTP id 26AA9EC013A;
+ Wed, 27 May 2026 18:38:41 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Wed, 27 May 2026 18:38:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1779921521;
+ x=1780007921; bh=8MmDbyDdyfeL+yHv+zdd4HPvUYer2VEbvbP3UaA28IA=; b=
+ hj0Xnh2lXS/+Dchf2E7c73LTAYb+mATBswtmkQX6nFdx6by6DzdYG9Ss2u0Lr0kq
+ oWqH6CtArjzhzcp5ytS/IWg0OvgHqS3MozfdAMcgdrTjEMB4sHcKCq6YYEV8OuNA
+ R6IhFeMyqptMqv/1Y8Ut/M4eOia8XKDBR3YDEeEq8AeotfI3T/fQTwuPunRXU7LL
+ G8fZFIgKpyrjX6Ze7f0tvqMzJuwO64xwJwdzb/EtPixzbBV7x7Ssb7xLhMedpJN5
+ ubvTzye/SVLb47QjrR7kn9aL4O/4u0ECC5W3S1KGcSbTEvBzjca2pB3u04yooxKi
+ JtBg44DkVqWushZlvoan6g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1779921521; x=
+ 1780007921; bh=8MmDbyDdyfeL+yHv+zdd4HPvUYer2VEbvbP3UaA28IA=; b=h
+ wzCJGs9I3ndDcL+I7MTrQqe2Olkz/BmWFv1ZVr52SajhpLa3SrcrC8NVf5559l/5
+ 3u+/PlU86TI1bBk3AF7Y46jzIdIuOuUXITIgpLOZ/b7dQvCRAPgwedxAInH5ADnL
+ 3i/BfCZxWpfw7yAaaVM0fQoVY9tgxbEuc5Xw6qH53DOzepjGUAF5CNSvOusHHQva
+ B5eHqzsIE8KQzDGvsXuTOXHTPEybIP7tbL0jSjJxXO6bCRMw12VJuNz17cW+Y5lK
+ Lp1sZR3aVJ/4eTMSNkWDVtba2eIYrJ4T47zZ3rznqVG6MJoB/aOCjISnPWkyQqc9
+ 6087omd2wnNZXCrZj7Jsg==
+X-ME-Sender: <xms:cHIXaqKqW5EJbsPTL_HE4HsIEIIzTESSEIoGfYhWj6W3iSBIQa-i5g>
+ <xme:cHIXat0CUBX0jRLxN8SAeHW10XwYi1avGvNUPwa-zn6zq38TIq_j0aL7Lo00NRQwx
+ -tO3_F6rc5d3dpMvFc3r-_gVWg8GtZfftOGxmlipcGsPjkUOJqGle0>
+X-ME-Received: <xmr:cHIXalYfqNt3WHyeJsv5SEym3HruHkfmbU8IqXwxxjNiXRKGGsqymE89d7o>
+X-ME-Proxy-Cause: dmFkZTGdNJ0uUGeVj1NBRJYBU9K38RfrCWXFG3XsTl9AIKrXguYdj+fE8TS337IWHDmk4w
+ Fw4pZ7j35TAr2g7k5qM5+cHD9E6RMkCpZpL3ZEmxZM9aVfup+gzJ8MrH+cJw1exb19Fawg
+ H7CXFcuv9gqT2u8c9tn4fLEc6vgDbfFDMVLtsfWXGKu6yaB8NKMnaCUkqj2Ds3ldpTPKYs
+ 7eh8scgMDK74Fuutv7IhevaZn7Cc/XneKsRgnKBb4N/rS96y7t0sYlhtKo9qiq1ZyUa2t1
+ en/3InleJyTXeIftwyZKJVQHnxfmF5GQCsl1blUOVzzpXpaIdCERGOuHp7jueXVgOOeMss
+ q9358a7YxijCU4Da8hX/2XEvc5B1JDkLHU9gF9qVFpMpNzQ8/yaJqgT4h40Qtxxjytakhn
+ KMbKNNw+9VeqMdrVw5yb/7e1r3WkTGkg6n6hhhk+i3JdU3IPepPSn6rkNvligaaIaJGHNq
+ AcgLTqCiv0wcvcvwYR+h2gf2C8XkqZqxTJuz7InvAA6QcsJv9YOn6lFAJONEj+24/AT/p8
+ jX83mhqW+ws+htPgJpvA44oAgy2mJUWhLkbL/fkfB6sDWbtnd1bVCd0z9ALX887x0HiP4b
+ XLslRQM2Fn0lYQ06gxSrEQiJIhjG7uc6azmhqQVvXtGntg69UmGeMzH/AUxw
+X-ME-Proxy: <xmx:cHIXagXjLthIGvuAlANuJ6ZfQk2OHJqVfyFHeR3PbPFEQfv0u4DBYg>
+ <xmx:cHIXagdnRhOEKIJLhTEarxw4sGjhGfgTBQfD-JAJK8oamHFY4jEPIQ>
+ <xmx:cHIXatM42vPxwXTOCBSe1xt5FtwHNF4emS-VeKJDGMnzAJraB9kI2A>
+ <xmx:cHIXaoIWRA6exdE95Y5I9pQfEKvYYNVuG7GU0JsQFdOCfoUSoMC4aw>
+ <xmx:cXIXaoO4-vhWBctvcH0KGgDRcrsmYHGmK2czPpgelQYBKMYg24I9yUg1>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 27 May 2026 18:38:38 -0400 (EDT)
+Date: Wed, 27 May 2026 16:38:37 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <mattev@meta.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
+ Gunthorpe <logang@deltatee.com>, Mahmoud Adam <mngyadam@amazon.de>, David
+ Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian
+ <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Pranjal
+ Shrivastava <praan@google.com>, Alistair Popple <apopple@nvidia.com>, Vivek
+ Kasireddy <vivek.kasireddy@intel.com>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, <kvm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, alex@shazbot.org
+Subject: Re: [PATCH v2 2/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Message-ID: <20260527163837.02be1e7c@shazbot.org>
+In-Reply-To: <20260527102319.100128-3-mattev@meta.com>
+References: <20260527102319.100128-1-mattev@meta.com>
+ <20260527102319.100128-3-mattev@meta.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:621:b0:69d:8cc2:332f with SMTP id
- 006d021491bc7-69d8cc23537mr11608142eaf.57.1779919590333; Wed, 27 May 2026
- 15:06:30 -0700 (PDT)
-Date: Wed, 27 May 2026 15:06:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a176ae6.d07c18fe.1069e4.0016.GAE@google.com>
-Subject: [syzbot] [dri?] WARNING in drm_atomic_helper_wait_for_vblanks (6)
-From: syzbot <syzbot+45bc7264de77caad91cb@syzkaller.appspotmail.com>
-To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
- tzimmermann@suse.de
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,104 +107,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+On Wed, 27 May 2026 03:23:05 -0700
+Matt Evans <mattev@meta.com> wrote:
 
-syzbot found the following issue on:
+> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+> find a PFN.
+> 
+> This supports multi-range DMABUFs, which typically would be used to
+> represent scattered spans but might even represent overlapping or
+> aliasing spans of PFNs.
+> 
+> Because this is intended to be used in vfio_pci_core.c, we also need
+> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+> 
+> Signed-off-by: Matt Evans <mattev@meta.com>
+> ---
+>  drivers/vfio/pci/vfio_pci_dmabuf.c | 142 ++++++++++++++++++++++++++---
+>  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
+>  2 files changed, 149 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> index c16f460c01d6..0d132c4ca95f 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -9,19 +9,6 @@
+>  
+>  MODULE_IMPORT_NS("DMA_BUF");
+>  
+> -struct vfio_pci_dma_buf {
+> -	struct dma_buf *dmabuf;
+> -	struct vfio_pci_core_device *vdev;
+> -	struct list_head dmabufs_elm;
+> -	size_t size;
+> -	struct phys_vec *phys_vec;
+> -	struct p2pdma_provider *provider;
+> -	u32 nr_ranges;
+> -	struct kref kref;
+> -	struct completion comp;
+> -	u8 revoked : 1;
+> -};
+> -
+>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>  				   struct dma_buf_attachment *attachment)
+>  {
+> @@ -106,6 +93,135 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>  	.release = vfio_pci_dma_buf_release,
+>  };
+>  
+> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
 
-HEAD commit:    79bd2dded182 Merge tag 'sched_ext-for-7.1-rc4-fixes' of gi..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12282ac8580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e327ee9a867dd6b9
-dashboard link: https://syzkaller.appspot.com/bug?extid=45bc7264de77caad91cb
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+This private dmabuf object pointer is named priv pretty consistently
+throughout the rest of the file.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+> +			      struct vm_area_struct *vma,
+> +			      unsigned long address,
+> +			      unsigned int order,
+> +			      unsigned long *out_pfn)
+> +{
+> +	/*
+> +	 * Given a VMA (start, end, pgoffs) and a fault address,
+> +	 * search the corresponding DMABUF's phys_vec[] to find the
+> +	 * range representing the address's offset into the VMA, and
+> +	 * its PFN.
+> +	 *
+> +	 * The phys_vec[] ranges represent contiguous spans of VAs
+> +	 * upwards from the buffer offset 0; the actual PFNs might be
+> +	 * in any order, overlap/alias, etc.  Calculate an offset of
+> +	 * the desired page given VMA start/pgoff and address, then
+> +	 * search upwards from 0 to find which span contains it.
+> +	 *
+> +	 * On success, a valid PFN for a page sized by 'order' is
+> +	 * returned into out_pfn.
+> +	 *
+> +	 * Failure occurs if:
+> +	 * - The page would cross the edge of the VMA
+> +	 * - The page isn't entirely contained within a range
+> +	 * - We find a range, but the final PFN isn't aligned to the
+> +	 *   requested order.
+> +	 *
+> +	 * (Upon failure, the caller is expected to try again with a
+> +	 * smaller order; the tests above will always succeed for
+> +	 * order=0 as the limit case.)
+> +	 *
+> +	 * It's suboptimal if DMABUFs are created with neigbouring
+> +	 * ranges that are physically contiguous, since hugepages
+> +	 * can't straddle range boundaries.  (The construction of the
+> +	 * ranges vector should merge such ranges.)
+> +	 *
+> +	 * Finally, vma_pgoff_adjust is used for a DMABUF representing
+> +	 * a VFIO BAR mmap, which is created from the start of the
+> +	 * offset region.  It should be zero, or equal vm_pgoff.
+> +	 */
+> +
+> +	const unsigned long pagesize = PAGE_SIZE << order;
+> +	unsigned long vma_off = ((vma->vm_pgoff - vpdmabuf->vma_pgoff_adjust) <<
+> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
+> +	unsigned long rounded_page_addr = ALIGN_DOWN(address, pagesize);
+> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
+> +	unsigned long page_buf_offset;
+> +	unsigned long range_buf_offset = 0;
+> +	unsigned int i;
+> +
+> +	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end) {
+> +		if (order > 0)
+> +			return -EAGAIN;
+> +
+> +		/* A fault address outside of the VMA is absurd. */
+> +		WARN(1, "Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
+> +		     address, vma->vm_start, vma->vm_end);
+> +		return -EFAULT;
+> +	}
+> +
+> +	if (vpdmabuf->vma_pgoff_adjust != 0 &&
+> +	    vpdmabuf->vma_pgoff_adjust != (vma->vm_pgoff &
+> +					   (VFIO_PCI_OFFSET_MASK >> PAGE_SHIFT))) {
+> +		WARN(1, "Unexpected vma_pgoff_adjust 0x%lx (vm_pgoff 0x%lx)\n",
+> +		     vpdmabuf->vma_pgoff_adjust, vma->vm_pgoff);
+> +		return -EFAULT;
+> +	}
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-79bd2dde.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/334fd806b634/vmlinux-79bd2dde.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/dc1d1c63d028/bzImage-79bd2dde.xz
+This appears to be user trigger'able, by causing a vma to be split, and
+also unnecessary as it seems the math works out correctly for the split
+case.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+45bc7264de77caad91cb@syzkaller.appspotmail.com
+> +
+> +	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
+> +					vma_off, &page_buf_offset)))
+> +		return -EFAULT;
+> +
+> +	for (i = 0; i < vpdmabuf->nr_ranges; i++) {
+> +		unsigned long page_buf_offset_end;
+> +		size_t range_len = vpdmabuf->phys_vec[i].len;
+> +		phys_addr_t range_start = vpdmabuf->phys_vec[i].paddr;
+> +
+> +		if (unlikely(check_add_overflow(page_buf_offset, pagesize,
+> +						&page_buf_offset_end)))
+> +			return -EFAULT;
 
-------------[ cut here ]------------
-[CRTC:39:crtc-0] vblank wait timed out
-WARNING: drivers/gpu/drm/drm_atomic_helper.c:1921 at drm_atomic_helper_wait_for_vblanks.part.0+0x738/0x8a0 drivers/gpu/drm/drm_atomic_helper.c:1921, CPU#1: kworker/1:1/54
-Modules linked in:
-CPU: 1 UID: 0 PID: 54 Comm: kworker/1:1 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: events drm_fb_helper_damage_work
-RIP: 0010:drm_atomic_helper_wait_for_vblanks.part.0+0x73e/0x8a0 drivers/gpu/drm/drm_atomic_helper.c:1921
-Code: 00 00 00 fc ff df 48 89 f9 48 c1 e9 03 0f b6 04 01 84 c0 74 08 3c 03 0f 8e 44 01 00 00 48 8d 3d e8 b2 3a 0b 8b b3 d0 00 00 00 <67> 48 0f b9 3a e9 e1 fc ff ff e8 43 4e 60 fc e9 7c fe ff ff e8 e9
-RSP: 0018:ffffc90000a7f6e8 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffff888100fa0040 RCX: 1ffff110201f4022
-RDX: ffff888025b8c780 RSI: 0000000000000027 RDI: ffffffff90e31630
-RBP: dffffc0000000000 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: ffff88802a6c0200
-FS:  0000000000000000(0000) GS:ffff8880d646a000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fea94fea540 CR3: 000000002e244000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- drm_atomic_helper_wait_for_vblanks drivers/gpu/drm/drm_atomic_helper.c:1895 [inline]
- drm_atomic_helper_commit_tail+0xff/0x130 drivers/gpu/drm/drm_atomic_helper.c:1997
- commit_tail+0x338/0x430 drivers/gpu/drm/drm_atomic_helper.c:2074
- drm_atomic_helper_commit+0x303/0x380 drivers/gpu/drm/drm_atomic_helper.c:2312
- drm_atomic_commit+0x230/0x300 drivers/gpu/drm/drm_atomic.c:1789
- drm_atomic_helper_dirtyfb+0x603/0x790 drivers/gpu/drm/drm_damage_helper.c:183
- drm_fbdev_shmem_helper_fb_dirty+0x1cc/0x310 drivers/gpu/drm/drm_fbdev_shmem.c:117
- drm_fb_helper_fb_dirty drivers/gpu/drm/drm_fb_helper.c:249 [inline]
- drm_fb_helper_damage_work+0x348/0x640 drivers/gpu/drm/drm_fb_helper.c:275
- process_one_work+0xa0e/0x1980 kernel/workqueue.c:3314
- process_scheduled_works kernel/workqueue.c:3397 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3478
- kthread+0x370/0x450 kernel/kthread.c:436
- ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	00 00                	add    %al,(%rax)
-   2:	00 fc                	add    %bh,%ah
-   4:	ff                   	lcall  (bad)
-   5:	df 48 89             	fisttps -0x77(%rax)
-   8:	f9                   	stc
-   9:	48 c1 e9 03          	shr    $0x3,%rcx
-   d:	0f b6 04 01          	movzbl (%rcx,%rax,1),%eax
-  11:	84 c0                	test   %al,%al
-  13:	74 08                	je     0x1d
-  15:	3c 03                	cmp    $0x3,%al
-  17:	0f 8e 44 01 00 00    	jle    0x161
-  1d:	48 8d 3d e8 b2 3a 0b 	lea    0xb3ab2e8(%rip),%rdi        # 0xb3ab30c
-  24:	8b b3 d0 00 00 00    	mov    0xd0(%rbx),%esi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	e9 e1 fc ff ff       	jmp    0xfffffd15
-  34:	e8 43 4e 60 fc       	call   0xfc604e7c
-  39:	e9 7c fe ff ff       	jmp    0xfffffeba
-  3e:	e8                   	.byte 0xe8
-  3f:	e9                   	.byte 0xe9
+Why is this inside the loop, the args are invariant of anything
+modified in the loop.  Thanks,
 
+Alex
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> +		/*
+> +		 * If the current range starts after the page's span,
+> +		 * this and any future range won't match.  Bail early.
+> +		 */
+> +		if (page_buf_offset_end <= range_buf_offset)
+> +			break;
+> +
+> +		if (page_buf_offset >= range_buf_offset &&
+> +		    page_buf_offset_end <= range_buf_offset + range_len) {
+> +			/*
+> +			 * The faulting page is wholly contained
+> +			 * within the span represented by the range.
+> +			 * Validate PFN alignment for the order:
+> +			 */
+> +			unsigned long pfn = (range_start + page_buf_offset -
+> +					     range_buf_offset) / PAGE_SIZE;
+> +
+> +			if (IS_ALIGNED(pfn, 1 << order)) {
+> +				*out_pfn = pfn;
+> +				return 0;
+> +			}
+> +			/* Retry with smaller order */
+> +			return -EAGAIN;
+> +		}
+> +		range_buf_offset += range_len;
+> +	}
+> +
+> +	/*
+> +	 * A hugepage straddling a range boundary will fail to match a
+> +	 * range, but the address will (eventually) match when retried
+> +	 * with a smaller page.
+> +	 */
+> +	if (order > 0)
+> +		return -EAGAIN;
+> +
+> +	/*
+> +	 * If we get here, the address fell outside of the span
+> +	 * represented by the (concatenated) ranges.  Setup of a
+> +	 * mapping must ensure that the VMA is <= the total size of
+> +	 * the ranges, so this should never happen.  But, if it does,
+> +	 * force SIGBUS for the access and warn.
+> +	 */
+> +	WARN_ONCE(1, "No range for addr 0x%lx, order %d: VMA 0x%lx-0x%lx pgoff 0x%lx, %u ranges, size 0x%zx\n",
+> +		  address, order, vma->vm_start, vma->vm_end, vma->vm_pgoff,
+> +		  vpdmabuf->nr_ranges, vpdmabuf->size);
+> +
+> +	return -EFAULT;
+> +}
+> +
+>  /*
+>   * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
+>   * It allows the two co-operating drivers to exchange the physical address of
+> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+> index fca9d0dfac90..c8f6f959056a 100644
+> --- a/drivers/vfio/pci/vfio_pci_priv.h
+> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+> @@ -23,6 +23,20 @@ struct vfio_pci_ioeventfd {
+>  	bool			test_mem;
+>  };
+>  
+> +struct vfio_pci_dma_buf {
+> +	struct dma_buf *dmabuf;
+> +	struct vfio_pci_core_device *vdev;
+> +	struct list_head dmabufs_elm;
+> +	size_t size;
+> +	struct phys_vec *phys_vec;
+> +	struct p2pdma_provider *provider;
+> +	u32 nr_ranges;
+> +	struct kref kref;
+> +	struct completion comp;
+> +	unsigned long vma_pgoff_adjust;
+> +	u8 revoked : 1;
+> +};
+> +
+>  bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
+>  void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
+>  
+> @@ -114,6 +128,12 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
+>  	return (pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA;
+>  }
+>  
+> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
+> +			      struct vm_area_struct *vma,
+> +			      unsigned long address,
+> +			      unsigned int order,
+> +			      unsigned long *out_pfn);
+> +
+>  #ifdef CONFIG_VFIO_PCI_DMABUF
+>  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  				  struct vfio_device_feature_dma_buf __user *arg,
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
