@@ -4,139 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7104CD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:07:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E999CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:13:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2337C10E7B7;
-	Wed, 27 May 2026 13:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D277110E0FC;
+	Wed, 27 May 2026 13:13:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="esP9OcSl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Fw2483cY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="esP9OcSl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Fw2483cY";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="EYyRSoBb";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB69D10E7B9
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:07:11 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A932667569;
- Wed, 27 May 2026 13:07:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779887230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vlT+/BAQdkxbWapVyZUuqzz0p8aDpSmVgE3x+y2I7Sc=;
- b=esP9OcSlpxOulRHCToW7/6cyCoN5yti/xmoyKd9e79MetL1+XOpIVFuo08ayfmAVG3kFKU
- 96TyKKE2tuzmH1p/j3TlrcUUCUFVn+MqHwZcEny6ll9fplJa8mREBHZtbOf1nHi0r0n4Oq
- /SSa2NUcUdqXBVb50nbVXUtWZYyvay0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779887230;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vlT+/BAQdkxbWapVyZUuqzz0p8aDpSmVgE3x+y2I7Sc=;
- b=Fw2483cYiiddYwEeOWJJ9pkkLNDS3rNaWDj/sBPwTYlpeqkmEC5ULJGJNMrsiXTLvbcRt/
- q8Hs+4yIXg3FhhCg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=esP9OcSl;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Fw2483cY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779887230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vlT+/BAQdkxbWapVyZUuqzz0p8aDpSmVgE3x+y2I7Sc=;
- b=esP9OcSlpxOulRHCToW7/6cyCoN5yti/xmoyKd9e79MetL1+XOpIVFuo08ayfmAVG3kFKU
- 96TyKKE2tuzmH1p/j3TlrcUUCUFVn+MqHwZcEny6ll9fplJa8mREBHZtbOf1nHi0r0n4Oq
- /SSa2NUcUdqXBVb50nbVXUtWZYyvay0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779887230;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vlT+/BAQdkxbWapVyZUuqzz0p8aDpSmVgE3x+y2I7Sc=;
- b=Fw2483cYiiddYwEeOWJJ9pkkLNDS3rNaWDj/sBPwTYlpeqkmEC5ULJGJNMrsiXTLvbcRt/
- q8Hs+4yIXg3FhhCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4970C5A843;
- Wed, 27 May 2026 13:07:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id kaqgEH7sFmq5EQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 13:07:10 +0000
-Message-ID: <4a7c2f87-60fd-458c-a579-a36799b86557@suse.de>
-Date: Wed, 27 May 2026 15:07:09 +0200
+Received: from LO0P265CU003.outbound.protection.outlook.com
+ (mail-uksouthazon11022116.outbound.protection.outlook.com [52.101.96.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB6610E0FC
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:13:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hNx/oSAqY63AZ2OswhSw/vOBkKmhUO7S+rMQHKOK8upRARpiiKd441qNSJ08jWMPXFp4J42tvAjrv6fjcLaus/DoHfCh/SQ4z49o/DikSL/MwoQVpgZjUdlG6xypkiYXxQiIgCaOBFnxcZ6+TQ2btkZCLrFmBhi4RivEpPXUKobddm1N1qhqnaD6jRApLYppCLeAC0cTjZ6iI1BhfJZVzZ0wY2TdVRZeVcKHywI3k7GSZISHl6F45kJUuU4/pZPypWHWQNZ+oO2rXMJKVH2fuDUMWZdCYjBYheiIYEyzl6roqRBAC7FsR7XTC/ciRHFO5P3M9SXiW1F21N1nKUHMlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4Yz2efpOsaj5hYOAkNbgN8/utAy3HXSEXQNxm+Evn9I=;
+ b=ko/eORuX7AW0IBOgksZ31UDMU1Cf0iaVVerOVTPX7rL7iPWjXpG55UNsdhAXATeN2BNIMXxZSW8jP5bm1/2WQJdLti4mziHpT/BRAkj5J5Lr3xPvsgIucc5v7/9aDAzYPrEIQH4x4jyhoS5IV/hEwtd6xzfssVnCcjSgvDzKE1lKdyjoTYuT+IjX5XkqyT8t4DvyViHmMgWeMrzTyf4OR4WQRvmhr1J3v1L5U4CnBr4xD5BD2/+/Aw+EdtI4A+R0oKnJYJa5rDcNE+ULf+VgYUFJtAqkjSaoewMkCxK4ebh0p5ghJTaEcpHKhR2cCFp1XW7W7mBHjUAkprJ6SpXGTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4Yz2efpOsaj5hYOAkNbgN8/utAy3HXSEXQNxm+Evn9I=;
+ b=EYyRSoBbZsVO12E+X4WG6Q1zEoI1eblQyt7JJr95OBwrJER1FKlANkRMSJ6sRgy679erHeQvwkKl4xo6bytDtBW8MXRgfHg1bfW03cAtM/u9HAXVaEj0ji02jOZoKXejrGyqa1RbxsvhbKBrdzn4QQNvMODDDJT66J979V2re2Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CW1P265MB8687.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27e::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
+ 2026 13:13:02 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0071.011; Wed, 27 May 2026
+ 13:13:02 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 27 May 2026 14:13:01 +0100
+Message-Id: <DITHHN0ECZIE.LHY3OLB53XAR@garyguo.net>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Eliot
+ Courtney" <ecourtney@nvidia.com>
+Subject: Re: [PATCH v5 11/24] rust: device: make Core and CoreInternal
+ lifetime-parameterized
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
+ <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
+X-Mailer: aerc 0.21.0
+References: <20260525202921.124698-1-dakr@kernel.org>
+ <20260525202921.124698-12-dakr@kernel.org>
+In-Reply-To: <20260525202921.124698-12-dakr@kernel.org>
+X-ClientProxiedBy: LO4P302CA0024.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c1::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] drm: Limit DRM_IOCTL_WAIT_VBLANK to vblank interrupts
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- simona@ffwll.ch, airlied@gmail.com, pekka.paalanen@collabora.com,
- jadahl@gmail.com, contact@emersion.fr, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
-References: <20260515120916.333614-1-tzimmermann@suse.de>
- <b5d03921-1e6f-4c4f-900e-fc9e28222176@mailbox.org>
- <cb461424-e4c1-4d2c-934b-ffd7374e2a56@mailbox.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <cb461424-e4c1-4d2c-934b-ffd7374e2a56@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: A932667569
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[mailbox.org,ffwll.ch,gmail.com,collabora.com,emersion.fr,linux.intel.com,kernel.org];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
- MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB8687:EE_
+X-MS-Office365-Filtering-Correlation-Id: 657549bc-3d59-4847-c5c9-08debbf1aea3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|10070799003|1800799024|22082099003|18002099003|921020|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: HS/iQkr9C+5UvxBcpSzCVITn2u8Uqsppyk81wXTDq+FQt6OdQ8J8nWsi0LDDRsE07tKB+Mm2VWd6oY9oA8ZDvJEjBJZGce0WaAR17Ojohs35zXsq1exRljImq8H78bM2m+i4w/qKKRC03pVOZvpSJ50YM0Tt+MvqxcMGTko4GVblgiWe/i9YQJ2tsao78shkSDiFimsF39JPoEyqeDR5eZbWzbGpYQzC1bivc9RGu0raFoqswH4UyaUVPSe3qpsRlh9rwzmqlfDCMoWXV2ODmh6VOOEsAockVl2EuQX2ZhNzVJx0XFYCo/CvbsZYvo7QORbJ9Eyebkx3rS+em5dkGTSH/UxF63HpMJORX83Xjs6qyfeFGj0tmMEveQnaCDM8dYSEgqrSzLpv/D0TuN2E/aeog15V7k2notTHa0/3C6N0Th6aDwe4YjOD9OzpzuIHJdUuqAB8/0/8BsOV6z8yo8CaHag7MC5vhOpVj6aUb2/Txg4cxvgtamprJ+JZgklCPNPb0y/S67r1S2YbPyWAupIv0ZbgXWxy96N4OQ8uDq5nn/p80Y3kda1MlWFzhMwSu5qQL6bt5UHIh8POPTfTpZ///yfvZVsIZZTRlSDwkg102nTonDtCqeezuJvDOsZpvz3QKL6NTJk3dcMLBvDp9LAschR3PhDejNBjAWNTox+il4Qeo5GmzG7csKpv0qZQ9L8V9RZjK5JbaYPmW4AKaqUKpBIz8zlZIEroznbxGag=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(10070799003)(1800799024)(22082099003)(18002099003)(921020)(4143699003)(56012099006);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OWxKZ3JBb3RrY1FQaGFxTlFmNitQejhpNVdaNDN3VGU1M3ZWKzBNdWUxMHBk?=
+ =?utf-8?B?Q3pObTBmU2Qya29IMFlSVzBrNnM5bkZmMk5NUSt3MGhneWkrM3pJZkl3S0FF?=
+ =?utf-8?B?VUU0SFJuQUhKbWZOWWVaaDd2a051dE9McjE5QUdSMHI0V1ZsK3lUOUp6SURQ?=
+ =?utf-8?B?RmY0QThPSDl0NitEWG90REQ3L1lESGw3UnA3aUxnMU52ZGh2VHlnL3dtTnRK?=
+ =?utf-8?B?QitIc3Q2VnlnR25wL1Fsc3JtUjN0dy9wWU9RTy9LUUlpSkFpQ05LQ2t2NjdO?=
+ =?utf-8?B?a28xQU4ydkNFNW1Na3dqLzFiZjVHQlRkRDJ2OEIyZS9GODB3VmFEVG44N245?=
+ =?utf-8?B?SjhYOEMvdTc0S2tSQzdtS3BDQWlhQVFMQytma0tlcXMwV1lXVU5HaERWenY5?=
+ =?utf-8?B?T2hEUzhMYk1zN0RWRWhnTTZRY0I2bkQrZHN3SVp5K1hZczRsQXV2TVlRNE5n?=
+ =?utf-8?B?WWxKd1grY3JHd1NIQTZkYUFPajJKV0IwWHBRQk1uNDVxZGZ6Q2J5L1pWQ1po?=
+ =?utf-8?B?a2llaDJpWkxBQnJKV3Qvd0tRQ2ZYSU12SFdlUjNRYU5jZmlFbFlrWVVxNEVj?=
+ =?utf-8?B?MklCQWVoYk8zZnY3ODR1ZHBxVHRoU2tlUFZrc0dQenpBWFN1Mk92cXRBTmVn?=
+ =?utf-8?B?R1FKaWxDRmx4WmhLWHpIVnoyOUVFOWorWU5qT2RtTHBUVHVzblpaYjRCWWlO?=
+ =?utf-8?B?bnpQeU9ydkg1Tm93cHZEaDJlNzI0ZGsvMWtmSjBpZWJjUi9JUy84WkFsQ042?=
+ =?utf-8?B?VWZmQXNJcjE1WkdCUmNoRzlPRmhQVTh1eW9YZ3hxNE5RMVBTNnh0SUZNT29r?=
+ =?utf-8?B?ZVpSaThBbDJFQnpNeEdwQ0pCTVkvN1M5b04zaURKcDY0YTJjYkxzSTR5TStU?=
+ =?utf-8?B?NkVObm5tOWI2eDdwRDlPeTJXUndzdkgrcWxSUVNkS1Mrc28yeVBkQTg2MWRq?=
+ =?utf-8?B?cnVlYTNZVEFiUTBaejFPdVNEdEVwM1RsZUlaeWhCZWRBSEtzeVdzTG0yTXds?=
+ =?utf-8?B?MEZjdlNWL2kvdFZGdkt3aFgxVW1TUlN4WjZaeXo2K2dvZDlrWmV5WHRONm9M?=
+ =?utf-8?B?cjBaMGVBQ0FXSUNkOGlUMllUSHU1b1hpNVYxVDhMbS91clZoMmtHUGFucHdq?=
+ =?utf-8?B?OUJOUy9XL1VRQWludXFOUWwzVkhyOFVLL2lVMFZBTzZIWGZyUTMyNUxDdXo5?=
+ =?utf-8?B?dU04d0JSOXRMV2p5MERHeEIvNDg5SFpYakxZQzNrUnpvdzFxNjJTankyclZU?=
+ =?utf-8?B?dS9XRlh5U2FwUUljVnhFVnduelYxd0E0bXN2Rk1wUVdqSlRjK045ZTZIRCt1?=
+ =?utf-8?B?MUlBZExqMXNNTVpBOWxFK1daSnBGYXplR1oyRE1rSjI3LzVpQ1ltdUxGWWlB?=
+ =?utf-8?B?SmMvYkZwdTJhZHBoamE3T0tCOFovSHBya0QvbkRDSTFVSitVZzEyNFJVUGVw?=
+ =?utf-8?B?ek5qUXVRU0l5RXZoeHk2NHNieGY2NXhKZkdxc0RJUzVOSjczUzBoZWFSVFlI?=
+ =?utf-8?B?elBGTEZBWWF0UUxIOUIvQW16RC9icTBTL3gweFh1ckYvSEVoRFNvRUl0dUsz?=
+ =?utf-8?B?ZVNjTVVpeWswb3NRaE5lSGxnMStqWllGTGF4YVhxQktlUkJ1eWs4RVlHL21O?=
+ =?utf-8?B?L2o5VUNCNzlPOXBUL3FSN2tibjhvZjlUTzhGRThSNlcxNDRUZ3NONkhmQjdQ?=
+ =?utf-8?B?cEowd1pSRUZRM0ppbllTempoa2p4bzlTY2pqNitjdDlPRmhGTHAxTys3M04x?=
+ =?utf-8?B?L0FPUHQ5TURFckkwUzlURkRpdTRESlpkL2Mvc2tIK2Nlbk0yWEJiQnNBNW5v?=
+ =?utf-8?B?ZlJBcGRzMkhTSTNiaXNRejVBSTFnUUJXUnNEUGNwZThhU1ZkNzFDdXhmMkZw?=
+ =?utf-8?B?MW9mMHFYSXpHZ0ZBTGVpR201bWloQU55V1p5cFVzZXcxSW1ZeERKWitMOXpp?=
+ =?utf-8?B?K1IxSHBZcVkrWDZWcTI1U0c0emFiNThJbHQ2a0k3YzlDcEZST3labmVXSy82?=
+ =?utf-8?B?ZlZMZXdQZG1keFNsSTZjYitYa0srekNFNkM1Y2duMnVJQTE0Zm0xZkk1MzFW?=
+ =?utf-8?B?bGgvb2hPRUZwd2RMbFRYOFJQK1J2TG0yVGorWkFMNlF2TnZyTVBJbFR4a1F0?=
+ =?utf-8?B?NXdaK2l4bXFrV3BzNTRxWmE0T0dDeE9Wc2J4VituMU5GZ290bmhxSWE5bmFD?=
+ =?utf-8?B?NlV3Sk5uZnU4c1cvNkpnRjF3MEdJd1VlZXd6eXA4NmE4eURWRUVOSzkrMGRN?=
+ =?utf-8?B?WE9MVW1lUFEwS1VvZjhmNFg2QlNtUytoLzkrQm5WZHVMVWxTVzRlVlo3R1VQ?=
+ =?utf-8?B?MzJCdHhCaGNPb2lYQlpGZ2tzYWtEUUU4NzdHZkZnRkdzWUJjakF3UT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 657549bc-3d59-4847-c5c9-08debbf1aea3
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 13:13:02.6079 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 63SvK01cqMUCy3A1r7FjT9J8Jod/31fGviMLNOiPRkFhzNAT1wHGK35fWHjdLGmICrxR37YaMubXZr81BOTVJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8687
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,80 +149,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On Mon May 25, 2026 at 9:20 PM BST, Danilo Krummrich wrote:
+> Device<Core> references in probe callbacks are scoped to the callback,
+> not the full binding duration. Add a lifetime parameter to Core and
+> CoreInternal to accurately represent this in the type system.
+>=20
+> Suggested-by: Gary Guo <gary@garyguo.net>
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-Am 15.05.26 um 18:56 schrieb Michel Dänzer:
-> [ Adding the wayland-devel list for awareness ]
->
-> On 5/15/26 17:12, Michel Dänzer wrote:
->> On 5/15/26 13:55, Thomas Zimmermann wrote:
->>> DRM's WAIT_VBLANK ioctl synchronizes user-space clients to display
->>> refresh. This is meaningless with vblank timers, which run unrelated
->>> to the hardware's vblank.
->>>
->>> Disable the ioctl for simulated vblanks. Set DRM_VBLANK_FLAG_SIMULATED
->>> for CRTCs with simulated vblank events in all such drivers. The vblank
->>> timers of these devices still rate-limit the number of page-flip events
->>> to match the display refresh.
->>>
->>> According to maintainers, user-space compositors do not require the ioctl
->>> for rate-limitting display output. Weston and Kwin rely on page-flip
->>> events. Mutter uses and internal timer to limit the number of display
->>> updates per second.
->> Actually mutter fundamentally relies on atomic commit completion events for that, same as Weston & KWin. Mutter uses the WAIT_VBLANK ioctl only for minimizing input → output latency (which can hide issues when completion of atomic commits isn't properly throttled).
->>
->>
->> (Just a side not on the cover letter, no objections to the patches themselves)
-> After more discussion on IRC, I have some concerns.
->
->
-> The big one first: For drivers with no strict refresh cycle (i.e. an atomic commit can take effect more or less anytime after at least one "refresh cycle" has passed since the last one), does this change really make sense / what's the actual benefit?
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-I don't have a strong opinion on that matter. I just think we should 
-clarify the meaning of these ioctls.
-
-Timing page flip is currently not supported on any driver without 
-hardware vblank IRQ or a vblank timer. The situation might vary among 
-compositors, but there have been plenty of reports of animation and 
-frame rates either being too high or too low. So I think we should 
-rollout vblank timers for all drivers without hardware vblank IRQ.
-
-Right now, vblank timers act like a vblank IRQ in these ioctls. That's a 
-convenient position for user space.
-
-But we don't really sync anything with hardware here, so the alternate 
-proposal is to not support them.  This also appears to be the original 
-intention of these ioctls.  Vblank timers would just limit the internal 
-page-flip rate, but nothing else. That's the more defensive approach. 
-I'd prefer this, as it does not give out guarantees to user space that 
-future drivers might not be able to fulfill.
-
-
-
-
->
-> In the case of the asahi & nvidia drivers, the problem with exposing this functionality to user space is that if the timestamps aren't accurate, it can result in missing display refresh cycles, which are dictated by hardware. That's why it makes sense to reject it there.
->
-> When there's no strict refresh cycle, that issue doesn't apply though.
->
->
-> Any changes made to the WAIT_VBLANK ioctl should also be made to the CRTC_GET_SEQUENCE / CRTC_QUEUE_SEQUENCE ioctls, which are slightly different UAPI for the same functionality.
-
-I'll send out an update with that fixed in a bit.
-
-Best regards
-Thomas
-
-
->
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+> ---
+>  drivers/cpufreq/rcpufreq_dt.rs        |  2 +-
+>  drivers/gpu/drm/nova/driver.rs        |  5 ++-
+>  drivers/gpu/drm/tyr/driver.rs         |  2 +-
+>  drivers/gpu/nova-core/driver.rs       |  4 +--
+>  drivers/gpu/nova-core/gpu.rs          |  2 +-
+>  drivers/pwm/pwm_th1520.rs             |  2 +-
+>  rust/kernel/auxiliary.rs              | 12 ++++---
+>  rust/kernel/cpufreq.rs                |  2 +-
+>  rust/kernel/device.rs                 | 49 +++++++++++++++++++++------
+>  rust/kernel/devres.rs                 |  2 +-
+>  rust/kernel/dma.rs                    |  2 +-
+>  rust/kernel/driver.rs                 |  6 ++--
+>  rust/kernel/i2c.rs                    | 16 ++++-----
+>  rust/kernel/io/mem.rs                 |  4 +--
+>  rust/kernel/pci.rs                    | 20 ++++++-----
+>  rust/kernel/pci/id.rs                 |  2 +-
+>  rust/kernel/platform.rs               | 12 +++----
+>  rust/kernel/usb.rs                    | 16 ++++-----
+>  samples/rust/rust_debugfs.rs          |  4 +--
+>  samples/rust/rust_dma.rs              |  2 +-
+>  samples/rust/rust_driver_auxiliary.rs |  7 ++--
+>  samples/rust/rust_driver_i2c.rs       |  6 ++--
+>  samples/rust/rust_driver_pci.rs       |  4 +--
+>  samples/rust/rust_driver_platform.rs  |  2 +-
+>  samples/rust/rust_driver_usb.rs       |  8 ++---
+>  samples/rust/rust_i2c_client.rs       |  4 +--
+>  samples/rust/rust_soc.rs              |  2 +-
+>  27 files changed, 118 insertions(+), 81 deletions(-)
 
