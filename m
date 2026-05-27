@@ -4,48 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B30AECD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 07:29:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53B28CD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 07:29:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB65D10ED0E;
-	Thu, 28 May 2026 07:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 527F810ED13;
+	Thu, 28 May 2026 07:29:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="dRe90rpu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ieEv6UB7";
 	dkim-atps=neutral
-X-Greylist: delayed 394 seconds by postgrey-1.36 at gabe;
- Wed, 27 May 2026 09:00:34 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66F3C10E674
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 09:00:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=px
- ZNWo9LRCPMIVUw+9c1ow02KTqS79PGb7Cne9zcVKA=; b=dRe90rpuxC7raE+xCm
- /+CorRR4fUlVbmBU/IEv+1h3wpYh+6QGxjWWYOx4aKSogilA/Q0ykCU4UAMhQXFq
- 1OaUgMt+YMkeSVZJa4rxwwkFfCyUzs3fK+K7d3+sjxdbDMJhIrKTXUVXkzj2IqAu
- XQWEwWuuPt5tnqiiGSmAX7dvA=
-Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id
- _____wD315cLsRZqnSQMDw--.17642S2; 
- Wed, 27 May 2026 16:53:32 +0800 (CST)
-From: wangdich9700@163.com
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- wangdich9700@163.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- wangdicheng <wangdicheng@kylinos.cn>
-Subject: [PATCH] drm/connector: add CRTC state change callback to HDMI audio
- helpers
-Date: Wed, 27 May 2026 16:53:29 +0800
-Message-Id: <20260527085329.124777-1-wangdich9700@163.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-dy1-f194.google.com (mail-dy1-f194.google.com
+ [74.125.82.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39F5910E7A0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 11:54:03 +0000 (UTC)
+Received: by mail-dy1-f194.google.com with SMTP id
+ 5a478bee46e88-304545f5206so7290064eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 04:54:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779882842; x=1780487642; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=aunltCQrVILEaQ+TbdbV0mNvTCr1h5KSg1QSOe5Corg=;
+ b=ieEv6UB75B+kQDnrthbzHW6GJsL10T0zyb77cdrsFmPMS1IpsfTPMsR4mvlvynfzdm
+ g0eYcjQtyLigAJqCZSX3Bmvtg6Ef+EIKEtPpa9kDak8aPrbKnVjvnWnmac95ycBF0z5R
+ gm2/PHY9vDqHT9yeM4xzIKtyjUE20bnfj0CscUpqPQzsApZJ43vlm/cs/Az9MFy/Ss+3
+ m2AN2WUAoAOX0cKb+uvOlPXn2PQ6IITsWxOy09EYosXHd8SfJ/FaymGY4CTpj77UIP+U
+ /GJc2JVZLjfC0dFd7NzqF+Ui8BZIsuxN++efl80csURB2RXWiEBBj/Wfs/u9/DxxODqN
+ D4sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779882842; x=1780487642;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=aunltCQrVILEaQ+TbdbV0mNvTCr1h5KSg1QSOe5Corg=;
+ b=TfbDiMXaw6kSgj+xwUrPY389awpNgldwc4qxXhNbEt5TfTk8FV1v+3YSXzheMCe+4C
+ oYqc3OjlmPXJIwxyryuDPOcOGfyLkshbXWCIGGu+utXTgEvuL91VhhgmpAcOONx0iqam
+ dfgcWibMvlCOqfUJ/ggKKdv7YyBRvobxDx+5LWkP19tnIl1VtQ3MjuCagrJT834Wttv3
+ D+4RFE8QNhPMyCoTwbrLkEKWdKevmpVM8hwG0GqaTaS9y1lPDvkDDs453KJNXEkAYap1
+ +THAWJYEtDZcf+g3Fr1YgvR2XXev0zx5qSwv3C1ztrEui6vRmmoG06ueMujh8DgW2UWc
+ hOCQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+GjPiQA9Q2HhA47mXWJLwIaG4Ii+lT+oJULiPKAF1e8RFgYdFBo03CIZRndp8JXQOC7NYO46gkoyY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyphHQiUuk4N0i/xzUSdTAQPRzXBAd3tvGX4/thPAyWE2xxUe7i
+ KUKFsi+s5MCgWDXl1os50DJYknWv5pDNIJAfOYV3Uzh2VisRfHktdTEV
+X-Gm-Gg: Acq92OHXHTbaBHGNQipJU8ShU+cRo4m41MmKAmro0HibijkskDnlGLAp5NxOM2DE/Ka
+ 3Xt5WdAAlLY1megeytFNihmHmtoUi4YXAoO3koNFpHBEebYKfiHd9kY7JsivtXB0qWNv/t3xEJY
+ aU62T9ntILTMM/SwfmGK/vI76LnDGE7+x3VIV46+/b1fQ+2QNDpreZEAtDIKKYqzqMuGznGzkgW
+ dNvHIrGf8NyHE9A51J48xHWnfOgRTnftHGjwpQGnWf7EJ90p6IsB75HOyud2a7JlfvRBZstYLty
+ JitESAdqL1qGbI4LIl0vR2fqLfYUiDgmNd1EnY/GihaJ8qiu52r/olSjceVYhSyY4YHs7mZROOm
+ i8yaYv59pEAnItSQtLNfyl0idOtale2sQHVz8C6VPD/KHxc5+nPCCpXCOBe+xryYo+AnQCqQiHJ
+ qZjtFKf2DrD4qETQpeKeNCxA==
+X-Received: by 2002:a05:7300:8607:b0:2ed:935:aa33 with SMTP id
+ 5a478bee46e88-30448fd64b5mr11992768eec.5.1779882842238; 
+ Wed, 27 May 2026 04:54:02 -0700 (PDT)
+Received: from zhanwei.. ([192.227.223.214]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-304cb5c381asm216045eec.8.2026.05.27.04.53.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 May 2026 04:54:01 -0700 (PDT)
+From: Zhan Wei <zhanwei919@gmail.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Raag Jadav <raag.jadav@intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Guenter Roeck <linux@roeck-us.net>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Zhan Wei <zhanwei919@gmail.com>
+Subject: [RFC PATCH] drm/xe/hwmon: report a single fan for DG2 instead of two
+Date: Wed, 27 May 2026 19:53:11 +0800
+Message-ID: <20260527115311.13398-1-zhanwei919@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD315cLsRZqnSQMDw--.17642S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GFy7AFW3ZFW5JFyUCFy8Krg_yoWxXr13pa
- 9FyrZ3Kr4vq343CFn7AF1fGrs0kaykJFyUt34Ygw15C398Krn8Aa1kGFn5u3WDJr9xZ3W2
- yanIqw43Aa4vkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zKjgshUUUUU=
-X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/xtbC5wyP3moWsQxk5AAA37
 X-Mailman-Approved-At: Thu, 28 May 2026 07:29:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,141 +91,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: wangdicheng <wangdicheng@kylinos.cn>
+xe_hwmon_pcode_read_fan_control() currently hardcodes *uval = 2 when
+queried with FSC_READ_NUM_FANS on DG2. This causes fan2_input to be
+exposed via sysfs, but on the tested Arc A750 LE (DG2 G10, PCI ID
+0x56a1) fan2_input reads 0 RPM permanently while fan1_input correctly
+reports ~800 RPM with both physical fan physically spinning.
 
-The DRM HDMI audio helper framework notifies the audio codec about
-physical connection changes via drm_connector_hdmi_audio_plugged_notify(),
-but has no mechanism to notify when the CRTC state changes while the
-connector remains physically connected.
+The RPM is calculated delta-based from a tach pulse counter:
 
-This is a real problem on platforms with DP/HDMI audio. When a CRTC is
-disabled while the sink remains connected (e.g. user switches to
-"internal display only" mode but still wants audio from the external
-monitor), the audio path silently breaks because:
+    rotations = (reg_val - fi->reg_val_prev) / 2;
 
-1. The video stream is disabled, so there are no blanking intervals
-   for audio Secondary Data Packets (SDP) to be transported.
+so a constant-zero RPM means the register at offset 0x138170
+(BMG_FAN_2_SPEED) simply does not accumulate pulses on DG2 silicon.
+The i915 driver does not expose fan2 on DG2 at all -- it only maps
+PCU_PWM_FAN_SPEED (0x138140, identical to BMG_FAN_1_SPEED), consistent
+with the observation that only one fan tach register is wired on DG2.
 
-2. The audio codec still believes the jack is present because
-   plugged_notify() was not called (the connector is still physically
-   connected).
+Report a single fan for DG2 to keep the phantom fan2_input out of
+sysfs.  Battlemage paths are unchanged.
 
-3. Userspace (PulseAudio/PipeWire) continues routing audio to the
-   external display, but no sound is actually output.
+Tested on Arc A750 LE (DG2 G10): with this patch applied, fan2_input
+no longer appears in /sys/class/hwmon/hwmonX/ and `sensors xe-pci-0300`
+shows fan1 only.
 
-Without a framework-level notification, vendors who need to support
-"audio output to external display while CRTC is inactive" are forced
-to scatter condition checks across CRTC disable, encoder disable,
-suspend, and resume paths. This pattern is fragile: any change in
-the display pipeline can break the audio path, and the same condition
-("connector connected but CRTC inactive, and audio is in use") must
-be duplicated in multiple locations.
-
-The root cause is architectural: the audio codec has no visibility
-into CRTC state changes, so there is no clean way to implement
-policies like:
-
-- Mute audio output when CRTC is disabled (instead of silent breakage)
-- Keep the video stream alive for audio transport
-- Switch to DP Audio Only mode (hardware-supported on some platforms,
-  e.g. Intel TRANS_DP_AUDIO_ONLY, but never used in i915 driver)
-
-The HDA HDMI silent stream / KAE mechanism partially addresses this on
-Intel platforms, but it operates only on the audio codec side and does
-not coordinate with the DRM side. It also cannot work on platforms
-without HDA codec support (e.g. ASoC-based designs).
-
-Add an optional callback crtc_state_change() to
-drm_connector_hdmi_audio_funcs, and a corresponding notification
-function drm_connector_hdmi_audio_crtc_notify(). DRM drivers should
-call this when the CRTC state changes on a connector with audio
-capability, allowing audio codec implementations to react to display
-pipeline state changes rather than only physical connection changes.
-
-This provides a framework-level mechanism to implement "audio without
-active display" policies cleanly, instead of scattering condition
-checks across the display pipeline.
-
-Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+Fixes: 28f79ac609de ("drm/xe/hwmon: expose fan speed")
+Signed-off-by: Zhan Wei <zhanwei919@gmail.com>
 ---
- .../gpu/drm/display/drm_hdmi_audio_helper.c   | 23 +++++++++++++++++++
- include/drm/display/drm_hdmi_audio_helper.h   |  2 ++
- include/drm/drm_connector.h                   | 16 +++++++++++++
- 3 files changed, 41 insertions(+)
+Open questions for reviewers: this is verified only on DG2 G10. Owners
+of G11 (e.g. ASRock Challenger A750) and G12 (e.g. Sparkle Titan A750
+with three physical fans) -- does fan2_input or fan3_input ever read
+non-zero in your setup? If so, the right fix is a per-subplatform
+table rather than a flat 1.
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_audio_helper.c b/drivers/gpu/drm/display/drm_hdmi_audio_helper.c
-index 7d78b02c1446..3437be6ee989 100644
---- a/drivers/gpu/drm/display/drm_hdmi_audio_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_audio_helper.c
-@@ -128,6 +128,29 @@ void drm_connector_hdmi_audio_plugged_notify(struct drm_connector *connector,
- }
- EXPORT_SYMBOL(drm_connector_hdmi_audio_plugged_notify);
+ drivers/gpu/drm/xe/xe_hwmon.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_hwmon.c b/drivers/gpu/drm/xe/xe_hwmon.c
+index de3f2aeffc3f..2a60a76b1971 100644
+--- a/drivers/gpu/drm/xe/xe_hwmon.c
++++ b/drivers/gpu/drm/xe/xe_hwmon.c
+@@ -860,9 +860,15 @@ static int xe_hwmon_pcode_read_fan_control(const struct xe_hwmon *hwmon, u32 sub
+ {
+ 	struct xe_tile *root_tile = xe_device_get_root_tile(hwmon->xe);
  
-+/**
-+ * drm_connector_hdmi_audio_crtc_notify - Notify the audio codec of CRTC state change
-+ * @connector: A pointer to the connector
-+ * @crtc_active: true if the CRTC is now active, false if disabled
-+ *
-+ * Notify the HDMI audio codec that the CRTC state has changed on this
-+ * connector. This should be called by DRM drivers when a CRTC is
-+ * enabled or disabled on a connector that has audio capability, even
-+ * if the connector remains physically connected.
-+ *
-+ * Unlike drm_connector_hdmi_audio_plugged_notify() which signals
-+ * physical connection changes, this function signals display pipeline
-+ * state changes that affect the audio transport path.
-+ */
-+void drm_connector_hdmi_audio_crtc_notify(struct drm_connector *connector,
-+					  bool crtc_active)
-+{
-+	if (connector->hdmi_audio.funcs->crtc_state_change)
-+		connector->hdmi_audio.funcs->crtc_state_change(connector,
-+							       crtc_active);
-+}
-+EXPORT_SYMBOL(drm_connector_hdmi_audio_crtc_notify);
-+
- static const struct hdmi_codec_ops drm_connector_hdmi_audio_ops = {
- 	.audio_startup = drm_connector_hdmi_audio_startup,
- 	.prepare = drm_connector_hdmi_audio_prepare,
-diff --git a/include/drm/display/drm_hdmi_audio_helper.h b/include/drm/display/drm_hdmi_audio_helper.h
-index 44d910bdc72d..6b6672ae73cf 100644
---- a/include/drm/display/drm_hdmi_audio_helper.h
-+++ b/include/drm/display/drm_hdmi_audio_helper.h
-@@ -19,5 +19,7 @@ int drm_connector_hdmi_audio_init(struct drm_connector *connector,
- 				  int sound_dai_port);
- void drm_connector_hdmi_audio_plugged_notify(struct drm_connector *connector,
- 					     bool plugged);
-+void drm_connector_hdmi_audio_crtc_notify(struct drm_connector *connector,
-+					  bool crtc_active);
- 
- #endif
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index f83f28cae207..54aa15d0ef45 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1256,6 +1256,22 @@ struct drm_connector_hdmi_audio_funcs {
- 	 */
- 	int (*mute_stream)(struct drm_connector *connector,
- 			   bool enable, int direction);
-+
-+	/**
-+	 * @crtc_state_change:
-+	 *
-+	 * Notify the audio codec that the CRTC state has changed on this
-+	 * connector. Called when a CRTC is enabled or disabled while the
-+	 * connector remains physically connected. This is important for
-+	 * DP/HDMI audio because audio transport depends on the video
-+	 * stream's blanking intervals. The @crtc_state_change callback
-+	 * is optional.
-+	 *
-+	 * @connector: the connector whose CRTC state changed
-+	 * @crtc_active: true if the CRTC is now active, false if disabled
+-	/* Platforms that don't return correct value */
++	/*
++	 * The PCODE FAN_SPEED_CONTROL subcommands return an error on DG2, so we
++	 * answer the FSC_READ_NUM_FANS query here. DG2 only wires a single fan
++	 * tachometer register (BMG_FAN_1_SPEED == 0x138140, shared with i915's
++	 * PCU_PWM_FAN_SPEED); BMG_FAN_2/3_SPEED read 0 on DG2 silicon. Reporting
++	 * one fan keeps a phantom fan2_input that always reads 0 out of sysfs.
 +	 */
-+	void (*crtc_state_change)(struct drm_connector *connector,
-+				  bool crtc_active);
- };
+ 	if (hwmon->xe->info.platform == XE_DG2 && subcmd == FSC_READ_NUM_FANS) {
+-		*uval = 2;
++		*uval = 1;
+ 		return 0;
+ 	}
  
- void drm_connector_cec_phys_addr_invalidate(struct drm_connector *connector);
 -- 
-2.25.1
+2.43.0
 
