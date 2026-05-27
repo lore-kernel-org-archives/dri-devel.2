@@ -4,87 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98FEFCD6E41
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:17:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5667CCD6E41
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0674E10E815;
-	Wed, 27 May 2026 15:17:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B927E10E28A;
+	Wed, 27 May 2026 15:19:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Zd4OU75J";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hflNZb+8";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Zd4OU75J";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hflNZb+8";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="G60dGfiu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JXqGt6rB";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zIUv+g9U";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7vmZ/7qa";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 378A410E5A0
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:17:29 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 024F010E28A
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:19:54 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 053AB6AA37;
- Wed, 27 May 2026 15:17:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AB62A66D97;
+ Wed, 27 May 2026 15:19:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779895048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1779895192; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=GpmrI14U1zRKg9Ft8HCdKifIOo3atbqffDM/wjrE0sE=;
- b=Zd4OU75JnmqVM0QH1YVMAYVh2GO3JhgIo2g5fzm5k8Yy9+AGyj0XfK3nr/B69yzYq/YFXm
- t4Cw/q9r27+oXrEK2AfPuY77Eq/wfHyNjPqBrIIIE+pS7B1IsnZl+mSWQ7uXT4GhwWSJXI
- IAjKhNkm8jQ4HFYexUNiZ3u4Gn0U3UA=
+ bh=VQiTEJXQCo0W3Pij3gX2zcUEPyaYgtCBaa/1OBFdGbM=;
+ b=G60dGfiudDBTTsAKbv24NKXMC4mrIvYbAdoAaKKIoXbdZYiVoiPXO0dK/JwiIld3FLH5H/
+ EXR/ET0nRYZO6lIBhmyyCGJbZ94tIjGheZGcFbH4TCE3KUuundnwalgvV1xmvPQTq1db26
+ y9ymEj0lyXmOPzZh+AgZ2fS+bIAj2jI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779895048;
+ s=susede2_ed25519; t=1779895192;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=GpmrI14U1zRKg9Ft8HCdKifIOo3atbqffDM/wjrE0sE=;
- b=hflNZb+8oVB2a+7/Iz3RBlSMhoxMfTaSZ13xqcKmRCZMT30z3xcle53Dk+i3EUsTjraod+
- m8MtH/jWlalsJgCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
+ bh=VQiTEJXQCo0W3Pij3gX2zcUEPyaYgtCBaa/1OBFdGbM=;
+ b=JXqGt6rBv5Jn2ZbFvXHMNaG/ErJHbfARWfNAIPxappIZO6khTTLMQuxF4f80H/nyTQ6+bM
+ 5DgwU2S9MNpcYIAA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=zIUv+g9U;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="7vmZ/7qa"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779895048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1779895188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=GpmrI14U1zRKg9Ft8HCdKifIOo3atbqffDM/wjrE0sE=;
- b=Zd4OU75JnmqVM0QH1YVMAYVh2GO3JhgIo2g5fzm5k8Yy9+AGyj0XfK3nr/B69yzYq/YFXm
- t4Cw/q9r27+oXrEK2AfPuY77Eq/wfHyNjPqBrIIIE+pS7B1IsnZl+mSWQ7uXT4GhwWSJXI
- IAjKhNkm8jQ4HFYexUNiZ3u4Gn0U3UA=
+ bh=VQiTEJXQCo0W3Pij3gX2zcUEPyaYgtCBaa/1OBFdGbM=;
+ b=zIUv+g9Umg/gd0pUxixdqohcCZ7497kV1EPHhMEEELaQIUxVR86QnD+Kb4QCugaqCnCae7
+ ZqHv8dZfK445Ckr1FfHypKVmHgYjBKWeFD3JTu6f9tiwaJdXDg/z4uhOEKhio/4RvJXyPC
+ 9kmf+XpO9mJccrVWFq8LGwyWUojjyS4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779895048;
+ s=susede2_ed25519; t=1779895188;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=GpmrI14U1zRKg9Ft8HCdKifIOo3atbqffDM/wjrE0sE=;
- b=hflNZb+8oVB2a+7/Iz3RBlSMhoxMfTaSZ13xqcKmRCZMT30z3xcle53Dk+i3EUsTjraod+
- m8MtH/jWlalsJgCw==
+ bh=VQiTEJXQCo0W3Pij3gX2zcUEPyaYgtCBaa/1OBFdGbM=;
+ b=7vmZ/7qaGd4SZENaMEjQ1P/SsNA9vjYY2ZkExEk+SIR/fcXG2onLSZDx+++bnV6bzE76lF
+ muBEXM4Krtknd1BA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B0845A8C2;
- Wed, 27 May 2026 15:17:27 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 46E765A8C5;
+ Wed, 27 May 2026 15:19:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id dT6MHAcLF2qmFgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 15:17:27 +0000
-Message-ID: <ed56eba9-8a34-4f17-b400-0ebf538ebcb4@suse.de>
-Date: Wed, 27 May 2026 17:17:27 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Pvb/D5QLF2plGQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 15:19:48 +0000
+Message-ID: <326ebdd3-308a-4eda-b75d-64d789f91881@suse.de>
+Date: Wed, 27 May 2026 17:19:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/10] drm: Improve logic behind damage handling
-To: mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- airlied@redhat.com, airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
- gargaditya08@proton.me, paul@crapouillou.net, jani.nikula@linux.intel.com,
- mhklinux@outlook.com, zack.rusin@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mips@vger.kernel.org, virtualization@lists.linux.dev
-References: <20260527145113.241595-1-tzimmermann@suse.de>
+Subject: Re: [PATCH v3 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+To: Igor Torrente <igor.torrente@collabora.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: loic.molinari@collabora.com, willy@infradead.org, frank.binns@imgtec.com, 
+ matt.coster@imgtec.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+References: <20260209133241.238813-1-tzimmermann@suse.de>
+ <20260209133241.238813-6-tzimmermann@suse.de>
+ <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
+ <850e8355-7884-405c-a70a-986ce032c019@suse.de>
+ <831c0943-c75f-4d42-aa5f-90ce34cf8530@collabora.com>
+ <67855fcd-2afe-4a1d-a51a-210e45f56167@suse.de>
+ <20260527121832.7264f0db@fedora>
+ <025ee28d-c941-4cf1-a6cf-565686ea0bec@suse.de>
+ <16cbd262-aa82-4ca7-ac12-d587ed78ff3b@collabora.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -111,23 +120,29 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260527145113.241595-1-tzimmermann@suse.de>
+In-Reply-To: <16cbd262-aa82-4ca7-ac12-d587ed78ff3b@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: AB62A66D97
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,redhat.com,gmail.com,ffwll.ch,kodeit.net,proton.me,crapouillou.net,outlook.com,broadcom.com];
- MID_RHS_MATCH_FROM(0.00)[];
+ MX_GOOD(-0.01)[]; RCVD_TLS_ALL(0.00)[];
  FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[18];
- RCVD_TLS_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.com:url]
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[collabora.com,infradead.org,imgtec.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,kvack.org];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim,suse.de:mid];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,115 +158,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi
 
+Am 27.05.26 um 17:02 schrieb Igor Torrente:
+> Hi Tomas,
+>
+> I tested your patch and Boris's modifications on top of your patch, and
+> I'm happy to report that both seem to work just fine.
 
-Am 27.05.26 um 16:46 schrieb Thomas Zimmermann:
-> DRM clients can supply information on framebuffer areas to update as
-> part of each page flip, called damage clipping rectangles. But DRM's
-> processing of this information is inconsistent and prone to errors.
+Thanks a lot for testing. I'll send out the official patch ASAP.
+
+Best regards
+Thomas
+
 >
-> - There are multiple fields and tests that decide if damage clips
-> should be taken or ignored.
+> BR,
+> Igor Torrente
 >
-> - Sometimes damage clips are removed behind the back of the DRM client.
->
-> - Atomic helpers evaluate damage clipping in the middle of the atomic
-> check: after connectors and encoders, but before planes and CRTCs. Hence
-> pipeline stages have an inconsistent view.
->
-> - Which leads to drivers (ingenic) doing a re-evaluation if necessary.
->
-> - Tests of plane source coordinates only happen during commits. At this
-> point, the driver should already know if damage clips are to be taken or
-> not. Because of this, some drivers (appletbdrm) might operate on incorrect
-> damage information for their internal workings. This also leads to excessive
-> use of the old plane state.
->
-> Therefore go through DRM helpers and drivers and fix the logic.
->
-> - Run all of the atomic checks with the damage information supplied by
-> DRM clients. Afterwards evaluate plane and CRTC states on whether to
-> take or ignore damage clips. Do all related tests in a single atomic
-> helper.
->
-> - Do not discard damage clips. Set ignore_damage_clips in struct
-> drm_plane_state instead. This includes changes to plane source-coordinates.
-> The damage iterator now only has to look at this flag to detect if it
-> should use the damage clips.
->
-> - Go over drivers and fix the damage handling in the plane's
-> atomic_update helpers. Most drivers no longer need the old plane state
-> in their update.
->
-> - The appletbdrm driver requires a fix in how it uses damage information.
-> Ingenic and vmwgfx can be simplified. These changes improve the drivers'
-> code organization.
->
-> - Kunit tests require some changes. Drop some obsolete tests and add a new
-> one for ignore_damage_flags.
->
-> Tested with bochs, mgag200, Kunit tests.
->
-> v3:
-> - fix error path in appletbdrm
-> v2:
-> - rebase on latest upstream
->
-> Thomas Zimmermann (10):
->    drm/damage-helper: Do not alter damage clips on modeset, but ignore
->      them
->    drm/atomic-helpers: Evaluate plane damage after atomic_check
->    drm/ingenic: Remove calls to drm_atomic_helper_check_plane_damage()
->    drm/damage-helper: Test src coord in
->      drm_atomic_helper_check_plane_damage()
->    drm/appletbdrm: Allocate request/response buffers in begin_fb_access
->    drm/damage-helper: Remove old state from
->      drm_atomic_helper_damage_iter_init()
->    drm/damage-helper: Remove old state from
->      drm_atomic_helper_damage_merged()
->    drm/atomic_helper: Do not evaluate plane damage before atomic_check
->    drm/damage-helper: Rename state parameters in damage helpers
->    drm/vmwgfx: Remove unused field struct
->      vmwgfx_du_update_plane.old_state
->
->   drivers/gpu/drm/ast/ast_cursor.c              |   3 +-
->   drivers/gpu/drm/ast/ast_mode.c                |   2 +-
->   drivers/gpu/drm/drm_atomic_helper.c           |   6 +-
->   drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
->   drivers/gpu/drm/drm_damage_helper.c           |  44 ++--
->   drivers/gpu/drm/drm_fb_dma_helper.c           |   2 +-
->   drivers/gpu/drm/drm_mipi_dbi.c                |   3 +-
->   drivers/gpu/drm/gud/gud_pipe.c                |   3 +-
->   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   3 +-
->   drivers/gpu/drm/i915/display/intel_plane.c    |  11 +-
->   drivers/gpu/drm/i915/display/intel_psr.c      |   3 +-
->   drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |   3 -
->   drivers/gpu/drm/ingenic/ingenic-ipu.c         |   8 +-
->   drivers/gpu/drm/mgag200/mgag200_mode.c        |   3 +-
->   drivers/gpu/drm/sitronix/st7571.c             |   3 +-
->   drivers/gpu/drm/sitronix/st7586.c             |   3 +-
->   drivers/gpu/drm/sitronix/st7920.c             |   3 +-
->   drivers/gpu/drm/solomon/ssd130x.c             |   9 +-
->   drivers/gpu/drm/sysfb/drm_sysfb_modeset.c     |   3 +-
->   .../gpu/drm/tests/drm_damage_helper_test.c    | 200 +++---------------
->   drivers/gpu/drm/tiny/appletbdrm.c             |  59 +++---
->   drivers/gpu/drm/tiny/bochs.c                  |   3 +-
->   drivers/gpu/drm/tiny/cirrus-qemu.c            |   2 +-
->   drivers/gpu/drm/tiny/gm12u320.c               |   2 +-
->   drivers/gpu/drm/tiny/ili9225.c                |   3 +-
->   drivers/gpu/drm/tiny/repaper.c                |   2 +-
->   drivers/gpu/drm/tiny/sharp-memory.c           |   3 +-
->   drivers/gpu/drm/udl/udl_modeset.c             |   3 +-
->   drivers/gpu/drm/virtio/virtgpu_plane.c        |   2 +-
->   drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |   5 +-
->   drivers/gpu/drm/vmwgfx/vmwgfx_kms.h           |   2 -
->   drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |  12 +-
->   drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |  15 +-
->   include/drm/drm_damage_helper.h               |   9 +-
->   34 files changed, 123 insertions(+), 315 deletions(-)
->
->
-> base-commit: 5fb5a9a63cf5ece68e0eeb6fa397da27712bccf0
+> On 5/27/26 07:32, Thomas Zimmermann wrote:
+>> Hi
+>>
+>> Am 27.05.26 um 12:18 schrieb Boris Brezillon:
+>>> Hello Thomas,
+>>>
+>>> I'm inlining the diff you posted so I can comment on it directly before
+>>> it's officially posted to the list.
+>>
+>> Thanks, I'll incorporate those in the next test rev or the official 
+>> patch.
+>>
+>> Best regards
+>> Thomas
+>>
+>>>
+>>> On Wed, 27 May 2026 08:56:33 +0200
+>>> Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>>
+>>>> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c 
+>>>> b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>>> index 545933c7f712..07e117673124 100644
+>>>> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>>> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>>>> @@ -554,21 +554,6 @@ int drm_gem_shmem_dumb_create(struct drm_file 
+>>>> *file, struct drm_device *dev,
+>>>>   }
+>>>>   EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+>>>>   -static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
+>>>> -{
+>>>> -    struct vm_area_struct *vma = vmf->vma;
+>>>> -    struct drm_gem_object *obj = vma->vm_private_data;
+>>>> -    struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+>>>> -    loff_t num_pages = obj->size >> PAGE_SHIFT;
+>>>> -    pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page 
+>>>> offset within VMA */
+>>>> -
+>>>> -    if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= 
+>>>> num_pages))
+>>>> -        return;
+>>>> -
+>>>> -    file_update_time(vma->vm_file);
+>>>> - folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+>>>> -}
+>>>> -
+>>>>   static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned 
+>>>> int order,
+>>>>                    unsigned long pfn)
+>>>>   {
+>>>> @@ -581,23 +566,16 @@ static vm_fault_t try_insert_pfn(struct 
+>>>> vm_fault *vmf, unsigned int order,
+>>>>             if (aligned &&
+>>>> folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+>>>> -            vm_fault_t ret;
+>>>> -
+>>>>               pfn &= PMD_MASK >> PAGE_SHIFT;
+>>>>   -            /* Unlike PTEs which are automatically upgraded to
+>>>> +            /*
+>>>> +             * Unlike PTEs which are automatically upgraded to
+>>>>                * writeable entries, the PMD upgrades go through
+>>>>                * .huge_fault(). Make sure we pass the "write" info
+>>>>                * along in that case.
+>>>> -             * This also means we have to record the write fault
+>>>> -             * here, instead of in .pfn_mkwrite().
+>>>>                */
+>>>> -            ret = vmf_insert_pfn_pmd(vmf, pfn,
+>>>> -                         vmf->flags & FAULT_FLAG_WRITE);
+>>>> -            if (ret == VM_FAULT_NOPAGE && (vmf->flags & 
+>>>> FAULT_FLAG_WRITE))
+>>>> -                drm_gem_shmem_record_mkwrite(vmf);
+>>>> -
+>>>> -            return ret;
+>>>> +            return vmf_insert_pfn_pmd(vmf, pfn,
+>>>> +                          vmf->flags & FAULT_FLAG_WRITE);
+>>> I believe we can go back to
+>>>
+>>>             return vmf_insert_pfn_pmd(vmf, pfn, false);
+>>>
+>>> if the mappings are no longer adjusted to catch write accesses.
+>>>
+>>>>           }
+>>>>   #endif
+>>>>       }
+>>>> @@ -635,8 +613,15 @@ static vm_fault_t 
+>>>> drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int ord
+>>>>       pfn = page_to_pfn(page);
+>>>>         ret = try_insert_pfn(vmf, order, pfn);
+>>>> -    if (ret == VM_FAULT_NOPAGE)
+>>>> +    if (ret == VM_FAULT_NOPAGE) {
+>>>>           folio_mark_accessed(folio);
+>>>> +        /*
+>>>> +         * Always record write access to the buffer. The natural
+>>>> +         * place would be pfn_mkwrite, but this breaks KVM.
+>>>> +         */
+>>>> +        file_update_time(vma->vm_file);
+>>>> +        folio_mark_dirty(folio);
+>>> We can be a bit smarter here:
+>>>
+>>>         /*
+>>>          * Always record write access to the buffer if the
+>>>          * mapping is writeable. The natural place would be
+>>>          * pfn_mkwrite, but this breaks KVM.
+>>>          */
+>>>         if (vma->vm_flags & VM_WRITE) {
+>>>             file_update_time(vma->vm_file);
+>>>             folio_mark_dirty(folio);
+>>>         }
+>>>
+>>>> +    }
+>>> The rest looks good to me.
+>>>
+>>> Regards,
+>>>
+>>> Boris
+>>
 
 -- 
 --
