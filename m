@@ -4,89 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10FC7CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 09:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06750CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 09:48:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D53610E030;
-	Wed, 27 May 2026 09:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4847D10E277;
+	Wed, 27 May 2026 09:48:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bxnPKlDi";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AjOVzFWJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YUmAx508";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KSycKJrK";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F286110E030
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 09:48:17 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 384F510E23E
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 09:48:19 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64R8mWoe1167786
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 09:48:17 GMT
+ 64R8mWmK4108478
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 09:48:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=Mpd19R1YYwvJuLrssRZztJKV5/zI9q/ICp3
- JoLjL8r8=; b=bxnPKlDiCAXTMnU4ohjuc7VF6sPA+3B3hERxI11IjBNNWXhpLdD
- 8zfO88q3Y1dSNVz5uf3AaOUr3SItWbQfDVa1fu4P4SZgm7hqPLaA65ba3jfE4c+m
- WRnGdWcS9a6c07DRItBzLEVaEa1P5qHrJOsooIDB7W9P2c6ecoXauPSbDAxJu4LO
- IOtmXEwiLV/ibMh0hUnlpfR2XwuQvGY23kTEnfUkxhRMgT+IEP4BJb2ZqubQg+RA
- f2dsyaYzVqKJvLqT0ZSehkUVqsWsp1Z6SKUk2db7HVqywiTfz6UlMm/UZpCS2fur
- 3uZNyWEHNWeC3NqSKZrcwP/767eo+8pJvDw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edfqk33qx-1
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=QuK3qwfNGYC
+ uijsueLPi62zx8F1qyS/qihM/m1iNSKc=; b=YUmAx508oiQE58Wr96jUIzTLnif
+ 5DY90takuH4pF+50pErLzIvwpTW9rtHI8BK7MpA+xuB1fiKXuCRV7TfOWLrwDBNZ
+ YU/JzuWwnJ+KgRuGx2/7pfToccnUTNht98RuD3tpXqBWkpimAYAS7VLIWAqDm3JN
+ n9xRNy1vbV5guErXJbziZiwh5Ss+PutRfYN2b045cE6oJJ/NQGCO+YXGwOgKYadL
+ SY9m8s0qUwUmME59emjKcyIwWG2H6bkq8ePwYmaXDIVm7/XeM51b/wXWKjnDTfmi
+ bXBoalBJm/UYVDaW7wo3BOQD6qnwmQWmBrLWRJT7BTXbKrTIdN9/9QTZlhA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edefukkr2-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 09:48:17 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-516d1a8a6c8so55950741cf.2
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 02:48:17 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 09:48:18 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-516d4a9e852so87438761cf.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 02:48:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779875296; x=1780480096;
+ d=oss.qualcomm.com; s=google; t=1779875298; x=1780480098;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Mpd19R1YYwvJuLrssRZztJKV5/zI9q/ICp3JoLjL8r8=;
- b=AjOVzFWJsxP5pP2ty4WVrOYys8ewRstTLBicl6UAIUXSm437HErJD2bFEMoznQkPD3
- sFeOYPJH1FzKBe4n4frDB/LQSfZigkgnpIxvg/jUUwHdp75r61lWU479Bx20N9OdLBIR
- /qh3YIsi6uota9MyUPFjOvwWC2UiFBgRPoApFc9XXKGJaye/pvYa3pHRnOeU+f3VSpIL
- MAh6XHntolOFuayg6MQolnfIehL2Q4rfqk1UnWA6F0uumSZHIBNKr8J8TgGnATiVVuyT
- M/sDggciQ2jY1JAZZaKg6y6BSvXMIvqmfREK7UKXto1tg4JrKsZiVOIpXIIZg/G4dsXK
- TMKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779875296; x=1780480096;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Mpd19R1YYwvJuLrssRZztJKV5/zI9q/ICp3JoLjL8r8=;
- b=Rp9nZFR2LOmE0bviOXEQ6sUw86fQU3o7KSLgqC38Ihlqv213CZUuKWu1DF2tZlroop
- 56IOxzE31Ambtm5kK8kFofq8x3vTM4cV02LJPu9sdu4Cftmkf6gSsyC+oVBlOcTH9M2B
- fBBkfbN6xb99+3mrKG4NJIuABjpA280VjyM3bRKZlogNVYgcxzTjWAtnn8A8VDVF2plM
- MGshpHLz/YSVHZYM6nF9N86i6fLJy25fF8zst7873bC2RJ/GYYU6T1RLPRDheRV1IbhP
- wfFCaI2VJuK2DUsqNvUzOO424XtCcnkAF3fNVsUonbtpi4DGkKUVnlLEt99IMvtsem49
- lgFA==
+ bh=QuK3qwfNGYCuijsueLPi62zx8F1qyS/qihM/m1iNSKc=;
+ b=KSycKJrKXQSyP14InIYaH2CpVRhiFYwYVKxFVV4SJJh+3rDeWzihhK5LdjjBFNH9EF
+ fSN0i7rOjSTZab6Z3dPFA0ZKrK7rLJh61mzUgG4aPuiovqfQnR4xNoXzYRdY3r5UTgfx
+ fYJF5juXESKbj+nWRxcgqjHBs9yIoTPpldUirsTvofGd3tifv8aQaZiDXJl0yyM3Mdm/
+ iKrerZs/6+5Mp6/AFLM1pKmYBAx0Ry57pagwVN8UZcnAcQ04QiDxRhaZ5iJ2Ls1H1Xt7
+ pXr52hGyzH+A9XS7ujd0OD+C0bWBRYcJR6cKK7/kq+rakUj6Skpp7j3QOVp6DHSrWZ4U
+ 7P6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779875298; x=1780480098;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=QuK3qwfNGYCuijsueLPi62zx8F1qyS/qihM/m1iNSKc=;
+ b=KA0UmB3f+MuzCoB2IvOdtDbBHwCZCM2QujTZrvEkiU1eK0dImo9nP8HNiM4zxpYvnB
+ tT9D6wVYB25JxE+hY0oZKViK7UyeYjxYCoU4w3JSILnBTrU+uI/v/cIJnP6DVFR0rtmk
+ zq0K6N/1toX7Z+oV0Yb48Lp9/9BQeg9C7gSg0ytG6gN+dPJ35/GmL1TyiX6PA4yiq0KP
+ icPnf9rcNCmhGiZZYzXeCUlE5HrXnqKEUdaAJv+zCUTvQfkSpMhqXJ2G5PMhCSb3onCM
+ gMxzEnI3KmhhBI8XU9GSQM+2OeBnHe69U0AusPT2FxrhynsDYv7SICRaT5PyMxp6hDBi
+ XGfQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9dHaz+VPBmDJkgWY2cOsNhUEY9RL+lr9KFbjrX5UzN9BCDdeAR2pi8HAxr2IcR0jHvPrlZmeGCarE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJ4WknynzT7UjO/gCzIwfbopTwtpUPgz+tow38PDXHA450SnYZ
- RLxuOdHHq43ARkhyyWai+/EONF4oZGtdmWckFnsvGzrOOGU59g8bJA7npjs7JcSbeIBeiE7ePiC
- ZLiXgOnBHudtTAkjKU34s+OvcKaMIQLdMmpbnTgsE8gdB4v4XeAl8GP+nBVEmWlO4UlL1lpg=
-X-Gm-Gg: Acq92OEdpd/fzyqS/tDYL3W3KeqNvHxUACxjosdPMf4TdAZAEqrfrigz+mO1QuJo9LN
- FRrZjeV+Oh063lpDP4+XxlGB0zzSgnaqD9U+msQ1t/ORJ+MnRM5dZZxEvJ7N/YULqsTQCeSFaYq
- ABnNFg6xPd+58mcYd0nAutxSNhY5OjSPoVADIjhsCekxYpDe1V7D8V/zWIOE+xrAkqWs+zkj0mS
- 5XtcfE6T0ujYwZqtcuTpeo+vo+tWtXvFwaasfwlD9cPbXAbpW0iO5dQYosVGuDittTNnQpS+Z1T
- EpmDaeH45IeX3ngfEgOMn8iF+5VtE2L+5SCDeAWq9F84Cv2MOz9kqehJjjXHXIdI59m61puQTGt
- doKykj3bUuV6XK+uTHqQdm+niuaMFo/0tkId0DjcJIgEF2d10/nAK/QYQbbPibq4MKR/Igdv4Aa
- 4ADQczpyqXKEbiUE0qnjMCu3XxwO32KPu3rUoQXwEfA8Qseu4=
-X-Received: by 2002:a05:622a:2508:b0:516:ddc3:6248 with SMTP id
- d75a77b69052e-516ddc36855mr289924701cf.29.1779875296177; 
+ AFNElJ8aM1He1pk6IUXSOdoPE2wjJggnGiQrub7kshUrYv7EOW+VjEotDj4gFSGZq9vWid1aqRR9/s3zf34=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9l7hGUEPWJcENqrgDlf9YuTwxt56RnEmEVMNbnBghPPcreNUG
+ f4kXgdv2XJNn2E2xmAeNjx6lI3P7SNaueznjInmms4wNTXdMi7aoj96LsmOu9Z74duIP8Y3ij2/
+ g7YympoiAdlmeD84j6q/VcM6nxv7aBIdj8nBH3oYMf0qFWwzvj/OFq6BKZfkIyWVL+J1vTtg=
+X-Gm-Gg: Acq92OHGzXIWz4vfxEDsPl+P5R9fafE1NMqN6Ov35lWZynPHKxIXc7WCmMLGhDZ87tk
+ +1+4LGoKCnJHdqUjvzneogdMQ1pzOtj5nw92d+XZ0LJBKdeBIsMoIh7/J2+G1BJ7lbfjXdVEhAb
+ +zkS0D296XCyG7gD+2YSvI9+lWzLP8hqzyvpi21/R6Z7d7Us60vBBLhEn03czFthdFAhOLR7hTl
+ 4rXGnlB/PBQV5nuBzikjU5B4tnJYFAMwCqct4OM/COWi5qZqCa7dNnReSvv0ZHKFxsP0mX3Vx9M
+ y5UGvjRETwD+l/nrQDTg4trJOUes9Kw9Dq7ndBnQBkuNPV0C/laEUr3UGPCFmnbBvH1nbAyj+kJ
+ 7RmRK8XvByTCAsao+WWCpj6l2oMm0rYJKDvJZHvr1zHzQHZQ5uww/9xu7pos51YA6ChNsO/R5Um
+ y4lrIUDOMPuM35jg+5s7zx6HEiv1Bkrl7Iq2Gp
+X-Received: by 2002:ac8:7dd1:0:b0:516:ddfa:23a2 with SMTP id
+ d75a77b69052e-516ddfa2ca0mr263957281cf.43.1779875297555; 
+ Wed, 27 May 2026 02:48:17 -0700 (PDT)
+X-Received: by 2002:ac8:7dd1:0:b0:516:ddfa:23a2 with SMTP id
+ d75a77b69052e-516ddfa2ca0mr263956961cf.43.1779875296998; 
  Wed, 27 May 2026 02:48:16 -0700 (PDT)
-X-Received: by 2002:a05:622a:2508:b0:516:ddc3:6248 with SMTP id
- d75a77b69052e-516ddc36855mr289924321cf.29.1779875295585; 
- Wed, 27 May 2026 02:48:15 -0700 (PDT)
 Received: from shalem
  (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
  [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-68a6fb31611sm544001a12.22.2026.05.27.02.48.12
+ 4fb4d7f45d1cf-68a6fb31611sm544001a12.22.2026.05.27.02.48.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 May 2026 02:48:13 -0700 (PDT)
+ Wed, 27 May 2026 02:48:16 -0700 (PDT)
 From: Hans de Goede <johannes.goede@oss.qualcomm.com>
 To: Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -99,35 +100,37 @@ Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Rob Clark <robin.clark@oss.qualcomm.com>, linux-clk@vger.kernel.org,
  dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht
-Subject: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and use
- this in simple[fb|drm]
-Date: Wed, 27 May 2026 11:48:08 +0200
-Message-ID: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
+Subject: [PATCH 1/3] clk: Add __clk_disable_unprepare_counts_only() helper
+Date: Wed, 27 May 2026 11:48:09 +0200
+Message-ID: <20260527094811.116977-2-johannes.goede@oss.qualcomm.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
+References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=fqPsol4f c=1 sm=1 tr=0 ts=6a16bde1 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA5NCBTYWx0ZWRfX0VBZGDkisk+I
+ an2wWG8xyFrPgkHDbns83NdwBuOSfaEs7d1ughJUS8np9RLbcDvaJwQg6ifzyCc3dFwuchBoYn4
+ +oWPPbVVEuNR5+93URhRlJuf+Jzknbm5cc5Uq60bYsof7z4Hbogf1oJ5efrhi4xplEbH51e3UeN
+ sCXFAZ/d1vrBov5bARXG6kXXzND2b/nRfBJQJdRDglUZK56RYrva2n8bDQhjgeOIkhW3kFI41oi
+ zJ9KiMW9xNV/eRAUedosqSNwC5CkRipT43DxG8TMTM59XbwJOWZhN1sKC6+hDeFJBjiqJ0otmxw
+ Wh82MJWnSFPodd3jBOCuJRWB4kOLfMrolPjU2ftkYHPSUmg7Uq+RC1ONIEgHWIC3E1fz8yxs5Xc
+ VMsUx8tYekLaWKLKUu1BRoXrXhAz0cEYL+trjLL9j9WX5qaI1k5MI1J7/kYPuOjVPUF2hbN9vlD
+ pIZjRHOkU5Ob1Kg7aQg==
+X-Proofpoint-GUID: r4mzi3JXXITqdJkQHXUjuBYBsLR0tbt0
+X-Proofpoint-ORIG-GUID: r4mzi3JXXITqdJkQHXUjuBYBsLR0tbt0
+X-Authority-Analysis: v=2.4 cv=cPnQdFeN c=1 sm=1 tr=0 ts=6a16bde2 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=vk9NKK56FxHfhQgqp2gA:9 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: lLLndVbqO1vEi8jHOFHcmKme6dGfiUkp
-X-Proofpoint-GUID: lLLndVbqO1vEi8jHOFHcmKme6dGfiUkp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA5NCBTYWx0ZWRfXxZOyHZrtLZoL
- w41XFlO35Kf/xYkvHpHQYL7Dre2SzMaEGIqgTx/vUW3O++vco//LcjzEFp1nnNJSfZhwdwUbwdd
- 4o4hIYbnKfn2267rRRKiz7+YdqWNUOmMzm7HRwQ5UCthhOfjpGUA1R8g3yGKKGkYIV2yKLy8nEh
- qBW/AFft0EdvP0+bUoLCgqTCD96xrI64L2ys+oLjvvNFnyN4ehlKaD4m75/fQrbaWvAIIInXPOF
- e7lbWZWXUNNneumn9tzjpq9Mi9fsREd1Up7u6nVPAH0/TGsjSTzkANN85lRwyMM8gqdj1Mmyjq5
- 8oDsRYC43qpBl1+Pv6tNcjfwEbB/rGtLytJbdJuzbtQPe8FxM8xsVSibfleP8gjBcWgqfbfaAQS
- JCsUNxSj4txRmodJSP7dVEmlnGK///I746v8s31dyKDHnyeNfG/8qYary5oia1JApd9t0BAPgnY
- Mpf/U/NeMijqTp3OxoA==
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=IzvHx6tSKKdpVn8xzKUA:9
+ a=dawVfQjAaf238kedN5IG:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0
- priorityscore=1501 phishscore=0 spamscore=0 adultscore=0 impostorscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ bulkscore=0 malwarescore=0 spamscore=0 adultscore=0 phishscore=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
  definitions=main-2605270094
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,20 +147,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Michael, Stephen, et al.,
-
 The device-tree simple-framebuffer device is special in that it does not
 describe actual hardware, but it allows firmware (e.g. u-boot) to pass a
 firmware initialized framebuffer to the OS to use as display during boot.
 
 To avoid clocks used by the firmware framebuffer getting touched while in
-use, the DT node contains a list of clocks which should not be touched
-while the simple-framebuffer is in use.
-
-Conceptually this is fine, in practice the *do not touch* is implemented as
-a clk_prepare_enable() + clk_disable_unprepare() pair, with the disabling
-happening when the simple-framebuffer driver gets replaced by the real
-display-engine driver.
+use, the DT node contains a list of clocks and the simpledrm driver calls
+clk_prepare_enable() on these clocks. When the real display driver loads
+simpledrm gets unbound and calls clk_disable_unprepare().
 
 The simple-framebuffer concept assumes that the order in which resources
 are acquired does not matter since they are already on, so power-sequencing
@@ -165,76 +162,190 @@ is not an issue. But clk_disable_unprepare() actually turns the clock off,
 messing with the hardware state before the real display driver loads,
 without any knowledge of the proper power-off sequence for the display.
 
-The turning off of the clocks outside of a proper power-off sequence causes
-the following error when the msm display driver tries to re-enable them:
+Sometimes this leaves the hardware in an undefined state e.g. on some
+Qualcomm platforms turning off the DP clocks at simpledrm remove() results
+in the following error when the msm display driver tries to re-enable them:
 
 [    2.980181] disp_cc_mdss_dptx3_pixel0_clk_src: rcg didn't update its configuration.
 [    2.980272] WARNING: drivers/clk/qcom/clk-rcg2.c:136 at update_config+0xdc/0x100
 
-Resulting in a non working display.
+Clocks from the simple-framebuffer DT node are not so much clocks which
+the simpledrm driver should take full control of, but rather are clocks
+which should not be touched as long as the firmware framebuffer is in use.
+This includes not turning them off before handing over control to the real
+display driver.
 
-To fix this, we need a way to properly implement the "do not touch" concept
-for clocks. clk_prepare_enable() is fine, the clocks are already on so no
-ordering worries and it ensures that the clocks and their parents cannot
-get turned off by incrementing their enable, prepare and protect counts.
+Add a new __clk_disable_unprepare_counts_only() helper which decrements the
+enable, prepare and protect counts of the clock and its parents, so that
+the real display can take control over the clocks, but which does not
+actually disable any clocks.
 
-clk_disable_unprepare() is a problem though since it actually turns the
-clocks off. Instead something is needed which only decrements those counts.
+Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+---
+ drivers/clk/clk.c   | 41 +++++++++++++++++++++++++++++------------
+ include/linux/clk.h | 14 ++++++++++++++
+ 2 files changed, 43 insertions(+), 12 deletions(-)
 
-This series introduces a new clk-core function called
-__clk_disable_unprepare_counts_only() (1) which does just that. Prefixed
-with '__' to indicate that normally drivers should not use this.
-
-Michael, Stephen sorry for needing to add a new clk-core function for this,
-but I see no other way of solving this (2)(3). The changes are not that
-big / not too bad.
-
-I've also considered making __clk_disable_unprepare_counts_only() implement
-all the logic itself instead of adding the extra parameter to
-clk_core_unprepare() and clk_core_disable() but that leads in duplicating
-quite a bit of logic (4) so this seems better.
-
-The other 2 patches just replace the clk_disable_unprepare() calls in
-the simple[fb|drm] driver with the new helper.
-
-This series fixes the display not coming up after switching to the msm
-driver when a simple-framebuffer node with clocks listed is used.
-
-Regards,
-
-Hans
-
-
-1) I'm open to changing the name, this is the best I could come up with.
-
-2) One option considered was detaching the simple-framebuffer driver later,
-   after the real display driver has had a chance to claim the clocks. But
-   this won't work in cases where the real display driver picks different
-   parent clocks then the boot firmware did and needs to reparent clocks.
-
-   Basically the goal is for things to behave as if the simple-framebuffer
-   driver was not there at all, because that leaves the hw in the state
-   the real display driver expects.
-
-3) There is precedence for something like this in other places in the
-   kernel, e.g. pm_runtime_put_noidle() and the power_off parameter
-   to dev_pm_domain_detach()
-
-4) With the risk of the 2 copies of that logic diverging over time.
-
-
-
-Hans de Goede (3):
-  clk: Add __clk_disable_unprepare_counts_only() helper
-  drm/sysfb: simpledrm: Use __clk_disable_unprepare_counts_only()
-  fbdev: simplefb: Use __clk_disable_unprepare_counts_only()
-
- drivers/clk/clk.c                 | 41 ++++++++++++++++++++++---------
- drivers/gpu/drm/sysfb/simpledrm.c |  4 +--
- drivers/video/fbdev/simplefb.c    |  2 +-
- include/linux/clk.h               | 14 +++++++++++
- 4 files changed, 46 insertions(+), 15 deletions(-)
-
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index 47093cda9df3..8c92d3551556 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -1037,7 +1037,7 @@ int devm_clk_rate_exclusive_get(struct device *dev, struct clk *clk)
+ }
+ EXPORT_SYMBOL_GPL(devm_clk_rate_exclusive_get);
+ 
+-static void clk_core_unprepare(struct clk_core *core)
++static void clk_core_unprepare(struct clk_core *core, bool call_unprepare_op)
+ {
+ 	lockdep_assert_held(&prepare_lock);
+ 
+@@ -1062,18 +1062,18 @@ static void clk_core_unprepare(struct clk_core *core)
+ 
+ 	trace_clk_unprepare(core);
+ 
+-	if (core->ops->unprepare)
++	if (call_unprepare_op && core->ops->unprepare)
+ 		core->ops->unprepare(core->hw);
+ 
+ 	trace_clk_unprepare_complete(core);
+-	clk_core_unprepare(core->parent);
++	clk_core_unprepare(core->parent, call_unprepare_op);
+ 	clk_pm_runtime_put(core);
+ }
+ 
+ static void clk_core_unprepare_lock(struct clk_core *core)
+ {
+ 	clk_prepare_lock();
+-	clk_core_unprepare(core);
++	clk_core_unprepare(core, true);
+ 	clk_prepare_unlock();
+ }
+ 
+@@ -1140,7 +1140,7 @@ static int clk_core_prepare(struct clk_core *core)
+ 
+ 	return 0;
+ unprepare:
+-	clk_core_unprepare(core->parent);
++	clk_core_unprepare(core->parent, true);
+ runtime_put:
+ 	clk_pm_runtime_put(core);
+ 	return ret;
+@@ -1178,7 +1178,7 @@ int clk_prepare(struct clk *clk)
+ }
+ EXPORT_SYMBOL_GPL(clk_prepare);
+ 
+-static void clk_core_disable(struct clk_core *core)
++static void clk_core_disable(struct clk_core *core, bool call_disable_op)
+ {
+ 	lockdep_assert_held(&enable_lock);
+ 
+@@ -1197,12 +1197,12 @@ static void clk_core_disable(struct clk_core *core)
+ 
+ 	trace_clk_disable(core);
+ 
+-	if (core->ops->disable)
++	if (call_disable_op && core->ops->disable)
+ 		core->ops->disable(core->hw);
+ 
+ 	trace_clk_disable_complete(core);
+ 
+-	clk_core_disable(core->parent);
++	clk_core_disable(core->parent, call_disable_op);
+ }
+ 
+ static void clk_core_disable_lock(struct clk_core *core)
+@@ -1210,7 +1210,7 @@ static void clk_core_disable_lock(struct clk_core *core)
+ 	unsigned long flags;
+ 
+ 	flags = clk_enable_lock();
+-	clk_core_disable(core);
++	clk_core_disable(core, true);
+ 	clk_enable_unlock(flags);
+ }
+ 
+@@ -1235,6 +1235,23 @@ void clk_disable(struct clk *clk)
+ }
+ EXPORT_SYMBOL_GPL(clk_disable);
+ 
++void __clk_disable_unprepare_counts_only(struct clk *clk)
++{
++	unsigned long flags;
++
++	if (IS_ERR_OR_NULL(clk))
++		return;
++
++	flags = clk_enable_lock();
++	clk_core_disable(clk->core, false);
++	clk_enable_unlock(flags);
++
++	clk_prepare_lock();
++	clk_core_unprepare(clk->core, false);
++	clk_prepare_unlock();
++}
++EXPORT_SYMBOL_GPL(__clk_disable_unprepare_counts_only);
++
+ static int clk_core_enable(struct clk_core *core)
+ {
+ 	int ret = 0;
+@@ -1262,7 +1279,7 @@ static int clk_core_enable(struct clk_core *core)
+ 		trace_clk_enable_complete(core);
+ 
+ 		if (ret) {
+-			clk_core_disable(core->parent);
++			clk_core_disable(core->parent, true);
+ 			return ret;
+ 		}
+ 	}
+@@ -2451,7 +2468,7 @@ static void clk_change_rate(struct clk_core *core)
+ 
+ 	if (core->flags & CLK_SET_RATE_UNGATE) {
+ 		clk_core_disable_lock(core);
+-		clk_core_unprepare(core);
++		clk_core_unprepare(core, true);
+ 	}
+ 
+ 	if (core->flags & CLK_OPS_PARENT_ENABLE)
+@@ -4063,7 +4080,7 @@ static int __clk_core_init(struct clk_core *core)
+ 		if (ret) {
+ 			pr_warn("%s: critical clk '%s' failed to enable\n",
+ 			       __func__, core->name);
+-			clk_core_unprepare(core);
++			clk_core_unprepare(core, true);
+ 			goto out;
+ 		}
+ 	}
+diff --git a/include/linux/clk.h b/include/linux/clk.h
+index 998ba3f261da..7dee0dbb9018 100644
+--- a/include/linux/clk.h
++++ b/include/linux/clk.h
+@@ -783,6 +783,19 @@ void clk_disable(struct clk *clk);
+  */
+ void clk_bulk_disable(int num_clks, const struct clk_bulk_data *clks);
+ 
++/**
++ * __clk_disable_unprepare_counts_only - Decrement enable and prepare counts
++ *
++ * Like clk_disable_unprepare() but then only decrement the enable, prepare and
++ * protect counts of the clock and its parents without actually disabling any
++ * clocks.
++ *
++ * This function should only be used in special case where the clocks should
++ * stay on while handing control over from an early-boot driver like simpledrm
++ * to a later more featureful driver. When in doubt do NOT use this function.
++ */
++void __clk_disable_unprepare_counts_only(struct clk *clk);
++
+ /**
+  * clk_get_rate - obtain the current clock rate (in Hz) for a clock source.
+  *		  This is only valid once the clock source has been enabled.
+@@ -1099,6 +1112,7 @@ static inline int __must_check clk_bulk_enable(int num_clks,
+ 
+ static inline void clk_disable(struct clk *clk) {}
+ 
++static inline void __clk_disable_unprepare_counts_only(struct clk *clk) {}
+ 
+ static inline void clk_bulk_disable(int num_clks,
+ 				    const struct clk_bulk_data *clks) {}
 -- 
 2.54.0
 
