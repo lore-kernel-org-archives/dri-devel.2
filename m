@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1AEBCD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 07:55:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9AA7CD5BDE
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 08:51:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE1D10E633;
-	Wed, 27 May 2026 07:55:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF2AB10E18B;
+	Wed, 27 May 2026 08:51:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lzbgDWoD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A4bj/hmQ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E56810E633;
- Wed, 27 May 2026 07:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=2+QN22N9qdDPpgXew48ifaukLEDPIuwAqAK3Xk9HCcA=; b=lzbgDWoDNzEpA+YAhso7Vd1VaG
- KxRiaEPkCGQ/BnIocapN/oWeqpB8ly/PHNB7oWm7hju+v3ZK+Se7BM6xfiGhAeVlfq/vrRRMqtjXI
- KsmD1HuAscae8eIoYLkg/qjFTFS1niVQDyoyQWimRXiddCmSPs9nxnz2ev/QV41TWBDXM6wtG7RMH
- eP8yGty4OD18FQAKc9Op3VyjMQc5bLnUS00ojbDolZiKKoAhy3r6yh3YqiAmfwYNhSooIdJwMBq8h
- it06/+HnL/q35R6XYakM8bBhPstvOFtC8Uf6i0wzCqzehcLWNf+W+1zMGIHAQ+gMyAXcXYY7Jw9wn
- IznInetA==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wS977-008no5-Gh; Wed, 27 May 2026 09:55:41 +0200
-Date: Wed, 27 May 2026 08:55:40 +0100
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-fixes
-Message-ID: <ahajfPMJE_qKzig5@linux>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C9CB10E18B;
+ Wed, 27 May 2026 08:51:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C15BC4396D;
+ Wed, 27 May 2026 08:51:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6AD71F00A3D;
+ Wed, 27 May 2026 08:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779871908;
+ bh=cw6Hq3fwY9dORsY8hW5a014rXACoZ3Q9ELeTsBjnSJM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=A4bj/hmQa3H0KsSybQA679jZY8C2M2EBxCmGFd4kLjKqsNk3QWKHZjyPK5mXRkcfX
+ VpWCAte43G/7b72JGRYwED2VJuyypr5CTDlz+B/TBjr+N205H33pNj87fbEH7GjTMD
+ f4IzoJPCYeB66bnO4D2+DjO3keQikG9pILexzAijVpqCIMzJOir5m7RmSLWK4oBGUx
+ HpxXjQHd9D1kqOUe/dWA+5FlGHtZur/fBmi1sPvyfdRgQVFYYfU4QdQGQhpaG5w5EU
+ Y1D1Hds9rZPfYSD7ptH/l2KRCdPsgF384y4fFB2IicC6PJSaekfzn3Pg06DbJM/mVv
+ ywTh7ch9dWuXw==
+Message-ID: <e4dcfbc8-2666-452c-90b2-25c4b2c50c9f@kernel.org>
+Date: Wed, 27 May 2026 10:51:42 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+To: Christoph Hellwig <hch@lst.de>, Vlastimil Babka <vbabka@kernel.org>,
+ Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
+ kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Matt Fleming <mfleming@cloudflare.com>,
+ kernel-team <kernel-team@cloudflare.com>
+References: <20260527070239.2252948-1-hch@lst.de>
+ <20260527070239.2252948-2-hch@lst.de>
+Content-Language: en-US
+From: Jesper Dangaard Brouer <hawk@kernel.org>
+In-Reply-To: <20260527070239.2252948-2-hch@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,65 +69,90 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-Hi Dave, Sima,
 
-Latest round of fixes for the -rc week.
+On 27/05/2026 09.02, Christoph Hellwig wrote:
+> The kmem_cache_alloc_bulk return value is weird.  It returns the number
+> of allocated objects, but that must always be 0 or the requested number
+> based on the implementations and the handling in the callers, but that
+> assumption is not actually documented anywhere, which confuses automated
+> review tools.
+> 
 
-One fix to address an use-after-free in the DG2 TTM integration under
-heavy eviction and the rest are in the display area: A workaround for xe
-enabling aux interrupts too late, fix for incomplete HDR pre-CSC LUT
-programming, consistent disabling of DC states when Panel Replay is
-supported and finally a fix for DC6 DC_OFF power state mismatch after
-enabling vblanks.
+I remember, this API behavior was requested by AKPM when I developed
+kmem_cache_alloc_bulk.  I trusted AKPM's decision, but I cannot explain
+why this choice was made.
 
-Regards,
+I kept the netdev code usage below. The current napi_skb_cache_get_bulk
+have a retry logic that assumes that a partial bulk number can be
+returned (which it cannot as Hellwig explains).  Cc Alex/Olek please
+review the changes below as you added this retry logic.
 
-Tvrtko
 
-drm-intel-fixes-2026-05-27:
-- Fix potential UAF in TTM object purge (Janusz Krzysztofik)
-- Use polling when irqs are unavailable [aux] (Michał Grzelak)
-- Fix HDR pre-CSC LUT programming loop [color] (Pranay Samala)
-- Block DC states on vblank enable when Panel Replay supported [psr] (Jouni Högander)
-- Use DC_OFF wake reference to block DC6 on vblank enable [psr] (Jouni Högander)
-The following changes since commit e7ae89a0c97ce2b68b0983cd01eda67cf373517d:
+> Fix this by returning a bool if the allocation succeeded and adding a
+> kerneldoc comment explaining the API.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   drivers/gpu/drm/msm/msm_iommu.c       |  6 +--
+>   drivers/gpu/drm/panthor/panthor_mmu.c | 12 +++---
+>   include/linux/slab.h                  |  6 ++-
+>   io_uring/io_uring.c                   | 23 +++++------
+>   lib/test_meminit.c                    | 19 +++++----
+>   mm/kasan/kasan_test_c.c               |  5 +--
+>   mm/kfence/kfence_test.c               |  9 +++--
+>   mm/slub.c                             | 58 +++++++++++++++------------
+>   net/bpf/test_run.c                    |  7 ++--
+>   net/core/skbuff.c                     | 24 ++++++-----
+>   tools/include/linux/slab.h            |  2 +-
+>   tools/testing/shared/linux.c          | 19 ++++-----
+>   12 files changed, 93 insertions(+), 97 deletions(-)
+> 
 
-  Linux 7.1-rc5 (2026-05-24 13:48:06 -0700)
+[...]
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-05-27
-
-for you to fetch changes up to 3549a9649dc7c5fc586ab12f675279283cdcb2a7:
-
-  drm/i915/psr: Use DC_OFF wake reference to block DC6 on vblank enable (2026-05-26 09:31:48 +0100)
-
-----------------------------------------------------------------
-- Fix potential UAF in TTM object purge (Janusz Krzysztofik)
-- Use polling when irqs are unavailable [aux] (Michał Grzelak)
-- Fix HDR pre-CSC LUT programming loop [color] (Pranay Samala)
-- Block DC states on vblank enable when Panel Replay supported [psr] (Jouni Högander)
-- Use DC_OFF wake reference to block DC6 on vblank enable [psr] (Jouni Högander)
-
-----------------------------------------------------------------
-Janusz Krzysztofik (1):
-      drm/i915: Fix potential UAF in TTM object purge
-
-Jouni Högander (2):
-      drm/i915/psr: Block DC states on vblank enable when Panel Replay supported
-      drm/i915/psr: Use DC_OFF wake reference to block DC6 on vblank enable
-
-Michał Grzelak (1):
-      drm/i915/aux: use polling when irqs are unavailable
-
-Pranay Samala (1):
-      drm/i915/color: Fix HDR pre-CSC LUT programming loop
-
- drivers/gpu/drm/i915/display/intel_color.c         |  2 +-
- drivers/gpu/drm/i915/display/intel_display_core.h  |  1 +
- drivers/gpu/drm/i915/display/intel_display_irq.c   |  8 +++++--
- drivers/gpu/drm/i915/display/intel_display_types.h |  2 ++
- drivers/gpu/drm/i915/display/intel_dp_aux.c        | 20 ++++++++++++----
- drivers/gpu/drm/i915/display/intel_psr.c           | 25 ++++++++-----------
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c            | 28 ++++++++++++----------
- 7 files changed, 52 insertions(+), 34 deletions(-)
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 44ac121cfccb..73045b688385 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -288,11 +288,11 @@ static inline struct sk_buff *napi_skb_cache_get(bool alloc)
+>   
+>   	local_lock_nested_bh(&napi_alloc_cache.bh_lock);
+>   	if (unlikely(!nc->skb_count)) {
+> -		if (alloc)
+> -			nc->skb_count = kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
+> -						GFP_ATOMIC | __GFP_NOWARN,
+> -						NAPI_SKB_CACHE_BULK,
+> -						nc->skb_cache);
+> +		if (alloc && kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
+> +						   GFP_ATOMIC | __GFP_NOWARN,
+> +						   NAPI_SKB_CACHE_BULK,
+> +						   nc->skb_cache))
+> +			nc->skb_count = NAPI_SKB_CACHE_BULK;
+>   		if (unlikely(!nc->skb_count)) {
+>   			local_unlock_nested_bh(&napi_alloc_cache.bh_lock);
+>   			return NULL;
+> @@ -353,16 +353,18 @@ u32 napi_skb_cache_get_bulk(void **skbs, u32 n)
+>   
+>   	/* No enough cached skbs. Try refilling the cache first */
+>   	bulk = min(NAPI_SKB_CACHE_SIZE - nc->skb_count, NAPI_SKB_CACHE_BULK);
+> -	nc->skb_count += kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
+> -					       GFP_ATOMIC | __GFP_NOWARN, bulk,
+> -					       &nc->skb_cache[nc->skb_count]);
+> +	if (kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
+> +				  GFP_ATOMIC | __GFP_NOWARN, bulk,
+> +				  &nc->skb_cache[nc->skb_count]))
+> +		nc->skb_count += bulk;
+>   	if (likely(nc->skb_count >= n))
+>   		goto get;
+>   
+>   	/* Still not enough. Bulk-allocate the missing part directly, zeroed */
+> -	n -= kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
+> -				   GFP_ATOMIC | __GFP_ZERO | __GFP_NOWARN,
+> -				   n - nc->skb_count, &skbs[nc->skb_count]);
+> +	if (kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
+> +				  GFP_ATOMIC | __GFP_ZERO | __GFP_NOWARN,
+> +				  n - nc->skb_count, &skbs[nc->skb_count]))
+> +		n = nc->skb_count;
+>   	if (likely(nc->skb_count >= n))
+>   		goto get;
+>   
