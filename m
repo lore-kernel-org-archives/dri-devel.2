@@ -4,83 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34666CD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42019CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:16:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 944BC10E27C;
-	Wed, 27 May 2026 15:16:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A208A10E27D;
+	Wed, 27 May 2026 15:16:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xdndTBFU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="v2n5aavs";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xdndTBFU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="v2n5aavs";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="INON9EyJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tUgvpzHS";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="INON9EyJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tUgvpzHS";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8317010E22B
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:16:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E052410E27C
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:16:05 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A65256AA37;
- Wed, 27 May 2026 15:15:55 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 625206AA59;
+ Wed, 27 May 2026 15:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779894955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1779894956; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AC9L7qlZbtz9ZlnMfxZoo95vX+3Yiqd0s5v2/8LwRIM=;
- b=xdndTBFUh9zOeBPXuq2uboWM+KX2sjCVlSqE9xEfsyVSJi7HinN7TiOkzwFd3uu0CkuNO5
- fjGvJdWUs7Cz1sT45qdXm6IH0z3JX0DcaEY5ea6hFYmOvfw28rx5+q55Ci+rWQxiVncsdC
- AesL/I5Lv4csVDsSIrd02vzXijZGkeI=
+ bh=Y6S6cB8ObGQfuJNgjDJMW2rq8gvqvaymXV0iZZjEyf4=;
+ b=INON9EyJSuB4kEF8tdsnv6R6M9gPeEeoAI/y9MGdG4m/UulsYFUpyi1ow291JOCQ1cGDUY
+ JKApHL2Z5nm89K0cT5tJpfeZsBbUZVnSjJQEH1Hwm9Mu97bZM7Gp3rcrmmoCrT8h56ods3
+ +9tnPEV0TpiqLVKr7SwFESG2jEuEOQw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779894955;
+ s=susede2_ed25519; t=1779894956;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AC9L7qlZbtz9ZlnMfxZoo95vX+3Yiqd0s5v2/8LwRIM=;
- b=v2n5aavs6TljC0G23wkYlN//EI/+IfzmESw4y+vl8cg+PStxBYBn7pKzF477SrIj1jhNLT
- quw+IrniNLbaDiBg==
+ bh=Y6S6cB8ObGQfuJNgjDJMW2rq8gvqvaymXV0iZZjEyf4=;
+ b=tUgvpzHSgmFK8y/MfhPE5nbE5O32GhHCZ/DWdv4QqjUEHK9PnU17uzXqUyM8LpiceE39gg
+ zo/L8bVEuGp80mBg==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779894955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1779894956; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AC9L7qlZbtz9ZlnMfxZoo95vX+3Yiqd0s5v2/8LwRIM=;
- b=xdndTBFUh9zOeBPXuq2uboWM+KX2sjCVlSqE9xEfsyVSJi7HinN7TiOkzwFd3uu0CkuNO5
- fjGvJdWUs7Cz1sT45qdXm6IH0z3JX0DcaEY5ea6hFYmOvfw28rx5+q55Ci+rWQxiVncsdC
- AesL/I5Lv4csVDsSIrd02vzXijZGkeI=
+ bh=Y6S6cB8ObGQfuJNgjDJMW2rq8gvqvaymXV0iZZjEyf4=;
+ b=INON9EyJSuB4kEF8tdsnv6R6M9gPeEeoAI/y9MGdG4m/UulsYFUpyi1ow291JOCQ1cGDUY
+ JKApHL2Z5nm89K0cT5tJpfeZsBbUZVnSjJQEH1Hwm9Mu97bZM7Gp3rcrmmoCrT8h56ods3
+ +9tnPEV0TpiqLVKr7SwFESG2jEuEOQw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779894955;
+ s=susede2_ed25519; t=1779894956;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AC9L7qlZbtz9ZlnMfxZoo95vX+3Yiqd0s5v2/8LwRIM=;
- b=v2n5aavs6TljC0G23wkYlN//EI/+IfzmESw4y+vl8cg+PStxBYBn7pKzF477SrIj1jhNLT
- quw+IrniNLbaDiBg==
+ bh=Y6S6cB8ObGQfuJNgjDJMW2rq8gvqvaymXV0iZZjEyf4=;
+ b=tUgvpzHSgmFK8y/MfhPE5nbE5O32GhHCZ/DWdv4QqjUEHK9PnU17uzXqUyM8LpiceE39gg
+ zo/L8bVEuGp80mBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5196B5A8C3;
- Wed, 27 May 2026 15:15:55 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 124965A8C3;
+ Wed, 27 May 2026 15:15:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cAO7EqsKF2p6FQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 15:15:55 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id aA5KA6wKF2p6FQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 15:15:56 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de, geert@linux-m68k.org, simona@ffwll.ch, airlied@gmail.com,
  lukas@wunner.de, maddy@linux.ibm.com, mpe@ellerman.id.au,
  npiggin@gmail.com, chleroy@kernel.org
 Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 1/4] fbdev: Wrap user-invoked calls to fb_set_var() in
- helper
-Date: Wed, 27 May 2026 17:14:02 +0200
-Message-ID: <20260527151551.258659-2-tzimmermann@suse.de>
+Subject: [PATCH v3 3/4] fbdev: Wrap fbcon updates from vga-switcheroo in helper
+Date: Wed, 27 May 2026 17:14:04 +0200
+Message-ID: <20260527151551.258659-4-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260527151551.258659-1-tzimmermann@suse.de>
 References: <20260527151551.258659-1-tzimmermann@suse.de>
@@ -116,165 +115,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Handle fbcon during display updates in fb_set_var_from_user(). Check
-with fbcon if the mode change is possible, update hardware state and
-finally update fbcon. Update all callers.
+Handle console remapping in fbcon in fb_switch_output(). Vga-switcheroo
+invokes this functionality before switching physical outputs to a new
+graphics device. Open-coding fbcon state in vga-switcheroo exposed fbdev
+implementation details.
 
-Only the FBIOPUT_VSCREENINFO ioctl currently does all steps. Other
-mode-changes callers in sysfs and driver code are missing fbcon-related
-steps.
+Vga-switcheroo is used for switching physical outputs among graphics
+hardware. This functionality is only supported by DRM drivers. A later
+update will further move fb_switch_output() into DRM's fbdev emulation;
+thus fully decoupling vga-switcheroo from fbdev.
 
-With the new helper, ps3fb and sh_mobile_lcdcfb no longer maintain
-fbcon state themselves.
+v3:
+- remove Kconfig dependency related to fbcon (Geert)
+v2:
+- use '#if defined' (Helge)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/core/fb_chrdev.c   |  6 +-----
- drivers/video/fbdev/core/fbcon.c       |  2 --
- drivers/video/fbdev/core/fbmem.c       | 13 +++++++++++++
- drivers/video/fbdev/core/fbsysfs.c     |  4 +---
- drivers/video/fbdev/ps3fb.c            |  5 +----
- drivers/video/fbdev/sh_mobile_lcdcfb.c |  5 +----
- include/linux/fb.h                     |  2 ++
- 7 files changed, 19 insertions(+), 18 deletions(-)
+ drivers/gpu/vga/Kconfig          |  2 +-
+ drivers/gpu/vga/vga_switcheroo.c |  6 +++---
+ drivers/video/fbdev/core/fbmem.c | 10 ++++++++++
+ include/linux/fb.h               |  1 +
+ 4 files changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/video/fbdev/core/fb_chrdev.c b/drivers/video/fbdev/core/fb_chrdev.c
-index 4ebd16b7e3b8..54f926fb411b 100644
---- a/drivers/video/fbdev/core/fb_chrdev.c
-+++ b/drivers/video/fbdev/core/fb_chrdev.c
-@@ -85,11 +85,7 @@ static long do_fb_ioctl(struct fb_info *info, unsigned int cmd,
- 		var.activate &= ~FB_ACTIVATE_KD_TEXT;
- 		console_lock();
- 		lock_fb_info(info);
--		ret = fbcon_modechange_possible(info, &var);
--		if (!ret)
--			ret = fb_set_var(info, &var);
--		if (!ret)
--			fbcon_update_vcs(info, var.activate & FB_ACTIVATE_ALL);
-+		ret = fb_set_var_from_user(info, &var);
- 		unlock_fb_info(info);
- 		console_unlock();
- 		if (!ret && copy_to_user(argp, &var, sizeof(var)))
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index b0e3e765360d..50b84cd32938 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2699,7 +2699,6 @@ void fbcon_update_vcs(struct fb_info *info, bool all)
- 	else
- 		fbcon_modechanged(info);
- }
--EXPORT_SYMBOL(fbcon_update_vcs);
+diff --git a/drivers/gpu/vga/Kconfig b/drivers/gpu/vga/Kconfig
+index eb8b14ab22c3..bad4bcee313f 100644
+--- a/drivers/gpu/vga/Kconfig
++++ b/drivers/gpu/vga/Kconfig
+@@ -4,7 +4,7 @@ config VGA_SWITCHEROO
+ 	depends on X86
+ 	depends on ACPI
+ 	depends on PCI
+-	depends on (FRAMEBUFFER_CONSOLE=n || FB=y)
++	depends on FB=y
+ 	select VGA_ARB
+ 	help
+ 	  Many laptops released in 2008/9/10 have two GPUs with a multiplexer
+diff --git a/drivers/gpu/vga/vga_switcheroo.c b/drivers/gpu/vga/vga_switcheroo.c
+index 8fe1ae3c71bb..22cf52b78b75 100644
+--- a/drivers/gpu/vga/vga_switcheroo.c
++++ b/drivers/gpu/vga/vga_switcheroo.c
+@@ -31,11 +31,9 @@
+ #define pr_fmt(fmt) "vga_switcheroo: " fmt
  
- /* let fbcon check if it supports a new screen resolution */
- int fbcon_modechange_possible(struct fb_info *info, struct fb_var_screeninfo *var)
-@@ -2727,7 +2726,6 @@ int fbcon_modechange_possible(struct fb_info *info, struct fb_var_screeninfo *va
+ #include <linux/apple-gmux.h>
+-#include <linux/console.h>
+ #include <linux/debugfs.h>
+ #include <linux/fb.h>
+ #include <linux/fs.h>
+-#include <linux/fbcon.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+ #include <linux/pm_domain.h>
+@@ -735,8 +733,10 @@ static int vga_switchto_stage2(struct vga_switcheroo_client *new_client)
+ 	if (!active->driver_power_control)
+ 		set_audio_state(active->id, VGA_SWITCHEROO_OFF);
  
- 	return 0;
- }
--EXPORT_SYMBOL_GPL(fbcon_modechange_possible);
++#if defined(CONFIG_FB)
+ 	if (new_client->fb_info)
+-		fbcon_remap_all(new_client->fb_info);
++		fb_switch_outputs(new_client->fb_info);
++#endif
  
- int fbcon_mode_deleted(struct fb_info *info,
- 		       struct fb_videomode *mode)
+ 	mutex_lock(&vgasr_priv.mux_hw_lock);
+ 	ret = vgasr_priv.handler->switchto(new_client->id);
 diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
-index 30f2b59c47bf..d37a1039e221 100644
+index 1a6758653b64..ecadbc58abff 100644
 --- a/drivers/video/fbdev/core/fbmem.c
 +++ b/drivers/video/fbdev/core/fbmem.c
-@@ -346,6 +346,19 @@ fb_set_var(struct fb_info *info, struct fb_var_screeninfo *var)
+@@ -684,6 +684,16 @@ void fb_set_suspend(struct fb_info *info, int state)
  }
- EXPORT_SYMBOL(fb_set_var);
+ EXPORT_SYMBOL(fb_set_suspend);
  
-+int fb_set_var_from_user(struct fb_info *info, struct fb_var_screeninfo *var)
++/**
++ * fb_switch_outputs - framebuffer got the outputs from vga-switcheroo
++ * @info: framebuffer
++ */
++void fb_switch_outputs(struct fb_info *info)
 +{
-+	int ret = fbcon_modechange_possible(info, var);
-+
-+	if (!ret)
-+		ret = fb_set_var(info, var);
-+	if (!ret)
-+		fbcon_update_vcs(info, var->activate & FB_ACTIVATE_ALL);
-+
-+	return ret;
++	fbcon_remap_all(info);
 +}
-+EXPORT_SYMBOL(fb_set_var_from_user);
++EXPORT_SYMBOL(fb_switch_outputs);
 +
- static void fb_lcd_notify_blank(struct fb_info *info)
+ static int __init fbmem_init(void)
  {
- 	int power;
-diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
-index baa2bae0fb5b..5ece236e6252 100644
---- a/drivers/video/fbdev/core/fbsysfs.c
-+++ b/drivers/video/fbdev/core/fbsysfs.c
-@@ -19,9 +19,7 @@ static int activate(struct fb_info *fb_info, struct fb_var_screeninfo *var)
- 	var->activate |= FB_ACTIVATE_FORCE;
- 	console_lock();
- 	lock_fb_info(fb_info);
--	err = fb_set_var(fb_info, var);
--	if (!err)
--		fbcon_update_vcs(fb_info, var->activate & FB_ACTIVATE_ALL);
-+	err = fb_set_var_from_user(fb_info, var);
- 	unlock_fb_info(fb_info);
- 	console_unlock();
- 	if (err)
-diff --git a/drivers/video/fbdev/ps3fb.c b/drivers/video/fbdev/ps3fb.c
-index dbcda307f6a6..1376d19b19ae 100644
---- a/drivers/video/fbdev/ps3fb.c
-+++ b/drivers/video/fbdev/ps3fb.c
-@@ -29,7 +29,6 @@
- #include <linux/freezer.h>
- #include <linux/uaccess.h>
- #include <linux/fb.h>
--#include <linux/fbcon.h>
- #include <linux/init.h>
- 
- #include <asm/cell-regs.h>
-@@ -830,9 +829,7 @@ static int ps3fb_ioctl(struct fb_info *info, unsigned int cmd,
- 				/* Force, in case only special bits changed */
- 				var.activate |= FB_ACTIVATE_FORCE;
- 				par->new_mode_id = val;
--				retval = fb_set_var(info, &var);
--				if (!retval)
--					fbcon_update_vcs(info, var.activate & FB_ACTIVATE_ALL);
-+				retval = fb_set_var_from_user(info, &var);
- 				console_unlock();
- 			}
- 			break;
-diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c b/drivers/video/fbdev/sh_mobile_lcdcfb.c
-index 72969fe8e513..e8324b01700f 100644
---- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
-+++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
-@@ -15,7 +15,6 @@
- #include <linux/ctype.h>
- #include <linux/dma-mapping.h>
- #include <linux/delay.h>
--#include <linux/fbcon.h>
- #include <linux/init.h>
- #include <linux/interrupt.h>
- #include <linux/ioctl.h>
-@@ -1768,11 +1767,9 @@ static void sh_mobile_fb_reconfig(struct fb_info *info)
- 	var.height = ch->display.height;
- 	var.activate = FB_ACTIVATE_NOW;
- 
--	if (fb_set_var(info, &var) < 0)
-+	if (fb_set_var_from_user(info, &var) < 0)
- 		/* Couldn't reconfigure, hopefully, can continue as before */
- 		return;
--
--	fbcon_update_vcs(info, true);
- }
- 
- /*
+ 	int ret;
 diff --git a/include/linux/fb.h b/include/linux/fb.h
-index 5178a33c752c..88680a7cabd5 100644
+index 88680a7cabd5..e9a26e82322a 100644
 --- a/include/linux/fb.h
 +++ b/include/linux/fb.h
-@@ -533,6 +533,8 @@ extern int fb_set_var(struct fb_info *info, struct fb_var_screeninfo *var);
- extern int fb_pan_display(struct fb_info *info, struct fb_var_screeninfo *var);
- extern int fb_blank(struct fb_info *info, int blank);
- 
-+int fb_set_var_from_user(struct fb_info *info, struct fb_var_screeninfo *var);
-+
- /*
-  * Helpers for framebuffers in I/O memory
-  */
+@@ -608,6 +608,7 @@ void fb_pad_unaligned_buffer(u8 *dst, u32 d_pitch, const u8 *src, u32 idx, u32 h
+ 			     u32 shift_high, u32 shift_low, u32 mod);
+ void fb_pad_aligned_buffer(u8 *dst, u32 d_pitch, const u8 *src, u32 s_pitch, u32 height);
+ extern void fb_set_suspend(struct fb_info *info, int state);
++extern void fb_switch_outputs(struct fb_info *info);
+ extern int fb_get_color_depth(struct fb_var_screeninfo *var,
+ 			      struct fb_fix_screeninfo *fix);
+ extern int fb_get_options(const char *name, char **option);
 -- 
 2.54.0
 
