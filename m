@@ -4,166 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24E59CD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:57:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE7E5CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 14:02:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8692E10E7F3;
-	Wed, 27 May 2026 13:57:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43BE010E09F;
+	Wed, 27 May 2026 14:02:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ei1T7jLu";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="LHW/N/lY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0180B10E7F3;
- Wed, 27 May 2026 13:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779890221; x=1811426221;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=DkYiM8sq0k8yg+6Pdo/XG2ryPDAVvKQOd6mXWs4Ma5c=;
- b=ei1T7jLunv55G4BJl9IOYGeORHPKr4cRKg3LKRu3esApxjlYv4HGC/a3
- x6wpeQNoaPY9I2UAxLD79SKjJqtS3orZ7KBeGrGH0JFtls3LylPF41A1H
- gqtdzB5sOqCxSfUAo9S2c+LqtrO7SlOg08PDXwuPSqiZxv5GMSPo4lzVv
- Mro1gZkgYqRhipXYFrHp7jM+EV7oZPnUDalR3pdbPddmk9uEYliLPhg7m
- FS1bDfVTDZ/rYYmC9dAyD1aD0BD24ecHMYHGCS7CmtyHb7Wq3XWAbwvuy
- 7oXLTc5ngmLhdLNrjhFEiNvaf1ggevTdE9ZkbE+Cj6ikTFyYmcHdsco60 w==;
-X-CSE-ConnectionGUID: o+Aa+QllT5Wx3WHfVHXzUw==
-X-CSE-MsgGUID: SA3iHh+QQs+kTPcrrEO8fA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="68247062"
-X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="68247062"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2026 06:56:49 -0700
-X-CSE-ConnectionGUID: ej5XgIWJQl+sRsufjLxp+A==
-X-CSE-MsgGUID: CEJIL31RTh2y0iPp0FfuLw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="266134681"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2026 06:56:49 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 27 May 2026 06:56:49 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 27 May 2026 06:56:49 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.15) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 27 May 2026 06:56:48 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013012.outbound.protection.outlook.com
+ [40.107.201.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E44710E07D;
+ Wed, 27 May 2026 14:02:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b4ZizW5VF0KpMHZIXjdqaIyhaOQEii31zuGgRFLP+kDbECv6SFxJqTXK/+oCwlEG3xhLMsFGt4SMr46SaeHuAUiWO4pD/jUQUL5fpbFxycr0czX2OdtH0/2DGCFp3UqntwCC9n2VgwZ8fDtegGjtgL6mfQ3ogMsjw6s8EB7bM68cwzP1HzcUJA0ldA2oaFkZWdVX+yECBzduJgGsUnqD04CFBNtuLP5efelSVv8f65cLi/bXJiBsxSP5xnr6DHUgCJ3PslXPkv2ZT9Ld36/HMedRiQqPfMNqkXyVjbJjf6CquD9zh+s5PitVo9c1qD64uVyjn5lpqtZ/WT8/mOVB5g==
+ b=ENhbuQpW0YGkpyeNjZzJtfiB4R+Ca0C8xwbM6enuBd0x/8zzFT1ZbrOH5MajfLeZKfm+hRExpon+1F8/6P/1qx4u9z0T6xmrtZulsV1VSGUzqgybLKM7Hw/NQ6Y9/Vd8fQNXBWxM+TteuweU+Yw2/y/vIwyIcoSnVdV52q1M4BymLMuiecUd5Ga0TjOrE42Flm8sbPBe4HTGqJD5ZODP7bkGgPAnVA6oQlfcOHbkq8KGyCGSEDjQAG4W06CScNEaiT2/m2ticmFBsdY7a4b9dWiSZADYd151+WnFAf1RR69momrIABiLu5REwIoCzj5OVFjp+Ow3UGPKotX9SW2Naw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QRiq3wfKfxFGcDfK9VhmKifq4jqr3S/u+giZKJSdHvM=;
- b=IryyfhqfRD8Jwzo4qoTgwpw9qUb/lc/xBRJjAy+5q713G2eGjekmLDREmY7BIjNHlZk38DPed1O88lwUU5QgiZh326OR7Xy+aHtZ/vlECTSsA2PvQjxfZG3kUy0YwBQURm4uTMMJjN0j+Ujb4aXgIWJl9R5jq4nBv4r9yTjEEiJnputBG8Zq3pgHOdeUvutmot9/W7xh9moqXNoRrN8VXtrPtMJdKkIgCtmqT/M1hyUhL9JfhJKTVymMpLZI/klKroGYVzI26B1NoKqXeu5joDrVE4TTn3g7fatrn0GCMi/yA6h10Rw5Cs9vwbxkmuI8Xw6iu01NhePWFPdwQ6QANg==
+ bh=gxuSX5diE/pJLWPm9cOnamM4FTNchLQxTyzxwUz+2LA=;
+ b=b8CKPO7YGEu9Ai7x4Lk64LqiiksfA1Km5ceHirl3amsOjNcUfHhov4ry2lWkM5aBEMqUljDrMXF8MFVdH6yTSF30qnoTgYb6RU8Xo+r0BVOCjBY7NuD6Zh+6NiiosmxowyWG0fmnrzxA6rAlqaMhNBDs2GdSZAscc+m7CvFILKaFDDlh27ov6V67rf6C/kL2k74QoHm2pZ3xdmG3zTYuXQ1hpaRkMYa6EJ8R6XGf3IZEA/lvnRJygthkPmPTMaeD2/ncWvmUCpNjv3J9KSVATXcElfAIedY3dVYGd93TbTEhwq8mZYbdE+q2U/exgl2psmOC+BjECGGIUTHQVQM1/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gxuSX5diE/pJLWPm9cOnamM4FTNchLQxTyzxwUz+2LA=;
+ b=LHW/N/lYNGuXvuwYyWAcUXu1rs7INohATdCLRrdgNEEV3pEN8LJlSgPfotzlIlHbu0EtC1kdY8Qz+8zWKNAK+CzmcoFdY8fTon8yiCe01nTH/2aPDVfeJY8ArcPXx57fgpBzGeweQj4jx2nJH+iEN83NVobDvKflvf3cI0vZNtH2abzH3mR99gPJgobpcpg81a6bMk3mNc2Xu7IofAqOUvf0nj5hkDJk050aF56D2sMSxjuFMrSJEliSp7RYFtF8NtNAUxIp0202fDQqlwWXNvzHC/11YsLRlLig+Ej+6kfz3nwqNWvLfBqs2ZA5Avv1BxHQOxaBMGzYEq+7e4Ejdw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8718.namprd11.prod.outlook.com (2603:10b6:8:1b9::20)
- by DS4PPFACFC9C99E.namprd11.prod.outlook.com (2603:10b6:f:fc02::47) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DS2PR12MB9565.namprd12.prod.outlook.com (2603:10b6:8:279::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 27 May
- 2026 13:56:46 +0000
-Received: from DS0PR11MB8718.namprd11.prod.outlook.com
- ([fe80::6aa:411d:4bfa:619c]) by DS0PR11MB8718.namprd11.prod.outlook.com
- ([fe80::6aa:411d:4bfa:619c%5]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 13:56:46 +0000
-Message-ID: <777c7229-4285-4c7c-9340-dfaebd2ab291@intel.com>
-Date: Wed, 27 May 2026 15:56:38 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
-To: Jesper Dangaard Brouer <hawk@kernel.org>, Christoph Hellwig <hch@lst.de>
-CC: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, "Andrew
- Morton" <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, "Christoph
- Lameter" <cl@gentwo.org>, David Rientjes <rientjes@google.com>, Roman
- Gushchin <roman.gushchin@linux.dev>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
- <io-uring@vger.kernel.org>, <kasan-dev@googlegroups.com>,
- <bpf@vger.kernel.org>, <netdev@vger.kernel.org>, Matt Fleming
- <mfleming@cloudflare.com>, kernel-team <kernel-team@cloudflare.com>
-References: <20260527070239.2252948-1-hch@lst.de>
- <20260527070239.2252948-2-hch@lst.de>
- <e4dcfbc8-2666-452c-90b2-25c4b2c50c9f@kernel.org>
-Content-Language: en-US
-From: Alexander Lobakin <aleksander.lobakin@intel.com>
-In-Reply-To: <e4dcfbc8-2666-452c-90b2-25c4b2c50c9f@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VI1PR06CA0141.eurprd06.prod.outlook.com
- (2603:10a6:803:a0::34) To DS0PR11MB8718.namprd11.prod.outlook.com
- (2603:10b6:8:1b9::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
+ 2026 14:02:10 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0071.010; Wed, 27 May 2026
+ 14:02:09 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 27 May 2026 23:02:05 +0900
+Message-Id: <DITIJ7IIAK7L.2PKIBC52OS7AG@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v6 7/7] gpu: nova-core: run Booter Unloader and FWSEC-SB
+ upon unbinding
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260521-nova-unload-v6-0-65f581c812c9@nvidia.com>
+ <20260521-nova-unload-v6-7-65f581c812c9@nvidia.com>
+ <DIP0EROV7VSK.1WYD6SKNI05UD@nvidia.com>
+In-Reply-To: <DIP0EROV7VSK.1WYD6SKNI05UD@nvidia.com>
+X-ClientProxiedBy: OS7PR01CA0060.jpnprd01.prod.outlook.com
+ (2603:1096:604:254::19) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8718:EE_|DS4PPFACFC9C99E:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22260642-327b-4c85-36a9-08debbf7caa8
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS2PR12MB9565:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8351a5b7-9e3d-40f7-2de9-08debbf88b2c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|7416014|366016|4143699003|22082099003|18002099003|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: z5y06Hw1R4qcLbCRqMeIsz+K40lvtOxWI68yQWF56krbV+5HfAyWniWwid/jC54TrNabipBa6uEZddX6WhmQ5saRZtcoI3X6po+ndqYdw19g/K10aVb85o2r8zBuA9fP2t17aP3ST6jgpvboyoYPF7YZbZRps6ycmLjku2C1ozo/XN+QrO9rlg2hQLoxL6o58fjFILBWv3IPQPVXrSWsRd5zuF9Z86uR3ySpoHlIrO7+iTpLo+8BQzcC4kvbgk5+4ZhuUQV9p6BsyxerxhuTJVkk5vcmHmHwKp2YFPflQkDsIXEicINi70VlHSMbPt8ADRwjp19kUaBs/x1XHAxhxlm/S41rk1F+bnfgnwWVOpXRXEmFNaA0cMkw2m5R1Gbyk7Isw2y+y/+bB/+M3nYi4MKwEO6VsS3TWdixOnUV9YH2lLle5KVtyEsKKiw+XeWiJ//oEHlgak/EQmTocJPYtYTQTjhsbmkvCMqbQNxW/SteB3Pg4pBkJPGo6slmG8810x3YaZh1VOtiaiie735TkaxZx9eROaifbEv4eXHB2zoKFlOCdx97kvr0SsKw/PxKKXt8nda9mLOT0PuBIOdkW6VpPahi4fOimC1x4SCCvS65bcBVXfJqgOam1mz4hodP4xMc/TGP/Oa7Egg6EGzTm7PAuUTj26oSN7hqM58wphS7MdlI7xTAjhQ6+CkjJoc0
+ ARA:13230040|10070799003|376014|1800799024|366016|11063799006|6133799003|4143699003|3023799007|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: J4eP6PUiRhRLHVQBGWRqGqc6SY2irWV0/JOpAkt6BYPXFQWPbHtCUtrGvWXS4+lpJAZx0lCUCyznGJj+jeg8MoGEDPy9PUJfkUswJ1ifGuyoGQOsMb/0c6TW01WUg6QwWYi9+mLtoAL5EysfXtmz4Gbwe3dgbV+6Ojsm8WpdIy4U+8i8QEf+egPtK2Cq0p+29+r1WYv84ekfK80/g/DuixHIrvPADQBIXFgNjn0xAobVzdNODl8GpWvljlrtSeYTkEJh4A6V9hkyFcAHG9SHN6J9s6FDbfv5y4k0sUI26jMXZ7bpNCItEixXfDPEih8j3HsoYCQfjJLzCnmERUesN4tAi9WEUndu3Io+tqxzTyfUAZvq+6bpRl4ub6pm211JjA2z6sfhdxdzLzNfzxwoQK+/dc5M890wRt5o+ZZ9KzSc8ey12I64cbhz41AEehYl5Ki/xdwW04UwjzfRCP+ecZDAfb2N7JQnkF8FTgdJxfjC5780QxAJJjsVXhKi58UhviQGBDLW/r1LocqDjRJqpPjxrprtXiMxMdf0vkVe/R5dV8hFNRscWI4Usi2NSqBjpkFA6HsQHXNli5JO+kEVqsY9irBIncSwaUTl8p5a4fuxhMF3CjqhJCmHWKdP61j82RnfJnr8rWtFsBjOw+cUAfEl/teUcRMbYEy2+0rH3KeAMZoMydOzCuWouq+dRJy1
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB8718.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(7416014)(366016)(4143699003)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(376014)(1800799024)(366016)(11063799006)(6133799003)(4143699003)(3023799007)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TldKN3o5bGhNeExLU3YzWUhUSEROTmpGMGErMW55bk1ObTM2dWVPd2xBZ1ov?=
- =?utf-8?B?ZG4vOEhyMHJkMEF2SEYrbUduU0o3WnFtQUFicVpvMjhncTQ3dFNCbldwQmh1?=
- =?utf-8?B?aDBCT0VuK0w3NS9DbjZyTzF4V0JmMCtiWFc0TXdaTWVMaHMyT3ZhRlNPSUly?=
- =?utf-8?B?ek1kaExySlNTTUUvckkwOUFyeFYyWkJ5UFFVbVA3Tmg1Z3JPeFpZSm4veUZ4?=
- =?utf-8?B?WHYvZm1OZ3pZMlRCYmFUZFhiS1Y1UGtFMGcrdUl0UnFSczZSNEo1NEpIdXF4?=
- =?utf-8?B?ZmFORjAzeE1MR1lZK2ptTlZGMDFxdDc1MU1mQ0Z5ZGprekhUQkJrZkZQMHpN?=
- =?utf-8?B?dU01T29YNmZLM3BlazN4U29VamdQSVlPK1JhcVgrUkNNcExScU92UUxJQ1B0?=
- =?utf-8?B?VW9EVm93UEZ6OWt6VmFvTFFpdE8zTU9wS3lIMXUremRsY283KzU5eG9kMjl4?=
- =?utf-8?B?UnN1Tk56SnJJSUlNaTdJd0d5REk1ZHdtR28ydXArTVBuT0dieWozTWpkdEpH?=
- =?utf-8?B?cStKcWhGMGttS0Q3OVdKYWJSTnlwS2NUb0hhR3dGK3k0Z2RsQXlGSWNQekVu?=
- =?utf-8?B?ZDA2VnhBa0crQzROSVJoV3Z6ZWwrUzk2dzhzWktESWpzbC8yQkVxUHhnSHIy?=
- =?utf-8?B?QWRGeDVkUmxRUjc0OFhSNG8wQ1NwTnB0aEZNdG5zUjgyZXdFZElSSUt3VjMx?=
- =?utf-8?B?ZzVwMEFzenJicndHTkJGMWF4bXdTTDk5RTVNaGs1TzJucEl1QkZwcVBJbWFo?=
- =?utf-8?B?U1JyclYvcVp2YXNCeGZJYWpVVzlmSi9kRGVxdTBiWkREUzFlWi9TR3JrbHhJ?=
- =?utf-8?B?bUhUak00RDdUTll6UjZldGZZVmFoeDIyYU1UMk5hSGVQL3RFbzJRcHlUVUhW?=
- =?utf-8?B?bVM1S3JhNno3ZXozVmd0NWw4ZjNUWTJVbFJCMlBUODI3R0F3TGhVd0JGRTl2?=
- =?utf-8?B?bjJYejl6MnpuR3RIZHc0VXVMcnl0TVhTM2hRcDFJVFlxcXEvY2dIaFhNdzZP?=
- =?utf-8?B?UUxoK2VYMHF1WG9pM1Z1Nko3Z3hTTWRvbVRYaENkMXNLRmlQTndCQWRDTmlN?=
- =?utf-8?B?TkFWaWlMWGxweWZiSFhycno0aXM5R3ltRHVGQ0twaGhHQzRXSHdFNlpYaE5H?=
- =?utf-8?B?a1dLamhLNnEwWC9id0EwSVhrenIxZkFoT2FIVzVrcE1RMTdLbGFIajZINmZ1?=
- =?utf-8?B?RTdsTmplYkxFbVFPcVhHU0kyTjBwWS9nc28xb3pFSC9icFE2VlJBc2ZBSE9U?=
- =?utf-8?B?akxTNjNZRTkwZGhZTm5WZXVvYU9QdzV4VU9RUTdIa3IzVVZuSytwaHBFU245?=
- =?utf-8?B?QUhTTEswQSs2RjEwZTgyWmZQNE1LRW9uMlVkcVdhSjVQbHkvY2grTjlnODFy?=
- =?utf-8?B?czA3eXVDaEdSK0E0aXQxVWpqNjVsc2hDZjBsZ2tCa2w2OUhmU2dUWGRQZkR2?=
- =?utf-8?B?RFRUdVFMeFhVSkNRNVAzWm83T3owWmtDVitUVG8zTmRiR3RxblFQeVJWVjla?=
- =?utf-8?B?RUdWbnk5TlVrSEN6NUlyeUt5ZzlqR2JKNVlPR29sNzhFUFVnU0JOTFQ5YzFi?=
- =?utf-8?B?eXlIT3Uxbkc3UlkxQ3dJVU1TMHUrUDRqUm9NeDQ1U1JVSTNKZElPeEN6MzYy?=
- =?utf-8?B?Z1ZyUWdvdDZtbWZLbCs2U0dWbTY0NW5XZFBVN1BwSW1VVGlKQ2R5aUZJdzJa?=
- =?utf-8?B?KzFQb2s5RkhZUUJ0eHVnSXZKWXgxNks1RFJPQk5DYlJUQ1JUOHV3by9BazlK?=
- =?utf-8?B?QTN5TVFoaitFTXJJRzMraHh6NEdBc1l1N1hrOFdkUXNuUVF2aW5zVU1XYlVG?=
- =?utf-8?B?QlZMU1plakFQS0dmRHZxemJSTi8zcHlzN2I2T0tzT3dpc0lLd0pkL0E2Mmxr?=
- =?utf-8?B?T1JzMHl5RjNLTkJURW5vd0E5WTNhTU9QRTdmc09janFqcDJWN3ZmMGZ3Mjl1?=
- =?utf-8?B?emhrWXlINlRZYVVIVEJRaklVMysxS2NIUGdnYUhTalRMWEJHeEFtNE9NZUlk?=
- =?utf-8?B?MTNQaFQ1ekhmZXpSUVEyd1BKQW5wZzIrK2hoRFUrWU5KZUFaSjNKUVZmWVVY?=
- =?utf-8?B?eFhkNllScWdNNTBBbk1vOWptTmN4b2ZIMVlJRW92dG9wNlFSTkR6eXJ1Mmk5?=
- =?utf-8?B?RElkWC9tdFQySDFPU2toQmJMMjhIMVRrTXQ5LzhTVnVxUlBTOVFyM2lGdno0?=
- =?utf-8?B?MVJORzF2YXRNR1pIVDVlRzRoVmtieDByTHR1R2ZQNFNFaitsYXhpU0h2OWZF?=
- =?utf-8?B?aDhTOVpzOTVhVG5qY1hRZGVXNytWVVgwRnRMdGRXRzBVTGwxNTZWZ3lXeDVl?=
- =?utf-8?B?a1YwTDYrYzFFVFNqaCtNcG96TWlnZ1d2M2pUY3kzNjVGRWJET1hqSXlpM0tZ?=
- =?utf-8?Q?lOah9O0AIumLEilM=3D?=
-X-Exchange-RoutingPolicyChecked: KUf1+GBHE23V6fy6A7rzLpUHD/GdCOgPqCgZ8qBb/TL2ErG0RZLCIvtxZD9GyQpuEKTW92qUqHY12+yd5Lm8xLcgTpAniPWo+q0w0nu0bnAalZEbdWy4K7fE1wHP0iefoaogItAOGo89JH7PvpYd6WEZai0T5Hu0G3P1iHUCBLUw6saaTfMya3Udtu0ej/YVRdbhYsKjwvWhv9Ph1UwD86NejDCpqzRsMZ42vMUIef9rKDHAxTe76ske3+f+1tITCiXCknmVtbOuJl7gv7hXzYG6+rBlSZS8QaPocPi58Qj+TFWmdWHf6XJO2s9yGwBKyu+aa7p1noqMNcewSY9BCA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22260642-327b-4c85-36a9-08debbf7caa8
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8718.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NC81SzdjNjF6YUFtVDhRMmt5eEx0M2FrTWdQVDkzR0o5YmdkNklwWThZR0lM?=
+ =?utf-8?B?K3VrNE5qdy80K21jRHc5Umh0dkd2a1lYc1ZacWVoUDk4MzdZWjVqMVovYmdp?=
+ =?utf-8?B?TVVTZkNxMnJNbjhvdHZkczdrZGZ3Z1NCeFZWUE1DSk16UXlLWHRGOE41bm1z?=
+ =?utf-8?B?QUNPby9wTTZEWjRzdE91eFh1bnNucytsZWU1ZEFObXFmbjQxQ3JFVlpNT3BK?=
+ =?utf-8?B?RXYzb0VqZ3B3T3VqWmJvdWI1RWwyRmRjN0NkMXdXWGlCUS9FQ3FSU040anpT?=
+ =?utf-8?B?WTM5czU1b255OXJuTVZQQ1E5aEZXbms2NEwrK0hDbisvd29rdUZHa2xCa0Vl?=
+ =?utf-8?B?dnhMNFZDekVKUU8zWUptaUFUbm1ZMHpoa0I4ZHNBa0w2SXB3MEZCQjBSN0lN?=
+ =?utf-8?B?cUJIdGFUYnRkdTFUeXAxZmRySEVpUExvK1pqcGlNMXhJTktpMHBVTXVYMEhK?=
+ =?utf-8?B?SjFKSlFyR1dxWHJKQ1kzdHhKcy9JcUZnYW9wdjhUUXViLzdLdC9LSUlPejRw?=
+ =?utf-8?B?S0Y2T21aS1FGcjRhY3FiWFBpaDlGSW1BSlkzRXZnSFBqWWduVklmSHVCZlMz?=
+ =?utf-8?B?b2VaYjE0WDl4UnFXVVpQNk9mWnlnaEc4RElVdUl0RUJ6VTRhdjlVV3hlOGV4?=
+ =?utf-8?B?Mys0RWc5SncvWFBNVmZDbEtxU0doWXo2K3lzY0o5ZnE0OFo4aWs2dHJhREhn?=
+ =?utf-8?B?dDc1SDlIbW9wK3hzZVo3YjcyYmNNVEwzVXJqeTkyZnh0a0liM2t2a25YeGtP?=
+ =?utf-8?B?T2RrbHRrWUdhb3ViSWx6QmUwMEdhd1dvZnM4SUQ1dlNuekE3eTU4cEM5OFR2?=
+ =?utf-8?B?YkszYUhFKzFVSGNORUxMU2UwVGVxWUlDTzNnRHRlSjhxZnlQVWZHNmFkY0xu?=
+ =?utf-8?B?eTNuR2F0UEpCWTB0MWxxTTdoL3hzRlZWRWFhRnpXczA1WmJFQzc3MWViYk9V?=
+ =?utf-8?B?cUh1QTllU3VkLzUwY3NTUmNSMTJzOFFUNGFjYTNmb1ZlUmxjM3RqVjYzSEw4?=
+ =?utf-8?B?NEVpVEgyeFJLZldPSWFrb3c0WURnWStoRWszWEMrUTRFR0doS3VnUGRiRFV4?=
+ =?utf-8?B?M1F0R2RRbTlXbzEwVXFwdDlNaFp2ZmcyVHlZeTFkRVRTRm0xRXBjQ2VDUzdY?=
+ =?utf-8?B?UlRtZlVES2JJdG91WU1uRTFaV0taQXhRelF3WkhMQjhjSUNIcFo5SzJRZGk3?=
+ =?utf-8?B?RlpobXpPNm9ZSGsvc25SV1pTQ1RBdGl6c0RBdDlrODE5bnNWRW1wV1BWQysw?=
+ =?utf-8?B?emh1YkRVdElhUi9qYXR6SFM3NnpuWnhsb0ZXcGpFYzBlUUJJdlAxdWN2a3hX?=
+ =?utf-8?B?Yi96QnMzeVlRQ3UvWXo3TWxDOVlxUnV6VlZ6Mks5amtYUTEwb29rT0tBWC9O?=
+ =?utf-8?B?dXBDUndCdVozenZJb0NoWDZ0SXVLWjhIR0NqK1lsRGhUSE1YMk0rSDZ3eU5r?=
+ =?utf-8?B?UVhYcWsreDgySzRpSVZSVDRtUWVaby9zWnhJOFIrWkYxUlhiTUhndGxpQjZ2?=
+ =?utf-8?B?WVN0TnJtMkhDOXQwTThvV2NmdEZrbndmMzFoNytBQ1orM0ZMclRzaTYyN2JG?=
+ =?utf-8?B?R3ZCc0hNUWpPYUxiZFI5TFltandubkhWMjlZckJ6WHBmOTRCUW82SzdhSnJa?=
+ =?utf-8?B?OU1VZVVUVHJIL3NDQWZpNHlkOG81VWVjcVN2M1JpL1ExQjdtV3Q2c205dmRX?=
+ =?utf-8?B?M2lZSEtDa0RCOXdCVjZqdWlOTDNxUVJ3VUY5N09ORzVDUVlZdlhsMzZYMEl1?=
+ =?utf-8?B?TjZ0MFNkV1dLK3J4TTZBWitQT3FCOSt4N3lJU0dZQzlJTWcyeE5KVHY5elda?=
+ =?utf-8?B?UjRDNmhpZkVrUmRLTVliY3l0NVJPam54VkFpWkFKZ0RlWGltOFRqc3pOZE1j?=
+ =?utf-8?B?dXNQTGtlOHhOWnl2Smt6aHIwdWw5MlFIWDVmZTZTenozaUJNR0w2Y2dzQ3NW?=
+ =?utf-8?B?RndHamEyYnZaWTl2Y0xIYUphSTR2ZmtjcXl0b0c1YlNxb2NzQXZFN0JOTGo5?=
+ =?utf-8?B?b094M3NPNXZIeVZkTVJyMUpBMmVTUFlNWlJRa2NFY1JPTlNUcjRrYUhIYTc0?=
+ =?utf-8?B?TWRLcXUvU09VQjgvSjFqMWlpVFRQZ1AwdGd5TFlXajZ4WmxSaGFKZWZYUTJD?=
+ =?utf-8?B?VnEvM1E3R2NHeG5vYlFUbU9JdVBrSnc3bVpBMCt2bXdwMHZOMDN5SE50WWJU?=
+ =?utf-8?B?dTdtQzlRMkhHeHJWNDJWeVV6YWJhckJCSkxIcFBrTzNJNWFVaENwbHE2eHI4?=
+ =?utf-8?B?cVRSWW9LU3VaU3g1L3FicEJEZDRNU0VCOFFJSVJmU2xnTEliL2ZZTXZTZjIz?=
+ =?utf-8?B?M2p1ZzBFbTc2VTl6WnJjWk5OTURobGdEMG9aUGJsbzlDb2EwZ3plUkZHWjNF?=
+ =?utf-8?Q?cCZZW4D/NF9Bd5e05j2PlBNQ47dAqng4RXHlEo5F5ei9Q?=
+X-MS-Exchange-AntiSpam-MessageData-1: S+iWCEB/WTzEkg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8351a5b7-9e3d-40f7-2de9-08debbf88b2c
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 13:56:46.7137 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 14:02:09.7681 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0dux8gov4SlQ/vNFv7DjQGblmnibxlW2uTCXdMURqjIAJEEStHdc9vrbdf/PT13K4nZ8GAiAixGe21skRP1JNN7IpH2Eb8C7rRxAijFg3SE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFACFC9C99E
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2+lc+sbZtjLpnVdFUgkm5RTKCidR8Tzea4Vuz1f7KYSvUJ0hDmTBpuAF5Vl6c00+ryvznx9j847GAzDi8JNzrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9565
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,131 +145,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jesper Dangaard Brouer <hawk@kernel.org>
-Date: Wed, 27 May 2026 10:51:42 +0200
-
-> 
-> 
-> On 27/05/2026 09.02, Christoph Hellwig wrote:
->> The kmem_cache_alloc_bulk return value is weird.  It returns the number
->> of allocated objects, but that must always be 0 or the requested number
->> based on the implementations and the handling in the callers, but that
->> assumption is not actually documented anywhere, which confuses automated
->> review tools.
+On Fri May 22, 2026 at 3:59 PM JST, Eliot Courtney wrote:
+> On Thu May 21, 2026 at 10:50 PM JST, Alexandre Courbot wrote:
+>> When probing the driver, the FWSEC-FRTS firmware creates a WPR2 secure
+>> memory region to store the GSP firmware, and the Booter Loader loads and
+>> starts that firmware into the GSP, making it run in RISC-V mode.
 >>
-> 
-> I remember, this API behavior was requested by AKPM when I developed
-> kmem_cache_alloc_bulk.  I trusted AKPM's decision, but I cannot explain
-> why this choice was made.
-
-I sorta remember that when I was reading this function, I also noticed
-that it always returns only 2 possible values (0 or the requested
-number), but didn't pay enough attention or it was already after I
-introduced napi_skb_cache_get_bulk().
-
-> 
-> I kept the netdev code usage below. The current napi_skb_cache_get_bulk
-> have a retry logic that assumes that a partial bulk number can be
-> returned (which it cannot as Hellwig explains).  Cc Alex/Olek please
-> review the changes below as you added this retry logic.
-
-As far as I can see, the diff below doesn't introduce any functional
-changes (but allows for a bit better compiler optimization). The logic
-is still the same:
-
-1) try to allocate non-zeroed skbs into the cache
-2) if not enough, try to allocate zeroed skbs directly
-3) if still not enough, return less than requested
-
-The logic is still valid even if kmem_cache_alloc_bulk() return bool --
-we might have some skbs in the cache (but less than requested) and then
-the first allocation try may fail, but the second one succeed (as it
-allocates from a different (the zeroed) zone).
-
-> 
-> 
->> Fix this by returning a bool if the allocation succeeded and adding a
->> kerneldoc comment explaining the API.
+>> These operations need to be reverted upon unloading, particularly the
+>> WPR2 secure region creation, as its presence prevents the driver from
+>> subsequently probing.
 >>
->> Signed-off-by: Christoph Hellwig <hch@lst.de>
+>> Thus, prepare the Booter Unloader and FWSEC-SB firmwares when booting
+>> the GSP, so they can be executed at unbind time to put the GPU into a
+>> state where it can be probed again.
+>>
+>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 >> ---
->>   drivers/gpu/drm/msm/msm_iommu.c       |  6 +--
->>   drivers/gpu/drm/panthor/panthor_mmu.c | 12 +++---
->>   include/linux/slab.h                  |  6 ++-
->>   io_uring/io_uring.c                   | 23 +++++------
->>   lib/test_meminit.c                    | 19 +++++----
->>   mm/kasan/kasan_test_c.c               |  5 +--
->>   mm/kfence/kfence_test.c               |  9 +++--
->>   mm/slub.c                             | 58 +++++++++++++++------------
->>   net/bpf/test_run.c                    |  7 ++--
->>   net/core/skbuff.c                     | 24 ++++++-----
->>   tools/include/linux/slab.h            |  2 +-
->>   tools/testing/shared/linux.c          | 19 ++++-----
->>   12 files changed, 93 insertions(+), 97 deletions(-)
->>
-> 
-> [...]
-> 
->> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
->> index 44ac121cfccb..73045b688385 100644
->> --- a/net/core/skbuff.c
->> +++ b/net/core/skbuff.c
->> @@ -288,11 +288,11 @@ static inline struct sk_buff
->> *napi_skb_cache_get(bool alloc)
->>         local_lock_nested_bh(&napi_alloc_cache.bh_lock);
->>       if (unlikely(!nc->skb_count)) {
->> -        if (alloc)
->> -            nc->skb_count =
->> kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
->> -                        GFP_ATOMIC | __GFP_NOWARN,
->> -                        NAPI_SKB_CACHE_BULK,
->> -                        nc->skb_cache);
->> +        if (alloc && kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
->> +                           GFP_ATOMIC | __GFP_NOWARN,
->> +                           NAPI_SKB_CACHE_BULK,
->> +                           nc->skb_cache))
->> +            nc->skb_count = NAPI_SKB_CACHE_BULK;
->>           if (unlikely(!nc->skb_count)) {
->>               local_unlock_nested_bh(&napi_alloc_cache.bh_lock);
->>               return NULL;
->> @@ -353,16 +353,18 @@ u32 napi_skb_cache_get_bulk(void **skbs, u32 n)
->>         /* No enough cached skbs. Try refilling the cache first */
->>       bulk = min(NAPI_SKB_CACHE_SIZE - nc->skb_count,
->> NAPI_SKB_CACHE_BULK);
->> -    nc->skb_count += kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
->> -                           GFP_ATOMIC | __GFP_NOWARN, bulk,
->> -                           &nc->skb_cache[nc->skb_count]);
->> +    if (kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
->> +                  GFP_ATOMIC | __GFP_NOWARN, bulk,
->> +                  &nc->skb_cache[nc->skb_count]))
->> +        nc->skb_count += bulk;
->>       if (likely(nc->skb_count >= n))
->>           goto get;
->>         /* Still not enough. Bulk-allocate the missing part directly,
->> zeroed */
->> -    n -= kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
->> -                   GFP_ATOMIC | __GFP_ZERO | __GFP_NOWARN,
->> -                   n - nc->skb_count, &skbs[nc->skb_count]);
->> +    if (kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
->> +                  GFP_ATOMIC | __GFP_ZERO | __GFP_NOWARN,
->> +                  n - nc->skb_count, &skbs[nc->skb_count]))
->> +        n = nc->skb_count;
+>
+> After seeing the bundle moved outwards, I realised that it has the same
+> issue that SysmemFlush does, i.e. if probe fails it does not reset the
+> GSP. A lot of the time during development I will break things badly
+> enough that probe fails, so it would be nice if this is supported. OTOH,
+> this gets the probe suceed and unload case working which is important
+> and this is a definite improvement, so for this version and the previous
+> version of the patch:
+>
+> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+>
+> I also had a brief go at making this work on Drop, here is the diff on
+> top of this series. I can send this as a follow up if you would like
+> after cleaning it up, or lmk wdyt:
 
-kmem_cache_alloc_bulk() allocates `n - nc->skb_count`, but here you
-assign `nc->skb_count` to n.
-Ah wait,
+This is clearly better. It guarantees that the unload sequence is run
+when the `Gpu` is dropped, while preserving its one-shot nature. Also,
+no `Cell` and no awkward output parameter to `Gpu::new`.
 
-n -= n - nc->skb_count
-n = n - (n - nc->skb_count)
-n = n - n + nc->skb_count
-n = nc->skb_count
+The only blind spot remaining would be to also cover the case where a
+failure occurs during `Gsp::boot`, but that's for `Gsp::boot` to handle
+itself imho.
 
-Correct :D
-
->>       if (likely(nc->skb_count >= n))
->>           goto get;
-
-Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com> # skbuff
-
-Thanks,
-Olek
+Would you be ok if I folded this into this patch for v7, with your
+`Co-developed-by` and `Signed-off-by`? Then I'll also try to tackle the
+`Gsp::boot` failure scenario using a drop wrapper or something similar.
