@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F9DBCD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 06:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C27CCD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 06:23:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71A9E10E07A;
-	Wed, 27 May 2026 06:23:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 756E610E64E;
+	Wed, 27 May 2026 06:23:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=reznichenko.net header.i=@reznichenko.net header.b="DrEGwVrt";
+	dkim=pass (2048-bit key; secure) header.d=reznichenko.net header.i=@reznichenko.net header.b="GaTuA2fB";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD37C10E07A
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 06:23:04 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2ba3e3c4f87so118312415ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 23:23:04 -0700 (PDT)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E92410E64E
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 06:23:07 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2ba17c8cfacso119271125ad.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 26 May 2026 23:23:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=reznichenko.net; s=google; t=1779862984; x=1780467784;
+ d=reznichenko.net; s=google; t=1779862987; x=1780467787;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=wp7cVAEXMj+4Rtt/nZVyY7sv93Gg+UwhM0RH5MslZVE=;
- b=DrEGwVrtKtvbvdEBD6xg/40Rg7RN5I6euB+g7SPSq/19y3Ofke9iZfvqhjJqJ7fjPP
- rWTpCut2aKEd1Waxuc1qNWHxD9wC6H0Z5M/wjIQT0sHgPKi7ZfPVl/ZrpUQkMFWZg4v5
- z/l4pVwo3IdpZVbhqBXx6KTAucHTz3YzBtx5cXEhRXihPiLoRWNcppduPmAIwV1eWBtI
- e/cdXQlemtLmmRWkG0ZmPSg2lJbPxNjH8Sydve0hTkTLKws7/HcrcvLKJ8mbCq3B5CAt
- ceMyB0rovWlaOelbxOETgtltON4M36xvCK+jed3JZspIVFYKlahBxihlPAE63rqZ2COA
- P5NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779862984; x=1780467784;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wp7cVAEXMj+4Rtt/nZVyY7sv93Gg+UwhM0RH5MslZVE=;
- b=l+rQE3N2Xgez/hz6BTcak5SPFcTwmND/RMSN0hTrzmHAZ3n/fQrTV9OoIR/b2D2g4S
- WTRct8q3KlZuKqydW7+msOlNDHneXCa9ulOMoSfZjSw7jsYD9SnFlEBCd+oi3WatdlDP
- ZaC5N0uztiLKxrhAivqbCzxr1gDFjPymn9kny77NvZRm794NuhlL2uduDUyS+ZOpRBhv
- n24et/vTR8S4kt+9zNIqE1nVlIT0HjSvCprvCUZTTbFdYbLn87DrM2sQ4rH6GAS1tp25
- 0rcXH2lb+ZQ6/4ZrYWecB6qyAhOqRnUw5D6uLHMs3pQZ9u/+1Zw85ULCxIROw3KnRDYp
- AJZA==
-X-Gm-Message-State: AOJu0YwnirQCJduIWpjJ3qvfOEIisWpO9psz2kynCQBO3wYH4uxQ9lnS
- O5Kv6anSLMKMEUHNWxP7tyMte/UtHcUuLBpOCORSMLHpkgir6OMx62D+BlosI1FoJJA=
-X-Gm-Gg: Acq92OEqXtjzfFFoCHT2bxywLUKbEHhNxNP3tZ4GuZ405luxTViUOg0znzCaU5Jl7jZ
- YnZHhQwwHuHrMNO058KshPEl2OsNtz4rjgS2uKJIkQDsjpNTj5L8Bo2nFdZEuvTAHqD1djvvP4k
- 1W6nbNxgXfYfXiFANNQgcTez4aPP0KuLpop/xEWsyBklbkCZTTTu91zHOJk8OxNcn3Xn7s6HFpQ
- wW8T1pJXDUGhRtx61p8kZ4uJ0xSWw/+ZUV7MbMZeKf90XVGg4Lp/5cP917Z9naZ1tHwLqL0Gyot
- 5fUDGEisb/w08N0bErkxxum63sn+h9EyzCTHDwmguhaNR/CI+rDar5Me3s7HFxPPGpsBfwmhlDP
- YavpAx78UCkwlSmVuHXeUcWiWhaVoFS5aNZgidCifGYJk/93H7dZ0uSkS2SOt8p+p8ilcCueCpf
- 6w2SvQSObYAtD+dN4piC+ktHewWg==
-X-Received: by 2002:a17:903:2f4f:b0:2b4:5f69:715d with SMTP id
- d9443c01a7336-2beb05d9d8emr247054355ad.25.1779862983821; 
- Tue, 26 May 2026 23:23:03 -0700 (PDT)
+ bh=DJASFrwjoeNGT0XkAG+AYLQ0wHyxti3wxbxL3mwKs0I=;
+ b=GaTuA2fBOM0n5/Kjsz/F+6iXuhqzRFfxMhhrq+wAasPqUOGAM2JM8rw/7iH6pmBvi9
+ SIV7H7StmrQAQ9f8S0nl5TMEfT7zFcaWXNteKVDaDsFCnTwzit6pF1yYWm3CoZKlDRGO
+ TM/B6yPNtSKKNrHct3E1tymVPHYE8wIEYPBFGTUb+uM/0fDbzZuxuLZGUx4wVlcL0cXr
+ 2wzmQ6CENWIrM7nHK+Wbb3PlRp9s8iBU0Jt8FJCdUsOpVMs4EPvA6pAWVPFoTuPXPsq1
+ deXxgo2FktvK56iX+uu+8NfkDuJJX7ppwoOVZk0S1smZVI0YGDxV5YwUzfjJFLcKuysu
+ VSVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779862987; x=1780467787;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DJASFrwjoeNGT0XkAG+AYLQ0wHyxti3wxbxL3mwKs0I=;
+ b=s5epWEzyMV4dGndbHKOwjSxw/zxDkoq+1I+IXy9IA/rSB126FTUW++kBdrXyoAZacP
+ EpqvdUukdRnKMtFMsS3e3ZCSiHW0S4iYanJ5GReYJpsewA3liNASJIg4drSYtVTbJtLj
+ PgiDnIokQbpk9xwW9qKlEnK9DkssVCxuQJHvC72pl2hIcbX1Cys124n31tTLIxkxUWru
+ qimKcOvCkaH5efd7OUkZ/xACjLHCECjx22LYcMiZK4SbBk1swzg6Us2QuefKbV6PJsxQ
+ /0hCcv1fL7hwVxsCppFL1bp4TyoX9dlrTkaEKcj6U6TFyxUxaaQPMJ4UPQq29V5GHi/j
+ QCJQ==
+X-Gm-Message-State: AOJu0YzL2Xx5+ToJd6chSi4AthxSDDrNIyPtTFd158EHBxONglxVr3Op
+ XV2EsirnzL92OOwqeUeCnZb/mhI/kZ9hYBZ2Ks8zzCx4MD/tkU7cbaWAsTcDFJTVup8=
+X-Gm-Gg: Acq92OFOkEnlRSvOCwExQXPNrM2ZD5KAi1lOxUredB7SIi/DZrYRJZu8Vd8hcM7xskt
+ rHStRSieh1a04oyGxgpI+o8momRRyWKv84HKisXuNlvMRhmJkaMfWbCNB+KhXwpT2uoul8bkTBa
+ uVCOACYp9nx5JHLc7dz9NYr7dv1sJcZl/UIZjbB/dGvQ21jpr+qPHHfIahtLG5tS2Hg+PSs5UGc
+ eOVlKIjLzcNwSFEbe+z1PI25Ksrlf1Pv0O+zJp1W2yMZmku9nqmgZ5uelv3jRd/OydkohYjb05t
+ zOgjR0T/6ewyDhPuM+xfbcYp9vThaxnL8vX3SbP2+QkTyfl7bcl6bhRVTbK64leT1biSg4/h9va
+ dJH7sJmhkyU75vmtpp/MvfiHzE2TIkQ+2deaj3Hp0vg5/GEmrPLrBk/rebAXueDKYLmDuJlhIL6
+ Y4AFPh4uWN2ox8bFvUFHxG/wVuig==
+X-Received: by 2002:a17:902:f64e:b0:2b2:50bd:83b3 with SMTP id
+ d9443c01a7336-2beb035c826mr231476725ad.10.1779862986733; 
+ Tue, 26 May 2026 23:23:06 -0700 (PDT)
 Received: from z440.. ([24.21.231.36]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb5695f05sm182387205ad.6.2026.05.26.23.23.02
+ d9443c01a7336-2beb5695f05sm182387205ad.6.2026.05.26.23.23.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 23:23:03 -0700 (PDT)
+ Tue, 26 May 2026 23:23:06 -0700 (PDT)
 From: Igor Reznichenko <igor@reznichenko.net>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -72,12 +73,14 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Manivannan Sadhasivam <mani@kernel.org>, "Kael D'Alcamo" <dev@kael-k.io>,
  Kever Yang <kever.yang@rock-chips.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/2] drm/panel: Add support for the FocusLCDs
- E35GH-I-MW800CB
-Date: Tue, 26 May 2026 23:22:58 -0700
-Message-ID: <20260527062300.88928-1-igor@reznichenko.net>
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v4 1/2] dt-bindings: display: panel: Add Ilitek ILI9488 panel
+ controller
+Date: Tue, 26 May 2026 23:22:59 -0700
+Message-ID: <20260527062300.88928-2-igor@reznichenko.net>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260527062300.88928-1-igor@reznichenko.net>
+References: <20260527062300.88928-1-igor@reznichenko.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,43 +98,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for E35GH-I-MW800CB 320x480 MIPI DSI panel by FocusLCDs.
-The panel uses Ilitek ILI9488 driver IC in DSI mode specifically.
-ILI9488 also appears in DBI/SPI panels, but those require different bus drivers.
+Add binding for the Ilitek ILI9488 panel controller which is found on
+the FocusLCDs E35GH-I-MW800-CB MIPI DSI panel. Add "focuslcds" to
+vendor-prefixes.yaml as it's a brandname and a website
+(https://focuslcds.com/) for Focus Display Solutions, Inc.
 
-This is a resend of v3. Since v3, this panel driver has been tested on 
-STM32MP157D-DK1 in addition to TI AM62P EVK. The panel works in video mode on 
-both platforms. Additional panels using ILI9488 DSI can be added later 
-with their own timings.
-
-v4: Rebased
-	Tested 7.1-rc5 on STM32MP157D-DK1
-	Adjusted E35GH-I-MW800CB mode timing to a 14.4 MHz pixel clock with
-	slightly increased blanking to make it more synthesizable across DSI hosts 
-	
-v3: Fixed missing Reviewed-by tag
-    https://lore.kernel.org/all/20260204060114.345219-1-igor@reznichenko.net/
-    
-v2: Added comment explaining the "focuslcds" vendor prefix
-	https://lore.kernel.org/all/20260203054121.335441-1-igor@reznichenko.net/
-	
-v1:
-	https://lore.kernel.org/all/20260131034101.307486-1-igor@reznichenko.net/
-
-Igor Reznichenko (2):
-  dt-bindings: display: panel: Add Ilitek ILI9488 panel controller
-  drm/panel: Add Ilitek ILI9488 controller driver
-
- .../display/panel/ilitek,ili9488.yaml         |  63 ++++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   6 +
- drivers/gpu/drm/panel/Kconfig                 |   9 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili9488.c  | 299 ++++++++++++++++++
- 6 files changed, 380 insertions(+)
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Igor Reznichenko <igor@reznichenko.net>
+---
+ .../display/panel/ilitek,ili9488.yaml         | 63 +++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ 2 files changed, 65 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9488.c
 
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
+new file mode 100644
+index 000000000000..ea7449273022
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
+@@ -0,0 +1,63 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/ilitek,ili9488.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ilitek ILI9488 based MIPI-DSI panels
++
++maintainers:
++  - Igor Reznichenko <igor@reznichenko.net>
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - focuslcds,e35gh-i-mw800cb
++      - const: ilitek,ili9488
++
++  reg:
++    maxItems: 1
++
++  vci-supply: true
++  iovcc-supply: true
++
++required:
++  - compatible
++  - reg
++  - vci-supply
++  - iovcc-supply
++  - reset-gpios
++  - backlight
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "focuslcds,e35gh-i-mw800cb", "ilitek,ili9488";
++            reg = <0>;
++            vci-supply = <&reg_vci_panel>;
++            iovcc-supply = <&reg_iovcc_panel>;
++            reset-gpios = <&gpio3 6 GPIO_ACTIVE_LOW>;
++            backlight = <&pwm_bl>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
++        };
++    };
++
++...
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 28784d66ae7b..5ab758570248 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -600,6 +600,8 @@ patternProperties:
+     description: Flipkart Inc.
+   "^focaltech,.*":
+     description: FocalTech Systems Co.,Ltd
++  "^focuslcds,.*":
++    description: Focus Display Solutions, Inc.
+   "^forlinx,.*":
+     description: Baoding Forlinx Embedded Technology Co., Ltd.
+   "^foursemi,.*":
 -- 
 2.43.0
 
