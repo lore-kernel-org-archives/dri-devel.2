@@ -4,86 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F6FCD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45B2BCD5BD0
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:50:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FDCA10E9FE;
-	Wed, 27 May 2026 20:50:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A74B110E9FF;
+	Wed, 27 May 2026 20:50:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fengZZNl";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="bHLbiJCO";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9F0A10E9FE
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:50:28 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-8367df48711so5309427b3a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:50:28 -0700 (PDT)
+Received: from mail-qv1-f73.google.com (mail-qv1-f73.google.com
+ [209.85.219.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9D0710E9FF
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:50:51 +0000 (UTC)
+Received: by mail-qv1-f73.google.com with SMTP id
+ 6a1803df08f44-8ca1295e3a9so222487646d6.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:50:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779915028; x=1780519828; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZgmT2PCf8Y8jhcdcmTfOPLMXO+NaMPZbn+px8TLtHg8=;
- b=fengZZNltL6WGjWH7rYpGffaAB4m8cztezf/CfmzUf7ZiHv3wY9ILH1SX9eORBCvTa
- c/0+unrEQj3q3LBx3qPCUHQeRKliMxEUQ8qcXCCsSuJTeMk+oKDjipM2EVY5WxsD0zkU
- FskgC7UtjmAPDVjQKMBcMl4ihpDfKz15dWrEIa4x27Y8/05RDHn54hlXPw+RiGSz0n2n
- SbRUhXM+i0K6fq2pANKqXL6cixpllTxCSwRMUy8PTvfP0rBRN402v0FPAxSrcfhwPzX8
- n00QUwXVsFPgmkllLjXDjgM1nh/szKRrCakInM72NxrsYLXJxgRvP+bKYI1d2iG7d3q0
- u8iw==
+ d=google.com; s=20251104; t=1779915051; x=1780519851;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=OnsOZAwcaFX6qrXTkZ3llO87kDjoRN0331vlXYrms0w=;
+ b=bHLbiJCOvdaVlLzCeQN7qKkefJFCMAeKHrAzcGoBSE6U34Bh3ToqVTejJJNjVPT034
+ 7ZXm53kNTU1zbyCjmyomRH7/TN0WT4XEJt09HM8C38ZnyME+c2kDKucoOhFn0S9FbSds
+ ug7WgUM7OHZBPO65XNyXGY+57KFi50KmDbuV2UUwW7u5iv1fIOUJicxL+uZhS2AXefH7
+ xQ1yYGRHZdNV+pfvTCsJkDnq2rF5txoeyf2/lMd3ivSuCX4mEOYk+YplAEx6qid0nVsK
+ RjJDw4n+kvj7LksoOu7cdwb5Iz9DxMb58FnJZEckdfmBUf9aT5AvgkzdOfvL0zoNB0zk
+ CYLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779915028; x=1780519828;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZgmT2PCf8Y8jhcdcmTfOPLMXO+NaMPZbn+px8TLtHg8=;
- b=ovacwuPc40C3TWSvcBJ1Oip4qFQXcu8dFCmHyafip7SmgQUClpar28lrRbqUEilwEn
- IgIcKPu4YTDqZuNgZYcCx/SYtqAo9qfJEFeCvmS80x50SXwKIEaMGBWgxiB8oOy2GZCr
- QrhokBYDsDOFXgsui6ZdlUAcpqwGtLBQsN1MqUEVrVCCBIephomgwQnqkH274UWS5yb8
- wx6+xN//tUsM0cfSbLtp+4gWcNM/f7o+Jy4dAp0t1+xG01GcLBXflja9ofSL/uqMX+zu
- hUBZH/PqS+fl5F1M5Ny3pdIXhv5gKUKJphrjN2ifHTC3iU0RuO2rA649bk0bar0eNY3k
- Zkqg==
+ d=1e100.net; s=20251104; t=1779915051; x=1780519851;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OnsOZAwcaFX6qrXTkZ3llO87kDjoRN0331vlXYrms0w=;
+ b=Tmuv4hkDGSCyCqMvYrCkrikLBxfNGLrhqWbmBVXa7E9phI0dzdrj90BhlCXxDzZIko
+ 85K+ylV71DX5GyUaUicsBAzCsjG1jNDo+B2w5kfHF6Bm5Lkjxj+H6krKkdeQvUw3FA0m
+ iixQ5xYHQ58cx1LC7h6oR3jsnn+wWDJSm5S6ND36j9vC+KNufBO6nRbP/hHKGRwPG/rC
+ 6PYe4wEpGNzDN67Q8gCkNHPv4UhCEfERcBDl+oTxsf2uBWz/TzM+s4iwFeOXuutxuR/B
+ aVPvhGAnNNzrAblg6lVJEMC09n6FyvlBFf9QfK9LX2JrhEjko+/DuXel765rP+faIAys
+ m+vA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9MkZGXgXUC3vVBZQwBaQFIl3IEj897h8Cf/HjOupA/lFPMUjCYiG0OBGOQvd8WdAEC4zh7NaJTAyE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1ar57R7IrEA3m/nENMTEVp5+tY4ORHJDDMsFZArWR2jAWRC4l
- Avqa5VWBohvf5d9zDgUFkv+7UD9j0+dyzwOMURgZGNKa2EuIhoa4sMtt
-X-Gm-Gg: Acq92OHFiTKcmR/rXpmabOpt4aQKGPJSgDCIOTg+Dfp+3qDj0ct9lGSJ/Rb7LMQQFHg
- hkezXJpGqIpI3xbA/i8Bv5sbHzyVYebe3plExhjdGVdacIbZWKjEk1+OXE+xECxhUdzdwwM1BE7
- aLk0hUluU1KQCM8gBUHOSP7G8BMVRqLxKSg85QtedfP1gYxdMQIrHE2AEkItOIMLw5ypMIfFco+
- //wscU3FJFmb44mipvhk4CTEb0EpTqbq8+O4Mhc9rEDGgX2ViAKdoQun25M3kn6RYGGuTvB8xDR
- malEOQQ5s8RoMgEcySkq21W/kafBtFSRaQ3HSFY/l5D06NaFbbq3oF6KwCUeo5RYBNOjhSGt/gN
- tDRC/Zpj8CM4kndHTIEroyfeWIN9qeIaZiqctjZa/GwBe0tWbfNyyNgoo104JRcvE0dSZgkUwal
- d2kNfdIgpayObocC27Hk3wGeTXm/f0L62QUf/ULAqnno0Sn3o=
-X-Received: by 2002:a05:6a00:f03:b0:82a:6f69:7f72 with SMTP id
- d2e1a72fcca58-8415f588372mr23987407b3a.47.1779915028339; 
- Wed, 27 May 2026 13:50:28 -0700 (PDT)
-Received: from [172.18.227.108] ([219.88.198.180])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-841d6eae464sm4078935b3a.20.2026.05.27.13.50.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 May 2026 13:50:27 -0700 (PDT)
-Message-ID: <a727e1e9-777d-4372-a087-85a721f174ba@gmail.com>
-Date: Thu, 28 May 2026 08:50:20 +1200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] drm/msm/dp: Limit voltage swing level to 2 for RA620
- bridge
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260522060645.4399-1-graham.oconnor@gmail.com>
- <20260522060645.4399-4-graham.oconnor@gmail.com>
- <7e435e8c-ba0e-453a-b95c-450446dfc0ff@oss.qualcomm.com>
-Content-Language: en-GB, en-US
-From: Gekko <graham.oconnor@gmail.com>
-In-Reply-To: <7e435e8c-ba0e-453a-b95c-450446dfc0ff@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ AFNElJ/x9YL08+z+sBRIZmN4EPDeJprYWsZgX0wOeHoHmOEumvAba5rrXtri9MKK15WAozCY+pJ9NY0HSIc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzlEDhqgT3auYWP8yUm8TO64oMp+JnnxRIww1hfG+L0WY8890nF
+ Pnzv/MHZLDdFtDIz3h9MvLA93hE2IfGj/j0cI6+cNy3KmfgqPeBa7bsZ0PGwTl4ChMk5UVG1i+T
+ NCXt8qahcL5gX
+X-Received: from qviu6.prod.google.com ([2002:a0c:c486:0:b0:8cc:2486:6603])
+ (user=xuehaohu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6214:54ca:b0:8ac:b237:9fb5 with SMTP id
+ 6a1803df08f44-8cc7b5fe0d8mr387104406d6.49.1779915050519; 
+ Wed, 27 May 2026 13:50:50 -0700 (PDT)
+Date: Wed, 27 May 2026 20:50:47 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.54.0.794.g4f17f83d09-goog
+Message-ID: <20260527205048.2168808-1-xuehaohu@google.com>
+Subject: [PATCH v2] dma-buf: Fix silent overflow for phys vec to sgt
+From: David Hu <xuehaohu@google.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Alex Williamson <alex@shazbot.org>,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, jmoroni@google.com, praan@google.com, 
+ leonro@nvidia.com, David Hu <xuehaohu@google.com>, stable@vger.kernel.org, 
+ iommu@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,49 +83,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Konrad
+In case MMIO size is bigger than 4G and peer2peer DMA goes
+through host bridge, we trigger a code path that assigns the
+total linked IOVA (which is greater than 4G) to mapped_len.
 
-I completely agree.
+Previously, `mapped_len` was declared as 32-bit `unsigned int`.
+When accumulating `size_t` lengths, this leads to a silent wrap-around.
+This truncation causes truncated lengths to be passed to functions
+like `fill_sg_entry()`.
 
-This patch is a temporary hardware workaround for RA620 bridge support 
-and should not have been submitted. Please disregard.
+Fix this by changing `mapped_len` to `size_t` (64-bit). While
+at it, fix similar potential overflow issues in `calc_sg_nents`
+by using `size_t` for `nents` and checking against `UINT_MAX`
+and using `unsigned int` for the loop iterator in `fill_sg_entry`
+to match.
 
-Graham
+to mapped_len, and leading to a silent overflow
 
-On 22/05/2026 21:28, Konrad Dybcio wrote:
-> On 5/22/26 8:06 AM, Graham O'Connor wrote:
->> The RA620 DP-to-HDMI bridge used on the Radxa Dragon Q6A does not
->> acknowledge DP link training at voltage swing level 3. The bridge
->> requests maximum voltage swing but never completes link training
->> when the driver attempts level 3, causing HDMI output to fail.
->>
->> Cap DP_TRAIN_LEVEL_MAX at 2 to match the behaviour of the vendor
->> kernel, where link training completes successfully at level 2.
->> This allows the RA620 bridge to establish a stable HDMI connection.
->>
->> Tested on Radxa Dragon Q6A (QCS6490) with RA620 DP-to-HDMI bridge
->>
->> Signed-off-by: Graham O'Connor <graham.oconnor@gmail.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_link.h | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
->> index 76125e9c0..ff0d8e99d 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_link.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_link.h
->> @@ -24,7 +24,7 @@ struct msm_dp_link_info {
->>   	unsigned long capabilities;
->>   };
->>   
->> -#define DP_TRAIN_LEVEL_MAX	3
->> +#define DP_TRAIN_LEVEL_MAX	2
-> 
-> You're limiting this value for *all* devices featuring a Qualcomm
-> SoC with a DP controller. Instead, if this is really an issue that
-> results from the bridge's capabilities (which could potentially only
-> be a symptom, not the cause), this should be somehow limited to the
-> specific bridge itself
-> 
-> Konrad
+Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+Cc: stable@vger.kernel.org
+Cc: iommu@lists.linux.dev
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Signed-off-by: David Hu <xuehaohu@google.com>
+---
+Changes in v2:
+ Fixed 'IVOA' -> 'IOVA' typo and expanded commit message (Claude Bot).
+ Added Reverse Xmas tree formatting (Pranjal).
+ Folded in extra bounds checking for calc_sg_nents() (Pranjal).
+ Folded in type consistency fix for fill_sg_entry() (Pranjal).
+ Droped unnecessary `nents = 0` initialization (Claude Bot).
+
+ drivers/dma-buf/dma-buf-mapping.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+index 794acff2546a..5bc769fc42ea 100644
+--- a/drivers/dma-buf/dma-buf-mapping.c
++++ b/drivers/dma-buf/dma-buf-mapping.c
+@@ -10,7 +10,7 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+ 					 dma_addr_t addr)
+ {
+ 	unsigned int len, nents;
+-	int i;
++	unsigned int i;
+ 
+ 	nents = DIV_ROUND_UP(length, UINT_MAX);
+ 	for (i = 0; i < nents; i++) {
+@@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+ 				  struct phys_vec *phys_vec, size_t nr_ranges,
+ 				  size_t size)
+ {
+-	unsigned int nents = 0;
++	size_t nents = 0;
+ 	size_t i;
+ 
+ 	if (!state || !dma_use_iova(state)) {
+@@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+ 		nents = DIV_ROUND_UP(size, UINT_MAX);
+ 	}
+ 
++	if (nents > UINT_MAX)
++		return 0;
++
+ 	return nents;
+ }
+ 
+@@ -95,9 +98,10 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ 					 size_t nr_ranges, size_t size,
+ 					 enum dma_data_direction dir)
+ {
+-	unsigned int nents, mapped_len = 0;
+ 	struct dma_buf_dma *dma;
+ 	struct scatterlist *sgl;
++	size_t mapped_len = 0;
++	unsigned int nents;
+ 	dma_addr_t addr;
+ 	size_t i;
+ 	int ret;
+-- 
+2.54.0.794.g4f17f83d09-goog
 
