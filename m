@@ -4,134 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D1DBCD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 10:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8FDFCD5BC9
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 10:32:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 594C310E770;
-	Wed, 27 May 2026 10:31:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34EF110E773;
+	Wed, 27 May 2026 10:32:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kontron.de header.i=@kontron.de header.b="txTkLAMd";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="LhfTsN57";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="38hJRJ/a";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rUSXermq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Vd1Aathu";
 	dkim-atps=neutral
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11020081.outbound.protection.outlook.com [52.101.69.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7643010E770
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 10:31:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eOcEHH0TK1CBFJVoZ+lGYCZoHj3AOT4E66oHBhkPX7zyPN6R6IopIw9ofV9d9DD9XX2UzWildapz684CAZ0iIY98xds5XHTCQLqapkgQO9IfYPKte029L87MXT8ksletC4r0FixjcWLKYzNYTBF0b6P3VarjjA3z7yNj6z1VtHbiUvVt0WOkSAZMJBSrIPs7cuH7FlFrOZA4qzEERIWnkO3fdpR8gYawooQYuZPnIOfI4eKMrZoCtUBCEfTa2w6utX7EJEmv3HEX3wOXNb6RDeZDqz5moMXkYPOojh8r1l5kNDuVOrIQUUFaehls4HMt0tfAODlDJVr1Tj3FRG/Vxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GzwrvTLL0hSH7hKjArvURi26XXa0ZjR5zJ210CYpbwk=;
- b=lVFDvvPHbgxlLrBLr7NvIR0TQFTHvm2AT3J0iSUF7NhGNCQc7ObrGIUPbf7PgBQ3QWQJGY3h9Y0UqjtmQFz3GXsjja7c5bo7oi8KqnGrVDEXxdtg6DdoeDTZaEeP7K208ShGxMB/20yGZoRO5ShHb/GP7XRtM4+SNMtlHLRBLD0g6op9ELQlRyNDYlEi2UESU6ZqX3SjDiDU9bkheGZ8FTappsfkGN8gMcVNaLbsj17H0Fiayb29RaDHvQ2zUR/pRpyUwxEoEjmEjzAdMB3iA66DFuu8nNFMOFsm63ZJpMpM+mbC523BYNjj12wqQO0CMCLcUkizi5D1N5O/YPEnPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GzwrvTLL0hSH7hKjArvURi26XXa0ZjR5zJ210CYpbwk=;
- b=txTkLAMdejqV5u3aDmulpcbAQLN2FEDHPn5vOpcL5X8afBK6jey4vd2tvLAWiR1qgxM6vEmPmEojs4xMqSl7ajq1dKdHSqDAyjr9Y4kl0/tRrvd/jqhwzGTp16CZw/A7SjlT0MRGuappE+mEEmAdOD1Qe4bnID7Nl8JuBcmZxNflYcmTHzki5PXof3BIGM03V20Axw8B31lfvYd0ISdZ2y0wsNHx5pz6B/7sT4fa14kDt0Yow6/SE69McnNPApPtSuI0d34SzrJoozHojdAtmfikhB2hlfvhncZjVaveXIa3DtXnwYBXi3WFkMz3JF1qy8eqljmaC2G/G1TNa1yQpA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by AM8PR10MB4130.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1ea::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Wed, 27 May
- 2026 10:31:28 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%3]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 10:31:28 +0000
-Message-ID: <6d24bedb-fff2-4854-9632-a7dc379f852b@kontron.de>
-Date: Wed, 27 May 2026 12:31:26 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm: lcdif: Wait for vblank before disabling DMA
-To: Paul Kocialkowski <paulk@sys-base.io>, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Lucas Stach <l.stach@pengutronix.de>,
- =?UTF-8?Q?Krzysztof_Ha=C5=82asa?= <khalasa@piap.pl>,
- Marco Felsch <m.felsch@pengutronix.de>, Liu Ying <victor.liu@nxp.com>
-References: <20260402183351.3281123-1-paulk@sys-base.io>
- <20260402183351.3281123-3-paulk@sys-base.io>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <20260402183351.3281123-3-paulk@sys-base.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0052.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cc::10) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 652C610E773
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 10:32:11 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1F63C6AE7D;
+ Wed, 27 May 2026 10:32:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779877930; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=/iVDbonB5iVcc71aHgBrmp6zUevmWkex4U5IfatpEuU=;
+ b=LhfTsN57WpzI1z3nRLx3Qr4ZOB29/iNOoyrzN2zJfTrE1wM37HqKOVNxE+0pmmh+96CGgL
+ ClnbOt9fJbSntOLprtdU73hSSrGUaG4rs7fQRIocBqfIdeRvRByZTkeCSM+qRRR1gP8cxW
+ YymuZRzsKL2qCYTeY8XPGnpSt8xz1z0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779877930;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=/iVDbonB5iVcc71aHgBrmp6zUevmWkex4U5IfatpEuU=;
+ b=38hJRJ/aYULRaH7nj9+lemxNLcqvmoX7Rstry2i5MyJIIrg4ZcLT7hVixZTzW5JCCEj3SV
+ lrOYr+Mp+6Mwa5Cg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rUSXermq;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Vd1Aathu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779877929; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=/iVDbonB5iVcc71aHgBrmp6zUevmWkex4U5IfatpEuU=;
+ b=rUSXermqj5p+6o1u2s70i1xg2rk+qjx3miOAGUr/oPtcJrnDG6CG9Jd0Pet85Tmj6oT6bw
+ t+1Hj1wlInPbAwm1WWH+IdUMLgxpEPaI28tYPxOdJOLX6n3sX61HzM6HXF9vqVzmzu06OQ
+ 7D4L/YVUPxS5su8OQv4Z34yS2kCABQw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779877929;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=/iVDbonB5iVcc71aHgBrmp6zUevmWkex4U5IfatpEuU=;
+ b=Vd1AathuWLnzak7qfLlI16n6ukTo19y4ZCavPNf6NRxoo3UU3zvmMP6zpiVd1FDQa2u+SU
+ xoIrKMSYvMfw3cDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C192E5A7AD;
+ Wed, 27 May 2026 10:32:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IQoNLijIFmr0bwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 10:32:08 +0000
+Message-ID: <025ee28d-c941-4cf1-a6cf-565686ea0bec@suse.de>
+Date: Wed, 27 May 2026 12:32:08 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|AM8PR10MB4130:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3de2e39e-be34-4231-f40c-08debbdb1c4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|1800799024|22082099003|18002099003|56012099006|11063799006|6133799003|4143699003;
-X-Microsoft-Antispam-Message-Info: bykoqjKsEhg2vEt+hDyRPgEPPhVwguAQNP70psGi8VYt8vvoHoNWz0mjD8iVsOCPxP+QAr4a9tM4LV1Mxo7/McKnhfYFI/8N0/OwLqOg4ZL8TP6ttvDFX2YEX7fVDU3vSRE811N1F0Dj4B5dlT3YKSerEuPLQ6627yuj+5RiYQ9v5u9YqEv7izyIGOoptEhWEb/D1+Zvb7Xn/fvD8MtrceBe0jeXmBqWtnRJFMU3n0Z0ZLmxJZRcWr9bk2QzVVIOIFkZOJH5wsawr9Dc9gbKvLf0yGUtPmH/NBSBSU9WkXIIsulTPPWM2W2/zzXd1p8n9JUgjxeSZexbRJpKNBYcCsrLsDB1tTW1aFkgSasEuaB32UXbDg7jULva8QYzo2mFyLYoVo3H8ipUp1RzV9HL8Qax/Ppq4sTGEUkZ9P7QZ2DFzOnLA0G70TueZWH+YMYQ9tGs36DQf80zhV0sDa2jurZCHBMkGiEmLS5HYnv/2UYoRWaNIqeFFzOxGe533EeYruE9nLm5Lk6TBn9B16qsI5fhLZ8xSYZ/3deM3uyIfnxGl54TxuT906baX1vjNST9o1jwQRMoAI9JHdBqkmXqhv6jgytbYV9I9Mytbc6JD3lQeA0Jkv9gDh6MTCpYeJL9iURnGCSPFFHXLXV9UgF8n/UxHa1RdE+NCHcaRLBU44JrZ9XNzXX44VbD939Avwal
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(6133799003)(4143699003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MVhTczR4WTduZElZMEZUU2Vqakw2M1FnTzVHcHo0clRDTVhNQ0wrR2drZGVQ?=
- =?utf-8?B?dUU4OGZBNDVLczNSNnhVMks5TEFPYWowNC9GZU5NZnBITVlEMFNtcFc1aERG?=
- =?utf-8?B?UytKVC9uT3d3YXhUMENRQytlN1I2anduekhHQ1BvZjc3Y1k3Nzl5S3RmVTV0?=
- =?utf-8?B?WlpKTW9aSU1yUUNaMEdCWVp0K1ZpYUJSR0RjcVRZRi9Rc0pxRU1yQW9yOGxD?=
- =?utf-8?B?L0xKZ2NVdEx2bERvVG56YWUrRmpiMFlRaXpzbzgwdHVuZXUwOTBXb2VHVHYw?=
- =?utf-8?B?MDJTcTZkWk1QQUlNbXFsKzhDMVZ3d2NXejlaU24zUUtQbHAzQVM5ODJZTnIr?=
- =?utf-8?B?bm5qYjg1Mms1d2s3NEZTQTRDL0hBaGFmcW9xOVFGUm5UR3JtMW96cGUxOVIx?=
- =?utf-8?B?dW1hbG9CWmlqWWhIYTQ5a2xPOE1ROWcyS1p1Y0FKd1FtYXNmZURYU3JyaXFw?=
- =?utf-8?B?Rk52T0tteUxLcml5cndQS3prdjNKZ3ZTY0Z5QVNxUkxJTlpiSnlXQU96MkJK?=
- =?utf-8?B?bGM5TUMycmx0akVUQWlHbXFoQ0JPeWxNV28rcDJXSlR6VGhGaGFhNzZTbFg2?=
- =?utf-8?B?cGV5enpLbTlSUWhXN21FWDhLZnQwUmtxTDR3d2VkU0FONnJsaXg1cHNNSFdR?=
- =?utf-8?B?MG9wUDZIT2NFS2svT3YyQnpoUGFiU3dPK09BTGpRRW93YmsvdEdpRys1YTRu?=
- =?utf-8?B?YkJ1dGZZNlhjZ3F1eDZYNkVLcXRJSU92c0xaUzgwMGY4UXhkWUFXanhzUi9T?=
- =?utf-8?B?MjloZ25KQTh0RVpCK3JhaUF3OXRwUlRsN0pGRW9oaXhHNG16cXRSVFhta3hu?=
- =?utf-8?B?VW1mOS9LWmRzc1RtM0lvdWlPdUtrQlcrNjVtVGVhcmVKNGNsamFvM3RORGlz?=
- =?utf-8?B?d3B6Q3A2bmoyNUNxQVhtRVhYeEtnb0FpV09NR1ZUK1BDTHN3c3djMHowWmVv?=
- =?utf-8?B?SjZkWjB6dGk3TEkrcHNqZDB2bnRLZXdMcy9tUXNxUVptWTRPZGVwemYySTdr?=
- =?utf-8?B?cWdaaFExdkZzTENiaHlnS29JRG1sd1c2Sndad3NCMTRRSWlrRUluVXJXbWVy?=
- =?utf-8?B?NVdiY3pmeWJEWlBPSkdqTE5PakJ0ZllHNDhGeXlST3RLOUtFVGxhMG5tejgw?=
- =?utf-8?B?Zm56SDd5YTRKd1ZZbWtMYkJBR2d4WXVhcjZJMlZ2RlFCd3JIZHBmV0xmblN2?=
- =?utf-8?B?NnJ6aXVMY0FlSU9TWmtyeVBJaEpzaEJUSExqQ2krQ0YzbkRtZStJR0FvZjFn?=
- =?utf-8?B?Z1lGanBWemlSeEdsTkIwazMweGtUeUpJaEZ6eE1vWVdiQnVMUHhLT3VHZVl3?=
- =?utf-8?B?ZWo3ZFlIdXd0NUpNdlVZVWFKL0xwUnpodENvU2NPZDBWdWpoWDg1clNOSElp?=
- =?utf-8?B?K1pDVGh5bCtwenVQZ2xLY1hrRGltWExISTZIenZ6SjcwQ295RmdmNDJtaVFr?=
- =?utf-8?B?OUJzKzJFVSszM1BkN1lPZ29EeXRtVkpmNCtabFJhWTg4a1AwU1BZbEdZc0s3?=
- =?utf-8?B?LzMzd244ZzFHb1Vra1VEaXBtVzkvYWUwRnI3S0gxNVpQbktob3ExWlhPSXJs?=
- =?utf-8?B?NFl5b3BTaFJQdUc3N2ZSaFViRm9oUnRZWnJFall5enc2ZzZCUjlxK25TaStm?=
- =?utf-8?B?bGI0UUQzMXdQUkpDSDFsOVdCMEdmejVXRStzdWt0WXJyOFh3cEJyTDE0ODIv?=
- =?utf-8?B?b2ZGbi9iSUJPUFl5VWxDV1BYQkFrWTVBZWF2L0ZmU0R0RmZwaEptV2JhQ1JS?=
- =?utf-8?B?aWpsdnBPbnNYOXpYRzR2Q1kxUVk1K2ZXUS9GaUhGUUsxRERTZFhZZEhTTTdq?=
- =?utf-8?B?TkRFTFU3RFNiTEpMVkVhbVl5aXFPRlJUSnhuOWdhTThIUGNza2lLR0dlWEpB?=
- =?utf-8?B?Z0ZmV3ZDanJNMkY0Z1pBR2tSTWtvWTQrSHhCWVRETE40SGRQV2VLRC9SZjdI?=
- =?utf-8?B?bGt4WWg5UFE4Zlk1UkM4NUFBWHZMUHd6Vk10dkZmWlNGWlFhcFV0R3RJR1hu?=
- =?utf-8?B?N0VSVElxQytQMDRBS0trME9leFNzS1ZqT3JLY3RJT3hPVEROb2RMazRwV3Zk?=
- =?utf-8?B?a1E0L0R1VDN4UWJwVVdLM3RORnhxWGhNdTR0SVNreDNOUk5tcTJLKzZqQjhU?=
- =?utf-8?B?NDNncHdIWW1ucVhXZVlaUUZzUEhqeDdiTVNvU3FJSGxtcGkxT0EyQTNHM3ZQ?=
- =?utf-8?B?NUlrWWJUc0N2NWNNcGdPbkhoTXdHSVNLMG9UZlVSRkZKOWtYYnFDaG54eS9L?=
- =?utf-8?B?ejA5VTVoZ01CRjdleU5GZjcweXZ6TWpGVlkwSHhnK0lMNFJWKytIbHVCVjhO?=
- =?utf-8?B?ZFpSVStwaytXeXRMOUhuVXhHUzFheDgyVC94QU1Qd1NUTnIxNmxyTlRMZkpM?=
- =?utf-8?Q?6kKwhGbHJHuzbwb0=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3de2e39e-be34-4231-f40c-08debbdb1c4a
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 10:31:28.0858 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JoNd/YjI6fIDRuYBRTK4psJFZSC5f7YfL4JrKQos08FqRBJ4edS0LgNiVUMrwPd6I565t0eVPIgxm8BGn/3ocQjmA1LhFJk3cmgaMGV2BY0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR10MB4130
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Igor Torrente <igor.torrente@collabora.com>, loic.molinari@collabora.com, 
+ willy@infradead.org, frank.binns@imgtec.com, matt.coster@imgtec.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+References: <20260209133241.238813-1-tzimmermann@suse.de>
+ <20260209133241.238813-6-tzimmermann@suse.de>
+ <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
+ <850e8355-7884-405c-a70a-986ce032c019@suse.de>
+ <831c0943-c75f-4d42-aa5f-90ce34cf8530@collabora.com>
+ <67855fcd-2afe-4a1d-a51a-210e45f56167@suse.de>
+ <20260527121832.7264f0db@fedora>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260527121832.7264f0db@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 1F63C6AE7D
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[collabora.com,infradead.org,imgtec.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,kvack.org];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid,suse.com:url];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,62 +155,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 02.04.26 20:33, Paul Kocialkowski wrote:
-> It is necessary to wait for the full frame to finish streaming
-> through the DMA engine before we can safely disable it by removing
-> the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
-> hardware confused and unable to resume streaming for the next frame.
-> 
-> This causes the FIFO underrun and empty status bits to be set and
-> a single solid color to be shown on the display, coming from one of
-> the pixels of the previous frame. The issue occurs sporadically when
-> a new mode is set, which triggers the crtc disable and enable paths.
-> 
-> Setting the shadow load bit and waiting for it to be cleared by the
-> DMA engine allows waiting for completion.
-> 
-> The NXP BSP driver addresses this issue with a hardcoded 25 ms sleep.
-> 
-> Fixes: 9db35bb349a0 ("drm: lcdif: Add support for i.MX8MP LCDIF variant")
-> Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
-> Co-developed-by: Lucas Stach <l.stach@pengutronix.de>
+Hi
 
-Reviewed-by: Frieder Schrempf <frieder.schrempf@kontron.de>
-Tested-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+Am 27.05.26 um 12:18 schrieb Boris Brezillon:
+> Hello Thomas,
+>
+> I'm inlining the diff you posted so I can comment on it directly before
+> it's officially posted to the list.
 
-> ---
->  drivers/gpu/drm/mxsfb/lcdif_kms.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> index a00c4f6d63f4..0d04a0028671 100644
-> --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> @@ -375,14 +375,23 @@ static void lcdif_disable_controller(struct lcdif_drm_private *lcdif)
->  	int ret;
->  
->  	reg = readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
-> +	/* Disable the layer for DMA. */
->  	reg &= ~CTRLDESCL0_5_EN;
-> +	/*
-> +	 * It is necessary to wait for the full frame to finish streaming
-> +	 * through the DMA engine before we can safely disable it by removing
-> +	 * the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
-> +	 * hardware confused and unable to resume streaming for the next frame.
-> +	 */
-> +	reg |= CTRLDESCL0_5_SHADOW_LOAD_EN;
->  	writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
->  
-> +	/* Wait for the frame to finish or timeout after 50 ms. */
->  	ret = readl_poll_timeout(lcdif->base + LCDC_V8_CTRLDESCL0_5,
-> -				 reg, !(reg & CTRLDESCL0_5_EN),
-> -				 0, 36000);	/* Wait ~2 frame times max */
-> +				 reg, !(reg & CTRLDESCL0_5_SHADOW_LOAD_EN),
-> +				 200, 50000);
->  	if (ret)
-> -		drm_err(lcdif->drm, "Failed to disable controller!\n");
-> +		drm_err(lcdif->drm, "Timed out waiting for final vblank!\n");
->  
->  	reg = readl(lcdif->base + LCDC_V8_DISP_PARA);
->  	reg &= ~DISP_PARA_DISP_ON;
+Thanks, I'll incorporate those in the next test rev or the official patch.
+
+Best regards
+Thomas
+
+>
+> On Wed, 27 May 2026 08:56:33 +0200
+> Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+>> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> index 545933c7f712..07e117673124 100644
+>> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+>> @@ -554,21 +554,6 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+>>   }
+>>   EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+>>   
+>> -static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
+>> -{
+>> -	struct vm_area_struct *vma = vmf->vma;
+>> -	struct drm_gem_object *obj = vma->vm_private_data;
+>> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+>> -	loff_t num_pages = obj->size >> PAGE_SHIFT;
+>> -	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
+>> -
+>> -	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+>> -		return;
+>> -
+>> -	file_update_time(vma->vm_file);
+>> -	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+>> -}
+>> -
+>>   static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>>   				 unsigned long pfn)
+>>   {
+>> @@ -581,23 +566,16 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>>   
+>>   		if (aligned &&
+>>   		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+>> -			vm_fault_t ret;
+>> -
+>>   			pfn &= PMD_MASK >> PAGE_SHIFT;
+>>   
+>> -			/* Unlike PTEs which are automatically upgraded to
+>> +			/*
+>> +			 * Unlike PTEs which are automatically upgraded to
+>>   			 * writeable entries, the PMD upgrades go through
+>>   			 * .huge_fault(). Make sure we pass the "write" info
+>>   			 * along in that case.
+>> -			 * This also means we have to record the write fault
+>> -			 * here, instead of in .pfn_mkwrite().
+>>   			 */
+>> -			ret = vmf_insert_pfn_pmd(vmf, pfn,
+>> -						 vmf->flags & FAULT_FLAG_WRITE);
+>> -			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+>> -				drm_gem_shmem_record_mkwrite(vmf);
+>> -
+>> -			return ret;
+>> +			return vmf_insert_pfn_pmd(vmf, pfn,
+>> +						  vmf->flags & FAULT_FLAG_WRITE);
+> I believe we can go back to
+>
+> 			return vmf_insert_pfn_pmd(vmf, pfn, false);
+>
+> if the mappings are no longer adjusted to catch write accesses.
+>
+>>   		}
+>>   #endif
+>>   	}
+>> @@ -635,8 +613,15 @@ static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int ord
+>>   	pfn = page_to_pfn(page);
+>>   
+>>   	ret = try_insert_pfn(vmf, order, pfn);
+>> -	if (ret == VM_FAULT_NOPAGE)
+>> +	if (ret == VM_FAULT_NOPAGE) {
+>>   		folio_mark_accessed(folio);
+>> +		/*
+>> +		 * Always record write access to the buffer. The natural
+>> +		 * place would be pfn_mkwrite, but this breaks KVM.
+>> +		 */
+>> +		file_update_time(vma->vm_file);
+>> +		folio_mark_dirty(folio);
+> We can be a bit smarter here:
+>
+> 		/*
+> 		 * Always record write access to the buffer if the
+> 		 * mapping is writeable. The natural place would be
+> 		 * pfn_mkwrite, but this breaks KVM.
+> 		 */
+> 		if (vma->vm_flags & VM_WRITE) {
+> 			file_update_time(vma->vm_file);
+> 			folio_mark_dirty(folio);
+> 		}
+>
+>> +	}
+> The rest looks good to me.
+>
+> Regards,
+>
+> Boris
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
