@@ -4,49 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28C17CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 03:48:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD939CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 04:09:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CFCA10E63F;
-	Wed, 27 May 2026 03:48:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="a+n083D9";
-	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C339E10E63F
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 03:48:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=+9
- 4PQT49xTZArnmRTBiZ3JhWjPs1lnmosX2+YEOSBEc=; b=a+n083D9iRHfRwhNEq
- bL8WxBtj4EcA5DB3vnOiehTWZLtkBZBV55YPp3vCYmIDLIfEm4Lg0cDftf6ND1ht
- PmooPXPdhfUILnPmU6kDJkKCU3H7VwV6sHMQ5YXAREUiiZv7JIMHnniW6o1tY3mb
- 2XNAjRzBd1Tp8kl+7GG5QbKYk=
-Received: from 163.com (unknown [])
- by gzsmtp5 (Coremail) with SMTP id QCgvCgA3eu1WaRZq7vVUFQ--.205S2;
- Wed, 27 May 2026 11:47:39 +0800 (CST)
-From: w15303746062@163.com
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Mingyu Wang <25181214217@stu.xidian.edu.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/vkms: sanitize display mode to prevent hrtimer livelock
-Date: Wed, 27 May 2026 11:47:33 +0800
-Message-Id: <20260527034733.701705-1-w15303746062@163.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC08D10E645;
+	Wed, 27 May 2026 04:09:13 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C1C010E645
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 04:09:11 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.3])
+ by APP-05 (Coremail) with SMTP id zQCowABHntFfbhZqLZmGEQ--.5022S2;
+ Wed, 27 May 2026 12:09:03 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Kees Cook <kees@kernel.org>, Wentao Liang <vulab@iscas.ac.cn>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] drm: i915: selftests: fix oa_config refcount leak in
+ test_stream()
+Date: Wed, 27 May 2026 04:08:35 +0000
+Message-Id: <20260527040835.854065-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: QCgvCgA3eu1WaRZq7vVUFQ--.205S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAF43Kw4kurW7Kr45tw43Jrb_yoW5CF4Dpa
- 17XryakFyUJFWxGan2yF1Sgr1akwn5JFyxKryDK3yav3WrtF43Ca4fZrW3WFW3Wr9rAay2
- qFyfJF98Gw109aDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07URmh7UUUUU=
-X-Originating-IP: [113.200.174.100]
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC5BuQdGoWaVvXdAAA32
+X-CM-TRANSID: zQCowABHntFfbhZqLZmGEQ--.5022S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFyUWry7Gr1DKw15Zw13urg_yoW8Gr4kpa
+ 13Aa4YyrW5GF1ftayUGa4rKFy3Aas3GF48C3sFkwn3uw13AFy8tFsakFyfXF95ArZ3ZF17
+ tFZ2kFWSgr1UArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+ 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+ zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+ 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+ CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
+ nIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-Originating-IP: [36.110.52.3]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCREAA2oWPLmz8QAAsg
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,81 +65,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+test_stream() calls i915_perf_get_oa_config() which takes a reference
+on the returned oa_config. On the error path where stream allocation
+fails, the function returns without calling i915_oa_config_put() on
+the oa_config, leaking the reference.
 
-SyzKaller reported an RCU stall caused by a livelock in
-vkms_crtc_handle_vblank_timeout.
+Move the oa_config check after the props.engine check and add
+i915_oa_config_put(oa_config) on the error path to properly release
+the reference.
 
-The root cause is that vkms derives its vblank timer period directly
-from the display mode, but does not validate the mode parameters in
-its atomic_check. A fuzzer or malicious user can pass a mode with
-either an explicit vrefresh > 1000 Hz, or a combination of huge
-crtc_clock and tiny htotal/vtotal that causes the computed vrefresh
-to overflow or result in a frame duration close to zero.
-
-When the period approaches zero, the hrtimer fires faster than it can
-be handled, leading to an interrupt storm that deadlocks the CPU.
-
-Fix this by rejecting modes in atomic_check where:
- - the explicit vrefresh exceeds 1000 Hz, or
- - the implied frame duration (derived from crtc_clock/htotal/vtotal)
-   is less than 1 ms (equivalent to >1000 Hz).
-
-This also protects against integer overflow in drm_mode_vrefresh().
-
-SyzKaller logs snippet of the failure:
-[  392.807933][    C2] vkms_vblank_simulate: vblank timer overrun
-...
-[  592.384301][    C3] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-[  592.438915][    C0] RIP: 0010:native_queued_spin_lock_slowpath+0x23e/0x9c0
-[  592.440560][    C0] Call Trace:
-[  592.440570][    C0]  <IRQ>
-[  592.448399][    C0]  drm_handle_vblank+0x132/0xc70
-[  592.449106][    C0]  __hrtimer_run_queues+0x1f5/0xb30
-
-Fixes: 02e2681ffe1a ("drm/vkms: Convert to DRM's vblank timer")
+Fixes: 9677a9f3b1ad ("drm/i915/perf: Move gt-specific data from i915->perf to gt->perf")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/vkms/vkms_crtc.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/gpu/drm/i915/selftests/i915_perf.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
-index 35ddc553a5e6..20b97dd0cc5f 100644
---- a/drivers/gpu/drm/vkms/vkms_crtc.c
-+++ b/drivers/gpu/drm/vkms/vkms_crtc.c
-@@ -116,9 +116,31 @@ static int vkms_crtc_atomic_check(struct drm_crtc *crtc,
- 	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state,
- 									  crtc);
- 	struct vkms_crtc_state *vkms_state = to_vkms_crtc_state(crtc_state);
-+	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
- 	struct drm_plane *plane;
- 	struct drm_plane_state *plane_state;
- 	int i = 0, ret;
-+	int vrefresh;
-+	u64 frame_ns;
-+
-+	/*
-+	 * Reject modes that would cause an hrtimer storm.
-+	 * A virtual display cannot meaningfully refresh at >1000 Hz,
-+	 * and an extremely high vrefresh (or a crafted combination of
-+	 * crtc_clock/htotal/vtotal that overflows the vrefresh computation)
-+	 * would produce a frame duration close to zero, locking the CPU
-+	 * in an interrupt loop.
-+	 */
-+	if (crtc_state->enable) {
-+		vrefresh = drm_mode_vrefresh(mode);
-+		if (vrefresh > 1000)
-+			return -EINVAL;
-+		if (!mode->crtc_clock || !mode->htotal || !mode->vtotal)
-+			return -EINVAL;
-+		frame_ns = div_u64((u64)mode->htotal * mode->vtotal * 1000000ULL, mode->crtc_clock);
-+		if (frame_ns < 1000000) /* <1 ms => refresh >1000 Hz */
-+			return -EINVAL;
-+	}
+diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
+index e9469e27f42a..a3e0afb0549e 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_perf.c
++++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
+@@ -104,14 +104,16 @@ test_stream(struct i915_perf *perf)
+ 	struct i915_perf_stream *stream;
+ 	struct intel_gt *gt;
  
- 	if (vkms_state->active_planes)
- 		return 0;
+-	if (!props.engine)
+-		return NULL;
+-
+ 	gt = props.engine->gt;
+ 
+ 	if (!oa_config)
+ 		return NULL;
+ 
++	if (!props.engine) {
++		i915_oa_config_put(oa_config);
++		return NULL;
++	}
++
+ 	props.metrics_set = oa_config->id;
+ 
+ 	stream = kzalloc_obj(*stream);
 -- 
 2.34.1
 
