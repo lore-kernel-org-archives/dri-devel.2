@@ -4,55 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9AA7CD5BDE
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 08:51:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D568CD5BDE
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 08:53:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF2AB10E18B;
-	Wed, 27 May 2026 08:51:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2A6310E755;
+	Wed, 27 May 2026 08:53:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A4bj/hmQ";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="wrTu4DF1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LjJ2spsM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wrTu4DF1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LjJ2spsM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C9CB10E18B;
- Wed, 27 May 2026 08:51:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C15BC4396D;
- Wed, 27 May 2026 08:51:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6AD71F00A3D;
- Wed, 27 May 2026 08:51:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779871908;
- bh=cw6Hq3fwY9dORsY8hW5a014rXACoZ3Q9ELeTsBjnSJM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=A4bj/hmQa3H0KsSybQA679jZY8C2M2EBxCmGFd4kLjKqsNk3QWKHZjyPK5mXRkcfX
- VpWCAte43G/7b72JGRYwED2VJuyypr5CTDlz+B/TBjr+N205H33pNj87fbEH7GjTMD
- f4IzoJPCYeB66bnO4D2+DjO3keQikG9pILexzAijVpqCIMzJOir5m7RmSLWK4oBGUx
- HpxXjQHd9D1kqOUe/dWA+5FlGHtZur/fBmi1sPvyfdRgQVFYYfU4QdQGQhpaG5w5EU
- Y1D1Hds9rZPfYSD7ptH/l2KRCdPsgF384y4fFB2IicC6PJSaekfzn3Pg06DbJM/mVv
- ywTh7ch9dWuXw==
-Message-ID: <e4dcfbc8-2666-452c-90b2-25c4b2c50c9f@kernel.org>
-Date: Wed, 27 May 2026 10:51:42 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2067E10E167
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 08:53:03 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C12FD6A806;
+ Wed, 27 May 2026 08:53:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779871981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=fHr5XrSud6pNgAeA10u5f9+hSZqjuGHLz/WCO58vfJs=;
+ b=wrTu4DF1GXjglPhGleOwGYGEnxgqYF8TkJIOmSWNecFqF15B+8gaAZt5jF8vPmpacfGD8g
+ 5CzeQl4lSdNYeHIKXLHBWm+YA8SBx9zQsftG/OoNdsDNKRfP36cAcn3EQ3FHS9iYB0YWTW
+ DbwSLUoCTGx1tiRl/sZCYjwl36caYls=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779871981;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=fHr5XrSud6pNgAeA10u5f9+hSZqjuGHLz/WCO58vfJs=;
+ b=LjJ2spsMrhtxXDiFCcdM23trVrGzubvJbyHSkmMVeRBlwZol82YzZnlRsea0XsOZaxgGyA
+ jVQmCfyci6GeWyCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779871981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=fHr5XrSud6pNgAeA10u5f9+hSZqjuGHLz/WCO58vfJs=;
+ b=wrTu4DF1GXjglPhGleOwGYGEnxgqYF8TkJIOmSWNecFqF15B+8gaAZt5jF8vPmpacfGD8g
+ 5CzeQl4lSdNYeHIKXLHBWm+YA8SBx9zQsftG/OoNdsDNKRfP36cAcn3EQ3FHS9iYB0YWTW
+ DbwSLUoCTGx1tiRl/sZCYjwl36caYls=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779871981;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=fHr5XrSud6pNgAeA10u5f9+hSZqjuGHLz/WCO58vfJs=;
+ b=LjJ2spsMrhtxXDiFCcdM23trVrGzubvJbyHSkmMVeRBlwZol82YzZnlRsea0XsOZaxgGyA
+ jVQmCfyci6GeWyCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BC7065A747;
+ Wed, 27 May 2026 08:53:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id xXhJLOywFmqMDAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 08:53:00 +0000
+Message-ID: <ec0fcc2e-b767-4509-b9ae-174c9941796e@suse.de>
+Date: Wed, 27 May 2026 10:53:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
-To: Christoph Hellwig <hch@lst.de>, Vlastimil Babka <vbabka@kernel.org>,
- Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
- kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Matt Fleming <mfleming@cloudflare.com>,
- kernel-team <kernel-team@cloudflare.com>
-References: <20260527070239.2252948-1-hch@lst.de>
- <20260527070239.2252948-2-hch@lst.de>
+Subject: Re: [PATCH v6 01/19] drm/atomic: Document atomic commit lifetime
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
+ Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+References: <20260526-drm-mode-config-init-v6-0-852346394200@kernel.org>
+ <20260526-drm-mode-config-init-v6-1-852346394200@kernel.org>
 Content-Language: en-US
-From: Jesper Dangaard Brouer <hawk@kernel.org>
-In-Reply-To: <20260527070239.2252948-2-hch@lst.de>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260526-drm-mode-config-init-v6-1-852346394200@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ TAGGED_RCPT(0.00)[renesas]; RCPT_COUNT_TWELVE(0.00)[38];
+ TO_DN_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLyhjdboxbrjk5hnijtjs4kbm6)];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,89 +166,136 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 27/05/2026 09.02, Christoph Hellwig wrote:
-> The kmem_cache_alloc_bulk return value is weird.  It returns the number
-> of allocated objects, but that must always be 0 or the requested number
-> based on the implementations and the handling in the callers, but that
-> assumption is not actually documented anywhere, which confuses automated
-> review tools.
-> 
+Am 26.05.26 um 18:46 schrieb Maxime Ripard:
+> How drm_atomic_commit and the various entity structures are allocated
+> and freed isn't really trivial. Document it.
+>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-I remember, this API behavior was requested by AKPM when I developed
-kmem_cache_alloc_bulk.  I trusted AKPM's decision, but I cannot explain
-why this choice was made.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-I kept the netdev code usage below. The current napi_skb_cache_get_bulk
-have a retry logic that assumes that a partial bulk number can be
-returned (which it cannot as Hellwig explains).  Cc Alex/Olek please
-review the changes below as you added this retry logic.
-
-
-> Fix this by returning a bool if the allocation succeeded and adding a
-> kerneldoc comment explaining the API.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->   drivers/gpu/drm/msm/msm_iommu.c       |  6 +--
->   drivers/gpu/drm/panthor/panthor_mmu.c | 12 +++---
->   include/linux/slab.h                  |  6 ++-
->   io_uring/io_uring.c                   | 23 +++++------
->   lib/test_meminit.c                    | 19 +++++----
->   mm/kasan/kasan_test_c.c               |  5 +--
->   mm/kfence/kfence_test.c               |  9 +++--
->   mm/slub.c                             | 58 +++++++++++++++------------
->   net/bpf/test_run.c                    |  7 ++--
->   net/core/skbuff.c                     | 24 ++++++-----
->   tools/include/linux/slab.h            |  2 +-
->   tools/testing/shared/linux.c          | 19 ++++-----
->   12 files changed, 93 insertions(+), 97 deletions(-)
-> 
+>   Documentation/gpu/drm-kms.rst |  6 ++++
+>   drivers/gpu/drm/drm_atomic.c  | 72 +++++++++++++++++++++++++++++++++++++++++++
+>   2 files changed, 78 insertions(+)
+>
+> diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
+> index d22817fdf9aa..36d76e391074 100644
+> --- a/Documentation/gpu/drm-kms.rst
+> +++ b/Documentation/gpu/drm-kms.rst
+> @@ -282,10 +282,16 @@ structure, ordering of committing state changes to hardware is sequenced using
+>   :c:type:`struct drm_crtc_commit <drm_crtc_commit>`.
+>   
+>   Read on in this chapter, and also in :ref:`drm_atomic_helper` for more detailed
+>   coverage of specific topics.
+>   
+> +Atomic State Lifetime
+> +---------------------
+> +
+> +.. kernel-doc:: drivers/gpu/drm/drm_atomic.c
+> +   :doc: state lifetime
+> +
+>   Handling Driver Private State
+>   -----------------------------
+>   
+>   .. kernel-doc:: drivers/gpu/drm/drm_atomic.c
+>      :doc: handling driver private state
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 170de30c28ae..3c5714481ad2 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -45,10 +45,82 @@
+>   #include <drm/drm_colorop.h>
+>   
+>   #include "drm_crtc_internal.h"
+>   #include "drm_internal.h"
+>   
+> +/**
+> + * DOC: state lifetime
+> + *
+> + * &drm_atomic_commit represents an update to modeset pipeline state.
+> + * It's a transient object that holds a state update as a collection of
+> + * pointers to individual objects' states. &struct drm_atomic_commit has
+> + * a much shorter lifetime than the objects' states, since it's only
+> + * allocated while preparing, checking or committing the update, while
+> + * object states are allocated when preparing the update and kept alive
+> + * as long as they are active in the device.
+> + *
+> + * Their respective lifetimes are:
+> + *
+> + * - at reset time, the object reset implementation allocates a new
+> + *   default state and stores it in the object state pointer.
+> + *
+> + * - whenever a new update is needed:
+> + *
+> + *   + drm_atomic_commit_alloc() allocates a new &drm_atomic_commit
+> + *     instance.
+> + *
+> + *   + The code triggering the commit (ioctl, client modeset,
+> + *     drm_atomic_helper_reset_crtc(), etc.) copies the current active
+> + *     state of all entities affected by the update into this new
+> + *     &drm_atomic_commit using drm_atomic_get_plane_state(),
+> + *     drm_atomic_get_crtc_state(), drm_atomic_get_connector_state(), or
+> + *     drm_atomic_get_private_obj_state(). This new state can then be
+> + *     modified.
+> + *
+> + *     At that point, &drm_atomic_commit stores three state pointers for
+> + *     any affected entity: the "old" and "new" states, and
+> + *     state_to_destroy. The old state is the state currently active in
+> + *     the hardware, which is either the one initialized by reset() or a
+> + *     newer one if a commit has been made. The new state is the state
+> + *     we just allocated and we might eventually commit to the hardware.
+> + *     The state_to_destroy points to the state we'll eventually have to
+> + *     free when the drm_atomic_commit will be destroyed, and points to
+> + *     the new state for now since the old state is still the active
+> + *     state.
+> + *
+> + *   + After the calling code populated the commit with the entities
+> + *     states, it updates the new states with the new values we need to
+> + *     commit. The new commit instance is now ready.
+> + *
+> + *   + Then we have two branches depending on the calling code intent:
+> + *
+> + *     - If the calling code only wants to check that the commit would
+> + *       work (for example because of the DRM_MODE_ATOMIC_TEST_ONLY
+> + *       flag). It calls drm_atomic_check_only(), which in turn checks
+> + *       all these states by invoking atomic_check on all affected
+> + *       pipeline stages.
+> + *
+> + *     - If the calling code actually wants to trigger a commit, it
+> + *       calls drm_atomic_commit(). The first stage is the check
+> + *       mentioned above, and if the check is successful, it performs
+> + *       the commit. Part of the commit is a call to
+> + *       drm_atomic_helper_swap_state() which turns the new states into
+> + *       the active states. After swapping states, each object's state
+> + *       pointer now refers to the formerly new state. The
+> + *       state_to_destroy now refers to the formerly old state.
+> + *
+> + *   + Once done, and when the last refererence to our &struct
+> + *     drm_atomic_commit is given up through drm_atomic_commit_put(), it
+> + *     calls __drm_atomic_commit_free(). In turn,
+> + *     __drm_atomic_commit_free() calls drm_atomic_commit_clear() that
+> + *     will free all state_to_destroy (ie. old states), and it finally
+> + *     frees &drm_atomic_commit instance.
+> + *
+> + *   + Now, we don't have any active &drm_atomic_commit anymore, and
+> + *     only the entity active states remain allocated.
+> + */
+> +
+>   void __drm_crtc_commit_free(struct kref *kref)
+>   {
+>   	struct drm_crtc_commit *commit =
+>   		container_of(kref, struct drm_crtc_commit, ref);
+>   
+>
 
-[...]
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 44ac121cfccb..73045b688385 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -288,11 +288,11 @@ static inline struct sk_buff *napi_skb_cache_get(bool alloc)
->   
->   	local_lock_nested_bh(&napi_alloc_cache.bh_lock);
->   	if (unlikely(!nc->skb_count)) {
-> -		if (alloc)
-> -			nc->skb_count = kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
-> -						GFP_ATOMIC | __GFP_NOWARN,
-> -						NAPI_SKB_CACHE_BULK,
-> -						nc->skb_cache);
-> +		if (alloc && kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
-> +						   GFP_ATOMIC | __GFP_NOWARN,
-> +						   NAPI_SKB_CACHE_BULK,
-> +						   nc->skb_cache))
-> +			nc->skb_count = NAPI_SKB_CACHE_BULK;
->   		if (unlikely(!nc->skb_count)) {
->   			local_unlock_nested_bh(&napi_alloc_cache.bh_lock);
->   			return NULL;
-> @@ -353,16 +353,18 @@ u32 napi_skb_cache_get_bulk(void **skbs, u32 n)
->   
->   	/* No enough cached skbs. Try refilling the cache first */
->   	bulk = min(NAPI_SKB_CACHE_SIZE - nc->skb_count, NAPI_SKB_CACHE_BULK);
-> -	nc->skb_count += kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
-> -					       GFP_ATOMIC | __GFP_NOWARN, bulk,
-> -					       &nc->skb_cache[nc->skb_count]);
-> +	if (kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
-> +				  GFP_ATOMIC | __GFP_NOWARN, bulk,
-> +				  &nc->skb_cache[nc->skb_count]))
-> +		nc->skb_count += bulk;
->   	if (likely(nc->skb_count >= n))
->   		goto get;
->   
->   	/* Still not enough. Bulk-allocate the missing part directly, zeroed */
-> -	n -= kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
-> -				   GFP_ATOMIC | __GFP_ZERO | __GFP_NOWARN,
-> -				   n - nc->skb_count, &skbs[nc->skb_count]);
-> +	if (kmem_cache_alloc_bulk(net_hotdata.skbuff_cache,
-> +				  GFP_ATOMIC | __GFP_ZERO | __GFP_NOWARN,
-> +				  n - nc->skb_count, &skbs[nc->skb_count]))
-> +		n = nc->skb_count;
->   	if (likely(nc->skb_count >= n))
->   		goto get;
->   
+
