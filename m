@@ -4,58 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B345CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 10:18:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65BE8CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 10:23:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F43110E312;
-	Wed, 27 May 2026 10:18:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CAA910E191;
+	Wed, 27 May 2026 10:23:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MfBVuMQr";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="cwc2HuK9";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F39210E312
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 10:18:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1779877118;
- bh=4ru3wYjtQnM8/T3ZwOVDnP+xTOoJR3KuUN+b8D2TEW4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=MfBVuMQrz+Ajs/ARbEEcg8WdWJUVy0PYzBS9azsAlXQ1r5Ci0jfqmzRAePWI2/G5B
- TysT7sUgy8mdrNobUd4IS6b1ykrEKu/w1av5GZSXMeSIWEVY0gp2eg4hSK+Q3lMVjL
- z+uT8oC7mjGMCny1QXIyPkZ40UCYUHtNSlJ4Bzi3WUeOsuxWvx7vr2xuHysW/mdZeA
- c32AWgemx+Zi4+3dOm70EJr2auijgV4makuFSp/JiIK4CY208djoQez6Ir/810dqc+
- YrgKN0yxg8uI1UhiLO02pEiZFYxeGAl7XiERZGhLsgM3H0DS+yce3DCq0+QwBgD0AC
- V2QURmlLFUKkg==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5A9B217E0411;
- Wed, 27 May 2026 12:18:38 +0200 (CEST)
-Date: Wed, 27 May 2026 12:18:32 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Igor Torrente <igor.torrente@collabora.com>,
- loic.molinari@collabora.com, willy@infradead.org, frank.binns@imgtec.com,
- matt.coster@imgtec.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-Subject: Re: [PATCH v3 5/6] drm/gem-shmem: Track folio accessed/dirty status
- in mmap
-Message-ID: <20260527121832.7264f0db@fedora>
-In-Reply-To: <67855fcd-2afe-4a1d-a51a-210e45f56167@suse.de>
-References: <20260209133241.238813-1-tzimmermann@suse.de>
- <20260209133241.238813-6-tzimmermann@suse.de>
- <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
- <850e8355-7884-405c-a70a-986ce032c019@suse.de>
- <831c0943-c75f-4d42-aa5f-90ce34cf8530@collabora.com>
- <67855fcd-2afe-4a1d-a51a-210e45f56167@suse.de>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F22C10E191
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 10:23:44 +0000 (UTC)
+Received: from pps.filterd (m0528007.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64R8oZTY2830248; Wed, 27 May 2026 03:23:31 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=0dM+ibflGvjNJ9OOpb/CWIGy79O9UklXHD+jxx0h2vA=; b=cwc2HuK98bEk
+ y3sftonaEb5DPcX0X0882y/cyrbMLXRy4/7kEjnh/XdRA3XpbT88y0jMxa9jL0OA
+ NFu5hJVkQ2tAYGWa4APozNYEaZelDRnm6ftNOFDcg2rp7l1vmHqlHFmQ6/9PUW+O
+ cXbWaCIj7lnF5Qg3uct3zmOFkHrzLpuv+HU1MX1DShtgwA7C81YnawB0bc5Xdv5A
+ nqrQZtKZdEeXLAHUkBhM1DBLRv5L74eumH0PzfsZmH3q040xsv7HkEnzx/KYGeQ6
+ W7zUimGINA9U4DyKLnE5j1v86lBuhl8+L8kRwhN675KA9fbgSOOuBPrFXivsU91r
+ 4Qbk+s3YoQ==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4edwf2gcu6-3
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 27 May 2026 03:23:30 -0700 (PDT)
+Received: from localhost (2620:10d:c0a8:1c::11) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Wed, 27 May
+ 2026 10:23:29 +0000
+From: Matt Evans <mattev@meta.com>
+To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>
+CC: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal
+ <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+ <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>
+Subject: [PATCH v2 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+Date: Wed, 27 May 2026 03:23:04 -0700
+Message-ID: <20260527102319.100128-2-mattev@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260527102319.100128-1-mattev@meta.com>
+References: <20260527102319.100128-1-mattev@meta.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [2620:10d:c0a8:1c::11]
+X-Proofpoint-GUID: r69kDfeuS8IE7tKO5UaV2joeD0dQgTmS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDEwMCBTYWx0ZWRfXwSrHTweNVJ/i
+ jabw+Z4NHU78PRjHP9AjOyrxFUlpjgORnITq2qglWf2bUWf3W3s8vmYa0w6YQRgCPzpWnC64vgT
+ eH2Lj/ZaqIBJPSHt5Y879df1binaQ3w520KwBeMxAQWEfrDAeKjzWA3vjJinS+sCGvueTfZqJMi
+ dVc+dFcyy4xvjNYLTXs3uIUjN/k+JMACX2WokhFOEPV11mlwNDB8NciX7pOo5XBZ2wnkXLT8Obn
+ rmcIOU6v3V473mOxi2b4F8JOPrG71V+3UeLN9WEhsCZpPWCtHCac+BHYtTyeqj0v98HQMlPS8Dq
+ pXqvy5hY50jR6lkWVuQODlRuIx/1+KSbizvGCnS26n9YJY5VZG/lZcAUpV6g9Xwoym+PoaIxAO8
+ 0sJ5ZG+tFMP38X3aAw12EXa10Hr9UPCmUrGS/Pa26AwOJEeuM6n/1zVLmwjwFDDq8raABGrmD+5
+ 2NaZH1XKvk0/oARp0XA==
+X-Authority-Analysis: v=2.4 cv=BJ6DalQG c=1 sm=1 tr=0 ts=6a16c622 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=4h92JMTCafKA-fb_NiOh:22 a=VabnemYjAAAA:8 a=3w1EjqnpN93m_gGFsbMA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-ORIG-GUID: r69kDfeuS8IE7tKO5UaV2joeD0dQgTmS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,105 +94,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Thomas,
+The P2PDMA code currently provides two features under the same
+CONFIG_PCI_P2PDMA option:
 
-I'm inlining the diff you posted so I can comment on it directly before
-it's officially posted to the list.
+ 1.  Locate providers via pcim_p2pdma_provider()
+ 2.  Manage actual P2P DMA
 
-On Wed, 27 May 2026 08:56:33 +0200
-Thomas Zimmermann <tzimmermann@suse.de> wrote:
+Other code (such as vfio-pci) depends on 1, without having a hard
+dependency on 2.
 
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 545933c7f712..07e117673124 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -554,21 +554,6 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
->  }
->  EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
->  
-> -static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
-> -{
-> -	struct vm_area_struct *vma = vmf->vma;
-> -	struct drm_gem_object *obj = vma->vm_private_data;
-> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
-> -	loff_t num_pages = obj->size >> PAGE_SHIFT;
-> -	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
-> -
-> -	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
-> -		return;
-> -
-> -	file_update_time(vma->vm_file);
-> -	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
-> -}
-> -
->  static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
->  				 unsigned long pfn)
->  {
-> @@ -581,23 +566,16 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
->  
->  		if (aligned &&
->  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
-> -			vm_fault_t ret;
-> -
->  			pfn &= PMD_MASK >> PAGE_SHIFT;
->  
-> -			/* Unlike PTEs which are automatically upgraded to
-> +			/*
-> +			 * Unlike PTEs which are automatically upgraded to
->  			 * writeable entries, the PMD upgrades go through
->  			 * .huge_fault(). Make sure we pass the "write" info
->  			 * along in that case.
-> -			 * This also means we have to record the write fault
-> -			 * here, instead of in .pfn_mkwrite().
->  			 */
-> -			ret = vmf_insert_pfn_pmd(vmf, pfn,
-> -						 vmf->flags & FAULT_FLAG_WRITE);
-> -			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
-> -				drm_gem_shmem_record_mkwrite(vmf);
-> -
-> -			return ret;
-> +			return vmf_insert_pfn_pmd(vmf, pfn,
-> +						  vmf->flags & FAULT_FLAG_WRITE);
+A future commit expands the use of DMABUF in vfio-pci for non-P2P
+scenarios, relying on pcim_p2pdma_provider() always being present.  If
+that depended on CONFIG_PCI_P2PDMA, it would make vfio-pci only
+available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit systems), even
+when P2P is not needed.
 
-I believe we can go back to
+To resolve this, introduce CONFIG_PCI_P2PDMA_CORE which contains the
+basic provider functionality to make it available even if the
+CONFIG_PCI_P2PDMA feature is disabled or unavailable due to
+!CONFIG_ZONE_DEVICE.  Users such as vfio-pci can enable their own P2P
+features based off the original CONFIG_PCI_P2PDMA (available when
+CONFIG_ZONE_DEVICE is set).
 
-			return vmf_insert_pfn_pmd(vmf, pfn, false);
+Signed-off-by: Matt Evans <mattev@meta.com>
+---
+ drivers/pci/Kconfig        | 10 +++++-----
+ drivers/pci/Makefile       |  2 +-
+ drivers/pci/p2pdma.c       | 16 ++++++++++++++++
+ include/linux/pci-p2pdma.h | 24 ++++++++++++++----------
+ include/linux/pci.h        |  2 +-
+ 5 files changed, 37 insertions(+), 17 deletions(-)
 
-if the mappings are no longer adjusted to catch write accesses.
+diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+index 33c88432b728..59d70bc84cc9 100644
+--- a/drivers/pci/Kconfig
++++ b/drivers/pci/Kconfig
+@@ -206,11 +206,7 @@ config PCIE_TPH
+ config PCI_P2PDMA
+ 	bool "PCI peer-to-peer transfer support"
+ 	depends on ZONE_DEVICE
+-	#
+-	# The need for the scatterlist DMA bus address flag means PCI P2PDMA
+-	# requires 64bit
+-	#
+-	depends on 64BIT
++	select PCI_P2PDMA_CORE
+ 	select GENERIC_ALLOCATOR
+ 	select NEED_SG_DMA_FLAGS
+ 	help
+@@ -226,6 +222,10 @@ config PCI_P2PDMA
+ 
+ 	  If unsure, say N.
+ 
++config PCI_P2PDMA_CORE
++	default n
++	bool
++
+ config PCI_LABEL
+ 	def_bool y if (DMI || ACPI)
+ 	select NLS
+diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
+index 41ebc3b9a518..419b646a301d 100644
+--- a/drivers/pci/Makefile
++++ b/drivers/pci/Makefile
+@@ -30,7 +30,7 @@ obj-$(CONFIG_PCI_SYSCALL)	+= syscall.o
+ obj-$(CONFIG_PCI_STUB)		+= pci-stub.o
+ obj-$(CONFIG_PCI_PF_STUB)	+= pci-pf-stub.o
+ obj-$(CONFIG_PCI_ECAM)		+= ecam.o
+-obj-$(CONFIG_PCI_P2PDMA)	+= p2pdma.o
++obj-$(CONFIG_PCI_P2PDMA_CORE)	+= p2pdma.o
+ obj-$(CONFIG_XEN_PCIDEV_FRONTEND) += xen-pcifront.o
+ obj-$(CONFIG_VGA_ARB)		+= vgaarb.o
+ obj-$(CONFIG_PCI_DOE)		+= doe.o
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 7c898542af8d..619d46c652b8 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -28,6 +28,14 @@ struct pci_p2pdma {
+ 	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
+ };
+ 
++/*
++ * CONFIG_PCI_P2PDMA_CORE provides just a bare-bones init and
++ * pcim_p2pdma_provider() interface (used by things like VFIO even if
++ * full P2PDMA isn't present).  The full P2PDMA feature is under the
++ * CONFIG_PCI_P2PDMA option.
++ */
++#ifdef CONFIG_PCI_P2PDMA
++
+ struct pci_p2pdma_pagemap {
+ 	struct dev_pagemap pgmap;
+ 	struct p2pdma_provider *mem;
+@@ -226,6 +234,8 @@ static const struct dev_pagemap_ops p2pdma_pgmap_ops = {
+ 	.folio_free = p2pdma_folio_free,
+ };
+ 
++#endif /* CONFIG_PCI_P2PDMA */
++
+ static void pci_p2pdma_release(void *data)
+ {
+ 	struct pci_dev *pdev = data;
+@@ -241,11 +251,13 @@ static void pci_p2pdma_release(void *data)
+ 		synchronize_rcu();
+ 	xa_destroy(&p2pdma->map_types);
+ 
++#ifdef CONFIG_PCI_P2PDMA
+ 	if (!p2pdma->pool)
+ 		return;
+ 
+ 	gen_pool_destroy(p2pdma->pool);
+ 	sysfs_remove_group(&pdev->dev.kobj, &p2pmem_group);
++#endif
+ }
+ 
+ /**
+@@ -330,6 +342,8 @@ struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar)
+ }
+ EXPORT_SYMBOL_GPL(pcim_p2pdma_provider);
+ 
++#ifdef CONFIG_PCI_P2PDMA
++
+ static int pci_p2pdma_setup_pool(struct pci_dev *pdev)
+ {
+ 	struct pci_p2pdma *p2pdma;
+@@ -1207,3 +1221,5 @@ ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
+ 	return sprintf(page, "%s\n", pci_name(p2p_dev));
+ }
+ EXPORT_SYMBOL_GPL(pci_p2pdma_enable_show);
++
++#endif
+diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
+index 873de20a2247..4c42a7b2ee85 100644
+--- a/include/linux/pci-p2pdma.h
++++ b/include/linux/pci-p2pdma.h
+@@ -67,9 +67,22 @@ enum pci_p2pdma_map_type {
+ 	PCI_P2PDMA_MAP_THRU_HOST_BRIDGE,
+ };
+ 
+-#ifdef CONFIG_PCI_P2PDMA
++#ifdef CONFIG_PCI_P2PDMA_CORE
+ int pcim_p2pdma_init(struct pci_dev *pdev);
+ struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar);
++#else
++static inline int pcim_p2pdma_init(struct pci_dev *pdev)
++{
++	return -EOPNOTSUPP;
++}
++static inline struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev,
++							   int bar)
++{
++	return NULL;
++}
++#endif
++
++#ifdef CONFIG_PCI_P2PDMA
+ int pci_p2pdma_add_resource(struct pci_dev *pdev, int bar, size_t size,
+ 		u64 offset);
+ int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
+@@ -89,15 +102,6 @@ ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
+ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
+ 					     struct device *dev);
+ #else /* CONFIG_PCI_P2PDMA */
+-static inline int pcim_p2pdma_init(struct pci_dev *pdev)
+-{
+-	return -EOPNOTSUPP;
+-}
+-static inline struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev,
+-							   int bar)
+-{
+-	return NULL;
+-}
+ static inline int pci_p2pdma_add_resource(struct pci_dev *pdev, int bar,
+ 		size_t size, u64 offset)
+ {
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 2c4454583c11..531aec355686 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -557,7 +557,7 @@ struct pci_dev {
+ 	u16		pasid_cap;	/* PASID Capability offset */
+ 	u16		pasid_features;
+ #endif
+-#ifdef CONFIG_PCI_P2PDMA
++#ifdef CONFIG_PCI_P2PDMA_CORE
+ 	struct pci_p2pdma __rcu *p2pdma;
+ #endif
+ #ifdef CONFIG_PCI_DOE
+-- 
+2.47.3
 
->  		}
->  #endif
->  	}
-> @@ -635,8 +613,15 @@ static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int ord
->  	pfn = page_to_pfn(page);
->  
->  	ret = try_insert_pfn(vmf, order, pfn);
-> -	if (ret == VM_FAULT_NOPAGE)
-> +	if (ret == VM_FAULT_NOPAGE) {
->  		folio_mark_accessed(folio);
-> +		/*
-> +		 * Always record write access to the buffer. The natural
-> +		 * place would be pfn_mkwrite, but this breaks KVM.
-> +		 */
-> +		file_update_time(vma->vm_file);
-> +		folio_mark_dirty(folio);
-
-We can be a bit smarter here:
-
-		/*
-		 * Always record write access to the buffer if the
-		 * mapping is writeable. The natural place would be
-		 * pfn_mkwrite, but this breaks KVM.
-		 */
-		if (vma->vm_flags & VM_WRITE) {
-			file_update_time(vma->vm_file);
-			folio_mark_dirty(folio);
-		}
-
-> +	}
-
-The rest looks good to me.
-
-Regards,
-
-Boris
