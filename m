@@ -4,57 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE069CD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:39:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE8E0CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE4910E82D;
-	Wed, 27 May 2026 13:39:47 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB7A10E7F7
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:39:37 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 76B8C6BA98;
- Wed, 27 May 2026 13:39:26 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F0085A861;
- Wed, 27 May 2026 13:39:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id II97Ag70FmrpMQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 13:39:26 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com,
- pekka.paalanen@collabora.com, jadahl@gmail.com, contact@emersion.fr,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, mhklinux@outlook.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 6/9] drm/hypervdrm: Set DRM_VBLANK_FLAG_SIMULATED
-Date: Wed, 27 May 2026 15:32:47 +0200
-Message-ID: <20260527133917.207150-7-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260527133917.207150-1-tzimmermann@suse.de>
-References: <20260527133917.207150-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 610FE10E042;
+	Wed, 27 May 2026 13:41:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="upC4Av2C";
+	dkim-atps=neutral
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020106.outbound.protection.outlook.com [52.101.196.106])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16D1A10E042
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:41:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ysMeQKdpbw1+Syj3XmUpYGr6yeu76ualltormG3wSmYRE6AJwz7ViwU9anIPE3IlC8t94L534dpjHw9DUc2qoiwlj8o+ocsVT7LchSiaW2LYfvjacGLKcznyOs5BLcis8TFf/HsQNiTTNGr8nADKT9TyLur+DOYDccHoYOMIYT+pnezpF0/UiPxH6WEj2Fywn+OkyJi942EOVzmp3pRElGrxR+SZ2jPgLQfFryNqFBsfL7StwVb66YFRVxd9h2McPPD4A/2xWBlnNqh7Rz9+QX4+DiDP56D8NyH52cH+ux4sZ4UYWqy3bpaZDIBtNW9fRir4ZgvuZCy57O1huXAgPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AqAinA3aRgngkWEVVhKNGrAQ36reSKp+0Ob8OuDqulg=;
+ b=tAwMMLmIMASv5t3cNHDzMsoAObw8LMqhRH4TbHxKh0JbQsGD4hv/jn8rqFJwfB39Io0vNf9FucKPuVa76K9ZScZPclCrQeZ6VBHC56l+aUu5AbQnKJ7aXth5PHpmQdwgXuuZo3zxVUix1bs1r0Gdtj7awh+T9tOD1zHErNKhLboGpN5RSUaLJZsys4+P/wxjyQyYsfXl1kJrqviWcBn1srW0bfnVu1MWzgp7nWE1uHIKDQrnFrQKklHglOHKAIq9ZNVliXmulQNcDSjrZl+P6/sprZrHTYRAp9zLK/HNuauowj67MQzYWMjQiOn1yabi9hkMf7Gyz9hj2zExVFhllw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AqAinA3aRgngkWEVVhKNGrAQ36reSKp+0Ob8OuDqulg=;
+ b=upC4Av2CU5copVgjkDgMT4RWAwq9xQYDkHJzElXijR8uM3yarzwRjDRr38fX+E2s3TC2dToI+N7Rrdl2C1BEUrvQPJ3nYrl8b4e1EwyVJINEs3HredJF5DKHRe3Gaq9TKc+dQ3lH9mYHhxxN8g7Ue+KqM04H0Mk+u9hmuav+7v4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO4P265MB6528.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2e3::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 27 May
+ 2026 13:41:30 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0071.011; Wed, 27 May 2026
+ 13:41:29 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 27 May 2026 14:41:28 +0100
+Message-Id: <DITI3F11JL6Y.3VAA9L56F6M95@garyguo.net>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Eliot
+ Courtney" <ecourtney@nvidia.com>
+Subject: Re: [PATCH v5 20/24] samples: rust: rust_driver_pci: use HRT
+ lifetime for Bar
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
+ <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
+X-Mailer: aerc 0.21.0
+References: <20260525202921.124698-1-dakr@kernel.org>
+ <20260525202921.124698-21-dakr@kernel.org>
+In-Reply-To: <20260525202921.124698-21-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0516.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:272::9) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Queue-Id: 76B8C6BA98
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB6528:EE_
+X-MS-Office365-Filtering-Correlation-Id: 267022fb-efae-4f37-877c-08debbf5a7dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|10070799003|366016|921020|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: zxlVBPCFtNbTAFVyxZEp7S1+j+cd1O13wn5H25h9212TC5BTJ8xe24GWGHrKSVh7252NiuYEXD1gb0u10uUSsBTLg/b+vGu1cF3hCcA4tC+WIH7+VcaET3n4mbNe5dIKVjFpiNlKUQ67AuohiTCf43M98XD2Z9dH2oLfRd/FmbAv8P+ew6vIFFSvSrct5LQbnFTW/L09Mk7hdTmDBS9pSU/0D5gt4Oxbm3VV0n2jf9DtWM2EK4znJgSnm4kxxZxesfJaXfteUp0ZzPjU/G5NK+l0uGDHDALL73OXRMo2QEb0TmCCUUPgK4gM9r7eoSu+2eNPl3/2ZeUohJcUVzbwwSCBjOreu/7zcKodGlUsnm4s0Jzb16CERYvgN4RGMT72QrBQ297cg/9Nzx6X84YnX+8sK9TgsFUhF+H/PjQ5wsjmAGJsoX2wHDTGo70GNsM70cmKywGBEEVqPs4r8UdgtLx9npHjLpBGCXS8y+PbGS/LbgJVUo5XVPPnU2RVIdgSqVofdv+uywC14xGI1moplr7rUGO9nC6u2M7D/LjV4T3wWu4jzcBV1GlgUsHMr+kLfiLA+x4TmCyW06agBePU1cgXZEKjC2Mgr4uc5123B0fgOYvmRRydE3mLL5FKvc7Db1n8tcmyUxiQdFO4xbMj7+2O+tKwF5vBX1Yuqa/rj7MlGjyXzbLfA/MZHyDFD/sZH7TrNE4c1wgfNxpfuj+akIo931uTRedEpXQwHtCMsxQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(921020)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHhPUnNIbk1yWjlOdE82YzRveHh4T21FT1ptVWpiOTY4NzNZa3dWSVJQYVZr?=
+ =?utf-8?B?cmhRMHIyVkhUVkJQT0RxRURaeXRpR00zcmcrOVdvejBIcEtNWk4xSHVNZ2Ni?=
+ =?utf-8?B?L3ZVSmlmM2Z4Q2V6WUova0ZWaDRySkoxN2hwaE9wUzlyUFB3NVh6a0gyVXd2?=
+ =?utf-8?B?ZHpORkNxUmtrVVB3QkNpWGRHZVNQVzl1OVVkRFg4QTAzSWdteGVQbllHUnpr?=
+ =?utf-8?B?OWZmNWZBYXVQbkFZdGkwNFhCNXVWYTdFdWJjWFMyWDhKSnRxdVI5NTNWOVhR?=
+ =?utf-8?B?VERZK1hlSkdkOGpFaW5kOEg4UkE3di9nVllpT3pCQ3NSNXEyc0hOS1BxVzY0?=
+ =?utf-8?B?NDlIRlppcUlDMXd5N0JRa0ZEZngwc2F5QXFwMjhzbTZxYW5pNldiTXdCZTRN?=
+ =?utf-8?B?OTcyYk5jWlZJSTVxMXVpajZkWjdoQ3JCZnl1WHc5ZWxCOHFQUkthaFl2WHY0?=
+ =?utf-8?B?amhpVGNKNHFma0ZGc0NORGNvVmg1Smc3U2t5K0p3N3ZoaVZuZmVtZkxzTHkr?=
+ =?utf-8?B?d043alRUbS82ZmI3Qndna1ZHZWNLcHg4YnhmSHRkck4zdEpSOXJHTWI4cjdl?=
+ =?utf-8?B?REJJNnJLcW1VVTlFS1pQZVhLaUhyS2tPbmwxc3p4dEFvbllJSGhPbVlsazlx?=
+ =?utf-8?B?eXcyYlRKYXhFTlk1WFcxMUpBcmcyd1FQdjJWa1lGNWt3cDluTlJHSVJvbFNs?=
+ =?utf-8?B?VEIyZHRTcURpb09LeTRKMXNyLzhlckprcm1PRjBYSzd2MGdTSkYvL1ltZTJH?=
+ =?utf-8?B?K2JoQ2ZidUZjZktVS2VnL01wbWZVSE0zUXVaOGdYdFFOWEdVbkEwbmhkdk5N?=
+ =?utf-8?B?NXRicEFkV3pGRXQ5UVZpdXhWMDJSdExvK3BheEY0KzlsVXJzMERKcHRLL01t?=
+ =?utf-8?B?cVduWERucFJDd083UXE1TTBJcWlnTUpDeDI1RnlyakNmWldHa1FCQk9RTmJQ?=
+ =?utf-8?B?aWdsVHlDZTRETUduRDdFT0lyaG9JZ1JMRmJHWGdqQWM4YTF6d2w1ZTZuM3lS?=
+ =?utf-8?B?NnZtODlTOXAyOVJWOUh3amh3dHpUU2tjK1QxbHhLN293a3BDUWhTdmFQOXRk?=
+ =?utf-8?B?NHl3ZFkwNmU2d3duOUZNcW5aTm1lZThvRmhuakRVcFdTRUtXMzlRcFMyMS9n?=
+ =?utf-8?B?Vk1VcGI0TE9zKzhhWXpYNmVLVnhoQlNKVFI0OW5JQ1hGVmluOFVMbmNuZmVZ?=
+ =?utf-8?B?TjJJSGhpQnByWmwyR3Y4Q0J2eDZlYnZLcGRibmJnVm5CUG9ydUFGa24zT29y?=
+ =?utf-8?B?aUVuTklma0VWYzRXRVdjTFh2WHgyT3FOeC85cXpsd0RYVFZjK21JRVg1YVZ5?=
+ =?utf-8?B?Q1J4NVJsa3JuUVpvTFJjaHE4VmF1SHU4U2NtdUN3ajM3bDJsb1hUdy90NjRm?=
+ =?utf-8?B?Uml6Q3dYOW1maHVHa0I4bHYrV2xuRHNhLzhLZG9GT2h4anBFTnNpMVBuNENL?=
+ =?utf-8?B?YS9HcUMyTDlxWXlDTkhCeTdsdGlGQ1c0VFQrWFRxL0RkZXZka2ZlejdXZWph?=
+ =?utf-8?B?Y0NmcHhjNzhMTE5LQjhoT0ZTR251M213RUxOUWp6YWR1d0kzRlJ2WnJzNXlh?=
+ =?utf-8?B?UFBMTTBmdGlmUy9xbEY2alJUMkhsRVV3b0xFdDkrb1ZJK01qMG9ZTlNGUVFK?=
+ =?utf-8?B?NGJTbmxSTTd6bi91UmRUbnROZ3FTMUJIQ1ZmTkl4Z2lETGZoalVrajBiWC92?=
+ =?utf-8?B?QktZekJnWVlMYnZUWnF0MHRYY3p4WVVFRndvcTNUUC9JbUczeWxLcmhxb1ho?=
+ =?utf-8?B?a0QzcDdYR2NwZVFXZTZKekxsL3hFaGJhUjBiaWdPUmJMZFh4cEN3OHVZSTRm?=
+ =?utf-8?B?d0JvQjhITTlGVnQ0N2pCenFMb05HdUVYMjhyV3Myelk2RkU4TlliV2tIc1FI?=
+ =?utf-8?B?ejd1a05IWTFUTERKc1VpQndDQ2lhNmFCV0MxZWMvUlRmL0IyRHNYVm04VFY4?=
+ =?utf-8?B?d3UwNEwxQ2l4K3gzR3pia1l2elp6TysvZjMza2QzUnJCRWt6R1ZGNGhUcEdx?=
+ =?utf-8?B?RXNGOG9mcDZtOWpkdWRvNmplUyswakdVODcxWXBabDY4VzM0YlV5c1BTTmpR?=
+ =?utf-8?B?KzA3b1JsZ25YWlFYdUZPOU5kcVlhY1ZLQjk2bUowcDdHRGdUTXpZM0phcnhH?=
+ =?utf-8?B?czJOKzlOM3JTSkRtdm1ORzI0TjJkZWdhM0R0alluZ0dHdExBSkxTWGt0RmZl?=
+ =?utf-8?B?VXhqRFp4NEJsdVJjUDlVbXcvaGFLRkdOa0lTWU9wWVBmdWJZNkVyU3B1ZFRz?=
+ =?utf-8?B?SHFZcnhmZjk2ck84TDVjR2Q4ZXNzaVRSVDIzaHl3TGFMVTh0aXVuR1UyNUtX?=
+ =?utf-8?B?SUdkVGRYQkRFQ1JXS1FWQjAxNlM5YWRPTHlZSjI5RlNLWVRVUW1FUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 267022fb-efae-4f37-877c-08debbf5a7dc
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 13:41:29.1589 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a3+IjqqfS8pJzZtU7JLCvvxuN6WHvmSk4HjzpjwJPeyvZ0y0Ty9QBz1gcCnsNrT/JIiju3b0rTebsFrXtw2ZqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6528
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,28 +149,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mark the vblank event on hypervdrm as simulated, so that the WAIT_VBLANK
-ioctl fails with an error. The ioctl should not be supported because the
-output is not synchronized to a display refresh.
+On Mon May 25, 2026 at 9:21 PM BST, Danilo Krummrich wrote:
+> Convert the sample driver to SampleDriver<'bound>, taking advantage of
+> the lifetime-parameterized Driver trait.
+>=20
+> The driver struct holds &'bound pci::Device directly instead of
+> ARef<pci::Device>, and pci::Bar<'bound> directly instead of
+> Devres<pci::Bar>. This removes PinnedDrop, pin_init_scope, and runtime
+> revocation checks on BAR access.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+It looks like the original code doesn't need pin_init to begin with, so it'=
+s not
+like the lifetime actually helps here, but it's still a good cleanup.
 
-diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-index 1bbb7de5ab49..24bed31c35e7 100644
---- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-+++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-@@ -329,7 +329,7 @@ int hyperv_mode_config_init(struct hyperv_drm_device *hv)
- 		return ret;
- 	}
- 
--	ret = drm_vblank_init(dev, 1);
-+	ret = drmm_vblank_init(dev, 1, DRM_VBLANK_FLAG_SIMULATED);
- 	if (ret)
- 		return ret;
- 
--- 
-2.54.0
+Reviewed-by: Gary Guo <gary@garyguo.net>
+
+>=20
+> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  samples/rust/rust_driver_pci.rs | 89 +++++++++++++++------------------
+>  1 file changed, 40 insertions(+), 49 deletions(-)
 
