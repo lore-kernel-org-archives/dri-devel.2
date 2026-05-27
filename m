@@ -4,85 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB33CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F6FCD5BD0
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:50:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8B2710E9EC;
-	Wed, 27 May 2026 20:43:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FDCA10E9FE;
+	Wed, 27 May 2026 20:50:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sDv8zaE0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fengZZNl";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A45310E9EC
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:43:40 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2ba3e3c4f87so126275455ad.3
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:43:40 -0700 (PDT)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9F0A10E9FE
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:50:28 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-8367df48711so5309427b3a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:50:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779914620; x=1780519420; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779915028; x=1780519828; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=FXTPczjLvJobFRbkK7xxt7iJVHks66505vqIfh89VkA=;
- b=sDv8zaE0McqUuZPw4+2USNRqPLT1VGXmlOfydrBVyMsZebIL0zCzCvc1o+PyRNOWvZ
- 9QtjL5r8kymV9YTL8yKV61kKNJhiZvniaFFk37m2RXze/yzI1DonlKPhzzCQh1pM1iUM
- xDL431/Vo7jjaa3CH8qWBjsQnD7BaXbkmuLkG873o8BmWtO3GlA4ZecrXduxC19Gzh0C
- VOZl03JEPPTicc5Dkti2xMWysStzG8FmiSnLHDU4E3EDxSeU5Y+cdGqwR0xDR3PouyvE
- U2pPWwtFZprC0vIjNOOhBovZFbln+TfkjDpau372103/eDcwEOlEkEbvuh76dZ09GpD+
- FTJg==
+ bh=ZgmT2PCf8Y8jhcdcmTfOPLMXO+NaMPZbn+px8TLtHg8=;
+ b=fengZZNltL6WGjWH7rYpGffaAB4m8cztezf/CfmzUf7ZiHv3wY9ILH1SX9eORBCvTa
+ c/0+unrEQj3q3LBx3qPCUHQeRKliMxEUQ8qcXCCsSuJTeMk+oKDjipM2EVY5WxsD0zkU
+ FskgC7UtjmAPDVjQKMBcMl4ihpDfKz15dWrEIa4x27Y8/05RDHn54hlXPw+RiGSz0n2n
+ SbRUhXM+i0K6fq2pANKqXL6cixpllTxCSwRMUy8PTvfP0rBRN402v0FPAxSrcfhwPzX8
+ n00QUwXVsFPgmkllLjXDjgM1nh/szKRrCakInM72NxrsYLXJxgRvP+bKYI1d2iG7d3q0
+ u8iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779914620; x=1780519420;
+ d=1e100.net; s=20251104; t=1779915028; x=1780519828;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=FXTPczjLvJobFRbkK7xxt7iJVHks66505vqIfh89VkA=;
- b=gUPDziYmWv4+IC6niLJqKUL3lDuTI5NA8uZggB8MKStqAa0r4ULMkL0I5Fsu8P0VBj
- m8iLTH/4wSI19nb8vvGAl5Oqx5cKMN2u3pavXPwDjTRBHdi6fcjyXH1/GchVgp0xibov
- 6+PTK80/kdnLS0GM9Q/v4aOPvjAVYhyk6u7l9QKvmR4y/rPIP53LirUHkaS9i+9qVKz+
- ZYOWIm02r9UR/lvBdCJ2mqV7hLLFonfJbUeWkV9Hpxofivw5je6hR1aKpT4ZnG7Wv/Aa
- Pv0vbPKMHmzlC76OSZl2Ubat/GxFzvgLJBDauZox2n5asGsD6cipgkh1JPplEOJSpOjS
- mCdg==
+ bh=ZgmT2PCf8Y8jhcdcmTfOPLMXO+NaMPZbn+px8TLtHg8=;
+ b=ovacwuPc40C3TWSvcBJ1Oip4qFQXcu8dFCmHyafip7SmgQUClpar28lrRbqUEilwEn
+ IgIcKPu4YTDqZuNgZYcCx/SYtqAo9qfJEFeCvmS80x50SXwKIEaMGBWgxiB8oOy2GZCr
+ QrhokBYDsDOFXgsui6ZdlUAcpqwGtLBQsN1MqUEVrVCCBIephomgwQnqkH274UWS5yb8
+ wx6+xN//tUsM0cfSbLtp+4gWcNM/f7o+Jy4dAp0t1+xG01GcLBXflja9ofSL/uqMX+zu
+ hUBZH/PqS+fl5F1M5Ny3pdIXhv5gKUKJphrjN2ifHTC3iU0RuO2rA649bk0bar0eNY3k
+ Zkqg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/m9s+eShmrEC1hp34g8kBRbWn1298EztQRJajTckJKdjdKuFZqQtnf3vcrEKyXIUI6WSmu4FJF5s8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx/Dhae4vdB+1SZN9bZY+VcTLJzUF2vRRfBiJEY4cyBuUhHNFg2
- zdTqsdhZ9hwCk5G8FesFn3CUnBcvjdvDwrLRurlivsTw5akNOpXcM3pi
-X-Gm-Gg: Acq92OEoGnBerWzQi5uyHskpIek2wJnsByUsSDs73i2BmYJzqeS+5vxwBo4BJwrH553
- +0mhqz+DTwifoSLxIAQyybSeVRSRJzLPaj0sPfZBrt7foY1LyEFLtfZqtj6a+rnlYvf/A3AAGgH
- 5VUknO+ZRxIVk/fvckUNtZyeg+yGvnGYtAReMEU0Z7oRYFU1kPJwr8v5YglToVlvaUeDVPb3Z9s
- F3yy0NCBF4gUHOxwLqHbeVWUD750kcR68sYFIqMR4+neW5Q+WVg6Je5+CiHPOx1QcT7DUWa9vgO
- U/I/DUBf04gMJoLrIpOl7Mb2qbJa8h+r19OIWPPAa2R7iBSmEL0Usdo3KkmRYez3ScAtm0xmW9Z
- 4QVHwyLkQ2vbWQknuDfQcE1E19ShUiPJygLMaPbJ7MSIvgnCYyIExRhsWCLs543RCJ+pymfaXLg
- YoxdkIambdPqcbg1fCc1+Ih1+54i7WPiKSgH5tOGe+cjhU4+U=
-X-Received: by 2002:a17:903:f86:b0:2bd:2de3:5198 with SMTP id
- d9443c01a7336-2beb033f48cmr279229085ad.3.1779914619757; 
- Wed, 27 May 2026 13:43:39 -0700 (PDT)
+ AFNElJ9MkZGXgXUC3vVBZQwBaQFIl3IEj897h8Cf/HjOupA/lFPMUjCYiG0OBGOQvd8WdAEC4zh7NaJTAyE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1ar57R7IrEA3m/nENMTEVp5+tY4ORHJDDMsFZArWR2jAWRC4l
+ Avqa5VWBohvf5d9zDgUFkv+7UD9j0+dyzwOMURgZGNKa2EuIhoa4sMtt
+X-Gm-Gg: Acq92OHFiTKcmR/rXpmabOpt4aQKGPJSgDCIOTg+Dfp+3qDj0ct9lGSJ/Rb7LMQQFHg
+ hkezXJpGqIpI3xbA/i8Bv5sbHzyVYebe3plExhjdGVdacIbZWKjEk1+OXE+xECxhUdzdwwM1BE7
+ aLk0hUluU1KQCM8gBUHOSP7G8BMVRqLxKSg85QtedfP1gYxdMQIrHE2AEkItOIMLw5ypMIfFco+
+ //wscU3FJFmb44mipvhk4CTEb0EpTqbq8+O4Mhc9rEDGgX2ViAKdoQun25M3kn6RYGGuTvB8xDR
+ malEOQQ5s8RoMgEcySkq21W/kafBtFSRaQ3HSFY/l5D06NaFbbq3oF6KwCUeo5RYBNOjhSGt/gN
+ tDRC/Zpj8CM4kndHTIEroyfeWIN9qeIaZiqctjZa/GwBe0tWbfNyyNgoo104JRcvE0dSZgkUwal
+ d2kNfdIgpayObocC27Hk3wGeTXm/f0L62QUf/ULAqnno0Sn3o=
+X-Received: by 2002:a05:6a00:f03:b0:82a:6f69:7f72 with SMTP id
+ d2e1a72fcca58-8415f588372mr23987407b3a.47.1779915028339; 
+ Wed, 27 May 2026 13:50:28 -0700 (PDT)
 Received: from [172.18.227.108] ([219.88.198.180])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb58b2ccbsm165239385ad.48.2026.05.27.13.43.34
+ d2e1a72fcca58-841d6eae464sm4078935b3a.20.2026.05.27.13.50.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 May 2026 13:43:39 -0700 (PDT)
-Message-ID: <30edf212-f656-4c09-a066-d765debf3fcb@gmail.com>
-Date: Thu, 28 May 2026 08:43:31 +1200
+ Wed, 27 May 2026 13:50:27 -0700 (PDT)
+Message-ID: <a727e1e9-777d-4372-a087-85a721f174ba@gmail.com>
+Date: Thu, 28 May 2026 08:50:20 +1200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] arm64: qcom: Enable additional hardware on Radxa
- Dragon Q6A
-To: Xilin Wu <sophon@radxa.com>, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 3/6] drm/msm/dp: Limit voltage swing level to 2 for RA620
+ bridge
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org
 Cc: andersson@kernel.org, konradybcio@kernel.org,
  robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, neil.armstrong@linaro.org
+ linux-kernel@vger.kernel.org
 References: <20260522060645.4399-1-graham.oconnor@gmail.com>
- <20260522101323.31911-1-graham.oconnor@gmail.com>
- <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
+ <20260522060645.4399-4-graham.oconnor@gmail.com>
+ <7e435e8c-ba0e-453a-b95c-450446dfc0ff@oss.qualcomm.com>
 Content-Language: en-GB, en-US
 From: Gekko <graham.oconnor@gmail.com>
-In-Reply-To: <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
+In-Reply-To: <7e435e8c-ba0e-453a-b95c-450446dfc0ff@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,84 +99,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Xilin,
+Hi Konrad
 
-Thank you for the response.
+I completely agree.
 
-I appreciate the offer to take over your patch set to move things 
-forward. However, I feel I must respectfully decline. This is mainly due 
-to my lack of experience with both upstream kernel development on this 
-hardware and the patch management process itself. It would be 
-irresponsible of me to take on something that I'm not knowledgeable 
-enough to ensure successful completion.
-
-I'm happy to work with you to help in any other way that I can such as 
-testing patches, but I think you should maintain ownership of the 
-patch-set and submission process, at least for now.
-
-One of the reasons I withdrew my own patch-set is that from what I can 
-see your series covers everything I was trying to achieve, and does it 
-correctly :-)
-
-The only one that isn't covered is the patch for early TCS 
-initialisation that I'm discussing with Konrad which may be unnecessary 
-anyway.
+This patch is a temporary hardware workaround for RA620 bridge support 
+and should not have been submitted. Please disregard.
 
 Graham
 
-On 24/05/2026 13:58, Xilin Wu wrote:
-> On 5/22/2026 6:13 PM, Graham O'Connor wrote:
->> Thank you to Konrad, Neil, and others for the very prompt and helpful 
->> reviews.
+On 22/05/2026 21:28, Konrad Dybcio wrote:
+> On 5/22/26 8:06 AM, Graham O'Connor wrote:
+>> The RA620 DP-to-HDMI bridge used on the Radxa Dragon Q6A does not
+>> acknowledge DP link training at voltage swing level 3. The bridge
+>> requests maximum voltage swing but never completes link training
+>> when the driver attempts level 3, causing HDMI output to fail.
 >>
->> Based on the feedback received, I think it best to withdraw this 
->> series to
->> address the issues raised, most notobly:
+>> Cap DP_TRAIN_LEVEL_MAX at 2 to match the behaviour of the vendor
+>> kernel, where link training completes successfully at level 2.
+>> This allows the RA620 bridge to establish a stable HDMI connection.
 >>
->> 1. The DP_TRAIN_LEVEL_MAX change (patch 3) is too broad - it affects all
->>     devices using the Qualcomm MSM DP driver rather than being 
->> specific to
->>     the RA620 bridge. A proper fix should be implemented at the bridge
->>     level. This is going to take more investigation.
+>> Tested on Radxa Dragon Q6A (QCS6490) with RA620 DP-to-HDMI bridge
 >>
->> 2. The display DT nodes (patch 5) should use the radxa,ra620 compatible
->>     string per the existing Radxa upstream series from Xilin Wu, and the
->>     lane ordering needs correcting.
+>> Signed-off-by: Graham O'Connor <graham.oconnor@gmail.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_link.h | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
 >>
->> 3. The rpmh-rsc early return (patch 1) needs further review regarding
->>     the implications of returning before full driver initialization.
->>
->> 4. DTS patch label dependency issue (sorry)
->>
->> I'll integrate with the Radxa upstream effort, re-evaluate the other 
->> areas
->> and resubmit corrected patches addressing these concerns at a later date.
->>
->> Thanks for the feedback.
->>
->> Cheers
->>
->> Graham
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
+>> index 76125e9c0..ff0d8e99d 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_link.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_link.h
+>> @@ -24,7 +24,7 @@ struct msm_dp_link_info {
+>>   	unsigned long capabilities;
+>>   };
+>>   
+>> -#define DP_TRAIN_LEVEL_MAX	3
+>> +#define DP_TRAIN_LEVEL_MAX	2
 > 
-> Hi Graham,
+> You're limiting this value for *all* devices featuring a Qualcomm
+> SoC with a DP controller. Instead, if this is really an issue that
+> results from the bridge's capabilities (which could potentially only
+> be a symptom, not the cause), this should be somehow limited to the
+> specific bridge itself
 > 
-> Thanks for working on the additional hardware bring-up for Q6A upstream 
-> support. I'm really glad to see someone pushing this forward.
-> 
-> I actually posted a patch series [1] last month, and it is generally in 
-> good shape. Unfortunately, I got busy with other work and haven't had a 
-> chance to send v2 yet.
-> 
-> If it helps, please feel free to take over that series and fold your 
-> additional patches into it. I think that would be a good way to move 
-> things forward.
-> 
-> Also, I believe patches 10-12 in my series are no longer needed and can 
-> be dropped.
-> 
-> Thank you again for the work you have done.
-> 
-> [1] https://patchwork.kernel.org/project/linux-arm-msm/list/? 
-> series=1078242&state=%2A&archive=both
-> 
+> Konrad
 
