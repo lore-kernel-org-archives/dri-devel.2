@@ -4,65 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07E9FCD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:03:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85BF5CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6519810E274;
-	Wed, 27 May 2026 15:03:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEAFC10E1ED;
+	Wed, 27 May 2026 15:05:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=igor.torrente@collabora.com header.b="aBnBvFY5";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="dArCv6vv";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65DC610E274
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:03:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779894177; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=GC2AFMYW5XBUGepg2yChJL+MVuU7qyT6sFRvfXM5IDqZSmhMm03T4JT2jLIPGki6owsbarpePIzuXs8jilkRCkLiLvhXbfA38Qh0imbM/DdHGdGTXVD+O2uSWFfJEAei857jTsQKIAIT1q45Kqva02sLcE8+9tNuaQ7X/NrtVRc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779894177;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=2DVdpSqizLXrRnmwsc4NgvlHfA1kTlJlNvFuSbzPxxQ=; 
- b=byPqEwIqVQFyQi2Loh4epvx0F75VrsyPiRpcivSYrFhkYmTTcdQfj9k5J9I2XI8xD7fXESl9wizwgG63qhcvCo1Z3j5RPIckuFyV/OHje6VrC5pYeF0IY8CtqHa8L/OClgQi8vtX9RFdd1XKknzOterAEjoZ+kZGuMz4xllx/wY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=igor.torrente@collabora.com;
- dmarc=pass header.from=<igor.torrente@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779894177; 
- s=zohomail; d=collabora.com; i=igor.torrente@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=2DVdpSqizLXrRnmwsc4NgvlHfA1kTlJlNvFuSbzPxxQ=;
- b=aBnBvFY58sBXNM+hYFZ2ntD445V3PIsoQg+pNM4as20fXTDdDvucSCfh19D7PG7Q
- +AkjWjLvXkGxlXbfZJFM9FPBkIhl5w8IK2wSBjqXVTKjk8FgutsoDWRHSX3l2YKZPjl
- hT1teGDrcqMSJqqZjgQqbit0GInLV7SgytLHTAcQ=
-Received: by mx.zohomail.com with SMTPS id 1779894173814945.6444780909185;
- Wed, 27 May 2026 08:02:53 -0700 (PDT)
-Message-ID: <16cbd262-aa82-4ca7-ac12-d587ed78ff3b@collabora.com>
-Date: Wed, 27 May 2026 12:02:48 -0300
-MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH v3 5/6] drm/gem-shmem: Track folio accessed/dirty status
- in mmap
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: loic.molinari@collabora.com, willy@infradead.org, frank.binns@imgtec.com, 
- matt.coster@imgtec.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-References: <20260209133241.238813-1-tzimmermann@suse.de>
- <20260209133241.238813-6-tzimmermann@suse.de>
- <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
- <850e8355-7884-405c-a70a-986ce032c019@suse.de>
- <831c0943-c75f-4d42-aa5f-90ce34cf8530@collabora.com>
- <67855fcd-2afe-4a1d-a51a-210e45f56167@suse.de>
- <20260527121832.7264f0db@fedora>
- <025ee28d-c941-4cf1-a6cf-565686ea0bec@suse.de>
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazolkn19011027.outbound.protection.outlook.com [52.103.13.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0A1210E1ED
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:05:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Usrio8MCRwuZKZOcmhSOMVSfcJNQyPNMdHGnUA+hf8FjuxhpO/r+RkCmcWBOrvIJ9GWJY7eMusdCdaEVx9SkQBHLBcE3pxPxKeE+ndDNCtiZtOx+NG7brvfxg8uM8Q1nD4wNrcFYyBTldJYaoigiGpruyVYfYQFFLhLxfhnvDuVXRQEVL77BWjgjL+9nxSyyZxzBxfmCfxnfe34pcgJwp0TljK8xghNMA+jyup3LEiIXdnSbiN/zl04IBq+CoRTV3Q95rvlQtNJ2gJpY075RnIzWnqOBV0XvhXgXBK9qm8/REMrdCSX3d9DKSeScx0lPoaDHmFeXfOZ4so14XcynCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TpIyLntWVY1r3Rr1EhhgPM2dUfuLEubta5IewGZykfA=;
+ b=ir7MGBhxskZ+HaqVXF4oRKcYqoFEogJIE64ajvk6CQBdbI5QVB6KlSCUfKsnrbxTjfc2x5o/uk4MSEp1L/4DpMJuDDJYIhL3d6WZP+5sL1EbSM+U72OUaQKLyj/NJWYMB48g69P0Q5BdineOOl1XM4/5D6O+PEQfV7QE24EsDFP7eaWIGRH2vNICOoYXxHsmfKqbVj8gg4bfT8SQqTr3HZT46wJ+leT9JRwiO/9u9hXMb74ya2uWMkrcoz0aGjBP6bC1ZlBxbhWZEcehqpoBrW87nlNZHixDDbcHsfoY3dcIpCGyj2eXXwcD0CsYNVGPFsaXMII36vJnNx2DJgsqeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TpIyLntWVY1r3Rr1EhhgPM2dUfuLEubta5IewGZykfA=;
+ b=dArCv6vvVQNXr5UamgfUtw7tqU1Jhklsj2PTulrDJgGvE5nkPGtxb4oXOg0mxBypsvJc/1jNwNRQeDlA6lqG/L6XndRB2EUWv+Uq2Jz82403OrHUJ0qmVDB4L+hJXoJfIW81yriF9HZzuqrvOTZBg/4tCc6gWBYM7OAjubXmshpVwbg8fGB1dqRNHERnXoXpOMSQuLczgHYDgdpRvkgK54FIQDnd+f6hNdFRtmbhYm7lqM6eJFOZ/675w6SuTWrJ4tXIcTwcRoaUJCXqGtae856PZ/3HSOfuuIoQoxGiQZTrNrez6A1s2H9hjbUwLpSZpTdQkvjTsFG73IaIN23zHg==
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by BY5PR02MB6594.namprd02.prod.outlook.com (2603:10b6:a03:20b::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 27 May
+ 2026 15:05:14 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0071.011; Wed, 27 May 2026
+ 15:05:14 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, Michael Kelley
+ <mhklinux@outlook.com>
+CC: "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "decui@microsoft.com"
+ <decui@microsoft.com>, "longli@microsoft.com" <longli@microsoft.com>,
+ "ssengar@linux.microsoft.com" <ssengar@linux.microsoft.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+Subject: RE: [PATCH 1/1] drm/hyperv: Replace "hyperv_" with "hvdrm_" as symbol
+ name prefix
+Thread-Topic: [PATCH 1/1] drm/hyperv: Replace "hyperv_" with "hvdrm_" as
+ symbol name prefix
+Thread-Index: AQGYZGmpZbciqp3jXtRxdrQwqzIko7aq6eCAgAAhusA=
+Date: Wed, 27 May 2026 15:05:13 +0000
+Message-ID: <SN6PR02MB4157EC6C4CE3BBE2ACC3E86AD4082@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260526205239.1509-1-mhklkml@zohomail.com>
+ <ahbr3aepFUuJ45Zg@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+In-Reply-To: <ahbr3aepFUuJ45Zg@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+Accept-Language: en-US
 Content-Language: en-US
-From: Igor Torrente <igor.torrente@collabora.com>
-In-Reply-To: <025ee28d-c941-4cf1-a6cf-565686ea0bec@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|BY5PR02MB6594:EE_
+x-ms-office365-filtering-correlation-id: fae870ec-5f72-40da-5de1-08debc015aff
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|51005399006|37011999003|15080799012|19101099003|13091999003|19110799012|31061999003|8060799015|8062599012|440099028|3412199025|102099032|40105399003|1710799026;
+x-microsoft-antispam-message-info: =?us-ascii?Q?E2Jj0gAKB91P4LZVeSoFIqypkWpRvBCaAKLoL9JuUIVTH+QNb7AGe7VA4Tnv?=
+ =?us-ascii?Q?OKs95ZkssTg70RJHcb15uIHyybUpQSd/QhHwcm65FzQHvGodtRXWkTbLkD0g?=
+ =?us-ascii?Q?mCdLkJSRbYbfzJ03I4ZeK4zyueciF5a3VBH3N0rcDhVY5MSjM6kSwlJinzsZ?=
+ =?us-ascii?Q?DdP/iOegymTa66Flv5sycogqzb4l6uf4bgU4pdTCOlquieIwr0DfeLetqnyh?=
+ =?us-ascii?Q?WBtx1RAXeGUbvxCfHiI8wjPZb0x5spcF1KpjnbKmrhtspCBWq7jD7PBlaDgv?=
+ =?us-ascii?Q?N/xpwYJm7SXv0cMxPftWVznxyaHvghHkXZjv/BOAzbwzwW51+gsocbogHsku?=
+ =?us-ascii?Q?Iqnmear1NeACfgz/BLY9qM55OAPR2D6bLNelYXnJWyNJXyYafqjlMN0OBsYJ?=
+ =?us-ascii?Q?RUwW5cwvd7xJIBbCgg/ojFtcfuYGYCKWI/Y4sY0j/KdaccXuMpMACldq3o8F?=
+ =?us-ascii?Q?gKKdTgGSQpTpRADO2ZMSA9D7AF8hBpq/ghDLTsakshI6v1U2cs2IJab5gLOr?=
+ =?us-ascii?Q?EcwPv80WokLsiHP7geOq2RszX9p/V6oXFQdEKgKJN4fQfwrAS+By0maiUuez?=
+ =?us-ascii?Q?6IqmsAJ7Xl0+t+bNNL/zV7J2Usd/FjWc6G0o3kO5CzSA+UdRT6mz40KJzs1D?=
+ =?us-ascii?Q?FMn4rPrjZm1LgXgHLMfjEM1F72QB02dl7tQ9inETzscigmOLEbBaGqAQS9eN?=
+ =?us-ascii?Q?m4PA7EWbHsNRTlbL1pJdEUh2IqyovOGEHOqfuW0Lww7tC8R4/EtQNfGwVZyx?=
+ =?us-ascii?Q?PWCXS9dKaMCV/RADL2/Qz0AJd0UDSUlKZAmp6KQNsKHIeFjKjCGj6yWQFUqe?=
+ =?us-ascii?Q?y1AeXMlX64bsd3Pr1IGxo/Ai/Vm993s6MpxYVZgPm4sPAqI6P55fPuFl8wNJ?=
+ =?us-ascii?Q?0qOS/cedm36RjKloABgpDa1EnpJ7mg+jZzwIuSMxNNN1lJFR42T/5jM/IUPj?=
+ =?us-ascii?Q?OlE5wz1F5vFD35G7c6Lusqem7k99Ix82RUGIPvCZuhQv2mS9+0NGvR/YV3j9?=
+ =?us-ascii?Q?2Vu5QUUjNSMSPv70wqCm0TwGVw=3D=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LyP+wOQwTrA47E8cw2MeCbR0yDI/iP5YTwQC05YJiHyN54QPStnGUhCzjAs9?=
+ =?us-ascii?Q?lxV+n4gUTRf0i5U+VuYkc6FnTJ7bk9vmhmbesXoKYy4zDlIwg+f8Nx/sfV5T?=
+ =?us-ascii?Q?CP4Zw4jdtUqvDT3RbiyAPAt7uW90GSDQwLsTfyJ4xgYxFakyVuO/L+ua42MX?=
+ =?us-ascii?Q?EMXKC64WN8Qm7RfYhUN7XR42tVknY42nv0p6g7jrnnEwozkaXcAuj7GG+EYy?=
+ =?us-ascii?Q?sNgEvnEGXia0j2HDSqK8ernfZ+rJNuz/boiMqDpmeGlM5QrfZD2xjXoQcbJm?=
+ =?us-ascii?Q?NpkC9rc2jQn1Tl2PviTqRjFkeej47XkGW2+dOVfQ02/rWXYL5FhOcIMxyCnT?=
+ =?us-ascii?Q?1oR0GsM9qyTSJ96NKsmJUaOpPu7SOozuPlC7VcYntRG5OR82q+jigOGbR+lT?=
+ =?us-ascii?Q?OXaDjO8FTaI38pm3Xt4infyHoOK/hFvId78jNIr5KteOnrBwpF3hZa9Eokvq?=
+ =?us-ascii?Q?qBZ5s9R/p5jMmnMoJ8qsuduuF77SXMJSvlyfG0uSdLsF0GW1smKgeUuN/hg+?=
+ =?us-ascii?Q?StHclMPPGvrfmzFO4woLwDoocykrmlXLRPJuVr8n74kddhM5XUY5vzMuguVZ?=
+ =?us-ascii?Q?Pr2WLcnHD0GuXaYEC3Vm4BXvCU0vJWOhUGvZq+zwdcnV3QbzF3SOwddXnD8U?=
+ =?us-ascii?Q?xtqYAcxt0SLhQWjSbk83nMx7+0347gHI0ymIrPuhKOHp+uNLhmZg8a5/2EEN?=
+ =?us-ascii?Q?dCuIdfezfIEQvcsgK/zaT4yQM4El9pHEd/gXg3JbRthOwvXH5NKgWWK2Ip9B?=
+ =?us-ascii?Q?PJtcAQezxaFF875+PSmZ5zD1pOhwO15kstBkFAsRfUQGxSyc8pCRmNxJyaBR?=
+ =?us-ascii?Q?ibbAjdHuWvuToSbbmWU/fUt+su94yWD3a00i9eET6KQBK/TCbRpJvPYE367n?=
+ =?us-ascii?Q?xUOQhM7JVttUS0c/hWbVrHy7Yj/7u//LurLAFOgmln3pMUlhQ6VVvcDr4oCo?=
+ =?us-ascii?Q?DSVu+voViVJvRRtsofg1MaeT4v1Rg5lFmWNbCILpcHNQYABgN7F+xa55RK9B?=
+ =?us-ascii?Q?Ab7oqOqRyDD/cME/Lb4bAYKeMUUscmiVDkox/UY3CNiAApEg+CBgodJCVZnN?=
+ =?us-ascii?Q?S6Aq0VcPtMh1zwxm326a5yQowdGQaDrg2bYbdTIwfAxkohlO5PKyLNMPRQVd?=
+ =?us-ascii?Q?xEw0VqdNSU+xl0ey500NYxapppVdtRBUT90PbYZuVcJyALOGhwXvo8l9ROMz?=
+ =?us-ascii?Q?id9ltxl5oLDMAZv/lNksLJmHTUiMEA3DR03VgUJhF5RC+qZUC7nI7XiVCq54?=
+ =?us-ascii?Q?BXgpgp39skw1ThSpz3GFLoI8bSfwk30Q9+6pfwF75S4xslQH+oz6P0amea1h?=
+ =?us-ascii?Q?3fnx8c2RRr6RIqP80yfevXaM71luHMdNkWrE0hw1EmDmp2nBXW0r5JFlMTS+?=
+ =?us-ascii?Q?75x70x4=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: fae870ec-5f72-40da-5de1-08debc015aff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 May 2026 15:05:13.8811 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR02MB6594
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,126 +141,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tomas,
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> Sent: Wednesday, May=
+ 27, 2026 6:04 AM
+>=20
+> On Tue, May 26, 2026 at 01:52:39PM -0700, Michael Kelley wrote:
+> > From: Michael Kelley <mhklinux@outlook.com>
+> >
+> > Function and structure names in the Hyper-V DRM driver currently
+> > use "hyperv_" as the prefix. This conflicts with usage in core Hyper-V
+> > and VMBus code, and incorrectly implies that functions and structures
+> > in this driver apply generically to Hyper-V. A specific conflict arises
+> > for "hyperv_init", which is an initcall for generic Hyper-V
+> > initialization on arm64. The conflict prevents the use of
+> > initcall_blacklist on the kernel boot line to skip loading this driver.
+> >
+> > Fix this by substituting "hvdrm_" as the prefix for all functions and
+>=20
+> I would personally prefer "hv_drm_", since it seems clearer.
 
-I tested your patch and Boris's modifications on top of your patch, and
-I'm happy to report that both seem to work just fine.
+My choice of "hvdrm" mimics the old Hyper-V FBdev driver, which
+uses "hvfb" as the prefix. However, looking through everything that
+starts with "hv" in /proc/kallsyms, I also see prefixes with the additional
+underscore.  "hv_kbd_" in the Hyper-V keyboard driver is an example.
+The Hyper-V utils drivers have both forms -- I see "hv_vss_", "hv_ptp_",
+and "hv_kvp_", but also "hvt" (for Hyper-V Transport). So the historical
+practice is inconsistent.
 
-BR,
-Igor Torrente
+I'm OK going either way.  Does anyone else want to express a
+preference?
 
-On 5/27/26 07:32, Thomas Zimmermann wrote:
-> Hi
->
-> Am 27.05.26 um 12:18 schrieb Boris Brezillon:
->> Hello Thomas,
->>
->> I'm inlining the diff you posted so I can comment on it directly before
->> it's officially posted to the list.
->
-> Thanks, I'll incorporate those in the next test rev or the official 
-> patch.
->
-> Best regards
-> Thomas
->
->>
->> On Wed, 27 May 2026 08:56:33 +0200
->> Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>
->>> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c 
->>> b/drivers/gpu/drm/drm_gem_shmem_helper.c
->>> index 545933c7f712..07e117673124 100644
->>> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
->>> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
->>> @@ -554,21 +554,6 @@ int drm_gem_shmem_dumb_create(struct drm_file 
->>> *file, struct drm_device *dev,
->>>   }
->>>   EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
->>>   -static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
->>> -{
->>> -    struct vm_area_struct *vma = vmf->vma;
->>> -    struct drm_gem_object *obj = vma->vm_private_data;
->>> -    struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
->>> -    loff_t num_pages = obj->size >> PAGE_SHIFT;
->>> -    pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page 
->>> offset within VMA */
->>> -
->>> -    if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= 
->>> num_pages))
->>> -        return;
->>> -
->>> -    file_update_time(vma->vm_file);
->>> - folio_mark_dirty(page_folio(shmem->pages[page_offset]));
->>> -}
->>> -
->>>   static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned 
->>> int order,
->>>                    unsigned long pfn)
->>>   {
->>> @@ -581,23 +566,16 @@ static vm_fault_t try_insert_pfn(struct 
->>> vm_fault *vmf, unsigned int order,
->>>             if (aligned &&
->>> folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
->>> -            vm_fault_t ret;
->>> -
->>>               pfn &= PMD_MASK >> PAGE_SHIFT;
->>>   -            /* Unlike PTEs which are automatically upgraded to
->>> +            /*
->>> +             * Unlike PTEs which are automatically upgraded to
->>>                * writeable entries, the PMD upgrades go through
->>>                * .huge_fault(). Make sure we pass the "write" info
->>>                * along in that case.
->>> -             * This also means we have to record the write fault
->>> -             * here, instead of in .pfn_mkwrite().
->>>                */
->>> -            ret = vmf_insert_pfn_pmd(vmf, pfn,
->>> -                         vmf->flags & FAULT_FLAG_WRITE);
->>> -            if (ret == VM_FAULT_NOPAGE && (vmf->flags & 
->>> FAULT_FLAG_WRITE))
->>> -                drm_gem_shmem_record_mkwrite(vmf);
->>> -
->>> -            return ret;
->>> +            return vmf_insert_pfn_pmd(vmf, pfn,
->>> +                          vmf->flags & FAULT_FLAG_WRITE);
->> I believe we can go back to
->>
->>             return vmf_insert_pfn_pmd(vmf, pfn, false);
->>
->> if the mappings are no longer adjusted to catch write accesses.
->>
->>>           }
->>>   #endif
->>>       }
->>> @@ -635,8 +613,15 @@ static vm_fault_t 
->>> drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int ord
->>>       pfn = page_to_pfn(page);
->>>         ret = try_insert_pfn(vmf, order, pfn);
->>> -    if (ret == VM_FAULT_NOPAGE)
->>> +    if (ret == VM_FAULT_NOPAGE) {
->>>           folio_mark_accessed(folio);
->>> +        /*
->>> +         * Always record write access to the buffer. The natural
->>> +         * place would be pfn_mkwrite, but this breaks KVM.
->>> +         */
->>> +        file_update_time(vma->vm_file);
->>> +        folio_mark_dirty(folio);
->> We can be a bit smarter here:
->>
->>         /*
->>          * Always record write access to the buffer if the
->>          * mapping is writeable. The natural place would be
->>          * pfn_mkwrite, but this breaks KVM.
->>          */
->>         if (vma->vm_flags & VM_WRITE) {
->>             file_update_time(vma->vm_file);
->>             folio_mark_dirty(folio);
->>         }
->>
->>> +    }
->> The rest looks good to me.
->>
->> Regards,
->>
->> Boris
->
+>=20
+> > structures in this driver. This prefix marries the existing "hv" prefix
+> > for Hyper-V related code with "drm" to indicate this driver.
+> >
+> > The changes are all mechanical text substitution in symbol names.
+> > There are no other code or functional changes.
+> >
+> > Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+> > ---
+> > This patch is built against linux-next20260526.
+> >
+> >  drivers/gpu/drm/hyperv/hyperv_drm.h         |  20 ++--
+> >  drivers/gpu/drm/hyperv/hyperv_drm_drv.c     |  88 ++++++++--------
+> >  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 110 ++++++++++----------
+> >  drivers/gpu/drm/hyperv/hyperv_drm_proto.c   |  70 ++++++-------
+> >  4 files changed, 144 insertions(+), 144 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm.h
+> b/drivers/gpu/drm/hyperv/hyperv_drm.h
+> > index 9e776112c03e..66bd8730aad2 100644
+> > --- a/drivers/gpu/drm/hyperv/hyperv_drm.h
+> > +++ b/drivers/gpu/drm/hyperv/hyperv_drm.h
+> > @@ -8,7 +8,7 @@
+> >
+> >  #define VMBUS_MAX_PACKET_SIZE 0x4000
+> >
+> > -struct hyperv_drm_device {
+> > +struct hvdrm_drm_device {
+>=20
+> "hvdrm_drm_device" looks kinda redundant, perhaps
+> s/hyperv_drm_device/hv_drm_device would be more sensible.
+
+Yes, I'll make this change. And in looking through kallsyms, I
+see that the Hyper-V DRM driver has "hv_fops", which did not
+get changed in the mechanical substitution because it doesn't
+start with "hyperv_".  I'll change it to hv_drm_fops.
+
+Michael
