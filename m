@@ -4,140 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C40EDCD5BD0
-	for <dri-devel@archiver.kernel.org>; Tue, 26 May 2026 23:04:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 262B3CD5BDE
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 01:03:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E44E10E6F7;
-	Tue, 26 May 2026 23:04:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 379A110E044;
+	Wed, 27 May 2026 01:03:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0dtj5ohn";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DZbVYGNY";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012040.outbound.protection.outlook.com
- [40.107.200.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE70B10E6F7;
- Tue, 26 May 2026 23:04:35 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011005.outbound.protection.outlook.com [40.107.208.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72B4310E044
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 01:03:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ewx8zK5QvnE7hzsVZJeHD93CI/RxhGF7F9JFMxU5W3Ccrij+u77rWjahVX1KEB11folnGaIEmN2hRD8szgs0rDvexImzrmX3xEK46Q8y1nj24CvS8SEv9PMrqFAhrMlvvZIu97/Rziz9mOZkygmxEZYwDBGpsrOqN0/uZDgUQpuV8i9Bujkj9Qy7abmBwpuoTzMnRF0ztueShNHjbc90kikrDGPSYOaAdcmeqmtunPDT39IsO734W+QOHV3tC6YiX15pvsoX/aRgoxLkr01tDmtK2LB+aFIHXJtx49Is2Oyzfx06gXPT9+qeIGR8B2+Jy7P8fpDmi6x5Y5tYA4Wizw==
+ b=e1ZMjYCGO61MtStugfnncuelWVaAH00bzZh3p0rq0pXxkvf7ALHgVydvZM67nf9mv+6uZCB1wcQI+tn5VDT/XtvPFIXaOYmHTwMMwk6AcgXtWPL5r/zn14cSnWd117lCqoqW7TRp5NED90RWN4UxxxMCiyABu90xDSUTlALddHVPCXpfNd1ywcSOJq/nDXLhIKIYIFcP5R5Qc95i66c9SHMzr9kzalgp13VvMHf+4F+aVj8miWpIHXSB+8gIQs/D8AlDDJ79DVn+LYeA9l2GjrzhRgRQaBduhiWEOgZGbSUu23vBl9i4gg3nqqTahvm0ROBjnzOLxuAFNIlx40JPzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vd9SsKyjoSU9uZzx69T6ZMjkMADsVjGCWyldpCm7aTo=;
- b=bsUOHzXq+dm6jflvVUqbE1UOl6Gmo9Mx9oIvywu7y8lIfKfyIxlxLsAC3CDyqYQy7oteLtHkH00xVE3UrkZOJvrdqkIvsI/b4yGFaMwzGMjni1LIycEhAcQavDP6vmLSHfjy/byCnB1MjuecDDL4U4+qCBUJZap2PPVzwJaKuX7GUGdBeKPELhLZ0A/uWowHpLEQwGTqzluljW4BA78BevqFtD6fhiazajsPZQAFh69/V+kfccXctu9/oU9Mta613daxR9mp9pp3pKMeZ2ydRaWb9wOo7Xin2tNq4vYxeWOEYio34bIG92jxfn7cPPYYcZBaiKIu0ufus4j2vZSbyw==
+ bh=//mo3MB22hL8wjit5cnvdw4bM9frEzdVrgdBnUKDeuE=;
+ b=anWzliGkSTVx99vKXLJfpdp350CBpd7eUYJjO7LAnWbBkSZPtl+9YpVI6ZIRpVI+ysTj8nt39/UIbhc67DbK/1tqxOoxVjAgcwYXJljdqIkdSFO3Am4T2+jwzJ9rQ5LCoE8/AuZ0S2AJRJ8h1jjSUaNhjSbqENhssd+GV5HxvPw7294swHqx1woZLy4cITTlKh0EPiLAhageywvuAPEcAdz1LIuA9GOJ7BQGaHWD/wZpKvwEYujB8N0NwHDkXHNRn+rG2METiv3EX3Vb7xr3fgqy0fkm3L/xHKSg6vtT0ZcYxQj5LfYaae+VfmblNukr4/9i6sdeB8xmov0NagmbjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vd9SsKyjoSU9uZzx69T6ZMjkMADsVjGCWyldpCm7aTo=;
- b=0dtj5ohnrc0CJ1GksUGJUVV86gCQDuwDjLqSIJrqt29yjDKW7cCI0bFMf0IbT0Krmpwxwcj/MWejOyUyGUBGMA/H98S4Pu9nuNteQ5dRfqorhCjAosW4tc1fUX/YnGp6Pax4uRNGMCLwXssi4zOEhnZSlT/aVQ7YHSWCjMj/cvM=
+ bh=//mo3MB22hL8wjit5cnvdw4bM9frEzdVrgdBnUKDeuE=;
+ b=DZbVYGNYMfkeMG1b6E6L1uxJ/sohpXzfN/Z0bmFpPPAWgwe3sArD8WrmOhEEd3depmDgGPBN95jkL8MMgeGeXjbvlY4V4UpKbN+aDDCOmy96PYklKpTBeJvrfad1FX1E+8o48PCaBMnXf4LfwCoohxOHjiJquHf7aVuv47Bw/iCkzjUJwPzMBpYyf+KX2ScoBFDJ6h2mL0ChiEqPUMyFzAuFXsKw+9ke4cvrRaw5Nk5tu9pYo7QpcNTcEm+br+0NaTp2UCG0n8LXSy12xAeCWQwAaGNdajVy9De8ChVdRuKIx7Z3AR/p4U4X1GrWR1bsn1T7+Tp1CSMsyLDAOxckmA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DM4PR12MB5961.namprd12.prod.outlook.com (2603:10b6:8:68::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
- 2026 23:04:31 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0071.010; Tue, 26 May 2026
- 23:04:31 +0000
-Message-ID: <fc8cf494-487c-4433-b11b-59a25c2b711c@amd.com>
-Date: Tue, 26 May 2026 17:04:28 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/atomic: reject colorop update from inactive color
- pipeline
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de
-Cc: Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- John Harrison <John.Harrison@Igalia.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260526142940.504911-1-mwen@igalia.com>
- <20260526142940.504911-4-mwen@igalia.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260526142940.504911-4-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4P223CA0022.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:303:80::27) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ DM6PR12MB4450.namprd12.prod.outlook.com (2603:10b6:5:28e::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.18; Wed, 27 May 2026 01:03:09 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0071.011; Wed, 27 May 2026
+ 01:03:09 +0000
+Date: Wed, 27 May 2026 11:03:03 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch, 
+ daniel.almeida@collabora.com, acourbot@nvidia.com, ecourtney@nvidia.com, 
+ deborah.brouwer@collabora.com, lyude@redhat.com, ojeda@kernel.org,
+ boqun@kernel.org, 
+ gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org, 
+ a.hindborg@kernel.org, tmgross@umich.edu, driver-core@lists.linux.dev, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 2/6] rust: drm: Add UnbindGuard for drm_dev_enter/exit
+ critical sections
+Message-ID: <ahZBOXFh7rb7vxzX@nvdebian.thelocal>
+References: <20260506221027.858481-1-dakr@kernel.org>
+ <20260506221027.858481-3-dakr@kernel.org>
+ <ahU6HgCsXWxHlH3L@nvdebian.thelocal>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ahU6HgCsXWxHlH3L@nvdebian.thelocal>
+X-ClientProxiedBy: SYCP282CA0016.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:80::28) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DM4PR12MB5961:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac1692c2-9914-4868-47ea-08debb7b2522
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|DM6PR12MB4450:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72f17ca8-c288-4de5-17c7-08debb8bb77e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|11063799006|4143699003|18002099003|22082099003|56012099006|7136999003;
-X-Microsoft-Antispam-Message-Info: 2MWWwDkz5utKb3ov9iMBVH9F/RaU8DLBCuNHzXGj6JkNSjnkDAsZkEVWcT3nYJfLiXrm0JoDx67Of6+RaBTZg0yRSQZvbYqNlJTuZ5boDfwmxApxj+QE3zpT1A4V8RdKZARQh/FR6lxNvEpzLOKOfdaDg5BXTKJp9fhNH5GrPJ5D2l9ljk4FSrptxDy9BX30Ah8zEXsgFKitzlbR2l0pYSDLAp6Sxj2U07jKiinlqo7rV1fh1g300hiAAU2wvfcUinVO2ZZVNY1MUMWCq3QRUFp0bQ2hx+4j97jNFohSX0c1CESzXeoG/ldpxOIaIiPVjCsYSbBdr/lrG0PahvkoeiTBu095gGzc8dAZO6hjwOrNpEkUG+8oQba1xgegJ/BGbCab6B7ZE5tl4cWCYaWjWfdiueNmxPinkfi8aJsjjy2ADOK1lqucdmKKHIx2gCNBXmRHjBQaxh4RooWHh8QBVhsvrj+EwMwTR25BDRARd+cfFywM4/IF/78b8GubH57HFkajld7Iz+Pnv6IPfPS1Exjdlq10eBSN7j/E47MZQVoVDPdPngCp86VP1lHjq0px7WobcdpZyuvu4WQHHMG9hGXTrhUt9rPcWo+9qUYld0/9RpjYo+tzDs76NGAvIljqdflrV5vjJl/crVgUuD8iGjsT1kDYehictxBl/yI6LWveVhcJyGps7CsQzztBFpGC
+ ARA:13230040|366016|7416014|376014|1800799024|22082099003|56012099006|18002099003|4143699003|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: gI9k0xkBZgrF9Y6rlbT2rbHq4dJp+UBsTwXQuzEDt81JfaKot0+Jgfp0eWXvFM7HUl1mGPbkj7D9j/fE1m1qBL+ogZJydIEKmcn8/f6U2gpg6ztPL4KVdJgDwgBRR3GDfZHrgVY7bVvy59oCRywTx+KBnwA70KCziYGo2PSr9AEtAiv53gyPZvhhYELlzmcjHqhvpEHAHou3SskCzUh6fOe+k63suSkb5mVST/ZSlqOez8a2Q/ovKUtXuymQ/qpHiQ/7tbiO/lXUoo66iX697ynjLG2o7zbP9N6+jdkXEzVFK/TF33FjU79IPV5Vmhy3Yaky1V9F3Vhi8dJRRExEeMgTpO8ZDmGFWia+3STW74WBZkF5vsMjuD1C8u3APB8nr0J/DmAIoNh3ZYDRbfZXCM5e2Cp5RDpw6SKwQJ5z1KI5cb2c7z7zh/URNMmI9Od7njCnaSK9ZJvZjjSlLrTJd+WhCCWzqIZprJ634son189HxOWZ56XG5dLBNjmrSzJwweSm9XDevw2vUc+Ufnd+pbtV1hX9R7gtNfJI2PtXjS4ZoCvTRTtlbJwu3nfrXngNAp+Us57ZgGjyUJbR2H/penCEbwL/F/t8GFx+9W0bnNJLTMPiHJdaHy//oAyo9Ue2HBZRrIFO5yxGgz0ApUyf4Mu1deKRmrYtPTx+HmXMUxWBasRJAxO3CfjmLscqEN7T
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(11063799006)(4143699003)(18002099003)(22082099003)(56012099006)(7136999003);
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(22082099003)(56012099006)(18002099003)(4143699003)(11063799006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UW44QmgwN0ZRdlQ3VWNuT01GbnltMnZ3aWppTFRjQXlHU2hpdlVZZXc5ZjZo?=
- =?utf-8?B?ZjQ5ZVR3RTQrOS9xUkI4TlJTNHliWWx2OWxiTUw5cEQ3b2FlM2FiS3VsTS8z?=
- =?utf-8?B?WE15OHRjRXhkWlJIaWN4aXJ5UHlVMzAzaGZTVUU3MjUvbWptWmREbFlBV0Jm?=
- =?utf-8?B?RlA1azdPNWVXVVNoc0ZPZGxDVVBpTitBUHJaMkxVU0VvekY4SmRVSkFTdk5S?=
- =?utf-8?B?QlhmOUtodHdldXBRWi9Hc25zSG5DVlJUS05HUFZvL2g4QkU0T0NTVWFLVHRS?=
- =?utf-8?B?aG4zVW90aUE2RjNBNUlKdnorWXFVWWNJMjd5dmhmMFdqYmQvUlUwaWNBNTlJ?=
- =?utf-8?B?bmRtUWg4dG1WeFNUTmkyTlRWdmlCcCtCODhtV2JEQU1TNm9WUHNBbW96NzF2?=
- =?utf-8?B?M2hSUERRN1p2SGwrUnRZckkzZzZEdEliYzRHMHNKVjZMMzdTY3NnT2RLN3Bu?=
- =?utf-8?B?dWFpMXFtQlczNDVHbzZ4RTBuSk9FeUdmZHZRUTlkTThtZ1hnRTF2azJKWGNi?=
- =?utf-8?B?YlhDMWozNjhPRHNveStSVzNiWkdDQzhUWTNJTW9zOUt4QWtqYmE1a3hHRjVm?=
- =?utf-8?B?U2FyTCtpSFI1ek1ucG5kUnJQZHA2aWQvVmFmTlZLS2o3anM3WnY0RURBdnox?=
- =?utf-8?B?NFdWUTl6a0NnZ0F3KzlnUFVGaGdFd1pWWmFFTURjWCtkOVlwK2djRUlmWGNQ?=
- =?utf-8?B?WVhzSXZPSWc5b1ZqWmlydFpGY05uM2VOMHRjVDVKbDI0V0dhNWlxNStDSTA2?=
- =?utf-8?B?bHFwaHNnSGJoZ2MzRUwyeUZ4eVdHM0YyT1N1TDhMZlFENnVPbmNEb09HYllu?=
- =?utf-8?B?RmVlY2JmbDR3MFBRZlhKWDZLYTc3NFRVNk1wVDR5VXJ3Qmw0Vm1qRWZwZWVh?=
- =?utf-8?B?ZHFzVnU3UHEwSjIzNjllWG1md0lsTUtoWDRmMWNkZ0pZcUlDc1doMzNrNkZI?=
- =?utf-8?B?N3VvSjhqYmZoVityU3oyT3BZNlhoc00yNG5oMm5UbFlHSGhPWWNjUWNTc0Nv?=
- =?utf-8?B?MWdOZUdIak1HY01MWlFrSTdBQzRiOHlXU3EyRkxpOU9KMjJCSnNQSUNsbk52?=
- =?utf-8?B?UVFWS1dGZ3JzeDNFdWk3K2dHSFUxSUk5WmZNM213elJjbU04Sko0d1Vqc1ZV?=
- =?utf-8?B?MXUveUdjUGNQS2JnaXFsMitDMC9NNWE4V0NOL2lQQkgwN2NoOWRseHVWc2lm?=
- =?utf-8?B?YnFzZjA2eC9RbFVMb1RDSFNxcFdIandIanpBOFZxUVF0MlduckY3T2d5RFM5?=
- =?utf-8?B?VWcxOVdHbFVyZzk4cmtaSnZaYlJqUVQ1UnowMU4zbDdKbFdrSmx3WjlRZmFC?=
- =?utf-8?B?dmwvRU1iaVpoZC9QR2IzNHhOb05Ha3Vja2NlZ2N1djBudFpKenhjT0dnbUV2?=
- =?utf-8?B?UjFQVHk0d2FNQUM4TnAvaWkyS0ludWYrQ2ZYYmRJSS8zRCtjaTZUNk1GUzhy?=
- =?utf-8?B?Y0Z5bUlNTWlsQnlSSjVFeFVTbGJhcUlSK0RzWHliYURWT2UxbHFwcExhTHRN?=
- =?utf-8?B?dW1nM1IyYUpJMFcvQ2NmT240cWJjMkpIZWMxTkNaOW8yRVlqYjlkYXdkYk53?=
- =?utf-8?B?Tng5ck43d0VXMVlVUlRSTnk0eU1DMXVvTVlMU0NVQzMxcGx5OG81eEFqYTJh?=
- =?utf-8?B?S2VwcjBwZldXOTBvRGhLR0xtQ1RJY3owTDRDYTBiUHE1MkkvWW02YjdBUWdQ?=
- =?utf-8?B?bjh2T1YwV3gxZjBHS0M4WFd4MGlPS0pLWGs0bkQwUitZWlEvOUNGU21ZOGZH?=
- =?utf-8?B?amZTVTV5T1RVYXhhZnVFVEYvc2FSeUdzbEVXeHRtVTFod2VFdGx0Y2czcVZ6?=
- =?utf-8?B?MFVRTU9qMnNtWVJjUVZLQjdmai9RWXF3R0pPbVlrWUJ1cDFQVEVDWDg0TkZ1?=
- =?utf-8?B?ODVSeHB3UFdCdnZ3RlNqcXBYSDc0eDN6L3M3YW5LdkZKbHVrbWIzS3ExUWdR?=
- =?utf-8?B?VE5pZDBVakVxK3VjWWxqMTdyNGFPTlNheW1vbUQ5elRHcHFWdUFvREhqblBw?=
- =?utf-8?B?V1ZLWGpHUlZnYzBuZTRjQzRaQlJNTzIwSm15UEhPRkZPeXQzOXZKdDVxQXU1?=
- =?utf-8?B?RGU3Q0prQWY4cTVKY0hQN0grbDdTeHRLcUhUd3M3MTdHUGpSRUJ5RmxJK1R3?=
- =?utf-8?B?Z0xXcHFVNlhJb2s3OVJyOGM1blJTSEFrL0RVWEZXZGFpYUl3OHNiZzV4WTJj?=
- =?utf-8?B?MmlSK0Z4VmRjdUdsbGVHWlUyanlmNVhFS3l4Ujh3My9td3VQQXZSOTd1MmNl?=
- =?utf-8?B?VGlUMUdQdlp1bVlFcEd5Q01STkg5UGphT05ZSUd6SDhtbnFFY0crNUhUQi9G?=
- =?utf-8?B?bGllZWlEdlNHUUFWMnBUVG91RVk1VkRLTEdEbDNDWEpoVkdOM0JOUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac1692c2-9914-4868-47ea-08debb7b2522
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?G2XlLdVYs2WuGZob1j5otA82vP8R5GdTy/OAdv+CT6YV6WueAtQfmuwaMpGv?=
+ =?us-ascii?Q?bkDvT8z0ihVgJ9cXt1b9B0+iTo/QL0GU8ze6n3gmOeJI+JrAWxh8qMEGhs2F?=
+ =?us-ascii?Q?TCOKCtjLJF8UdjJHOPEzaCUa22mwrrbtBbgm0qHzRu+LlMHjpSgRD8G1gO50?=
+ =?us-ascii?Q?25Pd8UK+XPyqnEw5XwiEnUQ02hmq+LJ4xS6sBw/tQYFAft44UN/FYjE7s4ix?=
+ =?us-ascii?Q?H4AFzK1WxSRmZ+ib0yz1cFkwJ0tpFAfRYaA+uMyCv/nw7MDhNOP7QywRRy3I?=
+ =?us-ascii?Q?mC4on7wXGpPDmDrfE0VU2JTsJyd/iKTo6tBuWwGLFeiyKJsi0Obey8uQSyhZ?=
+ =?us-ascii?Q?BYpSSQRJoCzFU4oN0fyAJ/SMe+LcwGMAET+oOrhHIxj//6MavqG5D01oy+NV?=
+ =?us-ascii?Q?ym45BsNhq9nL/iM9fXG1tvlDfZuYCfabGRpFEHxz2NYjjPheHXEjIy3C1ncO?=
+ =?us-ascii?Q?jSyJiPQ9D1wyT9do3+/VfsfpCmk2Oj2xhNZjeF8ZsDN/i1a5/Hw7Rk1nf8Bk?=
+ =?us-ascii?Q?VBrYf0pf9iMHYnltfLaR1+yMHi1Ts3BB3mEdhqZ3XoQlXqTiCCFdojHB/DPa?=
+ =?us-ascii?Q?12/RXFs7sUkFl9o+6olUK9VFfxO3WFf0U4e01TgkFpUrEVU5eNqycdfnj3gH?=
+ =?us-ascii?Q?p0Yx0phKD3X0yyHd5QVyFaDg/2nO4rjAeS/GOKQDz0VyEpLeKH9LBDiKNVpT?=
+ =?us-ascii?Q?h9nzVYK4pcoFG0U7dfXKvFZaRd+KAL1oywTJiWI7MAbYYDO58MjWNPZsBkjD?=
+ =?us-ascii?Q?rsX0MTDjhiz4wuh8AU4c5RSryRffkXS5Bie1yIByTkjp1OHul5Y8muM6Y4mR?=
+ =?us-ascii?Q?nGhUsg5lT9NSd066l8OArIUMVqzz8VyLvmpXhl5k+99+ZyZEqMkqeuqPWZ71?=
+ =?us-ascii?Q?T9u089jflokIans4s++sJbMw4AYDGqMzxA7QsoQ73SAfhDwdGp1XrriOufSK?=
+ =?us-ascii?Q?35w8Y29eUzuBCuyvQq5tLnRMf4GPgvSvWjK/VoJuMGoEQe3GOBlrIMTSCTUy?=
+ =?us-ascii?Q?nFFb5jjNi0CM6XMMPvMeENc5FchbzXN87RE9ros0sg3UUECIzqQdxb1NvPBw?=
+ =?us-ascii?Q?F9yKSCA/daB03MMS9ya+7ujcn+XCmqmoz6E+uCE8Jo9StUaKcvDgudfeLxjV?=
+ =?us-ascii?Q?awRqWsD32Oq5HU6ozbkdCUdixNL8sgFCjN1BoKZmY8Jo4xYk+rGlT9ubNoi9?=
+ =?us-ascii?Q?ABB7IZ+m4+EUpNEmDniLTk+qbthF3rtVibI7g8gRzKEpCzO+rcOVi3qRp2hc?=
+ =?us-ascii?Q?lFrGUY+OXV/YOujhUE2NV63fKLoNZMiOnIwzz3WEVwxoo2BlODmdycK+1GxH?=
+ =?us-ascii?Q?bfp5yR9ALAsUwW/qXVNRwyG5Eb6vvchoguFRGdnU7YpnRgmKx+kEcWnSRToU?=
+ =?us-ascii?Q?7LCpq9UoIYAFgeDHcywpXC9ROu4ZQlhgGLb7alenlrfKfpMLMXjUXy82Jp+H?=
+ =?us-ascii?Q?MTN4k4ix9F9HqTDkcTVvTUFtEhJMh3UcM8BYQUU/MDo+zRRfzH3srDP7Wat8?=
+ =?us-ascii?Q?TAqJh1YBRLwYlu2e6hnjANl1mh3yNdSw6RJttfBVMdQ5esOxkqSmLurAfDVx?=
+ =?us-ascii?Q?2S2eEJwt9epviHhzv6cQsuspY7vpz93k39oihX2AyMCDFpbH8XcbfLDI3MpY?=
+ =?us-ascii?Q?AxyrD6+EgkO50RWBsCcoffTerP7WytkA/peVrqCooPlKk7wV/7ytGoX9wx8o?=
+ =?us-ascii?Q?e0mgc+2Os0/MwBzk+Axis512kDhGQ+2tsW50JOcWR8PJsR/CD9JLTwujt8kS?=
+ =?us-ascii?Q?UgLY+A/FlQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72f17ca8-c288-4de5-17c7-08debb8bb77e
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 23:04:31.2909 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 01:03:08.9864 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PbKGkokZSgFj2kAecwWh6/d1vAGUX7CljpXY+1cFlCSILJKkLReThpCiJri7Zp1XMthIHZPdZG+BXlkfoJyciw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5961
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4DAvNfaxooclIeVyOfCwiihAJrJ/RYkU/I6T3StTDf+QqQKngXJOdALt9fp+X2N5aU25dYiEcwQJtuwnQPQisg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4450
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,110 +134,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 5/26/26 08:17, Melissa Wen wrote:
-> Only allow updates on colorops that are part of an active pipeline, i.e.
-> check if a colorop belongs to the color pipeline of a plane in its
-> current, new or old state. If not, reject the state change of this
-> inactive colorop. Performing this check later in drm_atomic_check_only()
-> to remove the ordering dependency that would exist if done at the time
-> of colorop property setting. Userspace is allowed to change colorops of
-> an active color pipeline, or when activating or deactivating its
-> pipeline in the same commit. However, changes in inactive color pipeline
-> is not allowed.
+On 2026-05-26 at 16:17 +1000, Alistair Popple <apopple@nvidia.com> wrote...
+> On 2026-05-07 at 08:06 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> > DRM ioctls do not guarantee that the parent bus device is still bound.
+> > However, since DRM device registration is managed through Devres, using
+> > drm_dev_unplug() on unregistration ensures that between drm_dev_enter()
+> > and drm_dev_exit() the parent device must be bound.
+> > 
+> > Add UnbindGuard, a guard object representing a drm_dev_enter/exit SRCU
+> > critical section that dereferences to &Device<Bound> of the parent bus
+> > device. The guard is only available on Device<T, Registered>, ensuring
+> > it cannot be used on unregistered devices.
+> > 
+> > Also add with_unbind_guard() as a convenience helper that executes a
+> > closure with the bound device reference.
+> > 
+> > Switch Registration::drop from drm_dev_unregister() to drm_dev_unplug()
+> > to provide the SRCU barrier that UnbindGuard's safety argument relies on.
 > 
-> Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->   drivers/gpu/drm/drm_atomic.c | 59 ++++++++++++++++++++++++++++++++++++
->   1 file changed, 59 insertions(+)
+> I don't (yet) claim to be a Rust-for-Linux expert but reading through this made
+> sense to me and it's been useful for some Nova development so feel free to add:
 > 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 4fb3a23e862a..a0549435954b 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -865,6 +865,54 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
->   	return 0;
->   }
->   
-> +/**
-> + * drm_atomic_colorop_check - check new colorop state
-> + * @new_colorop_state: new colorop state to check
-> + *
-> + * Ensure that the colorop in @new_colorop_state belongs to an active color
-> + * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
-> + * property of current, old or new plane state.
-> + *
-> + * Returns: 0 on success, -EINVAL otherwise.
-> + */
-> +static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_state)
-> +{
-> +	struct drm_atomic_commit *state = new_colorop_state->state;
-> +	struct drm_plane *plane = new_colorop_state->colorop->plane;
-> +	struct drm_plane_state *new_plane_state, *old_plane_state;
-> +	struct drm_colorop *colorop;
-> +
-> +	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
-> +
-> +	/* No changes in the plane state. Check current-committed plane state */
-> +	if (!new_plane_state) {
-> +		for (colorop = plane->state->color_pipeline; colorop; colorop = colorop->next)
-> +			if (colorop == new_colorop_state->colorop)
-> +				return 0;
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (WARN_ON(!old_plane_state)) return -EINVAL;
+> Reviewed-by: Alistair Popple <apopple@nvidia.com>
+> 
+> for whatever that is worth :-)
 
-return should be in a new line.
+Which is definitely not much :) I just realised this has been replaced by a more
+recent version of this series with 24 patches, so will use that instead.
 
-> +
-> +	/* Check if the colorop is active in the new plane state */
-> +	for (colorop = new_plane_state->color_pipeline; colorop; colorop = colorop->next)
-> +		if (colorop == new_colorop_state->colorop)
-> +			return 0;
-> +
-> +	/* Same color pipeline as new; no point walking old. Colorop isn't active */
-> +	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
-> +		return -EINVAL;
-> +
-> +	/* Check if the colorop was active in the old plane state */
-> +	for (colorop = old_plane_state->color_pipeline; colorop; colorop = colorop->next)
-> +		if (colorop == new_colorop_state->colorop)
-> +			return 0;
-> +
-> +	/* Colorop is not part of an active color pipeline. */
-> +	return -EINVAL;
-> +}
-> +
->   static void drm_atomic_colorop_print_state(struct drm_printer *p,
->   					   const struct drm_colorop_state *state)
->   {
-> @@ -1714,6 +1762,8 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
->   	struct drm_plane *plane;
->   	struct drm_plane_state *old_plane_state;
->   	struct drm_plane_state *new_plane_state;
-> +	struct drm_colorop *colorop;
-> +	struct drm_colorop_state *new_colorop_state;
->   	struct drm_crtc *crtc;
->   	struct drm_crtc_state *old_crtc_state;
->   	struct drm_crtc_state *new_crtc_state;
-> @@ -1730,6 +1780,15 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
->   			requested_crtc |= drm_crtc_mask(crtc);
->   	}
->   
-> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> +		ret = drm_atomic_colorop_check(new_colorop_state);
-> +		if (ret) {
-> +			drm_dbg_atomic(dev, "[COLOROP:%d:%d] is not part of an active color pipeline.\n",
-> +				       colorop->base.id, colorop->type);
-> +			return ret;
-> +		}
-> +	}
-> +
->   	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
->   		ret = drm_atomic_plane_check(old_plane_state, new_plane_state);
->   		if (ret) {
+ - Alistair
 
+> > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> > ---
+> >  rust/kernel/drm/device.rs | 80 ++++++++++++++++++++++++++++++++++++++-
+> >  rust/kernel/drm/driver.rs | 10 ++++-
+> >  2 files changed, 87 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+> > index 492c2f2c7ca4..bb685165032d 100644
+> > --- a/rust/kernel/drm/device.rs
+> > +++ b/rust/kernel/drm/device.rs
+> > @@ -6,7 +6,11 @@
+> >  
+> >  use crate::{
+> >      alloc::allocator::Kmalloc,
+> > -    bindings, device,
+> > +    bindings,
+> > +    device::{
+> > +        self,
+> > +        AsBusDevice as _, //
+> > +    },
+> >      drm::{
+> >          self,
+> >          driver::AllocImpl,
+> > @@ -334,6 +338,80 @@ pub(crate) unsafe fn assume_ctx<NewCtx: DeviceContext>(&self) -> &Device<T, NewC
+> >      }
+> >  }
+> >  
+> > +impl<T: drm::Driver> Device<T, Registered> {
+> > +    /// Guard against the parent bus device being unbound.
+> > +    ///
+> > +    /// Returns an [`UnbindGuard`] if the device has not been unplugged, [`None`] otherwise.
+> > +    ///
+> > +    /// The returned guard dereferences to the parent bus device in the [`device::Bound`] context
+> > +    /// (see [`Driver::ParentDevice`](drm::Driver::ParentDevice)).
+> > +    /// Between `drm_dev_enter()` and `drm_dev_exit()` the parent device is guaranteed to be bound.
+> > +    #[must_use]
+> > +    pub fn unbind_guard(&self) -> Option<UnbindGuard<'_, T>> {
+> > +        let mut idx: i32 = 0;
+> > +        // SAFETY: `self.as_raw()` is a valid pointer to a `struct drm_device` by the type
+> > +        // invariants of `Device<T, Registered>`.
+> > +        if unsafe { bindings::drm_dev_enter(self.as_raw(), &mut idx) } {
+> > +            Some(UnbindGuard { dev: self, idx })
+> > +        } else {
+> > +            None
+> > +        }
+> > +    }
+> > +
+> > +    /// Execute a closure while the parent bus device is guaranteed to be bound.
+> > +    ///
+> > +    /// Acquires the [`UnbindGuard`] and, if the device has not been unplugged, calls `f` with the
+> > +    /// parent bus device. Returns `None` if the device has been unplugged.
+> > +    pub fn with_unbind_guard<R>(
+> > +        &self,
+> > +        f: impl FnOnce(&T::ParentDevice<device::Bound>) -> R,
+> > +    ) -> Option<R> {
+> > +        let guard = self.unbind_guard()?;
+> > +        Some(f(&guard))
+> > +    }
+> > +}
+> > +
+> > +/// A guard preventing the parent bus device from being unbound.
+> > +///
+> > +/// The guard dereferences to [`Driver::ParentDevice<Bound>`](drm::Driver::ParentDevice), providing
+> > +/// access to the parent bus device with the guarantee that it is bound for the entire duration of
+> > +/// the critical section.
+> > +///
+> > +/// Internally this is backed by a `drm_dev_enter()` / `drm_dev_exit()` SRCU critical section.
+> > +///
+> > +/// See [`Device::unbind_guard`] for details on the safety argument.
+> > +///
+> > +/// # Invariants
+> > +///
+> > +/// - `idx` is the SRCU read lock index returned by a successful `drm_dev_enter()` call.
+> > +/// - The parent bus device of `dev` is bound for the lifetime of this guard.
+> > +#[must_use]
+> > +pub struct UnbindGuard<'a, T: drm::Driver> {
+> > +    dev: &'a Device<T, Registered>,
+> > +    idx: i32,
+> > +}
+> > +
+> > +impl<T: drm::Driver> Deref for UnbindGuard<'_, T> {
+> > +    type Target = T::ParentDevice<device::Bound>;
+> > +
+> > +    fn deref(&self) -> &Self::Target {
+> > +        // SAFETY:
+> > +        // - The parent `struct device` is embedded in a `T::ParentDevice`, as guaranteed by
+> > +        //   `UnregisteredDevice::new` taking a `&T::ParentDevice<device::Bound>`.
+> > +        // - By the type invariants of `UnbindGuard`, the parent device is bound for the lifetime
+> > +        //   of this guard.
+> > +        unsafe { T::ParentDevice::from_device(self.dev.as_ref().as_bound()) }
+> > +    }
+> > +}
+> > +
+> > +impl<T: drm::Driver> Drop for UnbindGuard<'_, T> {
+> > +    fn drop(&mut self) {
+> > +        // SAFETY: `self.idx` was returned by a successful `drm_dev_enter()` call, as guaranteed
+> > +        // by the type invariants of `UnbindGuard`.
+> > +        unsafe { bindings::drm_dev_exit(self.idx) };
+> > +    }
+> > +}
+> > +
+> >  impl<T: drm::Driver, C: DeviceContext> Deref for Device<T, C> {
+> >      type Target = T::Data;
+> >  
+> > diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+> > index 9d06f8c5b2da..751a68bb27e1 100644
+> > --- a/rust/kernel/drm/driver.rs
+> > +++ b/rust/kernel/drm/driver.rs
+> > @@ -187,8 +187,14 @@ unsafe impl<T: Driver> Send for Registration<T> {}
+> >  
+> >  impl<T: Driver> Drop for Registration<T> {
+> >      fn drop(&mut self) {
+> > +        // Use `drm_dev_unplug` rather than `drm_dev_unregister` to ensure that existing
+> > +        // `drm_dev_enter()` critical sections complete before unregistration proceeds. This
+> > +        // is required for the safety of `UnbindGuard`, which relies on the SRCU barrier in
+> > +        // `drm_dev_unplug()` to guarantee that the parent device is still bound within the
+> > +        // critical section.
+> > +        //
+> >          // SAFETY: Safe by the invariant of `ARef<drm::Device<T>>`. The existence of this
+> > -        // `Registration` also guarantees the this `drm::Device` is actually registered.
+> > -        unsafe { bindings::drm_dev_unregister(self.0.as_raw()) };
+> > +        // `Registration` also guarantees that this `drm::Device` is actually registered.
+> > +        unsafe { bindings::drm_dev_unplug(self.0.as_raw()) };
+> >      }
+> >  }
+> > -- 
+> > 2.54.0
+> > 
