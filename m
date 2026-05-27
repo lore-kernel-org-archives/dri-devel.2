@@ -4,91 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AC93CD6E4D
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 19:00:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C52CCD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 19:10:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9C1910E947;
-	Wed, 27 May 2026 19:00:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A37B610E2B0;
+	Wed, 27 May 2026 19:10:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="M/oq2HzD";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ji8XVn7J";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="b4ZQgk5E";
 	dkim-atps=neutral
-Received: from fout-a8-smtp.messagingengine.com
- (fout-a8-smtp.messagingengine.com [103.168.172.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A77710E93E
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 19:00:48 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfout.phl.internal (Postfix) with ESMTP id AD614EC01CD;
- Wed, 27 May 2026 15:00:47 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Wed, 27 May 2026 15:00:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1779908447;
- x=1779994847; bh=dWbmHmsFhL1JO+fiI5q5drCmWA2QA+KCJc5JMtUlBmM=; b=
- M/oq2HzDusPURhX3PIJQvFC8elfwFPJblxkoLAsvhV+5zowU6LCrF/RayghKfENS
- n39TYd0JXcGOoGdYcwejVM9s7oN4VV7R7b8MFrRSaLXzGlKiXihojunP6epKfxMN
- i9nYUZ/qg/Sxlq0xQzecX1sbbri8ULBozPIz/am7O3684p3VONsIERy2cB6qw83g
- sJ0mdVsmsdeKAP14g672QEQAnjRsL0/incTsSFEbhPDGYXbyaR0aqqHFNf7kFt3Q
- xCOKukR1nRtTR64hzEGxql2j1Fr7QIafGxoj2lbJVkOa9hqzoLbua78Fz1HTQfJa
- UkLrAFTc0KLfC14JACS2hA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1779908447; x=
- 1779994847; bh=dWbmHmsFhL1JO+fiI5q5drCmWA2QA+KCJc5JMtUlBmM=; b=j
- i8XVn7JYwhv53sC0PHW/A/GYHCDOuzw6RS1mDqkKrnbgrx8YIbaXEK25T5ILq5He
- CG0U9A6997j8+I1lfIolQRgGAy0K6qSqtKRlTY7gKCGtfR4tesdKx2QL+pibpSgq
- Zt9YGLuqw4uxw+MRprBvo1vkHzb9/DlswUOFe00SiAgwDss0lc+sMSRCH3kpMUQV
- 98wfZvvv3UUtJYz+18EU1UWuLKa/4E63PtO2CJBqQefdJjZWy4w/TNrbTAWtP6+2
- DdZoDC45yGkAnRqu92du188czVZOdKbq40f3eeINIxUOmPbZbBKMnKTAMZKCljCg
- Ptmd5Ni4G0kWM0AetkLiQ==
-X-ME-Sender: <xms:Xz8XarMOxMVYc8P7wGikv_5Skw5e_5UVYl1q0Y0F_fiIV6i5s5QXqw>
- <xme:Xz8XatjjRHfD-SDnIxDxc_GiTQGU5RRsN9U_eIN3ApEu7RZeeeIVze8wEQknkzR1y
- U1xWjY_qQMcomzZfrbKEKgiOK-G9ywjFJpsgsBaqdHGsnnYqHNZUQ>
-X-ME-Received: <xmr:Xz8Xap4d1CKb0fT04S8_EbsVfRNfmzwM0neIUzlbIEv3g2nb4EIcrWdA4Qg>
-X-ME-Proxy-Cause: dmFkZTE5WtTqMLkQXWrOLoLo7pE4j0s8oEtY8S5EKw1HdzVXgTrDfWP6Czu+t/MsztoF8+
- crha1tfirvoCetGitPp1eWqmDGW+r/VUAROv464BItTXNIQReEVPlSbXtNbu1N/fI0E1nk
- ujXyyLb9/htjvVvAvOKyuVGrqCso38H6hnJbYOUHe0Sh7FNhdlaHC3u6VRV2hNxPPUKAQi
- FJJ0bUnKultMtPpcL5NORMRvE90xqPQVC8tvb09OD1a6VXD6SP8IXC9Cj9YF9AwMdZD/uF
- NOLX/dNjjRu1tqXw4n5gXZ8ieR5dVxmzP1OMLXD44+iGeSjwE2F6fQpdpQzTjD8MIkyuXw
- rJETSR72SLRFlIfjMxopSf3ILBynVZVBuIMeLLdnj65PcpK6djQTtpg4pJFpCcKLMHJVzG
- X34OxntDhM6t/Blwh8QrNzSKmROlkl3ANkDbRfxmM8ULgwt6xWDAkGtdRIvSKjP3aMVlqK
- hF5mjqO+T0bVSbIiDe+rP0MviTqH+N4yBsjjzFKnykSnioV8jIYBfKioSCyDB6MMIZIk7V
- Q/Pf2SXPK1PUdPoNuEqAkWbWCq7SMe292XJJ7mUS+KZK24UJJhXaVi9wk02yhLWL7vBCpV
- 8ldj8DEX0ndddiSdITV8r6W2S6oqynyosbniib4xPJIjkWFldrif4Aq9K1VQ
-X-ME-Proxy: <xmx:Xz8XasfvR2ynvW8tkCdbOdxuSYAYoq3reazvIpLaW8MqAtk1yfFwQw>
- <xmx:Xz8XaqBp0206C-vByNU_CcKsGhFZrWsNwLB44bywICdDFslBMZKo0Q>
- <xmx:Xz8XajD377KiwNhqz0AtxqDeb0QL6b8sKY70D4NAlgpGLyDwqYaiBw>
- <xmx:Xz8XakZ7fb6HYf1LWcJ_o5pZFOpDQepVweIh43Giquz05XhkFSkQVA>
- <xmx:Xz8Xah3EVrvET6SjEVcfY8519Kvq8W1HTr4dxiaxNjvqJ7Jx3sjp7NKs>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 27 May 2026 15:00:46 -0400 (EDT)
-Date: Wed, 27 May 2026 13:00:45 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Sumit
- Semwal <sumit.semwal@linaro.org>, Christian Konig
- <christian.koenig@amd.com>, Bjorn Helgaas <helgaas@kernel.org>,
- <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, Keith Busch <kbusch@kernel.org>, Yochai
- Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
- alex@shazbot.org
-Subject: Re: [PATCH v5 4/4] RDMA/mlx5: get tph for p2p access when
- registering dma-buf mr
-Message-ID: <20260527130045.704a4502@shazbot.org>
-In-Reply-To: <20260526144401.1485788-5-zhipingz@meta.com>
-References: <20260526144401.1485788-1-zhipingz@meta.com>
- <20260526144401.1485788-5-zhipingz@meta.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D33C810E2B0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 19:10:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779909051;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=fOfRGPugae13jAxurJtrxuSo8jWBso3MtJfxNQrI0Jc=;
+ b=b4ZQgk5Egri2qBcCLwD0wfI5Hca+TXi0+3VBEQb66VWRp4itMv287UQdYbacd/1X+lj9Qi
+ xB0tNnbqbpfCVs/2IPiNeeYj7GIyFGt9s8y+vHd8Y6aM5afZ2Bjcb7pqmSSrjrvKZsd0lL
+ 6flqPYrUL7Pt/mKfQK6f/alE+Xy3t1w=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-326-r_88i058Nvqu1oNrzQO06A-1; Wed, 27 May 2026 15:10:50 -0400
+X-MC-Unique: r_88i058Nvqu1oNrzQO06A-1
+X-Mimecast-MFC-AGG-ID: r_88i058Nvqu1oNrzQO06A_1779909050
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-516d51ffb59so37121441cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 12:10:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779909049; x=1780513849;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fOfRGPugae13jAxurJtrxuSo8jWBso3MtJfxNQrI0Jc=;
+ b=FmdITrIIJoGlGIIEvzCxADO9Czt7+zMrds4zu+XgWvLHHGeoyz+ihBPjj6bPntTchX
+ pzeLr5+B2mkmc0lDTtpbxT2WGaWoS5DJ/zpbIRIoBtF+yoBkZRpGXfLm5py39Jlircgs
+ zNC0RtudYHeGiAP1JrgNElfw5EYBJEk4jk9HbD0KP9tNOYwPr6k4QdJsUy+zZmU0N0/v
+ phYbPKW8bYQg9sMp0mgBzaEMb0skLcqRRj5YHr8g9spiZeplBirS431ZB3mc6BJByRD4
+ nmURcIVZTWTCBIzhEhJjcRxdGyMk6upxiUuARi/ePGYsY5Uip7AX1XZs0WZiq12N63nR
+ xhdA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9e797QgCVcUnbbd7j9ARLBHXWJ7JSrRx7CDyNqSm4/eVIe/jlJDCfNJYgnEF/o+VgYXte9XUvzclc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvNfvAyvUb8IqDKCJ0PQsWEDKxoFixExRXwC4XfA4ZWAdSYcPK
+ 40WpIhRc6EFtfgRD1nCoC4rRBYXQF+x4ZH/iQ30a99QyUh3rE9lyMbGUS29abwaCMktSGwCepaM
+ Ub2Yld9gzQT+Oq0o5aeGUOYIcKv26ivdLKlEjR5hj0Mre1lV1P6vo66dW8yE76WEbTR1gEw==
+X-Gm-Gg: Acq92OGD3j4vQkNNZn31cWAPkTdkvvUxwJawNfpNICu5Ptsd1oWwySxgXRtWMJ48jVf
+ CyFZZKELwAXmN2oyzAE0eTW2Ui+nothQEPNESFEeq6vYem6L+SExoREZGotV2A3ObyRYj2q8yEP
+ nHLMeJG8QfGdzmcl7W3hMjzM4vu15G+KEl7RFZd5IuNXXa9OE+MCbi/yyfXtDQkGe4zrm3+VddG
+ GVVBTcTqoh+o6kyV7deBD0Za96UITP6FXRbj5NIIHgHblnL2pF4OZnUfsY62AZ0obFY5BTOOaDR
+ yY0iw6Hd22k3hIgSoGE2tsxINKiXErIwGd9gNNIoM3oKWP2el1QpQ1KGPX3PEKvOnDvhELM/jhN
+ 5QfhFmYcf860cwIhwGmTpQL0KlWk6koiMZ+qUmug8qpHalykwhcuEQ38q4bmmHtixBPEEv/JrVj
+ dc
+X-Received: by 2002:a05:622a:2d5:b0:516:4fc0:27ac with SMTP id
+ d75a77b69052e-516d43e4561mr348875281cf.50.1779909049440; 
+ Wed, 27 May 2026 12:10:49 -0700 (PDT)
+X-Received: by 2002:a05:622a:2d5:b0:516:4fc0:27ac with SMTP id
+ d75a77b69052e-516d43e4561mr348874431cf.50.1779909048607; 
+ Wed, 27 May 2026 12:10:48 -0700 (PDT)
+Received: from localhost (pool-100-17-21-205.bstnma.fios.verizon.net.
+ [100.17.21.205]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-51706adc8f3sm51751971cf.18.2026.05.27.12.10.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 May 2026 12:10:47 -0700 (PDT)
+Date: Wed, 27 May 2026 15:10:47 -0400
+From: Eric Chanudet <echanude@redhat.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Maarten Lankhorst <dev@lankhorst.se>,
+ Maxime Ripard <mripard@kernel.org>, Natalie Vock <natalie.vock@gmx.de>,
+ Tejun Heo <tj@kernel.org>, 
+ Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, cgroups@vger.kernel.org,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Maxime Ripard <mripard@redhat.com>, Albert Esteve <aesteve@redhat.com>, 
+ Dave Airlie <airlied@gmail.com>, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm/memcontrol: add dmem charge/uncharge functions
+Message-ID: <ahWfypvuTVsB-pHQ@x1nano>
+References: <20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com>
+ <20260519-cgroup-dmem-memcg-double-charge-v2-1-db4d1407062b@redhat.com>
+ <ahB7pCu_G4vuswc0@linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <ahB7pCu_G4vuswc0@linux.dev>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: VS4XzHE5Zu0qAQqp6XVJ0KG4MCCEounT5qHe11EKr4I_1779909050
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,292 +113,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 26 May 2026 07:43:56 -0700
-Zhiping Zhang <zhipingz@meta.com> wrote:
-
-> Query dma-buf TPH metadata when registering a dma-buf MR for peer-to-
-> peer access and translate the returned steering tag into an mlx5 ST
-> index. Keep the DMAH path as the first priority and only fall back to
-> DMA-buf metadata when no DMAH is supplied.
+On Fri, May 22, 2026 at 08:53:10AM -0700, Shakeel Butt wrote:
+> On Tue, May 19, 2026 at 11:59:01AM -0400, Eric Chanudet wrote:
+> > Add mem_cgroup_dmem_charge() and mem_cgroup_dmem_uncharge() to allow
+> > dmem pool allocations to optionally be double-charged against the memory
+> > controller. Take the struct cgroup from the dmem pool's css as there is
+> > no convenient object exported to represent these allocations. These will
+> > resolve the effective memory css from that cgroup and perform the
+> > charge.
+> > 
+> > Introduce a MEMCG_DMEM stat counter to memory.stat to make the cgroup's
+> > dmem charge visible.
+> > 
+> > Signed-off-by: Eric Chanudet <echanude@redhat.com>
+> > ---
+> >  include/linux/memcontrol.h | 16 ++++++++++++
+> >  mm/memcontrol.c            | 65 ++++++++++++++++++++++++++++++++++++++++++++++
+> >  2 files changed, 81 insertions(+)
+> > 
+> > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> > index dc3fa687759b45748b2acee6d7f43da325eb50c1..8e1d49b87fb64e6114f3eb920293e14920290fe7 100644
+> > --- a/include/linux/memcontrol.h
+> > +++ b/include/linux/memcontrol.h
+> > @@ -39,6 +39,7 @@ enum memcg_stat_item {
+> >  	MEMCG_ZSWAP_B,
+> >  	MEMCG_ZSWAPPED,
+> >  	MEMCG_ZSWAP_INCOMP,
+> > +	MEMCG_DMEM,
+> >  	MEMCG_NR_STAT,
+> >  };
+> >  
+> > @@ -1872,6 +1873,21 @@ static inline bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg)
+> >  }
+> >  #endif
+> >  
+> > +#if defined(CONFIG_MEMCG) && defined(CONFIG_CGROUP_DMEM)
+> > +bool mem_cgroup_dmem_charge(struct cgroup *cgrp, unsigned int nr_pages,
+> > +			    gfp_t gfp_mask);
+> > +void mem_cgroup_dmem_uncharge(struct cgroup *cgrp, unsigned int nr_pages);
+> > +#else
+> > +static inline bool mem_cgroup_dmem_charge(struct cgroup *cgrp,
+> > +					  unsigned int nr_pages, gfp_t gfp_mask)
 > 
-> Track per-MR ownership of the allocated ST index and release it on MR
-> setup failure, destroy, and FRMR-pool reuse. Release the ST index before
-> the MR is pushed back into the FRMR pool, and free mlx5_st_idx_data when
-> its refcount reaches zero so repeated allocation/deallocation does not
-> leak memory.
-> 
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> ---
->  drivers/infiniband/hw/mlx5/mlx5_ib.h          |  6 ++
->  drivers/infiniband/hw/mlx5/mr.c               | 86 ++++++++++++++++++-
->  .../net/ethernet/mellanox/mlx5/core/lib/st.c  | 28 ++++--
->  include/linux/mlx5/driver.h                   |  7 ++
->  4 files changed, 115 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h b/drivers/infiniband/hw/mlx5/mlx5_ib.h
-> index e156dc4d7529..4ab867392267 100644
-> --- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
-> +++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
-> @@ -721,6 +721,12 @@ struct mlx5_ib_mr {
->  			u8 revoked :1;
->  			/* Indicates previous dmabuf page fault occurred */
->  			u8 dmabuf_faulted:1;
-> +			/* Set when the MR owns dmabuf_st_index and must
-> +			 * release it via mlx5_st_dealloc_index() once the
-> +			 * firmware mkey is no longer referencing it.
-> +			 */
-> +			u8 dmabuf_st_owned:1;
-> +			u16 dmabuf_st_index;
->  			struct mlx5_ib_mkey null_mmkey;
->  		};
->  	};
-> diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
-> index 3b6da45061a5..8059b5e4da97 100644
-> --- a/drivers/infiniband/hw/mlx5/mr.c
-> +++ b/drivers/infiniband/hw/mlx5/mr.c
-> @@ -38,6 +38,7 @@
->  #include <linux/delay.h>
->  #include <linux/dma-buf.h>
->  #include <linux/dma-resv.h>
-> +#include <linux/pci-tph.h>
->  #include <rdma/frmr_pools.h>
->  #include <rdma/ib_umem_odp.h>
->  #include "dm.h"
-> @@ -46,6 +47,8 @@
->  #include "data_direct.h"
->  #include "dmah.h"
->  
-> +MODULE_IMPORT_NS("DMA_BUF");
-> +
+> Please follow Johannes's request to pass the actually memory object instead of
+> naked numbers.
 
-This doesn't appear to add any dma-buf namespace dependencies.
+Sorry, I misunderstood Johannes' comment. I am not sure what to use
+here. Since these are called from dmem.c, they don't have access to what
+was allocated.
 
->  static int mkey_max_umr_order(struct mlx5_ib_dev *dev)
->  {
->  	if (MLX5_CAP_GEN(dev->mdev, umr_extended_translation_offset))
-> @@ -899,6 +902,63 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_attach_ops = {
->  	.invalidate_mappings = mlx5_ib_dmabuf_invalidate_cb,
->  };
->  
-> +/*
-> + * Query TPH metadata from @dmabuf and translate the raw steering tag into
-> + * an mlx5 ST index. On success, returns 0 and the caller becomes the
-> + * owner of *@st_index (must be released with mlx5_st_dealloc_index()
-> + * once the firmware mkey no longer references it). On any failure
-> + * *@st_index and *@ph are left as the no-TPH defaults set by the caller.
-> + *
-> + * @dmabuf must already be referenced by the caller (e.g. via the umem's
-> + * attachment) so we don't re-resolve the user's fd here and avoid a
-> + * dup2() TOCTOU between umem creation and TPH lookup.
-> + */
-> +static void get_tph_mr_dmabuf(struct mlx5_ib_dev *dev, struct dma_buf *dmabuf,
-> +			      u16 *st_index, u8 *ph)
-> +{
-> +	u8 req_type;
-> +	u16 steering_tag;
-> +	u8 st_width;
-> +	int ret;
-> +
-> +	if (!dmabuf->ops->get_tph)
-> +		return;
-> +
-> +	req_type = pcie_tph_enabled_req_type(dev->mdev->pdev);
-> +	switch (req_type) {
-> +	case PCI_TPH_REQ_TPH_ONLY:
-> +		st_width = 8;
-> +		break;
-> +	case PCI_TPH_REQ_EXT_TPH:
-> +		st_width = 16;
-> +		break;
-> +	default:
-> +		return;
-> +	}
-> +
-> +	ret = dmabuf->ops->get_tph(dmabuf, &steering_tag, ph, st_width);
-> +	if (ret) {
-> +		mlx5_ib_dbg(dev, "get_tph failed (%d)\n", ret);
-> +		*ph = MLX5_IB_NO_PH;
-> +		return;
-> +	}
-> +
-> +	ret = mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag, st_index);
-> +	if (ret) {
-> +		*ph = MLX5_IB_NO_PH;
-> +		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
-> +	}
-> +}
+Looking at zswap, it uses obj_cgroup. I thought of resolving the
+obj_cgroup from dmem_cgroup_try_charge and keep it in the
+dmem_cgroup_pool_state, but that made me realize there is a catch with
+this patch set, with something like:
+A: +memory{max:32M}/+dmem
+A/B: +memory{max:16M}
 
-ph handling is inconsistent, why not use a local variable and only set
-the caller's pointer on success?
+It gets the CSS from the dmem's cgroup with
+  cgroup_get_e_css(cgrp, &memory_cgrp_subsys);
+  mem_cgroup_from_css(mem_css);
 
-> +
-> +static void mlx5_ib_mr_put_dmabuf_st(struct mlx5_ib_mr *mr)
-> +{
-> +	if (mr->umem && mr->dmabuf_st_owned) {
-> +		mlx5_st_dealloc_index(mr_to_mdev(mr)->mdev,
-> +				      mr->dmabuf_st_index);
-> +		mr->dmabuf_st_owned = 0;
-> +	}
-> +}
-> +
->  static struct ib_mr *
->  reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
->  		   u64 offset, u64 length, u64 virt_addr,
-> @@ -941,16 +1001,26 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
->  		ph = dmah->ph;
->  		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
->  			st_index = mdmah->st_index;
-> +	} else {
-> +		get_tph_mr_dmabuf(dev, umem_dmabuf->attach->dmabuf,
-> +				  &st_index, &ph);
->  	}
->  
->  	mr = alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
->  				access_flags, access_mode,
->  				st_index, ph);
->  	if (IS_ERR(mr)) {
-> +		if (!dmah && st_index != MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
-> +			mlx5_st_dealloc_index(dev->mdev, st_index);
->  		ib_umem_release(&umem_dmabuf->umem);
->  		return ERR_CAST(mr);
->  	}
->  
-> +	if (!dmah && st_index != MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX) {
-> +		mr->dmabuf_st_index = st_index;
-> +		mr->dmabuf_st_owned = 1;
-> +	}
-> +
->  	mlx5_ib_dbg(dev, "mkey 0x%x\n", mr->mmkey.key);
->  
->  	atomic_add(ib_umem_num_pages(mr->umem), &dev->mdev->priv.reg_pages);
-> @@ -1377,9 +1447,17 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib_mr *mr)
->  	bool is_odp = is_odp_mr(mr);
->  	int ret;
->  
-> -	if (mr->ibmr.frmr.pool && !mlx5_umr_revoke_mr_with_lock(mr) &&
-> -	    !ib_frmr_pool_push(mr->ibmr.device, &mr->ibmr))
-> -		return 0;
-> +	if (mr->ibmr.frmr.pool && !mlx5_umr_revoke_mr_with_lock(mr)) {
-> +		/*
-> +		 * The mkey has been revoked: firmware no longer references
-> +		 * dmabuf_st_index, so release it before this mr can re-enter
-> +		 * the FRMR cache for reuse by another registration.
-> +		 */
-> +		mlx5_ib_mr_put_dmabuf_st(mr);
-> +
-> +		if (!ib_frmr_pool_push(mr->ibmr.device, &mr->ibmr))
-> +			return 0;
-> +	}
->  
->  	if (is_odp)
->  		mutex_lock(&to_ib_umem_odp(mr->umem)->umem_mutex);
-> @@ -1400,6 +1478,8 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib_mr *mr)
->  		dma_resv_unlock(
->  			to_ib_umem_dmabuf(mr->umem)->attach->dmabuf->resv);
->  	}
-> +	if (!ret)
-> +		mlx5_ib_mr_put_dmabuf_st(mr);
->  	return ret;
->  }
->  
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> index 997be91f0a13..8929c17c88bc 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> @@ -29,7 +29,7 @@ struct mlx5_st *mlx5_st_create(struct mlx5_core_dev *dev)
->  	u8 direct_mode = 0;
->  	u16 num_entries;
->  	u32 tbl_loc;
-> -	int ret;
-> +	int ret = 0;
+Which would resolve to A's memcg and not enforce the memory.max limit
+set in B when dmem.memcg is set for that region.
 
-Unnecessary change.
-
->  
->  	if (!MLX5_CAP_GEN(dev, mkey_pcie_tph))
->  		return NULL;
-> @@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
->  	kfree(st);
->  }
->  
-> -int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem_type,
-> -			unsigned int cpu_uid, u16 *st_index)
-> +int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-> +			       u16 *st_index)
->  {
->  	struct mlx5_st_idx_data *idx_data;
->  	struct mlx5_st *st = dev->st;
->  	unsigned long index;
->  	u32 xa_id;
-> -	u16 tag;
-> -	int ret;
-> +	int ret = 0;
->  
->  	if (!st)
->  		return -EOPNOTSUPP;
->  
-> -	ret = pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
-> -	if (ret)
-> -		return ret;
-> -
->  	if (st->direct_mode) {
->  		*st_index = tag;
->  		return 0;
-> @@ -152,6 +147,20 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem_type,
->  	mutex_unlock(&st->lock);
->  	return ret;
->  }
-> +EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
-> +
-> +int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem_type,
-> +			unsigned int cpu_uid, u16 *st_index)
-> +{
-> +	u16 tag;
-> +	int ret;
-> +
-> +	ret = pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
-> +}
->  EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
->  
->  int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
-> @@ -175,6 +184,7 @@ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
->  
->  	if (refcount_dec_and_test(&idx_data->usecount)) {
->  		xa_erase(&st->idx_xa, st_index);
-> +		kfree(idx_data);
->  		/* We leave PCI config space as was before, no mkey will refer to it */
->  	}
-
-Should this be pulled out as a fix separate from the feature added
-here?  Thanks,
-
-Alex
-
->  
-> diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
-> index 04b96c5abb57..523a9ab0ae1e 100644
-> --- a/include/linux/mlx5/driver.h
-> +++ b/include/linux/mlx5/driver.h
-> @@ -1166,10 +1166,17 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *dev, enum mlx5_sw_icm_type type
->  			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
->  
->  #ifdef CONFIG_PCIE_TPH
-> +int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-> +			       u16 *st_index);
->  int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem_type,
->  			unsigned int cpu_uid, u16 *st_index);
->  int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
->  #else
-> +static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
-> +					     u16 tag, u16 *st_index)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
->  static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
->  				      enum tph_mem_type mem_type,
->  				      unsigned int cpu_uid, u16 *st_index)
+-- 
+Eric Chanudet
 
