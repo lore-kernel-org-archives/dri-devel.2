@@ -4,121 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 262B3CD5BDE
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 01:03:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 931EFCD5BDE
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 02:18:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 379A110E044;
-	Wed, 27 May 2026 01:03:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5D0210E21B;
+	Wed, 27 May 2026 02:18:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DZbVYGNY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Knfu5Z3G";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011005.outbound.protection.outlook.com [40.107.208.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72B4310E044
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 01:03:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e1ZMjYCGO61MtStugfnncuelWVaAH00bzZh3p0rq0pXxkvf7ALHgVydvZM67nf9mv+6uZCB1wcQI+tn5VDT/XtvPFIXaOYmHTwMMwk6AcgXtWPL5r/zn14cSnWd117lCqoqW7TRp5NED90RWN4UxxxMCiyABu90xDSUTlALddHVPCXpfNd1ywcSOJq/nDXLhIKIYIFcP5R5Qc95i66c9SHMzr9kzalgp13VvMHf+4F+aVj8miWpIHXSB+8gIQs/D8AlDDJ79DVn+LYeA9l2GjrzhRgRQaBduhiWEOgZGbSUu23vBl9i4gg3nqqTahvm0ROBjnzOLxuAFNIlx40JPzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=//mo3MB22hL8wjit5cnvdw4bM9frEzdVrgdBnUKDeuE=;
- b=anWzliGkSTVx99vKXLJfpdp350CBpd7eUYJjO7LAnWbBkSZPtl+9YpVI6ZIRpVI+ysTj8nt39/UIbhc67DbK/1tqxOoxVjAgcwYXJljdqIkdSFO3Am4T2+jwzJ9rQ5LCoE8/AuZ0S2AJRJ8h1jjSUaNhjSbqENhssd+GV5HxvPw7294swHqx1woZLy4cITTlKh0EPiLAhageywvuAPEcAdz1LIuA9GOJ7BQGaHWD/wZpKvwEYujB8N0NwHDkXHNRn+rG2METiv3EX3Vb7xr3fgqy0fkm3L/xHKSg6vtT0ZcYxQj5LfYaae+VfmblNukr4/9i6sdeB8xmov0NagmbjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=//mo3MB22hL8wjit5cnvdw4bM9frEzdVrgdBnUKDeuE=;
- b=DZbVYGNYMfkeMG1b6E6L1uxJ/sohpXzfN/Z0bmFpPPAWgwe3sArD8WrmOhEEd3depmDgGPBN95jkL8MMgeGeXjbvlY4V4UpKbN+aDDCOmy96PYklKpTBeJvrfad1FX1E+8o48PCaBMnXf4LfwCoohxOHjiJquHf7aVuv47Bw/iCkzjUJwPzMBpYyf+KX2ScoBFDJ6h2mL0ChiEqPUMyFzAuFXsKw+9ke4cvrRaw5Nk5tu9pYo7QpcNTcEm+br+0NaTp2UCG0n8LXSy12xAeCWQwAaGNdajVy9De8ChVdRuKIx7Z3AR/p4U4X1GrWR1bsn1T7+Tp1CSMsyLDAOxckmA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- DM6PR12MB4450.namprd12.prod.outlook.com (2603:10b6:5:28e::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.18; Wed, 27 May 2026 01:03:09 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 01:03:09 +0000
-Date: Wed, 27 May 2026 11:03:03 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch, 
- daniel.almeida@collabora.com, acourbot@nvidia.com, ecourtney@nvidia.com, 
- deborah.brouwer@collabora.com, lyude@redhat.com, ojeda@kernel.org,
- boqun@kernel.org, 
- gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org, 
- a.hindborg@kernel.org, tmgross@umich.edu, driver-core@lists.linux.dev, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 2/6] rust: drm: Add UnbindGuard for drm_dev_enter/exit
- critical sections
-Message-ID: <ahZBOXFh7rb7vxzX@nvdebian.thelocal>
-References: <20260506221027.858481-1-dakr@kernel.org>
- <20260506221027.858481-3-dakr@kernel.org>
- <ahU6HgCsXWxHlH3L@nvdebian.thelocal>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ahU6HgCsXWxHlH3L@nvdebian.thelocal>
-X-ClientProxiedBy: SYCP282CA0016.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:80::28) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6D8310E21B
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 02:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779848287; x=1811384287;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=TMbvDbgUTPtTslZr8H7vu38wbe3gX1dFPoU4U/gtd6g=;
+ b=Knfu5Z3GyTKNOOOYcPKgbSqeAfM1Lf7SH/xX4oiVrIIOrMRz7u1pNJbD
+ MDuS0lUKwsof31L0mnNsHOc4iJ3qjZKHE9gmzq+p/Wysndpf18ErKwHN8
+ GM5HYFfLlJI/Ai7bLRI+9TM9A+v36JdfSoizO4eDntY/p5oLRkcol8YfG
+ wCxvOS2tIsiWztuARREsXkmy6WOdS9UZ9Nk53GFB5RzxZrS5onja+jAoz
+ TYcZxYmazyf39STc24r7uEM4176qHR7ab0wUEGAtTRjr6t8wnJRDdkR+m
+ AjUaUQYp+W0TrKpTD4KrJ6iLcVWRi1vA4UpI4jLGiXTKLmQGB0sWWwO8L Q==;
+X-CSE-ConnectionGUID: 5o9SJ+1zRE+Cq1FsIM6+7g==
+X-CSE-MsgGUID: jmRy2N5nT2SmCZlIGpWQ7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="80521595"
+X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="80521595"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 19:18:06 -0700
+X-CSE-ConnectionGUID: jA4+a52cRA6gVLIwhVEiIg==
+X-CSE-MsgGUID: e4yCOGUFRruRmSukACaMpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="242262078"
+Received: from lkp-server01.sh.intel.com (HELO f0d55cb201f0) ([10.239.97.150])
+ by orviesa007.jf.intel.com with ESMTP; 26 May 2026 19:18:02 -0700
+Received: from kbuild by f0d55cb201f0 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wS3qI-000000003G2-01vc;
+ Wed, 27 May 2026 02:17:58 +0000
+Date: Wed, 27 May 2026 10:17:16 +0800
+From: kernel test robot <lkp@intel.com>
+To: Myeonghun Pak <mhun512@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Myeonghun Pak <mhun512@gmail.com>, stable@vger.kernel.org,
+ Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH] drm/meson: clean up KMS polling on register failure
+Message-ID: <202605271010.KFK2tlLa-lkp@intel.com>
+References: <20260524160657.17802-1-mhun512@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|DM6PR12MB4450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72f17ca8-c288-4de5-17c7-08debb8bb77e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|22082099003|56012099006|18002099003|4143699003|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: gI9k0xkBZgrF9Y6rlbT2rbHq4dJp+UBsTwXQuzEDt81JfaKot0+Jgfp0eWXvFM7HUl1mGPbkj7D9j/fE1m1qBL+ogZJydIEKmcn8/f6U2gpg6ztPL4KVdJgDwgBRR3GDfZHrgVY7bVvy59oCRywTx+KBnwA70KCziYGo2PSr9AEtAiv53gyPZvhhYELlzmcjHqhvpEHAHou3SskCzUh6fOe+k63suSkb5mVST/ZSlqOez8a2Q/ovKUtXuymQ/qpHiQ/7tbiO/lXUoo66iX697ynjLG2o7zbP9N6+jdkXEzVFK/TF33FjU79IPV5Vmhy3Yaky1V9F3Vhi8dJRRExEeMgTpO8ZDmGFWia+3STW74WBZkF5vsMjuD1C8u3APB8nr0J/DmAIoNh3ZYDRbfZXCM5e2Cp5RDpw6SKwQJ5z1KI5cb2c7z7zh/URNMmI9Od7njCnaSK9ZJvZjjSlLrTJd+WhCCWzqIZprJ634son189HxOWZ56XG5dLBNjmrSzJwweSm9XDevw2vUc+Ufnd+pbtV1hX9R7gtNfJI2PtXjS4ZoCvTRTtlbJwu3nfrXngNAp+Us57ZgGjyUJbR2H/penCEbwL/F/t8GFx+9W0bnNJLTMPiHJdaHy//oAyo9Ue2HBZRrIFO5yxGgz0ApUyf4Mu1deKRmrYtPTx+HmXMUxWBasRJAxO3CfjmLscqEN7T
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(22082099003)(56012099006)(18002099003)(4143699003)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?G2XlLdVYs2WuGZob1j5otA82vP8R5GdTy/OAdv+CT6YV6WueAtQfmuwaMpGv?=
- =?us-ascii?Q?bkDvT8z0ihVgJ9cXt1b9B0+iTo/QL0GU8ze6n3gmOeJI+JrAWxh8qMEGhs2F?=
- =?us-ascii?Q?TCOKCtjLJF8UdjJHOPEzaCUa22mwrrbtBbgm0qHzRu+LlMHjpSgRD8G1gO50?=
- =?us-ascii?Q?25Pd8UK+XPyqnEw5XwiEnUQ02hmq+LJ4xS6sBw/tQYFAft44UN/FYjE7s4ix?=
- =?us-ascii?Q?H4AFzK1WxSRmZ+ib0yz1cFkwJ0tpFAfRYaA+uMyCv/nw7MDhNOP7QywRRy3I?=
- =?us-ascii?Q?mC4on7wXGpPDmDrfE0VU2JTsJyd/iKTo6tBuWwGLFeiyKJsi0Obey8uQSyhZ?=
- =?us-ascii?Q?BYpSSQRJoCzFU4oN0fyAJ/SMe+LcwGMAET+oOrhHIxj//6MavqG5D01oy+NV?=
- =?us-ascii?Q?ym45BsNhq9nL/iM9fXG1tvlDfZuYCfabGRpFEHxz2NYjjPheHXEjIy3C1ncO?=
- =?us-ascii?Q?jSyJiPQ9D1wyT9do3+/VfsfpCmk2Oj2xhNZjeF8ZsDN/i1a5/Hw7Rk1nf8Bk?=
- =?us-ascii?Q?VBrYf0pf9iMHYnltfLaR1+yMHi1Ts3BB3mEdhqZ3XoQlXqTiCCFdojHB/DPa?=
- =?us-ascii?Q?12/RXFs7sUkFl9o+6olUK9VFfxO3WFf0U4e01TgkFpUrEVU5eNqycdfnj3gH?=
- =?us-ascii?Q?p0Yx0phKD3X0yyHd5QVyFaDg/2nO4rjAeS/GOKQDz0VyEpLeKH9LBDiKNVpT?=
- =?us-ascii?Q?h9nzVYK4pcoFG0U7dfXKvFZaRd+KAL1oywTJiWI7MAbYYDO58MjWNPZsBkjD?=
- =?us-ascii?Q?rsX0MTDjhiz4wuh8AU4c5RSryRffkXS5Bie1yIByTkjp1OHul5Y8muM6Y4mR?=
- =?us-ascii?Q?nGhUsg5lT9NSd066l8OArIUMVqzz8VyLvmpXhl5k+99+ZyZEqMkqeuqPWZ71?=
- =?us-ascii?Q?T9u089jflokIans4s++sJbMw4AYDGqMzxA7QsoQ73SAfhDwdGp1XrriOufSK?=
- =?us-ascii?Q?35w8Y29eUzuBCuyvQq5tLnRMf4GPgvSvWjK/VoJuMGoEQe3GOBlrIMTSCTUy?=
- =?us-ascii?Q?nFFb5jjNi0CM6XMMPvMeENc5FchbzXN87RE9ros0sg3UUECIzqQdxb1NvPBw?=
- =?us-ascii?Q?F9yKSCA/daB03MMS9ya+7ujcn+XCmqmoz6E+uCE8Jo9StUaKcvDgudfeLxjV?=
- =?us-ascii?Q?awRqWsD32Oq5HU6ozbkdCUdixNL8sgFCjN1BoKZmY8Jo4xYk+rGlT9ubNoi9?=
- =?us-ascii?Q?ABB7IZ+m4+EUpNEmDniLTk+qbthF3rtVibI7g8gRzKEpCzO+rcOVi3qRp2hc?=
- =?us-ascii?Q?lFrGUY+OXV/YOujhUE2NV63fKLoNZMiOnIwzz3WEVwxoo2BlODmdycK+1GxH?=
- =?us-ascii?Q?bfp5yR9ALAsUwW/qXVNRwyG5Eb6vvchoguFRGdnU7YpnRgmKx+kEcWnSRToU?=
- =?us-ascii?Q?7LCpq9UoIYAFgeDHcywpXC9ROu4ZQlhgGLb7alenlrfKfpMLMXjUXy82Jp+H?=
- =?us-ascii?Q?MTN4k4ix9F9HqTDkcTVvTUFtEhJMh3UcM8BYQUU/MDo+zRRfzH3srDP7Wat8?=
- =?us-ascii?Q?TAqJh1YBRLwYlu2e6hnjANl1mh3yNdSw6RJttfBVMdQ5esOxkqSmLurAfDVx?=
- =?us-ascii?Q?2S2eEJwt9epviHhzv6cQsuspY7vpz93k39oihX2AyMCDFpbH8XcbfLDI3MpY?=
- =?us-ascii?Q?AxyrD6+EgkO50RWBsCcoffTerP7WytkA/peVrqCooPlKk7wV/7ytGoX9wx8o?=
- =?us-ascii?Q?e0mgc+2Os0/MwBzk+Axis512kDhGQ+2tsW50JOcWR8PJsR/CD9JLTwujt8kS?=
- =?us-ascii?Q?UgLY+A/FlQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72f17ca8-c288-4de5-17c7-08debb8bb77e
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 01:03:08.9864 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4DAvNfaxooclIeVyOfCwiihAJrJ/RYkU/I6T3StTDf+QqQKngXJOdALt9fp+X2N5aU25dYiEcwQJtuwnQPQisg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4450
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260524160657.17802-1-mhun512@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,161 +81,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-05-26 at 16:17 +1000, Alistair Popple <apopple@nvidia.com> wrote...
-> On 2026-05-07 at 08:06 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
-> > DRM ioctls do not guarantee that the parent bus device is still bound.
-> > However, since DRM device registration is managed through Devres, using
-> > drm_dev_unplug() on unregistration ensures that between drm_dev_enter()
-> > and drm_dev_exit() the parent device must be bound.
-> > 
-> > Add UnbindGuard, a guard object representing a drm_dev_enter/exit SRCU
-> > critical section that dereferences to &Device<Bound> of the parent bus
-> > device. The guard is only available on Device<T, Registered>, ensuring
-> > it cannot be used on unregistered devices.
-> > 
-> > Also add with_unbind_guard() as a convenience helper that executes a
-> > closure with the bound device reference.
-> > 
-> > Switch Registration::drop from drm_dev_unregister() to drm_dev_unplug()
-> > to provide the SRCU barrier that UnbindGuard's safety argument relies on.
-> 
-> I don't (yet) claim to be a Rust-for-Linux expert but reading through this made
-> sense to me and it's been useful for some Nova development so feel free to add:
-> 
-> Reviewed-by: Alistair Popple <apopple@nvidia.com>
-> 
-> for whatever that is worth :-)
+Hi Myeonghun,
 
-Which is definitely not much :) I just realised this has been replaced by a more
-recent version of this series with 24 patches, so will use that instead.
+kernel test robot noticed the following build warnings:
 
- - Alistair
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v7.1-rc5 next-20260526]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> > ---
-> >  rust/kernel/drm/device.rs | 80 ++++++++++++++++++++++++++++++++++++++-
-> >  rust/kernel/drm/driver.rs | 10 ++++-
-> >  2 files changed, 87 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-> > index 492c2f2c7ca4..bb685165032d 100644
-> > --- a/rust/kernel/drm/device.rs
-> > +++ b/rust/kernel/drm/device.rs
-> > @@ -6,7 +6,11 @@
-> >  
-> >  use crate::{
-> >      alloc::allocator::Kmalloc,
-> > -    bindings, device,
-> > +    bindings,
-> > +    device::{
-> > +        self,
-> > +        AsBusDevice as _, //
-> > +    },
-> >      drm::{
-> >          self,
-> >          driver::AllocImpl,
-> > @@ -334,6 +338,80 @@ pub(crate) unsafe fn assume_ctx<NewCtx: DeviceContext>(&self) -> &Device<T, NewC
-> >      }
-> >  }
-> >  
-> > +impl<T: drm::Driver> Device<T, Registered> {
-> > +    /// Guard against the parent bus device being unbound.
-> > +    ///
-> > +    /// Returns an [`UnbindGuard`] if the device has not been unplugged, [`None`] otherwise.
-> > +    ///
-> > +    /// The returned guard dereferences to the parent bus device in the [`device::Bound`] context
-> > +    /// (see [`Driver::ParentDevice`](drm::Driver::ParentDevice)).
-> > +    /// Between `drm_dev_enter()` and `drm_dev_exit()` the parent device is guaranteed to be bound.
-> > +    #[must_use]
-> > +    pub fn unbind_guard(&self) -> Option<UnbindGuard<'_, T>> {
-> > +        let mut idx: i32 = 0;
-> > +        // SAFETY: `self.as_raw()` is a valid pointer to a `struct drm_device` by the type
-> > +        // invariants of `Device<T, Registered>`.
-> > +        if unsafe { bindings::drm_dev_enter(self.as_raw(), &mut idx) } {
-> > +            Some(UnbindGuard { dev: self, idx })
-> > +        } else {
-> > +            None
-> > +        }
-> > +    }
-> > +
-> > +    /// Execute a closure while the parent bus device is guaranteed to be bound.
-> > +    ///
-> > +    /// Acquires the [`UnbindGuard`] and, if the device has not been unplugged, calls `f` with the
-> > +    /// parent bus device. Returns `None` if the device has been unplugged.
-> > +    pub fn with_unbind_guard<R>(
-> > +        &self,
-> > +        f: impl FnOnce(&T::ParentDevice<device::Bound>) -> R,
-> > +    ) -> Option<R> {
-> > +        let guard = self.unbind_guard()?;
-> > +        Some(f(&guard))
-> > +    }
-> > +}
-> > +
-> > +/// A guard preventing the parent bus device from being unbound.
-> > +///
-> > +/// The guard dereferences to [`Driver::ParentDevice<Bound>`](drm::Driver::ParentDevice), providing
-> > +/// access to the parent bus device with the guarantee that it is bound for the entire duration of
-> > +/// the critical section.
-> > +///
-> > +/// Internally this is backed by a `drm_dev_enter()` / `drm_dev_exit()` SRCU critical section.
-> > +///
-> > +/// See [`Device::unbind_guard`] for details on the safety argument.
-> > +///
-> > +/// # Invariants
-> > +///
-> > +/// - `idx` is the SRCU read lock index returned by a successful `drm_dev_enter()` call.
-> > +/// - The parent bus device of `dev` is bound for the lifetime of this guard.
-> > +#[must_use]
-> > +pub struct UnbindGuard<'a, T: drm::Driver> {
-> > +    dev: &'a Device<T, Registered>,
-> > +    idx: i32,
-> > +}
-> > +
-> > +impl<T: drm::Driver> Deref for UnbindGuard<'_, T> {
-> > +    type Target = T::ParentDevice<device::Bound>;
-> > +
-> > +    fn deref(&self) -> &Self::Target {
-> > +        // SAFETY:
-> > +        // - The parent `struct device` is embedded in a `T::ParentDevice`, as guaranteed by
-> > +        //   `UnregisteredDevice::new` taking a `&T::ParentDevice<device::Bound>`.
-> > +        // - By the type invariants of `UnbindGuard`, the parent device is bound for the lifetime
-> > +        //   of this guard.
-> > +        unsafe { T::ParentDevice::from_device(self.dev.as_ref().as_bound()) }
-> > +    }
-> > +}
-> > +
-> > +impl<T: drm::Driver> Drop for UnbindGuard<'_, T> {
-> > +    fn drop(&mut self) {
-> > +        // SAFETY: `self.idx` was returned by a successful `drm_dev_enter()` call, as guaranteed
-> > +        // by the type invariants of `UnbindGuard`.
-> > +        unsafe { bindings::drm_dev_exit(self.idx) };
-> > +    }
-> > +}
-> > +
-> >  impl<T: drm::Driver, C: DeviceContext> Deref for Device<T, C> {
-> >      type Target = T::Data;
-> >  
-> > diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
-> > index 9d06f8c5b2da..751a68bb27e1 100644
-> > --- a/rust/kernel/drm/driver.rs
-> > +++ b/rust/kernel/drm/driver.rs
-> > @@ -187,8 +187,14 @@ unsafe impl<T: Driver> Send for Registration<T> {}
-> >  
-> >  impl<T: Driver> Drop for Registration<T> {
-> >      fn drop(&mut self) {
-> > +        // Use `drm_dev_unplug` rather than `drm_dev_unregister` to ensure that existing
-> > +        // `drm_dev_enter()` critical sections complete before unregistration proceeds. This
-> > +        // is required for the safety of `UnbindGuard`, which relies on the SRCU barrier in
-> > +        // `drm_dev_unplug()` to guarantee that the parent device is still bound within the
-> > +        // critical section.
-> > +        //
-> >          // SAFETY: Safe by the invariant of `ARef<drm::Device<T>>`. The existence of this
-> > -        // `Registration` also guarantees the this `drm::Device` is actually registered.
-> > -        unsafe { bindings::drm_dev_unregister(self.0.as_raw()) };
-> > +        // `Registration` also guarantees that this `drm::Device` is actually registered.
-> > +        unsafe { bindings::drm_dev_unplug(self.0.as_raw()) };
-> >      }
-> >  }
-> > -- 
-> > 2.54.0
-> > 
+url:    https://github.com/intel-lab-lkp/linux/commits/Myeonghun-Pak/drm-meson-clean-up-KMS-polling-on-register-failure/20260525-000807
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260524160657.17802-1-mhun512%40gmail.com
+patch subject: [PATCH] drm/meson: clean up KMS polling on register failure
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20260527/202605271010.KFK2tlLa-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260527/202605271010.KFK2tlLa-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605271010.KFK2tlLa-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/meson/meson_drv.c:363:1: warning: unused label 'uninstall_irq' [-Wunused-label]
+     363 | uninstall_irq:
+         | ^~~~~~~~~~~~~~
+   1 warning generated.
+
+
+vim +/uninstall_irq +363 drivers/gpu/drm/meson/meson_drv.c
+
+8976eeee8de05f1 Neil Armstrong        2020-04-28  180  
+8604889f83381ca Neil Armstrong        2017-05-29  181  static int meson_drv_bind_master(struct device *dev, bool has_components)
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  182  {
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  183  	struct platform_device *pdev = to_platform_device(dev);
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  184  	const struct meson_drm_match_data *match;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  185  	struct meson_drm *priv;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  186  	struct drm_device *drm;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  187  	struct resource *res;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  188  	void __iomem *regs;
+8976eeee8de05f1 Neil Armstrong        2020-04-28  189  	int ret, i;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  190  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  191  	/* Checks if an output connector is available */
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  192  	if (!meson_vpu_has_available_connectors(dev)) {
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  193  		dev_err(dev, "No output connector available\n");
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  194  		return -ENODEV;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  195  	}
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  196  
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  197  	match = of_device_get_match_data(dev);
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  198  	if (!match)
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  199  		return -ENODEV;
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  200  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  201  	drm = drm_dev_alloc(&meson_driver, dev);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  202  	if (IS_ERR(drm))
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  203  		return PTR_ERR(drm);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  204  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  205  	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  206  	if (!priv) {
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  207  		ret = -ENOMEM;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  208  		goto free_drm;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  209  	}
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  210  	drm->dev_private = priv;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  211  	priv->drm = drm;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  212  	priv->dev = dev;
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  213  	priv->compat = match->compat;
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  214  	priv->afbcd.ops = match->afbcd_ops;
+528a25d040bc212 Julien Masson         2019-08-22  215  
+d4cb82aa2e4bc0e Cai Huoqing           2021-08-31  216  	regs = devm_platform_ioremap_resource_byname(pdev, "vpu");
+2c18107b9d58972 Christophe JAILLET    2018-03-12  217  	if (IS_ERR(regs)) {
+2c18107b9d58972 Christophe JAILLET    2018-03-12  218  		ret = PTR_ERR(regs);
+2c18107b9d58972 Christophe JAILLET    2018-03-12  219  		goto free_drm;
+2c18107b9d58972 Christophe JAILLET    2018-03-12  220  	}
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  221  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  222  	priv->io_base = regs;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  223  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  224  	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "hhi");
+01a9e9493fb3f65 Christophe JAILLET    2018-06-11  225  	if (!res) {
+01a9e9493fb3f65 Christophe JAILLET    2018-06-11  226  		ret = -EINVAL;
+01a9e9493fb3f65 Christophe JAILLET    2018-06-11  227  		goto free_drm;
+01a9e9493fb3f65 Christophe JAILLET    2018-06-11  228  	}
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  229  	/* Simply ioremap since it may be a shared register zone */
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  230  	regs = devm_ioremap(dev, res->start, resource_size(res));
+2c18107b9d58972 Christophe JAILLET    2018-03-12  231  	if (!regs) {
+2c18107b9d58972 Christophe JAILLET    2018-03-12  232  		ret = -EADDRNOTAVAIL;
+2c18107b9d58972 Christophe JAILLET    2018-03-12  233  		goto free_drm;
+2c18107b9d58972 Christophe JAILLET    2018-03-12  234  	}
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  235  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  236  	priv->hhi = devm_regmap_init_mmio(dev, regs,
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  237  					  &meson_regmap_config);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  238  	if (IS_ERR(priv->hhi)) {
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  239  		dev_err(&pdev->dev, "Couldn't create the HHI regmap\n");
+2c18107b9d58972 Christophe JAILLET    2018-03-12  240  		ret = PTR_ERR(priv->hhi);
+2c18107b9d58972 Christophe JAILLET    2018-03-12  241  		goto free_drm;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  242  	}
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  243  
+66cae477c380d1a Maxime Jourdan        2018-11-05  244  	priv->canvas = meson_canvas_get(dev);
+2bf6b5b0e374fcc Maxime Jourdan        2019-03-11  245  	if (IS_ERR(priv->canvas)) {
+2bf6b5b0e374fcc Maxime Jourdan        2019-03-11  246  		ret = PTR_ERR(priv->canvas);
+2bf6b5b0e374fcc Maxime Jourdan        2019-03-11  247  		goto free_drm;
+2bf6b5b0e374fcc Maxime Jourdan        2019-03-11  248  	}
+2bf6b5b0e374fcc Maxime Jourdan        2019-03-11  249  
+66cae477c380d1a Maxime Jourdan        2018-11-05  250  	ret = meson_canvas_alloc(priv->canvas, &priv->canvas_id_osd1);
+66cae477c380d1a Maxime Jourdan        2018-11-05  251  	if (ret)
+66cae477c380d1a Maxime Jourdan        2018-11-05  252  		goto free_drm;
+f9a2348196d1ab9 Neil Armstrong        2018-11-06  253  	ret = meson_canvas_alloc(priv->canvas, &priv->canvas_id_vd1_0);
+a695949b2e9bb6b Yao Zi                2024-07-03  254  	if (ret)
+a695949b2e9bb6b Yao Zi                2024-07-03  255  		goto free_canvas_osd1;
+f9a2348196d1ab9 Neil Armstrong        2018-11-06  256  	ret = meson_canvas_alloc(priv->canvas, &priv->canvas_id_vd1_1);
+a695949b2e9bb6b Yao Zi                2024-07-03  257  	if (ret)
+a695949b2e9bb6b Yao Zi                2024-07-03  258  		goto free_canvas_vd1_0;
+f9a2348196d1ab9 Neil Armstrong        2018-11-06  259  	ret = meson_canvas_alloc(priv->canvas, &priv->canvas_id_vd1_2);
+a695949b2e9bb6b Yao Zi                2024-07-03  260  	if (ret)
+a695949b2e9bb6b Yao Zi                2024-07-03  261  		goto free_canvas_vd1_1;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  262  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  263  	priv->vsync_irq = platform_get_irq(pdev, 0);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  264  
+e770f6bf18182bc Christophe JAILLET    2018-03-12  265  	ret = drm_vblank_init(drm, 1);
+e770f6bf18182bc Christophe JAILLET    2018-03-12  266  	if (ret)
+a695949b2e9bb6b Yao Zi                2024-07-03  267  		goto free_canvas_vd1_2;
+e770f6bf18182bc Christophe JAILLET    2018-03-12  268  
+8976eeee8de05f1 Neil Armstrong        2020-04-28  269  	/* Assign limits per soc revision/package */
+8976eeee8de05f1 Neil Armstrong        2020-04-28  270  	for (i = 0 ; i < ARRAY_SIZE(meson_drm_soc_attrs) ; ++i) {
+8976eeee8de05f1 Neil Armstrong        2020-04-28  271  		if (soc_device_match(meson_drm_soc_attrs[i].attrs)) {
+8976eeee8de05f1 Neil Armstrong        2020-04-28  272  			priv->limits = &meson_drm_soc_attrs[i].limits;
+8976eeee8de05f1 Neil Armstrong        2020-04-28  273  			break;
+8976eeee8de05f1 Neil Armstrong        2020-04-28  274  		}
+8976eeee8de05f1 Neil Armstrong        2020-04-28  275  	}
+8976eeee8de05f1 Neil Armstrong        2020-04-28  276  
+6848c291a54f8cd Thomas Zimmermann     2021-04-12  277  	/*
+6848c291a54f8cd Thomas Zimmermann     2021-04-12  278  	 * Remove early framebuffers (ie. simplefb). The framebuffer can be
+6848c291a54f8cd Thomas Zimmermann     2021-04-12  279  	 * located anywhere in RAM
+6848c291a54f8cd Thomas Zimmermann     2021-04-12  280  	 */
+736db96696b6232 Thomas Zimmermann     2024-09-30  281  	ret = aperture_remove_all_conflicting_devices(meson_driver.name);
+6848c291a54f8cd Thomas Zimmermann     2021-04-12  282  	if (ret)
+a695949b2e9bb6b Yao Zi                2024-07-03  283  		goto free_canvas_vd1_2;
+e3de0aa6c9afdca Maxime Jourdan        2018-12-10  284  
+bd9ff7b521a647a Simona Vetter         2020-03-23  285  	ret = drmm_mode_config_init(drm);
+bd9ff7b521a647a Simona Vetter         2020-03-23  286  	if (ret)
+a695949b2e9bb6b Yao Zi                2024-07-03  287  		goto free_canvas_vd1_2;
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  288  	drm->mode_config.max_width = 3840;
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  289  	drm->mode_config.max_height = 2160;
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  290  	drm->mode_config.funcs = &meson_mode_config_funcs;
+ce0210c12433031 Neil Armstrong        2019-01-14  291  	drm->mode_config.helper_private	= &meson_mode_config_helpers;
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  292  
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  293  	/* Hardware Initialization */
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  294  
+09762525d6eafb3 Neil Armstrong        2017-12-06  295  	meson_vpu_init(priv);
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  296  	meson_venc_init(priv);
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  297  	meson_vpp_init(priv);
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  298  	meson_viu_init(priv);
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  299  	if (priv->afbcd.ops) {
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  300  		ret = priv->afbcd.ops->init(priv);
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  301  		if (ret)
+a695949b2e9bb6b Yao Zi                2024-07-03  302  			goto free_canvas_vd1_2;
+d1b5e41e13a7e9b Neil Armstrong        2019-10-21  303  	}
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  304  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  305  	/* Encoder Initialization */
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  306  
+1a9e51bef89af0f Martin Blumenstingl   2024-02-18  307  	ret = meson_encoder_cvbs_probe(priv);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  308  	if (ret)
+fa747d75f65d1b1 Martin Blumenstingl   2021-12-31  309  		goto exit_afbcd;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  310  
+8604889f83381ca Neil Armstrong        2017-05-29  311  	if (has_components) {
+6a044642988b5f8 Neil Armstrong        2023-05-30  312  		ret = component_bind_all(dev, drm);
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  313  		if (ret) {
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  314  			dev_err(drm->dev, "Couldn't bind all components\n");
+6a044642988b5f8 Neil Armstrong        2023-05-30  315  			/* Do not try to unbind */
+6a044642988b5f8 Neil Armstrong        2023-05-30  316  			has_components = false;
+fa747d75f65d1b1 Martin Blumenstingl   2021-12-31  317  			goto exit_afbcd;
+a41e82e6c4575b6 Neil Armstrong        2017-04-04  318  		}
+8604889f83381ca Neil Armstrong        2017-05-29  319  	}
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  320  
+1a9e51bef89af0f Martin Blumenstingl   2024-02-18  321  	ret = meson_encoder_hdmi_probe(priv);
+e67f6037ae1be34 Neil Armstrong        2021-10-20  322  	if (ret)
+6a044642988b5f8 Neil Armstrong        2023-05-30  323  		goto exit_afbcd;
+e67f6037ae1be34 Neil Armstrong        2021-10-20  324  
+42dcf15f901c822 Neil Armstrong        2023-05-30  325  	if (meson_vpu_is_compatible(priv, VPU_COMPATIBLE_G12A)) {
+1a9e51bef89af0f Martin Blumenstingl   2024-02-18  326  		ret = meson_encoder_dsi_probe(priv);
+42dcf15f901c822 Neil Armstrong        2023-05-30  327  		if (ret)
+42dcf15f901c822 Neil Armstrong        2023-05-30  328  			goto exit_afbcd;
+42dcf15f901c822 Neil Armstrong        2023-05-30  329  	}
+42dcf15f901c822 Neil Armstrong        2023-05-30  330  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  331  	ret = meson_plane_create(priv);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  332  	if (ret)
+6a044642988b5f8 Neil Armstrong        2023-05-30  333  		goto exit_afbcd;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  334  
+f9a2348196d1ab9 Neil Armstrong        2018-11-06  335  	ret = meson_overlay_create(priv);
+f9a2348196d1ab9 Neil Armstrong        2018-11-06  336  	if (ret)
+6a044642988b5f8 Neil Armstrong        2023-05-30  337  		goto exit_afbcd;
+f9a2348196d1ab9 Neil Armstrong        2018-11-06  338  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  339  	ret = meson_crtc_create(priv);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  340  	if (ret)
+6a044642988b5f8 Neil Armstrong        2023-05-30  341  		goto exit_afbcd;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  342  
+65a969655cb91fa Thomas Zimmermann     2021-07-06  343  	ret = request_irq(priv->vsync_irq, meson_irq, 0, drm->driver->name, drm);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  344  	if (ret)
+6a044642988b5f8 Neil Armstrong        2023-05-30  345  		goto exit_afbcd;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  346  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  347  	drm_mode_config_reset(drm);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  348  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  349  	drm_kms_helper_poll_init(drm);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  350  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  351  	platform_set_drvdata(pdev, priv);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  352  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  353  	ret = drm_dev_register(drm, 0);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  354  	if (ret)
+e31803f51415af4 Myeonghun Pak         2026-05-25  355  		goto uninstall_poll;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  356  
+57a03512c49a2e3 Thomas Zimmermann     2024-09-24  357  	drm_client_setup(drm, NULL);
+efbb9df91e03b31 Noralf Trønnes        2018-09-08  358  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  359  	return 0;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  360  
+e31803f51415af4 Myeonghun Pak         2026-05-25  361  uninstall_poll:
+e31803f51415af4 Myeonghun Pak         2026-05-25  362  	drm_kms_helper_poll_fini(drm);
+2d8f92897ad816f Jean-Philippe Brucker 2019-03-22 @363  uninstall_irq:
+65a969655cb91fa Thomas Zimmermann     2021-07-06  364  	free_irq(priv->vsync_irq, drm);
+fa747d75f65d1b1 Martin Blumenstingl   2021-12-31  365  exit_afbcd:
+fa747d75f65d1b1 Martin Blumenstingl   2021-12-31  366  	if (priv->afbcd.ops)
+fa747d75f65d1b1 Martin Blumenstingl   2021-12-31  367  		priv->afbcd.ops->exit(priv);
+a695949b2e9bb6b Yao Zi                2024-07-03  368  free_canvas_vd1_2:
+a695949b2e9bb6b Yao Zi                2024-07-03  369  	meson_canvas_free(priv->canvas, priv->canvas_id_vd1_2);
+a695949b2e9bb6b Yao Zi                2024-07-03  370  free_canvas_vd1_1:
+a695949b2e9bb6b Yao Zi                2024-07-03  371  	meson_canvas_free(priv->canvas, priv->canvas_id_vd1_1);
+a695949b2e9bb6b Yao Zi                2024-07-03  372  free_canvas_vd1_0:
+a695949b2e9bb6b Yao Zi                2024-07-03  373  	meson_canvas_free(priv->canvas, priv->canvas_id_vd1_0);
+a695949b2e9bb6b Yao Zi                2024-07-03  374  free_canvas_osd1:
+a695949b2e9bb6b Yao Zi                2024-07-03  375  	meson_canvas_free(priv->canvas, priv->canvas_id_osd1);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  376  free_drm:
+dcacf65139e3def Christophe JAILLET    2018-03-12  377  	drm_dev_put(drm);
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  378  
+42dcf15f901c822 Neil Armstrong        2023-05-30  379  	meson_encoder_dsi_remove(priv);
+6a044642988b5f8 Neil Armstrong        2023-05-30  380  	meson_encoder_hdmi_remove(priv);
+6a044642988b5f8 Neil Armstrong        2023-05-30  381  	meson_encoder_cvbs_remove(priv);
+6a044642988b5f8 Neil Armstrong        2023-05-30  382  
+6a044642988b5f8 Neil Armstrong        2023-05-30  383  	if (has_components)
+6a044642988b5f8 Neil Armstrong        2023-05-30  384  		component_unbind_all(dev, drm);
+6a044642988b5f8 Neil Armstrong        2023-05-30  385  
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  386  	return ret;
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  387  }
+bbbe775ec5b5dac Neil Armstrong        2016-11-10  388  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
