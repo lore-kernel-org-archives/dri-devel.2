@@ -4,57 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA66FCD6E45
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 14:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEE23CD6E41
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 14:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03A5410E81C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02C9C10E819;
 	Wed, 27 May 2026 14:04:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ZvGfevqs";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="F0TOpfs/";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADD3210E577;
- Wed, 27 May 2026 14:04:20 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gQWZT4ly4z9tvF;
- Wed, 27 May 2026 16:04:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1779890657;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Wd5htzRfLBGwibwUQk6XgZcfpjdhvIy1tNh3HyG0SI8=;
- b=ZvGfevqsj0s26ZioqgmqYP/Dr7HmLsJiRSxfUCYpHBdnDEc8SaLNc4nRt2whAxk1UAeJFC
- m8Wwig3odlhUEQ1gCAI3d52SlUvPB4/sGlQZ3lVVbnYvWr5Hw79vYK4pZrLCDa4m//Mbt1
- 0ykyZ3z2zohSGAeU2UjP6gwCXQyhz8EVwSqeMfTxe8tWhx74LOkalUXrEFL07Qms94tctw
- hjFIwHb7WFCvYFonA6MxhBM4VmKTfJkky+y0ULRgsp7XXhYqVaMA5CtzevTNJ74W4C3zlN
- HjOlCVLLP3oABKNzLkdiDkxjPtTVPtuNTnxddJag+ye42fCRHIK8zdLF7FDrsg==
-Message-ID: <ec64120b-c5e7-4622-9d21-84573d363443@mailbox.org>
-Date: Wed, 27 May 2026 16:04:12 +0200
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B2C810E577
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 14:04:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779890651; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=FpnMQEhLNnuKwfoDAX9zUZ/P0hzDFmadDjhpCI+MyddxwCeiiSfvG48n8YuVuUBqILFaqZi3Ia++JdbYWH2CFAxPomKc7z08cdNCkhqmFX5yDPoSfW5v4USops/dB5slOzRH4CB324+9XkymoXClVxlFvnIizFlq85KrkRbAFVE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779890651;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=AePNlg/tPONqMp07nxRxcyXDUmpSdhz9BPkGf90Crqs=; 
+ b=PVaGHNDOLa30CAPjdaV19T7VzoquHX1oa6nAq385aNSpMMS9o7HrToQ8IPdnAkScZd5bjz0/6Gp+s0vKAxa6KWOqyRMieeZxua2BopHg2t2fhd5gIXEzHhTG5AmI5o2oFILZrQ2LoRK3KG3OG7U+TevOJnHHhES+fYEIRP9gjsg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779890651; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=AePNlg/tPONqMp07nxRxcyXDUmpSdhz9BPkGf90Crqs=;
+ b=F0TOpfs/GgObbMlbXejubESD84tHDGYkalcfjte1kut13LlZ4bGIu6Z3XEIAwPRD
+ LXT9TfpG3J/1Vg57WFtaPk5xsH5S5af65BhaMXHtDYoAKSyUX2OQOWEx23O9rf6ApcU
+ sEzOj+7pp9/SayyYtMiA5P6X06JOBONFJrSQWZhk=
+Received: by mx.zohomail.com with SMTPS id 1779890650636147.08368009246385;
+ Wed, 27 May 2026 07:04:10 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Wed, 27 May 2026 16:03:43 +0200
+Subject: [PATCH v4 2/4] drm/scdc-helper: Add scdc_status debugfs entry
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/9] drm: Limit DRM_IOCTL_WAIT_VBLANK to vblank interrupts
-To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
- airlied@gmail.com, pekka.paalanen@collabora.com, jadahl@gmail.com,
- contact@emersion.fr, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
-References: <20260515120916.333614-1-tzimmermann@suse.de>
- <b5d03921-1e6f-4c4f-900e-fc9e28222176@mailbox.org>
- <cb461424-e4c1-4d2c-934b-ffd7374e2a56@mailbox.org>
- <4a7c2f87-60fd-458c-a579-a36799b86557@suse.de>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <4a7c2f87-60fd-458c-a579-a36799b86557@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: rqxx3f1fpz8x483rfo6ubtay19g8ggmf
-X-MBO-RS-ID: b673024b871ac3e9b15
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260527-scdc-link-health-v4-2-622ea40a1f59@collabora.com>
+References: <20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com>
+In-Reply-To: <20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Daniel Stone <daniel@fooishbar.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,58 +74,333 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/27/26 15:07, Thomas Zimmermann wrote:
-> Am 15.05.26 um 18:56 schrieb Michel Dänzer:
->> On 5/15/26 17:12, Michel Dänzer wrote:
->>> On 5/15/26 13:55, Thomas Zimmermann wrote:
->>>> DRM's WAIT_VBLANK ioctl synchronizes user-space clients to display
->>>> refresh. This is meaningless with vblank timers, which run unrelated
->>>> to the hardware's vblank.
->>>>
->>>> Disable the ioctl for simulated vblanks. Set DRM_VBLANK_FLAG_SIMULATED
->>>> for CRTCs with simulated vblank events in all such drivers. The vblank
->>>> timers of these devices still rate-limit the number of page-flip events
->>>> to match the display refresh.
->>>>
->>>> According to maintainers, user-space compositors do not require the ioctl
->>>> for rate-limitting display output. Weston and Kwin rely on page-flip
->>>> events. Mutter uses and internal timer to limit the number of display
->>>> updates per second.
->>> Actually mutter fundamentally relies on atomic commit completion events for that, same as Weston & KWin. Mutter uses the WAIT_VBLANK ioctl only for minimizing input → output latency (which can hide issues when completion of atomic commits isn't properly throttled).
->>>
->>>
->>> (Just a side not on the cover letter, no objections to the patches themselves)
->> After more discussion on IRC, I have some concerns.
->>
->>
->> The big one first: For drivers with no strict refresh cycle (i.e. an atomic commit can take effect more or less anytime after at least one "refresh cycle" has passed since the last one), does this change really make sense / what's the actual benefit?
-> 
-> I don't have a strong opinion on that matter. I just think we should clarify the meaning of these ioctls.
-> 
-> Timing page flip is currently not supported on any driver without hardware vblank IRQ or a vblank timer. The situation might vary among compositors, but there have been plenty of reports of animation and frame rates either being too high or too low.
+SCDC provides status information on the current display link. At the
+very least, it may be useful to expose this info through debugfs.
 
-As discussed on IRC, that's due to insufficient throttling of atomic commits in the kernel, not directly related to the functionality in this series.
+Add a debugfs entry for it under the connector, which displays a few
+more details parsed out of the SCDC registers. A new
+drm_scdc_debugfs_init function can be called by the connector
+implementation to initialise the debugfs file.
 
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/display/drm_scdc_helper.c | 237 ++++++++++++++++++++++++++++++
+ include/drm/display/drm_scdc_helper.h     |  32 ++++
+ 2 files changed, 269 insertions(+)
 
-> So I think we should rollout vblank timers for all drivers without hardware vblank IRQ.
-
-I'm not arguing against that. It doesn't necessarily invalidate my concern though.
-
-
-> Right now, vblank timers act like a vblank IRQ in these ioctls. That's a convenient position for user space.
-> 
-> But we don't really sync anything with hardware here, so the alternate proposal is to not support them.  This also appears to be the original intention of these ioctls.
-
-Speaking as the creator of the DRM_IOCTL_WAIT_VBLANK ioctl, I'm afraid it's not that simple. While it's true that the ioctl was originally only available if backed by corresponding HW & driver support, that's mostly because vblank timers and the scenarios which motivated them weren't really a thing until much later though, not an explicit intention at the time.
-
-I created it to give user space information about the display refresh cycle timing, and to allow it to synchronize to that. This seems like it could be useful even with vblank timers. At least if this ioctl and atomic commits are properly integrated, similar to how they are with a proper HW display refresh cycle, which I'm not sure is currently the case though.
-
-
-> Vblank timers would just limit the internal page-flip rate, but nothing else. That's the more defensive approach.
-
-If those two things aren't properly integrated though, then this might indeed be less bad than the status quo.
-
+diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
+index 8403f2390ab6..7739fb5e77a1 100644
+--- a/drivers/gpu/drm/display/drm_scdc_helper.c
++++ b/drivers/gpu/drm/display/drm_scdc_helper.c
+@@ -24,11 +24,14 @@
+ #include <linux/export.h>
+ #include <linux/i2c.h>
+ #include <linux/slab.h>
++#include <linux/debugfs.h>
+ #include <linux/delay.h>
++#include <linux/overflow.h>
+ 
+ #include <drm/display/drm_scdc_helper.h>
+ #include <drm/drm_connector.h>
+ #include <drm/drm_device.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_print.h>
+ 
+ /**
+@@ -55,6 +58,11 @@
+ 
+ #define SCDC_I2C_SLAVE_ADDRESS 0x54
+ 
++struct scdc_debugfs_priv {
++	struct drm_connector *connector;
++	struct drm_scdc_state state;
++};
++
+ /**
+  * drm_scdc_read - read a block of data from SCDC
+  * @adapter: I2C controller
+@@ -276,3 +284,232 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
+ 	return true;
+ }
+ EXPORT_SYMBOL(drm_scdc_set_high_tmds_clock_ratio);
++
++/**
++ * drm_scdc_read_status0_flags - Read SCDC "Status Flags" Register
++ * @connector: pointer to &struct drm_connector to issue the scdc request on
++ * @flags: pointer to the caller's &struct drm_scdc_status_flags to output to
++ *
++ * Reads the SCDC Status Flags 0 register, and outputs its contents to the
++ * destination @flags. Contents of @flags are only valid if function returns 0.
++ *
++ * Returns: %0 on success, negative errno on error.
++ */
++int drm_scdc_read_status0_flags(struct drm_connector *connector,
++				struct drm_scdc_status_flags *flags)
++{
++	int ret;
++	u8 val;
++
++	ret = drm_scdc_writeb(connector->ddc, SCDC_UPDATE_0, SCDC_STATUS_UPDATE);
++	if (ret)
++		return ret;
++
++	ret = drm_scdc_readb(connector->ddc, SCDC_STATUS_FLAGS_0, &val);
++	if (ret)
++		return ret;
++
++	flags->clock_detected = val & SCDC_CLOCK_DETECT;
++	flags->ch0_locked = val & SCDC_CH0_LOCK;
++	flags->ch1_locked = val & SCDC_CH1_LOCK;
++	flags->ch2_locked = val & SCDC_CH2_LOCK;
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_scdc_read_status0_flags);
++
++/**
++ * drm_scdc_read_error_counters - Read and clear SCDC error counters
++ * @connector: pointer to &struct drm_connector to issue the scdc request on
++ * @counter: Caller's u16 array with 3 elements to write the counter values into
++ *
++ * Read the SCDC channel error counters. If the count of channel *n* is valid,
++ * write it into counter[n]. Otherwise, set counter[n] to 0. Reads all counters
++ * in one read chunk, then clears every counter, as is mandated.
++ *
++ * Returns: %0 on success, negative errno on error.
++ */
++int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[3])
++{
++	u8 buf[7] = {};
++	int ret;
++	u8 sum = 0;
++	int i;
++
++	ret = drm_scdc_writeb(connector->ddc, SCDC_UPDATE_0, SCDC_CED_UPDATE);
++	if (ret)
++		return ret;
++
++	ret = drm_scdc_read(connector->ddc, SCDC_ERR_DET_0_L, buf, ARRAY_SIZE(buf));
++	if (ret)
++		return ret;
++
++	/*
++	 * Verify the "checksum", i.e. sum up everything including the checksum
++	 * register as a wrapping unsigned 8-bit addition and verify it's 0.
++	 */
++	for (i = 0; i < ARRAY_SIZE(buf); i++)
++		sum = wrapping_add(u8, sum, buf[i]);
++
++	if (sum)
++		return -EPROTO;
++
++	for (i = 0; i < ARRAY_SIZE(buf) - 1; i += 2) {
++		if (buf[i + 1] & SCDC_CHANNEL_VALID)
++			counter[i / 2] = buf[i] | (buf[i + 1] & ~SCDC_CHANNEL_VALID) << 8;
++		else
++			counter[i / 2] = 0;
++
++		buf[i] = 0;
++		buf[i + 1] = 0;
++	}
++	buf[ARRAY_SIZE(buf) - 1] = 0;
++
++	return drm_scdc_write(connector->ddc, SCDC_ERR_DET_0_L, buf, ARRAY_SIZE(buf));
++}
++EXPORT_SYMBOL(drm_scdc_read_error_counters);
++
++/**
++ * drm_scdc_read_state - Update state from SCDC
++ * @connector: pointer to a &struct drm_connector on which to operate on
++ * @state: pointer to a &struct drm_scdc_state to fill
++ *
++ * Reads update flags from SCDC, and updates the parts of @state that SCDC
++ * claims have changed, as well as populating those where such a distinction
++ * can't be made.
++ *
++ * Returns: %0 on success, negative errno on failure.
++ */
++int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *state)
++{
++	u8 upd_flags[2] = {};
++	struct i2c_adapter *ddc;
++	struct drm_scdc *scdc;
++	int ret;
++	u8 val;
++
++	if (!state || !connector)
++		return -ENODEV;
++
++	scdc = &connector->display_info.hdmi.scdc;
++	ddc = connector->ddc;
++
++	if (!scdc->supported)
++		return -EOPNOTSUPP;
++
++	ret = drm_scdc_readb(ddc, SCDC_TMDS_CONFIG, &val);
++	if (ret)
++		return ret;
++
++	state->scrambling_enabled = val & SCDC_SCRAMBLING_ENABLE;
++	state->tmds_bclk_x40 = val & SCDC_TMDS_BIT_CLOCK_RATIO_BY_40;
++
++	state->scrambling_detected = drm_scdc_get_scrambling_status(connector);
++
++	ret = drm_scdc_read(ddc, SCDC_UPDATE_0, &upd_flags, sizeof(upd_flags));
++	if (ret)
++		return ret;
++
++	if (upd_flags[0] & SCDC_STATUS_UPDATE) {
++		ret = drm_scdc_read_status0_flags(connector, &state->stf);
++		if (ret)
++			return ret;
++	}
++
++	if (upd_flags[0] & SCDC_CED_UPDATE) {
++		ret = drm_scdc_read_error_counters(connector, state->error_count);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_scdc_read_state);
++
++#define scdc_print_str(_f, key, s) \
++	(seq_printf((_f), "%-30s: %s\n", (key), (s)))
++#define scdc_print_flag(_f, key, val) \
++	(scdc_print_str((_f), (key), str_yes_no((val))))
++#define scdc_print_dec(_f, key, val) \
++	(seq_printf((_f), "%-30s: %d\n", (key), (val)))
++
++static int scdc_status_show(struct seq_file *m, void *data)
++{
++	struct scdc_debugfs_priv *priv = m->private;
++	struct drm_scdc_state *st = &priv->state;
++	struct drm_connector *connector = priv->connector;
++	struct drm_scdc *scdc = &connector->display_info.hdmi.scdc;
++	int ret;
++
++	drm_connector_get(connector);
++
++	if (connector->status != connector_status_connected) {
++		ret = -ENODEV;
++		goto err_conn_put;
++	}
++
++	scdc_print_flag(m, "SCDC Supported", scdc->supported);
++	if (!scdc->supported) {
++		ret = 0;
++		goto err_conn_put;
++	}
++
++	scdc_print_flag(m, "Sink Read Request Capable", scdc->read_request);
++	scdc_print_flag(m, "Scrambling Supported", scdc->scrambling.supported);
++	scdc_print_flag(m, "Low Rate Scrambling Supported", scdc->scrambling.low_rates);
++
++	ret = drm_scdc_read_state(connector, st);
++	drm_connector_put(connector);
++	if (ret)
++		return ret;
++
++	scdc_print_flag(m, "Scrambling Enabled", st->scrambling_enabled);
++	scdc_print_flag(m, "Scrambling Detected", st->scrambling_detected);
++
++	if (st->tmds_bclk_x40)
++		scdc_print_str(m, "TMDS Bit Clock Ratio", "1/40");
++	else
++		scdc_print_str(m, "TMDS Bit Clock Ratio", "1/10");
++
++	scdc_print_flag(m, "Clock Detected", st->stf.clock_detected);
++	scdc_print_flag(m, "Channel 0 Locked", st->stf.ch0_locked);
++	scdc_print_flag(m, "Channel 1 Locked", st->stf.ch1_locked);
++	scdc_print_flag(m, "Channel 2 Locked", st->stf.ch2_locked);
++
++	scdc_print_dec(m, "Channel 0 Errors", st->error_count[0]);
++	scdc_print_dec(m, "Channel 1 Errors", st->error_count[1]);
++	scdc_print_dec(m, "Channel 2 Errors", st->error_count[2]);
++
++	return 0;
++
++err_conn_put:
++	drm_connector_put(connector);
++
++	return ret;
++}
++DEFINE_SHOW_ATTRIBUTE(scdc_status);
++
++/**
++ * drm_scdc_debugfs_init - Initialize scdc files in connector debugfs
++ * @connector: pointer to &struct drm_connector to operate on
++ * @root: debugfs &struct dentry for the debugfs root of @connector
++ *
++ * Creates SCDC-related debugfs files for @connector. Must be called after
++ * @root is already created.
++ */
++void drm_scdc_debugfs_init(struct drm_connector *connector, struct dentry *root)
++{
++	struct scdc_debugfs_priv *priv;
++
++	if (!root || !connector)
++		return;
++
++	priv = drmm_kzalloc(connector->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return;
++
++	priv->connector = connector;
++
++	debugfs_create_file("scdc_status", 0444, root, priv, &scdc_status_fops);
++}
++EXPORT_SYMBOL(drm_scdc_debugfs_init);
+diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
+index e9ccaeba56dd..3b3a4e0e48ba 100644
+--- a/include/drm/display/drm_scdc_helper.h
++++ b/include/drm/display/drm_scdc_helper.h
+@@ -30,6 +30,31 @@
+ 
+ struct drm_connector;
+ struct i2c_adapter;
++struct dentry;
++
++struct drm_scdc_status_flags {
++	/* Status Register 0 */
++	bool clock_detected;
++	bool ch0_locked;
++	bool ch1_locked;
++	bool ch2_locked;
++};
++
++struct drm_scdc_state {
++	/** @stf: contents of the status flag registers */
++	struct drm_scdc_status_flags stf;
++	/** @scramling_enabled: true if TMDS scrambling is on */
++	bool scrambling_enabled;
++	/** @scrambling_detected: true if the sink actually detected scrambling */
++	bool scrambling_detected;
++	/**
++	 * @tmds_bclk_x40: true if TMDS bit period is 1/40th of the TMDS
++	 * clock period, false if it's 1/10th of the clock period.
++	 */
++	bool tmds_bclk_x40;
++	/** @error_count: character error counts for each channel */
++	u16 error_count[3];
++};
+ 
+ int drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
+ 		  size_t size);
+@@ -77,4 +102,11 @@ bool drm_scdc_get_scrambling_status(struct drm_connector *connector);
+ bool drm_scdc_set_scrambling(struct drm_connector *connector, bool enable);
+ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector, bool set);
+ 
++int drm_scdc_read_status0_flags(struct drm_connector *connector,
++				struct drm_scdc_status_flags *flags);
++int drm_scdc_read_state(struct drm_connector *connector,
++			struct drm_scdc_state *state);
++int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[3]);
++void drm_scdc_debugfs_init(struct drm_connector *connector, struct dentry *root);
++
+ #endif
 
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+2.54.0
+
