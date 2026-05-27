@@ -4,151 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D568CD5BDE
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 08:53:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 826FCCD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 08:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2A6310E755;
-	Wed, 27 May 2026 08:53:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C91BC10E1AD;
+	Wed, 27 May 2026 08:58:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="wrTu4DF1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LjJ2spsM";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wrTu4DF1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LjJ2spsM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rWPg3IQB";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2067E10E167
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 08:53:03 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C12FD6A806;
- Wed, 27 May 2026 08:53:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779871981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fHr5XrSud6pNgAeA10u5f9+hSZqjuGHLz/WCO58vfJs=;
- b=wrTu4DF1GXjglPhGleOwGYGEnxgqYF8TkJIOmSWNecFqF15B+8gaAZt5jF8vPmpacfGD8g
- 5CzeQl4lSdNYeHIKXLHBWm+YA8SBx9zQsftG/OoNdsDNKRfP36cAcn3EQ3FHS9iYB0YWTW
- DbwSLUoCTGx1tiRl/sZCYjwl36caYls=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779871981;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fHr5XrSud6pNgAeA10u5f9+hSZqjuGHLz/WCO58vfJs=;
- b=LjJ2spsMrhtxXDiFCcdM23trVrGzubvJbyHSkmMVeRBlwZol82YzZnlRsea0XsOZaxgGyA
- jVQmCfyci6GeWyCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779871981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fHr5XrSud6pNgAeA10u5f9+hSZqjuGHLz/WCO58vfJs=;
- b=wrTu4DF1GXjglPhGleOwGYGEnxgqYF8TkJIOmSWNecFqF15B+8gaAZt5jF8vPmpacfGD8g
- 5CzeQl4lSdNYeHIKXLHBWm+YA8SBx9zQsftG/OoNdsDNKRfP36cAcn3EQ3FHS9iYB0YWTW
- DbwSLUoCTGx1tiRl/sZCYjwl36caYls=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779871981;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fHr5XrSud6pNgAeA10u5f9+hSZqjuGHLz/WCO58vfJs=;
- b=LjJ2spsMrhtxXDiFCcdM23trVrGzubvJbyHSkmMVeRBlwZol82YzZnlRsea0XsOZaxgGyA
- jVQmCfyci6GeWyCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BC7065A747;
- Wed, 27 May 2026 08:53:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xXhJLOywFmqMDAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 08:53:00 +0000
-Message-ID: <ec0fcc2e-b767-4509-b9ae-174c9941796e@suse.de>
-Date: Wed, 27 May 2026 10:53:00 +0200
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E246910E1AD
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 08:58:01 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-83538fbd0b2so4677775b3a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 01:58:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779872281; x=1780477081; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pipUftR0EEqahSAIWXG9QxR/sTyw2bQdCF35/iM0edM=;
+ b=rWPg3IQBgVaZo+ikoRnx8iESGDPNqbdN6XncBeMcGhOrY66Xro93azwsXrf9g1nRPU
+ NtL0VYZiMEsSsVG0V/5f3bRIy3EgfDZy7qEO18P8y6i/biYFi7c1+akFP9BGM8JJcHRA
+ j2o6T/C1Oc/64p/aA369/72CkU1pnjjSxC+bosMkdINrkdalwfTh6SUrcTC42Rm7a8Bu
+ YKyvUn+P/REdEfZRQdZfsAM3rs/VO6JtI6aNkoX6NnGFwhx3OQarBOJW3Zk2KABJXHXY
+ pyf/0sJEEx7GA8lj0txNGQrqfDjvj9Wy6OXJItVx7RjfI2LvBG+8bLP5Xa7WB8RrF1ba
+ 9NCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779872281; x=1780477081;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pipUftR0EEqahSAIWXG9QxR/sTyw2bQdCF35/iM0edM=;
+ b=lwKEWhlirdqrHEWzem3V7X8SXADQ0T2eTtpHzVUoyVgI55O5oMkjnA79xxwQ/r5r7g
+ X3vHt+FozqWs/5adAF995Fy4K2GhBlSGTlMK7lnF7nVkpQh5Rkg1quAAnL2tjQ+Al6h3
+ jG1cg1JHksKkWEj4ufukyYZxznoFdsdkAmt3sDzWOwLzJUt4VLw7sjYfUIADirWO+FBm
+ eWzovtgz++RJzJKXiLEJtxFdrpxdYCqJoEWEG2pxkmjdO779WtGKBMHzU1ypFINivq5g
+ OEmOEKxe42KpaxdrBCPMWnmB5o39qF6AhFLbMo7rFZL4k+RpRSoie8lgfO+MsSKbBmMZ
+ Eg9g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8Y5ClFu3E9FEg0P0SaK+RGDFpjmYBjpMR6N/k3lYc0005SNCcLTbG7uH2AI7yfjgyiZ5WP6hIQ1mk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyyL4PVPvF/Wm6JcaffWwXwO2WzL6nxPxgkH/nKtWXSetL8iW7a
+ pjIpjJeb30Ji2reaSYAlHlGeJEs/FJTPAK1ulF+P4q9hN7TqYL2TXBTg
+X-Gm-Gg: Acq92OEjrYJjZ2DixOXFulrpFIScoKS+fp1FtdCd/ubPt+ogG0QhQI666iCIvsQSqNN
+ R/EeR9y4OANxEXJkSirsSbCIeS7CE3M5GtvBptJznAN3qxsx4xlBZq8q3+LA05PwjxPWytt+ukK
+ H4ngnGdKz43oCQqJNpSPeeceSrYyYiUquYNiuG6bbmjqsFPXQkyIsCGIECRYU1p2nGJ3nwmH2mT
+ gwDVw5KZX1TBF7fiiPlnm9n6+seQOjv0TGNwtVydN+X0wqbVFRtcniyhU7xI8Sg6rMtp797czo0
+ mApQBQlHy52TsNLIC9SowJGm4PNZ3pxeyIOzjN4Uap2FtA2VUtiBwMjODxlSHReJj9MKIkAxpV5
+ O6Qx9cndpLcVNVnyMDVZox6uPZeX03O/JYaOouJjqontkcDOXvD/OOqMBno9hvbls3pkrl7C0iW
+ daj2g73dT9fDqeeNfpFNteq6aZjdkCUXL35bQ2z84N7kGlSgrU
+X-Received: by 2002:a05:6a00:2d1b:b0:835:3730:571e with SMTP id
+ d2e1a72fcca58-8415f3a944amr20380235b3a.5.1779872281286; 
+ Wed, 27 May 2026 01:58:01 -0700 (PDT)
+Received: from test-HP-Desktop-Pro-G3.. ([103.218.174.23])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-841d70b855csm1651909b3a.38.2026.05.27.01.57.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 May 2026 01:58:00 -0700 (PDT)
+From: Sudarshan Shetty <tessolveupstream@gmail.com>
+To: andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, alexander.stein@ew.tq-group.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Sudarshan Shetty <tessolveupstream@gmail.com>
+Subject: [PATCH v4 0/2] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
+ stable LVDS output
+Date: Wed, 27 May 2026 14:27:34 +0530
+Message-Id: <20260527085736.920390-1-tessolveupstream@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/19] drm/atomic: Document atomic commit lifetime
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
- Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
- Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-References: <20260526-drm-mode-config-init-v6-0-852346394200@kernel.org>
- <20260526-drm-mode-config-init-v6-1-852346394200@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260526-drm-mode-config-init-v6-1-852346394200@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- TAGGED_RCPT(0.00)[renesas]; RCPT_COUNT_TWELVE(0.00)[38];
- TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLyhjdboxbrjk5hnijtjs4kbm6)];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_SOME(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,138 +93,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi all,
+ 
+This patch refines dual-link LVDS support in the SN65DSI83/84
+DSI-to-LVDS bridge driver.
+ 
+Recent upstream changes added support for dual-link LVDS timing
+adjustments and related fixes:
+ - Halving horizontal timing parameters
+ - Test pattern handling adjustments
+ - DSI clock range correction
+ 
+However, during validation on our platform, LVDS output remained
+unstable for certain panels due to the DSI mode configuration.
+ 
+Specifically, the following flags were found to cause issues:
+ 
+ - MIPI_DSI_MODE_VIDEO_NO_HFP
+ - MIPI_DSI_MODE_VIDEO_NO_HBP
+ 
+These disable transmission of horizontal front porch (HFP) and
+back porch (HBP) timings over the DSI link. The SN65DSI bridge
+relies on complete horizontal timing information to reconstruct
+LVDS timings, and omitting these parameters results in incorrect
+or unstable output.
 
+Reference:
+SN65DSI84 Datasheet, Section 7.4.7 (page 20):
+https://www.ti.com/lit/ds/symlink/sn65dsi84.pdf?ts=1776924088430&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FSN65DSI84
 
-Am 26.05.26 um 18:46 schrieb Maxime Ripard:
-> How drm_atomic_commit and the various entity structures are allocated
-> and freed isn't really trivial. Document it.
->
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Additionally:
+ 
+ - MIPI_DSI_MODE_VIDEO_BURST
+ 
+While supported by the hardware, burst mode operation depends on
+continuous clocking from the DSI host. In practice, this may lead
+to instability depending on the host controller implementation,
+as the link may transition to LP mode between bursts.
+ 
+Removing these flags ensures that:
+ - Full timing information is transmitted
+ - The bridge can correctly reconstruct LVDS timings
+ - Output remains stable across tested panels
+ 
+This patch updates the DSI mode configuration accordingly.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Changes in v4:
+ - Split the original patch into two separate patches:
+   - Enable HFP/HBP transmission by removing
+     MIPI_DSI_MODE_VIDEO_NO_HFP and
+     MIPI_DSI_MODE_VIDEO_NO_HBP
+   - Disable MIPI_DSI_MODE_VIDEO_BURST separately
+ - Updated commit messages
 
-> ---
->   Documentation/gpu/drm-kms.rst |  6 ++++
->   drivers/gpu/drm/drm_atomic.c  | 72 +++++++++++++++++++++++++++++++++++++++++++
->   2 files changed, 78 insertions(+)
->
-> diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
-> index d22817fdf9aa..36d76e391074 100644
-> --- a/Documentation/gpu/drm-kms.rst
-> +++ b/Documentation/gpu/drm-kms.rst
-> @@ -282,10 +282,16 @@ structure, ordering of committing state changes to hardware is sequenced using
->   :c:type:`struct drm_crtc_commit <drm_crtc_commit>`.
->   
->   Read on in this chapter, and also in :ref:`drm_atomic_helper` for more detailed
->   coverage of specific topics.
->   
-> +Atomic State Lifetime
-> +---------------------
-> +
-> +.. kernel-doc:: drivers/gpu/drm/drm_atomic.c
-> +   :doc: state lifetime
-> +
->   Handling Driver Private State
->   -----------------------------
->   
->   .. kernel-doc:: drivers/gpu/drm/drm_atomic.c
->      :doc: handling driver private state
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 170de30c28ae..3c5714481ad2 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -45,10 +45,82 @@
->   #include <drm/drm_colorop.h>
->   
->   #include "drm_crtc_internal.h"
->   #include "drm_internal.h"
->   
-> +/**
-> + * DOC: state lifetime
-> + *
-> + * &drm_atomic_commit represents an update to modeset pipeline state.
-> + * It's a transient object that holds a state update as a collection of
-> + * pointers to individual objects' states. &struct drm_atomic_commit has
-> + * a much shorter lifetime than the objects' states, since it's only
-> + * allocated while preparing, checking or committing the update, while
-> + * object states are allocated when preparing the update and kept alive
-> + * as long as they are active in the device.
-> + *
-> + * Their respective lifetimes are:
-> + *
-> + * - at reset time, the object reset implementation allocates a new
-> + *   default state and stores it in the object state pointer.
-> + *
-> + * - whenever a new update is needed:
-> + *
-> + *   + drm_atomic_commit_alloc() allocates a new &drm_atomic_commit
-> + *     instance.
-> + *
-> + *   + The code triggering the commit (ioctl, client modeset,
-> + *     drm_atomic_helper_reset_crtc(), etc.) copies the current active
-> + *     state of all entities affected by the update into this new
-> + *     &drm_atomic_commit using drm_atomic_get_plane_state(),
-> + *     drm_atomic_get_crtc_state(), drm_atomic_get_connector_state(), or
-> + *     drm_atomic_get_private_obj_state(). This new state can then be
-> + *     modified.
-> + *
-> + *     At that point, &drm_atomic_commit stores three state pointers for
-> + *     any affected entity: the "old" and "new" states, and
-> + *     state_to_destroy. The old state is the state currently active in
-> + *     the hardware, which is either the one initialized by reset() or a
-> + *     newer one if a commit has been made. The new state is the state
-> + *     we just allocated and we might eventually commit to the hardware.
-> + *     The state_to_destroy points to the state we'll eventually have to
-> + *     free when the drm_atomic_commit will be destroyed, and points to
-> + *     the new state for now since the old state is still the active
-> + *     state.
-> + *
-> + *   + After the calling code populated the commit with the entities
-> + *     states, it updates the new states with the new values we need to
-> + *     commit. The new commit instance is now ready.
-> + *
-> + *   + Then we have two branches depending on the calling code intent:
-> + *
-> + *     - If the calling code only wants to check that the commit would
-> + *       work (for example because of the DRM_MODE_ATOMIC_TEST_ONLY
-> + *       flag). It calls drm_atomic_check_only(), which in turn checks
-> + *       all these states by invoking atomic_check on all affected
-> + *       pipeline stages.
-> + *
-> + *     - If the calling code actually wants to trigger a commit, it
-> + *       calls drm_atomic_commit(). The first stage is the check
-> + *       mentioned above, and if the check is successful, it performs
-> + *       the commit. Part of the commit is a call to
-> + *       drm_atomic_helper_swap_state() which turns the new states into
-> + *       the active states. After swapping states, each object's state
-> + *       pointer now refers to the formerly new state. The
-> + *       state_to_destroy now refers to the formerly old state.
-> + *
-> + *   + Once done, and when the last refererence to our &struct
-> + *     drm_atomic_commit is given up through drm_atomic_commit_put(), it
-> + *     calls __drm_atomic_commit_free(). In turn,
-> + *     __drm_atomic_commit_free() calls drm_atomic_commit_clear() that
-> + *     will free all state_to_destroy (ie. old states), and it finally
-> + *     frees &drm_atomic_commit instance.
-> + *
-> + *   + Now, we don't have any active &drm_atomic_commit anymore, and
-> + *     only the entity active states remain allocated.
-> + */
-> +
->   void __drm_crtc_commit_free(struct kref *kref)
->   {
->   	struct drm_crtc_commit *commit =
->   		container_of(kref, struct drm_crtc_commit, ref);
->   
->
+Changes in v3:
+ - Rebased on top of latest upstream changes
+ - Dropped previously proposed dual-link DT property and related handling
+   as equivalent functionality is now available upstream
+ - Refined DSI mode flag configuration to ensure stable LVDS output
+ - Added detailed justification for removing NO_HFP/NO_HBP and BURST mode
+ 
+Changes in v2:
+ - Introduced ti,dual-link-video-mode DT property
+ - Added DT binding documentation for the new property
+ - Update driver to read the DT property and apply dual-link
+   configuration conditionally
+ - Adjust DSI mode flags when dual-link video mode is enabled
+ - Update commit messages 
+
+Thanks,
+Anusha
+
+Sudarshan Shetty (2):
+  drm: bridge: ti-sn65dsi83: Remove NO_HFP and NO_HBP mode flags for
+    LVDS stability
+  drm: bridge: ti-sn65dsi83: Disable video burst mode for LVDS stability
+
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
