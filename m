@@ -4,54 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92749CD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 12:48:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11CAFCD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 12:53:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD6C910E7B1;
-	Wed, 27 May 2026 12:48:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7373210E09D;
+	Wed, 27 May 2026 12:53:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aeva639t";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F4Zty1IE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDD710E7B1
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 12:48:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C7FF6600BB;
- Wed, 27 May 2026 12:48:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34AA1F000E9;
- Wed, 27 May 2026 12:48:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779886111;
- bh=LeF8K1xqorIXJChfv3Pk+hYMvvkdRA8TxlyqfuR9Qp0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Aeva639tIDZSmxsPM9nT6oAFbfyTXXiigvfj/oVj9B72igEU7hm3KO7Uhh4tsVOQ4
- Pq+r1rpeBjXw8GKIuNybJ2P66gyLEAi5tk7pYgLwLRqPOeea4F8+Mzl3l4LXRIcYNB
- zJ8vzxSaMFt7NolsYEi9FuFPCXfW5R+L+GPCuBU9MqTuBZfgQiSmB7nZeR65XN7H+V
- uUnAJl7aAH4S+aUqApP8CJ7Wp0Z2T3Ycobpg3HeWFVlfabR87sLHVZzxBvoXQeaMYg
- h8M7oNpDQ1hZF8aeq+vBC7XcWRnaVJr+zY6D8teYG5Z3omPFW48/CmLnUhB4xsgthD
- ThSmebN02rMbw==
-Date: Wed, 27 May 2026 14:48:28 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-Message-ID: <20260527-armored-spiked-jacamar-0bb19e@houat>
-References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
- <20260527-flawless-chowchow-of-fruition-edbe8a@houat>
- <496facc4-60bc-4646-b426-30e7ac545d9f@oss.qualcomm.com>
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011025.outbound.protection.outlook.com [52.101.57.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A07110E09D
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 12:53:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rPDQ2yWvA9FkzRFo8TrknKJTlFREXrz6sp9XLcIsMlGOdidhEwsN1DQtkGiSlBuVsSTkTANfku0OmFiw/a4/1GtHCeKpkziLet/g3XwHmZ/etoCnOkX8qgG+Z8bglzKXZz5yydmkEZ1eg6+taGVDNjwfJsxlbRo0UB77DFKXOOly6m4G3smN/fw5Ax/Ds6oggyp6epxjcZhaLzT+U1Ams7mv6wj08/15kLPW/1HCBes2w+/pkAE/490YQxUSoE/TYyStx1E3WuRqZogkC2W1pal3aFUZhLvu+nq1eOl3QvSQsCDD6+/fxgIrrm0IHORtVXXAMM6i8ZSS1WaU4EbUVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U4PI9faZbQMsAAW94xXtUjPhnmS/lLjslthFk6i/eB4=;
+ b=JgVYCfmMIsv2apWPAb5y2N8i+w0ZB7msMaINM0GHCrsWipWVIqrti+CIq3FQ7ZgCkBkxh6xVmhccMB8VA4ojm3A/STRLsMTz5j/iq2onJtu0xUObLJNv78LN6gDadZ5wNUMYxxnltbbGGCFrpJQVw6kW5Dr6AG3c2jub31CGK+zfFJpkGo9i51OMLNk/VC3iCEFYzFa5X2PVsVjFOqr+tcKFGRVs04gjbH169Q9ILK2a4YYP5vuqhXwpHO/s5LDlXD2oub1pdJyunqCkUeH+l+MIJkAbg5ODKZFyX/82Ku3GfhcJt+TPvf+p29rQw1LjRT/TOASLr3u6IhJL7H8CHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=U4PI9faZbQMsAAW94xXtUjPhnmS/lLjslthFk6i/eB4=;
+ b=F4Zty1IERg0YCpDNh3ut4pQlnFdYY819I0812A8zF+mkIDCerV62XjGeQT+fDez5pb5F5ShuUg3L+8mkOyqgcpNHlhsPRnkhxuWQ2PaFlvrUXT+EXin+5xeZYwdJA/AacnV+NgSAnpaxuRGWxcBqWx4pZg0WYCoAr1IH4mTgc3w=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CYYPR12MB8869.namprd12.prod.outlook.com (2603:10b6:930:bf::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Wed, 27 May
+ 2026 12:53:13 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Wed, 27 May 2026
+ 12:53:12 +0000
+Message-ID: <a5ff1930-e9fb-43f5-82ab-9875d7a28421@amd.com>
+Date: Wed, 27 May 2026 14:53:04 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/4] vfio/dma-buf: add TPH support for peer-to-peer
+ access
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+References: <20260526144401.1485788-1-zhipingz@meta.com>
+ <a8cd01ab-d7aa-465d-bfa3-431f78f33ee1@amd.com>
+ <20260527121438.GJ2487554@ziepe.ca>
+ <ff247643-73e7-44e2-b3d5-8ac0a8efb871@amd.com>
+ <20260527123634.GK2487554@ziepe.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260527123634.GK2487554@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR05CA0031.namprd05.prod.outlook.com
+ (2603:10b6:208:335::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="ymi3fo6ezsefbz5n"
-Content-Disposition: inline
-In-Reply-To: <496facc4-60bc-4646-b426-30e7ac545d9f@oss.qualcomm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8869:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc980e0a-877c-45e0-f0b7-08debbeee966
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|366016|376014|1800799024|22082099003|18002099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: 9gIrTufGTRsUQRMddbWwbdmQF6qw7zE+dBa/zi+prmab2Bu6Xzw291wUsBq6M79XQDjLvIw9rFg5mjXnSN4IyGwtqUImmNBg5tLMjE9kSy4N4RM+dCAC074JZg3qFGtu/Q1r5xcxaVLZ8pNzt7AsLnBmRGokLeOegWR+mN6O9D4OA7FPY4Q4NX9uOqdgEwrYLIGV8owoZxwd34fFjJvaOf46mJuVBDMLb6Yh52OzIalpzD3gakCKt3JfEqhsANlwv4ekd1sndrcsjNVaDnyWeJ8Rx5BQdRSGjdpvWGHfkEEPBS+uhJuf5Z5q9pL+EUSY6pMabGmEhfe9EFRpzKIzVFWnd4AkyxEPEeaY0b3+fuw24r6kCQLfXtnjra7m1sUiNrUZMjW9LJJP4pPLOHhvDy8mGGDbg7Dh+An9J0UTBzEdmEIugqoEAjqobgrt09DINmZR/LgxDojW/76VtuqLDAshCeTQMjzLykM2ugoNf4oK9qqk0+eiUrFnJ/WmHk2+VO9fZVvB4CRabStxZampkdJvmkCY/laCAaLEbUiMKRbsS1eJLlM8caxmiyWuuWwak6B37JxenSCU///3iShJPo512dsDaBJhvlqNFkUYxdIHunq04brTsrXKpQjSldIGCV3h2DcXxv8/HxANu5GXEll8ViFVsEKvi6h/gsR0MNq/HuUr3Aqh7MMNuUE3er6R
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z3dlUWVEbkpGaGpQeEZzd1BOTXpPbHlsWSsyZVppQldpZnp5Y3cvd2xwZTZi?=
+ =?utf-8?B?cjFMb0ZyMWJGbUl3b0NvOVdkN05TTTZVMG85UGlLbUJuNlB0c0U2YUpKd0Mz?=
+ =?utf-8?B?QXlRa052c1lTT3Y0K1VzY3VSWmdKdllxUkswTUc1TTJkdnQ2TEZOZG9hd3dL?=
+ =?utf-8?B?c1ZuQUlnNW9YL1laRFhBb3JwMGh0ZTFSdGQxS0RzV2h1UHk0d2dBRGE5a3dz?=
+ =?utf-8?B?SHcwYlNna2g3MC9sb3h6a2xPUm9DUUd0bzF5RENhd0FEVk5Xc3Q5SGJ5cGtt?=
+ =?utf-8?B?MjhwN2R3amJVT1kwTkIzY1NiSDNjdlh5c2wxRXhQRHQreEZSOXJHQjdXaDJW?=
+ =?utf-8?B?bEczdnlXTE96emdwZjJWVDdhdkliMzdzcXN2ZE5uZklLT1NYVjUrQ1ZVNndO?=
+ =?utf-8?B?WDJyeHEzQm9qQ0lKVTdBNGE5aHFOcUF6bXFycUxOeFN2dEhoU2dZVEl5QWk1?=
+ =?utf-8?B?aWFqSUNOVjFaM2NRcGtlN0FvcFZvU05WeXVmbCtoeFcyeUtlYnNoSGlvWENn?=
+ =?utf-8?B?dmw3aFBZdXcrZ0xSRVo0WGI5eG9FcHphdkRCZ2ZPMzhKYXRhclVPWEIrWnRi?=
+ =?utf-8?B?a01vK0g2cXRKQzAwbTN4OXc5NlhRa051alpyV1BubE9mVExDaTJKR1hSNG1K?=
+ =?utf-8?B?eTVqK1d6V2JPeDRLYkhlYUYrVjRLdjczTjdlVWsxeDJHNW04SU00OHNBemY1?=
+ =?utf-8?B?TEg5d1ovUG1EaE40Y0h6VlFoSkNqbFlSc3BQdktiZ09ZWXVUa3haZi9sT2FG?=
+ =?utf-8?B?MmVTeTFYUFozaEZlNEY4VWprdkZvQnVVTFRvdGxacWJFY1YwUUQzcUFndnZD?=
+ =?utf-8?B?bVFXYjVCeDRRNThrS2JBam9IanJDZm52VDNXTUpWdDFqd1YvZVpBai9oNC92?=
+ =?utf-8?B?TDdRbzF2RG1YMVpBbTlIQWhra0w0Yk1BbGpqSUgvZXlDUGY3WFdIUElXWG1p?=
+ =?utf-8?B?Q0JPeW1MOTlIa3JrSDJyZmZLNnlBRHRIUi9qaDdWSGxjVUdub2FqRElpMkJ0?=
+ =?utf-8?B?bUJ4U0Z4cWU3RDQ5RldrcFY0M2w5N0FLaTRrR21QaVJURTFLN3EwOVVjWGdl?=
+ =?utf-8?B?VWx6Z25iSno2RlVzMmhHK3kvZW9JeFlFeDJZYWFabzN4d1FrVmtud2t6OU9k?=
+ =?utf-8?B?TXcwQ01pR25OdUtkSm1HSTNRaXlZUTJTbHlSblJFN1I2TGh4SFU0bFEvUmIw?=
+ =?utf-8?B?UEp2MmJsd2FqMjY4OVZBSDdVeVdqOVFQYkQ3eFNwTkhrVHk1dlV6K2s1NzlF?=
+ =?utf-8?B?S0dSSitnR2xNWlZxaVZWTFFKN094eG1RRzJzNnhxMFRQbVZmSVRJNmJ1M3Ni?=
+ =?utf-8?B?RjN0djZwd0xmMHBFckp2Rzh0MmUxcThFRDQ5OEw2azBOYXBHVmlab245TFBB?=
+ =?utf-8?B?Zmk5ZTVycW0zd0cyOHN6NnlGMmp2QU5Mek9YUXRZMzdYWEFMU0wwcWxKOS9F?=
+ =?utf-8?B?MUxiRTdSb0ZnNW9vYmlnRGxkVDEyZE5VM3ZWVTRSbTFjcDJ5RENQL1NkbS8v?=
+ =?utf-8?B?TkIrQ1hVS2lZLzhsdjZIWjQxMTZ0bTl2MzZxbUp1N0YzelJLVVR6RU5YUStF?=
+ =?utf-8?B?N3EzVDg5UWFsVURUSzE1Qk4ydS80bFVRN0Q3VTZWR0FpYm5qTityK3Z2M1V3?=
+ =?utf-8?B?TXNCWEJwV2l6U1plU0diN0pOWHNHVHhvc2pNNjF1TS9Xa3Z0ZnBTKzg2OGpK?=
+ =?utf-8?B?aXFSUkQwMUYzWXVsVEwyZEFwYzZ0dzlKRjIzenNBd1U0R3poZUxwV29WSE12?=
+ =?utf-8?B?eEpQZ1JYdUJycVNVVE9HSWxRU2RUN1MvRk9kdFZnQ3RTMjBSdVkvckNwYzgw?=
+ =?utf-8?B?NjZOK1U5ZHd1T0t1OTFzanU5THpBUkxuTTdwKzJnZGJ5eVVsOEtvcnlTQnZU?=
+ =?utf-8?B?TlUrZ0JycXRSTVhpOVdrQmd3dWpXbVBqTXR4dUtoWGpXazNpdGc4K0hJVDJx?=
+ =?utf-8?B?Uk5RSURDNlpNWHlMVnQ4M3VXZmNyeitDYzFIbkMyYTRocXVGWkg3ajhYbTJC?=
+ =?utf-8?B?Qit5MEo0aWJSZ0VFMTNqV2ZPR0NtZWEvT0d4OTNQbE9vRys2MEJRc0NQZlZN?=
+ =?utf-8?B?akczLzdGZ3RJYlN6UFYzTERNN0dzV0RoNVVRamxOWUZBUnJMLytCTlNKbzZ1?=
+ =?utf-8?B?S1J1Ump1WWpjS0JkK1JDY1hYbGtuNFk5ZVJzQ1p3Ukk0SDVCMWJDeGdMZUdv?=
+ =?utf-8?B?VGtESTREam5vMWtEYzJRTmZYUldxT2Y1c2R6OU5LZWZOT3NFSjl1WjlnS2FV?=
+ =?utf-8?B?SnhOcTBlR3lEazdCeDBuT2JBN2doTDRoKzZzZXhXVEZteG9TL05KQm9acUtE?=
+ =?utf-8?Q?MucUb6SGV3RRm5Bwbn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc980e0a-877c-45e0-f0b7-08debbeee966
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 12:53:12.7663 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /UtfwVixnj3JCExTufRllquSL7s/2Z1j9a6+fBDuZ/I52IrCF0D0VixRR6XkCg2w
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8869
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,120 +145,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 5/27/26 14:36, Jason Gunthorpe wrote:
+> On Wed, May 27, 2026 at 02:23:46PM +0200, Christian König wrote:
+> 
+>> Yeah that's a good point, I should probably rephrase the question.
+>>
+>> I'm aware of how TPH works by adding the extra ST to the TLP.
+>>
+>> But my question is how is that useful to a PCIe endpoint? What is the effect of the ST here?
+> 
+> TBH I've never heard Meta explain what their device is doing with
+> it. At least it seems to be super important to their device..
 
---ymi3fo6ezsefbz5n
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-MIME-Version: 1.0
+Yeah I think at least a brief description of what is going on here would be necessary for the review.
 
-On Wed, May 27, 2026 at 02:21:50PM +0200, Hans de Goede wrote:
-> >> clk_prepare_enable() is fine, the clocks are already on so no
-> >> ordering worries and it ensures that the clocks and their parents cann=
-ot
-> >> get turned off by incrementing their enable, prepare and protect count=
-s.
-> >>
-> >> clk_disable_unprepare() is a problem though since it actually turns the
-> >> clocks off. Instead something is needed which only decrements those co=
-unts.
-> >>
-> >> This series introduces a new clk-core function called
-> >> __clk_disable_unprepare_counts_only() (1) which does just that. Prefix=
-ed
-> >> with '__' to indicate that normally drivers should not use this.
-> >>
-> >> Michael, Stephen sorry for needing to add a new clk-core function for =
-this,
-> >> but I see no other way of solving this (2)(3). The changes are not that
-> >> big / not too bad.
-> >>
-> >> I've also considered making __clk_disable_unprepare_counts_only() impl=
-ement
-> >> all the logic itself instead of adding the extra parameter to
-> >> clk_core_unprepare() and clk_core_disable() but that leads in duplicat=
-ing
-> >> quite a bit of logic (4) so this seems better.
-> >>
-> >> The other 2 patches just replace the clk_disable_unprepare() calls in
-> >> the simple[fb|drm] driver with the new helper.
-> >>
-> >> This series fixes the display not coming up after switching to the msm
-> >> driver when a simple-framebuffer node with clocks listed is used.
-> >>
-> >> 1) I'm open to changing the name, this is the best I could come up wit=
-h.
-> >>
-> >> 2) One option considered was detaching the simple-framebuffer driver l=
-ater,
-> >>    after the real display driver has had a chance to claim the clocks.=
- But
-> >>    this won't work in cases where the real display driver picks differ=
-ent
-> >>    parent clocks then the boot firmware did and needs to reparent cloc=
-ks.
-> >>
-> >>    Basically the goal is for things to behave as if the simple-framebu=
-ffer
-> >>    driver was not there at all, because that leaves the hw in the state
-> >>    the real display driver expects.
-> >=20
-> > So I know it's not really what you had in mind, but if you are only
-> > concerned about the transition from the bootloader to the DRM driver,
-> > then I think supporting the following work would help:
-> >=20
-> > https://lore.kernel.org/r/20260423-drm-state-readout-v2-0-8549f87cb978@=
-kernel.org
-> >=20
-> > With that series, we can build the initial KMS state from the hardware
-> > state, which means that if you were to change the resolution at boot, it
-> > would be executed just like any mode change in KMS.
->=20
-> Hmm, so your suggestion would be to have the initial KMS driver probe()
-> only do a read back without touching anything. Then claim clks matching
-> the read back config and then only release the simple* driver and thus
-> the clocks after this?
+Otherwise we have only the info that the exporter wants to give an opaque ST for the importer to use and no technical description what that is good for, how to test it etc...
 
-Almost. Part of the call to drm_mode_config_create_initial_state() if
-needed to make it grab its resources. See atomic_install_state in that
-series. So probe wouldn't have anything more to do.
+Regards,
+Christian.
 
-> That is certainly an interesting proposal but IMHO almost orthogonal
-> to this one (1).
+> 
+> Jason
 
-Why do you think it's orthogonal? It would completely fix your problem.
-
-> Even if it may fix the issue in the end, it seems that that work is
-> still quite a way from going upstream
-
-It's likely to be merged in the next few weeks.
-
-> and even then initially it only potentially fixes this for the TIDSS
-> driver since that solution needs a lot of per driver work.
-
-I mean, yeah, but the good thing is that you only have one driver to
-care about, right?
-
-> Where as my proposed fix here is much simpler and fixes the issue
-> for all drivers in one go.
-
-At the expense of exposing an unsafe function for only a single user and
-usecase.
-
-Maxime
-
---ymi3fo6ezsefbz5n
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCahboHAAKCRAnX84Zoj2+
-dtx3AYDjU1eNIR6nWTN4Gf6INqlGbmMEfGww4g/lSNuzj96nTz3Tqr+gM6X6h4U0
-77KX96EBf29d4m+QaVyOV2L9+B0CxJ778OJtF9REEDQuHYeIH6ZdbKdS+tDqXnNm
-PiggXzVJFg==
-=OCZ7
------END PGP SIGNATURE-----
-
---ymi3fo6ezsefbz5n--
