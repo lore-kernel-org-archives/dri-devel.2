@@ -4,102 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42019CD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:16:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98FEFCD6E41
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:17:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A208A10E27D;
-	Wed, 27 May 2026 15:16:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0674E10E815;
+	Wed, 27 May 2026 15:17:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="INON9EyJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tUgvpzHS";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="INON9EyJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tUgvpzHS";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Zd4OU75J";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hflNZb+8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Zd4OU75J";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hflNZb+8";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E052410E27C
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:16:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 378A410E5A0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:17:29 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 625206AA59;
- Wed, 27 May 2026 15:15:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 053AB6AA37;
+ Wed, 27 May 2026 15:17:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779894956; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1779895048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Y6S6cB8ObGQfuJNgjDJMW2rq8gvqvaymXV0iZZjEyf4=;
- b=INON9EyJSuB4kEF8tdsnv6R6M9gPeEeoAI/y9MGdG4m/UulsYFUpyi1ow291JOCQ1cGDUY
- JKApHL2Z5nm89K0cT5tJpfeZsBbUZVnSjJQEH1Hwm9Mu97bZM7Gp3rcrmmoCrT8h56ods3
- +9tnPEV0TpiqLVKr7SwFESG2jEuEOQw=
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GpmrI14U1zRKg9Ft8HCdKifIOo3atbqffDM/wjrE0sE=;
+ b=Zd4OU75JnmqVM0QH1YVMAYVh2GO3JhgIo2g5fzm5k8Yy9+AGyj0XfK3nr/B69yzYq/YFXm
+ t4Cw/q9r27+oXrEK2AfPuY77Eq/wfHyNjPqBrIIIE+pS7B1IsnZl+mSWQ7uXT4GhwWSJXI
+ IAjKhNkm8jQ4HFYexUNiZ3u4Gn0U3UA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779894956;
+ s=susede2_ed25519; t=1779895048;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Y6S6cB8ObGQfuJNgjDJMW2rq8gvqvaymXV0iZZjEyf4=;
- b=tUgvpzHSgmFK8y/MfhPE5nbE5O32GhHCZ/DWdv4QqjUEHK9PnU17uzXqUyM8LpiceE39gg
- zo/L8bVEuGp80mBg==
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GpmrI14U1zRKg9Ft8HCdKifIOo3atbqffDM/wjrE0sE=;
+ b=hflNZb+8oVB2a+7/Iz3RBlSMhoxMfTaSZ13xqcKmRCZMT30z3xcle53Dk+i3EUsTjraod+
+ m8MtH/jWlalsJgCw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779894956; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1779895048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Y6S6cB8ObGQfuJNgjDJMW2rq8gvqvaymXV0iZZjEyf4=;
- b=INON9EyJSuB4kEF8tdsnv6R6M9gPeEeoAI/y9MGdG4m/UulsYFUpyi1ow291JOCQ1cGDUY
- JKApHL2Z5nm89K0cT5tJpfeZsBbUZVnSjJQEH1Hwm9Mu97bZM7Gp3rcrmmoCrT8h56ods3
- +9tnPEV0TpiqLVKr7SwFESG2jEuEOQw=
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GpmrI14U1zRKg9Ft8HCdKifIOo3atbqffDM/wjrE0sE=;
+ b=Zd4OU75JnmqVM0QH1YVMAYVh2GO3JhgIo2g5fzm5k8Yy9+AGyj0XfK3nr/B69yzYq/YFXm
+ t4Cw/q9r27+oXrEK2AfPuY77Eq/wfHyNjPqBrIIIE+pS7B1IsnZl+mSWQ7uXT4GhwWSJXI
+ IAjKhNkm8jQ4HFYexUNiZ3u4Gn0U3UA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779894956;
+ s=susede2_ed25519; t=1779895048;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Y6S6cB8ObGQfuJNgjDJMW2rq8gvqvaymXV0iZZjEyf4=;
- b=tUgvpzHSgmFK8y/MfhPE5nbE5O32GhHCZ/DWdv4QqjUEHK9PnU17uzXqUyM8LpiceE39gg
- zo/L8bVEuGp80mBg==
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GpmrI14U1zRKg9Ft8HCdKifIOo3atbqffDM/wjrE0sE=;
+ b=hflNZb+8oVB2a+7/Iz3RBlSMhoxMfTaSZ13xqcKmRCZMT30z3xcle53Dk+i3EUsTjraod+
+ m8MtH/jWlalsJgCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 124965A8C3;
- Wed, 27 May 2026 15:15:56 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B0845A8C2;
+ Wed, 27 May 2026 15:17:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id aA5KA6wKF2p6FQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 15:15:56 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: deller@gmx.de, geert@linux-m68k.org, simona@ffwll.ch, airlied@gmail.com,
- lukas@wunner.de, maddy@linux.ibm.com, mpe@ellerman.id.au,
- npiggin@gmail.com, chleroy@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 3/4] fbdev: Wrap fbcon updates from vga-switcheroo in helper
-Date: Wed, 27 May 2026 17:14:04 +0200
-Message-ID: <20260527151551.258659-4-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260527151551.258659-1-tzimmermann@suse.de>
-References: <20260527151551.258659-1-tzimmermann@suse.de>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id dT6MHAcLF2qmFgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 15:17:27 +0000
+Message-ID: <ed56eba9-8a34-4f17-b400-0ebf538ebcb4@suse.de>
+Date: Wed, 27 May 2026 17:17:27 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/10] drm: Improve logic behind damage handling
+To: mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ airlied@redhat.com, airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
+ gargaditya08@proton.me, paul@crapouillou.net, jani.nikula@linux.intel.com,
+ mhklinux@outlook.com, zack.rusin@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, virtualization@lists.linux.dev
+References: <20260527145113.241595-1-tzimmermann@suse.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260527145113.241595-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid];
- RCPT_COUNT_TWELVE(0.00)[13]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_TO(0.00)[gmx.de,linux-m68k.org,ffwll.ch,gmail.com,wunner.de,linux.ibm.com,ellerman.id.au,kernel.org];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RL3i8gi83d8iemn6cxmyh4cqsd)];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,redhat.com,gmail.com,ffwll.ch,kodeit.net,proton.me,crapouillou.net,outlook.com,broadcom.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[18];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,103 +143,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Handle console remapping in fbcon in fb_switch_output(). Vga-switcheroo
-invokes this functionality before switching physical outputs to a new
-graphics device. Open-coding fbcon state in vga-switcheroo exposed fbdev
-implementation details.
 
-Vga-switcheroo is used for switching physical outputs among graphics
-hardware. This functionality is only supported by DRM drivers. A later
-update will further move fb_switch_output() into DRM's fbdev emulation;
-thus fully decoupling vga-switcheroo from fbdev.
 
-v3:
-- remove Kconfig dependency related to fbcon (Geert)
-v2:
-- use '#if defined' (Helge)
+Am 27.05.26 um 16:46 schrieb Thomas Zimmermann:
+> DRM clients can supply information on framebuffer areas to update as
+> part of each page flip, called damage clipping rectangles. But DRM's
+> processing of this information is inconsistent and prone to errors.
+>
+> - There are multiple fields and tests that decide if damage clips
+> should be taken or ignored.
+>
+> - Sometimes damage clips are removed behind the back of the DRM client.
+>
+> - Atomic helpers evaluate damage clipping in the middle of the atomic
+> check: after connectors and encoders, but before planes and CRTCs. Hence
+> pipeline stages have an inconsistent view.
+>
+> - Which leads to drivers (ingenic) doing a re-evaluation if necessary.
+>
+> - Tests of plane source coordinates only happen during commits. At this
+> point, the driver should already know if damage clips are to be taken or
+> not. Because of this, some drivers (appletbdrm) might operate on incorrect
+> damage information for their internal workings. This also leads to excessive
+> use of the old plane state.
+>
+> Therefore go through DRM helpers and drivers and fix the logic.
+>
+> - Run all of the atomic checks with the damage information supplied by
+> DRM clients. Afterwards evaluate plane and CRTC states on whether to
+> take or ignore damage clips. Do all related tests in a single atomic
+> helper.
+>
+> - Do not discard damage clips. Set ignore_damage_clips in struct
+> drm_plane_state instead. This includes changes to plane source-coordinates.
+> The damage iterator now only has to look at this flag to detect if it
+> should use the damage clips.
+>
+> - Go over drivers and fix the damage handling in the plane's
+> atomic_update helpers. Most drivers no longer need the old plane state
+> in their update.
+>
+> - The appletbdrm driver requires a fix in how it uses damage information.
+> Ingenic and vmwgfx can be simplified. These changes improve the drivers'
+> code organization.
+>
+> - Kunit tests require some changes. Drop some obsolete tests and add a new
+> one for ignore_damage_flags.
+>
+> Tested with bochs, mgag200, Kunit tests.
+>
+> v3:
+> - fix error path in appletbdrm
+> v2:
+> - rebase on latest upstream
+>
+> Thomas Zimmermann (10):
+>    drm/damage-helper: Do not alter damage clips on modeset, but ignore
+>      them
+>    drm/atomic-helpers: Evaluate plane damage after atomic_check
+>    drm/ingenic: Remove calls to drm_atomic_helper_check_plane_damage()
+>    drm/damage-helper: Test src coord in
+>      drm_atomic_helper_check_plane_damage()
+>    drm/appletbdrm: Allocate request/response buffers in begin_fb_access
+>    drm/damage-helper: Remove old state from
+>      drm_atomic_helper_damage_iter_init()
+>    drm/damage-helper: Remove old state from
+>      drm_atomic_helper_damage_merged()
+>    drm/atomic_helper: Do not evaluate plane damage before atomic_check
+>    drm/damage-helper: Rename state parameters in damage helpers
+>    drm/vmwgfx: Remove unused field struct
+>      vmwgfx_du_update_plane.old_state
+>
+>   drivers/gpu/drm/ast/ast_cursor.c              |   3 +-
+>   drivers/gpu/drm/ast/ast_mode.c                |   2 +-
+>   drivers/gpu/drm/drm_atomic_helper.c           |   6 +-
+>   drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
+>   drivers/gpu/drm/drm_damage_helper.c           |  44 ++--
+>   drivers/gpu/drm/drm_fb_dma_helper.c           |   2 +-
+>   drivers/gpu/drm/drm_mipi_dbi.c                |   3 +-
+>   drivers/gpu/drm/gud/gud_pipe.c                |   3 +-
+>   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   3 +-
+>   drivers/gpu/drm/i915/display/intel_plane.c    |  11 +-
+>   drivers/gpu/drm/i915/display/intel_psr.c      |   3 +-
+>   drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |   3 -
+>   drivers/gpu/drm/ingenic/ingenic-ipu.c         |   8 +-
+>   drivers/gpu/drm/mgag200/mgag200_mode.c        |   3 +-
+>   drivers/gpu/drm/sitronix/st7571.c             |   3 +-
+>   drivers/gpu/drm/sitronix/st7586.c             |   3 +-
+>   drivers/gpu/drm/sitronix/st7920.c             |   3 +-
+>   drivers/gpu/drm/solomon/ssd130x.c             |   9 +-
+>   drivers/gpu/drm/sysfb/drm_sysfb_modeset.c     |   3 +-
+>   .../gpu/drm/tests/drm_damage_helper_test.c    | 200 +++---------------
+>   drivers/gpu/drm/tiny/appletbdrm.c             |  59 +++---
+>   drivers/gpu/drm/tiny/bochs.c                  |   3 +-
+>   drivers/gpu/drm/tiny/cirrus-qemu.c            |   2 +-
+>   drivers/gpu/drm/tiny/gm12u320.c               |   2 +-
+>   drivers/gpu/drm/tiny/ili9225.c                |   3 +-
+>   drivers/gpu/drm/tiny/repaper.c                |   2 +-
+>   drivers/gpu/drm/tiny/sharp-memory.c           |   3 +-
+>   drivers/gpu/drm/udl/udl_modeset.c             |   3 +-
+>   drivers/gpu/drm/virtio/virtgpu_plane.c        |   2 +-
+>   drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |   5 +-
+>   drivers/gpu/drm/vmwgfx/vmwgfx_kms.h           |   2 -
+>   drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |  12 +-
+>   drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |  15 +-
+>   include/drm/drm_damage_helper.h               |   9 +-
+>   34 files changed, 123 insertions(+), 315 deletions(-)
+>
+>
+> base-commit: 5fb5a9a63cf5ece68e0eeb6fa397da27712bccf0
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/vga/Kconfig          |  2 +-
- drivers/gpu/vga/vga_switcheroo.c |  6 +++---
- drivers/video/fbdev/core/fbmem.c | 10 ++++++++++
- include/linux/fb.h               |  1 +
- 4 files changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/vga/Kconfig b/drivers/gpu/vga/Kconfig
-index eb8b14ab22c3..bad4bcee313f 100644
---- a/drivers/gpu/vga/Kconfig
-+++ b/drivers/gpu/vga/Kconfig
-@@ -4,7 +4,7 @@ config VGA_SWITCHEROO
- 	depends on X86
- 	depends on ACPI
- 	depends on PCI
--	depends on (FRAMEBUFFER_CONSOLE=n || FB=y)
-+	depends on FB=y
- 	select VGA_ARB
- 	help
- 	  Many laptops released in 2008/9/10 have two GPUs with a multiplexer
-diff --git a/drivers/gpu/vga/vga_switcheroo.c b/drivers/gpu/vga/vga_switcheroo.c
-index 8fe1ae3c71bb..22cf52b78b75 100644
---- a/drivers/gpu/vga/vga_switcheroo.c
-+++ b/drivers/gpu/vga/vga_switcheroo.c
-@@ -31,11 +31,9 @@
- #define pr_fmt(fmt) "vga_switcheroo: " fmt
- 
- #include <linux/apple-gmux.h>
--#include <linux/console.h>
- #include <linux/debugfs.h>
- #include <linux/fb.h>
- #include <linux/fs.h>
--#include <linux/fbcon.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/pm_domain.h>
-@@ -735,8 +733,10 @@ static int vga_switchto_stage2(struct vga_switcheroo_client *new_client)
- 	if (!active->driver_power_control)
- 		set_audio_state(active->id, VGA_SWITCHEROO_OFF);
- 
-+#if defined(CONFIG_FB)
- 	if (new_client->fb_info)
--		fbcon_remap_all(new_client->fb_info);
-+		fb_switch_outputs(new_client->fb_info);
-+#endif
- 
- 	mutex_lock(&vgasr_priv.mux_hw_lock);
- 	ret = vgasr_priv.handler->switchto(new_client->id);
-diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
-index 1a6758653b64..ecadbc58abff 100644
---- a/drivers/video/fbdev/core/fbmem.c
-+++ b/drivers/video/fbdev/core/fbmem.c
-@@ -684,6 +684,16 @@ void fb_set_suspend(struct fb_info *info, int state)
- }
- EXPORT_SYMBOL(fb_set_suspend);
- 
-+/**
-+ * fb_switch_outputs - framebuffer got the outputs from vga-switcheroo
-+ * @info: framebuffer
-+ */
-+void fb_switch_outputs(struct fb_info *info)
-+{
-+	fbcon_remap_all(info);
-+}
-+EXPORT_SYMBOL(fb_switch_outputs);
-+
- static int __init fbmem_init(void)
- {
- 	int ret;
-diff --git a/include/linux/fb.h b/include/linux/fb.h
-index 88680a7cabd5..e9a26e82322a 100644
---- a/include/linux/fb.h
-+++ b/include/linux/fb.h
-@@ -608,6 +608,7 @@ void fb_pad_unaligned_buffer(u8 *dst, u32 d_pitch, const u8 *src, u32 idx, u32 h
- 			     u32 shift_high, u32 shift_low, u32 mod);
- void fb_pad_aligned_buffer(u8 *dst, u32 d_pitch, const u8 *src, u32 s_pitch, u32 height);
- extern void fb_set_suspend(struct fb_info *info, int state);
-+extern void fb_switch_outputs(struct fb_info *info);
- extern int fb_get_color_depth(struct fb_var_screeninfo *var,
- 			      struct fb_fix_screeninfo *fix);
- extern int fb_get_options(const char *name, char **option);
 -- 
-2.54.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
