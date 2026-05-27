@@ -4,89 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0607CCD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 12:14:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C7E0CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 12:16:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6060210E11B;
-	Wed, 27 May 2026 12:14:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6373A10E7AA;
+	Wed, 27 May 2026 12:16:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="ooJ/Nq6Q";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="B7/oJzEa";
 	dkim-atps=neutral
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECBA010E11B
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 12:14:41 +0000 (UTC)
-Received: by mail-qt1-f182.google.com with SMTP id
- d75a77b69052e-50faeb8317bso105627941cf.2
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 05:14:41 -0700 (PDT)
+Received: from mail-lj1-f201.google.com (mail-lj1-f201.google.com
+ [209.85.208.201])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A82B810E7AA
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 12:16:26 +0000 (UTC)
+Received: by mail-lj1-f201.google.com with SMTP id
+ 38308e7fff4ca-38e9589b7c7so5184251fa.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 05:16:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1779884080; x=1780488880; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=zjybRMBUQubASldC260OK8MJUJyjzZlOHF/HoeFPi84=;
- b=ooJ/Nq6QEbh17dVWh/Kb8gS8depxtQvtAccCpSsaLSRBIzlP552ziWA6yFPU+9Tzni
- ZSXeHea4fMapRcMzhugRHNNzXwWSBnnL7sircMvJ/sbh+4pyEn1BPRxhlSqfwjP59jXQ
- //KoN4Wx7C23xM0eFVtFee0ol+t23i3CPBjskRwCZ4CUwUaVzfeZCD74rAk8LaiEUlsr
- pDJvQY12gXzZ8GXz7Bgio+2FHMQcw1cV9bCFoHZe39B3Q2Bwo45je7Dbmeca7T6VR0jL
- Ik/bVog3ZGP8QqItpm+Atg0KC6aSoLHf+WmN9Y2JJpw3tbSKrIl6VesrpMU1cEl6zUYz
- nomA==
+ d=google.com; s=20251104; t=1779884185; x=1780488985;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=3GySeGqKvH9w0k+SKK+eNFV995XnhG9D+usTEWb/rPg=;
+ b=B7/oJzEar2T6mEt6lwclf9dK1ECEPsOWfVQDOhGjS5coyL7wAXkC+Bas2zK+x7DYZX
+ kGLFYzfM2HVwXor/zTt/Td0WkRlhQFQONlZu5NUobLWkuDmgEoziDzgZIjDMlC9WK9P+
+ CzsXeHzwMCg7IFGQ1gHFPDMTEOfh2af9hhWhZ70LcuR4lh+rveR5NW9XeDsCB5ro6iD5
+ wqR2BKmfSTRhFK4BxL20uyOLAmdqlZkbuoJd/xnvyLSJl0j6Tbw5yIO8XCnEI+PHOZuK
+ iJF+OhJS2amFyx0dRLrquRs3QORdOb1w6kiXzUrQnFj5EjV5LRSZxFq51JSsNjljIH2f
+ zAFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779884080; x=1780488880;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zjybRMBUQubASldC260OK8MJUJyjzZlOHF/HoeFPi84=;
- b=b5yCQAmHqnmoKIstjZFs7xiEh5k0kQs7lh9VR77vuvv8taTDfAucCOvmgvXUvprkpw
- NhdX8xDh3ggIQGma3FABj9eLiG7NZbf6UNU4YvvcCoUd/Fsh+6ZIvzjiTs7ICLEY9KbV
- kldbAKecac32m9YfMK68+lsuIyU/hBznRVUgKfdLsK9fbohQa25MBPMVu9CXdV2WDxai
- LueNtH+yVWc1z3+yPtbbWibUZqv5uyt87L0nAPQ1JzFhLBE/BknrIW3qRDYu0z6zhT7w
- 0QXCbZqx0FFr5n941RdASCUX9vfMYHuduoffnKaB5+0QREajE6jg+TCN5lglGp4SobKn
- I0sw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8hbncRoj8IuayXnGqX9jvJJzMxgCwjygi0RZiNKbniLNOm9xeDlId7GVTW/SNoiYCp+sYyvD6toOQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxIM+4qHkEfKLhJEu6Z2DWewtoECMsLJV6FElLS+9LzS8svNMPc
- ZYlBAKmhBbuEWUrzvlZmKQ9vekLrydNHPRfyNY9vtNs1rh2+EkYZKOXudpK4Cck0Btg=
-X-Gm-Gg: Acq92OFLys6kKuoOUkoqRp30GmTXIXfp7oBfb4941qGik2iKmHpRj0i//+lgkAc1PMk
- 6WhP4OVoQ6BTcGD1TjcgD8YHcKSM+W2kwbq0mKmYD43UKOkKJ5j5EOq1WLYOX25gnTuVw6AYC5E
- Re5mwYgFMTUMqi0uurjrFLMTn9qieu4wHbk2DBTX+gmpSbc88Ms04CUmnMIN+8dN88gt6Vv15S4
- IBMlnt7+hTFQwnLiMrCS91AFJ7habrYie/T27AkU5S/GfObpHbdPo0Dy0Ip1C/ItsICCPCCAOHn
- d4hEMKIop/BkpHtwVLf39TNwJkmLgZWZ6/Oa9JIt9UB7TuWARopIq5Y4uF/siKrSFMRJu1U7AJ/
- LqQw5sbhrlR1mSGF11Fb6fbvOnJ86AAiY+8cif6an15khS8nLuweyHhSZiNLmD5nPdUQdcPBn3I
- an4fC/NJhqXPOuLigRggmEi1Sj2s947kdV5vUYORu9eDVgFr8EAfdxm3YOV8DBQ3Ur1dCBP4eHO
- nFxdwd//K0iduy9
-X-Received: by 2002:ac8:58d4:0:b0:516:d2cc:5160 with SMTP id
- d75a77b69052e-516d459212fmr302395201cf.32.1779884079723; 
- Wed, 27 May 2026 05:14:39 -0700 (PDT)
-Received: from ziepe.ca
- (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
- [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51706adc446sm39991901cf.15.2026.05.27.05.14.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 May 2026 05:14:38 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wSD9i-0000000ENnz-0tj0;
- Wed, 27 May 2026 09:14:38 -0300
-Date: Wed, 27 May 2026 09:14:38 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-Subject: Re: [PATCH v5 0/4] vfio/dma-buf: add TPH support for peer-to-peer
- access
-Message-ID: <20260527121438.GJ2487554@ziepe.ca>
-References: <20260526144401.1485788-1-zhipingz@meta.com>
- <a8cd01ab-d7aa-465d-bfa3-431f78f33ee1@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a8cd01ab-d7aa-465d-bfa3-431f78f33ee1@amd.com>
+ d=1e100.net; s=20251104; t=1779884185; x=1780488985;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=3GySeGqKvH9w0k+SKK+eNFV995XnhG9D+usTEWb/rPg=;
+ b=E/5jLR0XtSm8jo4o4ZhPP0b5JmtLm9OzwP2WaZ5YK0eFa7J+HU5L2uh8EiqUS+1MgG
+ gVZf8uQ/BBcXWP5tuTXBrbmn4892+Bhn3z2LKns3MhLJupMedRNDjW0MGGz8gmDxIBpW
+ MKslJzl+tbJPSRd2bj5NPiZ1zJzZfQ4pHYnX/dFHHzhrokEDzzSeEmFtHUk0cD2K0LNQ
+ A5pzGBqSjRYC3/0Qui7FluBhFVCoG00w6YArHUU58wR8tFgCd2XyroV7mtzLZCwDfYlN
+ MszL8z4q+was75i7hkOhU7rVG0N95mqHXem6DC4/Aj8K0wMhIt/+8qDM5xSxKQQjYxEX
+ phVQ==
+X-Gm-Message-State: AOJu0YyapGYn2NHvKIH+ugcQDL2KPW1dVT381tjoepWvNwlWRh78yb3H
+ YCIC8C3wQzeWRAmOGT3txRzRguU70tE3yt/9gHSr/QesVxB+o5iaxgWY4ZBglDDV9HsFoNTdF+u
+ NwRsmrRGhEva8z3RxOw==
+X-Received: from ljey13.prod.google.com ([2002:a2e:bb8d:0:b0:393:7fb2:6b5a])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:651c:907:b0:396:c3c:d27e with SMTP id
+ 38308e7fff4ca-3960c3cd3femr45362351fa.12.1779884184566; 
+ Wed, 27 May 2026 05:16:24 -0700 (PDT)
+Date: Wed, 27 May 2026 12:16:23 +0000
+In-Reply-To: <20260526212857.1158294-6-lyude@redhat.com>
+Mime-Version: 1.0
+References: <20260526212857.1158294-1-lyude@redhat.com>
+ <20260526212857.1158294-6-lyude@redhat.com>
+Message-ID: <ahbglxo5yePyjE81@google.com>
+Subject: Re: [PATCH v14 5/6] rust: drm: gem/shmem: Add DmaResvGuard helper
+From: Alice Ryhl <aliceryhl@google.com>
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>, 
+ Gary Guo <gary@garyguo.net>, 
+ "Christian =?utf-8?B?S8O2bmln?=" <christian.koenig@amd.com>,
+ driver-core@lists.linux.dev, Miguel Ojeda <ojeda@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org, 
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ linaro-mm-sig@lists.linaro.org, Danilo Krummrich <dakr@kernel.org>, 
+ Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+ Asahi Lina <lina+kernel@asahilina.net>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,38 +92,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 27, 2026 at 08:55:49AM +0200, Christian König wrote:
-> On 5/26/26 16:43, Zhiping Zhang wrote:
-> > This series adds TLP Processing Hints (TPH) support to the VFIO dma-buf
-> > export path, allowing importing drivers (e.g. mlx5) to use the
-> > exporter's steering tag when performing peer-to-peer DMA into a
-> > VFIO-owned device.
+On Tue, May 26, 2026 at 05:28:56PM -0400, Lyude Paul wrote:
+> Just a temporary holdover to make locking/unlocking the dma_resv lock much
+> easier.
 > 
-> I'm not an expert for TPH, but that sounds very strange to me.
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Co-authored-by: Alexandre Courbot <acourbot@nvidia.com>
+
+Missing SoB for Alexandre.
+
+> ---
+>  rust/kernel/drm/gem/shmem.rs | 31 ++++++++++++++++++++++++++++++-
+>  1 file changed, 30 insertions(+), 1 deletion(-)
 > 
-> As far as I know the TLP Processing Hints allow devices to give a
-> steering tag to the root complex together with memory accesses to
-> give fine grained control about cache usage. In other words it is an
-> extension to the classic snoop bit.
+> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+> index 116ed0a13eac2..1b24cb1129a8b 100644
+> --- a/rust/kernel/drm/gem/shmem.rs
+> +++ b/rust/kernel/drm/gem/shmem.rs
+> @@ -27,7 +27,10 @@
+>          Deref,
+>          DerefMut, //
+>      },
+> -    ptr::NonNull,
+> +    ptr::{
+> +        self,
+> +        NonNull, //
+> +    },
+>  };
+>  use gem::{
+>      BaseObjectPrivate,
+> @@ -233,3 +236,29 @@ impl<T: DriverObject> driver::AllocImpl for Object<T> {
+>          dumb_map_offset: None,
+>      };
+>  }
+> +
+> +/// Private helper-type for holding the `dma_resv` object for a GEM shmem object.
+> +///
+> +/// When this is dropped, the `dma_resv` lock is dropped as well.
+> +///
+> +// TODO: This should be replace with a WwMutex equivalent once we have such bindings in the kernel.
+> +struct DmaResvGuard<'a, T: DriverObject>(&'a Object<T>);
 
-TPHS includes an bit of data on every TLP and the data transits to the
-eventual completer.
+Is this missing a NotThreadSafe, or is it safe to unlock on a different
+thread than where it was locked?
 
-It does not have to be a root port.
- 
-> For P2P that is obviously nonsense because we don't have P2P support
-> for cached accesses.
-
-For P2P the TPH data on the TLP will transit to the P2P completer
-unchanged.
-
-It is up to the completer do define what it does with the TPH data.
-
-Typically root ports in CPUs will use TPH data for cache placement
-instructions. But who knows what a P2P device will use it for.
-
-In Linux the driver that owns the completing address space gets to
-specify how the TPH data works based on its own device specific
-knowledge.
-
-Jason
+> +impl<'a, T: DriverObject> DmaResvGuard<'a, T> {
+> +    #[inline(always)]
+> +    #[expect(unused)]
+> +    fn new(obj: &'a Object<T>) -> Self {
+> +        // SAFETY: This lock is initialized throughout the lifetime of `object`.
+> +        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_mut()) };
+> +
+> +        Self(obj)
+> +    }
+> +}
+> +
+> +impl<'a, T: DriverObject> Drop for DmaResvGuard<'a, T> {
+> +    #[inline(always)]
+> +    fn drop(&mut self) {
+> +        // SAFETY: We are releasing the lock grabbed during the creation of this object.
+> +        unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
+> +    }
+> +}
+> -- 
+> 2.54.0
+> 
