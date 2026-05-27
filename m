@@ -4,67 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C83B3CD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:39:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDBE8CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E25110E7DB;
-	Wed, 27 May 2026 13:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E8710E7D5;
+	Wed, 27 May 2026 13:39:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="HFdEeSA0";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="MYaQyBqz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kh8H3Z5y";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MYaQyBqz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kh8H3Z5y";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10AAC10E7D5
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:39:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779889143; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=A53WMoFTh4qmZlfGBesvsGfcd2hRyqtNdQw9iuZvSmNUsREmc3dfN/Et1zOFrsq84htdkIE2FkcAP3EJq8FlyZpm0+xBiYawrQw4Prjbox30VXJZSJzdDdLJFzZArEI9R6lBKR0chE+c0tUxfdB1473vifhZwIdgyAApK4Qjg+0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779889143;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=nEEugzNfKPOCaWmJFszVxAfTXaai2yTXj9vTxlKTC+E=; 
- b=CllLONVCDfzfJFTLA+qb907oxXgHBK/lrgm65ASQBK4wcqlaXdC6VFkgp1lewDIVmW4TT84OVxPioacpfndUFL8wtfAWsBaC6Ff+WZq8tFAOconePX4rBGx/z9EdA5Tx48WyekLxe3YYqWm2WRgumwvbChmxgHqhS0xMbaoxswI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779889143; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=nEEugzNfKPOCaWmJFszVxAfTXaai2yTXj9vTxlKTC+E=;
- b=HFdEeSA0m5hN+GZZgqpHkjkLvH/3FiSsWxxzwyAW1D1B0ziAKBF/umHeDF6YdFFr
- BoKHKmeLyjzLjjXw6jG2btwQiL1dMlHX79IgGUflstjeMHgRhXLIBr3xhmJx1OKvUV5
- NDM9manI0g8sq+p2QW3QCyvphTYYSQUZlTqLDJkI=
-Received: by mx.zohomail.com with SMTPS id 1779889140488922.6898610590684;
- Wed, 27 May 2026 06:39:00 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v5 15/24] rust: usb: make Driver trait
- lifetime-parameterized
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260525202921.124698-16-dakr@kernel.org>
-Date: Wed, 27 May 2026 10:38:38 -0300
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
- aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
- leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
- ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
- abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de,
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu, igor.korotin@linux.dev, pcolberg@redhat.com,
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Eliot Courtney <ecourtney@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <DC5BAEBC-3FF1-44E3-BD89-8770761D7548@collabora.com>
-References: <20260525202921.124698-1-dakr@kernel.org>
- <20260525202921.124698-16-dakr@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 796B110E7DD
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:39:25 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3A6366AEAB;
+ Wed, 27 May 2026 13:39:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779889164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tkFzuG/sYYx6WIe7zLxbB3YnbN+OJD7lXRTEH4WXPnA=;
+ b=MYaQyBqzpd7dr1BQLUQfF4gNJKdpVp3rlZWAJY/x4zpGq/JpmzHCPcazxI8Wlc3UTLD8qF
+ PF2LTLMER0uZiuYRuB/hTT1fV3bjgxX9JxjstaAM6KiAmJKI/HBGBKfTF6Np+mSVhU8ErD
+ 2LRlUhexd1cuSITBab6CjEjkdm6hvRo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779889164;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tkFzuG/sYYx6WIe7zLxbB3YnbN+OJD7lXRTEH4WXPnA=;
+ b=kh8H3Z5yRkETWTuzy/00wtvHqYaQjF53nFyOvGspaCvrfYcv89CdAlx5Xi9OD+aKAFb85G
+ DhLQyJkTBeenIEBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779889164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tkFzuG/sYYx6WIe7zLxbB3YnbN+OJD7lXRTEH4WXPnA=;
+ b=MYaQyBqzpd7dr1BQLUQfF4gNJKdpVp3rlZWAJY/x4zpGq/JpmzHCPcazxI8Wlc3UTLD8qF
+ PF2LTLMER0uZiuYRuB/hTT1fV3bjgxX9JxjstaAM6KiAmJKI/HBGBKfTF6Np+mSVhU8ErD
+ 2LRlUhexd1cuSITBab6CjEjkdm6hvRo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779889164;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tkFzuG/sYYx6WIe7zLxbB3YnbN+OJD7lXRTEH4WXPnA=;
+ b=kh8H3Z5yRkETWTuzy/00wtvHqYaQjF53nFyOvGspaCvrfYcv89CdAlx5Xi9OD+aKAFb85G
+ DhLQyJkTBeenIEBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CCBBB5A863;
+ Wed, 27 May 2026 13:39:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id YD7HMAv0FmrpMQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 13:39:23 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com,
+ pekka.paalanen@collabora.com, jadahl@gmail.com, contact@emersion.fr,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, mhklinux@outlook.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 1/9] drm/vblank: Add drmm_vblank_init() to indicate managed
+ cleanup
+Date: Wed, 27 May 2026 15:32:42 +0200
+Message-ID: <20260527133917.207150-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260527133917.207150-1-tzimmermann@suse.de>
+References: <20260527133917.207150-1-tzimmermann@suse.de>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-0.994]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ RCPT_COUNT_TWELVE(0.00)[16]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com,collabora.com,emersion.fr,linux.intel.com,kernel.org,outlook.com];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RL9d8yydhbkx9sasttcqzahbbr)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,170 +118,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Rename drm_vblank_init() to drmm_vblank_init(). As the initializer
+function sets up managed cleanup, it should use the drmm prefix. Keep
+the old name around until all callers have been converted.
 
+Also add a flags argument to the function. The first use of the flags
+will be to distinguish between hardware vblank interrupts and simulated
+vblank timeouts.
 
-> On 25 May 2026, at 17:21, Danilo Krummrich <dakr@kernel.org> wrote:
->=20
-> Add a 'bound lifetime to the associated Data, changing type Data to =
-type
-> Data<'bound>.
->=20
-> This allows the driver's bus device private data to capture the device =
-/
-> driver bound lifetime; device resources can be stored directly by
-> reference rather than requiring Devres.
->=20
-> The probe() and disconnect() callbacks thus gain a 'bound lifetime
-> parameter on the methods themselves; avoiding a global lifetime on the
-> trait impl.
->=20
-> Existing drivers set type Data<'bound> =3D Self, preserving the =
-current
-> behavior.
->=20
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
-> rust/kernel/usb.rs              | 37 ++++++++++++++++++++-------------
-> samples/rust/rust_driver_usb.rs | 12 +++++------
-> 2 files changed, 28 insertions(+), 21 deletions(-)
->=20
-> diff --git a/rust/kernel/usb.rs b/rust/kernel/usb.rs
-> index 1dbb8387b463..7aff0c82d0af 100644
-> --- a/rust/kernel/usb.rs
-> +++ b/rust/kernel/usb.rs
-> @@ -41,7 +41,7 @@
-> // - `DEVICE_DRIVER_OFFSET` is the correct byte offset to the embedded =
-`struct device_driver`.
-> unsafe impl<T: Driver> driver::DriverLayout for Adapter<T> {
->     type DriverType =3D bindings::usb_driver;
-> -    type DriverData<'bound> =3D T::Data;
-> +    type DriverData<'bound> =3D T::Data<'bound>;
->     const DEVICE_DRIVER_OFFSET: usize =3D =
-core::mem::offset_of!(Self::DriverType, driver);
-> }
->=20
-> @@ -109,8 +109,8 @@ extern "C" fn disconnect_callback(intf: *mut =
-bindings::usb_interface) {
->=20
->         // SAFETY: `disconnect_callback` is only ever called after a =
-successful call to
->         // `probe_callback`, hence it's guaranteed that =
-`Device::set_drvdata()` has been called
-> -        // and stored a `Pin<KBox<T::Data>>`.
-> -        let data =3D unsafe { dev.drvdata_borrow::<T::Data>() };
-> +        // and stored a `Pin<KBox<T::Data<'_>>>`.
-> +        let data =3D unsafe { dev.drvdata_borrow::<T::Data<'_>>() };
->=20
->         T::disconnect(intf, data);
->     }
-> @@ -287,18 +287,22 @@ macro_rules! usb_device_table {
-> ///
-> /// impl usb::Driver for MyDriver {
-> ///     type IdInfo =3D ();
-> -///     type Data =3D Self;
-> +///     type Data<'bound> =3D Self;
-> ///     const ID_TABLE: usb::IdTable<Self::IdInfo> =3D &USB_TABLE;
-> ///
-> -///     fn probe(
-> -///         _interface: &usb::Interface<Core<'_>>,
-> +///     fn probe<'bound>(
-> +///         _interface: &'bound usb::Interface<Core<'_>>,
-> ///         _id: &usb::DeviceId,
-> -///         _info: &Self::IdInfo,
-> -///     ) -> impl PinInit<Self::Data, Error> {
-> +///         _info: &'bound Self::IdInfo,
-> +///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-> ///         Err(ENODEV)
-> ///     }
-> ///
-> -///     fn disconnect(_interface: &usb::Interface<Core<'_>>, _data: =
-Pin<&Self::Data>) {}
-> +///     fn disconnect<'bound>(
-> +///         _interface: &'bound usb::Interface<Core<'_>>,
-> +///         _data: Pin<&Self::Data<'bound>>,
-> +///     ) {
-> +///     }
-> /// }
-> ///```
-> pub trait Driver {
-> @@ -306,7 +310,7 @@ pub trait Driver {
->     type IdInfo: 'static;
->=20
->     /// The type of the driver's bus device private data.
-> -    type Data: Send;
-> +    type Data<'bound>: Send + 'bound;
->=20
->     /// The table of device ids supported by the driver.
->     const ID_TABLE: IdTable<Self::IdInfo>;
-> @@ -315,16 +319,19 @@ pub trait Driver {
->     ///
->     /// Called when a new USB interface is bound to this driver.
->     /// Implementers should attempt to initialize the interface here.
-> -    fn probe(
-> -        interface: &Interface<device::Core<'_>>,
-> +    fn probe<'bound>(
-> +        interface: &'bound Interface<device::Core<'_>>,
->         id: &DeviceId,
-> -        id_info: &Self::IdInfo,
-> -    ) -> impl PinInit<Self::Data, Error>;
-> +        id_info: &'bound Self::IdInfo,
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
->=20
->     /// USB driver disconnect.
->     ///
->     /// Called when the USB interface is about to be unbound from this =
-driver.
-> -    fn disconnect(interface: &Interface<device::Core<'_>>, data: =
-Pin<&Self::Data>);
-> +    fn disconnect<'bound>(
-> +        interface: &'bound Interface<device::Core<'_>>,
-> +        data: Pin<&Self::Data<'bound>>,
-> +    );
-> }
->=20
-> /// A USB interface.
-> diff --git a/samples/rust/rust_driver_usb.rs =
-b/samples/rust/rust_driver_usb.rs
-> index e900993335e9..02bd5085f9bc 100644
-> --- a/samples/rust/rust_driver_usb.rs
-> +++ b/samples/rust/rust_driver_usb.rs
-> @@ -26,21 +26,21 @@ struct SampleDriver {
->=20
-> impl usb::Driver for SampleDriver {
->     type IdInfo =3D ();
-> -    type Data =3D Self;
-> +    type Data<'bound> =3D Self;
->     const ID_TABLE: usb::IdTable<Self::IdInfo> =3D &USB_TABLE;
->=20
-> -    fn probe(
-> -        intf: &usb::Interface<Core<'_>>,
-> +    fn probe<'bound>(
-> +        intf: &'bound usb::Interface<Core<'_>>,
->         _id: &usb::DeviceId,
-> -        _info: &Self::IdInfo,
-> -    ) -> impl PinInit<Self, Error> {
-> +        _info: &'bound Self::IdInfo,
-> +    ) -> impl PinInit<Self, Error> + 'bound {
->         let dev: &device::Device<Core<'_>> =3D intf.as_ref();
->         dev_info!(dev, "Rust USB driver sample probed\n");
->=20
->         Ok(Self { _intf: intf.into() })
->     }
->=20
-> -    fn disconnect(intf: &usb::Interface<Core<'_>>, _data: Pin<&Self>) =
-{
-> +    fn disconnect<'bound>(intf: &'bound usb::Interface<Core<'_>>, =
-_data: Pin<&Self>) {
->         let dev: &device::Device<Core<'_>> =3D intf.as_ref();
->         dev_info!(dev, "Rust USB driver sample disconnected\n");
->     }
-> --=20
-> 2.54.0
->=20
->=20
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/drm_vblank.c        | 16 +++++++++-------
+ drivers/gpu/drm/drm_vblank_helper.c |  2 +-
+ include/drm/drm_crtc.h              |  2 +-
+ include/drm/drm_device.h            |  2 +-
+ include/drm/drm_vblank.h            | 10 +++++++++-
+ 5 files changed, 21 insertions(+), 11 deletions(-)
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index f90fb2d13e42..21ca91b4c014 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -117,7 +117,7 @@
+  * optionally provide a hardware vertical blanking counter.
+  *
+  * Drivers must initialize the vertical blanking handling core with a call to
+- * drm_vblank_init(). Minimally, a driver needs to implement
++ * drmm_vblank_init(). Minimally, a driver needs to implement
+  * &drm_crtc_funcs.enable_vblank and &drm_crtc_funcs.disable_vblank plus call
+  * drm_crtc_handle_vblank() in its vblank interrupt handler for working vblank
+  * support.
+@@ -146,7 +146,7 @@
+  * See also DRM vblank helpers for more information.
+  *
+  * Drivers without support for vertical-blanking interrupts nor timers must
+- * not call drm_vblank_init(). For these drivers, atomic helpers will
++ * not call drmm_vblank_init(). For these drivers, atomic helpers will
+  * automatically generate fake vblank events as part of the display update.
+  * This functionality also can be controlled by the driver by enabling and
+  * disabling struct drm_crtc_state.no_vblank.
+@@ -519,7 +519,7 @@ static void vblank_disable_fn(struct timer_list *t)
+ 	spin_unlock_irqrestore(&dev->vbl_lock, irqflags);
+ }
+ 
+-static void drm_vblank_init_release(struct drm_device *dev, void *ptr)
++static void drmm_vblank_init_release(struct drm_device *dev, void *ptr)
+ {
+ 	struct drm_vblank_crtc *vblank = ptr;
+ 
+@@ -534,9 +534,10 @@ static void drm_vblank_init_release(struct drm_device *dev, void *ptr)
+ }
+ 
+ /**
+- * drm_vblank_init - initialize vblank support
++ * drmm_vblank_init - initialize vblank support
+  * @dev: DRM device
+  * @num_crtcs: number of CRTCs supported by @dev
++ * @flags: flags for vblank handling
+  *
+  * This function initializes vblank support for @num_crtcs display pipelines.
+  * Cleanup is handled automatically through a cleanup function added with
+@@ -545,7 +546,7 @@ static void drm_vblank_init_release(struct drm_device *dev, void *ptr)
+  * Returns:
+  * Zero on success or a negative error code on failure.
+  */
+-int drm_vblank_init(struct drm_device *dev, unsigned int num_crtcs)
++int drmm_vblank_init(struct drm_device *dev, unsigned int num_crtcs, unsigned int flags)
+ {
+ 	int ret;
+ 	unsigned int i;
+@@ -564,11 +565,12 @@ int drm_vblank_init(struct drm_device *dev, unsigned int num_crtcs)
+ 
+ 		vblank->dev = dev;
+ 		vblank->pipe = i;
++		vblank->flags = flags;
+ 		init_waitqueue_head(&vblank->queue);
+ 		timer_setup(&vblank->disable_timer, vblank_disable_fn, 0);
+ 		seqlock_init(&vblank->seqlock);
+ 
+-		ret = drmm_add_action_or_reset(dev, drm_vblank_init_release,
++		ret = drmm_add_action_or_reset(dev, drmm_vblank_init_release,
+ 					       vblank);
+ 		if (ret)
+ 			return ret;
+@@ -580,7 +582,7 @@ int drm_vblank_init(struct drm_device *dev, unsigned int num_crtcs)
+ 
+ 	return 0;
+ }
+-EXPORT_SYMBOL(drm_vblank_init);
++EXPORT_SYMBOL(drmm_vblank_init);
+ 
+ /**
+  * drm_dev_has_vblank - test if vblanking has been initialized for
+diff --git a/drivers/gpu/drm/drm_vblank_helper.c b/drivers/gpu/drm/drm_vblank_helper.c
+index d3f8147ecdc1..5b05ab72e133 100644
+--- a/drivers/gpu/drm/drm_vblank_helper.c
++++ b/drivers/gpu/drm/drm_vblank_helper.c
+@@ -25,7 +25,7 @@
+  * for drivers without further requirements. The initializer macro
+  * DRM_CRTC_HELPER_VBLANK_FUNCS sets them coveniently.
+  *
+- * Once the driver enables vblank support with drm_vblank_init(), each
++ * Once the driver enables vblank support with drmm_vblank_init(), each
+  * CRTC's vblank timer fires according to the programmed display mode. By
+  * default, the vblank timer invokes drm_crtc_handle_vblank(). Drivers with
+  * more specific requirements can set their own handler function in
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index c6dbe8b7db9e..f981468d9a00 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -163,7 +163,7 @@ struct drm_crtc_state {
+ 	 *
+ 	 * One usage is for drivers and/or hardware without support for VBLANK
+ 	 * interrupts. Such drivers typically do not initialize vblanking
+-	 * (i.e., call drm_vblank_init() with the number of CRTCs). For CRTCs
++	 * (i.e., call drmm_vblank_init() with the number of CRTCs). For CRTCs
+ 	 * without initialized vblanking, this field is set to true in
+ 	 * drm_atomic_helper_check_modeset(), and a fake VBLANK event will be
+ 	 * send out on each update of the display pipeline by
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index 768a8dae83c5..742996576313 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -283,7 +283,7 @@ struct drm_device {
+ 	 * Array of vblank tracking structures, one per &struct drm_crtc. For
+ 	 * historical reasons (vblank support predates kernel modesetting) this
+ 	 * is free-standing and not part of &struct drm_crtc itself. It must be
+-	 * initialized explicitly by calling drm_vblank_init().
++	 * initialized explicitly by calling drmm_vblank_init().
+ 	 */
+ 	struct drm_vblank_crtc *vblank;
+ 
+diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+index 2fcef9c0f5b1..39a201b83781 100644
+--- a/include/drm/drm_vblank.h
++++ b/include/drm/drm_vblank.h
+@@ -282,10 +282,12 @@ struct drm_vblank_crtc {
+ 	 * @vblank_timer: Holds the state of the vblank timer
+ 	 */
+ 	struct drm_vblank_crtc_timer vblank_timer;
++
++	unsigned int flags;
+ };
+ 
+ struct drm_vblank_crtc *drm_crtc_vblank_crtc(struct drm_crtc *crtc);
+-int drm_vblank_init(struct drm_device *dev, unsigned int num_crtcs);
++int drmm_vblank_init(struct drm_device *dev, unsigned int num_crtcs, unsigned int flags);
+ bool drm_dev_has_vblank(const struct drm_device *dev);
+ u64 drm_crtc_vblank_count(struct drm_crtc *crtc);
+ u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,
+@@ -321,6 +323,12 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc);
+ void drm_crtc_vblank_cancel_timer(struct drm_crtc *crtc);
+ void drm_crtc_vblank_get_vblank_timeout(struct drm_crtc *crtc, ktime_t *vblank_time);
+ 
++/* deprecated; use drmm_vblank_init() instead */
++static inline int drm_vblank_init(struct drm_device *dev, unsigned int num_crtcs)
++{
++	return drmm_vblank_init(dev, num_crtcs, 0);
++}
++
+ /*
+  * Helpers for struct drm_crtc_funcs
+  */
+-- 
+2.54.0
 
