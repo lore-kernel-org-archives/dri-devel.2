@@ -4,97 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27D1ACD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:37:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB33CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:43:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F05E10E9DF;
-	Wed, 27 May 2026 20:37:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8B2710E9EC;
+	Wed, 27 May 2026 20:43:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="rS20odPz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sDv8zaE0";
 	dkim-atps=neutral
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D91B10E9DF
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:37:09 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5a86d384ca6so36e87.1
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:37:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779914227; cv=none;
- d=google.com; s=arc-20240605;
- b=dj8H9MI8lOy/woAQr/zJLVnAfHEObSBCxhF+kTQ2dGjP6XirzQNm+wCOXFEzuiIA6N
- DyT2+z27kjAj5Ll6pICwdvyyk4ZVra8/5/BhY2E5rcLtrNG0IDDGkQrDe8TEstjDEK04
- px2+x+V4wUosztxW7G+MTQ8mA77+NVmOSmxU2U3ohZV375jEAHVy0wYEKoHXfdOHUYKu
- GqUr0bq+MZZUoTIENKpfT3pqwiOZEn1EnHLZIYjHFPZ6Lu4vgQS8oKq5zgVDWIjqqEYj
- aW2X94IjMefMOgcre/QhGfkrK1ozExlGvPGJh/4jJj9DnQky+7PXgy2R1XsqP6M7tvJ3
- kFMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=FiFa1Df4saC1J/ZGIYY64ADBjJ4UDzy5361EO2Lv5uM=;
- fh=6RajussRuR1Bbjn4/l3ltI0wUEsjFM7bz3VH9RP49gU=;
- b=WHZreIwE8P+Us8uYyciUXDfu5kvWtM0zIm/ixmmZUM3wOsgr1uMuc1RReiJcEJ69q7
- K7zfjOzRmGN2QB9AgeYYmKGduPz9zGznLzYPAzhBJR9Rv0XgoRZ/606vSoKJ78YZHMoj
- 8Tpx/axo1jWKWqJFIdmbneG+IO3Fch9sx//ywUQjxjJzgPIa/HmB/ti1ngO6twqmtKf8
- iXfwe7rr2LzNLzASBnzN6cgYrBvWF6zf9ogzKUF/787YNZW9Z8BcjOL437yO53VZkcg6
- wLry46FKMuTyNd6j8KEGgNiXxSD4d7vGJOx3pBe77d9kmsNXVVTGaWCKGpXjvUgf2hmk
- A1Sg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A45310E9EC
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:43:40 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2ba3e3c4f87so126275455ad.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:43:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1779914227; x=1780519027;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FiFa1Df4saC1J/ZGIYY64ADBjJ4UDzy5361EO2Lv5uM=;
- b=rS20odPzcpeN+8MdsYleA17RejvMArwQRgjMpXQdUqxEkHIwpDdgjEkVGW045Yu+R8
- 5jpGy1NUYAJR6qtHmwOtCxbd9YpQKNIKNg3qa95ctFxMl4AucDPx9Fj7S87eTUb8GNOQ
- zWSwMCCUVE/H55TVQf+hxHuXLGbKZ3OkMiOPdqXPCst2GHnM4XD2rH+DGwG5smxdBbyl
- 8vFIpI0Vyx6ip1b+RN2KkLTX5nQxe8BL07fbwgBdiMsnKAwj9RpVwZMisV4xAgVpqCRt
- Nvg38sWv6WnP3m1QUehkPScQarToZllrEwecDTcvxS7pL7NmrJkJHYe67bqkJ09jbDjY
- mjcw==
+ d=gmail.com; s=20251104; t=1779914620; x=1780519420; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=FXTPczjLvJobFRbkK7xxt7iJVHks66505vqIfh89VkA=;
+ b=sDv8zaE0McqUuZPw4+2USNRqPLT1VGXmlOfydrBVyMsZebIL0zCzCvc1o+PyRNOWvZ
+ 9QtjL5r8kymV9YTL8yKV61kKNJhiZvniaFFk37m2RXze/yzI1DonlKPhzzCQh1pM1iUM
+ xDL431/Vo7jjaa3CH8qWBjsQnD7BaXbkmuLkG873o8BmWtO3GlA4ZecrXduxC19Gzh0C
+ VOZl03JEPPTicc5Dkti2xMWysStzG8FmiSnLHDU4E3EDxSeU5Y+cdGqwR0xDR3PouyvE
+ U2pPWwtFZprC0vIjNOOhBovZFbln+TfkjDpau372103/eDcwEOlEkEbvuh76dZ09GpD+
+ FTJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779914227; x=1780519027;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=FiFa1Df4saC1J/ZGIYY64ADBjJ4UDzy5361EO2Lv5uM=;
- b=hTg63oONa4J5CrqqeTzCNmW8r3GjoTdxVuha4rl+K4QvM8KZhPDwS618EL2eEozxVj
- 0vdPCibm+xlUBe30E2MxwpcBOH5xWD1e16K3NpJ15ct2T/s01BjQqNK58njK8QugXiUU
- 8g0ujm/URehCNw6Er42Nefe+gPxlZS+jM2hRd9J9SWi3qdxTKfFUyHK32afgnbQxVUqS
- RX9UpO9K36i8qbUcpfCKpzELcVY3J+9WJM+YKEdXRe/NGK5RFBBCaAnvxlsy4MC9uv5t
- +lVOudiSKF7zWdZ8w+XXZRn8yR0DXqA7QkvGYb2sFB2RJ8hJxevMe19tPBJYpucK1hXd
- c4MQ==
+ d=1e100.net; s=20251104; t=1779914620; x=1780519420;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=FXTPczjLvJobFRbkK7xxt7iJVHks66505vqIfh89VkA=;
+ b=gUPDziYmWv4+IC6niLJqKUL3lDuTI5NA8uZggB8MKStqAa0r4ULMkL0I5Fsu8P0VBj
+ m8iLTH/4wSI19nb8vvGAl5Oqx5cKMN2u3pavXPwDjTRBHdi6fcjyXH1/GchVgp0xibov
+ 6+PTK80/kdnLS0GM9Q/v4aOPvjAVYhyk6u7l9QKvmR4y/rPIP53LirUHkaS9i+9qVKz+
+ ZYOWIm02r9UR/lvBdCJ2mqV7hLLFonfJbUeWkV9Hpxofivw5je6hR1aKpT4ZnG7Wv/Aa
+ Pv0vbPKMHmzlC76OSZl2Ubat/GxFzvgLJBDauZox2n5asGsD6cipgkh1JPplEOJSpOjS
+ mCdg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9b0f6nhIEXFQ86TAMf2nI2Opwly/VQLOq5MG8iM2wter/T7WNI8ffGVAx4BqDTa5nU882diShkgK4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzbtHqE+H8tlTIrEfYDGaEpcumecVVy3NeZk49vgFJUENK/tXgx
- 5RA82gYb8hawa+z/0qUR9cfO5LQO0Uf7V/gjypK97IP2UnMhoUBCwuLhX771V1XejgnGXIwtJfU
- s8scQZcw/VGpryq+JDMn8TddjFuICfwUdUPCs4Fg=
-X-Gm-Gg: Acq92OHRKMpqGYvyoIgj+wACZ64vIFqkb+2y6X9asbK3ZfhZUYn1uRKL9fqrgkqyrPD
- D9KcCG0gnY6w2FY52XKcBFX2wizCpwB76E7ZagwZGjAV3tJP+HZwzZSRtWsp2UjEneYUkFJ63OQ
- 6QrLUfN1VzERtFMiFFe1lzaZgypN9vaT5Nt1P/IXUeCG3diMmY8sNRTzpDhJtr3xsCpkDeb2ec9
- lt7+jH6i5XkbeXrY1xaH3ow5mnYeGOUNcIZcUPq4hdgiKaxzwLpQGt9k8Ph8HrVc+sPLjZtKcd8
- kgLYPgXq4Pajc+haX/igfPhq4FHaXl7D+MDwnG1FTosMoOA=
-X-Received: by 2002:a05:6512:134a:b0:5a4:462:a470 with SMTP id
- 2adb3069b0e04-5aa4ff92e07mr24638e87.7.1779914226791; Wed, 27 May 2026
- 13:37:06 -0700 (PDT)
+ AFNElJ/m9s+eShmrEC1hp34g8kBRbWn1298EztQRJajTckJKdjdKuFZqQtnf3vcrEKyXIUI6WSmu4FJF5s8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/Dhae4vdB+1SZN9bZY+VcTLJzUF2vRRfBiJEY4cyBuUhHNFg2
+ zdTqsdhZ9hwCk5G8FesFn3CUnBcvjdvDwrLRurlivsTw5akNOpXcM3pi
+X-Gm-Gg: Acq92OEoGnBerWzQi5uyHskpIek2wJnsByUsSDs73i2BmYJzqeS+5vxwBo4BJwrH553
+ +0mhqz+DTwifoSLxIAQyybSeVRSRJzLPaj0sPfZBrt7foY1LyEFLtfZqtj6a+rnlYvf/A3AAGgH
+ 5VUknO+ZRxIVk/fvckUNtZyeg+yGvnGYtAReMEU0Z7oRYFU1kPJwr8v5YglToVlvaUeDVPb3Z9s
+ F3yy0NCBF4gUHOxwLqHbeVWUD750kcR68sYFIqMR4+neW5Q+WVg6Je5+CiHPOx1QcT7DUWa9vgO
+ U/I/DUBf04gMJoLrIpOl7Mb2qbJa8h+r19OIWPPAa2R7iBSmEL0Usdo3KkmRYez3ScAtm0xmW9Z
+ 4QVHwyLkQ2vbWQknuDfQcE1E19ShUiPJygLMaPbJ7MSIvgnCYyIExRhsWCLs543RCJ+pymfaXLg
+ YoxdkIambdPqcbg1fCc1+Ih1+54i7WPiKSgH5tOGe+cjhU4+U=
+X-Received: by 2002:a17:903:f86:b0:2bd:2de3:5198 with SMTP id
+ d9443c01a7336-2beb033f48cmr279229085ad.3.1779914619757; 
+ Wed, 27 May 2026 13:43:39 -0700 (PDT)
+Received: from [172.18.227.108] ([219.88.198.180])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2beb58b2ccbsm165239385ad.48.2026.05.27.13.43.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 May 2026 13:43:39 -0700 (PDT)
+Message-ID: <30edf212-f656-4c09-a066-d765debf3fcb@gmail.com>
+Date: Thu, 28 May 2026 08:43:31 +1200
 MIME-Version: 1.0
-References: <20260511214243.349487-1-xuehaohu@google.com>
- <20260526173350.2359263-1-praan@google.com>
-In-Reply-To: <20260526173350.2359263-1-praan@google.com>
-From: David Hu <xuehaohu@google.com>
-Date: Wed, 27 May 2026 16:36:54 -0400
-X-Gm-Features: AVHnY4IF3I2qsMWkH6V2x0MBlfaofpaRNxk4VxA3EVoNIlcP5hkGNNAtRYxgcFU
-Message-ID: <CAPd9Lg_aXizh0R1wnRitwVRMdh5SmfUmLiQLyF+EJ31yFeLYJg@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: Fix silent overflow for phys vec to sgt
-To: Pranjal Shrivastava <praan@google.com>
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, kevin.tian@intel.com, 
- ankita@nvidia.com, jgg@ziepe.ca, alex@shazbot.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- jmoroni@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] arm64: qcom: Enable additional hardware on Radxa
+ Dragon Q6A
+To: Xilin Wu <sophon@radxa.com>, linux-arm-msm@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org,
+ robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, neil.armstrong@linaro.org
+References: <20260522060645.4399-1-graham.oconnor@gmail.com>
+ <20260522101323.31911-1-graham.oconnor@gmail.com>
+ <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
+Content-Language: en-GB, en-US
+From: Gekko <graham.oconnor@gmail.com>
+In-Reply-To: <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,107 +98,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 26, 2026 at 1:33=E2=80=AFPM Pranjal Shrivastava <praan@google.c=
-om> wrote:
->
-> On Mon, May 11, 2026, David Hu wrote:
-> > In case MMIO size is bigger than 4G, and peer2peer
-> > dma goes through host bridge, we trigger the code
-> > path to assign total linked IVOA, greater than 4G
->
-> Nit: s/IVOA/IOVA
->
-> > to mapped_len, and leading to a silent overflow
->
-> > Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mappi=
-ng routine")
-> > Signed-off-by: David Hu <xuehaohu@google.com>
-> > ---
-> > drivers/dma-buf/dma-buf-mapping.c | 3 ++-
-> > 1 file changed, 2 insertions(+), 1 deletion(-)
->
-> > diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-bu=
-f-mapping.c
-> > index 794acff2546a..658064140357 100644
-> > --- a/drivers/dma-buf/dma-buf-mapping.c
-> > +++ b/drivers/dma-buf/dma-buf-mapping.c
-> > @@ -95,7 +95,8 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_b=
-uf_attachment *attach,
-> >                                        size_t nr_ranges, size_t size,
-> >                                        enum dma_data_direction dir)
-> > {
-> > -     unsigned int nents, mapped_len =3D 0;
-> > +     unsigned int nents =3D 0;
-> > +     size_t mapped_len =3D 0;
-> >       struct dma_buf_dma *dma;
-> >       struct scatterlist *sgl;
-> >       dma_addr_t addr;
->
-> Minor nit: Let's follow the reverse xmas tree format?
-> This looks correct to me, for this change:
->
-> Reviewed-by: Pranjal Shrivastava <praan@google.com>
->
-> Apart from this, I see similar issues at other places:
->
->   1. In calc_sg_nents(), nents is accumulated as an unsigned int. [1]
->      If nr_ranges is very large, nents could also overflow, potentially
->      leading to a small allocation in sg_alloc_table() and a subsequent
->      out-of-bounds access in the mapping loop. It might be worth changing
->      nents to size_t there and adding a check against UINT_MAX.
->
->    2. In fill_sg_entry(), the loop variable i is an int [2]. Changing
->      it to unsigned int would be more consistent with the nents type
->      and safer for extremely large mappings.
->
->
-> Maybe, we should also fix these? For example:
->
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-=
-mapping.c
-> index 794acff2546a..ecf07ffca2b9 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -10,7 +10,7 @@ static struct scatterlist *fill_sg_entry(struct scatter=
-list *sgl, size_t length,
->                                          dma_addr_t addr)
->  {
->         unsigned int len, nents;
-> -       int i;
-> +       unsigned int i;
->
->         nents =3D DIV_ROUND_UP(length, UINT_MAX);
->         for (i =3D 0; i < nents; i++) {
-> @@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state=
- *state,
->                                   struct phys_vec *phys_vec, size_t nr_ra=
-nges,
->                                   size_t size)
->  {
-> -       unsigned int nents =3D 0;
-> +       size_t nents =3D 0;
->         size_t i;
->
->         if (!state || !dma_use_iova(state)) {
-> @@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state=
- *state,
->                 nents =3D DIV_ROUND_UP(size, UINT_MAX);
->         }
->
-> +       if (nents > UINT_MAX)
-> +               return 0;
-> +
->         return nents;
->  }
->
-> Thanks,
-> Praan
->
-> [1] https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/dma-buf/dma-=
-buf-mapping.c#L39
-> [2] https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/dma-buf/dma-=
-buf-mapping.c#L13
-Thank you Pranjal for the review ! Good catch on other potential
-overflow sites. I have folded in your suggestions for calc_sg_nents(),
-and fill_sg_entry(), and applied reverse xmas tree formatting. Sending
-out a v2 shortly.
+Hi Xilin,
+
+Thank you for the response.
+
+I appreciate the offer to take over your patch set to move things 
+forward. However, I feel I must respectfully decline. This is mainly due 
+to my lack of experience with both upstream kernel development on this 
+hardware and the patch management process itself. It would be 
+irresponsible of me to take on something that I'm not knowledgeable 
+enough to ensure successful completion.
+
+I'm happy to work with you to help in any other way that I can such as 
+testing patches, but I think you should maintain ownership of the 
+patch-set and submission process, at least for now.
+
+One of the reasons I withdrew my own patch-set is that from what I can 
+see your series covers everything I was trying to achieve, and does it 
+correctly :-)
+
+The only one that isn't covered is the patch for early TCS 
+initialisation that I'm discussing with Konrad which may be unnecessary 
+anyway.
+
+Graham
+
+On 24/05/2026 13:58, Xilin Wu wrote:
+> On 5/22/2026 6:13 PM, Graham O'Connor wrote:
+>> Thank you to Konrad, Neil, and others for the very prompt and helpful 
+>> reviews.
+>>
+>> Based on the feedback received, I think it best to withdraw this 
+>> series to
+>> address the issues raised, most notobly:
+>>
+>> 1. The DP_TRAIN_LEVEL_MAX change (patch 3) is too broad - it affects all
+>>     devices using the Qualcomm MSM DP driver rather than being 
+>> specific to
+>>     the RA620 bridge. A proper fix should be implemented at the bridge
+>>     level. This is going to take more investigation.
+>>
+>> 2. The display DT nodes (patch 5) should use the radxa,ra620 compatible
+>>     string per the existing Radxa upstream series from Xilin Wu, and the
+>>     lane ordering needs correcting.
+>>
+>> 3. The rpmh-rsc early return (patch 1) needs further review regarding
+>>     the implications of returning before full driver initialization.
+>>
+>> 4. DTS patch label dependency issue (sorry)
+>>
+>> I'll integrate with the Radxa upstream effort, re-evaluate the other 
+>> areas
+>> and resubmit corrected patches addressing these concerns at a later date.
+>>
+>> Thanks for the feedback.
+>>
+>> Cheers
+>>
+>> Graham
+> 
+> Hi Graham,
+> 
+> Thanks for working on the additional hardware bring-up for Q6A upstream 
+> support. I'm really glad to see someone pushing this forward.
+> 
+> I actually posted a patch series [1] last month, and it is generally in 
+> good shape. Unfortunately, I got busy with other work and haven't had a 
+> chance to send v2 yet.
+> 
+> If it helps, please feel free to take over that series and fold your 
+> additional patches into it. I think that would be a good way to move 
+> things forward.
+> 
+> Also, I believe patches 10-12 in my series are no longer needed and can 
+> be dropped.
+> 
+> Thank you again for the work you have done.
+> 
+> [1] https://patchwork.kernel.org/project/linux-arm-msm/list/? 
+> series=1078242&state=%2A&archive=both
+> 
+
