@@ -4,52 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1230FCD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 12:04:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0607CCD5BD0
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 12:14:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 668A210E7A0;
-	Wed, 27 May 2026 12:04:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6060210E11B;
+	Wed, 27 May 2026 12:14:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jD9183lA";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="ooJ/Nq6Q";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCD810E7A0
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 12:04:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E0F46600BB;
- Wed, 27 May 2026 12:04:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18A351F000E9;
- Wed, 27 May 2026 12:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779883470;
- bh=XMfF5DnL7dDcq9KjDboiINYmJ7YqWFYoHGh7UlSTB7g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jD9183lArneaw8BloQcTcrcKlkT4/u0tTmoiY4xz7P3Gxdeesy1iRrg4d7fsjNqwQ
- bMYM8xcWGEqxnXknJPhzB7VmpL/fSj2b11cdxGJOb+BtdkuZzjaNR1bq8z1dBvjGiy
- 7Vwd/zzd7YIA2muFHD+vFtg/P9nJcM9bO4kWCHQiMRb4bwtoBA1aehg9uQleq4mkpr
- sHll4qpCvCOXIhZ5ryPt+uYc013SnhCFsuaRhkuppGXBCXsvIka5FDWT5YpdlZuNAc
- VixYHMHuhwZSekWwwptRzzJbyaxP3b7HzNS/5VYCOyHmS4iCjhzC7C2jnTE0gCKCGG
- 9ej5NtT+FR7sA==
-Date: Wed, 27 May 2026 14:04:27 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-Message-ID: <20260527-flawless-chowchow-of-fruition-edbe8a@houat>
-References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
+ [209.85.160.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECBA010E11B
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 12:14:41 +0000 (UTC)
+Received: by mail-qt1-f182.google.com with SMTP id
+ d75a77b69052e-50faeb8317bso105627941cf.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 05:14:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1779884080; x=1780488880; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=zjybRMBUQubASldC260OK8MJUJyjzZlOHF/HoeFPi84=;
+ b=ooJ/Nq6QEbh17dVWh/Kb8gS8depxtQvtAccCpSsaLSRBIzlP552ziWA6yFPU+9Tzni
+ ZSXeHea4fMapRcMzhugRHNNzXwWSBnnL7sircMvJ/sbh+4pyEn1BPRxhlSqfwjP59jXQ
+ //KoN4Wx7C23xM0eFVtFee0ol+t23i3CPBjskRwCZ4CUwUaVzfeZCD74rAk8LaiEUlsr
+ pDJvQY12gXzZ8GXz7Bgio+2FHMQcw1cV9bCFoHZe39B3Q2Bwo45je7Dbmeca7T6VR0jL
+ Ik/bVog3ZGP8QqItpm+Atg0KC6aSoLHf+WmN9Y2JJpw3tbSKrIl6VesrpMU1cEl6zUYz
+ nomA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779884080; x=1780488880;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zjybRMBUQubASldC260OK8MJUJyjzZlOHF/HoeFPi84=;
+ b=b5yCQAmHqnmoKIstjZFs7xiEh5k0kQs7lh9VR77vuvv8taTDfAucCOvmgvXUvprkpw
+ NhdX8xDh3ggIQGma3FABj9eLiG7NZbf6UNU4YvvcCoUd/Fsh+6ZIvzjiTs7ICLEY9KbV
+ kldbAKecac32m9YfMK68+lsuIyU/hBznRVUgKfdLsK9fbohQa25MBPMVu9CXdV2WDxai
+ LueNtH+yVWc1z3+yPtbbWibUZqv5uyt87L0nAPQ1JzFhLBE/BknrIW3qRDYu0z6zhT7w
+ 0QXCbZqx0FFr5n941RdASCUX9vfMYHuduoffnKaB5+0QREajE6jg+TCN5lglGp4SobKn
+ I0sw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8hbncRoj8IuayXnGqX9jvJJzMxgCwjygi0RZiNKbniLNOm9xeDlId7GVTW/SNoiYCp+sYyvD6toOQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxIM+4qHkEfKLhJEu6Z2DWewtoECMsLJV6FElLS+9LzS8svNMPc
+ ZYlBAKmhBbuEWUrzvlZmKQ9vekLrydNHPRfyNY9vtNs1rh2+EkYZKOXudpK4Cck0Btg=
+X-Gm-Gg: Acq92OFLys6kKuoOUkoqRp30GmTXIXfp7oBfb4941qGik2iKmHpRj0i//+lgkAc1PMk
+ 6WhP4OVoQ6BTcGD1TjcgD8YHcKSM+W2kwbq0mKmYD43UKOkKJ5j5EOq1WLYOX25gnTuVw6AYC5E
+ Re5mwYgFMTUMqi0uurjrFLMTn9qieu4wHbk2DBTX+gmpSbc88Ms04CUmnMIN+8dN88gt6Vv15S4
+ IBMlnt7+hTFQwnLiMrCS91AFJ7habrYie/T27AkU5S/GfObpHbdPo0Dy0Ip1C/ItsICCPCCAOHn
+ d4hEMKIop/BkpHtwVLf39TNwJkmLgZWZ6/Oa9JIt9UB7TuWARopIq5Y4uF/siKrSFMRJu1U7AJ/
+ LqQw5sbhrlR1mSGF11Fb6fbvOnJ86AAiY+8cif6an15khS8nLuweyHhSZiNLmD5nPdUQdcPBn3I
+ an4fC/NJhqXPOuLigRggmEi1Sj2s947kdV5vUYORu9eDVgFr8EAfdxm3YOV8DBQ3Ur1dCBP4eHO
+ nFxdwd//K0iduy9
+X-Received: by 2002:ac8:58d4:0:b0:516:d2cc:5160 with SMTP id
+ d75a77b69052e-516d459212fmr302395201cf.32.1779884079723; 
+ Wed, 27 May 2026 05:14:39 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-51706adc446sm39991901cf.15.2026.05.27.05.14.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 May 2026 05:14:38 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wSD9i-0000000ENnz-0tj0;
+ Wed, 27 May 2026 09:14:38 -0300
+Date: Wed, 27 May 2026 09:14:38 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+Subject: Re: [PATCH v5 0/4] vfio/dma-buf: add TPH support for peer-to-peer
+ access
+Message-ID: <20260527121438.GJ2487554@ziepe.ca>
+References: <20260526144401.1485788-1-zhipingz@meta.com>
+ <a8cd01ab-d7aa-465d-bfa3-431f78f33ee1@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="poecqeshwt7yxrvn"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a8cd01ab-d7aa-465d-bfa3-431f78f33ee1@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,137 +102,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, May 27, 2026 at 08:55:49AM +0200, Christian König wrote:
+> On 5/26/26 16:43, Zhiping Zhang wrote:
+> > This series adds TLP Processing Hints (TPH) support to the VFIO dma-buf
+> > export path, allowing importing drivers (e.g. mlx5) to use the
+> > exporter's steering tag when performing peer-to-peer DMA into a
+> > VFIO-owned device.
+> 
+> I'm not an expert for TPH, but that sounds very strange to me.
+> 
+> As far as I know the TLP Processing Hints allow devices to give a
+> steering tag to the root complex together with memory accesses to
+> give fine grained control about cache usage. In other words it is an
+> extension to the classic snoop bit.
 
---poecqeshwt7yxrvn
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-MIME-Version: 1.0
+TPHS includes an bit of data on every TLP and the data transits to the
+eventual completer.
 
-Hi Hans,
+It does not have to be a root port.
+ 
+> For P2P that is obviously nonsense because we don't have P2P support
+> for cached accesses.
 
-On Wed, May 27, 2026 at 11:48:08AM +0200, Hans de Goede wrote:
-> Hi Michael, Stephen, et al.,
->=20
-> The device-tree simple-framebuffer device is special in that it does not
-> describe actual hardware, but it allows firmware (e.g. u-boot) to pass a
-> firmware initialized framebuffer to the OS to use as display during boot.
->=20
-> To avoid clocks used by the firmware framebuffer getting touched while in
-> use, the DT node contains a list of clocks which should not be touched
-> while the simple-framebuffer is in use.
->=20
-> Conceptually this is fine, in practice the *do not touch* is implemented =
-as
-> a clk_prepare_enable() + clk_disable_unprepare() pair, with the disabling
-> happening when the simple-framebuffer driver gets replaced by the real
-> display-engine driver.
+For P2P the TPH data on the TLP will transit to the P2P completer
+unchanged.
 
-Which is also pretty fragile because it doesn't lock the rate either.
+It is up to the completer do define what it does with the TPH data.
 
-> The simple-framebuffer concept assumes that the order in which resources
-> are acquired does not matter since they are already on, so power-sequenci=
-ng
-> is not an issue. But clk_disable_unprepare() actually turns the clock off,
-> messing with the hardware state before the real display driver loads,
-> without any knowledge of the proper power-off sequence for the display.
->=20
-> The turning off of the clocks outside of a proper power-off sequence caus=
-es
-> the following error when the msm display driver tries to re-enable them:
->=20
-> [    2.980181] disp_cc_mdss_dptx3_pixel0_clk_src: rcg didn't update its c=
-onfiguration.
-> [    2.980272] WARNING: drivers/clk/qcom/clk-rcg2.c:136 at update_config+=
-0xdc/0x100
->=20
-> Resulting in a non working display.
->=20
-> To fix this, we need a way to properly implement the "do not touch" conce=
-pt
-> for clocks.
+Typically root ports in CPUs will use TPH data for cache placement
+instructions. But who knows what a P2P device will use it for.
 
-I'm not sure it's something we can enforce, really. The firmware can
-modify clocks behind our back. Other clocks might change this one as a
-side-effect of a rate change or reparenting, etc. It's just not
-something we can commit to.
+In Linux the driver that owns the completing address space gets to
+specify how the TPH data works based on its own device specific
+knowledge.
 
-> clk_prepare_enable() is fine, the clocks are already on so no
-> ordering worries and it ensures that the clocks and their parents cannot
-> get turned off by incrementing their enable, prepare and protect counts.
->=20
-> clk_disable_unprepare() is a problem though since it actually turns the
-> clocks off. Instead something is needed which only decrements those count=
-s.
->=20
-> This series introduces a new clk-core function called
-> __clk_disable_unprepare_counts_only() (1) which does just that. Prefixed
-> with '__' to indicate that normally drivers should not use this.
->=20
-> Michael, Stephen sorry for needing to add a new clk-core function for thi=
-s,
-> but I see no other way of solving this (2)(3). The changes are not that
-> big / not too bad.
->=20
-> I've also considered making __clk_disable_unprepare_counts_only() impleme=
-nt
-> all the logic itself instead of adding the extra parameter to
-> clk_core_unprepare() and clk_core_disable() but that leads in duplicating
-> quite a bit of logic (4) so this seems better.
->=20
-> The other 2 patches just replace the clk_disable_unprepare() calls in
-> the simple[fb|drm] driver with the new helper.
->=20
-> This series fixes the display not coming up after switching to the msm
-> driver when a simple-framebuffer node with clocks listed is used.
->
-> 1) I'm open to changing the name, this is the best I could come up with.
->=20
-> 2) One option considered was detaching the simple-framebuffer driver late=
-r,
->    after the real display driver has had a chance to claim the clocks. But
->    this won't work in cases where the real display driver picks different
->    parent clocks then the boot firmware did and needs to reparent clocks.
->=20
->    Basically the goal is for things to behave as if the simple-framebuffer
->    driver was not there at all, because that leaves the hw in the state
->    the real display driver expects.
-
-So I know it's not really what you had in mind, but if you are only
-concerned about the transition from the bootloader to the DRM driver,
-then I think supporting the following work would help:
-
-https://lore.kernel.org/r/20260423-drm-state-readout-v2-0-8549f87cb978@kern=
-el.org
-
-With that series, we can build the initial KMS state from the hardware
-state, which means that if you were to change the resolution at boot, it
-would be executed just like any mode change in KMS.
-
-The initial state allocation is now fallible as well, so if you remove
-simple-framebuffer after drm_mode_config_create_initial_state has been
-called and has succeeded, then you know that the driver is now in
-charge, picked up the configuration, and has taken all the resources
-needed to continue running. And if it fails for any reason,
-simple-framebuffer is still functional.
-
-This should help mitigate your initial problem, even though it's a
-widely different solution.
-
-Maxime
-
---poecqeshwt7yxrvn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCahbdywAKCRAnX84Zoj2+
-doYEAYCJSKbYb5ovBP1Tk4I/neeBWAd0rAXIxQ4ItF/x8n1yMsBNqaD+sYb0l5ej
-8yKxe1EBgJXJaa1J/HCXRaAWJqpc4/P8PV6oMIF9/Ph5dplnMb+5cOU5Iul4Hq3C
-fXaTVRpKyQ==
-=zoaU
------END PGP SIGNATURE-----
-
---poecqeshwt7yxrvn--
+Jason
