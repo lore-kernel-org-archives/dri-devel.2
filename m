@@ -4,60 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0155CD6E43
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 17:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C67CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 17:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F04710E344;
-	Wed, 27 May 2026 17:16:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4D9C10E808;
+	Wed, 27 May 2026 17:18:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="BKmILYm8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SIp9istw";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 396A510E344
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 17:16:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779902160;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=sVR4w/bJZ+gLns5rGEscxsF0pfUh38oD7KsVlfT+LAc=;
- b=BKmILYm80s68pac97YWOOcvxGqynDn5Epjr/4kWpacPJR9RKsbdzZQZ/xXiGC1voEaXr9P
- iaUhkrz2DhHAPI7AvavJ9efSIqnBqBqOIZZTzfZu+DNMGYdXLgOtRJUNw3wrMFSycEy023
- PM9YLtWCYm0DTgy4L0+bXvvhnzFKfUY=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-575-e4mBIj0yMaafX_Wq_lFkRw-1; Wed,
- 27 May 2026 13:15:55 -0400
-X-MC-Unique: e4mBIj0yMaafX_Wq_lFkRw-1
-X-Mimecast-MFC-AGG-ID: e4mBIj0yMaafX_Wq_lFkRw_1779902153
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7B778180060D; Wed, 27 May 2026 17:15:53 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.81.166])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id EC2EC180034E; Wed, 27 May 2026 17:15:51 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nova-gpu@lists.linux.dev
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, linux-kernel@vger.kernel.org,
- "Simona Vetter" <simona@ffwll.ch>, "Alice Ryhl" <aliceryhl@google.com>,
- "David Airlie" <airlied@gmail.com>, "Danilo Krummrich" <dakr@kernel.org>,
- "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH] gpu: nova-core: vbios: Fix clippy error in Vbios::new()
-Date: Wed, 27 May 2026 13:15:21 -0400
-Message-ID: <20260527171521.2406456-1-lyude@redhat.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D332110E808
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 17:18:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 77CFD44268;
+ Wed, 27 May 2026 17:18:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01D221F000E9;
+ Wed, 27 May 2026 17:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779902310;
+ bh=OaYEVa01C1fbNgO8Mv5tGt8BTdhgdWVcSikLut0VmS8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=SIp9istw/5p+c+Le+xoL8j20HDFX4V4aqhBpKMprcc5cY+etxRqsaG1uegeHpuEQj
+ 4ciC7G3QrzVZBqYT6tevwO2hOUYuJdFph3e3p7VcLfj0eCQJDf9uo35nBTDgngqAPh
+ ILQeZfo8/f5t/j2qc4G9hjlG00bMOmlxlDzH4p6qxqu95N7tBCIxEFCtrNj8Sg5pVc
+ T9gS3I9mW/0ZNxo+dhb69cTPs8IewviJ8x70fLVEZpjasNOBZNumu6EU4Nx/V2WL+N
+ u9LHp2gx/0FBa5vaNVwQbdHD80B3e4jcJkOnji2xCLWTeLzm8RUXrkJerxYvvxlCZq
+ FCHESrk9Sr8Qg==
+Date: Wed, 27 May 2026 10:18:23 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/7] scripts: modpost: detect and report truncated
+ buf_printf() output
+Message-ID: <20260527171823.GA1893026@ax162>
+References: <20260527-nova-exports-v2-0-06de4c556d55@nvidia.com>
+ <20260527-nova-exports-v2-1-06de4c556d55@nvidia.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-X-Mimecast-MFC-PROC-ID: IIJc8xoDHJUf4RrJ6K6bmpjWZa04CEMVG_iokeewCgE_1779902153
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260527-nova-exports-v2-1-06de4c556d55@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,44 +70,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From clippy:
+On Wed, May 27, 2026 at 08:52:17PM +0900, Alexandre Courbot wrote:
+> buf_printf() uses a fixed-size stack buffer. vsnprintf() returns the
+> number of bytes that *would* have been written to that buffer, which can
+> be larger than the size of said buffer if the formatted string is too
+> long.
+> 
+> The problem is that whenever this happens buf_printf() currently passes
+> this length, unchecked, to buf_write(), which silently reads past the
+> stack buffer and copies invalid data into the output buffer.
+> 
+> Fix this by detecting vsnprintf() failures and truncations before
+> appending to the output buffer, and report a fatal error instead of
+> producing corrupt symbol names.
+> 
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-  error: this `if` can be collapsed into the outer `match`
-     --> drivers/gpu/nova-core/vbios.rs:328:21
-      |
-  328 | /                     if pci_at_image.is_none() {
-  329 | |                         pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-  330 | |                     }
-      | |_____________________^
-      |
+Acked-by: Nathan Chancellor <nathan@kernel.org>
 
-There should be no functional changes in this patch.
+> ---
+>  scripts/mod/modpost.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
+> index abbcd3fc1394..0d2f1f09019b 100644
+> --- a/scripts/mod/modpost.c
+> +++ b/scripts/mod/modpost.c
+> @@ -1689,8 +1689,17 @@ void __attribute__((format(printf, 2, 3))) buf_printf(struct buffer *buf,
+>  
+>  	va_start(ap, fmt);
+>  	len = vsnprintf(tmp, SZ, fmt, ap);
+> -	buf_write(buf, tmp, len);
+>  	va_end(ap);
+> +
+> +	if (len < 0) {
+> +		perror("vsnprintf failed");
+> +		exit(1);
+> +	}
+> +	if (len >= SZ)
+> +		fatal("buf_printf output truncated for string %s: %d bytes needed, %d available\n",
+> +		      tmp, len + 1, SZ);
+> +
+> +	buf_write(buf, tmp, len);
+>  }
+>  
+>  void buf_write(struct buffer *buf, const char *s, int len)
+> 
+> -- 
+> 2.54.0
+> 
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/nova-core/vbios.rs | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-index c0bc1008ed752..d38d7f138b49d 100644
---- a/drivers/gpu/nova-core/vbios.rs
-+++ b/drivers/gpu/nova-core/vbios.rs
-@@ -323,11 +323,9 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
- 
-             // Convert to a specific image type
-             match BiosImageType::try_from(image.pcir.code_type) {
--                Ok(BiosImageType::PciAt) => {
-+                Ok(BiosImageType::PciAt) if pci_at_image.is_none() => {
-                     // Silently ignore any extra PCI-AT images.
--                    if pci_at_image.is_none() {
--                        pci_at_image = Some(PciAtBiosImage::try_from(image)?);
--                    }
-+                    pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-                 }
-                 Ok(BiosImageType::FwSec) => fwsec_section = Some(image.data),
-                 _ => {
-
-base-commit: 2cf1840b0fa7637b6731fd554529f8d57ea34c04
 -- 
-2.54.0
-
+Cheers,
+Nathan
